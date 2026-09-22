@@ -1,0 +1,268 @@
+{
+ "schema": "research/result/v0.1",
+ "run_id": "r20260922-082245-c96b-split-b16384",
+ "workload_fingerprint": {
+  "profile": "first-campaign-target/2026-09-21",
+  "domain": "finite",
+  "K": 1536,
+  "B": 4096,
+  "N_subbatches": 25,
+  "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+  "authentication": "excluded",
+  "zk_mode": "none",
+  "security": {
+   "target": -128,
+   "field": "BabyBear",
+   "challenge_coords": 6,
+   "rs_n": 65536,
+   "rs_k": 16384,
+   "rs_l": 16384,
+   "zk": false,
+   "t_pad": 0,
+   "opened_columns": 196,
+   "achieved_log2": -128.25133377536622,
+   "terms_log2": {
+    "irs_query": -132.89518996515517,
+    "linear_query": -195.99137073018164,
+    "quadratic_query": -195.9827417236961,
+    "irs_field": -169.44132156433932,
+    "linear_field": -185.44134357795068,
+    "quadratic_field": -185.44134357795068
+   },
+   "per_proof_target_log2": -132.64385618977474,
+   "per_proof_total_log2": -132.89518996514107,
+   "union_over": 25,
+   "hash_placeholder": true
+  },
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA L40S",
+    "driver": "570.124.06",
+    "cuda": "12.8",
+    "count": 1,
+    "memory_total_bytes": 48305799168
+   },
+   "cpu": {
+    "model": "AMD EPYC 9354 32-Core Processor",
+    "count": 128
+   }
+  },
+  "software": {
+   "backend": {
+    "name": "b-ligero chain (backends/direct/ligero)",
+    "commit": null,
+    "hash": "blake3 (GPU, backends/shared/hash_gpu)",
+    "challenge_expander": "SHAKE-256 (placeholder)"
+   },
+   "toolchain": {
+    "python": "3.12.14",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.3"
+   }
+  },
+  "preprocessing": "constraint compilation (a function of Params only, 0.37s)",
+  "retention": "retained",
+  "instances": {
+   "dataset": "bench-instances/v1",
+   "tier": "vu-k1536",
+   "range": [
+    0,
+    4096
+   ],
+   "manifest_sha256": "059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea"
+  },
+  "scope": "vu",
+  "omitted": "external authentication, ZK masking",
+  "rows": 3516,
+  "committed_rows": 3516,
+  "linear_constraints": 347,
+  "quadratic_constraints": 3387,
+  "witness_generation": "torch hint generator (gen_step semantics) + torch program (derived rows)",
+  "B_proof": 170,
+  "note": "4096 VUs as 25 independently committed proofs of <= 170 VUs each (l = 16384 columns, 64 pad columns per proof); prover time = sum over the proofs; soundness = union bound"
+ },
+ "validation": {
+  "status": "passed",
+  "checker": "backends.direct.ligero.run bench-vu (verifier accepted every rep)",
+  "detail": "3 reps, 4096 VUs as 25 proofs at l=16384",
+  "evidence": {
+   "soundness": {
+    "terms_log2": {
+     "irs_query": -132.89518996515517,
+     "linear_query": -195.99137073018164,
+     "quadratic_query": -195.9827417236961,
+     "irs_field": -169.44132156433932,
+     "linear_field": -185.44134357795068,
+     "quadratic_field": -185.44134357795068
+    },
+    "per_proof_total_log2": -132.89518996514107,
+    "n_proofs": 25,
+    "total_log2": -128.25133377536622,
+    "per_proof_target_log2": -132.64385618977474,
+    "field": "BabyBear^6",
+    "t": 196,
+    "n": 65536,
+    "k": 16384,
+    "l": 16384,
+    "rate": 0.25,
+    "zk": false,
+    "t_pad": 0,
+    "note": "k = l + 1 stands in for the non-ZK k = l (the accounting's validate() needs l < k); the linear test here sends nothing (the verifier encodes beta itself), so its query term is at most the Appendix-C ((k+l)/n)^t used; total_log2 is the union bound over n_proofs sub-batches"
+   }
+  }
+ },
+ "measurements": [
+  {
+   "name": "t.witness",
+   "value": 0.3910220619291067,
+   "unit": "s"
+  },
+  {
+   "name": "t.encoding_commitment",
+   "value": 3.804769989103079,
+   "unit": "s"
+  },
+  {
+   "name": "t.arithmetic",
+   "value": 1.2736144196242094,
+   "unit": "s"
+  },
+  {
+   "name": "t.lookup",
+   "value": 0.0,
+   "unit": "s"
+  },
+  {
+   "name": "t.zk_additional",
+   "value": 0.0,
+   "unit": "s"
+  },
+  {
+   "name": "t.serialization",
+   "value": 0.1611785925924778,
+   "unit": "s"
+  },
+  {
+   "name": "t.total",
+   "value": 5.630886314436793,
+   "unit": "s"
+  },
+  {
+   "name": "verifier.seconds",
+   "value": 1.0098069366067648,
+   "unit": "s"
+  },
+  {
+   "name": "transcript.bytes",
+   "value": 110763200,
+   "unit": "B"
+  },
+  {
+   "name": "rounds.protocol",
+   "value": 2,
+   "unit": "count"
+  },
+  {
+   "name": "rounds.sequential_depth",
+   "value": 2,
+   "unit": "count"
+  },
+  {
+   "name": "mem.peak_device_bytes",
+   "value": 7910312960,
+   "unit": "B"
+  },
+  {
+   "name": "census.witness_elements",
+   "value": 1440153600,
+   "unit": "count"
+  },
+  {
+   "name": "census.committed_elements",
+   "value": 5760614400,
+   "unit": "count"
+  },
+  {
+   "name": "census.bytes_encoded",
+   "value": 23042457600,
+   "unit": "B"
+  },
+  {
+   "name": "vu.seconds_per_vu",
+   "value": 0.0013747281041105452,
+   "unit": "s"
+  },
+  {
+   "name": "vu.count",
+   "value": 4096,
+   "unit": "count"
+  },
+  {
+   "name": "split.subbatches",
+   "value": 25,
+   "unit": "count"
+  },
+  {
+   "name": "split.per_proof_vus",
+   "value": 170,
+   "unit": "count"
+  },
+  {
+   "name": "split.hints_seconds",
+   "value": 0.12441359832882881,
+   "unit": "s"
+  },
+  {
+   "name": "split.witness_torch_seconds",
+   "value": 0.2666084636002779,
+   "unit": "s"
+  },
+  {
+   "name": "split.encode_seconds",
+   "value": 3.6243073642253876,
+   "unit": "s"
+  },
+  {
+   "name": "split.transfer_seconds",
+   "value": 0.11166347749531269,
+   "unit": "s"
+  },
+  {
+   "name": "split.merkle_seconds",
+   "value": 0.06879914738237858,
+   "unit": "s"
+  },
+  {
+   "name": "split.tests_seconds",
+   "value": 1.2736144196242094,
+   "unit": "s"
+  },
+  {
+   "name": "split.openings_seconds",
+   "value": 0.1168319508433342,
+   "unit": "s"
+  },
+  {
+   "name": "proof.opened_columns_bytes",
+   "value": 68913600,
+   "unit": "B"
+  },
+  {
+   "name": "proof.merkle_paths_bytes",
+   "value": 2508800,
+   "unit": "B"
+  },
+  {
+   "name": "proof.w_h_q_bytes",
+   "value": 39320400,
+   "unit": "B"
+  },
+  {
+   "name": "split.zk_masks_seconds",
+   "value": 0.0,
+   "unit": "s"
+  }
+ ],
+ "measurement_files": [],
+ "artifacts": []
+}

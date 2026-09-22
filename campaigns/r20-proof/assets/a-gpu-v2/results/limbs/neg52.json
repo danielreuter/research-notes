@@ -1,0 +1,267 @@
+{
+ "device": "cuda",
+ "results": {
+  "44": {
+   "rejected": true,
+   "where": "witness",
+   "why": "op.op: key 32640 is off table T_OP [0, 65536)"
+  },
+  "45": {
+   "rejected": true,
+   "where": "witness",
+   "why": "op.op: key 65408 is off table T_OP [0, 65536)"
+  },
+  "46": {
+   "rejected": true,
+   "where": "witness",
+   "why": "op.op: key 32704 is off table T_OP [0, 65536)"
+  },
+  "47": {
+   "rejected": true,
+   "where": "witness",
+   "why": "op.op: key 65472 is off table T_OP [0, 65536)"
+  },
+  "48": {
+   "rejected": true,
+   "where": "witness",
+   "why": "unit 94: saturation before the last unit is outside the domain"
+  },
+  "49": {
+   "rejected": true,
+   "where": "witness",
+   "why": "unit 94: saturation before the last unit is outside the domain"
+  },
+  "50": {
+   "rejected": true,
+   "where": "witness",
+   "why": "unit 94: saturation before the last unit is outside the domain"
+  },
+  "51": {
+   "rejected": true,
+   "where": "witness",
+   "why": "unit 94: saturation before the last unit is outside the domain"
+  },
+  "0": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "2": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "3": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "4": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "5": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "6": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "7": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "8": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "9": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "10": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "11": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "12": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "13": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "14": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "15": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "16": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "17": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "18": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "19": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "20": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "21": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "22": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "23": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "24": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "25": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "26": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "27": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "28": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "29": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "30": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "31": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "32": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "33": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "34": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "35": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "36": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "37": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "38": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "39": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "40": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "41": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "42": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "43": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  }
+ },
+ "rejected": 52,
+ "total": 52
+}

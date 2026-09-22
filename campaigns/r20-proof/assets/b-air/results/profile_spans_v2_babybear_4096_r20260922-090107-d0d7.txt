@@ -1,0 +1,15 @@
+-- spans (v2), busy time summed per span path (raw in spans_v2.raw):
+     4.22 s  x9     coset_lde_batch
+     3.11 s  x6     build merkle tree
+     1.71 s  x10    reduce matrix quotient
+     0.89 s  x10    reduce matrix quotient:reduce rows
+     0.82 s  x10    reduce matrix quotient:compute opened values with Lagrange interpolation
+     0.46 s  x1     compute_inverse_denominators
+     0.44 s  x1     FRI prover
+     0.43 s  x1     FRI prover:commit phase
+     0.23 s  x19    FRI prover:commit phase:build merkle tree
+     0.15 s  x19    FRI prover:commit phase:fold_even_odd
+     0.00 s  x1     FRI prover:query phase
+     0.00 s  x1     FRI prover:grind for proof-of-work witness
+lookup stages: commit_pre=0.39s commit_main=3.97s aux_build=0.18s commit_aux=1.74s quotient=11.22s commit_quotient=0.56s open=2.62s; main_width=281 aux_width=116 pre_width=8 helpers=27 queries/row=105 table_rows=282280 lookup_bits=95.3
+field=babybear vus=4096 rows=524288 width=281 witness=2.470s prove=21.142s total=23.613s (0.0058 s/VU) verify=0.504s bytes=1948324 threads=12 peak_rss=Some(4838006784) bits_proven=128.6 -> /workspace/research/runs/r20260922-090107-d0d7/result.json

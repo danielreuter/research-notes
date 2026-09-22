@@ -1,0 +1,70 @@
+{
+  "lane": "red-team-v2",
+  "date": "2026-09-22",
+  "pod": "vy-cpu2",
+  "main": "4ddb170",
+  "targets": {
+    "A": "verity-gkr run-vu --variant v2 (Goldilocks GKR)",
+    "B": "direct-unit --v2 (Plonky3 LogUp AIR, BabyBear)"
+  },
+  "runs": {
+    "baseline_B": "r20260922-092955-e640",
+    "gkr_chain": "r20260922-093846-58c2",
+    "chain_spec_stripped": "r20260922-094212-465e"
+  },
+  "attacks": [
+    {"id": "A-one-zero", "target": "A", "class": 6,
+     "construction": "epilogue row with one:=0 to kill every per-row assertion (GKR realises each constant as one_wire*coef), y16 forged, cast hints zeroed, chain-linked state kept honest",
+     "verdict": "REJECTED", "detail": "depth2: phase-1 round 0 sum mismatch (clear+pcs)",
+     "why": "input-wire gate multiplies each column by the one-wire; one=0 zeroes all wires so the lookups (read from wires) fail and the sumcheck relation (one-wire constants) disagrees with the committed wire table (literal constants). The one column is effectively pinned to 1.",
+     "severity": "none", "owning_lane": "-"},
+    {"id": "A-unit0-noninitial", "target": "A", "class": 3,
+     "construction": "VU0 unit0 incoming state e=floor+1 (row self-consistent)",
+     "verdict": "REJECTED", "detail": "chain: VU 0 unit 0 incoming value differs from the previous outgoing value (column 2)",
+     "severity": "none", "owning_lane": "-"},
+    {"id": "A-epilogue-wrong-unit", "target": "A", "class": 3,
+     "construction": "VU0 epilogue reads unit0's outgoing state (self-consistent Pack+cast), public word=cast(that state), honest chain.txt",
+     "verdict": "REJECTED", "detail": "chain: VU 0 epilogue input (column 1) differs from the last unit's value",
+     "severity": "none", "owning_lane": "-"},
+    {"id": "A-epilogue-ovf-flip", "target": "A", "class": 3,
+     "construction": "VU0 epilogue ovf[0]=1 (infinity word) while the unit's ovf-link value is 0",
+     "verdict": "REJECTED", "detail": "chain: VU 0 epilogue input (column 5) differs from the last unit's value",
+     "severity": "none", "owning_lane": "-"},
+    {"id": "A-swap-vu-epilogues", "target": "A", "class": 3,
+     "construction": "epilogues (and public words) of VU0/VU1 swapped in one B=2 batch",
+     "verdict": "REJECTED", "detail": "chain: VU 0 epilogue input (column 1) differs from the last unit's value",
+     "severity": "none", "owning_lane": "-"},
+    {"id": "A-b1-wrong-word", "target": "A", "class": 6,
+     "construction": "B=1 single-VU honest units, public word flipped by 1",
+     "verdict": "REJECTED", "detail": "chain: VU 0 output word differs from the public word",
+     "severity": "none", "owning_lane": "-"},
+    {"id": "A-b1-honest", "target": "A", "class": 3,
+     "construction": "B=1 single-VU honest bundle (edge case control)",
+     "verdict": "ACCEPTED (correct: positive control)", "severity": "none", "owning_lane": "-"},
+    {"id": "A-chain-spec-stripped", "target": "A", "class": 3,
+     "construction": "epilogue reads unit0's state; empty chain.txt so state/ovf/sgn links are dropped; public word=cast(unit0 state) still passes the hardcoded word link",
+     "verdict": "ACCEPTED", "detail": "verify=Ok(()) clear+pcs; run r20260922-094212-465e",
+     "why": "load_vu builds the state/ovf/sgn links and steps from the untrusted proof bundle (chain.txt + witness header); only epi_y16==public_y16 is hardcoded",
+     "severity": "high (verifier-API/deployment trust boundary; NOT an arithmetization break)",
+     "owning_lane": "a-gkr / a-verifier",
+     "fix": "derive the chain spec (links, steps, B) from the fixed circuit/statement as done for epi_y16, or absorb chain.txt into the transcript and assert equality with the verifier's expected spec"},
+    {"id": "B-zero-swap-vacuity", "target": "B", "class": 5,
+     "construction": "run the v2 unit reference on +0 (0,floor,0,1) and -0 (1,floor,0,1) incoming states over 6000 random operand units plus the all-zero corner; compare packed output words",
+     "verdict": "VACUOUS CONFIRMED", "detail": "0 divergences / 6000 + corner; -0 and +0 produce identical accepted words. Corroborates the battery's 2 accepted zero_swap cases being relabelings, not forgeries.",
+     "severity": "none", "owning_lane": "-"},
+    {"id": "B-baseline", "target": "B", "class": "1-6",
+     "construction": "shipped vu-neg --v2 (52) + battery --v2 --extras",
+     "verdict": "REJECTED (all)", "detail": "vu-neg 52/52; battery chain 4/4, epilogue 1/1, fractional 1/1, hint_swap 3/3, wrap 58/58, z3 12/12, extras 6/6 all rejected; the v1 lead.window/lead_norm lower-bound forgeries are now closed in v2; zero_swap 2/4 accepted are the declared-vacuous relabelings",
+     "severity": "none", "owning_lane": "-"}
+  ],
+  "z3": {
+    "A_air_v2_reference": "b_air_v2_z3.json (shipped): 7/7 UNSAT over Z and wrap-free BabyBear",
+    "checker_v2": "checker_min.md: 10/10 UNSAT over Z and Goldilocks",
+    "red_team_v2_additions": "no new gadget-level SAT found; the one-column and hint-range holes conjectured were closed by the wire/one-wire consistency and by lookups"
+  },
+  "open_items": [
+    "chain.txt / steps / B are sourced from the proof bundle in load_vu (A-chain-spec-stripped). Needs verifier-owned linkage; owning lane a-gkr/a-verifier.",
+    "operands are unbound in the B v2 gate unless --bind-operands (statement = claimed words only). By-design per the brief (words are the statement) but any tie to externally committed operands requires --bind-operands; label measurements accordingly.",
+    "not yet exercised on the REAL A binary: implicit-table (itable) out-of-range materialisation (class 4) and a-logup-union tag/gamma cross-table (not landed during this run)."
+  ]
+}

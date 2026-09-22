@@ -1,0 +1,87 @@
+{
+ "schema": "gate4/b_buckets/v1",
+ "run_id": "r20260922-093147-3d6c",
+ "rows": [
+  {
+   "design": "B v1 (WP2 checker, 310,602 rows)",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "run_id": "r20260922-093147-3d6c",
+   "B": 4096,
+   "K": 1536,
+   "proof_class": "ARITHMETIC_DIAGNOSTIC",
+   "measured_ms": {
+    "commitment (blake3_s512_ov0_keep1_fused)": 61.297,
+    "irs_row_combination_c1024": 4.691,
+    "linear_test_structured_M3_X256_lazy": 6.537,
+    "quadratic_test_s1024": 9.425,
+    "batch_inverse_T131072": 12.344,
+    "open_columns_gather_from_store": 1.946,
+    "open_columns_merkle_paths_host": 0.856
+   },
+   "modelled_ms": 14.7,
+   "total_ms": 111.79,
+   "measured_fraction": 0.869,
+   "us_per_vu": 27.29,
+   "overhead": 2772000.0,
+   "note": "same composition as b_measured_4090.md (116.4 ms / 2.89e6 on the 4090); modelled remainder = explore.tensor's r^T A scalars + hints + PRG at H100 peaks (14.7 ms, the H100 row of that table); commitment: the 512-row L2-slice fused Blake3 commit with the coset store; the store-less 65,536-row slice is 48.5 ms (keep variant not measured at that slice)"
+  },
+  {
+   "design": "B v2 (checker-min, 104,217 rows, helper_rows table side)",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "run_id": "r20260922-093147-3d6c",
+   "B": 4096,
+   "K": 1536,
+   "proof_class": "ARITHMETIC_DIAGNOSTIC",
+   "measured_ms": {
+    "commitment (blake3_s512_ov0_keep1_fused)": 20.723,
+    "irs_row_combination_c1024": 1.736,
+    "linear_test_structured_M2_X9780_lazy": 6.649,
+    "quadratic_test_s512 (F_t)": 1.068,
+    "quadratic_test_fc_from_store (F_c triples)": 5.924,
+    "batch_inverse_T131072 (43.6M helpers, plain kernel)": 4.045,
+    "open_columns_gather_from_store": 0.667,
+    "open_columns_merkle_paths_host": 1.55
+   },
+   "modelled_ms": 3.1,
+   "total_ms": 45.46,
+   "measured_fraction": 0.932,
+   "us_per_vu": 11.1,
+   "overhead": 1127000.0,
+   "note": "same composition as b_measured_4090_v2.md helper_rows row (42.4 ms / 1.05e6 on the 4090; the 4090 row used the blocked inverter 5.2 ms, not run here -- the plain kernel is 4.05 ms on the H100); modelled 3.1 ms = that table's H100 model value; no end-to-end v2 prover exists"
+  }
+ ],
+ "kernels_h100_ms": {
+  "fused_commit_blake3_s512_keep1_B": 61.296958923339844,
+  "fused_commit_blake3_s65536_keep0_B": 48.531551361083984,
+  "fused_commit_blake3_s1024_keep0_B": 55.87366485595703,
+  "encode_only_s512_B": 40.40755081176758,
+  "blake3_hash_only_s512_B": 19.408159255981445,
+  "irs_c1024_B": 4.6910719871521,
+  "quadratic_s1024_B": 9.424511909484863,
+  "quadratic_s512_B": 9.960607528686523,
+  "linear_general_s512_B": 191.32595825195312,
+  "batch_inverse_T262144_B": 12.63644790649414,
+  "batch_inverse_T131072_B": 12.343520164489746,
+  "open_gather_store_B": 1.945631980895996,
+  "open_encode_gather_B": 38.33443069458008,
+  "lintest_M1_lazy": 2.6057920455932617,
+  "lintest_M2_lazy": 4.685760021209717,
+  "lintest_M3_lazy": 6.5371198654174805,
+  "lintest_M4_lazy": 8.55673599243164,
+  "v2_commit_s512_keep1": 20.722719192504883,
+  "v2_irs": 1.735967993736267,
+  "v2_lintest_M2_X9780_lazy": 6.6493120193481445,
+  "v2_quad_ft": 1.0678080320358276,
+  "v2_quad_fc_store": 5.923519991338253,
+  "v2_inverse_T131072": 4.0447998046875,
+  "v2_open_store": 0.6668800115585327,
+  "v2_open_paths": 1.549941354564258
+ },
+ "bit_exact": {
+  "commit": true,
+  "buckets": true,
+  "lintest_simt": true,
+  "lintest_int8_tc_probe": "cuBLASLt CUBLAS_STATUS_NOT_SUPPORTED for the (16384 x 65536) x (65536 x 56) INT8 GEMM on this torch/CUDA -- the tensor-core probe only, no bucket uses it",
+  "v2": true
+ }
+}

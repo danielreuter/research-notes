@@ -1,0 +1,15 @@
+t=2^22 k=0:   80.215 ms  matmul-only    5.648 ms  util round 0.0003 matmul 0.0048  MACs 2.658e+10 (model 2.658e+10)  mem 6.60 GB  [4s]
+t=2^22 k=1:   59.202 ms  matmul-only    4.941 ms  util round 0.0003 matmul 0.0032  MACs 1.550e+10 (model 1.550e+10)  mem 4.15 GB  [6s]
+t=2^22 k=2:   43.006 ms  matmul-only    3.331 ms  util round 0.0002 matmul 0.0031  MACs 1.007e+10 (model 1.007e+10)  mem 2.73 GB  [9s]
+t=2^22 k=3:   36.631 ms  matmul-only    2.571 ms  util round 0.0003 matmul 0.0036  MACs 9.160e+09 (model 9.160e+09)  mem 1.92 GB  [11s]
+t=2^22 k=4:   37.348 ms  matmul-only    2.493 ms  util round 0.0003 matmul 0.0050  MACs 1.233e+10 (model 1.233e+10)  mem 2.40 GB  [13s]
+t=2^24 k=0:  253.284 ms  matmul-only   15.015 ms  util round 0.0004 matmul 0.0072  MACs 1.063e+11 (model 1.063e+11)  mem 27.09 GB  [18s]
+t=2^24 k=1:  170.118 ms  matmul-only   14.824 ms  util round 0.0004 matmul 0.0042  MACs 6.201e+10 (model 6.201e+10)  mem 14.10 GB  [22s]
+t=2^24 k=2:  105.653 ms  matmul-only    8.792 ms  util round 0.0004 matmul 0.0046  MACs 4.027e+10 (model 4.027e+10)  mem 7.60 GB  [27s]
+t=2^24 k=3:   81.249 ms  matmul-only    5.878 ms  util round 0.0005 matmul 0.0063  MACs 3.664e+10 (model 3.664e+10)  mem 4.36 GB  [31s]
+t=2^24 k=4:   83.382 ms  matmul-only    5.693 ms  util round 0.0006 matmul 0.0088  MACs 4.933e+10 (model 4.933e+10)  mem 6.27 GB  [34s]
+k=0: batch 30595.3 ms (padded) / 18188.4 ms (unpadded); per VU 7469.55 us; fit 13.754 ns/elem + 22.526 ms
+k=1: batch 19654.6 ms (padded) / 11703.3 ms (unpadded); per VU 4798.49 us; fit 8.815 ns/elem + 22.230 ms
+k=2: batch 11158.6 ms (padded) / 6667.6 ms (unpadded); per VU 2724.27 us; fit 4.979 ns/elem + 22.124 ms
+k=3: batch 7983.3 ms (padded) / 4784.7 ms (unpadded); per VU 1949.04 us; fit 3.546 ns/elem + 21.758 ms
+k=4: batch 8233.9 ms (padded) / 4933.9 ms (unpadded); per VU 2010.24 us; fit 3.658 ns/elem + 22.003 ms

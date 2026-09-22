@@ -1,0 +1,82 @@
+{
+ "device": "cuda",
+ "results": {
+  "s": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "e": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "M": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "z": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "ovf[0]": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "sgn[0]": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "ligero: linear functional value mismatch"
+  },
+  "ovf[1]": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "sgn[1]": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "ligero: linear functional value mismatch"
+  },
+  "y16": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "h.M_hi8": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "h.M_lo16": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "h.hi2": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "h.lsb": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "h.carry": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  },
+  "h.rem": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions: phase-1 round 0 sum mismatch"
+  }
+ },
+ "rejected": 15,
+ "total": 15
+}

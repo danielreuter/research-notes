@@ -1,0 +1,241 @@
+{
+ "non_zk": {
+  "config": "Config(l=256, n=1024, D=6, t=189, target_log2=-128.0, zk=False, t_pad=0)",
+  "committed_rows": 3516,
+  "mask_rows": {},
+  "opened_uniform": {
+   "chi2": 3521629.403278136,
+   "p": 0.0,
+   "n": 664524
+  },
+  "real_vs_simulated": {
+   "opened": {
+    "chi2": 700714.7588359085,
+    "p": 0.0,
+    "n": 664524
+   },
+   "w": {
+    "chi2": 2563.0071942177237,
+    "p": 0.0,
+    "n": 1536
+   },
+   "h": {
+    "chi2": 2957.7377892030845,
+    "p": 0.0,
+    "n": 1530
+   },
+   "q": {
+    "chi2": 5989.671179883946,
+    "p": 0.0,
+    "n": 3066
+   }
+  },
+  "payload": {
+   "opened_values_equal_to_own_payload": 192402,
+   "of": 664524,
+   "expected_if_uniform": 0.002525675295528931,
+   "constant_rows": 1018,
+   "constant_rows_opened_in_the_clear": 1018
+  },
+  "zeros_among_opened": 190701
+ },
+ "zk": {
+  "config": "Config(l=256, n=2048, D=6, t=189, target_log2=-128.0, zk=True, t_pad=256)",
+  "committed_rows": 3546,
+  "mask_rows": {
+   "prox": [
+    3516,
+    3522
+   ],
+   "lin": [
+    3522,
+    3528
+   ],
+   "qa": [
+    3528,
+    3534
+   ],
+   "qb": [
+    3534,
+    3540
+   ],
+   "chain": [
+    3540,
+    3546
+   ]
+  },
+  "opened_uniform": {
+   "chi2": 46.09429907723424,
+   "p": 0.9458604637264579,
+   "n": 664524
+  },
+  "real_vs_simulated": {
+   "opened": {
+    "chi2": 45.73404256507875,
+    "p": 0.9500775966536716,
+    "n": 670194
+   },
+   "w": {
+    "chi2": 67.91685313216323,
+    "p": 0.31330851440683416,
+    "n": 3072
+   },
+   "h": {
+    "chi2": 86.59349110084828,
+    "p": 0.026023263470927253,
+    "n": 4602
+   },
+   "q": {
+    "chi2": 57.579481866543674,
+    "p": 0.6693281739559491,
+    "n": 4602
+   },
+   "v": {
+    "chi2": 73.18790680954359,
+    "p": 0.1782513496813553,
+    "n": 3072
+   }
+  },
+  "payload": {
+   "opened_values_equal_to_own_payload": 0,
+   "of": 664524,
+   "expected_if_uniform": 0.002525675295528931,
+   "constant_rows": 1018,
+   "constant_rows_opened_in_the_clear": 0
+  },
+  "zeros_among_opened": 0
+ },
+ "malicious_verifier": {
+  "equivocate_slot1": {
+   "prover_aborted": true,
+   "slot": 1,
+   "sent_before_abort": [
+    "coin commitments (V)",
+    "root"
+   ],
+   "opened_columns_sent": false
+  },
+  "equivocate_slot2": {
+   "prover_aborted": true,
+   "slot": 2,
+   "sent_before_abort": [
+    "coin commitments (V)",
+    "root",
+    "w, h, q, v"
+   ],
+   "opened_columns_sent": false
+  },
+  "committed_zero": {
+   "accepted": [
+    true,
+    true
+   ],
+   "coins": "zero",
+   "real_vs_simulated": {
+    "opened": {
+     "chi2": 63.60799856611136,
+     "p": 0.4548635025933
+    },
+    "w": {
+     "chi2": 64.4030814695463,
+     "p": 0.4272141590307346
+    },
+    "h": {
+     "chi2": 59.556574632651305,
+     "p": 0.5999193990496914
+    },
+    "q": {
+     "chi2": 68.71115815181736,
+     "p": 0.2899476363727634
+    },
+    "v": {
+     "chi2": 71.68836721227224,
+     "p": 0.21176004970967077
+    }
+   },
+   "opened_uniform": {
+    "chi2": 68.30539754771837,
+    "p": 0.3017568941140527
+   },
+   "target_column_overlap": {
+    "got": 11,
+    "expected_at_chance": 17.44189453125,
+    "t": 189,
+    "n": 2048
+   }
+  },
+  "committed_ground": {
+   "accepted": [
+    true,
+    true
+   ],
+   "coins": "ground",
+   "real_vs_simulated": {
+    "opened": {
+     "chi2": 75.3188792904121,
+     "p": 0.13737326033295377
+    },
+    "w": {
+     "chi2": 61.25847999326125,
+     "p": 0.5387191932827797
+    },
+    "h": {
+     "chi2": 63.44398341393078,
+     "p": 0.4606278822680777
+    },
+    "q": {
+     "chi2": 64.15344720679448,
+     "p": 0.4358388522658839
+    },
+    "v": {
+     "chi2": 77.825027340607,
+     "p": 0.09883078126747821
+    }
+   },
+   "opened_uniform": {
+    "chi2": 68.69660689455911,
+    "p": 0.2903665685145359
+   },
+   "target_column_overlap": {
+    "got": 20,
+    "expected_at_chance": 17.44189453125,
+    "t": 189,
+    "n": 2048
+   }
+  },
+  "control_no_commitment": {
+   "accepted": [
+    true,
+    true
+   ],
+   "real_vs_simulated": {
+    "opened": {
+     "chi2": 63.76351079214436,
+     "p": 0.44941582891580084
+    },
+    "w": {
+     "chi2": 54.976145592424075,
+     "p": 0.7543133178104782
+    },
+    "h": {
+     "chi2": 60.02056511275815,
+     "p": 0.5832971147257436
+    },
+    "q": {
+     "chi2": 92.7977774676466,
+     "p": 0.008666145136107131
+    },
+    "v": {
+     "chi2": 48.79550615988235,
+     "p": 0.905780997515333
+    }
+   }
+  },
+  "pre_8c_proof_under_8c_verifier": {
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  "verdict": "PASS"
+ },
+ "verdict": "PASS"
+}

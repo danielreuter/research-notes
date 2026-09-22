@@ -1,0 +1,14 @@
+collecting ... collected 10 items
+
+backends/gkr/packed/tests/test_logup_gpu.py::test_agreement_packed[0] PASSED [ 10%]
+backends/gkr/packed/tests/test_logup_gpu.py::test_agreement_packed[3] PASSED [ 20%]
+backends/gkr/packed/tests/test_logup_gpu.py::test_agreement_tiny_generic PASSED [ 30%]
+backends/gkr/packed/tests/test_logup_gpu.py::test_agreement_no_pad PASSED [ 40%]
+backends/gkr/packed/tests/test_logup_reference.py::test_prove_verify_and_leaf_claim[5-3] PASSED [ 50%]
+backends/gkr/packed/tests/test_logup_reference.py::test_prove_verify_and_leaf_claim[48-16] PASSED [ 60%]
+backends/gkr/packed/tests/test_logup_reference.py::test_prove_verify_and_leaf_claim[100-8] PASSED [ 70%]
+backends/gkr/packed/tests/test_logup_reference.py::test_tampered_round_rejected PASSED [ 80%]
+backends/gkr/packed/tests/test_logup_reference.py::test_wrong_multiplicity_has_nonzero_root PASSED [ 90%]
+backends/gkr/packed/tests/test_logup_reference.py::test_multi_column_leaves_verify PASSED [100%]
+
+============================= 10 passed in 26.19s ==============================

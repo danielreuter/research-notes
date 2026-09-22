@@ -1,0 +1,1113 @@
+{
+ "args": {
+  "device": "cuda",
+  "root": "/workspace/research/src/99912cd106abc4a2e30795baa1fb571f5baf995d/fixtures/bench-instances/v1",
+  "vus": 170,
+  "n_proofs": 25,
+  "n_transcripts": 24,
+  "abort_n": 60,
+  "out": "/workspace/research/runs/r20260922-112029-2db3/redteam_zk2.json"
+ },
+ "device": "cuda",
+ "interactive": {
+  "config": {
+   "l": 16384,
+   "n": 65536,
+   "k": 16640,
+   "t": 197,
+   "t_pad": 256,
+   "D": 6,
+   "m": 3516,
+   "committed_rows": 3552,
+   "mode": "interactive"
+  },
+  "u_high_rank": {
+   "config": {
+    "l": 16384,
+    "k": 16640,
+    "t": 197,
+    "t_pad": 256,
+    "D": 6,
+    "n": 65536,
+    "mode": "interactive"
+   },
+   "involved_rows": 12,
+   "rows_used": 12,
+   "residual_dims_per_row": 59,
+   "total_residual_dims": 708,
+   "needed_rank": 197,
+   "high_coefficients": 16383,
+   "Q_degree_bound": 32767,
+   "Q_has_high_part": true,
+   "per_d": [
+    {
+     "d": 0,
+     "rank": 197,
+     "full": true
+    },
+    {
+     "d": 1,
+     "rank": 197,
+     "full": true
+    },
+    {
+     "d": 2,
+     "rank": 197,
+     "full": true
+    },
+    {
+     "d": 3,
+     "rank": 197,
+     "full": true
+    },
+    {
+     "d": 4,
+     "rank": 197,
+     "full": true
+    },
+    {
+     "d": 5,
+     "rank": 197,
+     "full": true
+    }
+   ],
+   "all_full": true,
+   "verdict": "HOLDS: the opened u_cb values are uniform given the rest of the transcript",
+   "seconds": 2.162138180807233
+  },
+  "disclosed_Q_high": {
+   "real": {
+    "chi2": 60.42301184433165,
+    "p": 0.5688269049379646,
+    "n": 1182
+   },
+   "trivial": {
+    "chi2": 69.19458544839254,
+    "p": 0.27622626583272025,
+    "n": 1182
+   },
+   "pooled_two_witness": {
+    "real": {
+     "chi2": 57.33107727016356,
+     "p": 0.6778124054932968,
+     "n": 28368
+    },
+    "trivial": {
+     "chi2": 61.9921037789058,
+     "p": 0.5123182892145298,
+     "n": 28368
+    }
+   }
+  },
+  "q_leak_regression": {
+   "accumulators_recovered_exactly": 0,
+   "of": 16150,
+   "all_equations_consistent": false,
+   "columns_solved": 16320,
+   "end_positions_consistent": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "mismatches": [
+    {
+     "vu": 0,
+     "step": 0,
+     "recovered": [
+      788805800,
+      1685386244,
+      721074027
+     ],
+     "recorded": [
+      1,
+      124,
+      1117906
+     ]
+    },
+    {
+     "vu": 0,
+     "step": 1,
+     "recovered": [
+      120290303,
+      411451333,
+      1084800600
+     ],
+     "recorded": [
+      1,
+      124,
+      4235078
+     ]
+    },
+    {
+     "vu": 0,
+     "step": 2,
+     "recovered": [
+      1538783724,
+      1564201161,
+      1916406192
+     ],
+     "recorded": [
+      1,
+      124,
+      4331319
+     ]
+    },
+    {
+     "vu": 0,
+     "step": 3,
+     "recovered": [
+      2012560616,
+      1569026771,
+      1733102931
+     ],
+     "recorded": [
+      1,
+      124,
+      5592870
+     ]
+    },
+    {
+     "vu": 0,
+     "step": 4,
+     "recovered": [
+      843755329,
+      1827520784,
+      1733688830
+     ],
+     "recorded": [
+      1,
+      125,
+      1159315
+     ]
+    }
+   ],
+   "witness_free_fraction": 0.0
+  },
+  "opened_mask_rows_two_witness": {
+   "opened_mask_qb": {
+    "positions": 1182,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.0020362149718528926,
+    "bonferroni_threshold": 8.460236886632826e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.469011995037644
+   },
+   "opened_mask_chain_b": {
+    "positions": 1182,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.00298656719049204,
+    "bonferroni_threshold": 8.460236886632826e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.47603540934675914
+   },
+   "opened_mask_chain_a": {
+    "positions": 1182,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.0018033023255946373,
+    "bonferroni_threshold": 8.460236886632826e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.47286776074213466
+   },
+   "opened_mask_lin": {
+    "positions": 1182,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.002505545025788914,
+    "bonferroni_threshold": 8.460236886632826e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.4652578466296087
+   },
+   "opened_mask_qa": {
+    "positions": 1182,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.0014318011707290818,
+    "bonferroni_threshold": 8.460236886632826e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.4694962248814119
+   },
+   "opened_mask_prox": {
+    "positions": 1182,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.0012279320096831982,
+    "bonferroni_threshold": 8.460236886632826e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.4788197302341023
+   },
+   "q": {
+    "positions": 198138,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 7.736455817003045e-05,
+    "bonferroni_threshold": 5.046987453189191e-09,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.46508364603640345
+   },
+   "opened_witness_rows": {
+    "positions": 692652,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 8.015221709672787e-05,
+    "bonferroni_threshold": 1.4437264311660113e-09,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.46508364603640345
+   }
+  },
+  "soundness_probes": {
+   "mutated_witness_rejected": true,
+   "why": "quadratic constraints failed"
+  },
+  "accounting": {
+   "terms_log2": {
+    "irs_query": -132.69339103690618,
+    "linear_query": -194.78823068161887,
+    "quadratic_query": -192.5935408333944,
+    "irs_field": -169.44132156433932,
+    "linear_field": -185.44134357795068,
+    "quadratic_field": -185.44134357795068,
+    "coin_commitment_hiding": -191.0
+   },
+   "per_proof_total_log2": -132.69339103689367,
+   "n_proofs": 25,
+   "total_log2": -128.04953484711905,
+   "per_proof_target_log2": -132.64385618977474,
+   "field": "BabyBear^6",
+   "t": 197,
+   "n": 65536,
+   "k": 16640,
+   "l": 16384,
+   "rate": 0.25390625,
+   "zk": true,
+   "t_pad": 256,
+   "mode": "interactive",
+   "coin_commitment": true,
+   "fiat_shamir_queries_log2": null,
+   "bound_model": "interactive: statistical, live verifier coins committed at step 0 (HM96); no Fiat-Shamir loss",
+   "hash_assumption": "collision resistance of Blake2b (coin commitments) + Blake3 (Merkle); the challenge expander is a PRG of the verifier's coins",
+   "zk_statement": "malicious-verifier ZK (simulator by rewinding V* after step 0, CRH only); operands a, b and words y16 are PUBLIC in this statement, so privacy is vacuous today",
+   "privacy_terms_log2": {
+    "coin_commitment_binding_collision": -128.0,
+    "mask_sampling_bias_per_symbol": "0 (rejection sampling; the simulator's distance is ChaCha20's PRF advantage on the mask key)"
+   }
+  },
+  "simulator": {
+   "honest": {
+    "accepted_real_hash": true,
+    "why": "accept (0.037s)",
+    "hash_identity_preserved": true,
+    "rewinds": 0,
+    "other_verifier_coins": {
+     "accepted": false,
+     "why": "coins are not this verifier's step-0 coins"
+    }
+   },
+   "indistinguishability_real_vs_sim": {
+    "opened_witness_rows": {
+     "positions": 692652,
+     "samples_per_side": [
+      24,
+      24
+     ],
+     "min_p": 7.765856015856742e-05,
+     "bonferroni_threshold": 1.4437264311660113e-09,
+     "positions_below_threshold": 0,
+     "expected_below_threshold_under_null": 0.001,
+     "median_p": 0.46403926711108
+    },
+    "opened_mask_rows": {
+     "positions": 7092,
+     "samples_per_side": [
+      24,
+      24
+     ],
+     "min_p": 0.001171616623987781,
+     "bonferroni_threshold": 1.410039481105471e-07,
+     "positions_below_threshold": 0,
+     "expected_below_threshold_under_null": 0.001,
+     "median_p": 0.4692734806371427
+    },
+    "w": {
+     "positions": 99840,
+     "samples_per_side": [
+      24,
+      24
+     ],
+     "min_p": 0.00018426446793375195,
+     "bonferroni_threshold": 1.001602564102564e-08,
+     "positions_below_threshold": 0,
+     "expected_below_threshold_under_null": 0.001,
+     "median_p": 0.4645613018124414
+    },
+    "h": {
+     "positions": 101370,
+     "samples_per_side": [
+      24,
+      24
+     ],
+     "min_p": 8.532224194905563e-05,
+     "bonferroni_threshold": 9.864851533984414e-09,
+     "positions_below_threshold": 0,
+     "expected_below_threshold_under_null": 0.001,
+     "median_p": 0.4656538297799061
+    },
+    "v": {
+     "positions": 99840,
+     "samples_per_side": [
+      24,
+      24
+     ],
+     "min_p": 0.0002635525363647786,
+     "bonferroni_threshold": 1.001602564102564e-08,
+     "positions_below_threshold": 0,
+     "expected_below_threshold_under_null": 0.001,
+     "median_p": 0.4629961283174077
+    },
+    "q": {
+     "positions": 198138,
+     "samples_per_side": [
+      24,
+      24
+     ],
+     "min_p": 0.0002990097086136087,
+     "bonferroni_threshold": 5.046987453189191e-09,
+     "positions_below_threshold": 0,
+     "expected_below_threshold_under_null": 0.001,
+     "median_p": 0.4645138313144361
+    },
+    "disclosed_Q_high_pooled_sim": {
+     "chi2": 52.76480541455161,
+     "p": 0.8177482090695656,
+     "n": 28368
+    }
+   },
+   "adaptive_slot1": {
+    "real_abort_slot": 1,
+    "sim_abort_slot": 1
+   },
+   "adaptive_slot2": {
+    "real_abort_slot": 2,
+    "sim_abort_slot": 2
+   },
+   "selective_abort": {
+    "root_byte<64": {
+     "n": 60,
+     "real_abort_rate": 0.21666666666666667,
+     "sim_abort_rate": 0.3,
+     "z_two_sample": -1.042760993376584,
+     "mean_rewinds_sim_nonabort": 0.21428571428571427,
+     "max_rewinds": 2
+    },
+    "q00_odd": {
+     "n": 60,
+     "real_abort_rate": 0.4666666666666667,
+     "sim_abort_rate": 0.35,
+     "z_two_sample": 1.3000541700523185,
+     "mean_rewinds_sim_nonabort": 0.8974358974358975,
+     "max_rewinds": 5
+    },
+    "q_high_sum_odd": {
+     "n": 60,
+     "real_abort_rate": 0.5333333333333333,
+     "sim_abort_rate": 0.4166666666666667,
+     "z_two_sample": 1.2796198265831908,
+     "mean_rewinds_sim_nonabort": 1.1428571428571428,
+     "max_rewinds": 5
+    }
+   }
+  }
+ },
+ "fiat-shamir": {
+  "config": {
+   "l": 16384,
+   "n": 65536,
+   "k": 16896,
+   "t": 288,
+   "t_pad": 512,
+   "D": 7,
+   "m": 3516,
+   "committed_rows": 3558,
+   "mode": "fiat-shamir"
+  },
+  "u_high_rank": {
+   "config": {
+    "l": 16384,
+    "k": 16896,
+    "t": 288,
+    "t_pad": 512,
+    "D": 7,
+    "n": 65536,
+    "mode": "fiat-shamir"
+   },
+   "involved_rows": 12,
+   "rows_used": 12,
+   "residual_dims_per_row": 224,
+   "total_residual_dims": 2688,
+   "needed_rank": 288,
+   "high_coefficients": 16383,
+   "Q_degree_bound": 32767,
+   "Q_has_high_part": true,
+   "per_d": [
+    {
+     "d": 0,
+     "rank": 288,
+     "full": true
+    },
+    {
+     "d": 1,
+     "rank": 288,
+     "full": true
+    },
+    {
+     "d": 2,
+     "rank": 288,
+     "full": true
+    },
+    {
+     "d": 3,
+     "rank": 288,
+     "full": true
+    },
+    {
+     "d": 4,
+     "rank": 288,
+     "full": true
+    },
+    {
+     "d": 5,
+     "rank": 288,
+     "full": true
+    },
+    {
+     "d": 6,
+     "rank": 288,
+     "full": true
+    }
+   ],
+   "all_full": true,
+   "verdict": "HOLDS: the opened u_cb values are uniform given the rest of the transcript",
+   "seconds": 17.984873604029417
+  },
+  "disclosed_Q_high": {
+   "real": {
+    "chi2": 75.23809523809524,
+    "p": 0.13878247421429676,
+    "n": 2016
+   },
+   "trivial": {
+    "chi2": 56.44444444444444,
+    "p": 0.7075150726257008,
+    "n": 2016
+   },
+   "pooled_two_witness": {
+    "real": {
+     "chi2": 63.410052910052904,
+     "p": 0.46182269905328066,
+     "n": 48384
+    },
+    "trivial": {
+     "chi2": 65.60317460317461,
+     "p": 0.38660532221696486,
+     "n": 48384
+    }
+   }
+  },
+  "q_leak_regression": {
+   "accumulators_recovered_exactly": 0,
+   "of": 16150,
+   "all_equations_consistent": false,
+   "columns_solved": 16320,
+   "end_positions_consistent": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "mismatches": [
+    {
+     "vu": 0,
+     "step": 0,
+     "recovered": [
+      1344062082,
+      1478275634,
+      1144386629
+     ],
+     "recorded": [
+      1,
+      124,
+      1117906
+     ]
+    },
+    {
+     "vu": 0,
+     "step": 1,
+     "recovered": [
+      550807078,
+      1499164783,
+      1364039511
+     ],
+     "recorded": [
+      1,
+      124,
+      4235078
+     ]
+    },
+    {
+     "vu": 0,
+     "step": 2,
+     "recovered": [
+      1978292938,
+      1762388426,
+      1466744710
+     ],
+     "recorded": [
+      1,
+      124,
+      4331319
+     ]
+    },
+    {
+     "vu": 0,
+     "step": 3,
+     "recovered": [
+      482919844,
+      1507480533,
+      363317416
+     ],
+     "recorded": [
+      1,
+      124,
+      5592870
+     ]
+    },
+    {
+     "vu": 0,
+     "step": 4,
+     "recovered": [
+      1963508905,
+      1033250733,
+      1622207544
+     ],
+     "recorded": [
+      1,
+      125,
+      1159315
+     ]
+    }
+   ],
+   "witness_free_fraction": 0.0
+  },
+  "opened_mask_rows_two_witness": {
+   "opened_mask_qb": {
+    "positions": 2016,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.0018334471764568973,
+    "bonferroni_threshold": 4.96031746031746e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.47240473025980095
+   },
+   "opened_mask_chain_b": {
+    "positions": 2016,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.000554550749581294,
+    "bonferroni_threshold": 4.96031746031746e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.44775680473369384
+   },
+   "opened_mask_chain_a": {
+    "positions": 2016,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.0007716751196214925,
+    "bonferroni_threshold": 4.96031746031746e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.45779917728410735
+   },
+   "opened_mask_lin": {
+    "positions": 2016,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.005076318399473954,
+    "bonferroni_threshold": 4.96031746031746e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.47656428061657624
+   },
+   "opened_mask_qa": {
+    "positions": 2016,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.0023369303627436165,
+    "bonferroni_threshold": 4.96031746031746e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.4713757306270252
+   },
+   "opened_mask_prox": {
+    "positions": 2016,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.005291547581839615,
+    "bonferroni_threshold": 4.96031746031746e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.44290855301836163
+   },
+   "q": {
+    "positions": 232953,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 0.00012082454053630638,
+    "bonferroni_threshold": 4.292711405304933e-09,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.466478073280713
+   },
+   "opened_witness_rows": {
+    "positions": 1012608,
+    "samples_per_side": [
+     24,
+     24
+    ],
+    "min_p": 7.267040553288727e-05,
+    "bonferroni_threshold": 9.875489824295285e-10,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.46508364603640345
+   }
+  },
+  "soundness_probes": {
+   "mutated_witness_rejected": true,
+   "why": "quadratic constraints failed"
+  },
+  "accounting": {
+   "terms_log2": {
+    "irs_query": -132.69593910299045,
+    "linear_query": -221.5580698478052,
+    "quadratic_query": -215.2144936247655,
+    "irs_field": -140.34821216066445,
+    "linear_field": -156.3482341742758,
+    "quadratic_field": -156.3482341742758
+   },
+   "per_proof_total_log2": -132.68878513746859,
+   "n_proofs": 25,
+   "total_log2": -128.0449289476942,
+   "per_proof_target_log2": -132.64385618977474,
+   "field": "BabyBear^7",
+   "t": 288,
+   "n": 65536,
+   "k": 16896,
+   "l": 16384,
+   "rate": 0.2578125,
+   "zk": true,
+   "t_pad": 512,
+   "mode": "fiat-shamir",
+   "coin_commitment": false,
+   "fiat_shamir_queries_log2": 60,
+   "bound_model": "non-interactive: eps_FS <= 2^60 x eps_round (BCS16 state restoration; ZK_CONSTRUCTION.md 3.3); challenges = H(statement, transcript prefix)",
+   "hash_assumption": "random oracle for the challenge hash (soundness AND zero knowledge)",
+   "zk_statement": "HVZK; NIZK only in the programmable random-oracle model; operands a, b and words y16 PUBLIC in this statement, so privacy is vacuous today",
+   "privacy_terms_log2": {}
+  }
+ },
+ "accounting_independent": {
+  "per_proof_target_log2": -132.64385618977474,
+  "fs_shift_log2": 60,
+  "interactive": {
+   "t": 197,
+   "D": 6,
+   "t_pad": 256,
+   "query_terms_log2": -132.6933910369063,
+   "field_terms_log2": -169.44127753812427
+  },
+  "fiat_shamir": {
+   "t": 288,
+   "D": 7,
+   "t_pad": 512,
+   "query_terms_plus60_log2": -132.6959391029903,
+   "field_terms_plus60_log2_D6": -109.44127753812427,
+   "field_terms_plus60_log2_D7": -140.34816813444937,
+   "t_minus_1_query_terms_plus60_log2": -132.02685598110492,
+   "union_log2": -128.04492894769413
+  }
+ }
+}

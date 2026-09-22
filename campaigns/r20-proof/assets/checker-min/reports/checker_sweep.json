@@ -1,0 +1,91 @@
+{
+ "schema": "checker-sweep/v1",
+ "dataset": "bench-instances/v1",
+ "manifest_sha256": "059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea",
+ "params": "REAL",
+ "tiers": [
+  {
+   "tier": "vu-k1536",
+   "checked": 4096,
+   "of": 4096,
+   "ok": 4096,
+   "bad": 0,
+   "seconds": 17.993,
+   "failures": []
+  },
+  {
+   "tier": "tu-k16",
+   "checked": 4096,
+   "of": 4096,
+   "ok": 4096,
+   "bad": 0,
+   "seconds": 0.411,
+   "failures": []
+  },
+  {
+   "tier": "vu-k1536-neg",
+   "checked": 52,
+   "of": 52,
+   "ok": 52,
+   "bad": 0,
+   "seconds": 1.045,
+   "failures": [],
+   "by_mistake": {
+    "ulp-plus": {
+     "ok": 4,
+     "bad": 0
+    },
+    "ulp-minus": {
+     "ok": 4,
+     "bad": 0
+    },
+    "sign-flip": {
+     "ok": 4,
+     "bad": 0
+    },
+    "epilogue-rtz": {
+     "ok": 4,
+     "bad": 0
+    },
+    "ieee-fp32-fma": {
+     "ok": 4,
+     "bad": 0
+    },
+    "single-group-16": {
+     "ok": 4,
+     "bad": 0
+    },
+    "adder-24-bit": {
+     "ok": 4,
+     "bad": 0
+    },
+    "no-exponent-floor": {
+     "ok": 4,
+     "bad": 0
+    },
+    "non-sticky-saturation": {
+     "ok": 4,
+     "bad": 0
+    },
+    "c0-stale": {
+     "ok": 4,
+     "bad": 0
+    },
+    "reversed-k": {
+     "ok": 4,
+     "bad": 0
+    },
+    "nonfinite-operand": {
+     "ok": 4,
+     "bad": 0
+    },
+    "sat-intermediate": {
+     "ok": 4,
+     "bad": 0
+    }
+   }
+  }
+ ],
+ "passed": true,
+ "complete": true
+}

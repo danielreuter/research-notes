@@ -1,0 +1,219 @@
+{
+  "artifacts": [],
+  "measurement_files": [],
+  "measurements": [
+    {
+      "name": "t.witness",
+      "unit": "s",
+      "value": 21.222834144
+    },
+    {
+      "name": "t.joint.encoding_commitment+arithmetic",
+      "unit": "s",
+      "value": 146.895645261
+    },
+    {
+      "name": "t.serialization",
+      "unit": "s",
+      "value": 0.001498861
+    },
+    {
+      "name": "t.total",
+      "unit": "s",
+      "value": 168.11997826599998
+    },
+    {
+      "name": "verifier.seconds",
+      "unit": "s",
+      "value": 0.425252738
+    },
+    {
+      "name": "transcript.bytes",
+      "unit": "B",
+      "value": 3453676
+    },
+    {
+      "name": "rounds.protocol",
+      "unit": "count",
+      "value": 24
+    },
+    {
+      "name": "rounds.sequential_depth",
+      "unit": "count",
+      "value": 24
+    },
+    {
+      "name": "mem.peak_host_bytes",
+      "unit": "B",
+      "value": 30581153792
+    },
+    {
+      "name": "census.committed_elements",
+      "unit": "count",
+      "value": 1528823808
+    },
+    {
+      "name": "census.witness_elements",
+      "unit": "count",
+      "value": 1520435200
+    },
+    {
+      "name": "vu.count",
+      "unit": "count",
+      "value": 4096
+    },
+    {
+      "name": "vu.seconds_per_vu",
+      "unit": "s",
+      "value": 0.04104491656884765
+    },
+    {
+      "name": "vu.per_second",
+      "unit": "1/s",
+      "value": 24.36355299498847
+    },
+    {
+      "name": "overhead.vs_native_peak",
+      "unit": "ratio",
+      "value": 4168624339.0235896
+    },
+    {
+      "name": "direct.vus",
+      "unit": "count",
+      "value": 4096
+    },
+    {
+      "name": "direct.rows",
+      "unit": "count",
+      "value": 524288
+    },
+    {
+      "name": "direct.rows_real",
+      "unit": "count",
+      "value": 393216
+    },
+    {
+      "name": "direct.width",
+      "unit": "count",
+      "value": 2900
+    },
+    {
+      "name": "direct.trace_cells",
+      "unit": "count",
+      "value": 1520435200
+    },
+    {
+      "name": "direct.quotient_cells",
+      "unit": "count",
+      "value": 8388608
+    },
+    {
+      "name": "direct.committed_cells_per_vu",
+      "unit": "count",
+      "value": 278400
+    },
+    {
+      "name": "direct.committed_bytes_per_vu",
+      "unit": "B",
+      "value": 1113600
+    },
+    {
+      "name": "direct.threads",
+      "unit": "count",
+      "value": 12
+    },
+    {
+      "name": "direct.prove_s",
+      "unit": "s",
+      "value": 146.895645261
+    },
+    {
+      "name": "direct.verify_s",
+      "unit": "s",
+      "value": 0.425252738
+    },
+    {
+      "name": "direct.fri_bits_proven",
+      "unit": "bits",
+      "value": 128.55993624869785
+    },
+    {
+      "name": "direct.fri_bits_conjectured",
+      "unit": "bits",
+      "value": 348.0
+    },
+    {
+      "name": "direct.fri_queries_for_128_proven",
+      "unit": "count",
+      "value": 166
+    }
+  ],
+  "run_id": "r20260922-060503-6847",
+  "schema": "research/result/v0.1",
+  "validation": {
+    "checker": "p3_uni_stark::verify + recorded accumulators",
+    "detail": "proof verified; 4096 VUs x 96 steps in 524288 rows; every intermediate accumulator and output word equals bench-instances/v1",
+    "evidence": [],
+    "index_note": "real rows: seed = index into `seeds` (the activation row's seed; seeds/seeds.json gives layer/op/phase/N), j = the weight row of that layer/op ('seed' tag: j is the seed's own, y is hardware-confirmed); corner rows: tags[1] is the family, params the generator parameters",
+    "status": "passed"
+  },
+  "workload_fingerprint": {
+    "B": 4096,
+    "K": 1536,
+    "N_subbatches": 1,
+    "authentication": "excluded",
+    "constraints": "WP2 gadget contracts + Epilogue as direct AIR constraints, one row per transition unit, accumulator carried by a transition constraint, VU boundary by a step counter; range checks as 2-bit limbs, fixed tables as one-hot selectors; no lookup argument",
+    "domain": "finite",
+    "hardware": {
+      "cpu": {
+        "count": 12,
+        "model": "AMD EPYC 9654 96-Core Processor"
+      },
+      "gpu": null
+    },
+    "instances": {
+      "dataset": "bench-instances/v1",
+      "manifest_sha256": "38fb2c3a0853bafcb59c9fe0c7862c75e66feb86221f57147826a043a02d6763",
+      "range": [
+        0,
+        4096
+      ],
+      "tier": "vu-k1536"
+    },
+    "note": "Plonky3 FRI/Keccak is the diagnostic PCS, not Candidate B's Ligero-style interactive PCS (PROTOCOL.md); the claimed output words are committed trace cells (the `vu.claim` column) that the last-row constraint binds to the epilogue word -- not bound to any external statement (authentication excluded)",
+    "preprocessing": "none",
+    "profile": "first-campaign-target/2026-09-21",
+    "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+    "retention": "retained",
+    "scope": "vu",
+    "security": {
+      "challenge_bits": 124,
+      "challenge_field": "babybear^4",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 166,
+        "proof_of_work_bits": 16
+      },
+      "fri_bits_conjectured_bound": 348.0,
+      "fri_bits_proven_bound": 128.55993624869785,
+      "hash": "keccak256",
+      "note": "proven bound: unique decoding radius, -log2((1+rate)/2) per query + PoW; field terms (DEEP/quotient batching over the challenge field, ~degree/|challenge field|) omitted",
+      "queries_for_128_proven": 166,
+      "target": -80
+    },
+    "software": {
+      "backend": {
+        "commit": "3f325b67a060a2b63207ea3e36e4538452791692",
+        "name": "verity-direct (plonky3 uni-stark)",
+        "plonky3": "0.4.3-succinct",
+        "version": "0.2.0"
+      },
+      "toolchain": {
+        "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+      }
+    },
+    "unit": "vu",
+    "zk_mode": "none"
+  }
+}

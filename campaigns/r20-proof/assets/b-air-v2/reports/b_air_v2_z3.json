@@ -1,0 +1,412 @@
+{
+ "params": "Params(sig=8, exp=8, acc_sig=24, width=25, floor=-132, groups=(8, 8))",
+ "modulus": 2013265921,
+ "tables": [
+  {
+   "table": "SHIFT_HI",
+   "rows": 13824,
+   "checked": 3000,
+   "mismatches": 0
+  },
+  {
+   "table": "SHIFT_LO",
+   "rows": 13824,
+   "checked": 3000,
+   "mismatches": 0
+  },
+  {
+   "table": "SSHIFT_2",
+   "rows": 13824,
+   "checked": 3000,
+   "mismatches": 0
+  },
+  {
+   "table": "SSHIFT_1",
+   "rows": 13824,
+   "checked": 3000,
+   "mismatches": 0
+  },
+  {
+   "table": "SSHIFT_0",
+   "rows": 13824,
+   "checked": 3000,
+   "mismatches": 0
+  },
+  {
+   "table": "LEAD10",
+   "rows": 1024,
+   "checked": 1024,
+   "mismatches": 0
+  },
+  {
+   "table": "ALIGN4",
+   "rows": 3120,
+   "checked": 3000,
+   "mismatches": 0
+  },
+  {
+   "table": "LEADNORM",
+   "rows": 12152,
+   "checked": 3000,
+   "mismatches": 0
+  },
+  {
+   "table": "TNORM10",
+   "rows": 32768,
+   "checked": 3000,
+   "mismatches": 0
+  },
+  {
+   "table": "T_HDR",
+   "rows": 512,
+   "checked": 512,
+   "mismatches": 0
+  }
+ ],
+ "selfcheck": [
+  {
+   "gadget": "product_shift_chunked",
+   "ok": 2000,
+   "bad": 0,
+   "skipped": 0
+  },
+  {
+   "gadget": "state_shift_chunked",
+   "ok": 2000,
+   "bad": 0,
+   "skipped": 0
+  },
+  {
+   "gadget": "signed_sum_chunked",
+   "ok": 2000,
+   "bad": 0,
+   "skipped": 0
+  },
+  {
+   "gadget": "normalise_chunked",
+   "ok": 79,
+   "bad": 0,
+   "skipped": 1921
+  },
+  {
+   "gadget": "group_max_product",
+   "ok": 2000,
+   "bad": 0,
+   "skipped": 0
+  },
+  {
+   "gadget": "pack_epilogue_limbs",
+   "ok": 433,
+   "bad": 0,
+   "skipped": 1567
+  },
+  {
+   "gadget": "state_decode_limbs",
+   "ok": 1994,
+   "bad": 0,
+   "skipped": 6
+  }
+ ],
+ "z3": [
+  {
+   "gadget": "product_shift_chunked",
+   "query": "integer",
+   "status": "unsat",
+   "seconds": 0.405,
+   "model": null,
+   "note": "over Z; SHIFT (3.5M rows) as SHIFT_HI + SHIFT_LO on the bytes of u"
+  },
+  {
+   "gadget": "product_shift_chunked",
+   "query": "wrapfree",
+   "status": "unsat",
+   "seconds": 0.001,
+   "model": null,
+   "note": "mod 2013265921, wrap-free (5 congruences); SHIFT (3.5M rows) as SHIFT_HI + SHIFT_LO on the bytes of u"
+  },
+  {
+   "gadget": "product_shift_chunked",
+   "query": "direct",
+   "status": "unsat",
+   "seconds": 23.296,
+   "model": null,
+   "note": "mod 2013265921, direct; SHIFT (3.5M rows) as SHIFT_HI + SHIFT_LO on the bytes of u"
+  },
+  {
+   "gadget": "state_shift_chunked",
+   "query": "integer",
+   "status": "unsat",
+   "seconds": 2.129,
+   "model": null,
+   "note": "over Z; SSHIFT_HI/LO (2 x 221k rows) as three byte tables"
+  },
+  {
+   "gadget": "state_shift_chunked",
+   "query": "wrapfree",
+   "status": "unsat",
+   "seconds": 0.001,
+   "model": null,
+   "note": "mod 2013265921, wrap-free (7 congruences); SSHIFT_HI/LO (2 x 221k rows) as three byte tables"
+  },
+  {
+   "gadget": "state_shift_chunked",
+   "query": "direct",
+   "status": "unknown",
+   "seconds": 120.012,
+   "model": null,
+   "note": "mod 2013265921, direct; SSHIFT_HI/LO (2 x 221k rows) as three byte tables"
+  },
+  {
+   "gadget": "signed_sum_chunked",
+   "query": "integer",
+   "status": "unsat",
+   "seconds": 0.028,
+   "model": null,
+   "note": "over Z; v = (1 - 2 sgn) S as three 10-bit chunks through LEAD10; l materialised"
+  },
+  {
+   "gadget": "signed_sum_chunked",
+   "query": "wrapfree",
+   "status": "unsat",
+   "seconds": 0.006,
+   "model": null,
+   "note": "mod 2013265921, wrap-free (6 congruences); v = (1 - 2 sgn) S as three 10-bit chunks through LEAD10; l materialised"
+  },
+  {
+   "gadget": "signed_sum_chunked",
+   "query": "direct",
+   "status": "unknown",
+   "seconds": 120.012,
+   "model": null,
+   "note": "mod 2013265921, direct; v = (1 - 2 sgn) S as three 10-bit chunks through LEAD10; l materialised"
+  },
+  {
+   "gadget": "normalise_chunked",
+   "query": "integer",
+   "status": "unsat",
+   "seconds": 0.462,
+   "model": null,
+   "note": "over Z; M' = (v2 2^10 + v1) A1 + TNORM10(v0, k); every product < 2^24"
+  },
+  {
+   "gadget": "normalise_chunked",
+   "query": "wrapfree",
+   "status": "unsat",
+   "seconds": 0.003,
+   "model": null,
+   "note": "mod 2013265921, wrap-free (4 congruences); M' = (v2 2^10 + v1) A1 + TNORM10(v0, k); every product < 2^24"
+  },
+  {
+   "gadget": "normalise_chunked",
+   "query": "direct",
+   "status": "unsat",
+   "seconds": 8.267,
+   "model": null,
+   "note": "mod 2013265921, direct; M' = (v2 2^10 + v1) A1 + TNORM10(v0, k); every product < 2^24"
+  },
+  {
+   "gadget": "group_max_product",
+   "query": "integer",
+   "status": "unsat",
+   "seconds": 0.027,
+   "model": null,
+   "note": "over Z; attained as prod_i (E - cand_i) (E - floor) = 0; dsp packed output"
+  },
+  {
+   "gadget": "group_max_product",
+   "query": "wrapfree",
+   "status": "unsat",
+   "seconds": 0.004,
+   "model": null,
+   "note": "mod 2013265921, wrap-free (21 congruences); attained as prod_i (E - cand_i) (E - floor) = 0; dsp packed output"
+  },
+  {
+   "gadget": "group_max_product",
+   "query": "direct",
+   "status": "unsat",
+   "seconds": 0.203,
+   "model": null,
+   "note": "mod 2013265921, direct; attained as prod_i (E - cand_i) (E - floor) = 0; dsp packed output"
+  },
+  {
+   "gadget": "group_max_product:without-attained",
+   "query": "integer",
+   "status": "sat",
+   "seconds": 0.004,
+   "model": {
+    "inputs": {
+     "cand[0]": -156,
+     "cand[1]": -132,
+     "cand[2]": -132,
+     "cand[3]": -132,
+     "cand[4]": -132,
+     "cand[5]": -132,
+     "cand[6]": -132,
+     "cand[7]": -132,
+     "cand[8]": -132,
+     "s4[0]": 0,
+     "s4[1]": 0,
+     "s4[2]": 0,
+     "s4[3]": 0,
+     "s4[4]": 0,
+     "s4[5]": 0,
+     "s4[6]": 0,
+     "s4[7]": 0,
+     "s4[8]": 0,
+     "l": 0
+    },
+    "hints": {
+     "E": -131
+    },
+    "outputs": {
+     "out[0]": -131,
+     "out[1]": 50,
+     "out[2]": 2,
+     "out[3]": 2,
+     "out[4]": 2,
+     "out[5]": 2,
+     "out[6]": 2,
+     "out[7]": 2,
+     "out[8]": 2,
+     "out[9]": 2
+    },
+    "reference": {
+     "ref[0]": -132,
+     "ref[1]": 48,
+     "ref[2]": 0,
+     "ref[3]": 0,
+     "ref[4]": 0,
+     "ref[5]": 0,
+     "ref[6]": 0,
+     "ref[7]": 0,
+     "ref[8]": 0,
+     "ref[9]": 0
+    }
+   },
+   "note": "over Z; control: dropping the product identity must be SAT"
+  },
+  {
+   "gadget": "group_max_product:without-attained",
+   "query": "wrapfree",
+   "status": "unsat",
+   "seconds": 0.003,
+   "model": null,
+   "note": "mod 2013265921, wrap-free (20 congruences); control: dropping the product identity must be SAT"
+  },
+  {
+   "gadget": "group_max_product:without-attained",
+   "query": "direct",
+   "status": "sat",
+   "seconds": 0.024,
+   "model": {
+    "inputs": {
+     "cand[0]": -131,
+     "cand[1]": -130,
+     "cand[2]": -129,
+     "cand[3]": -128,
+     "cand[4]": -127,
+     "cand[5]": -126,
+     "cand[6]": -125,
+     "cand[7]": -124,
+     "cand[8]": -97,
+     "s4[0]": 0,
+     "s4[1]": 0,
+     "s4[2]": 2,
+     "s4[3]": 0,
+     "s4[4]": 2,
+     "s4[5]": 3,
+     "s4[6]": 1,
+     "s4[7]": 0,
+     "s4[8]": 0,
+     "l": 0
+    },
+    "hints": {
+     "E": -70
+    },
+    "outputs": {
+     "out[0]": -70,
+     "out[1]": 52,
+     "out[2]": 52,
+     "out[3]": 53,
+     "out[4]": 52,
+     "out[5]": 53,
+     "out[6]": 52,
+     "out[7]": 53,
+     "out[8]": 52,
+     "out[9]": 52
+    },
+    "reference": {
+     "ref[0]": -97,
+     "ref[1]": 52,
+     "ref[2]": 52,
+     "ref[3]": 53,
+     "ref[4]": 52,
+     "ref[5]": 53,
+     "ref[6]": 52,
+     "ref[7]": 53,
+     "ref[8]": 52,
+     "ref[9]": 0
+    }
+   },
+   "note": "mod 2013265921, direct; control: dropping the product identity must be SAT"
+  },
+  {
+   "gadget": "pack_epilogue_limbs",
+   "query": "integer",
+   "status": "unsat",
+   "seconds": 0.051,
+   "model": null,
+   "note": "over Z; the F4 word class repaired: M = M_hi8 2^16 + M_lo16, y_hi an expression < 2^16, epilogue per limb"
+  },
+  {
+   "gadget": "pack_epilogue_limbs",
+   "query": "wrapfree",
+   "status": "unsat",
+   "seconds": 0.014,
+   "model": null,
+   "note": "mod 2013265921, wrap-free (12 congruences); the F4 word class repaired: M = M_hi8 2^16 + M_lo16, y_hi an expression < 2^16, epilogue per limb"
+  },
+  {
+   "gadget": "pack_epilogue_limbs",
+   "query": "direct",
+   "status": "unsat",
+   "seconds": 6.254,
+   "model": null,
+   "note": "mod 2013265921, direct; the F4 word class repaired: M = M_hi8 2^16 + M_lo16, y_hi an expression < 2^16, epilogue per limb"
+  },
+  {
+   "gadget": "state_decode_limbs",
+   "query": "integer",
+   "status": "unsat",
+   "seconds": 0.01,
+   "model": null,
+   "note": "over Z; word-in unit only (absent from the state-chained VU AIR)"
+  },
+  {
+   "gadget": "state_decode_limbs",
+   "query": "wrapfree",
+   "status": "unsat",
+   "seconds": 0.002,
+   "model": null,
+   "note": "mod 2013265921, wrap-free (7 congruences); word-in unit only (absent from the state-chained VU AIR)"
+  },
+  {
+   "gadget": "state_decode_limbs",
+   "query": "direct",
+   "status": "unsat",
+   "seconds": 0.957,
+   "model": null,
+   "note": "mod 2013265921, direct; word-in unit only (absent from the state-chained VU AIR)"
+  }
+ ],
+ "verdicts": {
+  "product_shift_chunked": "UNSAT (Z and F_babybear)",
+  "state_shift_chunked": "UNSAT (Z and F_babybear)",
+  "signed_sum_chunked": "UNSAT (Z and F_babybear)",
+  "normalise_chunked": "UNSAT (Z and F_babybear)",
+  "group_max_product": "UNSAT (Z and F_babybear)",
+  "group_max_product:without-attained": "SAT (expected)",
+  "pack_epilogue_limbs": "UNSAT (Z and F_babybear)",
+  "state_decode_limbs": "UNSAT (Z and F_babybear)"
+ }
+}

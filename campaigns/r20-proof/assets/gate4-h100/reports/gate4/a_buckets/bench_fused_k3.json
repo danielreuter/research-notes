@@ -1,0 +1,178 @@
+{
+ "hardware": {
+  "gpu": {
+   "name": "NVIDIA H100 80GB HBM3",
+   "driver": "580.126.20",
+   "memory": "81559 MiB",
+   "cuda": null
+  },
+  "cpu": {
+   "model": "Intel(R) Xeon(R) Platinum 8470",
+   "count": 208
+  }
+ },
+ "peaks": {
+  "int8_dense_tops": 1979.0,
+  "hbm_bytes_per_s": 3350000000000.0,
+  "fp32_tflops": 67.0,
+  "bf16_dense_tflops": 989.0,
+  "source": "NVIDIA H100 Tensor Core GPU datasheet (SXM5): INT8 1,979 TOPS dense, HBM3 3.35 TB/s, FP32 67 TFLOPS"
+ },
+ "torch": "2.6.0+cu124",
+ "commit": null,
+ "config": {
+  "micro": false,
+  "out": "/workspace/research/runs/r20260922-092450-5b79/sumcheck",
+  "log2": [
+   26,
+   28
+  ],
+  "ks": [
+   3
+  ],
+  "repeats": 5,
+  "warm": 1,
+  "k1_log2": 13,
+  "pieces": true
+ },
+ "results": [
+  {
+   "log2_t": 26,
+   "k": 3,
+   "baseline": {
+    "device_ms": 5.669343948364258,
+    "timing": "cuda_graph",
+    "eager_device_ms": 8.645919799804688,
+    "eager_wall_ms": 8.683735504746437,
+    "macs_performed": 146565752640,
+    "hadamard_base": 704643072,
+    "hadamard_ext": 25165821,
+    "kernels": {
+     "inner.packed.fused": 3,
+     "fold_k": 2,
+     "inner.ext.fused": 16,
+     "fold.ext": 23,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 1214694400,
+    "hbm_floor_ms": 1.3622096620895523,
+    "hbm_floor_bytes": {
+     "packed": 1610612736,
+     "fold_k": 939524096,
+     "ext": 2013265536,
+     "total": 4563402368
+    },
+    "x_hbm_floor": 4.161873246198978,
+    "frac_int8_peak": 0.026126660286378414
+   },
+   "fused": {
+    "device_ms": 4.795743942260742,
+    "timing": "cuda_graph",
+    "eager_device_ms": 10.232704162597656,
+    "eager_wall_ms": 10.286539793014526,
+    "macs_performed": 130459625280,
+    "hadamard_base": 536870912,
+    "hadamard_ext": 25165821,
+    "kernels": {
+     "inner.packed.U": 1,
+     "fold_k": 2,
+     "inner.ext.fused": 16,
+     "fold.ext": 23,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 1281291264,
+    "hbm_floor_ms": 1.1017872334328358,
+    "hbm_floor_bytes": {
+     "packed": 536870912,
+     "fold_k": 939524096,
+     "ext": 2214592224,
+     "total": 3690987232
+    },
+    "x_hbm_floor": 4.352695145430806,
+    "frac_int8_peak": 0.02749187378066534
+   },
+   "pieces": {
+    "u_pass_ms": 0.9106559753417969,
+    "packed_rounds_ms": 2.097599983215332,
+    "u_pass_bytes": 536870912,
+    "u_pass_hbm_floor_ms": 0.16025997373134326,
+    "ext_fold_ip_ms": 0.5987520217895508,
+    "fold_ext_x2_ms": 0.2393919974565506,
+    "ext_ip_ms": 0.24844799935817716,
+    "ext_pairs": 2097152,
+    "ext_fused_bytes": 603979776,
+    "ext_fused_hbm_floor_ms": 0.1802924704477612,
+    "ext_unfused_bytes": 805306368
+   }
+  },
+  {
+   "log2_t": 28,
+   "k": 3,
+   "baseline": {
+    "device_ms": 16.838176727294922,
+    "timing": "cuda_graph",
+    "eager_device_ms": 17.201087951660156,
+    "eager_wall_ms": 17.230920493602753,
+    "macs_performed": 586263029568,
+    "hadamard_base": 2818572288,
+    "hadamard_ext": 100663293,
+    "kernels": {
+     "inner.packed.fused": 3,
+     "fold_k": 2,
+     "inner.ext.fused": 18,
+     "fold.ext": 25,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 4739425280,
+    "hbm_floor_ms": 5.448838992238806,
+    "hbm_floor_bytes": {
+     "packed": 6442450944,
+     "fold_k": 3758096384,
+     "ext": 8053063296,
+     "total": 18253610624
+    },
+    "x_hbm_floor": 3.090232020303557,
+    "frac_int8_peak": 0.03518695179101368
+   },
+   "fused": {
+    "device_ms": 12.763968467712402,
+    "timing": "cuda_graph",
+    "eager_device_ms": 13.178720474243164,
+    "eager_wall_ms": 13.208149001002312,
+    "macs_performed": 521838520128,
+    "hadamard_base": 2147483648,
+    "hadamard_ext": 100663293,
+    "kernels": {
+     "inner.packed.U": 1,
+     "fold_k": 2,
+     "inner.ext.fused": 18,
+     "fold.ext": 25,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 4772467712,
+    "hbm_floor_ms": 4.407149191641791,
+    "hbm_floor_bytes": {
+     "packed": 2147483648,
+     "fold_k": 3758096384,
+     "ext": 8858369760,
+     "total": 14763949792
+    },
+    "x_hbm_floor": 2.896196137838813,
+    "frac_int8_peak": 0.04131755489085055
+   },
+   "pieces": {
+    "u_pass_ms": 3.4491519927978516,
+    "packed_rounds_ms": 7.835968136787415,
+    "u_pass_bytes": 2147483648,
+    "u_pass_hbm_floor_ms": 0.641039894925373,
+    "ext_fold_ip_ms": 2.2953920364379883,
+    "fold_ext_x2_ms": 0.8711680173873901,
+    "ext_ip_ms": 0.8868799805641174,
+    "ext_pairs": 8388608,
+    "ext_fused_bytes": 2415919104,
+    "ext_fused_hbm_floor_ms": 0.7211698817910448,
+    "ext_unfused_bytes": 3221225472
+   }
+  }
+ ]
+}

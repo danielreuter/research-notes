@@ -1,0 +1,64 @@
+{
+ "units": 393216,
+ "vus": 4096,
+ "device": "NVIDIA H100 80GB HBM3",
+ "hardware": {
+  "gpu": {
+   "name": "NVIDIA H100 80GB HBM3",
+   "driver": "580.126.20",
+   "memory": "81559 MiB",
+   "cuda": null
+  },
+  "cpu": {
+   "model": "Intel(R) Xeon(R) Platinum 8470",
+   "count": 208
+  }
+ },
+ "software": {
+  "torch": "2.6.0+cu124",
+  "python": "3.12.14",
+  "commit": null,
+  "cuda": "12.4"
+ },
+ "suites": {
+  "v2": {
+   "suite": "v2",
+   "k": 3,
+   "tables": [],
+   "totals": {
+    "concurrent": {
+     "device_ms": 81.21862030029297,
+     "wall_ms": 81.26402832567692,
+     "device_ms_all": [
+      81.21862030029297,
+      81.9202880859375,
+      81.41484832763672
+     ],
+     "wall_ms_all": [
+      81.26402832567692,
+      81.97100833058357,
+      81.45852386951447
+     ],
+     "per_instance_device_ms_in_parallel": {
+      "T_OP": 50.576479385606945,
+      "ALIGN4": 44.9937599748373,
+      "SHIFT": 53.44627228844911,
+      "LEAD": 36.34502392075956,
+      "SSHIFT_HI": 24.162559932097793,
+      "SSHIFT_LO": 37.102975842542946,
+      "LEADNORM": 39.38742428459227,
+      "TNORM": 41.45644822344184,
+      "T_HDR": 35.22767997905612,
+      "T_range16": 31.900576062500477
+     },
+     "sum_of_instances_ms": 394.59919989388436,
+     "streams": 10,
+     "us_per_vu_device": 19.828764721751213,
+     "us_per_vu_wall": 19.839850665448466,
+     "mem.peak_device_bytes": 3467239936,
+     "note": "all instances launched on separate streams; device_ms = default-stream start event -> join; per-instance times are inflated by sharing the GPU"
+    }
+   }
+  }
+ }
+}

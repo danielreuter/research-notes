@@ -1,0 +1,260 @@
+{
+ "schema": "research/result/v0.1",
+ "run_id": "r20260922-065412-73be",
+ "workload_fingerprint": {
+  "profile": "first-campaign-target/2026-09-21",
+  "domain": "finite",
+  "K": 1536,
+  "B": 4096,
+  "N_subbatches": 1,
+  "proof_class": "ARITHMETIC_DIAGNOSTIC",
+  "authentication": "excluded",
+  "zk_mode": "none",
+  "security": {
+   "target": -128,
+   "challenge_field": "BabyBear^6 (24 limbs)",
+   "note": "operating point of the priced design; nothing is proved here"
+  },
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA H100 80GB HBM3",
+    "driver": "580.126.20",
+    "memory": "81559 MiB",
+    "cuda": "12.4"
+   },
+   "cpu": {
+    "model": "Intel(R) Xeon(R) Platinum 8470",
+    "count": 208
+   }
+  },
+  "software": {
+   "backend": {
+    "name": "backends/gkr/packed/sumcheck_packed",
+    "commit": null,
+    "version": null
+   },
+   "toolchain": {
+    "torch": "2.6.0+cu124",
+    "python": "3.12.14",
+    "cuda": "12.4"
+   }
+  },
+  "preprocessing": "none",
+  "retention": "retained",
+  "instances": null,
+  "stage": "packed.sumcheck",
+  "kind": "kernel measurement (not a proof): Candidate A GKR c-round sumcheck (eq-trick, k packed rounds) on INT8 tensor cores, random tables; t.total is the six-layer batch model from the linear fit",
+  "config": {
+   "log2": [
+    28
+   ],
+   "ks": [
+    2,
+    3,
+    4
+   ],
+   "repeats": 5,
+   "warm": 2,
+   "k1_log2": 13,
+   "mode": "triton",
+   "fused": true,
+   "units": 393216,
+   "layer_widths": [
+    137,
+    679,
+    673,
+    669,
+    647,
+    533
+   ],
+   "layer_read_log2": [
+    10,
+    10,
+    10,
+    10,
+    10,
+    9
+   ],
+   "B": 4096,
+   "K": 1536
+  },
+  "peaks": {
+   "int8_dense_tops": 1979.0,
+   "hbm_bytes_per_s": 3350000000000.0,
+   "fp32_tflops": 67.0,
+   "bf16_dense_tflops": 989.0,
+   "source": "NVIDIA H100 Tensor Core GPU datasheet (SXM5): INT8 1,979 TOPS dense, HBM3 3.35 TB/s, FP32 67 TFLOPS"
+  }
+ },
+ "validation": {
+  "status": "not_run",
+  "checker": "backends/gkr/packed/tests (CUDA path, run before the sweep)",
+  "detail": "kernel == BabyBear^6 reference bit-for-bit for k = 0..4, n <= 9; None",
+  "evidence": [
+   "bench.json"
+  ]
+ },
+ "measurements": [
+  {
+   "name": "t.total",
+   "value": 0.1459260005615652,
+   "unit": "s"
+  },
+  {
+   "name": "t.arithmetic",
+   "value": 0.1459260005615652,
+   "unit": "s"
+  },
+  {
+   "name": "mem.peak_device_bytes",
+   "value": 34393954816,
+   "unit": "B"
+  },
+  {
+   "name": "packed.best_k",
+   "value": 3,
+   "unit": "count"
+  },
+  {
+   "name": "packed.k2.batch_seconds.padded",
+   "value": 0.1631570138297975,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k2.batch_seconds.unpadded",
+   "value": 0.09670065912000426,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k2.per_vu_seconds.padded",
+   "value": 3.9833255329540405e-05,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k2.fit.seconds_per_element",
+   "value": 7.367360493892859e-11,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k3.batch_seconds.padded",
+   "value": 0.1459260005615652,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k3.batch_seconds.unpadded",
+   "value": 0.08648810189533107,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k3.per_vu_seconds.padded",
+   "value": 3.562646498085088e-05,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k3.fit.seconds_per_element",
+   "value": 6.589293505276929e-11,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k4.batch_seconds.padded",
+   "value": 0.2554411185700446,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k4.batch_seconds.unpadded",
+   "value": 0.15139603227748738,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k4.per_vu_seconds.padded",
+   "value": 6.236355433838979e-05,
+   "unit": "s"
+  },
+  {
+   "name": "packed.k4.fit.seconds_per_element",
+   "value": 1.1534452373784808e-10,
+   "unit": "s"
+  },
+  {
+   "name": "packed.t2^28.k2.seconds",
+   "value": 0.01977660773694515,
+   "unit": "s"
+  },
+  {
+   "name": "packed.t2^28.k2.seconds_matmul_only",
+   "value": 0.14473126725293695,
+   "unit": "s"
+  },
+  {
+   "name": "packed.t2^28.k2.utilisation.round",
+   "value": 0.03292179588522081,
+   "unit": "ratio"
+  },
+  {
+   "name": "packed.t2^28.k2.utilisation.matmul_only",
+   "value": 0.0044985541519507065,
+   "unit": "ratio"
+  },
+  {
+   "name": "packed.t2^28.k2.macs_performed",
+   "value": 644245088064,
+   "unit": "count"
+  },
+  {
+   "name": "packed.t2^28.k3.seconds",
+   "value": 0.017688000068068508,
+   "unit": "s"
+  },
+  {
+   "name": "packed.t2^28.k3.seconds_matmul_only",
+   "value": 0.0760432332213968,
+   "unit": "s"
+  },
+  {
+   "name": "packed.t2^28.k3.utilisation.round",
+   "value": 0.03349638797330652,
+   "unit": "ratio"
+  },
+  {
+   "name": "packed.t2^28.k3.utilisation.matmul_only",
+   "value": 0.007791411380772058,
+   "unit": "ratio"
+  },
+  {
+   "name": "packed.t2^28.k3.macs_performed",
+   "value": 586263029568,
+   "unit": "count"
+  },
+  {
+   "name": "packed.t2^28.k4.seconds",
+   "value": 0.030962559826672075,
+   "unit": "s"
+  },
+  {
+   "name": "packed.t2^28.k4.seconds_matmul_only",
+   "value": 0.05239408005587756,
+   "unit": "s"
+  },
+  {
+   "name": "packed.t2^28.k4.utilisation.round",
+   "value": 0.025759329133228245,
+   "unit": "ratio"
+  },
+  {
+   "name": "packed.t2^28.k4.utilisation.matmul_only",
+   "value": 0.015222612335819502,
+   "unit": "ratio"
+  },
+  {
+   "name": "packed.t2^28.k4.macs_performed",
+   "value": 789200234304,
+   "unit": "count"
+  }
+ ],
+ "measurement_files": [
+  "bench.json"
+ ],
+ "artifacts": [
+  "bench.json"
+ ]
+}

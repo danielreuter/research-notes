@@ -1,0 +1,1907 @@
+{
+ "p": 2013265921,
+ "params": "Params(sig=8, exp=8, acc_sig=24, width=25, floor=-132, groups=(8, 8))",
+ "timeout_s": 300.0,
+ "verdicts": [
+  {
+   "gadget": "bf16_decode",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 4,
+   "unsat": 4,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 0.12,
+   "seconds_max": 0.037,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.1s"
+  },
+  {
+   "gadget": "fp32_decode",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 8,
+   "unsat": 8,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 0.2,
+   "seconds_max": 0.053,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.1s"
+  },
+  {
+   "gadget": "product",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 8,
+   "unsat": 8,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 0.04,
+   "seconds_max": 0.01,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.0s"
+  },
+  {
+   "gadget": "group_max",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 1024,
+   "unsat": 1024,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 2.64,
+   "seconds_max": 0.333,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 1.6s"
+  },
+  {
+   "gadget": "align_state",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 512,
+   "unsat": 512,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 3.98,
+   "seconds_max": 0.035,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.9s"
+  },
+  {
+   "gadget": "align_product",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 512,
+   "unsat": 512,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 4.81,
+   "seconds_max": 0.033,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 1.0s"
+  },
+  {
+   "gadget": "signed_sum",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 2048,
+   "unsat": 2048,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 11.6,
+   "seconds_max": 0.024,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 2.7s"
+  },
+  {
+   "gadget": "leading_bit",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 31,
+   "unsat": 31,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 0.5,
+   "seconds_max": 0.033,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.1s"
+  },
+  {
+   "gadget": "normalise",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 64,
+   "unsat": 64,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 22.19,
+   "seconds_max": 1.474,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "l = bitlength(v) assumed (leading_bit's guarantee); wall 2.6s"
+  },
+  {
+   "gadget": "lead_norm",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 1984,
+   "unsat": 1984,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 139.01,
+   "seconds_max": 2.687,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "leading_bit and normalise composed; l a hint; wall 16.2s"
+  },
+  {
+   "gadget": "state_out",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 8,
+   "unsat": 8,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 0.03,
+   "seconds_max": 0.005,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.0s"
+  },
+  {
+   "gadget": "pack",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 128,
+   "unsat": 128,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 1.81,
+   "seconds_max": 0.269,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.4s"
+  },
+  {
+   "gadget": "epilogue",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "",
+   "status": "UNSAT",
+   "jobs": 4,
+   "unsat": 4,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 0.07,
+   "seconds_max": 0.029,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.0s"
+  },
+  {
+   "gadget": "fp32_decode",
+   "rules": [
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "LIMB16",
+   "status": "SAT",
+   "jobs": 8,
+   "unsat": 2,
+   "sat": 6,
+   "unknown": 0,
+   "seconds_total": 0.1,
+   "seconds_max": 0.021,
+   "models": [
+    {
+     "inputs": {
+      "c_lo": 0,
+      "c_hi": 61568
+     },
+     "hints": {
+      "s": 0,
+      "t": 0,
+      "f": 8388606,
+      "nz": 0,
+      "z": 0
+     },
+     "outputs": [
+      0,
+      -126,
+      8388606
+     ],
+     "reference": [
+      1,
+      98,
+      8388608
+     ],
+     "pins": {},
+     "bits": {
+      "hint.s": 0,
+      "hint.nz": 0,
+      "hint.z": 0
+     }
+    },
+    {
+     "inputs": {
+      "c_lo": 2,
+      "c_hi": 61440
+     },
+     "hints": {
+      "s": 0,
+      "t": 0,
+      "f": 0,
+      "nz": 0,
+      "z": 1
+     },
+     "outputs": [
+      0,
+      -132,
+      0
+     ],
+     "reference": [
+      1,
+      97,
+      8388610
+     ],
+     "pins": {},
+     "bits": {
+      "hint.s": 0,
+      "hint.nz": 0,
+      "hint.z": 1
+     }
+    },
+    {
+     "inputs": {
+      "c_lo": 0,
+      "c_hi": 32768
+     },
+     "hints": {
+      "s": 0,
+      "t": 15,
+      "f": 8388607,
+      "nz": 1,
+      "z": 0
+     },
+     "outputs": [
+      0,
+      -112,
+      16777215
+     ],
+     "reference": [
+      1,
+      -132,
+      0
+     ],
+     "pins": {},
+     "bits": {
+      "hint.s": 0,
+      "hint.nz": 1,
+      "hint.z": 0
+     }
+    },
+    {
+     "inputs": {
+      "c_lo": 0,
+      "c_hi": 63616
+     },
+     "hints": {
+      "s": 1,
+      "t": 0,
+      "f": 8388607,
+      "nz": 0,
+      "z": 0
+     },
+     "outputs": [
+      1,
+      -126,
+      8388607
+     ],
+     "reference": [
+      1,
+      114,
+      8388608
+     ],
+     "pins": {},
+     "bits": {
+      "hint.s": 1,
+      "hint.nz": 0,
+      "hint.z": 0
+     }
+    },
+    {
+     "inputs": {
+      "c_lo": 65535,
+      "c_hi": 2047
+     },
+     "hints": {
+      "s": 1,
+      "t": 0,
+      "f": 0,
+      "nz": 0,
+      "z": 1
+     },
+     "outputs": [
+      1,
+      -132,
+      0
+     ],
+     "reference": [
+      0,
+      -112,
+      16777215
+     ],
+     "pins": {},
+     "bits": {
+      "hint.s": 1,
+      "hint.nz": 0,
+      "hint.z": 1
+     }
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "; wall 0.0s"
+  },
+  {
+   "gadget": "pack",
+   "rules": [
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "LIMB16",
+   "status": "UNSAT",
+   "jobs": 128,
+   "unsat": 128,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 0.26,
+   "seconds_max": 0.015,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "; wall 0.1s"
+  },
+  {
+   "gadget": "epilogue",
+   "rules": [
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "LIMB16",
+   "status": "SAT",
+   "jobs": 4,
+   "unsat": 0,
+   "sat": 4,
+   "unknown": 0,
+   "seconds_total": 0.05,
+   "seconds_max": 0.017,
+   "models": [
+    {
+     "inputs": {
+      "y32_lo": 32767,
+      "y32_hi": 0
+     },
+     "hints": {
+      "hi": 30720,
+      "lo": 32768,
+      "hi2": 15360,
+      "lsb": 0,
+      "carry": 0,
+      "rem": 65535
+     },
+     "outputs": [
+      30720
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {},
+     "bits": {
+      "hint.lsb": 0,
+      "hint.carry": 0
+     }
+    },
+    {
+     "inputs": {
+      "y32_lo": 32771,
+      "y32_hi": 65534
+     },
+     "hints": {
+      "hi": 4094,
+      "lo": 32769,
+      "hi2": 2047,
+      "lsb": 0,
+      "carry": 1,
+      "rem": 0
+     },
+     "outputs": [
+      4095
+     ],
+     "reference": [
+      65535
+     ],
+     "pins": {},
+     "bits": {
+      "hint.lsb": 0,
+      "hint.carry": 1
+     }
+    },
+    {
+     "inputs": {
+      "y32_lo": 2,
+      "y32_hi": 61441
+     },
+     "hints": {
+      "hi": 1,
+      "lo": 0,
+      "hi2": 0,
+      "lsb": 1,
+      "carry": 0,
+      "rem": 32768
+     },
+     "outputs": [
+      1
+     ],
+     "reference": [
+      61441
+     ],
+     "pins": {},
+     "bits": {
+      "hint.lsb": 1,
+      "hint.carry": 0
+     }
+    },
+    {
+     "inputs": {
+      "y32_lo": 32770,
+      "y32_hi": 61441
+     },
+     "hints": {
+      "hi": 1,
+      "lo": 32768,
+      "hi2": 0,
+      "lsb": 1,
+      "carry": 1,
+      "rem": 0
+     },
+     "outputs": [
+      2
+     ],
+     "reference": [
+      61442
+     ],
+     "pins": {},
+     "bits": {
+      "hint.lsb": 1,
+      "hint.carry": 1
+     }
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "; wall 0.0s"
+  },
+  {
+   "gadget": "align_state",
+   "rules": [
+    "LIMB16",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "LT_DIRECT",
+   "status": "SAT",
+   "jobs": 512,
+   "unsat": 0,
+   "sat": 512,
+   "unknown": 0,
+   "seconds_total": 6.68,
+   "seconds_max": 0.079,
+   "models": [
+    {
+     "inputs": {
+      "M": 16777215,
+      "d": 0
+     },
+     "hints": {
+      "q": 33554369,
+      "r": 61
+     },
+     "outputs": [
+      33554369
+     ],
+     "reference": [
+      33554430
+     ],
+     "pins": {
+      "POW": 0
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "M": 61,
+      "d": 1
+     },
+     "hints": {
+      "q": 0,
+      "r": 122
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      61
+     ],
+     "pins": {
+      "POW": 1
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "M": 122,
+      "d": 2
+     },
+     "hints": {
+      "q": 0,
+      "r": 244
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      61
+     ],
+     "pins": {
+      "POW": 2
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "M": 244,
+      "d": 3
+     },
+     "hints": {
+      "q": 0,
+      "r": 488
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      61
+     ],
+     "pins": {
+      "POW": 3
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "M": 481,
+      "d": 4
+     },
+     "hints": {
+      "q": 0,
+      "r": 962
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      60
+     ],
+     "pins": {
+      "POW": 4
+     },
+     "bits": {}
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "; wall 1.2s"
+  },
+  {
+   "gadget": "align_product",
+   "rules": [
+    "LIMB16",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "LT_DIRECT",
+   "status": "SAT",
+   "jobs": 512,
+   "unsat": 13,
+   "sat": 499,
+   "unknown": 0,
+   "seconds_total": 2.96,
+   "seconds_max": 0.021,
+   "models": [
+    {
+     "inputs": {
+      "u": 65535,
+      "d": 0
+     },
+     "hints": {
+      "q": 34814,
+      "r": 30721
+     },
+     "outputs": [
+      35649536
+     ],
+     "reference": [
+      67107840
+     ],
+     "pins": {
+      "ALIGN": 0
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "u": 30721,
+      "d": 1
+     },
+     "hints": {
+      "q": 0,
+      "r": 30721
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      15729152
+     ],
+     "pins": {
+      "ALIGN": 1
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "u": 65535,
+      "d": 2
+     },
+     "hints": {
+      "q": 34814,
+      "r": 30721
+     },
+     "outputs": [
+      8912384
+     ],
+     "reference": [
+      16776960
+     ],
+     "pins": {
+      "ALIGN": 2
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "u": 30721,
+      "d": 3
+     },
+     "hints": {
+      "q": 0,
+      "r": 30721
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      3932288
+     ],
+     "pins": {
+      "ALIGN": 3
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "u": 30721,
+      "d": 4
+     },
+     "hints": {
+      "q": 0,
+      "r": 30721
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      1966144
+     ],
+     "pins": {
+      "ALIGN": 4
+     },
+     "bits": {}
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "; wall 0.9s"
+  },
+  {
+   "gadget": "leading_bit",
+   "rules": [
+    "LIMB16",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "LT_DIRECT",
+   "status": "SAT",
+   "jobs": 31,
+   "unsat": 0,
+   "sat": 31,
+   "unknown": 0,
+   "seconds_total": 0.23,
+   "seconds_max": 0.015,
+   "models": [
+    {
+     "inputs": {
+      "v": 16
+     },
+     "hints": {
+      "l": 0
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      5
+     ],
+     "pins": {
+      "LEAD": 0
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "v": 0
+     },
+     "hints": {
+      "l": 1
+     },
+     "outputs": [
+      1
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "LEAD": 1
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "v": 65539
+     },
+     "hints": {
+      "l": 2
+     },
+     "outputs": [
+      2
+     ],
+     "reference": [
+      17
+     ],
+     "pins": {
+      "LEAD": 2
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "v": 0
+     },
+     "hints": {
+      "l": 3
+     },
+     "outputs": [
+      3
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "LEAD": 3
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "v": 24
+     },
+     "hints": {
+      "l": 4
+     },
+     "outputs": [
+      4
+     ],
+     "reference": [
+      5
+     ],
+     "pins": {
+      "LEAD": 4
+     },
+     "bits": {}
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "; wall 0.1s"
+  },
+  {
+   "gadget": "lead_norm",
+   "rules": [
+    "LIMB16",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "LT_DIRECT",
+   "status": "SAT",
+   "jobs": 1984,
+   "unsat": 1954,
+   "sat": 30,
+   "unknown": 0,
+   "seconds_total": 265.15,
+   "seconds_max": 7.968,
+   "models": [
+    {
+     "inputs": {
+      "E": -100,
+      "v": 0
+     },
+     "hints": {
+      "l": 1,
+      "clamp": 0,
+      "M": 0,
+      "r": 0
+     },
+     "outputs": [
+      -124,
+      0
+     ],
+     "reference": [
+      -125,
+      0
+     ],
+     "pins": {
+      "LEAD": 1,
+      "NORM": 23
+     },
+     "bits": {
+      "hint.clamp": 0
+     }
+    },
+    {
+     "inputs": {
+      "E": -102,
+      "v": 0
+     },
+     "hints": {
+      "l": 2,
+      "clamp": 0,
+      "M": 0,
+      "r": 0
+     },
+     "outputs": [
+      -125,
+      0
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 2,
+      "NORM": 22
+     },
+     "bits": {
+      "hint.clamp": 0
+     }
+    },
+    {
+     "inputs": {
+      "E": -103,
+      "v": 0
+     },
+     "hints": {
+      "l": 3,
+      "clamp": 0,
+      "M": 0,
+      "r": 0
+     },
+     "outputs": [
+      -125,
+      0
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 3,
+      "NORM": 21
+     },
+     "bits": {
+      "hint.clamp": 0
+     }
+    },
+    {
+     "inputs": {
+      "E": -103,
+      "v": 0
+     },
+     "hints": {
+      "l": 4,
+      "clamp": 0,
+      "M": 0,
+      "r": 0
+     },
+     "outputs": [
+      -124,
+      0
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 4,
+      "NORM": 20
+     },
+     "bits": {
+      "hint.clamp": 0
+     }
+    },
+    {
+     "inputs": {
+      "E": -105,
+      "v": 0
+     },
+     "hints": {
+      "l": 5,
+      "clamp": 0,
+      "M": 0,
+      "r": 0
+     },
+     "outputs": [
+      -125,
+      0
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 5,
+      "NORM": 19
+     },
+     "bits": {
+      "hint.clamp": 0
+     }
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "leading_bit and normalise composed; l a hint; wall 27.5s"
+  },
+  {
+   "gadget": "align_state",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "V_PREMISE"
+   ],
+   "dropped": "QUOT_TIGHT",
+   "status": "SAT",
+   "jobs": 512,
+   "unsat": 6,
+   "sat": 506,
+   "unknown": 0,
+   "seconds_total": 4.28,
+   "seconds_max": 0.03,
+   "models": [
+    {
+     "inputs": {
+      "M": 0,
+      "d": 6
+     },
+     "hints": {
+      "q": 31457280,
+      "r": 1
+     },
+     "outputs": [
+      31457280
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "POW": 6
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "M": 0,
+      "d": 7
+     },
+     "hints": {
+      "q": 15728640,
+      "r": 1
+     },
+     "outputs": [
+      15728640
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "POW": 7
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "M": 0,
+      "d": 8
+     },
+     "hints": {
+      "q": 7864320,
+      "r": 1
+     },
+     "outputs": [
+      7864320
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "POW": 8
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "M": 0,
+      "d": 9
+     },
+     "hints": {
+      "q": 3932160,
+      "r": 1
+     },
+     "outputs": [
+      3932160
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "POW": 9
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "M": 0,
+      "d": 10
+     },
+     "hints": {
+      "q": 1966080,
+      "r": 1
+     },
+     "outputs": [
+      1966080
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "POW": 10
+     },
+     "bits": {}
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "; wall 0.9s"
+  },
+  {
+   "gadget": "align_product",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "V_PREMISE"
+   ],
+   "dropped": "QUOT_TIGHT",
+   "status": "SAT",
+   "jobs": 512,
+   "unsat": 25,
+   "sat": 487,
+   "unknown": 0,
+   "seconds_total": 2.83,
+   "seconds_max": 0.029,
+   "models": [
+    {
+     "inputs": {
+      "u": 0,
+      "d": 25
+     },
+     "hints": {
+      "q": 61440,
+      "r": 1
+     },
+     "outputs": [
+      61440
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "ALIGN": 25
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "u": 65535,
+      "d": 26
+     },
+     "hints": {
+      "q": 30721,
+      "r": 0
+     },
+     "outputs": [
+      30721
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "ALIGN": 26
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "u": 65535,
+      "d": 27
+     },
+     "hints": {
+      "q": 30721,
+      "r": 0
+     },
+     "outputs": [
+      30721
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "ALIGN": 27
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "u": 65535,
+      "d": 28
+     },
+     "hints": {
+      "q": 30721,
+      "r": 0
+     },
+     "outputs": [
+      30721
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "ALIGN": 28
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "u": 65535,
+      "d": 29
+     },
+     "hints": {
+      "q": 30721,
+      "r": 0
+     },
+     "outputs": [
+      30721
+     ],
+     "reference": [
+      0
+     ],
+     "pins": {
+      "ALIGN": 29
+     },
+     "bits": {}
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "; wall 0.8s"
+  },
+  {
+   "gadget": "normalise",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "NORM_MBND",
+   "status": "SAT",
+   "jobs": 64,
+   "unsat": 63,
+   "sat": 1,
+   "unknown": 0,
+   "seconds_total": 14.06,
+   "seconds_max": 1.085,
+   "models": [
+    {
+     "inputs": {
+      "E": -132,
+      "l": 19,
+      "v": 262144
+     },
+     "hints": {
+      "clamp": 1,
+      "M": 15730688,
+      "r": 1
+     },
+     "outputs": [
+      -126,
+      15730688
+     ],
+     "reference": [
+      -126,
+      2048
+     ],
+     "pins": {
+      "NORM": -7
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "l = bitlength(v) assumed (leading_bit's guarantee); wall 1.7s"
+  },
+  {
+   "gadget": "lead_norm",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_VBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "NORM_MBND",
+   "status": "SAT",
+   "jobs": 1984,
+   "unsat": 1956,
+   "sat": 28,
+   "unknown": 0,
+   "seconds_total": 151.75,
+   "seconds_max": 2.307,
+   "models": [
+    {
+     "inputs": {
+      "E": -132,
+      "v": 0
+     },
+     "hints": {
+      "l": 0,
+      "clamp": 1,
+      "M": 15728640,
+      "r": 1
+     },
+     "outputs": [
+      -126,
+      15728640
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 0,
+      "NORM": -7
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    },
+    {
+     "inputs": {
+      "E": -132,
+      "v": 1
+     },
+     "hints": {
+      "l": 1,
+      "clamp": 1,
+      "M": 15728640,
+      "r": 2
+     },
+     "outputs": [
+      -126,
+      15728640
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 1,
+      "NORM": -7
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    },
+    {
+     "inputs": {
+      "E": -132,
+      "v": 3
+     },
+     "hints": {
+      "l": 2,
+      "clamp": 1,
+      "M": 15728640,
+      "r": 4
+     },
+     "outputs": [
+      -126,
+      15728640
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 2,
+      "NORM": -7
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    },
+    {
+     "inputs": {
+      "E": -132,
+      "v": 7
+     },
+     "hints": {
+      "l": 3,
+      "clamp": 1,
+      "M": 15728640,
+      "r": 8
+     },
+     "outputs": [
+      -126,
+      15728640
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 3,
+      "NORM": -7
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    },
+    {
+     "inputs": {
+      "E": -132,
+      "v": 8
+     },
+     "hints": {
+      "l": 4,
+      "clamp": 1,
+      "M": 15728640,
+      "r": 9
+     },
+     "outputs": [
+      -126,
+      15728640
+     ],
+     "reference": [
+      -126,
+      0
+     ],
+     "pins": {
+      "LEAD": 4,
+      "NORM": -7
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "leading_bit and normalise composed; l a hint; wall 17.4s"
+  },
+  {
+   "gadget": "normalise",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "NORM_VBND",
+   "status": "UNSAT",
+   "jobs": 64,
+   "unsat": 64,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 12.4,
+   "seconds_max": 0.971,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "l = bitlength(v) assumed (leading_bit's guarantee); wall 1.3s"
+  },
+  {
+   "gadget": "lead_norm",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "QUOT_TIGHT",
+    "V_PREMISE"
+   ],
+   "dropped": "NORM_VBND",
+   "status": "UNSAT",
+   "jobs": 1984,
+   "unsat": 1984,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 163.15,
+   "seconds_max": 2.406,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "leading_bit and normalise composed; l a hint; wall 18.4s"
+  },
+  {
+   "gadget": "leading_bit",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT"
+   ],
+   "dropped": "V_PREMISE",
+   "status": "SAT",
+   "jobs": 31,
+   "unsat": 4,
+   "sat": 27,
+   "unknown": 0,
+   "seconds_total": 0.54,
+   "seconds_max": 0.081,
+   "models": [
+    {
+     "inputs": {
+      "v": 939524098
+     },
+     "hints": {
+      "l": 0
+     },
+     "outputs": [
+      0
+     ],
+     "reference": [
+      30
+     ],
+     "pins": {
+      "LEAD": 0
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "v": 939524099
+     },
+     "hints": {
+      "l": 1
+     },
+     "outputs": [
+      1
+     ],
+     "reference": [
+      30
+     ],
+     "pins": {
+      "LEAD": 1
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "v": 939524101
+     },
+     "hints": {
+      "l": 2
+     },
+     "outputs": [
+      2
+     ],
+     "reference": [
+      30
+     ],
+     "pins": {
+      "LEAD": 2
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "v": 1073741823
+     },
+     "hints": {
+      "l": 3
+     },
+     "outputs": [
+      3
+     ],
+     "reference": [
+      30
+     ],
+     "pins": {
+      "LEAD": 3
+     },
+     "bits": {}
+    },
+    {
+     "inputs": {
+      "v": 939524113
+     },
+     "hints": {
+      "l": 4
+     },
+     "outputs": [
+      4
+     ],
+     "reference": [
+      30
+     ],
+     "pins": {
+      "LEAD": 4
+     },
+     "bits": {}
+    }
+   ],
+   "unknown_jobs": [],
+   "note": "; wall 0.1s"
+  },
+  {
+   "gadget": "normalise",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT"
+   ],
+   "dropped": "V_PREMISE",
+   "status": "UNSAT",
+   "jobs": 64,
+   "unsat": 64,
+   "sat": 0,
+   "unknown": 0,
+   "seconds_total": 21.72,
+   "seconds_max": 1.147,
+   "models": [],
+   "unknown_jobs": [],
+   "note": "l = bitlength(v) assumed (leading_bit's guarantee); wall 2.3s"
+  },
+  {
+   "gadget": "lead_norm",
+   "rules": [
+    "LIMB16",
+    "LT_DIRECT",
+    "NORM_MBND",
+    "NORM_VBND",
+    "QUOT_TIGHT"
+   ],
+   "dropped": "V_PREMISE",
+   "status": "SAT",
+   "jobs": 1984,
+   "unsat": 1684,
+   "sat": 299,
+   "unknown": 1,
+   "seconds_total": 490.17,
+   "seconds_max": 300.016,
+   "models": [
+    {
+     "inputs": {
+      "E": -124,
+      "v": 1006633088
+     },
+     "hints": {
+      "l": 0,
+      "clamp": 1,
+      "M": 255,
+      "r": 0
+     },
+     "outputs": [
+      -126,
+      255
+     ],
+     "reference": [
+      -119,
+      15728642
+     ],
+     "pins": {
+      "LEAD": 0,
+      "NORM": 1
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    },
+    {
+     "inputs": {
+      "E": -123,
+      "v": 1010580607
+     },
+     "hints": {
+      "l": 0,
+      "clamp": 1,
+      "M": 15790586,
+      "r": 0
+     },
+     "outputs": [
+      -126,
+      15790586
+     ],
+     "reference": [
+      -118,
+      15790321
+     ],
+     "pins": {
+      "LEAD": 0,
+      "NORM": 2
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    },
+    {
+     "inputs": {
+      "E": -122,
+      "v": 1008730111
+     },
+     "hints": {
+      "l": 0,
+      "clamp": 1,
+      "M": 16777204,
+      "r": 0
+     },
+     "outputs": [
+      -126,
+      16777204
+     ],
+     "reference": [
+      -117,
+      15761407
+     ],
+     "pins": {
+      "LEAD": 0,
+      "NORM": 3
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    },
+    {
+     "inputs": {
+      "E": -121,
+      "v": 1007617024
+     },
+     "hints": {
+      "l": 0,
+      "clamp": 1,
+      "M": 15745016,
+      "r": 0
+     },
+     "outputs": [
+      -126,
+      15745016
+     ],
+     "reference": [
+      -116,
+      15744016
+     ],
+     "pins": {
+      "LEAD": 0,
+      "NORM": 4
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    },
+    {
+     "inputs": {
+      "E": -120,
+      "v": 1070071807
+     },
+     "hints": {
+      "l": 0,
+      "clamp": 1,
+      "M": 16777167,
+      "r": 0
+     },
+     "outputs": [
+      -126,
+      16777167
+     ],
+     "reference": [
+      -115,
+      16719871
+     ],
+     "pins": {
+      "LEAD": 0,
+      "NORM": 5
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    }
+   ],
+   "unknown_jobs": [
+    {
+     "pins": {
+      "LEAD": 0,
+      "NORM": 22
+     },
+     "bits": {
+      "hint.clamp": 1
+     }
+    }
+   ],
+   "note": "leading_bit and normalise composed; l a hint; wall 303.6s"
+  }
+ ]
+}

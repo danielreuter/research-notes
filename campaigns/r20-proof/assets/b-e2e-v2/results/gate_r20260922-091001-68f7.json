@@ -1,0 +1,636 @@
+{
+ "system_id": "e29652b2332595b71605a078ab8e99caa6c954198c653f7ca2c6641afe0d3e5e",
+ "positives": [
+  {
+   "ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "l": 1024,
+   "accepted": true,
+   "why": "accept (0.423s)",
+   "timings": {
+    "witness": 0.14590299408882856,
+    "commit1": 3.608478522975929,
+    "challenges1": 0.11277371598407626,
+    "helpers": 1.203523903968744,
+    "commit2": 1.2193798100342974,
+    "self_check": 0.2515971709508449,
+    "irs_sum": 0.06906003004405648,
+    "quadratic": 0.2929163849912584,
+    "chain": 0.03146559197921306,
+    "openings": 0.018868447048589587,
+    "total": 6.953987582004629,
+    "peak_device_bytes": 6898251776
+   },
+   "bytes": {
+    "roots": 64,
+    "w": 24576,
+    "v": 24576,
+    "h": 24552,
+    "q": 49128,
+    "cols": 756,
+    "opened_columns": 27779976,
+    "merkle_paths": 145152,
+    "total": 28048780
+   }
+  }
+ ],
+ "negatives": [
+  {
+   "id": "honest proof, claimed word flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "id": 0,
+   "mistake": "ulp-plus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 1,
+   "mistake": "ulp-plus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 2,
+   "mistake": "ulp-plus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 3,
+   "mistake": "ulp-plus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 4,
+   "mistake": "ulp-minus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 5,
+   "mistake": "ulp-minus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 6,
+   "mistake": "ulp-minus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 7,
+   "mistake": "ulp-minus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 8,
+   "mistake": "sign-flip",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 9,
+   "mistake": "sign-flip",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 10,
+   "mistake": "sign-flip",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 11,
+   "mistake": "sign-flip",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 12,
+   "mistake": "epilogue-rtz",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 13,
+   "mistake": "epilogue-rtz",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 14,
+   "mistake": "epilogue-rtz",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 15,
+   "mistake": "epilogue-rtz",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 16,
+   "mistake": "ieee-fp32-fma",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 17,
+   "mistake": "ieee-fp32-fma",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 18,
+   "mistake": "ieee-fp32-fma",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 19,
+   "mistake": "ieee-fp32-fma",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 20,
+   "mistake": "single-group-16",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 21,
+   "mistake": "single-group-16",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 22,
+   "mistake": "single-group-16",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 23,
+   "mistake": "single-group-16",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 24,
+   "mistake": "adder-24-bit",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 25,
+   "mistake": "adder-24-bit",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 26,
+   "mistake": "adder-24-bit",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 27,
+   "mistake": "adder-24-bit",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 28,
+   "mistake": "no-exponent-floor",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 29,
+   "mistake": "no-exponent-floor",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 30,
+   "mistake": "no-exponent-floor",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 31,
+   "mistake": "no-exponent-floor",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 32,
+   "mistake": "non-sticky-saturation",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 33,
+   "mistake": "non-sticky-saturation",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 34,
+   "mistake": "non-sticky-saturation",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 35,
+   "mistake": "non-sticky-saturation",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 36,
+   "mistake": "c0-stale",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 37,
+   "mistake": "c0-stale",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 38,
+   "mistake": "c0-stale",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 39,
+   "mistake": "c0-stale",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 40,
+   "mistake": "reversed-k",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 41,
+   "mistake": "reversed-k",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 42,
+   "mistake": "reversed-k",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 43,
+   "mistake": "reversed-k",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "id": 44,
+   "mistake": "nonfinite-operand",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "witness builder: Reject: op.op: key 32640 is off table T_OP [0, 65536); verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 45,
+   "mistake": "nonfinite-operand",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "witness builder: Reject: op.op: key 65408 is off table T_OP [0, 65536); verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 46,
+   "mistake": "nonfinite-operand",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "witness builder: Reject: op.op: key 32704 is off table T_OP [0, 65536); verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 47,
+   "mistake": "nonfinite-operand",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "witness builder: Reject: op.op: key 65472 is off table T_OP [0, 65536); verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 48,
+   "mistake": "sat-intermediate",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "witness builder: Reject: unit 94: saturation before the last unit is outside the domain; verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 49,
+   "mistake": "sat-intermediate",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "witness builder: Reject: unit 94: saturation before the last unit is outside the domain; verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 50,
+   "mistake": "sat-intermediate",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "witness builder: Reject: unit 94: saturation before the last unit is outside the domain; verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 51,
+   "mistake": "sat-intermediate",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "witness builder: Reject: unit 94: saturation before the last unit is outside the domain; verifier on a foreign proof: column challenge mismatch"
+  }
+ ],
+ "mutations": [
+  {
+   "mutation": "hint h.groups[0].E+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[0].acc_split.M_hi+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[0].acc_split.M_lo+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[0].sum.sgn+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[0].sum.v_hi+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[0].sum.v_lo+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[1].E+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[1].acc_split.M_hi+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[1].acc_split.M_lo+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[1].sum.sgn+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[1].sum.v_hi+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "hint h.groups[1].sum.v_lo+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "epi e.M_hi8+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "epi e.M_lo16+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "epi e.hi+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "epi e.lo+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "epi e.hi2+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "epi e.lsb+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "epi e.carry+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "epi e.rem+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "state y.s+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "state y.e+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "state y.M+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "state y.z+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "chain relink s",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "chain relink e",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "chain relink M",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "chain relink z",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "lookup T_OP output col a[0].op.s+1",
+   "accepted": false,
+   "why": "lookup sum identity failed"
+  },
+  {
+   "mutation": "lookup ALIGN4 output col g0.max[0].align.dt+1",
+   "accepted": false,
+   "why": "lookup sum identity failed"
+  },
+  {
+   "mutation": "lookup SSHIFT_HI output col g0.sshift.hi.term+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "lookup SSHIFT_LO output col g0.sshift.lo.term+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "lookup SHIFT output col g0.pshift[0].shift.term+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "lookup LEAD output col g0.sum.lead_hi.nz+1",
+   "accepted": false,
+   "why": "lookup sum identity failed"
+  },
+  {
+   "mutation": "lookup LEADNORM output col g0.norm.leadnorm.koff+1",
+   "accepted": false,
+   "why": "lookup sum identity failed"
+  },
+  {
+   "mutation": "lookup TNORM output col g0.norm.tnorm.t+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "operand a[0] -> 0x7f80 (Inf)",
+   "accepted": false,
+   "why": "lookup sum identity failed"
+  },
+  {
+   "mutation": "operand b[3] -> 0x7fc0 (NaN)",
+   "accepted": false,
+   "why": "lookup sum identity failed"
+  },
+  {
+   "mutation": "hint swap u <- u+1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "mutation": "battery chain: M handed on as M + p",
+   "accepted": true,
+   "why": "accept (2.056s)"
+  },
+  {
+   "mutation": "battery chain: M handed on as M - p",
+   "accepted": true,
+   "why": "accept (2.050s)"
+  }
+ ],
+ "battery": [
+  {
+   "case": "epilogue tie toggle e.lsb",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "case": "epilogue tie toggle e.carry",
+   "accepted": false,
+   "why": "linear constraints failed"
+  }
+ ],
+ "failures": 2
+}

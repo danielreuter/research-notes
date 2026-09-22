@@ -1,0 +1,744 @@
+{
+ "args": {
+  "device": "cuda",
+  "root": "/workspace/research/src/fc1a1474677a2b3a4da2d791cf229dbe8df6dc5d/fixtures/bench-instances/v1",
+  "vus": 170,
+  "n_proofs": 25,
+  "n_transcripts": 48,
+  "out": "/workspace/research/runs/r20260922-100305-2b13/redteam_zk_lane.json"
+ },
+ "device": "cuda",
+ "config": {
+  "l": 16384,
+  "n": 65536,
+  "k": 16640,
+  "t": 197,
+  "t_pad": 256,
+  "D": 6,
+  "m": 3516,
+  "committed_rows": 3546,
+  "vus_per_proof": 170
+ },
+ "q_leak": {
+  "real_witness": {
+   "accumulators_recovered_exactly": 16150,
+   "of": 16150,
+   "all_equations_consistent": true,
+   "columns_solved": 16320,
+   "end_positions_consistent": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "mismatches": [],
+   "seconds": 5.7982039246708155
+  },
+  "trivial_witness": {
+   "accumulators_recovered_exactly": 16150,
+   "of": 16150,
+   "all_equations_consistent": true,
+   "columns_solved": 16320,
+   "end_positions_consistent": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "mismatches": []
+  },
+  "witness_free_statistic_real": {
+   "steps": 16150,
+   "consistent_steps": 16150,
+   "fraction": 1.0
+  },
+  "verdict": "ACCEPTED-LEAK"
+ },
+ "mask_ranks": {
+  "opened_columns_actual_cols": {
+   "t": 197,
+   "t_pad": 256,
+   "rank": 197,
+   "covered": true
+  },
+  "messages_explicit_small": {
+   "w": {
+    "admissible_dim": 24,
+    "mask_rank": 24,
+    "covered": true
+   },
+   "v": {
+    "admissible_dim": 8,
+    "mask_rank": 8,
+    "covered": true
+   },
+   "h": {
+    "admissible_dim": 31,
+    "mask_rank": 31,
+    "covered": true
+   },
+   "q": {
+    "admissible_dim": 38,
+    "mask_rank": 23,
+    "covered": false,
+    "deficiency": 15,
+    "expected_deficiency_formula_l_minus_1": 15
+   }
+  },
+  "real_layout": {
+   "config": {
+    "l": 16384,
+    "k": 16640,
+    "t_pad": 256,
+    "t": 197,
+    "D": 6
+   },
+   "opened_columns": {
+    "admissible": 197,
+    "mask_free_coefficients": 256,
+    "spare": 59,
+    "covered": true
+   },
+   "w": {
+    "admissible_dim": 16640,
+    "mask_rank": 16640,
+    "covered": true
+   },
+   "v": {
+    "admissible_dim": 256,
+    "mask_rank": 256,
+    "covered": true
+   },
+   "h": {
+    "admissible_dim": 16895,
+    "mask_rank": 16895,
+    "covered": true
+   },
+   "q": {
+    "admissible_dim": 33022,
+    "mask_rank": 16639,
+    "covered": false,
+    "deficiency": 16383,
+    "field_elements_in_the_clear_per_proof": 98298
+   },
+   "linear_disclosures_of_s_j_per_witness_row": {
+    "openings": 197,
+    "through_messages": 0,
+    "note": "w, v, h are fully masked by their own mask rows; q on H does not involve s_j (p_j = W_j on H)"
+   }
+  }
+ },
+ "simulator": {
+  "honest_verifier": {
+   "simulated_transcript_accepted": true,
+   "why": "accept (0.040s)",
+   "seconds": 1.153115464374423,
+   "oracle_points_programmed": 2,
+   "rewinds": 0,
+   "same_transcript_without_oracle_programming": {
+    "accepted": false,
+    "why": "column challenge mismatch"
+   }
+  },
+  "adaptive_slot1": {
+   "real_prover_abort": {
+    "slot": 1,
+    "sent": [
+     "coin commitments (V)",
+     "root"
+    ]
+   },
+   "simulator_abort": {
+    "slot": 1,
+    "sent": [
+     "coin commitments (V)",
+     "root"
+    ]
+   },
+   "same": true
+  },
+  "adaptive_slot2": {
+   "real_prover_abort": {
+    "slot": 2,
+    "sent": [
+     "coin commitments (V)",
+     "root",
+     "w, h, q, v"
+    ]
+   },
+   "simulator_abort": {
+    "slot": 2,
+    "sent": [
+     "coin commitments (V)",
+     "root",
+     "w, h, q, v"
+    ]
+   },
+   "same": true
+  },
+  "aborting_on_root": {
+   "n": 48,
+   "real_abort_rate": 0.3958333333333333,
+   "sim_abort_rate": 0.2916666666666667,
+   "expected": 0.25
+  },
+  "aborting_on_q_leak": {
+   "n": 12,
+   "real_abort_rate": 0.0,
+   "sim_abort_rate": 0.0,
+   "real_first_accumulator_f_odd": false,
+   "note": "the abort event equals a witness bit for the real prover and never fires for the simulator: abort-conditioning inherits the q leak"
+  },
+  "indistinguishability": {
+   "opened_witness_rows": {
+    "positions": 692652,
+    "samples_per_side": [
+     48,
+     48
+    ],
+    "min_p": 1.0936490576133056e-05,
+    "bonferroni_threshold": 1.4437264311660113e-09,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.4843209305364199
+   },
+   "opened_mask_rows": {
+    "positions": 5910,
+    "samples_per_side": [
+     48,
+     48
+    ],
+    "min_p": 0.0003072913495753164,
+    "bonferroni_threshold": 1.692047377326565e-07,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.4844436433351566
+   },
+   "w": {
+    "positions": 99840,
+    "samples_per_side": [
+     48,
+     48
+    ],
+    "min_p": 6.12252479136305e-05,
+    "bonferroni_threshold": 1.001602564102564e-08,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.48460419981989566
+   },
+   "h": {
+    "positions": 101370,
+    "samples_per_side": [
+     48,
+     48
+    ],
+    "min_p": 1.2876233920777883e-05,
+    "bonferroni_threshold": 9.864851533984414e-09,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.4838553500947115
+   },
+   "v": {
+    "positions": 99840,
+    "samples_per_side": [
+     48,
+     48
+    ],
+    "min_p": 0.00014535493592977023,
+    "bonferroni_threshold": 1.001602564102564e-08,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.4863844856674156
+   },
+   "q": {
+    "positions": 198138,
+    "samples_per_side": [
+     48,
+     48
+    ],
+    "min_p": 4.691163551311635e-06,
+    "bonferroni_threshold": 5.046987453189191e-09,
+    "positions_below_threshold": 0,
+    "expected_below_threshold_under_null": 0.001,
+    "median_p": 0.48480098177740416
+   },
+   "seconds": 63.70004533417523
+  },
+  "q_distinguishers": {
+   "witness_free_consistent_fraction": {
+    "real": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "simulated": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "known_witness_accumulators_matched": {
+    "real": [
+     16150,
+     16150,
+     16150,
+     16150,
+     16150,
+     16150,
+     16150,
+     16150
+    ],
+    "simulated": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "of": 16150
+   },
+   "advantage": 1.0
+  }
+ },
+ "two_witness": {
+  "opened_witness_rows": {
+   "positions": 692652,
+   "samples_per_side": [
+    48,
+    48
+   ],
+   "min_p": 1.2369359765334961e-05,
+   "bonferroni_threshold": 1.4437264311660113e-09,
+   "positions_below_threshold": 0,
+   "expected_below_threshold_under_null": 0.001,
+   "median_p": 0.48573483024314545
+  },
+  "w": {
+   "positions": 99840,
+   "samples_per_side": [
+    48,
+    48
+   ],
+   "min_p": 9.555294220514844e-05,
+   "bonferroni_threshold": 1.001602564102564e-08,
+   "positions_below_threshold": 0,
+   "expected_below_threshold_under_null": 0.001,
+   "median_p": 0.4823328492955067
+  },
+  "h": {
+   "positions": 101370,
+   "samples_per_side": [
+    48,
+    48
+   ],
+   "min_p": 5.736385445018388e-05,
+   "bonferroni_threshold": 9.864851533984414e-09,
+   "positions_below_threshold": 0,
+   "expected_below_threshold_under_null": 0.001,
+   "median_p": 0.48469993169330783
+  },
+  "v": {
+   "positions": 99840,
+   "samples_per_side": [
+    48,
+    48
+   ],
+   "min_p": 6.224743264458169e-16,
+   "bonferroni_threshold": 1.001602564102564e-08,
+   "positions_below_threshold": 96598,
+   "expected_below_threshold_under_null": 0.001,
+   "median_p": 2.252350527535961e-12
+  },
+  "q": {
+   "positions": 198138,
+   "samples_per_side": [
+    48,
+    48
+   ],
+   "min_p": 3.8761866383083254e-05,
+   "bonferroni_threshold": 5.046987453189191e-09,
+   "positions_below_threshold": 0,
+   "expected_below_threshold_under_null": 0.001,
+   "median_p": 0.48461627122676854
+  },
+  "note": "v|_H = beta differs between the two statements (public data); q|_H differs by the witness (the leak); opened columns, w, h must be at chance"
+ },
+ "accounting": {
+  "soundness": {
+   "terms_log2": {
+    "irs_query": -132.69339103690618,
+    "linear_query": -194.78823068161887,
+    "quadratic_query": -192.5935408333944,
+    "irs_field": -169.44132156433932,
+    "linear_field": -185.44134357795068,
+    "quadratic_field": -185.44134357795068,
+    "coin_commitment_hiding": -191.0
+   },
+   "per_proof_total_log2": -132.69339103689367,
+   "n_proofs": 25,
+   "total_log2": -128.04953484711905,
+   "per_proof_target_log2": -132.64385618977474,
+   "field": "BabyBear^6",
+   "t": 197,
+   "n": 65536,
+   "k": 16640,
+   "l": 16384,
+   "rate": 0.25390625,
+   "zk": true,
+   "t_pad": 256,
+   "coin_commitment": true,
+   "privacy_terms_log2": {
+    "coin_commitment_binding_collision": -128.0,
+    "mask_sampling_bias_per_symbol": "0 (rejection sampling; the simulator's distance is ChaCha20's PRF advantage on the mask key)"
+   }
+  },
+  "coin_hiding_term_log2": -191.0,
+  "coin_hiding_union_log2": -186.35614381022526,
+  "irs_query_term_check_log2": -128.04953484713155
+ }
+}

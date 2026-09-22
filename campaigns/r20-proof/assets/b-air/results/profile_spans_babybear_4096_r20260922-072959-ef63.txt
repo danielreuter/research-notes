@@ -1,0 +1,36 @@
+== limbs (r20260922-072959-ef63, vy-cpu2, 12 threads, BabyBear, 4096 VUs, 166 queries; RUST_LOG=debug span close busy times summed per path)
+   148.00 s  x1     prove
+   102.00 s  x1     prove:compute quotient polynomial
+    34.70 s  x1     prove:commit to trace data
+    20.90 s  x1     prove:commit to trace data:coset_lde_batch
+    13.80 s  x1     prove:commit to trace data:build merkle tree
+     7.28 s  x6     prove:reduce matrix quotient
+     5.25 s  x6     prove:reduce matrix quotient:reduce rows
+     2.03 s  x6     prove:reduce matrix quotient:compute opened values with Lagrange interpolation
+     0.75 s  x1     prove:compute_inverse_denominators
+     0.57 s  x1     prove:commit to quotient poly chunks
+     0.46 s  x1     prove:FRI prover
+     0.44 s  x1     prove:FRI prover:commit phase
+     0.43 s  x1     verify
+     0.28 s  x4     prove:commit to quotient poly chunks:coset_lde_batch
+     0.28 s  x1     prove:commit to quotient poly chunks:build merkle tree
+     0.24 s  x19    prove:FRI prover:commit phase:build merkle tree
+     0.15 s  x19    prove:FRI prover:commit phase:fold_even_odd
+     0.00 s  x1     prove:FRI prover:grind for proof-of-work witness
+     0.00 s  x1     infer log of constraint degree
+     0.00 s  x1     verify:infer log of constraint degree
+     0.00 s  x1     prove:infer log of constraint degree
+     0.00 s  x1     prove:FRI prover:query phase
+== lookup (r20260922-072959-ef63, vy-cpu2, 12 threads, BabyBear, 4096 VUs, 166 queries; RUST_LOG=debug span close busy times summed per path)
+     7.32 s  x8     coset_lde_batch
+     5.03 s  x5     build merkle tree
+     2.95 s  x10    reduce matrix quotient
+     1.72 s  x10    reduce matrix quotient:reduce rows
+     1.23 s  x10    reduce matrix quotient:compute opened values with Lagrange interpolation
+     0.47 s  x1     FRI prover
+     0.46 s  x1     FRI prover:commit phase
+     0.46 s  x1     compute_inverse_denominators
+     0.25 s  x19    FRI prover:commit phase:build merkle tree
+     0.16 s  x19    FRI prover:commit phase:fold_even_odd
+     0.00 s  x1     FRI prover:query phase
+     0.00 s  x1     FRI prover:grind for proof-of-work witness

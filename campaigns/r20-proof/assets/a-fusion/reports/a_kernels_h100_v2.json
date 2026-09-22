@@ -1,0 +1,727 @@
+{
+ "source": {
+  "sumcheck": "backends/numerical/reports/a_fusion/bench_fused_k3.json",
+  "logup_v1": "backends/numerical/reports/a_fusion/logup_graph_v1.json",
+  "logup_v2": "backends/numerical/reports/a_fusion/logup_graph_v2.json",
+  "commit": null
+ },
+ "labels": {
+  "proof_class": "ARITHMETIC_DIAGNOSTIC",
+  "authentication": "excluded",
+  "security.target": -128,
+  "B": 4096,
+  "K": 1536,
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA H100 80GB HBM3",
+    "driver": "580.126.20",
+    "memory": "81559 MiB",
+    "cuda": null
+   },
+   "cpu": {
+    "model": "Intel(R) Xeon(R) Platinum 8470",
+    "count": 208
+   }
+  },
+  "torch": "2.6.0+cu124"
+ },
+ "sumcheck": {
+  "k": 3,
+  "fit_seconds_per_element_and_intercept": {
+   "fused": [
+    3.9215407809933825e-11,
+    0.002124970436096191
+   ],
+   "baseline": [
+    5.660009113247117e-11,
+    0.0018826243082682302
+   ]
+  },
+  "direct_2^28": {
+   "baseline": 17.076095581054688,
+   "fused": 12.651776313781738
+  },
+  "direct_2^28_x_hbm_floor": 2.8707392837474117,
+  "direct_2^28_frac_int8_peak": 0.04168394656292773,
+  "pieces_2^28": {
+   "u_pass_ms": 3.474623918533325,
+   "packed_rounds_ms": 7.827711820602417,
+   "u_pass_bytes": 2147483648,
+   "u_pass_hbm_floor_ms": 0.641039894925373,
+   "ext_fold_ip_ms": 2.2866880893707275,
+   "fold_ext_x2_ms": 0.8709440231323242,
+   "ext_ip_ms": 0.880128026008606,
+   "ext_pairs": 8388608,
+   "ext_fused_bytes": 2415919104,
+   "ext_fused_hbm_floor_ms": 0.7211698817910448,
+   "ext_unfused_bytes": 3221225472
+  }
+ },
+ "variants": {
+  "v1": {
+   "shape": [
+    {
+     "depth": "assert",
+     "products": 0,
+     "width": 137,
+     "s_out": 8,
+     "s_in": 10,
+     "has_queries": false
+    },
+    {
+     "depth": 5,
+     "products": 6,
+     "width": 679,
+     "s_out": 10,
+     "s_in": 10,
+     "has_queries": true
+    },
+    {
+     "depth": 4,
+     "products": 4,
+     "width": 673,
+     "s_out": 10,
+     "s_in": 10,
+     "has_queries": true
+    },
+    {
+     "depth": 3,
+     "products": 22,
+     "width": 669,
+     "s_out": 10,
+     "s_in": 10,
+     "has_queries": true
+    },
+    {
+     "depth": 2,
+     "products": 114,
+     "width": 647,
+     "s_out": 10,
+     "s_in": 10,
+     "has_queries": true
+    },
+    {
+     "depth": 1,
+     "products": 212,
+     "width": 533,
+     "s_out": 10,
+     "s_in": 9,
+     "has_queries": true
+    }
+   ],
+   "layer_tables_padded": [
+    402653184,
+    402653184,
+    402653184,
+    402653184,
+    402653184,
+    201326592
+   ],
+   "layer_tables_unpadded": [
+    53870592,
+    266993664,
+    264634368,
+    263061504,
+    254410752,
+    209584128
+   ],
+   "unit": {
+    "mul": 327,
+    "columns_committed_a": 335
+   },
+   "tables": [
+    {
+     "name": "ALIGN",
+     "rows": 512,
+     "q_per_unit": 16,
+     "n": 23,
+     "shards": 1
+    },
+    {
+     "name": "LEAD",
+     "rows": 31,
+     "q_per_unit": 2,
+     "n": 20,
+     "shards": 1
+    },
+    {
+     "name": "NORM",
+     "rows": 32,
+     "q_per_unit": 2,
+     "n": 20,
+     "shards": 1
+    },
+    {
+     "name": "POW",
+     "rows": 512,
+     "q_per_unit": 2,
+     "n": 20,
+     "shards": 1
+    },
+    {
+     "name": "T_range16",
+     "rows": 65536,
+     "q_per_unit": 298,
+     "n": 27,
+     "shards": 1
+    }
+   ],
+   "sumcheck": {
+    "fused": {
+     "batch_seconds.padded": 0.0995959711074829,
+     "batch_seconds.unpadded": 0.0642222025282681
+    },
+    "baseline": {
+     "batch_seconds.padded": 0.13664188385009762,
+     "batch_seconds.unpadded": 0.08558647891879081
+    }
+   },
+   "sumcheck_extra_shapes": {},
+   "logup": {
+    "measured_instance_ms": {
+     "level": 88.91823912784457,
+     "level_wall": 91.98738820850849,
+     "round": 103.49971275217831,
+     "round_wall": 107.1348562836647,
+     "eager": 256.9593811035156
+    },
+    "measured_leaves": 134217728,
+    "model_leaves": 145752064,
+    "leaf_scale": 1.0859375,
+    "batch_seconds": {
+     "level": 0.09655965030289372,
+     "round": 0.11239421931681863
+    },
+    "note": "one 2^27-leaf instance (306 lookups/unit, 65,536-row table) scaled to the model's leaves over its 5 tables"
+   },
+   "repriced": {
+    "A": {
+     "model@0.172": {
+      "overhead": 10701476.867624689,
+      "t.total": 0.43158891569024715,
+      "t.gkr_checker": 0.25722655038522513,
+      "t.logup": 0.08565586005776066
+     },
+     "measured sumcheck=baseline logup=level": {
+      "overhead": 7981881.164938517,
+      "t.total": 0.3219080394002527,
+      "t.gkr_checker": 0.13664188385009762,
+      "t.logup": 0.09655965030289372,
+      "share.sumcheck": 0.42447490315766984,
+      "share.logup": 0.2999603566372376,
+      "share.modelled": 0.2755647402050927
+     },
+     "measured sumcheck=baseline logup=round": {
+      "overhead": 8374507.731217021,
+      "t.total": 0.33774260841417764,
+      "t.gkr_checker": 0.13664188385009762,
+      "t.logup": 0.11239421931681863,
+      "share.sumcheck": 0.40457401715371405,
+      "share.logup": 0.3327806930980657,
+      "share.modelled": 0.2626452897482202
+     },
+     "measured sumcheck=fused logup=level": {
+      "overhead": 7063308.041666592,
+      "t.total": 0.284862126657638,
+      "t.gkr_checker": 0.0995959711074829,
+      "t.logup": 0.09655965030289372,
+      "share.sumcheck": 0.3496286862562902,
+      "share.logup": 0.3389697726259837,
+      "share.modelled": 0.3114015411177261
+     },
+     "measured sumcheck=fused logup=round": {
+      "overhead": 7455934.607945096,
+      "t.total": 0.30069669567156293,
+      "t.gkr_checker": 0.0995959711074829,
+      "t.logup": 0.11239421931681863,
+      "share.sumcheck": 0.33121737797966017,
+      "share.logup": 0.37377936284202345,
+      "share.modelled": 0.2950032591783164
+     }
+    },
+    "A-hintfree-depth630": {
+     "model@0.172": {
+      "overhead": 10051185.170591244,
+      "t.total": 0.4053627515937648,
+      "t.gkr_checker": 0.25722655038522513,
+      "t.logup": 0.08565586005776066
+     },
+     "measured sumcheck=baseline logup=level": {
+      "overhead": 7331589.467905072,
+      "t.total": 0.2956818753037703,
+      "t.gkr_checker": 0.13664188385009762,
+      "t.logup": 0.09655965030289372,
+      "share.sumcheck": 0.4621246524147544,
+      "share.logup": 0.3265660101881208,
+      "share.modelled": 0.21130933739712487
+     },
+     "measured sumcheck=baseline logup=round": {
+      "overhead": 7724216.034183576,
+      "t.total": 0.31151644431769526,
+      "t.gkr_checker": 0.13664188385009762,
+      "t.logup": 0.11239421931681863,
+      "share.sumcheck": 0.43863457721912585,
+      "share.logup": 0.3607970666299565,
+      "share.modelled": 0.20056835615091761
+     },
+     "measured sumcheck=fused logup=level": {
+      "overhead": 6413016.344633146,
+      "t.total": 0.2586359625611556,
+      "t.gkr_checker": 0.0995959711074829,
+      "t.logup": 0.09655965030289372,
+      "share.sumcheck": 0.3850816805258975,
+      "share.logup": 0.37334193337503,
+      "share.modelled": 0.2415763860990725
+     },
+     "measured sumcheck=fused logup=round": {
+      "overhead": 6805642.91091165,
+      "t.total": 0.27447053157508056,
+      "t.gkr_checker": 0.0995959711074829,
+      "t.logup": 0.11239421931681863,
+      "share.sumcheck": 0.3628658076185448,
+      "share.logup": 0.40949466841424303,
+      "share.modelled": 0.2276395239672122
+     }
+    }
+   }
+  },
+  "v2": {
+   "shape": [
+    {
+     "depth": "assert",
+     "products": 0,
+     "width": 9,
+     "s_out": 4,
+     "s_in": 9,
+     "has_queries": false
+    },
+    {
+     "depth": 3,
+     "products": 3,
+     "width": 277,
+     "s_out": 9,
+     "s_in": 9,
+     "has_queries": false
+    },
+    {
+     "depth": 2,
+     "products": 7,
+     "width": 274,
+     "s_out": 9,
+     "s_in": 9,
+     "has_queries": true
+    },
+    {
+     "depth": 1,
+     "products": 23,
+     "width": 267,
+     "s_out": 9,
+     "s_in": 8,
+     "has_queries": true
+    }
+   ],
+   "layer_tables_padded": [
+    201326592,
+    201326592,
+    201326592,
+    100663296
+   ],
+   "layer_tables_unpadded": [
+    3538944,
+    108920832,
+    107741184,
+    104988672
+   ],
+   "unit": {
+    "mul": 34,
+    "columns_committed_a": 248
+   },
+   "tables": [
+    {
+     "name": "ALIGN4",
+     "rows": 3120,
+     "q_per_unit": 18,
+     "n": 23,
+     "shards": 1
+    },
+    {
+     "name": "LEAD",
+     "rows": 32768,
+     "q_per_unit": 4,
+     "n": 21,
+     "shards": 1
+    },
+    {
+     "name": "LEADNORM",
+     "rows": 12152,
+     "q_per_unit": 2,
+     "n": 20,
+     "shards": 1
+    },
+    {
+     "name": "SHIFT",
+     "rows": 3538944,
+     "q_per_unit": 16,
+     "n": 24,
+     "shards": 1
+    },
+    {
+     "name": "SSHIFT_HI",
+     "rows": 221184,
+     "q_per_unit": 2,
+     "n": 20,
+     "shards": 1
+    },
+    {
+     "name": "SSHIFT_LO",
+     "rows": 221184,
+     "q_per_unit": 2,
+     "n": 20,
+     "shards": 1
+    },
+    {
+     "name": "TNORM",
+     "rows": 1048576,
+     "q_per_unit": 2,
+     "n": 21,
+     "shards": 1
+    },
+    {
+     "name": "TNORM_HI",
+     "rows": 1048576,
+     "q_per_unit": 2,
+     "n": 21,
+     "shards": 1
+    },
+    {
+     "name": "T_HDR",
+     "rows": 510,
+     "q_per_unit": 1,
+     "n": 19,
+     "shards": 1
+    },
+    {
+     "name": "T_OP",
+     "rows": 65280,
+     "q_per_unit": 32,
+     "n": 24,
+     "shards": 1
+    },
+    {
+     "name": "T_range16",
+     "rows": 65536,
+     "q_per_unit": 14,
+     "n": 23,
+     "shards": 1
+    }
+   ],
+   "sumcheck": {
+    "fused": {
+     "batch_seconds.padded": 0.036132747173309325,
+     "batch_seconds.unpadded": 0.021252325778827068
+    },
+    "baseline": {
+     "batch_seconds.padded": 0.047413359324137365,
+     "batch_seconds.unpadded": 0.025936260039607684
+    }
+   },
+   "sumcheck_extra_shapes": {
+    "exporter_2_layers_s_in_9": {
+     "fused": 0.020040149688720702,
+     "baseline": 0.026555455525716143
+    }
+   },
+   "logup": {
+    "per_table": {
+     "T_OP": {
+      "n": 24,
+      "leaves": 16777216,
+      "rows": 65280,
+      "lookups_per_unit": 32,
+      "level_ms": 33.67567991092801,
+      "level_wall_ms": 36.90591640770435,
+      "round_ms": 44.285856211557984,
+      "tree_ms": 1.7846720218658447,
+      "table_share_of_leaves": 0.00390625
+     },
+     "ALIGN4": {
+      "n": 23,
+      "leaves": 8388608,
+      "rows": 3120,
+      "lookups_per_unit": 18,
+      "level_ms": 26.903072152286768,
+      "level_wall_ms": 28.709450736641884,
+      "round_ms": 37.60652790591121,
+      "tree_ms": 1.126304030418396,
+      "table_share_of_leaves": 0.00048828125
+     },
+     "SHIFT": {
+      "n": 24,
+      "leaves": 16777216,
+      "rows": 3538944,
+      "lookups_per_unit": 16,
+      "level_ms": 33.91055966541171,
+      "level_wall_ms": 35.98717227578163,
+      "round_ms": 45.31542409956455,
+      "tree_ms": 2.120703935623169,
+      "table_share_of_leaves": 0.2109375
+     },
+     "LEAD": {
+      "n": 21,
+      "leaves": 2097152,
+      "rows": 32768,
+      "lookups_per_unit": 4,
+      "level_ms": 19.38556796312332,
+      "level_wall_ms": 21.041354164481163,
+      "round_ms": 27.969984259456396,
+      "tree_ms": 0.39238399267196655,
+      "table_share_of_leaves": 0.015625
+     },
+     "SSHIFT_HI": {
+      "n": 20,
+      "leaves": 1048576,
+      "rows": 221184,
+      "lookups_per_unit": 2,
+      "level_ms": 16.848351733759046,
+      "level_wall_ms": 18.456483259797096,
+      "round_ms": 25.369087940081954,
+      "tree_ms": 0.30476799607276917,
+      "table_share_of_leaves": 0.2109375
+     },
+     "SSHIFT_LO": {
+      "n": 20,
+      "leaves": 1048576,
+      "rows": 221184,
+      "lookups_per_unit": 2,
+      "level_ms": 17.03952013142407,
+      "level_wall_ms": 18.884774297475815,
+      "round_ms": 24.47075193747878,
+      "tree_ms": 0.3073279857635498,
+      "table_share_of_leaves": 0.2109375
+     },
+     "LEADNORM": {
+      "n": 20,
+      "leaves": 1048576,
+      "rows": 12152,
+      "lookups_per_unit": 2,
+      "level_ms": 16.794879904016852,
+      "level_wall_ms": 18.40323582291603,
+      "round_ms": 24.239647829905152,
+      "tree_ms": 0.28169599175453186,
+      "table_share_of_leaves": 0.01171875
+     },
+     "TNORM": {
+      "n": 21,
+      "leaves": 2097152,
+      "rows": 1048576,
+      "lookups_per_unit": 2,
+      "level_ms": 19.833536187186837,
+      "level_wall_ms": 21.612869575619698,
+      "round_ms": 28.535903830081224,
+      "tree_ms": 0.5080639719963074,
+      "table_share_of_leaves": 0.5
+     },
+     "T_HDR": {
+      "n": 19,
+      "leaves": 524288,
+      "rows": 510,
+      "lookups_per_unit": 1,
+      "level_ms": 14.409567825496197,
+      "level_wall_ms": 15.956787392497063,
+      "round_ms": 21.117376025766134,
+      "tree_ms": 0.23443199694156647,
+      "table_share_of_leaves": 0.00390625
+     },
+     "T_range16": {
+      "n": 22,
+      "leaves": 4194304,
+      "rows": 65536,
+      "lookups_per_unit": 10,
+      "level_ms": 22.81961604580283,
+      "level_wall_ms": 24.905305355787277,
+      "round_ms": 32.30774416401982,
+      "tree_ms": 0.6510080099105835,
+      "table_share_of_leaves": 0.015625
+     }
+    },
+    "measured_10_tables_ms": {
+     "level": 221.62035151943564,
+     "round": 311.2183042038232,
+     "level_wall": 240.863349288702
+    },
+    "tnorm_hi_added_as_tnorm_ms": 19.833536187186837,
+    "batch_seconds": {
+     "level": 0.2414538877066225,
+     "round": 0.33975420803390444,
+     "concurrent": 0.09321727066040039
+    },
+    "sequential_instances_note": "'level'/'round' = the instances one after another (each pays its ~20 latency-bound small levels)",
+    "shift": {
+     "committed_ms": 33.91055966541171,
+     "committed_tree_ms": 2.120703935623169,
+     "committed_table_share_of_leaves": 0.2109375,
+     "split_u_ms": {
+      "SHIFT_u_lo": 26.788192065432668,
+      "SHIFT_u_hi": 26.78508805669844
+     },
+     "split_u_total_ms": 53.57328012213111
+    },
+    "note": "ten table instances measured separately (checker_min 3.1 tables); each instance pays ~20 latency-bound small levels",
+    "concurrent": {
+     "measured_10_tables_ms": 84.74297332763672,
+     "wall_ms": 84.80388671159744,
+     "streams": 10,
+     "per_instance_device_ms_in_parallel": {
+      "T_OP": 45.20038410741836,
+      "ALIGN4": 42.88915185909718,
+      "SHIFT": 52.983359976671636,
+      "LEAD": 37.916575939394534,
+      "SSHIFT_HI": 30.096703577786684,
+      "SSHIFT_LO": 37.41843197122216,
+      "LEADNORM": 37.06956828664988,
+      "TNORM": 37.916320364922285,
+      "T_HDR": 30.64614424109459,
+      "T_range16": 33.93961587268859
+     },
+     "scaled_to_11_tables_ms": 93.21727066040039,
+     "note": "the ten instances on ten CUDA streams (level graphs, protocol unchanged); TNORM_HI as an 11th instance taken pro rata"
+    },
+    "split_u_suite_total_ms": 240.5604800079018
+   },
+   "repriced": {
+    "A": {
+     "model@0.172": {
+      "overhead": 3892647.541823911,
+      "t.total": 0.15698987649290574,
+      "t.gkr_checker": 0.06372868698879006,
+      "t.logup": 0.03543317952029668
+     },
+     "measured sumcheck=baseline logup=level": {
+      "overhead": 8596493.41810136,
+      "t.total": 0.3466952570145789,
+      "t.gkr_checker": 0.047413359324137365,
+      "t.logup": 0.2414538877066225,
+      "share.sumcheck": 0.13675802701316905,
+      "share.logup": 0.6964441619011509,
+      "share.modelled": 0.16679781108568015
+     },
+     "measured sumcheck=baseline logup=round": {
+      "overhead": 11033902.178657895,
+      "t.total": 0.4449955773418608,
+      "t.gkr_checker": 0.047413359324137365,
+      "t.logup": 0.33975420803390444,
+      "share.sumcheck": 0.10654793381848109,
+      "share.logup": 0.7635001904140132,
+      "share.modelled": 0.12995187576750578
+     },
+     "measured sumcheck=baseline logup=concurrent": {
+      "overhead": 4920887.602975155,
+      "t.total": 0.19845863996835678,
+      "t.gkr_checker": 0.047413359324137365,
+      "t.logup": 0.09321727066040039,
+      "share.sumcheck": 0.23890801293255454,
+      "share.logup": 0.469706285779563,
+      "share.modelled": 0.29138570128788244
+     },
+     "measured sumcheck=fused logup=level": {
+      "overhead": 8316784.63598015,
+      "t.total": 0.33541464486375083,
+      "t.gkr_checker": 0.036132747173309325,
+      "t.logup": 0.2414538877066225,
+      "share.sumcheck": 0.10772560985817077,
+      "share.logup": 0.7198668615221132,
+      "share.modelled": 0.1724075286197161
+     },
+     "measured sumcheck=fused logup=round": {
+      "overhead": 10754193.396536686,
+      "t.total": 0.43371496519103275,
+      "t.gkr_checker": 0.036132747173309325,
+      "t.logup": 0.33975420803390444,
+      "share.sumcheck": 0.08330989260975676,
+      "share.logup": 0.783358277444398,
+      "share.modelled": 0.13333182994584525
+     },
+     "measured sumcheck=fused logup=concurrent": {
+      "overhead": 4641178.820853946,
+      "t.total": 0.18717802781752874,
+      "t.gkr_checker": 0.036132747173309325,
+      "t.logup": 0.09321727066040039,
+      "share.sumcheck": 0.19303946940040143,
+      "share.logup": 0.49801395894219824,
+      "share.modelled": 0.30894657165740036
+     }
+    },
+    "A-hintfree-depth630": {
+     "model@0.172": {
+      "overhead": 3682010.4540701443,
+      "t.total": 0.14849491514950214,
+      "t.gkr_checker": 0.06372868698879006,
+      "t.logup": 0.03543317952029668
+     },
+     "measured sumcheck=baseline logup=level": {
+      "overhead": 8385856.330347593,
+      "t.total": 0.33820029567117527,
+      "t.gkr_checker": 0.047413359324137365,
+      "t.logup": 0.2414538877066225,
+      "share.sumcheck": 0.14019313386478033,
+      "share.logup": 0.7139375417382332,
+      "share.modelled": 0.14586932439698652
+     },
+     "measured sumcheck=baseline logup=round": {
+      "overhead": 10823265.090904128,
+      "t.total": 0.4365006159984572,
+      "t.gkr_checker": 0.047413359324137365,
+      "t.logup": 0.33975420803390444,
+      "share.sumcheck": 0.10862151755658679,
+      "share.logup": 0.7783590574248017,
+      "share.modelled": 0.11301942501861151
+     },
+     "measured sumcheck=baseline logup=concurrent": {
+      "overhead": 4710250.515221388,
+      "t.total": 0.18996367862495317,
+      "t.gkr_checker": 0.047413359324137365,
+      "t.logup": 0.09321727066040039,
+      "share.sumcheck": 0.24959170967491076,
+      "share.logup": 0.49071102083909424,
+      "share.modelled": 0.2596972694859949
+     },
+     "measured sumcheck=fused logup=level": {
+      "overhead": 8106147.5482263835,
+      "t.total": 0.3269196835203472,
+      "t.gkr_checker": 0.036132747173309325,
+      "t.logup": 0.2414538877066225,
+      "share.sumcheck": 0.1105248444640087,
+      "share.logup": 0.7385724992346464,
+      "share.modelled": 0.15090265630134503
+     },
+     "measured sumcheck=fused logup=round": {
+      "overhead": 10543556.308782918,
+      "t.total": 0.42522000384762915,
+      "t.gkr_checker": 0.036132747173309325,
+      "t.logup": 0.33975420803390444,
+      "share.sumcheck": 0.08497424120775118,
+      "share.logup": 0.7990080545590935,
+      "share.modelled": 0.11601770423315527
+     },
+     "measured sumcheck=fused logup=concurrent": {
+      "overhead": 4430541.73310018,
+      "t.total": 0.17868306647412513,
+      "t.gkr_checker": 0.036132747173309325,
+      "t.logup": 0.09321727066040039,
+      "share.sumcheck": 0.20221696373529421,
+      "share.logup": 0.5216905692286128,
+      "share.modelled": 0.276092467036093
+     }
+    }
+   }
+  }
+ },
+ "omitted": [
+  "Ligero encoding, row combination, hashing, hint generation, PRG: modelled (explore.tensor at 0.172 utilisation)",
+  "authentication (excluded), zero-knowledge (none), Fiat-Shamir host round trips: the level-graph numbers use coins independent of the transcript; the per-round-graph numbers (Fiat-Shamir compatible) are the 'round' rows",
+  "sumcheck: coins drawn ahead, the whole layer as one CUDA graph; the fold+Hadamard fusion is measured slower and left off",
+  "v2 logUp: ten instances from checker_min 3.1 (T_range16 at 10/unit; the model has 14/unit and an 11th table TNORM_HI, added as a second TNORM); SHIFT is committed per proof (3.54M multiplicity elements + 3.54M table leaves) -- the multiplicity column's Ligero cost is inside the modelled encoding",
+  "v2 sumcheck: the census layer shape (4 layers: assert + depths 3, 2, 1 at s_in 9, 9, 9, 8); the a-v2 exporter's 2-layer shape is the extra row",
+  "relation checker not assembled on the GPU; kernels on random tables"
+ ]
+}

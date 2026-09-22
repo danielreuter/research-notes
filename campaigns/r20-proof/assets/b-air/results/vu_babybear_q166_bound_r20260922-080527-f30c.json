@@ -1,0 +1,241 @@
+{
+  "artifacts": [],
+  "measurement_files": [],
+  "measurements": [
+    {
+      "name": "t.witness",
+      "unit": "s",
+      "value": 41.972178648
+    },
+    {
+      "name": "t.joint.encoding_commitment+arithmetic",
+      "unit": "s",
+      "value": 502.856592824
+    },
+    {
+      "name": "t.serialization",
+      "unit": "s",
+      "value": 0.003100773
+    },
+    {
+      "name": "t.total",
+      "unit": "s",
+      "value": 544.831872245
+    },
+    {
+      "name": "verifier.seconds",
+      "unit": "s",
+      "value": 0.613729796
+    },
+    {
+      "name": "transcript.bytes",
+      "unit": "B",
+      "value": 3453676
+    },
+    {
+      "name": "rounds.protocol",
+      "unit": "count",
+      "value": 24
+    },
+    {
+      "name": "rounds.sequential_depth",
+      "unit": "count",
+      "value": 24
+    },
+    {
+      "name": "mem.peak_host_bytes",
+      "unit": "B",
+      "value": 30595833856
+    },
+    {
+      "name": "census.committed_elements",
+      "unit": "count",
+      "value": 1528823808
+    },
+    {
+      "name": "census.witness_elements",
+      "unit": "count",
+      "value": 1520435200
+    },
+    {
+      "name": "vu.count",
+      "unit": "count",
+      "value": 4096
+    },
+    {
+      "name": "vu.seconds_per_vu",
+      "unit": "s",
+      "value": 0.13301559380981445
+    },
+    {
+      "name": "vu.per_second",
+      "unit": "1/s",
+      "value": 7.517915541765719
+    },
+    {
+      "name": "overhead.vs_native_peak",
+      "unit": "ratio",
+      "value": 13509396246.30928
+    },
+    {
+      "name": "direct.vus",
+      "unit": "count",
+      "value": 4096
+    },
+    {
+      "name": "direct.rows",
+      "unit": "count",
+      "value": 524288
+    },
+    {
+      "name": "direct.rows_real",
+      "unit": "count",
+      "value": 393216
+    },
+    {
+      "name": "direct.width",
+      "unit": "count",
+      "value": 2900
+    },
+    {
+      "name": "direct.trace_cells",
+      "unit": "count",
+      "value": 1520435200
+    },
+    {
+      "name": "direct.quotient_cells",
+      "unit": "count",
+      "value": 8388608
+    },
+    {
+      "name": "direct.committed_cells_per_vu",
+      "unit": "count",
+      "value": 278400
+    },
+    {
+      "name": "direct.committed_bytes_per_vu",
+      "unit": "B",
+      "value": 1113600
+    },
+    {
+      "name": "direct.threads",
+      "unit": "count",
+      "value": 16
+    },
+    {
+      "name": "direct.prove_s",
+      "unit": "s",
+      "value": 502.856592824
+    },
+    {
+      "name": "direct.verify_s",
+      "unit": "s",
+      "value": 0.613729796
+    },
+    {
+      "name": "direct.fri_bits_proven",
+      "unit": "bits",
+      "value": 128.55993624869785
+    },
+    {
+      "name": "direct.fri_bits_conjectured",
+      "unit": "bits",
+      "value": 348.0
+    },
+    {
+      "name": "direct.fri_queries_for_128_proven",
+      "unit": "count",
+      "value": 166
+    }
+  ],
+  "run_id": "r20260922-080527-f30c",
+  "schema": "research/result/v0.1",
+  "validation": {
+    "checker": "verity_direct::stark::verify_bound_bytes (uni-stark verify + statement binding) + recorded accumulators",
+    "detail": "proof verified for the statement of 4096 claimed words; wrong-word and wrong-B statements rejected; 4096 VUs x 96 steps in 524288 rows; every intermediate accumulator and output word equals bench-instances/v1",
+    "evidence": [],
+    "index_note": "real rows: seed = index into `seeds` (the activation row's seed; seeds/seeds.json gives layer/op/phase/N), j = the weight row of that layer/op ('seed' tag: j is the seed's own, y is hardware-confirmed); corner rows: tags[1] is the family, params the generator parameters",
+    "status": "passed"
+  },
+  "workload_fingerprint": {
+    "B": 4096,
+    "K": 1536,
+    "N_subbatches": 1,
+    "authentication": "excluded",
+    "constraints": "WP2 gadget contracts + Epilogue as direct AIR constraints, one row per transition unit, accumulator carried by a transition constraint, VU boundary by a step counter; range checks as 2-bit limbs, fixed tables as one-hot selectors; no lookup argument",
+    "domain": "finite",
+    "hardware": {
+      "cpu": {
+        "count": 16,
+        "model": "AMD EPYC 7713 64-Core Processor"
+      },
+      "gpu": null
+    },
+    "instances": {
+      "dataset": "bench-instances/v1",
+      "manifest_sha256": "38fb2c3a0853bafcb59c9fe0c7862c75e66feb86221f57147826a043a02d6763",
+      "range": [
+        0,
+        4096
+      ],
+      "tier": "vu-k1536"
+    },
+    "note": "Plonky3 FRI/Keccak is the diagnostic PCS, not Candidate B's Ligero-style interactive PCS (PROTOCOL.md); the claimed output words are the statement: absorbed into the transcript before the first challenge and checked at zeta against the committed `vu.y16` column (PROTOCOL.md 12.5 'Statement binding', red-team F1-F3 fixed); operands are witness unless --bind-operands (authentication excluded)",
+    "preprocessing": "none",
+    "profile": "first-campaign-target/2026-09-21",
+    "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+    "retention": "retained",
+    "scope": "vu",
+    "security": {
+      "challenge_bits": 124,
+      "challenge_field": "babybear^4",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 166,
+        "proof_of_work_bits": 16
+      },
+      "fri_bits_conjectured_bound": 348.0,
+      "fri_bits_proven_bound": 128.55993624869785,
+      "hash": "keccak256",
+      "note": "proven bound: unique decoding radius, -log2((1+rate)/2) per query + PoW; field terms (DEEP/quotient batching over the challenge field, ~degree/|challenge field|) omitted",
+      "queries_for_128_proven": 166,
+      "target": -80
+    },
+    "software": {
+      "backend": {
+        "commit": null,
+        "name": "verity-direct (plonky3 uni-stark)",
+        "plonky3": "0.4.3-succinct",
+        "version": "0.2.0"
+      },
+      "toolchain": {
+        "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+      }
+    },
+    "statement_binding": {
+      "bound": true,
+      "degree_bits": "fixed by the verifier from B; a proof with another degree_bits is rejected (DegreeBitsMismatch)",
+      "extra_soundness_term": "<= 1 columns x n / |challenge field| = 2^-105.0",
+      "header_absorbed_before_first_challenge": [
+        "domain tag",
+        "AIR id (sha256 of field, layout, constraint names)",
+        "field prime",
+        "width",
+        "challenge extension degree",
+        "B",
+        "K",
+        "STEPS",
+        "rows",
+        "degree_bits",
+        "FRI log_blowup/num_queries/pow_bits",
+        "every claimed word",
+        "operands: not bound"
+      ],
+      "operands_bound": false,
+      "public_columns_checked_at_zeta": "vu.y16"
+    },
+    "unit": "vu",
+    "zk_mode": "none"
+  }
+}

@@ -1,0 +1,21 @@
+36 passed in 5.44s
+t=2^20 k=0:   15.806 ms  matmul-only    2.311 ms  util round 0.0004 matmul 0.0029  MACs 6.644e+09 (model 6.644e+09)  mem 0.74 GB  [2s]
+t=2^20 k=1:   15.526 ms  matmul-only    2.218 ms  util round 0.0003 matmul 0.0018  MACs 3.876e+09 (model 3.876e+09)  mem 1.07 GB  [4s]
+t=2^20 k=2:   15.510 ms  matmul-only    2.017 ms  util round 0.0002 matmul 0.0013  MACs 2.517e+09 (model 2.517e+09)  mem 1.18 GB  [5s]
+t=2^20 k=3:   15.635 ms  matmul-only    1.765 ms  util round 0.0001 matmul 0.0013  MACs 2.290e+09 (model 2.290e+09)  mem 1.17 GB  [7s]
+t=2^20 k=4:   16.173 ms  matmul-only    1.598 ms  util round 0.0002 matmul 0.0019  MACs 3.083e+09 (model 3.083e+09)  mem 1.22 GB  [9s]
+t=2^22 k=0:   19.885 ms  matmul-only    4.844 ms  util round 0.0014 matmul 0.0055  MACs 2.658e+10 (model 2.658e+10)  mem 2.77 GB  [11s]
+t=2^22 k=1:   18.707 ms  matmul-only    4.852 ms  util round 0.0008 matmul 0.0032  MACs 1.550e+10 (model 1.550e+10)  mem 1.94 GB  [12s]
+t=2^22 k=2:   18.172 ms  matmul-only    3.302 ms  util round 0.0006 matmul 0.0031  MACs 1.007e+10 (model 1.007e+10)  mem 1.52 GB  [14s]
+t=2^22 k=3:   18.137 ms  matmul-only    2.544 ms  util round 0.0005 matmul 0.0036  MACs 9.160e+09 (model 9.160e+09)  mem 1.34 GB  [16s]
+t=2^22 k=4:   19.374 ms  matmul-only    2.492 ms  util round 0.0006 matmul 0.0050  MACs 1.233e+10 (model 1.233e+10)  mem 1.55 GB  [18s]
+t=2^24 k=0:   30.365 ms  matmul-only   14.787 ms  util round 0.0035 matmul 0.0073  MACs 1.063e+11 (model 1.063e+11)  mem 7.75 GB  [20s]
+t=2^24 k=1:   25.393 ms  matmul-only   14.758 ms  util round 0.0025 matmul 0.0042  MACs 6.201e+10 (model 6.201e+10)  mem 4.43 GB  [23s]
+t=2^24 k=2:   22.900 ms  matmul-only    8.729 ms  util round 0.0018 matmul 0.0047  MACs 4.027e+10 (model 4.027e+10)  mem 2.77 GB  [25s]
+t=2^24 k=3:   22.542 ms  matmul-only    5.816 ms  util round 0.0016 matmul 0.0064  MACs 3.664e+10 (model 3.664e+10)  mem 2.05 GB  [28s]
+t=2^24 k=4:   26.697 ms  matmul-only    5.537 ms  util round 0.0019 matmul 0.0090  MACs 4.933e+10 (model 4.933e+10)  mem 2.87 GB  [30s]
+k=0: batch 2083.7 ms (padded) / 1272.7 ms (unpadded); per VU 508.72 us; fit 0.899 ns/elem + 15.419 ms
+k=1: batch 1421.4 ms (padded) / 880.3 ms (unpadded); per VU 347.03 us; fit 0.600 ns/elem + 15.471 ms
+k=2: batch 1074.6 ms (padded) / 675.0 ms (unpadded); per VU 262.35 us; fit 0.443 ns/elem + 15.609 ms
+k=3: batch 1010.5 ms (padded) / 637.4 ms (unpadded); per VU 246.71 us; fit 0.414 ns/elem + 15.735 ms
+k=4: batch 1522.8 ms (padded) / 941.7 ms (unpadded); per VU 371.78 us; fit 0.644 ns/elem + 16.019 ms

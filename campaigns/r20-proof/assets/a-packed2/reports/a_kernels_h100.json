@@ -1,0 +1,3192 @@
+{
+ "source": {
+  "sumcheck_bench": "backends/gkr/packed/results/r20260922-065412-73be/bench.json",
+  "sumcheck_run_id": "r20260922-065412-73be",
+  "logup_bench": "backends/gkr/packed/results/r20260922-073439-1f15/logup_bench.json",
+  "logup_run_id": "r20260922-073439-1f15",
+  "commit": null
+ },
+ "labels": {
+  "proof_class": "ARITHMETIC_DIAGNOSTIC",
+  "authentication": "excluded",
+  "security.target": -128,
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA H100 80GB HBM3",
+    "driver": "580.126.20",
+    "memory": "81559 MiB",
+    "cuda": "12.4"
+   },
+   "cpu": {
+    "model": "Intel(R) Xeon(R) Platinum 8470",
+    "count": 208
+   }
+  },
+  "software": {
+   "torch": "2.6.0+cu124",
+   "python": "3.12.14",
+   "commit": null,
+   "cuda": "12.4"
+  }
+ },
+ "sumcheck": {
+  "k": 3,
+  "layer_model": {
+   "fit.seconds_per_element": 6.589293505276929e-11,
+   "fit.intercept_seconds": 0.0,
+   "fit.points": [
+    [
+     268435456,
+     0.017688000068068508
+    ]
+   ],
+   "layer_tables_padded": [
+    402653184,
+    402653184,
+    402653184,
+    402653184,
+    402653184,
+    201326592
+   ],
+   "layer_tables_unpadded": [
+    53870592,
+    266993664,
+    264634368,
+    263061504,
+    254410752,
+    209584128
+   ],
+   "batch_seconds.padded": 0.1459260005615652,
+   "batch_seconds.unpadded": 0.08648810189533107,
+   "per_vu_seconds.padded": 3.562646498085088e-05,
+   "per_vu_seconds.unpadded": 2.1115259251789812e-05,
+   "batch_seconds_matmul_only.padded": 0.6273566740765236,
+   "batch_macs.padded": 4836669993936.0,
+   "batch_macs.unpadded": 2866620106491.1875
+  },
+  "direct_2^28": [
+   {
+    "log2_t": 28,
+    "k": 2,
+    "seconds": 0.01977660773694515,
+    "seconds_matmul_only": 0.14473126725293695,
+    "macs_performed": 644245088064,
+    "macs_padded": 786432,
+    "utilisation.round_graphed": 0.03292179588522081,
+    "utilisation.matmul_only": 0.0044985541519507065,
+    "mem.peak_device_bytes": 34393954816,
+    "rounds": [
+     {
+      "i": 1,
+      "kind": "packed",
+      "table_elements": 268435456,
+      "seconds": 0.0026734399795532225,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0030137600898742676,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00010841599851846695
+      },
+      "seconds_matmul_only": 0.0026028800010681153,
+      "macs_performed": 38654705664,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.packed.fused",
+        "M": 196608,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 402653184,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.014612217695566015,
+      "utilisation.matmul_only": 0.01500833190974252
+     },
+     {
+      "i": 2,
+      "kind": "packed",
+      "table_elements": 134217728,
+      "seconds": 0.0020469119548797605,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0023457279205322265,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00010300800204277039
+      },
+      "seconds_matmul_only": 0.001983999967575073,
+      "macs_performed": 77309411328,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.packed.fused",
+        "M": 393216,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 805306368,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.03816958212016109,
+      "utilisation.matmul_only": 0.03937992703196257
+     },
+     {
+      "i": 2,
+      "kind": "fold_k",
+      "table_elements": 268435456,
+      "seconds": 0.001997535943984985,
+      "timing": "cuda_graph",
+      "segments_eager": {},
+      "seconds_matmul_only": 0.06897869110107421,
+      "macs_performed": 103079215104,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "fold_k",
+        "M": 67108864,
+        "K": 16,
+        "N": 48
+       },
+       {
+        "label": "fold_k",
+        "M": 67108864,
+        "K": 16,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.05215076717545482,
+      "utilisation.matmul_only": 0.0015102204793465703
+     },
+     {
+      "i": 3,
+      "kind": "ext",
+      "table_elements": 67108864,
+      "seconds": 0.005411231994628906,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.003490592002868652,
+       "matmul.inner": 0.0,
+       "reduce+contract": 9.916800260543823e-05,
+       "matmul.fold": 0.00204748797416687
+      },
+      "seconds_matmul_only": 0.03476140809059143,
+      "macs_performed": 212600881152,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 294912,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 67108864,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 100663296,
+      "utilisation.round": 0.03970572294593912,
+      "utilisation.matmul_only": 0.00618090262094677
+     },
+     {
+      "i": 4,
+      "kind": "ext",
+      "table_elements": 33554432,
+      "seconds": 0.0027857599258422853,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0018481600284576416,
+       "matmul.inner": 0.0,
+       "reduce+contract": 8.278399705886841e-05,
+       "matmul.fold": 0.004852672100067138
+      },
+      "seconds_matmul_only": 0.01758345592021942,
+      "macs_performed": 106300440576,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 147456,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 33554432,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 50331648,
+      "utilisation.round": 0.038563423283859255,
+      "utilisation.matmul_only": 0.006109631671663318
+     },
+     {
+      "i": 5,
+      "kind": "ext",
+      "table_elements": 16777216,
+      "seconds": 0.0014687999486923218,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0010404479503631592,
+       "matmul.inner": 0.0,
+       "reduce+contract": 7.545600086450576e-05,
+       "matmul.fold": 0.00048640000820159913
+      },
+      "seconds_matmul_only": 0.00886732804775238,
+      "macs_performed": 53150220288,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 73728,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16777216,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 25165824,
+      "utilisation.round": 0.036570139889748894,
+      "utilisation.matmul_only": 0.006057542847684457
+     },
+     {
+      "i": 6,
+      "kind": "ext",
+      "table_elements": 8388608,
+      "seconds": 0.0007983999848365784,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0005795199871063232,
+       "matmul.inner": 0.0,
+       "reduce+contract": 7.462400197982788e-05,
+       "matmul.fold": 0.0002497919946908951
+      },
+      "seconds_matmul_only": 0.0045088640451431275,
+      "macs_performed": 26575110144,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 36864,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8388608,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12582912,
+      "utilisation.round": 0.03363866521410867,
+      "utilisation.matmul_only": 0.005956513553740244
+     },
+     {
+      "i": 7,
+      "kind": "ext",
+      "table_elements": 4194304,
+      "seconds": 0.0004636799991130829,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00036032000184059145,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00012038400024175644,
+       "matmul.fold": 0.00016227200627326964
+      },
+      "seconds_matmul_only": 0.0017329600453376772,
+      "macs_performed": 13287555072,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 18432,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4194304,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6291456,
+      "utilisation.round": 0.02896082411171369,
+      "utilisation.matmul_only": 0.007748912004383183
+     },
+     {
+      "i": 8,
+      "kind": "ext",
+      "table_elements": 2097152,
+      "seconds": 0.0002967360019683838,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0002513279914855957,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023945599794387819,
+       "matmul.fold": 0.00012150400131940842
+      },
+      "seconds_matmul_only": 0.0008999040275812149,
+      "macs_performed": 6643777536,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 9216,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2097152,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3145728,
+      "utilisation.round": 0.022627107613090232,
+      "utilisation.matmul_only": 0.0074611038993386706
+     },
+     {
+      "i": 9,
+      "kind": "ext",
+      "table_elements": 1048576,
+      "seconds": 0.0002107200026512146,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00021139200031757355,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00029414400458335874,
+       "matmul.fold": 0.0001186240017414093
+      },
+      "seconds_matmul_only": 0.0004835200086236,
+      "macs_performed": 3321888768,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 4608,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 1048576,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 1572864,
+      "utilisation.round": 0.015931751529849544,
+      "utilisation.matmul_only": 0.006943122652079904
+     },
+     {
+      "i": 10,
+      "kind": "ext",
+      "table_elements": 524288,
+      "seconds": 0.00016767999529838562,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017228800058364868,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002622399926185608,
+       "matmul.fold": 0.00011468800157308579
+      },
+      "seconds_matmul_only": 0.0002762879952788353,
+      "macs_performed": 1660944384,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 2304,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 524288,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 786432,
+      "utilisation.round": 0.010010552298246366,
+      "utilisation.matmul_only": 0.006075433572892476
+     },
+     {
+      "i": 11,
+      "kind": "ext",
+      "table_elements": 262144,
+      "seconds": 0.00010694400221109391,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00018876799941062926,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002640320062637329,
+       "matmul.fold": 0.0001063999980688095
+      },
+      "seconds_matmul_only": 0.0001709439978003502,
+      "macs_performed": 830472192,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 1152,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 262144,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 393216,
+      "utilisation.round": 0.007847889211172921,
+      "utilisation.matmul_only": 0.0049097054705150795
+     },
+     {
+      "i": 12,
+      "kind": "ext",
+      "table_elements": 131072,
+      "seconds": 9.222400188446045e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017136000096797943,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023811200261116027,
+       "matmul.fold": 0.00013680000603199006
+      },
+      "seconds_matmul_only": 0.00012467200309038162,
+      "macs_performed": 415236096,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 576,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 131072,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 196608,
+      "utilisation.round": 0.004550250824094388,
+      "utilisation.matmul_only": 0.003365970949161911
+     },
+     {
+      "i": 13,
+      "kind": "ext",
+      "table_elements": 65536,
+      "seconds": 8.505599945783615e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0001733119934797287,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00025097599625587463,
+       "matmul.fold": 0.0004632000029087067
+      },
+      "seconds_matmul_only": 0.00010016000270843506,
+      "macs_performed": 207618048,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 288,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 65536,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 98304,
+      "utilisation.round": 0.002466859147214378,
+      "utilisation.matmul_only": 0.0020948598703497637
+     },
+     {
+      "i": 14,
+      "kind": "ext",
+      "table_elements": 32768,
+      "seconds": 8.246400207281112e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017347200214862824,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023068800568580626,
+       "matmul.fold": 0.0004807359874248505
+      },
+      "seconds_matmul_only": 8.985600247979164e-05,
+      "macs_performed": 103809024,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 144,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 32768,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 49152,
+      "utilisation.round": 0.001272198565519315,
+      "utilisation.matmul_only": 0.0011675412020204909
+     },
+     {
+      "i": 15,
+      "kind": "ext",
+      "table_elements": 16384,
+      "seconds": 8.271999657154083e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017423999309539796,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00022854399681091308,
+       "matmul.fold": 0.00013017599284648895
+      },
+      "seconds_matmul_only": 9.187199920415879e-05,
+      "macs_performed": 51904512,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16384,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 24576,
+      "utilisation.round": 0.0006341307391936341,
+      "utilisation.matmul_only": 0.0005709606085249046
+     },
+     {
+      "i": 16,
+      "kind": "ext",
+      "table_elements": 8192,
+      "seconds": 8.249600231647491e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017526400089263916,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00022886399924755096,
+       "matmul.fold": 0.00012675200402736665
+      },
+      "seconds_matmul_only": 9.241599962115288e-05,
+      "macs_performed": 25952256,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 4096,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8192,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12288,
+      "utilisation.round": 0.0003179262697528947,
+      "utilisation.matmul_only": 0.00028379984411270546
+     },
+     {
+      "i": 17,
+      "kind": "ext",
+      "table_elements": 4096,
+      "seconds": 8.086399734020233e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00018691200017929076,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002439039945602417,
+       "matmul.fold": 0.00013139200210571288
+      },
+      "seconds_matmul_only": 8.98560006171465e-05,
+      "macs_performed": 12976128,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 2048,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4096,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6144,
+      "utilisation.round": 0.00016217134416235258,
+      "utilisation.matmul_only": 0.0001459426532778392
+     },
+     {
+      "i": 18,
+      "kind": "ext",
+      "table_elements": 2048,
+      "seconds": 8.032000064849854e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0001744319945573807,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002353920042514801,
+       "matmul.fold": 0.0001300799995660782
+      },
+      "seconds_matmul_only": 8.934399858117104e-05,
+      "macs_performed": 6488064,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 1024,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2048,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3072,
+      "utilisation.round": 8.16348545637534e-05,
+      "utilisation.matmul_only": 7.338950210006167e-05
+     },
+     {
+      "i": 19,
+      "kind": "ext",
+      "table_elements": 1024,
+      "seconds": 8.051200211048127e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017878399789333343,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002351360023021698,
+       "matmul.fold": 0.0001324159950017929
+      },
+      "seconds_matmul_only": 9.059200063347816e-05,
+      "macs_performed": 3244032,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 512,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 1024,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 1536,
+      "utilisation.round": 4.072008768644919e-05,
+      "utilisation.matmul_only": 3.6189241465309135e-05
+     },
+     {
+      "i": 20,
+      "kind": "ext",
+      "table_elements": 512,
+      "seconds": 8.022399991750717e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00016419200599193572,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002298559993505478,
+       "matmul.fold": 0.0001319040060043335
+      },
+      "seconds_matmul_only": 9.043199941515922e-05,
+      "macs_performed": 1622016,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 256,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 512,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 768,
+      "utilisation.round": 2.043313590148555e-05,
+      "utilisation.matmul_only": 1.8126635521456843e-05
+     },
+     {
+      "i": 21,
+      "kind": "ext",
+      "table_elements": 256,
+      "seconds": 6.755200028419494e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00012060800194740295,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002481279969215393,
+       "matmul.fold": 0.00012294399738311767
+      },
+      "seconds_matmul_only": 9.004800021648407e-05,
+      "macs_performed": 811008,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 128,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 256,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 384,
+      "utilisation.round": 1.2133081818294561e-05,
+      "utilisation.matmul_only": 9.10196722267195e-06
+     },
+     {
+      "i": 22,
+      "kind": "ext",
+      "table_elements": 128,
+      "seconds": 7.56160020828247e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00011689600348472595,
+       "matmul.inner": 0.0002030400037765503,
+       "reduce+contract": 0.00030531200766563415,
+       "matmul.fold": 0.00012777599692344666
+      },
+      "seconds_matmul_only": 0.00011833600327372552,
+      "macs_performed": 405504,
+      "macs_padded": 196608,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 64,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 128,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 192,
+      "utilisation.round": 5.419580008606145e-06,
+      "utilisation.matmul_only": 3.4630793831262344e-06
+     },
+     {
+      "i": 23,
+      "kind": "ext",
+      "table_elements": 64,
+      "seconds": 7.644800096750259e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010515200346708298,
+       "matmul.inner": 0.00018537600338459014,
+       "reduce+contract": 0.00029142400622367856,
+       "matmul.fold": 0.0001467839926481247
+      },
+      "seconds_matmul_only": 0.00011494399793446065,
+      "macs_performed": 202752,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 32,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 64,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 96,
+      "utilisation.round": 2.6802988177088038e-06,
+      "utilisation.matmul_only": 1.7826375477754966e-06
+     },
+     {
+      "i": 24,
+      "kind": "ext",
+      "table_elements": 32,
+      "seconds": 7.64160007238388e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010364799946546554,
+       "matmul.inner": 0.0001884160041809082,
+       "reduce+contract": 0.0002887359857559204,
+       "matmul.fold": 0.00012572799623012542
+      },
+      "seconds_matmul_only": 0.00011606399901211261,
+      "macs_performed": 101376,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 16,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 32,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 48,
+      "utilisation.round": 1.3407106147173496e-06,
+      "utilisation.matmul_only": 8.82717674530647e-07
+     },
+     {
+      "i": 25,
+      "kind": "ext",
+      "table_elements": 16,
+      "seconds": 7.648000121116638e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00011872000247240066,
+       "matmul.inner": 0.00017846399545669555,
+       "reduce+contract": 0.00030953601002693177,
+       "matmul.fold": 0.0001321280002593994
+      },
+      "seconds_matmul_only": 0.00015142399817705154,
+      "macs_performed": 50688,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 8,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 24,
+      "utilisation.round": 6.697943363116801e-07,
+      "utilisation.matmul_only": 3.382942748114083e-07
+     },
+     {
+      "i": 26,
+      "kind": "ext",
+      "table_elements": 8,
+      "seconds": 7.615999877452851e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010364799946546554,
+       "matmul.inner": 0.00017430399358272554,
+       "reduce+contract": 0.00028041601181030276,
+       "matmul.fold": 0.00012569600343704225
+      },
+      "seconds_matmul_only": 0.00014361599832773207,
+      "macs_performed": 25344,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 4,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12,
+      "utilisation.round": 3.363043098517093e-07,
+      "utilisation.matmul_only": 1.7834319382528716e-07
+     },
+     {
+      "i": 27,
+      "kind": "ext",
+      "table_elements": 4,
+      "seconds": 7.619199901819228e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010342399775981904,
+       "matmul.inner": 0.00017107200622558594,
+       "reduce+contract": 0.00027481600642204285,
+       "matmul.fold": 0.00013977600634098054
+      },
+      "seconds_matmul_only": 0.00014368000254034996,
+      "macs_performed": 12672,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 2,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6,
+      "utilisation.round": 1.6808153189457114e-07,
+      "utilisation.matmul_only": 8.91318742111725e-08
+     },
+     {
+      "i": 28,
+      "kind": "ext",
+      "table_elements": 2,
+      "seconds": 7.702399790287018e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010652799904346466,
+       "matmul.inner": 0.00019158400595188142,
+       "reduce+contract": 0.00028303998708724973,
+       "matmul.fold": 0.00012643200159072877
+      },
+      "seconds_matmul_only": 0.00014371199905872345,
+      "macs_performed": 6336,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 1,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3,
+      "utilisation.round": 8.313297324060483e-08,
+      "utilisation.matmul_only": 4.4556014796838407e-08
+     }
+    ],
+    "mac_model": {
+     "packed_rounds": 115964116992,
+     "fold_k": 103079215104,
+     "ext_rounds": 425201755968,
+     "total": 644245088064,
+     "ordinary_eq_table_model": 4947802324992,
+     "ordinary_eq_table_model_first_round_credited": 4432406249472
+    }
+   },
+   {
+    "log2_t": 28,
+    "k": 3,
+    "seconds": 0.017688000068068508,
+    "seconds_matmul_only": 0.0760432332213968,
+    "macs_performed": 586263029568,
+    "macs_padded": 786432,
+    "utilisation.round_graphed": 0.03349638797330652,
+    "utilisation.matmul_only": 0.007791411380772058,
+    "mem.peak_device_bytes": 18019292672,
+    "rounds": [
+     {
+      "i": 1,
+      "kind": "packed",
+      "table_elements": 268435456,
+      "seconds": 0.002653599977493286,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0026699841022491456,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00010688000172376633
+      },
+      "seconds_matmul_only": 0.00257859206199646,
+      "macs_performed": 38654705664,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.packed.fused",
+        "M": 196608,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 402653184,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.014721467933597042,
+      "utilisation.matmul_only": 0.015149696438224308
+     },
+     {
+      "i": 2,
+      "kind": "packed",
+      "table_elements": 134217728,
+      "seconds": 0.002033152103424072,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.002048255920410156,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00010339199751615525
+      },
+      "seconds_matmul_only": 0.001962720036506653,
+      "macs_performed": 77309411328,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.packed.fused",
+        "M": 393216,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 805306368,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.038427904052501814,
+      "utilisation.matmul_only": 0.03980688661719771
+     },
+     {
+      "i": 3,
+      "kind": "packed",
+      "table_elements": 67108864,
+      "seconds": 0.003512095928192139,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0034881279468536378,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00013439999520778657
+      },
+      "seconds_matmul_only": 0.003416800022125244,
+      "macs_performed": 154618822656,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.packed.fused",
+        "M": 786432,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 1610612736,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.044491822291847255,
+      "utilisation.matmul_only": 0.0457327168394982
+     },
+     {
+      "i": 3,
+      "kind": "fold_k",
+      "table_elements": 268435456,
+      "seconds": 0.0018492480516433716,
+      "timing": "cuda_graph",
+      "segments_eager": {},
+      "seconds_matmul_only": 0.03166969680786133,
+      "macs_performed": 103079215104,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "fold_k",
+        "M": 33554432,
+        "K": 32,
+        "N": 48
+       },
+       {
+        "label": "fold_k",
+        "M": 33554432,
+        "K": 32,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.05633264388019111,
+      "utilisation.matmul_only": 0.0032893599383466334
+     },
+     {
+      "i": 4,
+      "kind": "ext",
+      "table_elements": 33554432,
+      "seconds": 0.0027878079414367677,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0018494080305099488,
+       "matmul.inner": 0.0,
+       "reduce+contract": 8.339200168848037e-05,
+       "matmul.fold": 0.002746367931365967
+      },
+      "seconds_matmul_only": 0.017572800397872925,
+      "macs_performed": 106300440576,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 147456,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 33554432,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 50331648,
+      "utilisation.round": 0.03853509332213984,
+      "utilisation.matmul_only": 0.0061133363354239165
+     },
+     {
+      "i": 5,
+      "kind": "ext",
+      "table_elements": 16777216,
+      "seconds": 0.0014719040393829346,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0010188800096511842,
+       "matmul.inner": 0.0,
+       "reduce+contract": 7.53600001335144e-05,
+       "matmul.fold": 0.0004956800043582916
+      },
+      "seconds_matmul_only": 0.008931616067886353,
+      "macs_performed": 53150220288,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 73728,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16777216,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 25165824,
+      "utilisation.round": 0.03649301731399065,
+      "utilisation.matmul_only": 0.006013941842715768
+     },
+     {
+      "i": 6,
+      "kind": "ext",
+      "table_elements": 8388608,
+      "seconds": 0.0007935680150985717,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0005891839861869812,
+       "matmul.inner": 0.0,
+       "reduce+contract": 7.459200173616409e-05,
+       "matmul.fold": 0.000252703994512558
+      },
+      "seconds_matmul_only": 0.0044998078942298896,
+      "macs_performed": 26575110144,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 36864,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8388608,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12582912,
+      "utilisation.round": 0.033843488252901795,
+      "utilisation.matmul_only": 0.005968501417872976
+     },
+     {
+      "i": 7,
+      "kind": "ext",
+      "table_elements": 4194304,
+      "seconds": 0.00046329599618911743,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0003792639970779419,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00014972800016403197,
+       "matmul.fold": 0.0001589760035276413
+      },
+      "seconds_matmul_only": 0.0017395519614219665,
+      "macs_performed": 13287555072,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 18432,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4194304,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6291456,
+      "utilisation.round": 0.028984828293124328,
+      "utilisation.matmul_only": 0.007719548019397255
+     },
+     {
+      "i": 8,
+      "kind": "ext",
+      "table_elements": 2097152,
+      "seconds": 0.00029651200771331786,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0002444799989461899,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.000250432014465332,
+       "matmul.fold": 0.00012326399981975555
+      },
+      "seconds_matmul_only": 0.0008979199826717377,
+      "macs_performed": 6643777536,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 9216,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2097152,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3145728,
+      "utilisation.round": 0.022644200823423194,
+      "utilisation.matmul_only": 0.007477589962124039
+     },
+     {
+      "i": 9,
+      "kind": "ext",
+      "table_elements": 1048576,
+      "seconds": 0.00021091200411319733,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0004824959933757782,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0003259199857711792,
+       "matmul.fold": 0.00011695999652147293
+      },
+      "seconds_matmul_only": 0.00048179198801517485,
+      "macs_performed": 3321888768,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 4608,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 1048576,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 1572864,
+      "utilisation.round": 0.015917248232142342,
+      "utilisation.matmul_only": 0.0069680252227495515
+     },
+     {
+      "i": 10,
+      "kind": "ext",
+      "table_elements": 524288,
+      "seconds": 0.0001669439971446991,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00018614399433135987,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00026879999041557313,
+       "matmul.fold": 0.00011395200341939927
+      },
+      "seconds_matmul_only": 0.00027187199890613557,
+      "macs_performed": 1660944384,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 2304,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 524288,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 786432,
+      "utilisation.round": 0.010054685349658246,
+      "utilisation.matmul_only": 0.006174116382186619
+     },
+     {
+      "i": 11,
+      "kind": "ext",
+      "table_elements": 262144,
+      "seconds": 0.00010559999942779541,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017228800058364868,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023676800727844238,
+       "matmul.fold": 0.00012697599828243256
+      },
+      "seconds_matmul_only": 0.000170975998044014,
+      "macs_performed": 830472192,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 1152,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 262144,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 393216,
+      "utilisation.round": 0.007947771644884928,
+      "utilisation.matmul_only": 0.004908786559245829
+     },
+     {
+      "i": 12,
+      "kind": "ext",
+      "table_elements": 131072,
+      "seconds": 9.12640020251274e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017260800302028656,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002571200132369995,
+       "matmul.fold": 0.00012646399438381194
+      },
+      "seconds_matmul_only": 0.00012041600048542022,
+      "macs_performed": 415236096,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 576,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 131072,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 196608,
+      "utilisation.round": 0.004598114604491153,
+      "utilisation.matmul_only": 0.0034849383710170486
+     },
+     {
+      "i": 13,
+      "kind": "ext",
+      "table_elements": 65536,
+      "seconds": 8.454400300979614e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00016803200542926788,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023235200345516206,
+       "matmul.fold": 0.00045689600706100465
+      },
+      "seconds_matmul_only": 9.807999804615974e-05,
+      "macs_performed": 207618048,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 288,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 65536,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 98304,
+      "utilisation.round": 0.002481798386855567,
+      "utilisation.matmul_only": 0.0021392860365808263
+     },
+     {
+      "i": 14,
+      "kind": "ext",
+      "table_elements": 32768,
+      "seconds": 8.33280012011528e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017865599691867828,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.000234047994017601,
+       "matmul.fold": 0.00048211199045181276
+      },
+      "seconds_matmul_only": 8.739200234413147e-05,
+      "macs_performed": 103809024,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 144,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 32768,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 49152,
+      "utilisation.round": 0.001259007580066144,
+      "utilisation.matmul_only": 0.0012004597941456486
+     },
+     {
+      "i": 15,
+      "kind": "ext",
+      "table_elements": 16384,
+      "seconds": 8.326400071382522e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017068800330162048,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.000226175993680954,
+       "matmul.fold": 0.00013184000551700592
+      },
+      "seconds_matmul_only": 9.164800122380257e-05,
+      "macs_performed": 51904512,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16384,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 24576,
+      "utilisation.round": 0.0006299876551967835,
+      "utilisation.matmul_only": 0.0005723561002046438
+     },
+     {
+      "i": 16,
+      "kind": "ext",
+      "table_elements": 8192,
+      "seconds": 8.243200182914733e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017235200107097625,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00022524799406528474,
+       "matmul.fold": 0.00012646399438381194
+      },
+      "seconds_matmul_only": 9.305599890649319e-05,
+      "macs_performed": 25952256,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 4096,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8192,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12288,
+      "utilisation.round": 0.0003181731087929146,
+      "utilisation.matmul_only": 0.0002818479903950925
+     },
+     {
+      "i": 17,
+      "kind": "ext",
+      "table_elements": 4096,
+      "seconds": 8.073599636554718e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00016467200219631194,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00022153599560260773,
+       "matmul.fold": 0.00012310399860143663
+      },
+      "seconds_matmul_only": 8.860800229012965e-05,
+      "macs_performed": 12976128,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 2048,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4096,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6144,
+      "utilisation.round": 0.000162428454881838,
+      "utilisation.matmul_only": 0.0001479981807970668
+     },
+     {
+      "i": 18,
+      "kind": "ext",
+      "table_elements": 2048,
+      "seconds": 7.980799674987792e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017500799894332885,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023839999735355378,
+       "matmul.fold": 0.00013305599987506865
+      },
+      "seconds_matmul_only": 8.94400030374527e-05,
+      "macs_performed": 6488064,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 1024,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2048,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3072,
+      "utilisation.round": 8.215857857014544e-05,
+      "utilisation.matmul_only": 7.33107261719912e-05
+     },
+     {
+      "i": 19,
+      "kind": "ext",
+      "table_elements": 1024,
+      "seconds": 7.983999699354171e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00016537599265575409,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023606400191783904,
+       "matmul.fold": 0.000130048006772995
+      },
+      "seconds_matmul_only": 8.764800056815147e-05,
+      "macs_performed": 3244032,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 512,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 1024,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 1536,
+      "utilisation.round": 4.106282451407876e-05,
+      "utilisation.matmul_only": 3.7404798335373174e-05
+     },
+     {
+      "i": 20,
+      "kind": "ext",
+      "table_elements": 512,
+      "seconds": 7.968000322580337e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00016684800386428832,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002279359996318817,
+       "matmul.fold": 0.0001321599930524826
+      },
+      "seconds_matmul_only": 8.86400006711483e-05,
+      "macs_performed": 1622016,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 256,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 512,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 768,
+      "utilisation.round": 2.0572638384938545e-05,
+      "utilisation.matmul_only": 1.849309431930935e-05
+     },
+     {
+      "i": 21,
+      "kind": "ext",
+      "table_elements": 256,
+      "seconds": 6.675200164318084e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00012377600371837617,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002654719948768616,
+       "matmul.fold": 0.00012409599870443345
+      },
+      "seconds_matmul_only": 8.742399886250496e-05,
+      "macs_performed": 811008,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 128,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 256,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 384,
+      "utilisation.round": 1.2278492423624929e-05,
+      "utilisation.matmul_only": 9.375159648400808e-06
+     },
+     {
+      "i": 22,
+      "kind": "ext",
+      "table_elements": 128,
+      "seconds": 7.622399926185607e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00011667200177907943,
+       "matmul.inner": 0.00019945600628852844,
+       "reduce+contract": 0.00029888001084327697,
+       "matmul.fold": 0.00012953600287437438
+      },
+      "seconds_matmul_only": 0.00011478399857878685,
+      "macs_performed": 405504,
+      "macs_padded": 196608,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 64,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 128,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 192,
+      "utilisation.round": 5.376350981151845e-06,
+      "utilisation.matmul_only": 3.570244792766206e-06
+     },
+     {
+      "i": 23,
+      "kind": "ext",
+      "table_elements": 64,
+      "seconds": 7.603199779987336e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00011276800185441971,
+       "matmul.inner": 0.00018908800184726715,
+       "reduce+contract": 0.00030300799012184144,
+       "matmul.fold": 0.00012486399710178375
+      },
+      "seconds_matmul_only": 0.00011443199776113034,
+      "macs_performed": 202752,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 32,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 64,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 96,
+      "utilisation.round": 2.6949638644078873e-06,
+      "utilisation.matmul_only": 1.7906135575568814e-06
+     },
+     {
+      "i": 24,
+      "kind": "ext",
+      "table_elements": 32,
+      "seconds": 7.651200145483017e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010617599636316299,
+       "matmul.inner": 0.00017363199591636657,
+       "reduce+contract": 0.0002829760015010834,
+       "matmul.fold": 0.00012348800152540206
+      },
+      "seconds_matmul_only": 0.00011558400094509124,
+      "macs_performed": 101376,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 16,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 32,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 48,
+      "utilisation.round": 1.3390284054349699e-06,
+      "utilisation.matmul_only": 8.863834308121031e-07
+     },
+     {
+      "i": 25,
+      "kind": "ext",
+      "table_elements": 16,
+      "seconds": 7.542400062084198e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00011689600348472595,
+       "matmul.inner": 0.0001732800006866455,
+       "reduce+contract": 0.0003036159873008728,
+       "matmul.fold": 0.00013100799918174745
+      },
+      "seconds_matmul_only": 0.0001422399990260601,
+      "macs_performed": 50688,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 8,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 24,
+      "utilisation.round": 6.791720305299529e-07,
+      "utilisation.matmul_only": 3.6013689540988026e-07
+     },
+     {
+      "i": 26,
+      "kind": "ext",
+      "table_elements": 8,
+      "seconds": 7.676800340414048e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0001090560033917427,
+       "matmul.inner": 0.00017724800109863282,
+       "reduce+contract": 0.00029859200119972226,
+       "matmul.fold": 0.000130048006772995
+      },
+      "seconds_matmul_only": 0.00014031999930739402,
+      "macs_performed": 25344,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 4,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12,
+      "utilisation.round": 3.3364077076926304e-07,
+      "utilisation.matmul_only": 1.8253232577392969e-07
+     },
+     {
+      "i": 27,
+      "kind": "ext",
+      "table_elements": 4,
+      "seconds": 7.558400183916092e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010655999928712845,
+       "matmul.inner": 0.0001725759953260422,
+       "reduce+contract": 0.0003044799864292145,
+       "matmul.fold": 0.0001335040032863617
+      },
+      "seconds_matmul_only": 0.00014659199863672256,
+      "macs_performed": 12672,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 2,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6,
+      "utilisation.round": 1.6943357855461212e-07,
+      "utilisation.matmul_only": 8.736130233699732e-08
+     },
+     {
+      "i": 28,
+      "kind": "ext",
+      "table_elements": 2,
+      "seconds": 7.516799867153168e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010758399963378906,
+       "matmul.inner": 0.00018828800320625305,
+       "reduce+contract": 0.0002913599908351898,
+       "matmul.fold": 0.0001438080072402954
+      },
+      "seconds_matmul_only": 0.00014278400316834451,
+      "macs_performed": 6336,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 1,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3,
+      "utilisation.round": 8.518563843271246e-08,
+      "utilisation.matmul_only": 4.48455976471972e-08
+     }
+    ],
+    "mac_model": {
+     "packed_rounds": 270582939648,
+     "fold_k": 103079215104,
+     "ext_rounds": 212600874816,
+     "total": 586263029568,
+     "ordinary_eq_table_model": 4947802324992,
+     "ordinary_eq_table_model_first_round_credited": 4432406249472
+    }
+   },
+   {
+    "log2_t": 28,
+    "k": 4,
+    "seconds": 0.030962559826672075,
+    "seconds_matmul_only": 0.05239408005587756,
+    "macs_performed": 789200234304,
+    "macs_padded": 412317646848,
+    "utilisation.round_graphed": 0.025759329133228245,
+    "utilisation.matmul_only": 0.015222612335819502,
+    "mem.peak_device_bytes": 15871759872,
+    "rounds": [
+     {
+      "i": 1,
+      "kind": "packed",
+      "table_elements": 268435456,
+      "seconds": 0.0026533119678497316,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0026616959571838378,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0001074879989027977
+      },
+      "seconds_matmul_only": 0.0025770881175994874,
+      "macs_performed": 38654705664,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.packed.fused",
+        "M": 196608,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 402653184,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.01472306590804691,
+      "utilisation.matmul_only": 0.015158537541063789
+     },
+     {
+      "i": 2,
+      "kind": "packed",
+      "table_elements": 134217728,
+      "seconds": 0.0020312960147857665,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0020445759296417237,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00010288000106811523
+      },
+      "seconds_matmul_only": 0.0019637440443038942,
+      "macs_performed": 77309411328,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.packed.fused",
+        "M": 393216,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 805306368,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.03846301739668531,
+      "utilisation.matmul_only": 0.03978612904321645
+     },
+     {
+      "i": 3,
+      "kind": "packed",
+      "table_elements": 67108864,
+      "seconds": 0.0035132160186767576,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.003495743989944458,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0001327359974384308
+      },
+      "seconds_matmul_only": 0.0034112958908081056,
+      "macs_performed": 154618822656,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.packed.fused",
+        "M": 786432,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 1610612736,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.044477637321003585,
+      "utilisation.matmul_only": 0.0458065066504766
+     },
+     {
+      "i": 4,
+      "kind": "packed",
+      "table_elements": 33554432,
+      "seconds": 0.015778783798217774,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.008626688003540038,
+       "matmul.inner": 0.009452927589416503,
+       "reduce+contract": 0.0003370560109615326
+      },
+      "seconds_matmul_only": 0.009505120277404785,
+      "macs_performed": 309237645312,
+      "macs_padded": 412316860416,
+      "matmuls": [
+       {
+        "label": "inner.packed",
+        "M": 1572864,
+        "K": 8192,
+        "N": 24
+       }
+      ],
+      "hadamard_base": 3221225472,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.019806285440921573,
+      "utilisation.matmul_only": 0.032879025903648856
+     },
+     {
+      "i": 4,
+      "kind": "fold_k",
+      "table_elements": 268435456,
+      "seconds": 0.002117408037185669,
+      "timing": "cuda_graph",
+      "segments_eager": {},
+      "seconds_matmul_only": 0.01603116798400879,
+      "macs_performed": 103079215104,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "fold_k",
+        "M": 16777216,
+        "K": 64,
+        "N": 48
+       },
+       {
+        "label": "fold_k",
+        "M": 16777216,
+        "K": 64,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 0,
+      "utilisation.round": 0.04919837372385902,
+      "utilisation.matmul_only": 0.006498156094632449
+     },
+     {
+      "i": 5,
+      "kind": "ext",
+      "table_elements": 16777216,
+      "seconds": 0.0014691519737243652,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0010304319858551025,
+       "matmul.inner": 0.0,
+       "reduce+contract": 7.676800340414048e-05,
+       "matmul.fold": 0.00044755199551582334
+      },
+      "seconds_matmul_only": 0.008921855926513672,
+      "macs_performed": 53150220288,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 73728,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16777216,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 25165824,
+      "utilisation.round": 0.036561377280504403,
+      "utilisation.matmul_only": 0.0060205208463530654
+     },
+     {
+      "i": 6,
+      "kind": "ext",
+      "table_elements": 8388608,
+      "seconds": 0.0007978240251541137,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.000579904019832611,
+       "matmul.inner": 0.0,
+       "reduce+contract": 7.302399724721908e-05,
+       "matmul.fold": 0.00024988800287246705
+      },
+      "seconds_matmul_only": 0.004525023877620697,
+      "macs_performed": 26575110144,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 36864,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8388608,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12582912,
+      "utilisation.round": 0.03366294941002708,
+      "utilisation.matmul_only": 0.005935241564070783
+     },
+     {
+      "i": 7,
+      "kind": "ext",
+      "table_elements": 4194304,
+      "seconds": 0.00046380800008773805,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0003683199882507324,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00013171200454235076,
+       "matmul.fold": 0.00015718400478363038
+      },
+      "seconds_matmul_only": 0.0017275839447975158,
+      "macs_performed": 13287555072,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 18432,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4194304,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6291456,
+      "utilisation.round": 0.028952831550756536,
+      "utilisation.matmul_only": 0.0077730259874622
+     },
+     {
+      "i": 8,
+      "kind": "ext",
+      "table_elements": 2097152,
+      "seconds": 0.0002976000010967255,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00024963200092315674,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002613759934902191,
+       "matmul.fold": 0.00012240000069141388
+      },
+      "seconds_matmul_only": 0.0009006399810314178,
+      "macs_performed": 6643777536,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 9216,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2097152,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3145728,
+      "utilisation.round": 0.022561416076858524,
+      "utilisation.matmul_only": 0.007455007095651637
+     },
+     {
+      "i": 9,
+      "kind": "ext",
+      "table_elements": 1048576,
+      "seconds": 0.00020982399582862853,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00020422400534152985,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00027798399329185484,
+       "matmul.fold": 0.00011952000111341476
+      },
+      "seconds_matmul_only": 0.00048048000782728193,
+      "macs_performed": 3321888768,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 4608,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 1048576,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 1572864,
+      "utilisation.round": 0.0159997845401357,
+      "utilisation.matmul_only": 0.00698705184382027
+     },
+     {
+      "i": 10,
+      "kind": "ext",
+      "table_elements": 524288,
+      "seconds": 0.00016812799870967866,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0001796160042285919,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002645759880542755,
+       "matmul.fold": 0.00010569600015878677
+      },
+      "seconds_matmul_only": 0.0002747199982404709,
+      "macs_performed": 1660944384,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 2304,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 524288,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 786432,
+      "utilisation.round": 0.009983877612215718,
+      "utilisation.matmul_only": 0.006110109832029376
+     },
+     {
+      "i": 11,
+      "kind": "ext",
+      "table_elements": 262144,
+      "seconds": 0.00010976000130176544,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0001857600063085556,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00025334399938583375,
+       "matmul.fold": 0.0001383039951324463
+      },
+      "seconds_matmul_only": 0.0001708800047636032,
+      "macs_performed": 830472192,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 1152,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 262144,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 393216,
+      "utilisation.round": 0.007646544016017587,
+      "utilisation.matmul_only": 0.004911544111396592
+     },
+     {
+      "i": 12,
+      "kind": "ext",
+      "table_elements": 131072,
+      "seconds": 9.414400160312652e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00025167998671531675,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002873919904232025,
+       "matmul.fold": 0.00013814400136470795
+      },
+      "seconds_matmul_only": 0.0001316160038113594,
+      "macs_performed": 415236096,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 576,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 131072,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 196608,
+      "utilisation.round": 0.004457451706218022,
+      "utilisation.matmul_only": 0.0031883838471308333
+     },
+     {
+      "i": 13,
+      "kind": "ext",
+      "table_elements": 65536,
+      "seconds": 8.476799726486206e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00021091200411319733,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002641279995441437,
+       "matmul.fold": 0.0005061439871788025
+      },
+      "seconds_matmul_only": 0.00010070399940013885,
+      "macs_performed": 207618048,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 288,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 65536,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 98304,
+      "utilisation.round": 0.0024752403862088068,
+      "utilisation.matmul_only": 0.002083543568655278
+     },
+     {
+      "i": 14,
+      "kind": "ext",
+      "table_elements": 32768,
+      "seconds": 8.175999671220779e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017427200078964233,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023452800512313842,
+       "matmul.fold": 0.0005428159832954407
+      },
+      "seconds_matmul_only": 9.081600233912468e-05,
+      "macs_performed": 103809024,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 144,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 32768,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 49152,
+      "utilisation.round": 0.00128315300101214,
+      "utilisation.matmul_only": 0.0011551993309753441
+     },
+     {
+      "i": 15,
+      "kind": "ext",
+      "table_elements": 16384,
+      "seconds": 8.320000022649766e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00020336000621318817,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00024236799776554107,
+       "matmul.fold": 0.00012768000364303588
+      },
+      "seconds_matmul_only": 8.870400115847587e-05,
+      "macs_performed": 51904512,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 8192,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16384,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 24576,
+      "utilisation.round": 0.0006304722647741054,
+      "utilisation.matmul_only": 0.0005913520459837096
+     },
+     {
+      "i": 16,
+      "kind": "ext",
+      "table_elements": 8192,
+      "seconds": 8.284799754619598e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00017334400117397308,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00023414400219917299,
+       "matmul.fold": 0.00014511999487876892
+      },
+      "seconds_matmul_only": 9.06239990144968e-05,
+      "macs_performed": 25952256,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 4096,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8192,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12288,
+      "utilisation.round": 0.00031657550046853595,
+      "utilisation.matmul_only": 0.0002894117073978107
+     },
+     {
+      "i": 17,
+      "kind": "ext",
+      "table_elements": 4096,
+      "seconds": 8.076799660921096e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00023203200101852418,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00025094398856163023,
+       "matmul.fold": 0.00012617599964141846
+      },
+      "seconds_matmul_only": 8.921599760651589e-05,
+      "macs_performed": 12976128,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 2048,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4096,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6144,
+      "utilisation.round": 0.00016236410080160374,
+      "utilisation.matmul_only": 0.0001469895926158847
+     },
+     {
+      "i": 18,
+      "kind": "ext",
+      "table_elements": 2048,
+      "seconds": 8.102399855852127e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00019827200472354888,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00028361600637435915,
+       "matmul.fold": 0.000138047993183136
+      },
+      "seconds_matmul_only": 8.81279967725277e-05,
+      "macs_performed": 6488064,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 1024,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2048,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3072,
+      "utilisation.round": 8.092554907377094e-05,
+      "utilisation.matmul_only": 7.440214020097591e-05
+     },
+     {
+      "i": 19,
+      "kind": "ext",
+      "table_elements": 1024,
+      "seconds": 8.14720019698143e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.0002045760005712509,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.0002611519992351532,
+       "matmul.fold": 0.00015347200632095337
+      },
+      "seconds_matmul_only": 9.081600047647953e-05,
+      "macs_performed": 3244032,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 512,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 1024,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 1536,
+      "utilisation.round": 4.024027526615904e-05,
+      "utilisation.matmul_only": 3.609997983339365e-05
+     },
+     {
+      "i": 20,
+      "kind": "ext",
+      "table_elements": 512,
+      "seconds": 7.910399883985519e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00020268799364566803,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00024067200720310212,
+       "matmul.fold": 0.00012726399302482604
+      },
+      "seconds_matmul_only": 9.152000024914741e-05,
+      "macs_performed": 1622016,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 256,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 512,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 768,
+      "utilisation.round": 2.0722440292731354e-05,
+      "utilisation.matmul_only": 1.7911143885627996e-05
+     },
+     {
+      "i": 21,
+      "kind": "ext",
+      "table_elements": 256,
+      "seconds": 6.646399945020676e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00016236799955368042,
+       "matmul.inner": 0.0,
+       "reduce+contract": 0.00029497599601745607,
+       "matmul.fold": 0.0001374399960041046
+      },
+      "seconds_matmul_only": 8.88959988951683e-05,
+      "macs_performed": 811008,
+      "macs_padded": 0,
+      "matmuls": [
+       {
+        "label": "inner.ext.fused",
+        "M": 72,
+        "K": 128,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 256,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 384,
+      "utilisation.round": 1.2331697659145985e-05,
+      "utilisation.matmul_only": 9.21991941846713e-06
+     },
+     {
+      "i": 22,
+      "kind": "ext",
+      "table_elements": 128,
+      "seconds": 7.628799974918365e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00014211200177669526,
+       "matmul.inner": 0.00020707200467586518,
+       "reduce+contract": 0.0003603520095348358,
+       "matmul.fold": 0.00013660800457000733
+      },
+      "seconds_matmul_only": 0.00011907199956476688,
+      "macs_performed": 405504,
+      "macs_padded": 196608,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 64,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 128,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 192,
+      "utilisation.round": 5.371840585231528e-06,
+      "utilisation.matmul_only": 3.4416737328400276e-06
+     },
+     {
+      "i": 23,
+      "kind": "ext",
+      "table_elements": 64,
+      "seconds": 7.622399926185607e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00013702400028705596,
+       "matmul.inner": 0.00021855999529361725,
+       "reduce+contract": 0.00035014399886131286,
+       "matmul.fold": 0.00014057600498199464
+      },
+      "seconds_matmul_only": 0.00011590400151908398,
+      "macs_performed": 202752,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 32,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 64,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 96,
+      "utilisation.round": 2.6881754905759224e-06,
+      "utilisation.matmul_only": 1.7678724109940297e-06
+     },
+     {
+      "i": 24,
+      "kind": "ext",
+      "table_elements": 32,
+      "seconds": 7.680000364780426e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00011814399808645249,
+       "matmul.inner": 0.00021449600160121919,
+       "reduce+contract": 0.0003377920091152191,
+       "matmul.fold": 0.0001339839994907379
+      },
+      "seconds_matmul_only": 0.00011795200221240521,
+      "macs_performed": 101376,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 16,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 32,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 48,
+      "utilisation.round": 1.3340070109180061e-06,
+      "utilisation.matmul_only": 8.685884205696367e-07
+     },
+     {
+      "i": 25,
+      "kind": "ext",
+      "table_elements": 16,
+      "seconds": 7.638400048017501e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00010655999928712845,
+       "matmul.inner": 0.0001781120002269745,
+       "reduce+contract": 0.00031388801336288454,
+       "matmul.fold": 0.00013219200074672698
+      },
+      "seconds_matmul_only": 0.0001446079984307289,
+      "macs_performed": 50688,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 8,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 16,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 24,
+      "utilisation.round": 6.706361454012222e-07,
+      "utilisation.matmul_only": 3.5423954558701836e-07
+     },
+     {
+      "i": 26,
+      "kind": "ext",
+      "table_elements": 8,
+      "seconds": 7.574400305747986e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00013382400572299957,
+       "matmul.inner": 0.00020140799880027772,
+       "reduce+contract": 0.0003104960024356842,
+       "matmul.fold": 0.0001345919966697693
+      },
+      "seconds_matmul_only": 0.00014559999853372573,
+      "macs_performed": 25344,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 4,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 8,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 12,
+      "utilisation.round": 3.381513359775552e-07,
+      "utilisation.matmul_only": 1.7591302255571137e-07
+     },
+     {
+      "i": 27,
+      "kind": "ext",
+      "table_elements": 4,
+      "seconds": 7.548800110816955e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00011769600212574005,
+       "matmul.inner": 0.00019094400107860565,
+       "reduce+contract": 0.0003063679933547974,
+       "matmul.fold": 0.0001313599944114685
+      },
+      "seconds_matmul_only": 0.0001466879993677139,
+      "macs_performed": 12672,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 2,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 4,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 6,
+      "utilisation.round": 1.6964905316192643e-07,
+      "utilisation.matmul_only": 8.730412827421878e-08
+     },
+     {
+      "i": 28,
+      "kind": "ext",
+      "table_elements": 2,
+      "seconds": 7.996799796819687e-05,
+      "timing": "cuda_graph",
+      "segments_eager": {
+       "hadamard+limbs": 0.00014838400483131408,
+       "matmul.inner": 0.00022243200242519378,
+       "reduce+contract": 0.00031968000531196596,
+       "matmul.fold": 0.0001425600051879883
+      },
+      "seconds_matmul_only": 0.00016361600160598756,
+      "macs_performed": 6336,
+      "macs_padded": 98304,
+      "matmuls": [
+       {
+        "label": "inner.ext",
+        "M": 72,
+        "K": 1,
+        "N": 24
+       },
+       {
+        "label": "fold.ext",
+        "M": 2,
+        "K": 48,
+        "N": 48
+       }
+      ],
+      "hadamard_base": 0,
+      "hadamard_ext": 3,
+      "utilisation.round": 8.007245547262873e-08,
+      "utilisation.matmul_only": 3.913574402070819e-08
+     }
+    ],
+    "mac_model": {
+     "packed_rounds": 579820584960,
+     "fold_k": 103079215104,
+     "ext_rounds": 106300434240,
+     "total": 789200234304,
+     "ordinary_eq_table_model": 4947802324992,
+     "ordinary_eq_table_model_first_round_credited": 4432406249472
+    }
+   }
+  ]
+ },
+ "logup": {
+  "k": 3,
+  "measured": {
+   "k": 3,
+   "total_ms": 427.37664794921875,
+   "wall_s": 0.4276384189724922,
+   "us_per_vu": 104.34000194072723,
+   "histogram_ms": 3.705120086669922,
+   "tree_ms": 12.565471649169922,
+   "big_packed_ms": 8.216416358947754,
+   "big_fold_k_ms": 2.3761279582977295,
+   "big_ext_ms": 29.376352310180664,
+   "levels_ms": {
+    "0": 0.27478399872779846,
+    "1": 0.8631680011749268,
+    "2": 1.3908159732818604,
+    "3": 1.9423999786376953,
+    "4": 2.6704320907592773,
+    "5": 3.249919891357422,
+    "6": 4.013120174407959,
+    "7": 4.7006402015686035,
+    "8": 5.799071788787842,
+    "9": 6.987135887145996,
+    "10": 8.118399620056152,
+    "11": 9.291584014892578,
+    "12": 10.502880096435547,
+    "13": 11.863231658935547,
+    "14": 12.951871871948242,
+    "15": 14.29308795928955,
+    "16": 15.82595157623291,
+    "17": 17.178144454956055,
+    "18": 18.772544860839844,
+    "19": 20.409536361694336,
+    "20": 21.957151412963867,
+    "21": 23.91494369506836,
+    "22": 26.380128860473633,
+    "23": 30.473407745361328,
+    "24": 36.50092697143555,
+    "25": 47.820865631103516,
+    "26": 51.17718505859375
+   },
+   "tail_levels_ms": 171.09872046113014,
+   "totals_ms": [
+    433.2833251953125,
+    427.37664794921875,
+    429.49072265625
+   ],
+   "mem.peak_device_bytes": 12450433024
+  },
+  "shape": {
+   "units": 393216,
+   "lookups": 306,
+   "Nw": 120324096,
+   "Nt": 65536,
+   "n": 27
+  },
+  "model_leaves": 145752064,
+  "measured_leaves": 134217728,
+  "leaf_scale": 1.0859375,
+  "seconds_per_batch_scaled": 0.46410432863235473,
+  "us_per_vu_scaled": 113.30672085750848,
+  "launch_overhead_ms_per_round": 0.9790560007095337,
+  "rounds": 351,
+  "seconds_per_batch_device_estimate": 0.090923365986906,
+  "launch_overhead_note": "171 ms of the 427 ms are the 20 smallest levels (host launch overhead of ~0.6 ms per round, not device work)"
+ },
+ "repriced": {
+  "A": {
+   "model@0.172": {
+    "overhead": 10701476.867624689,
+    "t.total": 0.43158891569024715,
+    "t.gkr_checker": 0.25722655038522513,
+    "t.logup": 0.08565586005776066
+   },
+   "measured (padded sumcheck)": {
+    "overhead": 17325551.696272578,
+    "t.total": 0.6987368344411813,
+    "t.gkr_checker": 0.1459260005615652,
+    "t.logup": 0.46410432863235473,
+    "share.sumcheck": 0.2088425761585481,
+    "share.logup": 0.6642047560059214,
+    "share.modelled": 0.1269526678355304
+   },
+   "estimate (padded, logUp device time)": {
+    "overhead": 8072331.110657738,
+    "t.total": 0.3255558717957326,
+    "t.gkr_checker": 0.1459260005615652,
+    "t.logup": 0.090923365986906,
+    "note": "logUp with the host launch overhead removed (0.98 ms/round x 351 rounds, from the slope of the smallest levels): an ESTIMATE of what CUDA graphs / a C++ launcher would leave"
+   },
+   "measured (unpadded sumcheck)": {
+    "overhead": 15851757.364414815,
+    "t.total": 0.6392989357749472,
+    "t.gkr_checker": 0.08648810189533107,
+    "t.logup": 0.46410432863235473,
+    "share.sumcheck": 0.1352858530735573,
+    "share.logup": 0.7259582374711376,
+    "share.modelled": 0.13875590945530503
+   },
+   "estimate (unpadded, logUp device time)": {
+    "overhead": 6598536.778799972,
+    "t.total": 0.2661179731294984,
+    "t.gkr_checker": 0.08648810189533107,
+    "t.logup": 0.090923365986906,
+    "note": "logUp with the host launch overhead removed (0.98 ms/round x 351 rounds, from the slope of the smallest levels): an ESTIMATE of what CUDA graphs / a C++ launcher would leave"
+   }
+  },
+  "A-hintfree-depth630": {
+   "model@0.172": {
+    "overhead": 10051185.170591244,
+    "t.total": 0.4053627515937648,
+    "t.gkr_checker": 0.25722655038522513,
+    "t.logup": 0.08565586005776066
+   },
+   "measured (padded sumcheck)": {
+    "overhead": 16675259.999239132,
+    "t.total": 0.6725106703446989,
+    "t.gkr_checker": 0.1459260005615652,
+    "t.logup": 0.46410432863235473,
+    "share.sumcheck": 0.21698689254516967,
+    "share.logup": 0.6901070110820332,
+    "share.modelled": 0.09290609637279701
+   },
+   "estimate (padded, logUp device time)": {
+    "overhead": 7422039.413624292,
+    "t.total": 0.2993297076992502,
+    "t.gkr_checker": 0.1459260005615652,
+    "t.logup": 0.090923365986906,
+    "note": "logUp with the host launch overhead removed (0.98 ms/round x 351 rounds, from the slope of the smallest levels): an ESTIMATE of what CUDA graphs / a C++ launcher would leave"
+   },
+   "measured (unpadded sumcheck)": {
+    "overhead": 15201465.667381367,
+    "t.total": 0.6130727716784647,
+    "t.gkr_checker": 0.08648810189533107,
+    "t.logup": 0.46410432863235473,
+    "share.sumcheck": 0.14107314154328657,
+    "share.logup": 0.7570134412620126,
+    "share.modelled": 0.10191341719470082
+   },
+   "estimate (unpadded, logUp device time)": {
+    "overhead": 5948245.081766526,
+    "t.total": 0.23989180903301605,
+    "t.gkr_checker": 0.08648810189533107,
+    "t.logup": 0.090923365986906,
+    "note": "logUp with the host launch overhead removed (0.98 ms/round x 351 rounds, from the slope of the smallest levels): an ESTIMATE of what CUDA graphs / a C++ launcher would leave"
+   }
+  }
+ },
+ "omitted": [
+  "Ligero encoding (modelled)",
+  "row combination (modelled)",
+  "hashing (modelled)",
+  "hint generation (modelled)",
+  "relation checker not assembled",
+  "logUp: the four small tables scaled from the 16-bit instance by leaf count",
+  "Fiat-Shamir host round trips (coins were independent of the transcript)"
+ ],
+ "fused_k4": {
+  "run_id": "r20260922-073702-b11f",
+  "ms": {
+   "2^26": {
+    "k3": 6.13,
+    "k4": 7.573
+   },
+   "2^28": {
+    "k3": 17.611,
+    "k4": 22.879
+   }
+  },
+  "peak_mem_gb_2^28": {
+   "k3": 18.19,
+   "k4": 11.04
+  },
+  "per_vu_us": {
+   "k3": 34.21,
+   "k4": 44.72
+  },
+  "verdict": "drop as default (k=3 stays); kernel kept as a memory lever"
+ }
+}

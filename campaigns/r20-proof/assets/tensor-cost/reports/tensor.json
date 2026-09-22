@@ -1,0 +1,3164 @@
+{
+ "meta": {
+  "lane": "explore-tensor",
+  "K": 1536,
+  "B": 4096,
+  "operating_points": [
+   -80,
+   -128
+  ],
+  "native_seconds_per_vu": 9.846153846153846e-12,
+  "native_reference": {
+   "device": "NVIDIA A100 SXM4 80GB",
+   "rate": "bf16 dense tensor-core peak",
+   "flop_per_second": 312000000000000.0,
+   "flop_per_vu": "2 * K"
+  },
+  "realistic_utilisation": {
+   "matmul_dense": 0.172,
+   "matmul_gather": 0.092,
+   "basis": "degree-2 sumcheck (dense, HBM-bound at ~80% of 3.35 TB/s) and the expander encoder (gather)"
+  }
+ },
+ "gpus": {
+  "A100": {
+   "name": "NVIDIA A100 SXM4 80GB",
+   "int8_tops": 624,
+   "bf16_tflops": 312,
+   "fp32_tflops": 19.5,
+   "hbm_bytes_per_s": 2039000000000.0,
+   "simt_field_mults_per_s": 100000000000.0,
+   "source": "NVIDIA A100 Tensor Core GPU datasheet: INT8 624 TOPS, BF16 312 TFLOPS, FP32 19.5 TFLOPS, HBM2e 2,039 GB/s"
+  },
+  "H100": {
+   "name": "NVIDIA H100 SXM5 80GB",
+   "int8_tops": 1979,
+   "bf16_tflops": 989,
+   "fp32_tflops": 67,
+   "hbm_bytes_per_s": 3350000000000.0,
+   "simt_field_mults_per_s": 343589743589.7436,
+   "source": "NVIDIA H100 Tensor Core GPU datasheet (SXM): INT8 1,979 TOPS, BF16 989 TFLOPS, FP32 67 TFLOPS, HBM3 3.35 TB/s"
+  }
+ },
+ "limb_options": {
+  "uint8_int32": {
+   "limb_bits": 8,
+   "accumulate": "INT32",
+   "max_inner_length": 33025,
+   "mma": "UINT8/INT8 MMA (A100, H100)",
+   "viable": true,
+   "note": "TensorZKP's configuration; chunk at 32,768 and add chunks in INT64"
+  },
+  "int16_int32": {
+   "limb_bits": 16,
+   "accumulate": "INT32",
+   "max_inner_length": 0,
+   "mma": "none: A100/H100 tensor cores have no INT16 MMA",
+   "viable": false,
+   "note": "a single 16 x 16-bit product exceeds 2^31; 12-bit limbs give N <= 128, 11-bit N <= 512"
+  },
+  "int12_int32": {
+   "limb_bits": 12,
+   "accumulate": "INT32",
+   "max_inner_length": 128,
+   "mma": "would need INT16 MMA (absent)",
+   "viable": false,
+   "note": "N <= 128 defeats deferred reduction; no instruction to run it on"
+  },
+  "bf16_fp32": {
+   "limb_bits": 8,
+   "accumulate": "FP32 (24-bit significand)",
+   "max_inner_length": 258,
+   "mma": "BF16 MMA (A100 312, H100 989 TFLOPS)",
+   "viable": false,
+   "note": "BF16 holds 8 significant bits so limbs are still 8-bit; exact sums only below 2^24 -> N < 256 at half the INT8 rate"
+  },
+  "fp16_fp32": {
+   "limb_bits": 11,
+   "accumulate": "FP32",
+   "max_inner_length": 4,
+   "mma": "FP16 MMA",
+   "viable": false,
+   "note": "11-bit limbs, N < 4 before the FP32 significand is exhausted"
+  },
+  "fp8_fp32": {
+   "limb_bits": 4,
+   "accumulate": "FP32",
+   "max_inner_length": 74565,
+   "mma": "Hopper FP8 (E4M3: 4 significant bits)",
+   "viable": false,
+   "note": "4-bit limbs quadruple the limb count (16x the MACs of 8-bit) for a 2x rate: never pays"
+  }
+ },
+ "price_list": {
+  "-80": {
+   "goldilocks": {
+    "bits": 64,
+    "limbs": 8,
+    "base_x_base_macs": 64,
+    "extension_degree": 2,
+    "challenge_bits": 128,
+    "challenge_limbs": 16,
+    "trace_x_challenge_macs": 128,
+    "challenge_x_challenge_macs": 256,
+    "reduction_words_per_inner_product": 256,
+    "simt_mults_vs_goldilocks": 1.0,
+    "simt_ext_mult_goldilocks_equiv": 3.0
+   },
+   "babybear": {
+    "bits": 31,
+    "limbs": 4,
+    "base_x_base_macs": 16,
+    "extension_degree": 4,
+    "challenge_bits": 124,
+    "challenge_limbs": 16,
+    "trace_x_challenge_macs": 64,
+    "challenge_x_challenge_macs": 256,
+    "reduction_words_per_inner_product": 256,
+    "simt_mults_vs_goldilocks": 0.5,
+    "simt_ext_mult_goldilocks_equiv": 4.5
+   },
+   "m31": {
+    "bits": 31,
+    "limbs": 4,
+    "base_x_base_macs": 16,
+    "extension_degree": 4,
+    "challenge_bits": 124,
+    "challenge_limbs": 16,
+    "trace_x_challenge_macs": 64,
+    "challenge_x_challenge_macs": 256,
+    "reduction_words_per_inner_product": 256,
+    "simt_mults_vs_goldilocks": 0.5,
+    "simt_ext_mult_goldilocks_equiv": 4.5
+   }
+  },
+  "-128": {
+   "goldilocks": {
+    "bits": 64,
+    "limbs": 8,
+    "base_x_base_macs": 64,
+    "extension_degree": 3,
+    "challenge_bits": 192,
+    "challenge_limbs": 24,
+    "trace_x_challenge_macs": 192,
+    "challenge_x_challenge_macs": 576,
+    "reduction_words_per_inner_product": 576,
+    "simt_mults_vs_goldilocks": 1.0,
+    "simt_ext_mult_goldilocks_equiv": 6.0
+   },
+   "babybear": {
+    "bits": 31,
+    "limbs": 4,
+    "base_x_base_macs": 16,
+    "extension_degree": 6,
+    "challenge_bits": 186,
+    "challenge_limbs": 24,
+    "trace_x_challenge_macs": 96,
+    "challenge_x_challenge_macs": 576,
+    "reduction_words_per_inner_product": 576,
+    "simt_mults_vs_goldilocks": 0.5,
+    "simt_ext_mult_goldilocks_equiv": 8.5
+   },
+   "m31": {
+    "bits": 31,
+    "limbs": 4,
+    "base_x_base_macs": 16,
+    "extension_degree": 6,
+    "challenge_bits": 186,
+    "challenge_limbs": 24,
+    "trace_x_challenge_macs": 96,
+    "challenge_x_challenge_macs": 576,
+    "reduction_words_per_inner_product": 576,
+    "simt_mults_vs_goldilocks": 0.5,
+    "simt_ext_mult_goldilocks_equiv": 8.5
+   }
+  }
+ },
+ "unit_price": {
+  "-80": {
+   "goldilocks": {
+    "field": "goldilocks",
+    "target_log2": -80,
+    "extension_degree": 2,
+    "challenge_limbs": 16,
+    "census": {
+     "mul": 358,
+     "lin": 137,
+     "lookup": 306,
+     "committed_A": 321,
+     "committed_B_estimate": 1064,
+     "carried_wires_gkr": 3338
+    },
+    "matmul_limb_macs": {
+     "gkr_checker": 27344896,
+     "logup_fractional_gkr": 5013504,
+     "encoding_rs_matrix_ntt_per_committed_element": 78643.2,
+     "encoding_A_committed_elements": 461,
+     "encoding_B_committed_elements": 1676,
+     "encoding_A_total": 36254515.199999996,
+     "total_A": 68612915.19999999
+    },
+    "simt_field_mults_goldilocks_equiv": {
+     "gkr_hadamards": 40056.0,
+     "logup_hadamards_and_tree": 13770.0,
+     "hint_generation_int_ops": 20000
+    },
+    "committed_bytes_A": 3688,
+    "committed_bytes_B_estimate": 13408,
+    "per_vu": {
+     "gkr_checker": 2625110016,
+     "logup_fractional_gkr": 481296384,
+     "total_A": 6586839859.199999,
+     "committed_bytes_A": 354048,
+     "committed_bytes_B_estimate": 1287168
+    }
+   },
+   "babybear": {
+    "field": "babybear",
+    "target_log2": -80,
+    "extension_degree": 4,
+    "challenge_limbs": 16,
+    "census": {
+     "mul": 327,
+     "lin": 147,
+     "lookup": 320,
+     "committed_A": 335,
+     "committed_B_estimate": 1112,
+     "carried_wires_gkr": 3307
+    },
+    "matmul_limb_macs": {
+     "gkr_checker": 27090944,
+     "logup_fractional_gkr": 5242880,
+     "encoding_rs_matrix_ntt_per_committed_element": 19660.8,
+     "encoding_A_committed_elements": 477,
+     "encoding_B_committed_elements": 2392,
+     "encoding_A_total": 9378201.6,
+     "total_A": 41712025.6
+    },
+    "simt_field_mults_goldilocks_equiv": {
+     "gkr_hadamards": 59526.0,
+     "logup_hadamards_and_tree": 21600.0,
+     "hint_generation_int_ops": 20000
+    },
+    "committed_bytes_A": 1908,
+    "committed_bytes_B_estimate": 9568,
+    "per_vu": {
+     "gkr_checker": 2600730624,
+     "logup_fractional_gkr": 503316480,
+     "total_A": 4004354457.6000004,
+     "committed_bytes_A": 183168,
+     "committed_bytes_B_estimate": 918528
+    }
+   },
+   "m31": {
+    "field": "m31",
+    "target_log2": -80,
+    "extension_degree": 4,
+    "challenge_limbs": 16,
+    "census": {
+     "mul": 327,
+     "lin": 145,
+     "lookup": 316,
+     "committed_A": 335,
+     "committed_B_estimate": 1110,
+     "carried_wires_gkr": 3307
+    },
+    "matmul_limb_macs": {
+     "gkr_checker": 27090944,
+     "logup_fractional_gkr": 5177344,
+     "encoding_rs_matrix_ntt_per_committed_element": 19660.8,
+     "encoding_A_committed_elements": 476,
+     "encoding_B_committed_elements": 2374,
+     "encoding_A_total": 9358540.799999999,
+     "total_A": 41626828.8
+    },
+    "simt_field_mults_goldilocks_equiv": {
+     "gkr_hadamards": 59526.0,
+     "logup_hadamards_and_tree": 21330.0,
+     "hint_generation_int_ops": 20000
+    },
+    "committed_bytes_A": 1904,
+    "committed_bytes_B_estimate": 9496,
+    "per_vu": {
+     "gkr_checker": 2600730624,
+     "logup_fractional_gkr": 497025024,
+     "total_A": 3996175564.7999997,
+     "committed_bytes_A": 182784,
+     "committed_bytes_B_estimate": 911616
+    }
+   }
+  },
+  "-128": {
+   "goldilocks": {
+    "field": "goldilocks",
+    "target_log2": -128,
+    "extension_degree": 3,
+    "challenge_limbs": 24,
+    "census": {
+     "mul": 358,
+     "lin": 137,
+     "lookup": 306,
+     "committed_A": 321,
+     "committed_B_estimate": 1064,
+     "carried_wires_gkr": 3338
+    },
+    "matmul_limb_macs": {
+     "gkr_checker": 61526016,
+     "logup_fractional_gkr": 11280384,
+     "encoding_rs_matrix_ntt_per_committed_element": 78643.2,
+     "encoding_A_committed_elements": 461,
+     "encoding_B_committed_elements": 1982,
+     "encoding_A_total": 36254515.199999996,
+     "total_A": 109060915.19999999
+    },
+    "simt_field_mults_goldilocks_equiv": {
+     "gkr_hadamards": 80112.0,
+     "logup_hadamards_and_tree": 27540.0,
+     "hint_generation_int_ops": 20000
+    },
+    "committed_bytes_A": 3688,
+    "committed_bytes_B_estimate": 15856,
+    "per_vu": {
+     "gkr_checker": 5906497536,
+     "logup_fractional_gkr": 1082916864,
+     "total_A": 10469847859.199999,
+     "committed_bytes_A": 354048,
+     "committed_bytes_B_estimate": 1522176
+    }
+   },
+   "babybear": {
+    "field": "babybear",
+    "target_log2": -128,
+    "extension_degree": 6,
+    "challenge_limbs": 24,
+    "census": {
+     "mul": 327,
+     "lin": 147,
+     "lookup": 320,
+     "committed_A": 335,
+     "committed_B_estimate": 1112,
+     "carried_wires_gkr": 3307
+    },
+    "matmul_limb_macs": {
+     "gkr_checker": 60954624,
+     "logup_fractional_gkr": 11796480,
+     "encoding_rs_matrix_ntt_per_committed_element": 19660.8,
+     "encoding_A_committed_elements": 477,
+     "encoding_B_committed_elements": 3032,
+     "encoding_A_total": 9378201.6,
+     "total_A": 82129305.6
+    },
+    "simt_field_mults_goldilocks_equiv": {
+     "gkr_hadamards": 112438.0,
+     "logup_hadamards_and_tree": 40800.0,
+     "hint_generation_int_ops": 20000
+    },
+    "committed_bytes_A": 1908,
+    "committed_bytes_B_estimate": 12128,
+    "per_vu": {
+     "gkr_checker": 5851643904,
+     "logup_fractional_gkr": 1132462080,
+     "total_A": 7884413337.599999,
+     "committed_bytes_A": 183168,
+     "committed_bytes_B_estimate": 1164288
+    }
+   },
+   "m31": {
+    "field": "m31",
+    "target_log2": -128,
+    "extension_degree": 6,
+    "challenge_limbs": 24,
+    "census": {
+     "mul": 327,
+     "lin": 145,
+     "lookup": 316,
+     "committed_A": 335,
+     "committed_B_estimate": 1110,
+     "carried_wires_gkr": 3307
+    },
+    "matmul_limb_macs": {
+     "gkr_checker": 60954624,
+     "logup_fractional_gkr": 11649024,
+     "encoding_rs_matrix_ntt_per_committed_element": 19660.8,
+     "encoding_A_committed_elements": 476,
+     "encoding_B_committed_elements": 3006,
+     "encoding_A_total": 9358540.799999999,
+     "total_A": 81962188.8
+    },
+    "simt_field_mults_goldilocks_equiv": {
+     "gkr_hadamards": 112438.0,
+     "logup_hadamards_and_tree": 40290.0,
+     "hint_generation_int_ops": 20000
+    },
+    "committed_bytes_A": 1904,
+    "committed_bytes_B_estimate": 12024,
+    "per_vu": {
+     "gkr_checker": 5851643904,
+     "logup_fractional_gkr": 1118306304,
+     "total_A": 7868370124.799999,
+     "committed_bytes_A": 182784,
+     "committed_bytes_B_estimate": 1154304
+    }
+   }
+  }
+ },
+ "tensorzkp": {
+  "paper": "Lu, Zhang, Guo, Liu, Qu, Wang, Chen, Zhang. TensorZKP: Repurposing GPU Tensor Cores for High-Performance Zero-Knowledge Proofs. USENIX Security 2026; ePrint 2026/1250",
+  "hardware": "NVIDIA H100 80 GB, nvcc 12.6 (7.1)",
+  "field": "BabyBear p = 2^31 - 2^27 + 1, extension degree k = 8, P(x) = x^8 - 11 (7.1); the exposition of 4.1 uses k = 4",
+  "limbs": {
+   "limb_bits": 8,
+   "L_per_base": 4,
+   "k": 8,
+   "limbs_per_element": 32,
+   "macs_per_ext_mult": 1024,
+   "scalar_matrix_shape": "kL x 4kL = 32 x 128"
+  },
+  "int32_bound": {
+   "statement": "N (255)^2 < 2^31 - 1 => N < 33,025 (eq. 23)",
+   "chunk": 32768,
+   "chunk_sum": "SINT64"
+  },
+  "measured_ms_at_2^25": {
+   "inner_product": 0.85,
+   "scalar_vector": 0.91,
+   "sumcheck_degree2": 4.04,
+   "encoder": 11.58,
+   "end_to_end_2^25_mult_gates": 215.28,
+   "breakdown": {
+    "merkle": 8.59,
+    "encoder": 50.64,
+    "open": 6.3,
+    "perm_check": 134.0,
+    "zero_check": 16.96
+   }
+  },
+  "speedups": {
+   "inner_product_vs_simt": 13.1,
+   "scalar_vector_vs_simt": 10.0,
+   "sumcheck_vs_icicle_gpu": 88,
+   "encoder_vs_batchzk": 22,
+   "pcs_vs_simt": 16.9,
+   "piop_vs_simt": 44.3,
+   "end_to_end_vs_simt": 36.2,
+   "end_to_end_vs_cpu": 955
+  },
+  "other": {
+   "chunking_overhead_share": "< 2% (7.4)",
+   "merkle_share": "< 5% (7.4)",
+   "memory_gb_at_2^25": 52.9,
+   "brakedown_rate_assumed_here": 0.65
+  }
+ },
+ "calibration": {
+  "modules": {
+   "inner_product": {
+    "limb_macs": 34359738368,
+    "seconds_at_peak": 3.472434397978777e-05,
+    "measured_seconds": 0.00085,
+    "utilisation_of_int8_peak": 0.04085216938798562,
+    "hbm_floor_seconds": 0.0006410398949253731,
+    "hbm_fraction": 0.7541645822651448
+   },
+   "scalar_vector": {
+    "limb_macs": 137438953472,
+    "seconds_at_peak": 0.00013889737591915108,
+    "measured_seconds": 0.00091,
+    "utilisation_of_int8_peak": 0.15263447903203414,
+    "hbm_floor_seconds": 0.0006410398949253731,
+    "hbm_fraction": 0.7044394449729374
+   },
+   "sumcheck_degree2": {
+    "limb_macs": 687194767360,
+    "seconds_at_peak": 0.0006944868795957554,
+    "measured_seconds": 0.00404,
+    "utilisation_of_int8_peak": 0.17190269296924637,
+    "hbm_floor_seconds": 0.0032051994746268657,
+    "hbm_fraction": 0.7933662065908084
+   },
+   "encoder": {
+    "limb_macs": 1057222719015.3845,
+    "seconds_at_peak": 0.001068441353224239,
+    "measured_seconds": 0.01158,
+    "utilisation_of_int8_peak": 0.09226609267912253,
+    "hbm_floor_seconds": 0.0009862152229621125,
+    "hbm_fraction": 0.08516539058394754,
+    "note": "MAC count rests on explore.pcs's 20-MACs-per-symbol Brakedown assumption; utilisation is only as good as that"
+   }
+  },
+  "realistic_utilisation": {
+   "matmul_dense": 0.172,
+   "matmul_gather": 0.092,
+   "basis": "degree-2 sumcheck (dense, HBM-bound at ~80% of 3.35 TB/s) and the expander encoder (gather)"
+  },
+  "merkle_implied_bytes_per_s": 192306227993.1942,
+  "our_relation_as_hyperplonk": {
+   "gates_per_vu": 76808,
+   "gates_basis": "mul + lin + lookup of census_vu(1536): one HyperPlonk gate per predicate",
+   "vus_per_2^25_gate_proof": 436.8611602958025,
+   "seconds_per_vu_end_to_end": 0.000492788143157959,
+   "overhead_end_to_end": 50048795.78948021,
+   "overhead_zero_check_only": 3942900.30002594,
+   "overhead_perm_check": 31152632.087469105,
+   "overhead_pcs": 15234567.020088436,
+   "note": "62% of TensorZKP's time is the permutation (wiring) product-check, which GKR (A) and a Ligero trace (B) do not have; HyperPlonk has no lookup argument, so 29k range chunks per VU are counted as plain gates (undercount)"
+  }
+ },
+ "hash_rates": {
+  "blake3_simt_conservative": {
+   "bytes_per_s": 10000000000.0,
+   "basis": "explore.pcs indicative GPU hash rate (10 GB/s); conservative"
+  },
+  "blake3_simt": {
+   "bytes_per_s": 50000000000.0,
+   "basis": "ASSUMPTION: Blake3 tree hashing on A100/H100 SIMT at 50 GB/s (long-message throughput; no measurement in hand)"
+  },
+  "tensorzkp_merkle_implied": {
+   "bytes_per_s": 192306227993.1942,
+   "basis": "derived below from TensorZKP Table 1: 8.59 ms Merkle at 2^25 x 32 B x 1/rate; hash function adopted from BatchZK, unstated"
+  },
+  "poseidon2_goldilocks_simt": {
+   "bytes_per_s": null,
+   "basis": "Poseidon2-Goldilocks t=12 (explore.authentication): 118 x^7 S-boxes ~ 4 mults each + MDS ~ 500 F_t mults per 64 B absorbed -> ~8 mults/byte at the SIMT rate"
+  }
+ },
+ "encoders": {
+  "rs_matrix_ntt": {
+   "basis": "Reed-Solomon n=16384/k=4096 (the protocols' Ligero code) as two-stage dense matrix DFTs on tensor cores (TensorFHE-style O(N sqrt N)): interpolate k = 64 x 64 (2 x 64 MACs per payload symbol), evaluate n = 128 x 128 (2 x 128 per codeword symbol); twiddle multiplies (k + n per row) on SIMT",
+   "macs_per_row_base": 4718592,
+   "simt_mults_per_row": 20480,
+   "utilisation_anchor": "sumcheck-like dense matmul: 0.17"
+  },
+  "brakedown_expander": {
+   "basis": "Brakedown/Spielman expander code, 20 base MACs per codeword symbol (explore.pcs assumption), SpMM gather (TensorZKP 5.2); changes the Ligero test to Brakedown's (rate 0.65, distance 0.07: more opened columns, explore.pcs.brakedown_row) -- not the protocols' code",
+   "macs_per_symbol_base": 20,
+   "simt_mults_per_row": 0,
+   "utilisation_anchor": "TensorZKP encoder: 0.06"
+  },
+  "rs_ntt_simt": {
+   "basis": "the SIMT-priced baseline: butterflies as F_t mults on SIMT (accounting._ntt_ops)",
+   "matmul": false
+  }
+ },
+ "hint_free_branches": {
+  "commit_query_wires": "A",
+  "no_commit": "A-hintfree-depth630"
+ },
+ "rows": [
+  {
+   "design": "A",
+   "label": "GKR + logUp-GKR + Ligero; 140 query wires committed (depth 381)",
+   "field": "goldilocks",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 2,
+   "challenge_limbs": 16,
+   "census.committed_elements": 181348547,
+   "committed_bytes_per_vu": 354196.380859375,
+   "encoded_bytes_per_vu": 1511360.0,
+   "hash_bytes_per_vu": 1512192.0,
+   "limb_macs_per_vu": 6550404096.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 2461040640.0,
+    "logup_fractional_gkr": 583008256.0,
+    "encoding": 3482173440.0,
+    "ligero_row_combination": 24181760.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.375708216459933,
+    "logup_fractional_gkr": 0.0890034030657763,
+    "encoding": 0.5315967364710197,
+    "ligero_row_combination": 0.0036916440032709703
+   },
+   "simt_field_mults_per_vu": 5682806.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 3845376.0,
+    "logup_hadamards": 1281024.0,
+    "logup_tree_build": 320256.0,
+    "encoding_simt": 236150.0
+   },
+   "reduction_int32_words_per_vu": 6045497.5,
+   "rounds.sequential_depth": 381,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.08599504864492308,
+     "t.simt_field": 0.23276773376,
+     "t.hash": 0.12387876864,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.4442547448910769,
+     "matmul_share_of_time": 0.19357148040367578,
+     "seconds_per_vu": 0.00010846063107692307,
+     "overhead.vs_native_peak": 11015532.84375,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.4999712130518784,
+     "t.simt_field": 0.23276773376,
+     "t.hash": 0.12387876864,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.8582309092980324,
+     "matmul_share_of_time": 0.5825602499691102,
+     "seconds_per_vu": 0.00020952903059033993,
+     "overhead.vs_native_peak": 21280292.1693314,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.02711516440345225,
+     "t.simt_field": 0.06774583296,
+     "t.hash": 0.12387876864,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.21920927764524328,
+     "matmul_share_of_time": 0.12369533212610645,
+     "seconds_per_vu": 5.3517890050108223e-05,
+     "overhead.vs_native_peak": 5435410.708214116,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.157646304671234,
+     "t.simt_field": 0.06774583296,
+     "t.hash": 0.12387876864,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.34974041791302507,
+     "matmul_share_of_time": 0.4507523197116959,
+     "seconds_per_vu": 8.538584421704714e-05,
+     "overhead.vs_native_peak": 8671999.80329385,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 20958559.80329385,
+    "blake3_simt": 8671999.80329385,
+    "tensorzkp_merkle_implied": 6398992.284429277,
+    "poseidon2_goldilocks_simt": 9092487.835010268
+   },
+   "notes": []
+  },
+  {
+   "design": "A",
+   "label": "GKR + logUp-GKR + Ligero; 140 query wires committed (depth 381)",
+   "field": "babybear",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 4,
+   "challenge_limbs": 16,
+   "census.committed_elements": 187649351,
+   "committed_bytes_per_vu": 183251.3193359375,
+   "encoded_bytes_per_vu": 781936.0,
+   "hash_bytes_per_vu": 782768.0,
+   "limb_macs_per_vu": 3875315456.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 2379005952.0,
+    "logup_fractional_gkr": 583008256.0,
+    "encoding": 900790272.0,
+    "ligero_row_combination": 12510976.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.6138870445544446,
+    "logup_fractional_gkr": 0.1504414963425367,
+    "encoding": 0.23244308295092247,
+    "ligero_row_combination": 0.003228376152096146
+   },
+   "simt_field_mults_per_vu": 16584323.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 11536128.0,
+    "logup_hadamards": 3843072.0,
+    "logup_tree_build": 960768.0,
+    "encoding_simt": 244355.0
+   },
+   "reduction_int32_words_per_vu": 6255545.5,
+   "rounds.sequential_depth": 381,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.050875936242871796,
+     "t.simt_field": 0.33964693504,
+     "t.hash": 0.06412435456,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.4562604196890256,
+     "matmul_share_of_time": 0.11150635480839521,
+     "seconds_per_vu": 0.00011139170402564101,
+     "overhead.vs_native_peak": 11313219.940104166,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.2957903269934407,
+     "t.simt_field": 0.33964693504,
+     "t.hash": 0.06412435456,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7011748104395946,
+     "matmul_share_of_time": 0.42184961950928884,
+     "seconds_per_vu": 0.00017118525645497916,
+     "overhead.vs_native_peak": 17386002.60870882,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.01604173027567054,
+     "t.simt_field": 0.0988524661683582,
+     "t.hash": 0.06412435456,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.1794880626458198,
+     "matmul_share_of_time": 0.08937491462775085,
+     "seconds_per_vu": 4.38203277943896e-05,
+     "overhead.vs_native_peak": 4450502.041617693,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.09326587369575896,
+     "t.simt_field": 0.0988524661683582,
+     "t.hash": 0.06412435456,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.2567122060659082,
+     "matmul_share_of_time": 0.36330907332008167,
+     "seconds_per_vu": 6.267387843405962e-05,
+     "overhead.vs_native_peak": 6365315.778459181,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 12725305.77845918,
+    "blake3_simt": 6365315.778459181,
+    "tensorzkp_merkle_implied": 5188720.77628579,
+    "poseidon2_goldilocks_simt": 6582976.350404143
+   },
+   "notes": []
+  },
+  {
+   "design": "A",
+   "label": "GKR + logUp-GKR + Ligero; 140 query wires committed (depth 381)",
+   "field": "m31",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 4,
+   "challenge_limbs": 16,
+   "census.committed_elements": 187256135,
+   "committed_bytes_per_vu": 182867.3193359375,
+   "encoded_bytes_per_vu": 780288.0,
+   "hash_bytes_per_vu": 781120.0,
+   "limb_macs_per_vu": 3873390592.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 2379005952.0,
+    "logup_fractional_gkr": 583008256.0,
+    "encoding": 898891776.0,
+    "ligero_row_combination": 12484608.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.6141921129548713,
+    "logup_fractional_gkr": 0.1505162575662083,
+    "encoding": 0.23206845647235982,
+    "ligero_row_combination": 0.003223173006560553
+   },
+   "simt_field_mults_per_vu": 16583808.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 11536128.0,
+    "logup_hadamards": 3843072.0,
+    "logup_tree_build": 960768.0,
+    "encoding_simt": 243840.0
+   },
+   "reduction_int32_words_per_vu": 6242361.5,
+   "rounds.sequential_depth": 381,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.0508506662334359,
+     "t.simt_field": 0.33963638784,
+     "t.hash": 0.0639893504,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.4560895983195897,
+     "matmul_share_of_time": 0.11149271200393389,
+     "seconds_per_vu": 0.00011134999958974357,
+     "overhead.vs_native_peak": 11308984.333333332,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.2956434083339297,
+     "t.simt_field": 0.33963638784,
+     "t.hash": 0.0639893504,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7008823404200836,
+     "matmul_share_of_time": 0.42181603285471814,
+     "seconds_per_vu": 0.00017111385264162197,
+     "overhead.vs_native_peak": 17378750.65891473,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.016033762369713996,
+     "t.simt_field": 0.09884939646089552,
+     "t.hash": 0.0639893504,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.17934202087240056,
+     "matmul_share_of_time": 0.08940326584767215,
+     "seconds_per_vu": 4.378467306455092e-05,
+     "overhead.vs_native_peak": 4446880.858118453,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.09321954866112789,
+     "t.simt_field": 0.09884939646089552,
+     "t.hash": 0.0639893504,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.25652780716381446,
+     "matmul_share_of_time": 0.3633896445448482,
+     "seconds_per_vu": 6.262885917085314e-05,
+     "overhead.vs_native_peak": 6360743.509539772,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 12707343.509539774,
+    "blake3_simt": 6360743.509539772,
+    "tensorzkp_merkle_implied": 5186625.650739107,
+    "poseidon2_goldilocks_simt": 6577945.829968877
+   },
+   "notes": [
+    "Mersenne31 has 2-adicity 1: the n=16384 Reed-Solomon code needs a circle-group FFT (Circle STARKs) or a different evaluation set; the matrix-DFT price is taken as for BabyBear"
+   ]
+  },
+  {
+   "design": "A-hintfree-depth630",
+   "label": "GKR + logUp-GKR + Ligero; lookups on computed wires, nothing extra committed (depth 630)",
+   "field": "goldilocks",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 2,
+   "challenge_limbs": 16,
+   "census.committed_elements": 126298307,
+   "committed_bytes_per_vu": 246676.380859375,
+   "encoded_bytes_per_vu": 1052608.0,
+   "hash_bytes_per_vu": 1053440.0,
+   "limb_macs_per_vu": 5486099456.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 2461040640.0,
+    "logup_fractional_gkr": 583008256.0,
+    "encoding": 2425208832.0,
+    "ligero_row_combination": 16841728.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.44859570260040144,
+    "logup_fractional_gkr": 0.1062700850897589,
+    "encoding": 0.44206432119046146,
+    "ligero_row_combination": 0.0030698911193782047
+   },
+   "simt_field_mults_per_vu": 5611126.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 3845376.0,
+    "logup_hadamards": 1281024.0,
+    "logup_tree_build": 320256.0,
+    "encoding_simt": 164470.0
+   },
+   "reduction_int32_words_per_vu": 4210489.5,
+   "rounds.sequential_depth": 630,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.07202263901210257,
+     "t.simt_field": 0.22983172096,
+     "t.hash": 0.0862978048,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.3897653586182564,
+     "matmul_share_of_time": 0.18478460802013683,
+     "seconds_per_vu": 9.515755825641025e-05,
+     "overhead.vs_native_peak": 9664439.510416666,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.41873627332617774,
+     "t.simt_field": 0.22983172096,
+     "t.hash": 0.0862978048,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7364789929323317,
+     "matmul_share_of_time": 0.5685651285978385,
+     "seconds_per_vu": 0.00017980444163387003,
+     "overhead.vs_native_peak": 18261388.603439927,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.022709513261016674,
+     "t.simt_field": 0.06689132177194029,
+     "t.hash": 0.0862978048,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.176368151474748,
+     "matmul_share_of_time": 0.12876198492259058,
+     "seconds_per_vu": 4.3058630731139646e-05,
+     "overhead.vs_native_peak": 4373142.183631371,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.1320320538431202,
+     "t.simt_field": 0.06689132177194029,
+     "t.hash": 0.0862978048,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.28569069205685155,
+     "matmul_share_of_time": 0.4621503518107136,
+     "seconds_per_vu": 6.974870411544227e-05,
+     "overhead.vs_native_peak": 7083852.761724606,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 15643052.761724606,
+    "blake3_simt": 7083852.761724606,
+    "tensorzkp_merkle_implied": 5500404.998032763,
+    "poseidon2_goldilocks_simt": 7376777.808366396
+   },
+   "notes": []
+  },
+  {
+   "design": "A-hintfree-depth630",
+   "label": "GKR + logUp-GKR + Ligero; lookups on computed wires, nothing extra committed (depth 630)",
+   "field": "babybear",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 4,
+   "challenge_limbs": 16,
+   "census.committed_elements": 131812679,
+   "committed_bytes_per_vu": 128723.3193359375,
+   "encoded_bytes_per_vu": 549280.0,
+   "hash_bytes_per_vu": 550112.0,
+   "limb_macs_per_vu": 3603573248.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 2379005952.0,
+    "logup_fractional_gkr": 583008256.0,
+    "encoding": 632770560.0,
+    "ligero_row_combination": 8788480.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.6601797128226433,
+    "logup_fractional_gkr": 0.16178615387478867,
+    "encoding": 0.17559530955869723,
+    "ligero_row_combination": 0.002438823743870795
+   },
+   "simt_field_mults_per_vu": 16511618.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 11536128.0,
+    "logup_hadamards": 3843072.0,
+    "logup_tree_build": 960768.0,
+    "encoding_simt": 171650.0
+   },
+   "reduction_int32_words_per_vu": 4394297.5,
+   "rounds.sequential_depth": 630,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.047308448794256414,
+     "t.simt_field": 0.33815793664,
+     "t.hash": 0.04506517504,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.4321447543204102,
+     "matmul_share_of_time": 0.10947361577639318,
+     "seconds_per_vu": 0.0001055040904102564,
+     "overhead.vs_native_peak": 10715259.182291666,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.27504912089683964,
+     "t.simt_field": 0.33815793664,
+     "t.hash": 0.04506517504,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.6598854264229934,
+     "matmul_share_of_time": 0.41681344955257477,
+     "seconds_per_vu": 0.00016110484043530113,
+     "overhead.vs_native_peak": 16362210.356710272,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.014916863086213239,
+     "t.simt_field": 0.09841910096238805,
+     "t.hash": 0.04506517504,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.15887065073039233,
+     "matmul_share_of_time": 0.09389313266883728,
+     "seconds_per_vu": 3.878677996347469e-05,
+     "overhead.vs_native_peak": 3939282.3400403983,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.08672594817565837,
+     "t.simt_field": 0.09841910096238805,
+     "t.hash": 0.04506517504,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.23067973581983747,
+     "matmul_share_of_time": 0.3759582430048904,
+     "seconds_per_vu": 5.631829487789001e-05,
+     "overhead.vs_native_peak": 5719826.823535704,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 10189486.823535705,
+    "blake3_simt": 5719826.823535704,
+    "tensorzkp_merkle_implied": 4892941.9357584715,
+    "poseidon2_goldilocks_simt": 5872793.848955479
+   },
+   "notes": []
+  },
+  {
+   "design": "A-hintfree-depth630",
+   "label": "GKR + logUp-GKR + Ligero; lookups on computed wires, nothing extra committed (depth 630)",
+   "field": "m31",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 4,
+   "challenge_limbs": 16,
+   "census.committed_elements": 131812679,
+   "committed_bytes_per_vu": 128723.3193359375,
+   "encoded_bytes_per_vu": 549280.0,
+   "hash_bytes_per_vu": 550112.0,
+   "limb_macs_per_vu": 3603573248.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 2379005952.0,
+    "logup_fractional_gkr": 583008256.0,
+    "encoding": 632770560.0,
+    "ligero_row_combination": 8788480.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.6601797128226433,
+    "logup_fractional_gkr": 0.16178615387478867,
+    "encoding": 0.17559530955869723,
+    "ligero_row_combination": 0.002438823743870795
+   },
+   "simt_field_mults_per_vu": 16511618.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 11536128.0,
+    "logup_hadamards": 3843072.0,
+    "logup_tree_build": 960768.0,
+    "encoding_simt": 171650.0
+   },
+   "reduction_int32_words_per_vu": 4394297.5,
+   "rounds.sequential_depth": 630,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.047308448794256414,
+     "t.simt_field": 0.33815793664,
+     "t.hash": 0.04506517504,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.4321447543204102,
+     "matmul_share_of_time": 0.10947361577639318,
+     "seconds_per_vu": 0.0001055040904102564,
+     "overhead.vs_native_peak": 10715259.182291666,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.27504912089683964,
+     "t.simt_field": 0.33815793664,
+     "t.hash": 0.04506517504,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.6598854264229934,
+     "matmul_share_of_time": 0.41681344955257477,
+     "seconds_per_vu": 0.00016110484043530113,
+     "overhead.vs_native_peak": 16362210.356710272,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.014916863086213239,
+     "t.simt_field": 0.09841910096238805,
+     "t.hash": 0.04506517504,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.15887065073039233,
+     "matmul_share_of_time": 0.09389313266883728,
+     "seconds_per_vu": 3.878677996347469e-05,
+     "overhead.vs_native_peak": 3939282.3400403983,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.08672594817565837,
+     "t.simt_field": 0.09841910096238805,
+     "t.hash": 0.04506517504,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.23067973581983747,
+     "matmul_share_of_time": 0.3759582430048904,
+     "seconds_per_vu": 5.631829487789001e-05,
+     "overhead.vs_native_peak": 5719826.823535704,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 10189486.823535705,
+    "blake3_simt": 5719826.823535704,
+    "tensorzkp_merkle_implied": 4892941.9357584715,
+    "poseidon2_goldilocks_simt": 5872793.848955479
+   },
+   "notes": [
+    "Mersenne31 has 2-adicity 1: the n=16384 Reed-Solomon code needs a circle-group FFT (Circle STARKs) or a different evaluation set; the matrix-DFT price is taken as for BabyBear"
+   ]
+  },
+  {
+   "design": "B",
+   "label": "direct constraints in Ligero + logUp helper columns (depth 3)",
+   "field": "goldilocks",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 2,
+   "challenge_limbs": 16,
+   "census.committed_elements": 659229885,
+   "committed_bytes_per_vu": 1287558.369140625,
+   "encoded_bytes_per_vu": 5493696.0,
+   "hash_bytes_per_vu": 5495360.0,
+   "limb_macs_per_vu": 12764144640.0,
+   "limb_macs_by_component_per_vu": {
+    "encoding": 12657475584.0,
+    "ligero_row_combination": 106669056.0
+   },
+   "matmul_share_of_components": {
+    "encoding": 0.9916430705692787,
+    "ligero_row_combination": 0.008356929430721336
+   },
+   "simt_field_mults_per_vu": 1812652.6345214844,
+   "simt_by_component_per_vu": {
+    "encoding_simt": 858390.0,
+    "constraint_combination": 655364.24609375,
+    "quadratic_hadamards": 34368.0,
+    "helper_inversions": 264530.3884277344
+   },
+   "reduction_int32_words_per_vu": 26667264.0,
+   "rounds.sequential_depth": 3,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.16757030911999998,
+     "t.simt_field": 0.07424625191,
+     "t.hash": 0.4501798912,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.6936096460761538,
+     "matmul_share_of_time": 0.2415916648045028,
+     "seconds_per_vu": 0.000169338292499061,
+     "overhead.vs_native_peak": 17198420.331935883,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.9742459832558141,
+     "t.simt_field": 0.07424625191,
+     "t.hash": 0.4501798912,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.5002853202119681,
+     "matmul_share_of_time": 0.6493738025232211,
+     "seconds_per_vu": 0.00036628059575487503,
+     "overhead.vs_native_peak": 37200373.006354496,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.052836722026720566,
+     "t.simt_field": 0.021608983764850747,
+     "t.hash": 0.4501798912,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.5250951086333624,
+     "matmul_share_of_time": 0.10062314647004796,
+     "seconds_per_vu": 0.000128197048006192,
+     "overhead.vs_native_peak": 13020012.688128874,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.30719024434139863,
+     "t.simt_field": 0.021608983764850747,
+     "t.hash": 0.4501798912,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.7794486309480405,
+     "matmul_share_of_time": 0.39411223799028844,
+     "seconds_per_vu": 0.00019029507591504895,
+     "overhead.vs_native_peak": 19326843.64762216,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 63976643.64762216,
+    "blake3_simt": 19326843.64762216,
+    "tensorzkp_merkle_implied": 11066652.746686554,
+    "poseidon2_goldilocks_simt": 20854912.24603634
+   },
+   "notes": []
+  },
+  {
+   "design": "B",
+   "label": "direct constraints in Ligero + logUp helper columns (depth 3)",
+   "field": "babybear",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 4,
+   "challenge_limbs": 16,
+   "census.committed_elements": 940905787,
+   "committed_bytes_per_vu": 918853.3076171875,
+   "encoded_bytes_per_vu": 3920496.0,
+   "hash_bytes_per_vu": 3922160.0,
+   "limb_macs_per_vu": 4587711488.0,
+   "limb_macs_by_component_per_vu": {
+    "encoding": 4516411392.0,
+    "ligero_row_combination": 71300096.0
+   },
+   "matmul_share_of_components": {
+    "encoding": 0.9844584612204803,
+    "ligero_row_combination": 0.015541538779519694
+   },
+   "simt_field_mults_per_vu": 3317282.657470703,
+   "simt_by_component_per_vu": {
+    "encoding_simt": 1225155.0,
+    "constraint_combination": 1230856.4921875,
+    "quadratic_hadamards": 31392.0,
+    "helper_inversions": 829879.1652832031
+   },
+   "reduction_int32_words_per_vu": 35650048.0,
+   "rounds.sequential_depth": 3,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.06022841748348718,
+     "t.simt_field": 0.067937948825,
+     "t.hash": 0.3213033472,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.451082907354641,
+     "matmul_share_of_time": 0.1335196180158865,
+     "seconds_per_vu": 0.00011012766292837915,
+     "overhead.vs_native_peak": 11184840.766163507,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.3501652179272511,
+     "t.simt_field": 0.067937948825,
+     "t.hash": 0.3213033472,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7410197077984049,
+     "matmul_share_of_time": 0.47254508111208543,
+     "seconds_per_vu": 0.00018091301459921994,
+     "overhead.vs_native_peak": 18373978.045233276,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.01899066827170086,
+     "t.simt_field": 0.019772985105783583,
+     "t.hash": 0.3213033472,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.36053651221927546,
+     "matmul_share_of_time": 0.052673356589611885,
+     "seconds_per_vu": 8.802160942853405e-05,
+     "overhead.vs_native_peak": 8939694.70758549,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.11041086204477245,
+     "t.simt_field": 0.019772985105783583,
+     "t.hash": 0.3213033472,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.45195670599234705,
+     "matmul_share_of_time": 0.2442952180615327,
+     "seconds_per_vu": 0.00011034099267391285,
+     "overhead.vs_native_peak": 11206507.068444274,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 43074057.068444274,
+    "blake3_simt": 11206507.068444274,
+    "tensorzkp_merkle_implied": 5311026.091035408,
+    "poseidon2_goldilocks_simt": 12297123.430967595
+   },
+   "notes": []
+  },
+  {
+   "design": "B",
+   "label": "direct constraints in Ligero + logUp helper columns (depth 3)",
+   "field": "m31",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 4,
+   "challenge_limbs": 16,
+   "census.committed_elements": 933827899,
+   "committed_bytes_per_vu": 911941.3076171875,
+   "encoded_bytes_per_vu": 3891008.0,
+   "hash_bytes_per_vu": 3892672.0,
+   "limb_macs_per_vu": 4553269504.0,
+   "limb_macs_by_component_per_vu": {
+    "encoding": 4482441216.0,
+    "ligero_row_combination": 70828288.0
+   },
+   "matmul_share_of_components": {
+    "encoding": 0.9844445210331217,
+    "ligero_row_combination": 0.015555478966878214
+   },
+   "simt_field_mults_per_vu": 3294627.657470703,
+   "simt_by_component_per_vu": {
+    "encoding_simt": 1215940.0,
+    "constraint_combination": 1227784.4921875,
+    "quadratic_hadamards": 31392.0,
+    "helper_inversions": 819511.1652832031
+   },
+   "reduction_int32_words_per_vu": 35414144.0,
+   "rounds.sequential_depth": 3,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.05977625605251282,
+     "t.simt_field": 0.067473974425,
+     "t.hash": 0.31888769024,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.4477511145636667,
+     "matmul_share_of_time": 0.133503310451309,
+     "seconds_per_vu": 0.00010931423695402018,
+     "overhead.vs_native_peak": 11102227.190642675,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.3475363723983304,
+     "t.simt_field": 0.067473974425,
+     "t.hash": 0.31888769024,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7355112309094842,
+     "matmul_share_of_time": 0.4725099465423391,
+     "seconds_per_vu": 0.0001795681716087608,
+     "overhead.vs_native_peak": 18237392.42901477,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.01884809690589591,
+     "t.simt_field": 0.019637947780410447,
+     "t.hash": 0.31888769024,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.3578432465680974,
+     "matmul_share_of_time": 0.05267137800324289,
+     "seconds_per_vu": 8.73640738691644e-05,
+     "overhead.vs_native_peak": 8872913.75233701,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.10958195875520875,
+     "t.simt_field": 0.019637947780410447,
+     "t.hash": 0.31888769024,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.4485771084174103,
+     "matmul_share_of_time": 0.24428789766338338,
+     "seconds_per_vu": 0.0001095158956097193,
+     "overhead.vs_native_peak": 11122708.147862118,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 42750668.147862114,
+    "blake3_simt": 11122708.147862118,
+    "tensorzkp_merkle_implied": 5271551.201870079,
+    "poseidon2_goldilocks_simt": 12205124.922582265
+   },
+   "notes": [
+    "Mersenne31 has 2-adicity 1: the n=16384 Reed-Solomon code needs a circle-group FFT (Circle STARKs) or a different evaluation set; the matrix-DFT price is taken as for BabyBear"
+   ]
+  },
+  {
+   "design": "A",
+   "label": "GKR + logUp-GKR + Ligero; 140 query wires committed (depth 381)",
+   "field": "goldilocks",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "census.committed_elements": 181353221,
+   "committed_bytes_per_vu": 354205.509765625,
+   "encoded_bytes_per_vu": 1511392.0,
+   "hash_bytes_per_vu": 1512224.0,
+   "limb_macs_per_vu": 10244578560.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 5414289408.0,
+    "logup_fractional_gkr": 1311768576.0,
+    "encoding": 3482247168.0,
+    "ligero_row_combination": 36273408.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.5285028931439031,
+    "logup_fractional_gkr": 0.128045147813284,
+    "encoding": 0.3399112171970108,
+    "ligero_row_combination": 0.0035407418458021957
+   },
+   "simt_field_mults_per_vu": 11129467.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 7690752.0,
+    "logup_hadamards": 2562048.0,
+    "logup_tree_build": 640512.0,
+    "encoding_simt": 236155.0
+   },
+   "reduction_int32_words_per_vu": 9068481.375,
+   "rounds.sequential_depth": 381,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.1344929287876923,
+     "t.simt_field": 0.45586296832,
+     "t.hash": 0.12388139008,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7158504810338462,
+     "matmul_share_of_time": 0.18787851981806986,
+     "seconds_per_vu": 0.00017476818384615385,
+     "overhead.vs_native_peak": 17749893.671875,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.7819356324865833,
+     "t.simt_field": 0.45586296832,
+     "t.hash": 0.12388139008,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.3632931847327372,
+     "matmul_share_of_time": 0.573563809489648,
+     "seconds_per_vu": 0.0003328352501788909,
+     "overhead.vs_native_peak": 33803580.09629361,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.04240706799571501,
+     "t.simt_field": 0.1326765355558209,
+     "t.hash": 0.12388139008,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.29943450527332693,
+     "matmul_share_of_time": 0.14162385179024506,
+     "seconds_per_vu": 7.310412726399583e-05,
+     "overhead.vs_native_peak": 7424637.9252495775,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.24655272090531982,
+     "t.simt_field": 0.1326765355558209,
+     "t.hash": 0.12388139008,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.5035801581829318,
+     "matmul_share_of_time": 0.48959975268873973,
+     "seconds_per_vu": 0.00012294437455637983,
+     "overhead.vs_native_peak": 12486538.040882327,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 24773358.04088233,
+    "blake3_simt": 12486538.040882327,
+    "tensorzkp_merkle_implied": 10213482.422146438,
+    "poseidon2_goldilocks_simt": 12907034.97068643
+   },
+   "notes": []
+  },
+  {
+   "design": "A",
+   "label": "GKR + logUp-GKR + Ligero; 140 query wires committed (depth 381)",
+   "field": "babybear",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "census.committed_elements": 187658699,
+   "committed_bytes_per_vu": 183260.4482421875,
+   "encoded_bytes_per_vu": 781968.0,
+   "hash_bytes_per_vu": 782800.0,
+   "limb_macs_per_vu": 7522600320.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 5291237376.0,
+    "logup_fractional_gkr": 1311768576.0,
+    "encoding": 900827136.0,
+    "ligero_row_combination": 18767232.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.7033787720892767,
+    "logup_fractional_gkr": 0.1743770132931906,
+    "encoding": 0.11974943472737895,
+    "ligero_row_combination": 0.002494779890153728
+   },
+   "simt_field_mults_per_vu": 31108749.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 21790464.0,
+    "logup_hadamards": 7259136.0,
+    "logup_tree_build": 1814784.0,
+    "encoding_simt": 244365.0
+   },
+   "reduction_int32_words_per_vu": 9383745.375,
+   "rounds.sequential_depth": 381,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.09875824009846153,
+     "t.simt_field": 0.63710717952,
+     "t.hash": 0.064126976,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.8016055894646155,
+     "matmul_share_of_time": 0.12320053826523489,
+     "seconds_per_vu": 0.00019570448961538463,
+     "overhead.vs_native_peak": 19876237.226562504,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.5741758145259392,
+     "t.simt_field": 0.63710717952,
+     "t.hash": 0.064126976,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.277023163892093,
+     "matmul_share_of_time": 0.4496205164955461,
+     "seconds_per_vu": 0.000311773233372093,
+     "overhead.vs_native_peak": 31664469.014353197,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.03113953603913087,
+     "t.simt_field": 0.1854267164274627,
+     "t.hash": 0.064126976,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.2811627401083846,
+     "matmul_share_of_time": 0.11075271220904656,
+     "seconds_per_vu": 6.864324709677358e-05,
+     "overhead.vs_native_peak": 6971579.7832660675,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.18104381418099344,
+     "t.simt_field": 0.1854267164274627,
+     "t.hash": 0.064126976,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.4310670182502472,
+     "matmul_share_of_time": 0.41998994707568216,
+     "seconds_per_vu": 0.00010524097125250175,
+     "overhead.vs_native_peak": 10688536.14283221,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 17048786.142832212,
+    "blake3_simt": 10688536.14283221,
+    "tensorzkp_merkle_implied": 9511893.040787505,
+    "poseidon2_goldilocks_simt": 10906205.61286486
+   },
+   "notes": []
+  },
+  {
+   "design": "A",
+   "label": "GKR + logUp-GKR + Ligero; 140 query wires committed (depth 381)",
+   "field": "m31",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "census.committed_elements": 187265483,
+   "committed_bytes_per_vu": 182876.4482421875,
+   "encoded_bytes_per_vu": 780336.0,
+   "hash_bytes_per_vu": 781168.0,
+   "limb_macs_per_vu": 7520681088.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 5291237376.0,
+    "logup_fractional_gkr": 1311768576.0,
+    "encoding": 898947072.0,
+    "ligero_row_combination": 18728064.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.7035582700671484,
+    "logup_fractional_gkr": 0.17442151324473235,
+    "encoding": 0.11953000818428003,
+    "ligero_row_combination": 0.0024902085038391673
+   },
+   "simt_field_mults_per_vu": 31108239.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 21790464.0,
+    "logup_hadamards": 7259136.0,
+    "logup_tree_build": 1814784.0,
+    "encoding_simt": 243855.0
+   },
+   "reduction_int32_words_per_vu": 9364161.375,
+   "rounds.sequential_depth": 381,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.09873304402707692,
+     "t.simt_field": 0.63709673472,
+     "t.hash": 0.06399328256,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.8014362551532308,
+     "matmul_share_of_time": 0.12319513048258546,
+     "seconds_per_vu": 0.00019566314823076924,
+     "overhead.vs_native_peak": 19872038.4921875,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.5740293257388194,
+     "t.simt_field": 0.63709673472,
+     "t.hash": 0.06399328256,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.2767325368649733,
+     "matmul_share_of_time": 0.44960812790778626,
+     "seconds_per_vu": 0.00031170227950805013,
+     "overhead.vs_native_peak": 31657262.762536343,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.031131591446637696,
+     "t.simt_field": 0.18542367652298508,
+     "t.hash": 0.06399328256,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.28101806217141384,
+     "matmul_share_of_time": 0.11078146082883533,
+     "seconds_per_vu": 6.860792533481783e-05,
+     "overhead.vs_native_peak": 6967992.416817436,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.18099762468975403,
+     "t.simt_field": 0.18542367652298508,
+     "t.hash": 0.06399328256,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.43088409541453015,
+     "matmul_share_of_time": 0.42006104800787797,
+     "seconds_per_vu": 0.00010519631235706303,
+     "overhead.vs_native_peak": 10684000.473764215,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 17030990.473764215,
+    "blake3_simt": 10684000.473764215,
+    "tensorzkp_merkle_implied": 9509810.465156576,
+    "poseidon2_goldilocks_simt": 10901216.141324848
+   },
+   "notes": [
+    "Mersenne31 has 2-adicity 1: the n=16384 Reed-Solomon code needs a circle-group FFT (Circle STARKs) or a different evaluation set; the matrix-DFT price is taken as for BabyBear"
+   ]
+  },
+  {
+   "design": "A-hintfree-depth630",
+   "label": "GKR + logUp-GKR + Ligero; lookups on computed wires, nothing extra committed (depth 630)",
+   "field": "goldilocks",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "census.committed_elements": 126302981,
+   "committed_bytes_per_vu": 246685.509765625,
+   "encoded_bytes_per_vu": 1052640.0,
+   "hash_bytes_per_vu": 1053472.0,
+   "limb_macs_per_vu": 9176603904.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 5414289408.0,
+    "logup_fractional_gkr": 1311768576.0,
+    "encoding": 2425282560.0,
+    "ligero_row_combination": 25263360.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.5900101458710624,
+    "logup_fractional_gkr": 0.14294706295737705,
+    "encoding": 0.26428977270587445,
+    "ligero_row_combination": 0.002753018465686192
+   },
+   "simt_field_mults_per_vu": 11057787.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 7690752.0,
+    "logup_hadamards": 2562048.0,
+    "logup_tree_build": 640512.0,
+    "encoding_simt": 164475.0
+   },
+   "reduction_int32_words_per_vu": 6315969.375,
+   "rounds.sequential_depth": 630,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.120472338432,
+     "t.simt_field": 0.45292695552,
+     "t.hash": 0.08630042624,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.661312914038154,
+     "matmul_share_of_time": 0.18217145903950915,
+     "seconds_per_vu": 0.00016145334815384618,
+     "overhead.vs_native_peak": 16397605.671875004,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.7004205722790698,
+     "t.simt_field": 0.45292695552,
+     "t.hash": 0.08630042624,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.2412611478852238,
+     "matmul_share_of_time": 0.5642813951539518,
+     "seconds_per_vu": 0.00030304227243291596,
+     "overhead.vs_native_peak": 30777730.79396803,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.03798622495278828,
+     "t.simt_field": 0.1318220243677612,
+     "t.hash": 0.08630042624,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.25657818720234055,
+     "matmul_share_of_time": 0.1480493153645672,
+     "seconds_per_vu": 6.264115898494642e-05,
+     "overhead.vs_native_peak": 6361992.709408621,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.22085014507435047,
+     "t.simt_field": 0.1318220243677612,
+     "t.hash": 0.08630042624,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.4394421073239027,
+     "matmul_share_of_time": 0.5025693746538651,
+     "seconds_per_vu": 0.00010728567073337468,
+     "overhead.vs_native_peak": 10896200.933858367,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 19455660.93385837,
+    "blake3_simt": 10896200.933858367,
+    "tensorzkp_merkle_implied": 9312705.070295209,
+    "poseidon2_goldilocks_simt": 11189134.878587844
+   },
+   "notes": []
+  },
+  {
+   "design": "A-hintfree-depth630",
+   "label": "GKR + logUp-GKR + Ligero; lookups on computed wires, nothing extra committed (depth 630)",
+   "field": "babybear",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "census.committed_elements": 131822027,
+   "committed_bytes_per_vu": 128732.4482421875,
+   "encoded_bytes_per_vu": 549312.0,
+   "hash_bytes_per_vu": 550144.0,
+   "limb_macs_per_vu": 7248996864.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 5291237376.0,
+    "logup_fractional_gkr": 1311768576.0,
+    "encoding": 632807424.0,
+    "ligero_row_combination": 13183488.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.7299268402608043,
+    "logup_fractional_gkr": 0.1809586347753178,
+    "encoding": 0.0872958611891048,
+    "ligero_row_combination": 0.0018186637747730167
+   },
+   "simt_field_mults_per_vu": 31036044.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 21790464.0,
+    "logup_hadamards": 7259136.0,
+    "logup_tree_build": 1814784.0,
+    "encoding_simt": 171660.0
+   },
+   "reduction_int32_words_per_vu": 6591873.375,
+   "rounds.sequential_depth": 630,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.09516631780430769,
+     "t.simt_field": 0.63561818112,
+     "t.hash": 0.04506779648,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7774654892504617,
+     "matmul_share_of_time": 0.1224058419571209,
+     "seconds_per_vu": 0.0001898109104615385,
+     "overhead.vs_native_peak": 19277670.593750004,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.5532925453738821,
+     "t.simt_field": 0.63561818112,
+     "t.hash": 0.04506779648,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.2355917168200359,
+     "matmul_share_of_time": 0.4477956090526861,
+     "seconds_per_vu": 0.00030165813398926657,
+     "overhead.vs_native_peak": 30637154.233284887,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.030006964279882767,
+     "t.simt_field": 0.18499335122149255,
+     "t.hash": 0.04506779648,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.26053762362316635,
+     "matmul_share_of_time": 0.11517324777354968,
+     "seconds_per_vu": 6.36078182673746e-05,
+     "overhead.vs_native_peak": 6460169.042780233,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.1744590946504812,
+     "t.simt_field": 0.18499335122149255,
+     "t.hash": 0.04506779648,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.4049897539937648,
+     "matmul_share_of_time": 0.4307740947272636,
+     "seconds_per_vu": 9.887445165863398e-05,
+     "overhead.vs_native_peak": 10041936.496580014,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 14511856.496580016,
+    "blake3_simt": 10041936.496580014,
+    "tensorzkp_merkle_implied": 9215003.508931467,
+    "poseidon2_goldilocks_simt": 10194912.420087477
+   },
+   "notes": []
+  },
+  {
+   "design": "A-hintfree-depth630",
+   "label": "GKR + logUp-GKR + Ligero; lookups on computed wires, nothing extra committed (depth 630)",
+   "field": "m31",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "census.committed_elements": 131822027,
+   "committed_bytes_per_vu": 128732.4482421875,
+   "encoded_bytes_per_vu": 549312.0,
+   "hash_bytes_per_vu": 550144.0,
+   "limb_macs_per_vu": 7248996864.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 5291237376.0,
+    "logup_fractional_gkr": 1311768576.0,
+    "encoding": 632807424.0,
+    "ligero_row_combination": 13183488.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.7299268402608043,
+    "logup_fractional_gkr": 0.1809586347753178,
+    "encoding": 0.0872958611891048,
+    "ligero_row_combination": 0.0018186637747730167
+   },
+   "simt_field_mults_per_vu": 31036044.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 21790464.0,
+    "logup_hadamards": 7259136.0,
+    "logup_tree_build": 1814784.0,
+    "encoding_simt": 171660.0
+   },
+   "reduction_int32_words_per_vu": 6591873.375,
+   "rounds.sequential_depth": 630,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.09516631780430769,
+     "t.simt_field": 0.63561818112,
+     "t.hash": 0.04506779648,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7774654892504617,
+     "matmul_share_of_time": 0.1224058419571209,
+     "seconds_per_vu": 0.0001898109104615385,
+     "overhead.vs_native_peak": 19277670.593750004,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.5532925453738821,
+     "t.simt_field": 0.63561818112,
+     "t.hash": 0.04506779648,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.2355917168200359,
+     "matmul_share_of_time": 0.4477956090526861,
+     "seconds_per_vu": 0.00030165813398926657,
+     "overhead.vs_native_peak": 30637154.233284887,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.030006964279882767,
+     "t.simt_field": 0.18499335122149255,
+     "t.hash": 0.04506779648,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.26053762362316635,
+     "matmul_share_of_time": 0.11517324777354968,
+     "seconds_per_vu": 6.36078182673746e-05,
+     "overhead.vs_native_peak": 6460169.042780233,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.1744590946504812,
+     "t.simt_field": 0.18499335122149255,
+     "t.hash": 0.04506779648,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.4049897539937648,
+     "matmul_share_of_time": 0.4307740947272636,
+     "seconds_per_vu": 9.887445165863398e-05,
+     "overhead.vs_native_peak": 10041936.496580014,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 14511856.496580016,
+    "blake3_simt": 10041936.496580014,
+    "tensorzkp_merkle_implied": 9215003.508931467,
+    "poseidon2_goldilocks_simt": 10194912.420087477
+   },
+   "notes": [
+    "Mersenne31 has 2-adicity 1: the n=16384 Reed-Solomon code needs a circle-group FFT (Circle STARKs) or a different evaluation set; the matrix-DFT price is taken as for BabyBear"
+   ]
+  },
+  {
+   "design": "B",
+   "label": "direct constraints in Ligero + logUp helper columns (depth 3)",
+   "field": "goldilocks",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "census.committed_elements": 779620604,
+   "committed_bytes_per_vu": 1522696.4921875,
+   "encoded_bytes_per_vu": 6496960.0,
+   "hash_bytes_per_vu": 6498624.0,
+   "limb_macs_per_vu": 15153077760.0,
+   "limb_macs_by_component_per_vu": {
+    "encoding": 14968995840.0,
+    "ligero_row_combination": 184081920.0
+   },
+   "matmul_share_of_components": {
+    "encoding": 0.987851846145347,
+    "ligero_row_combination": 0.012148153854652958
+   },
+   "simt_field_mults_per_vu": 2561625.1459960938,
+   "simt_by_component_per_vu": {
+    "encoding_simt": 1015150.0,
+    "constraint_combination": 983046.369140625,
+    "quadratic_hadamards": 34368.0,
+    "helper_inversions": 529060.7768554688
+   },
+   "reduction_int32_words_per_vu": 46020480.0,
+   "rounds.sequential_depth": 3,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.1989327131569231,
+     "t.simt_field": 0.10492416598,
+     "t.hash": 0.53236727808,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.837837351063077,
+     "matmul_share_of_time": 0.23743595687696473,
+     "seconds_per_vu": 0.00020455013453688403,
+     "overhead.vs_native_peak": 20774623.038902286,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 1.156585541610018,
+     "t.simt_field": 0.10492416598,
+     "t.hash": 0.53236727808,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.7954901795161717,
+     "matmul_share_of_time": 0.6441614411512301,
+     "seconds_per_vu": 0.00043835209460844037,
+     "overhead.vs_native_peak": 44520134.60866973,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.06272562557348155,
+     "t.simt_field": 0.03053763039716418,
+     "t.hash": 0.53236727808,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.6261000456924367,
+     "matmul_share_of_time": 0.10018466857658508,
+     "seconds_per_vu": 0.00015285645646788006,
+     "overhead.vs_native_peak": 15524483.86001907,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.3646838696132649,
+     "t.simt_field": 0.03053763039716418,
+     "t.hash": 0.53236727808,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.9280582897322202,
+     "matmul_share_of_time": 0.39295362548670293,
+     "seconds_per_vu": 0.0002265767308916553,
+     "overhead.vs_native_peak": 23011699.231183745,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 75813019.23118374,
+    "blake3_simt": 23011699.231183745,
+    "tensorzkp_merkle_implied": 13243481.164778313,
+    "poseidon2_goldilocks_simt": 24818740.67474717
+   },
+   "notes": []
+  },
+  {
+   "design": "B",
+   "label": "direct constraints in Ligero + logUp helper columns (depth 3)",
+   "field": "babybear",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "census.committed_elements": 1192697273,
+   "committed_bytes_per_vu": 1164743.4306640625,
+   "encoded_bytes_per_vu": 4969632.0,
+   "hash_bytes_per_vu": 4971296.0,
+   "limb_macs_per_vu": 5857145472.0,
+   "limb_macs_by_component_per_vu": {
+    "encoding": 5725016064.0,
+    "ligero_row_combination": 132129408.0
+   },
+   "matmul_share_of_components": {
+    "encoding": 0.9774413306564362,
+    "ligero_row_combination": 0.022558669343563813
+   },
+   "simt_field_mults_per_vu": 4998236.272705078,
+   "simt_by_component_per_vu": {
+    "encoding_simt": 1553010.0,
+    "constraint_combination": 1846284.73828125,
+    "quadratic_hadamards": 31392.0,
+    "helper_inversions": 1567549.5344238281
+   },
+   "reduction_int32_words_per_vu": 66064704.0,
+   "rounds.sequential_depth": 3,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.07689380722215385,
+     "t.simt_field": 0.102363878865,
+     "t.hash": 0.40724856832,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.5881194482533078,
+     "matmul_share_of_time": 0.13074522097598626,
+     "seconds_per_vu": 0.0001435838496712177,
+     "overhead.vs_native_peak": 14582734.73223305,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.44705701873345266,
+     "t.simt_field": 0.102363878865,
+     "t.hash": 0.40724856832,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.9582826597646066,
+     "matmul_share_of_time": 0.46651894843142433,
+     "seconds_per_vu": 0.0002339557274815934,
+     "overhead.vs_native_peak": 23761128.572349332,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.0242454450260859,
+     "t.simt_field": 0.029792472206977613,
+     "t.hash": 0.40724856832,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.46175599719485455,
+     "matmul_share_of_time": 0.0525070495529583,
+     "seconds_per_vu": 0.00011273339775265004,
+     "overhead.vs_native_peak": 11449485.70925352,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.14096188968654594,
+     "t.simt_field": 0.029792472206977613,
+     "t.hash": 0.40724856832,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.5784724418553147,
+     "matmul_share_of_time": 0.24367952470552226,
+     "seconds_per_vu": 0.00014122862349983268,
+     "overhead.vs_native_peak": 14343532.074201757,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 54735312.074201755,
+    "blake3_simt": 14343532.074201757,
+    "tensorzkp_merkle_implied": 6871072.765792921,
+    "poseidon2_goldilocks_simt": 15725876.690573024
+   },
+   "notes": []
+  },
+  {
+   "design": "B",
+   "label": "direct constraints in Ligero + logUp helper columns (depth 3)",
+   "field": "m31",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "census.committed_elements": 1182473657,
+   "committed_bytes_per_vu": 1154759.4306640625,
+   "encoded_bytes_per_vu": 4927024.0,
+   "hash_bytes_per_vu": 4928688.0,
+   "limb_macs_per_vu": 5807038464.0,
+   "limb_macs_by_component_per_vu": {
+    "encoding": 5675931648.0,
+    "ligero_row_combination": 131106816.0
+   },
+   "matmul_share_of_components": {
+    "encoding": 0.9774227746530731,
+    "ligero_row_combination": 0.022577225346926858
+   },
+   "simt_field_mults_per_vu": 4960729.272705078,
+   "simt_by_component_per_vu": {
+    "encoding_simt": 1539695.0,
+    "constraint_combination": 1841676.73828125,
+    "quadratic_hadamards": 31392.0,
+    "helper_inversions": 1547965.5344238281
+   },
+   "reduction_int32_words_per_vu": 65553408.0,
+   "rounds.sequential_depth": 3,
+   "hash_rate": "blake3_simt",
+   "encoder": "rs_matrix_ntt",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.07623599214276924,
+     "t.simt_field": 0.101595735505,
+     "t.hash": 0.40375812096,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.5832030424539232,
+     "matmul_share_of_time": 0.13071946919548585,
+     "seconds_per_vu": 0.00014238355528660234,
+     "overhead.vs_native_peak": 14460829.833795551,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.4432325124579607,
+     "t.simt_field": 0.101595735505,
+     "t.hash": 0.40375812096,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.9501995627691147,
+     "matmul_share_of_time": 0.46646255147315835,
+     "seconds_per_vu": 0.00023198231512917838,
+     "overhead.vs_native_peak": 23560703.88030718,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.024038028851484587,
+     "t.simt_field": 0.029568908094738805,
+     "t.hash": 0.40375812096,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.45783456954801444,
+     "matmul_share_of_time": 0.05250374360157103,
+     "seconds_per_vu": 0.00011177601795605821,
+     "overhead.vs_native_peak": 11352251.823662162,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "rs_matrix_ntt",
+     "t.matmul": 0.13975598169467784,
+     "t.simt_field": 0.029568908094738805,
+     "t.hash": 0.40375812096,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.5735525223912078,
+     "matmul_share_of_time": 0.24366727760522916,
+     "seconds_per_vu": 0.00014002747128691597,
+     "overhead.vs_native_peak": 14221540.052577402,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 54267130.052577406,
+    "blake3_simt": 14221540.052577402,
+    "tensorzkp_merkle_implied": 6813125.722824572,
+    "poseidon2_goldilocks_simt": 15592036.865194006
+   },
+   "notes": [
+    "Mersenne31 has 2-adicity 1: the n=16384 Reed-Solomon code needs a circle-group FFT (Circle STARKs) or a different evaluation set; the matrix-DFT price is taken as for BabyBear"
+   ]
+  },
+  {
+   "design": "A",
+   "label": "GKR + logUp-GKR + Ligero; 140 query wires committed (depth 381)",
+   "field": "goldilocks",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 2,
+   "challenge_limbs": 16,
+   "census.committed_elements": 181348547,
+   "committed_bytes_per_vu": 354196.380859375,
+   "encoded_bytes_per_vu": 1511360.0,
+   "hash_bytes_per_vu": 1512192.0,
+   "limb_macs_per_vu": 3310048256.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 2461040640.0,
+    "logup_fractional_gkr": 583008256.0,
+    "encoding": 241817600.0,
+    "ligero_row_combination": 24181760.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.7435059702042,
+    "logup_fractional_gkr": 0.17613285695856634,
+    "encoding": 0.07305561167021246,
+    "ligero_row_combination": 0.007305561167021246
+   },
+   "simt_field_mults_per_vu": 5446656.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 3845376.0,
+    "logup_hadamards": 1281024.0,
+    "logup_tree_build": 320256.0
+   },
+   "reduction_int32_words_per_vu": 6045497.5,
+   "rounds.sequential_depth": 381,
+   "hash_rate": "blake3_simt",
+   "encoder": "brakedown_expander",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.043454992489025644,
+     "t.simt_field": 0.22309502976,
+     "t.hash": 0.12387876864,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.3920419847351794,
+     "matmul_share_of_time": 0.11084270098871954,
+     "seconds_per_vu": 9.571337517948716e-05,
+     "overhead.vs_native_peak": 9720889.666666666,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.2686950071728501,
+     "t.simt_field": 0.22309502976,
+     "t.hash": 0.12387876864,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.617281999419004,
+     "matmul_share_of_time": 0.4352872875375441,
+     "seconds_per_vu": 0.00015070361313940527,
+     "overhead.vs_native_peak": 15305835.709470848,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.01370182683837898,
+     "t.simt_field": 0.06493064298985074,
+     "t.hash": 0.12387876864,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.20298075011002076,
+     "matmul_share_of_time": 0.06750308505093335,
+     "seconds_per_vu": 4.9555847194829287e-05,
+     "overhead.vs_native_peak": 5033015.73072485,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.08472242772908462,
+     "t.simt_field": 0.06493064298985074,
+     "t.hash": 0.12387876864,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.27400135100072637,
+     "matmul_share_of_time": 0.3092044160353794,
+     "seconds_per_vu": 6.689486108416171e-05,
+     "overhead.vs_native_peak": 6794009.328860174,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 19080569.328860175,
+    "blake3_simt": 6794009.328860174,
+    "tensorzkp_merkle_implied": 4521001.809995603,
+    "poseidon2_goldilocks_simt": 7214497.360576592
+   },
+   "notes": []
+  },
+  {
+   "design": "B",
+   "label": "direct constraints in Ligero + logUp helper columns (depth 3)",
+   "field": "goldilocks",
+   "target_log2": -80,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 2,
+   "challenge_limbs": 16,
+   "census.committed_elements": 659229885,
+   "committed_bytes_per_vu": 1287558.369140625,
+   "encoded_bytes_per_vu": 5493696.0,
+   "hash_bytes_per_vu": 5495360.0,
+   "limb_macs_per_vu": 985660416.0,
+   "limb_macs_by_component_per_vu": {
+    "encoding": 878991360.0,
+    "ligero_row_combination": 106669056.0
+   },
+   "matmul_share_of_components": {
+    "encoding": 0.8917791013330092,
+    "ligero_row_combination": 0.1082208986669908
+   },
+   "simt_field_mults_per_vu": 954262.6345214844,
+   "simt_by_component_per_vu": {
+    "constraint_combination": 655364.24609375,
+    "quadratic_hadamards": 34368.0,
+    "helper_inversions": 264530.3884277344
+   },
+   "reduction_int32_words_per_vu": 26667264.0,
+   "rounds.sequential_depth": 3,
+   "hash_rate": "blake3_simt",
+   "encoder": "brakedown_expander",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.012939952128,
+     "t.simt_field": 0.03908659751,
+     "t.hash": 0.4501798912,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.5038196346841539,
+     "matmul_share_of_time": 0.025683699556711594,
+     "seconds_per_vu": 0.00012300284049906101,
+     "overhead.vs_native_peak": 12492475.988185884,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.13357191014762387,
+     "t.simt_field": 0.03908659751,
+     "t.hash": 0.4501798912,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.6244515927037777,
+     "matmul_share_of_time": 0.2139027455583521,
+     "seconds_per_vu": 0.00015245400212494573,
+     "overhead.vs_native_peak": 15483609.590814801,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.004080106178813542,
+     "t.simt_field": 0.011375950021567164,
+     "t.hash": 0.4501798912,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.46610545904217177,
+     "matmul_share_of_time": 0.008753611655177776,
+     "seconds_per_vu": 0.00011379527808646772,
+     "overhead.vs_native_peak": 11557332.930656878,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.0421166609055671,
+     "t.simt_field": 0.011375950021567164,
+     "t.hash": 0.4501798912,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.5041420137689254,
+     "matmul_share_of_time": 0.08354126368224364,
+     "seconds_per_vu": 0.00012308154633030406,
+     "overhead.vs_native_peak": 12500469.549171505,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 57150269.5491715,
+    "blake3_simt": 12500469.549171505,
+    "tensorzkp_merkle_implied": 4240278.648235898,
+    "poseidon2_goldilocks_simt": 14028538.147585684
+   },
+   "notes": []
+  },
+  {
+   "design": "A",
+   "label": "GKR + logUp-GKR + Ligero; 140 query wires committed (depth 381)",
+   "field": "goldilocks",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "census.committed_elements": 181353221,
+   "committed_bytes_per_vu": 354205.509765625,
+   "encoded_bytes_per_vu": 1511392.0,
+   "hash_bytes_per_vu": 1512224.0,
+   "limb_macs_per_vu": 7004154112.0,
+   "limb_macs_by_component_per_vu": {
+    "gkr_checker": 5414289408.0,
+    "logup_fractional_gkr": 1311768576.0,
+    "encoding": 241822720.0,
+    "ligero_row_combination": 36273408.0
+   },
+   "matmul_share_of_components": {
+    "gkr_checker": 0.7730111761424361,
+    "logup_fractional_gkr": 0.1872843679656602,
+    "encoding": 0.0345256138190467,
+    "ligero_row_combination": 0.0051788420728570055
+   },
+   "simt_field_mults_per_vu": 10893312.0,
+   "simt_by_component_per_vu": {
+    "gkr_hadamards": 7690752.0,
+    "logup_hadamards": 2562048.0,
+    "logup_tree_build": 640512.0
+   },
+   "reduction_int32_words_per_vu": 9068481.375,
+   "rounds.sequential_depth": 381,
+   "hash_rate": "blake3_simt",
+   "encoder": "brakedown_expander",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.09195197193189744,
+     "t.simt_field": 0.44619005952,
+     "t.hash": 0.12388139008,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.6636366153780513,
+     "matmul_share_of_time": 0.1385577133647388,
+     "seconds_per_vu": 0.00016202065805128206,
+     "overhead.vs_native_peak": 16455223.083333334,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.5506545298003164,
+     "t.simt_field": 0.44619005952,
+     "t.hash": 0.12388139008,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 1.1223391732464703,
+     "matmul_share_of_time": 0.4906311237515635,
+     "seconds_per_vu": 0.00027400858721837653,
+     "overhead.vs_native_peak": 27828997.139366366,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.028993446430269833,
+     "t.simt_field": 0.12986128597970148,
+     "t.hash": 0.12388139008,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.28320563413176236,
+     "matmul_share_of_time": 0.10237595208568674,
+     "seconds_per_vu": 6.91420005204498e-05,
+     "overhead.vs_native_peak": 7022234.427858182,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.1736272999471437,
+     "t.simt_field": 0.12986128597970148,
+     "t.hash": 0.12388139008,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.4278394876486362,
+     "matmul_share_of_time": 0.4058234570665328,
+     "seconds_per_vu": 0.00010445299991421783,
+     "overhead.vs_native_peak": 10608507.80378775,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 22895327.80378775,
+    "blake3_simt": 10608507.80378775,
+    "tensorzkp_merkle_implied": 8335452.185051861,
+    "poseidon2_goldilocks_simt": 11029004.733591853
+   },
+   "notes": []
+  },
+  {
+   "design": "B",
+   "label": "direct constraints in Ligero + logUp helper columns (depth 3)",
+   "field": "goldilocks",
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "census.committed_elements": 779620604,
+   "committed_bytes_per_vu": 1522696.4921875,
+   "encoded_bytes_per_vu": 6496960.0,
+   "hash_bytes_per_vu": 6498624.0,
+   "limb_macs_per_vu": 1223595520.0,
+   "limb_macs_by_component_per_vu": {
+    "encoding": 1039513600.0,
+    "ligero_row_combination": 184081920.0
+   },
+   "matmul_share_of_components": {
+    "encoding": 0.8495565593440552,
+    "ligero_row_combination": 0.15044344065594487
+   },
+   "simt_field_mults_per_vu": 1546475.1459960938,
+   "simt_by_component_per_vu": {
+    "constraint_combination": 983046.369140625,
+    "quadratic_hadamards": 34368.0,
+    "helper_inversions": 529060.7768554688
+   },
+   "reduction_int32_words_per_vu": 46020480.0,
+   "rounds.sequential_depth": 3,
+   "hash_rate": "blake3_simt",
+   "encoder": "brakedown_expander",
+   "times": {
+    "A100@1": {
+     "gpu": "A100",
+     "utilisation": 1.0,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.01606361298051282,
+     "t.simt_field": 0.06334362198,
+     "t.hash": 0.53236727808,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.6133877068866667,
+     "matmul_share_of_time": 0.02618835167409189,
+     "seconds_per_vu": 0.0001497528581266276,
+     "overhead.vs_native_peak": 15209274.653485617,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "A100@0.172": {
+     "gpu": "A100",
+     "utilisation": 0.172,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.1623867679572736,
+     "t.simt_field": 0.06334362198,
+     "t.hash": 0.53236727808,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.7597108618634274,
+     "matmul_share_of_time": 0.21374811932920046,
+     "seconds_per_vu": 0.00018547628463462583,
+     "overhead.vs_native_peak": 18837435.158204187,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@1": {
+     "gpu": "H100",
+     "utilisation": 1.0,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.005065030065608893,
+     "t.simt_field": 0.018435830277761193,
+     "t.hash": 0.53236727808,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.5563376500651611,
+     "matmul_share_of_time": 0.009104237444680674,
+     "seconds_per_vu": 0.00013582462159793973,
+     "overhead.vs_native_peak": 13794688.131040754,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    },
+    "H100@0.172": {
+     "gpu": "H100",
+     "utilisation": 0.172,
+     "encoder": "brakedown_expander",
+     "t.matmul": 0.051202295707599155,
+     "t.simt_field": 0.018435830277761193,
+     "t.hash": 0.53236727808,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.6024749157071514,
+     "matmul_share_of_time": 0.08498660172017412,
+     "seconds_per_vu": 0.00014708860246756626,
+     "overhead.vs_native_peak": 14938686.1881122,
+     "hint_gen_cpu_anchor_seconds": 451.20000000000005
+    }
+   },
+   "overhead_H100_realistic_by_hash_rate": {
+    "blake3_simt_conservative": 67740006.1881122,
+    "blake3_simt": 14938686.1881122,
+    "tensorzkp_merkle_implied": 5170468.121706768,
+    "poseidon2_goldilocks_simt": 16745727.63167563
+   },
+   "notes": []
+  }
+ ],
+ "ranking_2^-128_H100_realistic": [
+  {
+   "design": "A-hintfree-depth630",
+   "field": "babybear",
+   "overhead": 10041936.496580014,
+   "overhead_A100_realistic": 30637154.233284887,
+   "overhead_H100_peak": 6460169.042780233,
+   "limb_macs_per_vu": 7248996864.0,
+   "committed_bytes_per_vu": 128732.4482421875,
+   "matmul_share_of_time": 0.4307740947272636,
+   "depth": 630
+  },
+  {
+   "design": "A-hintfree-depth630",
+   "field": "m31",
+   "overhead": 10041936.496580014,
+   "overhead_A100_realistic": 30637154.233284887,
+   "overhead_H100_peak": 6460169.042780233,
+   "limb_macs_per_vu": 7248996864.0,
+   "committed_bytes_per_vu": 128732.4482421875,
+   "matmul_share_of_time": 0.4307740947272636,
+   "depth": 630
+  },
+  {
+   "design": "A",
+   "field": "m31",
+   "overhead": 10684000.473764215,
+   "overhead_A100_realistic": 31657262.762536343,
+   "overhead_H100_peak": 6967992.416817436,
+   "limb_macs_per_vu": 7520681088.0,
+   "committed_bytes_per_vu": 182876.4482421875,
+   "matmul_share_of_time": 0.42006104800787797,
+   "depth": 381
+  },
+  {
+   "design": "A",
+   "field": "babybear",
+   "overhead": 10688536.14283221,
+   "overhead_A100_realistic": 31664469.014353197,
+   "overhead_H100_peak": 6971579.7832660675,
+   "limb_macs_per_vu": 7522600320.0,
+   "committed_bytes_per_vu": 183260.4482421875,
+   "matmul_share_of_time": 0.41998994707568216,
+   "depth": 381
+  },
+  {
+   "design": "A-hintfree-depth630",
+   "field": "goldilocks",
+   "overhead": 10896200.933858367,
+   "overhead_A100_realistic": 30777730.79396803,
+   "overhead_H100_peak": 6361992.709408621,
+   "limb_macs_per_vu": 9176603904.0,
+   "committed_bytes_per_vu": 246685.509765625,
+   "matmul_share_of_time": 0.5025693746538651,
+   "depth": 630
+  },
+  {
+   "design": "A",
+   "field": "goldilocks",
+   "overhead": 12486538.040882327,
+   "overhead_A100_realistic": 33803580.09629361,
+   "overhead_H100_peak": 7424637.9252495775,
+   "limb_macs_per_vu": 10244578560.0,
+   "committed_bytes_per_vu": 354205.509765625,
+   "matmul_share_of_time": 0.48959975268873973,
+   "depth": 381
+  },
+  {
+   "design": "B",
+   "field": "m31",
+   "overhead": 14221540.052577402,
+   "overhead_A100_realistic": 23560703.88030718,
+   "overhead_H100_peak": 11352251.823662162,
+   "limb_macs_per_vu": 5807038464.0,
+   "committed_bytes_per_vu": 1154759.4306640625,
+   "matmul_share_of_time": 0.24366727760522916,
+   "depth": 3
+  },
+  {
+   "design": "B",
+   "field": "babybear",
+   "overhead": 14343532.074201757,
+   "overhead_A100_realistic": 23761128.572349332,
+   "overhead_H100_peak": 11449485.70925352,
+   "limb_macs_per_vu": 5857145472.0,
+   "committed_bytes_per_vu": 1164743.4306640625,
+   "matmul_share_of_time": 0.24367952470552226,
+   "depth": 3
+  },
+  {
+   "design": "B",
+   "field": "goldilocks",
+   "overhead": 23011699.231183745,
+   "overhead_A100_realistic": 44520134.60866973,
+   "overhead_H100_peak": 15524483.86001907,
+   "limb_macs_per_vu": 15153077760.0,
+   "committed_bytes_per_vu": 1522696.4921875,
+   "matmul_share_of_time": 0.39295362548670293,
+   "depth": 3
+  }
+ ],
+ "field_verdict": {
+  "A@2^-80": {
+   "winner": "m31",
+   "goldilocks_overhead": 8671999.80329385,
+   "ratio_goldilocks_over_winner": 1.363362599087305,
+   "limb_macs_ratio_goldilocks_over_31bit": 1.690289260415759,
+   "committed_bytes_ratio_goldilocks_over_31bit": 1.932844915621371
+  },
+  "A-hintfree-depth630@2^-80": {
+   "winner": "babybear",
+   "goldilocks_overhead": 7083852.761724606,
+   "ratio_goldilocks_over_winner": 1.2384732930333249,
+   "limb_macs_ratio_goldilocks_over_31bit": 1.5224054232961162,
+   "committed_bytes_ratio_goldilocks_over_31bit": 1.9163301733667062
+  },
+  "B@2^-80": {
+   "winner": "m31",
+   "goldilocks_overhead": 19326843.64762216,
+   "ratio_goldilocks_over_winner": 1.7376023348537604,
+   "limb_macs_ratio_goldilocks_over_31bit": 2.7822465892606716,
+   "committed_bytes_ratio_goldilocks_over_31bit": 1.401266511712931
+  },
+  "A@2^-128": {
+   "winner": "m31",
+   "goldilocks_overhead": 12486538.040882327,
+   "ratio_goldilocks_over_winner": 1.1687137296132146,
+   "limb_macs_ratio_goldilocks_over_31bit": 1.3618400718117643,
+   "committed_bytes_ratio_goldilocks_over_31bit": 1.9327984470360204
+  },
+  "A-hintfree-depth630@2^-128": {
+   "winner": "babybear",
+   "goldilocks_overhead": 10896200.933858367,
+   "ratio_goldilocks_over_winner": 1.0850696912462343,
+   "limb_macs_ratio_goldilocks_over_31bit": 1.2659136258663444,
+   "committed_bytes_ratio_goldilocks_over_31bit": 1.9162651929180243
+  },
+  "B@2^-128": {
+   "winner": "m31",
+   "goldilocks_overhead": 23011699.231183745,
+   "ratio_goldilocks_over_winner": 1.6180877138558059,
+   "limb_macs_ratio_goldilocks_over_31bit": 2.587109682086448,
+   "committed_bytes_ratio_goldilocks_over_31bit": 1.307323529027638
+  }
+ },
+ "vole": {
+  "-80": {
+   "zk_mode": "designated-verifier",
+   "proof_class_note": "designated-verifier interactive ZK (IT-MAC / VOLE): the verifier holds a secret key Delta; the transcript convinces nobody else.  Not a contract proof_class; the nearest label is COMPLETE_ZK_BACKEND with zk_mode='vole-itmac-designated-verifier' and this caveat, never compared against A/B without it.",
+   "range_mode": "logup",
+   "mac_extension": 2,
+   "mac_field_bits": 122,
+   "mac_limbs": 16,
+   "soundness_log2": -93.4,
+   "per_vu": {
+    "vole_correlations": 83434,
+    "mul_checks": 63749,
+    "p2v_bytes_quicksilver": 667472,
+    "p2v_bytes_antman_simd": 5143.197265625,
+    "matmul_limb_macs_batch_check": 32639488.0,
+    "simt_field_mults_online": 446243.0,
+    "simt_field_mults_helpers": 88137.0,
+    "lpn_primal_d10_limb_macs": 53408169.84375,
+    "lpn_dual_dense_limb_macs": 3149800224705.0,
+    "ggm_prg_bytes": 2670408.4921875
+   },
+   "per_correlation": {
+    "lpn_primal_d10_macs_F_p": 10,
+    "lpn_primal_d10_limb_macs": 640,
+    "lpn_dual_dense_macs_F_p": 589760,
+    "lpn_dual_dense_limb_macs": 37744640
+   },
+   "lpn": {
+    "n": 10805248,
+    "k": 589760,
+    "t": 1319,
+    "d": 10,
+    "field": "F_{2^61-1}",
+    "field_bits": 61,
+    "source": "Wolverine ePrint 2020/925 (primal LPN, local linear code, regular noise); Ferret CCS 2020 (regular-noise sVOLE, GGM puncturable PRF)"
+   },
+   "times": {
+    "A100@1": {
+     "t.matmul": 0.0011296513029743589,
+     "t.simt_field": 0.0218882048,
+     "t.prg": 0.10937993184,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.1340109817891282,
+     "matmul_share_of_time": 0.00842954277248645,
+     "seconds_per_vu": 3.271752485086138e-05,
+     "overhead.vs_native_peak": 3322873.617665609,
+     "overhead_if_dual_dense_lpn": 1028648467.597158,
+     "transfer_seconds_per_vu_1gbps_quicksilver": 0.005339776
+    },
+    "A100@0.172": {
+     "t.matmul": 0.006567740133571856,
+     "t.simt_field": 0.0218882048,
+     "t.prg": 0.10937993184,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.1394490706197257,
+     "matmul_share_of_time": 0.04709776913093904,
+     "seconds_per_vu": 3.404518325676897e-05,
+     "overhead.vs_native_peak": 3457713.9245155985,
+     "overhead_if_dual_dense_lpn": 5964653027.758774,
+     "transfer_seconds_per_vu_1gbps_quicksilver": 0.005339776
+    },
+    "H100@1": {
+     "t.matmul": 0.0003561912142779181,
+     "t.simt_field": 0.0063704476656716415,
+     "t.prg": 0.10937993184,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.11657608236174061,
+     "matmul_share_of_time": 0.003055439907241362,
+     "seconds_per_vu": 2.8460957607846828e-05,
+     "overhead.vs_native_peak": 2890566.0070469435,
+     "overhead_if_dual_dense_lpn": 326186761.3800652,
+     "transfer_seconds_per_vu_1gbps_quicksilver": 0.005339776
+    },
+    "H100@0.172": {
+     "t.matmul": 0.002070879152778594,
+     "t.simt_field": 0.0063704476656716415,
+     "t.prg": 0.10937993184,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.11829077030024128,
+     "matmul_share_of_time": 0.01750668414384626,
+     "seconds_per_vu": 2.8879582592832344e-05,
+     "overhead.vs_native_peak": 2933082.607084535,
+     "overhead_if_dual_dense_lpn": 1882562125.4734697,
+     "transfer_seconds_per_vu_1gbps_quicksilver": 0.005339776
+    }
+   },
+   "notes": [
+    "the online prover is SIMT-bound: M_x M_y and x M_y + y M_x are elementwise products (no matmul form with independent chi_i)",
+    "primal d=10 LPN is a gather (SpMM over the batch); the dense dual LPN matmul is 5.9e5 MACs per correlation and not viable",
+    "communication is the binding constraint (vole.py): 667 kB per VU QuickSilver, 5 kB per VU with AntMan SIMD (BGV assumption)",
+    "field F_{2^61-1}: 8 limbs like Goldilocks; p > 2^60 keeps checker F1 (no small-field repairs)"
+   ]
+  },
+  "-128": {
+   "zk_mode": "designated-verifier",
+   "proof_class_note": "designated-verifier interactive ZK (IT-MAC / VOLE): the verifier holds a secret key Delta; the transcript convinces nobody else.  Not a contract proof_class; the nearest label is COMPLETE_ZK_BACKEND with zk_mode='vole-itmac-designated-verifier' and this caveat, never compared against A/B without it.",
+   "range_mode": "logup",
+   "mac_extension": 3,
+   "mac_field_bits": 183,
+   "mac_limbs": 24,
+   "soundness_log2": -136.0,
+   "per_vu": {
+    "vole_correlations": 83434,
+    "mul_checks": 63749,
+    "p2v_bytes_quicksilver": 667472,
+    "p2v_bytes_antman_simd": 5143.197265625,
+    "matmul_limb_macs_batch_check": 73438848.0,
+    "simt_field_mults_online": 764988.0,
+    "simt_field_mults_helpers": 88137.0,
+    "lpn_primal_d10_limb_macs": 53408169.84375,
+    "lpn_dual_dense_limb_macs": 3149800224705.0,
+    "ggm_prg_bytes": 2670408.4921875
+   },
+   "per_correlation": {
+    "lpn_primal_d10_macs_F_p": 10,
+    "lpn_primal_d10_limb_macs": 640,
+    "lpn_dual_dense_macs_F_p": 589760,
+    "lpn_dual_dense_limb_macs": 37744640
+   },
+   "lpn": {
+    "n": 10805248,
+    "k": 589760,
+    "t": 1319,
+    "d": 10,
+    "field": "F_{2^61-1}",
+    "field_bits": 61,
+    "source": "Wolverine ePrint 2020/925 (primal LPN, local linear code, regular noise); Ferret CCS 2020 (regular-noise sVOLE, GGM puncturable PRF)"
+   },
+   "times": {
+    "A100@1": {
+     "t.matmul": 0.0016652736701538461,
+     "t.simt_field": 0.034944,
+     "t.prg": 0.10937993184,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.1476023993563077,
+     "matmul_share_of_time": 0.011282158538181524,
+     "seconds_per_vu": 3.603574203034856e-05,
+     "overhead.vs_native_peak": 3659880.049957276,
+     "overhead_if_dual_dense_lpn": 1028985474.0294496,
+     "transfer_seconds_per_vu_1gbps_quicksilver": 0.005339776
+    },
+    "A100@0.172": {
+     "t.matmul": 0.009681823663685153,
+     "t.simt_field": 0.034944,
+     "t.prg": 0.10937993184,
+     "t.hint_gen": 0.0016131938461538462,
+     "t.total": 0.15561894934983903,
+     "matmul_share_of_time": 0.06221494043067942,
+     "seconds_per_vu": 3.799290755611304e-05,
+     "overhead.vs_native_peak": 3858654.673667731,
+     "overhead_if_dual_dense_lpn": 5965053968.507926,
+     "transfer_seconds_per_vu_1gbps_quicksilver": 0.005339776
+    },
+    "H100@1": {
+     "t.matmul": 0.0005250787115593734,
+     "t.simt_field": 0.010170268656716417,
+     "t.prg": 0.10937993184,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.12054479085006684,
+     "matmul_share_of_time": 0.004355880564034196,
+     "seconds_per_vu": 2.94298805786296e-05,
+     "overhead.vs_native_peak": 2988972.2462670687,
+     "overhead_if_dual_dense_lpn": 326285167.61928535,
+     "transfer_seconds_per_vu_1gbps_quicksilver": 0.005339776
+    },
+    "H100@0.172": {
+     "t.matmul": 0.003052783206740543,
+     "t.simt_field": 0.010170268656716417,
+     "t.prg": 0.10937993184,
+     "t.hint_gen": 0.00046951164179104477,
+     "t.total": 0.123072495345248,
+     "matmul_share_of_time": 0.02480475591379496,
+     "seconds_per_vu": 3.0046995933898438e-05,
+     "overhead.vs_native_peak": 3051648.0245365603,
+     "overhead_if_dual_dense_lpn": 1882680690.8909216,
+     "transfer_seconds_per_vu_1gbps_quicksilver": 0.005339776
+    }
+   },
+   "notes": [
+    "the online prover is SIMT-bound: M_x M_y and x M_y + y M_x are elementwise products (no matmul form with independent chi_i)",
+    "primal d=10 LPN is a gather (SpMM over the batch); the dense dual LPN matmul is 5.9e5 MACs per correlation and not viable",
+    "communication is the binding constraint (vole.py): 667 kB per VU QuickSilver, 5 kB per VU with AntMan SIMD (BGV assumption)",
+    "field F_{2^61-1}: 8 limbs like Goldilocks; p > 2^60 keeps checker F1 (no small-field repairs)"
+   ]
+  }
+ },
+ "flips": {
+  "Goldilocks stays (fields lane)": "FLIPS on the sumcheck side and the encoding side: the 2^-128 challenge fields are 24 limbs for both families (Goldilocks^3 = 192 bits, BabyBear^6 / M31^6 = 186 bits), so challenge x challenge costs 576 MACs either way; trace x challenge is 96 vs 192 and encoding 16 vs 64 MACs per base product, committed bytes halve. The SIMT penalty (EXT_MULT_COST 17 x 0.5 vs 6) that kept Goldilocks does not exist on tensor cores. Caveats: +9% lookups / +4% committed columns (F1/F3/F4 repairs, unverified by z3), degree-6 extensions unshipped in Plonky3/stwo, M31 needs a circle FFT.",
+  "Ligero stays (pcs lane)": "holds, with the encoder changed: the RS code is kept but encoded as a two-stage dense matrix DFT on tensor cores (O(N sqrt N) MACs, 287 base MACs per symbol); the SIMT NTT was the largest field_ops line and is now a small fraction of the sumcheck work. Brakedown's expander code is 14x fewer MACs but gather-bound (9% of peak, TensorZKP encoder).",
+  "VOLE out (hash-based only)": "the ruling changed (designated verifier in scope pending LPN); on tensor cores the online prover is SIMT-bound (Hadamards) and the batch check is a tiny matmul; the dense dual-LPN matmul is not viable, the d=10 primal code is a gather. Communication (667 kB/VU) stays the binding constraint.",
+  "hashing is the bottleneck (SIMT lanes: commitment dominated every model)": "flips for A when the hash runs at >= 50 GB/s: the hash bucket is below the matmul bucket at 17% utilisation; for B (6.7 GB hashed per batch) it stays the largest bucket below 100 GB/s."
+ },
+ "uncertainties": [
+  {
+   "what": "tensor-core utilisation of the sumcheck/encoding kernels",
+   "range": "0.05 - 0.5 (TensorZKP: 0.17 dense, 0.06 gather, HBM-bound)",
+   "factor": 3,
+   "moves": "every matmul time linearly; our limbs are 3-4x fewer per element than TensorZKP's 32, so the HBM floor is lower"
+  },
+  {
+   "what": "the GKR table size (carried width x units, an upper bound: 3,338 carried wires per unit vs 495 gates)",
+   "range": "1/6 - 1x",
+   "factor": 6,
+   "moves": "the largest matmul line of Candidate A; a non-layered (flattened) GKR or gate-indexed tables remove the copy wires"
+  },
+  {
+   "what": "non-matmul work: hint generation (2e4 int ops/unit assumed; the CPU anchor is 1.15 ms/unit) and the SIMT field rate (1e11/s)",
+   "range": "0.1 - 10x",
+   "factor": 10,
+   "moves": "the non-matmul share; at the CPU anchor hint generation alone is 1.9e6 overhead per VU on 16 cores"
+  },
+  {
+   "what": "Merkle hash rate on SIMT (10 - 190 GB/s)",
+   "range": "10 GB/s (pcs.py) to 190 GB/s (TensorZKP-implied)",
+   "factor": 19,
+   "moves": "the hash bucket: 1.6 GB (A) / 6.7 GB (B) hashed per batch at 2^-128 Goldilocks"
+  }
+ ],
+ "assumptions": [
+  "Every figure is an ESTIMATE from the module docstring's cost model over the WP2 checker census and the fields lane's small-field deltas; the only measurements are TensorZKP's (H100) and the candidates' recorded CPU runs, used for calibration only.",
+  "A limb product is UINT8 x UINT8 -> INT32; an element of b bits is ceil(b/8) limbs; products are schoolbook convolutions (a matmul cannot Karatsuba); deferred reduction is one (dL)^2-word SIMT combine per inner product and is not converted to time (TensorZKP: < 2%).",
+  "Sumcheck: N dl^2 (terms 2^m + 8 tables) matmul MACs and N terms (2^m - 4) SIMT Hadamards over all rounds (TensorZKP Algorithm 1 and the degree-3 recipe of 5.1); the GKR tables are units x carried width per layer (accounting's CHECKER_LAYER_WIDTHS_A, an upper bound that carries every lower-depth value); the first round's F_t operands are credited.",
+  "Encoding default: RS n=16384/k=4096 as two-stage dense matrix DFTs (287 base MACs per codeword symbol on tensor cores, k + n twiddle multiplies per row on SIMT); the Ligero soundness parameters are unchanged.  Brakedown rows use explore.pcs's 20 MACs per symbol.",
+  "Time = matmul MACs / (INT8 dense peak MAC/s x utilisation) + SIMT field mults / 1e11 per s (A100; H100 x 67/19.5; 31-bit x 0.5) + hash bytes / rate + hint generation (2e4 int ops per unit at 25% of the FP32 peak).  Buckets are summed, no overlap.",
+  "Utilisation 0.17 is TensorZKP's degree-2 sumcheck fraction of the H100 INT8 peak (their kernel is HBM-bound at ~80% of 3.35 TB/s with 32-limb elements); 1.0 is the datasheet peak.  Our elements are 8-24 limbs, so the HBM floor per element is lower.",
+  "Hint generation on GPU is unmeasured; the CPU anchor (4.7 s per 4,096 units, one thread) is reported beside the estimate.",
+  "VOLE: QuickSilver online costs per multiplication check (1 ext x ext + 2 base x ext Hadamards on SIMT; two length-checks inner products on tensor cores); LPN as Wolverine's primal d=10 local code (10 F_p MACs per correlation, gather) with the dense dual matmul (k = 589,760 MACs per correlation) shown for contrast; GGM PRG at 2 x 16 B per correlation."
+ ]
+}

@@ -1,0 +1,67 @@
+{
+  "release_build": true,
+  "report": [
+    {
+      "challenger": "FixedSerializingChallenger64<Goldilocks> (backends/direct/src/challenger.rs)",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 10.65536,
+      "chi2_low_byte_256": 252.4774400000003,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 100000,
+      "uniform": true,
+      "zeros": 0
+    },
+    {
+      "challenger": "SerializingChallenger32<BabyBear> (p3-challenger 0.4.3-succinct, unmodified)",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 18.04608,
+      "chi2_low_byte_256": 231.42400000000012,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 100000,
+      "uniform": true,
+      "zeros": 0
+    },
+    {
+      "challenger": "UPSTREAM SerializingChallenger64<Goldilocks> (p3-challenger 0.4.3-succinct, the bug)",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 15000.0,
+      "chi2_low_byte_256": 255000.0,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 1000,
+      "uniform": false,
+      "zeros": 1000
+    },
+    {
+      "challenger": "Fixed challenger, Goldilocks^2 coordinate 0",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 14.069759999999999,
+      "chi2_low_byte_256": 234.81855999999982,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 50000,
+      "uniform": true,
+      "zeros": 0
+    },
+    {
+      "challenger": "Fixed challenger, Goldilocks^2 coordinate 1",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 7.04,
+      "chi2_low_byte_256": 256.896,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 50000,
+      "uniform": true,
+      "zeros": 0
+    },
+    {
+      "check": "ext coordinates equal",
+      "count": 0,
+      "of": 50000
+    }
+  ],
+  "run_id": "r20260922-094310-af1a",
+  "schema": "redteam-vu-b/challenger/v1"
+}

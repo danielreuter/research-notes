@@ -1,0 +1,1349 @@
+{
+ "schema": "verity-direct/battery/v1",
+ "field": "babybear",
+ "air": {
+  "width": 401,
+  "constraints": 402,
+  "realisation": "logup"
+ },
+ "battery": {
+  "version": "v1",
+  "total": 83,
+  "accepted": [],
+  "by_class": {
+   "wrap": {
+    "total": 58,
+    "rejected": 58
+   },
+   "zero_swap": {
+    "total": 4,
+    "rejected": 4
+   },
+   "fractional": {
+    "total": 1,
+    "rejected": 1
+   },
+   "hint_swap": {
+    "total": 3,
+    "rejected": 3
+   },
+   "chain": {
+    "total": 4,
+    "rejected": 4
+   },
+   "epilogue": {
+    "total": 1,
+    "rejected": 1
+   },
+   "z3": {
+    "total": 12,
+    "rejected": 12
+   }
+  },
+  "ok": true
+ },
+ "controls": {
+  "total": 87,
+  "rejected": []
+ },
+ "extras": {
+  "total": 6,
+  "accepted": []
+ },
+ "seconds_check_rows": 2.546388626098633,
+ "cases": [
+  {
+   "id": "wrap-484a7233a1",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "acc.word_hi"
+   ],
+   "n_failing": 85,
+   "python_embedded": "reject: acc.t: 1006632961 not in [0, 255) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-f5dde3107f",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[0].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[0].s: 1006633022 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-97c7486356",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[1].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[1].s: 1006633022 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-228bcede92",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[2].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: a[2].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-40292fc360",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[3].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[3].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-687502c299",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[4].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: a[4].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-cb5dd5a42e",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[5].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: a[5].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-d7c00e21dc",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[6].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: a[6].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-fa8ffcc74b",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[7].s"
+   ],
+   "n_failing": 42,
+   "python_embedded": "reject: a[7].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-34c52ee314",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[8].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[8].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-73008309d7",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[9].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[9].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-e656596dbf",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[10].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: a[10].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-09e67b29f6",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[11].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[11].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-1a29da0c50",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[12].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[12].s: 1006633022 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-e661dfe6f5",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[13].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[13].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-fcf377dbdc",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[14].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[14].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-21cef34c4f",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[15].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: a[15].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-3622b96394",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[0].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: b[0].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-916c724b31",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[1].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[1].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-368e576e9c",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[2].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: b[2].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-75c7ab830f",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[3].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[3].s: 1006633025 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-adb8368eca",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[4].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[4].s: 1006633025 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-b1de2058ce",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[5].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: b[5].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-b74da35474",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[6].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[6].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-495a34997a",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[7].s"
+   ],
+   "n_failing": 42,
+   "python_embedded": "reject: b[7].s: 1006633025 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-b693d7f93b",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[8].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: b[8].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-ce94385ed7",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[9].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: b[9].s: 1006633021 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-738d729787",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[10].s"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: b[10].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-50a0d4a385",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[11].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[11].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-380cde6f87",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[12].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[12].s: 1006633024 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-dd3e963fa0",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[13].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[13].s: 1006633025 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-6aae06fe83",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[14].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[14].s: 1006633025 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-f91d26f2ca",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "b[15].s"
+   ],
+   "n_failing": 4,
+   "python_embedded": "reject: b[15].s: 1006633023 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-0caf1c328f",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_state.div"
+   ],
+   "n_failing": 7,
+   "python_embedded": "reject: g0.align_state.q: 1006632960 not in [0, 33554432) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-a8242a1705",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[0].div"
+   ],
+   "n_failing": 22,
+   "python_embedded": "reject: g0.align_prod[0].q: 1006678522 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-2adcd1aaf7",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[1].div"
+   ],
+   "n_failing": 22,
+   "python_embedded": "reject: g0.align_prod[1].q: 1006654448 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-6754c9b543",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[2].div"
+   ],
+   "n_failing": 22,
+   "python_embedded": "reject: g0.align_prod[2].q: 1006677690 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-89c3969a7b",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[3].div"
+   ],
+   "n_failing": 22,
+   "python_embedded": "reject: g0.align_prod[3].q: 1006658800 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-7404a7c236",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[4].div"
+   ],
+   "n_failing": 22,
+   "python_embedded": "reject: g0.align_prod[4].q: 1006679908 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-633f4c115c",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[5].div"
+   ],
+   "n_failing": 22,
+   "python_embedded": "reject: g0.align_prod[5].q: 1006685779 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-d000fa6c62",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[6].div"
+   ],
+   "n_failing": 22,
+   "python_embedded": "reject: g0.align_prod[6].q: 1006660705 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-eb40cfaf41",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[7].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g0.align_prod[7].q: 1006664792 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-2cbfe6f9b1",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.sum.sgn"
+   ],
+   "n_failing": 40,
+   "python_embedded": "reject: g0.sum.sgn: 1006632960 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-6a31766c6f",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.norm.clamp"
+   ],
+   "n_failing": 51,
+   "python_embedded": "reject: g0.norm.clamp: 1014486380 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-ab98159304",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.out.z"
+   ],
+   "n_failing": 78,
+   "python_embedded": "reject: g0.out.z: 1006632960 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-8e26824c9e",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_state.div"
+   ],
+   "n_failing": 8,
+   "python_embedded": "reject: g1.align_state.q: 1038046640 not in [0, 33554432) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-8b5979718f",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[0].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g1.align_prod[0].q: 1006667096 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-285299f620",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[1].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g1.align_prod[1].q: 1006670515 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-1e1399764d",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[2].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g1.align_prod[2].q: 1006663056 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-f3c85d2f04",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[3].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g1.align_prod[3].q: 1006660432 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-0725403454",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[4].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g1.align_prod[4].q: 1006687392 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-1b07b7b8b9",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[5].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g1.align_prod[5].q: 1006665944 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-06a6063f4f",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[6].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g1.align_prod[6].q: 1006656210 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-6f8c9225c5",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[7].div"
+   ],
+   "n_failing": 21,
+   "python_embedded": "reject: g1.align_prod[7].q: 1006668303 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-acf4912724",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.sum.sgn"
+   ],
+   "n_failing": 22,
+   "python_embedded": "reject: g1.sum.sgn: 1006632960 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-2acccc0846",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.norm.clamp"
+   ],
+   "n_failing": 32,
+   "python_embedded": "reject: g1.norm.clamp: 1013715116 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-22e5d5c200",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.out.z"
+   ],
+   "n_failing": 14,
+   "python_embedded": "reject: g1.out.z: 1006632960 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "wrap-5c958a67e2",
+   "class": "wrap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "pack.hidden"
+   ],
+   "n_failing": 26,
+   "python_embedded": "reject: pack.hidden: 1009520813 is not a bit mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "zero_swap-35277309a8",
+   "class": "zero_swap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "acc.word_hi"
+   ],
+   "n_failing": 1,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "zero_swap-b58ee3e1bf",
+   "class": "zero_swap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "acc.word_hi"
+   ],
+   "n_failing": 1,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "fractional-f71f2a571b",
+   "class": "fractional",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g1.align_prod[0].div"
+   ],
+   "n_failing": 61,
+   "python_embedded": "reject: g0.align_prod[0].rem: -24021 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "zero_swap-1df264a546",
+   "class": "zero_swap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "acc.word_hi"
+   ],
+   "n_failing": 46,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "zero_swap-a1bc5d91e2",
+   "class": "zero_swap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "acc.word_hi"
+   ],
+   "n_failing": 46,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "hint_swap-bc6bd10df3",
+   "class": "hint_swap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[0].word"
+   ],
+   "n_failing": 32,
+   "python_embedded": "reject: a[0].word: 16368 != 15962 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "hint_swap-83c92f751a",
+   "class": "hint_swap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[0].word"
+   ],
+   "n_failing": 77,
+   "python_embedded": "reject: a[0].word: 16281 != 16368 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "hint_swap-769537d1b7",
+   "class": "hint_swap",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "a[0].word"
+   ],
+   "n_failing": 76,
+   "python_embedded": "reject: a[0].word: 16000 != 16281 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "chain-81b4b863f4",
+   "class": "chain",
+   "level": "vu",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    1,
+    "acc.word_lo"
+   ],
+   "n_failing": 2,
+   "python_embedded": "reject: acc.word_lo: 8537 != 8536 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "epilogue-54bb2c02d8",
+   "class": "epilogue",
+   "level": "vu",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    95,
+    "vu.out"
+   ],
+   "n_failing": 1,
+   "python_embedded": "reject: y16: 16566 != 1006676997 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "chain-b8bdd7eef6",
+   "class": "chain",
+   "level": "vu",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    1,
+    "acc.word_lo"
+   ],
+   "n_failing": 52,
+   "python_embedded": "reject: acc.word_lo: 40082 != 40081 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "chain-ee58639e62",
+   "class": "chain",
+   "level": "vu",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[0].div"
+   ],
+   "n_failing": 97,
+   "python_embedded": "reject: acc.word_lo: 23145 != 23144 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "chain-44cefa1497",
+   "class": "chain",
+   "level": "vu",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "g0.align_prod[0].div"
+   ],
+   "n_failing": 47,
+   "python_embedded": "reject: acc.word_lo: 6557 != 6556 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-6c4f8ec6a3",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "fp32_decode",
+   "dropped_rule": "LIMB16",
+   "accepted": false,
+   "first_failing": "acc.word_hi",
+   "n_failing": 3,
+   "python_embedded": "reject: missing hint 'f_lo'",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-b92170924e",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "epilogue",
+   "dropped_rule": "LIMB16",
+   "accepted": false,
+   "first_failing": "cast.lsb_split",
+   "n_failing": 3,
+   "python_embedded": "reject: cast.lsb_split: 30720 != 0 mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-f3d01ac22d",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "align_state",
+   "dropped_rule": "LT_DIRECT",
+   "accepted": false,
+   "first_failing": "lookup:align_state.rem.hi16",
+   "n_failing": 1,
+   "python_embedded": "reject: align_state.rem: -61 not in [0, 33554432) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-fe69651492",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "align_product",
+   "dropped_rule": "LT_DIRECT",
+   "accepted": false,
+   "first_failing": "lookup:align_prod.rem",
+   "n_failing": 1,
+   "python_embedded": "reject: align_prod.rem: -30721 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-d10d002b7a",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "leading_bit",
+   "dropped_rule": "LT_DIRECT",
+   "accepted": false,
+   "first_failing": "lookup:lead.window.hi16",
+   "n_failing": 1,
+   "python_embedded": "reject: lead.window: -16 not in [0, 1073741824) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-d65d03b3ff",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "lead_norm",
+   "dropped_rule": "LT_DIRECT",
+   "accepted": false,
+   "first_failing": "lookup:lead.window_lo.hi16",
+   "n_failing": 1,
+   "python_embedded": "reject: lead.window.nonneg: -1 not in [0, 1073741824) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-35e638a7c3",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "align_state",
+   "dropped_rule": "QUOT_TIGHT",
+   "accepted": false,
+   "first_failing": "lookup:align_state.quot.hi16",
+   "n_failing": 1,
+   "python_embedded": "reject: align_state.quot: -30932993 not in [0, 33554432) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-e2b585d2e4",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "align_product",
+   "dropped_rule": "QUOT_TIGHT",
+   "accepted": false,
+   "first_failing": "lookup:align_prod.quot",
+   "n_failing": 1,
+   "python_embedded": "reject: align_prod.quot: -61439 not in [0, 65536) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-2f899e00e1",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "normalise",
+   "dropped_rule": "NORM_MBND",
+   "accepted": false,
+   "first_failing": "lookup:norm.k_lo_bound.hi16",
+   "n_failing": 1,
+   "python_embedded": "reject: norm.mbnd: -7342081 not in [0, 1073741824) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-1d6f4c794a",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "lead_norm",
+   "dropped_rule": "NORM_MBND",
+   "accepted": false,
+   "first_failing": "lookup:norm.k_lo_bound.hi16",
+   "n_failing": 1,
+   "python_embedded": "reject: norm.mbnd: -7340033 not in [0, 1073741824) mod p",
+   "control_accepted": true
+  },
+  {
+   "id": "z3-037e9295d4",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "leading_bit",
+   "dropped_rule": "V_PREMISE",
+   "accepted": false,
+   "first_failing": "lookup:in.v.hi.hi16",
+   "n_failing": 2,
+   "python_embedded": "reject: premise v in [0, 570417151) violated: 939524098",
+   "control_accepted": null
+  },
+  {
+   "id": "z3-cf9f7f0671",
+   "class": "z3",
+   "level": "gadget",
+   "gadget": "lead_norm",
+   "dropped_rule": "V_PREMISE",
+   "accepted": false,
+   "first_failing": "lookup:in.v.hi.hi16",
+   "n_failing": 2,
+   "python_embedded": "reject: premise v in [0, 570417151) violated: 1006633088",
+   "control_accepted": null
+  },
+  {
+   "id": "extra-lead-l29",
+   "class": "extra",
+   "level": "gadget",
+   "gadget": "leading_bit",
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": "lookup:lead.window_lo.hi16",
+   "n_failing": 1,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "extra-lead-norm-l29",
+   "class": "extra",
+   "level": "gadget",
+   "gadget": "lead_norm",
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": "lookup:lead.window_lo.hi16",
+   "n_failing": 1,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "extra-step-l+1-golden[0]:randn_zero_acc-g1",
+   "class": "extra",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "lookup.helper[106]"
+   ],
+   "n_failing": 2,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "extra-step-l+1-golden[1]:randn_zero_acc-g1",
+   "class": "extra",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "lookup.helper[106]"
+   ],
+   "n_failing": 2,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "extra-step-l+1-golden[2]:randn_zero_acc-g1",
+   "class": "extra",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "lookup.helper[106]"
+   ],
+   "n_failing": 2,
+   "python_embedded": null,
+   "control_accepted": true
+  },
+  {
+   "id": "extra-step-l+1-golden[3]:randn_zero_acc-g1",
+   "class": "extra",
+   "level": "step",
+   "gadget": null,
+   "dropped_rule": null,
+   "accepted": false,
+   "first_failing": [
+    0,
+    "lookup.helper[106]"
+   ],
+   "n_failing": 2,
+   "python_embedded": null,
+   "control_accepted": true
+  }
+ ]
+}

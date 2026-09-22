@@ -1,0 +1,3736 @@
+{
+ "meta": {
+  "lane": "explore-fields",
+  "K": 1536,
+  "goldilocks_baseline_reproduced": {
+   "A_committed_elements_B4096_2^-128": 181353221,
+   "B_committed_elements_B4096_2^-128": 779620604
+  }
+ },
+ "unit_census": {
+  "goldilocks": {
+   "field": "Goldilocks",
+   "mul": 358,
+   "lin": 137,
+   "lookup": 306,
+   "range_by_width": {
+    "7": 36,
+    "8": 66,
+    "9": 26,
+    "16": 112,
+    "23": 2,
+    "24": 5,
+    "25": 8,
+    "30": 6,
+    "32": 1
+   },
+   "lt_pow_by_width": {
+    "7": 2,
+    "16": 32,
+    "25": 4,
+    "30": 2
+   },
+   "lt_pow_direct": {},
+   "extra_hints": 0,
+   "extra_inputs": 0,
+   "columns_committed_A": 321,
+   "columns_committed_B_estimate": 1064,
+   "repairs": []
+  },
+  "m31": {
+   "field": "Mersenne31",
+   "mul": 327,
+   "lin": 145,
+   "lookup": 316,
+   "range_by_width": {
+    "7": 38,
+    "8": 68,
+    "9": 26,
+    "12": 4,
+    "15": 4,
+    "16": 116,
+    "24": 5,
+    "25": 8,
+    "30": 6
+   },
+   "lt_pow_by_width": {
+    "7": 2,
+    "16": 32,
+    "25": 4,
+    "30": 2
+   },
+   "lt_pow_direct": {
+    "16": 32,
+    "25": 4,
+    "30": 2
+   },
+   "extra_hints": 12,
+   "extra_inputs": 2,
+   "columns_committed_A": 335,
+   "columns_committed_B_estimate": 1110,
+   "repairs": [
+    "F3 normalise division split into two halves with a carry",
+    "F4 32-bit words as two 16-bit limbs"
+   ]
+  },
+  "babybear": {
+   "field": "BabyBear",
+   "mul": 327,
+   "lin": 147,
+   "lookup": 320,
+   "range_by_width": {
+    "7": 38,
+    "8": 68,
+    "9": 26,
+    "12": 4,
+    "15": 4,
+    "16": 116,
+    "24": 5,
+    "25": 8,
+    "30": 8
+   },
+   "lt_pow_by_width": {
+    "7": 2,
+    "16": 32,
+    "25": 4,
+    "30": 2
+   },
+   "lt_pow_direct": {
+    "16": 32,
+    "25": 4,
+    "30": 2
+   },
+   "extra_hints": 12,
+   "extra_inputs": 2,
+   "columns_committed_A": 335,
+   "columns_committed_B_estimate": 1112,
+   "repairs": [
+    "F3 normalise division split into two halves with a carry",
+    "F4 32-bit words as two 16-bit limbs",
+    "signed sum tightened to its premise bound"
+   ]
+  },
+  "binary_tower": {
+   "bits": {
+    "inputs": 576,
+    "hints": 1350,
+    "lookup_outputs": 1028,
+    "products": 6511,
+    "materialised": 2244,
+    "carries": 11534,
+    "committed": 23243
+   },
+   "adders": 712,
+   "adder_bit_positions": 11534,
+   "adders_by_width": {
+    "2": 3,
+    "3": 1,
+    "4": 52,
+    "7": 2,
+    "8": 65,
+    "9": 68,
+    "10": 59,
+    "11": 84,
+    "12": 41,
+    "13": 4,
+    "14": 20,
+    "16": 144,
+    "24": 3,
+    "25": 10,
+    "28": 2,
+    "30": 50,
+    "32": 35,
+    "33": 34,
+    "34": 10,
+    "35": 8,
+    "39": 3,
+    "40": 6,
+    "50": 4,
+    "58": 4
+   },
+   "ands": {
+    "adders": 34602,
+    "bit_products": 1276,
+    "shifts": 5660,
+    "schoolbook": 2054,
+    "total": 43592
+   },
+   "schoolbook_products": 19,
+   "shift_stages": 170,
+   "lookups": {
+    "fixed": 22,
+    "mul_table": 18,
+    "total": 40
+   },
+   "range_checks": {
+    "free_on_bit_columns": 123,
+    "comparison_adders": 139
+   },
+   "booleans_free": 114,
+   "lt_pow_direct": 40
+  }
+ },
+ "small_field_repairs": {
+  "F3_per_group": {
+   "hints": {
+    "12": 2,
+    "15": 2,
+    "8": 1
+   },
+   "ranges": {
+    "12": 2,
+    "15": 2,
+    "8": 1
+   },
+   "lin": 4,
+   "mul": 2,
+   "inputs": 0,
+   "note": "F3 normalise division split into two halves with a carry"
+  },
+  "F4_per_unit": {
+   "hints": {
+    "7": 2
+   },
+   "ranges": {
+    "32": -1,
+    "16": 4,
+    "23": -2,
+    "7": 2
+   },
+   "lin": 3,
+   "mul": 3,
+   "inputs": 2,
+   "note": "F4 32-bit words as two 16-bit limbs"
+  },
+  "babybear_signed_sum_per_group": {
+   "hints": {},
+   "ranges": {
+    "30": 1
+   },
+   "lin": 0,
+   "mul": 0,
+   "inputs": 0,
+   "note": "signed sum tightened to its premise bound"
+  }
+ },
+ "carry_cost_binary_per_unit": {
+  "adders": 712,
+  "carry_bits": 11534,
+  "ands": 34602,
+  "share_of_committed_bits": 0.49623542571957147,
+  "share_of_ands": 0.7937694989906405
+ },
+ "rows": [
+  {
+   "field": "goldilocks",
+   "candidate": "A",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 1679712,
+   "census.committed_elements": 115643,
+   "census.bytes_encoded": 4456448,
+   "census.hash_bytes": 7864320,
+   "census.field_ops": 44939776,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 42602968,
+   "rounds.protocol": 579,
+   "rounds.sequential_depth": 228,
+   "transcript.bytes": 989796,
+   "estimate.transcript_p2v_bytes": 975084,
+   "estimate.transcript_v2p_bytes": 14712,
+   "estimate.peak_bytes": 6946008,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0228,
+   "t.e2e.rtt_1ms": 0.228,
+   "t.e2e.rtt_10ms": 2.28,
+   "t.e2e.rtt_50ms": 11.4,
+   "estimate.field_ops_goldilocks_equiv": 44939776.0,
+   "estimate.committed_bytes": 925144,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 3,
+    "challenge_field": "Goldilocks^3",
+    "opened_columns": 191,
+    "total_log2": -129.49575286685854,
+    "by_component_log2": {
+     "batching": -187.19264507693467,
+     "sumcheck": -183.09913319101153,
+     "lookup": -175.31129891808826,
+     "encoding_opening": -129.51173387651374,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "B",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 456764,
+   "census.committed_elements": 456764,
+   "census.bytes_encoded": 15990784,
+   "census.hash_bytes": 22806528,
+   "census.field_ops": 39289430,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 56234416,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 1179264,
+   "estimate.transcript_p2v_bytes": 1176168,
+   "estimate.transcript_v2p_bytes": 3096,
+   "estimate.peak_bytes": 19644896,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 39289430.0,
+   "estimate.committed_bytes": 3654112,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 3,
+    "challenge_field": "Goldilocks^3",
+    "opened_columns": 191,
+    "total_log2": -129.49575286685854,
+    "by_component_log2": {
+     "lookup": -175.32473207039254,
+     "encoding_opening": -129.51173387651374,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "A",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 2758304,
+   "census.committed_elements": 120259,
+   "census.bytes_encoded": 2293760.0,
+   "census.hash_bytes": 5701632.0,
+   "census.field_ops": 89723648,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 30952716.0,
+   "rounds.protocol": 579,
+   "rounds.sequential_depth": 228,
+   "transcript.bytes": 785666.0,
+   "estimate.transcript_p2v_bytes": 761106.0,
+   "estimate.transcript_v2p_bytes": 24560,
+   "estimate.peak_bytes": 4078476.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0228,
+   "t.e2e.rtt_1ms": 0.228,
+   "t.e2e.rtt_10ms": 2.28,
+   "t.e2e.rtt_50ms": 11.4,
+   "estimate.field_ops_goldilocks_equiv": 44861824.0,
+   "estimate.committed_bytes": 481036,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 5,
+    "challenge_field": "Mersenne31^5",
+    "opened_columns": 191,
+    "total_log2": -129.4920144644143,
+    "by_component_log2": {
+     "batching": -150.19264507458334,
+     "sumcheck": -146.0991331886602,
+     "lookup": -138.2982468232898,
+     "encoding_opening": -129.5112316891691,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "B",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 657978,
+   "census.committed_elements": 657978,
+   "census.bytes_encoded": 11468800.0,
+   "census.hash_bytes": 18284544.0,
+   "census.field_ops": 75359601,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 40916672.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 895952.0,
+   "estimate.transcript_p2v_bytes": 888672.0,
+   "estimate.transcript_v2p_bytes": 7280,
+   "estimate.peak_bytes": 14100712.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 37679800.5,
+   "estimate.committed_bytes": 2631912,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 5,
+    "challenge_field": "Mersenne31^5",
+    "opened_columns": 191,
+    "total_log2": -129.48572492297853,
+    "by_component_log2": {
+     "lookup": -138.31155843379725,
+     "encoding_opening": -129.50481269498505,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "A",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 2758304,
+   "census.committed_elements": 120355,
+   "census.bytes_encoded": 2293760.0,
+   "census.hash_bytes": 5701632.0,
+   "census.field_ops": 89723648,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 30953100.0,
+   "rounds.protocol": 579,
+   "rounds.sequential_depth": 228,
+   "transcript.bytes": 785666.0,
+   "estimate.transcript_p2v_bytes": 761106.0,
+   "estimate.transcript_v2p_bytes": 24560,
+   "estimate.peak_bytes": 4078860.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0228,
+   "t.e2e.rtt_1ms": 0.228,
+   "t.e2e.rtt_10ms": 2.28,
+   "t.e2e.rtt_50ms": 11.4,
+   "estimate.field_ops_goldilocks_equiv": 44861824.0,
+   "estimate.committed_bytes": 481420,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 5,
+    "challenge_field": "BabyBear^5",
+    "opened_columns": 191,
+    "total_log2": -129.49057725559214,
+    "by_component_log2": {
+     "batching": -149.72709805956796,
+     "sumcheck": -145.63358617364483,
+     "lookup": -137.82751185591508,
+     "encoding_opening": -129.51104048168486,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "B",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 660090,
+   "census.committed_elements": 660090,
+   "census.bytes_encoded": 11468800.0,
+   "census.hash_bytes": 18284544.0,
+   "census.field_ops": 75378417,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 40940480.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 895952.0,
+   "estimate.transcript_p2v_bytes": 888672.0,
+   "estimate.transcript_v2p_bytes": 7280,
+   "estimate.peak_bytes": 14109160.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 37689208.5,
+   "estimate.committed_bytes": 2640360,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 5,
+    "challenge_field": "BabyBear^5",
+    "opened_columns": 191,
+    "total_log2": -129.48190024596875,
+    "by_component_log2": {
+     "lookup": -137.84077546331832,
+     "encoding_opening": -129.5021774600557,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "binary tower GF(2) / GF(2^128)",
+   "candidate": "Binius-style (flat constraints + Lasso)",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "bits": {
+     "inputs": 576,
+     "hints": 1350,
+     "lookup_outputs": 1028,
+     "products": 6511,
+     "materialised": 2244,
+     "carries": 11534,
+     "committed": 23243
+    },
+    "adders": 712,
+    "adder_bit_positions": 11534,
+    "adders_by_width": {
+     "2": 3,
+     "3": 1,
+     "4": 52,
+     "7": 2,
+     "8": 65,
+     "9": 68,
+     "10": 59,
+     "11": 84,
+     "12": 41,
+     "13": 4,
+     "14": 20,
+     "16": 144,
+     "24": 3,
+     "25": 10,
+     "28": 2,
+     "30": 50,
+     "32": 35,
+     "33": 34,
+     "34": 10,
+     "35": 8,
+     "39": 3,
+     "40": 6,
+     "50": 4,
+     "58": 4
+    },
+    "ands": {
+     "adders": 34602,
+     "bit_products": 1276,
+     "shifts": 5660,
+     "schoolbook": 2054,
+     "total": 43592
+    },
+    "schoolbook_products": 19,
+    "shift_stages": 170,
+    "lookups": {
+     "fixed": 22,
+     "mul_table": 18,
+     "total": 40
+    },
+    "range_checks": {
+     "free_on_bit_columns": 123,
+     "comparison_adders": 139
+    },
+    "booleans_free": 114,
+    "lt_pow_direct": 40
+   },
+   "unit_prime_census_for_reference": {
+    "mul": 318,
+    "lin": 131,
+    "lookup": 260
+   },
+   "census.witness_elements": 6416160,
+   "census.committed_elements": 3297296,
+   "estimate.committed_bytes": 412162.0,
+   "census.bytes_encoded": 1648648.0,
+   "census.hash_bytes": 2697224.0,
+   "census.field_ops": 4184832,
+   "estimate.gf2_128_mults": 601515,
+   "estimate.field_ops_goldilocks_equiv": 2471448.0,
+   "census.memory_passes": 15,
+   "census.bytes_moved": 8154024.0,
+   "rounds.protocol": 175,
+   "rounds.sequential_depth": 156,
+   "transcript.bytes": 128704,
+   "estimate.transcript_p2v_bytes": 125920,
+   "estimate.transcript_v2p_bytes": 2784,
+   "estimate.peak_bytes": 2583914.0,
+   "soundness": {
+    "reachable": false,
+    "field": "GF(2^128)",
+    "terms_log2": {
+     "ALIGN: multiset check, N=1536, |T|=512": -117.0,
+     "LEAD: multiset check, N=192, |T|=31": -120.19910010007969,
+     "NORM: multiset check, N=192, |T|=32": -120.1926450779424,
+     "POW: multiset check, N=192, |T|=512": -118.5405683813627,
+     "MUL8x8: multiset check, N=1728, |T|=65536": -111.96245304603782,
+     "zerocheck: degree-2 sumcheck over log2(rows) + log2(constraints/unit) variables": -122.75207248655641,
+     "Merkle collisions q^2/2^h, q=2^60, h=256": -136.0
+    },
+    "total_log2": -111.89464381938939,
+    "meets_-80": true,
+    "meets_-128": false,
+    "logup_refused": "logUp needs char(F) > total lookups: char=2, lookups=2 (Haboeck Lemma 5)"
+   },
+   "carry_cost_per_unit": {
+    "adders": 712,
+    "carry_bits": 11534,
+    "ands": 34602,
+    "share_of_committed_bits": 0.49623542571957147,
+    "share_of_ands": 0.7937694989906405
+   },
+   "tooling": "binius crate 0.1.1 (crates.io, Apache-2.0, 2025-05-23; repository IrreducibleOSS/binius ARCHIVED 2025-09-09); successor binius64 (binius-zk/binius64, Apache-2.0 OR MIT, git-only crates binius-prover/-verifier, 64-bit word constraint system, ZK)",
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.015600000000000001,
+   "t.e2e.rtt_1ms": 0.156,
+   "t.e2e.rtt_10ms": 1.56,
+   "t.e2e.rtt_50ms": 7.8
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "A",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 31414272,
+   "census.committed_elements": 2907350,
+   "census.bytes_encoded": 99745792,
+   "census.hash_bytes": 103153664,
+   "census.field_ops": 1899782144,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 1525540528,
+   "rounds.protocol": 968,
+   "rounds.sequential_depth": 264,
+   "transcript.bytes": 2156068,
+   "estimate.transcript_p2v_bytes": 2114572,
+   "estimate.transcript_v2p_bytes": 41496,
+   "estimate.peak_bytes": 223127216,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.026400000000000003,
+   "t.e2e.rtt_1ms": 0.264,
+   "t.e2e.rtt_10ms": 2.64,
+   "t.e2e.rtt_50ms": 13.2,
+   "estimate.field_ops_goldilocks_equiv": 1899782144.0,
+   "estimate.committed_bytes": 23258800,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 3,
+    "challenge_field": "Goldilocks^3",
+    "opened_columns": 191,
+    "total_log2": -129.49575286685786,
+    "by_component_log2": {
+     "batching": -186.91253715774195,
+     "sumcheck": -182.80524314457003,
+     "lookup": -170.84665950061458,
+     "encoding_opening": -129.51173387651374,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "B",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 12443900,
+   "census.committed_elements": 12443900,
+   "census.bytes_encoded": 425197568,
+   "census.hash_bytes": 432013312,
+   "census.field_ops": 1029648982,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 1468584880,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 6024608,
+   "estimate.transcript_p2v_bytes": 5946584,
+   "estimate.transcript_v2p_bytes": 78024,
+   "estimate.peak_bytes": 524748768,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 1029648982.0,
+   "estimate.committed_bytes": 99551200,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 3,
+    "challenge_field": "Goldilocks^3",
+    "opened_columns": 191,
+    "total_log2": -129.4957528668565,
+    "by_component_log2": {
+     "lookup": -170.84790458821396,
+     "encoding_opening": -129.5117338765126,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "A",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 49719296,
+   "census.committed_elements": 3005072,
+   "census.bytes_encoded": 51511296.0,
+   "census.hash_bytes": 54919168.0,
+   "census.field_ops": 3946070016,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 1169091136.0,
+   "rounds.protocol": 968,
+   "rounds.sequential_depth": 264,
+   "transcript.bytes": 1428890.0,
+   "estimate.transcript_p2v_bytes": 1358730.0,
+   "estimate.transcript_v2p_bytes": 70160,
+   "estimate.peak_bytes": 146967104.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.026400000000000003,
+   "t.e2e.rtt_1ms": 0.264,
+   "t.e2e.rtt_10ms": 2.64,
+   "t.e2e.rtt_50ms": 13.2,
+   "estimate.field_ops_goldilocks_equiv": 1973035008.0,
+   "estimate.committed_bytes": 12020288,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 5,
+    "challenge_field": "Mersenne31^5",
+    "opened_columns": 191,
+    "total_log2": -129.42446524332263,
+    "by_component_log2": {
+     "batching": -149.91253715539062,
+     "sumcheck": -145.8052431422187,
+     "lookup": -133.80914688648068,
+     "encoding_opening": -129.5112316891691,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "B",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 16927098,
+   "census.committed_elements": 16927098,
+   "census.bytes_encoded": 289144832.0,
+   "census.hash_bytes": 295960576.0,
+   "census.field_ops": 1877888881,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 1015467968.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 4302500.0,
+   "estimate.transcript_p2v_bytes": 4125740.0,
+   "estimate.transcript_v2p_bytes": 176760,
+   "estimate.peak_bytes": 356853224.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 938944440.5,
+   "estimate.committed_bytes": 67708392,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 5,
+    "challenge_field": "Mersenne31^5",
+    "opened_columns": 191,
+    "total_log2": -129.28590472417272,
+    "by_component_log2": {
+     "lookup": -133.81036000344216,
+     "encoding_opening": -129.36443205779256,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "A",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 49719296,
+   "census.committed_elements": 3011216,
+   "census.bytes_encoded": 51642368.0,
+   "census.hash_bytes": 55050240.0,
+   "census.field_ops": 3946840064,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 1169508928.0,
+   "rounds.protocol": 968,
+   "rounds.sequential_depth": 264,
+   "transcript.bytes": 1430498.0,
+   "estimate.transcript_p2v_bytes": 1360258.0,
+   "estimate.transcript_v2p_bytes": 70240,
+   "estimate.peak_bytes": 147122752.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.026400000000000003,
+   "t.e2e.rtt_1ms": 0.264,
+   "t.e2e.rtt_10ms": 2.64,
+   "t.e2e.rtt_50ms": 13.2,
+   "estimate.field_ops_goldilocks_equiv": 1973420032.0,
+   "estimate.committed_bytes": 12044864,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 5,
+    "challenge_field": "BabyBear^5",
+    "opened_columns": 191,
+    "total_log2": -129.39725497904396,
+    "by_component_log2": {
+     "batching": -149.44699014037525,
+     "sumcheck": -145.33969612720333,
+     "lookup": -133.32886374224984,
+     "encoding_opening": -129.51104048168486,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "B",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 17062266,
+   "census.committed_elements": 17062266,
+   "census.bytes_encoded": 291438592.0,
+   "census.hash_bytes": 298254336.0,
+   "census.field_ops": 1892568945,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 1023872960.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 4330640.0,
+   "estimate.transcript_p2v_bytes": 4152480.0,
+   "estimate.transcript_v2p_bytes": 178160,
+   "estimate.peak_bytes": 359687656.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 946284472.5,
+   "estimate.committed_bytes": 68249064,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 5,
+    "challenge_field": "BabyBear^5",
+    "opened_columns": 191,
+    "total_log2": -129.21211185793868,
+    "by_component_log2": {
+     "lookup": -133.33006452599966,
+     "encoding_opening": -129.31161135944217,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "binary tower GF(2) / GF(2^128)",
+   "candidate": "Binius-style (flat constraints + Lasso)",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "bits": {
+     "inputs": 576,
+     "hints": 1350,
+     "lookup_outputs": 1028,
+     "products": 6511,
+     "materialised": 2244,
+     "carries": 11534,
+     "committed": 23243
+    },
+    "adders": 712,
+    "adder_bit_positions": 11534,
+    "adders_by_width": {
+     "2": 3,
+     "3": 1,
+     "4": 52,
+     "7": 2,
+     "8": 65,
+     "9": 68,
+     "10": 59,
+     "11": 84,
+     "12": 41,
+     "13": 4,
+     "14": 20,
+     "16": 144,
+     "24": 3,
+     "25": 10,
+     "28": 2,
+     "30": 50,
+     "32": 35,
+     "33": 34,
+     "34": 10,
+     "35": 8,
+     "39": 3,
+     "40": 6,
+     "50": 4,
+     "58": 4
+    },
+    "ands": {
+     "adders": 34602,
+     "bit_products": 1276,
+     "shifts": 5660,
+     "schoolbook": 2054,
+     "total": 43592
+    },
+    "schoolbook_products": 19,
+    "shift_stages": 170,
+    "lookups": {
+     "fixed": 22,
+     "mul_table": 18,
+     "total": 40
+    },
+    "range_checks": {
+     "free_on_bit_columns": 123,
+     "comparison_adders": 139
+    },
+    "booleans_free": 114,
+    "lt_pow_direct": 40
+   },
+   "unit_prime_census_for_reference": {
+    "mul": 318,
+    "lin": 131,
+    "lookup": 260
+   },
+   "census.witness_elements": 410634240,
+   "census.committed_elements": 143870960,
+   "estimate.committed_bytes": 17983870.0,
+   "census.bytes_encoded": 71935480.0,
+   "census.hash_bytes": 72984056.0,
+   "census.field_ops": 267829248,
+   "estimate.gf2_128_mults": 38496960,
+   "estimate.field_ops_goldilocks_equiv": 158172672.0,
+   "census.memory_passes": 15,
+   "census.bytes_moved": 421123560.0,
+   "rounds.protocol": 199,
+   "rounds.sequential_depth": 174,
+   "transcript.bytes": 1004256,
+   "estimate.transcript_p2v_bytes": 1001088,
+   "estimate.transcript_v2p_bytes": 3168,
+   "estimate.peak_bytes": 123398006.0,
+   "soundness": {
+    "reachable": false,
+    "field": "GF(2^128)",
+    "terms_log2": {
+     "ALIGN: multiset check, N=98304, |T|=512": -111.40754296273192,
+     "LEAD: multiset check, N=12288, |T|=31": -114.4114024710407,
+     "NORM: multiset check, N=12288, |T|=32": -114.41128536441774,
+     "POW: multiset check, N=12288, |T|=512": -114.35614381022528,
+     "MUL8x8: multiset check, N=110592, |T|=65536": -110.5737352452979,
+     "zerocheck: degree-2 sumcheck over log2(rows) + log2(constraints/unit) variables": -122.35614381022528,
+     "Merkle collisions q^2/2^h, q=2^60, h=256": -136.0
+    },
+    "total_log2": -109.74681266473085,
+    "meets_-80": true,
+    "meets_-128": false,
+    "logup_refused": "logUp needs char(F) > total lookups: char=2, lookups=2 (Haboeck Lemma 5)"
+   },
+   "carry_cost_per_unit": {
+    "adders": 712,
+    "carry_bits": 11534,
+    "ands": 34602,
+    "share_of_committed_bits": 0.49623542571957147,
+    "share_of_ands": 0.7937694989906405
+   },
+   "tooling": "binius crate 0.1.1 (crates.io, Apache-2.0, 2025-05-23; repository IrreducibleOSS/binius ARCHIVED 2025-09-09); successor binius64 (binius-zk/binius64, Apache-2.0 OR MIT, git-only crates binius-prover/-verifier, 64-bit word constraint system, ZK)",
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.017400000000000002,
+   "t.e2e.rtt_1ms": 0.174,
+   "t.e2e.rtt_10ms": 1.74,
+   "t.e2e.rtt_50ms": 8.7
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "A",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 2010513408,
+   "census.committed_elements": 181353221,
+   "census.bytes_encoded": 6190661632,
+   "census.hash_bytes": 6194069504,
+   "census.field_ops": 121163718656,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 97017649192,
+   "rounds.protocol": 1589,
+   "rounds.sequential_depth": 381,
+   "transcript.bytes": 74337844,
+   "estimate.transcript_p2v_bytes": 73166164,
+   "estimate.transcript_v2p_bytes": 1171680,
+   "estimate.peak_bytes": 14049335336,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0381,
+   "t.e2e.rtt_1ms": 0.381,
+   "t.e2e.rtt_10ms": 3.81,
+   "t.e2e.rtt_50ms": 19.05,
+   "estimate.field_ops_goldilocks_equiv": 121163718656.0,
+   "estimate.committed_bytes": 1450825768,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 3,
+    "challenge_field": "Goldilocks^3",
+    "opened_columns": 191,
+    "total_log2": -129.49575286682648,
+    "by_component_log2": {
+     "batching": -186.6780719041049,
+     "sumcheck": -182.56120814641403,
+     "lookup": -164.89074728730327,
+     "encoding_opening": -129.51173387651374,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "B",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 779620604,
+   "census.committed_elements": 779620604,
+   "census.bytes_encoded": 26611548160,
+   "census.hash_bytes": 26618363904,
+   "census.field_ops": 64406352470,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 91850363824,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 316092480,
+   "estimate.transcript_p2v_bytes": 311219592,
+   "estimate.transcript_v2p_bytes": 4872888,
+   "estimate.peak_bytes": 32848512992,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 64406352470.0,
+   "estimate.committed_bytes": 6236964832,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 3,
+    "challenge_field": "Goldilocks^3",
+    "opened_columns": 191,
+    "total_log2": -129.49575286675258,
+    "by_component_log2": {
+     "lookup": -164.89078452690399,
+     "encoding_opening": -129.51173387643894,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "A",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 3765043200,
+   "census.committed_elements": 187265483,
+   "census.bytes_encoded": 3196256256.0,
+   "census.hash_bytes": 3199664128.0,
+   "census.field_ops": 326103195648,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 87332669228.0,
+   "rounds.protocol": 1589,
+   "rounds.sequential_depth": 381,
+   "transcript.bytes": 40623154.0,
+   "estimate.transcript_p2v_bytes": 38205874.0,
+   "estimate.transcript_v2p_bytes": 2417280,
+   "estimate.peak_bytes": 10353166124.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0381,
+   "t.e2e.rtt_1ms": 0.381,
+   "t.e2e.rtt_10ms": 3.81,
+   "t.e2e.rtt_50ms": 19.05,
+   "estimate.field_ops_goldilocks_equiv": 163051597824.0,
+   "estimate.committed_bytes": 749061932,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 6,
+    "challenge_field": "Mersenne31^6",
+    "opened_columns": 191,
+    "total_log2": -129.49575286475874,
+    "by_component_log2": {
+     "batching": -180.67807190108178,
+     "sumcheck": -176.5612081433909,
+     "lookup": -158.8520860773857,
+     "encoding_opening": -129.51173387651352,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "B",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 1182473657,
+   "census.committed_elements": 1182473657,
+   "census.bytes_encoded": 20181090304.0,
+   "census.hash_bytes": 20187906048.0,
+   "census.field_ops": 147583698013,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 71240663732.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 250931824.0,
+   "estimate.transcript_p2v_bytes": 236150416.0,
+   "estimate.transcript_v2p_bytes": 14781408,
+   "estimate.peak_bytes": 24910984932.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 73791849006.5,
+   "estimate.committed_bytes": 4729894628,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 6,
+    "challenge_field": "Mersenne31^6",
+    "opened_columns": 191,
+    "total_log2": -129.49575286032132,
+    "by_component_log2": {
+     "lookup": -158.85212233228344,
+     "encoding_opening": -129.51173387202653,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "A",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 3765043200,
+   "census.committed_elements": 187658699,
+   "census.bytes_encoded": 3202940928.0,
+   "census.hash_bytes": 3206348800.0,
+   "census.field_ops": 326147481600,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 87354296108.0,
+   "rounds.protocol": 1589,
+   "rounds.sequential_depth": 381,
+   "transcript.bytes": 40705978.0,
+   "estimate.transcript_p2v_bytes": 38283802.0,
+   "estimate.transcript_v2p_bytes": 2422176,
+   "estimate.peak_bytes": 10361423660.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0381,
+   "t.e2e.rtt_1ms": 0.381,
+   "t.e2e.rtt_10ms": 3.81,
+   "t.e2e.rtt_50ms": 19.05,
+   "estimate.field_ops_goldilocks_equiv": 163073740800.0,
+   "estimate.committed_bytes": 750634796,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 6,
+    "challenge_field": "BabyBear^6",
+    "opened_columns": 191,
+    "total_log2": -129.49575286373351,
+    "by_component_log2": {
+     "batching": -180.1194154830633,
+     "sumcheck": -176.00255172537243,
+     "lookup": -158.27825067776485,
+     "encoding_opening": -129.51173387651352,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "B",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 1192697273,
+   "census.committed_elements": 1192697273,
+   "census.bytes_encoded": 20355612672.0,
+   "census.hash_bytes": 20362428416.0,
+   "census.field_ops": 148838999133,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 71880622772.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 253094180.0,
+   "estimate.transcript_p2v_bytes": 238184948.0,
+   "estimate.transcript_v2p_bytes": 14909232,
+   "estimate.peak_bytes": 25126401764.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 74419499566.5,
+   "estimate.committed_bytes": 4770789092,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 6,
+    "challenge_field": "BabyBear^6",
+    "opened_columns": 191,
+    "total_log2": -129.49575285718106,
+    "by_component_log2": {
+     "lookup": -158.27828655321002,
+     "encoding_opening": -129.51173386988785,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "binary tower GF(2) / GF(2^128)",
+   "candidate": "Binius-style (flat constraints + Lasso)",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -128,
+   "unit": {
+    "bits": {
+     "inputs": 576,
+     "hints": 1350,
+     "lookup_outputs": 1028,
+     "products": 6511,
+     "materialised": 2244,
+     "carries": 11534,
+     "committed": 23243
+    },
+    "adders": 712,
+    "adder_bit_positions": 11534,
+    "adders_by_width": {
+     "2": 3,
+     "3": 1,
+     "4": 52,
+     "7": 2,
+     "8": 65,
+     "9": 68,
+     "10": 59,
+     "11": 84,
+     "12": 41,
+     "13": 4,
+     "14": 20,
+     "16": 144,
+     "24": 3,
+     "25": 10,
+     "28": 2,
+     "30": 50,
+     "32": 35,
+     "33": 34,
+     "34": 10,
+     "35": 8,
+     "39": 3,
+     "40": 6,
+     "50": 4,
+     "58": 4
+    },
+    "ands": {
+     "adders": 34602,
+     "bit_products": 1276,
+     "shifts": 5660,
+     "schoolbook": 2054,
+     "total": 43592
+    },
+    "schoolbook_products": 19,
+    "shift_stages": 170,
+    "lookups": {
+     "fixed": 22,
+     "mul_table": 18,
+     "total": 40
+    },
+    "range_checks": {
+     "free_on_bit_columns": 123,
+     "comparison_adders": 139
+    },
+    "booleans_free": 114,
+    "lt_pow_direct": 40
+   },
+   "unit_prime_census_for_reference": {
+    "mul": 318,
+    "lin": 131,
+    "lookup": 260
+   },
+   "census.witness_elements": 26280591360,
+   "census.committed_elements": 9140585456,
+   "estimate.committed_bytes": 1142573182.0,
+   "census.bytes_encoded": 4570292728.0,
+   "census.hash_bytes": 4571341304.0,
+   "census.field_ops": 17141071872,
+   "estimate.gf2_128_mults": 2463805440,
+   "estimate.field_ops_goldilocks_equiv": 10123051008.0,
+   "census.memory_passes": 15,
+   "census.bytes_moved": 26851173864.0,
+   "rounds.protocol": 310,
+   "rounds.sequential_depth": 279,
+   "transcript.bytes": 56949776,
+   "estimate.transcript_p2v_bytes": 56944832,
+   "estimate.transcript_v2p_bytes": 4944,
+   "estimate.peak_bytes": 7855499894.0,
+   "soundness": {
+    "reachable": false,
+    "field": "GF(2^128)",
+    "terms_log2": {
+     "ALIGN: multiset check, N=6291456, |T|=512": -105.4149200972329,
+     "LEAD: multiset check, N=786432, |T|=31": -108.41498063146977,
+     "NORM: multiset check, N=786432, |T|=32": -108.41497879706164,
+     "POW: multiset check, N=786432, |T|=512": -108.41409855030923,
+     "MUL8x8: multiset check, N=7077888, |T|=65536": -105.23181567522307,
+     "zerocheck: degree-2 sumcheck over log2(rows) + log2(constraints/unit) variables": -122.04580368961312,
+     "Merkle collisions q^2/2^h, q=2^60, h=256": -136.0
+    },
+    "total_log2": -104.08700571356914,
+    "meets_-80": true,
+    "meets_-128": false,
+    "logup_refused": "logUp needs char(F) > total lookups: char=2, lookups=2 (Haboeck Lemma 5)"
+   },
+   "carry_cost_per_unit": {
+    "adders": 712,
+    "carry_bits": 11534,
+    "ands": 34602,
+    "share_of_committed_bits": 0.49623542571957147,
+    "share_of_ands": 0.7937694989906405
+   },
+   "tooling": "binius crate 0.1.1 (crates.io, Apache-2.0, 2025-05-23; repository IrreducibleOSS/binius ARCHIVED 2025-09-09); successor binius64 (binius-zk/binius64, Apache-2.0 OR MIT, git-only crates binius-prover/-verifier, 64-bit word constraint system, ZK)",
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0279,
+   "t.e2e.rtt_1ms": 0.279,
+   "t.e2e.rtt_10ms": 2.79,
+   "t.e2e.rtt_50ms": 13.95
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "A",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 1141088,
+   "census.committed_elements": 114055,
+   "census.bytes_encoded": 4325376,
+   "census.hash_bytes": 7733248,
+   "census.field_ops": 25435392,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 32760888,
+   "rounds.protocol": 579,
+   "rounds.sequential_depth": 228,
+   "transcript.bytes": 652896,
+   "estimate.transcript_p2v_bytes": 643104,
+   "estimate.transcript_v2p_bytes": 9792,
+   "estimate.peak_bytes": 6280760,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0228,
+   "t.e2e.rtt_1ms": 0.228,
+   "t.e2e.rtt_10ms": 2.28,
+   "t.e2e.rtt_50ms": 11.4,
+   "estimate.field_ops_goldilocks_equiv": 25435392.0,
+   "estimate.committed_bytes": 912440,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 2,
+    "challenge_field": "Goldilocks^2",
+    "opened_columns": 120,
+    "total_log2": -81.36862861189138,
+    "by_component_log2": {
+     "batching": -123.1926450772706,
+     "sumcheck": -119.09913319134745,
+     "lookup": -111.3112989184242,
+     "encoding_opening": -81.36862861329621,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "B",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 360765,
+   "census.committed_elements": 360765,
+   "census.bytes_encoded": 12713984,
+   "census.hash_bytes": 19529728,
+   "census.field_ops": 25629159,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 44100040,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 746624,
+   "estimate.transcript_p2v_bytes": 744960,
+   "estimate.transcript_v2p_bytes": 1664,
+   "estimate.peak_bytes": 15600104,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 25629159.0,
+   "estimate.committed_bytes": 2886120,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 2,
+    "challenge_field": "Goldilocks^2",
+    "opened_columns": 120,
+    "total_log2": -81.36862860906353,
+    "by_component_log2": {
+     "lookup": -111.32473207072849,
+     "encoding_opening": -81.3686286104487,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "A",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 2219680,
+   "census.committed_elements": 118671,
+   "census.bytes_encoded": 2228224.0,
+   "census.hash_bytes": 5636096.0,
+   "census.field_ops": 64206592,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 26031676.0,
+   "rounds.protocol": 579,
+   "rounds.sequential_depth": 228,
+   "transcript.bytes": 614448.0,
+   "estimate.transcript_p2v_bytes": 594832.0,
+   "estimate.transcript_v2p_bytes": 19616,
+   "estimate.peak_bytes": 3745852.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0228,
+   "t.e2e.rtt_1ms": 0.228,
+   "t.e2e.rtt_10ms": 2.28,
+   "t.e2e.rtt_50ms": 11.4,
+   "estimate.field_ops_goldilocks_equiv": 32103296.0,
+   "estimate.committed_bytes": 474684,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "Mersenne31^4",
+    "opened_columns": 120,
+    "total_log2": -81.36862858736322,
+    "by_component_log2": {
+     "batching": -119.19264507525517,
+     "sumcheck": -115.09913318933202,
+     "lookup": -107.29824682396162,
+     "encoding_opening": -81.36862861004283,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "B",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 561019,
+   "census.committed_elements": 561019,
+   "census.bytes_encoded": 9830400.0,
+   "census.hash_bytes": 16646144.0,
+   "census.field_ops": 56357893,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 34837964.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 663040.0,
+   "estimate.transcript_p2v_bytes": 658016.0,
+   "estimate.transcript_v2p_bytes": 5024,
+   "estimate.peak_bytes": 12074476.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 28178946.5,
+   "estimate.committed_bytes": 2244076,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "Mersenne31^4",
+    "opened_columns": 120,
+    "total_log2": -81.36862854321498,
+    "by_component_log2": {
+     "lookup": -107.31155843446919,
+     "encoding_opening": -81.36862856558014,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "A",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 2219680,
+   "census.committed_elements": 118767,
+   "census.bytes_encoded": 2228224.0,
+   "census.hash_bytes": 5636096.0,
+   "census.field_ops": 64206592,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 26032060.0,
+   "rounds.protocol": 579,
+   "rounds.sequential_depth": 228,
+   "transcript.bytes": 614448.0,
+   "estimate.transcript_p2v_bytes": 594832.0,
+   "estimate.transcript_v2p_bytes": 19616,
+   "estimate.peak_bytes": 3746236.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0228,
+   "t.e2e.rtt_1ms": 0.228,
+   "t.e2e.rtt_10ms": 2.28,
+   "t.e2e.rtt_50ms": 11.4,
+   "estimate.field_ops_goldilocks_equiv": 32103296.0,
+   "estimate.committed_bytes": 475068,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "BabyBear^4",
+    "opened_columns": 120,
+    "total_log2": -81.36862857955566,
+    "by_component_log2": {
+     "batching": -118.82020746324285,
+     "sumcheck": -114.7266955773197,
+     "lookup": -106.92062125959,
+     "encoding_opening": -81.36862860902079,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "B",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 562747,
+   "census.committed_elements": 562747,
+   "census.bytes_encoded": 9830400.0,
+   "census.hash_bytes": 16646144.0,
+   "census.field_ops": 56371333,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 34857164.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 663040.0,
+   "estimate.transcript_p2v_bytes": 658016.0,
+   "estimate.transcript_v2p_bytes": 5024,
+   "estimate.peak_bytes": 12081388.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 28185666.5,
+   "estimate.committed_bytes": 2250988,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "BabyBear^4",
+    "opened_columns": 120,
+    "total_log2": -81.3686285223514,
+    "by_component_log2": {
+     "lookup": -106.9338848669932,
+     "encoding_opening": -81.36862855140953,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "binary tower GF(2) / GF(2^128)",
+   "candidate": "Binius-style (flat constraints + Lasso)",
+   "B": 1,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "bits": {
+     "inputs": 576,
+     "hints": 1350,
+     "lookup_outputs": 1028,
+     "products": 6511,
+     "materialised": 2244,
+     "carries": 11534,
+     "committed": 23243
+    },
+    "adders": 712,
+    "adder_bit_positions": 11534,
+    "adders_by_width": {
+     "2": 3,
+     "3": 1,
+     "4": 52,
+     "7": 2,
+     "8": 65,
+     "9": 68,
+     "10": 59,
+     "11": 84,
+     "12": 41,
+     "13": 4,
+     "14": 20,
+     "16": 144,
+     "24": 3,
+     "25": 10,
+     "28": 2,
+     "30": 50,
+     "32": 35,
+     "33": 34,
+     "34": 10,
+     "35": 8,
+     "39": 3,
+     "40": 6,
+     "50": 4,
+     "58": 4
+    },
+    "ands": {
+     "adders": 34602,
+     "bit_products": 1276,
+     "shifts": 5660,
+     "schoolbook": 2054,
+     "total": 43592
+    },
+    "schoolbook_products": 19,
+    "shift_stages": 170,
+    "lookups": {
+     "fixed": 22,
+     "mul_table": 18,
+     "total": 40
+    },
+    "range_checks": {
+     "free_on_bit_columns": 123,
+     "comparison_adders": 139
+    },
+    "booleans_free": 114,
+    "lt_pow_direct": 40
+   },
+   "unit_prime_census_for_reference": {
+    "mul": 318,
+    "lin": 131,
+    "lookup": 260
+   },
+   "census.witness_elements": 6416160,
+   "census.committed_elements": 3297296,
+   "estimate.committed_bytes": 412162.0,
+   "census.bytes_encoded": 1648648.0,
+   "census.hash_bytes": 2697224.0,
+   "census.field_ops": 4184832,
+   "estimate.gf2_128_mults": 601515,
+   "estimate.field_ops_goldilocks_equiv": 2471448.0,
+   "census.memory_passes": 15,
+   "census.bytes_moved": 8154024.0,
+   "rounds.protocol": 175,
+   "rounds.sequential_depth": 156,
+   "transcript.bytes": 85536,
+   "estimate.transcript_p2v_bytes": 82752,
+   "estimate.transcript_v2p_bytes": 2784,
+   "estimate.peak_bytes": 2583914.0,
+   "soundness": {
+    "reachable": true,
+    "field": "GF(2^128)",
+    "terms_log2": {
+     "ALIGN: multiset check, N=1536, |T|=512": -117.0,
+     "LEAD: multiset check, N=192, |T|=31": -120.19910010007969,
+     "NORM: multiset check, N=192, |T|=32": -120.1926450779424,
+     "POW: multiset check, N=192, |T|=512": -118.5405683813627,
+     "MUL8x8: multiset check, N=1728, |T|=65536": -111.96245304603782,
+     "zerocheck: degree-2 sumcheck over log2(rows) + log2(constraints/unit) variables": -122.75207248655641,
+     "Merkle collisions q^2/2^h, q=2^60, h=256": -136.0
+    },
+    "total_log2": -111.89464381938939,
+    "meets_-80": true,
+    "meets_-128": false,
+    "logup_refused": "logUp needs char(F) > total lookups: char=2, lookups=2 (Haboeck Lemma 5)"
+   },
+   "carry_cost_per_unit": {
+    "adders": 712,
+    "carry_bits": 11534,
+    "ands": 34602,
+    "share_of_committed_bits": 0.49623542571957147,
+    "share_of_ands": 0.7937694989906405
+   },
+   "tooling": "binius crate 0.1.1 (crates.io, Apache-2.0, 2025-05-23; repository IrreducibleOSS/binius ARCHIVED 2025-09-09); successor binius64 (binius-zk/binius64, Apache-2.0 OR MIT, git-only crates binius-prover/-verifier, 64-bit word constraint system, ZK)",
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.015600000000000001,
+   "t.e2e.rtt_1ms": 0.156,
+   "t.e2e.rtt_10ms": 1.56,
+   "t.e2e.rtt_50ms": 7.8
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "A",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 22304768,
+   "census.committed_elements": 2904569,
+   "census.bytes_encoded": 99614720,
+   "census.hash_bytes": 103022592,
+   "census.field_ops": 1021345792,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 1124110280,
+   "rounds.protocol": 968,
+   "rounds.sequential_depth": 264,
+   "transcript.bytes": 1387760,
+   "estimate.transcript_p2v_bytes": 1360112,
+   "estimate.transcript_v2p_bytes": 27648,
+   "estimate.peak_bytes": 189599688,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.026400000000000003,
+   "t.e2e.rtt_1ms": 0.264,
+   "t.e2e.rtt_10ms": 2.64,
+   "t.e2e.rtt_50ms": 13.2,
+   "estimate.field_ops_goldilocks_equiv": 1021345792.0,
+   "estimate.committed_bytes": 23236552,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 2,
+    "challenge_field": "Goldilocks^2",
+    "opened_columns": 120,
+    "total_log2": -81.36862858241875,
+    "by_component_log2": {
+     "batching": -122.91253715807785,
+     "sumcheck": -118.80524314490594,
+     "lookup": -106.84665950095064,
+     "encoding_opening": -81.36862861329621,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "B",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 10497213,
+   "census.committed_elements": 10497213,
+   "census.bytes_encoded": 358744064,
+   "census.hash_bytes": 365559808,
+   "census.field_ops": 710736423,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 1222503880,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 3323264,
+   "estimate.transcript_p2v_bytes": 3279360,
+   "estimate.transcript_v2p_bytes": 43904,
+   "estimate.peak_bytes": 442721768,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 710736423.0,
+   "estimate.committed_bytes": 83977704,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 2,
+    "challenge_field": "Goldilocks^2",
+    "opened_columns": 120,
+    "total_log2": -81.36862851131218,
+    "by_component_log2": {
+     "lookup": -106.84790458854991,
+     "encoding_opening": -81.36862854215474,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "A",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 40609792,
+   "census.committed_elements": 3002291,
+   "census.bytes_encoded": 51445760.0,
+   "census.hash_bytes": 54853632.0,
+   "census.field_ops": 2786041856,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 968376012.0,
+   "rounds.protocol": 968,
+   "rounds.sequential_depth": 264,
+   "transcript.bytes": 1030496.0,
+   "estimate.transcript_p2v_bytes": 974400.0,
+   "estimate.transcript_v2p_bytes": 56096,
+   "estimate.peak_bytes": 130203340.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.026400000000000003,
+   "t.e2e.rtt_1ms": 0.264,
+   "t.e2e.rtt_10ms": 2.64,
+   "t.e2e.rtt_50ms": 13.2,
+   "estimate.field_ops_goldilocks_equiv": 1393020928.0,
+   "estimate.committed_bytes": 12009164,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "Mersenne31^4",
+    "opened_columns": 120,
+    "total_log2": -81.36862810299635,
+    "by_component_log2": {
+     "batching": -118.91253715606243,
+     "sumcheck": -114.80524314289052,
+     "lookup": -102.80914688715251,
+     "encoding_opening": -81.36862861004283,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "B",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 14918971,
+   "census.committed_elements": 14918971,
+   "census.bytes_encoded": 254869504.0,
+   "census.hash_bytes": 261685248.0,
+   "census.field_ops": 1441102469,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 888544460.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 2577408.0,
+   "estimate.transcript_p2v_bytes": 2452736.0,
+   "estimate.transcript_v2p_bytes": 124672,
+   "estimate.peak_bytes": 314545388.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 720551234.5,
+   "estimate.committed_bytes": 59675884,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "Mersenne31^4",
+    "opened_columns": 120,
+    "total_log2": -81.36862703555721,
+    "by_component_log2": {
+     "lookup": -102.81036000411399,
+     "encoding_opening": -81.36862754204606,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "A",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 40609792,
+   "census.committed_elements": 3008435,
+   "census.bytes_encoded": 51576832.0,
+   "census.hash_bytes": 54984704.0,
+   "census.field_ops": 2786713600,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 968793804.0,
+   "rounds.protocol": 968,
+   "rounds.sequential_depth": 264,
+   "transcript.bytes": 1031520.0,
+   "estimate.transcript_p2v_bytes": 975360.0,
+   "estimate.transcript_v2p_bytes": 56160,
+   "estimate.peak_bytes": 130358988.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.026400000000000003,
+   "t.e2e.rtt_1ms": 0.264,
+   "t.e2e.rtt_10ms": 2.64,
+   "t.e2e.rtt_50ms": 13.2,
+   "estimate.field_ops_goldilocks_equiv": 1393356800.0,
+   "estimate.committed_bytes": 12033740,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "BabyBear^4",
+    "opened_columns": 120,
+    "total_log2": -81.36862794589251,
+    "by_component_log2": {
+     "batching": -118.54009954405011,
+     "sumcheck": -114.4328055308782,
+     "lookup": -102.42197314592471,
+     "encoding_opening": -81.36862860902079,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "B",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 15029563,
+   "census.committed_elements": 15029563,
+   "census.bytes_encoded": 256704512.0,
+   "census.hash_bytes": 263520256.0,
+   "census.field_ops": 1451367045,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 895278284.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 2591744.0,
+   "estimate.transcript_p2v_bytes": 2466176.0,
+   "estimate.transcript_v2p_bytes": 125568,
+   "estimate.peak_bytes": 316822764.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 725683522.5,
+   "estimate.committed_bytes": 60118252,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "BabyBear^4",
+    "opened_columns": 120,
+    "total_log2": -81.36862656068138,
+    "by_component_log2": {
+     "lookup": -102.42317392967453,
+     "encoding_opening": -81.36862722308774,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "binary tower GF(2) / GF(2^128)",
+   "candidate": "Binius-style (flat constraints + Lasso)",
+   "B": 64,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "bits": {
+     "inputs": 576,
+     "hints": 1350,
+     "lookup_outputs": 1028,
+     "products": 6511,
+     "materialised": 2244,
+     "carries": 11534,
+     "committed": 23243
+    },
+    "adders": 712,
+    "adder_bit_positions": 11534,
+    "adders_by_width": {
+     "2": 3,
+     "3": 1,
+     "4": 52,
+     "7": 2,
+     "8": 65,
+     "9": 68,
+     "10": 59,
+     "11": 84,
+     "12": 41,
+     "13": 4,
+     "14": 20,
+     "16": 144,
+     "24": 3,
+     "25": 10,
+     "28": 2,
+     "30": 50,
+     "32": 35,
+     "33": 34,
+     "34": 10,
+     "35": 8,
+     "39": 3,
+     "40": 6,
+     "50": 4,
+     "58": 4
+    },
+    "ands": {
+     "adders": 34602,
+     "bit_products": 1276,
+     "shifts": 5660,
+     "schoolbook": 2054,
+     "total": 43592
+    },
+    "schoolbook_products": 19,
+    "shift_stages": 170,
+    "lookups": {
+     "fixed": 22,
+     "mul_table": 18,
+     "total": 40
+    },
+    "range_checks": {
+     "free_on_bit_columns": 123,
+     "comparison_adders": 139
+    },
+    "booleans_free": 114,
+    "lt_pow_direct": 40
+   },
+   "unit_prime_census_for_reference": {
+    "mul": 318,
+    "lin": 131,
+    "lookup": 260
+   },
+   "census.witness_elements": 410634240,
+   "census.committed_elements": 143870960,
+   "estimate.committed_bytes": 17983870.0,
+   "census.bytes_encoded": 71935480.0,
+   "census.hash_bytes": 72984056.0,
+   "census.field_ops": 267829248,
+   "estimate.gf2_128_mults": 38496960,
+   "estimate.field_ops_goldilocks_equiv": 158172672.0,
+   "census.memory_passes": 15,
+   "census.bytes_moved": 421123560.0,
+   "rounds.protocol": 199,
+   "rounds.sequential_depth": 174,
+   "transcript.bytes": 636192,
+   "estimate.transcript_p2v_bytes": 633024,
+   "estimate.transcript_v2p_bytes": 3168,
+   "estimate.peak_bytes": 123398006.0,
+   "soundness": {
+    "reachable": true,
+    "field": "GF(2^128)",
+    "terms_log2": {
+     "ALIGN: multiset check, N=98304, |T|=512": -111.40754296273192,
+     "LEAD: multiset check, N=12288, |T|=31": -114.4114024710407,
+     "NORM: multiset check, N=12288, |T|=32": -114.41128536441774,
+     "POW: multiset check, N=12288, |T|=512": -114.35614381022528,
+     "MUL8x8: multiset check, N=110592, |T|=65536": -110.5737352452979,
+     "zerocheck: degree-2 sumcheck over log2(rows) + log2(constraints/unit) variables": -122.35614381022528,
+     "Merkle collisions q^2/2^h, q=2^60, h=256": -136.0
+    },
+    "total_log2": -109.74681266473085,
+    "meets_-80": true,
+    "meets_-128": false,
+    "logup_refused": "logUp needs char(F) > total lookups: char=2, lookups=2 (Haboeck Lemma 5)"
+   },
+   "carry_cost_per_unit": {
+    "adders": 712,
+    "carry_bits": 11534,
+    "ands": 34602,
+    "share_of_committed_bits": 0.49623542571957147,
+    "share_of_ands": 0.7937694989906405
+   },
+   "tooling": "binius crate 0.1.1 (crates.io, Apache-2.0, 2025-05-23; repository IrreducibleOSS/binius ARCHIVED 2025-09-09); successor binius64 (binius-zk/binius64, Apache-2.0 OR MIT, git-only crates binius-prover/-verifier, 64-bit word constraint system, ZK)",
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.017400000000000002,
+   "t.e2e.rtt_1ms": 0.174,
+   "t.e2e.rtt_10ms": 1.74,
+   "t.e2e.rtt_50ms": 8.7
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "A",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 1427505152,
+   "census.committed_elements": 181348547,
+   "census.bytes_encoded": 6190530560,
+   "census.hash_bytes": 6193938432,
+   "census.field_ops": 65031159808,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 71352272408,
+   "rounds.protocol": 1589,
+   "rounds.sequential_depth": 381,
+   "transcript.bytes": 46782704,
+   "estimate.transcript_p2v_bytes": 46001600,
+   "estimate.transcript_v2p_bytes": 781104,
+   "estimate.peak_bytes": 11913217560,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0381,
+   "t.e2e.rtt_1ms": 0.381,
+   "t.e2e.rtt_10ms": 3.81,
+   "t.e2e.rtt_50ms": 19.05,
+   "estimate.field_ops_goldilocks_equiv": 65031159808.0,
+   "estimate.committed_bytes": 1450788376,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 2,
+    "challenge_field": "Goldilocks^2",
+    "opened_columns": 120,
+    "total_log2": -81.36862669712991,
+    "by_component_log2": {
+     "batching": -122.67807190444083,
+     "sumcheck": -118.56120814674993,
+     "lookup": -100.8907472876391,
+     "encoding_opening": -81.36862861329621,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "goldilocks",
+   "candidate": "B",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Goldilocks",
+    "mul": 358,
+    "lin": 137,
+    "lookup": 306,
+    "range_by_width": {
+     "7": 36,
+     "8": 66,
+     "9": 26,
+     "16": 112,
+     "23": 2,
+     "24": 5,
+     "25": 8,
+     "30": 6,
+     "32": 1
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {},
+    "extra_hints": 0,
+    "extra_inputs": 0,
+    "columns_committed_A": 321,
+    "columns_committed_B_estimate": 1064,
+    "repairs": []
+   },
+   "tooling": "plonky2 / plonky3 (MIT OR Apache-2.0); libzk/Longfellow (Apache-2.0)",
+   "census.witness_elements": 659229885,
+   "census.committed_elements": 659229885,
+   "census.bytes_encoded": 22502178816,
+   "census.hash_bytes": 22508994560,
+   "census.field_ops": 44553087527,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 76632878536,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 168209680,
+   "estimate.transcript_p2v_bytes": 165462720,
+   "estimate.transcript_v2p_bytes": 2746960,
+   "estimate.peak_bytes": 27776017896,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 44553087527.0,
+   "estimate.committed_bytes": 5273839080,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 2,
+    "challenge_field": "Goldilocks^2",
+    "opened_columns": 120,
+    "total_log2": -81.36862225525147,
+    "by_component_log2": {
+     "lookup": -100.89078452723982,
+     "encoding_opening": -81.36862417135262,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "A",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 2599026688,
+   "census.committed_elements": 187256135,
+   "census.bytes_encoded": 3196059648.0,
+   "census.hash_bytes": 3199467520.0,
+   "census.field_ops": 177812275200,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 61667095836.0,
+   "rounds.protocol": 1589,
+   "rounds.sequential_depth": 381,
+   "transcript.bytes": 25647952.0,
+   "estimate.transcript_p2v_bytes": 24036528.0,
+   "estimate.transcript_v2p_bytes": 1611424,
+   "estimate.peak_bytes": 8216982812.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0381,
+   "t.e2e.rtt_1ms": 0.381,
+   "t.e2e.rtt_10ms": 3.81,
+   "t.e2e.rtt_50ms": 19.05,
+   "estimate.field_ops_goldilocks_equiv": 88906137600.0,
+   "estimate.committed_bytes": 749024540,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "Mersenne31^4",
+    "opened_columns": 120,
+    "total_log2": -81.36859711901707,
+    "by_component_log2": {
+     "batching": -118.6780719024254,
+     "sumcheck": -114.56120814473451,
+     "lookup": -96.85208607872937,
+     "encoding_opening": -81.36862861004283,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "m31",
+   "candidate": "B",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "Mersenne31",
+    "mul": 327,
+    "lin": 145,
+    "lookup": 316,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 6
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1110,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs"
+    ]
+   },
+   "tooling": "plonky3 p3-mersenne-31 0.5.x (MIT OR Apache-2.0; QM31 degree 4, no degree 5), stwo (Apache-2.0)",
+   "census.witness_elements": 933827899,
+   "census.committed_elements": 933827899,
+   "census.bytes_encoded": 15937568768.0,
+   "census.hash_bytes": 15944384512.0,
+   "census.field_ops": 90065762949,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 55526350028.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 125098496.0,
+   "estimate.transcript_p2v_bytes": 117316256.0,
+   "estimate.transcript_v2p_bytes": 7782240,
+   "estimate.peak_bytes": 19672880364.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 45032881474.5,
+   "estimate.committed_bytes": 3735311596,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "Mersenne31^4",
+    "opened_columns": 120,
+    "total_log2": -81.36853054873586,
+    "by_component_log2": {
+     "lookup": -96.85212233362711,
+     "encoding_opening": -81.36856203736193,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "A",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 2599026688,
+   "census.committed_elements": 187649351,
+   "census.bytes_encoded": 3202809856.0,
+   "census.hash_bytes": 3206217728.0,
+   "census.field_ops": 177846870016,
+   "census.memory_passes": 25,
+   "census.bytes_moved": 61688919324.0,
+   "rounds.protocol": 1589,
+   "rounds.sequential_depth": 381,
+   "transcript.bytes": 25700688.0,
+   "estimate.transcript_p2v_bytes": 24085968.0,
+   "estimate.transcript_v2p_bytes": 1614720,
+   "estimate.peak_bytes": 8225305884.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0381,
+   "t.e2e.rtt_1ms": 0.381,
+   "t.e2e.rtt_10ms": 3.81,
+   "t.e2e.rtt_50ms": 19.05,
+   "estimate.field_ops_goldilocks_equiv": 88923435008.0,
+   "estimate.committed_bytes": 750597404,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "BabyBear^4",
+    "opened_columns": 120,
+    "total_log2": -81.36858741164565,
+    "by_component_log2": {
+     "batching": -118.30563429041308,
+     "sumcheck": -114.18877053272219,
+     "lookup": -96.4644694851147,
+     "encoding_opening": -81.36862860902079,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "babybear",
+   "candidate": "B",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "field": "BabyBear",
+    "mul": 327,
+    "lin": 147,
+    "lookup": 320,
+    "range_by_width": {
+     "7": 38,
+     "8": 68,
+     "9": 26,
+     "12": 4,
+     "15": 4,
+     "16": 116,
+     "24": 5,
+     "25": 8,
+     "30": 8
+    },
+    "lt_pow_by_width": {
+     "7": 2,
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "lt_pow_direct": {
+     "16": 32,
+     "25": 4,
+     "30": 2
+    },
+    "extra_hints": 12,
+    "extra_inputs": 2,
+    "columns_committed_A": 335,
+    "columns_committed_B_estimate": 1112,
+    "repairs": [
+     "F3 normalise division split into two halves with a carry",
+     "F4 32-bit words as two 16-bit limbs",
+     "signed sum tightened to its premise bound"
+    ]
+   },
+   "tooling": "plonky3 p3-baby-bear (MIT OR Apache-2.0; BinomialExtensionField degrees 4, 5, 8)",
+   "census.witness_elements": 940905787,
+   "census.committed_elements": 940905787,
+   "census.bytes_encoded": 16058351616.0,
+   "census.hash_bytes": 16065167360.0,
+   "census.field_ops": 90739825285,
+   "census.memory_passes": 5,
+   "census.bytes_moved": 55967341772.0,
+   "rounds.protocol": 7,
+   "rounds.sequential_depth": 3,
+   "transcript.bytes": 126042112.0,
+   "estimate.transcript_p2v_bytes": 118200896.0,
+   "estimate.transcript_v2p_bytes": 7841216,
+   "estimate.peak_bytes": 19821974764.0,
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.00030000000000000003,
+   "t.e2e.rtt_1ms": 0.003,
+   "t.e2e.rtt_10ms": 0.03,
+   "t.e2e.rtt_50ms": 0.15,
+   "estimate.field_ops_goldilocks_equiv": 45369912642.5,
+   "estimate.committed_bytes": 3763623148,
+   "soundness": {
+    "reachable": true,
+    "extension_degree": 4,
+    "challenge_field": "BabyBear^4",
+    "opened_columns": 120,
+    "total_log2": -81.36850101935124,
+    "by_component_log2": {
+     "lookup": -96.46450536055988,
+     "encoding_opening": -81.36854221303406,
+     "commitment_hash": -136.0
+    }
+   }
+  },
+  {
+   "field": "binary tower GF(2) / GF(2^128)",
+   "candidate": "Binius-style (flat constraints + Lasso)",
+   "B": 4096,
+   "K": 1536,
+   "target_log2": -80,
+   "unit": {
+    "bits": {
+     "inputs": 576,
+     "hints": 1350,
+     "lookup_outputs": 1028,
+     "products": 6511,
+     "materialised": 2244,
+     "carries": 11534,
+     "committed": 23243
+    },
+    "adders": 712,
+    "adder_bit_positions": 11534,
+    "adders_by_width": {
+     "2": 3,
+     "3": 1,
+     "4": 52,
+     "7": 2,
+     "8": 65,
+     "9": 68,
+     "10": 59,
+     "11": 84,
+     "12": 41,
+     "13": 4,
+     "14": 20,
+     "16": 144,
+     "24": 3,
+     "25": 10,
+     "28": 2,
+     "30": 50,
+     "32": 35,
+     "33": 34,
+     "34": 10,
+     "35": 8,
+     "39": 3,
+     "40": 6,
+     "50": 4,
+     "58": 4
+    },
+    "ands": {
+     "adders": 34602,
+     "bit_products": 1276,
+     "shifts": 5660,
+     "schoolbook": 2054,
+     "total": 43592
+    },
+    "schoolbook_products": 19,
+    "shift_stages": 170,
+    "lookups": {
+     "fixed": 22,
+     "mul_table": 18,
+     "total": 40
+    },
+    "range_checks": {
+     "free_on_bit_columns": 123,
+     "comparison_adders": 139
+    },
+    "booleans_free": 114,
+    "lt_pow_direct": 40
+   },
+   "unit_prime_census_for_reference": {
+    "mul": 318,
+    "lin": 131,
+    "lookup": 260
+   },
+   "census.witness_elements": 26280591360,
+   "census.committed_elements": 9140585456,
+   "estimate.committed_bytes": 1142573182.0,
+   "census.bytes_encoded": 4570292728.0,
+   "census.hash_bytes": 4571341304.0,
+   "census.field_ops": 17141071872,
+   "estimate.gf2_128_mults": 2463805440,
+   "estimate.field_ops_goldilocks_equiv": 10123051008.0,
+   "census.memory_passes": 15,
+   "census.bytes_moved": 26851173864.0,
+   "rounds.protocol": 310,
+   "rounds.sequential_depth": 279,
+   "transcript.bytes": 35788368,
+   "estimate.transcript_p2v_bytes": 35783424,
+   "estimate.transcript_v2p_bytes": 4944,
+   "estimate.peak_bytes": 7855499894.0,
+   "soundness": {
+    "reachable": true,
+    "field": "GF(2^128)",
+    "terms_log2": {
+     "ALIGN: multiset check, N=6291456, |T|=512": -105.4149200972329,
+     "LEAD: multiset check, N=786432, |T|=31": -108.41498063146977,
+     "NORM: multiset check, N=786432, |T|=32": -108.41497879706164,
+     "POW: multiset check, N=786432, |T|=512": -108.41409855030923,
+     "MUL8x8: multiset check, N=7077888, |T|=65536": -105.23181567522307,
+     "zerocheck: degree-2 sumcheck over log2(rows) + log2(constraints/unit) variables": -122.04580368961312,
+     "Merkle collisions q^2/2^h, q=2^60, h=256": -136.0
+    },
+    "total_log2": -104.08700571356914,
+    "meets_-80": true,
+    "meets_-128": false,
+    "logup_refused": "logUp needs char(F) > total lookups: char=2, lookups=2 (Haboeck Lemma 5)"
+   },
+   "carry_cost_per_unit": {
+    "adders": 712,
+    "carry_bits": 11534,
+    "ands": 34602,
+    "share_of_committed_bits": 0.49623542571957147,
+    "share_of_ands": 0.7937694989906405
+   },
+   "tooling": "binius crate 0.1.1 (crates.io, Apache-2.0, 2025-05-23; repository IrreducibleOSS/binius ARCHIVED 2025-09-09); successor binius64 (binius-zk/binius64, Apache-2.0 OR MIT, git-only crates binius-prover/-verifier, 64-bit word constraint system, ZK)",
+   "t.e2e.rtt_0ms": 0.0,
+   "t.e2e.rtt_0.1ms": 0.0279,
+   "t.e2e.rtt_1ms": 0.279,
+   "t.e2e.rtt_10ms": 2.79,
+   "t.e2e.rtt_50ms": 13.95
+  }
+ ],
+ "degree5_two_repetitions": {
+  "m31/A: degree 5 with 2 lookup repetitions, B=4096": {
+   "reachable": true,
+   "extension_degree": 5,
+   "challenge_field": "Mersenne31^5",
+   "opened_columns": 191,
+   "total_log2": -129.49500750739435,
+   "by_component_log2": {
+    "batching": -149.67807190175358,
+    "sumcheck": -145.5612081440627,
+    "lookup": -142.13233514826015,
+    "encoding_opening": -129.5112316891691,
+    "commitment_hash": -136.0
+   }
+  },
+  "m31/B: degree 5 with 2 lookup repetitions, B=4096": {
+   "reachable": false,
+   "reason": "no configuration meets 2^-128: degree 5: no t < k - l = 256 meets the target"
+  },
+  "babybear/A: degree 5 with 2 lookup repetitions, B=4096": {
+   "reachable": true,
+   "extension_degree": 5,
+   "challenge_field": "BabyBear^5",
+   "opened_columns": 191,
+   "total_log2": -129.4947237453107,
+   "by_component_log2": {
+    "batching": -149.2125248867382,
+    "sumcheck": -145.09566112904733,
+    "lookup": -141.66678813324484,
+    "encoding_opening": -129.51104048168486,
+    "commitment_hash": -136.0
+   }
+  },
+  "babybear/B: degree 5 with 2 lookup repetitions, B=4096": {
+   "reachable": false,
+   "reason": "no configuration meets 2^-128: degree 5: no t < k - l = 256 meets the target"
+  }
+ },
+ "citations": {
+  "DP23": {
+   "title": "Diamond, Posen: Succinct Arguments over Towers of Binary Fields (Binius)",
+   "url": "https://eprint.iacr.org/2023/1784",
+   "used_for": "Protocol 5.3 ripple-carry adder (x y + x cin + y cin = cout, shifted carry column); Protocol 5.5 schoolbook multiplication with limb products by lookup, Example 5.7 (2^16 byte-product table); 4.4 binary-field Lasso lookup (multiset check, no logUp); 4.3 shift virtual polynomials (constant shifts only); Tables 5/6: 8,192 Keccak-f proved in 65.3 s single-threaded / 5.90 s multithreaded with Groestl (vs Plonky3 71.2 s / 13.8 s with Keccak-256), hardware as stated in the paper's 6; no zero-knowledge variant is given in the paper"
+  },
+  "DP24": {
+   "title": "Diamond, Posen: Polylogarithmic Proofs for Multilinears over Binary Towers (FRI-Binius)",
+   "url": "https://eprint.iacr.org/2024/504",
+   "used_for": "the PCS a binary option would use; the Irreducible release note reports commit+prove for 2^24 coefficients: FRI-Binius 0.91 s (1-bit), 7.6 s (8-bit), 28.9 s (32-bit) vs Plonky3 FRI 9.55 s (31-bit) -- https://www.irreducible.com/posts/better-faster-smaller-binius"
+  },
+  "BINIUS_CRATE": {
+   "title": "binius crate 0.1.1 (crates.io) / IrreducibleOSS/binius",
+   "url": "https://crates.io/crates/binius",
+   "used_for": "tooling: Apache-2.0, published 2025-05-23, repository archived 2025-09-09 and succeeded by Binius64 (https://github.com/binius-zk/binius64, Apache-2.0 OR MIT, git-only crates binius-prover / binius-verifier, 64-bit-word constraint system with shifted value indices, zk_config modules); README of the archived crate discourages security-critical use"
+  },
+  "BINIUS64_BENCH": {
+   "title": "binius.xyz benchmarks (Binius64 vs Plonky3, 1,365 Keccak-f)",
+   "url": "https://www.binius.xyz/benchmarks/",
+   "used_for": "Binius64 142.27 ms multithreaded / 499.26 ms single-threaded on AWS c7i.16xlarge (x86) vs Plonky3 265 ms / 3,920 ms; proof 304 KiB vs 1,861 KiB"
+  },
+  "BINARYSPARTAN": {
+   "title": "BinarySpartan: Spartan over binary fields (2026)",
+   "url": "https://eprint.iacr.org/2026/1656",
+   "used_for": "Table 1 hashes/s at 12 threads: Binius64 45,786 Keccak-f/s vs Plonky3 7,604; states that Binius64 is zero-knowledge while BinarySpartan and Flock are not"
+  },
+  "HAB22": {
+   "title": "Haboeck: Multivariate lookups based on logarithmic derivatives",
+   "url": "https://eprint.iacr.org/2022/1530",
+   "used_for": "Theorem 4 / Lemma 5 (char(F) > N): the reason logUp is unavailable in characteristic 2 and the identity error floor (N + |T| - 1)/(|F| - |T|) used for the 31-bit extensions"
+  },
+  "STW24": {
+   "title": "Setty, Thaler, Wahby: Unlocking the lookup singularity with Lasso",
+   "url": "https://eprint.iacr.org/2023/1216",
+   "used_for": "the multiset-check lookup a binary option falls back to; its error is the Schwartz-Zippel bound"
+  },
+  "P3_M31": {
+   "title": "Plonky3 p3-mersenne-31 (crates.io) and commit 05cc5ac (QM31 for Circle proofs, 2026-06-12)",
+   "url": "https://github.com/Plonky3/Plonky3/commit/05cc5ac5948ae32f4cea4484c7e5f6de66593cde",
+   "used_for": "M31 tooling: MIT OR Apache-2.0, 0.5.x releases in 2026; degree-4 (QM31) challenge field, cubic before; no degree-5/6 M31 extension shipped"
+  },
+  "P3_BB": {
+   "title": "Plonky3 baby-bear/src/baby_bear.rs",
+   "url": "https://github.com/Plonky3/Plonky3/blob/main/baby-bear/src/baby_bear.rs",
+   "used_for": "BinomialExtensionData<4>, <5>, <8> for BabyBear (degrees 4, 5, 8 shipped)"
+  },
+  "STWO": {
+   "title": "StarkWare S-two book: Mersenne prime, CM31/QM31",
+   "url": "https://docs.starknet.io/learn/S-two-book/how-it-works/mersenne-prime",
+   "used_for": "stwo draws challenges from QM31 (2^124); Circle STARKs over M31"
+  },
+  "AHIV22": {
+   "title": "Ames, Hazay, Ishai, Venkitasubramaniam: Ligero (journal version)",
+   "url": "https://eprint.iacr.org/2022/1608",
+   "used_for": "the encoding/opening terms reused through accounting for every prime option"
+  }
+ },
+ "assumptions": [
+  "Every figure is an ESTIMATE from the cost model in this module's docstring over the WP2 checker census; nothing is measured.  Widths in the binary model are upper bounds from value-magnitude tracking (a sum's bound is the sum of bounds), so adder widths exceed the true ones by 1-3 bits in places (the signed sum is tracked at 33-34 bits, true 30).",
+  "Small primes: F1 direct lt_pow as bound - 1 - x in [0, 2^B) is sound iff p >= 2^(B+1) - 1 given x in [0, 2^B); true for Mersenne31 at B = 30 exactly, false for BabyBear, which pays the signed-sum tightening (BABYBEAR_EXTRA).  Not verified with z3 in this lane; the checker's search.modular_queries is the place to do it.",
+  "Small primes: F3 (split normalisation) and F4 (word limbs) are hand-derived deltas (F3_SPLIT_PER_GROUP, F4_LIMBS_PER_UNIT), not re-derived by executing rewritten gadgets; the gadgets were not edited.",
+  "Small primes: accounting's census_estimate_* is reused with the field's per-unit figures; bytes are rescaled to 4-byte elements, field_ops stay in base-field multiplication equivalents (EXT_MULT_COST: degree 4 -> 9, 5 -> 13, 6 -> 17) and a Goldilocks-equivalent column assumes one 31-bit multiplication costs half a Goldilocks one (ESTIMATE); the layered shape and the internal-wire count of Candidate A are Goldilocks' (the small-field checker has 31 fewer products).",
+  "Binary tower: committed GF(2) elements are bits; bytes at Reed-Solomon rate 1/4 (Binius default), packed 128 bits per symbol; barrel shifts commit every mux stage; products of a bit and a value are w ANDs and stay virtual; 19 small-by-wide products the tracker cannot recognise as bits (the XOR-formed product sign) are costed as bit-schoolbook (an overcount of about 2,000 ANDs per unit).",
+  "Binary tower soundness: Lasso multiset check at (N + |T|)/2^128 per table plus a degree-2 zerocheck; the tower's top field in the crates is GF(2^128), so 2^-128 needs GF(2^256) (defined by the tower, not implemented) or repetition.",
+  "Latency and communication for the binary tower are modelled as a grand-product GKR chain of the LogUp-GKR shape plus a zerocheck; Ligero-style column openings at the same t as the Goldilocks operating point."
+ ],
+ "what_would_kill_each_option": {
+  "goldilocks": "nothing found here; the cubic extension reaches 2^-128 at every B, and it has the fewest field operations.",
+  "m31 / babybear": "2^-128 at B = 4096 needs the degree-6 extension (or degree 5 with two lookup repetitions for Candidate A only: Candidate B's powers-combination term (n_lin - 1)/|F| floors at 2^-126.6 in 2^155); neither Plonky3 nor stwo ships a degree-5/6 M31 extension; the F1/F3/F4 repairs are unverified by z3; field_ops in Goldilocks equivalents are 1.4-2.7x the baseline at 2^-128 -- the halved bytes do not pay.",
+  "binary tower": "the checker is integer arithmetic: 712 adders per unit put 11,534 carry bits (50% of all committed bits) and 34,602 of 43,592 ANDs on the table, so committed bits (23,243/unit) exceed Goldilocks A's 321 x 64 = 20,544; logUp is unavailable (char 2); 2^-128 unreachable at GF(2^128); the original crate is archived and Binius64's 64-bit-word constraint system is a different arithmetisation than the one costed here."
+ }
+}

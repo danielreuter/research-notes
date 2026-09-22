@@ -1,0 +1,27 @@
+{
+ "device": "cuda",
+ "results": {
+  "broken_chain": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "ligero: linear functional value mismatch"
+  },
+  "false_overflow_flag": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "ligero: linear functional value mismatch"
+  },
+  "public_wrong_word": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "ligero: linear functional value mismatch"
+  },
+  "saturated_intermediate": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "ligero: linear functional value mismatch"
+  }
+ },
+ "rejected": 4,
+ "total": 4
+}

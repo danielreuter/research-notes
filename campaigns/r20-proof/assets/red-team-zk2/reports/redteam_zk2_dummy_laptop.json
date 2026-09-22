@@ -1,0 +1,12 @@
+{
+ "config": {
+  "l": 256,
+  "t": 189,
+  "D": 6
+ },
+ "n": 12,
+ "real_abort_rate": 0.0,
+ "sim_abort_rate": 1.0,
+ "advantage": 1.0,
+ "verdict": "SIMULATOR BUG: dummy-run messages off-distribution"
+}

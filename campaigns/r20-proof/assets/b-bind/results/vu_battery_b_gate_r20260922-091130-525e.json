@@ -1,0 +1,1468 @@
+{
+  "cases": [
+    {
+      "evaluator": {
+        "by_constraint": {},
+        "failing_total": 0,
+        "first": []
+      },
+      "expected": "accept",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_honest",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "-",
+      "mutation": "two real VUs, untouched (control)",
+      "rows_real": 192,
+      "status": "ok",
+      "verifier": {
+        "accepted": true,
+        "error": null,
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.link[0]": 1
+        },
+        "failing_total": 1,
+        "first": [
+          [
+            135,
+            "vu.link[0]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_splice",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.link (transition): (1-first')(c_in' - y) = 0 at VU 1 row k",
+      "mutation": "VU 1 unit 40: c_in := VU 0's y_39 = 0x3f261c67 (was 0xbe1a4e7f); units 40.. re-chained honestly (y32 0x4008e691); claim = cast 0x4009",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.next_first": 1
+        },
+        "failing_total": 1,
+        "first": [
+          [
+            94,
+            "vu.next_first"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_vu95_drop",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_first (transition): first' = last, with last = 0 at step 94",
+      "mutation": "VU 0's row 95 removed; VU 1 follows step 94 directly",
+      "rows_real": 191,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.last_def": 1,
+          "vu.last_key": 1,
+          "vu.out": 1
+        },
+        "failing_total": 3,
+        "first": [
+          [
+            94,
+            "vu.last_def"
+          ],
+          [
+            94,
+            "vu.last_key"
+          ],
+          [
+            94,
+            "vu.out"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_vu95_lastflag",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.last_key: last (step - 95) = 0 and vu.last_def: (step-95) inv = 1 - last",
+      "mutation": "VU 0 truncated to 95 rows with last := 1 on step 94 (inv honest for step 94)",
+      "rows_real": 191,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.link[0]": 1,
+          "vu.next_first": 1,
+          "vu.next_step": 1
+        },
+        "failing_total": 3,
+        "first": [
+          [
+            95,
+            "vu.next_first"
+          ],
+          [
+            95,
+            "vu.next_step"
+          ],
+          [
+            95,
+            "vu.link[0]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_vu97_dup",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_first: after a last row the next row must have first = 1 (it has 0, step 95)",
+      "mutation": "VU 0's last row duplicated (97 rows)",
+      "rows_real": 193,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.next_first": 2
+        },
+        "failing_total": 2,
+        "first": [
+          [
+            95,
+            "vu.next_first"
+          ],
+          [
+            96,
+            "vu.next_first"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_vu97_step96",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_first: the step-95 row has last = 1 so the next row needs first = 1 (step 96 row has first = 0)",
+      "mutation": "row with step = 96 appended to VU 0 (its own row-local constraints hold: last = 0, inv = (96-95)^-1)",
+      "rows_real": 193,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.next_step": 2
+        },
+        "failing_total": 2,
+        "first": [
+          [
+            4,
+            "vu.next_step"
+          ],
+          [
+            5,
+            "vu.next_step"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_step_skip",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_step (transition): (1-first')(step' - step - 1) = 0",
+      "mutation": "row 5 generated with step = 6 (inv, last honest for 6)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.next_first": 1,
+          "vu.next_step": 1,
+          "vu.out": 1
+        },
+        "failing_total": 3,
+        "first": [
+          [
+            47,
+            "vu.next_first"
+          ],
+          [
+            48,
+            "vu.next_step"
+          ],
+          [
+            95,
+            "vu.out"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_restart_mid_vu",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_first: row 47 has last = 0 so row 48 needs first = 0 (it has first = 1, step 0, c = 0)",
+      "mutation": "VU 0 restarted at row 48 (first = 1, step = 0, c_in = 0), rows 49..95 honest for the restarted chain",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.first_c[0]": 1,
+          "vu.first_step": 1,
+          "vu.next_first": 1
+        },
+        "failing_total": 3,
+        "first": [
+          [
+            49,
+            "vu.next_first"
+          ],
+          [
+            50,
+            "vu.first_step"
+          ],
+          [
+            50,
+            "vu.first_c[0]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_first_flip",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.first_step: first step = 0; vu.first_c: first c_in = 0; vu.next_first from row 49",
+      "mutation": "row 50: first := 1 with step 50 and the honest (non-zero) c_in",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.last_def": 1,
+          "vu.last_key": 1,
+          "vu.next_first": 1,
+          "vu.out": 1
+        },
+        "failing_total": 4,
+        "first": [
+          [
+            50,
+            "vu.last_def"
+          ],
+          [
+            50,
+            "vu.last_key"
+          ],
+          [
+            50,
+            "vu.out"
+          ],
+          [
+            50,
+            "vu.next_first"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_last_flip",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.last_key: last (step - 95) = 0; vu.last_def",
+      "mutation": "row 50: last := 1 with step 50",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.last_def": 1,
+          "vu.next_first": 1
+        },
+        "failing_total": 2,
+        "first": [
+          [
+            95,
+            "vu.last_def"
+          ],
+          [
+            95,
+            "vu.next_first"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_last_zero",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.last_def: (step-95) inv = 1 - last with step = 95 forces last = 1",
+      "mutation": "row 95: last := 0 (claim unbound)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.link[0]": 1
+        },
+        "failing_total": 1,
+        "first": [
+          [
+            190,
+            "vu.link[0]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_shared_last",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.link: VU 0's last row has c_in = VU 0's y_94, not VU 1's y_94",
+      "mutation": "VU 1 = its rows 0..94 followed by VU 0's last row (its claim and epilogue are VU 0's)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.out": 1
+        },
+        "failing_total": 1,
+        "first": [
+          [
+            95,
+            "vu.out"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_claim_last",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.out: last (y16 - claim) = 0",
+      "mutation": "VU 0 last row claim 0xbed1 -> 0xbed0",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {},
+        "failing_total": 0,
+        "first": []
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_claim_free_nonlast",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "statement column: vu.y16 is a public column equal to the VU's word on EVERY row (PROTOCOL B 'Statement binding'; was accept_by_design before the fix)",
+      "mutation": "VU 0 rows 0..94: claim := 0x1234",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "acc.s": 1,
+          "vu.link[0]": 2,
+          "x.c.limbs": 1
+        },
+        "failing_total": 4,
+        "first": [
+          [
+            0,
+            "vu.link[0]"
+          ],
+          [
+            1,
+            "x.c.limbs"
+          ],
+          [
+            1,
+            "acc.s"
+          ],
+          [
+            1,
+            "vu.link[0]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_nonword_c",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "x.c range (32-bit word) and vu.link",
+      "mutation": "VU 0 row 1: x.c := c_1 + 2^32 = 0x1be110ed2",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "acc.s": 1,
+          "vu.first_c[0]": 1,
+          "x.c.limbs": 1
+        },
+        "failing_total": 3,
+        "first": [
+          [
+            0,
+            "x.c.limbs"
+          ],
+          [
+            0,
+            "acc.s"
+          ],
+          [
+            0,
+            "vu.first_c[0]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_c0_nonword",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.first_c[0]: first c = 0; x.c range",
+      "mutation": "VU 0 row 0: x.c := 2^32",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {},
+        "failing_total": 0,
+        "first": []
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_degree_bits_unbound",
+      "log_n_proved": 8,
+      "log_n_verified": 19,
+      "mechanism": "verify_bound: degree_bits is fixed by the verifier's statement (B = 4096 -> 19) and the proof's (8) must equal it -> DegreeBitsMismatch (F2; was FORGED: uni-stark read degree_bits from the proof)",
+      "mutation": "honest 2-VU trace (256 rows) verified by the verifier configured for log_n = 19 (B = 4096)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "DegreeBitsMismatch(expected 19, proof says 8)",
+        "statement": {
+          "degree_bits": 19,
+          "words": 4096
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {},
+        "failing_total": 0,
+        "first": []
+      },
+      "expected": "reject",
+      "field": "goldilocks",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_zero_batch_as_any_statement",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "verify_bound: the committed vu.y16 column opened at zeta must equal the statement's word polynomial W(zeta) -> StatementColumnMismatch (F1; was FORGED: no public values)",
+      "mutation": "two zero VUs (a = b = 0, y16 = 0) proved and verified as if they were the two real VUs",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2843 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {},
+        "failing_total": 0,
+        "first": []
+      },
+      "expected": "accept",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_honest",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "-",
+      "mutation": "two real VUs, untouched (control)",
+      "rows_real": 192,
+      "status": "ok",
+      "verifier": {
+        "accepted": true,
+        "error": null,
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.link[0]": 1,
+          "vu.link[1]": 1
+        },
+        "failing_total": 2,
+        "first": [
+          [
+            135,
+            "vu.link[0]"
+          ],
+          [
+            135,
+            "vu.link[1]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_splice",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.link (transition): (1-first')(c_in' - y) = 0 at VU 1 row k",
+      "mutation": "VU 1 unit 40: c_in := VU 0's y_39 = 0x3f261c67 (was 0xbe1a4e7f); units 40.. re-chained honestly (y32 0x4008e691); claim = cast 0x4009",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.next_first": 1
+        },
+        "failing_total": 1,
+        "first": [
+          [
+            94,
+            "vu.next_first"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_vu95_drop",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_first (transition): first' = last, with last = 0 at step 94",
+      "mutation": "VU 0's row 95 removed; VU 1 follows step 94 directly",
+      "rows_real": 191,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.last_def": 1,
+          "vu.last_key": 1,
+          "vu.out": 1
+        },
+        "failing_total": 3,
+        "first": [
+          [
+            94,
+            "vu.last_def"
+          ],
+          [
+            94,
+            "vu.last_key"
+          ],
+          [
+            94,
+            "vu.out"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_vu95_lastflag",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.last_key: last (step - 95) = 0 and vu.last_def: (step-95) inv = 1 - last",
+      "mutation": "VU 0 truncated to 95 rows with last := 1 on step 94 (inv honest for step 94)",
+      "rows_real": 191,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.link[0]": 1,
+          "vu.link[1]": 1,
+          "vu.next_first": 1,
+          "vu.next_step": 1
+        },
+        "failing_total": 4,
+        "first": [
+          [
+            95,
+            "vu.next_first"
+          ],
+          [
+            95,
+            "vu.next_step"
+          ],
+          [
+            95,
+            "vu.link[0]"
+          ],
+          [
+            95,
+            "vu.link[1]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_vu97_dup",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_first: after a last row the next row must have first = 1 (it has 0, step 95)",
+      "mutation": "VU 0's last row duplicated (97 rows)",
+      "rows_real": 193,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.next_first": 2
+        },
+        "failing_total": 2,
+        "first": [
+          [
+            95,
+            "vu.next_first"
+          ],
+          [
+            96,
+            "vu.next_first"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_vu97_step96",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_first: the step-95 row has last = 1 so the next row needs first = 1 (step 96 row has first = 0)",
+      "mutation": "row with step = 96 appended to VU 0 (its own row-local constraints hold: last = 0, inv = (96-95)^-1)",
+      "rows_real": 193,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.next_step": 2
+        },
+        "failing_total": 2,
+        "first": [
+          [
+            4,
+            "vu.next_step"
+          ],
+          [
+            5,
+            "vu.next_step"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_step_skip",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_step (transition): (1-first')(step' - step - 1) = 0",
+      "mutation": "row 5 generated with step = 6 (inv, last honest for 6)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.next_first": 1,
+          "vu.next_step": 1,
+          "vu.out": 1
+        },
+        "failing_total": 3,
+        "first": [
+          [
+            47,
+            "vu.next_first"
+          ],
+          [
+            48,
+            "vu.next_step"
+          ],
+          [
+            95,
+            "vu.out"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_restart_mid_vu",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.next_first: row 47 has last = 0 so row 48 needs first = 0 (it has first = 1, step 0, c = 0)",
+      "mutation": "VU 0 restarted at row 48 (first = 1, step = 0, c_in = 0), rows 49..95 honest for the restarted chain",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.first_c[0]": 1,
+          "vu.first_c[1]": 1,
+          "vu.first_step": 1,
+          "vu.next_first": 1
+        },
+        "failing_total": 4,
+        "first": [
+          [
+            49,
+            "vu.next_first"
+          ],
+          [
+            50,
+            "vu.first_step"
+          ],
+          [
+            50,
+            "vu.first_c[0]"
+          ],
+          [
+            50,
+            "vu.first_c[1]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_first_flip",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.first_step: first step = 0; vu.first_c: first c_in = 0; vu.next_first from row 49",
+      "mutation": "row 50: first := 1 with step 50 and the honest (non-zero) c_in",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.last_def": 1,
+          "vu.last_key": 1,
+          "vu.next_first": 1,
+          "vu.out": 1
+        },
+        "failing_total": 4,
+        "first": [
+          [
+            50,
+            "vu.last_def"
+          ],
+          [
+            50,
+            "vu.last_key"
+          ],
+          [
+            50,
+            "vu.out"
+          ],
+          [
+            50,
+            "vu.next_first"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_last_flip",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.last_key: last (step - 95) = 0; vu.last_def",
+      "mutation": "row 50: last := 1 with step 50",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.last_def": 1,
+          "vu.next_first": 1
+        },
+        "failing_total": 2,
+        "first": [
+          [
+            95,
+            "vu.last_def"
+          ],
+          [
+            95,
+            "vu.next_first"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_last_zero",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.last_def: (step-95) inv = 1 - last with step = 95 forces last = 1",
+      "mutation": "row 95: last := 0 (claim unbound)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.link[0]": 1,
+          "vu.link[1]": 1
+        },
+        "failing_total": 2,
+        "first": [
+          [
+            190,
+            "vu.link[0]"
+          ],
+          [
+            190,
+            "vu.link[1]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_shared_last",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.link: VU 0's last row has c_in = VU 0's y_94, not VU 1's y_94",
+      "mutation": "VU 1 = its rows 0..94 followed by VU 0's last row (its claim and epilogue are VU 0's)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.out": 1
+        },
+        "failing_total": 1,
+        "first": [
+          [
+            95,
+            "vu.out"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_claim_last",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.out: last (y16 - claim) = 0",
+      "mutation": "VU 0 last row claim 0xbed1 -> 0xbed0",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {},
+        "failing_total": 0,
+        "first": []
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_claim_free_nonlast",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "statement column: vu.y16 is a public column equal to the VU's word on EVERY row (PROTOCOL B 'Statement binding'; was accept_by_design before the fix)",
+      "mutation": "VU 0 rows 0..94: claim := 0x1234",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "acc.s": 1,
+          "vu.link[0]": 2,
+          "vu.link[1]": 2,
+          "x.c_hi.limbs": 1
+        },
+        "failing_total": 6,
+        "first": [
+          [
+            0,
+            "vu.link[0]"
+          ],
+          [
+            0,
+            "vu.link[1]"
+          ],
+          [
+            1,
+            "x.c_hi.limbs"
+          ],
+          [
+            1,
+            "acc.s"
+          ],
+          [
+            1,
+            "vu.link[0]"
+          ],
+          [
+            1,
+            "vu.link[1]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_shadow_plus_p",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.link[0]/[1] are limb-wise (c_hi' = y_hi, c_lo' = y_lo); x.c_hi range (16 bits) when c + p >= 2^32",
+      "mutation": "VU 0 row 1: x.c limbs := limbs of c_1 + p = 0x136110ed3 (c_1 = 0xbe110ed2); hi = 0x13611, lo = 0xed3; downstream hints honest for the limbs",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {
+          "vu.first_c[0]": 1,
+          "vu.first_c[1]": 1,
+          "vu.link[0]": 1,
+          "vu.link[1]": 1
+        },
+        "failing_total": 4,
+        "first": [
+          [
+            0,
+            "vu.first_c[0]"
+          ],
+          [
+            0,
+            "vu.first_c[1]"
+          ],
+          [
+            0,
+            "vu.link[0]"
+          ],
+          [
+            0,
+            "vu.link[1]"
+          ]
+        ]
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_c0_shadow_p",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "vu.first_c[0], vu.first_c[1]: first c_hi = first c_lo = 0 (limb-wise)",
+      "mutation": "VU 0 row 0: x.c limbs := limbs of p = (0x7800, 0x1), i.e. the word p == 0 (mod p)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "OodEvaluationMismatch",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {},
+        "failing_total": 0,
+        "first": []
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_degree_bits_unbound",
+      "log_n_proved": 8,
+      "log_n_verified": 19,
+      "mechanism": "verify_bound: degree_bits is fixed by the verifier's statement (B = 4096 -> 19) and the proof's (8) must equal it -> DegreeBitsMismatch (F2; was FORGED: uni-stark read degree_bits from the proof)",
+      "mutation": "honest 2-VU trace (256 rows) verified by the verifier configured for log_n = 19 (B = 4096)",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "DegreeBitsMismatch(expected 19, proof says 8)",
+        "statement": {
+          "degree_bits": 19,
+          "words": 4096
+        }
+      }
+    },
+    {
+      "evaluator": {
+        "by_constraint": {},
+        "failing_total": 0,
+        "first": []
+      },
+      "expected": "reject",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "pow_bits": 16
+      },
+      "id": "b_zero_batch_as_any_statement",
+      "log_n_proved": 8,
+      "log_n_verified": 8,
+      "mechanism": "verify_bound: the committed vu.y16 column opened at zeta must equal the statement's word polynomial W(zeta) -> StatementColumnMismatch (F1; was FORGED: no public values)",
+      "mutation": "two zero VUs (a = b = 0, y16 = 0) proved and verified as if they were the two real VUs",
+      "rows_real": 192,
+      "status": "UNSAT",
+      "verifier": {
+        "accepted": false,
+        "error": "StatementColumnMismatch(vu.y16 = column 2929 at zeta)",
+        "statement": {
+          "degree_bits": 8,
+          "words": 2
+        }
+      }
+    }
+  ],
+  "forged": [],
+  "n_cases": 36,
+  "run_id": "r20260922-091130-525e",
+  "schema": "redteam-vu-b/battery/v1",
+  "source_vus": "vu-k1536-neg bases 0 and 1 with their correct words",
+  "target": "verity-direct ChainAir (Candidate B full VU, PROTOCOL.md 12), Plonky3 uni-stark 0.4.3-succinct, Keccak-256, FRI"
+}

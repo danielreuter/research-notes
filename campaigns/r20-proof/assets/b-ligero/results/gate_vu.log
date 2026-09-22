@@ -1,0 +1,5 @@
+chain system: {'rows': 3516, 'by_kind': {'hint': 103, 'bit': 2534, 'prod': 173, 'pin': 96, 'sel': 610}, 'linear': 347, 'quadratic': 3387, 'pins': 96, 'hints': 103} compiled in 0.40s; device cuda
+vu-k1536 [0, 42): l=4096 prover 4.15s -> True accept (0.059s)
+vu-k1536 [42, 64): l=4096 prover 0.12s -> True accept (0.046s)
+negatives: 52/52 rejected
+mutations: 252/252 rejected (one per gadget scope x row class + 3 chain-specific, l=256)

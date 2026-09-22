@@ -1,0 +1,748 @@
+{
+  "air": "v2",
+  "controls": {
+    "accepted": 44,
+    "n": 44
+  },
+  "dataset": {
+    "dataset": "bench-instances/v1",
+    "manifest_sha256": "38fb2c3a0853bafcb59c9fe0c7862c75e66feb86221f57147826a043a02d6763",
+    "n": 52,
+    "tier": "vu-k1536-neg"
+  },
+  "field": "BabyBear",
+  "instances": [
+    {
+      "claimed_y": 48850,
+      "correct_y": 48849,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 0,
+      "integer_violations": 1,
+      "mistake": "ulp-plus",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 16300,
+      "correct_y": 16299,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 1,
+      "integer_violations": 1,
+      "mistake": "ulp-plus",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 16452,
+      "correct_y": 16451,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 2,
+      "integer_violations": 1,
+      "mistake": "ulp-plus",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48867,
+      "correct_y": 48866,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 3,
+      "integer_violations": 1,
+      "mistake": "ulp-plus",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48848,
+      "correct_y": 48849,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 1 != 0",
+      "id": 4,
+      "integer_violations": 1,
+      "mistake": "ulp-minus",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 49302,
+      "correct_y": 49303,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 1 != 0",
+      "id": 5,
+      "integer_violations": 1,
+      "mistake": "ulp-minus",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 49215,
+      "correct_y": 49216,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 1 != 0",
+      "id": 6,
+      "integer_violations": 1,
+      "mistake": "ulp-minus",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 15903,
+      "correct_y": 15904,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 1 != 0",
+      "id": 7,
+      "integer_violations": 1,
+      "mistake": "ulp-minus",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 16081,
+      "correct_y": 48849,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 32768 != 0",
+      "id": 8,
+      "integer_violations": 1,
+      "mistake": "sign-flip",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 49067,
+      "correct_y": 16299,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -32768 != 0",
+      "id": 9,
+      "integer_violations": 1,
+      "mistake": "sign-flip",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 49219,
+      "correct_y": 16451,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -32768 != 0",
+      "id": 10,
+      "integer_violations": 1,
+      "mistake": "sign-flip",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 16098,
+      "correct_y": 48866,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 32768 != 0",
+      "id": 11,
+      "integer_violations": 1,
+      "mistake": "sign-flip",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 28189,
+      "correct_y": 28190,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 1 != 0",
+      "id": 12,
+      "integer_violations": 1,
+      "mistake": "epilogue-rtz",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 16112,
+      "correct_y": 16113,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 1 != 0",
+      "id": 13,
+      "integer_violations": 1,
+      "mistake": "epilogue-rtz",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48178,
+      "correct_y": 48179,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 1 != 0",
+      "id": 14,
+      "integer_violations": 1,
+      "mistake": "epilogue-rtz",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 49083,
+      "correct_y": 49084,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 1 != 0",
+      "id": 15,
+      "integer_violations": 1,
+      "mistake": "epilogue-rtz",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 1,
+      "correct_y": 0,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 16,
+      "integer_violations": 1,
+      "mistake": "ieee-fp32-fma",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 25696,
+      "correct_y": 49664,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 23968 != 0",
+      "id": 17,
+      "integer_violations": 1,
+      "mistake": "ieee-fp32-fma",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 26873,
+      "correct_y": 26884,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 11 != 0",
+      "id": 18,
+      "integer_violations": 1,
+      "mistake": "ieee-fp32-fma",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 25208,
+      "correct_y": 49664,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 24456 != 0",
+      "id": 19,
+      "integer_violations": 1,
+      "mistake": "ieee-fp32-fma",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48496,
+      "correct_y": 48336,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -160 != 0",
+      "id": 20,
+      "integer_violations": 1,
+      "mistake": "single-group-16",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48576,
+      "correct_y": 48384,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -192 != 0",
+      "id": 21,
+      "integer_violations": 1,
+      "mistake": "single-group-16",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 0,
+      "correct_y": 65408,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 65408 != 0",
+      "id": 22,
+      "integer_violations": 1,
+      "mistake": "single-group-16",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 0,
+      "correct_y": 65408,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 65408 != 0",
+      "id": 23,
+      "integer_violations": 1,
+      "mistake": "single-group-16",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48360,
+      "correct_y": 48336,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -24 != 0",
+      "id": 24,
+      "integer_violations": 1,
+      "mistake": "adder-24-bit",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 6436,
+      "correct_y": 6439,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 3 != 0",
+      "id": 25,
+      "integer_violations": 1,
+      "mistake": "adder-24-bit",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 15818,
+      "correct_y": 15824,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 6 != 0",
+      "id": 26,
+      "integer_violations": 1,
+      "mistake": "adder-24-bit",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 16472,
+      "correct_y": 16460,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -12 != 0",
+      "id": 27,
+      "integer_violations": 1,
+      "mistake": "adder-24-bit",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 1,
+      "correct_y": 0,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 28,
+      "integer_violations": 1,
+      "mistake": "no-exponent-floor",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 1,
+      "correct_y": 0,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 29,
+      "integer_violations": 1,
+      "mistake": "no-exponent-floor",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 1,
+      "correct_y": 0,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 30,
+      "integer_violations": 1,
+      "mistake": "no-exponent-floor",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 1,
+      "correct_y": 0,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -1 != 0",
+      "id": 31,
+      "integer_violations": 1,
+      "mistake": "no-exponent-floor",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 0,
+      "correct_y": 32640,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 32640 != 0",
+      "id": 32,
+      "integer_violations": 1,
+      "mistake": "non-sticky-saturation",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 0,
+      "correct_y": 65408,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 65408 != 0",
+      "id": 33,
+      "integer_violations": 1,
+      "mistake": "non-sticky-saturation",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 0,
+      "correct_y": 32640,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 32640 != 0",
+      "id": 34,
+      "integer_violations": 1,
+      "mistake": "non-sticky-saturation",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 0,
+      "correct_y": 65408,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 65408 != 0",
+      "id": 35,
+      "integer_violations": 1,
+      "mistake": "non-sticky-saturation",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48911,
+      "correct_y": 48849,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -62 != 0",
+      "id": 36,
+      "integer_violations": 1,
+      "mistake": "c0-stale",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48835,
+      "correct_y": 16299,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -32536 != 0",
+      "id": 37,
+      "integer_violations": 1,
+      "mistake": "c0-stale",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 49032,
+      "correct_y": 48905,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -127 != 0",
+      "id": 38,
+      "integer_violations": 1,
+      "mistake": "c0-stale",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 28201,
+      "correct_y": 48907,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 20706 != 0",
+      "id": 39,
+      "integer_violations": 1,
+      "mistake": "c0-stale",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 48623,
+      "correct_y": 48336,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -287 != 0",
+      "id": 40,
+      "integer_violations": 1,
+      "mistake": "reversed-k",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 0,
+      "correct_y": 48384,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: 48384 != 0",
+      "id": 41,
+      "integer_violations": 1,
+      "mistake": "reversed-k",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 25984,
+      "correct_y": 16896,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -9088 != 0",
+      "id": 42,
+      "integer_violations": 1,
+      "mistake": "reversed-k",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 25984,
+      "correct_y": 16896,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        95,
+        "vu.out"
+      ],
+      "first_violation": "step 95: vu.out: -9088 != 0",
+      "id": 43,
+      "integer_violations": 1,
+      "mistake": "reversed-k",
+      "verdict": "wrong"
+    },
+    {
+      "claimed_y": 32640,
+      "correct_y": null,
+      "failing_field_constraints": 3,
+      "first_failing": [
+        70,
+        "lookup.helper[0]"
+      ],
+      "first_violation": "step 70: a[0]: keys [32640] not in T_OP",
+      "id": 44,
+      "integer_violations": 2,
+      "mistake": "nonfinite-operand",
+      "verdict": "reject"
+    },
+    {
+      "claimed_y": 65408,
+      "correct_y": null,
+      "failing_field_constraints": 3,
+      "first_failing": [
+        48,
+        "lookup.helper[7]"
+      ],
+      "first_violation": "step 48: b[12]: keys [65408] not in T_OP",
+      "id": 45,
+      "integer_violations": 2,
+      "mistake": "nonfinite-operand",
+      "verdict": "reject"
+    },
+    {
+      "claimed_y": 32704,
+      "correct_y": null,
+      "failing_field_constraints": 3,
+      "first_failing": [
+        1,
+        "lookup.helper[2]"
+      ],
+      "first_violation": "step 1: a[10]: keys [32704] not in T_OP",
+      "id": 46,
+      "integer_violations": 2,
+      "mistake": "nonfinite-operand",
+      "verdict": "reject"
+    },
+    {
+      "claimed_y": 32704,
+      "correct_y": null,
+      "failing_field_constraints": 3,
+      "first_failing": [
+        44,
+        "lookup.helper[4]"
+      ],
+      "first_violation": "step 44: b[0]: keys [65472] not in T_OP",
+      "id": 47,
+      "integer_violations": 2,
+      "mistake": "nonfinite-operand",
+      "verdict": "reject"
+    },
+    {
+      "claimed_y": 32640,
+      "correct_y": null,
+      "failing_field_constraints": 2,
+      "first_failing": [
+        94,
+        "g0.finite"
+      ],
+      "first_violation": "step 94: g0.finite: 1 != 0",
+      "id": 48,
+      "integer_violations": 2,
+      "mistake": "sat-intermediate",
+      "verdict": "reject"
+    },
+    {
+      "claimed_y": 65408,
+      "correct_y": null,
+      "failing_field_constraints": 2,
+      "first_failing": [
+        94,
+        "g0.finite"
+      ],
+      "first_violation": "step 94: g0.finite: 1 != 0",
+      "id": 49,
+      "integer_violations": 2,
+      "mistake": "sat-intermediate",
+      "verdict": "reject"
+    },
+    {
+      "claimed_y": 32640,
+      "correct_y": null,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        94,
+        "g1.finite"
+      ],
+      "first_violation": "step 94: g1.finite: 1 != 0",
+      "id": 50,
+      "integer_violations": 1,
+      "mistake": "sat-intermediate",
+      "verdict": "reject"
+    },
+    {
+      "claimed_y": 65408,
+      "correct_y": null,
+      "failing_field_constraints": 1,
+      "first_failing": [
+        94,
+        "g1.finite"
+      ],
+      "first_violation": "step 94: g1.finite: 1 != 0",
+      "id": 51,
+      "integer_violations": 1,
+      "mistake": "sat-intermediate",
+      "verdict": "reject"
+    }
+  ],
+  "rejected_all": true,
+  "run_id": "r20260922-084854-d988",
+  "schema": "verity-direct/vu-neg/v2",
+  "soundness_bugs": 0
+}

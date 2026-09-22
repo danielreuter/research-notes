@@ -1,0 +1,52 @@
+== build (v2, BabyBear^4, 4096 VUs, 100 queries, threads=12, commit=unknown)
+   Compiling verity-direct v0.1.0 (/workspace/research/src/8b2440b50d5d41ddb5ab679307803ff003489e33/backends/direct)
+    Finished `release` profile [optimized] target(s) in 15.41s
+== v2 tests (cargo test --release --test air_v2, incl. --ignored statement-bound round trip at 2^19 rows)
+test v2_layout_consistent ... ok
+test v2_honest_trace_satisfies_every_constraint ... ok
+test v2_mutations_fail_a_constraint ... ok
+test v2_statement_bound_roundtrip ... ok
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 35.62s
+== layout
+field=BabyBear air=v2 lookup=logup main_width=281 (incl. multiplicity) aux_width=116 (helpers=27 x4 + g + S) pre_width=8 (ncols=7) committed_width=405 hints=270 materialised=10 constraints=88 queries/row=105 table_rows=282280
+  table T8        rows=256
+  table T15       rows=32768
+  table T16       rows=65536
+  table ALIGN4    rows=3120
+  table LEAD10    rows=1024
+  table LEADNORM  rows=12152
+  table SHIFT_HI  rows=13824
+  table SHIFT_LO  rows=13824
+  table SSHIFT_0  rows=13824
+  table SSHIFT_1  rows=13824
+  table SSHIFT_2  rows=13824
+  table TNORM10   rows=32768
+  table T_OP      rows=65536
+  query degrees: {1: 104, 2: 1}
+  table-output columns=176 auto-materialised=4 other (words, state, hints, named materialisations, position)=101
+== vu-neg --v2 (52 vu-k1536-neg + 44 controls)
+neg 51 mistake="sat-intermediate" verdict="reject" claimed=65408 correct=null: integer violations=1 (step 94: g1.finite: 1 != 0), failing field constraints=1 (row 94 g1.finite)
+controls: 44 negatives with their correct word: accepted (no integer violation, no failing field constraint or lookup)
+vu-neg --v2: 52 negatives, 52 rejected by witness generation AND unsatisfiable in the field
+== vu-honest --v2 (4096 VUs against the recorded accumulators; exhaustive row-local evaluation of the first 64)
+vu-honest --v2: 4096 VUs in 3.67s (0.90 ms/VU witness): integer violations=0 accumulator mismatches=0 bad words=0 field failures (first 64 VUs)=0
+== red-team battery on the v2 AIR (83 + 6 extras + 87 controls)
+check-rows --v2 jobs=176 accepted=89 -> /tmp/tmp4rv3ck2h/report.json
+battery: 83 cases, 2 accepted -> FAIL
+  chain          4/4    rejected
+  epilogue       1/1    rejected
+  fractional     1/1    rejected
+  hint_swap      3/3    rejected
+  wrap          58/58   rejected
+  z3            12/12   rejected
+  zero_swap      2/4    rejected
+  ACCEPTED zero_swap-35277309a8
+  ACCEPTED zero_swap-b58ee3e1bf
+v2: 2/4 vacuous cases (zero_swap) accepted: the claimed word is the correct output of the state the forged word denotes; not counted
+controls: 87/87 honest witnesses accepted
+extras: 6/6 rejected
+wrote /workspace/research/runs/r20260922-084854-d988/battery_babybear_v2.json
+RESULT: PASS
+== vu-bench --v2 --ext 4 
+lookup stages: commit_pre=0.36s commit_main=3.87s aux_build=0.18s commit_aux=1.76s quotient=10.71s commit_quotient=0.58s open=2.61s; main_width=281 aux_width=116 pre_width=8 helpers=27 queries/row=105 table_rows=282280 lookup_bits=95.3
+field=babybear vus=4096 rows=524288 width=281 witness=2.379s prove=20.502s total=22.883s (0.0056 s/VU) verify=0.435s bytes=1179292 threads=12 peak_rss=Some(4857298944) bits_proven=83.8 -> /workspace/research/runs/r20260922-084854-d988/result.json

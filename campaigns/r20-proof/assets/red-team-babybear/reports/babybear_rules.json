@@ -1,0 +1,819 @@
+{
+ "p": 2013265921,
+ "p_bits": 31,
+ "log2_p": 30.907,
+ "params": {
+  "acc_bits": 25,
+  "prod_bits": 26,
+  "s_bits": 30,
+  "s_max": 570417150,
+  "norm_rem_bits": 7,
+  "k_lo": -7,
+  "k_hi": 24
+ },
+ "rules": {
+  "LIMB16": "the word is two public 16-bit limbs; the identity is stated per limb (fraction limbs f_lo/f_hi or low_lo/low_hi as hints)",
+  "LT_DIRECT": "direct variable-bound check rng(bnd - 1 - x, 0, 2^B) against the table's bound column (POW/ALIGN: the partner column; LEAD: new column span)",
+  "QUOT_TIGHT": "the tight quotient bound q < 2^B / pow (direct) keeps q * pow + r below 2^B, so the division identity stays inside (-p, p)",
+  "NORM_MBND": "NORM column mbnd = 2^30 / div and rng(mbnd - 1 - M', 0, 2^30): the quotient is tight relative to the dividend v < 2^30",
+  "NORM_VBND": "NORM column vbnd = 2^24 / mul (k >= 0) and rng(vbnd - 1 - v, 0, 2^30): v * mul < 2^24 (redundant given leading_bit; see z3)",
+  "V_PREMISE": "v is the signed-sum wire, |v| <= s_max = 570,417,150 < 2^29.1 by the ranges of its terms; leading_bit/normalise are stated for v in [0, s_max]"
+ },
+ "needs_rule": [
+  {
+   "gadget": "fp32_decode",
+   "predicate": "acc.word",
+   "as_stated_bits": 32,
+   "as_stated_interval": "[-4294967295, 4286578687]",
+   "rule": "LIMB16",
+   "embedded_bits": 16,
+   "embedded_sound": true,
+   "added": "+2 hint columns (f_lo 16 b, f_hi 7 b), +2 16/7-bit ranges, -1 23-bit range, +1 identity; c as 2 public limbs"
+  },
+  {
+   "gadget": "align_state",
+   "predicate": "align_state.rem",
+   "as_stated_bits": 50,
+   "as_stated_interval": "[0, 1125899873288192]",
+   "rule": "LT_DIRECT",
+   "embedded_bits": 25,
+   "embedded_sound": true,
+   "added": "no multiplication; one 25-bit range (2 chunk lookups) on a linear wire, as before"
+  },
+  {
+   "gadget": "align_state",
+   "predicate": "align_state.quot",
+   "as_stated_bits": 50,
+   "as_stated_interval": "[0, 1125899873288192]",
+   "rule": "LT_DIRECT+QUOT_TIGHT",
+   "embedded_bits": 25,
+   "embedded_sound": true,
+   "added": "no multiplication; one 25-bit range on a linear wire"
+  },
+  {
+   "gadget": "align_product",
+   "predicate": "align_prod.rem",
+   "as_stated_bits": 32,
+   "as_stated_interval": "[0, 4294901760]",
+   "rule": "LT_DIRECT",
+   "embedded_bits": 16,
+   "embedded_sound": true,
+   "added": "no multiplication; one 16-bit range on a linear wire"
+  },
+  {
+   "gadget": "align_product",
+   "predicate": "align_prod.quot",
+   "as_stated_bits": 32,
+   "as_stated_interval": "[0, 4294901760]",
+   "rule": "LT_DIRECT+QUOT_TIGHT",
+   "embedded_bits": 16,
+   "embedded_sound": true,
+   "added": "no multiplication; one 16-bit range on a linear wire"
+  },
+  {
+   "gadget": "leading_bit",
+   "predicate": "lead.window",
+   "as_stated_bits": 60,
+   "as_stated_interval": "[-576460752303423488, 1152921503533105152]",
+   "rule": "LT_DIRECT+V_PREMISE",
+   "embedded_bits": 30,
+   "embedded_sound": true,
+   "added": "LEAD gains column span; no multiplication; one 30-bit range (2 chunks) on a linear wire"
+  },
+  {
+   "gadget": "normalise",
+   "predicate": "norm.div",
+   "as_stated_bits": 54,
+   "as_stated_interval": "[-18014398492704768, 2147483647]",
+   "rule": "NORM_MBND+NORM_VBND(redundant)+V_PREMISE",
+   "embedded_bits": 31,
+   "embedded_sound": true,
+   "added": "NORM gains columns mbnd (and vbnd); +1 30-bit range (2 chunk lookups) per group [+1 if vbnd kept]; 0 hints, 0 multiplications"
+  },
+  {
+   "gadget": "pack",
+   "predicate": "pack.y[0]",
+   "as_stated_bits": 33,
+   "as_stated_interval": "[-5351931903, 5435817983]",
+   "rule": "LIMB16",
+   "embedded_bits": 16,
+   "embedded_sound": true,
+   "added": "+2 hint columns (low_lo, low_hi), +1 identity; y as 2 public limbs"
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "cast.split",
+   "as_stated_bits": 32,
+   "as_stated_interval": "[-4294967295, 4294967295]",
+   "rule": "LIMB16",
+   "embedded_bits": 0,
+   "embedded_sound": true,
+   "added": "-2 hint columns (hi, lo are the public limbs), -1 identity, -2 ranges"
+  }
+ ],
+ "safe_as_stated": [
+  {
+   "gadget": "bf16_decode",
+   "predicate": "s",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "bf16_decode",
+   "predicate": "nz",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "bf16_decode",
+   "predicate": "bf16.t",
+   "kind": "rng",
+   "interval": "[0, 254]",
+   "bits": 8
+  },
+  {
+   "gadget": "bf16_decode",
+   "predicate": "bf16.f",
+   "kind": "rng",
+   "interval": "[0, 127]",
+   "bits": 7
+  },
+  {
+   "gadget": "bf16_decode",
+   "predicate": "bf16.word",
+   "kind": "eq",
+   "interval": "[-65535, 65407]",
+   "bits": 16
+  },
+  {
+   "gadget": "bf16_decode",
+   "predicate": "bf16.nz0",
+   "kind": "eq",
+   "interval": "[0, 254]",
+   "bits": 8
+  },
+  {
+   "gadget": "bf16_decode",
+   "predicate": "bf16.nz1",
+   "kind": "rng",
+   "interval": "[-1, 254]",
+   "bits": 8
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "s",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "nz",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "z",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "acc.t",
+   "kind": "rng",
+   "interval": "[0, 254]",
+   "bits": 8
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "acc.f",
+   "kind": "rng",
+   "interval": "[0, 8388607]",
+   "bits": 23
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "acc.nz0",
+   "kind": "eq",
+   "interval": "[0, 254]",
+   "bits": 8
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "acc.nz1",
+   "kind": "rng",
+   "interval": "[-1, 254]",
+   "bits": 8
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "acc.z0",
+   "kind": "eq",
+   "interval": "[0, 16777215]",
+   "bits": 24
+  },
+  {
+   "gadget": "fp32_decode",
+   "predicate": "acc.z1",
+   "kind": "rng",
+   "interval": "[-1, 16777215]",
+   "bits": 24
+  },
+  {
+   "gadget": "product",
+   "predicate": "s_a",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "product",
+   "predicate": "s_b",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "product",
+   "predicate": "z",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "product",
+   "predicate": "prod.z0",
+   "kind": "eq",
+   "interval": "[0, 65025]",
+   "bits": 16
+  },
+  {
+   "gadget": "product",
+   "predicate": "prod.z1",
+   "kind": "rng",
+   "interval": "[-1, 65025]",
+   "bits": 16
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[0]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[1]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[2]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[3]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[4]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[5]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[6]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[7]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[8]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "sel[9]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.E",
+   "kind": "rng",
+   "interval": "[-132, 259]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.attained",
+   "kind": "eq",
+   "interval": "[-2659, 2463]",
+   "bits": 12
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[0]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[1]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[2]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[3]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[4]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[5]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[6]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[7]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d[8]",
+   "kind": "rng",
+   "interval": "[-391, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "group_max",
+   "predicate": "max.d_floor",
+   "kind": "rng",
+   "interval": "[0, 391]",
+   "bits": 9
+  },
+  {
+   "gadget": "align_state",
+   "predicate": "align_state.q",
+   "kind": "rng",
+   "interval": "[0, 33554431]",
+   "bits": 25
+  },
+  {
+   "gadget": "align_state",
+   "predicate": "align_state.r",
+   "kind": "rng",
+   "interval": "[0, 33554431]",
+   "bits": 25
+  },
+  {
+   "gadget": "align_state",
+   "predicate": "align_state.pow",
+   "kind": "lookup",
+   "interval": "[0, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "align_state",
+   "predicate": "align_state.div",
+   "kind": "eq",
+   "interval": "[-33554430, 67108862]",
+   "bits": 26
+  },
+  {
+   "gadget": "align_product",
+   "predicate": "align_prod.q",
+   "kind": "rng",
+   "interval": "[0, 65535]",
+   "bits": 16
+  },
+  {
+   "gadget": "align_product",
+   "predicate": "align_prod.r",
+   "kind": "rng",
+   "interval": "[0, 65535]",
+   "bits": 16
+  },
+  {
+   "gadget": "align_product",
+   "predicate": "align_prod.align",
+   "kind": "lookup",
+   "interval": "[0, 511]",
+   "bits": 9
+  },
+  {
+   "gadget": "align_product",
+   "predicate": "align_prod.div",
+   "kind": "eq",
+   "interval": "[-65535, 131070]",
+   "bits": 17
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[0]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[1]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[2]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[3]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[4]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[5]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[6]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[7]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "s[8]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "sgn",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "z",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "sum.v",
+   "kind": "rng",
+   "interval": "[-570425335, 570425335]",
+   "bits": 30
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "sum.z0",
+   "kind": "eq",
+   "interval": "[-570425335, 570425335]",
+   "bits": 30
+  },
+  {
+   "gadget": "signed_sum",
+   "predicate": "sum.z1",
+   "kind": "rng",
+   "interval": "[-570425336, 570425335]",
+   "bits": 30
+  },
+  {
+   "gadget": "leading_bit",
+   "predicate": "lead.lead",
+   "kind": "lookup",
+   "interval": "[0, 30]",
+   "bits": 5
+  },
+  {
+   "gadget": "normalise",
+   "predicate": "clamp",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "normalise",
+   "predicate": "norm.M",
+   "kind": "rng",
+   "interval": "[0, 16777215]",
+   "bits": 24
+  },
+  {
+   "gadget": "normalise",
+   "predicate": "norm.r",
+   "kind": "rng",
+   "interval": "[0, 127]",
+   "bits": 7
+  },
+  {
+   "gadget": "normalise",
+   "predicate": "norm.clamp_proof",
+   "kind": "rng",
+   "interval": "[-391, 390]",
+   "bits": 9
+  },
+  {
+   "gadget": "normalise",
+   "predicate": "norm.norm",
+   "kind": "lookup",
+   "interval": "[-7, 384]",
+   "bits": 9
+  },
+  {
+   "gadget": "normalise",
+   "predicate": "norm.rem",
+   "kind": "lt_pow",
+   "interval": "[0, 16256]",
+   "bits": 14
+  },
+  {
+   "gadget": "state_out",
+   "predicate": "sgn",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "state_out",
+   "predicate": "z",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "state_out",
+   "predicate": "ovf",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "state_out",
+   "predicate": "out.z0",
+   "kind": "eq",
+   "interval": "[0, 16777215]",
+   "bits": 24
+  },
+  {
+   "gadget": "state_out",
+   "predicate": "out.z1",
+   "kind": "rng",
+   "interval": "[-1, 16777215]",
+   "bits": 24
+  },
+  {
+   "gadget": "state_out",
+   "predicate": "out.ovf_proof",
+   "kind": "rng",
+   "interval": "[-254, 253]",
+   "bits": 8
+  },
+  {
+   "gadget": "pack",
+   "predicate": "s",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "pack",
+   "predicate": "z",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "pack",
+   "predicate": "ovf[0]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "pack",
+   "predicate": "ovf[1]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "pack",
+   "predicate": "sgn[0]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "pack",
+   "predicate": "sgn[1]",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "pack",
+   "predicate": "hidden",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "pack",
+   "predicate": "pack.low",
+   "kind": "rng",
+   "interval": "[0, 8388607]",
+   "bits": 23
+  },
+  {
+   "gadget": "pack",
+   "predicate": "pack.M",
+   "kind": "eq",
+   "interval": "[-16777215, 16777215]",
+   "bits": 24
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "lsb",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "carry",
+   "kind": "boolean",
+   "interval": "[0, 1]",
+   "bits": 1
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "cast.hi",
+   "kind": "rng",
+   "interval": "[0, 65535]",
+   "bits": 16
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "cast.lo",
+   "kind": "rng",
+   "interval": "[0, 65535]",
+   "bits": 16
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "cast.hi2",
+   "kind": "rng",
+   "interval": "[0, 32767]",
+   "bits": 15
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "cast.rem",
+   "kind": "rng",
+   "interval": "[0, 65535]",
+   "bits": 16
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "cast.lsb_split",
+   "kind": "eq",
+   "interval": "[-65535, 65535]",
+   "bits": 16
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "cast.round",
+   "kind": "eq",
+   "interval": "[-98303, 98304]",
+   "bits": 17
+  },
+  {
+   "gadget": "epilogue",
+   "predicate": "cast.y16",
+   "kind": "rng",
+   "interval": "[0, 65536]",
+   "bits": 17
+  }
+ ],
+ "embedded_unsound": [],
+ "embedded_predicates": 108,
+ "naive_predicates": 105,
+ "drop_one_rule": {
+  "LIMB16": [
+   "fp32_decode.acc.word",
+   "pack.pack.y[0]",
+   "epilogue.cast.split"
+  ],
+  "LT_DIRECT": [
+   "align_state.align_state.rem",
+   "align_state.align_state.quot",
+   "align_product.align_prod.rem",
+   "align_product.align_prod.quot",
+   "leading_bit.lead.window"
+  ],
+  "QUOT_TIGHT": [
+   "align_state.align_state.div",
+   "align_product.align_prod.div"
+  ],
+  "NORM_MBND": [
+   "normalise.norm.div"
+  ],
+  "NORM_VBND": [
+   "normalise.norm.div"
+  ],
+  "V_PREMISE": [
+   "leading_bit.lead.window",
+   "normalise.norm.vbnd"
+  ]
+ }
+}

@@ -1,0 +1,1124 @@
+{
+ "lane": "auth-integration",
+ "date": "2026-09-22",
+ "B": 4096,
+ "K": 1536,
+ "target": "2^-128",
+ "hardware": "H100-SXM model @0.172, Blake3 50 GB/s",
+ "sharing": {
+  "bench": {
+   "name": "bench",
+   "B": 4096,
+   "x_leaves": 28,
+   "w_rows": 3079,
+   "y_leaves": 28,
+   "w_matrices": 18,
+   "w_chunks": {
+    "1": [
+     3079,
+     3079
+    ],
+    "16": [
+     2196,
+     35138
+    ],
+    "64": [
+     1323,
+     84651
+    ],
+    "256": [
+     681,
+     174459
+    ],
+    "4096": [
+     91,
+     325253
+    ]
+   },
+   "note": "3456 real VUs: 24 activation rows x 144 weight rows; 2598 distinct weight rows in 18 matrices; scaled x1.185 to 4096 real VUs"
+  },
+  "decode_step": {
+   "name": "decode_step",
+   "B": 4096,
+   "x_leaves": 1,
+   "w_rows": 4096,
+   "y_leaves": 1,
+   "w_matrices": 1,
+   "w_chunks": {
+    "1": [
+     4096,
+     4096
+    ],
+    "16": [
+     256,
+     4096
+    ],
+    "64": [
+     64,
+     4096
+    ],
+    "256": [
+     16,
+     4096
+    ],
+    "4096": [
+     1,
+     4096
+    ]
+   },
+   "note": "one token, all B coordinates of one projection (N >= B): x and the output row shared by every VU"
+  },
+  "worst": {
+   "name": "worst",
+   "B": 4096,
+   "x_leaves": 4096,
+   "w_rows": 4096,
+   "y_leaves": 4096,
+   "w_matrices": 4096,
+   "w_chunks": {
+    "1": [
+     4096,
+     4096
+    ],
+    "16": [
+     4096,
+     65536
+    ],
+    "64": [
+     4096,
+     262144
+    ],
+    "256": [
+     4096,
+     1048576
+    ],
+    "4096": [
+     4096,
+     16777216
+    ]
+   },
+   "note": "one coordinate per token per matrix: nothing shared (chunk rows bracketed as B x R)"
+  }
+ },
+ "gadgets": {
+  "sha256_lookup_air": {
+   "name": "SHA-256, lookup-based AIR (Stwo-style)",
+   "gates_a": 4384,
+   "lookups_a": 1728,
+   "committed_a": 4384,
+   "committed_b_base": 4384,
+   "helper_lookups_b": 1728,
+   "products_b": 4384,
+   "payload_bytes": 64,
+   "layers": 128,
+   "citation": "sha256_lookup_air"
+  },
+  "sha256_p3_air": {
+   "name": "SHA-256, Plonky3 p3-sha256-air (no lookups)",
+   "gates_a": 7488,
+   "lookups_a": 0,
+   "committed_a": 7488,
+   "committed_b_base": 7488,
+   "helper_lookups_b": 0,
+   "products_b": 7488,
+   "payload_bytes": 64,
+   "layers": 192,
+   "citation": "sha256_p3_air"
+  },
+  "sha256_r1cs": {
+   "name": "SHA-256, R1CS (26 170 nonlinear)",
+   "gates_a": 26170,
+   "lookups_a": 0,
+   "committed_a": 10496,
+   "committed_b_base": 78510,
+   "helper_lookups_b": 0,
+   "products_b": 26170,
+   "payload_bytes": 64,
+   "layers": 192,
+   "citation": "sha256_r1cs"
+  },
+  "poseidon2_bb16": {
+   "name": "Poseidon2/BabyBear width 16 (rate 8 words)",
+   "gates_a": 900,
+   "lookups_a": 0,
+   "committed_a": 0,
+   "committed_b_base": 1692,
+   "helper_lookups_b": 0,
+   "products_b": 564,
+   "payload_bytes": 16,
+   "layers": 63,
+   "citation": "poseidon2_babybear"
+  },
+  "poseidon2_bb24": {
+   "name": "Poseidon2/BabyBear width 24 (rate 16 words)",
+   "gates_a": 1548,
+   "lookups_a": 0,
+   "committed_a": 0,
+   "committed_b_base": 2556,
+   "helper_lookups_b": 0,
+   "products_b": 852,
+   "payload_bytes": 32,
+   "layers": 87,
+   "citation": "poseidon2_babybear"
+  }
+ },
+ "options": [
+  {
+   "design": "A",
+   "option": "in_circuit_sha256",
+   "gadget": "SHA-256, lookup-based AIR (Stwo-style)",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 38502226.293684766,
+   "delta_vs_zk": 2.5977776727702966,
+   "delta_vs_nonzk": 2.649113350707559,
+   "committed_elements_delta_per_vu": 301269.421875,
+   "proof_bytes_delta_per_vu": 0.0,
+   "verifier_hash_bytes_per_vu": 0.0,
+   "verifier_field_ops_per_vu": 0.0,
+   "depth": 638,
+   "depth_delta": 256,
+   "privacy": "private",
+   "protocol_change": false,
+   "notes": [
+    "68.72 SHA-256 compressions per VU after sharing (x 0.48, w 67.65, y 0.59); whole leaf/v1 leaves + node/lift paths in circuit; no protocol change"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "in_circuit_sha256",
+   "gadget": "SHA-256, lookup-based AIR (Stwo-style)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 11134113.469432676,
+   "delta_vs_zk": 0.04040905429373409,
+   "delta_vs_nonzk": 0.0552543585320886,
+   "committed_elements_delta_per_vu": 4675.125,
+   "proof_bytes_delta_per_vu": 2790.34375,
+   "verifier_hash_bytes_per_vu": 4329.84375,
+   "verifier_field_ops_per_vu": 6927.75,
+   "depth": 638,
+   "depth_delta": 256,
+   "privacy": "private (x, y); W public",
+   "protocol_change": false,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "1.07 SHA-256 compressions per VU after sharing (x 0.48, y 0.59); whole leaf/v1 leaves + node/lift paths in circuit; no protocol change"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "in_circuit_sha256",
+   "gadget": "SHA-256, R1CS (26 170 nonlinear)",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 82964316.02071056,
+   "delta_vs_zk": 6.752465053298233,
+   "delta_vs_nonzk": 6.863082797192773,
+   "committed_elements_delta_per_vu": 721287.375,
+   "proof_bytes_delta_per_vu": 0.0,
+   "verifier_hash_bytes_per_vu": 0.0,
+   "verifier_field_ops_per_vu": 0.0,
+   "depth": 766,
+   "depth_delta": 384,
+   "privacy": "private",
+   "protocol_change": false,
+   "notes": [
+    "68.72 SHA-256 compressions per VU after sharing (x 0.48, w 67.65, y 0.59); whole leaf/v1 leaves + node/lift paths in circuit; no protocol change"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "in_circuit_sha256",
+   "gadget": "SHA-256, R1CS (26 170 nonlinear)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 11824062.246991856,
+   "delta_vs_zk": 0.10488019132158755,
+   "delta_vs_nonzk": 0.12064541608525992,
+   "committed_elements_delta_per_vu": 11193.0,
+   "proof_bytes_delta_per_vu": 2790.34375,
+   "verifier_hash_bytes_per_vu": 4329.84375,
+   "verifier_field_ops_per_vu": 6927.75,
+   "depth": 766,
+   "depth_delta": 384,
+   "privacy": "private (x, y); W public",
+   "protocol_change": false,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "1.07 SHA-256 compressions per VU after sharing (x 0.48, y 0.59); whole leaf/v1 leaves + node/lift paths in circuit; no protocol change"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "verifier_openings",
+   "gadget": "sha256 native (verifier)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 10702702.352291087,
+   "delta_vs_zk": 9.654682474424803e-05,
+   "delta_vs_nonzk": 0.01436664322968162,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 2843.28125,
+   "verifier_hash_bytes_per_vu": 4398.09375,
+   "verifier_field_ops_per_vu": 6990.791015625,
+   "depth": 382,
+   "depth_delta": 0,
+   "privacy": "NOT private (public tensors only)",
+   "protocol_change": false,
+   "notes": [
+    "x, W rows and whole output rows disclosed to the verifier: NOT private (NON_ZK at best); fine for public tensors only"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "leaf_v2_pcs_hash",
+   "gadget": "Poseidon2/BabyBear width 16 (rate 8 words)",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 13667117.966480326,
+   "delta_vs_zk": 0.27710152384060693,
+   "delta_vs_nonzk": 0.29532412637029193,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 509.5234375,
+   "verifier_hash_bytes_per_vu": 1940.125,
+   "verifier_field_ops_per_vu": 0.0,
+   "depth": 508,
+   "depth_delta": 126,
+   "privacy": "private (computational)",
+   "protocol_change": true,
+   "notes": [
+    "156.53 Poseidon2 permutations per VU after sharing (x 1.37, w 153.35, y 1.81): salted row leaves + row tree in circuit; tensor digest disclosed, ids-tree path folded natively; protocol change (leaf/v2-hash)"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "leaf_v2_pcs_hash",
+   "gadget": "Poseidon2/BabyBear width 16 (rate 8 words)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 10763041.364493446,
+   "delta_vs_zk": 0.005734827303457202,
+   "delta_vs_nonzk": 0.020085374747091267,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 4.375,
+   "verifier_hash_bytes_per_vu": 15.75,
+   "verifier_field_ops_per_vu": 6927.75,
+   "depth": 508,
+   "depth_delta": 126,
+   "privacy": "private (computational) (x, y); W public",
+   "protocol_change": true,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "3.19 Poseidon2 permutations per VU after sharing (x 1.37, y 1.81): salted row leaves + row tree in circuit; tensor digest disclosed, ids-tree path folded natively; protocol change (leaf/v2-hash)"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "leaf_v2_pcs_hash",
+   "gadget": "Poseidon2/BabyBear width 24 (rate 16 words)",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 13400923.7424436,
+   "delta_vs_zk": 0.2522274391953554,
+   "delta_vs_nonzk": 0.2700951204056945,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 509.5234375,
+   "verifier_hash_bytes_per_vu": 1940.125,
+   "verifier_field_ops_per_vu": 0.0,
+   "depth": 556,
+   "depth_delta": 174,
+   "privacy": "private (computational)",
+   "protocol_change": true,
+   "notes": [
+    "82.84 Poseidon2 permutations per VU after sharing (x 0.72, w 81.18, y 0.94): salted row leaves + row tree in circuit; tensor digest disclosed, ids-tree path folded natively; protocol change (leaf/v2-hash)"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "leaf_v2_pcs_hash",
+   "gadget": "Poseidon2/BabyBear width 24 (rate 16 words)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 10756597.302536136,
+   "delta_vs_zk": 0.005132672455186338,
+   "delta_vs_nonzk": 0.019474627920613274,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 4.375,
+   "verifier_hash_bytes_per_vu": 15.75,
+   "verifier_field_ops_per_vu": 6927.75,
+   "depth": 556,
+   "depth_delta": 174,
+   "privacy": "private (computational) (x, y); W public",
+   "protocol_change": true,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "1.65 Poseidon2 permutations per VU after sharing (x 0.72, y 0.94): salted row leaves + row tree in circuit; tensor digest disclosed, ids-tree path folded natively; protocol change (leaf/v2-hash)"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "algebraic",
+   "gadget": "ligero-rs n=16384 k=4096 l=3840 t=191 R=64",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 10705896.973427784,
+   "delta_vs_zk": 0.00039506298095037806,
+   "delta_vs_nonzk": 0.01466941882897932,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 44612.0126953125,
+   "verifier_hash_bytes_per_vu": 73416.1845703125,
+   "verifier_field_ops_per_vu": 1766.2529296875,
+   "depth": 382,
+   "depth_delta": 0,
+   "privacy": "private (statistical, per commitment lifetime)",
+   "protocol_change": true,
+   "notes": [
+    "3135 claimed tensor rows; 84707 rows in 1379 chunks (R=64) opened at t=191 columns; nothing hashed in circuit; depth +0 (rides the existing Ligero round); protocol change leaf/v2 (LEAF_V2.md)"
+   ]
+  },
+  {
+   "design": "A",
+   "option": "algebraic",
+   "gadget": "ligero-rs n=16384 k=4096 l=3840 t=191 R=64",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 10704147.671504904,
+   "delta_vs_zk": 0.0002316023188819738,
+   "delta_vs_nonzk": 0.014503625792688268,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 3974.6640625,
+   "verifier_hash_bytes_per_vu": 6680.0390625,
+   "verifier_field_ops_per_vu": 6971.0859375,
+   "depth": 382,
+   "depth_delta": 0,
+   "privacy": "private (statistical, per commitment lifetime) (x, y); W public",
+   "protocol_change": true,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "56 claimed tensor rows; 56 rows in 56 chunks (R=64) opened at t=191 columns; nothing hashed in circuit; depth +0 (rides the existing Ligero round); protocol change leaf/v2 (LEAF_V2.md)"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "in_circuit_sha256",
+   "gadget": "SHA-256, lookup-based AIR (Stwo-style)",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 63751177.49866549,
+   "delta_vs_zk": 3.4199813420766283,
+   "delta_vs_nonzk": 3.7302511802911127,
+   "committed_elements_delta_per_vu": 1013760.609375,
+   "proof_bytes_delta_per_vu": 0.0,
+   "verifier_hash_bytes_per_vu": 0.0,
+   "verifier_field_ops_per_vu": 0.0,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private",
+   "protocol_change": false,
+   "notes": [
+    "68.72 SHA-256 compressions per VU after sharing (x 0.48, w 67.65, y 0.59); whole leaf/v1 leaves + node/lift paths in circuit; no protocol change"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "in_circuit_sha256",
+   "gadget": "SHA-256, lookup-based AIR (Stwo-style)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 15189883.375013921,
+   "delta_vs_zk": 0.0531413495427111,
+   "delta_vs_nonzk": 0.12706881005685,
+   "committed_elements_delta_per_vu": 15731.625,
+   "proof_bytes_delta_per_vu": 2790.34375,
+   "verifier_hash_bytes_per_vu": 4329.84375,
+   "verifier_field_ops_per_vu": 6927.75,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (x, y); W public",
+   "protocol_change": false,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "1.07 SHA-256 compressions per VU after sharing (x 0.48, y 0.59); whole leaf/v1 leaves + node/lift paths in circuit; no protocol change"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "in_circuit_sha256",
+   "gadget": "SHA-256, R1CS (26 170 nonlinear)",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 272229529.16097444,
+   "delta_vs_zk": 17.87415239787532,
+   "delta_vs_nonzk": 19.199063015749772,
+   "committed_elements_delta_per_vu": 5395224.0673828125,
+   "proof_bytes_delta_per_vu": 0.0,
+   "verifier_hash_bytes_per_vu": 0.0,
+   "verifier_field_ops_per_vu": 0.0,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private",
+   "protocol_change": false,
+   "notes": [
+    "68.72 SHA-256 compressions per VU after sharing (x 0.48, w 67.65, y 0.59); whole leaf/v1 leaves + node/lift paths in circuit; no protocol change"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "in_circuit_sha256",
+   "gadget": "SHA-256, R1CS (26 170 nonlinear)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 18425080.915498745,
+   "delta_vs_zk": 0.27744328917628813,
+   "delta_vs_nonzk": 0.36711609364896236,
+   "committed_elements_delta_per_vu": 83723.5546875,
+   "proof_bytes_delta_per_vu": 2790.34375,
+   "verifier_hash_bytes_per_vu": 4329.84375,
+   "verifier_field_ops_per_vu": 6927.75,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (x, y); W public",
+   "protocol_change": false,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "1.07 SHA-256 compressions per VU after sharing (x 0.48, y 0.59); whole leaf/v1 leaves + node/lift paths in circuit; no protocol change"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "verifier_openings",
+   "gadget": "sha256 native (verifier)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 14424437.422454579,
+   "delta_vs_zk": 7.163441860713604e-05,
+   "delta_vs_nonzk": 0.07027375524207935,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 2843.28125,
+   "verifier_hash_bytes_per_vu": 4398.09375,
+   "verifier_field_ops_per_vu": 6990.791015625,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "NOT private (public tensors only)",
+   "protocol_change": false,
+   "notes": [
+    "x, W rows and whole output rows disclosed to the verifier: NOT private (NON_ZK at best); fine for public tensors only"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "leaf_v2_pcs_hash",
+   "gadget": "Poseidon2/BabyBear width 16 (rate 8 words)",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 27079318.03624485,
+   "delta_vs_zk": 0.8774567807609019,
+   "delta_vs_nonzk": 1.0092487876809333,
+   "committed_elements_delta_per_vu": 264855.83203125,
+   "proof_bytes_delta_per_vu": 509.5234375,
+   "verifier_hash_bytes_per_vu": 1940.125,
+   "verifier_field_ops_per_vu": 0.0,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (computational)",
+   "protocol_change": true,
+   "notes": [
+    "156.53 Poseidon2 permutations per VU after sharing (x 1.37, w 153.35, y 1.81): salted row leaves + row tree in circuit; tensor digest disclosed, ids-tree path folded natively; protocol change (leaf/v2-hash)"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "leaf_v2_pcs_hash",
+   "gadget": "Poseidon2/BabyBear width 16 (rate 8 words)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 14681969.852849063,
+   "delta_vs_zk": 0.017926811091180772,
+   "delta_vs_nonzk": 0.08938231339949132,
+   "committed_elements_delta_per_vu": 5389.9453125,
+   "proof_bytes_delta_per_vu": 4.375,
+   "verifier_hash_bytes_per_vu": 15.75,
+   "verifier_field_ops_per_vu": 6927.75,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (computational) (x, y); W public",
+   "protocol_change": true,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "3.19 Poseidon2 permutations per VU after sharing (x 1.37, y 1.81): salted row leaves + row tree in circuit; tensor digest disclosed, ids-tree path folded natively; protocol change (leaf/v2-hash)"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "leaf_v2_pcs_hash",
+   "gadget": "Poseidon2/BabyBear width 24 (rate 16 words)",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 24541039.325909346,
+   "delta_vs_zk": 0.7014734502426836,
+   "delta_vs_nonzk": 0.8209119390678441,
+   "committed_elements_delta_per_vu": 211736.14453125,
+   "proof_bytes_delta_per_vu": 509.5234375,
+   "verifier_hash_bytes_per_vu": 1940.125,
+   "verifier_field_ops_per_vu": 0.0,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (computational)",
+   "protocol_change": true,
+   "notes": [
+    "82.84 Poseidon2 permutations per VU after sharing (x 0.72, w 81.18, y 0.94): salted row leaves + row tree in circuit; tensor digest disclosed, ids-tree path folded natively; protocol change (leaf/v2-hash)"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "leaf_v2_pcs_hash",
+   "gadget": "Poseidon2/BabyBear width 24 (rate 16 words)",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 14626465.58497335,
+   "delta_vs_zk": 0.014078602508344584,
+   "delta_vs_nonzk": 0.08526397176359324,
+   "committed_elements_delta_per_vu": 4228.3828125,
+   "proof_bytes_delta_per_vu": 4.375,
+   "verifier_hash_bytes_per_vu": 15.75,
+   "verifier_field_ops_per_vu": 6927.75,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (computational) (x, y); W public",
+   "protocol_change": true,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "1.65 Poseidon2 permutations per VU after sharing (x 0.72, y 0.94): salted row leaves + row tree in circuit; tensor digest disclosed, ids-tree path folded natively; protocol change (leaf/v2-hash)"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "algebraic",
+   "gadget": "ligero-rs n=16384 k=4096 l=3840 t=191 R=64",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 14427632.043591276,
+   "delta_vs_zk": 0.0002931231247491617,
+   "delta_vs_nonzk": 0.07051079181136877,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 44612.0126953125,
+   "verifier_hash_bytes_per_vu": 73416.1845703125,
+   "verifier_field_ops_per_vu": 1766.2529296875,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (statistical, per commitment lifetime)",
+   "protocol_change": true,
+   "notes": [
+    "3135 claimed tensor rows; 84707 rows in 1379 chunks (R=64) opened at t=191 columns; nothing hashed in circuit; depth +0 (rides the existing Ligero round); protocol change leaf/v2 (LEAF_V2.md)"
+   ]
+  },
+  {
+   "design": "B",
+   "option": "algebraic",
+   "gadget": "ligero-rs n=16384 k=4096 l=3840 t=191 R=64",
+   "weights_public": true,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 14425882.741668398,
+   "delta_vs_zk": 0.00017184094355426893,
+   "delta_vs_nonzk": 0.07038099597370673,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 3974.6640625,
+   "verifier_hash_bytes_per_vu": 6680.0390625,
+   "verifier_field_ops_per_vu": 6971.0859375,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (statistical, per commitment lifetime) (x, y); W public",
+   "protocol_change": true,
+   "notes": [
+    "weights public: W rows opened to the verifier (leaf/v1, native SHA-256) and pinned by public linear constraints",
+    "56 claimed tensor rows; 56 rows in 56 chunks (R=64) opened at t=191 columns; nothing hashed in circuit; depth +0 (rides the existing Ligero round); protocol change leaf/v2 (LEAF_V2.md)"
+   ]
+  }
+ ],
+ "sharing_sensitivity": [
+  {
+   "design": "A",
+   "sharing": "bench",
+   "option": "in_circuit_sha256",
+   "weights_public": false,
+   "overhead_complete": 38502226.293684766,
+   "delta_vs_zk": 2.5977776727702966,
+   "proof_bytes_delta_per_vu": 0.0
+  },
+  {
+   "design": "A",
+   "sharing": "bench",
+   "option": "in_circuit_sha256",
+   "weights_public": true,
+   "overhead_complete": 11134113.469432676,
+   "delta_vs_zk": 0.04040905429373409,
+   "proof_bytes_delta_per_vu": 2790.34375
+  },
+  {
+   "design": "A",
+   "sharing": "bench",
+   "option": "algebraic",
+   "weights_public": false,
+   "overhead_complete": 10705896.973427784,
+   "delta_vs_zk": 0.00039506298095037806,
+   "proof_bytes_delta_per_vu": 44612.0126953125
+  },
+  {
+   "design": "A",
+   "sharing": "bench",
+   "option": "algebraic",
+   "weights_public": true,
+   "overhead_complete": 10704147.671504904,
+   "delta_vs_zk": 0.0002316023188819738,
+   "proof_bytes_delta_per_vu": 3974.6640625
+  },
+  {
+   "design": "A",
+   "sharing": "decode_step",
+   "option": "in_circuit_sha256",
+   "weights_public": false,
+   "overhead_complete": 47126305.67246892,
+   "delta_vs_zk": 3.4036406896389497,
+   "proof_bytes_delta_per_vu": 0.0
+  },
+  {
+   "design": "A",
+   "sharing": "decode_step",
+   "option": "in_circuit_sha256",
+   "weights_public": true,
+   "overhead_complete": 10718434.310761685,
+   "delta_vs_zk": 0.001566593998191701,
+   "proof_bytes_delta_per_vu": 3712.0
+  },
+  {
+   "design": "A",
+   "sharing": "decode_step",
+   "option": "algebraic",
+   "weights_public": false,
+   "overhead_complete": 10706338.316835893,
+   "delta_vs_zk": 0.00043630359513224803,
+   "proof_bytes_delta_per_vu": 2147.154296875
+  },
+  {
+   "design": "A",
+   "sharing": "decode_step",
+   "option": "algebraic",
+   "weights_public": true,
+   "overhead_complete": 10704461.117874708,
+   "delta_vs_zk": 0.00026089180313926263,
+   "proof_bytes_delta_per_vu": 3758.154296875
+  },
+  {
+   "design": "A",
+   "sharing": "worst",
+   "option": "in_circuit_sha256",
+   "weights_public": false,
+   "overhead_complete": 110220258.46205875,
+   "delta_vs_zk": 9.299352093486844,
+   "proof_bytes_delta_per_vu": 0.0
+  },
+  {
+   "design": "A",
+   "sharing": "worst",
+   "option": "in_circuit_sha256",
+   "weights_public": true,
+   "overhead_complete": 73812387.10035151,
+   "delta_vs_zk": 5.897277997846085,
+   "proof_bytes_delta_per_vu": 3712.0
+  },
+  {
+   "design": "A",
+   "sharing": "worst",
+   "option": "algebraic",
+   "weights_public": false,
+   "overhead_complete": 10710091.79815721,
+   "delta_vs_zk": 0.0007870415288295796,
+   "proof_bytes_delta_per_vu": 307132.0
+  },
+  {
+   "design": "A",
+   "sharing": "worst",
+   "option": "algebraic",
+   "weights_public": true,
+   "overhead_complete": 10708214.599196024,
+   "delta_vs_zk": 0.0006116297368363721,
+   "proof_bytes_delta_per_vu": 176380.0
+  },
+  {
+   "design": "B",
+   "sharing": "bench",
+   "option": "in_circuit_sha256",
+   "weights_public": false,
+   "overhead_complete": 63751177.49866549,
+   "delta_vs_zk": 3.4199813420766283,
+   "proof_bytes_delta_per_vu": 0.0
+  },
+  {
+   "design": "B",
+   "sharing": "bench",
+   "option": "in_circuit_sha256",
+   "weights_public": true,
+   "overhead_complete": 15189883.375013921,
+   "delta_vs_zk": 0.0531413495427111,
+   "proof_bytes_delta_per_vu": 2790.34375
+  },
+  {
+   "design": "B",
+   "sharing": "bench",
+   "option": "algebraic",
+   "weights_public": false,
+   "overhead_complete": 14427632.043591276,
+   "delta_vs_zk": 0.0002931231247491617,
+   "proof_bytes_delta_per_vu": 44612.0126953125
+  },
+  {
+   "design": "B",
+   "sharing": "bench",
+   "option": "algebraic",
+   "weights_public": true,
+   "overhead_complete": 14425882.741668398,
+   "delta_vs_zk": 0.00017184094355426893,
+   "proof_bytes_delta_per_vu": 3974.6640625
+  },
+  {
+   "design": "B",
+   "sharing": "decode_step",
+   "option": "in_circuit_sha256",
+   "weights_public": false,
+   "overhead_complete": 79053295.07026279,
+   "delta_vs_zk": 4.480904086007731,
+   "proof_bytes_delta_per_vu": 0.0
+  },
+  {
+   "design": "B",
+   "sharing": "decode_step",
+   "option": "in_circuit_sha256",
+   "weights_public": true,
+   "overhead_complete": 14452091.185986489,
+   "delta_vs_zk": 0.001988918516642846,
+   "proof_bytes_delta_per_vu": 3712.0
+  },
+  {
+   "design": "B",
+   "sharing": "decode_step",
+   "option": "algebraic",
+   "weights_public": false,
+   "overhead_complete": 14428073.386999387,
+   "delta_vs_zk": 0.0003237222400258588,
+   "proof_bytes_delta_per_vu": 2147.154296875
+  },
+  {
+   "design": "B",
+   "sharing": "decode_step",
+   "option": "algebraic",
+   "weights_public": true,
+   "overhead_complete": 14426196.188038202,
+   "delta_vs_zk": 0.00019357273205811154,
+   "proof_bytes_delta_per_vu": 3758.154296875
+  },
+  {
+   "design": "B",
+   "sharing": "worst",
+   "option": "in_circuit_sha256",
+   "weights_public": false,
+   "overhead_complete": 191003760.24132112,
+   "delta_vs_zk": 12.242626876198319,
+   "proof_bytes_delta_per_vu": 0.0
+  },
+  {
+   "design": "B",
+   "sharing": "worst",
+   "option": "in_circuit_sha256",
+   "weights_public": true,
+   "overhead_complete": 126402556.35704482,
+   "delta_vs_zk": 7.763711708707229,
+   "proof_bytes_delta_per_vu": 3712.0
+  },
+  {
+   "design": "B",
+   "sharing": "worst",
+   "option": "algebraic",
+   "weights_public": false,
+   "overhead_complete": 14431826.868320704,
+   "delta_vs_zk": 0.0005839577063964096,
+   "proof_bytes_delta_per_vu": 307132.0
+  },
+  {
+   "design": "B",
+   "sharing": "worst",
+   "option": "algebraic",
+   "weights_public": true,
+   "overhead_complete": 14429949.669359516,
+   "delta_vs_zk": 0.0004538081984288844,
+   "proof_bytes_delta_per_vu": 176380.0
+  }
+ ],
+ "best_private_per_design": {
+  "A": {
+   "design": "A",
+   "option": "algebraic",
+   "gadget": "ligero-rs n=16384 k=4096 l=3840 t=191 R=64",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 10551118.201417128,
+   "overhead_zk": 10701669.140116144,
+   "overhead_complete": 10705896.973427784,
+   "delta_vs_zk": 0.00039506298095037806,
+   "delta_vs_nonzk": 0.01466941882897932,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 44612.0126953125,
+   "verifier_hash_bytes_per_vu": 73416.1845703125,
+   "verifier_field_ops_per_vu": 1766.2529296875,
+   "depth": 382,
+   "depth_delta": 0,
+   "privacy": "private (statistical, per commitment lifetime)",
+   "protocol_change": true,
+   "notes": [
+    "3135 claimed tensor rows; 84707 rows in 1379 chunks (R=64) opened at t=191 columns; nothing hashed in circuit; depth +0 (rides the existing Ligero round); protocol change leaf/v2 (LEAF_V2.md)"
+   ]
+  },
+  "B": {
+   "design": "B",
+   "option": "algebraic",
+   "gadget": "ligero-rs n=16384 k=4096 l=3840 t=191 R=64",
+   "weights_public": false,
+   "sharing": "bench",
+   "overhead_nonzk": 13477334.515403485,
+   "overhead_zk": 14423404.21027964,
+   "overhead_complete": 14427632.043591276,
+   "delta_vs_zk": 0.0002931231247491617,
+   "delta_vs_nonzk": 0.07051079181136877,
+   "committed_elements_delta_per_vu": 0.0,
+   "proof_bytes_delta_per_vu": 44612.0126953125,
+   "verifier_hash_bytes_per_vu": 73416.1845703125,
+   "verifier_field_ops_per_vu": 1766.2529296875,
+   "depth": 4,
+   "depth_delta": 0,
+   "privacy": "private (statistical, per commitment lifetime)",
+   "protocol_change": true,
+   "notes": [
+    "3135 claimed tensor rows; 84707 rows in 1379 chunks (R=64) opened at t=191 columns; nothing hashed in circuit; depth +0 (rides the existing Ligero round); protocol change leaf/v2 (LEAF_V2.md)"
+   ]
+  }
+ },
+ "algebraic_chunk_size_sweep": [
+  {
+   "R": 1,
+   "proof_bytes_per_vu": 66080.8603515625,
+   "verifier_hash_bytes_per_vu": 131568.9697265625,
+   "touched_chunks": 3135,
+   "rows_in_touched_chunks": 3135
+  },
+  {
+   "R": 16,
+   "proof_bytes_per_vu": 53614.193359375,
+   "verifier_hash_bytes_per_vu": 100655.880859375,
+   "touched_chunks": 2252,
+   "rows_in_touched_chunks": 35194
+  },
+  {
+   "R": 64,
+   "proof_bytes_per_vu": 44612.0126953125,
+   "verifier_hash_bytes_per_vu": 73416.1845703125,
+   "touched_chunks": 1379,
+   "rows_in_touched_chunks": 84707
+  },
+  {
+   "R": 256,
+   "proof_bytes_per_vu": 47951.5283203125,
+   "verifier_hash_bytes_per_vu": 63343.9189453125,
+   "touched_chunks": 737,
+   "rows_in_touched_chunks": 174515
+  },
+  {
+   "R": 4096,
+   "proof_bytes_per_vu": 63752.6748046875,
+   "verifier_hash_bytes_per_vu": 66819.5966796875,
+   "touched_chunks": 147,
+   "rows_in_touched_chunks": 325309
+  }
+ ],
+ "soundness": {
+  "A": {
+   "extension_degree": 6,
+   "t": 191,
+   "soundness_log2_before": -129.5,
+   "soundness_log2_after": -129.5,
+   "delta_bits": 0.0,
+   "meets_target": true,
+   "added_terms": [
+    {
+     "component": "batching",
+     "name": "auth: 12587008 equality constraints join the linear test (Schwartz-Zippel over the geometric coefficient)",
+     "log2": -161.9
+    },
+    {
+     "component": "encoding_opening",
+     "name": "auth: 84707 tensor tableau rows join the IRS combination (one uniform coefficient each: field term)",
+     "log2": -169.1
+    },
+    {
+     "component": "commitment_hash",
+     "name": "auth: leaf/v2 chunk roots and column leaves under the same H (already inside the generic q^2/2^h term)",
+     "log2": -Infinity
+    }
+   ],
+   "shared_query_terms": "IRS (1-e/n)^t and linear ((k+l)/n)^t are the design's own; the auth rows and constraints ride them",
+   "note": "in-circuit options add constraints only (no new soundness term); verifier_openings adds none"
+  },
+  "B": {
+   "extension_degree": 6,
+   "t": 191,
+   "soundness_log2_before": -129.5,
+   "soundness_log2_after": -129.5,
+   "delta_bits": 0.0,
+   "meets_target": true,
+   "added_terms": [
+    {
+     "component": "batching",
+     "name": "auth: 12587008 equality constraints join the linear test (Schwartz-Zippel over the geometric coefficient)",
+     "log2": -161.9
+    },
+    {
+     "component": "encoding_opening",
+     "name": "auth: 84707 tensor tableau rows join the IRS combination (one uniform coefficient each: field term)",
+     "log2": -169.1
+    },
+    {
+     "component": "commitment_hash",
+     "name": "auth: leaf/v2 chunk roots and column leaves under the same H (already inside the generic q^2/2^h term)",
+     "log2": -Infinity
+    }
+   ],
+   "shared_query_terms": "IRS (1-e/n)^t and linear ((k+l)/n)^t are the design's own; the auth rows and constraints ride them",
+   "note": "in-circuit options add constraints only (no new soundness term); verifier_openings adds none"
+  }
+ },
+ "capture_cost": {
+  "tokens": 256,
+  "words_per_token": 1025024,
+  "tableau_rows_per_token": 392,
+  "activations_per_step": {
+   "tableau_rows": 100352,
+   "encode_limb_macs": 7576322310144,
+   "encode_seconds_h100_0.172": 0.04451580143920467,
+   "encode_seconds_brakedown": 0.005779527360766307,
+   "hash_bytes": 6576668672,
+   "hash_seconds_sha256_4090": 0.014745893883408072,
+   "hash_seconds_sha256_h100_scaled": 0.004441534302231347,
+   "prg_bytes": 102760448,
+   "leaf_v1_sha256_seconds_same_bytes": 0.0017280344394618834
+  },
+  "weights_per_commitment": {
+   "tableau_rows": 1002604.1666666666,
+   "encode_limb_macs": 75694080000000.0,
+   "encode_seconds_h100_0.172": 0.44475175388086535,
+   "encode_seconds_brakedown": 0.05774252843260027,
+   "hash_bytes": 65706666666.666664,
+   "hash_seconds_sha256_4090": 0.14732436472346785,
+   "hash_seconds_sha256_h100_scaled": 0.044374808651646946,
+   "prg_bytes": 1026666666.6666666,
+   "leaf_v1_sha256_seconds_same_bytes": 0.01726457399103139
+  },
+  "decode_step_reference_ms": "a 1.5B-parameter decode step on an H100 is ~10-20 ms at this batch (order of magnitude, not measured here)",
+  "note": "rate 1/4 code as the proofs use; n=8192 halves every line; the Brakedown line is the gather-bound expander at 0.092 utilisation"
+ },
+ "privacy": {
+  "in_circuit_sha256": {
+   "verdict": "private",
+   "sees": "roots (in O) and the verdict; the leaf bytes and digests stay inside the proof",
+   "simulatable_because": "no new prover message: the hash constraints are checker constraints and inherit the design's HVZK/step-0 argument",
+   "assumption": "none beyond the design's (CRH of H); no hiding assumption on SHA-256 since digests are never disclosed"
+  },
+  "verifier_openings": {
+   "verdict": "NOT private (public tensors only)",
+   "sees": "the opened leaves in the clear: x rows, W rows, whole output rows",
+   "simulatable_because": "n/a -- acceptable only for tensors that are public by policy (open-weights models: W); never for activations",
+   "assumption": "n/a"
+  },
+  "leaf_v2_pcs_hash": {
+   "verdict": "private (computational)",
+   "sees": "the tensor digest (Poseidon2 Merkle root over salted row leaves), the SHA-256 ids path, the verdict",
+   "simulatable_because": "row leaves are H(row || salt) with a fresh 31-bit x 8 salt: a hiding commitment under Poseidon2 as a (pseudo)random function; the digest is then independent of the rows; the in-circuit part inherits the design's ZK",
+   "assumption": "hiding of salted Poseidon2 (beyond CRH): an extra assumption to state; salt per row must be fresh per commitment"
+  },
+  "algebraic": {
+   "verdict": "private (statistical, per commitment lifetime)",
+   "sees": "t opened columns of every touched chunk, two blinded combination polynomials (v: degree < k, q: degree < 2k-1), the chunk roots, the verdict",
+   "simulatable_because": "t <= k - l columns of rows with fresh randomizers are uniform (Ligero Lemma 4.15); v and q are one-time-padded by the proof's blinding rows; Q and the coefficients are committed at step 0 (HM96), so a malicious verifier gains nothing from adaptivity; the ids-tree path is over digests only",
+   "assumption": "the randomizer budget: the SUM of t over every opening of one commitment must stay <= k - l (weights re-randomised per session or public; l chosen for the number of proofs per runtime commitment); HM96 binding for step 0 as in ZK_CONSTRUCTION.md"
+  }
+ },
+ "breakthrough_criterion": {
+  "rule": "a viable private option within 20% of the numerical-only (non-ZK, auth excluded) number",
+  "met": {
+   "A": true,
+   "B": true
+  }
+ },
+ "citations": {
+  "sha256_lookup_air": "T. Coratger, 'SHA-256 AIR for Stwo' design note (hackmd.io/@tcoratger/HJFGugU0Ze, read 2026-09-22): lookup-based M31 layout, schedule 48 x (22 trace + 8 lookups) + compression 64 x (52 trace + 21 lookups) = 4 384 trace cells + 1 728 LogUp interactions ~ 7 840 cells per compression (L counted as 2T).",
+  "sha256_p3_air": "Plonky3 p3-sha256-air 0.7.0-rc.1 (docs.rs, read 2026-09-22): one compression per row, 7 488 columns, bit-decomposed sigma/Ch/Maj, packed 16-bit-limb additions, max constraint degree 3, no lookups.",
+  "sha256_r1cs": "faulhornlabs/hash-circuits README (read 2026-09-21): SHA-256 two-to-one compression 26 170 nonlinear R1CS constraints; circomlib Sha256(256) 29 380 (RareSkills circom tutorial). https://github.com/faulhornlabs/hash-circuits",
+  "sp1_sha_air": "sp1-core ShaCompressChip docs: 'each SHA compress syscall takes up 80 rows' (8 init, 64 compression, 8 finalize). https://docs.rs/sp1-core/latest/sp1_core/syscall/precompiles/sha256/struct.ShaCompressChip.html",
+  "poseidon2_babybear": "Plonky3 p3-baby-bear poseidon2.rs (read 2026-09-22): BabyBear Poseidon2 S-box x^7, R_F = 8, R_P = 13 (width 16) / 21 (width 24); hash-gpu lane's fused CUDA kernel matches Plonky3's test vectors (reports/hash_gpu.md).",
+  "hash_gpu": "backends/numerical/reports/hash_gpu.md, run r20260922-054241-b966 (RTX 4090): full-tree SHA-256 446 GB/s (B shape), Blake3 359 GB/s, Poseidon2/BabyBear w16 57.7 GB/s, w24 34.2 GB/s; generic 32 B-leaf trees SHA-256 146 GB/s.",
+  "ligero_zk": "Ames-Hazay-Ishai-Venkitasubramaniam, Ligero (ePrint 2022/1608) Lemma 4.15: with k - l randomizers per row any t <= k - l opened columns are uniform; the linear/quadratic test responses are hidden by one blinding row each.",
+  "leaf_v1": "packages/verity/src/verity/commitments/leaves.py: H(tag,*parts)=sha256(u32be(len tag)||tag||(u64be(len part)||part)*); leaf=(id,dtype,shape,value); node/lift; DIGEST_BYTES=32; path_shape/tree_depth.",
+  "bench_sharing": "fixtures/bench-instances/v1/vu-k1536.index.json + seeds/seeds.json: 3 456 real VUs = 24 seeds x 144 weight rows; 2 598 distinct (op, j) weight rows over 18 weight matrices; 640 corners with their own operands.",
+  "tensor_model": "backends/numerical/reports/tensor.md (explore.tensor): H100 INT8 dense 989.5 T MAC/s x utilisation 0.172; RS n=16384/k=4096 as a two-stage matrix DFT: 4096 x 128 + 16384 x 256 base MACs per row (x L^2 = 16 limb MACs on BabyBear)."
+ },
+ "assumptions": [
+  "in-circuit SHA-256 priced as the Stwo-style lookup AIR (7 840 cells / compression; 4 384 constraints + 1 728 lookups) and the R1CS circuit (26 170) as bracket; a cell is one sumcheck element (A) / one committed element (B)",
+  "Poseidon2/BabyBear: 4 multiplications per x^7 S-box, one linear wire per state element per round; rate = width/2 words (one 16-bit word per element); salt 8 elements per row leaf",
+  "algebraic: two row combinations + one size-n interpolant per touched tensor row (matrix-DFT price), t=191 columns of every touched chunk of R=64 rows opened; verifier folds them natively",
+  "bench sharing = the frozen instance set's real structure scaled to 4 096 real VUs; decode_step and worst bracket it",
+  "leaf_v2_pcs_hash rows-per-tensor for the row tree: 256 tokens (activations), 2 048 rows (weights): assumptions",
+  "weights_public: W rows opened to the verifier under leaf/v1 and pinned by public linear constraints (no privacy for W by policy)"
+ ]
+}

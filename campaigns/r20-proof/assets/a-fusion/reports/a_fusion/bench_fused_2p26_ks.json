@@ -1,0 +1,205 @@
+{
+ "hardware": {
+  "gpu": {
+   "name": "NVIDIA H100 80GB HBM3",
+   "driver": "580.126.20",
+   "memory": "81559 MiB",
+   "cuda": null
+  },
+  "cpu": {
+   "model": "Intel(R) Xeon(R) Platinum 8470",
+   "count": 208
+  }
+ },
+ "peaks": {
+  "int8_dense_tops": 1979.0,
+  "hbm_bytes_per_s": 3350000000000.0,
+  "fp32_tflops": 67.0,
+  "bf16_dense_tflops": 989.0,
+  "source": "NVIDIA H100 Tensor Core GPU datasheet (SXM5): INT8 1,979 TOPS dense, HBM3 3.35 TB/s, FP32 67 TFLOPS"
+ },
+ "torch": "2.6.0+cu124",
+ "commit": null,
+ "config": {
+  "micro": false,
+  "out": "/workspace/fusion/out_fused_ks",
+  "log2": [
+   26
+  ],
+  "ks": [
+   0,
+   1,
+   2
+  ],
+  "repeats": 3,
+  "warm": 1,
+  "k1_log2": 13,
+  "pieces": false
+ },
+ "results": [
+  {
+   "log2_t": 26,
+   "k": 0,
+   "baseline": {
+    "device_ms": 15.313152313232422,
+    "timing": "cuda_graph",
+    "eager_device_ms": 15.50432014465332,
+    "eager_wall_ms": 15.52695780992508,
+    "macs_performed": 425201755968,
+    "hadamard_base": 0,
+    "hadamard_ext": 201326589,
+    "kernels": {
+     "inner.ext.fused": 19,
+     "fold.ext": 26,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 5442553856,
+    "hbm_floor_ms": 4.807799097313433,
+    "hbm_floor_bytes": {
+     "packed": 0,
+     "fold_k": 0,
+     "ext": 16106126976,
+     "total": 16106126976
+    },
+    "x_hbm_floor": 3.1850649337218173,
+    "frac_int8_peak": 0.028061743366538244
+   },
+   "fused": {
+    "device_ms": 15.344832420349121,
+    "timing": "cuda_graph",
+    "eager_device_ms": 15.544575691223145,
+    "eager_wall_ms": 15.578629449009895,
+    "macs_performed": 425201755968,
+    "hadamard_base": 0,
+    "hadamard_ext": 201326589,
+    "kernels": {
+     "inner.ext.fused": 19,
+     "fold.ext": 26,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 5509662720,
+    "hbm_floor_ms": 5.28857904716418,
+    "hbm_floor_bytes": {
+     "packed": 0,
+     "fold_k": 0,
+     "ext": 17716739808,
+     "total": 17716739808
+    },
+    "x_hbm_floor": 2.9015038412968917,
+    "frac_int8_peak": 0.028003808616168843
+   }
+  },
+  {
+   "log2_t": 26,
+   "k": 1,
+   "baseline": {
+    "device_ms": 10.09068775177002,
+    "timing": "cuda_graph",
+    "eager_device_ms": 10.4552640914917,
+    "eager_wall_ms": 10.472776368260384,
+    "macs_performed": 248034355008,
+    "hadamard_base": 100663296,
+    "hadamard_ext": 100663293,
+    "kernels": {
+     "inner.packed.fused": 1,
+     "fold_k": 2,
+     "inner.ext.fused": 18,
+     "fold.ext": 25,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 3127298048,
+    "hbm_floor_ms": 3.20519936,
+    "hbm_floor_bytes": {
+     "packed": 536870912,
+     "fold_k": 2147483648,
+     "ext": 8053063296,
+     "total": 10737417856
+    },
+    "x_hbm_floor": 3.148224686956764,
+    "frac_int8_peak": 0.02484135451093404
+   },
+   "fused": {
+    "device_ms": 10.201663970947266,
+    "timing": "cuda_graph",
+    "eager_device_ms": 10.668416023254395,
+    "eager_wall_ms": 10.686345398426056,
+    "macs_performed": 251255580480,
+    "hadamard_base": 134217728,
+    "hadamard_ext": 100663293,
+    "kernels": {
+     "inner.packed.U": 1,
+     "fold_k": 2,
+     "inner.ext.fused": 18,
+     "fold.ext": 25,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 3160856576,
+    "hbm_floor_ms": 3.4455893492537313,
+    "hbm_floor_bytes": {
+     "packed": 536870912,
+     "fold_k": 2147483648,
+     "ext": 8858369760,
+     "total": 11542724320
+    },
+    "x_hbm_floor": 2.960789269085943,
+    "frac_int8_peak": 0.024890229640193343
+   }
+  },
+  {
+   "log2_t": 26,
+   "k": 2,
+   "baseline": {
+    "device_ms": 6.064159870147705,
+    "timing": "cuda_graph",
+    "eager_device_ms": 6.412223815917969,
+    "eager_wall_ms": 6.42886757850647,
+    "macs_performed": 161061267264,
+    "hadamard_base": 301989888,
+    "hadamard_ext": 50331645,
+    "kernels": {
+     "inner.packed.fused": 2,
+     "fold_k": 2,
+     "inner.ext.fused": 17,
+     "fold.ext": 24,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 1986446848,
+    "hbm_floor_ms": 1.9231195701492538,
+    "hbm_floor_bytes": {
+     "packed": 1073741824,
+     "fold_k": 1342177280,
+     "ext": 4026531456,
+     "total": 6442450560
+    },
+    "x_hbm_floor": 3.153293203540674,
+    "frac_int8_peak": 0.026841369536330612
+   },
+   "fused": {
+    "device_ms": 5.646560192108154,
+    "timing": "cuda_graph",
+    "eager_device_ms": 6.405600070953369,
+    "eager_wall_ms": 6.423603743314743,
+    "macs_performed": 157840041792,
+    "hadamard_base": 268435456,
+    "hadamard_ext": 50331645,
+    "kernels": {
+     "inner.packed.U": 1,
+     "fold_k": 2,
+     "inner.ext.fused": 17,
+     "fold.ext": 24,
+     "inner.ext": 7
+    },
+    "mem.peak_device_bytes": 2019746816,
+    "hbm_floor_ms": 1.8830546053731343,
+    "hbm_floor_bytes": {
+     "packed": 536870912,
+     "fold_k": 1342177280,
+     "ext": 4429184736,
+     "total": 6308232928
+    },
+    "x_hbm_floor": 2.9986173401430745,
+    "frac_int8_peak": 0.02824993329157462
+   }
+  }
+ ]
+}

@@ -1,0 +1,160 @@
+{
+ "device": "cuda",
+ "gpu": "NVIDIA A100-SXM4-80GB",
+ "pcs": true,
+ "runs": [
+  {
+   "rep": 0,
+   "vus": 64,
+   "units": 6144,
+   "prover_s": 4.156507634092122,
+   "verifier_s": 5.068851913325489,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 999992,
+   "proof_elems": 3554,
+   "t_commit": 0.30496386578306556,
+   "t_lookup": 1.4726936710067093,
+   "t_witness_wires": 0.0729255941696465,
+   "t_arith": 1.171960691921413,
+   "t_open": 1.1324475007131696,
+   "slots": 1246,
+   "sequential_depth": 279,
+   "depth_circuit": 167,
+   "depth_lookup_max": 276,
+   "lookup_dims": [
+    [
+     "POW",
+     14,
+     2
+    ],
+    [
+     "ALIGN",
+     17,
+     16
+    ],
+    [
+     "LEAD",
+     14,
+     2
+    ],
+    [
+     "NORM",
+     14,
+     2
+    ],
+    [
+     "R16",
+     22,
+     591
+    ]
+   ],
+   "committed_elements": 2844223,
+   "ligero_rows": 695,
+   "linkage_constraints": 12480,
+   "peak_mem_bytes": 9550756864
+  },
+  {
+   "rep": 1,
+   "vus": 64,
+   "units": 6144,
+   "prover_s": 1.7712547280825675,
+   "verifier_s": 5.0275463298894465,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 999992,
+   "proof_elems": 3554,
+   "t_commit": 0.07793485606089234,
+   "t_lookup": 0.7642161818221211,
+   "t_witness_wires": 0.06971286283805966,
+   "t_arith": 0.3242147150449455,
+   "t_open": 0.5344954053871334,
+   "slots": 1246,
+   "sequential_depth": 279,
+   "depth_circuit": 167,
+   "depth_lookup_max": 276,
+   "lookup_dims": [
+    [
+     "POW",
+     14,
+     2
+    ],
+    [
+     "ALIGN",
+     17,
+     16
+    ],
+    [
+     "LEAD",
+     14,
+     2
+    ],
+    [
+     "NORM",
+     14,
+     2
+    ],
+    [
+     "R16",
+     22,
+     591
+    ]
+   ],
+   "committed_elements": 2844223,
+   "ligero_rows": 695,
+   "linkage_constraints": 12480,
+   "peak_mem_bytes": 9550756864
+  },
+  {
+   "rep": 2,
+   "vus": 64,
+   "units": 6144,
+   "prover_s": 1.7759926058351994,
+   "verifier_s": 5.162794397678226,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 999992,
+   "proof_elems": 3554,
+   "t_commit": 0.07643861416727304,
+   "t_lookup": 0.7674813116900623,
+   "t_witness_wires": 0.0702427551150322,
+   "t_arith": 0.3275795239023864,
+   "t_open": 0.5335476007312536,
+   "slots": 1246,
+   "sequential_depth": 279,
+   "depth_circuit": 167,
+   "depth_lookup_max": 276,
+   "lookup_dims": [
+    [
+     "POW",
+     14,
+     2
+    ],
+    [
+     "ALIGN",
+     17,
+     16
+    ],
+    [
+     "LEAD",
+     14,
+     2
+    ],
+    [
+     "NORM",
+     14,
+     2
+    ],
+    [
+     "R16",
+     22,
+     591
+    ]
+   ],
+   "committed_elements": 2844223,
+   "ligero_rows": 695,
+   "linkage_constraints": 12480,
+   "peak_mem_bytes": 9550756864
+  }
+ ]
+}

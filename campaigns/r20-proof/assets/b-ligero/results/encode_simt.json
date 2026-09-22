@@ -1,0 +1,58 @@
+{
+ "exact": {
+  "256": {
+   "plain_codeword": true,
+   "plain_coefs": true,
+   "zk_codeword": true,
+   "zk_coefs": true,
+   "rows": 64
+  },
+  "4096": {
+   "plain_codeword": true,
+   "plain_coefs": true,
+   "zk_codeword": true,
+   "zk_coefs": true,
+   "rows": 64
+  },
+  "8192": {
+   "plain_codeword": true,
+   "plain_coefs": true,
+   "zk_codeword": true,
+   "zk_coefs": true,
+   "rows": 64
+  },
+  "16384": {
+   "plain_codeword": true,
+   "plain_coefs": true,
+   "zk_codeword": true,
+   "zk_coefs": true,
+   "rows": 64
+  }
+ },
+ "timing": {
+  "8192": {
+   "rows": 3516,
+   "n": 32768,
+   "torch_int64_ms": 68.4039581567049,
+   "simt_ms": 2.0459838211536407,
+   "simt_with_coefs_ms": 2.3628588765859604,
+   "torch_zk_ms": 71.30001783370972,
+   "simt_zk_ms": 2.205643430352211,
+   "codeword_GB": 0.460849152,
+   "simt_GBps_codeword": 225.245745951279
+  },
+  "16384": {
+   "rows": 3516,
+   "n": 65536,
+   "torch_int64_ms": 144.99383606016636,
+   "simt_ms": 9.603683650493622,
+   "simt_with_coefs_ms": 9.764820709824562,
+   "torch_zk_ms": 150.9295456111431,
+   "simt_zk_ms": 5.938854813575745,
+   "codeword_GB": 0.921698304,
+   "simt_GBps_codeword": 95.97341369658977
+  }
+ },
+ "hardware": "NVIDIA L40S",
+ "verdict": "PASS"
+}

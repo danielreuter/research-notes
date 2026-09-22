@@ -1,0 +1,1248 @@
+{
+ "schema": "gate4/v1",
+ "lane": "gate4-h100",
+ "generated_from": "backends/numerical/reports/gate4/",
+ "native_seconds_per_vu": 9.846153846153846e-12,
+ "hardware": {
+  "gpu": "NVIDIA H100 80GB HBM3 SXM (vy-g4)",
+  "driver": "580.126.20",
+  "torch": "2.6.0+cu124",
+  "triton": "3.2",
+  "cupy": "14.2.0"
+ },
+ "runs": {
+  "a_e2e_cold": "r20260922-090931-b5be",
+  "a_e2e_warm": "r20260922-091718-45c3",
+  "a_gpu2_head": "r20260922-091947-822f",
+  "a_gpu2_179d509": "r20260922-092252-3ebd",
+  "a_buckets": "r20260922-092450-5b79",
+  "b_e2e": "r20260922-092841-94ac",
+  "b_buckets": "r20260922-093147-3d6c",
+  "h100_kernel_column": "r20260922-093941-aebe"
+ },
+ "rows": [
+  {
+   "design": "A",
+   "checker_variant": "v1 (WP2 checker contracts)",
+   "mode": "end-to-end, non-ZK (a-gpu v2e, main 38757ed)",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "scope": "end-to-end proof, verified",
+   "B": 4096,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 5.016,
+   "us_per_vu": 1225.0,
+   "overhead_vs_native_peak": 124400000.0,
+   "verifier_s": 6.06,
+   "proof_or_transcript_MB": 33.9,
+   "sequential_depth": 438,
+   "security": "2^-127.7 (accounting; SHA-256 collision term)",
+   "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+   "statement_bound": "yes (F11: circuit hashes, B, root, public words absorbed before any challenge)",
+   "measured_fraction": 1.0,
+   "run_id": "r20260922-091718-45c3",
+   "note": "median of 5 warm reps [7.54, 5.02, 5.03, 4.4, 4.2] (spread = host-side t_open [3.95, 2.32, 2.32, 1.69, 1.44]); cold run r20260922-090931-b5be: [316.0, 7.02, 3.98] (rep 0 = Triton compile); a-gpu's own record 4.43 s (r20260922-074455-d0b6). 4096/4096 accepted; peak device 46.7 GB; 1920 transcript slots; verifier is Python."
+  },
+  {
+   "design": "A",
+   "checker_variant": "v1",
+   "mode": "end-to-end, non-ZK (a-gpu2 head f87b096 and merge 179d509)",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "scope": "end-to-end proof: FAILED",
+   "B": 4096,
+   "N_subbatches": 1,
+   "prover_s_per_batch": null,
+   "us_per_vu": null,
+   "overhead_vs_native_peak": null,
+   "verifier_s": null,
+   "proof_or_transcript_MB": null,
+   "sequential_depth": null,
+   "security": "--",
+   "proof_class": "NO_PROOF",
+   "statement_bound": "n.a.",
+   "measured_fraction": 0.0,
+   "run_id": "r20260922-091947-822f, r20260922-092252-3ebd",
+   "note": "both heads raise `logup_packed: LogUp: fractional sum is not zero (a query is not in its table)` at B=4096 (the lane validated at 64 VUs); not fixed here."
+  },
+  {
+   "design": "A",
+   "checker_variant": "v1 (WP2 checker contracts)",
+   "mode": "measured buckets: fused sumcheck + level-graphed logUp; rest modelled",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "scope": "measured buckets (kernels on random tables)",
+   "B": 4096,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 0.285,
+   "us_per_vu": 69.58,
+   "overhead_vs_native_peak": 7070000.0,
+   "verifier_s": null,
+   "proof_or_transcript_MB": null,
+   "sequential_depth": "438 (a-gpu proof; kernels use transcript-independent coins)",
+   "security": "2^-128 target (BabyBear^6)",
+   "proof_class": "ARITHMETIC_DIAGNOSTIC",
+   "statement_bound": "n.a.",
+   "measured_fraction": 0.7,
+   "run_id": "r20260922-092450-5b79",
+   "note": "sumcheck v1 batch 100.5 ms (2^28 k=3 layer 12.6 ms), logUp v1 88.3 ms device / 91.1 wall (per-round Fiat-Shamir graphs 112.6 -> 7.72e6); encoding/row-combination/hash/hints/PRG modelled at 0.172 (86 ms). a-fusion recorded 7.06e6 on the same card."
+  },
+  {
+   "design": "A",
+   "checker_variant": "v2 (checker-min gadgets)",
+   "mode": "measured buckets: fused sumcheck + 10-stream logUp; rest modelled",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "scope": "measured buckets (kernels on random tables)",
+   "B": 4096,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 0.184,
+   "us_per_vu": 44.92,
+   "overhead_vs_native_peak": 4550000.0,
+   "verifier_s": null,
+   "proof_or_transcript_MB": null,
+   "sequential_depth": "n.a. (no v2 proof exists)",
+   "security": "2^-128 target (BabyBear^6)",
+   "proof_class": "ARITHMETIC_DIAGNOSTIC",
+   "statement_bound": "n.a.",
+   "measured_fraction": 0.68,
+   "run_id": "r20260922-092450-5b79",
+   "note": "sumcheck v2 census shape 36.4 ms; logUp ten tables on ten streams 81.2 ms (+ 11th table pro rata = 89 ms; sequential level graphs 212.6 -> 8.08e6); modelled 58 ms. a-fusion recorded 4.64e6."
+  },
+  {
+   "design": "B",
+   "checker_variant": "v1 (WP2 checker; bits + one-hot selectors, no lookups)",
+   "mode": "end-to-end, non-ZK (b-ligero2)",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "scope": "end-to-end proof, verified (every rep)",
+   "B": 4096,
+   "N_subbatches": 25,
+   "prover_s_per_batch": 2.386,
+   "us_per_vu": 582.6,
+   "overhead_vs_native_peak": 59170000.0,
+   "verifier_s": 0.816,
+   "proof_or_transcript_MB": 110.8,
+   "sequential_depth": 2,
+   "security": "2^-128.25 union over 25 sub-batches (per proof 2^-132.9, t=196)",
+   "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+   "statement_bound": "yes (statement_digest in both challenges)",
+   "measured_fraction": 1.0,
+   "run_id": "r20260922-092841-94ac",
+   "note": "25 x 170 VUs, l=16384, k=16384, n=65536; split s: {'hints': 0.101, 'witness_torch': 0.303, 'encode': 1.08, 'transfer': 0.024, 'merkle': 0.054, 'tests': 0.682, 'openings': 0.108, 'zk_masks': 0.0}; peak device 7.9 GB; hash + SHAKE expander are host placeholders; omitted: ZK masking, external authentication. L40S record 5.63 / 6.43 s (r20260922-082245-c96b)."
+  },
+  {
+   "design": "B",
+   "checker_variant": "v1 (WP2 checker; bits + one-hot selectors, no lookups)",
+   "mode": "end-to-end, HVZK (b-ligero2 --zk)",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "scope": "end-to-end proof, verified (every rep)",
+   "B": 4096,
+   "N_subbatches": 25,
+   "prover_s_per_batch": 2.911,
+   "us_per_vu": 710.8,
+   "overhead_vs_native_peak": 72190000.0,
+   "verifier_s": 0.88,
+   "proof_or_transcript_MB": 122.3,
+   "sequential_depth": 2,
+   "security": "2^-128.05 union over 25 sub-batches (per proof 2^-132.7, t=197)",
+   "proof_class": "COMPLETE_HVZK_BACKEND",
+   "statement_bound": "yes (statement_digest in both challenges)",
+   "measured_fraction": 1.0,
+   "run_id": "r20260922-092841-94ac",
+   "note": "25 x 170 VUs, l=16384, k=16640, n=65536; split s: {'hints': 0.096, 'witness_torch': 0.29, 'encode': 1.135, 'transfer': 0.024, 'merkle': 0.054, 'tests': 0.765, 'openings': 0.117, 'zk_masks': 0.398}; peak device 8.4 GB; hash + SHAKE expander are host placeholders; omitted: malicious-verifier coin commitment (HM96), external authentication. L40S record 5.63 / 6.43 s (r20260922-082245-c96b)."
+  },
+  {
+   "design": "B",
+   "checker_variant": "v1 (WP2 checker; 310,602 Ligero rows)",
+   "mode": "measured buckets (b-commit / b-lintest / b-v2 kernels)",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "scope": "measured buckets (resident pseudo-random data)",
+   "B": 4096,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 0.1118,
+   "us_per_vu": 27.29,
+   "overhead_vs_native_peak": 2772000.0,
+   "verifier_s": null,
+   "proof_or_transcript_MB": null,
+   "sequential_depth": 2,
+   "security": "2^-128 target (BabyBear^6, t=192)",
+   "proof_class": "ARITHMETIC_DIAGNOSTIC",
+   "statement_bound": "n.a.",
+   "measured_fraction": 0.869,
+   "run_id": "r20260922-093147-3d6c",
+   "note": "buckets ms: {'commitment (blake3_s512_ov0_keep1_fused)': 61.297, 'irs_row_combination_c1024': 4.691, 'linear_test_structured_M3_X256_lazy': 6.537, 'quadratic_test_s1024': 9.425, 'batch_inverse_T131072': 12.344, 'open_columns_gather_from_store': 1.946, 'open_columns_merkle_paths_host': 0.856}; modelled 14.7 ms. same composition as b_measured_4090.md (116.4 ms / 2.89e6 on the 4090); modelled remainder = explore.tensor's r^T A scalars + hints + PRG at H100 peaks (14.7 ms, the H100 row of that table); commitment: the 512-row L2-slice fused Blake3 commit with the coset store; the store-less 65,536-row slice is 48.5 ms (keep variant not measured at that slice)"
+  },
+  {
+   "design": "B",
+   "checker_variant": "v2 (checker-min; 104,217 rows, helper_rows table side)",
+   "mode": "measured buckets (b-commit / b-lintest / b-v2 kernels)",
+   "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+   "scope": "measured buckets (resident pseudo-random data)",
+   "B": 4096,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 0.04546,
+   "us_per_vu": 11.1,
+   "overhead_vs_native_peak": 1127000.0,
+   "verifier_s": null,
+   "proof_or_transcript_MB": null,
+   "sequential_depth": 2,
+   "security": "2^-128 target (BabyBear^6, t=192)",
+   "proof_class": "ARITHMETIC_DIAGNOSTIC",
+   "statement_bound": "n.a.",
+   "measured_fraction": 0.932,
+   "run_id": "r20260922-093147-3d6c",
+   "note": "buckets ms: {'commitment (blake3_s512_ov0_keep1_fused)': 20.723, 'irs_row_combination_c1024': 1.736, 'linear_test_structured_M2_X9780_lazy': 6.649, 'quadratic_test_s512 (F_t)': 1.068, 'quadratic_test_fc_from_store (F_c triples)': 5.924, 'batch_inverse_T131072 (43.6M helpers, plain kernel)': 4.045, 'open_columns_gather_from_store': 0.667, 'open_columns_merkle_paths_host': 1.55}; modelled 3.1 ms. same composition as b_measured_4090_v2.md helper_rows row (42.4 ms / 1.05e6 on the 4090; the 4090 row used the blocked inverter 5.2 ms, not run here -- the plain kernel is 4.05 ms on the H100); modelled 3.1 ms = that table's H100 model value; no end-to-end v2 prover exists"
+  },
+  {
+   "design": "SP1 (candidate 0)",
+   "checker_variant": "Rust guest (statement parsing + opening table + relation + auth hashing)",
+   "mode": "sound authenticated core proof, 1 VU per proof",
+   "hardware": "RTX 4090 (vy-sp1), SP1 6.4.0 cuda prover -- CITED",
+   "scope": "cited end-to-end proof",
+   "B": 1,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 3.58,
+   "us_per_vu": 3580000.0,
+   "overhead_vs_native_peak": 363600000000.0,
+   "verifier_s": 0.245,
+   "proof_or_transcript_MB": 5.9,
+   "sequential_depth": "n.a. (non-interactive STARK)",
+   "security": "SP1 core (~100 bits, STARK params)",
+   "proof_class": "NON_ZK_PROOF (authentication included)",
+   "statement_bound": "yes",
+   "measured_fraction": 1.0,
+   "run_id": "r20260921-220722-019b",
+   "note": "benchmarks/dot_product/baselines.json; 10.1M cycles, 4 shards; 82% of the guest is statement parsing + opening-table construction; not rebuilt on the H100 (hours)."
+  },
+  {
+   "design": "SP1 (candidate 0)",
+   "checker_variant": "relation-only guest (statement, table, authentication removed)",
+   "mode": "relation-only diagnostic, 1 VU",
+   "hardware": "RTX 4090 (vy-sp1), SP1 cuda core mode -- CITED",
+   "scope": "cited diagnostic",
+   "B": 1,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 0.8681,
+   "us_per_vu": 868100.0,
+   "overhead_vs_native_peak": 88160000000.0,
+   "verifier_s": null,
+   "proof_or_transcript_MB": null,
+   "sequential_depth": null,
+   "security": "SP1 core",
+   "proof_class": "ARITHMETIC_DIAGNOSTIC (INCOMPLETE_CHECKER: relation only)",
+   "statement_bound": "no",
+   "measured_fraction": 1.0,
+   "run_id": "r20260922-050349-3373",
+   "note": "406,671 cycles, 2 shards; the arithmetic floor of the SP1 route."
+  },
+  {
+   "design": "C (QuickSilver VOLE-ZK)",
+   "checker_variant": "one relation, dietmc F61p",
+   "mode": "designated-verifier ZK, 4096 VUs one batch",
+   "hardware": "AMD EPYC 9655P (vy-cpu), 1 thread -- CITED, CPU",
+   "scope": "cited end-to-end (designated verifier)",
+   "B": 4096,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 1673.0,
+   "us_per_vu": 408400.0,
+   "overhead_vs_native_peak": 41470000000.0,
+   "verifier_s": null,
+   "proof_or_transcript_MB": null,
+   "sequential_depth": null,
+   "security": "2^-30.1 (F61p r=1: sensitivity point, NOT 2^-128)",
+   "proof_class": "COMPLETE_ZK_BACKEND (designated-verifier; LPN + OT assumptions)",
+   "statement_bound": "n.a. (Verity external binding omitted)",
+   "measured_fraction": 1.0,
+   "run_id": "r20260922-053613-d110",
+   "note": "0.408 s/VU; communication 8.58 MB/VU; the 2^-128-class run (F384p, 8 VUs) is 4.74 s/VU = 4.81e11 (r20260922-061644-5d62)."
+  },
+  {
+   "design": "C (QuickSilver VOLE-ZK)",
+   "checker_variant": "one relation, dietmc F384p",
+   "mode": "designated-verifier ZK, 8 VUs",
+   "hardware": "AMD EPYC 9655P (vy-cpu), 1 thread -- CITED, CPU",
+   "scope": "cited end-to-end (designated verifier)",
+   "B": 8,
+   "N_subbatches": 1,
+   "prover_s_per_batch": 37.89,
+   "us_per_vu": 4736000.0,
+   "overhead_vs_native_peak": 481000000000.0,
+   "verifier_s": null,
+   "proof_or_transcript_MB": null,
+   "sequential_depth": null,
+   "security": "2^-128 (computational cap of AES-128/KOS/LPN; statistical 2^-359)",
+   "proof_class": "COMPLETE_ZK_BACKEND (designated-verifier)",
+   "statement_bound": "n.a.",
+   "measured_fraction": 1.0,
+   "run_id": "r20260922-061644-5d62",
+   "note": "4.74 s/VU; 54.4 MB/VU P->V."
+  }
+ ],
+ "reprice_a": {
+  "source": {
+   "sumcheck": "backends/numerical/reports/gate4/a_buckets/bench_fused_k3.json",
+   "logup_v1": "backends/numerical/reports/gate4/a_buckets/logup_graph_v1v2.json",
+   "logup_v2": "backends/numerical/reports/gate4/a_buckets/logup_graph_v1v2.json",
+   "commit": null
+  },
+  "labels": {
+   "proof_class": "ARITHMETIC_DIAGNOSTIC",
+   "authentication": "excluded",
+   "security.target": -128,
+   "B": 4096,
+   "K": 1536,
+   "hardware": {
+    "gpu": {
+     "name": "NVIDIA H100 80GB HBM3",
+     "driver": "580.126.20",
+     "memory": "81559 MiB",
+     "cuda": null
+    },
+    "cpu": {
+     "model": "Intel(R) Xeon(R) Platinum 8470",
+     "count": 208
+    }
+   },
+   "torch": "2.6.0+cu124"
+  },
+  "sumcheck": {
+   "k": 3,
+   "fit_seconds_per_element_and_intercept": {
+    "fused": [
+     3.957859936084181e-11,
+     0.0021396691004435223
+    ],
+    "baseline": [
+     5.547619252865842e-11,
+     0.0019463996887207039
+    ]
+   },
+   "direct_2^28": {
+    "baseline": 16.838176727294922,
+    "fused": 12.763968467712402
+   },
+   "direct_2^28_x_hbm_floor": 2.896196137838813,
+   "direct_2^28_frac_int8_peak": 0.04131755489085055,
+   "pieces_2^28": {
+    "u_pass_ms": 3.4491519927978516,
+    "packed_rounds_ms": 7.835968136787415,
+    "u_pass_bytes": 2147483648,
+    "u_pass_hbm_floor_ms": 0.641039894925373,
+    "ext_fold_ip_ms": 2.2953920364379883,
+    "fold_ext_x2_ms": 0.8711680173873901,
+    "ext_ip_ms": 0.8868799805641174,
+    "ext_pairs": 8388608,
+    "ext_fused_bytes": 2415919104,
+    "ext_fused_hbm_floor_ms": 0.7211698817910448,
+    "ext_unfused_bytes": 3221225472
+   }
+  },
+  "variants": {
+   "v1": {
+    "shape": [
+     {
+      "depth": "assert",
+      "products": 0,
+      "width": 137,
+      "s_out": 8,
+      "s_in": 10,
+      "has_queries": false
+     },
+     {
+      "depth": 5,
+      "products": 6,
+      "width": 679,
+      "s_out": 10,
+      "s_in": 10,
+      "has_queries": true
+     },
+     {
+      "depth": 4,
+      "products": 4,
+      "width": 673,
+      "s_out": 10,
+      "s_in": 10,
+      "has_queries": true
+     },
+     {
+      "depth": 3,
+      "products": 22,
+      "width": 669,
+      "s_out": 10,
+      "s_in": 10,
+      "has_queries": true
+     },
+     {
+      "depth": 2,
+      "products": 114,
+      "width": 647,
+      "s_out": 10,
+      "s_in": 10,
+      "has_queries": true
+     },
+     {
+      "depth": 1,
+      "products": 212,
+      "width": 533,
+      "s_out": 10,
+      "s_in": 9,
+      "has_queries": true
+     }
+    ],
+    "layer_tables_padded": [
+     402653184,
+     402653184,
+     402653184,
+     402653184,
+     402653184,
+     201326592
+    ],
+    "layer_tables_unpadded": [
+     53870592,
+     266993664,
+     264634368,
+     263061504,
+     254410752,
+     209584128
+    ],
+    "unit": {
+     "mul": 327,
+     "columns_committed_a": 335
+    },
+    "tables": [
+     {
+      "name": "ALIGN",
+      "rows": 512,
+      "q_per_unit": 16,
+      "n": 23,
+      "shards": 1
+     },
+     {
+      "name": "LEAD",
+      "rows": 31,
+      "q_per_unit": 2,
+      "n": 20,
+      "shards": 1
+     },
+     {
+      "name": "NORM",
+      "rows": 32,
+      "q_per_unit": 2,
+      "n": 20,
+      "shards": 1
+     },
+     {
+      "name": "POW",
+      "rows": 512,
+      "q_per_unit": 2,
+      "n": 20,
+      "shards": 1
+     },
+     {
+      "name": "T_range16",
+      "rows": 65536,
+      "q_per_unit": 298,
+      "n": 27,
+      "shards": 1
+     }
+    ],
+    "sumcheck": {
+     "fused": {
+      "batch_seconds.padded": 0.1004884843826294,
+      "batch_seconds.unpadded": 0.06478710340335965
+     },
+     "baseline": {
+      "batch_seconds.padded": 0.13453555870056152,
+      "batch_seconds.unpadded": 0.08449395246058702
+     }
+    },
+    "sumcheck_extra_shapes": {},
+    "logup": {
+     "measured_instance_ms": {
+      "level": 88.27619115170091,
+      "level_wall": 91.11536294221878,
+      "round": 112.61510459892452,
+      "round_wall": 118.6265479773283,
+      "eager": 422.2584533691406
+     },
+     "measured_leaves": 134217728,
+     "model_leaves": 145752064,
+     "leaf_scale": 1.0859375,
+     "batch_seconds": {
+      "level": 0.09586242632880022,
+      "round": 0.12229296515039459
+     },
+     "note": "one 2^27-leaf instance (306 lookups/unit, 65,536-row table) scaled to the model's leaves over its 5 tables"
+    },
+    "repriced": {
+     "A": {
+      "model@0.172": {
+       "overhead": 10701476.867624689,
+       "t.total": 0.43158891569024715,
+       "t.gkr_checker": 0.25722655038522513,
+       "t.logup": 0.08565586005776066
+      },
+      "measured sumcheck=baseline logup=level": {
+       "overhead": 7912365.6722948095,
+       "t.total": 0.31910449027662313,
+       "t.gkr_checker": 0.13453555870056152,
+       "t.logup": 0.09586242632880022,
+       "share.sumcheck": 0.4216034646956433,
+       "share.logup": 0.30041077217590906,
+       "share.modelled": 0.2779857631284476
+      },
+      "measured sumcheck=baseline logup=round": {
+       "overhead": 8567724.949411063,
+       "t.total": 0.3455350290982175,
+       "t.gkr_checker": 0.13453555870056152,
+       "t.logup": 0.12229296515039459,
+       "share.sumcheck": 0.3893543269742418,
+       "share.logup": 0.3539234950203359,
+       "share.modelled": 0.2567221780054223
+      },
+      "measured sumcheck=fused logup=level": {
+       "overhead": 7068150.343824354,
+       "t.total": 0.285057415958691,
+       "t.gkr_checker": 0.1004884843826294,
+       "t.logup": 0.09586242632880022,
+       "share.sumcheck": 0.35252015473679754,
+       "share.logup": 0.3362916414800171,
+       "share.modelled": 0.31118820378318535
+      },
+      "measured sumcheck=fused logup=round": {
+       "overhead": 7723509.620940608,
+       "t.total": 0.31148795478028535,
+       "t.gkr_checker": 0.1004884843826294,
+       "t.logup": 0.12229296515039459,
+       "share.sumcheck": 0.3226079302280279,
+       "share.logup": 0.3926089701820301,
+       "share.modelled": 0.2847830995899421
+      }
+     },
+     "A-hintfree-depth630": {
+      "model@0.172": {
+       "overhead": 10051185.170591244,
+       "t.total": 0.4053627515937648,
+       "t.gkr_checker": 0.25722655038522513,
+       "t.logup": 0.08565586005776066
+      },
+      "measured sumcheck=baseline logup=level": {
+       "overhead": 7262073.975261364,
+       "t.total": 0.29287832618014076,
+       "t.gkr_checker": 0.13453555870056152,
+       "t.logup": 0.09586242632880022,
+       "share.sumcheck": 0.4593564858664642,
+       "share.logup": 0.32731143877761065,
+       "share.modelled": 0.21333207535592513
+      },
+      "measured sumcheck=baseline logup=round": {
+       "overhead": 7917433.252377618,
+       "t.total": 0.3193088650017351,
+       "t.gkr_checker": 0.13453555870056152,
+       "t.logup": 0.12229296515039459,
+       "share.sumcheck": 0.4213336159640618,
+       "share.logup": 0.3829927025349893,
+       "share.modelled": 0.19567368150094888
+      },
+      "measured sumcheck=fused logup=level": {
+       "overhead": 6417858.64679091,
+       "t.total": 0.2588312518622086,
+       "t.gkr_checker": 0.1004884843826294,
+       "t.logup": 0.09586242632880022,
+       "share.sumcheck": 0.3882393785898986,
+       "share.logup": 0.3703665057410978,
+       "share.modelled": 0.2413941156690036
+      },
+      "measured sumcheck=fused logup=round": {
+       "overhead": 7073217.923907164,
+       "t.total": 0.285261790683803,
+       "t.gkr_checker": 0.1004884843826294,
+       "t.logup": 0.12229296515039459,
+       "share.sumcheck": 0.3522675930125369,
+       "share.logup": 0.4287043310541005,
+       "share.modelled": 0.2190280759333626
+      }
+     }
+    }
+   },
+   "v2": {
+    "shape": [
+     {
+      "depth": "assert",
+      "products": 0,
+      "width": 9,
+      "s_out": 4,
+      "s_in": 9,
+      "has_queries": false
+     },
+     {
+      "depth": 3,
+      "products": 3,
+      "width": 277,
+      "s_out": 9,
+      "s_in": 9,
+      "has_queries": false
+     },
+     {
+      "depth": 2,
+      "products": 7,
+      "width": 274,
+      "s_out": 9,
+      "s_in": 9,
+      "has_queries": true
+     },
+     {
+      "depth": 1,
+      "products": 23,
+      "width": 267,
+      "s_out": 9,
+      "s_in": 8,
+      "has_queries": true
+     }
+    ],
+    "layer_tables_padded": [
+     201326592,
+     201326592,
+     201326592,
+     100663296
+    ],
+    "layer_tables_unpadded": [
+     3538944,
+     108920832,
+     107741184,
+     104988672
+    ],
+    "unit": {
+     "mul": 34,
+     "columns_committed_a": 248
+    },
+    "tables": [
+     {
+      "name": "ALIGN4",
+      "rows": 3120,
+      "q_per_unit": 18,
+      "n": 23,
+      "shards": 1
+     },
+     {
+      "name": "LEAD",
+      "rows": 32768,
+      "q_per_unit": 4,
+      "n": 21,
+      "shards": 1
+     },
+     {
+      "name": "LEADNORM",
+      "rows": 12152,
+      "q_per_unit": 2,
+      "n": 20,
+      "shards": 1
+     },
+     {
+      "name": "SHIFT",
+      "rows": 3538944,
+      "q_per_unit": 16,
+      "n": 24,
+      "shards": 1
+     },
+     {
+      "name": "SSHIFT_HI",
+      "rows": 221184,
+      "q_per_unit": 2,
+      "n": 20,
+      "shards": 1
+     },
+     {
+      "name": "SSHIFT_LO",
+      "rows": 221184,
+      "q_per_unit": 2,
+      "n": 20,
+      "shards": 1
+     },
+     {
+      "name": "TNORM",
+      "rows": 1048576,
+      "q_per_unit": 2,
+      "n": 21,
+      "shards": 1
+     },
+     {
+      "name": "TNORM_HI",
+      "rows": 1048576,
+      "q_per_unit": 2,
+      "n": 21,
+      "shards": 1
+     },
+     {
+      "name": "T_HDR",
+      "rows": 510,
+      "q_per_unit": 1,
+      "n": 19,
+      "shards": 1
+     },
+     {
+      "name": "T_OP",
+      "rows": 65280,
+      "q_per_unit": 32,
+      "n": 24,
+      "shards": 1
+     },
+     {
+      "name": "T_range16",
+      "rows": 65536,
+      "q_per_unit": 14,
+      "n": 23,
+      "shards": 1
+     }
+    ],
+    "sumcheck": {
+     "fused": {
+      "batch_seconds.padded": 0.0364474622408549,
+      "batch_seconds.unpadded": 0.021429226563001676
+     },
+     "baseline": {
+      "batch_seconds.padded": 0.046876513481140136,
+      "batch_seconds.unpadded": 0.0258258813880384
+     }
+    },
+    "sumcheck_extra_shapes": {
+     "exporter_2_layers_s_in_9": {
+      "fused": 0.020215787251790365,
+      "baseline": 0.026230464935302733
+     }
+    },
+    "logup": {
+     "per_table": {
+      "T_OP": {
+       "n": 24,
+       "leaves": 16777216,
+       "rows": 65280,
+       "lookups_per_unit": 32,
+       "level_ms": 31.90403200406581,
+       "level_wall_ms": 34.53013859689236,
+       "round_ms": 45.6834240751341,
+       "tree_ms": 1.7885760068893433,
+       "table_share_of_leaves": 0.00390625
+      },
+      "ALIGN4": {
+       "n": 23,
+       "leaves": 8388608,
+       "rows": 3120,
+       "lookups_per_unit": 18,
+       "level_ms": 26.10313604120165,
+       "level_wall_ms": 27.71189622581005,
+       "round_ms": 44.62287978827953,
+       "tree_ms": 1.1334400177001953,
+       "table_share_of_leaves": 0.00048828125
+      },
+      "SHIFT": {
+       "n": 24,
+       "leaves": 16777216,
+       "rows": 3538944,
+       "lookups_per_unit": 16,
+       "level_ms": 32.852863921783864,
+       "level_wall_ms": 35.61513498425484,
+       "round_ms": 46.456864565610886,
+       "tree_ms": 2.131488084793091,
+       "table_share_of_leaves": 0.2109375
+      },
+      "LEAD": {
+       "n": 21,
+       "leaves": 2097152,
+       "rows": 32768,
+       "lookups_per_unit": 4,
+       "level_ms": 18.61350413132459,
+       "level_wall_ms": 19.871152937412262,
+       "round_ms": 29.0428161425516,
+       "tree_ms": 0.38950398564338684,
+       "table_share_of_leaves": 0.015625
+      },
+      "SSHIFT_HI": {
+       "n": 20,
+       "leaves": 1048576,
+       "rows": 221184,
+       "lookups_per_unit": 2,
+       "level_ms": 16.154015943408012,
+       "level_wall_ms": 17.366375774145126,
+       "round_ms": 25.549440051428974,
+       "tree_ms": 0.30768001079559326,
+       "table_share_of_leaves": 0.2109375
+      },
+      "SSHIFT_LO": {
+       "n": 20,
+       "leaves": 1048576,
+       "rows": 221184,
+       "lookups_per_unit": 2,
+       "level_ms": 16.184927985072136,
+       "level_wall_ms": 18.01946572959423,
+       "round_ms": 29.597152220085263,
+       "tree_ms": 0.3221760094165802,
+       "table_share_of_leaves": 0.2109375
+      },
+      "LEADNORM": {
+       "n": 20,
+       "leaves": 1048576,
+       "rows": 12152,
+       "lookups_per_unit": 2,
+       "level_ms": 16.11420793272555,
+       "level_wall_ms": 18.610656261444092,
+       "round_ms": 25.3582722870633,
+       "tree_ms": 0.2948159873485565,
+       "table_share_of_leaves": 0.01171875
+      },
+      "TNORM": {
+       "n": 21,
+       "leaves": 2097152,
+       "rows": 1048576,
+       "lookups_per_unit": 2,
+       "level_ms": 18.987776168622077,
+       "level_wall_ms": 20.389094948768616,
+       "round_ms": 30.09065585397184,
+       "tree_ms": 0.5127999782562256,
+       "table_share_of_leaves": 0.5
+      },
+      "T_HDR": {
+       "n": 19,
+       "leaves": 524288,
+       "rows": 510,
+       "lookups_per_unit": 1,
+       "level_ms": 13.731808073818684,
+       "level_wall_ms": 15.073040500283241,
+       "round_ms": 26.252896233461797,
+       "tree_ms": 0.24291199445724487,
+       "table_share_of_leaves": 0.00390625
+      },
+      "T_range16": {
+       "n": 22,
+       "leaves": 4194304,
+       "rows": 65536,
+       "lookups_per_unit": 10,
+       "level_ms": 21.9098556721583,
+       "level_wall_ms": 25.530409067869186,
+       "round_ms": 32.818079916760325,
+       "tree_ms": 0.6754879951477051,
+       "table_share_of_leaves": 0.015625
+      }
+     },
+     "measured_10_tables_ms": {
+      "level": 212.55612787418067,
+      "round": 335.4724811343476,
+      "level_wall": 232.717365026474
+     },
+     "tnorm_hi_added_as_tnorm_ms": 18.987776168622077,
+     "batch_seconds": {
+      "level": 0.23154390404280276,
+      "round": 0.36556313698831944,
+      "concurrent": 0.08934048233032225
+     },
+     "sequential_instances_note": "'level'/'round' = the instances one after another (each pays its ~20 latency-bound small levels)",
+     "shift": {
+      "committed_ms": 32.852863921783864,
+      "committed_tree_ms": 2.131488084793091,
+      "committed_table_share_of_leaves": 0.2109375
+     },
+     "note": "ten table instances measured separately (checker_min 3.1 tables); each instance pays ~20 latency-bound small levels",
+     "concurrent": {
+      "measured_10_tables_ms": 81.21862030029297,
+      "wall_ms": 81.26402832567692,
+      "streams": 10,
+      "per_instance_device_ms_in_parallel": {
+       "T_OP": 50.576479385606945,
+       "ALIGN4": 44.9937599748373,
+       "SHIFT": 53.44627228844911,
+       "LEAD": 36.34502392075956,
+       "SSHIFT_HI": 24.162559932097793,
+       "SSHIFT_LO": 37.102975842542946,
+       "LEADNORM": 39.38742428459227,
+       "TNORM": 41.45644822344184,
+       "T_HDR": 35.22767997905612,
+       "T_range16": 31.900576062500477
+      },
+      "scaled_to_11_tables_ms": 89.34048233032226,
+      "note": "the ten instances on ten CUDA streams (level graphs, protocol unchanged); TNORM_HI as an 11th instance taken pro rata"
+     }
+    },
+    "repriced": {
+     "A": {
+      "model@0.172": {
+       "overhead": 3892647.541823911,
+       "t.total": 0.15698987649290574,
+       "t.gkr_checker": 0.06372868698879006,
+       "t.logup": 0.03543317952029668
+      },
+      "measured sumcheck=baseline logup=level": {
+       "overhead": 8337458.720399675,
+       "t.total": 0.3362484275077619,
+       "t.gkr_checker": 0.046876513481140136,
+       "t.logup": 0.23154390404280276,
+       "share.sumcheck": 0.13941035748058048,
+       "share.logup": 0.6886096263973096,
+       "share.modelled": 0.17198001612211
+      },
+      "measured sumcheck=baseline logup=round": {
+       "overhead": 11660536.929879421,
+       "t.total": 0.4702676604532786,
+       "t.gkr_checker": 0.046876513481140136,
+       "t.logup": 0.36556313698831944,
+       "share.sumcheck": 0.0996804956478553,
+       "share.logup": 0.7773512144891331,
+       "share.modelled": 0.12296828986301156
+      },
+      "measured sumcheck=baseline logup=concurrent": {
+       "overhead": 4811449.194600407,
+       "t.total": 0.1940450057952814,
+       "t.gkr_checker": 0.046876513481140136,
+       "t.logup": 0.08934048233032225,
+       "share.sumcheck": 0.2415754700257276,
+       "share.logup": 0.46041114000417505,
+       "share.modelled": 0.2980133899700973
+      },
+      "measured sumcheck=fused logup=level": {
+       "overhead": 8078864.844278711,
+       "t.total": 0.32581937626747665,
+       "t.gkr_checker": 0.0364474622408549,
+       "t.logup": 0.23154390404280276,
+       "share.sumcheck": 0.11186401084671492,
+       "share.logup": 0.7106511180990052,
+       "share.modelled": 0.1774848710542799
+      },
+      "measured sumcheck=fused logup=round": {
+       "overhead": 11401943.053758457,
+       "t.total": 0.45983860921299335,
+       "t.gkr_checker": 0.0364474622408549,
+       "t.logup": 0.36556313698831944,
+       "share.sumcheck": 0.07926142240042472,
+       "share.logup": 0.7949813905665187,
+       "share.modelled": 0.1257571870330566
+      },
+      "measured sumcheck=fused logup=concurrent": {
+       "overhead": 4552855.318479443,
+       "t.total": 0.18361595455499616,
+       "t.gkr_checker": 0.0364474622408549,
+       "t.logup": 0.08934048233032225,
+       "share.sumcheck": 0.19849834034949426,
+       "share.logup": 0.4865616528086792,
+       "share.modelled": 0.31494000684182655
+      }
+     },
+     "A-hintfree-depth630": {
+      "model@0.172": {
+       "overhead": 3682010.4540701443,
+       "t.total": 0.14849491514950214,
+       "t.gkr_checker": 0.06372868698879006,
+       "t.logup": 0.03543317952029668
+      },
+      "measured sumcheck=baseline logup=level": {
+       "overhead": 8126821.632645909,
+       "t.total": 0.3277534661643583,
+       "t.gkr_checker": 0.046876513481140136,
+       "t.logup": 0.23154390404280276,
+       "share.sumcheck": 0.14302370019065794,
+       "share.logup": 0.7064575296564235,
+       "share.modelled": 0.1505187701529186
+      },
+      "measured sumcheck=baseline logup=round": {
+       "overhead": 11449899.842125654,
+       "t.total": 0.46177269910987495,
+       "t.gkr_checker": 0.046876513481140136,
+       "t.logup": 0.36556313698831944,
+       "share.sumcheck": 0.10151425922645604,
+       "share.logup": 0.7916516885753282,
+       "share.modelled": 0.10683405219821585
+      },
+      "measured sumcheck=baseline logup=concurrent": {
+       "overhead": 4600812.10684664,
+       "t.total": 0.18555004445187778,
+       "t.gkr_checker": 0.046876513481140136,
+       "t.logup": 0.08934048233032225,
+       "share.sumcheck": 0.25263542037737163,
+       "share.logup": 0.4814899537978425,
+       "share.modelled": 0.2658746258247858
+      },
+      "measured sumcheck=fused logup=level": {
+       "overhead": 7868227.756524944,
+       "t.total": 0.31732441492407304,
+       "t.gkr_checker": 0.0364474622408549,
+       "t.logup": 0.23154390404280276,
+       "share.sumcheck": 0.11485867625274207,
+       "share.logup": 0.7296756667721417,
+       "share.modelled": 0.15546565697511616
+      },
+      "measured sumcheck=fused logup=round": {
+       "overhead": 11191305.96600469,
+       "t.total": 0.45134364786958975,
+       "t.gkr_checker": 0.0364474622408549,
+       "t.logup": 0.36556313698831944,
+       "share.sumcheck": 0.08075324071335097,
+       "share.logup": 0.8099441273048434,
+       "share.modelled": 0.10930263198180556
+      },
+      "measured sumcheck=fused logup=concurrent": {
+       "overhead": 4342218.230725676,
+       "t.total": 0.17512099321159255,
+       "t.gkr_checker": 0.0364474622408549,
+       "t.logup": 0.08934048233032225,
+       "share.sumcheck": 0.20812731570575727,
+       "share.logup": 0.5101643194906694,
+       "share.modelled": 0.2817083648035733
+      }
+     }
+    }
+   }
+  },
+  "omitted": [
+   "Ligero encoding, row combination, hashing, hint generation, PRG: modelled (explore.tensor at 0.172 utilisation)",
+   "authentication (excluded), zero-knowledge (none), Fiat-Shamir host round trips: the level-graph numbers use coins independent of the transcript; the per-round-graph numbers (Fiat-Shamir compatible) are the 'round' rows",
+   "sumcheck: coins drawn ahead, the whole layer as one CUDA graph; the fold+Hadamard fusion is measured slower and left off",
+   "v2 logUp: ten instances from checker_min 3.1 (T_range16 at 10/unit; the model has 14/unit and an 11th table TNORM_HI, added as a second TNORM); SHIFT is committed per proof (3.54M multiplicity elements + 3.54M table leaves) -- the multiplicity column's Ligero cost is inside the modelled encoding",
+   "v2 sumcheck: the census layer shape (4 layers: assert + depths 3, 2, 1 at s_in 9, 9, 9, 8); the a-v2 exporter's 2-layer shape is the extra row",
+   "relation checker not assembled on the GPU; kernels on random tables"
+  ]
+ },
+ "b_buckets": {
+  "schema": "gate4/b_buckets/v1",
+  "run_id": "r20260922-093147-3d6c",
+  "rows": [
+   {
+    "design": "B v1 (WP2 checker, 310,602 rows)",
+    "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+    "run_id": "r20260922-093147-3d6c",
+    "B": 4096,
+    "K": 1536,
+    "proof_class": "ARITHMETIC_DIAGNOSTIC",
+    "measured_ms": {
+     "commitment (blake3_s512_ov0_keep1_fused)": 61.297,
+     "irs_row_combination_c1024": 4.691,
+     "linear_test_structured_M3_X256_lazy": 6.537,
+     "quadratic_test_s1024": 9.425,
+     "batch_inverse_T131072": 12.344,
+     "open_columns_gather_from_store": 1.946,
+     "open_columns_merkle_paths_host": 0.856
+    },
+    "modelled_ms": 14.7,
+    "total_ms": 111.79,
+    "measured_fraction": 0.869,
+    "us_per_vu": 27.29,
+    "overhead": 2772000.0,
+    "note": "same composition as b_measured_4090.md (116.4 ms / 2.89e6 on the 4090); modelled remainder = explore.tensor's r^T A scalars + hints + PRG at H100 peaks (14.7 ms, the H100 row of that table); commitment: the 512-row L2-slice fused Blake3 commit with the coset store; the store-less 65,536-row slice is 48.5 ms (keep variant not measured at that slice)"
+   },
+   {
+    "design": "B v2 (checker-min, 104,217 rows, helper_rows table side)",
+    "hardware": "NVIDIA H100 80GB HBM3 (vy-g4)",
+    "run_id": "r20260922-093147-3d6c",
+    "B": 4096,
+    "K": 1536,
+    "proof_class": "ARITHMETIC_DIAGNOSTIC",
+    "measured_ms": {
+     "commitment (blake3_s512_ov0_keep1_fused)": 20.723,
+     "irs_row_combination_c1024": 1.736,
+     "linear_test_structured_M2_X9780_lazy": 6.649,
+     "quadratic_test_s512 (F_t)": 1.068,
+     "quadratic_test_fc_from_store (F_c triples)": 5.924,
+     "batch_inverse_T131072 (43.6M helpers, plain kernel)": 4.045,
+     "open_columns_gather_from_store": 0.667,
+     "open_columns_merkle_paths_host": 1.55
+    },
+    "modelled_ms": 3.1,
+    "total_ms": 45.46,
+    "measured_fraction": 0.932,
+    "us_per_vu": 11.1,
+    "overhead": 1127000.0,
+    "note": "same composition as b_measured_4090_v2.md helper_rows row (42.4 ms / 1.05e6 on the 4090; the 4090 row used the blocked inverter 5.2 ms, not run here -- the plain kernel is 4.05 ms on the H100); modelled 3.1 ms = that table's H100 model value; no end-to-end v2 prover exists"
+   }
+  ],
+  "kernels_h100_ms": {
+   "fused_commit_blake3_s512_keep1_B": 61.296958923339844,
+   "fused_commit_blake3_s65536_keep0_B": 48.531551361083984,
+   "fused_commit_blake3_s1024_keep0_B": 55.87366485595703,
+   "encode_only_s512_B": 40.40755081176758,
+   "blake3_hash_only_s512_B": 19.408159255981445,
+   "irs_c1024_B": 4.6910719871521,
+   "quadratic_s1024_B": 9.424511909484863,
+   "quadratic_s512_B": 9.960607528686523,
+   "linear_general_s512_B": 191.32595825195312,
+   "batch_inverse_T262144_B": 12.63644790649414,
+   "batch_inverse_T131072_B": 12.343520164489746,
+   "open_gather_store_B": 1.945631980895996,
+   "open_encode_gather_B": 38.33443069458008,
+   "lintest_M1_lazy": 2.6057920455932617,
+   "lintest_M2_lazy": 4.685760021209717,
+   "lintest_M3_lazy": 6.5371198654174805,
+   "lintest_M4_lazy": 8.55673599243164,
+   "v2_commit_s512_keep1": 20.722719192504883,
+   "v2_irs": 1.735967993736267,
+   "v2_lintest_M2_X9780_lazy": 6.6493120193481445,
+   "v2_quad_ft": 1.0678080320358276,
+   "v2_quad_fc_store": 5.923519991338253,
+   "v2_inverse_T131072": 4.0447998046875,
+   "v2_open_store": 0.6668800115585327,
+   "v2_open_paths": 1.549941354564258
+  },
+  "bit_exact": {
+   "commit": true,
+   "buckets": true,
+   "lintest_simt": true,
+   "lintest_int8_tc_probe": "cuBLASLt CUBLAS_STATUS_NOT_SUPPORTED for the (16384 x 65536) x (65536 x 56) INT8 GEMM on this torch/CUDA -- the tensor-core probe only, no bucket uses it",
+   "v2": true
+  }
+ },
+ "kernel_column": {
+  "run_id": "r20260922-093941-aebe",
+  "note": "speed ratios > 1 = H100 faster; bandwidth ratio H100/4090 = 3.32, H100/A100 = 1.64; INT32 issue-rate ratio H100/4090 ~ 0.81 (132 SMs x 64 INT32 x 1.98 GHz vs 128 x 64 x 2.52), H100/A100 ~ 1.7. microbench and fused benches used the 4090/A100 peak tables (no H100 table): their printed 'fraction of floor' columns are NOT used here.",
+  "h100_measured_peaks": {
+   "hbm_copy_bytes_per_s": 2994995374266.301,
+   "hbm_read_bytes_per_s": 582511866936.7831,
+   "hbm_write_bytes_per_s": 3216182626978.1987,
+   "int8_macs_per_s_cublas_best": 50660895264313.95,
+   "bf16_flops_per_s_cublas_best": 787581934664398.9
+  },
+  "rows": [
+   {
+    "kernel": "HBM copy 1 GiB (read+write)",
+    "rtx4090": 866.88,
+    "a100": 1754,
+    "h100": 2995.0,
+    "unit": "GB/s",
+    "h100_speed_vs_4090": 3.45,
+    "h100_speed_vs_a100": 1.71,
+    "bound": "datasheet 3,350 (H100) / 2,039 (A100) / 1,008 (4090)"
+   },
+   {
+    "kernel": "cuBLAS `_int_mm` 8192^3",
+    "rtx4090": 6.6,
+    "a100": 14.5,
+    "h100": 10.9,
+    "unit": "ms",
+    "h100_speed_vs_4090": 0.61,
+    "h100_speed_vs_a100": 1.34,
+    "bound": "INT8 tensor: 660 / 312 / 1,979 dense TOPS"
+   },
+   {
+    "kernel": "BF16 matmul 8192^3",
+    "rtx4090": null,
+    "a100": 3.77,
+    "h100": 1.4,
+    "unit": "ms",
+    "h100_speed_vs_4090": null,
+    "h100_speed_vs_a100": 2.69,
+    "bound": "BF16 tensor"
+   },
+   {
+    "kernel": "hash_gpu SHA-256 Merkle tree, B (20.4 GB)",
+    "rtx4090": 446,
+    "a100": 190,
+    "h100": 264.8,
+    "unit": "GB/s",
+    "h100_speed_vs_4090": 0.59,
+    "h100_speed_vs_a100": 1.39,
+    "bound": "INT32 SIMT"
+   },
+   {
+    "kernel": "hash_gpu SHA-256 chunked, B",
+    "rtx4090": null,
+    "a100": null,
+    "h100": 563.5,
+    "unit": "GB/s",
+    "h100_speed_vs_4090": null,
+    "h100_speed_vs_a100": null,
+    "bound": "INT32 SIMT"
+   },
+   {
+    "kernel": "hash_gpu Blake3 Merkle tree, B",
+    "rtx4090": 359,
+    "a100": 377,
+    "h100": 536.7,
+    "unit": "GB/s",
+    "h100_speed_vs_4090": 1.49,
+    "h100_speed_vs_a100": 1.42,
+    "bound": "INT32 SIMT"
+   },
+   {
+    "kernel": "hash_gpu Poseidon2-16 (cuda), B",
+    "rtx4090": 57.7,
+    "a100": 26.1,
+    "h100": 46.5,
+    "unit": "GB/s",
+    "h100_speed_vs_4090": 0.81,
+    "h100_speed_vs_a100": 1.78,
+    "bound": "INT32 SIMT (Montgomery)"
+   },
+   {
+    "kernel": "encode SIMT NTT v2 t1024, B batch",
+    "rtx4090": 32.7,
+    "a100": 57.4,
+    "h100": 33.0,
+    "unit": "ms",
+    "h100_speed_vs_4090": 0.99,
+    "h100_speed_vs_a100": 1.74,
+    "bound": "INT32 SIMT + HBM"
+   },
+   {
+    "kernel": "encode Triton INT8 matrix DFT, B",
+    "rtx4090": 171.7,
+    "a100": 607.1,
+    "h100": 300.4,
+    "unit": "ms",
+    "h100_speed_vs_4090": 0.57,
+    "h100_speed_vs_a100": 2.02,
+    "bound": "INT8 tensor (Triton)"
+   },
+   {
+    "kernel": "fused checker round SIMT 2^21 ext",
+    "rtx4090": 273,
+    "a100": 474,
+    "h100": 237.5,
+    "unit": "us",
+    "h100_speed_vs_4090": 1.15,
+    "h100_speed_vs_a100": 2.0,
+    "bound": "INT32 SIMT / HBM"
+   },
+   {
+    "kernel": "fused checker round TC 2^21 ext",
+    "rtx4090": 506,
+    "a100": 1569,
+    "h100": 782.4,
+    "unit": "us",
+    "h100_speed_vs_4090": 0.65,
+    "h100_speed_vs_a100": 2.01,
+    "bound": "INT8 tensor (Triton)"
+   },
+   {
+    "kernel": "fused 130-round layer model SIMT graphed",
+    "rtx4090": 6.2,
+    "a100": 12.3,
+    "h100": 6.9,
+    "unit": "ms",
+    "h100_speed_vs_4090": 0.89,
+    "h100_speed_vs_a100": 1.78,
+    "bound": "INT32 SIMT, launch-bound tail"
+   },
+   {
+    "kernel": "fused logUp round 2^21 (best block)",
+    "rtx4090": 600,
+    "a100": 1469,
+    "h100": 918.0,
+    "unit": "us",
+    "h100_speed_vs_4090": 0.65,
+    "h100_speed_vs_a100": 1.6,
+    "bound": "INT32 SIMT"
+   },
+   {
+    "kernel": "packed sumcheck 2^26 k=0 (anchor: H100 recorded)",
+    "rtx4090": null,
+    "a100": 50.2,
+    "h100": 30.9,
+    "unit": "ms",
+    "h100_speed_vs_4090": null,
+    "h100_speed_vs_a100": 1.62,
+    "bound": "HBM-bound"
+   },
+   {
+    "kernel": "Montgomery packed sumcheck 2^26 k=3 (anchor: H100 recorded)",
+    "rtx4090": null,
+    "a100": 11.5,
+    "h100": 6.0,
+    "unit": "ms",
+    "h100_speed_vs_4090": null,
+    "h100_speed_vs_a100": 1.92,
+    "bound": "HBM-bound"
+   }
+  ]
+ }
+}

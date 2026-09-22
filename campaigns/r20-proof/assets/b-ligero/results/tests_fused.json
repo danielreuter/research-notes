@@ -1,0 +1,25 @@
+{
+ "exact": {
+  "lincomb_37x1000_int32": true,
+  "boolcomb_37x1000_int32": true,
+  "lincomb_3521x16640_int64": true,
+  "boolcomb_3521x16640_int64": true,
+  "lincomb_2534x65536_int32": true,
+  "boolcomb_2534x65536_int32": true,
+  "quad_general_853x65536": true
+ },
+ "timing": {
+  "lincomb_3521x16640": {
+   "torch_ms": 3.9426207542419434,
+   "fused_ms": 0.7628120481967926
+  },
+  "lincomb_2534x65536": {
+   "torch_ms": 14.323744922876358,
+   "fused_ms": 1.0538499802350998
+  },
+  "quad_general_853x65536": {
+   "torch_ms": 41.76693148910999,
+   "fused_ms": 2.2605586796998978
+  }
+ }
+}

@@ -1,0 +1,383 @@
+{
+ "schema": "redteam-3/report/v1",
+ "lane": "red-team-3",
+ "base": "main 147a6f8",
+ "runs": {
+  "T1": "r20260922-085839-3976 (vy-cpu3)",
+  "T2": "vy-sp1 /workspace/rt3/out/full (cpu, 2 VUs)"
+ },
+ "accepted_forgeries": [
+  "zero_batch_as_any_statement",
+  "degree_bits_from_proof"
+ ],
+ "attacks": [
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "control",
+   "case": "honest",
+   "construction": "-",
+   "result": "ACCEPTED",
+   "expected": "accept",
+   "rejecting_error": null,
+   "evaluator_failing": [],
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "statement_binding",
+   "case": "zero_batch_as_any_statement",
+   "construction": "verify_lookup takes no public values: a proof of two zero VUs is a proof of the two real VUs (of any x, w, words)",
+   "result": "ACCEPTED",
+   "expected": "reject",
+   "rejecting_error": null,
+   "evaluator_failing": [],
+   "severity": "critical",
+   "proposed_fix": "bind the statement digest in prove_lookup/verify_lookup (as stark.rs::verify_bound_bytes)",
+   "owner": "soundness-fixes / b-lookup"
+  },
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "statement_binding",
+   "case": "degree_bits_from_proof",
+   "construction": "verifier configured for log_n = 19 (4096 VUs); the 2^17-row proof supplies degree_bits = 17 and the verifier builds the public table matrix at 1 << proof.degree_bits",
+   "result": "ACCEPTED",
+   "expected": "reject",
+   "rejecting_error": null,
+   "evaluator_failing": [],
+   "severity": "high",
+   "proposed_fix": "verify_lookup takes log_n from the verifier config; main.rs builds pre_for_verify from tables.preprocessed(1<<cfg_log_n)",
+   "owner": "soundness-fixes / b-lookup"
+  },
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "statement_binding",
+   "case": "degree_bits_pinned_by_pre_height",
+   "construction": "same, but the verifier hands verify_lookup the 2^19-row table matrix of its own configuration (the height check rejects)",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "InvalidProofShape",
+   "evaluator_failing": [],
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "logup_multiplicity",
+   "case": "oot_query_adversarial_helper",
+   "construction": "x.c_lo := 70000 on row 2 (outside T16); the helper of its group carries 1/(z - q*) exactly, g and S re-accumulated: only the LogUp identity (sum_last) can fire",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "OodEvaluationMismatch",
+   "evaluator_failing": [
+    [
+     1,
+     "vu.link[1]"
+    ],
+    [
+     2,
+     "acc.word_lo"
+    ],
+    [
+     131071,
+     "lookup.sum_last"
+    ]
+   ],
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "logup_multiplicity",
+   "case": "oot_query_mult_credited",
+   "construction": "as above plus the multiplicity of table row 65535 raised by one (histogram total preserved)",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "OodEvaluationMismatch",
+   "evaluator_failing": [
+    [
+     1,
+     "vu.link[1]"
+    ],
+    [
+     2,
+     "acc.word_lo"
+    ],
+    [
+     131071,
+     "lookup.sum_last"
+    ]
+   ],
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "logup_multiplicity",
+   "case": "oot_query_mult_negative",
+   "construction": "as above with the multiplicity of table row 65535 lowered by one (a p-1 wrap where it was zero)",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "OodEvaluationMismatch",
+   "evaluator_failing": [
+    [
+     1,
+     "vu.link[1]"
+    ],
+    [
+     2,
+     "acc.word_lo"
+    ],
+    [
+     131071,
+     "lookup.sum_last"
+    ]
+   ],
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "logup_multiplicity",
+   "case": "padding_row_multiplicity",
+   "construction": "m := 1 on the first padding row of P (tuple (0,..,0; tag 0)); g := 1/z there; S re-accumulated",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "OodEvaluationMismatch",
+   "evaluator_failing": [
+    [
+     131071,
+     "lookup.sum_last"
+    ]
+   ],
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T1 B-AIR LogUp",
+   "class": "table_binding",
+   "case": "table_row_substitution",
+   "construction": "prover commits a table matrix whose T16 has a 65537th row (65536) and queries it; the verifier recomputes P from the public table set and compares the commitment",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "InvalidOpeningArgument",
+   "evaluator_failing": [],
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "honest",
+   "construction": "control",
+   "result": "ACCEPTED",
+   "expected": "accept",
+   "rejecting_error": null,
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "splice",
+   "construction": "X[(1,40),c] - X[(1,39),y] = 0 (add_chain step constraint)",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: linear functional value mismatch",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "c0_nonzero",
+   "construction": "X[(1,0),c] = 0 (add_chain first-step constraint)",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: linear functional value mismatch",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "epilogue_y32",
+   "construction": "X_epi[0,y32] - X[(0,95),y] = 0",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: linear functional value mismatch",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "epilogue_claim",
+   "construction": "epilogue circuit assertion y16 = hi + carry",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "assertions: phase-1 round 0 sum mismatch",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "public_word",
+   "construction": "X_epi[0,y16] = public word",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: linear functional value mismatch",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "swap_words",
+   "construction": "X_epi[v,y16] = public word_v",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: linear functional value mismatch",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "logup_oot_mult",
+   "construction": "LogUp sumcheck (false fractional sum; column x.c_lo := 65536)",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "LogUp level 0: final check",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "logup_table_subst",
+   "construction": "verifier's own R16 rows in add_lookup_claim (x.c_lo := 65536, prover's R16 has 65537 rows)",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "assertions: phase-1 round 0 sum mismatch",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "proof_noncanonical_msg",
+   "construction": "transcript bytes differ (to_bytes of v+p) -> challenges differ",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "LogUp level 1: final check",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "opening_column_swap",
+   "construction": "merkle path at the verifier's index",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: merkle path 12532",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "opening_path_truncated",
+   "construction": "len(path) != depth",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: opening shape",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "opening_column_value_plus_p",
+   "construction": "non-canonical column value check",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: non-canonical column value",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  },
+  {
+   "target": "T2 GPU A",
+   "class": null,
+   "case": "opening_fewer_columns",
+   "construction": "len(columns) != t",
+   "result": "REJECTED",
+   "expected": "reject",
+   "rejecting_error": "ligero: malformed opening",
+   "severity": null,
+   "proposed_fix": null,
+   "owner": null
+  }
+ ],
+ "bounds": [
+  {
+   "term": "T1 LogUp identity BabyBear^4 B=4096",
+   "claim_bits": 93.8,
+   "recomputed_bits": 93.8,
+   "formula": "(N_q+N_t)+N_COLS*N_q over |F_ext|, N_q=2^19*391, N_t=116722, N_COLS=6",
+   "verdict": "matches"
+  },
+  {
+   "term": "T1 LogUp identity BabyBear^5",
+   "claim_bits": 124.8,
+   "recomputed_bits": 124.7,
+   "verdict": "matches"
+  },
+  {
+   "term": "T2 Ligero k=4096 n=16384 t=192 BabyBear^6",
+   "claim_bits": 127.7,
+   "recomputed_bits": 127.7,
+   "formula": "2^-128 (SHA-256) + 0.625^192 = 2^-130.2 (proximity, e=(n-k)/2-1) + <=2^-172 field terms",
+   "verdict": "matches; see observation O1 (geometric row coefficients vs the uniform-coefficient assumption)"
+  },
+  {
+   "term": "T3 per-proof target / union",
+   "claim": "per_proof = target - log2 N; union = N x per-proof",
+   "verdict": "correct in accounting.py and b-ligero2 bench_vu"
+  }
+ ],
+ "observations": [
+  "O1 ligero.py row_coeffs uses geometric powers for the proximity test; accounting says uniform",
+  "O2 index bias 1/122881, open_set distinct",
+  "O3 no leaf/node domain separation; path-length check prevents confusion",
+  "O4 msgs not canonicality-checked (rejection via transcript divergence)",
+  "O5 N_subbatches not in IDENTITY_FIELDS nor ledger schema",
+  "O6 sub-batch coins seeded per root; _BIND_STATEMENT toggle is a footgun",
+  "O7 _expand bias comment wrong (factor 1.4, immaterial)",
+  "O8 soundness-fixes binds only the limbs path; LogUp path residual = U1/U2",
+  "O9 main 1bd19ab did not compile verity-direct"
+ ],
+ "battery_cases_added": 0
+}

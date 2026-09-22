@@ -1,0 +1,5219 @@
+{
+ "meta": {
+  "branch": "lane/red-team",
+  "commit": "3b58eef",
+  "z3": "5.1.0",
+  "python": "3.13.5",
+  "full": false,
+  "started": "2026-09-21T17:09:46",
+  "forgeries_seconds_ampere": 3.8,
+  "forgeries_seconds_hopper": 0.3,
+  "finished": "2026-09-21T17:19:29"
+ },
+ "findings": [
+  {
+   "id": "C1",
+   "target": "relation[ampere_bf16_m16n8k16,div,Z]",
+   "attack": "completeness",
+   "status": "PASS",
+   "seconds": 0.13057518005371094,
+   "case": "435 cases",
+   "detail": {
+    "failures": [],
+    "cases": 435,
+    "golden_measured_mismatches": []
+   },
+   "reproducer": "backends/numerical/tests/redteam/test_redteam_relation_completeness.py"
+  },
+  {
+   "id": "C2",
+   "target": "relation[ampere_bf16_m16n8k16,table,Z]",
+   "attack": "completeness",
+   "status": "PASS",
+   "seconds": 0.09145188331604004,
+   "case": "435 cases",
+   "detail": {
+    "failures": [],
+    "cases": 435,
+    "golden_measured_mismatches": []
+   },
+   "reproducer": "backends/numerical/tests/redteam/test_redteam_relation_completeness.py"
+  },
+  {
+   "id": "C3",
+   "target": "relation[hopper_bf16_wgmma_k16,div,Z]",
+   "attack": "completeness",
+   "status": "PASS",
+   "seconds": 0.017590999603271484,
+   "case": "71 cases",
+   "detail": {
+    "failures": [],
+    "cases": 71
+   },
+   "reproducer": "backends/numerical/tests/redteam/test_redteam_relation_completeness.py"
+  },
+  {
+   "id": "C4",
+   "target": "relation[hopper_bf16_wgmma_k16,table,Z]",
+   "attack": "completeness",
+   "status": "PASS",
+   "seconds": 0.011700153350830078,
+   "case": "71 cases",
+   "detail": {
+    "failures": [],
+    "cases": 71
+   },
+   "reproducer": "backends/numerical/tests/redteam/test_redteam_relation_completeness.py"
+  },
+  {
+   "id": "C5",
+   "target": "silicon.tc_dot[ampere_bf16_m16n8k16]",
+   "attack": "completeness",
+   "status": "PASS",
+   "seconds": 0.006915092468261719,
+   "case": "360 cases",
+   "detail": {
+    "failures": [],
+    "cases": 360
+   },
+   "reproducer": "backends/numerical/tests/redteam/test_redteam_harness.py"
+  },
+  {
+   "id": "M6",
+   "target": "relation[ampere_bf16_m16n8k16,div,Z]",
+   "attack": "mutation",
+   "status": "NOTE",
+   "seconds": 28.84128499031067,
+   "case": "40 cases, 69013 mutations",
+   "detail": {
+    "accepted_wrong": [],
+    "free_columns": [
+     {
+      "case": "max_shift_d506",
+      "column": "groups.1.neg_t",
+      "from": 0,
+      "to": 1,
+      "x": {
+       "acc": "0x00000000",
+       "a": "7f7f000100000000000000000000000000000000000000000000000000000000",
+       "b": "7f7f000100000000000000000000000000000000000000000000000000000000"
+      }
+     },
+     {
+      "case": "max_shift_with_acc",
+      "column": "groups.1.neg_t",
+      "from": 0,
+      "to": 1,
+      "x": {
+       "acc": "0x3f800000",
+       "a": "7f7f000100000000000000000000000000000000000000000000000000000000",
+       "b": "7f7f000100000000000000000000000000000000000000000000000000000000"
+      }
+     },
+     {
+      "case": "overflow_group0",
+      "column": "groups.1.neg_t",
+      "from": 0,
+      "to": 1,
+      "x": {
+       "acc": "0x7f7fffff",
+       "a": "7f7f000000000000000000000000000000000000000000000000000000000000",
+       "b": "7f7f000000000000000000000000000000000000000000000000000000000000"
+      }
+     },
+     {
+      "case": "negative_overflow",
+      "column": "groups.1.neg_t",
+      "from": 0,
+      "to": 1,
+      "x": {
+       "acc": "0xff7fffff",
+       "a": "7f7f000000000000000000000000000000000000000000000000000000000000",
+       "b": "ff7f000000000000000000000000000000000000000000000000000000000000"
+      }
+     },
+     {
+      "case": "L_above_W_all_max",
+      "column": "groups.1.neg_t",
+      "from": 0,
+      "to": 1,
+      "x": {
+       "acc": "0x00000000",
+       "a": "7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f00000000000000000000000000000000",
+       "b": "7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f7f00000000000000000000000000000000"
+      }
+     }
+    ],
+    "mutations": 69013
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/harness.py::run_mutations"
+  },
+  {
+   "id": "X7",
+   "target": "relation[ampere_bf16_m16n8k16,div,Z]",
+   "attack": "two-outputs-one-input (coordinated random)",
+   "status": "PASS",
+   "seconds": 0.759984016418457,
+   "case": "10 cases, 1588 attempts",
+   "detail": {
+    "accepted_wrong": []
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/harness.py::run_coordinated"
+  },
+  {
+   "id": "M8",
+   "target": "relation[hopper_bf16_wgmma_k16,div,Z]",
+   "attack": "mutation",
+   "status": "PASS",
+   "seconds": 14.691291093826294,
+   "case": "28 cases, 43314 mutations",
+   "detail": {
+    "accepted_wrong": [],
+    "free_columns": [],
+    "mutations": 43314
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/harness.py::run_mutations"
+  },
+  {
+   "id": "X9",
+   "target": "relation[hopper_bf16_wgmma_k16,div,Z]",
+   "attack": "two-outputs-one-input (coordinated random)",
+   "status": "PASS",
+   "seconds": 0.6776149272918701,
+   "case": "10 cases, 1588 attempts",
+   "detail": {
+    "accepted_wrong": []
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/harness.py::run_coordinated"
+  },
+  {
+   "id": "M10",
+   "target": "silicon.tc_dot[ampere_bf16_m16n8k16]",
+   "attack": "mutation",
+   "status": "PASS",
+   "seconds": 0.0002963542938232422,
+   "case": "20 cases, 0 mutations",
+   "detail": {
+    "accepted_wrong": [],
+    "free_columns": [],
+    "mutations": 0
+   },
+   "reproducer": "backends/numerical/tests/redteam/test_redteam_harness.py"
+  },
+  {
+   "id": "X11",
+   "target": "silicon.tc_dot[ampere_bf16_m16n8k16]",
+   "attack": "two-outputs-one-input (coordinated random)",
+   "status": "PASS",
+   "seconds": 0.007678985595703125,
+   "case": "50 cases, 550 attempts",
+   "detail": {
+    "accepted_wrong": []
+   },
+   "reproducer": "backends/numerical/tests/redteam/test_redteam_harness.py"
+  },
+  {
+   "id": "M12",
+   "target": "relation[ampere_bf16_m16n8k16,div,Z,dropped=g1.out.M]",
+   "attack": "mutation (self-test: relation with g1.out.M dropped)",
+   "status": "SAT",
+   "seconds": 1.808459997177124,
+   "case": "2 cases, 3895 mutations",
+   "detail": {
+    "accepted_wrong": [
+     {
+      "case": "golden[0]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 14164312,
+      "to": 14164313,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3e5a3e1e3fd2bf18bef23fef3f9bbf2d3f08bf393fd13f4a3e733f783f16bf3d",
+       "b": "be513f883f55bfaabfc2bf5d3eb3c0383f7b3d4bbf10bd883fe0bf85bf9b3ebb"
+      },
+      "reference": "0x3fd82158",
+      "accepted_output": "0x3fd82159"
+     },
+     {
+      "case": "golden[0]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 14164312,
+      "to": 14164311,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3e5a3e1e3fd2bf18bef23fef3f9bbf2d3f08bf393fd13f4a3e733f783f16bf3d",
+       "b": "be513f883f55bfaabfc2bf5d3eb3c0383f7b3d4bbf10bd883fe0bf85bf9b3ebb"
+      },
+      "reference": "0x3fd82158",
+      "accepted_output": "0x3fd82157"
+     },
+     {
+      "case": "golden[0]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 14164312,
+      "to": 0,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3e5a3e1e3fd2bf18bef23fef3f9bbf2d3f08bf393fd13f4a3e733f783f16bf3d",
+       "b": "be513f883f55bfaabfc2bf5d3eb3c0383f7b3d4bbf10bd883fe0bf85bf9b3ebb"
+      },
+      "reference": "0x3fd82158",
+      "accepted_output": "0x00000000"
+     },
+     {
+      "case": "golden[0]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 14164312,
+      "to": 16777215,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3e5a3e1e3fd2bf18bef23fef3f9bbf2d3f08bf393fd13f4a3e733f783f16bf3d",
+       "b": "be513f883f55bfaabfc2bf5d3eb3c0383f7b3d4bbf10bd883fe0bf85bf9b3ebb"
+      },
+      "reference": "0x3fd82158",
+      "accepted_output": "0x3fffffff"
+     },
+     {
+      "case": "golden[0]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 14164312,
+      "to": 12540636,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3e5a3e1e3fd2bf18bef23fef3f9bbf2d3f08bf393fd13f4a3e733f783f16bf3d",
+       "b": "be513f883f55bfaabfc2bf5d3eb3c0383f7b3d4bbf10bd883fe0bf85bf9b3ebb"
+      },
+      "reference": "0x3fd82158",
+      "accepted_output": "0x3fbf5adc"
+     },
+     {
+      "case": "golden[0]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 14164312,
+      "to": 15807427,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3e5a3e1e3fd2bf18bef23fef3f9bbf2d3f08bf393fd13f4a3e733f783f16bf3d",
+       "b": "be513f883f55bfaabfc2bf5d3eb3c0383f7b3d4bbf10bd883fe0bf85bf9b3ebb"
+      },
+      "reference": "0x3fd82158",
+      "accepted_output": "0x3ff133c3"
+     },
+     {
+      "case": "golden[0]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 14164312,
+      "to": -14164312,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3e5a3e1e3fd2bf18bef23fef3f9bbf2d3f08bf393fd13f4a3e733f783f16bf3d",
+       "b": "be513f883f55bfaabfc2bf5d3eb3c0383f7b3d4bbf10bd883fe0bf85bf9b3ebb"
+      },
+      "reference": "0x3fd82158",
+      "accepted_output": "0x3fa7dea8"
+     },
+     {
+      "case": "golden[1]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 16751761,
+      "to": 16751762,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3ff0403f3f0c3f95be8ebf38bf813fbc3e99bfaf3f1bbef63d5fbf17bed7bf40",
+       "b": "bf923f203f483f28bf11bfc0bd7a3edcbf413f2540353f7f3e4f3f5c3e02c006"
+      },
+      "reference": "0x407f9c91",
+      "accepted_output": "0x407f9c92"
+     },
+     {
+      "case": "golden[1]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 16751761,
+      "to": 16751760,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3ff0403f3f0c3f95be8ebf38bf813fbc3e99bfaf3f1bbef63d5fbf17bed7bf40",
+       "b": "bf923f203f483f28bf11bfc0bd7a3edcbf413f2540353f7f3e4f3f5c3e02c006"
+      },
+      "reference": "0x407f9c91",
+      "accepted_output": "0x407f9c90"
+     },
+     {
+      "case": "golden[1]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 16751761,
+      "to": 0,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3ff0403f3f0c3f95be8ebf38bf813fbc3e99bfaf3f1bbef63d5fbf17bed7bf40",
+       "b": "bf923f203f483f28bf11bfc0bd7a3edcbf413f2540353f7f3e4f3f5c3e02c006"
+      },
+      "reference": "0x407f9c91",
+      "accepted_output": "0x00000000"
+     },
+     {
+      "case": "golden[1]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 16751761,
+      "to": 16777215,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3ff0403f3f0c3f95be8ebf38bf813fbc3e99bfaf3f1bbef63d5fbf17bed7bf40",
+       "b": "bf923f203f483f28bf11bfc0bd7a3edcbf413f2540353f7f3e4f3f5c3e02c006"
+      },
+      "reference": "0x407f9c91",
+      "accepted_output": "0x407fffff"
+     },
+     {
+      "case": "golden[1]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 16751761,
+      "to": 4920676,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3ff0403f3f0c3f95be8ebf38bf813fbc3e99bfaf3f1bbef63d5fbf17bed7bf40",
+       "b": "bf923f203f483f28bf11bfc0bd7a3edcbf413f2540353f7f3e4f3f5c3e02c006"
+      },
+      "reference": "0x407f9c91",
+      "accepted_output": "0x3fcb1564"
+     },
+     {
+      "case": "golden[1]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 16751761,
+      "to": 16134473,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3ff0403f3f0c3f95be8ebf38bf813fbc3e99bfaf3f1bbef63d5fbf17bed7bf40",
+       "b": "bf923f203f483f28bf11bfc0bd7a3edcbf413f2540353f7f3e4f3f5c3e02c006"
+      },
+      "reference": "0x407f9c91",
+      "accepted_output": "0x40763149"
+     },
+     {
+      "case": "golden[1]:randn_zero_acc",
+      "column": "groups.1.out.M",
+      "from": 16751761,
+      "to": -16751761,
+      "x": {
+       "acc": "0x00000000",
+       "a": "3ff0403f3f0c3f95be8ebf38bf813fbc3e99bfaf3f1bbef63d5fbf17bed7bf40",
+       "b": "bf923f203f483f28bf11bfc0bd7a3edcbf413f2540353f7f3e4f3f5c3e02c006"
+      },
+      "reference": "0x407f9c91",
+      "accepted_output": "0x4000636f"
+     }
+    ],
+    "free_columns": [],
+    "mutations": 3895
+   },
+   "reproducer": "backends/numerical/tests/redteam/test_redteam_harness.py::test_harness_detects_weakened_checker"
+  },
+  {
+   "id": "Z13",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0017261505126953125,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z14",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0008220672607421875,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z15",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.004207134246826172,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z16",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0009629726409912109,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z17",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0010991096496582031,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z18",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0007429122924804688,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z19",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "SAT",
+   "seconds": 0.0024781227111816406,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": {
+     "aligned": 29092741,
+     "r": 16385,
+     "rinv": 67108849,
+     "honest_aligned": 29109126
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z20",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "SAT",
+   "seconds": 0.0020668506622314453,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": {
+     "mag24": 14554530,
+     "r_s": 66,
+     "rsinv": 34359738353,
+     "honest_mag24": 14554563
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z21",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.037405967712402344,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z22",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0023140907287597656,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z23",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0024209022521972656,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z24",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0013217926025390625,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z25",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.001981973648071289,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z26",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0019860267639160156,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z27",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.024873018264770508,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z28",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.002370119094848633,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z29",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.002171039581298828,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z30",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0012629032135009766,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z31",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0018541812896728516,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z32",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0018558502197265625,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z33",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.05083274841308594,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z34",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0023882389068603516,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z35",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.002274751663208008,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z36",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0012929439544677734,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z37",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0016520023345947266,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z38",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.001920938491821289,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z39",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.030954837799072266,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z40",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.002298116683959961,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z41",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.002331972122192383,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z42",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0013239383697509766,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "N43",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: sign of a zero total (neg_t free, unobservable)",
+   "status": "NOTE",
+   "seconds": 0.0007300376892089844,
+   "case": "total = 0",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::sign_query"
+  },
+  {
+   "id": "Z44",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.00113677978515625,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z45",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0016188621520996094,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z46",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.0024688243865966797,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z47",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0008077621459960938,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z48",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0007801055908203125,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z49",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.0007681846618652344,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": null,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z50",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "SAT",
+   "seconds": 0.0017421245574951172,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": {
+     "aligned": 16384,
+     "r": 15,
+     "rinv": 15,
+     "honest_aligned": 0
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z51",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "SAT",
+   "seconds": 0.001699209213256836,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": {
+     "mag24": 16777184,
+     "r_s": 1099478073423,
+     "rsinv": 7864305,
+     "honest_mag24": 0
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z52",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.05618596076965332,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z53",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.01761007308959961,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z54",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.007386922836303711,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z55",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.0017380714416503906,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": 1099511627791,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z56",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.001600027084350586,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z57",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0015392303466796875,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z58",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.04359030723571777,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z59",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0010790824890136719,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z60",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.001046895980834961,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z61",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.0012879371643066406,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": 2305843009213693951,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z62",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.001463174819946289,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z63",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0014832019805908203,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z64",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.03189897537231445,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z65",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0010540485382080078,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z66",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0010218620300292969,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z67",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.001338958740234375,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": 18446744069414584321,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z68",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0014879703521728516,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z69",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.001377105712890625,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z70",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.04271411895751953,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z71",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0011248588562011719,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z72",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0010759830474853516,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z73",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.0012946128845214844,
+   "case": "golden[291]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": 618970019642690137449562111,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z74",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0007879734039306641,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z75",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0011911392211914062,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z76",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.002403736114501953,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z77",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0007171630859375,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z78",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 4.029273986816406e-05,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z79",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.0007410049438476562,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": null,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z80",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "SAT",
+   "seconds": 0.0014791488647460938,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": {
+     "aligned": 67092480,
+     "r": 1099444535311,
+     "rinv": 61425,
+     "honest_aligned": 0
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z81",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "SAT",
+   "seconds": 0.0015077590942382812,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": {
+     "mag24": 256,
+     "r_s": 15,
+     "rsinv": 120,
+     "honest_mag24": 0
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z82",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.04003286361694336,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z83",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.00014495849609375,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z84",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 6.985664367675781e-05,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z85",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.0013649463653564453,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": 1099511627791,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z86",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0013570785522460938,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z87",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0016181468963623047,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z88",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.03181099891662598,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z89",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.00014328956604003906,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z90",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 4.38690185546875e-05,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z91",
+   "target": "relation[ampere,m61]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.0012657642364501953,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": 2305843009213693951,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z92",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0014369487762451172,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z93",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0018160343170166016,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z94",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.04363608360290527,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z95",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.00014519691467285156,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z96",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 5.1021575927734375e-05,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z97",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.001245260238647461,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": 18446744069414584321,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z98",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0013082027435302734,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z99",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0015621185302734375,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z100",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.038182973861694336,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z101",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.00014019012451171875,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z102",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 5.412101745605469e-05,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z103",
+   "target": "relation[ampere,m89]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "NOTE",
+   "seconds": 0.0014109611511230469,
+   "case": "golden[287]:signed_zero",
+   "detail": {
+    "model": {
+     "neg_t": 1,
+     "mag_t": 0
+    },
+    "field": 618970019642690137449562111,
+    "unobservable": "total = 0: z_t = z_out = 1, the output is the canonical zero either way"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z104",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0007951259613037109,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z105",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0008070468902587891,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z106",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.0033349990844726562,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z107",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0014619827270507812,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z108",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.001466989517211914,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z109",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0007581710815429688,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z110",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "SAT",
+   "seconds": 0.001689910888671875,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": {
+     "aligned": 1403742,
+     "r": 262176,
+     "rinv": 134217713,
+     "honest_aligned": 1411935
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z111",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "SAT",
+   "seconds": 0.001850128173828125,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": {
+     "mag24": 11134714,
+     "r_s": 66,
+     "rsinv": 34359738353,
+     "honest_mag24": 11134730
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z112",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.05821084976196289,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z113",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004598140716552734,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z114",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004606962203979492,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z115",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0012798309326171875,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z116",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.001756906509399414,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z117",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0019099712371826172,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z118",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.04303789138793945,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z119",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0044422149658203125,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z120",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004712104797363281,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z121",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.001331329345703125,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z122",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0017549991607666016,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z123",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.002004861831665039,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z124",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.04320883750915527,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z125",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004489898681640625,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z126",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004539966583251953,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z127",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0013089179992675781,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z128",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0017809867858886719,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z129",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0019011497497558594,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z130",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.0373997688293457,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z131",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004579782485961914,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z132",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.00460505485534668,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z133",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0013480186462402344,
+   "case": "random[26]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z134",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0008132457733154297,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z135",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0007920265197753906,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z136",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.003481149673461914,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z137",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0014739036560058594,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z138",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0015411376953125,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z139",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0007269382476806641,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z140",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "SAT",
+   "seconds": 0.0017049312591552734,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": {
+     "aligned": 69608,
+     "r": 2097272,
+     "rinv": 62914545,
+     "honest_aligned": 77800
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z141",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "SAT",
+   "seconds": 0.0016677379608154297,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": {
+     "mag24": 10671238,
+     "r_s": 68,
+     "rsinv": 68719476721,
+     "honest_mag24": 10671255
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z142",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.054351806640625,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z143",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004559040069580078,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z144",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0045778751373291016,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z145",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0013129711151123047,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z146",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0019278526306152344,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z147",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0018351078033447266,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z148",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.0301821231842041,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z149",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004500865936279297,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z150",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004327058792114258,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z151",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0012791156768798828,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z152",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0019147396087646484,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z153",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.002081155776977539,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z154",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.054521799087524414,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z155",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004517078399658203,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z156",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004491090774536133,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z157",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.001276254653930664,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z158",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.001894235610961914,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z159",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.002051115036010742,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z160",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.039700984954833984,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z161",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.00482487678527832,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z162",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004537105560302734,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z163",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0012891292572021484,
+   "case": "random[34]:kind2",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z164",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0007610321044921875,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z165",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0007653236389160156,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z166",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.003549814224243164,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z167",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.0014579296112060547,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z168",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0013899803161621094,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z169",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0006868839263916016,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z170",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "SAT",
+   "seconds": 0.001847982406616211,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": {
+     "aligned": 71987,
+     "r": 8389632,
+     "rinv": 134217713,
+     "honest_aligned": 80180
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z171",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "SAT",
+   "seconds": 0.0016598701477050781,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": {
+     "mag24": 10780950,
+     "r_s": 66,
+     "rsinv": 34359738353,
+     "honest_mag24": 10780966
+    },
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z172",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.036696672439575195,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z173",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004570960998535156,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z174",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004760026931762695,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z175",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0013179779052734375,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z176",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0019447803497314453,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z177",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0018680095672607422,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z178",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.03166699409484863,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z179",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004560947418212891,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z180",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004540205001831055,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z181",
+   "target": "relation[hopper,m61]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.001344919204711914,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 2305843009213693951
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z182",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0022687911987304688,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z183",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.001965761184692383,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z184",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.0435490608215332,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z185",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004683017730712891,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z186",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.0045490264892578125,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z187",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0013308525085449219,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z188",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: align (remainder/quotient mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0018579959869384766,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z189",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: final shift (mis-split)",
+   "status": "UNSAT",
+   "seconds": 0.0019562244415283203,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z190",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: leading-bit position",
+   "status": "UNSAT",
+   "seconds": 0.05493283271789551,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z191",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: E* above the maximum",
+   "status": "UNSAT",
+   "seconds": 0.004689931869506836,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z192",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: E* at a non-maximal term",
+   "status": "UNSAT",
+   "seconds": 0.004745006561279297,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z193",
+   "target": "relation[hopper,m89]",
+   "attack": "z3 gadget: sign flip of the total",
+   "status": "UNSAT",
+   "seconds": 0.0013189315795898438,
+   "case": "random[13]:kind1",
+   "detail": {
+    "model": null,
+    "field": 618970019642690137449562111
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py"
+  },
+  {
+   "id": "Z194",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.01394200325012207,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z195",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 0.014066934585571289,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z196",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 1.1163551807403564,
+   "case": "golden[138]:subnormal",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z197",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.030939102172851562,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z198",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 0.010348081588745117,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z199",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.3823401927947998,
+   "case": "golden[85]:uniform_bits",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z200",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.035553932189941406,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z201",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 0.03520083427429199,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z202",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.4179840087890625,
+   "case": "golden[105]:uniform_bits",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z203",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.011716127395629883,
+   "case": "golden[290]:signed_zero",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z204",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 0.011018037796020508,
+   "case": "golden[290]:signed_zero",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z205",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.455380916595459,
+   "case": "golden[290]:signed_zero",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z206",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.019490957260131836,
+   "case": "golden[58]:randn_random_acc",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z207",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 0.02101898193359375,
+   "case": "golden[58]:randn_random_acc",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z208",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.742232084274292,
+   "case": "golden[58]:randn_random_acc",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z209",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.016086816787719727,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z210",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 0.01886272430419922,
+   "case": "golden[132]:subnormal",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z211",
+   "target": "relation[ampere,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.9194777011871338,
+   "case": "golden[132]:subnormal",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z212",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "SAT",
+   "seconds": 1.6689598560333252,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": 18446744069414584321,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0x81763dc2",
+    "forged_output": "0x81763dc1",
+    "input": {
+     "acc": "0x81763dc2",
+     "a": "001b00bc810d80368197014d016d006a01b100018061800e814f80400147800c",
+     "b": "00ba8098011a81fc8178807f0132006f00260115811501ce814d80f201c5815e"
+    },
+    "changed_columns": {
+     "magW": [
+      32275332,
+      17293822565108448132
+     ],
+     "r_n": [
+      0,
+      30
+     ],
+     "mag24": [
+      16137666,
+      16137665
+     ],
+     "r_s": [
+      0,
+      17293822565076172802
+     ],
+     "rsinv": [
+      0,
+      18253611008
+     ]
+    },
+    "changed_terms": {}
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z213",
+   "target": "relation[ampere,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 3.1349892616271973,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z214",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "SAT",
+   "seconds": 2.8202290534973145,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": 18446744069414584321,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0x81763dc2",
+    "forged_output": "0x81763dc1",
+    "input": {
+     "acc": "0x81763dc2",
+     "a": "001b00bc810d80368197014d016d006a01b100018061800e814f80400147800c",
+     "b": "00ba8098011a81fc8178807f0132006f00260115811501ce814d80f201c5815e"
+    },
+    "changed_columns": {
+     "magW": [
+      32275332,
+      17870283317277653892
+     ],
+     "r_n": [
+      0,
+      31
+     ],
+     "mag24": [
+      16137666,
+      16137665
+     ],
+     "r_s": [
+      0,
+      17870283317245378562
+     ],
+     "rsinv": [
+      0,
+      17716740096
+     ]
+    },
+    "changed_terms": {}
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z215",
+   "target": "relation[ampere,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 1 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 2.4386727809906006,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z216",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 18.913960933685303,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z217",
+   "target": "relation[ampere,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 16.99939489364624,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z218",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 1.575045108795166,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z219",
+   "target": "relation[ampere,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 1 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 3.030683994293213,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z220",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "SAT",
+   "seconds": 14.84975814819336,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": 18446744069414584321,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0xff800000",
+    "forged_output": "0xff800000",
+    "input": {
+     "acc": "0x0f0441a0",
+     "a": "29e5bb295e0aba81f59637f64a07adfc46ed669839f0064605cbbf9c1999abcf",
+     "b": "42da4a1d3b731df239aae86b1192bd90d532fe7f70213d783772cb53e2c7474d"
+    },
+    "changed_columns": {
+     "magW": [
+      26112000,
+      17870283317271490560
+     ],
+     "r_n": [
+      0,
+      31
+     ],
+     "mag24": [
+      13056000,
+      13055999
+     ],
+     "r_s": [
+      0,
+      17870283317245378562
+     ],
+     "rsinv": [
+      0,
+      17716740096
+     ]
+    },
+    "changed_terms": {}
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z221",
+   "target": "relation[ampere,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 16.440228700637817,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z222",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 20.372169017791748,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z223",
+   "target": "relation[ampere,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 1 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 19.163399934768677,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z224",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNKNOWN",
+   "seconds": 20.003727912902832,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z225",
+   "target": "relation[ampere,p40]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNKNOWN",
+   "seconds": 20.00375509262085,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z226",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "SAT",
+   "seconds": 0.988631010055542,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": 1099511627791,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0x81763dc2",
+    "forged_output": "0x00fffffd",
+    "input": {
+     "acc": "0x81763dc2",
+     "a": "001b00bc810d80368197014d016d006a01b100018061800e814f80400147800c",
+     "b": "00ba8098011a81fc8178807f0132006f00260115811501ce814d80f201c5815e"
+    },
+    "changed_columns": {
+     "total": [
+      -32275332,
+      8406141
+     ],
+     "neg_t": [
+      1,
+      0
+     ],
+     "mag_t": [
+      32275332,
+      8406141
+     ],
+     "L": [
+      25,
+      24
+     ],
+     "normpow": [
+      32,
+      64
+     ],
+     "normB": [
+      1032810624,
+      537993024
+     ],
+     "magW": [
+      32275332,
+      16812282
+     ],
+     "e_out": [
+      -125,
+      -126
+     ],
+     "e_fin": [
+      -125,
+      -126
+     ],
+     "mag24": [
+      16137666,
+      16777213
+     ],
+     "r_s": [
+      0,
+      1099494885647
+     ],
+     "rsinv": [
+      0,
+      3923940
+     ],
+     "neg_inf": [
+      1,
+      0
+     ],
+     "neg_fin": [
+      1,
+      0
+     ],
+     "e_state": [
+      -125,
+      -126
+     ]
+    },
+    "changed_terms": {
+     "0": {
+      "aligned": [
+       32275332,
+       15235
+      ],
+      "r": [
+       0,
+       32260097
+      ],
+      "rinv": [
+       0,
+       67079329
+      ],
+      "signed": [
+       32275332,
+       15235
+      ]
+     },
+     "4": {
+      "aligned": [
+       0,
+       16384
+      ],
+      "r": [
+       2953216,
+       2953231
+      ],
+      "rinv": [
+       2953216,
+       2953231
+      ],
+      "signed": [
+       0,
+       16384
+      ]
+     },
+     "5": {
+      "aligned": [
+       0,
+       8437760
+      ],
+      "r": [
+       43453440,
+       43461165
+      ],
+      "rinv": [
+       43453440,
+       43461165
+      ]
+     }
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z227",
+   "target": "relation[ampere,p40]+RANGE(magW)",
+   "attack": "z3 whole group 1 with the repair RANGE(magW, W) added",
+   "status": "UNKNOWN",
+   "seconds": 20.007763385772705,
+   "case": "golden[138]:subnormal",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z228",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNKNOWN",
+   "seconds": 20.01597309112549,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z229",
+   "target": "relation[ampere,p40]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNKNOWN",
+   "seconds": 20.023895978927612,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z230",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "UNSAT",
+   "seconds": 1.9731850624084473,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z231",
+   "target": "relation[ampere,p40]+RANGE(magW)",
+   "attack": "z3 whole group 1 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 1.3810820579528809,
+   "case": "golden[85]:uniform_bits",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z232",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "SAT",
+   "seconds": 17.08167028427124,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": 1099511627791,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0xff800000",
+    "forged_output": "0xff800000",
+    "input": {
+     "acc": "0x0f0441a0",
+     "a": "29e5bb295e0aba81f59637f64a07adfc46ed669839f0064605cbbf9c1999abcf",
+     "b": "42da4a1d3b731df239aae86b1192bd90d532fe7f70213d783772cb53e2c7474d"
+    },
+    "changed_columns": {
+     "total": [
+      -26112000,
+      8409088
+     ],
+     "neg_t": [
+      1,
+      0
+     ],
+     "mag_t": [
+      26112000,
+      8409088
+     ],
+     "L": [
+      25,
+      24
+     ],
+     "normpow": [
+      32,
+      64
+     ],
+     "normB": [
+      835584000,
+      538181632
+     ],
+     "magW": [
+      26112000,
+      584132370439
+     ],
+     "r_n": [
+      0,
+      31
+     ],
+     "e_out": [
+      96,
+      95
+     ],
+     "e_fin": [
+      96,
+      95
+     ],
+     "mag24": [
+      13056000,
+      16777215
+     ],
+     "r_s": [
+      0,
+      584098816009
+     ],
+     "rsinv": [
+      0,
+      17720662656
+     ],
+     "neg_inf": [
+      1,
+      0
+     ],
+     "neg_fin": [
+      1,
+      0
+     ],
+     "e_state": [
+      96,
+      95
+     ]
+    },
+    "changed_terms": {
+     "0": {
+      "aligned": [
+       0,
+       34471936
+      ],
+      "r": [
+       17335104,
+       17366664
+      ],
+      "rinv": [
+       17335104,
+       17366664
+      ]
+     },
+     "2": {
+      "aligned": [
+       0,
+       67076096
+      ],
+      "r": [
+       27169792,
+       27231202
+      ],
+      "rinv": [
+       27169792,
+       27231202
+      ],
+      "signed": [
+       0,
+       67076096
+      ]
+     },
+     "3": {
+      "aligned": [
+       0,
+       49152
+      ],
+      "r": [
+       34338816,
+       34338861
+      ],
+      "rinv": [
+       34338816,
+       34338861
+      ]
+     },
+     "6": {
+      "aligned": [
+       0,
+       16384
+      ],
+      "r": [
+       59197440,
+       59197455
+      ],
+      "rinv": [
+       59197440,
+       59197455
+      ],
+      "signed": [
+       0,
+       16384
+      ]
+     },
+     "8": {
+      "aligned": [
+       0,
+       67092480
+      ],
+      "r": [
+       37158912,
+       37220337
+      ],
+      "rinv": [
+       37158912,
+       37220337
+      ]
+     }
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z233",
+   "target": "relation[ampere,p40]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "SAT",
+   "seconds": 18.088555097579956,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z234",
+   "target": "relation[ampere,p40]",
+   "attack": "z3 whole group 1: another output state",
+   "status": "SAT",
+   "seconds": 1.2887699604034424,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": 1099511627791,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0xff800000",
+    "forged_output": "0x7f800000",
+    "input": {
+     "acc": "0x0f0441a0",
+     "a": "29e5bb295e0aba81f59637f64a07adfc46ed669839f0064605cbbf9c1999abcf",
+     "b": "42da4a1d3b731df239aae86b1192bd90d532fe7f70213d783772cb53e2c7474d"
+    },
+    "changed_columns": {
+     "total": [
+      -39690240,
+      8396801
+     ],
+     "neg_t": [
+      1,
+      0
+     ],
+     "mag_t": [
+      39690240,
+      8396801
+     ],
+     "L": [
+      26,
+      24
+     ],
+     "normpow": [
+      16,
+      64
+     ],
+     "normB": [
+      635043840,
+      537395264
+     ],
+     "magW": [
+      19845120,
+      16793602
+     ],
+     "e_out": [
+      204,
+      202
+     ],
+     "e_fin": [
+      204,
+      202
+     ],
+     "mag24": [
+      9922560,
+      8396801
+     ],
+     "neg_inf": [
+      1,
+      0
+     ],
+     "neg_fin": [
+      1,
+      0
+     ],
+     "e_state": [
+      204,
+      202
+     ]
+    },
+    "changed_terms": {
+     "1": {
+      "aligned": [
+       0,
+       16384
+      ],
+      "r": [
+       43198464,
+       43198479
+      ],
+      "rinv": [
+       43198464,
+       43198479
+      ],
+      "signed": [
+       0,
+       16384
+      ]
+     },
+     "2": {
+      "aligned": [
+       39690240,
+       24575
+      ],
+      "r": [
+       0,
+       39665665
+      ],
+      "rinv": [
+       0,
+       67072549
+      ],
+      "signed": [
+       39690240,
+       24575
+      ]
+     },
+     "4": {
+      "aligned": [
+       0,
+       98304
+      ],
+      "r": [
+       50282496,
+       50282586
+      ],
+      "rinv": [
+       50282496,
+       50282586
+      ]
+     },
+     "5": {
+      "aligned": [
+       0,
+       8339456
+      ],
+      "r": [
+       50305024,
+       50312659
+      ],
+      "rinv": [
+       50305024,
+       50312659
+      ]
+     }
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z235",
+   "target": "relation[ampere,p40]+RANGE(magW)",
+   "attack": "z3 whole group 1 with the repair RANGE(magW, W) added",
+   "status": "UNKNOWN",
+   "seconds": 20.011064052581787,
+   "case": "golden[105]:uniform_bits",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z236",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.030093908309936523,
+   "case": "random[16]:kind0",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z237",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.029233217239379883,
+   "case": "random[16]:kind0",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z238",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.02731633186340332,
+   "case": "overflow_group0_then_negative",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z239",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.021197080612182617,
+   "case": "overflow_group0_then_negative",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z240",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.030362844467163086,
+   "case": "extreme_product_exponents",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z241",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.029783010482788086,
+   "case": "extreme_product_exponents",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z242",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.021255016326904297,
+   "case": "random[43]:kind3",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z243",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.024485111236572266,
+   "case": "random[43]:kind3",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z244",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.014781951904296875,
+   "case": "neg_zero_acc",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z245",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.013881206512451172,
+   "case": "neg_zero_acc",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z246",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 0.06033492088317871,
+   "case": "random[21]:kind1",
+   "detail": {
+    "field": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z247",
+   "target": "relation[hopper,Z]",
+   "attack": "z3 whole step (groups chained): another output state",
+   "status": "UNSAT",
+   "seconds": 0.06363797187805176,
+   "case": "random[21]:kind1",
+   "detail": {},
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::step_query"
+  },
+  {
+   "id": "Z248",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 22.0741970539093,
+   "case": "random[16]:kind0",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z249",
+   "target": "relation[hopper,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 20.30928683280945,
+   "case": "random[16]:kind0",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z250",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNSAT",
+   "seconds": 38.42365217208862,
+   "case": "overflow_group0_then_negative",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z251",
+   "target": "relation[hopper,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 33.16892719268799,
+   "case": "overflow_group0_then_negative",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z252",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "SAT",
+   "seconds": 14.320766925811768,
+   "case": "extreme_product_exponents",
+   "detail": {
+    "field": 18446744069414584321,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0x3d7f0000",
+    "forged_output": "0x3d7effff",
+    "input": {
+     "acc": "0x00000000",
+     "a": "7f7f000100800000000000000000000000000000000000000000000000000000",
+     "b": "00017f7f00800000000000000000000000000000000000000000000000000000"
+    },
+    "changed_columns": {
+     "magW": [
+      66846720,
+      18158513693396828160
+     ],
+     "r_n": [
+      0,
+      63
+     ],
+     "mag24": [
+      16711680,
+      16711679
+     ],
+     "r_s": [
+      0,
+      18158513693329981444
+     ],
+     "rsinv": [
+      0,
+      51808043008
+     ]
+    },
+    "changed_terms": {}
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z253",
+   "target": "relation[hopper,goldilocks]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNSAT",
+   "seconds": 15.623759031295776,
+   "case": "extreme_product_exponents",
+   "detail": {
+    "field": 18446744069414584321
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z254",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "UNKNOWN",
+   "seconds": 20.00961995124817,
+   "case": "random[16]:kind0",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z255",
+   "target": "relation[hopper,p40]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "UNKNOWN",
+   "seconds": 20.010292053222656,
+   "case": "random[16]:kind0",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z256",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "SAT",
+   "seconds": 1.7297358512878418,
+   "case": "overflow_group0_then_negative",
+   "detail": {
+    "field": 1099511627791,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0x00000000",
+    "forged_output": "0x7f800000",
+    "input": {
+     "acc": "0x7f7fffff",
+     "a": "7f7f000000000000000000000000000000000000000000000000000000007f7f",
+     "b": "7f7f00000000000000000000000000000000000000000000000000000000ff7f"
+    },
+    "changed_columns": {
+     "total": [
+      0,
+      133185536
+     ],
+     "mag_t": [
+      0,
+      133185536
+     ],
+     "L": [
+      0,
+      27
+     ],
+     "normpow": [
+      4294967296,
+      32
+     ],
+     "z_t": [
+      1,
+      0
+     ],
+     "normB": [
+      0,
+      4261937152
+     ],
+     "magW": [
+      0,
+      66592768
+     ],
+     "e_out": [
+      228,
+      255
+     ],
+     "e_fin": [
+      228,
+      255
+     ],
+     "mag24": [
+      0,
+      16646143
+     ],
+     "r_s": [
+      0,
+      8196
+     ],
+     "rsinv": [
+      0,
+      68719474816
+     ],
+     "z_out": [
+      1,
+      0
+     ],
+     "ovf_eff": [
+      0,
+      1
+     ],
+     "inf_out": [
+      0,
+      1
+     ],
+     "fin": [
+      1,
+      0
+     ],
+     "e_state": [
+      -133,
+      255
+     ]
+    },
+    "changed_terms": {
+     "2": {
+      "aligned": [
+       0,
+       8192
+      ],
+      "r": [
+       0,
+       15
+      ],
+      "rinv": [
+       0,
+       15
+      ]
+     },
+     "6": {
+      "aligned": [
+       0,
+       8192
+      ],
+      "r": [
+       0,
+       15
+      ],
+      "rinv": [
+       0,
+       15
+      ]
+     },
+     "14": {
+      "aligned": [
+       0,
+       134209536
+      ],
+      "r": [
+       0,
+       245745
+      ],
+      "rinv": [
+       0,
+       245745
+      ]
+     },
+     "16": {
+      "aligned": [
+       133171200,
+       134211584
+      ],
+      "r": [
+       0,
+       1099510587407
+      ],
+      "rinv": [
+       0,
+       1905
+      ],
+      "signed": [
+       133171200,
+       134211584
+      ]
+     }
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z257",
+   "target": "relation[hopper,p40]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "SAT",
+   "seconds": 11.187699794769287,
+   "case": "overflow_group0_then_negative",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "Z258",
+   "target": "relation[hopper,p40]",
+   "attack": "z3 whole group 0: another output state",
+   "status": "SAT",
+   "seconds": 17.018758058547974,
+   "case": "extreme_product_exponents",
+   "detail": {
+    "field": 1099511627791,
+    "replayed_through_check_step": true,
+    "violations": [],
+    "honest_output": "0x3d7f0000",
+    "forged_output": "0x397fffff",
+    "input": {
+     "acc": "0x00000000",
+     "a": "7f7f000100800000000000000000000000000000000000000000000000000000",
+     "b": "00017f7f00800000000000000000000000000000000000000000000000000000"
+    },
+    "changed_columns": {
+     "total": [
+      1044480,
+      17829888
+     ],
+     "mag_t": [
+      1044480,
+      17829888
+     ],
+     "L": [
+      20,
+      12
+     ],
+     "normpow": [
+      4096,
+      1048576
+     ],
+     "normB": [
+      4278190080,
+      4294967041
+     ],
+     "magW": [
+      66846720,
+      67108860
+     ],
+     "r_n": [
+      0,
+      1
+     ],
+     "e_out": [
+      -5,
+      -13
+     ],
+     "e_fin": [
+      -5,
+      -13
+     ],
+     "mag24": [
+      16711680,
+      16777215
+     ],
+     "e_state": [
+      -5,
+      -13
+     ]
+    },
+    "changed_terms": {
+     "9": {
+      "aligned": [
+       0,
+       16777216
+      ],
+      "r": [
+       0,
+       30720
+      ],
+      "rinv": [
+       0,
+       30720
+      ]
+     },
+     "16": {
+      "aligned": [
+       0,
+       8192
+      ],
+      "r": [
+       0,
+       15
+      ],
+      "rinv": [
+       0,
+       15
+      ]
+     }
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query + witness_from_model"
+  },
+  {
+   "id": "Z259",
+   "target": "relation[hopper,p40]+RANGE(magW)",
+   "attack": "z3 whole group 0 with the repair RANGE(magW, W) added",
+   "status": "SAT",
+   "seconds": 16.940437078475952,
+   "case": "extreme_product_exponents",
+   "detail": {
+    "field": 1099511627791
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::group_query(extra_ranges)"
+  },
+  {
+   "id": "F260",
+   "target": "relation[ampere,p40]",
+   "attack": "closed-form forgery: align",
+   "status": "SAT",
+   "seconds": 0.4883561134338379,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 1099511627791,
+    "accepted_wrong_output": 507,
+    "accepted_same_output": 284,
+    "rejected": 0,
+    "log2_threshold": 52,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f802000",
+     "term": 0,
+     "d": 0,
+     "aligned_honest": 16777216,
+     "aligned_forged": 16793600,
+     "k": 16384,
+     "r_forged": 1099511611407,
+     "rinv_forged": 15,
+     "missing_bound": "aligned * pow < 2^26 (p >= 2^52)"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_align"
+  },
+  {
+   "id": "F261",
+   "target": "relation[ampere,p40]",
+   "attack": "closed-form forgery: final",
+   "status": "SAT",
+   "seconds": 0.3680698871612549,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 1099511627791,
+    "accepted_wrong_output": 462,
+    "accepted_same_output": 44,
+    "rejected": 0,
+    "log2_threshold": 59,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f800020",
+     "mag24_honest": 8388608,
+     "mag24_forged": 8388640,
+     "k": 32,
+     "sh": 1,
+     "r_s_forged": 1099511627727,
+     "rsinv_forged": 15,
+     "missing_bound": "mag24 * pow_s < 2^25 (p >= 2^59)"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_final"
+  },
+  {
+   "id": "F262",
+   "target": "relation[ampere,p40]",
+   "attack": "closed-form forgery: norm",
+   "status": "SAT",
+   "seconds": 0.16659903526306152,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 1099511627791,
+    "accepted_wrong_output": 1,
+    "accepted_same_output": 3,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": {
+     "case": "golden[15]:randn_zero_acc",
+     "group": 1,
+     "input": {
+      "acc": "0x00000000",
+      "a": "3fa73f4dbf1d4000bdb0c011bf90be953b923f583f76bd854023be28bf97c016",
+      "b": "bf793e3f3fc63f58bd923f5e3fdbbf3dbefe3fd3bf2d3d7fbc3a3f8d3f73c006"
+     },
+     "honest_output": "0x3e870020",
+     "forged_output": "0x357fffc0",
+     "L_honest": 21,
+     "L_forged": 2,
+     "mag_t": 1105924,
+     "normB_forged": 1073737774,
+     "missing_bound": "mag_t * normpow < 2^30 (p >= 2^60)"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_leading_bit"
+  },
+  {
+   "id": "F263",
+   "target": "relation[ampere,p40]",
+   "attack": "closed-form forgery: split",
+   "status": "SAT",
+   "seconds": 0.35770702362060547,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 1099511627791,
+    "accepted_wrong_output": 483,
+    "accepted_same_output": 24,
+    "rejected": 0,
+    "log2_threshold": 59,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x36780000",
+     "r_n_honest": 0,
+     "r_n_forged": 1,
+     "magW_honest": 16777216,
+     "magW_forged": 515412852743,
+     "mag24_honest": 8388608,
+     "mag24_forged": 31,
+     "r_s_forged": 515412852681,
+     "rsinv_forged": 33818935311,
+     "missing_bound": "RANGE(magW, 25) -- magW is never range-checked"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_split"
+  },
+  {
+   "id": "F264",
+   "target": "relation[ampere,m61]",
+   "attack": "closed-form forgery: align",
+   "status": "UNSAT",
+   "seconds": 0.16446280479431152,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 2305843009213693951,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 52,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_align"
+  },
+  {
+   "id": "F265",
+   "target": "relation[ampere,m61]",
+   "attack": "closed-form forgery: final",
+   "status": "UNSAT",
+   "seconds": 0.16329693794250488,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 2305843009213693951,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 59,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_final"
+  },
+  {
+   "id": "F266",
+   "target": "relation[ampere,m61]",
+   "attack": "closed-form forgery: norm",
+   "status": "UNSAT",
+   "seconds": 0.16363286972045898,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 2305843009213693951,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_leading_bit"
+  },
+  {
+   "id": "F267",
+   "target": "relation[ampere,m61]",
+   "attack": "closed-form forgery: split",
+   "status": "SAT",
+   "seconds": 0.33305883407592773,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 2305843009213693951,
+    "accepted_wrong_output": 388,
+    "accepted_same_output": 41,
+    "rejected": 0,
+    "log2_threshold": 59,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f7ffffe",
+     "r_n_honest": 0,
+     "r_n_forged": 1,
+     "magW_honest": 16777216,
+     "magW_forged": 2233785415192543231,
+     "mag24_honest": 8388608,
+     "mag24_forged": 8388607,
+     "r_s_forged": 2233785415175766017,
+     "rsinv_forged": 33822867456,
+     "missing_bound": "RANGE(magW, 25) -- magW is never range-checked"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_split"
+  },
+  {
+   "id": "F268",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "closed-form forgery: align",
+   "status": "UNSAT",
+   "seconds": 0.16331911087036133,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 18446744069414584321,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 52,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_align"
+  },
+  {
+   "id": "F269",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "closed-form forgery: final",
+   "status": "UNSAT",
+   "seconds": 0.16036415100097656,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 18446744069414584321,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 59,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_final"
+  },
+  {
+   "id": "F270",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "closed-form forgery: norm",
+   "status": "UNSAT",
+   "seconds": 0.1649341583251953,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 18446744069414584321,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_leading_bit"
+  },
+  {
+   "id": "F271",
+   "target": "relation[ampere,goldilocks]",
+   "attack": "closed-form forgery: split",
+   "status": "SAT",
+   "seconds": 0.32158684730529785,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 18446744069414584321,
+    "accepted_wrong_output": 388,
+    "accepted_same_output": 41,
+    "rejected": 0,
+    "log2_threshold": 59,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f7ffffe",
+     "r_n_honest": 0,
+     "r_n_forged": 1,
+     "magW_honest": 16777216,
+     "magW_forged": 576460752185982976,
+     "mag24_honest": 8388608,
+     "mag24_forged": 8388607,
+     "r_s_forged": 576460752169205762,
+     "rsinv_forged": 33822867456,
+     "missing_bound": "RANGE(magW, 25) -- magW is never range-checked"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_split"
+  },
+  {
+   "id": "F272",
+   "target": "relation[ampere,m89]",
+   "attack": "closed-form forgery: align",
+   "status": "UNSAT",
+   "seconds": 0.1655712127685547,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 618970019642690137449562111,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 52,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_align"
+  },
+  {
+   "id": "F273",
+   "target": "relation[ampere,m89]",
+   "attack": "closed-form forgery: final",
+   "status": "UNSAT",
+   "seconds": 0.1606121063232422,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 618970019642690137449562111,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 59,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_final"
+  },
+  {
+   "id": "F274",
+   "target": "relation[ampere,m89]",
+   "attack": "closed-form forgery: norm",
+   "status": "UNSAT",
+   "seconds": 0.16482806205749512,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 618970019642690137449562111,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_leading_bit"
+  },
+  {
+   "id": "F275",
+   "target": "relation[ampere,m89]",
+   "attack": "closed-form forgery: split",
+   "status": "SAT",
+   "seconds": 0.32402801513671875,
+   "case": "435 cases / 870 groups",
+   "detail": {
+    "field": 618970019642690137449562111,
+    "accepted_wrong_output": 388,
+    "accepted_same_output": 41,
+    "rejected": 0,
+    "log2_threshold": 59,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f7ffffe",
+     "r_n_honest": 0,
+     "r_n_forged": 1,
+     "magW_honest": 16777216,
+     "magW_forged": 599627206528856070671040511,
+     "mag24_honest": 8388608,
+     "mag24_forged": 8388607,
+     "r_s_forged": 599627206528856070654263297,
+     "rsinv_forged": 33822867456,
+     "missing_bound": "RANGE(magW, 25) -- magW is never range-checked"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_split"
+  },
+  {
+   "id": "F276",
+   "target": "relation[hopper,p40]",
+   "attack": "closed-form forgery: align",
+   "status": "SAT",
+   "seconds": 0.03697776794433594,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 1099511627791,
+    "accepted_wrong_output": 42,
+    "accepted_same_output": 27,
+    "rejected": 0,
+    "log2_threshold": 54,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f800800",
+     "term": 0,
+     "d": 0,
+     "aligned_honest": 33554432,
+     "aligned_forged": 33562624,
+     "k": 8192,
+     "r_forged": 1099511619599,
+     "rinv_forged": 15,
+     "missing_bound": "aligned * pow < 2^27 (p >= 2^54)"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_align"
+  },
+  {
+   "id": "F277",
+   "target": "relation[hopper,p40]",
+   "attack": "closed-form forgery: final",
+   "status": "SAT",
+   "seconds": 0.025499820709228516,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 1099511627791,
+    "accepted_wrong_output": 36,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f800010",
+     "mag24_honest": 8388608,
+     "mag24_forged": 8388624,
+     "k": 16,
+     "sh": 2,
+     "r_s_forged": 1099511627727,
+     "rsinv_forged": 15,
+     "missing_bound": "mag24 * pow_s < 2^26 (p >= 2^60)"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_final"
+  },
+  {
+   "id": "F278",
+   "target": "relation[hopper,p40]",
+   "attack": "closed-form forgery: norm",
+   "status": "NOTE",
+   "seconds": 0.01561284065246582,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 1099511627791,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 7,
+    "rejected": 0,
+    "log2_threshold": 64,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_leading_bit"
+  },
+  {
+   "id": "F279",
+   "target": "relation[hopper,p40]",
+   "attack": "closed-form forgery: split",
+   "status": "SAT",
+   "seconds": 0.02529621124267578,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 1099511627791,
+    "accepted_wrong_output": 36,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f00000f",
+     "r_n_honest": 0,
+     "r_n_forged": 1,
+     "magW_honest": 33554432,
+     "magW_forged": 807487406091,
+     "mag24_honest": 8388608,
+     "mag24_forged": 15,
+     "r_s_forged": 807487406031,
+     "rsinv_forged": 68443176975,
+     "missing_bound": "RANGE(magW, 26) -- magW is never range-checked"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_split"
+  },
+  {
+   "id": "F280",
+   "target": "relation[hopper,m61]",
+   "attack": "closed-form forgery: align",
+   "status": "UNSAT",
+   "seconds": 0.013453006744384766,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 2305843009213693951,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 54,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_align"
+  },
+  {
+   "id": "F281",
+   "target": "relation[hopper,m61]",
+   "attack": "closed-form forgery: final",
+   "status": "UNSAT",
+   "seconds": 0.013344049453735352,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 2305843009213693951,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_final"
+  },
+  {
+   "id": "F282",
+   "target": "relation[hopper,m61]",
+   "attack": "closed-form forgery: norm",
+   "status": "UNSAT",
+   "seconds": 0.01371312141418457,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 2305843009213693951,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 64,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_leading_bit"
+  },
+  {
+   "id": "F283",
+   "target": "relation[hopper,m61]",
+   "attack": "closed-form forgery: split",
+   "status": "SAT",
+   "seconds": 0.019875049591064453,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 2305843009213693951,
+    "accepted_wrong_output": 18,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f7fffff",
+     "r_n_honest": 0,
+     "r_n_forged": 1,
+     "magW_honest": 33554432,
+     "magW_forged": 2269814212228284415,
+     "mag24_honest": 8388608,
+     "mag24_forged": 8388607,
+     "r_s_forged": 2269814212194729987,
+     "rsinv_forged": 68451041280,
+     "missing_bound": "RANGE(magW, 26) -- magW is never range-checked"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_split"
+  },
+  {
+   "id": "F284",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "closed-form forgery: align",
+   "status": "UNSAT",
+   "seconds": 0.01400613784790039,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 18446744069414584321,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 54,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_align"
+  },
+  {
+   "id": "F285",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "closed-form forgery: final",
+   "status": "UNSAT",
+   "seconds": 0.013491153717041016,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 18446744069414584321,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_final"
+  },
+  {
+   "id": "F286",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "closed-form forgery: norm",
+   "status": "UNSAT",
+   "seconds": 0.013555765151977539,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 18446744069414584321,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 64,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_leading_bit"
+  },
+  {
+   "id": "F287",
+   "target": "relation[hopper,goldilocks]",
+   "attack": "closed-form forgery: split",
+   "status": "SAT",
+   "seconds": 0.019075870513916016,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 18446744069414584321,
+    "accepted_wrong_output": 18,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f7fffff",
+     "r_n_honest": 0,
+     "r_n_forged": 1,
+     "magW_honest": 33554432,
+     "magW_forged": 288230376118157312,
+     "mag24_honest": 8388608,
+     "mag24_forged": 8388607,
+     "r_s_forged": 288230376084602884,
+     "rsinv_forged": 68451041280,
+     "missing_bound": "RANGE(magW, 26) -- magW is never range-checked"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_split"
+  },
+  {
+   "id": "F288",
+   "target": "relation[hopper,m89]",
+   "attack": "closed-form forgery: align",
+   "status": "UNSAT",
+   "seconds": 0.014664173126220703,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 618970019642690137449562111,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 54,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_align"
+  },
+  {
+   "id": "F289",
+   "target": "relation[hopper,m89]",
+   "attack": "closed-form forgery: final",
+   "status": "UNSAT",
+   "seconds": 0.013577938079833984,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 618970019642690137449562111,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_final"
+  },
+  {
+   "id": "F290",
+   "target": "relation[hopper,m89]",
+   "attack": "closed-form forgery: norm",
+   "status": "UNSAT",
+   "seconds": 0.013108015060424805,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 618970019642690137449562111,
+    "accepted_wrong_output": 0,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 64,
+    "example": null
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_leading_bit"
+  },
+  {
+   "id": "F291",
+   "target": "relation[hopper,m89]",
+   "attack": "closed-form forgery: split",
+   "status": "SAT",
+   "seconds": 0.01930403709411621,
+   "case": "71 cases / 71 groups",
+   "detail": {
+    "field": 618970019642690137449562111,
+    "accepted_wrong_output": 18,
+    "accepted_same_output": 0,
+    "rejected": 0,
+    "log2_threshold": 60,
+    "example": {
+     "case": "acc_only",
+     "group": 0,
+     "input": {
+      "acc": "0x3f800000",
+      "a": "0000000000000000000000000000000000000000000000000000000000000000",
+      "b": "0000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "honest_output": "0x3f800000",
+     "forged_output": "0x3f7fffff",
+     "r_n_honest": 0,
+     "r_n_forged": 1,
+     "magW_honest": 33554432,
+     "magW_forged": 609298613085773104085467135,
+     "mag24_honest": 8388608,
+     "mag24_forged": 8388607,
+     "r_s_forged": 609298613085773104051912707,
+     "rsinv_forged": 68451041280,
+     "missing_bound": "RANGE(magW, 26) -- magW is never range-checked"
+    }
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py::forge_split"
+  },
+  {
+   "id": "N292",
+   "target": "relation",
+   "attack": "census claim: 'a field of at least 40 bits' suffices",
+   "status": "NOTE",
+   "seconds": 0.0,
+   "case": "",
+   "detail": {
+    "unsupported": [
+     "aligned * pow = scaled - r with rinv < 2^A pins aligned only for p >= 2^(2A) (2^52 Ampere, 2^54 Hopper)",
+     "mag24 * pow_s = magW - r_s with rsinv < 2^K pins mag24 only for p >= 2^(24+K) (2^59 / 2^60)",
+     "normB = mag_t * normpow in the window pins L only for p >= 2^(2B) (2^60 / 2^64; Goldilocks by 2^32)",
+     "magW * 2^(B-W) + r_n = normB pins magW over no prime field: magW is never range-checked",
+     "'the range lookups are what pin a witness to the integers': false for magW, r (below 2^(2A)), r_s (below 2^(24+K))",
+     "'one extra limb split each' for a 31-bit field: soundness needs the factors split so that every partial product stays below p, not only the honest values",
+     "the census counts no decode of an arbitrary transition-unit accumulator c (the VU starts at the constant zero state; the backend transition unit does not)",
+     "test_every_column_is_constrained perturbs one column at a time over the integers; every finding here is a coordinated multi-column witness, three of them field-only"
+    ]
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/forge.py (module docstring)"
+  },
+  {
+   "id": "N293",
+   "target": "relation",
+   "attack": "witness non-uniqueness: neg_t is free when total = 0",
+   "status": "NOTE",
+   "seconds": 0.0,
+   "case": "",
+   "detail": {
+    "observable": false,
+    "why": "neg_fin = neg_t * (1 - z_out) and ovf_eff = ovf * (1 - z_t) both vanish"
+   },
+   "reproducer": "backends/numerical/python/verity_numerical/redteam/z3_relation.py::sign_query(total=0)"
+  }
+ ],
+ "counts": {
+  "NOTE": 15,
+  "PASS": 10,
+  "SAT": 38,
+  "UNKNOWN": 8,
+  "UNSAT": 222
+ }
+}

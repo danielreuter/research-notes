@@ -1,0 +1,1408 @@
+{
+ "schema": "redteam-vu/v1",
+ "lane": "red-team-vu",
+ "run_id": "r20260922-070024-e7d1",
+ "pod": "vy-cpu3",
+ "summary": {
+  "forged": [
+   "B/babybear/b_degree_bits_unbound",
+   "B/babybear/b_zero_batch_as_any_statement",
+   "B/goldilocks/b_degree_bits_unbound",
+   "B/goldilocks/b_zero_batch_as_any_statement",
+   "leaf_v2/systematic_leak"
+  ],
+  "counts": {
+   "UNSAT": 35,
+   "accept_by_design": 2,
+   "argued": 14,
+   "control_accepted": 3,
+   "forged": 5,
+   "open": 1
+  }
+ },
+ "findings": [
+  {
+   "id": "A/a_honest",
+   "target": "candidate A verity-gkr run-vu (Goldilocks, B=4)",
+   "attack": "untouched batch (control)",
+   "status": "control_accepted",
+   "evidence": {
+    "mechanism": "-",
+    "verdicts": {
+     "pcs": "Ok(())",
+     "clear": "Ok(())"
+    },
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/a/a_honest",
+   "fix_owner": null
+  },
+  {
+   "id": "A/a_splice",
+   "target": "candidate A verity-gkr run-vu (Goldilocks, B=4)",
+   "attack": "VU 1 unit 40: x.c := VU 0's y_39 = 0x3f261c67 (was 0xbe1a4e7f); units 40.. re-chained honestly; claimed word 0x4009 (true 0x3fab)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "linkage X[(1,k),c] - X[(1,k-1),y] = 0 (rho_geo-batched linear constraint in the Ligero opening)",
+    "verdicts": {
+     "pcs": "Err(\"ligero: linear functional value mismatch\")",
+     "clear": "Err(\"chain: VU 1 unit 40 incoming word differs from the previous outgoing word\")"
+    },
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/a/a_splice",
+   "fix_owner": null
+  },
+  {
+   "id": "A/a_epilogue_y32",
+   "target": "candidate A verity-gkr run-vu (Goldilocks, B=4)",
+   "attack": "VU 0 epilogue row generated from y32 = 0xbed20000 (true 0xbed13c6a); claimed word 0xbed2",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "linkage X_epi[0,y32] - X[(0,95),y] = 0",
+    "verdicts": {
+     "pcs": "Err(\"ligero: linear functional value mismatch\")",
+     "clear": "Err(\"chain: VU 0 epilogue input differs from the last word\")"
+    },
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/a/a_epilogue_y32",
+   "fix_owner": null
+  },
+  {
+   "id": "A/a_epilogue_claim",
+   "target": "candidate A verity-gkr run-vu (Goldilocks, B=4)",
+   "attack": "VU 0 epilogue hints honest for 0xbed13c6a, y16 column and public word = 0xbed2",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "epilogue circuit assertion y16 = hi + carry (GKR), not the linkage",
+    "verdicts": {
+     "pcs": "Err(\"assertions: phase-1 round 0 sum mismatch\")",
+     "clear": "Err(\"assertions: phase-1 round 0 sum mismatch\")"
+    },
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/a/a_epilogue_claim",
+   "fix_owner": null
+  },
+  {
+   "id": "A/a_public_word",
+   "target": "candidate A verity-gkr run-vu (Goldilocks, B=4)",
+   "attack": "public word of VU 0 = 0xbed0, witness honest for 0xbed1",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "endpoint X_epi[0,y16] = word_0",
+    "verdicts": {
+     "pcs": "Err(\"ligero: linear functional value mismatch\")",
+     "clear": "Err(\"chain: VU 0 output word differs from the public word\")"
+    },
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/a/a_public_word",
+   "fix_owner": null
+  },
+  {
+   "id": "A/a_swap_words",
+   "target": "candidate A verity-gkr run-vu (Goldilocks, B=4)",
+   "attack": "public words of VU 0 and VU 1 exchanged, witnesses honest",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "endpoint constraints of VU 0 and VU 1",
+    "verdicts": {
+     "pcs": "Err(\"ligero: linear functional value mismatch\")",
+     "clear": "Err(\"chain: VU 0 output word differs from the public word\")"
+    },
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/a/a_swap_words",
+   "fix_owner": null
+  },
+  {
+   "id": "A/a_c0_nonzero",
+   "target": "candidate A verity-gkr run-vu (Goldilocks, B=4)",
+   "attack": "VU 1 unit 0: x.c := VU 0's y32 = 0xbed13c6a; claimed word 0x3f6e (true 0x3fab)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "start constraint X[(1,0),c] = 0",
+    "verdicts": {
+     "pcs": "Err(\"ligero: linear functional value mismatch\")",
+     "clear": "Err(\"chain: VU 1 unit 0 incoming word differs from the previous outgoing word\")"
+    },
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/a/a_c0_nonzero",
+   "fix_owner": null
+  },
+  {
+   "id": "A/plus_p_shadow",
+   "target": "candidate A",
+   "attack": "accumulator handed over as c + p (BabyBear battery `chain` class)",
+   "status": "argued",
+   "evidence": {
+    "reason": "x.c and y are single Goldilocks columns holding a 32-bit word; c' = y + p is the same field element as y, so the BabyBear battery's `chain` class (accumulator handed over as c + j p) has no distinct witness. A non-word x.c (>= 2^32) is rejected by Fp32Decode's range checks (acc.t < 255 etc.) at witness generation."
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "A/rho_after_commitment",
+   "target": "candidate A chain batching",
+   "attack": "prover knows rho before committing",
+   "status": "argued",
+   "evidence": {
+    "reason": "start_transcript absorbs circuit hashes, unit counts, root (PCS) and public words; rho/geo are squeezed afterwards; add_chain then prove_open. Linear field term (401407)/2^192 = 2^-173.4."
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "A/statement_binding",
+   "target": "candidate A",
+   "attack": "proof for another circuit / smaller batch / other words",
+   "status": "argued",
+   "evidence": {
+    "absorbed": [
+     "domain tag verity-gkr/candidate-a/v1",
+     "segment circuit hashes",
+     "unit counts",
+     "Ligero root",
+     "steps",
+     "public y16 words"
+    ],
+    "not_absorbed": [
+     "LIGERO params (compile-time constants)"
+    ]
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_honest",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "two real VUs, untouched (control)",
+   "status": "control_accepted",
+   "evidence": {
+    "mechanism": "-",
+    "verifier": {
+     "accepted": true,
+     "error": null
+    },
+    "evaluator": {},
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_splice",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 1 unit 40: c_in := VU 0's y_39 = 0x3f261c67 (was 0xbe1a4e7f); units 40.. re-chained honestly (y32 0x4008e691); claim = cast 0x4009",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.link (transition): (1-first')(c_in' - y) = 0 at VU 1 row k",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.link[0]": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_vu95_drop",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0's row 95 removed; VU 1 follows step 94 directly",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_first (transition): first' = last, with last = 0 at step 94",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.next_first": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_vu95_lastflag",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 truncated to 95 rows with last := 1 on step 94 (inv honest for step 94)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.last_key: last (step - 95) = 0 and vu.last_def: (step-95) inv = 1 - last",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.last_def": 1,
+     "vu.last_key": 1,
+     "vu.out": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_vu97_dup",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0's last row duplicated (97 rows)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_first: after a last row the next row must have first = 1 (it has 0, step 95)",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.link[0]": 1,
+     "vu.next_first": 1,
+     "vu.next_step": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_vu97_step96",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row with step = 96 appended to VU 0 (its own row-local constraints hold: last = 0, inv = (96-95)^-1)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_first: the step-95 row has last = 1 so the next row needs first = 1 (step 96 row has first = 0)",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.next_first": 2
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_step_skip",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row 5 generated with step = 6 (inv, last honest for 6)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_step (transition): (1-first')(step' - step - 1) = 0",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.next_step": 2
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_restart_mid_vu",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 restarted at row 48 (first = 1, step = 0, c_in = 0), rows 49..95 honest for the restarted chain",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_first: row 47 has last = 0 so row 48 needs first = 0 (it has first = 1, step 0, c = 0)",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.next_first": 1,
+     "vu.next_step": 1,
+     "vu.out": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_first_flip",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row 50: first := 1 with step 50 and the honest (non-zero) c_in",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.first_step: first step = 0; vu.first_c: first c_in = 0; vu.next_first from row 49",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.first_c[0]": 1,
+     "vu.first_step": 1,
+     "vu.next_first": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_last_flip",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row 50: last := 1 with step 50",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.last_key: last (step - 95) = 0; vu.last_def",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.last_def": 1,
+     "vu.last_key": 1,
+     "vu.next_first": 1,
+     "vu.out": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_last_zero",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row 95: last := 0 (claim unbound)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.last_def: (step-95) inv = 1 - last with step = 95 forces last = 1",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.last_def": 1,
+     "vu.next_first": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_shared_last",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 1 = its rows 0..94 followed by VU 0's last row (its claim and epilogue are VU 0's)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.link: VU 0's last row has c_in = VU 0's y_94, not VU 1's y_94",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.link[0]": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_claim_last",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 last row claim 0xbed1 -> 0xbed0",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.out: last (y16 - claim) = 0",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.out": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_claim_free_nonlast",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 rows 0..94: claim := 0x1234",
+   "status": "reject",
+   "evidence": {
+    "mechanism": "vu.claim is read only on last rows (PROTOCOL B 12.4)",
+    "verifier": {
+     "accepted": true,
+     "error": null
+    },
+    "evaluator": {},
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null,
+   "note_2026_09_22": "statement binding checks the claim column at every row (public column): a free non-last claim cell now fails BoundError::StatementColumn; was accept_by_design"
+  },
+  {
+   "id": "B/goldilocks/b_nonword_c",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 row 1: x.c := c_1 + 2^32 = 0x1be110ed2",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "x.c range (32-bit word) and vu.link",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "acc.s": 1,
+     "vu.link[0]": 2,
+     "x.c.limbs": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_c0_nonword",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 row 0: x.c := 2^32",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.first_c[0]: first c = 0; x.c range",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "acc.s": 1,
+     "vu.first_c[0]": 1,
+     "x.c.limbs": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/goldilocks/b_degree_bits_unbound",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "honest 2-VU trace (256 rows) verified by the verifier configured for log_n = 19 (B = 4096)",
+   "status": "fixed",
+   "evidence": {
+    "mechanism": "uni-stark 0.4.3 verify reads degree_bits from the PROOF; log_n is only an upper bound for the PCS",
+    "verifier": {
+     "accepted": true,
+     "error": null
+    },
+    "evaluator": {},
+    "log_n_proved": 8,
+    "log_n_verified": 19,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": "direct (B)",
+   "fix": {
+    "commit": "3fe85aa",
+    "lane": "soundness-fixes",
+    "finding": "F2",
+    "check": "BoundError::DegreeBits{expected:19, got:8}",
+    "pin": "backends/direct/tests/chain.rs::statement_suite + vu-battery-b (run_battery.sh exit 0)"
+   }
+  },
+  {
+   "id": "B/goldilocks/b_zero_batch_as_any_statement",
+   "target": "candidate B verity-direct ChainAir (goldilocks, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "two zero VUs (a = b = 0, y16 = 0) proved and verified as if they were the two real VUs",
+   "status": "fixed",
+   "evidence": {
+    "mechanism": "no public values: the verifier is not given (a, b, y16); any satisfying trace is a proof of every statement",
+    "verifier": {
+     "accepted": true,
+     "error": null
+    },
+    "evaluator": {},
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": "direct (B)",
+   "fix": {
+    "commit": "3fe85aa",
+    "lane": "soundness-fixes",
+    "finding": "F1",
+    "check": "BoundError::StatementColumn{column: claim, name: \"claim\"}",
+    "pin": "backends/direct/tests/chain.rs::statement_suite + vu-battery-b (run_battery.sh exit 0)"
+   }
+  },
+  {
+   "id": "B/babybear/b_honest",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "two real VUs, untouched (control)",
+   "status": "control_accepted",
+   "evidence": {
+    "mechanism": "-",
+    "verifier": {
+     "accepted": true,
+     "error": null
+    },
+    "evaluator": {},
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_splice",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 1 unit 40: c_in := VU 0's y_39 = 0x3f261c67 (was 0xbe1a4e7f); units 40.. re-chained honestly (y32 0x4008e691); claim = cast 0x4009",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.link (transition): (1-first')(c_in' - y) = 0 at VU 1 row k",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.link[0]": 1,
+     "vu.link[1]": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_vu95_drop",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0's row 95 removed; VU 1 follows step 94 directly",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_first (transition): first' = last, with last = 0 at step 94",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.next_first": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_vu95_lastflag",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 truncated to 95 rows with last := 1 on step 94 (inv honest for step 94)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.last_key: last (step - 95) = 0 and vu.last_def: (step-95) inv = 1 - last",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.last_def": 1,
+     "vu.last_key": 1,
+     "vu.out": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_vu97_dup",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0's last row duplicated (97 rows)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_first: after a last row the next row must have first = 1 (it has 0, step 95)",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.link[0]": 1,
+     "vu.link[1]": 1,
+     "vu.next_first": 1,
+     "vu.next_step": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_vu97_step96",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row with step = 96 appended to VU 0 (its own row-local constraints hold: last = 0, inv = (96-95)^-1)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_first: the step-95 row has last = 1 so the next row needs first = 1 (step 96 row has first = 0)",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.next_first": 2
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_step_skip",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row 5 generated with step = 6 (inv, last honest for 6)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_step (transition): (1-first')(step' - step - 1) = 0",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.next_step": 2
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_restart_mid_vu",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 restarted at row 48 (first = 1, step = 0, c_in = 0), rows 49..95 honest for the restarted chain",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.next_first: row 47 has last = 0 so row 48 needs first = 0 (it has first = 1, step 0, c = 0)",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.next_first": 1,
+     "vu.next_step": 1,
+     "vu.out": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_first_flip",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row 50: first := 1 with step 50 and the honest (non-zero) c_in",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.first_step: first step = 0; vu.first_c: first c_in = 0; vu.next_first from row 49",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.first_c[0]": 1,
+     "vu.first_c[1]": 1,
+     "vu.first_step": 1,
+     "vu.next_first": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_last_flip",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row 50: last := 1 with step 50",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.last_key: last (step - 95) = 0; vu.last_def",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.last_def": 1,
+     "vu.last_key": 1,
+     "vu.next_first": 1,
+     "vu.out": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_last_zero",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "row 95: last := 0 (claim unbound)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.last_def: (step-95) inv = 1 - last with step = 95 forces last = 1",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.last_def": 1,
+     "vu.next_first": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_shared_last",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 1 = its rows 0..94 followed by VU 0's last row (its claim and epilogue are VU 0's)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.link: VU 0's last row has c_in = VU 0's y_94, not VU 1's y_94",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.link[0]": 1,
+     "vu.link[1]": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_claim_last",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 last row claim 0xbed1 -> 0xbed0",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.out: last (y16 - claim) = 0",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.out": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_claim_free_nonlast",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 rows 0..94: claim := 0x1234",
+   "status": "reject",
+   "evidence": {
+    "mechanism": "vu.claim is read only on last rows (PROTOCOL B 12.4)",
+    "verifier": {
+     "accepted": true,
+     "error": null
+    },
+    "evaluator": {},
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null,
+   "note_2026_09_22": "statement binding checks the claim column at every row (public column): a free non-last claim cell now fails BoundError::StatementColumn; was accept_by_design"
+  },
+  {
+   "id": "B/babybear/b_shadow_plus_p",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 row 1: x.c limbs := limbs of c_1 + p = 0x136110ed3 (c_1 = 0xbe110ed2); hi = 0x13611, lo = 0xed3; downstream hints honest for the limbs",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.link[0]/[1] are limb-wise (c_hi' = y_hi, c_lo' = y_lo); x.c_hi range (16 bits) when c + p >= 2^32",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "acc.s": 1,
+     "vu.link[0]": 2,
+     "vu.link[1]": 2,
+     "x.c_hi.limbs": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_c0_shadow_p",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "VU 0 row 0: x.c limbs := limbs of p = (0x7800, 0x1), i.e. the word p == 0 (mod p)",
+   "status": "UNSAT",
+   "evidence": {
+    "mechanism": "vu.first_c[0], vu.first_c[1]: first c_hi = first c_lo = 0 (limb-wise)",
+    "verifier": {
+     "accepted": false,
+     "error": "OodEvaluationMismatch"
+    },
+    "evaluator": {
+     "vu.first_c[0]": 1,
+     "vu.first_c[1]": 1,
+     "vu.link[0]": 1,
+     "vu.link[1]": 1
+    },
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "B/babybear/b_degree_bits_unbound",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "honest 2-VU trace (256 rows) verified by the verifier configured for log_n = 19 (B = 4096)",
+   "status": "fixed",
+   "evidence": {
+    "mechanism": "uni-stark 0.4.3 verify reads degree_bits from the PROOF; log_n is only an upper bound for the PCS",
+    "verifier": {
+     "accepted": true,
+     "error": null
+    },
+    "evaluator": {},
+    "log_n_proved": 8,
+    "log_n_verified": 19,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": "direct (B)",
+   "fix": {
+    "commit": "3fe85aa",
+    "lane": "soundness-fixes",
+    "finding": "F2",
+    "check": "BoundError::DegreeBits{expected:19, got:8}",
+    "pin": "backends/direct/tests/chain.rs::statement_suite + vu-battery-b (run_battery.sh exit 0)"
+   }
+  },
+  {
+   "id": "B/babybear/b_zero_batch_as_any_statement",
+   "target": "candidate B verity-direct ChainAir (babybear, Plonky3 uni-stark 0.4.3, FRI q=100)",
+   "attack": "two zero VUs (a = b = 0, y16 = 0) proved and verified as if they were the two real VUs",
+   "status": "fixed",
+   "evidence": {
+    "mechanism": "no public values: the verifier is not given (a, b, y16); any satisfying trace is a proof of every statement",
+    "verifier": {
+     "accepted": true,
+     "error": null
+    },
+    "evaluator": {},
+    "log_n_proved": 8,
+    "log_n_verified": 8,
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/vu_battery_b_r20260922-070024-e7d1.json",
+   "fix_owner": "direct (B)",
+   "fix": {
+    "commit": "3fe85aa",
+    "lane": "soundness-fixes",
+    "finding": "F1",
+    "check": "BoundError::StatementColumn{column: claim, name: \"claim\"}",
+    "pin": "backends/direct/tests/chain.rs::statement_suite + vu-battery-b (run_battery.sh exit 0)"
+   }
+  },
+  {
+   "id": "B/step_wrap",
+   "target": "candidate B",
+   "attack": "step counter 95 + p",
+   "status": "argued",
+   "evidence": {
+    "reason": "the same field element as 95; not a distinct trace"
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "B/weak_fiat_shamir_openings",
+   "target": "candidate B (Plonky3 0.4.3)",
+   "attack": "alpha and FRI query indices sampled without absorbing the openings at zeta, degree_bits or public values",
+   "status": "argued",
+   "evidence": {
+    "reason": "claimed values enter the reduced openings through 2 scalars per query set; 100 queries -> 100 equations in 2 unknowns; not forgeable by this route; checklist violation, take upstream fix",
+    "source": [
+     "p3-uni-stark-0.4.3-succinct/src/verifier.rs:57-61",
+     "p3-fri-0.4.3-succinct/src/two_adic_pcs.rs:330",
+     "p3-fri-0.4.3-succinct/src/verifier.rs:27-60"
+    ]
+   },
+   "fixture": null,
+   "fix_owner": null,
+   "note_2026_09_22": "F3 partial: header (field, AIR id, layout width, ext degree, FRI params, degree_bits, B, K, words hash, operands hash) absorbed before any challenge (3fe85aa); openings still not absorbed before alpha/queries: inside p3-fri 0.4.3 verify_shape_and_sample_challenges, needs a p3-fri patch (residual documented PROTOCOL.md 12.5)"
+  },
+  {
+   "id": "B/challenger_fork",
+   "target": "candidate B FixedSerializingChallenger64<Goldilocks>",
+   "attack": "zero-challenge bug (upstream) / uniformity of the fix",
+   "status": "UNSAT",
+   "evidence": {
+    "audit": [
+     {
+      "challenger": "FixedSerializingChallenger64<Goldilocks> (backends/direct/src/challenger.rs)",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 10.65536,
+      "chi2_low_byte_256": 252.4774400000003,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 100000,
+      "uniform": true,
+      "zeros": 0
+     },
+     {
+      "challenger": "SerializingChallenger32<BabyBear> (p3-challenger 0.4.3-succinct, unmodified)",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 18.04608,
+      "chi2_low_byte_256": 231.42400000000012,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 100000,
+      "uniform": true,
+      "zeros": 0
+     },
+     {
+      "challenger": "UPSTREAM SerializingChallenger64<Goldilocks> (p3-challenger 0.4.3-succinct, the bug)",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 15000.0,
+      "chi2_low_byte_256": 255000.0,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 1000,
+      "uniform": false,
+      "zeros": 1000
+     },
+     {
+      "challenger": "Fixed challenger, Goldilocks^2 coordinate 0",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 14.069759999999999,
+      "chi2_low_byte_256": 234.81855999999982,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 50000,
+      "uniform": true,
+      "zeros": 0
+     },
+     {
+      "challenger": "Fixed challenger, Goldilocks^2 coordinate 1",
+      "chi2_16_999_quantile": 37.7,
+      "chi2_16_buckets_of_[0,p)": 7.04,
+      "chi2_low_byte_256": 256.896,
+      "chi2_low_byte_999_quantile": 330.5,
+      "out_of_range": 0,
+      "samples": 50000,
+      "uniform": true,
+      "zeros": 0
+     },
+     {
+      "check": "ext coordinates equal",
+      "count": 0,
+      "of": 50000
+     }
+    ],
+    "run_id": "r20260922-070024-e7d1"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/challenger_audit_r20260922-070024-e7d1.json",
+   "fix_owner": null
+  },
+  {
+   "id": "A/ligero_params",
+   "target": "candidate A ligero.rs",
+   "attack": "parameters actually used vs accountant",
+   "status": "argued",
+   "evidence": {
+    "k": 4096,
+    "n": 16384,
+    "t": 192,
+    "l": 4096,
+    "challenge_field_bits": 192,
+    "e": 6144,
+    "irs_query_bits": 130.2,
+    "linear_query_bits": 192,
+    "irs_field_bits": 178,
+    "linear_field_powers_bits": 173.4,
+    "total_bits": 130.2,
+    "mismatch": "ligero::row_coeffs uses powers of one challenge for the IRS combination; accounting.ligero_error assumes uniform IRS coefficients. Geometric analysis (BCIKS20 curves) gives rows*(n+1)/2^192 ~ 2^-162 at B=4096: immaterial, but the accountant's row must say so."
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "ZK/pole_redraw",
+   "target": "ZK_CONSTRUCTION 3.4",
+   "attack": "conditioned pole-redraw under HM96 coins: grinding",
+   "status": "argued",
+   "evidence": {
+    "rule": "S=2 committed slots per table; use the first with z not in Img_T over the public table; both in Img_T -> public abort",
+    "bound": "z uniform over F_c \\ Img_T; pole term |T|/(|F_c|-|T|); completeness loss (|T|/|F_c|)^2 <= 2^-220",
+    "attack": "none: prover cannot see coins; verifier pre-committing z = T(beta) hits Img_T for every honest witness and is redrawn"
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "ZK/abort_leakage",
+   "target": "ZK_CONSTRUCTION 3.2",
+   "attack": "malicious verifier aborting at chosen rounds across sessions",
+   "status": "argued",
+   "evidence": {
+    "result": "no leak given per-session fresh randomness and per-session Ligero budget; the only leak is randomizer reuse (= leaf/v2 F3/F4)",
+    "open": "Goldreich-Kahan estimate step for p_abort near 1 missing from the sketch (proof gap)"
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "ZK/prg_seed",
+   "target": "ZK_CONSTRUCTION 7.5",
+   "attack": "seed handling",
+   "status": "open",
+   "evidence": {
+    "note": "no GPU PRG exists to audit; leaf_v2 reference derives randomizers from a per-commitment seed (reused across proofs by construction); zk_reference draws per session"
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "ZK/b_air_fs_domain_separation",
+   "target": "candidate B Fiat-Shamir",
+   "attack": "which bytes",
+   "status": "argued",
+   "evidence": {
+    "chain": "HashChallenger<u8,Keccak256,32>: raw bytes appended, out = Keccak(input); input := out",
+    "order": [
+     "trace_commit",
+     "alpha",
+     "quotient_commit",
+     "zeta",
+     "pcs alpha",
+     "per fold: commit, beta",
+     "final_poly",
+     "pow witness + sample_bits(16)",
+     "100 x sample_bits(log_max_height)"
+    ],
+    "never_absorbed": [
+     "degree_bits",
+     "AIR identity/width",
+     "FRI params",
+     "public values",
+     "openings at zeta"
+    ],
+    "no_length_prefix_or_tags": true
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "leaf_v2/systematic_leak",
+   "target": "leaf/v2 LEAF_V2.md 5, reference/leaf_v2.py",
+   "attack": "hiding: opened systematic columns are payload words in the clear",
+   "status": "fixed",
+   "evidence": {
+    "demo": {
+     "session": 1,
+     "union_columns": 48,
+     "randomizer_rank": 37,
+     "payload_relations": 11,
+     "payload_words_in_clear": 11,
+     "clear_words_verified_equal_payload": true,
+     "true_payload_consistent": true,
+     "one_bit_off_payload_consistent": true,
+     "oracle": false
+    },
+    "campaign": {
+     "t": 191,
+     "systematic_fraction_of_columns": 0.234375,
+     "expected_clear_words_per_row_per_proof": 44.77,
+     "expected_clear_words_per_chunk_per_proof": 2865.0,
+     "prob_no_clear_word_in_a_proof": 7.031957779383679e-23,
+     "budget_irrelevant": true
+    },
+    "reason": "message positions (n/k) j lie in the evaluation domain; Lemma 4.15 needs them disjoint from the opened positions"
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/leaf_v2_exhaustion.json",
+   "fix_owner": "auth (leaf/v2)",
+   "fix": {
+    "commit": "7232e27",
+    "lane": "soundness-fixes",
+    "finding": "F4",
+    "change": "codeword on coset 31*H_n disjoint from H_k (non-systematic); code_text gains /coset=31",
+    "pin": "backends/numerical/tests/reference/test_leaf_v2.py::test_no_opened_column_is_a_payload_word; redteam.leaf_v2_exhaustion payload_words_in_clear == 0"
+   }
+  },
+  {
+   "id": "leaf_v2/randomizer_exhaustion",
+   "target": "leaf/v2",
+   "attack": "2nd proof on the same commitment",
+   "status": "argued",
+   "evidence": {
+    "demo_sessions": [
+     {
+      "session": 1,
+      "union_columns": 48,
+      "randomizer_rank": 37,
+      "payload_relations": 11,
+      "payload_words_in_clear": 11,
+      "clear_words_verified_equal_payload": true,
+      "true_payload_consistent": true,
+      "one_bit_off_payload_consistent": true,
+      "oracle": false
+     },
+     {
+      "session": 2,
+      "union_columns": 90,
+      "randomizer_rank": 64,
+      "payload_relations": 26,
+      "payload_words_in_clear": 21,
+      "clear_words_verified_equal_payload": true,
+      "true_payload_consistent": true,
+      "one_bit_off_payload_consistent": false,
+      "oracle": true
+     },
+     {
+      "session": 3,
+      "union_columns": 136,
+      "randomizer_rank": 64,
+      "payload_relations": 72,
+      "payload_words_in_clear": 33,
+      "clear_words_verified_equal_payload": true,
+      "true_payload_consistent": true,
+      "one_bit_off_payload_consistent": false,
+      "oracle": true
+     },
+     {
+      "session": 4,
+      "union_columns": 178,
+      "randomizer_rank": 64,
+      "payload_relations": 114,
+      "payload_words_in_clear": 43,
+      "clear_words_verified_equal_payload": true,
+      "true_payload_consistent": true,
+      "one_bit_off_payload_consistent": false,
+      "oracle": true
+     },
+     {
+      "session": 5,
+      "union_columns": 218,
+      "randomizer_rank": 64,
+      "payload_relations": 154,
+      "payload_words_in_clear": 50,
+      "clear_words_verified_equal_payload": true,
+      "true_payload_consistent": true,
+      "one_bit_off_payload_consistent": false,
+      "oracle": true
+     },
+     {
+      "session": 6,
+      "union_columns": 250,
+      "randomizer_rank": 64,
+      "payload_relations": 186,
+      "payload_words_in_clear": 55,
+      "clear_words_verified_equal_payload": true,
+      "true_payload_consistent": true,
+      "one_bit_off_payload_consistent": false,
+      "oracle": true
+     }
+    ],
+    "campaign_projection": [
+     {
+      "sessions": 1,
+      "expected_union": 191.0,
+      "payload_relations_F_p": 0.0,
+      "leaked_bits_per_row": 0.0,
+      "payload_bits_per_row": 61440,
+      "fraction": 0.0,
+      "full_recovery": false
+     },
+     {
+      "sessions": 2,
+      "expected_union": 379.8,
+      "payload_relations_F_p": 123.8,
+      "leaked_bits_per_row": 3825.5,
+      "payload_bits_per_row": 61440,
+      "fraction": 0.0623,
+      "full_recovery": false
+     },
+     {
+      "sessions": 3,
+      "expected_union": 566.3,
+      "payload_relations_F_p": 310.3,
+      "leaked_bits_per_row": 9591.8,
+      "payload_bits_per_row": 61440,
+      "fraction": 0.1561,
+      "full_recovery": false
+     },
+     {
+      "sessions": 4,
+      "expected_union": 750.7,
+      "payload_relations_F_p": 494.7,
+      "leaked_bits_per_row": 15291.0,
+      "payload_bits_per_row": 61440,
+      "fraction": 0.2489,
+      "full_recovery": false
+     },
+     {
+      "sessions": 5,
+      "expected_union": 933.0,
+      "payload_relations_F_p": 677.0,
+      "leaked_bits_per_row": 20923.7,
+      "payload_bits_per_row": 61440,
+      "fraction": 0.3406,
+      "full_recovery": false
+     },
+     {
+      "sessions": 6,
+      "expected_union": 1113.1,
+      "payload_relations_F_p": 857.1,
+      "leaked_bits_per_row": 26490.8,
+      "payload_bits_per_row": 61440,
+      "fraction": 0.4312,
+      "full_recovery": false
+     },
+     {
+      "sessions": 25,
+      "expected_union": 4163.1,
+      "payload_relations_F_p": 3907.1,
+      "leaked_bits_per_row": 120755.3,
+      "payload_bits_per_row": 61440,
+      "fraction": 1.9654,
+      "full_recovery": true
+     }
+    ]
+   },
+   "fixture": "fixtures/redteam/vu-battery/v1/leaf_v2_exhaustion.json",
+   "fix_owner": "auth (leaf/v2)",
+   "note_2026_09_22": "stays true after the coset fix (oracle from session 2 at reduced code); fix is per-session re-randomisation: protocol owner decision (LEAF_V2.md 6)"
+  },
+  {
+   "id": "leaf_v2/digest_binding",
+   "target": "leaf/v2",
+   "attack": "two tensors with one digest",
+   "status": "argued",
+   "evidence": {
+    "reason": "digest = H(id|dtype|shape|code|chunk roots); roots over H(chunk,column,bytes) leaves; IRS unique decoding e=6144, (1-e/n)^191 = 2^-129.5; binding is to the decoded payload of the nearest codeword"
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "leaf_v2/malleability",
+   "target": "leaf/v2",
+   "attack": "add a codeword to the leaf",
+   "status": "argued",
+   "evidence": {
+    "reason": "column-wise Merkle with (chunk,column) in the preimage: any row change changes the root/digest"
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "leaf_v2/cross_tensor",
+   "target": "leaf/v2",
+   "attack": "canonical id / dtype / shape confusion",
+   "status": "argued",
+   "evidence": {
+    "reason": "all in the digest preimage; PRG keyed by id|row; the proof names the tensor only by digest -> the host statement must carry it (F1 for B)"
+   },
+   "fixture": null,
+   "fix_owner": null
+  },
+  {
+   "id": "leaf_v2/no_byte_hash",
+   "target": "leaf/v2",
+   "attack": "verifier needs no byte-hash equality",
+   "status": "argued",
+   "evidence": {
+    "reason": "true; it needs the chunk roots absorbed into the host transcript and the digest in the host statement"
+   },
+   "fixture": null,
+   "fix_owner": null
+  }
+ ],
+ "fixes_2026_09_22": {
+  "lane": "soundness-fixes",
+  "F1_F2_F3_commit": "3fe85aa",
+  "F4_commit": "7232e27",
+  "gate_run": "r20260922-073904-7a6c"
+ }
+}

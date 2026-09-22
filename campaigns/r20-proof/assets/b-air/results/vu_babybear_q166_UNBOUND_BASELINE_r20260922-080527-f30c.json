@@ -1,0 +1,223 @@
+{
+  "artifacts": [],
+  "measurement_files": [],
+  "measurements": [
+    {
+      "name": "t.witness",
+      "unit": "s",
+      "value": 47.501971826
+    },
+    {
+      "name": "t.joint.encoding_commitment+arithmetic",
+      "unit": "s",
+      "value": 437.846858158
+    },
+    {
+      "name": "t.serialization",
+      "unit": "s",
+      "value": 0.006878906
+    },
+    {
+      "name": "t.total",
+      "unit": "s",
+      "value": 485.35570888999996
+    },
+    {
+      "name": "verifier.seconds",
+      "unit": "s",
+      "value": 0.50167397
+    },
+    {
+      "name": "transcript.bytes",
+      "unit": "B",
+      "value": 3453676
+    },
+    {
+      "name": "rounds.protocol",
+      "unit": "count",
+      "value": 24
+    },
+    {
+      "name": "rounds.sequential_depth",
+      "unit": "count",
+      "value": 24
+    },
+    {
+      "name": "mem.peak_host_bytes",
+      "unit": "B",
+      "value": 30595670016
+    },
+    {
+      "name": "census.committed_elements",
+      "unit": "count",
+      "value": 1528823808
+    },
+    {
+      "name": "census.witness_elements",
+      "unit": "count",
+      "value": 1520435200
+    },
+    {
+      "name": "vu.count",
+      "unit": "count",
+      "value": 4096
+    },
+    {
+      "name": "vu.seconds_per_vu",
+      "unit": "s",
+      "value": 0.11849504611572265
+    },
+    {
+      "name": "vu.per_second",
+      "unit": "1/s",
+      "value": 8.439171364374142
+    },
+    {
+      "name": "overhead.vs_native_peak",
+      "unit": "ratio",
+      "value": 12034653121.128082
+    },
+    {
+      "name": "direct.vus",
+      "unit": "count",
+      "value": 4096
+    },
+    {
+      "name": "direct.rows",
+      "unit": "count",
+      "value": 524288
+    },
+    {
+      "name": "direct.rows_real",
+      "unit": "count",
+      "value": 393216
+    },
+    {
+      "name": "direct.width",
+      "unit": "count",
+      "value": 2900
+    },
+    {
+      "name": "direct.trace_cells",
+      "unit": "count",
+      "value": 1520435200
+    },
+    {
+      "name": "direct.quotient_cells",
+      "unit": "count",
+      "value": 8388608
+    },
+    {
+      "name": "direct.committed_cells_per_vu",
+      "unit": "count",
+      "value": 278400
+    },
+    {
+      "name": "direct.committed_bytes_per_vu",
+      "unit": "B",
+      "value": 1113600
+    },
+    {
+      "name": "direct.threads",
+      "unit": "count",
+      "value": 16
+    },
+    {
+      "name": "direct.prove_s",
+      "unit": "s",
+      "value": 437.846858158
+    },
+    {
+      "name": "direct.verify_s",
+      "unit": "s",
+      "value": 0.50167397
+    },
+    {
+      "name": "direct.fri_bits_proven",
+      "unit": "bits",
+      "value": 128.55993624869785
+    },
+    {
+      "name": "direct.fri_bits_conjectured",
+      "unit": "bits",
+      "value": 348.0
+    },
+    {
+      "name": "direct.fri_queries_for_128_proven",
+      "unit": "count",
+      "value": 166
+    }
+  ],
+  "run_id": "r20260922-080527-f30c",
+  "schema": "research/result/v0.1",
+  "validation": {
+    "checker": "p3_uni_stark::verify (UNBOUND baseline) + recorded accumulators",
+    "detail": "proof verified; 4096 VUs x 96 steps in 524288 rows; every intermediate accumulator and output word equals bench-instances/v1",
+    "evidence": [],
+    "index_note": "real rows: seed = index into `seeds` (the activation row's seed; seeds/seeds.json gives layer/op/phase/N), j = the weight row of that layer/op ('seed' tag: j is the seed's own, y is hardware-confirmed); corner rows: tags[1] is the family, params the generator parameters",
+    "status": "passed"
+  },
+  "workload_fingerprint": {
+    "B": 4096,
+    "K": 1536,
+    "N_subbatches": 1,
+    "authentication": "excluded",
+    "constraints": "WP2 gadget contracts + Epilogue as direct AIR constraints, one row per transition unit, accumulator carried by a transition constraint, VU boundary by a step counter; range checks as 2-bit limbs, fixed tables as one-hot selectors; no lookup argument",
+    "domain": "finite",
+    "hardware": {
+      "cpu": {
+        "count": 16,
+        "model": "AMD EPYC 7713 64-Core Processor"
+      },
+      "gpu": null
+    },
+    "instances": {
+      "dataset": "bench-instances/v1",
+      "manifest_sha256": "38fb2c3a0853bafcb59c9fe0c7862c75e66feb86221f57147826a043a02d6763",
+      "range": [
+        0,
+        4096
+      ],
+      "tier": "vu-k1536"
+    },
+    "note": "TIMING BASELINE: pre-fix unbound path (no statement); Plonky3 FRI/Keccak diagnostic PCS",
+    "preprocessing": "none",
+    "profile": "first-campaign-target/2026-09-21",
+    "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+    "retention": "retained",
+    "scope": "vu",
+    "security": {
+      "challenge_bits": 124,
+      "challenge_field": "babybear^4",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 166,
+        "proof_of_work_bits": 16
+      },
+      "fri_bits_conjectured_bound": 348.0,
+      "fri_bits_proven_bound": 128.55993624869785,
+      "hash": "keccak256",
+      "note": "proven bound: unique decoding radius, -log2((1+rate)/2) per query + PoW; field terms (DEEP/quotient batching over the challenge field, ~degree/|challenge field|) omitted",
+      "queries_for_128_proven": 166,
+      "target": -80
+    },
+    "software": {
+      "backend": {
+        "commit": null,
+        "name": "verity-direct (plonky3 uni-stark)",
+        "plonky3": "0.4.3-succinct",
+        "version": "0.2.0"
+      },
+      "toolchain": {
+        "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+      }
+    },
+    "statement_binding": {
+      "bound": false,
+      "note": "TIMING BASELINE of the pre-fix path (red-team F1/F2 forgeable): not a proof number"
+    },
+    "unit": "vu",
+    "zk_mode": "none"
+  }
+}

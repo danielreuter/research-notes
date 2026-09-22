@@ -1,0 +1,1084 @@
+{
+ "meta": {
+  "lane": "lattice-scout",
+  "date": "2026-09-22",
+  "K": 1536,
+  "B": 4096,
+  "target_log2": -128,
+  "utilisation": 0.172,
+  "native_seconds_per_vu": 9.846153846153846e-12
+ },
+ "literature": {
+  "labrador": {
+   "paper": "Beullens, Seiler. LaBRADOR: Compact Proofs for R1CS from Module-SIS. CRYPTO 2023; ePrint 2022/1341",
+   "statement": "dot-product constraints over R_q (ring-scalar x full inner products + linear terms) with one global l2 norm bound; R1CS mod 2^64+1 by reduction (Section 6)",
+   "assumption": "MSIS over R_q = Z_q[X]/(X^64+1), q ~ 2^32 single precision (high inertia degree required: not NTT-friendly)",
+   "setup": "transparent (uniform A, B, C, D)",
+   "prover": "O(N) ring multiplications plus r x N aggregation products (h_ij = <phi_i, s_j>), multi-modular NTT (Greyhound library)",
+   "proof_kb": [
+    47,
+    58
+   ],
+   "proof_kb_basis": "R1CS mod 2^64+1, 2^10 .. 2^20 constraints, 128-bit",
+   "knowledge_error": "2^-125 per recursion level (Theorem 5.1), slack sqrt(128/30) ~ 2 on the extracted norm; ~7 levels for 50 KB",
+   "verifier": "linear time",
+   "zk": "not in the paper; LNP22 shim in the LaZer toolkit (Biasioli et al. 2026/1289)",
+   "implementation": "lattice-dogs/labrador (C, AVX-512, single-thread; also Greyhound); LaZer; icicle-labrador (GPU, broken ring per zkSecurity 2026-04-30)",
+   "prover_seconds_measured": null
+  },
+  "greyhound": {
+   "paper": "Nguyen, Seiler. Greyhound: Fast Polynomial Commitments from Lattices. CRYPTO 2024; ePrint 2024/1293",
+   "statement": "univariate polynomial evaluation (sqrt(N) x sqrt(N) reshape, three-round core) composed with LaBRADOR",
+   "assumption": "MSIS, d = 64, q ~ 2^32 multi-precision (q = 5 mod 8), challenges tau_1 = 32 (Section 5)",
+   "setup": "transparent",
+   "prover_seconds_measured": {
+    "N=2^26": {
+     "commit": 4.37,
+     "prove": 2.03
+    },
+    "N=2^28": {
+     "commit": 21.2,
+     "prove": 8.21
+    },
+    "N=2^30": {
+     "commit": 132.0,
+     "prove": 41.2
+    },
+    "hardware": "one Intel Xeon Sapphire Rapids core at 3.2 GHz, AVX-512 (Table 2)"
+   },
+   "proof_kb": [
+    46,
+    53
+   ],
+   "verifier_seconds": {
+    "N=2^30": 2.8
+   },
+   "zk": "sketched (LWE randomness on outer commitments, L=4 masks; +0.75 KB)",
+   "implementation": "github.com/lattice-dogs/labrador (C, AVX-512)"
+  },
+  "hachi": {
+   "paper": "Nguyen, O'Rourke, Zhang. Hachi: Efficient Lattice-Based Multilinear Polynomial Commitments over Extension Fields. ePrint 2026/156",
+   "statement": "multilinear evaluation over F_{q^k} reduced to R_q statements; sumcheck over an extension field via ring switching (verifier does no R_q multiplication)",
+   "assumption": "MSIS (l_inf), q ~ 2^32, d = 2^10 (5.2), 128-bit via the Lattice Estimator",
+   "verifier_ms": {
+    "l=30": 227
+   },
+   "proof_kb": 55,
+   "commit_vs_greyhound": "3-5x faster (same implementation, Figure 10)",
+   "implementation": "georgeorourke/hachi-pcs (Rust prototype, streamed witness)",
+   "prover_seconds_measured": null
+  },
+  "akita": {
+   "paper": "Dao, Bodaghi, Khajehpour, Vitto, Badakhshan, Georghiades, Liu, Zhang, Thaler. Akita: A High-Performance Lattice-Based PCS. ePrint 2026/1983",
+   "statement": "multilinear PCS (K-ary fold to completion, setup offloading), batched openings, pay-per-bit commitment; integrated in Jolt (non-ZK)",
+   "assumption": "MSIS at per-matrix ring dimensions (64 / 32 / 16 ...), moduli 2^32-99, 64-bit, 128-bit profiles (Table 5); exact Euclidean norm checks",
+   "prover_seconds_measured": {
+    "2^30 x 32-bit coefficients, 1 thread": {
+     "commit": 24.3,
+     "open": 16.1
+    },
+    "2^30 x 32-bit coefficients, 8 threads": {
+     "commit": 3.46,
+     "open": 2.71
+    },
+    "hardware": "AMD Ryzen 9 9950X, AVX-512 (Tables 8, 9)"
+   },
+   "proof_kb": [
+    61,
+    72
+   ],
+   "verifier_ms": [
+    8.1,
+    33
+   ],
+   "peak_ram_gib_2^35_bits": 4.7,
+   "digit_range_check": "balanced base-b digits, w -> w(w+1) symmetry, GKR-style product tree: O(bL) prover (6.1)",
+   "zk": "none ('akita and zk cannot be enabled together' in Jolt; listed as future work)",
+   "implementation": "Rust (a16z/jolt crates/jolt-akita); GPU/Metal for Jolt, PCS kernels unstated",
+   "vs_hash_pcs_8_threads_2^35_bits": {
+    "akita_p32": {
+     "commit": 3.46,
+     "open": 2.71
+    },
+    "plonky3_fri_koalabear": {
+     "commit": 5.89,
+     "open": 1.24
+    },
+    "binius64_basefold": {
+     "commit": 5.01,
+     "open": 1.41
+    },
+    "whir_plonky3": {
+     "commit": 5.53,
+     "open": 8.38
+    }
+   }
+  },
+  "latticefold_plus": {
+   "paper": "Boneh, Chen. LatticeFold+. CRYPTO 2025; ePrint 2025/247 (LatticeFold: 2024/257)",
+   "statement": "folding of CCS/R1CS instances over a 64-bit field; algebraic (monomial) range proof; double commitments",
+   "assumption": "MSIS",
+   "prover": "5-10x faster than LatticeFold (paper estimate); no public benchmark of a full prover found",
+   "proof_kb": "~110 (L=5, estimate: osdnk l2-folding note)",
+   "implementation": "none public found (2026-09)",
+   "prover_seconds_measured": null
+  },
+  "neo_superneo": {
+   "paper": "Nethermind (Setty et al.). Neo and SuperNeo: post-quantum folding with pay-per-bit costs over small fields. ePrint 2026/242 (Neo 2025/294)",
+   "statement": "CCS over an extension field of a small prime, HyperNova-style single sumcheck, Ajtai commitments with pay-per-bit cost, multi-folding",
+   "assumption": "MSIS",
+   "prover_seconds_measured": null,
+   "note": "Ajtai hash quoted 30x faster than Pedersen (Boneh's ZKProof7 slides citing Nethermind)"
+  },
+  "symphony": {
+   "paper": "Chen. Symphony: Scalable SNARKs in the ROM from lattice-based high-arity folding. ePrint 2025/1905",
+   "statement": "high-arity folding of NP statements, degree-3 sumcheck over an extension field; prover dominated by committing the input witnesses",
+   "assumption": "MSIS",
+   "prover_seconds_measured": null
+  },
+  "lova": {
+   "paper": "Fenzi, Knabenhans, Nguyen, Pham. Lova: lattice folding from unstructured lattices. ePrint 2024/1964",
+   "statement": "Nova-style folding with an unstructured SIS commitment, power-of-two moduli, exact Euclidean norm proof",
+   "assumption": "plain SIS",
+   "implementation": "Rust",
+   "prover_seconds_measured": null,
+   "note": "unstructured A: the commitment is a plain dense Z_{2^k} matmul (ideal tensor-core shape) at the price of a lambda x larger matrix"
+  },
+  "hyperwolf": {
+   "paper": "Zhang, Gao, Xiao. HyperWolf / HyperWolf*: lattice PCS with O(log N) proof and verifier. ePrint 2025/922 (Oct 2025 revision)",
+   "statement": "k-dimensional tensor folding of the witness; exact Euclidean norm via <f,f> mod q = <f,f> over Z",
+   "assumption": "MSIS over rings",
+   "proof_kb": "~53 (N=2^30)",
+   "prover_seconds_measured": null,
+   "implementation": null
+  },
+  "rok_family": {
+   "paper": "Klooss, Lai, Nguyen, Osadnik et al.: RoK Paper SISsors (2025), RoK and Roll (2025), SALSAA (2025), RoKoKo (2025)",
+   "statement": "verifier-succinct reductions of knowledge with exact norm bounds; RoKoKo measured in Akita Table 8 (8.27 s commit / 4.43 s open at 2^35 bits, 109-115 KB, 100-bit statistical soundness)",
+   "assumption": "vanishing-SIS or related structured assumptions for the polylog-verifier results (not plain MSIS)",
+   "prover_seconds_measured": null
+  },
+  "zksecurity_labrador_bugs": {
+   "source": "Raikos, Wong. Soundness failures in LaBRADOR implementations from NTT-friendly rings. zkSecurity, 2026-04-30",
+   "finding": "icicle-labrador (GPU, composite BabyBear x KoalaBear q, fully splitting ring) ~31 bits of soundness; condor-rs ~6; Lazarus ~1; lattice-dogs and LaZer unaffected",
+   "consequence": "the NTT-friendly-ring GPU shortcut is not available to LaBRADOR-style aggregation; sumcheck-based systems aggregate over E instead"
+  }
+ },
+ "msis": {
+  "q64_chunk16": {
+   "name": "q64_chunk16",
+   "q_bits": 64,
+   "d": 64,
+   "digit_bits": 16,
+   "log_delta": 0.005,
+   "basis": "exact embedding needs q > 2^~52 (exact_embedding); Akita p64 profile; the source is committed in the checker's own 16-bit range chunks (no source digit range check: the checker's lookups bound them, binding holds for weak openings), collision bound 2^16",
+   "output_bits_heuristic": 55933,
+   "kappa_d": 896
+  },
+  "q64_hex": {
+   "name": "q64_hex",
+   "q_bits": 64,
+   "d": 64,
+   "digit_bits": 4,
+   "log_delta": 0.005,
+   "basis": "as q64_chunk16 but the source is re-decomposed into balanced base-16 digits (Hachi/Akita alphabet): 4x the digits, smaller MSIS output",
+   "output_bits_heuristic": 9173,
+   "kappa_d": 192
+  },
+  "q32_chunk16": {
+   "name": "q32_chunk16",
+   "q_bits": 32,
+   "d": 64,
+   "digit_bits": 16,
+   "log_delta": 0.005,
+   "basis": "LaBRADOR/Greyhound/Akita p32 modulus; the checker needs the small-field repairs (F1) and a q = 5 mod 8 prime (not BabyBear); priced on tensor.py's BabyBear^6 A row",
+   "output_bits_heuristic": 55933,
+   "kappa_d": 1792
+  }
+ },
+ "our_relation": {
+  "census_vu": {
+   "variant": "vu(K=1536)",
+   "columns": {
+    "inputs": 3073,
+    "hints": 21606,
+    "lookup_outputs": 5952,
+    "products": 23424,
+    "materialised": 9696,
+    "committed_A": 30631,
+    "all": 63751,
+    "committed_B_estimate": 102059
+   },
+   "hint_bits": {
+    "1": 10946,
+    "5": 192,
+    "7": 3264,
+    "8": 3168,
+    "9": 192,
+    "15": 1,
+    "16": 3075,
+    "23": 192,
+    "24": 192,
+    "25": 384
+   },
+   "mul": 34370,
+   "booleans_in_mul": 10946,
+   "lin": 10948,
+   "lin_range_splits": 2111,
+   "lookup": 29379,
+   "range_lookups": 27267,
+   "fixed_lookups": 2112,
+   "range_by_width": {
+    "7": 3456,
+    "8": 6336,
+    "9": 2496,
+    "15": 1,
+    "16": 10756,
+    "23": 192,
+    "24": 480,
+    "25": 768,
+    "30": 576,
+    "32": 95
+   },
+   "lookups_by_table": {
+    "ALIGN": 1536,
+    "LEAD": 192,
+    "NORM": 192,
+    "POW": 192
+   },
+   "mul_by_depth": {
+    "1": 20354,
+    "2": 10944,
+    "3": 2112,
+    "4": 384,
+    "5": 576
+   },
+   "depth": 5,
+   "queries_on_computed_wires": 13536,
+   "query_depth": {
+    "0": 17381,
+    "1": 5184,
+    "2": 3840,
+    "3": 192,
+    "4": 479,
+    "5": 192
+   },
+   "max_query_depth": 5
+  },
+  "witness_bits_per_vu": {
+   "inputs": 49168,
+   "hints": 129665,
+   "lookup_outputs": 95232,
+   "query_wires": 433152,
+   "products_and_materialised": 1059840
+  },
+  "digits_per_vu_chunk16_A": 44202,
+  "digits_per_vu_chunk16_B": 110442,
+  "exact_embedding": {
+   "witness_bound_bits": 40,
+   "widest_hint_bits": 25,
+   "widest_product_bits": 50,
+   "terms_per_identity_bound": 16,
+   "q_bits_needed": 54,
+   "q_64_exact": true,
+   "q_32_exact": false,
+   "range_predicates_per_vu": 27267,
+   "fixed_lookups_per_vu": 2112,
+   "norm_bound_replaces_range_checks": false,
+   "why": "a lattice norm bound is global (one l2 or l_inf bound, extracted with slack ~2 by JL or exact by <f,f> lifting) and certifies binding; the checker's 27k per-value range predicates per VU are exact per-coordinate statements and stay constraints (digit vanishing polynomials or the lookup argument).  Nothing in the checker is cheaper because the witness is short, except the commitment itself (pay-per-bit)."
+  },
+  "ajtai_commit_A_q64_chunk16": {
+   "limb_macs": 633679872,
+   "per_digit": 14336,
+   "kappa_d": 896,
+   "output_bytes": 7168.0,
+   "shape": "(896) x (44202) x B, INT8 dense GEMM",
+   "note": "NTT-domain evaluation would turn the short digits into full Z_q elements (lq x lq per product): the coefficient-domain GEMM keeps pay-per-bit"
+  }
+ },
+ "rows": [
+  {
+   "design": "A+lattice-PCS",
+   "msis": "q64_chunk16",
+   "q_bits": 64,
+   "d": 64,
+   "digit_bits": 16,
+   "kappa_d": 896,
+   "msis_output_bits_heuristic": 55933,
+   "sumcheck_field": "goldilocks",
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "fold_arity": 64,
+   "witness_bits_per_vu": {
+    "inputs": 49168,
+    "hints": 129665,
+    "lookup_outputs": 95232,
+    "query_wires": 433152,
+    "products_and_materialised": 1059840
+   },
+   "digits_per_vu": 44202,
+   "committed_bytes_per_vu": 88404.0,
+   "response": {
+    "coefficients": 691,
+    "coefficient_bits": 26,
+    "digits_per_coefficient": 7,
+    "digits": 4837
+   },
+   "range_check": {
+    "hadamards": 309568,
+    "layers": 3,
+    "vanishing_degree": 8,
+    "elements": 77392
+   },
+   "commitment_bytes_per_commitment": 7168.0,
+   "limb_macs_by_component_per_vu": {
+    "ajtai_commit": 633679872,
+    "ajtai_response_commit": 34671616,
+    "fold_opening_sumcheck": 462529728,
+    "digit_range_check": 1341048576,
+    "gkr_checker": 5414289408.0,
+    "logup_fractional_gkr": 1311768576.0
+   },
+   "limb_macs_per_vu": 9197987776.0,
+   "simt_by_component_per_vu": {
+    "fold_hadamards": 0,
+    "range_hadamards": 1857408,
+    "digit_decomposition_int_ops": 49039,
+    "gkr_hadamards": 7690752.0,
+    "logup_hadamards": 2562048.0,
+    "logup_tree_build": 640512.0
+   },
+   "hash_bytes_per_vu": 0.0,
+   "rounds.sequential_depth": 401,
+   "proof_kb_per_batch_opening": "61-72 (Akita Table 8) per opening; plus the checker sumcheck transcript",
+   "times_H100@0.172": {
+    "t.matmul": 0.22136478330902382,
+    "t.simt_field": 0.1520038071402985,
+    "t.hash": 0.0,
+    "t.hint_gen": 0.00046951164179104477,
+    "t.total": 0.3738381020911134,
+    "matmul_share_of_time": 0.5921407744978116,
+    "seconds_per_vu": 9.126906789333823e-05,
+    "overhead.vs_native_peak": 9269514.707917165
+   },
+   "reference_row": {
+    "design": "A",
+    "field": "goldilocks",
+    "overhead_H100@0.172": 12486538.040882327,
+    "t.total": 0.5035801581829318,
+    "t.hash": 0.12388139008,
+    "encoding_plus_ligero_macs_per_vu": 3518520576.0,
+    "by_hash_rate": {
+     "blake3_simt_conservative": 24773358.04088233,
+     "blake3_simt": 12486538.040882327,
+     "poseidon2_goldilocks_simt": 12907034.97068643
+    }
+   },
+   "removed_from_reference": [
+    "Reed-Solomon encoding (matrix DFT)",
+    "Ligero row combination",
+    "Merkle hashing (SIMT Blake3)"
+   ],
+   "added": [
+    "ajtai_commit",
+    "ajtai_response_commit",
+    "fold_opening_sumcheck",
+    "digit_range_check",
+    "digit decomposition (SIMT int ops)",
+    "JL / norm lifting (unpriced, additions)"
+   ],
+   "caveats": [
+    "the sumcheck field must contain Z_q: with q = 64-bit the checker sumcheck runs on 8-limb elements (priced on tensor.py's A/Goldilocks^3 row); with q = 32-bit the prime must be q = 5 mod 8 (LS18 invertible short challenges) or use RoKoKo-style probabilistic invertibility: BabyBear (fully splitting) is not the LaBRADOR/Greyhound choice; the small-field repairs (F1/F3/F4) are re-derived for the new prime (priced on the BabyBear^6 row)",
+    "no range check on the source digits: they are the checker's own 16-bit range chunks (bounded by its lookups) and binding holds for weak openings; the exact range check acts on the folded response (Akita 6.1).  A one-shot PCS needs no norm proof on the source; a recursive/IVC use (LatticeFold) would",
+    "knowledge error: LaBRADOR Theorem 5.1 gives 2^-125 per level at d = 64 (challenge set > 2^128 before operator-norm rejection); Akita reaches its 128-bit budget with per-fold accounting; a 2^-128 batch bound over the union of folds, range layers and the checker sumcheck is NOT established here: 2^-120 .. 2^-125 is what the papers deliver at d = 64",
+    "ZK: Akita has none; Greyhound sketches LWE-randomised outer commitments; LaBRADOR needs the LaZer LNP22 shim (linear size). Malicious-verifier ZK adds MLWE to the assumption set and is unbuilt in every implementation found",
+    "utilisation 0.172 applied to the fold and range sumchecks (dense, as TensorZKP's); the Ajtai GEMM would run far above it"
+   ]
+  },
+  {
+   "design": "A+lattice-PCS",
+   "msis": "q32_chunk16",
+   "q_bits": 32,
+   "d": 64,
+   "digit_bits": 16,
+   "kappa_d": 1792,
+   "msis_output_bits_heuristic": 55933,
+   "sumcheck_field": "babybear",
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "fold_arity": 64,
+   "witness_bits_per_vu": {
+    "inputs": 49168,
+    "hints": 129665,
+    "lookup_outputs": 95232,
+    "query_wires": 433152,
+    "products_and_materialised": 1059840
+   },
+   "digits_per_vu": 44202,
+   "committed_bytes_per_vu": 88404.0,
+   "response": {
+    "coefficients": 691,
+    "coefficient_bits": 26,
+    "digits_per_coefficient": 7,
+    "digits": 4837
+   },
+   "range_check": {
+    "hadamards": 309568,
+    "layers": 3,
+    "vanishing_degree": 8,
+    "elements": 77392
+   },
+   "commitment_bytes_per_commitment": 7168.0,
+   "limb_macs_by_component_per_vu": {
+    "ajtai_commit": 633679872,
+    "ajtai_response_commit": 34671616,
+    "fold_opening_sumcheck": 462529728,
+    "digit_range_check": 1341048576,
+    "gkr_checker": 5291237376.0,
+    "logup_fractional_gkr": 1311768576.0
+   },
+   "limb_macs_per_vu": 9074935744.0,
+   "simt_by_component_per_vu": {
+    "fold_hadamards": 0,
+    "range_hadamards": 5262656,
+    "digit_decomposition_int_ops": 49039,
+    "gkr_hadamards": 21790464.0,
+    "logup_hadamards": 7259136.0,
+    "logup_tree_build": 1814784.0
+   },
+   "hash_bytes_per_vu": 0.0,
+   "rounds.sequential_depth": 401,
+   "proof_kb_per_batch_opening": "61-72 (Akita Table 8) per opening; plus the checker sumcheck transcript",
+   "times_H100@0.172": {
+    "t.matmul": 0.2184033327110474,
+    "t.simt_field": 0.21533872678208954,
+    "t.hash": 0.0,
+    "t.hint_gen": 0.00046951164179104477,
+    "t.total": 0.434211571134928,
+    "matmul_share_of_time": 0.5029882832007261,
+    "seconds_per_vu": 0.00010600868435911328,
+    "overhead.vs_native_peak": 10766507.005222442
+   },
+   "reference_row": {
+    "design": "A",
+    "field": "babybear",
+    "overhead_H100@0.172": 10688536.14283221,
+    "t.total": 0.4310670182502472,
+    "t.hash": 0.064126976,
+    "encoding_plus_ligero_macs_per_vu": 919594368.0,
+    "by_hash_rate": {
+     "blake3_simt_conservative": 17048786.142832212,
+     "blake3_simt": 10688536.14283221,
+     "poseidon2_goldilocks_simt": 10906205.61286486
+    }
+   },
+   "removed_from_reference": [
+    "Reed-Solomon encoding (matrix DFT)",
+    "Ligero row combination",
+    "Merkle hashing (SIMT Blake3)"
+   ],
+   "added": [
+    "ajtai_commit",
+    "ajtai_response_commit",
+    "fold_opening_sumcheck",
+    "digit_range_check",
+    "digit decomposition (SIMT int ops)",
+    "JL / norm lifting (unpriced, additions)"
+   ],
+   "caveats": [
+    "the sumcheck field must contain Z_q: with q = 64-bit the checker sumcheck runs on 8-limb elements (priced on tensor.py's A/Goldilocks^3 row); with q = 32-bit the prime must be q = 5 mod 8 (LS18 invertible short challenges) or use RoKoKo-style probabilistic invertibility: BabyBear (fully splitting) is not the LaBRADOR/Greyhound choice; the small-field repairs (F1/F3/F4) are re-derived for the new prime (priced on the BabyBear^6 row)",
+    "no range check on the source digits: they are the checker's own 16-bit range chunks (bounded by its lookups) and binding holds for weak openings; the exact range check acts on the folded response (Akita 6.1).  A one-shot PCS needs no norm proof on the source; a recursive/IVC use (LatticeFold) would",
+    "knowledge error: LaBRADOR Theorem 5.1 gives 2^-125 per level at d = 64 (challenge set > 2^128 before operator-norm rejection); Akita reaches its 128-bit budget with per-fold accounting; a 2^-128 batch bound over the union of folds, range layers and the checker sumcheck is NOT established here: 2^-120 .. 2^-125 is what the papers deliver at d = 64",
+    "ZK: Akita has none; Greyhound sketches LWE-randomised outer commitments; LaBRADOR needs the LaZer LNP22 shim (linear size). Malicious-verifier ZK adds MLWE to the assumption set and is unbuilt in every implementation found",
+    "utilisation 0.172 applied to the fold and range sumchecks (dense, as TensorZKP's); the Ajtai GEMM would run far above it"
+   ]
+  },
+  {
+   "design": "A+lattice-PCS",
+   "msis": "q64_hex",
+   "q_bits": 64,
+   "d": 64,
+   "digit_bits": 4,
+   "kappa_d": 192,
+   "msis_output_bits_heuristic": 9173,
+   "sumcheck_field": "goldilocks",
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "fold_arity": 64,
+   "witness_bits_per_vu": {
+    "inputs": 49168,
+    "hints": 129665,
+    "lookup_outputs": 95232,
+    "query_wires": 433152,
+    "products_and_materialised": 1059840
+   },
+   "digits_per_vu": 176805,
+   "committed_bytes_per_vu": 88402.5,
+   "response": {
+    "coefficients": 2763,
+    "coefficient_bits": 14,
+    "digits_per_coefficient": 4,
+    "digits": 11052
+   },
+   "range_check": {
+    "hadamards": 707328,
+    "layers": 3,
+    "vanishing_degree": 8,
+    "elements": 176832
+   },
+   "commitment_bytes_per_commitment": 1536.0,
+   "limb_macs_by_component_per_vu": {
+    "ajtai_commit": 271572480,
+    "ajtai_response_commit": 16975872,
+    "fold_opening_sumcheck": 1841600880,
+    "digit_range_check": 3064144896,
+    "gkr_checker": 5414289408.0,
+    "logup_fractional_gkr": 1311768576.0
+   },
+   "limb_macs_per_vu": 11920352112.0,
+   "simt_by_component_per_vu": {
+    "fold_hadamards": 0,
+    "range_hadamards": 4243968,
+    "digit_decomposition_int_ops": 187857,
+    "gkr_hadamards": 7690752.0,
+    "logup_hadamards": 2562048.0,
+    "logup_tree_build": 640512.0
+   },
+   "hash_bytes_per_vu": 0.0,
+   "rounds.sequential_depth": 403,
+   "proof_kb_per_batch_opening": "61-72 (Akita Table 8) per opening; plus the checker sumcheck transcript",
+   "times_H100@0.172": {
+    "t.matmul": 0.2868829820719414,
+    "t.simt_field": 0.1804544519641791,
+    "t.hash": 0.0,
+    "t.hint_gen": 0.00046951164179104477,
+    "t.total": 0.46780694567791153,
+    "matmul_share_of_time": 0.6132507965571388,
+    "seconds_per_vu": 0.00011421068009714637,
+    "overhead.vs_native_peak": 11599522.19736643
+   },
+   "reference_row": {
+    "design": "A",
+    "field": "goldilocks",
+    "overhead_H100@0.172": 12486538.040882327,
+    "t.total": 0.5035801581829318,
+    "t.hash": 0.12388139008,
+    "encoding_plus_ligero_macs_per_vu": 3518520576.0,
+    "by_hash_rate": {
+     "blake3_simt_conservative": 24773358.04088233,
+     "blake3_simt": 12486538.040882327,
+     "poseidon2_goldilocks_simt": 12907034.97068643
+    }
+   },
+   "removed_from_reference": [
+    "Reed-Solomon encoding (matrix DFT)",
+    "Ligero row combination",
+    "Merkle hashing (SIMT Blake3)"
+   ],
+   "added": [
+    "ajtai_commit",
+    "ajtai_response_commit",
+    "fold_opening_sumcheck",
+    "digit_range_check",
+    "digit decomposition (SIMT int ops)",
+    "JL / norm lifting (unpriced, additions)"
+   ],
+   "caveats": [
+    "the sumcheck field must contain Z_q: with q = 64-bit the checker sumcheck runs on 8-limb elements (priced on tensor.py's A/Goldilocks^3 row); with q = 32-bit the prime must be q = 5 mod 8 (LS18 invertible short challenges) or use RoKoKo-style probabilistic invertibility: BabyBear (fully splitting) is not the LaBRADOR/Greyhound choice; the small-field repairs (F1/F3/F4) are re-derived for the new prime (priced on the BabyBear^6 row)",
+    "no range check on the source digits: they are the checker's own 16-bit range chunks (bounded by its lookups) and binding holds for weak openings; the exact range check acts on the folded response (Akita 6.1).  A one-shot PCS needs no norm proof on the source; a recursive/IVC use (LatticeFold) would",
+    "knowledge error: LaBRADOR Theorem 5.1 gives 2^-125 per level at d = 64 (challenge set > 2^128 before operator-norm rejection); Akita reaches its 128-bit budget with per-fold accounting; a 2^-128 batch bound over the union of folds, range layers and the checker sumcheck is NOT established here: 2^-120 .. 2^-125 is what the papers deliver at d = 64",
+    "ZK: Akita has none; Greyhound sketches LWE-randomised outer commitments; LaBRADOR needs the LaZer LNP22 shim (linear size). Malicious-verifier ZK adds MLWE to the assumption set and is unbuilt in every implementation found",
+    "utilisation 0.172 applied to the fold and range sumchecks (dense, as TensorZKP's); the Ajtai GEMM would run far above it"
+   ]
+  },
+  {
+   "design": "A+lattice-PCS",
+   "msis": "q64_chunk16",
+   "q_bits": 64,
+   "d": 64,
+   "digit_bits": 16,
+   "kappa_d": 896,
+   "msis_output_bits_heuristic": 55933,
+   "sumcheck_field": "goldilocks",
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "fold_arity": 64,
+   "witness_bits_per_vu": {
+    "inputs": 49168,
+    "hints": 129665,
+    "lookup_outputs": 95232,
+    "query_wires": 0,
+    "products_and_materialised": 1059840
+   },
+   "digits_per_vu": 17130,
+   "committed_bytes_per_vu": 34260.0,
+   "response": {
+    "coefficients": 268,
+    "coefficient_bits": 26,
+    "digits_per_coefficient": 7,
+    "digits": 1876
+   },
+   "range_check": {
+    "hadamards": 120064,
+    "layers": 3,
+    "vanishing_degree": 8,
+    "elements": 30016
+   },
+   "commitment_bytes_per_commitment": 7168.0,
+   "limb_macs_by_component_per_vu": {
+    "ajtai_commit": 245575680,
+    "ajtai_response_commit": 13447168,
+    "fold_opening_sumcheck": 179248320,
+    "digit_range_check": 520117248,
+    "gkr_checker": 5414289408.0,
+    "logup_fractional_gkr": 1311768576.0
+   },
+   "limb_macs_per_vu": 7684446400.0,
+   "simt_by_component_per_vu": {
+    "fold_hadamards": 0,
+    "range_hadamards": 720384,
+    "digit_decomposition_int_ops": 19006,
+    "gkr_hadamards": 7690752.0,
+    "logup_hadamards": 2562048.0,
+    "logup_tree_build": 640512.0
+   },
+   "hash_bytes_per_vu": 0.0,
+   "rounds.sequential_depth": 400,
+   "proof_kb_per_batch_opening": "61-72 (Akita Table 8) per opening; plus the checker sumcheck transcript",
+   "times_H100@0.172": {
+    "t.matmul": 0.18493890768417218,
+    "t.simt_field": 0.1384491234197015,
+    "t.hash": 0.0,
+    "t.hint_gen": 0.00046951164179104477,
+    "t.total": 0.32385754274566475,
+    "matmul_share_of_time": 0.5710501787800273,
+    "seconds_per_vu": 7.906678289689081e-05,
+    "overhead.vs_native_peak": 8030220.137965473
+   },
+   "reference_row": {
+    "design": "A",
+    "field": "goldilocks",
+    "overhead_H100@0.172": 12486538.040882327,
+    "t.total": 0.5035801581829318,
+    "t.hash": 0.12388139008,
+    "encoding_plus_ligero_macs_per_vu": 3518520576.0,
+    "by_hash_rate": {
+     "blake3_simt_conservative": 24773358.04088233,
+     "blake3_simt": 12486538.040882327,
+     "poseidon2_goldilocks_simt": 12907034.97068643
+    }
+   },
+   "removed_from_reference": [
+    "Reed-Solomon encoding (matrix DFT)",
+    "Ligero row combination",
+    "Merkle hashing (SIMT Blake3)"
+   ],
+   "added": [
+    "ajtai_commit",
+    "ajtai_response_commit",
+    "fold_opening_sumcheck",
+    "digit_range_check",
+    "digit decomposition (SIMT int ops)",
+    "JL / norm lifting (unpriced, additions)"
+   ],
+   "caveats": [
+    "the sumcheck field must contain Z_q: with q = 64-bit the checker sumcheck runs on 8-limb elements (priced on tensor.py's A/Goldilocks^3 row); with q = 32-bit the prime must be q = 5 mod 8 (LS18 invertible short challenges) or use RoKoKo-style probabilistic invertibility: BabyBear (fully splitting) is not the LaBRADOR/Greyhound choice; the small-field repairs (F1/F3/F4) are re-derived for the new prime (priced on the BabyBear^6 row)",
+    "no range check on the source digits: they are the checker's own 16-bit range chunks (bounded by its lookups) and binding holds for weak openings; the exact range check acts on the folded response (Akita 6.1).  A one-shot PCS needs no norm proof on the source; a recursive/IVC use (LatticeFold) would",
+    "knowledge error: LaBRADOR Theorem 5.1 gives 2^-125 per level at d = 64 (challenge set > 2^128 before operator-norm rejection); Akita reaches its 128-bit budget with per-fold accounting; a 2^-128 batch bound over the union of folds, range layers and the checker sumcheck is NOT established here: 2^-120 .. 2^-125 is what the papers deliver at d = 64",
+    "ZK: Akita has none; Greyhound sketches LWE-randomised outer commitments; LaBRADOR needs the LaZer LNP22 shim (linear size). Malicious-verifier ZK adds MLWE to the assumption set and is unbuilt in every implementation found",
+    "utilisation 0.172 applied to the fold and range sumchecks (dense, as TensorZKP's); the Ajtai GEMM would run far above it"
+   ]
+  },
+  {
+   "design": "A+lattice-PCS",
+   "msis": "q32_chunk16",
+   "q_bits": 32,
+   "d": 64,
+   "digit_bits": 16,
+   "kappa_d": 1792,
+   "msis_output_bits_heuristic": 55933,
+   "sumcheck_field": "babybear",
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "fold_arity": 16,
+   "witness_bits_per_vu": {
+    "inputs": 49168,
+    "hints": 129665,
+    "lookup_outputs": 95232,
+    "query_wires": 433152,
+    "products_and_materialised": 1059840
+   },
+   "digits_per_vu": 44202,
+   "committed_bytes_per_vu": 88404.0,
+   "response": {
+    "coefficients": 2763,
+    "coefficient_bits": 24,
+    "digits_per_coefficient": 6,
+    "digits": 16578
+   },
+   "range_check": {
+    "hadamards": 1060992,
+    "layers": 3,
+    "vanishing_degree": 8,
+    "elements": 265248
+   },
+   "commitment_bytes_per_commitment": 7168.0,
+   "limb_macs_by_component_per_vu": {
+    "ajtai_commit": 633679872,
+    "ajtai_response_commit": 118831104,
+    "fold_opening_sumcheck": 462529728,
+    "digit_range_check": 4596217344,
+    "gkr_checker": 5291237376.0,
+    "logup_fractional_gkr": 1311768576.0
+   },
+   "limb_macs_per_vu": 12414264000.0,
+   "simt_by_component_per_vu": {
+    "fold_hadamards": 0,
+    "range_hadamards": 18036864,
+    "digit_decomposition_int_ops": 60780,
+    "gkr_hadamards": 21790464.0,
+    "logup_hadamards": 7259136.0,
+    "logup_tree_build": 1814784.0
+   },
+   "hash_bytes_per_vu": 0.0,
+   "rounds.sequential_depth": 401,
+   "proof_kb_per_batch_opening": "61-72 (Akita Table 8) per opening; plus the checker sumcheck transcript",
+   "times_H100@0.172": {
+    "t.matmul": 0.2987697882651562,
+    "t.simt_field": 0.29148063285492537,
+    "t.hash": 0.0,
+    "t.hint_gen": 0.00046951164179104477,
+    "t.total": 0.5907199327618727,
+    "matmul_share_of_time": 0.5057723156018749,
+    "seconds_per_vu": 0.00014421873358444159,
+    "overhead.vs_native_peak": 14647215.129669849
+   },
+   "reference_row": {
+    "design": "A",
+    "field": "babybear",
+    "overhead_H100@0.172": 10688536.14283221,
+    "t.total": 0.4310670182502472,
+    "t.hash": 0.064126976,
+    "encoding_plus_ligero_macs_per_vu": 919594368.0,
+    "by_hash_rate": {
+     "blake3_simt_conservative": 17048786.142832212,
+     "blake3_simt": 10688536.14283221,
+     "poseidon2_goldilocks_simt": 10906205.61286486
+    }
+   },
+   "removed_from_reference": [
+    "Reed-Solomon encoding (matrix DFT)",
+    "Ligero row combination",
+    "Merkle hashing (SIMT Blake3)"
+   ],
+   "added": [
+    "ajtai_commit",
+    "ajtai_response_commit",
+    "fold_opening_sumcheck",
+    "digit_range_check",
+    "digit decomposition (SIMT int ops)",
+    "JL / norm lifting (unpriced, additions)"
+   ],
+   "caveats": [
+    "the sumcheck field must contain Z_q: with q = 64-bit the checker sumcheck runs on 8-limb elements (priced on tensor.py's A/Goldilocks^3 row); with q = 32-bit the prime must be q = 5 mod 8 (LS18 invertible short challenges) or use RoKoKo-style probabilistic invertibility: BabyBear (fully splitting) is not the LaBRADOR/Greyhound choice; the small-field repairs (F1/F3/F4) are re-derived for the new prime (priced on the BabyBear^6 row)",
+    "no range check on the source digits: they are the checker's own 16-bit range chunks (bounded by its lookups) and binding holds for weak openings; the exact range check acts on the folded response (Akita 6.1).  A one-shot PCS needs no norm proof on the source; a recursive/IVC use (LatticeFold) would",
+    "knowledge error: LaBRADOR Theorem 5.1 gives 2^-125 per level at d = 64 (challenge set > 2^128 before operator-norm rejection); Akita reaches its 128-bit budget with per-fold accounting; a 2^-128 batch bound over the union of folds, range layers and the checker sumcheck is NOT established here: 2^-120 .. 2^-125 is what the papers deliver at d = 64",
+    "ZK: Akita has none; Greyhound sketches LWE-randomised outer commitments; LaBRADOR needs the LaZer LNP22 shim (linear size). Malicious-verifier ZK adds MLWE to the assumption set and is unbuilt in every implementation found",
+    "utilisation 0.172 applied to the fold and range sumchecks (dense, as TensorZKP's); the Ajtai GEMM would run far above it"
+   ]
+  },
+  {
+   "design": "A+lattice-PCS",
+   "msis": "q32_chunk16",
+   "q_bits": 32,
+   "d": 64,
+   "digit_bits": 16,
+   "kappa_d": 1792,
+   "msis_output_bits_heuristic": 55933,
+   "sumcheck_field": "babybear",
+   "extension_degree": 6,
+   "challenge_limbs": 24,
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "fold_arity": 256,
+   "witness_bits_per_vu": {
+    "inputs": 49168,
+    "hints": 129665,
+    "lookup_outputs": 95232,
+    "query_wires": 433152,
+    "products_and_materialised": 1059840
+   },
+   "digits_per_vu": 44202,
+   "committed_bytes_per_vu": 88404.0,
+   "response": {
+    "coefficients": 173,
+    "coefficient_bits": 28,
+    "digits_per_coefficient": 7,
+    "digits": 1211
+   },
+   "range_check": {
+    "hadamards": 77504,
+    "layers": 3,
+    "vanishing_degree": 8,
+    "elements": 19376
+   },
+   "commitment_bytes_per_commitment": 7168.0,
+   "limb_macs_by_component_per_vu": {
+    "ajtai_commit": 633679872,
+    "ajtai_response_commit": 8680448,
+    "fold_opening_sumcheck": 462529728,
+    "digit_range_check": 335747328,
+    "gkr_checker": 5291237376.0,
+    "logup_fractional_gkr": 1311768576.0
+   },
+   "limb_macs_per_vu": 8043643328.0,
+   "simt_by_component_per_vu": {
+    "fold_hadamards": 0,
+    "range_hadamards": 1317568,
+    "digit_decomposition_int_ops": 45413,
+    "gkr_hadamards": 21790464.0,
+    "logup_hadamards": 7259136.0,
+    "logup_tree_build": 1814784.0
+   },
+   "hash_bytes_per_vu": 0.0,
+   "rounds.sequential_depth": 401,
+   "proof_kb_per_batch_opening": "61-72 (Akita Table 8) per opening; plus the checker sumcheck transcript",
+   "times_H100@0.172": {
+    "t.matmul": 0.19358357563420567,
+    "t.simt_field": 0.19182364702567165,
+    "t.hash": 0.0,
+    "t.hint_gen": 0.00046951164179104477,
+    "t.total": 0.38587673430166836,
+    "matmul_share_of_time": 0.5016720585254748,
+    "seconds_per_vu": 9.420818708536825e-05,
+    "overhead.vs_native_peak": 9568019.000857713
+   },
+   "reference_row": {
+    "design": "A",
+    "field": "babybear",
+    "overhead_H100@0.172": 10688536.14283221,
+    "t.total": 0.4310670182502472,
+    "t.hash": 0.064126976,
+    "encoding_plus_ligero_macs_per_vu": 919594368.0,
+    "by_hash_rate": {
+     "blake3_simt_conservative": 17048786.142832212,
+     "blake3_simt": 10688536.14283221,
+     "poseidon2_goldilocks_simt": 10906205.61286486
+    }
+   },
+   "removed_from_reference": [
+    "Reed-Solomon encoding (matrix DFT)",
+    "Ligero row combination",
+    "Merkle hashing (SIMT Blake3)"
+   ],
+   "added": [
+    "ajtai_commit",
+    "ajtai_response_commit",
+    "fold_opening_sumcheck",
+    "digit_range_check",
+    "digit decomposition (SIMT int ops)",
+    "JL / norm lifting (unpriced, additions)"
+   ],
+   "caveats": [
+    "the sumcheck field must contain Z_q: with q = 64-bit the checker sumcheck runs on 8-limb elements (priced on tensor.py's A/Goldilocks^3 row); with q = 32-bit the prime must be q = 5 mod 8 (LS18 invertible short challenges) or use RoKoKo-style probabilistic invertibility: BabyBear (fully splitting) is not the LaBRADOR/Greyhound choice; the small-field repairs (F1/F3/F4) are re-derived for the new prime (priced on the BabyBear^6 row)",
+    "no range check on the source digits: they are the checker's own 16-bit range chunks (bounded by its lookups) and binding holds for weak openings; the exact range check acts on the folded response (Akita 6.1).  A one-shot PCS needs no norm proof on the source; a recursive/IVC use (LatticeFold) would",
+    "knowledge error: LaBRADOR Theorem 5.1 gives 2^-125 per level at d = 64 (challenge set > 2^128 before operator-norm rejection); Akita reaches its 128-bit budget with per-fold accounting; a 2^-128 batch bound over the union of folds, range layers and the checker sumcheck is NOT established here: 2^-120 .. 2^-125 is what the papers deliver at d = 64",
+    "ZK: Akita has none; Greyhound sketches LWE-randomised outer commitments; LaBRADOR needs the LaZer LNP22 shim (linear size). Malicious-verifier ZK adds MLWE to the assumption set and is unbuilt in every implementation found",
+    "utilisation 0.172 applied to the fold and range sumchecks (dense, as TensorZKP's); the Ajtai GEMM would run far above it"
+   ]
+  },
+  {
+   "design": "B+lattice-PCS",
+   "msis": "q64_chunk16",
+   "q_bits": 64,
+   "d": 64,
+   "digit_bits": 16,
+   "kappa_d": 896,
+   "msis_output_bits_heuristic": 55933,
+   "sumcheck_field": "goldilocks",
+   "extension_degree": 3,
+   "challenge_limbs": 24,
+   "target_log2": -128,
+   "B": 4096,
+   "K": 1536,
+   "fold_arity": 64,
+   "witness_bits_per_vu": {
+    "inputs": 49168,
+    "hints": 129665,
+    "lookup_outputs": 95232,
+    "query_wires": 433152,
+    "products_and_materialised": 1059840
+   },
+   "digits_per_vu": 110442,
+   "committed_bytes_per_vu": 220884.0,
+   "response": {
+    "coefficients": 1726,
+    "coefficient_bits": 26,
+    "digits_per_coefficient": 7,
+    "digits": 12082
+   },
+   "range_check": {
+    "hadamards": 773248,
+    "layers": 3,
+    "vanishing_degree": 8,
+    "elements": 193312
+   },
+   "commitment_bytes_per_commitment": 7168.0,
+   "limb_macs_by_component_per_vu": {
+    "ajtai_commit": 1583296512,
+    "ajtai_response_commit": 86603776,
+    "fold_opening_sumcheck": 1155665088,
+    "digit_range_check": 3349710336,
+    "spartan_constraint_sumcheck": 1019913216,
+    "logup_fractional_gkr": 1311768576.0
+   },
+   "limb_macs_per_vu": 8506957504.0,
+   "simt_by_component_per_vu": {
+    "fold_hadamards": 0,
+    "range_hadamards": 4639488,
+    "digit_decomposition_int_ops": 122524,
+    "spartan_hadamards": 1138296,
+    "spartan_sparse_phase": 569148,
+    "logup_hadamards": 2562048.0,
+    "logup_tree_build": 640512.0
+   },
+   "hash_bytes_per_vu": 0.0,
+   "rounds.sequential_depth": 119,
+   "proof_kb_per_batch_opening": "61-72 (Akita Table 8) per opening; plus the checker sumcheck transcript",
+   "times_H100@0.172": {
+    "t.matmul": 0.20473399729945826,
+    "t.simt_field": 0.11384134701850747,
+    "t.hash": 0.0,
+    "t.hint_gen": 0.00046951164179104477,
+    "t.total": 0.3190448559597568,
+    "matmul_share_of_time": 0.6417091310987403,
+    "seconds_per_vu": 7.789181053705e-05,
+    "overhead.vs_native_peak": 7910887.007669141
+   },
+   "reference_row": {
+    "design": "A",
+    "field": "goldilocks",
+    "overhead_H100@0.172": 12486538.040882327,
+    "t.total": 0.5035801581829318,
+    "t.hash": 0.12388139008,
+    "encoding_plus_ligero_macs_per_vu": 3518520576.0,
+    "by_hash_rate": {
+     "blake3_simt_conservative": 24773358.04088233,
+     "blake3_simt": 12486538.040882327,
+     "poseidon2_goldilocks_simt": 12907034.97068643
+    }
+   },
+   "removed_from_reference": [
+    "Reed-Solomon encoding (matrix DFT)",
+    "Ligero row combination",
+    "Merkle hashing (SIMT Blake3)"
+   ],
+   "added": [
+    "ajtai_commit",
+    "ajtai_response_commit",
+    "fold_opening_sumcheck",
+    "digit_range_check",
+    "digit decomposition (SIMT int ops)",
+    "JL / norm lifting (unpriced, additions)"
+   ],
+   "caveats": [
+    "B under a lattice PCS has no Ligero row tests: the constraints are checked by a Spartan-style sumcheck, depth 3 -> ~log2(N) + folds; this is an explicit-trace GKR-less A, not Candidate B",
+    "the sumcheck field must contain Z_q: with q = 64-bit the checker sumcheck runs on 8-limb elements (priced on tensor.py's A/Goldilocks^3 row); with q = 32-bit the prime must be q = 5 mod 8 (LS18 invertible short challenges) or use RoKoKo-style probabilistic invertibility: BabyBear (fully splitting) is not the LaBRADOR/Greyhound choice; the small-field repairs (F1/F3/F4) are re-derived for the new prime (priced on the BabyBear^6 row)",
+    "no range check on the source digits: they are the checker's own 16-bit range chunks (bounded by its lookups) and binding holds for weak openings; the exact range check acts on the folded response (Akita 6.1).  A one-shot PCS needs no norm proof on the source; a recursive/IVC use (LatticeFold) would",
+    "knowledge error: LaBRADOR Theorem 5.1 gives 2^-125 per level at d = 64 (challenge set > 2^128 before operator-norm rejection); Akita reaches its 128-bit budget with per-fold accounting; a 2^-128 batch bound over the union of folds, range layers and the checker sumcheck is NOT established here: 2^-120 .. 2^-125 is what the papers deliver at d = 64",
+    "ZK: Akita has none; Greyhound sketches LWE-randomised outer commitments; LaBRADOR needs the LaZer LNP22 shim (linear size). Malicious-verifier ZK adds MLWE to the assumption set and is unbuilt in every implementation found",
+    "utilisation 0.172 applied to the fold and range sumchecks (dense, as TensorZKP's); the Ajtai GEMM would run far above it"
+   ]
+  }
+ ],
+ "labrador_direct": {
+  "design": "LaBRADOR-direct (dot-product constraints, base protocol only)",
+  "msis": "q32_chunk16",
+  "polys_per_vu": 63751,
+  "N_polys": 261124096,
+  "r": 639,
+  "n": 408645,
+  "limb_macs_per_vu": 780369530609.0,
+  "limb_macs_by_component_per_vu": {
+   "h_ij_aggregation": 667433340180.0,
+   "g_ij_garbage": 83429167522.0,
+   "ajtai_commit": 29245898752.0,
+   "z_response": 261124155.0
+  },
+  "overhead_H100@0.172": 465681989.0975978,
+  "seconds_per_vu": 0.004585176508037886,
+  "greyhound_cpu_anchor": {
+   "ns_per_coefficient_single_core": 161.30506992340088,
+   "seconds_per_vu_if_one_wire_per_poly": 0.6581350088119506,
+   "overhead_cpu_single_core": 66841836832.46374,
+   "basis": "Greyhound Table 2, N = 2^30 coefficients, commit + prove on one Sapphire Rapids core; a PCS opening, not a constraint proof"
+  },
+  "notes": [
+   "the r x N term is the base protocol's amortisation cost; recursion levels are smaller and not priced",
+   "one wire per ring element wastes d - 1 coefficients of every commitment and NTT; packing d wires per element breaks coordinate-wise products",
+   "not a candidate: the sumcheck-based route (design_lattice_pcs) is the only lattice construction that fits the checker's constraint shape"
+  ]
+ },
+ "best": {
+  "design": "B+lattice-PCS",
+  "msis": "q64_chunk16",
+  "fold_arity": 64,
+  "overhead_H100@0.172": 7910887.007669141,
+  "reference_A_babybear_overhead": 10688536.14283221,
+  "ratio_vs_A_babybear": 0.7401281992178343,
+  "ratio_vs_own_field_reference": 0.6335532700711766,
+  "B_reference_overhead": 14340000.0,
+  "C_reference_overhead": 3100000.0,
+  "soundness_reached": "2^-120 .. 2^-125 at d = 64 (LaBRADOR Thm 5.1 per level; Akita per-fold budget) -- not 2^-128 without a larger ring or repetition"
+ },
+ "verdict": {
+  "complete_alternative_backend": "NO. Every lattice system that fits the checker's coordinate-wise quadratic constraints is 'a sumcheck over an extension field + an Ajtai-committed witness' (Hachi/Akita/Neo/Symphony/LatticeFold+); its prover is A's prover with the commitment layer swapped, so it cannot beat A by more than A's encoding + hashing buckets (20% of A at 50 GB/s) minus its own fold and digit range check.  The LaBRADOR dot-product route is 100x+ worse at one wire per ring element.  C (3.1e6, designated verifier) is untouched.",
+  "reusable_component": "MAYBE, conditional: a lattice PCS (Ajtai GEMM on the checker's own 16-bit chunks + Akita-style K-ary fold + exact digit range check on the response) replacing RS-Ligero + Merkle in A is hash-free; its commitment is the best-shaped INT8 GEMM in the design space (kappa d x digits x 4096, 6.3e8 limb MACs/VU at the Akita-anchored kappa d = 896) and the model puts A+lattice-PCS at 1.01x A (32-bit q, BabyBear row, 1.08e7) to 0.74x A (64-bit q, Goldilocks^3 row, 9.3e6 vs 1.25e7) at 50 GB/s Blake3 and fold arity 64 -- inside the hash-rate uncertainty (A at 10 GB/s is 2.5e7: the swap wins 2.7x; at 190 GB/s A is ~9.5e6: the swap loses) and inside the fold-arity sensitivity (K = 16: 1.46e7, K = 256: 9.6e6).  Costs: +~20 sequential rounds, MSIS (+MLWE for hiding) added to the assumption set, no ZK in any implementation, knowledge error ~2^-120..-125 at d = 64, a 64-bit q for exactness or a q = 5 mod 8 32-bit prime with the small-field repairs redone.  For B it is not a component: B loses its row tests and becomes an explicit-trace Spartan design (the 7.9e6 of that row is the flattening of A's layered GKR, obtainable with Ligero too, not a lattice effect).",
+  "follow_up_first_build": "Nothing before the GPU Blake3/Poseidon2 hash rate is measured (tensor.md uncertainty 2): the whole case for the swap is the hash bucket.  If it lands below ~30 GB/s: (1) run jolt-akita (Rust, 32-bit profile) on A's committed object (44k 16-bit chunks/VU x 4096) on vy-cpu2 for a measured commit+open per VU beside the Ligero CPU number; (2) write the INT8 Ajtai GEMM kernel (A shared across the batch) and measure its utilisation on the L40S; (3) price the response range check against logUp on the same digits with a real fold schedule (Akita's planner).  No lattice lane before that."
+ },
+ "uncertainties": [
+  {
+   "what": "digit range check + fold opening as tensor-core sumchecks (priced as degree-3 / degree-2 sumchecks over 2x / 1x the digits at 0.172 utilisation)",
+   "range": "0.3x - 3x",
+   "factor": 3,
+   "moves": "the lattice additions (~40% of the PCS-swap delta); Akita's O(bL) SIMT count and small-value tricks may be cheaper, a proper accounting of all folds costlier"
+  },
+  {
+   "what": "Merkle hash rate on SIMT in the reference (what the lattice PCS removes)",
+   "range": "10 - 190 GB/s (tensor.HASH_RATES)",
+   "factor": 19,
+   "moves": "the saving: at 10 GB/s A/Goldilocks is 2.5e7 and the swap wins 2.7x; at 190 GB/s A's hash bucket is 0.03 s per batch and the swap loses"
+  },
+  {
+   "what": "MSIS output size and modulus (heuristic kappa d; q = 64-bit for exactness vs 32-bit with small-field repairs; d = 64 vs larger rings for the challenge set)",
+   "range": "0.3x - 3x on the Ajtai GEMM (the raw BKZ model under-shoots the Akita anchor 3.6x and is scaled to it); +17% on the checker sumcheck if the field must be 64-bit",
+   "factor": 4,
+   "moves": "commitment MACs (7% of the row at kappa d = 896) and whether the checker sumcheck stays on 4-limb elements"
+  }
+ ],
+ "assumptions": [
+  "Every figure is an ESTIMATE from this module's docstrings over the WP2 checker census; the only measured numbers are the cited papers' CPU benchmarks (Greyhound Table 2, Akita Tables 8-9) and tensor.py's TensorZKP calibration (utilisation 0.172).",
+  "Widths not in the census: looked-up columns 16 bits, query wires 32 bits, products/materialised 32 bits (LOOKUP_OUTPUT_BITS, QUERY_WIRE_BITS, PRODUCT_BITS).",
+  "MSIS output size from the heuristic in msis_output_bits (BKZ root-Hermite 1.005, column-restriction attack), rounded up to a multiple of d; the Lattice Estimator replaces it.  Scaled (ANCHOR_SCALE = 3.57) to reproduce Akita Table 5: rank-1 d=64 q=2^32 binary map = 2048 output bits at 147 quantum bits.",
+  "Ajtai commitment as a coefficient-domain INT8 GEMM (A entries ceil(q_bits/8) limbs, digits 1 limb); response commitment at 2x the input commitment.",
+  "Fold opening = one degree-2 sumcheck over the digits (first-fold dominated); digit range check = degree-3 sumcheck over 2x the digits (product tree); both at 0.172 of the H100 INT8 peak; Hadamards on SIMT at tensor.py's rates; hint generation as tensor.py.",
+  "The non-commitment buckets (GKR checker, logUp fractional GKR, Hadamards) are tensor.py's Candidate A BabyBear^6 row unchanged; the field caveat is stated per row.",
+  "LaBRADOR-direct: r = N^(1/3), one wire per ring element, ring product d^2 scalar MACs (no NTT: q must not split), base protocol only."
+ ]
+}

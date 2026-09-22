@@ -1,0 +1,262 @@
+{
+ "device": "cuda",
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "pcs": true,
+ "runs": [
+  {
+   "rep": 0,
+   "vus": 4096,
+   "units": 393216,
+   "prover_s": 7.54398668371141,
+   "verifier_s": 6.078311359509826,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 33871256,
+   "proof_elems": 6086,
+   "t_commit": 0.5766454860568047,
+   "t_lookup": 1.6835953909903765,
+   "t_witness_wires": 0.07009824924170971,
+   "t_arith": 1.2641105353832245,
+   "t_open": 3.948414960876107,
+   "slots": 1920,
+   "sequential_depth": 438,
+   "depth_circuit": 197,
+   "depth_lookup_max": 435,
+   "lookup_dims": [
+    [
+     "POW",
+     20,
+     2
+    ],
+    [
+     "ALIGN",
+     23,
+     16
+    ],
+    [
+     "LEAD",
+     20,
+     2
+    ],
+    [
+     "NORM",
+     20,
+     2
+    ],
+    [
+     "R16",
+     28,
+     591
+    ]
+   ],
+   "committed_elements": 177833023,
+   "ligero_rows": 43417,
+   "linkage_constraints": 798720,
+   "peak_mem_bytes": 46524659200
+  },
+  {
+   "rep": 1,
+   "vus": 4096,
+   "units": 393216,
+   "prover_s": 5.016035493463278,
+   "verifier_s": 6.019808555021882,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 33871256,
+   "proof_elems": 6086,
+   "t_commit": 0.43835603445768356,
+   "t_lookup": 1.1553970370441675,
+   "t_witness_wires": 0.07046019844710827,
+   "t_arith": 1.0269842222332954,
+   "t_open": 2.323817716911435,
+   "slots": 1920,
+   "sequential_depth": 438,
+   "depth_circuit": 197,
+   "depth_lookup_max": 435,
+   "lookup_dims": [
+    [
+     "POW",
+     20,
+     2
+    ],
+    [
+     "ALIGN",
+     23,
+     16
+    ],
+    [
+     "LEAD",
+     20,
+     2
+    ],
+    [
+     "NORM",
+     20,
+     2
+    ],
+    [
+     "R16",
+     28,
+     591
+    ]
+   ],
+   "committed_elements": 177833023,
+   "ligero_rows": 43417,
+   "linkage_constraints": 798720,
+   "peak_mem_bytes": 46658418176
+  },
+  {
+   "rep": 2,
+   "vus": 4096,
+   "units": 393216,
+   "prover_s": 5.025398187339306,
+   "verifier_s": 6.06218446791172,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 33871256,
+   "proof_elems": 6086,
+   "t_commit": 0.43862831220030785,
+   "t_lookup": 1.171943362802267,
+   "t_witness_wires": 0.07052018120884895,
+   "t_arith": 1.027582673355937,
+   "t_open": 2.31568350084126,
+   "slots": 1920,
+   "sequential_depth": 438,
+   "depth_circuit": 197,
+   "depth_lookup_max": 435,
+   "lookup_dims": [
+    [
+     "POW",
+     20,
+     2
+    ],
+    [
+     "ALIGN",
+     23,
+     16
+    ],
+    [
+     "LEAD",
+     20,
+     2
+    ],
+    [
+     "NORM",
+     20,
+     2
+    ],
+    [
+     "R16",
+     28,
+     591
+    ]
+   ],
+   "committed_elements": 177833023,
+   "ligero_rows": 43417,
+   "linkage_constraints": 798720,
+   "peak_mem_bytes": 46658418176
+  },
+  {
+   "rep": 3,
+   "vus": 4096,
+   "units": 393216,
+   "prover_s": 4.4024078119546175,
+   "verifier_s": 6.130765926092863,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 33871256,
+   "proof_elems": 6086,
+   "t_commit": 0.4397426638752222,
+   "t_lookup": 1.1639600731432438,
+   "t_witness_wires": 0.07049068994820118,
+   "t_arith": 1.0386260859668255,
+   "t_open": 1.6884907614439726,
+   "slots": 1920,
+   "sequential_depth": 438,
+   "depth_circuit": 197,
+   "depth_lookup_max": 435,
+   "lookup_dims": [
+    [
+     "POW",
+     20,
+     2
+    ],
+    [
+     "ALIGN",
+     23,
+     16
+    ],
+    [
+     "LEAD",
+     20,
+     2
+    ],
+    [
+     "NORM",
+     20,
+     2
+    ],
+    [
+     "R16",
+     28,
+     591
+    ]
+   ],
+   "committed_elements": 177833023,
+   "ligero_rows": 43417,
+   "linkage_constraints": 798720,
+   "peak_mem_bytes": 46658418176
+  },
+  {
+   "rep": 4,
+   "vus": 4096,
+   "units": 393216,
+   "prover_s": 4.20134693197906,
+   "verifier_s": 5.979813298210502,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 33871256,
+   "proof_elems": 6086,
+   "t_commit": 0.43888908065855503,
+   "t_lookup": 1.1579409558326006,
+   "t_witness_wires": 0.07363216392695904,
+   "t_arith": 1.033406376838684,
+   "t_open": 1.4364059902727604,
+   "slots": 1920,
+   "sequential_depth": 438,
+   "depth_circuit": 197,
+   "depth_lookup_max": 435,
+   "lookup_dims": [
+    [
+     "POW",
+     20,
+     2
+    ],
+    [
+     "ALIGN",
+     23,
+     16
+    ],
+    [
+     "LEAD",
+     20,
+     2
+    ],
+    [
+     "NORM",
+     20,
+     2
+    ],
+    [
+     "R16",
+     28,
+     591
+    ]
+   ],
+   "committed_elements": 177833023,
+   "ligero_rows": 43417,
+   "linkage_constraints": 798720,
+   "peak_mem_bytes": 46658418176
+  }
+ ]
+}

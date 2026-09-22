@@ -1,0 +1,6 @@
+system: {'rows': 3372, 'by_kind': {'pin': 99, 'hint': 92, 'prod': 170, 'bit': 2401, 'sel': 610}, 'linear': 338, 'quadratic': 3246, 'pins': 99, 'hints': 92} compiled in 0.38s; device cuda
+tu-k16 [0, 4096): l=4096 prover 4.08s -> True accept (0.054s)
+vu-k1536 units [0, 4096) of 64 VUs: l=4096 prover 0.10s -> True accept (0.036s)
+vu-k1536 units [4096, 8192) of 64 VUs: l=2048 prover 0.39s -> True accept (0.028s)
+negatives: 52/52 rejected
+mutations: 243/243 rejected (one per gadget scope x row class, l=256)

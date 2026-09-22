@@ -1,0 +1,265 @@
+{
+ "device": "cuda",
+ "gpu": "NVIDIA A100-SXM4-80GB",
+ "pcs": true,
+ "runs": [
+  {
+   "rep": 0,
+   "vus": 64,
+   "units": 6144,
+   "prover_s": 4.399206599686295,
+   "verifier_s": 5.440173963084817,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 1864112,
+   "proof_elems": 8135,
+   "t_commit": 0.36001207306981087,
+   "t_lookup": 2.581045475322753,
+   "t_witness_wires": 0.011227581184357405,
+   "t_arith": 0.25188620807603,
+   "t_open": 1.193836925085634,
+   "slots": 2525,
+   "sequential_depth": 279,
+   "depth_circuit": 63,
+   "depth_lookup_max": 276,
+   "lookup_dims": [
+    [
+     "T_OP",
+     18,
+     32
+    ],
+    [
+     "ALIGN4",
+     17,
+     18
+    ],
+    [
+     "SSHIFT_HI",
+     18,
+     2
+    ],
+    [
+     "SSHIFT_LO",
+     18,
+     2
+    ],
+    [
+     "SHIFT",
+     22,
+     16
+    ],
+    [
+     "LEAD",
+     16,
+     4
+    ],
+    [
+     "LEADNORM",
+     15,
+     2
+    ],
+    [
+     "TNORM",
+     21,
+     2
+    ],
+    [
+     "R4",
+     15,
+     4
+    ],
+    [
+     "R12",
+     15,
+     4
+    ],
+    [
+     "R15",
+     16,
+     1
+    ],
+    [
+     "R16",
+     17,
+     4
+    ]
+   ],
+   "committed_elements": 6868664,
+   "ligero_rows": 1677,
+   "linkage_constraints": 37312,
+   "peak_mem_bytes": 9908874752
+  },
+  {
+   "rep": 1,
+   "vus": 64,
+   "units": 6144,
+   "prover_s": 2.850351915694773,
+   "verifier_s": 5.423123991116881,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 1864112,
+   "proof_elems": 8135,
+   "t_commit": 0.05416827695444226,
+   "t_lookup": 1.8921640450134873,
+   "t_witness_wires": 0.010984139051288366,
+   "t_arith": 0.13655155897140503,
+   "t_open": 0.7541539850644767,
+   "slots": 2525,
+   "sequential_depth": 279,
+   "depth_circuit": 63,
+   "depth_lookup_max": 276,
+   "lookup_dims": [
+    [
+     "T_OP",
+     18,
+     32
+    ],
+    [
+     "ALIGN4",
+     17,
+     18
+    ],
+    [
+     "SSHIFT_HI",
+     18,
+     2
+    ],
+    [
+     "SSHIFT_LO",
+     18,
+     2
+    ],
+    [
+     "SHIFT",
+     22,
+     16
+    ],
+    [
+     "LEAD",
+     16,
+     4
+    ],
+    [
+     "LEADNORM",
+     15,
+     2
+    ],
+    [
+     "TNORM",
+     21,
+     2
+    ],
+    [
+     "R4",
+     15,
+     4
+    ],
+    [
+     "R12",
+     15,
+     4
+    ],
+    [
+     "R15",
+     16,
+     1
+    ],
+    [
+     "R16",
+     17,
+     4
+    ]
+   ],
+   "committed_elements": 6868664,
+   "ligero_rows": 1677,
+   "linkage_constraints": 37312,
+   "peak_mem_bytes": 9908874752
+  },
+  {
+   "rep": 2,
+   "vus": 64,
+   "units": 6144,
+   "prover_s": 2.750312125310302,
+   "verifier_s": 5.391790623776615,
+   "verified": true,
+   "error": null,
+   "proof_bytes": 1864112,
+   "proof_elems": 8135,
+   "t_commit": 0.05360577208921313,
+   "t_lookup": 1.8944240822456777,
+   "t_witness_wires": 0.010967649519443512,
+   "t_arith": 0.13366820057854056,
+   "t_open": 0.6568389618769288,
+   "slots": 2525,
+   "sequential_depth": 279,
+   "depth_circuit": 63,
+   "depth_lookup_max": 276,
+   "lookup_dims": [
+    [
+     "T_OP",
+     18,
+     32
+    ],
+    [
+     "ALIGN4",
+     17,
+     18
+    ],
+    [
+     "SSHIFT_HI",
+     18,
+     2
+    ],
+    [
+     "SSHIFT_LO",
+     18,
+     2
+    ],
+    [
+     "SHIFT",
+     22,
+     16
+    ],
+    [
+     "LEAD",
+     16,
+     4
+    ],
+    [
+     "LEADNORM",
+     15,
+     2
+    ],
+    [
+     "TNORM",
+     21,
+     2
+    ],
+    [
+     "R4",
+     15,
+     4
+    ],
+    [
+     "R12",
+     15,
+     4
+    ],
+    [
+     "R15",
+     16,
+     1
+    ],
+    [
+     "R16",
+     17,
+     4
+    ]
+   ],
+   "committed_elements": 6868664,
+   "ligero_rows": 1677,
+   "linkage_constraints": 37312,
+   "peak_mem_bytes": 9908874752
+  }
+ ]
+}

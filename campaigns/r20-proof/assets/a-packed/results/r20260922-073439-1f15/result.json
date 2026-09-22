@@ -1,0 +1,170 @@
+{
+ "schema": "research/result/v0.1",
+ "run_id": "r20260922-073439-1f15",
+ "workload_fingerprint": {
+  "profile": "first-campaign-target/2026-09-21",
+  "domain": "finite",
+  "K": 1536,
+  "B": 4096,
+  "N_subbatches": 1,
+  "proof_class": "ARITHMETIC_DIAGNOSTIC",
+  "authentication": "excluded",
+  "zk_mode": "none",
+  "security": {
+   "target": -128,
+   "challenge_field": "BabyBear^6 (24 limbs)",
+   "note": "operating point of the priced design; nothing is proved here"
+  },
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA H100 80GB HBM3",
+    "driver": "580.126.20",
+    "memory": "81559 MiB",
+    "cuda": null
+   },
+   "cpu": {
+    "model": "Intel(R) Xeon(R) Platinum 8470",
+    "count": 208
+   }
+  },
+  "software": {
+   "backend": {
+    "name": "backends/gkr/packed/logup_gpu",
+    "commit": null,
+    "version": null
+   },
+   "toolchain": {
+    "torch": "2.6.0+cu124",
+    "python": "3.12.14",
+    "cuda": "12.4"
+   }
+  },
+  "preprocessing": "none",
+  "retention": "retained",
+  "instances": null,
+  "stage": "logup.gkr",
+  "kind": "kernel measurement (not a proof): Candidate A logUp fractional GKR, one 65,536-row range table, 393216 units x 306 random lookups; coins independent of the transcript",
+  "config": {
+   "units": 393216,
+   "lookups": 306,
+   "table_log2": 16,
+   "ks": [
+    3,
+    0
+   ],
+   "k1_log2": 13,
+   "repeats": 3
+  }
+ },
+ "validation": {
+  "status": "passed",
+  "checker": "backends/gkr/packed/tests/test_logup_gpu.py (run separately on this machine: results/logup/agreement_test_h100.log)",
+  "detail": "GPU transcript == logup_reference.prove_table message for message (k = 0, 3; with and without padding; tiny)",
+  "evidence": [
+   "logup_bench.json"
+  ]
+ },
+ "measurements": [
+  {
+   "name": "t.total",
+   "value": 0.42737664794921876,
+   "unit": "s"
+  },
+  {
+   "name": "t.arithmetic",
+   "value": 0.42737664794921876,
+   "unit": "s"
+  },
+  {
+   "name": "logup.us_per_vu",
+   "value": 104.34000194072723,
+   "unit": "us"
+  },
+  {
+   "name": "logup.best_k",
+   "value": 3,
+   "unit": "count"
+  },
+  {
+   "name": "mem.peak_device_bytes",
+   "value": 24801980416,
+   "unit": "B"
+  },
+  {
+   "name": "logup.k3.total",
+   "value": 0.42737664794921876,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k3.histogram",
+   "value": 0.003705120086669922,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k3.tree",
+   "value": 0.012565471649169923,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k3.big_packed",
+   "value": 0.008216416358947754,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k3.big_fold_k",
+   "value": 0.0023761279582977294,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k3.big_ext",
+   "value": 0.029376352310180664,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k3.tail_levels",
+   "value": 0.17109872046113014,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k0.total",
+   "value": 0.4466475830078125,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k0.histogram",
+   "value": 0.0036363840103149415,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k0.tree",
+   "value": 0.01249824047088623,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k0.big_packed",
+   "value": 3.648000070825219e-06,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k0.big_fold_k",
+   "value": 0.015325695991516113,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k0.big_ext",
+   "value": 0.06539852905273437,
+   "unit": "s"
+  },
+  {
+   "name": "logup.k0.tail_levels",
+   "value": 0.16137884825468063,
+   "unit": "s"
+  }
+ ],
+ "measurement_files": [
+  "logup_bench.json"
+ ],
+ "artifacts": [
+  "logup_bench.json"
+ ]
+}

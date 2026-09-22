@@ -1,0 +1,2420 @@
+{
+ "system": {
+  "rows": 3516,
+  "by_kind": {
+   "hint": 103,
+   "bit": 2534,
+   "prod": 173,
+   "pin": 96,
+   "sel": 610
+  },
+  "linear": 347,
+  "quadratic": 3387,
+  "pins": 96,
+  "hints": 103
+ },
+ "positives": [
+  {
+   "tier": "vu-k1536",
+   "range": [
+    0,
+    8
+   ],
+   "l": 1024,
+   "ok": true,
+   "why": "accept (0.027s)",
+   "timings": {
+    "statement": 0.014912597835063934,
+    "witness": 0.380889680236578,
+    "self_check": 2.8512500636279583,
+    "zk_masks": 0.018138008192181587,
+    "encode": 0.6585337147116661,
+    "transfer": 0.0005008000880479813,
+    "merkle": 0.028307713568210602,
+    "tests": 0.4954150356352329,
+    "openings": 0.006701307371258736,
+    "total": 4.454664833843708,
+    "hints_host": 1.1093455329537392
+   }
+  }
+ ],
+ "negatives": [
+  {
+   "id": 0,
+   "mistake": "ulp-plus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 1,
+   "mistake": "ulp-plus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 2,
+   "mistake": "ulp-plus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 3,
+   "mistake": "ulp-plus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 4,
+   "mistake": "ulp-minus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 5,
+   "mistake": "ulp-minus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 6,
+   "mistake": "ulp-minus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 7,
+   "mistake": "ulp-minus",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 8,
+   "mistake": "sign-flip",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 9,
+   "mistake": "sign-flip",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 10,
+   "mistake": "sign-flip",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 11,
+   "mistake": "sign-flip",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 12,
+   "mistake": "epilogue-rtz",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 13,
+   "mistake": "epilogue-rtz",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 14,
+   "mistake": "epilogue-rtz",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 15,
+   "mistake": "epilogue-rtz",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 16,
+   "mistake": "ieee-fp32-fma",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 17,
+   "mistake": "ieee-fp32-fma",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 18,
+   "mistake": "ieee-fp32-fma",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 19,
+   "mistake": "ieee-fp32-fma",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 20,
+   "mistake": "single-group-16",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 21,
+   "mistake": "single-group-16",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 22,
+   "mistake": "single-group-16",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 23,
+   "mistake": "single-group-16",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 24,
+   "mistake": "adder-24-bit",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 25,
+   "mistake": "adder-24-bit",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 26,
+   "mistake": "adder-24-bit",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 27,
+   "mistake": "adder-24-bit",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 28,
+   "mistake": "no-exponent-floor",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 29,
+   "mistake": "no-exponent-floor",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 30,
+   "mistake": "no-exponent-floor",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 31,
+   "mistake": "no-exponent-floor",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 32,
+   "mistake": "non-sticky-saturation",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 33,
+   "mistake": "non-sticky-saturation",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 34,
+   "mistake": "non-sticky-saturation",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 35,
+   "mistake": "non-sticky-saturation",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 36,
+   "mistake": "c0-stale",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 37,
+   "mistake": "c0-stale",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 38,
+   "mistake": "c0-stale",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 39,
+   "mistake": "c0-stale",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 40,
+   "mistake": "reversed-k",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 41,
+   "mistake": "reversed-k",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 42,
+   "mistake": "reversed-k",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 43,
+   "mistake": "reversed-k",
+   "verdict": "wrong",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "id": 44,
+   "mistake": "nonfinite-operand",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "prover raised Reject; verifier on a foreign proof: public inputs: public inputs rejected: a.t off the finite range"
+  },
+  {
+   "id": 45,
+   "mistake": "nonfinite-operand",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "prover raised Reject; verifier on a foreign proof: public inputs: public inputs rejected: b.t off the finite range"
+  },
+  {
+   "id": 46,
+   "mistake": "nonfinite-operand",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "prover raised Reject; verifier on a foreign proof: public inputs: public inputs rejected: a.t off the finite range"
+  },
+  {
+   "id": 47,
+   "mistake": "nonfinite-operand",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "prover raised Reject; verifier on a foreign proof: public inputs: public inputs rejected: b.t off the finite range"
+  },
+  {
+   "id": 48,
+   "mistake": "sat-intermediate",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "prover raised Reject; verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 49,
+   "mistake": "sat-intermediate",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "prover raised Reject; verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 50,
+   "mistake": "sat-intermediate",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "prover raised Reject; verifier on a foreign proof: column challenge mismatch"
+  },
+  {
+   "id": 51,
+   "mistake": "sat-intermediate",
+   "verdict": "reject",
+   "accepted": false,
+   "why": "prover raised Reject; verifier on a foreign proof: column challenge mismatch"
+  }
+ ],
+ "mutations": [
+  {
+   "row": "x.acc.s",
+   "kind": "hint",
+   "col": 25,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "x.acc.t.b0",
+   "kind": "bit",
+   "col": 153,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.prod0",
+   "kind": "prod",
+   "col": 113,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.prod1",
+   "kind": "prod",
+   "col": 136,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.prod2",
+   "kind": "prod",
+   "col": 93,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[0].s",
+   "kind": "pin",
+   "col": 77,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[1].s",
+   "kind": "pin",
+   "col": 105,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[2].s",
+   "kind": "pin",
+   "col": 104,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[3].s",
+   "kind": "pin",
+   "col": 144,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[4].s",
+   "kind": "pin",
+   "col": 188,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[5].s",
+   "kind": "pin",
+   "col": 166,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[6].s",
+   "kind": "pin",
+   "col": 27,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[7].s",
+   "kind": "pin",
+   "col": 85,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[8].s",
+   "kind": "pin",
+   "col": 190,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[9].s",
+   "kind": "pin",
+   "col": 164,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[10].s",
+   "kind": "pin",
+   "col": 66,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[11].s",
+   "kind": "pin",
+   "col": 47,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[12].s",
+   "kind": "pin",
+   "col": 88,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[13].s",
+   "kind": "pin",
+   "col": 180,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[14].s",
+   "kind": "pin",
+   "col": 161,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.a[15].s",
+   "kind": "pin",
+   "col": 188,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[0].s",
+   "kind": "pin",
+   "col": 25,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[1].s",
+   "kind": "pin",
+   "col": 59,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[2].s",
+   "kind": "pin",
+   "col": 158,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[3].s",
+   "kind": "pin",
+   "col": 188,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[4].s",
+   "kind": "pin",
+   "col": 178,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[5].s",
+   "kind": "pin",
+   "col": 138,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[6].s",
+   "kind": "pin",
+   "col": 113,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[7].s",
+   "kind": "pin",
+   "col": 170,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[8].s",
+   "kind": "pin",
+   "col": 185,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[9].s",
+   "kind": "pin",
+   "col": 149,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[10].s",
+   "kind": "pin",
+   "col": 131,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[11].s",
+   "kind": "pin",
+   "col": 2,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[12].s",
+   "kind": "pin",
+   "col": 186,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[13].s",
+   "kind": "pin",
+   "col": 58,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[14].s",
+   "kind": "pin",
+   "col": 46,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "x.b[15].s",
+   "kind": "pin",
+   "col": 164,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[0].prod[0].z",
+   "kind": "hint",
+   "col": 14,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[0].prod3",
+   "kind": "prod",
+   "col": 108,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[0].prod4",
+   "kind": "prod",
+   "col": 191,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[0].prod[0].z1.b0",
+   "kind": "bit",
+   "col": 117,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[0].prod5",
+   "kind": "prod",
+   "col": 33,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[0].prod6",
+   "kind": "prod",
+   "col": 84,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[1].prod[1].z",
+   "kind": "hint",
+   "col": 139,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[1].prod7",
+   "kind": "prod",
+   "col": 65,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[1].prod8",
+   "kind": "prod",
+   "col": 120,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[1].prod[1].z1.b0",
+   "kind": "bit",
+   "col": 143,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[1].prod9",
+   "kind": "prod",
+   "col": 171,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[1].prod10",
+   "kind": "prod",
+   "col": 58,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[2].prod[2].z",
+   "kind": "hint",
+   "col": 0,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[2].prod11",
+   "kind": "prod",
+   "col": 17,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[2].prod12",
+   "kind": "prod",
+   "col": 157,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[2].prod[2].z1.b0",
+   "kind": "bit",
+   "col": 164,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[2].prod13",
+   "kind": "prod",
+   "col": 95,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[2].prod14",
+   "kind": "prod",
+   "col": 36,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[3].prod[3].z",
+   "kind": "hint",
+   "col": 14,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[3].prod15",
+   "kind": "prod",
+   "col": 3,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[3].prod16",
+   "kind": "prod",
+   "col": 179,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[3].prod[3].z1.b0",
+   "kind": "bit",
+   "col": 59,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[3].prod17",
+   "kind": "prod",
+   "col": 148,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[3].prod18",
+   "kind": "prod",
+   "col": 95,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[4].prod[4].z",
+   "kind": "hint",
+   "col": 4,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[4].prod19",
+   "kind": "prod",
+   "col": 1,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[4].prod20",
+   "kind": "prod",
+   "col": 82,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[4].prod[4].z1.b0",
+   "kind": "bit",
+   "col": 123,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[4].prod21",
+   "kind": "prod",
+   "col": 189,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[4].prod22",
+   "kind": "prod",
+   "col": 177,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[5].prod[5].z",
+   "kind": "hint",
+   "col": 27,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[5].prod23",
+   "kind": "prod",
+   "col": 166,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[5].prod24",
+   "kind": "prod",
+   "col": 142,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[5].prod[5].z1.b0",
+   "kind": "bit",
+   "col": 80,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[5].prod25",
+   "kind": "prod",
+   "col": 101,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[5].prod26",
+   "kind": "prod",
+   "col": 130,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[6].prod[6].z",
+   "kind": "hint",
+   "col": 133,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[6].prod27",
+   "kind": "prod",
+   "col": 69,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[6].prod28",
+   "kind": "prod",
+   "col": 180,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[6].prod[6].z1.b0",
+   "kind": "bit",
+   "col": 125,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[6].prod29",
+   "kind": "prod",
+   "col": 55,
+   "delta": 2,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[6].prod30",
+   "kind": "prod",
+   "col": 181,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[7].prod[7].z",
+   "kind": "hint",
+   "col": 46,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[7].prod31",
+   "kind": "prod",
+   "col": 91,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[7].prod32",
+   "kind": "prod",
+   "col": 77,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[7].prod[7].z1.b0",
+   "kind": "bit",
+   "col": 70,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[7].prod33",
+   "kind": "prod",
+   "col": 96,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[7].prod34",
+   "kind": "prod",
+   "col": 179,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[8].prod[8].z",
+   "kind": "hint",
+   "col": 148,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[8].prod35",
+   "kind": "prod",
+   "col": 191,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[8].prod36",
+   "kind": "prod",
+   "col": 168,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[8].prod[8].z1.b0",
+   "kind": "bit",
+   "col": 20,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[8].prod37",
+   "kind": "prod",
+   "col": 102,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[8].prod38",
+   "kind": "prod",
+   "col": 187,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[9].prod[9].z",
+   "kind": "hint",
+   "col": 32,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[9].prod39",
+   "kind": "prod",
+   "col": 58,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[9].prod40",
+   "kind": "prod",
+   "col": 55,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[9].prod[9].z1.b0",
+   "kind": "bit",
+   "col": 15,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[9].prod41",
+   "kind": "prod",
+   "col": 175,
+   "delta": 2,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[9].prod42",
+   "kind": "prod",
+   "col": 168,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[10].prod[10].z",
+   "kind": "hint",
+   "col": 108,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[10].prod43",
+   "kind": "prod",
+   "col": 92,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[10].prod44",
+   "kind": "prod",
+   "col": 106,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[10].prod[10].z1.b0",
+   "kind": "bit",
+   "col": 33,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[10].prod45",
+   "kind": "prod",
+   "col": 127,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[10].prod46",
+   "kind": "prod",
+   "col": 92,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[11].prod[11].z",
+   "kind": "hint",
+   "col": 131,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[11].prod47",
+   "kind": "prod",
+   "col": 32,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[11].prod48",
+   "kind": "prod",
+   "col": 103,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[11].prod[11].z1.b0",
+   "kind": "bit",
+   "col": 13,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[11].prod49",
+   "kind": "prod",
+   "col": 122,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[11].prod50",
+   "kind": "prod",
+   "col": 104,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[12].prod[12].z",
+   "kind": "hint",
+   "col": 27,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[12].prod51",
+   "kind": "prod",
+   "col": 185,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[12].prod52",
+   "kind": "prod",
+   "col": 167,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[12].prod[12].z1.b0",
+   "kind": "bit",
+   "col": 145,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[12].prod53",
+   "kind": "prod",
+   "col": 121,
+   "delta": 2,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[12].prod54",
+   "kind": "prod",
+   "col": 64,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[13].prod[13].z",
+   "kind": "hint",
+   "col": 41,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[13].prod55",
+   "kind": "prod",
+   "col": 0,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[13].prod56",
+   "kind": "prod",
+   "col": 100,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[13].prod[13].z1.b0",
+   "kind": "bit",
+   "col": 43,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[13].prod57",
+   "kind": "prod",
+   "col": 69,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[13].prod58",
+   "kind": "prod",
+   "col": 1,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[14].prod[14].z",
+   "kind": "hint",
+   "col": 122,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[14].prod59",
+   "kind": "prod",
+   "col": 162,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[14].prod60",
+   "kind": "prod",
+   "col": 48,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[14].prod[14].z1.b0",
+   "kind": "bit",
+   "col": 30,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[14].prod61",
+   "kind": "prod",
+   "col": 95,
+   "delta": 2,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[14].prod62",
+   "kind": "prod",
+   "col": 26,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[15].prod[15].z",
+   "kind": "hint",
+   "col": 17,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[15].prod63",
+   "kind": "prod",
+   "col": 42,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[15].prod64",
+   "kind": "prod",
+   "col": 174,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[15].prod[15].z1.b0",
+   "kind": "bit",
+   "col": 20,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "prod[15].prod65",
+   "kind": "prod",
+   "col": 109,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "prod[15].prod66",
+   "kind": "prod",
+   "col": 15,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.max.g0.max.E",
+   "kind": "hint",
+   "col": 174,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.max.g0.max.E.b0",
+   "kind": "bit",
+   "col": 130,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.max.prod67",
+   "kind": "prod",
+   "col": 77,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_state.g0.acc_align.q",
+   "kind": "hint",
+   "col": 77,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_state.g0.align_state.q.b0",
+   "kind": "bit",
+   "col": 158,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_state.g0.align_state.pow.sel0",
+   "kind": "sel",
+   "col": 140,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_state.prod76",
+   "kind": "prod",
+   "col": 186,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[0].g0.prod_align[0].q",
+   "kind": "hint",
+   "col": 93,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[0].g0.align_prod[0].q.b0",
+   "kind": "bit",
+   "col": 147,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[0].g0.align_prod[0].align.sel0",
+   "kind": "sel",
+   "col": 154,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[0].prod77",
+   "kind": "prod",
+   "col": 66,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[1].g0.prod_align[1].q",
+   "kind": "hint",
+   "col": 117,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[1].g0.align_prod[1].q.b0",
+   "kind": "bit",
+   "col": 113,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[1].g0.align_prod[1].align.sel0",
+   "kind": "sel",
+   "col": 159,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[1].prod79",
+   "kind": "prod",
+   "col": 127,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[2].g0.prod_align[2].q",
+   "kind": "hint",
+   "col": 14,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[2].g0.align_prod[2].q.b0",
+   "kind": "bit",
+   "col": 67,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[2].g0.align_prod[2].align.sel0",
+   "kind": "sel",
+   "col": 0,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[2].prod81",
+   "kind": "prod",
+   "col": 6,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[3].g0.prod_align[3].q",
+   "kind": "hint",
+   "col": 56,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[3].g0.align_prod[3].q.b0",
+   "kind": "bit",
+   "col": 110,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[3].g0.align_prod[3].align.sel0",
+   "kind": "sel",
+   "col": 102,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[3].prod83",
+   "kind": "prod",
+   "col": 129,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[4].g0.prod_align[4].q",
+   "kind": "hint",
+   "col": 6,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[4].g0.align_prod[4].q.b0",
+   "kind": "bit",
+   "col": 152,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[4].g0.align_prod[4].align.sel0",
+   "kind": "sel",
+   "col": 56,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[4].prod85",
+   "kind": "prod",
+   "col": 178,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[5].g0.prod_align[5].q",
+   "kind": "hint",
+   "col": 71,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[5].g0.align_prod[5].q.b0",
+   "kind": "bit",
+   "col": 24,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[5].g0.align_prod[5].align.sel0",
+   "kind": "sel",
+   "col": 120,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[5].prod87",
+   "kind": "prod",
+   "col": 132,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[6].g0.prod_align[6].q",
+   "kind": "hint",
+   "col": 102,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[6].g0.align_prod[6].q.b0",
+   "kind": "bit",
+   "col": 146,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[6].g0.align_prod[6].align.sel0",
+   "kind": "sel",
+   "col": 79,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[6].prod89",
+   "kind": "prod",
+   "col": 58,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[7].g0.prod_align[7].q",
+   "kind": "hint",
+   "col": 35,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[7].g0.align_prod[7].q.b0",
+   "kind": "bit",
+   "col": 118,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[7].g0.align_prod[7].align.sel0",
+   "kind": "sel",
+   "col": 18,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.align_prod[7].prod91",
+   "kind": "prod",
+   "col": 143,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.sum.g0.sum.sgn",
+   "kind": "hint",
+   "col": 93,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "g0.sum.prod93",
+   "kind": "prod",
+   "col": 110,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.sum.g0.sum.v.b0",
+   "kind": "bit",
+   "col": 154,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.lead.g0.lead.l",
+   "kind": "hint",
+   "col": 56,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.lead.g0.lead.lead.key.b0",
+   "kind": "bit",
+   "col": 124,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.lead.g0.lead.lead.sel0",
+   "kind": "sel",
+   "col": 133,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.norm.g0.norm.clamp",
+   "kind": "hint",
+   "col": 18,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "g0.norm.g0.norm.M.b0",
+   "kind": "bit",
+   "col": 70,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.norm.prod105",
+   "kind": "prod",
+   "col": 166,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.norm.g0.norm.norm.sel0",
+   "kind": "sel",
+   "col": 95,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.out.g0.out.z",
+   "kind": "hint",
+   "col": 37,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.out.prod110",
+   "kind": "prod",
+   "col": 37,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g0.out.g0.out.z1.b0",
+   "kind": "bit",
+   "col": 132,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.max.g1.max.E",
+   "kind": "hint",
+   "col": 28,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.max.g1.max.E.b0",
+   "kind": "bit",
+   "col": 133,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.max.prod116",
+   "kind": "prod",
+   "col": 134,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_state.g1.acc_align.q",
+   "kind": "hint",
+   "col": 22,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_state.g1.align_state.q.b0",
+   "kind": "bit",
+   "col": 37,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_state.g1.align_state.pow.sel0",
+   "kind": "sel",
+   "col": 182,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_state.prod125",
+   "kind": "prod",
+   "col": 55,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[0].g1.prod_align[0].q",
+   "kind": "hint",
+   "col": 49,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[0].g1.align_prod[0].q.b0",
+   "kind": "bit",
+   "col": 163,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[0].g1.align_prod[0].align.sel0",
+   "kind": "sel",
+   "col": 40,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[0].prod126",
+   "kind": "prod",
+   "col": 124,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[1].g1.prod_align[1].q",
+   "kind": "hint",
+   "col": 95,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[1].g1.align_prod[1].q.b0",
+   "kind": "bit",
+   "col": 80,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[1].g1.align_prod[1].align.sel0",
+   "kind": "sel",
+   "col": 100,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[1].prod128",
+   "kind": "prod",
+   "col": 96,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[2].g1.prod_align[2].q",
+   "kind": "hint",
+   "col": 160,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[2].g1.align_prod[2].q.b0",
+   "kind": "bit",
+   "col": 169,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[2].g1.align_prod[2].align.sel0",
+   "kind": "sel",
+   "col": 143,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[2].prod130",
+   "kind": "prod",
+   "col": 1,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[3].g1.prod_align[3].q",
+   "kind": "hint",
+   "col": 73,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[3].g1.align_prod[3].q.b0",
+   "kind": "bit",
+   "col": 49,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[3].g1.align_prod[3].align.sel0",
+   "kind": "sel",
+   "col": 158,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[3].prod132",
+   "kind": "prod",
+   "col": 146,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[4].g1.prod_align[4].q",
+   "kind": "hint",
+   "col": 35,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[4].g1.align_prod[4].q.b0",
+   "kind": "bit",
+   "col": 53,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[4].g1.align_prod[4].align.sel0",
+   "kind": "sel",
+   "col": 25,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[4].prod134",
+   "kind": "prod",
+   "col": 22,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[5].g1.prod_align[5].q",
+   "kind": "hint",
+   "col": 163,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[5].g1.align_prod[5].q.b0",
+   "kind": "bit",
+   "col": 55,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[5].g1.align_prod[5].align.sel0",
+   "kind": "sel",
+   "col": 64,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[5].prod136",
+   "kind": "prod",
+   "col": 172,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[6].g1.prod_align[6].q",
+   "kind": "hint",
+   "col": 181,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[6].g1.align_prod[6].q.b0",
+   "kind": "bit",
+   "col": 154,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[6].g1.align_prod[6].align.sel0",
+   "kind": "sel",
+   "col": 24,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[6].prod138",
+   "kind": "prod",
+   "col": 82,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[7].g1.prod_align[7].q",
+   "kind": "hint",
+   "col": 138,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[7].g1.align_prod[7].q.b0",
+   "kind": "bit",
+   "col": 29,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[7].g1.align_prod[7].align.sel0",
+   "kind": "sel",
+   "col": 178,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.align_prod[7].prod140",
+   "kind": "prod",
+   "col": 151,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.sum.g1.sum.sgn",
+   "kind": "hint",
+   "col": 10,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "g1.sum.prod142",
+   "kind": "prod",
+   "col": 164,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.sum.g1.sum.v.b0",
+   "kind": "bit",
+   "col": 170,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.lead.g1.lead.l",
+   "kind": "hint",
+   "col": 25,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.lead.g1.lead.lead.key.b0",
+   "kind": "bit",
+   "col": 57,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.lead.g1.lead.lead.sel0",
+   "kind": "sel",
+   "col": 15,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.norm.g1.norm.clamp",
+   "kind": "hint",
+   "col": 18,
+   "delta": 2,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "g1.norm.g1.norm.M.b0",
+   "kind": "bit",
+   "col": 137,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.norm.prod154",
+   "kind": "prod",
+   "col": 120,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.norm.g1.norm.norm.sel0",
+   "kind": "sel",
+   "col": 101,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.out.g1.out.z",
+   "kind": "hint",
+   "col": 88,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.out.prod159",
+   "kind": "prod",
+   "col": 161,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "g1.out.g1.out.z1.b0",
+   "kind": "bit",
+   "col": 173,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "pack.pack.hidden",
+   "kind": "hint",
+   "col": 40,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "pack.pack.low.b0",
+   "kind": "bit",
+   "col": 156,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "pack.prod165",
+   "kind": "prod",
+   "col": 145,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "pack.prod166",
+   "kind": "prod",
+   "col": 143,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "pack.prod167",
+   "kind": "prod",
+   "col": 47,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "pack.prod168",
+   "kind": "prod",
+   "col": 160,
+   "delta": 1,
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "row": "pack.prod169",
+   "kind": "prod",
+   "col": 147,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "pack.prod170",
+   "kind": "prod",
+   "col": 133,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "pack.prod171",
+   "kind": "prod",
+   "col": 166,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "pack.prod172",
+   "kind": "prod",
+   "col": 127,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "epi.epi.fhi",
+   "kind": "hint",
+   "col": 120,
+   "delta": 1,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "epi.epi.fhi.b0",
+   "kind": "bit",
+   "col": 186,
+   "delta": 2,
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "claimed y16 flipped",
+   "kind": "chain",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "row": "link c.f[40] != y.f[39]",
+   "kind": "chain",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "row": "c_0 != 0 at a chain start",
+   "kind": "chain",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  }
+ ],
+ "failures": 0
+}

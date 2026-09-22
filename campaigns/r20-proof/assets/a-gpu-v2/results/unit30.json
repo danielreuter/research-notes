@@ -1,0 +1,162 @@
+{
+ "device": "cuda",
+ "results": {
+  "honest1": {
+   "rejected": false,
+   "where": "verifier",
+   "why": "accepted (control)"
+  },
+  "hint.groups[0].E.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table ALIGN4"
+  },
+  "hint.groups[0].acc_split.M_hi.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "hint.groups[0].acc_split.M_lo.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "hint.groups[0].sum.sgn.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "hint.groups[0].sum.v_hi.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "hint.groups[0].sum.v_lo.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table TNORM"
+  },
+  "hint.groups[1].E.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "hint.groups[1].acc_split.M_hi.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table SSHIFT_HI"
+  },
+  "hint.groups[1].acc_split.M_lo.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table SSHIFT_LO"
+  },
+  "hint.groups[1].sum.sgn.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "hint.groups[1].sum.v_hi.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "hint.groups[1].sum.v_lo.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "hint_swap.other_unit": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table ALIGN4"
+  },
+  "lookup_out.ALIGN4.g0.max[0].align.dt.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table ALIGN4"
+  },
+  "lookup_out.LEAD.g0.sum.lead_hi.nz.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table LEAD"
+  },
+  "lookup_out.LEADNORM.g0.norm.leadnorm.koff.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table LEADNORM"
+  },
+  "lookup_out.SHIFT.g0.pshift[0].shift.term.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table SHIFT"
+  },
+  "lookup_out.SSHIFT_HI.g0.sshift.hi.term.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table SSHIFT_HI"
+  },
+  "lookup_out.SSHIFT_LO.g0.sshift.lo.term.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table SSHIFT_LO"
+  },
+  "lookup_out.TNORM.g0.norm.tnorm.t.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table TNORM"
+  },
+  "lookup_out.T_OP.a[0].op.s.plus1": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table T_OP"
+  },
+  "operand.non_finite_7f80": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table T_OP"
+  },
+  "operand.non_finite_7f81": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table T_OP"
+  },
+  "operand.non_finite_7fc0": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table T_OP"
+  },
+  "operand.non_finite_ff80": {
+   "rejected": true,
+   "where": "prover",
+   "why": "ValueError: query tuple not in table T_OP"
+  },
+  "state_out.M.hidden_bit": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "state_out.M.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "state_out.e.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "state_out.s.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  },
+  "state_out.z.plus1": {
+   "rejected": true,
+   "where": "verifier",
+   "why": "assertions phase-2a: round 0 sum mismatch"
+  }
+ },
+ "rejected": 30,
+ "total": 30
+}

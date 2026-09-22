@@ -1,0 +1,384 @@
+{
+  "artifacts": [],
+  "measurement_files": [],
+  "measurements": [
+    {
+      "name": "t.witness",
+      "unit": "s",
+      "value": 0.91208412
+    },
+    {
+      "name": "t.joint.encoding_commitment+arithmetic",
+      "unit": "s",
+      "value": 68.402072274
+    },
+    {
+      "name": "t.serialization",
+      "unit": "s",
+      "value": 0.001914018
+    },
+    {
+      "name": "t.total",
+      "unit": "s",
+      "value": 69.316070412
+    },
+    {
+      "name": "verifier.seconds",
+      "unit": "s",
+      "value": 0.982071023
+    },
+    {
+      "name": "transcript.bytes",
+      "unit": "B",
+      "value": 1179292
+    },
+    {
+      "name": "rounds.protocol",
+      "unit": "count",
+      "value": 26
+    },
+    {
+      "name": "rounds.sequential_depth",
+      "unit": "count",
+      "value": 24
+    },
+    {
+      "name": "direct.depth_formula_legacy",
+      "unit": "count",
+      "value": 26
+    },
+    {
+      "name": "direct.rtt_ms",
+      "unit": "ms",
+      "value": 0.0
+    },
+    {
+      "name": "direct.rtt_sleep_seconds",
+      "unit": "s",
+      "value": 0.0
+    },
+    {
+      "name": "direct.prove_wall_s",
+      "unit": "s",
+      "value": 68.402072274
+    },
+    {
+      "name": "mem.peak_host_bytes",
+      "unit": "B",
+      "value": 4824776704
+    },
+    {
+      "name": "census.committed_elements",
+      "unit": "count",
+      "value": 220725248
+    },
+    {
+      "name": "census.witness_elements",
+      "unit": "count",
+      "value": 212336640
+    },
+    {
+      "name": "vu.count",
+      "unit": "count",
+      "value": 64
+    },
+    {
+      "name": "vu.seconds_per_vu",
+      "unit": "s",
+      "value": 1.0830636001875
+    },
+    {
+      "name": "vu.per_second",
+      "unit": "1/s",
+      "value": 0.9233068121086148
+    },
+    {
+      "name": "overhead.vs_native_peak",
+      "unit": "ratio",
+      "value": 109998646894.04297
+    },
+    {
+      "name": "direct.vus",
+      "unit": "count",
+      "value": 64
+    },
+    {
+      "name": "direct.rows",
+      "unit": "count",
+      "value": 524288
+    },
+    {
+      "name": "direct.rows_real",
+      "unit": "count",
+      "value": 6144
+    },
+    {
+      "name": "direct.width",
+      "unit": "count",
+      "value": 281
+    },
+    {
+      "name": "direct.committed_width",
+      "unit": "count",
+      "value": 405
+    },
+    {
+      "name": "direct.trace_cells",
+      "unit": "count",
+      "value": 212336640
+    },
+    {
+      "name": "direct.quotient_cells",
+      "unit": "count",
+      "value": 8388608
+    },
+    {
+      "name": "direct.committed_cells_per_vu",
+      "unit": "count",
+      "value": 38880
+    },
+    {
+      "name": "direct.committed_bytes_per_vu",
+      "unit": "B",
+      "value": 155520
+    },
+    {
+      "name": "direct.threads",
+      "unit": "count",
+      "value": 12
+    },
+    {
+      "name": "direct.prove_s",
+      "unit": "s",
+      "value": 68.402072274
+    },
+    {
+      "name": "direct.verify_s",
+      "unit": "s",
+      "value": 0.982071023
+    },
+    {
+      "name": "direct.fri_bits_proven",
+      "unit": "bits",
+      "value": 83.80719051126377
+    },
+    {
+      "name": "direct.fri_bits_conjectured",
+      "unit": "bits",
+      "value": 216.0
+    },
+    {
+      "name": "direct.fri_queries_for_128_proven",
+      "unit": "count",
+      "value": 166
+    },
+    {
+      "name": "direct.lookup.main_width",
+      "unit": "count",
+      "value": 281
+    },
+    {
+      "name": "direct.lookup.aux_width",
+      "unit": "count",
+      "value": 116
+    },
+    {
+      "name": "direct.lookup.pre_width",
+      "unit": "count",
+      "value": 8
+    },
+    {
+      "name": "direct.lookup.helpers",
+      "unit": "count",
+      "value": 27
+    },
+    {
+      "name": "direct.lookup.queries_per_row",
+      "unit": "count",
+      "value": 105
+    },
+    {
+      "name": "direct.lookup.table_rows",
+      "unit": "count",
+      "value": 282280
+    },
+    {
+      "name": "direct.lookup.bits",
+      "unit": "bits",
+      "value": 95.28483006879284
+    },
+    {
+      "name": "direct.stage.commit_pre_s",
+      "unit": "s",
+      "value": 1.175740466
+    },
+    {
+      "name": "direct.stage.commit_main_s",
+      "unit": "s",
+      "value": 9.85655856
+    },
+    {
+      "name": "direct.stage.aux_build_s",
+      "unit": "s",
+      "value": 0.277835585
+    },
+    {
+      "name": "direct.stage.commit_aux_s",
+      "unit": "s",
+      "value": 3.9025594200000002
+    },
+    {
+      "name": "direct.stage.quotient_s",
+      "unit": "s",
+      "value": 44.492964786
+    },
+    {
+      "name": "direct.stage.commit_quotient_s",
+      "unit": "s",
+      "value": 1.37473599
+    },
+    {
+      "name": "direct.stage.open_s",
+      "unit": "s",
+      "value": 6.717743722
+    },
+    {
+      "name": "direct.statement.bound_operands",
+      "unit": "count",
+      "value": 0
+    },
+    {
+      "name": "t.e2e.rtt_0ms",
+      "unit": "s",
+      "value": 70.298141435
+    },
+    {
+      "name": "t.e2e.rtt_0.1ms",
+      "unit": "s",
+      "value": 70.300541435
+    },
+    {
+      "name": "t.e2e.rtt_1ms",
+      "unit": "s",
+      "value": 70.322141435
+    },
+    {
+      "name": "t.e2e.rtt_10ms",
+      "unit": "s",
+      "value": 70.538141435
+    },
+    {
+      "name": "t.e2e.rtt_50ms",
+      "unit": "s",
+      "value": 71.49814143500001
+    }
+  ],
+  "run_id": "r20260922-111343-3ed9",
+  "schema": "research/result/v0.1",
+  "validation": {
+    "checker": "verity_direct statement-bound verify (uni-stark transcript + statement header + public columns at zeta) + recorded accumulators",
+    "detail": "proof verified for the statement of the claimed words; wrong-word and wrong-B statements rejected; 64 VUs x 96 steps in 524288 rows; every intermediate accumulator and output word equals bench-instances/v1",
+    "evidence": [],
+    "index_note": "real rows: seed = index into `seeds` (the activation row's seed; seeds/seeds.json gives layer/op/phase/N), j = the weight row of that layer/op ('seed' tag: j is the seed's own, y is hardware-confirmed); corner rows: tags[1] is the family, params the generator parameters",
+    "status": "passed"
+  },
+  "workload_fingerprint": {
+    "B": 64,
+    "K": 1536,
+    "N_subbatches": 1,
+    "authentication": "excluded",
+    "constraints": "checker v2 (checker_min.md) as direct AIR constraints on BabyBear: one row per transition unit, the state (s, e_hat, M) carried by a transition constraint, tuple LogUp lookups (T_OP, ALIGN4, chunked SHIFT/SSHIFT, LEAD10, LEADNORM, TNORM10, range tables) against preprocessed tables, attained as a product identity, the FP32 word as two 16-bit limbs; statement binding: header absorbed before the first challenge, degree_bits fixed by the statement, claim column checked at zeta (PROTOCOL.md 15, V2_AIR.md)",
+    "domain": "finite",
+    "hardware": {
+      "cpu": {
+        "count": 12,
+        "model": "AMD EPYC 7713 64-Core Processor"
+      },
+      "gpu": null
+    },
+    "instances": {
+      "dataset": "bench-instances/v1",
+      "manifest_sha256": "38fb2c3a0853bafcb59c9fe0c7862c75e66feb86221f57147826a043a02d6763",
+      "range": [
+        0,
+        64
+      ],
+      "tier": "vu-k1536"
+    },
+    "latency": {
+      "depth_note": "rounds.sequential_depth is the measured count of observe -> sample boundaries (verity_direct::rtt); direct.depth_formula_legacy is the earlier derived log_n + 5 (+ the realisation's extra commitment rounds)",
+      "e2e_measured": [
+        "t.e2e.rtt_0ms"
+      ],
+      "e2e_model": "t.total + verifier.seconds + rounds.sequential_depth x RTT (bytes / bandwidth not included)",
+      "e2e_predicted": [
+        "t.e2e.rtt_0.1ms",
+        "t.e2e.rtt_1ms",
+        "t.e2e.rtt_10ms",
+        "t.e2e.rtt_50ms"
+      ],
+      "protocol": "Fiat-Shamir as run (Plonky3); the interactive reading counts every observe -> sample boundary of the prover's transcript as one verifier message; measured with an emulated RTT: the prover sleeps one RTT at each",
+      "rtt_ms": 0.0
+    },
+    "note": "Plonky3 FRI/Keccak is the diagnostic PCS, not Candidate B's Ligero-style interactive PCS (PROTOCOL.md); the claimed output words are the statement: absorbed into the transcript before the first challenge and checked at zeta against the committed `vu.y16` column (PROTOCOL.md 12 'Statement binding', red-team F1-F3 fixed); operands are witness unless --bind-operands (authentication excluded)",
+    "preprocessing": "none",
+    "profile": "first-campaign-target/2026-09-21",
+    "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+    "realisation": "logup-v2",
+    "retention": "retained",
+    "scope": "vu",
+    "security": {
+      "challenge_bits": 124,
+      "challenge_field": "babybear^4",
+      "field": "babybear",
+      "fri": {
+        "log_blowup": 2,
+        "num_queries": 100,
+        "proof_of_work_bits": 16
+      },
+      "fri_bits_conjectured_bound": 216.0,
+      "fri_bits_proven_bound": 83.80719051126377,
+      "hash": "keccak256",
+      "lookup_bits": 95.28483006879284,
+      "note": "proven bound: unique decoding radius, -log2((1+rate)/2) per query + PoW; field terms (DEEP/quotient batching over the challenge field, ~degree/|challenge field|) omitted; lookup_bits = the LogUp identity term at the challenge field (section 14.4), null for the limb realisation",
+      "queries_for_128_proven": 166,
+      "target": -80
+    },
+    "software": {
+      "backend": {
+        "commit": null,
+        "name": "verity-direct (plonky3 uni-stark)",
+        "plonky3": "0.4.3-succinct",
+        "version": "0.3.0"
+      },
+      "toolchain": {
+        "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+      }
+    },
+    "statement_binding": {
+      "bound": true,
+      "degree_bits": "fixed by the verifier from B; a proof with another degree_bits is rejected (DegreeBitsMismatch)",
+      "extra_soundness_term": "<= 1 columns x n / |challenge field| = 2^-105.0",
+      "header_absorbed_before_first_challenge": [
+        "domain tag",
+        "AIR id (sha256 of field, layout, constraint names)",
+        "field prime",
+        "width",
+        "challenge extension degree",
+        "B",
+        "K",
+        "STEPS",
+        "rows",
+        "degree_bits",
+        "FRI log_blowup/num_queries/pow_bits",
+        "every claimed word",
+        "operands: not bound",
+        "(v2 domain tag verity-direct/chain-air-v2/statement/v1; tables bound by the verifier's recomputed preprocessed commitment)"
+      ],
+      "operands_bound": false,
+      "public_columns_checked_at_zeta": "vu.y16 (claim column of the v2 main matrix, round 1)"
+    },
+    "unit": "vu",
+    "zk_mode": "none"
+  }
+}

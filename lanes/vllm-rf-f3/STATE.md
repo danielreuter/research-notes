@@ -136,16 +136,37 @@ created: 2026-09-24T17:36Z
   Plan, as f24: T0+T1 on this pod with the two B=1 checks deselected (head + base), and those two on a big cpu3m pod (head; base only
   if the head does not pass). **a1's T0+T1 base on its 64 GB cpu3g pod will hit the same OOM.**
 
+- **21:53Z D4 late-read A/B DONE** (GPU pod; evidence `evidence/d4_lateread/`): (1) canary.sh's `lateread` negative AS WRITTEN (canary
+  BASE args, no `--required-manifest`) is refused at head AND base, exit 3 "FUSE: the acquisition plan needs --required-manifest and a
+  hooking committer (got native_collect_v2b)" -> the canary negative is stale at base (found, not f3's). (2) The row's own Commit argv
+  (from `<row>/commit.log`) + `--late-read qkv_proj`, each tree on its own row dir: head and base both exit 3, COMMIT FAIL "C2 oracle
+  mismatch: 60 identities differ from the Match oracle (first: step 0 model.layers.0.self_attn.qkv_proj/0 ...)", run root
+  `8393b652…` at both (!= positive `cb129578…`). `acquisition_plan.json`: head sha `1c2bf930…` == the positive's plan (plan_digest
+  `6b702155…`); base `e4657f17…` (plan_digest `a5995461…`): its `residuals[1].values` omits every `qkv_proj/0` leaf (it read the
+  collector table after --late-read rebound it). So D4's behaviour note holds exactly: only the --late-read plan digest moves, now
+  equal to the declared plan; roots and verdict unchanged.
+- 21:57Z GPU pod `vyv-rf-f3-g2` terminated (no `research run` attempts on it; evidence copied first).
+- 21:43Z gate (a) relaunch with `--deselect integrations/vllm/tests/...` was WRONG: node ids are relative to the rootdir
+  (`integrations/vllm`), so nothing was deselected, `replay_partition-r11` ran again and OOM-killed the base (oom_kill 3); head killed
+  by me at 21:53Z. The 21:53Z relaunch with the right ids started TWICE per tag (the `research pods ssh` wrapper re-ran the command,
+  as in f24's "two runner instances by accident"): all 8 processes killed by pid, scratch wiped, relaunched once under `flock`.
+- 21:48-21:53Z big pod `vyv-rf-f3-big` = RunPod `sda06pqcfi51jt` (cpu3m 64 vCPU / 512 GB cgroup, EPYC 9654, 100 GB disk, $3.52/h):
+  `research pods sync` head 4fb0eb2c -> `/workspace/head` (2817 files, 220 s); `pod_bootstrap.sh --cpu` BOOTSTRAP-OK 21:53Z;
+  `xgrammar` 0.2.8 -> 0.2.7 (then `uv pip freeze` == a1's baseline-freeze.txt except xdist/execnet, not used there).
+  NOTE: the 64 GB CPU pod has xgrammar 0.2.8 (bootstrapped later than a1's): my gate (b) and both gate (a) runs there (head AND
+  base) share it; gate (b) counts matched a1's base exactly. Raw ssh (stdin works): `/tmp/rf-f3/ssh_big.sh`.
+  21:56Z own read-only key (1 h) minted on the laptop, piped by raw ssh to `/root/r2ro.env`; `prefetch_big.sh` (flock) fetches
+  top + #11/#39 {records, programs}, deletes the key at the end / on exit -> `logs/prefetch.log`.
+
 ## Running (pod `vyv-rf-f3-veritor-campaign`, RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU / 64 GB, created 19:17Z)
-- 21:43Z gate (a) T0+T1 minus `--deselect ...test_reproduces[T1-replay_partition-r11]` and `...[T1-replay_partition-r39]`, both `nice`,
-  concurrently, same trees (checked: no file written in them by the killed runs), fresh scratch per tag, no key on disk/env:
-  head `/workspace/head-reg` (4fb0eb2c) -> `logs/a_head_t01d.*`; base `/workspace/b0-reg` (72884c8a) -> `logs/a_base_t01d.*`.
-  Killed runs' logs: `logs/a_{head,base}_t01.*`.
-## Running (GPU pod `vyv-rf-f3-g2`, RunPod `by47y4tvsavbln`)
-- 21:36Z `/workspace/rff3/lateread_ab.sh`: the canary's lateread negative (`commit_delta ... --late-read qkv_proj`, canary BASE args)
-  from the head tree, then the base tree -> `logs/lateread_{head,base}.log`, out `/workspace/cp/lateread-{head,base}/`, summary
-  `logs/lateread_ab.out`. Expect roots head == base != known-good, and `acquisition_plan.json` to differ (the D4 behaviour note above).
-  Terminate the GPU pod when it is done (D3 A/B finished; `row_ab.sh` logs in `logs/row_{head,base}.log`).
+- 21:54:35Z gate (a) T0+T1 minus `--deselect tests/regression/test_regression.py::test_reproduces[T1-replay_partition-r11]` and
+  `...[T1-replay_partition-r39]` (collect-only: 156 of 158 selected), started once per tag by `/workspace/rff3/launch_once.sh`
+  (flock), both `nice`, same trees (no file written in them by the killed runs), no key: head `/workspace/head-reg` (4fb0eb2c) ->
+  `logs/a_head_t01f.*`; base `/workspace/b0-reg` (72884c8a) -> `logs/a_base_t01f.*`. Dead runs: `logs/a_{head,base}_t01{,d,e}.*`.
+## Running (big pod `vyv-rf-f3-big`, RunPod `sda06pqcfi51jt`)
+- prefetch (above), then `/workspace/rff3/run_big.sh /workspace/head big`: `T1-replay_partition-r11` and `-r39` at head side by side
+  (`-k`, own tree copy + scratch each, gate_a_t01.sh) -> `logs/big_r{11,39}.{log,xml,out}`, memory `logs/big.rss`, `logs/big.DONE`.
+  Terminate the big pod as soon as they finish.
 
 ## (older) CPU pod notes
 - Trees: `/workspace/base` = `4fb0eb2c` (rsync 20:17Z; only bootstrap ran in it); copies `/workspace/{tgt,ga,gb}` = `9bddf741`.

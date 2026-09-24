@@ -80,14 +80,13 @@ At `be366f80`: **56 failed, 11 errors, 296 skipped, 3,550 passed, 6 xfailed** (3
 - **Build T0 rows unchanged except the `construction_version` stamp and FP8 `dtype`** (Build A/B, `evidence/build_ab/`). On the
   RTX 4090 with one venv (the records' vLLM, torch and triton versions), `rebuild_digest_gate` re-derived rows #73 (Qwen3-4B BF16:
   `step`, `request_LP10_T8`) and #74 (Qwen3-4B-FP8: `step`, `request_LP73_T1`) from their recorded `result.json`, with the base
-  tree and then the head tree. `apply_target_profile` answers the declared H100 capability and SM count, so the Program does not
-  depend on the host. Base and head give:
+  tree first and then the head tree. Base and head give:
   - the same `program_digest` and `correspondence_digest` for all 4 wrappers, and byte-identical `descriptor.json.gz`,
     `instances.json.gz` and `derive-report.json`;
-  - differences only in `construction_version` and `artifact.identity` (the hash that folds it in), `model_pin.dtype` on #74
-    only (`bfloat16` -> `fp8`), the inputs trace, and timings. The inputs trace differs by the tree path, by D6 itself (base
-    tries to open the 14 sources at nonexistent `packages/verity/src/verity/verity_vllm/...` paths), and by vLLM's first-run
-    model-info cache, which the base run populated.
+  - in `result.json`, differences only in `construction_version`, `artifact.identity` (the hash that folds it in), timings,
+    and `model_pin.dtype` on #74 only (`bfloat16` -> `fp8`). The build logs and `inputs.json` (the trace of opened files) also
+    differ: the tree path, and the number of files opened (for #74 `step`, 208 vs 181 paths outside site-packages and 12,904 vs
+    11,506 distinct paths). I kept only the diff of the traces, not the traces themselves, so I can't attribute each path.
 - **D6 on every recorded Build** (`evidence/d6`, `cv_evidence.py`): base hashes 14/14 sources as missing (`4a9cdf5b...`, a
   constant of the file names); head hashes all 14 by content. The 180 recorded Builds all carry `ad140226...`, 14/14 missing.
 - **D7 on every recorded Build** (`evidence/d7`, `fp8_dtype.py`, each Build's own target and pin through
@@ -126,11 +125,12 @@ At `be366f80`: **56 failed, 11 errors, 296 skipped, 3,550 passed, 6 xfailed** (3
   `program_compare.COMPACT_ARGS` global became a `compact=` parameter. `install()` / `uninstall()` and every module-attribute
   write are gone, and a test asserts the core functions keep their identity.
 - `2a07cd20` **D11, full digests.** `weights_of_record.check` and `stamp_of_record_set` refuse a program digest that is not
-  64-hex (the reason says "not full sha256") and compare by set equality. `_eq` and the three prefix matches are gone.
+  64-hex (the reason says "not full sha256") and compare by set equality. `_eq` and the prefix matches in `stamp_of_record_set`
+  are gone.
 - `76020a66` **D13, structured reason codes.** New `check/replay_codes.py` (dependency-free) holds the why classes, seed forms and
   the seed-source texts, plus decoders for records written before the codes. `sampled_replay.population` stamps
   `population.not_evaluable_codes` (class, family, domain, tags per reason); `sampled_replay(seed_form=)` stamps
-  `sample.seed_form`; `commit_delta` passes the form (a 9-line hunk). `commit_verdict` reads the codes. `verdict.py`'s three
+  `sample.seed_form`; `commit_delta` passes the form (a few lines). `commit_verdict` reads the codes. `verdict.py`'s three
   "Match account leg(s) missing" text tests now read `executed_prefix_of_record.facts_of_record` of the faulted requests.
 - `be366f80` `tests/by_name_allowlist.json`: the population-gap rule's entry follows its new expression, and the retired
   `CODE_SKIP_SUFFIX` entry is deleted (the ratchet's "delete the entry" message).
@@ -159,8 +159,9 @@ At `be366f80`: **56 failed, 11 errors, 296 skipped, 3,550 passed, 6 xfailed** (3
 - `commit_verdict.py:569` and `verdict.py:_replay_of` pick a `components.sampled_replay` by the substring "sampled-exact-replay"
   in its method label (a label, not a message).
 - The recorded Builds can't validate a rebuild today. Re-deriving rows #73 and #74 with the base tree (and the head tree) gives
-  Program digests different from the records' (same op histogram and call counts). The records were built by pre-relayout code
-  (research source `d1a33de8`, `verity_capture/experimental/cb_a/...` paths, 25 binding rules; base has 27).
+  Program digests different from the records', with the same number of root nodes (14,418 and 32,454 for #73's two wrappers).
+  The records were built by pre-relayout code: their `construction_version` lists 25 binding rules (base has 27) and names its
+  sources under `verity_capture/experimental/cb_a/`.
 - A Build can't run on a CPU pod with the bootstrap's CUDA vLLM wheel, even with a declared TargetProfile: vLLM makes no
   DeviceConfig without a GPU ("Device string must not be empty"). SYNTHESIS §6 validates F2 on "CPU pod: Build T0"; any CUDA GPU
   works, because the profile makes the Program independent of the host.

@@ -1,0 +1,5 @@
+head: exit 3 2026-09-24T21:39:05Z
+base: exit 3 2026-09-24T21:39:56Z
+head no verdict: [Errno 2] No such file or directory: '/workspace/cp/lateread-head/verdict.json'
+base no verdict: [Errno 2] No such file or directory: '/workspace/cp/lateread-base/verdict.json'
+done 2026-09-24T21:39:56Z

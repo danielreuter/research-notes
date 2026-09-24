@@ -67,9 +67,11 @@ created: 2026-09-24T17:40Z
 - 21:22-21:40Z 2x L40S create FAILS: "There are no instances currently available" on SECURE and COMMUNITY (also without min RAM/vCPU, disk 200); `research pods gpus` at ~21:25Z: L40S and L40 price/stock None. Laptop poll `/tmp/rff56/poll_create.sh 30` (create every 2 min, stops when the pod exists) running since 21:22Z, 9 tries so far. The target-family precheck is by cc (8.9), but another board would confound the base-vs-head comparison -> not used.
   - Fallback if no capacity by ~22:25Z: READY with the TP2 row NOT RUN (capacity), the static argument, and the precise follow-up for the coordinator: Commit at `9b07c19f` on f1's base Build/Match of #70 on `vyv-rf-f1-tp2` after f1's timed Commits (the only f56 code that differs at world 2 runs at Commit; the worker's lists used by Match are byte-identical).
 - READY draft `/tmp/rff56/READY.draft.md`: gate (a) filled; placeholders TP2_RESULT, PODS_TP2 left.
+- 21:54Z poll got a pod on try 16 (COMMUNITY): `vyv-rf-f56-tp2` = `mp50pono1fkqjt`, 2x L40S 46068 MiB, driver 550.163.01 (earlier pods: 580.126.09), 48 vCPU / 503 GB / 300 GB, $1.58/h, reference part; in machines.toml. Tree pre-seeded at `/workspace/research/src/9b07c19f…` (GitHub tarball, 2,816 blobs == ls-tree).
+- 21:56Z BOOTSTRAP `r20260924-215601-763a`: `research run --on vyv-rf-f56-tp2 --project verity --campaign vllm-rf-f56 --source <worktree> --stage bootstrap --cwd source/integrations/vllm -- bash verity_vllm/ops/pod_bootstrap.sh --cases OLMOE --out /workspace/bootstrap --gpu` (launcher adopted the tree, 20 s).
 
 ## Running
-- Laptop: `/tmp/rff56/poll_create.sh 30` (2x L40S create poll, until ~22:25Z). No pods.
+- `vyv-rf-f56-tp2` ($1.58/h): bootstrap `r20260924-215601-763a` (`research fetch <id>` to observe). Then Build -> Match -> Commit of #70 at `9b07c19f`.
 
 ## Next
 1. `vyv-rf-f56-tp2`: pre-seed `/workspace/research/src/9b07c19f4ea0be3dbb7b1f0b0d453c5c99bd11ea/` from the GitHub tarball (launcher adopts it by per-file sha256), add to machines.toml, then `research run --on vyv-rf-f56-tp2 --project verity --stage bootstrap --cwd source/integrations/vllm -- bash verity_vllm/ops/pod_bootstrap.sh --cases OLMOE --out /workspace/bootstrap --gpu`; then Build -> Match -> Commit (`--cwd source --tool vllm.<stage>`).

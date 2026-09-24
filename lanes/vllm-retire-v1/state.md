@@ -21,7 +21,10 @@ By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pur
 - 05:49Z launched on cpu3 (tree /workspace/rv1/tip = full git archive of 6813fe06):
   crun.sh (converted test files) -> logs/conv_tip.log; srun.sh (full suite) -> logs/suite_tip.{log,xml}
 - 05:52Z harness T0,T1 (oracle expected) @ 6813fe06, split like the integrator's staging run (p6 hrun.sh):
-  cpu3 fB "not r11 and not r39" -> /workspace/rv1/hrec/fB, log /workspace/rv1/logs/h_fB.out (lock retire-v1-harness-fB.json)
+  cpu3 fB: serial run killed at 06:00Z (staging fB was 2h12m serial: manifest_digest + replay_partition on r74/r73/r68/r67);
+  relaunched 06:01Z as 5 row groups fB1 "r74", fB2 "r73 or r101 or r4 or r70 or r75", fB3 "r68 or r60", fB4 "r67 or r23",
+  fB5 "r57 or negative_57 or decisions_are_listed" -> /workspace/rv1/hrec/fB<k>, logs/h_fB<k>.out, locks retire-v1-harness-fB<k>.json
+  compare: /workspace/rv1/hcmp.py STAGING_REC TIP_REC --skip program_digest (bookkeeping keys source/seconds/manifest reported apart)
   cpu2 fA "r11 or r39" -> /workspace/rv1/hrec/fA, log /workspace/rv1/logs/h_fA.out (lock retire-v1-harness-fA.json); ssh /tmp/rv1ssh2
 - staging harness to compare against (815b837c, T0,T1,T2): cpu3 /workspace/p6_rec/fB, cpu2 /workspace/p6_rec/fA (integrator's)
 - converted test files @6813fe06 (cpu3, logs/conv2_tip.{log,xml}): 212 pass / 173 skip / 2 F, both F on staging's list

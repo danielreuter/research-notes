@@ -1,1 +1,7 @@
 live-v3p4-r3 art:2cfd62d3 
+live-x4p4-r3 art:6f4201e7 
+live-shared64p8-r3 art:3a6600a4 
+live-x4p4-r4 art:1ebeb4c1 
+live-v3p4-r4 art:23ac00ce 
+live-v3p8-r4 art:e4ae7fd1 
+hashp8-r1 art:1387dc26 

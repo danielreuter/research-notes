@@ -8,6 +8,7 @@ final: 01:10Z hard; budget $10
 status: open
 ---
 
+CHECKPOINT cd3f5e5 (23:05Z) [open] A100 done: tip .2534/.1799 vs base .2873/.2062 (cell .2413/.164, pod slower); 4/4 reverify PASS, preserved; a100b terminated 23:05Z; ~$5.35 spent; next 5090 fp4-nvf4 l=8192 p8
 CHECKPOINT f5b5810 (22:24Z) [open] H100 done: E4M3 tip .0742/.0432 vs base .0795/.0454 (cell .0738); BF16 live tip .1822 vs base .2499 (pod noisy, cell .1292); 13/13 reverify PASS, preserved; h100 terminated 22:23Z, ~$4.3 spent; next A100 bf16-ampere-v3
 CHECKPOINT 5543d80 (21:36Z) [open] 4090 step5 (92dab0ad: fixed slots + full warm pass): tip total .0870/.0840/.0863/.0891 arith .0409 mean vs base .0968/.0477; reverify PASS x4 (art:def461c7 art:bb75ba4f art:d2b01b3f art:f3978133); handoff 2135Z; next malloc test then H100
 CHECKPOINT 1a69ab6 (20:50Z) [open] 4090: s1 arith 0.0477->0.0417 verified (art:7775888d..); s2+s3 kernels bit-exact, A/B noisy; cause = ragged-layout graph captures in timed reps; fix 92ea2531 fixed slot per sub-batch, A/B running; next register+reverify, then H100
@@ -179,3 +180,7 @@ Inbox at startup: nothing new.
 | cell (main, EUR-IS-1) art:e1fcf643 | 0.2413 | 0.164 | 6.0e6 |
 | base here (4) | 0.2873 | 0.2062 | ~7.1e6 |
 | tip (4) | 0.2534 | 0.1799 | ~6.3e6 |
+- Tip arts (verified --by arith, 4/4 PASS, preserved): art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1 (verdicts
+  art:e683a0e1 art:3e969524 art:ffd250cf art:008dd251); base meta art:31046cd8 art:b32e7981 art:75f77e79 art:1fe99bf2.
+  verify-po request lanes/verify-po/20260924T2306Z-handoff-from-arith.md.
+- vy-arith-a100b TERMINATED 23:05Z (22:45-23:05, ~$0.53). Spend so far ~$5.35 (4090 1.85, H100 2.44, A100 0.50 + 0.53).

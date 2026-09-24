@@ -1,0 +1,21 @@
+/workspace/research/store/labels/art_5bcbf3fb67cbd1b49df2120b87e62b7643c44a39f780537cda3df682a9b7db52/20260924T230107Z-arith.json
+/workspace/research/store/labels/art_5bcbf3fb67cbd1b49df2120b87e62b7643c44a39f780537cda3df682a9b7db52/20260924T230107Z-arith~2.json
+/workspace/research/store/labels/art_5bcbf3fb67cbd1b49df2120b87e62b7643c44a39f780537cda3df682a9b7db52/20260924T230107Z-arith~3.json
+/workspace/research/store/labels/art_5bcbf3fb67cbd1b49df2120b87e62b7643c44a39f780537cda3df682a9b7db52/20260924T230107Z-arith~4.json
+art:5bcbf3fb67cb… r20260924-225542-83fe: custody 76/76, pinned=bf16-ampere-v3, 25/25, 2^-128.05 PASS -> verdict art:e683a0e1d9b1ae4867b02781537e3a253022da1080f20a50a40a6fe5b2accf21  (3.0s)
+/workspace/research/store/labels/art_b83f1ff0815bb6a767c01c1ee1b1220ac1a8ddad5cf4f4a0633d430be03e96a7/20260924T230110Z-arith.json
+/workspace/research/store/labels/art_b83f1ff0815bb6a767c01c1ee1b1220ac1a8ddad5cf4f4a0633d430be03e96a7/20260924T230110Z-arith~2.json
+/workspace/research/store/labels/art_b83f1ff0815bb6a767c01c1ee1b1220ac1a8ddad5cf4f4a0633d430be03e96a7/20260924T230110Z-arith~3.json
+/workspace/research/store/labels/art_b83f1ff0815bb6a767c01c1ee1b1220ac1a8ddad5cf4f4a0633d430be03e96a7/20260924T230110Z-arith~4.json
+art:b83f1ff0815b… r20260924-225542-83fe: custody 76/76, pinned=bf16-ampere-v3, 25/25, 2^-128.05 PASS -> verdict art:3e9695241863371e957ab36dfeb7ad3bface7eb8e3b4e34d9aee9665e08f882e  (2.9s)
+/workspace/research/store/labels/art_4e87bc8acbfff9630e3030e2cd176db6de17f9a1144b1f769bcd50152562443e/20260924T230113Z-arith.json
+/workspace/research/store/labels/art_4e87bc8acbfff9630e3030e2cd176db6de17f9a1144b1f769bcd50152562443e/20260924T230113Z-arith~2.json
+/workspace/research/store/labels/art_4e87bc8acbfff9630e3030e2cd176db6de17f9a1144b1f769bcd50152562443e/20260924T230113Z-arith~3.json
+/workspace/research/store/labels/art_4e87bc8acbfff9630e3030e2cd176db6de17f9a1144b1f769bcd50152562443e/20260924T230113Z-arith~4.json
+art:4e87bc8acbff… r20260924-225542-83fe: custody 76/76, pinned=bf16-ampere-v3, 25/25, 2^-128.05 PASS -> verdict art:ffd250cfcd1e85c6ec9d3e2cd66e2c02c72bd62d1814f71f4bd7ec56e6a032a0  (2.9s)
+/workspace/research/store/labels/art_228f07b15a1298e4b231bd06a9aa19e64e709ecbaa1cae89baa49909b37850ab/20260924T230116Z-arith.json
+/workspace/research/store/labels/art_228f07b15a1298e4b231bd06a9aa19e64e709ecbaa1cae89baa49909b37850ab/20260924T230116Z-arith~2.json
+/workspace/research/store/labels/art_228f07b15a1298e4b231bd06a9aa19e64e709ecbaa1cae89baa49909b37850ab/20260924T230116Z-arith~3.json
+/workspace/research/store/labels/art_228f07b15a1298e4b231bd06a9aa19e64e709ecbaa1cae89baa49909b37850ab/20260924T230116Z-arith~4.json
+art:228f07b15a12… r20260924-225542-83fe: custody 76/76, pinned=bf16-ampere-v3, 25/25, 2^-128.05 PASS -> verdict art:008dd251d7418953d05b810649a646e28a86086653e56f0ed935bc189c56489c  (3.1s)
+4 result(s): PASS 4; verifier ligero-verify(sha256 f7e9bf575d522cee)

@@ -1,0 +1,33 @@
+art:008dd251d7418953d05b810649a646e28a86086653e56f0ed935bc189c56489c  verification-verdict/v1 PRESERVED (etag-md5)
+  labels                 DURABLE  0 local, 0 on remote
+art:1fe99bf2d0b0ed06f54010438d5cf6667d688b3d5c3482c758359cb8422da4d2  bench-result/v1        PRESERVED (sha256-readback)
+  labels                 DURABLE  0 local, 0 on remote
+art:228f07b15a1298e4b231bd06a9aa19e64e709ecbaa1cae89baa49909b37850ab  bench-result/v1        PRESERVED (sha256-readback)
+  labels                 DURABLE  4 local, 4 on remote
+art:31046cd87fdf9e750b100c744321031f5b15b2615429cac01157f2ebb1833727  bench-result/v1        PRESERVED (sha256-readback)
+  labels                 DURABLE  0 local, 0 on remote
+art:3e9695241863371e957ab36dfeb7ad3bface7eb8e3b4e34d9aee9665e08f882e  verification-verdict/v1 PRESERVED (etag-md5)
+  labels                 DURABLE  0 local, 0 on remote
+art:4d0b8cde7f2070b4dd2a89fde80ba3ccbf98cb00c438160210c7b3e057e07c51  run-files/v1           PRESERVED (etag-md5)
+  labels                 DURABLE  0 local, 0 on remote
+art:4e87bc8acbfff9630e3030e2cd176db6de17f9a1144b1f769bcd50152562443e  bench-result/v1        PRESERVED (sha256-readback)
+  labels                 DURABLE  4 local, 4 on remote
+art:5bcbf3fb67cbd1b49df2120b87e62b7643c44a39f780537cda3df682a9b7db52  bench-result/v1        PRESERVED (sha256-readback)
+  labels                 DURABLE  4 local, 4 on remote
+art:61bc49022826473e959de5e09516e34e251a1c0cbd4ae2dc30b8ca12c6aa9ad6  run-files/v1           PRESERVED (etag-md5)
+  labels                 DURABLE  0 local, 0 on remote
+art:75f77e79b01d36811ef5b03128f34746291841d47eeb2b718c8efa2f20353c78  bench-result/v1        PRESERVED (sha256-readback)
+  labels                 DURABLE  0 local, 0 on remote
+art:b32e79811fa7d8c2904809b888c7c235431a11f5df36971f7a5eb97ce21f00ed  bench-result/v1        PRESERVED (sha256-readback)
+  labels                 DURABLE  0 local, 0 on remote
+art:b83f1ff0815bb6a767c01c1ee1b1220ac1a8ddad5cf4f4a0633d430be03e96a7  bench-result/v1        PRESERVED (sha256-readback)
+  labels                 DURABLE  4 local, 4 on remote
+art:bf3e9ac8a46503fa5d7f8e8f4ce9e5941588d613172354b81f31ca9d1b71c6fb  run-files/v1           PRESERVED (etag-md5)
+  labels                 DURABLE  0 local, 0 on remote
+art:bfec2c1292f3eeefb08d70a1252786927ed18de07f5dd6feaf347ab9f6a730e9  run-files/v1           PRESERVED (etag-md5)
+  labels                 DURABLE  0 local, 0 on remote
+art:e683a0e1d9b1ae4867b02781537e3a253022da1080f20a50a40a6fe5b2accf21  verification-verdict/v1 PRESERVED (etag-md5)
+  labels                 DURABLE  0 local, 0 on remote
+art:ffd250cfcd1e85c6ec9d3e2cd66e2c02c72bd62d1814f71f4bd7ec56e6a032a0  verification-verdict/v1 PRESERVED (etag-md5)
+  labels                 DURABLE  0 local, 0 on remote
+PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com

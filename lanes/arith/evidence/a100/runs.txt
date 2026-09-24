@@ -1,0 +1,12 @@
+tree src-base: 0 FIXED_SLOTS, 0 intt_rows
+tree src-baseh: 2 FIXED_SLOTS, 0 intt_rows
+22:56:42Z a16-base-r1 src=src-base commit=227414560b6588f8e99336686ff01af8144ee2e7 rel=bf16-ampere-v3 l=16384 p=8 reps=5 rc=0 wall=54s total=0.3067 arithmetic=0.2260 encoding_commitment=0.0467 witness=0.0086 serialization=0.0253 zk_additional=0.0001 contended=False 
+22:57:15Z a16-tip-r1 src=src commit=92dab0ad374d9522c72ed4fba22e2c23b5359254 rel=bf16-ampere-v3 l=16384 p=8 reps=5 rc=0 wall=33s total=0.2374 arithmetic=0.1599 encoding_commitment=0.0492 witness=0.0070 serialization=0.0212 zk_additional=0.0001 contended=False 
+22:57:43Z a16-tip-r2 src=src commit=92dab0ad374d9522c72ed4fba22e2c23b5359254 rel=bf16-ampere-v3 l=16384 p=8 reps=5 rc=0 wall=28s total=0.2552 arithmetic=0.1784 encoding_commitment=0.0479 witness=0.0070 serialization=0.0218 zk_additional=0.0001 contended=False 
+22:58:10Z a16-base-r2 src=src-base commit=227414560b6588f8e99336686ff01af8144ee2e7 rel=bf16-ampere-v3 l=16384 p=8 reps=5 rc=0 wall=27s total=0.2915 arithmetic=0.2109 encoding_commitment=0.0476 witness=0.0078 serialization=0.0251 zk_additional=0.0001 contended=False 
+22:58:38Z a16-base-r3 src=src-base commit=227414560b6588f8e99336686ff01af8144ee2e7 rel=bf16-ampere-v3 l=16384 p=8 reps=5 rc=0 wall=28s total=0.2667 arithmetic=0.1945 encoding_commitment=0.0547 witness=0.0063 serialization=0.0111 zk_additional=0.0001 contended=False 
+22:59:07Z a16-tip-r3 src=src commit=92dab0ad374d9522c72ed4fba22e2c23b5359254 rel=bf16-ampere-v3 l=16384 p=8 reps=5 rc=0 wall=29s total=0.2540 arithmetic=0.1814 encoding_commitment=0.0479 witness=0.0076 serialization=0.0171 zk_additional=0.0000 contended=False 
+22:59:36Z a16-tip-r4 src=src commit=92dab0ad374d9522c72ed4fba22e2c23b5359254 rel=bf16-ampere-v3 l=16384 p=8 reps=5 rc=0 wall=29s total=0.2528 arithmetic=0.1830 encoding_commitment=0.0460 witness=0.0075 serialization=0.0162 zk_additional=0.0000 contended=False 
+23:00:03Z a16-base-r4 src=src-base commit=227414560b6588f8e99336686ff01af8144ee2e7 rel=bf16-ampere-v3 l=16384 p=8 reps=5 rc=0 wall=26s total=0.2830 arithmetic=0.2014 encoding_commitment=0.0484 witness=0.0087 serialization=0.0244 zk_additional=0.0001 contended=False 
+reverify a100 rc=0
+preserved a100 try 1 rc=0: PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com

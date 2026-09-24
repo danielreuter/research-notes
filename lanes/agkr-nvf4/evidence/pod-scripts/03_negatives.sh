@@ -5,9 +5,10 @@
 set -uo pipefail
 source /workspace/env.sh
 STMT=$1; O=$2; rm -rf $O; mkdir -p $O
-cd /workspace/src/backends/gkr
-export PYTHONPATH=/workspace/src/backends/gkr:$PYTHONPATH
-V=/workspace/bin/verity-gkr-verify
+SRC=${NVF4_SRC:-/workspace/src}                 # the tree (04_record.sh: the shipped one)
+cd $SRC/backends/gkr
+export PYTHONPATH="$SRC/packages/verity/src:$SRC/backends/numerical/python:$SRC:$SRC/backends/gkr"
+V=${NVF4_VERIFIER:-/workspace/bin/verity-gkr-verify}
 echo "== build $(date -u +%H:%M:%S)"
 $PY -m gpu.nvf4.negatives build --stmt $STMT --out $O/dir 2>&1 | grep -v Warn | tail -3
 echo "== honest control $(date -u +%H:%M:%S)"

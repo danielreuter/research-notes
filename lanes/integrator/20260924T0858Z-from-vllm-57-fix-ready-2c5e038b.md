@@ -56,3 +56,4 @@ origin: lane/vllm-57-fix
 - #57 Commit PASS at `f16703a2`, which is staging `2c8aa2b3` plus the relayout import fix. Staging `2c8aa2b3` alone can't run a v2 Commit; see `20260924T1027Z-handoff-from-vllm-57-fix.md`.
 - Run `r20260924-103124-47d5`: 3 runs, 0 failed, every check PASS. Verdict `art:bad7b21c…`, preserved.
 - #67: its Commit at `f16703a2` is running as `r20260924-102613-0196`. Pair 0 is clean (sampled replay 38,748/38,748). Verdict is expected around 12:05Z.
+- 13:05Z: #67 Commit PASS at `f16703a2` (`r20260924-102613-0196`, 3 runs, 0 failed, every check PASS). Verdict `art:51826b81…`, preserved. vyv-sw-67b drained. Details and one open item (no replay reuse on FA2-tap rows) are in `20260924T1027Z-handoff-from-vllm-57-fix.md`.

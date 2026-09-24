@@ -2,9 +2,10 @@
 lane: vllm-57-fix
 kind: report
 created: 2026-09-24T07:50Z
-status: open
+status: final
 ---
 
+CHECKPOINT f16703a2 (13:11Z) [final] Lane complete. #57 PASS at f16703a2 (verdict art:bad7b21c) + #67 PASS at f16703a2 (r20260924-102613-0196, verdict art:51826b81), both preserved; vyv-sw-67b drained. Integrator: take f16703a2
 CHECKPOINT f16703a2 (12:08Z) [open] CHECKPOINT 67-pass AT-RISK 12:10Z revised: each #67 Commit pair ~41 min (replay serial prep ~28 min, no cross-pair reuse). Verdict ~12:52Z, preserved + drained ~13:00Z. Clean so far
 CHECKPOINT f16703a2 (11:53Z) [open] CHECKPOINT 67-pass AT-RISK 11:55Z: #67 Commit pairs 1-2 re-run the ~25 min sampled replay (cache key differs in binding_map_sha256). Clean so far; verdict ~12:35Z, preserved + drained ~12:45Z
 CHECKPOINT f16703a2 (11:40Z) [open] #57 Commit PASS on merged tree f16703a2 (r20260924-103124-47d5, verdict art:bad7b21c preserved). #67 Commit r20260924-102613-0196 pair 0 clean (replay 38,748/38,748), verdict ETA ~12:05Z

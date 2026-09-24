@@ -6,6 +6,10 @@ pod: vyv-sw-57 (ssh -i ~/.runpod/ssh/runpodctl-ssh-key -p 12152 root@202.181.159
 ---
 # vllm-57-fix: running state
 
+**STATUS 13:10Z: lane complete.** Tip f16703a2 (origin + sw57). #57 Commit PASS at 2c5e038b (08:49Z), on the retire-v1 trial merge
+(09:55Z) and on the merged tree f16703a2 (11:36Z). #67 Commit PASS at f16703a2 (13:05Z, 40 min past 67-pass). vyv-sw-67b drained.
+Integrator must take f16703a2 (staging 2c8aa2b3 crashes every v2 Commit). Details: Checkpoints + the dated log below.
+
 **07:58Z successor took over (predecessor died 06:51Z with Cursor).** (RESOLVED ~08:50Z, free disk 6.2 GB) BLOCKER (laptop-wide, handed to coordinator
 `lanes/coordinator/20260924T0758Z-handoff-from-vllm-57-fix.md`): laptop free disk is at the guardian's 3.5 GB floor
 (cursor_db 69.8 GB and growing). The guardian SIGKILLed my laptop `research run` launchers 3x (07:52Z, 07:57Z). Freed: data evict
@@ -129,6 +133,11 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   Answer appended to lanes/integrator/20260924T1027Z-handoff-from-vllm-57-fix.md. vyv-sw-57 idle again.
 
 ## Checkpoints
+- CHECKPOINT 67-pass MET 13:10Z (40 min late; AT-RISK posted 10:28Z, 11:55Z, 12:10Z) -- #67 Commit PASS at f16703a2
+  r20260924-102613-0196 (3/3 runs, all checks PASS, replay 38,748/38,748 x3), verdict art:51826b81 preserved + labels durable;
+  vyv-sw-67b drained (3/3 preserved, terminated). Lateness: the 2c8aa2b3 import crash (10:20Z) + no replay reuse across pairs on
+  FA2-tap rows (~41 min/pair) + ~13 min manifest verify.
+- 57-pass re-met on the merged tree 11:36Z -- #57 Commit PASS at f16703a2 r20260924-103124-47d5, verdict art:bad7b21c preserved.
 - CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);
   the rerun at staging 2c8aa2b3 crashed on stale relayout imports (fixed f16703a2). Rerun r20260924-102613-0196 launched 10:26Z;
   ~1h40m => PASS ETA ~12:05Z, preserve + drain by ~12:20Z. Slips past 12:30Z if pair 0 runs >90 min.
@@ -153,6 +162,12 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   coverage OK 406,220, C2 16,120 equal; replay running. Verdict ~12:52Z.
 - 12:52Z #67 verdict.json: commit_pass True, runs_instrumented 3, runs_failed 0. Pair 2: replay 38,748/38,748, LINKAGE 1308/1308,
   WEIGHTS PIN 212/212. 13:00Z the stage is in verity_vllm.query.manifest.verify (single-core, 8 min so far) before its stage line + publish.
+- 13:05Z #67 Commit PASS at f16703a2 (r20260924-102613-0196): `commit PASS rc=0 wall=8787s runs 3 failed 0`, all 7 checks PASS,
+  manifest_verify True (the manifest verify alone took ~13 min). verdict art:51826b816021d736b7a5d66ebb4b883c662b73fcbcc869f01a6a5bdd8cb8b607
+  (+evidence art:229000ee, logs art:8d38f05e, result art:2ed20f61, run_files art:3abcc2b5). Preserved: --mode head rc 0, --mode recorded
+  PRESERVED; 6 labels durable (arm=merged-staging-2c8aa2b3-plus-f16703a2).
+- 13:10Z vyv-sw-67b drained: `research pods drain` -> 3/3 attempts preserved (Build, Match, Commit) -> TERMINATED w5aiv36vhliqbu.
+  (Its machines.toml entry is left in place.) vyv-sw-57 stays up, idle GPU; the headless integrator agent runs on it.
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)
   now compares 159,840 (equal 159,408, incl. all 44,928 fused-norm narrowings) but MISMATCHES the 432 `model/out`. The Commit hooks
@@ -209,14 +224,11 @@ instance_outputs with no replay evaluator) and MATCH_SNAP_STEPS is unset; an exp
   --ttl 6h --via local --env`, r2.env sourced in a subshell; the laptop venv's `research` binary is too old to have `data`). Minted fresh
   per launch; the one inside r20260924-102613-0196 (10:26Z, 6h) outlives its ~12:05Z publish.
 
-## Running (10:30Z)
-- #67 Commit r20260924-102613-0196 on vyv-sw-67b GPU 0 at f16703a2 (build art:5b7e5bcf, match art:f95c7d60). ETA ~12:05Z.
-  Row dir /workspace/cp/sweep-v2s/olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager (commit.log, stages.txt).
-- vyv-sw-57: idle (checkout 2c8aa2b3; do not terminate).
+## Running (13:10Z)
+- Nothing. vyv-sw-67b terminated 13:10Z. vyv-sw-57: idle GPU (checkout 2c8aa2b3; do not terminate; hosts the integrator agent).
 
 ## Next
-- #67 verdict -> preserve (published from the pod; check `data preserved --mode recorded`, labels) -> CHECKPOINT 67-pass -> drain vyv-sw-67b.
-- Final summary.
+- Lane done pending integrator: take f16703a2 (handoff 1027Z). Open item for them: replay-cache key vs fa2_tap_bounded counters.
 
 ## History (pre-08:00Z, superseded)
 - #57 Commit-only rerun: run r20260924-061950-2148 on vyv-sw-57 (runner pid 39395, workload pid 39406), GPU 0, source 8b606f16,

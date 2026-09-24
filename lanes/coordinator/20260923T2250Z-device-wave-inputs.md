@@ -99,6 +99,14 @@
   pipelining are the likely cause. BEFORE the wave: run the helper over one pipelined cell per relation and confirm headline
   cells pass the contract. If they don't, fix the bucket rule for pipelined runs at merge-val-3, not per lane.
 
+- 04:40Z DECISION (wave-4090-2 handoff 0410Z, wave-h100-2 r1): a phase-sum "1 problem" does NOT disqualify a row when it is
+  the only problem. Pipelined runs report t.total = the pass wall clock (`relchain._pipelined` returns `wall`), and a
+  sub-batch's clock stops only after its openings reach the host (protocol.py ~1704-1718), so no GPU work falls outside
+  t.total; the buckets add per-sub-batch stages that overlap at depth >= 4 (seen only on fused v3/v3x4: 1.3-3.8 % on the
+  4090, 8 % on one H100 round). Table 2: headline = median round as measured, flag footnoted ("phase buckets overlap under
+  pipelining; wall clock unaffected"), contract-clean alternative beside it (4090 v3x4 p4 live 0.1020; H100 v3x4 p4 0.1174).
+  POST-WAVE fix: the contract skips or rescales the phase-sum check when the result records pipeline depth > 1.
+
 ## 01:05Z shared-live-2 FINAL (432ea740): column 2 = +shared tile64
 - `lane/shared-live @ e2a3b27e` (share-logup-3 + live-2c + G3 fix fe0c4f48): merge as one unit. 4090, `--zk --mode interactive
   --pipeline 4`, 4096 VUs, l=16384, 5 reps: fp8-ada local 0.246 / 0.389 s (1.58x), live 0.380 / 0.669 (1.76x); bf16-hopper local

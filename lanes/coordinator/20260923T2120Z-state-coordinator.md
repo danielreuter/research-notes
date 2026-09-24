@@ -176,3 +176,12 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   other; live rows used a same-pod verifier (accepted 5/5 each, times inflated 1.3-2.6x = acceptance evidence only).
   Morning report: H100 column = local t.total + "live accepted, same-DC timing not measured"; no new lane tonight (cap).
   Unshared +hash drill-down not run. Money 04:30Z: $102.51, account $11.65/h. Laptop 8.2 GB free (guardian kills <6 GB).
+- 04:37Z laptop hit 6.2 GB: deleted proofs/ of 58 preserved wave-5090-2 staging runs (registered.txt) -> 8.3 GB; lane told.
+- 04:36Z wave-4090-2 FINAL (~$1.7/$4; snapshot wave-4090-2-v1 art:807caad7; pods gone). EU-RO-1 same-DC live, 4096 VUs:
+  bare fp8-ada-v3x4 fused p8 l=4096 live 0.1008 / local 0.0907 (result art:fb4934af, verdict art:b64c7712; live row carries
+  the phase-sum flag 3.0 %; clean alt p4 live 0.1020) | committed +shared tile64 v1 p4 l=16384 live 0.2627 / local 0.2424
+  (art:6e2c0d79, manual --system-h ACCEPT art:4e135c80) | drill: +hash 0.4194, +ajtai-n64 0.3831, +blake3 3.6704 live.
+  Code f68ab6da (reverify.py: hand-put pod results) merged onto lane/post-wave -> 82cc0337 (pushed; merge-tree, no checkout).
+  Worktrees wave-4090 + wave-h100 removed. PHASE-SUM DECISION 04:40Z (inputs file): flag alone does not disqualify; footnote +
+  clean alternative; told wave-a100-2 + wave-5090-2. POST-WAVE adds: contract phase-sum check vs pipeline depth > 1;
+  live_test shared-pair fixture 2^-99.86 < 2^-100 (fails on main since shared-live e2a3b27e; resize fixture or target).

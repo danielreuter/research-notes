@@ -6,7 +6,7 @@ Lane ops-tools, 2026-09-24. Code: `tools/research/src/research/notes.py` (watch,
 
 ## Watching lanes (coordinator)
 ~~~sh
-research notes watch --every 120 --stale-min 12 --idle-min 5 --runway-h 3    # add --reap to terminate pods of final lanes
+research notes watch --every 2 --stale-min 12 --idle-min 5 --runway-h 3 --pods --snapshot   # minutes; add --reap once trusted
 ~~~
 * `IDLE-POD <lane> <pod> <N>m`: an open lane's pod has shown 0 % GPU and no busy process for N minutes. This is the earliest
   sign that the lane died. Printed once for each idle spell.

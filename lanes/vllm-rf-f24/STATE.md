@@ -49,6 +49,14 @@
   not evidence); clean run 21:14:28Z (flock), at be366f80, no key: T1 replay_partition #11 PASS (843 s, peak RSS 67 GB), #39 PASS
   (1364 s, 109 GB). Evidence `evidence/big/`.
 
+## Key left on the main pod (found 21:5xZ)
+- `/workspace/r2ro.env` (the early 12 h read-only key, written 17:43Z, before the credential route) was still on the main pod while
+  `a_final` ran. Deleted 21:52:03Z. The store reads credentials only from env vars (store.pod.toml `*_env`); no `~/.aws`; the pytest
+  process had 0 `AWS_*` vars. A sweep found no other key file (outside the data dirs). Not revocable (`--via local` JWT); expires ~05:43Z.
+- Keyless rerun of what ran while it was on disk: `a_rerun_t0` (21:54:17Z, `-k "(T0 and (r4 or r11 or r23)) or (manifest_digest and
+  r39)"`, parallel to `a_final`); after `a_final`: `a_rerun_t1` (`-k "T1 and (r4 or r11 or r23)"`, deselect T1-replay_partition-r11).
+- READY.md drafted (status draft); fill gate (a) counts when `a_final` and both reruns are done.
+
 ## D13 verdict A/B (main pod, 21:50Z; `evidence/d13/`)
 - `verdict.from_record(row).dumps()` (the T0 verdict check's reconstruction; it calls the D13-changed `_replay_seed_of_record`,
   `_complete_replay_population_gap`, `_partial_replay_named_gap`) over the 10 regression records with a Commit verdict: base == head

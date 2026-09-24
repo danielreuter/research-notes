@@ -41,12 +41,19 @@ VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/
 - **Big pod**, the two deselected checks (`run_big.sh`: `gate_a.sh ... -k "replay_partition and r11"` and `... r39"`, each its own
   process): **#11 1 passed** (843 s, peak RSS 67 GB), **#39 1 passed** (1,364 s, peak RSS 109 GB). They need more than the 64 GB
   pod has.
-- **Fixtures and the credential** (`20260924T1942Z-gate-a-credential-route.md`): each pod got its own read-only key, minted on the
-  laptop and piped into `/root/r2ro.env`. Main pod: all 26 fixture artifacts fetched, 0 failures, key deleted 20:47:22Z. Big pod:
-  minted 20:55:40Z with `--ttl 3h`, rows #11 and #39 plus the top-level artifact fetched, deleted 20:56:53Z. Both gate (a) runs
-  above started with no key on disk or in the environment (`key_file_present=no` in each `.status`; no `AWS_*` in each `.env`).
-  One deviation: the main pod's key was minted at 19:56Z with a 5 h TTL, not 3 h. It was deleted after 51 minutes, and the one
-  run that had it in its environment (a T0 run at `76020a66`) was killed and is not evidence.
+- **Fixtures and the credential** (`20260924T1942Z-gate-a-credential-route.md`). Every key was minted on the laptop
+  (`--permission object-read-only --via local`) and piped into the pod, never echoed. Main pod: `prefetch.sh` fetched all 26
+  fixture artifacts (0 failures) and deleted `/root/r2ro.env` at 20:47:22Z. Big pod: its own `--ttl 3h` key, minted 20:55:40Z,
+  fetched rows #11 and #39 plus the top-level artifact, deleted 20:56:53Z, before its clean run at 21:14:28Z.
+- **Deviation: a key stayed on the main pod's disk during the first hour of `a_final`.** Before the route was published, I
+  had piped an earlier key (`--ttl 12h`, written 17:43Z) into `/workspace/r2ro.env` for the D10 GM-01 inputs. It was never
+  deleted, and `gate_a.sh`'s `key_file_present` check looks only at `/root/r2ro.env`. I found it and deleted it at 21:52:03Z,
+  while `a_final` was on row #39. The checks could not have used it: the store reads credentials only from the environment
+  variables `store.pod.toml` names, the pod has no `~/.aws`, and the gate process and its children had no `AWS_*` variables
+  (`/proc/<pid>/environ` checked). A `--via local` key is a JWT signed with the parent secret, so it can't be revoked; it expires
+  about 05:43Z on 2026-09-25 unless the parent key is rotated (the owner's call). **Keyless rerun:** after a sweep of the pod
+  found no key file, the checks that ran while the file was there are rerun (rows #4, #11 and #23, and `manifest_digest` of #39):
+  T0 as `a_rerun_t0` alongside `a_final` from 21:54:17Z, and T1 as `a_rerun_t1` after `a_final`. **PENDING.**
 
 ### (b) Full suite
 

@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T21:23Z
+updated: 2026-09-24T21:57Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -108,6 +108,13 @@ updated: 2026-09-24T21:23Z
 - Env (both pods): Python 3.12.14 (uv, built 2026-09-01, Clang 22.1.3), torch 2.13.0+cu129, vllm 0.28.1rc1.dev472+gd9105ea80.cu129, triton 3.7.1, numpy 2.3.5, pytest 9.1.1, pytest-xdist 3.8.0 (tp2); drivers g1b 570.124.06, tp2 580.126.09. Same versions as a1's baseline pod.
 - Row runs use `--tool vllm.match` / `--tool vllm.commit` (Tool declarations in `harness/research_tools.py`), `--stage run --cwd source`.
 - 21:22Z #101 Commit(base) `r20260924-212151-1320` on g1b (sweep `/workspace/sweep`), launched WHILE #67's single-threaded global_program assembly runs (1 of 16 vCPU, GPU idle); head follows on `/workspace/sweep_head` (sha256-identical copy, 12,923 files). Noted for timings.
+- 21:23Z gate (b) at `653f1e5e` on tp2 `r20260924-212347-5115` (per-worker file-order probe `orderprobe.py`) -> finished rc 1 (pytest rc; to be jdiff'd). 21:45Z gate (b) at `62d6b9e0` `r20260924-214459-15a4` and gate (a) at `62d6b9e0` `r20260924-214517-83de` (job `/tmp/rff1/gate_a_job.sh`: T0,T1, no key) launched on tp2 (GPUs idle; #70 Match `r20260924-210318-37b0` FAILED rc 11 -- read why before the #70 Commits).
+- 21:40Z COMMIT `62d6b9e0`: `fault_retained_flip` also writes through `_HostWindows`/`_HostRanges` (the windowed collector's host copies; #101 retains that way), test covers block/host/windows/ranges.
+- 21:44Z **#101 base vs head (g1b, `native_collect_v2b`, retain host, 3 pairs): verdicts identical, PASS / PASS, every check PASS.** Head `r20260924-212749-8f78` record: per instrumented pair `oracle_compare` compared 6304 = equal 6304 (grade attribution-complete, as base), `value_source`: 6368 opened ranges, 1,645,440 leaves, 419.7 MB, 7.8-7.9 s, failed 0, not_retained 0, steps_bound 32; openings 64/64 verified; sampled replay True, boundary_linkage 32/32; replay reads (pair 0): parent 127 ranges 0.018 s + forked children 84,118 ranges / 432,949 leaves / 109.6 MB / 55.9 s (summed over children, parallel).
+  - Commit wall: base 289 s, head ~380 s. Spans (base -> head, 3 pairs summed): `validate.oracle_compare` 17.7 -> 40.9 (+23.2 s = +7.7 s/pair), `validate.sampled_replay` 165.2 -> 166.2 (+1.0), `openings_after_release` 4.8 -> 4.7; everything else +-0.3 EXCEPT `prep.warmup_instrumented` 1.6 -> 69.1 (+67.5): the `hidden_gpu_tree` torch extension JIT-rebuilt, because base and head import it from different directories and the torch-extensions cache keeps one build per name (the head negative run right after: warmup 1.56 s, cache hit). So the opening cost is +23-24 s on a 289 s Commit (~8%), all in the compare; the warmup delta is a cache artefact, reported separately. A tree switch in either direction pays it once (expect it again on #67/#70 base-after-head).
+- 21:47Z pod negative #1 `r20260924-214541-c946` (#101 Commit at `62d6b9e0`, `VERITY_FAULT=retained_flip`, sweep `/workspace/sweep_neg`) CRASHED, verdict NOT_RUN: `fault_retained_flip` -> "Inplace update to inference tensor outside InferenceMode" (the collector copies under `torch.inference_mode()`, so its host windows are inference tensors; the CPU test's `.clone()`s were normal tensors). FIX `e2f85a82`: the flip writes under `inference_mode`; the test now holds block/windows/ranges as inference tensors (reproduces the crash on `62d6b9e0`, passes on `e2f85a82`). NOTE: I checked that by running that one test file on the laptop (v2 worktree venv, torch 2.14) -- against the laptop rule; not repeating it; the pod gate (b) at the final head is the evidence of record.
+- 21:54Z `e2f85a82` seeded on g1b; sweep_neg reset (removed commit/, commit.log, verdict.json; the prologue files are rewritten by every stage); negative #2 `r20260924-215417-8d40` launched (same command: `--tool vllm.commit --stage negative --cwd source --env VERITY_FAULT=retained_flip -- bash integrations/vllm/verity_vllm/ops/run_row_v2.sh stage commit <row> ... --sweep-dir /workspace/sweep_neg`).
+- Final head is now `e2f85a82` (library change in the fault path) -> gate (b) and gate (a) must be re-run there after the current tp2 runs.
 
 ## Next
 1. Targeted tests green (vs a1 baseline), then full gate (b) xdist on tp2 (-> `baseline-jdiff.py baseline-gate_b-xdist.xml.gz`).

@@ -1,0 +1,355 @@
+.......F........F.FF..F.FFF.FF..F........                                [100%]
+=================================== FAILURES ===================================
+_____________________ test_allowlist_has_no_stale_entries ______________________
+
+    def test_allowlist_has_no_stale_entries() -> None:
+>       R.assert_no_stale(NAME, scan(), RULE)
+
+integrations/vllm/tests/lint/test_p03_one_evaluator.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p03_one_evaluator'
+violations = (Violation(file='verity_vllm/acquire/hidden_gpu_src/hidden_gpu.py', kind='rng', symbol='cmd_check', detail='numpy.rand...olation(file='verity_vllm/check/global_match.py', kind='if-ladder', symbol='read_record', detail='tag', line=365), ...)
+rule = 'P3 (one evaluator interface, one challenge derivation)'
+
+    def assert_no_stale(name: str, violations: Iterable[Violation], rule: str) -> None:
+        stale = stale_entries(name, violations)
+>       assert not stale, (f"{rule}: {len(stale)} entr(y/ies) in allowlists/{name}.json no longer match anything: the "
+               ^^^^^^^^^
+                           "violation is gone, so delete the entry (allowlists only shrink):\n" + "\n".join(stale))
+E       AssertionError: P3 (one evaluator interface, one challenge derivation): 4 entr(y/ies) in allowlists/p03_one_evaluator.json no longer match anything: the violation is gone, so delete the entry (allowlists only shrink):
+E         delete {"file": "verity_vllm/check/fa2_attn_oracle.py", "kind": "rng", "symbol": "make_inputs", "detail": "numpy.random.default_rng"}
+E         delete {"file": "verity_vllm/commit/fa2_prototype/encoding.py", "kind": "if-ladder", "symbol": "RowLayout.rank", "detail": "vid.stage"}
+E         delete {"file": "verity_vllm/commit/fa2_prototype/fixture.py", "kind": "rng", "symbol": "synthetic_fixture", "detail": "numpy.random.default_rng"}
+E         delete {"file": "verity_vllm/harness/synthetic.py", "kind": "rng", "symbol": "build_toy_run", "detail": "numpy.random.default_rng"}
+
+integrations/vllm/tests/lint/_ratchet.py:278: AssertionError
+_____________________ test_allowlist_has_no_stale_entries ______________________
+
+    def test_allowlist_has_no_stale_entries() -> None:
+>       R.assert_no_stale(NAME, scan(), RULE)
+
+integrations/vllm/tests/lint/test_p06_one_cli.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p06_one_cli'
+violations = (Violation(file='verity_vllm/acquire/fa2_tap_src/build_ext.py', kind='argparse', symbol='<module>', detail='import arg...verity_vllm/acquire/gate.py', kind='main-block', symbol='<module>', detail='if __name__ == "__main__"', line=128), ...)
+rule = 'P6 (one CLI; no __main__, heredocs or python -c)'
+
+    def assert_no_stale(name: str, violations: Iterable[Violation], rule: str) -> None:
+        stale = stale_entries(name, violations)
+>       assert not stale, (f"{rule}: {len(stale)} entr(y/ies) in allowlists/{name}.json no longer match anything: the "
+               ^^^^^^^^^
+                           "violation is gone, so delete the entry (allowlists only shrink):\n" + "\n".join(stale))
+E       AssertionError: P6 (one CLI; no __main__, heredocs or python -c): 10 entr(y/ies) in allowlists/p06_one_cli.json no longer match anything: the violation is gone, so delete the entry (allowlists only shrink):
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "argparse", "symbol": "<module>", "detail": "import argparse"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "main-block", "symbol": "<module>", "detail": "if __name__ == \"__main__\""}
+E         delete {"file": "verity_vllm/check/compiled_fx_kernels.py", "kind": "argparse", "symbol": "main", "detail": "import argparse"}
+E         delete {"file": "verity_vllm/check/compiled_fx_kernels.py", "kind": "main-block", "symbol": "<module>", "detail": "if __name__ == \"__main__\""}
+E         delete {"file": "verity_vllm/check/fa2_attn_oracle.py", "kind": "argparse", "symbol": "<module>", "detail": "import argparse"}
+E         delete {"file": "verity_vllm/check/fa2_attn_oracle.py", "kind": "main-block", "symbol": "<module>", "detail": "if __name__ == \"__main__\""}
+E         delete {"file": "verity_vllm/correspondence/batch_candidate.py", "kind": "argparse", "symbol": "<module>", "detail": "import argparse"}
+E         delete {"file": "verity_vllm/correspondence/batch_candidate.py", "kind": "main-block", "symbol": "<module>", "detail": "if __name__ == \"__main__\""}
+E         delete {"file": "verity_vllm/harness/rebuild_digest_gate.py", "kind": "argparse", "symbol": "<module>", "detail": "import argparse"}
+E         delete {"file": "verity_vllm/harness/rebuild_digest_gate.py", "kind": "main-block", "symbol": "<module>", "detail": "if __name__ == \"__main__\""}
+
+integrations/vllm/tests/lint/_ratchet.py:278: AssertionError
+____________________________ test_no_new_violations ____________________________
+
+    def test_no_new_violations() -> None:
+>       R.assert_no_new(NAME, scan(), RULE,
+                        "Take configuration as arguments (the CLI reads the environment once), fail loudly on a missing "
+                        "optional dependency, re-raise or record broad exceptions, and make seeds required.")
+
+integrations/vllm/tests/lint/test_p07_declared_inputs.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p07_declared_inputs'
+violations = (Violation(file='verity_vllm/acquire/compiled_source.py', kind='broad-except', symbol='compile_settings', detail='exce..._source.py', kind='environ', symbol='CompiledGraphSource.prepare', detail='VLLM_DISABLE_COMPILE_CACHE', line=225), ...)
+rule = 'P7 (results depend only on declared inputs)'
+fix = 'Take configuration as arguments (the CLI reads the environment once), fail loudly on a missing optional dependency, re-raise or record broad exceptions, and make seeds required.'
+
+    def assert_no_new(name: str, violations: Iterable[Violation], rule: str, fix: str) -> None:
+        new = new_violations(name, violations)
+>       assert not new, (f"{rule}: {len(new)} violation(s) not in allowlists/{name}.json. {fix} "
+               ^^^^^^^
+                         "(If an allowlisted violation only moved, move its entry in the same change.)\n" + "\n".join(new))
+E       AssertionError: P7 (results depend only on declared inputs): 1 violation(s) not in allowlists/p07_declared_inputs.json. Take configuration as arguments (the CLI reads the environment once), fail loudly on a missing optional dependency, re-raise or record broad exceptions, and make seeds required. (If an allowlisted violation only moved, move its entry in the same change.)
+E         verity_vllm/input_provenance/weights_of_record.py:798 [cwd] _default_manifest: pathlib.Path.cwd
+
+integrations/vllm/tests/lint/_ratchet.py:272: AssertionError
+_____________________ test_allowlist_has_no_stale_entries ______________________
+
+    def test_allowlist_has_no_stale_entries() -> None:
+>       R.assert_no_stale(NAME, scan(), RULE)
+
+integrations/vllm/tests/lint/test_p07_declared_inputs.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p07_declared_inputs'
+violations = (Violation(file='verity_vllm/acquire/compiled_source.py', kind='broad-except', symbol='compile_settings', detail='exce..._source.py', kind='environ', symbol='CompiledGraphSource.prepare', detail='VLLM_DISABLE_COMPILE_CACHE', line=225), ...)
+rule = 'P7 (results depend only on declared inputs)'
+
+    def assert_no_stale(name: str, violations: Iterable[Violation], rule: str) -> None:
+        stale = stale_entries(name, violations)
+>       assert not stale, (f"{rule}: {len(stale)} entr(y/ies) in allowlists/{name}.json no longer match anything: the "
+               ^^^^^^^^^
+                           "violation is gone, so delete the entry (allowlists only shrink):\n" + "\n".join(stale))
+E       AssertionError: P7 (results depend only on declared inputs): 13 entr(y/ies) in allowlists/p07_declared_inputs.json no longer match anything: the violation is gone, so delete the entry (allowlists only shrink):
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "machine-path", "symbol": "main", "detail": "/tmp"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "seed-default", "symbol": "run_checkers", "detail": "seed"}
+E         delete {"file": "verity_vllm/check/compiled_fx_kernels.py", "kind": "broad-except", "symbol": "collect", "detail": "except Exception"}
+E         delete {"file": "verity_vllm/check/poc_verify_bindings.py", "kind": "broad-except", "symbol": "installed_environment", "detail": "except Exception"}
+E         delete {"file": "verity_vllm/commit/fa2_prototype/fixture.py", "kind": "seed-default", "symbol": "archived_geometry_fixture", "detail": "seed"}
+E         delete {"file": "verity_vllm/commit/reference_engine/engine.py", "kind": "optional-import", "symbol": "_to_host_bytes", "detail": "except ImportError"}
+E         delete {"file": "verity_vllm/commit/reference_engine/triton_sha256.py", "kind": "environ", "symbol": "_load_kernel", "detail": "VERITY_CMT_CACHE"}
+E         delete {"file": "verity_vllm/commit/reference_engine/triton_sha256.py", "kind": "environ", "symbol": "kernel_for", "detail": "VERITY_CMT_CACHE"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "optional-import", "symbol": "<module>", "detail": "except ImportError"}
+E         delete {"file": "verity_vllm/harness/synthetic.py", "kind": "seed-default", "symbol": "build_toy_run", "detail": "seed"}
+E         delete {"file": "verity_vllm/input_provenance/weights_of_record.py", "kind": "cwd", "symbol": "_default_manifest", "detail": "os.getcwd"}
+E         delete {"file": "verity_vllm/observe/engine_profile.py", "kind": "machine-path", "symbol": "apply_env", "detail": "/workspace"}
+E         delete {"file": "verity_vllm/program/numerics/beyond_gemm.py", "kind": "machine-path", "symbol": "load_norm_weights", "detail": "/workspace"}
+
+integrations/vllm/tests/lint/_ratchet.py:278: AssertionError
+_____________________ test_allowlist_has_no_stale_entries ______________________
+
+    def test_allowlist_has_no_stale_entries() -> None:
+>       R.assert_no_stale(NAME, scan(), RULE)
+
+integrations/vllm/tests/lint/test_p08_facts.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p08_facts'
+violations = (Violation(file='verity_vllm/acquire/fa2_tap_src/build_ext.py', kind='sm-arch', symbol='main', detail='sm_80', line=50...tion(file='verity_vllm/acquire/fa2_tap_src/build_ext.py', kind='sm-arch', symbol='main', detail='sm_80', line=55), ...)
+rule = 'P8 (model and target facts live in their two homes)'
+
+    def assert_no_stale(name: str, violations: Iterable[Violation], rule: str) -> None:
+        stale = stale_entries(name, violations)
+>       assert not stale, (f"{rule}: {len(stale)} entr(y/ies) in allowlists/{name}.json no longer match anything: the "
+               ^^^^^^^^^
+                           "violation is gone, so delete the entry (allowlists only shrink):\n" + "\n".join(stale))
+E       AssertionError: P8 (model and target facts live in their two homes): 22 entr(y/ies) in allowlists/p08_facts.json no longer match anything: the violation is gone, so delete the entry (allowlists only shrink):
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "layer-class", "symbol": "catalogue.m11", "detail": "RMSNorm"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "sm-arch", "symbol": "<module>", "detail": "sm_89"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "<module>", "detail": "GeluAndMul"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "<module>", "detail": "LogitsProcessor"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "<module>", "detail": "RMSNorm", "count": 3}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "<module>", "detail": "RotaryEmbedding", "count": 2}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "<module>", "detail": "Sampler"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "<module>", "detail": "SiluAndMul"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "<module>", "detail": "VocabParallelEmbedding", "count": 2}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_id", "detail": "RMSNorm"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "ColumnParallelLinear"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "GeluAndMul"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "GemmaRMSNorm", "count": 2}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "LogitsProcessor"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "RMSNorm", "count": 2}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "RotaryEmbedding"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "RowParallelLinear"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "Sampler", "count": 2}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "SiluAndMul"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter._class_key", "detail": "VocabParallelEmbedding"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer-class", "symbol": "CmtRefCommitter.coverage_declaration", "detail": "RMSNorm"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "model", "symbol": "CmtRefCommitter._class_key", "detail": "gemma", "count": 2}
+
+integrations/vllm/tests/lint/_ratchet.py:278: AssertionError
+____________________________ test_no_new_violations ____________________________
+
+    def test_no_new_violations() -> None:
+>       R.assert_no_new(NAME, scan(), RULE,
+                        "Import downward only (see _imports.INTERIM_LAYER), keep test/tool code and repo data out of the "
+                        "library, and route vLLM/torch/triton patches through the patch owner.")
+
+integrations/vllm/tests/lint/test_p09_layering.py:238: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p09_layering'
+violations = (Violation(file='verity_vllm/acquire/hidden_gpu_src/hidden_gpu.py', kind='layer', symbol='<module>', detail='acquire.h...ative_host.py', kind='layer', symbol='<module>', detail='acquire.native_host -> acquire.hidden_source', line=497), ...)
+rule = 'P9 (dependency direction, one patch owner)'
+fix = 'Import downward only (see _imports.INTERIM_LAYER), keep test/tool code and repo data out of the library, and route vLLM/torch/triton patches through the patch owner.'
+
+    def assert_no_new(name: str, violations: Iterable[Violation], rule: str, fix: str) -> None:
+        new = new_violations(name, violations)
+>       assert not new, (f"{rule}: {len(new)} violation(s) not in allowlists/{name}.json. {fix} "
+               ^^^^^^^
+                         "(If an allowlisted violation only moved, move its entry in the same change.)\n" + "\n".join(new))
+E       AssertionError: P9 (dependency direction, one patch owner): 9 violation(s) not in allowlists/p09_layering.json. Import downward only (see _imports.INTERIM_LAYER), keep test/tool code and repo data out of the library, and route vLLM/torch/triton patches through the patch owner. (If an allowlisted violation only moved, move its entry in the same change.)
+E         verity_vllm/check/golden.py:26 [layer] <module>: check.golden -> config
+E         verity_vllm/check/protected.py:26 [layer] <module>: check.protected -> config
+E         verity_vllm/check/quarantine_lint.py:27 [layer] <module>: check.quarantine_lint -> config
+E         verity_vllm/input_provenance/weights_of_record.py:797 [layer] <module>: input_provenance.weights_of_record -> config
+E         verity_vllm/observe/engine_profile.py:82 [layer] <module>: observe.engine_profile -> config
+E         verity_vllm/observe/profiles/dense_generic.py:42 [layer] <module>: observe.profiles.dense_generic -> config
+E         verity_vllm/program/numerics/beyond_gemm.py:76 [layer] <module>: program.numerics.beyond_gemm -> config
+E         verity_vllm/program/registry/rmsnorm_fused_sweep.py:43 [layer] <module>: program.registry.rmsnorm_fused_sweep -> config
+E         verity_vllm/tp/worker.py:48 [layer] <module>: tp.worker -> config
+
+integrations/vllm/tests/lint/_ratchet.py:272: AssertionError
+_____________________ test_allowlist_has_no_stale_entries ______________________
+
+    def test_allowlist_has_no_stale_entries() -> None:
+>       R.assert_no_stale(NAME, scan(), RULE)
+
+integrations/vllm/tests/lint/test_p09_layering.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p09_layering'
+violations = (Violation(file='verity_vllm/acquire/hidden_gpu_src/hidden_gpu.py', kind='layer', symbol='<module>', detail='acquire.h...ative_host.py', kind='layer', symbol='<module>', detail='acquire.native_host -> acquire.hidden_source', line=497), ...)
+rule = 'P9 (dependency direction, one patch owner)'
+
+    def assert_no_stale(name: str, violations: Iterable[Violation], rule: str) -> None:
+        stale = stale_entries(name, violations)
+>       assert not stale, (f"{rule}: {len(stale)} entr(y/ies) in allowlists/{name}.json no longer match anything: the "
+               ^^^^^^^^^
+                           "violation is gone, so delete the entry (allowlists only shrink):\n" + "\n".join(stale))
+E       AssertionError: P9 (dependency direction, one patch owner): 35 entr(y/ies) in allowlists/p09_layering.json no longer match anything: the violation is gone, so delete the entry (allowlists only shrink):
+E         delete {"file": "verity_vllm", "kind": "module-cycle", "symbol": "<package>", "detail": "commit.reference_engine.torch_sha256 <-> commit.reference_engine.triton_sha256"}
+E         delete {"file": "verity_vllm", "kind": "package-cycle", "symbol": "<package>", "detail": "acquire <-> commit"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "forbidden-import", "symbol": "ToyRecord.__init__", "detail": "tests.check.test_compare_synthetic"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "forbidden-import", "symbol": "ToyRecord.__init__", "detail": "tests.observe"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "runtime-patch", "symbol": "M1Record.census.run", "detail": "<object>.load_profile"}
+E         delete {"file": "verity_vllm/check/fold_compare.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/check/golden.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/check/protected.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/check/quarantine_lint.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/check/twins.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/check/twins.py", "kind": "sys-path", "symbol": "<module>", "detail": "sys.path.insert"}
+E         delete {"file": "verity_vllm/commit/hidden_engine.py", "kind": "layer", "symbol": "<module>", "detail": "commit.hidden_engine -> commit.stream_merkle"}
+E         delete {"file": "verity_vllm/commit/hidden_engine.py", "kind": "repo-path", "symbol": "<module>", "detail": "_POC"}
+E         delete {"file": "verity_vllm/commit/hidden_engine.py", "kind": "sys-path", "symbol": "<module>", "detail": "sys.path.insert"}
+E         delete {"file": "verity_vllm/commit/padding_steps.py", "kind": "repo-path", "symbol": "<module>", "detail": "expr"}
+E         delete {"file": "verity_vllm/commit/padding_steps.py", "kind": "sys-path", "symbol": "<module>", "detail": "sys.path.insert"}
+E         delete {"file": "verity_vllm/commit/reference_engine/engine.py", "kind": "repo-path", "symbol": "<module>", "detail": "_POC"}
+E         delete {"file": "verity_vllm/commit/reference_engine/engine.py", "kind": "sys-path", "symbol": "<module>", "detail": "sys.path.insert"}
+E         delete {"file": "verity_vllm/commit/reference_engine_adapter.py", "kind": "layer", "symbol": "<module>", "detail": "commit.reference_engine_adapter -> acquire.committer_api"}
+E         delete {"file": "verity_vllm/harness/commit_delta.py", "kind": "repo-path", "symbol": "main", "detail": "_cal_path"}
+E         delete {"file": "verity_vllm/harness/coverage_workloads.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/harness/source_identity.py", "kind": "repo-path", "symbol": "<module>", "detail": "TREE"}
+E         delete {"file": "verity_vllm/harness/workload.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/harness/workload.py", "kind": "sys-path", "symbol": "case_for", "detail": "sys.path.insert"}
+E         delete {"file": "verity_vllm/input_provenance/weights_of_record.py", "kind": "repo-path", "symbol": "derivation_provenance", "detail": "root"}
+E         delete {"file": "verity_vllm/observe/engine_profile.py", "kind": "layer", "symbol": "<module>", "detail": "observe.engine_profile -> check.poc_verify_bindings"}
+E         delete {"file": "verity_vllm/observe/profiles/dense_generic.py", "kind": "repo-path", "symbol": "<module>", "detail": "PACKAGE_ROOT"}
+E         delete {"file": "verity_vllm/program/frontend/serve3_authored.py", "kind": "layer", "symbol": "<module>", "detail": "program.frontend.serve3_authored -> program.frontend.b1_authored"}
+E         delete {"file": "verity_vllm/program/numerics/fa2_relation.py", "kind": "repo-path", "symbol": "tables_dir", "detail": "return"}
+E         delete {"file": "verity_vllm/program/numerics/rms_relation.py", "kind": "repo-path", "symbol": "tables_dir", "detail": "fixtures"}
+E         delete {"file": "verity_vllm/program/registry/prims.py", "kind": "repo-path", "symbol": "<module>", "detail": "_REPO"}
+E         delete {"file": "verity_vllm/program/registry/prims.py", "kind": "sys-path", "symbol": "<module>", "detail": "sys.path.insert"}
+E         delete {"file": "verity_vllm/program/registry/rmsnorm_fused_sweep.py", "kind": "repo-path", "symbol": "<module>", "detail": "REPO"}
+E         delete {"file": "verity_vllm/tp/worker.py", "kind": "repo-path", "symbol": "repo_modules_loaded", "detail": "root"}
+
+integrations/vllm/tests/lint/_ratchet.py:278: AssertionError
+________________ test_interim_layer_map_names_existing_modules _________________
+
+    def test_interim_layer_map_names_existing_modules() -> None:
+        known = I.modules()
+        missing = [m for m in I.INTERIM_LAYER if m not in known and not any(k.startswith(m + ".") for k in known)]
+>       assert not missing, f"INTERIM_LAYER names modules or packages that no longer exist (update the map): {missing}"
+E       AssertionError: INTERIM_LAYER names modules or packages that no longer exist (update the map): ['verity_vllm.harness.synthetic', 'verity_vllm.check.adversarial', 'verity_vllm.check.fa2_attn_oracle', 'verity_vllm.commit.fa2_prototype', 'verity_vllm.commit.stream_merkle', 'verity_vllm.program.frontend.b1_authored', 'verity_vllm.program.numerics.inductor_models']
+E       assert not ['verity_vllm.harness.synthetic', 'verity_vllm.check.adversarial', 'verity_vllm.check.fa2_attn_oracle', 'verity_vllm.commit.fa2_prototype', 'verity_vllm.commit.stream_merkle', 'verity_vllm.program.frontend.b1_authored', ...]
+
+integrations/vllm/tests/lint/test_p09_layering.py:250: AssertionError
+________________________ test_no_new_or_grown_offenders ________________________
+
+    def test_no_new_or_grown_offenders() -> None:
+        caps = R.load_allowlist(NAME)
+        bad = []
+        for k, n in sorted(sizes().items()):
+            if k not in caps:
+                bad.append(f"  {k[0]} [{k[1]}] {k[2]}: {n} lines (limit {MODULE_MAX if k[1] == 'module' else FUNCTION_MAX})")
+            elif n > caps[k]:
+                bad.append(f"  {k[0]} [{k[1]}] {k[2]}: {n} lines, above its recorded {caps[k]}")
+>       assert not bad, (f"{RULE}: {len(bad)} module(s)/function(s) over the limit or above their recorded size in "
+                         f"allowlists/{NAME}.json. Split them; recorded sizes only come down.\n" + "\n".join(bad))
+E       AssertionError: P10 (size ratchet): 1 module(s)/function(s) over the limit or above their recorded size in allowlists/p10_size.json. Split them; recorded sizes only come down.
+E           verity_vllm/tp/worker.py [module] <module>: 1580 lines, above its recorded 1579
+E       assert not ['  verity_vllm/tp/worker.py [module] <module>: 1580 lines, above its recorded 1579']
+
+integrations/vllm/tests/lint/test_p10_size.py:61: AssertionError
+_______________________ test_recorded_sizes_are_current ________________________
+
+    def test_recorded_sizes_are_current() -> None:
+        have = sizes()
+        stale = []
+        for k, cap in sorted(R.load_allowlist(NAME).items()):
+            if k not in have:
+                stale.append(f"  delete {R.entry_line(k, cap)}")
+            elif have[k] < cap:
+                stale.append(f"  lower count to {have[k]}: {R.entry_line(k, cap)}")
+>       assert not stale, (f"{RULE}: {len(stale)} entr(y/ies) in allowlists/{NAME}.json above the current size: lower or "
+                           "delete them so the cap follows the code down:\n" + "\n".join(stale))
+E       AssertionError: P10 (size ratchet): 6 entr(y/ies) in allowlists/p10_size.json above the current size: lower or delete them so the cap follows the code down:
+E           delete {"file": "verity_vllm/check/adversarial.py", "kind": "function", "symbol": "catalogue", "detail": "lines", "count": 168}
+E           lower count to 1050: {"file": "verity_vllm/check/twins.py", "kind": "module", "symbol": "<module>", "detail": "lines", "count": 1054}
+E           lower count to 933: {"file": "verity_vllm/commit/padding_steps.py", "kind": "module", "symbol": "<module>", "detail": "lines", "count": 936}
+E           lower count to 1918: {"file": "verity_vllm/harness/commit_delta.py", "kind": "function", "symbol": "main", "detail": "lines", "count": 1919}
+E           lower count to 3022: {"file": "verity_vllm/harness/commit_delta.py", "kind": "module", "symbol": "<module>", "detail": "lines", "count": 3030}
+E           lower count to 1000: {"file": "verity_vllm/input_provenance/weights_of_record.py", "kind": "module", "symbol": "<module>", "detail": "lines", "count": 1001}
+E       assert not ['  delete {"file": "verity_vllm/check/adversarial.py", "kind": "function", "symbol": "catalogue", "detail": "lines", ...llm/input_provenance/weights_of_record.py", "kind": "module", "symbol": "<module>", "detail": "lines", "count": 1001}']
+
+integrations/vllm/tests/lint/test_p10_size.py:73: AssertionError
+_____________________ test_allowlist_has_no_stale_entries ______________________
+
+    def test_allowlist_has_no_stale_entries() -> None:
+>       R.assert_no_stale(NAME, scan(), RULE)
+
+integrations/vllm/tests/lint/test_p11_names.py:110: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p11_names'
+violations = (Violation(file='verity_vllm/acquire/compiled_kernel_source.py', kind='doc-board-id', symbol='<module>', detail='M-nnn...n(file='verity_vllm/acquire/fa2_plane_classes.py', kind='doc-board-id', symbol='<module>', detail='F-rN', line=1), ...)
+rule = 'P11 (names say the job; versions only in hashed data)'
+
+    def assert_no_stale(name: str, violations: Iterable[Violation], rule: str) -> None:
+        stale = stale_entries(name, violations)
+>       assert not stale, (f"{rule}: {len(stale)} entr(y/ies) in allowlists/{name}.json no longer match anything: the "
+               ^^^^^^^^^
+                           "violation is gone, so delete the entry (allowlists only shrink):\n" + "\n".join(stale))
+E       AssertionError: P11 (names say the job; versions only in hashed data): 32 entr(y/ies) in allowlists/p11_names.json no longer match anything: the violation is gone, so delete the entry (allowlists only shrink):
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "class-name", "symbol": "<module>", "detail": "M1Record"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "def-name", "symbol": "catalogue", "detail": "m01"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "def-name", "symbol": "catalogue", "detail": "m02"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "def-name", "symbol": "catalogue", "detail": "m03"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "def-name", "symbol": "catalogue", "detail": "m04"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "def-name", "symbol": "catalogue", "detail": "m06"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "def-name", "symbol": "catalogue", "detail": "m07"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "def-name", "symbol": "catalogue", "detail": "m08"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "def-name", "symbol": "catalogue", "detail": "m11"}
+E         delete {"file": "verity_vllm/check/adversarial.py", "kind": "doc-date", "symbol": "<module>", "detail": "date"}
+E         delete {"file": "verity_vllm/check/poc_rows.py", "kind": "module-name", "symbol": "<module>", "detail": "poc_rows"}
+E         delete {"file": "verity_vllm/check/poc_verify_bindings.py", "kind": "doc-date", "symbol": "<module>", "detail": "date"}
+E         delete {"file": "verity_vllm/check/poc_verify_bindings.py", "kind": "module-name", "symbol": "<module>", "detail": "poc_verify_bindings"}
+E         delete {"file": "verity_vllm/commit/fa2_prototype/__init__.py", "kind": "doc-date", "symbol": "<module>", "detail": "date"}
+E         delete {"file": "verity_vllm/commit/fa2_prototype/encoding.py", "kind": "doc-date", "symbol": "<module>", "detail": "date"}
+E         delete {"file": "verity_vllm/commit/reference_engine/__init__.py", "kind": "doc-date", "symbol": "<module>", "detail": "date"}
+E         delete {"file": "verity_vllm/commit/stream_merkle.py", "kind": "doc-date", "symbol": "<module>", "detail": "date"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "AttentionHeadV2"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "AttentionHeadV3"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "AttentionV2"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "AttentionV3"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "AttnBlockV2"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "AttnBlockV3"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "FinalV2"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "LayerPostV2"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "LayerPreV2"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "ServeV2"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "ServeV4"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "_forward_positions_v2"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "_forward_positions_v4"}
+E         delete {"file": "verity_vllm/program/frontend/b1_authored.py", "kind": "module-name", "symbol": "<module>", "detail": "b1_authored"}
+E         delete {"file": "verity_vllm/program/frontend/serve3_authored.py", "kind": "def-name", "symbol": "<module>", "detail": "ServeV3"}
+
+integrations/vllm/tests/lint/_ratchet.py:278: AssertionError
+=========================== short test summary info ============================
+FAILED integrations/vllm/tests/lint/test_p03_one_evaluator.py::test_allowlist_has_no_stale_entries
+FAILED integrations/vllm/tests/lint/test_p06_one_cli.py::test_allowlist_has_no_stale_entries
+FAILED integrations/vllm/tests/lint/test_p07_declared_inputs.py::test_no_new_violations
+FAILED integrations/vllm/tests/lint/test_p07_declared_inputs.py::test_allowlist_has_no_stale_entries
+FAILED integrations/vllm/tests/lint/test_p08_facts.py::test_allowlist_has_no_stale_entries
+FAILED integrations/vllm/tests/lint/test_p09_layering.py::test_no_new_violations
+FAILED integrations/vllm/tests/lint/test_p09_layering.py::test_allowlist_has_no_stale_entries
+FAILED integrations/vllm/tests/lint/test_p09_layering.py::test_interim_layer_map_names_existing_modules
+FAILED integrations/vllm/tests/lint/test_p10_size.py::test_no_new_or_grown_offenders
+FAILED integrations/vllm/tests/lint/test_p10_size.py::test_recorded_sizes_are_current
+FAILED integrations/vllm/tests/lint/test_p11_names.py::test_allowlist_has_no_stale_entries

@@ -3,6 +3,6 @@
  "brief": "/Users/danielreuter/.research/notes/kb/TABLES.md",
  "budget": "$4",
  "final": "01:30Z",
- "pod": "vy-d3-h100,vy-d3-h100v",
+ "pod": "vy-d3-h100,vy-d3-h100v,vy-d3-h100v2",
  "worktree": "/Users/danielreuter/projects/verity-main-wt/d3-h100"
 }

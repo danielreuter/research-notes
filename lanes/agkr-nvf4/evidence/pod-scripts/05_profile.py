@@ -42,6 +42,16 @@ def lay(layer, rows, b, *a, **k):
     return f"{layer.name} g{layer.g_n} s{layer.s_in} b{b}"
 
 
+def shp(*a, **k):
+    return "x".join("L" if not hasattr(t, "shape") else "(" + ",".join(map(str, t.shape)) + ")" for t in a[:2])
+
+
+timed(gkr, "mm_mod", key="gkr.mm_mod", desc=shp)
+timed(gkr, "eq_table", key="gkr.eq_table", desc=lambda p, *a, **k: f"n{len(p)}")
+timed(gkr, "sumcheck_prod", key="gkr.sumcheck_prod", desc=shp)
+timed(gkr, "ext_mul", key="gkr.ext_mul")
+timed(circuit.Layer, "matrices", key="Layer.matrices")
+timed(circuit.Layer, "eval_a_at", key="Layer.eval_a_at")
 timed(gkr, "prove_layer", desc=lay)
 timed(gkr, "_phase2")
 timed(gkr_packed, "phase1")

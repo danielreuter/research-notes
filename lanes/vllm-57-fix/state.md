@@ -12,6 +12,8 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
+- CHECKPOINT 57-fix MET 06:20Z -- 4f6f6d1d + 8b606f16 pushed (origin, sw57); touched tests + test_no_by_name_rules green on the pod; offline
+  repro with the fix: form (B) compared 159,840 (base 114,480), not compared outside no-oracle families 0 (log repro_oracle_fixed.log).
 
 ## Root cause (#57 Commit 8cb4, from the offline reproduction at base 38122d1f)
 Two independent failures; the first is already fixed on staging, the second is the fix of this lane.
@@ -45,9 +47,11 @@ instance_outputs with no replay evaluator) and MATCH_SNAP_STEPS is unset; an exp
   --ttl 6h --via local --env`, r2.env sourced in a subshell; the laptop venv's `research` binary is too old to have `data`), valid to ~12:07Z.
 
 ## Running
-- #57 Commit-only rerun: `research run --on vyv-sw-57 --tool vllm.commit --source . (8b606f16)` with build=art:f1baace0…, match=art:a225cf5f…
-  (launched 06:07Z from the laptop; run id pending in the launch output).
-- offline repro, fixed oracle: pod `repro57.py oracle-fixed`, log /workspace/lane/logs/repro_oracle_fixed.log (derived 318 producers, 0 conflicts).
+- #57 Commit-only rerun: run r20260924-061950-2148 on vyv-sw-57 (runner pid 39395, workload pid 39406), GPU 0, source 8b606f16,
+  build=art:f1baace0…, match=art:a225cf5f…, launched 06:19Z. Observe: pod /workspace/research/runs/r20260924-061950-2148/ or `research fetch`.
+  (06:07Z attempt refused: shipping 168 MB from the laptop exceeded 600s at ~0.3 MB/s. Workaround: build /workspace/research/src/<sha>/ on
+  the pod with `git archive <sha> | tar -x` from /workspace/verity; the launcher adopts it by per-file sha256 (legacy path). Local record
+  r20260924-061901-c333 is an orphan stuck at phase=shipping; nothing ran for it.)
 
 ## Next
 - #57 rerun -> verdict; preserve (data push + preserved --mode recorded + labels); ready note; #67 judgment (MoE experts output, 20,928 identities_without_rows).

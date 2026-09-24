@@ -5,4 +5,4 @@ edition = "2021"
 
 [dependencies]
 sp1-zkvm = "=6.4.0"
-veritor-zk-common = { path = "/workspace/src/backends/sp1/common" }
+veritor-zk-common = { path = "/workspace/src/backends/sp1/common", features = ["relation-bare"] }

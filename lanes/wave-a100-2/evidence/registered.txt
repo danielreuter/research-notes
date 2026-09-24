@@ -40,3 +40,4 @@ hashp8-r1 art:1387dc26
 live-hashp8-r1 art:875be1cc art:0c639da7
 bare-v1p8-r3 art:644d2eec art:3978a7bb
 live-x4p4-r1 art:963c2541 art:31ae3409
+live-shared64p8-r1 art:086a0946 art:9e9133b9

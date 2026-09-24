@@ -78,33 +78,24 @@ print(f"  failure message changed / fixed: {len(changed)}", *changed[:30], sep="
 print(f"  moved-only modules (new __init__ etc.): {len(extra)}; failing: " + ", ".join(f"{n} ({mi[n][:80]})" for n in extra if mi[n] != "ok"))
 
 
-# ---- collection
-def ids(path):
-    out = []
+# ---- collection (`-qq --collect-only` prints `<file>: <n>` per file)
+def counts(path, mapped):
+    out = {}
     for l in open(path):
-        l = l.rstrip("\n")
-        if "::" in l and not l.startswith((" ", "=", "_")):
-            out.append(l)
-    return out
-
-
-def tail(path):
-    lines = [l.strip() for l in open(path) if l.strip()]
-    return lines[-1] if lines else "?"
-
-
-def map_id(i):
-    f, _, rest = i.partition("::")
-    return map_path(f) + "::" + rest
+        mo = re.match(r"^(\S+\.py): (\d+)$", l.rstrip("\n"))
+        if mo:
+            out[map_path(mo.group(1)) if mapped else mo.group(1)] = int(mo.group(2))
+    errs = sum(1 for l in open(path) if l.startswith("ERROR "))
+    return out, errs
 
 
 for kind in ("default", "all"):
-    print(f"collect {kind}: base '{tail(f'{bdir}/collect_{kind}.txt')}'   moved '{tail(f'{mdir}/collect_{kind}.txt')}'")
-bset, mset = {map_id(i) for i in ids(f"{bdir}/collect_all.txt")}, set(ids(f"{mdir}/collect_all.txt"))
-print(f"  collect all: base {len(bset)} ids (mapped), moved {len(mset)}; base-only {len(bset - mset)}, moved-only {len(mset - bset)}")
-for tag, s in (("base-only", sorted(bset - mset)), ("moved-only", sorted(mset - bset))):
-    for i in s[:25]:
-        print(f"    {tag} {i}")
+    (b, be), (m, me) = counts(f"{bdir}/collect_{kind}.txt", True), counts(f"{mdir}/collect_{kind}.txt", False)
+    print(f"collect {kind}: base {sum(b.values())} tests / {len(b)} files / {be} errors   moved {sum(m.values())} / {len(m)} / {me}")
+    if kind == "all":
+        for f in sorted(set(b) | set(m)):
+            if b.get(f) != m.get(f):
+                print(f"    {f}: base {b.get(f)} moved {m.get(f)}")
 
 
 # ---- junit

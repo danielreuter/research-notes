@@ -119,11 +119,15 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   identical to the 2c5e038b run. The decider is pair 0's sampled replay (MoeSum strata, fixed by 6813fe06), expected ~11:40Z.
 - 11:12Z #57@f16703a2 pair 0 all clean on the merged tree: SAMPLED REPLAY COMPLETE 5,883/5,883 equal, BOUNDARY LINKAGE 432/432,
   WEIGHTS PIN 316/316, OPENINGS 68/68; pair 1 coverage OK. #67 pair 0 in the sampled replay.
+- 11:25Z #67@f16703a2 pair 0 DECIDER CLEAN: SAMPLED REPLAY COMPLETE 38,748/38,748 equal, not-evaluated 0 (the 2,416 MoeSum strata
+  that failed at 2c5e038b now evaluate), BOUNDARY LINKAGE 1308/1308, WEIGHTS PIN 212/212, instrumented tokens_eq True. Pairs 1-2 reuse
+  the replay record; verdict ETA ~12:05Z. #57@f16703a2 pair 1 replay 5,883/5,883 (reused); pair 2 running, verdict ~11:35Z.
 
 ## Checkpoints
 - CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);
   the rerun at staging 2c8aa2b3 crashed on stale relayout imports (fixed f16703a2). Rerun r20260924-102613-0196 launched 10:26Z;
   ~1h40m => PASS ETA ~12:05Z, preserve + drain by ~12:20Z. Slips past 12:30Z if pair 0 runs >90 min.
+  11:25Z update: pair 0 finished clean in ~58 min (replay 38,748/38,748); on track for ~12:05Z.
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)
   now compares 159,840 (equal 159,408, incl. all 44,928 fused-norm narrowings) but MISMATCHES the 432 `model/out`. The Commit hooks

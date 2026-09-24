@@ -1,3 +1,4 @@
+CHECKPOINT 22741456 (17:56Z) [final] tip 22741456: 6 merges clean + A-GKR SHA-512 fix; cargo checks all pass; numerical 692/1 (pre-existing vocab), research 347/7 (not from merges); render = 1540Z except A-GKR hash; pod terminated 17:56Z
 CHECKPOINT 22741456 (17:47Z) [open] tip 22741456: py-numerical 692 pass/1 fail (test_label_keys: included-hash-shared missing from store vocab, pre-existing on base 1b3c7be6); gkr/ligero checks 0; sp1 check running; sp1-common tests rerun fresh target r20260924-174654-7e58
 CHECKPOINT none (17:37Z) [open] coordinator handoff: merged main f08314ae -> tip 22741456 (clean; its sp1 diff is comment-only); render at 22741456 identical to 1540Z except A-GKR hash; syncing tip to pod src2 for py suites
 CHECKPOINT 04700cb5 (17:36Z) [open] sync done (tree f27d6187 = 04700cb5); SP1 check + relation-bare pass (r20260924-172629-f417), tcdot fork OK, check-tcdot running; validate r20260924-173554-eb0d (py+ligero+gkr)
@@ -58,7 +59,7 @@ Base: lane/post-wave @ 1b3c7be6. Worktree ~/projects/verity-main-wt/post-wave. I
 
 ~~~text
 tip: lane/post-wave @ 22741456 (base lane/post-wave@1b3c7be6)        merge-with: none (coordinator fast-forwards main)
-known-failures: numerical test_tables.py::test_label_keys_are_the_store_vocabulary (pre-existing on 1b3c7be6); research: 7 (below) | pod: terminated HH:MMZ; ~$0.55
+known-failures: numerical test_tables.py::test_label_keys_are_the_store_vocabulary (pre-existing on 1b3c7be6); research: 7 (below) | pod: terminated 17:56Z; ~$0.50
 artifacts: none (pod runs preserved: r20260924-170644-a490 -171002-37a0 -171410-4069 -172629-f417 -173554-eb0d -173844-26c8 -174654-7e58 -174905-200f -174907-de20)
 ~~~
 
@@ -75,8 +76,8 @@ Validation (tip 22741456 unless noted):
   verity-tcdot-host --features stream-operands on the witness-arm fork reproduced from build_fork.sh (HEAD 6655716e, tree ==
   FORK_TREE_WIT; r20260924-171410-4069, at 04700cb5; tcdot/ unchanged since). PASS
 - cargo test (extra): verity-gkr-verify ok; veritor-zk-common --features relation-bare 85 passed / 0 failed (r20260924-174654-7e58). PASS
-- Python backends/numerical/tests: r20260924-174907-de20 (clean PYTHONPATH) -> NUMERICAL_RESULT. The one failure seen in
-  r20260924-173844-26c8 (692 passed / 1 failed) is test_label_keys_are_the_store_vocabulary: contract.AUTHENTICATION has
+- Python backends/numerical/tests: r20260924-174907-de20 (clean PYTHONPATH): 692 passed, 1 failed, 9 skipped (same as
+  r20260924-173844-26c8). PASS except the pre-existing failure test_label_keys_are_the_store_vocabulary: contract.AUTHENTICATION has
   'included-hash-shared' (ligero row sharing, 1054caf3) and research.store.vocab.AUTHENTICATION_VALUES does not -- the same on
   base 1b3c7be6 and on every merged branch, so pre-existing, not from these merges.
 - Python tools/research/tests: r20260924-174905-200f (clean PYTHONPATH): 347 passed, 7 failed, 2 skipped. Failing: test_notes

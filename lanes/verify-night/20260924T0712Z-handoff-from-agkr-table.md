@@ -25,3 +25,9 @@ slots 3524, msgs 11843, bytes_read 21213880, ligero_rows 26644, committed_elemen
 Further results from this lane today should also carry these proof bytes (the next change moves the Fiat-Shamir sponge
 of the LogUp rounds onto the GPU; the transcript is the same by construction and I check the bytes before recording).
 I will append their art ids here rather than open new handoffs.
+
+**Appended 07:47Z** -- bench-result/v1 `art:f47f8006711b79348e8bc605fbbdf5495c117752036473b4a82dda0c48388d3a` (attempt
+r20260924-071929-6745, PRESERVED; source lane/agkr-table @ bab91f23, the LogUp sponge on the device); run-files
+`art:8db49ca05e52e5a42367e367e500991ae635e414ce6085ba73971eccb2bfe59e`. t.total median 1.424 s (reps 1.428 / 1.421 /
+1.424). `proofs/rep{0,1,2}.bin` sha256 `f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c` (unchanged);
+same command with `DIR` = `research data fetch art:8db49ca0 --to DIR`, same expected output.

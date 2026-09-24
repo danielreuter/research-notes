@@ -5,6 +5,7 @@ created: 2026-09-24T05:38Z
 status: open
 ---
 
+CHECKPOINT none (07:45Z) [open] tip 2b0cc33a (merged sp1-table 65aa6a12; tests 85 pass). Cells @3510cfcf stand: indexed layout gives nothing (all 4 sets 4096+4096 distinct rows). All sp1f pods terminated.
 CHECKPOINT 3510cfcf (07:43Z) [open] All 4 B=4096 cells re-proved + registered @3510cfcf (vk 0x00a42aa3): fp8-ada art:8d9df3a2 23.53s, fp4-nvf4 art:a8886e22 7.43s, fp8-hopper art:70e5bd29 20.74s, bf16-hopper art:76d13bb0 24.09s; handoffs verify-night + sp1-table 0742Z; all sp1f pods terminated.
 CHECKPOINT 3510cfcf (07:27Z) [open] hill-climb 3510cfcf (elf 48bb5913): cycles/VU fp8-ada 39.4k (was 50.7k), fp8-hopper 37.2k (45.9k), fp4-nvf4 17.9k (34.4k), bf16-hopper 41.5k; oracle 4096/4096 x4 + negatives pass. Re-running all 4 cells at 3510cfcf (5090, H100 up; 4090 next).
 CHECKPOINT 2581406f (07:07Z) [open] All 4 B=4096 cells registered @2581406f: fp8-ada art:0a8697da 25.93s, fp4-nvf4 art:f3072b13 14.17s, fp8-hopper art:30a1f28a 23.22s, bf16-hopper art:ef2d91ce 24.22s; instances art:4a6f7602. Next: verify-night + sp1-table handoffs, then hill-climb.
@@ -30,6 +31,9 @@ negatives, and every envelope conforms. Handed to verify-night at `20260924T0742
 - fp8-ada ran on a different 4090 host (EPYC 7763, load about 29) from the 2581406f cell (EPYC 9354). Its cycles fell
   23%, but t.total fell only 9%, so part of the gap may be the host CPU.
 - The t.total cuts (fp4-nvf4 −48%, fp8-hopper −11%, fp8-ada −9%) track the shard count more than the cycle count.
+- Tip `2b0cc33a` merges sp1-table's `65aa6a12` (dispatch in `check_pair`, indexed layout). Common tests pass (85).
+  sp1-table's indexed layout gives these rows nothing: each of the four sets has 4096 distinct x rows and 4096 distinct
+  W rows, so nothing is shared. No cell was re-proved from the merge.
 
 ## Results (07:16Z): the four B=4096 cells at 2581406f
 

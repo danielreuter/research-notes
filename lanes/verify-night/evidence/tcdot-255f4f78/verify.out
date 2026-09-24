@@ -1,0 +1,26 @@
+=== [07:27:47] fetch art:4afa9f4e279045cf2c6af00c3f0c3596026b409d2ac25b75c2eae714ac369c97
+/workspace/verify-night/tcdot-255f4f78/tree
+10bc522fe2e55391e2ac4d1802000c1c2e7630383ad518efa4acbe55482a9c63  /workspace/verify-night/tcdot-255f4f78/tree/proofs/proof-rep0.bin
+267887fc31bec3a2a08df2e47a5db4b7d8ffc0c52f45c1424283e5f2ec3d649f  /workspace/verify-night/tcdot-255f4f78/tree/proofs/proof-rep1.bin
+3ebf9d40925257f98bf5c363dcf934b9123d8dfbd0a7fedefb0c4f103cc1dfe3  /workspace/verify-night/tcdot-255f4f78/tree/proofs/proof-rep2.bin
+5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb  /workspace/verify-night/tcdot-255f4f78/tree/proofs/statement.bin
+dump statement.bin == mine
+=== [07:38:28] verify (host sha256 7859616dcbdd6bdf)
+{"backend":"sp1 tc-dot","elf_sha256":"0df8b7cdb91042b02123860ce16e62f2267f7a6b61045f731972824b1ab3d309","fork_head":"d14b4c6277536abd4121271eecd33e75bec83ff5","formats":["bf16-ampere"],"guest_features":["relation-bare"],"label":"modified SP1 (TC_DOT chip)","public_values_len":33,"sp1_version":"6.4.0","statement":"relation-bare/v2","vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+--- proof-rep0.bin
+{"backend":"sp1 tc-dot","elf_sha256":"0df8b7cdb91042b02123860ce16e62f2267f7a6b61045f731972824b1ab3d309","error":null,"fork_head":"d14b4c6277536abd4121271eecd33e75bec83ff5","label":"modified SP1 (TC_DOT chip)","load_seconds":0.060977652,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":4.517031845,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":1.076346844,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+rc=0 wall=73s
+--- proof-rep1.bin
+{"backend":"sp1 tc-dot","elf_sha256":"0df8b7cdb91042b02123860ce16e62f2267f7a6b61045f731972824b1ab3d309","error":null,"fork_head":"d14b4c6277536abd4121271eecd33e75bec83ff5","label":"modified SP1 (TC_DOT chip)","load_seconds":0.053184093,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":3.390683651,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.824810699,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+rc=0 wall=72s
+--- proof-rep2.bin
+{"backend":"sp1 tc-dot","elf_sha256":"0df8b7cdb91042b02123860ce16e62f2267f7a6b61045f731972824b1ab3d309","error":null,"fork_head":"d14b4c6277536abd4121271eecd33e75bec83ff5","label":"modified SP1 (TC_DOT chip)","load_seconds":0.052891169,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":4.119293541,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.816710084,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+rc=0 wall=67s
+--- negatives on rep0: (a) last y byte flipped in the statement, (b) one proof byte flipped (middle)
+{"backend":"sp1 tc-dot","elf_sha256":"0df8b7cdb91042b02123860ce16e62f2267f7a6b61045f731972824b1ab3d309","error":null,"fork_head":"d14b4c6277536abd4121271eecd33e75bec83ff5","label":"modified SP1 (TC_DOT chip)","load_seconds":0.034886867,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":3.5576873559999997,"shards":10,"statement_match":false,"unsound":false,"verdict":true,"verify_seconds":0.820241197,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+rc=1
+flipped byte 7442205 of 14884411
+{"backend":"sp1 tc-dot","elf_sha256":"0df8b7cdb91042b02123860ce16e62f2267f7a6b61045f731972824b1ab3d309","error":"Core machine verification error: invalid shard proof: invalid pcs opening proof: dense pcs verification failed: PCS error: Query failed to verify: root mismatch","fork_head":"d14b4c6277536abd4121271eecd33e75bec83ff5","label":"modified SP1 (TC_DOT chip)","load_seconds":0.038000293,"ok":false,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":3.6406061149999998,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.429677699,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+Error: proof rejected
+rc=1
+=== [07:44:58] done

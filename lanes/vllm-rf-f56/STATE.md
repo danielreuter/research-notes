@@ -58,6 +58,7 @@ created: 2026-09-24T17:40Z
 - 20:14Z prefetch 26/26 ok, 0 FAIL; secret found in no text file (/workspace/rff56, /root/.research, /tmp, both trees); key deleted 20:14:36Z. Gate (a) restarted 20:14:45Z (`a_head2`); its pytest and child have 0 `AWS_*` vars (`/proc/<pid>/environ`). 158 tests in `test_regression.py`.
 - 20:18Z CONTROL gate (a) at the BASE started (a1's gate (a) baseline is still "Pending"; only needed if head is red): tree `/workspace/base-reg72884` = GitHub tarball of `72884c8a`, 2,814 blobs == `git ls-tree -r 72884c8a`, no `.research-source.json` (nothing in integrations/vllm reads it), tag `a_base`, same gate_a.sh, no key. My commits touch nothing under tests/regression, harness/ or tools/research.
 - 20:43Z gate (a) progress: head `a_head2` 45%+ (91 chars), base `a_base` 45%, both 0 F / 0 E so far (OLMoE rows building); head ETA ~21:15Z.
+- 20:43Z gate (a) progress: head `a_head2` 45%+ (91 chars), base `a_base` 45%, both 0 F / 0 E so far (OLMoE rows building); head ETA ~21:15Z.
 - Credential note (for READY): laptop-side `research data push` / `research pods drain` used the parent key pair from `~/.config/verity/r2.env` in a subshell, not a minted 1h credential as the brief describes; the key never reached a pod (drain's only pod command is `hostname`; `remote.ssh_run` passes no env; laptop ssh `SendEnv` is only LANG/LC_*). Use a minted 1h credential for the CPU pod's drain.
 
 ## Running

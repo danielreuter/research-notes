@@ -94,6 +94,38 @@ v6.4.0 source (`f66b4bff5`).
   call, versus about 10 through the non-inlined `extern "C"` stub): `backends/sp1/tcdot/guest/src/main.rs`
   `chip_chain`.
 
+## Soundness: SP1 cannot reach 2^-128 by raising its constants (lane sp1-128, 2026-09-24)
+- `SP1_TARGET_BITS_OF_SECURITY` (sp1-primitives `fri_params.rs`, 100) sets only the FRI query count:
+  `unique_decoding_queries = ceil((T - 16) / -log2(5/8))`, giving 124 at 100, 166 at 128 and 175 at 134. The GPU server takes
+  it through `core_fri_config()`, so the prover needs a source build and the verifier the same constant. Raising it also
+  changes the recursion query count, so such builds are core-proof only.
+- The other per-shard terms are bounded by the KoalaBear^4 challenge field (|F| = 2^123.95) and by two constants,
+  `GKR_GRINDING_BITS` 12 (hypercube `verifier/shard.rs`) and `BATCH_GRINDING_BITS` 5 (slop basefold `verifier.rs`).
+  soundcalc, unique-decoding regime, proven bounds; log2 per-shard error:
+
+  | config | query | LogUp-GKR | FRI commit (sum) | batching | zerocheck | jagged reduce | sum |
+  |---|---|---|---|---|---|---|---|
+  | stock, 124 q | -100.1 | -100.3 | -102.4 | -104.4 | -112.2 | -116.4 | -99.0 |
+  | T = 134, 175 q | -134.7 | -100.3 | -102.4 | -104.4 | -112.2 | -116.4 | -99.9 |
+  | + GKR grinding 40, batch grinding 29 | -134.7 | -128.3 | -102.4 | -128.4 | -112.2 | -116.4 | -102.4 |
+
+- No conjectured regime helps. The LogUp-GKR, zerocheck and reduce terms are Schwartz-Zippel terms, and the commit and
+  batching errors are at least about n/|F| in any regime.
+- **SP1 cannot reach 2^-128 without protocol changes:** grinding in every FRI commit round (about 25 bits at round 1),
+  in zerocheck (about 16) and in the jagged reduction (about 12), or a larger extension field. 40 bits of GKR grinding alone
+  is 2^40 hashes per shard.
+- The SP1 envelopes before 2026-09-24 book SP1's constant (-100 per shard), about 1 bit optimistic against the additive
+  -99.0. Those records are left as they are (coordinator); new envelopes carry the additive figure.
+- Reproduce: soundcalc @2af5e7d (github.com/ethereum/soundcalc, 2 MB), then
+  `PYTHONPATH=. uv run --no-project --with toml python ~/.research/notes/lanes/sp1-128/evidence/soundcalc_sp1.py`.
+  Output: `lanes/sp1-128/evidence/soundcalc_sp1.out`. The config is SP1's own `gen_soundcalc_toml` output with v6.1.0
+  machine sizes; the 6.6.0 constants it reads are identical.
+- Building the GPU server from source (v6.6.0) needs Go >= 1.24 for `sp1-recursion-gnark-ffi` (apt's golang-go fails
+  with "invalid go version '1.24.0'"). `backends/sp1/sec128/build.sh` installs it.
+- sp1-sdk's cuda client compares `sp1-gpu-server --version` with the *linked* `sp1_primitives::SP1_CRATE_VERSION`. On a
+  mismatch it stops every server and downloads the release binary over `$HOME/.sp1/bin/sp1-gpu-server`, so a patched
+  primitives crate must keep its version. Check the server's sha256 after each run (`sec128/run.sh` does).
+
 ## Emitting results
 - Modified SP1 variants use `benchmarks/dot_product/vector_run.py --backend sp1-bare --variant FILE`, with SP1 prover
   options passed as `--prover-env KEY=VALUE` (recorded as `software.prover_options`). `backends/sp1/tcdot/bench.py`

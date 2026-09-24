@@ -1,0 +1,1578 @@
+/Users/danielreuter/.research/store/labels/art_cc59294a141e840789606a7d5d9a13c8d7654f29ef1bb11cf50f1702987f43a1/20260924T012333Z-integration.json
+/Users/danielreuter/.research/store/labels/art_cc59294a141e840789606a7d5d9a13c8d7654f29ef1bb11cf50f1702987f43a1/20260924T012333Z-integration~2.json
+/Users/danielreuter/.research/store/labels/art_cc59294a141e840789606a7d5d9a13c8d7654f29ef1bb11cf50f1702987f43a1/20260924T012333Z-integration~3.json
+/Users/danielreuter/.research/store/labels/art_cc59294a141e840789606a7d5d9a13c8d7654f29ef1bb11cf50f1702987f43a1/20260924T012333Z-integration~4.json
+/Users/danielreuter/.research/store/labels/art_4ab228866a149f10b21f577db2d87d1bf4f044202328454d2beda6bd812d8156/20260924T012338Z-integration.json
+/Users/danielreuter/.research/store/labels/art_4ab228866a149f10b21f577db2d87d1bf4f044202328454d2beda6bd812d8156/20260924T012338Z-integration~2.json
+/Users/danielreuter/.research/store/labels/art_4ab228866a149f10b21f577db2d87d1bf4f044202328454d2beda6bd812d8156/20260924T012338Z-integration~3.json
+/Users/danielreuter/.research/store/labels/art_4ab228866a149f10b21f577db2d87d1bf4f044202328454d2beda6bd812d8156/20260924T012338Z-integration~4.json
+[
+  {
+    "result": "art:cc59294a141e840789606a7d5d9a13c8d7654f29ef1bb11cf50f1702987f43a1",
+    "status": "PASS",
+    "why": [],
+    "run_files": "art:2c8d508966c8232d3cd5a88bd7f059c6f8a8f18876c5646e0ad870ec3045bb83",
+    "run": "r20260923-104729-92cb",
+    "relation": "fp8-ada",
+    "mode": "interactive",
+    "custody": {
+      "files": 40,
+      "mismatched": 0,
+      "missing": 0
+    },
+    "reps": {
+      "rep1": {
+        "dir": "rep1",
+        "jobs": 7,
+        "available_parallelism": 14,
+        "threads": 1,
+        "reps": 1,
+        "target_bits": 128,
+        "system_pinned": true,
+        "system": {
+          "sys_id": "6b570eef0c7faa07ccd1dddb2508e2699bd5367b108b15920469d46d16073d37",
+          "table_digest": "443e4fc74c0ac0cc864e50f7125d9585d71986c0b95ff5336d93a6939f3cb952",
+          "pinned_relation": "fp8-ada"
+        },
+        "n": 13,
+        "accepted": 13,
+        "rejected": 0,
+        "own_coins": 13,
+        "batch_accepted": true,
+        "batch_reason": "accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128",
+        "batch_log2": -128.319380806,
+        "batch_bits": 128.319380806,
+        "per_proof_bits": [
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524
+        ],
+        "n_proofs_claimed": [
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13
+        ],
+        "python_agree": 13,
+        "python_disagree": 0,
+        "verify_seconds_sum": 1.8313,
+        "shared_seconds": 0.0004,
+        "wall_seconds": 0.2868,
+        "items": [
+          {
+            "name": "sub_00.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "e56c6437b0e4e0ad30725f9709088ca910a4e5e785890f072d4c54945c3dfb95"
+            },
+            "timing": {
+              "shared": 0.000772,
+              "parse": 0.005534,
+              "soundness": 5e-06,
+              "statement_hash": 0.01504,
+              "challenge_hash": 0.006531,
+              "merkle": 0.005118,
+              "ntt": 0.062244,
+              "dfold": 0.039123,
+              "quadratic": 0.015845,
+              "chain": 0.001267,
+              "auth": 0.0,
+              "total": 0.151537
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.021s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_01.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "715d68ae6e643f4b087ad2a4bdd25ba8afe31697fe35374be971496263f70314"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.005329,
+              "soundness": 3e-06,
+              "statement_hash": 0.015651,
+              "challenge_hash": 0.005616,
+              "merkle": 0.0052,
+              "ntt": 0.061698,
+              "dfold": 0.039131,
+              "quadratic": 0.015106,
+              "chain": 0.00112,
+              "auth": 0.0,
+              "total": 0.148928
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_02.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "4ec7bf3c93e851f7bb12b0ff8dc66b4ed8d5fc99db797007ba990e77973c1808"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.00654,
+              "soundness": 2e-06,
+              "statement_hash": 0.015382,
+              "challenge_hash": 0.006295,
+              "merkle": 0.005184,
+              "ntt": 0.061792,
+              "dfold": 0.039205,
+              "quadratic": 0.014944,
+              "chain": 0.001047,
+              "auth": 0.0,
+              "total": 0.150457
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_03.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "84034b272b8d29b1199426f3a11891f2f5ac9bef440239beacc973d59b4899a4"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.004972,
+              "soundness": 2e-06,
+              "statement_hash": 0.015918,
+              "challenge_hash": 0.006381,
+              "merkle": 0.005174,
+              "ntt": 0.062051,
+              "dfold": 0.039132,
+              "quadratic": 0.015297,
+              "chain": 0.001019,
+              "auth": 0.0,
+              "total": 0.149984
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_04.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "55b5748226f11baaab497e677d85854afd1d64e42eb83d4fbb381e10b5aaa103"
+            },
+            "timing": {
+              "shared": 1e-06,
+              "parse": 0.005719,
+              "soundness": 4e-06,
+              "statement_hash": 0.015748,
+              "challenge_hash": 0.006713,
+              "merkle": 0.005294,
+              "ntt": 0.06256,
+              "dfold": 0.038757,
+              "quadratic": 0.015507,
+              "chain": 0.001247,
+              "auth": 0.0,
+              "total": 0.15159
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_05.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "be9261f3afe9236879e708b10922dab5c606b2745f722ad917d33c2e82507d25"
+            },
+            "timing": {
+              "shared": 0.000274,
+              "parse": 0.004735,
+              "soundness": 4e-06,
+              "statement_hash": 0.015117,
+              "challenge_hash": 0.005967,
+              "merkle": 0.005413,
+              "ntt": 0.062351,
+              "dfold": 0.038928,
+              "quadratic": 0.015629,
+              "chain": 0.001064,
+              "auth": 0.0,
+              "total": 0.149555
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_06.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "0a0c2037207de7c6764971b7f7aabfbf66c32393316e27bd6552bf396f70f756"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.005289,
+              "soundness": 1e-06,
+              "statement_hash": 0.015027,
+              "challenge_hash": 0.006546,
+              "merkle": 0.004784,
+              "ntt": 0.062815,
+              "dfold": 0.038845,
+              "quadratic": 0.014643,
+              "chain": 0.001088,
+              "auth": 0.0,
+              "total": 0.149108
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_07.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "a212f3bbd70cf3bb700d15ddd5bf6ca5d5ba6fa2f0cf12f4f8f9b8ac4d9fd308"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.00183,
+              "soundness": 1e-06,
+              "statement_hash": 0.008103,
+              "challenge_hash": 0.003976,
+              "merkle": 0.003773,
+              "ntt": 0.0616,
+              "dfold": 0.035105,
+              "quadratic": 0.01443,
+              "chain": 0.000971,
+              "auth": 0.0,
+              "total": 0.129825
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_08.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "7c1841710b28b0b37788dad744e9de7b63faec35d4cc6089b85f59b6e44b6e38"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001812,
+              "soundness": 3e-06,
+              "statement_hash": 0.008043,
+              "challenge_hash": 0.003989,
+              "merkle": 0.003765,
+              "ntt": 0.061582,
+              "dfold": 0.035058,
+              "quadratic": 0.015565,
+              "chain": 0.001009,
+              "auth": 0.0,
+              "total": 0.130939
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_09.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "a553ddc8fafc034f9a449f9e6b1554b97d79f49bb8bffd9411c050472c0fc15d"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001743,
+              "soundness": 5e-06,
+              "statement_hash": 0.007975,
+              "challenge_hash": 0.003927,
+              "merkle": 0.003849,
+              "ntt": 0.061339,
+              "dfold": 0.034896,
+              "quadratic": 0.015456,
+              "chain": 0.000988,
+              "auth": 0.0,
+              "total": 0.13027
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_10.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "c072e460ba9aa6e45fee01a8d5be3d13917f13db0ded2cb200499f37f5a05c8c"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001763,
+              "soundness": 1e-06,
+              "statement_hash": 0.007934,
+              "challenge_hash": 0.003941,
+              "merkle": 0.003717,
+              "ntt": 0.06152,
+              "dfold": 0.034779,
+              "quadratic": 0.015392,
+              "chain": 0.000974,
+              "auth": 0.0,
+              "total": 0.130128
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_11.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "ab95d71a5c33616a1195952f62e7f27b273a4c473a9525f8b77e174e42118df7"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001801,
+              "soundness": 1e-06,
+              "statement_hash": 0.007907,
+              "challenge_hash": 0.003899,
+              "merkle": 0.003702,
+              "ntt": 0.061565,
+              "dfold": 0.03495,
+              "quadratic": 0.015127,
+              "chain": 0.000998,
+              "auth": 0.0,
+              "total": 0.129985
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_12.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 4,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v4",
+              "relation": "fp8-ada",
+              "digest": "3e5433bc174f83295e801b2f5a3e94ed994cf77d47b73906e5641153bd827c8f"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001789,
+              "soundness": 1e-06,
+              "statement_hash": 0.008,
+              "challenge_hash": 0.003894,
+              "merkle": 0.003695,
+              "ntt": 0.06185,
+              "dfold": 0.034833,
+              "quadratic": 0.014024,
+              "chain": 0.000847,
+              "auth": 0.0,
+              "total": 0.12896
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": "accept (0.018s)"
+            },
+            "agree": true
+          }
+        ]
+      }
+    },
+    "verdict": "art:615318d6cb7d66c628a5852c4ca21630d1cb2e9b8595a1a1153afc01adbd33cd",
+    "labels": [
+      "verified",
+      "verifier",
+      "verifier_seconds",
+      "note"
+    ]
+  },
+  {
+    "result": "art:4ab228866a149f10b21f577db2d87d1bf4f044202328454d2beda6bd812d8156",
+    "status": "PASS",
+    "why": [],
+    "run_files": "art:527e99be903e2fea4ca6529a84d80e9d4812daa83cc510ab194070a3f671a993",
+    "run": "r20260923-104925-7636",
+    "relation": "fp8-ada+hash",
+    "mode": "interactive",
+    "custody": {
+      "files": 40,
+      "mismatched": 0,
+      "missing": 0
+    },
+    "reps": {
+      "rep1": {
+        "dir": "rep1",
+        "jobs": 7,
+        "available_parallelism": 14,
+        "threads": 1,
+        "reps": 1,
+        "target_bits": 128,
+        "system_pinned": true,
+        "system": {
+          "sys_id": "c4c4b403e07da47f7747b947ad76899ef231112bcc6d62dc0448a83ef8696618",
+          "table_digest": "c0e2f48119e2c83ca81cbc8eb1cbba51a676b67a600b8125d75bf438b770e05d",
+          "pinned_relation": "fp8-ada+hash"
+        },
+        "n": 13,
+        "accepted": 13,
+        "rejected": 0,
+        "own_coins": 13,
+        "batch_accepted": true,
+        "batch_reason": "accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128",
+        "batch_log2": -128.319380806,
+        "batch_bits": 128.319380806,
+        "per_proof_bits": [
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524,
+          132.019820524
+        ],
+        "n_proofs_claimed": [
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13
+        ],
+        "python_agree": 13,
+        "python_disagree": 0,
+        "verify_seconds_sum": 4.975,
+        "shared_seconds": 0.0013,
+        "wall_seconds": 0.77,
+        "items": [
+          {
+            "name": "sub_00.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "32fdd40a34af26ccc7a0c70b2b9a9d5fa1ed1e2540e3e1e890add23b032853d8"
+            },
+            "timing": {
+              "shared": 0.000234,
+              "parse": 0.001999,
+              "soundness": 1e-06,
+              "statement_hash": 0.002062,
+              "challenge_hash": 0.004534,
+              "merkle": 0.006281,
+              "ntt": 0.247589,
+              "dfold": 0.016582,
+              "quadratic": 0.092659,
+              "chain": 0.012491,
+              "auth": 0.002525,
+              "total": 0.387004
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_01.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "54f6a4555fdef410d72dc58f340a0330414cd3d5c1e73ff13f87b57823d639c5"
+            },
+            "timing": {
+              "shared": 0.000192,
+              "parse": 0.001995,
+              "soundness": 2e-06,
+              "statement_hash": 0.002022,
+              "challenge_hash": 0.004715,
+              "merkle": 0.006195,
+              "ntt": 0.248439,
+              "dfold": 0.016472,
+              "quadratic": 0.091669,
+              "chain": 0.012041,
+              "auth": 0.002896,
+              "total": 0.386672
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_02.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "76b37bb59981f23e7930cbcb9491fa89032d574ebcf28e7d872cf13f30f476a1"
+            },
+            "timing": {
+              "shared": 0.000253,
+              "parse": 0.002005,
+              "soundness": 1e-06,
+              "statement_hash": 0.002075,
+              "challenge_hash": 0.004523,
+              "merkle": 0.006246,
+              "ntt": 0.247272,
+              "dfold": 0.016489,
+              "quadratic": 0.09271,
+              "chain": 0.012239,
+              "auth": 0.002777,
+              "total": 0.386634
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_03.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "105cec90c2f0b0cdcb982a4243e55ad60bfc4a2525f4f330282e2b2c65322871"
+            },
+            "timing": {
+              "shared": 0.000668,
+              "parse": 0.00194,
+              "soundness": 1e-06,
+              "statement_hash": 0.002058,
+              "challenge_hash": 0.004652,
+              "merkle": 0.005796,
+              "ntt": 0.246831,
+              "dfold": 0.016637,
+              "quadratic": 0.092149,
+              "chain": 0.01215,
+              "auth": 0.002957,
+              "total": 0.385887
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_04.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "65cf3e836184e8f2ef165f33ab82f30fddcca23c933e0bc3e6251d6a5674d99d"
+            },
+            "timing": {
+              "shared": 0.00017,
+              "parse": 0.001908,
+              "soundness": 2e-06,
+              "statement_hash": 0.002121,
+              "challenge_hash": 0.004708,
+              "merkle": 0.00623,
+              "ntt": 0.246256,
+              "dfold": 0.016607,
+              "quadratic": 0.092748,
+              "chain": 0.012004,
+              "auth": 0.0029,
+              "total": 0.385683
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_05.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "1e9ad4e4f9c3183891a8d28ca9bb6a03ede36e47c33f32e84e01b62e34ba0c52"
+            },
+            "timing": {
+              "shared": 0.000459,
+              "parse": 0.001921,
+              "soundness": 2e-06,
+              "statement_hash": 0.001913,
+              "challenge_hash": 0.004633,
+              "merkle": 0.006203,
+              "ntt": 0.2464,
+              "dfold": 0.016556,
+              "quadratic": 0.091709,
+              "chain": 0.012295,
+              "auth": 0.00277,
+              "total": 0.384898
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_06.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "df169a82e918d9391551c8e25e576c0e57776848e1f292f6cd006effad5bc34a"
+            },
+            "timing": {
+              "shared": 0.000595,
+              "parse": 0.001917,
+              "soundness": 2e-06,
+              "statement_hash": 0.00214,
+              "challenge_hash": 0.004658,
+              "merkle": 0.005788,
+              "ntt": 0.246721,
+              "dfold": 0.016591,
+              "quadratic": 0.092328,
+              "chain": 0.012316,
+              "auth": 0.002874,
+              "total": 0.385966
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_07.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "1d9531dd8e173c389114990796ebf712c5632f3da7d85baba3aeb916d7f2210f"
+            },
+            "timing": {
+              "shared": 1e-06,
+              "parse": 0.001221,
+              "soundness": 2e-06,
+              "statement_hash": 0.001718,
+              "challenge_hash": 0.004107,
+              "merkle": 0.005987,
+              "ntt": 0.245155,
+              "dfold": 0.016733,
+              "quadratic": 0.091686,
+              "chain": 0.010858,
+              "auth": 0.002257,
+              "total": 0.379751
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_08.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "49173aef0fac2c99a96d94b26bbf6f09a4ebb1efb4cfa542f1ed74713955392a"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001231,
+              "soundness": 2e-06,
+              "statement_hash": 0.001782,
+              "challenge_hash": 0.004208,
+              "merkle": 0.006214,
+              "ntt": 0.244114,
+              "dfold": 0.016672,
+              "quadratic": 0.089371,
+              "chain": 0.011078,
+              "auth": 0.002173,
+              "total": 0.376872
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_09.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "2b011327966a0f3349c9821f50ae5f7e84a853e6a27d8b504ba019c5a3656484"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001152,
+              "soundness": 1e-06,
+              "statement_hash": 0.001708,
+              "challenge_hash": 0.004057,
+              "merkle": 0.005962,
+              "ntt": 0.245812,
+              "dfold": 0.016438,
+              "quadratic": 0.08964,
+              "chain": 0.01126,
+              "auth": 0.002413,
+              "total": 0.378473
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_10.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "ab1acd2293f40e960c8c146ec7b50024be52246dbc66e0f9d9679994c7fe0d14"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001146,
+              "soundness": 1e-06,
+              "statement_hash": 0.001692,
+              "challenge_hash": 0.004051,
+              "merkle": 0.005963,
+              "ntt": 0.244069,
+              "dfold": 0.016666,
+              "quadratic": 0.091877,
+              "chain": 0.010479,
+              "auth": 0.002416,
+              "total": 0.378392
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_11.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W columns + 341 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 341,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "9f9b8fd8160e5f31e4af70bd79953790afdf7413a9b53f7626544be2f2e7928a"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001146,
+              "soundness": 1e-06,
+              "statement_hash": 0.001709,
+              "challenge_hash": 0.00406,
+              "merkle": 0.006073,
+              "ntt": 0.245058,
+              "dfold": 0.016631,
+              "quadratic": 0.091901,
+              "chain": 0.011365,
+              "auth": 0.001982,
+              "total": 0.379952
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          },
+          {
+            "name": "sub_12.proof",
+            "accepted": true,
+            "system_pinned": true,
+            "reason": "accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 4 VUs, 4 x rows + 4 W columns + 4 y words under the a/b/y roots)",
+            "statement": {
+              "l": 16384,
+              "n": 65536,
+              "D": 6,
+              "t": 196,
+              "zk": true,
+              "mode": "interactive",
+              "n_proofs": 13,
+              "n_vus": 4,
+              "steps": 48,
+              "K": 32,
+              "format": "ligero-statement/v5",
+              "relation": "fp8-ada",
+              "digest": "ffbb0e82b50e0e56aff2d3793472f3a8f719b0d69c256fcd87bc6d4f927b4256"
+            },
+            "timing": {
+              "shared": 0.0,
+              "parse": 0.001121,
+              "soundness": 1e-06,
+              "statement_hash": 0.001694,
+              "challenge_hash": 0.004232,
+              "merkle": 0.006048,
+              "ntt": 0.243169,
+              "dfold": 0.016647,
+              "quadratic": 0.091725,
+              "chain": 0.013262,
+              "auth": 0.000846,
+              "total": 0.378776
+            },
+            "reps": 1,
+            "soundness": {
+              "per_proof_log2": -132.02,
+              "union_log2": -128.319,
+              "terms": {
+                "irs_query": -132.02,
+                "linear_query": -193.799,
+                "quadratic_query": -191.616,
+                "irs_field": -169.441,
+                "linear_field": -185.441,
+                "quadratic_field": -185.441,
+                "coin_commitment_hiding": -191.0
+              }
+            },
+            "python": {
+              "accepted": true,
+              "reason": ""
+            },
+            "agree": true
+          }
+        ]
+      }
+    },
+    "verdict": "art:ed6e78cf586cdf0fe3425ad0e64b8469f6cbd88b4ac3d352aadb403064325f24",
+    "labels": [
+      "verified",
+      "verifier",
+      "verifier_seconds",
+      "note"
+    ]
+  }
+]

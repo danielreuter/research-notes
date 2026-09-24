@@ -1,0 +1,34 @@
+# drew bf16-hopper: 4096 VUs in 2.4s
+# drew bf16-hopper-v2: 4096 VUs in 2.8s
+# bf16-hopper-v2: ok=True base=bf16-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew bf16-hopper-v2x4: 4096 VUs in 3.2s
+# bf16-hopper-v2x4: ok=True base=bf16-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew bf16-hopper-v3: 4096 VUs in 3.6s
+# bf16-hopper-v3: ok=True base=bf16-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew bf16-hopper-v3x4: 4096 VUs in 3.7s
+# bf16-hopper-v3x4: ok=True base=bf16-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew bf16-hopper-x4: 4096 VUs in 4.1s
+# bf16-hopper-x4: ok=True base=bf16-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-ada: 4096 VUs in 4.1s
+# drew fp8-ada-v2: 4096 VUs in 4.2s
+# fp8-ada-v2: ok=True base=fp8-ada mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-ada-v2x4: 4096 VUs in 3.8s
+# fp8-ada-v2x4: ok=True base=fp8-ada mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-ada-v3: 4096 VUs in 3.9s
+# fp8-ada-v3: ok=True base=fp8-ada mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-ada-v3x4: 4096 VUs in 3.9s
+# fp8-ada-v3x4: ok=True base=fp8-ada mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-ada-x4: 4096 VUs in 3.9s
+# fp8-ada-x4: ok=True base=fp8-ada mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-hopper: 4096 VUs in 5.1s
+# drew fp8-hopper-v2: 4096 VUs in 4.4s
+# fp8-hopper-v2: ok=True base=fp8-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-hopper-v2x4: 4096 VUs in 4.6s
+# fp8-hopper-v2x4: ok=True base=fp8-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-hopper-v3: 4096 VUs in 4.7s
+# fp8-hopper-v3: ok=True base=fp8-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-hopper-v3x4: 4096 VUs in 4.5s
+# fp8-hopper-v3x4: ok=True base=fp8-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+# drew fp8-hopper-x4: 4096 VUs in 5.4s
+# fp8-hopper-x4: ok=True base=fp8-hopper mism={'a': 0, 'b': 0, 'accs': 0, 'y': 0} digests={'x': [True, True], 'W': [True, True], 'y': [True, True]}
+rc=0

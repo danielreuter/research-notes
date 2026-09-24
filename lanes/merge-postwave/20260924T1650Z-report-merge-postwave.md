@@ -1,3 +1,4 @@
+CHECKPOINT 22741456 (17:47Z) [open] tip 22741456: py-numerical 692 pass/1 fail (test_label_keys: included-hash-shared missing from store vocab, pre-existing on base 1b3c7be6); gkr/ligero checks 0; sp1 check running; sp1-common tests rerun fresh target r20260924-174654-7e58
 CHECKPOINT none (17:37Z) [open] coordinator handoff: merged main f08314ae -> tip 22741456 (clean; its sp1 diff is comment-only); render at 22741456 identical to 1540Z except A-GKR hash; syncing tip to pod src2 for py suites
 CHECKPOINT 04700cb5 (17:36Z) [open] sync done (tree f27d6187 = 04700cb5); SP1 check + relation-bare pass (r20260924-172629-f417), tcdot fork OK, check-tcdot running; validate r20260924-173554-eb0d (py+ligero+gkr)
 CHECKPOINT 04700cb5 (17:18Z) [open] SP1 checks running from git-archive of 04700cb5 (r20260924-171410-4069); setup r20260924-171002-37a0; sync ~141/252MB; next: validate.sh (py + ligero + gkr) after sync

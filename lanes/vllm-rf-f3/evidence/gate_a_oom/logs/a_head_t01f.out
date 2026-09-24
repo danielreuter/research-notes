@@ -1,0 +1,3 @@
+start 2026-09-24T21:54:35Z tree /workspace/head-reg sha 4fb0eb2ce719eebaf30d08d6d266585ac78bf54c
+./gate_a_t01.sh: line 20: 13346 Killed                  python -m pytest integrations/vllm/tests/regression -m regression -ra -o junit_family=xunit1 --junitxml=$L/$TAG.xml "$@" > $L/$TAG.log 2>&1
+exit 137 2026-09-24T22:42:29Z

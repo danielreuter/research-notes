@@ -72,6 +72,7 @@ created: 2026-09-24T19:30Z
 - **22:10:30Z same-pod base gate (a) T0+T1 at 72884c8a:** `cd /workspace/a23b && setsid nohup nice ./gate_a.sh /workspace/base-reg a_base_t01` -> pid 6852 (sid 6852); logs `a_base_t01.{log,xml,env,run}`. Peaks (63 GB r11, 115 GB r39) leave room for both runs in 512 GB.
 - READY.md drafted with the gate (b) evidence; gate (a) section to fill. Compare gate (a): `python a1/baseline-jdiff.py logs/a_base_t01.xml logs/a_head2_t01.xml` on the pod, and head vs a1's T0 `a1/baseline-gate_a.xml.gz`.
 - 22:30Z head gate (a) 82/158, no failure so far; base gate (a) 36/158, no failure. Wheel rebuilt at 748d71c5 on the pod (`/workspace/a23b/wheel/`, 375 files, all package data present).
+- 22:53Z head gate (a) 118/158, base 60/158, no failure in either so far.
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

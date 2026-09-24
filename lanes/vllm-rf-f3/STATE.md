@@ -170,7 +170,15 @@ created: 2026-09-24T17:36Z
   + `s.s....s`, 0 F/E): the 81st is `T1-replay_partition-r67` (collection order: `/tmp/order.txt` on the pod), side by side > 64 GB.
   No junit (pytest writes it at exit). Decision: rerun gate (a) T0+T1 in full, head AND base, nothing deselected, on a 512 GB cpu3m pod
   (same env recipe; xgrammar pinned 0.2.7), which also gives base's two B=1 checks.
-## Running (big pod `vyv-rf-f3-big`, RunPod `sda06pqcfi51jt`)
+## Running (big pod 2 `vyv-rf-f3-big2`, RunPod `t5fh4zrbo4dg1s`, cpu3m 64 vCPU / 512 GB, 100 GB disk, $3.52/h, created 22:51Z)
+- Raw ssh `/tmp/rf-f3/ssh_big2.sh`. Scripts `/tmp/rf-f3/big2/` -> `/workspace/rff3/`: `boot.sh` (pod_bootstrap --cpu, xgrammar
+  0.2.7, freeze diff vs a1's `baseline-freeze.txt`), `prefetch_all.sh` (every row + top; key deleted at end / on exit),
+  `run_full.sh` (gate (a) T0+T1 in full, nothing deselected, head `/workspace/head-reg` + base `/workspace/basetree-reg` side by side,
+  `gate_a_t01.sh`; logs `logs/full_{head,base}.*`, `logs/full.rss`, `logs/full.DONE`).
+- 22:51Z sync head (rf-f3 worktree, 4fb0eb2c) -> `/workspace/head`, then base (laptop worktree `rf-f3-base` re-created, 72884c8a) ->
+  `/workspace/basetree`. Then boot, mint 1 h key on the laptop -> `/root/r2ro.env` by raw ssh, prefetch_all, run_full.
+- The 64 GB pod `drd3w6z9d22gvd` stays up only until big2 runs (partial logs copied: `evidence/gate_a_oom/`), then terminate.
+## (done) big pod `vyv-rf-f3-big`, RunPod `sda06pqcfi51jt`
 - prefetch (above), then `/workspace/rff3/run_big.sh /workspace/head big`: `T1-replay_partition-r11` and `-r39` at head side by side
   (`-k`, own tree copy + scratch each, gate_a_t01.sh) -> `logs/big_r{11,39}.{log,xml,out}`, memory `logs/big.rss`, `logs/big.DONE`.
   Terminate the big pod as soon as they finish.

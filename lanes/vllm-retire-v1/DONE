@@ -1,1 +1,1 @@
-vllm-retire-v1 done @ 9d80e302, merged 5ad682d3: v1 engine deleted, harness matches staging except 3 retire-v1 replay_partition decisions, −20 files / −10,014 lines
+vllm-retire-v1 done @ 9d80e302: v1 engine deleted, harness matches staging except 3 retire-v1 replay_partition decisions, merged into staging 5ad682d3

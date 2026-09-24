@@ -13,6 +13,25 @@ Task: close the fresh B64 GM-01 cell for row #23 (llama32-1b bf16 L40S tp1 b64);
 
 ## Log
 - 07:46Z start. Worktree created. R2 credential minted `--via local --ttl 7h` into `~/.research/scratch/gm-scale/cred.env` (0600, not printed).
+- CHECKPOINT gm-answer MET (08:31Z). YES: sweep Match `r20260923-233020-dc38` (source 014563ac, ACQUIRE_ENGINE=v2, vyv-sw-67) ran GM-01
+  in full, fresh, in-row: impl fast, 8 workers, process wall 317 s (timeline span match.global_match 00:02:24-00:07:41Z; phases 282.7 s),
+  verdict PASS (G1..G8 PASS, X-09 PASS xreq_total 0, alternate `sequence` PASS). Commit `ca81` PASS consumed that Match.
+  Harness lift vs frozen #23: all verdict fields equal; only fold_record_pins differ (new fold record). decomp_hashes: all 64 per-request
+  hashes equal; oracle.digest differs (R19 Build epoch, per the earlier lane). The merge note's open item ("fresh B64 global-match on the
+  new acquisition path not completed") was the 8.3 h record-checker run; fixed by 6bf4a00b (merged to staging 68112222) and closed in
+  substance by dc38. Missing vs merge note: nothing on the verdict; the harness candidate-mode run for #23 was never stored (f455's table
+  lost), and no repo record names the fresh v2 GM-01 evidence for #23 -> I add a fixtures.toml note + a preserved fresh-rerun Attempt.
+  Profile (vyv-gm, 32 vCPU EPYC 7713P, my base 38122d1f, same GM code as 014563ac): see "Profile" below.
+
+## Profile (vyv-gm)
+- base_w8 (exact recorded command line, default 8 workers): rc 0, process wall 435 s, phases 393 s: load_fold 106 (serial),
+  x09 135 (parent CPU 31), g3_g4_g5_per_request 71 (parent 14), alternate_criterion 73 (parent 20), rest <5. 355% CPU avg;
+  max single-process RSS 14.0 GB; cgroup anon peak ~29 GiB (sampled from 08:10Z). Output vs dc38: global_match.json 37 diffs, all timing;
+  match_decomp.json 2 diffs, timing; global_match_global_program.json byte-equal.
+- spy_w8 (py-spy --subprocesses 20 Hz, sep output): 1608 CPU-s sampled. 84% of CPU in forked per-request legs. _canonical_hash 31.5%
+  incl. (json.dumps 27.7% -- the canonical serialization before sha256; changing it would change hashes of record), compare_steps 42%,
+  X-09 decompose 21%, component build on workers 16.8% (built once, held by parent, shared CoW -- no reloads), fold load json decode 8.6%.
+  py-spy exited 1 (9 sampling errors); GM-01 inside it PASS, diff = timing + the sep-mode decomp_out path only.
 
 ## Step 1 evidence (gm-answer)
 - Sweep Match `r20260923-233020-dc38` (vllm.match, source `014563ac`, vyv-sw-67, 23:30:30Z-00:07:42Z, state done rc=0 validation=passed),

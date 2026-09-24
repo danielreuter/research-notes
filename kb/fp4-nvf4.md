@@ -38,3 +38,19 @@ Measured facts and how-tos for the NVFP4 relation and its hashed (committed) com
   `live probe` says 0.6-0.8 ms idle; it did NOT change with the verifier's CPU (2 vCPU jobs 2 / jobs 1 / 8 vCPU jobs 8:
   sequential 0.133 / 0.116 / 0.114). At 40 ms per rep, 14 round trips of ~3.5 ms cannot hide; the hashed cell (155 ms) hides them.
 - `reverify.py` before lane/wave-5090 04141baf crashed on fp4/chain.py dumps (manifest `relation` is a bare string there).
+
+## GOTCHA: fp4-nvf4+poseidon2 results said `synthetic` / `dev` until lane/fill-consumer 444084d3
+`fp4/hashed.py FP4HashedRelation` draws `chain.instances_fp4` (seed 20260922) and uses `chain.instances_digest`, which
+is exactly the frozen NVFP4 set, but it labelled the instances `dataset: synthetic, tier: dev`. `bench.tables` rejected
+every 5090 column-2 result on dataset + tier alone (manifest, range and seed matched), so the cell stayed empty. From
+444084d3 it names `contract.NVFP4_INSTANCES_DATASET` / `_TIER`. Those strings also enter the tree binding digests, so an
+`--auth-cache` built before the fix does not match; the Rust pin (`fp4-nvf4+hash`) is unchanged. Results produced before
+the fix need an instance-equiv file or a rerun.
+
+## RTX 5090 numbers (fill-consumer, 1b3c7be6 / 444084d3, EU-RO-1 SECURE kjzbulmek8or0z, 4096 VUs, zk interactive, reps 5)
+- **l = 8192 beats l = 16384 on both columns** (13 sub-batches). Bare, local: l8192 p8 0.0340-0.0344, l8192 p4 0.0356-0.0367,
+  l16384 p8 0.0395-0.0399, l4096 p4 0.044. Committed (included-hash), local: l8192 p8 0.1387-0.1491, l8192 p4 0.147-0.148,
+  l4096 p8 0.161-0.164.
+- Live on a same-DC cpu3c 16-vCPU verifier (15 jobs): bare l8192 p8 t.total 0.0417-0.0441, t.total_live 0.043-0.045;
+  l16384 p8 0.051 / 0.057-0.061. Committed l8192 p8 0.146-0.153. 75/75 fp4 sessions accepted.
+  Candidates are in `lanes/verify-night/20260924T0725Z-handoff-from-fill-consumer.md`.

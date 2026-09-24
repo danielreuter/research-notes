@@ -17,6 +17,19 @@ pods did reach each other per live-2c.)
   podnet1 has a `tbf rate 100Mbit` qdisc: useless for 76-135 MB proofs per batch even if it connected.
 - Fallback used: the verifier on the prover pod (`live_serve.sh` under `nice -n 19`, `--verifier tcp://127.0.0.1:7000`).
 
+## Picking a same-DC verifier pod in EU-RO-1 (fill-consumer, 2026-09-24 06:20-07:05Z)
+- Probe both RTT AND throughput from the prover: `python -m backends.direct.ligero.live probe --verifier tcp://IP:PORT --mb 2
+  --repeat 6`. Good: cpu3c 16 vCPU on an idle EPYC 9655 host, 0.6 ms and 5-7 Gbps. Bad: cpu3c pods on hosts at load
+  320-400 (0.2 ms TCP but a 2.6-2.7 ms probe), and an **NVIDIA L4 pod ($0.49/h), capped at ~0.9 Gbps** (1.0-1.4 ms). At
+  0.9 Gbps an 82 MB fp8 session costs ~0.7 s of transfer.
+- `live_serve.sh` defaults its jobs to `nproc` (128 on the L4 host against a 15.3-core quota): set `LIVE_JOBS` to the cgroup
+  quota (`cpu.cfs_quota_us / cfs_period_us`, or `RUNPOD_CPU_COUNT`).
+- One verifier can serve two provers ONE AFTER THE OTHER, never at once. Record the schedule in the handoff.
+- `research data put` from a verifier pod needs `~/.research/store.toml`. It holds only the bucket, the endpoint and the
+  NAMES of the credential env vars, so copy it from a bootstrapped prover. Mint the credential with
+  `(set -a; source ~/.config/verity/r2.env; set +a; research data mint-credential --ttl 8h --env)` (without the parent secret
+  it fails with `--via api needs CLOUDFLARE_API_TOKEN`).
+
 ## Where
 - Pod `vy-live2b-verifier-ro` (pitmqu0zrycw5i), endpoint `tcp://213.173.105.92:56412`. It runs `python -m
   backends.direct.ligero.live serve --listen 0.0.0.0:7000 --out /workspace/live/sessions ...` from `/workspace/live/start.sh`.

@@ -166,6 +166,10 @@ created: 2026-09-24T17:36Z
   (flock), both `nice`, same trees (no file written in them by the killed runs), no key: head `/workspace/head-reg` (4fb0eb2c) ->
   `logs/a_head_t01f.*`; base `/workspace/b0-reg` (72884c8a) -> `logs/a_base_t01f.*`. Dead runs: `logs/a_{head,base}_t01{,d,e}.*`.
   22:12Z both at 36 results, identical strings (`ssssssssssss.ss.s....ss.ss.s....sss`), 0 F/E; pod memory 8 GB.
+  **22:42:29Z both OOM-killed again (exit 137), at the same moment, after 80/156 identical results** (`ssssssssssss.ss.s....ss.ss.s....sss.ss.s....ss.ss.s....s.s.ss.s....s.s.s`
+  + `s.s....s`, 0 F/E): the 81st is `T1-replay_partition-r67` (collection order: `/tmp/order.txt` on the pod), side by side > 64 GB.
+  No junit (pytest writes it at exit). Decision: rerun gate (a) T0+T1 in full, head AND base, nothing deselected, on a 512 GB cpu3m pod
+  (same env recipe; xgrammar pinned 0.2.7), which also gives base's two B=1 checks.
 ## Running (big pod `vyv-rf-f3-big`, RunPod `sda06pqcfi51jt`)
 - prefetch (above), then `/workspace/rff3/run_big.sh /workspace/head big`: `T1-replay_partition-r11` and `-r39` at head side by side
   (`-k`, own tree copy + scratch each, gate_a_t01.sh) -> `logs/big_r{11,39}.{log,xml,out}`, memory `logs/big.rss`, `logs/big.DONE`.

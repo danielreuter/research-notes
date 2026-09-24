@@ -31,15 +31,20 @@ created: 2026-09-24T17:40Z
 - 19:06Z (uncommitted, worktree) D16b written. DECISION CHANGED from "quarantine v2": the quarantine family now refuses R > 2 (`_two_ranks`), its R = 2 body/ids unchanged; the linkage tool's only R > 2 use routes to `b1_tp2.all_reduce(R, N)` (= `AllReduce_v2`, body reads `allreduce_order`). Why: routing in place needs a v1->v2 bump (identity rule) = retiring `AllReduceSumBf16_v1` (owner: not decided) and duplicating `AllReduce_v2`; a naive route also reorders R = 2 gate operands. Tests: `tests/tp/test_tp_collective.py` (R=2 params, refusal test, R=3 test rewritten), `tests/tp/test_tp_world_n.py` (world-3 link id).
 - 19:06Z (uncommitted) D16a written: `MOE_COLLECTIVE_CLASSES` / `MOE_COLLECTIVE_MODULES` live in `tp/collective_sites.py` (already the one module both observers share); `worker.py` imports them, `partial_source.py` imports them (`MOE_SITE_CLASSES` alias; `SITES` MoE rows from the module list, adds `shared_fused_moe`). By-name allowlist: 2 worker table entries moved to collective_sites.py (with decision), stale partial_source table entry deleted. No shared-expert MoE model builds (`observe/profiles/generic.py` `_UNMODELLED_MOE`), so the TP2 regression rows (#70 OLMoE, #75 Qwen3-30B-A3B: `mlp.experts` is MoERunner, no nesting) see no site change.
 
+- 19:17Z (uncommitted) D16c written. Build: `correspondence/emit.py` `emit_correspondence` raises `NotImplementedError` for `rank[0] > 2` (test `tests/correspondence/test_runtime_correspondence.py::test_world_above_two_is_refused`). Commit: `tp/commit.py` `main` exits (`SystemExit "--tp N refused..."`) right after `--world` folds into `--tp`, before any engine/import work (test `tests/tp/test_tp_world_n.py::test_rank_commit_refuses_world_above_two_before_building_an_engine`, `apply_env` patched: `tp/capture.py` runs it at import and no other test imports tp.capture). Match at world > 2 (`tp/match.py`) deliberately NOT refused (research instrument, no Build/Commit artifact; b33386e0's evidence came from it).
+  - What the refusal disables (for READY): `tp_stage.sh` / `run_row_v2.sh` rows with WORLD > 2 (the TP4 workload `1601bdd2` llama32-1b l40s tp4 b8 i256 o32 can no longer Build or Commit); `derive_step --tp N>2`; `tp.commit --tp/--world N>2`. `40f40a21` (TPPartialSource occurrence reset) is world-independent (also fixed frozen TP2 #70): only its TP4 re-measurement is lost. Offline world-N machinery stays tested (CollectiveBus world N, AllReduce_v2, cross_rank_check world 3, tp_links v2).
+- 19:17Z D17 design (writing): `check/fa_tap_exactness.py` = the GPU half of the deleted xchecks (per case: tapped out/lse == installed kernel == same .so untapped; skipped 0; stream closed (no spill, nothing unwritten); fail-closed negatives). Launch args recorded at the op from vLLM's own `flash_attn_varlen_func` (robust to the FA3 37-arg drift); geometry from `hidden_source` (`fa2_swapped`, `fa2_kblock_n`, `fa3_tile`); record `fa_tap_exactness.json` with `digest` = sha256(canonical_json(record minus digest)) (`correspondence.runtime.canonical_json`, no new canonicalisation); `verify_record` torch-free. The CPU oracle half (tapped words == AttentionHead_v3 / FA3 oracle) is NOT restored: a23 `c1cf11ef` moves `check/fa2_attn_oracle.py` to `tests/acquire/`, so the package cannot import it -> Found, not fixed.
+
 ## Running
 - nothing
 
 ## Next
-1. D16c (refuse world > 2: `emit_correspondence` raises; Commit refusal in `tp/commit.py` main, minimal hunk), D17 (`check/fa_tap_exactness.py`). Commit + push.
-2. Pods: CPU gates (a)/(b); 2-GPU TP2 row; L40S FA2 + H100 FA3 records (tap builds via `ops/pod_fa2_tap.sh` / `ops/pod_fa3_tap.sh`).
+1. Write D17 (+ torch-free tests `tests/check/test_fa_tap_exactness.py`; evidence strings in `acquire/hidden_source.py`, comments in `ops/pod_fa{2,3}_tap.sh`, `acquire/fa3_tap_src/build_fa3_ext.py`, `tests/acquire/test_fa2_tap_geometry.py:7`). Commit + push.
+2. Pods: CPU gates (a)/(b); 2-GPU TP2 row; L40S FA2 + H100 FA3 records (GPU bootstrap builds the taps). Check vLLM's `flash_attn_varlen_func` keyword names on the CPU pod first (site-packages source).
 
 ## Open questions
 - none yet
 
 ## Found, not fixed
-- none yet
+- SYNTHESIS D17's "require its record for FA-tap rows": wiring a record requirement into the verdict would change FA-tap regression verdicts (brief: not decided). Not done; the record is produced and citable only.
+- The tapped-words-vs-oracle cross-check (the deleted xchecks' CPU half) has no in-package home once `fa2_attn_oracle` moves to tests (a23 `c1cf11ef`); `check/commit_verdict.py:330,441` still names "a bit-exact plane xcheck on record" that nothing produces.

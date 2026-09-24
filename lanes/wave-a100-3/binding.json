@@ -1,0 +1,9 @@
+{
+ "branch": "lane/wave-a100",
+ "brief": "/Users/danielreuter/.research/notes/campaigns/device-wave-2/BRIEF.md",
+ "budget": "$1: no new benches; pods idle since 04:57Z, terminate BOTH (prover + verifier2) as soon as custody is done",
+ "final": "06:45Z",
+ "pod": "vy-wave-a100",
+ "succeeds": "wave-a100-2",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/wave-a100"
+}

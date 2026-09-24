@@ -67,7 +67,9 @@ def oracle(with_program=False):
     producers = OC.producers_of(man)
     if with_program:
         loaded = load_programs()
-        derived = OC.producers_of_programs({k: v["instances"] for k, v in loaded.items()}, {k: v.get("dir") for k, v in loaded.items()})
+        derived = OC.producers_of_programs(loaded, aliases=man.get("op_path_aliases"))
+        for key in (("model", "out"), ("model.norm", "0"), ("model.norm", "1"), ("model.layers.1.input_layernorm", "0"), ("model.layers.1.input_layernorm", "1")):
+            log("  derived", key, json.dumps(derived.get(key))[:300], "| merged", json.dumps(OC.merge_producers(producers, derived).get(key))[:300])
         log("derived producers", len(derived), "selectors", sum(1 for d in derived.values() if d.get("operand")),
             "consumers", sum(1 for d in derived.values() if d.get("consumers")), "conflicts", sum(1 for d in derived.values() if d.get("conflict")))
         producers = OC.merge_producers(producers, derived)

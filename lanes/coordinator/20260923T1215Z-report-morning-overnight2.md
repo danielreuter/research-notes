@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 1d9c3198 (22:10Z) [open] 22:12Z merged lane/vllm-rf-a1-rebased bcbec401 --no-ff -> main 1d9c3198 (tests-only, tree == bcbec401), pushed; cli moved; steward kickstarted
 CHECKPOINT none (21:46Z) [open] 21:47Z sweep: evicted 196 R2-verified store blobs (4.79 GiB, log evidence/20260924T2120Z-eviction-log.tsv), disk 10 GiB; 0 run dirs qualified (71 blocked by local-only preserved.json); lanes alive (arith+agkr-fp8 on H100s now); agkr-fp8 4090 cell art:1b4fd4a1 forwarded to verify-po; SP1 D1 field-bound text on lane/sp1-128 0783fe6e, lands at its merge
 CHECKPOINT 21688b01 (21:42Z) [open] 21:45Z merged PR #1 (drop veritor runtime deps) ff main ab9573fd->21688b01, pushed; cli moved; steward kickstarted; test_pods_connect+test_notes 57 passed. 4 pre-existing failures noted on backlog
 CHECKPOINT 07a8edd6 (21:12Z) [open] 21:18Z sweep: disk 7.0 GiB; 4 lanes alive (pods arith/agkr-fp8/agkr-nvf4/sp1-128-a100 busy); arith's 'verified' is producer-only -> launched verify-po bc-591a01c2 (non-producer verifier, worktree moved verify-night->verify-po, FINAL 03:45Z, $6); lanes told to send verify requests there

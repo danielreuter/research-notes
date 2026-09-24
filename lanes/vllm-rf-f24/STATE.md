@@ -45,7 +45,15 @@
   -> `a_final.{log,xml,status}` (the two B=1 replay_partition checks need 120-250 GB each: big pod below).
 - 20:51Z gate (b) at `be366f80`: `OMP_NUM_THREADS=3 gate_b.sh /workspace/head2 b_final_x12 -n 12 --dist loadfile`.
 - Big pod `vyv-rf-f24-big` (je00gvavwlklve, cpu3m x64, 512 GB cgroup, $3.52/h, up 20:49Z; `/tmp/rff24/ssh_big.sh`) for the two B=1
-  replay_partition checks, one pytest process per row. TERMINATE as soon as they finish.
+  replay_partition checks. Its own 3 h key: minted 20:55:40Z, fetched #11/#39 + top-level, deleted 20:56:53Z. A first start ran two
+  runner instances by accident (both #11 runs passed, interleaved log; moved to `gates/dup/`); clean rerun 21:14:28Z,
+  `/workspace/rff24/run_big.sh` (flock; #11 and #39 side by side, one gate_a.sh process each) -> `big_r{11,39}.{log,xml,status,rss}`,
+  `big.DONE`. TERMINATE as soon as they finish.
+- GPU pod `vyv-rf-f24-gpu` (wjks802niyvd70, RTX 4090, $0.74/h, up 21:03Z; `/tmp/rff24/ssh_gpu.sh`) for the Build A/B: a Build cannot
+  run on a CPU pod, and `apply_target_profile` answers the declared capability / SM count, so the Program is host-independent.
+  `/workspace/base` (git archive 72884c8a), `/workspace/head2` (be366f80); `/workspace/rows/r73|r74` = the recorded `build_step` and
+  smallest `build_request_LP*` result.json of rows #73 (Qwen3-4B BF16) and #74 (Qwen3-4B-FP8). `/workspace/rff24/rebuild_ab.sh`:
+  rebuild_digest_gate at base and head, then tree_diff -> `/workspace/out/rebuild/`, `DONE`. TERMINATE when done.
 
 ## Gate (b) at `76020a66` (`b_head_x12`, 58 F / 11 E) vs a1's head run
 - 2 new failures, both the by-name ratchet (`test_no_by_name_rules`: the moved population-gap rule, the retired CODE_SKIP_SUFFIX entry);

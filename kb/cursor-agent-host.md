@@ -51,3 +51,11 @@ about equal to the DB size); optionally "Developer: Delete Old Chats..." (perman
 - Cursor-hosted Cloud Agents: SSH egress to arbitrary hosts is not documented (test before relying on it); secrets are
   Runtime Secrets on cursor.com; VM size undocumented ("limited memory and CPU"). Fine for code-only lanes.
 - Cursor "Projects" (beta, changelog 2026-09-10): a cloud coordinator that keeps delegating with the laptop closed.
+
+## Disk: Cursor's state DB (measured 2026-09-24)
+- `~/Library/Application Support/Cursor/User/globalStorage/state.vscdb` was 74 GB (69 GiB) and grew ~1 GB/h with ~10 local
+  agents running (guardian heartbeat `cursor_db=` in `~/.veritor/mem_guardian.log`: 59 GiB at 12:10Z 09-23 -> 69 GiB at 06:40Z).
+- SQLite `VACUUM` needs free space about the size of the DB, so it cannot shrink in place on this laptop; deleting old rows only
+  lets SQLite reuse pages (stops growth, file stays big). Any cleanup needs Cursor quit and the user's say on which chats go.
+- With disk low, macOS swap cannot grow and sits at ~95% even with half the RAM free; the guardian's swap rule now also requires
+  `kern.memorystatus_level` < 25 (2026-09-24 06:42Z), and its disk-kill floor is 3.5 GiB.

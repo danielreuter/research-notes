@@ -9,10 +9,11 @@ D=/tmp/sp1tcdot/runs/$TAG
 rm -rf $D && mkdir -p $D
 /tmp/sp1tcdot/pssh "cd /workspace/sp1-tcdot/runs/$TAG && tar -cf - ." | tar -xf - -C $D
 test -s $D/result.json
-read -r TT STATUS SRC NAME < <(python3 - $D/result.json <<'EOF'
+read -r TT STATUS SRC SHARDS ACH < <(python3 - $D/result.json <<'EOF'
 import json, sys
 d = json.load(open(sys.argv[1])); fp = d["workload_fingerprint"]; m = {x["name"]: x["value"] for x in d["measurements"]}
-print(f"{m['t.total']:.3f}", d["validation"]["status"], fp["software"]["backend"]["commit"], fp["software"]["backend"]["name"].replace(" ", "_"))
+sec = fp["security"]
+print(f"{m['t.total']:.3f}", d["validation"]["status"], fp["software"]["backend"]["commit"], int(m.get("proof.shards", 0)), f"{sec['achieved_log2']:.1f}")
 EOF
 )
 [ "$STATUS" = passed ] || { echo "$TAG: validation $STATUS -- not registering"; exit 1; }

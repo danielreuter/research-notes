@@ -136,3 +136,11 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
 - DEVICE WAVE 2 launched 02:55Z, brief campaigns/device-wave-2/BRIEF.md, FINAL 06:30Z: wave-4090 1c1cff8f, wave-h100 b8f85435,
   wave-a100 70e59981, wave-5090 fb1f3a70, fp4-port 7ec31a79, ligerito-2pass b11ac7a5. Planned pods ~$31.
 - MONEY: balance $156 @02:50Z, account burn $24.9/h (other session's vyv-* ~$24/h) -> runway ~5 h with the wave; told user.
+
+## 03:47Z STALL 4: all six wave lanes stopped ~02:55-03:10Z (pods idle, $13.5/h burning ~40 min); watcher ALSO dead (its harness shell died)
+- Coincides with the coordinator turn being interrupted (~03:12Z) -> hypothesis: harness interruptions kill background subagents AND background shells.
+- Saved uncommitted work (fp4-port 11 files, ligerito-2pass 1) in evidence/uncommitted-0344Z*; superseded; successors in same worktrees/pods:
+  wave-4090-2 32c714c4, wave-h100-2 4d49d31d (first: terminate one of the two H100s), wave-a100-2 a2d19d10, wave-5090-2 19ad036d,
+  fp4-port-2 49ef2522, ligerito-2pass-2 4a54ff55. FINAL still 06:30Z.
+- Watcher now detached (nohup, log ~/.research/log/watch.log; macOS has no setsid); a harness tail of the log notifies on STALE.
+- Money 03:42Z: $120.07, account $38/h (ours $13.5 incl. 2x H100).

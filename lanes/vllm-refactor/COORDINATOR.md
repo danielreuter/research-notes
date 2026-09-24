@@ -8,6 +8,8 @@ updated: 2026-09-24T19:30Z
 
 **Handed off at 19:25Z** to the Cursor Project coordinator: `../vllm-coordinator/20260924T1925Z-handoff-for-project-coordinator.md`. Where the two differ, the handoff is current.
 
+**Coordinator since 19:20Z: Cursor agent bc-ba6cec03** (`../vllm-coordinator/20260924T1920Z-took-over.md`). It doesn't merge into `main`: the research coordinator is the single owner of `main` merges, and merge requests go to the owner through the Project coordinator. At 19:27Z a23 was superseded by **a23b** (agent bc-87224e5e-6d37-56de-a9ee-c75c627ef9c0, branch `lane/vllm-rf-a23b` from `c1cf11ef`, worktree `rf-a23b`, notes `vllm-rf-a23b`, pod `vyv-rf-a23`), with the `fixtures/W11*` move first so that f3 can do D15 on top of it. At 19:25Z the pods were a1, a23, f24 and f3 at $0.64/h each, plus f1-g1 and f1-tp2 (2x L40S each) at $2.18/h each: $6.92/h in total.
+
 ## Where things stand
 - **Survey:** done, 673 findings. The synthesis is `SYNTHESIS.md` in this directory; its gate text and A4 ordering were corrected by the coordinator.
 - **Owner decisions** (17:20Z), all as recommended:

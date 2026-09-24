@@ -71,16 +71,25 @@ def main():
     rb = rho_q.index_select(1, sp["bool_q"])
     bj = sp["bool_j"].to(torch.int32).contiguous()
     res = {}
-    ref_gen = f.quad_general(rg, U[:m], csr)
-    res["quad_general"] = timeit(lambda: f.quad_general(rg, U[:m], csr), a.reps)
-    if hasattr(f, "quad_general_v4"):
-        got = f.quad_general_v4(rg, U[:m], csr)
-        res["quad_general_v4_exact"] = bool(torch.equal(got, ref_gen))
-        res["quad_general_v4"] = timeit(lambda: f.quad_general_v4(rg, U[:m], csr), a.reps)
-    res["boolcomb_rows"] = timeit(lambda: f.lincomb(rb, U[:m], square_minus=True, rows=bj), a.reps)
-    res["quad_p0"] = timeit(lambda: witness.quad_p0(tb, rho_q, U[:m]), a.reps)
-    res["lincomb_w"] = timeit(lambda: f.lincomb(r, coefs), a.reps)
-    res["lincomb_v"] = timeit(lambda: f.lincomb(r[:, :m], coefs[:m]), a.reps)
+    flags = [("old", False, False), ("reduce", False, True), ("new", True, True)]
+    if not hasattr(tests_fused, "QUAD_V4"):
+        flags = flags[:1]
+    ref = {}
+    for tag, qv4, rk in flags:
+        if len(flags) > 1:
+            tests_fused.QUAD_V4, tests_fused.REDUCE_KERNEL = qv4, rk
+        outs = {"quad_general": lambda: f.quad_general(rg, U[:m], csr),
+                "boolcomb_rows": lambda: f.lincomb(rb, U[:m], square_minus=True, rows=bj),
+                "quad_p0": lambda: witness.quad_p0(tb, rho_q, U[:m]),
+                "lincomb_w": lambda: f.lincomb(r, coefs),
+                "lincomb_v": lambda: f.lincomb(r[:, :m], coefs[:m])}
+        for name, fn in outs.items():
+            got = fn()
+            if tag == "old":
+                ref[name] = got
+            else:
+                res[f"{name}_{tag}_exact"] = bool(torch.equal(got, ref[name]))
+            res[f"{name}_{tag}"] = timeit(fn, a.reps)
     print(json.dumps({k_: (round(v, 4) if isinstance(v, float) else v) for k_, v in res.items()}))
 
 

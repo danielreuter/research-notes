@@ -120,6 +120,7 @@ Tests exist for 22 of the 25 modules. `compiled_merge` is tested only as a subpr
   - 14 files check `torch.cuda.is_available()`, 46 use `importorskip("torch")`, 3 use `importorskip("vllm")`, and 18 import torch or vLLM at module top with no guard.
   - The registered `pod` marker is applied in one place (`regression/test_regression.py:119`).
   - 34 files skip when an evidence path is missing. 23 reference `out/gen/…`, which is gitignored (`.gitignore:7`) and absent from this checkout, and 19 reference `/workspace/…`.
+  - About 12 more files build paths to in-repo locations that moved or were deleted: `data/logs/m1`, `vllm-poc/`, `record_v5/ship.sh`, `fixtures/results/…`, `docs/data/tc-total-…`, `observe/profiles/workload_cov_*`. Some of these skip on every checkout and some would error (see DEAD).
 - **Regression tests** live in `tests/regression/` (7 tests, 20 helper modules, `fixtures.toml`, 13 `expected/*.json`). They are skipped unless `VERITY_REGRESSION=1`, and inputs resolve through `resolver.py` from `/vault/tmp/oracle`, `/workspace/…` or `research` artifacts.
 - **Source-text tests** are a distinct class:
   - 12 files regex-extract logic from `row_pod.sh`/`tp_stage.sh`.
@@ -155,7 +156,7 @@ None of it is package data: `pyproject.toml:19-22` ships only `verity_vllm`, yet
 
 ## Findings by category
 
-Counts: CORE-DUP 2, INTERNAL-DUP 11, VERSION-RESIDUE 8 (plus a LEGIT list), HARDCODING 7, SCRIPT/ENV/PATH 11, LAYERING 6, GOD-MODULE 4, DEAD 16, NAMING 7, DOCS 8, FALLBACKS 7, OTHER-WEIRD 9. **Total 96.**
+Counts: CORE-DUP 2, INTERNAL-DUP 11, VERSION-RESIDUE 8 (plus a LEGIT list), HARDCODING 7, SCRIPT/ENV/PATH 11, LAYERING 6, GOD-MODULE 4, DEAD 18, NAMING 7, DOCS 8, FALLBACKS 7, OTHER-WEIRD 9. **Total 98.**
 
 ### CORE-DUP (2)
 - `tests/acquire/schemes.py:77-121, 196-207`: `ProtocolMerkleScheme` imports `veritor.core` and `veritor.protocol.merkle`, a package that no longer exists anywhere in the repo. On ImportError it prints "scheme skipped" (`:203`). The cross-scheme agreement suite therefore never compares the integration's openings with a protocol-side Merkle. The core equivalent is `packages/.../commitments/merkle.py`, and no file in the integration imports `verity.commitments`. *high*
@@ -173,7 +174,7 @@ Counts: CORE-DUP 2, INTERNAL-DUP 11, VERSION-RESIDUE 8 (plus a LEGIT list), HARD
   - `tests/regression/checks/attempt_provenance.py:21-37`, a declared verbatim copy of `row_config` and `DEFAULT_QUERY`
   - `tests/regression/lift_expected.py:111-112`
 
-  The row id is the de facto configuration key (Map 2), and nothing owns its grammar. *high*
+  The row id is the de facto configuration key (Map 2), and nothing owns its grammar. The grammar has no slot for a construction variant, so `workloads/olmoe-1b-7b-padded__bf16__l40s__tp1__b1__…json` splices `-padded` into the model tag while its own `sweep.row_id` is the unpadded id. Two workloads now claim the same embedded row id. *high*
 - **Four definitions of "the code this run depends on", and they disagree:**
   - `harness/hot_commit.py:51-52` `CODE_ROOTS`: only under `integrations/vllm`, and 4 of its 6 roots are absent.
   - `harness/derive_step.py:52-60` `_CONSTRUCTION_SOURCES`: 13 files, resolved against the wrong root (see DEAD).
@@ -244,8 +245,8 @@ Counts: CORE-DUP 2, INTERNAL-DUP 11, VERSION-RESIDUE 8 (plus a LEGIT list), HARD
 
 ### SCRIPT/ENV/PATH (11)
 - `harness/commit_delta.py:1197-1267, 1282, 1455` copies 12 CLI flags into `os.environ` so that `acquire/` and `commit/` code can read them back: `VERITY_RETAIN`, `WINDOW_MB`, `WINDOW_SLOTS`, `LAYOUT`, `STAGING_BOUNDED`, `LEARN_HOST_BUDGET_MB`, `RETAIN_EXCLUDE`, `FOOTPRINT`, `WEIGHTS_HASH`, `SOURCE_IDENTITY_DIR`, `FA2_TAP_CAP_MB`, `COLLECT_WATCHDOG_MARKER`. Configuration flows through process-global env. *high*
-- `harness/commit_delta.py` has 36 env reads, including behaviour switches `VERITY_FAULT` (`:984, :1217`), `VERITY_SWITCH` (`:986, :1407`), `VERITY_TRACEDUMP` (`:1033`), `VERITY_DUMP_STEP` (`:516`), `VERITY_LEAF_LAYOUT` (`:583`), `VERITY_ADMIT_*` (`:1633-1760`) and `VERITY_HOT_SUBMIT` (`:3022`). *medium*
-- `ops/row_pod.sh` reads 45 caller-settable environment variables and exports 17 in 12 `export` statements (Map 1). Its "Env:" header (`:17-21`) documents 14 of them. *high*
+- `harness/commit_delta.py` reads 17 environment variables by name (about 24 sites), including behaviour switches `VERITY_FAULT` (`:984, :1217`), `VERITY_SWITCH` (`:986, :1407`), `VERITY_TRACEDUMP` (`:1033`), `VERITY_DUMP_STEP` (`:516`), `VERITY_LEAF_LAYOUT` (`:583`), four `VERITY_ADMIT_*` (`:1633-1760`) and `VERITY_HOT_SUBMIT` (`:3022`). *medium*
+- `ops/row_pod.sh` reads 45 caller-settable environment variables and exports 18 in 13 `export` statements (Map 1). Its "Env:" header (`:17-21`) documents 14 of them. *high*
 - **Three venv names across 16 scripts,** while `pod_bootstrap.sh:34` creates only `venv312`:
   - `venv312`: `row_pod.sh:69`, `tp_stage.sh:50`, `pod_gate.sh:11`, `pod_fa2_tap.sh:25`, `pod_fa3_tap.sh:16`, `pod_hidden_gpu.sh:19`, `pod_bootstrap.sh:34`
   - `venv-cu129`: `canary.sh:39`, `compiled_commit.sh:19`, `fa3_row_negatives.sh:20`, `stoch_negative_n3.sh:20`, `stoch_negatives.sh:19`, `cov_pod.sh:23`
@@ -324,18 +325,32 @@ Counts: CORE-DUP 2, INTERNAL-DUP 11, VERSION-RESIDUE 8 (plus a LEGIT list), HARD
 - **`harness/run_config.py` (1,196 lines).** Jobs: a 43-flag CLI; 19-stage GPU/CPU orchestration with skip groups; subprocess launch of 9 modules (`:190-255`); snapshot-cap derivation; instances-form selection (`:1025-1113`); execution-label resolution (`:892`); card and gates; laptop RSS/wall watchdog; HF cache resolution (`:264`). *medium*
 - **`harness/telemetry/admission.py` (1,198 lines).** Jobs: the `INVENTORY` allocation table (`:151`); workload-derived `RowConfig`; `predict` (`:389`); peak-overlap planning; two telemetry readers (`:597`, `:814`); row parsing from an attempt directory (`:661-696`); plan-vs-observed `compare` (`:893`); a 36-flag CLI. *medium*
 
-### DEAD (16)
+### DEAD (18)
 Each item gives its confidence and what I searched.
 
 - `harness/hot_commit.py:51-52`: 4 of 6 `CODE_ROOTS` (`verity_vllm_sampler`, `e2e`, `record_v5`, `scripts`) do not exist, and Verity core is never hashed. Edits to `packages/verity/src` therefore do not change the hot-engine key, which breaks the promise that the hot worker never runs stale code. *high*; confidence high (filesystem).
 - `harness/derive_step.py:52-60, 67-78`: all 13 `_CONSTRUCTION_SOURCES` are joined to `dirname(dirname(verity.ir.__file__))`, which is `packages/verity/src`, but they live under `integrations/vllm`. Every file is silently hashed as "missing", so `construction_version` no longer changes when the builder's code changes (also FALLBACKS). *high*; confidence high (checked each root; three files spot-checked under both).
+- **The tools that ship code to a pod are not in this repo, but the harness depends on their outputs.**
+  - Absent: `record_v5/ship.sh`, `pod_release.sh`, `pod_up.sh`, and the "dead launcher" `run_row.sh` (`row_pod.sh:61`, still cited as a live producer at `:149`).
+  - `pod_release.sh` alone is named 17 times in 7 files.
+  - Consumers of their outputs:
+    - `EXPORT.json` (written by `ship.sh`): 7 modules (`harness/{source_identity, derive_step, commit_delta, experiment, release_json, hot_commit}`, `check/noninterference`), plus `row_pod.sh:131`.
+    - `RELEASE.json`: `row_pod.sh`, `canary.sh`, `release_json.py`, `hot_commit.py`, `acquire/native_jit.py`.
+    - `pod_release.sh`'s RELEASING marker: `hot_commit.py:63-68`.
+    - `hot_commit.py:52` also hashes a `record_v5` root.
+  - `tests/program/test_ship_roots.py` has 4 tests. Read, not run:
+    - `:30` and `:45` read `record_v5/ship.sh` and the gitignored `out/gen/r17/sparse-patterns.txt` with no skip guard, so those two tests would error on this checkout.
+    - `:72` runs `bash record_v5/ship.sh --pack`.
+    - Its fallback defaults to the owner's laptop copy of the old repo (`:66`, `/Users/danielreuter/projects/veritor`).
+
+  *high*; high (`git ls-files` for each script name; `rg` over `verity_vllm`, `tests`, `tools/research`).
 - `harness/workload.py:352`: the `vllm-poc` path is absent. *low*; high.
 - `ops/row_pod.sh:553`: `ACQUIRE_ENGINE` is only interpolated into a log line and has no reader in `integrations/vllm` or `tools/`. Yet `tests/regression/fixtures.toml:730` records "ACQUIRE_ENGINE=v2" as if it selected something. *low*; high.
 - `ops/run_row_v2.sh:80`: `--query` exports `VERITY_QUERY_ID`, which nothing reads. `query` is still part of the `research` key (`research_tools.py:57-67`), so attempts are keyed by a value that changes nothing. *medium*; high (searched `integrations/vllm`, `tools`).
 - `harness/rebuild_digest_gate.py` (130 lines): no importer or invoker. I searched absolute and relative imports, `-m` in `ops/`, `tests/`, README and `tools/research`, and string references. Only `tests/census_roots.txt:36` names it. *low*; medium (it may be run by hand).
 - `data/rec` (34 files), `data/census` (33), `data/contract` (20, including `argmax_rule/probe_pinned.py`), `data/workloads_r12` (1) and `data/logs/m6/log.jsonl.gz` are not referenced by directory name or file basename from `verity_vllm`, `tests`, `ops`, `tools` or README. `verify_lane.sh:59` even excludes `data/contract` from its sparse checkout. *medium*; medium (hand use possible).
 - `manifests/semantic-profiles/llama-eager-batch-invariant-v1.json`, `-v2.json` and `qwen2-eager-batch-invariant-v1.json` are named only in `tools/move_map.txt`; `program/registry/b1.py:397` is a docstring glob. *low*; medium-high.
-- Seven legacy workloads are named by nothing: `workload_b0_{chunked_200p, conc2_small, conc4_mixed, conc8_mixed, long512_1req}`, `workload_b1_sampling_topk50_topp09`, `workload_qwen15_conc4_mixed`. *low*; low (`cov_pod.sh:130` and `run_config` accept any name at runtime).
+- Six legacy workloads are read by nothing: `workload_b0_{chunked_200p, conc2_small, conc4_mixed, conc8_mixed, long512_1req}` and `workload_qwen15_conc4_mixed`. `chunked_200p` appears only in test comments. `workload_b1_sampling_topk50_topp09` looks unnamed but is read through a parametrize list (`tests/observe/test_gen_ov_sampling.py:16, 32-34`). *low*; low (`cov_pod.sh:130` and `run_config` accept any name at runtime).
 - **Referenced data that is missing:**
   - `check/noninterference.py:778` defaults to `data/logs/m1_ctl_tokens.json`.
   - `check/fold_compare.py:3` and `check/replay.py:8` use the snapshot directory `data/logs/m1`.
@@ -345,6 +360,17 @@ Each item gives its confidence and what I searched.
 
   *medium*; high (filesystem).
 - **13 first-party `importorskip` guards whose targets all exist:** `observe/test_execution_label.py:11, 49`; `program/test_derive_negative.py:765, 1050`; `program/test_lifted_dense_b1_padrev.py:17, 18`; `program/test_lifted_tiny_padrev.py:24`; `program/test_vllm_bindings_pins.py:83`; `query/test_partition_structural.py:408`; `tp/test_tp_partial_source_mid_module.py:12, 143`; `tp/test_tp_partial_source_moe.py:13, 175`. They are "not merged yet" guards, and they turn an ImportError in first-party code into a skip. *medium*; high.
+- **Tests silently disabled by in-repo paths that moved or were deleted** (read, not run):
+  - `tests/input_provenance/test_root_policy.py:18, 21`: the module-level `skipif` requires `data/logs/m1`, which is absent, so the whole module never runs.
+  - `tests/harness/test_coverage_workloads.py:51-53`: it looks for `workload_cov_b0_*` under `verity_vllm/observe/profiles/` (the files live in `workloads/`). Its first combination, `b1_c1024`, was never generated anywhere, so the in-loop `pytest.skip` always fires.
+  - `tests/program/test_nan_conversion.py:26, 53`: it parametrizes over a glob of the absent `docs/data/tc-total-2026-09-07`, giving an empty parameter set.
+  - `tests/harness/test_run_config_dry_run.py:163` requires `data/logs/m1` and `m1_ctl_tokens.json`.
+  - `tests/observe/test_m1_log.py:95` asserts only if `data/logs/m1/tokens.json` exists.
+  - `tests/program/test_conformance_record.py:13` points at the absent `fixtures/results/TA1-typed-b1-20260907`.
+  - `tests/program/test_composition.py:35, 77-79`: `_hp_config` always takes its fallback because `vllm-poc/profiles/b1-hopper/static_config.py` is gone.
+  - `test_derived_rows.py:18`, `test_rmsnorm_fused.py:16` and `observe/test_gen_ov_easy.py:75` put the absent `vllm-poc` on `sys.path`.
+
+  *medium*; high (checked each literal path chain in `tests/` against the filesystem).
 - `tests/program/test_derived_rows_fp8.py:13-14` and `test_fp8.py:23-24` skip on Python < 3.12, which can't happen under `pyproject.toml:5`. The reason given ("veritor.core needs Python 3.12") names a package that no longer exists. *low*; high.
 - `tests/test_imports_resolve.py:15` `FIRST_PARTY` lists `verity_capture`, `verity_vllm_adapter` and `verity_vllm_numerics`, none of which exist. The lint also doesn't cover `veritor.*`, so `tests/acquire/schemes.py` passes it. *medium*; high.
 - **Stale entries in `tests/dead_code_keep.json`:** `:5-7, 11-15` cite `fa2_commit` and `cb_a/tests` paths that no longer exist. `:37-38` say `verify_lane.sh` and `cov_pod.sh` are "bench/, not a root", but `test_no_dead_modules.py:4` makes every `ops/*.sh` a root, so the `check.protected` and `check.holdout` entries are unnecessary. *low*; high.

@@ -13,6 +13,19 @@ research notes watch --every 2 --stale-min 12 --idle-min 5 --runway-h 3 --pods -
 * `ACCOUNT`: balance, account $/h, runway in hours, and $/h of lane-owned pods vs other pods. `RUNWAY <h>h` fires below `--runway-h`.
 * `FINAL-POD`: a final lane (with no open successor) still owns a pod. With `--reap`, the pod is terminated after 10 minutes
   (`REAPED`, logged to `~/.research/notes/reaper.log`) unless the lane recorded `--keep-pod WHY`. A pod no lane owns is never touched.
+* Steward rules (`lane/steward` @ e7d4a978, live once merged and the watcher restarted; lanes/steward report `## FINAL`).
+  Their memory is `<root>/steward-state.json`, which the snapshot leaves out:
+  * `REAPED` / `REAP-BLOCKED <lane> <pod>: <reason>`: with `--pods --reap`, a STALE lane's pod idle for `--reap-stale-min` (30)
+    is terminated only after custody passes. Custody means every `art:` its newest report cites is preserved on R2, and every
+    run on the pod has preserved.json or a store attempt. A blocked pod is re-checked every 30 min. Both lines go to reaper.log.
+  * `OVERDUE <lane>`: not final 30 min after the binding's `final`. `OVER-BUDGET <lane>`: the lane's pod $ passed the
+    binding's first `$<n>`. Each fires once; both are alerts only.
+  * `RENDERED <path>` / `RENDER-FAILED <entry>: <why>`: `[[render]]` entries of `<root>/steward.toml` (`at`, `source`, `out`,
+    `store`), daily. `bench.tables` on the real store took 2.4 s and 83 MB on 2026-09-24. `bench.drilldown` is not on main yet.
+  * `ROUTED <lane> <n>` / `KILLED-UNOWNED <line>`: guardian kills become a handoff in the owning lane's inbox, or the
+    coordinator's when that lane is final. The owner comes from `--on <machine>`, or from the cwd, which needs the guardian
+    patch `lanes/steward/evidence/mem_guardian-cwd.patch`.
+  * `STEWARD-ERROR <rule>: <error>`: a rule raised; the watch goes on.
 * `status`: one row per topic (the latest attempt, `#N`). Each pod the lane owns (`vy-<topic>[<letter>][-<role>]`, any attempt of
   the succession) shows its $/h, busy/serve/idle state and GPU util. `--all` also shows the predecessors.
 * MAIL is never printed on the first pass, and never for a superseded lane (its successor's inbox carries the mail).
@@ -54,3 +67,11 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   Script: `lanes/verify-night/evidence/pod-scripts/21-pod-render.sh`.
 * `reverify.py` on runner-attempt results reads `attempts/`. A `mint-credential` scoped to objects/manifests/labels fails with
   HTTP 403, so add `--prefix attempts/`.
+
+## tools/research tests in a sparse worktree (steward, 2026-09-24)
+* In a worktree sparse on `tools/research` + `backends/numerical`, 12 tests of the tools/research suite fail already at base
+  0b0768ed: `test_pythonpath.py` (2), `test_store_prov.py` (3) and `test_store_vllm_tools.py` (7). They load `integrations/vllm`,
+  `tools/tc_probe`, `backends/direct/ligero` and `backends/sp1`. The counts are 304 passed, 12 failed, 4 skipped there, against
+  319 passed, 1 skipped in a full tree. Cite them as known-failures.
+* A full temporary tree costs about 225 MB, so make one only with disk to spare and remove it right after. `git worktree add`
+  copies the sparse-checkout config of the worktree it runs from, so run `git sparse-checkout disable` in the new tree.

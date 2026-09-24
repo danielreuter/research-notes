@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT 0e8cc6ea (22:40Z) [open] arith H100 13/13 reverify PASS + BOUND, labelled (verdicts art:7d68f788..art:abe34544, coordinator 2240Z). SP1 sec134 host building (r20260924-223547-6b33; d1111579 build.sh VERIFIER_ONLY needs cargo fetch first). 24 accepted, 0 rejected
 CHECKPOINT 605b1bbb (22:26Z) [open] labelled A-GKR H100 FP8 art:2e7baba7 (verdict art:ccafc0f7; handoff coordinator 2227Z). Building SP1 stock + sec134 CPU hosts for sp1-128 art:e8c7c331 (r20260924-222445-6de0). 11 results accepted so far, 0 rejected
 CHECKPOINT 891572a0 (21:57Z) [open] arith 4090 FP8 s1+s5: 7/7 reverify PASS + BOUND, labelled verified=accepted --by verify-po; verdicts art:7dae93fd art:9a59e106 art:4ecc7aee art:00dabdc8 art:11c4595f art:6a6c101b art:1ca0fbef; now B-Ligero negatives + A-GKR 4090 art:1b4fd4a1 (r20260924-215649-a2c4)
 CHECKPOINT df48ecf3 (21:49Z) [open] pod bootstrapped (ligero-verify d89cffc7 from main ab9573fd); arith s1 reverify r20260924-213516-228f: labels pulled (11224), pod catalog reindex --remote in progress; next reverify+binding+negatives
@@ -44,8 +45,9 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 2 | `20260924T2140Z-handoff-from-arith.md` (step 5, 92dab0ad) | art:def461c7 art:bb75ba4f art:d2b01b3f art:f3978133 | RTX 4090 FP8, B-Ligero | accepted x4 | art:00dabdc8 art:11c4595f art:6a6c101b art:1ca0fbef |
 | 3 | `20260924T2129Z-handoff-from-agkr-fp8.md` | art:1b4fd4a1 | RTX 4090 FP8, A-GKR (new cell) | accepted | art:a40f5576 |
 | 4 | `20260924T2200Z-handoff-from-agkr-nvf4.md` | art:fe57e68b | RTX 5090 NVFP4, A-GKR (new cell) | accepted (verifier from 3c769c6d, needs merge) | art:acf87c5c |
-| 5 | `20260924T2212Z-handoff-from-agkr-fp8.md` | art:2e7baba7 | H100 FP8, A-GKR (new cell) | (labelling) | |
+| 5 | `20260924T2212Z-handoff-from-agkr-fp8.md` | art:2e7baba7 | H100 FP8, A-GKR (new cell) | accepted | art:ccafc0f7 |
 | 6 | `20260924T2220Z-handoff-from-sp1-128.md` | art:e8c7c331 | SP1 A100 BF16 sec134 (D2 row, not Table 2) | (building hosts) | |
+| 7 | `20260924T2226Z-handoff-from-arith.md` (92dab0ad, H100) | h8 x6: art:e9ae289c art:c6271278 art:8182f9ae art:efd871f6 art:7a8443b4 art:709ab20c; h16 x3: art:415d6cde art:b23719dd art:16feee34; h16L x4: art:e3362256 art:064a3a75 art:593f8249 art:debd7e1d | H100 FP8 / H100 BF16, B-Ligero | accepted x13 | art:7d68f788 art:5d8c8aa1 art:750d53cf art:eb44f474 art:b1a0be1d art:aafc3c75; art:bfc56de7 art:a5a7e8c8 art:5d94cfae; art:a7ed0d9b art:830956b0 art:65f9b4d7 art:abe34544 |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
 - reverify run r20260924-215206-fe12: all 7 PASS (custody 40/40, pinned fp8-ada-v3x4, 13/13 proofs, 2^-128.33, ligero-verify
@@ -94,6 +96,14 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   frozen fp8-hopper final words, with 0 mismatches.
 - Negatives, all rejected: `mutate --sample 64` (356/356); my VU-17 +1; the producer's 4 claim negatives (art:cdaabf41),
   whose honest case is accepted.
+
+### 7. arith H100 B-Ligero, 13 results (run r20260924-222928-d816)
+- All 13 PASS (fp8-hopper-v3x4: custody 40/40, 13/13, 2^-128.33; bf16-hopper-v3x4: custody 76/76, 25/25, 2^-128.05) and all
+  13 BOUND (0 y words and 0 operand VUs differ over 4096 VUs). The live-verifier arm h16 is verified the same way from its
+  dumps.
+- Negatives (05) on art:db78aa36 (h8-r1) and art:508debf5 (h16-r1): the base is accepted and all three changes are rejected.
+- Verdict custody: `data preserved` on all 13 returns rc 0.
+- The SP1 host build shared the CPU during this run. `verifier_seconds` may be inflated, but no table reads it.
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`)
 | cell | before | now | art |

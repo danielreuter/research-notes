@@ -5,6 +5,7 @@ created: 2026-09-24T20:47Z
 status: open
 ---
 
+CHECKPOINT ab57df0a (22:39Z) [open] Both FP8 cells recorded (4090 in Table 2; H100 0.688s handed off). Hill-climb on H100: eq_table one-launch + numpy ext serialization committed (048e6a41, 8670d0f7), prove 0.599->0.537s, bytes identical. Testing query-value caching; then re-record H100.
 CHECKPOINT 891572a0 (22:10Z) [open] H100 FP8 cell recorded: art:2e7baba7 (run-files art:438ada92, r20260924-215501-f96b @891572a0) t.total 0.688s med, Rust 3/3, 2^-130.19, only rejection=indep. verif.; negatives art:cdaabf41; handoff coordinator/20260924T2212Z. 4090 cell art:1b4fd4a1 now IN Table 2. next: profile + hill-climb
 CHECKPOINT 891572a0 (21:57Z) [open] H100 pod ac0m34rqaw3hti (guard 90): fp8-hopper dev 4096 VUs t.total 0.683s, Rust 2/2, negatives 4/4 both verifiers, predicate: only indep. verification. Recorded run r20260924-215501-f96b @891572a0 running; next: push+handoff, then profile lookup/open_acc
 CHECKPOINT 40069d44 (21:34Z) [open] 4090 FP8 cell recorded: art:1b4fd4a1 (run-files art:89a2ce85, r20260924-211113-5f9e @07a8edd6) t.total 1.130s med, Rust 3/3, 2^-130.19, only rejection=indep. verification; negatives art:edfbca4d; handoff coordinator/20260924T2129Z. next: H100 fp8-hopper

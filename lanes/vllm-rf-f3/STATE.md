@@ -16,6 +16,22 @@ created: 2026-09-24T17:36Z
   - D15: env-driven Definition semantics (MufuTanh tables etc.) -> package data with pinned digest; list every env-dependent Definition. STOP and report if a fix would change a digest because the env path was actually used.
 - **Acceptance:** gates (a), (b); torch-stub plan test; D3 GPU Commit row re-run with roots == regression record; no Program/manifest digest changes.
 
+## Inventory (17:40-17:57Z, laptop, rg only)
+- D3 sites: `acquire/native_collect.py:721` (VERITY_LAYOUT -> layout_v2), `commit/padding_steps.py:405` (VERITY_LEAF_LAYOUT, gpu_tree else host-pos-leaf),
+  `harness/commit_delta.py:583` (collector.layout = VERITY_LEAF_LAYOUT -> binding map layout), `:1258` (--layout -> VERITY_LAYOUT), `tp/worker.py:1043` (hard-coded v1).
+  Nobody sets VERITY_LEAF_LAYOUT; no ops script passes --layout -> every regression row is v1 on both sides. row_pod uses native_collect_v2b --gpu-tree.
+- D4: `plan._lifetime_tables` swallows native_collect ImportError. By-name lint pins the tables' file (`tests/by_name_allowlist.json:57,59`) -> update file path on move.
+  `--late-read` mutates `native_collect.GATHER_FLUSH_LEAVES` (module global read at call time) -> keep the name imported into native_collect.
+- D14 derivations: compiled_kernel_check (only caller seeds from run root), relations.draw_sample / ensure_adjacent_pair (no callers),
+  replay.tier_a / tier_chain + CLI --seed 0, run_config --seed 0 (row_pod skips replay_a/chain; cov_pod passes --seed 0; verify_lane urandom),
+  capture_identities.run + CLI --seed 0 (no python callers). Already derived: binding.challenge_identities, sampled_replay.challenge_seed (+ commit_delta/tp.worker), tp/xrank_collectives, vu_query.production_sample (required).
+  Not challenges (left): twins.self_check / Replayer self-check seed, stoch_recompute reference-rows pick, holdout, difftest, adversarial, descriptor_equivalence.
+- D15 env-dependent Definitions: MufuTanh (VERITY_MUFU_TANH_TABLES + dead `mufu_tanh_use_tables`), MufuEx2Ftz / MufuRcpFtz / Fa2InvSum (VERITY_MUFU_TABLES via fa2_relation.tables),
+  MufuSqrtFtz / DivFullRcp / RsqrtApprox (VERITY_RMS_TABLES via rms_relation.tables), + every composite / twin / derived_rows using them; VERITY_ARCH fallback in
+  fa2_model.arch_of + rms_relation.coverage (coverage gate of the PoC relations, not arithmetic). Env paths were used only pointing at the shipped fixture
+  (git history: fa3_target_correspondence usage line; tests/program/test_composition.py setdefault) -> pinning the fixture digests changes nothing.
+  Tables live in `integrations/vllm/fixtures/W11*` (not package data): the MOVE to package data is lane a23's (importlib.resources); f3 deletes the env overrides + pins digests.
+
 ## Done
 - 17:36Z worktree created.
 
@@ -23,13 +39,13 @@ created: 2026-09-24T17:36Z
 - nothing yet
 
 ## Next
-1. Read code at the defect sites; inventory env reads, seeds, env-dependent Definitions.
-2. Implement D4, D3, D14, D15 as separate commits.
-3. CPU pod: gates (a)/(b) (+ base measurement if a1 baseline.md absent).
-4. GPU pod: one Commit row re-run for D3, compare roots with regression record.
+1. Implement D4, D3, D14, D15 as separate commits; push.
+2. CPU pod: gates (a)/(b) (+ base measurement if a1 baseline.md absent).
+3. GPU pod (L40S): one Commit row re-run for D3, compare roots with regression record.
 
 ## Open questions
-- none yet
+- D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.
 
 ## Found, not fixed
-- none yet
+- `commit_delta` still copies other CLI flags into env for acquire/commit to read (VERITY_WINDOW_MB/SLOTS, RETAIN, STAGING_BOUNDED, ...), T7/B4.
+- collector/binding-map `layout` label is `chunk-leaf-v1` for host (non-gpu-tree) committers whose leaves are host-pos-leaf (label only; changing it changes map digests).

@@ -70,6 +70,7 @@ created: 2026-09-24T17:36Z
 
 ## Open questions
 - D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.
+  - **Coordinator answer, 19:30Z:** a23b (the successor of a23) moves `fixtures/W11*` first. Write D15 now and rebase onto a23b's `W11 move: <sha>` before gates. Details: `20260924T1930Z-handoff-from-vllm-coordinator.md` in this dir.
 
 ## Found, not fixed
 - `commit_delta` still copies other CLI flags into env for acquire/commit to read (VERITY_WINDOW_MB/SLOTS, RETAIN, STAGING_BOUNDED, ...), T7/B4.

@@ -35,12 +35,13 @@ created: 2026-09-24T17:40Z
   - What the refusal disables (for READY): `tp_stage.sh` / `run_row_v2.sh` rows with WORLD > 2 (the TP4 workload `1601bdd2` llama32-1b l40s tp4 b8 i256 o32 can no longer Build or Commit); `derive_step --tp N>2`; `tp.commit --tp/--world N>2`. `40f40a21` (TPPartialSource occurrence reset) is world-independent (also fixed frozen TP2 #70): only its TP4 re-measurement is lost. Offline world-N machinery stays tested (CollectiveBus world N, AllReduce_v2, cross_rank_check world 3, tp_links v2).
 - 19:17Z D17 design (writing): `check/fa_tap_exactness.py` = the GPU half of the deleted xchecks (per case: tapped out/lse == installed kernel == same .so untapped; skipped 0; stream closed (no spill, nothing unwritten); fail-closed negatives). Launch args recorded at the op from vLLM's own `flash_attn_varlen_func` (robust to the FA3 37-arg drift); geometry from `hidden_source` (`fa2_swapped`, `fa2_kblock_n`, `fa3_tile`); record `fa_tap_exactness.json` with `digest` = sha256(canonical_json(record minus digest)) (`correspondence.runtime.canonical_json`, no new canonicalisation); `verify_record` torch-free. The CPU oracle half (tapped words == AttentionHead_v3 / FA3 oracle) is NOT restored: a23 `c1cf11ef` moves `check/fa2_attn_oracle.py` to `tests/acquire/`, so the package cannot import it -> Found, not fixed.
 
+- 19:33Z COMMITTED + PUSHED `lane/vllm-rf-f56`: `dfd21f73` D16 (a, b, c), `9b07c19f` D17 (`check/fa_tap_exactness.py`, `tests/check/test_fa_tap_exactness.py`, census root `verity_vllm.check.fa_tap_exactness` in `tests/census_roots.txt` (else test_no_dead_modules fails), evidence text in `acquire/hidden_source.py`, comments in `ops/pod_fa{2,3}_tap.sh`). Deliberately NOT edited: `acquire/fa3_tap_src/build_fa3_ext.py:11` (every fa3_tap_src file is in the tap's source-set hash: an edit forces an FA3 rebuild on every pod) and `tests/acquire/test_fa2_tap_geometry.py:7` (cites the oracle half, not restored). Nothing run yet (laptop: py_compile only).
+
 ## Running
 - nothing
 
 ## Next
-1. Write D17 (+ torch-free tests `tests/check/test_fa_tap_exactness.py`; evidence strings in `acquire/hidden_source.py`, comments in `ops/pod_fa{2,3}_tap.sh`, `acquire/fa3_tap_src/build_fa3_ext.py`, `tests/acquire/test_fa2_tap_geometry.py:7`). Commit + push.
-2. Pods: CPU gates (a)/(b); 2-GPU TP2 row; L40S FA2 + H100 FA3 records (GPU bootstrap builds the taps). Check vLLM's `flash_attn_varlen_func` keyword names on the CPU pod first (site-packages source).
+1. Pods: CPU `vyv-rf-f56` gates (a)/(b) (a1 recipe) + check vLLM `flash_attn_varlen_func` keyword names (site-packages source); 2x L40S `vyv-rf-f56-l40s` (GPU bootstrap builds FA2 tap): FA2 record + TP2 regression row (#70 OLMoE, compare to `/tmp/rff56/r70`); 1x H100 `vyv-rf-f56-h100`: FA3 record.
 
 ## Open questions
 - none yet

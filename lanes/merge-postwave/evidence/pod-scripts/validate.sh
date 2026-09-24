@@ -54,10 +54,12 @@ run check-gkr             bash -c "cd backends/gkr && cargo check --release --lo
 run check-gkr-babybear    bash -c "cd backends/gkr && cargo check --release --locked --features babybear"
 run check-gkr-verify      bash -c "cd backends/gkr/verifier && cargo check --release --locked"
 run test-gkr-verify       bash -c "cd backends/gkr/verifier && cargo test --release --locked"
+# needs the repo-root fixtures/ (bench-instances/v1 negatives, typed-obligation-v0), absent from sp1.sh's backends/sp1 archive
+run test-sp1-common       bash -c "cd backends/sp1 && CARGO_TARGET_DIR=$W/target-sp1 cargo test --release --locked -p veritor-zk-common --features relation-bare"
 
 stage "SUMMARY"
 fail=0
-for k in py-sync py-numerical py-research check-ligero-verify check-gkr check-gkr-babybear check-gkr-verify test-gkr-verify; do
+for k in py-sync py-numerical py-research check-ligero-verify check-gkr check-gkr-babybear check-gkr-verify test-gkr-verify test-sp1-common; do
   echo "$k ${RC[$k]:-missing}"
   case $k in test-*) ;; *) [ "${RC[$k]:-1}" = 0 ] || fail=1 ;; esac
 done

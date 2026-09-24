@@ -70,6 +70,8 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   before int-57: run r20260924-085749-2570 (GPU 0), launched from a throwaway /tmp worktree (removed), source tree
   /workspace/research/src/25170f24… on the pod. ETA ~09:50Z. It reuses #57's row dir (the PASS run's evidence is preserved:
   verdict art:b99af6c6, logs art:e364e35a, run dir outputs/). #67 Match artifacts preserved (rc 0).
+- 09:22Z trial-merge #57: 432 rows marked promoted; C2 ORACLE COMPARE pair 0 OK 159,840/159,840 (replay pending).
+  #67 Commit: producer facts 181 members, 0 conflicts, no handed-down rows; MANIFEST COVERAGE pair 0 OK 406,220 missing 0.
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)

@@ -1,85 +1,36 @@
 ---
 lane: vllm-retire-v1
-repo: verity (~/projects/verity), worktree ~/projects/verity-wt/retire-v1
-branch: lane/vllm-retire-v1 (off origin/lane/vllm-cleanup-2 = 815b837c), pushed to origin
+repo: verity, worktree /workspace/wt/retire-v1
+branch: lane/vllm-retire-v1 (off origin/lane/vllm-cleanup-2 = 38122d1f), pushed via laptop sync
 ---
 # vllm-retire-v1: running state
 
-Task: delete the v1 engine (required_manifest traversal/tables, required_values, ACQUIRE_CLASSES tables, ACQUIRE_ENGINE switch,
-compiled_source v1 branch, sampled_replay v1 addressing, replay_partition v1 recompute, ENGINE=v1 paths) + prune census roots, cascade.
+Task: delete the v1 engine + prune census roots, cascade. Harness byte-identical except `retire-v1` decisions.
 
-Baseline (staging 815b837c): 652 .py files, 209,413 lines under integrations/vllm; by-name allowlist 293.
-Census: run with python3.13 (`/opt/homebrew/bin/python3.13 tests/dead_code_census.py`); python3.9 mis-parses commit_delta.py.
-By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pure AST, laptop-safe).
+Baseline (staging 815b837c): 652 .py files, 209,414 lines; by-name allowlist 293.
+Tip (9d80e302): 632 files, 199,400 lines (−20 / −10,014); allowlist 234. Census fixed point; lints 7/7.
 
-## Tip
-- adc55ce7 (pushed) -- GEN-lane roots dropped (own revertable commit); census fixed point; allowlist 234, lints 7/7 on pod
-- 6813fe06 (pushed) -- replay tests on v2 addressing (suite + harness runs are at this sha; adc55ce7 touches no harness code)
+## Tip commits (new since takeover #2)
+- f0dea8e2: three `retire-v1` replay_partition decisions in fixtures.toml (r57, r67, r68)
+- 9d80e302: rebaseline write for those rows' expected contracts
+- (prior) a2e16920: TP-08d ProgramIndex tests deleted; adc55ce7: GEN-lane pod runners cascade
 
-## Takeover 05:46Z (previous owner died 04:43Z)
-- staging suite (815b837c) finished 05:28Z, exit=1, 42 F/E lines: /workspace/rv1/logs/suite_staging.{log,xml}
-- 05:49Z launched on cpu3 (tree /workspace/rv1/tip = full git archive of 6813fe06):
-  crun.sh (converted test files) -> logs/conv_tip.log; srun.sh (full suite) -> logs/suite_tip.{log,xml}
-- 05:52Z harness T0,T1 (oracle expected) @ 6813fe06, split like the integrator's staging run (p6 hrun.sh):
-  cpu3 fB: serial run killed at 06:00Z (staging fB was 2h12m serial: manifest_digest + replay_partition on r74/r73/r68/r67);
-  relaunched 06:01Z as 5 row groups fB1 "r74", fB2 "r73 or r101 or r4 or r70 or r75", fB3 "r68 or r60", fB4 "r67 or r23",
-  fB5 "r57 or negative_57 or decisions_are_listed" -> /workspace/rv1/hrec/fB<k>, logs/h_fB<k>.out, locks retire-v1-harness-fB<k>.json
-  compare: /workspace/rv1/hcmp.py STAGING_REC TIP_REC --skip program_digest (bookkeeping keys source/seconds/manifest reported apart)
-  cpu2 fA "r11 or r39" -> /workspace/rv1/hrec/fA, log /workspace/rv1/logs/h_fA.out (lock retire-v1-harness-fA.json); ssh /tmp/rv1ssh2
-- staging harness to compare against (815b837c, T0,T1,T2): cpu3 /workspace/p6_rec/fB, cpu2 /workspace/p6_rec/fA (integrator's)
-- converted test files @6813fe06 (cpu3, logs/conv2_tip.{log,xml}): 212 pass / 173 skip / 2 F, both F on staging's list
-  (test_norm_chain::test_mean_pins_match_installed_vllm, test_compiled_source::test_renumber_assigns_invocations_per_call_site);
-  skips environmental (157 VERITY_REGRESSION-gated, CUDA, real Programs). vs staging junit per test (jcmp.py): 0 pass->fail,
-  0 pass->skip; 25 v1-comparison tests gone, 14 new/renamed pass. No fixes needed.
+## Harness (T0+T1, oracle expected)
+- Staging: cpu3 `/workspace/p6_rec/fB`, cpu2 `/workspace/p6_rec/fA` @ 815b837c
+- Tip @ 9d80e302: fA exit=0 (07:10Z); fB1 exit=0; fB2 exit=0; fB3r/fB4r/fB5r exit=0 (08:07–08:13Z, with decisions+rebaseline)
+- hcmp fA: 12 identical + 2 bookkeeping / 14 common
+- hcmp fB: 50 identical + 4 bookkeeping / 57 common; 3 DIFF = replay_partition r57/r67/r68 `decision retire-v1 (accepted)` only
 
-- counts (git cat-file, = wc -l; reproduces the 209,413 baseline): 815b837c 652 files / 209,413 lines -> adc55ce7 632 / 199,445 (-20 / -9,968)
-- test_repository.py 6/6 on laptop @adc55ce7; allowlist 293 -> 234
+## Full suite
+- Staging 815b837c: 3697/318/31F/11E (05:28Z)
+- Tip a2e16920: 3461/313/36F/11E (06:30Z); 0 regressions after TP-08d delete; 3 named flakes pre-existing
 
-- harness partial 06:14Z: fA 6/6, fB3 6/6, fB5 6/7 byte-identical to staging. MOVED: replay_partition r57 (gemma2-2b b8):
-  4150 Bf16MulScalarTensor_v1 rows evaluable under the v2 rule (vus 651982->656132, strata_n 5846->5883, draw/lifetime follow).
-  proof probe: staging code's check with the record's addresses.rule forced to "v2-query" vs tip actual
-  (/workspace/rv1/rpv2.sh ROW TIPREC -> logs/rpv2_r57.out). If equal -> retire-v1 decision + rebaseline write for that row/check.
+CHECKPOINT rv-tests MET 05:56Z converted files 212 pass / 173 skip / 2 F (staging-known)
+CHECKPOINT rv-suite MET 06:34Z suite read out; harness T0+T1 complete 08:13Z with retire-v1 decisions
+CHECKPOINT rv-ready MET 08:16Z ready note note:20260924T0816Z-from-vllm-retire-v1-ready-9d80e302 @ 9d80e302
 
-- 06:21Z probe: staging code under v2 rule == tip actual for r57 replay_partition: True (solely the rule).
-  retire-v1 decision added to fixtures.toml (r57 replay_partition; uncommitted until the rerun passes by decision);
-  06:26Z rerun `replay_partition and r57` on tree /workspace/rv1/tip2 (tip + decision) -> hrec/rp57, logs/h_rp57.out
-  then: rebaseline write --record hrec/rp57 (pod, tip2) -> copy expected/<gemma row>.json back -> commit + push
+## v1 survivor
+TP rank committers (`tp/worker.py` → `make_committer`): `native_host.ACQUIRE_CLASSES` class tables, no acquisition plan. Kept.
 
-- full suite readout (srun.sh, -n 8): staging 815b837c 3697 pass / 318 skip / 31 F / 11 E; tip 6813fe06 (05:49-06:30Z)
-  3461 / 313 / 36 / 11. Per test (jcmp.py): 245 v1 tests deleted, 14 new pass, 0 fixed, 5 pass->fail:
-  * test_tp2_sampled_replay_fold TP-08d x2: REAL (v1-vocabulary args-less fixture) -> deleted in a2e16920 (file 9/9 on pod)
-  * test_lifted_tiny::test_specified_list_is_closed: order-dependent registry leak (a co-scheduled test's
-    Lifted[GatherBf16x64_v1]_v2{ORD=3} is 'specified'); passes alone at tip; xdist schedule varies -> pre-existing hazard
-  * fa2_commit test_roundtrip::test_transient_storage_is_released: passes alone at tip (load)
-  * test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way: 15 s timeout; fails alone on STAGING too
-- a2e16920 pushed (TP-08d tests deleted)
-
-- 06:35Z rp57 rerun: PASS "decision retire-v1 (accepted)". fB2 exit 0 (bookkeeping-only diffs). fB3/fB4 exit 1:
-  replay_partition r68 + r67 (olmoe b32) MOVED: MoeSum_v1 strata keys moe/L<k> -> model.layers.<k>.mlp.experts
-  (2016 / 2416 keys), every count equal. Probes rpv2_r68 / rpv2_r67 launched 06:37/06:39Z. retire-v1 decisions for
-  r67 + r68 written in fixtures.toml (uncommitted). Next: rerun `replay_partition and (r67 or r68)` with decisions, then
-  one `rebaseline write` over hrec/rp57 + the r67/r68 records.
-
-CHECKPOINT rv-suite MET 06:34Z tip-vs-staging suite read out (0 regressions after a2e16920; 3 flaky named); harness T0+T1 running since 05:52/06:01Z
-CHECKPOINT rv-tests MET 05:56Z converted test files @6813fe06 on cpu3: 212 pass / 173 skip / 2 F (both staging-known), 0 regressions per test vs staging junit
-
-## Done
-- bda6f73a: ACQUIRE_ENGINE switch, v1_decision, gate v1 compare, plan class residuals, compiled_source v1 branch,
-  commit_delta class-table extension, pod_match_v2.sh + match_compare.py (root dropped).
-- c517b71b: harness v2-only (resolver ENGINE/BASELINE_ENGINE, rebaseline --engine, manifest_digest v1 builder).
-- 53d20e6c: required_manifest.py + required_values.py deleted; sampled_replay v2-only addressing; replay_partition recompute v2;
-  tests converted (test_sampled_replay.v2_manifest helper; test_manifest_format replaces test_required_manifest). allowlist -56.
-- a71869e5: cascade vu_canonical.py + 3 tests. allowlist -1.
-- NOT YET RUN ON A POD since 53d20e6c: converted tests may need fixes.
-
-## Decisions / findings
-- TP rank committers (tp/worker.py make_committer) have NO acquisition plan: they select by native_host's class tables.
-  => class tables + _select_modules KEPT (TP only); report as the one v1 survivor.
-- verdict.py structural-leak notes name "native_host.ACQUIRE_CLASSES" / "required_manifest.members_for": left (verdict.json content).
-- deleted without v2 replacement: test_sampled_replay_moe_tp_sum_copy.py (args-less v1-vocabulary fixture; v2 copy path not
-  exercised by it); sampled_replay/commit_verdict still read a manifest's `cross_check` (v1-only field) -- left (follow-up).
-
-## Next
-- pod: run converted test files; fix; staging vs tip full suite; harness T0+T1 (replay_partition -> retire-v1 decision if it moves)
-- roots: drop GEN-lane runners (own commit, revertable); uncertain: canary.sh
-- pod vyv-v2cpu3: ramlock /workspace/ramlock/retire-v1.json
+## Waiting
+Integrator merge of `lane/vllm-retire-v1` onto `38122d1f`. Then final report + DONE.

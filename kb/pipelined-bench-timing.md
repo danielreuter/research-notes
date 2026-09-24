@@ -26,3 +26,16 @@ Facts measured by lane arith (2026-09-24, lanes/arith/20260924T1904Z-report-arit
   `os.sync()` after the dump.
 - fill-dc's H100 (EU-NL-1) was much quieter than arith's US-MO-1 H100: compare cells on the same pod, alternate arms, and
   use >= 4 runs per arm.
+
+## Host class matters (5090 fp4-nvf4 l=8192 p8)
+- The Table 2 cell art:d5c9e1f3 ran on a Ryzen 9 9950X host: 0.0340 s total, 0.0222 s arithmetic. The same code (main
+  22741456) on a 5090 with an EPYC 9354 host got 0.077 / 0.066 in 7 runs, 2.2x slower.
+- Torch 2.8.0+cu128, the driver, the instances and bf16 matmul throughput (227 TFLOP/s) matched, and no other GPU process
+  was running. A host-bound (kernel-launch) phase is the suspect; this is not verified.
+- Record the host CPU with every cell (the result's workload_fingerprint.hardware.cpu), and do not compare absolute
+  numbers across host classes.
+
+## Custody of pod-side puts
+- `research notes checkpoint LANE final` reads the laptop catalog, which never sees `data put --preserve` done on a pod.
+- To fix it, run a bounded laptop-side `research data preserved <ids>` in batches of about 7, with the store creds
+  loaded; each batch takes about 6 s. After that the checker counts the arts as preserved.

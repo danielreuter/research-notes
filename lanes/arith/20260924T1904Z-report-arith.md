@@ -20,6 +20,9 @@ CHECKPOINT 99a3b82 (19:10Z) [open] started; pod vy-arith (4090 EU-RO-1, 5q4d3eal
 # arith: hill-climb the arithmetic phase of B-Ligero
 
 Inbox at startup: nothing new.
+Inbox 21:15Z: 20260924T2115Z-handoff-from-coordinator.md (independent verification goes to lanes/verify-po/; `--by arith`
+labels don't count as independent). Answered: every tip result set went to verify-po as a handoff (2140Z, 2226Z, 2306Z,
+2335Z), and this report calls arith's own reverify a producer check.
 
 ## Baseline (Table 2 / Table 3 at the 1800Z render, B-Ligero column, authentication excluded)
 | target | cell art | config | t.total s | arithmetic s | overhead x |

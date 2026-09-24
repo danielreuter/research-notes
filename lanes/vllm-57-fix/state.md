@@ -91,8 +91,26 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 - 10:19Z #67 Commit at 2c8aa2b3: run r20260924-101839-ef1b on vyv-sw-67b GPU 0 (source shipped by git archive, 2813 files),
   build art:5b7e5bcf + match art:f95c7d60. ETA ~12:00Z (pair 0 took ~75 min last time). 67-pass at risk only if it slips past ~12:15Z.
 - vyv-sw-57: /workspace/verity now at 2c8aa2b3; one untracked leftover dir integrations/vllm/verity_vllm_numerics/ (relayout residue, left alone).
+- 10:20Z #67 Commit at 2c8aa2b3 (r20260924-101839-ef1b) died in 29 s: commit_delta.py:1417 `ModuleNotFoundError: No module named
+  'verity_capture'` (then the stage graded the killed run's leftover commit/runs.jsonl: "runs 1 failed 1"). STAGING IS BROKEN for
+  every v2 Commit: the relayout's move map predates #57's fix and its import check runs module bodies only; the fix's function-local
+  imports kept old paths (commit_delta 996-998 + 1417 verity_capture.commit; oracle_compare.producers_of_programs
+  verity_vllm.query.correspondence -> correspondence.reader_for_query). Tree-wide ast scan (py3.12): only these + a data script
+  (data/contract/ck-elem/argmax_rule/measure_archive.py:27 verity_vllm.capture, not on a Commit path, left alone).
+- f16703a2 (origin + sw57): repoints the 5 imports + tests/test_imports_resolve.py (ast lint: every absolute first-party import in
+  verity_vllm/ and tests/ resolves to a file, function-local included). Handoff to the integrator:
+  lanes/integrator/20260924T1027Z-handoff-from-vllm-57-fix.md (take f16703a2 before the final harness).
+- Stale #67 commit/ dir moved to vyv-sw-67b /workspace/lane/evidence/commit67_2c5e038b/commit_dir (so a crash can't grade it again).
+- 10:26Z #67 Commit at f16703a2: run r20260924-102613-0196 on vyv-sw-67b GPU 0 (source f16703a2 shipped, 2814 files), build
+  art:5b7e5bcf + match art:f95c7d60. ETA ~12:05Z.
+- Tests at f16703a2 on vyv-sw-57 (running): logs/tests_f16703a2.log (imports lint, oracle v2 producers, oracle, promoted key,
+  commit_delta cli, verdict, no_by_name, no_dead_modules) + tests_f16703a2_b.log (promoted acquisition, form B perturbation,
+  fail-closed, hot commit, sampled replay v2 addresses + query population).
 
 ## Checkpoints
+- CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);
+  the rerun at staging 2c8aa2b3 crashed on stale relayout imports (fixed f16703a2). Rerun r20260924-102613-0196 launched 10:26Z;
+  ~1h40m => PASS ETA ~12:05Z, preserve + drain by ~12:20Z. Slips past 12:30Z if pair 0 runs >90 min.
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)
   now compares 159,840 (equal 159,408, incl. all 44,928 fused-norm narrowings) but MISMATCHES the 432 `model/out`. The Commit hooks

@@ -51,6 +51,15 @@ Task: close the fresh B64 GM-01 cell for row #23 (llama32-1b bf16 L40S tp1 b64);
 - Validation Attempt `r20260924-084953-66e6` launched 08:49:53Z at 738e63f5 (tree shipped afresh; my smoke test's __pycache__
   quarantined). Command = dc38's recorded line with `-m verity_capture.experimental.cb_a.global_match` -> `-m verity_vllm.check.global_match`.
   Expected non-timing diffs: impl.module, impl.source_sha256 (the checker's identity, relayout rewrote its imports).
+- CHECKPOINT gm-fix MET (08:52Z): no fix needed (see Profile conclusion); nothing ported from 6bf4a00b because it is already in staging.
+- CHECKPOINT gm-validate MET (09:00Z): r20260924-084953-66e6 done 08:58:24Z, rc 0, 452 s, validation passed: verdict PASS,
+  failed_checks []; global_match.json vs dc38 = 37 timing + impl.module + impl.source_sha256; match_decomp.json = 2 timing;
+  global_match_global_program.json byte-equal. PRESERVED (5/5; run_files art:ab2eff88, result art:ae668a73).
+  Profile/scaling evidence PRESERVED art:5a4512c21d00f7546b3942f1d74d92c0991d304137e746f5fe41edc50504dd8f.
+- 09:00Z commit `03a68aa8` (fixtures.toml #23 comment, +5 lines) on staging 738e63f5, pushed to origin/lane/vllm-gm-scale.
+  test_check_lifts 5 passed; TOML parses.
+- 09:01Z ready note -> integrator/20260924T0901Z-from-vllm-gm-scale-ready-03a68aa8.md.
+- 09:01Z `research pods drain vyv-gm`: TERMINATED, 1 attempt, preserved. machines.toml annotated. Lane DONE.
 
 ## Step 1 evidence (gm-answer)
 - Sweep Match `r20260923-233020-dc38` (vllm.match, source `014563ac`, vyv-sw-67, 23:30:30Z-00:07:42Z, state done rc=0 validation=passed),

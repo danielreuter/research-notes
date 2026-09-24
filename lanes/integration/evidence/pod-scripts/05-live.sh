@@ -22,9 +22,10 @@ sleep 5
 cp $O/sessions/index.jsonl $O/index.jsonl 2>/dev/null
 for d in $O/sessions/s*/; do
   [ -f $d/system.bin ] || continue
-  hs=""; [ -f $d/system_h.bin ] && hs="--system-h $d/system_h.bin"
-  $LIGERO_VERIFY batch --system $d/system.bin $hs --dir $d --target-bits 128 > $d/rust_batch.json 2> $d/rust_batch.err
-  echo "$(basename $d) rust rc=$? $(grep -o '"accepted":[0-9]*,"rejected":[0-9]*' $d/rust_batch.json | head -1) $(grep -o '"system_pinned":[a-z]*' $d/rust_batch.json | head -1) $(grep -o '"pinned_relation":"[^"]*"' $d/rust_batch.json | head -1)" | tee -a $O/summary.txt
+  hs=""; [ -f $d/system_h.bin ] && hs="--system-h system_h.bin"
+  ( cd $d && $LIGERO_VERIFY batch --system system.bin $hs --dir . --jobs 8 --threads 1 --target-bits 128 \
+      --json rust_rebatch.json > rust_rebatch.out 2> rust_rebatch.err )
+  echo "$(basename $d) rust rc=$? $($PY -c 'import json,sys;x=json.load(open(sys.argv[1]));print("accepted",x["accepted"],"/",x["n"],"own_coins",x.get("own_coins"),"batch",x["batch_accepted"],"bits %.2f"%x["batch_bits"],"pinned",x["system_pinned"],x["system"]["pinned_relation"])' $d/rust_rebatch.json 2>&1 | tail -1) verdict=$(cat $d/verdict.json 2>/dev/null | tr -d '\n' | cut -c1-160)" | tee -a $O/summary.txt
 done
 kill $(cat $O/serve.pid) 2>/dev/null
 echo LIVE_DONE | tee -a $O/summary.txt

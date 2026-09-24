@@ -14,9 +14,9 @@ b() {  # tag, relation, extra args...
   echo "$tag bench rc=$?" | tee -a $O/summary.txt
   local rep=$(ls -d $O/$tag/proofs/*/ 2>/dev/null | head -1)
   local hsys=""; [ -f $O/$tag/proofs/system_h.bin ] && hsys="--system-h $O/$tag/proofs/system_h.bin"
-  $LIGERO_VERIFY batch --system $O/$tag/proofs/system.bin $hsys --dir ${rep:-$O/$tag/proofs} --target-bits 128 \
-      > $O/$tag/proofs/rust_batch.json 2> $O/$tag/rust_batch.err
-  echo "$tag rust rc=$? $(grep -o '"accepted":[0-9]*,"rejected":[0-9]*' $O/$tag/proofs/rust_batch.json | head -1) $(grep -o '"system_pinned":[a-z]*' $O/$tag/proofs/rust_batch.json | head -1)" | tee -a $O/summary.txt
+  $LIGERO_VERIFY batch --system $O/$tag/proofs/system.bin $hsys --dir ${rep:-$O/$tag/proofs} --jobs 8 --threads 1 --target-bits 128 \
+      --json $O/$tag/proofs/rust_batch.json > $O/$tag/rust_batch.out 2> $O/$tag/rust_batch.err
+  echo "$tag rust rc=$? $($PY -c 'import json,sys;x=json.load(open(sys.argv[1]));print("accepted",x["accepted"],"/",x["n"],"batch",x["batch_accepted"],"bits %.2f"%x["batch_bits"],"pinned",x["system_pinned"],x["system"]["pinned_relation"])' $O/$tag/proofs/rust_batch.json 2>&1 | tail -1)" | tee -a $O/summary.txt
 }
 b fp8-ada-bare fp8-ada
 b bf16-hopper-bare bf16-hopper

@@ -2,7 +2,8 @@
 id: integrator/20260924T0020Z-from-dead-code-2-interim
 lane: integrator
 kind: handoff
-status: open
+status: superseded
+superseded_by: integrator/20260924T0135Z-from-dead-code-2-done
 repo: verity
 origin: lane/vllm-dead-code-2
 ---

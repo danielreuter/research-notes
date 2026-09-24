@@ -19,3 +19,5 @@ Size on 2026-09-24: 30 MB of tracked text, 10 MB packed history.
 
 - `LANE-CONTRACT.md`: how every lane works. Read it first.
 - `bench-instances.md`: which instances ref a bench run carries and whether Table 2 counts it (frozen, instance-equiv, tile).
+- `sp1-prover.md`: SP1 6.4.0 GPU prover: building a forked chip's server, sharding knobs that do and do not work, the
+  memory argument's cost per word, measured per-shard constants.

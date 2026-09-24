@@ -38,4 +38,17 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
 - negatives (14 VUs, all 14 families): 115/115 rejected (54 at the verifier: Rust 54/54 too; 61 at the prover: lookup
   miss / nonzero sum); Rust `mutate` on the honest control 148/148.  4 wrong-rule variants reach the model's word on the
   512 variant VUs (frac26, frac28, negzero, participate-zero-scale: no chain-level negative, as in B-Ligero's gate).
+- recorded cells (4096 VUs, 3 reps, 5090, Rust 3/3, 2^-130.19 target and achieved, NON_ZK_PROOF_DIAGNOSTIC, PRESERVED):
+  - r20260924-213637-3b51 @ 3c769c6d: t.total 1.044 s; result art:fe57e68b…, run-files art:30c5bdf7….
+    verify-po handoff `lanes/verify-po/20260924T2200Z-handoff-from-agkr-nvf4.md`.
+  - r20260924-220423-c20d @ a8d471ba (eq_rows_dot: phase-2 vf = Σ_c eq(c) rows[c] as a split-row Triton dot, 110 ms ->
+    2.5 ms per layer; same proof bytes as 3b51): t.total 0.529 s; result art:202f23f1…, run-files art:6aff989d….
+- hill-climb after c20d (dev, 4096 VUs, warm Triton; t.total):
+  - 18ab232e merged LogUp tables (all row-listed tables except E2M1X2 into one tagged table LK, key + tag·2^20): 0.378 s.
+  - 285c32cc query values via the gate_eval kernel (CSR over the query lins): 0.356 s.
+  - 605b1bbb leaf_q kernel (q-leaves z − Σ β^k v_k in one pass): 0.347 s (build_leaves 22 -> 2.8 ms).
+  - ab57df0a `_flatten`: products deeper than MAX_DEPTH commit their deep operand as a column (scope "flat");
+    depth 1 -> 485 columns, 654 wires, 2 GKR layers: 0.274 s (depth 2: 0.298 s).  Negatives 115/115 (Rust 54/54,
+    mutate 148/148) on the merged and on the depth-1 circuits.
+- stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.

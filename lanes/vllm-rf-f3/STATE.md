@@ -185,7 +185,15 @@ created: 2026-09-24T17:36Z
   true, exit 0 (build 150 s, match 241 s PASS, commit 250 s PASS, every check PASS). Program `ccc21347…` / manifest `90f81868…` (7043
   identities) differ from the record's `079ee0a8…` / `368283ad…` (7043): a from-scratch Build cannot give the record's Program (records
   pre-relayout; f24 STATE: "both trees rebuild program digests different from the records'", 25 vs 27 binding rules) -- the run root
-  covers the committed values only, and they reproduce byte for byte. Base row running (22:28Z), to show base's digests == head's.
+  covers the committed values only, and they reproduce byte for byte.
+- **22:40Z #101 BASE: run root `7adcef49…` == the record == head**, `commit_pass` true, exit 0, every check PASS; Program `ccc21347…`
+  / step `03ace66f…` / workload `a2b43bde…` / manifest `90f81868…` == head's. `ab_compare.py <#101>`: 55 row files identical (both
+  `instances.json.gz`, `manifest.json`, `global_match.json`, commit/{verdict, acquisition_plan (`bf02ec3c…`), binding_map_p0
+  (`18d39a2a…`), layouts_pair0_instrumented, structure_p0, runtime_tree, manifest_verify}, match/{program, instances, card, gates});
+  30 differ, all the SmolLM2 classes: D15-edited source hashes (`descriptor_sha256`, registry digest), runtime measurements,
+  `sampling.seed` null vs 0 (D14), `hidden_gpu.py` path (same bytes `bbcd179c…`), request-id suffixes, and 96 of 163409 snapshot
+  entries = `args.{src_,dst_,}block_table_ptrs` x 32 steps (uint64 device pointers). Evidence: `evidence/d3_r101/`.
+  **22:47Z GPU pod `91c19vn318ptnj` terminated.** No pods left but the 64 GB CPU pod (gate (a)).
   (Prepared, not needed: `/tmp/rf-f3/g3/rec_commit.sh`, a Commit over the record's own Build/manifest/Match; record row dir relayed
   to `/workspace/rec/rec101`.)
 - `/workspace/rff3/row101.sh` (started 22:07Z, waits for BOOTSTRAP-OK): `row_pod.sh <#101> LLAMA32_1B unsloth/Llama-3.2-1B 9535bd9b…
@@ -207,10 +215,9 @@ created: 2026-09-24T17:36Z
 
 ## Next
 1. (done 22:21Z) Big pod: both B=1 checks pass at head; evidence copied; terminated.
-2. GPU pod g3 (bootstrap OK 22:15:46Z, driver 580.178.04 -- g2 had 595.91.07; the base run on the same pod controls for it;
-   head row started 22:16:43Z after I killed a stale remote `bash -c` whose argv contained `pod_bootstrap.sh`, which kept row101.sh's
-   `pgrep -f` wait loop spinning): #101 head (and base) roots vs the record -> `evidence/d3_r101/`; terminate. If head != record, check base first
-   (does the base reproduce the record on this pod?) before calling it f3's.
+2. (done 22:47Z) GPU pod g3: #101 head == base == record `7adcef49…`; evidence `evidence/d3_r101/`; terminated. (Bootstrap OK
+   22:15:46Z, driver 580.178.04; the head row started 22:16:43Z only after I killed a stale remote `bash -c` whose argv contained
+   `pod_bootstrap.sh`, which kept row101.sh's `pgrep -f` wait loop spinning.)
 3. Gate (a): judge head vs my base (same pod, same env; green = nothing fails and every check that passed at base passes).
 4. READY.md (draft `/tmp/rf-f3/READY.draft.md` on the laptop) when gate (a) is in; terminate all pods; remove the laptop base worktree.
 

@@ -34,9 +34,15 @@ created: 2026-09-24T17:27Z
 - 18:37Z prefetch of rows #57-#101 fixture blobs into `/workspace/research/store` (`/workspace/rfa1/prefetch.sh`, log `logs/prefetch.log`):
   the credential expires 20:38Z, gate (a) fetches row trees lazily, and it would reach the late rows after that. `fetch --to <tmp>`
   caches blobs + manifests only, so it never races the runs on `trees/<id>`.
-- 18:44Z head `f1a513a9` synced to `/workspace/head` (2842 files = base + 28 lint files), copy `/workspace/head-reg`:
+- 18:50Z prefetch done: 18/18 ok; no gate (a) run needs the credential after 20:38Z.
+- 18:54Z head `39c5ee7a` synced fresh to `/workspace/head` (2842 files = base + 28 lint files), copy `/workspace/head-reg`
+  (runs at `f1a513a9` were stopped after 7 min for the docstring commit; their logs are in `logs/aborted/`):
   - gate (b) head xdist: `OMP_NUM_THREADS=3 gate_b.sh /workspace/head b_head_x12 -n 12 --dist loadfile` (same flags as base).
   - gate (a) head: `nice gate_a.sh /workspace/head-reg a_head`. The integrator's split harness took ~1 h (#11, #39) + ~2 h (the rest).
+  - pre-check on the pod at `39c5ee7a`: `pytest integrations/vllm/tests/lint` 41 pass, 30 s on the loaded pod; with and without
+    conftest, no torch / vllm / triton / numpy / verity_vllm module in `sys.modules` afterwards.
+- Pod hygiene: never `pkill -f <pattern>` over ssh (the pattern matches the remote shell and kills the session); kill by pid.
+- Laptop: the brief forbids pytest on the laptop; the early local lint runs (uvx pytest, AST only, <1 GB) were a slip; lints run on the pod now.
 
 ## Lints: committed f1a513a9, pushed (`integrations/vllm/tests/lint/`, 41 tests, ~9 s, green locally)
 - `_ratchet.py` (keys, allowlist compare, messages), `_imports.py` (import graph, INTERIM_LAYER from §5.2), `test_p01..p12_*.py`,

@@ -32,10 +32,13 @@ created: 2026-09-24T17:27Z
 - 17:46Z gate (b) base, serial (the brief's exact command): `gate_b.sh /workspace/base-serial b_base_serial` -> `b_base_serial.{log,xml}`. 18:01Z at 53%.
 - Summarizer: local `/tmp/rfa1/summarize.py RUN.xml` (overall/per-file counts, failures, grouped skips).
 
-## Lints (worktree, uncommitted, in progress)
-- `integrations/vllm/tests/lint/`: `_ratchet.py` (keys, allowlist compare, messages), `_imports.py` (import graph, INTERIM_LAYER from §5.2),
-  `test_p09_layering.py`, `test_p02_value_checks.py`, `test_p05_properties.py` written; P1, P3, P4, P6, P7, P8, P10, P11, P12 next.
-  Allowlists go in `tests/lint/allowlists/<name>.json` (generate with `_ratchet.dump_allowlist`, not committed as a tool).
+## Lints: committed f1a513a9, pushed (`integrations/vllm/tests/lint/`, 41 tests, ~9 s, green locally)
+- `_ratchet.py` (keys, allowlist compare, messages), `_imports.py` (import graph, INTERIM_LAYER from §5.2), `test_p01..p12_*.py`,
+  `test_ratchet.py`, `allowlists/<name>.json`. One-off generator (not in repo): `/tmp/rfa1/gen_allowlists.py`; review dump
+  `/tmp/rfa1/review.py` -> `/tmp/rfa1/review.txt`.
+- Allowlist entries (occurrences): p01 37 (38), p02 1, p03 39 (40), p04 65 (101), p05 2, p06 231 (344), p07 388 (457), p08 328 (436),
+  p09 214 (220), p10 77, p11 751 (1002), p12 17.
+- Local run: `cd integrations/vllm && PYTHONPATH=$PWD:$PWD/../../packages/verity/src uvx --python 3.12 --with pytest==9.1.1 --with numpy==2.3.5 pytest tests/lint -q`
 
 ## Next
 1. Write `baseline.md` as soon as the xdist gate (b) xml exists (deadline ~18:27Z); fill gate (a) and serial when they finish.

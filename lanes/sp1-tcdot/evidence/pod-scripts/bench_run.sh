@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # One contract bench-result of the modified-SP1 (TC_DOT chip) variant on the A100: backends/sp1/tcdot/bench.py
 # (= benchmarks/dot_product/vector_run.py --backend sp1-bare) over vu-k1536 [0, 4096) of bench-instances/v1.
-# Env: TAG (run dir name), REPS (3), VPR (vus per read, 64), THRESH (vu_software_threshold, 8), NOTE, EXTRA (more args).
+# Env: TAG (run dir name), REPS (3), VPR (vus per read, 64), THRESH (vu_software_threshold, 8), NOTE, EXTRA (more args),
+# SERVER_HOME (home-bf16 = fork fe35cc50's server; home-shard = d14b4c62's), ELEMENT_THRESHOLD (honoured from d14b4c62).
 set -euo pipefail
 W=/workspace/sp1-tcdot
 S=$W/src
 export PATH=$HOME/.cargo/bin:/usr/local/cuda/bin:$PATH
-# sp1-sdk's cuda client runs $HOME/.sp1/bin/sp1-gpu-server: the server built from the fork (tree 6d55145f)
-export HOME=$W/home-bf16
+# sp1-sdk's cuda client runs $HOME/.sp1/bin/sp1-gpu-server: the server built from the fork
+export HOME=$W/${SERVER_HOME:-home-bf16}
 export CUDA_VISIBLE_DEVICES=0
 export RESEARCH_SOURCE_COMMIT=$(python3 -c "import json;d=json.load(open('$S/.research-source.json'));print(d['commit']+('+dirty' if d['dirty'] else ''))")
 export VERITY_TCDOT_VU_SOFTWARE_THRESHOLD=${THRESH:-8}

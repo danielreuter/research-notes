@@ -79,3 +79,6 @@
 07:02Z a100 hd-a-v1p8-r2 result=art:cb64d2fe0c7954f33116b9e7f6d1f199ab21836a65657a028449f83d7e24624e t.total=0.8899 | a100 col2-depth local rel=bf16-ampere l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash
 07:02Z a100 hd-a-v1p4-r2 result=art:cca3ca7f2284a9a4a8f19c5c54eb711d80ab6dda5588f3ba902c98c4497f13b0 t.total=0.9153 | a100 col2-depth local rel=bf16-ampere l=16384 p=4 reps=5 dump=0 live= args=--auth included-hash
 07:02Z a100 hd-a-v1p4-r3 result=art:833a0e684a1d58db2de144d181f139ced7845cc4aca6494fad08ca4b3853e074 t.total=0.9285 | a100 col2-depth local rel=bf16-ampere l=16384 p=4 reps=5 dump=0 live= args=--auth included-hash
+07:04Z a100 hd-a-v1p8-r3 result=art:7e1af8916ddbe26502fe597efb7355ccd2b18a6065b08c53fe2c82de18ba20c4 t.total=0.9382 | a100 col2-depth local rel=bf16-ampere l=16384 p=8 --auth included-hash
+07:04Z h100 hd-b16-v1p8-r3 result=art:53d4f51d57372fbed7fe6a486ce41c8401c903f8ef1e69ccd41cd826e415703d t.total=0.5445 | h100 col2-depth local rel=bf16-hopper l=16384 p=8 --auth included-hash
+07:05Z a100 L-ab-v3p8-r1 result=art:a0af06b4c2aa1145dc4222d68e399d29cbbfb6e9e89ae6dbe08f093816110cf0 tree=art:e4e5fff88dbfbe2eb126d4e37b72b3d0599d2f869d6c99756e7a0ff8a516d8e9 t.total=0.2788 t.total_live=0.2946 | a100 LIVE same-DC r1 bare bf16-ampere-v3 l16384 p8, rep1 dump

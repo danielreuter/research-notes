@@ -1,0 +1,9 @@
+{
+ "branch": "lane/verifier-cost",
+ "brief": "/Users/danielreuter/.research/notes/campaigns/afternoon/BRIEF.md",
+ "budget": "$10",
+ "final": "01:10Z",
+ "keep_pod": "holds the only copy of 5.0 GB live sessions until preserved",
+ "pod": "vy-live2b-verifier-ro",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/verifier-cost"
+}

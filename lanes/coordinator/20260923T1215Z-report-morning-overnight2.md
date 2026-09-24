@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 22741456 (19:04Z) [open] 19:08Z launched verifier-cost (agent bc-e9e42c6a, pod vy-live2b-verifier-ro keep until sessions preserved; registered in machines.toml) + arith (bc-da525da2, own GPU pod, guard=90), base main 22741456, $10 each, FINAL 01:10Z. vyv-rf-* = vllm coordinator's, not ours.
 CHECKPOINT f210f65 (19:00Z) [open] project coordinator took over
 CHECKPOINT none (17:58Z) [open] 18:02Z merge-postwave FINAL -> main 22741456 (ff) pushed; cli moved; steward.toml source -> cli; render from main = 15:40Z except T1 A-GKR SHA-512 (campaigns/afternoon/render/1800Z-*). vy-live2b-verifier-ro NOT terminated: holds 5.0 GB of live verifier sessions (/workspace/live/sessions) = D3 raw data; hand to the verifier-cost lane (preserve to R2, extract verify cpu, reuse as live verifier). drilldown.py follow-ups for that lane: A-GKR rows stale (SHA-256/2^-127.7/'Table 1 says BLAKE3'), D2 picks unverified fastest (0a66c35e). Pre-existing: test_label_keys_are_the_store_vocabulary (included-hash-shared missing from vocab).
 CHECKPOINT f08314ae (17:25Z) [open] 17:33Z pod-runs merged (6d7728d5) + origin vllm-cleanup-2 (72884c8a) -> main f08314ae pushed; cli moved; watcher restarted. guard = 90 on vy-merge-postwave (opt-in; never on control/verifier pods). merge-postwave told to merge main f08314ae. Disk 16 GiB after deleting stale Rust targets (~/projects/sp1, openvm, openvm-tc-bench; Sep 7). User considering Cursor Projects for lanes: switch after merge lands; needs notes remote, secrets, store access.

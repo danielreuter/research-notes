@@ -77,3 +77,5 @@ Read this fully before starting. Your prompt gives your lane id and scope.
 f1 and f56 both touch `tp/worker.py` and `tp/partial_source.py`, in different functions. a23 and f1 both touch `harness/commit_delta.py`: a23 deletes `cmt_ref_*`, and f1 changes the value check.
 
 **Merge order:** a1, then a23, then the f-lanes as they become ready. When the coordinator says `main` moved, rebase onto it. A rebase that deletes stale lint-allowlist entries is expected.
+
+**22:13Z: `main` moved to `1d9c3198` (a1 merged).** Rebase and fix the lint allowlists per `20260924T2213Z-main-moved-rebase.md` in this directory.

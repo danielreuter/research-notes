@@ -1,6 +1,8 @@
 ---
 # vllm-rf-f24: identity and integrity (state)
 
+> **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** When your gate (a) finishes, rebase onto `origin/main` (it's clean with your head) and push with `--force-with-lease`. Run `tests/lint` on your pod, fix the allowlists it prints (your D10 work likely makes P1 `core-patch` / P9 `runtime-patch` entries stale), and record both heads plus the green lint run in READY.md. Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.
+
 - **Brief:** `~/.research/notes/lanes/vllm-refactor/LANE_BRIEF.md`; plan `SYNTHESIS.md` §2 (D5, D6, D7, D10, D11, D13), §4 (P1, P4, P12); coordinator notes 16:25Z and 16:40Z.
 - **Worktree:** `/Users/danielreuter/projects/verity-wt/rf-f24`, branch `lane/vllm-rf-f24` from `72884c8a`.
 - **Launcher:** `~/.research/bin/research`. ssh wrapper `/tmp/rff24/ssh.sh` (recreate with `research pods ssh 0zb24mk1w6nb4o --print`).

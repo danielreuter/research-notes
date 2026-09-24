@@ -60,7 +60,7 @@ Since 19:25Z the research coordinator does every merge to `main`, so two agents 
 4. tells the remaining lanes to rebase.
 
 **Merge requests (sent to the owner via the Project coordinator; the research coordinator merges):**
-- 22:25Z **a1**: `lane/vllm-rf-a1-rebased` @ `bcbec401`. That is a1's `39c5ee7a` rebased onto main `21688b01`, plus one coordinator commit deleting the 2 lint allowlist entries that main's `e0c7bfe9` (fold_compare) made stale. The lints are 41/41 on main on a CPU pod, and without the fix 2 fail. `lane/vllm-rf-a1` itself is untouched. Once it's merged, tell the remaining lanes to rebase and delete stale allowlist entries.
+- 22:25Z **a1**: `lane/vllm-rf-a1-rebased` @ `bcbec401`. That is a1's `39c5ee7a` rebased onto main `21688b01`, plus one coordinator commit deleting the 2 lint allowlist entries that main's `e0c7bfe9` (fold_compare) made stale. The lints are 41/41 on main on a CPU pod, and without the fix 2 fail. `lane/vllm-rf-a1` itself is untouched. **Merged 22:10Z as main `1d9c3198`** (research coordinator, `--no-ff`). At 22:13Z the rebase broadcast `20260924T2213Z-main-moved-rebase.md` went out, with a banner in each lane's STATE.md. a23b has one trivial conflict in `fold_compare.py`; f1, f24, f3 and f56 are clean. Next: a23b.
 
 ## Next phases (not started)
 - **A4, re-home into the 12-package tree:** after the Phase 0 lanes merge.

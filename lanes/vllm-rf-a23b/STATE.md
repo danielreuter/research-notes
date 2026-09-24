@@ -7,6 +7,8 @@ created: 2026-09-24T19:30Z
 ---
 # vllm-rf-a23b: dead code, data and paths (state)
 
+> **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** When your gate (a) finishes, rebase onto `origin/main`. Keep your side of the `check/fold_compare.py` conflict. Run `tests/lint` on your pod, delete the stale allowlist entries, add `"verity_vllm.config": "config"` to `INTERIM_LAYER`, push with `--force-with-lease`, and record both heads in READY.md. Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.
+
 > **a23b succeeds a23 from `c1cf11ef`** (a23's pushed head; a23 silent since 18:02Z). Coordinator: vLLM coordinator, Cursor agent bc-ba6cec03.
 > Branch `lane/vllm-rf-a23b`, worktree `/Users/danielreuter/projects/verity-wt/rf-a23b`, base for gates/diffs `72884c8a`.
 > Pod `vyv-rf-a23` = RunPod `qcky3qlmvh896c`; my trees/scripts/logs under `/workspace/a23b/`. ssh: `~/.research/bin/research pods ssh vyv-rf-a23 --print`.

@@ -74,19 +74,34 @@ created: 2026-09-24T17:36Z
   removal in commit_delta.py -- which would confound gate (b) vs the base list; the coordinator allowed either) -> `9bddf741`, pushed.
   Conflicts only in the location functions (+ the oracle docstring hunk, whose file a23b had moved to tests/acquire/): resolved to
   a23b's `importlib.resources` path with D15's no-env/pinned form. At merge after a23b the cherry-pick should drop out (same bytes).
+- 19:52Z targeted run (31 files touched by D3/D4/D14/D15, tree copy `/workspace/tgt` @ `9bddf741`): 1 failed, 557 passed, 48 skipped; the one
+  failure (`test_sampling_rows::test_nv_logf_and_nv_log1pf...`, NaN sign) is on the a1 baseline list. All new f3 tests pass.
+- 20:08Z gate (a) prefetch done: 12 rows x {records, programs} ok (row 101 records stalled on one R2 read -> killed, re-fetched by
+  `retry101.sh` with the same key before the delete); log ends `key present: no`, `/workspace/prefetch` empty.
+- 20:13Z gate (b) @ `9bddf741` (tree copy `/workspace/gb`, xdist, OMP_NUM_THREADS=3): 58 failed, 3550 passed, 296 skipped, 6 xfailed, 11 errors
+  (base: 54 F + 11 E). Outside the a1 list: (1) 3 x D14 callers the sweep missed -- `test_gen_llama::test_run_config_dry_run_resolves_the_profile_from_the_case`
+  [LLAMA32_1B, QWEN05] and `test_gen_ov_easy::test_run_config_dry_run_resolves_b7_and_forwards_the_engine_arg`: `--phase all` dry runs plan
+  replay_a/replay_chain without `--seed` -> refused (exit 2); (2) `test_fork_gc_freeze_opt_out_is_named_on_the_record`, which a1 lists as
+  order-dependent (fails serially / alone, passed under xdist at base; my new test files move the loadfile split). Skips: no reason outside the
+  a1 list (the 6 "HOLE-*"/hopper entries in the junit are the 6 xfails); a1's xdist-only skip "allocator did not reuse the pointer" passed -> 296 vs 297.
+- 20:17Z `4fb0eb2c` pushed: those two dry runs pass `--seed 7` (like test_run_config_dry_run). No other run_config caller hits the refusal:
+  `--worker` returns before it; `test_snapshot_cap` stubs Plan before it; ops scripts skip or pass --seed.
+- Found at 20:18Z (not f3's, base behaviour): gate (b) WRITES tracked files -- `tests/program/test_ref_prims.py` records conformance to
+  `<repo>/docs/data/ref-prims/` unless `REF_PRIMS_RECORD_DIR` is set (32 files rewritten in `/workspace/gb`: platform fields, and
+  `ref_vocab_digest` 82fd6a28 -> 63c73b5e, which is base drift since 0018fea0 -- f3 does not touch ref_prims.py or any function its
+  manifest hashes). A gate (b) re-run in a used tree tests against those rewritten records -> always run gates in a fresh tree.
 
-## Running (pod `vyv-rf-f3-veritor-campaign`, RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU / 64 GB, created 19:17Z)
-- Tree `/workspace/base` = `9bddf741` (research pods sync, rsync); bootstrap OK 19:46Z (`/workspace/bootstrap`, venv `/workspace/venv312`).
-- Early targeted run (31 files touched by D3/D4/D14/D15) in copy `/workspace/tgt`: `/workspace/rff3/targeted.sh` -> `/workspace/rff3/logs/targeted.{log,xml}`
-  (1 F seen at ~47%, run not finished at 19:51Z).
-- Gate (a) prefetch: own read-only key minted on laptop (1 h) -> `/root/r2ro.env`; `/workspace/rff3/prefetch.sh` (deletes the key on exit)
-  -> `/workspace/rff3/logs/prefetch.log`, 26 artifacts. `gate_a.sh` has the key line removed. Scripts: `/workspace/rff3/gate_{a,b}.sh` (a1's, logs -> /workspace/rff3/logs).
+## Running (pod `vyv-rf-f3-veritor-campaign`, RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU, created 19:17Z)
+- Trees: `/workspace/base` = `4fb0eb2c` (rsync 20:17Z; only bootstrap ran in it); copies `/workspace/{tgt,ga,gb}` = `9bddf741`.
+  Bootstrap `/workspace/bootstrap`, venv `/workspace/venv312`. Scripts `/workspace/rff3/gate_{a,b}.sh` (a1's), logs `/workspace/rff3/logs/`.
+- Gate (a) @ `9bddf741` in `/workspace/ga`, started 20:09Z, serial, no key on the pod -> `logs/gate_a.{log,xml,out}`. `4fb0eb2c` differs from
+  `9bddf741` only in two `tests/observe/` files gate (a) does not collect, so this run stands for the head.
+- Gate (b) final @ `4fb0eb2c` in `/workspace/base`, started 20:21Z, `-n 12 --dist loadfile`, OMP_NUM_THREADS=3 (a1's recipe) -> `logs/gate_b_final.*`.
 
 ## Next
-1. Read the targeted failure; fix if mine.
-2. Gates on `9bddf741` (or the fix): gate (b) xdist in a tree copy, gate (a) with no key after prefetch confirms `key present: no`.
-3. GPU pod (L40S): one Commit row re-run for D3, compare roots with regression record.
-4. READY.md in this dir when gates are in; terminate pods.
+1. Judge gate (b) final vs the a1 list (expect: base list + at most the order-dependent tests a1 names); gate (a) vs a1's gate (a) section.
+2. GPU pod (L40S): D3 Commit row re-run (canary.sh SmolLM2, roots vs `known_roots.json` / regression record).
+3. READY.md in this dir when gates are in; terminate pods.
 
 ## Open questions
 - D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.

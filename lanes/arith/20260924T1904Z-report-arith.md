@@ -8,6 +8,7 @@ final: 01:10Z hard; budget $10
 status: open
 ---
 
+CHECKPOINT none (20:23Z) [open] steps 2 (0baefa9d lincomb2 w+v one pass, 0.39->0.25ms) + 3 (f550fdc6 intt_rows) bit-exact; step1 reverify PASS x3 (art:20f128cf art:d6273533 art:118efdc0); 3-arm A/B s1/s2/s3 running (pod noisy: medians)
 CHECKPOINT none (19:57Z) [open] step1 quad_v4 9d1a7f15: 4090 v3x4 p8 A/B arith .0477->.0417, total .0968->.0875 (3v3); art:7775888d art:1523b35c art:021aeabb (trees preserved); reverify --by arith running; next: tests-graph glue + w/v fusion
 CHECKPOINT none (19:42Z) [open] step1 quad_v4+reduce kernel (lane/arith 9d1a7f15) bit-exact; micro quad_general 1.40->0.785ms, quad_p0 1.88->~1.25ms; base on pod: 4090 v3x4 p8 total .1014 arith .0481; A/B r20260924-194155-a3a0 running
 CHECKPOINT 99a3b82 (19:10Z) [open] started; pod vy-arith (4090 EU-RO-1, 5q4d3ealzkud5d, guard 90) up, syncing worktree; next: bootstrap, profile tests graph of fp8-ada-v3x4 p8 baseline
@@ -56,3 +57,23 @@ Inbox at startup: nothing new.
   Means: arithmetic 0.0477 -> 0.0417 (-13%), total 0.0968 -> 0.0875 (-10%). Run-files trees (proofs): art:dc7c1488,
   art:a06b309c, art:92f25bb9. All preserved (`data preserved` rc=0). Tip profile: kernel sum 0.2019 -> 0.1854 s per pass.
 - Reverify (--by arith, producer check) running: r20260924-195635-207d.
+- Reverify (--by arith, a producer check; Table 2 wants a non-producer): all three PASS -- custody 40/40, pinned
+  fp8-ada-v3x4, 13/13 proofs, 2^-128.33 -- verdicts art:20f128cf (art:7775888d), art:d6273533 (art:1523b35c),
+  art:118efdc0 (art:021aeabb), preserved.
+
+### 20:05Z step 2: w and v in one pass (lane/arith 0baefa9d)
+- `lincomb2_v4`: the ZK linear tests w = r.coefs and v = alpha.coefs[:m] read coefs (7126 x 4352 int32, 124 MB) once instead
+  of twice; the coefficient matrices (int64, r a row-strided view of the challenge block) are reduced and Montgomery-scaled
+  while staged in shared memory (drops the C32 conversion kernels), running sums canonical 32-bit (179 registers, no spill).
+  The ZK prover no longer computes beta (discarded; it only sends v).
+- Bit-exact vs two lincomb calls (tests_fused_test.py, row-strided C1 with negative / >= p entries; kbench on the real system,
+  every thread/split setting). Micro: 0.392 -> 0.251 ms per sub-batch.
+- A/B vs step 1 (3 rounds): s1 0.1000 / 0.1464 (outlier) / 0.0855, tip 0.0858 / 0.0877 / 0.1431 (outlier); arithmetic
+  s1 0.0482 / 0.0753 / 0.0417, tip 0.0396 / 0.0382 / 0.0648. ~1 run in 3 on this pod is an outlier (host-side, not cgroup
+  throttling: nr_throttled 2 over the session), so steps 2+3 get a 4-round, 3-arm A/B judged on medians.
+  Profile: GPU union busy per pass 0.0890 -> 0.0827 s.
+
+### 20:15Z step 3: quotient INTTs as one kernel (lane/arith f550fdc6)
+- `intt_rows`: the h and q quotients' INTT_n (n = 16384) plus the n^-1 g^-i scale, one block per row in shared memory
+  (was a bit-reversal gather, 14 torch butterfly stages and two scale kernels, ~45 us per call uncontended). Bit-exact vs
+  field.intt * post for n in {2, 8, 1024, 16384} (tests_fused_test PASS on the pod).

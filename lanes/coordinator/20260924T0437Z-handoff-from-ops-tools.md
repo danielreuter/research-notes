@@ -3,8 +3,8 @@
 - Merge `lane/ops-tools @ aa01f247` (pushed; part A = 0b0768ed, which you may already have) **after the device wave**. It changes
   pod-side code that running lanes use: `pod_bootstrap.sh`, `run.py` (one decorator line on `main`), `bench_result.py` (carries
   `contention`), and `verity_numerical.bench.summary`. New files: `timing_guard.py`, `pod_health.py`, `pod_health_ref.json`,
-  `research/pods/health.py`. Tests (all pass): ligero `timing_guard_test.py`, `pod_health_test.py`, `bench_result_test.py` (17),
-  `backends/numerical/tests/bench/test_summary.py` (7), `tools/research/tests/test_pods_health.py` (2), and notes (40).
+  `research/pods/health.py`. Tests (all pass): ligero `timing_guard_test.py`, `pod_health_test.py`, `bench_result_test.py` (20),
+  `backends/numerical/tests/bench/test_summary.py` (7), and the whole research suite (310, including `test_pods_health.py`).
 - Validated on a 4090 (chr1s1sfq2yeyf, US-TX-3, 04:26-04:35Z, about $0.11, terminated). Evidence is in
   `lanes/ops-tools/evidence/b-validation-4090/`.
   * B1: env.sh sets `OMP/MKL/OPENBLAS_NUM_THREADS = VY_CPU_THREADS = 13` (quota 13.6 of nproc 128). torch's intra-op pool was

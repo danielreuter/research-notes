@@ -1,0 +1,71 @@
+
+=== [02:57:28] machine
+NVIDIA GeForce RTX 5090, GPU-bcd00c9b-1f29-888b-2ff2-5436b61b2066, 32607 MiB, 580.159.04, 12.0, 575.00 W, 3090 MHz
+32
+               total        used        free      shared  buff/cache   available
+Mem:             186          23          55           0         106         160
+overlay         100G  239M  100G   1% /
+model name	: AMD Ryzen 9 9950X 16-Core Processor
+6.26 5.78 5.88 8/1785 216
+RUNPOD_DC_ID=EU-RO-1
+RUNPOD_GPU_COUNT=1
+RUNPOD_POD_ID=3g2fo4hiyakqsw
+source: /workspace/src
+{
+  "branch": "lane/wave-5090",
+  "commit": "24f252b1490f1cf8a5a7f239feb5f042f9c76205",
+  "dirty": false,
+  "dirty_digest": null,
+  "files": 2894,
+  "from": "Daniels-MacBook-Pro.local:/Users/danielreuter/projects/verity-main-wt/wave-5090",
+  "schema": "research/source-stamp/v1",
+  "synced_utc": "2026-09-24T02:50:32Z",
+  "to": "vy-wave-5090-ro:/workspace/src",
+  "tree": "57f8ed1fbd0d0087678fc4ba3150085b11797a17"
+}
+
+=== [02:57:28] rsync (the next research pods sync ships only what changed)
+debconf: delaying package configuration, since apt-utils is not installed
+
+=== [02:57:33] rustup stable + ligero-verify (background; joined at the end)
+
+=== [02:57:33] uv + python 3.12 (/workspace/venv312)
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source /workspace/venv312/bin/activate
+Python 3.12.14
+
+=== [02:57:34] torch 2.8.0+cu128 (compute capability 12.0), numpy, cupy-cuda12x, blake3, pytest 
+ + triton==3.4.0
+ + typing-extensions==4.16.0
+ + pytest==9.1.1
+ + pytest-timeout==2.4.0
+torch 2.8.0+cu128 cuda 12.8 | NVIDIA GeForce RTX 5090 (12, 0) 31.4 GiB
+torch matmul, cupy, nvrtc: ok
+
+=== [02:57:56] import smoke (the shipped tree)
+imports ok; GPU Merkle: True blake3 (GPU, backends/shared/hash_gpu)
+
+=== [02:57:57] instance caches: fp4-nvf4 at n = 4096
+unknown --relation 'fp4-nvf4'; known: ['bf16-ampere', 'bf16-ampere-v2', 'bf16-ampere-v2x4', 'bf16-ampere-v3', 'bf16-ampere-v3x4', 'bf16-ampere-x4', 'bf16-hopper', 'bf16-hopper-v2', 'bf16-hopper-v2x4', 'bf16-hopper-v3', 'bf16-hopper-v3x4', 'bf16-hopper-x4', 'fp8-ada', 'fp8-ada-v2', 'fp8-ada-v2x4', 'fp8-ada-v3', 'fp8-ada-v3x4', 'fp8-ada-x4', 'fp8-hopper', 'fp8-hopper-v2', 'fp8-hopper-v2x4', 'fp8-hopper-v3', 'fp8-hopper-v3x4', 'fp8-hopper-x4']
+FAILED: instance caches
+
+=== [02:57:58] rust build (join)
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 4 warnings
+    Finished `release` profile [optimized + debuginfo] target(s) in 8.25s
+89dc20f7782837d4e5db91852f69a75034e562bb47d37bccb7a0894d12c947d7  /workspace/bin/ligero-verify
+
+=== [02:57:58] versions
+blake3                   1.0.9
+cupy-cuda12x             14.2.0
+numpy                    2.5.3
+pytest                   9.1.1
+pytest-timeout           2.4.0
+torch                    2.8.0+cu128
+triton                   3.4.0
+rustc 1.98.1 (48a229cea 2026-09-01)
+overlay         100G   15G   86G  15% /
+next shells: source /workspace/env.sh
+BOOTSTRAP_FAILED

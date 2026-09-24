@@ -129,6 +129,12 @@ v6.4.0 source (`f66b4bff5`).
 - sp1-sdk's cuda client compares `sp1-gpu-server --version` with the *linked* `sp1_primitives::SP1_CRATE_VERSION`. On a
   mismatch it stops every server and downloads the release binary over `$HOME/.sp1/bin/sp1-gpu-server`, so a patched
   primitives crate must keep its version. Check the server's sha256 after each run (`sec128/run.sh` does).
+- A source-built sp1-gpu-server 6.6.0 needs ~1.03-1.6 s to listen on the A100 pod. sp1-cuda 6.4.0's client tries the
+  socket only 10 x 100 ms, so bare-prove panics "Could not connect to `sp1-gpu-server` socket". `sec128/build.sh` raises the
+  retry count in the copied cargo home (host-side only).
+- Measured cost of 175 core queries (A100 BF16, art:e8c7c331 vs stock art:7233a6a3): t.total 21.05 s vs 18.52 s (+14%);
+  proof 45.8 MB vs 33.5 MB (+37%); verify 2.03 s vs 1.40 s. Security stays -95.5 union-bounded (22 shards), so the result
+  appears only in D2.
 
 ## Emitting results
 - Modified SP1 variants use `benchmarks/dot_product/vector_run.py --backend sp1-bare --variant FILE`, with SP1 prover

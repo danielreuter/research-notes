@@ -181,6 +181,13 @@ created: 2026-09-24T17:36Z
 - `/workspace/rff3/row101.sh` (started 22:07Z, waits for BOOTSTRAP-OK): `row_pod.sh <#101> LLAMA32_1B unsloth/Llama-3.2-1B 9535bd9b…
   build,match,commit` PAIRS=1, VERITY_(LEAF_)LAYOUT unset, head then base -> `logs/r101_{head,base}.log`, rows
   `/workspace/cp/sweep-{head,base}/<row>/`, summary vs the record in `logs/row101.out`.
+- Record checked in the CPU pod store (`art:a4ea1a18…` commit/verdict.json): run_roots `['7adcef49…1dec5']`, commit_pass true,
+  `native_collect_v2b --pairs 1`, made 09-23 from tree `89af272a` (ancestor of base, 1232 commits back; module path still
+  `verity_capture.bench.commit_delta`), vLLM d9105ea80, torch 2.13.0+cu129. Both trees on g3 clean (head 4fb0eb2c, base 72884c8a).
+- 22:15:46Z BOOTSTRAP-OK (FA2-TAP-OK arch 8.9 hdims 64,96,128,256; readiness all true). Driver here **580.178.04** (g2: 595.91.07).
+  row101.sh waited past it: its `pgrep -f pod_bootstrap.sh` matched my launching ssh's leftover `bash -c` (cmdline contains the
+  name); killed that shell (pid 228) -> **head row started 22:16:43Z**.
+- 22:17Z gate (a) CPU pod: both at 46/156, identical strings, 0 F/E.
 
 ## (older) CPU pod notes
 - Trees: `/workspace/base` = `4fb0eb2c` (rsync 20:17Z; only bootstrap ran in it); copies `/workspace/{tgt,ga,gb}` = `9bddf741`.

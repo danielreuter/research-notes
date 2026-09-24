@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (23:53Z) [open] verified 5090: agkr-nvf4 art:5adf62eb (verdict art:4791cc89, A-GKR cell 3.3e7x) + arith B-Ligero x4 (art:0b229064 art:c6a8328b art:f538c335 art:20b47418; also_valid behind d5c9e1f3). 35 accepted, 0 rejected; idle-polling
 CHECKPOINT ab9573fd (23:45Z) [open] 2 new: agkr-nvf4 5090 art:5adf62eb (2b25df7f, supersedes ad8f92b9) + arith 5090 fp4-nvf4 B-Ligero x4 (art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a) verifying in r20260924-234455-6524
 CHECKPOINT ab9573fd (23:30Z) [open] verified agkr-nvf4 5090 art:ad8f92b9 (verdict art:37ed86f2) and arith A100 x4 (art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93; all PASS+BOUND). Table 2: 5090 A-GKR 4.2e7x, A100 B-Ligero 5.9e6x. 30 accepted, 0 rejected
 CHECKPOINT ab9573fd (23:15Z) [open] 2 new requests: agkr-nvf4 5090 art:ad8f92b9 verifying (r20260924-231454-fa00; stmt regen from ab57df0a, verifier 3c769c6d build); arith A100 x4 (art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1) reverify next
@@ -54,6 +55,8 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 7 | `20260924T2226Z-handoff-from-arith.md` (92dab0ad, H100) | h8 x6: art:e9ae289c art:c6271278 art:8182f9ae art:efd871f6 art:7a8443b4 art:709ab20c; h16 x3: art:415d6cde art:b23719dd art:16feee34; h16L x4: art:e3362256 art:064a3a75 art:593f8249 art:debd7e1d | H100 FP8 / H100 BF16, B-Ligero | accepted x13 | art:7d68f788 art:5d8c8aa1 art:750d53cf art:eb44f474 art:b1a0be1d art:aafc3c75; art:bfc56de7 art:a5a7e8c8 art:5d94cfae; art:a7ed0d9b art:830956b0 art:65f9b4d7 art:abe34544 |
 | 8 | `20260924T2305Z-handoff-from-agkr-nvf4.md` (ab57df0a) | art:ad8f92b9 | RTX 5090 NVFP4, A-GKR (supersedes art:fe57e68b) | accepted (same verifier merge as #4) | art:37ed86f2 |
 | 9 | `20260924T2306Z-handoff-from-arith.md` (92dab0ad, A100) | a16-tip r1-r4: art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1 | A100 BF16, B-Ligero | accepted x4 | art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93 |
+| 10 | `20260924T2335Z-handoff-from-arith.md` (92dab0ad, 5090) | f4-tip r1-r4: art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a | RTX 5090 NVFP4, B-Ligero (also_valid; cell stays art:d5c9e1f3) | accepted x4 | art:0b229064 art:c6a8328b art:f538c335 art:20b47418 |
+| 11 | `20260924T2350Z-handoff-from-agkr-nvf4.md` (2b25df7f) | art:5adf62eb | RTX 5090 NVFP4, A-GKR (supersedes #4, #8) | accepted (same verifier merge as #4) | art:4791cc89 |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
 - reverify run r20260924-215206-fe12: all 7 PASS (custody 40/40, pinned fp8-ada-v3x4, 13/13 proofs, 2^-128.33, ligero-verify
@@ -143,12 +146,23 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   so are stmtbyte and swapstmt ("column challenge mismatch").
 - Verdict custody: all 4, plus art:37ed86f2, `data preserved` rc 0.
 
+### 10-11. RTX 5090: arith B-Ligero x4 and agkr-nvf4 art:5adf62eb (one run, r20260924-234455-6524)
+- agkr-nvf4 (`10-agkr-nvf4-verify.sh PREV=2b25df7f`): the verifier sources are identical (diff -r), and the f271e422 build
+  was used. 3/3 proofs accepted (sha256 091fecad): 700 slots, 1689 msgs, 9467080 bytes, 11666 rows, 47782943 elements;
+  0.63-0.79 s each. The circuit (485 columns, depth 1, one table LK 89119), epilogue, chain and manifest are byte-identical
+  to the export. public.bin shows 0 rows mismatched against main's frozen set. Negatives, all rejected: mutate 148/148; s/t/f
+  (LogUp LK sum mismatch); public line reordered or removed. The FP8 regression accepts.
+- arith: all 4 PASS (fp4-nvf4: custody 40/40, 13/13, 2^-128.11) and all 4 BOUND (0/4096 y, 0/4096 operand VUs). Negatives
+  (05) on art:09209e8a rep1: the base is accepted, proofbyte is rejected (merkle path 120), and stmtbyte and swapstmt are
+  rejected (column challenge mismatch).
+- Custody: all 5 verdicts `data preserved` rc 0.
+
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |
 |---|---|---|---|
 | RTX 4090 FP8, A-GKR | — | 3.0e7× (1.13 s) | art:1b4fd4a1 |
 | RTX 4090 FP8, B-Ligero | 2.4e6× (art:fb4934af) | 2.2e6× (0.0840 s) | art:bb75ba4f (arith step 5) |
-| RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s), then 4.2e7× (0.314 s) at 23:31Z | art:fe57e68b, then art:ad8f92b9 |
+| RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s); 4.2e7× (0.314 s) at 23:31Z; 3.3e7× (0.245 s) at 23:52Z | art:fe57e68b; art:ad8f92b9; art:5adf62eb |
 | A100 BF16, B-Ligero | 2.2e7× (art:794365d3) | 5.9e6× | art:5bcbf3fb (arith a16-tip-r1) |
 
 ## Log

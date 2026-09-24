@@ -45,6 +45,16 @@ By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pur
   06:26Z rerun `replay_partition and r57` on tree /workspace/rv1/tip2 (tip + decision) -> hrec/rp57, logs/h_rp57.out
   then: rebaseline write --record hrec/rp57 (pod, tip2) -> copy expected/<gemma row>.json back -> commit + push
 
+- full suite readout (srun.sh, -n 8): staging 815b837c 3697 pass / 318 skip / 31 F / 11 E; tip 6813fe06 (05:49-06:30Z)
+  3461 / 313 / 36 / 11. Per test (jcmp.py): 245 v1 tests deleted, 14 new pass, 0 fixed, 5 pass->fail:
+  * test_tp2_sampled_replay_fold TP-08d x2: REAL (v1-vocabulary args-less fixture) -> deleted in a2e16920 (file 9/9 on pod)
+  * test_lifted_tiny::test_specified_list_is_closed: order-dependent registry leak (a co-scheduled test's
+    Lifted[GatherBf16x64_v1]_v2{ORD=3} is 'specified'); passes alone at tip; xdist schedule varies -> pre-existing hazard
+  * fa2_commit test_roundtrip::test_transient_storage_is_released: passes alone at tip (load)
+  * test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way: 15 s timeout; fails alone on STAGING too
+- a2e16920 pushed (TP-08d tests deleted)
+
+CHECKPOINT rv-suite MET 06:34Z tip-vs-staging suite read out (0 regressions after a2e16920; 3 flaky named); harness T0+T1 running since 05:52/06:01Z
 CHECKPOINT rv-tests MET 05:56Z converted test files @6813fe06 on cpu3: 212 pass / 173 skip / 2 F (both staging-known), 0 regressions per test vs staging junit
 
 ## Done

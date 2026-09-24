@@ -489,3 +489,248 @@ Counts for `tp/`: CORE-DUP 0, INTERNAL-DUP 6, VERSION-RESIDUE 4, HARDCODING 4, S
 - `root_policy.py:335-337` parses the request id and position back out of the prompt root's string name `prompt[<request>][<pos>]`. *low*
 
 Counts for `input_provenance/`: CORE-DUP 2, INTERNAL-DUP 5, VERSION-RESIDUE 2, HARDCODING 3, SCRIPT/ENV/PATH 2, LAYERING 3, GOD-MODULE 1, DEAD 1, NAMING 3, DOCS 3, FALLBACKS 4, OTHER-WEIRD 2.
+
+---
+
+## 5. Slice-specific maps
+
+### 5.1 Capture mechanics
+
+Capture hooks eleven layers of torch, Triton and vLLM from about 15 install points spread over `observe/`, `acquire/` and `tp/`. Each has its own install and restore; no single object owns them. Everything assumes one vLLM build (`d9105ea80`) and one kernel stack. The observer and the fold are model-generic; about 13% of `observe/`'s Python is per family, and the per-role JSON outweighs all of it.
+
+**Hook points**
+
+| layer | mechanism | where | installed by |
+|---|---|---|---|
+| torch dispatcher | `Observer(TorchDispatchMode)` records every dispatcher call; custom ops (attention, KV-cache update) are re-entered through their registered implementations; `EmptyMode` is the overhead control | `observe/observer.py:185, 62-82, 219-226, 276` | `observe/vllm_adapter.py:1416-1419` (`Capture.mode` is none, empty or record, `:1095`) |
+| module hooks (observer) | `ModuleNamer` forward hooks name the module around each event | `observe/observer.py:286` | `Capture` |
+| model runner | `runner.execute_model`, `runner.sample` and `model.compute_logits` replaced on live objects; `runner.sample` has three independent wrappers | `observe/vllm_adapter.py:1391-1392, 1412`; `acquire/native_host.py:1244-1276`; `acquire/install.py:159-173` | `Capture`; the committer; `OccurrenceSink` |
+| Triton launches | `JITFunction.run` replaced process-wide; arguments bound through Triton 3.7.1's private `device_caches` | `observe/triton_adapter.py:30-50, 100` | observer install |
+| module hooks (acquisition) | plan-derived forward hooks and pre-hooks; on the C++ collector path, `module.forward` replaced on instances | `acquire/install.py:90` (`OccurrenceSink`); `acquire/native_collect.py:818-823` | `observe/m1_capture.py:193-196, 234` when `$ACQUIRE_MANIFEST` is set; the committer |
+| vLLM sampler kernels | three top-p Triton kernels replaced in vLLM's module namespace | `acquire/native_collect.py:612-614, 644-667` | the committer |
+| FlashAttention | `torch.ops._vllm_fa2_C.varlen_fwd` and the FA3 `fwd` replaced by a patched FlashAttention build that writes hidden planes into a tap buffer | `acquire/hidden_source.py:149-153, 306-310`; built from `acquire/fa2_tap_src/` (sm_80) and `acquire/fa3_tap_src/` (sm_90a) by `ops/pod_fa2_tap.sh`, `ops/pod_fa3_tap.sh` | the committer's tap sources (`acquire/native_collect.py:213, 419`) |
+| fused MoE | three MoE launch sites wrapped (router, up, activation, down, sum) | `acquire/moe_source.py:101-109` | the committer |
+| torch.compile and Inductor | custom op `verity::collect_c` and its Inductor lowering; class-level patches of `VllmBackend.__call__` and `GPUModelRunner.load_model` that are never undone; a patched Inductor debug printer | `acquire/compiled_source.py:102, 140, 231-265, 389-390`; `acquire/compiled_kernel_source.py:41-48` | compiled rows (`ops/compiled_commit.sh`) |
+| TP collectives | `worker_extension_cls` mixes `TP2CaptureWorkerExtension` into every rank's Worker; vLLM's module-level `tensor_model_parallel_all_reduce` / `all_gather` names are replaced twice per rank (recorder, committer); mid-module call sites are found by regex over model-class source | `tp/worker.py:74, 546-560`; `tp/partial_source.py:242-257`; `tp/collective_sites.py:34-49` | the TP drivers, through `collective_rpc("tp2_*")` |
+| storage lifetime | `weakref` callbacks on storages give stable allocation ids and free events | `observe/storage.py:10-19` | observer install |
+
+**Environment variables that switch capture behaviour**
+- Engine pins, written rather than read (`observe/engine_profile.py:81-86`), applied at import by `observe/m1_capture.py:44-46` and `tp/capture.py:34-36`: `VLLM_BATCH_INVARIANT=1`, `VLLM_USE_V2_MODEL_RUNNER=1`, `VLLM_ENABLE_V1_MULTIPROCESSING=0`, `VLLM_USE_FLASHINFER_SAMPLER=0`, `HF_HOME=/workspace/hf`, `HF_HUB_OFFLINE=1`.
+- Compile caches, written at run time: `TORCHINDUCTOR_CACHE_DIR`, `VLLM_DISABLE_COMPILE_CACHE=1` (`observe/vllm_adapter.py:291-309`, `acquire/compiled_source.py:225`).
+- Acquisition on or off: `ACQUIRE_MANIFEST` (`acquire/stage.py:22`, read at `observe/m1_capture.py:196`).
+- What gets committed (the root or the staging): `VERITY_LAYOUT` (leaf layout), `VERITY_SKIP` (ablation), `VERITY_RETAIN`, `VERITY_RETAIN_EXCLUDE`, `VERITY_WINDOW_MB`, `VERITY_WINDOW_SLOTS`, `VERITY_STAGING_BOUNDED`, `VERITY_PINNED_EXACT`, `VERITY_FA2_COMPACT`, `VERITY_FA2_ZERO`, `VERITY_FA2_TAP_CAP_MB`, `VERITY_FA3_ZERO`, `VERITY_WEIGHTS_HASH`, and the fault switches `VERITY_FAULT`, `VERITY_CONSUMER_DELAY_MS` (`acquire/native_collect.py:217-223, 423, 714-787`; `acquire/native_host.py:87-89, 133, 909`; `acquire/leafhash.py:25-26`).
+- Read back into records as facts: `RUNPOD_POD_ID` enters the hashed profile manifest (`observe/engine_profile.py:230`); `VLLM_BATCH_INVARIANT` is reported as the linear backend (`:321`); `NCCL_*` (`:349-350`). `tp/commit.py:449-450` records `NCCL_*`, `VLLM_*` and `CUBLAS*` and requires `NCCL_P2P_DISABLE=1`.
+
+**Assumed vLLM, kernel stack and model families**
+- One vLLM build. Commit `d9105ea80` is in the profile module names, in every derived profile id (`observe/profiles/generic.py:333-335`), in every `family_facts` provenance (`file:line @ d9105ea80`), and in the CLI defaults beside wheel sha `7aa52ac7…` (`observe/m1_capture.py:137-138`, `tp/capture.py:87-88`). Code for two MoE module layouts ("vLLM <= 0.11" and "vLLM 0.28 on the pods") sits beside it (`input_provenance/weights_of_record.py:73-77`, `tp/worker.py:81-82`, `acquire/compiled_source.py:245`). The slice never says which release `d9105ea80` is.
+- vLLM internals it walks: the V1 engine-core chain `llm_engine.engine_core[.engine_core]` (`observe/engine_profile.py:192-211`, `observe/arrivals.py:45`), the V2 model runner (pinned by env), the V1 scheduler's `num_computed_tokens` (`observe/arrivals.py`), and the `GroupCoordinator` (impersonated at export by `tp/export_ops.py:170`).
+- Kernel stack: vllm-flash-attn `506341a1` (`observe/patterns.py:1140, 1195`; `acquire/hidden_source.py:1-4`), torch 2.13.0, Triton 3.7.1, RTX 4090 sm_89 (`observe/profiles/vllm_d9105ea80_sm89_eager.py:273-276`); sm_90a for the FA3 tap and block-FP8 CUTLASS (`acquire/fa3_tap_src/build_fa3_ext.py:37`, `observe/patterns_fp8.py`); sm_80 for the FA2 tap (`acquire/fa2_tap_src/build_ext.py:35`).
+- Model families. `observe/profiles/family_facts.py:43-176` has nine `model_type`s: llama, mistral, qwen2, qwen3, phi3, gemma2, gpt_neox, olmoe, qwen3_moe (`input_provenance/analytic.py:39-50` has seven). `profiles/hf_configs/` holds 16 role configs. `profiles/expected/` pins 18 profiles: 15 roles at world 1 and three at world 2 (`B1`, `LLAMA32_1B`, `QWEN3_30B_A3B`). `QWEN15_AWQ` has a config but no profile; it is the structural-refusal case (`tests/observe/test_profiles_generic.py:113-118, 223`). The older `observe/engine_profile.py:39-60 CASES` still names phi-2 (`B5`) and Qwen1.5-MoE-A2.7B (`M0`, `M1`, `M2`), families `family_facts` does not cover. The patterns cover three architecture classes (dense RMSNorm with Gemma-2 and softcap extras, dense LayerNorm, fused MoE) plus block-FP8 on Hopper.
+
+**Generic vs model-specific share of `observe/` (15,578 Python lines)**
+
+| part | modules | lines | model-specific? |
+|---|---|---:|---|
+| runtime observer | `observer`, `triton_adapter`, `storage`, `events`, `log` | 1,100 | generic (pinned to Triton 3.7.1 internals) |
+| log to Program (the fold) | `tree`, `views`, `memory`, `resolver`, `fold`, `contract`, `resolve_log` | 3,292 | generic; TP-2 naming in the log schema |
+| op patterns | `patterns`, `patterns_fp8`, `patterns_prefix` | 2,231 | pinned to vLLM's ops and kernel constants; a few model assumptions (`patterns.py:802`) |
+| engine adapter and capture CLI | `vllm_adapter`, `engine_profile`, `engine_driver`, `arrivals`, `m1_capture` | 2,980 | vLLM-specific; `CASES` and `ACCEPTED*` are per-model tables |
+| config-derived profiles | `profiles/__init__`, `generic`, `dense_generic`, `canonical` | 967 | generic over `family_facts` |
+| per-family profile code | `family_facts`, the two `vllm_d9105ea80_*` profiles, `gen_llama`, `gen_ln`, `gen_dense2`, `gen_dense_gemma2`, `gen_dense_softcap`, `gen_ov_moe`, `gen_ov_easy_family` | 2,086 | per family (13%) |
+| sampler recognizer | `gen_ov_sampling_patterns` | 249 | per sampler |
+| leftovers | `capture_v1` (2,102), `prefix_cache` (554), `__init__` (17) | 2,673 | a commit-side format and a test-only study |
+
+The per-role data (18 expected profiles, 18,669 lines, and 2 quarantine records, 10,266 lines) is about twice the size of all per-family code.
+
+### 5.2 Collectives and TP
+
+**What `tp/` does.** One pipeline behind three drivers:
+1. The drivers (`tp/capture.py`, `tp/match.py`, `tp/commit.py`) build a vLLM engine with `worker_extension_cls` set to `TP2CaptureWorkerExtension` (`tp/worker.py:74`) and call its 21 `tp2_*` methods in every rank through `collective_rpc`.
+2. In each rank, the observer writes a per-rank log whose header carries `notes.tp2` (rank, world) (`tp/worker.py:223 tp2_install`). A collective recorder replaces vLLM's module-level collective names (`:471 tp2_coll_install`, `:546-560`). The committer is built through `harness.commit_delta.make_committer` (`:623 tp2_commit_make`, `:639`) together with `TPPartialSource`, which commits each rank's collective inputs as `part_rank<r>` / `shard_rank<r>` leaves (`tp/partial_source.py:242-257`, `acquire/native_host.py:372 TP_PARTIAL_RE`).
+3. The fold reads `notes.tp2` (`observe/fold.py:443`). `tp/collective_pattern.py` turns `vllm.all_reduce` / `vllm.all_gather` into one `AllReduce*` / `AllGather*` instance with a `resolver.Collective` operand. The other ranks' contributions become `peers_<request>` Program parameters (`observe/fold.py:862`), and `tp/embedding_shard.py` handles the vocab-parallel embedding. `observe/profiles/generic.py` shards the config per rank (`derived_<ROLE>_tpW`).
+4. On the Program side, `tp/export_ops.py` registers `verity_tp::*` custom ops and a `TPStub` for `harness/derive_step.py` and `program/frontend/rules/vllm_bindings.py`. The Definitions live in `program/registry/b1_tp2.py:98-177`.
+5. The checks: `tp/match.py` (received == Definition(partials), plus token parity), `tp/xrank_collectives.py` (replay of collective outputs from committed partials), `tp/rank_match.py` (structural cross-rank checks), and `tp/fold_match.py` (per-rank fold, compare and GM-01 as subprocesses, then `rank_match`). `tp/commit.py` combines the per-rank roots with `tp_run_root` (`:32-44`).
+
+**World-2-specific vs general.** Most code is world-parametric; "tp2" is the lane name.
+
+| piece | world 2 only | general over world |
+|---|---|---|
+| Definitions | `AllReduce2_v1{N}`, `AllGather2_v1{N}`, kept so recorded digests do not change | `AllReduce_v2{WORLD,N}`, `AllGather_v1{WORLD,N}` (`program/registry/b1_tp2.py:120-177`), exact-model-tested at WORLD=4 (`:137`) |
+| export ops | binary ops and the `world == 2` branches (`tp/export_ops.py:42-80, 141, 154`) | list ops |
+| fold field names | `s<step>_k<k>` | `…_r<peer>` (`observe/fold.py:862`) |
+| coverage declaration | `tp/partial_source.py:32 COVERS_FAMILIES` names `AllReduce2_v1` and is declared at any world (`:558`) | none: the declaration misnames the family at world > 2 |
+| CLI | `--build-rank0/1`, `--derived-rank0/1`, `--gprog-rank0/1` (`tp/match.py:298-307`, `tp/fold_match.py:151-156`) | repeated `--build-rank` |
+| defaults | `tp/capture.py:69 --tp default=2` | |
+| pinned profiles | only `_tp2` fixtures exist (`derived_B1_tp2`, `derived_LLAMA32_1B_tp2`, `derived_QWEN3_30B_A3B_tp2`) | `observe/profiles/generic.py` builds `_tpW` for any W |
+| names | `tp2_*` RPCs, `TP2CaptureWorkerExtension`, `notes.tp2`, `[tp2]` log prefixes: the lane name, not the degree | |
+| rank loop, roots, replay, weights | | `tp/commit.py` pairs protocol; `tp_run_root` (u32 world); `tp/xrank_collectives.py` (families from `cross_rank_families(world)`, `tp/worker.py:1182`); TP weight shards in `input_provenance/weights_of_record.py` |
+
+**How collectives and sharding are represented**
+- At run time: as dispatcher events of vLLM's custom ops (`vllm.all_reduce`, `vllm.all_gather`) in each rank's log; as recorder rows keyed by `(communicator, step, k)` (`tp/collective_link.py`); as committed per-rank partials and received outputs (`tp/partial_source.py`).
+- In the fold: one `AllReduce*` / `AllGather*` instance per collective with a `resolver.Collective` operand (`observe/resolver.py`). The other ranks' contributions are Program parameters (`peers_<request>`), not computed values, so each rank's Program is checked on its own and the ranks are tied together only by the cross-rank checks.
+- In the Program: a `parts` operand over ranks with `WORLD` and `N` parameters (`program/registry/b1_tp2.py`).
+- Sharding: the config per rank (`observe/profiles/generic.py`), weight shards as composition rules (`input_provenance/weights_of_record.py`), the vocab-parallel embedding (`EmbeddingShard_v1`), per-rank parameter hashes (`tp/worker.py:308-349`). Each restates the split independently; there is no shared shard-layout description.
+- In commitments: one root per rank per pair, combined by `tp_run_root = SHA-256(tag || u32 world || (u32 rank || root)…)` (`tp/commit.py:32-44`). Binding leaf identities default to `rank=0` (`commit/binding.py:74, 94`).
+
+**Comparison with core.** Core has no collective, tensor-parallel or shard concept: `rg` for all_reduce, all_gather, reduce_scatter, world_size, shard and tensor parallel over `packages/verity/src/verity` finds nothing. Its only `rank` is the ordinal of an opened position inside one commitment (`packages/.../verification/wire.py:22`, `PositionRef = u32 commitment u64 rank u64 position …`). `CommitmentRef.owner` admits -2, -1 or a replay-unit index (`packages/.../verification/statement.py:131-144`), so a statement cannot name "rank r's commitment". `verity.ir.layout` is gate layout, not device sharding. Core has nothing to reuse for TP today; `tp_run_root` is the only multi-owner root anywhere.
+
+**What a general mechanism would look like**
+1. One collective record from one hook. Capture every collective at the communicator boundary (vLLM's `GroupCoordinator`, or the `vllm.all_reduce` / `vllm.all_gather` custom ops the observer already sees), instead of patching module-level names in two places and scanning source with a regex. Record kind, group, world, rank order, dtype, shape, call site and the reduction algorithm (NCCL algorithm and protocol decide the bits).
+2. One Definition family per collective kind, parametric in WORLD and in the declared reduction order. The world-2 ids become aliases that keep old digests valid.
+3. One implementation of collective semantics (there are four today: registry, export ops, `tp/match.py`, `tp/xrank_collectives.py`), used by export, match and replay.
+4. Rank-indexed commitments in core: a group root over per-rank roots, and a `CommitmentRef` that can name a rank's commitment. This replaces the integration-only `tp_run_root`, and cross-rank checks then consume opened values.
+5. One shard-layout description (tensor, axis, rank to slice) from which config sharding, weight shards, embedding shards and the fold's `peers` parameters are all derived.
+
+### 5.3 Acquisition
+
+**How `acquire/` decides what to capture**
+1. Inputs, structure only (`acquire/plan.py:1-10`). The first is the required-value manifest written by `query/` (`query.cli build` / `build-global`, run by `ops/row_pod.sh`): one identity per required Value with `op_path`, `output_member`, `family`, `promoted`, `consumers`. The second is the runtime correspondence (`correspondence/reader_for_acquire.AcquireCorrespondence`, `plan.py:35`). It is read from the Build's `runtime-correspondence/v1` record, else from the manifest's v1 annotations, over the live module tree (`correspondence/runtime_tree`).
+2. Plan (`acquire/plan.py`). Each Value's `family` picks a route (`ROUTE_OF_FAMILY`, `:49-53`: module output or input, hidden tap, MoE tap, TP tap, runner return, runner state, launch proxy, registered input), and the route yields legal sites of nine kinds (`SITE_KINDS`, `:40`). The policy takes the only site, or prefers the producer's output; it uses a consumer pre-hook for promoted interior Calls and fails closed with `UNSUPPORTED` when there is no site (`:23-26, 42-45`). By-name lifetime and analytic tables are consulted only for residuals, and they are read back from the committer classes (`:371-377`, with the silent empty fallback listed under FALLBACKS). The body is digested as `acquisition-plan/v1`.
+3. Stage and install. `acquire/stage.py` builds the live runtime tree at the GPU stage and writes `runtime_tree.json` and `acquisition_plan.json`; `observe/m1_capture.py:193-196` calls it when `$ACQUIRE_MANIFEST` is set, and `harness/commit_delta.py:1547-1548` calls it for Commit. `acquire/install.py` installs the hook kinds (`HOOK_KINDS`, `plan.py:41`) into an `OccurrenceSink`, or rewrites a committer's module list (`apply_plan_to_committer`, which writes the committer's private `_modules`). The CPU gate (`acquire/gate.py`, `ops/pod_gate.sh`) builds the same plan off-pod from a meta-device tree and compares plan digests.
+4. Record. The committers (`acquire/native_host.py`, `acquire/native_collect.py`) commit what they acquire into chunk-leaf trees with openings and a coverage declaration. TP rank committers and compiled rows still pick modules from the hand tables (`native_host.py:64-76`), not from the plan (INTERNAL-DUP under `acquire/`).
+5. Population. Which leaves must exist and which are sampled is decided outside `acquire/`: `commit/binding.py:274 expected_population`, `:432 population_digest`, `commit/padding_steps.py:656 padded_population`, `check/sampled_replay.py:1322 population(…, rank=0)`, `:1630 query_population`, `check/commit_verdict.py:223 _query_population_scope`, and the TP gate `tp/commit.py:204 query_population_gate`. `acquire/committer_api.py:76-103` only draws the challenge positions; the word "population" appears once in `acquire/`.
+
+**Relation to `query/` and `correspondence/`.** `acquire/` never imports `query/`. It reads the manifest as JSON by path (`acquire/stage.py:49`, `acquire/gate.py:99`) or through `$ACQUIRE_MANIFEST` (`stage.py:22`), and restates the manifest's `family` vocabulary as `plan.py:49 ROUTE_OF_FAMILY` beside `query/manifest/format.py:37 FAMILIES`; no test ties the two lists together. It imports `correspondence.reader_for_acquire` (`plan.py:35`, `gate.py:25`) and `correspondence.runtime_tree` (`stage.py:17`, `install.py:24`), and `acquire/__init__.py` still lists both as acquire modules. FlashAttention geometry is shared by copy: `query/manifest/format.py:297 mat_total_words` and `acquire/hidden_source.py:61`.
+
+**Duplication with `observe/`**
+- Two runtime acquisition paths on one engine: the observer records every dispatcher call into a raw log for the fold, while `acquire/` hooks only the planned module boundaries and commits the values. `check/oracle_compare.py:5-7` relies on them being independent ("a separate process and a separate acquisition path"), which is by design. The duplicated machinery below is not.
+- `runner.sample` is wrapped three times: `observe/vllm_adapter.py:1391-1392`, `acquire/native_host.py:1244-1276`, `acquire/install.py:159-173`.
+- Device-to-host staging exists twice: `observe/vllm_adapter.py` `Capture` (pinned D2H copies, snapshots) and `acquire/native_host.py` (pinned-host and device arenas, D2H staging).
+- Two occurrence vocabularies that do not import each other: `observe/contract.py:39 RuntimeOccurrence` and `:62 ValueObservation` (step, invocation, rank, site, slot, view), and `acquire/install.py:90 OccurrenceSink` with the plan's site kinds.
+- The two packages form a cycle: `observe/m1_capture.py:193-194, 234` imports `acquire.install` and `acquire.stage`, and `acquire/compiled_source.py:69` imports `observe.engine_profile`.
+- Three MoE class lists (`tp/partial_source.py:35`, `tp/worker.py:78`, `acquire/moe_source.py:36`) beside the per-family facts in `observe/profiles/family_facts.py`.
+
+### 5.4 Run-time properties
+
+| property | asserted in the slice | compared or graded | overlap with `check/noninterference.py` |
+|---|---|---|---|
+| observer non-interference, one rank | control arm `observe/m1_capture.py:130, 213-217` (`--no-observer`: same workload, no observer, `tokens.json` only); `EmptyMode` arm (`observe/observer.py:276`, `observe/vllm_adapter.py:1095, 1416-1419`); "adds no synchronisation of its own" is prose, not a check (`observe/vllm_adapter.py:22-23`) | `check/noninterference.py:509-568, 634-664` compares the observer, hooks and bare arms with the clean control run (gate G1); `harness/run_config.py:190, 195` launches the capture and control arms | none: the slice supplies the arms and `check/` compares them |
+| observer non-interference, TP | control arm `tp/capture.py:73, 112-116`; the "TOKENS" check per request (`tp/match.py:17`); `tokens_equal_ref` per pair (`tp/commit.py:665`), fed into `commit_verdict` (`:730`) and the summary `pass` (`:1108, 1129`); `tp/analyze.py:391` | inside `tp/` | yes: token parity is re-implemented three times in `tp/` (and again in `harness/compiled_merge.py:349`), while `check/noninterference.py` drives only single-rank arms (`:743` runs `observe.m1_capture --no-observer`) |
+| committer non-interference | lifecycle contract: `uninstall()` leaves the engine pristine "(asserted by the harness)" (`acquire/committer_api.py:4, 12`); `reset` keeps it pristine (`acquire/native_host.py:1304`) | `harness/commit_delta.assert_pristine`, called in each rank at `tp/worker.py:893, 1471` | no (a different property) |
+| determinism | batch-invariant kernels and single-process V1 pinned by env at import (`observe/engine_profile.py:81-86`); a declared, reproducible arrival schedule (`observe/arrivals.py`); `NCCL_P2P_DISABLE=1` required and `NCCL_*` / `VLLM_*` / `CUBLAS*` recorded (`tp/commit.py:449-450`); deterministic challenge positions (`acquire/committer_api.py:76-103`); a host-independent weights root (schema v2, `input_provenance/weights_of_record.py`) | no run-twice comparison in the slice; the manifest attests `VLLM_BATCH_INVARIANT` from the environment, not from the engine (`observe/engine_profile.py:311-327`) | no |
+| golden and reference checks | root closure, gate G3 (`input_provenance/root_policy.py`); the cos/sin table, gate I9 (`analytic.check_cos_sin`), and the Gemma-2 normalizer; weights of record (`weights_of_record.check`, used at `harness/commit_delta.py:1837, 2692` and `tp/worker.py:729, 765`); 18 pinned profiles in `observe/profiles/expected/`, rewritten by `observe/profiles/canonical.py`'s CLI; the protected B1 golden-corpus profile (`observe/profiles/vllm_d9105ea80_sm89_eager_qwen15.py`) | G3 is graded in `check/gates.py` (`:34`); a missing `root_policy.json` makes G3 `skipped` (`:66-67`), and `harness/run_config.py:87` lists `root_policy` under `OPTIONAL_MODULES` | no |
+| value correctness | TP partial compare, sampled replay and value check (`tp/partial_source.py`, `tp/worker.py:1192, 1412-1432`) | they read the committer's retained buffers, not opened values (OTHER-WEIRD under `tp/`) | no |
+
+### 5.5 Consumers
+
+Counts are modules with a static import (in-function imports included). "Reference" counts in the tests column add string mentions such as `-m` invocations and AST scans.
+
+| subpackage | other subpackages | harness | ops scripts | tests |
+|---|---|---|---|---|
+| `observe/` | `check/` 12 modules (`noninterference`, `adversarial`, `census`, `fold_compare`, `operand_provenance`, `stoch_recompute`, `difftest`, `poc_description`, `poc_required_interface`, `protected`, `relations`, `replay`); `tp/` 8; `correspondence/resolve.py` and `resolve_decomp.py` (the `contract` module); `commit/merkle.py` (`capture_v1`); `query/vu_query.py`; `program/numerics/sampling_rng.py`; `acquire/compiled_source.py`; `input_provenance/root_policy.py` | `commit_delta`, `run_config` (which also runs `observe.m1_capture` as a subprocess for the capture and control arms, `:190, 195`), `synthetic`, `workload` | `stoch_negatives.sh` (runs `observe.m1_capture`), `cov_pod.sh` (reads `observe/profiles/quarantine/`); `row_pod.sh` reaches it through `harness.run_config`, and `tp_stage.sh` through the `tp` drivers | 57 import it, 64 reference it |
+| `acquire/` | `tp/worker.py`, `tp/commit.py`; `observe/m1_capture.py` (`install`, `stage`); `commit/reference_engine_adapter.py:26-27` and `check/value_check.py:22` (both import private `native_host` names) | `commit_delta` (builds every committer and source, 18 imports), `hot_commit`, `admission_bound` and `admission_planner` (FA geometry from `hidden_source`) | `pod_gate.sh` (`-m acquire.gate`); `pod_fa2_tap.sh`, `pod_fa3_tap.sh`, `pod_hidden_gpu.sh` (build from `acquire/*_src`); `compiled_commit.sh`; `row_pod.sh` reaches it through `harness.commit_delta` and `m1_capture` | 28 import, 32 reference |
+| `tp/` | `observe/profiles/generic.py:41-42` (fold patterns); `program/frontend/rules/vllm_bindings.py:1633` (`export_ops`); `observe/engine_profile.py:126` names the deleted `tp.poc_tp_worker` | `derive_step` (`export_ops`, `:377`) | `tp_stage.sh` runs `tp.capture`, `tp.match`, `tp.fold_match`, `tp.commit` | 21 import, 23 reference |
+| `input_provenance/` | `observe/` 6 (`fold`, `m1_capture`, `profiles/canonical`, `dense_generic`, `gen_ov_easy_family`, `generic`); `acquire/plan.py:343, 402`; `check/fold_compare.py:315, 408`, `check/adversarial.py:565`; `tp/worker.py:729, 765` | `commit_delta` (`weights_of_record`, `:1837, 2692`); `run_config` dynamically (`importlib` of `analytic` at `:377`, `-m root_policy` subprocess at `:230`) | `row_pod.sh:1026-1067` (`-m weights_of_record`, and `python -c` to read its `SCHEMA`); `compiled_commit.sh:57` (comment only) | 16 import, 18 reference |
+
+The consumer graph confirms the layering findings: `acquire/` is consumed mainly as a commitment engine (`harness/commit_delta`, `commit/`, `tp/`); `tp/` is consumed by Program construction (`derive_step`, `vllm_bindings`) and by the fold's profiles; and `input_provenance/analytic` is a foundation for `observe/` and `check/`.
+
+---
+
+## 6. Disposition table
+
+Three proposed homes do not exist yet:
+- `fold/`: raw log plus profile to Program (the compiler front end now inside `observe/`), with `fold/patterns/` for every pattern library.
+- `engine/`: vLLM engine construction, environment pins, introspection, code identity and request driving.
+- `tools/` (outside the package, beside the existing `integrations/vllm/tools/`): research CLIs and pod build tooling that nothing in the runtime imports.
+
+`commit/`, `check/`, `correspondence/`, `program/` and `harness/` are the existing subpackages.
+
+**`observe/`**
+
+| module | disposition | reason |
+|---|---|---|
+| `__init__.py` | keep | package marker and log schema id; rewrite the stale module list |
+| `observer.py` | keep | the actual observer (dispatch mode, custom-op re-entry, `EmptyMode`) |
+| `triton_adapter.py` | keep | the Triton launch hook; give it and the runner patches one install/uninstall owner |
+| `storage.py` | keep | stable allocation ids; generic |
+| `events.py` | keep | the log schema and its codec |
+| `log.py` | keep | torch-free log I/O |
+| `tree.py` | move to `fold/` | compiler front end, not observation |
+| `views.py` | move to `fold/` | the view algebra; `patterns.py` should use it instead of its own copies |
+| `memory.py` | move to `fold/` | the fold's memory model |
+| `resolver.py` | move to `fold/` | resolution kinds and `Profile` |
+| `patterns.py` | move to `fold/patterns/`, split per kernel family | 1,903 lines, 18 jobs; drop the duplicate view helpers and move vLLM constants into profile data |
+| `patterns_fp8.py` | move to `fold/patterns/` | FP8 recognizers |
+| `patterns_prefix.py` | move to `tools/` (with `prefix_cache.py`) | test-only prefix-linkage reading |
+| `fold.py` | move to `fold/`, split (layout, token wiring, TP peers, reports) | 1,318 lines, eight jobs |
+| `resolve_log.py` | move to `fold/` | the fold's CLI; drop the CWD output default and the `_jsonable` copy |
+| `contract.py` | move to `correspondence/` | only `correspondence/resolve.py` and `resolve_decomp.py` use it; removes the observe <-> correspondence cycle |
+| `arrivals.py` | merge into one request driver in `engine/` (with `vllm_adapter.run_requests`) | one of three request drivers |
+| `engine_driver.py` | merge into the same request driver (`external_id` only) | `run_requests` has no callers |
+| `engine_profile.py` | move to `engine/`; `CASES` to `program/registry/quarantine/` | engine setup, not observation; stop mutating the environment at import |
+| `vllm_adapter.py` | move to `engine/`, split (build, introspection and code identity, request driving, `Capture`) | 1,949 lines, eleven jobs |
+| `m1_capture.py` | keep (rename to say it is the capture CLI; absorb `tp/capture.py`) | the capture entry point, named after a milestone |
+| `capture_v1.py` | move to `commit/` | the v1 run-directory format read by `commit/merkle.py`; removes the observe <-> commit cycle |
+| `prefix_cache.py` | move to `tools/` | test-only study that writes into the package |
+| `profiles/__init__.py` | keep (replace the `sys.meta_path` finder with an explicit `profile_for(role, world)`) | profile lookup |
+| `profiles/generic.py` | keep | the config-derived profile builder is the generic path |
+| `profiles/vllm_d9105ea80_sm89_eager.py` | keep (rename after what it pins; move the Llama name map to `family_facts`) | kernel pins for one build |
+| `profiles/vllm_d9105ea80_sm89_eager_qwen15.py` | keep | the protected golden-corpus B1 profile |
+| `profiles/family_facts.py` | keep (merge `input_provenance/analytic.py` `FAMILY_RULES` into it) | the declared by-name home |
+| `profiles/dense_generic.py` | merge into `profiles/generic.py` | three live helpers; the rest is test-only shims and a legacy name |
+| `profiles/canonical.py` | keep | profile pinning; move fixture rewriting out of the package |
+| `profiles/gen_llama_patterns.py` | move to `fold/patterns/` | GEMM pattern |
+| `profiles/gen_dense2_patterns.py` | move to `fold/patterns/` | FA2 scope pattern |
+| `profiles/gen_dense_gemma2_patterns.py` | move to `fold/patterns/` | Gemma-2 patterns; share helpers with `gen_ln_patterns.py` |
+| `profiles/gen_dense_softcap_patterns.py` | merge into the FA2 scope patterns (with `gen_dense2_patterns.py`) | a second FA2 scope variant |
+| `profiles/gen_ln_patterns.py` | move to `fold/patterns/` | LayerNorm-family patterns |
+| `profiles/gen_ov_moe_patterns.py` | move to `fold/patterns/` | MoE patterns |
+| `profiles/gen_ov_sampling_patterns.py` | move to `fold/patterns/` | sampler recognizer |
+| `profiles/gen_ov_easy_family.py` | delete | a diagnostic read by one test; "nothing the gates consume" |
+
+**`acquire/`**
+
+| module | disposition | reason |
+|---|---|---|
+| `__init__.py` | keep | rewrite the docstring (it lists moved modules and omits the committer) |
+| `plan.py` | keep | the real acquisition logic; take residual tables as inputs instead of an empty fallback, and import `FAMILIES` from `query/manifest/format` |
+| `install.py` | keep | plan to hooks; share one `runner.sample` wrapper and stop writing the committer's private `_modules` |
+| `stage.py` | keep | the plan at stage entry; take the manifest as an argument instead of `$ACQUIRE_MANIFEST` |
+| `gate.py` | keep | CPU plan builder and comparer (rename away from "gate") |
+| `committer_api.py` | keep | the committer protocol; take `Opening` from core `verity.commitments.leaves.LeafOpening` and use one shared challenge derivation |
+| `native_host.py` | move to `commit/`, split (allocators, capacity, hooks and staging, trees and openings, declaration) | 2,587-line commitment engine; its tree and opening code should become core `verity.commitments.leaves` once core takes a pluggable leaf hash |
+| `native_collect.py` | move to `commit/` | the production committer; delete the eight unused arms and move fault injection into a test subclass |
+| `hidden_source.py` | keep | the FA2/FA3 tap source; take tile rules from `program/registry/targets.py` |
+| `fa2_plane_classes.py` | move to `commit/` (with the committer) | a hidden-plane coverage check used by `native_host.py`, `harness/commit_delta.py` and `tp/` |
+| `moe_source.py` | keep | the MoE acquisition source; share one MoE class list |
+| `compiled_source.py` | keep | compiled-mode acquisition; make `uninstall()` undo the class patches |
+| `compiled_kernel_source.py` | keep | Inductor-kernel acquisition for compiled rows |
+| `leafhash.py` | move to `commit/` | device-side weight hashing is commitment |
+| `native_jit.py` | keep | the one correct JIT keying rule; use it for all five native builds |
+| `hidden_gpu_src/hidden_gpu.py` | move to `commit/` | GPU chunk-tree driver; import it normally instead of editing `sys.path` |
+| `fa2_tap_src/apply_v8.py` | move to `tools/fa_tap/` | pod build tooling, not runtime code |
+| `fa2_tap_src/build_ext.py` | move to `tools/fa_tap/` | pod build tooling |
+| `fa3_tap_src/apply_fa3_tap.py` | move to `tools/fa_tap/` | pod build tooling |
+| `fa3_tap_src/build_fa3_ext.py` | move to `tools/fa_tap/` | pod build tooling |
+
+**`tp/`**
+
+| module | disposition | reason |
+|---|---|---|
+| `__init__.py` | keep | rewrite the stale docstring |
+| `worker.py` | keep (split; rename `TP2CaptureWorkerExtension` and the `tp2_*` RPCs) | the rank seam is needed; binding and sampled replay should call shared harness code instead of copying it |
+| `commit.py` | merge into `harness/commit_delta.py` as its world > 1 path | a twin of the single-rank Commit driver with an 852-line `main` |
+| `match.py` | merge into the Match driver (`harness/run_config.py`) as its world > 1 path | the TP twin of Match; token parity belongs with `check/noninterference.py` |
+| `fold_match.py` | merge into the Match driver | runs four stages as `python -m` subprocesses per rank |
+| `capture.py` | merge into `observe/m1_capture.py` | the TP twin of the capture CLI (same defaults, same `EXPORT.json` read, same env mutation) |
+| `partial_source.py` | move to `acquire/` | an acquisition source (the plan routes `tp_rank_partials` to it); share the collective hook with the recorder |
+| `collective_sites.py` | merge into one collective hook at the communicator | a source-regex site finder that covers only mid-module sites |
+| `rank_match.py` | move to `check/` | cross-rank structural checks |
+| `xrank_collectives.py` | move to `check/` | cross-rank replay check; take collective semantics from the registry |
+| `export_ops.py` | move to `program/frontend/` | Program construction used by `derive_step` and `vllm_bindings` |
+| `collective_pattern.py` | move to `fold/patterns/` | a fold pattern |
+| `embedding_shard.py` | move to `fold/patterns/` | a fold pattern |
+| `analyze.py` | move to `tools/` | research CLI, test-only |
+| `collective_link.py` | move to `tools/` | research CLI, test-only |
+| `collective_record.py` | move to `tools/` | the record schema of those research CLIs |
+
+**`input_provenance/`**
+
+| module | disposition | reason |
+|---|---|---|
+| `__init__.py` | keep | package marker |
+| `weights_of_record.py` | keep (split the torch-free derivation from the torch live side) | checkpoint authentication; 1,001 lines, ten jobs |
+| `analytic.py` | move to `program/registry/` (next to `b1.weights_type`), keeping only the two analytic tables here | `config_of` and `weights_type` are the model description that `observe/`, `check/` and `harness/` build on |
+| `root_policy.py` | move to `check/` | it is gate G3; removes the input_provenance -> observe and input_provenance -> check edges |
+
+Tally over the 78 modules: keep 28 (13 in `observe/`, 11 in `acquire/`, 2 in `tp/`, 2 in `input_provenance/`), move 40, merge 9, delete 1, replace with core 0. No whole module can be replaced by core today, because core lacks the pieces the slice needs (a pluggable leaf hash, a float policy for canonical JSON, rank-indexed commitments). Core replacements apply inside modules instead: `committer_api.Opening`, the tree and opening code in `native_host.py`, and the canonical-JSON helpers.

@@ -2,9 +2,10 @@
 lane: sp1-formats
 kind: report
 created: 2026-09-24T05:38Z
-status: open
+status: final
 ---
 
+CHECKPOINT none (16:01Z) [final] Closed by coordinator 16:02Z: work was complete at 07:46Z (transcript: four SP1-stock format cells registered at 3510cfcf, handed to verify-night, all sp1-formats pods terminated, tip 2b0cc33a); the lane ended its turn without writing FINAL.
 CHECKPOINT none (07:45Z) [open] tip 2b0cc33a (merged sp1-table 65aa6a12; tests 85 pass). Cells @3510cfcf stand: indexed layout gives nothing (all 4 sets 4096+4096 distinct rows). All sp1f pods terminated.
 CHECKPOINT 3510cfcf (07:43Z) [open] All 4 B=4096 cells re-proved + registered @3510cfcf (vk 0x00a42aa3): fp8-ada art:8d9df3a2 23.53s, fp4-nvf4 art:a8886e22 7.43s, fp8-hopper art:70e5bd29 20.74s, bf16-hopper art:76d13bb0 24.09s; handoffs verify-night + sp1-table 0742Z; all sp1f pods terminated.
 CHECKPOINT 3510cfcf (07:27Z) [open] hill-climb 3510cfcf (elf 48bb5913): cycles/VU fp8-ada 39.4k (was 50.7k), fp8-hopper 37.2k (45.9k), fp4-nvf4 17.9k (34.4k), bf16-hopper 41.5k; oracle 4096/4096 x4 + negatives pass. Re-running all 4 cells at 3510cfcf (5090, H100 up; 4090 next).

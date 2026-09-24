@@ -37,6 +37,29 @@ def core_levels(**over) -> dict:
     return lv
 
 
+def core_error_sum(num_queries: int, commit_grinding: int = 0, batch_grinding: int = 5, gkr_grinding: int = 12) -> dict:
+    """Exact per-round errors (soundcalc's own formulas, UDR) and their sum: the additive accounting A-GKR/B-Ligero use."""
+    cfg = copy.deepcopy(BASE)
+    cfg["circuits"] = [c for c in cfg["circuits"] if c["name"] == "core"]
+    core = cfg["circuits"][0]
+    core.update(num_queries=num_queries, grinding_batching_phase=batch_grinding)
+    core["lookups"][0]["grinding_bits_lookup"] = gkr_grinding
+    p = Path("/tmp/sp1-128-core.toml")
+    p.write_text(toml.dumps(cfg))
+    (c,) = zkVM.load_from_toml(p).get_circuits()
+    from soundcalc.proxgaps.unique_decoding import UniqueDecodingRegime
+    reg = UniqueDecodingRegime(c.field)
+    fri = c.pcs.dense_pcs
+    e = {"batching": fri._get_batching_error(reg), "query phase": fri._get_query_phase_error(reg),
+         "reduce to dense PCS": c.pcs._get_reduction_error(),
+         "zerocheck": (c.num_constraints + (c.AIR_max_degree + 2) * math.ceil(math.log2(core["trace_length"]))) / c.field.F,
+         "lookup": c.get_lookups()[0]._calculate_soundness_error() * 2 ** -gkr_grinding}
+    commit = sum(fri._get_commit_phase_error(i, reg) for i in range(fri.FRI_rounds_n)) * 2 ** -commit_grinding
+    e["commit rounds (sum)"] = commit
+    e["SUM"] = sum(e.values())
+    return {k: round(math.log2(v), 2) for k, v in e.items()}
+
+
 def show(name: str, lv: dict) -> None:
     commits = {k: v for k, v in lv.items() if k.startswith("commit round")}
     worst_commit = min(commits.items(), key=lambda kv: kv[1])
@@ -55,7 +78,9 @@ if __name__ == "__main__":
     # every grinding knob SP1 has as a constant, raised as far as the formulas need
     show("134 + GKR_GRINDING 40 + BATCH_GRINDING 29",
          core_levels(num_queries=sp1_queries(134), grinding_batching_phase=29, **{"lookup.grinding_bits_lookup": 40}))
-    # plus per-round commit-phase grinding (SP1 has no such knob: a protocol change)
-    show("... + commit-phase grinding 25 (not in SP1)",
-         core_levels(num_queries=sp1_queries(134), grinding_batching_phase=29, grinding_commit_phase=25,
-                     **{"lookup.grinding_bits_lookup": 40}))
+    # additive per-shard accounting (log2 of each term and of their sum)
+    print("log2 errors, stock 124 q:", core_error_sum(124))
+    print("log2 errors, 175 q (target 134):", core_error_sum(175))
+    print("log2 errors, 175 q + GKR 40 + BATCH 29:", core_error_sum(175, batch_grinding=29, gkr_grinding=40))
+    print("log2 errors, 175 q + GKR 40 + BATCH 29 + commit grinding 28 (not in SP1):",
+          core_error_sum(175, commit_grinding=28, batch_grinding=29, gkr_grinding=40))

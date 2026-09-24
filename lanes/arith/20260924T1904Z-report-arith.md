@@ -8,6 +8,7 @@ final: 01:10Z hard; budget $10
 status: open
 ---
 
+CHECKPOINT none (19:57Z) [open] step1 quad_v4 9d1a7f15: 4090 v3x4 p8 A/B arith .0477->.0417, total .0968->.0875 (3v3); art:7775888d art:1523b35c art:021aeabb (trees preserved); reverify --by arith running; next: tests-graph glue + w/v fusion
 CHECKPOINT none (19:42Z) [open] step1 quad_v4+reduce kernel (lane/arith 9d1a7f15) bit-exact; micro quad_general 1.40->0.785ms, quad_p0 1.88->~1.25ms; base on pod: 4090 v3x4 p8 total .1014 arith .0481; A/B r20260924-194155-a3a0 running
 CHECKPOINT 99a3b82 (19:10Z) [open] started; pod vy-arith (4090 EU-RO-1, 5q4d3ealzkud5d, guard 90) up, syncing worktree; next: bootstrap, profile tests graph of fp8-ada-v3x4 p8 baseline
 # arith: hill-climb the arithmetic phase of B-Ligero
@@ -28,3 +29,30 @@ Inbox at startup: nothing new.
   `guard = 90` in machines.toml.
 
 ## Log
+
+### 19:25Z baseline on vy-arith (main 22741456, fp8-ada-v3x4 l=4096, 4096 VUs, reps 5)
+- p8: t.total 0.1014, arithmetic 0.0481, enc+commit 0.0367; p4: 0.1081 / 0.0516. This pod has a 6.8-core cgroup quota (the
+  headline pod 13.6) and is noisy: one p8 rerun at 0.2154, and any CPU work on the pod during a run (parsing a trace) inflates
+  it 3x (s1-base-p8-r1 0.3505, void).
+- Profile (torch.profiler on pass 3, /workspace/arith/prof/base-v3x4-p8): the pass is GPU-bound (union busy ~ wall unprofiled).
+  Kernel time per pass: commit graph 119.5 ms (witness_program 54.7, blake3 26, rs_encode 18.3), tests graph 50.5 ms
+  (quad_u32 20.1, boolcomb_rows 6.9, lincomb 5.6, ~17 ms torch glue over ~130 small kernels), hints 15.8 ms.
+
+### 19:44Z step 1: general quadratic constraints in Montgomery arithmetic (lane/arith 9d1a7f15)
+- `tests_fused.quad_v4`: 4 columns per thread (uint4 row loads, one CSR table read per 4 columns), lazy 4-product sums with
+  one Montgomery reduction each, canonical 32-bit intermediates, rho staged in shared memory, constraint chunks as consecutive
+  blocks (QFAST: the chunks of one column slice meet in L2), 128 threads x 128 chunks (swept on the real system).
+  `reduce_partial`: the (S, D, cols) uint32 partial sums of every lincomb/quad call in one kernel (was int64 upcast+sum+mod).
+- Bit-exact: tests_fused_test.py quad_v4 vs the scalar kernel over thread/split/qfast settings with values near p, and
+  reduce_partial vs torch (PASS on the pod); kbench on the real system with random U: identical outputs.
+- Micro (4090, real system): quad_general 1.40 -> 0.785 ms, quad_p0 1.88 -> ~1.25 ms per sub-batch.
+- Interleaved A/B on vy-arith (base = main 22741456 tests_fused*.py in /workspace/src-base), p8 reps 5:
+
+| arm | t.total s | arithmetic s | art (bench-result) |
+|---|---|---|---|
+| base r2 / r3 / (19:19Z r1) | 0.0932 / 0.0957 / 0.1014 | 0.0481 / 0.0468 / 0.0481 | art:ed45196e / art:42d37c74 / - |
+| tip r1 / r2 / r3 | 0.0852 / 0.0895 / 0.0879 | 0.0392 / 0.0446 / 0.0412 | art:7775888d / art:1523b35c / art:021aeabb |
+
+  Means: arithmetic 0.0477 -> 0.0417 (-13%), total 0.0968 -> 0.0875 (-10%). Run-files trees (proofs): art:dc7c1488,
+  art:a06b309c, art:92f25bb9. All preserved (`data preserved` rc=0). Tip profile: kernel sum 0.2019 -> 0.1854 s per pass.
+- Reverify (--by arith, producer check) running: r20260924-195635-207d.

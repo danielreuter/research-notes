@@ -148,3 +148,16 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   (gates 0F, bare == main, hashed == fp4-decode-3 byte-identical, sys_id 8c6d260c). wave-5090-2 merges it (dry merge clean
   with 04141baf), rebuilds ver8's Rust, measures fp4-nvf4+poseidon2 live same-DC; budget $5. 5090 bare so far: local p4
   0.039-0.041 s, live 0.125-0.138 (2-vCPU verifier; ver8 7reoox6szli7e6 now serving). Merge lane/fp4-port into main post-wave.
+- 04:25Z CRASH DIAGNOSIS (the four "stalls" were not model/harness events): Cursor main.log shows the veritor window's
+  extension host (hosts BOTH coordinators + every subagent; runtime "connect", reason managed-local-unavailable)
+  exiting with code 5 at 21:20:28Z, 23:31:40Z, 02:58:15Z, plus a laptop reboot ~19:47Z. Each host lifetime served 23-30
+  conversations. 21:20Z: preceded by guardian kills of four 8.6 GB red-team-leaf-2 scripts on the laptop (swap 89%).
+  23:31Z and 02:58Z: swap flat 83%, disk 12-14 GB free, no kills -> the host's own JS heap (~4 GB). Disk 98% full;
+  Cursor state.vscdb 66.9 GB (+8 GB/day). RULES until lanes run remotely: <= 8 live conversations in this window across
+  both coordinators; restart Cursor between waves (fresh heap); no laptop job > 1 GB (contract §7). A Cursor restart
+  kills EVERY local lane of both coordinators -> the remote-worker restart test waits until the device wave is FINAL.
+- Daemons launched with nohup from an agent shell die when the tool call ends (watcher 03:42Z/03:48Z; the other
+  session's exthost_watch.sh 03:55Z). Now under launchd: `launchctl list | rg com.research.notes-watch` (restart:
+  `launchctl remove <label>` then `launchctl submit -l <label> -o LOG -e LOG -- CMD`); com.veritor.exthost-watch samples
+  host RSS to ~/.veritor/exthost_mem.log and notifies at 2.8/3.4 GB. Laptop budget guard ~/.runpod/budget-verity-campaign
+  died of ENOSPC on 09-22 08:15Z; the live backstop is vy-control budget_cap.py (cap $250, $45/h, 30 h/pod).

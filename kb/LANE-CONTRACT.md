@@ -60,6 +60,10 @@ yours, not another instance's.
 ## 7. Laptop
 It is shared and nearly full. No torch, no dump trees, no CPU job over about a minute. If under 4 GB free:
 `research data evict --target-free-gb 8`. `cargo clean` in your worktree before FINAL.
+Every agent on this laptop lives in ONE Cursor process; a laptop memory spike kills all of them at once (14:20 PT
+2026-09-23: four 8.6 GB red-team scripts). A guardian SIGKILLs any laptop Python over 1 GB under `projects/verity*`
+(`~/.veritor/mem_guardian.log`); a pipe like `| tail` then hides the kill, so a "silent" truncation is usually this.
+Red-team, fetch --all, reverify and tests over ~1 GB run on your pod.
 
 ## 8. Data
 - `research data put ... --preserve` right after each result (pushes to R2 and verifies). Cite `art:<8+ hex>` in the report at once.

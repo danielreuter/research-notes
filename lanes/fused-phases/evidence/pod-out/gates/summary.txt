@@ -1,0 +1,7 @@
+bf16-ampere-v3x4-frozen-256 rc=0 423s :: bf16-ampere-v3x4 gate: 2 honest sub-batches, 94 negatives, 0 failures 
+bf16-ampere-v3-frozen-64 rc=0 92s :: bf16-ampere-v3 gate: 1 honest sub-batches, 87 negatives, 0 failures 
+GATES_DONE
+fp8-ada-v3x4-341 rc=0 178s :: fp8-ada-v3x4 gate: 1 honest sub-batches, 99 negatives, 0 failures
+fp8-ada-v3-64 rc=0 48s :: fp8-ada-v3 gate: 1 honest sub-batches, 92 negatives, 0 failures
+fp8-ada-64 rc=0 9s :: fp8-ada gate: 1 honest sub-batches, 92 negatives, 0 failures
+GATES_FP8_DONE

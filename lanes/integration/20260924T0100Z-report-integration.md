@@ -1,3 +1,4 @@
+CHECKPOINT 0b0768ed (06:26Z) [final] closed by coordinator 06:30Z: lane/integration fully merged into main (0b0768ed ancestry), worktree clean, pod vy-integration gone; the lane died before writing FINAL
 CHECKPOINT 64c35b06 (01:11Z) [open] merges 1-9 done + red-team (order swap: shared-live before red-team, see report); LIGSTM06 collision tier0-trimmed vs shared-pair resolved by auth-string dispatch; 1cf9178 duplicate hashed pipeline dropped for shared-live's; now fp4-decode-3 conflicts (6 files)
 CHECKPOINT 1703590a (01:06Z) [open] merges 1-7 done (research-qol, qol [cli/store conflicts: kept both], leaf-iface, ajtai-design, tier0-bytes, open-fixes, steps-pin [serialize.py trimmed+row_words, relations.rs both test blocks]); tools/research 293 pass; pod 97zxgf1oii4cga up; next red-team-leaf-3
 # integration: merge 13 lanes onto main@22e10e0e + merge-val-3 on one 4090

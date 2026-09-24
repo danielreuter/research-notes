@@ -1,0 +1,19 @@
+05:55:55Z seed-pre-v3x4-p8 src=src-pre seed=20260924 rel=fp8-ada-v3x4 l=4096 p=8 reps=3 rc=0 wall=329s t.total=0.0986 buckets/total=1.0059 validation=passed failures=? contract_problems=0 phase_rep=n/a 
+seed-pre-v3x4-p8 vs seed-post-v3x4-p8: 13 / 13 proofs, IDENTICAL; t.total 0.0986 -> 0.1016
+06:01:57Z real-v3x4-p8 src=src seed=none rel=fp8-ada-v3x4 l=4096 p=8 reps=5 rc=0 wall=178s t.total=0.0963 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=2 
+06:04:55Z real-v3x4-p4 src=src seed=none rel=fp8-ada-v3x4 l=4096 p=4 reps=5 rc=0 wall=178s t.total=0.1050 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=2 
+06:08:16Z real-v3-p8 src=src seed=none rel=fp8-ada-v3 l=16384 p=8 reps=5 rc=0 wall=201s t.total=0.1398 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=4 
+06:11:13Z real-v3-p4 src=src seed=none rel=fp8-ada-v3 l=16384 p=4 reps=5 rc=0 wall=176s t.total=0.1291 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=1 
+06:12:12Z real-v1-p4 src=src seed=none rel=fp8-ada l=16384 p=4 reps=5 rc=0 wall=59s t.total=0.1799 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=1 
+CELLS_DONE v3x4-p8 v3x4-p4 v3-p8 v3-p4 v1-p4 / real
+06:15:17Z seed-pre-v3-p8 src=src-pre seed=20260924 rel=fp8-ada-v3 l=16384 p=8 reps=3 rc=0 wall=185s t.total=0.1328 buckets/total=1.0576 validation=passed failures=? contract_problems=1 buckets and joints sum to 0.140419 s, more than t.total 0.132774 s by over 1%: something is double-counted phase_rep=n/a 
+06:18:18Z seed-post-v3-p8 src=src seed=20260924 rel=fp8-ada-v3 l=16384 p=8 reps=3 rc=0 wall=181s t.total=0.1355 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=1 
+seed-pre-v3-p8 vs seed-post-v3-p8: 13 / 13 proofs, IDENTICAL; t.total 0.1328 -> 0.1355
+06:18:38Z seed-pre-v1-p4 src=src-pre seed=20260924 rel=fp8-ada l=16384 p=4 reps=3 rc=0 wall=20s t.total=0.1912 buckets/total=1.0193 validation=passed failures=? contract_problems=1 buckets and joints sum to 0.19494 s, more than t.total 0.191241 s by over 1%: something is double-counted phase_rep=n/a 
+06:18:57Z seed-post-v1-p4 src=src seed=20260924 rel=fp8-ada l=16384 p=4 reps=3 rc=0 wall=19s t.total=0.1920 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=1 
+seed-pre-v1-p4 vs seed-post-v1-p4: 13 / 13 proofs, IDENTICAL; t.total 0.1912 -> 0.1920
+CELLS_DONE v3-p8 v1-p4 / seed
+REST_DONE
+06:22:07Z seed-pre-v3x4-p4 src=src-pre seed=20260924 rel=fp8-ada-v3x4 l=4096 p=4 reps=3 rc=0 wall=187s t.total=0.1115 buckets/total=1.0009 validation=passed failures=? contract_problems=0 phase_rep=n/a 
+06:25:04Z seed-post-v3x4-p4 src=src seed=20260924 rel=fp8-ada-v3x4 l=4096 p=4 reps=3 rc=0 wall=177s t.total=0.1035 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=1 
+seed-pre-v3x4-p4 vs seed-post-v3x4-p4: 13 / 13 proofs, IDENTICAL; t.total 0.1115 -> 0.1035

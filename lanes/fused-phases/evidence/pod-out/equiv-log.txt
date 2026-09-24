@@ -1,0 +1,16 @@
+fp8-ada-v2: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/fused-phases/equiv/instance-equiv-fp8-ada-v2-4096.json
+fp8-ada-v3: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/fused-phases/equiv/instance-equiv-fp8-ada-v3-4096.json
+fp8-ada-v2x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/fused-phases/equiv/instance-equiv-fp8-ada-v2x4-4096.json
+fp8-ada-v3x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/fused-phases/equiv/instance-equiv-fp8-ada-v3x4-4096.json
+fp8-ada-x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/fused-phases/equiv/instance-equiv-fp8-ada-x4-4096.json
+bf16-hopper-v2: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/fused-phases/equiv/instance-equiv-bf16-hopper-v2-4096.json
+bf16-hopper-v3: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/fused-phases/equiv/instance-equiv-bf16-hopper-v3-4096.json
+bf16-hopper-v2x4: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/fused-phases/equiv/instance-equiv-bf16-hopper-v2x4-4096.json
+bf16-hopper-v3x4: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/fused-phases/equiv/instance-equiv-bf16-hopper-v3x4-4096.json
+bf16-hopper-x4: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/fused-phases/equiv/instance-equiv-bf16-hopper-x4-4096.json
+fp8-hopper-v2: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/fused-phases/equiv/instance-equiv-fp8-hopper-v2-4096.json
+fp8-hopper-v3: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/fused-phases/equiv/instance-equiv-fp8-hopper-v3-4096.json
+fp8-hopper-v2x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/fused-phases/equiv/instance-equiv-fp8-hopper-v2x4-4096.json
+fp8-hopper-v3x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/fused-phases/equiv/instance-equiv-fp8-hopper-v3x4-4096.json
+fp8-hopper-x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/fused-phases/equiv/instance-equiv-fp8-hopper-x4-4096.json
+EQUIV_DONE rc=0 38s

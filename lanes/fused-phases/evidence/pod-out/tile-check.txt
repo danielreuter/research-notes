@@ -1,0 +1,4 @@
+fp8-ada: tile64x64 ref == FROZEN ref (tier vu-k1536-fp8-ada, manifest e66ff0f21c8e); numbers equal to the frozen set: {'x': False, 'W': False, 'y': False}
+bf16-hopper: tile64x64 ref == FROZEN ref (tier vu-k1536-bf16-hopper, manifest 2a5babca16e8); numbers equal to the frozen set: {'x': False, 'W': False, 'y': False}
+fp8-hopper: tile64x64 ref == FROZEN ref (tier vu-k1536-fp8-hopper, manifest 0ff750026b8d); numbers equal to the frozen set: {'x': False, 'W': False, 'y': False}
+bf16-ampere: tile64x64 ref != frozen ref (tier tile64x64, manifest 41fbaef73b44); numbers equal to the frozen set: {'x': False, 'W': False, 'y': False}

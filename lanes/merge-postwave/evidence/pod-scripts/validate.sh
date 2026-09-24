@@ -12,17 +12,18 @@ export DEBIAN_FRONTEND=noninteractive
 export PATH="$HOME/.sp1/bin:$HOME/.cargo/bin:$HOME/.local/bin:/usr/local/go/bin:$PATH"
 SRC="$(pwd)"
 W=/workspace/merge-postwave
-mkdir -p "$W"
+L=${LOGS:-$W}   # per-run log dir (runs over two trees overlap); cargo targets stay shared under $W
+mkdir -p "$W" "$L"
 export CARGO_TARGET_DIR=$W/target
 declare -A RC
 stage() { echo; echo "=== [$(date -u +%H:%M:%S)] $*"; }
-run() {  # run NAME CMD...: log to $W/NAME.log, keep the tail
+run() {  # run NAME CMD...: log to $L/NAME.log, keep the tail
   local name=$1; shift
   stage "$name: $*"
-  "$@" > "$W/$name.log" 2>&1
+  "$@" > "$L/$name.log" 2>&1
   local rc=$?
-  grep -E "^(error|warning: unused)|FAILED|panicked|passed|failed|test result" "$W/$name.log" | cut -c1-240 | tail -25
-  tail -3 "$W/$name.log" | cut -c1-240
+  grep -E "^(error|warning: unused)|FAILED|panicked|passed|failed|test result" "$L/$name.log" | cut -c1-240 | tail -25
+  tail -3 "$L/$name.log" | cut -c1-240
   RC[$name]=$rc; echo "STAGE_RC[$name]=$rc"
 }
 
@@ -53,13 +54,14 @@ run check-ligero-verify   bash -c "cd backends/ligero-verify && cargo check --re
 run check-gkr             bash -c "cd backends/gkr && cargo check --release --locked"
 run check-gkr-babybear    bash -c "cd backends/gkr && cargo check --release --locked --features babybear"
 run check-gkr-verify      bash -c "cd backends/gkr/verifier && cargo check --release --locked"
+run check-sp1             bash -c "cd backends/sp1 && CARGO_TARGET_DIR=$W/target-sp1 cargo check --release --locked -p veritor-zk-host -p veritor-zk-common -p veritor-check-model --features veritor-zk-host/relation-bare"
 run test-gkr-verify       bash -c "cd backends/gkr/verifier && cargo test --release --locked"
 # needs the repo-root fixtures/ (bench-instances/v1 negatives, typed-obligation-v0), absent from sp1.sh's backends/sp1 archive
 run test-sp1-common       bash -c "cd backends/sp1 && CARGO_TARGET_DIR=$W/target-sp1 cargo test --release --locked -p veritor-zk-common --features relation-bare"
 
 stage "SUMMARY"
 fail=0
-for k in py-sync py-numerical py-research check-ligero-verify check-gkr check-gkr-babybear check-gkr-verify test-gkr-verify test-sp1-common; do
+for k in py-sync py-numerical py-research check-ligero-verify check-gkr check-gkr-babybear check-gkr-verify check-sp1 test-gkr-verify test-sp1-common; do
   echo "$k ${RC[$k]:-missing}"
   case $k in test-*) ;; *) [ "${RC[$k]:-1}" = 0 ] || fail=1 ;; esac
 done

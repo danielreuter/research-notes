@@ -1,3 +1,4 @@
+CHECKPOINT none (17:37Z) [open] coordinator handoff: merged main f08314ae -> tip 22741456 (clean; its sp1 diff is comment-only); render at 22741456 identical to 1540Z except A-GKR hash; syncing tip to pod src2 for py suites
 CHECKPOINT 04700cb5 (17:36Z) [open] sync done (tree f27d6187 = 04700cb5); SP1 check + relation-bare pass (r20260924-172629-f417), tcdot fork OK, check-tcdot running; validate r20260924-173554-eb0d (py+ligero+gkr)
 CHECKPOINT 04700cb5 (17:18Z) [open] SP1 checks running from git-archive of 04700cb5 (r20260924-171410-4069); setup r20260924-171002-37a0; sync ~141/252MB; next: validate.sh (py + ligero + gkr) after sync
 CHECKPOINT 04700cb5 (17:06Z) [open] --source launch killed by guardian disk floor (handoff to coordinator); pods sync running (~100KB/s), setup r20260924-170644-a490 on pod; validate after sync
@@ -39,4 +40,15 @@ Base: lane/post-wave @ 1b3c7be6. Worktree ~/projects/verity-main-wt/post-wave. I
   17:25Z). SP1 checks from `git archive 04700cb5 backends/sp1` (1.2 MB, --send): r20260924-171410-4069 -- check-sp1 and
   check-sp1-bare rc 101 because the succinct toolchain was still downloading (environmental: "override toolchain 'succinct'
   is not installed"), tcdot-fork OK (HEAD 6655716e, tree 4ca5a6ca == FORK_TREE_WIT); rerun of the two checks
-  r20260924-172629-f417.
+  r20260924-172629-f417: check-sp1 0, check-sp1-bare 0. check-tcdot 0 in r20260924-171410-4069 (8m52s, succinct toolchain
+  present by then). test-sp1-common there: 81 passed, 4 failed only because the archive lacked repo-root fixtures/
+  ("the recorded vector: NotFound"); rerun on the full tree in the tip validate.
+- Inbox 17:32Z `20260924T1732Z-handoff-from-coordinator-main-moved.md` (main moved to f08314ae; merge it; guard = 90; laptop
+  16 GiB free): acted on -- merged main f08314ae as 22741456 (clean, no conflicts; its backends/sp1 diff is comment-only
+  path renames in packed.rs / reduce.rs; nothing under backends/numerical, backends/gkr, backends/ligero-verify changed).
+- Render at 22741456 (laptop): same result -- tables differ from 1540Z only in Table 1 A-GKR "BLAKE3 Merkle" -> "SHA-512
+  Merkle"; drilldowns byte-identical.
+- Tip tree shipped to the pod as /workspace/src2 (pod-side copy of /workspace/src + `research pods sync --dest
+  /workspace/src2`, 38 MB diff; .research-source.json commit 22741456 tree d1e72489, dirty false). validate r20260924-173554-eb0d
+  ran the older tree 04700cb5 (/workspace/src); the tip validate is r20260924-173844-26c8 (py suites, ligero-verify, gkr,
+  gkr babybear, gkr-verify, sp1 host+common+check-model with relation-bare, gkr-verify tests, sp1-common tests).

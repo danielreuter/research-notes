@@ -5,6 +5,7 @@ created: 2026-09-24T06:22Z
 status: open
 ---
 
+CHECKPOINT 1b3c7be6 (09:19Z) [open] 09:19Z labelled art:7233a6a3 (SP1 k7 warm, 5/5 + neg; verdict art:72eb0459) and art:a68f2446 (tcdot hill-climb 3, own host d3a5b955/fork cbf66ccd, 3/3 + 2 neg + memory-arm reject; verdict art:17f3fa24). 61 labels total, 0 rejects. Table 2 unchanged since 09:02Z pod render (SP1 excluded by 2^-128). Inbox empty; polling every 15 min until FINAL; pod $1.45 so far.
 CHECKPOINT 1b3c7be6 (09:09Z) [open] 09:09Z report body written (labels, Table 2 delta 06:25Z->09:02Z: 12 cells changed incl 3 newly filled, findings, handoffs). In flight: sp1-table 0906Z art:7233a6a3 (k7 warm) proofs+statement match, rep0 ACCEPT; sp1-tcdot hc3 art:a68f2446 host building (d3a5b955, fork cbf66ccd witness arm). Next: label both, pull evidence, FINAL.
 CHECKPOINT 1b3c7be6 (08:55Z) [open] 08:56Z. LABELLED: A-GKR H100 BF16 art:c09947fd (new T2 cell; 3/3, 356/356 mutations rejected, Hopper circuit regenerated from MY tree byte-identical, public.bin == my frozen bf16-hopper y); SP1 k7 art:fffbf728 (vk 0x00dfced1). Pod render works (laptop catalog still wiped). NOW: sp1-tcdot 0841Z witness-operands arm: host building @0742a046 fork 6096d886; proofs of 174d7b4d + 76c113f4 fetched, digests + statements match.
 CHECKPOINT 1b3c7be6 (08:24Z) [open] 08:28Z. LABELLED: A-GKR art:300a526a (1.351 s; T2 A100 A-GKR -> ~3.3e7x); SP1 sp1-formats@3510cfcf 4/4 (8d9df3a2, 70e5bd29, 76d13bb0, a8886e22; 12/12, vk 0x00a42aa3); SP1 sp1-table k4i 1d6aa0c3 (vk 0x00507940) + k4 c7ca70a0 (vk 0x00737e6a), 3/3 each. All handoffs to date done. LAPTOP CATALOG WIPED AGAIN (guardian disk floor kills reindex) -> coordinator 0826Z; rendering on my pod.
@@ -31,7 +32,8 @@ Base `lane/verify-night` @ 1b3c7be6; no commits (verify-night produces no code o
 
 ## Labels written (all `--by verify-night`, each with a `verification-verdict/v1` artifact as `ref`, all PRESERVED)
 
-59 `verified=accepted`, none rejected. `same_device=false` goes on every result verified outside reverify.py.
+61 `verified=accepted` (15 equivalences, 46 bench results), none rejected. `same_device=false` goes on every result
+verified outside reverify.py.
 
 **Instance equivalences (15 `instance-equiv/v1`).** Each was re-checked three ways on the pod: `instance_equiv --check`;
 regeneration from scratch compared byte for byte; and my own full-chain comparison (`05-equiv-independent.py`: both relations
@@ -68,7 +70,7 @@ statement.bin. Each check: every rep has `ok`, `statement_match`, `verdict` true
 byte gives `statement_match` false. None of these can enter Table 2: they are 100-bit, and the security-target rule
 requires 2^-128. They are for D2.
 - sp1-table: art:2a10bc89 (b5e1ed5f), art:1d6aa0c3 (k4+indexed, 65aa6a12), art:c7ca70a0 (k4, 14987d41),
-  art:fffbf728 (k7, 2da1e77e)
+  art:fffbf728 (k7, 2da1e77e), art:7233a6a3 (k7 warm, 5 reps, same host; verdict art:72eb0459)
 - sp1-formats @2581406f: art:0a8697da (4090), art:30a1f28a (H100 FP8), art:ef2d91ce (H100 BF16), art:f3072b13 (5090)
 - sp1-formats @3510cfcf: art:8d9df3a2, art:70e5bd29, art:76d13bb0, art:a8886e22
 
@@ -77,6 +79,9 @@ requires 2^-128. They are for D2.
 - art:90671b80 (572018a3, fork fe35cc50) and art:255f4f78 (64014888, fork d14b4c62): memory arm.
 - art:174d7b4d and art:76c113f4: witness-operands arm (0742a046, fork 6096d886, `stream-operands`, vk 0x00896ef4…). The
   memory-arm host rejects both proofs. The operand soundness caveat is written into both verdicts.
+- art:a68f2446 (hill-climb 3): witness arm without `stream-operands`, its own host (d3a5b955, fork cbf66ccd, patch 0007
+  only). Its vk 0x00b4876f… is the memory arm's, yet the memory-arm host rejects it ('invalid shape of proof'). Verdict
+  art:17f3fa24.
 
 ## Table 2 delta (baseline = render 06:25Z, before any label of mine; now = pod render 09:02Z)
 

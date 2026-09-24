@@ -8,17 +8,19 @@ V8=tcp://213.173.111.87:22539
 REPS=${REPS:-5}
 HASH="--auth included-hash --auth-cache /workspace/auth-cache-fp4h"
 ARMS=(
-  "c2-hash-p4-l16384 local fp4-nvf4+poseidon2 -"
-  "c2-bare-p4-l16384 local fp4-nvf4 -"
-  "c2-hash-live-p4-v8-l16384 live fp4-nvf4+poseidon2 $V8"
-  "c2-bare-live-p4-v8-l16384 live fp4-nvf4 $V8"
+  "c2-hash-p4-l16384 local fp4-nvf4+poseidon2 - 4"
+  "c2-bare-p4-l16384 local fp4-nvf4 - 4"
+  "c2-hash-live-p4-v8-l16384 live fp4-nvf4+poseidon2 $V8 4"
+  "c2-bare-live-p4-v8-l16384 live fp4-nvf4 $V8 4"
+  "c2-bare-live-p8-v8-l16384 live fp4-nvf4 $V8 8"
+  "c2-bare-p8-l16384 local fp4-nvf4 - 8"
 )
 for r in ${ROUNDS:-1 2 3}; do
-  idx=(0 1 2 3); [ $((r % 2)) -eq 0 ] && idx=(3 2 1 0)
+  idx=(0 1 2 3 4 5); [ $((r % 2)) -eq 0 ] && idx=(5 4 3 2 1 0)
   for i in "${idx[@]}"; do
     set -- ${ARMS[$i]}
     extra=""; [ "$3" != fp4-nvf4 ] && extra=$HASH
-    VERIFIER=$4 run $1-r$r $2 $3 16384 4 $REPS $extra
+    VERIFIER=$4 run $1-r$r $2 $3 16384 $5 $REPS $extra
   done
 done
 echo "COMMITTED_DONE ${ROUNDS:-1 2 3}" | tee -a $LOG

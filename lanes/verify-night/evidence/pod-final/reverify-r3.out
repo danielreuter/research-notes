@@ -1,0 +1,6 @@
+/root/.research/store/labels/art_65f20513f334fd41eba389f479dd33597e34aa0bfa5e01c172cc334b735cf169/20260924T070349Z-verify-night.json
+/root/.research/store/labels/art_65f20513f334fd41eba389f479dd33597e34aa0bfa5e01c172cc334b735cf169/20260924T070349Z-verify-night~2.json
+/root/.research/store/labels/art_65f20513f334fd41eba389f479dd33597e34aa0bfa5e01c172cc334b735cf169/20260924T070349Z-verify-night~3.json
+/root/.research/store/labels/art_65f20513f334fd41eba389f479dd33597e34aa0bfa5e01c172cc334b735cf169/20260924T070349Z-verify-night~4.json
+art:65f20513f334… b-ligero-fp8-ada-v3-vu-1790219212: custody 40/40, pinned=fp8-ada-v3, 13/13, 2^-128.32 PASS -> verdict art:57e5bc1556e3d62a4a1bff5797b6ae410ac30580b8ec209e02cddd8451f8b704  (22.1s)
+1 result(s): PASS 1; verifier ligero-verify(sha256 d89cffc7b759e1f5)

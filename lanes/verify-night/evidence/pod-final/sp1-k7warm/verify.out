@@ -1,0 +1,31 @@
+=== [09:07:53] fetch art:165503bae53d4fa217a19bf1a05d4cc3c9f702d7773e33a8a00c4f5f304b26e7
+/workspace/verify-night/sp1-k7warm/tree
+proofs dir: /workspace/verify-night/sp1-k7warm/tree/proofs
+61317043982c9a52ac7c280d7b5262b75a95d862d8088b63c49a51e717ca3303  /workspace/verify-night/sp1-k7warm/tree/proofs/proof-rep0.bin
+8fc6fa8522538ee4fe86caf7974e5e12927306af9b9aff4ec8d5ac1645f8fd14  /workspace/verify-night/sp1-k7warm/tree/proofs/proof-rep1.bin
+05699ab98cfaefea80e86495f65f31079b535566174bfc0d41b6362f69c46aaa  /workspace/verify-night/sp1-k7warm/tree/proofs/proof-rep2.bin
+53cbd1adbd35920bf9a948f24ba39b8351591e13a1e11ed223064e8540ce0af8  /workspace/verify-night/sp1-k7warm/tree/proofs/proof-rep3.bin
+396d5f0863856b4d9021a222656dfbd34fd909d5f359e7338876499480d79341  /workspace/verify-night/sp1-k7warm/tree/proofs/proof-rep4.bin
+5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb  /workspace/verify-night/sp1-k7warm/tree/proofs/statement.bin
+=== statement (mine)
+mine 8263 5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb ident bench-instances/v1|vu-k1536|0|4096|059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea
+dump statement.bin == mine
+=== verify (host sha256 06e0d73632376e6b)
+--- proof-rep0.bin
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x00dfced17fd2d858de239a3752d98ddd4a74758a086378eac810824a57d2e05b","statement_match":true,"verify_seconds":1.6515627830000001}
+rc=0
+--- proof-rep1.bin
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x00dfced17fd2d858de239a3752d98ddd4a74758a086378eac810824a57d2e05b","statement_match":true,"verify_seconds":2.101421666}
+rc=0
+--- proof-rep2.bin
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x00dfced17fd2d858de239a3752d98ddd4a74758a086378eac810824a57d2e05b","statement_match":true,"verify_seconds":2.053312359}
+rc=0
+--- proof-rep3.bin
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x00dfced17fd2d858de239a3752d98ddd4a74758a086378eac810824a57d2e05b","statement_match":true,"verify_seconds":2.548523522}
+rc=0
+--- proof-rep4.bin
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x00dfced17fd2d858de239a3752d98ddd4a74758a086378eac810824a57d2e05b","statement_match":true,"verify_seconds":2.071613025}
+rc=0
+--- negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x00dfced17fd2d858de239a3752d98ddd4a74758a086378eac810824a57d2e05b","statement_match":false,"verify_seconds":1.838097254}
+=== [09:13:21] done

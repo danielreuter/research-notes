@@ -1,0 +1,23 @@
+=== [06:53:03] fetch art:a659f5eedbdcafd07f0d3cc4d91c4f427a7f9139de5af8301f7e7ac5b5e5420d
+/workspace/verify-night/sp1-a100-2a10bc89/tree
+proofs dir: /workspace/verify-night/sp1-a100-2a10bc89/tree/proofs
+2fc84c49f50efc63d61adf39aa8aeb1aaf469714de20d0d80cfbfd2b7216e928  /workspace/verify-night/sp1-a100-2a10bc89/tree/proofs/proof-rep0.bin
+57ab8e99374b7998b4ff2bd4d12069206de37ba6d7b945a930c6d1b1a2b189d6  /workspace/verify-night/sp1-a100-2a10bc89/tree/proofs/proof-rep1.bin
+370d6b26f94b50cba3ecc697ba3f3669bd77b6f8cb45d4b0bf5644651b2d52e2  /workspace/verify-night/sp1-a100-2a10bc89/tree/proofs/proof-rep2.bin
+5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb  /workspace/verify-night/sp1-a100-2a10bc89/tree/proofs/statement.bin
+=== statement (mine)
+mine 8263 5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb ident bench-instances/v1|vu-k1536|0|4096|059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea
+dump statement.bin == mine
+=== verify (host sha256 9867bb2fd3eebdad)
+--- proof-rep0.bin
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x000503d6bb7a3c42e224d801b751f46bd6b38afba82bec9006e1e6d1675674eb","statement_match":true,"verify_seconds":2.693191755}
+rc=0
+--- proof-rep1.bin
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x000503d6bb7a3c42e224d801b751f46bd6b38afba82bec9006e1e6d1675674eb","statement_match":true,"verify_seconds":2.679909684}
+rc=0
+--- proof-rep2.bin
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x000503d6bb7a3c42e224d801b751f46bd6b38afba82bec9006e1e6d1675674eb","statement_match":true,"verify_seconds":2.681017502}
+rc=0
+--- negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","statement_digest":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb","verdict":true,"unsound":false,"vk_hash":"0x000503d6bb7a3c42e224d801b751f46bd6b38afba82bec9006e1e6d1675674eb","statement_match":false,"verify_seconds":3.552737747}
+=== [06:55:45] done

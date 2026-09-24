@@ -1,0 +1,11 @@
+mutations: 352 bit flips + 2 count mutations + 2 statement mutations = 356
+  column_value: 64/64 rejected
+  ligero_qc: 64/64 rejected
+  ligero_w: 64/64 rejected
+  merkle_root: 32/32 rejected
+  merkle_sibling: 64/64 rejected
+  message: 64/64 rejected
+  message_count: 2/2 rejected
+  statement: 2/2 rejected
+rejection reasons: {"LogUp ALIGN": 8, "LogUp LEAD level": 3, "LogUp LEADNORM level": 4, "LogUp R": 20, "LogUp SHIFT level": 7, "LogUp SSHIFT_HI level": 3, "LogUp SSHIFT_LO level": 5, "LogUp TNORM level": 6, "LogUp T_OP level": 39, "ligero: merkle path": 253, "proof.bin: message count": 1, "proof.bin: non-canonical extension coordinate": 3, "proof.bin: opening shape t=": 1, "proof:": 1, "unit/assertions: phase-": 2}
+mutations rejected: 356/356; mean verify 1.020 s; accepted (BUGS): []

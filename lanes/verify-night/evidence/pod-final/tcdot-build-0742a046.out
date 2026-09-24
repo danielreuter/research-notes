@@ -1,0 +1,38 @@
+=== [08:49:24] build_fork (0742a046, /workspace/tcdot-src-0742a046, OPERANDS=witness)
+
+=== [08:49:24] machine
+backends/sp1/tcdot/build_fork.sh: line 45: nvidia-smi: command not found
+16
+               total        used        free      shared  buff/cache   available
+Mem:             755         125          96           0         533         623
+overlay          80G   38G   43G  47% /
+
+=== [08:49:24] apt
+go version go1.18.1 linux/amd64
+
+=== [08:49:29] rustup + sp1up v6.4.0
+cargo-prove sp1 (f66b4bf 2026-08-12T14:40:11.709680161Z)
+
+=== [08:49:29] fork: upstream f66b4bff51d0ccff51d152e0f7f66b2ffedf3529 + 9 patches
+fork HEAD 6096d886e433ca854504ac0c97abf19ed17a7997 tree 136b65c4a6574df78309bb8c26000981d1c8367e (expected 6096d886e433ca854504ac0c97abf19ed17a7997 / 136b65c4a6574df78309bb8c26000981d1c8367e)
+6096d88 TC_DOT_BF16 precompile shards: one local memory event per run of calls
+e375637 TC_DOT_BF16: operands from the input stream
+cbf66cc TC_DOT_BF16: operands as free witness values (no memory access)
+d14b4c6 Prover sharding for deferred-precompile workloads
+fe35cc5 TC_DOT_BF16: regenerate rv64im cost/complexity artifacts (write_core_air_costs / write_core_air_complexity)
+a34c128 Add TC_DOT_BF16: BF16 operands through the shared TC_DOT GroupSum back end
+
+=== [08:49:33] done
+fork_rc=0
+=== [08:49:33] host (features: stream-operands)
+warning: verity-tcdot-host@0.1.0: rustc +succinct --version: "rustc 1.94.0-dev\n"
+warning: verity-tcdot-host@0.1.0: verity-tcdot-guest built at 2026-09-24 08:51:28
+warning: sp1-core-executor-runner@6.4.0: Built new runner binary.
+    Finished `release` profile [optimized] target(s) in 3m 58s
+warning: the following packages contain code that will be rejected by a future version of Rust: proc-macro-error2 v2.0.1
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+build_rc=0
+=== [08:53:32] info
+{"backend":"sp1 tc-dot","elf_sha256":"e17c880266bccbd426e6fd54fc71fabaa3dd81d7d336c6187fdc9dea31c1c620","fork_head":"6096d886e433ca854504ac0c97abf19ed17a7997","formats":["bf16-ampere"],"guest_features":["relation-bare"],"label":"modified SP1 (TC_DOT chip)","operands":"stream","public_values_len":33,"sp1_version":"6.4.0","statement":"relation-bare/v2","vk_hash":"0x00896ef46d917e41bd6f29ef3f4504676f1bccffe2c10936a150113a9ca49384"}
+04bf38221b36dc99b598c9838dc05d8f1cbf28c4dbd264ab6d940c59553e2d7b  /workspace/tcdot-verify-wit/target/release/verity-tcdot-host
+=== [08:54:09] done

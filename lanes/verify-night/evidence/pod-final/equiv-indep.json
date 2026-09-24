@@ -1,0 +1,677 @@
+[
+ {
+  "file": "/workspace/verify-night/equiv/bf16-hopper-v2.json/instance-equiv-bf16-hopper-v2-4096.json",
+  "relation": "bf16-hopper-v2",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "base": "bf16-hopper",
+  "base_candidates": [
+   "bf16-hopper"
+  ],
+  "fold": [
+   1,
+   1
+  ],
+  "word_dtype": [
+   "<u2",
+   "<u2"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/bf16-hopper-v2x4.json/instance-equiv-bf16-hopper-v2x4-4096.json",
+  "relation": "bf16-hopper-v2x4",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "base": "bf16-hopper",
+  "base_candidates": [
+   "bf16-hopper"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u2",
+   "<u2"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/bf16-hopper-v3.json/instance-equiv-bf16-hopper-v3-4096.json",
+  "relation": "bf16-hopper-v3",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "base": "bf16-hopper",
+  "base_candidates": [
+   "bf16-hopper"
+  ],
+  "fold": [
+   1,
+   1
+  ],
+  "word_dtype": [
+   "<u2",
+   "<u2"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/bf16-hopper-v3x4.json/instance-equiv-bf16-hopper-v3x4-4096.json",
+  "relation": "bf16-hopper-v3x4",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "base": "bf16-hopper",
+  "base_candidates": [
+   "bf16-hopper"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u2",
+   "<u2"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/bf16-hopper-x4.json/instance-equiv-bf16-hopper-x4-4096.json",
+  "relation": "bf16-hopper-x4",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "base": "bf16-hopper",
+  "base_candidates": [
+   "bf16-hopper"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u2",
+   "<u2"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-ada-v2.json/instance-equiv-fp8-ada-v2-4096.json",
+  "relation": "fp8-ada-v2",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "base": "fp8-ada",
+  "base_candidates": [
+   "fp8-ada"
+  ],
+  "fold": [
+   1,
+   1
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-ada-v2x4.json/instance-equiv-fp8-ada-v2x4-4096.json",
+  "relation": "fp8-ada-v2x4",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "base": "fp8-ada",
+  "base_candidates": [
+   "fp8-ada"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-ada-v3.json/instance-equiv-fp8-ada-v3-4096.json",
+  "relation": "fp8-ada-v3",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "base": "fp8-ada",
+  "base_candidates": [
+   "fp8-ada"
+  ],
+  "fold": [
+   1,
+   1
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-ada-v3x4.json/instance-equiv-fp8-ada-v3x4-4096.json",
+  "relation": "fp8-ada-v3x4",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "base": "fp8-ada",
+  "base_candidates": [
+   "fp8-ada"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-ada-x4.json/instance-equiv-fp8-ada-x4-4096.json",
+  "relation": "fp8-ada-x4",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "base": "fp8-ada",
+  "base_candidates": [
+   "fp8-ada"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-hopper-v2.json/instance-equiv-fp8-hopper-v2-4096.json",
+  "relation": "fp8-hopper-v2",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "base": "fp8-hopper",
+  "base_candidates": [
+   "fp8-hopper"
+  ],
+  "fold": [
+   1,
+   1
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-hopper-v2x4.json/instance-equiv-fp8-hopper-v2x4-4096.json",
+  "relation": "fp8-hopper-v2x4",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "base": "fp8-hopper",
+  "base_candidates": [
+   "fp8-hopper"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-hopper-v3.json/instance-equiv-fp8-hopper-v3-4096.json",
+  "relation": "fp8-hopper-v3",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "base": "fp8-hopper",
+  "base_candidates": [
+   "fp8-hopper"
+  ],
+  "fold": [
+   1,
+   1
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-hopper-v3x4.json/instance-equiv-fp8-hopper-v3x4-4096.json",
+  "relation": "fp8-hopper-v3x4",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "base": "fp8-hopper",
+  "base_candidates": [
+   "fp8-hopper"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ },
+ {
+  "file": "/workspace/verify-night/equiv/fp8-hopper-x4.json/instance-equiv-fp8-hopper-x4-4096.json",
+  "relation": "fp8-hopper-x4",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "base": "fp8-hopper",
+  "base_candidates": [
+   "fp8-hopper"
+  ],
+  "fold": [
+   1,
+   4
+  ],
+  "word_dtype": [
+   "<u1",
+   "<u1"
+  ],
+  "frozen_ref_ok": true,
+  "candidate_ref_ok": true,
+  "mismatched_vus": {
+   "a": 0,
+   "b": 0,
+   "accs": 0,
+   "y": 0
+  },
+  "n": [
+   4096,
+   4096
+  ],
+  "digests_match_file": {
+   "x": [
+    true,
+    true
+   ],
+   "W": [
+    true,
+    true
+   ],
+   "y": [
+    true,
+    true
+   ]
+  },
+  "equal_mine": true,
+  "ok": true
+ }
+]

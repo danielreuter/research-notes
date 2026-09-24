@@ -1,0 +1,5 @@
+art:99867b4c346f… ?: ERROR: HTTPError: HTTP Error 403: Forbidden  (0.6s)
+art:d5c9e1f3bd9f… ?: ERROR: HTTPError: HTTP Error 403: Forbidden  (0.5s)
+art:1abdf12a7448… ?: ERROR: HTTPError: HTTP Error 403: Forbidden  (0.5s)
+art:a3cc225de910… ?: ERROR: HTTPError: HTTP Error 403: Forbidden  (0.5s)
+4 result(s): ERROR 4; verifier ligero-verify(sha256 d89cffc7b759e1f5)

@@ -1,0 +1,83 @@
+=== [07:13:18] fetch
+/workspace/verify-night/sp1f/fp8-ada
+/workspace/verify-night/sp1f/fp8-hopper
+/workspace/verify-night/sp1f/bf16-hopper
+/workspace/verify-night/sp1f/fp4-nvf4
+/workspace/verify-night/sp1f/inst
+29d1258f11203a0432546f319a707afccddd75a0781cc4744a322f22e2184dca  bf16-hopper/proofs/proof-rep0.bin
+aa03733905022b526c92502b4e8c7e1eb6eab20701334f5b9c511188cadf9eae  bf16-hopper/proofs/proof-rep1.bin
+d149cc54381ea767aab0b3dfcdde223d155413f2ad951eb6f759187d8fc01d95  bf16-hopper/proofs/proof-rep2.bin
+2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179  bf16-hopper/proofs/statement.bin
+864a611e178cc4c8cb9565b60beda0e0b75d95609c44ed6968d074db339c4d8f  fp4-nvf4/proofs/proof-rep0.bin
+646ebfe5f97fde6d3ae775de361426fe8d46c3be714f91a9112da294239527fd  fp4-nvf4/proofs/proof-rep1.bin
+6ae3b4e7f7ccf56d453058828551d63caee693c1be1173ded2ad7524b08c077c  fp4-nvf4/proofs/proof-rep2.bin
+e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7  fp4-nvf4/proofs/statement.bin
+91a80690eef60f4ddd03a9616e7271d3803a725f9486f479cb41f38f18962cf5  fp8-ada/proofs/proof-rep0.bin
+1184e30d3a60045ded23b3d79c08a4be12301a412e5b7d92dc692bd828a11932  fp8-ada/proofs/proof-rep1.bin
+80e845da17bbb84da174e7ac8da38f5cf4ad35512f2c05577836022a4f7f4c37  fp8-ada/proofs/proof-rep2.bin
+bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28  fp8-ada/proofs/statement.bin
+2b576269aa017cc07bfecfc731ce9ce2e625d3c48a86e7ff445053b5b9063e76  fp8-hopper/proofs/proof-rep0.bin
+5468739a5bc908ba99b812674667012779d13624fde9966569b4f9c2d93e061c  fp8-hopper/proofs/proof-rep1.bin
+f2eff6e1c3b7555d457d05eb8f8dd72da141a4a68134b690a3aa41cc6f98a857  fp8-hopper/proofs/proof-rep2.bin
+302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783  fp8-hopper/proofs/statement.bin
+4e6315cd33db01f0c7aa130da97dd7d82b5b142917b284c44864645f8dd1177f  inst/bf16-hopper.bin
+14dec9c974460a67f6ed2cf58afc4d42ef6b4d158ae51d371fe4a3ddc23dc05c  inst/fp4-nvf4.bin
+531a5c019099850ad89b9d40f9eee3ebe636bbcb7c0f06180dccceb34d709ae6  inst/fp8-ada.bin
+04d97c50213514ce352ad853643800317cf309b285f2e5fb330c81d0f6568702  inst/fp8-hopper.bin
+=== [07:13:50] statements (mine)
+bf16-hopper {"target": "bf16-hopper-mma-draft/2026-09-22", "loader": "bf16-hopper", "y_bytes": 2, "y_sha256": "ab8c806788d3d099e42e496926b42706b11f104ac6dedf8811f0cd4734728cac", "statement_bytes": 8263, "statement_sha256": "2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179", "identity": "bench-instances-bf16-hopper/v1|vu-k1536-bf16-hopper|0|4096|2a5babca16e82727611ae483a125b8d853e27e4c9deedda7c35927cc1e456869", "dump_statement_equal": true, "inst_y_equal": true, "inst_header_y_sha256_equal": true, "inst_instances_is_frozen": true, "ok": true}
+fp8-hopper {"target": "fp8-hopper-wgmma-draft/2026-09-22", "loader": "fp8-hopper", "y_bytes": 4, "y_sha256": "dc80099294066e6d7382219087d6feb345e15706c4bd2bfdbda529e491fe5c22", "statement_bytes": 16455, "statement_sha256": "302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783", "identity": "bench-instances-fp8-hopper/v1|vu-k1536-fp8-hopper|0|4096|0ff750026b8d8df0418d3ec360ed6ade683a33b8264d66973021cbfbff7945bc", "dump_statement_equal": true, "inst_y_equal": true, "inst_header_y_sha256_equal": true, "inst_instances_is_frozen": true, "ok": true}
+fp8-ada {"target": "fp8-ada-mma-draft/2026-09-22", "loader": "fp8-ada", "y_bytes": 4, "y_sha256": "27cdcef18aa66b03cdce5e7491d87ddedc039e6643379abedcb77d8458d60c00", "statement_bytes": 16455, "statement_sha256": "bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28", "identity": "bench-instances-fp8-ada/v1|vu-k1536-fp8-ada|0|4096|e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d", "dump_statement_equal": true, "inst_y_equal": true, "inst_header_y_sha256_equal": true, "inst_instances_is_frozen": true, "ok": true}
+fp4-nvf4 {"target": "nvfp4-sm120-mma-draft/2026-09-22", "loader": "fp4.chain.instances_fp4", "y_bytes": 4, "y_sha256": "7b4cc3826cbcfa3be2d0711fbf2847b97107959911ed7550d3b7a17024d11e51", "statement_bytes": 16455, "statement_sha256": "e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7", "identity": "bench-instances-nvfp4-sm120/v1|vu-k1536-nvfp4-sm120|0|4096|d2d65f6523b49e673847746d725fbce3282f2734b0b424637c01e88f188a240a", "dump_statement_equal": true, "inst_y_equal": true, "inst_header_y_sha256_equal": true, "inst_instances_is_frozen": true, "ok": true}
+=== [07:14:04] prep done
+=== [07:24:49] verify (host sha256 d04fd1e984f7ac15)
+{"backend":"sp1","sp1_version":"6.4.0","elf_sha256":"504423b7273611575a0c817c15b7536a6421593a7b6547b444c242ce42d120ba","vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","public_values_len":33,"guest_features":["relation-bare"]}
+--- fp8-ada rep0
+{"backend":"sp1","ok":true,"public_values":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd2801","statement_digest":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":3.098534532}
+rc=0
+--- fp8-ada rep1
+{"backend":"sp1","ok":true,"public_values":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd2801","statement_digest":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":3.089848702}
+rc=0
+--- fp8-ada rep2
+{"backend":"sp1","ok":true,"public_values":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd2801","statement_digest":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":3.088800794}
+rc=0
+--- fp8-ada negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd2801","statement_digest":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":false,"verify_seconds":4.43907162}
+rc=0
+--- fp8-hopper rep0
+{"backend":"sp1","ok":true,"public_values":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d62978301","statement_digest":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":3.259340878}
+rc=0
+--- fp8-hopper rep1
+{"backend":"sp1","ok":true,"public_values":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d62978301","statement_digest":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":3.013090195}
+rc=0
+--- fp8-hopper rep2
+{"backend":"sp1","ok":true,"public_values":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d62978301","statement_digest":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":2.4056969}
+rc=0
+--- fp8-hopper negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d62978301","statement_digest":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":false,"verify_seconds":3.745752671}
+rc=0
+--- bf16-hopper rep0
+{"backend":"sp1","ok":true,"public_values":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c7117901","statement_digest":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":3.475050548}
+rc=0
+--- bf16-hopper rep1
+{"backend":"sp1","ok":true,"public_values":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c7117901","statement_digest":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":2.550877187}
+rc=0
+--- bf16-hopper rep2
+{"backend":"sp1","ok":true,"public_values":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c7117901","statement_digest":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":2.849590515}
+rc=0
+--- bf16-hopper negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c7117901","statement_digest":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":false,"verify_seconds":2.629277856}
+rc=0
+--- fp4-nvf4 rep0
+{"backend":"sp1","ok":true,"public_values":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf701","statement_digest":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":2.144651789}
+rc=0
+--- fp4-nvf4 rep1
+{"backend":"sp1","ok":true,"public_values":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf701","statement_digest":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":3.50317258}
+rc=0
+--- fp4-nvf4 rep2
+{"backend":"sp1","ok":true,"public_values":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf701","statement_digest":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":true,"verify_seconds":2.908572472}
+rc=0
+--- fp4-nvf4 negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf701","statement_digest":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7","verdict":true,"unsound":false,"vk_hash":"0x00a8ed8795222207d6b44abf9a9e58d626b8af3c7e5b50beba277f49c2a0565a","statement_match":false,"verify_seconds":3.183439583}
+rc=0
+=== [07:41:49] done

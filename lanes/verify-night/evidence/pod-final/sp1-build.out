@@ -1,0 +1,50 @@
+=== [06:40:57] apt
+debconf: delaying package configuration, since apt-utils is not installed
+=== [06:41:30] rustup + sp1up v6.4.0
+info: syncing channel updates for stable-x86_64-unknown-linux-gnu
+info: checking for self-update (current version: 1.29.1)
+#=#=#                                                                         ##O#-#                                                                        ########################################                                  56.9%######################################################################## 100.0%
+
+.______  ._______ ._______ ._______ ._______ ._______ ._______ ._______ ._______
+
+   _____  ____  ___
+  / ___/ / __ \<  /
+  \__ \ / /_/ // /                        A performant, 100% open-source,
+ ___/ // ____// /                              general-purpose zkVM.  
+/____//_/    /_/   
+
+._______ ._______ ._______ ._______ ._______ ._______ ._______ ._______ ._______ 
+
+Repo       : https://github.com/succinctlabs/sp1
+Book       : https://docs.succinct.xyz/
+Telegram   : https://t.me/+AzG4ws-kD24yMGYx
+
+._______ ._______ ._______ ._______ ._______ ._______ ._______ ._______ ._______ 
+
+sp1up: installing SP1 (version v6.4.0, tag v6.4.0)
+sp1up: downloading cargo_prove_v6.4.0_linux_amd64.tar.gz
+#=#=#                                                                         ##O#-#                                                                        ##O=#  #                                                                                                                                                 0.0%                                                                           1.2%#######                                                                   10.4%#####################                                                     30.0%#############################################                             62.9%####################################################################      94.5%######################################################################## 100.0%
+sp1up: installed - cargo-prove sp1 (f66b4bf 2026-08-12T14:40:11.709680161Z)
+sp1up: installing rust toolchain
+Successfully cleaned up ~/.sp1 directory.
+Successfully created ~/.sp1 directory.
+info: no toolchain installed for 'succinct'
+Successfully removed existing toolchain.
+Successfully linked toolchain to rustup.
+sp1up: installed rust toolchain
+sp1up: done!
+cargo-prove sp1 (f66b4bf 2026-08-12T14:40:11.709680161Z)
+succinct
+=== [06:41:47] build
+    Updating git repository `https://github.com/sp1-patches/RustCrypto-hashes`
+    Updating crates.io index
+warning: veritor-zk-host@0.1.0: rustc +succinct --version: "rustc 1.94.0-dev\n"
+warning: veritor-zk-host@0.1.0: veritor-zk-guest built at 2026-09-24 06:43:43
+    Finished `release` profile [optimized] target(s) in 4m 13s
+warning: the following packages contain code that will be rejected by a future version of Rust: proc-macro-error2 v2.0.1
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+build rc=0
+=== [06:46:00] info
+{"backend":"sp1","sp1_version":"6.4.0","elf_sha256":"cffc5eff15cc24862c1e94266b037370cffa98d8eb48bc17001e8f32ebddd701","vk_hash":"0x000503d6bb7a3c42e224d801b751f46bd6b38afba82bec9006e1e6d1675674eb","public_values_len":33,"guest_features":["relation-bare"]}
+9867bb2fd3eebdadcf0a3cf432fbaf0ad0a4314194bf3a0f1ffd709ba75438f4  /workspace/sp1-target-relation-bare/release/veritor-zk-host
+=== [06:46:39] done

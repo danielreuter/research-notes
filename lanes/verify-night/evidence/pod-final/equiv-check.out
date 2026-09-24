@@ -1,0 +1,35 @@
+=== check 06:32:08
+/workspace/verify-night/equiv/bf16-hopper-v2.json/instance-equiv-bf16-hopper-v2-4096.json: bf16-hopper-v2 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/bf16-hopper-v2x4.json/instance-equiv-bf16-hopper-v2x4-4096.json: bf16-hopper-v2x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/bf16-hopper-v3.json/instance-equiv-bf16-hopper-v3-4096.json: bf16-hopper-v3 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/bf16-hopper-v3x4.json/instance-equiv-bf16-hopper-v3x4-4096.json: bf16-hopper-v3x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/bf16-hopper-x4.json/instance-equiv-bf16-hopper-x4-4096.json: bf16-hopper-x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-ada-v2.json/instance-equiv-fp8-ada-v2-4096.json: fp8-ada-v2 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-ada-v2x4.json/instance-equiv-fp8-ada-v2x4-4096.json: fp8-ada-v2x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-ada-v3.json/instance-equiv-fp8-ada-v3-4096.json: fp8-ada-v3 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-ada-v3x4.json/instance-equiv-fp8-ada-v3x4-4096.json: fp8-ada-v3x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-ada-x4.json/instance-equiv-fp8-ada-x4-4096.json: fp8-ada-x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-hopper-v2.json/instance-equiv-fp8-hopper-v2-4096.json: fp8-hopper-v2 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-hopper-v2x4.json/instance-equiv-fp8-hopper-v2x4-4096.json: fp8-hopper-v2x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-hopper-v3.json/instance-equiv-fp8-hopper-v3-4096.json: fp8-hopper-v3 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-hopper-v3x4.json/instance-equiv-fp8-hopper-v3x4-4096.json: fp8-hopper-v3x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+/workspace/verify-night/equiv/fp8-hopper-x4.json/instance-equiv-fp8-hopper-x4-4096.json: fp8-hopper-x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09, re-derived by verity_numerical.bench.instance_equiv@unknown
+check rc=0
+=== regen 06:33:01
+fp8-ada-v2: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-ada-v2-4096.json
+fp8-ada-v3: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-ada-v3-4096.json
+fp8-ada-v2x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-ada-v2x4-4096.json
+fp8-ada-v3x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-ada-v3x4-4096.json
+fp8-ada-x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=27cdcef18aa6/27cdcef18aa6 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-ada-x4-4096.json
+bf16-hopper-v2: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/verify-night/equiv-regen/instance-equiv-bf16-hopper-v2-4096.json
+bf16-hopper-v3: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/verify-night/equiv-regen/instance-equiv-bf16-hopper-v3-4096.json
+bf16-hopper-v2x4: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/verify-night/equiv-regen/instance-equiv-bf16-hopper-v2x4-4096.json
+bf16-hopper-v3x4: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/verify-night/equiv-regen/instance-equiv-bf16-hopper-v3x4-4096.json
+bf16-hopper-x4: equal=True x=b237bb51c52b/b237bb51c52b W=af3ec99a25d2/af3ec99a25d2 y=2fc50021939d/2fc50021939d -> /workspace/verify-night/equiv-regen/instance-equiv-bf16-hopper-x4-4096.json
+fp8-hopper-v2: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-hopper-v2-4096.json
+fp8-hopper-v3: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-hopper-v3-4096.json
+fp8-hopper-v2x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-hopper-v2x4-4096.json
+fp8-hopper-v3x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-hopper-v3x4-4096.json
+fp8-hopper-x4: equal=True x=d64fec05ec1f/d64fec05ec1f W=f7cb2046f2fd/f7cb2046f2fd y=dc8009929406/dc8009929406 -> /workspace/verify-night/equiv-regen/instance-equiv-fp8-hopper-x4-4096.json
+regen rc=0
+=== done 06:33:54

@@ -1,0 +1,11 @@
+=== [08:25:28] build 2da1e77e
+warning: veritor-zk-host@0.1.0: rustc +succinct --version: "rustc 1.94.0-dev\n"
+warning: veritor-zk-host@0.1.0: veritor-zk-guest built at 2026-09-24 08:28:08
+    Finished `release` profile [optimized] target(s) in 7m 04s
+warning: the following packages contain code that will be rejected by a future version of Rust: proc-macro-error2 v2.0.1
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+build rc=0
+=== [08:32:33] info
+{"backend":"sp1","sp1_version":"6.4.0","elf_sha256":"f11cf2cce255f2b9a2c2ac46665753e276b5313a322e7e892aaa764cd2dc901d","vk_hash":"0x00dfced17fd2d858de239a3752d98ddd4a74758a086378eac810824a57d2e05b","public_values_len":33,"guest_features":["relation-bare"]}
+06e0d73632376e6ba7731b9d102e3b1fe87fb9e7ed2c581fae840d0303912ad9  /workspace/sp1-target-2da1e77e/release/veritor-zk-host
+=== [08:33:24] done

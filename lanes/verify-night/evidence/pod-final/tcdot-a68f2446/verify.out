@@ -1,0 +1,28 @@
+1c9c4677295b5ad21d85d457d274b8bc13671a729d364a3df753121bd09a8458  proofs/proof-rep0.bin
+de7c8cf1451c408b81c45cd6622dc452ba3fa6ebfbbb983e5e78109788ffe098  proofs/proof-rep1.bin
+fa3e68bae82fbf1ed17b7e755362cec9519cfc0e1049e7d0b2d8564892136634  proofs/proof-rep2.bin
+5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb  proofs/statement.bin
+dump statement.bin == mine
+=== [09:12:18] verify (host sha256 c185e68dd6180945)
+{"backend":"sp1 tc-dot","elf_sha256":"2575be911c649623e10744ea24a54db548483a397fe0e1a8d904daf2065cbe11","fork_head":"cbf66ccd5c9b445afde336cefd209a25729f7242","formats":["bf16-ampere"],"guest_features":["relation-bare"],"label":"modified SP1 (TC_DOT chip)","public_values_len":33,"sp1_version":"6.4.0","statement":"relation-bare/v2","vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+--- proof-rep0.bin
+{"backend":"sp1 tc-dot","elf_sha256":"2575be911c649623e10744ea24a54db548483a397fe0e1a8d904daf2065cbe11","error":null,"fork_head":"cbf66ccd5c9b445afde336cefd209a25729f7242","label":"modified SP1 (TC_DOT chip)","load_seconds":0.026389442,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.744568752,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.71233587,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+rc=0 wall=40s
+--- proof-rep1.bin
+{"backend":"sp1 tc-dot","elf_sha256":"2575be911c649623e10744ea24a54db548483a397fe0e1a8d904daf2065cbe11","error":null,"fork_head":"cbf66ccd5c9b445afde336cefd209a25729f7242","label":"modified SP1 (TC_DOT chip)","load_seconds":0.026445306,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.740228697,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.685270906,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+rc=0 wall=39s
+--- proof-rep2.bin
+{"backend":"sp1 tc-dot","elf_sha256":"2575be911c649623e10744ea24a54db548483a397fe0e1a8d904daf2065cbe11","error":null,"fork_head":"cbf66ccd5c9b445afde336cefd209a25729f7242","label":"modified SP1 (TC_DOT chip)","load_seconds":0.027486894,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.954052523,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.687311747,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+rc=0 wall=38s
+--- negatives on rep0: (a) last y byte flipped in the statement, (b) one proof byte flipped (middle)
+{"backend":"sp1 tc-dot","elf_sha256":"2575be911c649623e10744ea24a54db548483a397fe0e1a8d904daf2065cbe11","error":null,"fork_head":"cbf66ccd5c9b445afde336cefd209a25729f7242","label":"modified SP1 (TC_DOT chip)","load_seconds":0.025683403,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.751361463,"shards":10,"statement_match":false,"unsound":false,"verdict":true,"verify_seconds":0.692589904,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+rc=1
+flipped byte 7194505 of 14389011
+{"backend":"sp1 tc-dot","elf_sha256":"2575be911c649623e10744ea24a54db548483a397fe0e1a8d904daf2065cbe11","error":"Core machine verification error: invalid shard proof: GKR verification failed: sumcheck error: sumcheck round inconsistency","fork_head":"cbf66ccd5c9b445afde336cefd209a25729f7242","label":"modified SP1 (TC_DOT chip)","load_seconds":0.025953451,"ok":false,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.817286104,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.352728064,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+Error: proof rejected
+rc=1
+=== [09:16:26] done
+=== [09:16:26] memory-arm host (d14b4c62, sha256 7859616dcbdd6bdf) on rep0
+{"backend":"sp1 tc-dot","elf_sha256":"0df8b7cdb91042b02123860ce16e62f2267f7a6b61045f731972824b1ab3d309","error":"Core machine verification error: invalid shard proof: invalid shape of proof","fork_head":"d14b4c6277536abd4121271eecd33e75bec83ff5","label":"modified SP1 (TC_DOT chip)","load_seconds":0.026019791,"ok":false,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.721731963,"shards":10,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.002257631,"vk_hash":"0x00b4876f45189377e70f6173d5df8488f486161299c7088ab83fa02ca73eb0b4"}
+Error: proof rejected
+rc=1

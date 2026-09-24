@@ -1,0 +1,25 @@
+ee899383c03cfac31c281041bc93037146363a75dacd0b92ba9dcf7efd41cef7  /workspace/agkr-target/release/verity-gkr-verify
+=== [07:17:32] fetch art:1fbd535f889e23ba797373c6b5ff1b5074dc8d758f8cface0d3f0caf27c52042
+/workspace/verify-night/agkr-21d253bd/tree
+tree: /workspace/verify-night/agkr-21d253bd/tree
+f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c  /workspace/verify-night/agkr-21d253bd/tree/proofs/rep0.bin
+f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c  /workspace/verify-night/agkr-21d253bd/tree/proofs/rep1.bin
+f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c  /workspace/verify-night/agkr-21d253bd/tree/proofs/rep2.bin
+08025221bde2efaf108dd32f6d5bf1b4a977695716d39466d6ed3e6d1fa42a47  /workspace/verify-night/agkr-21d253bd/tree/statement/chain.txt
+afefd92fc17282ae280eef80b1b331b49340ffbbed88a1d8a7f3dac3cc45f1c7  /workspace/verify-night/agkr-21d253bd/tree/statement/circuit.txt
+90001e98ad752110e825f9f8a938a2731fea597727921f9af4acc6cd4561359c  /workspace/verify-night/agkr-21d253bd/tree/statement/epilogue.txt
+e3c911e98f5f3e7cda89dd6ead1595873413c268c3627b9ad3003ac880b4751d  /workspace/verify-night/agkr-21d253bd/tree/statement/manifest.json
+9176d3423b948b841082a2fc24bfe1e7a30b1a257e3ab567453b97c5e9f44727  /workspace/verify-night/agkr-21d253bd/tree/statement/public.bin
+=== [07:17:39] statement vs my tree
+  "identical": true,
+  "identical": true,
+  "identical": true,
+ "manifest_params_differ": [],
+ "dump_manifest_root_is_frozen": true,
+  "equals_frozen_y": true
+ "ok": true
+=== [07:17:40] verify
+rep0 rc=0 {"accepted": true, "error": null, "verify_seconds": 3.420350, "t_parse": 0.034097, "t_transcript": 0.016739, "t_functional_value": 1.386502, "t_merkle_proximity": 0.077204, "t_rows_linear_test": 1.901970, "t_rows_fill_cpu": 15.532611, "t_rows_eval_cpu": 11.817688, "bytes_read": 21213880, "msgs": 118
+rep1 rc=0 {"accepted": true, "error": null, "verify_seconds": 2.938257, "t_parse": 0.035287, "t_transcript": 0.014507, "t_functional_value": 1.257009, "t_merkle_proximity": 0.124845, "t_rows_linear_test": 1.502652, "t_rows_fill_cpu": 12.593397, "t_rows_eval_cpu": 8.640061, "bytes_read": 21213880, "msgs": 1184
+rep2 rc=0 {"accepted": true, "error": null, "verify_seconds": 3.090736, "t_parse": 0.067703, "t_transcript": 0.030674, "t_functional_value": 1.380238, "t_merkle_proximity": 0.097026, "t_rows_linear_test": 1.510863, "t_rows_fill_cpu": 11.875677, "t_rows_eval_cpu": 8.869276, "bytes_read": 21213880, "msgs": 1184
+=== [07:17:51] done

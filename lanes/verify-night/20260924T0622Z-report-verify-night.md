@@ -103,7 +103,7 @@ requires 2^-128. They are for D2.
 - **art:2a4760fb** (hill-climb 7): its run-files art:4b3dc262 hold only logs and JSON. There are no proofs and no
   statement, so there is nothing to verify.
 
-## Table 2 delta (baseline = render 06:25Z, before any label of mine; now = pod render 09:02Z, unchanged at 09:50Z)
+## Table 2 delta (baseline = render 06:25Z, before any label of mine; final = pod render 11:59Z, unchanged since 09:02Z)
 
 | cell | 06:25Z | now | art |
 |---|---|---|---|

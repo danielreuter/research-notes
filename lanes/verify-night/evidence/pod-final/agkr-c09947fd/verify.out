@@ -1,0 +1,31 @@
+ee899383c03cfac31c281041bc93037146363a75dacd0b92ba9dcf7efd41cef7  /workspace/agkr-target/release/verity-gkr-verify
+=== [08:48:31] fetch art:c00624fa2727b5092fbf60155ee6d209dda11c80b25ad9b9c4e6ddfca50365fc
+/workspace/verify-night/agkr-c09947fd/tree
+tree: /workspace/verify-night/agkr-c09947fd/tree
+4a05ada66d857af23883e21d6e782d7053415b7aa5771ee11cf5fdc2c203aeaf  /workspace/verify-night/agkr-c09947fd/tree/proofs/rep0.bin
+4a05ada66d857af23883e21d6e782d7053415b7aa5771ee11cf5fdc2c203aeaf  /workspace/verify-night/agkr-c09947fd/tree/proofs/rep1.bin
+4a05ada66d857af23883e21d6e782d7053415b7aa5771ee11cf5fdc2c203aeaf  /workspace/verify-night/agkr-c09947fd/tree/proofs/rep2.bin
+30516d6164617754c311e7408b41a9c4afe612e1cf04ab105f32a4bee3dbab77  /workspace/verify-night/agkr-c09947fd/tree/statement/chain.txt
+77fbfab94f67eea73e887c2367b248a1079f5240aceefd0b6812d1ba9d22c9f6  /workspace/verify-night/agkr-c09947fd/tree/statement/circuit.txt
+94676af16bac77a35f8630c72071bead8a60d6ba26e8abef0d162bf285c5d119  /workspace/verify-night/agkr-c09947fd/tree/statement/epilogue.txt
+081fa9e6cbb81e252467ebc7b49ed1b674f98e305b36fc092e48862cdfe1d295  /workspace/verify-night/agkr-c09947fd/tree/statement/manifest.json
+62c90275f8e9b82e5d09b274734fa596ed48b6d1d7c8eb4e2ad5a903fd84b7fc  /workspace/verify-night/agkr-c09947fd/tree/statement/public.bin
+=== [08:48:37] statement vs my tree
+  "identical": true,
+  "identical": true,
+  "identical": true,
+ "manifest_params_differ": [],
+ "frozen_relation": "bf16-hopper",
+ "y_bf16_sha256_u16": "ab8c806788d3d099e42e496926b42706b11f104ac6dedf8811f0cd4734728cac",
+  "equals_frozen_y_bf16": true,
+  "equals_frozen_y_fp32": false
+ "ok": true
+=== [08:48:45] verify
+rep0 rc=0 {"accepted": true, "error": null, "verify_seconds": 2.754650, "t_parse": 0.024031, "t_transcript": 0.012546, "t_functional_value": 1.142477, "t_merkle_proximity": 0.040653, "t_rows_linear_test": 1.530888, "t_rows_fill_cpu": 11.541978, "t_rows_eval_cpu": 10.467382, "bytes_read": 19689904, "msgs": 115
+rep1 rc=0 {"accepted": true, "error": null, "verify_seconds": 2.588015, "t_parse": 0.024244, "t_transcript": 0.013296, "t_functional_value": 1.142849, "t_merkle_proximity": 0.020210, "t_rows_linear_test": 1.382912, "t_rows_fill_cpu": 10.429752, "t_rows_eval_cpu": 9.395343, "bytes_read": 19689904, "msgs": 1151
+rep2 rc=0 {"accepted": true, "error": null, "verify_seconds": 2.586174, "t_parse": 0.024573, "t_transcript": 0.013022, "t_functional_value": 1.157899, "t_merkle_proximity": 0.022932, "t_rows_linear_test": 1.363655, "t_rows_fill_cpu": 10.242291, "t_rows_eval_cpu": 9.230061, "bytes_read": 19689904, "msgs": 1151
+=== [08:48:53] negatives (mutate --sample 64 on rep0)
+mutate rc=0
+rejection reasons: {"LogUp ALIGN": 8, "LogUp LEAD level": 3, "LogUp LEADNORM level": 4, "LogUp R": 20, "LogUp SHIFT level": 7, "LogUp SSHIFT_HI level": 3, "LogUp SSHIFT_LO level": 5, "LogUp TNORM level": 6, "LogUp T_OP level": 39, "ligero: merkle path": 253, "proof.bin: message count": 1, "proof.bin: non-canonical extension coordinate": 3, "proof.bin: opening shape t=": 1, "proof:": 1, "unit/assertions: phase-": 2}
+mutations rejected: 356/356; mean verify 1.020 s; accepted (BUGS): []
+=== [08:54:55] done

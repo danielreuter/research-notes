@@ -1,0 +1,55 @@
+{
+  "schema": "instance-equiv/v1",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "frozen": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "tier": "vu-k1536-fp8-ada",
+    "range": [
+      0,
+      4096
+    ],
+    "manifest_sha256": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d"
+  },
+  "candidate": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "tier": "vu-k1536-fp8-ada",
+    "range": [
+      0,
+      4096
+    ],
+    "manifest_sha256": "cbc5408e3c8d501418503c9ae0feff644679cc2496c782b325c236c4c57dbf85",
+    "seed": 20260922,
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)"
+  },
+  "canonical": "each side decoded by its own loader: frozen = relchain.instances('fp8-ada', 4096) (the registered relation whose runner ref is FROZEN_INSTANCES[target]), candidate = relchain.instances('fp8-ada-v3', 4096); x = the a operand words, W = the b operand words, as |u1 bit words of the datatype (ADA_E4M3_M16N8K32), little-endian; y = the chain-end FP32 accumulator word (the final recorded accumulator of the VU; the public claim is the relation's y_public of it), <u4 little-endian; index order VU-major, then K",
+  "arrays": {
+    "x": {
+      "frozen_sha256": "d64fec05ec1f50cbc4fb644bf413e95cf870ab69dfde381d43a4f3c6dcb92405",
+      "candidate_sha256": "d64fec05ec1f50cbc4fb644bf413e95cf870ab69dfde381d43a4f3c6dcb92405",
+      "dtype": "|u1",
+      "shape": [
+        4096,
+        1536
+      ]
+    },
+    "W": {
+      "frozen_sha256": "f7cb2046f2fdc78c0d007b08aa8091405d686884612ed4b37be11c8c4b61ccd0",
+      "candidate_sha256": "f7cb2046f2fdc78c0d007b08aa8091405d686884612ed4b37be11c8c4b61ccd0",
+      "dtype": "|u1",
+      "shape": [
+        4096,
+        1536
+      ]
+    },
+    "y": {
+      "frozen_sha256": "27cdcef18aa66b03cdce5e7491d87ddedc039e6643379abedcb77d8458d60c00",
+      "candidate_sha256": "27cdcef18aa66b03cdce5e7491d87ddedc039e6643379abedcb77d8458d60c00",
+      "dtype": "<u4",
+      "shape": [
+        4096
+      ]
+    }
+  },
+  "equal": true,
+  "tool": "verity_numerical.bench.instance_equiv@5b30c99ba7c6b0cbbf75f934799c4b62c4f0ab09"
+}

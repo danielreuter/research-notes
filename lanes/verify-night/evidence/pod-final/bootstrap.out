@@ -1,0 +1,78 @@
+
+=== [06:29:01] machine
+backends/direct/ligero/pod_bootstrap.sh: line 52: nvidia-smi: command not found
+backends/direct/ligero/pod_bootstrap.sh: line 53: nvidia-smi: command not found
+16
+               total        used        free      shared  buff/cache   available
+Mem:             755         129          86           0         538         619
+overlay          80G  263M   80G   1% /
+model name	: AMD EPYC 9754 128-Core Processor
+153.06 160.07 171.82 145/8779 307
+cgroup CPU quota: 16 cores of 16 -> OMP/MKL/OpenBLAS/torch threads = 16, instance procs NP = 16
+RUNPOD_POD_ID=gyenhpbetf7xz8
+RUNPOD_GPU_COUNT=0
+RUNPOD_DC_ID=EUR-IS-1
+source: /workspace/src
+{
+  "branch": "lane/verify-night",
+  "commit": "1b3c7be673433c9e854712428d12c98bee98315c",
+  "dirty": false,
+  "dirty_digest": null,
+  "files": 3070,
+  "from": "Daniels-MacBook-Pro.local:/Users/danielreuter/projects/verity-main-wt/verify-night",
+  "schema": "research/source-stamp/v1",
+  "synced_utc": "2026-09-24T06:23:13Z",
+  "to": "vy-verify-night:/workspace/src",
+  "tree": "c25b6a76429a15fc6d6bbaa61ee14d9fa8d9f3a5"
+}
+
+=== [06:29:01] rsync (the next research pods sync ships only what changed)
+debconf: delaying package configuration, since apt-utils is not installed
+
+=== [06:29:11] rustup stable + ligero-verify (background; joined at the end)
+
+=== [06:29:11] uv + python 3.12 (/workspace/venv312)
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source /workspace/venv312/bin/activate
+Python 3.12.14
+
+=== [06:29:14] torch 2.6.0+cpu (compute capability ), numpy, cupy-cuda12x, blake3, pytest 
+ + torch==2.6.0+cpu
+ + typing-extensions==4.16.0
+ + pytest==9.1.1
+ + pytest-timeout==2.4.0
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/workspace/venv312/lib/python3.12/site-packages/torch/cuda/__init__.py", line 491, in get_device_name
+    return get_device_properties(device).name
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv312/lib/python3.12/site-packages/torch/cuda/__init__.py", line 523, in get_device_properties
+    _lazy_init()  # will define _get_device_properties
+    ^^^^^^^^^^^^
+  File "/workspace/venv312/lib/python3.12/site-packages/torch/cuda/__init__.py", line 310, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+FAILED: GPU stack
+
+=== [06:29:33] import smoke (the shipped tree)
+imports ok; GPU Merkle: True blake3 (GPU, backends/shared/hash_gpu)
+
+=== [06:29:36] rust build (join)
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 4 warnings
+    Finished `release` profile [optimized + debuginfo] target(s) in 15.48s
+d89cffc7b759e1f5b7507cf709bb98271837e42cafbf86d0782f645bc89029b3  /workspace/bin/ligero-verify
+
+=== [06:29:37] versions
+blake3            1.0.9
+cupy-cuda12x      14.2.0
+numpy             2.5.3
+pytest            9.1.1
+pytest-timeout    2.4.0
+torch             2.6.0+cpu
+rustc 1.98.1 (48a229cea 2026-09-01)
+overlay          80G  3.2G   77G   4% /
+next shells: source /workspace/env.sh
+BOOTSTRAP_FAILED

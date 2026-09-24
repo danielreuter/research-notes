@@ -1,0 +1,58 @@
+{
+ "bf16-hopper": {
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "loader": "bf16-hopper",
+  "y_bytes": 2,
+  "y_sha256": "ab8c806788d3d099e42e496926b42706b11f104ac6dedf8811f0cd4734728cac",
+  "statement_bytes": 8263,
+  "statement_sha256": "2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179",
+  "identity": "bench-instances-bf16-hopper/v1|vu-k1536-bf16-hopper|0|4096|2a5babca16e82727611ae483a125b8d853e27e4c9deedda7c35927cc1e456869",
+  "dump_statement_equal": true,
+  "inst_y_equal": true,
+  "inst_header_y_sha256_equal": true,
+  "inst_instances_is_frozen": true,
+  "ok": true
+ },
+ "fp8-hopper": {
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "loader": "fp8-hopper",
+  "y_bytes": 4,
+  "y_sha256": "dc80099294066e6d7382219087d6feb345e15706c4bd2bfdbda529e491fe5c22",
+  "statement_bytes": 16455,
+  "statement_sha256": "302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783",
+  "identity": "bench-instances-fp8-hopper/v1|vu-k1536-fp8-hopper|0|4096|0ff750026b8d8df0418d3ec360ed6ade683a33b8264d66973021cbfbff7945bc",
+  "dump_statement_equal": true,
+  "inst_y_equal": true,
+  "inst_header_y_sha256_equal": true,
+  "inst_instances_is_frozen": true,
+  "ok": true
+ },
+ "fp8-ada": {
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "loader": "fp8-ada",
+  "y_bytes": 4,
+  "y_sha256": "27cdcef18aa66b03cdce5e7491d87ddedc039e6643379abedcb77d8458d60c00",
+  "statement_bytes": 16455,
+  "statement_sha256": "bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28",
+  "identity": "bench-instances-fp8-ada/v1|vu-k1536-fp8-ada|0|4096|e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d",
+  "dump_statement_equal": true,
+  "inst_y_equal": true,
+  "inst_header_y_sha256_equal": true,
+  "inst_instances_is_frozen": true,
+  "ok": true
+ },
+ "fp4-nvf4": {
+  "target": "nvfp4-sm120-mma-draft/2026-09-22",
+  "loader": "fp4.chain.instances_fp4",
+  "y_bytes": 4,
+  "y_sha256": "7b4cc3826cbcfa3be2d0711fbf2847b97107959911ed7550d3b7a17024d11e51",
+  "statement_bytes": 16455,
+  "statement_sha256": "e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7",
+  "identity": "bench-instances-nvfp4-sm120/v1|vu-k1536-nvfp4-sm120|0|4096|d2d65f6523b49e673847746d725fbce3282f2734b0b424637c01e88f188a240a",
+  "dump_statement_equal": true,
+  "inst_y_equal": true,
+  "inst_header_y_sha256_equal": true,
+  "inst_instances_is_frozen": true,
+  "ok": true
+ }
+}

@@ -1,0 +1,74 @@
+[
+ {
+  "result": "art:e1fcf6430199b761364f182dc05ddd2b0a42664635b423c711fed57aa7a95e2f",
+  "run_files": "art:48835fd7b1e979395a1c1c2a9a6a0c090037b8ae691313c36f6d52c906c65330",
+  "relation": "bf16-ampere-v3",
+  "target": "first-campaign-target/2026-09-21",
+  "frozen_relation": "bf16-ampere",
+  "statements": 25,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:794365d36195f9b825ffbf2dbb0cc4ac4ee95fe358858622a9335d4670a75501",
+  "run_files": "art:12dc639589de2374a156a803e1e94b3ac3d8b19822ff35da81b13e975033f188",
+  "relation": "bf16-ampere",
+  "target": "first-campaign-target/2026-09-21",
+  "frozen_relation": "bf16-ampere",
+  "statements": 25,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 0,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:271e0e3a0d28d2c8f9dc6cc95ea8efe9baecff9060a24a0a7f7b3bca7d08a6fa",
+  "run_files": "art:78ca2cc4d85d96c3ac709d5552cb44b73bccb434d053ab59450aedfe96260048",
+  "relation": "bf16-hopper",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "frozen_relation": "bf16-hopper",
+  "statements": 25,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 0,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:855697088e2ddaf67880295463f71ccd807391c1d56f32f7c0409d48c85e8895",
+  "run_files": "art:ad9dacf994a29570128f11f8a5e309cdf3c3d6c51c5176dc5a85e1ce85f3b9a9",
+  "relation": "fp8-hopper-v3x4",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "frozen_relation": "fp8-hopper",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ }
+]

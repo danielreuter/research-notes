@@ -1,0 +1,97 @@
+[
+ {
+  "result": "art:885eec167008ab8e11cfccc31d5f4ae162fb176ec269f340efc4d361b7525cd7",
+  "status": "ERROR",
+  "why": "KeyError: 'fp4-nvf4'"
+ },
+ {
+  "result": "art:fb4934afd6a6da81b64f80b641a79fe68fe2b40351ee04102486a0cc002e23d2",
+  "run_files": "art:decf9540c835ebc7775964bb9b7d7f7bd91896d9c7b44d617ab6e015e724ddb4",
+  "relation": "fp8-ada-v3x4",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "frozen_relation": "fp8-ada",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:1e73dc0036ebd562db4ea851fac9ccdfab26596d8f13a1d0c4ff3f8ccf5cc0f6",
+  "run_files": "art:cab3e493f48f78d57bea58bac9b0cdeb8c44470835693b6dee2bd233847e6953",
+  "relation": "fp8-hopper",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "frozen_relation": "fp8-hopper",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:44c768cd5338a70cf485aac6f7ecb4f0092ba2de6a596c4b667c887718b7fea3",
+  "run_files": "art:85ec833d8a0a28c0ec225ca68445ce963f72c62448ca62721d0a20f2ebe627a4",
+  "relation": "bf16-hopper",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "frozen_relation": "bf16-hopper",
+  "statements": 25,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:9167ed22ab32dc40fc7535be3b095eccb2183322afdde816d040f60219214a55",
+  "run_files": "art:794d3a3cc0d650cb393b0ca7c2aa6be8f7d9185f3b1e96a6e3bb6304d2f3234e",
+  "relation": "fp8-ada",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "frozen_relation": "fp8-ada",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 0,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:0d5b229a8c90c175a03068d2b2194670906aebff06787423ae75584b50c61e3e",
+  "run_files": "art:0d14e41c310bcc7d0559bd613d8e1b268c0f8b79b608cdda5d0d872c9a51327b",
+  "relation": "fp8-ada-v2",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "frozen_relation": "fp8-ada",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ }
+]

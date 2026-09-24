@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/src/backends/gkr/gpu/v2/export.py", line 276, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/workspace/src/backends/gkr/gpu/v2/export.py", line 260, in main
+    m = export(args.root, args.tier, args.lo, args.hi, args.out, args.procs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/gkr/gpu/v2/export.py", line 145, in export
+    tierdata = I.load(tier, root)
+               ^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/numerical/python/verity_numerical/bench/instances.py", line 235, in load
+    x, w = read_u16(_need(root / f"{tier}.x.u16")), read_u16(_need(root / f"{tier}.w.u16"))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/numerical/python/verity_numerical/bench/instances.py", line 209, in _need
+    raise FileNotFoundError(f"{path} is missing; the operand arrays are built, not committed: run "
+FileNotFoundError: /workspace/src/fixtures/bench-instances/v1/vu-k1536.x.u16 is missing; the operand arrays are built, not committed: run `python -m verity_numerical.bench.instances build --out /workspace/src/fixtures/bench-instances/v1`

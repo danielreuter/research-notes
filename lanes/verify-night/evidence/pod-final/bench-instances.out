@@ -1,0 +1,14 @@
+=== [07:40:34] build
+seeds: {'sha256_ok': 24, 'silicon_vs_out_row_j': 24}
+vu recheck: {'instances': 64, 'mismatches': [], 'full': False}
+tu recheck: {'instances': 64, 'mismatches': [], 'full': False}
+negatives: 52 instances, 0 problems
+OK
+6 built arrays match the committed manifest; linked into /workspace/src/fixtures/bench-instances/v1
+=== [07:43:07] binding
+# art:e1fcf6430199 BOUND bf16-ampere-v3 stmts=25 vus=4096 y_bad=0 ops=4096/0 
+# art:794365d36195 BOUND bf16-ampere stmts=25 vus=4096 y_bad=0 ops=0/0 
+# art:271e0e3a0d28 BOUND bf16-hopper stmts=25 vus=4096 y_bad=0 ops=0/0 
+# art:855697088e2d BOUND fp8-hopper-v3x4 stmts=13 vus=4096 y_bad=0 ops=4096/0 
+rc=0
+=== [07:43:26] done

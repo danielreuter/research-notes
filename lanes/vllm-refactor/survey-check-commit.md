@@ -80,7 +80,8 @@ Severity: **high** = affects what the verifier can soundly claim, or blocks the 
 
 **SCRIPT/ENV/PATH**
 - `hidden_engine.py:22-24` and `reference_engine/engine.py:27-29`: `Path(__file__).parents[2|3] / "vllm-poc"` + `sys.path.insert`; `integrations/vllm/vllm-poc` does not exist (dead code at import). **medium**
-- `padding_steps.py:37` `sys.path.insert(0, parents[2])` at import; `:405` `VERITY_LEAF_LAYOUT` env var chooses the leaf rule of a commitment; `:413` `print` from library code; `:919-936` CLI with `SystemExit`. **high** (the env var changes committed bytes)
+- `padding_steps.py:37` `sys.path.insert(0, parents[2])` at import; `:413` `print` from library code; `:919-936` CLI with `SystemExit`. **medium**
+- `padding_steps.py:405` picks the padding leaf rule from `VERITY_LEAF_LAYOUT`, but `harness/commit_delta.py:1087,1258` `--layout` sets `VERITY_LAYOUT`, which is what `acquire/native_collect.py:721` reads for executed leaves (`commit_delta.py:583` records `VERITY_LEAF_LAYOUT` in the config). Two names for one switch that changes committed bytes: under `--layout chunk-leaf-v2` the padding leaves default to the v1 header. **high**
 - `binding.py:526-528` `raise SystemExit(...)` inside a library function. **medium**
 - `reference_engine/triton_sha256.py:70,188` `VERITY_CMT_CACHE` env var / `~/.cache/verity_cmt` for generated kernel source. **low**
 - `fa2_prototype/fixture.py:42` `_BKERNEL_P0 = Path("/private/tmp/w-perf/out/gen/r8/fa2-kernel/results/p0")`; `fa2_prototype/kernel_dump.py:2` docstring points at `out/gen/r8/...`. **medium**
@@ -98,6 +99,7 @@ Severity: **high** = affects what the verifier can soundly claim, or blocks the 
 - `engine_rs/` (whole crate): no Python/shell caller, not in a workspace; its input planner `cprof_c1_plan.py` does not exist. high confidence. **medium**
 - `merkle.py:702` `verify_source_linkage`, `:732` `write_openings`; `fasttree.py:113` `chunk_layout`, `:126` `opening_bytes`; `hidden_engine.py:60` `CountingHash`, `:105` `fold_digests`; `semantic_layout.py:139` `rank_fast`, `:154` `semantic_root` (only its own `Layout.root`); `semantic_layout` `Template`/`StaticContext`/`verify_position_opening` are test-only. high confidence. **low**
 - `reference_engine/engine.py:432` `leaf = hashing.leaf_hash if False else pos_leaf`: a dead conditional. **low**
+- `stream_merkle.py` (179): re-exported by `hidden_engine.py:30,32` but no library code uses `StreamingMerkle`/`stream_root`/`replay_to_open`; only `tests/commit/test_stream_merkle.py`. high confidence. **low**
 - `fa2_prototype/*`: no library importer; kept for `tests/commit/test_{oracle,kernel_dump,negatives,roundtrip,encoding,derived_rule}.py` per `dead_code_keep.json`. Test support living in the library. high confidence. **medium**
 - Not dead, but a parallel path: `reference_engine/` + `reference_engine_adapter.py` (CMT-1) are reachable only through `harness/commit_delta.py:456-457`, which offers `cmt_ref_torch | cmt_ref_host | cmt_ref_torch_compiled` as committer names beside the native committer. That is a second production-selectable leaf scheme (`pos_leaf`), not an experiment behind a test. **medium**
 

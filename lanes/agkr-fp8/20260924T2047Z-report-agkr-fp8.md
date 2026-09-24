@@ -57,3 +57,23 @@ row blocks of 4096 on < 40 GB parts (block sums mod p: q unchanged; 80 GB parts 
   lanes/coordinator/20260924T2129Z-handoff-from-agkr-fp8.md. Negatives tree art:edfbca4d (dev run r20260924-210424-0471, same code).
 - Descriptive strings in this result's fingerprint still say limb epilogue / Params.from_model / 96 units (BF16 text); fixed at 40069d44.
 - 4090 pod tnfwhbryf1mdnr drained + terminated 21:34Z (20:37-21:34, $0.74/h, ~$0.70).
+
+## H100 FP8 (fp8-hopper) cell, recorded 21:55Z
+- New pod vy-agkr-fp8 = H100 80GB HBM3 ac0m34rqaw3hti (reference part, Xeon 8480+, $3.49/h, created 21:35Z). Same recipe as the 4090
+  cell with `fp8-hopper` and `--threads 22`.
+- r20260924-215501-f96b @ 891572a0 (clean): result art:2e7baba7, run-files art:438ada92; PRESERVED; reindex ok.
+- t.total median 0.688 s (0.686 / 0.688 / 0.687); buckets: witness 0.036, commit 0.010, lookup 0.258, arithmetic 0.320, serialization
+  0.063. Rust 3/3 accept (0.62 s at 22 threads), proofs byte-identical f80ecc53…, 17251312 B, 2^-130.19, instances 0ff75002… (frozen).
+  Warm-up 438 s. Overhead vs native peak (1978.9 TFLOP/s): 1.08e8x.
+- Predicate: only `not independently verified`. Handoff lanes/coordinator/20260924T2212Z-handoff-from-agkr-fp8.md. Negatives art:cdaabf41.
+
+## Hill-climb on the H100 (22:15Z-), every step byte-identical (fp8-hopper proof sha f80ecc53…; bf16-hopper 4a05ada6… checked once)
+Median warm prove (06_ab.sh, 4 timed proves at 4096 VUs), start 0.626 s:
+- bba64ea1 (cherry-pick of agkr-nvf4 a8d471ba, `eq_rows_dot` for phase-2 vf) + 097a1e61 (cached lookup-claim plan) -> 0.599
+- 048e6a41 eq_table as one `eq_table_vars` launch on CUDA (was a doubling loop of ext_mul_chunked launches; exact n=0..20) -> 0.537
+- 8670d0f7 numpy serialization of ext vectors in Proof.to_bytes / Transcript.absorb_exts (t.serialization; transcript unchanged)
+- 1e21cd26 keep the query tuples from the multiplicity pass for the lookup pass on >= 48 GB parts (0.7 GiB) -> 0.507
+- c6aadfdf query tuples from a cached per-table linear-form plan (mults 28 -> 11 ms) + 01ee07f0 tolist tuples -> 0.470
+- 6517652d incremental eq prefix in packed phase 1 + 2dacc949 depth-batched eval_wires (12 -> 4.7 ms) -> 0.459
+Remaining profile: lookup 0.196 (graphed LogUp: ~18.6k tiny kernels ~7.7 us each, fs_step SHA-256 14 us; latency-bound, fusing
+kernels is the only lever, transcript fixed), arith 0.115 (phase-1 per-round host/sync), open_acc 0.073, open_wq 0.038.

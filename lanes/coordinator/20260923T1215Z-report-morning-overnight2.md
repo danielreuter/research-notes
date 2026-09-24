@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 58e4c1aa (22:56Z) [open] 22:56Z merged lane/sp1-128 0e8cc6ea --no-ff -> main 58e4c1aa, pushed; cli moved; steward kickstarted; scoreboard re-rendered 3:55 PM PT (SP1 stock/precompile labels, D1 whole-proof security)
 CHECKPOINT 048e6a41 (22:37Z) [open] 22:38Z sweep: disk 14 GiB; all lanes alive (arith on A100 port, agkr-fp8 H100, agkr-nvf4 5090 0.529s new, verify-po, d3-h100 starting); sp1-128 resumed for labels; no idle pods
 CHECKPOINT 605b1bbb (22:32Z) [open] 22:33Z A-GKR on all 5 T2 rows (H100 FP8 1.1e8x art:2e7baba7 verified verdict art:ccafc0f7); reindex --remote pulled 57; scoreboard re-rendered 3:31 PM PT
 CHECKPOINT 1d9c3198 (22:29Z) [open] 22:30Z sp1-128 FINAL d1111579 (A100 raised-query 21.05s, achieved -95.46, art:e8c7c331; pod gone ~$2.10) but missed 2222Z handoff -> resumed for SP1 stock/precompile labels + whole-proof D1 wording; merge after. Verify request at verify-po.

@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (22:55Z) [open] SP1 A100 BF16 sec134 (D2) art:e8c7c331: 5/5 accepted with sec134 host built on my pod (sha256 = producer's ad6ec855), stock host + y-flip rejected; verdict art:34582a00 (coordinator 2256Z). 25 accepted, 0 rejected; idle-polling
 CHECKPOINT 0e8cc6ea (22:40Z) [open] arith H100 13/13 reverify PASS + BOUND, labelled (verdicts art:7d68f788..art:abe34544, coordinator 2240Z). SP1 sec134 host building (r20260924-223547-6b33; d1111579 build.sh VERIFIER_ONLY needs cargo fetch first). 24 accepted, 0 rejected
 CHECKPOINT 605b1bbb (22:26Z) [open] labelled A-GKR H100 FP8 art:2e7baba7 (verdict art:ccafc0f7; handoff coordinator 2227Z). Building SP1 stock + sec134 CPU hosts for sp1-128 art:e8c7c331 (r20260924-222445-6de0). 11 results accepted so far, 0 rejected
 CHECKPOINT 891572a0 (21:57Z) [open] arith 4090 FP8 s1+s5: 7/7 reverify PASS + BOUND, labelled verified=accepted --by verify-po; verdicts art:7dae93fd art:9a59e106 art:4ecc7aee art:00dabdc8 art:11c4595f art:6a6c101b art:1ca0fbef; now B-Ligero negatives + A-GKR 4090 art:1b4fd4a1 (r20260924-215649-a2c4)

@@ -1,3 +1,4 @@
+CHECKPOINT b189a963 (08:24Z) [open] hill-climb 4 art:76c113f4 (runs art:44bded3a): fork patch 0008 (operands from the input stream) + sp1-table k7 merged + two trace chunks, t.total 5.923s, 8 shards, 11.4MB: 3.76x faster than stock SP1's best (22.27s, art:1d6aa0c3). Next: patch 0009 (prover-only local-memory merge), screened 5.6s.
 CHECKPOINT d3a5b955 (08:00Z) [open] hill-climb 3 art:a68f2446 (runs art:204f58d0): witness-operands arm (fork patch 0007 cbf66ccd, TC_DOT_BF16 operands as free witness values; coordinator asked 07:45Z), t.total 8.771s, 10 shards, 14.4MB. Building patch 0008 (operands from the input stream, never in memory).
 CHECKPOINT 0b0768ed (07:26Z) [open] hill-climb 2 art:255f4f78 (runs art:4afa9f4e): fork patch 0006 (CPU-shard estimate fix + ELEMENT_THRESHOLD 1.25x), t.total 11.485s, 10 shards, 14.9MB, verify 0.61s; emitter now vector_run --variant (merged sp1-table b9b76e75). Next: verify-night addendum, next lever.
 CHECKPOINT none (07:08Z) [open] hill-climb 1 art:6e415853 (runs art:a965d150): guest chains each VU's 96 TC_DOT_BF16 ecalls in one asm block, 4.91M cycles (was 8.04M), t.total 11.946s, 16 shards. Building fork patch 0006 (sharding estimate + ELEMENT_THRESHOLD).
@@ -169,3 +170,57 @@ Budget $12, FINAL 12:00Z.
     for the accumulator and the syscall); and 2.6 s before the first shard.
   - Next: fork patch 0008, where the executor takes each step's operands from the input stream, so they never enter
     memory (guest and host `stream-operands` feature).
+- **Fork patch 0008 (`sp1-patches/witness-operands/0008`, fork `e3756374`, tree `5f05843c`).** TC_DOT_BF16's
+  64 operand bytes per step are the next stdin buffer. The minimal executor pops the buffer and `trace_value`s its 8
+  words, and the tracing executor replays them. The chip is unchanged from 0007.
+  - The guest and host feature `stream-operands` lays the input out accordingly: a chip VU is 96 step buffers, and a
+    VU routed wholly to software is one stock-layout buffer. The host's `info` reports `operands: stream`, and
+    `bench.py` refuses a host whose layout does not match the arm.
+  - The patch reproduces commit and tree under `git am`. The executor unit tests and all 9 chip tests pass (the BF16
+    prove test now feeds its operands through stdin). Execution gives the same statement digest `5e0dd245…`,
+    --flip-y returns false, and 52/52 negatives are rejected.
+  - Effect: the four memory shards (the hint init/finalize of 25 MB of operands) are gone, and cycles fall from
+    4.91M to 4.41M.
+- **Where the time went next (1.25x, one trace chunk): 7.3-8.0 s.** The GPU was busy for 3.3 s of 7.0. All 4.4M
+  cycles formed one minimal-trace chunk (default 16.7M entries), so one CPU shard's record (2.1 s single-threaded
+  replay) gated everything. The precompile shards need its deferred events.
+  - `MINIMAL_TRACE_CHUNK_THRESHOLD=2500000` (an SP1 env option; `local_gpu_opts` keeps it) gives two chunks. A
+    chunk end closes its shard, so the two CPU shards build their records in parallel on the core workers:
+    6.0 s.
+  - Four chunks with four splicing workers (6.0 s) and eight (6.4 s) are no better, and three with three
+    workers varies (5.6 / 7.0 s).
+- **Merged sp1-table `a66c257b` (kernel k7) as `058d5fc8`.** The 74 VUs routed wholly to software run k7, cutting
+  cycles from 4.41M to 3.74M (new ELF `525841da…`, vk `0x00896ef4…`, same statement). The merged vector_run passes
+  `--layout chunks`, which the tcdot host now accepts (`b189a963`; chunks only). Its first registration attempt
+  failed at the negatives on that flag, so no result was produced.
+- **Hill-climb 4, `art:76c113f4…` (runs `art:44bded3a…`), source `b189a963`, fork `e3756374`, prover env
+  ELEMENT_THRESHOLD 503316480 + MINIMAL_TRACE_CHUNK_THRESHOLD 2500000 (recorded as `prover_options`).**
+  - t.total **5.923 s**, 8 shards, 11.4 MB, -97.0 after the union bound; 52/52 negatives; every proof verified.
+  - 1.48x faster than hill-climb 3 (8.771 s) and **3.76x** faster than stock SP1's best
+    (`art:1d6aa0c3`, k4 + indexed, 22.27 s).
+  - Per proof: 1.2 s before the first shard (0.4 s setting up the minimal executor, 0.3 s executing, splicing); a
+    1.0 s GPU gap while the two CPU shards build their records; CPU shards 0.8 s; 5 precompile shards 2.3 s.
+- **Fork patch 0009 (`sp1-patches/witness-operands/0009`, fork `6096d886`, tree `136b65c4`; prover only).**
+  - Each precompile call's event carries a MemoryLocalEvent for its accumulator word. Each became a MemoryLocal row
+    and 2 Global rows: 2 of the 3 Global rows per call, and 37% of a precompile shard's cells.
+  - A VU's 96 calls touch that word one after another, so inside a shard each call's first access is the previous
+    call's last. The calls' own memory interactions already chain, as repeated accesses within a CPU shard do.
+  - When the prover builds a TC_DOT_BF16 precompile shard's record, it sorts the local accesses by (address,
+    initial timestamp). It folds each access whose initial record equals the running final record into one event
+    per run.
+  - No chip, executor or verifier change: a wrong merge would unbalance the memory bus, and the proof would not
+    verify.
+  - Precompile shards shrink from 163.8M to 121.8M cells (Global 253,632 to 86,336 rows). Screened at 5.61 / 5.69 s
+    with the same config, against 5.95 / 5.93 s without the patch.
+  - The patch reproduces under `git am`. The ELF and vk are unchanged; 52/52 negatives rejected.
+- **Screens that lost (patch 0009, two chunks).**
+  - ELEMENT_THRESHOLD 1.5x (a 5k-call runt plus three 127k-call precompile shards): 6.09 / 5.93 s.
+  - 3x (two precompile shards of 165k and 221k calls): 7.2 / 6.8 s. TcDotBf16's trace is CPU-generated in the
+    server (no GPU tracegen for the new chip), so big precompile shards stop overlapping with proving.
+  - The old 1.5x crash was the Global transpose kernel's grid-y limit (Global rows / 32 <= 65535, i.e. 2.1M rows
+    per shard), which only the witness arm's memory shards reached.
+  - `SP1_WORKER_USE_FIXED_PK=true` (the pk cache plus the minimal-executor cache) panics in the cached executor's
+    child on the second input, so it was dropped.
+- **Harness.** A finished run leaves `/tmp/sp1-cuda-0.sock`. The next client connects to the stale file before its
+  new server rebinds and fails with ECONNREFUSED; about every second screen failed this way. `quick.sh` and
+  `bench_run.sh` now wait for the last server to exit, then remove the socket.

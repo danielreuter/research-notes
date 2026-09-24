@@ -1,3 +1,4 @@
+CHECKPOINT none (07:08Z) [open] hill-climb 1 art:6e415853 (runs art:a965d150): guest chains each VU's 96 TC_DOT_BF16 ecalls in one asm block, 4.91M cycles (was 8.04M), t.total 11.946s, 16 shards. Building fork patch 0006 (sharding estimate + ELEMENT_THRESHOLD).
 CHECKPOINT 572018a3 (06:54Z) [open] B=4096 A100 result art:90671b80 (runs art:d9a862c5): t.total 12.763s, 17 shards, 2.34x faster than stock SP1 art:2a10bc89; verify-night handoff written; sp1-table 06:40Z: adopt --variant at next rebase. Next: hill-climb (shard threshold, guest loop).
 CHECKPOINT none (06:30Z) [open] B=4096 A100 prove 12.2s/17 shards (v1 stmt; 72% of cells = SP1 memory argument for the 25MB private input). Porting to relation-bare/v2 (rebased on sp1-table b5e1ed5f), emitter = vector_run.py sp1-bare via tcdot/bench.py wrapper; next: register result.
 CHECKPOINT edf1fb4 (06:05Z) [open] TC_DOT_BF16 chip (fork patches 0004-5, tree 6d55145f) passes prove+negative tests on A100 pod; op-bench batch2048 repro 21,033,942 cycles = orig, 34.75s A100 (4090: 40.59s). Building tcdot host; next: crosscheck/execute/negatives, then B=4096 prove.
@@ -92,3 +93,17 @@ Budget $12, FINAL 12:00Z.
   CPU shards stop at about 95M real cells because `ShapeChecker::handle_mem_event` charges each deferred
   precompile's fresh operand read as a local access (MemoryLocal + 2 Global, about 4,000 cells per call) to the CPU
   shard that issues it.
+- **Hill-climb 1, `art:6e415853…` (runs `art:a965d150…`), source `9491f177`, fork unchanged (`fe35cc50`).** A chip VU
+  now chains its 96 steps in one unrolled `asm!` block (`ecall; addi a0, a0, 64`). This relies on TC_DOT_BF16
+  returning no value: the executor writes the syscall code back to t0 (`minimal/ecall.rs` `unwrap_or(code)`) and
+  never writes a0/a1. The routing masks are now two aligned u64 words per VU. Cycles 8,036,335 -> 4,907,869, with
+  identical public values; flip-y rejects, 52/52 negatives are rejected and 44/44 correct words accepted. New ELF
+  `70d03135…`, vk `0x00b4876f…`. t.total 11.946 s (reps 11.92/11.64/11.93), 16 shards, 23.4 MB, -96.0 after the
+  union bound.
+- **Fork patch 0006 (FORK_HEAD `d14b4c62`, tree `3b8e553b`, prover scheduling only).**
+  - `ShapeChecker::handle_mem_event` no longer charges deferred-precompile accesses to the CPU shard.
+    `syscall_sent()` is set only for non-retained syscalls (`splicing.rs` `execute_ecall`), and their rows are in
+    the precompile shard. The estimate stays an upper bound on the CPU shard.
+  - `local_gpu_opts` honours `ELEMENT_THRESHOLD` when it is set. The 4 pinned trace buffers and the LDE (4x area)
+    scale with it, so stay under 2^31 LDE elements, i.e. an area of at most about 5.3e8.
+  - No AIR or verifier change: the vk depends only on the ELF and the chips.

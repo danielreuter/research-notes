@@ -1,0 +1,26 @@
+=== [07:00:02] fetch art:d9a862c505ea78e5aca426edbbac35a0a76aca8b3e31f8c60891fa17a50a0edd
+/workspace/verify-night/tcdot-90671b80/tree
+757cce919badce25866a8da0e4b0996407092c2773665098d2b055b9947f6b74  /workspace/verify-night/tcdot-90671b80/tree/proofs/proof-rep0.bin
+abb341ebf0b892e9f5f3023a2ed600f6dd4ccc5da431a44bd0f3e05145d6d14b  /workspace/verify-night/tcdot-90671b80/tree/proofs/proof-rep1.bin
+40e46a165a67d3a4824aaaa7df632f23636db9728b79643e2b29679baf360d5d  /workspace/verify-night/tcdot-90671b80/tree/proofs/proof-rep2.bin
+5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb  /workspace/verify-night/tcdot-90671b80/tree/proofs/statement.bin
+dump statement.bin == mine
+=== [07:04:42] verify (host sha256 54c638c6b8a30fa8)
+{"backend":"sp1 tc-dot","elf_sha256":"8f681770b37be66f5b76fbd67dadb19c96db9c0376b450d2801a15dedd00841f","fork_head":"fe35cc5005f0f3784e5a6ff9770c4b19d258e6a8","formats":["bf16-ampere"],"guest_features":["relation-bare"],"label":"modified SP1 (TC_DOT chip)","public_values_len":33,"sp1_version":"6.4.0","statement":"relation-bare/v2","vk_hash":"0x00347dc989cf805daedaa198c0b30348d3f4a80a8ab1de82b472a9f42f1569bf"}
+--- proof-rep0.bin
+{"backend":"sp1 tc-dot","elf_sha256":"8f681770b37be66f5b76fbd67dadb19c96db9c0376b450d2801a15dedd00841f","error":null,"fork_head":"fe35cc5005f0f3784e5a6ff9770c4b19d258e6a8","label":"modified SP1 (TC_DOT chip)","load_seconds":0.040119918,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.660093775,"shards":17,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":1.182283973,"vk_hash":"0x00347dc989cf805daedaa198c0b30348d3f4a80a8ab1de82b472a9f42f1569bf"}
+rc=0 wall=36s
+--- proof-rep1.bin
+{"backend":"sp1 tc-dot","elf_sha256":"8f681770b37be66f5b76fbd67dadb19c96db9c0376b450d2801a15dedd00841f","error":null,"fork_head":"fe35cc5005f0f3784e5a6ff9770c4b19d258e6a8","label":"modified SP1 (TC_DOT chip)","load_seconds":0.041739411,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.641843517,"shards":17,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":1.160264706,"vk_hash":"0x00347dc989cf805daedaa198c0b30348d3f4a80a8ab1de82b472a9f42f1569bf"}
+rc=0 wall=36s
+--- proof-rep2.bin
+{"backend":"sp1 tc-dot","elf_sha256":"8f681770b37be66f5b76fbd67dadb19c96db9c0376b450d2801a15dedd00841f","error":null,"fork_head":"fe35cc5005f0f3784e5a6ff9770c4b19d258e6a8","label":"modified SP1 (TC_DOT chip)","load_seconds":0.040443628,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.644454843,"shards":17,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":1.169150767,"vk_hash":"0x00347dc989cf805daedaa198c0b30348d3f4a80a8ab1de82b472a9f42f1569bf"}
+rc=0 wall=36s
+--- negatives on rep0: (a) last y byte flipped in the statement, (b) one proof byte flipped (middle)
+{"backend":"sp1 tc-dot","elf_sha256":"8f681770b37be66f5b76fbd67dadb19c96db9c0376b450d2801a15dedd00841f","error":null,"fork_head":"fe35cc5005f0f3784e5a6ff9770c4b19d258e6a8","label":"modified SP1 (TC_DOT chip)","load_seconds":0.040366302,"ok":true,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.659312711,"shards":17,"statement_match":false,"unsound":false,"verdict":true,"verify_seconds":1.172588196,"vk_hash":"0x00347dc989cf805daedaa198c0b30348d3f4a80a8ab1de82b472a9f42f1569bf"}
+rc=1
+flipped byte 12449316 of 24898632
+{"backend":"sp1 tc-dot","elf_sha256":"8f681770b37be66f5b76fbd67dadb19c96db9c0376b450d2801a15dedd00841f","error":"Core machine verification error: invalid shard proof: invalid pcs opening proof: dense pcs verification failed: PCS error: Query failed to verify: root mismatch","fork_head":"fe35cc5005f0f3784e5a6ff9770c4b19d258e6a8","label":"modified SP1 (TC_DOT chip)","load_seconds":0.040275124,"ok":false,"public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.670439908,"shards":17,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.605241843,"vk_hash":"0x00347dc989cf805daedaa198c0b30348d3f4a80a8ab1de82b472a9f42f1569bf"}
+Error: proof rejected
+rc=1
+=== [07:08:18] done

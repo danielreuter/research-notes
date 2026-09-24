@@ -14,7 +14,7 @@ if [ -z "$RF" ] || [ ! -s $D/result.json ]; then
   /tmp/sp1tcdot/pssh "cd /workspace/sp1-tcdot/runs/$TAG && tar -cf - ." | tar -xf - -C $D
 fi
 test -s $D/result.json
-read -r TT STATUS SRC SHARDS ACH < <(python3 ~/.research/notes/lanes/sp1-tcdot/evidence/result_meta.py $D/result.json $TAG $ARM $D/meta.json)
+read -r TT STATUS SRC SHARDS ACH < <(python3 ~/.research/notes/lanes/sp1-tcdot/evidence/result_meta.py "$D/result.json" "$TAG" "$ARM" "$D/meta.json")
 [ "$STATUS" = passed ] || { echo "$TAG: validation $STATUS -- not registering"; exit 1; }
 ID='import json,sys; d=json.load(sys.stdin); print(d["id"] if "id" in d else d["push"]["id"])'
 if [ -z "$RF" ]; then

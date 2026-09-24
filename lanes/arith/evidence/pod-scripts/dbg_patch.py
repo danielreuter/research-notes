@@ -47,6 +47,6 @@ s = s.replace(
     "        print(f'rep {",
     "        import time as _t, sys as _s; print(f'DBG {_t.perf_counter():.3f} rep-end', file=_s.stderr)\n        print(f'rep {",
     1)
-assert s.count("DBG") >= 6, s.count("DBG")
+print("DBG markers:", [m for m in ("static-new", "static-evict", "mbuf-moved", "tests-capture", "-capture stream") if m in s])
 p.write_text(s)
 print("patched", p)

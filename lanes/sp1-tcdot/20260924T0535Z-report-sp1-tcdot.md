@@ -234,3 +234,35 @@ Budget $12, FINAL 12:00Z.
 - **Harness.** A finished run leaves `/tmp/sp1-cuda-0.sock`. The next client connects to the stale file before its
   new server rebinds and fails with ECONNREFUSED; about every second screen failed this way. `quick.sh` and
   `bench_run.sh` now wait for the last server to exit, then remove the socket.
+- **Fork patch 0010: TC_DOT_BF16 constrains subnormal GroupSum outputs (witness arm, fork `0e00bd15`, tree
+  `fe0715de`).**
+  - Before this, a GroupSum output below the fp32 normal range was outside the chip's contract, so the guest ran the
+    step in software, and a VU with 8 or more such steps ran whole in software. That was 74 VUs and 2.45M of 3.74M
+    cycles.
+  - The reference (`tc::group_sum`) denormalizes: one truncating shift of the aligned sum by k = e_max + 125
+    (in [-7, 22]) to exponent -126. The result is zero if nothing survives.
+  - The chip reuses its bit-length one-hot for that shift. The new columns (+7, 1166 to 1173 per row) are an is_sub
+    flag pinned to e_max + 125 = k, a k = -7 selector, and a nonzero flag checked by a range lookup on the bit count.
+    A normal output cannot take this path and a subnormal one cannot take the normal path (range checks on e_out).
+    A denormalized D packs with exponent field 0, and a D that truncates to zero packs as +0.
+  - The fp8 TC_DOT AIR is unchanged.
+  - Tests: 9/9 chip tests pass, including new reference values (2^-130, a chained subnormal accumulator, a negative
+    sum that truncates to +0) and the CPU prove test with those tiles. Eight new negative tests tamper with the
+    denormalized path, and all are rejected.
+  - Routing on the frozen set: 64 of 393,216 steps are left in software (42 G1 and 22 D overflows, one per VU), and
+    no VU runs whole in software. Guest cycles fall from 3.74M to 0.86M.
+  - The host crosscheck finds 0 kernel mismatches against `tc::tc_dot` over all 393,152 chip steps. The ELF and vk
+    are unchanged (again: the vk does not pin the chips' AIR).
+- **Hill-climb 6, `art:b147a31c…` (runs `art:ee9b4fdf…`), source `ca647373`, fork `0e00bd15` (patch 0010), step 5's
+  prover env (ELEMENT_THRESHOLD 1.25x, MINIMAL_TRACE_CHUNK_THRESHOLD 2.5M).**
+  - t.total **5.631 s** (reps 5.60-5.72 s), 8 shards, 11.35 MB, -97.0; 52/52 negatives; verify 0.49 s.
+  - 3.52x faster than stock SP1's best (19.83 s). Rate: 1.12M MAC/s (2.23 MFLOP/s). Overhead vs 312 TFLOP/s: 1.40e8x.
+  - Only 3% for 4.3x fewer cycles, because the timeline is not bound by the guest. The five TcDotBf16 shards
+    (0.44 s each on the GPU) start only 1.2 s after the CPU shards that defer their events.
+  - Screen that lost: MINIMAL_TRACE_CHUNK_THRESHOLD 440k (two chunks) gives 12 small CPU shards at about 0.2 s fixed
+    cost each, 17 shards in all: 6.05 s. The precompile shards still wait for the CPU shards.
+- **Next (patch 0011, prover only).** TcDotBf16's trace is generated sequentially (one of the pod's 128 cores). With
+  no `generate_dependencies` override, the default builds the whole trace a second time just to count byte lookups.
+  Both passes sit between a precompile shard's events and its GPU proof. The patch follows ShaExtend's pattern:
+  `par_chunks_mut` rows, and lookups counted over `par_chunks` of events into per-thread maps. Trace values,
+  multiplicities, AIR and verifier are unchanged.

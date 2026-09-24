@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# merge-postwave (CPU pod): validate the merged lane/post-wave tree shipped by `research run --source . --cwd source`.
-#   setup   apt, rustup stable, sp1up v6.4.0 (succinct guest toolchain), uv
+# merge-postwave (CPU pod): validate the merged lane/post-wave tree in /workspace/src (`research pods sync`; `research run
+# --source .` was killed on the laptop by mem_guardian's disk floor while archiving), run with --cwd /workspace/src.
+#   setup   apt, rustup stable, sp1up v6.4.0 (succinct guest toolchain), uv (no-ops after setup.sh)
 #   py      pytest backends/numerical/tests + tools/research/tests (uv workspace, dev group)
 #   cargo   cargo check --release of every Rust crate the merges touched (+ ligero-verify and the gkr crate, per the brief):
 #           ligero-verify; verity-gkr (default and --features babybear); verity-gkr-verify; backends/sp1 host/common/check-model

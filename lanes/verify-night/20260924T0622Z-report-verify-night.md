@@ -21,3 +21,115 @@ CHECKPOINT none (06:53Z) [open] 06:53Z. r2 reverify: 5/5 fused-phases 4090 resul
 CHECKPOINT 1b3c7be6 (06:42Z) [open] reverify r1 5/5 PASS by verify-night: T2 H100bf16 5.2e7->2.0e7 art:44c768cd; H100fp8 5.6e7->2.1e7 art:1e73dc00; 4090 3.0e6->2.4e6 art:fb4934af; 4090+hash 1.8e7->1.0e7 art:9167ed22; 5090 9.5e6->5.1e6 art:885eec16. next: stmt-vs-frozen binding check, SP1 build
 CHECKPOINT 1b3c7be6 (06:38Z) [open] 15/15 instance-equiv re-checked 3 ways (check, regen, own full-chain) -> verified=accepted (verdicts preserved). T2 4090 B-Ligero 6.6e6x->3.0e6x art:0d5b229a (equiv art:68466c4a). next: reverify U-only fastest per cell on pod
 CHECKPOINT 1b3c7be6 (06:22Z) [open] 06:23Z started; pod vy-verify-night gyenhpbetf7xz8 (cpu3c 16vCPU $0.48/h) bound; next: bootstrap, re-derive 15 instance-equiv files starting art:68466c4a, then U-only candidates
+
+# verify-night report (independent verifier, campaign morning-tables)
+
+Base `lane/verify-night` @ 1b3c7be6; no commits (verify-night produces no code or results). Pod `vy-verify-night`
+(gyenhpbetf7xz8, SECURE cpu3c, 16 vCPU / 32 GB, $0.48/h, since 06:22Z). Every pod script is in `evidence/pod-scripts/`
+(numbered in the order they ran); outputs are under `/workspace/verify-night/` on the pod and copied to `evidence/`.
+
+## Labels written (all `--by verify-night`, each with a `verification-verdict/v1` artifact as `ref`, all PRESERVED)
+
+59 `verified=accepted`, none rejected. `same_device=false` goes on every result verified outside reverify.py.
+
+**Instance equivalences (15 `instance-equiv/v1`).** Each was re-checked three ways on the pod: `instance_equiv --check`;
+regeneration from scratch compared byte for byte; and my own full-chain comparison (`05-equiv-independent.py`: both relations
+drawn with no cache, every VU's `(a, b, accs)`, digests recomputed). Artifacts: art:68466c4a (fp8-ada-v2), art:d40f5065,
+art:bfd18a1d (bf16-hopper-v3x4), art:0749fa9d (fp8-hopper-v3x4), art:574f3519, art:f355573b, art:f70cf39f, art:b5584b28,
+art:5133f6c1, art:95df4a8e, art:9c8c306c, art:539af2c6, art:8036d0ba, art:59193d43, art:4cd768c2.
+
+**B-Ligero, reverify.py** (Rust `ligero-verify` built on the pod from 1b3c7be6, sha256 d89cffc7…; reverify writes the verdict
+and labels itself). 23 results, 6 rounds, all PASS:
+- r1: art:885eec16, art:fb4934af, art:1e73dc00, art:44c768cd, art:9167ed22
+- r2 (fused-phases 4090): art:06be3b23, art:2d685314, art:91c62994, art:d0789c44, art:7f294d16
+- r3: art:65f20513
+- r4b (fill-consumer): art:99867b4c, art:d5c9e1f3, art:1abdf12a, art:a3cc225d
+- r5 (fill-dc): art:e1fcf643, art:794365d3, art:aadcd93f, art:8e773e25, art:bcd7e05e, art:5387c1b5
+- r6 (fill-dc): art:271e0e3a, art:85569708
+
+Statement binding (`08-stmt-binding.py`): for the results behind the Table 2 cells, the dumped statements' public y words
+(and the operand words where the statement carries them) equal the frozen sets drawn by my tree. All BOUND: the five r1
+cells, and all 11 of r4b/r5/r6. The A100 checks needed the built vu-k1536 x/W arrays: I rebuilt them from my tree's
+recipe (`17-bench-instances.sh`), and all 6 match the committed manifest's sha256.
+
+**A-GKR** (`verity-gkr-verify` built from lane/agkr-table @ 53bd441b, 8/8 tests, sha256 ee899383…; unchanged at every
+producer commit). Each check: all proofs accepted with the expected counts. The statement files were regenerated from my
+tree and are byte-identical. public.bin equals the frozen y drawn by my tree. Negatives: `mutate --sample 64` rejects
+356/356.
+- A100 BF16: art:03e21c7f, art:21d253bd, art:f47f8006, art:300a526a (all carry the same proof bytes f2c05851…)
+- H100 BF16 (new cell): art:c09947fd. The Hopper circuit comes from my tree's builders at
+  `Params.from_model(MODELS['hopper_bf16_m16n8k16'])`. Those modules are identical to agkr-table's at 5b3a4646; only the
+  10-line `circuits()` glue is new there.
+
+**SP1, stock** (`veritor-zk-host`, relation-bare, CPU; each host built on the pod in a fresh target dir and each reproduces
+the producer's `elf_sha256` and `vk_hash`). The statement is written from my tree's frozen set and equals every dump's
+statement.bin. Each check: every rep has `ok`, `statement_match`, `verdict` true and `unsound` false; flipping the last y
+byte gives `statement_match` false. None of these can enter Table 2: they are 100-bit, and the security-target rule
+requires 2^-128. They are for D2.
+- sp1-table: art:2a10bc89 (b5e1ed5f), art:1d6aa0c3 (k4+indexed, 65aa6a12), art:c7ca70a0 (k4, 14987d41),
+  art:fffbf728 (k7, 2da1e77e)
+- sp1-formats @2581406f: art:0a8697da (4090), art:30a1f28a (H100 FP8), art:ef2d91ce (H100 BF16), art:f3072b13 (5090)
+- sp1-formats @3510cfcf: art:8d9df3a2, art:70e5bd29, art:76d13bb0, art:a8886e22
+
+**SP1 + TC_DOT chip (modified SP1)**. Each verdict names the fork commit, because the vk does not pin the constraint system
+(finding 4 below). Each check also has a flipped-proof-byte negative (rejected).
+- art:90671b80 (572018a3, fork fe35cc50) and art:255f4f78 (64014888, fork d14b4c62): memory arm.
+- art:174d7b4d and art:76c113f4: witness-operands arm (0742a046, fork 6096d886, `stream-operands`, vk 0x00896ef4…). The
+  memory-arm host rejects both proofs. The operand soundness caveat is written into both verdicts.
+
+## Table 2 delta (baseline = render 06:25Z, before any label of mine; now = pod render 09:02Z)
+
+| cell | 06:25Z | now | art |
+|---|---|---|---|
+| A100 BF16, A-GKR | — | 3.4e7× | art:300a526a |
+| A100 BF16, B-Ligero | 1.9e7× | 6.0e6× | art:e1fcf643 |
+| A100 BF16, + in-proof hash | 5.2e7× | 2.2e7× | art:794365d3 |
+| H100 BF16, A-GKR | — | 6.2e7× | art:c09947fd |
+| H100 BF16, B-Ligero | 5.2e7× | 1.0e7× | art:aadcd93f |
+| H100 BF16, + in-proof hash | 7.5e7× | 4.3e7× | art:271e0e3a |
+| H100 FP8, B-Ligero | 5.6e7× | 1.2e7× | art:85569708 |
+| H100 FP8, + in-proof hash | 8.3e7× | 4.6e7× | art:5387c1b5 |
+| RTX 4090 FP8, B-Ligero | 6.6e6× | 2.4e6× | art:fb4934af |
+| RTX 4090 FP8, + in-proof hash | 1.8e7× | 9.1e6× | art:1abdf12a |
+| RTX 5090 NVFP4, B-Ligero | 9.5e6× | 4.5e6× | art:d5c9e1f3 |
+| RTX 5090 NVFP4, + in-proof hash | — | 1.8e7× | art:99867b4c |
+
+Still empty: A-GKR for H100 FP8, 4090 and 5090 (no results), and the whole SP1 column (2^-128 rule). The remaining results
+the renderer rejects only as unverified that would beat a cell are 8 results, each under 3% faster. None has dumps, so
+there is nothing to verify: art:300b6601, art:4eeb0b8a, art:95850cc5, art:031314e8, art:d773c7fd, art:c0459fa5,
+art:cb64d2fe, art:ddaa5bf7.
+
+## Findings (each sent to its owner)
+1. **Laptop catalog wiped, twice** (coordinator 0738Z, 0826Z). `Index.rebuild` is not atomic. The first time, a reindex
+   collided with a `research data preserved` lock. The second time, the guardian's disk floor (3.5 GB; the laptop was at
+   3.3-3.7 GB) killed four `reindex --remote` runs from 08:13 to 08:16Z. Evict cannot free disk with a wiped catalog. Since
+   then I render on the pod (`21-pod-render.sh`: seed the pod store with the laptop's manifests/attempts/labels, strip the
+   macOS `._*` files, then `reindex --remote`).
+2. **Lineage self-verification** (tables-fix 0700Z). `tables.producers()` ignores lane succession, so a successor lane's
+   label on its predecessor's result counts as independent. Four such labels exist; none decides a Table 2 cell.
+3. **Stock SP1 host exit code** (sp1-formats 0752Z). `veritor-zk-host verify` exits 0 even when it rejects (`ok` false or
+   `statement_match` false); only the JSON says whether it accepted. `verity_sp1/host.py` reads the JSON, so nothing
+   in-tree is affected. My verdicts read the JSON fields too.
+4. **The TC_DOT vk does not pin the constraint system** (sp1-tcdot 0710Z; confirmed by sp1-tcdot 0841Z). The memory arm
+   and the witness-operands arm share vk 0x00b4876f… for the same ELF. The fork commit is what identifies the constraint
+   system, so every tcdot verdict names it. The memory-arm host rejects witness-arm proofs.
+5. **Payload-only results** (coordinator 0655Z). Some faster B-Ligero results are registered without `--meta`, so
+   tables.py ignores them while drilldown shows them.
+6. reverify.py on runner-attempt results needs read access to `attempts/`: a credential scoped to objects/, manifests/ and
+   labels/ fails with HTTP 403.
+7. A100 binding checks need the built x/W arrays (they are not committed). `bench.instances build` rewrites
+   `manifest.json`, so build into a scratch dir and link the arrays into the fixture (as pod_bootstrap's
+   BENCH_INSTANCES stage does).
+
+On contract §8 ("never write `verified=` yourself"): my launch message names this lane as the independent verifier and
+tells it to write `verified accepted --by verify-night` for anything verified outside reverify.py. I read §8 as aimed at
+producers. Every such label points to a preserved verdict artifact with the evidence.
+
+## Handoffs received (all acted on)
+fused-phases 0554Z (15 equivalences: done); sp1-table 0632Z (art:2a10bc89), 0739Z (art:1d6aa0c3, art:c7ca70a0),
+0835Z (art:fffbf728), 0906Z (art:7233a6a3); agkr-table 0644Z (art:03e21c7f), 0712Z plus its appends (art:21d253bd,
+art:f47f8006, art:300a526a), 0830Z (art:c09947fd); coordinator-fused-cells 0646Z (r2); sp1-tcdot 0655Z (art:90671b80),
+0727Z (art:255f4f78), 0841Z (art:174d7b4d, art:76c113f4, art:a68f2446); sp1-formats 0712Z (4 results),
+0742Z-3510cfcf (4 results); fill-consumer 0725Z (r4b); fill-dc 0736Z (r5, r6).
+
+Handoffs sent: coordinator 0655Z, 0738Z, 0826Z; tables-fix 0700Z; sp1-tcdot 0710Z; sp1-formats 0752Z.

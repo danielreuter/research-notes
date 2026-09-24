@@ -3,6 +3,6 @@
  "brief": "/Users/danielreuter/.research/notes/kb/TABLES.md",
  "budget": "$25",
  "final": "03:30Z",
- "pod": "vy-sp1-128-a100",
+ "pod": "vy-sp1-128-cpu",
  "worktree": "/Users/danielreuter/projects/verity-main-wt/sp1-128"
 }

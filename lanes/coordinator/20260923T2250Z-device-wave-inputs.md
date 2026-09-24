@@ -99,7 +99,15 @@
   pipelining are the likely cause. BEFORE the wave: run the helper over one pipelined cell per relation and confirm headline
   cells pass the contract. If they don't, fix the bucket rule for pipelined runs at merge-val-3, not per lane.
 
-- 04:40Z DECISION (wave-4090-2 handoff 0410Z, wave-h100-2 r1): a phase-sum "1 problem" does NOT disqualify a row when it is
+- 05:00Z REVERSED: the frozen table contract (tables.py, backends/AGENTS.md "Canonical tables", user-frozen 2026-09-22) says
+  buckets are disjoint and sum to t.total within tolerance, and the renderer rejects such rows (art:7e796fb9 rejected). A
+  flagged row is drill-down, not a Table 2 cell, until the fused path's phase attribution is fixed. Also contract-invalid for
+  Table 2: `included-hash-shared` (not a column; the column is Poseidon2 included-hash, sharing none), l=4096 v3x4 runs
+  whose instance manifest differs from the frozen set (art:fb4934af), and t.total_live as the headline (the cell is t.total).
+  Headline tables = `python -m verity_numerical.bench.tables --root ~/.research/store` output ONLY; never hand-built.
+- 05:05Z USER DECISION: keep the frozen "B-Ligero + in-proof hash" column (Poseidon2, sharing none). Shared 64x64 tile =
+  drill-down only. Supersedes the 01:05Z "column 2 = +shared tile64" entry below.
+- (superseded) 04:40Z DECISION (wave-4090-2 handoff 0410Z, wave-h100-2 r1): a phase-sum "1 problem" does NOT disqualify a row when it is
   the only problem. Pipelined runs report t.total = the pass wall clock (`relchain._pipelined` returns `wall`), and a
   sub-batch's clock stops only after its openings reach the host (protocol.py ~1704-1718), so no GPU work falls outside
   t.total; the buckets add per-sub-batch stages that overlap at depth >= 4 (seen only on fused v3/v3x4: 1.3-3.8 % on the

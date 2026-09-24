@@ -185,6 +185,14 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   Worktrees wave-4090 + wave-h100 removed. PHASE-SUM DECISION 04:40Z (inputs file): flag alone does not disqualify; footnote +
   clean alternative; told wave-a100-2 + wave-5090-2. POST-WAVE adds: contract phase-sum check vs pipeline depth > 1;
   live_test shared-pair fixture 2^-99.86 < 2^-100 (fails on main since shared-live e2a3b27e; resize fixture or target).
+- 05:00Z TABLES RULE (user 04:54Z: "you change the headline tables quite often"): the ONLY headline tables are the frozen
+  three (tables.py; user froze 2026-09-22; + the 05:39Z "+ in-proof hash" column): show `python -m verity_numerical.bench.tables
+  --root ~/.research/store --format md` verbatim; provisional numbers only as labelled drill-down under it; any definition
+  change (shared tile, live timing, phase-sum tolerance, x4 instance sets) = ask the user first, then edit tables.py +
+  backends/AGENTS.md. Renderer gaps found 05:00Z: (1) hand-put results with no attempt -> producers unknown -> the lane's
+  own verify label counts as independent (cells 4090 4.4e6x art:1a44b9c8, 5090 5.4e6x art:7cdffa50); (2) '+ in-proof
+  hash' column accepts Ajtai (4090 9.3e6x art:a657d26c) though its caption says Poseidon2. Fix both before the morning render.
+  USER 05:05Z: keep the frozen column 2 (Poseidon2 per row, sharing none); shared 64x64 tile = drill-down only.
 - 04:41Z ops-tools FINAL (~$0.11 pod). Part A (notes: pods by ownership, IDLE-POD/ACCOUNT/RUNWAY/FINAL-POD, --reap,
   relaunch, gc-worktrees) -> MAIN ff 0b0768ed, pushed; notes tests 40/40 on main. Watcher relaunched under launchd with
   `--idle-min 5 --reap` (+ previous flags); first ACCOUNT line: $299.90 at $8.24/h, runway 36 h (balance topped up).

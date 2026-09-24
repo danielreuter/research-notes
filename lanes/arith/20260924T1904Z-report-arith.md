@@ -163,3 +163,19 @@ Inbox at startup: nothing new.
   all 56 arts preserved (pod-side `data preserved` rc=0). The within-pod A/B favours the tip; the absolute BF16 live numbers
   do NOT beat the cell (pod noise) -- Table 2 should keep art:aadcd93f or be re-measured on a quiet pod.
 - vy-arith-h100 TERMINATED 22:23Z (21:41-22:23, ~$2.44). Spend so far ~$4.29.
+- verify-po request: lanes/verify-po/20260924T2226Z-handoff-from-arith.md (13 H100 tip results).
+
+## A100 port
+- vy-arith-a100 (l98atdkvkkmege, US, 22:25Z) TERMINATED 22:44Z unused: upload link < 170 KB/s (10 MB did not arrive in
+  60 s), sync impossible (~$0.50). Replacement vy-arith-a100b (1porug6orhjdy7, A100-SXM4-80GB SECURE US-KS-2, host EPYC
+  7742 x256, $1.59/h, 22:45Z; EUR-IS-1 had no A100). Sync needed rsync installed on the pod first.
+- Bootstrap OK (BENCH_INSTANCES=1 RELS=bf16-ampere-v3). A/B a100-ab.sh (r20260924-225542-83fe), bf16-ampere-v3 l=16384
+  p8 local, 4 alternating rounds, LIGERO_REFERENCE_HINTS=0:
+  base 0.3067 0.2915 0.2667 0.2830 (arith .2260 .2109 .1945 .2014); tip 0.2374 0.2552 0.2540 0.2528 (arith .1599 .1784
+  .1814 .1830). Base rep 1 0.311 / 0.328 / 0.855 s, tip 0.273 / 0.262 s (steady ~0.23).
+
+| A100 BF16 (medians) | t.total s | arithmetic s | overhead x |
+|---|---|---|---|
+| cell (main, EUR-IS-1) art:e1fcf643 | 0.2413 | 0.164 | 6.0e6 |
+| base here (4) | 0.2873 | 0.2062 | ~7.1e6 |
+| tip (4) | 0.2534 | 0.1799 | ~6.3e6 |

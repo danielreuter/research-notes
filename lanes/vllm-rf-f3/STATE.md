@@ -177,7 +177,15 @@ created: 2026-09-24T17:36Z
   `gate_a_t01.sh`; logs `logs/full_{head,base}.*`, `logs/full.rss`, `logs/full.DONE`).
 - 22:51Z sync head (rf-f3 worktree, 4fb0eb2c) -> `/workspace/head`, then base (laptop worktree `rf-f3-base` re-created, 72884c8a) ->
   `/workspace/basetree`. Then boot, mint 1 h key on the laptop -> `/root/r2ro.env` by raw ssh, prefetch_all, run_full.
-- The 64 GB pod `drd3w6z9d22gvd` stays up only until big2 runs (partial logs copied: `evidence/gate_a_oom/`), then terminate.
+- 22:54:44Z BOOT-DONE (BOOTSTRAP-OK; xgrammar 0.2.8 -> 0.2.7; freeze == a1's baseline-freeze.txt except pytest-xdist/execnet).
+  Base sync #1 died (BrokenPipe: I killed its ssh by a too-broad `pgrep -f "<ip> mkdir"` meant for a hung launch ssh); partial tree
+  removed; base re-synced 23:0xZ (2814 files, `.research-source.json` 72884c8a). The hung launch ssh cause: `cd X && setsid nohup job &`
+  backgrounds the whole `&&` list, whose subshell holds the session fds until the job ends (also the g3 stale `bash -c`). Now `cd X; setsid ... &`.
+- ~22:58Z own 1 h read-only key minted on the laptop -> `/root/r2ro.env` (raw ssh, 786 bytes, never printed); `prefetch_all.sh`
+  (flock) running -> `logs/prefetch.log`; a detached waiter starts `run_full.sh` (flock) only on "prefetch done ok=26 fail=0".
+  `judge_a.py` + a1's `baseline-gate_a.xml.gz` on the pod (dry run on a1 vs itself: 158 / 64 passed / 94 skipped).
+- 23:0xZ the 64 GB pod `drd3w6z9d22gvd` TERMINATED after copying its gate (b) evidence (`evidence/cpu_pod/`: gate_b_final
+  log/xml/fails/rss/env, the 9bddf741 run, targeted run, scripts) and the OOM partials (`evidence/gate_a_oom/`).
 ## (done) big pod `vyv-rf-f3-big`, RunPod `sda06pqcfi51jt`
 - prefetch (above), then `/workspace/rff3/run_big.sh /workspace/head big`: `T1-replay_partition-r11` and `-r39` at head side by side
   (`-k`, own tree copy + scratch each, gate_a_t01.sh) -> `logs/big_r{11,39}.{log,xml,out}`, memory `logs/big.rss`, `logs/big.DONE`.

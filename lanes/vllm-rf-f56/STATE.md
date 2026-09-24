@@ -88,14 +88,16 @@ created: 2026-09-24T17:40Z
 - GATE (a) TIER GAP (load-bearing): the brief's gate (a) is `VERITY_REGRESSION_TIERS=T0,T1`; my 21:10Z gate (a) (a1's recipe) ran T0 only (26 T1 skips: decomp_hashes, replay_partition). a1's baseline is T0-only and calls tiers an open question. Fix: T0,T1 at the final head + a T0,T1 base control at `1d9c3198` (my new base), same pod. `gate_a.sh` now defaults TIERS=T0,T1.
 - 22:54Z gate (b) at `ce41390d` started (`b_final`, xdist 12, OMP 3). 23:04Z prefetch (3 h RO key minted on laptop, piped): 26/26 ok, 0 FAIL, secret in no text file (/workspace/rff56, /root/.research, /tmp, both trees), key deleted 23:04:29Z. 23:04:41Z gate (a) T0,T1 started at head (`a_final`) and base (`a_base1d9c`); 0 `AWS_*` in their environ.
 - 23:16Z **#70 BUILD at `9b07c19f` PASS: program_digest `64bee6d6e8264461` == f1's base Build**; wall 1359 s (f1 1279 s); build manifest complete, identities 357796, tp_peer_binding_n_unbound 0, unmodelled {}, digest `1bb40895671dd791`; result valid. 23:16:41Z #70 MATCH `r20260924-231641-5152`.
+- 23:19:35Z **GATE (b) at `ce41390d`** (`b_final.xml`, xdist 12): 55 F, 11 E, 3598 P, 296 S, 6 xf (3,966). jdiff vs a1 base `b_base_x12.xml` (3,904): only-in-base 2 = the D16b-removed `test_allreduce_definition_shape_gates_and_identity[1-4]`/`[5-3]`; only-in-head 64 all passed (my 23 + a1's 41 lint tests); outcome changed 4 = gc-freeze pair passed->failed (the known xdist-order pair, same as at 9b07c19f, identical when run alone at base), weakref-death skipped->passed (allocator), `ops/test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way` failed->passed (base flake: TimeoutExpired 15 s); new skips 0; one skip REASON new: `program/test_ship_roots::test_ship_pack_carries_out_gen_hf_configs` "this checkout has no record_v5/ship.sh or data/hf_configs" = main's rewrite of that file (skip code identical at `1d9c3198` and `ce41390d`; it was skipped at base too). jdiff vs my `b_head_x12.xml` at 9b07c19f: only-in-head 41 (lints) all passed, 0 new failures, 0 new skips, only change the sigint flake failed->passed. **Gate (b) OK: nothing outside a1's list that my commits introduce.**
+- 23:21Z fa_record2.sh (= fa_record.sh with the moved driver `tests/check/fa_tap_exactness_gpu.py`; checker `verity_vllm.check.fa_tap_exactness.verify_record`); pre-seeding `ce41390d` at `/workspace/research/src/ce41390d...` on tp2b for an `--on` FA2 record after the chain (slow codeload: 82 MB in 5.5 min).
 
 ## Running
-- `vyv-rf-f56-tp2b` ($2.18/h): #70 Match `r20260924-231641-5152`, then Commit at `9b07c19f`.
-- `vyv-rf-f56-cpu` ($~0.6/h): gate (b) `b_final` (~98% at 23:17Z), gate (a) T0,T1 `a_final` + `a_base1d9c`.
+- `vyv-rf-f56-tp2b` ($2.18/h): #70 Match `r20260924-231641-5152` (started 23:16:54Z), then Commit at `9b07c19f`; tarball ship of `ce41390d`.
+- `vyv-rf-f56-cpu` ($~0.6/h): gate (a) T0,T1 `a_final` + `a_base1d9c` (started 23:04:41Z).
 
 ## Next
-1. Gate (b): jdiff vs a1 `b_base_x12.xml` (+ my `b_head_x12.xml` at 9b07c19f); gate (a): jdiff head vs base control, both T0,T1; lints on the CPU pod too.
-2. #70 Commit after Match; get f1's per-stage numbers (read-only from f1's run logs) and compare; FA2 record at the final head on tp2b after the chain (moved driver); decide FA3; pull + push attempts, drain.
+1. Gate (a): jdiff head vs base control, both T0,T1.
+2. #70 Commit after Match; get f1's per-stage numbers (read-only from f1's run logs) and compare; FA2 record at the final head on tp2b after the chain (`--on`, fa_record2.sh); decide FA3; pull + push attempts, drain.
 3. READY: both heads (`9b07c19f` pre-rebase, `ce41390d` final), lint run, the D17 move and why, D16c restructure, the tier gap; summary <= 250 words.
 
 ## Open questions

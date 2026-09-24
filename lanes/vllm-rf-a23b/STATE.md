@@ -11,7 +11,7 @@ created: 2026-09-24T19:30Z
 
 > **a23b succeeds a23 from `c1cf11ef`** (a23's pushed head; a23 silent since 18:02Z). Coordinator: vLLM coordinator, Cursor agent bc-ba6cec03.
 > Branch `lane/vllm-rf-a23b`, worktree `/Users/danielreuter/projects/verity-wt/rf-a23b`, base for gates/diffs `72884c8a`.
-> Pod `vyv-rf-a23` = RunPod `qcky3qlmvh896c`; my trees/scripts/logs under `/workspace/a23b/`. ssh: `~/.research/bin/research pods ssh vyv-rf-a23 --print`.
+> **Now (23:30Z):** branch head **`9be6e462`** (rebased onto main `58e4c1aa`; pre-rebase gated head `748d71c5`). Pod **`vyv-rf-a23b-big` = RunPod `n2ei0ahhoeu80j`** (512 GB; ssh wrapper `ssh_big.sh` here); trees/scripts/logs under `/workspace/a23b/`. Running: base gate (a) `a_base_t01` (pid 6852), gate (b) at 9be6e462 `b_rb_x12` (pid 9050). Old pod `vyv-rf-a23` (qcky3qlmvh896c) is terminated.
 > Never touch `~/projects/verity-wt/rf-a23` or branch `lane/vllm-rf-a23`. Deadline: vyv- pods die 2026-09-25T03:00Z; start gate (a) by ~23:00Z.
 
 - **Brief:** `~/.research/notes/lanes/vllm-refactor/LANE_BRIEF.md`; plan `SYNTHESIS.md` §2, §5, §6 (lanes A2, A3); survey `survey-harness-ops-tests-data.md` DEAD, Map 3, Map 4.
@@ -73,6 +73,12 @@ created: 2026-09-24T19:30Z
 - READY.md drafted with the gate (b) evidence; gate (a) section to fill. Compare gate (a): `python a1/baseline-jdiff.py logs/a_base_t01.xml logs/a_head2_t01.xml` on the pod, and head vs a1's T0 `a1/baseline-gate_a.xml.gz`.
 - 22:30Z head gate (a) 82/158, no failure so far; base gate (a) 36/158, no failure. Wheel rebuilt at 748d71c5 on the pod (`/workspace/a23b/wheel/`, 375 files, all package data present).
 - 22:53Z head gate (a) 118/158, base 60/158, no failure in either so far.
+- **23:19:35Z head gate (a) T0+T1 at 748d71c5 done: 73 passed, 85 skipped, 33 deselected, 0 failed, exit 0 (6135 s).** jdiff vs a1's T0 base: 0 new failures, 0 new skips; 9 `T1-replay_partition` skipped -> passed (T1 on); 19 skip reasons new vs T0 (the T1 checks' "does not apply" reasons, and the manifest_digest TP-row reason now naming `tp_stage.sh`): judge against the same-pod T0+T1 base `a_base_t01` when it lands.
+- **23:15-23:25Z rebase (coordinator banner above; main had moved on to `58e4c1aa`, nothing under integrations/vllm since 1d9c3198):** `git rebase origin/main`; the one conflict (`check/fold_compare.py`, commit dfb8cd8b) resolved `--theirs` (my side; file identical to 748d71c5's). `git diff 748d71c5 ea6625d3 -- integrations/vllm/verity_vllm` is empty; range-diff: 12/13 commits `=`.
+  - Pod tree `/workspace/rb` = head2-reg (tree 1158eb69; NB `/workspace/head2` itself was dirtied by gate (b): `tests/program/test_ref_prims.py` rewrites 29 `docs/data/ref-prims/*.json` in the tree, same bytes at head and base) + `git diff -M --binary 748d71c5 ea6625d3`, write-tree `fe76b29e` = ea6625d3^{tree}. Index in `/workspace/a23b/rb.git` (outside the tree).
+  - Lints at ea6625d3: 11 failed (`logs/lint_rb1.log`, copy `lint_rb1.log` here). `lint_fix.py` (here and in the pod `/workspace/a23b/`) applied the printed deletions/lowerings, moved the p07 `_default_manifest` cwd entry `os.getcwd` -> `pathlib.Path.cwd`, dropped 7 moved modules from INTERIM_LAYER, added `"verity_vllm.config": "config"`, and dropped the blank line that took tp/worker.py to 1580 (> its recorded 1579). **Lints: 41 passed** (`logs/lint_rb2.log`) on tree `9cdc02c5`.
+  - Commits `3f794427` (tp.worker blank line), `9be6e462` (allowlists + INTERIM_LAYER); tree `9cdc02c5` = the pod tree the lints passed on. **Pushed 23:26Z `--force-with-lease` (748d71c5 -> 9be6e462).**
+- **23:27:59Z gate (b) at the rebased head 9be6e462:** `cd /workspace/a23b && OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/rb-b b_rb_x12 -n 12 --dist loadfile` (rb-b = cp of rb) -> gate_b.sh pid 9050; logs `b_rb_x12.{log,xml,env,rss,run}`.
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

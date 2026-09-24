@@ -192,6 +192,11 @@ created: 2026-09-24T17:36Z
   writing #11's programs tree, so `programs_root()` found no `build_request*/instances.json.gz` -> NotResolvable -> skip. The resolver
   checks sha/size per file, so the race yields "not resolvable" skips, not failures. Plan: after both finish, rerun alone (trees
   complete by then) every test that passed in one tree and skipped as unresolvable in the other; report both.
+  **23:23Z rerun `T0-manifest_digest-r11` at head alone** (fresh copy `/workspace/head-rr`, `rr_head_md11`, launch_once/flock):
+  **1 passed** (468 s) -> the full-run skip was the race. Base passed it in its full run (23:13Z).
+  23:28Z head 36 results, base 22 (in `T1-replay_partition-r11`, 60 GB), 0 F/E either side; watcher on the laptop polls every 60 s.
+  NOTE (my tooling): `AwaitShell` without a shell id returned at once while reporting "slept N s" -- the pod "clock jumps" earlier
+  were that; waits now block on a laptop watcher loop.
 - 23:0xZ the 64 GB pod `drd3w6z9d22gvd` TERMINATED after copying its gate (b) evidence (`evidence/cpu_pod/`: gate_b_final
   log/xml/fails/rss/env, the 9bddf741 run, targeted run, scripts) and the OOM partials (`evidence/gate_a_oom/`).
 ## (done) big pod `vyv-rf-f3-big`, RunPod `sda06pqcfi51jt`

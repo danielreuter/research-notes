@@ -8,7 +8,7 @@ source /workspace/env.sh
 set -a; source /workspace/d3-h100/cred.env; set +a
 export RESEARCH_STORE=/workspace/store RESEARCH_STORE_CONFIG=/workspace/src/tools/research/store.pod.toml
 O=/workspace/d3-h100/runs; OUT=/workspace/d3-h100/registered.txt
-POD="vy-d3-h100 (H100 80GB HBM3, US-MO-1, r79m8t4m58gq8o); live verifier vy-d3-h100v (cpu3c 4 vCPU, US-MO-1, 4tdtl6xuhxaa3o, tcp://64.247.201.13:16766)"
+POD="vy-d3-h100 (H100 80GB HBM3, US-MO-1, r79m8t4m58gq8o); live verifier ${VERIFIER_POD:-vy-d3-h100v (cpu3c 4 vCPU, US-MO-1, 4tdtl6xuhxaa3o, tcp://64.247.201.13:16766)}"
 id_of() { $PY -c 'import json,sys; d=json.load(sys.stdin); print(d["id"] if (d.get("preserve") or {}).get("preserved") else "")' 2>/dev/null; }
 for tag in "$@"; do
   d=$O/$tag; [ -f $d/result.json ] || { echo "$tag: no result.json"; continue; }

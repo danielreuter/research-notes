@@ -51,6 +51,15 @@
   class-name `FastProg` (renamed `MemoProg`, code + `tests/check/test_global_match.py`). Pod tree `/workspace/head3` (`research pods sync`,
   ~7 min per sync: the pod has no rsync). Next: lints there, allowlists, commit, D5/D10 tests at the new head, push `--force-with-lease`.
 - 22:42Z `a_final` 76/158.
+- 22:57Z `a_rerun_t0` exit 0 (22:52Z). Lints at head3 (`/workspace/out/lint/lint1.log`): 12 failed. Stale/moved entries (P1 core-patch x4,
+  P1 core-private install->_spec_id_memo and Prog.__init__->Prog._node_functions, P4 verdict-import sampled_replay->replay_codes, P7 environ
+  install->ops, P7 commit_verdict broad-except x2, P7 tp/commit cwd, P11 tp/commit M-nnnn, P12 hot_commit/tp/commit root-lists) plus
+  NEW ones to fix in code: P9 cycle replay_codes<->sampled_replay (legacy decode's lazy NOT_YET import), P7 seed-default `seed_form`,
+  P12 root-list in research_tools.code_identity (owner is harness/source_identity.py), P10 growth in 10 caps (my D10/D11/D13 hunks).
+  Plan: NOT_YET -> replay_codes (sampled_replay re-exports); seed_form stamped by commit_delta on `sr["sample"]` (no defaulted param);
+  code_identity -> source_identity; verdict.py's account-missing helpers -> commit_verdict (beside _query_population_scope); trims.
+  P4 `why.startswith` in replay_codes.not_evaluable_codes = the legacy decode that was commit_verdict._no_evaluator_gaps'
+  `k.startswith(_NO_EVALUATOR_PREFIX)` in base (unflagged: variable name) -> allowlist entry, stated in READY.md for the coordinator.
 
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
 - origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.

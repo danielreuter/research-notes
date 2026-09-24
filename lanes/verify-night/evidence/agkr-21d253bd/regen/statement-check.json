@@ -1,0 +1,37 @@
+{
+ "circuit.txt": {
+  "identical": true,
+  "sha256": "afefd92fc17282ae280eef80b1b331b49340ffbbed88a1d8a7f3dac3cc45f1c7"
+ },
+ "epilogue.txt": {
+  "identical": true,
+  "sha256": "90001e98ad752110e825f9f8a938a2731fea597727921f9af4acc6cd4561359c"
+ },
+ "chain.txt": {
+  "identical": true,
+  "sha256": "08025221bde2efaf108dd32f6d5bf1b4a977695716d39466d6ed3e6d1fa42a47"
+ },
+ "manifest_params_differ": [],
+ "manifest_sha256_frozen": true,
+ "dump_manifest": {
+  "tier": "vu-k1536",
+  "range": [
+   0,
+   4096
+  ],
+  "steps": 96,
+  "root_manifest_sha256": "059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea",
+  "cross_check": true
+ },
+ "dump_manifest_root_is_frozen": true,
+ "public_bin": {
+  "header": [
+   4096,
+   1
+  ],
+  "words": 4096,
+  "sha256": "9176d3423b948b841082a2fc24bfe1e7a30b1a257e3ab567453b97c5e9f44727",
+  "equals_frozen_y": true
+ },
+ "ok": true
+}

@@ -22,9 +22,12 @@ created: 2026-09-24T17:27Z
   0.28.1rc1.dev472+gd9105ea80, triton 3.7.1, numpy 2.3.5, pytest 9.1.1, transformers 5.17.0) + `uv pip install pytest-xdist==3.8.0`.
   Freeze: pod `/workspace/rfa1/logs/freeze.txt`. Read-only R2 credential minted to pod `/root/r2ro.env` (expires 20:38Z).
 
+- 18:30Z `baseline.md` written (environment recipe; xdist gate (b): 3904 = 3536 pass / 54 fail / 11 error / 297 skip / 6 xfail,
+  all 65 failures grouped by cause; 50 skip reasons; per-file appendix). Beside it: `baseline-freeze.txt`, `baseline-gate_{a,b}.sh`.
+  Local copies: `/tmp/rfa1/pull/b_base_x12.{xml,log,md}`, composer `/tmp/rfa1/compose.py`.
+
 ## Running (pod vyv-rf-a1, scripts `/workspace/rfa1/gate_{a,b}.sh`, logs `/workspace/rfa1/logs/`)
-- 17:42Z gate (b) base, xdist: `OMP_NUM_THREADS=3 gate_b.sh /workspace/base b_base_x12 -n 12 --dist loadfile` -> `b_base_x12.{log,xml,rss}`.
-  18:01Z at 98%, tail = `test_derive_realhf.py` + `test_derive_hf5b_realhf.py` (one worker each). Has F/E -> diagnose from the xml.
+- DONE 18:22Z gate (b) base, xdist: `OMP_NUM_THREADS=3 gate_b.sh /workspace/base b_base_x12 -n 12 --dist loadfile` (exit 1, 65 F/E).
 - 17:42Z gate (a) base: `nice gate_a.sh /workspace/base-reg a_base` -> `a_base.{log,xml}`. 18:01Z past the first row build, passing.
 - 17:46Z gate (b) base, serial (the brief's exact command): `gate_b.sh /workspace/base-serial b_base_serial` -> `b_base_serial.{log,xml}`. 18:01Z at 53%.
 - Summarizer: local `/tmp/rfa1/summarize.py RUN.xml` (overall/per-file counts, failures, grouped skips).
@@ -40,7 +43,11 @@ created: 2026-09-24T17:27Z
 3. Gates (a)+(b) at the lint head; READY.md with allowlist sizes.
 
 ## Open questions
-- none yet
+- Gate (b) cannot be 0 failures at 72884c8a (10 fail in any environment). baseline.md proposes judging lanes by "no F/E or skip reason
+  outside the baseline list"; the integrator should confirm.
+- 30 applicability failures are `No module named 'verity'` in subprocess builds (tests set PYTHONPATH to the integration tree only).
+  Candidate recipe fix: put core in the venv (`.pth` or `uv pip install --no-deps -e packages/verity`). Test it only after the serial
+  run finishes (venv312 is shared by the running gates).
 
 ## Found, not fixed
 - none yet

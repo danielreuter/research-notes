@@ -328,7 +328,7 @@ Counts for `acquire/`: CORE-DUP 3, INTERNAL-DUP 5, VERSION-RESIDUE 6, HARDCODING
 |---|---:|---|
 | `__init__.py` | 12 | package docstring; stale (see DOCS) |
 | `worker.py` | 1,579 | `TP2CaptureWorkerExtension`: 21 `tp2_*` RPC methods run in every rank (probe, observer install/close, parameter hashes, semantic probes, collective recorder, committer make/install/finalize, binding map, sampled replay, cross-rank dumps, openings, value check, profiler census) |
-| `commit.py` | 1,177 | TP Commit driver CLI: the pairs protocol over ranks, `tp_run_root`, negatives, per-rank verdicts; one 854-line `main` |
+| `commit.py` | 1,177 | TP Commit driver CLI: the pairs protocol over ranks, `tp_run_root`, negatives, per-rank verdicts; one 852-line `main` |
 | `partial_source.py` | 575 | `TPPartialSource`: wraps vLLM's module-level collective names to commit each rank's collective inputs (and received outputs); hook-time clone comparisons |
 | `rank_match.py` | 499 | structural cross-rank checks over per-rank folds, recorder rows and `tp_links.json` (count, kind, N, site, order, producer, link binding) |
 | `analyze.py` | 478 | research CLI over per-rank raw logs: collective inventory, root sharding vs TP1, numerical body of snapshotted collectives (numpy) |
@@ -406,13 +406,14 @@ Counts for `acquire/`: CORE-DUP 3, INTERNAL-DUP 5, VERSION-RESIDUE 6, HARDCODING
 - `tp/worker.py:85-96 _moe_collective_modules` skips vLLM modules that fail to import ("older/newer vLLM"), so which MoE all-reduce is patched depends on the installed vLLM. *low*
 - `tp/commit.py:83-99 tree_of_record` returns an error record instead of failing when `EXPORT.json` is malformed or `git` fails. *low*
 
-**OTHER-WEIRD (4)**
+**OTHER-WEIRD (5)**
+- The TP value checks read the committer's private in-process buffers, not opened values. The sampled replay reads through `check.oracle_compare.committed_reader(com)` (`tp/worker.py:1192`). The TP partial compare reads "retained host copy, else" the committer's `_gpu_blocks` (`tp/partial_source.py:59-65 _committed`) and iterates `self.c._layouts` (`:396, 478-481`). The binding map and cross-rank dumps read `com._layouts` (`tp/worker.py:957, 1042, 1263, 1276, 1494`). Openings are drawn and checked on a separate path (`tp/worker.py:1355, 1385`; `tp/commit.py:717-730`), so nothing shows that the compared bytes are the committed ones. The single-rank Commit has the same split (`harness/commit_delta.py:2339`; coordinator note `20260924T1625Z`). *high*
 - Monkeypatching vLLM's module-level collective functions twice in one rank process: `tp/partial_source.py:242-257` (committer side) and `tp/worker.py:546-560` (recorder side), each with its own restore. *medium*
 - `tp/collective_sites.py:34-49` finds collective sites by running a regex over `inspect.getsource(cls)` of vLLM model classes. *medium*
 - `tp/export_ops.py:36-93` registers `verity_tp::*` torch custom ops into the global registry behind a module flag, and `:170 TPStub` impersonates vLLM's `GroupCoordinator` during export. *low*
 - Negative tests (fault injection) are CLI flags of the production driver: `tp/commit.py:55-72 negatives_applied`, `:102 parse_serve_shard_from`, `tp/partial_source.py:102` (`relabel_rank`, `omit_site`), `:355 parse_flip`. *low*
 
-Counts for `tp/`: CORE-DUP 0, INTERNAL-DUP 6, VERSION-RESIDUE 4, HARDCODING 4, SCRIPT/ENV/PATH 5, LAYERING 4, GOD-MODULE 2, DEAD 3, NAMING 4, DOCS 3, FALLBACKS 3, OTHER-WEIRD 4.
+Counts for `tp/`: CORE-DUP 0, INTERNAL-DUP 6, VERSION-RESIDUE 4, HARDCODING 4, SCRIPT/ENV/PATH 5, LAYERING 4, GOD-MODULE 2, DEAD 3, NAMING 4, DOCS 3, FALLBACKS 3, OTHER-WEIRD 5.
 
 ---
 

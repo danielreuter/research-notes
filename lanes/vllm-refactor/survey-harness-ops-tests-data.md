@@ -2,7 +2,7 @@
 id: vllm-refactor/survey-harness-ops-tests-data
 lane: vllm-refactor
 kind: survey
-status: in-progress
+status: complete
 created: 2026-09-24
 checkout: f0810a11 (lane/vllm-cleanup-2)
 slice: integrations/vllm/{verity_vllm/harness, verity_vllm/ops, tests, data, fixtures, manifests, docs, workloads, tools, pyproject.toml, conftest.py, README.md}
@@ -12,9 +12,6 @@ slice: integrations/vllm/{verity_vllm/harness, verity_vllm/ops, tests, data, fix
 This is a read-only survey of `/Users/danielreuter/projects/verity` at `f0810a11`. No Python or tests were run. The evidence comes from `rg`, `git ls-files`, `git check-ignore`, `wc`, `find`/`ls`, and reading files.
 
 Paths are relative to `integrations/vllm/` unless they start with `packages/` (Verity core, `packages/verity/src/verity/`) or `tools/research/` (the repo-level runner at `<repo>/tools/research/`). `harness/` means `verity_vllm/harness/` and `ops/` means `verity_vllm/ops/`.
-
-(Sections are appended as each module group is finished.)
-
 ## Slice size
 
 | Part | Files | Lines / size | Notes |
@@ -710,4 +707,90 @@ The inverse case also exists: 13 `importorskip` guards wait for modules that hav
 6. **Pod lifecycle.** `run_row_v2.sh:214` tears the pod down through `research`'s `pods/sh/pod_guard.sh`, looking first at `/root/dm/pod_guard.sh`. `tools/research/src/research/telemetry/patches/run_row.sh.telemetry.diff` is a patch against the dead `run_row.sh`.
 7. **Shipped-tree provenance.** `EXPORT.json` is parsed on both sides: in the harness by `source_identity`, `experiment`, `derive_step`, `commit_delta`, `hot_commit` and `release_json`, and in `research` by `telemetry/source_identity.py` and `remote.py`. Neither side contains the writer (`record_v5/ship.sh`, absent). Each side has its own reader for one external format.
 
-<!-- APPEND -->
+---
+
+## Disposition table
+
+"Row spec", "provenance module", "admission module", "span system" and "the CLI" refer to the API sketched in Map 1. Placements are suggestions for the refactor lane, not decisions.
+
+### `harness/`
+
+| module | disposition | reason |
+|---|---|---|
+| `commit_delta.py` | split | Verdict assembly, C2 oracle-compare and executed-prefix placement go to `check/`. `binding_record` and `openings_after_release` go to `commit/`. Collector settings become a typed config passed to `acquire/` instead of env. The `tp/` helpers go to a shared commit-runtime module. What remains is the `commit()` driver. |
+| `telemetry/admission.py` | merge into one admission module (with `admission_planner`, `admission_bound`) | three planners, one job; drop `observe_r17` once one span system exists |
+| `admission_planner.py` | merge into the admission module | same job as above; stop reading calibration from `tests/` |
+| `admission_bound.py` | merge into the admission module | the 1.25 factor is duplicated |
+| `run_config.py` | rewrite as the `match()` driver | keep the stage list; call check/observe functions in-process instead of 9 subprocess CLIs; one instances-form default |
+| `derive_step.py` | keep as the `build()` step | take model, revision and dtype from the row spec; fix the `_CONSTRUCTION_SOURCES` root; move `read_tp_links`/`same_module_path` to `tp/` |
+| `hot_commit.py` | keep | Derive its key from the one code-closure definition (core included) and a typed config. Stop `os.environ.clear()`/`chdir` for each job. |
+| `launch_context.py` | keep | build input; small and single-purpose |
+| `card.py` | merge into the report step | presentation of one run directory |
+| `compiled_merge.py` | merge into the `commit()` driver | the compiled-execution variant of Commit |
+| `workload.py` | merge with `coverage_workloads` into one workload generator | should own the row-id grammar (the row spec) |
+| `coverage_workloads.py` | merge into the workload generator | same directory, second naming scheme |
+| `timeline.py` | merge into one span system (with `spans`, `research` telemetry) | three span systems today |
+| `spans.py` | merge into the span system | 60 lines, one caller |
+| `experiment.py` | keep; move `code_version()` into the provenance module | a run-directory index is a real job |
+| `source_identity.py` | merge into the provenance module | Depend on `research` explicitly, or own the check; drop the machine path. |
+| `release_json.py` | merge into the provenance module | Its producer side (ship tooling) is outside the repo, so decide which side owns the format. |
+| `target_family.py` | keep (precheck) | the one device→compute-capability table |
+| `research_tools.py` | merge the three `research_*` modules into one adapter | Use the row spec instead of a private parser; pass config instead of reverse-parsing argv; one closure. |
+| `research_outputs.py` | merge into the adapter | same |
+| `research_result.py` | merge into the adapter | same; untested |
+| `gc_tuning.py` | move to a lower-layer util | imported by `check/` and `correspondence/` (upward import) |
+| `synthetic.py` | move to `tests/` as a fixture | only 2 tests use it; rebase onto `verity.commitments` when `commit/hashing` is replaced |
+| `topp_split_probe.py` | move to `tools/` | one-off GPU fixture generator |
+| `rebuild_digest_gate.py` | delete, or move to `tools/` if still hand-run | no invoker; untested |
+
+### `ops/`
+
+| script | disposition | reason |
+|---|---|---|
+| `row_pod.sh` | replace with `verity-vllm row` | 45 env knobs, 12 heredocs; the Match verdict heredoc moves into `check/` |
+| `tp_stage.sh` | merge into the CLI | a row with tp > 1 is a row-spec variant |
+| `row_pod_tp2.sh` | delete | 5-line shim |
+| `run_row_v2.sh` | replace | the `research` Tool calls the Python API; teardown stays in `research` |
+| `canary.sh`, `compiled_commit.sh`, `cov_pod.sh` | merge into the CLI as variants | own preambles, wrong venv defaults |
+| `verify_lane.sh`, `pod_gate.sh` | merge into `verity-vllm check …` | distinct jobs, but duplicate preambles |
+| `pod_bootstrap.sh`, `pod_fa2_tap.sh`, `pod_fa3_tap.sh`, `pod_hidden_gpu.sh` | keep (provisioning) | one venv name everywhere; fix the doc-vs-code defaults |
+| `fa3_row_negatives.sh`, `stoch_negative_n3.sh`, `stoch_negatives.sh` | delete, or move to `tools/` campaigns | cannot run on a bootstrapped pod as written |
+| `known_roots.json` | move next to the canary's test expectations | data, not ops |
+
+### `tests/`
+
+| group | disposition | reason |
+|---|---|---|
+| `tests/<subpackage>/` mirror | keep | Good shape. Add `gpu`/`pod` markers instead of ad hoc gating. |
+| root lints and dead-code census | keep; fix | prune `dead_code_keep.json`; fix `FIRST_PARTY` and the renamed docstring |
+| `tests/regression/` | keep | move machine paths into the resolver config; fix the docstring counts; replace the `row_config` copy with the row spec |
+| `tests/ops/` and the other shell-regex tests (12) | replace | test the Python functions once the heredocs move |
+| `commit_delta` source-exec/AST tests (4) | replace | unit tests on the extracted functions |
+| `*_padrev.py` (7) | merge into their base suites | a second suite on the same subjects, named after a lane |
+| `test_relayout_map.py` | delete (with `tools/`) | enforces a finished migration |
+| `test_ship_roots.py` | move to wherever `ship.sh` lives, or delete | tests a script not in the repo |
+| stale-path tests (about 12) | fix the paths or delete | silently disabled everywhere |
+| `acquire/schemes.py` `ProtocolMerkleScheme` | replace with core `verity.commitments.merkle` | imports a package that no longer exists |
+| misplaced `harness/` tests (2) | move to `tests/check`, `tests/acquire` | they test other subpackages |
+| `test_harden_guards.py`, `test_gen_adversarial.py` xfails | keep | documented gaps, strict |
+| `test_ref_prims.py` | keep | write to a temp directory by default |
+| `tests/harness/fixtures/admission/` | move into package data, or stop the library read | read by `commit_delta.py:1793` |
+| `conftest.py` (root, `tests/acquire`) | keep until the source-exec tests are gone | guard for the module-identity problem |
+
+### Data, `tools/`, packaging
+
+| item | disposition | reason |
+|---|---|---|
+| `data/hf_configs/` | move to package data | read by `observe/profiles` at import |
+| `fixtures/W11*` | move to package data | kernel-model tables read by `program/numerics`, `check/fa2_attn_oracle` |
+| `docs/data/ref-prims/` | move to package data | read by `program/registry`, `frontend/rules`; `docs/` holds no docs |
+| `fixtures/B0-divergence-*` | split: library-read pieces to package data, rest to test data | read by `check/fold_compare` and 3 tests |
+| `data/l8-nan-scan-*`, `data/logs/m1.jsonl.gz` | move to test data | test inputs used as library CLI defaults |
+| `data/rec`, `data/census`, `data/contract`, `data/workloads_r12`, `data/logs/m6` | move to an evidence archive outside the package tree | read by nothing |
+| `manifests/checkpoints.json` | keep (run definition) | load through one config API instead of 16 argparse defaults |
+| `manifests/semantic-profiles/` | keep 3; delete the 3 superseded | named only in `tools/move_map.txt` |
+| `workloads/` | keep (run definitions) | delete the 6 unread legacy files; fix the padded row id; validate against the row spec |
+| `tools/gen_move_map.py`, `tools/relayout.py`, `tools/move_map.txt` | delete | the relayout is done; git history keeps them |
+| `pyproject.toml` | keep; fix | declare `research` (or remove import-time use); ship package data; register or drop `slow` |
+| `conftest.py` | keep | see above |
+| `README.md` | keep; rewrite | vocabulary table, data-directory claims, and the harness/ops rules |

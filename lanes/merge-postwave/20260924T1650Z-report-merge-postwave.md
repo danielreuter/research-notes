@@ -53,3 +53,48 @@ Base: lane/post-wave @ 1b3c7be6. Worktree ~/projects/verity-main-wt/post-wave. I
   /workspace/src2`, 38 MB diff; .research-source.json commit 22741456 tree d1e72489, dirty false). validate r20260924-173554-eb0d
   ran the older tree 04700cb5 (/workspace/src); the tip validate is r20260924-173844-26c8 (py suites, ligero-verify, gkr,
   gkr babybear, gkr-verify, sp1 host+common+check-model with relation-bare, gkr-verify tests, sp1-common tests).
+
+## FINAL
+
+~~~text
+tip: lane/post-wave @ 22741456 (base lane/post-wave@1b3c7be6)        merge-with: none (coordinator fast-forwards main)
+known-failures: numerical test_tables.py::test_label_keys_are_the_store_vocabulary (pre-existing on 1b3c7be6); research: 7 (below) | pod: terminated HH:MMZ; ~$0.55
+artifacts: none (pod runs preserved: r20260924-170644-a490 -171002-37a0 -171410-4069 -172629-f417 -173554-eb0d -173844-26c8 -174654-7e58 -174905-200f -174907-de20)
+~~~
+
+Merge commits on lane/post-wave (one each, --no-ff, no conflicts in any):
+main e7d4a978 -> a7739031, fill-consumer 444084d3 -> 8ca74b17, agkr-table 5b3a4646 -> 356352dd,
+sp1-table 2da1e77e -> 461c9c9f (sp1-formats 2b0cc33a then "Already up to date"), sp1-tcdot 97b5b60a -> 7d447682,
+A-GKR hash fix 04700cb5, main f08314ae (coordinator handoff 17:32Z) -> 22741456.
+
+Validation (tip 22741456 unless noted):
+- git status clean at the tip; `git grep` / `rg` for `^(<<<<<<<|>>>>>>>|=======)$`: nothing. PASS
+- cargo check --release, all rc 0: ligero-verify, verity-gkr (default + babybear), verity-gkr-verify, veritor-zk-host +
+  veritor-zk-common + veritor-check-model with relation-bare (r20260924-173844-26c8, tip); veritor-zk-host default and
+  relation-bare separately (r20260924-172629-f417, at 04700cb5 -- main's later backends/sp1 diff is comment-only);
+  verity-tcdot-host --features stream-operands on the witness-arm fork reproduced from build_fork.sh (HEAD 6655716e, tree ==
+  FORK_TREE_WIT; r20260924-171410-4069, at 04700cb5; tcdot/ unchanged since). PASS
+- cargo test (extra): verity-gkr-verify ok; veritor-zk-common --features relation-bare 85 passed / 0 failed (r20260924-174654-7e58). PASS
+- Python backends/numerical/tests: r20260924-174907-de20 (clean PYTHONPATH) -> NUMERICAL_RESULT. The one failure seen in
+  r20260924-173844-26c8 (692 passed / 1 failed) is test_label_keys_are_the_store_vocabulary: contract.AUTHENTICATION has
+  'included-hash-shared' (ligero row sharing, 1054caf3) and research.store.vocab.AUTHENTICATION_VALUES does not -- the same on
+  base 1b3c7be6 and on every merged branch, so pre-existing, not from these merges.
+- Python tools/research/tests: r20260924-174905-200f (clean PYTHONPATH): 347 passed, 7 failed, 2 skipped. Failing: test_notes
+  relaunch, test_pythonpath (pre-existing per coordinator), test_repo_replicas tracked paths, test_store put/fetch + labels
+  append-only, test_store_honing evict, test_store_prov shipped source. None of these files is touched by the merges (vs main
+  f08314ae the tree differs in tools/research only in pods/health.py, pods/part.py, test_pods_health.py, from the base); the
+  pod tree is an rsync copy without .git, which the git-dependent ones need. Not diagnosed one by one: FAIL-not-attributable.
+- Render on the laptop at 22741456 vs campaigns/morning-tables/render/1540Z: identical except Table 1 A-GKR assumptions
+  "collision-resistant hash (BLAKE3 Merkle)" -> "(SHA-512 Merkle)"; drilldowns byte-identical. PASS
+
+Surprises:
+- Harness gotcha: `research run --on` puts its own shipped `research` tool first on PYTHONPATH, so a workload's `pytest
+  tools/research/tests` imports /workspace/research/tool/<hash>/research (collection error: no research.pods.health) and
+  numerical tests read that copy's store vocab. Run suites with `env -u PYTHONPATH uv run ...`.
+- The laptop guardian killed `research run --source` (0.64 GB) under the 3.5 GB disk floor (fixed on main f08314ae:
+  streamed ship); `research pods sync` ran at ~100 KB/s (252 MB in 37 min).
+- drilldown.py's A-GKR rows are stale after agkr-table (SHA-256 Merkle, 2^-127.7, Python-only verifier, and "Table 1's text
+  says BLAKE3 Merkle", now false). Left for a follow-up because the brief scoped the commit to Table 1.
+- Pre-existing contract/vocab mismatch on 'included-hash-shared' (above).
+Handoffs received: 20260924T1656Z-handoff-steward-guardian.md (acted: relaunched via low-memory path),
+20260924T1732Z-handoff-from-coordinator-main-moved.md (acted: merged main f08314ae). Sent: coordinator 20260924T1702Z.

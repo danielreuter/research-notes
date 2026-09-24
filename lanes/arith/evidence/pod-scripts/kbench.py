@@ -37,6 +37,7 @@ def main():
     ap.add_argument("--reps", type=int, default=20)
     ap.add_argument("--n-proofs", type=int, default=13)
     ap.add_argument("--sweep", action="store_true")
+    ap.add_argument("--wv", action="store_true")
     a = ap.parse_args()
     dev = torch.device("cuda")
     rel = relations.RELATIONS[a.relation]
@@ -87,6 +88,22 @@ def main():
     rb = rho_q.index_select(1, sp["bool_q"])
     bj = sp["bool_j"].to(torch.int32).contiguous()
     res = {}
+    if a.wv:
+        xw = torch.randint(0, P, (D, Mrows + 777), generator=g, dtype=torch.int64).to(dev)
+        rv, alpha = xw[:, :Mrows], torch.randint(0, P, (D, m), generator=g, dtype=torch.int64).to(dev)
+        two = lambda: (f.lincomb(rv, coefs), f.lincomb(alpha, coefs[:m]))
+        rw_ref, v_ref = two()
+        print(json.dumps({"regs_lincomb2": f.k["lincomb2_v4_u32"].num_regs,
+                          "lmem_lincomb2": f.k["lincomb2_v4_u32"].local_size_bytes,
+                          "two_lincomb_ms": round(timeit(two, a.reps), 4)}), flush=True)
+        for thr in (64, 128, 256):
+            for S in (0, 16, 32, 64, 128):
+                tests_fused.LINCOMB2_THREADS, tests_fused.LINCOMB2_SPLITS = thr, S
+                rw2, v2 = f.lincomb2(rv, alpha, coefs)
+                ok = bool(torch.equal(rw2, rw_ref) and torch.equal(v2, v_ref))
+                t = timeit(lambda: f.lincomb2(rv, alpha, coefs), a.reps)
+                print(f"wv thr={thr} S={S} exact={ok} ms={t:.4f}", flush=True)
+        return
     if a.sweep:
         tests_fused.QUAD_V4 = False
         ref_q = f.quad_general(rg, U[:m], csr)

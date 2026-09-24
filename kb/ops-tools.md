@@ -80,6 +80,12 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   the pod. Interim, owner-approved route: a lane mints its own read-only key on the laptop (`--ttl 3h`; never on a pod, which
   would need the R2 admin key), pipes it into its own pod, fetches, and deletes the key at once. The recipe is the gate (a) block
   in `lanes/vllm-rf-a1/baseline.md`. The fix: the launcher fetches declared inputs onto the pod itself.
+* When the laptop -> pod link can't ship a source tree within `ship_timeout`, copy it from a pod that has it. Put an ephemeral
+  ed25519 key on the source pod and add its `.pub` to the target's `authorized_keys`. Tar `<root>/src/<sha>/` without `READY.json`
+  or bootstrap outputs (e.g. `integrations/vllm/out/`) into a staging dir, then `mv -T` it into place and delete the key on both
+  pods. The next `research run --source` sees a legacy tree and adopts it after a per-file sha256 check against its own git
+  manifest (`verified: legacy-sha256-per-file`). g1b -> tp2 ran at 2.9 MiB/s where the laptop link timed out twice
+  (vllm-coordinator for vllm-rf-f1, 2026-09-24).
 * To stop a guard on your own pod, run `pkill -f "[p]od_guard.sh daemon"`. Without the brackets, pkill also kills the ssh shell
   running it.
 * The launcher streams the source archive. Its Python stays around 20 MiB during the ship and peaks near 40 MiB (the manifest

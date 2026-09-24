@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T19:41Z
+updated: 2026-09-24T20:16Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -26,6 +26,11 @@ updated: 2026-09-24T19:41Z
 - Cost concern: GPU-tree leaves are 256 B and `oracle_compare` reads every binding entry's element range, so a whole-row compare re-hashes ~all compared bytes in Python (~1-1.6 us/leaf incl. fold). Measure bytes read + wall on the base row before deciding on batching/caching.
 - 19:30Z written (uncommitted, not run): `oracle_compare.py`: `committed_reader` REMOVED; `meta_by_name`, `OpeningNotVerified`, `OPENED_METHOD`, `OpenedReader(com, run)` (`__call__(step, name, lo, hi)`, `read_meta(step, m, lo, hi)`, `or_none`, `record()`; stats reads/leaves/bytes/not_retained/failed/seconds); `oracle_compare` catches `OpeningNotVerified` per entry -> mismatch. `commit_delta.py`: oracle_compare + sampled_replay/boundary_linkage use `OC.OpenedReader(com, rc)`, `padded_population` uses `_rd.or_none`; `value_source` recorded beside both. `sampled_replay.py`: `replay_vu` wrapper -> VU False on `OpeningNotVerified`; children return their reader stats (`opened_in_children`); `_UnverifiedUnlinked` store wrapper -> boundary pair unlinked.
 - 19:38Z pods: g1 (2x L40S) replaced by g1b (1x L40S) per the coordinator's 19:35Z note; TP2 bootstrap found never launched (stuck at `shipping`), relaunched.
+- 19:50Z TP + value_check wired (uncommitted then): `partial_source._committed(reader, step, m)` = `reader.read_meta`; `compare(reader)` / `compare_match_oracle(capture_dir, reader)` record `not_verified` + `value_source`, verdict needs `not_verified_n == 0`; `worker.py`: `tp2_commit_finalize` (match-oracle compare), `_tp2_attribution`, `_tp2_sampled_replay`, `tp2_commit_xrank_dump`, `_t6_4_check(…, rc)` all read through `OC.OpenedReader(com, rc)`; `value_check.ValueChecker.compare(reader)` same. `OpenedReader.read_meta` refuses a meta that is not an object of the committer's layout at that step (ValueError: a foreign meta's offsets would open another tensor's leaves).
+- 19:58Z checked: `CommittedStore.words` has no try, so `OpeningNotVerified` reaches `replay_vu` -> VU False; `boundary_linkage` counts the pair before the read -> unlinked -> result False; any other raise out of `sampled_replay` lands in the caller's fail-closed 'not run'. `native_host` padding comment updated to name the reader.
+- 20:00Z COMMIT `f21f0287` (pushed, `origin/lane/vllm-rf-f1`): all library changes + `tests/check/opened.py` (real CPU committer for tests: `commit_steps` packs step blocks through `commit_block_offline`, the GPU-tree CPU reference). Tests NOT yet ported/run (no torch on the laptop).
+- 20:05Z row choice revised: dense = #101 `llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager` (GREEN; cheapest dense row -- the earlier pick #11 is i4096/o512); MoE = #67 (opening cost at scale); TP2 = #70 (only TP2 row with a commit.log; class FAIL by-name -> expect the same FAIL). Stage estimates from vllm-57-fix notes for #67: Build ~34 min, Match ~45 min, Commit ~1h40m.
+- Row args: LLAMA32_1B `unsloth/Llama-3.2-1B` `9535bd9b1d1dea6acafbdc4813b728796aeb28da`; OLMOE `allenai/OLMoE-1B-7B-0924` `6d84c48581ece794365f2b8e9cfb043c68ade9c5`; flags `--retain host --build-jobs auto --sweep-dir <dir>` (as #67 in vllm-57-fix). Commit(base) and Commit(head) consume the SAME Build/Match: copy the row dir after Match to a second sweep dir for head.
 - NEXT in code: TP (`worker.py` 1192 sampled replay, `_tp2_attribution`, `tp2_commit_xrank_dump`, `_t6_4_check`; `partial_source._committed` -> reader; `compare()`/`compare_match_oracle()` take the reader), `value_check.ValueChecker.compare(reader)` (feeds `value_correspondence` in dense `--value-check` and TP `commit.py:990`, so verdict-bearing: now IN scope). Then tests that call `committed_reader` (7 files) -> OpenedReader over a real CPU committer.
 
 ## Compared vs opened positions (at `72884c8a`, paths under `integrations/vllm/verity_vllm/`)
@@ -66,6 +71,9 @@ updated: 2026-09-24T19:41Z
 - Pod `vyv-rf-f1-g1b` (`u7awphw9p8i2ru`, 1x L40S, 188 GB, 16 vCPU, $1.09/h, created 19:37Z; in machines.toml): rows #11 (dense) and #67 (MoE), ONE AT A TIME (timings). Bootstrap `pod_bootstrap.sh --cases LLAMA32_1B,OLMOE` from the base worktree `verity-wt/rf-f1-base` (`72884c8a`, clean), launched 19:39Z, log `/tmp/rff1/boot_g1b.log`.
 - Pod `vyv-rf-f1-tp2` (`t70u3qv3dm09dl`, 2x L40S, $2.18/h, created 19:21Z): row #70 (olmoe TP2 b8). First bootstrap `r20260924-192617-ea73` never left `shipping` (the shipping shell died); relaunched 19:39Z (`--cases OLMOE`), log `/tmp/rff1/boot_tp2.log`.
 - `vyv-rf-f1-g1` (`p8njwdgmlcgycu`) TERMINATED 19:38Z (its bootstrap `r20260924-192616-7a8d` was still running; nothing kept). One-GPU create needed `--min-ram 60 --min-vcpu 8` (per GPU); `--min-ram 120 --min-vcpu 16` returned HTTP 500.
+
+- 20:03Z g1b bootstrap `r20260924-193546-4708` BOOTSTRAP-OK 19:49Z at `72884c8a` (torch cu129, vllm d9105ea80, hidden_gpu + FA2 taps sm_89); GPU idle. Host load average ~16-22 (shared host): note for timings.
+- TP2 bootstraps: both `research run --on` shippings (19:35Z, 19:44Z) refused after 600 s (laptop upstream shared with other lanes). 20:05Z shipping a gzip'd `git archive 72884c8a` (105 MB) over `research pods ssh ... tar -xz` into `/workspace/research/src/72884c8a…` (the launcher adopts an existing tree by per-file sha256), then relaunch the bootstrap.
 
 ## Next
 1. Implement committer_api + native_host range methods; OpenedReader; wire call sites; update tests that use `committed_reader`.

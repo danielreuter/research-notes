@@ -43,11 +43,21 @@
 - 20:00Z B0 Builds base then head: `/workspace/b0_build.sh` -> `/workspace/out/b0/{base,head}/`, `DONE` when both finish; compare with
   `/workspace/tree_diff.py`.
 
+## D6 / D7 evidence (pod, 20:10Z; local copies `/tmp/rff24/evidence/{d6,d7}`)
+- A B0 Build cannot run on this CPU pod at base or head: vLLM's CUDA wheel makes no DeviceConfig without a GPU
+  (`create_engine_config` -> "Device string must not be empty"; `/workspace/out/b0/base/build.log`). So the evidence is direct:
+- D6 (`/workspace/rff24/cv_evidence.py`): base `construction_version(VLLM_BINDING_RULES)` hashes 14/14 sources as missing
+  (sources_sha256 4a9cdf5b..., a constant of the file names); head hashes 14/14 by content, 0 missing (b941f904...). All 180 recorded Builds
+  in the regression records carry ad140226... with 14/14 missing (pre-relayout names `verity_capture/experimental/cb_a/...`).
+- D7 (`/workspace/rff24/fp8_dtype.py`, each recorded Build's own target + pin, `EngineArgs.create_model_config()`): 9 BF16 rows
+  engine_dtype "bfloat16" == recorded; the FP8 row (Qwen3-4B-Instruct-2507-FP8) "fp8" (quantization fp8, model dtype bf16) vs recorded "bfloat16".
+- Consumers: `construction_version` -> `ArtifactIdentity.identity` (echoed into summaries only; `check_reuse(..., construction_version_now)`
+  has test callers only); `construction_manifest.json` readers use `structural_inputs` / `sampling` only; `model_pin.dtype` is read by no one
+  (`rebuild_digest_gate` passes model / revision / max_model_len / tp / target). No digest, root or verdict moves.
+
 ## Next
-1. B0 diff: program/manifest digests identical, `construction_version` changes, `model_pin.dtype` stays "bfloat16" (vm.PIN value = engine dtype).
-2. FP8 dtype evidence (the FP8 row's engine config -> `engine_dtype` = "fp8"), CPU only if vLLM allows it.
-3. Gate (b) vs a1's baseline (no new F/E, no new skip reason); gate (a) green.
-4. READY.md; terminate pod.
+1. Gate (b) vs a1's baseline (no new F/E, no new skip reason); gate (a) green.
+2. READY.md; terminate pod.
 
 ## Open questions
 - none

@@ -5,7 +5,7 @@
 # fixture (relation-bare/v2 is byte-identical between stock SP1 and the fork). Host: 12-tcdot-build.sh.
 set -uo pipefail
 cd /workspace/src && source /workspace/env.sh
-H=/workspace/tcdot-verify/target/release/verity-tcdot-host
+H=${HOST_BIN:-/workspace/tcdot-verify/target/release/verity-tcdot-host}
 S=/workspace/verify-night/sp1-a100-2a10bc89
 O=/workspace/verify-night/tcdot-$TAG; mkdir -p $O
 {

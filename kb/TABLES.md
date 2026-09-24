@@ -46,8 +46,12 @@ The steward renders both daily at 13:00Z into `campaigns/afternoon/render/` styl
 - Phase-sum: a result whose buckets exceed `t.total` beyond tolerance stays out; fix the accounting, never the rule.
 - Re-packed instances count as the frozen set only with an `instance-equiv/v1` artifact, verified by a non-producer,
   showing decoded x, W, y byte-identical (footnoted).
-- SP1 column = best valid SP1 variant; the TC_DOT precompile fork is an SP1 variant, footnoted "modified SP1 (TC_DOT chip)".
-  The user wants SP1-stock and SP1 + TC_DOT measured on all five targets.
+- SP1 column = best valid SP1 variant. The two SP1 approaches are named **SP1 stock** (unmodified SP1) and **SP1 precompile**
+  (the TC_DOT chip fork) everywhere: D1/D2 row labels, kb notes, briefs (user, 2026-09-24). Table 2's frozen footnote still
+  reads "modified SP1 (TC_DOT chip)" (tables.py is frozen); read it as SP1 precompile. SP1 precompile beyond A100 is on HOLD.
+- SP1 security (user, 2026-09-24): SP1 reaches only ~100 bits, field-bound (KoalaBear^4), and cannot reach 2^-128 without
+  protocol changes; recorded in D1 (Table 1 frozen). State it for a whole proof (all shards, like B-Ligero over
+  sub-batches), per-shard figure secondary.
 - A-GKR column = best valid A-GKR implementation in its class; the user wants it hill-climbed and on every row. A more
   promising GKR variant may get its own lane (standing permission).
 - Table 1's A-GKR hash is SHA-512 Merkle (corrected 2026-09-24).
@@ -60,5 +64,5 @@ The steward renders both daily at 13:00Z into `campaigns/afternoon/render/` styl
 | B-Ligero + in-proof hash | 5/5 | 3.5-4x the bare column; improve |
 | A-GKR | 2/5 (A100 BF16, H100 BF16) | H100 FP8, 4090 FP8, 5090 NVFP4 |
 | SP1 | 0/5 | every row: all SP1 results so far are 100-bit; needs a 2^-128 configuration or an honest "cannot" in D1 |
-D3: all 12 current cells measured (verifier-cost, merged ab9573fd). D2: SP1-stock has all five targets at 100-bit; SP1 +
+D3: all 12 current cells measured (verifier-cost, merged ab9573fd). D2: SP1 stock has all five targets at ~100-bit; SP1 precompile (TC_DOT) +
 TC_DOT only A100 (fastest verified 5.81 s art:174d7b4d).

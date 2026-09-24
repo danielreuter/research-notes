@@ -1,5 +1,7 @@
 # SP1 prover (6.4.0 GPU server): measured facts and gotchas
 
+Naming (user, 2026-09-24): **SP1 stock** = unmodified SP1; **SP1 precompile** = the TC_DOT chip fork ("modified SP1" below).
+
 Sources: lane sp1-tcdot report (`lanes/sp1-tcdot/20260924T0535Z-report-sp1-tcdot.md`), `lane/sp1-tcdot` commits, SP1
 v6.4.0 source (`f66b4bff5`).
 

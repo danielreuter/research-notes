@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 1.2 (2026-09-24T03:55Z: §3a chatter budget)
+version: 1.3 (2026-09-24T22:20Z: §1 verity-agents is a start folder only)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -12,6 +12,8 @@ base, pod, budget, FINAL time, goal, and what to read. Everything below applies 
 ## 1. Where you work
 - Branch `lane/<you>` in the worktree `~/projects/verity-main-wt/<you>`. A successor takes over the predecessor's worktree,
   branch and pod instead (the launch message names them; `research notes bind` records it).
+- You may START in the shared worker folder `~/projects/verity-agents`, but never edit there: all work happens in your
+  lane's own worktree.
 - Commit only there, after every meaningful step. The coordinator merges: never merge into `main`, never touch another
   worktree, never delete anyone's branch.
 - Never edit, checkout or restore files in `~/projects/verity-main-wt/main` (the merge target) or

@@ -170,7 +170,10 @@ created: 2026-09-24T17:36Z
 - prefetch (above), then `/workspace/rff3/run_big.sh /workspace/head big`: `T1-replay_partition-r11` and `-r39` at head side by side
   (`-k`, own tree copy + scratch each, gate_a_t01.sh) -> `logs/big_r{11,39}.{log,xml,out}`, memory `logs/big.rss`, `logs/big.DONE`.
   Terminate the big pod as soon as they finish.
-- **22:08Z `T1-replay_partition-r11` at head PASSED** ("1 passed, 190 deselected in 602.55s", exit 0). `-r39` running (~100 GB RSS at 22:09Z).
+- **22:08Z `T1-replay_partition-r11` at head PASSED** ("1 passed, 190 deselected in 602.55s", exit 0).
+- **22:15Z `T1-replay_partition-r39` at head PASSED** ("1 passed, 190 deselected in 1027.09s", exit 0); cgroup peak 178 GB for the two
+  side by side. JUnit: tests=1 failures=0 errors=0 skipped=0 each. Evidence (logs, xml, env, rss, scripts): `evidence/gate_a_big/`.
+  **22:21Z big pod `sda06pqcfi51jt` terminated.** Base not run there (head passed; base not needed per the plan).
 ## Running (GPU pod `vyv-rf-f3-g3`, RunPod `91c19vn318ptnj`, 1x L40S; raw ssh `/tmp/rf-f3/ssh_g3.sh`)
 - Why: SmolLM2 (the 21:35Z A/B) is not a regression row, and the acceptance says "roots == regression record". So D3 is re-run on
   frozen row **#101** `llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager` (the one T0/T1 L40S B=1 row
@@ -196,8 +199,10 @@ created: 2026-09-24T17:36Z
 - Gate (b) final: done (above). `/workspace/base` is now dirty (test_ref_prims rewrote docs/data/ref-prims); `/workspace/b0` = base rebuild (dirty copy).
 
 ## Next
-1. Big pod: wait for `-r39`, copy logs/xml into `evidence/gate_a_big/`, terminate.
-2. GPU pod g3: #101 head (and base) roots vs the record -> `evidence/d3_r101/`; terminate. If head != record, check base first
+1. (done 22:21Z) Big pod: both B=1 checks pass at head; evidence copied; terminated.
+2. GPU pod g3 (bootstrap OK 22:15:46Z, driver 580.178.04 -- g2 had 595.91.07; the base run on the same pod controls for it;
+   head row started 22:16:43Z after I killed a stale remote `bash -c` whose argv contained `pod_bootstrap.sh`, which kept row101.sh's
+   `pgrep -f` wait loop spinning): #101 head (and base) roots vs the record -> `evidence/d3_r101/`; terminate. If head != record, check base first
    (does the base reproduce the record on this pod?) before calling it f3's.
 3. Gate (a): judge head vs my base (same pod, same env; green = nothing fails and every check that passed at base passes).
 4. READY.md (draft `/tmp/rf-f3/READY.draft.md` on the laptop) when gate (a) is in; terminate all pods; remove the laptop base worktree.

@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T22:10Z
+updated: 2026-09-24T22:22Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -122,6 +122,8 @@ updated: 2026-09-24T22:10Z
 - 22:02Z gate (a) at `62d6b9e0` cancelled (cancel-intent, manual, rc 143; 22/158 done); **gate (a) at `e2f85a82` `r20260924-215901-8961`** (tp2, T0,T1, serial). a1's T0-only gate (a) took 2 h 42 min.
 - 22:03Z **gate (b) at `e2f85a82` `r20260924-220342-5e8a`** (tp2, `/workspace/gate/<TAG>`). **#67 Match `r20260924-220341-0afd`** (g1b, base tree; row `olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager`; #67 Build PASS 21:38Z wall 2800 s).
 - #70 Match `r20260924-210318-37b0` FAILED at the fold: capture/control/check pass (8448 collectives, 0 mismatches, tokens True) but `fold_match` (profile `derived_OLMOE_tp2`) rc 1, fold not ok on both ranks (errors 4096, unresolved 3544) -> "MATCH FAIL -> stop" (match stage only). The commit stage does NOT gate on the Match verdict (`tp_stage.sh` commit: Build digests + manifest + `--match-dir`); with `tp2_fold_match.json` on disk it adds `--require-fold-match`, and `tp.commit` evaluates the fold binding AFTER all pairs/value checks as a named FAIL component. Fixture #70 = class FAIL by-name (AllGather2 query_population / xrank; its reference Match was collective-level only). So Commit(base)/(head) over this Match exercise the TP opened reads fully; both get the same extra fold-binding FAIL. `/workspace/sweep_head/<row70>` (copied 21:30Z after the Match) == `/workspace/sweep/<row70>`: 259,801 files, identical path+size listing, key records same sha256.
+- 22:19Z **GATE (b) at the final head `e2f85a82`: MEETS THE RULE.** `r20260924-220342-5e8a` (tp2, CUDA hidden, `-n 12 --dist loadfile`, tree at `/workspace/gate/gate_b-e2f85a82-xdist`, 15 min): 3927 tests, 3559 P / 54 F / 11 E / 297 S (+6 xf); `baseline-jdiff.py` vs a1 xdist exits 0: **new failures 0, new skips 0, new skip reasons 0**; failures+errors 65 = base 65. Outcome changes: the 2 `test_admit_r19_host_working_set` gc-freeze tests pass -> fail (jdiff: order-dependent at base, not counted; they fail in a1's serial base and a1's own xdist head), 2 base failures now pass (`test_row_pod_cancel_forwarding::test_sigint…` timeout, `test_norm_chain::test_mean_pins_match_installed_vllm`). 24 new tests (only in head) all PASS; 1 test renamed (`…committed_reader_answers…` -> `…opened_reader_answers…`). Evidence beside this note: `head-gate_b-xdist.xml.gz`, `head-gate_b-xdist.jdiff.txt`.
+- 22:20Z **#70 Commit(base) `r20260924-222022-d9a6`** (tp2, base tree `72884c8a`, `--tool vllm.commit`, `--retain host --sweep-dir /workspace/sweep`; gate (a) serial still running beside it). Head follows on `/workspace/sweep_head` at `e2f85a82`.
 - Plan: tp2 #70 Commit(base) then Commit(head) as soon as gate (b) `e2f85a82` ends (gate (a) serial still running beside them: noted for timings, same for both). g1b: #67 Match -> Commit(base) -> Commit(head). Pods die at 03:00Z (deadline daemon).
 
 ## Next

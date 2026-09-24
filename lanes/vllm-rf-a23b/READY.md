@@ -125,9 +125,15 @@ terminated. On the 512 GB pod, row #11's `replay_partition` passed at about 63 G
 - `748d71c5`: the shipped-tree stub in `tests/harness/test_source_identity.py` also copies `verity_vllm/config.py`.
 
 `pyproject.toml` is unchanged: hatchling's wheel with `packages = ["verity_vllm"]` ships every non-ignored file under the
-package. `uv build --wheel integrations/vllm` on the first pod (at `6da1b430`) gave
-`verity_vllm-0.1.0-py3-none-any.whl`, which contains all 7 `.xz` tables, the `.npy`, the `.jsonl`,
-`corpus_coverage.json` and the tanh tables.
+package. `uv build --wheel integrations/vllm` at `748d71c5` on the pod gave `verity_vllm-0.1.0-py3-none-any.whl`
+(375 files). It contains:
+
+- the 7 `.xz` tables under `program/numerics/tables/`;
+- `check/tables/B0-divergence-20260907T1604Z/cos_sin_cache.npy`;
+- `harness/planner_calibration.jsonl`;
+- `observe/profiles/corpus_coverage.json`;
+- the tanh tables (`mufu_tanh_sm89.json` and `.xzblocks`);
+- `verity_vllm/config.py`.
 
 ### Counts (rename-aware, `72884c8a`..`748d71c5`)
 

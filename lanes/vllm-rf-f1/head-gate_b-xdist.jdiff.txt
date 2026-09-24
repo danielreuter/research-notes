@@ -1,0 +1,37 @@
+base 3904 {'error': 11, 'failed': 54, 'passed': 3536, 'skipped': 297, 'xfailed': 6}
+head 3927 {'error': 11, 'failed': 54, 'passed': 3559, 'skipped': 297, 'xfailed': 6}
+only in base (deleted or renamed): 1
+  - tests.harness.test_admit_r19_host_working_set::test_committed_reader_answers_none_for_an_excluded_interior_and_bytes_for_the_kept_boundary passed
+only in head: 24 {'passed': 24}
+  + tests.acquire.test_range_openings::test_a_changed_byte_a_replaced_sibling_a_shifted_range_or_another_runs_commitment_is_refused[block] passed
+  + tests.acquire.test_range_openings::test_a_changed_byte_a_replaced_sibling_a_shifted_range_or_another_runs_commitment_is_refused[host] passed
+  + tests.acquire.test_range_openings::test_a_failed_verification_does_not_cache_the_step_root passed
+  + tests.acquire.test_range_openings::test_bytes_the_committer_does_not_retain_open_as_none_never_zeros passed
+  + tests.acquire.test_range_openings::test_every_leaf_range_opens_and_verifies_and_every_member_byte_range_reads_back[block] passed
+  + tests.acquire.test_range_openings::test_every_leaf_range_opens_and_verifies_and_every_member_byte_range_reads_back[host] passed
+  + tests.check.test_opened_values::test_a_meta_that_is_not_an_object_of_the_committers_layout_is_refused passed
+  + tests.check.test_opened_values::test_a_replayed_vu_whose_committed_read_does_not_verify_is_a_mismatch_by_name passed
+  + tests.check.test_opened_values::test_a_retained_copy_changed_after_the_commit_to_agree_with_the_oracle_fails_the_opened_compare_by_name[block] passed
+  + tests.check.test_opened_values::test_a_retained_copy_changed_after_the_commit_to_agree_with_the_oracle_fails_the_opened_compare_by_name[host] passed
+  + tests.check.test_opened_values::test_block_layout_a_byte_changed_after_the_commit_fails_every_read_of_its_leaf_by_name passed
+  + tests.check.test_opened_values::test_boundary_linkage_names_an_input_id_changed_after_the_commit_unlinked passed
+  + tests.check.test_opened_values::test_host_layout_a_retained_buffer_changed_after_the_commit_fails_its_reads_by_name passed
+  + tests.check.test_opened_values::test_opened_reads_are_the_committed_bytes_and_each_step_root_is_authenticated_once[block] passed
+  + tests.check.test_opened_values::test_opened_reads_are_the_committed_bytes_and_each_step_root_is_authenticated_once[host] passed
+  + tests.check.test_opened_values::test_the_oracle_compare_passes_on_opened_values_of_an_honest_commit passed
+  + tests.check.test_opened_values::test_the_pod_fault_retained_flip_fails_every_opened_read_of_the_flipped_leaf_by_name[block] passed
+  + tests.check.test_opened_values::test_the_pod_fault_retained_flip_fails_every_opened_read_of_the_flipped_leaf_by_name[host] passed
+  + tests.check.test_opened_values::test_the_pod_fault_retained_flip_fails_every_opened_read_of_the_flipped_leaf_by_name[ranges] passed
+  + tests.check.test_opened_values::test_the_pod_fault_retained_flip_fails_every_opened_read_of_the_flipped_leaf_by_name[windows] passed
+  + tests.harness.test_admit_r19_host_working_set::test_the_opened_reader_answers_none_for_an_excluded_interior_and_verified_bytes_for_the_kept_boundary passed
+  + tests.tp.test_tp2_attribution::test_a_sampled_id_changed_after_the_commit_to_agree_with_the_match_record_is_not_verified_and_not_ok passed
+  + tests.tp.test_tp2_t6_4_check::test_a_retained_copy_changed_after_the_commit_is_not_verified_never_compared passed
+  + tests.tp.test_tp_partial_match_oracle::test_a_member_changed_in_the_retained_copy_after_the_commit_is_not_verified_and_fails_named passed
+outcome changed: 4
+  ~ tests.harness.test_admit_r19_host_working_set::test_fork_gc_freeze_opt_out_is_named_on_the_record: passed -> failed  [assert False + where False = all(<generator object test_fork_gc_freeze_opt_out_is_named_on_the_record.<locals>.<genexpr> at 0x7b5f52a01d20>)]  (order-dependent at base; not counted)
+  ~ tests.harness.test_admit_r19_host_working_set::test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins: passed -> failed  [assert 375 == 0 + where 375 = <built-in function get_freeze_count>() + where <built-in function get_freeze_count> = gc.get_freeze_count]  (order-dependent at base; not counted)
+  ~ tests.ops.test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way: failed -> passed  [subprocess.TimeoutExpired: Command '['bash', '<path>']' timed out after 15 seconds]
+  ~ tests.program.test_norm_chain::test_mean_pins_match_installed_vllm: failed -> passed  [AssertionError: ('src_sha256', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', '94b6a25ba19f2471ae2dc06c49edbcc3a0937ccbe47d1f716cf393155caf]
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 65, head 65, fixed on head 2

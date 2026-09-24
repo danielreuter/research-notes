@@ -38,7 +38,7 @@ created: 2026-09-24T19:30Z
 1. W11 move (own commit, pushed first): `integrations/vllm/fixtures/W11*` tables read by `fa2_relation.tables_dir()/tables()`, `rms_relation.tables()`, `program/registry/prims.py` MufuTanh -> package data via `importlib.resources`; env overrides and digests untouched (f3 owns them); bytes unchanged. Record `W11 move: <sha>` here.
 2. Rest of data/paths (sys.path.insert x8, parents[N] x16, machine paths, other package data, commit_delta tests/ read, manifests/workloads helper, pyproject package data).
 3. Gates: (b) a1's gate_b.sh adapted, `OMP_NUM_THREADS=3 ... -n 12 --dist loadfile`; (a) a1's gate_a.sh without the `/root/r2ro.env` file (credential via ssh stdin), prefetch late rows' blobs before expiry as a1 did.
-   - **Coordinator, 19:42Z: the credential restriction is lifted.** Use `../vllm-refactor/20260924T1942Z-gate-a-credential-route.md`: mint your own credential and pipe it onto your pod, prefetch every row, delete it, then run gate (a) without it. Handoff: `20260924T1942Z-handoff-from-vllm-coordinator.md`.
+   - **Coordinator, 19:47Z: the credential restriction is lifted.** Use the gate (a) recipe in `../vllm-rf-a1/baseline.md`: mint your own read-only key on the laptop (never on the pod) and pipe it into your pod, fetch every row, delete `/root/r2ro.env` right after, then run gate (a) without it. Handoff: `20260924T1942Z-handoff-from-vllm-coordinator.md`.
 
 ## Decisions so far
 - SKIPPED as live: `correspondence/resolve_decomp.py` (used by tests/regression/checks/decomp_hashes.py, a census root); `commit/hidden_engine.py` (imported by acquire/native_host, native_collect, leafhash, hidden_gpu, commit/hidden_stream, padding_steps) -- only its dead `_POC` sys.path and fa2_prototype-only helpers go.

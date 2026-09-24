@@ -7,7 +7,7 @@ created: 2026-09-24T18:10Z
 ---
 # Baseline: the vLLM integration's test gates at `72884c8a`
 
-> **Coordinator, 19:42Z:** for gate (a) fixtures, use `../vllm-refactor/20260924T1942Z-gate-a-credential-route.md`: mint your own short-lived read-only credential, prefetch every row, delete the credential, then run gate (a) without it. Never reuse a1's `/root/r2ro.env`.
+> **Coordinator, 19:47Z (owner-approved):** the gate (a) recipe below now deletes the key right after the fetch. Mint your own read-only key on the laptop and pipe it into your own pod; never mint on a pod, and never reuse another lane's key. Fetch every row's fixtures, delete `/root/r2ro.env`, then run gate (a). The 3 h expiry is only a backstop.
 
 Gate (b) is not green at the base: 3,904 tests, 3,536 passed, 54 failed, 11 errors, 297 skipped, 6 xfailed.  Of the 65
 failures and errors, 10 fail in any environment (files missing from the tree; a `NameError` in an extracted adapter
@@ -53,6 +53,21 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -ra -n 12 --dist load
 # pod, same PATH/PYTHONPATH/HF_HOME as gate (b), plus:
 set -a; . /root/r2ro.env; set +a
 export RESEARCH_STORE=/workspace/research/store RESEARCH_STORE_CONFIG=$PWD/tools/research/store.pod.toml
+# fetch every row's fixtures into the pod store now, then DELETE THE KEY at once (its 3 h expiry is only the backstop)
+python - "$PWD" > /workspace/prefetch.txt <<'PY'
+import sys, tomllib
+f = tomllib.load(open(sys.argv[1] + "/integrations/vllm/tests/regression/fixtures.toml", "rb"))
+for k, v in f.get("artifacts", {}).items():
+    if v: print("top", k, v)
+for rid, r in f["rows"].items():
+    for k, v in r.get("artifacts", {}).items():
+        if v: print(r.get("row", rid), k, v)
+PY
+while read -r row kind art; do d=/workspace/prefetch/$row-$kind; rm -rf "$d"
+  python -m research.cli data fetch "$art" --to "$d" > /dev/null && echo "ok $row $kind" || echo "FAIL $row $kind"; rm -rf "$d"
+done < /workspace/prefetch.txt
+rm -f /root/r2ro.env; unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+# gate (a) now builds the row trees from the local blobs; a FAIL above means: mint again, fetch that row, delete again
 export VERITY_REGRESSION_SCRATCH=/workspace/scratch VERITY_REGRESSION=1
 python -m pytest integrations/vllm/tests/regression -m regression -ra
 ~~~

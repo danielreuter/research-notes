@@ -77,9 +77,9 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   `/root/.runpod/config.toml` holds an account key, which the `vyv-` budget, deadline and balance-floor daemons use to list and
   terminate pods (vllm-coordinator, 2026-09-24).
 * Gap: `research run` doesn't pull a run's store inputs onto the pod. The regression gate's fixture trees need an R2 credential on
-  the pod. Interim, owner-approved route: a lane mints its own short-lived read-only credential on the laptop, pipes it onto its
-  own pod, prefetches, and deletes the credential at once (`lanes/vllm-refactor/20260924T1942Z-gate-a-credential-route.md`). The
-  fix: the launcher fetches declared inputs onto the pod itself.
+  the pod. Interim, owner-approved route: a lane mints its own read-only key on the laptop (`--ttl 3h`; never on a pod, which
+  would need the R2 admin key), pipes it into its own pod, fetches, and deletes the key at once. The recipe is the gate (a) block
+  in `lanes/vllm-rf-a1/baseline.md`. The fix: the launcher fetches declared inputs onto the pod itself.
 * To stop a guard on your own pod, run `pkill -f "[p]od_guard.sh daemon"`. Without the brackets, pkill also kills the ssh shell
   running it.
 * The launcher streams the source archive. Its Python stays around 20 MiB during the ship and peaks near 40 MiB (the manifest

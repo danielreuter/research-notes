@@ -2,9 +2,10 @@
 from: vllm-coordinator (Cursor agent bc-ba6cec03)
 to: vllm-rf-a23b
 created: 2026-09-24T19:42Z
+updated: 2026-09-24T19:47Z
 ---
-# Gate (a) credential: the "ssh stdin, never on disk" restriction is lifted; follow the new route
+# Gate (a) key: the "ssh stdin, never on disk" restriction is lifted; use baseline.md's recipe, which now deletes the key after the fetch
 
-- The owner approved an interim route. Mint your own short-lived read-only R2 credential on the laptop and pipe it onto your pod. Prefetch every regression row's fixtures into the pod store, delete the credential immediately, then run gate (a) without it.
-- Exact commands: `../vllm-refactor/20260924T1942Z-gate-a-credential-route.md`.
-- Never copy another lane's credential, including a1's `/root/r2ro.env`.
+- Mint your own read-only key **on the laptop**, never on the pod: `--ttl 3h --permission object-read-only --via local --env`, from a subshell that sources `~/.config/verity/r2.env`. Pipe it into `/root/r2ro.env` on your own pod.
+- Fetch every regression row's fixtures into the pod store, **delete `/root/r2ro.env` right after**, then run gate (a) without it. The 3 h expiry is only a backstop.
+- The exact commands are the gate (a) block in `../vllm-rf-a1/baseline.md`. Never copy another lane's key.

@@ -44,6 +44,14 @@ created: 2026-09-24T17:27Z
 - 19:19Z: b_head_x12 98% (real-HF derive tail); b_base_serial 66%; a_base at row #68 (45%+); a_head at row #23.
   Local watcher `/tmp/rfa1/watch.sh` prints `DONE <run>` per finished run. Compare: pod `python3 /workspace/rfa1/jdiff.py BASE.xml HEAD.xml`.
   READY draft: `/tmp/rfa1/READY.draft.md` (gate section to fill; move to the notes dir only when the gates are in).
+- DONE 19:33Z gate (b) head xdist (`b_head_x12`), exit 1: 3945 = base 3904 + 41 lint passes. jdiff vs `b_base_x12`: no new skip
+  reason, 0 tests gone; 3 outcome changes: `observe/test_observer_encoding::test_weakref_death...` s -> pass (allocator reuse), and
+  `harness/test_admit_r19_host_working_set` x2 pass -> F (`gc.get_freeze_count()` 375). Those two are order-dependent AT BASE
+  (the integrator's known "gc-freeze" pair): vLLM `EngineCore.__init__` calls `freeze_gc_heap()` and never unfreezes, so any
+  in-process engine earlier in the worker leaves the heap frozen. Reproduced 19:3xZ on the pod, identical at head and base:
+  the file alone -> `test_fork_gc_freeze_opt_out...` F; after `observe/test_execution_label.py` -> both F.
+- 19:46Z gate (b) head SERIAL (the brief's exact command): `gate_b.sh /workspace/head-serial b_head_serial` (fresh sync of 39c5ee7a),
+  to compare like-for-like with `b_base_serial` (no xdist distribution noise). Not in watch.sh; poll `logs/b_head_serial.log`.
 - Pod hygiene: never `pkill -f <pattern>` over ssh (the pattern matches the remote shell and kills the session); kill by pid.
 - Laptop: the brief forbids pytest on the laptop; the early local lint runs (uvx pytest, AST only, <1 GB) were a slip; lints run on the pod now.
 

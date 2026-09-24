@@ -59,6 +59,9 @@ Since 19:25Z the research coordinator does every merge to `main`, so two agents 
 3. hands the branch and head commit to the research coordinator for a `--no-ff` merge;
 4. tells the remaining lanes to rebase.
 
+**Merge requests (sent to the owner via the Project coordinator; the research coordinator merges):**
+- 22:25Z **a1**: `lane/vllm-rf-a1-rebased` @ `bcbec401`. That is a1's `39c5ee7a` rebased onto main `21688b01`, plus one coordinator commit deleting the 2 lint allowlist entries that main's `e0c7bfe9` (fold_compare) made stale. The lints are 41/41 on main on a CPU pod, and without the fix 2 fail. `lane/vllm-rf-a1` itself is untouched. Once it's merged, tell the remaining lanes to rebase and delete stale allowlist entries.
+
 ## Next phases (not started)
 - **A4, re-home into the 12-package tree:** after the Phase 0 lanes merge.
 - **A5, one CLI and typed config:** after A4.

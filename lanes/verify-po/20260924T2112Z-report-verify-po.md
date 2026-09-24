@@ -82,6 +82,13 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - Negatives, all rejected: `mutate --sample 24` (148/148); my s flip, t+1 and f+1 (on different VUs); the public line
   reordered; the public line removed (verifier panics "circuit has no column y16", rc 101).
 
+### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`)
+| cell | before | now | art |
+|---|---|---|---|
+| RTX 4090 FP8, A-GKR | — | 3.0e7× (1.13 s) | art:1b4fd4a1 |
+| RTX 4090 FP8, B-Ligero | 2.4e6× (art:fb4934af) | 2.2e6× (0.0840 s) | art:bb75ba4f (arith step 5) |
+| RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s) | art:fe57e68b |
+
 ## Log
 - 21:17Z pod created; 21:27Z synced (494 s); 21:30Z bootstrapped (only the GPU stage failed, as expected on a CPU pod).
 - 21:35Z first reverify stalled in the pod-catalog `reindex --remote` (~150 manifests/min). I killed it at 21:51Z and

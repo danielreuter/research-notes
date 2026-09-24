@@ -1,0 +1,36 @@
+--- mem_guardian.py.orig
++++ mem_guardian.py
+@@ -14,7 +14,9 @@
+ - If the sum of matched memory exceeds TOTAL_CAP, largest killed until under.
+ - If free disk on the data volume drops below DISK_FLOOR, the largest
+   matched process is killed.
+-All kills are logged to ~/.veritor/mem_guardian.log.
++All kills are logged to ~/.veritor/mem_guardian.log, with the process's cwd:
++`research notes watch` routes each KILLED line to the lane that owns it (by
++`--on <machine>` in the cmd, else by the cwd under a bound worktree).
+ """
+ import os
+ import re
+@@ -79,10 +81,21 @@
+     return mem
+ 
+ 
++def proc_cwd(pid: int) -> str:
++    """The process's working directory, read before the kill ('?' when lsof cannot say within a second)."""
++    try:
++        out = subprocess.run(["/usr/sbin/lsof", "-a", "-p", str(pid), "-d", "cwd", "-Fn"],
++                             capture_output=True, text=True, timeout=1).stdout
++    except (OSError, subprocess.SubprocessError):
++        return "?"
++    return next((line[1:] for line in out.splitlines() if line.startswith("n")), "?")
++
++
+ def kill(pid: int, mem: float, cmd: str, reason: str) -> None:
++    cwd = proc_cwd(pid)  # before the kill: the steward maps it to the lane whose worktree it is under
+     try:
+         os.kill(pid, 9)
+-        log(f"KILLED pid={pid} mem={mem/1024**3:.2f}GB reason={reason} cmd={cmd[:160]}")
++        log(f"KILLED pid={pid} mem={mem/1024**3:.2f}GB reason={reason} cwd={cwd} cmd={cmd[:160]}")
+     except ProcessLookupError:
+         pass
+ 

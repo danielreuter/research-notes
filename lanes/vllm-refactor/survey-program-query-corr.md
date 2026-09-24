@@ -26,7 +26,7 @@ Paths below are relative to `integrations/vllm/verity_vllm/` unless they start w
 
 Global counts over the slice (before per-module detail):
 - 18 modules end in `if __name__ == "__main__":` and 17 import `argparse`.
-- 11 modules read `os.environ` (plus `vllm_meta.py`, which *writes* 5 env vars with `setdefault` at import).
+- 11 modules read `os.environ` (10 in `program/`, 1 in `correspondence/`). `program/frontend/vllm_meta.py` also *writes* 5 env vars with `setdefault` at import.
 - verity core imports: mostly `verity.ir.{defs,refs,types,codec}`. Only `query/module_body.py`, `query/program_view.py`, `query/v1_bridge.py` import `verity.verification.query`; `correspondence/capture_identities_program.py` imports `verity.verification.{programs,typed_obligation}`. Nothing imports `verity.commitments` or `verity.verification.plan`.
 
 (Sections below are appended as each module group is finished.)

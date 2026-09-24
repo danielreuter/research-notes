@@ -110,18 +110,32 @@ created: 2026-09-24T17:36Z
   plan digest, binding-map digest, run roots; known_roots as a secondary reference. No native source differs base..head, so one
   bootstrap (venv312, FA2 tap /workspace/cp/fa2, nc_build, torch-ext cache) serves both trees.
 
+- 21:05Z gate (a) T0-only run @ `9bddf741` STOPPED (at ~110/158, 0 F so far): the brief now says gate (a) = T0+T1 (coordinator 20:33Z,
+  `VERITY_REGRESSION_TIERS=T0,T1`); a1 measures the T0+T1 base. T0+T1 is a superset, so the T0 run was redundant.
+- 21:09Z GPU bootstrap BOOTSTRAP-OK (readiness all true: hidden_gpu sm_89, FA2 tap hdims 64,96,128,256, vllm d9105ea80, torch 2.13.0+cu129).
+- Environment (both pods, venv312): Python 3.12.14, torch 2.13.0+cu129, vLLM 0.28.1rc1.dev472+gd9105ea80.cu129, triton 3.7.1,
+  numpy 2.3.5, transformers 5.17.0, safetensors 0.8.0, pytest 9.1.1 (+ xdist 3.8.0 on the CPU pod) = a1's table; GPU driver 595.91.07.
+
 ## Running (pod `vyv-rf-f3-veritor-campaign`, RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU, created 19:17Z)
+- 21:10Z gate (a) T0+T1, both `nice`, concurrently, fresh trees, no key on disk/env (`/workspace/rff3/gate_a_t01.sh` = gate_a.sh + TIERS=T0,T1):
+  head `/workspace/head-reg` (= 4fb0eb2c, fresh sync) -> `logs/a_head_t01.*`; base `/workspace/b0-reg` (72884c8a rebuilt from it, 36 blobs ok)
+  -> `logs/a_base_t01.*` (own same-environment base, in case a1's T0+T1 base lands late).
+## Running (GPU pod `vyv-rf-f3-g2`, RunPod `by47y4tvsavbln`)
+- 21:10Z `/workspace/rff3/row_ab.sh`: SmolLM2 row_pod build,match,commit PAIRS=1, head tree then base tree, VERITY_(LEAF_)LAYOUT unset
+  -> `/workspace/rff3/logs/row_{head,base}.log`, rows `/workspace/cp/sweep-{head,base}/<row>/`, summary `logs/row_ab.out`.
+
+## (older) CPU pod notes
 - Trees: `/workspace/base` = `4fb0eb2c` (rsync 20:17Z; only bootstrap ran in it); copies `/workspace/{tgt,ga,gb}` = `9bddf741`.
   Bootstrap `/workspace/bootstrap`, venv `/workspace/venv312`. Scripts `/workspace/rff3/gate_{a,b}.sh` (a1's), logs `/workspace/rff3/logs/`.
-- Gate (a) @ `9bddf741` in `/workspace/ga`, started 20:09Z, serial, no key on the pod -> `logs/gate_a.{log,xml,out}`. `4fb0eb2c` differs from
-  `9bddf741` only in two `tests/observe/` files gate (a) does not collect, so this run stands for the head.
-- Gate (b) final: done (above). `/workspace/base` is now dirty (test_ref_prims rewrote docs/data/ref-prims); `/workspace/b0` = base rebuild.
+- T0-only gate (a) @ `9bddf741` in `/workspace/ga`: stopped 21:05Z (see above); partial log `logs/gate_a.log`.
+- Gate (b) final: done (above). `/workspace/base` is now dirty (test_ref_prims rewrote docs/data/ref-prims); `/workspace/b0` = base rebuild (dirty copy).
 
 ## Next
-1. Gate (a): judge per check vs a1's `baseline-gate_a.xml.gz` (green = nothing fails and every check that passed at base passes).
-2. GPU: once `vyv-rf-f3-g1` has ssh -- sync head tree, rebuild base tree, `pod_bootstrap.sh --gpu --cases B0`, A/B rows (plan above).
-   If no ssh by ~20:56Z (create's 30 min wait): terminate, recreate (COMMUNITY or another DC).
-3. READY.md in this dir when gates + D3 row are in; terminate both pods.
+1. Gate (a) T0+T1: judge head vs my base run (same pod, same env) and vs a1's T0+T1 base when it lands (green = nothing fails and
+   every check that passed at base passes).
+2. D3: compare `/workspace/cp/sweep-{head,base}/<row>/` (stages.txt, build/match summaries, commit/verdict.json run_roots, plan /
+   binding-map / manifest digests); known_roots cc 8.9 `cb129578…` as a secondary reference.
+3. READY.md (draft `/tmp/rf-f3/READY.draft.md` on the laptop) when gates + D3 are in; terminate both pods.
 
 ## Open questions
 - D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.

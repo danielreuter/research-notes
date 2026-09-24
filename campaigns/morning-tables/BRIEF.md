@@ -68,8 +68,9 @@ names the reason for each of your results.
 | fill-* (~07:45Z) | fused-phases tip | per target | ~$25 | 11:30Z | B-Ligero bare + column 2 on frozen instances, 3 rounds, dumps |
 | verify-night (~07:45Z) | main | CPU pod | $4 | 12:30Z | independent verification + labels for every candidate cell |
 
-File ownership: sp1-table owns `backends/sp1/{common,guest,host}`; sp1-tcdot adds a sibling crate under `backends/sp1/tcdot/`
-and only reads `common/`. agkr-table owns `backends/gkr`. tables-fix owns `verity_numerical/bench/{tables,drilldown}.py` and
+File ownership: sp1-table owns `backends/sp1/{common,guest,host}`; sp1-formats adds new per-format modules in
+`backends/sp1/common/src/` plus one arm in sp1-table's format dispatch; sp1-tcdot adds a sibling crate under
+`backends/sp1/tcdot/` and only reads `common/`. User 05:21Z: SP1-stock and SP1-precompile on all five targets. agkr-table owns `backends/gkr`. tables-fix owns `verity_numerical/bench/{tables,drilldown}.py` and
 the instance-equiv schema; fused-phases owns the ligero runner and `bench/instance_equiv.py`.
 
 Everyone handing a result to verification writes `lanes/verify-night/<ts>-handoff-from-<you>.md`: art ids, the verifier

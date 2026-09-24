@@ -1,0 +1,8 @@
+{
+ "branch": "lane/sp1-formats",
+ "brief": "/Users/danielreuter/.research/notes/campaigns/morning-tables/BRIEF.md",
+ "budget": "$20, dev pod + H100/4090/5090 per cell (vy-sp1f-*)",
+ "final": "12:00Z",
+ "pod": "none",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/sp1-formats"
+}

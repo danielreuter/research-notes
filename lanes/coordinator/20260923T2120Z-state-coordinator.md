@@ -107,3 +107,17 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
 - Watcher restarted via the shim with STALE|ALIVE|MAIL notifications. Seeded `.inbox-seen` for relation-3 (23:55Z),
   shared-live-2 (00:28Z), verify-rs-5 (verify-rs-4 FINAL).
 - Relation-3 acknowledged verify-rs-4's asks (derived ZK keys 15/15, R3-7 slots) -> vrs4 check closed.
+- 01:00Z bench-summary FINAL `lane/bench-summary @ fd2971e8` (base main 22e10e0e; 4 tests; bench 162 passed) -> INTEGRATION
+  list. Phase-sum contract finding on pipelined runs -> device-wave inputs §01:00Z.
+- 01:05Z notes repo: `~/.research/notes` is its own git repo (created Sep 22 by the notes migration; import 26ff6af, then
+  nothing). Watcher now runs with `--snapshot` (the only committer). `.gitignore` + 1 MB cap; 30 MB tracked, 10 MB packed.
+  No remote (user: "git for now, not the code repo"). lane/qol a24f8ac5.
+- 01:05Z shared-live-2 FINAL (432ea740, $1.22, pod gone, finish check ok, 23 arts preserved): column 2 = +shared tile64.
+- 01:08Z research-qol's rebuilt branch was posted at 21:05Z (reply3): `lane/research-qol @ 32bd3478`, based on main -> QoL merge
+  unblocked. Launched `integration` 8c67d1fc (worktree verity-main-wt/integration, lane/integration from main 22e10e0e; 13 merges
+  incl. research-qol + qol + leaf/ligero lanes + bench-summary; 4090 vy-integration merge-val-3; $5; FINAL 03:00Z). Ligerito
+  branches = second integration after relation-3 (04:00Z). Then I ff main + push + repoint ~/.research/bin/research at main,
+  then the device wave brief.
+- 01:15Z ligerito-relation-3 FINAL 498f9014 (finish checks ok; pod terminated 01:00Z). It terminated the pod verify-rs-5 was
+  routed to (my 00:58Z note arrived late) -> verify-rs-5 approved to run cargo on the laptop (one-off), no pod, FINAL 02:30Z.
+  Ligerito second pass planned after integration (device-wave inputs §01:15Z). Ligerito stays NON_ZK_PROOF_DIAGNOSTIC.

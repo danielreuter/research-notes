@@ -5,6 +5,7 @@ created: 2026-09-24T00:30Z
 status: final
 ---
 
+CHECKPOINT e2a3b27e (01:01Z) [final] FINAL e2a3b27e: 12/12 cells passed, 30/30 campaign live sessions ACCEPTED, re-verified by shared-live-2 with pinned Rust (51/51 pairs, 32/32 honest sessions + 12/12 dumps batch ACCEPT, G3 negative REJECT); fp8-ada ZK bare/shared local 0.246/0.389 (1.58x), live 0.380/0.669 (1.76x); bf16-hopper local 0.371/0.695 (1.87x), live 1.065/1.326 (1.25x); 23 arts PRESERVED (research data preserved rc 0); pod hinjpqggt7riic terminated 00:53:16Z (404); ~$1.22 pod life
 CHECKPOINT e2a3b27e (00:43Z) [open] pulled 5 GB, sha256 = pod for all 12 cells + 2956 session files; my pinned Rust batch on ALL 33 sessions + 12 rep1 dumps: 32/32 honest ACCEPT, t2 negative REJECT (rc 1), 12/12 dumps ACCEPT; 12 cell arts PRESERVED (remote) + labelled verified=accepted by shared-live-2; pushing 7 session groups + 3 single sessions + run-files now
 CHECKPOINT e2a3b27e (00:33Z) [open] campaign COMPLETE: 12/12 cells passed (5 reps each, --zk --mode interactive --pipeline 4, 4096 VUs, l=16384, code fe0c4f48 on 4090); 30/30 campaign live sessions ACCEPTED (live check + Rust per pair + Rust batch >= 2^-128); my independent Rust re-verify of 3 shared-live sessions (fp8-ada x2, bf16-hopper x1) ACCEPT 51/51 pairs + 3/3 batches, swapped-coin negatives REJECT; fp8-ada ZK local bare 0.246 / shared 0.389 (1.58x), live t.total_live 0.380 / 0.669 (1.76x); bf16-hopper local 0.371 / 0.696 (1.87x), live 1.065 / 1.326 (1.25x); pulling 5 GB for custody
 CHECKPOINT e2a3b27e (00:30Z) [open] successor of shared-live (died ~23:49Z); read its report (ends 23:32Z, campaign running); collecting /workspace/runs/campall.out + 12 run dirs + 35 live sessions from pod hinjpqggt7riic; no new work
@@ -145,6 +146,9 @@ by shared-live-2 on every art below except g3tests (mixed honest + negative; `no
 * run-files/v1 (scripts, campall.out, gate log, live index.jsonl + serve.log, extract.*, all re-verify outputs, pod sha256 lists):
   `art:759110cab9f6d42a77cefd9c166fc39132fef2cb0b8dd8053696049917aafa2c`.
 Pull integrity: sha256 of all 12 cell dirs and all 2956 session files matched the pod before upload (no truncation).
+Durability gate 01:00Z: `research data preserved <23 ids> --mode recorded` rc 0, all 23 PRESERVED (etag-md5; 9 also
+sha256-readback from a `--mode head` pass that died without output after ~4.6 min); `research data where` shows remote present +
+verified for all 23 (output saved in `~/scratch/shared-live-2/preserved_recorded.txt`).
 
 **Pod.** `live serve` stopped 00:45Z (port 7000 closed); pod hinjpqggt7riic **terminated 00:53:16Z** (`research pods terminate`;
 RunPod GET -> 404, absent from `pods list`). No new pods created.

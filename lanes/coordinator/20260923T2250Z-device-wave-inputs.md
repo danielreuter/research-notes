@@ -90,3 +90,32 @@
   LIGERO_WITNESS_PTX_ARCH=native restores). Needed on every fresh 5090 in the wave.
 - Table 2 5090 cells come from the device wave (same-DC live, p4), not from these local-coin runs; 0.0576 is the expectation.
 - Integration: needs 6ffa035; steps-pin writes the fp4-nvf4+poseidon2 steps entry from this branch.
+
+## 01:00Z bench-summary (935b8eb9): phase-sum contract vs pipelined runs
+- `lane/bench-summary @ fd2971e8` adds `python -m verity_numerical.bench.summary PATH...`, one row per result with a `contract`
+  column from `tables.phases`. Merge it at integration; the wave brief names it for every lane.
+- It flagged ajtai-leaf-3's `r20260923-223427-9bab` (`p4/bench/bare`, fp8-ada 4090, `--pipeline 4`, t.total 0.2153 s): the
+  phase buckets add up to 2.2 % more than t.total, so the canonical tables would reject the row. Overlapping phases under
+  pipelining are the likely cause. BEFORE the wave: run the helper over one pipelined cell per relation and confirm headline
+  cells pass the contract. If they don't, fix the bucket rule for pipelined runs at merge-val-3, not per lane.
+
+## 01:05Z shared-live-2 FINAL (432ea740): column 2 = +shared tile64
+- `lane/shared-live @ e2a3b27e` (share-logup-3 + live-2c + G3 fix fe0c4f48): merge as one unit. 4090, `--zk --mode interactive
+  --pipeline 4`, 4096 VUs, l=16384, 5 reps: fp8-ada local 0.246 / 0.389 s (1.58x), live 0.380 / 0.669 (1.76x); bf16-hopper local
+  0.371 / 0.695 (1.87x), live 1.065 / 1.326 (1.25x). 30/30 campaign sessions + 12/12 dumps accepted (pinned Rust), G3 negative
+  rejected 0/13, 23 artifacts preserved (finish check ok).
+- Caveat: live verifier was on the SAME pod (localhost, CPU contention), so live ratios are not the wave's same-DC numbers.
+- DECISION: Table 2 column 2 = `--auth included-hash-shared --tile 64x64`; unshared +hash = drill-down.
+
+## 01:15Z ligerito-relation-3 FINAL (9ef1073b): Ligerito = diagnostic column, not a ZK headline
+- `lane/ligerito-relation-2 @ 498f9014` (pushed). `--zk` emits LGSC0004; ZK keys pinned by derivation (verify-rs-4 `0e4ef1d1`
+  accepts all dumps without --allow-any-key); R3-7 / R3-10 / R3-2 / R3-8 closed; gates 10/10, 0 failures.
+- LABEL stays NON_ZK_PROOF_DIAGNOSTIC: no PCS ZK argument yet for the V1 zero claims and LGSC0004's sparse claims (red-team
+  checklist item 5). So Table 2 gets Ligerito only as a labelled drill-down / proof-size column, not as a ZK cell.
+- 4090 fp8-ada 4096 VUs, one batch (12-coin schedule, 6dda159a): local non-ZK 0.594 s / 701,728 B; local "ZK" 0.823 s /
+  916,527 B; FS ZK 0.846 s; live ZK on RO 3.365 s (54 ms RTT x 42 rounds), session 2^-128.43; Rust verify 0.43-0.49 s.
+  Compare Ligero bare ZK 0.246 s / 66.1 MB on the same GPU class: Ligerito is ~72x smaller proofs, ~3.3x slower prover.
+- LIGERITO SECOND PASS (after integration ff main, ~03:00Z): new lane merges `lane/ligerito-relation-2 @ 498f9014` +
+  `lane/ligerito-sumcheck-3 @ 58e76e5d` (11-coin default; merge-tree with 6dda159a reported clean) + `lane/verify-rs-3` @
+  verify-rs-5's tip onto main; GPU gate rerun at 11 coins; Rust tests; one fp8-ada 4096 bench. Also retarget
+  `redteam_live_labels.py` (it tests a helper verify-session no longer uses; prints "1 accepted" spuriously).

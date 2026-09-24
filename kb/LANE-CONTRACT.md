@@ -78,6 +78,10 @@ artifacts: art:... art:...
 lane would look for it, with its source (`art:`, commit, report). Correct a stale fact instead of appending a contradiction.
 Lane reports stay each lane's own history.
 
+`~/.research/notes` is its own git repo (not the code repo). The coordinator's watcher commits a snapshot every pass, so
+editing in place never loses history. Never run git there yourself. It holds text only: proof dumps, binaries, archives and
+any file over 1 MB are not committed. Put those in the store (`research data put ... --preserve`) and cite the `art:` id instead.
+
 ## C. Coordinator: relaunching a dead lane
 Save what the dead lane would lose, mark it superseded, and bind the successor to the same worktree, branch and pod:
 

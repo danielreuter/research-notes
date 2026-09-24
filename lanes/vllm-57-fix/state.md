@@ -111,6 +111,8 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   run it at f16703a2 (= 2c8aa2b3 + import fix): r20260924-103124-47d5 on vyv-sw-57 GPU 0, build art:f1baace0 + match art:a225cf5f,
   source tree built on the pod by git archive. Trial-merge commit dir moved to /workspace/lane/evidence/commit57_trial_rv1_25170f24/
   (already preserved as art:6b939117). Past imports, warm-up at 10:32Z. ETA ~11:25Z (last wall 3031 s).
+- 10:45Z #57@f16703a2 pair 0: BINDING coverage 171,388/171,388, COMPOSITION OK, MANIFEST COVERAGE OK 163,168 missing 0.
+  #67@f16703a2 pair 0: source identity OK f16703a2 (all four trees), control tokens_eq True; attempt running. 0 errors on both.
 
 ## Checkpoints
 - CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);

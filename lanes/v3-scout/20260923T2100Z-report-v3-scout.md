@@ -2,10 +2,9 @@
 lane: v3-scout
 kind: report
 created: 2026-09-23T21:00Z
-status: superseded
+status: open
 ---
 
-CHECKPOINT none (00:03Z) [superseded] by v3-scout-2 (coordinator)
 CHECKPOINT 5e6b3e3 (21:11Z) H100 l=16384 p4 done, all Rust-accepted + pinned: bf16-hopper-v3 0.2406 s vs v1 0.2955 (v3 −19 %); fp8-hopper-v3 0.1444 vs v1 0.1152 (v3 +25 %: v3 hints 0.050 s of the wall); p8 + l=32768 running; A100 chain running (bf16-ampere-v3 vs bf16-ampere, then vu.py control); pod-side custody works (art:4fb1ce07 PRESERVED, laptop catalog remote=1).
 CHECKPOINT 5e6b3e3 (21:03Z) worktree ~/projects/verity-main-wt/v3-scout on lane/v3-scout @ 5e6b3e3 (= lane/open-fixes tip, no commits yet); H100 vy-v3-scout-h100 (x2b0ahxr8g7k0s, 81559 MiB reference, EPYC 9554) bootstrapped 20:58Z, 16-run chain started 21:00Z; A100 vy-v3-scout-a100 (u3nsufkequsg76, A100-SXM4-80GB reference, EPYC 7742) bootstrapping.
 

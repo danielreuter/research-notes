@@ -38,7 +38,7 @@ Where the fix belongs:
   `steps <= n`.
 * If you put it in shared `verify.rs`, it also closes H2 for Poseidon2 / blake3 / share-logup. I sent verify-rs-3 the same note.
 
-n128 is broken the same way (22:54Z). `bf16-hopper+ajtai-n128` at steps = 192 > 128 is accepted pinned (`sys_id 29f18689…`).
+n128 is broken the same way (23:00Z). `bf16-hopper+ajtai-n128` at steps = 192 > 128 is accepted pinned (`sys_id 29f18689…`).
 The collide variant (columns 0 and 128) gives the same a-root `7e5165e4…` and b-root `cb891fd5…`, two y, both accepted pinned.
 Fixtures: `.../fixtures/bf16-hopper-ajtai-n128-{steps192,collide}/`. Regenerate with
 `--relation bf16-hopper --leaf ajtai-n128 --k 16 --steps 192`.

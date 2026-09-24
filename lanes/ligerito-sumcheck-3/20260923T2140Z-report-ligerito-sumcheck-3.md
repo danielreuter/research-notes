@@ -2,12 +2,10 @@
 lane: ligerito-sumcheck-3
 kind: report
 created: 2026-09-23T21:40Z
-status: superseded
+status: open
 worktree: ~/projects/verity-main-wt/ligerito-sumcheck-3 (branch lane/ligerito-sumcheck-3 from lane/ligerito-sumcheck-2 @ 1fbbe86)
 ---
 
-CHECKPOINT none (00:03Z) [superseded] by ligerito-sumcheck-4 (coordinator)
-CHECKPOINT 26ff6af (23:20Z) [open] 62f24d4: zc_msg3 kernel (arity 3 at 2^27 77->44 ms); LGSC0004 default 13 coins zc 3,3,3,3,3,5/vf 10/cmb 6,6,6/rb 6,6: fp8-ada 4096 0.196 s 170,448 B, bf16-hopper 2048 0.193 s; LGSC0003 --schedule lean 15 coins 0.149 s (default + fixture unchanged); 54/54 tests; 19 artifacts on R2 (remote=1); handoffs updated
 CHECKPOINT 26ff6af (23:08Z) [open] 19b5830: LGSC0004 default 13 coins/batch (zc 3,2,3,3,3,6/vf 10/cmb 6,6,6/rb 6,6): fp8-ada 4096 0.206 s 181,680 B, bf16-hopper 2048 0.197 s, 15/15 negatives each; soundness 184/|F| = 2^-177.9; toy fixture 1895b072 (+ zksmall fd8a264b); 52/52 tests; handoffs updated; next: big-table arity-3 kernel (12 coins)
 CHECKPOINT ef49a7de (22:47Z) [open] ef49a7d: LGSC0004 coin-lean default 15 coins/batch (0.205 s, 164.8 KB at 4096 VUs fp8-ada 4090); zk-small 21 coins 0.154 s 15.8 KB; 51/51 tests; regenerating LGSC0004 fixture
 CHECKPOINT f0b9567 (22:30Z) [open] f0b9567: LGSC0004 4096-VU fp8-ada ZK batch 0.155 s on the 4090 (LGSC0003 0.137 s at the same tip), 21 coins, 14.45 GB, 15/15 negatives reject; LGSC0004 toy fixture sha256 8c89da93 in evidence/; LGSC0003 fixture byte-identical to sumcheck-2's; writing argument + format note + handoffs next
@@ -222,51 +220,40 @@ c675bd5 → f0b9567: the mask algebra (3^v × 6 tensors) was launch-bound — `f
 (`--negatives`): quadratic / chain_link / lookup / zk_product / zk_mask_link × (honest, "zc", "all") = 15/15 rejected.
 Evidence: `evidence/bench_lgsc000{3,4}_fp8-ada_4096*.json.gz`.
 
-**Current tip (62f24d4), LGSC0004 default = 13 coins** (same pod, warm; `--negatives` 15/15 rejected (LGSC0004) and 9/9
-(LGSC0003 lean) on each):
+**Current tip (19b5830), LGSC0004 default = 13 coins** (same pod, warm median of 3; `--negatives` 15/15 rejected on both):
 ~~~
-                         fp8-ada 4096 VUs                                  bf16-hopper 2048 VUs (one batch; 4096 = 2 batches)
-                         LGSC0003  LGSC0003   LGSC0004   LGSC0004          LGSC0003  LGSC0003   LGSC0004   LGSC0004
-                         default   lean       zk-small   default           default   lean       zk-small   default
-prove total              0.137 s   0.149 s    0.154 s    0.196 s           0.131 s   0.143 s    0.148 s    0.193 s
-  zero-check             0.122     0.129      0.125      0.130             0.115     0.124      0.119      0.125
-  combined (+ values)    0.016     0.019      0.026      0.060             0.016     0.020      0.026      0.062
-  row reduction          -         -          0.004      0.006             -         -          0.004      0.006
-coins                    18        15         21         13                18        15         21         13
-bytes                    11,069    17,330     15,800     170,448           11,069    17,330     15,800     170,448
-peak GPU memory          14.45 GB  14.45 GB   14.45 GB   14.45 GB          14.22 GB  14.22 GB   14.22 GB   14.22 GB
-verify (Python, CPU)     0.52 s    0.68 s     0.72 s     0.70 s            0.58 s    0.58 s     0.62 s     0.61 s
+                         fp8-ada 4096 VUs                     bf16-hopper 2048 VUs (one batch; 4096 = 2 batches)
+                         LGSC0003  zk-small   default 13c     LGSC0003  zk-small   default 13c
+prove total              0.137 s   0.154 s    0.206 s         0.131 s   0.148 s    0.197 s
+  zero-check             0.122     0.125      0.138           0.115     0.119      0.132
+  combined (+ values)    0.016     0.026      0.062           0.016     0.026      0.060
+  row reduction          -         0.004      0.006           -         0.004      0.006
+coins / bytes            18/11,069 21/15,800  13/181,680      18/11,069 21/15,800  13/181,680
+peak GPU memory          14.45 GB  14.45 GB   14.46 GB        14.22 GB  14.22 GB   14.23 GB
+verify (Python, CPU)     0.52 s    0.72 s     0.71 s          0.58 s    0.62 s     0.61 s
 ~~~
-(zk-small measured at ef49a7d/f0b9567, LGSC0003 default at 62f24d4 for fp8-ada and f0b9567 for bf16-hopper; the rest at
-62f24d4.) `lean` is an opt-in LGSC0003 preset (`--schedule lean` / `_schedule_arg("lean", lay)`; the default and its fixture
-are unchanged): zc 3,3,3,3,3,4,4,3 / vf 4 / cmb 3,3,4,4,4, within LGSC0003's limits (arity <= 4), so every LGSC0003 verifier
-(Python, verify-rs-3's lgsc3.rs) already accepts it: 3 coins fewer for the non-ZK live mode at +12 ms.
 bf16-hopper: its layout has the same N = 2^30 (n_k 12, n_c 18, n_i 12, m = 3196), but 4096 VUs need 25 sub-batches > S = 16,
 so one batch holds 2048 VUs. The relation has no frozen tier in this tree: `instances(rel, n, seed=7)` is synthetic and
 deterministic, generated on the pod (the campaign's `bf16-hopper-20260922-4096.npz`, sha256 4a2ec10c…, came with the
 bootstrap but the sumcheck bench does not read it; timing does not depend on instance values). Evidence:
-`evidence/bench_lgsc0004_{fp8-ada_4096,bf16-hopper_2048}_v6.json.gz`, `bench_lgsc0003_{fp8-ada_4096,bf16-hopper_2048}_lean_v6
-.json.gz` (62f24d4); `_v5` = 19b5830, `_v3` = ef49a7d; the unsuffixed / `_v2` files = c675bd5 / f0b9567.
+`evidence/bench_lgsc000{3,4}_bf16-hopper_2048*.json.gz` (`_v5` = 19b5830), `bench_lgsc0004_fp8-ada_4096_v5.json.gz`.
 
-**Coins against prover time and bytes** (LGSC0004, fp8-ada 4096, 4090, warm; "live" = prove + coins x 0.1 s RTT, sumcheck
-part only; all verify; `--schedule` strings as given):
+**Coins against prover time and bytes** (fp8-ada 4096, 4090, warm; "live" = prove + coins × 0.1 s RTT, sumcheck part
+only; all verify, `--schedule` strings as given):
 ~~~
 coins  schedule (zc / vf / cmb / rb)              prove     bytes     live@100ms
 21     zk-small 3,2,2,2,2,3,3,3,3,3/4/3x6/4,4,4    0.154 s    15,800   2.25 s
 15     3,2,2,2,2,3,6/10/3,3,6,6/6,6               0.169     164,834   1.67      (ef49a7d default, with the _fm tails)
-14     3,3,3,3,3,5/10/3,3,6,6/6,6                 0.169     154,249   1.57
-13     3,3,3,3,3,5/10/6,6,6/6,6    (default)      0.196     170,448   1.50
-13     3,2,3,3,3,6/10/6,6,6/6,6                   0.199     181,680   1.50      (19b5830 default)
-12     3,3,3,3,6/12/6,6,6/6,6                     0.224     402,647   1.42
+14     3,2,3,3,3,6/10/3,3,6,6/6,6                 0.178     165,481   1.58
+13     3,2,3,3,3,6/10/6,6,6/6,6    (default)      0.206     181,680   1.51
+13     3,2,3,3,3,4/12/6,6,6/6,6                   0.198     387,312   1.50
+12     3,3,3,3,6/12/6,6,6/6,6                     0.261     402,647   1.46
+12     3,2,3,4,6/12/6,6,6/6,6                     0.446     403,511   1.65      (arity 4 on a 2^22 table: flat path)
 ~~~
-What a coin costs (62f24d4): an arity-3 zero-check round on the 2^27 table after the opening 44 ms (arity 2: 33 ms), an
-arity-6 combined round on 2^18 cells ~27 ms, an arity-6 zero-check round on 2^18 cells ~30 ms. The default takes every coin
-that costs < 30 ms and < 20 KB. The 12-coin schedule saves another ~70 ms of live time at 100 ms RTT for +233 KB (the vf = 12
-final table): relation-2's call (their proof is ~0.7 MB, 48 rounds, today).
-Kernel work in this phase (item 3): `zc_msg3` (62f24d4) replaces `zc_red3` for trivariate rounds with >= 4096 groups. zc_red3
-ran one block row per entry (27), re-reading the corners (64 corner loads per group instead of 8) and re-forming the eq
-weight 27 times; zc_msg3 splits only X1 over blockIdx.y and forms the 9 (X2, X3) entries per thread as zc_msg2 does (54
-register accumulators): arity 3 on 2^27 cells 77 -> 44 ms, on 2^25 19.6 -> 12.5 ms. The flat tails (rounds of arity > 3,
-small tables) moved from `fc_mul` (~110 launches) to `_fm` (4 ops; `_fm_big`, a rotate-and-accumulate form with 6 temporaries
-per element, above 2^15 ext): 15-coin schedule 0.205 -> 0.169 s. Both are exact (byte-identical proofs; CUDA-vs-reference
-tests for every schedule family incl. lean, tail, wide).
+What a coin costs: an arity-3 round on the 2^27 table after the opening takes 77 ms (the generic `zc_red3` kernel;
+arity 2 takes 33 ms), an arity-6 combined round on 2^18 cells ~29 ms, arity 6 on the zero-check's 2^16 cells ~8 ms. The
+default takes every coin that costs < 40 ms and < 20 KB. The 12-coin schedule saves another ~45 ms of live time at
+100 ms RTT but doubles the bytes and depends on the RTT; a faster big-table arity-3 kernel (§4) would make 12 coins cheap.
+ef49a7d → 19b5830 also moved the flat tails (rounds of arity > 3, small tables) from `fc_mul` (~110 launches) to `_fm`
+(4 ops; `_fm_big`, a rotate-and-accumulate form with 6 temporaries per element, above 2^15 ext): 15-coin schedule 0.205 →
+0.169 s.

@@ -1,5 +1,5 @@
 #!/bin/bash
-# hints-fused-2 chain (tree e57637f = ff52e47 + test param): 3 interleaved bench rounds, dumps + Rust at the floor configs,
+# hints-fused-2 chain (tree 6caa2f5 = ff52e47 + test param): 3 interleaved bench rounds, dumps + Rust at the floor configs,
 # profiles, extended differential.  4096 VUs, --zk --mode interactive, local coins, 3 reps per run; LIGERO_REFERENCE_HINTS=0.
 cd /workspace
 B="/workspace/venv312/bin/python -m backends.direct.ligero.run"
@@ -49,7 +49,7 @@ LIGERO_REFERENCE_HINTS=0 /workspace/run.sh $X prof_fu_v3x4_p4_4k $P /workspace/p
 LIGERO_REFERENCE_HINTS=0 /workspace/run.sh $X prof_fu_v3_p4_16k $P /workspace/prof2/fu_v3_p4_16k --relation fp8-ada-v3 bench-vu \
   --out /workspace/results2/prof_fu_v3_p4_16k.json $PC --batch 16384 --pipeline 4
 echo "prof done $(date -u +%H:%M:%S)" >> $L
-HINTS_FUSED_SEEDS=8 OMP_NUM_THREADS=4 LIGERO_INSTANCES_CACHE=/workspace/instances-cache /workspace/run.sh $X diff_ext \
+HINTS_FUSED_N=131072 OMP_NUM_THREADS=4 LIGERO_INSTANCES_CACHE=/workspace/instances-cache /workspace/run.sh $X diff_ext \
   /workspace/venv312/bin/python -m pytest -q -rfE -p no:cacheprovider --durations=10 backends/direct/ligero/hints_fused_test.py
 echo "diff done $(date -u +%H:%M:%S)" >> $L
 echo CHAIN2_DONE > /workspace/logs/chain2_done

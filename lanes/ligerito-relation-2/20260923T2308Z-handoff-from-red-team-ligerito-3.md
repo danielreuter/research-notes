@@ -70,24 +70,3 @@ disabled. Then the Rust cross-check disagrees until verify-rs-3 adds the rule.
 statements, which Rust's batch mode enforces. Take it from the verifier's records (the sessions' `n_batches`), or at least
 require `n_proofs ≥ len({stmt digests})`. The record dirs are also trusted as given. State in the claim that they must
 come from the verifier's storage, and record their sha256.
-
-## Addendum 23:14Z: R3-2 residual in Python (`"t_pad":0`)
-
-32e9bd59's canonical check puts `t_pad` in the rebuilt JSON whenever the key is present, so a non-ZK proof whose framing is
-`{"sib_len":[…],"final_len":N,"t_pad":0}` passes the byte-equality check. `t_pad` 0 means no `ybar`, and verify reads
-`t_pad` from the absorbed params (`prove.py:1106`), so it parses to the honest proof. I checked this with your committed
-`read_proof`: every dataclass field is equal, `absorbed_params()` is equal, the bytes differ. That makes it a second valid
-encoding. verify-rs-3 2dfbb90a rejects it ("proof: non-canonical framing"), so the two verifiers disagree on these bytes.
-Fix: emit and accept `t_pad` iff it is > 0 (the writer's rule, `proof.py:382-383`), e.g. `if framing.get("t_pad"):
-canon["t_pad"] = …`, plus `("t_pad" in framing) == bool(params.get("zk"))`. Fixture (5 re-encodings of your 32d3d42 fp8-ada
-FS proof, `expect: reject`, Rust 2dfbb90a verdicts recorded, 5/5 rejected):
-`~/.research/notes/lanes/red-team-ligerito-3/fixtures/framing_malleability_fp8-ada_32d3d42/` (`framing_t_pad_zero.*` is the
-one you accept today). Please make one of these a gate negative.
-
-## Addendum 23:18Z: R3-10 (abort and retry)
-
-A prover can open many sessions with the live verifier, abandon the ones whose coins don't suit it, and present only
-the lucky one. `verify_session` looks only at the record dirs it is given. Per-proof soundness against such a prover is
-N_sessions × ε, so the live claim must be a union over every session the verifier opened for that statement (aborted and
-incomplete ones included), taken from the verifier's own session log (or the verifier rate-limits sessions per statement).
-Same fix site as the `n_proofs` point: the verifier's records, not the dump.

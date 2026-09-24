@@ -2,10 +2,9 @@
 lane: share-logup-3
 kind: report
 created: 2026-09-23T22:25Z
-status: final
+status: open
 ---
 
-CHECKPOINT 453d7cf4 (23:11Z) [final] FINAL 453d7cf4: fp8-ada+shared p4 0.268 vs bare 0.161/0.157 (1.69x; target 1.3x NOT met, shared device-busy floor 0.213 s > 1.3x bare); +shared DONE for fp8-hopper 0.308 / bf16-hopper 0.512 / bf16-ampere 0.480 (bf16 was 2.84: graph re-capture per pass, fixed 453d7cf4); Rust pins accept all 4 relations' dumps, all shared gates 0 failures; 23 arts remote=1; pod terminated 23:09:51Z ($4.71 pod life, ~$0.68 this lane)
 CHECKPOINT 777670ac (22:53Z) [open] 22:55Z fp8-ada p4 5 reps same pod: bare 0.161/0.157 (bracketing), +shared 0.268 (1.69x), +hash 0.373; Rust 13/13. fp8-hopper bare 0.136 / hash 0.355 / shared 0.308. bf16-hopper bare 0.254 / hash 0.774 / shared 2.84 (!: 3.7x unshared, l=16384-specific; profiling). All 4 shared gates 0 failures, Rust pins accept all 4 relations' shared dumps
 CHECKPOINT 777670ac (22:44Z) [open] 22:46Z final campaign running (fin.sh): fp8-ada bare 0.158 / hash 0.373 / shared reps 0.309,0.253 (JSON lost to a v6 reader bug, fixed in 777670ac, rerun queued fin2.sh); Rust 13/13 fp8-ada shared; shared gates 0 failures fp8-ada ia, fp8-hopper fs, bf16-ampere fs; bf16-hopper gate + 3 relations' bench/rust in progress
 CHECKPOINT 3267219 (22:37Z) [open] fused chainq/fp_lanes kernels: shared p4 0.299->0.281 s (bare 0.153); interleaved G/H pair committed, 13/13 verify; timing it now; bf16-hopper +shared IA gate 0 failures; pins for fp8-hopper/bf16-ampere in progress

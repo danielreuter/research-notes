@@ -2,10 +2,9 @@
 lane: hints-fused-2
 kind: report
 created: 2026-09-23T22:25Z
-status: final
+status: open
 ---
 
-CHECKPOINT 4287a92b (23:06Z) [final] FINAL written: floor fp8-ada-v3x4 --batch 4096 --pipeline 4 = 0.1142 s vs fp8-ada-v3 p4 0.1715 s (torch hints) / 0.1405 (fused) same 4090; differential 82/82, gates 0 failures, Rust 6 dumps ACCEPT pinned (no digest change); next = latency-bound witness_program; pod terminated 23:05:38Z (USD 1.61 lifetime); 10 arts remote=1
 CHECKPOINT 4287a92b (23:02Z) [open] report §1-3 written (floor fp8-ada-v3x4 --batch 4096 --pipeline 4 = 0.1142 s vs fp8-ada-v3 p4 torch 0.1715 same pod; next bottleneck = latency-bound witness_program at l=4096); chain3 (bf16-hopper/fp8-hopper v3 + v3x4 fused vs torch, 2 rounds) finishing; FINAL + pod terminate by ~23:20Z
 CHECKPOINT 4287a92b (22:52Z) [open] custody: run-files art:e255651c (pred chain) + art:bf352a36 (chain2) + 7 bench-result, all remote=1; Rust 13/13 v3x4 p4/p8 l=4096, 13/13 v3, 4/4 v2x4 (pinned); extended differential 82/82; floor profile: witness_program latency-bound (block-size micro refuted occupancy); writing FINAL
 CHECKPOINT e57637f2 (22:44Z) [open] 5 A/B rounds done: fused fp8-ada-v3x4 p4 l=4096 0.1210 s / p8 l=4096 0.1103 s vs fp8-ada-v3 p4 torch 0.1715 s (same pod; fused v3 p4 0.1380); torch v3x4 p4 l=16384 OOMs, fused 0.1603; dumps+Rust, floor profile, extended differential running

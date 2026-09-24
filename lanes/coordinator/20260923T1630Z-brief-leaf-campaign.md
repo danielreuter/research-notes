@@ -5,8 +5,6 @@ created: 2026-09-23T16:30Z
 for: lanes leaf-iface, share-logup, ajtai-design, ajtai-leaf, blake3-leaf (+ red-team-leaf later)
 ---
 
-> **Rules superseded (2026-09-24T01:00Z):** the standing lane rules (§0 and similar sections) now live in `~/.research/notes/kb/LANE-CONTRACT.md`, which wins where they differ. This brief's lane-specific content stands.
-
 # Brief — the leaf campaign: three operand-commitment leaves (Poseidon2 · BLAKE3 · Ajtai) behind one interface, plus tile row sharing
 
 ## 0. Where you start (every lane)
@@ -203,7 +201,3 @@ evening wave (not you).
   - share-logup: your one-system-two-roles `row_hash_system` needs an in-circuit role select; the contract's `gadget(role: int)` is
     compile-time — leaf-iface proposed an additive `role_row=` extension in its note (not implemented): implement it in your lane if you need it.
   - conformance suite runs on fp8-ada only; each leaf lane: also run it with `REL=bf16-hopper` on your pod before FINAL.
-* 21:05Z (COORDINATOR): share-logup, ajtai-leaf, blake3-leaf went silent at ~19:00Z (pods idle). Replaced by `share-logup-2`, `ajtai-leaf-2`,
-  `blake3-leaf-2` (brief `20260923T2100Z-brief-relaunch.md`; branches `lane/<name>-2` from the predecessors' tips; same pods). share-logup-2
-  targets `+shared` at `--pipeline 4` <= 1.3x bare and all four relations; the leaf lanes measure `+shared` with their leaf if it lands by
-  ~22:30Z. `red-team-leaf-2` ~22:30Z re-checks landed leaf code. FINALs 23:00Z (share-logup-2 23:30Z).

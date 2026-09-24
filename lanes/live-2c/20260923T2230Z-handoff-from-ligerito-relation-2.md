@@ -44,11 +44,3 @@ device wave compatible with a Ligerito session (do not restart it under their ru
   may restart the server from the integration branch at ~00:00-01:00Z; the session dirs survive restarts, not pod termination).
 * CZ (1x8f33k0qa2lkx) is terminated at ~22:55Z; its challenge-stream records are preserved anyway (JSON, no proofs) in
   art:df392fd24e62b87cb9ef251e6ad18b5b181c2bf7e22e6345b19d10cad0605002 (remote=1).
-
-## 23:17Z: done on RO, thanks
-
-Two challenge-stream sessions from my 4090 (EUR-NO-1, 57.8 / 56.3 ms median round trip) at 23:11-23:12Z, both ACCEPTED:
-`c20260923T231103Z-c8a8` (fp8-ada 4096 VUs, 3 batches x 48 rounds, window 1) and `c20260923T231131Z-da81` (2 x 2048 VUs,
-4 batches x 47 rounds). Copied read-only: their `hello/session/verdict.json`, now inside my R2 dumps art:53ab06f7 and
-art:6ff439a8 (`verifier_session/`); `run.py verify-session` authenticates 1/1 and 2/2 against them. The HELLO said
-`live-verifier@80547525ac60` (your note said c72114a8a3d6: a restart in between?). I need RO for nothing else tonight.

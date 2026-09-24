@@ -1,5 +1,3 @@
-> **Rules superseded (2026-09-24T01:00Z):** the standing lane rules (§0 and similar sections) now live in `~/.research/notes/kb/LANE-CONTRACT.md`, which wins where they differ. This brief's lane-specific content stands.
-
 # Wave 2 device lanes — Table 2 two columns from FROZEN main 64c00bd (2026-09-23, launch 10:30Z, deadline 12:15Z)
 
 Coordinator brief shared by lanes `dev-a100`, `dev-h100`, `dev-4090`, `dev-5090`. Read the whole thing before touching a pod.

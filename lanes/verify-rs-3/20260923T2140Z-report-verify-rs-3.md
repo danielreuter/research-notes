@@ -2,11 +2,10 @@
 lane: verify-rs-3
 kind: report
 created: 2026-09-23T21:40Z
-status: superseded
+status: open
 branch: lane/verify-rs-3 (worktree ~/projects/verity-main-wt/verify-rs-3, from lane/verify-rs-2 @ e38a0c7)
 ---
 
-CHECKPOINT none (00:03Z) [superseded] by verify-rs-4 (coordinator)
 CHECKPOINT 75ec753f (23:14Z) [open] HEAD pushed: coordinator Q answered -- Ligerito verifier binds steps/K/word widths to the relation constants ('statement shape', also under --allow-any-key; test statement_steps_bound_to_the_relation), rows/n_i/n_k/m/virt/constraints via the pinned key digest (sys = ligero-verify pin); only the batch shape l/S/n_vus is the statement's (pow2, n_vus*steps<=l, params l, PCS n, soundness recomputed) -- not the H2 class. relation-2 32e9bd5 gates 6/6 96/96 agree; red-team-3 26 forged fixtures rejected; R3-1 legacy no-soundness, R3-6 zk_mode; cargo 85/85
 CHECKPOINT 2dfbb90a (23:04Z) [open] 2dfbb90 (pushed): Rust matches relation-2 32e9bd5 canonical rules (framing bytes exact, pad-unit operand words 0; off-end y from 0db857a); red-team-3's 18 forged fixtures all rejected; 0db857a gates 94/94 agree x2; LGSC0004 (sumcheck-3 ef49a7d, both schedules) + sparse PCS claims in Rust; cargo 84/84. Next: relation-2's 32e9bd5 gates, LGTO+LGSC0004 once relation-2 emits it, FINAL
 CHECKPOINT none (22:58Z) [open] 60d9cbd1 canonical y (0db857a) in Rust: 0db857a gates fp8-ada + zk 2/2 accept 92/92 reject 94/94 agree; LGSC0004 (ef49a7d default + zk-small) verified vs Python; sparse PCS claims; LGTO LGSC0004 dispatch provisional; cargo 75+7

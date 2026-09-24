@@ -17,20 +17,20 @@ meta() {  # $1 relation, $2 note
     "$COMMIT" "$DEV" "$RUN" "$1" "$2"
 }
 for S in ${BENCHES//,/ }; do
-  case $S in *hashed*) REL=fp4-nvf4+hash;; *) REL=fp4-nvf4;; esac
-  D=${S##*_p}; case $S in ab_*) D="4 (A/B LIGERO_WITNESS_PTX_ARCH=${S#ab_*_}; ${S##*_} of 2)";; esac
+  case $S in bench_hashed*) REL=fp4-nvf4+hash;; *) REL=fp4-nvf4;; esac
+  D=${S##*_p}
   P=$(put proof/v1 --tree "$R/$S/proofs" "$(meta $REL "proof dump: 4096 VUs, l=16384, --zk --mode interactive, local coins, --pipeline $D, rep 1 (7 sub-batches) + system.bin")")
   echo "$P $RUN/$S proofs" | tee -a "$OUT"
   B=$(put bench-result/v1 --file "$R/$S/result.json" "$(meta $REL "bench result.json (--pipeline $D, 3 reps)")" --ref "proof=$P")
   echo "$B $RUN/$S result.json" | tee -a "$OUT"
-  V=$(put verification-verdict/v1 --file "$R/$S/rust_batch_pinned.json" "$(meta $REL "pinned ligero-verify batch (no --allow-any-system) over the rep-1 dump")" --ref "proof=$P")
+  V=$(put rust-verdict/v1 --file "$R/$S/rust_batch_pinned.json" "$(meta $REL "pinned ligero-verify batch (no --allow-any-system) over the rep-1 dump")" --ref "proof=$P")
   echo "$V $RUN/$S rust_batch_pinned.json" | tee -a "$OUT"
 done
 for G in gate_hashed gate_bare; do
   [ -f "$R/$G/gate.json" ] || continue
   case $G in gate_hashed) REL=fp4-nvf4+hash;; *) REL=fp4-nvf4;; esac
-  I=$(put run-files/v1 --file "$R/$G/gate.json" "$(meta $REL "gate-vu 2048 VUs --batch 16384 + negatives, LIGERO_GPU_STRICT=1 LIGERO_GRAPH_STRICT=1")")
+  I=$(put gate-report/v1 --file "$R/$G/gate.json" "$(meta $REL "gate-vu 2048 VUs --batch 16384 + negatives, LIGERO_GPU_STRICT=1 LIGERO_GRAPH_STRICT=1")")
   echo "$I $RUN/$G gate.json" | tee -a "$OUT"
 done
-L=$(put run-files/v1 --file "$R/stdout.log" "$(meta fp4-nvf4+hash "suite stdout (pipe_test, gates, benches, pinned Rust)")")
+L=$(put bench-log/v1 --file "$R/stdout.log" "$(meta fp4-nvf4+hash "suite stdout (pipe_test, gates, benches, pinned Rust)")")
 echo "$L $RUN stdout.log" | tee -a "$OUT"

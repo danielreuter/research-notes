@@ -3,7 +3,7 @@
 # (round-1 order); headline = lowest median over the three rounds' t.total. Then per relation: live bare headline (3 sessions),
 # committed +shared tile 64x64 local (rep1 dumped, Rust --system-h) and live, then RTT probe.
 source /workspace/wave-h100-2/scripts/lib.sh
-# (03-main.sh runs this after its screening round)
+while ! grep -q R1_DONE $O/bare/summary.txt 2>/dev/null; do sleep 5; done
 # cfg per round-1 tag: relation batch pipeline
 declare -A CFG=(
   [fp8-v1-p4]="fp8-hopper 16384 4" [fp8-v3-p4]="fp8-hopper-v3 16384 4" [fp8-v3x4-p4]="fp8-hopper-v3x4 4096 4" [fp8-v3x4-p8]="fp8-hopper-v3x4 4096 8"

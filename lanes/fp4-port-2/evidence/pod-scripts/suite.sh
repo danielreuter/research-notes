@@ -62,38 +62,38 @@ L=backends/direct/ligero
 has t1 && pyt t1 $L/fp4/hashed_test.py $L/fp4/hashed_pipeline_test.py $L/witness_device_test.py $L/steps_pin_test.py \
   $L/hashchain_test.py $L/leaf_test.py $L/fp4/relation_test.py $L/fp4/hints_device_test.py
 
-gate() {  # $1 stage, $2 relation, $3.. sub-command args (--auth)
-  local S=$1 REL=$2; shift 2; mkdir -p "$RD/$S"; echo "=== [$(t)] $S ($REL $*)"
-  python -m backends.direct.ligero.run --relation "$REL" gate-vu "$@" --vus 2048 --batch 16384 --device cuda --target -128 \
+gate() {  # $1 stage, $2.. relation args
+  local S=$1; shift; mkdir -p "$RD/$S"; echo "=== [$(t)] $S ($*)"
+  python -m backends.direct.ligero.run "$@" gate-vu --vus 2048 --batch 16384 --device cuda --target -128 \
     --instances-cache /workspace/instances-cache --instance-procs 10 --out "$RD/$S/gate.json" > "$RD/$S/gate.log" 2>&1
   local rc=$?; tail -4 "$RD/$S/gate.log"; echo "GATE_RC[$S]=$rc"; [ "$rc" -eq 0 ] || fail=1
 }
-has gate_hashed && gate gate_hashed fp4-nvf4+poseidon2 --auth included-hash
-has gate_bare && gate gate_bare fp4-nvf4
+has gate_hashed && gate gate_hashed --relation fp4-nvf4+poseidon2 --auth included-hash
+has gate_bare && gate gate_bare --relation fp4-nvf4
 
-abrun() {  # $1 tree, $2 out dir, $3 relation, $4.. sub-command args
-  local T=$1 O=$2 REL=$3; shift 3; mkdir -p "$O"
+abrun() {  # $1 tree, $2 out dir, $3.. relation args
+  local T=$1 O=$2; shift 2; mkdir -p "$O"
   ( cd "$T" && PYTHONPATH="$T/packages/verity/src:$T/backends/numerical/python:$T/tools/research/src:$T" LIGERO_STMT_TRIM=0 \
-    python -m backends.direct.ligero.run --relation "$REL" bench-vu "$@" --mode fiat-shamir --batch 16384 --total-vus 1024 --reps 1 --target -128 \
+    python -m backends.direct.ligero.run "$@" bench-vu --mode fiat-shamir --batch 16384 --total-vus 1024 --reps 1 --target -128 \
       --device cuda --instances-cache /workspace/instances-cache --instance-procs 10 --auth-cache "$O/auth-cache" \
       --out "$O/result.json" --dump-dir "$O/proofs" --dump-reps 1 > "$O/stdout.log" 2>&1 )
   echo "rc=$? $(cd "$O/proofs" 2>/dev/null && find . -type f \( -name '*.proof' -o -name '*.stmt' -o -name 'system.bin' \) | sort | xargs sha256sum | sha256sum | cut -c1-16) $(find "$O/proofs" -type f | wc -l) files"
 }
 if has ab_fs; then
   echo "=== [$(t)] ab_fs"
-  echo -n "bare main  : "; abrun /workspace/ab-main "$RD/ab_fs/bare_main" fp4-nvf4
-  echo -n "bare tip   : "; abrun /workspace/src "$RD/ab_fs/bare_tip" fp4-nvf4
-  echo -n "hash fp4d3 : "; abrun /workspace/ab-fp4d3 "$RD/ab_fs/hash_fp4d3" fp4-nvf4+poseidon2
-  echo -n "hash tip   : "; abrun /workspace/src "$RD/ab_fs/hash_tip" fp4-nvf4+poseidon2 --auth included-hash
+  echo -n "bare main  : "; abrun /workspace/ab-main "$RD/ab_fs/bare_main" --relation fp4-nvf4
+  echo -n "bare tip   : "; abrun /workspace/src "$RD/ab_fs/bare_tip" --relation fp4-nvf4
+  echo -n "hash fp4d3 : "; abrun /workspace/ab-fp4d3 "$RD/ab_fs/hash_fp4d3" --relation fp4-nvf4+poseidon2
+  echo -n "hash tip   : "; abrun /workspace/src "$RD/ab_fs/hash_tip" --relation fp4-nvf4+poseidon2 --auth included-hash
   for p in bare hash; do
     a=$(ls -d "$RD"/ab_fs/${p}_* | head -1); b=$(ls -d "$RD"/ab_fs/${p}_* | tail -1)
     if diff -r -q -x 'manifest.json' -x '*.json' "$a/proofs" "$b/proofs" > "$RD/ab_fs/diff_$p.txt" 2>&1; then echo "AB[$p] IDENTICAL"; else echo "AB[$p] DIFFER"; head -5 "$RD/ab_fs/diff_$p.txt"; fi
   done
 fi
 
-bench() {  # $1 stage, $2 relation, $3.. sub-command args
-  local S=$1 REL=$2; shift 2; local O="$RD/$S"; mkdir -p "$O"; echo "=== [$(t)] $S ($REL $*, --pipeline $D) gpu-apps=[$(nvidia-smi --query-compute-apps=pid --format=csv,noheader | tr '\n' ' ')]"
-  python -m backends.direct.ligero.run --relation "$REL" bench-vu "$@" --zk --mode interactive --batch 16384 --total-vus 4096 --reps 3 \
+bench() {  # $1 stage, $2.. relation args
+  local S=$1; shift; local O="$RD/$S"; mkdir -p "$O"; echo "=== [$(t)] $S ($*, --pipeline $D) gpu-apps=[$(nvidia-smi --query-compute-apps=pid --format=csv,noheader | tr '\n' ' ')]"
+  python -m backends.direct.ligero.run "$@" bench-vu --zk --mode interactive --batch 16384 --total-vus 4096 --reps 3 \
     --target -128 --device cuda --instances-cache /workspace/instances-cache --instance-procs 10 --auth-cache "/workspace/auth-cache-$S" \
     --pipeline "$D" --run-id "fp4-port-2-$S" --out "$O/result.json" --dump-dir "$O/proofs" --dump-reps 1 > "$O/stdout.log" 2>&1
   local rc=$?
@@ -112,9 +112,9 @@ PY
 if has bench; then
   for r in $(seq 1 "$ROUNDS"); do
     if [ $((r % 2)) -eq 1 ]; then
-      bench "bench_hashed_r$r" fp4-nvf4+poseidon2 --auth included-hash; bench "bench_bare_r$r" fp4-nvf4
+      bench "bench_hashed_r$r" --relation fp4-nvf4+poseidon2 --auth included-hash; bench "bench_bare_r$r" --relation fp4-nvf4
     else
-      bench "bench_bare_r$r" fp4-nvf4; bench "bench_hashed_r$r" fp4-nvf4+poseidon2 --auth included-hash
+      bench "bench_bare_r$r" --relation fp4-nvf4; bench "bench_hashed_r$r" --relation fp4-nvf4+poseidon2 --auth included-hash
     fi
   done
 fi

@@ -5,8 +5,6 @@ created: 2026-09-23T21:00Z
 status: open
 ---
 
-> **Rules superseded (2026-09-24T01:00Z):** the standing lane rules (§0 and similar sections) now live in `~/.research/notes/kb/LANE-CONTRACT.md`, which wins where they differ. This brief's lane-specific content stands.
-
 # Brief: relaunch of six stalled lanes + two device-wave scouts (21:00Z → FINALs 23:00–23:30Z)
 
 Six lanes went silent together at ~19:00Z (no commits, no notes, pods idle at 0 % GPU, no processes): share-logup, ajtai-leaf,
@@ -103,32 +101,3 @@ the v2/v3 families (privsel/pubsel `hints.py`), byte-identical hints (differenti
 
 ## 2. Coordinator appendix (I append here; re-read at every checkpoint)
 * 21:00Z: launched the eight lanes above. Integration (lane/integration + GPU merge-val) starts ~23:00Z; the device wave ~00:00Z.
-* 21:15Z → `verify-rs-2` (PRIORITY ORDER): (1) F10 committed by 22:00Z (red-team-ligerito-2 starts from your branch then); (2) an
-  **LGTO0001 reader** in `ligerito-verify` — `ligerito-relation` (running) has 4096-VU dumps (4 x 1024-VU proofs on a 4090, one 4096-VU
-  proof on an A100, ~0.7 MB/proof) and its Rust verification is blocked on exactly this (its report "Status by deliverable" 2; fixture +
-  format published 18:55Z in `lanes/ligerito-relation/`); (3) LGSC0003; (4) F11; (5) F5.
-* 21:15Z → everyone: `research notes status` (in `lane/qol` c5342ca; same PYTHONPATH as the pods helpers) is how the coordinator sees you.
-  `research notes checkpoint <lane> open|blocked|final "<text>"` writes the line for you (commit = HEAD of the cwd).
-* 21:40Z → everyone: agents today have LOST CONTEXT mid-lane (ligerito-relation at ~21:20Z concluded its own recent edits belonged to
-  "another instance" and stopped). If your memory seems to end earlier than your branch/notes: your report and `git log lane/<you>` are
-  yours — continue from them, do not stop. Commit often so the next agent (or you) can resume.
-
-## 3. Second relaunch (22:25Z): the 21:00Z lanes all stopped at ~21:15Z
-
-Every lane launched at 21:00-21:15Z stopped between 21:06Z and 21:18Z (no commits, no notes, no laptop processes; the harness still holds
-their sessions, so they cannot be resumed). Successor lanes are named `<lane>-3` (red teams `-3` too), branch `lane/<lane>-3` created at the
-predecessor's tip, same pods. §0 applies. **New rules:** CHECKPOINT at least every 20 min, commit every meaningful step (a successor must be
-able to continue from your branch + report alone), and put your art ids in the report as you create them. Integration moves to ~00:00Z,
-the device wave to ~01:00Z; FINALs below.
-
-| lane | predecessor tip | predecessor state (its report: `lanes/<pred>/…`) | pod(s) to reuse | FINAL |
-|---|---|---|---|---|
-| share-logup-3 | share-logup-2 cfdcf65 | pipelined G/H pair through prove_many; hint syncs removed (private_decode on device) | kx69zewzhawgy1 4090 | 00:00Z |
-| ajtai-leaf-3 | ajtai-leaf-2 1cf9178 | pins+fixtures 107f40b (fp8-ada+ajtai-n64 sys 18d91532, 4858 rows); pipelined hashed runner `prove_vus_many` | qam33gj60dv60g 4090 | 23:45Z |
-| blake3-leaf-3 | blake3-leaf-2 1db0008 | gates 0 failures both relations; v2 pins | ghpl8iy5s629sq 4090 | 23:45Z |
-| fp4-decode-3 | fp4-decode-2 d86e014 | recovered r20260923-182920-9002 (proof art:7c5453a3, verdict pinned); fp4+poseidon2 through the pipelined prover | lx80c24sagdao0 5090 (+ k39j0s2bvhlljf 4090: terminate once custody is clean) | 23:45Z |
-| live-2c | live-2b c72114a | bbr validated cross-region (12/12 bf16-hopper depth-4 accepted) | qd3grivhbfqurw prover; verifiers 1x8f33k0qa2lkx (EU-CZ) + pitmqu0zrycw5i (EU-RO): keep ONE for the device wave, say which | 23:45Z |
-| v3-scout-2 | v3-scout 5e6b3e3 | H100 l=16384 p4: bf16-hopper-v3 0.2406 s vs v1 0.2955 (Rust-accepted, pinned) | x2b0ahxr8g7k0s H100 + u3nsufkequsg76 A100 | 23:30Z |
-| hints-fused-2 | hints-fused ff52e47 | fused kernel `hints_fused.py` hooked into pubsel/privsel hints_v2/v3 (LIGERO_F…); LIGERO_REFERENCE_HINTS=0 knob | em6u0t7azwt5gu 4090 | 00:00Z |
-| red-team-leaf-3 | red-team-leaf-2 (notes only) | G1 reproduced: Ajtai `check_system_key` (F6) is a pattern scan; B=0 chain + decoy key rows | none | 23:45Z |
-| red-team-ligerito-3 | red-team-ligerito-2 83d5d75 | V1 found; re-check the V1 fix (ligerito-relation-2 cf9a63a), LGSC0004 ZK masks (ligerito-sumcheck-3 c675bd5), LGTO0001 reader (verify-rs-3 1f30710) | none | 00:30Z |

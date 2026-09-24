@@ -5,8 +5,6 @@ created: 2026-09-23T16:45Z
 for: lanes ligerito-design, ligerito-proto (Phase A); ligerito-relation (Phase B, later)
 ---
 
-> **Rules superseded (2026-09-24T01:00Z):** the standing lane rules (§0 and similar sections) now live in `~/.research/notes/kb/LANE-CONTRACT.md`, which wins where they differ. This brief's lane-specific content stands.
-
 # Brief — Ligerito: a succinct backend for the same relation IR (target ≤ 1 MB proof per 4096-VU batch, ≤ 10 MB/s per GPU)
 
 ## 0. Where you start (both lanes)
@@ -163,55 +161,3 @@ short of editing `compile.py` — the coordinator merges IR changes.
     the round list in the header).
   - live-2: plan for ~80 coins/batch today, target ~40-50 after sumcheck-2; measure window depth vs RTT at 80 AND 40.
   - ligerito-zk: the Libra mask goes on LGSC0002's zero-check (29 messages incl. the bivariate opening round).
-
-### §9 20:20Z — red-team-ligerito FINAL (19:54Z): what each lane must do before its FINAL
-
-Source: `~/.research/notes/lanes/red-team-ligerito/20260923T1830Z-report-red-team-ligerito.md` (forged fixtures in that dir's `fixtures/`;
-check scripts `backends/direct/ligerito/redteam_*.py` on `lane/red-team-ligerito` @ c41f23d, numpy, < 10 s each).  Verdict: the soundness
-FORMULA is right (all proven unique-decoding bounds); set B's literal |S| are NO-GO (sized for radix-3, 0.01–0.03 bits margin, ZK padding
-costs up to 9 bits).  **Derive |S| per proof from `params.py` for the shape actually committed, target 2^-129, `t_pad` in the rate under ZK.**
-Reference numbers (pow2 = what ships):
-
-| shape | fp8 | bf16 | fp4 |
-|---|---|---|---|
-| pow2, no ZK | [314,194,194,195,196] 727.2 KiB | [314,194,194,194] 842.7 KiB | [314,193,194,195] 627.7 KiB |
-| pow2 + ZK padding (t_pad 256) | [314,194,194,198,218] 764.7 KiB | [314,194,194,200] 869.9 KiB | [314,193,195,206] 655.8 KiB |
-
-* **ligerito-verify-rs (BLOCKING, F10):** `refpcs.rs` never absorbs the evaluation point / value / dims before the challenges, so a prover
-  picks z after seeing them — the release binary ACCEPTS the red team's forged fixtures.  Absorb (point, value, dims) exactly as proto
-  `pcs.py` does, add the forged fixtures as must-reject tests, and confirm `pcs.rs` (production) stays clean.  F5: a job split into N
-  proofs needs 2^-(128 + log2 N) per proof (the batch union bound) — verify at the batch level like ligero-verify's `--target-bits`.
-  You have been silent since 19:01Z: post a CHECKPOINT line in your report by 21:00Z or the coordinator reassigns this work.
-* **ligerito-pcs-fast (F10/F11, F1, F7–F9):** fix `ref.py` the same way (absorb point/value/dims); F11: canonical-word checks (every
-  field word < p) and no int64 overflow in `ref.py`'s arithmetic (it accepts `v − (2^64 mod p)`); proto exposes this only in memory, fix it
-  anyway.  F1: the shipping `|S|` comes from `params.py` with `t_pad` in the rate (table above), not set B.
-* **ligerito-relation (F12, F1, F3, F6):** F12 — never label 2^-128 on Fiat-Shamir, local-seed or cold `verify-dir` (replayed coin files)
-  runs: FS in F_{p^6} is worth 2^-96.4 at Q = 2^64 (record the computed bound); local-seed / replayed coins are prover-known = consistency
-  only, not transferable (D7).  F1 — `--zk` runs use the pow2+ZK |S| row.  F3 — wire ligerito-zk 318ec9b's `EqSumcheckMask` onto the
-  zero-check's bivariate opening round (with sumcheck-2).  F6 — state in your report whether 116f8ac settles the mask-geometry-vs-index-order
-  finding; a fresh red team re-checks at ~22:00Z.
-* **ligerito-sumcheck-2:** F3 wiring above lands in your layout/sumcheck; the zero-check round error is 6/|F| on the opening round.
-* **Coordinator decision (F4):** the user's standing choice is live verifier + interactive coins, no FS runs for Table 2 → degree-6
-  challenges suffice there.  Any FS Ligerito row is a drill-down labelled with its computed bound (≤ 2^-96.4), never 2^-128.  Moving the
-  challenges to `x^8 − 11` (→ 2^-158 under FS) is NOT commissioned today.
-
-**§9 20:50Z — ligerito-pcs-fast is FINAL** (`lane/ligerito-pcs-fast` @ `b96dac0`, report in `lanes/ligerito-pcs-fast/`, FINAL written by
-the coordinator). 4090 FS provers: 2^29 default 0.079 / F 0.054 / S 0.102 / B-pow2 0.069 s; 2^30 default 0.159 / F 0.089 / S 0.219 /
-B-pow2 0.113 s (default and S stream the commit at 2^30; S fits 24 GB at 22.0 GiB, so no H100 is needed for 2^30 S). Fused `pcs.prove`
-is byte-identical to the prototype; the ZK-padding and sparse-claim hooks change bytes only when enabled (see its handoff notes to
-ligerito-relation and ligerito-verify-rs). Its pod is terminated: ligerito-relation, cross-check on your own pod from that branch.
-* 21:05Z (COORDINATOR): `ligerito-verify-rs` went silent at ~19:00Z (pod idle, no commits) and is REPLACED by lane `verify-rs-2`
-  (branch `lane/verify-rs-2` from ff9d4c3; notes `lanes/verify-rs-2/`; FINAL 23:00Z): F10 absorb point/value/dims in `refpcs.rs` + a `ref.py`
-  patch + forged fixtures as must-reject, F11, F5 batch target, LGSC0003 (sumcheck-2 91a9509). `ligerito-relation`: address verifier asks to
-  `lanes/verify-rs-2/`; it will drop a handoff note in your notes dir with the transcript order once F10 lands. `ligerito-zk` FINAL 19:05Z
-  stands. `red-team-ligerito-2` launches ~22:00Z against the landed fixes. Checkpoint at least every 30 min: > 45 min of silence = presumed
-  dead and replaced.
-* 21:40Z (COORDINATOR): FINALs: `ligerito-sumcheck-2` 1fbbe86 (LGSC0003, 62 -> 18 coins/batch, 4096 VUs one batch on a 4090 0.159 s /
-  14.45 GB, H100 0.159 s, soundness 2^-178.4); `verify-rs-2` e38a0c7 (F10 ligerito-ref/v2, F11, F5 --n-proofs, LGSC0003 in Rust; cargo 60/60).
-  **V1 BREAK** (red-team-ligerito-2): w unconstrained on virtual rows -> any claimed output verifies; until the prover opens the zero claims
-  (column coordinates from the zero-check's independent r_c, NOT the red team's shared-randomness version) every Ligerito number is a
-  NON-SOUND diagnostic. `ligerito-relation`'s agent lost context at ~21:20Z; its uncommitted V1 work is saved in
-  `lanes/ligerito-relation/evidence/uncommitted-v1-2137Z.patch`. NEW LANES: `ligerito-relation-2` (a3df0649; from fbc3eef; V1 prover side,
-  re-measure with sumcheck-2, live R; FINAL 04:00Z; owns prove/proof/run), `verify-rs-3` (b82b331b; from e38a0c7; LGTO0001 reader + V1 in
-  Rust; FINAL 01:30Z), `ligerito-sumcheck-3` (d75714ef; from 1fbbe86; ZK masks for LGSC0003 rounds + rows<->PCS round-1 merge ~ -12 coins;
-  FINAL 02:00Z; owns layout/sumcheck).

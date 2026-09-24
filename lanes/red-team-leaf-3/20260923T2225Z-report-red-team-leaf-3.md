@@ -2,10 +2,9 @@
 lane: red-team-leaf-3
 kind: report
 created: 2026-09-23T22:25Z
-status: final
+status: open
 ---
 
-CHECKPOINT 89cd6cf7 (22:54Z) [final] FINAL 23:02Z. NEW H1 BREAK (Ajtai n64 AND n128): pinned Rust verifier binds statement.steps to nothing (verify.rs:1077; steps<=n only a prover assert ajtai.py:425; system step-agnostic) -> at steps>n two different x rows give identical a/b roots, two different y, BOTH accepted pinned (n64 steps96: a=6528846c b=2c0d5ed3; n128 steps192: a=7e5165e4 b=cb891fd5), on ajtai-leaf-2 1cf9178 and ajtai-leaf-3 47d191e2. NEW H2 BLOCKING (shared): no leaf pins steps/K. G1 FIXED at ajtai-leaf-3 (chain_key). G3 PARTIAL (share-logup-3 777670ac relchain.py:1033-1035). F5/F7/F8 FIXED. BLAKE3 framing + share pair negatives + leaf-iface: no break. Fixtures evidence/fixtures/*, scripts lane/red-team-leaf-3 89cd6cf7; handoffs to ajtai-leaf-3, verify-rs-3, share-logup-3, blake3-leaf-3. Blocks integration: H1/H2 steps pin.
 CHECKPOINT none (22:48Z) [open] 22:58Z. G1 FIXED on ajtai-leaf-3 47d191e2 (leaf3_g1_rust_only.py: Rust refuses B=0+decoys pinned AND --allow-any-system via chain_key; Python refuses too). H1 BREAK persists on ajtai-leaf-3 and is now a binding break e2e: leaf3_ajtai_collide_e2e.py commits two DIFFERENT x rows (cols 0 and 64 = P vs Q, steps=96>n=64) -> identical a/b digests+roots (a=6528846c, b=2c0d5ed3), different y (1193952256 vs 3331358720); PINNED Rust (sys_id 18d915 = pin) ACCEPTS both. Fix: pin steps per relation (or steps<=n) in Rust+Python verify. Writing FINAL + handoffs.
 CHECKPOINT none (22:44Z) [open] H1 BREAK CONFIRMED e2e: ajtai-leaf-2 PINNED Rust verifier (system_pinned=true, sys_id 18d915 = fp8-ada+ajtai-n64 pin) ACCEPTS a proof with statement.steps=96 > n=64. Verifier never checks steps<=n (only a Python compile assert); the Ajtai system is step-agnostic so the pin still matches. At steps>n the negacyclic wrap X^n=-1 makes digest non-injective (leaf3_ajtai_steps.py: distinct rows, same digest, different GEMM product) => committed root does not bind operand rows. Evidence: evidence/H1_*. Writing up + handoff to ajtai-leaf-3.
 CHECKPOINT dbe9be6 (22:34Z) [open] H1 (candidate BREAK/BLOCKING): verifier binds st.steps to NOTHING (verify.rs chain test + parse_v5 derive layout from st.steps; relation.rs has no steps/n bound; public_pins_hashed skips k_ops). Ajtai digest_rows steps>n has exact collisions (leaf3_ajtai_steps.py exit 0). steps<=n is a PROVER assert only (ajtai.py gadget), not verifier -> a malicious prover can present steps=96 vs pinned n=64. End-to-end proof against real pin not yet built (CPU/time). Next: blake3 malformed-frame, privacy notes F5/F8
@@ -144,4 +143,4 @@ Handoffs:
 * 22:44Z H1 end-to-end on ajtai-leaf-2 (pinned accept, steps 96).
 * 22:48Z ajtai-leaf-3 47d191e2 built; G1 FIXED; H1 persists; collide end-to-end: same a/b roots, two y, both accepted pinned.
 * 22:52Z steps 32 also accepted pinned; Poseidon2 steps-96 run OOM-killed (137); fixtures stored; commit 177d7fe6.
-* 22:54Z n128: steps 192 accepted pinned; collide on n128 reproduces (same a/b roots, two y, both accepted); commit 89cd6cf7.
+* 23:00Z n128: steps 192 accepted pinned; collide on n128 reproduces (same a/b roots, two y, both accepted); commit 89cd6cf7.

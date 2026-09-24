@@ -2,10 +2,9 @@
 lane: blake3-leaf-2
 kind: report
 created: 2026-09-23T21:00Z
-status: superseded
+status: open
 ---
 
-CHECKPOINT none (00:03Z) [superseded] by blake3-leaf-3 (coordinator)
 CHECKPOINT 1db0008 (21:10Z) — GATES 0 failures: `fp8-ada+blake3` 25 honest + 86 negatives, `bf16-hopper+blake3` 49 + 86,
 `fp8-ada-x4+blake3` 13 + 86 (`--batch 2048`; at 4096 the gate's checked prove OOMs on 79 k-row columns). v2 PINS committed
 (1db0008): fp8-ada 71f39e44…, bf16-hopper 58ef7097…, x4 1168788f…; the three fixture sets ACCEPT pinned in `ligero-verify batch`;

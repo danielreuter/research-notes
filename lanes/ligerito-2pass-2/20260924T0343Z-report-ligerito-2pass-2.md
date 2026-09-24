@@ -2,10 +2,9 @@
 lane: ligerito-2pass-2
 kind: report
 created: 2026-09-24T03:43Z
-status: final
+status: open
 ---
 
-CHECKPOINT 0f6cc311 (04:12Z) [final] FINAL 0f6cc311 pushed: cargo 98/0, gates 11/11 0 fail Py+Rust, pytest 218, R3-7 GPU 6/6; fp8-ada 4096 nonZK 0.404s, ZK 0.595s, live ZK t.total_live 0.608s 2^-128.02; art:5b03fb15 af97c8ab df49ea0a; pods terminated, ~$1.35
 CHECKPOINT none (04:07Z) [open] bench fp8-ada 4096 @0f6cc311 all contract-ok: nonZK 0.404s, ZK 0.595s, live ZK t.total_live 0.608s (RTT 0.22ms) ACCEPTED, verify-session Py+Rust 2^-128.02 art:af97c8ab. Running live_session GPU tests
 CHECKPOINT 0132b66 (04:02Z) [open] gates 11/11 0 failures, Py+Rust agree art:5b03fb15. Bench: --zk 4096 OOMs on 4090 (fragmentation; expandable_segments fixes); --zk bench failed main's contract (t.zk_additional) -> fix 0f6cc311 (+t.total_live). Rerunning 3 arms
 CHECKPOINT 0132b66 (03:51Z) [open] item 2 done on the 4090 @e0c7acd2: ligerito-verify cargo test --release 98 passed/0 failed/1 ignored; cargo check backends/direct (+vendor p3-*) exit 0. item 5 done e0c7acd2 (no attack accepted). Running 11 gates (5 rel x nonZK/ZK + fp8-ada ZK default path); live_serve starting on vy-ligerito-2pass-verifier (EU-RO-1). Next: bench
@@ -74,34 +73,3 @@ Live: stream wait 0.012 s per batch (41 rounds x 0.22 ms RTT), t.total_live / lo
 419 KB at 11 coins vs 187 KB at relation-3's 12; 11 coins = fewer, fatter rounds). vs relation-3 (12 coins, 6dda159a):
 ZK 0.823 -> 0.595 s, non-ZK 0.594 -> 0.404 s on the same pod type (the sumcheck-3 merge changed both schedules and
 kernels; cause not isolated, and host noise not separated: one session each). First local non-ZK @e0c7acd2 with the default allocator: 0.401 s (same).
-* 04:11Z full `pytest backends/direct/ligerito` @0f6cc311 on the 4090: **218 passed, 0 failed** (136 s). art:df49ea0a
-  (tests + R3-7 GPU logs). Prover pod terminated 04:12Z. Branch pushed (origin lane/ligerito-2pass @0f6cc311).
-* kb: `pods-4090.md` (Ligerito --zk 4096 needs expandable segments; this pod's CPU quota), `live-verifier.md` (Ligerito bench
-  t.total vs t.total_live, same-DC RTT).
-
-## FINAL
-
-~~~text
-tip: lane/ligerito-2pass @ 0f6cc311 (base main@24f252b1)        merge-with: lane/ligerito-relation-2@498f9014 lane/ligerito-sumcheck-3@58e76e5d lane/verify-rs-3@a87edaa0 (already merged into the tip)
-known-failures: none                                            pod: terminated 04:12Z (verifier 04:08Z); ~$1.35 lane lifetime (prover 1.40 h x $0.74 + verifier 1.3 h x $0.24), ~$0.45 this successor
-artifacts: art:5b03fb15 art:af97c8ab art:df49ea0a
-~~~
-
-Goal status (launch message items):
-* (2) done: ligerito-verify `cargo test --release` 98 passed / 0 failed / 1 ignored; `cargo check` backends/direct exit 0.
-* (3) done: 11 gates at the 11-coin schedule, 0 failures; Python and pinned Rust accept every honest proof and reject every
-  negative (art:5b03fb15). Also: full ligerito pytest 218 passed; R3-7 GPU script 6/6 both modes (art:df49ea0a).
-* (4) done: fp8-ada 4096 VUs on the 4090, table above (art:af97c8ab). Live ZK against my own same-DC verifier
-  (`vy-ligerito-2pass-verifier`, never the RO one): ACCEPTED, t.total_live 0.6075 s vs local t.total 0.5947 s; Rust re-verify
-  of the dump accepted; session claim 2^-128.02, Python = Rust over the whole store.
-* (5) done: `redteam_live_labels.py` retargeted at `run.record_slots` (e0c7acd2): "no attack accepted".
-
-Two code changes the coordinator should know about before merging:
-* 0f6cc311 changes the Ligerito bench's reported measurements (not the proofs): under main's contract every Ligerito `--zk`
-  bench failed validation (`t.zk_additional` under NON_ZK_PROOF_DIAGNOSTIC), and live runs now report `t.total_live`.
-* The --zk 4096 arm needs `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` on a 4090 at 11 coins (kb/pods-4090.md). Not set
-  in code; a follow-up could set it in run.py or free the fragmented pool before the opening fold.
-
-Left: the session hello hard-codes `lane ligerito-relation` (run.py); gate manifests record commit "unknown" on synced pods
-unless RESEARCH_GIT_COMMIT is set (the bench script sets it). Handoffs received: `20260924T0350Z-handoff-coordinator.md`
-(chatter budget, §3a): acted on. Predecessor ligerito-2pass had no unread handoffs.

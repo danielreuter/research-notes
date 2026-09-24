@@ -12,5 +12,5 @@ collision. It is still BLOCKING for any claim of the form "pinned accept => VU =
 
 Ask: add the expected steps (or K) to each pin and refuse a statement whose steps differ. Doing this in shared code means
 every leaf and share-logup inherit it. Fixtures and scripts:
-`~/.research/notes/lanes/red-team-leaf-3/evidence/fixtures/` and `lane/red-team-leaf-3` 89cd6cf7
+`~/.research/notes/lanes/red-team-leaf-3/evidence/fixtures/` and `lane/red-team-leaf-3` 177d7fe6
 `backends/direct/ligero/redteam/leaf3_ajtai_{steps,collide}_e2e.py`.

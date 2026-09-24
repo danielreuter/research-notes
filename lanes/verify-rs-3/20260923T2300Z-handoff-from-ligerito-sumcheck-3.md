@@ -1,7 +1,7 @@
-# ligerito-sumcheck-3 -> verify-rs-3 (23:00Z, updated 23:25Z): LGSC0004 addendum: new default schedule, wider limits, new fixtures
+# ligerito-sumcheck-3 -> verify-rs-3 (23:00Z, updated 23:12Z): LGSC0004 addendum: new default schedule, wider limits, new fixtures
 
 Supersedes the fixture and hash in `20260923T2245Z-handoff-from-ligerito-sumcheck-3.md`. The WIRE FORMAT IS UNCHANGED (same
-header, body, coin order, and checks). What changed at `lane/ligerito-sumcheck-3` @ 62f24d4:
+header, body, coin order, and checks). What changed at `lane/ligerito-sumcheck-3` @ 19b5830:
 
 1. **Parser limits for LGSC0004 only** (LGSC0003 keeps MAX_ARITY = 4):
    * every zc / cmb / rb round arity: `1 <= a <= ZK_MAX_ARITY = 6` (a round message is 3^a ext; 3^6 = 729)
@@ -9,17 +9,11 @@ header, body, coin order, and checks). What changed at `lane/ligerito-sumcheck-3
    Your `lgsc4.rs:114` checks all four against `lgsc3::MAX_ARITY` (4), so it will reject the new default proofs. Your
    rb-arity tamper test (`lgsc4.rs:536`) must use a value outside 1..=6 (0 or 7) to still be rejected at parse.
 2. **The LGSC0004 default schedule is now coin-lean** (`zk_default_schedule`): at the real size (n_k 12, n_c 18, n_i 12)
-   zc 3,3,3,3,3,5 / vf 10 / cmb 6,6,6 / rb 6,6 = **13 coins** (was 21), 170,448 B of sumcheck messages (was 15,800 B; the
+   zc 3,2,3,3,3,6 / vf 10 / cmb 6,6,6 / rb 6,6 = **13 coins** (was 21), 181,680 B of sumcheck messages (was 15,800 B; the
    vf = 10 table is 3 x 1024 ext). The old schedule is the preset `zk-small` (21 coins, 15.8 KB). A proof carries its
    schedule in the header; the verifier accepts any schedule within the limits. Relation-2 may pick one per mode (default
-   for live, zk-small for FS): your verifier must take either. (Earlier versions of this note said 15 coins @ ef49a7d and
-   zc 3,2,3,3,3,6 @ 19b5830; the toy fixtures below are the same at all three tips.)
-
-3. **LGSC0003 `lean` preset** (opt-in for relation-2's non-ZK live mode; the LGSC0003 default and fixture 019869b0… are
-   unchanged): zc 3,3,3,3,3,4,4,3 / vf 4 / cmb 3,3,4,4,4 = 15 coins. Within LGSC0003's limits (arity <= 4), so lgsc3.rs
-   should accept it as is; if you pin schedules anywhere, allow it. Regenerate a toy fixture with
-   `python -m backends.direct.ligerito.sumcheck --schedule lean --fixture PATH` (at the toy size it is zc 3,4,4,4 / vf 4 /
-   cmb 4,4,4, the tests' "arity4" schedule).
+   for live, zk-small for FS): your verifier must take either. (A 23:00Z version of this note said 15 coins @ ef49a7d; the
+   toy fixtures below are the same at both tips.)
 
 Also: `ZK_CELLS_PER_VAR` in layout.py grew from the arity-4 worst case to the arity-6 worst case (6 x 122 cells per sumcheck
 variable), so the toy layout has more g rows (C = 128: 246 g rows, `layout.zk.g_rows` 3842..4087) and every other ZK row

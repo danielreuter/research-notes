@@ -2,11 +2,9 @@
 lane: shared-live
 kind: report
 created: 2026-09-23T23:15Z
-status: superseded
+status: open
 ---
 
-CHECKPOINT e2a3b27e (00:27Z) [superseded] by shared-live-2 (coordinator 00:28Z; campaign finished 23:49Z on pod, uncollected)
-CHECKPOINT e2a3b27e (23:32Z) [open] e2a3b27e: G3 fixed (pipelined+sequential live both ACCEPT 13/13 pairs, own coins G+H, pinned); G3 negative own-coins-h REJECTED 0/13 by live check AND Rust batch; ZK IA gate fp8-ada+shared 13 honest/98 neg/0 failures; measurement campaign running on 4090 hinjpqggt7riic (fp8-ada A round, then bf16-hopper, then fp8-ada bracket)
 CHECKPOINT fe0c4f48 (23:27Z) [open] G3 fix fe0c4f48: +shared pair gets G AND H coins from the live verifier (H on wire idx i+2^30, F in G's TESTS, H slot1 gated on G's TESTS); first live ZK p4 session on 4090 hinjpqggt7riic: 13/13 pairs ACCEPTED by Rust w/ own coins both sides (batch 26 proofs 2^-128.66); running G3 negative + sequential live
 # shared-live — `+shared` (tile64 G/H pair) with a LIVE verifier supplying every coin, ZK, 4090 measurement
 

@@ -2,10 +2,9 @@
 lane: steps-pin
 kind: report
 created: 2026-09-23T23:10Z
-status: final
+status: open
 ---
 
-CHECKPOINT f2a74128 (23:53Z) [final] FINAL tip f2a74128: H1/H2 closed in Rust + Python (Relation.steps/k_ops for 25 relations, Ajtai steps<=n every mode, v5 K=1536 every mode, Python RelationHooks.steps/max_steps + layout_error + v5 K). All must-rejects refused; honest fixtures + R2 art:2c8d5089/527e99be accepted; no digest changed. Integration entries for blake3/share-logup/fp4-decode in the report. Pod terminated (~$0.51).
 CHECKPOINT f2a74128 (23:46Z) [open] tip f2a74128: v5 K bound revised to K=1536 (fp4+poseidon2 from lane/fp4-decode-3 writes 24x64, verified its fixture accepts pinned with its pin, steps12 refused). R2 art:2c8d5089 / art:527e99be 13/13 pinned old+new Rust, Python accepts 4 subs on pod. Report body written (audit table, negatives, integration entries). Running Python regression (6 groups) on pod at tip.
 CHECKPOINT b7453317 (23:36Z) [open] Rust+Python fix in (tip b7453317). Negatives: red-team collide n64/n128 + n64 steps32 refused both verifiers; forged real steps32 fp8-ada bare (old binary ACCEPTED pinned, now refused) and +poseidon2 (already refused by sys_id); header rewrites of steps/K per family. Python steps_pin_test 25/25 on pod, cargo 31+7+23. Next: R2 honest dumps re-accept, report.
 CHECKPOINT c5cf7f6d (23:26Z) [open] Rust fix committed c5cf7f6d (Relation.steps/k_ops all 25, Ajtai steps<=n every mode, v5 K bound; red-team fixtures refused, cargo green). Python fix written (RelationHooks.steps/max_steps + protocol.layout_error, v5 K check in verify_files), bootstrapping 4090 pod i0q2rifehiltnd for torch tests + honest/negative dumps.

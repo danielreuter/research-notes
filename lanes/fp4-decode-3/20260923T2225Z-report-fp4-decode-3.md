@@ -2,10 +2,9 @@
 lane: fp4-decode-3
 kind: report
 created: 2026-09-23T22:25Z
-status: final
+status: open
 ---
 
-CHECKPOINT 6ffa0351 (23:16Z) [final] FINAL written. Tip 6ffa035. 5090 p4: bare 0.0576 s, hashed 0.2038 s (3.54x); 4090 p4: 0.0532 / 0.2617 (4.92x). Rust pinned 7/7 on all 18 dumps; gates 0 failures both relations on both devices; 5090 cold compile 449.6 s -> 46.2 s (6ffa035, no runtime cost); 5090 pytest 249 passed / 1 known fold_test failure. 68 arts remote=1. Both pods terminated (4090 22:39Z, 5090 23:16Z); lane ~$1.2.
 CHECKPOINT 6ffa0351 (23:08Z) [open] FINAL drafted in the report. 67 arts remote=1 (incl. 8 A/B dumps+verdicts). 5090 full ligero pytest at 6ffa035 at 146/251 (only the known fold_test bf16-ampere-x4 threshold failure so far); then terminate the 5090 and mark final.
 CHECKPOINT 6ffa0351 (22:55Z) [open] 6ffa035 verified on the 5090: witness_device_test 6/6 (native==PTX incl. hashed), cold-cache pipe_test 46.2 s (was 449.6 s), gates 0 failures both, p4 pair Rust pinned; A/B native vs PTX = noise (hashed 0.2145/0.2340 vs 0.2247/0.2068). Full ligero pytest on the 5090 at 6ffa035 running (r20260923-225436-1399). Pushing A/B arts.
 CHECKPOINT 6ffa0351 (22:46Z) [open] 6ffa035: fused witness as compute_89 PTX + driver JIT on cc>=12.0 (NVRTC compute_120 front end ~7 min on the hashed kernel on the 5090; compute_89+JIT 19 s), differential test native==PTX. 5090 suite at 6ffa035 r20260923-224554-d69a running (wd_test, cold-cache pipe_test, gates, p4 pair + pinned Rust). d86e014 5090 pair pushed (p4: bare 0.0576 s, hashed 0.2038 s, 3.54x; 31 arts remote=1). 4090 terminated 22:39Z.

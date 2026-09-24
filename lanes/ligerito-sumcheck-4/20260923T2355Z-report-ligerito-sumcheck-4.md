@@ -2,12 +2,11 @@
 lane: ligerito-sumcheck-4
 kind: report
 created: 2026-09-23T23:55Z
-status: final
+status: open
 worktree: ~/projects/verity-main-wt/ligerito-sumcheck-3 (taken over; branch lane/ligerito-sumcheck-3 @ 62f24d42 + predecessor's uncommitted sumcheck.py / sumcheck_zk_test.py)
 pod: vy-ligerito-sumcheck-3-veritor-campaign (RTX 4090, reused)
 ---
 
-CHECKPOINT 58e76e5d (00:35Z) [final] FINAL 58e76e5d: LGSC0004 13 -> 11 coins/batch (zc 3,3,6,6/vf12/cmb 6,6,6/rb 6,6; zc_msgv4..6 kernel; mask prep), fp8-ada 4096 0.196 -> 0.170 s (418,846 B, 15/15), bf16-hopper 2048 0.165 s 14.21 GB (4096 OOM: 18.00 + 9.17 GiB > 23.52). R3-6 fixed, R3-4 sumcheck side done, R3-5 relation-3 e61b24fe. Fixtures byte-identical (7d80c1d6/09063979/48b738c1). 20 arts remote=1. Pod terminated 00:34Z, lane ~$0.54. Rows<->PCS merge (11->9, 156/|F|) remaining.
 CHECKPOINT 58e76e5d (00:30Z) [open] 58e76e5d: mask message parts prepared on the CPU during the opening round + _fdot (byte-identical; 60/60, fixtures same): LGSC0004 default 11 coins fp8-ada 4096 0.170 s 418,846 B 15/15; bf16-hopper 2048 0.165 s 14.21 GB 15/15; 12-coin shape 0.161 s. 19 arts remote=1 (7+8+4). Next: report, FINAL, terminate pod
 CHECKPOINT e3dc9f4b (00:21Z) [open] e3dc9f4b: zc_msgv4..6 kernel (arity 6 on 2^24 75.7->15.0 ms) + LGSC0004 default 11 coins (zc 3,3,6,6/vf12/cmb 6,6,6/rb 6,6): fp8-ada 4096 0.178 s 418,846 B 15/15 neg; bf16-hopper 2048 0.171 s 14.21 GB 15/15; 12-coin at this tree 0.167 s; 60/60 tests, fixtures byte-identical; handoffs T0025Z to relation-3 / verify-rs-4 (no API/wire change). Next: R2 push, report FINAL
 CHECKPOINT 796d8a11 (00:10Z) [open] 796d8a1: R3-6 FIXED (zk_masks refuses vf>n_c-4, zk_mode), R3-4 sumcheck side (check_zk_claim_supports + argument (a') in report); bf16-hopper 2048 12 coins 0.170 s (4096 OOM: 18 GiB tables + 8.5 GiB z > 23.5); LGSC0003 lean 0.142 s; 11-coin 3,3,6,6/12 0.238 s 418 KB (zc_red6 on 2^24 76 ms, DRAM-bound); 7 arts remote=1. Next: zc_msg6 kernel (top-4 axes over blockIdx.y) for a cheap 11-coin path

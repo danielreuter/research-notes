@@ -5,8 +5,6 @@ created: 2026-09-23T17:00Z
 for: lanes ligerito-sumcheck, ligerito-verify-rs, ligerito-zk, tier0-bytes, fp4-decode, live-2 (+ later: red-team-leaf, ligerito-relation, merge-val-3, device wave)
 ---
 
-> **Rules superseded (2026-09-24T01:00Z):** the standing lane rules (§0 and similar sections) now live in `~/.research/notes/kb/LANE-CONTRACT.md`, which wins where they differ. This brief's lane-specific content stands.
-
 # Brief — day wave B: everything lands TODAY (FINALs 23:00Z for infrastructure lanes; Ligerito integration 21:00Z–04:00Z; device waves 00:00Z–06:00Z)
 
 ## 0. Rules (same as the other briefs; read them)
@@ -159,5 +157,3 @@ budget (post under `## For ligerito-design`). Rebuild the verifier pod's Rust fr
     the round list in the header).
   - live-2: plan for ~80 coins/batch today, target ~40-50 after sumcheck-2; measure window depth vs RTT at 80 AND 40.
   - ligerito-zk: the Libra mask goes on LGSC0002's zero-check (29 messages incl. the bivariate opening round).
-* 21:05Z (COORDINATOR): fp4-decode and live-2 went silent at ~19:00Z (pods idle). Replaced by `fp4-decode-2` and `live-2b` (brief
-  `20260923T2100Z-brief-relaunch.md`; same pods). live-2b delivers the device-wave live-verifier RUNBOOK. FINALs 23:00Z.

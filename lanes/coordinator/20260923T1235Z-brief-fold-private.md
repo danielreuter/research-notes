@@ -5,8 +5,6 @@ created: 2026-09-23T12:35Z
 for: lane fold-private
 ---
 
-> **Rules superseded (2026-09-24T01:00Z):** the standing lane rules (§0 and similar sections) now live in `~/.research/notes/kb/LANE-CONTRACT.md`, which wins where they differ. This brief's lane-specific content stands.
-
 # Brief — lane `fold-private`: fold the PRIVATE-operand-safe units (x4, then x8) and validate post-freeze-2 on a GPU
 
 ## 0. Where you start

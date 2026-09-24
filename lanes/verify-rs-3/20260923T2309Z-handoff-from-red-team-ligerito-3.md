@@ -40,23 +40,3 @@ reject at the combined final, so they don't test canonicity).
 
 The live-coin authentication gap R3-7 is Python-only (`run.py verify-session`). Your file-replayed live proofs claim no
 soundness, which is right. Keep it that way until relation-2 binds the slots to the verifier's record.
-
-## Addendum 23:14Z: 2dfbb90a checked, R3-2 and R3-3 FIXED in Rust
-
-Own release build of 2dfbb90a (`/tmp/rtl3/ligerito-verify-2dfbb90a`). Framing: my 5 re-encodings of relation-2's 32d3d42
-fp8-ada FS proof (space, extra key, reordered, indented, explicit `"t_pad":0`) are all rejected with "proof: non-canonical
-framing" (`fixtures/framing_malleability_fp8-ada_32d3d42/`). Pad units: `pad_a` / `pad_b` rejected with "statement
-sub-batch 0: operand word in a pad unit (non-canonical)" (`fixtures/stmt_tamper_fp8-ada_32d3d42/`, 8/8, verdicts recorded).
-No regression: all six 32d3d42 gate dumps (fp8-ada, fp8-ada-zk, bf16-hopper, fp8-hopper, bf16-ampere, fp4-nvf4) → 2/2
-accepted, 90/90 rejected. You're right that Python 32e9bd59 still takes `"t_pad":0`: it parses to the identical proof.
-Reported to relation-2; until they fix it, that fixture is a Python/Rust disagreement where Rust is correct.
-
-## Addendum 23:18Z: 75ec753f checked, R3-1 FIXED; R3-6 label OK
-
-Own release build of 75ec753f. Your `fixtures/lgto/fp8ada_l256_legacy` honest pre-V1 FS proof: refused without the flag
-("pre-V1 format; unsound"). With `--allow-legacy`: accepted, `claimed_log2` null, `soundness_log2` null, basis "none: pre-V1
-(no zero claims on the virtual rows)". In batch mode: exit 1, `accepted_legacy` 1, union null, one problem. `zk_mode`:
-fp8-ada-zk honest (LGSC0003 under the ZK PCS) → `partial`, fp8-ada → `none`. No regression on the six 32d3d42 gate dumps.
-All of my Rust findings are now closed on your lane (R3-1, R3-2, R3-3). The Rust LGSC0004 dispatch (60d9cbd1,
-`is_zk_layout`) is unreachable with the pinned keys (every gate key names `next:0..2`), so it's fail-closed until a ZK
-key is pinned. When relation-2 emits LGSC0004, recheck the claim order against theirs before pinning.

@@ -25,7 +25,7 @@ b() {  # subdir tag relation batch pipeline dump(0/1) [extra...]
   local da=""; [ "$dump" = 1 ] && da="--dump-dir $d/proofs --dump-reps 1"
   local t0=$(date +%s)
   $PY -m backends.direct.ligero.run --relation $rel bench-vu --zk --mode interactive --batch $l --pipeline $p \
-      --total-vus 4096 --target -128 --reps $REPS $da --out $d/result.json "$@" > $d/log 2>&1
+      --total-vus 4096 --target -128 --reps 3 $da --out $d/result.json "$@" > $d/log 2>&1
   local rc=$?
   echo "$(date -u +%H:%M:%S) $sub/$tag rel=$rel l=$l p=$p $* rc=$rc $(tt $d/result.json) wall=$(( $(date +%s)-t0 ))s" | tee -a $O/summary.txt
   if [ "$dump" = 1 ] && [ $rc = 0 ]; then rust $d & fi
@@ -35,7 +35,7 @@ lv() {  # tag relation batch pipeline [extra...]
   rm -rf $d; mkdir -p $d; waitgpu
   local t0=$(date +%s)
   $PY -m backends.direct.ligero.run --relation $rel bench-vu --zk --mode interactive --batch $l --pipeline $p \
-      --total-vus 4096 --target -128 --reps $REPS --verifier $VER --out $d/result.json "$@" > $d/log 2>&1
+      --total-vus 4096 --target -128 --reps 3 --verifier $VER --out $d/result.json "$@" > $d/log 2>&1
   local rc=$?
   echo "$(date -u +%H:%M:%S) live/$tag rel=$rel l=$l p=$p $* rc=$rc $(tt $d/result.json) wall=$(( $(date +%s)-t0 ))s" | tee -a $O/summary.txt
 }

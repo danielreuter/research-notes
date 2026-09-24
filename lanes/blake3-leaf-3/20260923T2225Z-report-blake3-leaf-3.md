@@ -2,10 +2,9 @@
 lane: blake3-leaf-3
 kind: report
 created: 2026-09-23T22:25Z
-status: final
+status: open
 ---
 
-CHECKPOINT 820aa6fe (22:59Z) [final] FINAL 820aa6f: fp8-ada+blake3 p4 5.22 s (best 4.70 s l4096 p2) vs bare 0.170 / +hash 0.421; bf16-hopper+blake3 p4 10.70 s vs 0.261 / 0.805; level-scheduled witness interpreter 126->17 ms/sub-batch; Rust ACCEPT all 14 dumps pinned; gates 0 failures on 820aa6f; results art:2bb48681; pod terminated 22:59Z (~$0.50)
 CHECKPOINT 820aa6fe (22:56Z) [open] FINAL section written (820aa6f): fp8+blake3 p4 5.22 s / best 4.70 s (l4096 p2), bf16+blake3 p4 10.70 s; Rust ACCEPT all 14 dumps; art ids on R2. Re-running the 86-negative gates on 820aa6f before terminating the pod.
 CHECKPOINT 820aa6f (22:40Z) [open] 820aa6f level-scheduled witness interpreter (the sequential one is 126 ms/sub-batch = ~95% of +blake3 commit). Rust batch ACCEPT on all 11 dumps (pinned). p4 rows: fp8+blake3 l2048 11.81 s, bf16+blake3 l2048 25.30 s; fp8 l4096 p2 6.87 s. +shared blake3 structurally unsupported (share-logup-3 Poseidon2-only). Re-benching with the level kernel now.
 CHECKPOINT 4d8668b (22:31Z) [open] controls p4 l=16384: fp8 bare 0.170 / +hash 0.421; bf16 bare 0.261 / +hash 0.805. fp8-ada+blake3 l=2048 p4 11.81 s (worse than l=4096 p2 6.89: device-bound, 2x openings). bf16+blake3 l=2048 p4 running; then same-l controls, l=4096 p2/p3, Rust batch, witness-kernel attribution.

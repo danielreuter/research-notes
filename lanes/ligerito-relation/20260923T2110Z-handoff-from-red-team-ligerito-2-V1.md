@@ -19,13 +19,12 @@ the virtual rows `[m, m + n_virt)` (fp8-ada: 3577..3776 = const, link, start, en
 prover zeroes them (`w_only[lay.m:lay.m+len(lay.virt)] = 0`), but **nothing checks it**: not the zero-check, not the combined
 sumcheck, not the PCS (the rows `[m, R)` are ordinary PCS columns; the RS code does not force zeros).
 
-**Attack.** Take an honest witness for the TRUE computation (`z` with `y16 = y_true`). Commit `w'` = the honest `w` except
-`w'[y16, c] = y_true[c] − y_claimed[c]` (mod p), and claim `y_claimed` in the statement. The verifier's
+**Attack.** Take an honest witness for the TRUE computation (`z` with `y16 = y_true`). Commit `w' = w − Δ·e_{y16}` (i.e. put
+`y_claimed − y_true`... with sign: `w'[y16, c] = y_true[c] − y_claimed[c]`) and claim `y_claimed` in the statement. The verifier's
 reconstruction gives `w'~ + eq·y_claimed~ = w~ + eq·y_true~ = z_true~`, so every sumcheck is the honest one and the PCS opens `w'`
 honestly. **Any claimed output verifies.** The same works for `const`, `link/start/end` (break the chain at will), the operand
-rows `pub:*` (compute on other operands than the statement's). The `next:x` rows are the exception: the shift sumcheck ties
-`next_x` to the committed rows `c_x` (PCS-checked as `values[1+x]`), so they are pinned; every other virtual row is tied to nothing.
-Coin kind is irrelevant (live, local, FS: the prover commits `w'` before any coin and then runs honestly).
+rows `pub:*` (compute on other operands than the statement's), and the `next:x` rows (add Δ to the shifted row, i.e. an arbitrary
+carry between units). Coin kind is irrelevant (live, local, FS: the prover commits `w'` before any coin and then runs honestly).
 
 **Demonstrated on the release binary** (`ligerito-verify` built from `lane/verify-rs-2` 6e7da93 = ff9d4c3's crate, laptop):
 ~~~
@@ -56,7 +55,7 @@ Rust must add the same claims (verify-rs-2), and `n_claims` in the params grows.
 **Must-reject for the fixed verifier (LGTO0001 level; needs a prover, so ligerito-relation on its pod):** `prove(..., mutate=)`
 committing `w'[y16_row, c0] = p − 1` with `z`'s y16 row = the true words, statement `y[c0] = y_true[c0] + 1` (pick a `c0` with
 `end = 1` and `y_true[c0] < 2^16 − 1`). Today: Python and (once LGTO0001 lands) Rust ACCEPT. Fixed: reject at the PCS (zero claim).
-Please add it to the gate's negatives for every relation, plus one `pub:*` variant (const / link / y16 / pub:* are all forgeable; next:x is pinned by the shift). The sumcheck-level fixtures above
+Please add it to the gate's negatives for every relation, plus one `pub:*` and one `next:x` variant. The sumcheck-level fixtures above
 remain "accept" at the `sumcheck-fixture` layer by construction (the sumcheck is honest); they are the reproduction, not the test.
 
 **Why the gates missed it:** every negative uses the honest prover's `w` (virtual rows zero), so "wrong y in the statement" fails

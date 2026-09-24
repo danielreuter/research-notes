@@ -34,18 +34,3 @@ SSH=$(research pods ssh --print vy-live2b-verifier-ro | tail -1)   # zsh: run it
 ${=SSH} 'cd /workspace/live && tar cf - sessions/index.jsonl sessions/*/hello.json sessions/*/session.json sessions/*/verdict.json' > ro-store.tar
 ~~~
 Source: verify-rs-5 report (`lanes/verify-rs-5/`), art:f2f27f16.
-
-## Ligerito bench against a live verifier: t.total vs t.total_live
-`lane/ligerito-2pass` @0f6cc311: a `run.py bench --coins live --verifier ...` result reports `t.total_live` = wall and
-`t.total` = wall - `live.stream_wait_seconds`, and omits t.arithmetic / t.encoding_commitment (they hold the stream waits).
-Before it, `t.total` was the network-inclusive wall, and every `--zk` bench failed main's contract (`t.zk_additional` under
-NON_ZK_PROOF_DIAGNOSTIC; now `split.zk_masks_seconds`). Same-DC (EU-RO-1, RTX 2000 Ada verifier pod) fp8-ada 4096 ZK: RTT
-0.22 ms, wait 0.012 s over 41 rounds, t.total_live / t.total 1.02x (art:af97c8ab). Every run writes `lane ligerito-relation`
-in the session hello (hard-coded in run.py).
-
-## Same-DC verifier: check the RTT, not the pod's label (wave-a100-2, 2026-09-24 04:15Z)
-- A RunPod COMMUNITY pod created for EU-RO-1 (wave-a100's RTX A4000, 193.183.22.53) was in Örebro SE: 41-48 ms TCP connect
-  from the EU-RO-1 A100 (Arad RO). Same-DC SECURE pods connect in ~0.3 ms (213.173.x). Before live runs, time a TCP connect
-  from the prover to the verifier's mapped port (python `socket.create_connection`); ping is not installed on the pods.
-- Use `--cloud SECURE --data-center <DC>` for the verifier (RTX 2000 Ada, $0.24/h, 6 vCPU in EU-RO-1 when no CPU pod stock);
-  `RUNPOD_DC_ID` in `/proc/1/environ` confirms it. Source: lanes/wave-a100-2 report.

@@ -34,9 +34,10 @@ created: 2026-09-24T17:36Z
 
 ## Done
 - 17:36Z worktree created.
+- 18:02Z Cursor restart interrupted the run; 18:47Z resumed. Worktree had uncommitted D4 start (new `acquire/flush_points.py`, tables cut from `native_collect.py`); no f3 pods or commands were running.
 
 ## Running
-- nothing yet
+- nothing yet (launcher: `~/.research/bin/research`)
 
 ## Next
 1. Implement D4, D3, D14, D15 as separate commits; push.

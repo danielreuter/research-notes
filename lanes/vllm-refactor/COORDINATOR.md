@@ -33,6 +33,14 @@ updated: 2026-09-24T17:45Z
 
 The canvas agent (742f18e5-2fc5-4a71-b848-36d442816381) is building a canvas of the survey and plan.
 
+## Incidents
+- **About 18:02Z:** the agent process of the veritor window restarted (new pid 89761). f1, f3 and f56 died with it and were resumed at 18:46-18:48Z through `Task resume` (context kept).
+  - For a1 and a23, the resume returned "Agent host session already exists", so both are alive or hung.
+  - a1 last wrote at 18:29Z and f24 was editing at 18:44Z.
+  - a23 has written nothing since 18:02Z. If it is still silent at about 19:05Z, launch a fresh a23 on a new branch, lane/vllm-rf-a23b, from origin/lane/vllm-rf-a23.
+- **Liveness probe:** `Task resume <id>` fails with "session already exists" when the agent is alive; otherwise it restarts the agent with its context. Subagent transcripts stop updating after a host restart, even for survivors, so they are not a liveness signal.
+- **The baseline at 72884c8a is not green:** gate (b) has 65 failures and errors. Lanes judge "no new failures" against `vllm-rf-a1/baseline.md`.
+
 ## If a lane dies
 Relaunch a fresh generalPurpose subagent with the same prompt, plus: "RESTART: read your STATE.md first and continue from it." The prompts are in chat eb746331. Each one is a short scope paragraph that points at `LANE_BRIEF.md` and its `SYNTHESIS.md` sections.
 

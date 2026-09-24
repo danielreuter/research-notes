@@ -13,9 +13,10 @@ created: 2026-09-24T17:32Z
 
 ## Done
 - 17:32Z worktree created.
+- 18:46Z resumed after the 18:02Z Cursor restart: worktree clean at `72884c8a`, no commits; nothing from the first run survived beyond the worktree. Gate (b) is judged against a1's `baseline.md` list (65 failures/errors, 50 skip reasons at the base).
 
 ## Running
-- nothing yet
+- nothing yet (no pods)
 
 ## Next
 1. Read the value-check path (`check/oracle_compare.py`, `harness/commit_delta.py`, `tp/worker.py`, `tp/partial_source.py`) and the opening path; map compared vs opened positions.

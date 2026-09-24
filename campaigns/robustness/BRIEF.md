@@ -18,7 +18,7 @@ the guardian killed `research run --on` launchers 4x during the source ship (0.5
 2026-09-13) exists but was never wired into this campaign.
 
 Steps: (1) steward rules + pod-side guard + CLI worktree [this brief]; (2) lanes launched through the Cursor SDK so the
-steward can wake or relaunch them (coordinator, pilot on one lane; needs a CURSOR_API_KEY); (3) validity check at
+steward can wake or relaunch them (DEFERRED 16:25Z: the user will pilot Cursor himself later); (3) validity check at
 `research data put` + auto verification queue (the contract.result lane); (4) steward and agents off the laptop.
 
 Done by the coordinator (16:00Z): `~/.research/bin/research` now runs `~/projects/verity-main-wt/cli`, a sparse detached

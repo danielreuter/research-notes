@@ -402,4 +402,266 @@ Each item gives its confidence and what I searched.
 - `tests/program/test_relayout_map.py:53` repeats `"verity_vllm/observe/"` in a `startswith` tuple, a rename artifact that lost the intended third prefix. *low*
 - **Subprocess orchestration in library modules:** `run_config` (9 modules), `hot_commit.py:336, 405`, `release_json`, `experiment`, `target_family`, `rebuild_digest_gate`, `research_tools`. `tests/regression/fixtures.toml` is 14,412 generated lines. *low*
 
+---
+
+## Map 1: The de facto API
+
+**Counts.**
+- **Shell entry points:** 16 scripts, grouped in the table below.
+- **`python -m verity_vllm.*` targets:** 47 distinct, invoked from `ops/`, harness subprocess calls, README and `tools/research`. `row_pod.sh` alone invokes 19 distinct modules 34 times.
+- **argparse CLIs in harness:** 19 (20 modules have `__main__`).
+- **`research` Tools:** 3 (`vllm.build`, `vllm.match`, `vllm.commit`). Each resolves to `bash run_row_v2.sh stage <stage> …`, which runs `row_pod.sh` or `tp_stage.sh`.
+- **Environment variables:**
+  - `row_pod.sh`: 45 caller-settable, 17 exported.
+  - `run_row_v2.sh`: turns 23 flags into those env vars.
+  - `tp_stage.sh`: 28 caller-settable.
+  - `commit_delta.py`: 36 reads, 12 writes.
+  - `hot_commit.py`: 17 reads.
+  - Regression harness: 10 (`VERITY_REGRESSION`, `_ROWS_ROOT`, `_CANDIDATE`, `_CANDIDATE_CACHE`, `_ORACLE`, `_RECORD_ACTUAL`, `_VERIFY_ALL`, `_SCRATCH`, `_STOCH_JOBS`, `_TIERS`).
+  - `REF_PRIMS_RECORD_DIR` for `test_ref_prims.py`.
+- `row_pod.sh` references 126 distinct uppercase variable names in total, of which it assigns 63 itself. The brief's "108 env vars" presumably used a different cut; the 45 below are the ones a caller can set.
+
+**Layering of the entry points today.**
+1. `research run --tool vllm.<stage>` (`tools/research`) loads `integrations.vllm.verity_vllm.harness.research_tools`.
+2. That runs `bash ops/run_row_v2.sh stage <stage> <row> <ROLE> <hf-repo> <rev> [--flag v …]`, which turns 23 flags into env vars.
+3. That runs `ops/row_pod.sh <row> <ROLE> <hf-repo> <rev> <stage>`, or `tp_stage.sh` for `__tpN__` rows with N>1.
+4. The runner makes 34 `python -m` calls, 24 `python -c` calls and 12 heredocs.
+
+People also run steps 3 and 4 by hand, along with the variant scripts.
+
+**Shell scripts by job.**
+
+| job | scripts |
+|---|---|
+| Provision a pod | `pod_bootstrap.sh`, `pod_fa2_tap.sh`, `pod_fa3_tap.sh`, `pod_hidden_gpu.sh` |
+| Run a row (Build + Match + Commit) | `row_pod.sh`, `tp_stage.sh`, `row_pod_tp2.sh`, `run_row_v2.sh` |
+| Variant runs | `canary.sh` (checked against `known_roots.json`), `compiled_commit.sh`, `cov_pod.sh` |
+| Negatives (hand-run) | `fa3_row_negatives.sh`, `stoch_negative_n3.sh`, `stoch_negatives.sh` |
+| Gates / sealed verify | `pod_gate.sh`, `verify_lane.sh` |
+
+**The 47 `python -m` targets by job, with invokers.**
+
+| job | targets (invoked by) |
+|---|---|
+| Define a run (3) | `harness.workload`, `harness.coverage_workloads`, `harness.topp_split_probe` (all hand-run; only their own docstrings show the command) |
+| Build a Program (7) | `harness.derive_step` (`row_pod` 7×, `tp_stage`, `stoch_negative_n3`, `rebuild_digest_gate`), `harness.launch_context` (`row_pod`), `program.global_program` (`row_pod`, `tp_stage`, `canary`), `query.cli` (`row_pod` 2×, `tp_stage`, `pod_gate` 2×, `compiled_commit`), `query.manifest.compiled` (`compiled_commit` 2×), `query.manifest.verify` (`row_pod`), `harness.rebuild_digest_gate` (nobody) |
+| Capture a run (3) | `observe.m1_capture` (`run_config` 2×, `stoch_negatives`), `observe.resolve_log` (`run_config`), `tp.capture` (`tp_stage`) |
+| Match (14) | `harness.run_config` (`row_pod`, `cov_pod`, `verify_lane` 2×, `stoch_negatives`, itself), `check.global_match` (`row_pod` 2×, `canary`), `check.program_compare` (`row_pod`, `stoch_negatives`), `check.stoch_recompute` (`row_pod`, `stoch_negatives`), `correspondence.batch_decomp` (`row_pod`, `stoch_negative_n3`), `check.census` / `check.noninterference` (`run_config` 2× each), `check.fold_compare` / `check.golden` / `check.replay` / `check.operand_provenance` / `input_provenance.root_policy` (`run_config`), `tp.match` / `tp.fold_match` (`tp_stage`) |
+| Commit (5) | `harness.commit_delta` (`row_pod` 4×, `compiled_commit` 2×, `canary`, `fa3_row_negatives`, `hot_commit` 2×), `harness.hot_commit` (`row_pod` 2×), `harness.compiled_merge` (`compiled_commit`), `input_provenance.weights_of_record` (`row_pod` 2×), `tp.commit` (`tp_stage`) |
+| Check / gate / plan (11) | `check.verdict` (`row_pod`), `check.holdout` (`cov_pod`, `verify_lane`), `check.protected` / `check.quarantine_lint` (`verify_lane`), `acquire.gate` / `correspondence.runtime_tree` (`pod_gate`), `harness.source_identity` (`row_pod`, `tp_stage`), `harness.target_family` (`row_pod` 2×, `tp_stage`), `harness.telemetry.admission` (`row_pod`), `harness.admission_bound` / `harness.admission_planner` (hand) |
+| Report / record (4) | `harness.timeline` (`row_pod` 2×, `tp_stage`), `harness.research_result` (`row_pod`, `tp_stage`), `harness.research_outputs` (`run_row_v2` 2×), `harness.release_json` (hand; the library is used by `row_pod`/`tp_stage`) |
+
+The Match verdict itself has no module: it is the heredoc at `row_pod.sh:686-800`.
+
+**`row_pod.sh` positional arguments.** `<row-id> <ROLE> <hf-repo> <revision> [stages=build,match,commit]`. The model and revision are passed here and also declared in `workloads/<row>.json`, and nothing cross-checks the two.
+
+**The 45 environment variables `row_pod.sh` reads** (line, default, what it controls).
+
+| group | variable | line | default | controls |
+|---|---|---:|---|---|
+| environment | `PY` | 69 | `/workspace/venv312/bin/python` | interpreter for the GPU half |
+| | `PY312` | 69 | `$PY` | interpreter for the CPU half (a leftover from the two-venv era) |
+| | `VERITOR_REPO` | 49 | unset | legacy tree override; refused if it names another tree, then re-exported as this tree (`:52`) |
+| | `HF_HOME` | 57 | `/workspace/hf` | checkpoint cache (exported with `HF_HUB_OFFLINE=1`) |
+| | `CUDA_HOME` | 58 | `/usr/local/cuda` | toolchain for JIT builds |
+| | `SWEEP_DIR` | 26 | `/workspace/cp/sweep` | evidence root; `$D = $SWEEP_DIR/<row>` |
+| | `RESEARCH_RUN_DIR` | 85 | unset | set by the `research` runner; enables `result.json` |
+| | `VERITY_TIMELINE` | 100 | `$D/timeline.jsonl` | timeline path, exported to every Python process |
+| | `NATIVE_COLLECT_BUILD` | 72-73, 129 | release per-tree dir, else `/workspace/cp/nc_build` | native collector build dir |
+| | `HIDDEN_GPU_BUILD` | 76 | unset | passed through to the `hidden_gpu` JIT |
+| | `HIDDEN_SO` | 77-78, 213 | FA3 → hardcoded `.so` | FA matReq tap library |
+| Build | `BUILD_TIMEOUT` | 346 | 900 s × env scale, capped at 4 h | derive timeout |
+| | `BUILD_JOBS` | 377 | 1 | parallel derive jobs |
+| | `LP`, `T` | 195 | from the manifest (longest prompt, cap − 1) | request-wrapper shape passed to `derive_step` |
+| | `PROGRAM_DIGEST` | 918 | computed | Program digest handed to Commit |
+| Match | `MATCH_IMPL` | 68 | `fast` | exported; Match implementation |
+| | `MATCH_PIPELINE` | 68 | `shared` | exported; Match pipeline |
+| | `MATCH_PHASE` | 548 | `all` (only `all` or `cpu`) | exported; `cpu` resumes over a preserved capture |
+| | `MATCH_SNAP_STEPS` | 238 | `0,1` greedy / `all` stochastic | snapshot steps |
+| | `MATCH_SNAP_MAX_BYTES` | 238 | derived by `run_config` | per-tensor snapshot cap |
+| | `MATCH_TIMEOUT`, `COMPARE_TIMEOUT` | 537-538 | scaled by B and T, capped at 4 h | Match and compare timeouts |
+| | `VERITY_INSTANCES_FORM` | 543 | `progressions` | exported; instance encoding (`run_config` defaults to `runs`) |
+| | `ACQUIRE_MANIFEST` | 553 | `$D/manifest.json` if present | exported; acquisition manifest for the capture |
+| | `ACQUIRE_ENGINE` | 553 | `v2` | **log line only** |
+| | `WITHIN_STEP` | 594 | `dag` | `global_match --within-step` |
+| Commit | `GPU_UTIL` | 79 | 0.5 | vLLM `gpu_memory_utilization` |
+| | `PAIRS` | 79 | 3 | Δ_commit control/treatment pairs |
+| | `COMMIT_TIMEOUT` | 817 | 2400 s × scale, capped at 4 h | Commit timeout |
+| | `RETAIN`, `WINDOW_MB`, `WINDOW_SLOTS` | 831 | `host`, 256, 8 | collector retention and window; `commit_delta` turns them back into env |
+| | `OPEN_AFTER_RELEASE` | 834 | 1 | openings after engine release |
+| | `TAP_CAP_MB` | 839 | 2048 | FA2 tap cap |
+| | `EXTRA_ENGINE_ARGS` | 842 | none | `k=v` engine args for Commit |
+| | `EXTRA_COMMIT_ARGS`, `COMMIT_ARGS` | 845, 934 | none | raw `commit_delta` flags (two knobs, one job) |
+| | `REPLAY_CACHE` | 851 | 1 | sampled-replay cache |
+| | `REPLAY_ARGS` | 974 | none | raw replay flags |
+| | `REQUIRED_CLASSES` | 852 | none | REL-02 override of the required classes |
+| | `REQUIRED_MANIFEST` | 856 | `$D/manifest.json` of record | required-value manifest override |
+| | `HOT_ENGINE`, `HOT_ROOT`, `HOT_IDLE` | 1086, 299, 1091 | 0, `/workspace/cp/hot`, 900 s | hot-worker Commit |
+
+Exported constants: `PYTHONPATH=.:$VERITY_CORE:$VERITY_RESEARCH`, `HF_HUB_OFFLINE=1`, `VLLM_BATCH_INVARIANT=1`, `TOKENIZERS_PARALLELISM=false` (`:57`).
+
+**Sketch of a small explicit API.** A few functions plus one CLI would need to cover the following. (Names are illustrative, not a proposal for module placement.)
+
+~~~
+RowSpec.load(row_id, workloads_dir) -> RowSpec     # the ONE row-id + workload parser: model, revision, dtype, hw, tp, batch,
+                                                   # input/output, arrivals, sampling, exec; cross-checks id vs JSON vs checkpoint pin
+RunEnv.resolve() -> RunEnv                         # interpreter, tree, core/research paths, HF cache, evidence root, native build dirs;
+                                                   # recorded once (replaces PY/PY312/VERITOR_REPO/HF_HOME/CUDA_HOME/SWEEP_DIR/...)
+precheck(spec, env) -> PrecheckRecord              # source identity + target family + advisory admission plan
+build(spec, env, BuildConfig) -> BuildRecord       # derive_step xN + launch context + global Program + manifest + manifest verify
+match(spec, env, build, MatchConfig) -> MatchRecord          # capture + resolve/fold/compare/replay/gates + THE verdict (now a heredoc)
+commit(spec, env, build, match, CommitConfig) -> CommitRecord  # engine (cold or hot), collector config, pairs, openings, C2, verdict
+report(record_dir) -> RowReport                    # timeline, research outputs/result, card
+CLI:  verity-vllm row <row-id> [--stages build,match,commit] [--config row.toml] [--out DIR]
+      verity-vllm {build,match,commit,check,report} ...     # the same functions, one stage each
+~~~
+
+The 45 knobs collapse into four typed configs:
+- **`RunEnv`:** the 11 environment variables.
+- **`BuildConfig`:** timeout, jobs, LP/T, digest.
+- **`MatchConfig`:** impl, pipeline, phase, snapshot steps/cap, within-step, instances form, timeouts.
+- **`CommitConfig`:** GPU utilisation, pairs, retain/window/slots/open-after-release/tap cap, engine args, required classes/manifest, replay cache/args, hot-worker settings, timeout.
+
+Consequences of the move:
+- The `research` Tool passes a config object instead of argv. That removes `run_row_v2.sh`, `research_tools._parse_flags` and the dead `VERITY_QUERY_ID`.
+- `tp_stage.sh`, `compiled_commit.sh`, `canary.sh` and `cov_pod.sh` become `RowSpec` variants (tp > 1, exec = compiled, known roots, coverage case).
+- `ops/` shrinks to provisioning (`pod_bootstrap.sh` and the tap builders) plus a short wrapper that resolves the venv and runs the CLI.
+- Tests call these functions instead of regex-extracting bash or walking `commit_delta.main()`'s AST.
+
+## Map 2: Configuration
+
+**Where run configuration lives (12 places).**
+1. **The row id**, i.e. the filename `workloads/<row>.json`, which carries 10 fields: `model_tag, dtype, hw, tp, batch, input, output, arrivals, sampling, exec`. It is parsed in 10 places (INTERNAL-DUP).
+2. **`workloads/<row>.json`** (132 files):
+   - `model` (all), `tokenizer_revision` (117) *or* `checkpoint_revision` (15), `sampling` (118), `seed` (119) *and/or* `seeds` (113), `engine_args_required` (112), `sweep` (97; holds `tp`, `row_id`, `execution`), `serving_profile`/`context_class`/`length_rule` (105), `expected_engine_steps` (105), `target` (11), `env_required` (2).
+   - No file carries a top-level `dtype` or `tp`.
+3. **`row_pod.sh` positionals:** `<ROLE> <hf-repo> <revision>`, which duplicates `model` and the revision from item 2.
+4. **Environment variables:** 45 for `row_pod.sh`, 28 for `tp_stage.sh`, 23 via `run_row_v2.sh` flags, 36 read by `commit_delta`, 17 by `hot_commit`, 10 for regression.
+5. **`manifests/checkpoints.json`**, the checkpoint pins, used as the default in 16 argparse definitions.
+6. **`manifests/semantic-profiles/*.json`**, which set per-family kernel constants (FA version, splits, head size).
+7. **Observe capture profiles.** These pin engine args, including `"dtype": "bfloat16"` (`coverage_workloads.py:132-133`). They are outside this slice.
+8. **Hardcoded tables:**
+   - `derive_step`'s `vm.PIN` (the B0 model, revision and dtype)
+   - `target_family.DEVICE_FAMILY`
+   - `research_tools.STAGE_KEY_FLAGS` defaults
+   - `telemetry/admission.INVENTORY`
+   - `run_config`'s `DEFAULT_K`, `DEFAULT_CHAINS`, `SNAPSHOT_CAP_FLOOR` (`:66-70`)
+   - the admission constants in `commit_delta`
+9. **`tests/regression/fixtures.toml`**, which holds reference artifacts, decisions and pins for each of 13 rows.
+10. **`ops/known_roots.json`**, the canary's expected roots.
+11. **`/workspace/cp/RELEASE.json`**, which feeds the hot key and provenance (`hot_commit.py:74`, `release_json.py`).
+12. **The `research` store params**, a derived copy (`research_tools.py:57-102`).
+
+**How many places define the same thing.**
+
+| setting | places | detail |
+|---|---:|---|
+| model id | 7 | workload `model`; `row_pod.sh` `<hf-repo>` (and the `run_row_v2.sh` positional); row-id `model_tag` (short name, implicit mapping); `manifests/checkpoints.json`; `derive_step --model` (default `vm.PIN` B0); `research` key param `model`; `hot_commit.WORKLOAD_ENGINE_KEYS` (`model`, `repo`). The SmolLM2-135M literal appears 101 times in 90 files, 10 of them in library code. |
+| TP degree | 7 | row id `__tpN__` (read by `run_row_v2.sh:95`, `workload.py:344`, `research_tools`); workload `sweep.tp` (`tp_stage.sh:47`); `WORLD` env; `row_pod_tp2.sh` (`WORLD=2`); `tp_stage.sh`'s fallback of 2; `derive_step --tp` (default 1); engine args (`tensor_parallel_size`, via the hot key). None of the 132 workloads disagree today. |
+| row id | 6 | filename; `sweep.row_id` inside the JSON; `$SWEEP_DIR/<row>/`; `fixtures.toml` `rows."<row>"`; `tests/regression/expected/<row>.json`; `research` key param `row` |
+| dtype | 6 | row-id token (a label: nothing in the execution path reads it); observe-profile pin `bfloat16`; `engine_args_required.dtype` (unused by any workload); the checkpoint itself (FP8 rows); `derive_step` `model_pin.dtype` (hardcoded `bfloat16`); `card.py` (reads engine args). Only the checkpoint and the profile actually decide it. |
+| Python interpreter | 17 | 16 script defaults across three venv names, plus `research_tools.DEFAULT_PY` |
+| evidence root | 32 occurrences / 24 files | `/workspace/cp/sweep` |
+| query id | 74 occurrences / 27 files | `Q_module_body_v1` |
+
+## Map 3: Data
+
+| directory | contents | read by | kind |
+|---|---|---|---|
+| `data/hf_configs/` (12 files, 48 KB) | HF `config.json` copies per role | **library**: `observe/profiles/generic.py:26`, `profiles/__init__.py:51`, `dense_generic.py:117`; tests | package data (not packaged) |
+| `data/l8-nan-scan-2026-09-07/` (2) | B0/B1 store NaN scans | tests only (`tests/program/test_nan_conversion.py:98`); the library's provenance string still says `docs/data/…` (`conformance.py:75`) | test data |
+| `data/logs/m1.jsonl.gz` (532 KB) | the B0 capture log | **library CLI defaults and usage** (`check/census.py:550`, `fold_compare.py:3`, `replay.py:8`, `operand_provenance.py:3`, `golden.py:13`, `noninterference.py:37`, `protected.py:44`, `observe/resolve_log.py:3`, `adversarial.py:18`); tests | test data used as library defaults |
+| `data/logs/m6/log.jsonl.gz` | a second capture log | **nobody** | evidence, unread |
+| `data/logs/m1/`, `data/logs/m1_ctl_tokens.json` | (absent) | `noninterference.py:778` default; `fold_compare.py:3`, `replay.py:8` | **missing** |
+| `data/rec/` (34, 544 KB), `data/census/` (33, 2.3 MB), `data/workloads_r12/` (1, 64 KB) | old records, census outputs, the R12 workload snapshot | **nobody** | evidence, unread |
+| `data/contract/` (20, 328 KB) | contract probes, including `argmax_rule/probe_pinned.py` | **nobody**; `verify_lane.sh:59` excludes it | evidence plus stray code |
+| `fixtures/B0-divergence-20260907T1604Z/` (12, 4.3 MB) | B0 divergence bundle (`cos_sin_cache.npy` …) | **library** `check/fold_compare.py:59`; tests `input_provenance/test_root_policy`, `test_analytic`, `program/test_composition` | evidence used as library and test input |
+| `fixtures/W11-…T1800Z/` (2), `W11R-…T1802Z/` (2), `W11C-…T1900Z/` (3) | MUFU tables (Triton, CUDA) | **library** `check/fa2_attn_oracle.py:11`, `program/numerics/fa2_relation.py:117`, `rms_relation.py:37-38, 59`; `tests/program/test_composition.py` | package data (kernel-model tables) |
+| `fixtures/verity-ir/…`, `fixtures/results/…` | (absent) | `rmsnorm_fused_sweep.py:48` (live constant); provenance strings in `conformance.py:45, 50`, `vllm_adapter.py:73`, `poc_rows.py:6`, `kernel_zoo.py:3`, `vllm_d9105ea80_sm89_eager.py:55`, `verity_vllm/__init__.py:21` | **missing** |
+| `manifests/checkpoints.json` (64 KB) | checkpoint pins | **library**: 16 argparse defaults (`commit_delta`, `hot_commit`, `run_config`, `census`, `noninterference`, `protected`, `weights_of_record`, `m1_capture`, `vllm_adapter`, `engine_profile`, `tp/*`); tests | run definition |
+| `manifests/semantic-profiles/` (6, 132 KB) | semantic profiles for llama and qwen2 | tests (`program/test_composition.py`: llama-v3, qwen2-v2, qwen2-hopper-v1); **3 files named only in `tools/move_map.txt`** | run definition (3 superseded) |
+| `docs/data/ref-prims/` (31, 164 KB) | reference-primitive conformance records | **library** `program/registry/ref_prims.py:192`, `conformance.py:25`, `frontend/rules/vocab.py:86`, `reference.py:4`; **written** by `tests/program/test_ref_prims.py:43` | package data rewritten by a test |
+| `docs/data/tc-*` | (absent) | provenance strings (`conformance.py:63`, `prims.py:203`, `hopper.py:77`, `fp8.py:125`, `derived_rows.py:461`) | **missing** |
+| `workloads/` (132) | 97 row-grammar run definitions + 35 legacy `workload_*` | `row_pod.sh`/`tp_stage.sh` (`$WL`), `tests/regression/resolver.py:240`, harness/observe/admission tests, library defaults (`commit_delta.py:1039`, `hot_commit.py:175`, `noninterference.py:768`, `tp/capture.py:65`, `observe/m1_capture.py:122`, `vllm_adapter.py:85`); **7 legacy files named by nothing** | run definitions |
+| `tests/harness/fixtures/admission/` (9) | planner calibration | **library `commit_delta.py:1793`**; tests | test data read by library |
+| `tests/program/data/` (3 + `topp_split_fixture/` 6) | `fp8_block_operands.npz`, TopP split schedules | tests; library provenance strings (`sampled_replay.py:169`, `derived_rows.py:565`; `topp_split.py:71` cites a stale path) | test data |
+| `tests/regression/fixtures.toml` + `expected/` (13) | reference artifact index and expected verdicts | regression harness | evidence index |
+| `tests/tp/fixtures/tp2/` (7), `tests/query/gate/` (6) | TP2 and gate fixtures | tests | test data |
+| `ops/known_roots.json` | expected canary roots | `canary.sh` | run expectation |
+| `tools/` (3) | relayout tool, map generator, 1,229-line move map | `tests/program/test_relayout_map.py` only | one-shot dev tooling |
+
+Flags:
+- **Library reads `tests/`:** `commit_delta.py:1793`, the only live read. Library provenance strings also point into `tests/program/data`.
+- **Library reads data outside the package:** `data/hf_configs`, `data/logs`, `docs/data/ref-prims`, `fixtures/B0-divergence`, `fixtures/W11*`, `manifests/`, `workloads/` (see LAYERING).
+- **Data nothing reads:** `data/rec`, `data/census`, `data/contract`, `data/workloads_r12`, `data/logs/m6`, 3 semantic profiles, 7 legacy workloads.
+- **Referenced but missing:** `data/logs/m1/`, `m1_ctl_tokens.json`, `fixtures/verity-ir`, `fixtures/results`, `docs/data/tc-*`, `docs/data/l8-nan-scan-*` (moved to `data/`), `tests/data/topp_split_fixture` (moved to `tests/program/data/`).
+
+## Map 4: Tests
+
+**Organisation** (see §3): each subpackage has a mirror directory under `tests/` (281 test files, 74k lines), plus root lints and census tooling. There are 7 regression tests with 20 helper modules.
+
+**Kinds.** There is no marker for unit or GPU tests, so the following counts come from gating code rather than a clean partition.
+- **Unit (CPU):** the default. About 46 files need torch through `importorskip` and run on the laptop's CPU torch.
+- **GPU:**
+  - 14 files check `cuda.is_available()` and 3 use `importorskip("vllm")`.
+  - 18 import torch or vLLM at module top with no guard, so they error at collection without those packages.
+  - There is no `gpu` marker.
+- **Pod/evidence:**
+  - About 34 files skip when an evidence path is absent: `out/gen` (23 files, gitignored and absent), `/workspace` (19), `/vault` (3).
+  - The registered `pod` marker is applied only inside the regression harness (`test_regression.py:119`).
+  - `@pytest.mark.slow` is unregistered (`program/test_derive.py:416`).
+- **Regression:** `tests/regression/` is skipped unless `VERITY_REGRESSION=1` and is driven by `fixtures.toml` (13 rows, 9 decisions) through `resolver.py` (10 env vars). Its markers are `regression`, `pod` and `weak`.
+- **Source-text and lint tests:** 12 files extract shell blocks, 4 files parse or `exec` `commit_delta.py`, about 24 files make source-text assertions, and there are 3 root lints (imports resolve, no dead modules, no by-name rules).
+
+**Tests of code that no longer exists.**
+- `acquire/schemes.py:77-121` (`veritor.*`)
+- the skip reasons in `program/test_derived_rows_fp8.py:14` and `test_fp8.py:24` (`veritor.core`)
+- `test_imports_resolve.py:15` (3 absent packages)
+- `dead_code_keep.json:5-7, 11-15` (`fa2_commit`, `cb_a` paths)
+- `program/test_relayout_map.py` (enforces a finished migration via `tools/`)
+- the two padrev files whose base suites are gone (`test_lifted_workload_padrev.py`, `test_workload_compose_padrev.py`)
+
+The inverse case also exists: 13 `importorskip` guards wait for modules that have since merged.
+
+**Skipped and xfail.**
+- 87 `pytest.skip(` calls in 44 files, 51 `skipif` in 37 files, and 71 `importorskip` in 59 files.
+- 11 xfail markers, all strict "documented gap" markers:
+  - `check/test_gen_adversarial.py:82, 100, 135, 165, 189` (HOLE-1..4)
+  - `program/test_harden_guards.py:92, 104, 161, 171, 197`. `:161` says dtype is not an applicability constraint, and `:197` says `construction_version.mechanism` is a duplicated literal (`derive_step.py:81` vs `:656`).
+  - `program/test_heldout_codec_compose.py:109`, a runtime xfail.
+- `check/test_rev_r16_*.py` document xfails that have since been flipped to passing.
+- The whole regression suite is skipped by default.
+
+**Duplicates.**
+- Seven `*_padrev.py` files (1,778 lines) re-test the lifting subjects independently.
+- `tests/regression/checks/attempt_provenance.py:27-37` copies `research_tools.row_config`.
+- Three run_config test files (`test_run_config_dry_run`, `test_run_config_load_stages`, `test_snapshot_cap`) are separate concerns, not duplicates.
+- **Misplaced tests:** `harness/test_admit_r19_host_working_set.py` and `harness/test_prescribed_input_linkage.py` test `check/` and `acquire/`.
+
+## Map 5: Harness vs. its name, `ops/` and `tools/research`
+
+**Name vs job.** See §1. It is the production pipeline (Build, Match driver, Commit, verdict inputs, engine reuse, admission, provenance, telemetry, the research adapter) and a library for 11 lower-layer modules. It is not a dev harness, and README.md:86-90's rule ("a check that lives here is misfiled") is broken by `commit_delta`'s C2 oracle-compare, executed-prefix placement and verdict assembly (`:2128-2349`).
+
+**Duplication with `ops/`.**
+1. **Stage orchestration in both.** `row_pod.sh` (Build, Match, Commit), `harness/run_config.py` (19 Match stages), `harness/hot_commit.py` (Commit jobs), and `compiled_commit.sh` plus `harness/compiled_merge.py` (the compiled variant).
+2. **Verdicts in both.** The Match verdict is `row_pod.sh:686-800` (bash heredoc); the Commit verdict inputs are built in `commit_delta.main()`; `check.verdict` is invoked from `row_pod.sh`.
+3. **Defaults in both.**
+   - `research_tools.STAGE_KEY_FLAGS` mirrors `row_pod.sh:79, 594`.
+   - `DEFAULT_PY` mirrors `row_pod.sh:69`.
+   - `HOT_ROOT`/`HOT_IDLE` are defaulted in `row_pod.sh:299, 1091`, `hot_commit.py:654, 665` and `commit_delta.py:3028`.
+   - `VERITY_INSTANCES_FORM` is defaulted in `row_pod.sh:543` (`progressions`) and `run_config.py:1025` (`runs`).
+   - `MATCH_PHASE` is accepted as `all|cpu` by `row_pod.sh:548` but documented as `all|gpu|cpu` by `run_row_v2.sh:14`, and `run_config` supports `gpu`.
+4. **Row-id parsing in both:** `run_row_v2.sh:95` and `compiled_commit.sh:35` versus five harness parsers.
+5. **Admission in both:** the advisory plan at `row_pod.sh:237` (`telemetry/admission`) and the in-process planner in `commit_delta` (`admission_planner` plus `admission_bound`).
+
+**Duplication with `tools/research`.**
+1. **Source identity.** `harness/source_identity.py` wraps `research.telemetry.source_identity` and adds `hidden_gpu` candidates. `acquire/native_host.py:1392` calls the harness copy.
+2. **Spans and timeline.**
+   - `research` wraps each stage in `span_start`/`span_end` events (`tools/research/src/research/telemetry/run.py:169, 206`), written to `events*.jsonl`.
+   - Inside the stage, the harness writes `timeline.jsonl` (`timeline.py`) and per-component `Spans` (`spans.py`).
+   - A row run under `research` therefore records the same stages twice in two formats, and `telemetry/admission.py:898` reads whichever exists.
+3. **Resource telemetry.** `research`'s `cgroup.py`/`procs.py`/`sample.py` produce what `telemetry/admission.observe_increment_a` reads, while `observe_r17` re-derives the same from `timeline.jsonl` and logs.
+4. **Tool adapter.** `research_tools`, `research_outputs` and `research_result` live in the integration. They import `research` at load time, `tools/research` imports them back under the `integrations.vllm…` module name (`tools_registry.py:26-28`), and the result schema is owned by `tools/research/src/research/result.py` (`research_result.py:1`).
+5. **Run wrapping.** `run_row_v2.sh:50` locates or installs `research` on `PYTHONPATH`, and `row_pod.sh:57` adds `tools/research/src`.
+
 <!-- APPEND -->

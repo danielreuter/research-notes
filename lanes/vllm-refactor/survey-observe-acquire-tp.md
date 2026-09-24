@@ -413,3 +413,78 @@ Counts for `acquire/`: CORE-DUP 3, INTERNAL-DUP 5, VERSION-RESIDUE 6, HARDCODING
 - Negative tests (fault injection) are CLI flags of the production driver: `tp/commit.py:55-72 negatives_applied`, `:102 parse_serve_shard_from`, `tp/partial_source.py:102` (`relabel_rank`, `omit_site`), `:355 parse_flip`. *low*
 
 Counts for `tp/`: CORE-DUP 0, INTERNAL-DUP 6, VERSION-RESIDUE 4, HARDCODING 4, SCRIPT/ENV/PATH 5, LAYERING 4, GOD-MODULE 2, DEAD 3, NAMING 4, DOCS 3, FALLBACKS 3, OTHER-WEIRD 4.
+
+---
+
+## 4. `input_provenance/` (4 .py files, 1,857 lines)
+
+**What it actually does vs its name.** The one-line package docstring ("weights of record, prescribed constants and their basis") fits `weights_of_record.py` and `root_policy.py`. `analytic.py` is broader than its name: besides the two analytic tables it holds the model-configuration layer (HF `config.json` to `C` with per-key provenance and family rules), the FP8 quantization policy, and the Program's weights Record type for every family. `observe/`, `check/` and `harness/` build on those two functions, so part of this package is a foundation that sits in the wrong place.
+
+### Modules
+
+| module | lines | job |
+|---|---:|---|
+| `__init__.py` | 1 | one-line docstring |
+| `weights_of_record.py` | 1,001 | checkpoint index (safetensors headers, shard sha256 vs `manifests/checkpoints.json`); composition of each served tensor from checkpoint tensors (fused q/k/v and gate/up, MoE experts, tied `lm_head`, Gemma-2 normalizer, TP rank shards); engine constants (kv scales, FP8 loader placeholders, rotary table); the record, its root, re-root and diff; live-side digests and `check`; of-record set stamping; CLI |
+| `analytic.py` | 477 | `config_of` (HF config to `C`, provenance per key, `FAMILY_RULES`); `quant_refusal` (block-FP8 only); `weights_type` and the per-family layer Records; Gemma-2 `normalizer_word`; rotary `cos_sin_table` and the bounded `check_cos_sin` (gate I9) |
+| `root_policy.py` | 378 | gate G3 (root closure): classifies every `Root` of a raw log (weight, analytic-table, alias, request-input, config, ignored) and validates each against an independent source; CLI |
+
+### Findings
+
+**CORE-DUP (2)**
+- Ad hoc canonical-JSON digests: `weights_of_record.py:474-479 analytic_key` (`json.dumps(sort_keys=True, separators=(",", ":"))`) and `:482-491 root_of_fields` (sha256 of `SCHEMA + "\n" + json.dumps(ordered)`). Core's `packages/.../commitments/identity.py canonical_json_bytes` / `identity_digest` refuse floats, and `analytic_key`'s inputs carry floats (`ROPE_THETA`, `rope_scaling` factors), so reuse needs a float policy in core first. *low*
+- `weights_of_record.py:111 sha256_file` is one of nine file-hash helpers in the integration (`harness/run_config.py:367`, `check/verdict.py:263`, `program/instances_form.py:36`, `harness/hot_commit.py:86`, `harness/experiment.py:40`, `observe/profiles/dense_generic.py:91`, `check/global_match.py:106`, `check/kernel_identity.py:48`); core has a private one (`packages/.../verification/trust.py:325 _sha256_file`). *low*
+
+**INTERNAL-DUP (5)**
+- Two per-family fact tables: `analytic.py:39-50 FAMILY_RULES` (7 model types; keys `qkv_bias` / `qkv_bias_key`, `default_theta`, `default_eps`, `qk_norm`) and `observe/profiles/family_facts.py` (same keys and values, e.g. Qwen2 `{"qkv_bias": True, "default_theta": 1_000_000.0}` at `:58`, plus citations and more families such as GPT-NeoX at `:122`), which `observe/profiles/generic.py:183-185` feeds back into `config_of(family_rules=...)`. *medium*
+- The rotary buffer and attention-scale names are recognised by ten patterns: `root_policy.py:62` (`analytic_table_of_buffer`, whose docstring says it is "the one place the two derived tables are recognised by name", repeated at `observe/m1_capture.py:61`), `:74 ALIAS_OF_COS_SIN`, `:75 IGNORED_ROOT_NAMES`, `:76 _LAYER0_COS_SIN`; `weights_of_record.py:98 ENGINE_CONSTANT_RE` (the union of the next three), `:99 PLACEHOLDER_RE` (same names as `:365`), `:364-366 ENGINE_KV_SCALE_RE`, `ENGINE_KV_PLACEHOLDER_RE`, `ENGINE_ROTARY_RE`; and a Llama-only `ALIAS_OF_COS_SIN` again at `observe/profiles/vllm_d9105ea80_sm89_eager.py:114`. *medium*
+- Safetensors headers are parsed in four places: `weights_of_record.py:104-108, 145` (`CheckpointIndex`), `program/frontend/vllm_meta.py:169`, `check/fold_compare.py:306` (`WeightSource`), `correspondence/capture_identities.py:282`. *medium*
+- Two bf16 roundings inside this package with different NaN handling: `analytic.py:371 f32_to_bf16_words` (no NaN quieting; also used by `check/fold_compare.py:315`) and `weights_of_record.py:192 _f32_to_bf16_bits` (quiets NaN), beside the shared `program/dtypes.py:119 f32_to_bf16_bits`. *low*
+- Build layout, source identity and parameter hashing restated: `weights_of_record.py:820-826 component_program_dirs` globs `build_request_LP*_T*` (as do `tp/commit.py:470-490` and `query/manifest/format`), `:829-895 stamp_of_record_set` reads `manifest.json` and `build_workload/workload_program.json` by path, `:898-930 derivation_provenance` computes code identity (see the source-identity item under `tp/`); live parameters are hashed by both `weights_of_record.py:600-628 live_param_digests` and `tp/worker.py:308-349 tp2_param_hashes`. *low*
+
+**VERSION-RESIDUE (2)**
+- Frozen-file layering: `analytic.py:252-291 weights_type` is `b1.weights_type(C)` followed by up to seven successive rewrites (dense per-head norm / FP8, LayerNorm, partial rotary, MoE, extra norms, untied `lm_head`, normalizer) because "`b1.py` is frozen (D57)". The `layers` rewrites overwrite each other in a fixed order: `moe_layer_weights_type` (`:162-185`) has no FP8 branch, so a block-FP8 MoE configuration would silently get bf16 expert fields. No refusal of that combination was found in `analytic.py` or `observe/profiles/generic.py`; end-to-end behaviour not checked. *medium*
+- Two vLLM layouts at once: `weights_of_record.py:73-77 EXPERTS_RE` accepts `<container>.experts.w13_weight` (vLLM <= 0.11) and `.experts.routed_experts.w13_weight` (vLLM 0.28), and `:90-97` cites vLLM line numbers (`kv_cache.py:106-109, 209-212`). *low*
+- LEGIT: `verity/commit/weights-of-record/v2` and `SCHEMA_V1` (v1 records exist and are re-rooted by `reroot` / `diff_records`; tests at `tests/input_provenance/test_weights_of_record_root_host_independent.py:90-119`), `verity-gen/root-policy/v1`.
+
+**HARDCODING (3)**
+- HF/vLLM parameter names and stacking rules restated: `weights_of_record.py:62-72 FUSED`, `EXPERTS`, `EXPERTS_MIXTRAL` (vLLM model classes carry these as `packed_modules_mapping` / `stacked_params_mapping`); tied `lm_head.weight` <- `model.embed_tokens.weight` only (`:278-280`, `:717-718`). *medium*
+- The "frozen" root policy is a per-family naming table: `root_policy.py:72-73` (`_MODULE_PREFIX = (?:model|gpt_neox)`, `_ATTN_MODULE = (?:self_attn|attention)`), `:151, 278` (embed / `lm_head` names for two families), `:283, 290` (records `alias_of: "model.embed_tokens.weight"` even for GPT-NeoX), `:49-50 IGNORED_ROOT_CONSUMERS` (vLLM op names). Every new family naming edits the protected module. *medium*
+- The config-root check compares a fixed list of 11 keys (`root_policy.py:302`); facts that change the Program (`BIAS`, `QK_NORM`, `FP8_BLOCK`, `NUM_EXPERTS`, `TOPK`, `rope_scaling`, `ROT`) are not compared against `config.json` there. *low*
+
+**SCRIPT/ENV/PATH (2)**
+- `weights_of_record.py:796-802 _default_manifest` looks for `manifests/checkpoints.json` two directories above the file, then in the CWD; the comment names the old layout ("veritor: vllm-poc/"). *medium*
+- CLIs in library modules (`weights_of_record.py:933-1001`, `root_policy.py:352-378`), driven by `ops/row_pod.sh:1026-1067` (which also runs `python -c "…import SCHEMA; print(SCHEMA)"` to read a constant) and as a subprocess by `harness/run_config.py:230`; `derivation_provenance` shells out to `git -C <file dir> rev-parse HEAD` (`weights_of_record.py:923`). *low*
+
+**LAYERING (3)**
+- Cycle observe <-> input_provenance: `root_policy.py:42-43` imports `observe.events` and `observe.log`, `:111` `observe.fold.config_for_weights`; `observe/fold.py:106`, `observe/m1_capture.py:61, 101` and four `observe/profiles/*` modules import `input_provenance`. `config_of` and `weights_type` are model description that `observe`, `check` (`check/fold_compare.py:315, 408`) and `harness` (`harness/run_config.py:377`) build on. *medium*
+- input_provenance -> check / query / harness / program, partly through private names: `root_policy.py:110` (`check.fold_compare.SnapshotStore`, `WeightSource`, `_extent`), `:353` (`check.fold_compare.load_profile`), `:39` (`program.frontend.rules.family._field_intervals`); `weights_of_record.py:357` parses the Program's struct type through `check.sampled_replay.parse_struct`; `:540, 807, 836` `query.manifest.format`; `:912` `harness.experiment.code_version`. *medium*
+- `weights_of_record.py:451` calls the private `analytic._inv_freq`. *low*
+
+**GOD-MODULE (1)**
+- `weights_of_record.py` (1,001): (1) safetensors checkpoint index and shard pinning; (2) served-width casting; (3) composition rules including TP shards; (4) engine constants with the kv-scale remap; (5) record, root, re-root, diff; (6) torch live-side digests; (7) `check` with seven refusal reasons (`:651-791`); (8) of-record set stamping over build directories; (9) derivation provenance; (10) CLI. The torch-free derivation and the torch live side share one file. *medium*
+
+**DEAD (1)**
+- `root_policy.py:110` imports `_extent` from `check.fold_compare` and never uses it. *high confidence (`rg`)*
+
+**NAMING (3)**
+- `analytic.py` holds five jobs; only the normalizer and rotary table are "analytic". `config_of` and `weights_type` would be looked for in a model-config or registry module. *medium*
+- "of record" has at least five meanings in the slice: weights of record, Program / digests of record, checkpoint of record, the stamped of-record set, and "tree of record" (`tp/commit.py:75`). *low*
+- `root_policy.py` calls its tables "Frozen" and itself "PROTECTED (gate G3)" but has been generalized in place (`:51` "[ADAPTER lane cov-dense 2026-09-17]", `:68` "[SHARED-CODE lane cov-ln]"); nothing enforces the freeze. *low*
+
+**DOCS (3)**
+- Governance references to files that do not exist: `root_policy.py:22-23` (`out/capture/decisions.md`, `out/gen/RULES.md`), `weights_of_record.py:5` ("DECISIONS-2 §4"), `analytic.py:9` ("plan §2 I9, §3", "the M6 comparison"). *medium*
+- Lab-notebook docstrings: `weights_of_record.py:1` ("(R15 manbind MAN-09; rev-cb M-0610, coord M-0614 (1))"), `:73, 81, 90` ("[R19, F-r19-int-11] … #74 (Qwen3-4B-FP8 B8, H100): 579/579 compared equal …"), `:370, 385, 407, 830, 900`; `analytic.py:1` ("Phase 0 of the generalization sweep"), `:46, 52, 146, 213, 221, 286`; `root_policy.py:51, 68`. *medium*
+- Docstrings that contradict the code: `analytic.py:6` says `check_cos_sin` passes "within COS_SIN_MAX_ULP of analytic", but `:412-418, 476` decide by the error bound and report `max_ulp` as informational; `:36-37` says an unlisted family is "hand" for BIAS, but `:138-139` sets `BIAS=False` as "derived"; `:163, 255` still call `moe_layer_weights_type` "PROPOSED" though every MoE configuration uses it. *medium*
+
+**FALLBACKS (4)**
+- Silent defaults in `config_of`: an unlisted family gets `BIAS=False` (`analytic.py:132-139`) and `ROPE_THETA=10000` (`:128`), both labelled "derived". The cos/sin bound catches a wrong θ; nothing here checks BIAS. *medium*
+- `tie_word_embeddings` defaults disagree: False at `analytic.py:140` and `weights_of_record.py:250, 587`, True at `analytic.py:283` and `root_policy.py:279` (transformers' default depends on the model class). The runtime tie check (`root_policy.py:277-293`) catches a mismatch on runs that go through G3. *low*
+- `weights_of_record.py:540-548`: with no attention row to read the wrapper prefix from, the prefix becomes the one under which most fields match checkpoint names. *low*
+- `root_policy.py:226-230`: a weight root without a snapshot passes as `checkpoint-identity` when the header says the checkpoint sha was verified at build (documented at `:11`, recorded as the validator). *low*
+
+**OTHER-WEIRD (2)**
+- Truncated identities in an authentication check: `weights_of_record.py:676-677 _eq` treats two Program digests as equal when one is a >= 16-hex-character prefix of the other (also `:863, 885`), and checkpoint revisions match on 10 characters (`:160, 705`). *medium*
+- `root_policy.py:335-337` parses the request id and position back out of the prompt root's string name `prompt[<request>][<pos>]`. *low*
+
+Counts for `input_provenance/`: CORE-DUP 2, INTERNAL-DUP 5, VERSION-RESIDUE 2, HARDCODING 3, SCRIPT/ENV/PATH 2, LAYERING 3, GOD-MODULE 1, DEAD 1, NAMING 3, DOCS 3, FALLBACKS 4, OTHER-WEIRD 2.

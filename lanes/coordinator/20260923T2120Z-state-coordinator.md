@@ -15,8 +15,8 @@ status: open
 - Robustness campaign (user-approved ~16:05Z): `campaigns/robustness/BRIEF.md`. Done: `~/.research/bin/research` runs the
   sparse detached worktree `~/projects/verity-main-wt/cli` (move it after EVERY merge: `git -C ~/projects/verity-main-wt/cli
   checkout --detach main`); old shim at `~/.research/bin/research.bak-main`; watcher restarted on it. LANE-CONTRACT: turn-ending
-  rule + long pod work through `research run --on`. Running: lanes steward, pod-runs (FINAL 18:30Z). Next: step 2 SDK pilot
-  (needs CURSOR_API_KEY), post-wave merge.
+  rule + long pod work through `research run --on`. Running: lanes steward, pod-runs (FINAL 18:30Z). Step 2 (SDK pilot)
+  DEFERRED 16:25Z: the user will pilot Cursor himself. Next: post-wave merge.
 
 # Coordinator state 21:20Z
 

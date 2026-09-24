@@ -2,7 +2,7 @@
 id: vllm-refactor/survey-program-query-corr
 lane: vllm-refactor
 kind: survey
-status: in-progress
+status: complete
 created: 2026-09-24
 checkout: f0810a11 (lane/vllm-cleanup-2)
 slice: integrations/vllm/verity_vllm/{program,query,correspondence}
@@ -29,7 +29,7 @@ Global counts over the slice (before per-module detail):
 - 11 modules read `os.environ` (10 in `program/`, 1 in `correspondence/`). `program/frontend/vllm_meta.py` also *writes* 5 env vars with `setdefault` at import.
 - verity core imports: mostly `verity.ir.{defs,refs,types,codec}`. Only `query/module_body.py`, `query/program_view.py`, `query/v1_bridge.py` import `verity.verification.query`; `correspondence/capture_identities_program.py` imports `verity.verification.{programs,typed_obligation}`. Nothing imports `verity.commitments` or `verity.verification.plan`.
 
-(Sections below are appended as each module group is finished.)
+Sections: 1 `query/`, 2 `correspondence/`, 3 `program/`, 4 slice-specific maps (core usage, registry, lowering, collectives), 5 disposition table.
 
 ---
 
@@ -662,3 +662,312 @@ Top level and `lifting/`:
 Counts for `program/`: CORE-DUP 6, INTERNAL-DUP 8, VERSION-RESIDUE 6, HARDCODING 9, SCRIPT/ENV/PATH 7, LAYERING 9, GOD-MODULE 7, DEAD 7, NAMING 6, DOCS 6, FALLBACKS 6, OTHER-WEIRD 10.
 
 Counts for the slice (query + correspondence + program): CORE-DUP 16, INTERNAL-DUP 24, VERSION-RESIDUE 19, HARDCODING 23, SCRIPT/ENV/PATH 18, LAYERING 24, GOD-MODULE 16, DEAD 16, NAMING 17, DOCS 20, FALLBACKS 18, OTHER-WEIRD 23 (234 findings).
+
+---
+
+## 4. Slice-specific maps
+
+### Map 1: Core usage
+
+**What the slice imports from core.**
+- `program/`:
+  - `verity.ir.defs` (about 48 import sites), `refs` (about 45), `types` (about 38), `codec` (about 19), `program` (8), `layout` (4), `evaluate` (3), `query_ast` (1);
+  - `verity.ml.tc.{total, silicon, total_fp8}` (in `registry/prims.py`, `hopper.py`, `fp8.py`, `numerics/mma.py`), and `verity.errors`.
+
+  It imports nothing from `verity.verification`, `verity.commitments`, `verity.ml.prims` or `verity.ml.gemm`.
+- `query/`:
+  - `verity.ir.{codec, layout, defs, refs, parts, types, query_codec, query_ast, program, evaluate}`;
+  - `verity.verification.query`, in three files. `module_body.py` imports `Boundary`, `Partition`, `boundary`, `partition_by`. `program_view.py` imports `ValueRef` and implements core's `Program` protocol as a columnar view. `v1_bridge.py` imports `Policy`, `RequiredValues`, `ValueRef`, `required_values`.
+- `correspondence/`: `verity.ir.*`, plus `verity.verification.{programs, typed_obligation}` in the dead `capture_identities_program.py`.
+
+**Concept by concept.**
+
+| core concept | core location | slice | verdict |
+|---|---|---|---|
+| `Program` protocol, `ValueRef` | `verification/query.py:69` | `query/program_view.py` implements it columnar | uses core |
+| `partition_by`, `boundary`, `Boundary` | `verification/query.py:107, 174, 185` | `query/module_body.py` | uses core (65 lines) |
+| `Policy`, `RequiredValues`, `required_values` | `verification/query.py:220, 236, 256` | `query/v1_bridge.py:50` imports them, then re-does half the validation inline (`:340-346`) because `required_values` recomputes the boundary | partial shadow |
+| `VerificationUnit` (a set of Calls) | `verification/query.py:84` | unused; `query/vu_query.py` has its own `VU` (a descent path in a folded Program); `query/partition.py` calls a GateSet family a "VU partition" | shadowed; three meanings of VU |
+| `VerificationPlan` (per-gate-class sampling rates) | `verification/plan.py:68` | unused; `query/vu_query.py` does its own deterministic uniform sampling over "tier-A" VUs; the required-value manifest (`verity-sweep/required-manifest/v1`) plays the plan's role for replay | shadowed |
+| subcircuit boundary over `Part` (in, out, w_out); partition validation | core points at the integration (`ir/parts.py:15-18`, `ir/layout.py:19`) | `query/boundary.py`, `query/partition.py`; also `frontend/liveness.py`, `frontend/correspond.py` | core-level code in the integration |
+| `query_ast.Query`, `query_id` | `ir/query_ast.py:528`, `ir/query_codec` | `query/query_artifact.py` (own fallback id) | mostly core |
+| `check_binding` | `verification/binding.py:168` | `correspondence/capture_identities_program.py:302 binding_check` | second binding check (dead module) |
+| gate-set lowering, `make_subcircuit` | `verification/lowering.py`, `gateset.py`, `programs.py:44` | `correspondence/capture_identities_program.py:480-538` hand-lowers `GemmCoordinate` | reimplemented (dead module) |
+| `refs.runs` | `ir/refs.py:234` | `correspondence/emit._runs` (with a run budget), `descriptor_equivalence.canonical_runs`, `compact.py` progressions | reimplemented |
+| `codec.canonical_json` | `ir/codec.py:317` | `correspondence/runtime.py:319`, `frontend/target_profile.py:29` | copied twice |
+| `ml.prims`, `ml.gemm` Definitions | `ml/prims.py:30-94`, `ml/gemm.py:27-45` | `registry/prims.py`, `b1.py`, `hopper.py`, `registry/__init__.py` register the same ids | duplicate; the two cannot be imported together |
+| `ml.tc.cast` word conversions | `ml/tc/cast.py:24-44` | `registry/prims.py:51-70`, `dtypes.py`, `derived_rows.py`, `rmsnorm_fused_sweep.py`, `beyond_gemm.py` | reimplemented five times |
+| `ml.tc.models` (`GroupSum`, `tc_dot`, `tc_dot_chain`, `MODELS`) | `ml/tc/models.py:161-786` | `numerics/mma.py` (same names; BF16 delegates to `silicon`, FP16 local) | shadow |
+| `ml.tc.total.tc_dot_total` | `ml/tc/total.py:202` | `registry/prims.py:375`, `hopper.py:40`, `fp8.py:177` | uses core |
+| `ml.tc.relation` | `ml/tc/relation.py` | `numerics/*_relation.py` register checkers into `check.relations` instead | parallel concept (check's slice) |
+| `commitments.*` | `commitments/` | nothing in the slice | n/a |
+| `ir.evaluate.MissingValue` | `ir/evaluate.py:38, 44` | `correspondence/capture_identities.py:510-576` regex-parses its message | core lacks an attribute |
+
+**Does `program/numerics` duplicate `verity.ml.tc`?** Only partly. `numerics/mma.py` shadows `verity.ml.tc.models` in names and shape, but its BF16 path delegates to core `silicon`, and its FP16 path does not exist in core. The rest of `numerics/` has no core counterpart: independent models of vLLM's FA2, FA3, RMSNorm, Inductor and sampler kernels (numpy and JIT C++) are integration content. The larger duplication is in `registry/`, which re-registers core's tensor-core and conversion Definitions under core's own ids.
+
+**What using core directly would look like.**
+1. **Registry.** Import `Bf16ToF32`, `F32ToBf16Rn`, `F2fpBf16`, `AmpereBF16TcDot16`, `HopperBF16WgmmaDot16` from `verity.ml.prims`, and `DotBf16`, `GemmCoordinate`, `Gemm` (`_v2`) from `verity.ml.gemm`. Delete those Definitions and the `Const` lazy family from `registry/`. Decide what `AmpereBF16TcDot16_v1` means: restore its old body, or retire it in favour of core's `_v2`. Replace the word helpers in `registry/prims.py` with `verity.ml.tc.cast`.
+2. **Lazy families.** `registry/ref_prims.py` should call `verity.ir.codec.register_lazy_family` rather than rebinding the private list.
+3. **Numerics.** Add an FP16 product and pipeline to `verity.ml.tc.term` / `models.PIPELINES`, then delete `numerics/mma.py`. `cpu_model.py` and `kernel_zoo.py` call `verity.ml.tc.models.tc_dot_chain`.
+4. **Query.**
+   - Promote `query/boundary.py`, `query/partition.py`, `frontend/liveness.py` and `frontend/correspond.py` into `verity.ir`, as core's docstrings already plan.
+   - Give `required_values` an entry point that takes a precomputed `Boundary`, so `v1_bridge` stops re-validating.
+   - Express `vu_query`'s replay sampling as a `VerificationPlan` over core `VerificationUnit`s instead of a private `VU`.
+5. **Small items.** Use core `canonical_json`, `refs.runs` with a `max_runs` option, `types.type_from_json` for parameter types, and `query_codec.query_id`.
+
+### Map 2: The registry
+
+**How Definitions are organized.**
+- **Registration is an import side effect.** `registry/__init__.py` imports the library and registers 18 lazy families (id regex to factory): `Const<w>[0x..]_v1`, `GatherBf16x<N>_v1`, `TopPMaskWordx<N>_v1`, `BitAtx<N>_v1`, `LSelect`, `LIsActive`, `LBot`, `LGatherRow`, `LStepLive`, `LIsEOS`, `LEmitNext[H]`, `LFixedSelect`, `LEnable_v1`, `SplitsForSMS<n>_v1`, `LSplitsForSMS<n>_v1`, `<id>{ORD=<mask>}`, `Lifted[<id>]_v1` and `Lifted[<id>]_v2`. Decoders must also import more modules by name: `query/program_view.py:550` and `global_program.py:36-50`.
+- **Primitives** (counts of `@primitive` decorators; factories add more):
+  - `prims.py` 37: conversions, f32 FMA and MUFU ops, `AmpereBF16TcDot16_v1`, and `MufuTanh_v1` with an external table;
+  - `ref_prims.py` 8 (plus 22 composites): torch-CPU reference semantics, no proof support;
+  - `fp8.py` 5, `moe.py` 5, `pad_prims.py` 2, `hopper.py` 2, `dense.py` 2, `sampling.py` 2.
+- **Model composites:**
+  - `b1.py` 35, the dense decoder: Gemm, RMSNorm (Triton and fused CUDA), RoPE, SiluMul, Attention v1/v2/v3, Embedding, LayerPre/LayerPost/Final, TokenSelect, Serve v1/v2/v4;
+  - `b1_tp2.py` 11 (TP), `fp8.py` 13, `moe.py` 11;
+  - `dense.py` 18: unfused norm chain, GeGLU, softcap attention;
+  - `spec.py` 8 (speculative decoding), `sampling.py` 8 (Gumbel with top-p).
+- **Target variation:** `targets.py` binds `DOT` / `BN` / `INV` statics per target family; `gemm_targets.py` holds the Ada and Hopper tuned tables; `hopper.py` re-instantiates code objects.
+- **Padded and lifted:**
+  - `serve3.py` (`Serve@3`);
+  - `lifted.py`, which lifts any registered Definition (`Lifted[..]_v1/_v2`) and defines `LServe_v2` and the Continuation members;
+  - `moe_pad.py` 9, `topp_split.py` (`SplitsFor_v1`).
+- **Twins and evidence:**
+  - numpy evaluators in `derived_rows.py`, `sampling_rows.py`, `serve3_reference.py`;
+  - `conformance.py`, the library's conformance record as data (every Definition also carries a `conformance=` string);
+  - `crosscheck.py`, `rmsnorm_fused_sweep.py`, `sampling_topp_difftest.py`.
+- **`quarantine/`** is meant for provisional by-name Definitions (import rule at `__init__.py:18`). In practice:
+  - `dense/` and `ov_moe/` are re-export shims of promoted Definitions;
+  - `ln/` (pythia-160m GELU and LayerNorm) and `ov_sampling/` are the only quarantined Definitions;
+  - `collective/` holds an all-reduce that contradicts `b1_tp2`.
+- **`lifted.py`, `derived_rows.py`, `ref_prims.py` and `conformance.py`** (named in the prompt) are respectively:
+  - generic lifting over the registry;
+  - numpy twins of B0/B1 interior values;
+  - the torch-CPU reference vocabulary;
+  - evidence data.
+
+  None of them is a case.
+
+**Case names.**
+
+| name | meaning | where |
+|---|---|---|
+| B0 | SmolLM2-135M eager batch-invariant case (the first capture store) | `b1.B0_CONFIG` (`b1.py:47`), `correspondence/capture_identities*`, `rmsnorm_fused_sweep.py` (the "B0 commit store"), `derived_rows.py` |
+| B1 | Qwen2.5-1.5B eager batch-invariant case; its program is the lane-TA1 "typed serving program" | `b1.B1_CONFIG` (`b1.py:31`); modules `b1.py`, `b1_tp2.py`, `b1_authored.py`; vocabularies `b1-eager*`; ports `b1-hopper`, `b1-fp8` |
+| B1..B5 (+C) | steps of the FA2 inner loop: row max, rescale factor, exp2, per-lane sums, P to bf16 and PV | comments at `b1.py:450-470, 770-784, 1056-1070`, `dense.py:477-527` |
+| B6, B7 | LIFTING-SPEC v0.6 sections (B7 = explicit enablement) | `lifted.py:25, 302`, `registry/__init__.py:76, 84` |
+| B8 | batch size 8 (the "B8 1024/128" row) | `instances_form.py:5`, `query/manifest/format.py:580`, `correspondence/batch_decomp.py:595` |
+| SMOL360, QWEN05 | SmolLM2-360M and Qwen2.5-0.5B configs | `b1.py:64, 80`; `spec.DRAFT_CONFIG` repeats QWEN05 with differences |
+| TA1, `Serve@3`, `LServe` | the hand-typed B1 program; the padded serving circuit; the lifted serving circuit | `b1.py`, `serve3.py`, `lifted.py` |
+
+**How much is model-specific.**
+- **By-name model data outside quarantine is small:** four HF configs (`b1.py:31-95`) plus `spec.py:37`, the default model (`frontend/vllm_meta.py:30`), A100/Qwen launch signatures (`numerics/kernel_zoo.py`) and Llama/Qwen Inductor constants (`numerics/compiled_*`).
+- **The Definitions are mostly parametric.** Statics `K, N, T, NH, KVH, D, BN` let one Definition cover every Llama/Qwen-style dense decoder. Model identity enters through the config dict `C`, bound as a static of `LayerPre`, `LayerPost`, `Final` and `Serve` ("`C` is the whole model config", `profile_descriptor.py:9`), and through which kernels vLLM runs (the vocabulary).
+- **Kernel and target specificity is much larger than model specificity.** Every numerical Definition states one kernel's arithmetic on one architecture: Ampere/Ada `mma.sync`, Hopper `wgmma`, FA2 vs FA3 tiles, vLLM d9105ea80's batch-invariant Triton kernels. About half of `registry/` is per-target or per-kernel: `hopper`, `fp8`, `gemm_targets`, `targets`, `topp_split`, `sampling`, `moe`, `dense`. The generic IR machinery is `lifted.py`, `serve3.py`, `pad_prims.py` and the lazy families.
+
+### Map 3: Lowering
+
+Two paths lead from torch to a Program. Both build bodies with `verity.ir.defs.Builder` and serialize with `verity.ir.codec`.
+
+1. **Authoring (`frontend/torch_frontend.py`).**
+   - The author writes torch code that calls registered Definitions through minted custom ops (`function`, `bind`, `batch`, `scan`, `Ops`).
+   - `torch.export` records the graph. `export` / `export_report` translate it, check identity against the registered bodies, and run liveness (`liveness.py`) and cross-encoding correspondence (`correspond.py`).
+   - Only tests, `b1_authored.py`, `serve3_authored.py` and `examples.py` use it. No production path does. Its private helpers (`_tensor_type`, `_permute`, the view algebra) are the shared library of path 2.
+2. **Derivation (`frontend/derive.py` + `rules/`).** This is the production path, run by `harness/derive_step.py`.
+   1. `vllm_meta.instantiate_meta` builds the pinned vLLM model class on `meta` through vLLM's own config and model registry.
+      - Environment variables are set at import. `ensure_distributed` starts a world-1 gloo group. `fake_forward_context` supplies attention metadata.
+      - For TP, `WithPeers` wraps the rank with peer inputs, and `probe_collectives` records the collective signature.
+   2. `export_compat.export_compat(profile, model)` patches what `torch.export(strict=False)` cannot trace in the pinned vLLM: `Tensor.data`, the device capability and SM count of the declared target, tuned-GEMM caches, MoE dispatcher ops, the workspace manager. `triton_capture.intercept_triton_launches` turns direct Triton launches into `verity_cba::triton_launch` nodes.
+   3. `derive._derive_flat` walks the fx nodes.
+      - Exactly one rule (`ViewRule`, `OpRule`, `InPlaceRule`, `StateRule` in `rules/base.py`) must claim each node; otherwise the derivation refuses or reports `Unsupported`.
+      - Rules bind nodes to Definitions through a vocabulary (`rules/vocab.py`: role to registered Definition, e.g. `attention` to `Attention_v3{T,NH,KVH,D,BN}`).
+   4. `vllm_ruleset()` (`vllm_bindings.py:1886`) combines the default rules with the vLLM bindings and the MoE and sampling rules. The vLLM rules check kernel-source pins and the observed target (`_OBSERVED`) before binding.
+   5. `derive_report` adds provenance (`provenance.registry_version`, rule applications), liveness and `rules/family.py` identity claims. `correspondence/emit.py` writes the runtime-correspondence record.
+
+   Modes: `profile` (vLLM kernels to the B1 kinds), `reference` (torch-CPU semantics to `ref_prims`), padded (`rules/padding.py` to `Serve@3`).
+
+**vLLM-version specific parts.**
+- `rules/vllm_bindings.py:45-67, 143`: source sha256 pins of `matmul_kernel_persistent`, `_rms_norm_kernel`, `mean_kernel`, and the FA implementation and version. The commit `d9105ea80` is named in 12 files.
+- `export_compat.py`: patches private vLLM names (`_TUNED_MATMUL_CONFIGS_RESOLVED`, `current_platform`, `num_compute_units`, the `_MOE_DISPATCH_OPS` list).
+- `vllm_meta.py`: vLLM's config and model registry, forward context, `init_distributed_environment`. `vllm_iface.py` binds `torch.ops._C.*` names.
+- `registry/gemm_targets.py` tuned tables; `global_program.py:139` `CompilationMode` numbering.
+- `rules/vllm_moe.py`: the fused-MoE kernel structure.
+- vLLM d9105ea80's sampler: `rules/vllm_sampling.py`, `registry/topp_split.py`, `numerics/sampling_rng.py`.
+- Inductor-generated kernels (compiled mode): `numerics/compiled_*`, `query/manifest/compiled.py`.
+
+**Model specific parts.** The default model (`vllm_meta.py:30`), the default target (`target_profile.py:114-115`), the `b1.py` configs, Gemma-2 specifics in `dense.py`, and `rules/profile.py` (B0/B1 profile mode). The derivation engine itself is model-agnostic: it derives any model vLLM's registry can instantiate, as long as a rule claims every node.
+
+### Map 4: Collectives
+
+**There is no collective concept in the IR.** Collectives are ordinary registered composites, and core has none:
+- `AllReduce2_v1{N}` (`b1_tp2.py:98`): `batch(Bf16Add, parts[0], parts[1])` (`:106`);
+- `AllGather2_v1{N}` (`:109`): a copy;
+- `AllReduce_v2{WORLD,N}` (`:136`): one-rounding bf16 adds in `allreduce_order`, i.e. ranks WORLD-1..0, NCCL's intra-node tree chain (`:128-134`);
+- `AllGather_v1{WORLD,N}` (`:155`) and `EmbeddingShard_v1{VS,H,START}` (`:180`);
+- `quarantine/collective/allreduce.py` `AllReduceSumBf16{N,R}`, which folds in ascending order and contradicts `AllReduce_v2` for R > 2. `tp/collective_record.py` still uses it.
+
+**TP has two representations.**
+1. **Hand-authored: one Program for all ranks.** `ServeTP2_v1` (`b1_tp2.py:365`) treats the rank as an ordinary `batch` axis (`:7-20`):
+   - column-parallel GEMM is `batch(Gemm{K,N/2}, axes=(None,0))`;
+   - row-parallel GEMM is `batch(Gemm{K/2,N})` followed by `AllReduce2`.
+
+   The collective is an internal Call, and cross-rank consistency lives inside the Program.
+2. **Derived from vLLM: one Program per rank.** This is the production path.
+   - At export, `tp/export_ops.py:97` `CollectiveBus` emits `verity_tp::all_reduce2` / `all_gather2` (world 2) and `verity_tp::all_reduce` / `all_gather` / `embedding_shard` (any world size).
+   - `vllm_meta.WithPeers` turns the other ranks' partials into extra inputs of the rank's forward (`vllm_meta.py:58-72`). The rules at `vllm_bindings.py:1628-1873` bind these ops to the Definitions above, with W-1 peer partials as prescribed Inputs.
+   - The identity "peer input k of rank r equals the committed partial of rank s" is not in any Program. It lives in `tp_links.json`, which `harness/derive_step.py` writes and `tp/match.py`, `tp/rank_match.py`, `tp/fold_match.py`, `observe/resolver.py` and `check/program_compare.py` read. The Commit's cross-rank pass checks it over `b1_tp2.cross_rank_families(world)` (`b1_tp2.py:407`).
+
+**Correspondence.** `correspondence/runtime.py` has a per-Call `CollectiveOccurrence` record. `correspondence/emit.py:30, 318-325` fills it only for `all_reduce2` / `all_gather2` and computes the peer as `1 - own_i`, so collectives over more than two ranks get `collective: null`.
+
+**Query and manifest.** `query/v1_bridge.py` also handles TP outside the Program: rank partials, collective-site numbering (`TP_PEER_BINDING_RULE`) and the TP rank merge. It imports `program.registry.b1_tp2` (`v1_bridge.py:79`).
+
+**Net.** Only the hand-authored `ServeTP2` expresses TP inside a Program. On the production path each rank is its own Program, and a collective's cross-rank meaning is split in two:
+- inside the Program: a Call with peer Inputs;
+- outside it: a link table plus a Commit pass.
+
+Core `verity.verification` has no notion of a binding across Programs, so this contract lives entirely in `tp/`, `harness/` and `query/`.
+
+---
+
+## 5. Disposition table
+
+`query/`:
+
+| module | disposition | reason |
+|---|---|---|
+| `query/__init__.py` | keep | fix the stale module list |
+| `query/boundary.py` | move to core `verity.ir` | generic `Part` boundary analysis; core already documents the promotion |
+| `query/partition.py` | move to core `verity.ir` (with `boundary.py`) | generic partition and width validation over `query_ast.Family` |
+| `query/module_body.py` | keep | the vLLM Q; 65 lines over core |
+| `query/program_view.py` | keep | drop the `REGISTRY_MODULES` list, `parse_type_repr` (use `type_from_json`) and private-core imports; share one streaming reader with `correspondence/runtime.py` |
+| `query/v1_bridge.py` | split and rename | population/policy into a `query/required.py`; row emission into `manifest/format.py`; validation through core `required_values` with a precomputed `Boundary` |
+| `query/vu_query.py` | move to `check/` | replay population over a `FoldResult`; depends on check and observe; its sampling should become a `VerificationPlan` |
+| `query/query_artifact.py` | keep | drop the `ImportError` fallback and the private `query_id` |
+| `query/compare.py` | delete | compares against the deleted v1 engine |
+| `query/cli.py` | keep | the one CLI; take Build-dir discovery from one helper |
+| `query/manifest/__init__.py` | keep | package marker |
+| `query/manifest/format.py` | split | keep schema, digest and identity; move FA/MoE geometry to `program/registry/targets.py`; merge Build-dir lookup with `cli.py`; delete dead helpers |
+| `query/manifest/compiled.py` | move to `acquire/` | Inductor-source parsing is capture-side; delete its `verify` copy |
+| `query/manifest/verify.py` | keep | the one manifest verify |
+
+`correspondence/`:
+
+| module | disposition | reason |
+|---|---|---|
+| `correspondence/__init__.py` | keep | package marker |
+| `correspondence/runtime.py` | keep | the record; use core `canonical_json` |
+| `correspondence/emit.py` | move to `program/frontend/` | lowering code that reads derive's `Ctx`; make collectives work for any world size |
+| `correspondence/reader_for_query.py` | merge into one reader over `runtime.py` | same two-source adapter as the other readers |
+| `correspondence/reader_for_acquire.py` | merge into the same reader | idem; one `ReturnSlot` / `ArgSlot` |
+| `correspondence/runtime_tree.py` | move to `observe/` | runtime observation |
+| `correspondence/resolve.py` | keep | occurrence resolution; drop `DescriptorCorrespondence` (use the reader) and migration helpers |
+| `correspondence/resolve_decomp.py` | delete | old-vs-new migration check |
+| `correspondence/batch_decomp.py` | move to `check/` and split | Match at batch > 1; move the profiling harness out; remove the monkeypatch and X09 hooks |
+| `correspondence/batch_candidate.py` | delete | diagnostic; `move_map` marks it DELETE-BY |
+| `correspondence/chunk_attribution.py` | move to `observe/` | reads vLLM's scheduler |
+| `correspondence/capture_identities.py` | delete | the driver is unused; move its two tables into `check/fold_compare.py` if that stage stays |
+| `correspondence/capture_identities_program.py` | delete | no production importer; `move_map` marks it DELETE-BY |
+
+`program/` top level and `lifting/`:
+
+| module | disposition | reason |
+|---|---|---|
+| `program/__init__.py` | keep | package marker |
+| `program/global_program.py` | move to `harness/` and split | CLI driver; separate compilation facts, EOS lag, MoE check, sampler geometry and stop rule; make registry imports hard failures |
+| `program/workload.py` | keep | the workload Program |
+| `program/compact.py` | move to `commit/` (or a shared storage module) | instance storage form used by check, correspondence and tp |
+| `program/descriptor_equivalence.py` | merge into `frontend/correspond.py` | the same §8.5 check; then move to core with it |
+| `program/profile_descriptor.py` | move to `tools/` | developer CLI |
+| `program/dtypes.py` | move to `commit/` | only `commit/hashing.py` uses it; use `verity.ml.tc.cast` for scalar conversions |
+| `program/instances_form.py` | merge into `compact.py` | converter for the same form; `run_config` has its own selector |
+| `program/sampling_event.py` | keep | make `query/` use it as the one vocabulary site |
+| `program/lifting/__init__.py` | keep | package marker |
+| `program/lifting/continuation.py` | keep | host-side Continuation logic |
+| `program/lifting/dump.py` | move to tests | test helper |
+
+`program/frontend/`:
+
+| module | disposition | reason |
+|---|---|---|
+| `frontend/__init__.py` | keep | package marker |
+| `frontend/torch_frontend.py` | split | shared Coll/view helpers into a public module for derive and rules; the authoring API stays only if it is wanted, otherwise to tests |
+| `frontend/derive.py` | keep | the derivation engine |
+| `frontend/vllm_meta.py` | keep | env writes into an explicit call; the default model becomes an argument |
+| `frontend/export_compat.py` | keep; isolate per vLLM pin | shims tied to private vLLM names |
+| `frontend/target_profile.py` | keep | require an explicit target; use core canonical JSON |
+| `frontend/triton_capture.py` | keep | needed for direct Triton launches |
+| `frontend/inputs_trace.py` | move to `harness/` | construction-time audit tool |
+| `frontend/liveness.py` | move to core `verity.ir` | generic IR analysis |
+| `frontend/correspond.py` | move to core `verity.ir` | generic; absorb `descriptor_equivalence.py` |
+| `frontend/provenance.py` | keep | `registry_version` could later move to `verity.ir.defs` |
+| `frontend/b1_authored.py` | move to tests | fixture |
+| `frontend/serve3_authored.py` | move to tests | fixture |
+| `frontend/examples.py` | move to tests | fixture |
+| `frontend/derive_examples.py` | move to tests | fixture |
+
+`program/frontend/rules/`:
+
+| module | disposition | reason |
+|---|---|---|
+| `rules/__init__.py`, `rules/base.py`, `rules/common.py` | keep | rule framework |
+| `rules/vocab.py` | keep | hash bound Definition ids into `version`; stop swallowing `TypeError`; retire v1/v2 vocabularies once no record needs them |
+| `rules/vllm_bindings.py` | split | one module per kernel family (GEMM/norm, KV/attention, dense and unfused norm, FP8, TP); pins into per-vLLM-pin data; pass observations explicitly instead of `_OBSERVED` |
+| `rules/vllm_moe.py` | keep | MoE rules |
+| `rules/vllm_sampling.py` | keep | sampler rule |
+| `rules/vllm_iface.py` | keep | vLLM op interface |
+| `rules/triton_iface.py` | keep | rename the `verity_cba` namespace when derived artifacts allow |
+| `rules/profile.py` | keep (review) | B0/B1 profile mode; delete with the v1/v2 vocabularies if unused |
+| `rules/reference.py`, `rules/patterns.py`, `rules/views.py`, `rules/padding.py`, `rules/family.py`, `rules/ref_kinds.py` | keep | live rule sets |
+
+`program/numerics/`:
+
+| module | disposition | reason |
+|---|---|---|
+| `numerics/__init__.py` | keep | package marker |
+| `numerics/_jit.py` | keep | build at install or CI time instead of first use |
+| `numerics/mma.py` | replace with core `verity.ml.tc.models` | after upstreaming the FP16 product |
+| `numerics/cpu_model.py` | keep | ctypes wrapper |
+| `numerics/relations.py`, `fa2_relation.py`, `rms_relation.py` | keep; move registration into `check/` | no import-time registration into check |
+| `numerics/kernel_zoo.py` | move to `registry/quarantine/` (or tests) | A100/Qwen by-name data |
+| `numerics/fa2_model.py`, `fa3_model.py`, `rms_triton_model.py` | keep | drop GPU-name sniffing and the `VERITY_ARCH` fallback |
+| `numerics/compiled_norm_literal.py`, `compiled_relations.py` | keep | label the Llama/Qwen constants as such |
+| `numerics/inductor_models.py` | move to tests | test-only |
+| `numerics/libdevice_sampling.py` | merge into `sampling_rng.py` | same noise path; test-only |
+| `numerics/sampling_rng.py` | keep | move capture-log reading to `observe/` |
+| `numerics/beyond_gemm.py` | split | models used by `crosscheck` into a model module; the probe script to `tools/` |
+| `numerics/cpp/*.cpp` | keep | built by `_jit.py` |
+| `numerics/cuda/*.cu` | move to `tools/probes/` | measurement sources; two are unreferenced |
+
+`program/registry/`:
+
+| module | disposition | reason |
+|---|---|---|
+| `registry/__init__.py` | keep | make registration an explicit function |
+| `registry/b1.py` | split and rename | generic decoder composites named by job; configs into data; replace `DotBf16_v2` / `GemmCoordinate_v2` / `Gemm_v2` with core `verity.ml.gemm` |
+| `registry/b1_tp2.py` | keep, rename (e.g. `tp.py`) | the TP Definitions |
+| `registry/hopper.py` | replace with `targets.py` static binding | and core `HopperBF16WgmmaDot16_v1` |
+| `registry/fp8.py`, `moe.py`, `moe_pad.py`, `dense.py`, `pad_prims.py`, `serve3.py`, `sampling.py`, `topp_split.py`, `targets.py`, `gemm_targets.py` | keep | live Definitions and target data |
+| `registry/spec.py` | move to `quarantine/` | test-only; merge its config with `QWEN05_CONFIG` |
+| `registry/prims.py` | keep; replace shared primitives with core `verity.ml.prims` | remove the `sys.path` hack and `np.seterr`; resolve `AmpereBF16TcDot16_v1` |
+| `registry/ref_prims.py` | keep | use `register_lazy_family` |
+| `registry/lifted.py` | split | lifting core / specified primitives / continuation / `LServe` / checks; drop the imports of `global_program` and `query` |
+| `registry/serve3_reference.py` | merge into one twin library | test-only twin |
+| `registry/derived_rows.py`, `sampling_rows.py` | merge with `check/twins.py` into one twin library | four twin sites today |
+| `registry/sampling_topp_difftest.py` | split | the registry evaluation that `check/` imports goes into `registry/sampling.py`; the cases stay a difftest adapter |
+| `registry/conformance.py` | keep | evidence data |
+| `registry/crosscheck.py` | move to `tools/` | evidence CLI |
+| `registry/rmsnorm_fused_sweep.py` | split | twin into the twin library; delete the sweep driver (its inputs are gone) |
+
+`program/registry/quarantine/`:
+
+| module | disposition | reason |
+|---|---|---|
+| `quarantine/__init__.py` | keep | enforce the import rule with a lint |
+| `quarantine/collective/__init__.py`, `allreduce.py` | delete | contradicts `AllReduce_v2`; point `tp/collective_record.py` at `b1_tp2` |
+| `quarantine/collective/allreduce_difftest.py` | move to the difftest adapters (or delete with `allreduce.py`) | operator tool |
+| `quarantine/dense/__init__.py` and the 19 op modules | delete | re-export shims; point difftest adapters and profile generators at `registry/dense.py` |
+| `quarantine/dense/tables/*` | move to `registry/tables/` | data of the live `MufuTanh_v1` |
+| `quarantine/ln/*` (6 files) | keep | true quarantine; fix `_common.py` imports |
+| `quarantine/ov_moe/*` (2 files) | delete | re-export shim |
+| `quarantine/ov_sampling/*` (2 files) | keep | quarantined Definition |

@@ -37,11 +37,20 @@
 
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
 - origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.
-- Head `76020a66` synced clean to `/workspace/head` (+ copies `head-reg`, `head-b0`). Read-only R2 credential `/root/r2ro.env`, minted 19:56Z, 5 h.
-- 19:57Z gate (a): `nice gate_a.sh /workspace/head-reg a_head` -> `a_head.{log,xml,status}` (~3-4 h expected).
-- 19:58Z gate (b): `OMP_NUM_THREADS=3 gate_b.sh /workspace/head b_head_x12 -n 12 --dist loadfile` -> `b_head_x12.{log,xml,status}`.
-- 20:00Z B0 Builds base then head: `/workspace/b0_build.sh` -> `/workspace/out/b0/{base,head}/`, `DONE` when both finish; compare with
-  `/workspace/tree_diff.py`.
+- Head `be366f80` (= `76020a66` + the by-name allowlist fix) synced clean to `/workspace/head2` (+ copy `head2-reg`).
+- 20:41-20:47Z prefetch (`/workspace/rff24/prefetch.sh`): all 26 fixture artifacts into the pod store, 0 failures; `/root/r2ro.env`
+  deleted 20:47:22Z. The keyed T0 run at `76020a66` was killed (`a_head_76020a66_killed.*`).
+- 20:50Z gate (a), T0,T1, no key in env or on disk: `nice gate_a.sh /workspace/head2-reg a_final --deselect
+  tests/regression/test_regression.py::test_reproduces[T1-replay_partition-r11] --deselect ...[T1-replay_partition-r39]`
+  -> `a_final.{log,xml,status}` (the two B=1 replay_partition checks need 120-250 GB each: big pod below).
+- 20:51Z gate (b) at `be366f80`: `OMP_NUM_THREADS=3 gate_b.sh /workspace/head2 b_final_x12 -n 12 --dist loadfile`.
+- Big pod `vyv-rf-f24-big` (je00gvavwlklve, cpu3m x64, 512 GB cgroup, $3.52/h, up 20:49Z; `/tmp/rff24/ssh_big.sh`) for the two B=1
+  replay_partition checks, one pytest process per row. TERMINATE as soon as they finish.
+
+## Gate (b) at `76020a66` (`b_head_x12`, 58 F / 11 E) vs a1's head run
+- 2 new failures, both the by-name ratchet (`test_no_by_name_rules`: the moved population-gap rule, the retired CODE_SKIP_SUFFIX entry);
+  fixed in `be366f80`, 3/3 pass. The gc-freeze pair fails in a1's head run as well; one allocator-dependent weakref test passed there and
+  skipped here (a1's documented noise).
 
 ## D6 / D7 evidence (pod, 20:10Z; local copies `/tmp/rff24/evidence/{d6,d7}`)
 - A B0 Build cannot run on this CPU pod at base or head: vLLM's CUDA wheel makes no DeviceConfig without a GPU

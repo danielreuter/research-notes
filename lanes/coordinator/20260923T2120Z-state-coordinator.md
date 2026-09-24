@@ -161,3 +161,11 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   `launchctl remove <label>` then `launchctl submit -l <label> -o LOG -e LOG -- CMD`); com.veritor.exthost-watch samples
   host RSS to ~/.veritor/exthost_mem.log and notifies at 2.8/3.4 GB. Laptop budget guard ~/.runpod/budget-verity-campaign
   died of ENOSPC on 09-22 08:15Z; the live backstop is vy-control budget_cap.py (cap $250, $45/h, 30 h/pod).
+- 04:30Z FINALS: ligerito-2pass-2 (lane/ligerito-2pass 0f6cc311; cargo 98/0, gates 11/11, pytest 218/218; fp8-ada 4090
+  4096 VUs non-ZK 0.404 / ZK 0.595 / live ZK 0.608 s, proof 1.16 MB, NON_ZK_PROOF_DIAGNOSTIC; art:af97c8ab) and fp4-port-2
+  (lane/fp4-port 1aa1f00e; 4090 local p4 +hash 0.2404 vs bare 0.0613 s; 29 arts preserved). Disjoint files. STAGED
+  lane/post-wave 650596bd = main b761c3a9 + both merges (plumbing, no worktree) -> after the wave: add ops-tools A +
+  wave-lane code commits, validate on ONE pod (cargo both crates, ligero + ligerito gates, fp4 gate), then ff main.
+  Carry: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True into code for ZK 4096 VUs on 4090; run.py hard-codes lane
+  "ligerito-relation" in the live hello; gate manifests say commit "unknown" on synced pods (read the pods-sync source
+  stamp); fp4 `--auth included-hash` goes after the subcommand; fp4+hash live path first exercised by wave-5090-2.

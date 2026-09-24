@@ -1,0 +1,25 @@
+test_cli.py: 8 passed in 0.72s
+test_mem_admission.py: 7 passed in 3.45s
+test_notes.py: 40 passed in 4.02s
+test_pod_guard_daemon.py: 29 passed in 9.68s
+test_pods_connect.py: 6 passed in 1.49s
+test_pods_drain.py: 4 passed in 0.26s
+test_pods_guard.py: 12 passed in 0.12s
+test_pods_part.py: 6 passed in 0.06s
+test_pythonpath.py: 2 failed, 3 passed in 0.98s
+test_record_result.py: 17 passed in 3.46s
+test_remote_cwd.py: 5 passed in 4.36s
+test_remote_local.py: 12 passed in 14.16s
+test_remote_ship_source.py: 10 passed in 4.40s
+test_remote_version.py: 4 passed in 0.77s
+test_repo_replicas.py: 3 skipped in 0.06s
+test_store.py: 40 passed in 19.80s
+test_store_honing.py: 14 passed in 33.54s
+test_store_labels_durability.py: 4 passed in 0.30s
+test_store_prov.py: 3 failed, 45 passed in 2.85s
+test_store_short_ids.py: 5 passed in 3.20s
+test_store_sql.py: 1 passed in 0.06s
+test_store_vllm_tools.py: 7 failed, 4 passed in 0.48s
+test_store_vocab.py: 11 passed in 0.21s
+test_telemetry.py: 38 passed, 1 skipped in 7.21s
+test_undeclared_derivation.py: 2 passed in 0.59s

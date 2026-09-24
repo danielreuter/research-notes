@@ -1,0 +1,2 @@
+research run --on vy-pod-runs-test: refused: shipping the source snapshot to /workspace/research/src/0b0768ed1411d1471744593c6392905cebaa43b2 exceeded 600s; the partial directory was removed, nothing is READY
+      616.12 real         1.45 user         1.74 sys

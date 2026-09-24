@@ -1,0 +1,4 @@
+time: command terminated abnormally
+     1035.82 real         1.44 user         0.55 sys
+time: signal: Invalid argument
+rc=1

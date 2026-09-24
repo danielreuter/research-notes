@@ -1,3 +1,4 @@
+CHECKPOINT 04700cb5 (17:18Z) [open] SP1 checks running from git-archive of 04700cb5 (r20260924-171410-4069); setup r20260924-171002-37a0; sync ~141/252MB; next: validate.sh (py + ligero + gkr) after sync
 CHECKPOINT 04700cb5 (17:06Z) [open] --source launch killed by guardian disk floor (handoff to coordinator); pods sync running (~100KB/s), setup r20260924-170644-a490 on pod; validate after sync
 CHECKPOINT 04700cb5 (16:55Z) [open] render identical to 1540Z except A-GKR hash text; pod vy-merge-postwave (3jmqlddtas1bj3, cpu3c) running validate r20260924-165536-47d1 (py suites + cargo check)
 CHECKPOINT 04700cb5 (16:51Z) [open] 5 merges clean (no conflicts), sp1-formats no-op confirmed; A-GKR hash fix 04700cb5; next: laptop render diff + pod cargo check/tests

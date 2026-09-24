@@ -1,0 +1,134 @@
+== 16:56:34Z ssh_rc=0
+STATE 2026-09-24T16:56:00Z busy idle_min=0.0 runners=['r20260924-165544-3013'] work=2 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 running rc=None unfetched stdout.log: === [16:56:09] torch 2.6.0+cu124 (compute capability ), numpy, cupy-cuda12x, blake3, pytest 
+LOG 2026-09-24T16:56:00Z VERDICT busy idle_min=0.0 runs=1 unfetched=r20260924-165544-3013
+== 16:57:07Z ssh_rc=0
+STATE 2026-09-24T16:57:00Z busy idle_min=0.0 runners=['r20260924-165544-3013'] work=5 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 running rc=None unfetched stdout.log: === [16:56:09] torch 2.6.0+cu124 (compute capability ), numpy, cupy-cuda12x, blake3, pytest 
+LOG 2026-09-24T16:56:00Z VERDICT busy idle_min=0.0 runs=1 unfetched=r20260924-165544-3013
+== 16:57:39Z ssh_rc=0
+STATE 2026-09-24T16:57:00Z busy idle_min=0.0 runners=['r20260924-165544-3013'] work=5 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 running rc=None unfetched stdout.log:  + typing-extensions==4.16.0
+LOG 2026-09-24T16:56:00Z VERDICT busy idle_min=0.0 runs=1 unfetched=r20260924-165544-3013
+== 16:58:11Z ssh_rc=0
+STATE 2026-09-24T16:58:00Z busy idle_min=0.0 runners=['r20260924-165544-3013'] work=4 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T16:56:00Z VERDICT busy idle_min=0.0 runs=1 unfetched=r20260924-165544-3013
+== 16:58:44Z ssh_rc=0
+STATE 2026-09-24T16:58:00Z busy idle_min=0.0 runners=['r20260924-165544-3013'] work=4 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T16:56:00Z VERDICT busy idle_min=0.0 runs=1 unfetched=r20260924-165544-3013
+== 16:59:16Z ssh_rc=0
+STATE 2026-09-24T16:59:00Z idle idle_min=1.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T16:59:00Z VERDICT idle idle_min=1.0 runs=1 unfetched=r20260924-165544-3013
+== 16:59:48Z ssh_rc=0
+STATE 2026-09-24T16:59:00Z idle idle_min=1.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T16:59:00Z VERDICT idle idle_min=1.0 runs=1 unfetched=r20260924-165544-3013
+== 17:00:22Z ssh_rc=0
+STATE 2026-09-24T17:00:00Z idle idle_min=2.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T16:59:00Z VERDICT idle idle_min=1.0 runs=1 unfetched=r20260924-165544-3013
+== 17:00:54Z ssh_rc=0
+STATE 2026-09-24T17:00:00Z idle idle_min=2.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T16:59:00Z VERDICT idle idle_min=1.0 runs=1 unfetched=r20260924-165544-3013
+== 17:01:26Z ssh_rc=0
+STATE 2026-09-24T17:01:00Z refuse idle_min=3.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=yes terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T17:01:00Z VERDICT refuse idle_min=3.0 runs=1 unfetched=r20260924-165544-3013
+== 17:01:59Z ssh_rc=0
+STATE 2026-09-24T17:01:00Z refuse idle_min=3.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=yes terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T17:01:00Z VERDICT refuse idle_min=3.0 runs=1 unfetched=r20260924-165544-3013
+== 17:02:32Z ssh_rc=0
+STATE 2026-09-24T17:02:00Z refuse idle_min=4.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=yes terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T17:01:00Z VERDICT refuse idle_min=3.0 runs=1 unfetched=r20260924-165544-3013
+== 17:03:04Z ssh_rc=0
+STATE 2026-09-24T17:03:00Z refuse idle_min=5.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=yes terminate=None
+RUN r20260924-165544-3013 failed rc=1 unfetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T17:01:00Z VERDICT refuse idle_min=3.0 runs=1 unfetched=r20260924-165544-3013
+== 17:03:37Z ssh_rc=0
+STATE 2026-09-24T17:03:00Z refuse idle_min=5.0 runners=[] work=0 unfetched=['r20260924-165544-3013'] refusal=yes terminate=None
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+LOG 2026-09-24T17:01:00Z VERDICT refuse idle_min=3.0 runs=1 unfetched=r20260924-165544-3013
+== 17:04:09Z ssh_rc=0
+STATE 2026-09-24T17:04:01Z terminate idle_min=6.0 runners=[] work=0 unfetched=[] refusal=no terminate={'at_utc': '2026-09-24T17:04:01Z', 'rc': 3, 'ok': False, 'output': "2026-09-24T17:04:01Z VERDICT terminate idle_min=6.0 runs=1 unfetched=
+2026-09-24T17:04:01Z GUARD terminate self (pujqfzfuaj15iy): idle >= 3 min, every run fetched
+no pod-scoped RUNPOD_API_KEY in the pod's environment"}
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+LOG no pod-scoped RUNPOD_API_KEY in the pod's environment
+== 17:04:42Z ssh_rc=0
+STATE 2026-09-24T17:04:01Z terminate idle_min=6.0 runners=[] work=0 unfetched=[] refusal=no terminate={'at_utc': '2026-09-24T17:04:01Z', 'rc': 3, 'ok': False, 'output': "2026-09-24T17:04:01Z VERDICT terminate idle_min=6.0 runs=1 unfetched=
+2026-09-24T17:04:01Z GUARD terminate self (pujqfzfuaj15iy): idle >= 3 min, every run fetched
+no pod-scoped RUNPOD_API_KEY in the pod's environment"}
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+LOG no pod-scoped RUNPOD_API_KEY in the pod's environment
+== 17:05:14Z ssh_rc=0
+STATE 2026-09-24T17:04:01Z terminate idle_min=6.0 runners=[] work=0 unfetched=[] refusal=no terminate={'at_utc': '2026-09-24T17:04:01Z', 'rc': 3, 'ok': False, 'output': "2026-09-24T17:04:01Z VERDICT terminate idle_min=6.0 runs=1 unfetched=
+2026-09-24T17:04:01Z GUARD terminate self (pujqfzfuaj15iy): idle >= 3 min, every run fetched
+no pod-scoped RUNPOD_API_KEY in the pod's environment"}
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+LOG no pod-scoped RUNPOD_API_KEY in the pod's environment
+== 17:05:48Z ssh_rc=0
+STATE 2026-09-24T17:04:01Z terminate idle_min=6.0 runners=[] work=0 unfetched=[] refusal=no terminate={'at_utc': '2026-09-24T17:04:01Z', 'rc': 3, 'ok': False, 'output': "2026-09-24T17:04:01Z VERDICT terminate idle_min=6.0 runs=1 unfetched=
+2026-09-24T17:04:01Z GUARD terminate self (pujqfzfuaj15iy): idle >= 3 min, every run fetched
+no pod-scoped RUNPOD_API_KEY in the pod's environment"}
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+LOG no pod-scoped RUNPOD_API_KEY in the pod's environment
+== 17:06:20Z ssh_rc=0
+STATE 2026-09-24T17:04:01Z terminate idle_min=6.0 runners=[] work=0 unfetched=[] refusal=no terminate={'at_utc': '2026-09-24T17:04:01Z', 'rc': 3, 'ok': False, 'output': "2026-09-24T17:04:01Z VERDICT terminate idle_min=6.0 runs=1 unfetched=
+2026-09-24T17:04:01Z GUARD terminate self (pujqfzfuaj15iy): idle >= 3 min, every run fetched
+no pod-scoped RUNPOD_API_KEY in the pod's environment"}
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+LOG no pod-scoped RUNPOD_API_KEY in the pod's environment
+== 17:06:53Z ssh_rc=0
+STATE 2026-09-24T17:06:35Z busy idle_min=0.0 runners=['r20260924-170607-e198'] work=1 unfetched=['r20260924-170607-e198'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+RUN r20260924-170607-e198 running rc=None unfetched stdout.log
+LOG 2026-09-24T17:06:35Z VERDICT busy idle_min=0.0 runs=2 unfetched=r20260924-170607-e198
+== 17:07:26Z ssh_rc=0
+STATE 2026-09-24T17:06:35Z busy idle_min=0.0 runners=['r20260924-170607-e198'] work=1 unfetched=['r20260924-170607-e198'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+RUN r20260924-170607-e198 done rc=0 unfetched stdout.log: guard e2e run 2 done
+LOG 2026-09-24T17:06:35Z VERDICT busy idle_min=0.0 runs=2 unfetched=r20260924-170607-e198
+== 17:07:58Z ssh_rc=0
+STATE 2026-09-24T17:07:35Z idle idle_min=1.0 runners=[] work=0 unfetched=['r20260924-170607-e198'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+RUN r20260924-170607-e198 done rc=0 unfetched stdout.log: guard e2e run 2 done
+LOG 2026-09-24T17:07:35Z VERDICT idle idle_min=1.0 runs=2 unfetched=r20260924-170607-e198
+== 17:08:31Z ssh_rc=0
+STATE 2026-09-24T17:07:35Z idle idle_min=1.0 runners=[] work=0 unfetched=['r20260924-170607-e198'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+RUN r20260924-170607-e198 done rc=0 unfetched stdout.log: guard e2e run 2 done
+LOG 2026-09-24T17:07:35Z VERDICT idle idle_min=1.0 runs=2 unfetched=r20260924-170607-e198
+== 17:09:04Z ssh_rc=0
+STATE 2026-09-24T17:08:35Z idle idle_min=2.0 runners=[] work=0 unfetched=['r20260924-170607-e198'] refusal=no terminate=None
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+RUN r20260924-170607-e198 done rc=0 unfetched stdout.log: guard e2e run 2 done
+LOG 2026-09-24T17:07:35Z VERDICT idle idle_min=1.0 runs=2 unfetched=r20260924-170607-e198
+== 17:09:36Z ssh_rc=0
+STATE 2026-09-24T17:09:35Z refuse idle_min=3.0 runners=[] work=0 unfetched=['r20260924-170607-e198'] refusal=yes terminate=None
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+RUN r20260924-170607-e198 done rc=0 unfetched stdout.log: guard e2e run 2 done
+LOG 2026-09-24T17:09:35Z VERDICT refuse idle_min=3.0 runs=2 unfetched=r20260924-170607-e198
+== 17:10:09Z ssh_rc=0
+STATE 2026-09-24T17:09:35Z refuse idle_min=3.0 runners=[] work=0 unfetched=['r20260924-170607-e198'] refusal=yes terminate=None
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+RUN r20260924-170607-e198 done rc=0 unfetched stdout.log: guard e2e run 2 done
+LOG 2026-09-24T17:09:35Z VERDICT refuse idle_min=3.0 runs=2 unfetched=r20260924-170607-e198
+== 17:10:41Z ssh_rc=0
+STATE 2026-09-24T17:10:35Z terminated idle_min=4.0 runners=[] work=0 unfetched=[] refusal=no terminate={'at_utc': '2026-09-24T17:10:36Z', 'rc': 0, 'ok': True, 'output': '2026-09-24T17:10:35Z GUARD terminate self (pujqfzfuaj15iy): idle >= 3 min, every run fetched
+REST DELETE HTTP 403: 
+TERMINATED pujqfzfuaj15iy (GraphQL podTerminate, HTTP 200)'}
+RUN r20260924-165544-3013 failed rc=1 fetched stdout.log: BOOTSTRAP_FAILED
+RUN r20260924-170607-e198 done rc=0 fetched stdout.log: guard e2e run 2 done
+LOG 2026-09-24T17:10:36Z GUARD daemon 2866: termination accepted; exiting
+== 17:11:11Z ssh_rc=255
+ssh: connect to host 91.199.227.82 port 33588: Connection refused
+POD_UNREACHABLE
+== 17:11:41Z ssh_rc=255
+ssh: connect to host 91.199.227.82 port 33588: Connection refused
+POD_UNREACHABLE

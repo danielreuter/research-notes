@@ -46,6 +46,8 @@ the same validity predicate. Non-canonical, layout fixed here:
   chip)" in its backend name and footnote.
 - A-GKR column = the best valid A-GKR implementation in its declared class (`NON_ZK_PROOF_DIAGNOSTIC` / `NON_ZK_PROOF`).
 - Hill-climb A-GKR and SP1 on the new infrastructure (user, 05:25Z).
+- Standing permission (user, 05:27Z): if a more promising GKR variant turns up, it gets its own hill-climbing lane. Any lane
+  that finds one writes a handoff to the coordinator with the evidence (measured or modelled speed, what changes).
 
 ## 3. What a Table 2 cell needs (tables.py is the judge)
 

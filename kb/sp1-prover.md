@@ -18,6 +18,15 @@ v6.4.0 source (`f66b4bff5`).
   keep variants apart. The server's debug log arrives on the host's **stdout**.
 - A recursion (compress/Groth16) proof over a new chip fails vk-map membership unless the recursion vk map is rebuilt.
   Such variants are core-proof only.
+- A custom chip's CPU tracegen sits on its shard's critical path, twice. The prover worker runs
+  `generate_dependencies` before the record goes to the GPU. Without an override, the default builds the whole trace
+  just to collect byte lookups, and the server then builds it again. Write both as SP1's own chips do (`ShaExtend`):
+  - `generate_trace_into`: `par_chunks_mut` over rows, with a throwaway lookup `Vec`;
+  - `generate_dependencies`: `par_chunks` of the events into per-thread `HashMap` lookups, then
+    `add_byte_lookup_events_from_maps`.
+
+  TcDotBf16 (1173 columns, 84k rows) was sequential. Fork patch 0011 fixed it: its shards reached the GPU 0.5 s sooner,
+  and t.total went from 5.63 to 4.98 s (`art:2a4760fb…`).
 - Reproducibility: compare `vk_hash`, not the guest ELF's sha256. The vk hashes only the loaded program image, so an
   independent build can differ in debug-info paths and still give the same vk (verify-night `art:4bfc9e7e…` on
   `art:90671b80…`). To make the ELF reproduce too, `--remap-path-prefix` every checkout path that reaches the guest,
@@ -34,12 +43,32 @@ v6.4.0 source (`f66b4bff5`).
   their real area. Patch 0006 fixes this. `syscall_sent()` is set only for non-retained syscalls (`splicing.rs`
   `execute_ecall`).
 - `SHARD_SIZE` does not cut CPU shards in 6.4.0; only the area estimate does.
-- The GPU proves one shard at a time (permit). Measured on the A100 at B=4096 bf16 (`art:6e415853…` and its
-  screenings): 1.8-1.9 ns per cell plus about 0.09-0.15 s fixed per shard. The first large shard of a server's life
-  pays a one-time allocation (up to +3 s at 5e8 cells), so warm up with a full-size proof.
-- Before the first GPU work (about 1.7-2.3 s at 4.9M cycles and 25 MB input), the server runs these steps in series:
-  executor setup 0.36 s, execution, splice serialization (the memory-read log, 79 MB), and memory-shard emission (only
-  after all splicing), then the first shard's CPU trace.
+- The GPU proves one shard at a time: `ProverSemaphore::new(1)` in `cuda_worker_builder_with_machine`, and a single
+  `CudaShardProver` whose trace buffers are preallocated for one shard. Raising the permit count alone would share
+  those buffers.
+  - Measured on the A100 at B=4096 bf16 (`art:6e415853…` and its screenings): 1.8-1.9 ns per cell plus about
+    0.09-0.15 s fixed per shard.
+  - With the TC_DOT chip (`art:0a66c35e…` screenings): 0.22 s at 16-29M cells, 0.44 s at 122M, 0.53-0.57 s at 195M.
+    That is about 0.2-0.25 s fixed plus 1.5-2 ns per cell, so fewer, larger precompile shards pay: ELEMENT_THRESHOLD 2x
+    beats 1.25x by about 0.5 s.
+  - The first large shard of a server's life pays a one-time allocation (up to +3 s at 5e8 cells), so warm up with a
+    full-size proof.
+- Precompile shards are emitted incrementally. Each CPU shard's prover uploads its deferred events, and the controller
+  (`controller/precompiles.rs`) cuts full precompile shards as they accumulate. So a precompile shard waits for the CPU
+  shard that issued its calls, then for its own CPU tracegen.
+- `MINIMAL_TRACE_CHUNK_THRESHOLD` counts minimal-trace memory values, not cycles. Streamed input words count too:
+  0.86M cycles gave 4.8M values. Each chunk gives at least one CPU shard. More chunks with as many
+  `SP1_WORKER_NUM_SPLICING_WORKERS` (default 2) trace CPU shards in parallel and start the GPU sooner, despite the
+  per-shard fixed cost. On TC_DOT: 4 chunks and 4 splicers beat 2 and 2 by about 0.25 s.
+- Before the first GPU work, the server runs these steps in series.
+  - At 4.9M cycles and 25 MB input (about 1.7-2.3 s): executor setup 0.36 s, execution, splice serialization (the
+    memory-read log, 79 MB), and memory-shard emission (only after all splicing), then the first shard's CPU trace.
+  - At 0.86M cycles with 4 chunks (`art:0a66c35e…`, 1.2 s): vk setup 0.09 s; CoreExecute task to "Starting minimal
+    executor" 0.39 s; execution 0.31 s (chunks are spliced as they close); the first chunk's tracing re-execution and
+    dependencies 0.34 s.
+  - The host's prove time exceeds the server's span by about 0.3 s (request and proof transfer).
+- `MinimalExecutorRunner::reset` (`crates/core/runner/src/native.rs`) rebuilds the transpiler's shared memory as `new`
+  does. So even a working minimal-executor cache would not remove all of that setup.
 
 ## Memory argument cost
 - Each 64-bit word a program touches costs about 4 Global rows (241 columns), plus MemoryLocal, MemoryGlobalInit and

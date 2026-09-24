@@ -36,3 +36,26 @@
 06:56Z h100 b16b-v1p8-r1 result=art:cfb2fffb673471c08e44d7a15d5cc4d921eadfdf6d8824f5c834f9350b8e7f0c t.total=0.1784 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=
 06:56Z h100 b16h-v1p8-r1 result=art:a65a8f870ff3a03ad6f6cb202a5636023dcc8ed28b2cc0bd9a86243763918504 t.total=0.5473 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash
 06:56Z h100 b16h-v1p8-r2 result=art:8a21fc7fac25519335fea52ddf780111c6a1e6a5f32e4c98f8789e20d0ec728b t.total=0.5445 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash
+06:56Z h100 b16b-v1p8-r2 result=art:3738dcdaa8dd9dc261f042d0eee1f87fb1c208494c7f8d082ff59fe692e66396 t.total=0.1793 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=
+06:56Z h100 b16b-x4p8-r2 result=art:92f0e3e759ef428b05d6eaace8d8025f6eaa9c123e5944bee7dc5ed70e465c43 t.total=0.5196 | h100 sweep local rel=bf16-hopper-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
+06:56Z h100 b16b-x4p4-r2 result=art:03b02093cb065543ec6e59cf20b634c445292bd57ae76e10176e6a499596d94c t.total=0.1465 | h100 sweep local rel=bf16-hopper-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:56Z h100 f8h-v1p4-r2 result=art:ca3335c1c8750545e1dc2924833632c2f7ed881d427d705b14c9bc568549c705 t.total=0.3118 | h100 sweep local rel=fp8-hopper l=16384 p=4 reps=5 dump=0 live= args=--auth included-hash
+06:57Z h100 f8b-v1p4-r2 result=art:99264b5afd1b1720bb5098e787fadd525ee518195b32cf238c4d63819e0aba47 t.total=0.1106 | h100 sweep local rel=fp8-hopper l=16384 p=4 reps=5 dump=0 live= args=
+06:57Z h100 f8b-x4p4-r2 result=art:968ad291249326178119d8bf1fa5c99cf557c4dbc5729df163ca9c709339325a t.total=0.0778 | h100 sweep local rel=fp8-hopper-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:57Z h100 f8b-x4p8-r2 result=art:4a5f4d9ad1d8494572c1ea89df186d35563cadd50c2a183cf982a8ee9fa7a4af t.total=0.0811 | h100 sweep local rel=fp8-hopper-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
+06:57Z h100 f8b-x4p8-r3 result=art:7572592a2eee685b4662221b9c973f7dcc0f1d1fe0d38ab248c3642a07eef4cc t.total=0.0738 | h100 sweep local rel=fp8-hopper-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
+06:57Z h100 f8b-x4p4-r3 result=art:98b82f029741437df7eda8913c6b7d69f56ae8cc83e2cbf416e428dd7e818829 t.total=0.0869 | h100 sweep local rel=fp8-hopper-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:57Z h100 f8b-v1p4-r3 result=art:b8dea9fb6cb23fd699d230b27477620fa4a0504a253e0c4f8a9a61dcfc907579 t.total=0.1520 | h100 sweep local rel=fp8-hopper l=16384 p=4 reps=5 dump=0 live= args=
+06:57Z h100 f8h-v1p4-r3 result=art:32d899c93571b5e08d8282831e8e85fc471e856ee60ac9f7ef8e3b642e12fef6 t.total=0.3098 | h100 sweep local rel=fp8-hopper l=16384 p=4 reps=5 dump=0 live= args=--auth included-hash
+06:57Z h100 b16b-x4p4-r3 result=art:84e8b534cebc2647688a889ee04cbd3e3e007632847bf8ecc583d0a6f17e9dde t.total=0.1415 | h100 sweep local rel=bf16-hopper-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:57Z h100 b16b-x4p8-r3 result=art:6700d965a568abf08b698dadd459853f6b0414198b3f795b56fa08f5a8294e38 t.total=0.1424 | h100 sweep local rel=bf16-hopper-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
+06:57Z h100 b16b-v1p8-r3 result=art:5ad0a5b7b229936211fd6320f028a35cbe14aaed754522aab6a694a276e0d733 t.total=0.1943 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=
+06:57Z h100 b16h-v1p8-r3 result=art:95850cc52107f390ee3d6adaba9214a40b0be0ce3dce5cdf9ed4a4f7573df1a4 t.total=0.5384 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash
+06:58Z a100 ab-v3p8-r1 result=art:031314e853ecc4a303239c39ee7fb12b44dc0763645cd88d3c902dac33abcc71 t.total=0.2352 | a100 sweep local rel=bf16-ampere-v3 l=16384 p=8 reps=5 dump=0 live= args=
+06:58Z a100 ab-x4p8-r1 result=art:a0d451bb0e4ce7157e3ad5f8a92c65c8b013e7f6d67b9369f94be30fa2a53da2 t.total=0.6043 | a100 sweep local rel=bf16-ampere-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
+06:58Z a100 ab-x4p4-r1 result=art:44c36673556ef6a243d208e5275a29379a75eb3dcefdb03a189bc5f9ba7b70a9 t.total=0.3057 | a100 sweep local rel=bf16-ampere-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:58Z a100 ah-v1p8-r1 result=art:b84bb2a9fbc703b36ab2cc0f73fedae20d69c90ad7d5fe71a82f0dce8ba8cc19 t.total=1.0149 | a100 sweep local rel=bf16-ampere l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash
+06:58Z a100 ah-v1p8-r2 result=art:f8f085baab28e7fc28635581c07b6da3f9282ff14c8b5bc625761f72db00661a t.total=0.9958 | a100 sweep local rel=bf16-ampere l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash
+06:58Z a100 ab-x4p4-r2 result=art:83aa209aff629acfb8c8f7e16b6754bcc0ec71b1e8e7e65d32d942f7a854f061 t.total=0.2702 | a100 sweep local rel=bf16-ampere-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:58Z a100 ab-x4p8-r2 result=art:8a34106a672542b718e87ad48cbec185f49957af9f50a5d1fd056b9a45ac623b t.total=0.4992 | a100 sweep local rel=bf16-ampere-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
+06:58Z a100 ab-v3p8-r2 result=art:8aee3f9c7f3cddcf8e3125a157d2cd3254c21e6af329ce1041bd0470f04dc81a t.total=0.2597 | a100 sweep local rel=bf16-ampere-v3 l=16384 p=8 reps=5 dump=0 live= args=

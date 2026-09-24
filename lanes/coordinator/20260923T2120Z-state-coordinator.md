@@ -121,3 +121,5 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
 - 01:15Z ligerito-relation-3 FINAL 498f9014 (finish checks ok; pod terminated 01:00Z). It terminated the pod verify-rs-5 was
   routed to (my 00:58Z note arrived late) -> verify-rs-5 approved to run cargo on the laptop (one-off), no pod, FINAL 02:30Z.
   Ligerito second pass planned after integration (device-wave inputs §01:15Z). Ligerito stays NON_ZK_PROOF_DIAGNOSTIC.
+
+- 01:11Z verify-rs-5 FINAL: `lane/verify-rs-3` @ a87edaa0 (pushed; fix 1ece0c34). Rust `--session` reads the RO verifier's whole store (s… records = zero batches); cargo 98/1 ignored (laptop, one-off); whole-store claims unchanged 5aa5 2^-128.435 / a1a0 2^-126.422 / f283 2^-125.416 (art:f2f27f16, store art:d04ee43a). Ligerito SECOND PASS merges: relation-3 498f9014 + sumcheck-4 58e76e5d + verify-rs-3 a87edaa0 (supersedes verify-rs-4 0e4ef1d1). Handoff 20260924T0111Z-handoff-from-verify-rs-5.md read.

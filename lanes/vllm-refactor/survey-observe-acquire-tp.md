@@ -2,7 +2,7 @@
 id: vllm-refactor/survey-observe-acquire-tp
 lane: vllm-refactor
 kind: survey
-status: in-progress
+status: complete
 created: 2026-09-24
 checkout: f0810a11 (lane/vllm-cleanup-2)
 slice: integrations/vllm/verity_vllm/{observe,acquire,tp,input_provenance}
@@ -30,7 +30,7 @@ Global counts over the slice (before per-module detail):
 - verity core imports: only `verity.ir.{defs,refs,types,codec,program}` (`observe/fold.py`, `observe/memory.py`, `observe/patterns*.py`, the `profiles/gen_*` pattern modules, `tp/embedding_shard.py`, `tp/rank_match.py`, `input_provenance/analytic.py`). Nothing in the slice imports `verity.verification.*` or `verity.commitments.*`, although `acquire/` is mostly a commitment engine.
 - Cross-subpackage back-edges (file:line in each section): `observe` imports `harness`, `check`, `acquire`, `tp`, `correspondence`, `commit`; `acquire` imports `harness`, `observe`, `correspondence`, `input_provenance`; `tp` imports `harness` (7), `check` (6), `acquire` (4), `query` (3); `input_provenance` imports `check` (3), `query` (3), `harness` (1), `observe` (3).
 
-(Sections below are appended as each module group is finished.)
+Sections 1-4 cover one subpackage each. Section 5 holds the slice-specific maps, section 6 the disposition table, and section 7 the totals and the twelve most important findings.
 
 ---
 
@@ -734,3 +734,39 @@ Three proposed homes do not exist yet:
 | `root_policy.py` | move to `check/` | it is gate G3; removes the input_provenance -> observe and input_provenance -> check edges |
 
 Tally over the 78 modules: keep 28 (13 in `observe/`, 11 in `acquire/`, 2 in `tp/`, 2 in `input_provenance/`), move 40, merge 9, delete 1, replace with core 0. No whole module can be replaced by core today, because core lacks the pieces the slice needs (a pluggable leaf hash, a float policy for canonical JSON, rank-indexed commitments). Core replacements apply inside modules instead: `committer_api.Opening`, the tree and opening code in `native_host.py`, and the canonical-JSON helpers.
+
+---
+
+## 7. Slice totals and the most important findings
+
+| category | `observe/` | `acquire/` | `tp/` | `input_provenance/` | total |
+|---|---:|---:|---:|---:|---:|
+| CORE-DUP | 3 | 3 | 0 | 2 | 8 |
+| INTERNAL-DUP | 8 | 5 | 6 | 5 | 24 |
+| VERSION-RESIDUE | 10 | 6 | 4 | 2 | 22 |
+| HARDCODING | 9 | 5 | 4 | 3 | 21 |
+| SCRIPT/ENV/PATH | 8 | 6 | 5 | 2 | 21 |
+| LAYERING | 8 | 3 | 4 | 3 | 18 |
+| GOD-MODULE | 5 | 3 | 2 | 1 | 11 |
+| DEAD | 7 | 4 | 3 | 1 | 15 |
+| NAMING | 6 | 5 | 4 | 3 | 18 |
+| DOCS | 5 | 4 | 3 | 3 | 15 |
+| FALLBACKS | 7 | 5 | 3 | 4 | 19 |
+| OTHER-WEIRD | 10 | 6 | 5 | 2 | 23 |
+| total | 86 | 55 | 43 | 31 | 215 |
+
+By severity: 25 high (7 in `observe/`, 10 in `acquire/`, 8 in `tp/`), 100 medium, 75 low. The 15 DEAD items carry confidence labels instead: 9 high, 6 medium.
+
+**The twelve most important findings**
+1. TP value checks compare the committer's retained in-process buffers, not opened values, so nothing shows that the checked bytes are the committed ones: `tp/worker.py:1192`, `tp/partial_source.py:59-65, 396`.
+2. The production commitment engine lives in `acquire/`, never imports `verity.commitments`, and carries its own copies of core's tree folding and opening paths with integration hash tags: `acquire/native_host.py:57, 407-418`.
+3. The acquisition plan's digest depends on whether torch imports. `_lifetime_tables` silently becomes empty on a torch-less CPU gate, so the CPU and GPU plans differ for the same inputs: `acquire/plan.py:371-377`.
+4. Environment variables change what is committed, including the leaf layout and therefore the root: `acquire/native_collect.py:714-787` (`VERITY_LAYOUT` at `:721-723`). The capture CLIs also mutate the engine environment at import: `observe/engine_profile.py:81-86`, via `observe/m1_capture.py:44-46` and `tp/capture.py:34-36`.
+5. The profile id, which prefixes every leaf id, is unstable and partly wrong. Any exception swaps in a fallback schema (`observe/vllm_adapter.py:973-983`); the pod name is hashed in (`observe/engine_profile.py:230`); sm_90 FP8 roles are labelled sm89 (`observe/profiles/generic.py:333-335`).
+6. The only named evidence that the patched FlashAttention kernels are bit-identical to vLLM's (`fa2_tap_xcheck.py`, `fa3_tap_xcheck.py`) does not exist in the repo: `acquire/hidden_source.py:234, 387`.
+7. About 15 monkeypatch points with no single owner; the compiled-mode class patches are never undone: `acquire/compiled_source.py:231-265, 389-390`, `observe/triton_adapter.py:30-50`, and three `runner.sample` wrappers.
+8. Collective semantics are implemented four times (`program/registry/b1_tp2.py:98-177`, `tp/export_ops.py:42-80`, `tp/match.py:240-256`, `tp/xrank_collectives.py:166-172`). The collective patch is written twice with different MoE coverage: `tp/partial_source.py:23-31` vs `tp/worker.py:546-560, 81-82`.
+9. The TP drivers are twins of the single-rank drivers: `tp/capture.py:42-52, 87-88, 101` vs `observe/m1_capture.py`; `tp/commit.py:1-2`; `tp/worker.py:1116` ("taken verbatim"). Token parity is re-implemented in `tp/` instead of reusing `check/noninterference.py`.
+10. God modules: `observe/vllm_adapter.py` (1,949 lines, 11 jobs), `acquire/native_host.py` (2,587, 15 jobs), `tp/worker.py` (1,579, 14 jobs), and `tp/commit.py:322-1173` (one 852-line `main`).
+11. Layering cycles: observe <-> commit (`observe/capture_v1.py:49`, `commit/merkle.py:35`); observe <-> input_provenance (`input_provenance/root_policy.py:42-43, 111`, `observe/fold.py:106`); acquire <-> commit; and the rank worker depends on a driver module (`tp/worker.py:639`).
+12. Weak identity checks in checkpoint authentication: two Program digests are treated as equal when one is a 16-hex-character prefix of the other, and revisions match on 10 characters: `input_provenance/weights_of_record.py:676-677, 160, 705`.

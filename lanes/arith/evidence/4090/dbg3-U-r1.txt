@@ -1,0 +1,37 @@
+DBG 32000834.921 gc gen=2 ms=92.8 collected=0
+DBG 32000835.260 gc gen=2 ms=110.2 collected=300
+DBG 32000835.707 gc gen=2 ms=137.7 collected=0
+DBG 32000835.918 gc gen=2 ms=163.2 collected=0
+DBG 32000836.339 gc gen=2 ms=181.1 collected=713
+DBG 32000836.860 gc gen=1 ms=2.2 collected=0
+DBG 32000837.293 gc gen=2 ms=208.7 collected=712
+DBG 32000838.011 gc gen=2 ms=220.0 collected=2213
+DBG 32000838.279 gc gen=2 ms=215.1 collected=0
+DBG 32000838.514 gc gen=2 ms=210.7 collected=0
+DBG 32000838.747 gc gen=2 ms=209.5 collected=0
+DBG 32000838.982 gc gen=2 ms=210.4 collected=0
+DBG 32000839.215 gc gen=2 ms=209.1 collected=0
+DBG 32000839.460 gc gen=2 ms=221.3 collected=0
+DBG 32000839.708 gc gen=2 ms=222.4 collected=0
+DBG 32000839.954 gc gen=2 ms=225.4 collected=0
+DBG 32000840.187 gc gen=2 ms=222.9 collected=0
+DBG 32000840.403 gc gen=2 ms=205.8 collected=0
+DBG 32000840.627 gc gen=2 ms=207.3 collected=0
+DBG 32000840.845 gc gen=2 ms=207.8 collected=0
+DBG 32000841.064 gc gen=2 ms=208.7 collected=0
+DBG 32000841.280 gc gen=2 ms=205.9 collected=0
+DBG 32000841.518 gc gen=2 ms=206.9 collected=0
+DBG 32000841.785 gc gen=2 ms=210.8 collected=0
+DBG 32000841.812 pass wall=4433.3 busy=4422.5 waited=10.5 stages={-1: 0.34, 0: 2343.44, 1: 7.62, 2: 2015.44, 3: 30.93, 4: 25.11} alloc=(369, 146, 0)
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.0, 'hints_host': 54.397, 'witness': 0.034, 'self_check': 1.865, 'zk_masks': 0.02, 'encode': 0.002, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 0.09, 'tests_quad': 0.0, 'tests_chain': 0.0, 
+DBG 32000841.922 pass wall=88.0 busy=26.2 waited=61.5 stages={-1: 0.23, 0: 7.41, 1: 0.38, 2: 2.4, 3: 3.89, 4: 12.14} alloc=(378, 146, 0)
+rep 1: prover 0.084s (+hints 0.004s) over 13 proofs; verifier 0.245s; pass wall 0.450s (0.021 ms/VU)
+DBG 32000842.440 pass wall=155.1 busy=113.7 waited=41.2 stages={-1: 0.27, 0: 8.11, 1: 0.38, 2: 2.78, 3: 5.47, 4: 96.91} alloc=(378, 146, 0)
+rep 2: prover 0.150s (+hints 0.005s) over 13 proofs; verifier 0.235s; pass wall 0.391s (0.038 ms/VU)
+DBG 32000842.765 pass wall=89.5 busy=29.7 waited=59.5 stages={-1: 0.27, 0: 7.38, 1: 0.41, 2: 2.72, 3: 3.55, 4: 15.67} alloc=(378, 146, 0)
+rep 3: prover 0.085s (+hints 0.004s) over 13 proofs; verifier 0.247s; pass wall 0.338s (0.022 ms/VU)
+DBG 32000843.095 pass wall=81.6 busy=26.6 waited=54.7 stages={-1: 0.27, 0: 7.95, 1: 0.49, 2: 4.14, 3: 4.07, 4: 9.97} alloc=(378, 146, 0)
+rep 4: prover 0.077s (+hints 0.004s) over 13 proofs; verifier 0.263s; pass wall 0.345s (0.020 ms/VU)
+DBG 32000843.441 pass wall=82.7 busy=24.2 waited=58.2 stages={-1: 0.29, 0: 7.17, 1: 0.5, 2: 3.17, 3: 3.89, 4: 9.47} alloc=(378, 146, 0)
+rep 5: prover 0.078s (+hints 0.005s) over 13 proofs; verifier 0.256s; pass wall 0.340s (0.020 ms/VU)
+DBG 32000844.276 gc gen=2 ms=128.1 collected=1372

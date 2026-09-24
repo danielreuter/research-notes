@@ -1,0 +1,7 @@
+boolcomb 3521x16640: scalar 0.567 ms | v4 0.571 ms
+lincomb 3521x16640: torch 3.00 ms | fused 0.57 ms
+boolcomb 2534x65536: scalar 0.835 ms | v4 0.763 ms
+lincomb 2534x65536: torch 10.49 ms | fused 0.76 ms
+quad_general 853x65536: torch 30.60 ms | fused 1.29 ms
+exact: {'lincomb_37x1000_int32': True, 'boolcomb_37x1000_int32': True, 'boolcomb_rows_12x1000_int32': True, 'lincomb_3521x16640_int64': True, 'boolcomb_3521x16640_int64': True, 'boolcomb_rows_1173x16640_int64': True, 'lincomb_2534x65536_int32': True, 'boolcomb_2534x65536_int32': True, 'boolcomb_rows_844x65536_int32': True, 'quad_general_853x65536': True, 'quad_v4_vs_scalar_301x4096': True, 'reduce_partial': True, 'lincomb2_vs_lincomb_1037x2176': True}
+bit-exact: PASS

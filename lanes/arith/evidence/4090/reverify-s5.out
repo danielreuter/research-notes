@@ -1,0 +1,21 @@
+/workspace/research/store/labels/art_def461c79d1ad612cc21285f13738b00520fd2f720fbe2fe172e4750eef06b7e/20260924T213200Z-arith.json
+/workspace/research/store/labels/art_def461c79d1ad612cc21285f13738b00520fd2f720fbe2fe172e4750eef06b7e/20260924T213200Z-arith~2.json
+/workspace/research/store/labels/art_def461c79d1ad612cc21285f13738b00520fd2f720fbe2fe172e4750eef06b7e/20260924T213200Z-arith~3.json
+/workspace/research/store/labels/art_def461c79d1ad612cc21285f13738b00520fd2f720fbe2fe172e4750eef06b7e/20260924T213200Z-arith~4.json
+art:def461c79d1a… r20260924-210944-5e35: custody 40/40, pinned=fp8-ada-v3x4, 13/13, 2^-128.33 PASS -> verdict art:39382cd495baf72df7c072c49a3599496f8d59684243a60cd3e192992f25790c  (2.6s)
+/workspace/research/store/labels/art_bb75ba4f68dcf0a27733243eda903082067903c650173f054894056e06fd38db/20260924T213202Z-arith.json
+/workspace/research/store/labels/art_bb75ba4f68dcf0a27733243eda903082067903c650173f054894056e06fd38db/20260924T213202Z-arith~2.json
+/workspace/research/store/labels/art_bb75ba4f68dcf0a27733243eda903082067903c650173f054894056e06fd38db/20260924T213202Z-arith~3.json
+/workspace/research/store/labels/art_bb75ba4f68dcf0a27733243eda903082067903c650173f054894056e06fd38db/20260924T213202Z-arith~4.json
+art:bb75ba4f68dc… r20260924-210944-5e35: custody 40/40, pinned=fp8-ada-v3x4, 13/13, 2^-128.33 PASS -> verdict art:171af5c11888fa8c41a6f1b0786e409e778c148a903fb13eea944f264807b333  (2.1s)
+/workspace/research/store/labels/art_d2b01b3f50f5be46537617b9d01772e3321ae03df0838ea50b08a63a7de60e5d/20260924T213205Z-arith.json
+/workspace/research/store/labels/art_d2b01b3f50f5be46537617b9d01772e3321ae03df0838ea50b08a63a7de60e5d/20260924T213205Z-arith~2.json
+/workspace/research/store/labels/art_d2b01b3f50f5be46537617b9d01772e3321ae03df0838ea50b08a63a7de60e5d/20260924T213205Z-arith~3.json
+/workspace/research/store/labels/art_d2b01b3f50f5be46537617b9d01772e3321ae03df0838ea50b08a63a7de60e5d/20260924T213205Z-arith~4.json
+art:d2b01b3f50f5… r20260924-210944-5e35: custody 40/40, pinned=fp8-ada-v3x4, 13/13, 2^-128.33 PASS -> verdict art:04e43e2e4e62f846a22f26c105039e352a745b1e2bffb637584cf9ae2a4ae01a  (2.7s)
+/workspace/research/store/labels/art_f3978133309e10fce1d78fc879f4e9825b02e0d7c389aab15087a89efb106a40/20260924T213207Z-arith.json
+/workspace/research/store/labels/art_f3978133309e10fce1d78fc879f4e9825b02e0d7c389aab15087a89efb106a40/20260924T213207Z-arith~2.json
+/workspace/research/store/labels/art_f3978133309e10fce1d78fc879f4e9825b02e0d7c389aab15087a89efb106a40/20260924T213207Z-arith~3.json
+/workspace/research/store/labels/art_f3978133309e10fce1d78fc879f4e9825b02e0d7c389aab15087a89efb106a40/20260924T213207Z-arith~4.json
+art:f3978133309e… r20260924-210944-5e35: custody 40/40, pinned=fp8-ada-v3x4, 13/13, 2^-128.33 PASS -> verdict art:51788c35e9c0a97b2f12af90fb4475e5c63c19391b34d8dae41546303097d602  (2.1s)
+4 result(s): PASS 4; verifier ligero-verify(sha256 d89cffc7b759e1f5)

@@ -1,0 +1,32 @@
+DBG 31998553.314 static-new stream=808181136 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31998553.567 commit_graph-capture stream=808181136 ms=251.7
+DBG 31998553.575 static-new stream=808267216 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31998553.797 commit_graph-capture stream=808267216 ms=221.8
+DBG 31998553.798 static-new stream=808267984 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31998554.014 commit_graph-capture stream=808267984 ms=215.7
+DBG 31998554.015 static-new stream=808304976 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31998554.233 commit_graph-capture stream=808304976 ms=217.6
+DBG 31998554.234 static-new stream=808305744 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31998554.452 commit_graph-capture stream=808305744 ms=217.1
+DBG 31998554.453 static-new stream=270207888 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31998554.671 commit_graph-capture stream=270207888 ms=218.1
+DBG 31998554.672 static-new stream=270208656 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31998554.891 commit_graph-capture stream=270208656 ms=218.9
+DBG 31998554.893 static-new stream=808392896 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31998555.110 commit_graph-capture stream=808392896 ms=217.3
+DBG 31998555.325 tests-capture stream=808181136 lkey=(4096, 341, 12) ms=209.0
+DBG 31998555.543 tests-capture stream=808267216 lkey=(4096, 341, 12) ms=217.1
+DBG 31998555.752 tests-capture stream=808267984 lkey=(4096, 341, 12) ms=208.9
+DBG 31998555.974 tests-capture stream=808304976 lkey=(4096, 341, 12) ms=215.6
+DBG 31998556.186 tests-capture stream=808305744 lkey=(4096, 341, 12) ms=211.1
+DBG 31998556.397 tests-capture stream=270207888 lkey=(4096, 341, 12) ms=211.3
+DBG 31998556.610 tests-capture stream=270208656 lkey=(4096, 341, 12) ms=212.3
+DBG 31998556.851 tests-capture stream=808392896 lkey=(4096, 341, 12) ms=221.1
+DBG 31998557.102 tests-capture stream=808181136 lkey=(4096, 4, 12) ms=232.6
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.0, 'hints_host': 54.262, 'witness': 0.033, 'self_check': 1.865, 'zk_masks': 0.02, 'encode
+DBG 31998557.567 tests-capture stream=808305744 lkey=(4096, 4, 12) ms=249.4
+rep 1: prover 0.329s (+hints 0.010s) over 13 proofs; verifier 0.242s; pass wall 0.760s (0.083 ms/VU)
+rep 2: prover 0.084s (+hints 0.004s) over 13 proofs; verifier 0.232s; pass wall 0.321s (0.022 ms/VU)
+rep 3: prover 0.081s (+hints 0.003s) over 13 proofs; verifier 0.240s; pass wall 0.326s (0.021 ms/VU)
+rep 4: prover 0.080s (+hints 0.005s) over 13 proofs; verifier 0.234s; pass wall 0.320s (0.021 ms/VU)
+rep 5: prover 0.082s (+hints 0.004s) over 13 proofs; verifier 0.240s; pass wall 0.328s (0.021 ms/VU)

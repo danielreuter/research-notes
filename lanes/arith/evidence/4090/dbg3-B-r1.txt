@@ -1,0 +1,36 @@
+DBG 32000767.139 gc gen=2 ms=89.7 collected=0
+DBG 32000767.479 gc gen=2 ms=113.6 collected=300
+DBG 32000767.923 gc gen=2 ms=143.4 collected=0
+DBG 32000768.134 gc gen=2 ms=161.8 collected=0
+DBG 32000768.562 gc gen=2 ms=177.0 collected=730
+DBG 32000769.520 gc gen=2 ms=209.3 collected=712
+DBG 32000770.230 gc gen=2 ms=220.4 collected=2213
+DBG 32000770.508 gc gen=2 ms=221.9 collected=0
+DBG 32000770.745 gc gen=2 ms=213.4 collected=0
+DBG 32000770.991 gc gen=2 ms=221.6 collected=0
+DBG 32000771.228 gc gen=2 ms=212.7 collected=0
+DBG 32000771.465 gc gen=2 ms=212.3 collected=0
+DBG 32000771.701 gc gen=2 ms=212.2 collected=0
+DBG 32000771.944 gc gen=2 ms=218.5 collected=0
+DBG 32000772.175 gc gen=2 ms=212.1 collected=0
+DBG 32000772.402 gc gen=2 ms=215.6 collected=0
+DBG 32000772.628 gc gen=2 ms=216.2 collected=0
+DBG 32000772.863 gc gen=2 ms=218.4 collected=0
+DBG 32000773.092 gc gen=2 ms=219.2 collected=0
+DBG 32000773.309 gc gen=2 ms=206.9 collected=0
+DBG 32000773.536 gc gen=2 ms=216.6 collected=0
+DBG 32000773.783 gc gen=2 ms=216.7 collected=0
+DBG 32000774.053 gc gen=2 ms=217.4 collected=0
+DBG 32000774.078 pass wall=4472.8 busy=4465.1 waited=7.5 stages={-1: 0.33, 0: 2352.13, 1: 7.42, 2: 2053.02, 3: 30.42, 4: 22.11} alloc=(369, 147, 0)
+DBG 32000774.183 pass wall=82.5 busy=27.0 waited=55.3 stages={-1: 0.25, 0: 8.35, 1: 0.4, 2: 2.53, 3: 3.67, 4: 12.09} alloc=(379, 147, 0)
+DBG 32000774.693 pass wall=126.5 busy=77.7 waited=48.6 stages={-1: 0.32, 0: 8.76, 1: 0.49, 2: 2.86, 3: 6.13, 4: 59.45} alloc=(379, 147, 0)
+DBG 32000775.021 pass wall=87.0 busy=30.2 waited=56.5 stages={-1: 0.26, 0: 7.46, 1: 0.45, 2: 2.43, 3: 3.58, 4: 16.33} alloc=(379, 147, 0)
+DBG 32000775.350 pass wall=83.1 busy=26.5 waited=56.2 stages={-1: 0.3, 0: 9.02, 1: 0.51, 2: 3.13, 3: 4.3, 4: 9.55} alloc=(379, 147, 0)
+DBG 32000775.691 pass wall=79.2 busy=23.4 waited=55.6 stages={-1: 0.24, 0: 7.64, 1: 0.42, 2: 2.59, 3: 4.04, 4: 8.66} alloc=(379, 147, 0)
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.0, 'hints_host': 54.06, 'witness': 0.034, 'self_check': 1.871, 'zk_masks': 0.02, 'encode': 0.002, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 0.09, 'tests_quad': 0.0, 'tests_chain': 0.0, '
+rep 1: prover 0.077s (+hints 0.005s) over 13 proofs; verifier 0.245s; pass wall 0.466s (0.020 ms/VU)
+rep 2: prover 0.123s (+hints 0.004s) over 13 proofs; verifier 0.240s; pass wall 0.367s (0.031 ms/VU)
+rep 3: prover 0.082s (+hints 0.005s) over 13 proofs; verifier 0.245s; pass wall 0.332s (0.021 ms/VU)
+rep 4: prover 0.079s (+hints 0.004s) over 13 proofs; verifier 0.262s; pass wall 0.346s (0.020 ms/VU)
+rep 5: prover 0.074s (+hints 0.005s) over 13 proofs; verifier 0.250s; pass wall 0.330s (0.019 ms/VU)
+DBG 32000776.552 gc gen=2 ms=146.6 collected=1372

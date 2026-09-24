@@ -1,0 +1,4556 @@
+{
+ "schema": "cb-a/derive_step/v3",
+ "utc": "2026-09-24T21:31:29Z",
+ "wrapper": "step",
+ "M": 8,
+ "pos0": 8,
+ "LP": 8,
+ "T": 4,
+ "eos": 0,
+ "sampling": {
+  "kind": "greedy",
+  "source": "default"
+ },
+ "profile": "b1-eager-v3",
+ "target": {
+  "declared": {
+   "compute_capability": [
+    9,
+    0
+   ],
+   "num_sms": 132,
+   "batch_invariant": true,
+   "attention_backend": null,
+   "vllm_revision": "d9105ea80",
+   "numerics_profile": "b1-eager-v3",
+   "flash_attn_version": null,
+   "fp8_block_gemm": "cutlass"
+  },
+  "declared_source": "declared",
+  "host": {
+   "hostname": "4c3554725786",
+   "CUDA_VISIBLE_DEVICES": null,
+   "cuda_available": true,
+   "host_gpu": "NVIDIA GeForce RTX 4090",
+   "host_sm_count": 128,
+   "host_compute_capability": [
+    8,
+    9
+   ]
+  },
+  "consulted": {
+   "env_consulted": {
+    "VLLM_BATCH_INVARIANT": "1",
+    "VLLM_USE_LAYERNAME": "0",
+    "VLLM_LOGGING_LEVEL": "WARNING",
+    "VLLM_USE_DEEP_GEMM": "0"
+   },
+   "env_ignored": {},
+   "env_set_not_vllm": {
+    "HF_HUB_OFFLINE": "1",
+    "TOKENIZERS_PARALLELISM": "false"
+   },
+   "model_dtype": "torch.bfloat16",
+   "enforce_eager": true,
+   "kv_block_size": 16,
+   "kv_cache_dtype": "auto",
+   "attention_backend_knob": null,
+   "platform": "cuda",
+   "platform_class": "NvmlCudaPlatform"
+  },
+  "applied": {
+   "compute_capability": [
+    9,
+    0
+   ],
+   "num_sms": 132,
+   "batch_invariant": true,
+   "vllm_version": "0.28.1rc1.dev472+gd9105ea80",
+   "torch_version": "2.13.0+cu129",
+   "triton_version": "3.7.1",
+   "tuned_gemm_arch_family": "hopper",
+   "attention_backend": null,
+   "fp8_block_gemm_kernel": "CutlassFp8BlockScaledMMKernel",
+   "flash_attn_version": 3
+  },
+  "applied_after_export": {
+   "compute_capability": [
+    9,
+    0
+   ],
+   "num_sms": 132,
+   "batch_invariant": true,
+   "vllm_version": "0.28.1rc1.dev472+gd9105ea80",
+   "torch_version": "2.13.0+cu129",
+   "triton_version": "3.7.1",
+   "tuned_gemm_arch_family": "hopper",
+   "attention_backend": null,
+   "flash_attn_version": 3,
+   "fp8_block_gemm_kernel": "CutlassFp8BlockScaledMMKernel"
+  }
+ },
+ "tp": {
+  "world": 1,
+  "rank": 0
+ },
+ "launch_context": null,
+ "code_rev": null,
+ "ok": true,
+ "model_pin": {
+  "model": "Qwen/Qwen3-4B-Instruct-2507-FP8",
+  "revision": "8591804019c8b22094c3b5b4454e0edc05dffc98",
+  "dtype": "bfloat16",
+  "tp": 1,
+  "rank": 0,
+  "max_model_len": 1152
+ },
+ "lm_head_tying": {
+  "applies": true,
+  "config_tie_word_embeddings": true,
+  "untied_for_loading": true,
+  "head": "lm_head",
+  "checkpoint_files": {
+   "embed": "model.safetensors",
+   "lm_head": "model.safetensors"
+  },
+  "shapes": {
+   "embed": [
+    151936,
+    2560
+   ],
+   "lm_head": [
+    151936,
+    2560
+   ]
+  },
+  "dtypes": {
+   "embed": "torch.float16",
+   "lm_head": "torch.float16"
+  },
+  "lm_head_equals_embed": true,
+  "retied": true,
+  "rule": "vllm.model_executor.model_loader.weight_tying.maybe_retie_word_embeddings: torch.equal -> tie_weights",
+  "shared_parameter": true
+ },
+ "model_class": "vllm.model_executor.models.qwen3.Qwen3ForCausalLM",
+ "hf_config": {
+  "vocab_size": 151936,
+  "hidden_size": 2560,
+  "intermediate_size": 9728,
+  "num_hidden_layers": 36,
+  "num_attention_heads": 32,
+  "num_key_value_heads": 8,
+  "head_dim": 128,
+  "max_position_embeddings": 262144,
+  "rms_norm_eps": 1e-06,
+  "tie_word_embeddings": false
+ },
+ "param_device": "meta",
+ "cuda_available": true,
+ "attention_impls_observed": {
+  "model.layers.0.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.1.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.2.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.3.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.4.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.5.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.6.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.7.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.8.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.9.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.10.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.11.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.12.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.13.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.14.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.15.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.16.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.17.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.18.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.19.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.20.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.21.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.22.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.23.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.24.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.25.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.26.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.27.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.28.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.29.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.30.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.31.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.32.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.33.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.34.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  },
+  "model.layers.35.self_attn.attn": {
+   "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+   "backend": "FLASH_ATTN",
+   "attn_type": "decoder",
+   "kv_cache_dtype": "auto",
+   "layer_kv_cache_dtype": "auto",
+   "num_heads": 32,
+   "num_kv_heads": 8,
+   "head_size": 128,
+   "scale": 0.08838834764831845,
+   "vllm_flash_attn_version": 3,
+   "sliding_window": [
+    -1,
+    -1
+   ],
+   "logits_soft_cap": 0,
+   "alibi_slopes": null,
+   "sinks": null,
+   "batch_invariant_enabled": true,
+   "dcp_world_size": 1,
+   "pcp_world_size": 1,
+   "num_queries_per_kv": 4,
+   "kv_sharing_target_layer_name": null
+  }
+ },
+ "export": {
+  "secs": 22.4,
+  "n_nodes": 3982,
+  "op_histogram": {
+   "aten.view.default": 900,
+   "aten.empty.memory_format": 505,
+   "aten.numpy_T.default": 288,
+   "aten._assert_tensor_metadata.default": 146,
+   "aten.to.dtype": 146,
+   "aten.reshape.default": 146,
+   "aten.detach.default": 145,
+   "aten.permute.default": 144,
+   "_C.per_token_group_fp8_quant.default": 144,
+   "_C.cutlass_scaled_mm.default": 144,
+   "<built-in function getitem>": 108,
+   "verity_cba.triton_launch.default": 74,
+   "aten.empty_like.default": 73,
+   "_C.fused_add_rms_norm.default": 72,
+   "aten.split_with_sizes.default": 36,
+   "_C.rotary_embedding.default": 36,
+   "vllm.unified_kv_cache_update.default": 36,
+   "vllm.unified_attention_with_output.default": 36,
+   "_C.silu_and_mul.default": 36,
+   "aten.arange.start": 1,
+   "aten.embedding.default": 1,
+   "aten.slice.Tensor": 1,
+   "aten.t.default": 1,
+   "aten.alias.default": 1,
+   "aten.argmax.default": 1
+  },
+  "triton_kernels": [
+   "vllm.model_executor.determinism.batch_invariant._rms_norm_kernel",
+   "vllm.model_executor.determinism.batch_invariant.matmul_kernel_persistent"
+  ],
+  "n_triton_launches": 74
+ },
+ "export_facts": {
+  "fused_add_rms_norm_dispatch": "batch_invariant",
+  "evidence": {
+   "fused_add_rms_norm_ops": [
+    "_C.fused_add_rms_norm.default"
+   ],
+   "bi_triton_kernels_launched": [
+    "vllm.model_executor.determinism.batch_invariant._rms_norm_kernel",
+    "vllm.model_executor.determinism.batch_invariant.matmul_kernel_persistent"
+   ],
+   "override_library_installed": false,
+   "forward_cuda_switch_in_process": true,
+   "forward_native_ops_present": [],
+   "mean_dim_override": {
+    "kernel": "vllm.model_executor.determinism.batch_invariant.mean_kernel",
+    "src_sha256": "94b6a25ba19f2471ae2dc06c49edbcc3a0937ccbe47d1f716cf393155caf711e",
+    "mean_dim_src_sha256": "f0897d2b8e3d75a67c6c45c6ad69b6ecdd38d1ddcfac0281e0ffffb359e586fd",
+    "mean_batch_invariant_src_sha256": "401f9643c811f94c3ed2e7ab5f3c03d04362f2f0fc0f8f9128c4e1cfaa813b93",
+    "enable_batch_invariant_mode_registers_mean_dim": true
+   },
+   "source": "vllm/model_executor/layers/layernorm.py RMSNorm.forward_cuda -> rms_norm_batch_invariant -> ops.fused_add_rms_norm (BI branch); forward_native otherwise; determinism/batch_invariant.py init_batch_invariance/enable_batch_invariant_mode"
+  }
+ },
+ "declared_derived": {
+  "derived": [
+   {
+    "field": "attention backend / impl",
+    "from": "instantiated `Attention.impl` class + layer attributes (selector output)",
+    "key": [
+     "impl",
+     "backend",
+     "vllm_flash_attn_version",
+     "attn_type",
+     "kv_cache_dtype",
+     "alibi_slopes",
+     "sinks",
+     "batch_invariant_enabled",
+     "dcp_world_size",
+     "pcp_world_size"
+    ],
+    "pins": {
+     "impl": "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl",
+     "backend": "FLASH_ATTN",
+     "vllm_flash_attn_version": 2,
+     "attn_type": "decoder",
+     "kv_cache_dtype": "auto",
+     "alibi_slopes": null,
+     "sinks": null,
+     "batch_invariant_enabled": true,
+     "dcp_world_size": 1,
+     "pcp_world_size": 1
+    },
+    "rule": "UnifiedAttentionWithOutput[vllm] v2"
+   },
+   {
+    "field": "fused_add_rms_norm batch-invariant dispatch (RMSNormFusedCuda_v2 vs _v1)",
+    "from": "export graph: `_C.fused_add_rms_norm` reached via `rms_norm_batch_invariant` + BI Triton launches present + override library installed",
+    "pin": "batch_invariant",
+    "rule": "FusedAddRmsNorm[vllm-bi] v1",
+    "caveat": "the CUDA op's own kernel-width choice (`batch_invariant_launch` in layernorm_kernels.cu) reads the same env the Python switch reads; coupled, not observed"
+   },
+   {
+    "field": "Triton kernel identity + tiling",
+    "from": "launch node: kernel qualname, source sha256, constexprs, num_warps/num_stages, tensor meta",
+    "rule": "TritonGemm[vllm-bi] / TritonRmsNorm[vllm-bi]"
+   },
+   {
+    "field": "tuned-GEMM tiling per (N, K, M-bucket)",
+    "from": "launch constexprs vs `gemm_pins_for` (vLLM's `_get_matmul_config` table for the declared capability)"
+   }
+  ],
+  "declared": [
+   {
+    "field": "NUM_SMS",
+    "value": 132,
+    "applied": 132,
+    "source": "TargetProfile.num_sms",
+    "why": "target GPU fact; the shim answers it to vLLM's num_compute_units on every host; the GEMM rule checks every launch against it"
+   },
+   {
+    "field": "compute capability",
+    "value": "9.0",
+    "applied": [
+     9,
+     0
+    ],
+    "source": "TargetProfile.compute_capability",
+    "why": "target GPU fact; the shim answers it to vLLM's get_device_capability at instantiation AND export (FA version, BI GEMM family, tuned-GEMM table)"
+   },
+   {
+    "field": "batch invariant",
+    "value": true,
+    "applied": true,
+    "source": "TargetProfile.batch_invariant -> env VLLM_BATCH_INVARIANT",
+    "why": "the switch RMSNorm.forward_cuda / init_batch_invariance read; its consequence (dispatch) is derived from the export graph"
+   },
+   {
+    "field": "attention backend knob",
+    "value": null,
+    "applied": null,
+    "source": "TargetProfile.attention_backend -> EngineArgs(attention_backend=)",
+    "why": "None = vLLM's selector for the declared capability; the selector's RESULT (impl class, FA version) is observed per layer"
+   },
+   {
+    "field": "tensor-core instruction class (Gemm_v1 vs Gemm_v2{DOT})",
+    "value": {
+     "tensor_core_family": "hopper",
+     "dot": "HopperBF16WgmmaDot16_v1",
+     "gemm_kind": "Gemm_v2{K,N,DOT=HopperBF16WgmmaDot16_v1}",
+     "attention_kind": "Attention_v2{T,NH,KVH,D,BN=fa3_kblock_n(D,seqlen_q,NH/KVH),DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1}",
+     "tuned_gemm_arch_family": "hopper",
+     "flash_attn_version_effective": 3
+    },
+    "source": "TargetProfile.compute_capability -> registry.targets",
+    "why": "compiler-chosen (Triton -> PTX); not observable on a meta host; keyed by the declared capability's registered pipeline family; fail-closed via kernel source sha + constexprs + geometry + NUM_SMS and the row's Match replay (bit-exact on captured operands)"
+   },
+   {
+    "field": "flash_attn_version",
+    "value": null,
+    "effective": 3,
+    "applied": 3,
+    "source": "TargetProfile.flash_attn_version -> EngineArgs(attention_config={'flash_attn_version': v})",
+    "why": "[R13 hopper] None = vLLM's selector for the declared capability (FA3 on sm_90); the instantiated layers' version is read back and pinned per layer"
+   }
+  ]
+ },
+ "derive_secs": 20.5,
+ "bindings_rules": [
+  {
+   "rule": "TritonRmsNorm[vllm-bi]_v1",
+   "version": 1,
+   "kind": "in-place-binding",
+   "applies_to": "verity_cba::triton_launch of batch_invariant._rms_norm_kernel (kernel name + constexprs pinned)",
+   "preconditions": [
+    "kernel qualified name is the profile's `_rms_norm_kernel`",
+    "BLOCK_SIZE=1024, HAS_WEIGHT=True (profile pins)",
+    "input is bf16 [R, N] with unit column stride (row stride = the launch's input_row_stride, >= N: a column slice of a wider row is allowed), weight bf16 [N], output an unwritten allocation [R, N] (row stride = output_row_stride)",
+    "n_cols == N; eps is a static float; grid == (R,)"
+   ],
+   "evidence_domain": "structural; numerics: RMSNormTriton_v1 (the same Triton kernel, W11 model)"
+  },
+  {
+   "rule": "TritonGemm[vllm-bi]_v1",
+   "version": 1,
+   "kind": "in-place-binding",
+   "applies_to": "verity_cba::triton_launch of batch_invariant.matmul_kernel_persistent (kernel name + constexprs pinned)",
+   "preconditions": [
+    "kernel qualified name is the profile's `matmul_kernel_persistent`; source sha256 pinned",
+    "the active TargetProfile's capability has a REGISTERED GEMM specialization (verity_vllm.program.registry.gemm_targets: ada cc 8.9 with vLLM's tuned sm_89 table, ampere cc 8.0 default tiling only; anything else -> numerics_unregistered)",
+    "tiling = that target's launch geometry for (M, N, K) (GemmTarget.launch_config: the default 128/128/64, 8 warps, 3 stages, or the M-bucket row of the target's pinned tuned table); GROUP_SIZE_M 8, *_LARGE False, HAS_BIAS False, NUM_SMS = the active TargetProfile's num_sms (default 128)",
+    "a is bf16 [M, K] row-major (stride_am K, stride_ak 1); b is bf16 [K, N] with stride_bk 1, stride_bn K (= W[N,K].t())",
+    "c is an unwritten allocation [M, N] row-major; bias_ptr is None; M, N, K equal the shapes"
+   ],
+   "evidence_domain": "structural; numerics: Gemm_v1{K,N} (the same Triton kernel; f32 accumulator over BLOCK_SIZE_K tiles)"
+  },
+  {
+   "rule": "KvCacheUpdate[vllm]_v1",
+   "version": 1,
+   "kind": "state",
+   "applies_to": "vllm.unified_kv_cache_update(key, value, layer_name: str) -> Tensor",
+   "preconditions": [
+    "key, value are bf16 values [T, KVH, D] (or [T, KVH*D]) of equal shape",
+    "layer_name is a static string",
+    "the dummy result is consumed only by this layer's unified_attention_with_output"
+   ],
+   "evidence_domain": "structural: the KV write is made explicit by the attention rule's history"
+  },
+  {
+   "rule": "UnifiedAttentionWithOutput[vllm]_v2",
+   "version": 2,
+   "kind": "state",
+   "applies_to": "vllm.unified_attention_with_output(query, key, value, Tensor! output, layer_name: str, output_scale=None, output_block_scale=None, kv_cache_dummy_dep=None)",
+   "preconditions": [
+    "the layer's OBSERVED attention implementation (instantiated `Attention.impl` class, backend, FA version, window, soft cap, alibi, sinks, kv dtype, batch_invariant_enabled) equals ATTN_PINS \u2014 derived from the model instance, never assumed",
+    "q [T, NH, D], k, v [T, KVH, D] bf16 (or flat rows with config D); NH % KVH == 0",
+    "output is an unwritten allocation of q's shape",
+    "layer_name is a static string owned by exactly one module",
+    "output_scale and output_block_scale are None (no fp8 output quantisation)",
+    "kv_cache_dummy_dep, if present, is this layer's pending write of the SAME k, v rows",
+    "assumed (op contract): causal attention over the history + this call's rows"
+   ],
+   "evidence_domain": "structural; numerics: the vocabulary's attention kind per position (FA2 causal GQA)"
+  },
+  {
+   "rule": "AllocView_v2",
+   "version": 2,
+   "kind": "view",
+   "applies_to": "aten.view / reshape / flatten / unit-step slice / permute / t / transpose of an unwritten allocation",
+   "preconditions": [
+    "operand is an unwritten Alloc",
+    "view/reshape/flatten: leaf count is preserved; slice: step 1 (a sub-allocation of the same storage -- vLLM's MoE workspace carving `buf[:n].view(...)`); permute/t/transpose: the viewed type is the node's (an axis order over the same leaves -- vLLM's column-major FP8 group scales `torch.empty(K/G, M).permute(-1, -2)`)"
+   ],
+   "evidence_domain": "structural (no gates)"
+  },
+  {
+   "rule": "IntIdWiden_v1",
+   "version": 1,
+   "kind": "view",
+   "applies_to": "aten.to.dtype / _to_copy from a 32-bit integer value to int64",
+   "preconditions": [
+    "operand is a value collection with 32-bit integer leaves",
+    "target dtype is int64"
+   ],
+   "evidence_domain": "structural: widening of a non-negative index is a reinterpretation"
+  },
+  {
+   "rule": "CachePad[vllm]_v1",
+   "version": 1,
+   "kind": "state",
+   "applies_to": "vllm_iface.unified_cache_pad(live, zero, slot) -> ()",
+   "preconditions": [
+    "live is a 1-element bool value collection (or a statically known bool)",
+    "zero is a 1-element bf16 value collection",
+    "every KV history has exactly slot+1 rows and is owned by a descendant of the caller's module",
+    "at least one KV history exists"
+   ],
+   "evidence_domain": "structural; numerics: SelectBf16_v1 (exact-model-tested) per K/V word"
+  },
+  {
+   "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+   "version": 1,
+   "kind": "in-place-binding",
+   "applies_to": "_C.fused_add_rms_norm(Tensor! x, Tensor! residual, weight, eps)",
+   "preconditions": [
+    "the export's fused_add_rms_norm dispatch was OBSERVED as batch-invariant (op reached via `rms_norm_batch_invariant`; BI Triton overrides installed and launched in the same graph) \u2014 derived, never assumed",
+    "x and residual are bf16 values of the same shape [.., N]",
+    "weight is bf16 [N]",
+    "eps is a static float",
+    "both mutated operands are rebound; their other aliases are invalidated"
+   ],
+   "evidence_domain": "structural; numerics: RMSNormFusedCuda_v2 (vLLM CUDA generic fused_add_rms_norm_kernel)"
+  },
+  {
+   "rule": "ScalarTensorMul[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.mul.Tensor(x bf16 [.., N], s bf16 [])",
+   "preconditions": [
+    "x is a bf16 value collection of rank >= 1",
+    "s is a bf16 value collection of rank 0 (or [1])"
+   ],
+   "evidence_domain": "structural; numerics: Bf16MulScalarTensor_v1 (bf16 x bf16 scalar tensor, bf16 out)"
+  },
+  {
+   "rule": "GeluTanhAndMul[vllm]_v1",
+   "version": 1,
+   "kind": "in-place-binding",
+   "applies_to": "_C.gelu_tanh_and_mul(Tensor! out, x[.., 2I])",
+   "preconditions": [
+    "x is bf16 [.., 2I]",
+    "out is an unwritten allocation (or value) [.., I]"
+   ],
+   "evidence_domain": "structural; numerics: GeluTanhMul_v1 (vLLM _C.gelu_tanh_and_mul)"
+  },
+  {
+   "rule": "Bf16ScalarChain[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.div.Tensor / aten.mul.Tensor (x bf16, C: float) ; aten.tanh.default(x bf16)",
+   "preconditions": [
+    "x is a bf16 value collection of rank >= 1",
+    "C is a static Python float (div/mul)"
+   ],
+   "evidence_domain": "structural; numerics: Bf16DivScalar_v1 / Bf16MulScalar_v1 / Bf16Tanh_v1"
+  },
+  {
+   "rule": "WidenBf16ToF32[aten]_v1",
+   "version": 1,
+   "kind": "view",
+   "applies_to": "aten.to.dtype / _to_copy / to.dtype_layout / to.device (x bfloat16 -> float32)",
+   "preconditions": [
+    "operand is a bf16 value collection of rank >= 1 (16-bit leaves)",
+    "result dtype is float32 (same shape)"
+   ],
+   "evidence_domain": "structural: an exact conversion carries no rounding; readers bind the *Bf16 kinds (Value<16> leaves under an f32 tensor)"
+  },
+  {
+   "rule": "NarrowF32ToBf16[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.to.dtype / _to_copy / to.dtype_layout / to.device (y float32 -> bfloat16)",
+   "preconditions": [
+    "operand is a genuine f32 value collection of rank >= 1 (32-bit leaves; a widened bf16 view is refused)",
+    "result dtype is bfloat16 (same shape)"
+   ],
+   "evidence_domain": "structural; numerics: NarrowF32ToBf16_v1 (F2fpBf16 per element)"
+  },
+  {
+   "rule": "Square[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.pow.Tensor_Scalar(x float32 [.., N], 2)",
+   "preconditions": [
+    "x is an f32 value collection of rank >= 1 (widened bf16 view -> SquareBf16, genuine f32 -> SquareF32)",
+    "exponent is the static scalar 2"
+   ],
+   "evidence_domain": "structural; numerics: SquareBf16_v1 / SquareF32_v1 (one FMUL per element)"
+  },
+  {
+   "rule": "MeanDimBI[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.mean.dim(x float32 [.., N], dim=[-1], keepdim=True, dtype=None)",
+   "preconditions": [
+    "x is a genuine f32 value collection of rank >= 1 (a widened bf16 view is refused)",
+    "dim is the last axis only; keepdim=True; no dtype argument",
+    "export facts show batch-invariant Triton launches in this graph (derived, never assumed)",
+    "installed vLLM's mean_kernel src sha, mean_dim and mean_batch_invariant source shas == MEAN_PINS; enable_batch_invariant_mode registers aten::mean.dim"
+   ],
+   "evidence_domain": "structural; numerics: MeanTriton_v1 (BI mean_kernel reduction order, div.full.f32)"
+  },
+  {
+   "rule": "Rsqrt[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.rsqrt.default(x float32 [.., N])",
+   "preconditions": [
+    "x is a genuine f32 value collection of rank >= 1 (a widened bf16 view is refused)"
+   ],
+   "evidence_domain": "structural; numerics: RsqrtF32_v1 (RsqrtApprox_v1 per element)"
+  },
+  {
+   "rule": "AddScalar[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.add.Tensor(x float32 [.., N], C: static scalar), alpha == 1",
+   "preconditions": [
+    "x is an f32 value collection of rank >= 1 (widened -> AddScalarBf16, genuine -> AddScalarF32)",
+    "the second operand is a static Python scalar",
+    "alpha == 1"
+   ],
+   "evidence_domain": "structural; numerics: AddScalarBf16_v1 / AddScalarF32_v1 (one FADD per element)"
+  },
+  {
+   "rule": "AddWidened[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.add.Tensor(x float32 [.., N], r float32 [.., N]) both widened bf16 views, alpha == 1",
+   "preconditions": [
+    "both operands are f32 value collections of one shape whose leaves are bf16 words (WidenBf16ToF32 views)",
+    "alpha == 1"
+   ],
+   "evidence_domain": "structural; numerics: AddWidenedBf16_v1 (one FADD per element)"
+  },
+  {
+   "rule": "MulF32[aten]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "aten.mul.Tensor(x float32 [.., N], s float32 [.., 1]) ; aten.mul.Tensor(x float32 [.., N], w float32 [N])",
+   "preconditions": [
+    "x is an f32 value collection of rank >= 2 (row-scale: widened or genuine; row-vector: genuine only)",
+    "the other operand is f32: [.., 1] with x's leading shape (row scale) or [N] / [1,..,1,N] (row vector)"
+   ],
+   "evidence_domain": "structural; numerics: ScaleRowBf16_v1 / ScaleRowF32_v1 / MulVecF32_v1 (one FMUL per element)"
+  },
+  {
+   "rule": "AllReduce2[tp]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "verity_tp::all_reduce2(a [.., N] bf16, b [.., N] bf16) (rank order)",
+   "preconditions": [
+    "both operands are bf16 value collections of identical shape",
+    "world size 2"
+   ],
+   "evidence_domain": "structural; numerics: AllReduce2_v1 (Bf16Add per element; exact-model-tested B1 TP2 + Llama TP2 step-1 probe)"
+  },
+  {
+   "rule": "AllGather2[tp]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "verity_tp::all_gather2(a [.., N] bf16, b [.., N] bf16) (rank order, trailing axis)",
+   "preconditions": [
+    "both operands are bf16 value collections of identical shape",
+    "world size 2"
+   ],
+   "evidence_domain": "structural; numerics: AllGather2_v1 (concatenation; exact-model-tested)"
+  },
+  {
+   "rule": "AllReduce[tp]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "verity_tp::all_reduce([a_0 .. a_{W-1}] each [.., N] bf16) (rank order), W > 2",
+   "preconditions": [
+    "every operand is a bf16 value collection of identical shape",
+    "world size > 2"
+   ],
+   "evidence_domain": "structural; numerics: AllReduce_v2{WORLD,N} states NCCL's intra-node tree chain (b1_tp2.allreduce_order); the Match value leg checks it"
+  },
+  {
+   "rule": "AllGather[tp]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "verity_tp::all_gather([a_0 .. a_{W-1}] each [.., N] bf16) (rank order, trailing axis), W > 2",
+   "preconditions": [
+    "every operand is a bf16 value collection of identical shape",
+    "world size > 2"
+   ],
+   "evidence_domain": "structural; numerics: AllGather_v1{WORLD,N} (concatenation; no gates)"
+  },
+  {
+   "rule": "EmbeddingShard[tp]_v1",
+   "version": 1,
+   "kind": "op-binding",
+   "applies_to": "verity_tp::embedding_shard(ids I32 value, shard [VS,H] bf16, START, END)",
+   "preconditions": [
+    "shard is a bf16 value collection [VS, H] with VS == END - START",
+    "ids is a value collection of 32-bit token ids"
+   ],
+   "evidence_domain": "structural; numerics: EmbeddingShard_v1 (masked shard gather; exact-model-tested)"
+  },
+  {
+   "rule": "PerTokenGroupFp8Quant[vllm]_v1",
+   "version": 1,
+   "kind": "in-place-binding",
+   "applies_to": "_C.per_token_group_fp8_quant(x, Tensor! x_q, Tensor! x_s, group_size, eps, fp8_min, fp8_max, use_ue8m0, column_major_scales, tma_aligned_scales)",
+   "preconditions": [
+    "x is bf16 [.., K] with K % group_size == 0",
+    "x_q is an unwritten allocation float8_e4m3fn [.., K]",
+    "x_s is an unwritten allocation (or a view of one) f32 [.., K/group_size]",
+    "group_size == 128, eps == 1e-10f, fp8_min/max == -448/448, use_ue8m0 == False (the pinned Definition)"
+   ],
+   "evidence_domain": "structural; numerics: Fp8GroupQuant_v1 (exact-model-tested on the H100 against _C.per_token_group_fp8_quant)"
+  },
+  {
+   "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+   "version": 1,
+   "kind": "in-place-binding",
+   "applies_to": "_C.cutlass_scaled_mm(Tensor! out, a e4m3, b e4m3 [K, N], a_scales f32 [.., K/G], b_scales f32 [K/G, N/G], bias None)",
+   "preconditions": [
+    "a is a float8_e4m3fn value [.., K]; out an unwritten bf16 allocation [.., N]",
+    "b is a transposed view of an e4m3 [N, K] matrix; b_scales a transposed view of an f32 [N/G, K/G] matrix, G = 128",
+    "a_scales is an f32 value [.., K/G] (the group scales the quant rule computed)",
+    "bias is None",
+    "K % G == 0 and N % G == 0"
+   ],
+   "evidence_domain": "structural; numerics: ScaledMmFp8Block_v1 (exact-model-tested on the H100 against the blockwise _C.cutlass_scaled_mm, both dispatch variants)"
+  },
+  {
+   "rule": "SameDtypeCast_v1",
+   "version": 1,
+   "kind": "view",
+   "applies_to": "aten.to.dtype / _to_copy where the target dtype equals the operand's",
+   "preconditions": [
+    "operand is a value collection",
+    "target dtype == operand dtype"
+   ],
+   "evidence_domain": "structural (no gates)"
+  }
+ ],
+ "program": {
+  "function": "Derived[vLLMStep[Qwen3ForCausalLM]]_v1{SRC={bfb0f1dba532}}",
+  "digest": "e67b48c55bdd9eb1cab10efe4830174359d3284ecb6f87748e1dd8c28c368e65",
+  "gates": 5771059733,
+  "input_gates": 4056244584,
+  "n_root_nodes": 15570,
+  "descriptor_bytes": 14285209,
+  "descriptor_sha256": "d74996a907c17acc19474632457bf6782de3ac8344bb920736b0ced863a85f74",
+  "dead_gates": 35012290,
+  "correspondence_digest": "3083c6ff9cd30ed66dd5f141f90695ff82ac0615c9f34946a979e92626a16ffa",
+  "correspondence": {
+   "schema": "runtime-correspondence/v1",
+   "namespace": "correspondence",
+   "calls": 15570,
+   "occurrences": 544,
+   "rank": null
+  }
+ },
+ "spec_histogram": {
+  "RMSNormTriton_v1{N=128,EPS={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}": 11520,
+  "Fp8GroupQuant_v1{K=2560,G=128}": 576,
+  "RMSNormFusedCuda_v2{N=2560,EPS={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}": 576,
+  "Fp8GroupQuant_v1{K=4096,G=128}": 288,
+  "Fp8GroupQuant_v1{K=9728,G=128}": 288,
+  "RoPE_v1{NHEADS=32,D=128}": 288,
+  "RoPE_v1{NHEADS=8,D=128}": 288,
+  "ScaledMmFp8Block_v1{K=2560,N=19456,G=128}": 288,
+  "ScaledMmFp8Block_v1{K=2560,N=6144,G=128}": 288,
+  "ScaledMmFp8Block_v1{K=4096,N=2560,G=128}": 288,
+  "ScaledMmFp8Block_v1{K=9728,N=2560,G=128}": 288,
+  "SiluMul_v1{I=9728}": 288,
+  "Attention_v2{T=1,NH=32,KVH=8,D=128,BN=128,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"},INV={\"fn\":\"Fa3InvSum_v1\"}}": 36,
+  "Attention_v2{T=2,NH=32,KVH=8,D=128,BN=128,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"},INV={\"fn\":\"Fa3InvSum_v1\"}}": 36,
+  "Attention_v2{T=3,NH=32,KVH=8,D=128,BN=128,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"},INV={\"fn\":\"Fa3InvSum_v1\"}}": 36,
+  "Attention_v2{T=4,NH=32,KVH=8,D=128,BN=128,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"},INV={\"fn\":\"Fa3InvSum_v1\"}}": 36,
+  "Attention_v2{T=5,NH=32,KVH=8,D=128,BN=128,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"},INV={\"fn\":\"Fa3InvSum_v1\"}}": 36,
+  "Attention_v2{T=6,NH=32,KVH=8,D=128,BN=128,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"},INV={\"fn\":\"Fa3InvSum_v1\"}}": 36,
+  "Attention_v2{T=7,NH=32,KVH=8,D=128,BN=128,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"},INV={\"fn\":\"Fa3InvSum_v1\"}}": 36,
+  "Attention_v2{T=8,NH=32,KVH=8,D=128,BN=128,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"},INV={\"fn\":\"Fa3InvSum_v1\"}}": 36,
+  "Embedding_v1{V=151936,H=2560}": 8,
+  "RMSNormTriton_v1{N=2560,EPS={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}": 8,
+  "Gemm_v2{K=2560,N=151936,DOT={\"fn\":\"HopperBF16WgmmaDot16_v1\"}}": 1,
+  "TokenSelect_v1{V=151936}": 1
+ },
+ "rules_applied": [
+  "ArgmaxTokenSelect_v1",
+  "CutlassScaledMmFp8Block[vllm]_v1",
+  "Embedding[profile]_v1",
+  "FusedAddRmsNorm[vllm-bi]_v1",
+  "IntIdWiden_v1",
+  "KvCacheUpdate[vllm]_v1",
+  "PerTokenGroupFp8Quant[vllm]_v1",
+  "RotaryEmbedding[vllm]_v1",
+  "SiluAndMul[vllm]_v1",
+  "StaticIndex_v2",
+  "TritonGemm[vllm-bi]_v1",
+  "TritonRmsNorm[vllm-bi]_v1",
+  "UnifiedAttentionWithOutput[vllm]_v2"
+ ],
+ "n_applications": 582,
+ "weights": {
+  "n_fields": 723,
+  "roles": {
+   "model.model.embed_tokens.weight": {
+    "rule": "Embedding[profile]_v1",
+    "role": "embedding.table",
+    "V": 151936,
+    "H": 2560
+   },
+   "model.model.layers.0.input_layernorm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.0.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.0.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.0.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.0.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.0.self_attn.rotary_emb.cos_sin_cache": {
+    "rule": "RotaryEmbedding[vllm]_v1",
+    "role": "rope.cos_sin_cache",
+    "D": 128,
+    "MAX_POS": 262144
+   },
+   "model.model.layers.0.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.0.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.0.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.0.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.0.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.0.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.0.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.1.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.1.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.1.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.1.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.1.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.1.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.1.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.1.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.1.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.1.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.1.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.1.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.2.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.2.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.2.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.2.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.2.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.2.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.2.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.2.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.2.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.2.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.2.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.2.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.3.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.3.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.3.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.3.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.3.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.3.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.3.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.3.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.3.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.3.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.3.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.3.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.4.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.4.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.4.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.4.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.4.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.4.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.4.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.4.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.4.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.4.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.4.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.4.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.5.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.5.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.5.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.5.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.5.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.5.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.5.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.5.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.5.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.5.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.5.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.5.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.6.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.6.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.6.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.6.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.6.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.6.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.6.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.6.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.6.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.6.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.6.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.6.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.7.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.7.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.7.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.7.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.7.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.7.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.7.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.7.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.7.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.7.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.7.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.7.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.8.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.8.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.8.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.8.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.8.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.8.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.8.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.8.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.8.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.8.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.8.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.8.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.9.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.9.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.9.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.9.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.9.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.9.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.9.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.9.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.9.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.9.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.9.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.9.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.10.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.10.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.10.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.10.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.10.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.10.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.10.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.10.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.10.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.10.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.10.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.10.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.11.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.11.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.11.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.11.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.11.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.11.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.11.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.11.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.11.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.11.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.11.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.11.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.12.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.12.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.12.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.12.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.12.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.12.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.12.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.12.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.12.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.12.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.12.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.12.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.13.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.13.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.13.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.13.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.13.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.13.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.13.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.13.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.13.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.13.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.13.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.13.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.14.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.14.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.14.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.14.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.14.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.14.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.14.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.14.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.14.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.14.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.14.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.14.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.15.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.15.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.15.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.15.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.15.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.15.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.15.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.15.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.15.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.15.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.15.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.15.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.16.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.16.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.16.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.16.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.16.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.16.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.16.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.16.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.16.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.16.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.16.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.16.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.17.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.17.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.17.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.17.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.17.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.17.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.17.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.17.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.17.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.17.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.17.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.17.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.18.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.18.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.18.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.18.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.18.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.18.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.18.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.18.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.18.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.18.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.18.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.18.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.19.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.19.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.19.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.19.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.19.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.19.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.19.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.19.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.19.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.19.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.19.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.19.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.20.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.20.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.20.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.20.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.20.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.20.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.20.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.20.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.20.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.20.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.20.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.20.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.21.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.21.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.21.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.21.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.21.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.21.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.21.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.21.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.21.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.21.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.21.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.21.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.22.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.22.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.22.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.22.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.22.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.22.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.22.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.22.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.22.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.22.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.22.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.22.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.23.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.23.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.23.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.23.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.23.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.23.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.23.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.23.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.23.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.23.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.23.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.23.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.24.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.24.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.24.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.24.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.24.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.24.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.24.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.24.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.24.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.24.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.24.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.24.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.25.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.25.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.25.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.25.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.25.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.25.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.25.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.25.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.25.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.25.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.25.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.25.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.26.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.26.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.26.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.26.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.26.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.26.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.26.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.26.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.26.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.26.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.26.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.26.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.27.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.27.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.27.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.27.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.27.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.27.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.27.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.27.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.27.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.27.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.27.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.27.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.28.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.28.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.28.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.28.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.28.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.28.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.28.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.28.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.28.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.28.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.28.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.28.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.29.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.29.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.29.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.29.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.29.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.29.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.29.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.29.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.29.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.29.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.29.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.29.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.30.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.30.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.30.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.30.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.30.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.30.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.30.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.30.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.30.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.30.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.30.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.30.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.31.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.31.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.31.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.31.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.31.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.31.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.31.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.31.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.31.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.31.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.31.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.31.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.32.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.32.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.32.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.32.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.32.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.32.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.32.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.32.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.32.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.32.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.32.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.32.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.33.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.33.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.33.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.33.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.33.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.33.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.33.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.33.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.33.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.33.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.33.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.33.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.34.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.34.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.34.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.34.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.34.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.34.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.34.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.34.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.34.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.34.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.34.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.34.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.35.input_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.35.self_attn.qkv_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 6144
+   },
+   "model.model.layers.35.self_attn.qkv_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 6144,
+    "G": 128
+   },
+   "model.model.layers.35.self_attn.q_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.35.self_attn.k_norm.weight": {
+    "rule": "TritonRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 128,
+    "EPS": 1e-06
+   },
+   "model.model.layers.35.self_attn.o_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 4096,
+    "N": 2560
+   },
+   "model.model.layers.35.self_attn.o_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 4096,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.layers.35.post_attention_layernorm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   },
+   "model.model.layers.35.mlp.gate_up_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 2560,
+    "N": 19456
+   },
+   "model.model.layers.35.mlp.gate_up_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 2560,
+    "N": 19456,
+    "G": 128
+   },
+   "model.model.layers.35.mlp.down_proj.weight": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_w",
+    "K": 9728,
+    "N": 2560
+   },
+   "model.model.layers.35.mlp.down_proj.weight_scale_inv": {
+    "rule": "CutlassScaledMmFp8Block[vllm]_v1",
+    "role": "fp8_ws",
+    "K": 9728,
+    "N": 2560,
+    "G": 128
+   },
+   "model.model.norm.weight": {
+    "rule": "FusedAddRmsNorm[vllm-bi]_v1",
+    "role": "rmsnorm.weight",
+    "N": 2560,
+    "EPS": 1e-06
+   }
+  }
+ },
+ "mutation_effects": [],
+ "kv_rewrites": 0,
+ "artifact": {
+  "schema": "verity/aot-artifact/v1",
+  "identity": "6f018f7a68db328d5301feb38c0a0363af5b4961b44651854d2237eb9f73f906",
+  "construction_version": {
+   "schema": "cb-a/aot-artifact/v1",
+   "mechanism": "torch.export(strict=False) on meta + verity_vllm.program.frontend.derive (profile mode)",
+   "rules": [
+    {
+     "id": "TritonRmsNorm[vllm-bi]_v1",
+     "version": 1
+    },
+    {
+     "id": "TritonGemm[vllm-bi]_v1",
+     "version": 1
+    },
+    {
+     "id": "KvCacheUpdate[vllm]_v1",
+     "version": 1
+    },
+    {
+     "id": "UnifiedAttentionWithOutput[vllm]_v2",
+     "version": 2
+    },
+    {
+     "id": "AllocView_v2",
+     "version": 2
+    },
+    {
+     "id": "IntIdWiden_v1",
+     "version": 1
+    },
+    {
+     "id": "CachePad[vllm]_v1",
+     "version": 1
+    },
+    {
+     "id": "FusedAddRmsNorm[vllm-bi]_v1",
+     "version": 1
+    },
+    {
+     "id": "ScalarTensorMul[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "GeluTanhAndMul[vllm]_v1",
+     "version": 1
+    },
+    {
+     "id": "Bf16ScalarChain[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "WidenBf16ToF32[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "NarrowF32ToBf16[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "Square[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "MeanDimBI[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "Rsqrt[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "AddScalar[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "AddWidened[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "MulF32[aten]_v1",
+     "version": 1
+    },
+    {
+     "id": "AllReduce2[tp]_v1",
+     "version": 1
+    },
+    {
+     "id": "AllGather2[tp]_v1",
+     "version": 1
+    },
+    {
+     "id": "AllReduce[tp]_v1",
+     "version": 1
+    },
+    {
+     "id": "AllGather[tp]_v1",
+     "version": 1
+    },
+    {
+     "id": "EmbeddingShard[tp]_v1",
+     "version": 1
+    },
+    {
+     "id": "PerTokenGroupFp8Quant[vllm]_v1",
+     "version": 1
+    },
+    {
+     "id": "CutlassScaledMmFp8Block[vllm]_v1",
+     "version": 1
+    },
+    {
+     "id": "SameDtypeCast_v1",
+     "version": 1
+    }
+   ],
+   "sources_sha256": "4a9cdf5b0a2432e3193e5a09641be6dc166d58ee5ab08a20b21228bae78d43f3",
+   "files": [
+    {
+     "file": "verity_vllm/program/frontend/export_compat.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/vllm_meta.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/harness/derive_step.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/triton_capture.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/rules/vllm_bindings.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/rules/vocab.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/rules/triton_iface.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/rules/vllm_iface.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/derive.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/target_profile.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/registry/targets.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/tp/export_ops.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/registry/b1_tp2.py",
+     "sha256": null
+    },
+    {
+     "file": "verity_vllm/program/frontend/rules/vllm_sampling.py",
+     "sha256": null
+    }
+   ]
+  },
+  "target_profile": {
+   "compute_capability": [
+    9,
+    0
+   ],
+   "num_sms": 132,
+   "batch_invariant": true,
+   "attention_backend": null,
+   "vllm_revision": "d9105ea80",
+   "numerics_profile": "b1-eager-v3",
+   "flash_attn_version": null,
+   "fp8_block_gemm": "cutlass"
+  },
+  "applicability": {
+   "numerics_profile": "b1-eager-v3",
+   "attention_impl": [
+    "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl"
+   ],
+   "attention_backend": [
+    "FLASH_ATTN"
+   ],
+   "vllm_flash_attn_version": [
+    "3"
+   ],
+   "sampler": {
+    "kind": "greedy"
+   },
+   "token_select": "ArgmaxTokenSelect_v1 (aten.argmax over the bf16 logits row -> TokenSelect_v1{V})",
+   "fused_add_rms_norm_dispatch": "batch_invariant",
+   "vllm_version": "0.28.1rc1.dev472+gd9105ea80",
+   "torch_version": "2.13.0+cu129",
+   "triton_version": "3.7.1",
+   "tuned_gemm_arch_family": "hopper",
+   "tuned_gemm_table_sha256": "f864a47abfe4775993f724e420412398504cdaf58b3d02ae2f6ed5d2e52503b0",
+   "gemm_target": "hopper",
+   "gemm_target_dot": "HopperBF16WgmmaDot16",
+   "gemm_target_refusal": null,
+   "num_sms": 132,
+   "flash_attn_version_declared": null,
+   "flash_attn_version_applied": 3,
+   "execution": "bi-eager",
+   "target_bindings": {
+    "tensor_core_family": "hopper",
+    "dot": "HopperBF16WgmmaDot16_v1",
+    "gemm_kind": "Gemm_v2{K,N,DOT=HopperBF16WgmmaDot16_v1}",
+    "attention_kind": "Attention_v2{T,NH,KVH,D,BN=fa3_kblock_n(D,seqlen_q,NH/KVH),DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1}",
+    "flash_attn_version_effective": 3,
+    "tuned_gemm_arch_family": "hopper"
+   },
+   "gemm_kernel_src_sha256": "4a7e9290c5dbee5e98e04eced96a469438b7514665cdfc1659ed554e293a7287",
+   "rms_kernel_src_sha256": "aa15c9b0f34d3f78b63bc21b5373d1edca7a063b17ecc45ee1468e7b803f2524"
+  },
+  "program_digest": "e67b48c55bdd9eb1cab10efe4830174359d3284ecb6f87748e1dd8c28c368e65",
+  "identity_definition": "sha256(len8||canonical(construction_version) || len8||canonical(target_profile) || len8||canonical(applicability) || len8||program_digest)",
+  "correspondence_digest": "3083c6ff9cd30ed66dd5f141f90695ff82ac0615c9f34946a979e92626a16ffa"
+ },
+ "wall_secs_total": 50.26,
+ "max_rss_mb": 2520.0
+}

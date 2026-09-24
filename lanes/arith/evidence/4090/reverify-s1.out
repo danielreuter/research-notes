@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/src/backends/direct/ligero/reverify.py", line 366, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/workspace/src/backends/direct/ligero/reverify.py", line 345, in main
+    for res in expand_short_ids("show", [*ns.results, *(["--store", ns.store] if ns.store else [])])[:len(ns.results)]:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/tools/research/src/research/store/cli.py", line 872, in expand_short_ids
+    out.append(tok if i and argv[i - 1] in _VERBATIM_AFTER else _rewrite_token(tok, resolve))
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/tools/research/src/research/store/cli.py", line 845, in _rewrite_token
+    return head + sep + ",".join(resolve(p) if ids.is_short_art(p) else p for p in parts)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/tools/research/src/research/store/cli.py", line 845, in <genexpr>
+    return head + sep + ",".join(resolve(p) if ids.is_short_art(p) else p for p in parts)
+                                 ^^^^^^^^^^
+  File "/workspace/src/tools/research/src/research/store/cli.py", line 865, in resolve
+    raise ValueError(f"{short} matches no artifact in the local catalog ({st.root}); give the full id, or run "
+ValueError: art:7775888d matches no artifact in the local catalog (/workspace/research/store); give the full id, or run `research data reindex --remote` to catalogue what the remote holds

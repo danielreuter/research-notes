@@ -1,0 +1,42 @@
+DBG 32000904.283 gc gen=2 ms=91.5 collected=0
+DBG 32000904.626 gc gen=2 ms=113.5 collected=300
+DBG 32000905.070 gc gen=2 ms=139.1 collected=0
+DBG 32000905.286 gc gen=2 ms=164.0 collected=0
+DBG 32000905.699 gc gen=2 ms=180.5 collected=730
+DBG 32000906.229 gc gen=1 ms=2.0 collected=0
+DBG 32000906.412 gc gen=1 ms=2.0 collected=0
+DBG 32000906.441 gc gen=1 ms=2.0 collected=0
+DBG 32000906.471 gc gen=1 ms=2.1 collected=0
+DBG 32000906.479 gc gen=1 ms=2.1 collected=0
+DBG 32000906.695 gc gen=2 ms=216.4 collected=712
+DBG 32000906.761 gc gen=1 ms=2.3 collected=0
+DBG 32000907.418 gc gen=2 ms=221.0 collected=2205
+DBG 32000907.684 gc gen=2 ms=213.3 collected=0
+DBG 32000907.927 gc gen=2 ms=218.5 collected=0
+DBG 32000908.166 gc gen=2 ms=215.9 collected=0
+DBG 32000908.413 gc gen=2 ms=222.4 collected=0
+DBG 32000908.655 gc gen=2 ms=217.9 collected=0
+DBG 32000908.892 gc gen=2 ms=213.1 collected=0
+DBG 32000909.134 gc gen=2 ms=218.0 collected=0
+DBG 32000909.373 gc gen=2 ms=216.1 collected=0
+DBG 32000909.598 gc gen=2 ms=215.1 collected=0
+DBG 32000909.861 gc gen=2 ms=252.3 collected=0
+DBG 32000910.110 gc gen=2 ms=237.9 collected=0
+DBG 32000910.369 gc gen=2 ms=237.9 collected=0
+DBG 32000910.593 gc gen=2 ms=214.4 collected=0
+DBG 32000910.812 gc gen=2 ms=208.7 collected=0
+DBG 32000911.059 gc gen=2 ms=218.1 collected=0
+DBG 32000911.327 gc gen=2 ms=214.0 collected=0
+DBG 32000911.353 pass wall=4569.8 busy=4559.8 waited=9.8 stages={-1: 0.33, 0: 2363.78, 1: 10.11, 2: 2129.67, 3: 31.92, 4: 24.28} alloc=(370, 146, 0)
+DBG 32000911.465 pass wall=88.3 busy=28.7 waited=59.3 stages={-1: 0.24, 0: 8.47, 1: 0.42, 2: 2.91, 3: 3.76, 4: 13.19} alloc=(378, 146, 0)
+DBG 32000912.231 pass wall=364.4 busy=317.4 waited=46.7 stages={-1: 0.32, 0: 10.0, 1: 0.5, 2: 2.92, 3: 7.01, 4: 297.03} alloc=(378, 146, 0)
+DBG 32000912.555 pass wall=81.3 busy=24.1 waited=57.0 stages={-1: 0.26, 0: 7.52, 1: 0.4, 2: 2.47, 3: 3.52, 4: 10.16} alloc=(378, 146, 0)
+DBG 32000912.896 pass wall=85.4 busy=41.2 waited=44.0 stages={-1: 0.32, 0: 8.68, 1: 0.5, 2: 3.23, 3: 7.05, 4: 21.73} alloc=(378, 146, 0)
+DBG 32000913.244 pass wall=80.7 busy=29.9 waited=50.5 stages={-1: 0.26, 0: 10.37, 1: 0.52, 2: 3.15, 3: 4.58, 4: 11.3} alloc=(378, 146, 0)
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.0, 'hints_host': 56.075, 'witness': 0.034, 'self_check': 1.87, 'zk_masks': 0.02, 'encode': 0.002, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 0.089, 'tests_quad': 0.0, 'tests_chain': 0.0, 
+rep 1: prover 0.085s (+hints 0.004s) over 13 proofs; verifier 0.245s; pass wall 0.490s (0.022 ms/VU)
+rep 2: prover 0.358s (+hints 0.006s) over 13 proofs; verifier 0.242s; pass wall 0.607s (0.089 ms/VU)
+rep 3: prover 0.077s (+hints 0.004s) over 13 proofs; verifier 0.252s; pass wall 0.337s (0.020 ms/VU)
+rep 4: prover 0.080s (+hints 0.005s) over 13 proofs; verifier 0.266s; pass wall 0.353s (0.021 ms/VU)
+rep 5: prover 0.075s (+hints 0.006s) over 13 proofs; verifier 0.235s; pass wall 0.320s (0.020 ms/VU)
+DBG 32000914.120 gc gen=2 ms=130.8 collected=1372

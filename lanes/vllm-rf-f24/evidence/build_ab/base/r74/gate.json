@@ -1,0 +1,136 @@
+{
+ "schema": "vllm-v2/rebuild-digest-gate/v1",
+ "row_dir": "/workspace/rows/r74",
+ "out": "/workspace/out/rebuild/base/r74",
+ "wrappers": {
+  "step": {
+   "argv": [
+    "-m",
+    "verity_vllm.harness.derive_step",
+    "--model",
+    "Qwen/Qwen3-4B-Instruct-2507-FP8",
+    "--revision",
+    "8591804019c8b22094c3b5b4454e0edc05dffc98",
+    "--wrapper",
+    "step",
+    "--max-model-len",
+    "1152",
+    "--out",
+    "/workspace/out/rebuild/base/r74/build_step",
+    "--profile",
+    "b1-eager-v3",
+    "--M",
+    "8",
+    "--pos0",
+    "8",
+    "--target",
+    "{\"attention_backend\": null, \"batch_invariant\": true, \"compute_capability\": [9, 0], \"flash_attn_version\": null, \"fp8_block_gemm\": \"cutlass\", \"num_sms\": 132, \"numerics_profile\": \"b1-eager-v3\", \"vllm_revision\": \"d9105ea80\"}"
+   ],
+   "rc": 0,
+   "wall_s": 54.4,
+   "ok": true,
+   "unsupported": null,
+   "message": null,
+   "program_digest": {
+    "recorded": "9f6a744cede3fa3c548897c6b29bf88a81db371158c8981339111034208a06e3",
+    "new": "e67b48c55bdd9eb1cab10efe4830174359d3284ecb6f87748e1dd8c28c368e65",
+    "equal": false
+   },
+   "correspondence_digest": "3083c6ff9cd30ed66dd5f141f90695ff82ac0615c9f34946a979e92626a16ffa",
+   "correspondence": {
+    "schema": "runtime-correspondence/v1",
+    "namespace": "correspondence",
+    "calls": 15570,
+    "occurrences": 544,
+    "rank": null
+   },
+   "n_root_nodes": {
+    "recorded": 15570,
+    "new": 15570
+   },
+   "descriptor_bytes_sans_annotations": {
+    "recorded": 14285213,
+    "new": 14285209
+   },
+   "descriptor_json_gz_bytes": {
+    "recorded": null,
+    "new": 854754
+   },
+   "derive_secs": {
+    "recorded": 12.84,
+    "new": 20.5
+   },
+   "max_rss_mb": {
+    "recorded": 2428.3,
+    "new": 2520.0
+   }
+  },
+  "request_LP73_T1": {
+   "argv": [
+    "-m",
+    "verity_vllm.harness.derive_step",
+    "--model",
+    "Qwen/Qwen3-4B-Instruct-2507-FP8",
+    "--revision",
+    "8591804019c8b22094c3b5b4454e0edc05dffc98",
+    "--wrapper",
+    "request",
+    "--max-model-len",
+    "1152",
+    "--out",
+    "/workspace/out/rebuild/base/r74/build_request_LP73_T1",
+    "--profile",
+    "b1-eager-v3",
+    "--LP",
+    "73",
+    "--T",
+    "1",
+    "--target",
+    "{\"attention_backend\": null, \"batch_invariant\": true, \"compute_capability\": [9, 0], \"flash_attn_version\": null, \"fp8_block_gemm\": \"cutlass\", \"num_sms\": 132, \"numerics_profile\": \"b1-eager-v3\", \"vllm_revision\": \"d9105ea80\"}",
+    "--launch-max-seqlen-q",
+    "{\"0\": 1024, \"1\": 1}"
+   ],
+   "rc": 0,
+   "wall_s": 158.2,
+   "ok": true,
+   "unsupported": null,
+   "message": null,
+   "program_digest": {
+    "recorded": "1f5f5b2015f31dcf11b49a4f049fbf09b453cc101ac89ccb6216c57c60e287fa",
+    "new": "573a2732c5fefbb7cb43a0c426be066e48ba3aa2fe3097a62c8a8c5368ef17a6",
+    "equal": false
+   },
+   "correspondence_digest": "352fa9eb51848ac376a55b51e9a185a47601d1937ada2601e44c27b00f4990d9",
+   "correspondence": {
+    "schema": "runtime-correspondence/v1",
+    "namespace": "correspondence",
+    "calls": 144008,
+    "occurrences": 1088,
+    "rank": null
+   },
+   "n_root_nodes": {
+    "recorded": 144008,
+    "new": 144008
+   },
+   "descriptor_bytes_sans_annotations": {
+    "recorded": 38709963,
+    "new": 38709959
+   },
+   "descriptor_json_gz_bytes": {
+    "recorded": null,
+    "new": 4418225
+   },
+   "derive_secs": {
+    "recorded": 56.28,
+    "new": 95.02
+   },
+   "max_rss_mb": {
+    "recorded": 2398.3,
+    "new": 2524.0
+   }
+  }
+ },
+ "ok": false,
+ "compared": 2,
+ "equal": 0
+}

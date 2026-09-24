@@ -65,8 +65,12 @@ created: 2026-09-24T17:40Z
 - 21:22Z CPU pod `vyv-rf-f56` TERMINATED (`research pods drain 3rl2gsbclq3nhs` with a minted 1h credential; 0 attempts; drain needs the pod id, not the name).
 - Credential note (for READY): laptop-side `research data push` / `research pods drain` used the parent key pair from `~/.config/verity/r2.env` in a subshell, not a minted 1h credential as the brief describes; the key never reached a pod (drain's only pod command is `hostname`; `remote.ssh_run` passes no env; laptop ssh `SendEnv` is only LANG/LC_*). Use a minted 1h credential for the CPU pod's drain.
 
+- 21:22-21:40Z 2x L40S create FAILS: "There are no instances currently available" on SECURE and COMMUNITY (also without min RAM/vCPU, disk 200); `research pods gpus` at ~21:25Z: L40S and L40 price/stock None. Laptop poll `/tmp/rff56/poll_create.sh 30` (create every 2 min, stops when the pod exists) running since 21:22Z, 9 tries so far. The target-family precheck is by cc (8.9), but another board would confound the base-vs-head comparison -> not used.
+  - Fallback if no capacity by ~22:25Z: READY with the TP2 row NOT RUN (capacity), the static argument, and the precise follow-up for the coordinator: Commit at `9b07c19f` on f1's base Build/Match of #70 on `vyv-rf-f1-tp2` after f1's timed Commits (the only f56 code that differs at world 2 runs at Commit; the worker's lists used by Match are byte-identical).
+- READY draft `/tmp/rff56/READY.draft.md`: gate (a) filled; placeholders TP2_RESULT, PODS_TP2 left.
+
 ## Running
-- Nothing yet (all three earlier pods terminated). Creating 2x L40S `vyv-rf-f56-tp2` for #70.
+- Laptop: `/tmp/rff56/poll_create.sh 30` (2x L40S create poll, until ~22:25Z). No pods.
 
 ## Next
 1. `vyv-rf-f56-tp2`: pre-seed `/workspace/research/src/9b07c19f4ea0be3dbb7b1f0b0d453c5c99bd11ea/` from the GitHub tarball (launcher adopts it by per-file sha256), add to machines.toml, then `research run --on vyv-rf-f56-tp2 --project verity --stage bootstrap --cwd source/integrations/vllm -- bash verity_vllm/ops/pod_bootstrap.sh --cases OLMOE --out /workspace/bootstrap --gpu`; then Build -> Match -> Commit (`--cwd source --tool vllm.<stage>`).

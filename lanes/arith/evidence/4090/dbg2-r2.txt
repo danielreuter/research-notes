@@ -1,0 +1,66 @@
+DBG 31999875.509 gc gen=2 ms=96.5 collected=0
+DBG 31999875.862 gc gen=2 ms=117.3 collected=300
+DBG 31999876.317 gc gen=2 ms=142.8 collected=0
+DBG 31999876.530 gc gen=2 ms=164.7 collected=0
+DBG 31999876.957 gc gen=2 ms=178.4 collected=730
+DBG 31999877.494 gc gen=1 ms=2.0 collected=0
+DBG 31999877.534 gc gen=1 ms=2.0 collected=0
+DBG 31999877.661 gc gen=1 ms=2.1 collected=0
+DBG 31999877.685 static-new stream=705266064 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31999878.334 gc gen=2 ms=222.4 collected=3084
+DBG 31999878.363 commit_graph-capture stream=705266064 ms=677.9
+DBG 31999878.373 static-new stream=704797968 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31999878.601 gc gen=2 ms=211.0 collected=0
+DBG 31999878.610 commit_graph-capture stream=704797968 ms=236.8
+DBG 31999878.611 static-new stream=705303648 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31999878.843 gc gen=2 ms=218.0 collected=0
+DBG 31999878.852 commit_graph-capture stream=705303648 ms=240.4
+DBG 31999878.853 static-new stream=705352064 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31999879.085 gc gen=2 ms=218.7 collected=0
+DBG 31999879.095 commit_graph-capture stream=705352064 ms=241.3
+DBG 31999879.096 static-new stream=705352832 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31999879.334 gc gen=2 ms=223.9 collected=0
+DBG 31999879.343 commit_graph-capture stream=705352832 ms=246.3
+DBG 31999879.344 static-new stream=705389824 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31999879.554 gc gen=2 ms=196.3 collected=0
+DBG 31999879.563 commit_graph-capture stream=705389824 ms=218.8
+DBG 31999879.564 static-new stream=705390592 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31999879.783 gc gen=2 ms=205.2 collected=0
+DBG 31999879.792 commit_graph-capture stream=705390592 ms=227.9
+DBG 31999879.794 static-new stream=173337040 key=(4096, 16384, 4352, 6, True, 256, 4607, 8447, 7090, 7126, 46344, True, 12) n_sets=0
+DBG 31999880.020 gc gen=2 ms=213.1 collected=0
+DBG 31999880.031 commit_graph-capture stream=173337040 ms=237.0
+DBG 31999880.266 gc gen=2 ms=221.5 collected=0
+DBG 31999880.272 tests-capture stream=705266064 lkey=(4096, 341, 12) ms=232.1
+DBG 31999880.493 gc gen=2 ms=216.4 collected=0
+DBG 31999880.498 tests-capture stream=704797968 lkey=(4096, 341, 12) ms=226.5
+DBG 31999880.715 gc gen=2 ms=212.1 collected=0
+DBG 31999880.721 tests-capture stream=705303648 lkey=(4096, 341, 12) ms=222.2
+DBG 31999880.949 gc gen=2 ms=217.3 collected=0
+DBG 31999880.954 tests-capture stream=705352064 lkey=(4096, 341, 12) ms=226.5
+DBG 31999881.175 gc gen=2 ms=215.8 collected=0
+DBG 31999881.180 tests-capture stream=705352832 lkey=(4096, 341, 12) ms=225.9
+DBG 31999881.400 gc gen=2 ms=215.3 collected=0
+DBG 31999881.406 tests-capture stream=705389824 lkey=(4096, 341, 12) ms=225.3
+DBG 31999881.623 gc gen=2 ms=212.6 collected=0
+DBG 31999881.629 tests-capture stream=705390592 lkey=(4096, 341, 12) ms=222.6
+DBG 31999881.875 gc gen=2 ms=223.4 collected=0
+DBG 31999881.887 tests-capture stream=173337040 lkey=(4096, 341, 12) ms=239.1
+DBG 31999882.118 gc gen=2 ms=206.6 collected=0
+DBG 31999882.138 tests-capture stream=705266064 lkey=(4096, 4, 12) ms=232.4
+DBG 31999882.143 pass wall=4459.4 busy=4456.9 waited=2.3 stages={-1: 0.27, 0: 2348.27, 1: 9.0, 2: 2057.2, 3: 28.06, 4: 14.36} alloc=(362, 147, 0)
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.0, 'hints_host': 54.622, 'witness': 0.037, 'self_check': 1.912, 'zk_masks': 0.021, 'encode': 0.002, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 0.092, 'tests_quad': 0.0, 'tests_chain': 0.0
+DBG 31999882.326 gc gen=1 ms=2.1 collected=0
+DBG 31999882.589 gc gen=2 ms=225.1 collected=0
+DBG 31999882.612 tests-capture stream=705352832 lkey=(4096, 4, 12) ms=253.1
+DBG 31999882.620 pass wall=339.0 busy=297.0 waited=41.7 stages={-1: 0.25, 0: 9.08, 1: 0.37, 2: 255.59, 3: 5.71, 4: 26.24} alloc=(389, 160, 0)
+rep 1: prover 0.327s (+hints 0.012s) over 13 proofs; verifier 0.253s; pass wall 0.786s (0.083 ms/VU)
+DBG 31999883.044 pass wall=91.6 busy=37.0 waited=54.3 stages={-1: 0.51, 0: 9.47, 1: 0.58, 2: 2.96, 3: 4.28, 4: 19.7} alloc=(399, 160, 0)
+rep 2: prover 0.087s (+hints 0.004s) over 13 proofs; verifier 0.246s; pass wall 0.338s (0.022 ms/VU)
+DBG 31999883.378 pass wall=87.6 busy=23.8 waited=63.6 stages={-1: 0.25, 0: 7.36, 1: 0.42, 2: 2.77, 3: 3.62, 4: 9.62} alloc=(399, 160, 0)
+rep 3: prover 0.084s (+hints 0.004s) over 13 proofs; verifier 0.244s; pass wall 0.334s (0.021 ms/VU)
+DBG 31999883.711 pass wall=86.3 busy=35.9 waited=50.1 stages={-1: 0.26, 0: 7.65, 1: 0.59, 2: 2.84, 3: 4.19, 4: 20.67} alloc=(399, 160, 0)
+rep 4: prover 0.083s (+hints 0.004s) over 13 proofs; verifier 0.248s; pass wall 0.335s (0.021 ms/VU)
+DBG 31999884.041 pass wall=80.9 busy=24.0 waited=56.6 stages={-1: 0.25, 0: 6.84, 1: 0.4, 2: 2.6, 3: 3.82, 4: 10.37} alloc=(399, 160, 0)
+rep 5: prover 0.077s (+hints 0.004s) over 13 proofs; verifier 0.249s; pass wall 0.333s (0.020 ms/VU)
+DBG 31999884.990 gc gen=2 ms=152.8 collected=1372

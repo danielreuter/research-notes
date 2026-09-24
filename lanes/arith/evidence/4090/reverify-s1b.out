@@ -1,0 +1,16 @@
+/workspace/research/store/labels/art_7775888d1ece413d81e65cb3d2c47d9d626eadca7aa2412d21f0f587c36e0167/20260924T200349Z-arith.json
+/workspace/research/store/labels/art_7775888d1ece413d81e65cb3d2c47d9d626eadca7aa2412d21f0f587c36e0167/20260924T200349Z-arith~2.json
+/workspace/research/store/labels/art_7775888d1ece413d81e65cb3d2c47d9d626eadca7aa2412d21f0f587c36e0167/20260924T200349Z-arith~3.json
+/workspace/research/store/labels/art_7775888d1ece413d81e65cb3d2c47d9d626eadca7aa2412d21f0f587c36e0167/20260924T200349Z-arith~4.json
+art:7775888d1ece… r20260924-194155-a3a0: custody 40/40, pinned=fp8-ada-v3x4, 13/13, 2^-128.33 PASS -> verdict art:20f128cf12b18793f76e485718c916af7c78a4b1ed46bd80ef34adfd71f71836  (29.5s)
+/workspace/research/store/labels/art_1523b35cfb4b768c37116966ccd08b2956db41d203240768a591adaf4fee0590/20260924T200410Z-arith.json
+/workspace/research/store/labels/art_1523b35cfb4b768c37116966ccd08b2956db41d203240768a591adaf4fee0590/20260924T200410Z-arith~2.json
+/workspace/research/store/labels/art_1523b35cfb4b768c37116966ccd08b2956db41d203240768a591adaf4fee0590/20260924T200410Z-arith~3.json
+/workspace/research/store/labels/art_1523b35cfb4b768c37116966ccd08b2956db41d203240768a591adaf4fee0590/20260924T200410Z-arith~4.json
+art:1523b35cfb4b… r20260924-194155-a3a0: custody 40/40, pinned=fp8-ada-v3x4, 13/13, 2^-128.33 PASS -> verdict art:d6273533da703fb3fd98154b81f161df7c9a55b8d598e72bc8e5eb42c28fa0f0  (21.0s)
+/workspace/research/store/labels/art_021aeabba7b8eb515963745ea44f0ef9a06738961bbe43ea7e83cfbd347c29fa/20260924T200432Z-arith.json
+/workspace/research/store/labels/art_021aeabba7b8eb515963745ea44f0ef9a06738961bbe43ea7e83cfbd347c29fa/20260924T200432Z-arith~2.json
+/workspace/research/store/labels/art_021aeabba7b8eb515963745ea44f0ef9a06738961bbe43ea7e83cfbd347c29fa/20260924T200432Z-arith~3.json
+/workspace/research/store/labels/art_021aeabba7b8eb515963745ea44f0ef9a06738961bbe43ea7e83cfbd347c29fa/20260924T200432Z-arith~4.json
+art:021aeabba7b8… r20260924-194155-a3a0: custody 40/40, pinned=fp8-ada-v3x4, 13/13, 2^-128.33 PASS -> verdict art:118efdc05dcb15fa4cba9ab377cd62b721b5a438f4f48bdea37e052b4f8f3269  (21.6s)
+3 result(s): PASS 3; verifier ligero-verify(sha256 d89cffc7b759e1f5)

@@ -8,6 +8,7 @@ final: 01:10Z hard; budget $10
 status: open
 ---
 
+CHECKPOINT f5b5810 (22:24Z) [open] H100 done: E4M3 tip .0742/.0432 vs base .0795/.0454 (cell .0738); BF16 live tip .1822 vs base .2499 (pod noisy, cell .1292); 13/13 reverify PASS, preserved; h100 terminated 22:23Z, ~$4.3 spent; next A100 bf16-ampere-v3
 CHECKPOINT 5543d80 (21:36Z) [open] 4090 step5 (92dab0ad: fixed slots + full warm pass): tip total .0870/.0840/.0863/.0891 arith .0409 mean vs base .0968/.0477; reverify PASS x4 (art:def461c7 art:bb75ba4f art:d2b01b3f art:f3978133); handoff 2135Z; next malloc test then H100
 CHECKPOINT 1a69ab6 (20:50Z) [open] 4090: s1 arith 0.0477->0.0417 verified (art:7775888d..); s2+s3 kernels bit-exact, A/B noisy; cause = ragged-layout graph captures in timed reps; fix 92ea2531 fixed slot per sub-batch, A/B running; next register+reverify, then H100
 CHECKPOINT none (20:23Z) [open] steps 2 (0baefa9d lincomb2 w+v one pass, 0.39->0.25ms) + 3 (f550fdc6 intt_rows) bit-exact; step1 reverify PASS x3 (art:20f128cf art:d6273533 art:118efdc0); 3-arm A/B s1/s2/s3 running (pod noisy: medians)
@@ -136,3 +137,29 @@ Inbox at startup: nothing new.
   ligero-verify f05bb9cb (= the cell's), live-verifier@92dab0ad.
 - A/B h100-ab.sh (r20260924-214905-44a7): base = main 22741456's 5 changed files over the tip tree vs tip, 3 alternating
   rounds; E4M3 local then BF16 live; LIGERO_REFERENCE_HINTS=0 as fill-dc.
+- Per-run t.total s (arithmetic s), rotating order:
+  - E4M3 local base 0.0763 0.0826 0.1071 0.0736 0.0734 0.0895 (arith .0429 .0547 .0826 .0426 .0416 .0479);
+    tip 0.0772 0.0732 0.0715 0.0822 0.0752 0.0706 (arith .0493 .0434 .0430 .0532 .0397 .0413).
+  - BF16 LIVE base 0.6198 0.1925 0.2499 (arith .3970 .1195 .1506); tip 0.1822 0.2130 0.1530 (arith .1165 .1493 .0842).
+  - BF16 local base 0.2213 0.1552 0.5473 0.1452 (arith .1380 .1191 .3357 .0904); tip h16L 0.1131 0.1588 0.1201 0.1333
+    + hsy 0.1111 0.1076 0.1312 (arith .0642 .0897 .0840 .0882 / .0618 .0621 .0788).
+- Base rep 1 (the capture): E4M3 0.31-1.52 s in every base run, tip 0.07-0.12 s. BF16 (25 = 3 x 8 + 1 sub-batches: the
+  ragged job 24 is slot 0 in FIFO order, which is where the old warm pass captured it) base rep 1 is mostly clean.
+- This pod is much noisier than fill-dc's EU-NL-1 H100: random 0.3-6.6 s reps in every arm (rep 2 most often). os.sync()
+  after the rep-1 dump (untimed; diagnostic tree, not committed) does not help (hsy-sync 0.1599 0.9832 0.1178 0.1092).
+
+| H100 (medians over runs) | t.total s | arithmetic s | overhead x | tip arts (verified --by arith) |
+|---|---|---|---|---|
+| E4M3 cell (main) | 0.0738 | 0.0426 | 1.2e7 | art:85569708 |
+| E4M3 base here (6) | 0.0795 | 0.0454 | ~1.3e7 | meta: art:e1a11597 art:ba74492e art:27cbd152 art:dc10aedc art:dc1390dd art:c454adc2 |
+| E4M3 tip (6) | 0.0742 | 0.0432 | ~1.2e7 | art:e9ae289c art:c6271278 art:8182f9ae art:efd871f6 art:7a8443b4 art:709ab20c |
+| BF16 LIVE cell (main) | 0.1292 | 0.0799 | 1.0e7 | art:aadcd93f |
+| BF16 LIVE base here (3) | 0.2499 | 0.1506 | ~1.9e7 | meta (registered.txt) |
+| BF16 LIVE tip (3) | 0.1822 | 0.1165 | ~1.4e7 | art:415d6cde art:b23719dd art:16feee34 |
+| BF16 local base (4) | 0.188 | 0.129 | - | meta |
+| BF16 local tip (4 + 3 meta) | 0.1201 | 0.0788 | - | art:e3362256 art:064a3a75 art:593f8249 art:debd7e1d |
+
+  Reverify --by arith: 13/13 PASS (E4M3 13/13 proofs 2^-128.33, BF16 25/25 2^-128.05), verdicts in evidence/h100/verdicts.txt;
+  all 56 arts preserved (pod-side `data preserved` rc=0). The within-pod A/B favours the tip; the absolute BF16 live numbers
+  do NOT beat the cell (pod noise) -- Table 2 should keep art:aadcd93f or be re-measured on a quiet pod.
+- vy-arith-h100 TERMINATED 22:23Z (21:41-22:23, ~$2.44). Spend so far ~$4.29.

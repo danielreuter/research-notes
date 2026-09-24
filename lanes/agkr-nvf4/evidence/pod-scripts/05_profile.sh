@@ -9,7 +9,9 @@ cd /workspace/src/backends/gkr
 export PYTHONPATH=/workspace/src/backends/gkr:$PYTHONPATH
 $PY -m gpu.nvf4.circuit export --out $O/stmt > /dev/null
 echo "== profile vus=$VUS reps=$REPS $(date -u +%H:%M:%S)"
-RESEARCH_RUN_DIR=$O/run $PY /workspace/agkr-nvf4/pod-scripts/05_profile.py $O/stmt --relation fp4-nvf4 --vus $VUS --reps $REPS \
+ENTRY=/workspace/agkr-nvf4/pod-scripts/05_profile.py
+[[ $TAG == t* ]] && ENTRY=bench_result.py          # timing only: no sync timers
+RESEARCH_RUN_DIR=$O/run $PY $ENTRY $O/stmt --relation fp4-nvf4 --vus $VUS --reps $REPS \
     --warmup 1 --verifier /workspace/bin/verity-gkr-verify --threads 13 > $O/prof.log 2>&1
 echo "rc=$?"
 grep -E '^\{"rep"|profile_rep|t_total|Error|error' $O/prof.log | cut -c1-3000 | tail -12

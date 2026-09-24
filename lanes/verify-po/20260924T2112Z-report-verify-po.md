@@ -43,6 +43,8 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 2 | `20260924T2140Z-handoff-from-arith.md` (step 5, 92dab0ad) | art:def461c7 art:bb75ba4f art:d2b01b3f art:f3978133 | RTX 4090 FP8, B-Ligero | accepted x4 | art:00dabdc8 art:11c4595f art:6a6c101b art:1ca0fbef |
 | 3 | `20260924T2129Z-handoff-from-agkr-fp8.md` | art:1b4fd4a1 | RTX 4090 FP8, A-GKR (new cell) | accepted | art:a40f5576 |
 | 4 | `20260924T2200Z-handoff-from-agkr-nvf4.md` | art:fe57e68b | RTX 5090 NVFP4, A-GKR (new cell) | accepted (verifier from 3c769c6d, needs merge) | art:acf87c5c |
+| 5 | `20260924T2212Z-handoff-from-agkr-fp8.md` | art:2e7baba7 | H100 FP8, A-GKR (new cell) | (labelling) | |
+| 6 | `20260924T2220Z-handoff-from-sp1-128.md` | art:e8c7c331 | SP1 A100 BF16 sec134 (D2 row, not Table 2) | (building hosts) | |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
 - reverify run r20260924-215206-fe12: all 7 PASS (custody 40/40, pinned fp8-ada-v3x4, 13/13 proofs, 2^-128.33, ligero-verify
@@ -81,6 +83,16 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   `fp4/chain.instances_fp4(4096)` final words, with 0 rows mismatched. Digest d2d65f65… equals the one the result records.
 - Negatives, all rejected: `mutate --sample 24` (148/148); my s flip, t+1 and f+1 (on different VUs); the public line
   reordered; the public line removed (verifier panics "circuit has no column y16", rc 101).
+
+### 5. agkr-fp8 A-GKR H100 FP8 art:2e7baba7 (run r20260924-221801-97bc)
+- Same method and binary as request 3. 891572a0 differs from 07a8edd6 only in `bench_result.py` metadata, so the statement
+  was regenerated with the 07a8edd6 archive, `--model hopper_e4m3_wgmma_k32`.
+- 3/3 proofs accepted (sha256 f80ecc53) with the expected counts: 2711 slots, 8912 msgs, 17251312 bytes, 21576 rows and
+  88375120 elements. Each proof takes 1.45-1.62 s.
+- circuit, epilogue and chain are byte-identical and the manifest params are equal. public.bin equals pack_public of main's
+  frozen fp8-hopper final words, with 0 mismatches.
+- Negatives, all rejected: `mutate --sample 64` (356/356); my VU-17 +1; the producer's 4 claim negatives (art:cdaabf41),
+  whose honest case is accepted.
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`)
 | cell | before | now | art |

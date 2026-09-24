@@ -10,3 +10,10 @@ bare-v3p8-r2 art:beef26fc
 bare-v3p4-r2 art:95bd2e97 
 bare-x4p4-r2 art:30ac4c50 
 bare-x4p8-r2 art:785e63f2 
+bare-v1p4-r3 art:fe6e7274 
+bare-v1p8-r3 art:e393f645 
+bare-v3p4-r3 art:43fdf3f0 
+bare-v3p8-r3 art:07a960bc 
+bare-x4p4-r3 art:2a986fba 
+bare-x4p8-r3 art:9b3a6096 
+shared64p4-r1 art:46824988 

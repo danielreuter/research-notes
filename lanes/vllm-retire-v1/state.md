@@ -32,5 +32,5 @@ CHECKPOINT rv-ready MET 08:16Z ready note note:20260924T0816Z-from-vllm-retire-v
 ## v1 survivor
 TP rank committers (`tp/worker.py` → `make_committer`): `native_host.ACQUIRE_CLASSES` class tables, no acquisition plan. Kept.
 
-## Waiting
-Integrator merge of `lane/vllm-retire-v1` onto `38122d1f`. Then final report + DONE.
+## Done
+Integrator merged `9d80e302` → `5ad682d3` on `lane/vllm-cleanup-2` (08:21Z). Final report note:20260924T0822Z-final. DONE written.

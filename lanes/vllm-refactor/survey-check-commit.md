@@ -2,7 +2,7 @@
 id: vllm-refactor/survey-check-commit
 lane: vllm-refactor
 kind: survey
-status: draft
+status: complete
 created: 2026-09-24
 checkout: f0810a11 (lane/vllm-cleanup-2), read-only
 slice: integrations/vllm/verity_vllm/check/ (37 files, 24,875 lines) + integrations/vllm/verity_vllm/commit/ (39 files incl. fa2_prototype + engine_rs, ~7,000 lines of code + 2 MB fixtures)
@@ -442,8 +442,8 @@ Correction to the brief's known facts: at `f0810a11`, four integration files imp
 
 1. **Production commitments are integration-only.** Only the PoC leaf rule (`commit/hashing.py:50-131`, a copy of `commitments/leaves.py:73-150`) matches core. The leaves production commits, `pos_leaf` (`semantic_layout.py:44,150`) and the `fa2h` chunk header (`hidden_stream.py:34-35,144-151`, CUDA `native_tree.cu:163`), plus `bind_root`/run root (`hidden_engine.py:49`, `padding_steps.py:308`), have no core counterpart, and nothing verifies under `commitments/merkle.py:26-149`.
 2. **The C2 of record replays the prover's memory.** `sampled_replay` reads bytes through `oracle_compare.committed_reader` (`oracle_compare.py:914-940`), the live committer's private `_layouts`/`_gpu_blocks`; the replayed values are never opened. The PoC path authenticated them (`relations.py:735`).
-3. **Four evaluator families for the same Definitions:** `twins.py`, `program/registry/derived_rows.py`, the `sampled_replay.py:743-920` ladder, `relations.py:227-450` + `program/numerics/*`. Only `twins` is checked against `evaluate_call` at run time.
-4. **Process-wide monkeypatch of core:** `global_match_fast.py:482-520` replaces `verity.ir.codec._spec_id`, `verity.ir.refs.runs` and eight integration functions whenever `MATCH_IMPL=fast`, the default (`global_match.py:2063-2065`).
+3. **Four evaluator families for the same Definitions:** `twins.py`, `program/registry/derived_rows.py`, the `sampled_replay.py:743-920` ladder, `relations.py:227-450` + `program/numerics/*`. Of the four, only `twins` is checked against `evaluate_call` at run time.
+4. **Process-wide monkeypatch of core:** `global_match_fast.py:482-520` replaces `verity.ir.codec._spec_id`, `verity.ir.refs.runs` and eight integration attributes (functions, a class, a constant) whenever `MATCH_IMPL=fast`, the default (`global_match.py:2063-2065`).
 5. **Five verdict systems, none using core codes:** `gates.py:1189`, `commit_verdict.py:480`, `verdict.py:170-200`, `poc_rows.py:294`, `relations.py:650`. `verdict.py` re-implements `commit_verdict` through seven of its private helpers.
 6. **Verdicts keyed on prose:** `commit_verdict.py:107,152,353-354` match message text produced by `sampled_replay` and `commit_delta`.
 7. **Six sample/challenge derivations:** `commit/binding.py:676`, `sampled_replay.py:2522` + `:2051` (Mersenne Twister), `compiled_kernel_check.py:206` (seed defaults to 0), `relations.py:1143` (seed defaults to 0), `replay.py:533`, `stoch_recompute.py:610`. Core has none.
@@ -477,8 +477,8 @@ Correction to the brief's known facts: at `f0810a11`, four integration files imp
 | `reference_engine/__init__.py` | delete (or move to bench) | CMT-1 experimental committer; owner decides whether `commit_delta` keeps `cmt_ref_*` |
 | `reference_engine/engine.py` | delete (or move to bench) | as above; dead `sys.path` hack, duplicate verifier |
 | `reference_engine/positions.py` | delete (or move to bench) | as above; core `commitments/indexed.py` covers position domains |
-| `reference_engine/torch_sha256.py` | delete (or move to bench) | fifth SHA-256 implementation |
-| `reference_engine/triton_sha256.py` | delete (or move to bench) | sixth SHA-256 implementation, generated at run time |
+| `reference_engine/torch_sha256.py` | delete (or move to bench) | torch SHA-256, one of eight SHA-256 implementations (§4.4) |
+| `reference_engine/triton_sha256.py` | delete (or move to bench) | Triton SHA-256 generated at run time, another of the eight |
 | `reference_engine_adapter.py` | delete (or move to bench) | only reachable via `commit_delta` `cmt_ref_*`; private `native_host` imports |
 | `engine_rs/Cargo.toml`, `Cargo.lock`, `.gitignore`, `src/main.rs` | delete | no callers, missing planner, empty-root divergence |
 | `fa2_prototype/__init__.py`, `derived.py`, `encoding.py`, `fixture.py`, `kernel_dump.py`, `layouts.py`, `oracle.py`, `reference.py` | move to `tests/commit/fa2/` | test support (per `dead_code_keep.json`); drop the `/private/tmp` fallback and the import-time MUFU preload |
@@ -506,7 +506,7 @@ Correction to the brief's known facts: at `f0810a11`, four integration files imp
 | `golden.py` | move to properties package | regression property (G6) |
 | `golden/corpus.json` | move with `golden.py` | data inside the package |
 | `holdout.py` | move to properties package | generalization property (G7) |
-| `kernel_allowlist.py` | move to `observe/profiles/` | data about observation profiles |
+| `kernel_allowlist.py` | move with `census.py` to the properties package | the frozen census allowlist (`census.py:360`); deliberately outside the lane-editable `observe/profiles/`, which only reference it (`observe/profiles/vllm_d9105ea80_sm89_eager.py:255`) |
 | `kernel_identity.py` | keep | per-run kernel pin; narrow the eight broad excepts |
 | `noninterference.py` | move to properties package | property of the observer (G1) |
 | `operand_provenance.py` | keep | per-run G5 |

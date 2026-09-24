@@ -315,3 +315,100 @@ Counts for `observe/`: CORE-DUP 3, INTERNAL-DUP 8, VERSION-RESIDUE 10, HARDCODIN
 - `acquire/committer_api.py:94-103` draws challenge positions with replacement, so a k-position challenge can repeat positions. *low*
 
 Counts for `acquire/`: CORE-DUP 3, INTERNAL-DUP 5, VERSION-RESIDUE 6, HARDCODING 5, SCRIPT/ENV/PATH 6, LAYERING 3, GOD-MODULE 3, DEAD 4, NAMING 5, DOCS 4, FALLBACKS 5, OTHER-WEIRD 6.
+
+---
+
+## 3. `tp/` (16 .py files, 6,459 lines)
+
+**What it actually does vs its name.** The name suggests general tensor-parallel support, and the package docstring says it is a torch-free linkage tool. In fact it holds four things: (1) the rank-process seam, a class mixed into every rank's vLLM Worker through `worker_extension_cls` that installs the observer, a collective recorder and the committer in each rank; (2) TP twins of the single-rank drivers (`capture.py` of `observe/m1_capture.py`, `commit.py` of `harness/commit_delta.py`, `match.py`, `fold_match.py`); (3) fold-side patterns and export ops that belong with `observe/patterns` and `program/frontend` (`collective_pattern.py`, `embedding_shard.py`, `export_ops.py`); (4) research tools kept alive for tests (`analyze.py`, `collective_link.py`, `collective_record.py`). The code is mostly world-parametric (world = number of rank builds); "tp2" in names is the lane name, not the degree.
+
+### Modules
+
+| module | lines | job |
+|---|---:|---|
+| `__init__.py` | 12 | package docstring; stale (see DOCS) |
+| `worker.py` | 1,579 | `TP2CaptureWorkerExtension`: 21 `tp2_*` RPC methods run in every rank (probe, observer install/close, parameter hashes, semantic probes, collective recorder, committer make/install/finalize, binding map, sampled replay, cross-rank dumps, openings, value check, profiler census) |
+| `commit.py` | 1,177 | TP Commit driver CLI: the pairs protocol over ranks, `tp_run_root`, negatives, per-rank verdicts; one 854-line `main` |
+| `partial_source.py` | 575 | `TPPartialSource`: wraps vLLM's module-level collective names to commit each rank's collective inputs (and received outputs); hook-time clone comparisons |
+| `rank_match.py` | 499 | structural cross-rank checks over per-rank folds, recorder rows and `tp_links.json` (count, kind, N, site, order, producer, link binding) |
+| `analyze.py` | 478 | research CLI over per-rank raw logs: collective inventory, root sharding vs TP1, numerical body of snapshotted collectives (numpy) |
+| `collective_link.py` | 421 | research CLI: per-rank collective shards from raw logs, joined across ranks by `(communicator, step, k)` |
+| `match.py` | 346 | TP Match driver: capture / control / check arms through the worker extension; received == Definition(partials), token parity |
+| `fold_match.py` | 325 | per-rank fold match: fold, compare and GM-01 as subprocess chains per rank, then `rank_match` |
+| `export_ops.py` | 258 | TP-aware export for `derive_step`: `verity_tp::*` custom ops, `CollectiveBus` (probe/trace), `TPStub` (stands in for vLLM's `GroupCoordinator`) |
+| `xrank_collectives.py` | 255 | cross-rank replay of collective outputs from the ranks' committed partials |
+| `capture.py` | 214 | TP capture driver CLI (the TP twin of `observe/m1_capture.py`) |
+| `collective_record.py` | 98 | schema of the per-rank collective record and the cross-rank link record |
+| `collective_sites.py` | 90 | finds mid-module collective call sites by scanning vLLM model-class source |
+| `collective_pattern.py` | 80 | fold pattern: `vllm.all_reduce` / `vllm.all_gather` to one `AllReduce*` / `AllGather*` instance with a `resolver.Collective` operand |
+| `embedding_shard.py` | 52 | fold pattern: `_C.vocab_parallel_embedding` to `EmbeddingShard_v1` |
+
+### Findings
+
+**CORE-DUP (0).** Nothing here copies core. The rank-combining root (`tp/commit.py:32-44 tp_run_root`, `SHA-256("verity/tp-run-root/v1" || u32 world || (u32 r || root_r)…)`) has no core counterpart: `packages/.../verification/statement.py:131-144 CommitmentRef.owner` admits only -2, -1 or a replay-unit index, and `verity.ir.layout` is gate layout, not device sharding (see the collectives map).
+
+**INTERNAL-DUP (6)**
+- Collective semantics are implemented four times: the registered Definitions (`program/registry/b1_tp2.py:100-177`), torch custom ops (`tp/export_ops.py:42-80`), inline reference evaluation in `tp/match.py:240-256` and again in `tp/xrank_collectives.py:166-172`; the world-2 vs world-N family choice is branched separately at `tp/export_ops.py:141, 154` and `program/registry/b1_tp2.py:169, 177`. *high*
+- TP drivers copy the single-rank drivers: `tp/capture.py` vs `observe/m1_capture.py` (same pinned defaults `tp/capture.py:87-88` = `m1_capture.py:137-138`, same `EXPORT.json` read `tp/capture.py:101` = `m1_capture.py:155`, and `tp/capture.py:42-52 parse_engine_args` re-implements `observe/vllm_adapter.py:272-285`; `check/noninterference.py:724 _engine_args` is a third copy); `tp/commit.py` is "commit_delta's pairs protocol" (`:1-2`); `tp/worker.py:1019-1114 _tp2_binding` and `:1115-1242 _tp2_sampled_replay` redo the orchestration of `harness/commit_delta.py:549 binding_record` and `:2375-2470`. *high*
+- The collective-site list and its monkeypatch are written twice: `tp/partial_source.py:23-31 SITES` (installed at `:242-257`) and `tp/worker.py:546-560`. Their MoE coverage differs: `partial_source` patches `fused_moe.runner.moe_runner` and `fused_moe.layer`, while `worker.py:81-82` also patches `fused_moe.shared_fused_moe`, so the recorder can see an all-reduce whose input the committer does not bind. The three MoE class lists also disagree (`tp/partial_source.py:35`, `tp/worker.py:78`, `acquire/moe_source.py:36`). `tp/collective_sites.py:1-2` calls itself "the ONE finder the GPU-side observers share", but covers only mid-module sites. *medium*
+- Source-tree identity is computed in several places: `tp/commit.py:75-99 tree_of_record` (`EXPORT.json` or `git diff`), `tp/worker.py:42-72 repo_modules_loaded` (re-lists the three JIT sources that `acquire/native_jit.py:22 SOURCES` holds), `harness/source_identity.py`, `harness/experiment.py:83-88`, `harness/commit_delta.py:97 git_head`. `EXPORT.json` is read ad hoc in at least ten places (`tp/capture.py:101`, `tp/commit.py:82`, `observe/m1_capture.py:155`, `check/noninterference.py:133`, `input_provenance/weights_of_record.py:910`, `harness/derive_step.py:309`, `harness/experiment.py:84`, `harness/hot_commit.py:114`, `harness/commit_delta.py:98`, `harness/release_json.py:147`). *medium*
+- Program-directory discovery for rank builds: `tp/worker.py:176-190 _tp2_request_program_dirs` and `tp/commit.py:470-490` each rebuild the `build_request_LP*_T*` layout that `build_paths.py` owns. *low*
+- Small helpers: `tp/worker.py:99 _jsonable` is one of seven (`observe/resolve_log.py:296`, `observe/profiles/canonical.py:80`, `program/frontend/triton_capture.py:39`, `program/frontend/derive.py:116`, `harness/run_config.py:1181`, `check/fold_compare.py:855`); `tp/analyze.py:265 f32_to_bf16_rne` duplicates `program/dtypes.py:119 f32_to_bf16_bits`. *low*
+
+**VERSION-RESIDUE (4)** (legit hashed/serialized identifiers listed separately below)
+- The lane name `tp2` on world-parametric code: `tp/worker.py:74 EXTENSION = "verity_vllm.tp.worker.TP2CaptureWorkerExtension"`, 21 RPC methods named `tp2_*` (`tp2_probe` … `tp2_profiler_stop`) that the drivers call by string through `collective_rpc`, log prefixes `[tp2]` (`tp/capture.py:117`) and `[tp2commit]` (`tp/commit.py:941`). Renaming touches driver and rank side together. *medium*
+- World-2 and world-N collective families live side by side: `AllReduce2_v1{N}` / `AllGather2_v1{N}` stay the world-2 identities so recorded Program digests do not change, `AllReduce_v2{WORLD,N}` / `AllGather_v1{WORLD,N}` serve world > 2 (`program/registry/b1_tp2.py:120-177`), with matching binary and list custom ops (`tp/export_ops.py:42-80`); `tp/partial_source.py:32 COVERS_FAMILIES` names only the world-2 families. The ids are legit; the `world == 2` branching in code is the residue. *medium*
+- Two-rank CLI spellings kept beside the general one: `tp/match.py:298-307, 335-336` and `tp/fold_match.py:151-156, 176-193` accept `--build-rank0/--build-rank1`, `--derived-rank0/1`, `--gprog-rank0/1` next to repeated `--build-rank`. *low*
+- `tp/match.py:96` records `"campaign": os.environ.get("VERITY_CAMPAIGN", "r15")` ("was the hard-coded 'r13' label"). *low*
+- LEGIT: `verity/tp-run-root/v1` (hash tag), `verity/commit-integ/delta-tp/v1` (`tp/commit.py:33`), `verity/commit-integ/value-check-tp/v1` (`:953`), the collective record schemas in `tp/collective_record.py`, Definition ids `AllReduce2_v1`, `AllGather2_v1`, `AllReduce_v2`, `AllGather_v1`, `EmbeddingShard_v1`.
+
+**HARDCODING (3)**
+- vLLM internals as patch targets: `tp/partial_source.py:23-31` (six module/name pairs in `vllm.model_executor.layers.*`), `tp/worker.py:81-82 MOE_COLLECTIVE_MODULES` (module paths from two vLLM layouts, "moved … in 0.28"), `tp/collective_sites.py:30 MODEL_MODULE_PREFIX`. *medium*
+- Pinned build and workload defaults in the TP capture: `tp/capture.py:65, 67, 87-88` (`workloads/workload_qwen15_32x16_1req.json`, `manifests/checkpoints.json`, wheel sha `7aa52ac7…`, vLLM `d9105ea80`). *medium*
+- TP degree 2 as a default: `tp/capture.py:69 --tp default=2`; world > 2 is registered but "a reference rearrangement, no gates" (`program/registry/b1_tp2.py:140, 156`). *low*
+
+**SCRIPT/ENV/PATH (5)**
+- Import-time environment mutation: `tp/capture.py:34-36` calls `prof.apply_env()` at import (and again at `:104`). *high*
+- CWD-dependent behaviour: `tp/capture.py:65, 67, 101` (workload, checkpoints manifest and `EXPORT.json` relative to the CWD); `tp/commit.py:82` (`Path.cwd() / "EXPORT.json"`) and `:92-95` (runs `git` in the CWD). *medium*
+- Subprocess orchestration in library code: `tp/fold_match.py:36-45, 74, 90, 104, 119` runs `harness.run_config --worker fold`, `correspondence.batch_decomp`, `check.program_compare` and `check.global_match` as `python -m` subprocesses per rank (`--python` defaults to `sys.executable`, `:165`) instead of calling functions. *medium*
+- `__main__` + argparse in six modules (`capture.py`, `commit.py`, `match.py`, `fold_match.py`, `analyze.py`, `collective_link.py`); the committer reads env side channels shared with `acquire/` (`tp/commit.py:567` `VERITY_WINDOW_SLOTS`, `:921` `VERITY_RETAIN`). *low*
+- Machine paths in docstrings: `tp/capture.py:3-4` (`HF_HOME=/workspace/hf`, `/workspace/venv-cu129/bin/python`, `/vol/cp/tp2/runs/<name>/capture`); `tp/worker.py:47` `Path(__file__).resolve().parents[2]`. *low*
+
+**LAYERING (4)** (the observe <-> tp cycle is counted under `observe/`)
+- tp -> harness: the rank worker builds its committer through the single-rank driver module (`tp/worker.py:639` `harness.commit_delta.baseline_state`, `make_committer`; `:887, 1435` `assert_pristine`, `class_coverage`), and `tp/commit.py:330` imports `harness.commit_delta.git_head`, `run_workload`; `harness/research_outputs.py` imports `tp.commit` and `tp.match` back. *high*
+- tp -> check, including private names: `tp/commit.py:216` imports `check.commit_verdict._query_population_scope`; `tp/commit.py:331` `check.commit_verdict`; `tp/worker.py:1416` `check.value_check.ValueChecker`; `:1550` `check.census`. *medium*
+- Program construction lives in tp: `harness/derive_step.py` and `program/frontend/rules/vllm_bindings.py` import `tp.export_ops`, and `observe/profiles/generic.py:41-42` imports the fold patterns `tp.collective_pattern` / `tp.embedding_shard`; `tp/worker.py:184` imports `query.manifest.format`. *medium*
+- Private helpers across tp modules: `tp/worker.py:953, 1258, 1492` import `partial_source._committed`. *low*
+
+**GOD-MODULE (2)**
+- `tp/worker.py` (1,579): one class mixed into vLLM's Worker with 21 RPC entry points and 4 private helpers: (1) process and communicator probe; (2) observer install/close in the rank with a per-rank header; (3) parameter-shard hashes; (4) semantic probes; (5) collective recorder with module-name patching; (6) committer construction plus the TP partial source; (7) request attribution; (8) binding map; (9) sampled replay; (10) cross-rank dumps; (11) openings and population openings; (12) value check; (13) profiler census; (14) repo module listing. *high*
+- `tp/commit.py` (1,177): `main()` spans `:322-1175` (854 lines): arguments, engine build with the worker extension, the pairs loop, per-pair commit/finalize/openings, value check, cross-rank replay, rank match, negatives, verdict assembly and record writing. *high*
+
+**DEAD (3)**
+- `tp/analyze.py`, `tp/collective_link.py`, `tp/collective_record.py`: reachable only from `tests/tp/test_tp2_analyze.py`, `tests/tp/test_tp_collective.py`, `tests/tp/test_tp_world_n.py` and `program/registry/quarantine/collective/__init__.py`; kept on purpose by `tests/dead_code_keep.json` ("TP path (lane/vllm-tp-n)"). Searched absolute and relative imports (`collective_link.py:31` is the one relative import), `-m` in `ops/*.sh`, string references. *medium confidence (deliberately kept)*
+- `tp/worker.py:48, 63` scans a `vllm-poc` root that no longer exists (also `acquire/hidden_gpu_src/hidden_gpu.py:40`), and `:68` falls back to `verity_vllm/commit` for the collector sources, which moved to `acquire/`. *high confidence (`ls`)*
+- `tp/commit.py:92` `roots = ["verity_vllm", "record_v5", "e2e", "verity_vllm", "verity_vllm"]`: `verity_vllm` three times and two directories that do not exist, the trace of a mechanical rename; the dirty-tree digest covers less than intended. *high confidence (`ls`)*
+
+**NAMING (4)**
+- `tp` means tensor parallel, but `tp2` in class, method, CLI and log names means the lane, and `TP2CaptureWorkerExtension` runs at any world. *medium*
+- "match" means four different checks: `tp/match.py` (collective values + tokens), `tp/fold_match.py` (per-rank fold vs Program, then cross-rank), `tp/rank_match.py` (structural cross-rank), `check/global_match.py` (GM-01). *medium*
+- `tp/commit.py` is a driver CLI while `verity_vllm/commit/` is the commitment engine. *low*
+- Four words for a collective's rank-local inputs: "partial" (`partial_source.py`), `part_rank<r>` / `shard_rank<r>` (`acquire/native_host.py:372 TP_PARTIAL_RE`), "peers" (`peers_<request>` fold parameters), "parts" (the Definition operand). *low*
+
+**DOCS (3)**
+- `tp/__init__.py:1-12` is stale: it says "Torch-free", lists 2 of 15 modules and says "Nothing here changes observer / fold / patterns … the record is the input a future `Collective` pattern needs", while `tp/collective_pattern.py` and `observe/resolver.py`'s `Collective` exist and `worker.py`, `export_ops.py`, `partial_source.py`, `capture.py` import torch or vLLM. *high*
+- Lab-notebook docstrings in almost every module: `tp/__init__.py:1` ("lane tp2 (window 2026-09-17)"), `tp/worker.py:1` and `tp/capture.py:1` ("Lane tp2 (mechanism prototype)"), `tp/export_ops.py:1` ("[R13 lane tp, P4 step 2] … Bet A"), `tp/match.py:1` ("P4 step 3"), `tp/commit.py:1` ("P4 step 4"), `tp/partial_source.py:1` ("R14 lane tp, TP-03"), `tp/xrank_collectives.py:1` ("[R16 tp TP-12, rev F-r16-18]"), `tp/collective_pattern.py:1`, `tp/rank_match.py:1`, `tp/fold_match.py:1` ("[R17 D90, COORD R17-4]"), `tp/collective_sites.py:1` ("[R19 moe F-r19-moe-1, row #70]"), `tp/embedding_shard.py:1`, `tp/worker.py:1116-1125` ("[TP-08; manbind MAN-06 …, coord M-0451 form (A), interface note M-0523]"). *medium*
+- Stale references: `tp/capture.py:8` (`bench/m1_capture.py`), `:12` ("PROPOSED: build_engine(engine_args=...)", which exists at `observe/vllm_adapter.py:349`), `tp/capture.py:13`, `tp/collective_sites.py:2`, `tp/commit.py:2` (`tp2_worker.*`), `tp/match.py:3-5` and `tp/commit.py:4` (`tp2_match` / `tp2_commit` program names), `tp/worker.py:20` (`MECHANISM_TP2.md`), `tp/collective_record.py:2-3` (`out/gen/lanes/ov-tp2/…`), `tp/export_ops.py:4` (`out/gen/sweep/evidence/tp/tp2_semantics/RESULT.md`); none of these files exist (`rg --files`). *medium*
+
+**FALLBACKS (3)**
+- `tp/collective_sites.py:42-45` returns `{}` when a model class's source cannot be read, so its collectives silently stop being sites; `:81-84` skips modules that fail to import. *medium*
+- `tp/worker.py:85-96 _moe_collective_modules` skips vLLM modules that fail to import ("older/newer vLLM"), so which MoE all-reduce is patched depends on the installed vLLM. *low*
+- `tp/commit.py:83-99 tree_of_record` returns an error record instead of failing when `EXPORT.json` is malformed or `git` fails. *low*
+
+**OTHER-WEIRD (4)**
+- Monkeypatching vLLM's module-level collective functions twice in one rank process: `tp/partial_source.py:242-257` (committer side) and `tp/worker.py:546-560` (recorder side), each with its own restore. *medium*
+- `tp/collective_sites.py:34-49` finds collective sites by running a regex over `inspect.getsource(cls)` of vLLM model classes. *medium*
+- `tp/export_ops.py:36-93` registers `verity_tp::*` torch custom ops into the global registry behind a module flag, and `:170 TPStub` impersonates vLLM's `GroupCoordinator` during export. *low*
+- Negative tests (fault injection) are CLI flags of the production driver: `tp/commit.py:55-72 negatives_applied`, `:102 parse_serve_shard_from`, `tp/partial_source.py:102` (`relabel_rank`, `omit_site`), `:355 parse_flip`. *low*
+
+Counts for `tp/`: CORE-DUP 0, INTERNAL-DUP 6, VERSION-RESIDUE 4, HARDCODING 3, SCRIPT/ENV/PATH 5, LAYERING 4, GOD-MODULE 2, DEAD 3, NAMING 4, DOCS 3, FALLBACKS 3, OTHER-WEIRD 4.

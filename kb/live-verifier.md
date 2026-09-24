@@ -64,3 +64,17 @@ bf16-ampere 4096 VUs = 6.6 GB. The records worth keeping are small (~7 MB for 48
 `hello.json`, `session.json`, `verdict.json`, the verifier-side Rust verdicts `rust_batch.json` + `rust_sub_*.json`, and
 `sub_*.coins`. Tar those with a pod-side `sha256sum` list, check it on the laptop, `research data put --kind run-files/v1
 --tree ... --preserve`. Example: wave-a100-2's verifier2 store, art:96ba1c1d (wave-a100-3, 2026-09-24).
+
+## Whole live store preserved, and where to run `data preserved` (verifier-cost, 2026-09-24)
+- The full `/workspace/live/sessions` of vy-live2b-verifier-ro (5.0 GB incl. `sub_NN.proof/.stmt/.coins`) is one
+  run-files/v1 tree, art:d841eb56 (put from the pod with a minted short-lived credential; `data preserved` rc=0 on the pod).
+- `research data preserved` on the laptop hashes every blob back from R2 (5 GB here) and has no overall timeout: run it
+  pod-side (`research run --on <pod> ... python3 -m research data preserved <art>`), same credential via `--env`.
+- D3 (drilldown.py) reads verifier cost from live records: the cell's own if it ran against a same-DC live verifier at 2^-128,
+  else the median-`verify.cpu_s` run of the same config (relation, l, B, K, instances, authentication, SKU, pipeline).
+  H100 rows: verifier on the prover pod (loopback, EU-NL-1); no same-DC RunPod CPU pod was used for H100.
+
+## A-GKR verifier cost (offline, no live protocol)
+- `verity-gkr-verify` (backends/gkr/verifier, no deps) re-verifies a GPU A-GKR cell's proof (4096 VUs) in ~2.9 s wall /
+  ~14 CPU-s at 192 threads, ~8.5 CPU-s at 1 thread (EPYC 9654): verdicts art:8806507c (A100 cell), art:ae9d69fb (H100 cell).
+  At 192 threads the CPU sum exceeds 1-thread CPU (spin/parallel overhead on a loaded host); quote both.

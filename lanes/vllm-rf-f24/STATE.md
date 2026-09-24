@@ -18,23 +18,25 @@
   `model_pin.dtype` = `engine_dtype(cfg.model_config)` (quantization, else model dtype). Test `tests/harness/test_derive_step_identity.py`.
 - `0cdd61e2` D10: `batch_decomp.Ops` passed explicitly (record: `Ops.record()`, fast: `global_match_fast.ops()` with `FastProg` /
   `_ProjectionFast`); `COMPACT_ARGS` global -> `compact=` parameter. No core change. Affected tests passed on the pod (86 s).
-- Uncommitted, synced to the pod, affected tests running (`/workspace/out/d13/affected.log`):
-  - D11: `weights_of_record` refuses non-64-hex program digests by name, set equality instead of 16-char prefixes (`check`, `stamp_of_record_set`).
-    Scan of every regression record: all program digests are full 64-hex, so no verdict of record moves.
-  - D13: new `check/replay_codes.py` (why classes, seed forms, legacy decoding). `sampled_replay.population` stamps
-    `population.not_evaluable_codes`; `sampled_replay(seed_form=)` -> `sample.seed_form`; `commit_delta` passes the form (minimal hunk in f1/f3's file);
-    `commit_verdict` reads codes (decodes the texts only for records without them). `verdict.py`'s three "Match account leg(s) missing" text tests now
-    read `executed_prefix_of_record.facts_of_record[rid].account_missing / linked` of the faulted requests (the replay's own why never carries that text).
+- `2a07cd20` D11: `weights_of_record` refuses non-64-hex program digests by name, set equality instead of 16-char prefixes (`check`,
+  `stamp_of_record_set`). Scan of every regression record: all program digests are full 64-hex, so no verdict of record moves.
+- `76020a66` D13: new `check/replay_codes.py` (why classes, seed forms, legacy decoding). `sampled_replay.population` stamps
+  `population.not_evaluable_codes`; `sampled_replay(seed_form=)` -> `sample.seed_form`; `commit_delta` passes the form (minimal hunk in f1/f3's file);
+  `commit_verdict` reads codes (decodes the texts only for records without them). `verdict.py`'s three "Match account leg(s) missing" text tests now
+  read `executed_prefix_of_record.facts_of_record[rid].account_missing / linked` of the faulted requests (the replay's own why never carries that text).
+- All five pushed to `origin/lane/vllm-rf-f24`; tree clean.
 
 ## Running
-- pod: serial gate (b) at base, `/workspace/gate_b.sh /workspace/base /workspace/out/base_gate_b` since 17:43Z (57% at 19:03Z) -- own reference only.
-- pod: affected tests on the branch tree, `/workspace/out/d13/run.sh` -> `/workspace/out/d13/affected.log`.
+- pod: GM-01 row #23 ABAB (`/workspace/out/gm/{base1,branch1,base2,branch2}`, log `abab.log`). The serial base gate (b) was killed so it would not
+  perturb the timing.
+- Pair 1: base1 618.8 s, branch1 693.5 s (+12%); outputs identical except timings and `impl.source_sha256`; every phase +11..15% including phases
+  D10 does not touch (G1, G7, attribution) -> host load avg ~200 (shared host); pair 2 decides.
 
 ## Next
-1. Affected tests green -> commit D11, D13; push.
+1. D10: pair 2 of GM-01; if branch still > +10%, profile (py-spy) the phases that moved.
 2. Gate (b) on the branch (a1's xdist command); gate (a) base + branch (mint read-only credential, a1's `baseline-gate_a.sh`).
-3. D10: GM-01 on row #23 base vs branch on this pod: byte-identical outputs, runtime within ~10%.
-4. D6/D7 before/after evidence of the Build stamp (construction_version changes; dtype only on FP8 rows); READY.md; terminate pod.
+3. D6/D7 before/after evidence of the Build stamp (B0 build base vs branch: `/tmp/rff24/b0_build.sh`, `/tmp/rff24/tree_diff.py` on the pod).
+4. READY.md; terminate pod.
 
 ## Open questions
 - none

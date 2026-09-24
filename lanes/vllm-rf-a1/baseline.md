@@ -2,7 +2,7 @@
 id: vllm-rf-a1/baseline
 lane: vllm-rf-a1
 kind: baseline
-status: gate (b) measured (xdist and serial); gate (a) being added
+status: complete (gate (b) xdist and serial; gate (a) green)
 created: 2026-09-24T18:10Z
 updated: 2026-09-24T19:49Z
 ---
@@ -304,7 +304,35 @@ The per-file counts are in the appendix at the end.
 
 ## Gate (a): `VERITY_REGRESSION=1 python -m pytest integrations/vllm/tests/regression -m regression`
 
-_Pending._
+**Green.** The run went 17:42:15-20:24:43Z (2 h 42 min, beside the other runs) in the environment above, with the
+frozen rows' fixtures from the store and no rows root, candidate or tier variables. Exit 0.
+
+| total | passed | failed | error | skipped |
+|---|---|---|---|---|
+| 158 | 64 | 0 | 0 | 94 |
+
+The 158 tests are `test_reproduces[<tier>-<check>-r<row>]` over the 13 rows and 12 checks, plus two others:
+`test_decisions_are_listed_and_well_formed` and `test_negative_57_refusal_reproduces`, which both pass. The JUnit XML is
+`baseline-gate_a.xml.gz` beside this note.
+
+The 94 skips:
+
+- 39 are checks outside the default tiers T0 and T1 (13 rows each):
+  - `program_digest` is T2.
+  - `decomp_hashes` and `replay_partition` report themselves as needing `VERITY_REGRESSION_TIERS=T1`.
+- 13 are `attempt_provenance`: there are no candidate Attempt ids.
+- 12 are `stoch_value` on the greedy rows. It runs only on #101.
+- 21 are the seven Commit/Match checks on rows #4, #70 and #75, which never built a manifest, reached GM-01 or closed a
+  Commit. That is 7 each.
+- 9 are **`step_segmentation` (T0) on #11, #23, #39, #57, #60, #67, #68, #73 and #74**: "`build_request*/descriptor.json.gz`
+  not resolvable here". `fixtures.toml` lists these files as role `record`, but the stored `records` and `programs`
+  trees do not contain them. `stage_store.py` puts small records plus `instances.json.gz` only.
+
+The integrator's harness, which ran on pods with live row directories as the rows root, passed these 9 (73 passed, 85
+skipped). On a store-only pod, gate (a) therefore does not exercise step segmentation on those rows.
+
+To get the same coverage in a lane, count per check: a lane's gate (a) is green when nothing fails and every check
+that passed here passes.
 
 ## Appendix: gate (b) per-file counts (xdist run)
 

@@ -40,6 +40,7 @@ created: 2026-09-24T19:30Z
 - 20:23:06Z prefetch done: 26/26 ok, 0 FAIL; `/root/r2ro.env` deleted 20:23:06Z (checked absent 20:24Z); gate (a) `a_lane` started 20:23:06Z (same pid chain 2172 -> exec gate_a.sh).
 - 20:22Z `ed81ba7f` (message-only: profile lookup messages stop naming data/hf_configs) pushed after the gates started; gates run at `6da1b430`; re-run the two profile test files at ed81ba7f before READY.
 - Checks done on the pod at 6da1b430: new paths resolve (config.ROOT, cos_sin, calibration, W11/W11R/W11C tables, tanh tables, corpus, manifest); `uv build --wheel integrations/vllm` -> `/workspace/a23b/wheel/verity_vllm-0.1.0-py3-none-any.whl` contains all 7 .xz, the .npy, the .jsonl, corpus json, tanh tables (pyproject unchanged: hatchling ships every non-ignored file under verity_vllm/).
+- 20:27Z b_lane_x12 at 97% (real-HF tail, as a1's); a_lane running (first 12 = skips; a1's a_base still running on vyv-rf-a1, its baseline.md gate (a) section is still "Pending": compare when it lands). `ed81.patch` (6da1b430..ed81ba7f) shipped to `/workspace/a23b/ed81.patch` for the profile re-run.
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

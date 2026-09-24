@@ -23,7 +23,7 @@ python3 - $O <<'EOF'
 import json, sys
 o = sys.argv[1]
 py = json.load(open(f"{o}/neg_py.json")); ru = json.load(open(f"{o}/neg_rust.json"))
-acc_py = [k for k, v in py["results"].items() if not v["rejected"]]
+acc_py = [k for k, v in py["results"].items() if not v["rejected"]]; names = json.load(open(f"{o}/dir/manifest.json"))["negatives"]["cases"]; acc_py = [(k, names[str(k)]["name"]) for k in acc_py]
 acc_ru = [r["id"] for r in ru["results"] if not r["rejected"]]
 where = {}
 for v in py["results"].values():

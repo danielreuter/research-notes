@@ -53,9 +53,9 @@ created: 2026-09-24T19:30Z
 - head2 tree at `748d71c5`: `/workspace/a23b/head2` (write-tree `1158eb69` = 748d71c5^{tree}, 2791 files; .git in `head2.git`), copy `head2-reg`.
 - **20:57:30Z gate (a) T0+T1 at 748d71c5:** `setsid nohup nice ./gate_a_t01.sh /workspace/a23b/head2-reg a_head2_t01` -> pid 8110; logs `a_head2_t01.{log,xml,env,run}`.
 - Next: when b_head_x12 (4e26d864) exits, start gate (b) at 748d71c5: `OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/a23b/head2 b_head2_x12 -n 12 --dist loadfile`; then (if time) a same-pod base xdist run for host-numerics classification, only after b_head2 finishes.
-- **21:10Z second OOM on vyv-rf-a23 (64 GB): gate (a) T0+T1 alone reached 57 GB on its first T1 check of row #11 and was killed; the OOM also killed sshd, so the pod refused ssh. Terminated 21:25Z (its logs, incl. b_lane_x12.xml, are gone; the results are above).**
+- **21:10Z second OOM on vyv-rf-a23 (64 GB): gate (a) T0+T1 alone reached 57 GB on its first T1 check of row #11 and was killed; the OOM also killed sshd, so the pod refused ssh. Terminated 21:15Z (its logs, incl. b_lane_x12.xml, are gone; the results are above).**
   Cause: `tests/regression/checks/replay_partition.py` (T1) loads each B=1 row's whole Program JSON: its docstring says "0.9-1.7 GB compressed and need 120-250 GB of RAM as Python objects: a big pod". **A T0+T1 gate (a) cannot run on a 64 GB cpu3g pod (a1's T0+T1 base will hit the same).**
-- **21:27Z new pod `vyv-rf-a23b-big` = RunPod `n2ei0ahhoeu80j`** (cpu3m, 64 vCPU, 512 GB, AMD EPYC 9655 with AVX512, kernel 6.8, 200 GB disk, $3.52/h), created with `research pods create --name vyv-rf-a23b-big --cpu cpu3m --vcpu 64 --disk 200`. ssh: `research pods ssh n2ei0ahhoeu80j --print` (port 21626). (A cpu5m x32 256 GB pod `pt89dyfqpgh8bp` was created first and terminated at once: too small for 250 GB.)
+- **21:17Z new pod `vyv-rf-a23b-big` = RunPod `n2ei0ahhoeu80j`** (cpu3m, 64 vCPU, 512 GB, AMD EPYC 9655 with AVX512, kernel 6.8, 200 GB disk, $3.52/h), created with `research pods create --name vyv-rf-a23b-big --cpu cpu3m --vcpu 64 --disk 200`. ssh: `research pods ssh n2ei0ahhoeu80j --print` (port 21626). (A cpu5m x32 256 GB pod `pt89dyfqpgh8bp` was created first and terminated at once: too small for 250 GB.)
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

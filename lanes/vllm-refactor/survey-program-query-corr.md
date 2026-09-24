@@ -293,3 +293,372 @@ Counts for `query/`: CORE-DUP 5, INTERNAL-DUP 6, VERSION-RESIDUE 7, HARDCODING 7
 - `correspondence/batch_decomp.py:733`, `resolve_decomp.py:136` set `_all_seed_nodes` on a `Projection` after construction; `reader_for_acquire.py:177-178 arg_slot` ignores the Call and never consults the record. *low*
 
 Counts for `correspondence/`: CORE-DUP 5, INTERNAL-DUP 10, VERSION-RESIDUE 6, HARDCODING 7, SCRIPT/ENV/PATH 6, LAYERING 8, GOD-MODULE 4, DEAD 6, NAMING 6, DOCS 6, FALLBACKS 6, OTHER-WEIRD 8.
+
+---
+
+## 3. `program/` (119 files, 36,252 lines)
+
+**What it actually does vs its name.** The name suggests "build the Program". The package holds five different things:
+1. **The Definition library** (`registry/`, 59 files, 14,467 lines). This includes:
+   - composites hand-authored for four named models on two GPU families (`b1.py`, `b1_tp2.py`, `hopper.py`, `fp8.py`, `moe.py`, `spec.py`, `dense.py`);
+   - the primitive set (`prims.py`, `ref_prims.py`, `pad_prims.py`);
+   - the lifted padded programs (`lifted.py`, `serve3.py`, `moe_pad.py`);
+   - target tables (`targets.py`, `gemm_targets.py`);
+   - numpy twins of Definitions (`derived_rows.py`, `sampling_rows.py`, `serve3_reference.py`);
+   - an exact model of vLLM's top-p pipeline (`topp_split.py`, `sampling.py`);
+   - conformance data, two difftest adapters, a sweep script, and `quarantine/`.
+2. **Lowering** (`frontend/`, 31 files, 14,001 lines). Two paths produce Programs:
+   - an authoring API (`torch_frontend.py`), used by tests and `b1_authored.py`;
+   - derivation from `torch.export` of the real vLLM model classes (`derive.py` plus 7,339 lines of `rules/`).
+
+   Around them sit vLLM instantiation and monkeypatch shims (`vllm_meta.py`, `export_compat.py`, `triton_capture.py`), the applicability contract (`target_profile.py`) and three generic IR analyses (`liveness.py`, `correspond.py`, `provenance.py`).
+3. **Independent numerics** (`numerics/`, 17 files, 4,176 lines, plus 3 C++ models JIT-compiled with `g++` and 4 CUDA probe sources). These are CPU bit-models of vLLM kernels (FA2, FA3, RMSNorm, GEMM, Inductor kernels, the Gumbel sampler). They register into `check.relations` at import. Two GPU probe scripts live here too.
+4. **Workload construction** (`global_program.py`, `workload.py`, `lifting/`; 2,023 lines). A CLI driver assembles the multi-request workload Program from Build directories. This group also holds the continuation logic of the padded Program.
+5. **Storage and tooling** (`compact.py`, `instances_form.py`, `descriptor_equivalence.py`, `profile_descriptor.py`, `dtypes.py`, `sampling_event.py`). These cover instance-file encodings, two descriptor CLIs, and a dtype helper that only `commit/` uses.
+
+### Modules
+
+Top level and `lifting/`:
+
+| module | lines | job |
+|---|---:|---|
+| `__init__.py` | 1 | empty |
+| `global_program.py` | 844 | GP-01 CLI: the workload Program of a declared manifest from derived request-wrapper Programs; compilation facts, EOS lag, MoE construction, sampler geometry, stop rule, weights binding |
+| `workload.py` | 610 | the workload Program: one rooted Program over the declared requests |
+| `compact.py` | 556 | operand references as run progressions (instances v2 form); used by `check/`, `correspondence/`, `tp/` |
+| `descriptor_equivalence.py` | 442 | CLI: denotational comparison of two encodings of one program (definitions, gates, calls, boundaries, sampled evaluation) |
+| `profile_descriptor.py` | 291 | CLI: byte profile of a serialized descriptor by field |
+| `dtypes.py` | 150 | torch dtype strings, item sizes, exact BF16<->f32 in numpy (used only by `commit/hashing.py`) |
+| `instances_form.py` | 119 | `instances.jsonl` stored forms (runs vs progressions) and a converter CLI |
+| `sampling_event.py` | 26 | the three sampling-event Definition families and `family_of` |
+| `lifting/__init__.py` | 1 | empty |
+| `lifting/continuation.py` | 481 | `Continuation_v1`: the emit/run Boolean chain of the padded Program and its host-side evaluation |
+| `lifting/dump.py` | 87 | per-gate dump of the reference evaluator's assignment of a lifted Program |
+
+`frontend/`:
+
+| module | lines | job |
+|---|---:|---|
+| `__init__.py` | 24 | conditional re-export of `torch_frontend` (pure-IR use without torch) |
+| `torch_frontend.py` | 1,340 | authoring API (`function`, `bind`, `batch`, `scan`, `Ops`, custom-op minting) plus the Coll/Type/view helpers that derive and the rules import |
+| `derive.py` | 1,012 | derivation engine: `torch.export` a module, translate fx nodes through rules into a Program, report and provenance, emit correspondence |
+| `vllm_meta.py` | 559 | instantiate the pinned vLLM model class on `meta` through vLLM's config and registry; fake forward context; TP rank wrapper with peer inputs; sets env vars at import |
+| `export_compat.py` | 298 | shims that let `torch.export` trace pinned vLLM: patches `Tensor.data`, platform capability, `num_compute_units`, tuned-GEMM caches, MoE dispatcher ops |
+| `target_profile.py` | 626 | `TargetProfile` / `ArtifactIdentity`: the applicability contract and artifact digest; defaults to sm_89 with 128 SMs |
+| `triton_capture.py` | 118 | patch `triton.runtime.jit.JITFunction.run` during export so direct Triton launches become opaque graph nodes |
+| `inputs_trace.py` | 67 | `sys.addaudithook` that logs every file opened during construction (record-freeness evidence) |
+| `liveness.py` | 444 | dead gates of a Program: hierarchical liveness with interval sets (generic IR analysis) |
+| `correspond.py` | 331 | Program correspondence across reference encodings (generic IR analysis) |
+| `provenance.py` | 120 | `registry_version()` and derivation-rule provenance records |
+| `b1_authored.py` | 668 | the B1 serving program authored through `torch_frontend` (its only importer is the test-only `serve3_authored.py`) |
+| `serve3_authored.py` | 107 | `Serve@3` authored through the frontend (test-only) |
+| `examples.py` | 218 | authored frontend examples (test-only, via `derive_examples.py`) |
+| `derive_examples.py` | 730 | plain torch modules shaped like vLLM's, for derivation tests (test-only) |
+
+`frontend/rules/`:
+
+| module | lines | job |
+|---|---:|---|
+| `__init__.py` | 56 | `DEFAULT_RULES`; lazy loading of the concrete rule sets |
+| `base.py` | 156 | rule base classes (`ViewRule`, `OpRule`, `InPlaceRule`, `StateRule`), `RuleInfo`, `RuleSet` |
+| `common.py` | 51 | shared rule helpers |
+| `vocab.py` | 343 | four kind vocabularies (`b1-eager`, `b1-eager-v2`, `b1-eager-v3`, `dense2-eager-v1`) binding semantic roles to registered Definitions |
+| `vllm_bindings.py` | 1,905 | about 30 per-op rules for `torch.export` graphs of real vLLM classes (Triton GEMM/RMSNorm, KV cache, attention, dense elementwise, unfused norm chain, FP8, TP collectives), plus kernel source pins and process-global observations |
+| `vllm_moe.py` | 865 | rules for the leaf kernels of vLLM's fused-MoE block |
+| `vllm_sampling.py` | 135 | rule for the stochastic token select |
+| `vllm_iface.py` | 96 | vLLM's `torch.ops._C.*`, or a stand-in library with the same schemas when vLLM is absent |
+| `triton_iface.py` | 42 | defines the `verity_cba::triton_launch` op |
+| `profile.py` | 505 | profile-mode rules binding vLLM-shaped modules to the B0/B1 kinds |
+| `reference.py` | 879 | reference-mode op rules (f32/bf16 torch ops to `ref_prims` kinds) |
+| `patterns.py` | 764 | multi-node pattern rules (a decomposed computation bound to one Definition), used by `reference.py` |
+| `views.py` | 519 | view rules: reference rearrangements, static index tensors, allocations |
+| `padding.py` | 394 | padded-serving rules (`Serve@3`) |
+| `family.py` | 591 | claims a registered program identity for a derived flat Program by isomorphism |
+| `ref_kinds.py` | 38 | width-conversion composites for reference mode |
+
+`numerics/`:
+
+| module | lines | job |
+|---|---:|---|
+| `__init__.py` | 14 | docstring |
+| `_jit.py` | 99 | atomic, lock-serialized `g++` builds of the C++ twin libraries at first use |
+| `mma.py` | 143 | per-instruction Ampere `mma.sync.m16n8k16` models (BF16 through core `silicon`; FP16 local) |
+| `cpu_model.py` | 214 | ctypes wrapper of `cpp/tc_model.cpp` |
+| `relations.py` | 528 | `independent` GEMM relations; registers into `check.relations` at import |
+| `kernel_zoo.py` | 146 | A100 cuBLAS launch signatures for Qwen2.5-1.5B shapes and the model that reproduces each |
+| `fa2_model.py` | 310 | CPU model of vLLM's FA2 forward (JIT C++) |
+| `fa2_relation.py` | 267 | `attention.bf16.v1` relation; registers at import |
+| `fa3_model.py` | 234 | CPU model of the FA3 forward on Hopper |
+| `rms_triton_model.py` | 279 | CPU models of the two RMSNorm kernels (JIT C++) |
+| `rms_relation.py` | 186 | `rmsnorm.*.bf16.v1` relations; registers at import |
+| `compiled_norm_literal.py` | 348 | literal Triton transcriptions of Inductor's generated RMSNorm kernels |
+| `compiled_relations.py` | 332 | relations for every Inductor-generated kernel of the Llama compiled execution |
+| `inductor_models.py` | 139 | CPU bit-models from the compiled/eager divergence study (test-only) |
+| `libdevice_sampling.py` | 207 | libdevice transcription for the Gumbel-max noise; CLI (test-only) |
+| `sampling_rng.py` | 308 | torch-free recomputation of vLLM's Gumbel-max noise from a capture log; CLI |
+| `beyond_gemm.py` | 422 | GPU probe script (SiLU, RMSNorm, RoPE vs IEEE models); `registry/crosscheck.py` imports its `rope_model` |
+| `cpp/*.cpp` (3), `cuda/*.cu` (4) | n/a | C++ models built by `_jit.py`; CUDA measurement probes (two are referenced only by `tools/move_map.txt`) |
+
+`registry/` (without `quarantine/`):
+
+| module | lines | job |
+|---|---:|---|
+| `__init__.py` | 88 | imports the library and registers 18 lazy families (`Const`, `GatherBf16xN`, `L*`, `SplitsForSMS`, `{ORD=}`, `Lifted[..]_v1` and `_v2`) |
+| `b1.py` | 1,285 | four model configs (B1 Qwen2.5-1.5B, B0 SmolLM2-135M, SMOL360, QWEN05) and 35 composites in three generations (Gemm, norms, RoPE, Attention v1/v2/v3, Layer*, Serve v1/v2/v4) |
+| `b1_tp2.py` | 411 | TP composites: `AllReduce2`, `AllGather2`, world-ary `AllReduce_v2` / `AllGather_v1`, `EmbeddingShard`, `*TP2`, `ServeTP2`; `allreduce_order`, `cross_rank_families` |
+| `hopper.py` | 265 | Hopper bindings: `HopperBF16WgmmaDot16_v1` and the B1 composites re-instantiated over a copied globals dict |
+| `fp8.py` | 619 | block-scaled FP8 linear on Hopper (5 primitives, 13 composites) |
+| `moe.py` | 375 | vLLM fused-MoE block Definitions (promoted from `quarantine/ov_moe`) |
+| `moe_pad.py` | 305 | the padded fixed-slot MoE construction |
+| `dense.py` | 627 | generic elementwise / reduction / softcap Definitions, promoted from `quarantine/dense` (Gemma-2) |
+| `spec.py` | 380 | speculative-decoding composites and `DRAFT_CONFIG` (test-only) |
+| `prims.py` | 783 | 37 one-output primitives of the B1 profile (conversions, FMA/MUFU, tensor-core dot, tanh table) |
+| `ref_prims.py` | 994 | reference-mode primitives and composites; rebinds core codec's lazy-family table |
+| `pad_prims.py` | 65 | primitives of `Serve@3` |
+| `lifted.py` | 2,368 | lifting: encodings, strict/specified/ordinary classes, lifted-composite replay, Continuation members, SplitsFor, `LServe_v2`, lag rule, served-prefix checks, width summary |
+| `serve3.py` | 166 | `Serve@3`, the padded serving circuit |
+| `serve3_reference.py` | 88 | vectorized reference evaluator of `Serve@3`'s padding layer (test-only) |
+| `targets.py` | 245 | target-keyed bindings (DOT, FA version, BN) and launch-context parsing |
+| `gemm_targets.py` | 221 | GEMM target specializations of vLLM's batch-invariant persistent matmul; Ada and Hopper tuned tables |
+| `derived_rows.py` | 944 | vectorized numpy evaluators of interior values of B0/B1 Definitions |
+| `sampling.py` | 505 | stochastic token-select Definitions (Gumbel with top-p) |
+| `sampling_rows.py` | 256 | numpy twins of the sampler Definition |
+| `topp_split.py` | 601 | exact-fp32 model of vLLM's `_apply_topp_split`; `SplitsFor_v1` |
+| `sampling_topp_difftest.py` | 125 | difftest adapter for the sampler; production code also imports it (`check/stoch_recompute.py`, `check/sampled_replay.py`) |
+| `conformance.py` | 128 | conformance record of the library as data; CLI (test-only) |
+| `crosscheck.py` | 148 | CLI: registered composites against validated CPU models and captures |
+| `rmsnorm_fused_sweep.py` | 263 | sweep script over a B0 commit store; `derived_rows.py` imports its numpy twin `fused_rows` |
+
+`registry/quarantine/` (34 files, 2,212 lines):
+
+| module | lines | job |
+|---|---:|---|
+| `__init__.py` | 19 | the quarantine rules (import only `verity.ir.*` and a few stdlib modules) |
+| `collective/__init__.py`, `allreduce.py`, `allreduce_difftest.py` | 23, 106, 80 | `AllReduceSumBf16{N,R}` and its 2-GPU difftest adapter (imports `torch.distributed`) |
+| `dense/__init__.py` | 40 | re-exports |
+| `dense/` 19 op modules (`add_scalar_bf16` 14, `add_scalar_f32` 15, `add_widened_bf16` 15, `bf16_div_scalar` 18, `bf16_mul_scalar` 15, `bf16_mul_scalar_tensor` 20, `bf16_tanh` 15, `gelu_tanh_mul` 14, `gelu_tanh_mul_bf16` 40, `mean_triton` 37, `mul_vec_f32` 13, `narrow_f32_bf16` 15, `rsqrt_f32` 16, `scale_row_bf16` 15, `scale_row_f32` 14, `softcap` 32, `square_bf16` 15, `square_f32` 13, `tanh_f32` 21) | 357 | one ATen/vLLM op each; 18 are one-line re-exports of `registry/dense.py`, `bf16_mul_scalar_tensor` re-exports `registry/b1.py` |
+| `dense/tables/mufu_tanh_sm89.{json,xzblocks}` | 37 KB, 450 KB | the default `MufuTanh_v1` table, read by live `registry/prims.py:507` |
+| `ln/__init__.py`, `ln/_common.py` | 19, 10 | pythia-160m lane; `_common` imports `registry.prims` and `registry.b1` |
+| `ln/gelu_erf.py`, `gelu_erf_bf16.py`, `gelu_erf_table.py` | 17, 37, 1,203 | exact GELU(erf) through an embedded base64+zlib table |
+| `ln/layer_norm_aten.py` | 153 | `aten.layer_norm` composite (imports numpy) |
+| `ov_moe/__init__.py`, `ov_moe/moe.py` | 5, 11 | re-export of `registry/moe.py` |
+| `ov_sampling/__init__.py`, `ov_sampling/gumbel.py` | 3, 129 | `GumbelArgmaxBf16@v1` |
+
+### Findings
+
+**CORE-DUP (6)**
+- The integration re-registers core's promoted ML Definitions under the same ids:
+  - `registry/prims.py:183, 189, 199` (`Bf16ToF32_v1`, `F32ToBf16Rn_v1`, `F2fpBf16_v1`) duplicate `packages/.../ml/prims.py:30, 36, 44`;
+  - `registry/b1.py:1010, 1021, 1028` (`DotBf16_v2`, `GemmCoordinate_v2`, `Gemm_v2{K,N,DOT}`) duplicate `packages/.../ml/gemm.py:27, 38, 45`;
+  - `registry/hopper.py:71` (`HopperBF16WgmmaDot16_v1`) duplicates `ml/prims.py:62`;
+  - the `Const<w>[0x..]_v1` lazy family in `registry/__init__.py` duplicates `ml/prims.py:94`.
+
+  Importing `verity.ml.prims` alongside `verity_vllm.program.registry` raises `ValueError` (duplicate id; confirmed with an import probe). So no integration code can use core's library, and nothing in the integration imports `verity.ml.prims` or `verity.ml.gemm`. Delete the copies and import core. *high*
+- `registry/prims.py:381` registers `AmpereBF16TcDot16_v1`, but its body (`:375`) is core's `tc_dot_total` on `AMPERE_BF16_M16N8K16`. Core ships those semantics as `AmpereBF16TcDot16_v2` (`ml/prims.py:52`). The integration's `_v1` changed meaning in place. *high*
+- `registry/prims.py:51-70` float-word helpers (`f32_of`, `bits_of`, `bf16_to_f32_bits`, `f32_to_bf16_rn_bits(u, nan)`) re-implement core `verity.ml.tc.cast` (`packages/.../ml/tc/cast.py:24 bf16_to_f32_word`, `:29 f32_to_bf16_rn_word(u, nan)`). *medium*
+- `numerics/mma.py:31-143` defines `TCModel`, `tc_dot`, `tc_dot_chain`, `MODELS` and `model_for`, mirroring core `verity.ml.tc.models` under the same names (`GroupSum`, `tc_dot` :217, `tc_dot_chain` :227, `PIPELINES` :349, `pipeline_for` :362, `MODELS` :786). The BF16 path already delegates to core `silicon`. Only the FP16 product (`mma.py:31 f16_product`) is new; core's product table (`ml/tc/term.py:252`) lacks it. Upstream FP16 and delete `mma.py`. *medium*
+- `frontend/target_profile.py:29-38` `canonical_bytes` is core `verity.ir.codec.canonical_json` (`packages/.../ir/codec.py:317`) plus a `default` hook. It is the third copy, after `correspondence/runtime.py:319`. *low*
+- Reference-run decompositions: `descriptor_equivalence.py` `canonical_runs` and the progressions in `compact.py` sit beside core `verity.ir.refs.runs` and `correspondence/emit._runs`. `frontend/liveness._norm` is one of the four interval algebras listed under query/. *low*
+
+**INTERNAL-DUP (8)**
+- Two modules test "same circuit, different encoding", both citing frontend rulings §8.5: `frontend/correspond.py` (331; used by `torch_frontend.export_report`) and `descriptor_equivalence.py` (442; test-only CLI). *high*
+- Two TP all-reduce Definitions disagree on reduction order for more than two ranks:
+  - `registry/quarantine/collective/allreduce.py:66-70` (`AllReduceSumBf16{N,R}`) folds ranks 0..R-1 ascending;
+  - `registry/b1_tp2.py:128-134` (`allreduce_order`, used by `AllReduce_v2{WORLD,N}`) folds R-1..0 and calls itself "the ONE statement of the order".
+
+  `tp/collective_record.py` still imports the quarantine one. *high*
+- Numpy twins of registered Definitions live in four places besides `check/twins.py`: `registry/derived_rows.py` (944), `registry/sampling_rows.py` (256), `registry/serve3_reference.py` (88), and the twin inside the sweep script (`registry/rmsnorm_fused_sweep.py:121 fused_rows`, imported by `derived_rows.py:753`). Each restates a Definition body in numpy and relies on tests to stay equal. *medium*
+- Five BF16<->f32 word converters: `dtypes.py`, `registry/prims.py:59-70`, `registry/rmsnorm_fused_sweep.py:56-66`, `numerics/beyond_gemm.py:53-70`, `registry/derived_rows.py`, plus core `ml/tc/cast.py`. *medium*
+- Two configs of Qwen2.5-0.5B disagree. `registry/b1.py:80` `QWEN05_CONFIG` pins the revision and says the FA2 block trait is "not established". `registry/spec.py:37` `DRAFT_CONFIG` has revision `None` and `FA2_BN: 128`. *medium*
+- Two mechanisms vary a composite by target. `registry/targets.py` binds statics (`Gemm_v2{DOT}`, `Attention_v2{BN,DOT,INV}`). `registry/hopper.py:112-122` re-evaluates the B1 functions' code objects over a copied globals dict with `P` and `BN` swapped. *medium*
+- FA tile rules are restated:
+  - FA2 `BN`: `registry/b1.fa2_kblock_n` and `query/manifest/format.py:276`;
+  - FA3 `kBlockN`: `registry/targets.py:100` and `numerics/fa3_model.py:60` (a deliberate independent twin, cross-checked), plus the FA3 geometry in `query/manifest/format.py:270-299`. *low*
+- Two authored B1 serving programs: `registry/b1.py` (Serve v1/v2/v4) and `frontend/b1_authored.py` (668; the same program through the torch frontend, test-only). *low*
+
+**VERSION-RESIDUE (6)** (LEGIT hashed identifiers listed separately)
+- Case names used as module, package and API names:
+  - modules `registry/b1.py`, `registry/b1_tp2.py`, `frontend/b1_authored.py`;
+  - the package docstring `registry/__init__.py:1` ("library for the B1 (Qwen2.5-1.5B) ... serving program");
+  - `B0_CONFIG` / `B1_CONFIG` (`b1.py:31, 47`), the `b1-eager*` vocabularies, `frontend/rules/profile.py` "(B0/B1)", ports `b1-hopper` / `b1-fp8`.
+
+  The module holding the generic Gemm, RMSNorm, RoPE and Attention composites is named after one model case. *high*
+- `registry/prims.py:381` `AmpereBF16TcDot16_v1` now carries core's `_v2` semantics under an unchanged id (see CORE-DUP). *high*
+- Three generations of the same composites live side by side in `registry/b1.py`:
+  - `Attention_v1/_v2/_v3` (`:524, :1127, :840`), `Serve_v1/_v2/_v4` (`:701, :1237, :885`);
+  - `Gemm_v1/_v2` (`:149, :1028`), `RMSNormFusedCuda_v1/_v2` (`:271, :305`), `LayerPre/LayerPost/Final _v1/_v2`.
+
+  The Python names do not follow id order (`AttentionV3` at `:846` comes before `AttentionV2` at `:1133`), and no record says which generations are retired. *medium*
+- Four vocabularies in `frontend/rules/vocab.py` (`b1-eager`, `b1-eager-v2`, `b1-eager-v3`, `dense2-eager-v1`). vLLM exports bind `b1-eager-v3`. *medium*
+- Re-export shims left after promotion: the 19 `registry/quarantine/dense/*` op modules and `quarantine/ov_moe/moe.py` hold no Definitions. They exist "so the difftest adapters and the eager profile keep working" (`ov_moe/moe.py:1-2`). *medium*
+- Lane and experiment ids in code names:
+  - `frontend/rules/triton_iface.py:18` `_LIB_NAME = "verity_cba"` (op `verity_cba::triton_launch`, named after the dissolved `cb_a` experiment);
+  - `REGISTERED_WITH_W2` / `register_with_w2` / `owner="W11"` in `numerics/relations.py`, `fa2_relation.py`, `rms_relation.py`;
+  - "GP-01" (`global_program.py:1`), `DP_PAD_02` (`registry/lifted.py:2173`);
+  - `lifted_prim_v1` beside `lifted_prim`, and both `Lifted[..]_v1` and `_v2` lazy families registered (`registry/__init__.py`). *medium*
+- LEGIT (hashed or serialized; do not rename without a decision): Definition ids (`Gemm_v2`, `Attention_v3`, `Serve_v4`, `AllReduce2_v1`, `AllReduce_v2`, `Continuation_v1`, `LServe_v2`, `Lifted[..]_v2`, `TokenSelect_v1`); vocabulary names (hashed into provenance); relation ids (`gemm.bf16.v1`, `attention.bf16.v1`, `rmsnorm.bf16.v1`); schema ids (`verity-gen/instances/v1|v2`, `verity-ir/registry-version/v0`); quarantine `SEMANTIC_ID`s (`dense/Bf16MulScalarTensor@v1`, `ov-moe/MoeExpertGemm@v1`). The op name `verity_cba::triton_launch` appears in derive reports; check before renaming.
+
+**HARDCODING (9)**
+- Model configs outside quarantine: `registry/b1.py:31-95` (Qwen2.5-1.5B, SmolLM2-135M, SmolLM2-360M, Qwen2.5-0.5B, with HF revisions and kernel-profile prose) and `registry/spec.py:37`. `frontend/vllm_meta.py:30` makes `SmolLM2-135M@93efa2f` the default model. *high*
+- Target defaults. `frontend/target_profile.py:114-115` defaults the dataclass to `compute_capability=(8, 9)`, `num_sms=128` (RTX 4090). `numerics/fa2_model.py:256-258` infers `sm_89` from marketing names ("4090", "L40", "6000 Ada"). `numerics/rms_relation.py:122` writes "sm_89" into the coverage reason. *medium*
+- vLLM source pins in library rules and tables:
+  - `frontend/rules/vllm_bindings.py:45-67, 143` (`GEMM_PINS`, `RMS_PINS`, `MEAN_PINS`, `ATTN_PINS`: kernel qualnames and source sha256 at vLLM d9105ea80);
+  - `registry/gemm_targets.py:62-100` (`ADA_TUNED_GEMM` / `HOPPER_TUNED_GEMM`, copied from vLLM's tuned table);
+  - `global_program.py:139` `_MODE_NAMES` (vLLM's `CompilationMode` numbering).
+
+  This is deliberate: derivation refuses on mismatch. But the vLLM commit string appears in 12 files (`target_profile.py` 7, `dense.py` 5, `topp_split.py` 4, `gemm_targets.py` 4, ...). *medium*
+- `numerics/kernel_zoo.py:1-146` hardcodes A100 cuBLAS launch signatures for Qwen2.5-1.5B shapes. It is live through `numerics/relations.py`, outside quarantine. *medium*
+- `numerics/compiled_relations.py:2, 205-206, 285` covers "every Inductor-generated kernel of the production Llama execution", with per-model epsilon discussion (Llama-3.2 vs Qwen2.5) and a Qwen qkv-bias special case. `numerics/compiled_norm_literal.py` carries model constants. *medium*
+- `numerics/beyond_gemm.py:77` defaults `HF_HOME` to `/workspace/hf` and hardcodes the snapshot path `models--Qwen--Qwen2.5-1.5B`; the usage line at `:26` gives `/workspace/results/numerics/qwen_acts`. *medium*
+- TP world size 2 in names and rules: `AllReduce2`, `AllGather2` and `*TP2` / `ServeTP2` (`registry/b1_tp2.py:98-365`); `frontend/rules/vllm_bindings.py:1678` `AllReduce2Rule` (world 2, "recorded identity") beside `:1751` `AllReduceRule` (world > 2). World-ary support exists. *low*
+- Model specifics in generic modules. `registry/dense.py:8, 505-605` carries Gemma-2 prose and conformance strings. Gemma-2's `Bf16MulScalarTensor` lives in `registry/b1.py` (re-exported by `quarantine/dense/bf16_mul_scalar_tensor.py:16`). *low*
+- `frontend/inputs_trace.py:11` `_FORBIDDEN_MARKERS` lists `/vol/corpus`, `census/B0-` and `experimental/aot/` (machine and retired paths). *low*
+
+**SCRIPT/ENV/PATH (7)**
+- `__main__` plus argparse in 10 library modules: `global_program.py` (run by `ops/row_pod.sh`, `ops/canary.sh`, `ops/tp_stage.sh`), `descriptor_equivalence.py`, `profile_descriptor.py`, `instances_form.py:95-118`, `numerics/beyond_gemm.py:388`, `numerics/libdevice_sampling.py`, `numerics/sampling_rng.py`, `registry/conformance.py`, `registry/crosscheck.py`, `registry/rmsnorm_fused_sweep.py:241-262`. *medium*
+- `frontend/vllm_meta.py:21-25` writes environment variables at import: `setdefault` of `VLLM_BATCH_INVARIANT=1`, `VLLM_USE_LAYERNAME=0`, `HF_HUB_OFFLINE=1`, `VLLM_LOGGING_LEVEL`, `TOKENIZERS_PARALLELISM`. Importing the module changes vLLM's behavior for the whole process. *high*
+- Environment reads that change results:
+  - `VERITY_ARCH` (`numerics/fa2_model.py:253`, `numerics/rms_relation.py:117`) picks the arch when the node declares none;
+  - `VERITY_MUFU_TANH_TABLES` (`registry/prims.py:638`) replaces `MufuTanh_v1`'s table;
+  - `VERITY_RMS_TABLES` and `VERITY_MUFU_TABLES` (`numerics/rms_relation.py:55`, `numerics/fa2_relation.py:113`);
+  - `STOCH_DECLARED_CHRONOLOGY_S` (`global_program.py:696`), `VERITY_REAL_LOGITS` (`registry/sampling_topp_difftest.py:48, 64`), `VERITY_NUMERICS_BUILD_DIR` and `CXX` (`numerics/_jit.py:29, 94`). *medium*
+- Path arithmetic into top-level data:
+  - `numerics/rms_relation.py:58-60` and `numerics/fa2_relation.py:116-117` compute `dirname` x3 + `fixtures/W11*-…`, so library code reads `integrations/vllm/fixtures/`;
+  - `registry/rmsnorm_fused_sweep.py:45-48` resolves `Path(__file__).resolve().parents[3]` to `vllm-poc/bundles/…` and `fixtures/verity-ir/…`, both missing;
+  - `registry/prims.py:34-38` inserts `integrations/vllm/vllm-poc` and `integrations/vllm/src` (both missing) into `sys.path` at import. *medium*
+- Subprocess in library code: `numerics/_jit.py:94-99` runs `g++ -fopenmp` (retrying without `-fopenmp`) at the first use of a relation, in whatever process that is. *medium*
+- `frontend/vllm_meta.py:93-110` `ensure_distributed` starts a real gloo process group on a free TCP port and retries when an exception's text contains "EADDRINUSE". It sets the process-global `_DIST_READY`. *low*
+- Machine and lane paths in strings: `numerics/beyond_gemm.py:26, 77` (`/workspace/...`), `registry/gemm_targets.py:174` (`out/gen/sweep/evidence/...`). *low*
+
+**LAYERING (9)**
+- The registry depends on a driver and on query:
+  - `registry/lifted.py:1438` imports the CLI driver `program.global_program` (`eos_lag_rows_declared`);
+  - `:1717-1826` imports `query.boundary`, `query.partition`, `query.query_artifact`;
+  - `:2239-2280` imports `program.workload`. *high*
+- Core-level IR analyses are parked in the frontend: `frontend/liveness.py`, `frontend/correspond.py`, `frontend/provenance.registry_version` and `descriptor_equivalence.py` contain no vLLM content. `query/boundary.py` imports the private `liveness._norm` / `_strided_targets`. Promote them with `query/boundary.py`. *medium*
+- numerics registers upward into check at import. In `numerics/relations.py:524`, `fa2_relation.py:267` and `rms_relation.py:186`, `REGISTERED_WITH_W2 = register_with_w2()` imports `verity_vllm.check.relations` and registers. `relations.py:528` then imports `fa2_relation` at the bottom of the file, while `fa2_relation` imports `relations` (a cycle). *medium*
+- `numerics/sampling_rng.py:166-168, 260, 274` reads the capture log through `check.fold_compare.SnapshotStore`, `observe.events` and `observe.log`. *medium*
+- Live code imports scripts and adapters:
+  - `registry/derived_rows.py:753` imports its twin from the sweep script `registry/rmsnorm_fused_sweep.py`;
+  - `registry/crosscheck.py:101` imports the GPU probe `numerics/beyond_gemm.py`;
+  - `check/stoch_recompute.py:91, 408` and `check/sampled_replay.py:726` import the difftest adapter `registry/sampling_topp_difftest.py`. *medium*
+- Quarantine breaks its own rule. `registry/quarantine/__init__.py:18` says lane packages import only `verity.ir.*` and a few stdlib modules; 30 of 34 files import other things:
+  - re-exports from the promoted `registry/dense.py`, `registry/b1.py`, `registry/moe.py`;
+  - `ln/_common.py:4-5` (`registry.prims`, `registry.b1`), `ln/layer_norm_aten.py:39` (numpy), `ln/gelu_erf_table.py` (base64, zlib), `collective/allreduce_difftest.py` (`torch.distributed`).
+
+  In the other direction, live `registry/prims.py:507` reads its default table from `quarantine/dense/tables/`. *medium*
+- `global_program.py:52` imports `correspondence.batch_decomp.derived_shape` (cross-listed under correspondence/). *medium*
+- Private names cross module boundaries:
+  - `torch_frontend` privates are imported elsewhere (`_tensor_type` by 9 modules, `_permute` by 4; also `_stack`, `_slice`, `_select`, `_norm_dim`, `_expand`, `_dim_len`), as is derive's `_LiftedConstant`;
+  - `numerics/rms_relation.py:32` imports five `fa2_relation` privates;
+  - `frontend/rules/family.py` imports core's private `codec._spec_id`. *low*
+- Misplaced helpers. `dtypes.py` is used only by `commit/hashing.py` and `verity_vllm/__init__.py`. `compact.py` is a storage format used by `check/`, `correspondence/` and `tp/`, not Program construction. *low*
+
+**GOD-MODULE (7)**
+- `registry/lifted.py` (2,368) does 12 jobs:
+  1. lifted encodings and boundary checks (`:66-138`);
+  2. type lifting (`:140-183`);
+  3. the strict class and its enable wrappers (`:185-376`);
+  4. the specified-class primitives `LSelect`, `LIsActive`, `LEnable`, `LBot`, `LGatherRow`, `LFixedSelect`, `LStepLive` (`:378-630`);
+  5. Continuation_v1 members and gate counts (`:631-754`);
+  6. `SplitsFor` (`:755-833`);
+  7. the ordinary class and class inference (`:840-1082`);
+  8. hand lifts and composite lifting by replay (`:1083-1365`);
+  9. `Prefill`, `StepBody`, `LServe_v2`, with the lag rule reading `global_program` (`:1366-1600`);
+  10. served-prefix and activity checks (`:1601-1716`);
+  11. width summary and query-artifact emission through `query.*` (`:1717-1830`);
+  12. workload-level request lifting (`:2239-2368`). *high*
+- `frontend/rules/vllm_bindings.py` (1,905) does 12 jobs:
+  1. vLLM kernel source pins and GEMM target selection (`:45-128`);
+  2. process-global observation state (`:129-254`);
+  3. declared/derived accounting (`:255-300`);
+  4. Triton RMSNorm and GEMM launch rules (`:356-508`);
+  5. KV cache write and unified attention (`:509-730`);
+  6. dense elementwise rules (`:731-872`);
+  7. the unfused norm chain, 9 rules (`:873-1276`);
+  8. FP8 rules (`:1277-1456`);
+  9. fused-add RMSNorm dispatch (`:1457-1486`);
+  10. alloc views, id widening, padded cache clear (`:1487-1627`);
+  11. TP collectives (`:1628-1873`);
+  12. rule-set assembly (`:1876-1895`). *high*
+- `global_program.py` (844) does 11 jobs: descriptor loading; manifest request parsing; compilation-fact normalization; EOS-lag declaration and check; MoE-construction check; modelled engine; applicability aggregation; sampler geometry and schedule binding; stop rule; weights-of-record binding; the build driver writing four artifacts, plus the CLI. *high*
+- `frontend/torch_frontend.py` (1,340) does 9 jobs: errors; dtype/Type mapping; Coll split/join; a schema DSL and unification; custom-op minting; callables (`Prim`, `Registered`, `Bound`, `Function`); the authoring API (`function`, `bind`, `batch`, `scan`, `Ops`); the export guard; the view/reference algebra that derive and the rules use, plus export and report. About half is authoring API used by tests; the rest is derive's shared library. *medium*
+- `registry/b1.py` (1,285) does 6 jobs: four model configs; constants; three generations of composites; Gemma-2's `Bf16MulScalarTensor`; profile binding records (`GEMM_AMPERE`, `ATTENTION_FA2`); serve-program helpers. *medium*
+- `frontend/derive.py` (1,012): reasons and refusals, static structure values, `Ctx` (260 lines of lowering state), report, export, weights, fx translation. It is one cohesive engine. *low*
+- `registry/ref_prims.py` (994) and `registry/derived_rows.py` (944) are large but each holds one theme (reference kinds; numpy twins). *low*
+
+**DEAD (7)**
+- Test-only modules, with no production importer. Searches: absolute imports including multi-line parenthesized ones, relative imports, `python -m` in `ops/*.sh` and `tools/`, and string references.
+  - `registry/spec.py` (1 test);
+  - `registry/serve3_reference.py` (22 tests; only docstring mentions in `serve3.py:32` and `lifting/dump.py:5`);
+  - `registry/conformance.py` (3 tests; no script runs its CLI);
+  - `frontend/derive_examples.py` (10 tests) and `frontend/examples.py` (reached through `derive_examples.py`);
+  - `frontend/b1_authored.py` and `frontend/serve3_authored.py` (`b1_authored`'s only importer is `serve3_authored`);
+  - `descriptor_equivalence.py` (4), `profile_descriptor.py` (3);
+  - `instances_form.py` (2; `harness/run_config.py:1028` defines its own `instances_form()` rather than importing this module);
+  - `lifting/dump.py` (2), `numerics/inductor_models.py` (2);
+  - `numerics/libdevice_sampling.py` (2; `registry/sampling.py:163` mentions it in a docstring).
+
+  *high confidence for "no production importer"*
+- `registry/quarantine/collective/allreduce_difftest.py` is reachable only as `python -m verity_vllm.check.difftest --adapter <dotted name>`. No script passes that name; 2 tests. *medium confidence* (searched `ops/`, `tools/`, tests, strings)
+- `numerics/cuda/fa2_softmax_probe.cu` and `numerics/cuda/mma_tiles_sm80.cu` are referenced only by `tools/move_map.txt`. *high confidence*
+- The `registry/rmsnorm_fused_sweep.py` driver (`sweep`, `main`, `load_store_leaves`, `extract_bundle`) defaults to `vllm-poc/bundles/B0-…tar.xz` and `fixtures/verity-ir/rmsnorm-fused-b0/…npz`, which exist neither under `integrations/vllm/` nor at the repo root. Only its numpy twin is used. *high confidence*
+- `registry/prims.py:34-38` adds `sys.path` entries for directories that do not exist. *high confidence*
+- Stale references in `program/`:
+  - 26 `veritor.core.silicon*`, 17 `vllm-poc/…`, and about 10 `cb_a.*` module paths (e.g. `sampling_event.py:2`, `instances_form.py:7`, `cb_a/tp_ops.py` at `rules/vllm_bindings.py:1628`);
+  - `experimental/aot` (`frontend/inputs_trace.py:11`);
+  - `rules_vllm.py::TritonRmsNormRule` (`frontend/triton_capture.py:12`; now in `rules/vllm_bindings.py`) and `tp_ops.CollectiveBus` (`frontend/vllm_meta.py:61`; now `tp/export_ops.py:97`);
+  - 40 of the 44 distinct `docs/…`, `out/gen/…` and `fixtures/…` paths cited in `program/` do not resolve (e.g. `docs/frontend-pytorch-2026-09-07.md`, `docs/vllm-poc/serve3-spec.md`, `out/gen/r17/LIFTING-SPEC-v0.5.md`, `docs/data/tc-total-2026-09-07`, `fixtures/verity-ir/rmsnorm-fused-b0/…`). *high confidence*
+- The quarantine re-export shims (19 `dense/*` op modules, `ov_moe/moe.py`) are imported by difftest adapters and `observe/profiles/gen_*_patterns.py` but define nothing. *medium confidence that they can go once those importers point at `registry/dense.py` / `registry/moe.py`*
+
+**NAMING (6)**
+- "B"-numbers are overloaded:
+  - B0 and B1 are model cases (`B0_CONFIG`, `B1_CONFIG`, `b1.py`, `b1-eager-*`, `b1-hopper`, `b1-fp8`);
+  - B1 through B5 are also FA2 algorithm steps (`b1.py:450-470`, `dense.py:477-527`: "row max (B1), rescale factor (B2), exp2 stage (B3)");
+  - B6 and B7 are LIFTING-SPEC sections (`lifted.py:25, 302`; `registry/__init__.py:76, 84`);
+  - B8 is batch size 8 (`instances_form.py:5`). *medium*
+- "profile" in `program/` means six things: `TargetProfile`, a vocabulary mode (`rules/profile.py`, "profile mode"), a byte profile (`profile_descriptor.py`), binding records (`GEMM_AMPERE`, `ATTENTION_FA2`), the prose `profile` dict inside model configs, and the capture/target profile passed to `vllm_meta`. *medium*
+- "twin" means numpy re-statements (`derived_rows.py`), C++ libraries (`_jit.py`, "the C++ twin libraries") and difftest counterparts. "relation" means a `check.relations` checker (`numerics/*_relation.py`) and core `verity.ml.tc.relation`. *low*
+- `numerics/` holds independent reference models for checking. The numerics of the Definitions themselves live in `registry/prims.py`. *low*
+- `registry/` holds much that is not registry: a sweep script, difftest adapters, numpy twins, target tables, conformance data. *low*
+- Six sampler modules across three packages: `sampling_event.py`, `registry/sampling.py`, `registry/sampling_rows.py`, `registry/sampling_topp_difftest.py`, `numerics/sampling_rng.py`, `numerics/libdevice_sampling.py`. *low*
+
+**DOCS (6)**
+- 826 lab-notebook tags across `program/` (R1x, M-0nnn, F-r.., COORD, lane names, dates, HH:MMZ, rev-, D-numbers, GUIDANCE §, BRIEF §). The densest files: `registry/lifted.py` 75, `global_program.py` 61, `frontend/target_profile.py` 46, `lifting/continuation.py` 36, `rules/vllm_bindings.py` 30, `registry/dense.py` 29, `registry/b1.py` 29. *medium*
+- Dangling design references: about 40 cited `docs/`, `out/gen/` and `fixtures/` paths do not exist (see DEAD). Conformance strings in `registry/conformance.py:45, 50`, `prims.py:203`, `fp8.py:125, 184` and `hopper.py:77` cite evidence directories that are not in the repo. *medium*
+- Personal names and pending decisions in docstrings: `lifting/continuation.py:1` ("Daniel 20:17Z"), `registry/moe_pad.py:2` ("Daniel's decision"), `registry/lifted.py:2173` ("RULING 21 ... pending Da…"), `frontend/target_profile.py:270`. *low*
+- Notion pointers as the narrative: `registry/__init__.py:30`, `frontend/rules/__init__.py:22`. *low*
+- `instances_form.py:9-11` says the writer `run_config.persist_program` goes through this module; `run_config` has its own `instances_form()` and does not import it. *low*
+- `registry/__init__.py:1` describes the package as the B1 library, but it registers FP8, MoE, dense, lifting and sampling families too. *low*
+
+**FALLBACKS (6)**
+- `global_program.py:38-50` wraps `import registry.hopper / fp8 / moe_pad` in `except Exception: print(...)`. A broken registry module becomes a "will not decode" line on stderr and the driver continues. *high*
+- `frontend/rules/vocab.py:36-43` `Vocabulary.kind` turns any `TypeError` inside a binder into `None`, which derive reports as `Unsupported(numerics_unregistered)`. A bug in a binder looks like a missing Definition. *medium*
+- Semantics chosen by override chains:
+  - `registry/prims.py:630-653`: `MufuTanh_v1`'s table resolves as `mufu_tanh_use_tables()` > `$VERITY_MUFU_TANH_TABLES` > the in-tree default;
+  - `numerics/fa2_model.py:253-258`: the arch resolves as argument > `consts` > `VERITY_ARCH` > GPU-name sniffing. *medium*
+- `numerics/relations.py:491-496`, `fa2_relation.py:247-248`, `rms_relation.py:166-167` `except ImportError: return []`: if `check.relations` is missing, the relations silently do not register. *low*
+- `frontend/export_compat.py:59-62, 93-96` `except Exception: continue` when importing the vLLM modules to patch; the file has 11 broad excepts. `read_back_applied()` re-reads what vLLM sees afterwards, which mitigates this. *low*
+- `frontend/rules/vllm_iface.py:1-10, 24-32, 78`: when vLLM is absent, a stand-in op library with the same schemas replaces vLLM's `_C` ops (deliberate), with `except RuntimeError` for "already defined" and a broad except at `:78`. Across `program/` the 14 heaviest files hold 58 broad `except Exception` sites (`export_compat.py` 11, `vllm_meta.py` 9, `global_program.py` 8). *low*
+
+**OTHER-WEIRD (10)**
+- `registry/ref_prims.py:274-276` rebinds core's private `verity.ir.codec._LAZY_PRIMITIVE_FAMILIES`, a list, to a tuple at import. After that, core's `register_lazy_family` (which appends) raises `AttributeError` (confirmed with an import probe). Any lazy family registered after `ref_prims` is imported fails. *high*
+- `registry/prims.py:630-653`: the evaluator of a registered primitive (`MufuTanh_v1`) depends on a process environment variable or a module-global override, and a table supplied through the environment is not hash-checked. One id can compute different functions in different processes. *high*
+- Monkeypatching vLLM, torch and Triton during export:
+  - `frontend/export_compat.py:17-50` (the `torch._C.TensorBase.data` descriptor);
+  - `:72-115` (`current_platform.get_device_capability` at class level, `num_compute_units` in several modules, vLLM's private `_TUNED_MATMUL_CONFIGS_RESOLVED` / `_FOR_DEVICE`);
+  - `:207-286` (MoE dispatcher custom ops, workspace manager);
+  - `frontend/triton_capture.py:103-115` (`JITFunction.run`).
+
+  The patches are scoped and restored, but they depend on private vLLM names. *medium*
+- Process-global mutable state changes lowering. In `frontend/rules/vllm_bindings.py:171`, `_OBSERVED` (attention impls, export facts, target profile, launch context) is set by `observe_*` calls from `harness/derive_step.py` and read inside rules. Derivation is not re-entrant, and state leaks between derivations in one process unless `clear_observations()` is called. *medium*
+- Import-time side effects: `registry/__init__.py` registers 18 lazy families and imports the whole library; `registry/prims.py:40` calls `np.seterr(all="ignore")` for the process; `frontend/vllm_meta.py:21-25` writes env vars; numerics registers into check (see LAYERING). *medium*
+- `registry/hopper.py:112-122` builds the Hopper composites by re-evaluating B1 functions' code objects over a copied globals dict (`types.FunctionType(fn.__code__, env, ...)`). *medium*
+- `frontend/inputs_trace.py:40` installs `sys.addaudithook`, which cannot be removed for the life of the process. *low*
+- Large literal tables in source: `registry/quarantine/ln/gelu_erf_table.py` (1,203 lines of base64+zlib), `registry/quarantine/dense/tables/mufu_tanh_sm89.xzblocks` (450 KB), `registry/gemm_targets.py:62-100`, `numerics/kernel_zoo.py:88-146`. *low*
+- `numerics/_jit.py` compiles C++ at first use inside whichever process calls a relation, Commit workers included, serialized with fcntl locks. *low*
+- `registry/lifted.py:2173` sets an ad hoc attribute `sp.candidate` on a `SpecializedDefinition` (`# type: ignore[attr-defined]`). `frontend/rules/vocab.py:288, 292` sets `"attention"` twice in one dict literal. *low*
+
+Counts for `program/`: CORE-DUP 6, INTERNAL-DUP 8, VERSION-RESIDUE 6, HARDCODING 9, SCRIPT/ENV/PATH 7, LAYERING 9, GOD-MODULE 7, DEAD 7, NAMING 6, DOCS 6, FALLBACKS 6, OTHER-WEIRD 10.
+
+Counts for the slice (query + correspondence + program): CORE-DUP 16, INTERNAL-DUP 24, VERSION-RESIDUE 19, HARDCODING 23, SCRIPT/ENV/PATH 18, LAYERING 24, GOD-MODULE 16, DEAD 16, NAMING 17, DOCS 20, FALLBACKS 18, OTHER-WEIRD 23 (234 findings).

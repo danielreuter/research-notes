@@ -13,3 +13,4 @@ created: 2026-09-24T07:58Z
   others' files: `/private/tmp/rl-moved3.tar`, `~/.research/runs` (5.7 GB, not mine), `~/Library/Caches/com.openai.codex` (1.4 GB).
 - At this rate the disk is full in about 40 min. The growth is Cursor's own DB, which may also be behind the Cursor crashes.
 - Ask: free disk space (Daniel / coordinator decision on which caches or run records go). My #57 Commit rerun at 2c5e038b is waiting on it.
+- UPDATE 09:00Z: no longer blocking me. Free disk recovered to ~6.2 GB by 08:50Z (not my doing); all my launches went through.

@@ -6,7 +6,7 @@ pod: vyv-sw-57 (ssh -i ~/.runpod/ssh/runpodctl-ssh-key -p 12152 root@202.181.159
 ---
 # vllm-57-fix: running state
 
-**07:58Z successor took over (predecessor died 06:51Z with Cursor).** BLOCKER (laptop-wide, handed to coordinator
+**07:58Z successor took over (predecessor died 06:51Z with Cursor).** (RESOLVED ~08:50Z, free disk 6.2 GB) BLOCKER (laptop-wide, handed to coordinator
 `lanes/coordinator/20260924T0758Z-handoff-from-vllm-57-fix.md`): laptop free disk is at the guardian's 3.5 GB floor
 (cursor_db 69.8 GB and growing). The guardian SIGKILLed my laptop `research run` launchers 3x (07:52Z, 07:57Z). Freed: data evict
 0.23 GB, ~/Library/Caches/com.apple.python 0.16 GB, uv cache 0.40 GB; each launch then squeaked through. Every further
@@ -67,7 +67,9 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 - 08:57Z #67 Commit launched: run r20260924-085702-d2e3 on vyv-sw-67b GPU 0, source 2c5e038b, build art:5b7e5bcf + match
   art:f95c7d60. ETA ~10:40Z (sweep: ~1h40m).
 - 09:00Z vyv-sw-57 idle -> #57 Commit on the retire-v1 trial merge 25170f24 (same inputs), to answer the merged-replay question
-  before int-57.
+  before int-57: run r20260924-085749-2570 (GPU 0), launched from a throwaway /tmp worktree (removed), source tree
+  /workspace/research/src/25170f24… on the pod. ETA ~09:50Z. It reuses #57's row dir (the PASS run's evidence is preserved:
+  verdict art:b99af6c6, logs art:e364e35a, run dir outputs/). #67 Match artifacts preserved (rc 0).
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)

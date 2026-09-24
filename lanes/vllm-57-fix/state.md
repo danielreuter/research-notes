@@ -42,6 +42,14 @@ Task: #57 v2 Commit local_replay fix (432 promoted model/out identities_without_
 #67 follow-on if same cause. Spec: pod /workspace/lane/BRIEF.md; facts /workspace/lane/sweep-status-0205Z.md.
 Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 09:00Z, 57-pass 10:00Z, 57-ready 10:30Z, 67-pod 10:30Z, 67-pass 12:30Z).
 
+- Merge check (08:10Z): staging lane/vllm-cleanup-2 is still 38122d1f (clean). Onto lane/vllm-retire-v1 9d80e302: merge-tree
+  clean (tree eddd75bd; trial commit 25170f24, pushed ONLY to sw57 as trial/57-on-rv1, extracted at /workspace/lane/trial-rv1).
+  Every symbol the fix calls exists there. SEMANTIC NOTE for the integrator: retire-v1 53d20e6c removes promoted addressing
+  from sampled_replay (ProgramIndex promoted/rule, promoted_addresses_of gone) and deletes test_sampled_replay_promoted.py.
+  2c5e038b's promote_handed_down marks the manifest in place, so at my tip the replay index also sees the promoted rows; on
+  the merged tree only acquisition + form (B) read them. The #57 PASS at my tip therefore does not cover the merged replay
+  path: #57's Commit should be rerun on the merged tree (int-57). Trial tests: logs/tests_trial_rv1.log (running).
+
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)

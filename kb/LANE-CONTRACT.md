@@ -14,10 +14,11 @@ base, pod, budget, FINAL time, goal, and what to read. Everything below applies 
   branch and pod instead (the launch message names them; `research notes bind` records it).
 - Commit only there, after every meaningful step. The coordinator merges: never merge into `main`, never touch another
   worktree, never delete anyone's branch.
-- `~/projects/verity-main-wt/main` is live infrastructure: `~/.research/bin/research` runs its working copy, so an edit there
-  changes every lane's CLI. Never edit, checkout or restore files in it. For an old version of a file use
-  `git show <rev>:<path> > /tmp/<you>-<name>` or a throwaway `git worktree add /tmp/<you>-<rev> <rev>`. (2026-09-24 05:06Z: old
-  copies of relchain.py, ligero-verify main.rs and store/index.py left in main broke short art: ids for every lane.)
+- Never edit, checkout or restore files in `~/projects/verity-main-wt/main` (the merge target) or
+  `~/projects/verity-main-wt/cli` (the sparse worktree `~/.research/bin/research` runs; the coordinator moves it after each
+  merge). For an old version of a file use `git show <rev>:<path> > /tmp/<you>-<name>` or a throwaway
+  `git worktree add /tmp/<you>-<rev> <rev>`. (2026-09-24 05:06Z: old copies of relchain.py, ligero-verify main.rs and
+  store/index.py left in main, which the CLI then ran, broke short art: ids for every lane.)
 - No new `.md` files in the repo; notes live under `~/.research/notes`.
 
 ## 2. Tool
@@ -31,12 +32,21 @@ prefix and any per-lane wrapper.
 - `checkpoint` prints your INBOX: handoffs to you, or to the lane you took over, since you were last shown them. Act on each
   one, or say in your next checkpoint why not. At startup, run `research notes inbox <you>`.
 - States: `open`, `blocked` (say on what), `final`.
+- End a turn only after writing FINAL (§9), or while a command you started is still running and will notify you when it
+  ends (a background shell, or a `research run` you are polling). Nothing else wakes you: a turn ended "to wait for
+  notifications" with nothing running is the end of the lane. (2026-09-24: agkr-table stopped mid-plan at 08:33Z this way
+  and its A100 idled 7 hours; sp1-formats finished its cells but never wrote FINAL.)
 
 ## 3a. Chatter budget (v1, 2026-09-24; the coordinator tunes it)
 The coordinator and the human see every message you send and every background shell you start (each completion pings
 them). Keep it to what someone must act on:
-- Long jobs run detached on the pod (`nohup ... > /workspace/<you>/x.out 2>&1 &` over ssh); poll with short foreground
-  commands. Background a local shell only if it runs over ~2 minutes and you work on something else meanwhile.
+- Long pod work, bootstraps and builds included, goes through `research run --on <pod> --project verity ... -- CMD`:
+  `--source . --cwd source` runs your committed tree (a recorded run), `--cwd /workspace/src` runs in the tree
+  `research pods sync` keeps there (incremental builds). It returns right after launch; the pod runs and records the job
+  whether or not you stay alive; `research fetch <run>` observes it. Do not hand-roll `nohup` over ssh: it produced at
+  least six false "start failed" errors in one night.
+  Poll with short foreground commands. Background a local shell only if it runs over ~2 minutes and you work on something
+  else meanwhile.
 - Checkpoints: one line, at most ~300 characters (done, next, `art:` ids). Every 20 minutes or per result, not more often
   than every 5 minutes.
 - Handoffs to the coordinator only when you are blocked, need a decision, or a result changes another lane's plan.
@@ -56,7 +66,8 @@ yours, not another instance's.
 ## 6. Pods
 - One pod unless the launch message says otherwise: `research pods create --name vy-<you> ...`, then
   `research pods sync <pod>` to ship your worktree and `research pods ssh <pod>` (`--print` gives a reusable ssh line).
-- Set up with `backends/direct/ligero/pod_bootstrap.sh`, then `source env.sh`. Run with `LIGERO_GPU_STRICT=1 LIGERO_GRAPH_STRICT=1`.
+- Set up with `backends/direct/ligero/pod_bootstrap.sh` (through `research run --on`, §3a), then `source env.sh`. Run with
+  `LIGERO_GPU_STRICT=1 LIGERO_GRAPH_STRICT=1`.
 - Pod scripts go in `lanes/<you>/evidence/pod-scripts/` and outputs under `/workspace/<you>/`, so a successor can find what ran.
 - Register results as they land (§8). Four lanes died with their results only on the pod.
 - Terminate the pod at FINAL unless the launch message says to keep it (`--keep-pod WHY`, §9).

@@ -13,7 +13,8 @@ Census: run with python3.13 (`/opt/homebrew/bin/python3.13 tests/dead_code_censu
 By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pure AST, laptop-safe).
 
 ## Tip
-- 6813fe06 (pushed) -- replay tests on v2 addressing
+- adc55ce7 (pushed) -- GEN-lane roots dropped (own revertable commit); census fixed point; allowlist 234, lints 7/7 on pod
+- 6813fe06 (pushed) -- replay tests on v2 addressing (suite + harness runs are at this sha; adc55ce7 touches no harness code)
 
 ## Takeover 05:46Z (previous owner died 04:43Z)
 - staging suite (815b837c) finished 05:28Z, exit=1, 42 F/E lines: /workspace/rv1/logs/suite_staging.{log,xml}
@@ -27,6 +28,9 @@ By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pur
   (test_norm_chain::test_mean_pins_match_installed_vllm, test_compiled_source::test_renumber_assigns_invocations_per_call_site);
   skips environmental (157 VERITY_REGRESSION-gated, CUDA, real Programs). vs staging junit per test (jcmp.py): 0 pass->fail,
   0 pass->skip; 25 v1-comparison tests gone, 14 new/renamed pass. No fixes needed.
+
+- counts (git cat-file, = wc -l; reproduces the 209,413 baseline): 815b837c 652 files / 209,413 lines -> adc55ce7 632 / 199,445 (-20 / -9,968)
+- test_repository.py 6/6 on laptop @adc55ce7; allowlist 293 -> 234
 
 CHECKPOINT rv-tests MET 05:56Z converted test files @6813fe06 on cpu3: 212 pass / 173 skip / 2 F (both staging-known), 0 regressions per test vs staging junit
 

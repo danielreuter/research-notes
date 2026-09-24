@@ -34,8 +34,8 @@ Base `lane/verify-night` @ 1b3c7be6; no commits (verify-night produces no code o
 
 ## Labels written (all `--by verify-night`, each with a `verification-verdict/v1` artifact as `ref`, all PRESERVED)
 
-61 `verified=accepted` (15 equivalences, 46 bench results), none rejected. `same_device=false` goes on every result
-verified outside reverify.py.
+62 `verified=accepted` (15 equivalences, 47 bench results). None rejected. `same_device=false` goes on every result
+verified outside reverify.py. Three results are NOT labelled; see "Not verified" below.
 
 **Instance equivalences (15 `instance-equiv/v1`).** Each was re-checked three ways on the pod: `instance_equiv --check`;
 regeneration from scratch compared byte for byte; and my own full-chain comparison (`05-equiv-independent.py`: both relations
@@ -72,7 +72,9 @@ statement.bin. Each check: every rep has `ok`, `statement_match`, `verdict` true
 byte gives `statement_match` false. None of these can enter Table 2: they are 100-bit, and the security-target rule
 requires 2^-128. They are for D2.
 - sp1-table: art:2a10bc89 (b5e1ed5f), art:1d6aa0c3 (k4+indexed, 65aa6a12), art:c7ca70a0 (k4, 14987d41),
-  art:fffbf728 (k7, 2da1e77e), art:7233a6a3 (k7 warm, 5 reps, same host; verdict art:72eb0459)
+  art:fffbf728 (k7, 2da1e77e), art:7233a6a3 (k7 warm, 5 reps, same host; verdict art:72eb0459), art:0a1bc6cd (a
+  second registration of the k7-warm run with its own run-files art:7f3d0b5d; byte-identical proofs, verified again;
+  verdict art:f4a6fc79)
 - sp1-formats @2581406f: art:0a8697da (4090), art:30a1f28a (H100 FP8), art:ef2d91ce (H100 BF16), art:f3072b13 (5090)
 - sp1-formats @3510cfcf: art:8d9df3a2, art:70e5bd29, art:76d13bb0, art:a8886e22
 
@@ -85,7 +87,17 @@ requires 2^-128. They are for D2.
   only). Its vk 0x00b4876f… is the memory arm's, yet the memory-arm host rejects it ('invalid shape of proof'). Verdict
   art:17f3fa24.
 
-## Table 2 delta (baseline = render 06:25Z, before any label of mine; now = pod render 09:02Z)
+## Not verified (not labelled; written up to sp1-tcdot 1020Z)
+- **art:0a66c35e and art:b147a31c** (sp1-tcdot 0954Z; SP1 + TC_DOT, fork 6655716e / 0e00bd15 with patch 0010's
+  1173-column chip). I built the 6655716e host from the pins (97b5b60a, tree 4ca5a6ca, stream-operands, fresh dirs). Its
+  vk is 0x009f022f…, not the 0x00896ef4… the producer recorded, and it rejects all 6 proofs with "global cumulative sum is
+  not zero". The 6096d886 host (vk 0x00896ef4) rejects them with "invalid shape of proof". The guest's loaded sections are
+  byte-identical to my 6096d886 build's, so the vk change comes from the fork. The producer's host may be stale. None of
+  this is in Table 2 (SP1, 2^-128 rule).
+- **art:2a4760fb** (hill-climb 7): its run-files art:4b3dc262 hold only logs and JSON. There are no proofs and no
+  statement, so there is nothing to verify.
+
+## Table 2 delta (baseline = render 06:25Z, before any label of mine; now = pod render 09:02Z, unchanged at 09:50Z)
 
 | cell | 06:25Z | now | art |
 |---|---|---|---|
@@ -137,7 +149,8 @@ producers. Every such label points to a preserved verdict artifact with the evid
 fused-phases 0554Z (15 equivalences: done); sp1-table 0632Z (art:2a10bc89), 0739Z (art:1d6aa0c3, art:c7ca70a0),
 0835Z (art:fffbf728), 0906Z (art:7233a6a3); agkr-table 0644Z (art:03e21c7f), 0712Z plus its appends (art:21d253bd,
 art:f47f8006, art:300a526a), 0830Z (art:c09947fd); coordinator-fused-cells 0646Z (r2); sp1-tcdot 0655Z (art:90671b80),
-0727Z (art:255f4f78), 0841Z (art:174d7b4d, art:76c113f4, art:a68f2446); sp1-formats 0712Z (4 results),
+0727Z (art:255f4f78), 0841Z (art:174d7b4d, art:76c113f4, art:a68f2446), 0954Z (art:0a66c35e, art:b147a31c,
+art:2a4760fb: none verifiable, see above); sp1-formats 0712Z (4 results),
 0742Z-3510cfcf (4 results); fill-consumer 0725Z (r4b); fill-dc 0736Z (r5, r6).
 
-Handoffs sent: coordinator 0655Z, 0738Z, 0826Z; tables-fix 0700Z; sp1-tcdot 0710Z; sp1-formats 0752Z.
+Handoffs sent: coordinator 0655Z, 0738Z, 0826Z; tables-fix 0700Z; sp1-tcdot 0710Z, 1020Z; sp1-formats 0752Z.

@@ -1,0 +1,41 @@
+=== [10:03:11] fetch art:2dc0261c6f7393018520b44f842564eed593da2a91efd258ee439e9afc704c2e
+/workspace/verify-night/tcdot-0a66c35e/tree
+ca12c3ff46ff551304be3c21aba3a0477cf9410fbb4937fda30c737d0984629a  /workspace/verify-night/tcdot-0a66c35e/tree/proofs/proof-rep0.bin
+7c67d92dd1ff1cb6267d49ed983070f195444235c0e66ca101928a92b0e603d1  /workspace/verify-night/tcdot-0a66c35e/tree/proofs/proof-rep1.bin
+f3881793ee2b4a5fe088cf8139a04048c502dd6c7a92ec8c2f8e317671e16dc4  /workspace/verify-night/tcdot-0a66c35e/tree/proofs/proof-rep2.bin
+5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb  /workspace/verify-night/tcdot-0a66c35e/tree/proofs/statement.bin
+dump statement.bin == mine
+=== [10:08:41] verify (host sha256 2ccacebaf1e2fb30)
+{"backend":"sp1 tc-dot","elf_sha256":"6479de0dafc838d900e2942305017e9b182fa60492548471d83a9d6874280e17","fork_head":"6655716e5e4fe1fab4c238e5261d15f433b3b31c","formats":["bf16-ampere"],"guest_features":["relation-bare"],"label":"modified SP1 (TC_DOT chip)","operands":"stream","public_values_len":33,"sp1_version":"6.4.0","statement":"relation-bare/v2","vk_hash":"0x009f022fd7346ff12adaf7f6849c9ea7e42bba383d55865415240fec0f739114"}
+--- proof-rep0.bin
+{"backend":"sp1 tc-dot","elf_sha256":"6479de0dafc838d900e2942305017e9b182fa60492548471d83a9d6874280e17","error":"Core machine verification error: invalid public values: global cumulative sum is not zero","fork_head":"6655716e5e4fe1fab4c238e5261d15f433b3b31c","label":"modified SP1 (TC_DOT chip)","load_seconds":0.023908166,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.760697933,"shards":8,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.001402776,"vk_hash":"0x009f022fd7346ff12adaf7f6849c9ea7e42bba383d55865415240fec0f739114"}
+rc=1 wall=35s
+--- proof-rep1.bin
+{"backend":"sp1 tc-dot","elf_sha256":"6479de0dafc838d900e2942305017e9b182fa60492548471d83a9d6874280e17","error":"Core machine verification error: invalid public values: global cumulative sum is not zero","fork_head":"6655716e5e4fe1fab4c238e5261d15f433b3b31c","label":"modified SP1 (TC_DOT chip)","load_seconds":0.021820483,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.749232401,"shards":8,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.001368343,"vk_hash":"0x009f022fd7346ff12adaf7f6849c9ea7e42bba383d55865415240fec0f739114"}
+rc=1 wall=35s
+--- proof-rep2.bin
+{"backend":"sp1 tc-dot","elf_sha256":"6479de0dafc838d900e2942305017e9b182fa60492548471d83a9d6874280e17","error":"Core machine verification error: invalid public values: global cumulative sum is not zero","fork_head":"6655716e5e4fe1fab4c238e5261d15f433b3b31c","label":"modified SP1 (TC_DOT chip)","load_seconds":0.021789116,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.739499813,"shards":8,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.001384809,"vk_hash":"0x009f022fd7346ff12adaf7f6849c9ea7e42bba383d55865415240fec0f739114"}
+rc=1 wall=35s
+--- negatives on rep0: (a) last y byte flipped in the statement, (b) one proof byte flipped (middle)
+{"backend":"sp1 tc-dot","elf_sha256":"6479de0dafc838d900e2942305017e9b182fa60492548471d83a9d6874280e17","error":"Core machine verification error: invalid public values: global cumulative sum is not zero","fork_head":"6655716e5e4fe1fab4c238e5261d15f433b3b31c","label":"modified SP1 (TC_DOT chip)","load_seconds":0.02149525,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.7197870330000002,"shards":8,"statement_match":false,"unsound":false,"verdict":true,"verify_seconds":0.001453182,"vk_hash":"0x009f022fd7346ff12adaf7f6849c9ea7e42bba383d55865415240fec0f739114"}
+rc=1
+flipped byte 5740296 of 11480593
+{"backend":"sp1 tc-dot","elf_sha256":"6479de0dafc838d900e2942305017e9b182fa60492548471d83a9d6874280e17","error":"Core machine verification error: invalid public values: global cumulative sum is not zero","fork_head":"6655716e5e4fe1fab4c238e5261d15f433b3b31c","label":"modified SP1 (TC_DOT chip)","load_seconds":0.021197759,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.740186943,"shards":8,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.001548145,"vk_hash":"0x009f022fd7346ff12adaf7f6849c9ea7e42bba383d55865415240fec0f739114"}
+Error: proof rejected
+rc=1
+=== [10:12:12] done
+=== [10:15:41] 6096d886 witness host (04bf38221b36dc99) on all reps
+"fork_head":"6096d886e433ca854504ac0c97abf19ed17a7997" "vk_hash":"0x00896ef46d917e41bd6f29ef3f4504676f1bccffe2c10936a150113a9ca49384" 
+--- proof-rep0.bin [6096d886 host]
+{"backend":"sp1 tc-dot","elf_sha256":"e17c880266bccbd426e6fd54fc71fabaa3dd81d7d336c6187fdc9dea31c1c620","error":"Core machine verification error: invalid shard proof: invalid shape of proof","fork_head":"6096d886e433ca854504ac0c97abf19ed17a7997","label":"modified SP1 (TC_DOT chip)","load_seconds":0.021717897,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.739056391,"shards":8,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.001528857,"vk_hash":"0x00896ef46d917e41bd6f29ef3f4504676f1bccffe2c10936a150113a9ca49384"}
+Error: proof rejected
+rc=1
+--- proof-rep1.bin [6096d886 host]
+{"backend":"sp1 tc-dot","elf_sha256":"e17c880266bccbd426e6fd54fc71fabaa3dd81d7d336c6187fdc9dea31c1c620","error":"Core machine verification error: invalid shard proof: invalid shape of proof","fork_head":"6096d886e433ca854504ac0c97abf19ed17a7997","label":"modified SP1 (TC_DOT chip)","load_seconds":0.021503643,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.772415257,"shards":8,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.001704854,"vk_hash":"0x00896ef46d917e41bd6f29ef3f4504676f1bccffe2c10936a150113a9ca49384"}
+Error: proof rejected
+rc=1
+--- proof-rep2.bin [6096d886 host]
+{"backend":"sp1 tc-dot","elf_sha256":"e17c880266bccbd426e6fd54fc71fabaa3dd81d7d336c6187fdc9dea31c1c620","error":"Core machine verification error: invalid shard proof: invalid shape of proof","fork_head":"6096d886e433ca854504ac0c97abf19ed17a7997","label":"modified SP1 (TC_DOT chip)","load_seconds":0.022764343,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.761566539,"shards":8,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.001588547,"vk_hash":"0x00896ef46d917e41bd6f29ef3f4504676f1bccffe2c10936a150113a9ca49384"}
+Error: proof rejected
+rc=1
+=== [10:17:59] done

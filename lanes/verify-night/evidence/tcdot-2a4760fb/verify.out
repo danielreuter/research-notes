@@ -1,0 +1,16 @@
+sha256sum: 'proofs/*': No such file or directory
+cmp: /workspace/verify-night/tcdot-2a4760fb/tree/proofs/statement.bin: No such file or directory
+=== [10:04:52] verify (host sha256 2ccacebaf1e2fb30)
+{"backend":"sp1 tc-dot","elf_sha256":"6479de0dafc838d900e2942305017e9b182fa60492548471d83a9d6874280e17","fork_head":"6655716e5e4fe1fab4c238e5261d15f433b3b31c","formats":["bf16-ampere"],"guest_features":["relation-bare"],"label":"modified SP1 (TC_DOT chip)","operands":"stream","public_values_len":33,"sp1_version":"6.4.0","statement":"relation-bare/v2","vk_hash":"0x009f022fd7346ff12adaf7f6849c9ea7e42bba383d55865415240fec0f739114"}
+--- proof-rep*.bin
+rc=1 wall=0s
+--- negatives on rep0: (a) last y byte flipped in the statement, (b) one proof byte flipped (middle)
+ls: cannot access '/workspace/verify-night/tcdot-2a4760fb/tree/proofs/proof-rep*.bin': No such file or directory
+rc=2
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: ''
+Caused by:
+    No such file or directory (os error 2)
+rc=1
+=== [10:05:27] done

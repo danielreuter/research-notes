@@ -79,6 +79,18 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   failed 0, every check PASS; replay 5,883/5,883 x3. verdict art:6b939117e164e5c36adba5fbb6cf22ca812cf539a6d416c4f4f672d75098770d
   (preserved rc 0, 6 labels incl. arm=trial-merge-onto-retire-v1-9d80e302). Appended to the integrator ready note. vyv-sw-57 idle.
 - 10:00Z #67 Commit pair 0 in the sampled replay (32 workers, 38,748 VUs).
+- 10:12Z #67 Commit at 2c5e038b (r20260924-085702-d2e3) pair 0 COMMIT FAIL: "C2 of record not established: sampled replay
+  partial -- 2416 strata not evaluated", all MoeSum_v1{TOPK=8,H=2048} at model.layers.N.mlp.experts, why "evaluator produced no
+  member 'out'" (36,332 evaluated, all equal; population ok; linkage 1308/1308; weights 212/212; C2 oracle 16,120 equal).
+  That is exactly what retire-v1 6813fe06 fixes ("replay_vu compares a copied row's one output against its member (the MoeSum at
+  TP1 was 'evaluator produced no member out' under v2)"). Evidence copied to vyv-sw-67b /workspace/lane/evidence/commit67_2c5e038b/.
+  Terminated the run at 10:15Z (SIGTERM to pgid; rc 143; pairs 1-2 would fail the same way and hold the row dir).
+- DECISION 10:16Z: staging lane/vllm-cleanup-2 had already merged this lane (b53686f0 = merge of 2c5e038b), the relayout
+  (738e63f5) and retire-v1 (6813fe06 included); tip 2c8aa2b3. Fast-forwarded lane/vllm-57-fix to 2c8aa2b3 (no new commit),
+  pushed origin + sw57. #67 now runs at the integrated tip; script path is now integrations/vllm/verity_vllm/ops/run_row_v2.sh.
+- 10:19Z #67 Commit at 2c8aa2b3: run r20260924-101839-ef1b on vyv-sw-67b GPU 0 (source shipped by git archive, 2813 files),
+  build art:5b7e5bcf + match art:f95c7d60. ETA ~12:00Z (pair 0 took ~75 min last time). 67-pass at risk only if it slips past ~12:15Z.
+- vyv-sw-57: /workspace/verity now at 2c8aa2b3; one untracked leftover dir integrations/vllm/verity_vllm_numerics/ (relayout residue, left alone).
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)

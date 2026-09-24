@@ -3,6 +3,6 @@
  "brief": "campaigns/afternoon/BRIEF.md",
  "budget": "$3",
  "final": "18:15Z",
- "pod": "none",
+ "pod": "vy-merge-postwave-veritor-campaign",
  "worktree": "/Users/danielreuter/projects/verity-main-wt/post-wave"
 }

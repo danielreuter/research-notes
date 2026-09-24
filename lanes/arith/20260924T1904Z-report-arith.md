@@ -8,6 +8,7 @@ final: 01:10Z hard; budget $10
 status: final
 ---
 
+CHECKPOINT 92dab0ad (23:40Z) [final] FINAL lane/arith@92dab0ad: arith tip vs base 4090 .0409/.0477, H100 E4M3 .0432/.0454, BF16 live .1165/.1506, A100 .1799/.2062, 5090 .0649/.0658 (flat); tip reverify PASS --by arith; 67/67 cited arts preserved; verify-po+redteam pending; pods terminated, ~$5.73
 CHECKPOINT 92dab0ad (23:35Z) [final] FINAL lane/arith@92dab0ad: arith tip vs base 4090 .0409/.0477, H100 E4M3 .0432/.0454, BF16 live .1165/.1506, A100 .1799/.2062, 5090 .0649/.0658 (flat); all tip reverify PASS --by arith, preserved; verify-po+redteam pending; all pods terminated, ~$5.73
 CHECKPOINT cd3f5e5 (23:05Z) [open] A100 done: tip .2534/.1799 vs base .2873/.2062 (cell .2413/.164, pod slower); 4/4 reverify PASS, preserved; a100b terminated 23:05Z; ~$5.35 spent; next 5090 fp4-nvf4 l=8192 p8
 CHECKPOINT f5b5810 (22:24Z) [open] H100 done: E4M3 tip .0742/.0432 vs base .0795/.0454 (cell .0738); BF16 live tip .1822 vs base .2499 (pod noisy, cell .1292); 13/13 reverify PASS, preserved; h100 terminated 22:23Z, ~$4.3 spent; next A100 bf16-ampere-v3

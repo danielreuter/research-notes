@@ -54,7 +54,26 @@ timed(circuit.Layer, "matrices", key="Layer.matrices")
 timed(circuit.Layer, "eval_a_at", key="Layer.eval_a_at")
 timed(gkr, "prove_layer", desc=lay)
 timed(gkr, "_phase2")
+_orig_phase1 = gkr_packed.phase1
+_patched_kern: set = set()
+
+
+def _phase1(kern, *a, **k):
+    cls = type(kern)
+    if cls not in _patched_kern:
+        _patched_kern.add(cls)
+        for n in ("packed_round", "ext_round", "fold_k", "fold_pair", "set_fold"):
+            if hasattr(cls, n):
+                timed(cls, n, key="p1." + n)
+    return _orig_phase1(kern, *a, **k)
+
+
+gkr_packed.phase1 = _phase1
 timed(gkr_packed, "phase1")
+timed(gkr_packed, "_layout", key="p1._layout")
+timed(gkr_packed, "_inputs", key="p1._inputs")
+timed(gkr_packed, "_EqSlices", key="p1._EqSlices")
+timed(gkr_packed, "py_exts", key="p1.py_exts")
 timed(gkr, "phase1_round")
 timed(circuit.Layer, "eval_gates")
 for n in ("eval_wires", "masked_wires", "pad_rows", "add_chain", "add_lookup_claim", "add_input_claim", "start_transcript",

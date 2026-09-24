@@ -37,6 +37,11 @@
   Files: pod `/workspace/out/gm/{base1,branch1,base2,branch2}/`, `diff_global_match_2.json`, `diff_match_decomp_2.json`.
 - `/workspace/branch` == head source (diff -rq: only sync metadata, macOS `._*` files, gitignored numerics build dir).
 
+## Resume 22:22Z
+- The lane agent restarted from an 18:0xZ context; this note is the state of record. Pod at 22:22Z: `a_final` (pid 14128, since 20:50Z)
+  and `a_rerun_t0` (pid 19020, since 21:54Z) still running; `after_final` chain waits for `a_final`. Worktree clean at `be366f80`.
+- Plan: wait for the gates, fill READY.md; rebase onto `origin/main` (coordinator 22:13Z), lints on the pod, allowlists, push; terminate the pod.
+
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
 - origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.
 - Head `be366f80` (= `76020a66` + the by-name allowlist fix) synced clean to `/workspace/head2` (+ copy `head2-reg`).

@@ -1,3 +1,4 @@
+CHECKPOINT 0742a046 (08:42Z) [open] hill-climb 5 art:174d7b4d (runs art:ff5eaf2a): fork patch 0009 (prover-only local-memory merge, FORK_HEAD_WIT 6096d886), t.total 5.811s, 8 shards, 11.4MB: 3.41x faster than stock SP1's best (19.83s, sp1-table art:fffbf728). verify-night handoff 0841Z (build from the witness fork: vk does not pin the AIR). Next: the 74 software-routed VUs (2.45M of 3.74M cycles).
 CHECKPOINT b189a963 (08:24Z) [open] hill-climb 4 art:76c113f4 (runs art:44bded3a): fork patch 0008 (operands from the input stream) + sp1-table k7 merged + two trace chunks, t.total 5.923s, 8 shards, 11.4MB: 3.76x faster than stock SP1's best (22.27s, art:1d6aa0c3). Next: patch 0009 (prover-only local-memory merge), screened 5.6s.
 CHECKPOINT d3a5b955 (08:00Z) [open] hill-climb 3 art:a68f2446 (runs art:204f58d0): witness-operands arm (fork patch 0007 cbf66ccd, TC_DOT_BF16 operands as free witness values; coordinator asked 07:45Z), t.total 8.771s, 10 shards, 14.4MB. Building patch 0008 (operands from the input stream, never in memory).
 CHECKPOINT 0b0768ed (07:26Z) [open] hill-climb 2 art:255f4f78 (runs art:4afa9f4e): fork patch 0006 (CPU-shard estimate fix + ELEMENT_THRESHOLD 1.25x), t.total 11.485s, 10 shards, 14.9MB, verify 0.61s; emitter now vector_run --variant (merged sp1-table b9b76e75). Next: verify-night addendum, next lever.
@@ -221,6 +222,15 @@ Budget $12, FINAL 12:00Z.
     per shard), which only the witness arm's memory shards reached.
   - `SP1_WORKER_USE_FIXED_PK=true` (the pk cache plus the minimal-executor cache) panics in the cached executor's
     child on the second input, so it was dropped.
+- **Hill-climb 5, `art:174d7b4d…` (runs `art:ff5eaf2a…`), source `0742a046`, fork `6096d886` (patch 0009), same
+  guest, vk and prover env as hill-climb 4.**
+  - t.total **5.811 s** (reps 5.72-5.83 s, against 5.84-5.99 s for hill-climb 4), 8 shards, 11.39 MB, -97.0;
+    52/52 negatives; verify 0.47 s.
+  - **3.41x** faster than stock SP1's best, sp1-table's k7 `art:fffbf728` (19.83 s, 22 shards, 33.5 MB).
+  - Rate: 4096 x 1536 MACs / 5.811 s = 1.08M MAC/s (2.17 MFLOP/s). Overhead vs 312 TFLOP/s: 1.44e8x.
+  - The screens (5.61 / 5.69 s) were 0.1 s optimistic: the gain over hill-climb 4 is 2%.
+  - verify-night handoff `20260924T0841Z` covers hill-climbs 5 and 4 (and 3). The verifier must be built from the
+    witness fork, because the vk does not pin the chips' AIR.
 - **Harness.** A finished run leaves `/tmp/sp1-cuda-0.sock`. The next client connects to the stale file before its
   new server rebinds and fails with ECONNREFUSED; about every second screen failed this way. `quick.sh` and
   `bench_run.sh` now wait for the last server to exit, then remove the socket.

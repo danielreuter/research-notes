@@ -18,6 +18,10 @@ v6.4.0 source (`f66b4bff5`).
   keep variants apart. The server's debug log arrives on the host's **stdout**.
 - A recursion (compress/Groth16) proof over a new chip fails vk-map membership unless the recursion vk map is rebuilt.
   Such variants are core-proof only.
+- Reproducibility: compare `vk_hash`, not the guest ELF's sha256. The vk hashes only the loaded program image, so an
+  independent build can differ in debug-info paths and still give the same vk (verify-night `art:4bfc9e7e…` on
+  `art:90671b80…`). To make the ELF reproduce too, `--remap-path-prefix` every checkout path that reaches the guest,
+  including a path-patched SP1 fork's canonical path.
 
 ## Sharding
 - `local_gpu_opts()` (`sp1-gpu/crates/prover_components/src/builder.rs`) hard-sets

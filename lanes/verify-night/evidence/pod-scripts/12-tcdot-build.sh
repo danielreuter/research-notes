@@ -6,11 +6,11 @@
 # SKIP_SERVER=1 (no CUDA server).
 set -uo pipefail
 export PATH=$HOME/.sp1/bin:$HOME/.cargo/bin:$PATH
-REV=${REV:-572018a3}; SRC=${SRC:-/workspace/tcdot-src}; TGT=${TGT:-/workspace/tcdot-verify/target}
+REV=${REV:-572018a3}; SRC=${SRC:-/workspace/tcdot-src}; TGT=${TGT:-/workspace/tcdot-verify/target}; FROOT=${FROOT:-/workspace/tcdot-verify}
 O=/workspace/verify-night; H=$TGT/release/verity-tcdot-host
 {
 echo "=== [$(date -u +%H:%M:%S)] build_fork ($REV, $SRC)"
-cd $SRC && SKIP_SERVER=1 SP1_TCDOT_ROOT=/workspace/tcdot-verify bash backends/sp1/tcdot/build_fork.sh 2>&1 | tail -25
+cd $SRC && SKIP_SERVER=1 SP1_TCDOT_ROOT=$FROOT bash backends/sp1/tcdot/build_fork.sh 2>&1 | tail -25
 echo "fork_rc=${PIPESTATUS[0]}"
 cd $SRC/backends/sp1/tcdot
 echo "=== [$(date -u +%H:%M:%S)] host"

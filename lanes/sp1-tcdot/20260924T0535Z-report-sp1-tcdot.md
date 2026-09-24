@@ -1,3 +1,4 @@
+CHECKPOINT 0b0768ed (07:26Z) [open] hill-climb 2 art:255f4f78 (runs art:4afa9f4e): fork patch 0006 (CPU-shard estimate fix + ELEMENT_THRESHOLD 1.25x), t.total 11.485s, 10 shards, 14.9MB, verify 0.61s; emitter now vector_run --variant (merged sp1-table b9b76e75). Next: verify-night addendum, next lever.
 CHECKPOINT none (07:08Z) [open] hill-climb 1 art:6e415853 (runs art:a965d150): guest chains each VU's 96 TC_DOT_BF16 ecalls in one asm block, 4.91M cycles (was 8.04M), t.total 11.946s, 16 shards. Building fork patch 0006 (sharding estimate + ELEMENT_THRESHOLD).
 CHECKPOINT 572018a3 (06:54Z) [open] B=4096 A100 result art:90671b80 (runs art:d9a862c5): t.total 12.763s, 17 shards, 2.34x faster than stock SP1 art:2a10bc89; verify-night handoff written; sp1-table 06:40Z: adopt --variant at next rebase. Next: hill-climb (shard threshold, guest loop).
 CHECKPOINT none (06:30Z) [open] B=4096 A100 prove 12.2s/17 shards (v1 stmt; 72% of cells = SP1 memory argument for the 25MB private input). Porting to relation-bare/v2 (rebased on sp1-table b5e1ed5f), emitter = vector_run.py sp1-bare via tcdot/bench.py wrapper; next: register result.
@@ -107,3 +108,32 @@ Budget $12, FINAL 12:00Z.
   - `local_gpu_opts` honours `ELEMENT_THRESHOLD` when it is set. The 4 pinned trace buffers and the LDE (4x area)
     scale with it, so stay under 2^31 LDE elements, i.e. an area of at most about 5.3e8.
   - No AIR or verifier change: the vk depends only on the ELF and the chips.
+- **Hill-climb 2, `art:255f4f78…` (runs `art:4afa9f4e…`), source `64014888`, fork `d14b4c62`,
+  `--prover-env ELEMENT_THRESHOLD=503316480` (1.25x).**
+  - Same ELF and vk as hill-climb 1 (`70d03135…`, `0x00b4876f…`): patch 0006 does not touch the vk.
+  - t.total 11.485 s (reps 11.47/13.47/11.38), 10 shards, 14.9 MB, verify 0.61 s, -96.7 after the union bound.
+    Warm-up is one full B=4096 proof: the first 5e8-cell shard of a server's life can pay a one-time allocation of
+    up to +3 s (screening rep 0: 14.9 s).
+  - Rep 1's +2 s came from the CPU side: every pre-GPU step (executor start, splicing, splice serialization) ran
+    1.5-1.7x slower, which is host contention, not the prover.
+  - Screening, 2 reps each: the estimator fix alone gives 12 shards and 11.47-11.71 s.
+  - The emitter is now `vector_run.py --variant` (merged sp1-table `b9b76e75`; `bench.py` writes
+    `OUT/variant.json`).
+- **Where the time goes now (rep 2).**
+  - 0 to 2.3 s, GPU idle: CoreExecute setup 0.36 s, the minimal executor 0.33 s at 14.8 MHz, splicing the single CPU
+    shard, 0.38 s serializing the 79 MB memory-read log, memory-shard emission (which starts only after all
+    splicing), and 0.78 s of CPU tracegen for the first 500M-cell memory shard.
+  - GPU busy for 8.7 s on 4.42G cells: 1.78 ns/cell plus about 0.09 s per shard.
+  - About 0.35 s of host IPC.
+  - This design is close to its floor. What remains is SP1's memory argument for the private operands (3.3G of
+    4.4G cells), which no scheduling knob reaches.
+  - Larger thresholds would not help: the first memory shard's CPU tracegen grows with it and delays the GPU start
+    by about as much as the saved per-shard overhead.
+- **verify-night (handoff `20260924T0710Z-handoff-from-verify-night.md`).** `art:90671b80…` is `verified=accepted`
+  (verdict `art:4bfc9e7e…`, same_device=false), independently built from `572018a3`. The fork tree reproduced, and so
+  did the vk (`0x00347dc9…`). The ELF digest did not (`8f681770…` vs `01dbe1d9…`): the vk hashes only the loaded
+  program image, so the difference sits in non-loaded sections, most likely debug-info paths of the fork checkout,
+  which `host/build.rs` does not remap. My 06:55Z handoff's "a different ELF means a different vk" was wrong;
+  corrected in `lanes/verify-night/20260924T0727Z-handoff-from-sp1-tcdot.md`, which also asks for `art:255f4f78…`.
+  Fix for future builds: also remap the fork checkout's canonical path in `host/build.rs` (not done, since it would
+  change nothing verified here).

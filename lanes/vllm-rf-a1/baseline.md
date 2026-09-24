@@ -2,18 +2,27 @@
 id: vllm-rf-a1/baseline
 lane: vllm-rf-a1
 kind: baseline
-status: gate (b) measured (xdist); serial gate (b) and gate (a) being added
+status: gate (b) measured (xdist and serial); gate (a) being added
 created: 2026-09-24T18:10Z
+updated: 2026-09-24T19:49Z
 ---
 # Baseline: the vLLM integration's test gates at `72884c8a`
 
 > **Coordinator, 19:47Z (owner-approved):** the gate (a) recipe below now deletes the key right after the fetch. Mint your own read-only key on the laptop and pipe it into your own pod; never mint on a pod, and never reuse another lane's key. Fetch every row's fixtures, delete `/root/r2ro.env`, then run gate (a). The 3 h expiry is only a backstop.
 
-Gate (b) is not green at the base: 3,904 tests, 3,536 passed, 54 failed, 11 errors, 297 skipped, 6 xfailed.  Of the 65
-failures and errors, 10 fail in any environment (files missing from the tree; a `NameError` in an extracted adapter
-function), 34 come from how the pod tree is set up (subprocess builds that cannot import core `verity`; no `.git` in a
-tar-shipped tree), and 21 are CPU-host numerics and real-HF derivation checks.  So "0 failures" cannot be met at this
-commit: judge a lane's gate (b) as no failure or error outside the list below, and no skip reason outside the list below.
+Gate (b) is not green at the base. The xdist run has 3,904 tests: 3,536 passed, 54 failed, 11 errors, 297 skipped and
+6 xfailed. Of its 65 failures and errors:
+
+- 10 fail in any environment: files missing from the tree, and a `NameError` in an extracted adapter function.
+- 34 come from how the pod tree is set up: subprocess builds that cannot import core `verity`, and no `.git` in a
+  shipped tree.
+- 21 are CPU-host numerics and real-HF derivation checks.
+
+The brief's serial command has the same 65 plus 3 that depend on test order (68 in all; see the serial section), and it
+flips one skip to a pass. So "0 failures" cannot be met at this commit. Judge a lane's gate (b) against the base run of
+the same mode: no failure or error outside that run's list, and no skip reason outside the list below. The four
+order-dependent tests in the serial section can flip either way when the file order changes, for example when a lane
+adds test files.
 
 ## Commit
 
@@ -91,8 +100,8 @@ Versions (full `uv pip freeze`: `baseline-freeze.txt`):
 ## Gate (b): `python -m pytest integrations/vllm/tests`
 
 Run: `OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -ra -n 12 --dist loadfile` (xdist; the same tests as
-the brief's serial command), 17:42-18:22Z, 2,403 s.  Exit 1.  The serial run of the brief's exact command is below
-once it finishes; it tells whether any of these depend on the thread count or on xdist.
+the brief's serial command), 17:42-18:22Z, 2,403 s.  Exit 1.  The serial run of the brief's exact command follows
+the failure list.
 
 | total | passed | failed | error | skipped | xfailed | xpassed |
 |---|---|---|---|---|---|---|
@@ -202,6 +211,32 @@ does, so the recipe keeps the bootstrap's environment.
 **Timing: a 15 s subprocess timeout under full load** (1):
 
 - `ops/test_row_pod_cancel_forwarding.py::test_sigint_is_forwarded_the_same_way`: `subprocess.TimeoutExpired` after 15 s
+
+### Gate (b), serial: the brief's exact command
+
+Run: `python -m pytest integrations/vllm/tests -ra`, with no xdist and the other gates running beside it. It ran
+17:46-19:37Z (6,600 s) and exited 1.
+
+| total | passed | failed | error | skipped | xfailed | xpassed |
+|---|---|---|---|---|---|---|
+| 3904 | 3534 | 57 | 11 | 296 | 6 | 0 |
+
+It runs the same tests as the xdist run and every xdist failure recurs. Four outcomes differ, and each depends on which
+test files ran earlier in the same process:
+
+- `harness/test_admit_r19_host_working_set.py::test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins`
+  and `::test_fork_gc_freeze_opt_out_is_named_on_the_record` fail serially and pass under xdist.
+  - vLLM's `EngineCore.__init__` calls `freeze_gc_heap()` and never unfreezes. An in-process engine earlier in the
+    process, such as the one in `observe/test_execution_label.py`, therefore leaves the heap frozen:
+    `gc.get_freeze_count()` is 375 where the test expects 0.
+  - On the pod, running `test_execution_label.py` and then this file fails both tests, and
+    `test_fork_gc_freeze_opt_out...` also fails when the file runs alone.
+  - The integrator lists the pair as known ("gc-freeze").
+- `program/test_lifted_tiny.py::test_specified_list_is_closed` fails serially and passes under xdist. It walks the
+  process-global `REGISTRY`. In serial order, an earlier file has registered `Lifted[GatherBf16x49152_v1]_v2{ORD=3}`,
+  and its `{ORD=3}` suffix misses the test's `endswith("_v2")` branch.
+- `observe/test_observer_encoding.py::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation` passes serially
+  and skips under xdist ("allocator did not reuse the pointer").
 
 Skip reasons, grouped (297 skips, 50 distinct reasons):
 

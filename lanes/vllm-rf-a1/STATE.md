@@ -52,6 +52,12 @@ created: 2026-09-24T17:27Z
   the file alone -> `test_fork_gc_freeze_opt_out...` F; after `observe/test_execution_label.py` -> both F.
 - 19:46Z gate (b) head SERIAL (the brief's exact command): `gate_b.sh /workspace/head-serial b_head_serial` (fresh sync of 39c5ee7a),
   to compare like-for-like with `b_base_serial` (no xdist distribution noise). Not in watch.sh; poll `logs/b_head_serial.log`.
+- DONE 19:37Z gate (b) base serial (`b_base_serial`), exit 1: 3904 = 3534 pass / 57 F / 11 E / 296 s / 6 xf (6,600 s). vs xdist base:
+  + the gc-freeze pair F, + `program/test_lifted_tiny::test_specified_list_is_closed` F (walks the global REGISTRY; an earlier
+  file's `Lifted[GatherBf16x49152_v1]_v2{ORD=3}` misses its `endswith("_v2")`), observer weakref s -> pass. In baseline.md.
+- 19:47Z coordinator note in baseline.md (owner-approved): fetch every row, delete `/root/r2ro.env`, unset AWS_*, then run gate (a).
+  19:48Z `/root/r2ro.env` deleted on vyv-rf-a1 (every row artifact was already local: 8 cached by a_base's first rows + 18 prefetched). The two running gate (a) processes
+  (a_base, a_head) were started before the rule with the key in their environment; it expires 20:38Z. Not restarted (hours lost).
 - Pod hygiene: never `pkill -f <pattern>` over ssh (the pattern matches the remote shell and kills the session); kill by pid.
 - Laptop: the brief forbids pytest on the laptop; the early local lint runs (uvx pytest, AST only, <1 GB) were a slip; lints run on the pod now.
 

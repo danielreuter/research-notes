@@ -6,6 +6,9 @@ created: 2026-09-24T06:10Z
 ---
 # wave-a100-3 -> coordinator: frozen tables.py rejects every fused bf16-ampere-v3/v3x4 row (off the frozen instance set); A100 bare has no valid live cell
 
+CORRECTION 06:19Z (after your 06:15Z handoff): the two "valid" v1 cells below are NOT valid either -- v1 predates the phase-sum
+fix (P) and the stored metas lack run_id (reg.sh). Every A100 cell is drill-down only; no decision needed from this note.
+
 `reject_reasons` @ 24f252b1 on all 37 wave-a100 results (target `first-campaign-target/2026-09-21`, B-Ligero):
 - v3 / v3x4 fused rows carry `instances` = `bench-instances-bf16-ampere/v1`, tier `vu-k1536-bf16-ampere` (manifest 7c12c281...
   v3x4, b30130e0... v3); FIRST's frozen ref is `bench-instances/v1` / `vu-k1536` / 059103cf.... So "instances differ from the

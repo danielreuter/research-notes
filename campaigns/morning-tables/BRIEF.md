@@ -67,8 +67,11 @@ names the reason for each of your results.
 | sp1-table | main 0b0768ed | 1x A100 SXM4 80GB | $12 | 12:00Z | unmodified SP1 A100 BF16 cell, then hill-climb |
 | sp1-tcdot | main 0b0768ed | A100 SXM4 80GB (+4090 dev; +1 pod per target while proving) | $25 | 12:00Z | TC_DOT fork as an SP1 variant on ALL targets (chip parameterised per format), A100 first |
 | sp1-formats (05:45Z) | lane/sp1-table | dev pod + H100 / 4090 / 5090 per cell | $20 | 12:00Z | SP1-stock for fp8-ada, fp8-hopper, bf16-hopper, fp4-nvf4 |
-| fill-* (~07:45Z) | fused-phases tip | per target | ~$25 | 11:30Z | B-Ligero bare + column 2 on frozen instances, 3 rounds, dumps |
-| verify-night (~07:45Z) | main | CPU pod | $4 | 12:30Z | independent verification + labels for every candidate cell |
+| fill-dc (06:20Z) | lane/post-wave 1b3c7be6 | A100 + H100 + same-DC verifiers | $22 | 11:30Z | B-Ligero bare + column 2 on frozen instances, local sweep then 3 live rounds, dumps |
+| fill-consumer (06:20Z) | lane/post-wave 1b3c7be6 | 4090 + 5090 + same-DC verifiers | $10 | 11:30Z | same, 4090 FP8 + 5090 NVFP4 (5090 column 2 is empty today) |
+| verify-night (06:20Z) | lane/post-wave 1b3c7be6 | CPU pod | $4 | 12:30Z | independent verification + labels for every candidate cell and instance-equiv |
+
+lane/post-wave 1b3c7be6 = fused-phases 9989797f + tables-fix b11809c1 + wave-5090 d30c32f6 (the staging base for the render).
 
 File ownership: sp1-table owns `backends/sp1/{common,guest,host}`; sp1-formats adds new per-format modules in
 `backends/sp1/common/src/` plus one arm in sp1-table's format dispatch; sp1-tcdot adds a sibling crate under

@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 0b0768ed (06:19Z) [open] 06:20Z tables-fix FINAL b11809c1 merged to lane/post-wave with fused-phases 9989797f + wave-5090 d30c32f6 -> 1b3c7be6 (pushed). Launched fill-dc, fill-consumer, verify-night (base 1b3c7be6). Inbox: tables-fix art:68466c4a decision -> verify-night task 1; sp1-table 100-bit -> frozen rule stands, D1/D2 only, user decides in AM (replied); fused-phases fill-go -> launched; contract-result stays post-wave. wave-a100-2 died 04:57Z -> wave-a100-3 (reg.sh run_id fix sent). For AM report: Table 1 says A-GKR BLAKE3 Merkle but code uses SHA-256 (D1 notes it; Table 1 frozen, user to decide).
 CHECKPOINT 0b0768ed (05:18Z) [open] 05:35Z morning-tables launched: tables-fix, fused-phases, agkr-table, sp1-table, sp1-tcdot; fill-* + verify-night on fused-phases handoff; render 12:30Z
 # Overnight 2 (Sep 23, 05:45Z → 12:15Z) — morning report
 

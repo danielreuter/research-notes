@@ -18,3 +18,7 @@ redteam/{campaign,z3_babybear}.py, benchmarks/dot_product/vector_run.py, plus to
 
 When: after the morning render (not mid-campaign). One lane, laptop + one pod for the recorded-run comparisons.
 Done = builder merged into main and the live emitters ported; then delete this file.
+
+Addendum 06:20Z (tables-fix FINAL): 220 bench-results keep their measurements only in the payload, not the manifest meta,
+so tables.py never sees them. The builder should write the canonical fields into meta; a one-off backfill can re-put them.
+Also pre-existing: backends/numerical/tests/bench/test_tables.py::test_label_keys_are_the_store_vocabulary fails on main 0b0768ed.

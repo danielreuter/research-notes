@@ -34,3 +34,10 @@ SSH=$(research pods ssh --print vy-live2b-verifier-ro | tail -1)   # zsh: run it
 ${=SSH} 'cd /workspace/live && tar cf - sessions/index.jsonl sessions/*/hello.json sessions/*/session.json sessions/*/verdict.json' > ro-store.tar
 ~~~
 Source: verify-rs-5 report (`lanes/verify-rs-5/`), art:f2f27f16.
+
+## A lane's own `live_serve.sh` store: custody before terminating the verifier pod
+`live_serve.sh` (main 24f252b1) keeps every proof and statement per session (`sub_NN.proof`, `sub_NN.stmt`): 48 sessions at
+bf16-ampere 4096 VUs = 6.6 GB. The records worth keeping are small (~7 MB for 48): `index.jsonl`, per session
+`hello.json`, `session.json`, `verdict.json`, the verifier-side Rust verdicts `rust_batch.json` + `rust_sub_*.json`, and
+`sub_*.coins`. Tar those with a pod-side `sha256sum` list, check it on the laptop, `research data put --kind run-files/v1
+--tree ... --preserve`. Example: wave-a100-2's verifier2 store, art:96ba1c1d (wave-a100-3, 2026-09-24).

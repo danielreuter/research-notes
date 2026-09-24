@@ -50,6 +50,8 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 5 | `20260924T2212Z-handoff-from-agkr-fp8.md` | art:2e7baba7 | H100 FP8, A-GKR (new cell) | accepted | art:ccafc0f7 |
 | 6 | `20260924T2220Z-handoff-from-sp1-128.md` | art:e8c7c331 | SP1 A100 BF16 sec134 (D2 row, not Table 2) | accepted | art:34582a00 |
 | 7 | `20260924T2226Z-handoff-from-arith.md` (92dab0ad, H100) | h8 x6: art:e9ae289c art:c6271278 art:8182f9ae art:efd871f6 art:7a8443b4 art:709ab20c; h16 x3: art:415d6cde art:b23719dd art:16feee34; h16L x4: art:e3362256 art:064a3a75 art:593f8249 art:debd7e1d | H100 FP8 / H100 BF16, B-Ligero | accepted x13 | art:7d68f788 art:5d8c8aa1 art:750d53cf art:eb44f474 art:b1a0be1d art:aafc3c75; art:bfc56de7 art:a5a7e8c8 art:5d94cfae; art:a7ed0d9b art:830956b0 art:65f9b4d7 art:abe34544 |
+| 8 | `20260924T2305Z-handoff-from-agkr-nvf4.md` (ab57df0a) | art:ad8f92b9 | RTX 5090 NVFP4, A-GKR (supersedes art:fe57e68b) | accepted (same verifier merge as #4) | art:37ed86f2 |
+| 9 | `20260924T2306Z-handoff-from-arith.md` (92dab0ad, A100) | a16-tip r1-r4: art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1 | A100 BF16, B-Ligero | (binding) | art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93 |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
 - reverify run r20260924-215206-fe12: all 7 PASS (custody 40/40, pinned fp8-ada-v3x4, 13/13 proofs, 2^-128.33, ligero-verify
@@ -119,6 +121,16 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - Negatives (05) on art:db78aa36 (h8-r1) and art:508debf5 (h16-r1): the base is accepted and all three changes are rejected.
 - Verdict custody: `data preserved` on all 13 returns rc 0.
 - The SP1 host build shared the CPU during this run. `verifier_seconds` may be inflated, but no table reads it.
+
+### 8. agkr-nvf4 A-GKR RTX 5090 NVFP4 art:ad8f92b9 (run r20260924-231454-fa00)
+- The verifier is the same f271e422 build as request 4: `diff -r` of backends/gkr/verifier between the 3c769c6d and ab57df0a
+  archives on my pod is empty. The statement was regenerated with the ab57df0a archive (`10-agkr-nvf4-verify.sh PREV=ab57df0a`).
+- 3/3 proofs accepted (sha256 b6cf5f09 for all three): 98304 units, 24 steps, 976 slots, 2694 msgs, 9491200 bytes, 11666 rows
+  and 47782943 elements. Each takes 0.74-0.99 s at 15 threads.
+- circuit (485 columns, depth 1, tables E2M1X2 + LK), epilogue, chain and manifest are byte-identical to the export. public.bin
+  equals main's `instances_fp4(4096)` (s, t, f), with 0 rows mismatched. The FP8 y16 regression still accepts.
+- Negatives, all rejected: `mutate --sample 24` (148/148); s flip, t+1, f+1 (LogUp E2M1X2 sum mismatch); the public line
+  reordered, and removed (panic, rc 101).
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`)
 | cell | before | now | art |

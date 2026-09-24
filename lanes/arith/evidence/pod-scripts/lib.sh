@@ -9,7 +9,11 @@ TIP=$(python3 -c 'import json; print(json.load(open("'$SRC'/.research-source.jso
 
 gpu_idle() {  # wait up to ${1:-120} s for an empty GPU
   for i in $(seq $(( ${1:-120} / 2 ))); do
-    [ -z "$(nvidia-smi --query-compute-apps=pid --format=csv,noheader)" ] && return 0; sleep 2
+    local busy=""
+    for p in $(nvidia-smi --query-compute-apps=pid --format=csv,noheader); do
+      tr '\0' ' ' < /proc/$p/cmdline 2>/dev/null | grep -q "ligero.live serve" || busy="$busy $p"   # the same-pod live verifier
+    done
+    [ -z "$busy" ] && return 0; sleep 2
   done
   echo "GPU NOT IDLE: $(nvidia-smi --query-compute-apps=pid,process_name --format=csv,noheader | tr '\n' ' ')" | tee -a $LOG; return 1
 }

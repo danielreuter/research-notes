@@ -8,6 +8,7 @@ final: 01:10Z hard; budget $10
 status: open
 ---
 
+CHECKPOINT 5543d80 (21:36Z) [open] 4090 step5 (92dab0ad: fixed slots + full warm pass): tip total .0870/.0840/.0863/.0891 arith .0409 mean vs base .0968/.0477; reverify PASS x4 (art:def461c7 art:bb75ba4f art:d2b01b3f art:f3978133); handoff 2135Z; next malloc test then H100
 CHECKPOINT 1a69ab6 (20:50Z) [open] 4090: s1 arith 0.0477->0.0417 verified (art:7775888d..); s2+s3 kernels bit-exact, A/B noisy; cause = ragged-layout graph captures in timed reps; fix 92ea2531 fixed slot per sub-batch, A/B running; next register+reverify, then H100
 CHECKPOINT none (20:23Z) [open] steps 2 (0baefa9d lincomb2 w+v one pass, 0.39->0.25ms) + 3 (f550fdc6 intt_rows) bit-exact; step1 reverify PASS x3 (art:20f128cf art:d6273533 art:118efdc0); 3-arm A/B s1/s2/s3 running (pod noisy: medians)
 CHECKPOINT none (19:57Z) [open] step1 quad_v4 9d1a7f15: 4090 v3x4 p8 A/B arith .0477->.0417, total .0968->.0875 (3v3); art:7775888d art:1523b35c art:021aeabb (trees preserved); reverify --by arith running; next: tests-graph glue + w/v fusion

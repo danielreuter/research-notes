@@ -61,7 +61,8 @@ created: 2026-09-24T19:30Z
   - 21:25Z `pod_bootstrap.sh --cpu` BOOTSTRAP-OK (from `/workspace/boot`); `pytest-xdist==3.8.0`; `xgrammar` pinned to 0.2.7 -> `uv pip freeze` identical to a1's `baseline-freeze.txt`. Python 3.12.14, Linux 6.8.0-87, glibc 2.35.
   - 21:27Z key minted on the laptop (read-only, expires 00:27Z) piped to `/root/r2ro.env`; `setsid nohup ./prefetch.sh /workspace/head2` (deletes the key at the end and on exit) -> `logs/prefetch.log`.
 - **21:29:50Z gate (b) head `b_head2_x12` (748d71c5) and base `b_base_x12` (72884c8a), same pod and flags, concurrently:** `OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/{head2,base-b} {b_head2_x12,b_base_x12} -n 12 --dist loadfile` -> gate_b.sh pids 974 (head), 976 (base); pytest 997 (head), 996 (base).
-- Next: when prefetch.log says `done ... key_deleted=yes` and fail=0: `cd /workspace/a23b && setsid nohup nice ./gate_a.sh /workspace/head2-reg a_head2_t01` (T0,T1).
+- 21:36:51Z prefetch done: ok=26 fail=0, `/root/r2ro.env` deleted (checked absent 21:37Z; no AWS_* in the environment).
+- **21:37:17Z gate (a) T0+T1 at 748d71c5 on vyv-rf-a23b-big:** `cd /workspace/a23b && setsid nohup nice ./gate_a.sh /workspace/head2-reg a_head2_t01` -> pid 5565 (sid 5565); logs `a_head2_t01.{log,xml,env,run}`; scratch `/workspace/a23b/scratch/a_head2_t01`.
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

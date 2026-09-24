@@ -99,7 +99,11 @@ created: 2026-09-24T17:36Z
   Skip reasons: all in a1's list (297, same as base). A/B 20:44Z: the gc-freeze file alone fails the same 2 tests at head and at base
   (`/workspace/b0` = 72884c8a rebuilt from the head tree + `git diff --binary 4fb0eb2c 72884c8a`, 36 blobs checked == git ls-tree, 3
   head-only files absent). Logs: `logs/gate_b_final.{log,xml,env,rss}`, `logs/gate_b_final.fails.txt`.
-- 20:26Z GPU pod `vyv-rf-f3-g1` (`qslw50vgt2kt9m`, 1x L40S, SECURE, $1.09/h) created; no ip/port by 20:44Z (image pull?).
+- 20:26Z GPU pod `vyv-rf-f3-g1` (`qslw50vgt2kt9m`, 1x L40S, SECURE, $1.09/h) created; no ip/port in 28 min -> terminated 20:56Z.
+  20:57Z `vyv-rf-f3-g2` (`by47y4tvsavbln`, 1x L40S 46 GB, driver 595.91, 16 vCPU, 120 GB, $1.09/h) up in ~1 min.
+  21:00Z head tree `/workspace/head` = `4fb0eb2c` (tar sync 158 s); `/workspace/basetree` = 72884c8a rebuilt from it (reverse diff,
+  36 blobs == git ls-tree, 3 head-only files absent). 21:00Z `pod_bootstrap.sh --gpu --cases B0 --out /workspace/bootstrap` from the
+  head tree -> `/workspace/rff3/bootstrap.log` (21:01:58Z checkpoint OK B0; native taps next).
   D3 plan (known_roots.json smollm2 cc 8.9 `cb129578…` is R12-era, not updated since 09-21, i.e. before the v2 flip and the vLLM
   pin move -> may not reproduce even at base): A/B on the one L40S -- `row_pod.sh` SmolLM2 B1 256/32 `build,match,commit` PAIRS=1
   from a head tree and from a base tree (same reverse-diff rebuild, verified by blob hash); compare Build program/manifest digests,

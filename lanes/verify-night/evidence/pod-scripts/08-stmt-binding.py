@@ -27,10 +27,23 @@ PROCS = int(os.environ.get("VY_CPU_THREADS", os.cpu_count() or 1))
 _sets = {}
 
 
+class _FP4:
+    """fp4/chain.py's relation (not in relations.RELATIONS): its instances carry the frozen NVFP4 ref at 4096 VUs."""
+    name = "fp4-nvf4"
+
+    @staticmethod
+    def y_public(w):
+        return int(w)
+
+
 def frozen_set(target):
     if target not in _sets:
-        base, _ = frozen_relation(target, N)
-        _sets[target] = (base, relchain.instances(base, N, procs=PROCS))
+        if target == "fp4-nvf4":
+            from backends.direct.ligero.fp4.chain import instances_fp4
+            _sets[target] = (_FP4, [(np.asarray(A).reshape(-1), np.asarray(B).reshape(-1), accs, y) for A, B, accs, y in instances_fp4(N)])
+        else:
+            base, _ = frozen_relation(target, N)
+            _sets[target] = (base, relchain.instances(base, N, procs=PROCS))
     return _sets[target]
 
 
@@ -46,9 +59,13 @@ def check(st, art):
         man = json.loads(mans[0].read_text())
         pdir = mans[0].parent
         rel_name = man["relation"]["name"] if isinstance(man.get("relation"), dict) else man.get("relation")
-        rel = RELATIONS[str(rel_name).split("+")[0]]
-        base, vus = frozen_set(rel.target.name)
-        out.update({"relation": rel_name, "target": rel.target.name, "frozen_relation": base.name})
+        if str(rel_name).startswith("fp4-nvf4"):
+            rel, tname = _FP4, "fp4-nvf4"
+        else:
+            rel = RELATIONS[str(rel_name).split("+")[0]]
+            tname = rel.target.name
+        base, vus = frozen_set(tname)
+        out.update({"relation": rel_name, "target": tname, "frozen_relation": base.name})
         n_stmt = n_vus = y_bad = op_checked = op_bad = 0
         covered = set()
         problems = []

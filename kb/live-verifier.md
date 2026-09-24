@@ -7,6 +7,16 @@ Container IPs (172.x) are separate networks. So a same-DC live verifier on a sec
 `timeout 4 bash -c '</dev/tcp/IP/PORT'` from the prover BEFORE launching live runs. (wave-h100-2, 2026-09-24 04:08Z; EU-RO-1
 pods did reach each other per live-2c.)
 
+## H100 SXM (80GB HBM3) has no same-DC verifier on RunPod right now (fill-dc, 2026-09-24 06:25-06:40Z)
+- EU-NL-1: H100 prover and a cpu3g CPU pod both sit behind ONE public IP (91.199.227.82); prover -> verifier's mapped ports
+  (ssh and :7000) `Connection refused`, and the 172.x container nets do not route to each other. Same as CA-MTL-1.
+- EU-FR-1 and AP-IN-1 list only H100 (no CPU pod of cpu3c/cpu3g/cpu3m/cpu5c, no cheap GPU); US-NE-1 is not a REST
+  `dataCenterIds` value. EUR-IS-1 (A100 + cpu3c CPU pod, both behind 157.157.221.29) DOES hairpin.
+- REST `globalNetworking: true` (not in `research pods create`; set it in the POST body) gives GPU pods a `podnet1` interface
+  (10.0.0.0/10, `<podid>.runpod.internal` resolves), but H100 <-> A40 in CA-MTL-1 timed out both ways on every port, and
+  podnet1 has a `tbf rate 100Mbit` qdisc: useless for 76-135 MB proofs per batch even if it connected.
+- Fallback used: the verifier on the prover pod (`live_serve.sh` under `nice -n 19`, `--verifier tcp://127.0.0.1:7000`).
+
 ## Where
 - Pod `vy-live2b-verifier-ro` (pitmqu0zrycw5i), endpoint `tcp://213.173.105.92:56412`. It runs `python -m
   backends.direct.ligero.live serve --listen 0.0.0.0:7000 --out /workspace/live/sessions ...` from `/workspace/live/start.sh`.

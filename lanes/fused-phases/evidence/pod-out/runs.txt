@@ -17,3 +17,17 @@ REST_DONE
 06:22:07Z seed-pre-v3x4-p4 src=src-pre seed=20260924 rel=fp8-ada-v3x4 l=4096 p=4 reps=3 rc=0 wall=187s t.total=0.1115 buckets/total=1.0009 validation=passed failures=? contract_problems=0 phase_rep=n/a 
 06:25:04Z seed-post-v3x4-p4 src=src seed=20260924 rel=fp8-ada-v3x4 l=4096 p=4 reps=3 rc=0 wall=177s t.total=0.1035 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=1 
 seed-pre-v3x4-p4 vs seed-post-v3x4-p4: 13 / 13 proofs, IDENTICAL; t.total 0.1115 -> 0.1035
+06:28:00Z seed-pre-v3-p4 src=src-pre seed=20260924 rel=fp8-ada-v3 l=16384 p=4 reps=3 rc=0 wall=176s t.total=0.1473 buckets/total=1.0081 validation=passed failures=? contract_problems=0 phase_rep=n/a 
+06:30:47Z seed-post-v3-p4 src=src seed=20260924 rel=fp8-ada-v3 l=16384 p=4 reps=3 rc=0 wall=167s t.total=0.1421 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=1 
+seed-pre-v3-p4 vs seed-post-v3-p4: 13 / 13 proofs, IDENTICAL; t.total 0.1473 -> 0.1421
+CELLS_DONE v3x4-p4 v3-p4 / seed
+MORE_DONE
+06:33:58Z ab1-pre-v3x4-p8 src=src-pre seed=none rel=fp8-ada-v3x4 l=4096 p=8 reps=5 rc=0 wall=185s t.total=0.1004 buckets/total=1.0090 validation=passed failures=? contract_problems=0 phase_rep=n/a 
+06:36:58Z ab2-post-v3x4-p8 src=src seed=none rel=fp8-ada-v3x4 l=4096 p=8 reps=5 rc=0 wall=180s t.total=0.0991 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=2 
+06:39:57Z ab3-pre-v3x4-p8 src=src-pre seed=none rel=fp8-ada-v3x4 l=4096 p=8 reps=5 rc=0 wall=178s t.total=0.1057 buckets/total=1.0602 validation=passed failures=? contract_problems=1 buckets and joints sum to 0.112072 s, more than t.total 0.105708 s by over 1%: something is double-counted phase_rep=n/a 
+06:42:57Z ab4-post-v3x4-p8 src=src seed=none rel=fp8-ada-v3x4 l=4096 p=8 reps=5 rc=0 wall=180s t.total=0.0987 buckets/total=1.0000 validation=passed failures=? contract_problems=0 phase_rep=4 
+ab1-pre-v3x4-p8 0.418+0.020 0.103+0.005 0.096+0.003 0.092+0.004 0.086+0.004 
+ab2-post-v3x4-p8 0.430+0.017 0.096+0.005 0.095+0.004 0.087+0.004 0.090+0.006 
+ab3-pre-v3x4-p8 0.424+0.018 0.102+0.003 0.106+0.005 0.097+0.003 0.091+0.004 
+ab4-post-v3x4-p8 0.437+0.016 0.105+0.004 0.094+0.005 0.092+0.003 0.094+0.005 
+AB_DONE

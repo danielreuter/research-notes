@@ -20,6 +20,14 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
+- CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)
+  now compares 159,840 (equal 159,408, incl. all 44,928 fused-norm narrowings) but MISMATCHES the 432 `model/out`. The Commit hooks
+  Gemma2Model's forward RETURN (final hidden, committed tensor `model`, ordinal 1615 at the end of the step stream) for `model/out`,
+  while the v2 Value is the embed scale (Bf16MulScalarTensor_v1) that model's body hands to model.layers.0. Cause: the v2 manifest has
+  no `promoted`/`consumers`, so acquisition_plan (correspondence source v1_annotations) picks producer_output(model, out) and
+  commit_delta's promoted_input_acquisition arms nothing. Fix in progress: derive promoted+consumers from the Programs before arming
+  (a body Value whose readers are all inside the producer module's subtree is no return of it -> first consumer's input). Needs a
+  second Commit rerun (~50 min + ~9 min producer facts); ETA PASS ~09:45Z if the fix lands by ~08:45Z.
 - CHECKPOINT 57-fix MET 06:20Z -- 4f6f6d1d + 8b606f16 pushed (origin, sw57); touched tests + test_no_by_name_rules green on the pod; offline
   repro with the fix: form (B) compared 159,840 (base 114,480), not compared outside no-oracle families 0 (log repro_oracle_fixed.log).
 

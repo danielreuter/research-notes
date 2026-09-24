@@ -58,6 +58,9 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   already fixed at staging 38122d1f. Producer facts: 181 derived members, 0 conflicts; promote_handed_down selects 0 members
   on OLMoE => 2c5e038b changes nothing in #67's acquisition (no-behaviour-change evidence for a second model family).
 - 08:27Z #57 at pair 1 (MANIFEST COVERAGE pair 1 OK 163,168). Laptop free disk back to 3.95 GB (someone freed space).
+- 08:40Z #57 pairs 0+1 clean: "v2 manifest: 432 row(s) of 1 member(s) handed down ... marked promoted" (model/out -> first
+  consumer model.layers.0.input_layernorm); SAMPLED REPLAY COMPLETE 5,883/5,883 equal (8b606f16 rerun: 37 Bf16MulScalarTensor
+  mismatches); BOUNDARY LINKAGE 432/432; WEIGHTS PIN 316/316; OPENINGS 68/68. Pair 2 running, verdict ~08:45Z.
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)

@@ -141,6 +141,14 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 - 11:56Z drain prep: `research pods unpreserved vyv-sw-67b` = 0 NOT preserved (Build 063717-5860, Match 075730-80bd; the killed and
   crashed Commits published nothing). Pod-only evidence (/workspace/lane minus 2.8 GB binding maps: 2c5e038b MoeSum FAIL, 2c8aa2b3
   import crash, repro67) stored as art:b7d4ea83eb715fca8ecfcdc9831c87cd272550bbc625a76cc7619a0389c26675 (preserved, 3 labels durable).
+- CHECKPOINT 67-pass AT-RISK 12:10Z (revised ETA) -- telemetry: each pair is ~41 min (pair 0 binding 10:46, 32 replay workers
+  11:14-11:23; pair 1 binding 11:27, workers 11:57-12:06; the replay's serial prep dominates, ~28 min). Pair 2 ~12:10-12:51 =>
+  verdict ~12:52Z, preserved + vyv-sw-67b drained ~13:00Z (30 min late). Still 0 errors, pair 1 coverage/C2 clean.
+- 12:12Z why no replay reuse on #67 (open item, not fixed here): binding_map_p0/p1.json differ in 8 bytes, all in
+  collector.fa2_tap_bounded (split_launches 32 vs 48, split_groups/windows 192 vs 288), cumulative FA2-tap counters of the one
+  process (commit_delta.py:589). The replay-cache key hashes the whole file (commit_delta.py:2385), so any row with the FA2 tap
+  (OLMoE fa2_hidden_m1) misses every pair (~25-30 min each); Gemma2 has no tap, so #57 reuses. Fail-safe (own replay), costs time only.
+  Fix would key on the map minus collector.fa2_tap_bounded; left for the integrator (touches replay-reuse semantics before int-final).
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)
   now compares 159,840 (equal 159,408, incl. all 44,928 fused-norm narrowings) but MISMATCHES the 432 `model/out`. The Commit hooks

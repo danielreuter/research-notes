@@ -51,3 +51,49 @@ Spec: campaigns/afternoon/BRIEF.md `### verifier-cost`. Inbox at start (19:04Z):
   unverified one (SP1 + TC_DOT now 5.81 s art:174d7b4d, footnote names art:0a66c35e 4.26 s unverified); D1 A-GKR rows:
   CPU crate SHA-256 Merkle/FS (backends/gkr/src/transcript.rs), GPU SHA-512 Merkle + SHA-256 coins, verity-gkr-verify.
 - Render: evidence/drilldown-render.md.
+
+## 5. Tests (on the verifier pod, tree ab9573fd = 70be5474 + sent overlays, sha256-checked)
+- run r20260924-194656-c97c: `backends/numerical/tests/bench` 227 passed, 6 skipped (incl. test_tables
+  test_label_keys_are_the_store_vocabulary and the new test_drilldown D2/D3 tests); `tools/research/tests -k "vocab or
+  label"` 21 passed, 1 failed: test_store.py::test_labels_append_only (`os.access(p, W_OK)` is always true for root on
+  the pod; environmental, not this change). matplotlib for test_ledger went into /workspace/verifier-cost/pydeps.
+
+## FINAL
+- tip: lane/verifier-cost @ ab9573fd (pushed). Commits: a1e792c9 vocab, 70be5474 drilldown D1/D2/D3, 4f6ded5f D2 footnote,
+  e6901277 vocab test pin, ab9573fd drilldown test.
+- known failures: tools/research test_labels_append_only fails as root (pod env only). No bench failures.
+- pod: vy-live2b-verifier-ro (pitmqu0zrycw5i) TERMINATED 19:53Z via `research pods drain` after custody passed.
+  No GPU pods were created. Spend ~$0.36 (verifier pod 19:04–19:53Z at $0.44/h).
+  machines.toml still lists [machines.vy-live2b-verifier-ro] (coordinator's entry; not edited).
+- artifacts (all PRESERVED on R2): art:d841eb56097d5165 5.0 GB live session store (checked pod-side, run
+  r20260924-191525-712d, `data preserved` rc=0; the laptop can't re-check a 5 GB tree), art:8806507c + art:ae9d69fb A-GKR
+  CPU verdicts, art:b4b33422 this lane's pod run dirs (all 9 runs). The last three re-checked from the laptop 20:00Z.
+- The finish checker's "4/8 cited artifacts not preserved" reads the laptop catalog, which never saw these pod-side puts;
+  `data preserved` (above) says PRESERVED.
+
+D3 as rendered (evidence/drilldown-render.md; coins/wire per live session; ‡ = CPU re-verification verdict; ° = loopback):
+
+| Cell | Proof B | Gbit/s | Coins | Rounds | Verifier CPU s | Cores | Live tax | Record |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A100 BF16 · A-GKR | 21.2 MB | 0.126 | … | 328 | 14.6‡ | 10.8‡ | … | art:8806507c |
+| A100 BF16 · B-Ligero | 85.3 MB | 2.83 | 8.46 kB | 3 | 8.56 | 35.5 | 1.06× (+15.9 ms) | art:a0af06b4 EUR-IS-1 |
+| A100 BF16 · +hash | 169 MB | 1.5 | 8.47 kB | 3 | 31.1 | 34.7 | 1.01× (+11.8 ms) | art:75ff9a9a |
+| H100 BF16 · A-GKR | 19.7 MB | 0.199 | … | 328 | 13.8‡ | 17.4‡ | … | art:ae9d69fb |
+| H100 BF16 · B-Ligero | 135 MB | 8.37 | 8.46 kB | 3 | 7.0 | 54.2 | 1.01×° (+0.95 ms) | art:aadcd93f (cell) EU-NL-1 |
+| H100 BF16 · +hash | 164 MB | 2.42 | 8.46 kB | 3 | 21.2 | 39 | 1.01×° (+3.2 ms) | art:5674f0cc |
+| H100 FP8 · B-Ligero | 76.5 MB | 8.3 | 5.84 kB | 3 | 3.73 | 50.5 | 1.01×° (+0.64 ms) | art:3ef8007d |
+| H100 FP8 · +hash | 87.1 MB | 2.36 | 5.82 kB | 3 | 11.4 | 38.5 | 1.01×° (+4.1 ms) | art:62018395 |
+| 4090 FP8 · B-Ligero | 82.1 MB | 7.24 | 5.86 kB | 3 | 2.26 | 24.9 | 1.01× (+1.25 ms) | art:e74bfae5 EU-RO-1 |
+| 4090 FP8 · +hash | 152 MB | 3.5 | 8.48 kB | 3 | 10.6 | 30.4 | 1.01× (+2.1 ms) | art:05a6ce75 |
+| 5090 NVFP4 · B-Ligero | 31 MB | 7.3 | 5.86 kB | 3 | 1.67 | 49.3 | 1.03× (+1.2 ms) | art:b6125a19 |
+| 5090 NVFP4 · +hash | 60.3 MB | 3.48 | 5.85 kB | 3 | 4.92 | 35.4 | 1.01× (+0.92 ms) | art:a3cc225d |
+
+Coordinator decisions:
+1. H100 rows: the live verifier ran on the prover pod (loopback, EU-NL-1). Accept as "same DC", or fund a separate-host
+   same-DC H100 run (~$2–2.5; kb says RunPod had no same-DC CPU pod for H100).
+2. 9 of 10 B-Ligero rows use a same-config companion live run (median verifier CPU), not the cell's own run: accept the
+   companion rule (drilldown.py `live_records`) or require per-cell live runs.
+3. A-GKR has no live protocol: D3 shows its offline CPU re-verification at 192 threads (1-thread CPU 8.8 / 8.2 s is lower).
+   No new bench-result/v1 was registered: every B-Ligero value already had a same-DC live record at 2^-128.
+Handoffs received: none. Handoffs sent: none. kb: live-verifier.md (custody, `preserved` pod-side, D3 rule, A-GKR cost).
+cargo: no target/ in the worktree (all builds ran on the pod), so `cargo clean` had nothing to remove.

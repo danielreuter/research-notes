@@ -5,6 +5,7 @@ created: 2026-09-24T06:22Z
 status: open
 ---
 
+CHECKPOINT 1b3c7be6 (09:34Z) [open] 09:34Z idle poll: inbox empty since 09:06Z. Producers FINAL: fill-dc, fill-consumer, sp1-table, fused-phases; still open but silent: agkr-table (08:30Z), sp1-formats (07:45Z), sp1-tcdot (08:42Z). 61 labels, 0 rejects, Table 2 as 09:02Z render. Pod idle, ~$1.6.
 CHECKPOINT 1b3c7be6 (09:19Z) [open] 09:19Z labelled art:7233a6a3 (SP1 k7 warm, 5/5 + neg; verdict art:72eb0459) and art:a68f2446 (tcdot hill-climb 3, own host d3a5b955/fork cbf66ccd, 3/3 + 2 neg + memory-arm reject; verdict art:17f3fa24). 61 labels total, 0 rejects. Table 2 unchanged since 09:02Z pod render (SP1 excluded by 2^-128). Inbox empty; polling every 15 min until FINAL; pod $1.45 so far.
 CHECKPOINT 1b3c7be6 (09:09Z) [open] 09:09Z report body written (labels, Table 2 delta 06:25Z->09:02Z: 12 cells changed incl 3 newly filled, findings, handoffs). In flight: sp1-table 0906Z art:7233a6a3 (k7 warm) proofs+statement match, rep0 ACCEPT; sp1-tcdot hc3 art:a68f2446 host building (d3a5b955, fork cbf66ccd witness arm). Next: label both, pull evidence, FINAL.
 CHECKPOINT 1b3c7be6 (08:55Z) [open] 08:56Z. LABELLED: A-GKR H100 BF16 art:c09947fd (new T2 cell; 3/3, 356/356 mutations rejected, Hopper circuit regenerated from MY tree byte-identical, public.bin == my frozen bf16-hopper y); SP1 k7 art:fffbf728 (vk 0x00dfced1). Pod render works (laptop catalog still wiped). NOW: sp1-tcdot 0841Z witness-operands arm: host building @0742a046 fork 6096d886; proofs of 174d7b4d + 76c113f4 fetched, digests + statements match.

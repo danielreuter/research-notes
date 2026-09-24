@@ -117,6 +117,8 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   159,840/159,840 (so the repointed oracle_compare import is live; dropped facts would show compared 114,480). Replay next.
   #67@f16703a2 pair 0: producer facts used (181, 0 conflicts), MANIFEST COVERAGE OK 406,220, C2 partial 16,120/16,120 equal --
   identical to the 2c5e038b run. The decider is pair 0's sampled replay (MoeSum strata, fixed by 6813fe06), expected ~11:40Z.
+- 11:12Z #57@f16703a2 pair 0 all clean on the merged tree: SAMPLED REPLAY COMPLETE 5,883/5,883 equal, BOUNDARY LINKAGE 432/432,
+  WEIGHTS PIN 316/316, OPENINGS 68/68; pair 1 coverage OK. #67 pair 0 in the sampled replay.
 
 ## Checkpoints
 - CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);

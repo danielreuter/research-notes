@@ -37,7 +37,8 @@ cmp $P/statement.bin $O/statement.mine.bin && echo "dump statement.bin == mine"
 echo "=== verify (host sha256 $(sha256sum $H | cut -c1-16))"
 for f in $P/proof-rep*.bin; do
   echo "--- $(basename $f)"
-  SP1_PROVER=cpu RUST_LOG=error $H verify --proof $f --statement $O/statement.mine.bin 2>&1 | grep -E '^\{|^wall' | tail -2
+  SP1_PROVER=cpu RUST_LOG=error $H verify --proof $f --statement $O/statement.mine.bin 2>/dev/null | grep '^{' | tail -1
+  echo "rc=${PIPESTATUS[0]}"
 done
 echo "--- negative (last y byte flipped) on rep0"
 SP1_PROVER=cpu RUST_LOG=error $H verify --proof $(ls $P/proof-rep*.bin | head -1) --statement $O/statement.neg.bin 2>/dev/null | grep '^{' | tail -1

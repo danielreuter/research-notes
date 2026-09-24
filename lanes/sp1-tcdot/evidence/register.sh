@@ -30,4 +30,7 @@ lab source "lane/sp1-tcdot@$SRC"; lab sweep "prover configuration (hill-climb)";
 lab label "modified SP1 (TC_DOT chip), relation-bare/v2 bf16-ampere, 4096 VUs, A100 core STARK: t.total $TT s"
 lab note "modified SP1: fork of SP1 6.4.0 + TC_DOT_BF16 precompile (FORK_HEAD in backends/sp1/tcdot); core proofs only; security 100-bit per shard proof (drill-down, not a 2^-128 cell)"
 lab omitted "zero-knowledge, authentication, SP1 recursion (core proof only)"
+$R data labels-sync --push-only >/dev/null
+$R data preserved "$RES" "$RF" >/dev/null || { echo "$TAG: $RES / $RF not preserved"; exit 1; }
+rm -rf $D/proofs
 echo "$TAG result=$RES run_files=$RF t.total=$TT"

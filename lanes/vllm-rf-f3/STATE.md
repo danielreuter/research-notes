@@ -39,12 +39,20 @@ created: 2026-09-24T17:36Z
   new `tests/acquire/test_plan.py::test_default_tables_do_not_depend_on_torch` (fresh processes, torch free vs blocked). NOT yet run (pod).
   Behaviour note for READY: under `--late-read` (canary/fa3 negatives only) the Commit-stage plan now lists the declared flush leaves (it read the
   mutated collector table before) -> that run's plan digest changes; roots unchanged (collector still reads its rebound copy).
+- 19:10Z D3 `0f970b0e` pushed: `NativeCollectCommitter(layout=)` (unknown refused; v2 off-window refused as before), `NativeHostCommitter.layout = "chunk-leaf-v1"`,
+  `padding_for_committer` takes `com.layout` (gpu tree) / host-pos-leaf (its `layout=` kwarg had no caller -> removed), `commit_delta --layout` default v1,
+  no longer copied to env, `collector.layout = args.layout`, `make_committer` refuses a non-v1 layout for non-native_collect kinds. No VERITY_(LEAF_)LAYOUT read left.
+  TP: `tp/commit.py` has no `--layout`; ranks build via `make_committer` with a Namespace without `layout` -> v1, matching its hard-coded
+  `layout_version_per_rank: chunk-leaf-v1` (before, an exported VERITY_LAYOUT could make ranks v2 under that label). v1 runs: executed, padding and
+  map label all v1 as before -> roots unchanged expected (GPU row to confirm).
+  Tests (NOT yet run, pod): `tests/acquire/test_p0_footprint.py::test_the_declared_layout_reaches_only_a_committer_that_implements_it`,
+  `tests/program/test_padding_pod_consumer.py::test_the_padding_leaf_rule_is_the_committers_not_the_environment`.
 
 ## Running
 - nothing yet (launcher: `~/.research/bin/research`)
 
 ## Next
-1. Implement D4, D3, D14, D15 as separate commits; push.
+1. Implement D14, D15 as separate commits; push (D4, D3 done).
 2. CPU pod: gates (a)/(b) (+ base measurement if a1 baseline.md absent).
 3. GPU pod (L40S): one Commit row re-run for D3, compare roots with regression record.
 

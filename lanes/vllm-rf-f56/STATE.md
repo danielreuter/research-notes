@@ -28,12 +28,14 @@ created: 2026-09-24T17:40Z
 - 17:40Z worktree created.
 - 18:47Z resumed after the 18:02Z Cursor restart: worktree clean at `72884c8a` (no commits yet), no `vyv-rf-f56` pod exists, nothing of this lane running. Gate (b) baseline now in `vllm-rf-a1/baseline.md` (65 failures+errors listed by cause; judge gate (b) as nothing outside that list).
 - Laptop scratch from before the restart: `/tmp/rff56/{r70,r75,tp4match}` (match/commit records of rows #70, #75 and the TP4 match artifact).
+- 19:06Z (uncommitted, worktree) D16b written. DECISION CHANGED from "quarantine v2": the quarantine family now refuses R > 2 (`_two_ranks`), its R = 2 body/ids unchanged; the linkage tool's only R > 2 use routes to `b1_tp2.all_reduce(R, N)` (= `AllReduce_v2`, body reads `allreduce_order`). Why: routing in place needs a v1->v2 bump (identity rule) = retiring `AllReduceSumBf16_v1` (owner: not decided) and duplicating `AllReduce_v2`; a naive route also reorders R = 2 gate operands. Tests: `tests/tp/test_tp_collective.py` (R=2 params, refusal test, R=3 test rewritten), `tests/tp/test_tp_world_n.py` (world-3 link id).
+- 19:06Z (uncommitted) D16a written: `MOE_COLLECTIVE_CLASSES` / `MOE_COLLECTIVE_MODULES` live in `tp/collective_sites.py` (already the one module both observers share); `worker.py` imports them, `partial_source.py` imports them (`MOE_SITE_CLASSES` alias; `SITES` MoE rows from the module list, adds `shared_fused_moe`). By-name allowlist: 2 worker table entries moved to collective_sites.py (with decision), stale partial_source table entry deleted. No shared-expert MoE model builds (`observe/profiles/generic.py` `_UNMODELLED_MOE`), so the TP2 regression rows (#70 OLMoE, #75 Qwen3-30B-A3B: `mlp.experts` is MoERunner, no nesting) see no site change.
 
 ## Running
 - nothing
 
 ## Next
-1. Implement D16b (quarantine v2 reading `b1_tp2.allreduce_order`), D16a (one class list), D16c (guard + emit raise), D17 (`check/fa_tap_exactness.py`).
+1. D16c (refuse world > 2: `emit_correspondence` raises; Commit refusal in `tp/commit.py` main, minimal hunk), D17 (`check/fa_tap_exactness.py`). Commit + push.
 2. Pods: CPU gates (a)/(b); 2-GPU TP2 row; L40S FA2 + H100 FA3 records (tap builds via `ops/pod_fa2_tap.sh` / `ops/pod_fa3_tap.sh`).
 
 ## Open questions

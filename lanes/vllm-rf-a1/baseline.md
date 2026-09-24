@@ -86,7 +86,8 @@ while read -r row kind art; do d=/workspace/prefetch/$row-$kind; rm -rf "$d"
 done < /workspace/prefetch.txt
 rm -f /root/r2ro.env; unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 # gate (a) now builds the row trees from the local blobs; a FAIL above means: mint again, fetch that row, delete again
-export VERITY_REGRESSION_SCRATCH=/workspace/scratch VERITY_REGRESSION=1
+# tiers T0 and T1 (SYNTHESIS §6; coordinator 20:33Z); the harness default is T0 only
+export VERITY_REGRESSION_SCRATCH=/workspace/scratch VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1
 python -m pytest integrations/vllm/tests/regression -m regression -ra
 ~~~
 

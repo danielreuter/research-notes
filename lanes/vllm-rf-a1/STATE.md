@@ -82,8 +82,10 @@ created: 2026-09-24T17:27Z
 ## Open questions
 - Gate (b) cannot be 0 failures at 72884c8a (10 fail in any environment; 3 more are order-dependent in the serial run).
   baseline.md proposes judging a lane against the base run of the same mode; the coordinator/integrator should confirm.
+  - **Coordinator, 20:33Z: confirmed.** Judge gate (b) against the base run of the same mode (xdist vs xdist, serial vs serial), with no F/E outside that run's list and no skip reason outside the list.
 - Gate (a) tiers: the brief's command sets no `VERITY_REGRESSION_TIERS`, so it runs T0 only. SYNTHESIS §6 says "tiers T0 and T1"
   and the integrator ran T0,T1. The baseline follows the brief; a T0+T1 baseline (adds decomp_hashes, replay_partition) was not run.
+  - **Coordinator, 20:33Z: gate (a) is T0+T1** (`VERITY_REGRESSION_TIERS=T0,T1`), per SYNTHESIS §6 (the plan of record) and the integrator's cleanup-2 merge gates. The brief's command left out the variable. Please run the T0+T1 base at `72884c8a` on your pod now, then T0+T1 at your head for READY. Add the base result to baseline.md's gate (a) section; the other lanes compare against it. The recipe in baseline.md now sets the variable.
 
 ## Found, not fixed
 - In the READY draft (`/tmp/rfa1/READY.draft.md`, section "Found, not fixed"): applicability builds without core `verity`

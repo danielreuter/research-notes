@@ -8,36 +8,24 @@ inputs: SURVEY_BRIEF.md, the four survey-*.md reports, the four 20260924T16*-coo
 ---
 # Verity x vLLM integration: refactor synthesis (at f0810a11)
 
-**Conventions.**
-- Paths are relative to `integrations/vllm/verity_vllm/`. `tests/`, `workloads/`, `manifests/` and `data/` are relative to `integrations/vllm/`. `core/` means `packages/verity/src/verity/`.
-- Sources:
-  - [S1] survey-check-commit, [S2] survey-program-query-corr, [S3] survey-observe-acquire-tp, [S4] survey-harness-ops-tests-data. A section number or `#n` refers to the survey's top-findings list.
-  - [C1] to [C4] are the coordinator notes of 16:25Z (check/commit), 16:30Z (program/query), 16:40Z (harness) and 16:45Z (observe).
-  - [syn] marks a claim that this synthesis checked itself with `rg`, `wc` or `sed` at f0810a11. No Python was run and the checkout was not changed.
-- Where a coordinator note corrects a survey, the note is used.
+**Conventions.** Paths are relative to `integrations/vllm/verity_vllm/`. `tests/`, `workloads/`, `manifests/` and `data/` are relative to `integrations/vllm/`, and `core/` means `packages/verity/src/verity/`.
+- **Surveys:** [S1] survey-check-commit, [S2] survey-program-query-corr, [S3] survey-observe-acquire-tp, [S4] survey-harness-ops-tests-data. A section number or `#n` refers to the survey's top-findings list.
+- **Coordinator notes:** [C1] to [C4], from 16:25Z (check/commit), 16:30Z (program/query), 16:40Z (harness) and 16:45Z (observe). Where a note corrects a survey, the note is used.
+- **[syn]:** checked by this synthesis with `rg`, `wc` or `sed` at f0810a11. No Python was run and the checkout was not changed.
 
 ## 0. Summary
 
 The integration works, but it does not yet read as "vLLM wrapped by Verity core", and some of its evidence means less than its verdicts say.
 
-- **Evidence gaps (§2: 17 defects, 11 of them coordinator-verified).**
-  - The replay value check reads the committer's memory, not opened values (D1).
-  - Production roots use leaf and root rules that no core verifier knows (D2).
-  - Environment variables, torch importability and pod names change roots, plans and leaf ids (D3, D4, D12, D15).
-  - Code-identity stamps ignore core or never change (D5, D6).
-  - One Definition id names two functions, and core's ids are re-registered (D8, D9).
-- **Core is copied, not used (T1).** There are 34 CORE-DUP findings, eight copies of core's Merkle node framing, and a runtime monkeypatch of core. No file imports `verity.commitments`.
-- **Jobs are hidden (T2 to T6).**
-  - The de facto interface is a 1,147-line bash script with 45 environment knobs that drives 73 `__main__` modules.
-  - Acceptance is split across five verdict systems.
-  - Properties such as non-interference sit among the per-run checks.
-  - `tp/` copies the single-rank pipeline for world 2.
+- **Evidence gaps (§2: 17 defects, 11 coordinator-verified).** Replay reads the committer's memory, not opened values (D1). Production roots use rules no core verifier knows (D2). Environment variables, torch importability and pod names change roots, plans and leaf ids (D3, D4, D12, D15). Code-identity stamps ignore core or never change (D5, D6). One Definition id names two functions, and core ids are re-registered (D8, D9).
+- **Core copied, not used (T1).** 34 CORE-DUP findings, eight copies of core's Merkle node framing, a runtime monkeypatch of core, and no import of `verity.commitments`.
+- **Jobs hidden (T2 to T6).** A 1,147-line bash script with 45 environment knobs drives 73 `__main__` modules. Acceptance is five verdict systems. Properties such as non-interference sit among the per-run checks, and `tp/` copies the single-rank pipeline for world 2.
 
 **Plan (§6).**
-1. Fix the defects first, as small independent PRs.
-2. Make behavior-preserving moves, gated by the regression harness: lint ratchets and import contracts, dead code out, a 12-module package tree, and one CLI over a typed `RowSpec`.
-3. Consolidate: one evaluator interface with numpy/torch backends that replaces sampled_replay's special cases, one verdict over core codes, a `properties/` package, and a `collectives/` package that replaces `tp/`.
-4. Last, align with core where digests change, in one re-baseline epoch, behind the 8 decisions in §7.
+1. Fix the defects as small independent PRs.
+2. Make behavior-preserving moves gated by the regression harness: lint ratchets, import contracts, dead code out, a 12-module tree, and one CLI over a typed `RowSpec`.
+3. Consolidate: one evaluator interface with numpy/torch backends replacing sampled_replay's special cases, one verdict over core codes, `properties/`, and `collectives/` replacing `tp/`.
+4. Last, make the digest-changing alignment with core in one re-baseline epoch, behind the 8 decisions in §7.
 
 ## 1. Scale
 
@@ -60,9 +48,9 @@ At f0810a11, `verity_vllm/` holds 314 `.py` files with 125,500 lines in all: 286
 | **total** | **287** | **125,500** | **73** | **48** | **673** | **96** |
 
 Where the numbers come from:
-- Modules, lines, `__main__` and `os.environ` counts are [syn]. The `os.environ` column counts 208 sites in 48 files.
-- Findings are the surveys' category sums: [S1 §7], [S2 per-section counts], [S3 §7] and [S4 "Findings by category"].
-- High counts use each survey's own severity tags. S3's 15 DEAD items carry confidence labels instead [S3 §7].
+- Modules, lines, `__main__` and `os.environ` (208 sites in 48 files) are [syn].
+- Findings are the surveys' category sums: [S1 §7], [S2 per-section counts], [S3 §7], [S4 "Findings by category"].
+- High counts use each survey's severity tags. S3's 15 DEAD items carry confidence labels instead [S3 §7].
 
 Findings by category (the totals that §3 uses):
 
@@ -84,10 +72,10 @@ Findings by category (the totals that §3 uses):
 
 ## 2. Correctness defects
 
-Each of these changes what a result means, or can let a wrong result pass.
-- **Status labels.** **verified** means a coordinator note confirmed it. **reported** means it is a survey claim whose lines this synthesis re-read at f0810a11.
-- **Fixes are local.** None of them needs the refactor.
-- **Digest-changing fixes** (D2, D8, D9, D12) should land together in the re-baseline epoch (Decision 4).
+Each of these changes what a result means, or can let a wrong result pass. Every fix is local, so none waits for the refactor.
+- **verified:** a coordinator note confirmed it.
+- **reported:** a survey claim whose lines this synthesis re-read at f0810a11.
+- **Digest-changing fixes** (D2, D8, D9, D12) land together in the re-baseline epoch (Decision 4).
 
 **D1. Value checks compare the committer's memory, not opened values.** verified [C1, C4]
 - Where:
@@ -164,7 +152,7 @@ Each of these changes what a result means, or can let a wrong result pass.
 - Fix: checks emit structured fields and codes, and the verdict reads those.
 
 **D14. Challenges are predictable.** reported [S1 #7, §4.4]
-- Where: `check/compiled_kernel_check.py:204-207` (`random.Random(seed if ... else 0)`) and `check/relations.py:1158, 1292` (`default_rng(seed)`, where seed defaults to 0). Of the six derivations, only `commit/binding.py:676-716` and `check/sampled_replay.py:2522-2528` derive from the run root.
+- Where: `check/compiled_kernel_check.py:204-207` (`random.Random(self.seed if self.seed is not None else 0)`) and `check/relations.py:1158, 1292` (`default_rng(seed)`, where seed defaults to 0). Of the six derivations, only `commit/binding.py:676-716` and `check/sampled_replay.py:2522-2528` derive from the run root.
 - Breaks: with a known seed, a prover can make exactly the sampled positions correct.
 - Fix: make the seed a required argument, derived from the run root by one function. Core has no such function yet (C4).
 
@@ -581,36 +569,18 @@ Sizes: S is under 500 changed lines, M is 500 to 3,000, and L is over 3,000 line
 The digest-changing defects (D2, D8, D9, D12) wait for Phase 3.
 
 **Phase 1: mechanical, behavior-preserving moves.**
-- **A1. Guardrails.** S; no dependencies; CPU.
-  - Scope: the `tests/lint/` ratchets for P1, P3, P4 and P6 to P12, with today's violations allowlisted; the import-linter contracts for P2, P5 and P9, with today's violations as ignores; the `[project.scripts]` entry.
-  - Accept: the lints are green and the allowlists are committed.
-- **A2. Dead code out.** M; parallel with A1; CPU.
-  - Scope: the §5.4 lists for "dead now" and "moved to tests", and the §2 "Also fix now" items.
-  - Accept: about 5k library lines deleted and about 3.8k moved to tests.
-- **A3. Data and paths.** S to M; parallel with A1 and A2; CPU plus one GPU smoke row.
-  - Scope: library-read data is loaded with `importlib.resources`. Remove the 8 `sys.path.insert` calls, the 16 uses of `Path(__file__).parents[N]`, the machine paths, and the library read of `tests/` (`harness/commit_delta.py:1793`).
-- **A4. Re-home.** L; after A1 and A2; CPU plus one GPU smoke row per stage.
-  - Scope: `git mv` into §5.1, rename code names but not hashed ids, and update every importer in the same change, with no compatibility shims. That includes string module paths such as `tp/worker.py:74` `EXTENSION`.
-  - Accept: the target layering contract passes.
-- **A5. One CLI and typed config.** L; after A4; GPU pod.
-  - Scope: `config.py` and `pipeline/cli.py`. Library `__main__` and argparse are removed. `row_pod.sh`, `tp_stage.sh` and `run_row_v2.sh` become `verity-vllm row`, and the research Tools call the CLI. Environment reads happen only in the CLI, with today's defaults. The shell-regex and source-exec tests become unit tests.
-  - Accept: every regression row family re-runs through `verity-vllm row` with identical artifacts.
+- **A1. Guardrails** (S; no dependencies; CPU). Add the `tests/lint/` ratchets for P1, P3, P4 and P6 to P12, with today's violations allowlisted. Add the import-linter contracts for P2, P5 and P9, with today's violations as ignores, and the `[project.scripts]` entry. Accept: lints green, allowlists committed.
+- **A2. Dead code out** (M; parallel with A1; CPU). The §5.4 "dead now" and "moved to tests" lists, plus the §2 "Also fix now" items. Accept: about 5k library lines deleted and about 3.8k moved to tests.
+- **A3. Data and paths** (S to M; parallel with A1 and A2; CPU plus one GPU smoke row). Load library-read data with `importlib.resources`. Remove the 8 `sys.path.insert` calls, the 16 uses of `Path(__file__).parents[N]`, the machine paths, and the library read of `tests/` (`harness/commit_delta.py:1793`).
+- **A4. Re-home** (L; after A1 and A2; CPU plus one GPU smoke row per stage). `git mv` into §5.1 and rename code names, but not hashed ids. Update every importer in the same change, with no compatibility shims, including string module paths such as `EXTENSION` at `tp/worker.py:74`. Accept: the target layering contract passes.
+- **A5. One CLI and typed config** (L; after A4; GPU pod). Add `config.py` and `pipeline/cli.py` and remove library `__main__` and argparse. `row_pod.sh`, `tp_stage.sh` and `run_row_v2.sh` become `verity-vllm row`, and the research Tools call the CLI. Environment reads move into the CLI, keeping today's defaults. The shell-regex and source-exec tests become unit tests. Accept: every regression row family re-runs through `verity-vllm row` with identical artifacts.
 
 **Phase 2: consolidation, with the same digests and verdicts.**
-- **B1. Evaluator backends and replay.** Smell 1. L; after F1 and A4.
-  - Scope: `program/backends/` merges `twins`, `derived_rows`, the `sampled_replay` ladder, the `relations` checkers and `numerics`. `check/replay/` becomes sample, open, evaluate, compare. `replay`, `stoch_recompute`, `compiled_kernel_check` and `difftest` become drivers, with one challenge function.
-  - Accept: the self-check covers every (backend, Definition) pair, and `sampled_replay.py` is gone. Validated on a CPU pod plus one GPU Commit row per model family.
-- **B2. One verdict and `properties/`.** Smells 2 and 3. M to L; after F4 and A4, with the heredoc after A5.
-  - Scope: `check/result.py`, and a `check/verdict.py` that absorbs V1 to V5 and the heredoc at `ops/row_pod.sh:686-800`. `properties/` records are cited by digest. A world-parametric non-interference check replaces `tp/`'s token parity.
-  - Accept: the verdict JSON of regression rows is unchanged. Non-interference and census need a GPU pod.
-- **B3. Collectives.** Smell 6. L; after F5 and A5.
-  - Scope: `collectives/`. World-parametric drivers replace the `tp/` drivers, and the rank worker moves to `engine/rank_worker.py`.
-  - Accept: TP rows #70 and #75 are unchanged and a TP4 row passes. Needs GPU pods with 2 and 4 GPUs.
-- **B4. Engine and hooks.** M; after A4; GPU pod.
-  - Scope: `engine/`, with environment pins written at construction and `hooks.py` owning every patch, with uninstall. This covers the behavior-preserving part of D12, before C3 changes identities.
-- **B5. God-module splits.** L; after A4; one PR per module, all in parallel.
-  - Scope: `harness/commit_delta.py`, `acquire/native_host.py`, `check/global_match.py` (`_check`), `program/registry/lifted.py`, `frontend/rules/vllm_bindings.py`, `observe/patterns.py`, `observe/vllm_adapter.py` and `correspondence/batch_decomp.py`.
-  - Accept: their entries leave the size ratchet. The committer modules need a GPU pod.
+- **B1. Evaluator backends and replay** (smell 1; L; after F1 and A4). `program/backends/` merges `twins`, `derived_rows`, the `sampled_replay` ladder, the `relations` checkers and `numerics`. `check/replay/` becomes sample, open, evaluate, compare. `replay`, `stoch_recompute`, `compiled_kernel_check` and `difftest` become drivers sharing one challenge function. Accept: the self-check covers every (backend, Definition) pair and `sampled_replay.py` is gone, validated on a CPU pod plus one GPU Commit row per model family.
+- **B2. One verdict and `properties/`** (smells 2 and 3; M to L; after F4 and A4, with the heredoc after A5). Add `check/result.py`, and a `check/verdict.py` that absorbs V1 to V5 and the heredoc at `ops/row_pod.sh:686-800`. Runs cite `properties/` records by digest, and a world-parametric non-interference check replaces `tp/`'s token parity. Accept: the verdict JSON of regression rows is unchanged. Non-interference and census need a GPU pod.
+- **B3. Collectives** (smell 6; L; after F5 and A5). Add `collectives/`. World-parametric drivers replace the `tp/` drivers, and the rank worker moves to `engine/rank_worker.py`. Accept: TP rows #70 and #75 are unchanged and a TP4 row passes, on GPU pods with 2 and 4 GPUs.
+- **B4. Engine and hooks** (M; after A4; GPU pod). Add `engine/`, which writes environment pins at construction, and `hooks.py`, which owns every patch and can uninstall it. This is the behavior-preserving part of D12; C3 changes the identities.
+- **B5. God-module splits** (L; after A4; one PR per module, all in parallel). `harness/commit_delta.py`, `acquire/native_host.py`, `check/global_match.py` (`_check`), `program/registry/lifted.py`, `frontend/rules/vllm_bindings.py`, `observe/patterns.py`, `observe/vllm_adapter.py` and `correspondence/batch_decomp.py`. Accept: their entries leave the size ratchet. The committer modules need a GPU pod.
 
 **Phase 3: semantic changes, behind decisions, in one re-baseline epoch.**
 - **C1. Commitment scheme** (D2, Decision 1). M to L; after B1. Validated on a GPU pod: the CUDA kernels, plus commit throughput measured before and after.
@@ -620,10 +590,8 @@ The digest-changing defects (D2, D8, D9, D12) wait for Phase 3.
 - **Epoch.** One reviewed `tests/regression/rebaseline.py write` after C1 to C3 land (Decision 4).
 
 **Parallelism.**
-- F1 to F6 run in parallel.
-- A1, A2 and A3 run in parallel, then A4, then A5.
-- After A4: B1, B4, B5, C2 and the IR-analysis part of C4 run in parallel.
-- After A5: B2's heredoc part, and B3.
+- F1 to F6 run in parallel. A1, A2 and A3 run in parallel, then A4, then A5.
+- After A4, B1, B4, B5, C2 and the IR-analysis part of C4 run in parallel. After A5, B3 and B2's heredoc part follow.
 - C1 follows B1, and C3 follows B4.
 
 **GPU pods are needed for** F1, F3 (the D3 part), F5, F6, A5, B1 (spot rows), B2, B3, B4, B5 (the committer modules), C1, C2 (spot rows) and C3. F2, F4, A1 to A4 (apart from smoke rows) and C4 need only a CPU pod.
@@ -631,48 +599,40 @@ The digest-changing defects (D2, D8, D9, D12) wait for Phase 3.
 ## 7. Owner decisions
 
 1. **Commitment scheme (D2).**
-   - Options:
-     - (a) Production adopts core's `commitments.merkle` framing: domain-bound leaves, nodes bound to (level, index), and padding. Core statements and multiproofs can then reference production positions [S1 §3.5]. The CUDA constants change, and every row is re-baselined.
-     - (b) Core adopts the production rules (`pos_leaf`, the chunk leaf, the root bindings) as named schemes with a core verifier. Roots don't change, but core statements still can't address production positions.
-     - (c) Keep the status quo, behind one `commit/scheme.py`.
+   - (a) Production adopts core's `commitments.merkle` framing: domain-bound leaves, nodes bound to (level, index), and padding. Core statements and multiproofs can then reference production positions [S1 §3.5]. The CUDA constants change, and every row is re-baselined.
+   - (b) Core adopts the production rules (`pos_leaf`, the chunk leaf, the root bindings) as named schemes with a core verifier. Roots don't change, but core statements still can't address production positions.
+   - (c) Keep the status quo, behind one `commit/scheme.py`.
    - **Recommendation: (a).** Gate it on a pod measurement of commit throughput under core framing, and fall back to (b) if the cost is unacceptable. Build the single scheme module in Phase 1 either way.
 2. **Where value checks run (D1).**
-   - Options:
-     - (a) In the Commit process, over openings.
-     - (b) Only in a separate verifier process over the committed directory (Build plus openings).
-     - (c) Both, with (b) as the result of record.
+   - (a) In the Commit process, over openings.
+   - (b) Only in a separate verifier process over the committed directory (Build plus openings).
+   - (c) Both, with (b) as the result of record.
    - **Recommendation: (a) now (F1), and (c) once B1 lands,** so the prover's process never grades itself.
 3. **Definition ids that collide or changed meaning (D8, D9).**
-   - Options:
-     - (a) Retire the integration copies, have Programs cite core's ids (including `AmpereBF16TcDot16` v2), and mark pre-R17 evidence that cites v1 as superseded.
-     - (b) Restore v1's pre-R17 body and add a new id for the current semantics.
-     - (c) Keep both as they are.
+   - (a) Retire the integration copies, have Programs cite core's ids (including `AmpereBF16TcDot16` v2), and mark pre-R17 evidence that cites v1 as superseded.
+   - (b) Restore v1's pre-R17 body and add a new id for the current semantics.
+   - (c) Keep both as they are.
    - **Recommendation: (a).** It leaves one Definition library, and only one epoch of old evidence needs a note.
 4. **Re-baseline policy.**
-   - Options:
-     - (a) One epoch bump that batches every change to digests, roots or artifact keys (D2, D8, D9, D12, and the G1 to G8 key renames), reviewed as one `rebaseline.py` diff.
-     - (b) Re-baseline after each fix.
+   - (a) One epoch bump that batches every change to digests, roots or artifact keys (D2, D8, D9, D12, and the G1 to G8 key renames), reviewed as one `rebaseline.py` diff.
+   - (b) Re-baseline after each fix.
    - **Recommendation: (a).** Fixes that don't change digests (D1, D3 to D7, D10, D11, D13 to D17) land immediately.
 5. **Order of upstreaming to core.**
-   - Options:
-     - (a) Upstream first, then consolidate.
-     - (b) Consolidate first, behind core-shaped interfaces in the integration, then upstream.
-     - (c) Keep everything in the integration.
+   - (a) Upstream first, then consolidate.
+   - (b) Consolidate first, behind core-shaped interfaces in the integration, then upstream.
+   - (c) Keep everything in the integration.
    - **Recommendation: (b) for the evaluator protocol, challenge derivation and collectives,** so one real user shapes the API. Use (a) for boundary, partition and liveness, whose promotion core already plans.
 6. **Experimental and PoC paths.**
-   - Options:
-     - (a) Delete CMT-1 (`commit/reference_engine/`, its adapter and `cmt_ref_*` in `commit_delta`: 1,403 lines), `engine_rs`, and the PoC bundle chain once `merkle` comes from core.
-     - (b) Move them to a bench directory.
-     - (c) Keep them.
+   - (a) Delete CMT-1 (`commit/reference_engine/`, its adapter and `cmt_ref_*` in `commit_delta`: 1,403 lines), `engine_rs`, and the PoC bundle chain once `merkle` comes from core.
+   - (b) Move them to a bench directory.
+   - (c) Keep them.
    - **Recommendation: (a).** None has a production caller [S1 §9], and git history keeps them.
 7. **Tensor-parallel scope (D16).**
-   - Options:
-     - (a) Refuse world > 2 now (F5), and generalize in B3 with a 4-GPU validation.
-     - (b) Support world N immediately by patching `emit` and the quarantine family in place.
-     - (c) Support world 2 only, permanently.
+   - (a) Refuse world > 2 now (F5), and generalize in B3 with a 4-GPU validation.
+   - (b) Support world N immediately by patching `emit` and the quarantine family in place.
+   - (c) Support world 2 only, permanently.
    - **Recommendation: (a).** A silent world-2 assumption is worse than a refusal.
 8. **Public API scope.**
-   - Options:
-     - (a) Build engines only from a `RowSpec` (pinned model, revision and environment), through `open_engine(spec)`.
-     - (b) Also wrap a user-built `vllm.LLM`.
+   - (a) Build engines only from a `RowSpec` (pinned model, revision and environment), through `open_engine(spec)`.
+   - (b) Also wrap a user-built `vllm.LLM`.
    - **Recommendation: (a) first.** Pinning is what makes non-interference and identity meaningful. Revisit (b) once `engine/hooks.py` owns every patch (B4).

@@ -56,6 +56,27 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   row per config and names each refused row. `vs_ref` / `ref` / `flag slow-vs-ref` (more than 15 % slower) compare a row with
   the fastest preserved (R2) store result of the same relation, gpu, auth, l, pipe, VUs, zk and mode. `--no-refs` skips the lookup.
 
+## Pod guard and streamed ships in `research run --on` (pod-runs, 2026-09-24, lane/pod-runs)
+* Opt a job pod in with `guard = N` (idle minutes; `true` = 90) in its `machines.toml` entry. An entry without `guard` never
+  gets one, so a control pod or live verifier stays untouched. The launch prints `guard on pod ...: pid P (started | already
+  running)` or `NO guard on <machine>: <reason>`. One daemon per pod (`<root>/guard/guard.pid`), started by `launch-request`.
+* It terminates the pod after N minutes with no live runner, no work process, no live verifier and 0 % GPU. The definition is
+  `research/pods/workproc.py`, which the watcher's pod probe uses too. It refuses, and re-checks every minute, while any
+  `<root>/runs/*` lacks a valid `.fetched`. `research fetch <run> --all` writes that marker on the pod after verifying every
+  file. A file changed after the verification makes the run unfetched again. State for the laptop: `<root>/guard/state.json`
+  (verdict, idle_min, last activity, unfetched runs with reasons, terminate attempt). Log: `<root>/guard/guard.log`.
+* Pod credential (measured on a cpu3c pod): RunPod puts a pod-scoped `RUNPOD_API_KEY` (not the account key) in `/proc/1/environ`.
+  ssh sessions do not inherit it. It can read nothing: REST `GET /pods` and `/pods/{self}` return 403, and GraphQL `myself` is
+  Unauthorized. REST `DELETE /pods/{self}` returns 403 too, but GraphQL `podTerminate` of its own pod works, and the guard used
+  it (17:10:36Z). The account key never goes to a pod.
+* To stop a guard on your own pod, run `pkill -f "[p]od_guard.sh daemon"`. Without the brackets, pkill also kills the ssh shell
+  running it.
+* The launcher streams the source archive. Its Python stays around 20 MiB during the ship and peaks near 40 MiB (the manifest
+  pass). `git archive` peaks near 70 MiB with the cache caps in remote.py. The old code peaked at 611 MiB, and one such launcher
+  was SIGKILLed at 0.64 GB at 16:55Z. The laptop's uplink fell to about 25 KB/s at 16:34-16:51Z (likely a concurrent upload of
+  the same 229 MB tree) and was fast again right after. A full `--source` ship can take over an hour at that rate; the timeout is
+  archive size / 64 KiB/s.
+
 ## Catalog wipes and rendering on a pod (verify-night, 2026-09-24)
 * `research data reindex` (`Index.rebuild`) empties the catalog tables first and refills them in stages, so an interrupted
   reindex leaves a catalog with few artifacts and 0 attempts/labels. Table 2 then renders silently wrong, and `research data

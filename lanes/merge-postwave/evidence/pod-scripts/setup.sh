@@ -9,7 +9,7 @@ stage "machine"; nproc; free -g | head -2; df -h /workspace | tail -1
 stage "apt"
 apt-get update -qq && apt-get install -y -qq --no-install-recommends \
   build-essential pkg-config libssl-dev clang libclang-dev cmake protobuf-compiler libprotobuf-dev \
-  git curl ca-certificates jq golang-go time rsync >/dev/null; echo "apt rc=$?"
+  git jq golang-go time rsync >/dev/null; echo "apt rc=$?"
 stage "rustup stable"
 command -v rustup >/dev/null || curl -fsSL https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable >/dev/null
 rustup toolchain install stable --profile minimal >/dev/null; rustc --version

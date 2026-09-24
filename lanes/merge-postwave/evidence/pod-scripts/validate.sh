@@ -3,11 +3,9 @@
 # --source .` was killed on the laptop by mem_guardian's disk floor while archiving), run with --cwd /workspace/src.
 #   setup   apt, rustup stable, sp1up v6.4.0 (succinct guest toolchain), uv (no-ops after setup.sh)
 #   py      pytest backends/numerical/tests + tools/research/tests (uv workspace, dev group)
-#   cargo   cargo check --release of every Rust crate the merges touched (+ ligero-verify and the gkr crate, per the brief):
-#           ligero-verify; verity-gkr (default and --features babybear); verity-gkr-verify; backends/sp1 host/common/check-model
-#           (default and relation-bare; the host's build.rs builds the guest ELF with the succinct toolchain); backends/sp1/tcdot
-#           on the witness-operands fork (build_fork.sh OPERANDS=witness SKIP_SERVER=1; host --features stream-operands)
-#   tests   (not gating) cargo test --release of verity-gkr-verify and veritor-zk-common --features relation-bare
+#   cargo   cargo check --release: ligero-verify; verity-gkr (default and --features babybear); verity-gkr-verify
+#           (the SP1 crates run in sp1.sh from a git archive of the same commit)
+#   tests   (not gating) cargo test --release of verity-gkr-verify
 # Prints STAGE_RC[<name>]=<rc> per stage and a SUMMARY; exit 1 if any gating stage failed.
 set -uo pipefail
 export DEBIAN_FRONTEND=noninteractive
@@ -28,12 +26,14 @@ run() {  # run NAME CMD...: log to $W/NAME.log, keep the tail
   RC[$name]=$rc; echo "STAGE_RC[$name]=$rc"
 }
 
-stage "machine"; nproc; free -g | head -2; df -h /workspace | tail -1; echo "source: $SRC"; git -C "$SRC" log -1 --oneline 2>/dev/null || true
+stage "machine"; nproc; free -g | head -2; df -h /workspace | tail -1; echo "source: $SRC"; cat "$SRC/.research-source.json" 2>/dev/null; echo
+for i in $(seq 1 90); do cargo prove --version >/dev/null 2>&1 && command -v uv >/dev/null && break; sleep 10; done  # setup.sh
 
 stage "setup"
+# curl / ca-certificates are on the image; listing them made apt upgrade curl from a security-pool URL that 404'd.
 apt-get update -qq && apt-get install -y -qq --no-install-recommends \
   build-essential pkg-config libssl-dev clang libclang-dev cmake protobuf-compiler libprotobuf-dev \
-  git curl ca-certificates jq golang-go time rsync >/dev/null
+  git jq golang-go time rsync >/dev/null; echo "apt rc=$?"
 command -v rustup >/dev/null || curl -fsSL https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable >/dev/null
 rustup toolchain install stable --profile minimal >/dev/null; rustc --version
 if ! cargo prove --version 2>/dev/null | grep -q "6.4.0\|f66b4bf"; then
@@ -53,18 +53,11 @@ run check-ligero-verify   bash -c "cd backends/ligero-verify && cargo check --re
 run check-gkr             bash -c "cd backends/gkr && cargo check --release --locked"
 run check-gkr-babybear    bash -c "cd backends/gkr && cargo check --release --locked --features babybear"
 run check-gkr-verify      bash -c "cd backends/gkr/verifier && cargo check --release --locked"
-run check-sp1             bash -c "cd backends/sp1 && cargo check --release --locked -p veritor-zk-host -p veritor-zk-common -p veritor-check-model"
-run check-sp1-bare        bash -c "cd backends/sp1 && cargo check --release --locked -p veritor-zk-host --features relation-bare"
-run tcdot-fork            env OPERANDS=witness SKIP_SERVER=1 SP1_TCDOT_ROOT=$W/sp1-tcdot bash backends/sp1/tcdot/build_fork.sh
-run check-tcdot           bash -c "cd backends/sp1/tcdot && VERITY_TCDOT_FORK_HEAD=\$(cat FORK_HEAD_WIT) CARGO_TARGET_DIR=$W/target-tcdot cargo check --release --locked -p verity-tcdot-host --features stream-operands"
-
 run test-gkr-verify       bash -c "cd backends/gkr/verifier && cargo test --release --locked"
-run test-sp1-common       bash -c "cd backends/sp1 && cargo test --release --locked -p veritor-zk-common --features relation-bare"
 
 stage "SUMMARY"
 fail=0
-for k in py-sync py-numerical py-research check-ligero-verify check-gkr check-gkr-babybear check-gkr-verify check-sp1 check-sp1-bare \
-         tcdot-fork check-tcdot test-gkr-verify test-sp1-common; do
+for k in py-sync py-numerical py-research check-ligero-verify check-gkr check-gkr-babybear check-gkr-verify test-gkr-verify; do
   echo "$k ${RC[$k]:-missing}"
   case $k in test-*) ;; *) [ "${RC[$k]:-1}" = 0 ] || fail=1 ;; esac
 done

@@ -62,7 +62,7 @@ Severity: **high** = affects what the verifier can soundly claim, or blocks the 
 - Run-root formula `sha256(ROOT_TAG_RUN || program || geo || u64 S || fold(step roots))` exists three times: `padding_steps.py:49,308-310` and `acquire/native_host.py:57,2063,2484`. `padding_steps.layout_digest`/`ctx_digest` (`:242-251`) restate native_host's. **medium**
 - `reference_engine/engine.py:344` `verify_opening` and `:386-427` `Verifier.verify` implement the same check twice. **low**
 - `hidden_engine.py:92` `path_in_levels` duplicates `merkle.MerkleTree.path`; `padding_steps.py:313-323` `opening` hand-rolls the same sibling walk. **low**
-- `binding.py:676-716` `challenge_identities` is one of seven sample/challenge derivations in the slice (see Map 1 and §2.3). **medium**
+- `binding.py:676-716` `challenge_identities` is one of six sample/challenge derivations in the slice (see §2.1 INTERNAL-DUP and §4.4). **medium**
 - `padding_steps.py:54` `LIFTED_CONTAINER` dtype-alias table restates dtype names other modules already normalise (`program/dtypes.py`, `check/sampled_replay.py:66-69`). **low**
 - A second selectable committer: `reference_engine/` + `reference_engine_adapter.py` (CMT-1, `pos_leaf` leaves, its own roots) are reachable through `harness/commit_delta.py:456-457`, which offers `cmt_ref_torch | cmt_ref_host | cmt_ref_torch_compiled` beside the native committer. Not dead; a parallel commitment path with 1,400 lines of its own. **medium**
 
@@ -414,4 +414,115 @@ Per-check result dicts (not systems, but read by key by V1/V2/V3): `global_match
 
 **Observation.** Property harnesses live beside per-run checks, share their CLI and file conventions, and are consumed as per-run gates (G1, G4, G6, G7), so a run either re-establishes an integration property or re-reads a file claiming it. Their "frozen" status is enforced by `protected.py` against a governance document (`out/capture/decisions.md`) that is not in the repo. A `properties/` package (or `tests/integration/`) with its own record, referenced from per-run verdicts by digest, would separate them.
 
-<!-- SECTION-SUMMARY -->
+---
+
+## 7. Counts per category
+
+One bullet = one finding, often with several `file:line` sites. The "legit versioned identifiers" note is not counted.
+
+| category | `commit/` | `check/` | total | high | medium | low |
+|---|---:|---:|---:|---:|---:|---:|
+| CORE-DUP | 4 | 4 | 8 | 4 | 4 | 0 |
+| INTERNAL-DUP | 7 | 8 | 15 | 4 | 7 | 4 |
+| VERSION-RESIDUE | 5 | 6 | 11 | 0 | 6 | 5 |
+| HARDCODING | 4 | 8 | 12 | 1 | 8 | 3 |
+| SCRIPT/ENV/PATH | 6 | 8 | 14 | 2 | 8 | 4 |
+| LAYERING | 4 | 6 | 10 | 4 | 3 | 3 |
+| GOD-MODULE | 1 | 11 | 12 | 4 | 8 | 0 |
+| DEAD | 5 | 6 | 11 | 0 | 5 | 6 |
+| NAMING | 4 | 5 | 9 | 0 | 3 | 6 |
+| DOCS | 2 | 3 | 5 | 0 | 3 | 2 |
+| FALLBACKS | 3 | 6 | 9 | 1 | 5 | 3 |
+| OTHER-WEIRD | 4 | 6 | 10 | 2 | 4 | 4 |
+| **total** | **49** | **77** | **126** | **22** | **64** | **40** |
+
+Correction to the brief's known facts: at `f0810a11`, four integration files import `verity.verification.*` (`correspondence/capture_identities_program.py`, `query/module_body.py`, `query/program_view.py`, `query/v1_bridge.py`), none in this slice.
+
+## 8. The 12 most important findings
+
+1. **Production commitments are integration-only.** Only the PoC leaf rule (`commit/hashing.py:50-131`, a copy of `commitments/leaves.py:73-150`) matches core. The leaves production commits, `pos_leaf` (`semantic_layout.py:44,150`) and the `fa2h` chunk header (`hidden_stream.py:34-35,144-151`, CUDA `native_tree.cu:163`), plus `bind_root`/run root (`hidden_engine.py:49`, `padding_steps.py:308`), have no core counterpart, and nothing verifies under `commitments/merkle.py:26-149`.
+2. **The C2 of record replays the prover's memory.** `sampled_replay` reads bytes through `oracle_compare.committed_reader` (`oracle_compare.py:914-940`), the live committer's private `_layouts`/`_gpu_blocks`; the replayed values are never opened. The PoC path authenticated them (`relations.py:735`).
+3. **Four evaluator families for the same Definitions:** `twins.py`, `program/registry/derived_rows.py`, the `sampled_replay.py:743-920` ladder, `relations.py:227-450` + `program/numerics/*`. Only `twins` is checked against `evaluate_call` at run time.
+4. **Process-wide monkeypatch of core:** `global_match_fast.py:482-520` replaces `verity.ir.codec._spec_id`, `verity.ir.refs.runs` and eight integration functions whenever `MATCH_IMPL=fast`, the default (`global_match.py:2063-2065`).
+5. **Five verdict systems, none using core codes:** `gates.py:1189`, `commit_verdict.py:480`, `verdict.py:170-200`, `poc_rows.py:294`, `relations.py:650`. `verdict.py` re-implements `commit_verdict` through seven of its private helpers.
+6. **Verdicts keyed on prose:** `commit_verdict.py:107,152,353-354` match message text produced by `sampled_replay` and `commit_delta`.
+7. **Six sample/challenge derivations:** `commit/binding.py:676`, `sampled_replay.py:2522` + `:2051` (Mersenne Twister), `compiled_kernel_check.py:206` (seed defaults to 0), `relations.py:1143` (seed defaults to 0), `replay.py:533`, `stoch_recompute.py:610`. Core has none.
+8. **One switch, two environment variables:** `padding_steps.py:405` reads `VERITY_LEAF_LAYOUT`; `commit_delta.py:1258` and `native_collect.py:721` use `VERITY_LAYOUT`, so padding leaves can be built under a different header than executed leaves.
+9. **Layering inversions:** commit -> check (`padding_steps.py:40,664`, `binding.py:384,561`); `program/numerics/*` -> `check.relations.REGISTRY` (`numerics/relations.py:494-509`); library -> tests (`adversarial.py:448-462`, mutating test-module globals).
+10. **God-functions:** `global_match._check` is 1,234 lines (`global_match.py:828`); `sampled_replay.py` (3,149 lines) has 11 jobs; `padding_steps.py` (936) has 10.
+11. **Machine and model paths in library defaults:** `fold_compare.py:58` (`/Users/danielreuter/...`), `:60` (SmolLM2 HF snapshot glob), `fa2_prototype/fixture.py:42` (`/private/tmp/...`); vLLM class-name tables in `value_check.py:24`, `binding.py:47-53`, `reference_engine_adapter.py:38-53`.
+12. **Dead and stale:** `engine_rs/` (no caller, missing planner, empty root `[0u8; 32]` differs from Python, `main.rs:69`); the `poc_verify_bindings` -> `poc_rows` + `compiled_fx_kernels` chain (1,459 lines behind one used function); `vllm-poc` `sys.path` inserts (`twins.py:51`, `hidden_engine.py:22`, `reference_engine/engine.py:27`); the gates' governance doc `out/capture/decisions.md` is not in the repo (`gates.py:3`).
+
+---
+
+## 9. Disposition
+
+"Scheme module" below means one new `commit/scheme.py` holding every leaf rule, fold and root binding that is not in core, with native constants (CUDA, Rust) tested against it. "Properties package" means a home for integration-property harnesses separate from per-run checks (Map 4).
+
+### `commit/`
+
+| module | disposition | reason |
+|---|---|---|
+| `__init__.py` | keep | rewrite the docstring; it describes `acquire/` |
+| `hashing.py` | replace with core `commitments.leaves` | same tags and framing; keep `json_digest`/`profile_id` only after choosing one canonical JSON |
+| `identity.py` | keep (rename, e.g. `ids.py`) | integration id grammar; name collides with core `commitments/identity.py` |
+| `merkle.py` | replace with core `commitments.leaves` + thin integration layer | tree/fold/opening are core; keep `RangeOpening`, id validation, `commitments.json`; delete `verify_source_linkage`, `write_openings` |
+| `fasttree.py` | merge into scheme module | the production fold; move blake3/noop backends to a bench |
+| `stream_merkle.py` | move to tests (or bench) | test-only |
+| `semantic_layout.py` | merge `pos_leaf` into scheme module; delete the rest | `Template`, `StaticContext`, `semantic_root`, `rank_fast` unused |
+| `hidden_engine.py` | merge `bind_root` into scheme module; delete | re-export shim with a dead `sys.path` hack and cost helpers |
+| `hidden_stream.py` | split: chunk-leaf rule -> scheme module; FA2 M1 layout -> `acquire/` FA2 tap | the chunk header is the generic leaf header |
+| `binding.py` | split | map build stays; `MEMBER_RULES`/class sniffing -> `program/registry/quarantine/`; coverage + challenge -> check |
+| `padding_steps.py` | split | leaves/roots -> scheme module; record conversion CLI -> `harness/`; population/oracle checks -> check; drop `check.*` imports |
+| `reference_engine/__init__.py` | delete (or move to bench) | CMT-1 experimental committer; owner decides whether `commit_delta` keeps `cmt_ref_*` |
+| `reference_engine/engine.py` | delete (or move to bench) | as above; dead `sys.path` hack, duplicate verifier |
+| `reference_engine/positions.py` | delete (or move to bench) | as above; core `commitments/indexed.py` covers position domains |
+| `reference_engine/torch_sha256.py` | delete (or move to bench) | fifth SHA-256 implementation |
+| `reference_engine/triton_sha256.py` | delete (or move to bench) | sixth SHA-256 implementation, generated at run time |
+| `reference_engine_adapter.py` | delete (or move to bench) | only reachable via `commit_delta` `cmt_ref_*`; private `native_host` imports |
+| `engine_rs/Cargo.toml`, `Cargo.lock`, `.gitignore`, `src/main.rs` | delete | no callers, missing planner, empty-root divergence |
+| `fa2_prototype/__init__.py`, `derived.py`, `encoding.py`, `fixture.py`, `kernel_dump.py`, `layouts.py`, `oracle.py`, `reference.py` | move to `tests/commit/fa2/` | test support (per `dead_code_keep.json`); drop the `/private/tmp` fallback and the import-time MUFU preload |
+| `fa2_prototype/fixtures/` (7 `.npz`, `p0_summary.json`, `SHA256SUMS`, `b0_c256_attention_geometry.json`) | move to `tests/commit/fa2/fixtures/` | 2 MB of test data inside the library |
+
+### `check/`
+
+| module | disposition | reason |
+|---|---|---|
+| `__init__.py` | keep | |
+| `adversarial.py` | move to tests | test harness that imports `tests.*` |
+| `census.py` | move to properties package | property of a profile + vLLM build (G1) |
+| `commit_verdict.py` | merge into `verdict.py` | one Commit decision; rules read structured fields, not prose |
+| `compiled_autotune.py` | keep | per-run compiled evidence used by `compiled_kernel_check` |
+| `compiled_fx_kernels.py` | merge `normalise_kernel` into `kernel_identity.py`; delete the rest | only reachable through dead `poc_verify_bindings` |
+| `compiled_kernel_check.py` | keep as a thin driver | Inductor relations become an evaluator backend (Map 1) |
+| `compiled_value_check.py` | merge with `value_check.py` | both are acquisition/determinism checks |
+| `difftest.py` | move to properties package | Definition admission; use the one reference evaluator |
+| `executed_prefix.py` | keep | per-run execution extent; commit must stop importing it |
+| `fa2_attn_oracle.py` | move to tests | loaded by file path from one test |
+| `fold_compare.py` | split | `SnapshotStore`/`WeightSource` -> `observe/`; comparisons stay; delete laptop and HF defaults |
+| `gates.py` | keep, then fold into the one verdict record | rename gate ids to names; read property records; fix stale doc references |
+| `global_match.py` | keep, split `_check` | move `mock_global_program` to tests |
+| `global_match_fast.py` | merge into `global_match`/`program_compare` | make the fast path the implementation; no patching of core |
+| `golden.py` | move to properties package | regression property (G6) |
+| `golden/corpus.json` | move with `golden.py` | data inside the package |
+| `holdout.py` | move to properties package | generalization property (G7) |
+| `kernel_allowlist.py` | move to `observe/profiles/` | data about observation profiles |
+| `kernel_identity.py` | keep | per-run kernel pin; narrow the eight broad excepts |
+| `noninterference.py` | move to properties package | property of the observer (G1) |
+| `operand_provenance.py` | keep | per-run G5 |
+| `oracle_compare.py` | keep; move `committed_reader` to `acquire/` as a public API | stop reading private committer attributes |
+| `poc_description.py` | move to `observe/` (rename) | schema of the capture bundle, not a check |
+| `poc_required_interface.py` | move to `observe/` (rename) | same |
+| `poc_rows.py` | delete | only reachable through dead `poc_verify_bindings` |
+| `poc_verify_bindings.py` | delete; move `dist_identity` to `observe/engine_profile.py` | consumer does not exist |
+| `program_compare.py` | keep | stop using core `_spec_id`; make registry imports explicit and fail loudly |
+| `protected.py` | move to properties package / sealed-verifier tooling | property of a lane diff |
+| `quarantine_lint.py` | move to properties package | property of registry code |
+| `relations.py` | split | checkers -> one evaluator registry; challenge/sample -> one challenge module; runner -> thin driver; `CheckReport` -> one verdict record |
+| `replay.py` | replace with a thin driver over the one evaluator | tiers become driver options |
+| `sampled_replay.py` | split | resolver, store (verified openings), sampler, population accounting, linkage, pool; the family ladder -> evaluator registry |
+| `stoch_recompute.py` | keep as a thin driver | sampler Definitions via the one evaluator |
+| `twins.py` | merge with `program/registry/derived_rows.py` | one twin registry keyed by Definition id |
+| `value_check.py` | merge with `compiled_value_check.py` | acquisition/determinism checks; use a public class-name API |
+| `verdict.py` | keep as the one verdict record | absorb `commit_verdict`; map outcomes onto core `VerificationCode` |
+

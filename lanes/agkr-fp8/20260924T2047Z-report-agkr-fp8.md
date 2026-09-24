@@ -5,6 +5,7 @@ created: 2026-09-24T20:47Z
 status: open
 ---
 
+CHECKPOINT bb859220 (23:46Z) [open] 4090 dev @bb859220 fp8-ada: warm t.total 0.692s (cell was 1.130), proofs sha b5ef0238 unchanged, Rust 2/2, negatives OK. A/B int32 Acc running r20260924-234548-cd34; then recorded 4090 run. Considering merged tagged LogUp table for FP8 unit.
 CHECKPOINT bb859220 (23:35Z) [open] H100 cell re-recorded 0.482s (was 0.688; art:b1010ac8, proofs identical; handoff 2326Z). H100 terminated 23:26Z (~$7.2 total). 4090 pod 5vnbd6rfwm3wmd bootstrapped; fp8-ada dev pass running, then int32 Acc test and recorded run.
 CHECKPOINT ab57df0a (23:10Z) [open] H100 hill-climb: prove 0.626->0.432s byte-identical (11 commits to bb859220). Recording improved fp8-hopper cell r20260924-230813-9198 now; next push+handoff, then 4090 fp8-ada re-record on a new pod.
 CHECKPOINT ab57df0a (22:39Z) [open] Both FP8 cells recorded (4090 in Table 2; H100 0.688s handed off). Hill-climb on H100: eq_table one-launch + numpy ext serialization committed (048e6a41, 8670d0f7), prove 0.599->0.537s, bytes identical. Testing query-value caching; then re-record H100.

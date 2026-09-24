@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (23:45Z) [open] 2 new: agkr-nvf4 5090 art:5adf62eb (2b25df7f, supersedes ad8f92b9) + arith 5090 fp4-nvf4 B-Ligero x4 (art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a) verifying in r20260924-234455-6524
 CHECKPOINT ab9573fd (23:30Z) [open] verified agkr-nvf4 5090 art:ad8f92b9 (verdict art:37ed86f2) and arith A100 x4 (art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93; all PASS+BOUND). Table 2: 5090 A-GKR 4.2e7x, A100 B-Ligero 5.9e6x. 30 accepted, 0 rejected
 CHECKPOINT ab9573fd (23:15Z) [open] 2 new requests: agkr-nvf4 5090 art:ad8f92b9 verifying (r20260924-231454-fa00; stmt regen from ab57df0a, verifier 3c769c6d build); arith A100 x4 (art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1) reverify next
 CHECKPOINT ab9573fd (22:55Z) [open] SP1 A100 BF16 sec134 (D2) art:e8c7c331: 5/5 accepted with sec134 host built on my pod (sha256 = producer's ad6ec855), stock host + y-flip rejected; verdict art:34582a00 (coordinator 2256Z). 25 accepted, 0 rejected; idle-polling

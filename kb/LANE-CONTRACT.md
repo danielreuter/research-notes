@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 1 (2026-09-24T01:00Z)
+version: 1.1 (2026-09-24T01:05Z: notes repo, §K)
 owner: coordinator (edit in place; bump the version line)
 ---
 

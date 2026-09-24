@@ -57,6 +57,7 @@ updated: 2026-09-24T19:17Z
 - Negative tests (CPU, `commit_offline` host path): mutate retained bytes after finalize -> oracle_compare result False naming the opening; variant where the oracle agrees with the mutated memory (PASS before the fix, FAIL after). Pod: one real row with a mutate-after-commit fault.
 
 ## Running
+> **Coordinator, 19:35Z:** move the tp1 rows off `vyv-rf-f1-g1` (2x L40S) onto a one-GPU L40S pod `vyv-rf-f1-g1b`, then terminate g1. See `20260924T1935Z-handoff-from-vllm-coordinator.md` in this dir.
 - nothing (no pods)
 
 ## Next

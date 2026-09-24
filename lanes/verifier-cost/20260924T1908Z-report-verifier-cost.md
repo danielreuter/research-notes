@@ -9,6 +9,7 @@ pods: vy-live2b-verifier-ro (pitmqu0zrycw5i, cpu3m 8 vCPU, EU-RO-1, $0.44/h; kee
 budget: $10; FINAL 01:10Z
 ---
 
+CHECKPOINT 70be5474 (19:33Z) [open] custody PASSED art:d841eb56 (5.0GB sessions, preserved rc=0 pod-side); A-GKR CPU re-verify verdicts art:8806507c (14.6 CPU-s) art:ae9d69fb (13.8); D3/D2/D1 + vocab committed a1e792c9..70be5474; next: pod tests, render, FINAL
 CHECKPOINT 22741456 (19:08Z) [open] context read; custody put of 5.25 GB sessions running on verifier pod (run r20260924-190646-2eca); next: extract session measurements, plan GPU prover runs
 
 # verifier-cost: real verifier cost for every Table 2 cell (D3)

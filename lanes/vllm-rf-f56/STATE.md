@@ -37,11 +37,17 @@ created: 2026-09-24T17:40Z
 
 - 19:33Z COMMITTED + PUSHED `lane/vllm-rf-f56`: `dfd21f73` D16 (a, b, c), `9b07c19f` D17 (`check/fa_tap_exactness.py`, `tests/check/test_fa_tap_exactness.py`, census root `verity_vllm.check.fa_tap_exactness` in `tests/census_roots.txt` (else test_no_dead_modules fails), evidence text in `acquire/hidden_source.py`, comments in `ops/pod_fa{2,3}_tap.sh`). Deliberately NOT edited: `acquire/fa3_tap_src/build_fa3_ext.py:11` (every fa3_tap_src file is in the tap's source-set hash: an edit forces an FA3 rebuild on every pod) and `tests/acquire/test_fa2_tap_geometry.py:7` (cites the oracle half, not restored). Nothing run yet (laptop: py_compile only).
 
-## Running
-- nothing
+- 19:50Z #70 at the base (integrator note `20260924T0240Z-from-vllm-tp-v2-ready-4f3a1e7.md` + `vllm-tp-v2/20260924T1810Z-70-commit-fail-diagnosis.md`): Build PASS (manifest `ede1ad81`, 357,796), Match PASS collective-level (oracle 14,592/14,592 per rank), Commit `r20260924-021402-69d8` FAIL rc 12 with legs query_population False (25,408 per rank, build_global keeps one request's op_path_aliases), cross_rank_collectives False (AllGather2 161 sites / 1 covered), sampled_replay partial, fold_match_binding None; every compared value equal (replay 9,656/9,665 0 mismatches, weight pins 212/212, TP-12 154/154, linkage 434/434). Build `art:962a12b3…`, Match `art:7ecab74a…` preserved. Regression expected files: #70 and #75 class FAIL, only `program_digest` applies (gate (a) covers it). "Verdict unchanged" for #70 = the same FAIL legs and numbers.
+
+## Running (pods created 19:45-19:48Z)
+- CPU `vyv-rf-f56` = RunPod `3rl2gsbclq3nhs` (cpu3g x16, 80 GB): `research pods sync` of `9b07c19f` to `/workspace/base` in flight (laptop background shell).
+- 2x L40S `vyv-rf-f56-l40s` = `lhe6h1dv0bw43c` (300 GB disk): not bootstrapped yet.
+- 1x H100 SXM `vyv-rf-f56-h100` = `1ja36qvgnyy0g3` (150 GB disk): not bootstrapped yet.
 
 ## Next
-1. Pods: CPU `vyv-rf-f56` gates (a)/(b) (a1 recipe) + check vLLM `flash_attn_varlen_func` keyword names (site-packages source); 2x L40S `vyv-rf-f56-l40s` (GPU bootstrap builds FA2 tap): FA2 record + TP2 regression row (#70 OLMoE, compare to `/tmp/rff56/r70`); 1x H100 `vyv-rf-f56-h100`: FA3 record.
+1. CPU: a1 recipe venv, gates (a)/(b) at `9b07c19f`; check vLLM `flash_attn_varlen_func` keyword names + which models build `SharedFusedMoE` (site-packages source).
+2. GPU pods: sync tree, `verity_vllm/ops/pod_bootstrap.sh` (builds FA2 tap; FA3 on the H100). Then `python -m verity_vllm.check.fa_tap_exactness --so <tap .so> --out DIR` on each (L40S FA2, H100 FA3) under `research run` so the record is preserved.
+3. L40S: TP2 #70 at head (reuse Build/Match artifacts or rerun), compare to the base Commit legs above.
 
 ## Open questions
 - none yet

@@ -36,6 +36,7 @@ def main():
     ap.add_argument("--l", type=int, default=4096)
     ap.add_argument("--reps", type=int, default=20)
     ap.add_argument("--n-proofs", type=int, default=13)
+    ap.add_argument("--sweep", action="store_true")
     a = ap.parse_args()
     dev = torch.device("cuda")
     rel = relations.RELATIONS[a.relation]
@@ -86,6 +87,18 @@ def main():
     rb = rho_q.index_select(1, sp["bool_q"])
     bj = sp["bool_j"].to(torch.int32).contiguous()
     res = {}
+    if a.sweep:
+        tests_fused.QUAD_V4 = False
+        ref_q = f.quad_general(rg, U[:m], csr)
+        tests_fused.QUAD_V4 = True
+        for thr in (128, 256):
+            for qf in (False, True):
+                for S in (16, 32, 64, 128, 256):
+                    tests_fused.QUAD_THREADS, tests_fused.QUAD_QFAST, tests_fused.QUAD_SPLITS = thr, qf, S
+                    ok = bool(torch.equal(f.quad_general(rg, U[:m], csr), ref_q))
+                    t = timeit(lambda: f.quad_general(rg, U[:m], csr), a.reps)
+                    print(f"sweep thr={thr} qfast={int(qf)} S={S} exact={ok} ms={t:.4f}", flush=True)
+        return
     flags = [("old", False, False), ("reduce", False, True), ("new", True, True)]
     if not hasattr(tests_fused, "QUAD_V4"):
         flags = flags[:1]

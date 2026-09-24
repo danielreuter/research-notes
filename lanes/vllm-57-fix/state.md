@@ -103,9 +103,10 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 - Stale #67 commit/ dir moved to vyv-sw-67b /workspace/lane/evidence/commit67_2c5e038b/commit_dir (so a crash can't grade it again).
 - 10:26Z #67 Commit at f16703a2: run r20260924-102613-0196 on vyv-sw-67b GPU 0 (source f16703a2 shipped, 2814 files), build
   art:5b7e5bcf + match art:f95c7d60. ETA ~12:05Z.
-- Tests at f16703a2 on vyv-sw-57 (running): logs/tests_f16703a2.log (imports lint, oracle v2 producers, oracle, promoted key,
-  commit_delta cli, verdict, no_by_name, no_dead_modules) + tests_f16703a2_b.log (promoted acquisition, form B perturbation,
-  fail-closed, hot commit, sampled replay v2 addresses + query population).
+- Tests at f16703a2 on vyv-sw-57, green 10:27Z: logs/tests_f16703a2.log 79 passed (imports lint, oracle v2 producers, oracle,
+  promoted key, commit_delta cli, verdict, no_by_name, no_dead_modules) + tests_f16703a2_b.log 77 passed 4 skipped (promoted
+  acquisition, form B perturbation, fail-closed, hot commit, sampled replay v2 addresses + query population). 0 F/E.
+- 10:28Z #67 Commit r20260924-102613-0196 is past the import that killed 2c8aa2b3 (0 Tracebacks; engine warm-up running).
 
 ## Checkpoints
 - CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);
@@ -152,8 +153,10 @@ mechanism) when the fold has no instance of the producer family under the identi
 Snapshot-steps gap: row_pod.sh sets Match snapshot steps = all when sampled_replay.form_b_families(manifest) is non-empty (required
 instance_outputs with no replay evaluator) and MATCH_SNAP_STEPS is unset; an explicit partial value is kept with a WARN naming the families.
 
-## Tip
-- 8b606f16 (origin + sw57): 4f6f6d1d form (B) producer facts by dataflow; 8b606f16 row_pod.sh snapshot steps + tests.
+## Tip (10:30Z)
+- f16703a2 (origin + sw57, worktree clean) = staging 2c8aa2b3 + relayout import fix. Lane commits: 4f6f6d1d form (B) producer facts
+  by dataflow; 8b606f16 row_pod.sh snapshot steps; 2c5e038b observe handed-down v2 values at first consumer (all merged into staging
+  as b53686f0); f16703a2 repoint 5 stale imports + tests/test_imports_resolve.py (NOT yet on staging; handoff 1027Z).
 
 ## Done
 - worktree + pod remote set up; pod checkout at 8b606f16.
@@ -162,9 +165,19 @@ instance_outputs with no replay evaluator) and MATCH_SNAP_STEPS is unset; an exp
   tests + tests/test_no_by_name_rules.py all pass.
 - original failing Commit 8cb4 evidence copied to /workspace/lane/evidence/commit_8cb4 (+ commit_8cb4.log) before the rerun.
 - R2 credential: minted 06:07Z with the worktree's research (`PYTHONPATH=tools/research/src python -m research data mint-credential
-  --ttl 6h --via local --env`, r2.env sourced in a subshell; the laptop venv's `research` binary is too old to have `data`), valid to ~12:07Z.
+  --ttl 6h --via local --env`, r2.env sourced in a subshell; the laptop venv's `research` binary is too old to have `data`). Minted fresh
+  per launch; the one inside r20260924-102613-0196 (10:26Z, 6h) outlives its ~12:05Z publish.
 
-## Running
+## Running (10:30Z)
+- #67 Commit r20260924-102613-0196 on vyv-sw-67b GPU 0 at f16703a2 (build art:5b7e5bcf, match art:f95c7d60). ETA ~12:05Z.
+  Row dir /workspace/cp/sweep-v2s/olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager (commit.log, stages.txt).
+- vyv-sw-57: idle (checkout 2c8aa2b3; do not terminate).
+
+## Next
+- #67 verdict -> preserve (published from the pod; check `data preserved --mode recorded`, labels) -> CHECKPOINT 67-pass -> drain vyv-sw-67b.
+- Final summary.
+
+## History (pre-08:00Z, superseded)
 - #57 Commit-only rerun: run r20260924-061950-2148 on vyv-sw-57 (runner pid 39395, workload pid 39406), GPU 0, source 8b606f16,
   build=art:f1baace0…, match=art:a225cf5f…, launched 06:19Z. Observe: pod /workspace/research/runs/r20260924-061950-2148/ or `research fetch`.
   (06:07Z attempt refused: shipping 168 MB from the laptop exceeded 600s at ~0.3 MB/s. Workaround: build /workspace/research/src/<sha>/ on
@@ -180,6 +193,4 @@ instance_outputs with no replay evaluator) and MATCH_SNAP_STEPS is unset; an exp
   --input build=<its vllm-build artifact>, then Commit with build+match (each a laptop `research run --on vyv-sw-67b`, same env as #57).
 - #67 row args: OLMOE allenai/OLMoE-1B-7B-0924 6d84c48581ece794365f2b8e9cfb043c68ade9c5, row
   olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager, --retain host --build-jobs auto --sweep-dir /workspace/cp/sweep-v2s.
-
-## Next
-- #57 rerun -> verdict; preserve (data push + preserved --mode recorded + labels); ready note; #67 judgment (MoE experts output, 20,928 identities_without_rows).
+- (old next, done) #57 rerun -> verdict; preserve; ready note; #67 judgment.

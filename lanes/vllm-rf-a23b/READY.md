@@ -2,7 +2,7 @@
 id: vllm-rf-a23b/ready
 lane: vllm-rf-a23b
 kind: ready
-status: draft (gate (b) done; gate (a) running)
+status: complete (gates (a) T0+T1 and (b) green; rebased onto main, lints 41/41)
 created: 2026-09-24T20:50Z
 ---
 # vllm-rf-a23b READY: dead code, data and paths
@@ -18,7 +18,11 @@ a23b took over from a23 at `c1cf11ef`. a23 did part 1 (dead code out, moves to t
 ## Gate evidence
 
 Both gates ran at `748d71c5` on `vyv-rf-a23b-big` (RunPod `n2ei0ahhoeu80j`). A base run of each gate ran on the same pod
-with the same flags. Scripts beside this note: `gate_a.sh`, `gate_b.sh` (a1's with the log directory moved), `prefetch.sh`.
+with the same flags. After the rebase, gate (b) and the lints ran again at `9be6e462`. Scripts beside this note:
+`gate_a.sh`, `gate_b.sh` (a1's with the log directory moved), `prefetch.sh` and `lint_fix.py`.
+
+**Summary:** gate (a) T0+T1 is green, with the same outcome as the same-pod base on all 158 tests. Gate (b) has no new
+failure, error, skip or skip reason outside baseline.md's list, at both heads. The lints are 41/41 at `9be6e462`.
 
 **Pod and environment.** cpu3m, 64 vCPU, 512 GB, AMD EPYC 9655 with AVX512, Linux 6.8.0-87, glibc 2.35. The venv comes
 from `pod_bootstrap.sh --cpu` (BOOTSTRAP-OK) plus `pytest-xdist==3.8.0`, with `xgrammar` pinned to 0.2.7. Its
@@ -43,6 +47,7 @@ Trees:
 | run | total | passed | failed | error | skipped | xfailed |
 |---|---|---|---|---|---|---|
 | head `748d71c5` | 3,833 | 3,476 | 54 | 11 | 286 | 6 |
+| rebased head `9be6e462` (with main's 41 lint tests) | 3,874 | 3,515 | 56 | 11 | 286 | 6 |
 | base `72884c8a`, same pod | 3,904 | 3,534 | 56 | 11 | 297 | 6 |
 | a1's base (baseline.md, xdist) | 3,904 | 3,536 | 54 | 11 | 297 | 6 |
 
@@ -60,8 +65,21 @@ Comparison with a1's `baseline-jdiff.py` (exit 0 in every direction):
 - **Head vs the same-pod base:** 0 new failures and 0 new skips. The gc-freeze pair in
   `harness/test_admit_r19_host_working_set.py` passes at head and fails at base; that pair depends on test order at base.
 - **Same-pod base vs a1's base:** only the gc-freeze pair differs.
+- **Rebased head `9be6e462` vs a1's base** (23:28-23:41Z; a fresh copy of the lint-verified tree):
+  - 0 new failures and 0 new skips.
+  - The 67 failures and errors are baseline.md's 65 plus the gc-freeze pair (order-dependent; it failed at the
+    same-pod base too).
+  - The 41 lint tests are new and all pass.
+  - One skip reason is new, and it comes from main. `test_ship_roots.py::test_ship_pack_carries_out_gen_hf_configs`
+    skipped at base with "not a git checkout (pod tree)". Main's `e0c7bfe9` rewrote its guard, so it now skips earlier
+    with "this checkout has no record_v5/ship.sh or data/hf_configs". No tree here has `record_v5/`, base included.
+    This lane doesn't touch that test. The file's other two tests fail as on baseline.md's list.
+  - The `fold_compare` tests (`check/test_compare_*`, `test_replay_*`, `observe/test_fold_m1.py`, and others) and
+    `test_ship_roots.py` ran in this run, which is the coordinator's rerun condition. None of them fail outside the
+    list.
 
-The JUnit XMLs are beside this note: `gate_b-xdist-head-748d71c5.xml.gz` and `gate_b-xdist-base-72884c8a-samepod.xml.gz`.
+The JUnit XMLs are beside this note: `gate_b-xdist-head-748d71c5.xml.gz`, `gate_b-xdist-rebased-9be6e462.xml.gz` and
+`gate_b-xdist-base-72884c8a-samepod.xml.gz`.
 
 An earlier gate (b) run at `6da1b430`, on the first pod, found the one regression this lane introduced:
 `harness/test_source_identity.py::test_shipped_tree_{takes_its_sha_from_research_source_sha,still_refuses_a_foreign_package}`.
@@ -70,7 +88,53 @@ makes the stub copy `config.py` too. The production path is not affected, becaus
 
 ### Gate (a): `VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/vllm/tests/regression -m regression`
 
-_Running (started 21:37:17Z)._
+**Green.** Head and base give the same outcome on all 158 tests.
+
+| run | total | passed | failed | error | skipped | time |
+|---|---|---|---|---|---|---|
+| head `748d71c5` (21:37:17-23:19:35Z) | 158 | 73 | 0 | 0 | 85 | 6,135 s |
+| base `72884c8a`, same pod (22:10:30-23:57:04Z) | 158 | 73 | 0 | 0 | 85 | 6,391 s |
+| a1's base (baseline.md, T0 only) | 158 | 64 | 0 | 0 | 94 | |
+
+Both runs exited 0 (33 tests deselected by `-m regression`). Environment: the one above, plus `VERITY_REGRESSION=1
+VERITY_REGRESSION_TIERS=T0,T1`, `RESEARCH_STORE=/workspace/research/store`, the tree's
+`tools/research/store.pod.toml`, and a scratch directory per run. There was no rows root and no candidate. The JUnit
+XMLs are beside this note: `gate_a-t0t1-head-748d71c5.xml.gz` and `gate_a-t0t1-base-72884c8a-samepod.xml.gz`.
+
+`baseline-jdiff.py`:
+
+- **Head vs the same-pod T0+T1 base:** 0 new failures, 0 new skips, 0 outcome changes. One skip reason differs in
+  text only. `manifest_digest` on the TP rows #70 and #75 skips at both, and the reason now names `tp_stage.sh`
+  instead of `row_pod_tp2.sh`, because part 1 deleted that shim and updated the live string in
+  `checks/manifest_digest.py`.
+- **Head vs a1's T0 base:** 0 new failures and 0 new skips. Every check that passed there passes here. Nine
+  `T1-replay_partition` tests go from skip (tier) to pass. The skip reasons that are new relative to T0 are the T1
+  checks' own "does not apply" reasons, and all of them occur at the same-pod T0+T1 base too.
+
+Per check at head, identical at base (13 rows each):
+
+| check | tier | passed | skipped |
+|---|---|---|---|
+| manifest_digest, global_match_checks, executed_prefix, coverage, commit_summary, verdict | T0 | 10 each | 3 each |
+| step_segmentation | T0 | 1 | 12 |
+| stoch_value | T0 | 1 | 12 |
+| attempt_provenance | T0 | 0 | 13 |
+| replay_partition | T1 | 9 | 4 |
+| decomp_hashes | T1 | 0 | 13 |
+| program_digest | T2 | 0 | 13 (tier) |
+
+The skips at T1:
+
+- `replay_partition` skips on #4, #23, #70 and #75: "no sampled_replay record on this row". The run did replay
+  #11, #39, #57, #60, #67, #68, #73, #74 and #101.
+- `decomp_hashes` skips on all 13 rows. On the 6 B=1 and FAIL rows the reason is "no match_decomp.json". On the 7
+  batched rows it is "`match/...` not resolvable here". See "Found, not fixed".
+
+The other skips (T0) are baseline.md's: attempt_provenance has no candidate, stoch_value skips the greedy rows, rows
+#4, #70 and #75 have no Commit, and step_segmentation's `build_request*/descriptor.json.gz` isn't in the store.
+
+**Memory:** one process peaked at about 115 GB (VmHWM during #39's `replay_partition`). The container's
+`memory.peak` was 163 GB, page cache included, with the two gate (a) runs overlapping each other and gate (b).
 
 Fixtures: a read-only key (3 h) was minted on the laptop and piped to `/root/r2ro.env`. `prefetch.sh` fetched all 26
 fixture artifacts into `/workspace/research/store` (26 ok, 0 FAIL) and deleted the key at 21:36:51Z, before gate (a)
@@ -149,6 +213,9 @@ package. `uv build --wheel integrations/vllm` at `748d71c5` on the pod gave `ver
 | whole lane | 114 files changed | +235 / -8,480 |
 
 Part 2 alone (`c1cf11ef`..`748d71c5`): `verity_vllm/` 33 files +102/-81; `tests/` 8 files +12/-20.
+
+The rebase adds `3f794427` (`tp/worker.py` -1 line) and `9be6e462` (`tests/lint/`: 8 files, +7/-130). The library
+counts above therefore hold at `9be6e462`, less that one line.
 
 ### Path smoke (CPU, HF_HOME unset, cwd `/tmp`)
 
@@ -250,6 +317,10 @@ The coordinator's 22:13Z broadcast said main was at `1d9c3198`. By 23:15Z main w
 - **Gate (a) at T0+T1 needs a pod with well over 64 GB.** `replay_partition` (T1) on the B=1 rows loads whole Programs;
   its docstring says 120-250 GB. A cpu3g 64 GB pod OOMs, and the OOM can take sshd with it. Any lane's T0+T1 gate (a)
   needs a big pod (here: cpu3m, 512 GB).
+- **On a store-only pod, gate (a) T0+T1 never runs `decomp_hashes`.** It skips on all 13 rows at head and at base. On
+  the 7 batched rows the check's `match/...` input isn't in the stored `records` artifact ("not resolvable here (roots
+  tried: [])"). This is like baseline.md's `step_segmentation` finding. Exercising the check needs live row
+  directories as the rows root, or the match files staged into the store.
 - **Gate (b) writes into the tree.** `tests/program/test_ref_prims.py` writes its records to `$REF_PRIMS_RECORD_DIR`,
   which defaults to the tree's `docs/data/ref-prims/`. After a gate (b) run, 29 of those files differ from git, with the
   same bytes at head and base. A tree that ran gate (b) is not the commit's tree any more; here, gate (a) and the lint

@@ -77,7 +77,8 @@ for cfg in "$@"; do
     echo "  $name $r vs $(echo $REVS | cut -d' ' -f1): $v" | tee -a $SUM
   done
   if [ -x "${LIGERO_VERIFY:-}" ] && [ -d $A/ab/$name/tip/proofs ]; then
-    timeout 600 $LIGERO_VERIFY $A/ab/$name/tip/proofs > $A/ab/$name/tip/rust-verify.log 2>&1
+    timeout 600 $LIGERO_VERIFY batch --system $A/ab/$name/tip/proofs/system.bin --dir $A/ab/$name/tip/proofs/rep1 \
+      --jobs $(nproc) > $A/ab/$name/tip/rust-verify.log 2>&1
     echo "  $name tip rust ligero-verify rc=$? $(tail -1 $A/ab/$name/tip/rust-verify.log)" | tee -a $SUM
   fi
 done

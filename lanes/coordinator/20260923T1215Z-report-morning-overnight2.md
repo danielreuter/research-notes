@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 6da1b430 (20:08Z) [open] 20:10Z verifier-cost FINAL ab9573fd pushed (D3 12/12, custody art:d841eb56, verifier pod gone) -> merge next; arith alive (4090 arith .0477->.0417); remote-state handoff 2012Z declined per Daniel (separate workstream owns it); stale overnight lanes not yet closed.
 CHECKPOINT 22741456 (19:04Z) [open] 19:08Z launched verifier-cost (agent bc-e9e42c6a, pod vy-live2b-verifier-ro keep until sessions preserved; registered in machines.toml) + arith (bc-da525da2, own GPU pod, guard=90), base main 22741456, $10 each, FINAL 01:10Z. vyv-rf-* = vllm coordinator's, not ours.
 CHECKPOINT f210f65 (19:00Z) [open] project coordinator took over
 CHECKPOINT none (17:58Z) [open] 18:02Z merge-postwave FINAL -> main 22741456 (ff) pushed; cli moved; steward.toml source -> cli; render from main = 15:40Z except T1 A-GKR SHA-512 (campaigns/afternoon/render/1800Z-*). vy-live2b-verifier-ro NOT terminated: holds 5.0 GB of live verifier sessions (/workspace/live/sessions) = D3 raw data; hand to the verifier-cost lane (preserve to R2, extract verify cpu, reuse as live verifier). drilldown.py follow-ups for that lane: A-GKR rows stale (SHA-256/2^-127.7/'Table 1 says BLAKE3'), D2 picks unverified fastest (0a66c35e). Pre-existing: test_label_keys_are_the_store_vocabulary (included-hash-shared missing from vocab).

@@ -26,16 +26,27 @@
   read `executed_prefix_of_record.facts_of_record[rid].account_missing / linked` of the faulted requests (the replay's own why never carries that text).
 - All five pushed to `origin/lane/vllm-rf-f24`; tree clean.
 
-## Running
-- pod: GM-01 row #23 ABAB (`/workspace/out/gm/{base1,branch1,base2,branch2}`, log `abab.log`). The serial base gate (b) was killed so it would not
-  perturb the timing.
-- Pair 1: base1 618.8 s, branch1 693.5 s (+12%); outputs identical except timings and `impl.source_sha256`; every phase +11..15% including phases
-  D10 does not touch (G1, G7, attribution) -> host load avg ~200 (shared host); pair 2 decides.
+## D10 GM-01 evidence (row #23, pod, done 19:54Z)
+- ABAB wall / CPU(user+sys): base1 618.8 / 2409.3, branch1 693.5 / 2728.7, base2 664.0 / 2641.6, branch2 692.2 / 2642.8 s. Pair 2: CPU +0.05%,
+  wall +4.2%; mean wall +8.0%. Per-phase main-process CPU in pair 2 within +-2.5% (load_fold 1.004, x09 1.025, g3-5 0.986, alternate 0.990).
+  Same-code noise: base1 vs base2 load_fold CPU 157.9 vs 185.2 s (host load avg ~200).
+- Outputs, both pairs: `global_match_global_program.json` byte-identical; `match_decomp.json` differs in 2 timing fields only; `global_match.json` in
+  timings, `impl.source_sha256` (checker code identity) and `x09.pipeline.decomp_out` (the run's own output path) only. Verdicts PASS/PASS.
+  Files: pod `/workspace/out/gm/{base1,branch1,base2,branch2}/`, `diff_global_match_2.json`, `diff_match_decomp_2.json`.
+- `/workspace/branch` == head source (diff -rq: only sync metadata, macOS `._*` files, gitignored numerics build dir).
+
+## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
+- origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.
+- Head `76020a66` synced clean to `/workspace/head` (+ copies `head-reg`, `head-b0`). Read-only R2 credential `/root/r2ro.env`, minted 19:56Z, 5 h.
+- 19:57Z gate (a): `nice gate_a.sh /workspace/head-reg a_head` -> `a_head.{log,xml,status}` (~3-4 h expected).
+- 19:58Z gate (b): `OMP_NUM_THREADS=3 gate_b.sh /workspace/head b_head_x12 -n 12 --dist loadfile` -> `b_head_x12.{log,xml,status}`.
+- 20:00Z B0 Builds base then head: `/workspace/b0_build.sh` -> `/workspace/out/b0/{base,head}/`, `DONE` when both finish; compare with
+  `/workspace/tree_diff.py`.
 
 ## Next
-1. D10: pair 2 of GM-01; if branch still > +10%, profile (py-spy) the phases that moved.
-2. Gate (b) on the branch (a1's xdist command); gate (a) base + branch (mint read-only credential, a1's `baseline-gate_a.sh`).
-3. D6/D7 before/after evidence of the Build stamp (B0 build base vs branch: `/tmp/rff24/b0_build.sh`, `/tmp/rff24/tree_diff.py` on the pod).
+1. B0 diff: program/manifest digests identical, `construction_version` changes, `model_pin.dtype` stays "bfloat16" (vm.PIN value = engine dtype).
+2. FP8 dtype evidence (the FP8 row's engine config -> `engine_dtype` = "fp8"), CPU only if vLLM allows it.
+3. Gate (b) vs a1's baseline (no new F/E, no new skip reason); gate (a) green.
 4. READY.md; terminate pod.
 
 ## Open questions

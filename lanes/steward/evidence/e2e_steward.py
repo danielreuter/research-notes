@@ -61,6 +61,8 @@ os.utime(root / "lanes" / "dead" / "binding.json", (ago(200).timestamp(),) * 2) 
 notes.bind(root, "blocked", budget="$10")
 wt.mkdir()
 notes.bind(root, "alive", worktree=str(wt))
+(base / "wt-done").mkdir()
+notes.bind(root, "done", worktree=str(base / "wt-done"))
 run("r20260924-100000-aaaa", "poddead00001", ("job.json", "preserved.json"))           # fetched with --all
 run("r20260924-100500-bbbb", "podblocked001", ("job.json",))                          # finished on the pod, never fetched
 
@@ -108,7 +110,9 @@ with glog.open("a") as f:
             "cmd=/x/.venv/bin/python -m research run --on box-alive --project verity --source . --cwd source\n")
     f.write(f"{now:%Y-%m-%dT%H:%M:%S}+00:00 KILLED pid=4243 mem=0.69GB reason=disk floor 3.4GB free cwd=/Users/nobody "
             "cmd=/x/.venv/bin/python -m research data reindex --remote\n")
-print("=== pass 2 (a restarted watcher: two new guardian kills)", flush=True)
+    f.write(f"{now:%Y-%m-%dT%H:%M:%S}+00:00 KILLED pid=4244 mem=1.10GB reason=per-proc cap 1.0GB cwd={base}/wt-done "
+            "cmd=/x/.venv/bin/python -m pytest -q\n")
+print("=== pass 2 (a restarted watcher: three new guardian kills, one under the worktree of the final lane `done`)", flush=True)
 notes.main(args)
 print(f"=== DELETE /pods/<id> calls: {deleted}")
 print(f"=== r2.env loaded (unset vars only): E2E_R2_MARKER={os.environ.get('E2E_R2_MARKER')}")
@@ -116,6 +120,7 @@ print("=== reaper.log\n" + (root / "reaper.log").read_text(), end="")
 print("=== notes repo: " + subprocess.run(["git", "-C", str(root), "log", "--format=%s", "--name-only"], capture_output=True, text=True).stdout)
 print("=== steward-state.json tracked by git: " + str(bool(subprocess.run(["git", "-C", str(root), "ls-files", "steward-state.json"],
                                                                         capture_output=True, text=True).stdout.strip())))
-h = sorted((root / "lanes" / "alive").glob("*handoff-steward-guardian*"))
-print(f"=== {h[0].name}\n{h[0].read_text()}", end="")
-print(notes.render_inbox("alive", notes.inbox(root, "alive")))
+for lane in ("alive", "coordinator"):
+    h = sorted((root / "lanes" / lane).glob("*handoff-steward-guardian*"))
+    print(f"=== lanes/{lane}/{h[0].name}\n{h[0].read_text()}", end="")
+    print(notes.render_inbox(lane, notes.inbox(root, lane)))

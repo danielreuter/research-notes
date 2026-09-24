@@ -26,9 +26,11 @@ created: 2026-09-24T17:40Z
 
 ## Done
 - 17:40Z worktree created.
+- 18:47Z resumed after the 18:02Z Cursor restart: worktree clean at `72884c8a` (no commits yet), no `vyv-rf-f56` pod exists, nothing of this lane running. Gate (b) baseline now in `vllm-rf-a1/baseline.md` (65 failures+errors listed by cause; judge gate (b) as nothing outside that list).
+- Laptop scratch from before the restart: `/tmp/rff56/{r70,r75,tp4match}` (match/commit records of rows #70, #75 and the TP4 match artifact).
 
 ## Running
-- nothing yet
+- nothing
 
 ## Next
 1. Implement D16b (quarantine v2 reading `b1_tp2.allreduce_order`), D16a (one class list), D16c (guard + emit raise), D17 (`check/fa_tap_exactness.py`).

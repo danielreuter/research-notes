@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 1d9c3198 (22:29Z) [open] 22:30Z sp1-128 FINAL d1111579 (A100 raised-query 21.05s, achieved -95.46, art:e8c7c331; pod gone ~$2.10) but missed 2222Z handoff -> resumed for SP1 stock/precompile labels + whole-proof D1 wording; merge after. Verify request at verify-po.
 CHECKPOINT 1d9c3198 (22:25Z) [open] 22:35Z scoreboard re-rendered: T2 A-GKR 4090 FP8 3.0e7x + 5090 NVFP4 1.4e8x (gaps filled, verified), B-Ligero 4090 2.4e6->2.2e6x; run-folder eviction 1.14 GiB (disk 13 GiB); d3-h100 bc-9be44216 launched ($4, FINAL 01:30Z); LANE-CONTRACT 1.3 verity-agents rule; TABLES.md SP1 stock/precompile; sp1-128 told D1 whole-proof wording + labels
 CHECKPOINT 1d9c3198 (22:10Z) [open] 22:12Z merged lane/vllm-rf-a1-rebased bcbec401 --no-ff -> main 1d9c3198 (tests-only, tree == bcbec401), pushed; cli moved; steward kickstarted
 CHECKPOINT none (21:46Z) [open] 21:47Z sweep: evicted 196 R2-verified store blobs (4.79 GiB, log evidence/20260924T2120Z-eviction-log.tsv), disk 10 GiB; 0 run dirs qualified (71 blocked by local-only preserved.json); lanes alive (arith+agkr-fp8 on H100s now); agkr-fp8 4090 cell art:1b4fd4a1 forwarded to verify-po; SP1 D1 field-bound text on lane/sp1-128 0783fe6e, lands at its merge

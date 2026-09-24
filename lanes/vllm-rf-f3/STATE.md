@@ -181,6 +181,13 @@ created: 2026-09-24T17:36Z
 - 22:05-22:07Z head `4fb0eb2c` -> `/workspace/head` (research pods sync). 22:07Z `pod_bootstrap.sh --gpu --cases LLAMA32_1B` ->
   `/workspace/rff3/bootstrap.log` (22:08:28Z checkpoint OK LLAMA32_1B). 22:10Z base worktree on the laptop
   `/Users/danielreuter/projects/verity-wt/rf-f3-base` (detached 72884c8a, clean; remove after) -> `/workspace/basetree` (sync running).
+- **22:28Z #101 HEAD: run root `7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5` == the record's**, `commit_pass`
+  true, exit 0 (build 150 s, match 241 s PASS, commit 250 s PASS, every check PASS). Program `ccc21347…` / manifest `90f81868…` (7043
+  identities) differ from the record's `079ee0a8…` / `368283ad…` (7043): a from-scratch Build cannot give the record's Program (records
+  pre-relayout; f24 STATE: "both trees rebuild program digests different from the records'", 25 vs 27 binding rules) -- the run root
+  covers the committed values only, and they reproduce byte for byte. Base row running (22:28Z), to show base's digests == head's.
+  (Prepared, not needed: `/tmp/rf-f3/g3/rec_commit.sh`, a Commit over the record's own Build/manifest/Match; record row dir relayed
+  to `/workspace/rec/rec101`.)
 - `/workspace/rff3/row101.sh` (started 22:07Z, waits for BOOTSTRAP-OK): `row_pod.sh <#101> LLAMA32_1B unsloth/Llama-3.2-1B 9535bd9b…
   build,match,commit` PAIRS=1, VERITY_(LEAF_)LAYOUT unset, head then base -> `logs/r101_{head,base}.log`, rows
   `/workspace/cp/sweep-{head,base}/<row>/`, summary vs the record in `logs/row101.out`.

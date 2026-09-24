@@ -3,9 +3,10 @@ lane: coordinator
 kind: report
 title: Overnight 2 morning report — two-column Table 2 (bare | in-proof Poseidon2 hash), B-Ligero on the frozen tree 64c00bd
 date: 2026-09-23T12:15Z
-status: final (15:20Z; main = e0cf2cd pushed = 5d88d70 + honing; all lanes done; zero pods except vy-control)
+status: open
 ---
 
+CHECKPOINT 0b0768ed (05:18Z) [open] 05:35Z morning-tables launched: tables-fix, fused-phases, agkr-table, sp1-table, sp1-tcdot; fill-* + verify-night on fused-phases handoff; render 12:30Z
 # Overnight 2 (Sep 23, 05:45Z → 12:15Z) — morning report
 
 User decisions honoured (05:39Z): every target gets two columns — (1) the **bare relation** (`authentication = excluded`) and

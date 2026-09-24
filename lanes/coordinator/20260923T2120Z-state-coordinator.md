@@ -204,3 +204,16 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   confirming its session store is preserved; test_tables.py::test_label_keys_are_the_store_vocabulary fails on main;
   pod health refs for H100/A100/5090 (`research pods health <pod> --record`); torch inter-op threads ignore quota;
   Table 2 selection should refuse contended rows (ops-tools proposal to the tables owner).
+
+## 05:35Z MORNING-TABLES campaign (brief campaigns/morning-tables/BRIEF.md)
+- User 05:25Z: six tables at 14:00Z = frozen T1/T2/T3 (tables.py output only) + drill-downs D1 variants/security, D2 speed per
+  variant x target, D3 comms/verifier. Re-packed instances count as frozen iff decoded x,W,y byte-identical (instance-equiv/v1,
+  labelled by non-producer; footnote). SP1 column = best valid SP1 variant; TC_DOT fork = "modified SP1 (TC_DOT chip)".
+  Hill-climb A-GKR + SP1 on the new infra.
+- Launched 05:35Z: tables-fix 86c551f3 (08:30Z), fused-phases 99ee0f15 (07:45Z; handoff -> launch fill-* + verify-night),
+  agkr-table 97af5ea3, sp1-table b6f1f95d, sp1-tcdot 8bbe4450 (12:00Z). All bound.
+- NEXT on fused-phases handoff: launch fill lanes (ampere+hopper, ada+blackwell) from its tip + verify-night (CPU pod; Rust
+  ligero-verify, gkr verifier, veritor-zk-host verify, instance_equiv re-run; labels --by verify-night). Then 12:30Z: merge
+  post-wave + tables-fix + fused-phases + gkr/sp1 lanes, render T1-3 + D1-3, morning report 14:00Z.
+- wave-5090-2: runs done + Rust re-verified by itself (report); no 5090 pod left; its self-labels do not count (gap A) ->
+  verify-night re-verifies. wave-a100-2 still open on its A100.

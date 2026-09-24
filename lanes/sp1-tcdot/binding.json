@@ -1,0 +1,8 @@
+{
+ "branch": "lane/sp1-tcdot",
+ "brief": "/Users/danielreuter/.research/notes/campaigns/morning-tables/BRIEF.md",
+ "budget": "$12, 1x A100 SXM4 80GB (+4090 dev)",
+ "final": "12:00Z",
+ "pod": "vy-tcdot-a100",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/sp1-tcdot"
+}

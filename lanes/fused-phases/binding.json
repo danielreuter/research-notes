@@ -1,0 +1,8 @@
+{
+ "branch": "lane/fused-phases",
+ "brief": "/Users/danielreuter/.research/notes/campaigns/morning-tables/BRIEF.md",
+ "budget": "$3, 1x 4090",
+ "final": "07:45Z",
+ "pod": "vy-fused-phases",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/fused-phases"
+}

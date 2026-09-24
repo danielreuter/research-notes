@@ -1,0 +1,1 @@
+06:47Z h100 f8b-x4p8-r1 result=art:0cb6c9fd555ced4d00e46452b8da32672754fd1eba7ecc7473986855181b7c39 t.total=0.0798 | H100 sweep r1 fp8-hopper-v3x4 l4096 p8 local

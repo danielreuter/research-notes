@@ -43,8 +43,15 @@ def wrap(mod, name):
     setattr(mod, name, g)
 
 
+import gc, os
+if os.environ.get("GC_FREEZE"):
+    gc.collect()
+    gc.freeze()
+    print(f"gc.freeze(): {gc.get_freeze_count()} objects frozen", flush=True)
+gc.callbacks.append(lambda phase, info: phase == "start" and info["generation"] == 2 and cnt.__setitem__("gc.gen2", cnt["gc.gen2"] + 1))
+
 for mod, names in ((prover, ["add_input_claim", "add_lookup_claim", "add_chain", "prove_segment"]),
-                   (ligero, ["open_w_qc_eval", "open_w_qc", "row_coeffs", "open_set"]),
+                   (ligero, ["open_w_qc_eval", "open_w_qc", "row_coeffs", "open_set", "py_exts"]),
                    (logup_packed, ["prove_range_table_graphed", "prove_ext_table_graphed", "prove_range_table",
                                    "prove_ext_table"])):
     for n in names:

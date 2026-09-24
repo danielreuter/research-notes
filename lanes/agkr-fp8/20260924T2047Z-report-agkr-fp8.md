@@ -39,3 +39,18 @@ bench_result (4090): Python 2/2, Rust 2/2 accept, 2^-130.19, contract clean, t.t
 
 4096 VUs on the 4090 first OOMed in the Ligero opening (a 6.7 GB cupy buffer); 07a8edd6 runs `open_w_qc_eval` in
 row blocks of 4096 on < 40 GB parts (block sums mod p: q unchanged; 80 GB parts keep the one-shot path).
+
+## RTX 4090 FP8 (fp8-ada) cell, recorded 21:21Z
+- `research run --on vy-agkr-fp8 --project verity --source . --stage gkr.gpu.v2.table2.fp8-ada --timeout 2400 --cwd source/backends/gkr
+  --tool a_gpu_prove --scratch triton --env PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True -- /workspace/venv312/bin/python bench_result.py
+  /workspace/agkr-fp8/fp8-ada/stmt --relation fp8-ada --vus 4096 --reps 3 --warmup 1 --verifier /workspace/bin/verity-gkr-verify --threads 16`
+- r20260924-211113-5f9e @ 07a8edd6 (clean): result art:1b4fd4a1, run-files art:89a2ce85; PRESERVED (pod-side push, `data preserved` rc 0);
+  laptop `reindex --remote` ok (5198 artifacts / 1126 attempts / 11208 labels after).
+- t.total median 1.130 s (1.124 / 1.130 / 1.132); buckets (median rep): witness 0.047, commit 0.013, lookup 0.316, arithmetic 0.673
+  (arith 0.370 + open 0.303: acc 0.224, wq 0.079), serialization 0.080. Rust 3/3 accept (0.97 s at 16 threads, EPYC 7702), proofs
+  byte-identical b5ef0238…, 18152824 B. Soundness 2^-130.19 (encoding_opening dominant), NON_ZK_PROOF_DIAGNOSTIC, instances e66ff0f2… (frozen).
+  Warm-up (Triton compile into the fresh scratch cache) 512 s. Overhead vs native peak (330.3 TFLOP/s): 2.97e7x.
+- Table 2 predicate: only `not independently verified` (laptop tables --format json, rejected[]). Handoff:
+  lanes/coordinator/20260924T2129Z-handoff-from-agkr-fp8.md. Negatives tree art:edfbca4d (dev run r20260924-210424-0471, same code).
+- Descriptive strings in this result's fingerprint still say limb epilogue / Params.from_model / 96 units (BF16 text); fixed at 40069d44.
+- 4090 pod tnfwhbryf1mdnr drained + terminated 21:34Z (20:37-21:34, $0.74/h, ~$0.70).

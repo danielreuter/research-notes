@@ -116,13 +116,36 @@ created: 2026-09-24T17:36Z
 - Environment (both pods, venv312): Python 3.12.14, torch 2.13.0+cu129, vLLM 0.28.1rc1.dev472+gd9105ea80.cu129, triton 3.7.1,
   numpy 2.3.5, transformers 5.17.0, safetensors 0.8.0, pytest 9.1.1 (+ xdist 3.8.0 on the CPU pod) = a1's table; GPU driver 595.91.07.
 
-## Running (pod `vyv-rf-f3-veritor-campaign`, RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU, created 19:17Z)
-- 21:10Z gate (a) T0+T1, both `nice`, concurrently, fresh trees, no key on disk/env (`/workspace/rff3/gate_a_t01.sh` = gate_a.sh + TIERS=T0,T1):
-  head `/workspace/head-reg` (= 4fb0eb2c, fresh sync) -> `logs/a_head_t01.*`; base `/workspace/b0-reg` (72884c8a rebuilt from it, 36 blobs ok)
-  -> `logs/a_base_t01.*` (own same-environment base, in case a1's T0+T1 base lands late).
+- **21:35Z D3 GPU A/B DONE: roots unchanged.** SmolLM2 B1 256/32 `row_pod.sh build,match,commit` PAIRS=1 on the L40S, head
+  `4fb0eb2c` and base `72884c8a` trees, VERITY_(LEAF_)LAYOUT unset: both exit 0, `commit_pass` true, run root
+  `cb129578b7846e1f…` at head == at base == known_roots.json smollm2 cc 8.9 (so the R12-era pin still reproduces). Program digest
+  `64033eec…`, manifest digest `e3c2a34d…`, `acquisition_plan.json` (sha `1c2bf930…`), binding map (`chunk-leaf-v1`) identical.
+  `ab_compare.py` (volatile keys normalized): 53 files identical, incl. commit/{verdict, binding_map_p0, layouts_pair0_instrumented,
+  structure_p0, runtime_tree, manifest_verify, acquisition_plan}.json, manifest.json, match/{program, instances, card, gates}.
+  The differing files are all explained: (1) `descriptor_sha256` / source hashes of `program/registry/prims` etc. (D15 edited those
+  sources; the Program digest does not hash them); (2) inputs-trace counts and admission-planner RSS bounds (runtime measurements);
+  (3) `match/{experiment,run}.json` `sampling.seed` null (was 0) -- D14's documented change, no reader but experiment.py's copy;
+  (4) `hidden_gpu.py` resolved at different paths (same bytes `bbcd179c…` everywhere); (5) 6 `match/capture/snapshots.json`
+  entries = `block_table_ptrs` / `{src,dst}_block_table_ptrs` uint64 device pointers (2 middle bytes differ: CUDA allocation
+  addresses), identical metadata. Evidence copied to `evidence/d3_ab/` beside this file (row logs, verdicts, stages, compare output).
+- 21:18Z / 21:38Z **gate (a) T0+T1 OOM, both runs** (exit 137; cgroup 64 GB, `oom_kill 2`): the base died with 2 runs on the pod, the
+  head then alone on the same check. Both after the same 22 results: the 23rd check is `T1-replay_partition-r11`. Cause (as a23b found
+  at 21:10Z): `tests/regression/checks/replay_partition.py` loads a B=1 row's whole Program ("0.9-1.7 GB compressed, 120-250 GB of RAM as
+  Python objects: a big pod"). Not f3's: base and head die at the same check; the check calls `SR.sample(pool, per_stratum, seed)` with the
+  record's seed, which D14 did not touch (D14 removed only `sampled_replay()`'s `seed=0` default).
+  Plan, as f24: T0+T1 on this pod with the two B=1 checks deselected (head + base), and those two on a big cpu3m pod (head; base only
+  if the head does not pass). **a1's T0+T1 base on its 64 GB cpu3g pod will hit the same OOM.**
+
+## Running (pod `vyv-rf-f3-veritor-campaign`, RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU / 64 GB, created 19:17Z)
+- 21:43Z gate (a) T0+T1 minus `--deselect ...test_reproduces[T1-replay_partition-r11]` and `...[T1-replay_partition-r39]`, both `nice`,
+  concurrently, same trees (checked: no file written in them by the killed runs), fresh scratch per tag, no key on disk/env:
+  head `/workspace/head-reg` (4fb0eb2c) -> `logs/a_head_t01d.*`; base `/workspace/b0-reg` (72884c8a) -> `logs/a_base_t01d.*`.
+  Killed runs' logs: `logs/a_{head,base}_t01.*`.
 ## Running (GPU pod `vyv-rf-f3-g2`, RunPod `by47y4tvsavbln`)
-- 21:10Z `/workspace/rff3/row_ab.sh`: SmolLM2 row_pod build,match,commit PAIRS=1, head tree then base tree, VERITY_(LEAF_)LAYOUT unset
-  -> `/workspace/rff3/logs/row_{head,base}.log`, rows `/workspace/cp/sweep-{head,base}/<row>/`, summary `logs/row_ab.out`.
+- 21:36Z `/workspace/rff3/lateread_ab.sh`: the canary's lateread negative (`commit_delta ... --late-read qkv_proj`, canary BASE args)
+  from the head tree, then the base tree -> `logs/lateread_{head,base}.log`, out `/workspace/cp/lateread-{head,base}/`, summary
+  `logs/lateread_ab.out`. Expect roots head == base != known-good, and `acquisition_plan.json` to differ (the D4 behaviour note above).
+  Terminate the GPU pod when it is done (D3 A/B finished; `row_ab.sh` logs in `logs/row_{head,base}.log`).
 
 ## (older) CPU pod notes
 - Trees: `/workspace/base` = `4fb0eb2c` (rsync 20:17Z; only bootstrap ran in it); copies `/workspace/{tgt,ga,gb}` = `9bddf741`.
@@ -131,11 +154,11 @@ created: 2026-09-24T17:36Z
 - Gate (b) final: done (above). `/workspace/base` is now dirty (test_ref_prims rewrote docs/data/ref-prims); `/workspace/b0` = base rebuild (dirty copy).
 
 ## Next
-1. Gate (a) T0+T1: judge head vs my base run (same pod, same env) and vs a1's T0+T1 base when it lands (green = nothing fails and
-   every check that passed at base passes).
-2. D3: compare `/workspace/cp/sweep-{head,base}/<row>/` (stages.txt, build/match summaries, commit/verdict.json run_roots, plan /
-   binding-map / manifest digests); known_roots cc 8.9 `cb129578…` as a secondary reference.
-3. READY.md (draft `/tmp/rf-f3/READY.draft.md` on the laptop) when gates + D3 are in; terminate both pods.
+1. Big pod `vyv-rf-f3-big` (cpu3m x64, 512 GB): sync head, bootstrap --cpu, own key -> prefetch #11/#39 -> delete key; run
+   `T1-replay_partition-r11` and `-r39` at head side by side (as f24). Terminate as soon as they finish.
+2. Gate (a): judge head vs my base (same pod, same env; green = nothing fails and every check that passed at base passes).
+3. Late-read A/B result into READY; terminate the GPU pod.
+4. READY.md (draft `/tmp/rf-f3/READY.draft.md` on the laptop) when gate (a) is in; terminate all pods.
 
 ## Open questions
 - D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.

@@ -7,6 +7,7 @@ Exit 0 when HEAD has no new failure and no new skip against BASE:
   new skip     a test skipped on HEAD that was not skipped on BASE (a test new on HEAD included), or a skip reason
                (paths normalised) that BASE does not have.
 Improvements (failed -> passed, skipped -> passed) and tests only in BASE (deleted) are listed but do not fail.
+Tests in UNSTABLE are listed but never fail the comparison.
 """
 import collections
 import gzip
@@ -15,6 +16,15 @@ import sys
 import xml.etree.ElementTree as ET
 
 BAD = ("failed", "error")
+
+# Their outcome at 72884c8a depends on test order or heap state; baseline.md, "Order-dependent outcomes".
+UNSTABLE = frozenset({
+    "tests.harness.test_admit_r19_host_working_set::test_fork_gc_freeze_opt_out_is_named_on_the_record",
+    "tests.harness.test_admit_r19_host_working_set::"
+    "test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins",
+    "tests.observe.test_observer_encoding::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation",
+    "tests.program.test_lifted_tiny::test_specified_list_is_closed",
+})
 
 
 def outcomes(path):
@@ -39,7 +49,7 @@ def outcomes(path):
 
 
 def norm(reason):
-    return re.sub(r"/[\w./-]+", "<path>", reason)[:160]
+    return re.sub(r"\s+", " ", re.sub(r"/[\w./-]+", "<path>", reason))[:160]
 
 
 def main():
@@ -67,11 +77,12 @@ def main():
     changed = sorted(t for t in set(a) & set(b) if a[t] != b[t])
     print(f"outcome changed: {len(changed)}")
     for t in changed:
-        print(f"  ~ {t}: {a[t]} -> {b[t]}  [{norm(rb[t] or ra[t])}]")
-    new_fail = sorted(t for t in b if b[t] in BAD and a.get(t) not in BAD)
-    new_skip = sorted(t for t in b if b[t] == "skipped" and a.get(t) != "skipped")
+        mark = "  (order-dependent at base; not counted)" if t in UNSTABLE else ""
+        print(f"  ~ {t}: {a[t]} -> {b[t]}  [{norm(rb[t] or ra[t])}]{mark}")
+    new_fail = sorted(t for t in b if b[t] in BAD and a.get(t) not in BAD and t not in UNSTABLE)
+    new_skip = sorted(t for t in b if b[t] == "skipped" and a.get(t) != "skipped" and t not in UNSTABLE)
     sa = collections.Counter(norm(ra[t]) for t in a if a[t] == "skipped")
-    sb = collections.Counter(norm(rb[t]) for t in b if b[t] == "skipped")
+    sb = collections.Counter(norm(rb[t]) for t in b if b[t] == "skipped" and t not in UNSTABLE)
     new_reasons = sorted(set(sb) - set(sa))
     print(f"new failures on head: {len(new_fail)}")
     for t in new_fail:

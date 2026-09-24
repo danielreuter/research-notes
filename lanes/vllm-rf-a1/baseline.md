@@ -30,7 +30,8 @@ To compare a run with this baseline, use the JUnit XML of both base gate (b) run
 `python3 baseline-jdiff.py baseline-gate_b-serial.xml.gz RUN.xml`, using the xdist file for an xdist run.
 
 The script lists tests that are only on one side, outcome changes, new failures and new skips. It exits 0 when there is
-no new failure and no new skip. Fixes and deleted tests are listed without failing the check. Add
+no new failure and no new skip. Fixes and deleted tests are listed without failing the check, and so are the four
+order-dependent tests of the serial section: the script's `UNSTABLE` set marks them "not counted". Add
 `--ignore-prefix tests.lint.` to shorten the listing of new test files.
 
 ## Commit
@@ -245,8 +246,9 @@ test files ran earlier in the same process:
 - `program/test_lifted_tiny.py::test_specified_list_is_closed` fails serially and passes under xdist. It walks the
   process-global `REGISTRY`. In serial order, an earlier file has registered `Lifted[GatherBf16x49152_v1]_v2{ORD=3}`,
   and its `{ORD=3}` suffix misses the test's `endswith("_v2")` branch.
-- `observe/test_observer_encoding.py::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation` passes serially
-  and skips under xdist ("allocator did not reuse the pointer").
+- `observe/test_observer_encoding.py::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation` passed in this
+  serial run and skipped under xdist ("allocator did not reuse the pointer"). It skips whenever the allocator does
+  not reuse the freed pointer, which varies between runs: run alone on the pod, it skipped in 2 of 4 runs.
 
 Skip reasons, grouped (297 skips, 50 distinct reasons):
 

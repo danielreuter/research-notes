@@ -133,6 +133,11 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   the rerun at staging 2c8aa2b3 crashed on stale relayout imports (fixed f16703a2). Rerun r20260924-102613-0196 launched 10:26Z;
   ~1h40m => PASS ETA ~12:05Z, preserve + drain by ~12:20Z. Slips past 12:30Z if pair 0 runs >90 min.
   11:25Z update: pair 0 finished clean in ~58 min (replay 38,748/38,748); on track for ~12:05Z.
+- CHECKPOINT 67-pass AT-RISK 11:55Z -- slips ~15 min: pairs 1-2 do NOT reuse pair 0's replay ("replay cache: pair 1 key differs from
+  pair 0's in ['binding_map_sha256']: own replay"; on #57 pairs 1-2 reused), so each re-runs the ~25 min sampled replay. Pair 1
+  (binding 11:27) ends ~12:00Z, pair 2 ~12:33Z => verdict ~12:35Z, preserved + vyv-sw-67b drained ~12:45Z. Everything so far is
+  clean (pair 0 all checks OK; pair 1 coverage 406,220 OK, C2 16,120 equal). Not interrupting the run; no cheaper path to a
+  3-pair verdict.
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)
   now compares 159,840 (equal 159,408, incl. all 44,928 fused-norm narrowings) but MISMATCHES the 432 `model/out`. The Commit hooks

@@ -42,3 +42,15 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
 * `python -m verity_numerical.bench.summary ...` shows a `contended` column. `--best` keeps the fastest non-contended, non-failed
   row per config and names each refused row. `vs_ref` / `ref` / `flag slow-vs-ref` (more than 15 % slower) compare a row with
   the fastest preserved (R2) store result of the same relation, gpu, auth, l, pipe, VUs, zk and mode. `--no-refs` skips the lookup.
+
+## Catalog wipes and rendering on a pod (verify-night, 2026-09-24)
+* `research data reindex` (`Index.rebuild`) empties the catalog tables first and refills them in stages, so an interrupted
+  reindex leaves a catalog with few artifacts and 0 attempts/labels. Table 2 then renders silently wrong, and `research data
+  evict` finds nothing to evict. Two causes were seen: a concurrent `research data preserved` holding the SQLite lock, and the
+  guardian killing reindex once laptop free disk falls under its 3.5 GB floor (`~/.veritor/mem_guardian.log`).
+* To render when the laptop can't reindex, copy the laptop's `manifests/ attempts/ labels/` to the pod store. Run
+  `COPYFILE_DISABLE=1 tar`, or delete macOS `._*` files on the pod afterwards, because they double the counts. Then run
+  `research data labels-sync --pull-only` and `reindex --remote` there, which fetches only what the pod lacks (about 5 min).
+  Script: `lanes/verify-night/evidence/pod-scripts/21-pod-render.sh`.
+* `reverify.py` on runner-attempt results reads `attempts/`. A `mint-credential` scoped to objects/manifests/labels fails with
+  HTTP 403, so add `--prefix attempts/`.

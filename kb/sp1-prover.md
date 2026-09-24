@@ -30,7 +30,19 @@ v6.4.0 source (`f66b4bff5`).
 - Reproducibility: compare `vk_hash`, not the guest ELF's sha256. The vk hashes only the loaded program image, so an
   independent build can differ in debug-info paths and still give the same vk (verify-night `art:4bfc9e7e…` on
   `art:90671b80…`). To make the ELF reproduce too, `--remap-path-prefix` every checkout path that reaches the guest,
-  including a path-patched SP1 fork's canonical path.
+  including a path-patched SP1 fork's canonical path. To tell whether two ELFs are the same program, compare the loaded
+  sections (.rodata, .eh_frame, .text, .data at the offsets `readelf -S` gives), not the whole file.
+- **The vk does not pin the constraint system.** TC_DOT's memory arm and witness arm (patch 0007, a different AIR) share vk
+  0x00b4876f… for the same ELF. The memory-arm host rejects witness-arm proofs ("invalid shape of proof"). So a
+  verification must name the fork commit it was built at. The `fork_head` that the tcdot host's `info` prints is
+  `VERITY_TCDOT_FORK_HEAD` at build time: a label, not proof of what was compiled. (verify-night verdicts on
+  `art:174d7b4d…` and `art:a68f2446…`.)
+- **Open (verify-night, 2026-09-24 10:20Z):** a fresh CPU build of the 6655716e witness host (97b5b60a, fork tree
+  4ca5a6ca, stream-operands) gives vk 0x009f022f… with a guest image identical to the 0x00896ef4 build. The producer
+  recorded 0x00896ef4 for `art:0a66c35e…`, and my host rejects those proofs ("global cumulative sum is not zero"). Until
+  someone reproduces a result's vk from a fresh build, do not treat it as verified.
+- The stock host's `veritor-zk-host verify` exits 0 even when it rejects. Accept a proof only if its JSON line has `ok`,
+  `statement_match` and `verdict` true and `unsound` false. (`verity_sp1/host.py` already reads the JSON.)
 
 ## Sharding
 - `local_gpu_opts()` (`sp1-gpu/crates/prover_components/src/builder.rs`) hard-sets

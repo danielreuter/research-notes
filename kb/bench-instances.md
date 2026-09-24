@@ -31,3 +31,8 @@ non-producer labels the file `verified=accepted`). The md render prints only the
 * To see a relation's ref before spending pod time: `relchain.instances_ref(relations.RELATIONS[name], 4096)` (the block
   bench-vu writes; imports torch, so on a pod);
   `lanes/fused-phases/evidence/pod-scripts/10-equiv.sh` prints it for every relation next to `tables.FROZEN_INSTANCES`.
+* To check that a dumped statement binds to the frozen set, use `lanes/verify-night/evidence/pod-scripts/08-stmt-binding.py`.
+  It compares public y words, and operand words where the statement carries them, with the set drawn by your tree. For the
+  A100 (vu-k1536) that needs the x/W arrays, which are not committed. `bench.instances build` rewrites `manifest.json`, so
+  build into a scratch dir and symlink the `.u16` arrays into `fixtures/bench-instances/v1`. That is what `17-bench-instances.sh`
+  does, and what pod_bootstrap's `BENCH_INSTANCES` stage does. The built arrays must match the committed manifest's sha256.

@@ -29,6 +29,61 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - Credential: minted on the laptop per request (short ttl, prefixes objects/ manifests/ labels/ attempts/), piped into
   /root/r2.env on the pod, deleted after the request.
 
+- A-GKR: `verity-gkr-verify` built and `cargo test`ed on my pod, from main or, when main cannot read the statement, from
+  the producer's named commit (git archive, diff reviewed). Statement files are regenerated with the source that builds
+  them and compared byte for byte. public.bin is checked against the frozen set drawn by MY tree (main). Negatives: the
+  producer's, my own public-word edits, and `mutate --sample N`. Labelled by `evidence/pod-scripts/11-label.py` on the pod
+  (verification-verdict/v1 with the evidence files as payload, refs result + proof, preserved; verified / verifier /
+  verifier_seconds (the slowest proof) / note / same_device=false; labels-sync --push-only).
+
 ## Requests
+| # | from | result(s) | cell | verdict | verdict art |
+|---|---|---|---|---|---|
+| 1 | launch msg (arith step 1, 9d1a7f15) | art:7775888d art:1523b35c art:021aeabb | RTX 4090 FP8, B-Ligero | accepted x3 | art:7dae93fd art:9a59e106 art:4ecc7aee |
+| 2 | `20260924T2140Z-handoff-from-arith.md` (step 5, 92dab0ad) | art:def461c7 art:bb75ba4f art:d2b01b3f art:f3978133 | RTX 4090 FP8, B-Ligero | accepted x4 | art:00dabdc8 art:11c4595f art:6a6c101b art:1ca0fbef |
+| 3 | `20260924T2129Z-handoff-from-agkr-fp8.md` | art:1b4fd4a1 | RTX 4090 FP8, A-GKR (new cell) | accepted | art:a40f5576 |
+| 4 | `20260924T2200Z-handoff-from-agkr-nvf4.md` | art:fe57e68b | RTX 5090 NVFP4, A-GKR (new cell) | accepted (verifier from 3c769c6d, needs merge) | art:acf87c5c |
+
+### 1-2. arith 4090 FP8 B-Ligero (7 results)
+- reverify run r20260924-215206-fe12: all 7 PASS (custody 40/40, pinned fp8-ada-v3x4, 13/13 proofs, 2^-128.33, ligero-verify
+  sha256 d89cffc7b759e1f5 from main; the same hash verify-night and arith got, the crate is unchanged). Statement binding
+  (04): all 7 BOUND (13 statements, 4096 VUs, 0 y words and 0 operand VUs differ from my tree's frozen fp8-ada set).
+- Arith named no negatives. My own (05, run r20260924-220116-78b9), on the dumped rep1 of art:dc7c1488 (step 1) and of
+  art:feb4501f (step 5), both trees giving the same results. The unmodified rep is accepted (13/13, 2^-128.33). Each change
+  is rejected: one proof byte flipped ("merkle path 192 invalid"), one statement byte flipped in the chain-end words
+  ("column challenge mismatch"), and the statements of sub-batches 0 and 1 swapped (2 rejected).
+- Arith's step-1 and step-5 prover changes touch only `tests_fused.py` and the pipeline slots, not the proof format.
+- Custody: all 7 verdicts `data preserved` rc 0 (sha256-readback).
+
+### 3. agkr-fp8 A-GKR RTX 4090 FP8 art:1b4fd4a1 (run r20260924-215649-a2c4)
+- Verifier: main ab9573fd `backends/gkr/verifier`, 8/8 tests, sha256 a48eac01714ecf3c. That differs from verify-night's
+  ee899383 build of the same source; different pod and toolchain.
+- 3/3 proofs accepted (sha256 b5ef0238 for all three). The counts are the producer's expected ones: 196608 units, 48 steps,
+  2881 slots, 9547 msgs, 18152824 bytes, 22730 rows and 93101755 elements. Each proof takes 1.41-1.81 s.
+- Statement: main has no E4M3 builder, so I ran 07a8edd6's `gpu.v2.export circuits --model ada_e4m3_m16n8k32` on my pod.
+  circuit, epilogue and chain are byte-identical and the manifest params are equal. public.bin equals
+  `fp8.relation.pack_public` of my tree's frozen fp8-ada final words, with 0 mismatches.
+- Negatives, all rejected: `mutate --sample 64` (356/356); my VU-17 word +1; the producer's word_plus, word_minus, sign_flip
+  and exp_plus (art:edfbca4d, whose honest case is accepted), all run with my binary.
+- Coordinator handoff: `lanes/coordinator/20260924T2206Z-handoff-from-verify-po-4090-agkr.md`.
+
+### 4. agkr-nvf4 A-GKR RTX 5090 NVFP4 art:fe57e68b (run r20260924-220116-78b9)
+- The verifier diff (`git diff ab9573fd 3c769c6d -- backends/gkr/verifier`, +30/-13) is reviewed and sound. An optional
+  `public <epi cols>` line is added to chain.txt, defaulting to `y16`, so old statements take the old path. Public word i
+  gets coefficient `chain_v[i/npub]*chain_k[per_vu-npub+i%npub]` in both the functional (epilogue segment) and the claimed
+  b, so the two sides match. `constraints_per_vu` and the shape checks follow npub. The non-v2 path still requires one word
+  per VU. The chain text, including the `public` line, is already hashed into spec_hash.
+- Built from 3c769c6d on my pod: 8/8 tests, sha256 f271e4221a7520d4. Regression: it accepts the FP8 y16 statement
+  art:89a2ce85.
+- 3/3 proofs accepted (98304 units, 24 steps, 4236 slots, 14418 msgs, 8537632 bytes), 0.60-0.85 s each.
+- Statement: 3c769c6d's `gpu.nvf4.circuit export` on my pod gives byte-identical circuit, epilogue and chain (`public s t f`)
+  and an identical manifest. public.bin (4096 x 3) equals (sign, exponent field, fraction) of main's
+  `fp4/chain.instances_fp4(4096)` final words, with 0 rows mismatched. Digest d2d65f65… equals the one the result records.
+- Negatives, all rejected: `mutate --sample 24` (148/148); my s flip, t+1 and f+1 (on different VUs); the public line
+  reordered; the public line removed (verifier panics "circuit has no column y16", rc 101).
 
 ## Log
+- 21:17Z pod created; 21:27Z synced (494 s); 21:30Z bootstrapped (only the GPU stage failed, as expected on a CPU pod).
+- 21:35Z first reverify stalled in the pod-catalog `reindex --remote` (~150 manifests/min). I killed it at 21:51Z and
+  relaunched with full art ids (get_manifest / get_attempt / fetch fall back to the remote); 03-reverify.sh keeps REINDEX=1
+  as an option.

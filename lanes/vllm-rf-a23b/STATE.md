@@ -45,6 +45,14 @@ created: 2026-09-24T19:30Z
 - 20:40Z a_lane (T0 only, 6da1b430) killed by pid (2172, 3343, 3923) after the 20:33Z tiers note. Head tree `/workspace/a23b/head` = cp /workspace/base + `deleted4.txt` rm + `lane4.patch` (`git diff -M --binary --diff-filter=d 72884c8a 4e26d864`); write-tree `a8917dce` = 4e26d864^{tree}, 2791 files; .git moved to `head.git`; copy `head-reg`.
 - **20:42:33Z gate (a) T0+T1 at 4e26d864:** `cd /workspace/a23b && setsid nohup nice ./gate_a_t01.sh /workspace/a23b/head-reg a_head_t01` -> pid 4531 (sid 4531); logs `a_head_t01.{log,xml,env,run}`; script copy `gate_a.sh` beside this note. Store already holds every row's fixtures (20:23Z prefetch); no key on the pod.
 - **20:43:00Z gate (b) at 4e26d864:** `cd /workspace/a23b && OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/a23b/head b_head_x12 -n 12 --dist loadfile` -> gate_b.sh pid 4650 (sid 4650), pytest pid 4659; logs `b_head_x12.{log,xml,env,rss,run}`. b_lane_x12 (6da1b430) left to finish as extra evidence. Compare: `/workspace/venv312/bin/python /workspace/a23b/cmp.py /workspace/a23b/logs/b_head_x12.xml /workspace/a23b/baseline.md`.
+- 20:50:27Z b_lane_x12 (6da1b430) done: 52 F, 11 E, 3477 passed, 287 skipped, 6 xfailed (2060 s). a1's jdiff vs base xdist: 0 new skips, 4 new failures:
+  (1) `test_source_identity::test_shipped_tree_{takes_its_sha_from_research_source_sha,still_refuses_a_foreign_package}` = MINE (the stub shipped tree lacked `verity_vllm/config.py`, which source_identity now imports) -> fixed in **`748d71c5`** (test stub copies config.py; the file then shows only the 4 base-list no-.git failures);
+  (2) the gc-freeze pair in `test_admit_r19_host_working_set` (baseline's order-dependent list): on THIS pod they fail at base too, even with the file alone (`assert 375 == 0`, `assert False`), so host/order, not the lane.
+  6 base failures pass here (CPU-host numerics: this pod is AMD EPYC 7702P, no AVX512; a1's differed).
+- **20:56:02Z OOM:** cgroup hit 64 GB (my ad-hoc test_execution_label runs beside two gates) and the kernel killed gate (a) a_head_t01 (exit 137). Rule: only gate (a) + ONE gate (b) at a time; no ad-hoc vLLM runs beside them.
+- head2 tree at `748d71c5`: `/workspace/a23b/head2` (write-tree `1158eb69` = 748d71c5^{tree}, 2791 files; .git in `head2.git`), copy `head2-reg`.
+- **20:57:30Z gate (a) T0+T1 at 748d71c5:** `setsid nohup nice ./gate_a_t01.sh /workspace/a23b/head2-reg a_head2_t01` -> pid 8110; logs `a_head2_t01.{log,xml,env,run}`.
+- Next: when b_head_x12 (4e26d864) exits, start gate (b) at 748d71c5: `OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/a23b/head2 b_head2_x12 -n 12 --dist loadfile`; then (if time) a same-pod base xdist run for host-numerics classification, only after b_head2 finishes.
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

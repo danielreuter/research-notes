@@ -1,0 +1,26 @@
+ELEMENT_THRESHOLD=1178599424
+MINIMAL_TRACE_CHUNK_THRESHOLD=2500000
+FAILED rc=101
+thread 'main' (173623) panicked at sp1/crates/sdk/src/cuda/builder.rs:119:48:
+Failed to create the CUDA prover impl: CudaClientError: Connect(Os { code: 2, kind: NotFound, message: "No such file or directory" })
+Context: "Could not connect to `sp1-gpu-server` socket"
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+ELEMENT_THRESHOLD=2348810240
+MINIMAL_TRACE_CHUNK_THRESHOLD=2500000
+cycles 862658
+rep 0 prove 6.943 shards 5 bytes 7202244 accepted True
+rep 1 prove 5.179 shards 5 bytes 7202244 accepted True
+proof_01m39cvs6pe6sawwabpe9esn13: span 6.60s executor 0.300692765s shards 5
+  +  1.34s .. +  1.60s ( 0.26s) cells 28582528 TcDotBf16 rows 0 | Global 241x99840, MemoryGlobalFinalize 30x89824, Byte 6x65536
+  +  2.49s .. +  2.88s ( 0.39s) cells 69044352 TcDotBf16 rows 0 | Global 241x189504, SyscallInstrs 65x176672, SyscallCore 10x176576
+  +  2.82s .. +  3.30s ( 0.48s) cells 89714912 TcDotBf16 rows 0 | Global 241x233408, SyscallInstrs 65x216928, SyscallCore 10x216608
+  +  4.32s .. +  5.80s ( 1.48s) cells 247954208 TcDotBf16 rows 172416 | TcDotBf16 1173x172416, Global 241x176032, SyscallPrecompile 10x172416
+  +  5.76s .. +  6.60s ( 0.85s) cells 317010560 TcDotBf16 rows 220736 | TcDotBf16 1173x220736, Global 241x225344, SyscallPrecompile 10x220736
+proof_01m39cw098f0hsjpyw4wwg6cap: span 4.85s executor 0.309516641s shards 5
+  +  1.22s .. +  1.48s ( 0.26s) cells 28582528 TcDotBf16 rows 0 | Global 241x99840, MemoryGlobalFinalize 30x89824, Byte 6x65536
+  +  2.43s .. +  2.78s ( 0.35s) cells 89714912 TcDotBf16 rows 0 | Global 241x233408, SyscallInstrs 65x216928, SyscallCore 10x216608
+  +  2.72s .. +  3.05s ( 0.33s) cells 69044352 TcDotBf16 rows 0 | Global 241x189504, SyscallInstrs 65x176672, SyscallCore 10x176576
+  +  3.54s .. +  4.16s ( 0.62s) cells 247954208 TcDotBf16 rows 172416 | TcDotBf16 1173x172416, Global 241x176032, SyscallPrecompile 10x172416
+  +  4.11s .. +  4.85s ( 0.74s) cells 317010560 TcDotBf16 rows 220736 | TcDotBf16 1173x220736, Global 241x225344, SyscallPrecompile 10x220736
+=== screen done

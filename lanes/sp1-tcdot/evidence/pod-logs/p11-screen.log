@@ -1,0 +1,47 @@
+ELEMENT_THRESHOLD=503316480
+MINIMAL_TRACE_CHUNK_THRESHOLD=2500000
+cycles 862658
+rep 0 prove 5.011 shards 8 bytes 11350319 accepted True
+rep 1 prove 4.899 shards 8 bytes 11350319 accepted True
+proof_01m39bd41tfxhr5m8z2vkewpac: span 4.69s executor 0.307640271s shards 8
+  +  1.08s .. +  1.30s ( 0.22s) cells 28582528 TcDotBf16 rows 0 | Global 241x99840, MemoryGlobalFinalize 30x89824, Byte 6x65536
+  +  2.09s .. +  2.46s ( 0.36s) cells 69044352 TcDotBf16 rows 0 | Global 241x189504, SyscallInstrs 65x176672, SyscallCore 10x176576
+  +  2.40s .. +  2.79s ( 0.39s) cells 89714912 TcDotBf16 rows 0 | Global 241x233408, SyscallInstrs 65x216928, SyscallCore 10x216608
+  +  2.73s .. +  3.19s ( 0.45s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  3.14s .. +  3.59s ( 0.45s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  3.53s .. +  3.98s ( 0.45s) cells 122221920 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86208, SyscallPrecompile 10x84448
+  +  3.93s .. +  4.37s ( 0.44s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  4.31s .. +  4.69s ( 0.38s) cells 80656032 TcDotBf16 rows 55360 | TcDotBf16 1173x55360, Global 241x56544, SyscallPrecompile 10x55360
+proof_01m39bd9drek08fbqw80z8hhfp: span 4.60s executor 0.308537789s shards 8
+  +  1.08s .. +  1.32s ( 0.25s) cells 28582528 TcDotBf16 rows 0 | Global 241x99840, MemoryGlobalFinalize 30x89824, Byte 6x65536
+  +  2.10s .. +  2.48s ( 0.38s) cells 69044352 TcDotBf16 rows 0 | Global 241x189504, SyscallInstrs 65x176672, SyscallCore 10x176576
+  +  2.37s .. +  2.71s ( 0.33s) cells 89714912 TcDotBf16 rows 0 | Global 241x233408, SyscallInstrs 65x216928, SyscallCore 10x216608
+  +  2.65s .. +  3.10s ( 0.46s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  3.05s .. +  3.50s ( 0.45s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  3.44s .. +  3.88s ( 0.44s) cells 122221920 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86208, SyscallPrecompile 10x84448
+  +  3.83s .. +  4.28s ( 0.45s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  4.22s .. +  4.60s ( 0.38s) cells 80656032 TcDotBf16 rows 55360 | TcDotBf16 1173x55360, Global 241x56544, SyscallPrecompile 10x55360
+ELEMENT_THRESHOLD=503316480
+MINIMAL_TRACE_CHUNK_THRESHOLD=2500000
+cycles 862658
+rep 0 prove 5.047 shards 8 bytes 11350319 accepted True
+rep 1 prove 4.878 shards 8 bytes 11350319 accepted True
+proof_01m39be2t1f59v40eh4bnrc0nx: span 4.73s executor 0.307006694s shards 8
+  +  1.10s .. +  1.32s ( 0.22s) cells 28582528 TcDotBf16 rows 0 | Global 241x99840, MemoryGlobalFinalize 30x89824, Byte 6x65536
+  +  2.15s .. +  2.48s ( 0.33s) cells 69044352 TcDotBf16 rows 0 | Global 241x189504, SyscallInstrs 65x176672, SyscallCore 10x176576
+  +  2.44s .. +  2.85s ( 0.41s) cells 89714912 TcDotBf16 rows 0 | Global 241x233408, SyscallInstrs 65x216928, SyscallCore 10x216608
+  +  2.79s .. +  3.24s ( 0.45s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  3.18s .. +  3.63s ( 0.44s) cells 122221920 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86208, SyscallPrecompile 10x84448
+  +  3.57s .. +  4.01s ( 0.44s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  3.96s .. +  4.41s ( 0.45s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  4.35s .. +  4.73s ( 0.39s) cells 80656032 TcDotBf16 rows 55360 | TcDotBf16 1173x55360, Global 241x56544, SyscallPrecompile 10x55360
+proof_01m39be872ebhsjtgpbhpm7w81: span 4.59s executor 0.307725012s shards 8
+  +  1.06s .. +  1.30s ( 0.25s) cells 28582528 TcDotBf16 rows 0 | Global 241x99840, MemoryGlobalFinalize 30x89824, Byte 6x65536
+  +  2.09s .. +  2.40s ( 0.31s) cells 69044352 TcDotBf16 rows 0 | Global 241x189504, SyscallInstrs 65x176672, SyscallCore 10x176576
+  +  2.36s .. +  2.69s ( 0.33s) cells 89714912 TcDotBf16 rows 0 | Global 241x233408, SyscallInstrs 65x216928, SyscallCore 10x216608
+  +  2.63s .. +  3.07s ( 0.44s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  3.02s .. +  3.47s ( 0.45s) cells 122221920 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86208, SyscallPrecompile 10x84448
+  +  3.41s .. +  3.86s ( 0.45s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  3.83s .. +  4.27s ( 0.44s) cells 122229632 TcDotBf16 rows 84448 | TcDotBf16 1173x84448, Global 241x86240, SyscallPrecompile 10x84448
+  +  4.21s .. +  4.59s ( 0.38s) cells 80656032 TcDotBf16 rows 55360 | TcDotBf16 1173x55360, Global 241x56544, SyscallPrecompile 10x55360
+=== screen done

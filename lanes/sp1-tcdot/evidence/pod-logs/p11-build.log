@@ -1,0 +1,42 @@
+
+=== [09:14:28] fork 0e00bd15 + p11/bf16.rs
+ .../machine/src/syscall/precompiles/tc_dot/bf16.rs | 46 ++++++++++++++++++----
+ 1 file changed, 38 insertions(+), 8 deletions(-)
+
+=== [09:14:28] chip tests (fp8 + bf16)
+test syscall::precompiles::tc_dot::tests::test_tc_dot_bf16_reference_values ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_negative_soundness ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_bf16_negative_soundness ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_bf16_prove_core ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_prove_core ... ok
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 60 filtered out; finished in 27.66s
+
+=== [09:15:34] commit patch 0011
+fork 6655716e5e4fe1fab4c238e5261d15f433b3b31c tree 4ca5a6caf4dfef2979231537a141ff1bace040a3
+0011-TC_DOT_BF16-generate-the-trace-in-parallel-count-byt.patch
+
+=== [09:15:34] sp1-gpu-server -> home-par/.sp1/bin
+  Installing /workspace/sp1-tcdot/home-par/.sp1/bin/sp1-gpu-server
+   Installed package `sp1-gpu-server v6.4.0 (/workspace/sp1-tcdot/sp1-bf16/sp1-gpu/crates/server)` (executable `sp1-gpu-server`)
+warning: be sure to add `/workspace/sp1-tcdot/home-par/.sp1/bin` to your PATH to be able to run the installed binaries
+54b82219502a56a9b45ff41c07647ab030c7125e75e121d7cc7d1f78a0074519  /workspace/sp1-tcdot/home-par/.sp1/bin/sp1-gpu-server
+
+=== [09:16:52] host (cuda, stream-operands) at 6655716e5e4fe1fab4c238e5261d15f433b3b31c
+   Compiling sp1-cuda v6.4.0 (/workspace/sp1-tcdot/src/backends/sp1/tcdot/sp1/crates/cuda)
+   Compiling sp1-sdk v6.4.0 (/workspace/sp1-tcdot/src/backends/sp1/tcdot/sp1/crates/sdk)
+    Finished `release` profile [optimized] target(s) in 1m 28s
+3495b8b69f5550ec7f47fbe9849375dfec6bf07b9cc476b24429fc2a541dd2d8  /workspace/sp1-tcdot/target-tcdot/release/verity-tcdot-host
+
+=== [09:18:21] info
+{"backend":"sp1 tc-dot","elf_sha256":"525841da8ba0c8f84156d308497fe78c49644044d2d30cadff2a1400277ae600","fork_head":"6655716e5e4fe1fab4c238e5261d15f433b3b31c","formats":["bf16-ampere"],"guest_features":["relation-bare"],"label":"modified SP1 (TC_DOT chip)","operands":"stream","public_values_len":33,"sp1_version":"6.4.0","statement":"relation-bare/v2","vk_hash":"0x00896ef46d917e41bd6f29ef3f4504676f1bccffe2c10936a150113a9ca49384"}
+
+=== [09:18:48] bare-execute 0..4096
+{"verdict": true, "matches_expected": true, "total_cycles": 862658, "statement_sha256": "5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb", "routing": {"chip_steps": 393152, "software_steps": 64, "software_vus": 0, "contract_violations": {"overflow_g1": 42, "overflow_g2": 22}, "vus_by_violations": {"0": 4032, "1": 64}, "rejected_vus": 0, "kernel_mismatches": 0}}
+
+=== [09:18:49] bare-execute --flip-y 7 on 0..64
+{"verdict": false, "matches_expected": true, "flipped": 7}
+
+=== [09:18:50] bare-negatives
+{"backend":"sp1 tc-dot","claimed_rejected":52,"correct_accepted":44,"event":"summary","in_domain":44,"negatives":52,"ok":true}
+
+=== [09:18:53] done

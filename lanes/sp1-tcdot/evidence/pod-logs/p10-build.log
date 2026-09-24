@@ -1,0 +1,81 @@
+
+=== [09:00:00] fork 6096d886 + p10 files
+ crates/core/executor/src/tc_dot.rs                 |  49 ++++---
+ .../machine/src/syscall/precompiles/tc_dot/air.rs  | 144 ++++++++++++++++-----
+ .../machine/src/syscall/precompiles/tc_dot/bf16.rs |  23 +++-
+ .../src/syscall/precompiles/tc_dot/columns.rs      |  15 +++
+ .../machine/src/syscall/precompiles/tc_dot/mod.rs  |  69 ++++++++--
+ .../src/syscall/precompiles/tc_dot/trace.rs        |  60 +++++++--
+ 6 files changed, 288 insertions(+), 72 deletions(-)
+
+=== [09:00:00] executor unit tests (tc_dot)
+test tc_dot::tests::accumulator_chaining_rerounds ... ok
+test tc_dot::tests::exact_cancellation ... ok
+test tc_dot::tests::no_round_to_nearest ... ok
+test tc_dot::tests::ones_dot ... ok
+test tc_dot::tests::products_stay_unnormalized ... ok
+test tc_dot::tests::subnormal_products_exact ... ok
+test tc_dot::tests::truncation_kills_small_terms_against_big_accumulator ... ok
+test tc_dot::tests::two_stage_group_structure ... ok
+test tc_dot::tests::zero_cases ... ok
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.00s
+
+=== [09:00:05] regenerate cost/complexity artifacts
+test riscv::tests::write_core_air_complexity ... ok
+test riscv::tests::write_core_air_costs ... ok
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 63 filtered out; finished in 0.47s
+rv64im_costs.json {'TcDot': 1086, 'TcDotUser': 1134, 'TcDotBf16': 1173, 'TcDotBf16User': 1197}
+rv64im_complexity.json {'TcDot': 1158, 'TcDotUser': 1241, 'TcDotBf16': 1229, 'TcDotBf16User': 1270}
+ .../executor/src/artifacts/rv64im_complexity.json  |   4 +-
+ .../core/executor/src/artifacts/rv64im_costs.json  |   4 +-
+ crates/core/executor/src/tc_dot.rs                 |  49 ++++---
+ .../machine/src/syscall/precompiles/tc_dot/air.rs  | 144 ++++++++++++++++-----
+ .../machine/src/syscall/precompiles/tc_dot/bf16.rs |  23 +++-
+ .../src/syscall/precompiles/tc_dot/columns.rs      |  15 +++
+ .../machine/src/syscall/precompiles/tc_dot/mod.rs  |  69 ++++++++--
+ .../src/syscall/precompiles/tc_dot/trace.rs        |  60 +++++++--
+ 8 files changed, 292 insertions(+), 76 deletions(-)
+
+=== [09:01:02] chip tests (fp8 + bf16, incl. consistency)
+test riscv::tests::test_maximum_cycle ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_bf16_reference_values ... ok
+test riscv::tests::core_air_complexity_consistency ... ok
+test riscv::tests::test_maximum_padding ... ok
+test riscv::tests::core_air_cost_consistency ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_negative_soundness ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_bf16_negative_soundness ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_prove_core ... ok
+test syscall::precompiles::tc_dot::tests::test_tc_dot_bf16_prove_core ... ok
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 56 filtered out; finished in 27.96s
+
+=== [09:02:26] commit patch 0010
+fork 0e00bd154761e14f11df511c1d27947f0b170fc0 tree fe0715de0adf4240249d22bdb8a4e00dfcb98c91
+0010-TC_DOT_BF16-constrain-subnormal-GroupSum-outputs.patch
+
+=== [09:02:26] sp1-gpu-server -> home-sub/.sp1/bin
+warning: the following packages contain code that will be rejected by a future version of Rust: proc-macro-error2 v2.0.1
+note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+  Installing /workspace/sp1-tcdot/home-sub/.sp1/bin/sp1-gpu-server
+   Installed package `sp1-gpu-server v6.4.0 (/workspace/sp1-tcdot/sp1-bf16/sp1-gpu/crates/server)` (executable `sp1-gpu-server`)
+warning: be sure to add `/workspace/sp1-tcdot/home-sub/.sp1/bin` to your PATH to be able to run the installed binaries
+a01d5ee56ddd223b337e88b70a8fa0a509d1b5811997deec1b23c0ce6166d39b  /workspace/sp1-tcdot/home-sub/.sp1/bin/sp1-gpu-server
+
+=== [09:03:57] host (cuda, stream-operands) at 0e00bd154761e14f11df511c1d27947f0b170fc0
+   Compiling sp1-cuda v6.4.0 (/workspace/sp1-tcdot/src/backends/sp1/tcdot/sp1/crates/cuda)
+   Compiling sp1-sdk v6.4.0 (/workspace/sp1-tcdot/src/backends/sp1/tcdot/sp1/crates/sdk)
+    Finished `release` profile [optimized] target(s) in 1m 47s
+9ccd33fdf9f9f68552cb995ce578a9a61dcdeef4221639ce6500fcefe97e23a8  /workspace/sp1-tcdot/target-tcdot/release/verity-tcdot-host
+
+=== [09:05:45] info
+{"backend":"sp1 tc-dot","elf_sha256":"525841da8ba0c8f84156d308497fe78c49644044d2d30cadff2a1400277ae600","fork_head":"0e00bd154761e14f11df511c1d27947f0b170fc0","formats":["bf16-ampere"],"guest_features":["relation-bare"],"label":"modified SP1 (TC_DOT chip)","operands":"stream","public_values_len":33,"sp1_version":"6.4.0","statement":"relation-bare/v2","vk_hash":"0x00896ef46d917e41bd6f29ef3f4504676f1bccffe2c10936a150113a9ca49384"}
+
+=== [09:06:12] bare-execute 0..4096
+{"verdict": true, "matches_expected": true, "total_cycles": 862658, "execute_seconds": 0.414259499, "statement_sha256": "5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb", "public_values": "5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01", "routing": {"chip_steps": 393152, "software_steps": 64, "software_vus": 0, "contract_violations": {"overflow_g1": 42, "overflow_g2": 22}, "vus_by_violations": {"0": 4032, "1": 64}, "rejected_vus": 0, "kernel_mismatches": 0}}
+
+=== [09:06:13] bare-execute --flip-y 7 on 0..64
+{"verdict": false, "matches_expected": true, "flipped": 7}
+
+=== [09:06:14] bare-negatives
+{"backend":"sp1 tc-dot","claimed_rejected":52,"correct_accepted":44,"event":"summary","in_domain":44,"negatives":52,"ok":true}
+
+=== [09:06:17] done

@@ -262,7 +262,8 @@ Budget $12, FINAL 12:00Z.
     (0.44 s each on the GPU) start only 1.2 s after the CPU shards that defer their events.
   - Screen that lost: MINIMAL_TRACE_CHUNK_THRESHOLD 440k (two chunks) gives 12 small CPU shards at about 0.2 s fixed
     cost each, 17 shards in all: 6.05 s. The precompile shards still wait for the CPU shards.
-- **Next (patch 0011, prover only).** TcDotBf16's trace is generated sequentially (one of the pod's 128 cores). With
+- **Next (patch 0011, prover only).** TcDotBf16's trace is generated sequentially, on one thread of a 13.6-CPU cgroup
+  (`nproc` reports 128). With
   no `generate_dependencies` override, the default builds the whole trace a second time just to count byte lookups.
   Both passes sit between a precompile shard's events and its GPU proof. The patch follows ShaExtend's pattern:
   `par_chunks_mut` rows, and lookups counted over `par_chunks` of events into per-thread maps. Trace values,

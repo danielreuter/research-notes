@@ -16,8 +16,10 @@ S=$W/sp1src
 mkdir -p "$W"
 declare -A RC
 stage() { echo; echo "=== [$(date -u +%H:%M:%S)] $*"; }
+STAGES=" ${STAGES:-check-sp1 check-sp1-bare tcdot-fork check-tcdot test-sp1-common} "  # env STAGES="..." reruns a subset
 run() {
   local name=$1; shift
+  case "$STAGES" in *" $name "*) ;; *) return 0 ;; esac
   stage "$name: $*"
   "$@" > "$W/$name.log" 2>&1
   local rc=$?
@@ -28,7 +30,7 @@ run() {
 
 stage "source"
 ls -la "$IN"; sha256sum "$IN"/sp1-*.tar.gz
-rm -rf "$S"; mkdir -p "$S"; tar xzf "$IN"/sp1-*.tar.gz -C "$S"; ls "$S/backends/sp1"
+S=$S-$$; mkdir -p "$S"; tar xzf "$IN"/sp1-*.tar.gz -C "$S"; ls "$S/backends/sp1"   # per-run copy: runs may overlap
 
 stage "wait for setup.sh toolchains"
 for i in $(seq 1 90); do cargo prove --version >/dev/null 2>&1 && break; sleep 10; done
@@ -54,7 +56,7 @@ run test-sp1-common cargo test --release --locked -p veritor-zk-common --feature
 
 stage "SUMMARY"
 fail=0
-for k in check-sp1 check-sp1-bare tcdot-fork check-tcdot test-sp1-common; do
+for k in $STAGES; do
   echo "$k ${RC[$k]:-missing}"
   case $k in test-*) ;; *) [ "${RC[$k]:-1}" = 0 ] || fail=1 ;; esac
 done

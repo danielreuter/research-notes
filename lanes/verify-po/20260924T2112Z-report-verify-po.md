@@ -46,7 +46,7 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 3 | `20260924T2129Z-handoff-from-agkr-fp8.md` | art:1b4fd4a1 | RTX 4090 FP8, A-GKR (new cell) | accepted | art:a40f5576 |
 | 4 | `20260924T2200Z-handoff-from-agkr-nvf4.md` | art:fe57e68b | RTX 5090 NVFP4, A-GKR (new cell) | accepted (verifier from 3c769c6d, needs merge) | art:acf87c5c |
 | 5 | `20260924T2212Z-handoff-from-agkr-fp8.md` | art:2e7baba7 | H100 FP8, A-GKR (new cell) | accepted | art:ccafc0f7 |
-| 6 | `20260924T2220Z-handoff-from-sp1-128.md` | art:e8c7c331 | SP1 A100 BF16 sec134 (D2 row, not Table 2) | (building hosts) | |
+| 6 | `20260924T2220Z-handoff-from-sp1-128.md` | art:e8c7c331 | SP1 A100 BF16 sec134 (D2 row, not Table 2) | accepted | art:34582a00 |
 | 7 | `20260924T2226Z-handoff-from-arith.md` (92dab0ad, H100) | h8 x6: art:e9ae289c art:c6271278 art:8182f9ae art:efd871f6 art:7a8443b4 art:709ab20c; h16 x3: art:415d6cde art:b23719dd art:16feee34; h16L x4: art:e3362256 art:064a3a75 art:593f8249 art:debd7e1d | H100 FP8 / H100 BF16, B-Ligero | accepted x13 | art:7d68f788 art:5d8c8aa1 art:750d53cf art:eb44f474 art:b1a0be1d art:aafc3c75; art:bfc56de7 art:a5a7e8c8 art:5d94cfae; art:a7ed0d9b art:830956b0 art:65f9b4d7 art:abe34544 |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
@@ -97,6 +97,19 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - Negatives, all rejected: `mutate --sample 64` (356/356); my VU-17 +1; the producer's 4 claim negatives (art:cdaabf41),
   whose honest case is accepted.
 
+### 6. sp1-128 SP1 A100 BF16 sec134 art:e8c7c331 (host r20260924-223547-6b33, verify r20260924-224326-a84c)
+- Hosts built on my pod. The stock host is from main ab9573fd (`--locked`, relation-bare), sha256 06e0d736. The sec134 host
+  uses d1111579's `sec128/build.sh VERIFIER_ONLY=1` over main's unmodified backends/sp1; its sha256 is ad6ec855, the same
+  bytes as the producer's copy. Both report ELF f11cf2cc and vk 0x00dfced1. The patched sp1-primitives 6.6.0 differs from
+  stock only in the core query count (124 -> 175) and the sp1-cuda connect retry (10 -> 300).
+- The build script needs a `cargo fetch --locked` first on a CPU pod. Without it, build.sh stops with "sp1-cuda retry loop not
+  found once", because a CPU stock build never downloads sp1-cuda (`17-sp1-sec134-build.sh`).
+- I wrote the statement from main's frozen bf16-ampere set (vu-k1536, manifest 059103cf): 8263 B, sha256 5e0dd245. It is
+  byte-identical to the dump's statement.bin.
+- 5/5 proofs are accepted: ok, verdict and statement_match are true and unsound is false. Verify takes 2.13-2.15 s per proof,
+  ~38 s per process including setup.
+- Negatives, both rejected: the last y byte flipped (statement_match false), and the STOCK host on rep0 (ok false).
+
 ### 7. arith H100 B-Ligero, 13 results (run r20260924-222928-d816)
 - All 13 PASS (fp8-hopper-v3x4: custody 40/40, 13/13, 2^-128.33; bf16-hopper-v3x4: custody 76/76, 25/25, 2^-128.05) and all
   13 BOUND (0 y words and 0 operand VUs differ over 4096 VUs). The live-verifier arm h16 is verified the same way from its
@@ -117,3 +130,4 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - 21:35Z first reverify stalled in the pod-catalog `reindex --remote` (~150 manifests/min). I killed it at 21:51Z and
   relaunched with full art ids (get_manifest / get_attempt / fetch fall back to the remote); 03-reverify.sh keeps REINDEX=1
   as an option.
+- 22:55Z SP1 labelled (verdict art:34582a00); /root/r2.env removed from the pod.

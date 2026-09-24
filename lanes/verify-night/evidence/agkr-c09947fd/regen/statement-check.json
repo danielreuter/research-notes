@@ -1,0 +1,41 @@
+{
+ "params": {
+  "sig": 8,
+  "exp": 8,
+  "acc_sig": 24,
+  "width": 26,
+  "floor": -133,
+  "groups": [
+   16
+  ],
+  "acc_exp": 8,
+  "op_nan_rule": "ieee"
+ },
+ "circuit.txt": {
+  "identical": true,
+  "sha256": "77fbfab94f67eea73e887c2367b248a1079f5240aceefd0b6812d1ba9d22c9f6"
+ },
+ "epilogue.txt": {
+  "identical": true,
+  "sha256": "94676af16bac77a35f8630c72071bead8a60d6ba26e8abef0d162bf285c5d119"
+ },
+ "chain.txt": {
+  "identical": true,
+  "sha256": "30516d6164617754c311e7408b41a9c4afe612e1cf04ab105f32a4bee3dbab77"
+ },
+ "manifest_params_differ": [],
+ "dump_manifest_other": {},
+ "frozen_relation": "bf16-hopper",
+ "y_bf16_sha256_u16": "ab8c806788d3d099e42e496926b42706b11f104ac6dedf8811f0cd4734728cac",
+ "public_bin": {
+  "header": [
+   4096,
+   1
+  ],
+  "words": 4096,
+  "sha256": "62c90275f8e9b82e5d09b274734fa596ed48b6d1d7c8eb4e2ad5a903fd84b7fc",
+  "equals_frozen_y_bf16": true,
+  "equals_frozen_y_fp32": false
+ },
+ "ok": true
+}

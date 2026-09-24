@@ -74,6 +74,9 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   second Commit rerun (~50 min + ~9 min producer facts); ETA PASS ~09:45Z if the fix lands by ~08:45Z.
 - CHECKPOINT 57-fix MET 06:20Z -- 4f6f6d1d + 8b606f16 pushed (origin, sw57); touched tests + test_no_by_name_rules green on the pod; offline
   repro with the fix: form (B) compared 159,840 (base 114,480), not compared outside no-oracle families 0 (log repro_oracle_fixed.log).
+- CHECKPOINT 57-ready MET 08:58Z -- lanes/integrator/20260924T0858Z-from-vllm-57-fix-ready-2c5e038b.md (tip 2c5e038b; ff onto
+  staging 38122d1f; clean onto retire-v1 9d80e302 with trial tests 237/0; asks for a #57 Commit rerun on the merged tree because
+  retire-v1 53d20e6c drops promoted addressing from replay). Verdict art:b99af6c6 preserved (rc 0) + 5 labels durable.
 - CHECKPOINT 57-pass MET 08:49Z -- #57 Commit-only rerun r20260924-075409-3621 at 2c5e038b on vyv-sw-57: `commit PASS
   2026-09-24T08:48:50Z rc=0 wall=2882s runs 3 failed 0` runtime_match, local_replay, boundary_linkage, checkpoint_binding,
   execution_extent, required_value_coverage, program_source_identity PASS; manifest_verify True. C2 oracle 159,840/159,840 equal,

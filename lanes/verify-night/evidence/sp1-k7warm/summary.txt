@@ -1,0 +1,6 @@
+proof-rep0.bin                                           ok=True stmt=True verdict=True unsound=False vk=0x00dfced17f s=1.6515627830000001 -> ACCEPT
+proof-rep1.bin                                           ok=True stmt=True verdict=True unsound=False vk=0x00dfced17f s=2.101421666 -> ACCEPT
+proof-rep2.bin                                           ok=True stmt=True verdict=True unsound=False vk=0x00dfced17f s=2.053312359 -> ACCEPT
+proof-rep3.bin                                           ok=True stmt=True verdict=True unsound=False vk=0x00dfced17f s=2.548523522 -> ACCEPT
+proof-rep4.bin                                           ok=True stmt=True verdict=True unsound=False vk=0x00dfced17f s=2.071613025 -> ACCEPT
+negative (last y byte flipped) on rep0                   ok=True stmt=False verdict=True unsound=False vk=0x00dfced17f s=1.838097254 -> REJECT

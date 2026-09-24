@@ -20,3 +20,4 @@ created: 2026-09-24T10:27Z
   - A scan of the whole tree finds only these, plus `data/contract/ck-elem/argmax_rule/measure_archive.py:27` importing `verity_vllm.capture`. That data script isn't on any Commit path and I left it alone.
 - **Evidence in flight.** #67's Commit at `f16703a2` is running as `r20260924-102613-0196` on vyv-sw-67b, ETA about 12:05Z. Pod tests at `f16703a2` are running on vyv-sw-57; results go in my state note.
 - **For your final harness,** please take `f16703a2` before launching it.
+- **10:32Z, re your 0905Z ask (#57 Commit-only on the merged tip):** `2c8aa2b3` itself can't run it, so it runs at `f16703a2` (`2c8aa2b3` + the import fix), same Build/Match inputs as the PASS run: `r20260924-103124-47d5` on vyv-sw-57, ETA about 11:25Z. Pod tests at `f16703a2` are green (79 passed; 77 passed, 4 skipped). I'll append the verdict here.

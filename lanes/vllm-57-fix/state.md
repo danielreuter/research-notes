@@ -107,6 +107,10 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   promoted key, commit_delta cli, verdict, no_by_name, no_dead_modules) + tests_f16703a2_b.log 77 passed 4 skipped (promoted
   acquisition, form B perturbation, fail-closed, hot commit, sampled replay v2 addresses + query population). 0 F/E.
 - 10:28Z #67 Commit r20260924-102613-0196 is past the import that killed 2c8aa2b3 (0 Tracebacks; engine warm-up running).
+- 10:31Z integrator 0905Z asks for #57 Commit-only on the merged tip 2c8aa2b3 (same inputs). 2c8aa2b3 crashes on the stale imports, so
+  run it at f16703a2 (= 2c8aa2b3 + import fix): r20260924-103124-47d5 on vyv-sw-57 GPU 0, build art:f1baace0 + match art:a225cf5f,
+  source tree built on the pod by git archive. Trial-merge commit dir moved to /workspace/lane/evidence/commit57_trial_rv1_25170f24/
+  (already preserved as art:6b939117). Past imports, warm-up at 10:32Z. ETA ~11:25Z (last wall 3031 s).
 
 ## Checkpoints
 - CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);

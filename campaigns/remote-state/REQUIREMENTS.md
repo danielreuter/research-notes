@@ -3,6 +3,7 @@ campaign: remote-state
 created: 2026-09-24T20:10Z
 status: user approved option (2) 2026-09-24 ~19:55Z; owner: the Project coordinator
 ---
+> **Superseded (2026-09-24 1:20 PM PT) by the canonical `cloud-migration-requirements.md`:** laptop `~/Library/Application Support/Cursor/AgentStores/cursor_agent_stores/bc-36415049-30db-4fff-a34b-81f0afc0124d/files/docs/cloud-migration-requirements.md`, cloud `/cursor/stores/bc-36415049-30db-4fff-a34b-81f0afc0124d/docs/cloud-migration-requirements.md`. Section 3.1 there lists which claims below held and which didn't.
 # Remote state: any agent on any machine can run a lane; the laptop becomes optional
 
 ## Done means

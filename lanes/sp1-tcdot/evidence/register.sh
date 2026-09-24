@@ -27,8 +27,15 @@ lab candidate SP1; lab proof_class NON_ZK_PROOF; lab K 1536; lab B 4096; lab har
 lab authentication excluded; lab campaign morning-tables; lab relation bf16-ampere-k1536; lab zk false; lab scope vu
 lab track baseline; lab lane sp1-tcdot; lab soundness "SP1 100-bit target per STARK proof; union bound over the core proof's $SHARDS shard proofs: 2^$ACH"
 lab source "lane/sp1-tcdot@$SRC"; lab sweep "prover configuration (hill-climb)"; lab arm "$ARM"
-lab label "modified SP1 (TC_DOT chip), relation-bare/v2 bf16-ampere, 4096 VUs, A100 core STARK: t.total $TT s"
-lab note "modified SP1: fork of SP1 6.4.0 + TC_DOT_BF16 precompile (FORK_HEAD in backends/sp1/tcdot); core proofs only; security 100-bit per shard proof (drill-down, not a 2^-128 cell)"
+# OPERANDS=witness for the witness-operands arm (FORK_HEAD_WIT): TC_DOT_BF16's operands are free witness values.
+OPS=${OPERANDS:-memory}
+case $OPS in
+  memory) OPNOTE="operands read through SP1's memory argument"; PIN=FORK_HEAD ;;
+  witness) OPNOTE="operands are free witness values of the chip, with no memory argument for x and W: sound for relation-bare, which is existential in x and W, and not for an authenticated statement"; PIN=FORK_HEAD_WIT ;;
+  *) echo "OPERANDS must be memory or witness"; exit 2 ;;
+esac
+lab label "modified SP1 (TC_DOT chip, $OPS operands), relation-bare/v2 bf16-ampere, 4096 VUs, A100 core STARK: t.total $TT s"
+lab note "modified SP1: fork of SP1 6.4.0 + TC_DOT_BF16 precompile ($PIN in backends/sp1/tcdot); $OPNOTE; core proofs only; security 100-bit per shard proof (drill-down, not a 2^-128 cell)"
 lab omitted "zero-knowledge, authentication, SP1 recursion (core proof only)"
 $R data labels-sync --push-only >/dev/null
 $R data preserved "$RES" "$RF" >/dev/null || { echo "$TAG: $RES / $RF not preserved"; exit 1; }

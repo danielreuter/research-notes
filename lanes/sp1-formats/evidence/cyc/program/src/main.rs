@@ -29,8 +29,8 @@ pub fn main() {
         let (xr, wr) = (&x[i * rb..(i + 1) * rb], &w[i * rb..(i + 1) * rb]);
         let y = match format {
             1 => tc_hopper_bf16::vu_words(&xw[i * rw..(i + 1) * rw], &ww[i * rw..(i + 1) * rw]).map(u32::from),
-            2 => tc_fp8::vu_ada(xr, wr),
-            3 => tc_fp8::vu_hopper(xr, wr),
+            2 => tc_fp8::vu_ada_views(xr, wr, &xw[i * rw..(i + 1) * rw], &ww[i * rw..(i + 1) * rw]),
+            3 => tc_fp8::vu_hopper_views(xr, wr, &xw[i * rw..(i + 1) * rw], &ww[i * rw..(i + 1) * rw]),
             _ => nvfp4::vu(xr, wr),
         }
         .expect("outside the model");

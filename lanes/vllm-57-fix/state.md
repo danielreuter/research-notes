@@ -64,7 +64,10 @@ instance_outputs with no replay evaluator) and MATCH_SNAP_STEPS is unset; an exp
 - vyv-sw-67b: pod w5aiv36vhliqbu, 2x L40S COMMUNITY, 251 GB, 56 vCPU, 300 GB disk, driver 550.144 (CUDA 12.4; the stack is cu129 --
   bootstrap's torch_cuda check decides; if it fails, replace the pod with a >=575 driver host), $1.58/h, ssh -p 1728 root@193.183.22.51
   (runpodctl key), machines.toml entry added. Source 8b606f16 shipped as a gzip'd git archive over ssh (55 s) then adopted by the launcher.
-  Bootstrap run r20260924-062646-d1a9 (`pod_bootstrap.sh --gpu --cases OLMOE`), launched 06:27Z.
+  Bootstrap run r20260924-062646-d1a9 (`pod_bootstrap.sh --gpu --cases OLMOE`): BOOTSTRAP-OK 06:35Z, readiness ok (torch 2.13+cu129
+  runs on driver 550 via minor-version compat; hidden_gpu + FA2 taps built sm_89).
+- #67 Build: run r20260924-063717-5860 on vyv-sw-67b (runner pid 2146), GPU 0, source 8b606f16, launched 06:37Z. Next: Match with
+  --input build=<its vllm-build artifact>, then Commit with build+match (each a laptop `research run --on vyv-sw-67b`, same env as #57).
 - #67 row args: OLMOE allenai/OLMoE-1B-7B-0924 6d84c48581ece794365f2b8e9cfb043c68ade9c5, row
   olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager, --retain host --build-jobs auto --sweep-dir /workspace/cp/sweep-v2s.
 

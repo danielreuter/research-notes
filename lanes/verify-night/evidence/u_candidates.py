@@ -37,13 +37,16 @@ def main():
         ct, ca = cur.get((r["target"], r["candidate"], auth), (None, None))
         beats = tt is not None and (ct is None or tt < ct)
         eq = [x for x in rs if E in x]
+        man = json.loads((STORE / "manifests" / f"{r['artifact'].removeprefix('art:')}.json").read_text())
+        tree = (man.get("refs") or {}).get("run_files")
+        rel = (((fp.get("software") or {}).get("backend") or {}).get("name") or "").split(" relation")[0].removeprefix("b-ligero chain, ")
         out.append((r["target"], r["candidate"], auth, tt, beats, "+".join(sorted(kinds)), r["artifact"], ct, ca,
-                    (eq[0].split("(instance-equiv: ")[1].split(" ")[0] if eq else "")))
+                    (eq[0].split("(instance-equiv: ")[1].split(" ")[0] if eq else ""), tree, rel))
     out.sort(key=lambda x: (x[0], x[1], x[2], x[3] if x[3] is not None else 9e9))
-    for t, c, a, tt, b, k, art, ct, ca, eq in out:
+    for t, c, a, tt, b, k, art, ct, ca, eq, tree, rel in out:
         if b or show_all:
             print(f"{'BEATS' if b else '     '} {t.split('/')[0]:24s} {c:8s} {a:13s} t={tt:.4g} cur={ct if ct is None else round(ct, 4)} "
-                  f"{k:3s} {art[:12]} {('equiv ' + eq[:12]) if eq else ''}")
+                  f"{k:3s} {art} {'dumps' if tree else 'NO-DUMPS'} {rel} {('equiv ' + eq[:12]) if eq else ''}")
 
 
 if __name__ == "__main__":

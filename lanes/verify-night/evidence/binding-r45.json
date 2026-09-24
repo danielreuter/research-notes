@@ -1,0 +1,138 @@
+[
+ {
+  "result": "art:e1fcf6430199b761364f182dc05ddd2b0a42664635b423c711fed57aa7a95e2f",
+  "status": "ERROR",
+  "why": "FileNotFoundError: /workspace/src/fixtures/bench-instances/v1/vu-k1536.x.u16 is missing; the operand arrays are built, not committed: run `python -m verity_numerical.bench.instances build --out /workspace/src/fixtures/bench-instances/v1`"
+ },
+ {
+  "result": "art:794365d36195f9b825ffbf2dbb0cc4ac4ee95fe358858622a9335d4670a75501",
+  "status": "ERROR",
+  "why": "FileNotFoundError: /workspace/src/fixtures/bench-instances/v1/vu-k1536.x.u16 is missing; the operand arrays are built, not committed: run `python -m verity_numerical.bench.instances build --out /workspace/src/fixtures/bench-instances/v1`"
+ },
+ {
+  "result": "art:aadcd93f51af31abd21bc687248b50b7256ee74fb960c643d108b861577467eb",
+  "run_files": "art:78009ffb9bfd839024e1af29ec5d831768c3ad8ad94317c07e6abf2b83408099",
+  "relation": "bf16-hopper-v3x4",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "frozen_relation": "bf16-hopper",
+  "statements": 25,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:8e773e253fe6002559ad947e7337689fe0351eeb5a7d0ec62b8a64c4b07fe2ab",
+  "run_files": "art:19d512ad3eec26e99d9702bd225d9d679374b2e89e93d2a491a579e4e322ae69",
+  "relation": "bf16-hopper",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "frozen_relation": "bf16-hopper",
+  "statements": 25,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 0,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:bcd7e05e25381e6fe84b51d1bf6fc26ceb510afc666295ccdf45478f542115f7",
+  "run_files": "art:29fd52d150ac8f87f8d98e02a64eed622085be42e25dc3ee2b028486cfaed34e",
+  "relation": "fp8-hopper-v3x4",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "frozen_relation": "fp8-hopper",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:5387c1b55de3abcf93e78b2e03e0aea9444e7266171aea6baed6cd5c0ebd9738",
+  "run_files": "art:38a8efc24837b6987dd80bdd3ca46d4e70a1ba91818c09c3e750b65ad3a6c720",
+  "relation": "fp8-hopper",
+  "target": "fp8-hopper-wgmma-draft/2026-09-22",
+  "frozen_relation": "fp8-hopper",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 0,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:1abdf12a7448735757995c9b4860186ef5cab829546ef2e96d7877335f4b1fcc",
+  "run_files": "art:b2e90c6be30764a0a52bf90b5087650d07c5e4e78422010540e9c8338b6b99cd",
+  "relation": "fp8-ada",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "frozen_relation": "fp8-ada",
+  "statements": 25,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 0,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:d5c9e1f3bd9f06e3bfb5bdfec09788a12bcf5ac5f7e5f7e4d463aedd35a0dd30",
+  "run_files": "art:c59f479fee16727ef8c35b9a80c10003b900ce31117cab0d64abd20ec0e4cb60",
+  "relation": "fp4-nvf4",
+  "target": "fp4-nvf4",
+  "frozen_relation": "fp4-nvf4",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 4096,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ },
+ {
+  "result": "art:99867b4c346f4a05cd4be2ba8ceb11d5b17cb4abebaede1415fe5aa2490a06b5",
+  "run_files": "art:1d265c7cb59b293752be7cfbba986fb54853702154e6ee8647a184f85b025862",
+  "relation": "fp4-nvf4",
+  "target": "fp4-nvf4",
+  "frozen_relation": "fp4-nvf4",
+  "statements": 13,
+  "reps": [
+   1
+  ],
+  "vus_checked": 4096,
+  "vus_covered": 4096,
+  "y_mismatched": 0,
+  "operand_vus_checked": 0,
+  "operand_mismatched": 0,
+  "problems": [],
+  "status": "BOUND"
+ }
+]

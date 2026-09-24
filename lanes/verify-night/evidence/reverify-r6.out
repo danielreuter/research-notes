@@ -1,0 +1,11 @@
+/root/.research/store/labels/art_271e0e3a0d28d2c8f9dc6cc95ea8efe9baecff9060a24a0a7f7b3bca7d08a6fa/20260924T074004Z-verify-night.json
+/root/.research/store/labels/art_271e0e3a0d28d2c8f9dc6cc95ea8efe9baecff9060a24a0a7f7b3bca7d08a6fa/20260924T074004Z-verify-night~2.json
+/root/.research/store/labels/art_271e0e3a0d28d2c8f9dc6cc95ea8efe9baecff9060a24a0a7f7b3bca7d08a6fa/20260924T074004Z-verify-night~3.json
+/root/.research/store/labels/art_271e0e3a0d28d2c8f9dc6cc95ea8efe9baecff9060a24a0a7f7b3bca7d08a6fa/20260924T074004Z-verify-night~4.json
+art:271e0e3a0d28… b-ligero-bf16-hopper-vu-1790234169: custody 76/76, pinned=bf16-hopper+hash, 25/25, 2^-128.05 PASS -> verdict art:d6bc611e0c53405429e215983e0c6baccfba1b25a9e5e3a27a38baa1b547990b  (46.6s)
+/root/.research/store/labels/art_855697088e2ddaf67880295463f71ccd807391c1d56f32f7c0409d48c85e8895/20260924T074027Z-verify-night.json
+/root/.research/store/labels/art_855697088e2ddaf67880295463f71ccd807391c1d56f32f7c0409d48c85e8895/20260924T074027Z-verify-night~2.json
+/root/.research/store/labels/art_855697088e2ddaf67880295463f71ccd807391c1d56f32f7c0409d48c85e8895/20260924T074027Z-verify-night~3.json
+/root/.research/store/labels/art_855697088e2ddaf67880295463f71ccd807391c1d56f32f7c0409d48c85e8895/20260924T074027Z-verify-night~4.json
+art:855697088e2d… b-ligero-fp8-hopper-v3x4-vu-1790234270: custody 40/40, pinned=fp8-hopper-v3x4, 13/13, 2^-128.33 PASS -> verdict art:4f2ae6207a7230e84aa627b1ac9d3b31b045232796958bf3988cf65e56d85e1e  (22.8s)
+2 result(s): PASS 2; verifier ligero-verify(sha256 d89cffc7b759e1f5)

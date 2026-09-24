@@ -1,0 +1,21 @@
+/root/.research/store/labels/art_99867b4c346f4a05cd4be2ba8ceb11d5b17cb4abebaede1415fe5aa2490a06b5/20260924T072624Z-verify-night.json
+/root/.research/store/labels/art_99867b4c346f4a05cd4be2ba8ceb11d5b17cb4abebaede1415fe5aa2490a06b5/20260924T072624Z-verify-night~2.json
+/root/.research/store/labels/art_99867b4c346f4a05cd4be2ba8ceb11d5b17cb4abebaede1415fe5aa2490a06b5/20260924T072624Z-verify-night~3.json
+/root/.research/store/labels/art_99867b4c346f4a05cd4be2ba8ceb11d5b17cb4abebaede1415fe5aa2490a06b5/20260924T072624Z-verify-night~4.json
+art:99867b4c346f… r20260924-070702-4043: custody 40/40, pinned=fp4-nvf4+hash, 13/13, 2^-128.11 PASS -> verdict art:d31b2d47bc6378ad520839721377e3163e4225d43cf9af25330e7de5e6180c8b  (28.5s)
+/root/.research/store/labels/art_d5c9e1f3bd9f06e3bfb5bdfec09788a12bcf5ac5f7e5f7e4d463aedd35a0dd30/20260924T072651Z-verify-night.json
+/root/.research/store/labels/art_d5c9e1f3bd9f06e3bfb5bdfec09788a12bcf5ac5f7e5f7e4d463aedd35a0dd30/20260924T072651Z-verify-night~2.json
+/root/.research/store/labels/art_d5c9e1f3bd9f06e3bfb5bdfec09788a12bcf5ac5f7e5f7e4d463aedd35a0dd30/20260924T072651Z-verify-night~3.json
+/root/.research/store/labels/art_d5c9e1f3bd9f06e3bfb5bdfec09788a12bcf5ac5f7e5f7e4d463aedd35a0dd30/20260924T072651Z-verify-night~4.json
+art:d5c9e1f3bd9f… r20260924-064655-e7e5: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:fa53e2b222b764986e19252eb7b9f05d372ed5e0d6c27a81b250a10b19bc594c  (26.6s)
+/root/.research/store/labels/art_1abdf12a7448735757995c9b4860186ef5cab829546ef2e96d7877335f4b1fcc/20260924T072741Z-verify-night.json
+/root/.research/store/labels/art_1abdf12a7448735757995c9b4860186ef5cab829546ef2e96d7877335f4b1fcc/20260924T072741Z-verify-night~2.json
+/root/.research/store/labels/art_1abdf12a7448735757995c9b4860186ef5cab829546ef2e96d7877335f4b1fcc/20260924T072741Z-verify-night~3.json
+/root/.research/store/labels/art_1abdf12a7448735757995c9b4860186ef5cab829546ef2e96d7877335f4b1fcc/20260924T072741Z-verify-night~4.json
+art:1abdf12a7448… r20260924-070424-4d53: custody 76/76, pinned=fp8-ada+hash, 25/25, 2^-128.50 PASS -> verdict art:10516470c19694bb77715165923051face8d9ebd3a97420f6c8df0b038d086bb  (50.8s)
+/root/.research/store/labels/art_a3cc225de910a25e912ba47c9f140a18bbcfc9206b9d2be636758f8f696ca8d1/20260924T072805Z-verify-night.json
+/root/.research/store/labels/art_a3cc225de910a25e912ba47c9f140a18bbcfc9206b9d2be636758f8f696ca8d1/20260924T072805Z-verify-night~2.json
+/root/.research/store/labels/art_a3cc225de910a25e912ba47c9f140a18bbcfc9206b9d2be636758f8f696ca8d1/20260924T072805Z-verify-night~3.json
+/root/.research/store/labels/art_a3cc225de910a25e912ba47c9f140a18bbcfc9206b9d2be636758f8f696ca8d1/20260924T072805Z-verify-night~4.json
+art:a3cc225de910… r20260924-071409-f35f: custody 40/40, pinned=fp4-nvf4+hash, 13/13, 2^-128.11 PASS -> verdict art:6fa7dbfbc704d0e4c7ad64172f00f54bdc9de9199bc4de8c034a306da994a0c6  (23.9s)
+4 result(s): PASS 4; verifier ligero-verify(sha256 d89cffc7b759e1f5)

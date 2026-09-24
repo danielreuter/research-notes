@@ -1,0 +1,9 @@
+# art:e1fcf6430199 ERROR None stmts=None vus=None y_bad=None ops=None/None FileNotFoundError: /workspace/src/fixtures/bench-instances/v1/vu-k1536.x.u16 is missing; the operand arrays are built, not committed: run `python -m verity_numerical.bench.instances build --out /workspace/src/fixtures/bench-instances/v1`
+# art:794365d36195 ERROR None stmts=None vus=None y_bad=None ops=None/None FileNotFoundError: /workspace/src/fixtures/bench-instances/v1/vu-k1536.x.u16 is missing; the operand arrays are built, not committed: run `python -m verity_numerical.bench.instances build --out /workspace/src/fixtures/bench-instances/v1`
+# art:aadcd93f51af BOUND bf16-hopper-v3x4 stmts=25 vus=4096 y_bad=0 ops=4096/0 
+# art:8e773e253fe6 BOUND bf16-hopper stmts=25 vus=4096 y_bad=0 ops=0/0 
+# art:bcd7e05e2538 BOUND fp8-hopper-v3x4 stmts=13 vus=4096 y_bad=0 ops=4096/0 
+# art:5387c1b55de3 BOUND fp8-hopper stmts=13 vus=4096 y_bad=0 ops=0/0 
+# art:1abdf12a7448 BOUND fp8-ada stmts=25 vus=4096 y_bad=0 ops=0/0 
+# art:d5c9e1f3bd9f BOUND fp4-nvf4 stmts=13 vus=4096 y_bad=0 ops=4096/0 
+# art:99867b4c346f BOUND fp4-nvf4 stmts=13 vus=4096 y_bad=0 ops=0/0 

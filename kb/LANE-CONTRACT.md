@@ -14,6 +14,10 @@ base, pod, budget, FINAL time, goal, and what to read. Everything below applies 
   branch and pod instead (the launch message names them; `research notes bind` records it).
 - Commit only there, after every meaningful step. The coordinator merges: never merge into `main`, never touch another
   worktree, never delete anyone's branch.
+- `~/projects/verity-main-wt/main` is live infrastructure: `~/.research/bin/research` runs its working copy, so an edit there
+  changes every lane's CLI. Never edit, checkout or restore files in it. For an old version of a file use
+  `git show <rev>:<path> > /tmp/<you>-<name>` or a throwaway `git worktree add /tmp/<you>-<rev> <rev>`. (2026-09-24 05:06Z: old
+  copies of relchain.py, ligero-verify main.rs and store/index.py left in main broke short art: ids for every lane.)
 - No new `.md` files in the repo; notes live under `~/.research/notes`.
 
 ## 2. Tool

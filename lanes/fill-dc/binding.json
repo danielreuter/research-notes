@@ -3,6 +3,6 @@
  "brief": "/Users/danielreuter/.research/notes/campaigns/morning-tables/BRIEF.md",
  "budget": "$22: 1x A100 SXM4 80GB + 1x H100 SXM5 80GB + same-DC SECURE verifier pods",
  "final": "11:30Z",
- "pod": "vy-fill-dc-a100,vy-fill-dc-h100",
+ "pod": "vy-fill-dc-a100,vy-fill-dc-h100,vy-fill-dc-a100v",
  "worktree": "/Users/danielreuter/projects/verity-main-wt/fill-dc"
 }

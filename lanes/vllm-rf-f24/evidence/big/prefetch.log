@@ -1,0 +1,7 @@
+start 2026-09-24T20:55:47Z rows 11 39 
+ok top commit_logs 5s
+ok 11 records 10s
+ok 11 programs 17s
+ok 39 records 8s
+ok 39 programs 26s
+key deleted; done 2026-09-24T20:56:53Z

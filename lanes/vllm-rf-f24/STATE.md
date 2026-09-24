@@ -49,11 +49,21 @@
   runner instances by accident (both #11 runs passed, interleaved log; moved to `gates/dup/`); clean rerun 21:14:28Z,
   `/workspace/rff24/run_big.sh` (flock; #11 and #39 side by side, one gate_a.sh process each) -> `big_r{11,39}.{log,xml,status,rss}`,
   `big.DONE`. TERMINATE as soon as they finish.
-- GPU pod `vyv-rf-f24-gpu` (wjks802niyvd70, RTX 4090, $0.74/h, up 21:03Z; `/tmp/rff24/ssh_gpu.sh`) for the Build A/B: a Build cannot
-  run on a CPU pod, and `apply_target_profile` answers the declared capability / SM count, so the Program is host-independent.
-  `/workspace/base` (git archive 72884c8a), `/workspace/head2` (be366f80); `/workspace/rows/r73|r74` = the recorded `build_step` and
-  smallest `build_request_LP*` result.json of rows #73 (Qwen3-4B BF16) and #74 (Qwen3-4B-FP8). `/workspace/rff24/rebuild_ab.sh`:
-  rebuild_digest_gate at base and head, then tree_diff -> `/workspace/out/rebuild/`, `DONE`. TERMINATE when done.
+- GPU pod `vyv-rf-f24-gpu` (RTX 4090) ran the Build A/B 21:03-21:47Z and is terminated. Evidence: `evidence/build_ab/`.
+
+## Build A/B (RTX 4090, one venv: vllm 0.28.1rc1.dev472+gd9105ea80, torch 2.13.0+cu129, triton 3.7.1 = the records' versions)
+- `rebuild_ab.sh`: `rebuild_digest_gate` from the recorded result.json of rows #73 (Qwen3-4B BF16: step, request_LP10_T8) and #74
+  (Qwen3-4B-FP8: step, request_LP73_T1), base tree then head tree; `tree_diff.py` base vs head.
+- Base == head: program_digest and correspondence_digest of all 4 wrappers; `descriptor.json.gz`, `instances.json.gz`,
+  `derive-report.json` byte-identical. Differ: `construction_version` (+ `artifact.identity`, its hash), `model_pin.dtype` on #74 only
+  (bfloat16 -> fp8), inputs trace (tree path; base opens the 14 sources at nonexistent `packages/verity/src/verity/verity_vllm/...`;
+  vLLM's first-run model-info cache fell on base), timings.
+- Both trees rebuild program digests different from the records' (records built pre-relayout, 25 binding rules; base has 27): pre-existing.
+
+## Gate (b) at `be366f80` (`b_final_x12`): 56 F / 11 E / 296 s / 3550 p / 6 xf (3919) vs a1 base 54 / 11 / 297 / 3536 / 6 (3904)
+- Outcome changes: the gc-freeze pair passed -> failed (on this pod base == head: both fail alone and after test_execution_label, at
+  both trees); weakref skip -> pass. +16 new tests pass; `test_code_identity_hashes_code_not_tests_or_caches` replaced in D5. No new
+  skip reason. vs a1's head run: no outcome change.
 
 ## Gate (b) at `76020a66` (`b_head_x12`, 58 F / 11 E) vs a1's head run
 - 2 new failures, both the by-name ratchet (`test_no_by_name_rules`: the moved population-gap rule, the retired CODE_SKIP_SUFFIX entry);

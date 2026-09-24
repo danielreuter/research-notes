@@ -41,4 +41,13 @@ about equal to the DB size); optionally "Developer: Delete Old Chats..." (perman
   /metrics (https://cursor.com/docs/cloud-agent/self-hosted/pool).
 - Restart the worker after a CLI update: a stale worker stopped returning shell exit statuses
   (https://forum.cursor.com/t/172713).
+- One worker PROCESS serves one agent at a time (worker list reports a single activeBcId), but one box can run many
+  workers, each with its own `--name` and worktree; `--worker-dir` takes up to 20 roots, so a shared notes directory can
+  be an extra root. Cap 200 workers per user. https://cursor.com/docs/cloud-agent/self-hosted/my-machines
+- Setup: `curl https://cursor.com/install -fsS | bash`; `agent login` or CURSOR_API_KEY; `agent worker start` from the repo.
+- Targeting a named worker: REST `POST /v1/agents` with `"env": {"type": "machine", "name": "<worker>"}`, the
+  cursor.com/agents worker selector, or `worker=` in Slack/GitHub/Linear. Not documented from the desktop chat or the SDK.
+  Follow-ups: `POST /v1/agents/{id}/runs` (one active run per agent).
+- Cursor-hosted Cloud Agents: SSH egress to arbitrary hosts is not documented (test before relying on it); secrets are
+  Runtime Secrets on cursor.com; VM size undocumented ("limited memory and CPU"). Fine for code-only lanes.
 - Cursor "Projects" (beta, changelog 2026-09-10): a cloud coordinator that keeps delegating with the laptop closed.

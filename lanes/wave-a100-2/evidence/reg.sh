@@ -12,8 +12,9 @@ SCP=(scp -q -r -i /Users/danielreuter/.runpod/ssh/runpodctl-ssh-key -P 12629 -o 
 src=root@213.173.102.5:/workspace/wave-a100/runs/$tag
 "${SCP[@]}" $src/result.json $src/meta.txt $W/
 refs=()
-rf=""
-if [ "$dump" = dump ]; then
+rf=${RF:-}
+[ -n "$rf" ] && refs=(--ref run_files=$rf)
+if [ "$dump" = dump ] && [ -z "$rf" ]; then
   mkdir -p $W/tree; "${SCP[@]}" $src/proofs $W/tree/
   for f in rust_batch.json rust_batch.out; do "${SCP[@]}" $src/$f $W/tree/ 2>/dev/null || true; done
   cp $W/result.json $W/meta.txt $W/tree/
@@ -24,10 +25,12 @@ fi
 python3 - "$W/result.json" "$label" "$tag" > $W/meta.json <<'EOF'
 import json, sys
 m = json.load(open(sys.argv[1]))
-m["label"] = sys.argv[2]; m["lane"] = "wave-a100-2"; m.setdefault("run_id", "wave-a100-2/" + sys.argv[3])
+m["label"] = sys.argv[2]; m["lane"] = "wave-a100-2"; m["pod_run"] = "vy-wave-a100:/workspace/wave-a100/runs/" + sys.argv[3]
+# the runner's run_id (b-ligero-...) is not a research run id; reverify.py treats meta.run_id as one
+m["bench_run_id"] = m.pop("run_id", None)
 print(json.dumps(m))
 EOF
 br=$($R data put --kind bench-result/v1 --meta @$W/meta.json ${refs[@]+"${refs[@]}"} --preserve --json | python3 -c 'import json,sys;print(json.load(sys.stdin)["id"])')
 echo "$tag ${br:0:12} ${rf:0:12}"
-[ "$dump" = dump ] && rm -rf $W/tree
+rm -rf $W/tree
 exit 0

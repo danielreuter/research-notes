@@ -169,3 +169,10 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   Carry: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True into code for ZK 4096 VUs on 4090; run.py hard-codes lane
   "ligerito-relation" in the live hello; gate manifests say commit "unknown" on synced pods (read the pods-sync source
   stamp); fp4 `--auth included-hash` goes after the subcommand; fp4+hash live path first exercised by wave-5090-2.
+- 04:30Z wave-h100-2 FINAL (no code; $8.70/$9; snapshot wave-h100-2-v1 art:5dfec9c0, 41 arts on R2; pods gone). H100 local
+  cells, all Rust-accepted: fp8-hopper bare v3x4 fused p8 l=4096 0.0993 s (round-1 row FAILS the phase-sum contract ->
+  headline candidate with all rows passing: v3x4 p4 0.1174 s; decide at render) | bf16-hopper bare v3x4 fused p4 0.1465 s
+  | +shared tile64 fp8 0.2029 s, bf16 0.3986 s (ONE round each). NO same-DC live timing: CA-MTL-1 pods cannot reach each
+  other; live rows used a same-pod verifier (accepted 5/5 each, times inflated 1.3-2.6x = acceptance evidence only).
+  Morning report: H100 column = local t.total + "live accepted, same-DC timing not measured"; no new lane tonight (cap).
+  Unshared +hash drill-down not run. Money 04:30Z: $102.51, account $11.65/h. Laptop 8.2 GB free (guardian kills <6 GB).

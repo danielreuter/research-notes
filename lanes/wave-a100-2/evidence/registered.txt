@@ -17,3 +17,5 @@ bare-v3p8-r3 art:07a960bc
 bare-x4p4-r3 art:2a986fba 
 bare-x4p8-r3 art:9b3a6096 
 shared64p4-r1 art:46824988 
+bare-v3p8-r2 art:b0219651 art:e9543111
+bare-v3p8-r2 art:7428cdd5 art:e9543111

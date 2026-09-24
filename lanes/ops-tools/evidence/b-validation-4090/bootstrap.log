@@ -1,0 +1,65 @@
+
+=== [04:28:03] machine
+NVIDIA GeForce RTX 4090, GPU-486cbf14-df8d-7b5f-3ed0-ec180e1771cd, 24564 MiB, 595.91.07, 8.9, 450.00 W, 3105 MHz
+128
+               total        used        free      shared  buff/cache   available
+Mem:             503          34         137           0         331         464
+overlay          40G  239M   40G   1% /
+model name	: AMD EPYC 75F3 32-Core Processor
+29.48 41.37 43.71 27/4245 226
+cgroup CPU quota: 13 cores of 128 -> OMP/MKL/OpenBLAS/torch threads = 13, instance procs NP = 13
+RUNPOD_DC_ID=US-TX-3
+RUNPOD_GPU_COUNT=1
+RUNPOD_POD_ID=chr1s1sfq2yeyf
+source: /workspace/src
+{
+  "branch": "lane/ops-tools",
+  "commit": "f9669c771f4095f3572e9cec58f20557ce864a02",
+  "dirty": false,
+  "dirty_digest": null,
+  "files": 2901,
+  "from": "Daniels-MacBook-Pro.local:/Users/danielreuter/projects/verity-main-wt/ops-tools",
+  "schema": "research/source-stamp/v1",
+  "synced_utc": "2026-09-24T04:26:45Z",
+  "to": "vy-ops-tools:/workspace/src",
+  "tree": "ea6d4861f6ba3ec131d1d221b39d5cf0ae362299"
+}
+
+=== [04:28:03] rsync (the next research pods sync ships only what changed)
+debconf: delaying package configuration, since apt-utils is not installed
+
+=== [04:28:10] uv + python 3.12 (/workspace/venv312)
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source venv312/bin/activate
+Python 3.12.14
+
+=== [04:28:12] torch 2.6.0+cu124 (compute capability 8.9), numpy, cupy-cuda12x, blake3, pytest 
+ + triton==3.2.0
+ + typing-extensions==4.16.0
+ + pytest==9.1.1
+ + pytest-timeout==2.4.0
+torch 2.6.0+cu124 cuda 12.4 | NVIDIA GeForce RTX 4090 (8, 9) 23.5 GiB
+torch matmul, cupy, nvrtc: ok
+
+=== [04:28:28] import smoke (the shipped tree)
+imports ok; GPU Merkle: True blake3 (GPU, backends/shared/hash_gpu)
+
+=== [04:28:30] versions
+blake3                   1.0.9
+cupy-cuda12x             14.2.0
+numpy                    2.5.3
+pytest                   9.1.1
+pytest-timeout           2.4.0
+torch                    2.6.0+cu124
+triton                   3.2.0
+overlay          40G   11G   30G  28% /
+
+=== [04:28:30] pod health (quota, GPU state, encode + matmul vs pod_health_ref.json; = research pods health)
+host  cpu quota 13.6 of 128 cores (OMP_NUM_THREADS=13)  load 31.8  29.2 GiB free on /workspace
+gpu   NVIDIA GeForce RTX 4090 (rtx-4090)  SM 2505/3105 MHz  mem 10251/10501 MHz  power 450/450 W  PCIe gen4 x16 (max gen4 x16)  persistence Enabled  65 C
+gpu processes: none
+bench encode l=4096 n=16384 x2048 rows: 0.333 ms  |  matmul bf16 8192^3: 160.8 TFLOP/s
+NO-REFERENCE: no rtx-4090 entry in pod_health_ref.json (research pods health POD --record adds this pod)
+next shells: source /workspace/env.sh
+BOOTSTRAP_OK

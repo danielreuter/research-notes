@@ -1,0 +1,22 @@
+== env.sh: OMP=13 MKL=13 OPENBLAS=13 VY_CPU_THREADS=13 nproc=13
+torch intra-op threads 13 | inter-op 128
+== guard: clean bench-vu
+rc 0
+ "dumps": null,
+ "validation": "passed"
+}
+== guard: the same beside a bf16 matmul hog in another process
+1476, /workspace/venv312/bin/python
+hog pid (container) 1476
+rc 0
+ "dumps": null,
+ "validation": "passed"
+}
+== summary (contended column, reasons)
+label        relation       gpu  VUs  N_sub      l  pipe  zk         mode      auth  t.total     wit     enc   arith  lookup  zk_add     ser    other  dev_GiB  proof_MB  validation   contract  contended                                 contention.reasons  contention.throttled  contention.load1_max
+guard_clean   fp8-ada  rtx-4090  512      2  16384     4  no  interactive  excluded   0.0301  0.0050  0.0097  0.0144  0.0000  0.0000  0.0013  -0.0002     3.02       9.1      passed  1 problem         no                                                 []                     0                 23.21
+guard_busy    fp8-ada  rtx-4090  512      2  16384     4  no  interactive  excluded   0.0619  0.0031  0.0316  0.0240  0.0000  0.0000  0.0031   0.0001     3.02       9.1      passed  1 problem        yes  ['1 other GPU compute process (pids seen: 1476)']                     0                 23.33
+== summary --best (refuses the contended row)
+summary: --best refuses guard_busy: contended (1 other GPU compute process (pids seen: 1476))
+label        relation       gpu  VUs  N_sub      l  pipe  zk         mode      auth  t.total     wit     enc   arith  lookup  zk_add     ser    other  dev_GiB  proof_MB  validation   contract  contended  refused
+guard_clean   fp8-ada  rtx-4090  512      2  16384     4  no  interactive  excluded   0.0301  0.0050  0.0097  0.0144  0.0000  0.0000  0.0013  -0.0002     3.02       9.1      passed  1 problem         no        1

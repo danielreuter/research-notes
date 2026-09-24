@@ -1,0 +1,326 @@
+{
+ "schema": "research/result/v0.1",
+ "run_id": "local-1790224440",
+ "kind": "bench-result/v1",
+ "workload_fingerprint": {
+  "candidate": "B-Ligero",
+  "backend": "b-ligero chain, fp8-ada relation (backends/direct/ligero/fp8)",
+  "commit": null,
+  "protocol": "Ligero direct-constraint chain proof, BabyBear, PROTOCOL.md 3-8c",
+  "mode": "interactive",
+  "zk": false,
+  "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+  "authentication": "excluded",
+  "checker": "v1 (WP2 checker: bits + one-hot selectors)",
+  "batch": 512,
+  "K": 1536,
+  "n_subbatches": 2,
+  "per_proof_vus": 341,
+  "security": {
+   "target": -128,
+   "field": "BabyBear",
+   "challenge_coords": 6,
+   "rs_n": 65536,
+   "rs_k": 16384,
+   "rs_l": 16384,
+   "zk": false,
+   "t_pad": 0,
+   "mode": "interactive",
+   "bound_model": "interactive: statistical, live verifier coins committed at step 0 (HM96); no Fiat-Shamir loss",
+   "hash_assumption": "collision resistance of Blake2b (coin commitments) + Blake3 (Merkle); the challenge expander is a PRG of the verifier's coins",
+   "zk_statement": "none (no masking)",
+   "fiat_shamir_queries_log2": null,
+   "opened_columns": 191,
+   "achieved_log2": -128.5050065476753,
+   "achieved_bits": 128.5050065476753,
+   "verifier_target_bits": 128.0,
+   "terms_log2": {
+    "irs_query": -129.5050065476771,
+    "linear_query": -190.99159086461577,
+    "quadratic_query": -190.98318198584684,
+    "irs_field": -169.44132156433932,
+    "linear_field": -185.44134357795068,
+    "quadratic_field": -185.44134357795068,
+    "coin_commitment_hiding": -191.0
+   },
+   "per_proof_target_log2": -129.0,
+   "per_proof_total_log2": -129.5050065476753,
+   "union_over": 2,
+   "hash_placeholder": true
+  },
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA GeForce RTX 4090",
+    "driver": "595.91.07",
+    "cuda": "13.2",
+    "count": 1,
+    "memory_total_bytes": 25757220864
+   },
+   "cpu": {
+    "model": "AMD EPYC 75F3 32-Core Processor",
+    "count": 128
+   }
+  },
+  "software": {
+   "backend": {
+    "name": "b-ligero chain, fp8-ada relation (backends/direct/ligero/fp8)",
+    "commit": null,
+    "hash": "blake3 (GPU, backends/shared/hash_gpu)",
+    "challenge_expander": "SHAKE-256 (placeholder)",
+    "impl": "device",
+    "pipeline": 4
+   },
+   "toolchain": {
+    "python": "3.12.14",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.3"
+   }
+  },
+  "preprocessing": "constraint compilation (a function of the relation's Params only, 0.55s)",
+  "instances": {
+   "dataset": "bench-instances-fp8-ada/v1",
+   "tier": "vu-k1536-fp8-ada",
+   "range": [
+    0,
+    512
+   ],
+   "manifest_sha256": "b992d973b4edc3a6935af21c4a386eab6a3475d742d5d5c0edd18c5866c9d5e1",
+   "seed": 20260922,
+   "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)"
+  },
+  "profile": "fp8-ada-mma-draft/2026-09-22",
+  "relation_id": "fp8-ada",
+  "statement_format": null,
+  "relation": "GemmCoordinate<1536> over sm89.mma.m16n8k32.e4m3",
+  "model": "ADA_E4M3_M16N8K32",
+  "census": {
+   "rows_per_unit": 3769,
+   "bit_rows": 2474,
+   "selector_rows": 640,
+   "hint_rows": 161,
+   "pin_rows": 192,
+   "product_rows": 301,
+   "inverse_rows": 1,
+   "linear_constraints": 589,
+   "quadratic_constraints": 3532,
+   "chain": true
+  },
+  "rows": 3769,
+  "step_k": 32,
+  "steps_per_vu": 48,
+  "domain": "finite",
+  "verifier": {
+   "name": "python file verifier (backends.direct.ligero.serialize verify), separate process; shares code with the prover",
+   "independent": false,
+   "relation": "fp8-ada",
+   "why_not_rust": "backends/ligero-verify reads ligero-statement/v2 and v3 (the Ampere BF16 relation: 16-bit words, pinned system id) only; the registered relations write the relation-named ligero-statement/v4",
+   "wall_caveat": "process_wall of each verdict is a fresh Python process importing torch; verify_seconds is the verifier alone",
+   "coins": "transcript's own coins replayed (file verifier)"
+  },
+  "python_verifier": "backends.direct.ligero (live, every rep, every sub-batch; shares code with the prover)",
+  "warmup": "one sub-batch (excluded)",
+  "reps": 3,
+  "dumped_reps": 3,
+  "proofs_retained": null,
+  "B_real": null
+ },
+ "validation": {
+  "status": "passed",
+  "checker": "backends.direct.ligero.serialize verify (Python file verifier, separate process; NOT independent of the prover) on every recorded rep's sub-batch proof; Python verifier live per rep",
+  "detail": "python: passed; python-file: 6/6 accepted (coins from the runner); reps prove ['0.030', '0.033', '0.036'] s, python-file verify ['0.856', '1.197', '0.959'] s; the Python file verifier shares code with the prover (a self-check, not an independent verification)",
+  "evidence": {
+   "reps": [
+    {
+     "prover_total": 0.029811049811542034,
+     "verifier": 0.07231512805446982
+    },
+    {
+     "prover_total": 0.03305753483437002,
+     "verifier": 0.06990555091761053
+    },
+    {
+     "prover_total": 0.03578246687538922,
+     "verifier": 0.06666913605295122
+    }
+   ],
+   "rust_rep_sums": [
+    0.8563477850984782,
+    1.1972053069621325,
+    0.9593242597766221
+   ],
+   "python_verifier_reps": [
+    0.07231512805446982,
+    0.06990555091761053,
+    0.06666913605295122
+   ]
+  }
+ },
+ "measurements": [
+  {
+   "name": "prove_wall",
+   "value": 0.03305753483437002,
+   "unit": "s"
+  },
+  {
+   "name": "prove_wall_min",
+   "value": 0.029811049811542034,
+   "unit": "s"
+  },
+  {
+   "name": "prove_wall_max",
+   "value": 0.03578246687538922,
+   "unit": "s"
+  },
+  {
+   "name": "prove_ms_per_vu",
+   "value": 0.06456549772337894,
+   "unit": "ms"
+  },
+  {
+   "name": "verify_wall",
+   "value": 0.9593242597766221,
+   "unit": "s"
+  },
+  {
+   "name": "verify_python_wall",
+   "value": 0.06990555091761053,
+   "unit": "s"
+  },
+  {
+   "name": "verifier_threads",
+   "value": 1,
+   "unit": "count"
+  },
+  {
+   "name": "proof_bytes",
+   "value": 9102224,
+   "unit": "B"
+  },
+  {
+   "name": "depth",
+   "value": 3,
+   "unit": "count"
+  },
+  {
+   "name": "soundness_bits",
+   "value": 128.5050065476753,
+   "unit": "bits"
+  },
+  {
+   "name": "e2e_0ms",
+   "value": 0.9923817946109921,
+   "unit": "s"
+  },
+  {
+   "name": "proofs_verified_python_file",
+   "value": 6,
+   "unit": "count"
+  },
+  {
+   "name": "proofs_total",
+   "value": 6,
+   "unit": "count"
+  },
+  {
+   "name": "peak_device_bytes",
+   "value": 3245290496,
+   "unit": "B"
+  },
+  {
+   "name": "bench_wall",
+   "value": 6.5806238278746605,
+   "unit": "s"
+  },
+  {
+   "name": "t.witness",
+   "value": 0.004957483585104099,
+   "unit": "s"
+  },
+  {
+   "name": "t.encoding_commitment",
+   "value": 0.009775892697242999,
+   "unit": "s"
+  },
+  {
+   "name": "t.arithmetic",
+   "value": 0.01572095331629984,
+   "unit": "s"
+  },
+  {
+   "name": "t.lookup",
+   "value": 0.0,
+   "unit": "s"
+  },
+  {
+   "name": "t.zk_additional",
+   "value": 2.5499374666575365e-06,
+   "unit": "s"
+  },
+  {
+   "name": "t.serialization",
+   "value": 0.002536997627093608,
+   "unit": "s"
+  },
+  {
+   "name": "t.total",
+   "value": 0.03305753483437002,
+   "unit": "s"
+  },
+  {
+   "name": "vu.seconds_per_vu",
+   "value": 6.456549772337894e-05,
+   "unit": "s"
+  },
+  {
+   "name": "vu.count",
+   "value": 512,
+   "unit": "count"
+  },
+  {
+   "name": "rate.proved_flop_per_second",
+   "value": 47579591.39665455,
+   "unit": "FLOP/s"
+  },
+  {
+   "name": "rate.native_peak_flop_per_second",
+   "value": 330300000000000.0,
+   "unit": "FLOP/s"
+  },
+  {
+   "name": "overhead.vs_native_peak",
+   "value": 6942052.050140646,
+   "unit": "ratio"
+  },
+  {
+   "name": "rows_per_unit",
+   "value": 3769,
+   "unit": "count"
+  },
+  {
+   "name": "units_per_vu",
+   "value": 48,
+   "unit": "count"
+  }
+ ],
+ "measurement_files": [
+  "bench_vu.json",
+  "verify/independent.json",
+  "proofs/manifest.json"
+ ],
+ "artifacts": [],
+ "contention": {
+  "contended": true,
+  "reasons": [
+   "load average 148.2 > 128 cores"
+  ],
+  "other_gpu_procs": 0,
+  "gpu_pids_seen": [],
+  "throttled": 0.0,
+  "busy_periods": 44,
+  "load1_max": 148.19189453125,
+  "cpu_quota": 13.6,
+  "nproc": 128,
+  "window_s": 6.5,
+  "samples": 5
+ }
+}

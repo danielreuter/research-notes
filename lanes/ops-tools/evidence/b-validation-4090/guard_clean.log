@@ -1,0 +1,67 @@
+fp8-ada census: {"rows_per_unit": 3769, "bit_rows": 2474, "selector_rows": 640, "hint_rows": 161, "pin_rows": 192, "product_rows": 301, "inverse_rows": 1, "linear_constraints": 589, "quadratic_constraints": 3532, "chain": true}
+timing guard: clean (25 samples over 48.7 s; recorded in /workspace/ops-tools/guard_clean.json)
+512 synthetic VUs (recorded accumulators) in 0.3s
+config Config(l=16384, n=65536, D=6, t=191, target_log2=-128.0, zk=False, t_pad=0, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk False, mode interactive; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 512 VUs as 2 sub-batches of <= 341
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.006, 'hints_host': 0.266, 'witness': 32.924, 'self_check': 7.232, 'encode': 0.003, 'transfer': 0.001, 'merkle': 0.309, 'tests_w': 4.972, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.011, 'tests': 4.972, 'total': 45.459}
+rep 1: prover 0.032s (+hints 0.005s) over 2 proofs; verifier 0.069s; pass wall 0.105s (0.071 ms/VU)
+rep 2: prover 0.025s (+hints 0.005s) over 2 proofs; verifier 0.070s; pass wall 0.100s (0.059 ms/VU)
+rep 3: prover 0.024s (+hints 0.005s) over 2 proofs; verifier 0.067s; pass wall 0.095s (0.055 ms/VU)
+contract problems: ['t.zk_additional is 1.8659267857167231e-06 but proof_class NON_ZK_PROOF_DIAGNOSTIC has no zero-knowledge work']
+{
+ "relation": "fp8-ada",
+ "seconds_per_vu": 5.887533779969089e-05,
+ "prover_total": 0.030144172953441736,
+ "verifier": 0.06853162939660251,
+ "bytes": {
+  "root": 64,
+  "w": 786432,
+  "h": 786384,
+  "cols": 1528,
+  "opened_columns": 5759032,
+  "merkle_paths": 195584,
+  "q_chain": 1572816,
+  "v_linear": 0,
+  "coin_commitments_and_openings": 384,
+  "auth_multiproofs": 0,
+  "fingerprints": 0,
+  "total": 9102224
+ },
+ "n_proofs": 2,
+ "per_proof_vus": 341,
+ "t": 191,
+ "zk": false,
+ "k": 16384,
+ "peak_device_bytes": 3245290496,
+ "soundness_log2": -128.5050065476753,
+ "per_proof_log2": -129.5050065476753,
+ "rows": 3769,
+ "medians": {
+  "statement": 6.684150081669396e-05,
+  "hints_host": 0.004699247034257848,
+  "witness": 0.00031315998952097625,
+  "zk_masks": 1.8659267857167231e-06,
+  "encode": 0.009649129942744252,
+  "transfer": 2.018276108376048e-06,
+  "merkle": 1.9337396926206814e-06,
+  "tests_w": 0.014384630949436653,
+  "tests_quad": 2.328006825994426e-06,
+  "tests_chain": 1.916572871133678e-06,
+  "openings": 0.0012206696399583872,
+  "tests": 0.01438887552913378,
+  "total": 0.02544492591918389,
+  "measured_statement": 0.00010214399918913841,
+  "measured_hints_host": 0.00830214387178421,
+  "measured_witness": 0.0005294079929590225,
+  "measured_zk_masks": 3.071999992243946e-06,
+  "measured_encode": 0.014968224048614502,
+  "measured_transfer": 3.3919999841600653e-06,
+  "measured_merkle": 3.1680000247433782e-06,
+  "measured_tests_w": 0.022677440643310544,
+  "measured_tests_quad": 3.584000049158931e-06,
+  "measured_tests_chain": 3.0400000978261235e-06,
+  "measured_openings": 0.0020449600219726565,
+  "measured_total": 0.04186985042132438
+ },
+ "dumps": null,
+ "validation": "passed"
+}

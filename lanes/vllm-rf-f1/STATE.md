@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T20:47Z
+updated: 2026-09-24T21:02Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -86,6 +86,18 @@ updated: 2026-09-24T20:47Z
 - 20:44Z head tree pre-seeded on BOTH pods: `/workspace/research/src/232cd7d1…` = the 2,814 base files (by `git ls-tree` list, so no READY.json / build byproducts) + `git apply` of `git diff 72884c8a 232cd7d1` (158 KB) -> 2,817 files; the launcher adopted it (per-file sha256). Script `/tmp/rff1/seed_head.sh <sha>` (needs `/tmp/rff1_base.files0` + `/tmp/rff1_head.patch` on the pod).
 - 20:45Z targeted tests at head on tp2: `r20260924-204543-9d4d` (70 files importing the touched modules; xdist -n 12 loadfile; tree copied to `/workspace/tests/t-232cd7d1-targeted`; junit `/workspace/tests/t-232cd7d1-targeted.xml`). Job script `/tmp/rff1/pytest_job.sh TAG files…` (sent with `--send`).
 - Constraint (coordinator 19:40Z): no new pod -> gates (a)/(b) run on tp2 while its stages are untimed (Build/Match), never beside a timed Commit.
+- 20:50Z targeted #1 (`232cd7d1`, GPU visible): 711 P / 10 F / 176 S; all 20 new tests PASS. vs a1 xdist: 4 "new" failures:
+  (1) `test_padding_pod_consumer::test_the_inactive_stratum…`: REAL, fixture: `_b2_mixed_padded` rewrote 2 metas' dtype/shape AFTER the commit
+  (comment claimed "roots hash bytes"; the step root binds `layout_digest`) -> the opened read (correctly) fails. Fixed: commit them typed.
+  (2) `tp/test_tp2_xrank_collectives::test_flip_site…`: `TPPartialSource.__new__` stub lacks `_occ`; runs only with CUDA (skips on a1's CPU pod). Pre-existing, untouched code -> "Found, not fixed".
+  (3,4) `harness/test_admit_r19_host_working_set::` the two gc-freeze tests: precondition `gc.get_freeze_count() == 0` fails because a FRESH
+  interpreter on these GPU pods has freeze count 375 (even `python -S`/`-I`; uv cpython-3.12.14 built 2026-09-01, Clang 22.1.3). Environment, not code.
+- Decision: gate (b) on the GPU pods runs with `CUDA_VISIBLE_DEVICES=` (tests behave as on a1's CPU pod; no test takes GPU memory beside a stage).
+- 20:53Z COMMIT `7c4fedfb` (pushed): `VERITY_FAULT=retained_flip[:<substr>]` (native_host.fault_retained_flip: after the commit flips byte 0 of the
+  earliest committed member whose name contains the substring (default qkv_proj) in the retained copy; commit_delta applies it after finalize,
+  before openings/value checks; recorded as `row.fault_retained_flip`) + CPU test + the padding fixture fix. `7bacdbb9`: test typo (t1.1 step).
+- 20:58Z targeted #3 (`7bacdbb9`, CUDA hidden, gc probe plugin): 709 P / 8 F / 182 S: 6 F in a1's list (source_identity x4, release_json x2) + the 2 gc-freeze
+  (every worker frozen=375 after its FIRST test -> interpreter, see above). 21:00Z base control of the gc tests on tp2: `r20260924-210018-1dff`.
 
 ## Next
 1. Targeted tests green (vs a1 baseline), then full gate (b) xdist on tp2 (-> `baseline-jdiff.py baseline-gate_b-xdist.xml.gz`).
@@ -97,4 +109,6 @@ updated: 2026-09-24T20:47Z
 - none yet
 
 ## Found, not fixed
-- none yet
+- `compiled_value_check.py`, `compiled_kernel_check.py`: still read the committer's memory (compiled-graph rows only; none of the 3 rows).
+- `tests/tp/test_tp2_xrank_collectives.py::test_flip_site_alters_the_collective_input_but_not_the_committed_partial`: its `TPPartialSource.__new__` stub has no `_occ` (added by R19 moe) -> AttributeError whenever CUDA is visible; skipped on CPU pods. Unrelated to D1.
+- GPU pods' interpreter (uv cpython-3.12.14, built 2026-09-01) starts with `gc.get_freeze_count() == 375`, so `test_admit_r19_host_working_set`'s two gc-freeze tests fail there at any commit (their precondition is 0).

@@ -19,3 +19,4 @@ shared-p4-r3-live tree=none result=art:f08da54f43cb03745040537a95bea97a081b20af2
 hash-p4-live tree=none result=art:7e01535b4a816798e71ecdae27db5480ada138bb66819e81d6edc4e1776c2b07
 ajtai-n64-p4-live tree=none result=art:5ea8af912c2423d8d5987e27c4a6b59d253b428c6ac3ba6eb170bd076d3a43fb
 blake3-l4096-p2-live tree=none result=art:04389076020c9c0ec98cab435cf6ab89319c6806252a21b5baec78fb73e64786
+blake3-l4096-p2-local tree=art:8b63a76e872aac1870882f8e1a6e86ac57a83f82e409aa0974ffa95ab9128f72 result=art:42b215ac2ef0c9dee47de1977d528699aba6f32a01764666ecffd156e19d58de

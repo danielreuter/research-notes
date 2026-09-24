@@ -35,6 +35,10 @@ created: 2026-09-24T17:36Z
 ## Done
 - 17:36Z worktree created.
 - 18:02Z Cursor restart interrupted the run; 18:47Z resumed. Worktree had uncommitted D4 start (new `acquire/flush_points.py`, tables cut from `native_collect.py`); no f3 pods or commands were running.
+- 19:05Z D4 `a2164659` pushed: tables in `acquire/flush_points.py`, native_collect imports them, plan imports unconditionally; allowlist table entries -> flush_points.py;
+  new `tests/acquire/test_plan.py::test_default_tables_do_not_depend_on_torch` (fresh processes, torch free vs blocked). NOT yet run (pod).
+  Behaviour note for READY: under `--late-read` (canary/fa3 negatives only) the Commit-stage plan now lists the declared flush leaves (it read the
+  mutated collector table before) -> that run's plan digest changes; roots unchanged (collector still reads its rebound copy).
 
 ## Running
 - nothing yet (launcher: `~/.research/bin/research`)

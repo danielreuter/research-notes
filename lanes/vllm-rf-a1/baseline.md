@@ -317,9 +317,8 @@ The 158 tests are `test_reproduces[<tier>-<check>-r<row>]` over the 13 rows and 
 
 The 94 skips:
 
-- 39 are checks outside the default tiers T0 and T1 (13 rows each):
-  - `program_digest` is T2.
-  - `decomp_hashes` and `replay_partition` report themselves as needing `VERITY_REGRESSION_TIERS=T1`.
+- 39 are checks outside the default tier. Without `VERITY_REGRESSION_TIERS` the harness runs T0 only, so
+  `decomp_hashes` and `replay_partition` (T1) and `program_digest` (T2) skip on all 13 rows.
 - 13 are `attempt_provenance`: there are no candidate Attempt ids.
 - 12 are `stoch_value` on the greedy rows. It runs only on #101.
 - 21 are the seven Commit/Match checks on rows #4, #70 and #75, which never built a manifest, reached GM-01 or closed a
@@ -333,6 +332,11 @@ skipped). On a store-only pod, gate (a) therefore does not exercise step segment
 
 To get the same coverage in a lane, count per check: a lane's gate (a) is green when nothing fails and every check
 that passed here passes.
+
+**Tiers:** the brief's gate (a) command sets no tier, so it is T0 only. SYNTHESIS §6's acceptance says "tiers T0 and
+T1", and the integrator's harness ran `VERITY_REGRESSION_TIERS=T0,T1`. This baseline follows the brief. A T0+T1
+baseline would add `decomp_hashes` and `replay_partition` on every row. That is an open question for the coordinator,
+not measured here.
 
 ## Appendix: gate (b) per-file counts (xdist run)
 

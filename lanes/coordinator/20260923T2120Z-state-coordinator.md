@@ -5,6 +5,25 @@ created: 2026-09-23T21:20Z
 status: open
 ---
 
+# Coordinator state 2026-09-24 20:40Z (project coordinator; Proof optimization workstream = the old "afternoon" campaign)
+
+- Scoreboard: Project store `docs/proof-optimization-tables.md`, rendered by `evidence/render-scoreboard.sh CHANGED.md` (renders also
+  saved to `campaigns/afternoon/render/<HHMMZ>-{tables,drilldown}.md`). Re-render after every independently verified result and at
+  the 6:00 PM PT digest (timer). Reports to Daniel: PT times; digest = table changes only; right away = new backend / gap filled / record.
+- Lanes (local agents, heavy work on pods; FINAL 03:30Z unless noted): arith bc-da525da2 (01:10Z), agkr-fp8 bc-c0324f23 ($15),
+  agkr-nvf4 bc-581636de ($10), sp1-128 bc-d7883bfb ($25). Worktrees moved (no new disk): agkr-table -> agkr-fp8, wave-5090 -> agkr-nvf4,
+  sp1-tcdot -> sp1-128 (old branches kept; their tips are in main). Lanes hand off to me for NON-PRODUCER verification.
+- Not ours: remote-state campaign (separate Project workstream; its branches come to me for merge). vyv-* pods = vLLM coordinator's.
+- BACKLOG (checked on main ab9573fd 20:35Z; all still open):
+  1. contract.result(...) builder for ~20 bench-result emitters (spec 20260924T0531Z-handoff-from-coordinator-contract-result.md).
+  2. Post-merge fixes: LIGSTM07 trimmed hashed statement (readers accept legacy LIGSTM06); reverify.py --system-h (+shared);
+     live_test shared-pair fixture 2^-99.86 < 2^-100.
+  3. Tool fixes: `research data preserved` no timeout + re-reads every blob (5 GB = hang on laptop; add HEAD/etag-only mode + timeout);
+     finish check exit 3 when the laptop catalog misses pod-side puts (reindex --remote first); `research pods stage`; dump-completeness
+     check at registration; `run --on` research copy first on PYTHONPATH (use env -u PYTHONPATH).
+  4. Decision pending (Daniel): H100 D3 rows used a loopback verifier; separate-host rerun ~$2.5.
+- Disk: sweep every 30 min (timer); report < 5 GiB. R2 direct-hash check 20:40Z: evidence/20260924T2040Z-r2-hash-check.tsv.
+
 # Coordinator state 2026-09-24 16:15Z (newest first; older state below)
 
 - 06:51Z the coordinator's Cursor extension host restarted (3.3 GB); no event reached the coordinator until the user wrote

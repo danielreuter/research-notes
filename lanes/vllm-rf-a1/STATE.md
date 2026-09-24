@@ -58,6 +58,11 @@ created: 2026-09-24T17:27Z
 - 19:47Z coordinator note in baseline.md (owner-approved): fetch every row, delete `/root/r2ro.env`, unset AWS_*, then run gate (a).
   19:48Z `/root/r2ro.env` deleted on vyv-rf-a1 (every row artifact was already local: 8 cached by a_base's first rows + 18 prefetched). The two running gate (a) processes
   (a_base, a_head) were started before the rule with the key in their environment; it expires 20:38Z. Not restarted (hours lost).
+- DONE 20:24:43Z gate (a) base (`a_base`), **exit 0, green**: 158 = 64 pass / 94 skip (2 h 42 min). baseline.md gate (a) section
+  filled, status complete; XML beside it as `baseline-gate_a.xml.gz`. The skips are 39 tier (the brief's command runs T0 only),
+  13 attempt_provenance, 12 stoch_value greedy, 21 Commit/Match n/a on #4/#70/#75, and 9 `step_segmentation`: the store trees
+  lack `build_request*/descriptor.json.gz`. The integrator (live rows root) passed those 9: 73/85.
+- 20:30Z watcher `/tmp/rfa1/watch2.sh` (local background) prints `DONE a_head` / `DONE b_head_serial`.
 - Pod hygiene: never `pkill -f <pattern>` over ssh (the pattern matches the remote shell and kills the session); kill by pid.
 - Laptop: the brief forbids pytest on the laptop; the early local lint runs (uvx pytest, AST only, <1 GB) were a slip; lints run on the pod now.
 
@@ -70,18 +75,21 @@ created: 2026-09-24T17:27Z
 - Pod run (gate_b env): `cd /workspace/head && python -m pytest integrations/vllm/tests/lint -q -p no:cacheprovider`.
 
 ## Next
-1. When a_base finishes: fill baseline.md's gate (a) section (counts, per-row outcome, skips), status line.
-2. When a_head and b_head_serial finish: jdiff vs a_base / b_base_serial; fill the gate section of `/tmp/rfa1/READY.draft.md`;
+1. When a_head and b_head_serial finish (a_head ~50%, b_head_serial 54% at 20:28Z): jdiff vs a_base / b_base_serial; fill the gate section of `/tmp/rfa1/READY.draft.md`;
    move it to `READY.md`; update STATE; terminate vyv-rf-a1 (`research pods terminate vyv-rf-a1`) after pulling the XMLs/logs
    to `/tmp/rfa1/pull/` and copying the needed ones beside baseline.md.
 
 ## Open questions
 - Gate (b) cannot be 0 failures at 72884c8a (10 fail in any environment; 3 more are order-dependent in the serial run).
   baseline.md proposes judging a lane against the base run of the same mode; the coordinator/integrator should confirm.
+- Gate (a) tiers: the brief's command sets no `VERITY_REGRESSION_TIERS`, so it runs T0 only. SYNTHESIS §6 says "tiers T0 and T1"
+  and the integrator ran T0,T1. The baseline follows the brief; a T0+T1 baseline (adds decomp_hashes, replay_partition) was not run.
 
 ## Found, not fixed
 - In the READY draft (`/tmp/rfa1/READY.draft.md`, section "Found, not fixed"): applicability builds without core `verity`
   (30); the `HF_HOME` collection-order leak; untracked test inputs (6); `execution_of_workload` NameError (4); CUDA test that does
   not skip; no `.git` in synced trees; duplicate Definition ids (core vs integration); core patches; library imports of tests/research;
   11 import cycles; the gc-freeze pair (vLLM `EngineCore` freezes the heap in-process); `test_specified_list_is_closed` order dependence.
+- Store fixtures lack `build_request*/descriptor.json.gz` (listed as role `record` in fixtures.toml; `stage_store.py` puts small
+  records + `instances.json.gz` only), so gate (a) on a store-only pod skips T0 `step_segmentation` on 9 rows. Add to READY.
 - Not tried (out of scope): installing core into the venv would likely clear the 30 `verity` import failures.

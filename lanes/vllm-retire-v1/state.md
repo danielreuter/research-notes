@@ -19,6 +19,10 @@ By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pur
 - staging suite (815b837c) finished 05:28Z, exit=1, 42 F/E lines: /workspace/rv1/logs/suite_staging.{log,xml}
 - 05:49Z launched on cpu3 (tree /workspace/rv1/tip = full git archive of 6813fe06):
   crun.sh (converted test files) -> logs/conv_tip.log; srun.sh (full suite) -> logs/suite_tip.{log,xml}
+- 05:52Z harness T0,T1 (oracle expected) @ 6813fe06, split like the integrator's staging run (p6 hrun.sh):
+  cpu3 fB "not r11 and not r39" -> /workspace/rv1/hrec/fB, log /workspace/rv1/logs/h_fB.out (lock retire-v1-harness-fB.json)
+  cpu2 fA "r11 or r39" -> /workspace/rv1/hrec/fA, log /workspace/rv1/logs/h_fA.out (lock retire-v1-harness-fA.json); ssh /tmp/rv1ssh2
+- staging harness to compare against (815b837c, T0,T1,T2): cpu3 /workspace/p6_rec/fB, cpu2 /workspace/p6_rec/fA (integrator's)
 
 ## Done
 - bda6f73a: ACQUIRE_ENGINE switch, v1_decision, gate v1 compare, plan class residuals, compiled_source v1 branch,

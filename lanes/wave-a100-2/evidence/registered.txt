@@ -26,3 +26,7 @@ live-v3p4-r1 art:1fab5137
 live-x4p4-r1 art:152a9c68 
 live-shared64p8-r1 art:799c014d 
 live-shared64p8-r2 art:7ed85654 
+live-x4p4-r2 art:ca506a68 
+live-v3p4-r2 art:7862ff0c 
+live-v3p8-r2 art:53d40390 
+live-v3p8-r3 art:03fd448a 

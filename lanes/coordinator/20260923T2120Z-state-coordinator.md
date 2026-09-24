@@ -185,3 +185,14 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   Worktrees wave-4090 + wave-h100 removed. PHASE-SUM DECISION 04:40Z (inputs file): flag alone does not disqualify; footnote +
   clean alternative; told wave-a100-2 + wave-5090-2. POST-WAVE adds: contract phase-sum check vs pipeline depth > 1;
   live_test shared-pair fixture 2^-99.86 < 2^-100 (fails on main since shared-live e2a3b27e; resize fixture or target).
+- 04:41Z ops-tools FINAL (~$0.11 pod). Part A (notes: pods by ownership, IDLE-POD/ACCOUNT/RUNWAY/FINAL-POD, --reap,
+  relaunch, gc-worktrees) -> MAIN ff 0b0768ed, pushed; notes tests 40/40 on main. Watcher relaunched under launchd with
+  `--idle-min 5 --reap` (+ previous flags); first ACCOUNT line: $299.90 at $8.24/h, runway 36 h (balance topped up).
+  Part B (bootstrap thread quota, `research pods health`, bench contention guard, summary slow-vs-ref) merged onto
+  lane/post-wave -> 3adf4c28 (pushed, merge-tree clean). gc-worktrees --apply removed fp4-port, ligerito-2pass, ops-tools
+  (laptop 10 GB free). 6 finished lanes' worktrees are DIRTY (ajtai-leaf 2, ligerito-relation 3, live-2b 1, red-team-leaf-2
+  4, red-team-ligerito-2 1, share-logup-2 2) -> triage post-wave (save to evidence, then remove).
+  POST-WAVE adds: terminate vy-live2b-verifier-ro pitmqu0zrycw5i ($0.44/h; name maps to no lane so --reap skips it) after
+  confirming its session store is preserved; test_tables.py::test_label_keys_are_the_store_vocabulary fails on main;
+  pod health refs for H100/A100/5090 (`research pods health <pod> --record`); torch inter-op threads ignore quota;
+  Table 2 selection should refuse contended rows (ops-tools proposal to the tables owner).

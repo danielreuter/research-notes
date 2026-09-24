@@ -1,0 +1,3 @@
+#!/bin/sh
+# scp to vy-sp1-a100 (mj8cb81ecauzbi), same key/port as pssh; usage: pscp LOCAL... root@154.54.102.29:REMOTE
+exec scp -i /Users/danielreuter/.runpod/ssh/runpodctl-ssh-key -P 16521 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/Users/danielreuter/.runpod/ssh/veritor-campaign-known_hosts -o LogLevel=ERROR "$@"

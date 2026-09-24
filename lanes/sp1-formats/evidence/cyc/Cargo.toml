@@ -1,0 +1,4 @@
+# Scratch cycle/prove harness for the sp1-formats arithmetic (lane sp1-formats, dev only; never a Table 2 result).
+[workspace]
+resolver = "2"
+members = ["program", "script"]

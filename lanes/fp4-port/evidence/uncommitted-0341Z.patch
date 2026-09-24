@@ -1,0 +1,627 @@
+diff --git a/backends/direct/ligero/hashchain.py b/backends/direct/ligero/hashchain.py
+index 2e2e1563..54bed35e 100644
+--- a/backends/direct/ligero/hashchain.py
++++ b/backends/direct/ligero/hashchain.py
+@@ -78,6 +78,12 @@ class HashedRelation:
+     leaf: leaf_base.LeafScheme  # the scheme (one instance per compose; its witness hook is on ``sys``)
+     block_layout: bool | None = None    # memo of _block_layout (hash_hints)
+     dec_index: dict | None = None       # memo of private_decode's row gather per name list
++    fmt: object = None          # the relation's ``hash_format`` (``fp4/hashed.py`` FP4Format), None for the BF16 / E4M3 words
++
++    @property
++    def bit_layout(self) -> list[int]:
++        """Bit rows per operand word (``<nm>[i].b<j>``), word-major."""
++        return list(self.fmt.bit_layout) if self.fmt is not None else [self.word_bits] * self.k
+ 
+     @property
+     def steps(self) -> int:
+@@ -101,6 +107,9 @@ def _reduce(e):
+ 
+ 
+ def _format(rel: Relation) -> dict:
++    if getattr(rel, "hash_format", None) is not None:
++        raise ValueError(f"{rel.name}: its operand format ({type(rel.hash_format).__name__}) composes through compose() only "
++                         f"(no row sharing, no word-level private decode)")
+     p = rel.params
+     if rel.word_dtype == "<u2":            # BF16: s | t(8) | f(7)
+         return {"bits": 16, "frac": p.frac, "exp": p.exp, "bias": p.bias, "kind": "bf16", "sig": p.sig}
+@@ -168,6 +177,38 @@ def _private_operands(rel: Relation, sys: System, fmt: dict):
+     return ctx, words, bit_rows
+ 
+ 
++def _formatted_operands(rel: Relation, sys: System, fmt) -> tuple[LigeroCtx, dict]:
++    """``compose`` step 1 for a relation with its own operand format (``rel.hash_format``: ``fp4/hashed.py`` FP4Format):
++    the format's pins become hint rows in its order, ``fmt.decode`` re-derives each operand's from its committed bit rows,
++    ``fmt.finish`` the pins joining both operands.  Returns ``(ctx, elements)``: the lane element expressions per operand
++    (what the leaf's :class:`~backends.direct.ligero.leaf.poseidon2.LaneFormat` packs)."""
++    want = fmt.pin_names()
++    pins = {name: idx for idx, name in sys.pins}
++    if set(pins) != want:
++        raise ValueError(f"{rel.name}: operand pins {sorted(set(pins) ^ want)} differ from the expected decode pins")
++    sys.pins = []
++    sys.linear = [c for c in sys.linear if c.pub is None]
++    for i, op in enumerate(sys.program):
++        if op[0] == "pin":
++            sys.program[i] = ("hint", op[1], op[2])
++    for name in fmt.pin_order(want):
++        idx = pins[name]
++        sys.rows[idx].kind = "hint"
++        sys.rows[idx].spec = (name,)
++        sys.hints.append((idx, name))
++    ctx = LigeroCtx(rel.params)
++    ctx.sys = sys
++    ctx.scope = "hash"
++    elems, aux = {}, {}
++    for nm in ("a", "b"):
++        elems[nm], bit_rows, _, aux[nm] = fmt.decode(ctx, sys, pins, nm)
++        if len(elems[nm]) != fmt.n_elems or len(bit_rows) != sum(fmt.bit_layout):
++            raise ValueError(f"{rel.name}: operand {nm} decodes to {len(elems[nm])} elements / {len(bit_rows)} bits, "
++                             f"not {fmt.n_elems} / {sum(fmt.bit_layout)}")
++    fmt.finish(ctx, sys, pins, aux["a"], aux["b"])
++    return ctx, elems
++
++
+ def _lanes_of(ctx: LigeroCtx, words: list, nb: int) -> list[Expr]:
+     """The 16 rate lanes of a column as affine expressions of its word expressions (``per`` words of ``nb`` bits each,
+     little-endian: ``poseidon2.pack_words_np``)."""
+@@ -198,20 +239,32 @@ def _lane_rows(ctx: LigeroCtx, nm: str, lanes: list[Expr]) -> list[int]:
+ 
+ def compose(rel: Relation, leaf: str | leaf_base.LeafScheme | None = None) -> HashedRelation:
+     """The hashed, private relation of ``rel`` under the leaf scheme ``leaf`` (a registry name -- ``"poseidon2"`` /
+-    ``"hash"`` / ``None`` are the default -- or a scheme instance).  Compiles ``rel`` afresh."""
++    ``"hash"`` / ``None`` are the default -- or a scheme instance).  Compiles ``rel`` afresh.  A relation with a
++    ``hash_format`` (``fp4/hashed.py``) decodes its operands through it and hands the leaf the format's lane elements
++    (the scheme's ``with_lanes``; Poseidon2 only)."""
+     scheme = leaf_registry.get(leaf) if leaf is None or isinstance(leaf, str) else leaf
+     leaf_base.check_scheme(scheme)
+     p = rel.params
+     sys = rel.compile(p, True)
+-    fmt = _format(rel)
+-    k, nb = rel.k, fmt["bits"]
++    hfmt = getattr(rel, "hash_format", None)
++    k = rel.k
+     m0, l0, q0, h0 = sys.m, len(sys.linear), len(sys.quadratic), len(sys.hints)
+     # --- 1. operand pins -> hint rows ------------------------------------------------------------------------------
+-    ctx, words, _ = _private_operands(rel, sys, fmt)
++    if hfmt is None:
++        nb = _format(rel)["bits"]
++        ctx, words, _ = _private_operands(rel, sys, _format(rel))
++        row_words = rel.steps * k
++    else:
++        if getattr(scheme, "with_lanes", None) is None:
++            raise ValueError(f"{rel.name}: leaf {scheme.name} does not take a lane format (its operands are {hfmt.n_elems} "
++                             f"{hfmt.elem_bits}-bit elements on {hfmt.lane_bits}-bit lanes)")
++        scheme = scheme.with_lanes(hfmt)
++        nb = hfmt.elem_bits
++        ctx, words = _formatted_operands(rel, sys, hfmt)
++        row_words = rel.steps * hfmt.n_elems
+     m1 = sys.m
+     # --- 2. the leaf chains: the scheme's gadget per operand, its carried state as linked hint rows -------------------
+     ends: list[Expr] = []
+-    row_words = rel.steps * k
+     for _, nm, role in ROLES:
+         carry = [ctx.hint(f"{nm}.cap[{x}]") for x in range(scheme.carry_elems)]
+         digest, carry_out = scheme.gadget(ctx, words[nm], word_bits=nb, role=role, row_words=row_words, carry_in=carry,
+@@ -239,7 +292,7 @@ def compose(rel: Relation, leaf: str | leaf_base.LeafScheme | None = None) -> Ha
+               "linked_rows": len(sys.chain["c"]), "word_bits": nb, "k": k, "leaf": scheme.name,
+               "digest_elems": scheme.digest_elems, "carry_elems": scheme.carry_elems}
+     extra = [n for _, n in sys.hints[h0:]]
+-    return HashedRelation(rel, sys, nb, k, h0, extra, census, scheme)
++    return HashedRelation(rel, sys, nb, k, h0, extra, census, scheme, fmt=hfmt)
+ 
+ 
+ # ---------------------------------------------------------------------------------------------------------------------
+@@ -537,21 +590,35 @@ def row_chain(hr: HashedRelation, rows, role: int, device) -> tuple:
+ row_sponges = row_chain     # the pre-registry name (Poseidon2's carried state is the sponge capacity)
+ 
+ 
+-def hash_hints(hr: HashedRelation, a, b, n_vus: int, l: int, device, sponges: dict | None = None) -> tuple:
++def call_with_slot(fn, slot, *args, **kw):
++    """``fn(*args, **kw)``, plus ``slot=slot.index`` when a pipeline slot is given and ``fn`` takes one (a relation whose
++    device hint generator keeps per-stream static buffers: ``fp4/hashed.py``)."""
++    import inspect
++    if slot is not None and "slot" in inspect.signature(fn).parameters:
++        kw["slot"] = slot.index
++    return fn(*args, **kw)
++
++
++def hash_hints(hr: HashedRelation, a, b, n_vus: int, l: int, device, sponges: dict | None = None, slot=None) -> tuple:
+     """The appended hint rows (len(extra_hint_names), l) for operand words ``a``, ``b`` (l, k) int64 (pad columns 0), and
+     the digests (n_vus, 2 x digest_elems) the statement publishes.  ``sponges``: ``{"a": (carry (n_vus, steps, ce),
+     digests (n_vus, de)[, extras {name: (n_vus, steps)}]), "b": ...}`` precomputed by :func:`row_chain` and gathered for
+-    exactly these VUs' rows (the caller checked the words match)."""
++    exactly these VUs' rows (the caller checked the words match).  ``slot``: the pipeline slot of this sub-batch,
++    forwarded to the relation's decode (``call_with_slot``)."""
+     import torch
+     a = torch.as_tensor(a, dtype=torch.int64, device=device)
+     b = torch.as_tensor(b, dtype=torch.int64, device=device)
+     nb, k, ce = hr.word_bits, hr.k, hr.leaf.carry_elems
++    layout = hr.bit_layout
+     shifts = torch.arange(nb, dtype=torch.int64, device=device)
+     digests, bit_blocks, cap_blocks, extras = [], [], [], {}
+     for _, nm, role in ROLES:
+         w = a if nm == "a" else b
+-        bits = (w[:, :, None] >> shifts) & 1                      # (l, k, nb)
+-        bit_blocks.append(bits.permute(1, 2, 0).reshape(k * nb, l))   # rows nm[i].b{j}, i major
++        if hr.fmt is not None:
++            bit_blocks.append(hr.fmt.bit_rows_torch(w))
++        else:
++            bits = (w[:, :, None] >> shifts) & 1                      # (l, k, nb)
++            bit_blocks.append(bits.permute(1, 2, 0).reshape(k * nb, l))   # rows nm[i].b{j}, i major
+         if sponges is not None and nm in sponges:
+             cap_v, dg = sponges[nm][0], sponges[nm][1]
+             cap = torch.zeros((ce, l), dtype=torch.int64, device=device)
+@@ -569,18 +636,24 @@ def hash_hints(hr: HashedRelation, a, b, n_vus: int, l: int, device, sponges: di
+                 extras.update({n: torch.as_tensor(v, dtype=torch.int64, device=device) for n, v in out[2].items()})
+         cap_blocks.append(cap)
+         digests.append(dg)
+-    n_dec = len(hr.extra_hint_names) - len(ROLES) * (k * nb + ce)
++    n_dec = len(hr.extra_hint_names) - len(ROLES) * (sum(layout) + ce)
+     if not extras and _block_layout(hr, n_dec):
+         # compose() appends the rows as [converted decode pins | a bits | b bits | a.cap | b.cap]: a handful of copies
+         # instead of one per row (720 rows x 13 sub-batches was ~0.1 s per 4096 VUs)
+-        dec = private_decode(hr, a, b, hr.extra_hint_names[:n_dec])
++        if hr.fmt is None:
++            dec = private_decode(hr, a, b, hr.extra_hint_names[:n_dec])
++        else:
++            vals = call_with_slot(hr.rel.public_vectors, slot, hr.rel.params, None, a, b, None, device=device)
++            dec = torch.stack([vals[n].to(device) for n in hr.extra_hint_names[:n_dec]])
+         out = torch.cat([dec] + bit_blocks + cap_blocks)
+     else:
+-        vals = hr.rel.public_vectors(hr.rel.params, None, a, b, None, device=device)
++        vals = call_with_slot(hr.rel.public_vectors, slot, hr.rel.params, None, a, b, None, device=device)
+         for (_, nm, _), bits, cap in zip(ROLES, bit_blocks, cap_blocks):
++            r = 0
+             for i in range(k):
+-                for j in range(nb):
+-                    vals[f"{nm}[{i}].b{j}"] = bits[i * nb + j]
++                for j in range(layout[i]):
++                    vals[f"{nm}[{i}].b{j}"] = bits[r]
++                    r += 1
+             for x in range(ce):
+                 vals[f"{nm}.cap[{x}]"] = cap[x]
+         vals.update(extras)
+@@ -595,7 +668,8 @@ def _block_layout(hr: HashedRelation, n_dec: int) -> bool:
+     """Whether ``hr.extra_hint_names`` is ``[decode rows | a bits | b bits | a.cap | b.cap]`` (memoised on ``hr``)."""
+     if hr.block_layout is None:
+         names = hr.extra_hint_names
+-        tail = [f"{nm}[{i}].b{j}" for _, nm, _ in ROLES for i in range(hr.k) for j in range(hr.word_bits)]
++        layout = hr.bit_layout
++        tail = [f"{nm}[{i}].b{j}" for _, nm, _ in ROLES for i in range(hr.k) for j in range(layout[i])]
+         tail += [f"{nm}.cap[{x}]" for _, nm, _ in ROLES for x in range(hr.leaf.carry_elems)]
+         hr.block_layout = n_dec >= 0 and names[n_dec:] == tail and all("].b" not in n for n in names[:n_dec])
+     return hr.block_layout
+diff --git a/backends/direct/ligero/leaf/poseidon2.py b/backends/direct/ligero/leaf/poseidon2.py
+index 9df274a3..758d934b 100644
+--- a/backends/direct/ligero/leaf/poseidon2.py
++++ b/backends/direct/ligero/leaf/poseidon2.py
+@@ -19,6 +19,7 @@ from __future__ import annotations
+ 
+ import os
+ from collections.abc import Sequence
++from typing import Protocol
+ 
+ import numpy as np
+ from verity.commitments.rowleaf import SCHEMA_ROW, row_leaf_value
+@@ -27,7 +28,8 @@ from .. import poseidon2 as h2
+ from ..compile import Expr, LigeroCtx, P, Quadratic
+ from . import registry
+ 
+-__all__ = ["DEVICE_SPONGE", "Poseidon2Leaf", "Poseidon2Witness", "permute_torch", "sponge_kernel_source", "sponge_states"]
++__all__ = ["DEVICE_SPONGE", "LaneFormat", "Poseidon2Leaf", "Poseidon2Witness", "lane_geometry", "permute_torch",
++           "sponge_kernel_source", "sponge_lanes", "sponge_states"]
+ 
+ #: The sponges' 1704 S-box rows per unit are written by a dedicated CUDA kernel (:class:`Poseidon2Witness`, a witness
+ #: hook of witness_device.py) with the 24-lane state in registers, instead of the fused program evaluating the linear
+@@ -99,10 +101,10 @@ class _Sym:
+     __rmul__ = __mul__
+ 
+ 
+-def sponge_kernel_source(nb: int, per: int, n_sbox: int) -> str:
+-    """CUDA source of ``poseidon2_rows``: one thread per column; for each sponge, the 16 rate lanes packed from the
+-    word bit rows (``per`` words of ``nb`` bits per lane, little-endian), the capacity from the cap rows plus the IV,
+-    then the permutation with every S-box's x^2, x^3, x^4, x^7 stored to its row."""
++def sponge_kernel_source(nb: int, per: int, n_sbox: int, n_lanes: int = h2.RATE) -> str:
++    """CUDA source of ``poseidon2_rows``: one thread per column; for each sponge, the ``n_lanes`` used rate lanes packed
++    from the word bit rows (``per`` elements of ``nb`` bits per lane, little-endian; lanes ``n_lanes..15`` are 0), the
++    capacity from the cap rows plus the IV, then the permutation with every S-box's x^2, x^3, x^4, x^7 stored to its row."""
+     em: list[str] = []
+     state = [_Sym(em, f"s[{i}]", P - 1) for i in range(h2.WIDTH)]
+     count = [0]
+@@ -127,6 +129,7 @@ def sponge_kernel_source(nb: int, per: int, n_sbox: int) -> str:
+     if count[0] != n_sbox:
+         raise ValueError(f"emitted {count[0]} S-boxes, the system has {n_sbox}")
+     body = "\n".join(em)
++    zero_lanes = f"\n        for (int j = {n_lanes}; j < {h2.RATE}; ++j) s[j] = 0;" if n_lanes < h2.RATE else ""
+     return f"""
+ #define P {P}ULL
+ typedef unsigned long long u64;
+@@ -147,14 +150,14 @@ poseidon2_rows(unsigned* __restrict__ W, int l, int n_sponges, const int* __rest
+     const u64 role = rolerow >= 0 ? (u64)W[(size_t)rolerow * l + col] : 0ULL;
+     for (int sp = 0; sp < n_sponges; ++sp) {{
+         u64 s[{h2.WIDTH}];
+-        const int* br = bitrows + (size_t)sp * {h2.RATE * per * nb};
+-        for (int j = 0; j < {h2.RATE}; ++j) {{
++        const int* br = bitrows + (size_t)sp * {n_lanes * per * nb};
++        for (int j = 0; j < {n_lanes}; ++j) {{
+             u64 v = 0;
+             for (int q = 0; q < {per}; ++q)
+                 for (int b = 0; b < {nb}; ++b)
+                     v |= (u64)W[(size_t)br[(j * {per} + q) * {nb} + b] * l + col] << ({nb} * q + b);
+             s[j] = v;
+-        }}
++        }}{zero_lanes}
+         for (int x = 0; x < {h2.CAPACITY}; ++x)
+             s[{h2.RATE} + x] = ((u64)W[(size_t)caprows[sp * {h2.CAPACITY} + x] * l + col] + iv[sp * {h2.CAPACITY} + x]
+                                 + (role * ivd[sp * {h2.CAPACITY} + x]) % P) % P;
+@@ -168,13 +171,16 @@ class Poseidon2Witness:
+     """The witness hook (witness_device.py ``sys.witness_hooks``) writing the sponges' S-box rows on the device.
+     ``sponges``: per sponge ``(bit_rows word-major, cap_rows, iv_capacity, sbox_rows [(x2, x3, x4, x7), ...])``.
+     ``role_row`` / ``ivd`` (the hash side of row sharing, ``hashchain.row_hash_system``): the capacity IV is
+-    ``iv + role * ivd`` with ``role`` the value of that row in the column."""
++    ``iv + role * ivd`` with ``role`` the value of that row in the column.  ``n_lanes``: the rate lanes the bit rows fill
++    (a :class:`LaneFormat` with fewer elements than a rate block leaves the rest 0)."""
+ 
+-    def __init__(self, nb: int, per: int, sponges: list, role_row: int = -1, ivd: list | None = None):
+-        self.nb, self.per, self.sponges = nb, per, sponges
++    def __init__(self, nb: int, per: int, sponges: list, role_row: int = -1, ivd: list | None = None, n_lanes: int = h2.RATE):
++        self.nb, self.per, self.sponges, self.n_lanes = nb, per, sponges, n_lanes
+         self.role_row = role_row
+         self.ivd = list(ivd) if ivd is not None else [0] * h2.CAPACITY
+         self.n_sbox = len(sponges[0][3])
++        if any(len(s[0]) != n_lanes * per * nb for s in sponges):
++            raise ValueError(f"sponge bit rows are not {n_lanes} lanes x {per} x {nb} bits")
+         if any(len(s[3]) != self.n_sbox for s in sponges):
+             raise ValueError("sponges with different S-box counts")
+         self.rows = frozenset(r for s in sponges for quad in s[3] for r in quad)
+@@ -184,7 +190,7 @@ class Poseidon2Witness:
+         dev = cp.cuda.Device().id
+         hit = self._dev.get(dev)
+         if hit is None:
+-            src = sponge_kernel_source(self.nb, self.per, self.n_sbox)
++            src = sponge_kernel_source(self.nb, self.per, self.n_sbox, self.n_lanes)
+             mod = cp.RawModule(code=src, options=("-std=c++17",))
+             hit = (mod.get_function("poseidon2_rows"),
+                    cp.asarray(np.array([r for s in self.sponges for r in s[0]], dtype=np.int32)),
+@@ -269,9 +275,14 @@ def sponge_states(words, word_bits: int, role: int, n_words: int, n_vus: int, st
+     """``words`` (l, k) int64 torch tensor (pad columns 0) -> (cap_in (8, l): the linked rows ``cap - IV`` per column,
+     digests (n_vus, 8)) by running the sponge of every VU along its ``steps`` columns, all VUs in lockstep."""
+     import torch
+-    dev = words.device
+-    el = torch.as_tensor(h2.pack_words_np(words.cpu().numpy(), word_bits), dtype=torch.int64, device=dev)   # (l, 16)
+-    iv = h2.IV(role, word_bits, n_words)
++    el = torch.as_tensor(h2.pack_words_np(words.cpu().numpy(), word_bits), dtype=torch.int64, device=words.device)   # (l, 16)
++    return sponge_lanes(el, h2.IV(role, word_bits, n_words), n_vus, steps, l)
++
++
++def sponge_lanes(el, iv: list[int], n_vus: int, steps: int, l: int):
++    """:func:`sponge_states` on the rate lanes ``el`` (l, 16) int64 torch (pad columns 0) from the capacity ``iv``."""
++    import torch
++    dev = el.device
+     cap_in = torch.zeros((h2.CAPACITY, l), dtype=torch.int64, device=dev)
+     st = torch.zeros((h2.WIDTH, n_vus), dtype=torch.int64, device=dev)
+     for x in range(h2.CAPACITY):
+@@ -298,7 +309,63 @@ def _bit_rows(word: Expr, nb: int) -> list[int]:
+     return [r for r, _ in rows]
+ 
+ 
++class LaneFormat(Protocol):
++    """An operand row format whose committed words are NOT the sponge's lane elements (``fp4/hashed.py`` ``FP4Format``:
++    64 E2M1 codes + 4 UE4M3 scale bytes per column -> 72 nibbles).  Per column, the ``k`` words map to ``n_elems``
++    elements of ``elem_bits`` bits, packed ``lane_bits // elem_bits`` per rate lane (little-endian); the lanes past
++    ``n_elems / per`` are 0.  The IV is ``IV(role, elem_bits, steps * n_elems)``: a domain of its own."""
++
++    k: int
++    n_elems: int
++    elem_bits: int
++    lane_bits: int
++
++    def elements_np(self, words) -> np.ndarray:
++        """(N, k) words -> (N, n_elems) elements (numpy, int64)."""
++        ...
++
++    def elements_torch(self, words):
++        """(l, k) int64 torch -> (l, n_elems) int64 torch on the same device."""
++        ...
++
++
++def lane_geometry(lanes: LaneFormat) -> tuple[int, int]:
++    """``(per, n_lanes)`` of a lane format: elements per lane and rate lanes used (checked: whole lanes, at most one rate
++    block, a lane below 2^30 < p so the packing is injective)."""
++    per = lanes.lane_bits // lanes.elem_bits
++    n_lanes = lanes.n_elems // per if per else 0
++    if lanes.lane_bits % lanes.elem_bits or lanes.n_elems % per or not 0 < n_lanes <= h2.RATE or lanes.lane_bits > 30:
++        raise ValueError(f"lane format: {lanes.n_elems} elements of {lanes.elem_bits} bits on {lanes.lane_bits}-bit lanes "
++                         f"are not whole lanes of one rate block")
++    return per, n_lanes
++
++
++def _pack_elements_np(el: np.ndarray, lanes: LaneFormat) -> np.ndarray:
++    """(N, n_elems) elements -> (N, 16) rate lanes (``per`` little-endian elements each, unused lanes 0)."""
++    per, n_lanes = lane_geometry(lanes)
++    el = np.asarray(el, dtype=np.int64)
++    if ((el < 0) | (el >= 2**lanes.elem_bits)).any():
++        raise ValueError("lane element out of range")
++    g = el.reshape(el.shape[0], n_lanes, per)
++    out = np.zeros((el.shape[0], h2.RATE), dtype=np.int64)
++    out[:, :n_lanes] = (g * 2 ** (lanes.elem_bits * np.arange(per, dtype=np.int64))).sum(-1)
++    return out
++
++
++def _pack_elements_torch(el, lanes: LaneFormat):
++    import torch
++    per, n_lanes = lane_geometry(lanes)
++    g = el.to(torch.int64).reshape(el.shape[0], n_lanes, per)
++    out = torch.zeros((el.shape[0], h2.RATE), dtype=torch.int64, device=el.device)
++    out[:, :n_lanes] = (g * 2 ** (lanes.elem_bits * torch.arange(per, dtype=torch.int64, device=el.device))).sum(-1)
++    return out
++
++
+ class Poseidon2Leaf:
++    """``lanes``: ``None`` (the operand words ARE the lane elements, ``LANE_BITS / word_bits`` per 16-bit lane, one rate
++    block per column) or a :class:`LaneFormat` (:meth:`with_lanes`).  Under a format, :meth:`gadget` takes the column's
++    ``n_elems`` element expressions and ``row_words`` counts elements; :meth:`native` / :meth:`chain_witness` take the
++    committed words and map them through the format."""
+     name = "poseidon2"
+     assumption = "Poseidon2-BabyBear (width 24, rate 16, Plonky3 constants) collision resistance: algebraic hash, 2^-124 birthday on the 8-lane digest"
+     digest_elems = h2.OUT
+@@ -308,14 +375,46 @@ class Poseidon2Leaf:
+     hash_name = "poseidon2-babybear-w24"
+     privacy_note = "deterministic, unsalted: hides only up to preimage search on a row"
+ 
+-    def __init__(self):
++    def __init__(self, lanes: LaneFormat | None = None):
+         self._sponges: list = []       # per gadget call: (bit_rows word-major, cap rows, iv capacity, sbox rows)
+         self._nb: int | None = None
+         self._per: int | None = None
++        self._n_lanes = h2.RATE
++        self.lanes = lanes
++        if lanes is not None:
++            lane_geometry(lanes)
++
++    def with_lanes(self, lanes: LaneFormat) -> "Poseidon2Leaf":
++        """A fresh instance of this scheme over the operand format ``lanes``."""
++        s = type(self)(lanes)
++        s.test_only = getattr(self, "test_only", False)   # type: ignore[attr-defined]
++        return s
++
++    def _row_elems(self, row_words: int) -> int:
++        """Elements of a row of ``row_words`` committed words under the lane format."""
++        k = self.lanes.k
++        if row_words % k:
++            raise ValueError(f"poseidon2 lanes: a row of {row_words} words is not whole columns of {k}")
++        return row_words // k * self.lanes.n_elems
+ 
+     # --- native ------------------------------------------------------------------------------------------------------
+     def native(self, rows: np.ndarray, *, word_bits: int, role: int) -> np.ndarray:
+-        return h2.hash_rows_np(np.asarray(rows, dtype=np.int64), word_bits, role)
++        if self.lanes is None:
++            return h2.hash_rows_np(np.asarray(rows, dtype=np.int64), word_bits, role)
++        rows = np.asarray(rows, dtype=np.int64)
++        if rows.ndim != 2:
++            raise ValueError("rows must be (N, n_words)")
++        n, k = rows.shape[0], self.lanes.k
++        steps = self._row_elems(rows.shape[1]) // self.lanes.n_elems
++        el = _pack_elements_np(self.lanes.elements_np(rows.reshape(n * steps, k)), self.lanes).reshape(n, steps, h2.RATE)
++        iv = h2.IV(role, self.lanes.elem_bits, steps * self.lanes.n_elems)
++        st = np.zeros((h2.WIDTH, n), dtype=np.int64)
++        for x in range(h2.CAPACITY):
++            st[h2.RATE + x] = iv[h2.RATE + x]
++        for s in range(steps):
++            st[:h2.RATE] = el[:, s, :].T
++            st = h2.permute_np(st)
++        return st[:h2.OUT].T.copy()
+ 
+     def leaf_bytes(self, digest_row) -> bytes:
+         return row_leaf_value(digest_row)
+@@ -324,21 +423,28 @@ class Poseidon2Leaf:
+     def gadget(self, ctx: LigeroCtx, words: Sequence[Expr], *, word_bits: int, role: int, row_words: int,
+                carry_in: Sequence[Expr], first: bool = False, last: bool = True) -> tuple[list[Expr], list[Expr]]:
+         nb = word_bits
+-        per = h2.LANE_BITS // nb
+-        if h2.LANE_BITS % nb or len(words) != h2.RATE * per:
+-            raise ValueError(f"poseidon2: k = {len(words)} words of {nb} bits are not one rate block of {h2.RATE} lanes")
++        if self.lanes is None:
++            per, n_lanes = h2.LANE_BITS // nb, h2.RATE
++            if h2.LANE_BITS % nb or len(words) != h2.RATE * per:
++                raise ValueError(f"poseidon2: k = {len(words)} words of {nb} bits are not one rate block of {h2.RATE} lanes")
++        else:
++            per, n_lanes = lane_geometry(self.lanes)
++            if nb != self.lanes.elem_bits or len(words) != self.lanes.n_elems:
++                raise ValueError(f"poseidon2 lanes: the gadget takes {self.lanes.n_elems} elements of {self.lanes.elem_bits} bits "
++                                 f"per column, got {len(words)} of {nb}")
+         if len(carry_in) != h2.CAPACITY:
+             raise ValueError("poseidon2: the carried state is the 8 capacity lanes")
+         if self._nb not in (None, nb):
+             raise ValueError("poseidon2: one word width per compose")
+-        self._nb, self._per = nb, per
++        self._nb, self._per, self._n_lanes = nb, per, n_lanes
+         iv = h2.IV(role, nb, row_words)
+         lanes = []
+-        for j in range(h2.RATE):
++        for j in range(n_lanes):
+             e = Expr(ctx)
+             for q in range(per):
+                 e = e + words[per * j + q] * 2 ** (nb * q)
+             lanes.append(_reduce(e))
++        lanes += [Expr(ctx) for _ in range(h2.RATE - n_lanes)]
+         state = lanes + [_reduce(c + iv[h2.RATE + x]) for x, c in enumerate(carry_in)]
+         sbox_rows: list[tuple] = []
+         out = h2.permute_ring(state, _sbox_gadget(ctx, sbox_rows), _reduce)
+@@ -350,15 +456,22 @@ class Poseidon2Leaf:
+     def witness(self):
+         if not DEVICE_SPONGE or not self._sponges:
+             return None
+-        return Poseidon2Witness(self._nb, self._per, self._sponges)
++        return Poseidon2Witness(self._nb, self._per, self._sponges, n_lanes=self._n_lanes)
+ 
+     # --- chain witness -------------------------------------------------------------------------------------------------
+     def chain_witness(self, words, *, word_bits: int, role: int, row_words: int, n_vus: int, steps: int, l: int):
+-        return sponge_states(words, word_bits, role, row_words, n_vus, steps, l)
++        if self.lanes is None:
++            return sponge_states(words, word_bits, role, row_words, n_vus, steps, l)
++        el = _pack_elements_torch(self.lanes.elements_torch(words), self.lanes)
++        return sponge_lanes(el, h2.IV(role, self.lanes.elem_bits, self._row_elems(row_words)), n_vus, steps, l)
+ 
+     def census(self) -> dict:
+-        return {"permutations_per_unit": 2,
+-                "sbox_rows_per_permutation": 4 * (h2.WIDTH * 2 * h2.HALF_FULL_ROUNDS + h2.PARTIAL_ROUNDS)}
++        out = {"permutations_per_unit": 2,
++               "sbox_rows_per_permutation": 4 * (h2.WIDTH * 2 * h2.HALF_FULL_ROUNDS + h2.PARTIAL_ROUNDS)}
++        if self.lanes is not None:
++            out.update({"lane_bits": self.lanes.lane_bits, "rate_lanes_used": lane_geometry(self.lanes)[1],
++                        "elements_per_unit": self.lanes.n_elems})
++        return out
+ 
+ 
+ registry.register(Poseidon2Leaf)
+diff --git a/backends/ligero-verify/fixtures/fp4-nvf4-hash/manifest.json b/backends/ligero-verify/fixtures/fp4-nvf4-hash/manifest.json
+new file mode 100644
+index 00000000..b476266e
+--- /dev/null
++++ b/backends/ligero-verify/fixtures/fp4-nvf4-hash/manifest.json
+@@ -0,0 +1,79 @@
++{
++ "format": {
++  "system": "ligero-system/v3",
++  "statement": "ligero-statement/v5",
++  "proof": "ligero-proof/v1"
++ },
++ "relation": {
++  "name": "fp4-nvf4",
++  "model": "blackwell_sm120_nvf4_m16n8k64",
++  "profile": "nvfp4-sm120-mma-draft/2026-09-22",
++  "word_dtype": "<u1",
++  "y_dtype": "<u4",
++  "y_bits": 32,
++  "rust_verifiable": true
++ },
++ "authentication": "included-hash",
++ "commit": null,
++ "device": "cuda",
++ "system": {
++  "rows": 4442,
++  "by_kind": {
++   "hint": 819,
++   "bit": 1004,
++   "prod": 2400,
++   "inv": 30,
++   "sel": 172,
++   "pin": 17
++  },
++  "linear": 334,
++  "quadratic": 4252,
++  "pins": 17,
++  "hints": 819
++ },
++ "zk": false,
++ "mode": "interactive",
++ "impl": "device",
++ "files": [
++  {
++   "rep": 1,
++   "sub": 0,
++   "vus": [
++    0,
++    40
++   ],
++   "stmt": "rep1/sub_00.stmt",
++   "proof": "rep1/sub_00.proof",
++   "proof_bytes": 3530008,
++   "proof_sha256": "388b3332ae67b57a396cfb906906b01ded58d1f686da366ad9e2ec23317ce15b",
++   "stmt_bytes": 7738,
++   "python_verdict": {
++    "accepted": true,
++    "reason": ""
++   },
++   "prover_seconds": 0.2523253969848156,
++   "multiproof_bytes": 192,
++   "auth_openings_seconds": 0.00011714547872543335,
++   "coins": "rep1/sub_00.coins",
++   "coins_bytes": 128,
++   "coins_sha256": "22d8d2a751d19ae60fdf7f63514a10a0c209990fce05fed94e6b0f08ad88ad71"
++  }
++ ],
++ "system_file": {
++  "path": "system.bin",
++  "sha256": "80ac30a956d569a2aae360a59ff0b5ea150fce98200b68fec54520bd4d3719f7",
++  "sys_id": "8c6d260c675cad40ae7263db08974f1842d04997f344cb4f9e52821e70bb25f5",
++  "bytes": 832135
++ },
++ "set": {
++  "total_vus": 40,
++  "batch": 1024,
++  "per_proof": 42,
++  "n_proofs": 1,
++  "zk": false,
++  "mode": "interactive",
++  "reps": 1,
++  "dump_reps": 1,
++  "instances": "a3d24094ce04edc34ec0f5154f65ea3ac2f60b08044b4f2f6cf21939e0a39cde"
++ }
++}
+\ No newline at end of file
+diff --git a/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.coins b/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.coins
+new file mode 100644
+index 00000000..d2acac3e
+--- /dev/null
++++ b/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.coins
+@@ -0,0 +1,2 @@
++µ'	C‹lgp3Ü¯âñµ
++²7ñiÚÚm_í…Y³XW}w 5ò@ÈÑ ý¸¸TÌ.šyÜ~boØÄð‹QIéÅº•qZXæüÔ`Û-ååìPvuQáºÓ±¼Bm1Æ¦PŠê7-A8ƒ¢»°[‰†z¶Ö”Ó%
+\ No newline at end of file
+diff --git a/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.proof b/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.proof
+new file mode 100644
+index 00000000..fe2c9d22
+Binary files /dev/null and b/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.proof differ
+diff --git a/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.stmt b/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.stmt
+new file mode 100644
+index 00000000..69d71b78
+Binary files /dev/null and b/backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.stmt differ
+diff --git a/backends/ligero-verify/fixtures/fp4-nvf4-hash/system.bin b/backends/ligero-verify/fixtures/fp4-nvf4-hash/system.bin
+new file mode 100644
+index 00000000..bbcd0eaf
+Binary files /dev/null and b/backends/ligero-verify/fixtures/fp4-nvf4-hash/system.bin differ
+diff --git a/backends/ligero-verify/fixtures/fp4-nvf4-hash/verify_python.json b/backends/ligero-verify/fixtures/fp4-nvf4-hash/verify_python.json
+new file mode 100644
+index 00000000..ffd39270
+--- /dev/null
++++ b/backends/ligero-verify/fixtures/fp4-nvf4-hash/verify_python.json
+@@ -0,0 +1,36 @@
++{
++ "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
++ "independent": false,
++ "statement_format": "ligero-statement/v5",
++ "accepted": 1,
++ "total": 1,
++ "batch": {
++  "1": {
++   "n_subbatches": 1,
++   "target_bits": 128.0,
++   "batch_log2": -128.04909939407844,
++   "per_proof_log2": [
++    -128.04909939407844
++   ],
++   "n_proofs_claimed": [
++    1
++   ],
++   "accepted": true,
++   "reason": "accept: all 1 sub-batches accepted; union bound 2^-128.05 <= 2^-128"
++  }
++ },
++ "batch_accepted": true,
++ "seconds": 0.010968010872602463,
++ "wall": 0.012176062911748886,
++ "coins": "the transcript's own coins replayed (file verifier)",
++ "items": [
++  {
++   "rep": 1,
++   "sub": 0,
++   "proof": "rep1/sub_00.proof",
++   "accepted": true,
++   "reason": "",
++   "seconds": 0.010968010872602463
++  }
++ ]
++}
+\ No newline at end of file

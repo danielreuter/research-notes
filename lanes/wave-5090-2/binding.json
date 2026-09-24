@@ -1,0 +1,6 @@
+{
+ "branch": "lane/wave-5090",
+ "pod": "vy-wave-5090-ro",
+ "succeeds": "wave-5090",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/wave-5090"
+}

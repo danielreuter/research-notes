@@ -1,0 +1,11 @@
+ M backends/direct/ligero/hashchain.py
+ M backends/direct/ligero/leaf/poseidon2.py
+A  backends/ligero-verify/fixtures/fp4-nvf4-hash/manifest.json
+A  backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.coins
+A  backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.proof
+A  backends/ligero-verify/fixtures/fp4-nvf4-hash/sub_00.stmt
+A  backends/ligero-verify/fixtures/fp4-nvf4-hash/system.bin
+A  backends/ligero-verify/fixtures/fp4-nvf4-hash/verify_python.json
+?? backends/direct/ligero/fp4/hashed.py
+?? backends/direct/ligero/fp4/hashed_pipeline_test.py
+?? backends/direct/ligero/fp4/hashed_test.py

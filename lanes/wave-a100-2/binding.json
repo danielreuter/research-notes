@@ -1,0 +1,6 @@
+{
+ "branch": "lane/wave-a100",
+ "pod": "vy-wave-a100",
+ "succeeds": "wave-a100",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/wave-a100"
+}

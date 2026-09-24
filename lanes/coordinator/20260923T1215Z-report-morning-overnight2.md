@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 048e6a41 (22:37Z) [open] 22:38Z sweep: disk 14 GiB; all lanes alive (arith on A100 port, agkr-fp8 H100, agkr-nvf4 5090 0.529s new, verify-po, d3-h100 starting); sp1-128 resumed for labels; no idle pods
 CHECKPOINT 605b1bbb (22:32Z) [open] 22:33Z A-GKR on all 5 T2 rows (H100 FP8 1.1e8x art:2e7baba7 verified verdict art:ccafc0f7); reindex --remote pulled 57; scoreboard re-rendered 3:31 PM PT
 CHECKPOINT 1d9c3198 (22:29Z) [open] 22:30Z sp1-128 FINAL d1111579 (A100 raised-query 21.05s, achieved -95.46, art:e8c7c331; pod gone ~$2.10) but missed 2222Z handoff -> resumed for SP1 stock/precompile labels + whole-proof D1 wording; merge after. Verify request at verify-po.
 CHECKPOINT 1d9c3198 (22:25Z) [open] 22:35Z scoreboard re-rendered: T2 A-GKR 4090 FP8 3.0e7x + 5090 NVFP4 1.4e8x (gaps filled, verified), B-Ligero 4090 2.4e6->2.2e6x; run-folder eviction 1.14 GiB (disk 13 GiB); d3-h100 bc-9be44216 launched ($4, FINAL 01:30Z); LANE-CONTRACT 1.3 verity-agents rule; TABLES.md SP1 stock/precompile; sp1-128 told D1 whole-proof wording + labels

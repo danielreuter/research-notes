@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T21:13Z
+updated: 2026-09-24T21:23Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -101,6 +101,13 @@ updated: 2026-09-24T21:13Z
 - 21:01Z FULL gate (b) at `7bacdbb9` on tp2, CUDA hidden, xdist: `r20260924-210111-1653` (junit -> `/workspace/tests/t-7bacdbb9-*.xml`). 21:03Z #70 Match `r20260924-210318-37b0` (tp2, untimed, both GPUs).
 - 21:10Z COMMIT `653f1e5e` (pushed): tests only -- board ids out of the new docstrings / test names (`test_d1_…` renamed). Library code unchanged since `7c4fedfb`. Seeded on BOTH pods (`/workspace/research/src/653f1e5e…`); head Commits use this sha. Final gate (b) must be re-run at the final head.
 - 21:10Z #67 Build: 33 derives done 21:01:56Z (wall 2800 s), now CPU-bound program assembly (GPU idle).
+- 21:17Z gate (b) `7bacdbb9` DONE: 3914 tests, 3555 P / 36 F / 0 E / 317 S / 6 xf (a1 xdist base: 3536 P / 54 F / 11 E / 297 S). jdiff vs `baseline-gate_b-xdist.xml.gz` (`/tmp/rff1/jdiff_gate_b_7bacdbb9.txt`): 20 of a1's 65 not failing here; NEW failures 3, NEW skip reason 1:
+  - 2 gc-freeze tests: fresh `python -S -I` on tp2 has `gc.get_freeze_count() == 375` (4170 objects) -> interpreter, not vLLM (a1 blames EngineCore; not the case here). Same 2 fail at base on tp2.
+  - `commit/test_roundtrip::test_transient_storage_is_released` (tracemalloc growth 40,941 > 37,984): code path `commit/fa2_prototype/*` untouched; the file passes ALONE at head AND base on tp2 (13/13) -> depends on which files ran earlier in the xdist worker (new test files change the loadfile assignment). Final gate (b) logs per-worker file order to pin it if it recurs.
+  - new skip reason "builder not runnable here: SmolLM2-135M @ 93efa2f0 snapshot not under HF_HOME" (test_applicability module + test_artifact_applicability_independent): tp2 was bootstrapped `--cases OLMOE` only. FIXED env 21:20Z: B0 fetched into `/workspace/hf` by the bootstrap's own checkpoint step (sha256 OK).
+- Env (both pods): Python 3.12.14 (uv, built 2026-09-01, Clang 22.1.3), torch 2.13.0+cu129, vllm 0.28.1rc1.dev472+gd9105ea80.cu129, triton 3.7.1, numpy 2.3.5, pytest 9.1.1, pytest-xdist 3.8.0 (tp2); drivers g1b 570.124.06, tp2 580.126.09. Same versions as a1's baseline pod.
+- Row runs use `--tool vllm.match` / `--tool vllm.commit` (Tool declarations in `harness/research_tools.py`), `--stage run --cwd source`.
+- 21:22Z #101 Commit(base) `r20260924-212151-1320` on g1b (sweep `/workspace/sweep`), launched WHILE #67's single-threaded global_program assembly runs (1 of 16 vCPU, GPU idle); head follows on `/workspace/sweep_head` (sha256-identical copy, 12,923 files). Noted for timings.
 
 ## Next
 1. Targeted tests green (vs a1 baseline), then full gate (b) xdist on tp2 (-> `baseline-jdiff.py baseline-gate_b-xdist.xml.gz`).

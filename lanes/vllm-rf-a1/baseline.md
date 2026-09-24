@@ -24,6 +24,15 @@ the same mode: no failure or error outside that run's list, and no skip reason o
 order-dependent tests in the serial section can flip either way when the file order changes, for example when a lane
 adds test files.
 
+To compare a run with this baseline, use the JUnit XML of both base gate (b) runs beside this note:
+`baseline-gate_b-serial.xml.gz` and `baseline-gate_b-xdist.xml.gz`. Write yours with
+`-o junit_family=xunit1 --junitxml=RUN.xml`, then run
+`python3 baseline-jdiff.py baseline-gate_b-serial.xml.gz RUN.xml`, using the xdist file for an xdist run.
+
+The script lists tests that are only on one side, outcome changes, new failures and new skips. It exits 0 when there is
+no new failure and no new skip. Fixes and deleted tests are listed without failing the check. Add
+`--ignore-prefix tests.lint.` to shorten the listing of new test files.
+
 ## Commit
 
 `main` at `72884c8a21ccd8e7b127e85f0e4e162b6d684dbd` (tree `7db3f3ba863be6ae896e4db00d8de8eb1c903525`), shipped clean

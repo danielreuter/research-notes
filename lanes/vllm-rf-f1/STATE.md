@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T20:16Z
+updated: 2026-09-24T20:26Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -74,6 +74,12 @@ updated: 2026-09-24T20:16Z
 
 - 20:03Z g1b bootstrap `r20260924-193546-4708` BOOTSTRAP-OK 19:49Z at `72884c8a` (torch cu129, vllm d9105ea80, hidden_gpu + FA2 taps sm_89); GPU idle. Host load average ~16-22 (shared host): note for timings.
 - TP2 bootstraps: both `research run --on` shippings (19:35Z, 19:44Z) refused after 600 s (laptop upstream shared with other lanes). 20:05Z shipping a gzip'd `git archive 72884c8a` (105 MB) over `research pods ssh ... tar -xz` into `/workspace/research/src/72884c8a…` (the launcher adopts an existing tree by per-file sha256), then relaunch the bootstrap.
+- 20:25Z stage runs (all from `verity-wt/rf-f1-base` = `72884c8a`, launcher `/tmp/rff1/research.sh` = `python3.12 -m research` with this worktree's `tools/research/src`; logs `/tmp/rff1/<stage><row>.log`; no artifact store: every stage reads `/workspace/sweep/<row>` on its pod):
+  - #101 Build `r20260924-201453-23bc` PASS (build_wall 131 s). #101 Match `r20260924-202429-ba17` launched 20:24Z.
+  - #67 Build `r20260924-201507-8e88` running since 20:15Z (est. ~34 min).
+  - TP2 bootstrap `r20260924-201429-68bf` SUCCESS (adopted the coordinator's copied tree). #70 Build `r20260924-202455-105b` launched 20:25Z, flags `--retain host --sweep-dir /workspace/sweep` (= the recorded fresh sequence on vyv-tp2x: build/match/commit all `--retain host`).
+  - Plan per row: Build -> Match -> copy `/workspace/sweep/<row>` to `/workspace/sweep_head/<row>` -> Commit(base, `72884c8a`, sweep) and Commit(head, sweep_head) back to back, alone on the pod (timings). Head source: pre-seed `/workspace/research/src/<head sha>/` on each pod from the base tree + `git diff` (the launcher adopts a pre-seeded tree by per-file sha256), so the head launch uploads nothing big.
+- 20:25Z code: `tests/check/opened.py` rewritten (uncommitted): one tensor spec `(name, bytes[, ordinal[, dtype, shape]])`; `commit_steps` (GPU-tree block, needs torch) and `commit_host_steps` (per-tensor host path via `commit_offline`, torch-free; the retained copy IS the caller's buffer so a bytearray can be mutated after the commit). `native_host.commit_offline` accepts optional dtype/shape per tensor (uncommitted). 11 test files still call removed APIs (`committed_reader`, `_t6_4_check(com)`, `compare_match_oracle(dir)`, `_tp2_attribution(None)`): porting now.
 
 ## Next
 1. Implement committer_api + native_host range methods; OpenedReader; wire call sites; update tests that use `committed_reader`.

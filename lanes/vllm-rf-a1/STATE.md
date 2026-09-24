@@ -61,25 +61,27 @@ created: 2026-09-24T17:27Z
 - Pod hygiene: never `pkill -f <pattern>` over ssh (the pattern matches the remote shell and kills the session); kill by pid.
 - Laptop: the brief forbids pytest on the laptop; the early local lint runs (uvx pytest, AST only, <1 GB) were a slip; lints run on the pod now.
 
-## Lints: committed f1a513a9, pushed (`integrations/vllm/tests/lint/`, 41 tests, ~9 s, green locally)
-- `_ratchet.py` (keys, allowlist compare, messages), `_imports.py` (import graph, INTERIM_LAYER from §5.2), `test_p01..p12_*.py`,
+## Lints: `f1a513a9` + docstring commit `39c5ee7a` (head), pushed (`integrations/vllm/tests/lint/`, 41 tests, green on the pod)
+- `_ratchet.py` (keys, allowlist compare, messages), `_imports.py` (import graph, INTERIM_LAYER), `test_p01..p12_*.py`,
   `test_ratchet.py`, `allowlists/<name>.json`. One-off generator (not in repo): `/tmp/rfa1/gen_allowlists.py`; review dump
   `/tmp/rfa1/review.py` -> `/tmp/rfa1/review.txt`.
 - Allowlist entries (occurrences): p01 37 (38), p02 1, p03 39 (40), p04 65 (101), p05 2, p06 231 (344), p07 388 (457), p08 328 (436),
   p09 214 (220), p10 77, p11 751 (1002), p12 17.
-- Local run: `cd integrations/vllm && PYTHONPATH=$PWD:$PWD/../../packages/verity/src uvx --python 3.12 --with pytest==9.1.1 --with numpy==2.3.5 pytest tests/lint -q`
+- Pod run (gate_b env): `cd /workspace/head && python -m pytest integrations/vllm/tests/lint -q -p no:cacheprovider`.
 
 ## Next
-1. Write `baseline.md` as soon as the xdist gate (b) xml exists (deadline ~18:27Z); fill gate (a) and serial when they finish.
-2. Finish the lint modules, generate allowlists, run the lints locally (no torch needed) and on the pod.
-3. Gates (a)+(b) at the lint head; READY.md with allowlist sizes.
+1. When a_base finishes: fill baseline.md's gate (a) section (counts, per-row outcome, skips), status line.
+2. When a_head and b_head_serial finish: jdiff vs a_base / b_base_serial; fill the gate section of `/tmp/rfa1/READY.draft.md`;
+   move it to `READY.md`; update STATE; terminate vyv-rf-a1 (`research pods terminate vyv-rf-a1`) after pulling the XMLs/logs
+   to `/tmp/rfa1/pull/` and copying the needed ones beside baseline.md.
 
 ## Open questions
-- Gate (b) cannot be 0 failures at 72884c8a (10 fail in any environment). baseline.md proposes judging lanes by "no F/E or skip reason
-  outside the baseline list"; the integrator should confirm.
-- 30 applicability failures are `No module named 'verity'` in subprocess builds (tests set PYTHONPATH to the integration tree only).
-  Candidate recipe fix: put core in the venv (`.pth` or `uv pip install --no-deps -e packages/verity`). Test it only after the serial
-  run finishes (venv312 is shared by the running gates).
+- Gate (b) cannot be 0 failures at 72884c8a (10 fail in any environment; 3 more are order-dependent in the serial run).
+  baseline.md proposes judging a lane against the base run of the same mode; the coordinator/integrator should confirm.
 
 ## Found, not fixed
-- none yet
+- In the READY draft (`/tmp/rfa1/READY.draft.md`, section "Found, not fixed"): applicability builds without core `verity`
+  (30); the `HF_HOME` collection-order leak; untracked test inputs (6); `execution_of_workload` NameError (4); CUDA test that does
+  not skip; no `.git` in synced trees; duplicate Definition ids (core vs integration); core patches; library imports of tests/research;
+  11 import cycles; the gc-freeze pair (vLLM `EngineCore` freezes the heap in-process); `test_specified_list_is_closed` order dependence.
+- Not tried (out of scope): installing core into the venv would likely clear the 30 `verity` import failures.

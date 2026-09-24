@@ -37,6 +37,9 @@ created: 2026-09-24T19:30Z
 ## Running (pod vyv-rf-a23 = qcky3qlmvh896c; scripts `/workspace/a23b/{gate_a,gate_b,prefetch_then_gate_a}.sh`, logs `/workspace/a23b/logs/`)
 - 20:16Z gate (b) xdist: `cd /workspace/a23b && OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/a23b/lane b_lane_x12 -n 12 --dist loadfile` -> gate_b.sh pid 824 (sid 824), pytest pid 832; logs `b_lane_x12.{log,xml,env,rss}`.
 - 20:17Z gate (a): read-only key minted on the laptop (expires 23:17Z) piped to `/root/r2ro.env`; `setsid nohup nice ./prefetch_then_gate_a.sh /workspace/a23b/lane-reg a_lane` pid 2172 (sid 2172): fetches the 26 fixture artifacts (`prefetch.log`), deletes `/root/r2ro.env` (also on exit via trap), then execs `gate_a.sh` (refuses if the key file exists) -> `a_lane.{log,xml,env}`, scratch `/workspace/a23b/scratch/a_lane`. A `FAIL` line in prefetch.log = mint again, fetch that row, delete again.
+- 20:23:06Z prefetch done: 26/26 ok, 0 FAIL; `/root/r2ro.env` deleted 20:23:06Z (checked absent 20:24Z); gate (a) `a_lane` started 20:23:06Z (same pid chain 2172 -> exec gate_a.sh).
+- 20:22Z `ed81ba7f` (message-only: profile lookup messages stop naming data/hf_configs) pushed after the gates started; gates run at `6da1b430`; re-run the two profile test files at ed81ba7f before READY.
+- Checks done on the pod at 6da1b430: new paths resolve (config.ROOT, cos_sin, calibration, W11/W11R/W11C tables, tanh tables, corpus, manifest); `uv build --wheel integrations/vllm` -> `/workspace/a23b/wheel/verity_vllm-0.1.0-py3-none-any.whl` contains all 7 .xz, the .npy, the .jsonl, corpus json, tanh tables (pyproject unchanged: hatchling ships every non-ignored file under verity_vllm/).
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

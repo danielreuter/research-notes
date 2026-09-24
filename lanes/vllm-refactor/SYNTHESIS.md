@@ -547,7 +547,7 @@ Tests keep their own switches (`VERITY_REGRESSION*`). Documentation lives in doc
 ## 6. Phased plan
 
 **The gate for every lane:**
-1. The regression harness is green on fixture sets fA and fB: `VERITY_REGRESSION=1 pytest tests/regression -m regression`, tiers T0 and T1, on a CPU pod. Lanes that touch GPU stages also produce candidate row dirs on a GPU pod through the `research` Tools and point `VERITY_REGRESSION_CANDIDATE` at them (`tests/regression/test_regression.py:77-88`).
+1. The regression harness is green: `VERITY_REGRESSION=1 pytest tests/regression -m regression` (the 12 frozen rows, tiers T0 and T1). The integration's full CPU test suite shows 0 failures and no new skips, measured against the lane's base commit. Both run on a CPU pod. (There are no fixture sets named "fA" and "fB". The integrator used those labels for two harness invocations, `20260924T1352Z-final.md:17`.) Lanes that touch GPU stages also produce candidate row dirs on a GPU pod through the `research` Tools and point `VERITY_REGRESSION_CANDIDATE` at them (`tests/regression/test_regression.py:77-88`).
 2. From A1 on, `tests/lint/` and the import contracts are green, and no allowlist grows.
 3. From A5 on, there is no `__main__` or `argparse` outside `pipeline/cli.py`.
 4. Heavy runs happen only on pods.
@@ -572,7 +572,7 @@ The digest-changing defects (D2, D8, D9, D12) wait for Phase 3.
 - **A1. Guardrails** (S; no dependencies; CPU). Add the `tests/lint/` ratchets for P1, P3, P4 and P6 to P12, with today's violations allowlisted. Add the import-linter contracts for P2, P5 and P9, with today's violations as ignores, and the `[project.scripts]` entry. Accept: lints green, allowlists committed.
 - **A2. Dead code out** (M; parallel with A1; CPU). The §5.4 "dead now" and "moved to tests" lists, plus the §2 "Also fix now" items. Accept: about 5k library lines deleted and about 3.8k moved to tests.
 - **A3. Data and paths** (S to M; parallel with A1 and A2; CPU plus one GPU smoke row). Load library-read data with `importlib.resources`. Remove the 8 `sys.path.insert` calls, the 16 uses of `Path(__file__).parents[N]`, the machine paths, and the library read of `tests/` (`harness/commit_delta.py:1793`).
-- **A4. Re-home** (L; after A1 and A2; CPU plus one GPU smoke row per stage). `git mv` into §5.1 and rename code names, but not hashed ids. Update every importer in the same change, with no compatibility shims, including string module paths such as `EXTENSION` at `tp/worker.py:74`. Accept: the target layering contract passes.
+- **A4. Re-home** (L; after A1 and A2 and after the Phase 0 lanes have merged, because a tree-wide `git mv` under open fix branches produces conflicts in every one of them; CPU plus one GPU smoke row per stage). `git mv` into §5.1 and rename code names, but not hashed ids. Update every importer in the same change, with no compatibility shims, including string module paths such as `EXTENSION` at `tp/worker.py:74`. Accept: the target layering contract passes.
 - **A5. One CLI and typed config** (L; after A4; GPU pod). Add `config.py` and `pipeline/cli.py` and remove library `__main__` and argparse. `row_pod.sh`, `tp_stage.sh` and `run_row_v2.sh` become `verity-vllm row`, and the research Tools call the CLI. Environment reads move into the CLI, keeping today's defaults. The shell-regex and source-exec tests become unit tests. Accept: every regression row family re-runs through `verity-vllm row` with identical artifacts.
 
 **Phase 2: consolidation, with the same digests and verdicts.**

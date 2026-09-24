@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T21:02Z
+updated: 2026-09-24T21:13Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -97,7 +97,10 @@ updated: 2026-09-24T21:02Z
   earliest committed member whose name contains the substring (default qkv_proj) in the retained copy; commit_delta applies it after finalize,
   before openings/value checks; recorded as `row.fault_retained_flip`) + CPU test + the padding fixture fix. `7bacdbb9`: test typo (t1.1 step).
 - 20:58Z targeted #3 (`7bacdbb9`, CUDA hidden, gc probe plugin): 709 P / 8 F / 182 S: 6 F in a1's list (source_identity x4, release_json x2) + the 2 gc-freeze
-  (every worker frozen=375 after its FIRST test -> interpreter, see above). 21:00Z base control of the gc tests on tp2: `r20260924-210018-1dff`.
+  (every worker frozen=375 after its FIRST test -> interpreter, see above). 21:00Z base control of the gc tests on tp2: `r20260924-210018-1dff` (same 2 fail at `72884c8a`).
+- 21:01Z FULL gate (b) at `7bacdbb9` on tp2, CUDA hidden, xdist: `r20260924-210111-1653` (junit -> `/workspace/tests/t-7bacdbb9-*.xml`). 21:03Z #70 Match `r20260924-210318-37b0` (tp2, untimed, both GPUs).
+- 21:10Z COMMIT `653f1e5e` (pushed): tests only -- board ids out of the new docstrings / test names (`test_d1_…` renamed). Library code unchanged since `7c4fedfb`. Seeded on BOTH pods (`/workspace/research/src/653f1e5e…`); head Commits use this sha. Final gate (b) must be re-run at the final head.
+- 21:10Z #67 Build: 33 derives done 21:01:56Z (wall 2800 s), now CPU-bound program assembly (GPU idle).
 
 ## Next
 1. Targeted tests green (vs a1 baseline), then full gate (b) xdist on tp2 (-> `baseline-jdiff.py baseline-gate_b-xdist.xml.gz`).

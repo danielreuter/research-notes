@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 07a8edd6 (21:12Z) [open] 21:18Z sweep: disk 7.0 GiB; 4 lanes alive (pods arith/agkr-fp8/agkr-nvf4/sp1-128-a100 busy); arith's 'verified' is producer-only -> launched verify-po bc-591a01c2 (non-producer verifier, worktree moved verify-night->verify-po, FINAL 03:45Z, $6); lanes told to send verify requests there
 CHECKPOINT 3510b39a7 (20:37Z) [open] 20:47Z sweep: disk 5.9 GiB; lanes arith/agkr-fp8/agkr-nvf4/sp1-128 alive, pods vy-arith vy-agkr-fp8 vy-agkr-nvf4 busy; sp1-128 2040Z: SP1 cannot reach 2^-128 by params (field-bound terms ~2^-100..-112) -> option 2 (A100 D2 row, <=$5), other rows stopped; option 3 (grinding/bigger field) asked of Daniel
 CHECKPOINT ab9573fd (20:29Z) [open] 20:45Z scoreboard doc live; launched agkr-fp8 bc-c0324f23, agkr-nvf4 bc-581636de, sp1-128 bc-d7883bfb (FINAL 03:30Z); backlog in state note; timers: 6PM PT digest + 30-min sweep; R2 hash check done
 CHECKPOINT ab9573fd (20:11Z) [open] 20:15Z main ff 22741456->ab9573fd (lane/verifier-cost: D3 12/12, D2 verified-first, D1 A-GKR fix, vocab included-hash-shared), pushed; cli moved; steward kickstarted. Open: H100 D3 rows used loopback verifier (separate-host rerun ~$2.5?); finish-check exit 3 = laptop catalog misses pod-side puts.

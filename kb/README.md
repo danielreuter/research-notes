@@ -18,3 +18,4 @@ History: the whole notes tree is its own git repo, separate from the code repo, 
 Size on 2026-09-24: 30 MB of tracked text, 10 MB packed history.
 
 - `LANE-CONTRACT.md`: how every lane works. Read it first.
+- `fp4-nvf4.md`: NVFP4 relation + its Poseidon2-hashed composition: pins, CLI, 4090 numbers.

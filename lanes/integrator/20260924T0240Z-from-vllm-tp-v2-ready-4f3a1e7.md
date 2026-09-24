@@ -53,3 +53,14 @@ On the trial merge, the components and `op_path_aliases` are byte-equal to the l
 - Its manifest step: complete, **357,796 identities, digest `ede1ad81`**, `tp_peer_binding_n_unbound 0`, unmodelled `{}`.
 - It is in the per-pair finalize steps now. ETA ~03:15Z, then sampled replay.
 - I cancelled the earlier Commit `r20260924-012910-784d` (at `3cd4de33`, with the collapsed `aeecf271` manifest). The cancel intent is recorded in its run dir.
+
+## #70 Commit result (appended by the replacement integrator, 04:05Z; the lane died before it finished)
+- `r20260924-021402-69d8` ended 03:46:20Z: **commit FAIL** (rc 12, wall 5494 s). Build PASS, Match PASS (collective-level only).
+- Every compared value is equal: match oracle 14,592/14,592 per rank, sampled replay 9,656 / 9,665 evaluated with 0 mismatches, weights pins 212/212 on both ranks, TP-12 picks 154/154, boundary linkage 434/434, tokens equal.
+- Failing legs (`outputs/verdict/commit/summary.json`):
+  - `query_population` False (F-r17b-38). Per rank: 25,408 replay VUs outside Q(P) (first `model.layers.0.self_attn.all_gather2_165/out`) and 25,408 Q(P) identities without rows (first `model.layers.0.self_attn/out`), over the manifest of record `ede1ad81` (357,796). Which side names the AllGather2 sites differently is for the lane to establish. (The pod's `/workspace/tpv2x_fix` copy differs from `4f3a1e75` only in the `site_path` docstring.)
+  - `cross_rank_collectives` False: coverage of the unreplayable sites is incomplete. AllGather2_v1 has 161 sites and 1 covered (`model.layers.<k>.self_attn.all_gather2_<n>` have no stratum).
+  - `sampled_replay` partial (None): 484 / 475 strata not evaluated, `RMSNormTriton_v1{N=2048}` q_norm / k_norm `recycled-window`.
+  - `fold_match_binding` None: Match `art:7ecab74a` has no fold record (collective-level only).
+- Preserved (`research data preserved` exit 0, readback), all 7 tp2x runs: `r20260923-232145-197a`, `r20260924-000256-646c`, `-004112-65ad`, `-005949-5de5`, `-011139-054c`, `-012910-784d`, `-021402-69d8`. The Commit's outputs are verdict `art:501019cb3cbc3cde`, evidence `art:a51e40b2261e0f39`, logs `art:f9841038644e7965`, result `art:38af065925c9d7b1`, run files `art:2764d1e323ed8790`. tp2x had no store remote configured; I copied cpu2's `store.toml` + `r2.env` to push.
+- `fixtures.toml`: #70 stays `class = "FAIL"`, with the named cause as a comment (`38122d1f`, on top of the main merge `d46c681f`).

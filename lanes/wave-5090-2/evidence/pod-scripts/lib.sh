@@ -21,9 +21,10 @@ run() {
   local vargs=(--dump-dir $d/proofs --dump-reps 1)
   [ "$mode" = live ] && vargs+=(--verifier $VERIFIER)
   gpu_idle || return 1
-  local t0=$(date +%s)
+  local t0=$(date +%s) rid=r$(date -u +%Y%m%d-%H%M%S)-$(openssl rand -hex 2)   # research run-id form (the store's reverify needs it)
+  echo $rid > $d/run_id
   $PY -m backends.direct.ligero.run --relation $rel bench-vu --zk --mode interactive --batch $batch --pipeline $depth \
-      --total-vus 4096 --target -128 --reps $reps --device cuda --run-id w5090-2-$tag --out $d/result.json "${vargs[@]}" "$@" > $d/log 2>&1
+      --total-vus 4096 --target -128 --reps $reps --device cuda --run-id $rid --out $d/result.json "${vargs[@]}" "$@" > $d/log 2>&1
   local rc=$? t1=$(date +%s)
   local line=$($PY - $d/result.json <<'PYX' 2>/dev/null
 import json, sys

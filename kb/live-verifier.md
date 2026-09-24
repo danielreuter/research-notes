@@ -1,5 +1,12 @@
 # Live verifier (kept RO instance) and its session store
 
+## GOTCHA: CA-MTL-1 (GPU.ONE) does not hairpin public IPs between pods
+Two pods in RunPod CA-MTL-1 (H100 prover 69.30.85.160, A40 verifier 69.30.85.40, both AS20016 GPU.ONE) could not reach
+each other on ANY mapped public port (ssh or :7000 mapping), both directions: `Connection refused`; the laptop reached both.
+Container IPs (172.x) are separate networks. So a same-DC live verifier on a second pod does not work there; test with
+`timeout 4 bash -c '</dev/tcp/IP/PORT'` from the prover BEFORE launching live runs. (wave-h100-2, 2026-09-24 04:08Z; EU-RO-1
+pods did reach each other per live-2c.)
+
 ## Where
 - Pod `vy-live2b-verifier-ro` (pitmqu0zrycw5i), endpoint `tcp://213.173.105.92:56412`. It runs `python -m
   backends.direct.ligero.live serve --listen 0.0.0.0:7000 --out /workspace/live/sessions ...` from `/workspace/live/start.sh`.
@@ -27,3 +34,11 @@ SSH=$(research pods ssh --print vy-live2b-verifier-ro | tail -1)   # zsh: run it
 ${=SSH} 'cd /workspace/live && tar cf - sessions/index.jsonl sessions/*/hello.json sessions/*/session.json sessions/*/verdict.json' > ro-store.tar
 ~~~
 Source: verify-rs-5 report (`lanes/verify-rs-5/`), art:f2f27f16.
+
+## Ligerito bench against a live verifier: t.total vs t.total_live
+`lane/ligerito-2pass` @0f6cc311: a `run.py bench --coins live --verifier ...` result reports `t.total_live` = wall and
+`t.total` = wall - `live.stream_wait_seconds`, and omits t.arithmetic / t.encoding_commitment (they hold the stream waits).
+Before it, `t.total` was the network-inclusive wall, and every `--zk` bench failed main's contract (`t.zk_additional` under
+NON_ZK_PROOF_DIAGNOSTIC; now `split.zk_masks_seconds`). Same-DC (EU-RO-1, RTX 2000 Ada verifier pod) fp8-ada 4096 ZK: RTT
+0.22 ms, wait 0.012 s over 41 rounds, t.total_live / t.total 1.02x (art:af97c8ab). Every run writes `lane ligerito-relation`
+in the session hello (hard-coded in run.py).

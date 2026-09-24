@@ -1,0 +1,12 @@
+bare-v1p8-r1 art:f77aecd5
+bare-v1p4-r1 art:e0227b99 
+bare-v3p8-r1 art:709aa6cc 
+bare-v3p4-r1 art:d31539e1 
+bare-x4p4-r1 art:25c4d33e 
+bare-x4p8-r1 art:900f0542 
+bare-v1p4-r2 art:1ab44987 
+bare-v1p8-r2 art:e6fbde33 
+bare-v3p8-r2 art:beef26fc 
+bare-v3p4-r2 art:95bd2e97 
+bare-x4p4-r2 art:30ac4c50 
+bare-x4p8-r2 art:785e63f2 

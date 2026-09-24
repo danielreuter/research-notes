@@ -1,0 +1,7 @@
+[2026-09-24T03:55:59Z] c20260924T035559Z-1088 challenge-stream session from 213.173.109.92:53292: 3 batches x 41 rounds, window 1; run None lane ligerito-relation note ligerito fp8-ada 4096 VUs
+[2026-09-24T03:56:00Z] c20260924T035559Z-1088 REFUSED: session aborted: ConnectionError: peer closed the connection
+[2026-09-24T03:56:00Z] c20260924T035559Z-1088 challenge-stream REJECTED 0/3 batches, wall 0.93s
+[2026-09-24T04:03:22Z] c20260924T040322Z-ff4e challenge-stream session from 213.173.109.92:53406: 3 batches x 41 rounds, window 1; run None lane ligerito-relation note ligerito fp8-ada 4096 VUs
+[2026-09-24T04:03:25Z] c20260924T040322Z-ff4e challenge-stream ACCEPTED 3/3 batches, wall 3.86s
+{"session": "c20260924T035559Z-1088", "proto": "challenge-stream", "accepted": false, "run_id": null, "n_batches": 3, "rounds": 41, "window": 1, "wall_s": 0.9329984188079834}
+{"session": "c20260924T040322Z-ff4e", "proto": "challenge-stream", "accepted": true, "run_id": null, "n_batches": 3, "rounds": 41, "window": 1, "wall_s": 3.8607494831085205}

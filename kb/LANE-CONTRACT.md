@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 1.1 (2026-09-24T01:05Z: notes repo, §K)
+version: 1.2 (2026-09-24T03:55Z: §3a chatter budget)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -27,6 +27,17 @@ prefix and any per-lane wrapper.
 - `checkpoint` prints your INBOX: handoffs to you, or to the lane you took over, since you were last shown them. Act on each
   one, or say in your next checkpoint why not. At startup, run `research notes inbox <you>`.
 - States: `open`, `blocked` (say on what), `final`.
+
+## 3a. Chatter budget (v1, 2026-09-24; the coordinator tunes it)
+The coordinator and the human see every message you send and every background shell you start (each completion pings
+them). Keep it to what someone must act on:
+- Long jobs run detached on the pod (`nohup ... > /workspace/<you>/x.out 2>&1 &` over ssh); poll with short foreground
+  commands. Background a local shell only if it runs over ~2 minutes and you work on something else meanwhile.
+- Checkpoints: one line, at most ~300 characters (done, next, `art:` ids). Every 20 minutes or per result, not more often
+  than every 5 minutes.
+- Handoffs to the coordinator only when you are blocked, need a decision, or a result changes another lane's plan.
+  Everything else goes in checkpoints and the report.
+- Final response: tip and outcome first, at most ~15 lines, plus one table if you measured cells.
 
 ## 4. Lost context
 Your report and `git log lane/<you>` are the source of truth: continue from them. Uncommitted edits in your worktree are

@@ -144,3 +144,7 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   fp4-port-2 49ef2522, ligerito-2pass-2 4a54ff55. FINAL still 06:30Z.
 - Watcher now detached (nohup, log ~/.research/log/watch.log; macOS has no setsid); a harness tail of the log notifies on STALE.
 - Money 03:42Z: $120.07, account $38/h (ours $13.5 incl. 2x H100).
+- 04:08Z 5090 COLUMN 2 REROUTED: fp4-port-2's pod is a 4090 (bench = relative A/B only). lane/fp4-port @ 1aa1f00e validated
+  (gates 0F, bare == main, hashed == fp4-decode-3 byte-identical, sys_id 8c6d260c). wave-5090-2 merges it (dry merge clean
+  with 04141baf), rebuilds ver8's Rust, measures fp4-nvf4+poseidon2 live same-DC; budget $5. 5090 bare so far: local p4
+  0.039-0.041 s, live 0.125-0.138 (2-vCPU verifier; ver8 7reoox6szli7e6 now serving). Merge lane/fp4-port into main post-wave.

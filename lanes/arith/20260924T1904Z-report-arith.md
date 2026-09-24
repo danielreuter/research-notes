@@ -107,3 +107,32 @@ Inbox at startup: nothing new.
 - A second, independent slow-rep mechanism remains: timed rep 2 (right after rep 1's proof dump) is 0.3-1.9 s in most
   non-diagnostic runs of every arm, and was clean in all 7 runs made with PYTHONUNBUFFERED=1 + the capture log. Diagnosis
   run 77-dbg3.sh (per-pass stage/gc log, buffered vs unbuffered).
+- Step-5 A/B (4 rounds): s3 (f550fdc6) 0.0846 / 0.0851 / 0.0921 / 0.1211 (arith 0.0392 / 0.0391 / 0.0466 / 0.0545);
+  tip 0.0870 / 0.0840 / 0.0863 / 0.0891 (arith 0.0413 / 0.0387 / 0.0400 / 0.0437): 0 of 4 tip medians off (was ~1 in 3).
+
+| 4090 E4M3 fp8-ada-v3x4 l=4096 p8 | t.total s | arithmetic s | overhead x | art |
+|---|---|---|---|---|
+| Table 2 cell (main) | 0.0907 | 0.045 | 2.4e6 | art:fb4934af |
+| base main 22741456 here (3 runs) | 0.0968 | 0.0477 | ~2.6e6 | art:ed45196e art:42d37c74 (+19:19Z r1) |
+| tip 92dab0ad (4 runs, mean) | 0.0866 | 0.0409 | ~2.3e6 | art:def461c7 art:bb75ba4f art:d2b01b3f art:f3978133 |
+
+  Overhead x scaled from the cell's by t.total (same native-peak denominator). Reverify --by arith PASS x4 (verdicts
+  art:39382cd4 art:171af5c1 art:04e43e2e art:51788c35), all preserved (readback); sent to verify-po
+  (lanes/verify-po/20260924T2140Z-handoff-from-arith.md). s3 arm results meta-only: art:bf963bc6 art:0c9c7c72 art:5fff3060
+  art:8b57609d.
+
+### 21:40Z the remaining slow reps (4090, diagnosis stopped)
+- The rest of the noise is main-thread time in the LAST stage (openings unpack: numpy copies out of pinned buffers into fresh
+  arrays): 97-313 ms instead of ~10 ms per pass, no gc in it (dbg3). Most often rep 2, right after rep 1's proof dump
+  (dump-D: rep 2 0.831 / 0.082 / 0.555 s), but also without any dump (dump-N: rep 1 0.384, rep 4 0.416 / rep 2 0.446,
+  rep 4 0.313). PYTHONUNBUFFERED makes no difference (dbg3 U vs B). glibc pinned (MALLOC_MMAP_THRESHOLD_=1 GiB,
+  MALLOC_TRIM_THRESHOLD_=64 GiB) lowers but does not remove it (rep 2 0.195 / 0.316 / 0.419 vs 0.416 / 1.182 / 1.120).
+  Consistent with host page-fault / reclaim stalls on a shared host (THP madvise); a single slow rep no longer moves the
+  median now that rep 1 is clean, so no code change for it.
+- vy-arith (4090) TERMINATED 21:40Z (19:10-21:40 = 2.5 h, ~$1.85).
+
+## H100 port (vy-arith-h100 a3924egsj0agq3, H100 80GB HBM3 SECURE US-MO-1, 26 vCPU / quota 22.1, $3.49/h, 21:41Z)
+- Bootstrap OK (RELS=bf16-hopper-v3x4,fp8-hopper-v3x4). Live verifier on the same pod under nice 19, LIVE_JOBS=4,
+  ligero-verify f05bb9cb (= the cell's), live-verifier@92dab0ad.
+- A/B h100-ab.sh (r20260924-214905-44a7): base = main 22741456's 5 changed files over the tip tree vs tip, 3 alternating
+  rounds; E4M3 local then BF16 live; LIGERO_REFERENCE_HINTS=0 as fill-dc.

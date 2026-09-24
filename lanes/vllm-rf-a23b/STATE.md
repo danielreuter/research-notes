@@ -63,6 +63,9 @@ created: 2026-09-24T19:30Z
 - **21:29:50Z gate (b) head `b_head2_x12` (748d71c5) and base `b_base_x12` (72884c8a), same pod and flags, concurrently:** `OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/{head2,base-b} {b_head2_x12,b_base_x12} -n 12 --dist loadfile` -> gate_b.sh pids 974 (head), 976 (base); pytest 997 (head), 996 (base).
 - 21:36:51Z prefetch done: ok=26 fail=0, `/root/r2ro.env` deleted (checked absent 21:37Z; no AWS_* in the environment).
 - **21:37:17Z gate (a) T0+T1 at 748d71c5 on vyv-rf-a23b-big:** `cd /workspace/a23b && setsid nohup nice ./gate_a.sh /workspace/head2-reg a_head2_t01` -> pid 5565 (sid 5565); logs `a_head2_t01.{log,xml,env,run}`; scratch `/workspace/a23b/scratch/a_head2_t01`.
+- **21:42Z gate (b) done, same pod, same flags:** head `b_head2_x12` (748d71c5): 3833 = 3476 pass / 54 F / 11 E / 286 skip / 6 xf (778 s); base `b_base_x12` (72884c8a): 3904 = 3534 / 56 / 11 / 297 / 6 (762 s).
+  a1's `baseline-jdiff.py`: head vs a1's base xdist -> 0 new failures, 0 new skips, 0 new skip reasons, the SAME 65 F/E; 71 tests only in base (all tests of code part 1 deleted); 1 outcome change (observer weakref s -> pass, order-dependent). Head vs same-pod base -> 0 new F, 0 new skips; gc-freeze pair F -> pass (order-dependent). Same-pod base vs a1's base: only the gc-freeze pair differs. XMLs beside this note (`gate_b-xdist-{head-748d71c5,base-72884c8a-samepod}.xml.gz`).
+- 21:48Z gate (a): r11 `replay_partition` (T1) passed, peak ~63 GB RSS. Order is per row (r4, r11, r23, r39, ...), 12 checks each. Plan: start a same-pod BASE gate (a) T0+T1 in `/workspace/base-reg` (copied 21:51Z) once head is past r39, so the two heavy loads never overlap: `setsid nohup nice ./gate_a.sh /workspace/base-reg a_base_t01`.
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

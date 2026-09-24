@@ -5,6 +5,7 @@ created: 2026-09-24T05:49Z
 status: open
 ---
 
+CHECKPOINT 7b74c31 (06:23Z) [open] seeded pre/post IDENTICAL: v3x4-p8, v3-p8, v1-p4 (pre-fix v3-p8 1.058x, v1-p4 1.019x t.total; post 1.000x); gates 0F: fp8-ada v3x4 art:5541519b v3 art:e735215f v1 art:661074a8, ampere v3x4 art:70183281 v3 art:e5120ed6; equiv --check 15/15 at tip. Next: A/B, FINAL
 CHECKPOINT 73a1250 (06:14Z) [open] 5 fp8-ada cells PRESERVED: v3x4 p8 art:06be3b23 p4 art:91c62994, v3 p8 art:7f294d16 p4 art:d0789c44, v1 p4 art:2d685314; tables: v1 only U, v3/v3x4 U + equiv label (art:574f3519/d40f5065). Next: seeded pairs, pytest, A/B, equiv --check
 CHECKPOINT a337e7b (06:08Z) [open] 4090 fp8-ada: seeded v3x4-p8 pre/post proofs IDENTICAL (13/13); v3x4 p8 art:06be3b23 (t.total 0.0963) p4 art:91c62994 (0.1050), buckets=t.total, contract ok, not contended; bf16-ampere-v3 gate 0 failures. Next: v3 p8/p4, v1 p4, seeded pairs, tables
 CHECKPOINT 9989797f (05:55Z) [open] HANDOFF 9989797f fill lanes can start (lanes/coordinator/20260924T0554Z-handoff-from-fused-phases.md): phase-sum fixed, 15 equiv files, bf16-ampere v2/v3 on frozen, --tile refs were mislabeled frozen (fixed; art:6e2c0d79 must not count). tables-fix 0539Z: meta.lane set. Next: 4090 cells

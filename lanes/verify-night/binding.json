@@ -3,6 +3,6 @@
  "brief": "/Users/danielreuter/.research/notes/campaigns/morning-tables/BRIEF.md",
  "budget": "$4: 1 CPU pod",
  "final": "12:30Z",
- "pod": "none",
+ "pod": "vy-verify-night",
  "worktree": "/Users/danielreuter/projects/verity-main-wt/verify-night"
 }

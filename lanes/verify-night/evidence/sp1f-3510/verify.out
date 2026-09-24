@@ -1,0 +1,77 @@
+=== [07:49:04] fetch
+/workspace/verify-night/sp1f-3510/fp8-ada
+/workspace/verify-night/sp1f-3510/fp8-hopper
+/workspace/verify-night/sp1f-3510/bf16-hopper
+/workspace/verify-night/sp1f-3510/fp4-nvf4
+b322be7e36328aca985097fa84e7d32147071e56320c9cc24e6f46bcf117be42  bf16-hopper/proofs/proof-rep0.bin
+f2888868316b188c01e3e72d5b26b1e2f0f375d7538821f490e7f10651a894dc  bf16-hopper/proofs/proof-rep1.bin
+6d6e62cac03260ca483923d4ad472012c2587fc40f66353a349675fc029f3a63  bf16-hopper/proofs/proof-rep2.bin
+2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179  bf16-hopper/proofs/statement.bin
+3761268b7b4e38807baa26bee3ba7b874148c1ae5c7452d0be006da9fe1852c1  fp4-nvf4/proofs/proof-rep0.bin
+419b172ddc3457563e27a8508731c187cb884cd71b6784e8f69fd0c38e806398  fp4-nvf4/proofs/proof-rep1.bin
+34c8ffb3fca9fb8134e5dd5dd5fd35c7b9cfd88fb8c2b3455115f857ba48768e  fp4-nvf4/proofs/proof-rep2.bin
+e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7  fp4-nvf4/proofs/statement.bin
+36e1f5da0f2f8d99327abf54d750364998de76fe081e1c53e3c871e6e00db811  fp8-ada/proofs/proof-rep0.bin
+95daa31b3b37257c6c231e1f37f3ae57efefd1f15719e90c6e56bc135e967b62  fp8-ada/proofs/proof-rep1.bin
+e6fe9db5989749d17e5f88a10c1eee90c18b3bf779d0b48dbc11954311a2b2eb  fp8-ada/proofs/proof-rep2.bin
+bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28  fp8-ada/proofs/statement.bin
+e16f9b90b13d1e1ff49bc68ec54dd3a4fcf2dde5a7c6762c553e8201a98f798b  fp8-hopper/proofs/proof-rep0.bin
+dc99486d81ee46d4f4e8b6865bd8a16eb4ff26064ada714bb9ee8cd137d1c2a3  fp8-hopper/proofs/proof-rep1.bin
+894f82088b4f3911df424596781a6a5717a37d045c0351e568075b4f73f4d1db  fp8-hopper/proofs/proof-rep2.bin
+302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783  fp8-hopper/proofs/statement.bin
+fp8-ada: dump statement.bin == mine
+fp8-hopper: dump statement.bin == mine
+bf16-hopper: dump statement.bin == mine
+fp4-nvf4: dump statement.bin == mine
+=== [07:49:31] prep done
+=== [07:57:51] verify (host sha256 f37a5a5e9242dc2a)
+{"backend":"sp1","sp1_version":"6.4.0","elf_sha256":"48bb5913616779ac7d6149ff94548dbb9a3f5ffe4adf2ef4f1a82118be3c783a","vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","public_values_len":33,"guest_features":["relation-bare"]}
+--- fp8-ada rep0
+{"backend":"sp1","ok":true,"public_values":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd2801","statement_digest":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":3.291524816}
+rc=0
+--- fp8-ada rep1
+{"backend":"sp1","ok":true,"public_values":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd2801","statement_digest":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":4.521393152}
+rc=0
+--- fp8-ada rep2
+{"backend":"sp1","ok":true,"public_values":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd2801","statement_digest":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":3.408409417}
+rc=0
+--- fp8-ada negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd2801","statement_digest":"bef41cb5433fa4a6e6c8166c7445bd80d9e19d53a77e846a217a64246198bd28","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":false,"verify_seconds":4.108836644}
+rc=0
+--- fp8-hopper rep0
+{"backend":"sp1","ok":true,"public_values":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d62978301","statement_digest":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":3.312666441}
+rc=0
+--- fp8-hopper rep1
+{"backend":"sp1","ok":true,"public_values":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d62978301","statement_digest":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":2.883143397}
+rc=0
+--- fp8-hopper rep2
+{"backend":"sp1","ok":true,"public_values":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d62978301","statement_digest":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":2.87874934}
+rc=0
+--- fp8-hopper negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d62978301","statement_digest":"302a2d61422e6267677054e43a7ce36ab462c2d1af880f9fe7ec44e94d629783","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":false,"verify_seconds":2.722069471}
+rc=0
+--- bf16-hopper rep0
+{"backend":"sp1","ok":true,"public_values":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c7117901","statement_digest":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":2.776411838}
+rc=0
+--- bf16-hopper rep1
+{"backend":"sp1","ok":true,"public_values":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c7117901","statement_digest":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":3.7484674829999998}
+rc=0
+--- bf16-hopper rep2
+{"backend":"sp1","ok":true,"public_values":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c7117901","statement_digest":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":3.754930693}
+rc=0
+--- bf16-hopper negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c7117901","statement_digest":"2aba4b68852af391dd22e25eadbcc52b9e4f1662960f31791acf3ce389c71179","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":false,"verify_seconds":3.173104744}
+rc=0
+--- fp4-nvf4 rep0
+{"backend":"sp1","ok":true,"public_values":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf701","statement_digest":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":1.3817722909999999}
+rc=0
+--- fp4-nvf4 rep1
+{"backend":"sp1","ok":true,"public_values":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf701","statement_digest":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":1.210033622}
+rc=0
+--- fp4-nvf4 rep2
+{"backend":"sp1","ok":true,"public_values":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf701","statement_digest":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":true,"verify_seconds":1.342169828}
+rc=0
+--- fp4-nvf4 negative (last y byte flipped) on rep0
+{"backend":"sp1","ok":true,"public_values":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf701","statement_digest":"e247d4903d9eddd27dae2b12eb9f58707b6c0edc8851cb551caeb270c2705cf7","verdict":true,"unsound":false,"vk_hash":"0x00a42aa336fca4dcddeb8c001f4ee90fed545d5fc9e51a492990f3e45f25a599","statement_match":false,"verify_seconds":1.191514369}
+rc=0
+=== [08:19:43] done

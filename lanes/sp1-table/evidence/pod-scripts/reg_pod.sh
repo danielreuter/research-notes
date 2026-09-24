@@ -37,5 +37,5 @@ m["label"] = sys.argv[2]; m["lane"] = "sp1-table"; m["pod_run"] = "vy-sp1-a100:/
 print(json.dumps(m))
 EOF
 br=$(python3 -m research data put --kind bench-result/v1 --meta @"$W/meta.json" --ref run_files="$rf" --preserve --json | id)
-echo "$rid art:${br} art:${rf}"
+echo "$rid art:${br#art:} art:${rf#art:}"
 rm -rf "$W"

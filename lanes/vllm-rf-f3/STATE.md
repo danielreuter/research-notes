@@ -195,6 +195,7 @@ created: 2026-09-24T17:36Z
   **23:23Z rerun `T0-manifest_digest-r11` at head alone** (fresh copy `/workspace/head-rr`, `rr_head_md11`, launch_once/flock):
   **1 passed** (468 s) -> the full-run skip was the race. Base passed it in its full run (23:13Z).
   23:28Z head 36 results, base 22 (in `T1-replay_partition-r11`, 60 GB), 0 F/E either side; watcher on the laptop polls every 60 s.
+  23:49Z head 46 (in `T1-replay_partition-r39`, 95 GB), base 36 (in `T0-manifest_digest-r39`), 0 F/E; cgroup 114 GB.
   NOTE (my tooling): `AwaitShell` without a shell id returned at once while reporting "slept N s" -- the pod "clock jumps" earlier
   were that; waits now block on a laptop watcher loop.
 - 23:0xZ the 64 GB pod `drd3w6z9d22gvd` TERMINATED after copying its gate (b) evidence (`evidence/cpu_pod/`: gate_b_final

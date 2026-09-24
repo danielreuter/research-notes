@@ -62,6 +62,13 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   consumer model.layers.0.input_layernorm); SAMPLED REPLAY COMPLETE 5,883/5,883 equal (8b606f16 rerun: 37 Bf16MulScalarTensor
   mismatches); BOUNDARY LINKAGE 432/432; WEIGHTS PIN 316/316; OPENINGS 68/68. Pair 2 running, verdict ~08:45Z.
 
+- 08:56Z #67 Match r20260924-075730-80bd PASS (`match PASS rc=0/0/0 wall=3482s verdict PASS global PASS tokens_equal True
+  fold True`); match art:f95c7d6037484fd0f244b62d532b19f835b200e4a33f478c38b38426596d8ea5 (+result art:13ca9182, evidence art:a117d772).
+- 08:57Z #67 Commit launched: run r20260924-085702-d2e3 on vyv-sw-67b GPU 0, source 2c5e038b, build art:5b7e5bcf + match
+  art:f95c7d60. ETA ~10:40Z (sweep: ~1h40m).
+- 09:00Z vyv-sw-57 idle -> #57 Commit on the retire-v1 trial merge 25170f24 (same inputs), to answer the merged-replay question
+  before int-57.
+
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)

@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T19:08Z
+updated: 2026-09-24T19:17Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -22,6 +22,8 @@ updated: 2026-09-24T19:08Z
 - 18:46Z resumed after the 18:02Z Cursor restart: worktree clean at `72884c8a`, no commits; nothing from the first run survived beyond the worktree.
 - 18:56Z mapped compared vs opened positions (below). No code changed yet.
 - 19:08Z design settled (below). Still no code changed.
+- 19:17Z written (uncommitted, not yet run anywhere): `committer_api.RangeOpening`; `native_host`: `_open_range_levels` (one gather + one D2H per range for tensor levels), `_run_root` (shared by `verify`/`verify_range`), `leaf_span`, `_tensor_of_leaves`, `open_range`, `_range_leaves`, `verify_range`. Checked against `open`/`verify` leaf rules, `_apply_padding` (mixed steps refold both `_levels` and `_gpu_levels`), `_HostWindows`/`_HostRanges` (`holds`/slicing span windows), `merkle.range_path_shape`/`fold_range` (`CommitError` is a `ValueError`).
+- Cost concern: GPU-tree leaves are 256 B and `oracle_compare` reads every binding entry's element range, so a whole-row compare re-hashes ~all compared bytes in Python (~1-1.6 us/leaf incl. fold). Measure bytes read + wall on the base row before deciding on batching/caching.
 
 ## Compared vs opened positions (at `72884c8a`, paths under `integrations/vllm/verity_vllm/`)
 

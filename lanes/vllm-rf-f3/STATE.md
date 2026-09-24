@@ -47,12 +47,24 @@ created: 2026-09-24T17:36Z
   map label all v1 as before -> roots unchanged expected (GPU row to confirm).
   Tests (NOT yet run, pod): `tests/acquire/test_p0_footprint.py::test_the_declared_layout_reaches_only_a_committer_that_implements_it`,
   `tests/program/test_padding_pod_consumer.py::test_the_padding_leaf_rule_is_the_committers_not_the_environment`.
+- 19:16Z D14 `bdcf4d5f` pushed. Challenge derivations touched (seed now required, derivation unchanged -> no sample moves for any caller that passed one):
+  `CompiledKernelCheck(seed=)` (only caller: commit_delta, run root 4 bytes), `relations.draw_sample` / `ensure_adjacent_pair` (no callers),
+  `replay.tier_a` / `tier_chain` + CLI (a/chain refuse no --seed; b/c keep self-check seed 0), `sampled_replay.sampled_replay(seed=)` (found in sweep;
+  78 call sites all pass seed), `capture_identities.run` + CLI (no python callers; record gains `coordinate_sample: {seed, per_gemm}`),
+  `run_config --seed` default None: refused only when replay_a/replay_chain run unskipped (row_pod skips both; cov_pod/verify_lane pass it);
+  tier c gets --seed only if given. run.json `sampling.seed` = null (was 0) when not given (no reader except experiment.py's copy).
+  Not touched (already derived): binding.challenge_identities, sampled_replay.challenge_seed, commit_delta/tp --replay-seed (root), tp/xrank_collectives,
+  vu_query.production_sample. Not challenges: twins self-check, stoch_recompute ref rows, holdout, difftest, adversarial, descriptor_equivalence,
+  engine/workload/fixture seeds, bootstrap CIs. "One function from the run root" (SYNTHESIS) NOT done: unifying the forms moves samples/verdict
+  checks (commit_verdict `_REPLAY_SEED_ROOT_FORM`, compiled seed_source) -> Phase 3 / core C4.
+  Tests (NOT yet run): new `tests/check/test_challenge_seeds.py`; `test_run_config_dry_run.py` (+refusal test, 4 calls get --seed 7);
+  `test_replay_synthetic.py` tier_a call gets seed=0. Rebase note: if a23 deletes `check/relations.py`, drop its 2 SEEDED entries.
 
 ## Running
 - nothing yet (launcher: `~/.research/bin/research`)
 
 ## Next
-1. Implement D14, D15 as separate commits; push (D4, D3 done).
+1. Implement D15; push (D4, D3, D14 done).
 2. CPU pod: gates (a)/(b) (+ base measurement if a1 baseline.md absent).
 3. GPU pod (L40S): one Commit row re-run for D3, compare roots with regression record.
 

@@ -31,7 +31,7 @@ The lanes are subagents of the old vLLM chat. Their completion messages go to th
 7. `vllm-rf-<lane>/STATE.md` for each lane, and `READY.md` when one appears.
 8. `vllm-refactor/LANE_PROMPTS.md`: every lane's launch prompt verbatim, plus a restart preamble.
 9. On demand:
-   - the four `vllm-refactor/survey-*.md` reports (673 findings, full detail);
+   - the four `vllm-refactor/survey-*.md` reports (full detail behind every claim in SYNTHESIS);
    - `integrator/20260924T1352Z-final.md` and `integrator/20260924T1410Z-coordinator-addendum.md`, which say what cleanup-2 contains;
    - `~/.cursor/skills/durable-campaign-orchestration/SKILL.md`, on local agent limits and crash-only lanes.
 10. The owner's view of the plan is a canvas: `~/.cursor/projects/Users-danielreuter-projects-veritor/canvases/vLLM-integration-refactor-plan-f0810a11.canvas.tsx`.
@@ -41,11 +41,11 @@ Worktrees are in `~/projects/verity-wt/rf-<lane>`, branches are `lane/vllm-rf-<l
 
 | lane | scope | branch head | pod | state |
 |---|---|---|---|---|
-| a1 | baseline and guardrail lints | `39c5ee7a` (2 commits) | `vyv-rf-a1` = `y2uelocmg62eu0` | Baseline written at 18:30Z. The lint suite (41 tests, about 9 s) is committed. The base gate (a) run was still in progress. STATE 18:54Z. Survived the 18:02Z restart. |
+| a1 | baseline and guardrail lints | `39c5ee7a` (2 commits) | `vyv-rf-a1` = `y2uelocmg62eu0` | Baseline written at 18:30Z. The lint suite (41 tests, about 9 s) is committed. Gate (a) is running at the lint head on its pod; the split harness takes about 3 hours. STATE 18:54Z. Survived the 18:02Z restart. It ran the AST-only lints on the laptop early on, a slip it has since corrected. |
 | a23 | dead code, data and paths | `c1cf11ef` (4 commits) | `vyv-rf-a23` = `qcky3qlmvh896c` | The deletions are done: `tools/`, CMT-1, `engine_rs`, dead PoC files. Two modules the survey called dead are live and were kept (`resolve_decomp`, `hidden_engine`). Data and paths not started. **Silent since 18:02Z although its session exists: treat as stuck.** |
 | f1 | D1: value check over opened values | none | none yet | Died at 18:02Z and resumed at 18:46Z. STATE 19:04Z; it is mapping compared vs opened positions. The largest lane, and it will need GPU pods for a dense, a MoE and a TP2 row. |
 | f24 | D5, D6, D7, D10, D11, D13 | `76020a66` (5 commits) | `vyv-rf-f24` = `0zb24mk1w6nb4o` | The most advanced lane: identity designs done, D10 (no core monkeypatching) under test on its pod. Survived. |
-| f3 | D3, D4, D14, D15 | `0f970b0e` (2 commits) | none yet | Died and resumed at 18:46Z. Its inventory says the D3 and D15 fixes should not change any root or digest: nothing ever set `VERITY_LEAF_LAYOUT`, and the environment tables only ever pointed at the shipped files. |
+| f3 | D3, D4, D14, D15 | `0f970b0e` (2 commits) | none yet | Died and resumed at 18:46Z. D3 and D4 are done and pushed. Nobody sets `VERITY_LEAF_LAYOUT` and no ops script passes `--layout`, so every regression row is v1 on both sides and D3 shouldn't change roots. D14 and D15 are next. The D15 tables live in `fixtures/W11*`: a23 moves them into package data, and f3 deletes the environment overrides and pins digests. |
 | f56 | D16, D17 | none | none yet (needs a 2-GPU pod, an L40S and an H100) | Died and resumed at 18:48Z. It found recorded TP4 all-reduce evidence (`art:53e58b1c…`), so the order can be fixed rather than refused. The FA-tap cross-check scripts were deleted by our own cleanup (`ca5d65e8`); they are recovered in `/tmp/rff56` and become the property check. |
 
 **Liveness.**
@@ -70,7 +70,7 @@ Worktrees are in `~/projects/verity-wt/rf-<lane>`, branches are `lane/vllm-rf-<l
 
 **Standing rules** (from the owner over the last two days):
 - Phases 0 to 2 must not change Program digests, manifest digests, commitment roots, leaf ids or regression verdicts. Every digest-changing fix waits for Phase 3 and one reviewed re-baseline.
-- The regression harness (`integrations/vllm/tests/regression/`, 12 frozen rows, tiers T0 to T2) is the behavior-preservation gate.
+- The regression harness (`integrations/vllm/tests/regression/`, 13 frozen rows in `fixtures.toml`) is the behavior-preservation gate.
 - Gate (b) is judged as **no new failures** against `baseline.md`. The base has 65 known failures and errors, so "0 failures" is impossible there.
 - No heavy work on the laptop: no pytest, no torch, no builds. It has about 9 GB of disk free, and a guardian kills Python processes over 1 GB. Tests run on pods only.
 - No new Markdown files in the repo. Notes live in `~/.research/notes/`. The v2 ontology (Q_module_body, BoundaryValues, correspondence, acquisition) is settled; implementation quality is what's open.
@@ -94,7 +94,7 @@ Worktrees are in `~/projects/verity-wt/rf-<lane>`, branches are `lane/vllm-rf-<l
 - **For reference, my old procedure** was a scratch worktree: from `~/projects/verity`, `git worktree add --detach /tmp/rf-merge origin/main`, then `git merge --no-ff`, check that the diff outside `integrations/vllm` is what you expect, and push only if `origin/main` hasn't moved.
 
 ## Open items, in priority order
-1. **a23 is stuck.** Relaunch it as a23b, using the prompt and restart preamble in `LANE_PROMPTS.md`, on a new branch `lane/vllm-rf-a23b` from `origin/lane/vllm-rf-a23`, worktree `rf-a23b`, notes `vllm-rf-a23b`. That way a late wake-up of the old agent can't collide. Its pod `vyv-rf-a23` has the base tree and environment and can be reused.
+1. **a23 is stuck.** Relaunch it as a23b, using the prompt and restart preamble in `LANE_PROMPTS.md`, on a new branch `lane/vllm-rf-a23b` from `origin/lane/vllm-rf-a23`, worktree `rf-a23b`, notes `vllm-rf-a23b`. That way a late wake-up of the old agent can't collide. Its pod `vyv-rf-a23` has the base tree and environment and can be reused. f3's D15 fix waits on a23's move of `fixtures/W11*` into package data. Either put that move first in a23b's prompt, or give it to f3.
 2. **Watch the other five lanes** through their notes, and relaunch any that die, with the restart preamble.
 3. **Merge in order** through the research coordinator.
 4. **Next phases:**
@@ -103,9 +103,9 @@ Worktrees are in `~/projects/verity-wt/rf-<lane>`, branches are `lane/vllm-rf-<l
    - then Phase 2, lanes B1 to B5 in parallel;
    - Phase 3 needs decisions 1, 3, 4 and 5.
 5. **The baseline's 65 failures** deserve their own small lane:
-   - about 34 are test setup: subprocess builds can't import core `verity`, because the bootstrap puts core on `PYTHONPATH` instead of into the venv;
-   - 10 read files that are missing from the tree;
-   - 21 are CPU-host numerics and real-HF checks.
+   - 34 come from how the pod tree is set up: subprocess builds can't import core `verity`, and a tar-shipped tree has no `.git`;
+   - 10 fail in any environment: files missing from the tree, and a `NameError` in an extracted adapter function;
+   - 21 are CPU-host numerics and real-HF derivation checks.
 6. **Owner laptop actions:** Cursor's `state.vscdb` is 72.7 GB. Delete the old chats, then VACUUM it with Cursor quit.
 7. **Older follow-ups:**
    - the OLMoE replay-reuse key includes FA2-tap counters in `binding_map_p{pair}.json`, which costs about 55 min per Commit but doesn't affect correctness;
@@ -129,4 +129,4 @@ When you have read this, write `~/.research/notes/lanes/vllm-coordinator/<UTC ti
 - stops coordinating: no merges, no launches, no messages to lanes;
 - stays open only as the host of the six lanes it launched, until they finish or the owner stops it.
 
-If the owner stops it earlier, those lanes may stop too; a host restart at 18:02Z killed three of them. In that case, relaunch them from `LANE_PROMPTS.md`.
+If the owner stops it earlier, those lanes may stop too; a host restart at 18:02Z killed three of them and left a fourth (a23) stuck. In that case, relaunch them from `LANE_PROMPTS.md`.

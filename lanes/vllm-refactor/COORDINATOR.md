@@ -2,9 +2,11 @@
 id: vllm-refactor/coordinator-state
 lane: vllm-refactor
 kind: state
-updated: 2026-09-24T17:45Z
+updated: 2026-09-24T19:30Z
 ---
 # vllm-refactor: coordinator state (resume from here)
+
+**Handed off at 19:25Z** to the Cursor Project coordinator: `../vllm-coordinator/20260924T1925Z-handoff-for-project-coordinator.md`. Where the two differ, the handoff is current.
 
 ## Where things stand
 - **Survey:** done, 673 findings. The synthesis is `SYNTHESIS.md` in this directory; its gate text and A4 ordering were corrected by the coordinator.
@@ -42,14 +44,14 @@ The canvas agent (742f18e5-2fc5-4a71-b848-36d442816381) is building a canvas of 
 - **The baseline at 72884c8a is not green:** gate (b) has 65 failures and errors. Lanes judge "no new failures" against `vllm-rf-a1/baseline.md`.
 
 ## If a lane dies
-Relaunch a fresh generalPurpose subagent with the same prompt, plus: "RESTART: read your STATE.md first and continue from it." The prompts are in chat eb746331. Each one is a short scope paragraph that points at `LANE_BRIEF.md` and its `SYNTHESIS.md` sections.
+Relaunch a fresh generalPurpose subagent with the lane's prompt from `LANE_PROMPTS.md`, with that file's restart preamble in front.
 
 ## Merging
-The order is a1, then a23, then the f-lanes as their READY.md files appear. For each lane:
-1. Check the gate evidence in READY.md against the baseline.
-2. Merge `--no-ff` into main from a scratch worktree (`git worktree add --detach /tmp/rf-merge origin/main`).
-3. Push only if main hasn't moved.
-4. Tell the remaining lanes to rebase.
+Since 19:25Z the research coordinator does every merge to `main`, so two agents can never merge at once. The order is a1, then a23 (or a23b), then the f-lanes as their READY.md files appear. For each lane, the vLLM coordinator:
+1. checks the gate evidence in READY.md against the baseline;
+2. makes sure the branch is pushed and rebases cleanly on current `main`;
+3. hands the branch and head commit to the research coordinator for a `--no-ff` merge;
+4. tells the remaining lanes to rebase.
 
 ## Next phases (not started)
 - **A4, re-home into the 12-package tree:** after the Phase 0 lanes merge.

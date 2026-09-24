@@ -70,15 +70,23 @@ created: 2026-09-24T17:36Z
   profile snapshot records the MufuTanh doc -> no Program/profile digest change. Also: test_composition setdefault removed (it set the
   default path), docstrings/skip reasons naming the env vars. Test (NOT yet run): new `tests/program/test_mufu_tables_pinned.py`.
 
-## Running
-- CPU pod `vyv-rf-f3-veritor-campaign` (RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU / 64 GB, 80 GB disk), created 19:17Z, idle, nothing synced yet.
+- 19:50Z a23b's W11 move `96c12c0b` CHERRY-PICKED (not rebased: it sits on 4 other a23b commits -- deletions, test moves, CMT-1
+  removal in commit_delta.py -- which would confound gate (b) vs the base list; the coordinator allowed either) -> `9bddf741`, pushed.
+  Conflicts only in the location functions (+ the oracle docstring hunk, whose file a23b had moved to tests/acquire/): resolved to
+  a23b's `importlib.resources` path with D15's no-env/pinned form. At merge after a23b the cherry-pick should drop out (same bytes).
+
+## Running (pod `vyv-rf-f3-veritor-campaign`, RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU / 64 GB, created 19:17Z)
+- Tree `/workspace/base` = `9bddf741` (research pods sync, rsync); bootstrap OK 19:46Z (`/workspace/bootstrap`, venv `/workspace/venv312`).
+- Early targeted run (31 files touched by D3/D4/D14/D15) in copy `/workspace/tgt`: `/workspace/rff3/targeted.sh` -> `/workspace/rff3/logs/targeted.{log,xml}`
+  (1 F seen at ~47%, run not finished at 19:51Z).
+- Gate (a) prefetch: own read-only key minted on laptop (1 h) -> `/root/r2ro.env`; `/workspace/rff3/prefetch.sh` (deletes the key on exit)
+  -> `/workspace/rff3/logs/prefetch.log`, 26 artifacts. `gate_a.sh` has the key line removed. Scripts: `/workspace/rff3/gate_{a,b}.sh` (a1's, logs -> /workspace/rff3/logs).
 
 ## Next
-1. While a23b's `W11 move: <sha>` is pending (not in its STATE.md at 19:30Z): sync d4a87683 to the pod, bootstrap, run the new/changed
-   test files (D3/D4/D14/D15) as an early check.
-2. Once `W11 move` lands: rebase onto it (only the table location functions should conflict), re-sync, gates (a)/(b) on the pod.
+1. Read the targeted failure; fix if mine.
+2. Gates on `9bddf741` (or the fix): gate (b) xdist in a tree copy, gate (a) with no key after prefetch confirms `key present: no`.
 3. GPU pod (L40S): one Commit row re-run for D3, compare roots with regression record.
-4. READY.md in this dir when gates are in.
+4. READY.md in this dir when gates are in; terminate pods.
 
 ## Open questions
 - D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.

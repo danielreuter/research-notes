@@ -7,8 +7,8 @@ export LIGERO_GPU_STRICT=1 LIGERO_GRAPH_STRICT=1
 FP=/workspace/fused-phases; O=$FP/runs; LOG=$FP/runs.txt; mkdir -p $O
 TIP=$(python3 -c 'import json; print(json.load(open("/workspace/src/.research-source.json"))["commit"])')
 
-gpu_idle() {  # wait up to 120 s for an empty GPU
-  for i in $(seq 60); do
+gpu_idle() {  # wait up to ${1:-120} s for an empty GPU
+  for i in $(seq $(( ${1:-120} / 2 ))); do
     [ -z "$(nvidia-smi --query-compute-apps=pid --format=csv,noheader)" ] && return 0; sleep 2
   done
   echo "GPU NOT IDLE: $(nvidia-smi --query-compute-apps=pid,process_name --format=csv,noheader | tr '\n' ' ')" | tee -a $LOG; return 1
@@ -22,7 +22,8 @@ run() {
   local entry=(-m backends.direct.ligero.run) commit=$TIP
   [ -n "$seed" ] && entry=($FP/scripts/seeded_run.py)
   [ "$src" = /workspace/src-pre ] && commit="3adf4c28e-prefix-files"
-  gpu_idle || return 1
+  # seeded runs only compare proof bytes (and the accounting): they need no idle GPU; registrable runs wait for one
+  [ -n "$seed" ] || gpu_idle 1200 || return 1
   local t0=$(date +%s)
   (cd $src && PYTHONPATH="$src/packages/verity/src:$src/backends/numerical/python:$src/tools/research/src:$src" \
      RESEARCH_GIT_COMMIT=$commit URANDOM_SEED=$seed \

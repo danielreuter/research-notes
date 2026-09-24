@@ -55,6 +55,11 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
 * `python -m verity_numerical.bench.summary ...` shows a `contended` column. `--best` keeps the fastest non-contended, non-failed
   row per config and names each refused row. `vs_ref` / `ref` / `flag slow-vs-ref` (more than 15 % slower) compare a row with
   the fastest preserved (R2) store result of the same relation, gpu, auth, l, pipe, VUs, zk and mode. `--no-refs` skips the lookup.
+* `research run --on ... -- CMD` runs CMD as an argv, with no shell: `-- bash '$RESEARCH_RUN_DIR/inputs/x.sh'` fails with rc 127
+  ("No such file or directory"). Without `--cwd` the run dir is the cwd, so use `-- bash inputs/x.sh`. With `--cwd`, use
+  `-- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/x.sh"'` (merge-postwave, r20260924-170644-a490).
+* The runpod CPU image (Ubuntu 22.04) has curl. Listing `curl` in `apt-get install` made apt upgrade it from a security-pool URL
+  that returned 404, and the whole install failed with rc 100. Leave curl and ca-certificates out of the list (merge-postwave, 2026-09-24).
 
 ## Pod guard and streamed ships in `research run --on` (pod-runs, 2026-09-24, lane/pod-runs)
 * Opt a job pod in with `guard = N` (idle minutes; `true` = 90) in its `machines.toml` entry. An entry without `guard` never

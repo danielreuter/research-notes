@@ -98,3 +98,14 @@ v6.4.0 source (`f66b4bff5`).
 - Modified SP1 variants use `benchmarks/dot_product/vector_run.py --backend sp1-bare --variant FILE`, with SP1 prover
   options passed as `--prover-env KEY=VALUE` (recorded as `software.prover_options`). `backends/sp1/tcdot/bench.py`
   writes the variant file.
+
+## Building on a fresh pod (merge-postwave, 2026-09-24)
+- `sp1up --version v6.4.0` installs `cargo-prove` first and the `succinct` guest toolchain (a 311 MB tarball, ~10 min on a
+  cpu3c pod) after it. So `cargo prove --version` succeeding does not mean the toolchain is ready. A host `cargo check` /
+  `build` started in that window fails in build.rs with "override toolchain 'succinct' is not installed". Wait for
+  `rustup toolchain list | grep succinct`.
+- `veritor-zk-common` tests read repo-root `fixtures/` (bench-instances/v1 negatives, typed-obligation-v0). A
+  `git archive HEAD backends/sp1` alone gives 4 NotFound failures.
+- `backends/sp1/tcdot/build_fork.sh OPERANDS=witness SKIP_SERVER=1` on a CPU pod reproduces the witness-arm fork (HEAD
+  6655716e, tree == FORK_TREE_WIT). `cargo check --release -p verity-tcdot-host --features stream-operands` then takes 8m52s
+  on 16 vCPU (r20260924-171410-4069).

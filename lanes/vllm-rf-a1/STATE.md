@@ -13,9 +13,12 @@ created: 2026-09-24T17:27Z
 
 ## Done
 - 17:27Z worktree created.
+- 17:31Z pod `vyv-rf-a1-veritor-campaign` = RunPod `y2uelocmg62eu0` (cpu3g, 16 vCPU / 64 GB, 80 GB disk, EUR-IS-1, $0.64/h), created with
+  `research pods create --name vyv-rf-a1 --cpu cpu3g --vcpu 16 --disk 80` (research run as
+  `PYTHONPATH=<wt>/tools/research/src python3.12 -m research`, wrapper `/tmp/rfa1/research.sh`).
 
 ## Running
-- nothing yet
+- pod bootstrap (next)
 
 ## Next
 1. Read `tools/research/README.md`, `integrations/vllm/ops/` bootstrap scripts; provision `vyv-rf-a1`.

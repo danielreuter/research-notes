@@ -86,6 +86,8 @@ Red-team, fetch --all, reverify and tests over ~1 GB run on your pod.
 - Custody is `research data preserved <art|run>...` exiting 0, never hand-written SQL (`research data sql` prints the real
   schema when a column is wrong).
 - Bench tables: `python -m verity_numerical.bench.summary DIR...` once it is on your base, instead of a per-lane `summ.py`.
+- The tables the user sees, and what a result must satisfy to count in them: `kb/TABLES.md`. Read it before producing any
+  result meant for Table 2/3 or a drill-down.
 
 ## 9. FINAL
 - `research notes checkpoint <you> final "<one line>"` writes the line, then runs the finish checks: every `art:` id the

@@ -51,3 +51,8 @@ origin: lane/vllm-57-fix
 ## #67 (follow-on, same lane)
 - Population over #67's fresh Build at the tip reconciles: identities_without_rows is 0, where the sweep at `014563ac` had 20,928 MoE experts outputs. So #67 shares #57's first cause, which staging already fixes.
 - Build is `art:5b7e5bcf`. Match `r20260924-075730-80bd` is running on vyv-sw-67b. Commit comes next; PASS is expected around 11:15Z.
+
+## 11:36Z update: #57 on the merged tree
+- #57 Commit PASS at `f16703a2`, which is staging `2c8aa2b3` plus the relayout import fix. Staging `2c8aa2b3` alone can't run a v2 Commit; see `20260924T1027Z-handoff-from-vllm-57-fix.md`.
+- Run `r20260924-103124-47d5`: 3 runs, 0 failed, every check PASS. Verdict `art:bad7b21c…`, preserved.
+- #67: its Commit at `f16703a2` is running as `r20260924-102613-0196`. Pair 0 is clean (sampled replay 38,748/38,748). Verdict is expected around 12:05Z.

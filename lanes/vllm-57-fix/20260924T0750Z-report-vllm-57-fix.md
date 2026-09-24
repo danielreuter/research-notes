@@ -5,6 +5,7 @@ created: 2026-09-24T07:50Z
 status: open
 ---
 
+CHECKPOINT f16703a2 (11:40Z) [open] #57 Commit PASS on merged tree f16703a2 (r20260924-103124-47d5, verdict art:bad7b21c preserved). #67 Commit r20260924-102613-0196 pair 0 clean (replay 38,748/38,748), verdict ETA ~12:05Z
 CHECKPOINT f16703a2 (10:27Z) [open] 67-pass AT-RISK: staging 2c8aa2b3 broke v2 Commit (stale verity_capture imports from relayout); fixed f16703a2 (pushed, integrator handoff). #67 Commit r20260924-102613-0196 @f16703a2 ETA ~12:05Z
 CHECKPOINT 2c5e038b (10:00Z) [open] #57 Commit also PASS on retire-v1 trial merge 25170f24 (verdict art:6b939117, preserved); integrator note updated. #67 Commit r20260924-085702-d2e3 pair 0 in sampled replay, ETA ~10:45Z
 CHECKPOINT 2c5e038b (08:59Z) [open] #67 Match PASS art:f95c7d60; #67 Commit r20260924-085702-d2e3 @2c5e038b running (ETA ~10:40Z). #57 Commit on retire-v1 trial merge 25170f24 r20260924-085749-2570 running (ETA ~09:50Z)

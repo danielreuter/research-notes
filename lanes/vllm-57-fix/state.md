@@ -122,6 +122,11 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 - 11:25Z #67@f16703a2 pair 0 DECIDER CLEAN: SAMPLED REPLAY COMPLETE 38,748/38,748 equal, not-evaluated 0 (the 2,416 MoeSum strata
   that failed at 2c5e038b now evaluate), BOUNDARY LINKAGE 1308/1308, WEIGHTS PIN 212/212, instrumented tokens_eq True. Pairs 1-2 reuse
   the replay record; verdict ETA ~12:05Z. #57@f16703a2 pair 1 replay 5,883/5,883 (reused); pair 2 running, verdict ~11:35Z.
+- 11:36Z #57 Commit PASS on the merged tree f16703a2 (r20260924-103124-47d5): `commit PASS rc=0 wall=3509s runs 3 failed 0`, all 7
+  checks PASS, manifest_verify True. verdict art:bad7b21ccf3ad4e615b298387f1d65ab5068baf3ca8bef44710792411eb8a97e (+evidence
+  art:93090aab, logs art:beddd62e, result art:fd1b2b5b, run_files art:119d4ebb). Preserved: `data preserved --mode head` rc 0
+  (sha256-readback x7), then `--mode recorded` PRESERVED; 6 labels durable (arm=merged-staging-2c8aa2b3-plus-f16703a2).
+  Answer appended to lanes/integrator/20260924T1027Z-handoff-from-vllm-57-fix.md. vyv-sw-57 idle again.
 
 ## Checkpoints
 - CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);

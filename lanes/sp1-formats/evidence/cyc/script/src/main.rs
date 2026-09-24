@@ -21,7 +21,7 @@ async fn main() {
     let (x, w, y) = (&data[o..o + total * rb], &data[o + total * rb..o + 2 * total * rb], &data[o + 2 * total * rb..]);
     let format = h["format"].as_str().unwrap().to_string();
     let id: u8 = match format.as_str() { "bf16-hopper" => 1, "fp8-ada" => 2, "fp8-hopper" => 3, "fp4-nvf4" => 4, _ => panic!() };
-    let mut input = vec![id];
+    let mut input = vec![id, 0, 0, 0];
     input.extend_from_slice(&(n as u32).to_le_bytes());
     input.extend_from_slice(&x[..n * rb]);
     input.extend_from_slice(&w[..n * rb]);

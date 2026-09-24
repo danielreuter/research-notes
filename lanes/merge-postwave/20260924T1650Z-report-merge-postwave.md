@@ -30,3 +30,12 @@ Base: lane/post-wave @ 1b3c7be6. Worktree ~/projects/verity-main-wt/post-wave. I
   archiving; r20260924-165536-47d1 left in phase shipping) and my `research data evict` runs. Handoff to coordinator
   20260924T1702Z. Workaround: `research pods sync` (22 MB launcher; ~100 KB/s ingress, 252 MB tree) + `research run --cwd
   /workspace/src`; setup (toolchains) r20260924-170644-a490 in parallel with the sync.
+- Inbox 16:56Z `20260924T1656Z-handoff-steward-guardian.md` ("the laptop guardian killed 1 process(es) of merge-postwave
+  (disk floor 3.3GB free): rerun"): acted on -- relaunched through the low-memory path above (launcher 39 MB RSS).
+- Pod runs (scripts in evidence/pod-scripts/): setup r20260924-170644-a490 failed rc 127 (`$RESEARCH_RUN_DIR` is not
+  shell-expanded in the workload argv; use `bash inputs/X.sh`), setup r20260924-171002-37a0 (apt rc 100 on a stale curl
+  security-pool 404 -- curl is on the image, dropped from the list; rustup, sp1up v6.4.0 incl. succinct toolchain, uv OK by
+  17:25Z). SP1 checks from `git archive 04700cb5 backends/sp1` (1.2 MB, --send): r20260924-171410-4069 -- check-sp1 and
+  check-sp1-bare rc 101 because the succinct toolchain was still downloading (environmental: "override toolchain 'succinct'
+  is not installed"), tcdot-fork OK (HEAD 6655716e, tree 4ca5a6ca == FORK_TREE_WIT); rerun of the two checks
+  r20260924-172629-f417.

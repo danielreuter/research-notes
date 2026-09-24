@@ -1,1 +1,4 @@
 06:47Z h100 f8b-x4p8-r1 result=art:0cb6c9fd555ced4d00e46452b8da32672754fd1eba7ecc7473986855181b7c39 t.total=0.0798 | H100 sweep r1 fp8-hopper-v3x4 l4096 p8 local
+06:50Z h100 b16b-v1p8-r1 result=art:0fa8d0e59096561a1139b239d85441e22bfe3ff6ce2e71ba06ff9f3fc065de16 t.total=0.1784 | h100 sweep b16b-v1p8-r1 local coins (no dump)
+06:50Z h100 b16b-v1p8-r2 result=art:42c193971c77a50e0366fdaf8d5111fcf40791e0244c4971f352298fc2c86f32 t.total=0.1793 | h100 sweep b16b-v1p8-r2 local coins (no dump)
+06:50Z h100 b16b-x4p4-r1 result=art:9a8f9aadaace8eff5bc8673670d43cf9f151f66f243362c742c88d5211cb6f79 t.total=0.1481 | h100 sweep b16b-x4p4-r1 local coins (no dump)

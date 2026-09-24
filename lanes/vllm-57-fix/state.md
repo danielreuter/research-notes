@@ -21,7 +21,14 @@ laptop launch (#67 Commit, preserve) needs >=3.5 GB free.
   --input build=art:5b7e5bcf…, no extra env (8b606f16's row_pod picks all snapshot steps if form (B) needs them). ETA ~08:45Z.
 - 2c5e038b pod tests (/workspace/lane/logs/tests_2c5e.log, run by the predecessor 06:51Z): all pass except 3
   test_commit_fail_closed dead-watchdog tests, which fail on "Ninja is required to load C++ extensions" in a subprocess
-  (environment, not the fix). Confirming with PATH fixed.
+  (environment, not the fix: /workspace/venv312/bin/ninja exists but is not on the ssh shell's PATH). 08:06Z: rerun with
+  PATH=/workspace/venv312/bin:$PATH + a private TORCH_EXTENSIONS_DIR: all 3 pass (logs/tests_2c5e_watchdog_path.log).
+- #67 Match runs with snapshot steps 0,1: no row_pod form (B) line => form_b_families(OLMoE manifest) is empty (every required
+  value has a replay evaluator), so 8b606f16's `all` does not apply. Manifest: 406,432 = instance_outputs 275,988,
+  moe_block_stream 125,568, fa2_hidden_m1_stream 2,048, tokens 1,308+1,308, weights 212.
+- #67 early check (vyv-sw-67b CPU, /workspace/lane/logs/repro67.log; script evidence/pod-scripts/repro67.py): population
+  reconciliation over the fresh Build's Programs at 2c5e038b (the sweep's 20,928 identities_without_rows) + which members the
+  promoted rule selects on OLMoE.
 
 **#67 SCOPE CHANGE (06:30Z, for the coordinator):** a Commit-only rerun of #67 is impossible. Its row dir lived only on vyv-sw-67
 (terminated 04:16Z), and the stored artifacts are account summaries: Build art:a0fb7ea8 (vllm-build/v1, 0.9 GB) skipped every
@@ -47,6 +54,8 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   second Commit rerun (~50 min + ~9 min producer facts); ETA PASS ~09:45Z if the fix lands by ~08:45Z.
 - CHECKPOINT 57-fix MET 06:20Z -- 4f6f6d1d + 8b606f16 pushed (origin, sw57); touched tests + test_no_by_name_rules green on the pod; offline
   repro with the fix: form (B) compared 159,840 (base 114,480), not compared outside no-oracle families 0 (log repro_oracle_fixed.log).
+- CHECKPOINT 57-fix MET 08:06Z (re-met at the tip 2c5e038b, the acquisition-side fix) -- pushed origin + sw57; its touched tests
+  green on the pod (tests_2c5e.log; the 3 dead-watchdog failures pass with ninja on PATH, tests_2c5e_watchdog_path.log).
 
 ## Root cause (#57 Commit 8cb4, from the offline reproduction at base 38122d1f)
 Two independent failures; the first is already fixed on staging, the second is the fix of this lane.

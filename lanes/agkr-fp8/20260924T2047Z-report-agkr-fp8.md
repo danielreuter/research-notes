@@ -5,6 +5,7 @@ created: 2026-09-24T20:47Z
 status: open
 ---
 
+CHECKPOINT 40069d44 (21:34Z) [open] 4090 FP8 cell recorded: art:1b4fd4a1 (run-files art:89a2ce85, r20260924-211113-5f9e @07a8edd6) t.total 1.130s med, Rust 3/3, 2^-130.19, only rejection=indep. verification; negatives art:edfbca4d; handoff coordinator/20260924T2129Z. next: H100 fp8-hopper
 CHECKPOINT 07a8edd6 (21:07Z) [open] 07a8edd6: fp8-ada 4096 VUs on 4090 passes (t.total ~1.11s, Rust 2/2, 2^-130.19, negatives 4/4 both verifiers); next: recorded 3-rep run + data put --preserve + coordinator handoff, then H100
 CHECKPOINT 4e26d864 (20:47Z) [open] 66841d43: A-GKR FP8 circuits (checker v2 adder-side view, packed-word epilogue), BF16 statements byte-identical, 600 random VUs match silicon; 4090 pod vy-agkr-fp8 bootstrapped; dev run fp8-ada 256 VUs running. next: 4096 + negatives
 

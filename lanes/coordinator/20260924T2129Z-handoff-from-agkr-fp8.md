@@ -31,7 +31,11 @@ ligero_rows 22730, committed_elements 93101755. 0.97 s at 16 threads on the prod
 
 **Negatives already run by this lane** (dev run r20260924-210424-0471, same code at 4096 VUs; my own, so not independent): public
 word +1, -1, sign bit (bit 21) flipped and exponent +1 (bit 13), each on a different VU, are rejected by both the Python and the Rust
-verifier at `epilogue/assertions: phase-1 round 0 sum mismatch`; the honest proof is accepted by both.
+verifier at `epilogue/assertions: phase-1 round 0 sum mismatch`; the honest proof is accepted by both. Tree (each variant's
+statement + proof + verdicts, the dev run's stdout, the script): `art:edfbca4d2307d2b4da0c7b6803f06a8af14c2998f97b0e7be8befad41ab9f9e0`
+(PRESERVED; ref result = art:1b4fd4a1). To re-run one: `verity-gkr-verify verify --dir DIR/neg/word_plus --proof
+DIR/neg/word_plus/proof.bin --vus 4096 --threads 15` should exit non-zero (each variant dir holds its own statement files,
+with public.bin altered, plus proof.bin). The prover proves the honest witness; the statement's public word is what changes.
 
 **Known metadata slip (not a validity issue)**: this result's descriptive strings came from the BF16 path: `software.backend.version`
 says "limb epilogue", `.model` says "checker Params.from_model", and `note` says "96 chained units". The FP8 path actually uses

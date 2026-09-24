@@ -8,6 +8,7 @@ final: 01:10Z hard; budget $10
 status: open
 ---
 
+CHECKPOINT 1a69ab6 (20:50Z) [open] 4090: s1 arith 0.0477->0.0417 verified (art:7775888d..); s2+s3 kernels bit-exact, A/B noisy; cause = ragged-layout graph captures in timed reps; fix 92ea2531 fixed slot per sub-batch, A/B running; next register+reverify, then H100
 CHECKPOINT none (20:23Z) [open] steps 2 (0baefa9d lincomb2 w+v one pass, 0.39->0.25ms) + 3 (f550fdc6 intt_rows) bit-exact; step1 reverify PASS x3 (art:20f128cf art:d6273533 art:118efdc0); 3-arm A/B s1/s2/s3 running (pod noisy: medians)
 CHECKPOINT none (19:57Z) [open] step1 quad_v4 9d1a7f15: 4090 v3x4 p8 A/B arith .0477->.0417, total .0968->.0875 (3v3); art:7775888d art:1523b35c art:021aeabb (trees preserved); reverify --by arith running; next: tests-graph glue + w/v fusion
 CHECKPOINT none (19:42Z) [open] step1 quad_v4+reduce kernel (lane/arith 9d1a7f15) bit-exact; micro quad_general 1.40->0.785ms, quad_p0 1.88->~1.25ms; base on pod: 4090 v3x4 p8 total .1014 arith .0481; A/B r20260924-194155-a3a0 running
@@ -77,3 +78,16 @@ Inbox at startup: nothing new.
 - `intt_rows`: the h and q quotients' INTT_n (n = 16384) plus the n^-1 g^-i scale, one block per row in shared memory
   (was a bit-reversal gather, 14 torch butterfly stages and two scale kernels, ~45 us per call uncontended). Bit-exact vs
   field.intt * post for n in {2, 8, 1024, 16384} (tests_fused_test PASS on the pod).
+- 3-arm A/B (4 rounds, rotating order; t.total s): s1 0.0843 / 0.0879 / 0.0870 / 0.3370; s2 0.0849 / 0.3673 / 0.1286 /
+  0.1755; tip 0.3289 / 0.1605 / 0.3116 / 0.0926. Every arm has outliers; not decidable from these runs.
+
+### 20:45Z noise diagnosis: lazy graph captures inside timed reps
+- Capture-logging trees (dbg_patch.py, never committed): the 16 full-config captures (8 commit, 8 tests graphs, ~0.22 s
+  each) happen during warm-up; the ragged 13th sub-batch (4 VUs) has its own tests-graph layout key, captured once per
+  slot (~0.23 s). `prove_many` gives each job the lowest-index free slot, so completion-order wobble lands the ragged
+  sub-batch on a slot that has no capture for it yet -> +0.23 s inside a timed rep, booked to arithmetic (the tests stage).
+  That explains the 0.13-0.37 s runs in every arm; the code under test is not the cause.
+- Fix (lane/arith 92ea2531, step 4): `pipeline.FIXED_SLOTS` -- sub-batch i always runs on slot i % depth (the next job waits
+  for its slot; that slot's holder is always the oldest active job, which the scheduler already blocks on). The
+  (slot, layout) pairs are then identical every pass, so only the first (warm-up) pass captures. This is a prover
+  scheduling change (no proof-system change) -- disclosed to the coordinator.

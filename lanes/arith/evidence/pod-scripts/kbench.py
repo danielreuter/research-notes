@@ -59,6 +59,21 @@ def main():
         census[f"const_{side}_nonzero"] = int((csr[side]["const"] != 0).sum())
     alljs = torch.cat([csr[s]["j"] for s in "abc"]).to(torch.int64)
     census["gen_rows_distinct"] = int(torch.unique(alljs).numel())
+    for side in ("a", "b", "c"):
+        ptr = csr[side]["ptr"].cpu().tolist()
+        js, cs, ks = csr[side]["j"].cpu().tolist(), csr[side]["coef"].cpu().tolist(), csr[side]["const"].cpu().tolist()
+        exprs = [tuple(zip(js[ptr[q]:ptr[q + 1]], cs[ptr[q]:ptr[q + 1]])) + (("k", ks[q]),) for q in range(len(ptr) - 1)]
+        uniq = set(exprs)
+        census[f"uniq_{side}"] = len(uniq)
+        census[f"uniq_{side}_terms"] = sum(len(e) - 1 for e in uniq)
+        lin = set(e[:-1] for e in exprs)
+        census[f"uniq_{side}_noconst_terms"] = sum(len(e) for e in lin)
+    ftmp = tests_fused.fused_for(D, dev)
+    for kn in ("quad_u32", "quad_v4_u32", "boolcomb_rows_v4_u32", "lincomb_v4_u32"):
+        if kn in ftmp.k:
+            kk = ftmp.k[kn]
+            census[f"regs_{kn}"] = kk.num_regs
+            census[f"lmem_{kn}"] = kk.local_size_bytes
     print(json.dumps(census))
 
     g = torch.Generator(device="cpu").manual_seed(1)

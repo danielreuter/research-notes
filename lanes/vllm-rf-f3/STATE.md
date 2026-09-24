@@ -59,14 +59,26 @@ created: 2026-09-24T17:36Z
   checks (commit_verdict `_REPLAY_SEED_ROOT_FORM`, compiled seed_source) -> Phase 3 / core C4.
   Tests (NOT yet run): new `tests/check/test_challenge_seeds.py`; `test_run_config_dry_run.py` (+refusal test, 4 calls get --seed 7);
   `test_replay_synthetic.py` tier_a call gets seed=0. Rebase note: if a23 deletes `check/relations.py`, drop its 2 SEEDED entries.
+- 19:33Z D15 `d4a87683` pushed. Env reads deleted: `VERITY_MUFU_TANH_TABLES` (prims `_tanh_shards`; + dead `mufu_tanh_use_tables` /
+  `_TANH_TABLES_OVERRIDE` / `_tanh_shards_from_dir`), `VERITY_MUFU_TABLES` (`fa2_relation.tables_dir`), `VERITY_RMS_TABLES`
+  (`rms_relation.tables_dir`), `VERITY_ARCH` (`fa2_model.arch_of`, `rms_relation.coverage`: arch = declared consts or none).
+  Pins: `prims.MUFU_TANH_TABLE_MANIFEST_SHA256` (manifest 674b3663…; manifest already pins the xzblocks 5e261b88…),
+  `fa2_relation.TABLE_SHA256` {ex2 7b324911…, rcp 291d1c9c…}, `rms_relation.TABLE_SHA256` {triton: sqrt c5859583…, rcp 291d1c9c…;
+  cuda: + rsq e9892020…}; checked on every `tables()` call against the loaded `source` digests (covers oracle.py's low-peak preload).
+  Mismatch -> ValueError (fa2/rms), MufuTanhUnmeasured (tanh). Location stays one function per table set (`tables_dir()`,
+  `tables_dir(kernel)`, `MUFU_TANH_TABLE_DIR`) for a23b's W11 move to replace. `doc` is not in `encode_program` (codec.py) and no
+  profile snapshot records the MufuTanh doc -> no Program/profile digest change. Also: test_composition setdefault removed (it set the
+  default path), docstrings/skip reasons naming the env vars. Test (NOT yet run): new `tests/program/test_mufu_tables_pinned.py`.
 
 ## Running
-- nothing yet (launcher: `~/.research/bin/research`)
+- CPU pod `vyv-rf-f3-veritor-campaign` (RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU / 64 GB, 80 GB disk), created 19:17Z, idle, nothing synced yet.
 
 ## Next
-1. Implement D15; push (D4, D3, D14 done).
-2. CPU pod: gates (a)/(b) (+ base measurement if a1 baseline.md absent).
+1. While a23b's `W11 move: <sha>` is pending (not in its STATE.md at 19:30Z): sync d4a87683 to the pod, bootstrap, run the new/changed
+   test files (D3/D4/D14/D15) as an early check.
+2. Once `W11 move` lands: rebase onto it (only the table location functions should conflict), re-sync, gates (a)/(b) on the pod.
 3. GPU pod (L40S): one Commit row re-run for D3, compare roots with regression record.
+4. READY.md in this dir when gates are in.
 
 ## Open questions
 - D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.

@@ -5,9 +5,10 @@ created: 2026-09-24T19:04Z
 brief: campaigns/afternoon/BRIEF.md (### arith)
 branch: lane/arith (worktree ~/projects/verity-main-wt/arith), base main@22741456
 final: 01:10Z hard; budget $10
-status: open
+status: final
 ---
 
+CHECKPOINT 92dab0ad (23:35Z) [final] FINAL lane/arith@92dab0ad: arith tip vs base 4090 .0409/.0477, H100 E4M3 .0432/.0454, BF16 live .1165/.1506, A100 .1799/.2062, 5090 .0649/.0658 (flat); all tip reverify PASS --by arith, preserved; verify-po+redteam pending; all pods terminated, ~$5.73
 CHECKPOINT cd3f5e5 (23:05Z) [open] A100 done: tip .2534/.1799 vs base .2873/.2062 (cell .2413/.164, pod slower); 4/4 reverify PASS, preserved; a100b terminated 23:05Z; ~$5.35 spent; next 5090 fp4-nvf4 l=8192 p8
 CHECKPOINT f5b5810 (22:24Z) [open] H100 done: E4M3 tip .0742/.0432 vs base .0795/.0454 (cell .0738); BF16 live tip .1822 vs base .2499 (pod noisy, cell .1292); 13/13 reverify PASS, preserved; h100 terminated 22:23Z, ~$4.3 spent; next A100 bf16-ampere-v3
 CHECKPOINT 5543d80 (21:36Z) [open] 4090 step5 (92dab0ad: fixed slots + full warm pass): tip total .0870/.0840/.0863/.0891 arith .0409 mean vs base .0968/.0477; reverify PASS x4 (art:def461c7 art:bb75ba4f art:d2b01b3f art:f3978133); handoff 2135Z; next malloc test then H100
@@ -184,3 +185,51 @@ Inbox at startup: nothing new.
   art:e683a0e1 art:3e969524 art:ffd250cf art:008dd251); base meta art:31046cd8 art:b32e7981 art:75f77e79 art:1fe99bf2.
   verify-po request lanes/verify-po/20260924T2306Z-handoff-from-arith.md.
 - vy-arith-a100b TERMINATED 23:05Z (22:45-23:05, ~$0.53). Spend so far ~$5.35 (4090 1.85, H100 2.44, A100 0.50 + 0.53).
+
+## 5090 port (vy-arith-5090 0236j78vq7wha4, RTX 5090 SECURE, host EPYC 9354 x64 / quota 13.6, $0.99/h, 23:10Z)
+- fp4-nvf4 l=8192 p8 local coins, through `backends.direct.ligero.run --relation fp4-nvf4 bench-vu` (fp4/chain.py
+  bench_vu_fp4, which already warmed with a full pass). A/B 5090-ab.sh has 4 rounds. Attribution 5090-attr.sh has 3
+  rounds and 4 arms: base, baseh (main plus the harness commits only), tip, and tipnf (the tip with FIXED_SLOTS = False).
+  - base: 0.0903 0.0490 0.0730 0.0736 | 0.0781 0.0770 0.0819.
+  - baseh: 0.0745 0.0765 0.0784.
+  - tip: 0.0761 0.0747 0.0762 0.0762 | 0.0743 0.0753 0.0731.
+  - tipnf: 0.0753 0.0801 0.0722.
+  - Arithmetic is 0.062-0.069 in every arm except base-r2 (0.039, in the one fast pod state, 0.049 total).
+
+| 5090 NVFP4 (medians) | t.total s | arithmetic s | overhead x |
+|---|---|---|---|
+| cell (main, EU-RO-1, host Ryzen 9 9950X) art:d5c9e1f3 | 0.0340 | 0.0222 | 4.5e6 |
+| base here (7) | 0.0770 | 0.0658 | ~1.03e7 |
+| baseh (3) / tipnf (3) | 0.0765 / 0.0753 | 0.0654 / 0.0645 | - |
+| tip (7) | 0.0753 | 0.0649 | ~1.0e7 |
+- The arms are within noise of each other on this pod (-2%), so there is no measurable kernel gain on sm_120 here.
+- The pod is 2.2x slower than the cell in every arm. Same torch 2.8.0+cu128, driver 580.126.20 and instances; no other
+  GPU processes; bf16 matmul 227 TFLOP/s. The only recorded difference is the host CPU: EPYC 9354 here, Ryzen 9 9950X for
+  the cell. A host-bound (kernel-launch) arithmetic phase would explain it. This is not verified.
+- Tip arts, verified by arith's own reverify (not independent): 4/4 PASS, custody 40/40, 13/13 proofs, 2^-128.11, preserved.
+  - Results: art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a.
+  - Verdicts: art:809fd020 art:484a414f art:94f38f55 art:d8bde8c9.
+  - Meta-only results for base and the attribution arms are in evidence/5090/registered.txt (28 arts, all preserved).
+- verify-po request: lanes/verify-po/20260924T2335Z-handoff-from-arith.md. Red-team request for the kernel commits:
+  lanes/coordinator/20260924T2340Z-handoff-from-arith.md.
+- vy-arith-5090 TERMINATED 23:33Z (23:10-23:33, ~$0.38). Total spend ~$5.73.
+
+## FINAL
+- **tip:** lane/arith @ 92dab0ad (base main@22741456). merge-with: `git merge lane/arith`.
+  - Kernel commits: 9d1a7f15 (quad_v4 + reduce_partial), 0baefa9d (lincomb2; the ZK prover skips beta), f550fdc6 (intt_rows).
+  - Harness commits: 92ea2531 (FIXED_SLOTS) and 92dab0ad (relchain full warm pass). The coordinator may drop these to
+    keep main's Table 2 methodology; see 2135Z.
+  - Worktree clean. `cargo clean` has nothing to do: there is no root Cargo.toml and no target/ directory in the worktree.
+- **known-failures:**
+  - The results have no independent verification yet. The four verify-po requests are 2140Z, 2226Z, 2306Z and 2335Z.
+  - The red team has not yet checked the bit-exact claim (2340Z). tests_fused_test ran only on the 4090 (sm_89).
+  - Against the cells in absolute terms:
+    - The 4090 tip beats its cell and the H100 E4M3 tip matches its cell.
+    - H100 BF16 live (0.1822 vs 0.1292), A100 (0.2534 vs 0.2413) and 5090 (0.0753 vs 0.0340) do not beat their cells.
+    - Within-pod A/B favours the tip on the 4090, H100 and A100, and is flat on the 5090.
+  - Host-stall slow reps remain (openings unpack, most often rep 2). They were diagnosed but not fixed.
+- **pods:** all terminated. vy-arith 21:40Z ($1.85); vy-arith-h100 22:23Z ($2.44); vy-arith-a100 22:44Z ($0.50, unused:
+  bad link); vy-arith-a100b 23:05Z ($0.53); vy-arith-5090 23:33Z ($0.38). Total ~$5.73 of $10.
+- **artifacts:** every registered line is in evidence/registered.txt; per target in evidence/{4090,h100,a100,5090}/
+  (registered, verdicts, reverify output, runs). Pod scripts are in evidence/pod-scripts/. The kb doc is
+  kb/pipelined-bench-timing.md.

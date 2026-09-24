@@ -61,6 +61,20 @@
   P4 `why.startswith` in replay_codes.not_evaluable_codes = the legacy decode that was commit_verdict._no_evaluator_gaps'
   `k.startswith(_NO_EVALUATOR_PREFIX)` in base (unflagged: variable name) -> allowlist entry, stated in READY.md for the coordinator.
 
+## Resume 23:40Z (after a context reset; this block is current)
+- Lint fixes committed locally as `a2e2843e` on the rebased branch (`2dfc3d33` + fixes; not pushed yet). Pod tree `/workspace/head4`
+  (head3 + tar of every file changed since 2dfc3d33; md5 of all 1328 files under integrations/vllm + packages/verity == laptop).
+  `tests/lint` at head4: 41/41 pass (`/workspace/out/lint/lint3.log`).
+- Code moves for the lints: `code_identity` -> `harness/source_identity.py` (P12 owner); `NOT_YET` -> `check/replay_codes.py` (P9);
+  `sampled_replay(seed_form=)` dropped, `commit_delta` stamps `sr["sample"]["seed_form"]` (P7); D10's `Ops` -> new
+  `check/program_ops.py`, `batch_decomp.record_ops()` (P10, no cycle); verdict's account-missing helpers -> `commit_verdict` (P10);
+  D11 `FULL_DIGEST_RE` constant + inline checks (P10); `FastProg` -> `MemoProg` (P11). Allowlists: moved/deleted entries, 8 P10 caps
+  lowered, one new P4 `reason-prefix` entry (replay_codes.not_evaluable_codes, the legacy decode) -> say so in READY.md.
+- 23:36Z gate (b) at a2e2843e: `b_head4_x12` (`OMP_NUM_THREADS=3 gate_b.sh /workspace/head4 b_head4_x12 -n 12 --dist loadfile`).
+- Next: after gate (b), GM-01 #23 at head4 (`/workspace/gm_run.sh /workspace/head4 head4_1`), compare with base1/branch1
+  (byte-identical global program). After `a_final` + `a_rerun_t1`: READY.md (heads be366f80 -> a2e2843e), rebase onto current
+  origin/main (58e4c1aa: SP1-only commits), push `--force-with-lease`, terminate the pod.
+
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
 - origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.
 - Head `be366f80` (= `76020a66` + the by-name allowlist fix) synced clean to `/workspace/head2` (+ copy `head2-reg`).

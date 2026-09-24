@@ -72,6 +72,9 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   verdict art:b99af6c6, logs art:e364e35a, run dir outputs/). #67 Match artifacts preserved (rc 0).
 - 09:22Z trial-merge #57: 432 rows marked promoted; C2 ORACLE COMPARE pair 0 OK 159,840/159,840 (replay pending).
   #67 Commit: producer facts 181 members, 0 conflicts, no handed-down rows; MANIFEST COVERAGE pair 0 OK 406,220 missing 0.
+- 09:33Z trial-merge #57 pair 0: SAMPLED REPLAY COMPLETE 5,883/5,883, BOUNDARY LINKAGE 432/432 (the merged replay path holds).
+  #67 pair 0 C2 ORACLE COMPARE partial (Match snapshot steps 0,1): compared 16,120 equal 16,120 mismatch 0; 262,484 values at
+  unsnapshotted steps go to the sampled replay (form_b_families empty, so a partial C2 is not a gap; the sweep failed only population).
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)

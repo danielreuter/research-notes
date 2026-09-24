@@ -245,7 +245,7 @@ Counts: CORE-DUP 2, INTERNAL-DUP 11, VERSION-RESIDUE 8 (plus a LEGIT list), HARD
 ### SCRIPT/ENV/PATH (11)
 - `harness/commit_delta.py:1197-1267, 1282, 1455` copies 12 CLI flags into `os.environ` so that `acquire/` and `commit/` code can read them back: `VERITY_RETAIN`, `WINDOW_MB`, `WINDOW_SLOTS`, `LAYOUT`, `STAGING_BOUNDED`, `LEARN_HOST_BUDGET_MB`, `RETAIN_EXCLUDE`, `FOOTPRINT`, `WEIGHTS_HASH`, `SOURCE_IDENTITY_DIR`, `FA2_TAP_CAP_MB`, `COLLECT_WATCHDOG_MARKER`. Configuration flows through process-global env. *high*
 - `harness/commit_delta.py` has 36 env reads, including behaviour switches `VERITY_FAULT` (`:984, :1217`), `VERITY_SWITCH` (`:986, :1407`), `VERITY_TRACEDUMP` (`:1033`), `VERITY_DUMP_STEP` (`:516`), `VERITY_LEAF_LAYOUT` (`:583`), `VERITY_ADMIT_*` (`:1633-1760`) and `VERITY_HOT_SUBMIT` (`:3022`). *medium*
-- `ops/row_pod.sh` reads 45 caller-settable environment variables and exports 12 (Map 1). Its "Env:" header (`:17-21`) documents 14 of them. *high*
+- `ops/row_pod.sh` reads 45 caller-settable environment variables and exports 17 in 12 `export` statements (Map 1). Its "Env:" header (`:17-21`) documents 14 of them. *high*
 - **Three venv names across 16 scripts,** while `pod_bootstrap.sh:34` creates only `venv312`:
   - `venv312`: `row_pod.sh:69`, `tp_stage.sh:50`, `pod_gate.sh:11`, `pod_fa2_tap.sh:25`, `pod_fa3_tap.sh:16`, `pod_hidden_gpu.sh:19`, `pod_bootstrap.sh:34`
   - `venv-cu129`: `canary.sh:39`, `compiled_commit.sh:19`, `fa3_row_negatives.sh:20`, `stoch_negative_n3.sh:20`, `stoch_negatives.sh:19`, `cov_pod.sh:23`

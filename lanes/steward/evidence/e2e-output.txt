@@ -1,0 +1,65 @@
+=== temp root /var/folders/kf/gf94gn2s6471sygng_fvpmv00000gn/T/steward-e2e-t4dj1svj/notes
+=== pass 1 (the guardian log's first look only marks its end)
+16:23Z STALE blocked life=45m via=pod dirty=- pod=1 $0.34/h [idle 0% 45m] branch=lane/blocked
+16:23Z STALE dead life=50m via=pod dirty=- pod=1 $0.74/h [idle 0% 50m] branch=lane/dead
+16:23Z IDLE-POD dead vy-dead 50m ($0.74/h, GPU 0%, no work process)
+16:23Z IDLE-POD blocked vy-blocked 45m ($0.34/h, GPU 0%, no work process)
+16:23Z ACCOUNT $50.00 at $4.01/h, runway 12.5h; lane pods $4.01/h (4), other pods $0.00/h (0)
+16:23Z REAPED done vy-done poddone000001 $0.24/h (final 60m ago)
+16:23Z REAPED dead vy-dead poddead00001 $0.74/h (STALE 50m, idle 50m); custody: 1 cited art(s) preserved; 1 run(s) on it fetched or registered
+16:23Z REAP-BLOCKED blocked vy-blocked: run r20260924-100500-bbbb on it is neither fetched nor in the store -> research fetch --all r20260924-100500-bbbb
+16:23Z OVER-BUDGET dead $2.22 on pods > $1 (budget: $1: 1x 4090); now $0.74/h
+16:23Z OVERDUE dead FINAL 14:23Z passed 120m ago: STALE, life 50m via pod
+16:23Z RENDERED /var/folders/kf/gf94gn2s6471sygng_fvpmv00000gn/T/steward-e2e-t4dj1svj/notes/campaigns/e2e/render/20260924T1623Z-tables.md
+16:23Z RENDER-FAILED campaigns/e2e/render@00:00Z (drilldown): /Users/danielreuter/projects/verity-main-wt/main/.venv/bin/python: No module named verity_numerical.bench.drilldown
+16:23Z notes snapshot 9a49f2c: 10 paths
+16:23Z pass 1: 3 open, 2 stale
+=== pass 2 (a restarted watcher: two new guardian kills)
+16:23Z STALE blocked life=45m via=pod dirty=- pod=1 $0.34/h [idle 0% 45m] branch=lane/blocked
+16:23Z STALE dead life=180m via=report dirty=- pod=0 branch=lane/dead
+16:23Z IDLE-POD blocked vy-blocked 45m ($0.34/h, GPU 0%, no work process)
+16:23Z ACCOUNT $50.00 at $4.01/h, runway 12.5h; lane pods $3.03/h (2), other pods $0.00/h (0)
+16:23Z KILLED-UNOWNED 2026-09-24T16:23:27+00:00 KILLED pid=4243 mem=0.69GB reason=disk floor 3.4GB free cwd=/Users/nobody cmd=/x/.venv/bin/python -m research data reindex --remote
+16:23Z ROUTED alive 1: 20260924T1623Z-handoff-steward-guardian.md
+16:23Z notes snapshot 0eb9cbb: 1 paths
+16:23Z pass 1: 3 open, 2 stale
+=== DELETE /pods/<id> calls: ['poddone000001', 'poddead00001']
+=== r2.env loaded (unset vars only): E2E_R2_MARKER=loaded-from-r2.env
+=== reaper.log
+16:23Z REAPED done vy-done poddone000001 $0.24/h (final 60m ago)
+16:23Z REAPED dead vy-dead poddead00001 $0.74/h (STALE 50m, idle 50m); custody: 1 cited art(s) preserved; 1 run(s) on it fetched or registered
+16:23Z REAP-BLOCKED blocked vy-blocked: run r20260924-100500-bbbb on it is neither fetched nor in the store -> research fetch --all r20260924-100500-bbbb
+=== notes repo: snapshot 2026-09-24T16:23Z: 1 paths
+
+lanes/alive/20260924T1623Z-handoff-steward-guardian.md
+snapshot 2026-09-24T16:23Z: 10 paths
+
+campaigns/e2e/render/20260924T1623Z-tables.md
+lanes/alive/20260924T1620Z-report-alive.md
+lanes/alive/binding.json
+lanes/blocked/20260924T1453Z-report-blocked.md
+lanes/blocked/binding.json
+lanes/dead/20260924T1323Z-report-dead.md
+lanes/dead/binding.json
+lanes/done/20260924T1523Z-report-done.md
+reaper.log
+steward.toml
+
+=== steward-state.json tracked by git: False
+=== 20260924T1623Z-handoff-steward-guardian.md
+---
+lane: alive
+kind: handoff
+from: steward
+created: 2026-09-24T16:23Z
+---
+
+# the laptop guardian killed 1 process(es) of alive (swap 8.6GB used (95%) > 95%): rerun
+
+~~~text
+2026-09-24T16:23:27+00:00 KILLED pid=4242 mem=0.58GB reason=swap 8.6GB used (95%) > 95% cwd=/var/folders/kf/gf94gn2s6471sygng_fvpmv00000gn/T/steward-e2e-t4dj1svj/wt-alive cmd=/x/.venv/bin/python -m research run --on box-alive --project verity --source . --cwd source
+~~~
+
+killed on the laptop by the guardian, not on the pod: rerun it (LANE-CONTRACT §7: heavy work runs on the pod).
+INBOX alive: 1 new -- act on each, or say in your next checkpoint why not
+  16:23Z 20260924T1623Z-handoff-steward-guardian.md  "the laptop guardian killed 1 process(es) of alive (swap 8.6GB used (95%) > 95%): rerun"

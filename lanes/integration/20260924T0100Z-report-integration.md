@@ -1,3 +1,4 @@
+CHECKPOINT 24f252b1 (02:43Z) [final] FINAL tip 24f252b1 pushed: 12/13 lanes merged (fp4-decode-3 deferred, 6ffa035 cherry-picked); cargo 64 pass; gates 13/14 0F (v3x4 no verdict, fp4 skipped); H1/H2 forges REJECT; A/B 4/4 IDENTICAL; bench contract ok x3 (phase-sum not reproduced); live bare+shared ACCEPT + Rust 13/13; reverify bare/hash PASS, shared manual ACCEPT; pytest ~327/449 run, 2 F fixed; pod terminated 02:42Z ~$1.21
 CHECKPOINT 24f252b1 (02:31Z) [open] 02:32Z tip 24f252b1 pushed. Clean-GPU bench done: fp8-ada bare p4 0.1860 s, bf16-hopper 0.2729, fp8-ada+shared 0.2837; bench.summary contract column ok x3 (phase-sum overshoot not reproduced), Rust ACCEPT pinned x3; art:3f18a292 (+bench-result art:8fa10d53 art:0ec87a43 art:cbe4d8c1). A/B timing rounds running on clean GPU (~2 min/run; will stop 02:44 with rounds done). Report sections a-f written; kb/pods-4090.md added (10.2-core quota). Pod terminate ~02:46, FINAL by 02:55.
 CHECKPOINT none (02:23Z) [open] 02:25Z tip 24f252b1 (ajtai_test magic: LIGSTM06 default after tier0-bytes; passes on pod both STMT_TRIM modes). Gates 13/14 0F (fp8-ada-v3 2316 s); v3x4 --batch 4096 gate killed at 50 min (49 honest sub-batches vs CPU Python reference, 10.2-core quota): no verdict. Gates art:b833003b, tests art:455ad901 (cargo 64 pass; pytest partial 380/383 run pass, 2 F both fixed, 1 skip; ~122 not reached). Clean-GPU window running: bench (3 configs) then A/B timings; then steps_pin/reverify/live/leaf pytest files.
 CHECKPOINT none (02:10Z) [open] 02:11Z Gates 12/14 0F (all 4 relations x bare/hash/shared); fp8-ada-v3 + v3x4 gates still running (every honest sub-batch checked vs CPU Python hint reference, 10.2-core quota). A/B digests all 4 pairs IDENTICAL (levels blake3 da424477, levels v3x4 b5af4f65, levels v1 6baf894a, fused v3x4 b5af4f65), art:9aca92d0. H1/H2 forges REJECT art:ca615053. Live: bare s..2ca7 + shared s..687e both ACCEPTED, Rust re-verify 13/13 each (shared first try OOM beside gates, rerun alone), art:c85b8b38. pytest 2 groups ~245/411 of the rest. Cutoff 02:27 for gates/pytest, then clean-GPU A/B timings + bench.
@@ -135,6 +136,18 @@ bare -> REJECT "steps = 32 columns per VU, the fp8-ada relation's VU is 48"; +aj
 1704, +ajtai-n64 2056, +blake3 17534 -> only +blake3 is on the interpreter path. `fp8-ada-v3x4 + poseidon2` does not compose
 (ValueError: v3 packed operand pins vs expected decode triples) -- not a registered combination, noted only.
 
+A/B timings on a clean GPU (nvidia-smi empty before every run; fiat-shamir --reps 3; arm order alternated per round) --
+art:64e26252. The digest runs' own timings were taken beside the gates: smoke only (coordinator 01:27Z).
+| pair | round 1 (on / off) | round 2 (off / on) | round 3 (on / off) | median on vs off |
+|---|---|---|---|---|
+| LIGERO_INTERP_LEVELS, fp8-ada+blake3 1024 VUs l=4096 p2: t.total | 1.0046 / 1.7870 | 1.7946 / 1.0060 | 0.9919 / 1.7910 | **1.0046 vs 1.7910 s (-44 %)** |
+| same: t.witness | 0.0253 / 0.0363 | 0.0360 / 0.0266 | 0.0315 / 0.0344 | 0.0266 vs 0.0360 s |
+| LIGERO_FUSED_HINTS, fp8-ada-v3x4 4096 VUs l=4096 p4: t.total | 0.1237 / 0.2077 | 0.2063 / 0.1091 | (cut: deadline) | **0.1164 vs 0.2070 s (-44 %)** |
+| same: hints | 0.0039 / 0.1232 | 0.1219 / 0.0059 | -- | 0.0049 vs 0.1226 s |
+Fused hints: 2 rounds, not 3 (round 3 was cut to terminate the pod before 03:00Z). Both are consistent with hints-fused-2
+(v3x4 p4 l=4096 0.1142 s). Levels: most of the 0.79 s t.total gap is outside `t.witness`, i.e. the +blake3 chain witness
+the interpreter also builds on the hash side.
+
 ### d. Pipelined benches (clean GPU: nvidia-smi empty before; --pipeline 4, zk interactive, local coins, 4096 VUs, l=16384, --reps 3)
 execution-evidence art:3f18a292 (tree with proofs + rust_batch.json + summary_table); bench-result/v1: fp8-ada bare
 art:8fa10d53, bf16-hopper bare art:0ec87a43, fp8-ada +shared art:cbe4d8c1.
@@ -167,3 +180,31 @@ configs, so no rule change is proposed; `tables.py` untouched.
   shared-local cell art:fa2be398 (rep1 dump), merged `ligero-verify batch --system system.bin --system-h system_h.bin
   --target-bits 128`: **ACCEPT** 13/13, 26 sub-batches, 2^-128.66, pinned fp8-ada+hash, Python agreement 13/13;
   verification-verdict art:e1b0fd7b.
+
+## FINAL
+
+~~~text
+tip: lane/integration @ 24f252b1 (base main@22e10e0e)        merge-with: none (coordinator fast-forwards main)
+known-failures: none open (fold_test[bf16-ampere-x4] stale bound fixed a6563c4b; ajtai_test v5-magic merge interaction fixed 24f252b1); ~122 of 449 ligero pytest not reached (CPU quota)    pod: terminated 02:42Z; ~$1.21
+artifacts: art:b833003b art:455ad901 art:9aca92d0 art:ca615053 art:64e26252 art:3f18a292 art:8fa10d53 art:0ec87a43 art:cbe4d8c1 art:c85b8b38 art:615318d6 art:ed6e78cf art:e1b0fd7b
+~~~
+
+Merged 12 of 13 lanes onto main@22e10e0e in the briefed order. There are two deviations: shared-live went in before red-team-leaf-3 (red-team carries share-logup ancestors), and fp4-decode-3 is deferred (only 6ffa035 was cherry-picked). Per-merge decisions are in the merge log above. Post-merge fixes: a6563c4b (fold bound) and 24f252b1 (ajtai_test magic). Handoff received and acted on: `20260924T0127Z-handoff-coordinator.md` (A/B timings rerun on a clean GPU with alternating arms over 3 rounds; the reverify `--system-h` gap is recorded below).
+
+**Validated on the 4090:**
+* cargo test ligero-verify: 64 passed. cargo check: OK.
+* Gates: 13 of 14 cells pass with 0 failures. That covers all 4 relations in bare, +hash and +shared form, plus fp8-ada-v3. The fp8-ada-v3x4 gate has no verdict (killed after 50 min, CPU-bound). fp4-nvf4 was skipped because it needs a 5090.
+* H1/H2 must-rejects: all rejected by the merged Rust, pinned.
+* A/B: 4 of 4 pairs byte-identical. Clean-GPU timings, median on vs off: levels 1.005 vs 1.791 s over 3 rounds; fused hints 0.116 vs 0.207 s over 2 rounds.
+* Benches: the contract column is ok for all 3 headline configs, so the phase-sum overshoot did not reproduce and no rule change is proposed.
+* Live: both sessions ACCEPTED, and both re-verified 13/13 by Rust.
+* Reverify: bare and +hash PASS through `reverify.py`; +shared ACCEPTs through a manual `--system-h` batch.
+
+**Fix before the device wave:**
+1. **fp4-decode-3 is not in this tree.** fp4-nvf4 bare still works from main's code, but `fp4-nvf4+hash` / `+poseidon2` (the NVFP4 operand format in the Poseidon2 leaf gadget) needs a port onto leaf-iface's `leaf/poseidon2.py` gadget. The port must reproduce the pinned sys_id 8c6d260c byte for byte. Until then the device wave cannot run fp4 +hash from main.
+2. **LIGSTM06 is used by two formats:** tier0's trimmed v5 and shared-live's `included-hash-shared` pair. Both parsers dispatch on the authentication string. It is not a soundness issue, but the coordinator should decide whether to give one of them a distinct magic before more dumps accumulate.
+3. **reverify.py cannot re-verify +shared trees.** It never passes `--system-h`, and no +shared bench-result in the store has a run_files ref. The coordinator marked this non-blocking.
+4. **Run on the device-wave pod before trusting the merged tree:** the unreached pytest files (steps_pin_test, reverify_test, live_test, pipeline_race_test, leaf_test, the rest of conformance_test, pubsel). Also rerun the fp8-ada-v3x4 fused gate, either alone or at `--total-vus 1024`.
+5. **These pods have a 10.2-core CPU quota** (kb/pods-4090.md). Serialize heavy jobs.
+
+The pod tree was `research pods sync` of 66293c45, plus the two test-file fixes copied in. The later commits touch tests only.

@@ -124,3 +124,15 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
 
 - 01:11Z verify-rs-5 FINAL: `lane/verify-rs-3` @ a87edaa0 (pushed; fix 1ece0c34). Rust `--session` reads the RO verifier's whole store (s… records = zero batches); cargo 98/1 ignored (laptop, one-off); whole-store claims unchanged 5aa5 2^-128.435 / a1a0 2^-126.422 / f283 2^-125.416 (art:f2f27f16, store art:d04ee43a). Ligerito SECOND PASS merges: relation-3 498f9014 + sumcheck-4 58e76e5d + verify-rs-3 a87edaa0 (supersedes verify-rs-4 0e4ef1d1). Handoff 20260924T0111Z-handoff-from-verify-rs-5.md read.
 - 01:19Z integration: merges 1-13 except fp4-decode-3 (DEFERRED: 32 conflict hunks vs leaf-iface's Poseidon2 gadget; needs a lane-format seam port reproducing sys_id 8c6d260c). Only 6ffa035 (5090 cold-compile) cherry-picked. => 5090 column 2 (fp4-nvf4+poseidon2) NOT on main after integration -> FOLLOW-UP port lane after ff main. Pod vy-integration bound to lane.
+
+## 02:55Z integration FINAL -> main 24f252b1 (ff from 22e10e0e, pushed); shim now runs main's tools/research
+- integration 8c67d1fc: 12/13 merged (fp4-decode-3 deferred -> fp4-port), gates 13/14 0F (v3x4 no verdict), cargo 64, H1/H2 forges reject,
+  A/B byte-identical, live bare+shared ACCEPT, reverify PASS; ~122 pytest not reached (-> wave-4090 after timings); pod gone ($1.21).
+- LIGSTM06 DECISION (coordinator): no format change before the wave. Readers dispatch on the mandatory authentication string
+  (parse wart, not soundness). After the wave: tier0's trimmed hashed statement moves to its own magic (LIGSTM07 / v7) for new writes,
+  readers keep accepting legacy LIGSTM06-trimmed; +shared keeps LIGSTM06 (Table 2 column-2 dumps and sessions depend on it).
+- Follow-up: reverify.py --system-h for +shared (mine).
+- Removed 41 clean finished worktrees (branches kept; incl. vllm-tp-v2 which may be the other session's: clean, branch intact). Disk 15 GB free.
+- DEVICE WAVE 2 launched 02:55Z, brief campaigns/device-wave-2/BRIEF.md, FINAL 06:30Z: wave-4090 1c1cff8f, wave-h100 b8f85435,
+  wave-a100 70e59981, wave-5090 fb1f3a70, fp4-port 7ec31a79, ligerito-2pass b11ac7a5. Planned pods ~$31.
+- MONEY: balance $156 @02:50Z, account burn $24.9/h (other session's vyv-* ~$24/h) -> runway ~5 h with the wave; told user.

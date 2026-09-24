@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # verify-po: independent verification of the A-GKR RTX 5090 NVFP4 result (agkr-nvf4 handoff 20260924T2200Z).
-#   TREE=art:<run-files> TAG=<name> [FP8TREE=art:<an FP8/BF16 A-GKR tree>] bash 10-agkr-nvf4-verify.sh
+#   TREE=art:<run-files> TAG=<name> [FP8TREE=art:<an FP8/BF16 A-GKR tree>] [PREV=<commit>] bash 10-agkr-nvf4-verify.sh
+# PREV (default 3c769c6d): the producer commit whose `gpu.nvf4.circuit export` regenerates the statement (git archive in
+#   /workspace/agkr-$PREV); the verifier is always built from 3c769c6d (the handoff of 23:05Z: verifier diff to ab57df0a empty).
 # Verifier: verity-gkr-verify from the PRODUCER'S NAMED SOURCE lane/agkr-nvf4 @ 3c769c6d (git archive in /workspace/agkr-3c769c6d;
 #   main's verifier cannot parse the 3-word public statement), diff reviewed (verify-po report), built + tested HERE
 #   (target dir /workspace/agkr-target-3c769c6d). Regression: the same binary on FP8TREE's (y16-only) statement must accept.
@@ -13,11 +15,13 @@ set -a; . /root/r2.env; set +a
 export PATH=$HOME/.cargo/bin:$PATH CARGO_TARGET_DIR=/workspace/agkr-target-3c769c6d
 V=$CARGO_TARGET_DIR/release/verity-gkr-verify
 O=/workspace/verify-po/agkr-$TAG; mkdir -p $O
-PSRC=/workspace/agkr-3c769c6d/src
+VSRC=/workspace/agkr-3c769c6d/src; PSRC=/workspace/agkr-${PREV:-3c769c6d}/src
 {
+echo "statement source: $PSRC ($(cat $PSRC/../REV)); verifier source: $VSRC"
+diff -r $VSRC/backends/gkr/verifier $PSRC/backends/gkr/verifier && echo "verifier sources identical"
 if [ ! -x $V ]; then
-  echo "=== [$(date -u +%H:%M:%S)] build + test verity-gkr-verify from $PSRC ($(cat /workspace/agkr-3c769c6d/REV))"
-  (cd $PSRC/backends/gkr/verifier && cargo build --release 2>&1 | tail -2 && cargo test --release 2>&1 | grep -E '^test result|FAILED|panicked')
+  echo "=== [$(date -u +%H:%M:%S)] build + test verity-gkr-verify from $VSRC ($(cat /workspace/agkr-3c769c6d/REV))"
+  (cd $VSRC/backends/gkr/verifier && cargo build --release 2>&1 | tail -2 && cargo test --release 2>&1 | grep -E '^test result|FAILED|panicked')
 fi
 sha256sum $V
 echo "=== [$(date -u +%H:%M:%S)] fetch $TREE"

@@ -217,3 +217,6 @@ red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
   post-wave + tables-fix + fused-phases + gkr/sp1 lanes, render T1-3 + D1-3, morning report 14:00Z.
 - wave-5090-2: runs done + Rust re-verified by itself (report); no 5090 pod left; its self-labels do not count (gap A) ->
   verify-night re-verifies. wave-a100-2 still open on its A100.
+- 05:31Z POST-WAVE TODO (user): contract.result(...) builder -> spec lanes/coordinator/20260924T0531Z-handoff-from-coordinator-contract-result.md; launch after the morning render; delete that note when merged.
+- 05:27Z standing permission: a more promising GKR variant gets its own hill-climbing lane (BRIEF §2).
+- 05:45Z sp1-formats c51c8ce2 launched (SP1-stock for the four non-A100 rows); sp1-tcdot scope = all targets, $25.

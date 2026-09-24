@@ -127,7 +127,7 @@ Tests exist for 22 of the 25 modules. `compiled_merge` is tested only as a subpr
   - 4 files parse or `exec` slices of `commit_delta.py`: `harness/test_engine_schedule.py:13-21` execs a function sliced from the file, `harness/test_hot_commit.py:240-243` execs `main()`'s argparse block, and `harness/test_commit_delta_cli.py:20-24` and `test_commit_delta_placement_b1.py:16-20` walk the AST of `main()`.
   - About 24 files read package source text for lint-style assertions.
 
-Skip and xfail counts: 87 `pytest.skip(` calls in 44 files, 51 `skipif` in 37 files, 71 `importorskip` in 59 files, and 11 xfail markers (all `strict=True` documented gaps). Details are in Map 4.
+Skip and xfail counts: 87 `pytest.skip(` calls in 44 files, 51 `skipif` in 37 files, 71 `importorskip` in 59 files, 10 `strict=True` xfail markers documenting known gaps, and one runtime `pytest.xfail`. Details are in Map 4.
 
 ## 4. Top-level data directories and `tools/`
 
@@ -434,18 +434,24 @@ Each item gives its confidence and what I searched.
 
 **Counts.**
 - **Shell entry points:** 16 scripts, grouped in the table below.
-- **`python -m verity_vllm.*` targets:** 47 distinct, invoked from `ops/`, harness subprocess calls, README and `tools/research`. `row_pod.sh` alone invokes 19 distinct modules 34 times.
+- **`python -m verity_vllm.*` targets:** 47 distinct.
+  - 32 are invoked by `ops/` scripts.
+  - 8 more are invoked only by harness subprocess calls (`run_config`'s stages).
+  - 7 are hand-run CLIs that only their own docstrings show.
+  - README and `tools/research` add none.
+  - `row_pod.sh` alone invokes 19 distinct modules 34 times.
+  - Counting docstrings and tests across the whole integration gives 66 distinct `-m` strings.
 - **argparse CLIs in harness:** 19 (20 modules have `__main__`).
 - **`research` Tools:** 3 (`vllm.build`, `vllm.match`, `vllm.commit`). Each resolves to `bash run_row_v2.sh stage <stage> …`, which runs `row_pod.sh` or `tp_stage.sh`.
 - **Environment variables:**
   - `row_pod.sh`: 45 caller-settable, 17 exported.
   - `run_row_v2.sh`: turns 23 flags into those env vars.
   - `tp_stage.sh`: 28 caller-settable.
-  - `commit_delta.py`: 36 reads, 12 writes.
-  - `hot_commit.py`: 17 reads.
+  - `commit_delta.py`: 17 read by name, 12 written (flags copied into env).
+  - `hot_commit.py`: 7 read by name. Every variable matching its 12 `ENV_PREFIXES` (`:58`) also goes into the engine key, and it replaces the whole process environment for each job (`:532-534`).
   - Regression harness: 10 (`VERITY_REGRESSION`, `_ROWS_ROOT`, `_CANDIDATE`, `_CANDIDATE_CACHE`, `_ORACLE`, `_RECORD_ACTUAL`, `_VERIFY_ALL`, `_SCRATCH`, `_STOCH_JOBS`, `_TIERS`).
   - `REF_PRIMS_RECORD_DIR` for `test_ref_prims.py`.
-- `row_pod.sh` references 126 distinct uppercase variable names in total, of which it assigns 63 itself. The brief's "108 env vars" presumably used a different cut; the 45 below are the ones a caller can set.
+- `row_pod.sh` references 126 distinct uppercase names in total, counting internal variables and names inside its Python heredocs. The 45 below are the knobs a caller can set; the brief's "108 environment variables" presumably used a different cut.
 
 **Layering of the entry points today.**
 1. `research run --tool vllm.<stage>` (`tools/research`) loads `integrations.vllm.verity_vllm.harness.research_tools`.
@@ -465,6 +471,11 @@ People also run steps 3 and 4 by hand, along with the variant scripts.
 | Negatives (hand-run) | `fa3_row_negatives.sh`, `stoch_negative_n3.sh`, `stoch_negatives.sh` |
 | Gates / sealed verify | `pod_gate.sh`, `verify_lane.sh` |
 
+**Entry points the pipeline uses that are not in `ops/`:**
+- **Shipping code to a pod.** `record_v5/ship.sh`, `pod_release.sh` and `pod_up.sh` are absent from the repo (see DEAD), but `EXPORT.json`, `RELEASE.json` and the RELEASING marker they produce are read by the harness.
+- **Pod teardown.** `tools/research/src/research/pods/sh/pod_guard.sh`, which `run_row_v2.sh:214` looks for first at `/root/dm/pod_guard.sh`.
+- **Per-case runners of record.** The `tp_stage.sh` defaults (`:15-19, 55, 248`) cite `run_olmoe_b8.sh` and `run_qwen3_int6.sh` under gitignored `out/gen/sweep/evidence/…`.
+
 **The 47 `python -m` targets by job, with invokers.**
 
 | job | targets (invoked by) |
@@ -473,7 +484,7 @@ People also run steps 3 and 4 by hand, along with the variant scripts.
 | Build a Program (7) | `harness.derive_step` (`row_pod` 7×, `tp_stage`, `stoch_negative_n3`, `rebuild_digest_gate`), `harness.launch_context` (`row_pod`), `program.global_program` (`row_pod`, `tp_stage`, `canary`), `query.cli` (`row_pod` 2×, `tp_stage`, `pod_gate` 2×, `compiled_commit`), `query.manifest.compiled` (`compiled_commit` 2×), `query.manifest.verify` (`row_pod`), `harness.rebuild_digest_gate` (nobody) |
 | Capture a run (3) | `observe.m1_capture` (`run_config` 2×, `stoch_negatives`), `observe.resolve_log` (`run_config`), `tp.capture` (`tp_stage`) |
 | Match (14) | `harness.run_config` (`row_pod`, `cov_pod`, `verify_lane` 2×, `stoch_negatives`, itself), `check.global_match` (`row_pod` 2×, `canary`), `check.program_compare` (`row_pod`, `stoch_negatives`), `check.stoch_recompute` (`row_pod`, `stoch_negatives`), `correspondence.batch_decomp` (`row_pod`, `stoch_negative_n3`), `check.census` / `check.noninterference` (`run_config` 2× each), `check.fold_compare` / `check.golden` / `check.replay` / `check.operand_provenance` / `input_provenance.root_policy` (`run_config`), `tp.match` / `tp.fold_match` (`tp_stage`) |
-| Commit (5) | `harness.commit_delta` (`row_pod` 4×, `compiled_commit` 2×, `canary`, `fa3_row_negatives`, `hot_commit` 2×), `harness.hot_commit` (`row_pod` 2×), `harness.compiled_merge` (`compiled_commit`), `input_provenance.weights_of_record` (`row_pod` 2×), `tp.commit` (`tp_stage`) |
+| Commit (5) | `harness.commit_delta` (`row_pod` 4×, `compiled_commit` 2×, `canary`, `fa3_row_negatives`, `hot_commit`), `harness.hot_commit` (`row_pod` 2×), `harness.compiled_merge` (`compiled_commit`), `input_provenance.weights_of_record` (`row_pod` 2×), `tp.commit` (`tp_stage`) |
 | Check / gate / plan (11) | `check.verdict` (`row_pod`), `check.holdout` (`cov_pod`, `verify_lane`), `check.protected` / `check.quarantine_lint` (`verify_lane`), `acquire.gate` / `correspondence.runtime_tree` (`pod_gate`), `harness.source_identity` (`row_pod`, `tp_stage`), `harness.target_family` (`row_pod` 2×, `tp_stage`), `harness.telemetry.admission` (`row_pod`), `harness.admission_bound` / `harness.admission_planner` (hand) |
 | Report / record (4) | `harness.timeline` (`row_pod` 2×, `tp_stage`), `harness.research_result` (`row_pod`, `tp_stage`), `harness.research_outputs` (`run_row_v2` 2×), `harness.release_json` (hand; the library is used by `row_pod`/`tp_stage`) |
 
@@ -559,13 +570,13 @@ Consequences of the move:
 **Where run configuration lives (12 places).**
 1. **The row id**, i.e. the filename `workloads/<row>.json`, which carries 10 fields: `model_tag, dtype, hw, tp, batch, input, output, arrivals, sampling, exec`. It is parsed in 10 places (INTERNAL-DUP).
 2. **`workloads/<row>.json`** (132 files):
-   - `model` (all), `tokenizer_revision` (117) *or* `checkpoint_revision` (15), `sampling` (118), `seed` (119) *and/or* `seeds` (113), `engine_args_required` (112), `sweep` (97; holds `tp`, `row_id`, `execution`), `serving_profile`/`context_class`/`length_rule` (105), `expected_engine_steps` (105), `target` (11), `env_required` (2).
-   - No file carries a top-level `dtype` or `tp`.
+   - Top-level keys, counted with `jq`: `model` (all 132), `case` (131), `tokenizer_revision` (117) *or* `checkpoint_revision` (15), `sampling` (118), `seed` (119) *and/or* `seeds` (113), `engine_args_required` (112), `sweep` (97; holds `tp`, `row_id`, `execution`), `serving_profile`/`context_class`/`length_rule`/`expected_engine_steps` (105), `target` (11), `env_required` (2).
+   - No file carries a top-level `dtype` or `tp`, and no `engine_args_required` has a `dtype`.
 3. **`row_pod.sh` positionals:** `<ROLE> <hf-repo> <revision>`, which duplicates `model` and the revision from item 2.
-4. **Environment variables:** 45 for `row_pod.sh`, 28 for `tp_stage.sh`, 23 via `run_row_v2.sh` flags, 36 read by `commit_delta`, 17 by `hot_commit`, 10 for regression.
+4. **Environment variables:** 45 for `row_pod.sh`, 28 for `tp_stage.sh`, 23 via `run_row_v2.sh` flags, 17 read by `commit_delta` (plus 12 it writes for lower layers), 7 by `hot_commit` (plus a prefix-filtered snapshot of the whole environment in its key), 10 for regression.
 5. **`manifests/checkpoints.json`**, the checkpoint pins, used as the default in 16 argparse definitions.
 6. **`manifests/semantic-profiles/*.json`**, which set per-family kernel constants (FA version, splits, head size).
-7. **Observe capture profiles.** These pin engine args, including `"dtype": "bfloat16"` (`coverage_workloads.py:132-133`). They are outside this slice.
+7. **Observe capture profiles.** These pin engine args, including `"dtype": "bfloat16"` (`observe/engine_profile.py:149, 415`; outside this slice). A workload can override the dtype through `engine_args_required` (`coverage_workloads.py:131-133`, `--variant dtype=`).
 8. **Hardcoded tables:**
    - `derive_step`'s `vm.PIN` (the B0 model, revision and dtype)
    - `target_family.DEVICE_FAMILY`
@@ -582,10 +593,12 @@ Consequences of the move:
 
 | setting | places | detail |
 |---|---:|---|
-| model id | 7 | workload `model`; `row_pod.sh` `<hf-repo>` (and the `run_row_v2.sh` positional); row-id `model_tag` (short name, implicit mapping); `manifests/checkpoints.json`; `derive_step --model` (default `vm.PIN` B0); `research` key param `model`; `hot_commit.WORKLOAD_ENGINE_KEYS` (`model`, `repo`). The SmolLM2-135M literal appears 101 times in 90 files, 10 of them in library code. |
-| TP degree | 7 | row id `__tpN__` (read by `run_row_v2.sh:95`, `workload.py:344`, `research_tools`); workload `sweep.tp` (`tp_stage.sh:47`); `WORLD` env; `row_pod_tp2.sh` (`WORLD=2`); `tp_stage.sh`'s fallback of 2; `derive_step --tp` (default 1); engine args (`tensor_parallel_size`, via the hot key). None of the 132 workloads disagree today. |
-| row id | 6 | filename; `sweep.row_id` inside the JSON; `$SWEEP_DIR/<row>/`; `fixtures.toml` `rows."<row>"`; `tests/regression/expected/<row>.json`; `research` key param `row` |
-| dtype | 6 | row-id token (a label: nothing in the execution path reads it); observe-profile pin `bfloat16`; `engine_args_required.dtype` (unused by any workload); the checkpoint itself (FP8 rows); `derive_step` `model_pin.dtype` (hardcoded `bfloat16`); `card.py` (reads engine args). Only the checkpoint and the profile actually decide it. |
+| model id | 8 | workload `model`; `row_pod.sh` `<hf-repo>` (and the `run_row_v2.sh` positional); row-id `model_tag` (short name, implicit mapping); `manifests/checkpoints.json`; `observe/engine_profile.py:39` `CASES` (case → repo); `derive_step --model` (default `vm.PIN`, `program/frontend/vllm_meta.py`); `research` key param `model`; the hot key (`hot_commit.py:61` `WORKLOAD_ENGINE_KEYS` includes `model`, `repo`). The SmolLM2-135M literal appears 132 times in 105 files, 18 of them under `verity_vllm/` (15 Python modules). |
+| TP degree | 8 | row id `__tpN__` (read by `run_row_v2.sh:95`, `workload.py:344`, `research_tools`); workload `sweep.tp` (`tp_stage.sh:47`); workload `engine_args_required.tensor_parallel_size`; `WORLD` env; `row_pod_tp2.sh` (`WORLD=2`); `tp_stage.sh`'s fallback of 2; `derive_step --tp` (default 1, `:687`); the hot key (via engine args). All 6 TP rows (5 × tp2, 1 × tp4) agree across filename, `sweep.tp` and engine args today. |
+| row id | 6 | filename; `sweep.row_id` inside the JSON; `$SWEEP_DIR/<row>/`; `fixtures.toml` `rows."<row>"`; `tests/regression/expected/<row>.json`; `research` key param `row`. One file already disagrees: `olmoe-1b-7b-padded__…json` embeds the unpadded id. |
+| dtype | 6 | row-id token (a label: nothing in the execution path reads it); observe-profile pin `bfloat16` (`engine_profile.py:149, 415`); `engine_args_required.dtype` (no workload sets it, yet it is a hot-key field, `hot_commit.py:61`); the checkpoint itself (FP8 rows); `derive_step` `model_pin.dtype` (hardcoded `bfloat16`); `card.py:36, 66` (reads the engine args). Only the checkpoint and the profile actually decide it. |
+| role / case | 5 | `row_pod.sh` `<ROLE>` positional; workload `case` (131 files; its values mix test-case names `B0` 30 / `B1` 32 / `B7` 1 with model roles `LLAMA32_1B` 38, `OLMOE` 11, …); `run_config --case` (`row_pod.sh:564`); `engine_profile.CASES`; the hot key (`case`) |
+| batch / input / output | 3 | row-id tokens `b<B>__i<I>__o<O>`; workload `requests`, `prompt_lengths`, `max_tokens`; `LP`/`T` (`row_pod.sh:195`, taken from the manifest unless the caller sets them) |
 | Python interpreter | 17 | 16 script defaults across three venv names, plus `research_tools.DEFAULT_PY` |
 | evidence root | 32 occurrences / 24 files | `/workspace/cp/sweep` |
 | query id | 74 occurrences / 27 files | `Q_module_body_v1` |
@@ -608,7 +621,7 @@ Consequences of the move:
 | `manifests/semantic-profiles/` (6, 132 KB) | semantic profiles for llama and qwen2 | tests (`program/test_composition.py`: llama-v3, qwen2-v2, qwen2-hopper-v1); **3 files named only in `tools/move_map.txt`** | run definition (3 superseded) |
 | `docs/data/ref-prims/` (31, 164 KB) | reference-primitive conformance records | **library** `program/registry/ref_prims.py:192`, `conformance.py:25`, `frontend/rules/vocab.py:86`, `reference.py:4`; **written** by `tests/program/test_ref_prims.py:43` | package data rewritten by a test |
 | `docs/data/tc-*` | (absent) | provenance strings (`conformance.py:63`, `prims.py:203`, `hopper.py:77`, `fp8.py:125`, `derived_rows.py:461`) | **missing** |
-| `workloads/` (132) | 97 row-grammar run definitions + 35 legacy `workload_*` | `row_pod.sh`/`tp_stage.sh` (`$WL`), `tests/regression/resolver.py:240`, harness/observe/admission tests, library defaults (`commit_delta.py:1039`, `hot_commit.py:175`, `noninterference.py:768`, `tp/capture.py:65`, `observe/m1_capture.py:122`, `vllm_adapter.py:85`); **7 legacy files named by nothing** | run definitions |
+| `workloads/` (132) | 97 row-grammar run definitions + 35 legacy `workload_*` | `row_pod.sh`/`tp_stage.sh` (`$WL`), `tests/regression/resolver.py:240`, harness/observe/admission tests, library defaults (`commit_delta.py:1039`, `hot_commit.py:175`, `noninterference.py:768`, `tp/capture.py:65`, `observe/m1_capture.py:122`, `vllm_adapter.py:85`); **6 legacy files read by nothing** | run definitions |
 | `tests/harness/fixtures/admission/` (9) | planner calibration | **library `commit_delta.py:1793`**; tests | test data read by library |
 | `tests/program/data/` (3 + `topp_split_fixture/` 6) | `fp8_block_operands.npz`, TopP split schedules | tests; library provenance strings (`sampled_replay.py:169`, `derived_rows.py:565`; `topp_split.py:71` cites a stale path) | test data |
 | `tests/regression/fixtures.toml` + `expected/` (13) | reference artifact index and expected verdicts | regression harness | evidence index |
@@ -619,8 +632,10 @@ Consequences of the move:
 Flags:
 - **Library reads `tests/`:** `commit_delta.py:1793`, the only live read. Library provenance strings also point into `tests/program/data`.
 - **Library reads data outside the package:** `data/hf_configs`, `data/logs`, `docs/data/ref-prims`, `fixtures/B0-divergence`, `fixtures/W11*`, `manifests/`, `workloads/` (see LAYERING).
-- **Data nothing reads:** `data/rec`, `data/census`, `data/contract`, `data/workloads_r12`, `data/logs/m6`, 3 semantic profiles, 7 legacy workloads.
-- **Referenced but missing:** `data/logs/m1/`, `m1_ctl_tokens.json`, `fixtures/verity-ir`, `fixtures/results`, `docs/data/tc-*`, `docs/data/l8-nan-scan-*` (moved to `data/`), `tests/data/topp_split_fixture` (moved to `tests/program/data/`).
+- **Data nothing reads:** `data/rec`, `data/census`, `data/contract`, `data/workloads_r12`, `data/logs/m6`, 3 semantic profiles, 6 legacy workloads.
+- **Referenced but missing:**
+  - From library code: `data/logs/m1/`, `m1_ctl_tokens.json`, `fixtures/verity-ir`, `fixtures/results`, `docs/data/tc-*`, `docs/data/l8-nan-scan-*` (moved to `data/`), `tests/data/topp_split_fixture` (moved to `tests/program/data/`).
+  - From tests: `vllm-poc/`, `src/`, `record_v5/ship.sh`, `fixtures/results/TA1-typed-b1-20260907`, `docs/data/tc-total-2026-09-07`, `verity_vllm/observe/profiles/workload_cov_*`.
 
 ## Map 4: Tests
 
@@ -633,7 +648,8 @@ Flags:
   - 18 import torch or vLLM at module top with no guard, so they error at collection without those packages.
   - There is no `gpu` marker.
 - **Pod/evidence:**
-  - About 34 files skip when an evidence path is absent: `out/gen` (23 files, gitignored and absent), `/workspace` (19), `/vault` (3).
+  - About 34 files skip when an evidence path is absent: `out/gen` (23 files, gitignored and absent), `/workspace` (19), `/vault` (3). These are pod-only in effect, and `pyproject.toml:28` says as much ("skip or fail by name off-pod").
+  - About 12 more are disabled by moved in-repo paths (above). That is not a pod-versus-laptop split: they are disabled everywhere.
   - The registered `pod` marker is applied only inside the regression harness (`test_regression.py:119`).
   - `@pytest.mark.slow` is unregistered (`program/test_derive.py:416`).
 - **Regression:** `tests/regression/` is skipped unless `VERITY_REGRESSION=1` and is driven by `fixtures.toml` (13 rows, 9 decisions) through `resolver.py` (10 env vars). Its markers are `regression`, `pod` and `weak`.
@@ -646,15 +662,17 @@ Flags:
 - `dead_code_keep.json:5-7, 11-15` (`fa2_commit`, `cb_a` paths)
 - `program/test_relayout_map.py` (enforces a finished migration via `tools/`)
 - the two padrev files whose base suites are gone (`test_lifted_workload_padrev.py`, `test_workload_compose_padrev.py`)
+- `program/test_ship_roots.py`, which tests `record_v5/ship.sh`. That script is not in the repo, so by reading, 2 of its 4 tests error and a third fails.
+- About 12 files whose in-repo inputs moved or were deleted, so they skip, take a fallback, or assert only conditionally. Examples are `input_provenance/test_root_policy.py` (never runs), `harness/test_coverage_workloads.py:51` (always skips) and `program/test_nan_conversion.py:26` (empty parameter set); the full list is under DEAD.
 
 The inverse case also exists: 13 `importorskip` guards wait for modules that have since merged.
 
 **Skipped and xfail.**
 - 87 `pytest.skip(` calls in 44 files, 51 `skipif` in 37 files, and 71 `importorskip` in 59 files.
-- 11 xfail markers, all strict "documented gap" markers:
+- 10 strict xfail markers documenting known gaps, plus one runtime xfail:
   - `check/test_gen_adversarial.py:82, 100, 135, 165, 189` (HOLE-1..4)
   - `program/test_harden_guards.py:92, 104, 161, 171, 197`. `:161` says dtype is not an applicability constraint, and `:197` says `construction_version.mechanism` is a duplicated literal (`derive_step.py:81` vs `:656`).
-  - `program/test_heldout_codec_compose.py:109`, a runtime xfail.
+  - `program/test_heldout_codec_compose.py:109`, the runtime `pytest.xfail`.
 - `check/test_rev_r16_*.py` document xfails that have since been flipped to passing.
 - The whole regression suite is skipped by default.
 
@@ -689,5 +707,7 @@ The inverse case also exists: 13 `importorskip` guards wait for modules that hav
 3. **Resource telemetry.** `research`'s `cgroup.py`/`procs.py`/`sample.py` produce what `telemetry/admission.observe_increment_a` reads, while `observe_r17` re-derives the same from `timeline.jsonl` and logs.
 4. **Tool adapter.** `research_tools`, `research_outputs` and `research_result` live in the integration. They import `research` at load time, `tools/research` imports them back under the `integrations.vllm…` module name (`tools_registry.py:26-28`), and the result schema is owned by `tools/research/src/research/result.py` (`research_result.py:1`).
 5. **Run wrapping.** `run_row_v2.sh:50` locates or installs `research` on `PYTHONPATH`, and `row_pod.sh:57` adds `tools/research/src`.
+6. **Pod lifecycle.** `run_row_v2.sh:214` tears the pod down through `research`'s `pods/sh/pod_guard.sh`, looking first at `/root/dm/pod_guard.sh`. `tools/research/src/research/telemetry/patches/run_row.sh.telemetry.diff` is a patch against the dead `run_row.sh`.
+7. **Shipped-tree provenance.** `EXPORT.json` is parsed on both sides: in the harness by `source_identity`, `experiment`, `derive_step`, `commit_delta`, `hot_commit` and `release_json`, and in `research` by `telemetry/source_identity.py` and `remote.py`. Neither side contains the writer (`record_v5/ship.sh`, absent). Each side has its own reader for one external format.
 
 <!-- APPEND -->

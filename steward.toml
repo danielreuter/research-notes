@@ -1,0 +1,9 @@
+# Read by `research notes watch` every pass (steward rules, notes.py). Renders run once per UTC day per entry.
+# source: the post-wave worktree until the post-wave merge lands on main (main's tables.py lacks the tables-fix gates and
+# bench.drilldown); then switch it to ~/projects/verity-main-wt/cli.
+
+[[render]]
+at = "13:00Z"
+source = "~/projects/verity-main-wt/post-wave"
+out = "renders/daily"
+store = "~/.research/store"

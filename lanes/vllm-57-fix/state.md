@@ -48,7 +48,10 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   from sampled_replay (ProgramIndex promoted/rule, promoted_addresses_of gone) and deletes test_sampled_replay_promoted.py.
   2c5e038b's promote_handed_down marks the manifest in place, so at my tip the replay index also sees the promoted rows; on
   the merged tree only acquisition + form (B) read them. The #57 PASS at my tip therefore does not cover the merged replay
-  path: #57's Commit should be rerun on the merged tree (int-57). Trial tests: logs/tests_trial_rv1.log (running).
+  path: #57's Commit should be rerun on the merged tree (int-57). Trial tests (same set as tests_2c5e minus the deleted
+  test_sampled_replay_promoted.py, ninja on PATH): 237 passed, 13 skipped, 0 failed (logs/tests_trial_rv1.log).
+- 08:14Z #57 rerun live signals (row commit.log): COMPOSITION OK; MANIFEST COVERAGE OK checked 163,168 missing 0;
+  C2 ORACLE COMPARE OK compared 159,840 equal 159,840 mismatch 0 (was 432 mismatches at 8b606f16). Waiting on local_replay + verdict.
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)

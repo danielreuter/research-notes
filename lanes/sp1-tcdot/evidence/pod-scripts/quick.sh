@@ -11,8 +11,8 @@ H=$W/target-tcdot/release/verity-tcdot-host
 D=$W/runs/quick-${TAG:-x}
 rm -rf $D && mkdir -p $D
 # A finished run leaves its server's socket behind, and a client that finds it gets ECONNREFUSED before the new server
-# rebinds; no server of this pod outlives its host process.
-pgrep -x sp1-gpu-server >/dev/null || rm -f /tmp/sp1-cuda-*.sock
+# rebinds: wait for the last server to exit, then remove it.
+for _ in $(seq 60); do pgrep -x sp1-gpu-server >/dev/null || break; sleep 0.5; done; rm -f /tmp/sp1-cuda-*.sock
 { env | grep -E "^(ELEMENT_THRESHOLD|SHARD_SIZE|HEIGHT_THRESHOLD|SP1_WORKER_|VERITY_TCDOT_|TRACE_CHUNK|MINIMAL_TRACE)" || true; } | sort | tee $D/env.txt
 $H bare-prove --instances $W/bi --manifest-sha256 059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea \
   --lo 0 --hi 4096 --vus-per-read ${VPR:-64} --out-dir $D/proofs --reps ${REPS:-2} --warmup-vus 64 --mode core \

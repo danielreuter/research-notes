@@ -26,3 +26,11 @@ reindex` lasting more than a few seconds is killed mid-rebuild and guts the cata
 while building its source archive (I shipped the H100 run's source by hand). Suggested: (1) free disk (the Cursor DB
 is the consumer), and/or (2) make `Index.rebuild` a single transaction so that a kill rolls back. That is a
 research-tool change, so I have not made it from this lane.
+
+**Stale run records (no action needed).** The laptop's `research status` will keep showing three agkr-table runs as
+`submitted`, because vy-agkr-h100 is terminated and `research fetch` cannot reach it.
+r20260924-080152-9a24 and r20260924-080251-d61e were killed by the guardian while shipping source and never started.
+r20260924-080613-6000 finished and is preserved (the catalog holds its attempt: done, rc 0, validation passed). On the
+A100, r20260924-074009-d4c1 was an accidental duplicate launch that I SIGTERMed after 149 s. It fell inside the untimed
+warm-up of r20260924-073947-78c1, whose timed reps started at or after 07:48:53Z, four minutes after the kill. Its
+failed attempt is preserved (rc 143) and it has no result.

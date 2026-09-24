@@ -63,7 +63,8 @@ names the reason for each of your results.
 | fused-phases | lane/post-wave 3adf4c28 | 1x 4090 | $3 | 07:45Z | fused-hints phase accounting; v3x4 instance question; equivalence checker |
 | agkr-table | main 0b0768ed | 1x A100 SXM4 80GB | $12 | 12:00Z | A-GKR A100 BF16 cell, then hill-climb |
 | sp1-table | main 0b0768ed | 1x A100 SXM4 80GB | $12 | 12:00Z | unmodified SP1 A100 BF16 cell, then hill-climb |
-| sp1-tcdot | main 0b0768ed | 1x A100 SXM4 80GB (+4090 dev) | $12 | 12:00Z | TC_DOT fork as an SP1 variant, A100 BF16 cell |
+| sp1-tcdot | main 0b0768ed | A100 SXM4 80GB (+4090 dev; +1 pod per target while proving) | $25 | 12:00Z | TC_DOT fork as an SP1 variant on ALL targets (chip parameterised per format), A100 first |
+| sp1-formats (05:45Z) | lane/sp1-table | dev pod + H100 / 4090 / 5090 per cell | $20 | 12:00Z | SP1-stock for fp8-ada, fp8-hopper, bf16-hopper, fp4-nvf4 |
 | fill-* (~07:45Z) | fused-phases tip | per target | ~$25 | 11:30Z | B-Ligero bare + column 2 on frozen instances, 3 rounds, dumps |
 | verify-night (~07:45Z) | main | CPU pod | $4 | 12:30Z | independent verification + labels for every candidate cell |
 

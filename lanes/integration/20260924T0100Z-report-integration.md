@@ -1,3 +1,4 @@
+CHECKPOINT none (02:10Z) [open] 02:11Z Gates 12/14 0F (all 4 relations x bare/hash/shared); fp8-ada-v3 + v3x4 gates still running (every honest sub-batch checked vs CPU Python hint reference, 10.2-core quota). A/B digests all 4 pairs IDENTICAL (levels blake3 da424477, levels v3x4 b5af4f65, levels v1 6baf894a, fused v3x4 b5af4f65), art:9aca92d0. H1/H2 forges REJECT art:ca615053. Live: bare s..2ca7 + shared s..687e both ACCEPTED, Rust re-verify 13/13 each (shared first try OOM beside gates, rerun alone), art:c85b8b38. pytest 2 groups ~245/411 of the rest. Cutoff 02:27 for gates/pytest, then clean-GPU A/B timings + bench.
 CHECKPOINT a6563c4b (01:53Z) [open] 01:54Z tip a6563c4b. Pod CPU quota is 10.2 cores (cfs 1020000/100000, 75% periods throttled) while torch sizes pools for 96 visible cores: concurrent jobs crawled. Killed stalled A/B v3x4 arm + 4-way pytest; pytest now 2 groups OMP_NUM_THREADS=2 (~35%); A/B rest restarted (digests only). Gates 7/14 0F (fp8-ada x3, fp8-hopper x3, bf16-ampere bare; bf16-hopper hash/shared also 0F => 9 incl those). A/B LEVELS blake3 pair IDENTICAL (27 files, combined da424477). Coordinator handoff ack: clean-GPU A/B timings (alternating, 3 rounds) + bench after gates/pytest.
 CHECKPOINT a6563c4b (01:36Z) [open] 01:37Z tip a6563c4b fold_test: bf16-ampere-x4 rows/unit bound 4.1 -> 4.15 (pinned fixture gives 14576/3516 = 4.1456, as the comment documents) (fold_test bf16-ampere-x4 bound 4.1->4.15: pinned fixture ratio 14576/3516=4.1456 as its comment documents). Gates 4/14 pass 0F (fp8-ada bare/hash/shared, fp8-hopper bare); rest in 3 parallel runners (CPU-bound). H1/H2: cargo steps_pin_* ok (32+7+25 pass); fresh merged-prover steps32 forges bare/ajtai-n64 REJECT (steps 32 vs VU 48), poseidon2 REJECT (sys_id pin). A/B blake3 LEVELS pair done, v3x4/v1/fused running. pytest running (1 F so far).
 CHECKPOINT 66293c45 (01:26Z) [open] 01:27Z merges 1-13 done (fp4-decode-3 deferred; 6ffa035 cherry-picked); tip 66293c45 witness_device_test: the PTX differential test skips fp4-nvf4+poseidon2 when fp4/hashed.py is absent (lane/fp4-decode-3 not merged; 6ffa035 cherry-picked alone). Pod: cargo test/check done, pytest running; gates 2/14 pass so far (fp8-ada bare 13h/92n 0F, +hash 13h/86n 0F). Reverify w/ merged pinned Rust: bare art:cc59294a PASS verdict art:615318d6; +hash art:4ab22886 PASS verdict art:ed6e78cf; +shared shared-live-2 cell art:fa2be398 manual batch --system-h 13/13 ACCEPT 128.66b, verdict art:e1b0fd7b (reverify.py lacks --system-h: gap to fix). A/B started concurrently with gates. Next: bench, live.
@@ -70,3 +71,21 @@ Order as briefed except two deviations (8 <-> 9 swapped; 10 deferred), each expl
 11. blake3-leaf-3 820aa6fe -> e918ac88. relchain/conformance_test: HEAD (it re-added its copy of 1cf9178's prover and the `vu_ids`
    keyword). `leaf.rs`: Ajtai schemes + BLAKE3 scheme, `SCHEMES = [POSEIDON2, BLAKE3, AJTAI_N64, AJTAI_N128]`, PINS = union.
 12. hints-fused-2 4287a92b -> ba5c95e4, clean. 13. bench-summary fd2971e8 -> 1ba5e023, clean.
+14. Post-merge fix a6563c4b: `fold_test[bf16-ampere-x4]` bound 4.1 -> 4.15. Stale threshold: the test pins the folded system
+   byte-identical to its fixture two lines above, so rows/unit is a constant of the pinned system: 14576 / 3516 = 4.1456, the
+   exact numbers the test's own comment documents ("3.6 % MORE rows per unit than four units"). Not a regression.
+
+## merge-val-3 on the 4090 (pod vy-integration 97zxgf1oii4cga)
+
+Pod tree = `research pods sync` of 66293c45 (+ a6563c4b's fold_test.py copied in; test-only). Bootstrap with qol's
+`pod_bootstrap.sh`. Scripts: `evidence/pod-scripts/` (00 bootstrap, 01 tests, 01b pytest groups, 02/02c gates, 02b H1/H2,
+03/03c A/B digests, 03b A/B timings, 04 bench, 05/05b live).
+
+**Environment finding (affects every lane on these pods):** the container's CPU quota is **10.2 cores**
+(`cpu.cfs_quota_us 1020000 / period 100000`, 75 % of periods throttled) while `nproc` / torch see 96 cores, so every Python
+process sizes its thread pools for 96. Concurrent jobs crawled (a v3x4 A/B arm stalled 17 min; bf16-ampere-bare gate 1219 s vs
+~70 s alone). Correctness runs were overlapped (restarted pytest with `OMP_NUM_THREADS=2`); timing runs got a clean GPU.
+
+### a. Tests
+* `cargo test` backends/ligero-verify: **64 passed** (32 unit + 7 + 25 relations, incl. `steps_pin_forged_steps32_proofs_are_refused_pinned`,
+  `steps_pin_red_team_fixtures_are_refused`, v6 tests); `cargo check` backends/direct workspace OK.

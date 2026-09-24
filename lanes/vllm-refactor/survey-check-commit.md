@@ -47,7 +47,7 @@ Severity: **high** = affects what the verifier can soundly claim, or blocks the 
 | `fa2_prototype/oracle.py` | 163 | `AttentionHead_v3` via `evaluate_call` transcript; MUFU tables preloaded at import |
 | `fa2_prototype/reference.py` | 126 | numpy FA2 approximation (not bit-exact) for mechanics tests |
 | `fa2_prototype/kernel_dump.py` | 181 | reads instrumented-kernel P0 dumps |
-| `fa2_prototype/fixtures/` | 2.0 MB | 6 `.npz` + `SHA256SUMS` + `b0_c256_attention_geometry.json`, inside the library package |
+| `fa2_prototype/fixtures/` | 2.0 MB | 7 `p0_*.npz` + `p0_summary.json` + `SHA256SUMS` + `b0_c256_attention_geometry.json` (4,390 lines), inside the library package |
 
 ### 1.1 Findings in `commit/`
 
@@ -79,7 +79,7 @@ Severity: **high** = affects what the verifier can soundly claim, or blocks the 
 - `hidden_stream.py:34-35` `TAG = 0x68326166 ('fa2h')`, `VERSION = 7`: an FA2-specific header constant that production uses for every tensor's leaves (see Map 2). **medium**
 
 **SCRIPT/ENV/PATH**
-- `hidden_engine.py:22-24` and `reference_engine/engine.py:27-29`: `sys.path.insert` of a `vllm-poc` directory that does not exist (dead code path at import). **medium**
+- `hidden_engine.py:22-24` and `reference_engine/engine.py:27-29`: `Path(__file__).parents[2|3] / "vllm-poc"` + `sys.path.insert`; `integrations/vllm/vllm-poc` does not exist (dead code at import). **medium**
 - `padding_steps.py:37` `sys.path.insert(0, parents[2])` at import; `:405` `VERITY_LEAF_LAYOUT` env var chooses the leaf rule of a commitment; `:413` `print` from library code; `:919-936` CLI with `SystemExit`. **high** (the env var changes committed bytes)
 - `binding.py:526-528` `raise SystemExit(...)` inside a library function. **medium**
 - `reference_engine/triton_sha256.py:70,188` `VERITY_CMT_CACHE` env var / `~/.cache/verity_cmt` for generated kernel source. **low**

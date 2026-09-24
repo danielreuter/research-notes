@@ -5,6 +5,19 @@ created: 2026-09-23T21:20Z
 status: open
 ---
 
+# Coordinator state 2026-09-24 16:15Z (newest first; older state below)
+
+- 06:51Z the coordinator's Cursor extension host restarted (3.3 GB); no event reached the coordinator until the user wrote
+  at 15:39Z. Morning tables rendered 15:40Z from lane/post-wave: `campaigns/morning-tables/render/1540Z-{tables,drilldowns}.md`.
+  All overnight lanes closed (sp1-formats, agkr-table closed by coordinator 16:02Z). agkr pod terminated 15:40Z (~$11 idle).
+- User decisions still open: SP1 column at 100-bit with a footnote?; Table 1 A-GKR line (says BLAKE3; code is SHA-512,
+  2^-130.2); Cursor state.vscdb (76 GB) fix needs the user and a Cursor quit, best with no lanes running.
+- Robustness campaign (user-approved ~16:05Z): `campaigns/robustness/BRIEF.md`. Done: `~/.research/bin/research` runs the
+  sparse detached worktree `~/projects/verity-main-wt/cli` (move it after EVERY merge: `git -C ~/projects/verity-main-wt/cli
+  checkout --detach main`); old shim at `~/.research/bin/research.bak-main`; watcher restarted on it. LANE-CONTRACT: turn-ending
+  rule + long pod work through `research run --on`. Running: lanes steward, pod-runs (FINAL 18:30Z). Next: step 2 SDK pilot
+  (needs CURSOR_API_KEY), post-wave merge.
+
 # Coordinator state 21:20Z
 
 ## What happened

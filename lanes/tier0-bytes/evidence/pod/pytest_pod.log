@@ -1,0 +1,84 @@
+.........................................F..................s........... [ 35%]
+..F......................F.............................................. [ 71%]
+.........................................................                [100%]
+=================================== FAILURES ===================================
+__________ test_folded_fixture_is_the_compiled_system[bf16-ampere-x4] __________
+
+rel = Relation(name='bf16-ampere-x4', target=Target(name='first-campaign-target/2026-09-21', family='veritor.tc-ampere-bf16@...x73c65dd99ee0>, rust_verifiable=True, instances_recipe=None, frozen_tier='vu-k1536', fold=4, folded_from='bf16-ampere')
+
+    @pytest.mark.parametrize("rel", FOLDED, ids=lambda r: r.name)
+    def test_folded_fixture_is_the_compiled_system(rel):
+        base = _base(rel)
+        sys4 = rel.compile(rel.params, True)
+        assert system_bytes(sys4) == (FIX / f"systems/{rel.name}.system.bin").read_bytes(), f"{rel.name}: fixture != compile"
+        assert system_bytes(rel.compile(rel.params, True)) == system_bytes(sys4), "compile is deterministic"
+        c4, c1 = census(sys4), census(base.compile(base.params, True))
+        assert rel.k == 4 * base.k and rel.steps * 4 == base.steps and rel.fold == 4 and base.fold == 1
+        # rows per unit: sub-linear in the fold for the Hopper / Ada units (the accumulator decode is shared), but the Ampere v1
+        # unit's rows are almost all per-group bit rows, and its fold costs 3.6 % MORE rows per unit than four units (14576 vs
+        # 4 x 3516 at x4) -- there the fold's only saving is the 4x fewer sub-batches
+        ratio = c4["rows_per_unit"] / c1["rows_per_unit"]
+>       assert ratio < (4.1 if rel.name == "bf16-ampere-x4" else 4.0), (c4["rows_per_unit"], c1["rows_per_unit"])
+E       AssertionError: (14576, 3516)
+E       assert 4.145620022753128 < 4.1
+
+backends/direct/ligero/fold_test.py:73: AssertionError
+________ test_reference_vector_k1536_replays_through_the_hint_generator ________
+
+    def test_reference_vector_k1536_replays_through_the_hint_generator():
+>       rec = json.loads((REPO / "fixtures/tc/vectors/nvfp4-sm120-mma-k1536.json").read_text())
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backends/direct/ligero/fp4/relation_test.py:147: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/workspace/src/fixtures/tc/vectors/nvfp4-sm120-mma-k1536.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/workspace/src/fixtures/tc/vectors/nvfp4-sm120-mma-k1536.json'
+
+/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__________________ test_statement_v5_and_system_v3_round_trip __________________
+
+runner = (<ligero.relchain.HashedRelationRunner object at 0x73c60d922d20>, [([182, 253, 229, 222, 228, 87, ...], [99, 221, 122,... 105, 151, 191, 101, ...], [1161820160, 3344167936, 3348612096, 3348257792, 3339307008, 3348841472, ...], 3364570112)])
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_statement_v5_and_system_v0')
+
+    def test_statement_v5_and_system_v3_round_trip(runner, tmp_path) -> None:
+        R, data = runner
+        proof, pubs, lay = R.prove_vus([data[1], data[3]], check=False, vu_ids=[1, 3])
+        st = _statement_of(R, pubs, lay, R.cfg(lay.l), 1)
+        raw = statement_bytes(st)
+>       assert raw[:8] == STMT_MAGIC_V5 and len(raw) < 2000            # no operand words: ~1.5 kB for two VUs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert (b'LIGSTM06' == b'LIGSTM05'
+E         
+E         At index 7 diff: b'6' != b'5'
+E         Use -v to get more diff)
+
+backends/direct/ligero/hashchain_test.py:81: AssertionError
+=============================== warnings summary ===============================
+backends/direct/ligero/pipeline_race_test.py: 16 warnings
+  /root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=9343) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/fold_test.py::test_folded_fixture_is_the_compiled_system[bf16-ampere-x4]
+FAILED backends/direct/ligero/fp4/relation_test.py::test_reference_vector_k1536_replays_through_the_hint_generator
+FAILED backends/direct/ligero/hashchain_test.py::test_statement_v5_and_system_v3_round_trip
+3 failed, 197 passed, 1 skipped, 16 warnings in 590.57s (0:09:50)
+PYTEST_EXIT=1

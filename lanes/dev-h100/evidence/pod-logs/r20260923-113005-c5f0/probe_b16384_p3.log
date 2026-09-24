@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/research/src/64c00bd6c78ba96cc08372642d5b07122db1e61d/backends/direct/ligero/run.py", line 469, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/research/src/64c00bd6c78ba96cc08372642d5b07122db1e61d/backends/direct/ligero/run.py", line 462, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/research/src/64c00bd6c78ba96cc08372642d5b07122db1e61d/backends/direct/ligero/relchain.py", line 973, in bench_vu_rel
+    assert ok, f"sub-batch [{lo}, {hi}): {why}"
+           ^^
+AssertionError: sub-batch [170, 340): proximity test failed
+bf16-hopper census: {"rows_per_unit": 3292, "bit_rows": 2391, "selector_rows": 542, "hint_rows": 97, "pin_rows": 96, "product_rows": 166, "inverse_rows": 0, "linear_constraints": 339, "quadratic_constraints": 3164, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.6s
+config Config(l=16384, n=65536, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=170, steps=96); zk True, mode interactive; system {'rows': 3292, 'by_kind': {'hint': 97, 'bit': 2391, 'prod': 166, 'pin': 96, 'sel': 542}, 'linear': 339, 'quadratic': 3164, 'pins': 96, 'hints': 97}; 4096 VUs as 25 sub-batches of <= 170
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.006, 'hints_host': 11.497, 'witness': 0.037, 'self_check': 2.388, 'zk_masks': 0.007, 'encode': 0.003, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 1.134, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.004, 'tests': 1.134, 'total': 3.582}

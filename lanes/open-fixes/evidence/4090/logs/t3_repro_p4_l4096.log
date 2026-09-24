@@ -1,0 +1,19 @@
+=== 18:15:14 tree=/workspace/src sha=ecec3ef0f6a0f7ead6e87814abebe24ceeb812cd cmd: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada-v3 bench-vu --zk --mode interactive --batch 4096 --pipeline 4 --total-vus 340 --reps 1 --device cuda --instances-cache /workspace/instances-cache
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/src/backends/direct/ligero/run.py", line 504, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/src/backends/direct/ligero/run.py", line 497, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 1065, in bench_vu_rel
+    assert ok, f"sub-batch [{lo}, {hi}): {why}"
+           ^^
+AssertionError: sub-batch [0, 85): quadratic constraints failed
+fp8-ada-v3 census: {"rows_per_unit": 1806, "bit_rows": 169, "selector_rows": 30, "hint_rows": 1491, "pin_rows": 22, "product_rows": 23, "inverse_rows": 71, "linear_constraints": 130, "quadratic_constraints": 2542, "chain": true}
+340 synthetic VUs (recorded accumulators) in 0.9s
+config Config(l=4096, n=16384, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=4096, n_vus=85, steps=48); zk True, mode interactive; system {'rows': 1806, 'by_kind': {'hint': 1491, 'bit': 169, 'inv': 71, 'prod': 23, 'pin': 22, 'sel': 30}, 'linear': 130, 'quadratic': 2542, 'pins': 22, 'hints': 1491}; 340 VUs as 4 sub-batches of <= 85
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.007, 'hints_host': 44.144, 'witness': 19.537, 'self_check': 8.768, 'zk_masks': 0.177, 'encode': 1.618, 'transfer': 0.003, 'merkle': 0.394, 'tests_w': 4.699, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.004, 'tests': 4.699, 'total': 35.207}
+=== 18:16:43 rc=1 wall=89s

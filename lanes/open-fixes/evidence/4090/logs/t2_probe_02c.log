@@ -1,0 +1,9 @@
+=== 18:15:14 tree=/workspace/src-02c sha=02c3321 cmd: /workspace/venv312/bin/python /workspace/zero_sum_probe.py /workspace/unit_92536.json
+fp8-hopper-v2      unit92536    units=   1 zero_words=   1  unit: rejected=1 [0] wrong_accepted=0  chain: rejected=1 [0]
+fp8-hopper-v2      constructed  units= 256 zero_words= 256  unit: rejected=256 [0, 1, 2, 3, 4] wrong_accepted=0  chain: rejected=256 [0, 1, 2, 3, 4]
+fp8-ada-v2         unit92536    units=   1 zero_words=   0  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-ada-v2         constructed  units= 256 zero_words= 123  unit: rejected=256 [0, 1, 2, 3, 4] wrong_accepted=0  chain: rejected=256 [0, 1, 2, 3, 4]
+bf16-hopper-v2     constructed  units= 256 zero_words= 256  unit: rejected=256 [0, 1, 2, 3, 4] wrong_accepted=0  chain: rejected=256 [0, 1, 2, 3, 4]
+bf16-ampere-v2     constructed  units= 115 zero_words= 115  unit: rejected=115 [0, 1, 2, 3, 4] wrong_accepted=0  chain: rejected=115 [0, 1, 2, 3, 4]
+PROBE_BAD 1768
+=== 18:15:17 rc=0 wall=3s

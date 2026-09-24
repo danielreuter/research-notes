@@ -1,0 +1,89 @@
+=== 02:37:02 profile-bf16h-intzk -> r20260923-023702-98f2 : /workspace/venv312/bin/python /workspace/research/runs/r20260923-023702-98f2/inputs/profile_phases.py --relation bf16-hopper --zk --mode interactive --out /workspace/research/runs/r20260923-023702-98f2/prof --full
+research: run r20260923-023702-98f2 launched on vy-hostphase (ms2c0dq167fl0f) pid=1034 -> /workspace/research/runs/r20260923-023702-98f2
+research: observe with `research fetch r20260923-023702-98f2`; the workload does not depend on this session staying alive
+02:37:40 profile-bf16h-intzk r20260923-023702-98f2 state=done 0 wall=34s
+=== 02:54:24 bitexact-v1 -> r20260923-025424-76a1 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bitexact_all.sh"
+research: run r20260923-025424-76a1 launched on vy-hostphase (ms2c0dq167fl0f) pid=2135 -> /workspace/research/runs/r20260923-025424-76a1
+research: observe with `research fetch r20260923-025424-76a1`; the workload does not depend on this session staying alive
+=== 02:56:15 bitexact-v1 -> r20260923-025615-2262 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bitexact_all.sh"
+research: run r20260923-025615-2262 refused on vy-hostphase: machine is exclusively held by run r20260923-025424-76a1 (still live); not starting r20260923-025615-2262  (recorded in /Users/danielreuter/.research/runs/r20260923-025615-2262)
+02:56:51 bitexact-v1 r20260923-025424-76a1 state=done 0 wall=120s
+=== 02:59:22 bitexact-v2 -> r20260923-025922-b0cc : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bitexact_all.sh"
+research: run r20260923-025922-b0cc launched on vy-hostphase (ms2c0dq167fl0f) pid=6343 -> /workspace/research/runs/r20260923-025922-b0cc
+research: observe with `research fetch r20260923-025922-b0cc`; the workload does not depend on this session staying alive
+03:01:49 bitexact-v2 r20260923-025922-b0cc state=done 0 wall=121s
+=== 03:02:35 base-bf16h-int-zk (/Users/danielreuter/projects/verity-main-wt/main bf16-hopper --zk --mode interactive) -> r20260923-030235-4817
+research: run r20260923-030235-4817 launched on vy-hostphase (ms2c0dq167fl0f) pid=10241 -> /workspace/research/runs/r20260923-030235-4817
+research: observe with `research fetch r20260923-030235-4817`; the workload does not depend on this session staying alive
+03:03:23 base-bf16h-int-zk r20260923-030235-4817 state=done 0 wall=43s
+=== 03:03:40 lane-bf16h-int-zk (. bf16-hopper --zk --mode interactive) -> r20260923-030340-bf77
+research: run r20260923-030340-bf77 launched on vy-hostphase (ms2c0dq167fl0f) pid=10728 -> /workspace/research/runs/r20260923-030340-bf77
+research: observe with `research fetch r20260923-030340-bf77`; the workload does not depend on this session staying alive
+03:04:27 lane-bf16h-int-zk r20260923-030340-bf77 state=done 0 wall=43s
+=== 03:04:42 lane-bf16h-fs-zk (. bf16-hopper --zk --mode fiat-shamir) -> r20260923-030442-7aed
+research: run r20260923-030442-7aed launched on vy-hostphase (ms2c0dq167fl0f) pid=11235 -> /workspace/research/runs/r20260923-030442-7aed
+research: observe with `research fetch r20260923-030442-7aed`; the workload does not depend on this session staying alive
+03:05:29 lane-bf16h-fs-zk r20260923-030442-7aed state=done 0 wall=43s
+=== 03:05:29 lane-bf16h-int-nonzk (. bf16-hopper --mode interactive) -> r20260923-030529-ab1d
+research: run r20260923-030529-ab1d launched on vy-hostphase (ms2c0dq167fl0f) pid=11704 -> /workspace/research/runs/r20260923-030529-ab1d
+research: observe with `research fetch r20260923-030529-ab1d`; the workload does not depend on this session staying alive
+03:06:15 lane-bf16h-int-nonzk r20260923-030529-ab1d state=done 0 wall=42s
+=== 03:06:52 profile-lane-bf16h-intzk -> r20260923-030652-a174 : /workspace/venv312/bin/python /workspace/research/runs/r20260923-030652-a174/inputs/profile_phases.py --relation bf16-hopper --zk --mode interactive --out /workspace/research/runs/r20260923-030652-a174/prof --full
+research: run r20260923-030652-a174 launched on vy-hostphase (ms2c0dq167fl0f) pid=12275 -> /workspace/research/runs/r20260923-030652-a174
+research: observe with `research fetch r20260923-030652-a174`; the workload does not depend on this session staying alive
+03:07:30 profile-lane-bf16h-intzk r20260923-030652-a174 state=done 0 wall=34s
+=== 03:10:46 bitexact-v3 -> r20260923-031046-9e90 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bitexact_all.sh"
+research: run r20260923-031046-9e90 launched on vy-hostphase (ms2c0dq167fl0f) pid=12932 -> /workspace/research/runs/r20260923-031046-9e90
+research: observe with `research fetch r20260923-031046-9e90`; the workload does not depend on this session staying alive
+03:13:12 bitexact-v3 r20260923-031046-9e90 state=done 0 wall=120s
+=== 03:13:23 final-bf16h-int-zk bf16-hopper --zk --mode interactive (. final-bf16h-int-zk bf16-hopper --zk --mode interactive ) -> r20260923-031323-9951
+research: run r20260923-031323-9951 launched on vy-hostphase (ms2c0dq167fl0f) pid=16827 -> /workspace/research/runs/r20260923-031323-9951
+research: observe with `research fetch r20260923-031323-9951`; the workload does not depend on this session staying alive
+03:13:48 final-bf16h-int-zk bf16-hopper --zk --mode interactive r20260923-031323-9951 state=failed 2 wall=21s
+=== 03:13:48 final-bf16h-fs-zk bf16-hopper --zk --mode fiat-shamir (. final-bf16h-fs-zk bf16-hopper --zk --mode fiat-shamir ) -> r20260923-031348-bc72
+research: run r20260923-031348-bc72 launched on vy-hostphase (ms2c0dq167fl0f) pid=16979 -> /workspace/research/runs/r20260923-031348-bc72
+research: observe with `research fetch r20260923-031348-bc72`; the workload does not depend on this session staying alive
+03:14:13 final-bf16h-fs-zk bf16-hopper --zk --mode fiat-shamir r20260923-031348-bc72 state=failed 2 wall=21s
+=== 03:14:13 final-bf16h-int-nonzk bf16-hopper --mode interactive (. final-bf16h-int-nonzk bf16-hopper --mode interactive ) -> r20260923-031413-e31b
+research: run r20260923-031413-e31b launched on vy-hostphase (ms2c0dq167fl0f) pid=17131 -> /workspace/research/runs/r20260923-031413-e31b
+research: observe with `research fetch r20260923-031413-e31b`; the workload does not depend on this session staying alive
+03:14:37 final-bf16h-int-nonzk bf16-hopper --mode interactive r20260923-031413-e31b state=failed 2 wall=20s
+=== 03:14:38 final-fp8h-int-zk fp8-hopper --zk --mode interactive (. final-fp8h-int-zk fp8-hopper --zk --mode interactive ) -> r20260923-031438-12a9
+research: run r20260923-031438-12a9 launched on vy-hostphase (ms2c0dq167fl0f) pid=17283 -> /workspace/research/runs/r20260923-031438-12a9
+research: observe with `research fetch r20260923-031438-12a9`; the workload does not depend on this session staying alive
+03:15:02 final-fp8h-int-zk fp8-hopper --zk --mode interactive r20260923-031438-12a9 state=failed 2 wall=20s
+=== 03:15:03 final-fp8h-fs-zk fp8-hopper --zk --mode fiat-shamir (. final-fp8h-fs-zk fp8-hopper --zk --mode fiat-shamir ) -> r20260923-031503-2862
+research: run r20260923-031503-2862 launched on vy-hostphase (ms2c0dq167fl0f) pid=17435 -> /workspace/research/runs/r20260923-031503-2862
+research: observe with `research fetch r20260923-031503-2862`; the workload does not depend on this session staying alive
+03:15:28 final-fp8h-fs-zk fp8-hopper --zk --mode fiat-shamir r20260923-031503-2862 state=failed 2 wall=21s
+=== 03:15:28 final-fp8h-int-nonzk fp8-hopper --mode interactive (. final-fp8h-int-nonzk fp8-hopper --mode interactive ) -> r20260923-031528-8b78
+research: run r20260923-031528-8b78 launched on vy-hostphase (ms2c0dq167fl0f) pid=17587 -> /workspace/research/runs/r20260923-031528-8b78
+research: observe with `research fetch r20260923-031528-8b78`; the workload does not depend on this session staying alive
+03:15:53 final-fp8h-int-nonzk fp8-hopper --mode interactive r20260923-031528-8b78 state=failed 2 wall=21s
+=== 03:16:11 final-bf16h-int-zk (. bf16-hopper --zk --mode interactive) -> r20260923-031611-55f1
+research: run r20260923-031611-55f1 launched on vy-hostphase (ms2c0dq167fl0f) pid=17757 -> /workspace/research/runs/r20260923-031611-55f1
+research: observe with `research fetch r20260923-031611-55f1`; the workload does not depend on this session staying alive
+03:16:57 final-bf16h-int-zk r20260923-031611-55f1 state=done 0 wall=42s
+=== 03:16:57 final-bf16h-fs-zk (. bf16-hopper --zk --mode fiat-shamir) -> r20260923-031657-a769
+research: run r20260923-031657-a769 launched on vy-hostphase (ms2c0dq167fl0f) pid=18226 -> /workspace/research/runs/r20260923-031657-a769
+research: observe with `research fetch r20260923-031657-a769`; the workload does not depend on this session staying alive
+03:17:44 final-bf16h-fs-zk r20260923-031657-a769 state=done 0 wall=43s
+=== 03:17:44 final-bf16h-int-nonzk (. bf16-hopper --mode interactive) -> r20260923-031744-b10b
+research: run r20260923-031744-b10b launched on vy-hostphase (ms2c0dq167fl0f) pid=18699 -> /workspace/research/runs/r20260923-031744-b10b
+research: observe with `research fetch r20260923-031744-b10b`; the workload does not depend on this session staying alive
+03:18:30 final-bf16h-int-nonzk r20260923-031744-b10b state=done 0 wall=42s
+=== 03:18:30 final-fp8h-int-zk (. fp8-hopper --zk --mode interactive) -> r20260923-031830-65d9
+research: run r20260923-031830-65d9 launched on vy-hostphase (ms2c0dq167fl0f) pid=19168 -> /workspace/research/runs/r20260923-031830-65d9
+research: observe with `research fetch r20260923-031830-65d9`; the workload does not depend on this session staying alive
+03:18:55 final-fp8h-int-zk r20260923-031830-65d9 state=done 0 wall=21s
+=== 03:18:55 final-fp8h-fs-zk (. fp8-hopper --zk --mode fiat-shamir) -> r20260923-031855-bef9
+research: run r20260923-031855-bef9 launched on vy-hostphase (ms2c0dq167fl0f) pid=19496 -> /workspace/research/runs/r20260923-031855-bef9
+research: observe with `research fetch r20260923-031855-bef9`; the workload does not depend on this session staying alive
+03:19:20 final-fp8h-fs-zk r20260923-031855-bef9 state=done 0 wall=21s
+=== 03:19:20 final-fp8h-int-nonzk (. fp8-hopper --mode interactive) -> r20260923-031920-d2ae
+research: run r20260923-031920-d2ae launched on vy-hostphase (ms2c0dq167fl0f) pid=19824 -> /workspace/research/runs/r20260923-031920-d2ae
+research: observe with `research fetch r20260923-031920-d2ae`; the workload does not depend on this session staying alive
+03:19:45 final-fp8h-int-nonzk r20260923-031920-d2ae state=done 0 wall=21s
+=== 03:20:53 gates-pytest -> r20260923-032053-03b5 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/gates.sh"
+research: run r20260923-032053-03b5 launched on vy-hostphase (ms2c0dq167fl0f) pid=20206 -> /workspace/research/runs/r20260923-032053-03b5
+research: observe with `research fetch r20260923-032053-03b5`; the workload does not depend on this session staying alive

@@ -1,0 +1,15 @@
+--- /workspace/research/src/b67c019481fcefd6d0a14b82aacc14d1995ca95c/backends/ligero-verify/tests/relations.rs	2026-09-23 21:07:31.000000000 +0000
++++ tests/relations.rs	2026-09-23 21:09:17.941093506 +0000
+@@ -1036,10 +1036,10 @@
+ const AJTAI_FX: &[AjtaiFx] = &[
+     AjtaiFx { dir: "fixtures/fp8-ada-ajtai-n64", rel: "fp8-ada", leaf: "ajtai-n64", schema: "ajtai-babybear-n64-b1-r0/row/v1", n: 64,
+               steps: 48, k_words: 1536, y_bytes: 4, rows: 4858,
+-              sys_id: "AJTAI64_SYS_ID", table_digest: "AJTAI64_TABLE_DIGEST" },
++              sys_id: "18d915323c056495f667a6c4286eece77e25e348aed03b335b583e2db1e346c4", table_digest: "a1f2cb20cb549af68f005bf3efef6112f08bb7a9537dbd876811e46769c5ee50" },
+     AjtaiFx { dir: "fixtures/bf16-hopper-ajtai-n128", rel: "bf16-hopper", leaf: "ajtai-n128", schema: "ajtai-babybear-n128-b1-r0/row/v1", n: 128,
+               steps: 96, k_words: 1536, y_bytes: 2, rows: 4669,
+-              sys_id: "AJTAI128_SYS_ID", table_digest: "AJTAI128_TABLE_DIGEST" },
++              sys_id: "29f18689c05de6f355c97aac1e711f9dad7f7f35eda85026482258c85d6a27e5", table_digest: "e4dceccece10d7f55f5aed8cb7e444d6f0a736012b6323ee6fd2cdfe520f6438" },
+ ];
+ 
+ impl AjtaiFx {

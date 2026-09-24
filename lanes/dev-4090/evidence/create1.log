@@ -1,0 +1,39 @@
+{
+  "consumerUserId": "user_2jicQdVBU3hhI1gqNQKTaSma0Ru",
+  "containerDiskInGb": 60,
+  "costPerHr": 0.74,
+  "createdAt": "2026-09-23 10:28:46.898 +0000 UTC",
+  "desiredStatus": "RUNNING",
+  "env": {
+    "PUBLIC_KEY": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDa/xZC8oje42QU8gBpsKVk5D6eceZA0XtqyMns+fZ3/t8IHvwvWg/6wdI3c1Mfishc1qG6kiONsPI/qF4Dl+0pJeQXICqJ4noK2ZOMjGMJO4q3HXaGejg+GbuagxAQiZ6qFmGkBlK86bP7d6wZER2odKSfTEdrDVF9uHn4a+c/zO5v+H0aEtjWgrrYe/pGJqrzjMugr0C7LMdUkfrGesQOP0uLI2wVss1cUw3fMZXXXPXq5xEmMnLzUYp1/04bM3F2M+FwG95kQ7Smyl7a0KLZtx7Zp8jOKu7DMqEht7Tx+DOwlC2AzJVon9RNFWeS70tngOs24tHPMfFVzqINw3fb runpodctl-ssh-key"
+  },
+  "gpuCount": 1,
+  "id": "mt4vf4ufkuh1s2",
+  "imageName": "runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04",
+  "lastStartedAt": "2026-09-23 10:28:46.893 +0000 UTC",
+  "lastStatusChange": "Rented by User: Wed Sep 23 2026 10:28:46 GMT+0000 (Coordinated Universal Time)",
+  "machine": {
+    "dataCenterId": "EU-RO-1",
+    "diskThroughputMBps": 7203,
+    "gpuTypeId": "NVIDIA GeForce RTX 4090",
+    "location": "RO",
+    "maxDownloadSpeedMbps": 6807,
+    "maxUploadSpeedMbps": 3355,
+    "secureCloud": true,
+    "supportPublicIp": true,
+    "reservedCountVersion": 111228
+  },
+  "machineId": "vmf4l7c5em7z",
+  "memoryInGb": 61,
+  "name": "vy-dev-4090-veritor-campaign",
+  "ports": [
+    "22/tcp"
+  ],
+  "publicIp": "",
+  "templateId": "",
+  "vcpuCount": 16,
+  "volumeInGb": 0,
+  "volumeMountPath": "/workspace"
+}
+mt4vf4ufkuh1s2  NVIDIA GeForce RTX 4090 x1  24564 MiB (reference 24564 MiB)  host AMD Ryzen 9 7950X 16-Core Processor x32  load 0.07  e20831b7c6df  ->  reference
+EXIT=0

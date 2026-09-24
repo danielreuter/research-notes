@@ -1,0 +1,126 @@
+bf16-hopper census: {"rows_per_unit": 3292, "bit_rows": 2391, "selector_rows": 542, "hint_rows": 97, "pin_rows": 96, "product_rows": 166, "inverse_rows": 0, "linear_constraints": 339, "quadratic_constraints": 3164, "chain": true}
+4096 synthetic VUs (model-recorded accumulators) in 0.7s
+config Config(l=16384, n=65536, D=6, t=196, target_log2=-128.0, zk=False, t_pad=0, mode='interactive'); layout Layout(l=16384, n_vus=170, steps=96); zk False, mode interactive; system {'rows': 3292, 'by_kind': {'hint': 97, 'bit': 2391, 'prod': 166, 'pin': 96, 'sel': 542}, 'linear': 339, 'quadratic': 3164, 'pins': 96, 'hints': 97}; 4096 VUs as 25 sub-batches of <= 170
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.004, 'witness': 0.031, 'self_check': 2.619, 'encode': 0.01, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 0.01, 'tests_quad': 1.127, 'tests_chain': 0.017, 'tests': 1.154, 'openings': 0.025, 'total': 3.846, 'hints_host': 11.752}
+rep 1: prover 0.604s (+hints 0.064s) over 25 proofs; verifier 0.622s; pass wall 4.215s (0.163 ms/VU)
+rep 2: prover 0.538s (+hints 0.063s) over 25 proofs; verifier 0.619s; pass wall 3.777s (0.147 ms/VU)
+rep 3: prover 0.540s (+hints 0.064s) over 25 proofs; verifier 0.611s; pass wall 3.903s (0.147 ms/VU)
+dumped 25 proofs to /workspace/research/runs/r20260923-031744-b10b/proofs
+dumps: 25/25 accepted cold from bytes by the Python file verifier in 0.66s; batch verdict per rep: ['accept: all 25 sub-batches accepted; union bound 2^-128.25 <= 2^-128']
+{
+ "relation": "bf16-hopper",
+ "seconds_per_vu": 0.0001472914173064055,
+ "prover_total": 0.6033056452870369,
+ "verifier": 0.6190346404910088,
+ "bytes": {
+  "root": 800,
+  "w": 9830400,
+  "h": 9829800,
+  "cols": 19600,
+  "opened_columns": 64523200,
+  "merkle_paths": 2508800,
+  "q_chain": 19660200,
+  "v_linear": 0,
+  "coin_commitments_and_openings": 4800,
+  "auth_multiproofs": 0,
+  "total": 106377600
+ },
+ "n_proofs": 25,
+ "per_proof_vus": 170,
+ "t": 196,
+ "zk": false,
+ "k": 16384,
+ "peak_device_bytes": 2804486656,
+ "soundness_log2": -128.25133377536622,
+ "per_proof_log2": -132.89518996514107,
+ "rows": 3292,
+ "medians": {
+  "statement": 0.037181515246629715,
+  "witness": 0.026706762611865997,
+  "encode": 0.08496832847595215,
+  "transfer": 0.00032142549753189087,
+  "merkle": 0.04642128199338913,
+  "tests_w": 0.16867973655462265,
+  "tests_quad": 0.05124853551387787,
+  "tests_chain": 0.05557674914598465,
+  "tests": 0.2753784619271755,
+  "openings": 0.06861522048711777,
+  "total": 0.5395178459584713,
+  "hints_host": 0.0637877993285656
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "accepted": 25,
+  "total": 25,
+  "batch": {
+   "1": {
+    "n_subbatches": 25,
+    "target_bits": 128.0,
+    "batch_log2": -128.25133377536633,
+    "per_proof_log2": [
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107,
+     -132.89518996514107
+    ],
+    "n_proofs_claimed": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ],
+    "accepted": true,
+    "reason": "accept: all 25 sub-batches accepted; union bound 2^-128.25 <= 2^-128"
+   }
+  },
+  "batch_accepted": true,
+  "seconds": 0.5909957364201546,
+  "wall": 0.6597485430538654,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}

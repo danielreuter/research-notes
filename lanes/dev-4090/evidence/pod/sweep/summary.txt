@@ -1,0 +1,49 @@
+[10:42:02Z] (sweep_b16384_p1) START
+[10:42:25Z] (sweep_b16384_p1) EXIT=0  elapsed=23s
+sweep_b16384_p1 t.total=14.15336695220321 t.total_live=14.22259460110217 net.rtt_ms=1.9478555768728256 net.wait_seconds=0.06922764889895916 verify.wall_s=2.5326643623411655 split.subbatches=13 mem.peak_device_bytes=3156114944 proof_bytes=66056016 validation= passed
+[10:42:25Z] (sweep_b16384_p2) START
+[10:42:51Z] (sweep_b16384_p2) EXIT=0  elapsed=26s
+sweep_b16384_p2 t.total=13.79886398743838 t.total_live=13.820499940775335 net.rtt_ms=3.7617264315485954 net.wait_seconds=0.021635953336954124 verify.wall_s=4.201085384935141 split.subbatches=13 mem.peak_device_bytes=4148255232 proof_bytes=66056016 validation= passed
+[10:42:51Z] (sweep_b16384_p4) START
+[10:43:21Z] (sweep_b16384_p4) EXIT=0  elapsed=30s
+sweep_b16384_p4 t.total=13.486198754049836 t.total_live=13.487638908438383 net.rtt_ms=3.8672005757689476 net.wait_seconds=0.001440154388546944 verify.wall_s=5.707358356565237 split.subbatches=13 mem.peak_device_bytes=6843477504 proof_bytes=66056016 validation= passed
+[10:43:21Z] (sweep_b32768_p1) START
+[10:43:54Z] (sweep_b32768_p1) EXIT=0  elapsed=33s
+sweep_b32768_p1 t.total=22.11777979135513 t.total_live=22.20720277819782 net.rtt_ms=4.340448882430792 net.wait_seconds=0.0894229868426919 verify.wall_s=2.723523333668709 split.subbatches=7 mem.peak_device_bytes=17002219520 proof_bytes=49154336 validation= passed
+[10:43:54Z] (sweep_b32768_p2) START
+[10:44:14Z] (sweep_b16384_p1) START
+[10:44:22Z] (sweep_b16384_p1) EXIT=0  elapsed=8s
+sweep_b16384_p1 t.total=0.8519057715311645 t.total_live=0.9282820150256156 net.rtt_ms=3.3285035751760006 net.wait_seconds=0.07637624349445105 verify.wall_s=3.9399957582354546 split.subbatches=13 mem.peak_device_bytes=3156114944 proof_bytes=66056016 validation= passed
+[10:44:22Z] (sweep_b16384_p2) START
+[10:44:31Z] (sweep_b16384_p2) EXIT=0  elapsed=9s
+sweep_b16384_p2 t.total=0.25944592244923115 t.total_live=0.29081058874726295 net.rtt_ms=2.929910086095333 net.wait_seconds=0.0313646662980318 verify.wall_s=4.54076312482357 split.subbatches=13 mem.peak_device_bytes=3385775104 proof_bytes=66056016 validation= passed
+[10:44:31Z] (sweep_b16384_p4) START
+[10:44:40Z] (sweep_b16384_p4) EXIT=1  elapsed=9s
+sweep_b16384_p4 t.total=13.486198754049836 t.total_live=13.487638908438383 net.rtt_ms=3.8672005757689476 net.wait_seconds=0.001440154388546944 verify.wall_s=5.707358356565237 split.subbatches=13 mem.peak_device_bytes=6843477504 proof_bytes=66056016 validation= passed
+[10:44:40Z] (sweep_b32768_p1) START
+[10:44:50Z] (sweep_b32768_p1) EXIT=0  elapsed=10s
+sweep_b32768_p1 t.total=2.283853518776596 t.total_live=2.366565841250122 net.rtt_ms=4.223128780722618 net.wait_seconds=0.082712322473526 verify.wall_s=2.614636804908514 split.subbatches=7 mem.peak_device_bytes=17001171968 proof_bytes=49154336 validation= passed
+[10:44:50Z] (sweep_b32768_p2) START
+[10:44:56Z] (sweep_b32768_p2) EXIT=1  elapsed=6s
+sweep_b32768_p2 NO RESULT: [Errno 2] No such file or directory: '/workspace/d4090/sweep/sweep_b32768_p2/result.json'
+[10:44:56Z] (sweep_b32768_p4) START
+[10:45:02Z] (sweep_b32768_p4) EXIT=1  elapsed=6s
+sweep_b32768_p4 NO RESULT: [Errno 2] No such file or directory: '/workspace/d4090/sweep/sweep_b32768_p4/result.json'
+[10:45:02Z] (sweep_b8192_p1) START
+[10:45:11Z] (sweep_b8192_p1) EXIT=0  elapsed=9s
+sweep_b8192_p1 t.total=0.8549143029376866 t.total_live=0.912615035660565 net.rtt_ms=1.41551299020648 net.wait_seconds=0.057700732722878456 verify.wall_s=4.398796830326319 split.subbatches=25 mem.peak_device_bytes=1577156096 proof_bytes=103475800 validation= passed
+[10:45:11Z] (sweep_b8192_p2) START
+[10:45:20Z] (sweep_b8192_p2) EXIT=0  elapsed=9s
+sweep_b8192_p2 t.total=0.2913278630003332 t.total_live=0.3236564276739954 net.rtt_ms=1.673281192779541 net.wait_seconds=0.03232856467366219 verify.wall_s=4.964896034449339 split.subbatches=25 mem.peak_device_bytes=1851508224 proof_bytes=103475800 validation= passed
+[10:45:20Z] (sweep_b8192_p4) START
+[10:45:29Z] (sweep_b8192_p4) EXIT=0  elapsed=9s
+sweep_b8192_p4 t.total=0.20664672367274758 t.total_live=0.20801388658583161 net.rtt_ms=1.5114317648112774 net.wait_seconds=0.0013671629130840295 verify.wall_s=5.051451880484819 split.subbatches=25 mem.peak_device_bytes=3181609472 proof_bytes=103475800 validation= passed
+[10:45:29Z] (sweep_b4096_p1) START
+[10:45:38Z] (sweep_b4096_p1) EXIT=0  elapsed=9s
+sweep_b4096_p1 t.total=0.976086840964854 t.total_live=1.033588374964893 net.rtt_ms=0.7562106475234032 net.wait_seconds=0.0575015340000391 verify.wall_s=6.409590527415276 split.subbatches=49 mem.peak_device_bytes=804377088 proof_bytes=181487768 validation= passed
+[10:45:38Z] (sweep_b4096_p2) START
+[10:45:48Z] (sweep_b4096_p2) EXIT=0  elapsed=10s
+sweep_b4096_p2 t.total=0.41505285166203987 t.total_live=0.45012520626187336 net.rtt_ms=0.9050206281244755 net.wait_seconds=0.035072354599833495 verify.wall_s=6.644566919654608 split.subbatches=49 mem.peak_device_bytes=1140609536 proof_bytes=181487768 validation= passed
+[10:45:48Z] (sweep_b4096_p4) START
+[10:45:58Z] (sweep_b4096_p4) EXIT=1  elapsed=10s
+sweep_b4096_p4 NO RESULT: [Errno 2] No such file or directory: '/workspace/d4090/sweep/sweep_b4096_p4/result.json'

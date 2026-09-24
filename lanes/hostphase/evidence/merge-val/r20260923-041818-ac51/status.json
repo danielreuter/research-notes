@@ -1,0 +1,59 @@
+{
+ "schema": "telemetry/status/v0.1",
+ "transitions": [
+  {
+   "state": "running",
+   "t_utc": "2026-09-23T04:18:55.856Z",
+   "t_mono": 1154007.087261015,
+   "stream": "f537cb2c9f9c:7337:115400679",
+   "pid": 7359,
+   "pgid": 7359,
+   "starttime_ticks": 115400708,
+   "stage": "recheck",
+   "timeout_s": null,
+   "started_mono": 1154007.086460539,
+   "started_utc": "2026-09-23T04:18:55.856Z",
+   "command": [
+    "bash",
+    "-c",
+    "exec bash \"$RESEARCH_RUN_DIR/inputs/recheck.sh\""
+   ]
+  },
+  {
+   "state": "done",
+   "t_utc": "2026-09-23T04:19:22.018Z",
+   "t_mono": 1154033.249104951,
+   "stream": "f537cb2c9f9c:7337:115400679",
+   "rc": 0,
+   "signal": null,
+   "timed_out": false,
+   "ended_mono": 1154033.248644247,
+   "ended_utc": "2026-09-23T04:19:22.018Z",
+   "wall_s": 26.16218370804563,
+   "rc_is_shell_status": true
+  }
+ ],
+ "state": "done",
+ "updated_utc": "2026-09-23T04:19:22.018Z",
+ "updated_mono": 1154033.249104951,
+ "updated_stream": "f537cb2c9f9c:7337:115400679",
+ "pid": 7359,
+ "pgid": 7359,
+ "starttime_ticks": 115400708,
+ "stage": "recheck",
+ "timeout_s": null,
+ "started_mono": 1154007.086460539,
+ "started_utc": "2026-09-23T04:18:55.856Z",
+ "command": [
+  "bash",
+  "-c",
+  "exec bash \"$RESEARCH_RUN_DIR/inputs/recheck.sh\""
+ ],
+ "rc": 0,
+ "signal": null,
+ "timed_out": false,
+ "ended_mono": 1154033.248644247,
+ "ended_utc": "2026-09-23T04:19:22.018Z",
+ "wall_s": 26.16218370804563,
+ "rc_is_shell_status": true
+}

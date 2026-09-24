@@ -1,0 +1,6 @@
+[12:45:21Z] START ctrl-fp8 rel=fp8-hopper auth=bare batch=16384 pipeline=4 reps=1 dump=0 live=0 on=vy-dev-h100-2b
+research: run r20260923-124521-e89c launched on vy-dev-h100-2b (jzrtm9jfkc9kit) pid=3718 -> /workspace/research/runs/r20260923-124521-e89c
+research: observe with `research fetch r20260923-124521-e89c`; the workload does not depend on this session staying alive
+[12:45:27Z] ctrl-fp8 -> r20260923-124521-e89c
+[12:45:50Z] END ctrl-fp8 r20260923-124521-e89c finished: done
+research: r20260923-124521-e89c observed 2026-09-23T12:45:51.586Z: done rc=0 class=SUCCESS result=valid (research/result/v0.1)

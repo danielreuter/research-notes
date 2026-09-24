@@ -1,0 +1,17 @@
+=== 19:23:41 tree=/workspace/src sha=a0ff818+t2test(wip) cmd: /workspace/venv312/bin/python -m pytest -q -p no:cacheprovider backends/direct/ligero/ntt_cuda_test.py
+.                                                                        [100%]
+=============================== warnings summary ===============================
+backends/direct/ligero/ntt_cuda_test.py::test_ntt_cuda
+backends/direct/ligero/ntt_cuda_test.py::test_ntt_cuda
+backends/direct/ligero/ntt_cuda_test.py::test_ntt_cuda
+backends/direct/ligero/ntt_cuda_test.py::test_ntt_cuda
+  /workspace/venv312/lib/python3.12/site-packages/torch/utils/_config_module.py:342: UserWarning: Skipping serialization of skipfiles_inline_module_allowlist value {}
+    warnings.warn(
+
+backends/direct/ligero/ntt_cuda_test.py: 27 warnings
+  /workspace/src/backends/direct/ligero/ntt_cuda.py:188: DeprecationWarning: ExternalStream is deprecated. Use Stream.from_external() instead to interoperate with external streams that implement the CUDA stream protocol.
+    return plan.run(xb, inverse).reshape(lead + (n,))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 31 warnings in 9.01s
+=== 19:23:51 rc=0 wall=10s

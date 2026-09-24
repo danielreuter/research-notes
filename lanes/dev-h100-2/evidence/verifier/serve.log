@@ -1,0 +1,351 @@
+[2026-09-23T12:37:29Z] live verifier live-verifier@11c7075d21ba listening on 0.0.0.0:7000; out /workspace/live/sessions; verifier core ligero-verify 62b9532ed841b9f8; jobs 8; default target bits 128.0; host 096640dca3ae
+[2026-09-23T12:37:34Z] probe from 205.196.17.50:58702: 3145758 B in 0.37s (a8f820c2c7f4)
+[2026-09-23T12:37:37Z] probe from 205.196.17.50:58708: 12582927 B in 0.41s (a8f820c2c7f4)
+[2026-09-23T12:38:28Z] s20260923T123828Z-a639 session from 205.196.17.50:44010: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-123800-80a2 lane r23-dev-h100-2 rep 1 target_bits 128.0; system.bin 214189 B sha256 5bba40df0bd34eca
+[2026-09-23T12:38:31Z] s20260923T123828Z-a639 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.450s cpu 0.447s
+[2026-09-23T12:38:31Z] s20260923T123828Z-a639 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.485s cpu 0.420s
+[2026-09-23T12:38:31Z] s20260923T123828Z-a639 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.513s cpu 0.465s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.512s cpu 0.414s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.584s cpu 0.482s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.549s cpu 0.477s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.568s cpu 0.449s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.565s cpu 0.465s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.605s cpu 0.469s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.541s cpu 0.449s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.541s cpu 0.441s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.499s cpu 0.432s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.567s cpu 0.471s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.651s cpu 0.473s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.582s cpu 0.499s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.648s cpu 0.470s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.540s cpu 0.458s
+[2026-09-23T12:38:32Z] s20260923T123828Z-a639 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.520s cpu 0.477s
+[2026-09-23T12:38:33Z] s20260923T123828Z-a639 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.595s cpu 0.486s
+[2026-09-23T12:38:33Z] s20260923T123828Z-a639 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.540s cpu 0.459s
+[2026-09-23T12:38:33Z] s20260923T123828Z-a639 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.505s cpu 0.445s
+[2026-09-23T12:38:33Z] s20260923T123828Z-a639 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.563s cpu 0.441s
+[2026-09-23T12:38:33Z] s20260923T123828Z-a639 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.433s cpu 0.370s
+[2026-09-23T12:38:33Z] s20260923T123828Z-a639 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.578s cpu 0.494s
+[2026-09-23T12:38:33Z] s20260923T123828Z-a639 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.503s cpu 0.414s
+[2026-09-23T12:38:35Z] s20260923T123828Z-a639 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 13.64s cpu 11.37s, bytes in 194986441 out 5785, session wall 7.3s
+[2026-09-23T12:38:36Z] s20260923T123836Z-4fb3 session from 205.196.17.50:42400: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-123800-80a2 lane r23-dev-h100-2 rep 2 target_bits 128.0; system.bin 214189 B sha256 5bba40df0bd34eca
+[2026-09-23T12:38:38Z] s20260923T123836Z-4fb3 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.544s cpu 0.473s
+[2026-09-23T12:38:38Z] s20260923T123836Z-4fb3 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.469s cpu 0.430s
+[2026-09-23T12:38:38Z] s20260923T123836Z-4fb3 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.545s cpu 0.436s
+[2026-09-23T12:38:38Z] s20260923T123836Z-4fb3 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.530s cpu 0.465s
+[2026-09-23T12:38:38Z] s20260923T123836Z-4fb3 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.583s cpu 0.479s
+[2026-09-23T12:38:38Z] s20260923T123836Z-4fb3 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.540s cpu 0.487s
+[2026-09-23T12:38:38Z] s20260923T123836Z-4fb3 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.525s cpu 0.459s
+[2026-09-23T12:38:38Z] s20260923T123836Z-4fb3 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.511s cpu 0.464s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.545s cpu 0.478s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.558s cpu 0.427s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.602s cpu 0.441s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.666s cpu 0.455s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.603s cpu 0.472s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.566s cpu 0.475s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.650s cpu 0.482s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.684s cpu 0.460s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.543s cpu 0.434s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.548s cpu 0.415s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.540s cpu 0.451s
+[2026-09-23T12:38:39Z] s20260923T123836Z-4fb3 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.577s cpu 0.443s
+[2026-09-23T12:38:40Z] s20260923T123836Z-4fb3 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.488s cpu 0.418s
+[2026-09-23T12:38:40Z] s20260923T123836Z-4fb3 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.580s cpu 0.472s
+[2026-09-23T12:38:40Z] s20260923T123836Z-4fb3 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.526s cpu 0.444s
+[2026-09-23T12:38:40Z] s20260923T123836Z-4fb3 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.571s cpu 0.481s
+[2026-09-23T12:38:40Z] s20260923T123836Z-4fb3 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.457s cpu 0.434s
+[2026-09-23T12:38:42Z] s20260923T123836Z-4fb3 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 13.95s cpu 11.38s, bytes in 194986440 out 5785, session wall 5.2s
+[2026-09-23T12:38:43Z] s20260923T123843Z-9261 session from 205.196.17.50:44744: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-123800-80a2 lane r23-dev-h100-2 rep 3 target_bits 128.0; system.bin 214189 B sha256 5bba40df0bd34eca
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.521s cpu 0.424s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.569s cpu 0.450s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.543s cpu 0.426s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.653s cpu 0.440s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.629s cpu 0.411s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.589s cpu 0.423s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.600s cpu 0.435s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.713s cpu 0.466s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.541s cpu 0.408s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.549s cpu 0.418s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.592s cpu 0.421s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.610s cpu 0.449s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.503s cpu 0.444s
+[2026-09-23T12:38:45Z] s20260923T123843Z-9261 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.705s cpu 0.476s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.758s cpu 0.470s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.671s cpu 0.463s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.509s cpu 0.458s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.719s cpu 0.450s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.575s cpu 0.461s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.527s cpu 0.423s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.542s cpu 0.416s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.626s cpu 0.462s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.420s cpu 0.395s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.615s cpu 0.510s
+[2026-09-23T12:38:46Z] s20260923T123843Z-9261 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.548s cpu 0.480s
+[2026-09-23T12:38:48Z] s20260923T123843Z-9261 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 14.83s cpu 11.08s, bytes in 194986442 out 5785, session wall 5.5s
+[2026-09-23T12:40:59Z] s20260923T124059Z-9a66 session from 205.196.17.50:39248: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-123935-0781 lane r23-dev-h100-2 rep 1 target_bits 128.0; system.bin 888315 B sha256 0071e560b6820da4
+[2026-09-23T12:41:02Z] s20260923T124059Z-9a66 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.160s cpu 1.137s
+[2026-09-23T12:41:02Z] s20260923T124059Z-9a66 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.176s cpu 1.163s
+[2026-09-23T12:41:02Z] s20260923T124059Z-9a66 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.214s cpu 1.210s
+[2026-09-23T12:41:02Z] s20260923T124059Z-9a66 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.335s cpu 1.277s
+[2026-09-23T12:41:02Z] s20260923T124059Z-9a66 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.238s cpu 1.218s
+[2026-09-23T12:41:03Z] s20260923T124059Z-9a66 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.348s cpu 1.324s
+[2026-09-23T12:41:03Z] s20260923T124059Z-9a66 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.293s cpu 1.247s
+[2026-09-23T12:41:03Z] s20260923T124059Z-9a66 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.428s cpu 1.363s
+[2026-09-23T12:41:03Z] s20260923T124059Z-9a66 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.308s cpu 1.272s
+[2026-09-23T12:41:04Z] s20260923T124059Z-9a66 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.155s cpu 1.119s
+[2026-09-23T12:41:04Z] s20260923T124059Z-9a66 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.307s cpu 1.286s
+[2026-09-23T12:41:04Z] s20260923T124059Z-9a66 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.208s cpu 1.198s
+[2026-09-23T12:41:04Z] s20260923T124059Z-9a66 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.103s cpu 1.092s
+[2026-09-23T12:41:05Z] s20260923T124059Z-9a66 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.473s cpu 1.461s
+[2026-09-23T12:41:05Z] s20260923T124059Z-9a66 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.488s cpu 1.483s
+[2026-09-23T12:41:05Z] s20260923T124059Z-9a66 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.175s cpu 1.162s
+[2026-09-23T12:41:05Z] s20260923T124059Z-9a66 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.040s cpu 1.035s
+[2026-09-23T12:41:06Z] s20260923T124059Z-9a66 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.283s cpu 1.276s
+[2026-09-23T12:41:06Z] s20260923T124059Z-9a66 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.218s cpu 1.186s
+[2026-09-23T12:41:06Z] s20260923T124059Z-9a66 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.217s cpu 1.200s
+[2026-09-23T12:41:06Z] s20260923T124059Z-9a66 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.425s cpu 1.406s
+[2026-09-23T12:41:07Z] s20260923T124059Z-9a66 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.246s cpu 1.224s
+[2026-09-23T12:41:07Z] s20260923T124059Z-9a66 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.202s cpu 1.164s
+[2026-09-23T12:41:07Z] s20260923T124059Z-9a66 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.150s cpu 1.143s
+[2026-09-23T12:41:08Z] s20260923T124059Z-9a66 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 16 VUs, 16 x rows + 16 W co) wall 1.026s cpu 1.022s
+[2026-09-23T12:41:14Z] s20260923T124059Z-9a66 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 31.22s cpu 30.67s, bytes in 215313774 out 5785, session wall 14.6s
+[2026-09-23T12:41:15Z] s20260923T124115Z-f497 session from 205.196.17.50:58836: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-123935-0781 lane r23-dev-h100-2 rep 2 target_bits 128.0; system.bin 888315 B sha256 0071e560b6820da4
+[2026-09-23T12:41:17Z] s20260923T124115Z-f497 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.289s cpu 1.278s
+[2026-09-23T12:41:17Z] s20260923T124115Z-f497 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.413s cpu 1.385s
+[2026-09-23T12:41:18Z] s20260923T124115Z-f497 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.320s cpu 1.301s
+[2026-09-23T12:41:18Z] s20260923T124115Z-f497 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.599s cpu 1.546s
+[2026-09-23T12:41:18Z] s20260923T124115Z-f497 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.435s cpu 1.354s
+[2026-09-23T12:41:18Z] s20260923T124115Z-f497 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.345s cpu 1.289s
+[2026-09-23T12:41:19Z] s20260923T124115Z-f497 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.650s cpu 1.566s
+[2026-09-23T12:41:19Z] s20260923T124115Z-f497 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.398s cpu 1.294s
+[2026-09-23T12:41:19Z] s20260923T124115Z-f497 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.524s cpu 1.446s
+[2026-09-23T12:41:19Z] s20260923T124115Z-f497 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.403s cpu 1.358s
+[2026-09-23T12:41:19Z] s20260923T124115Z-f497 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.454s cpu 1.380s
+[2026-09-23T12:41:20Z] s20260923T124115Z-f497 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.452s cpu 1.417s
+[2026-09-23T12:41:20Z] s20260923T124115Z-f497 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.432s cpu 1.398s
+[2026-09-23T12:41:20Z] s20260923T124115Z-f497 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.360s cpu 1.308s
+[2026-09-23T12:41:21Z] s20260923T124115Z-f497 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.544s cpu 1.454s
+[2026-09-23T12:41:21Z] s20260923T124115Z-f497 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.645s cpu 1.586s
+[2026-09-23T12:41:21Z] s20260923T124115Z-f497 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.443s cpu 1.394s
+[2026-09-23T12:41:21Z] s20260923T124115Z-f497 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.358s cpu 1.303s
+[2026-09-23T12:41:21Z] s20260923T124115Z-f497 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.567s cpu 1.504s
+[2026-09-23T12:41:21Z] s20260923T124115Z-f497 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.487s cpu 1.396s
+[2026-09-23T12:41:22Z] s20260923T124115Z-f497 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.595s cpu 1.558s
+[2026-09-23T12:41:22Z] s20260923T124115Z-f497 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.476s cpu 1.436s
+[2026-09-23T12:41:22Z] s20260923T124115Z-f497 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.160s cpu 1.098s
+[2026-09-23T12:41:22Z] s20260923T124115Z-f497 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.361s cpu 1.354s
+[2026-09-23T12:41:22Z] s20260923T124115Z-f497 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 16 VUs, 16 x rows + 16 W co) wall 1.218s cpu 1.170s
+[2026-09-23T12:41:28Z] s20260923T124115Z-f497 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 35.93s cpu 34.57s, bytes in 215313778 out 5785, session wall 12.9s
+[2026-09-23T12:41:29Z] s20260923T124129Z-7b10 session from 205.196.17.50:55438: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-123935-0781 lane r23-dev-h100-2 rep 3 target_bits 128.0; system.bin 888315 B sha256 0071e560b6820da4
+[2026-09-23T12:41:31Z] s20260923T124129Z-7b10 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.109s cpu 1.092s
+[2026-09-23T12:41:31Z] s20260923T124129Z-7b10 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.147s cpu 1.130s
+[2026-09-23T12:41:32Z] s20260923T124129Z-7b10 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.307s cpu 1.284s
+[2026-09-23T12:41:32Z] s20260923T124129Z-7b10 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.253s cpu 1.132s
+[2026-09-23T12:41:32Z] s20260923T124129Z-7b10 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.577s cpu 1.534s
+[2026-09-23T12:41:32Z] s20260923T124129Z-7b10 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.557s cpu 1.484s
+[2026-09-23T12:41:33Z] s20260923T124129Z-7b10 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.535s cpu 1.458s
+[2026-09-23T12:41:33Z] s20260923T124129Z-7b10 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.381s cpu 1.332s
+[2026-09-23T12:41:33Z] s20260923T124129Z-7b10 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.654s cpu 1.570s
+[2026-09-23T12:41:33Z] s20260923T124129Z-7b10 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.581s cpu 1.519s
+[2026-09-23T12:41:34Z] s20260923T124129Z-7b10 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.553s cpu 1.501s
+[2026-09-23T12:41:34Z] s20260923T124129Z-7b10 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.575s cpu 1.501s
+[2026-09-23T12:41:34Z] s20260923T124129Z-7b10 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.463s cpu 1.414s
+[2026-09-23T12:41:34Z] s20260923T124129Z-7b10 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.485s cpu 1.446s
+[2026-09-23T12:41:34Z] s20260923T124129Z-7b10 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.487s cpu 1.373s
+[2026-09-23T12:41:35Z] s20260923T124129Z-7b10 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.474s cpu 1.427s
+[2026-09-23T12:41:35Z] s20260923T124129Z-7b10 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.481s cpu 1.400s
+[2026-09-23T12:41:35Z] s20260923T124129Z-7b10 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.422s cpu 1.363s
+[2026-09-23T12:41:35Z] s20260923T124129Z-7b10 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.551s cpu 1.512s
+[2026-09-23T12:41:35Z] s20260923T124129Z-7b10 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.340s cpu 1.291s
+[2026-09-23T12:41:36Z] s20260923T124129Z-7b10 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.584s cpu 1.564s
+[2026-09-23T12:41:36Z] s20260923T124129Z-7b10 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.452s cpu 1.365s
+[2026-09-23T12:41:36Z] s20260923T124129Z-7b10 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.120s cpu 1.115s
+[2026-09-23T12:41:36Z] s20260923T124129Z-7b10 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 170 VUs, 170 x rows + 170 W) wall 1.416s cpu 1.336s
+[2026-09-23T12:41:36Z] s20260923T124129Z-7b10 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 16 VUs, 16 x rows + 16 W co) wall 1.227s cpu 1.181s
+[2026-09-23T12:41:42Z] s20260923T124129Z-7b10 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 35.73s cpu 34.32s, bytes in 215313779 out 5785, session wall 12.8s
+[2026-09-23T12:42:31Z] s20260923T124231Z-450f session from 205.196.17.50:39944: relation fp8-hopper mode interactive zk True n_proofs 13 total_vus 4096 run r20260923-124155-2270 lane r23-dev-h100-2 rep 1 target_bits 128.0; system.bin 222921 B sha256 968d99d6d010c3c8
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.596s cpu 0.553s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.654s cpu 0.586s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.568s cpu 0.536s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.636s cpu 0.598s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.586s cpu 0.536s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.626s cpu 0.596s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.678s cpu 0.663s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.663s cpu 0.640s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.555s cpu 0.532s
+[2026-09-23T12:42:33Z] s20260923T124231Z-450f sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.601s cpu 0.567s
+[2026-09-23T12:42:34Z] s20260923T124231Z-450f sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.584s cpu 0.550s
+[2026-09-23T12:42:34Z] s20260923T124231Z-450f sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.654s cpu 0.616s
+[2026-09-23T12:42:34Z] s20260923T124231Z-450f sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.579s cpu 0.556s
+[2026-09-23T12:42:35Z] s20260923T124231Z-450f VERDICT ACCEPT: accepted | 13/13 sub-batches, batch accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128, verify wall 7.98s cpu 7.53s, bytes in 102699154 out 3157, session wall 4.3s
+[2026-09-23T12:42:36Z] s20260923T124236Z-e7c4 session from 205.196.17.50:54078: relation fp8-hopper mode interactive zk True n_proofs 13 total_vus 4096 run r20260923-124155-2270 lane r23-dev-h100-2 rep 2 target_bits 128.0; system.bin 222921 B sha256 968d99d6d010c3c8
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.563s cpu 0.547s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.636s cpu 0.590s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.616s cpu 0.561s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.650s cpu 0.571s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.685s cpu 0.609s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.613s cpu 0.572s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.695s cpu 0.629s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.684s cpu 0.616s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.596s cpu 0.584s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.561s cpu 0.545s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.532s cpu 0.526s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.533s cpu 0.527s
+[2026-09-23T12:42:38Z] s20260923T124236Z-e7c4 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.515s cpu 0.494s
+[2026-09-23T12:42:40Z] s20260923T124236Z-e7c4 VERDICT ACCEPT: accepted | 13/13 sub-batches, batch accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128, verify wall 7.88s cpu 7.37s, bytes in 102699150 out 3157, session wall 3.5s
+[2026-09-23T12:42:40Z] s20260923T124240Z-b28f session from 205.196.17.50:54096: relation fp8-hopper mode interactive zk True n_proofs 13 total_vus 4096 run r20260923-124155-2270 lane r23-dev-h100-2 rep 3 target_bits 128.0; system.bin 222921 B sha256 968d99d6d010c3c8
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.594s cpu 0.565s
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.541s cpu 0.510s
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.594s cpu 0.562s
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.578s cpu 0.549s
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.613s cpu 0.575s
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.648s cpu 0.607s
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.712s cpu 0.634s
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.699s cpu 0.629s
+[2026-09-23T12:42:42Z] s20260923T124240Z-b28f sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.610s cpu 0.576s
+[2026-09-23T12:42:43Z] s20260923T124240Z-b28f sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.667s cpu 0.611s
+[2026-09-23T12:42:43Z] s20260923T124240Z-b28f sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.641s cpu 0.621s
+[2026-09-23T12:42:43Z] s20260923T124240Z-b28f sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.582s cpu 0.558s
+[2026-09-23T12:42:43Z] s20260923T124240Z-b28f sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.523s cpu 0.520s
+[2026-09-23T12:42:44Z] s20260923T124240Z-b28f VERDICT ACCEPT: accepted | 13/13 sub-batches, batch accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128, verify wall 8.00s cpu 7.52s, bytes in 102699149 out 3157, session wall 3.6s
+[2026-09-23T12:44:42Z] s20260923T124442Z-b659 session from 205.196.17.50:50608: relation fp8-hopper mode interactive zk True n_proofs 13 total_vus 4096 run r20260923-124258-2c19 lane r23-dev-h100-2 rep 1 target_bits 128.0; system.bin 902519 B sha256 0c32c669b9e35211
+[2026-09-23T12:44:44Z] s20260923T124442Z-b659 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.239s cpu 1.208s
+[2026-09-23T12:44:44Z] s20260923T124442Z-b659 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.350s cpu 1.303s
+[2026-09-23T12:44:44Z] s20260923T124442Z-b659 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.270s cpu 1.261s
+[2026-09-23T12:44:45Z] s20260923T124442Z-b659 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.317s cpu 1.271s
+[2026-09-23T12:44:45Z] s20260923T124442Z-b659 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.282s cpu 1.223s
+[2026-09-23T12:44:45Z] s20260923T124442Z-b659 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.495s cpu 1.436s
+[2026-09-23T12:44:45Z] s20260923T124442Z-b659 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.435s cpu 1.373s
+[2026-09-23T12:44:45Z] s20260923T124442Z-b659 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.386s cpu 1.342s
+[2026-09-23T12:44:45Z] s20260923T124442Z-b659 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.244s cpu 1.202s
+[2026-09-23T12:44:46Z] s20260923T124442Z-b659 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.155s cpu 1.092s
+[2026-09-23T12:44:46Z] s20260923T124442Z-b659 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.483s cpu 1.440s
+[2026-09-23T12:44:46Z] s20260923T124442Z-b659 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.394s cpu 1.365s
+[2026-09-23T12:44:46Z] s20260923T124442Z-b659 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 4 VUs, 4 x rows + 4 W colum) wall 1.021s cpu 1.007s
+[2026-09-23T12:44:49Z] s20260923T124442Z-b659 VERDICT ACCEPT: accepted | 13/13 sub-batches, batch accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128, verify wall 17.07s cpu 16.52s, bytes in 114276016 out 3157, session wall 7.5s
+[2026-09-23T12:44:50Z] s20260923T124450Z-7208 session from 205.196.17.50:50634: relation fp8-hopper mode interactive zk True n_proofs 13 total_vus 4096 run r20260923-124258-2c19 lane r23-dev-h100-2 rep 2 target_bits 128.0; system.bin 902519 B sha256 0c32c669b9e35211
+[2026-09-23T12:44:52Z] s20260923T124450Z-7208 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.161s cpu 1.103s
+[2026-09-23T12:44:52Z] s20260923T124450Z-7208 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.361s cpu 1.274s
+[2026-09-23T12:44:52Z] s20260923T124450Z-7208 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.379s cpu 1.348s
+[2026-09-23T12:44:53Z] s20260923T124450Z-7208 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.268s cpu 1.123s
+[2026-09-23T12:44:53Z] s20260923T124450Z-7208 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.575s cpu 1.392s
+[2026-09-23T12:44:53Z] s20260923T124450Z-7208 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.412s cpu 1.331s
+[2026-09-23T12:44:53Z] s20260923T124450Z-7208 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.598s cpu 1.409s
+[2026-09-23T12:44:54Z] s20260923T124450Z-7208 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.617s cpu 1.363s
+[2026-09-23T12:44:54Z] s20260923T124450Z-7208 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.275s cpu 1.151s
+[2026-09-23T12:44:54Z] s20260923T124450Z-7208 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.559s cpu 1.295s
+[2026-09-23T12:44:54Z] s20260923T124450Z-7208 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.227s cpu 1.171s
+[2026-09-23T12:44:54Z] s20260923T124450Z-7208 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.762s cpu 1.471s
+[2026-09-23T12:44:55Z] s20260923T124450Z-7208 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 4 VUs, 4 x rows + 4 W colum) wall 1.447s cpu 1.345s
+[2026-09-23T12:44:58Z] s20260923T124450Z-7208 VERDICT ACCEPT: accepted | 13/13 sub-batches, batch accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128, verify wall 18.64s cpu 16.78s, bytes in 114276012 out 3157, session wall 7.5s
+[2026-09-23T12:44:58Z] s20260923T124458Z-3d2f session from 205.196.17.50:36262: relation fp8-hopper mode interactive zk True n_proofs 13 total_vus 4096 run r20260923-124258-2c19 lane r23-dev-h100-2 rep 3 target_bits 128.0; system.bin 902519 B sha256 0c32c669b9e35211
+[2026-09-23T12:45:00Z] s20260923T124458Z-3d2f sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.094s cpu 1.034s
+[2026-09-23T12:45:00Z] s20260923T124458Z-3d2f sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.250s cpu 1.241s
+[2026-09-23T12:45:00Z] s20260923T124458Z-3d2f sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.140s cpu 1.100s
+[2026-09-23T12:45:01Z] s20260923T124458Z-3d2f sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.181s cpu 1.154s
+[2026-09-23T12:45:01Z] s20260923T124458Z-3d2f sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.295s cpu 1.274s
+[2026-09-23T12:45:01Z] s20260923T124458Z-3d2f sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.160s cpu 1.136s
+[2026-09-23T12:45:02Z] s20260923T124458Z-3d2f sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.137s cpu 1.117s
+[2026-09-23T12:45:02Z] s20260923T124458Z-3d2f sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.303s cpu 1.291s
+[2026-09-23T12:45:02Z] s20260923T124458Z-3d2f sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.329s cpu 1.291s
+[2026-09-23T12:45:02Z] s20260923T124458Z-3d2f sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.356s cpu 1.254s
+[2026-09-23T12:45:02Z] s20260923T124458Z-3d2f sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.147s cpu 1.088s
+[2026-09-23T12:45:03Z] s20260923T124458Z-3d2f sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 341 VUs, 341 x rows + 341 W) wall 1.498s cpu 1.422s
+[2026-09-23T12:45:03Z] s20260923T124458Z-3d2f sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 4 VUs, 4 x rows + 4 W colum) wall 1.413s cpu 1.359s
+[2026-09-23T12:45:06Z] s20260923T124458Z-3d2f VERDICT ACCEPT: accepted | 13/13 sub-batches, batch accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128, verify wall 16.30s cpu 15.76s, bytes in 114276013 out 3157, session wall 7.7s
+[2026-09-23T12:47:21Z] s20260923T124721Z-7d52 session from 205.196.17.50:38706: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-124653-7b45 lane r23-dev-h100-2 rep 1 target_bits 128.0; system.bin 214189 B sha256 5bba40df0bd34eca
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.667s cpu 0.572s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.656s cpu 0.571s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.614s cpu 0.529s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.727s cpu 0.584s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.774s cpu 0.616s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.715s cpu 0.602s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.760s cpu 0.617s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.719s cpu 0.594s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.665s cpu 0.558s
+[2026-09-23T12:47:53Z] s20260923T124721Z-7d52 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.694s cpu 0.579s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.655s cpu 0.577s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.706s cpu 0.607s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.802s cpu 0.622s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.657s cpu 0.586s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.864s cpu 0.623s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.777s cpu 0.600s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.709s cpu 0.563s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.776s cpu 0.523s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.693s cpu 0.529s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.741s cpu 0.533s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.715s cpu 0.530s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.773s cpu 0.592s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.668s cpu 0.566s
+[2026-09-23T12:47:54Z] s20260923T124721Z-7d52 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.717s cpu 0.525s
+[2026-09-23T12:47:55Z] s20260923T124721Z-7d52 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.479s cpu 0.446s
+[2026-09-23T12:47:57Z] s20260923T124721Z-7d52 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 17.72s cpu 14.24s, bytes in 194986434 out 5785, session wall 35.8s
+[2026-09-23T12:49:03Z] s20260923T124903Z-6a13 session from 205.196.17.50:36820: relation fp8-hopper mode interactive zk True n_proofs 13 total_vus 4096 run r20260923-124849-e611 lane r23-dev-h100-2 rep 1 target_bits 128.0; system.bin 222921 B sha256 968d99d6d010c3c8
+[2026-09-23T12:49:06Z] s20260923T124903Z-6a13 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.653s cpu 0.575s
+[2026-09-23T12:49:06Z] s20260923T124903Z-6a13 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.625s cpu 0.586s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.721s cpu 0.618s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.594s cpu 0.540s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.801s cpu 0.669s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.758s cpu 0.668s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.800s cpu 0.681s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.848s cpu 0.678s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.777s cpu 0.646s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.641s cpu 0.573s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.845s cpu 0.676s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.716s cpu 0.663s
+[2026-09-23T12:49:07Z] s20260923T124903Z-6a13 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.626s cpu 0.556s
+[2026-09-23T12:49:09Z] s20260923T124903Z-6a13 VERDICT ACCEPT: accepted | 13/13 sub-batches, batch accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128, verify wall 9.41s cpu 8.13s, bytes in 102699147 out 3157, session wall 5.7s
+[2026-09-23T12:52:23Z] s20260923T125223Z-3721 session from 205.196.17.50:50084: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-125153-794c lane r23-dev-h100-2 rep 1 target_bits 128.0; system.bin 214189 B sha256 5bba40df0bd34eca
+[2026-09-23T12:52:55Z] s20260923T125223Z-3721 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.576s cpu 0.523s
+[2026-09-23T12:52:55Z] s20260923T125223Z-3721 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.666s cpu 0.558s
+[2026-09-23T12:52:55Z] s20260923T125223Z-3721 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.649s cpu 0.564s
+[2026-09-23T12:52:55Z] s20260923T125223Z-3721 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.617s cpu 0.553s
+[2026-09-23T12:52:55Z] s20260923T125223Z-3721 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.784s cpu 0.604s
+[2026-09-23T12:52:55Z] s20260923T125223Z-3721 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.819s cpu 0.646s
+[2026-09-23T12:52:55Z] s20260923T125223Z-3721 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.815s cpu 0.610s
+[2026-09-23T12:52:55Z] s20260923T125223Z-3721 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.786s cpu 0.658s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.759s cpu 0.585s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.838s cpu 0.648s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.892s cpu 0.602s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.786s cpu 0.589s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.791s cpu 0.605s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.675s cpu 0.569s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.697s cpu 0.638s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.935s cpu 0.669s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.732s cpu 0.620s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.683s cpu 0.611s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.704s cpu 0.610s
+[2026-09-23T12:52:56Z] s20260923T125223Z-3721 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.725s cpu 0.612s
+[2026-09-23T12:52:57Z] s20260923T125223Z-3721 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.691s cpu 0.585s
+[2026-09-23T12:52:57Z] s20260923T125223Z-3721 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.755s cpu 0.596s
+[2026-09-23T12:52:57Z] s20260923T125223Z-3721 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.706s cpu 0.573s
+[2026-09-23T12:52:57Z] s20260923T125223Z-3721 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.670s cpu 0.597s
+[2026-09-23T12:52:57Z] s20260923T125223Z-3721 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.550s cpu 0.510s
+[2026-09-23T12:52:59Z] s20260923T125223Z-3721 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 18.30s cpu 14.93s, bytes in 194986436 out 5785, session wall 36.5s
+[2026-09-23T12:53:28Z] s20260923T125328Z-8d18 session from 205.196.17.50:41426: relation bf16-hopper mode interactive zk True n_proofs 25 total_vus 4096 run r20260923-125306-4e9b lane r23-dev-h100-2 rep 1 target_bits 128.0; system.bin 214189 B sha256 5bba40df0bd34eca
+[2026-09-23T12:53:30Z] s20260923T125328Z-8d18 sub 00: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.484s cpu 0.481s
+[2026-09-23T12:53:30Z] s20260923T125328Z-8d18 sub 01: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.481s cpu 0.477s
+[2026-09-23T12:53:30Z] s20260923T125328Z-8d18 sub 02: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.435s cpu 0.431s
+[2026-09-23T12:53:30Z] s20260923T125328Z-8d18 sub 03: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.444s cpu 0.440s
+[2026-09-23T12:53:31Z] s20260923T125328Z-8d18 sub 04: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.446s cpu 0.443s
+[2026-09-23T12:53:31Z] s20260923T125328Z-8d18 sub 05: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.460s cpu 0.457s
+[2026-09-23T12:53:31Z] s20260923T125328Z-8d18 sub 06: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.434s cpu 0.430s
+[2026-09-23T12:53:31Z] s20260923T125328Z-8d18 sub 07: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.483s cpu 0.480s
+[2026-09-23T12:53:31Z] s20260923T125328Z-8d18 sub 08: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.524s cpu 0.521s
+[2026-09-23T12:53:31Z] s20260923T125328Z-8d18 sub 09: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.468s cpu 0.464s
+[2026-09-23T12:53:32Z] s20260923T125328Z-8d18 sub 10: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.485s cpu 0.481s
+[2026-09-23T12:53:32Z] s20260923T125328Z-8d18 sub 11: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.432s cpu 0.429s
+[2026-09-23T12:53:32Z] s20260923T125328Z-8d18 sub 12: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.481s cpu 0.477s
+[2026-09-23T12:53:32Z] s20260923T125328Z-8d18 sub 13: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.487s cpu 0.482s
+[2026-09-23T12:53:32Z] s20260923T125328Z-8d18 sub 14: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.519s cpu 0.515s
+[2026-09-23T12:53:33Z] s20260923T125328Z-8d18 sub 15: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.502s cpu 0.498s
+[2026-09-23T12:53:33Z] s20260923T125328Z-8d18 sub 16: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.483s cpu 0.476s
+[2026-09-23T12:53:33Z] s20260923T125328Z-8d18 sub 17: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.628s cpu 0.580s
+[2026-09-23T12:53:34Z] s20260923T125328Z-8d18 sub 18: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.614s cpu 0.578s
+[2026-09-23T12:53:34Z] s20260923T125328Z-8d18 sub 19: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.625s cpu 0.552s
+[2026-09-23T12:53:34Z] s20260923T125328Z-8d18 sub 20: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.581s cpu 0.552s
+[2026-09-23T12:53:34Z] s20260923T125328Z-8d18 sub 21: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.552s cpu 0.547s
+[2026-09-23T12:53:34Z] s20260923T125328Z-8d18 sub 22: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.501s cpu 0.497s
+[2026-09-23T12:53:35Z] s20260923T125328Z-8d18 sub 23: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.442s cpu 0.439s
+[2026-09-23T12:53:36Z] s20260923T125328Z-8d18 sub 24: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) wall 0.426s cpu 0.423s
+[2026-09-23T12:53:39Z] s20260923T125328Z-8d18 VERDICT ACCEPT: accepted | 25/25 sub-batches, batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128, verify wall 12.42s cpu 12.15s, bytes in 194986419 out 5785, session wall 10.6s

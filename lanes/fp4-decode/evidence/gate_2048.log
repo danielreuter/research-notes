@@ -1,0 +1,105 @@
+NVIDIA GeForce RTX 4090, GPU-f34166bc-7b0b-27d8-9e7c-e9339701fff7
+tree: 
+fp4-nvf4 hashed chain system: {'rows': 4442, 'by_kind': {'hint': 819, 'bit': 1004, 'prod': 2400, 'inv': 30, 'sel': 172, 'pin': 17}, 'linear': 334, 'quadratic': 4252, 'pins': 17, 'hints': 819} compiled in 0.28s; census {'rows_base': 1583, 'rows_private_operands': 1122, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 4442, 'rows_added': 2859, 'linear_added': 28, 'quadratic_added': 2863, 'hints_added': 733, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 4, 'k': 68, 'lane_bits': 24, 'rate_lanes_used': 12, 'elements_per_unit': 72}; device cuda
+fp4-nvf4 hashed vu-k1536 [0, 682): l=16384 prover 2.89s (+hints 0.08s) multiproofs 576 B -> True 
+fp4-nvf4 hashed vu-k1536 [682, 1364): l=16384 prover 0.09s (+hints 0.07s) multiproofs 960 B -> True 
+fp4-nvf4 hashed vu-k1536 [1364, 2046): l=16384 prover 0.09s (+hints 0.05s) multiproofs 576 B -> True 
+fp4-nvf4 hashed vu-k1536 [2046, 2048): l=256 prover 0.19s (+hints 0.00s) multiproofs 960 B -> True 
+  negative claimed word bit 0 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 31 flipped: REJECTED column challenge mismatch
+  negative accumulator link c.f[20] != y.f[19]: REJECTED linear constraints failed
+  negative accumulator fraction bit 12 flipped in a linked unit: REJECTED linear constraints failed
+  negative off-domain operand 0x7f computed on: REJECTED prover: ValueError: public inputs rejected: a: UE4M3 NaN scale
+  negative UE4M3 NaN scale byte 0x7F: REJECTED quadratic constraints failed
+  negative UE4M3 scale byte with the padding bit set (0x80): REJECTED linear constraints failed
+  negative scale byte 0xFF (padding bit + NaN mantissa): REJECTED linear constraints failed
+  negative E2M1 code word 16 (a fifth bit): REJECTED chain constraints failed (sum over H)
+  negative E2M1 code word 0xFF: REJECTED chain constraints failed (sum over H)
+  negative wrong scale: committed byte 0x3c proved as 0x44 (valid UE4M3): REJECTED auth: a: multiproof rejected
+  negative x digest lane 0 of VU 0 flipped: REJECTED column challenge mismatch
+  negative W digest lane 0 of VU 1 changed: REJECTED column challenge mismatch
+  negative digests of VU 0 and VU 1 swapped: REJECTED column challenge mismatch
+  negative is_end moved one column early: REJECTED column challenge mismatch
+  negative multiproof sibling of tree a corrupted: REJECTED auth: a: multiproof rejected
+  negative multiproof of tree a truncated: REJECTED auth: a: multiproof rejected
+  negative multiproof sibling of tree b corrupted: REJECTED auth: b: multiproof rejected
+  negative multiproof of tree b truncated: REJECTED auth: b: multiproof rejected
+  negative multiproof sibling of tree y corrupted: REJECTED auth: y: multiproof rejected
+  negative multiproof of tree y truncated: REJECTED auth: y: multiproof rejected
+  negative x root replaced by the W root (verifier's statement): REJECTED column challenge mismatch
+  negative x tree binding changed (verifier's statement): REJECTED column challenge mismatch
+  negative VU 0 claims VU 1's x row (two VUs, one leaf, different digests): REJECTED column challenge mismatch
+  negative W leaf index out of range: REJECTED column challenge mismatch
+  negative a multiproof missing: REJECTED auth: expected one multiproof per tree
+  negative one word of the committed x row flipped (computed on the flipped row): REJECTED auth: a: multiproof rejected
+  negative VU 0 computed on VU 1's W column, claims its own: REJECTED auth: b: multiproof rejected
+  negative VU 0 computed on VU 1's x row, claims its own: REJECTED auth: a: multiproof rejected
+  negative bit 0 of hashed word b[0] flipped in unit 3 (computation unchanged): REJECTED quadratic constraints failed
+  negative sponge capacity link broken at unit 7: REJECTED quadratic constraints failed
+  negative nonzero sponge capacity at a chain start: REJECTED quadratic constraints failed
+  negative row hash.a[0].b0 (hint) +2 in column 43: REJECTED quadratic constraints failed
+  negative row hash.a[0].b1 (hint) +2 in column 39: REJECTED quadratic constraints failed
+  negative row hash.a[0].b2 (hint) +2 in column 3: REJECTED quadratic constraints failed
+  negative row hash.a[0].b3 (hint) +1 in column 45: REJECTED quadratic constraints failed
+  negative row hash.prod0 (prod) +1 in column 8: REJECTED quadratic constraints failed
+  negative row hash.prod1 (prod) +2 in column 38: REJECTED quadratic constraints failed
+  negative row hash.prod2 (prod) +2 in column 28: REJECTED linear constraints failed
+  negative row hash.a[1].b0 (hint) +1 in column 37: REJECTED quadratic constraints failed
+  negative row hash.a[1].b1 (hint) +2 in column 40: REJECTED quadratic constraints failed
+  negative row hash.a[1].b2 (hint) +2 in column 6: REJECTED quadratic constraints failed
+  negative row hash.a[1].b3 (hint) +1 in column 40: REJECTED quadratic constraints failed
+  negative row hash.prod3 (prod) +2 in column 22: REJECTED quadratic constraints failed
+  negative row hash.prod4 (prod) +1 in column 43: REJECTED quadratic constraints failed
+  negative row hash.prod5 (prod) +1 in column 31: REJECTED linear constraints failed
+  negative row hash.a[2].b0 (hint) +2 in column 16: REJECTED quadratic constraints failed
+  negative row hash.a[2].b1 (hint) +1 in column 33: REJECTED quadratic constraints failed
+  negative row hash.a[2].b2 (hint) +2 in column 42: REJECTED quadratic constraints failed
+  negative row hash.a[2].b3 (hint) +1 in column 40: REJECTED quadratic constraints failed
+  negative row hash.prod6 (prod) +2 in column 43: REJECTED quadratic constraints failed
+  negative row hash.prod7 (prod) +1 in column 25: REJECTED quadratic constraints failed
+  negative row hash.prod8 (prod) +1 in column 15: REJECTED linear constraints failed
+  negative row hash.a[3].b0 (hint) +2 in column 13: REJECTED quadratic constraints failed
+  negative row hash.a[3].b1 (hint) +2 in column 18: REJECTED quadratic constraints failed
+  negative row hash.a[3].b2 (hint) +2 in column 18: REJECTED quadratic constraints failed
+  negative row hash.a[3].b3 (hint) +2 in column 18: REJECTED quadratic constraints failed
+  negative row hash.prod9 (prod) +2 in column 17: REJECTED quadratic constraints failed
+  negative row hash.prod10 (prod) +1 in column 30: REJECTED quadratic constraints failed
+  negative row hash.prod11 (prod) +2 in column 45: REJECTED linear constraints failed
+  negative row hash.a[4].b0 (hint) +2 in column 33: REJECTED quadratic constraints failed
+  negative row hash.a[4].b1 (hint) +1 in column 13: REJECTED quadratic constraints failed
+  negative row hash.a[4].b2 (hint) +1 in column 33: REJECTED quadratic constraints failed
+  negative row hash.a[4].b3 (hint) +2 in column 0: REJECTED quadratic constraints failed
+  negative row hash.prod12 (prod) +2 in column 26: REJECTED quadratic constraints failed
+  negative row hash.prod13 (prod) +2 in column 43: REJECTED quadratic constraints failed
+  negative row hash.prod14 (prod) +2 in column 11: REJECTED linear constraints failed
+  negative row hash.a[5].b0 (hint) +1 in column 3: REJECTED quadratic constraints failed
+  negative row hash.a[5].b1 (hint) +2 in column 5: REJECTED quadratic constraints failed
+  negative row hash.a[5].b2 (hint) +1 in column 43: REJECTED quadratic constraints failed
+  negative row hash.a[5].b3 (hint) +1 in column 4: REJECTED quadratic constraints failed
+  negative row hash.prod15 (prod) +2 in column 6: REJECTED quadratic constraints failed
+  negative row hash.prod16 (prod) +2 in column 7: REJECTED quadratic constraints failed
+  negative row hash.prod17 (prod) +1 in column 29: REJECTED linear constraints failed
+  negative row hash.a[6].b0 (hint) +2 in column 22: REJECTED quadratic constraints failed
+  negative row hash.a[6].b1 (hint) +1 in column 38: REJECTED quadratic constraints failed
+  negative row hash.a[6].b2 (hint) +1 in column 31: REJECTED quadratic constraints failed
+  negative row hash.a[6].b3 (hint) +2 in column 45: REJECTED quadratic constraints failed
+  negative row hash.prod18 (prod) +2 in column 32: REJECTED quadratic constraints failed
+  negative row hash.prod19 (prod) +2 in column 12: REJECTED quadratic constraints failed
+  negative row hash.prod20 (prod) +2 in column 46: REJECTED linear constraints failed
+  negative row hash.a[7].b0 (hint) +2 in column 15: REJECTED quadratic constraints failed
+  negative row hash.a[7].b1 (hint) +2 in column 37: REJECTED quadratic constraints failed
+  negative row hash.a[7].b2 (hint) +2 in column 34: REJECTED quadratic constraints failed
+  negative row hash.a[7].b3 (hint) +1 in column 37: REJECTED quadratic constraints failed
+  negative row hash.prod21 (prod) +1 in column 37: REJECTED quadratic constraints failed
+  negative row hash.prod22 (prod) +2 in column 45: REJECTED quadratic constraints failed
+  negative row hash.prod23 (prod) +2 in column 25: REJECTED linear constraints failed
+  negative row hash.a[8].b0 (hint) +1 in column 15: REJECTED quadratic constraints failed
+  negative row hash.a[8].b1 (hint) +2 in column 34: REJECTED quadratic constraints failed
+  negative row hash.a[8].b2 (hint) +1 in column 34: REJECTED quadratic constraints failed
+  negative row hash.a[8].b3 (hint) +1 in column 21: REJECTED quadratic constraints failed
+fp4-nvf4 hashed gate: 4 honest sub-batches, 92 negatives, 0 failures
+GATE_RC=0
+positives 4 ok 4 l [256, 16384]
+negatives 92 rejected 92 failures 0
+system {'rows': 4442, 'by_kind': {'hint': 819, 'bit': 1004, 'prod': 2400, 'inv': 30, 'sel': 172, 'pin': 17}, 'linear': 334, 'quadratic': 4252, 'pins': 17, 'hints': 819}
+hash_census {'rows_base': 1583, 'rows_private_operands': 1122, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 4442, 'rows_added': 2859, 'linear_added': 28, 'quadratic_added': 2863, 'hints_added': 733, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 4, 'k': 68, 'lane_bits': 24, 'rate_lanes_used': 12, 'elements_per_unit': 72}

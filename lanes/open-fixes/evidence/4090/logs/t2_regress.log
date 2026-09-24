@@ -1,0 +1,12 @@
+=== 18:45:11 tree=/workspace/src sha=a0ff818+t2test(wip) cmd: /workspace/venv312/bin/python -m pytest -q -p no:cacheprovider backends/direct/ligero/pubsel/relation_test.py -k cancelling_sum or zero_sums -v
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace/src
+configfile: pyproject.toml
+plugins: timeout-2.4.0
+collected 54 items / 42 deselected / 12 selected
+
+backends/direct/ligero/pubsel/relation_test.py ............              [100%]
+
+====================== 12 passed, 42 deselected in 9.38s =======================
+=== 18:45:22 rc=0 wall=11s

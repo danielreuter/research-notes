@@ -1,0 +1,14 @@
+labelled bare-nonzk-int r20260923-080108-ca9c authentication=excluded hash=none sharing=none
+labelled bare-int-zk r20260923-080502-e138 authentication=excluded hash=none sharing=none
+labelled bare-fs-zk r20260923-080538-bc48 authentication=excluded hash=none sharing=none
+labelled hash-nonzk-int r20260923-081059-8ff6 authentication=included-hash hash=poseidon2-babybear-w24 sharing=none
+labelled hash-int-zk r20260923-081227-ac87 authentication=included-hash hash=poseidon2-babybear-w24 sharing=none
+labelled hash-fs-zk r20260923-081315-9f58 authentication=included-hash hash=poseidon2-babybear-w24 sharing=none
+labelled tile-nonzk-int r20260923-081405-f700 authentication=included-hash hash=poseidon2-babybear-w24 sharing=tile64x64
+labelled tile-int-zk r20260923-081455-e50f authentication=included-hash hash=poseidon2-babybear-w24 sharing=tile64x64
+labelled tile-fs-zk r20260923-081543-d32f authentication=included-hash hash=poseidon2-babybear-w24 sharing=tile64x64
+labelled bf16h-hash-int-zk r20260923-081632-0fb3 authentication=included-hash hash=poseidon2-babybear-w24 sharing=none
+labelled fp8h-hash-int-zk r20260923-081743-40d3 authentication=included-hash hash=poseidon2-babybear-w24 sharing=none
+labelled bf16h-bare-int-zk r20260923-081851-3955 authentication=excluded hash=none sharing=none
+labelled fp8h-bare-int-zk r20260923-082033-2e0f authentication=excluded hash=none sharing=none
+labelled hook-int-zk r20260923-102322-b55f authentication=included-hash hash=poseidon2-babybear-w24 sharing=none note=poseidon2-witness-hook

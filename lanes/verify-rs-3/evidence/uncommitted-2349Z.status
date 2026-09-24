@@ -1,0 +1,3 @@
+ M backends/ligerito-verify/src/lgto.rs
+?? backends/ligerito-verify/fixtures/lgto/fp8ada_l256_v1/canon_y_offend.lgto.neg
+?? backends/ligerito-verify/fixtures/lgto/fp8ada_l256_v1/canon_y_offend.stmt

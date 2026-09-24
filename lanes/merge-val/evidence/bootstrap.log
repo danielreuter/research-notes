@@ -1,0 +1,54 @@
+
+=== [09:42:13] machine
+NVIDIA GeForce RTX 4090, GPU-3529b95d-8537-ee3f-4464-e96c8fad94f2, 49140 MiB, 580.126.20
+256
+               total        used        free      shared  buff/cache   available
+Mem:            1007          73         425          17         508         905
+overlay         100G  117M  100G   1% /
+model name	: AMD EPYC 7763 64-Core Processor
+14.47 16.67 24.39 14/9163 685
+main a55b3fc a55b3fc1fb22dd47d745d2164744bc58e7f9591b synced 2026-09-23T09:40:44Z
+
+=== [09:42:13] rustup stable + ligero-verify (background)
+
+=== [09:42:13] uv + python 3.12 + venv312
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source /workspace/venv312/bin/activate
+Python 3.12.14
+
+=== [09:42:15] torch 2.6.0+cu124, numpy, cupy-cuda12x, blake3, pytest
+ + triton==3.2.0
+ + typing-extensions==4.16.0
+ + pygments==2.21.0
+ + pytest==9.1.1
+torch 2.6.0+cu124 numpy 2.5.3 cupy 14.2.0
+cuda True NVIDIA GeForce RTX 4090 12.4
+matmul ok True
+
+=== [09:42:34] import smoke (merged tree)
+imports ok
+
+=== [09:42:36] rust build (join)
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 1 warning
+    Finished `release` profile [optimized + debuginfo] target(s) in 9.80s
+total 4700
+drwxr-xr-x 2 root root      35 Sep 23 09:42 .
+drwxr-xr-x 1 root root     100 Sep 23 09:42 ..
+-rwxr-xr-x 1 root root 4808968 Sep 23 09:42 ligero-verify
+RUST_OK
+db4ec09648e942744554292572b7157afc0855d23c8d69fa84dc11b158633a88  /workspace/bin/ligero-verify
+
+=== [09:42:36] versions
+Using Python 3.12.14 environment at: /workspace/venv312
+blake3                   1.0.9
+numpy                    2.5.3
+pytest                   9.1.1
+torch                    2.6.0+cu124
+rustc 1.98.1 (48a229cea 2026-09-01)
+overlay         100G   12G   89G  12% /
+
+=== [09:42:36] done
+BOOTSTRAP_OK

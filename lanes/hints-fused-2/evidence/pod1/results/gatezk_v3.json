@@ -1,0 +1,671 @@
+{
+ "relation": "fp8-ada-v3",
+ "model": "ADA_E4M3_M16N8K32",
+ "system": {
+  "rows": 1806,
+  "by_kind": {
+   "hint": 1491,
+   "bit": 169,
+   "inv": 71,
+   "prod": 23,
+   "pin": 22,
+   "sel": 30
+  },
+  "linear": 130,
+  "quadratic": 2542,
+  "pins": 22,
+  "hints": 1491
+ },
+ "census": {
+  "rows_per_unit": 1806,
+  "bit_rows": 169,
+  "selector_rows": 30,
+  "hint_rows": 1491,
+  "pin_rows": 22,
+  "product_rows": 23,
+  "inverse_rows": 71,
+  "linear_constraints": 130,
+  "quadratic_constraints": 2542,
+  "chain": true
+ },
+ "positives": [
+  {
+   "range": [
+    0,
+    341
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "accept (0.069s)",
+   "timings": {
+    "statement": 0.005732351779937744,
+    "hints_host": 161.939515625,
+    "witness": 0.03921846389770508,
+    "self_check": 2.7808984375,
+    "zk_masks": 0.033153953552246096,
+    "encode": 0.0029224960803985595,
+    "transfer": 0.00036556801199913024,
+    "merkle": 0.00488643217086792,
+    "tests_w": 1.1609989013671875,
+    "tests_quad": 1.3663999736309052e-05,
+    "tests_chain": 1.0623999871313573e-05,
+    "openings": 0.005856063842773438,
+    "tests": 1.1610231893667953,
+    "total": 4.0356755779459945
+   }
+  },
+  {
+   "range": [
+    341,
+    682
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "accept (0.040s)",
+   "timings": {
+    "statement": 9.830400347709655e-05,
+    "hints_host": 146.481828125,
+    "witness": 0.0012146240472793578,
+    "self_check": 0.020679744720458984,
+    "zk_masks": 0.000864192008972168,
+    "encode": 0.0023009281158447264,
+    "transfer": 1.0239999974146486e-06,
+    "merkle": 0.0016021440029144287,
+    "tests_w": 0.0122391357421875,
+    "tests_quad": 1.2799999676644803e-05,
+    "tests_chain": 9.759999811649322e-06,
+    "openings": 0.0020074880123138426,
+    "tests": 0.012261695741675795,
+    "total": 0.0427817620411588
+   }
+  },
+  {
+   "range": [
+    682,
+    1023
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "accept (0.038s)",
+   "timings": {
+    "statement": 8.70399996638298e-05,
+    "hints_host": 153.069828125,
+    "witness": 0.0012046719789505006,
+    "self_check": 0.020190208435058594,
+    "zk_masks": 0.0008284159898757934,
+    "encode": 0.002299904108047485,
+    "transfer": 2.0479999948292972e-06,
+    "merkle": 0.0016126400232315064,
+    "tests_w": 0.012226367950439453,
+    "tests_quad": 1.292799971997738e-05,
+    "tests_chain": 1.0111999697983265e-05,
+    "openings": 0.0011718720197677612,
+    "tests": 0.012249407949857414,
+    "total": 0.04113961169124991
+   }
+  },
+  {
+   "range": [
+    1023,
+    1364
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "accept (0.040s)",
+   "timings": {
+    "statement": 7.27040022611618e-05,
+    "hints_host": 147.585234375,
+    "witness": 0.00120415997505188,
+    "self_check": 0.020229248046875,
+    "zk_masks": 0.0008702719807624817,
+    "encode": 0.002298880100250244,
+    "transfer": 2.0479999948292972e-06,
+    "merkle": 0.0016011199951171875,
+    "tests_w": 0.012395423889160156,
+    "tests_quad": 1.3439999893307686e-05,
+    "tests_chain": 9.983999654650688e-06,
+    "openings": 0.0011508159637451173,
+    "tests": 0.012418847888708114,
+    "total": 0.04150723639875764
+   }
+  },
+  {
+   "range": [
+    1364,
+    1705
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "accept (0.040s)",
+   "timings": {
+    "statement": 8.601599931716918e-05,
+    "hints_host": 146.382546875,
+    "witness": 0.0012039999961853027,
+    "self_check": 0.020256767272949217,
+    "zk_masks": 0.00116428804397583,
+    "encode": 0.002305023908615112,
+    "transfer": 2.0479999948292972e-06,
+    "merkle": 0.0016154559850692749,
+    "tests_w": 0.012398816108703614,
+    "tests_quad": 1.369599997997284e-05,
+    "tests_chain": 9.824000298976899e-06,
+    "openings": 0.0011116160154342651,
+    "tests": 0.012422336108982563,
+    "total": 0.04099754399805988
+   }
+  },
+  {
+   "range": [
+    1705,
+    2046
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "accept (0.040s)",
+   "timings": {
+    "statement": 8.499199897050858e-05,
+    "hints_host": 148.18240625,
+    "witness": 0.0012093119621276855,
+    "self_check": 0.020196352005004883,
+    "zk_masks": 0.000992255985736847,
+    "encode": 0.002298880100250244,
+    "transfer": 2.0479999948292972e-06,
+    "merkle": 0.001608288049697876,
+    "tests_w": 0.012273407936096192,
+    "tests_quad": 1.2671999633312225e-05,
+    "tests_chain": 9.375999681651592e-06,
+    "openings": 0.0011353600025177002,
+    "tests": 0.012295455935411157,
+    "total": 0.04137353917209907
+   }
+  },
+  {
+   "range": [
+    2046,
+    2048
+   ],
+   "l": 256,
+   "ok": true,
+   "why": "accept (0.021s)",
+   "timings": {
+    "statement": 5.936000123620033e-05,
+    "hints_host": 2.312595947265625,
+    "witness": 0.004494880199432373,
+    "self_check": 0.006525951862335205,
+    "zk_masks": 0.0008151040077209472,
+    "encode": 1.0556292724609375,
+    "transfer": 4.4064000248909e-05,
+    "merkle": 0.0007245759963989258,
+    "tests_w": 0.8883516845703125,
+    "tests_quad": 1.5744000673294066e-05,
+    "tests_chain": 1.0400000028312207e-05,
+    "openings": 0.0009604799747467041,
+    "tests": 0.8883778285710141,
+    "total": 1.9579492205828428
+   }
+  }
+ ],
+ "negatives": [
+  {
+   "name": "claimed word bit 0 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 1 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 2 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 3 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 4 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 5 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 6 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 7 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 8 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 9 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 10 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 11 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 12 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 13 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 14 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 15 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 16 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 17 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 18 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 19 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 20 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 21 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word +1 ulp",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word -1 ulp",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "off-domain operand 0x7f in a",
+   "accepted": false,
+   "why": "public inputs: public inputs rejected: a: E4M3 NaN operand"
+  },
+  {
+   "name": "off-domain operand 0xff in a",
+   "accepted": false,
+   "why": "public inputs: public inputs rejected: a: E4M3 NaN operand"
+  },
+  {
+   "name": "off-domain operand 0xff in b",
+   "accepted": false,
+   "why": "public inputs: public inputs rejected: b: E4M3 NaN operand"
+  },
+  {
+   "name": "operand a[10][1] exponent bit flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "link c.f[20] != y.f[19]",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "c_0 != 0 at a chain start",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "accumulator fraction bit 12 flipped in a linked unit",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "accumulator fraction bit 0 flipped in a linked unit",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row acc.s (hint) +1 in column 12",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.t (hint) +1 in column 76",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row acc.f (hint) +2 in column 56",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row acc.nz (hint) +1 in column 68",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row acc.z (hint) +1 in column 46",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.t.b0 (bit) +2 in column 38",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row acc.t.finite.inv (inv) +1 in column 52",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.nz1.inv (inv) +1 in column 52",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.f.b0 (bit) +2 in column 72",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row acc.z1.inv (inv) +2 in column 94",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.prod0 (prod) +1 in column 83",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].s (hint) +2 in column 13",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].nz (hint) +2 in column 42",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].x[0] (hint) +1 in column 95",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].x[1] (hint) +1 in column 82",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].x[2] (hint) +2 in column 33",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].x[3] (hint) +2 in column 23",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].f[0] (hint) +2 in column 44",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].f[1] (hint) +2 in column 90",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].f[2] (hint) +2 in column 80",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[0].top.inv (inv) +2 in column 94",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row b_words[0].s (hint) +1 in column 12",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].nz (hint) +2 in column 29",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].x[0] (hint) +1 in column 79",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].x[1] (hint) +1 in column 94",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].x[2] (hint) +2 in column 89",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].x[3] (hint) +1 in column 69",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].f[0] (hint) +2 in column 56",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].f[1] (hint) +2 in column 85",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].f[2] (hint) +1 in column 92",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[0].top.inv (inv) +1 in column 74",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row a_words[1].s (hint) +1 in column 65",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].nz (hint) +1 in column 1",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].x[0] (hint) +2 in column 93",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].x[1] (hint) +1 in column 29",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].x[2] (hint) +1 in column 23",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].x[3] (hint) +2 in column 82",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].f[0] (hint) +1 in column 7",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].f[1] (hint) +2 in column 54",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].f[2] (hint) +1 in column 95",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[1].top.inv (inv) +1 in column 58",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row b_words[1].s (hint) +1 in column 16",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].nz (hint) +1 in column 42",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].x[0] (hint) +1 in column 69",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].x[1] (hint) +2 in column 32",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].x[2] (hint) +2 in column 60",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].x[3] (hint) +1 in column 71",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].f[0] (hint) +1 in column 85",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].f[1] (hint) +1 in column 29",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].f[2] (hint) +2 in column 0",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row b_words[1].top.inv (inv) +1 in column 8",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row a_words[2].s (hint) +2 in column 78",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[2].nz (hint) +1 in column 82",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[2].x[0] (hint) +1 in column 47",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[2].x[1] (hint) +2 in column 18",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[2].x[2] (hint) +2 in column 7",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[2].x[3] (hint) +1 in column 1",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[2].f[0] (hint) +1 in column 89",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[2].f[1] (hint) +1 in column 29",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  },
+  {
+   "name": "row a_words[2].f[2] (hint) +1 in column 74",
+   "accepted": false,
+   "why": "linear constraints failed (public values)"
+  }
+ ],
+ "failures": 0
+}

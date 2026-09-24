@@ -1,0 +1,22 @@
+=== pytest fp4/relation_test.py chain_test.py witness_device_test.py
+(pytest recheck done in r20260923-041818-ac51: 15 passed)
+### pytest-recheck: 0
+=== fp4-nvf4 bench-vu --impl device (170 VUs, 1 rep)
+ },
+ "validation": "passed"
+}
+### bench-fp4-device: 0
+1 proofs: 1 accepted, 0 rejected; batch ACCEPT (accept: all 1 sub-batches accepted; union bound 2^-128.07 <= 2^-128); batch bits 128.069099 at target 128.0
+### pyverify-fp4-device: 0
+=== fp4-nvf4 bench-vu --impl legacy (170 VUs, 1 rep)
+ },
+ "validation": "passed"
+}
+### bench-fp4-legacy: 0
+1 proofs: 1 accepted, 0 rejected; batch ACCEPT (accept: all 1 sub-batches accepted; union bound 2^-128.07 <= 2^-128); batch bits 128.069099 at target 128.0
+### pyverify-fp4-legacy: 0
+device software.backend device numpy (host) t.total 0.0385 witness 0.0006326339207589626 cold verify 1 / 1
+legacy software.backend legacy numpy (host) t.total 0.0474 witness 0.007888627005741 cold verify 1 / 1
+6bb9d77fac27118f60e316333508bade1c13eb952c43722372c13b5410c195c8  /workspace/research/runs/r20260923-042009-b442/proofs_fp4_device/system.bin
+6bb9d77fac27118f60e316333508bade1c13eb952c43722372c13b5410c195c8  /workspace/research/runs/r20260923-042009-b442/proofs_fp4_legacy/system.bin
+RECHECK_DONE

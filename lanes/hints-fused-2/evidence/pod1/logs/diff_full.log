@@ -1,0 +1,299 @@
+=== 21:08:10 tree=/workspace/src sha=a6178cd cmd: /workspace/venv312/bin/python -m pytest -q -rfE -p no:cacheprovider --durations=8 backends/direct/ligero/hints_fused_test.py
+.......................................F.......F.....................FF. [100%]
+=================================== FAILURES ===================================
+______________ test_fused_equals_torch_adversarial[fp8-ada-v2x4] _______________
+
+name = 'fp8-ada-v2x4'
+
+    @pytest.mark.skipif(not _cuda_ok(), reason="the fused kernel is CUDA (cupy / NVRTC)")
+    @pytest.mark.parametrize("name", V2 + V3)
+    def test_fused_equals_torch_adversarial(name):
+        rel = RELATIONS[name]
+        for chain in (True, False):
+            sys = rel.compile(rel.params, chain)
+            fused, eager, graph, torch = _paths(name, sys)
+            c, a, b = (torch.as_tensor(x).cuda() for x in _adversarial(rel, N_ADV, seed=7 + chain))
+            hf, he = fused(c, a, b), eager(c, a, b)
+            assert torch.equal(hf, he), f"{name} chain={chain} adversarial: fused != eager: {_diff(hf, he, sys)}"
+            hg = graph(c, a, b)
+>           assert torch.equal(hf, hg), f"{name} chain={chain} adversarial: fused != graph: {_diff(hf, hg, sys)}"
+                                                                                             ^^^^^^^^^^^^^^^^^^
+
+backends/direct/ligero/hints_fused_test.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+h1 = tensor([[      0,       1,       0,  ...,       1,       0,       0],
+        [      0,       0,       0,  ...,     13...   0,       0,       0],
+        [      0,       0,       0,  ...,       0,       0,       0]],
+       device='cuda:0')
+h2 = tensor([[      0,       1,       0,  ...,       1,       0,       0],
+        [      0,       0,       0,  ...,     13...   0,       0,       0],
+        [      0,       0,       0,  ...,       0,       0,       0]],
+       device='cuda:0')
+sys = System(p=FP8Params(sig=4, exp=8, acc_sig=14, width=14, floor=-139, groups=(16, 16, 16, 16, 16, 16, 16, 16), acc_exp=8,...r1242 + 2088960*r1244 + 2088960*r1246 + 2088960*r1248 + 2097152*r1251 + 2097152*r1252 + 8192*r1253 + 1*r1254}, wide={})
+
+    def _diff(h1, h2, sys) -> str:
+>       bad = (h1 != h2).any(dim=1).nonzero().flatten().tolist()
+               ^^^^^^^^
+E       RuntimeError: The size of tensor a (541) must match the size of tensor b (273) at non-singleton dimension 0
+
+backends/direct/ligero/hints_fused_test.py:140: RuntimeError
+______________ test_fused_equals_torch_adversarial[fp8-ada-v3x4] _______________
+
+name = 'fp8-ada-v3x4'
+
+    @pytest.mark.skipif(not _cuda_ok(), reason="the fused kernel is CUDA (cupy / NVRTC)")
+    @pytest.mark.parametrize("name", V2 + V3)
+    def test_fused_equals_torch_adversarial(name):
+        rel = RELATIONS[name]
+        for chain in (True, False):
+            sys = rel.compile(rel.params, chain)
+            fused, eager, graph, torch = _paths(name, sys)
+            c, a, b = (torch.as_tensor(x).cuda() for x in _adversarial(rel, N_ADV, seed=7 + chain))
+            hf, he = fused(c, a, b), eager(c, a, b)
+            assert torch.equal(hf, he), f"{name} chain={chain} adversarial: fused != eager: {_diff(hf, he, sys)}"
+>           hg = graph(c, a, b)
+                 ^^^^^^^^^^^^^^
+
+backends/direct/ligero/hints_fused_test.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backends/direct/ligero/hints_fused_test.py:120: in graph
+    return entry(p, sys, c, a, b, None, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backends/direct/ligero/privsel/hints.py:206: in hints_v3
+    return g.run(c, a, b, y)
+           ^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <ligero.privsel.hints._Graph object at 0x7f3ea39e0c80>
+c = tensor([         0, 2147483648,          1,  ..., 3295033982, 1953716567,
+         349524340], device='cuda:0')
+a = tensor([[184,  83,  60,  ...,  95,  77, 103],
+        [118, 125, 178,  ..., 111, 165,   5],
+        [ 66, 173, 248,  ....95, 167],
+        [ 12, 180,  15,  ...,  44, 180, 238],
+        [ 76,  61,  14,  ...,  66, 139, 180]], device='cuda:0')
+b = tensor([[113, 131, 247,  ..., 208, 152, 252],
+        [218,  79,  82,  ...,  87,  29, 128],
+        [ 39, 254,  84,  ....28,   2],
+        [249, 193,  27,  ..., 217, 193,  85],
+        [ 75,  64,  55,  ..., 124,  78, 201]], device='cuda:0')
+y = None
+
+    def run(self, c, a, b, y):
+        self.c.copy_(c)
+        self.a.copy_(a)
+        self.b.copy_(b)
+        if y is not None:
+            self.y.copy_(y)
+        self.graph.replay()
+>       return self.out.clone()
+               ^^^^^^^^^^^^^^^^
+E       torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 744.00 MiB. GPU 0 has a total capacity of 23.53 GiB of which 241.38 MiB is free. Process 1363 has 3.06 GiB memory in use. Including non-PyTorch memory, this process has 20.21 GiB memory in use. Of the allocated memory 18.22 GiB is allocated by PyTorch, with 9.89 GiB allocated in private pools (e.g., CUDA Graphs), and 573.62 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+backends/direct/ligero/privsel/hints.py:233: OutOfMemoryError
+___________ test_fused_equals_torch_real_subbatch[bf16-ampere-v3x4] ____________
+
+name = 'bf16-ampere-v3x4'
+
+    @pytest.mark.skipif(not _cuda_ok(), reason="the fused kernel is CUDA (cupy / NVRTC)")
+    @pytest.mark.parametrize("name", ["fp8-ada-v3", "fp8-ada-v3x4", "fp8-ada-v2x4", "bf16-hopper-v3x4", "fp8-hopper-v3", "bf16-ampere-v3x4"])
+    def test_fused_equals_torch_real_subbatch(name):
+        """The instance set marshalled by the chain runner (chain mode, pad units included), as the prover calls it."""
+        from . import protocol as protocol_mod
+        from .relchain import RelationChainRunner, instances
+        rel = RELATIONS[name]
+        R = RelationChainRunner(rel, "cuda", -128.0, 2, zk=False, mode=protocol_mod.MODE_INTERACTIVE)
+        per = 4096 // rel.steps
+        bd = R.marshal(instances(rel, per, procs=4, cache=CACHE))
+        fused, eager, graph, torch = _paths(name, R.sys)
+        args = (bd["c_d"], bd["a_d"], bd["b_d"])
+>       hf, he, hg = fused(*args), eager(*args), graph(*args)
+                                   ^^^^^^^^^^^^
+
+backends/direct/ligero/hints_fused_test.py:189: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backends/direct/ligero/hints_fused_test.py:114: in eager
+    return mod._hints_eager(p, sys, c, a, b, None, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+p = Params(sig=8, exp=8, acc_sig=24, width=25, floor=-132, groups=(8, 8, 8, 8, 8, 8, 8, 8), acc_exp=8, op_nan_rule='ieee')
+sys = System(p=Params(sig=8, exp=8, acc_sig=24, width=25, floor=-132, groups=(8, 8, 8, 8, 8, 8, 8, 8), acc_exp=8, op_nan_rul...*r6351 + 32640*r6353 + 32640*r6355 + 32640*r6357 + 32768*r6360 + 32768*r6361 + 128*r6362 + 1*r6364 + 1*r6368}, wide={})
+c = tensor([         0, 3749441393, 3749433610,  ...,          0,          0,
+                 0], device='cuda:0')
+a = tensor([[48220, 32768, 32810,  ..., 16561, 48209, 32768],
+        [51737,     0, 15478,  ..., 15591, 19395, 16800],
+  ...,     0,     0,  ...,     0,     0,     0],
+        [    0,     0,     0,  ...,     0,     0,     0]], device='cuda:0')
+b = tensor([[46931, 52164, 18115,  ...,    21, 47938, 45585],
+        [51413, 46823, 14356,  ...,     0, 18340, 32865],
+  ...,     0,     0,  ...,     0,     0,     0],
+        [    0,     0,     0,  ...,     0,     0,     0]], device='cuda:0')
+y = None, device = 'cuda'
+
+    def _hints_eager(p: Params, sys: System, c, a, b, y, device):
+        import torch
+    
+        pl = plan(p)
+        sp = shift_plan(p, pl)
+        RB, UB = sp.RB, sp.UB
+        chain = sys.chain is not None
+        H: dict = {}
+        t = (c >> ACC_FRAC) & (2**p.acc_exp - 1)
+        f = c & (2**ACC_FRAC - 1)
+        nz = (t != 0).to(torch.int64)
+        z = ((t == 0) & (f == 0)).to(torch.int64)
+        s_c = c >> 31
+        if chain:
+            H.update({"acc.s": s_c, "acc.t": t, "acc.f": f, "acc.nz": nz, "acc.z": z})
+        M24 = f + nz * 2**ACC_FRAC
+        e = t - nz - (p.acc_bias - 1)
+        s_st, e_st, Mt = s_c, e + z * (p.floor - e), M24 >> pl.drop
+        k = a.shape[1]
+        for name, w in (("a_words", a), ("b_words", b)):
+            s_, m_, e_, x_, f_, nz_ = _decode(pl, w)
+            for i in range(k):
+                H[f"{name}[{i}].s"] = s_[:, i]
+                H[f"{name}[{i}].nz"] = nz_[:, i]
+                for j in range(pl.op_exp):
+                    H[f"{name}[{i}].x[{j}]"] = (x_[:, i] >> j) & 1
+                for j in range(pl.op_frac):
+                    H[f"{name}[{i}].f[{j}]"] = (f_[:, i] >> j) & 1
+        s_a, m_a, e_a = _decode(pl, a)[:3]
+        s_b, m_b, e_b = _decode(pl, b)[:3]
+        u = m_a * m_b
+        sp_ = (s_a + s_b) % 2
+        ep = e_a + e_b
+        NEG = -(2**20)
+        start = 0
+        for g, size in enumerate(pl.groups):
+            tag = f"g{g}"
+            sl = slice(start, start + size)
+            idx = list(range(start, start + size))
+            start += size
+            ug, sg, eg = u[:, sl], sp_[:, sl], ep[:, sl]
+            cands = torch.cat([e_st[:, None], torch.where(ug != 0, eg, torch.full_like(eg, NEG))], dim=1)   # (l, size + 1)
+            E = cands.max(dim=1).values
+            H[f"{tag}.E"] = E
+            E_eff = E
+            if sp.hi_thr is not None:
+                hi = (E >= sp.hi_thr).to(torch.int64)
+                H[f"{tag}.hi"] = hi
+                E_eff = torch.clamp(E, max=sp.hi_thr)
+            first = (cands == E[:, None]).to(torch.int64)
+            first = first * (first.cumsum(dim=1) == 1).to(torch.int64)      # the first candidate equal to E
+            for j in range(size + 1):
+                H[f"{tag}.which[{j}]"] = first[:, j]
+            d = E_eff[:, None] - eg
+            zero = ug == 0
+            dead = (d >= pl.PB) & ~zero
+            live = ~dead & ~zero
+            L = pl.PS - d
+            cfl = torch.div(L, RB, rounding_mode="floor")
+            R_live = L - RB * cfl
+            R_dead = RB - 1 - torch.remainder(d - pl.PB, RB)
+            R = torch.where(live, R_live, torch.where(dead, R_dead, torch.zeros_like(d)))
+            K = torch.where(dead, torch.div(d - pl.PB, RB, rounding_mode="floor"), torch.zeros_like(d))
+            ci = torch.where(live, 1 - cfl, torch.where(dead, torch.full_like(d, 4), torch.ones_like(d)))
+            Y = ug << R
+            X = torch.where(d <= pl.PS, ug << torch.clamp(pl.PS - d, min=0),
+                            torch.where(d < pl.PB, ug >> torch.clamp(d - pl.PS, min=0), torch.zeros_like(ug)))
+            X = torch.where(zero, torch.zeros_like(X), X)
+            for j, i in enumerate(idx):
+                scope = f"{tag}.p[{i}]"
+                for jj in range(UB):
+                    H[f"{scope}.u[{jj}]"] = (ug[:, j] >> jj) & 1
+                for r in range(RB):
+                    H[f"{scope}.r[{r}]"] = (R[:, j] == r).to(torch.int64)
+                for kk in range(sp.ND):
+                    H[f"{scope}.D{kk}"] = (Y[:, j] >> (kk * RB)) & (2**RB - 1)
+                for cc in range(sp.ncoarse):
+                    H[f"{scope}.c[{cc}]"] = (ci[:, j] == cc).to(torch.int64)
+                if pl.wide:
+                    H[f"{scope}.XL"], H[f"{scope}.XH"] = X[:, j] & (2**LIMB - 1), X[:, j] >> LIMB
+                else:
+                    H[f"{scope}.X"] = X[:, j]
+                for jj in range(sp.kb):
+>                   H[f"{scope}.K[{jj}]"] = (K[:, j] >> jj) & 1
+                                            ^^^^^^^^^^^^^^^^^^^
+E                   torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 MiB. GPU 0 has a total capacity of 23.53 GiB of which 1.38 MiB is free. Process 1363 has 3.06 GiB memory in use. Including non-PyTorch memory, this process has 20.45 GiB memory in use. Of the allocated memory 18.20 GiB is allocated by PyTorch, with 10.57 GiB allocated in private pools (e.g., CUDA Graphs), and 572.64 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+backends/direct/ligero/privsel/hints.py:332: OutOfMemoryError
+___________ test_fused_hints_not_shared_across_streams[fp8-ada-v3x4] ___________
+
+name = 'fp8-ada-v3x4'
+
+    @pytest.mark.skipif(not _cuda_ok(), reason="the fused kernel is CUDA (cupy / NVRTC)")
+    @pytest.mark.parametrize("name", ["fp8-ada-v3x4", "fp8-ada-v2x4"])
+    def test_fused_hints_not_shared_across_streams(name):
+        from .pipeline_race_test import hints_concurrent_trials
+>       assert hints_concurrent_trials(name, 5) == 0
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backends/direct/ligero/hints_fused_test.py:200: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backends/direct/ligero/pipeline_race_test.py:152: in hints_concurrent_trials
+    gen(bd)
+backends/direct/ligero/pipeline_race_test.py:146: in gen
+    return rel.hints(R.p, R.sys, bd["c_d"], bd["a_d"], bd["b_d"], bd["y_d"], device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backends/direct/ligero/relations.py:355: in _v3_hints
+    return hints_v3(p, sys, c_in, a, b, y_out, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backends/direct/ligero/privsel/hints.py:192: in hints_v3
+    return fh.run(c, a, b)
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <ligero.hints_fused.FusedHints object at 0x7f3e9f52fe00>
+c = tensor([         0, 3333947392, 3352107008,  ...,          0,          0,
+                 0], device='cuda:0')
+a = tensor([[182, 253, 229,  ...,  33,  43,  99],
+        [ 72, 241,  56,  ..., 161, 211,  47],
+        [229, 119, 136,  .... 0,   0],
+        [  0,   0,   0,  ...,   0,   0,   0],
+        [  0,   0,   0,  ...,   0,   0,   0]], device='cuda:0')
+b = tensor([[ 99, 221, 122,  ..., 100, 222, 140],
+        [192, 232,  22,  ..., 194, 246,   2],
+        [207,  27,   3,  .... 0,   0],
+        [  0,   0,   0,  ...,   0,   0,   0],
+        [  0,   0,   0,  ...,   0,   0,   0]], device='cuda:0')
+
+    def run(self, c, a, b):
+        import warnings
+    
+        import torch
+        cp = self.cp
+        l = c.shape[0]
+        assert a.shape == (l, self.k) and b.shape == (l, self.k), (a.shape, b.shape, l, self.k)
+        c = c.to(self.device, torch.int64).contiguous()
+        a = a.to(self.device, torch.int64).contiguous()
+        b = b.to(self.device, torch.int64).contiguous()
+>       out = torch.empty((self.n_hints, l), dtype=torch.int64, device=self.device)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 186.00 MiB. GPU 0 has a total capacity of 23.53 GiB of which 117.38 MiB is free. Process 1363 has 3.06 GiB memory in use. Including non-PyTorch memory, this process has 20.34 GiB memory in use. Of the allocated memory 18.28 GiB is allocated by PyTorch, with 10.57 GiB allocated in private pools (e.g., CUDA Graphs), and 383.81 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+backends/direct/ligero/hints_fused.py:343: OutOfMemoryError
+=============================== warnings summary ===============================
+backends/direct/ligero/hints_fused_test.py: 28 warnings
+  /root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=1593) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 8 durations ==============================
+8.44s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_and_reference_in_domain[fp8-ada-v3x4]
+8.25s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[bf16-ampere-v3x4]
+7.29s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[fp8-hopper-v3x4]
+6.85s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_and_reference_in_domain[bf16-ampere-v3x4]
+6.63s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_and_reference_in_domain[fp8-hopper-v3x4]
+6.43s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_real_subbatch[fp8-ada-v3x4]
+5.91s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[bf16-hopper-v3x4]
+5.40s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_and_reference_in_domain[bf16-hopper-v3x4]
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[fp8-ada-v2x4]
+FAILED backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[fp8-ada-v3x4]
+FAILED backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_real_subbatch[bf16-ampere-v3x4]
+FAILED backends/direct/ligero/hints_fused_test.py::test_fused_hints_not_shared_across_streams[fp8-ada-v3x4]
+4 failed, 68 passed, 28 warnings in 129.65s (0:02:09)
+=== 21:10:22 rc=1 wall=132s

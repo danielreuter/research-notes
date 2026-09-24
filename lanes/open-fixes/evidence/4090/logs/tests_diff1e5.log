@@ -1,0 +1,9 @@
+=== 19:27:17 tree=/workspace/src sha=a0ff818+t2test(wip) cmd: /workspace/venv312/bin/python -m pytest -q -p no:cacheprovider backends/direct/ligero/pubsel/relation_test.py -k differential -v
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace/src
+configfile: pyproject.toml
+plugins: timeout-2.4.0
+collected 54 items / 50 deselected / 4 selected
+
+backends/direct/ligero/pubsel/relation_test.py .

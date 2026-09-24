@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/wt_merge/backends/direct/ligero/run.py", line 465, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/wt_merge/backends/direct/ligero/run.py", line 458, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wt_merge/backends/direct/ligero/relchain.py", line 907, in bench_vu_rel
+    R.prove_vus_many([data[lo_:hi_] for lo_, hi_ in warm],
+  File "/workspace/wt_merge/backends/direct/ligero/relchain.py", line 275, in prove_vus_many
+    proofs, wall = prove_many([starter(i) for i in range(len(batches))], self.device, depth=depth)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wt_merge/backends/direct/ligero/pipeline.py", line 336, in prove_many
+    job.step()
+  File "/workspace/wt_merge/backends/direct/ligero/pipeline.py", line 294, in step
+    self.waitable = self.gen.send(None) if self.started else next(self.gen)
+                                                             ^^^^^^^^^^^^^^
+  File "/workspace/wt_merge/backends/direct/ligero/protocol.py", line 1277, in _prove_stages
+    _graph_run(st, "commit_graph", commit_body, device)
+  File "/workspace/wt_merge/backends/direct/ligero/protocol.py", line 1078, in _graph_run
+    g.replay()
+  File "/workspace/venv312/lib/python3.12/site-packages/torch/cuda/graphs.py", line 88, in replay
+    super().replay()
+RuntimeError: Offset increment outside graph capture encountered unexpectedly.
+fp8-ada census: {"rows_per_unit": 3769, "bit_rows": 2474, "selector_rows": 640, "hint_rows": 161, "pin_rows": 192, "product_rows": 301, "inverse_rows": 1, "linear_constraints": 589, "quadratic_constraints": 3532, "chain": true}
+1024 synthetic VUs (model-recorded accumulators) in 0.1s
+config Config(l=16384, n=65536, D=7, t=284, target_log2=-128.0, zk=True, t_pad=512, mode='fiat-shamir'); layout Layout(l=16384, n_vus=341, steps=48); zk True, mode fiat-shamir; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 1024 VUs as 4 sub-batches of <= 341

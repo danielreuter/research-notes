@@ -1,0 +1,36 @@
+{
+ "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+ "independent": false,
+ "statement_format": "ligero-statement/v5",
+ "accepted": 1,
+ "total": 1,
+ "batch": {
+  "1": {
+   "n_subbatches": 1,
+   "target_bits": 128.0,
+   "batch_log2": -128.04909939407844,
+   "per_proof_log2": [
+    -128.04909939407844
+   ],
+   "n_proofs_claimed": [
+    1
+   ],
+   "accepted": true,
+   "reason": "accept: all 1 sub-batches accepted; union bound 2^-128.05 <= 2^-128"
+  }
+ },
+ "batch_accepted": true,
+ "seconds": 0.010968010872602463,
+ "wall": 0.012176062911748886,
+ "coins": "the transcript's own coins replayed (file verifier)",
+ "items": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "proof": "rep1/sub_00.proof",
+   "accepted": true,
+   "reason": "",
+   "seconds": 0.010968010872602463
+  }
+ ]
+}

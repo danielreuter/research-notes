@@ -1,0 +1,102 @@
+fp8-hopper census: {"rows_per_unit": 3396, "bit_rows": 2196, "selector_rows": 577, "hint_rows": 148, "pin_rows": 192, "product_rows": 282, "inverse_rows": 1, "linear_constraints": 554, "quadratic_constraints": 3164, "chain": true}
+4096 synthetic VUs (model-recorded accumulators) in 0.3s
+config Config(l=16384, n=65536, D=6, t=195, target_log2=-128.0, zk=False, t_pad=0, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk False, mode interactive; system {'rows': 3396, 'by_kind': {'hint': 148, 'bit': 2196, 'prod': 282, 'inv': 1, 'pin': 192, 'sel': 577}, 'linear': 554, 'quadratic': 3164, 'pins': 192, 'hints': 148}; 4096 VUs as 13 sub-batches of <= 341
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.003, 'witness': 0.029, 'self_check': 2.501, 'encode': 0.011, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 0.01, 'tests_quad': 1.103, 'tests_chain': 0.018, 'tests': 1.13, 'openings': 0.026, 'total': 3.703, 'hints_host': 0.151}
+rep 1: prover 0.323s (+hints 0.067s) over 13 proofs; verifier 0.352s; pass wall 2.194s (0.095 ms/VU)
+rep 2: prover 0.292s (+hints 0.068s) over 13 proofs; verifier 0.345s; pass wall 2.096s (0.088 ms/VU)
+rep 3: prover 0.298s (+hints 0.069s) over 13 proofs; verifier 0.337s; pass wall 1.870s (0.090 ms/VU)
+dumped 13 proofs to /workspace/research/runs/r20260923-031920-d2ae/proofs
+dumps: 13/13 accepted cold from bytes by the Python file verifier in 0.36s; batch verdict per rep: ['accept: all 13 sub-batches accepted; union bound 2^-128.52 <= 2^-128']
+{
+ "relation": "fp8-hopper",
+ "seconds_per_vu": 8.92750040293322e-05,
+ "prover_total": 0.36567041650414467,
+ "verifier": 0.34532780200242996,
+ "bytes": {
+  "root": 416,
+  "w": 5111808,
+  "h": 5111496,
+  "cols": 10140,
+  "opened_columns": 34435440,
+  "merkle_paths": 1297920,
+  "q_chain": 10223304,
+  "v_linear": 0,
+  "coin_commitments_and_openings": 2496,
+  "auth_multiproofs": 0,
+  "total": 56193020
+ },
+ "n_proofs": 13,
+ "per_proof_vus": 341,
+ "t": 195,
+ "zk": false,
+ "k": 16384,
+ "peak_device_bytes": 2827192320,
+ "soundness_log2": -128.5167135635097,
+ "per_proof_log2": -132.21715328165055,
+ "rows": 3396,
+ "medians": {
+  "statement": 0.022165603935718536,
+  "witness": 0.01696087419986725,
+  "encode": 0.04563981667160988,
+  "transfer": 0.0001485981047153473,
+  "merkle": 0.024321462959051132,
+  "tests_w": 0.09356945380568504,
+  "tests_quad": 0.02813628315925598,
+  "tests_chain": 0.02882666513323784,
+  "tests": 0.15042930841445923,
+  "openings": 0.036839380860328674,
+  "total": 0.297842089086771,
+  "hints_host": 0.06782832741737366
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "accepted": 13,
+  "total": 13,
+  "batch": {
+   "1": {
+    "n_subbatches": 13,
+    "target_bits": 128.0,
+    "batch_log2": -128.51671356350946,
+    "per_proof_log2": [
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055,
+     -132.21715328165055
+    ],
+    "n_proofs_claimed": [
+     13,
+     13,
+     13,
+     13,
+     13,
+     13,
+     13,
+     13,
+     13,
+     13,
+     13,
+     13,
+     13
+    ],
+    "accepted": true,
+    "reason": "accept: all 13 sub-batches accepted; union bound 2^-128.52 <= 2^-128"
+   }
+  },
+  "batch_accepted": true,
+  "seconds": 0.32661205530166626,
+  "wall": 0.3638239987194538,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}

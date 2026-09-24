@@ -1,0 +1,38 @@
+    ],
+    "accepted": true,
+    "reason": "accept: all 1 sub-batches accepted; union bound 2^-128.05 <= 2^-128"
+   }
+  },
+  "batch_accepted": true,
+  "seconds": 0.17104747402481735,
+  "wall": 0.17394048487767577,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}
+
+real	0m20.225s
+user	0m38.477s
+sys	0m53.413s
+/workspace/fx/bf16-ampere-hash:
+total 908
+drwxr-xr-x 3 root root    126 Sep 23 09:50 .
+drwxr-xr-x 3 root root     38 Sep 23 09:50 ..
+-rw-r--r-- 1 root root   1744 Sep 23 09:50 manifest.json
+drwxr-xr-x 2 root root     81 Sep 23 09:50 rep1
+-rw-r--r-- 1 root root  13040 Sep 23 09:50 result.json
+-rw-r--r-- 1 root root 903707 Sep 23 09:50 system.bin
+-rw-r--r-- 1 root root    828 Sep 23 09:50 verify_python.json
+
+/workspace/fx/bf16-ampere-hash/rep1:
+total 4504
+drwxr-xr-x 2 root root      81 Sep 23 09:50 .
+drwxr-xr-x 3 root root     126 Sep 23 09:50 ..
+-rw-r--r-- 1 root root     128 Sep 23 09:50 sub_00.coins
+-rw-r--r-- 1 root root 4602772 Sep 23 09:50 sub_00.proof
+-rw-r--r-- 1 root root    3413 Sep 23 09:50 sub_00.stmt
+{"sys_id":"673461ab446d96869a0ab32d1291667f4af4ba86cdf5fb6479fefaa50dbb8ed4","table_digest":"3ba12207d9f221dcb2a471044cabb314cc3e05e4512a27559080f431aa7210c9","pinned_relation":null,"format":"ligero-system/v3","m":5861,"L":364,"Q":5747,"pins":17,"chain":true,"chain_end":"word"}
+
+  negative row hash.a[3].b1 (hint) +1 in column 136: REJECTED linear constraints failed
+  negative row hash.a[3].b2 (hint) +1 in column 85: REJECTED linear constraints failed
+bf16-ampere hashed gate: 13 honest sub-batches, 86 negatives, 0 failures

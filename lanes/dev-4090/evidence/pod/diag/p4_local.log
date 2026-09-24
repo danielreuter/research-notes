@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/src/backends/direct/ligero/run.py", line 469, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/src/backends/direct/ligero/run.py", line 462, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 973, in bench_vu_rel
+    assert ok, f"sub-batch [{lo}, {hi}): {why}"
+           ^^
+AssertionError: sub-batch [2046, 2387): proximity test failed
+fp8-ada census: {"rows_per_unit": 3769, "bit_rows": 2474, "selector_rows": 640, "hint_rows": 161, "pin_rows": 192, "product_rows": 301, "inverse_rows": 1, "linear_constraints": 589, "quadratic_constraints": 3532, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.2s
+config Config(l=16384, n=65536, D=6, t=196, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk True, mode interactive; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 4096 VUs as 13 sub-batches of <= 341
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.006, 'hints_host': 0.056, 'witness': 0.026, 'self_check': 1.64, 'zk_masks': 0.007, 'encode': 0.005, 'transfer': 0.0, 'merkle': 0.004, 'tests_w': 0.602, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.007, 'tests': 0.602, 'total': 2.3}
+rep 1: prover 0.150s (+hints 0.031s) over 13 proofs; verifier 0.237s; pass wall 0.886s (0.044 ms/VU)

@@ -1,0 +1,19 @@
+fp8-ada census: {"rows_per_unit": 3769, "bit_rows": 2474, "selector_rows": 640, "hint_rows": 161, "pin_rows": 192, "product_rows": 301, "inverse_rows": 1, "linear_constraints": 589, "quadratic_constraints": 3532, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.2s
+config Config(l=4096, n=16384, D=6, t=203, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=4096, n_vus=85, steps=48); zk True, mode interactive; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 4096 VUs as 49 sub-batches of <= 85
+live verifier tcp://213.173.105.69:30899: one session per recorded rep, 49 sub-batches each
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.0, 'hints_host': 0.052, 'witness': 0.025, 'self_check': 1.622, 'zk_masks': 0.005, 'encode': 0.001, 'transfer': 0.0, 'merkle': 0.002, 'tests_w': 0.553, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.003, 'tests': 0.553, 'total': 2.212}
+rep 1: live verifier REJECTED 48/49 (1 sub-batch(es) rejected: sub_17: chain constraints failed (sum over H)); net wait 0.000s over 98 round trips (median rtt 0.9 ms); verifier wall 7.00s cpu 5.20s; t.total_live 0.314s
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/src/backends/direct/ligero/run.py", line 469, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/src/backends/direct/ligero/run.py", line 462, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 973, in bench_vu_rel
+    assert ok, f"sub-batch [{lo}, {hi}): {why}"
+           ^^
+AssertionError: sub-batch [1445, 1530): chain constraints failed (sum over H)

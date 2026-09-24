@@ -1,0 +1,14 @@
+tree /workspace/research/src/7c3b157edd6acd17c0426e3af3a55880fec9808f
+  sub_05: l=4096 1.89 MB, prove 0.005s (+hints 0.001s), urandom calls so far 32
+wrote /workspace/bitexact3/zk/int2-seq 19 files
+IDENTICAL zk main6babe27 vs int2-seq: 19 files
+  sub_05: l=4096 1.89 MB, prove 0.150s (+hints 0.020s), urandom calls so far 32
+wrote /workspace/bitexact3/zk/int2-pipe3 19 files
+IDENTICAL zk main6babe27 vs int2-pipe3: 19 files
+  sub_05: l=4096 1.70 MB, prove 0.004s (+hints 0.001s), urandom calls so far 26
+wrote /workspace/bitexact3/nonzk/int2-seq 19 files
+IDENTICAL nonzk main6babe27 vs int2-seq: 19 files
+  sub_05: l=4096 1.70 MB, prove 0.229s (+hints 0.034s), urandom calls so far 26
+wrote /workspace/bitexact3/nonzk/int2-pipe3 19 files
+IDENTICAL nonzk main6babe27 vs int2-pipe3: 19 files
+BITEXACT3_DONE

@@ -1,0 +1,35 @@
+=== 06:27:58 6babe273535fdb95d6d0e628659caca61076b37c zk
+tree has no FP4ChainRunner(hints=...) (main); --hints device ignored
+tree=/workspace/research/src/6babe273535fdb95d6d0e628659caca61076b37c hints=numpy (main) zk=True mode=interactive batch=4096 per_proof=170 subs=3 seed=7
+510 instances in 0.5s
+  sub_00: l=4096 1.89 MB, prove 4.087s (+hints 0.029s), urandom calls so far 7
+  sub_01: l=4096 1.89 MB, prove 0.017s (+hints 0.026s), urandom calls so far 12
+  sub_02: l=4096 1.89 MB, prove 0.020s (+hints 0.023s), urandom calls so far 17
+wrote /workspace/bitexact/zk/6babe27 10 files
+=== 06:28:07 6babe273535fdb95d6d0e628659caca61076b37c nonzk
+tree has no FP4ChainRunner(hints=...) (main); --hints device ignored
+tree=/workspace/research/src/6babe273535fdb95d6d0e628659caca61076b37c hints=numpy (main) zk=False mode=interactive batch=4096 per_proof=170 subs=3 seed=7
+510 instances in 0.5s
+  sub_00: l=4096 1.70 MB, prove 4.504s (+hints 0.030s), urandom calls so far 6
+  sub_01: l=4096 1.70 MB, prove 0.013s (+hints 0.026s), urandom calls so far 10
+  sub_02: l=4096 1.70 MB, prove 0.011s (+hints 0.024s), urandom calls so far 14
+wrote /workspace/bitexact/nonzk/6babe27 10 files
+=== 06:28:16 3dfdb21d39ea700c8cc7c6d639e03e200d0dcc08 zk
+tree=/workspace/research/src/3dfdb21d39ea700c8cc7c6d639e03e200d0dcc08 hints=device zk=True mode=interactive batch=4096 per_proof=170 subs=3 seed=7
+510 instances in 0.5s
+  sub_00: l=4096 1.89 MB, prove 4.008s (+hints 0.493s), urandom calls so far 7
+  sub_01: l=4096 1.89 MB, prove 0.026s (+hints 0.002s), urandom calls so far 12
+  sub_02: l=4096 1.89 MB, prove 0.023s (+hints 0.001s), urandom calls so far 17
+wrote /workspace/bitexact/zk/3dfdb21 10 files
+=== 06:28:26 3dfdb21d39ea700c8cc7c6d639e03e200d0dcc08 nonzk
+tree=/workspace/research/src/3dfdb21d39ea700c8cc7c6d639e03e200d0dcc08 hints=device zk=False mode=interactive batch=4096 per_proof=170 subs=3 seed=7
+510 instances in 0.5s
+  sub_00: l=4096 1.70 MB, prove 3.293s (+hints 0.394s), urandom calls so far 6
+  sub_01: l=4096 1.70 MB, prove 0.011s (+hints 0.001s), urandom calls so far 10
+  sub_02: l=4096 1.70 MB, prove 0.011s (+hints 0.001s), urandom calls so far 14
+wrote /workspace/bitexact/nonzk/3dfdb21 10 files
+== compare zk
+IDENTICAL 10 files
+== compare nonzk
+IDENTICAL 10 files
+DONE

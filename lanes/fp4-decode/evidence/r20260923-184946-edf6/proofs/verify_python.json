@@ -1,0 +1,70 @@
+{
+ "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+ "independent": false,
+ "statement_format": "ligero-statement/v4",
+ "system_format": "ligero-system/v2",
+ "accepted": 7,
+ "total": 7,
+ "seconds": 0.707799393683672,
+ "wall": 0.7179690636694431,
+ "coins": "the transcript's own coins replayed (file verifier)",
+ "rust_ligero_verify": "not run by this harness; backends/ligero-verify pins fp4-nvf4 (lane ligero-verify-fp4: ligero-system/v2 component chain ends, E2M1 / UE4M3 decode) -- verify these files with `ligero-verify batch --system system.bin --dir repN --target-bits 128` (an independent check when run by a non-producer)",
+ "items": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "proof": "rep1/sub_00.proof",
+   "accepted": true,
+   "reason": "accept (0.170s)",
+   "seconds": 0.1744951605796814
+  },
+  {
+   "rep": 1,
+   "sub": 1,
+   "proof": "rep1/sub_01.proof",
+   "accepted": true,
+   "reason": "accept (0.052s)",
+   "seconds": 0.053126972168684006
+  },
+  {
+   "rep": 1,
+   "sub": 2,
+   "proof": "rep1/sub_02.proof",
+   "accepted": true,
+   "reason": "accept (0.117s)",
+   "seconds": 0.11745132133364677
+  },
+  {
+   "rep": 1,
+   "sub": 3,
+   "proof": "rep1/sub_03.proof",
+   "accepted": true,
+   "reason": "accept (0.053s)",
+   "seconds": 0.053352102637290955
+  },
+  {
+   "rep": 1,
+   "sub": 4,
+   "proof": "rep1/sub_04.proof",
+   "accepted": true,
+   "reason": "accept (0.142s)",
+   "seconds": 0.14258961752057076
+  },
+  {
+   "rep": 1,
+   "sub": 5,
+   "proof": "rep1/sub_05.proof",
+   "accepted": true,
+   "reason": "accept (0.051s)",
+   "seconds": 0.052065037190914154
+  },
+  {
+   "rep": 1,
+   "sub": 6,
+   "proof": "rep1/sub_06.proof",
+   "accepted": true,
+   "reason": "accept (0.114s)",
+   "seconds": 0.11471918225288391
+  }
+ ]
+}

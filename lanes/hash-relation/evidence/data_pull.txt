@@ -1,0 +1,26 @@
+pulled attempt r20260923-080108-ca9c from vy-hash-relation: events=art:84456eec44883ca659b3e8a7e60d534558ff5307df84814e2223a7d0cfa4e848 (1 blob), resources=art:f8dce35b1e485bf6410e5d31a630bd1d04a48e766781e8eb0b8870c17360
+  free 4.6Gi
+pulled attempt r20260923-080502-e138 from vy-hash-relation: events=art:b9ac4e0e870605127987ade95cfdb181d1ecb7e102fb3279110abfc70afa50a6 (1 blob), resources=art:c4f2944f677f17d1a61180a6927ff521b15f772bb8037fdc93625d134215
+  free 4.5Gi
+pulled attempt r20260923-080538-bc48 from vy-hash-relation: events=art:945f7edc135b0ceb83db6b34a26e0f079313ff34e3db42a3325eaffd9a9c4486 (1 blob), resources=art:dbe6ff97ef19f1b2ef515bfa03b2d2585bdfdeecf2a1e050ada07718656d
+  free 4.4Gi
+pulled attempt r20260923-081059-8ff6 from vy-hash-relation: events=art:ae083c20ef32caf00ba26b40ad298e69ff6767773b8b566ec28e4b9b21259cf8 (1 blob), resources=art:2a9322f4e18804ea716ae9fd79a364fa9d7f27a966823e900061bea7beec
+  free 4.3Gi
+pulled attempt r20260923-081227-ac87 from vy-hash-relation: events=art:1561f8788599da8b0941e08c7a9f5501311994280dd7f5688f8793141f827c84 (1 blob), resources=art:43bc20019f3de3d97d32dbd5de8e86e052a6f1ef66292ed4942cf01d90f4
+  free 4.2Gi
+pulled attempt r20260923-081315-9f58 from vy-hash-relation: events=art:520598aabbf60feedd832fca4902a15286e6701c9bf96400d3415eb04c8279e2 (1 blob), resources=art:e0cf44dbc1064ab5bc8e1683939c90c4c5cd58083e9ef6a90eda656c01d5
+  free 4.9Gi
+pulled attempt r20260923-081405-f700 from vy-hash-relation: events=art:08f949232e2a1fedb5e42f4587fb3a0f779fb113758b4af1b01c060b3b10a084 (1 blob), resources=art:1d287631ac03adfaefe6eb7ab6a46e1a8cdd8370e5aa09e206039467cf06
+  free 4.5Gi
+pulled attempt r20260923-081455-e50f from vy-hash-relation: events=art:defbe301d79783e626f71f6d83ba16442c8d850d5c8b60e8f77121b4de1f29fa (1 blob), resources=art:a491959ee6e3e1d1f85eee22ad58f2798d3657465e7ef9177648f6940c33
+  free 4.1Gi
+pulled attempt r20260923-081543-d32f from vy-hash-relation: events=art:1920edb14b9a9e939a27efadd8f8fd4cba4ceb1a843b5a72313e9ea342e6e9cd (1 blob), resources=art:fd0b763d0f5ac1d06d163ecfa8a2dc3d6d93ced70282fac9c56543ef5e5c
+  free 3.8Gi
+pulled attempt r20260923-081632-0fb3 from vy-hash-relation: events=art:c715e24a499a44462a163e46b8fd92c9536e189fe3b0488508eeb6152cd138be (1 blob), resources=art:c9a036da1026d9e1440f663689e94992159e6fef0d82906e3ff9bd8cabf2
+  free 3.4Gi
+pulled attempt r20260923-081743-40d3 from vy-hash-relation: events=art:d916a33e8fac24ae5e761d5d38c0003cda86f94948d930df32edc0e4292d5242 (1 blob), resources=art:376cd37253b3b817c3877e98ea159a8a338a7e28415f0cf1429911793b8d
+  free 4.7Gi
+pulled attempt r20260923-081851-3955 from vy-hash-relation: events=art:b48b8010afb0f40f0d916dcf7dbc92a6e5fe711d70429de30aefaad95f65fb0b (1 blob), resources=art:4ecd3db131c51179b79904e0c4acb4a597f9e5c7b9428a08f4baca21f7b5
+  free 4.6Gi
+pulled attempt r20260923-082033-2e0f from vy-hash-relation: events=art:efa27d1463a3003affc6c745bc366864fb23272fe3010cbb6db8ea2d65d64c5b (1 blob), resources=art:21be18b16fdd903dbf58f337d408c9111cfa10d42bb27467eb6f95e6f747
+  free 4.5Gi

@@ -1,0 +1,293 @@
+{
+ "n_subbatches": 25,
+ "target_bits": 128.0,
+ "batch_log2": -128.04953484711893,
+ "per_proof_log2": [
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367,
+  -132.69339103689367
+ ],
+ "n_proofs_claimed": [
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25,
+  25
+ ],
+ "accepted": true,
+ "reason": "accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128",
+ "batch_bits": 128.04953484711893,
+ "n_accepted": 25,
+ "n_rejected": 0,
+ "seconds": 4.20010133087635,
+ "verifier": "python (backends.direct.ligero.protocol.verify + batch_bound)",
+ "items": [
+  {
+   "name": "sub_00.proof",
+   "accepted": true,
+   "reason": "accept (2.801s)",
+   "seconds": 2.8019986264407635,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_01.proof",
+   "accepted": true,
+   "reason": "accept (0.028s)",
+   "seconds": 0.028982598334550858,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_02.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.02547527477145195,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_03.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.02504398301243782,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_04.proof",
+   "accepted": true,
+   "reason": "accept (0.027s)",
+   "seconds": 0.027273397892713547,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_05.proof",
+   "accepted": true,
+   "reason": "accept (0.026s)",
+   "seconds": 0.025908436626195908,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_06.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.02508656308054924,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_07.proof",
+   "accepted": true,
+   "reason": "accept (0.026s)",
+   "seconds": 0.026144467294216156,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_08.proof",
+   "accepted": true,
+   "reason": "accept (0.026s)",
+   "seconds": 0.026227988302707672,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_09.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.0249343141913414,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_10.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.025088142603635788,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_11.proof",
+   "accepted": true,
+   "reason": "accept (0.026s)",
+   "seconds": 0.026259709149599075,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_12.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.024884480983018875,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_13.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.0249394029378891,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_14.proof",
+   "accepted": true,
+   "reason": "accept (0.026s)",
+   "seconds": 0.025956425815820694,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_15.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.025806035846471786,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_16.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.024856053292751312,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_17.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.02537747472524643,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_18.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.02573414146900177,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_19.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.02532799169421196,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_20.proof",
+   "accepted": true,
+   "reason": "accept (0.026s)",
+   "seconds": 0.025985125452280045,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_21.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.02514519914984703,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_22.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.02480105310678482,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_23.proof",
+   "accepted": true,
+   "reason": "accept (0.025s)",
+   "seconds": 0.024857163429260254,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  },
+  {
+   "name": "sub_24.proof",
+   "accepted": true,
+   "reason": "accept (0.026s)",
+   "seconds": 0.02607877179980278,
+   "own_coins": true,
+   "per_proof_log2": -132.69339103689367,
+   "n_proofs": 25
+  }
+ ]
+}

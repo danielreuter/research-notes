@@ -1,0 +1,2 @@
+research: run r20260923-122148-fda5 launched on vy-dev-h100-2 (g8zrn40cutw95q) pid=1508 -> /workspace/research/runs/r20260923-122148-fda5
+research: observe with `research fetch r20260923-122148-fda5`; the workload does not depend on this session staying alive

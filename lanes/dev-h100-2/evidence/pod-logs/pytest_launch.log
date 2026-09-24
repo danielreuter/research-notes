@@ -1,0 +1,2 @@
+research: run r20260923-122257-4a98 launched on vy-dev-h100-2 (g8zrn40cutw95q) pid=1624 -> /workspace/research/runs/r20260923-122257-4a98
+research: observe with `research fetch r20260923-122257-4a98`; the workload does not depend on this session staying alive

@@ -1,0 +1,21 @@
+diff --git a/backends/ligerito-verify/src/lgto.rs b/backends/ligerito-verify/src/lgto.rs
+index 9d99898e..08bceb75 100644
+--- a/backends/ligerito-verify/src/lgto.rs
++++ b/backends/ligerito-verify/src/lgto.rs
+@@ -1743,6 +1743,16 @@ mod tests {
+         v(&ok).unwrap();
+     }
+ 
++    /// ligerito-relation-2 32e9bd5's gate negative 45 (Fiat-Shamir): a proof Python MADE for a statement with a claimed
++    /// word off the chain ends, so everything but the canonicality rule holds (a build without it accepted this proof).
++    #[test]
++    fn python_proof_for_a_non_canonical_statement_rejected() {
++        let (st, pf) = (include_bytes!("../fixtures/lgto/fp8ada_l256_v1/canon_y_offend.stmt"), include_bytes!("../fixtures/lgto/fp8ada_l256_v1/canon_y_offend.lgto.neg"));
++        let e = verify(st, KEY, pf, &mut fs, &strict()).unwrap_err();
++        assert_eq!(e, "statement sub-batch 0: claimed word off a chain end (non-canonical)");
++        assert!(verify(STMT, KEY, pf, &mut fs, &strict()).is_err());
++    }
++
+     /// red-team-ligerito-3 R3-3: operand words past the sub-batch's chains are unconstrained, so a canonical statement
+     /// has 0 there (ligerito-relation-2 32e9bd5); the check runs before the words are decoded.
+     #[test]

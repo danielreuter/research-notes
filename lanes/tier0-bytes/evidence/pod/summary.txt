@@ -1,0 +1,92 @@
+[17:43:50Z] (hash_before) START trim=0 pipeline=4
+[17:44:57Z] (hash_before) EXIT=0  elapsed=67s
+-rw-r--r-- 1 root root   9022 Sep 23 17:44 manifest.json
+-rw-r--r-- 1 root root 926203 Sep 23 17:43 system.bin
+proof_bytes_total 90935260 13
+stmt_bytes_total 1182597 13
+0000000   L   I   G   S   T   M   0   5
+coins_bytes_total 1664 13
+verify rep 1 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+verify rep 2 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+verify rep 3 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+hash_before t.total=0.5513311242684722 t.serialization=0.010713567949831486 split.openings_seconds=0.010158687949180603 split.subbatches=13 verifier.seconds=0.49567274539731443 mem.peak_device_bytes=10942489600 proof_bytes=90934688
+  backend: {'statement_format': None, 'pipeline': None, 'authentication': None, 'hash': None}
+  reps: (see result.json)
+[17:44:57Z] (hash_after) START trim=1 pipeline=4
+[17:45:11Z] (hash_after) EXIT=0  elapsed=14s
+-rw-r--r-- 1 root root   9023 Sep 23 17:45 manifest.json
+-rw-r--r-- 1 root root 926203 Sep 23 17:45 system.bin
+proof_bytes_total 90935260 13
+stmt_bytes_total 347013 13
+0000000   L   I   G   S   T   M   0   6
+coins_bytes_total 1664 13
+verify rep 1 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+verify rep 2 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+verify rep 3 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+hash_after t.total=0.5494537244085222 t.serialization=0.01082006397843361 split.openings_seconds=0.01028796797990799 split.subbatches=13 verifier.seconds=0.4930473056156188 mem.peak_device_bytes=10942751744 proof_bytes=90934688
+  backend: {'statement_format': None, 'pipeline': None, 'authentication': None, 'hash': None}
+  reps: (see result.json)
+[17:45:11Z] (bare_before) START trim=0 pipeline=4
+[17:45:39Z] (bare_before) EXIT=0  elapsed=28s
+-rw-r--r-- 1 root root   8204 Sep 23 17:45 manifest.json
+-rw-r--r-- 1 root root 246605 Sep 23 17:45 system.bin
+proof_bytes_total 66056588 13
+stmt_bytes_total 14484392 13
+0000000   L   I   G   S   T   M   0   4
+coins_bytes_total 1664 13
+verify rep 1 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+verify rep 2 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+verify rep 3 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+bare_before t.total=0.17165954899974167 t.serialization=0.008361298965082536 split.openings_seconds=0.008285798946945136 split.subbatches=13 verifier.seconds=0.23578253970481455 mem.peak_device_bytes=6566488064 proof_bytes=66056016
+  backend: {'statement_format': None, 'pipeline': None, 'authentication': None, 'hash': None}
+  reps: (see result.json)
+[17:45:39Z] (bare_after) START trim=1 pipeline=4
+[17:45:48Z] (bare_after) EXIT=0  elapsed=9s
+-rw-r--r-- 1 root root   8204 Sep 23 17:45 manifest.json
+-rw-r--r-- 1 root root 246605 Sep 23 17:45 system.bin
+proof_bytes_total 66056588 13
+stmt_bytes_total 14484392 13
+0000000   L   I   G   S   T   M   0   4
+coins_bytes_total 1664 13
+verify rep 1 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+verify rep 2 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+verify rep 3 rc=127
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+
+./measure.sh: line 38: /usr/bin/time: No such file or directory
+bare_after t.total=0.1700202074273789 t.serialization=0.008224542103262022 split.openings_seconds=0.008148974226059391 split.subbatches=13 verifier.seconds=0.23320840508677065 mem.peak_device_bytes=6566488064 proof_bytes=66056016
+  backend: {'statement_format': None, 'pipeline': None, 'authentication': None, 'hash': None}
+  reps: (see result.json)

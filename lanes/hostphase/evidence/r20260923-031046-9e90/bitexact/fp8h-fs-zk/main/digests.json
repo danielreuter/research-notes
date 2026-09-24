@@ -1,0 +1,72 @@
+{
+ "args": {
+  "tree": "/workspace/src-main",
+  "rel": "fp8-hopper",
+  "zk": true,
+  "mode": "fiat-shamir",
+  "vus": 341,
+  "subs": 3,
+  "seed": 20260922,
+  "out": "/workspace/research/runs/r20260923-031046-9e90/bitexact/fp8h-fs-zk/main",
+  "impl": null,
+  "cache": "/workspace/instances-cache",
+  "total": 4096
+ },
+ "files": {
+  "system.bin": "968d99d6d010c3c8dbfa7123bb5b8afc7e190b037f6eaeb44f9167cdb6f1215a",
+  "sub_00.stmt": "5a2fedff7fdebf0701770682ebbae821813f02628daccc9397111b6b7dddde2c",
+  "sub_00.proof": "aab725f512c718a30784e300deb70f1c7b422e68a2de7218837ae8c6793ebab2",
+  "sub_01.stmt": "f98546649676716a184988af17cd11d47a60a2d9d923d39147cdccc9d5de1955",
+  "sub_01.proof": "90dfe54b789f2f98d3fd5ac3a2de4f67ad09352f246b312b8d3a2717ddcd8376",
+  "sub_02.stmt": "517c3c604127d8ba4635edb2b9f6ea268e19509c8b2eaa2564c00710b76f7da7",
+  "sub_02.proof": "c7db8c89e15740dbe3bc3d023ec16da5d51eb9d9c14590fa38a9d337ac94c43d"
+ },
+ "timings": [
+  {
+   "statement": 0.0026,
+   "witness": 0.3724,
+   "zk_masks": 0.043,
+   "encode": 2.5877,
+   "transfer": 0.0,
+   "merkle": 0.0031,
+   "tests_w": 0.0193,
+   "tests_quad": 0.0705,
+   "tests_chain": 0.0223,
+   "tests": 0.1121,
+   "openings": 0.009,
+   "total": 3.1299,
+   "hints_host": 0.1658
+  },
+  {
+   "statement": 0.0017,
+   "witness": 0.0188,
+   "zk_masks": 0.0008,
+   "encode": 0.0049,
+   "transfer": 0.0,
+   "merkle": 0.002,
+   "tests_w": 0.0184,
+   "tests_quad": 0.0041,
+   "tests_chain": 0.0042,
+   "tests": 0.0267,
+   "openings": 0.0075,
+   "total": 0.0625,
+   "hints_host": 0.0052
+  },
+  {
+   "statement": 0.002,
+   "witness": 0.0186,
+   "zk_masks": 0.0007,
+   "encode": 0.0049,
+   "transfer": 0.0,
+   "merkle": 0.002,
+   "tests_w": 0.0127,
+   "tests_quad": 0.0037,
+   "tests_chain": 0.0029,
+   "tests": 0.0193,
+   "openings": 0.0053,
+   "total": 0.0528,
+   "hints_host": 0.0054
+  }
+ ],
+ "urandom_calls": 8
+}

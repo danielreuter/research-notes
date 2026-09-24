@@ -1,0 +1,77 @@
+census: {"rows_per_unit": 1583, "bit_rows": 972, "selector_rows": 172, "hint_rows": 86, "pin_rows": 141, "product_rows": 210, "inverse_rows": 2, "linear_constraints": 306, "quadratic_constraints": 1389, "chain": true, "steps_per_vu": 24, "rows_per_vu": 37992, "bit_rows_per_vu": 23328, "shifters_per_unit": 6, "digit_positions": 6, "digit_radix": 12, "lookups_per_unit": 18}
+4096 synthetic VUs (14 families, model-recorded accumulators) in 4.3s
+config Config(l=16384, n=65536, D=6, t=193, target_log2=-128.0, zk=False, t_pad=0, mode='interactive'); layout Layout(l=16384, n_vus=682, steps=24); zk False, mode interactive; system {'rows': 1583, 'by_kind': {'hint': 86, 'bit': 972, 'prod': 210, 'inv': 2, 'pin': 141, 'sel': 172}, 'linear': 306, 'quadratic': 1389, 'pins': 141, 'hints': 86}; 4096 VUs as 7 sub-batches of <= 682
+warm-up (7 sub-batch(es), the prover's self-check on the first): {'statement': 0.001, 'hints_host': 0.563, 'witness': 0.039, 'self_check': 3.007, 'encode': 0.169, 'transfer': 0.0, 'merkle': 0.008, 'tests_w': 1.26, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.015, 'tests': 1.26, 'total': 4.507, 'zk_masks': 0.0}
+rep 1: prover 0.214s (+hints 0.019s) over 7 proofs; verifier 0.516s; prove wall 0.233s (0.057 ms/VU)
+rep 2: prover 0.050s (+hints 0.006s) over 7 proofs; verifier 0.519s; prove wall 0.056s (0.014 ms/VU)
+rep 3: prover 0.050s (+hints 0.005s) over 7 proofs; verifier 0.532s; prove wall 0.056s (0.013 ms/VU)
+dumped 7 proofs to /workspace/research/runs/r20260923-091204-6154/proofs
+dumps: 7/7 accepted cold from bytes by the Python file verifier in 0.61s
+contract problems: ['buckets and joints sum to 0.0576776 s, more than t.total 0.0556714 s by over 1%: something is double-counted', 't.zk_additional is 1.2421956786249545e-05 but proof_class NON_ZK_PROOF_DIAGNOSTIC has no zero-knowledge work']
+{
+ "seconds_per_vu": 1.3591653756798641e-05,
+ "prover_total": 0.055671413787847235,
+ "verifier": 0.5185530902817845,
+ "bytes": {
+  "root": 224,
+  "w": 2752512,
+  "h": 2752344,
+  "cols": 5404,
+  "opened_columns": 8554532,
+  "merkle_paths": 691712,
+  "q_chain": 5504856,
+  "v_linear": 0,
+  "coin_commitments_and_openings": 1344,
+  "auth_multiproofs": 0,
+  "total": 20262928
+ },
+ "n_proofs": 7,
+ "per_proof_vus": 682,
+ "t": 193,
+ "zk": false,
+ "k": 16384,
+ "peak_device_bytes": 3035153408,
+ "soundness_log2": -128.05372499260693,
+ "per_proof_log2": -130.86107991466451,
+ "rows": 1583,
+ "medians": {
+  "statement": 0.0003481513309950216,
+  "hints_host": 0.005608925554462089,
+  "witness": 0.00021516834475586113,
+  "zk_masks": 1.2421956786249545e-05,
+  "encode": 0.00469133919619376,
+  "transfer": 1.0200485460164256e-05,
+  "merkle": 0.00371292640328697,
+  "tests_w": 0.038718154697771116,
+  "tests_quad": 1.1407830735489634e-06,
+  "tests_chain": 1.153322193295531e-06,
+  "openings": 0.004358098643291192,
+  "tests": 0.038720413701986284,
+  "total": 0.05006248823338515,
+  "measured_statement": 0.0009921280108392237,
+  "measured_hints_host": 0.013906399965286254,
+  "measured_witness": 0.000523903988301754,
+  "measured_zk_masks": 2.9855999979190532e-05,
+  "measured_encode": 0.011170911908149719,
+  "measured_transfer": 2.3839999339543287e-05,
+  "measured_merkle": 0.008845823764801026,
+  "measured_tests_w": 0.09647638320922852,
+  "measured_tests_quad": 2.7200000768061726e-06,
+  "measured_tests_chain": 2.7200000768061726e-06,
+  "measured_openings": 0.006461407959461212,
+  "measured_total": 0.12740003502555192
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "system_format": "ligero-system/v2",
+  "accepted": 7,
+  "total": 7,
+  "seconds": 0.5963427720125765,
+  "wall": 0.6095829328987747,
+  "coins": "the transcript's own coins replayed (file verifier)",
+  "rust_ligero_verify": "not run by this harness; backends/ligero-verify pins fp4-nvf4 (lane ligero-verify-fp4: ligero-system/v2 component chain ends, E2M1 / UE4M3 decode) -- verify these files with `ligero-verify batch --system system.bin --dir repN --target-bits 128` (an independent check when run by a non-producer)"
+ },
+ "validation": "passed"
+}

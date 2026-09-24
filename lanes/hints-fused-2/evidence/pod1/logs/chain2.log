@@ -1,0 +1,15 @@
+chain2 start 22:24:02
+22:24:20 r3_to_v3_p4_16k rc=rc=0
+22:24:41 r3_fu_v3x4_p4_4k rc=rc=0
+22:24:57 r3_fu_v3_p4_16k rc=rc=0
+22:25:18 r3_fu_v3x4_p4_16k rc=rc=0
+22:25:44 r3_to_v3x4_p4_4k rc=rc=0
+22:26:03 r3_fu_v3x4_p2_16k rc=rc=0
+22:26:26 r3_fu_v3x4_p4_8k rc=rc=0
+22:26:50 r3_to_v3x4_p2_16k rc=rc=0
+22:27:12 r3_fu_v3x4_p2_8k rc=rc=0
+22:27:38 r3_fu_v3x4_p8_4k rc=rc=0
+22:30:32 r3_base_v3_p4_16k rc=rc=0
+22:30:50 r3_fu_v2x4_p4_16k rc=rc=0
+22:31:09 r3_to_v2x4_p4_16k rc=rc=0
+22:31:28 r4_to_v3_p4_16k rc=rc=0

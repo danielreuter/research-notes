@@ -1,0 +1,8 @@
+fp8-ada, merged tree + hook, pod 4090 (hook_check.py):
+hooks [Poseidon2Witness] rows 1704
+torch program 1.25 s (l=2048)
+compile fused 80.9 s, tables False, src 521 kB
+fused+hook first 12.91 s (poseidon2_rows NVRTC)
+fused+hook per call (l=2048) 30.16 ms
+EQUAL True
+fused+hook per call (l=16384) 2.24 ms

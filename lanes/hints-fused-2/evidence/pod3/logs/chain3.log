@@ -1,0 +1,18 @@
+chain3 start 22:53:24
+22:54:05 r6_to_bf16h-v3_p4_16k rc=rc=0
+22:54:23 r6_fu_bf16h-v3_p4_16k rc=rc=0
+22:57:09 r6_fu_bf16h-v3x4_p4_4k rc=rc=0
+22:57:32 r6_to_bf16h-v3x4_p4_4k rc=rc=0
+22:58:13 r6_to_fp8h-v3_p4_16k rc=rc=0
+22:58:28 r6_fu_fp8h-v3_p4_16k rc=rc=0
+23:01:49 r6_fu_fp8h-v3x4_p4_4k rc=rc=0
+23:02:09 r6_to_fp8h-v3x4_p4_4k rc=rc=0
+23:02:29 r7_to_bf16h-v3_p4_16k rc=rc=0
+23:02:47 r7_fu_bf16h-v3_p4_16k rc=rc=0
+23:03:05 r7_fu_bf16h-v3x4_p4_4k rc=rc=0
+23:03:28 r7_to_bf16h-v3x4_p4_4k rc=rc=0
+23:03:45 r7_to_fp8h-v3_p4_16k rc=rc=0
+23:03:59 r7_fu_fp8h-v3_p4_16k rc=rc=0
+23:04:15 r7_fu_fp8h-v3x4_p4_4k rc=rc=0
+23:04:35 r7_to_fp8h-v3x4_p4_4k rc=rc=0
+CHAIN3_DONE

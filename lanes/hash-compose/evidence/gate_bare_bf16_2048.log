@@ -1,0 +1,8 @@
+vu-k1536 [1870, 2040): l=16384 prover 0.05s -> True accept (0.030s)
+vu-k1536 [2040, 2048): l=1024 prover 0.15s -> True accept (0.020s)
+negatives: 52/52 rejected
+mutations: 252/252 rejected (one per gadget scope x row class + 3 chain-specific, l=256)
+
+real	2m23.676s
+user	2m29.534s
+sys	0m2.454s

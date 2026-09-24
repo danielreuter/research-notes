@@ -1,0 +1,8 @@
+fp8-ada: 4096 VUs as 13 sub-batches of <= 341 (l = 16384), zk True
+  depth 4 run 1/5: 13/13 accepted, wall 0.195s
+  depth 4 run 2/5: 13/13 accepted, wall 0.187s
+  depth 4 run 3/5: 13/13 accepted, wall 0.190s
+  depth 4 run 4/5: 13/13 accepted, wall 0.184s
+  depth 4 run 5/5: 13/13 accepted, wall 0.195s
+depth 4: 0 rejected of 65 sub-batches; median wall 0.190s
+TABLE relation=fp8-ada zk=True batch=16384 vus=4096: depth 4: 0/65 rejected, wall 0.190s  (66s)

@@ -1,0 +1,4 @@
+=== 21:06:10 tree=/workspace/src sha=a6178cd cmd: /workspace/venv312/bin/python -m pytest -q -x -rfE -p no:cacheprovider backends/direct/ligero/hints_fused_test.py -k adversarial and fp8-ada-v3x4
+.                                                                        [100%]
+1 passed, 71 deselected in 11.78s
+=== 21:06:23 rc=0 wall=13s

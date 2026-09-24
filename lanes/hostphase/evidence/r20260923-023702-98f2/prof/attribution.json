@@ -1,0 +1,444 @@
+{
+ "relation": "bf16-hopper",
+ "zk": true,
+ "mode": "interactive",
+ "vus": 170,
+ "l": 16384,
+ "cfg": "Config(l=16384, n=65536, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive')",
+ "system": {
+  "m": 3292,
+  "pins": 96,
+  "hints": 97,
+  "L": 339,
+  "Q": 3164,
+  "program_ops": 552,
+  "kinds": {
+   "hint": 97,
+   "bits": 174,
+   "prod": 166,
+   "pin": 96,
+   "sels": 19
+  }
+ },
+ "unprofiled_timings": {
+  "statement": 0.001493215560913086,
+  "witness": 0.02910706028342247,
+  "zk_masks": 0.0007637739181518555,
+  "encode": 0.004656974226236343,
+  "transfer": 6.29723072052002e-05,
+  "merkle": 0.0019494257867336273,
+  "tests_w": 0.011846590787172318,
+  "tests_quad": 0.0035939551889896393,
+  "tests_chain": 0.002948623150587082,
+  "tests": 0.01838916912674904,
+  "openings": 0.003481663763523102,
+  "total": 0.0599701851606369,
+  "hints_host": 0.0042571984231472015
+ },
+ "profiled_timings": {
+  "statement": 0.0016681589186191559,
+  "witness": 0.062423188239336014,
+  "zk_masks": 0.0013278014957904816,
+  "encode": 0.004731379449367523,
+  "transfer": 0.00011130422353744507,
+  "merkle": 0.002032667398452759,
+  "tests_w": 0.015472259372472763,
+  "tests_quad": 0.005182929337024689,
+  "tests_chain": 0.005997378379106522,
+  "tests": 0.026652567088603973,
+  "openings": 0.006201334297657013,
+  "total": 0.10525129362940788,
+  "hints_host": 0.00916588306427002
+ },
+ "rows": [
+  {
+   "phase": "statement",
+   "wall_ms": 1.703458984375,
+   "gpu_kernel_ms": 0.0,
+   "kernels": 0,
+   "launches": 0,
+   "graph_launches": 0,
+   "syncs": 1,
+   "sync_ms": 0.018783,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 6,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": []
+  },
+  {
+   "phase": "witness",
+   "wall_ms": 62.3713310546875,
+   "gpu_kernel_ms": 8.802732999999998,
+   "kernels": 4158,
+   "launches": 4158,
+   "graph_launches": 0,
+   "syncs": 553,
+   "sync_ms": 1.9918210000000003,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 12870,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     3814.6080000000416
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     1622.3419999999999
+    ],
+    [
+     "void at::native::reduce_kernel<128, 4, at::native::ReduceOp<",
+     1578.6080000000015
+    ],
+    [
+     "void at::native::(anonymous namespace)::indexSelectSmallInde",
+     1172.8490000000022
+    ],
+    [
+     "void at::native::(anonymous namespace)::indexSelectLargeInde",
+     431.89599999999984
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_",
+     112.38200000000002
+    ]
+   ]
+  },
+  {
+   "phase": "zk_masks",
+   "wall_ms": 1.293208984375,
+   "gpu_kernel_ms": 0.08796799999999999,
+   "kernels": 22,
+   "launches": 21,
+   "graph_launches": 0,
+   "syncs": 11,
+   "sync_ms": 0.08072400000000002,
+   "memcpy": 0,
+   "d2h_mb": 4e-06,
+   "torch_ops": 118,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     26.17600000000001
+    ],
+    [
+     "chacha20_blocks",
+     21.472
+    ],
+    [
+     "void at::native::index_elementwise_kernel<128, 4, at::native",
+     9.312
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     8.576
+    ],
+    [
+     "void at_cuda_detail::cub::DeviceSelectSweepKernel<at_cuda_de",
+     7.968
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     6.496
+    ]
+   ]
+  },
+  {
+   "phase": "encode",
+   "wall_ms": 4.703220703125,
+   "gpu_kernel_ms": 4.551743,
+   "kernels": 37,
+   "launches": 20,
+   "graph_launches": 0,
+   "syncs": 5,
+   "sync_ms": 0.502876,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 239,
+   "verdict": "GPU-bound",
+   "top_kernels": [
+    [
+     "rs_encode_ligero",
+     3362.256
+    ],
+    [
+     "triton_poi_fused_cat_0",
+     331.06800000000004
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     315.80400000000003
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_",
+     240.477
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     225.916
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     43.263000000000005
+    ]
+   ]
+  },
+  {
+   "phase": "transfer",
+   "wall_ms": 0.071166015625,
+   "gpu_kernel_ms": 0.0,
+   "kernels": 0,
+   "launches": 0,
+   "graph_launches": 0,
+   "syncs": 1,
+   "sync_ms": 0.004949,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 1,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": []
+  },
+  {
+   "phase": "merkle",
+   "wall_ms": 2.03319140625,
+   "gpu_kernel_ms": 1.7405190000000001,
+   "kernels": 21,
+   "launches": 0,
+   "graph_launches": 0,
+   "syncs": 3,
+   "sync_ms": 1.287521,
+   "memcpy": 0,
+   "d2h_mb": 3.2e-05,
+   "torch_ops": 0,
+   "verdict": "GPU-bound",
+   "top_kernels": [
+    [
+     "blake3_chunks",
+     1628.777
+    ],
+    [
+     "blake3_parents",
+     111.74199999999999
+    ]
+   ]
+  },
+  {
+   "phase": "tests_w",
+   "wall_ms": 15.474955078125,
+   "gpu_kernel_ms": 0.8910269999999995,
+   "kernels": 141,
+   "launches": 138,
+   "graph_launches": 0,
+   "syncs": 7,
+   "sync_ms": 0.6927050000000001,
+   "memcpy": 0,
+   "d2h_mb": 0.79872,
+   "torch_ops": 475,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "lincomb_u64_D6",
+     549.368
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     213.59700000000018
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     44.223000000000006
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     37.504
+    ],
+    [
+     "void at::native::reduce_kernel<128, 4, at::native::ReduceOp<",
+     25.696
+    ],
+    [
+     "void at::native::index_elementwise_kernel<128, 4, at::native",
+     8.767
+    ]
+   ]
+  },
+  {
+   "phase": "tests_quad",
+   "wall_ms": 5.153173828125,
+   "gpu_kernel_ms": 3.3019040000000026,
+   "kernels": 169,
+   "launches": 151,
+   "graph_launches": 0,
+   "syncs": 1,
+   "sync_ms": 0.012933,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 410,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "boolcomb_u32_D6",
+     1263.79
+    ],
+    [
+     "void at::native::(anonymous namespace)::indexSelectLargeInde",
+     1228.078
+    ],
+    [
+     "quad_u32_D6",
+     420.378
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     248.15799999999996
+    ],
+    [
+     "triton_poi_fused_cat_0",
+     71.838
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     30.430999999999997
+    ]
+   ]
+  },
+  {
+   "phase": "tests_chain",
+   "wall_ms": 5.9856953125,
+   "gpu_kernel_ms": 0.5485689999999999,
+   "kernels": 157,
+   "launches": 140,
+   "graph_launches": 0,
+   "syncs": 7,
+   "sync_ms": 0.230827,
+   "memcpy": 0,
+   "d2h_mb": 1.585104,
+   "torch_ops": 731,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     158.39700000000002
+    ],
+    [
+     "rs_encode_ligero",
+     99.967
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     97.47000000000004
+    ],
+    [
+     "triton_poi_fused_cat_0",
+     72.06400000000001
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_",
+     33.536
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     30.688
+    ]
+   ]
+  },
+  {
+   "phase": "openings",
+   "wall_ms": 6.1772509765625,
+   "gpu_kernel_ms": 0.031294999999999996,
+   "kernels": 2,
+   "launches": 2,
+   "graph_launches": 0,
+   "syncs": 41,
+   "sync_ms": 1.1490800000000005,
+   "memcpy": 0,
+   "d2h_mb": 8.426384,
+   "torch_ops": 47,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "void at::native::(anonymous namespace)::indexSelectLargeInde",
+     28.799
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     2.496
+    ]
+   ]
+  },
+  {
+   "phase": "_tail",
+   "wall_ms": 0.058494140625,
+   "gpu_kernel_ms": 0.0,
+   "kernels": 0,
+   "launches": 0,
+   "graph_launches": 0,
+   "syncs": 0,
+   "sync_ms": 0.0,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 0,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": []
+  },
+  {
+   "phase": "hints+marshal(pre-prove)",
+   "wall_ms": 314.1256796875,
+   "gpu_kernel_ms": 0.657850000000001,
+   "kernels": 377,
+   "launches": 377,
+   "graph_launches": 0,
+   "syncs": 22,
+   "sync_ms": 1.0742670000000003,
+   "memcpy": 0,
+   "d2h_mb": 3e-06,
+   "torch_ops": 2117,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     388.18700000000007
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     162.20799999999997
+    ],
+    [
+     "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<",
+     40.767
+    ],
+    [
+     "void at::native::(anonymous namespace)::CatArrayBatchedCopy<",
+     28.448
+    ],
+    [
+     "void at::native::index_elementwise_kernel<128, 4, at::native",
+     11.552
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     9.312000000000001
+    ]
+   ]
+  }
+ ],
+ "full_pass": {
+  "statement": 0.0384681411087513,
+  "witness": 0.9784096330404282,
+  "zk_masks": 0.01975708082318306,
+  "encode": 0.11636492237448692,
+  "transfer": 0.0015093311667442322,
+  "merkle": 0.048444248735904694,
+  "tests_w": 0.2797522619366646,
+  "tests_quad": 0.09012994915246964,
+  "tests_chain": 0.08252064138650894,
+  "tests": 0.45240285247564316,
+  "openings": 0.08677427098155022,
+  "total": 1.7436561286449432,
+  "hints_host": 0.12914370372891426,
+  "_pass_wall": 4.306137587875128
+ }
+}

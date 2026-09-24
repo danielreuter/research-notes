@@ -1,0 +1,101 @@
+fp8-hopper chain system: {'rows': 3396, 'by_kind': {'hint': 148, 'bit': 2196, 'prod': 282, 'inv': 1, 'pin': 192, 'sel': 577}, 'linear': 554, 'quadratic': 3164, 'pins': 192, 'hints': 148} compiled in 0.40s; device cuda
+fp8-hopper vu-k1536 [0, 341): l=16384 prover 23.47s -> True accept (0.044s)
+fp8-hopper vu-k1536 [341, 682): l=16384 prover 0.04s -> True accept (0.027s)
+fp8-hopper vu-k1536 [682, 1023): l=16384 prover 0.04s -> True accept (0.026s)
+fp8-hopper vu-k1536 [1023, 1364): l=16384 prover 0.04s -> True accept (0.027s)
+fp8-hopper vu-k1536 [1364, 1705): l=16384 prover 0.04s -> True accept (0.026s)
+fp8-hopper vu-k1536 [1705, 2046): l=16384 prover 0.04s -> True accept (0.027s)
+fp8-hopper vu-k1536 [2046, 2048): l=256 prover 0.20s -> True accept (0.015s)
+  negative claimed word bit 0 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 1 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 2 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 3 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 4 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 5 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 6 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 7 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 8 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 9 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 10 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 11 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 12 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 13 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 14 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 15 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 16 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 17 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 18 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 19 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 20 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 21 flipped: REJECTED column challenge mismatch
+  negative claimed word +1 ulp: REJECTED column challenge mismatch
+  negative claimed word -1 ulp: REJECTED column challenge mismatch
+  negative off-domain operand 0x7f in a: REJECTED public inputs: public inputs rejected: E4M3 NaN operand
+  negative off-domain operand 0xff in a: REJECTED public inputs: public inputs rejected: E4M3 NaN operand
+  negative off-domain operand 0xff in b: REJECTED public inputs: public inputs rejected: E4M3 NaN operand
+  negative operand a[10][1] exponent bit flipped: REJECTED column challenge mismatch
+  negative link c.f[20] != y.f[19]: REJECTED linear constraints failed
+  negative c_0 != 0 at a chain start: REJECTED linear constraints failed
+  negative accumulator fraction bit 12 flipped in a linked unit: REJECTED linear constraints failed
+  negative accumulator fraction bit 0 flipped in a linked unit: REJECTED linear constraints failed
+  negative row x.acc.s (hint) +1 in column 12: REJECTED quadratic constraints failed
+  negative row x.acc.nz1.b0 (bit) +1 in column 76: REJECTED linear constraints failed
+  negative row x.prod0 (prod) +2 in column 56: REJECTED linear constraints failed
+  negative row x.prod1 (prod) +1 in column 68: REJECTED linear constraints failed
+  negative row x.acc.z1.inv (inv) +1 in column 46: REJECTED quadratic constraints failed
+  negative row x.prod2 (prod) +2 in column 38: REJECTED linear constraints failed
+  negative row x.a[0].s (pin) +1 in column 52: REJECTED linear constraints failed
+  negative row x.a[1].s (pin) +1 in column 52: REJECTED linear constraints failed
+  negative row x.a[2].s (pin) +2 in column 72: REJECTED linear constraints failed
+  negative row x.a[3].s (pin) +2 in column 94: REJECTED linear constraints failed
+  negative row x.a[4].s (pin) +1 in column 83: REJECTED linear constraints failed
+  negative row x.a[5].s (pin) +2 in column 13: REJECTED linear constraints failed
+  negative row x.a[6].s (pin) +2 in column 42: REJECTED linear constraints failed
+  negative row x.a[7].s (pin) +1 in column 95: REJECTED linear constraints failed
+  negative row x.a[8].s (pin) +1 in column 82: REJECTED linear constraints failed
+  negative row x.a[9].s (pin) +2 in column 33: REJECTED linear constraints failed
+  negative row x.a[10].s (pin) +2 in column 23: REJECTED linear constraints failed
+  negative row x.a[11].s (pin) +2 in column 44: REJECTED linear constraints failed
+  negative row x.a[12].s (pin) +2 in column 90: REJECTED linear constraints failed
+  negative row x.a[13].s (pin) +2 in column 80: REJECTED linear constraints failed
+  negative row x.a[14].s (pin) +2 in column 94: REJECTED linear constraints failed
+  negative row x.a[15].s (pin) +1 in column 12: REJECTED linear constraints failed
+  negative row x.a[16].s (pin) +2 in column 29: REJECTED linear constraints failed
+  negative row x.a[17].s (pin) +1 in column 79: REJECTED linear constraints failed
+  negative row x.a[18].s (pin) +1 in column 94: REJECTED linear constraints failed
+  negative row x.a[19].s (pin) +2 in column 89: REJECTED linear constraints failed
+  negative row x.a[20].s (pin) +1 in column 69: REJECTED linear constraints failed
+  negative row x.a[21].s (pin) +2 in column 56: REJECTED linear constraints failed
+  negative row x.a[22].s (pin) +2 in column 85: REJECTED linear constraints failed
+  negative row x.a[23].s (pin) +1 in column 92: REJECTED linear constraints failed
+  negative row x.a[24].s (pin) +1 in column 74: REJECTED linear constraints failed
+  negative row x.a[25].s (pin) +1 in column 65: REJECTED linear constraints failed
+  negative row x.a[26].s (pin) +1 in column 1: REJECTED linear constraints failed
+  negative row x.a[27].s (pin) +2 in column 93: REJECTED linear constraints failed
+  negative row x.a[28].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.a[29].s (pin) +1 in column 23: REJECTED linear constraints failed
+  negative row x.a[30].s (pin) +2 in column 82: REJECTED linear constraints failed
+  negative row x.a[31].s (pin) +1 in column 7: REJECTED linear constraints failed
+  negative row x.b[0].s (pin) +2 in column 54: REJECTED linear constraints failed
+  negative row x.b[1].s (pin) +1 in column 95: REJECTED linear constraints failed
+  negative row x.b[2].s (pin) +1 in column 58: REJECTED linear constraints failed
+  negative row x.b[3].s (pin) +1 in column 16: REJECTED linear constraints failed
+  negative row x.b[4].s (pin) +1 in column 42: REJECTED linear constraints failed
+  negative row x.b[5].s (pin) +1 in column 69: REJECTED linear constraints failed
+  negative row x.b[6].s (pin) +2 in column 32: REJECTED linear constraints failed
+  negative row x.b[7].s (pin) +2 in column 60: REJECTED linear constraints failed
+  negative row x.b[8].s (pin) +1 in column 71: REJECTED linear constraints failed
+  negative row x.b[9].s (pin) +1 in column 85: REJECTED linear constraints failed
+  negative row x.b[10].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[11].s (pin) +2 in column 0: REJECTED linear constraints failed
+  negative row x.b[12].s (pin) +1 in column 8: REJECTED linear constraints failed
+  negative row x.b[13].s (pin) +2 in column 78: REJECTED linear constraints failed
+  negative row x.b[14].s (pin) +1 in column 82: REJECTED linear constraints failed
+  negative row x.b[15].s (pin) +1 in column 47: REJECTED linear constraints failed
+  negative row x.b[16].s (pin) +2 in column 18: REJECTED linear constraints failed
+  negative row x.b[17].s (pin) +2 in column 7: REJECTED linear constraints failed
+  negative row x.b[18].s (pin) +1 in column 1: REJECTED linear constraints failed
+  negative row x.b[19].s (pin) +1 in column 89: REJECTED linear constraints failed
+  negative row x.b[20].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[21].s (pin) +1 in column 74: REJECTED linear constraints failed
+fp8-hopper gate: 7 honest sub-batches, 92 negatives, 0 failures

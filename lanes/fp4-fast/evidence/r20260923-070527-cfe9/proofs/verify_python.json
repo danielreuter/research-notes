@@ -1,0 +1,214 @@
+{
+ "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+ "independent": false,
+ "statement_format": "ligero-statement/v4",
+ "system_format": "ligero-system/v2",
+ "accepted": 25,
+ "total": 25,
+ "seconds": 0.8009591272566468,
+ "wall": 0.8332071709446609,
+ "coins": "the transcript's own coins replayed (file verifier)",
+ "rust_ligero_verify": "cannot verify this relation: pins bf16-ampere / fp8-ada / bf16-hopper / fp8-hopper only, parses ligero-system/v1 only (this system is /v2: component chain ends for the FP32 word), has no E2M1 / UE4M3 public decode (backends/ligero-verify/src/relation.rs, format.rs)",
+ "items": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "proof": "rep1/sub_00.proof",
+   "accepted": true,
+   "reason": "accept (0.033s)",
+   "seconds": 0.032850533025339246
+  },
+  {
+   "rep": 1,
+   "sub": 1,
+   "proof": "rep1/sub_01.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.03248924086801708
+  },
+  {
+   "rep": 1,
+   "sub": 2,
+   "proof": "rep1/sub_02.proof",
+   "accepted": true,
+   "reason": "accept (0.028s)",
+   "seconds": 0.028594168135896325
+  },
+  {
+   "rep": 1,
+   "sub": 3,
+   "proof": "rep1/sub_03.proof",
+   "accepted": true,
+   "reason": "accept (0.029s)",
+   "seconds": 0.029028190998360515
+  },
+  {
+   "rep": 1,
+   "sub": 4,
+   "proof": "rep1/sub_04.proof",
+   "accepted": true,
+   "reason": "accept (0.028s)",
+   "seconds": 0.028310107067227364
+  },
+  {
+   "rep": 1,
+   "sub": 5,
+   "proof": "rep1/sub_05.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.032631471985951066
+  },
+  {
+   "rep": 1,
+   "sub": 6,
+   "proof": "rep1/sub_06.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.03239488205872476
+  },
+  {
+   "rep": 1,
+   "sub": 7,
+   "proof": "rep1/sub_07.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.03208937915042043
+  },
+  {
+   "rep": 1,
+   "sub": 8,
+   "proof": "rep1/sub_08.proof",
+   "accepted": true,
+   "reason": "accept (0.033s)",
+   "seconds": 0.032771453028544784
+  },
+  {
+   "rep": 1,
+   "sub": 9,
+   "proof": "rep1/sub_09.proof",
+   "accepted": true,
+   "reason": "accept (0.033s)",
+   "seconds": 0.0332983850967139
+  },
+  {
+   "rep": 1,
+   "sub": 10,
+   "proof": "rep1/sub_10.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.032463232055306435
+  },
+  {
+   "rep": 1,
+   "sub": 11,
+   "proof": "rep1/sub_11.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.032197329914197326
+  },
+  {
+   "rep": 1,
+   "sub": 12,
+   "proof": "rep1/sub_12.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.03252072189934552
+  },
+  {
+   "rep": 1,
+   "sub": 13,
+   "proof": "rep1/sub_13.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.03242772095836699
+  },
+  {
+   "rep": 1,
+   "sub": 14,
+   "proof": "rep1/sub_14.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.032397790113464
+  },
+  {
+   "rep": 1,
+   "sub": 15,
+   "proof": "rep1/sub_15.proof",
+   "accepted": true,
+   "reason": "accept (0.033s)",
+   "seconds": 0.03367340797558427
+  },
+  {
+   "rep": 1,
+   "sub": 16,
+   "proof": "rep1/sub_16.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.032373311929404736
+  },
+  {
+   "rep": 1,
+   "sub": 17,
+   "proof": "rep1/sub_17.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.03248439100570977
+  },
+  {
+   "rep": 1,
+   "sub": 18,
+   "proof": "rep1/sub_18.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.032708092126995325
+  },
+  {
+   "rep": 1,
+   "sub": 19,
+   "proof": "rep1/sub_19.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.032307829009369016
+  },
+  {
+   "rep": 1,
+   "sub": 20,
+   "proof": "rep1/sub_20.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.03241448104381561
+  },
+  {
+   "rep": 1,
+   "sub": 21,
+   "proof": "rep1/sub_21.proof",
+   "accepted": true,
+   "reason": "accept (0.033s)",
+   "seconds": 0.032923995051532984
+  },
+  {
+   "rep": 1,
+   "sub": 22,
+   "proof": "rep1/sub_22.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.032442031893879175
+  },
+  {
+   "rep": 1,
+   "sub": 23,
+   "proof": "rep1/sub_23.proof",
+   "accepted": true,
+   "reason": "accept (0.032s)",
+   "seconds": 0.03257122100330889
+  },
+  {
+   "rep": 1,
+   "sub": 24,
+   "proof": "rep1/sub_24.proof",
+   "accepted": true,
+   "reason": "accept (0.030s)",
+   "seconds": 0.030595759861171246
+  }
+ ]
+}

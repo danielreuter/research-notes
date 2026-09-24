@@ -1,0 +1,478 @@
+{
+ "format": {
+  "proof": "LGTO0001",
+  "statement": "LGTS0001",
+  "key": "LGVK0001"
+ },
+ "relation": "fp8-ada",
+ "l": 256,
+ "vus": 12,
+ "commit": "3592bd0+",
+ "kind": "gate",
+ "files": [
+  {
+   "proof": "honest_fiat-shamir.lgto",
+   "stmt": "honest_fiat-shamir.stmt",
+   "expect": "accept",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "d801ad176cbc44b7bf7126708fa02717a132d744cc1507d9e507398c456fca2f",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept"
+   }
+  },
+  {
+   "proof": "neg_fiat-shamir_00.lgto.neg",
+   "stmt": "neg_fiat-shamir_00.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323189,
+   "proof_sha256": "360a7906097350e0ee4363ba4bb2dac25f85dc0bd152a50f4040913d0ff4b6c4",
+   "stmt_sha256": "0402a6f35cf009a829efc64aa866472ef9228cfc29e9c3c086fe7799f1d47eb7",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "wrong y: claimed word bit 0 flipped (proved)"
+  },
+  {
+   "proof": "neg_fiat-shamir_01.lgto.neg",
+   "stmt": "neg_fiat-shamir_01.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 322933,
+   "proof_sha256": "8ac957d314ad8ae5daf1ac24a1b679587c63eecf6c84469138e4ab56fa1326ee",
+   "stmt_sha256": "957446f66075fe05157be4aea52a53b84fe42948d61e83ab254d773b7e016cb7",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "wrong y: claimed word bit 7 flipped (proved)"
+  },
+  {
+   "proof": "neg_fiat-shamir_02.lgto.neg",
+   "stmt": "neg_fiat-shamir_02.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 322229,
+   "proof_sha256": "cadfdab19eb8906f041a6d1e89339ac6dfb71bc35a11d5d96dbec6bffb5925af",
+   "stmt_sha256": "a671387db698b2ba4bdab25aa4627879050497b2c0e993ff76c187aa37328de4",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "wrong y: claimed word bit 21 flipped (proved)"
+  },
+  {
+   "proof": "neg_fiat-shamir_03.lgto.neg",
+   "stmt": "neg_fiat-shamir_03.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "d801ad176cbc44b7bf7126708fa02717a132d744cc1507d9e507398c456fca2f",
+   "stmt_sha256": "126d5e62d9044dceb07e62e3aab11251b2bbccd751f92ea0a9e19c24dba9979b",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+   },
+   "name": "wrong y: +1 ulp in the statement (honest proof)"
+  },
+  {
+   "proof": "neg_fiat-shamir_04.lgto.neg",
+   "stmt": "neg_fiat-shamir_04.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "d801ad176cbc44b7bf7126708fa02717a132d744cc1507d9e507398c456fca2f",
+   "stmt_sha256": "93fe04fd91f3d6573c13406c499584480e3a5110373103a1cb9beaf53283d3f2",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "statement sub-batch 0: public inputs rejected: E4M3 NaN operand"
+   },
+   "name": "off-domain operand 0x7f in a"
+  },
+  {
+   "proof": "neg_fiat-shamir_05.lgto.neg",
+   "stmt": "neg_fiat-shamir_05.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "d801ad176cbc44b7bf7126708fa02717a132d744cc1507d9e507398c456fca2f",
+   "stmt_sha256": "eb708cc1869654a5c470925627062548d83854fe2841cd8fe046e72992e30c0d",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+   },
+   "name": "operand a[10][1] exponent bit flipped (honest proof)"
+  },
+  {
+   "proof": "neg_fiat-shamir_06.lgto.neg",
+   "stmt": "neg_fiat-shamir_06.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 322869,
+   "proof_sha256": "dca01328a10486ae2a345227661c160c364edb4a245c134e0a3cc06f37c015ea",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "violated chain link c.f[20] != y.f[19]"
+  },
+  {
+   "proof": "neg_fiat-shamir_07.lgto.neg",
+   "stmt": "neg_fiat-shamir_07.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323925,
+   "proof_sha256": "398f1cb51d4a0e402e2eac28e0e5146a50e12ba9ede2162babf8a65d8c29cc18",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "c_0 != 0 at a chain start"
+  },
+  {
+   "proof": "neg_fiat-shamir_08.lgto.neg",
+   "stmt": "neg_fiat-shamir_08.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 322741,
+   "proof_sha256": "2b2e9832bbf24389dffcd0f490d4e4a63e2c38c9e1233e3d406cdb46b44d8db7",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "accumulator fraction bit 12 flipped in a linked unit"
+  },
+  {
+   "proof": "neg_fiat-shamir_09.lgto.neg",
+   "stmt": "neg_fiat-shamir_09.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 324117,
+   "proof_sha256": "f2897f50e09ac12e36f043ada06c8ae184c59636e4c3681d5242c25146a77cae",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "accumulator fraction bit 0 flipped in a linked unit"
+  },
+  {
+   "proof": "neg_fiat-shamir_10.lgto.neg",
+   "stmt": "neg_fiat-shamir_10.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 322517,
+   "proof_sha256": "1bc536f20efbeef017bbc7afc16cc4fde36219227f7b43228695e13be3e26ec1",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "row x.acc.s (hint) +1 in column 12"
+  },
+  {
+   "proof": "neg_fiat-shamir_11.lgto.neg",
+   "stmt": "neg_fiat-shamir_11.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323349,
+   "proof_sha256": "603b9cb2b036f8c571e1368ddc7e52f0e20346e5929146fb5757a1ac31174c84",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "row x.acc.nz1.b0 (bit) +1 in column 76"
+  },
+  {
+   "proof": "neg_fiat-shamir_12.lgto.neg",
+   "stmt": "neg_fiat-shamir_12.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323317,
+   "proof_sha256": "d448541afa93a8b54e4406471a3ddc107ca87c65c97f675975133c00256825ec",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "row x.prod0 (prod, quadratic) +2 in column 56"
+  },
+  {
+   "proof": "neg_fiat-shamir_13.lgto.neg",
+   "stmt": "neg_fiat-shamir_13.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323957,
+   "proof_sha256": "110e3f745641128b68de615a034a68a959173cd4e2a9a9ede03ebbba0f1ad4d2",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "row x.acc.z1.inv (inv) +1 in column 68"
+  },
+  {
+   "proof": "neg_fiat-shamir_14.lgto.neg",
+   "stmt": "neg_fiat-shamir_14.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323541,
+   "proof_sha256": "b481a20bbd34f864f789208b01299655f66e7cf109949c79548303836abccf29",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "row g0.align_state.g0.align_state.pow.sel0 (sel, lookup) +1 in column 46"
+  },
+  {
+   "proof": "neg_fiat-shamir_15.lgto.neg",
+   "stmt": "neg_fiat-shamir_15.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 321941,
+   "proof_sha256": "97613cd70dc223a4eed6cb10723bc756405f8595158fef09a710322ef9040104",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+   },
+   "name": "row x.prod1 (prod, quadratic) +2 in column 38"
+  },
+  {
+   "proof": "neg_fiat-shamir_16.lgto.neg",
+   "stmt": "neg_fiat-shamir_16.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 322229,
+   "proof_sha256": "0397f30c90742b836b796121958decd846180d37e6ca12c09afc053fef43ddb8",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+   },
+   "name": "violated chain link + zero-check opening round forged (cheat=round1)"
+  },
+  {
+   "proof": "neg_fiat-shamir_17.lgto.neg",
+   "stmt": "neg_fiat-shamir_17.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323445,
+   "proof_sha256": "bf1a29719506df32074ab45e6143e248523af889761fb29974d48f82a0a91dff",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim"
+   },
+   "name": "violated chain link + every zero-check round forged (cheat=all)"
+  },
+  {
+   "proof": "neg_fiat-shamir_18.lgto.neg",
+   "stmt": "neg_fiat-shamir_18.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 321109,
+   "proof_sha256": "c3478a8af7af7776880631b9237ff1fab0f9a94a15fe3fe0a41e2dc47d12f672",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim"
+   },
+   "name": "row x.prod0 (prod, quadratic) +2 in column 56 + every zero-check round forged (cheat=all)"
+  },
+  {
+   "proof": "neg_fiat-shamir_19.lgto.neg",
+   "stmt": "neg_fiat-shamir_19.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 325429,
+   "proof_sha256": "2b180fbbea61d22a656fc8b6726e2598e22622a0fa7e9c3ef0f2ef2870cf5f03",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim"
+   },
+   "name": "row g0.align_state.g0.align_state.pow.sel0 (sel, lookup) +1 in column 46 + every zero-check round forged (cheat=all)"
+  },
+  {
+   "proof": "neg_fiat-shamir_20.lgto.neg",
+   "stmt": "neg_fiat-shamir_20.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "f3829dd984de1f3222780bdc12e4da39324896fe6a028779d4c45bc115a2a13a",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "Merkle multi-path of round 1 failed"
+   },
+   "name": "tampered opened row (round 1)"
+  },
+  {
+   "proof": "neg_fiat-shamir_21.lgto.neg",
+   "stmt": "neg_fiat-shamir_21.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "dc3939bd9ef18b0e338341eff4ce8b649f06e8496140ae5d060e7bbd18424dcd",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "Merkle multi-path of the last round failed"
+   },
+   "name": "tampered opened row (last round)"
+  },
+  {
+   "proof": "neg_fiat-shamir_22.lgto.neg",
+   "stmt": "neg_fiat-shamir_22.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "f15c71d9b716007e97b99909e7415f64dac7b2b4f7100e23414e29e67a6dfcda",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+   },
+   "name": "tampered root 1"
+  },
+  {
+   "proof": "neg_fiat-shamir_23.lgto.neg",
+   "stmt": "neg_fiat-shamir_23.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "cd9820cdc2c4d668982429b0f8a8be8ab0dcded7f72309ec04ccd0e838e10873",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "Merkle multi-path of round 1 failed"
+   },
+   "name": "tampered root 2"
+  },
+  {
+   "proof": "neg_fiat-shamir_24.lgto.neg",
+   "stmt": "neg_fiat-shamir_24.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "7156cbd2cea0ef86e17b6d9cc6fcf1cedcd59fdd00b8383eb5f7f0ae7e5c8a2a",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "Merkle multi-path of the last round failed"
+   },
+   "name": "tampered final vector"
+  },
+  {
+   "proof": "neg_fiat-shamir_25.lgto.neg",
+   "stmt": "neg_fiat-shamir_25.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "e91ee2500e1a9061b378d9198aa619d8f2452dab96ec86da10803c62705e53ff",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "Merkle multi-path of round 1 failed"
+   },
+   "name": "tampered Merkle sibling"
+  },
+  {
+   "proof": "neg_fiat-shamir_26.lgto.neg",
+   "stmt": "neg_fiat-shamir_26.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "ee72a8fb94bedb3cf061d0850b56eac5b9713c6893da763826d586a4da772227",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "PCS sumcheck round 1 failed"
+   },
+   "name": "tampered PCS sumcheck message"
+  },
+  {
+   "proof": "neg_fiat-shamir_27.lgto.neg",
+   "stmt": "neg_fiat-shamir_27.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "e50e6f2ec4a55c73b0820aff05b23a5d73aef2f2517f57df1bd029253098327d",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+   },
+   "name": "tampered zero-check message"
+  },
+  {
+   "proof": "neg_fiat-shamir_28.lgto.neg",
+   "stmt": "neg_fiat-shamir_28.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "59e21870e792fd3b55afa6594c9ab0b081d335eb23dea30196e9dfc1950524ec",
+   "stmt_sha256": "748d5309fbce69b7a95a4ab866e0d2e4b6748279dc5d70e49f8ff6d06d03705e",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "shift sumcheck final: succ(rho, r_c) V(rho) != claim"
+   },
+   "name": "tampered claim value"
+  },
+  {
+   "proof": "neg_fiat-shamir_29.lgto.neg",
+   "stmt": "neg_fiat-shamir_29.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "coins_seed": 1,
+   "proof_bytes": 323797,
+   "proof_sha256": "d801ad176cbc44b7bf7126708fa02717a132d744cc1507d9e507398c456fca2f",
+   "stmt_sha256": "e58a45ff0f6100a2efe659ce881232f59ea906134765b4ef699eb4de1a9de739",
+   "python_verdict": {
+    "accepted": false,
+    "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+   },
+   "name": "statement of another batch size (n_vus)"
+  }
+ ]
+}

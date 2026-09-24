@@ -1,0 +1,76 @@
+{
+ "pinned": {
+  "name": "/tmp/rt3/out/g1-decoy-l3/sub_00.proof",
+  "accepted": false,
+  "system_pinned": true,
+  "reason": "system file is not the pinned hashed (ajtai-n64 leaves) fp8-ada system (sys_id f5251e4a8f19a8cf..., table digest 53c6f84d39b6d6ab...; pinned 18d915323c056495... / a1f2cb20cb549af6...); pass --allow-any-system to verify against it unpinned",
+  "statement": {
+   "l": 1024,
+   "n": 4096,
+   "D": 7,
+   "t": 278,
+   "zk": false,
+   "mode": "fiat-shamir",
+   "n_proofs": 1,
+   "n_vus": 2,
+   "steps": 48,
+   "K": 32,
+   "format": "ligero-statement/v5",
+   "relation": "fp8-ada+ajtai-n64",
+   "digest": null
+  },
+  "timing": {
+   "shared": 0.000962,
+   "parse": 0.0,
+   "soundness": 0.0,
+   "statement_hash": 0.0,
+   "challenge_hash": 0.0,
+   "merkle": 0.0,
+   "ntt": 0.0,
+   "dfold": 0.0,
+   "quadratic": 0.0,
+   "chain": 0.0,
+   "auth": 0.0,
+   "total": 0.001015
+  },
+  "reps": 1,
+  "soundness": null
+ },
+ "--allow-any-system": {
+  "name": "/tmp/rt3/out/g1-decoy-l3/sub_00.proof",
+  "accepted": false,
+  "system_pinned": false,
+  "reason": "system file: the Ajtai chain the digests come from does not use the derived key B (SHAKE-256 of \"verity/ajtai-babybear/B/v1\"): hash.d[0]: the key row is not out - (X acc_in)[0] - B[0] bits over the linked neighbour",
+  "statement": {
+   "l": 1024,
+   "n": 4096,
+   "D": 7,
+   "t": 278,
+   "zk": false,
+   "mode": "fiat-shamir",
+   "n_proofs": 1,
+   "n_vus": 2,
+   "steps": 48,
+   "K": 32,
+   "format": "ligero-statement/v5",
+   "relation": "fp8-ada+ajtai-n64",
+   "digest": null
+  },
+  "timing": {
+   "shared": 0.000857,
+   "parse": 0.0,
+   "soundness": 0.0,
+   "statement_hash": 0.0,
+   "challenge_hash": 0.0,
+   "merkle": 0.0,
+   "ntt": 0.0,
+   "dfold": 0.0,
+   "quadratic": 0.0,
+   "chain": 0.0,
+   "auth": 0.0,
+   "total": 0.002419
+  },
+  "reps": 1,
+  "soundness": null
+ }
+}

@@ -1,0 +1,76 @@
+
+=== [10:37:35] machine
+NVIDIA GeForce RTX 4090, GPU-c670c7ff-0fdf-6b18-7b29-a16cc8abe66a, 24564 MiB, 580.159.04
+32
+               total        used        free      shared  buff/cache   available
+Mem:             125          10          66           0          47         113
+overlay          60G   26M   60G   1% /
+model name	: AMD Ryzen 9 7950X 16-Core Processor
+0.17 0.07 0.07 2/1798 199
+e20831b7c6df
+RUNPOD_DC_ID=EU-RO-1
+64c00bd
+
+=== [10:37:35] rustup stable + ligero-verify (background)
+
+=== [10:37:35] uv + python 3.12 + venv312
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source /workspace/venv312/bin/activate
+Python 3.12.14
+
+=== [10:37:36] torch 2.6.0+cu124, numpy, cupy-cuda12x, blake3, pytest
+ + triton==3.2.0
+ + typing-extensions==4.16.0
+ + pygments==2.21.0
+ + pytest==9.1.1
+torch 2.6.0+cu124 numpy 2.5.3 cupy 14.2.0
+cuda True NVIDIA GeForce RTX 4090 12.4
+total_memory 25250627584
+matmul ok True
+
+=== [10:37:56] import smoke (frozen tree)
+imports ok
+
+=== [10:37:57] instance caches (fp8-ada, fp8-ada-v2: 4096 VUs)
+fp8-ada 4096 0.7s
+fp8-ada-v2 4096 0.7s
+total 199688
+drwxr-xr-x 2 root root        75 Sep 23 10:37 .
+drwxr-xr-x 1 root root        79 Sep 23 10:37 ..
+-rw-r--r-- 1 root root 102236890 Sep 23 10:37 fp8-ada-20260922-4096.npz
+-rw-r--r-- 1 root root 102236890 Sep 23 10:37 fp8-ada-v2-20260922-4096.npz
+
+=== [10:37:59] live probe (EU-RO-1 verifier)
+   "ack_s": 0.000635187141597271,
+   "server_recv_s": 0.0004230886697769165,
+   "mbps_to_ack": 6603.257095936811,
+   "mbps_server_recv": 9913.534205989363
+  }
+ ],
+ "mbps_median": 6483.927137691315
+}
+
+=== [10:38:00] rust build (join)
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 1 warning
+    Finished `release` profile [optimized + debuginfo] target(s) in 5.08s
+total 4616
+drwxr-xr-x 2 root root      27 Sep 23 10:37 .
+drwxr-xr-x 1 root root      79 Sep 23 10:37 ..
+-rwxr-xr-x 1 root root 4725920 Sep 23 10:37 ligero-verify
+RUST_OK
+315ba10986091264a500dfea170e6f7861a5afd92138001308aeba99b5bab6bb  /workspace/bin/ligero-verify
+
+=== [10:38:00] versions
+Using Python 3.12.14 environment at: /workspace/venv312
+blake3                   1.0.9
+numpy                    2.5.3
+pytest                   9.1.1
+torch                    2.6.0+cu124
+rustc 1.98.1 (48a229cea 2026-09-01)
+overlay          60G   12G   49G  19% /
+
+=== [10:38:00] done
+BOOTSTRAP_OK

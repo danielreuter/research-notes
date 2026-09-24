@@ -1,0 +1,28 @@
+--- 07:16:40 h1-lane-bf16h-zk-p3 /Users/danielreuter/projects/verity-main-wt/hp2-ship bf16-hopper --zk --mode interactive --pipeline 3
+07:20:30 h1-lane-bf16h-zk-p3 r20260923-071640-cff1 state=failed 1 wall=34s
+RUN=r20260923-071640-cff1
+--- 07:20:30 h1-main-fp8h-zk /Users/danielreuter/projects/verity-main-wt/hp2-base fp8-hopper --zk --mode interactive
+07:21:29 h1-main-fp8h-zk r20260923-072030-641f state=done 0 wall=48s
+RUN=r20260923-072030-641f
+--- 07:21:29 h1-lane-fp8h-zk-p3 /Users/danielreuter/projects/verity-main-wt/hp2-ship fp8-hopper --zk --mode interactive --pipeline 3
+07:22:05 h1-lane-fp8h-zk-p3 r20260923-072129-4510 state=failed 1 wall=23s
+RUN=r20260923-072129-4510
+--- 07:22:05 h1-main-bf16h-nozk /Users/danielreuter/projects/verity-main-wt/hp2-base bf16-hopper --mode interactive
+07:22:52 h1-main-bf16h-nozk r20260923-072205-ec13 state=done 0 wall=35s
+RUN=r20260923-072205-ec13
+--- 07:22:52 h1-lane-bf16h-nozk-p3 /Users/danielreuter/projects/verity-main-wt/hp2-ship bf16-hopper --mode interactive --pipeline 3
+07:23:39 h1-lane-bf16h-nozk-p3 r20260923-072252-5d03 state=failed 1 wall=35s
+RUN=r20260923-072252-5d03
+--- 07:23:39 h1-main-fp8h-nozk /Users/danielreuter/projects/verity-main-wt/hp2-base fp8-hopper --mode interactive
+07:24:13 h1-main-fp8h-nozk r20260923-072339-8807 state=done 0 wall=23s
+RUN=r20260923-072339-8807
+--- 07:24:13 h1-lane-fp8h-nozk-p3 /Users/danielreuter/projects/verity-main-wt/hp2-ship fp8-hopper --mode interactive --pipeline 3
+07:24:49 h1-lane-fp8h-nozk-p3 r20260923-072413-5075 state=failed 1 wall=23s
+RUN=r20260923-072413-5075
+--- 07:24:49 h1-lane-bf16h-zk-seq /Users/danielreuter/projects/verity-main-wt/hp2-ship bf16-hopper --zk --mode interactive --pipeline 0
+07:25:38 h1-lane-bf16h-zk-seq r20260923-072449-151a state=failed 1 wall=36s
+RUN=r20260923-072449-151a
+--- 07:25:38 h1-lane-fp8h-zk-seq /Users/danielreuter/projects/verity-main-wt/hp2-ship fp8-hopper --zk --mode interactive --pipeline 0
+07:26:14 h1-lane-fp8h-zk-seq r20260923-072538-70d9 state=failed 1 wall=23s
+RUN=r20260923-072538-70d9
+DRIVE1_DONE 07:26:14

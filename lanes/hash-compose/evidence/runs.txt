@@ -1,0 +1,7 @@
+amp-hash-int-zk-l16k r20260923-095623-ecdf done
+bare-vu-int-zk-l16k r20260923-100248-4034 done
+amp-hash-int-zk-l8k r20260923-100319-3e25 done
+amp-hash-int-zk-l32k r20260923-100414-301a failed
+amp-hash-nonzk-int-l16k r20260923-101935-ab9f done
+amp-hash-fs-zk-l16k r20260923-102029-f7a8 done
+bare-vu-int-zk-l8k r20260923-102124-5062 done

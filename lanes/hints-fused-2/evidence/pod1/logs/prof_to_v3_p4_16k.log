@@ -1,0 +1,105 @@
+=== 21:37:21 tree=/workspace/src sha=ff52e47 cmd: /workspace/venv312/bin/python prof_rep.py /workspace/prof/to_v3_p4_16k --relation fp8-ada-v3 bench-vu --out /workspace/results/prof_to_v3_p4_16k.json --zk --mode interactive --reps 2 --device cuda --instances-cache /workspace/instances-cache --total-vus 4096 --batch 16384 --pipeline 4
+fp8-ada-v3 census: {"rows_per_unit": 1806, "bit_rows": 169, "selector_rows": 30, "hint_rows": 1491, "pin_rows": 22, "product_rows": 23, "inverse_rows": 71, "linear_constraints": 130, "quadratic_constraints": 2542, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.3s
+config Config(l=16384, n=65536, D=6, t=196, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk True, mode interactive; system {'rows': 1806, 'by_kind': {'hint': 1491, 'bit': 169, 'inv': 71, 'prod': 23, 'pin': 22, 'sel': 30}, 'linear': 130, 'quadratic': 2542, 'pins': 22, 'hints': 1491}; 4096 VUs as 13 sub-batches of <= 341
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.006, 'hints_host': 0.471, 'witness': 0.042, 'self_check': 2.845, 'zk_masks': 0.007, 'encode': 0.003, 'transfer': 0.0, 'merkle': 0.002, 'tests_w': 1.537, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.006, 'tests': 1.537, 'total': 4.45}
+rep 1: prover 0.167s (+hints 0.037s) over 13 proofs; verifier 0.548s; pass wall 1.624s (0.050 ms/VU)
+profiled rep 2 (under the profiler): wall 182.1 ms
+kernels: 42497 launches, sum 190.7 ms, device-busy union 148.7 ms
+memcpy/memset: 247, sum 17.8 ms; busy union incl. copies 160.2 ms
+streams with kernels: [21, 29, 33, 37]
+
+top kernels by device time (count, ms, % of kernel sum):
+     23.69 ms  12.4%  x26     rs_encode_ligero
+     22.00 ms  11.5%  x11661  void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BUnaryFunctor<long,
+     19.64 ms  10.3%  x221    blake3_chunks
+     17.06 ms   8.9%  x11843  void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<long, long, long, at::native::Bitw
+     16.79 ms   8.8%  x13     quad_u32_D6
+     13.94 ms   7.3%  x5538   void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{la
+     10.58 ms   5.5%  x13     witness_program
+      8.60 ms   4.5%  x3796   void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::AUnaryFunctor<long,
+      6.51 ms   3.4%  x13     boolcomb_rows_v4_u32_D6
+      6.49 ms   3.4%  x312    void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespace)::OpaqueType<8u>,
+      6.37 ms   3.3%  x624    triton_poi_fused_cat_0
+      4.90 ms   2.6%  x26     lincomb_v4_u32_D6
+      4.35 ms   2.3%  x780    void at::native::vectorized_elementwise_kernel<4, at::native::BUnaryFunctor<long, long, long, at::native::rema
+      3.43 ms   1.8%  x78     void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_
+      2.71 ms   1.4%  x1027   void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<long>, std::array<char*, 3ul> >(
+      1.99 ms   1.0%  x650    void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<long,
+      1.73 ms   0.9%  x39     blake3_parents
+      1.37 ms   0.7%  x390    void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<long>, std::array<char*, 1ul> >(int,
+      1.34 ms   0.7%  x78     void at::native::reduce_kernel<128, 4, at::native::ReduceOp<long, at::native::func_wrapper_t<long, at::native:
+      1.18 ms   0.6%  x871    void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<long, long, bool, at::native::(ano
+      1.01 ms   0.5%  x754    void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<long>(at::TensorIteratorBa
+      1.00 ms   0.5%  x637    void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctorOnOther_add<long>, std::array<char*, 
+      0.96 ms   0.5%  x13     void at::native::(anonymous namespace)::indexSelectLargeIndex<int, long, unsigned int, 2, 2, -2, false>(at::cu
+      0.94 ms   0.5%  x442    void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::AUnaryFunctor<long,
+      0.93 ms   0.5%  x78     void at::native::(anonymous namespace)::indexSelectLargeIndex<long, long, unsigned int, 2, 2, -2, false>(at::c
+      0.92 ms   0.5%  x169    void at::native::vectorized_elementwise_kernel<4, at::native::BUnaryFunctor<long, long, long, at::native::rshi
+      0.84 ms   0.4%  x39     void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl<at::native::BinaryFunctor<long, long, 
+      0.80 ms   0.4%  x260    void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<long, long, long, at::native::bina
+      0.74 ms   0.4%  x247    void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctorOnSelf_add<long>, std::array<char*, 2
+      0.70 ms   0.4%  x247    void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::Ten
+
+host CUDA runtime API (count, ms):
+     64.20 ms  x39     cudaGraphLaunch
+     35.85 ms  x12     cudaEventSynchronize
+rep 2: prover 0.118s (+hints 0.061s) over 13 proofs; verifier 0.516s; pass wall 5.753s (0.044 ms/VU)
+{
+ "relation": "fp8-ada-v3",
+ "seconds_per_vu": 4.685590818098717e-05,
+ "prover_total": 0.19192179990932345,
+ "verifier": 0.5322332442738116,
+ "bytes": {
+  "root": 416,
+  "w": 5191680,
+  "h": 5271240,
+  "cols": 10192,
+  "opened_columns": 18773664,
+  "merkle_paths": 1304576,
+  "q_chain": 10303176,
+  "v_linear": 5191680,
+  "coin_commitments_and_openings": 2496,
+  "auth_multiproofs": 0,
+  "total": 46049120
+ },
+ "n_proofs": 13,
+ "per_proof_vus": 341,
+ "t": 196,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 5569175552,
+ "soundness_log2": -128.31938080587952,
+ "per_proof_log2": -132.01982052402082,
+ "rows": 1806,
+ "medians": {
+  "statement": 0.0004654968680311976,
+  "hints_host": 0.049334518123618346,
+  "witness": 0.0017763787208183732,
+  "zk_masks": 3.580146096215237e-05,
+  "encode": 0.02235596497331182,
+  "transfer": 7.47315013197336e-06,
+  "merkle": 7.782518360906668e-06,
+  "tests_w": 0.1046346816094829,
+  "tests_quad": 6.943345022280284e-06,
+  "tests_chain": 6.882487384497542e-06,
+  "openings": 0.013289876652199013,
+  "tests": 0.10464850744188967,
+  "total": 0.14258728178570512,
+  "measured_statement": 0.0017472800184041262,
+  "measured_hints_host": 0.16809241700172428,
+  "measured_witness": 0.005834016025066375,
+  "measured_zk_masks": 0.00011659199884161353,
+  "measured_encode": 0.07341191983222961,
+  "measured_transfer": 2.460800012340769e-05,
+  "measured_merkle": 2.5696000142488627e-05,
+  "measured_tests_w": 0.3614466562271118,
+  "measured_tests_quad": 2.294400008395314e-05,
+  "measured_tests_chain": 2.2656000102870167e-05,
+  "measured_openings": 0.04519753569364548,
+  "measured_total": 0.5147756725251674
+ },
+ "dumps": null,
+ "validation": "passed"
+}
+=== 21:37:43 rc=0 wall=22s

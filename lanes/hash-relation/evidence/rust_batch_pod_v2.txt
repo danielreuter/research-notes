@@ -1,0 +1,27 @@
+    Finished `release` profile [optimized + debuginfo] target(s) in 10.35s
+== bare-nonzk-int r20260923-080108-ca9c
+python agreement 13/13 (0 disagree); verify sum 5.544s, wall 0.463s at 13 jobs x 1 threads
+== bare-int-zk r20260923-080502-e138
+python agreement 13/13 (0 disagree); verify sum 5.570s, wall 0.457s at 13 jobs x 1 threads
+== bare-fs-zk r20260923-080538-bc48
+python agreement 13/13 (0 disagree); verify sum 6.956s, wall 0.573s at 13 jobs x 1 threads
+== hash-nonzk-int r20260923-081059-8ff6
+python agreement 13/13 (0 disagree); verify sum 22.372s, wall 1.804s at 13 jobs x 1 threads
+== hash-int-zk r20260923-081227-ac87
+python agreement 13/13 (0 disagree); verify sum 22.558s, wall 1.825s at 13 jobs x 1 threads
+== hash-fs-zk r20260923-081315-9f58
+python agreement 13/13 (0 disagree); verify sum 27.405s, wall 2.213s at 13 jobs x 1 threads
+== tile-nonzk-int r20260923-081405-f700
+python agreement 13/13 (0 disagree); verify sum 22.648s, wall 1.821s at 13 jobs x 1 threads
+== tile-int-zk r20260923-081455-e50f
+python agreement 13/13 (0 disagree); verify sum 22.010s, wall 1.783s at 13 jobs x 1 threads
+== tile-fs-zk r20260923-081543-d32f
+python agreement 13/13 (0 disagree); verify sum 27.762s, wall 2.304s at 13 jobs x 1 threads
+== bf16h-hash-int-zk r20260923-081632-0fb3
+python agreement 25/25 (0 disagree); verify sum 45.966s, wall 1.954s at 25 jobs x 1 threads
+== fp8h-hash-int-zk r20260923-081743-40d3
+python agreement 13/13 (0 disagree); verify sum 22.041s, wall 1.774s at 13 jobs x 1 threads
+== bf16h-bare-int-zk r20260923-081851-3955
+python agreement 25/25 (0 disagree); verify sum 10.412s, wall 0.457s at 25 jobs x 1 threads
+== fp8h-bare-int-zk r20260923-082033-2e0f
+python agreement 13/13 (0 disagree); verify sum 5.128s, wall 0.424s at 13 jobs x 1 threads

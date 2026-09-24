@@ -1,0 +1,6 @@
+labelled amp-hash-int-zk-l16k r20260923-095623-ecdf authentication=included-hash hash=poseidon2-babybear-w24 sharing=none note=bf16-ampere committed column (generic runner over frozen bench-instances/v1 vu-k1536), RTX 4090, l=16384
+labelled bare-vu-int-zk-l16k r20260923-100248-4034 authentication=excluded hash=none sharing=none note=bf16-ampere bare column (vu.py --relation bf16, same frozen set), RTX 4090, l=16384, same-pod reference for the committed column
+labelled amp-hash-int-zk-l8k r20260923-100319-3e25 authentication=included-hash hash=poseidon2-babybear-w24 sharing=none note=bf16-ampere committed column, RTX 4090, l=8192 (operating-point sweep; l=32768 OOM on 24 GB)
+labelled amp-hash-nonzk-int-l16k r20260923-101935-ab9f authentication=included-hash hash=poseidon2-babybear-w24 sharing=none note=bf16-ampere committed column, non-ZK interactive, RTX 4090, l=16384
+labelled amp-hash-fs-zk-l16k r20260923-102029-f7a8 authentication=included-hash hash=poseidon2-babybear-w24 sharing=none note=bf16-ampere committed column, Fiat-Shamir ZK, RTX 4090, l=16384
+labelled bare-vu-int-zk-l8k r20260923-102124-5062 authentication=excluded hash=none sharing=none note=bf16-ampere bare column (vu.py --relation bf16), RTX 4090, l=8192, same-pod reference

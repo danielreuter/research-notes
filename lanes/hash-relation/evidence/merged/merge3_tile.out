@@ -1,0 +1,13 @@
+=== [10:47:58] fp8-ada tile64x64 committed, merged tree + hook, ZK interactive, 4096 VUs, 3 reps
+exit 0
+ },
+ "dumps": null,
+ "validation": "passed"
+}
+=== [10:48:28] bf16-hopper tile64x64 committed, merged tree + hook, ZK interactive, 4096 VUs, 3 reps
+exit 0
+ },
+ "dumps": null,
+ "validation": "passed"
+}
+=== [10:49:08] done

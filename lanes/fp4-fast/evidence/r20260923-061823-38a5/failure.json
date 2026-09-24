@@ -1,0 +1,66 @@
+{
+ "schema": "telemetry/failure/v0.1",
+ "classifier_version": "0.1.2",
+ "attempt_dir": "/workspace/research/runs/r20260923-061823-38a5",
+ "inputs": {
+  "events.jsonl": {
+   "sha256": "f264649000afb7a67ad13bc2d75487e87769159a26639a4dad287a3f1b44ab6f",
+   "bytes": 1790
+  },
+  "resources.jsonl": {
+   "sha256": "123f1105e864a78f7c2f5afe722015c9f52f45ec9e2a9ac818941314729cb7a6",
+   "bytes": 227835
+  },
+  "stdout.log": {
+   "sha256": "9b81a7caee608eb30946ce31c5bef490ad5f8348fce3c9a37cd14cbcaed4aab6",
+   "bytes": 3377,
+   "tail_bytes_scanned": 3377
+  }
+ },
+ "termination": {
+  "rc": 0,
+  "signal": null,
+  "signal_name": null,
+  "observed_by": "status.json",
+  "note": null
+ },
+ "class": "SUCCESS",
+ "certainty": "established",
+ "why": "exit status 0",
+ "competing": [],
+ "location": {
+  "stage": "lane-intzk-l8192",
+  "span_id": "lane-intzk-l8192#1@abc315f081d1:2355:106643302",
+  "span_outcome": "ok",
+  "pid": 2376,
+  "pgid": 2376
+ },
+ "incidents": [],
+ "evidence": [
+  {
+   "kind": "cgroup.sampled",
+   "scope": "shared_pod_cgroup",
+   "samples": 24,
+   "max_sampled_memory_current_bytes": 11692150784,
+   "kernel_memory_peak_bytes": 11716063232,
+   "peak_between_samples_possible": true,
+   "peak_note": "memory.peak is the cgroup's high-water mark and may predate the job (shared/long-lived cgroup); not differenced"
+  }
+ ],
+ "limitations": [],
+ "telemetry_partial": false,
+ "spans_summary": {
+  "total_union_s": 17.474011031910777,
+  "overlap_s": 0.0,
+  "open": 0,
+  "by_stage": {
+   "lane-intzk-l8192": {
+    "calls": 1,
+    "inclusive_sum_s": 17.474011031910777,
+    "exclusive_sum_s": 17.474011031910777,
+    "open": 0
+   }
+  }
+ },
+ "note": "an interpretation of preserved evidence, not the project's definition of blocked; incidents are separate from the outcome"
+}

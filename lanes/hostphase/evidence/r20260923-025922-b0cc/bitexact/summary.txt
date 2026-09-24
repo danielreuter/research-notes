@@ -1,0 +1,8 @@
+bf16h-int-nonzk bf16-hopper interactive nozk device 10 10
+bf16h-fs-zk bf16-hopper fiat-shamir zk device 7 7
+bf16h-int-zk bf16-hopper interactive zk device 10 10
+bf16h-int-zk-legacy bf16-hopper interactive zk legacy 10 10
+fp8h-int-nonzk fp8-hopper interactive nozk device 10 10
+fp8h-fs-zk fp8-hopper fiat-shamir zk device 7 7
+fp8h-int-zk fp8-hopper interactive zk device 10 10
+TOTAL 64 64

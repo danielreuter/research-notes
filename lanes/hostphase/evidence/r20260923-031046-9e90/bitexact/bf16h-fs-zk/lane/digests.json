@@ -1,0 +1,72 @@
+{
+ "args": {
+  "tree": "/workspace/research/src/d8f896cca0788c3df245fb478513db2412d193c4",
+  "rel": "bf16-hopper",
+  "zk": true,
+  "mode": "fiat-shamir",
+  "vus": 170,
+  "subs": 3,
+  "seed": 20260922,
+  "out": "/workspace/research/runs/r20260923-031046-9e90/bitexact/bf16h-fs-zk/lane",
+  "impl": "device",
+  "cache": "/workspace/instances-cache",
+  "total": 4096
+ },
+ "files": {
+  "system.bin": "5bba40df0bd34eca3948a978bb97807aa638070cf434fc618759abacbdb083b7",
+  "sub_00.stmt": "3a065330077d92a3f9c7d975430f263d9a2147330c9bb6e0a6b829de5ff7cbac",
+  "sub_00.proof": "f571101f78220552068a718d05b37d2be23dee0ba783c658ce03d5f6cec48e82",
+  "sub_01.stmt": "24d35dfd549610684792947929ef9e8ea34bbb5ab31d64c8791692a3ba5ec7b5",
+  "sub_01.proof": "64db38f9ca04e90b6b72c755a8ad599f3e0b8ec20be586e468975b2f4cb38fdd",
+  "sub_02.stmt": "6e41ec62ca860c3be6d400bdd2bed58c0c328673413c2e816270dc3cb3623352",
+  "sub_02.proof": "b120cd05b93defae654436826e444bf99567c0e481c407af8182eba7b519107d"
+ },
+ "timings": [
+  {
+   "statement": 0.0024,
+   "witness": 0.0278,
+   "zk_masks": 0.0243,
+   "encode": 2.8918,
+   "transfer": 0.0,
+   "merkle": 0.0136,
+   "tests_w": 0.0147,
+   "tests_quad": 0.0646,
+   "tests_chain": 0.0221,
+   "tests": 0.1014,
+   "openings": 0.0264,
+   "total": 3.0878,
+   "hints_host": 0.3722
+  },
+  {
+   "statement": 0.0014,
+   "witness": 0.001,
+   "zk_masks": 0.0006,
+   "encode": 0.0046,
+   "transfer": 0.0,
+   "merkle": 0.0019,
+   "tests_w": 0.0102,
+   "tests_quad": 0.0022,
+   "tests_chain": 0.0022,
+   "tests": 0.0146,
+   "openings": 0.0043,
+   "total": 0.0284,
+   "hints_host": 0.0025
+  },
+  {
+   "statement": 0.0014,
+   "witness": 0.001,
+   "zk_masks": 0.0006,
+   "encode": 0.0046,
+   "transfer": 0.0,
+   "merkle": 0.0019,
+   "tests_w": 0.0085,
+   "tests_quad": 0.0022,
+   "tests_chain": 0.0022,
+   "tests": 0.0128,
+   "openings": 0.0043,
+   "total": 0.0267,
+   "hints_host": 0.0024
+  }
+ ],
+ "urandom_calls": 8
+}

@@ -1,0 +1,11 @@
+== lane tree, all of backends/direct/ligero minus the privsel v1/v3 differential
+........................................................................ [ 86%]
+.......................                                                  [100%]
+166 passed, 1 skipped, 4 deselected in 305.80s (0:05:05)
+== main a55b3fc tree: the privsel differential alone
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[bf16-hopper-v3]
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[bf16-ampere-v3]
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[fp8-hopper-v3]
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[fp8-ada-v3]
+4 failed, 28 deselected in 8.59s

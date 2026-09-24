@@ -1,0 +1,49 @@
+=== cargo build --release (tree 28e7a2735047cd9bcda80fb5d3f31ff8db7b83c8)
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 1 warning
+    Finished `release` profile [optimized + debuginfo] target(s) in 5.23s
+4c05b11f4cb3bbada73c65b4fe566c5c292da8d8142744acd97c5c28a1f4b07f  /workspace/bin/ligero-verify-pinned
+=== fixture dump: fp4-nvf4+poseidon2, 40 VUs x 24 steps, non-ZK interactive, l = 1024
+fp4-nvf4 census: {"rows_per_unit": 4442, "bit_rows": 1004, "selector_rows": 172, "hint_rows": 819, "pin_rows": 17, "product_rows": 2400, "inverse_rows": 30, "linear_constraints": 334, "quadratic_constraints": 4252, "chain": true}
+config Config(l=1024, n=4096, D=6, t=189, target_log2=-128.0, zk=False, t_pad=0, mode='interactive'); layout Layout(l=1024, n_vus=42, steps=24); zk False, mode interactive; system {'rows': 4442, 'by_kind': {'hint': 819, 'bit': 1004, 'prod': 2400, 'inv': 30, 'sel': 172, 'pin': 17}, 'linear': 334, 'qu
+rep 1: prover 0.252s (+hints 0.003s) over 1 proofs; verifier 0.013s; pass wall 0.275s (6.374 ms/VU)
+dumped 1 proofs to /workspace/research/runs/r20260923-184441-66d2/fixture
+dumps: 1/1 accepted cold from bytes by the Python file verifier in 0.01s; batch verdict per rep: ['accept: all 1 sub-batches accepted; union bound 2^-128.05 <= 2^-128']
+ "dumps": {
+/workspace/research/runs/r20260923-184441-66d2/fixture:
+total 828
+drwxr-xr-x 3 root root    103 Sep 23 18:45 .
+drwxr-xr-x 4 root root   4096 Sep 23 18:45 ..
+-rw-r--r-- 1 root root   1754 Sep 23 18:45 manifest.json
+drwxr-xr-x 2 root root     81 Sep 23 18:45 rep1
+-rw-r--r-- 1 root root 832135 Sep 23 18:45 system.bin
+-rw-r--r-- 1 root root    831 Sep 23 18:45 verify_python.json
+
+/workspace/research/runs/r20260923-184441-66d2/fixture/rep1:
+total 3460
+drwxr-xr-x 2 root root      81 Sep 23 18:45 .
+drwxr-xr-x 3 root root     103 Sep 23 18:45 ..
+-rw-r--r-- 1 root root     128 Sep 23 18:45 sub_00.coins
+-rw-r--r-- 1 root root 3530008 Sep 23 18:45 sub_00.proof
+-rw-r--r-- 1 root root    7738 Sep 23 18:45 sub_00.stmt
+=== pinned Rust: the fixture
+{"name":"/workspace/research/runs/r20260923-184441-66d2/fixture/rep1/sub_00.proof","accepted":true,"system_pinned":true,"reason":"accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 40 VUs, 40 x rows + 40 W columns + 40 y words under the a/b/y roots)","statement":{"l":1024,"n":4096,"D":6,"t":189,"zk":false,"mode":"interactive","n_proofs":1,"n_vus":40,"steps":24,"K":64,"format":"ligero-statement/v5","relation":"fp4-nvf4","digest":"f3566173cae017c2679f17ca0f819a3a6357a1faa4d607e5127ae03157c401a5"},"timing":{"shared":0.001748,"parse":0.001596,"soundness":0.000007,"statement_hash":0.000203,"challenge_hash":0.001033,"merkle":0.001722,"ntt":0.004267,"dfold":0.009099,"quadratic":0.019350,"chain":0.003501,"auth":0.001538,"total":0.044280},"reps":1,"soundness":{"per_proof_log2":-128.049,"union_log2":-128.049,"terms":{"irs_query":-128.049,"linear_query":-188.867,"quadratic_query":-188.734,"irs_field":-173.441,"linear_field":-185.441,"quadratic_field":-185.441,"coin_commitment_hiding":-191.000}}}
+RUST_FIXTURE_RC=0
+{"sys_id":"8c6d260c675cad40ae7263db08974f1842d04997f344cb4f9e52821e70bb25f5","table_digest":"8dad2d286e92d9927464afb81846fcbdb16f09b2c01910e36fcf8aaac432fc3a","pinned_relation":"fp4-nvf4+hash","format":"ligero-system/v3","m":4442,"L":334,"Q":4252,"pins":17,"chain":true,"chain_end":[{"lo":31,"bits":1},{"lo":23,"bits":8},{"lo":0,"bits":23}]}
+80ac30a956d569a2aae360a59ff0b5ea150fce98200b68fec54520bd4d3719f7  /workspace/research/runs/r20260923-184441-66d2/fixture/system.bin
+=== pinned Rust: every sub-batch of the 4096-VU bench dump r20260923-183853-4f09
+{"dir":"/workspace/research/runs/r20260923-183853-4f09/proofs/rep1","jobs":7,"available_parallelism":13,"threads":8,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"8c6d260c675cad40ae7263db08974f1842d04997f344cb4f9e52821e70bb25f5","table_digest":"8dad2d286e92d9927464afb81846fcbdb16f09b2c01910e36fcf8aaac432fc3a","pinned_relation":"fp4-nvf4+hash"},"n":7,"accepted":7,"rejected":0,"own_coins":7,"batch_accepted":true,"batch_reason":"accept: all 7 sub-batches accepted; union bound 2^-128.54 <= 2^-128","batch_log2":-128.538895089,"batch_bits":128.538895089,"per_proof_bits":[131.346250011,131.346250011,131.346250011,131.346250011,131.346250011,131.346250011,131.346250011],"n_proofs_claimed":[7,7,7,7,7,7,7],"python_agree":7,"python_disagree":0,"verify_seconds_sum":2.7838,"shared_seconds":0.0017,"wall_seconds":0.4156,"items":[{"name":"sub_00.proof","accepted":true,"system_pinned":true,"reason":"accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 682 VUs, 682 x rows + 682 W columns + 682 y words under the a/b/y roots)","statement":{"l":16384,"n":65536,"D":6,"t":195,"zk":true,"mode":"interactive","n_proofs":7,"n_vus":682,"steps":24,"K":64,"format":"ligero-statement/v5","relation":"fp4-nvf4","digest":"653890706da9350dc321b5c4ed7d9fb3256fcd24e17a0763a95f3f9b9b304a94"},"timing":{"shared":0.000394,"parse":0.005271,"soundness":0.000001,"statement_hash":0.003486,"challenge_hash":0.007856,"merkle":0.003250,"ntt":0.292703,"dfold":0.0138
+RUST_BENCH_RC=0
+system.bin: bench dump == fixture dump (byte-identical)
+=== cargo test --release with the fixture in place
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.58s
+test fp4_nvf4_hashed_negatives_and_system_mismatches_are_rejected ... FAILED
+test fp4_nvf4_hashed_v5_proof_is_accepted_and_the_hashed_system_is_pinned ... FAILED
+failures:
+thread 'fp4_nvf4_hashed_negatives_and_system_mismatches_are_rejected' (12870) panicked at tests/relations.rs:1032:5:
+thread 'fp4_nvf4_hashed_v5_proof_is_accepted_and_the_hashed_system_is_pinned' (12871) panicked at tests/relations.rs:1062:5:
+failures:
+test result: FAILED. 16 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+CARGO_TEST_RC=101
+-rw-r--r-- 1 root root 3246689 Sep 23 18:45 /workspace/research/runs/r20260923-184441-66d2/fixture.tgz
+FIXTURE_DONE

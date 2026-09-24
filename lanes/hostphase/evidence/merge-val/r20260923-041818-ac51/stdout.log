@@ -1,0 +1,19 @@
+=== pytest fp4/relation_test.py chain_test.py witness_device_test.py
+...............                                                          [100%]
+15 passed in 18.78s
+### pytest-recheck: 0
+=== fp4-nvf4 bench-vu --impl device (170 VUs, 1 rep)
+usage: run.py [-h] [--relation {bf16,bf16-hopper,fp8-hopper,fp8-ada,fp4-nvf4}]
+              {gate,bench,gate-vu,bench-vu} ...
+run.py: error: argument cmd: invalid choice: 'device' (choose from gate, bench, gate-vu, bench-vu)
+### bench-fp4-device: 2
+FileNotFoundError: no *.proof in /workspace/research/runs/r20260923-041818-ac51/proofs_fp4_device/rep1
+### pyverify-fp4-device: 1
+=== fp4-nvf4 bench-vu --impl legacy (170 VUs, 1 rep)
+usage: run.py [-h] [--relation {bf16,bf16-hopper,fp8-hopper,fp8-ada,fp4-nvf4}]
+              {gate,bench,gate-vu,bench-vu} ...
+run.py: error: argument cmd: invalid choice: 'legacy' (choose from gate, bench, gate-vu, bench-vu)
+### bench-fp4-legacy: 2
+FileNotFoundError: no *.proof in /workspace/research/runs/r20260923-041818-ac51/proofs_fp4_legacy/rep1
+### pyverify-fp4-legacy: 1
+RECHECK_DONE

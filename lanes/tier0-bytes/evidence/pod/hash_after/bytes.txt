@@ -1,0 +1,6 @@
+-rw-r--r-- 1 root root   9023 Sep 23 17:45 manifest.json
+-rw-r--r-- 1 root root 926203 Sep 23 17:45 system.bin
+proof_bytes_total 90935260 13
+stmt_bytes_total 347013 13
+0000000   L   I   G   S   T   M   0   6
+coins_bytes_total 1664 13

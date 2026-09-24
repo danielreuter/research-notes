@@ -1,0 +1,113 @@
+RUN=r20260923-110354-7d03
+11:06:10 r20260923-110354-7d03 state=done 0 wall=118s
+  "measured_witness": 0.00028681599348783497,
+  "measured_zk_masks": 0.00012566399620845916,
+  "measured_encode": 0.011011616110801696,
+  "measured_transfer": 7.638399896677583e-05,
+  "measured_merkle": 0.008601088047027586,
+  "measured_tests_w": 0.11433571243286132,
+  "measured_tests_quad": 2.880000043660402e-06,
+  "measured_tests_chain": 2.8800000145565716e-06,
+  "measured_openings": 0.009011711835861205,
+  "measured_total": 0.1465015484020114
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "system_format": "ligero-system/v2",
+  "accepted": 7,
+  "total": 7,
+  "seconds": 0.5578633160330355,
+  "wall": 0.5718701269943267,
+  "coins": "the transcript's own coins replayed (file verifier)",
+  "rust_ligero_verify": "not run by this harness; backends/ligero-verify pins fp4-nvf4 (lane ligero-verify-fp4: ligero-system/v2 component chain ends, E2M1 / UE4M3 decode) -- verify these files with `ligero-verify batch --system system.bin --dir repN --target-bits 128` (an independent check when run by a non-producer)"
+ },
+ "validation": "passed"
+}
+--- stderr:
+RUN=r20260923-110613-2500
+11:06:49 r20260923-110613-2500 state=done 0 wall=20s
+  "measured_witness": 0.0007368960045278072,
+  "measured_zk_masks": 0.0001694080026354641,
+  "measured_encode": 0.011437119841575624,
+  "measured_transfer": 1.702400023350492e-05,
+  "measured_merkle": 0.008730048060417175,
+  "measured_tests_w": 0.13595967960357666,
+  "measured_tests_quad": 2.8480000037234273e-06,
+  "measured_tests_chain": 2.7200000768061726e-06,
+  "measured_openings": 0.0064926079511642455,
+  "measured_total": 0.1674053027778864
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "system_format": "ligero-system/v2",
+  "accepted": 7,
+  "total": 7,
+  "seconds": 0.48787721269764006,
+  "wall": 0.506729215849191,
+  "coins": "the transcript's own coins replayed (file verifier)",
+  "rust_ligero_verify": "not run by this harness; backends/ligero-verify pins fp4-nvf4 (lane ligero-verify-fp4: ligero-system/v2 component chain ends, E2M1 / UE4M3 decode) -- verify these files with `ligero-verify batch --system system.bin --dir repN --target-bits 128` (an independent check when run by a non-producer)"
+ },
+ "validation": "passed"
+}
+--- stderr:
+RUN=r20260923-110652-bd38
+11:07:43 r20260923-110652-bd38 state=done 0 wall=38s
+  "measured_witness": 0.0019974079877138136,
+  "measured_zk_masks": 0.00012089599960017949,
+  "measured_encode": 0.0071669119596481316,
+  "measured_transfer": 3.008000017143786e-05,
+  "measured_merkle": 0.008100224018096923,
+  "measured_tests_w": 0.10761865711212158,
+  "measured_tests_quad": 2.7520000585354863e-06,
+  "measured_tests_chain": 2.8480000037234273e-06,
+  "measured_openings": 0.009981984257698058,
+  "measured_total": 0.13894048488885166
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "system_format": "ligero-system/v2",
+  "accepted": 7,
+  "total": 7,
+  "seconds": 0.7171969059854746,
+  "wall": 0.7355769441928715,
+  "coins": "the transcript's own coins replayed (file verifier)",
+  "rust_ligero_verify": "not run by this harness; backends/ligero-verify pins fp4-nvf4 (lane ligero-verify-fp4: ligero-system/v2 component chain ends, E2M1 / UE4M3 decode) -- verify these files with `ligero-verify batch --system system.bin --dir repN --target-bits 128` (an independent check when run by a non-producer)"
+ },
+ "validation": "passed"
+}
+--- stderr:
+INT_SERIES9_DONE
+RUN=r20260923-110843-2710
+11:09:16 r20260923-110843-2710 state=done 0 wall=20s
+  "zk_masks": 0.00025868800398893654,
+  "encode": 0.010788383960723876,
+  "transfer": 3.0751999409403655e-05,
+  "merkle": 0.007812095999717712,
+  "tests_w": 0.07368566417694092,
+  "tests_quad": 2.8480000037234278e-06,
+  "tests_chain": 2.7840000402648e-06,
+  "openings": 0.005778559923171996,
+  "tests": 0.0736912961769849,
+  "total": 0.10200595819950102
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "system_format": "ligero-system/v2",
+  "accepted": 7,
+  "total": 7,
+  "seconds": 0.5723658630158752,
+  "wall": 0.5889272920321673,
+  "coins": "the transcript's own coins replayed (file verifier)",
+  "rust_ligero_verify": "not run by this harness; backends/ligero-verify pins fp4-nvf4 (lane ligero-verify-fp4: ligero-system/v2 component chain ends, E2M1 / UE4M3 decode) -- verify these files with `ligero-verify batch --system system.bin --dir repN --target-bits 128` (an independent check when run by a non-producer)"
+ },
+ "validation": "passed"
+}
+--- stderr:

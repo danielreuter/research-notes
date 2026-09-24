@@ -1,0 +1,46 @@
+{
+ "n": 29,
+ "kprime": [
+  6,
+  4,
+  4,
+  3,
+  3
+ ],
+ "queries": [
+  312,
+  191,
+  193,
+  194,
+  195
+ ],
+ "rates": [
+  1,
+  2,
+  2,
+  2,
+  2
+ ],
+ "coins": "fiat-shamir (transcript.py FiatShamirCoins)",
+ "dialect": "proto/pcs.py fused order (header, z, root_1, v, ...) = proto 7bc2fdd",
+ "python_verify": [
+  true,
+  "accept"
+ ],
+ "neg_verify": [
+  false,
+  "Merkle multi-path of the last round failed"
+ ],
+ "soundness_log2": -128.02561834509666,
+ "proof_bytes": 644092,
+ "sha256": "ba4b6668ce94b56c86f2ae56818fb0d88c2342e4b28b4fb97cb57ee3d269c6dc",
+ "v": [
+  1824361229,
+  707276837,
+  429203641,
+  415607141,
+  1067753628,
+  147895843
+ ],
+ "f": "torch.randint(0, p, (2^29,), int32, cuda, Generator.manual_seed(20260923)); z = numpy default_rng(20260923).integers(0, p, (29, 6))"
+}

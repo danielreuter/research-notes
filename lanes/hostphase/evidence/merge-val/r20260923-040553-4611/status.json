@@ -1,0 +1,59 @@
+{
+ "schema": "telemetry/status/v0.1",
+ "transitions": [
+  {
+   "state": "running",
+   "t_utc": "2026-09-23T04:05:58.632Z",
+   "t_mono": 1153229.86294591,
+   "stream": "f537cb2c9f9c:391:115322961",
+   "pid": 403,
+   "pgid": 403,
+   "starttime_ticks": 115322986,
+   "stage": "bootstrap",
+   "timeout_s": null,
+   "started_mono": 1153229.861237208,
+   "started_utc": "2026-09-23T04:05:58.632Z",
+   "command": [
+    "bash",
+    "-c",
+    "exec bash \"$RESEARCH_RUN_DIR/inputs/bootstrap.sh\""
+   ]
+  },
+  {
+   "state": "done",
+   "t_utc": "2026-09-23T04:06:53.902Z",
+   "t_mono": 1153285.133453255,
+   "stream": "f537cb2c9f9c:391:115322961",
+   "rc": 0,
+   "signal": null,
+   "timed_out": false,
+   "ended_mono": 1153285.132936541,
+   "ended_utc": "2026-09-23T04:06:53.902Z",
+   "wall_s": 55.271699333097786,
+   "rc_is_shell_status": true
+  }
+ ],
+ "state": "done",
+ "updated_utc": "2026-09-23T04:06:53.902Z",
+ "updated_mono": 1153285.133453255,
+ "updated_stream": "f537cb2c9f9c:391:115322961",
+ "pid": 403,
+ "pgid": 403,
+ "starttime_ticks": 115322986,
+ "stage": "bootstrap",
+ "timeout_s": null,
+ "started_mono": 1153229.861237208,
+ "started_utc": "2026-09-23T04:05:58.632Z",
+ "command": [
+  "bash",
+  "-c",
+  "exec bash \"$RESEARCH_RUN_DIR/inputs/bootstrap.sh\""
+ ],
+ "rc": 0,
+ "signal": null,
+ "timed_out": false,
+ "ended_mono": 1153285.132936541,
+ "ended_utc": "2026-09-23T04:06:53.902Z",
+ "wall_s": 55.271699333097786,
+ "rc_is_shell_status": true
+}

@@ -1,0 +1,67 @@
+Wed Sep 23 17:59:22 UTC 2026
+  negative row hash.a[0].b1 (hint) +2 in column 19: REJECTED linear constraints failed
+  negative row hash.a[0].b2 (hint) +2 in column 1: REJECTED linear constraints failed
+  negative row hash.a[0].b3 (hint) +1 in column 22: REJECTED linear constraints failed
+  negative row hash.a[0].b4 (hint) +1 in column 4: REJECTED linear constraints failed
+  negative row hash.a[0].b5 (hint) +2 in column 19: REJECTED linear constraints failed
+  negative row hash.a[0].b6 (hint) +2 in column 14: REJECTED linear constraints failed
+  negative row hash.a[0].b7 (hint) +1 in column 18: REJECTED linear constraints failed
+  negative row hash.a[0].tinv (inv) +2 in column 20: REJECTED quadratic constraints failed
+  negative row hash.prod0 (prod) +2 in column 3: REJECTED linear constraints failed
+  negative row hash.a[0].finite.inv (inv) +1 in column 20: REJECTED quadratic constraints failed
+  negative row hash.a[1].b0 (hint) +2 in column 11: REJECTED linear constraints failed
+  negative row hash.a[1].b1 (hint) +1 in column 21: REJECTED linear constraints failed
+  negative row hash.a[1].b2 (hint) +1 in column 15: REJECTED linear constraints failed
+  negative row hash.a[1].b3 (hint) +2 in column 8: REJECTED linear constraints failed
+  negative row hash.a[1].b4 (hint) +1 in column 16: REJECTED linear constraints failed
+  negative row hash.a[1].b5 (hint) +2 in column 21: REJECTED linear constraints failed
+  negative row hash.a[1].b6 (hint) +1 in column 20: REJECTED linear constraints failed
+  negative row hash.a[1].b7 (hint) +2 in column 21: REJECTED linear constraints failed
+  negative row hash.a[1].tinv (inv) +1 in column 12: REJECTED quadratic constraints failed
+  negative row hash.prod1 (prod) +1 in column 7: REJECTED linear constraints failed
+  negative row hash.a[1].finite.inv (inv) +2 in column 6: REJECTED quadratic constraints failed
+  negative row hash.a[2].b0 (hint) +2 in column 9: REJECTED linear constraints failed
+  negative row hash.a[2].b1 (hint) +2 in column 9: REJECTED linear constraints failed
+  negative row hash.a[2].b2 (hint) +2 in column 9: REJECTED linear constraints failed
+  negative row hash.a[2].b3 (hint) +2 in column 8: REJECTED linear constraints failed
+  negative row hash.a[2].b4 (hint) +1 in column 15: REJECTED linear constraints failed
+  negative row hash.a[2].b5 (hint) +2 in column 22: REJECTED linear constraints failed
+  negative row hash.a[2].b6 (hint) +2 in column 16: REJECTED linear constraints failed
+  negative row hash.a[2].b7 (hint) +1 in column 6: REJECTED linear constraints failed
+  negative row hash.a[2].tinv (inv) +1 in column 16: REJECTED quadratic constraints failed
+  negative row hash.prod2 (prod) +2 in column 0: REJECTED linear constraints failed
+  negative row hash.a[2].finite.inv (inv) +2 in column 13: REJECTED quadratic constraints failed
+  negative row hash.a[3].b0 (hint) +2 in column 21: REJECTED linear constraints failed
+  negative row hash.a[3].b1 (hint) +2 in column 5: REJECTED linear constraints failed
+  negative row hash.a[3].b2 (hint) +1 in column 1: REJECTED linear constraints failed
+  negative row hash.a[3].b3 (hint) +2 in column 2: REJECTED linear constraints failed
+  negative row hash.a[3].b4 (hint) +1 in column 21: REJECTED linear constraints failed
+  negative row hash.a[3].b5 (hint) +1 in column 2: REJECTED linear constraints failed
+  negative row hash.a[3].b6 (hint) +2 in column 3: REJECTED linear constraints failed
+  negative row hash.a[3].b7 (hint) +2 in column 3: REJECTED linear constraints failed
+  negative row hash.a[3].tinv (inv) +1 in column 14: REJECTED quadratic constraints failed
+  negative row hash.prod3 (prod) +2 in column 11: REJECTED linear constraints failed
+  negative row hash.a[3].finite.inv (inv) +1 in column 19: REJECTED quadratic constraints failed
+  negative row hash.a[4].b0 (hint) +1 in column 15: REJECTED linear constraints failed
+  negative row hash.a[4].b1 (hint) +2 in column 22: REJECTED linear constraints failed
+  negative row hash.a[4].b2 (hint) +2 in column 16: REJECTED linear constraints failed
+  negative row hash.a[4].b3 (hint) +2 in column 6: REJECTED linear constraints failed
+  negative row hash.a[4].b4 (hint) +2 in column 23: REJECTED linear constraints failed
+  negative row hash.a[4].b5 (hint) +2 in column 7: REJECTED linear constraints failed
+  negative row hash.a[4].b6 (hint) +2 in column 18: REJECTED linear constraints failed
+  negative row hash.a[4].b7 (hint) +2 in column 17: REJECTED linear constraints failed
+  negative row hash.a[4].tinv (inv) +1 in column 18: REJECTED quadratic constraints failed
+  negative row hash.prod4 (prod) +1 in column 18: REJECTED linear constraints failed
+  negative row hash.a[4].finite.inv (inv) +2 in column 22: REJECTED quadratic constraints failed
+  negative row hash.a[5].b0 (hint) +2 in column 12: REJECTED linear constraints failed
+  negative row hash.a[5].b1 (hint) +1 in column 7: REJECTED linear constraints failed
+  negative row hash.a[5].b2 (hint) +2 in column 17: REJECTED linear constraints failed
+  negative row hash.a[5].b3 (hint) +1 in column 17: REJECTED linear constraints failed
+  negative row hash.a[5].b4 (hint) +1 in column 10: REJECTED linear constraints failed
+fp8-ada-x4 hashed gate: 49 honest sub-batches, 86 negatives, 0 failures
+
+real	1m14.700s
+user	1m12.488s
+sys	0m2.781s
+GATE_DONE
+Wed Sep 23 18:00:37 UTC 2026

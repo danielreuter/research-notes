@@ -1,0 +1,109 @@
+---
+lane: coordinator
+kind: state
+created: 2026-09-23T21:20Z
+status: open
+---
+
+# Coordinator state 21:20Z
+
+## What happened
+Six lanes died silently at ~19:00Z (no commits/notes after, pods idle 0 % GPU, no laptop processes, no completion notice):
+share-logup, ajtai-leaf, blake3-leaf, fp4-decode, live-2, ligerito-verify-rs. Found 20:50Z (lost ~2 h). Relaunched 21:00Z as
+`<name>-2` lanes on the same warm pods (brief `20260923T2100Z-brief-relaunch.md`). New tool so this is caught in 45 min next time:
+`research notes status` (lane/qol c5342ca).
+
+## Running lanes (agent id → lane, FINAL)
+| lane | agent | branch base | pod | FINAL |
+|---|---|---|---|---|
+| share-logup-2 | 4d6e52a0 | share-logup 1054caf | kx69zewzhawgy1 4090 | 23:30Z |
+| ajtai-leaf-2 | 3fa9532a | ajtai-leaf d40399f (+2 dirty files) | qam33gj60dv60g 4090 | 23:00Z |
+| blake3-leaf-2 | abcbabc3 | blake3-leaf 30abee8 | ghpl8iy5s629sq 4090 | 23:00Z |
+| fp4-decode-2 | dac1af15 | fp4-decode 98c95b1 | k39j0s2bvhlljf 4090 + 5090b | 23:00Z |
+| live-2b | 1bc57d3b | live-2 71dbab0 | qd3grivhbfqurw + verifier 1x8f33k0qa2lkx (keep) | 23:00Z |
+| verify-rs-2 | 974074fd | ligerito-verify-rs ff9d4c3 | none | 23:00Z |
+| v3-scout | c4621d4b | open-fixes 5e6b3e3 | H100 + A100 | 23:00Z |
+| hints-fused | c0b4645b | open-fixes 5e6b3e3 | 4090 | 23:30Z |
+| red-team-ligerito-2 | 1e6d76a2 | — | none | 23:15Z |
+| red-team-leaf-2 | dabc3497 | — | none | 23:15Z |
+| ligerito-relation | 61096b30 | — | relation-dev | 04:00Z |
+| ligerito-sumcheck-2 | f8a58e21 | — | 4090 + H100 | 23:30Z |
+
+## Next (coordinator)
+* Every ~30 min: `research notes status --since-hours 8 --exclude 'vllm*'`; STALE → check pod, relaunch.
+* ~23:00Z INTEGRATION: `lane/integration` from main 22e10e0 + leaf-iface 720820d + ajtai-design 2a61a1f + tier0 preview 523981c +
+  open-fixes 5e6b3e3 + the -2 lanes' tips (+ live-2b, fp4-decode-2) → merge-val-3 GPU validation → ff main, push. QoL merges
+  (research-qol branch when posted, then lane/qol) before or after, not during.
+* ~00:00Z DEVICE WAVE: headline configs from v3-scout; column 2 = `+shared` tile64 if share-logup-2 lands pipelined, else +hash;
+  leaf drill-downs (poseidon2 | blake3 | ajtai); Ligerito column from ligerito-relation; live verifier per live-2b RUNBOOK.
+
+## Money
+Balance $109.20 at 21:15Z; account spend $25.2/h (ours ~$16/h incl. 2x H100 $3.49; other session vyv-* ~$10/h). Runway ~4.3 h →
+dry ~01:30Z, mid device wave. Asked the user for a top-up (~$150) or a smaller wave.
+* 21:25Z: user will top up ~$150 before 23:00Z → FULL device wave. Re-check balance at 23:00Z before provisioning device pods.
+* 21:40Z: sumcheck-2 + verify-rs-2 FINAL. V1 BREAK in Ligerito (virtual rows unconstrained). ligerito-relation agent lost context ~21:20Z
+  (thought its own edits were another instance's) -> V1 patch saved, relaunched as ligerito-relation-2 a3df0649 (04:00Z), verify-rs-3
+  b82b331b (01:30Z), ligerito-sumcheck-3 d75714ef (02:00Z). Context loss is the failure mode behind the 19:00Z deaths too: every new
+  brief tells lanes their own report + git log are the truth after a context loss.
+
+## 22:30Z second relaunch
+The 21:00Z batch (9 lanes) all stopped at ~21:06-21:18Z, the same moment ligerito-relation lost context; harness refuses resume
+("Agent host session already exists"); no laptop locks/processes. Relaunched as -3 (brief-relaunch §3): share-logup-3 e0826a29,
+ajtai-leaf-3 0a0135a7, blake3-leaf-3 3584f644, fp4-decode-3 1f92eb5f, live-2c 26edd918, v3-scout-2 3ff28b6c, hints-fused-2 d88db030,
+red-team-leaf-3 fda70bbe, red-team-ligerito-3 8e2970ee. Alive from 21:40Z: ligerito-relation-2 a3df0649, verify-rs-3 b82b331b,
+ligerito-sumcheck-3 d75714ef. Balance $272.67 @22:20Z after the user's top-up (account $40.5/h incl. the other session).
+Schedule: FINALs 23:30Z-00:30Z; integration ~00:00Z; device wave ~01:00Z.
+
+## 23:55Z third stall: Ligerito lanes stopped 23:24-23:29Z (user asked to double-check)
+Evidence: no commits since 22:58-23:16Z, last worktree edits 23:24Z (relation-2, verify-rs-3) / 23:28Z (sumcheck-3) / 23:13Z
+(red-team-ligerito-3), both Ligerito pods idle (0 %, no processes), nothing local. Subagent transcript mtimes are NOT a liveness
+signal (all six flushed at 23:31:40Z incl. live lanes). steps-pin (edit 23:43Z, pod pytest 23:46Z) and shared-live (pod campaign
+writing 23:49Z) ALIVE.
+Uncommitted work saved: evidence/uncommitted-2349Z.{patch,status[,merge,-untracked.tgz]} in each lane dir. relation-2 was
+MID-MERGE of lane/ligerito-sumcheck-3 62f24d42 (layout.py UU).
+Successors take over the SAME worktrees + branches + pods:
+- ligerito-relation-3 9ef1073b (lane/ligerito-relation-2; finish merge, LGSC0004 under --zk, R3-5/R3-6, R3-7, R3-2/R3-8; FINAL 04:00Z)
+- ligerito-sumcheck-4 2298a8ea (lane/ligerito-sumcheck-3; WIP, R3-4/R3-6, PCS merge or 12-coin path; FINAL 02:00Z)
+- verify-rs-4 ca34c0e3 (lane/verify-rs-3; WIP negative, ZK key pin + LGSC0004, R3-7 Rust side, batch dumps; FINAL 03:00Z)
+red-team-ligerito-3: FINAL draft (23:18Z) stands as its final; not relaunched.
+
+## 00:05Z liveness tooling (lane/qol 5c47f272, not yet on main)
+
+* `research notes status --pods` now takes the freshest of report / checkpoint / branch commit / newest uncommitted edit / pod
+  (work process = now, else newest /workspace file); `dirty` = files a dead lane would lose; STALE at 30 min.
+* Launch procedure: `research notes bind <lane> --branch B --worktree DIR --pod NAME|none` at launch (mandatory for successors
+  that take over a predecessor's worktree); `research notes checkpoint <pred> superseded "by <succ>"` when replacing a lane.
+* Watcher running on the laptop: `research notes watch --every 10 --pods --stale-min 30 --since-hours 8 --exclude 'vllm*'`
+  (run from ~/projects/verity-main-wt/qol with PYTHONPATH=tools/research/src); prints `STALE <lane> ...` / `ALIVE <lane>` once
+  per transition.  If the laptop session restarts, restart it.
+* Superseded 00:05Z: all 19 dead predecessors.  Bound: ligerito-relation-3 -> lane/ligerito-relation-2 (+pod),
+  ligerito-sumcheck-4 -> lane/ligerito-sumcheck-3 (+pod), verify-rs-4 -> lane/verify-rs-3 (no pod).
+* steps-pin FINAL f2a74128 23:53Z (pod gone).  Integration now waits only on shared-live (00:45Z).
+* 00:36Z verify-rs-4 FINAL: lane/verify-rs-3 @ 0e4ef1d1 (pushed; clean; no pod). LGSC0004 ZK key pinned by derivation from
+  LGSC0003; R3-7/R3-10 closed in Rust (src/session.rs, `--session`: coins from the verifier's own records, one batch per proof,
+  claim = union + log2(batches per statement) over a whole store). relation-3 e1114b4c gates: 20/20 honest, 990/990 negatives,
+  1010/1010 agree with Python. OPEN for relation-3 (asks file in its dir, updates 00:27Z/00:35Z): rebuild Rust from 0e4ef1d1 on
+  its pod; R3-10 in 32e9bd59 bench (3 batches/statement -> 2^-126.42, not 2^-128): one statement per rep or size for attempts;
+  real-size LGSC0004 proof OOMs on 4090 4096 VUs. Ligerito integration takes 0e4ef1d1 with relation-3's FINAL (04:00Z).
+* 00:35Z ligerito-sumcheck-4 FINAL: lane/ligerito-sumcheck-3 @ 58e76e5d (pushed by coordinator; clean; pod gone, lane ~$0.54).
+  LGSC0004 13 -> 11 coins (zc 3,3,6,6 / vf12 / cmb 6,6,6 / rb 6,6), fp8-ada 4096 4090 0.196 -> 0.170 s, 15/15 negatives, 60/60
+  tests, fixtures byte-identical, 20 artifacts remote=1. R3-6 fixed, R3-4 sumcheck side, R3-5 landed by relation-3 (e61b24fe).
+  bf16-hopper 4096 does not fit a 4090 (27.2 of 23.5 GiB) -> H100 in the wave. relation-3 merged 796d8a11; 58e76e5d merges clean
+  (handoff in its dir). Next coin cut (11 -> 9, rows<->PCS merge) needs PCS + Rust + relation + wire change: not tonight.
+
+## 01:00Z: workflow review done; tooling + contract landed
+- Review (d2f06d71): `lanes/workflow-review/20260924T0030Z-report-workflow-review.md`. Built R1 + R3 on `lane/qol` `d4788dea`
+  (234 passed): `research notes checkpoint` prints the INBOX (handoffs by mtime since last shown; `.inbox-seen`; successors via
+  `bind --succeeds` or `[superseded] by X` inherit), `research notes inbox LANE [--peek]`, status `inbox` column + `MAIL n` for
+  finished lanes with no successor, watch prints MAIL; `checkpoint LANE final` runs finish checks (cited art: preserved
+  [recorded], no running pod of the lane [longest-name owner], worktree clean at tip, handoffs named) -> exit 3; `data sql`
+  names the schema on "no such column". Coordinator `superseded` checkpoints do NOT mark the inbox read.
+- R2: contract `~/.research/notes/kb/LANE-CONTRACT.md` v1 (+ `kb/README.md`); six old briefs marked "rules superseded".
+  Shim `~/.research/bin/research` (-> lane/qol src; repoint to main after the QoL merge).
+- R4: bench-summary lane 935b8eb9 (no pod; `lane/bench-summary` from main; `verity_numerical/bench/summary.py`; FINAL 02:00Z).
+- First MAIL caught live: relation-3 -> verify-rs-4 (final) 00:50Z load_sessions gap (s... records without `batches`). Launched
+  verify-rs-5 be11caea (bound --succeeds verify-rs-4, worktree verify-rs-3 @ 0e4ef1d1, builds on relation-3's pod /workspace/vrs5,
+  FINAL 02:00Z). The other 6 historical MAIL items are benign (answered or successor-handled).
+- Watcher restarted via the shim with STALE|ALIVE|MAIL notifications. Seeded `.inbox-seen` for relation-3 (23:55Z),
+  shared-live-2 (00:28Z), verify-rs-5 (verify-rs-4 FINAL).
+- Relation-3 acknowledged verify-rs-4's asks (derived ZK keys 15/15, R3-7 slots) -> vrs4 check closed.

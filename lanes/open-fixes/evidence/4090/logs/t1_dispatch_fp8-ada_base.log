@@ -1,0 +1,5 @@
+=== 20:06:09 tree=/workspace/src-base sha=21a8716 minus ecec3ef (= final head) cmd: /workspace/venv312/bin/python /workspace/ntt_dispatch.py fp8-ada 316
+fp8-ada l=16384 CUDA_NTT=None ntt_cuda=absent
+   ('torch-chain', 65536) 9
+NTT_DISPATCH cuda4step 0 Domain.get (torch-chain NTTs and other domain users) 9
+=== 20:06:19 rc=0 wall=10s

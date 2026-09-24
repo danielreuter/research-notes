@@ -1,0 +1,140 @@
+
+=== [10:38:53] pytest backends/direct/ligero -q -x  (bootstrap run: collection ERROR in privsel/relation_test.py = relmin-private, failing on main per the brief; here again, then without privsel)
+PYTEST_FULL rc=1
+=========================== short test summary info ============================
+ERROR backends/direct/ligero/privsel/relation_test.py
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 error in 1.66s
+PYTEST_NOPRIVSEL rc=143
+........................................................................ [ 51%]
+............
+=== [10:44:06] gate-vu bf16-hopper 
+GATE bf16-hopper rc=0 wall=153s
+  negative row x.b[15].s (pin) +2 in column 164: REJECTED linear constraints failed
+  negative row prod[0].prod[0].z (hint) +1 in column 14: REJECTED linear constraints failed
+  negative row prod[0].prod3 (prod) +2 in column 108: REJECTED linear constraints failed
+  negative row prod[0].prod4 (prod) +1 in column 191: REJECTED linear constraints failed
+  negative row prod[0].prod[0].z1.b0 (bit) +1 in column 117: REJECTED linear constraints failed
+  negative row prod[0].prod5 (prod) +1 in column 33: REJECTED quadratic constraints failed
+  negative row prod[0].prod6 (prod) +1 in column 84: REJECTED linear constraints failed
+  negative row prod[1].prod[1].z (hint) +1 in column 139: REJECTED linear constraints failed
+  negative row prod[1].prod7 (prod) +2 in column 65: REJECTED linear constraints failed
+  negative row prod[1].prod8 (prod) +2 in column 120: REJECTED linear constraints failed
+  negative row prod[1].prod[1].z1.b0 (bit) +1 in column 143: REJECTED linear constraints failed
+  negative row prod[1].prod9 (prod) +1 in column 171: REJECTED quadratic constraints failed
+  negative row prod[1].prod10 (prod) +1 in column 58: REJECTED linear constraints failed
+  negative row prod[2].prod[2].z (hint) +2 in column 0: REJECTED linear constraints failed
+  negative row prod[2].prod11 (prod) +1 in column 17: REJECTED linear constraints failed
+  negative row prod[2].prod12 (prod) +2 in column 157: REJECTED linear constraints failed
+  negative row prod[2].prod[2].z1.b0 (bit) +1 in column 164: REJECTED linear constraints failed
+  negative row prod[2].prod13 (prod) +1 in column 95: REJECTED quadratic constraints failed
+  negative row prod[2].prod14 (prod) +2 in column 36: REJECTED linear constraints failed
+  negative row prod[3].prod[3].z (hint) +2 in column 14: REJECTED linear constraints failed
+  negative row prod[3].prod15 (prod) +1 in column 3: REJECTED linear constraints failed
+  negative row prod[3].prod16 (prod) +1 in column 179: REJECTED linear constraints failed
+  negative row prod[3].prod[3].z1.b0 (bit) +1 in column 59: REJECTED linear constraints failed
+  negative row prod[3].prod17 (prod) +1 in column 148: REJECTED quadratic constraints failed
+bf16-hopper gate: 13 honest sub-batches, 87 negatives, 0 failures
+
+=== [10:46:39] gate-vu bf16-hopper --auth included-hash
+GATE bf16-hopper-hash rc=0 wall=31s
+  negative row hash.prod1 (prod) +2 in column 20: REJECTED linear constraints failed
+  negative row hash.a[1].finite.inv (inv) +1 in column 172: REJECTED quadratic constraints failed
+  negative row hash.a[2].b0 (hint) +1 in column 16: REJECTED linear constraints failed
+  negative row hash.a[2].b1 (hint) +2 in column 24: REJECTED linear constraints failed
+  negative row hash.a[2].b2 (hint) +2 in column 30: REJECTED linear constraints failed
+  negative row hash.a[2].b3 (hint) +1 in column 117: REJECTED linear constraints failed
+  negative row hash.a[2].b4 (hint) +2 in column 91: REJECTED linear constraints failed
+  negative row hash.a[2].b5 (hint) +1 in column 155: REJECTED linear constraints failed
+  negative row hash.a[2].b6 (hint) +1 in column 127: REJECTED linear constraints failed
+  negative row hash.a[2].b7 (hint) +2 in column 180: REJECTED linear constraints failed
+  negative row hash.a[2].b8 (hint) +2 in column 131: REJECTED linear constraints failed
+  negative row hash.a[2].b9 (hint) +2 in column 50: REJECTED linear constraints failed
+  negative row hash.a[2].b10 (hint) +2 in column 185: REJECTED linear constraints failed
+  negative row hash.a[2].b11 (hint) +2 in column 60: REJECTED linear constraints failed
+  negative row hash.a[2].b12 (hint) +2 in column 149: REJECTED linear constraints failed
+  negative row hash.a[2].b13 (hint) +2 in column 136: REJECTED linear constraints failed
+  negative row hash.a[2].b14 (hint) +1 in column 148: REJECTED linear constraints failed
+  negative row hash.a[2].b15 (hint) +1 in column 151: REJECTED linear constraints failed
+  negative row hash.a[2].tinv (inv) +2 in column 180: REJECTED quadratic constraints failed
+  negative row hash.prod2 (prod) +2 in column 100: REJECTED linear constraints failed
+  negative row hash.a[2].finite.inv (inv) +1 in column 60: REJECTED quadratic constraints failed
+  negative row hash.a[3].b0 (hint) +2 in column 138: REJECTED linear constraints failed
+  negative row hash.a[3].b1 (hint) +1 in column 136: REJECTED linear constraints failed
+  negative row hash.a[3].b2 (hint) +1 in column 85: REJECTED linear constraints failed
+bf16-hopper hashed gate: 13 honest sub-batches, 86 negatives, 0 failures
+
+=== [10:47:10] gate-vu fp8-hopper 
+GATE fp8-hopper rc=0 wall=28s
+  negative row x.a[30].s (pin) +2 in column 82: REJECTED linear constraints failed
+  negative row x.a[31].s (pin) +1 in column 7: REJECTED linear constraints failed
+  negative row x.b[0].s (pin) +2 in column 54: REJECTED linear constraints failed
+  negative row x.b[1].s (pin) +1 in column 95: REJECTED linear constraints failed
+  negative row x.b[2].s (pin) +1 in column 58: REJECTED linear constraints failed
+  negative row x.b[3].s (pin) +1 in column 16: REJECTED linear constraints failed
+  negative row x.b[4].s (pin) +1 in column 42: REJECTED linear constraints failed
+  negative row x.b[5].s (pin) +1 in column 69: REJECTED linear constraints failed
+  negative row x.b[6].s (pin) +2 in column 32: REJECTED linear constraints failed
+  negative row x.b[7].s (pin) +2 in column 60: REJECTED linear constraints failed
+  negative row x.b[8].s (pin) +1 in column 71: REJECTED linear constraints failed
+  negative row x.b[9].s (pin) +1 in column 85: REJECTED linear constraints failed
+  negative row x.b[10].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[11].s (pin) +2 in column 0: REJECTED linear constraints failed
+  negative row x.b[12].s (pin) +1 in column 8: REJECTED linear constraints failed
+  negative row x.b[13].s (pin) +2 in column 78: REJECTED linear constraints failed
+  negative row x.b[14].s (pin) +1 in column 82: REJECTED linear constraints failed
+  negative row x.b[15].s (pin) +1 in column 47: REJECTED linear constraints failed
+  negative row x.b[16].s (pin) +2 in column 18: REJECTED linear constraints failed
+  negative row x.b[17].s (pin) +2 in column 7: REJECTED linear constraints failed
+  negative row x.b[18].s (pin) +1 in column 1: REJECTED linear constraints failed
+  negative row x.b[19].s (pin) +1 in column 89: REJECTED linear constraints failed
+  negative row x.b[20].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[21].s (pin) +1 in column 74: REJECTED linear constraints failed
+fp8-hopper gate: 7 honest sub-batches, 92 negatives, 0 failures
+
+=== [10:47:38] gate-vu fp8-hopper --auth included-hash
+GATE fp8-hopper-hash rc=0 wall=31s
+  negative row hash.a[3].b3 (hint) +2 in column 10: REJECTED linear constraints failed
+  negative row hash.a[3].b4 (hint) +1 in column 86: REJECTED linear constraints failed
+  negative row hash.a[3].b5 (hint) +1 in column 8: REJECTED linear constraints failed
+  negative row hash.a[3].b6 (hint) +2 in column 12: REJECTED linear constraints failed
+  negative row hash.a[3].b7 (hint) +2 in column 15: REJECTED linear constraints failed
+  negative row hash.a[3].tinv (inv) +1 in column 58: REJECTED quadratic constraints failed
+  negative row hash.prod3 (prod) +2 in column 45: REJECTED linear constraints failed
+  negative row hash.a[3].finite.inv (inv) +1 in column 77: REJECTED quadratic constraints failed
+  negative row hash.a[4].b0 (hint) +1 in column 63: REJECTED linear constraints failed
+  negative row hash.a[4].b1 (hint) +2 in column 90: REJECTED linear constraints failed
+  negative row hash.a[4].b2 (hint) +2 in column 65: REJECTED linear constraints failed
+  negative row hash.a[4].b3 (hint) +2 in column 25: REJECTED linear constraints failed
+  negative row hash.a[4].b4 (hint) +2 in column 92: REJECTED linear constraints failed
+  negative row hash.a[4].b5 (hint) +2 in column 30: REJECTED linear constraints failed
+  negative row hash.a[4].b6 (hint) +2 in column 74: REJECTED linear constraints failed
+  negative row hash.a[4].b7 (hint) +2 in column 68: REJECTED linear constraints failed
+  negative row hash.a[4].tinv (inv) +1 in column 74: REJECTED quadratic constraints failed
+  negative row hash.prod4 (prod) +1 in column 75: REJECTED linear constraints failed
+  negative row hash.a[4].finite.inv (inv) +2 in column 90: REJECTED quadratic constraints failed
+  negative row hash.a[5].b0 (hint) +2 in column 50: REJECTED linear constraints failed
+  negative row hash.a[5].b1 (hint) +1 in column 30: REJECTED linear constraints failed
+  negative row hash.a[5].b2 (hint) +2 in column 69: REJECTED linear constraints failed
+  negative row hash.a[5].b3 (hint) +1 in column 68: REJECTED linear constraints failed
+  negative row hash.a[5].b4 (hint) +1 in column 42: REJECTED linear constraints failed
+fp8-hopper hashed gate: 7 honest sub-batches, 86 negatives, 0 failures
+
+=== [10:48:09] live probe
+  },
+  {
+   "bytes": 524288,
+   "send_s": 0.0023188404738903046,
+   "ack_s": 0.13170277699828148,
+   "server_recv_s": 0.001933164894580841,
+   "mbps_to_ack": 31.846739268487326,
+   "mbps_server_recv": 2169.656614269023
+  }
+ ],
+ "mbps_median": 32.031308205011996
+}
+
+=== [10:48:12] done
+NVIDIA H100 80GB HBM3, 81559 MiB, 0 MiB
+9.92 19.18 17.23 7/6612 6192
+GATES_FAILED

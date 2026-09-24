@@ -1,0 +1,3 @@
+bf16h-int-zk bf16-hopper 10 10
+fp8h-int-zk fp8-hopper 10 10
+TOTAL 20 20

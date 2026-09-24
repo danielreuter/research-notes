@@ -1,0 +1,7 @@
+18:49:24 gate fp8-ada-v3 --zk: === 18:49:24 rc=0 wall=958s
+19:04:50 gate fp8-ada-v3 plain: === 19:04:50 rc=0 wall=926s
+19:18:44 bench t3b_v3x4_l16384_p2: === 19:18:44 rc=0 wall=834s
+19:18:45 rust t3b_v3x4_l16384_p2 rc=0 {"dir":"/workspace/t3b/dump_t3b_v3x4_l16384_p2/rep1","jobs":4,"available_parallelism":7,"threads":1,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"727b2076042cc6ef300f0daeb4989004
+19:21:50 bench t3b_v3x4_l4096_p4: === 19:21:50 rc=0 wall=185s
+19:21:51 rust t3b_v3x4_l4096_p4 rc=0 {"dir":"/workspace/t3b/dump_t3b_v3x4_l4096_p4/rep1","jobs":7,"available_parallelism":7,"threads":1,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"727b2076042cc6ef300f0daeb4989004c
+19:21:51 T3B_DONE

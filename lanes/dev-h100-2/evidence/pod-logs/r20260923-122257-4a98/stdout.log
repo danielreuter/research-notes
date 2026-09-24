@@ -1,0 +1,46 @@
+=== [12:23:18] pytest backends/direct/ligero -q --ignore=backends/direct/ligero/privsel -x --timeout 600 --durations=15
+........................................................................ [ 48%]
+........................................................................ [ 97%]
+...                                                                      [100%]
+=============================== warnings summary ===============================
+backends/direct/ligero/pipeline_race_test.py: 16 warnings
+  /root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=1637) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 15 durations =============================
+39.47s call     backends/direct/ligero/pipeline_race_test.py::test_pipeline_depth4_accepted_and_byte_identical[True]
+25.25s call     backends/direct/ligero/witness_device_test.py::test_fused_witness_equals_torch_program[fp8-hopper]
+18.00s call     backends/direct/ligero/commit_gpu_test.py::test_levels_leaves_root_equal_reference[3328-65536]
+17.71s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-ampere-v2]
+15.32s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-ada-v2]
+15.11s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-hopper-v2]
+13.29s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-hopper-v2]
+10.89s call     backends/direct/ligero/hashchain_test.py::test_negatives_rejected
+9.63s call     backends/direct/ligero/pipeline_race_test.py::test_pipeline_depth4_accepted_and_byte_identical[False]
+8.91s call     backends/direct/ligero/witness_device_test.py::test_fused_witness_equals_torch_program_fp4
+5.99s call     backends/direct/ligero/live_test.py::test_honest_session_accepted_and_negatives_refused
+4.13s call     backends/direct/ligero/relations_test.py::test_negative_battery_rejected[fp8-hopper]
+3.98s call     backends/direct/ligero/pubsel/relation_test.py::test_negative_battery_rejected[bf16-ampere-v2]
+3.92s call     backends/direct/ligero/relations_test.py::test_negative_battery_rejected[bf16-hopper]
+3.75s call     backends/direct/ligero/fp8/relation_test.py::test_row_mutations_rejected
+147 passed, 16 warnings in 271.31s (0:04:31)
+=== [12:27:53] pytest rc=0
+
+=== [12:27:53] pytest backends/direct/ligero/pipeline_race_test.py -v
+
+backends/direct/ligero/pipeline_race_test.py::test_encoder_scratch_not_shared_across_streams[16384-0] PASSED [ 16%]
+backends/direct/ligero/pipeline_race_test.py::test_encoder_scratch_not_shared_across_streams[16384-256] PASSED [ 33%]
+backends/direct/ligero/pipeline_race_test.py::test_encoder_scratch_not_shared_across_streams[8192-256] PASSED [ 50%]
+backends/direct/ligero/pipeline_race_test.py::test_encoder_scratch_not_shared_across_streams[4096-0] PASSED [ 66%]
+backends/direct/ligero/pipeline_race_test.py::test_pipeline_depth4_accepted_and_byte_identical[True] PASSED [ 83%]
+backends/direct/ligero/pipeline_race_test.py::test_pipeline_depth4_accepted_and_byte_identical[False] PASSED [100%]
+
+=============================== warnings summary ===============================
+backends/direct/ligero/pipeline_race_test.py: 16 warnings
+  /root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=7289) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 6 passed, 16 warnings in 21.39s ========================
+=== [12:28:16] pipeline_race_test rc=0

@@ -1,0 +1,40 @@
+=== [11:29:35] BASE kernel race test: other l / t_pad
+RESULT l=16384 R=3769 t_pad=0: 20/20 concurrent trials produced wrong codewords (1852 bad rows of 150760); 0.2s
+RESULT l=16384 R=3769 t_pad=256: 20/20 concurrent trials produced wrong codewords (1691 bad rows of 150760); 0.2s
+RESULT l=8192 R=3769 t_pad=0: 0/20 concurrent trials produced wrong codewords (0 bad rows of 150760); 0.1s
+RESULT l=8192 R=3769 t_pad=256: 0/20 concurrent trials produced wrong codewords (0 bad rows of 150760); 0.1s
+RESULT l=4096 R=3769 t_pad=0: 20/20 concurrent trials produced wrong codewords (1957 bad rows of 150760); 0.1s
+RESULT l=4096 R=3769 t_pad=256: 20/20 concurrent trials produced wrong codewords (1430 bad rows of 150760); 0.1s
+=== [11:29:51] BASE prover harness zk depth 4 x 25 runs (325 sub-batches)
+depth 4: 0 rejected of 325 sub-batches; median wall 0.185s
+TABLE relation=fp8-ada zk=True batch=16384 vus=4096: depth 4: 0/325 rejected, wall 0.185s  (33s)
+=== [11:30:27] FIX prover harness zk depth 4, 3 x 25 runs (325 sub-batches each)
+depth 4: 0 rejected of 325 sub-batches; median wall 0.193s
+depth 3: 0 rejected of 325 sub-batches; median wall 0.228s
+TABLE relation=fp8-ada zk=True batch=16384 vus=4096: depth 4: 0/325 rejected, wall 0.193s; depth 3: 0/325 rejected, wall 0.228s  (56s)
+=== [11:31:26] FIX bench-vu p3 with dumps (3 reps) -> Rust
+bench p3 exit 0
+rep 1: prover 0.214s (+hints 0.033s) over 13 proofs; verifier 0.501s; pass wall 2.079s (0.060 ms/VU)
+rep 2: prover 0.197s (+hints 0.031s) over 13 proofs; verifier 0.494s; pass wall 0.831s (0.056 ms/VU)
+rep 3: prover 0.181s (+hints 0.033s) over 13 proofs; verifier 0.495s; pass wall 0.817s (0.052 ms/VU)
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 5.524s, wall 0.893s at 7 jobs x 1 threads
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 5.281s, wall 0.831s at 7 jobs x 1 threads
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 5.416s, wall 0.858s at 7 jobs x 1 threads
+=== [11:31:45] FIX bench-vu p4 5 more reps with dumps -> Rust (65 more sub-batches)
+bench p4b exit 0
+rep 1: prover 0.211s (+hints 0.027s) over 13 proofs; verifier 0.501s; pass wall 1.687s (0.058 ms/VU)
+rep 2: prover 0.171s (+hints 0.026s) over 13 proofs; verifier 0.503s; pass wall 0.807s (0.048 ms/VU)
+rep 3: prover 0.166s (+hints 0.032s) over 13 proofs; verifier 0.506s; pass wall 0.810s (0.048 ms/VU)
+rep 4: prover 0.174s (+hints 0.029s) over 13 proofs; verifier 0.511s; pass wall 0.822s (0.050 ms/VU)
+rep 5: prover 0.155s (+hints 0.032s) over 13 proofs; verifier 0.511s; pass wall 0.804s (0.046 ms/VU)
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 5.287s, wall 0.832s at 7 jobs x 1 threads
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 5.431s, wall 0.866s at 7 jobs x 1 threads
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 5.480s, wall 0.863s at 7 jobs x 1 threads
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 5.463s, wall 0.877s at 7 jobs x 1 threads
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 5.385s, wall 0.862s at 7 jobs x 1 threads
+=== [11:32:10] FIX pytest backends/direct/ligero -q -x --ignore=privsel
+=========================== short test summary info ============================
+ERROR backends/direct/ligero/._pipeline_race_test.py
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 error in 0.03s
+=== [11:32:10] EVIDENCE2_DONE

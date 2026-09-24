@@ -1,0 +1,42 @@
+
+=== [09:54:14] rebuild ligero-verify from the lane tree
+    Finished `release` profile [optimized + debuginfo] target(s) in 8.59s
+fd5eef9d6379241a822bae477e728e6a267bb857d0b2f077ab0cb9c57541af74  /workspace/bin/ligero-verify
+
+=== [09:54:22] bare bf16 (vu.py) CPU deterministic dump from /workspace/src-main
+ }
+}
+bee0ad8c9a17abac6ed0480c4b2458e5fe2ec35e3348a5c164c6957d88cb1a93  system.bin
+e24117dc6d35a7f2b012f36aca7bcfc0cc04c5f62498357d5d2bff23f0cb2f73  rep1/sub_00.stmt
+f67deb78d7dfbd8f4293cb272accdc30539c1d5377ffc713360ee7ca2aacdfd4  rep1/sub_00.proof
+statement_format None instances {'dataset': 'bench-instances/v1', 'tier': 'vu-k1536', 'range': [0, 10], 'manifest_sha256': '059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea'}
+
+=== [09:54:30] bare bf16 (vu.py) CPU deterministic dump from /workspace/src
+ }
+}
+bee0ad8c9a17abac6ed0480c4b2458e5fe2ec35e3348a5c164c6957d88cb1a93  system.bin
+e24117dc6d35a7f2b012f36aca7bcfc0cc04c5f62498357d5d2bff23f0cb2f73  rep1/sub_00.stmt
+f67deb78d7dfbd8f4293cb272accdc30539c1d5377ffc713360ee7ca2aacdfd4  rep1/sub_00.proof
+statement_format None instances {'dataset': 'bench-instances/v1', 'tier': 'vu-k1536', 'range': [0, 10], 'manifest_sha256': '059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea'}
+
+=== [09:54:38] diff
+IDENTICAL system.bin
+IDENTICAL rep1/sub_00.stmt
+IDENTICAL rep1/sub_00.proof
+
+=== [09:54:38] Rust verify of the lane tree's bare dump (pinned bf16-ampere)
+sub_00.proof: ACCEPT (accept) 0.062s  python=true (accept (0.085s))
+1 proofs: 1 accepted, 0 rejected (0 against their own coins); batch ACCEPT (accept: all 1 sub-batches accepted; union bound 2^-128.35 <= 2^-128); batch bits 128.347331 at target 128; system pinned (bf16-ampere); python agreement 1/1 (0 disagree); verify sum 0.062s, wall 0.067s at 1 jobs x 4 threads
+{"dir":"/workspace/bx/src/proofs/rep1","jobs":1,"available_parallelism":13,"threads":4,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"44cb05b9e6988219beba2d66582124e67a1893aac39d0b66126ce0b9d4db89cb","table_digest":"c147cc4cece7d61cd3046828410d18f487dcde82f709044f4b4f97e282a73a95","pinned_relation":"bf16-ampere"},"n":1,"accepted":1,"rejected":0,"own_coins":0,"batch_accepted":true,"batch_reason":"accept: all 1 sub-batches accepted; union bound 2^-128.35 <= 2^-128","batch_log2":-128.347330532,"batch_bits":128.347330532,"per_proof_bits":[128.347330532],"n_proofs_claimed":[1],
+{"sys_id":"44cb05b9e6988219beba2d66582124e67a1893aac39d0b66126ce0b9d4db89cb","table_digest":"c147cc4cece7d61cd3046828410d18f487dcde82f709044f4b4f97e282a73a95","pinned_relation":"bf16-ampere","format":"ligero-system/v1","m":3516,"L":347,"Q":3387,"pins":96,"chain":true,"chain_end":"word"}
+
+=== [09:54:38] bare GPU gate bf16 (vu.py, 64 VUs) on the lane tree
+vu-k1536 [42, 64): l=4096 prover 0.03s -> True accept (0.022s)
+negatives: 52/52 rejected
+mutations: 252/252 rejected (one per gadget scope x row class + 3 chain-specific, l=256)
+
+=== [09:55:14] Rust verify of the hashed bf16-ampere fixture dump with the rebuilt binary
+sub_00.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 10 VUs, 10 x rows + 10 W columns + 10 y words under the a/b/y roots)) 0.091s  python=true ()
+1 proofs: 1 accepted, 0 rejected (1 against their own coins); batch ACCEPT (accept: all 1 sub-batches accepted; union bound 2^-128.05 <= 2^-128); batch bits 128.049099 at target 128; system pinned (bf16-ampere+hash); python agreement 1/1 (0 disagree); verify sum 0.091s, wall 0.099s at 1 jobs x 4 threads
+{"dir":"/workspace/fx/bf16-ampere-hash/rep1","jobs":1,"available_parallelism":13,"threads":4,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"673461ab446d96869a0ab32d1291667f4af4ba86cdf5fb6479fefaa50dbb8ed4","table_digest":"3ba12207d9f221dcb2a471044cabb314cc3e05e4512a27559080f431aa7210c9","pinned_relation":"bf16-ampere+hash"},"n":1,"accepted":1,"rejected":0,"own_coins":1,"batch_accepted":true,"batch_reason":"accept: all 1 sub-batches accepted; union bound 2^-128.05 <= 2^-128","batch_log2":-128.049099394,"batch_bits":128.049099394,"per_proof_bits":[128.049099394],"n_proofs_cl
+BITEXACT_DONE

@@ -1,0 +1,245 @@
+---
+lane: coordinator
+kind: report
+title: Overnight 2 morning report — two-column Table 2 (bare | in-proof Poseidon2 hash), B-Ligero on the frozen tree 64c00bd
+date: 2026-09-23T12:15Z
+status: final (15:20Z; main = e0cf2cd pushed = 5d88d70 + honing; all lanes done; zero pods except vy-control)
+---
+
+# Overnight 2 (Sep 23, 05:45Z → 12:15Z) — morning report
+
+User decisions honoured (05:39Z): every target gets two columns — (1) the **bare relation** (`authentication = excluded`) and
+(2) **ZK-friendly hashes as part of the proof** (`authentication = included-hash`: Poseidon2-BabyBear hashing of the operand rows
+inside the proof, digests bound to the Merkle roots; x and W private). Interactive ZK only, 2^-128, **live verifier** (no
+Fiat–Shamir runs anywhere), K = 1536, B = 4096 VUs, frozen instance sets. No algebraic leaf/v2, no re-randomization.
+
+## 1. Table 2 as it renders now (main cc885b2 = frozen 64c00bd + post-freeze + post-freeze-2, ff'd 13:12Z / 13:24Z after H100 and 4090 validation; renders byte-identically)
+
+Every populated cell was accepted by the LIVE verifier (its own coins; session recorded) AND re-verified by me on the laptop with
+the Rust `ligero-verify` built from 64c00bd (custody-checked dump trees, `batch --target-bits 128`, system PINNED; verdict
+artifacts `verification-verdict/v1`, labels `verified=accepted --by coordinator`). ALL FIVE TARGETS' cells are now today's
+live-verified runs (dev-h100-2 re-measured the four H100 cells 12:38–12:43Z against a 30–38 ms US-KS-2 verifier at depth 4;
+yesterday's local-coin H100 cells 0.727 / 0.397 are superseded and remain as also-valid rows).
+
+~~~
+| Device | Datatype / target | Native peak, spec | measured | B-Ligero (bare) | B-Ligero + in-proof hash |
+| --- | --- | --- | --- | --- | --- |
+| NVIDIA A100 SXM4 80GB | BF16 sm80.mma.m16n8k16.bf16 | 312 T | 284 T (0.91) | 1.9e7× — 0.781 s [2] (a3 replicate; 0.795 first run) | 5.2e7× — 2.104 s (+169 %) [3] |
+| NVIDIA H100 SXM5 80GB | BF16 sm90.mma.m16n8k16.bf16 | 989 T | 722 T (0.73) | 5.2e7× — 0.665 s [5] (live 0.886; local-coin control 0.268–0.306) | 7.5e7× — 0.951 s (+43 %) [6] |
+| NVIDIA H100 SXM5 80GB | E4M3 sm90.wgmma.m64n8k32.e4m3 | 1979 T | 1125 T (0.57) | 5.6e7× — 0.356 s [8] (live 0.639; local-coin control 0.108–0.183) | 8.3e7× — 0.527 s (+48 %) [9] |
+| NVIDIA GeForce RTX 4090 | E4M3 sm89.mma.m16n8k32.e4m3 | 330 T | 306 T (0.93) | 6.6e6× — 0.252 s [11] | 1.8e7× — 0.693 s (+175 %) [12] |
+| NVIDIA GeForce RTX 5090 | E2M1 sm120.mma.m16n8k64.e2m1.nvf4 | 1676 T | 1283 T (0.77) | 9.5e6× — 0.0714 s [14] | — (fp4 hashing not composed, §3.4) |
+~~~
+
+Cells: [2] art:d8809c11 (r20260923-105825-b97b) · [3] art:574b41c5 (105944-8701) · [5] art:5807c8b9 (031611-55f1) · [6] art:0ffdb2e9
+(110625-36c2) · [8] art:4729f223 (031830-65d9) · [9] art:61c5c0be (111406-14ab) · [11] art:cc59294a (104729-92cb) · [12] art:4ab22886
+(104925-7636) · [14] art:318eed1c (110113-b79a). Render: `uv run python -m verity_numerical.bench.tables` on lane/post-freeze.
+
+**Bare column, yesterday → today (frozen tree = hp2-host device witness/tests + enc-hopper encoder + pipelining):**
+A100 1.78 → 0.795 s (2.2×) · 4090 2.246 → 0.252 s (8.9×; also a reference 24 GiB board on a Ryzen 7950X host instead of the
+48 GiB variant) · 5090 1.636 → 0.0714 s (22.9×; fp4-fast's device hint generator) · H100 bf16 0.727 → **0.665 s live cell**
+(dev-h100-2, depth 4 on 11c7075 with the pipe-race fix; local-coin control on the same pod/tree 0.268 s = 2.7× yesterday) ·
+H100 fp8 0.397 → **0.356 s live cell** (local-coin control 0.108 s = 3.7×). The H100 cells are now bounded by the live-session
+tax (§3b dev-h100-2 (a)), not by the prover. Best overhead: 5090 NVFP4 9.5e6× (1.76e8 proved FLOP/s).
+
+**Committed column (worst case: every VU hashes its own x row + W column, no row sharing):** +169 % (A100), +175 % (4090),
+H100 +43 % (bf16) / +48 % (fp8) — the H100 ratios are compressed because both columns there carry the same live-session tax. The hash-relation lane's Poseidon2 witness hook (staged
+post-freeze, not in the frozen tree) cuts committed fp8-ada 0.861 → 0.764 s on a 4090; real row sharing via a LogUp table
+(64×64 tile: +3–5 % instead of +65–72 % rows) is designed but NOT built — that is the column-2 hill-climb for today.
+
+## 2. What was staged on lane/post-freeze (11c7075) — VALIDATED on an H100 by dev-h100-2 and ff'd into main 13:12Z; post-freeze-2 (cc885b2, §3b) still staged
+
+hash-relation d7141ec (Poseidon2 witness hook) + a844398 fingerprint fix (hashed runs no longer say "privacy is vacuous"; ZK_HASHED_NOTE)
++ hp2-host FINAL 9268cc4 (v4 Montgomery test kernels, register witness, no 440 MB zero fill) + enc-hopper 0da4b1b (encoder n/l ∈
+{2,4,8}) + merkle.py loud warning on a cupy host without backends/shared (LIGERO_GPU_STRICT=1 raises) + privsel import fix
+(_clamp_table restored) + **pipe-race 5a569ab** (§3.1) + **tables 50c6782** (two-column Table 2). Laptop tests green (bench 157,
+research 178); ligero GPU tests cannot run on the laptop → lane **dev-h100-2** (launched 12:05Z) runs them + gates on an H100 and,
+if green, measures the four H100 cells at depth 4 with a same-DC verifier. If it reports ff-safe: `git -C ~/projects/verity-main-wt/main
+merge --ff-only lane/post-freeze && git push`.
+
+## 3. Findings
+
+1. **`--pipeline 4` (run.py default) produced honest proofs the verifier REJECTED** (dev-4090: 5/6 attempts lost 1–2 of 13
+   sub-batches; dev-h100: rejected twice at l=16384). Root cause (pipe-race): the SIMT encoder's per-CTA global scratch
+   (`encode_simt.py` `cf_scratch`/`stg`) was one buffer per encoder object, and `encoder_for()` caches one object per (l, n, t_pad,
+   device) — concurrent sub-batches on different streams wrote the same scratch words (~1 % of codeword rows corrupted). Fix:
+   per-launch stream-ordered scratch (torch allocator; private pool under graph capture); transcript unchanged; kernel repro
+   20/20 → 0/20; 0 rejections in 143 depth ≥ 3 sub-batches by Rust + 780 by the prover's verifier; depth-4 bytes == depth-1 bytes.
+   Depth 4 is ~37 % faster than depth 2 (0.201–0.208 vs 0.328 s on the 4090). All Table 2 cells tonight are depth ≤ 2 and
+   all-accepted.
+2. **A cross-continent live verifier inflates `t.total` 2.2–4×.** dev-h100 (US-MO-1) → verifier (EU-RO-1): RTT 135–300 ms, ~32 Mbps
+   single flow; `t.total = t.total_live − net.wait_seconds` subtracts only the socket wait for coins, while the ~195 MB/rep of
+   prover messages and the pipeline stalls they induce land in the timed phases (`split.openings_seconds` 0.40–1.42 s). Same
+   pod, same tree, local coins: 0.254 s vs 0.847 s live. Same-DC pairs (4090/5090 in EU with the EU verifier) show
+   t.total_live ≈ t.total + 0.03 s. Fix is deployment, not code: verifier in the prover's DC (dev-h100-2 does this). The
+   measurement contract should also move the proof transmit off the timed path (open item, live-verifier follow-up).
+3. **Row reduction:** relmin-lookup's v2 relations (8–18× fewer rows) move the selection of public operands to the verifier
+   (~30× native FLOPs recomputed) → private-operand-UNSAFE, drill-down only (fp8-ada-v2 0.114 s on the 4090); relmin-private
+   found a completeness gap in v2's normalisation (exact-zero sums, honest units rejected; fp8-hopper-v2 in main affected).
+   relmin-private's v3 (private-operand-safe) = 2.0–2.2× fewer rows/unit, but its differential tests are still red on main
+   (fp8-hopper-v3 failed at 1e5 units; graph-replay crash in privsel/hints.py) → not in Table 2. Lane still working (pod up).
+4. **Column 2 for NVFP4 is empty:** hashing fp4 operands needs an in-circuit decode layer (~900 rows/unit + 24-bit-lane packing +
+   a component chain end in statement v5) — 6–8 h (hash-compose §6 has the design).
+5. **Instance-set "drift" — CORRECTED 12:25Z (dev-h100 final):** the off-manifest results (fa22f077…, 15655c01…) are the `-v2`
+   public-selection DRILL-DOWNS (runs 5c19/9a71), not Table 2 cells: a different relation builds its own instance set while
+   inheriting the base dataset/tier string, so the renderer (rightly) rejects them as cells, and the drill-down mechanism also
+   loses them (it compares instances too) — a renderer follow-up. All four dev-h100 Table 2 cells and the depth-4 fp8 run 1373
+   carry the frozen manifests. My 11:47Z coordinator verification of run 1373's proofs had been recorded against the WRONG result
+   artifact (the v2 drill-down art:e516454e): those four labels were retracted (files removed, catalog reindexed), the verdict
+   art:7c6b2e72 is labelled SUPERSEDED, and both fp8-hopper bare runs are now verified against their own results (1373 →
+   art:f85b1129, verdict art:d60e6bae; headline 114946-e45e → art:b966b33b, verdict art:7b0b045f; 13/13 each, 2^-128.32).
+   dev-h100's fp8-hopper bare headline is **0.526 s live (depth 2) / 0.235 s prover-only**; bf16-hopper 0.847 live / 0.356
+   prover-only (3 reps) — inflation 2.2–2.4× from the cross-continent verifier, so yesterday's 0.727 / 0.397 cells stand until
+   dev-h100-2 delivers same-DC numbers.
+6. **A100 bare path is `vu.py` = sequential** (`--pipeline` is a no-op there; l=32768 is a knee: encode 2.47 s vs 0.17 s); the generic
+   runner's `bf16-ampere` bare line at depth 2/4 would be the like-for-like number (dev-a100 ran out of time; §6 of the brief).
+7. Store/tooling: `research data fetch` twice failed on a shared object that another lane's concurrent eviction/pull had removed
+   (retry succeeded) → the honing branch's `evict` must respect shared objects; labels are still local-only until the honing
+   merge (`labels-sync`); `data pull` of thousands of per-proof JSONs is slow (tar them); laptop Data volume ~99 % full from OTHER
+   projects (~/projects 95 GB) — eviction of the store cannot fix that.
+
+## 3b. Lane finals that landed after the first draft (12:05Z)
+
+* **live-pipeline** (620e7316, in 64c00bd): `--pipeline N --verifier` now overlap (non-blocking coin Futures + a HELLO `window` so
+  the verifier commits N sub-batches ahead). At 70 ms RTT, 49 sub-batches: sequential-live 7.4 s → depth 2/3/4 **3.87 / 2.66 /
+  2.04 s** t.total_live (wait ≈ 49/N · 2·RTT), 147/147 accepted, byte-identical non-ZK bytes. CAVEAT that explains tonight's live
+  numbers: the gain needs the VERIFIER restarted on ≥ 620e7316 — the shared EU verifier ran main's older server, whose control
+  loop serialises the openings (7.15 s floor whatever the prover overlaps). dev-h100-2's own verifier is built from 11c7075.
+  `vu.py` (A100 bf16 bare) has no `--pipeline`, so its live path stays sequential. $1.47.
+
+* **EU live verifier retired 12:27Z** (vy-live-verifier, 06:36Z–11:50Z, 183 sessions, 23 GB): proof-free custody bundle
+  preserved as art:a8004556 (index.jsonl, every session's hello.json, verifier-drawn `sub_*.coins`, `rust_sub_*.json` verdicts,
+  sha256 manifest of all excluded .stmt/.proof/system.bin — 10 938 files, 60 MB). The Table 2 sessions were additionally recorded
+  by their lanes via `live record`. enc-hopper's "missing blobs" run-files art:b634b6c0 is intact on R2 (605 objects PRESERVED,
+  `data verify` 12:15Z) — it was a laptop-local eviction, not a loss.
+
+* **relmin-lookup FINAL (12:15Z, $3.41).** Checkpoint 2ef2409 (in main) = the four `-v2` public-selection relations,
+  7.8–18.4× fewer rows (bf16-hopper 3292→282, bf16-ampere 3516→449, fp8-hopper 3396→185, fp8-ada 3769→337); committed
+  elements per FLOP bf16-hopper 103→8.8. Post-checkpoint **`-v2x4` fold** (6b79b06/87c94b6, four instruction steps per
+  column: 1045/1717/647/1255 rows, 24/24/12/12 columns per VU; GPU gates 0 failures; Rust-pinned) — same 4090, fp8-ada
+  int-ZK 4096 VUs at l=16384: **v1 0.490 → v2 0.329 → v2x4 0.162 s** (3.48e6× with whole sub-batches); proof 66→31→12 MB;
+  verifier 0.355→0.148 s. THE FINDING: 10× fewer rows bought only 1.6×, the fold another 2× — the v2 prover is ~95 %
+  per-sub-batch fixed cost (arithmetic tests ~13 ms/sub-batch, serialisation, openings) and the sub-batch count is
+  `VUs × columns/VU ÷ l`, independent of rows. **Columns per VU is the lever nobody named**; hint generation (0.05 s flat)
+  is now a third of the x4 prover. v2/v2x4 stay drill-downs (verifier recomputes the public half, ~30× native; useless for
+  private operands). Spec errors they flagged: "2^16 lookups are cheap" is false in this compiler (one selector row per
+  distinct output group); "prover ∝ rows × n/l" holds for encode/Merkle/proof size, not wall time.
+* **relmin-private FINAL (12:15Z, 3.75 h).** Four `-v3` PRIVATE-operand-safe relations at 78daae8: bf16-hopper 1519,
+  bf16-ampere 1629, fp8-hopper 1673, fp8-ada 1806 rows (2.03–2.17×; operands stay committed witness bound by word pins),
+  GPU gates 0 failures, 1e5 differentials, Rust-pinned (`Decode::PrivSel`), 33 batch verdicts. Same 4090 fp8-ada int-ZK
+  l=4096: 0.686 → 0.593 s (proof 181→103 MB); at l=16384 1.84–1.90× faster than v1 across three relations. Two findings:
+  (a) a completeness gap for exactly-cancelling sums with a large group maximum — main's `fp8-hopper-v2` rejects the same
+  honest unit (one-quadratic fix in v3; pubsel one-liner spelled out in their report — apply before v2 is ever a headline);
+  (b) they measured main 02c3321's encoder ~15× slower at n=65536 on their 4090 (encode 1.83 s) — **NOT reproduced**:
+  dev-4090 on 64c00bd (same commits, reference part) measured fp8-ada v1 l=16384 encode 0.070 s / t.total 0.252 s at the
+  same hour; their l=16384 numbers are on a pod-specific degraded path (their l=4096 numbers are fine). Treat (b) as an
+  environment caveat, not a regression.
+* **dev-a100 FINAL (12:14Z, $2.47):** cells as in §1 (bare 0.795 s, clean replicate 0.781; committed 2.104 s); 75/75 live
+  + my Rust 25/25 each. Their action items: pytest collection on frozen main breaks on the privsel import (fixed on
+  post-freeze a618793); `--batch 32768` is 2.5–2.8× WORSE on the A100 for both columns (encoder knee) — keep 16384;
+  `--pipeline` is a no-op on the `vu.py` bare path; duplicate snapshot art:13e48b06 labelled DUPLICATE (canonical
+  art:e10634d4).
+* **Staging:** `lane/post-freeze-2` = cc885b2 (worktree ~/projects/verity-main-wt/post-freeze-2) = post-freeze 11c7075 +
+  relmin-private 78daae8 + relmin-lookup x4 (87c94b6); conflicts were all additive (relation.rs 17 pins, run.py choices,
+  D12 stub addendum); Rust 22+7+16 tests green, laptop Python baseline unchanged (12 passed / 8 torch-only collection
+  errors; bench+research 162). **GPU-validated by fold-private D0 (13:05Z: 5 gates 0 failures, pytest 195 passed, fp8-ada v1 bare
+  depth 4 t.total 0.179 s on the 4090, Rust 13/13) → ff'd into main 13:24Z, pushed.**
+
+* **dev-h100-2 FINAL (13:09Z, ~$4.0 of $6).** post-freeze 11c7075 validated on an H100 (pytest 147/0 incl. pipeline_race_test
+  6/6, four gates 0 failures, depth 4 clean in 316/316 live sub-batches) → **ff'd into main 13:12Z, pushed.** Four H100 cells
+  re-measured at `--batch 16384 --pipeline 4` against a US-KS-2 verifier (30–38 ms RTT; RunPod has NO routable same-DC
+  pod-to-pod path — the only DC with both an H100 and a cpu3m returns EHOSTUNREACH): bf16 bare **0.665 s** (live 0.886),
+  bf16 hash **0.951 s** (live 2.874), fp8 bare **0.356 s** (live 0.639), fp8 hash **0.527 s** (live 1.401); 75/75, 75/75,
+  39/39, 39/39 live-accepted; my Rust re-verification 25/25, 25/25, 13/13, 13/13 (verdicts art:9a03bd0d, art:c84dab2b,
+  art:16002c77, art:dde4677b). Snapshot dev-h100-2-v1 art:4cdf9e13. TWO FINDINGS: (a) the **live tax is ~2× inside `t.total`
+  even at 30 ms** — local-coin controls on the same pod/tree are bf16 0.268–0.306 s and fp8 0.108–0.183 s; the extra lands in
+  `split.openings_seconds` and `t.arithmetic` (transmit contention on the prover host: 586 / 309 MB out per 3 reps) and does not
+  shrink with RTT → the next lever is moving the prover's transmit off the compute critical path (sender thread / stream-ordered
+  copies), not a closer verifier. (b) **bf16-hopper at `--pipeline 2` against this verifier is a reproducible 27–28 s session**
+  (opening RTT 380–430 ms median, p90 2.3–2.6 s) while depths 1 and 4 are 35 ms and fp8 depth 2 is clean — a live-path pathology
+  specific to depth 2 on this pair; depth 2 is NOT the safe fallback. Unowned (live-verifier lane is done); run ids + verifier
+  log in their report. Also: dev-h100's off-manifest runs came from a different `n`, not a re-seed.
+
+* **fold-private FINAL (14:47Z, $1.71; 5d88d70 ff'd into main 14:55Z, pushed; Table 2 cells unchanged).** Eight folded
+  private-safe relations (`fp8-ada-x4`, `fp8-hopper-x4`, `bf16-hopper-x4`, `bf16-ampere-x4`, and the `-v3x4` four; x8 registered
+  for fp8-ada), all gates 0 failures, 1e5-chain differential 0 mismatches, Rust pins (25), folded-boundary negatives, D15.
+  **The prediction in §5(0) was wrong for v1/v3:** rows per VU are FLAT under the fold (fp8-ada 3724 → 14830/4 = 99.6 %;
+  Ampere v1 even 103.6 % super-linear) because v1/v3 do not share an accumulator decode the way v2 does — the fold only cuts the
+  sub-batch count, and v1's prover is not fixed-cost dominated. Measured (4090, int-ZK, medians, all Rust-accepted): fp8-ada v1
+  l=16384 p4 **0.170 s** vs -x4 0.195 (1-VU tail) / **0.150 with whole packing (4095 VUs)**; l=4096: 0.181 vs 0.167 / 0.152;
+  bf16-hopper v1 0.267 vs -x4 0.282 / 0.242 (4092 VUs); l=4096 0.309 vs 0.260. So −8…−16 %, not 2×. Two real findings:
+  (a) `--pipeline 4` at l=16384 OOMs the 24 GB part for every x4 relation (22.9 GB), depth 2 loses encode overlap; (b) **the v3
+  relations fail the pipelined prover's self-check at any depth > 1 on cc885b2, unfolded too** (reproducer in their note), so v3
+  runs pipeline-1 — and at pipeline 1 **v3 is slower in wall time than v1 at depth 4** (fp8-ada-v3 0.829 s vs v1 0.170 s;
+  bf16-hopper-v3 1.074 vs 0.267): the 2× row reduction does not pay while the arithmetic phase (0.498 s) is serialised. Net:
+  **v1 + hp2-host/pipe-race pipelining at depth 4 is the fastest private-operand-safe prover we have** (4090 fp8-ada 0.170 s,
+  H100 fp8 local-coin 0.108 s). Their ranked remaining: v3 pipelined bug; per-slot CUDA-graph pools to restore depth 4 for folds;
+  x8 registration (450 s compile); `marshal()` id()-keyed bundle cache (test hazard: stale-bundle replay made a negative "accept").
+  Snapshot fold-private-v1 art:91008763 (19 members). Their `push --pending` was spinning on the OTHER session's 259k-file vllm
+  fixture (46 GB, local=0) — killed 14:53Z after confirming every fold-private artifact is remote.
+
+* **HONING MERGED 15:00Z (lane/honing-code 77033bf → main e0cf2cd, pushed; 183 research+bench tests green; Table 2 cells
+  byte-identical before/after).** Runbook executed: catalog migrated v0→v1 (`research data catalog`: schema v1, current;
+  pre-merge worktrees keep working — they never read user_version); `reindex` (3456 artifacts / 1035 attempts / 8552 labels);
+  **labels are now durable: `labels-sync --push-only` put all 8552 local assertions on R2** (was 0 remote); `vocab-check`: 1509 of
+  8547 files off-vocabulary (626 unknown keys, mostly lane shorthand like row/tree/same_device — harmless to the tables; vocabulary
+  decision for the user); off-enum `proof_class` corrections written by the coordinator for the 5 fp8-proof runs, mirroring each
+  run's own fingerprint (NON_ZK_PROOF_DIAGNOSTIC ×4, COMPLETE_HVZK_BACKEND ×1; r20260922-183111-3c01 has no result → no label);
+  b-sweep's `verified=ligero-verify` ×31 left as-is (the verify lane's labels supersede them). `research data evict` found 0
+  evictable blobs after reindex — the store's 6 GB of objects were (a) a 2.4 GB orphaned `.tmp` partial write by the killed
+  fold-private push (removed) and (b) a 3.0 GB blob of the OTHER session's unpushed vllm fixture art:346f958a (left alone: remote=0).
+  Per-target dossier published to Notion (child of the decision record): https://app.notion.com/p/3e4399515d9e818fb9c4d5041eaa0d4e
+* **DISK (tell the user):** Data volume at 3 GB free / 460 GB. `~/.research` is 9.4 GB (store objects 3.4 after cleanup + runs 2.9 of
+  pre-store Sep 21-22 run dirs with no run-files artifacts → not evictable by policy). The hog is Cursor's
+  `~/Library/Application Support/Cursor/User/globalStorage/state.vscdb` = **59 GB**, plus ~/projects (~95 GB: veritor 14, os 10,
+  sp1 9.9, openvm-fv 7.6, proofs 7.4) and the other session's 26 worktrees. The disk watchdog (/tmp/disk_watch.sh) can only evict
+  verified store blobs and there are none left to evict.
+
+* **hp2-host** (final 9268cc4, staged post-freeze): on one H100 (Xeon 8480+ host), like-for-like vs main 6babe27 at
+  `--batch 16384 --pipeline 4`: **bf16-hopper 0.752 → 0.2525 s (3.0×), fp8-hopper 0.443 → 0.1342 s (3.3×)**; transcripts 187/187
+  byte-identical, 7/7 gates, Rust ACCEPT; the prover is now GPU-bound at depth 4 (host 4.1 ms busy per sub-batch). One more
+  commit **e689b72** (four-step CUDA NTT, −7.4 % → 0.2337 s, bit-exact) is only 2/7-gated (pods terminated) → NOT staged;
+  dev-h100-2 may gate it opportunistically (§6 12:20Z). Lane overspent ($15.5 vs $12). Encode + Merkle (5.4 of ≈ 8.8 ms GPU per
+  sub-batch) are now the floor (≈ 0.12 s for the bf16 row).
+* **enc-hopper** (final 0da4b1b, staged post-freeze): encode + Merkle on H100 bf16-hopper 0.158 → 0.072 s (2.19×; target 0.05 not
+  reached — the encoder is barrier/smem-pass-bound, not DRAM-bound, so the "1 TB/s" framing of the spec was wrong); n/l ∈ {2,4,8}
+  encoder (torch fallback 25–81 ms → 1–3.6 ms). 62/62 transcript files identical, 6 gates, Rust ACCEPT. $21.5.
+* **fp4-fast** (a2089ac; everything but a reverted pair is in 64c00bd): NVFP4 on the 5090 0.788 s (main 6babe27, same pod) →
+  **0.062 s pipelined / 0.058 s on frozen main with local coins** (13.6×; 28× vs the spec's 1.636 s); 32/32 rows Rust-accepted,
+  byte-identical transcripts. The live Table 2 cell (0.0714 s) is the SEQUENTIAL fp4 runner: `fp4/chain.py:713` keeps live
+  sub-batches sequential (the `--pipeline` flag is inert under `--verifier`) → a 0.039–0.048 s cell is available once the fp4
+  runner takes live coins per sub-batch (live-pipeline scope). The 4-VU tail sub-batch costs ~23 % of the fp4 row (B = 4092
+  diagnostic 0.053 s); `--tail-l natural` was a negative result (Rust reject, reverted).
+* **pipe-race** ($0.46): as §3.1. Caveat: the prover-level rejection never fired on its EPYC 7402 host even unfixed (0/429 at depth
+  4) — overlap is host-timing-dependent; dev-h100-2's depth-4 runs on the fixed tree are the field test.
+* **dev-5090** ($1.36): headline moved to the depth-1 run r20260923-113505-0474 (0.0722 / live 0.106 s, identical within noise to
+  0.0714); `--reps 1` sweeps are misleading for fp4 (rep 1 carries ~0.37 s of graph capture).
+* Disk: enc-hopper found Cursor's `state.vscdb` at 58 → 62 GB on the laptop — that, not the store, is the disk hog; `research run`
+  launches failed once with `No space left on device`.
+
+## 4. Lanes, pods, money
+
+Wave 1: hp2-host, enc-hopper, relmin-lookup, fp4-fast, live-verifier, hash-relation, honing-code, hash-compose, live-pipeline,
+merge-val — all FINAL, all merged into 64c00bd or staged on post-freeze (honing-code NOT merged: needs zero store writers,
+runbook in its note §2). Wave 2: dev-4090, dev-a100, dev-5090, dev-h100 FINAL (all pods terminated by 12:00Z); pipe-race FINAL.
+Running at 12:15Z: **dev-h100-2** (H100 + same-DC cpu3m verifier, ≤ $6, deadline 13:40Z), **relmin-private** (4090, v3 tests).
+Pods still up: vy-dev-a100 (finishing snapshot; the lane terminates it), vy-relmin-priv, vy-live-verifier (EU; off when
+dev-h100-2 has its own), vy-control. RunPod balance **$202.11 at 12:05Z** ($296.21 at 12:00Z Sep 22 → ~$94 for the two
+campaigns incl. the other session's vyv-* pods; ours tonight ≈ $45).
+
+## 5. Next hill-climbs
+
+**(0) [DONE by fold-private, result −8…−16 %, NOT 2× — see §3b; rows/VU flat for v1/v3] Fold the PRIVATE-safe units.** relmin-lookup showed
+the prover is ~95 % per-sub-batch fixed cost and the fold cuts sub-batches 4× at sub-linear row growth (fp8-ada-v2 0.329
+→ v2x4 0.162 s). The same `_folded(rel, m)` construction applies to any relation whose chain state is the FP32
+accumulator — v1 and v3 included — with NO change to the claim (same VU, same y16) and no public selection. Predicted:
+fp8-ada v3x4 ≈ 0.25–0.3 s on a 4090 (vs 0.252 s v1 today) with private operands intact; m = 8 is one line more. Plus the
+two fixed-cost items it exposes: fused per-group hint kernel (0.05 s flat), and `protocol.py` per-sub-batch test INTTs /
+syncs / serialisation.
+ (for the user to rank)
+
+(a) LogUp row sharing for column 2 (64×64 tile; +3–5 % rows target) — the biggest single win on the committed column.
+(b) fp4 committed column (decode layer, 6–8 h).
+(c) relmin-private v3 to green (2× fewer rows, private-safe) then re-measure every bare cell.
+(d) Same-DC verifier + depth 4 everywhere (post-freeze tree): expect H100 bf16 ≈ 0.25 s, fp8 < 0.2 s → overheads ~2e7×.
+(e) Move proof transmit off the timed path in the live protocol; report t.total (prover), t.total_live (session), bytes.

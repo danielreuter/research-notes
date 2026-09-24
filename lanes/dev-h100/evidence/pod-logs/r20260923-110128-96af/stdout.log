@@ -1,0 +1,8 @@
+clocks.current.sm [MHz], clocks.max.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], temperature.gpu, clocks_event_reasons.active, utilization.gpu [%], memory.used [MiB]
+345 MHz, 1980 MHz, 2619 MHz, 72.17 W, 700.00 W, 29, 0x0000000000000001, 0 %, 0 MiB
+pid, used_gpu_memory [MiB]
+rc=0
+local_b16384_p1.json {'t.witness': 0.022, 't.encoding_commitment': 0.33, 't.arithmetic': 0.893, 't.lookup': 0.0, 't.zk_additional': 0.001, 't.serialization': 0.038, 't.total': 1.326, 'split.subbatches': 25, 'split.per_proof_vus': 170, 'split.hints_seconds': 0.02, 'split.witness_torch_seconds': 0.002, 'split.encode_seconds': 0.285, 'split.transfer_seconds': 0.0, 'split.merkle_seconds': 0.046, 'split.tests_seconds': 0.893, 'split.openings_seconds': 0.037, 'split.zk_masks_seconds': 0.001}
+rc=0
+local_b16384_p4.json {'t.witness': 0.018, 't.encoding_commitment': 0.044, 't.arithmetic': 0.168, 't.lookup': 0.0, 't.zk_additional': 0.0, 't.serialization': 0.024, 't.total': 0.254, 'split.subbatches': 25, 'split.per_proof_vus': 170, 'split.hints_seconds': 0.018, 'split.witness_torch_seconds': 0.001, 'split.encode_seconds': 0.026, 'split.transfer_seconds': 0.0, 'split.merkle_seconds': 0.017, 'split.tests_seconds': 0.168, 'split.openings_seconds': 0.024, 'split.zk_masks_seconds': 0.0}
+1980 MHz, 2619 MHz, 123.65 W, 32, 0x0000000000000000

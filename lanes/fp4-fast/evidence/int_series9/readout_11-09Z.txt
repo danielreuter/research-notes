@@ -1,0 +1,31 @@
+# transcribed over ssh from /workspace/research/runs/<run>/{stdout.log,result.json} on pod 75dww7vv03yxn2 at 11:09Z, before the pod was terminated (artifacts not pulled)
+== r20260923-110354-7d03  (frozen main 64c00bd, int-ZK, l=16384, --pipeline 3)
+config Config(l=16384, n=65536, D=6, t=195, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=682, steps=24)
+rep 1: prover 0.059s (+hints 0.007s) over 7 proofs; verifier 0.541s; prove wall 0.066s (0.016 ms/VU)
+rep 2: prover 0.058s (+hints 0.007s) over 7 proofs; verifier 0.566s; prove wall 0.066s (0.016 ms/VU)
+rep 3: prover 0.057s (+hints 0.008s) over 7 proofs; verifier 0.548s; prove wall 0.065s (0.016 ms/VU)
+t.total 0.0656 commit 64c00bd6c78ba96cc08372642d5b07122db1e61d pipe 3 peak 2.85GB
+splits hints 0.0072 witness_torch 0.0001 encode 0.0046 transfer 0.0 merkle 0.0036 tests 0.0461 openings 0.0038
+Rust: 7 proofs: 7 accepted, 0 rejected (7 against their own coins); batch ACCEPT (union bound 2^-128.54 <= 2^-128)
+== r20260923-110613-2500  (frozen main 64c00bd, int-ZK, l=16384, default --pipeline 4)
+rep 1: prover 0.054s (+hints 0.004s) over 7 proofs; verifier 0.461s; prove wall 0.058s (0.014 ms/VU)
+rep 2: prover 0.052s (+hints 0.005s) over 7 proofs; verifier 0.523s; prove wall 0.057s (0.014 ms/VU)
+rep 3: prover 0.053s (+hints 0.005s) over 7 proofs; verifier 0.494s; prove wall 0.059s (0.014 ms/VU)
+t.total 0.0580 pipe 4 peak 3.50GB
+splits hints 0.0043 witness_torch 0.0003 encode 0.0038 transfer 0.0 merkle 0.0029 tests 0.0440 openings 0.0022
+Rust: 7/7 accepted; batch ACCEPT (union bound 2^-128.54 <= 2^-128)
+== r20260923-110652-bd38  (frozen main 64c00bd, non-ZK NON_ZK_PROOF_DIAGNOSTIC, l=16384, --pipeline 3)
+config Config(l=16384, n=65536, D=6, t=193, target_log2=-128.0, zk=False, t_pad=0, mode='interactive')
+rep 1: prover 0.056s (+hints 0.005s) over 7 proofs; verifier 0.734s; prove wall 0.061s (0.015 ms/VU)
+rep 2: prover 0.060s (+hints 0.005s) over 7 proofs; verifier 0.749s; prove wall 0.066s (0.016 ms/VU)
+rep 3: prover 0.054s (+hints 0.005s) over 7 proofs; verifier 0.772s; prove wall 0.062s (0.014 ms/VU)
+t.total 0.0602 pipe 3 peak 2.62GB
+splits hints 0.0046 witness_torch 0.0008 encode 0.0031 transfer 0.0 merkle 0.0035 tests 0.0437 openings 0.0043
+Rust: 7/7 accepted; batch ACCEPT (union bound 2^-128.05 <= 2^-128)
+== r20260923-110843-2710  (frozen main 64c00bd, int-ZK, l=16384, --pipeline 0 = sequential)
+rep 1: prover 0.082s (+hints 0.010s) over 7 proofs; verifier 0.475s; prove wall 0.093s (0.022 ms/VU)
+rep 2: prover 0.102s (+hints 0.010s) over 7 proofs; verifier 0.607s; prove wall 0.113s (0.027 ms/VU)
+rep 3: prover 0.104s (+hints 0.010s) over 7 proofs; verifier 0.608s; prove wall 0.115s (0.028 ms/VU)
+t.total 0.1121 pipe 0
+Rust: 7/7 accepted; batch ACCEPT (union bound 2^-128.54 <= 2^-128)
+# 11:20Z: research data pull -> GET /pods/75dww7vv03yxn2 -> HTTP 404 pod not found; ssh connection refused; pods list: only quogg3lb20o52b (dev-5090)

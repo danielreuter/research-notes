@@ -1,0 +1,6 @@
+=== 19:07:16 tree=/workspace/src sha=a0ff818 cmd: /workspace/venv312/bin/python /workspace/ntt_dispatch.py bf16-hopper 170
+bf16-hopper l=16384 CUDA_NTT=True ntt_cuda=yes
+   ('cuda4step', (36, 65536), False) 3
+   ('cuda4step', (6, 65536), True) 6
+NTT_DISPATCH cuda4step 9 Domain.get (torch-chain NTTs and other domain users) 0
+=== 19:07:21 rc=0 wall=5s

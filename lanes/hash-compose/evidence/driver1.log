@@ -1,0 +1,15 @@
+[10:02:55Z] bare-vu-int-zk-l16k -> r20260923-100248-4034
+[10:03:18Z] bare-vu-int-zk-l16k r20260923-100248-4034 state=done
+ }
+}
+[10:03:26Z] amp-hash-int-zk-l8k -> r20260923-100319-3e25
+[10:04:13Z] amp-hash-int-zk-l8k r20260923-100319-3e25 state=done
+ "validation": "passed"
+}
+[10:04:20Z] amp-hash-int-zk-l32k -> r20260923-100414-301a
+[10:04:43Z] amp-hash-int-zk-l32k r20260923-100414-301a state=failed
+committed: x tree 4096 rows, W tree 4096 columns, y tree 4096 words (leaf/v2h Poseidon2 + SHA-256) in 6.5s (row sponges on cuda: 1.17s); roots a=6648464d42da9301 b=749c2023c45233c7
+config Config(l=32768, n=131072, D=6, t=195, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=32768, n_vus=341, steps=96); zk True, mode interactive; system {'rows': 5861, 'by_kind': {'hint': 727, 'bit': 2534, 'prod': 1909, 'sel': 610, 'inv': 64, 'pin': 17}, 'linear': 364, 'quadratic': 5747, 'pins': 17, 'hints': 727}; 4096 VUs as 13 sub-batches of <= 341
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 5.76 GiB. GPU 0 has a total capacity of 23.52 GiB of which 3.06 GiB is free. Including non-PyTorch memory, this process has 20.45 GiB memory in use. Of the allocated memory 12.79 GiB is allocated by PyTorch, with 100.00 MiB allocated in p
+DRIVER1_DONE

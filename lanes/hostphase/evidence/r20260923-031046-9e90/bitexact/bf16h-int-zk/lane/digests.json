@@ -1,0 +1,75 @@
+{
+ "args": {
+  "tree": "/workspace/research/src/d8f896cca0788c3df245fb478513db2412d193c4",
+  "rel": "bf16-hopper",
+  "zk": true,
+  "mode": "interactive",
+  "vus": 170,
+  "subs": 3,
+  "seed": 20260922,
+  "out": "/workspace/research/runs/r20260923-031046-9e90/bitexact/bf16h-int-zk/lane",
+  "impl": "device",
+  "cache": "/workspace/instances-cache",
+  "total": 4096
+ },
+ "files": {
+  "system.bin": "5bba40df0bd34eca3948a978bb97807aa638070cf434fc618759abacbdb083b7",
+  "sub_00.stmt": "1685639700756c1762339e13f4461364a66037be69ae3c9a589c28652e53744c",
+  "sub_00.proof": "c60628f37deac3fd5fc8729d947f63b00f36ba7dc0d9395cf0e59d37f961873a",
+  "sub_00.coins": "f88950a583d4e2a99a1c208f4b307f8f728b6d69d928e32fc902c6e0824a5109",
+  "sub_01.stmt": "61e2e87444329a029e63923bc2bf6ff712df3ce4edfb8e9d759b110536bae571",
+  "sub_01.proof": "4920730e50142b40cc7b9786f21e5cfd1870782f1fcbf04988aafdd36d87fdf8",
+  "sub_01.coins": "de557e45d038fc18c4a26052cfdcd281da58dbb5628ba2701c2ee0cee3b84c52",
+  "sub_02.stmt": "470d697efa136f726420e96907a0fc437b2fa64c64f7dbb8540e23a260064baf",
+  "sub_02.proof": "d16e59ede2a4a5d2809b4577f291a6a198180f1635606ca67c5ee8c9c1dc2870",
+  "sub_02.coins": "1359f457db2c37c6e388019392883b42a23d2f0ee6255247a39506443c627630"
+ },
+ "timings": [
+  {
+   "statement": 0.0023,
+   "witness": 0.0264,
+   "zk_masks": 0.0227,
+   "encode": 2.8014,
+   "transfer": 0.0,
+   "merkle": 0.003,
+   "tests_w": 0.012,
+   "tests_quad": 0.0688,
+   "tests_chain": 0.0225,
+   "tests": 0.1032,
+   "openings": 0.0244,
+   "total": 2.9834,
+   "hints_host": 0.3728
+  },
+  {
+   "statement": 0.0014,
+   "witness": 0.001,
+   "zk_masks": 0.0006,
+   "encode": 0.0044,
+   "transfer": 0.0,
+   "merkle": 0.0019,
+   "tests_w": 0.009,
+   "tests_quad": 0.0021,
+   "tests_chain": 0.0021,
+   "tests": 0.0133,
+   "openings": 0.0027,
+   "total": 0.0254,
+   "hints_host": 0.0025
+  },
+  {
+   "statement": 0.0014,
+   "witness": 0.0011,
+   "zk_masks": 0.0006,
+   "encode": 0.0044,
+   "transfer": 0.0,
+   "merkle": 0.0019,
+   "tests_w": 0.0084,
+   "tests_quad": 0.0021,
+   "tests_chain": 0.0022,
+   "tests": 0.0127,
+   "openings": 0.0027,
+   "total": 0.0249,
+   "hints_host": 0.0025
+  }
+ ],
+ "urandom_calls": 20
+}

@@ -1,0 +1,70 @@
+
+=== [09:27:46] merged tree: pytest hashchain_test + witness_device_test
+....................                                                     [100%]
+20 passed in 75.09s (0:01:15)
+
+=== [09:29:02] hashed gate fp8-ada (cuda, 1024 honest VUs, l=16384)
+fp8-ada hashed chain system: {'rows': 6210, 'by_kind': {'hint': 881, 'bit': 2474, 'prod': 2069, 'inv': 129, 'sel': 640, 'pin': 17}, 'linear': 606, 'quadratic': 6020, 'pins': 17, 'hints': 881} compiled in 0.64s; census {'rows_base': 3769, 'rows_private_operands': 704, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 6210, 'rows_added': 2441, 'linear_added': 17, 'quadratic_added': 2488, 'hints_added': 720, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 8, 'k': 32}; device cuda
+fp8-ada hashed vu-k1536 [0, 341): l=16384 prover 32.63s (+hints 0.15s) multiproofs 576 B -> True 
+fp8-ada hashed vu-k1536 [341, 682): l=16384 prover 0.14s (+hints 0.02s) multiproofs 960 B -> True 
+fp8-ada hashed vu-k1536 [682, 1023): l=16384 prover 0.14s (+hints 0.02s) multiproofs 576 B -> True 
+fp8-ada hashed vu-k1536 [1023, 1024): l=256 prover 0.73s (+hints 0.01s) multiproofs 960 B -> True 
+fp8-ada hashed gate: 4 honest sub-batches, 86 negatives, 0 failures
+
+=== [09:29:48] hashed gate bf16-hopper (cuda, 1024 honest VUs, l=16384)
+bf16-hopper hashed vu-k1536 [0, 170): l=16384 prover 23.83s (+hints 0.39s) multiproofs 576 B -> True 
+bf16-hopper hashed vu-k1536 [170, 340): l=16384 prover 0.13s (+hints 0.01s) multiproofs 864 B -> True 
+bf16-hopper hashed vu-k1536 [340, 510): l=16384 prover 0.13s (+hints 0.01s) multiproofs 576 B -> True 
+bf16-hopper hashed vu-k1536 [510, 680): l=16384 prover 0.13s (+hints 0.01s) multiproofs 1152 B -> True 
+bf16-hopper hashed vu-k1536 [680, 850): l=16384 prover 0.13s (+hints 0.01s) multiproofs 864 B -> True 
+bf16-hopper hashed vu-k1536 [850, 1020): l=16384 prover 0.13s (+hints 0.01s) multiproofs 576 B -> True 
+bf16-hopper hashed vu-k1536 [1020, 1024): l=512 prover 0.77s (+hints 0.22s) multiproofs 768 B -> True 
+bf16-hopper hashed gate: 7 honest sub-batches, 86 negatives, 0 failures
+
+=== [09:30:31] hashed gate fp8-hopper (cuda, 1024 honest VUs, l=16384)
+fp8-hopper hashed chain system: {'rows': 5837, 'by_kind': {'hint': 868, 'bit': 2196, 'prod': 2050, 'inv': 129, 'sel': 577, 'pin': 17}, 'linear': 571, 'quadratic': 5652, 'pins': 17, 'hints': 868} compiled in 0.71s; census {'rows_base': 3396, 'rows_private_operands': 704, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 5837, 'rows_added': 2441, 'linear_added': 17, 'quadratic_added': 2488, 'hints_added': 720, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 8, 'k': 32}; device cuda
+fp8-hopper hashed vu-k1536 [0, 341): l=16384 prover 32.95s (+hints 0.15s) multiproofs 576 B -> True 
+fp8-hopper hashed vu-k1536 [341, 682): l=16384 prover 0.14s (+hints 0.02s) multiproofs 960 B -> True 
+fp8-hopper hashed vu-k1536 [682, 1023): l=16384 prover 0.13s (+hints 0.02s) multiproofs 576 B -> True 
+fp8-hopper hashed vu-k1536 [1023, 1024): l=256 prover 0.26s (+hints 0.01s) multiproofs 960 B -> True 
+fp8-hopper hashed gate: 4 honest sub-batches, 86 negatives, 0 failures
+
+=== [09:31:17] hashed gate fp8-ada --zk interactive (cuda, 64 VUs)
+fp8-ada hashed chain system: {'rows': 6210, 'by_kind': {'hint': 881, 'bit': 2474, 'prod': 2069, 'inv': 129, 'sel': 640, 'pin': 17}, 'linear': 606, 'quadratic': 6020, 'pins': 17, 'hints': 881} compiled in 0.80s; census {'rows_base': 3769, 'rows_private_operands': 704, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 6210, 'rows_added': 2441, 'linear_added': 17, 'quadratic_added': 2488, 'hints_added': 720, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 8, 'k': 32}; device cuda
+fp8-ada hashed vu-k1536 [0, 64): l=4096 prover 9.37s (+hints 0.16s) multiproofs 0 B -> True 
+fp8-ada hashed gate: 1 honest sub-batches, 86 negatives, 0 failures
+
+=== [09:31:38] hashed gate fp8-ada tile 64x64 (cuda)
+fp8-ada hashed chain system: {'rows': 6210, 'by_kind': {'hint': 881, 'bit': 2474, 'prod': 2069, 'inv': 129, 'sel': 640, 'pin': 17}, 'linear': 606, 'quadratic': 6020, 'pins': 17, 'hints': 881} compiled in 0.69s; census {'rows_base': 3769, 'rows_private_operands': 704, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 6210, 'rows_added': 2441, 'linear_added': 17, 'quadratic_added': 2488, 'hints_added': 720, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 8, 'k': 32}; device cuda
+fp8-ada hashed vu-k1536 [0, 341): l=16384 prover 4.41s (+hints 0.16s) multiproofs 288 B -> True 
+fp8-ada hashed vu-k1536 [341, 512): l=16384 prover 0.15s (+hints 0.01s) multiproofs 320 B -> True 
+fp8-ada hashed gate: 2 honest sub-batches, 86 negatives, 0 failures
+
+=== [09:31:55] bare gate fp8-ada (cuda, 64 VUs)
+  negative row x.b[20].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[21].s (pin) +1 in column 74: REJECTED linear constraints failed
+fp8-ada gate: 1 honest sub-batches, 92 negatives, 0 failures
+
+=== [09:32:43] bench-vu fp8-ada committed, merged tree, 1 rep, 1024 VUs, ZK interactive (timing sanity)
+    ],
+    "accepted": true,
+    "reason": "accept: all 4 sub-batches accepted; union bound 2^-128.67 <= 2^-128"
+   }
+  },
+  "batch_accepted": true,
+  "seconds": 0.24557932140305638,
+  "wall": 0.26678639790043235,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}
+
+=== [09:32:59] bench-vu fp8-ada bare, merged tree, 1 rep, 1024 VUs, ZK interactive
+  File "/workspace/venv312/lib/python3.12/site-packages/torch/cuda/graphs.py", line 88, in replay
+    super().replay()
+RuntimeError: Offset increment outside graph capture encountered unexpectedly.
+fp8-ada census: {"rows_per_unit": 3769, "bit_rows": 2474, "selector_rows": 640, "hint_rows": 161, "pin_rows": 192, "product_rows": 301, "inverse_rows": 1, "linear_constraints": 589, "quadratic_constraints": 3532, "chain": true}
+1024 synthetic VUs (model-recorded accumulators) in 0.1s
+config Config(l=16384, n=65536, D=6, t=194, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk True, mode interactive; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 1024 VUs as 4 sub-batches of <= 341
+
+=== [09:33:10] DONE fail=1

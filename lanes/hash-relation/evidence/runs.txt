@@ -1,0 +1,13 @@
+bare-nonzk-int r20260923-080108-ca9c done
+bare-int-zk r20260923-080502-e138 done
+bare-fs-zk r20260923-080538-bc48 done
+hash-nonzk-int r20260923-081059-8ff6 done
+hash-int-zk r20260923-081227-ac87 done
+hash-fs-zk r20260923-081315-9f58 done
+tile-nonzk-int r20260923-081405-f700 done
+tile-int-zk r20260923-081455-e50f done
+tile-fs-zk r20260923-081543-d32f done
+bf16h-hash-int-zk r20260923-081632-0fb3 done
+fp8h-hash-int-zk r20260923-081743-40d3 done
+bf16h-bare-int-zk r20260923-081851-3955 done
+fp8h-bare-int-zk r20260923-082033-2e0f done

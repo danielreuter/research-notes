@@ -1,0 +1,147 @@
+{
+ "relation": "fp8-ada",
+ "vus": 4096,
+ "l": 16384,
+ "S": 16,
+ "engine": "cuda",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "gpu_total_gb": 23.660068864,
+ "t_witness_and_z": 12.265251269098371,
+ "m": 3577,
+ "R": 4096,
+ "C": 262144,
+ "K": 3936,
+ "K_pad": 4096,
+ "n_k": 12,
+ "n_c": 18,
+ "n_i": 12,
+ "n_links": 3,
+ "nnz": {
+  "a": 10623,
+  "b": 5337,
+  "c": 3498
+ },
+ "n_sub": 13,
+ "N_log2": 30,
+ "schedule": {
+  "zc": [
+   3,
+   2,
+   2,
+   2,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3
+  ],
+  "vf": 4,
+  "cmb": [
+   3,
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ "z_gb": 4.294967296,
+ "mem_before_prove_gb": 4.767066112,
+ "coins": 18,
+ "timings_cold": {
+  "zc_setup": 0.21936667896807194,
+  "zc": 0.49382734717801213,
+  "zc_rounds": [
+   0.16318799508735538,
+   0.03883750503882766,
+   0.014214620925486088,
+   0.00872249435633421,
+   0.007291828282177448,
+   0.009840647224336863,
+   0.007608141750097275,
+   0.007596450857818127,
+   0.007720892317593098,
+   0.007691682316362858,
+   0.0016474798321723938
+  ],
+  "cmb_coef_matvec": 0.013662163633853197,
+  "cmb": 0.06958566373214126,
+  "total": 0.5634144213981926
+ },
+ "timings": {
+  "zc_setup": 0.07714616414159536,
+  "zc": 0.3401097250171006,
+  "zc_rounds": [
+   0.1549030956812203,
+   0.03773651225492358,
+   0.015212002210319042,
+   0.007552811410278082,
+   0.005955431144684553,
+   0.009037097916007042,
+   0.00805466715246439,
+   0.007781463209539652,
+   0.007804873865097761,
+   0.007794673088937998,
+   0.0010861428454518318
+  ],
+  "cmb_coef_matvec": 0.013211008161306381,
+  "cmb": 0.06794872414320707,
+  "total": 0.4080596989952028
+ },
+ "totals": [
+  0.5634144213981926,
+  0.4080596989952028,
+  0.48003209102898836
+ ],
+ "peak_mem_gb": 14.59264768,
+ "peak_reserved_gb": 14.76395008,
+ "bytes": 11069,
+ "t_verify": 1.2251418083906174,
+ "verify_ok": true,
+ "verify_why": "accept (sumchecks; PCS claims pending)",
+ "negatives": {
+  "quadratic": {
+   "honest": [
+    false,
+    "zero-check round 0: sum_b eq(tau, b) q(b) != claim"
+   ],
+   "zc": [
+    false,
+    "combined round 0: sum_b q(b) != claim"
+   ],
+   "all": [
+    false,
+    "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   ]
+  },
+  "chain_link": {
+   "honest": [
+    false,
+    "zero-check round 0: sum_b eq(tau, b) q(b) != claim"
+   ],
+   "zc": [
+    false,
+    "combined round 0: sum_b q(b) != claim"
+   ],
+   "all": [
+    false,
+    "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   ]
+  },
+  "lookup": {
+   "honest": [
+    false,
+    "zero-check round 0: sum_b eq(tau, b) q(b) != claim"
+   ],
+   "zc": [
+    false,
+    "combined round 0: sum_b q(b) != claim"
+   ],
+   "all": [
+    false,
+    "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   ]
+  }
+ }
+}

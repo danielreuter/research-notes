@@ -1,0 +1,77 @@
+census: {"rows_per_unit": 1583, "bit_rows": 972, "selector_rows": 172, "hint_rows": 86, "pin_rows": 141, "product_rows": 210, "inverse_rows": 2, "linear_constraints": 306, "quadratic_constraints": 1389, "chain": true, "steps_per_vu": 24, "rows_per_vu": 37992, "bit_rows_per_vu": 23328, "shifters_per_unit": 6, "digit_positions": 6, "digit_radix": 12, "lookups_per_unit": 18}
+4096 synthetic VUs (14 families, model-recorded accumulators) in 5.1s
+config Config(l=16384, n=65536, D=6, t=195, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=682, steps=24); zk True, mode interactive; system {'rows': 1583, 'by_kind': {'hint': 86, 'bit': 972, 'prod': 210, 'inv': 2, 'pin': 141, 'sel': 172}, 'linear': 306, 'quadratic': 1389, 'pins': 141, 'hints': 86}; 4096 VUs as 7 sub-batches of <= 682
+warm-up (7 sub-batch(es), the prover's self-check on the first): {'statement': 0.001, 'hints_host': 0.57, 'witness': 0.037, 'self_check': 2.767, 'zk_masks': 0.008, 'encode': 0.974, 'transfer': 0.0, 'merkle': 0.009, 'tests_w': 0.672, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.016, 'tests': 0.672, 'total': 4.492}
+rep 1: prover 0.265s (+hints 0.018s) over 7 proofs; verifier 0.491s; prove wall 0.284s (0.069 ms/VU)
+rep 2: prover 0.058s (+hints 0.005s) over 7 proofs; verifier 0.494s; prove wall 0.064s (0.015 ms/VU)
+rep 3: prover 0.050s (+hints 0.005s) over 7 proofs; verifier 0.494s; prove wall 0.058s (0.014 ms/VU)
+dumped 7 proofs to /workspace/research/runs/r20260923-091111-9945/proofs
+dumps: 7/7 accepted cold from bytes by the Python file verifier in 0.53s
+contract problems: ['buckets and joints sum to 0.0645501 s, more than t.total 0.0635418 s by over 1%: something is double-counted']
+{
+ "seconds_per_vu": 1.5513124315983386e-05,
+ "prover_total": 0.06354175719826795,
+ "verifier": 0.49369625584222376,
+ "bytes": {
+  "root": 224,
+  "w": 2795520,
+  "h": 2838360,
+  "cols": 5460,
+  "opened_columns": 8839740,
+  "merkle_paths": 698880,
+  "q_chain": 5547864,
+  "v_linear": 2795520,
+  "coin_commitments_and_openings": 1344,
+  "auth_multiproofs": 0,
+  "total": 23522912
+ },
+ "n_proofs": 7,
+ "per_proof_vus": 682,
+ "t": 195,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 4065909760,
+ "soundness_log2": -128.53889508908833,
+ "per_proof_log2": -131.3462500111459,
+ "rows": 1583,
+ "medians": {
+  "statement": 0.00030359827583154454,
+  "hints_host": 0.005454648128121474,
+  "witness": 0.0004409265959566047,
+  "zk_masks": 6.0247705346892074e-05,
+  "encode": 0.005741647234727596,
+  "transfer": 6.016755071647072e-06,
+  "merkle": 0.003340257419010062,
+  "tests_w": 0.04601540990241526,
+  "tests_quad": 9.124175968110197e-07,
+  "tests_chain": 9.206029017244708e-07,
+  "openings": 0.0031855761367511177,
+  "tests": 0.04601722580261526,
+  "total": 0.05808710907014647,
+  "measured_statement": 0.0010794879831373691,
+  "measured_hints_host": 0.017373215794563295,
+  "measured_witness": 0.001233343981206417,
+  "measured_zk_masks": 0.0001686080023646355,
+  "measured_encode": 0.015512736082077025,
+  "measured_transfer": 1.6831999819260094e-05,
+  "measured_merkle": 0.008736704111099242,
+  "measured_tests_w": 0.14539177799224853,
+  "measured_tests_quad": 2.7520000585354863e-06,
+  "measured_tests_chain": 2.7200000768061726e-06,
+  "measured_openings": 0.00694345599412918,
+  "measured_total": 0.18644774919562038
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "system_format": "ligero-system/v2",
+  "accepted": 7,
+  "total": 7,
+  "seconds": 0.5197504600510001,
+  "wall": 0.5344188981689513,
+  "coins": "the transcript's own coins replayed (file verifier)",
+  "rust_ligero_verify": "not run by this harness; backends/ligero-verify pins fp4-nvf4 (lane ligero-verify-fp4: ligero-system/v2 component chain ends, E2M1 / UE4M3 decode) -- verify these files with `ligero-verify batch --system system.bin --dir repN --target-bits 128` (an independent check when run by a non-producer)"
+ },
+ "validation": "passed"
+}

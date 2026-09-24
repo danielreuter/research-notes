@@ -1,0 +1,103 @@
+OMP_NUM_THREADS=12 cpu.max=1275000 100000 nproc=12
+=== tree ? at /workspace/research/src/198695333210df12d12ee98f8bdd48226d62ea38
+=== pytest backends/direct/ligero
+...........s............................................................ [ 60%]
+...............................................                          [100%]
+============================= slowest 15 durations =============================
+28.40s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-ampere-v2]
+25.03s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-hopper-v2]
+21.92s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-ada-v2]
+20.99s call     backends/direct/ligero/commit_gpu_test.py::test_levels_leaves_root_equal_reference[3328-65536]
+19.95s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-hopper-v2]
+8.46s call     backends/direct/ligero/live_test.py::test_honest_session_accepted_and_negatives_refused
+5.60s call     backends/direct/ligero/relations_test.py::test_negative_battery_rejected[fp8-hopper]
+5.28s call     backends/direct/ligero/fp8/relation_test.py::test_row_mutations_rejected
+4.83s call     backends/direct/ligero/fp8/relation_test.py::test_chain_two_vus_cpu[True-fiat-shamir]
+4.80s call     backends/direct/ligero/relations_test.py::test_row_mutations_rejected[fp8-hopper]
+4.53s call     backends/direct/ligero/relations_test.py::test_negative_battery_rejected[bf16-hopper]
+4.33s call     backends/direct/ligero/fp4/relation_test.py::test_chain_two_vus_cpu
+4.04s call     backends/direct/ligero/pubsel/relation_test.py::test_negative_battery_rejected[bf16-ampere-v2]
+3.59s call     backends/direct/ligero/live_test.py::test_four_concurrent_sessions
+3.52s call     backends/direct/ligero/commit_gpu_test.py::test_levels_leaves_root_equal_reference[3552-65536]
+118 passed, 1 skipped, 2 deselected in 220.09s (0:03:40)
+pytest rc=0 wall=223s
+=== gate fp4-nvf4-device: --relation fp4-nvf4 gate-vu --vus 256 --batch 1024 --device cuda --row-negatives 60 --unit-negatives 48 --fp4-hints device --out /workspace/research/runs/r20260923-082121-7a8b/gate_fp4_device.json
+fp4 vu-k1536 [210, 252): l=1024 prover 0.02s -> True accept (0.021s)
+fp4 vu-k1536 [252, 256): l=256 prover 0.16s -> True accept (0.021s)
+wrong-rule variants that reach the model's final word on every synthetic VU (no chain-level negative; the unit tier exercises them): ['frac26', 'frac28', 'window37', 'nearest-align', 'negzero', 'participate-zero-scale']
+negatives: 114/114 rejected (l=256)
+unit negatives (wrong-rule witnesses, own claim): 3015/3015 rejected over 1008 units x 14 variants
+vu-k1536 256/256 ok; vu-k1536-neg 114/114 ok; tu-k64-neg 3015/3015 ok
+gate fp4-nvf4-device rc=0 wall=17s
+=== gate fp4-nvf4-bench-pipe3: --relation fp4-nvf4 bench-vu --zk --mode interactive --batch 4096 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 3 --dump-dir /workspace/research/runs/r20260923-082121-7a8b/pipe3_dumps --dump-reps 1
+  "wall": 0.27091495506465435,
+  "coins": "the transcript's own coins replayed (file verifier)",
+  "rust_ligero_verify": "not run by this harness; backends/ligero-verify pins fp4-nvf4 (lane ligero-verify-fp4: ligero-system/v2 component chain ends, E2M1 / UE4M3 decode) -- verify these files with `ligero-verify batch --system system.bin --dir repN --target-bits 128` (an independent check when run by a non-producer)"
+ },
+ "validation": "passed"
+}
+gate fp4-nvf4-bench-pipe3 rc=0 wall=11s
+=== gate fp4-nvf4-device-zk: --relation fp4-nvf4 gate-vu --vus 64 --batch 1024 --device cuda --zk --fp4-hints device
+fp4 vu-k1536 [0, 42): l=1024 prover 3.71s -> True accept (0.025s)
+fp4 vu-k1536 [42, 64): l=1024 prover 0.02s -> True accept (0.021s)
+wrong-rule variants that reach the model's final word on every synthetic VU (no chain-level negative; the unit tier exercises them): ['frac26', 'frac28', 'window37', 'nearest-align', 'negzero', 'participate-zero-scale']
+negatives: 114/114 rejected (l=256)
+unit negatives (wrong-rule witnesses, own claim): 3015/3015 rejected over 1008 units x 14 variants
+vu-k1536 64/64 ok; vu-k1536-neg 114/114 ok; tu-k64-neg 3015/3015 ok
+gate fp4-nvf4-device-zk rc=0 wall=16s
+=== gate fp4-nvf4-numpy: --relation fp4-nvf4 gate-vu --vus 64 --batch 1024 --device cuda --fp4-hints numpy
+fp4 vu-k1536 [0, 42): l=1024 prover 3.55s -> True accept (0.039s)
+fp4 vu-k1536 [42, 64): l=1024 prover 0.02s -> True accept (0.022s)
+wrong-rule variants that reach the model's final word on every synthetic VU (no chain-level negative; the unit tier exercises them): ['frac26', 'frac28', 'window37', 'nearest-align', 'negzero', 'participate-zero-scale']
+negatives: 114/114 rejected (l=256)
+unit negatives (wrong-rule witnesses, own claim): 3015/3015 rejected over 1008 units x 14 variants
+vu-k1536 64/64 ok; vu-k1536-neg 114/114 ok; tu-k64-neg 3015/3015 ok
+gate fp4-nvf4-numpy rc=0 wall=15s
+=== gate bf16-ampere: gate-vu --root /workspace/bench-instances/v1 --vus 64 --device cuda
+chain system: {'rows': 3516, 'by_kind': {'hint': 103, 'bit': 2534, 'prod': 173, 'pin': 96, 'sel': 610}, 'linear': 347, 'quadratic': 3387, 'pins': 96, 'hints': 103} compiled in 0.39s; device cuda
+vu-k1536 [0, 42): l=4096 prover 3.73s -> True accept (0.040s)
+vu-k1536 [42, 64): l=4096 prover 0.03s -> True accept (0.022s)
+negatives: 52/52 rejected
+mutations: 252/252 rejected (one per gadget scope x row class + 3 chain-specific, l=256)
+gate bf16-ampere rc=0 wall=23s
+=== gate bf16-hopper: --relation bf16-hopper gate-vu --vus 64 --device cuda --instances-cache /workspace/instances-cache
+  negative row prod[3].prod[3].z (hint) +2 in column 14: REJECTED linear constraints failed
+  negative row prod[3].prod15 (prod) +1 in column 3: REJECTED linear constraints failed
+  negative row prod[3].prod16 (prod) +1 in column 179: REJECTED linear constraints failed
+  negative row prod[3].prod[3].z1.b0 (bit) +1 in column 59: REJECTED linear constraints failed
+  negative row prod[3].prod17 (prod) +1 in column 148: REJECTED quadratic constraints failed
+bf16-hopper gate: 2 honest sub-batches, 87 negatives, 0 failures
+gate bf16-hopper rc=0 wall=15s
+=== gate bf16-hopper-zk: --relation bf16-hopper gate-vu --vus 64 --device cuda --zk --instances-cache /workspace/instances-cache
+  negative row prod[3].prod[3].z (hint) +2 in column 14: REJECTED linear constraints failed (public values)
+  negative row prod[3].prod15 (prod) +1 in column 3: REJECTED linear constraints failed (public values)
+  negative row prod[3].prod16 (prod) +1 in column 179: REJECTED linear constraints failed (public values)
+  negative row prod[3].prod[3].z1.b0 (bit) +1 in column 59: REJECTED linear constraints failed (public values)
+  negative row prod[3].prod17 (prod) +1 in column 148: REJECTED quadratic constraints failed
+bf16-hopper gate: 2 honest sub-batches, 87 negatives, 0 failures
+gate bf16-hopper-zk rc=0 wall=18s
+=== gate fp8-hopper: --relation fp8-hopper gate-vu --vus 64 --device cuda --instances-cache /workspace/instances-cache
+  negative row x.b[17].s (pin) +2 in column 7: REJECTED linear constraints failed
+  negative row x.b[18].s (pin) +1 in column 1: REJECTED linear constraints failed
+  negative row x.b[19].s (pin) +1 in column 89: REJECTED linear constraints failed
+  negative row x.b[20].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[21].s (pin) +1 in column 74: REJECTED linear constraints failed
+fp8-hopper gate: 1 honest sub-batches, 92 negatives, 0 failures
+gate fp8-hopper rc=0 wall=9s
+=== gate fp8-ada: --relation fp8-ada gate-vu --vus 64 --device cuda --instances-cache /workspace/instances-cache
+  negative row x.b[17].s (pin) +2 in column 7: REJECTED linear constraints failed
+  negative row x.b[18].s (pin) +1 in column 1: REJECTED linear constraints failed
+  negative row x.b[19].s (pin) +1 in column 89: REJECTED linear constraints failed
+  negative row x.b[20].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[21].s (pin) +1 in column 74: REJECTED linear constraints failed
+fp8-ada gate: 1 honest sub-batches, 92 negatives, 0 failures
+gate fp8-ada rc=0 wall=8s
+=== gate bf16-hopper-legacy: --relation bf16-hopper gate-vu --vus 64 --device cuda --impl legacy --instances-cache /workspace/instances-cache
+  negative row prod[3].prod[3].z (hint) +2 in column 14: REJECTED linear constraints failed
+  negative row prod[3].prod15 (prod) +1 in column 3: REJECTED linear constraints failed
+  negative row prod[3].prod16 (prod) +1 in column 179: REJECTED linear constraints failed
+  negative row prod[3].prod[3].z1.b0 (bit) +1 in column 59: REJECTED linear constraints failed
+  negative row prod[3].prod17 (prod) +1 in column 148: REJECTED quadratic constraints failed
+bf16-hopper gate: 2 honest sub-batches, 87 negatives, 0 failures
+gate bf16-hopper-legacy rc=0 wall=17s
+GATES_DONE

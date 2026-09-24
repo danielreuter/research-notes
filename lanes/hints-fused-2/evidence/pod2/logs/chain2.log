@@ -1,0 +1,51 @@
+chain2 start 22:24:02
+22:24:20 r3_to_v3_p4_16k rc=rc=0
+22:24:41 r3_fu_v3x4_p4_4k rc=rc=0
+22:24:57 r3_fu_v3_p4_16k rc=rc=0
+22:25:18 r3_fu_v3x4_p4_16k rc=rc=0
+22:25:44 r3_to_v3x4_p4_4k rc=rc=0
+22:26:03 r3_fu_v3x4_p2_16k rc=rc=0
+22:26:26 r3_fu_v3x4_p4_8k rc=rc=0
+22:26:50 r3_to_v3x4_p2_16k rc=rc=0
+22:27:12 r3_fu_v3x4_p2_8k rc=rc=0
+22:27:38 r3_fu_v3x4_p8_4k rc=rc=0
+22:30:32 r3_base_v3_p4_16k rc=rc=0
+22:30:50 r3_fu_v2x4_p4_16k rc=rc=0
+22:31:09 r3_to_v2x4_p4_16k rc=rc=0
+22:31:28 r4_to_v3_p4_16k rc=rc=0
+22:31:48 r4_fu_v3x4_p4_4k rc=rc=0
+22:32:06 r4_fu_v3_p4_16k rc=rc=0
+22:32:27 r4_fu_v3x4_p4_16k rc=rc=0
+22:32:54 r4_to_v3x4_p4_4k rc=rc=0
+22:33:15 r4_fu_v3x4_p2_16k rc=rc=0
+22:33:36 r4_fu_v3x4_p4_8k rc=rc=0
+22:33:59 r4_to_v3x4_p2_16k rc=rc=0
+22:34:19 r4_fu_v3x4_p2_8k rc=rc=0
+22:34:43 r4_fu_v3x4_p8_4k rc=rc=0
+22:37:42 r4_base_v3_p4_16k rc=rc=0
+22:37:56 r4_fu_v2x4_p4_16k rc=rc=0
+22:38:11 r4_to_v2x4_p4_16k rc=rc=0
+22:38:28 r5_to_v3_p4_16k rc=rc=0
+22:38:45 r5_fu_v3x4_p4_4k rc=rc=0
+22:39:00 r5_fu_v3_p4_16k rc=rc=0
+22:39:17 r5_fu_v3x4_p4_16k rc=rc=0
+22:39:39 r5_to_v3x4_p4_4k rc=rc=0
+22:39:54 r5_fu_v3x4_p2_16k rc=rc=0
+22:40:11 r5_fu_v3x4_p4_8k rc=rc=0
+22:40:30 r5_to_v3x4_p2_16k rc=rc=0
+22:40:46 r5_fu_v3x4_p2_8k rc=rc=0
+22:41:05 r5_fu_v3x4_p8_4k rc=rc=0
+22:44:03 r5_base_v3_p4_16k rc=rc=0
+22:44:17 r5_fu_v2x4_p4_16k rc=rc=0
+22:44:32 r5_to_v2x4_p4_16k rc=rc=0
+rounds done 22:44:32
+22:44:50 d_fu_v3x4_p4_4k rc=rc=0
+22:44:51 d_fu_v3x4_p4_4k rust batch ACCEPT
+22:45:07 d_fu_v3_p4_16k rc=rc=0
+22:45:07 d_fu_v3_p4_16k rust batch ACCEPT
+22:45:21 d_fu_v2x4_p4_16k rc=rc=0
+22:45:22 d_fu_v2x4_p4_16k rust batch ACCEPT
+22:45:42 d_fu_v3x4_p8_4k rc=rc=0
+22:45:43 d_fu_v3x4_p8_4k rust batch ACCEPT
+prof done 22:46:15
+diff done 22:48:55

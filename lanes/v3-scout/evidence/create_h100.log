@@ -1,0 +1,38 @@
+{
+  "consumerUserId": "user_2jicQdVBU3hhI1gqNQKTaSma0Ru",
+  "containerDiskInGb": 80,
+  "costPerHr": 3.49,
+  "createdAt": "2026-09-23 20:54:43.929 +0000 UTC",
+  "desiredStatus": "RUNNING",
+  "env": {
+    "PUBLIC_KEY": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDa/xZC8oje42QU8gBpsKVk5D6eceZA0XtqyMns+fZ3/t8IHvwvWg/6wdI3c1Mfishc1qG6kiONsPI/qF4Dl+0pJeQXICqJ4noK2ZOMjGMJO4q3HXaGejg+GbuagxAQiZ6qFmGkBlK86bP7d6wZER2odKSfTEdrDVF9uHn4a+c/zO5v+H0aEtjWgrrYe/pGJqrzjMugr0C7LMdUkfrGesQOP0uLI2wVss1cUw3fMZXXXPXq5xEmMnLzUYp1/04bM3F2M+FwG95kQ7Smyl7a0KLZtx7Zp8jOKu7DMqEht7Tx+DOwlC2AzJVon9RNFWeS70tngOs24tHPMfFVzqINw3fb runpodctl-ssh-key"
+  },
+  "gpuCount": 1,
+  "id": "x2b0ahxr8g7k0s",
+  "imageName": "runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04",
+  "lastStartedAt": "2026-09-23 20:54:43.923 +0000 UTC",
+  "lastStatusChange": "Rented by User: Wed Sep 23 2026 20:54:43 GMT+0000 (Coordinated Universal Time)",
+  "machine": {
+    "dataCenterId": "EU-FR-1",
+    "diskThroughputMBps": 5593,
+    "gpuTypeId": "NVIDIA H100 80GB HBM3",
+    "location": "FR",
+    "maxDownloadSpeedMbps": 11493,
+    "maxUploadSpeedMbps": 57446,
+    "secureCloud": true,
+    "supportPublicIp": true,
+    "reservedCountVersion": 429816
+  },
+  "machineId": "1touryhkfdj5",
+  "memoryInGb": 188,
+  "name": "vy-v3-scout-h100-veritor-campaign",
+  "ports": [
+    "22/tcp"
+  ],
+  "publicIp": "",
+  "templateId": "",
+  "vcpuCount": 32,
+  "volumeInGb": 0,
+  "volumeMountPath": "/workspace"
+}
+x2b0ahxr8g7k0s  NVIDIA H100 80GB HBM3 x1  81559 MiB (reference 81559 MiB)  host AMD EPYC 9554 64-Core Processor x256  load 23.86  6124da9e6ef1  ->  reference

@@ -1,0 +1,15 @@
+vu-k1536.x.u16 OK
+vu-k1536.w.u16 OK
+vu-k1536.acc.u32 OK
+vu-k1536.y.u16 OK
+vu-k1536.index.json OK
+tu-k16.a.u16 OK
+tu-k16.b.u16 OK
+tu-k16.c.u32 OK
+tu-k16.out.u32 OK
+tu-k16.index.json OK
+vu-k1536-neg.x.u16 OK
+vu-k1536-neg.w.u16 OK
+vu-k1536-neg.y.u16 OK
+vu-k1536-neg.index.json OK
+frozen manifest installed: 059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea

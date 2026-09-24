@@ -1,0 +1,127 @@
+bf16-hopper census: {"rows_per_unit": 3292, "bit_rows": 2391, "selector_rows": 542, "hint_rows": 97, "pin_rows": 96, "product_rows": 166, "inverse_rows": 0, "linear_constraints": 339, "quadratic_constraints": 3164, "chain": true}
+4096 synthetic VUs (model-recorded accumulators) in 0.6s
+config Config(l=16384, n=65536, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=170, steps=96); zk True, mode interactive; system {'rows': 3292, 'by_kind': {'hint': 97, 'bit': 2391, 'prod': 166, 'pin': 96, 'sel': 542}, 'linear': 339, 'quadratic': 3164, 'pins': 96, 'hints': 97}; 4096 VUs as 25 sub-batches of <= 170
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.003, 'witness': 0.423, 'self_check': 2.539, 'zk_masks': 0.026, 'encode': 1.022, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 0.015, 'tests_quad': 0.062, 'tests_chain': 0.021, 'tests': 0.097, 'openings': 0.006, 'total': 4.12, 'hints_host': 11.36}
+rep 1: prover 1.534s (+hints 0.107s) over 25 proofs; verifier 0.681s; pass wall 4.968s (0.401 ms/VU)
+rep 2: prover 1.467s (+hints 0.107s) over 25 proofs; verifier 0.673s; pass wall 4.925s (0.384 ms/VU)
+rep 3: prover 1.482s (+hints 0.107s) over 25 proofs; verifier 0.677s; pass wall 4.988s (0.388 ms/VU)
+dumped 25 proofs to /workspace/research/runs/r20260923-030235-4817/proofs
+dumps: 25/25 accepted cold from bytes by the Python file verifier in 0.76s; batch verdict per rep: ['accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128']
+{
+ "relation": "bf16-hopper",
+ "seconds_per_vu": 0.0003879753721776069,
+ "prover_total": 1.589147124439478,
+ "verifier": 0.6774113103747368,
+ "bytes": {
+  "root": 800,
+  "w": 9984000,
+  "h": 10137000,
+  "cols": 19700,
+  "opened_columns": 65561600,
+  "merkle_paths": 2521600,
+  "q_chain": 19813800,
+  "v_linear": 9984000,
+  "coin_commitments_and_openings": 4800,
+  "auth_multiproofs": 0,
+  "total": 118027300
+ },
+ "n_proofs": 25,
+ "per_proof_vus": 170,
+ "t": 197,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 3003835392,
+ "soundness_log2": -128.04953484711905,
+ "per_proof_log2": -132.69339103689367,
+ "rows": 3292,
+ "medians": {
+  "statement": 0.035882819443941116,
+  "witness": 0.7441558167338371,
+  "zk_masks": 0.015565216541290283,
+  "encode": 0.11540547013282776,
+  "transfer": 0.00036991387605667114,
+  "merkle": 0.04753655195236206,
+  "tests_w": 0.2799907810986042,
+  "tests_quad": 0.08860573917627335,
+  "tests_chain": 0.07120870426297188,
+  "tests": 0.4401277117431164,
+  "openings": 0.0830148309469223,
+  "total": 1.482302300632,
+  "hints_host": 0.10684482380747795
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "accepted": 25,
+  "total": 25,
+  "batch": {
+   "1": {
+    "n_subbatches": 25,
+    "target_bits": 128.0,
+    "batch_log2": -128.04953484711893,
+    "per_proof_log2": [
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367
+    ],
+    "n_proofs_claimed": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ],
+    "accepted": true,
+    "reason": "accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128"
+   }
+  },
+  "batch_accepted": true,
+  "seconds": 0.6896586827933788,
+  "wall": 0.7591446600854397,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}

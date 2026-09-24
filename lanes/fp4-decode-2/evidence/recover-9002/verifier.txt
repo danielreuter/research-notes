@@ -1,0 +1,2 @@
+14dc9eea50759db79d09cbe30d638f2bcda6d918db38602a88e1f32f0d0f870e  /workspace/bin/ligero-verify
+RC=0

@@ -1,0 +1,21 @@
+=== 04:02:49 bootstrap -> r20260923-040249-400a : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bootstrap.sh"
+=== 04:04:25 bootstrap -> r20260923-040425-f798 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bootstrap.sh"
+research: run r20260923-040425-f798 launched on vy-hp-val (8xubf0u8uo4109) pid=291 -> /workspace/research/runs/r20260923-040425-f798
+research: observe with `research fetch r20260923-040425-f798`; the workload does not depend on this session staying alive
+04:04:59 bootstrap r20260923-040425-f798 state=failed 127 wall=1s
+=== 04:05:53 bootstrap -> r20260923-040553-4611 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bootstrap.sh"
+research: run r20260923-040553-4611 launched on vy-hp-val (8xubf0u8uo4109) pid=391 -> /workspace/research/runs/r20260923-040553-4611
+research: observe with `research fetch r20260923-040553-4611`; the workload does not depend on this session staying alive
+04:06:55 bootstrap r20260923-040553-4611 state=done 0 wall=57s
+=== 04:07:25 validate -> r20260923-040725-74cd : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate.sh"
+research: run r20260923-040725-74cd launched on vy-hp-val (8xubf0u8uo4109) pid=1099 -> /workspace/research/runs/r20260923-040725-74cd
+research: observe with `research fetch r20260923-040725-74cd`; the workload does not depend on this session staying alive
+04:15:54 validate r20260923-040725-74cd state=done 0 wall=504s
+=== 04:18:18 recheck -> r20260923-041818-ac51 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/recheck.sh"
+research: run r20260923-041818-ac51 launched on vy-hp-val (8xubf0u8uo4109) pid=7337 -> /workspace/research/runs/r20260923-041818-ac51
+research: observe with `research fetch r20260923-041818-ac51`; the workload does not depend on this session staying alive
+04:19:30 recheck r20260923-041818-ac51 state=done 0 wall=35s
+=== 04:20:09 recheck2 -> r20260923-042009-b442 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/recheck.sh"
+research: run r20260923-042009-b442 launched on vy-hp-val (8xubf0u8uo4109) pid=8237 -> /workspace/research/runs/r20260923-042009-b442
+research: observe with `research fetch r20260923-042009-b442`; the workload does not depend on this session staying alive
+04:20:38 recheck2 r20260923-042009-b442 state=done 0 wall=23s

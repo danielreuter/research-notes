@@ -1,0 +1,48 @@
+{
+ "name": "/tmp/rt3/out/ajtai-n128-collide/Q/sub_00.proof",
+ "accepted": true,
+ "system_pinned": true,
+ "reason": "accept (authentication: included-hash, 2 VUs, 2 x rows + 2 W columns + 2 y words under the a/b/y roots)",
+ "statement": {
+  "l": 1024,
+  "n": 4096,
+  "D": 7,
+  "t": 278,
+  "zk": false,
+  "mode": "fiat-shamir",
+  "n_proofs": 1,
+  "n_vus": 2,
+  "steps": 192,
+  "K": 16,
+  "format": "ligero-statement/v5",
+  "relation": "bf16-hopper+ajtai-n128",
+  "digest": "1179b532394b0dff23684c68cde276cc7a8a3da9e6bb90aa90583877677ab159"
+ },
+ "timing": {
+  "shared": 0.001311,
+  "parse": 0.006216,
+  "soundness": 1e-06,
+  "statement_hash": 0.001775,
+  "challenge_hash": 0.000865,
+  "merkle": 0.006595,
+  "ntt": 0.196245,
+  "dfold": 0.030524,
+  "quadratic": 0.028001,
+  "chain": 0.346241,
+  "auth": 0.000698,
+  "total": 0.618729
+ },
+ "reps": 1,
+ "soundness": {
+  "per_proof_log2": -128.347,
+  "union_log2": -128.347,
+  "terms": {
+   "irs_query": -128.347,
+   "linear_query": -217.804,
+   "quadratic_query": -217.609,
+   "irs_field": -144.348,
+   "linear_field": -156.348,
+   "quadratic_field": -156.348
+  }
+ }
+}

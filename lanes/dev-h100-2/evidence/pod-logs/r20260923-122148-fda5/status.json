@@ -1,0 +1,57 @@
+{
+ "schema": "telemetry/status/v0.1",
+ "transitions": [
+  {
+   "state": "running",
+   "t_utc": "2026-09-23T12:22:57.116Z",
+   "t_mono": 5175404.871660141,
+   "stream": "7850b3800bf0:1508:517540452",
+   "pid": 1517,
+   "pgid": 1517,
+   "starttime_ticks": 517540487,
+   "stage": "gates",
+   "timeout_s": null,
+   "started_mono": 5175404.870585696,
+   "started_utc": "2026-09-23T12:22:57.115Z",
+   "command": [
+    "bash",
+    "/workspace/gates.sh"
+   ]
+  },
+  {
+   "state": "done",
+   "t_utc": "2026-09-23T12:29:35.261Z",
+   "t_mono": 5175803.017224174,
+   "stream": "7850b3800bf0:1508:517540452",
+   "rc": 0,
+   "signal": null,
+   "timed_out": false,
+   "ended_mono": 5175803.016281426,
+   "ended_utc": "2026-09-23T12:29:35.261Z",
+   "wall_s": 398.1456957301125,
+   "rc_is_shell_status": true
+  }
+ ],
+ "state": "done",
+ "updated_utc": "2026-09-23T12:29:35.261Z",
+ "updated_mono": 5175803.017224174,
+ "updated_stream": "7850b3800bf0:1508:517540452",
+ "pid": 1517,
+ "pgid": 1517,
+ "starttime_ticks": 517540487,
+ "stage": "gates",
+ "timeout_s": null,
+ "started_mono": 5175404.870585696,
+ "started_utc": "2026-09-23T12:22:57.115Z",
+ "command": [
+  "bash",
+  "/workspace/gates.sh"
+ ],
+ "rc": 0,
+ "signal": null,
+ "timed_out": false,
+ "ended_mono": 5175803.016281426,
+ "ended_utc": "2026-09-23T12:29:35.261Z",
+ "wall_s": 398.1456957301125,
+ "rc_is_shell_status": true
+}

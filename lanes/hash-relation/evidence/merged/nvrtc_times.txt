@@ -1,0 +1,4 @@
+bare fp8-ada regs kernel NVRTC 39.3 s, src kB 441 tables False
+hooked hashed fp8-ada regs kernel NVRTC 83.8 s, src kB 521 tables False
+poseidon2_rows kernel NVRTC 13.3 s
+table-driven hashed fp8-ada kernel NVRTC 27.8 s, src kB 434 tables True

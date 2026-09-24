@@ -1,0 +1,82 @@
+
+=== [12:18:05] machine
+NVIDIA H100 80GB HBM3, GPU-1e1ca32d-5cd8-fe34-8963-5d4658c3c235, 81559 MiB, 580.126.09, 700.00 W, 1980 MHz
+224
+               total        used        free      shared  buff/cache   available
+Mem:            2015          28        1139           0         847        1965
+overlay          60G  267M   60G   1% /
+2380000 100000
+model name	: Intel(R) Xeon(R) Platinum 8480+
+13.17 12.08 13.41 7/5134 784
+7850b3800bf0
+RUNPOD_DC_ID=AP-IN-1
+RUNPOD_POD_ID=g8zrn40cutw95q
+RUNPOD_PUBLIC_IP=103.207.149.101
+source tree: /workspace/src -> /workspace/research/src/11c7075d21ba8cfc9dfa95659cec2efd8a57785d
+AGENTS.md
+README.md
+backends
+benchmarks
+fixtures
+
+=== [12:18:05] rustup stable + ligero-verify (background)
+
+=== [12:18:05] uv + python 3.12 + venv312
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source /workspace/venv312/bin/activate
+Python 3.12.14
+
+=== [12:18:07] torch 2.6.0+cu124, numpy, cupy-cuda12x, blake3, pytest, pytest-timeout
+ + triton==3.2.0
+ + typing-extensions==4.16.0
+ + pytest==9.1.1
+ + pytest-timeout==2.4.0
+torch 2.6.0+cu124 numpy 2.5.3 cupy 14.2.0
+cuda True NVIDIA H100 80GB HBM3 12.4 (9, 0)
+device memory bytes 85017493504
+matmul ok True
+cupy ok True
+merkle.gpu_available(): True | blake3 (host, placeholder) | blake3 (GPU, backends/shared/hash_gpu)
+
+=== [12:18:32] instance caches (bf16-hopper, fp8-hopper; n = 2048 and 4096) -> /workspace/instances-cache
+bf16-hopper n=2048: 2048 VUs in 0.7s; digest c99fe812dea71cc8...
+bf16-hopper n=4096: 4096 VUs in 1.4s; digest 2a5babca16e82727...
+bf16-hopper instances_digest(4096) = 2a5babca16e82727611ae483a125b8d853e27e4c9deedda7c35927cc1e456869  frozen? True
+fp8-hopper n=2048: 2048 VUs in 0.9s; digest ebeb20b91547a875...
+fp8-hopper n=4096: 4096 VUs in 1.2s; digest 0ff750026b8d8df0...
+fp8-hopper instances_digest(4096) = 0ff750026b8d8df0418d3ec360ed6ade683a33b8264d66973021cbfbff7945bc  frozen? True
+total 301844
+drwxr-xr-x 2 root root       172 Sep 23 12:18 .
+drwxr-xr-x 1 root root      4096 Sep 23 12:18 ..
+-rw-r--r-- 1 root root  51905242 Sep 23 12:18 bf16-hopper-20260922-2048.npz
+-rw-r--r-- 1 root root 103809754 Sep 23 12:18 bf16-hopper-20260922-4096.npz
+-rw-r--r-- 1 root root  51118810 Sep 23 12:18 fp8-hopper-20260922-2048.npz
+-rw-r--r-- 1 root root 102236890 Sep 23 12:18 fp8-hopper-20260922-4096.npz
+
+=== [12:18:37] rust build (join)
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 1 warning
+    Finished `release` profile [optimized + debuginfo] target(s) in 10.08s
+total 4632
+drwxr-xr-x 2 root root      35 Sep 23 12:18 .
+drwxr-xr-x 1 root root    4096 Sep 23 12:18 ..
+-rwxr-xr-x 1 root root 4735456 Sep 23 12:18 ligero-verify
+RUST_OK
+usage: ligero-verify verify|batch|system-digest ... (see src/main.rs)
+c68b7fdc097851fcf5c858a72db674dccbb3f3e0d217d1d79e7de9d41b6c36f6  /workspace/bin/ligero-verify
+
+=== [12:18:37] versions
+Using Python 3.12.14 environment at: /workspace/venv312
+blake3                   1.0.9
+numpy                    2.5.3
+pytest                   9.1.1
+pytest-timeout           2.4.0
+torch                    2.6.0+cu124
+triton                   3.2.0
+rustc 1.98.1 (48a229cea 2026-09-01)
+overlay          60G   12G   49G  20% /
+
+=== [12:18:38] done
+BOOTSTRAP_OK

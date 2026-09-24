@@ -1,0 +1,161 @@
+=== 18:45:48 tree=/workspace/src-02c sha=02c3321 cmd: /workspace/venv312/bin/python -m pytest -q -p no:cacheprovider backends/direct/ligero/pubsel/relation_test_of.py -k cancelling_sum -v
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace/src-02c
+plugins: timeout-2.4.0
+collected 38 items / 34 deselected / 4 selected
+
+backends/direct/ligero/pubsel/relation_test_of.py FFFF                   [100%]
+
+=================================== FAILURES ===================================
+_____ test_cancelling_sum_at_large_group_maximum_accepted[bf16-hopper-v2] ______
+
+rel = Relation(name='bf16-hopper-v2', target=Target(name='bf16-hopper-mma-draft/2026-09-22', family='veritor.tc-bf16.hopper_...opper synthetic (random_finite_bf16: finite BF16 words incl. subnormals and exact zeros, model-recorded accumulators)')
+
+    @pytest.mark.parametrize("rel", V2, ids=lambda r: r.name)
+    def test_cancelling_sum_at_large_group_maximum_accepted(rel):
+        """Exact cancellation at a large group maximum with every other product dead (unit 92536 for the k = 32 E4M3 units, 256
+        constructed units each): the honest witness is accepted in unit and chain mode, every flipped claim is refused, and the
+        v1 unit (where registered) agrees on both."""
+        p = rel.params
+        pl = plan(p)
+        c, a, b = _cancelling_at_large_maximum(rel, 256, seed=92536)
+        if pl.fp8 and rel.k == len(UNIT_92536["a"]):
+            c = np.concatenate([[UNIT_92536["c"]], c])
+            a = np.concatenate([[UNIT_92536["a"]], a])
+            b = np.concatenate([[UNIT_92536["b"]], b])
+        y = np.array([tc_dot(rel.model, int(c[i]), a[i].tolist(), b[i].tolist()) for i in range(len(c))], dtype=np.int64)
+        fin = ((y >> 23) & 0xFF) != 0xFF
+        c, a, b, y = c[fin], a[fin], b[fin], y[fin]
+        assert len(y) >= 16 and int(((y & 0x7FFFFFFF) == 0).sum()) >= 16, "zero words at a large maximum present"
+        if pl.fp8 and rel.k == len(UNIT_92536["a"]) and rel.name == "fp8-hopper-v2":
+            assert int(y[0]) == 0, "unit 92536 is the +0 word"
+        for chain in (False, True):
+            sys = rel.compile(p, chain)
+            tb = tables(sys, "cpu")
+            pub = rel.public_vectors(p, c, a, b, y, device="cpu")
+            W = build_witness(sys, pub, rel.hints(p, sys, c, a, b, y if chain else None, "cpu"), "cpu")
+            ok = _accepts(sys, tb, W, pub)
+>           assert bool(ok.all()), f"{rel.name} chain={chain}: honest units rejected {torch.nonzero(~ok).flatten().tolist()[:5]}"
+E           AssertionError: bf16-hopper-v2 chain=False: honest units rejected [0, 1, 2, 3, 4]
+E           assert False
+E            +  where False = bool(tensor(False))
+E            +    where tensor(False) = <built-in method all of Tensor object at 0x7e28653224e0>()
+E            +      where <built-in method all of Tensor object at 0x7e28653224e0> = tensor([False, False, False, False, False, False, False, False, False, False,\n        False, False, False, False, Fals...alse, False, False, False, False, False, False, False, False, False,\n        False, False, False, False, False, False]).all
+
+backends/direct/ligero/pubsel/relation_test_of.py:360: AssertionError
+_____ test_cancelling_sum_at_large_group_maximum_accepted[bf16-ampere-v2] ______
+
+rel = Relation(name='bf16-ampere-v2', target=Target(name='first-campaign-target/2026-09-21', family='veritor.tc-ampere-bf16@...mpere synthetic (random_finite_bf16: finite BF16 words incl. subnormals and exact zeros, model-recorded accumulators)')
+
+    @pytest.mark.parametrize("rel", V2, ids=lambda r: r.name)
+    def test_cancelling_sum_at_large_group_maximum_accepted(rel):
+        """Exact cancellation at a large group maximum with every other product dead (unit 92536 for the k = 32 E4M3 units, 256
+        constructed units each): the honest witness is accepted in unit and chain mode, every flipped claim is refused, and the
+        v1 unit (where registered) agrees on both."""
+        p = rel.params
+        pl = plan(p)
+        c, a, b = _cancelling_at_large_maximum(rel, 256, seed=92536)
+        if pl.fp8 and rel.k == len(UNIT_92536["a"]):
+            c = np.concatenate([[UNIT_92536["c"]], c])
+            a = np.concatenate([[UNIT_92536["a"]], a])
+            b = np.concatenate([[UNIT_92536["b"]], b])
+        y = np.array([tc_dot(rel.model, int(c[i]), a[i].tolist(), b[i].tolist()) for i in range(len(c))], dtype=np.int64)
+        fin = ((y >> 23) & 0xFF) != 0xFF
+        c, a, b, y = c[fin], a[fin], b[fin], y[fin]
+        assert len(y) >= 16 and int(((y & 0x7FFFFFFF) == 0).sum()) >= 16, "zero words at a large maximum present"
+        if pl.fp8 and rel.k == len(UNIT_92536["a"]) and rel.name == "fp8-hopper-v2":
+            assert int(y[0]) == 0, "unit 92536 is the +0 word"
+        for chain in (False, True):
+            sys = rel.compile(p, chain)
+            tb = tables(sys, "cpu")
+            pub = rel.public_vectors(p, c, a, b, y, device="cpu")
+            W = build_witness(sys, pub, rel.hints(p, sys, c, a, b, y if chain else None, "cpu"), "cpu")
+            ok = _accepts(sys, tb, W, pub)
+>           assert bool(ok.all()), f"{rel.name} chain={chain}: honest units rejected {torch.nonzero(~ok).flatten().tolist()[:5]}"
+E           AssertionError: bf16-ampere-v2 chain=False: honest units rejected [0, 1, 2, 3, 4]
+E           assert False
+E            +  where False = bool(tensor(False))
+E            +    where tensor(False) = <built-in method all of Tensor object at 0x7e2864f36ad0>()
+E            +      where <built-in method all of Tensor object at 0x7e2864f36ad0> = tensor([False, False, False, False, False, False, False, False, False, False,\n        False, False, False, False, Fals...      False, False, False, False, False, False, False, False, False, False,\n        False, False, False, False, False]).all
+
+backends/direct/ligero/pubsel/relation_test_of.py:360: AssertionError
+______ test_cancelling_sum_at_large_group_maximum_accepted[fp8-hopper-v2] ______
+
+rel = Relation(name='fp8-hopper-v2', target=Target(name='fp8-hopper-wgmma-draft/2026-09-22', family='veritor.tensor-core.hop...ust_verifiable=False, instances_recipe='fp8-hopper synthetic (uniform finite E4M3 bytes, model-recorded accumulators)')
+
+    @pytest.mark.parametrize("rel", V2, ids=lambda r: r.name)
+    def test_cancelling_sum_at_large_group_maximum_accepted(rel):
+        """Exact cancellation at a large group maximum with every other product dead (unit 92536 for the k = 32 E4M3 units, 256
+        constructed units each): the honest witness is accepted in unit and chain mode, every flipped claim is refused, and the
+        v1 unit (where registered) agrees on both."""
+        p = rel.params
+        pl = plan(p)
+        c, a, b = _cancelling_at_large_maximum(rel, 256, seed=92536)
+        if pl.fp8 and rel.k == len(UNIT_92536["a"]):
+            c = np.concatenate([[UNIT_92536["c"]], c])
+            a = np.concatenate([[UNIT_92536["a"]], a])
+            b = np.concatenate([[UNIT_92536["b"]], b])
+        y = np.array([tc_dot(rel.model, int(c[i]), a[i].tolist(), b[i].tolist()) for i in range(len(c))], dtype=np.int64)
+        fin = ((y >> 23) & 0xFF) != 0xFF
+        c, a, b, y = c[fin], a[fin], b[fin], y[fin]
+        assert len(y) >= 16 and int(((y & 0x7FFFFFFF) == 0).sum()) >= 16, "zero words at a large maximum present"
+        if pl.fp8 and rel.k == len(UNIT_92536["a"]) and rel.name == "fp8-hopper-v2":
+            assert int(y[0]) == 0, "unit 92536 is the +0 word"
+        for chain in (False, True):
+            sys = rel.compile(p, chain)
+            tb = tables(sys, "cpu")
+            pub = rel.public_vectors(p, c, a, b, y, device="cpu")
+            W = build_witness(sys, pub, rel.hints(p, sys, c, a, b, y if chain else None, "cpu"), "cpu")
+            ok = _accepts(sys, tb, W, pub)
+>           assert bool(ok.all()), f"{rel.name} chain={chain}: honest units rejected {torch.nonzero(~ok).flatten().tolist()[:5]}"
+E           AssertionError: fp8-hopper-v2 chain=False: honest units rejected [0, 1, 2, 3, 4]
+E           assert False
+E            +  where False = bool(tensor(False))
+E            +    where tensor(False) = <built-in method all of Tensor object at 0x7e2864fba7b0>()
+E            +      where <built-in method all of Tensor object at 0x7e2864fba7b0> = tensor([False, False, False, False, False, False, False, False, False, False,\n        False, False, False, False, Fals...alse, False, False, False, False, False, False, False, False,\n        False, False, False, False, False, False, False]).all
+
+backends/direct/ligero/pubsel/relation_test_of.py:360: AssertionError
+_______ test_cancelling_sum_at_large_group_maximum_accepted[fp8-ada-v2] ________
+
+rel = Relation(name='fp8-ada-v2', target=Target(name='fp8-ada-mma-draft/2026-09-22', family='veritor.tensor-core.ada_e4m3_m1..., rust_verifiable=False, instances_recipe='fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)')
+
+    @pytest.mark.parametrize("rel", V2, ids=lambda r: r.name)
+    def test_cancelling_sum_at_large_group_maximum_accepted(rel):
+        """Exact cancellation at a large group maximum with every other product dead (unit 92536 for the k = 32 E4M3 units, 256
+        constructed units each): the honest witness is accepted in unit and chain mode, every flipped claim is refused, and the
+        v1 unit (where registered) agrees on both."""
+        p = rel.params
+        pl = plan(p)
+        c, a, b = _cancelling_at_large_maximum(rel, 256, seed=92536)
+        if pl.fp8 and rel.k == len(UNIT_92536["a"]):
+            c = np.concatenate([[UNIT_92536["c"]], c])
+            a = np.concatenate([[UNIT_92536["a"]], a])
+            b = np.concatenate([[UNIT_92536["b"]], b])
+        y = np.array([tc_dot(rel.model, int(c[i]), a[i].tolist(), b[i].tolist()) for i in range(len(c))], dtype=np.int64)
+        fin = ((y >> 23) & 0xFF) != 0xFF
+        c, a, b, y = c[fin], a[fin], b[fin], y[fin]
+        assert len(y) >= 16 and int(((y & 0x7FFFFFFF) == 0).sum()) >= 16, "zero words at a large maximum present"
+        if pl.fp8 and rel.k == len(UNIT_92536["a"]) and rel.name == "fp8-hopper-v2":
+            assert int(y[0]) == 0, "unit 92536 is the +0 word"
+        for chain in (False, True):
+            sys = rel.compile(p, chain)
+            tb = tables(sys, "cpu")
+            pub = rel.public_vectors(p, c, a, b, y, device="cpu")
+            W = build_witness(sys, pub, rel.hints(p, sys, c, a, b, y if chain else None, "cpu"), "cpu")
+            ok = _accepts(sys, tb, W, pub)
+>           assert bool(ok.all()), f"{rel.name} chain={chain}: honest units rejected {torch.nonzero(~ok).flatten().tolist()[:5]}"
+E           AssertionError: fp8-ada-v2 chain=False: honest units rejected [1, 2, 3, 4, 5]
+E           assert False
+E            +  where False = bool(tensor(False))
+E            +    where tensor(False) = <built-in method all of Tensor object at 0x7e2864b0bed0>()
+E            +      where <built-in method all of Tensor object at 0x7e2864b0bed0> = tensor([ True, False, False, False, False, False, False, False, False, False,\n        False, False, False, False, Fals...alse, False, False, False, False, False, False, False, False,\n        False, False, False, False, False, False, False]).all
+
+backends/direct/ligero/pubsel/relation_test_of.py:360: AssertionError
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/pubsel/relation_test_of.py::test_cancelling_sum_at_large_group_maximum_accepted[bf16-hopper-v2]
+FAILED backends/direct/ligero/pubsel/relation_test_of.py::test_cancelling_sum_at_large_group_maximum_accepted[bf16-ampere-v2]
+FAILED backends/direct/ligero/pubsel/relation_test_of.py::test_cancelling_sum_at_large_group_maximum_accepted[fp8-hopper-v2]
+FAILED backends/direct/ligero/pubsel/relation_test_of.py::test_cancelling_sum_at_large_group_maximum_accepted[fp8-ada-v2]
+======================= 4 failed, 34 deselected in 2.22s =======================
+=== 18:45:51 rc=1 wall=3s

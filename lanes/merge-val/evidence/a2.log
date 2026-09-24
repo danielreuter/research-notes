@@ -1,0 +1,186 @@
+...........s............................................................ [ 42%]
+.........FFFF........................................................... [ 84%]
+..........................                                               [100%]
+=================================== FAILURES ===================================
+___________________ test_differential_v1_v3[bf16-hopper-v3] ____________________
+
+rel = Relation(name='bf16-hopper-v3', target=Target(name='bf16-hopper-mma-draft/2026-09-22', family='veritor.tc-bf16.hopper_...opper synthetic (random_finite_bf16: finite BF16 words incl. subnormals and exact zeros, model-recorded accumulators)')
+
+    @pytest.mark.parametrize("rel", V3, ids=lambda r: r.name)
+    def test_differential_v1_v3(rel):
+        p = rel.params
+        pl = plan(p)
+        s3 = rel.compile(p, False)
+        tb3 = tables(s3, "cpu")
+        _, s1, h1, pv1 = _v1_unit_of(rel)
+        tb1 = tables(s1, "cpu")
+        other = OTHER[rel.name]
+        n_pos = n_neg = 0
+        for lo in range(0, N_DIFF, BATCH):
+            n = min(BATCH, N_DIFF - lo)
+            c, a, b, y = _cases(rel, n, seed=3000 + lo)
+            claims = [("honest", y)]
+            for bit in range(32):
+                if pl.fp8 and bit < pl.drop:
+                    continue
+                claims.append((f"bit {bit}", y ^ (1 << bit)))
+            claims.append(("+1 ulp", (y + 2**pl.drop) % 2**32))
+            claims.append(("-1 ulp", (y - 2**pl.drop) % 2**32))
+            yo = np.array([tc_dot(other, int(c[i]), a[i].tolist(), b[i].tolist()) for i in range(n)], dtype=np.int64)
+            claims.append(("other pipeline", yo))
+            for name, yc in claims:
+                fin = ((yc >> 23) & 0xFF) != 0xFF
+                if pl.fp8:
+                    fin &= (yc & (2**pl.drop - 1)) == 0
+                idx = np.nonzero(fin)[0]
+                if len(idx) == 0:
+                    continue
+                cc, aa, bb, yy = c[idx], a[idx], b[idx], yc[idx]
+                ok3 = _witness_accepts(s3, tb3, rel.hints, rel.public_vectors, p, cc, aa, bb, yy)
+                ok1 = _witness_accepts(s1, tb1, h1, pv1, p, cc, aa, bb, yy)
+                truth = torch.as_tensor(yy == y[idx])
+>               assert torch.equal(ok3, truth), f"{rel.name} {name}: v3 accepts != (claim == model) at {torch.nonzero(ok3 != truth)[:5].flatten().tolist()}"
+E               AssertionError: bf16-hopper-v3 honest: v3 accepts != (claim == model) at [9, 24, 66, 81, 82]
+E               assert False
+E                +  where False = <built-in method equal of type object at 0x725268e1df60>(tensor([True, True, True,  ..., True, True, True]), tensor([True, True, True,  ..., True, True, True]))
+E                +    where <built-in method equal of type object at 0x725268e1df60> = torch.equal
+
+backends/direct/ligero/privsel/relation_test.py:95: AssertionError
+___________________ test_differential_v1_v3[bf16-ampere-v3] ____________________
+
+rel = Relation(name='bf16-ampere-v3', target=Target(name='first-campaign-target/2026-09-21', family='veritor.tc-ampere-bf16@...mpere synthetic (random_finite_bf16: finite BF16 words incl. subnormals and exact zeros, model-recorded accumulators)')
+
+    @pytest.mark.parametrize("rel", V3, ids=lambda r: r.name)
+    def test_differential_v1_v3(rel):
+        p = rel.params
+        pl = plan(p)
+        s3 = rel.compile(p, False)
+        tb3 = tables(s3, "cpu")
+        _, s1, h1, pv1 = _v1_unit_of(rel)
+        tb1 = tables(s1, "cpu")
+        other = OTHER[rel.name]
+        n_pos = n_neg = 0
+        for lo in range(0, N_DIFF, BATCH):
+            n = min(BATCH, N_DIFF - lo)
+            c, a, b, y = _cases(rel, n, seed=3000 + lo)
+            claims = [("honest", y)]
+            for bit in range(32):
+                if pl.fp8 and bit < pl.drop:
+                    continue
+                claims.append((f"bit {bit}", y ^ (1 << bit)))
+            claims.append(("+1 ulp", (y + 2**pl.drop) % 2**32))
+            claims.append(("-1 ulp", (y - 2**pl.drop) % 2**32))
+            yo = np.array([tc_dot(other, int(c[i]), a[i].tolist(), b[i].tolist()) for i in range(n)], dtype=np.int64)
+            claims.append(("other pipeline", yo))
+            for name, yc in claims:
+                fin = ((yc >> 23) & 0xFF) != 0xFF
+                if pl.fp8:
+                    fin &= (yc & (2**pl.drop - 1)) == 0
+                idx = np.nonzero(fin)[0]
+                if len(idx) == 0:
+                    continue
+                cc, aa, bb, yy = c[idx], a[idx], b[idx], yc[idx]
+                ok3 = _witness_accepts(s3, tb3, rel.hints, rel.public_vectors, p, cc, aa, bb, yy)
+                ok1 = _witness_accepts(s1, tb1, h1, pv1, p, cc, aa, bb, yy)
+                truth = torch.as_tensor(yy == y[idx])
+>               assert torch.equal(ok3, truth), f"{rel.name} {name}: v3 accepts != (claim == model) at {torch.nonzero(ok3 != truth)[:5].flatten().tolist()}"
+E               AssertionError: bf16-ampere-v3 honest: v3 accepts != (claim == model) at [9, 24, 66, 81, 82]
+E               assert False
+E                +  where False = <built-in method equal of type object at 0x725268e1df60>(tensor([True, True, True,  ..., True, True, True]), tensor([True, True, True,  ..., True, True, True]))
+E                +    where <built-in method equal of type object at 0x725268e1df60> = torch.equal
+
+backends/direct/ligero/privsel/relation_test.py:95: AssertionError
+____________________ test_differential_v1_v3[fp8-hopper-v3] ____________________
+
+rel = Relation(name='fp8-hopper-v3', target=Target(name='fp8-hopper-wgmma-draft/2026-09-22', family='veritor.tensor-core.hop...rust_verifiable=True, instances_recipe='fp8-hopper synthetic (uniform finite E4M3 bytes, model-recorded accumulators)')
+
+    @pytest.mark.parametrize("rel", V3, ids=lambda r: r.name)
+    def test_differential_v1_v3(rel):
+        p = rel.params
+        pl = plan(p)
+        s3 = rel.compile(p, False)
+        tb3 = tables(s3, "cpu")
+        _, s1, h1, pv1 = _v1_unit_of(rel)
+        tb1 = tables(s1, "cpu")
+        other = OTHER[rel.name]
+        n_pos = n_neg = 0
+        for lo in range(0, N_DIFF, BATCH):
+            n = min(BATCH, N_DIFF - lo)
+            c, a, b, y = _cases(rel, n, seed=3000 + lo)
+            claims = [("honest", y)]
+            for bit in range(32):
+                if pl.fp8 and bit < pl.drop:
+                    continue
+                claims.append((f"bit {bit}", y ^ (1 << bit)))
+            claims.append(("+1 ulp", (y + 2**pl.drop) % 2**32))
+            claims.append(("-1 ulp", (y - 2**pl.drop) % 2**32))
+            yo = np.array([tc_dot(other, int(c[i]), a[i].tolist(), b[i].tolist()) for i in range(n)], dtype=np.int64)
+            claims.append(("other pipeline", yo))
+            for name, yc in claims:
+                fin = ((yc >> 23) & 0xFF) != 0xFF
+                if pl.fp8:
+                    fin &= (yc & (2**pl.drop - 1)) == 0
+                idx = np.nonzero(fin)[0]
+                if len(idx) == 0:
+                    continue
+                cc, aa, bb, yy = c[idx], a[idx], b[idx], yc[idx]
+                ok3 = _witness_accepts(s3, tb3, rel.hints, rel.public_vectors, p, cc, aa, bb, yy)
+                ok1 = _witness_accepts(s1, tb1, h1, pv1, p, cc, aa, bb, yy)
+                truth = torch.as_tensor(yy == y[idx])
+>               assert torch.equal(ok3, truth), f"{rel.name} {name}: v3 accepts != (claim == model) at {torch.nonzero(ok3 != truth)[:5].flatten().tolist()}"
+E               AssertionError: fp8-hopper-v3 honest: v3 accepts != (claim == model) at [15, 27, 35, 108, 111]
+E               assert False
+E                +  where False = <built-in method equal of type object at 0x725268e1df60>(tensor([True, True, True,  ..., True, True, True]), tensor([True, True, True,  ..., True, True, True]))
+E                +    where <built-in method equal of type object at 0x725268e1df60> = torch.equal
+
+backends/direct/ligero/privsel/relation_test.py:95: AssertionError
+_____________________ test_differential_v1_v3[fp8-ada-v3] ______________________
+
+rel = Relation(name='fp8-ada-v3', target=Target(name='fp8-ada-mma-draft/2026-09-22', family='veritor.tensor-core.ada_e4m3_m1...>, rust_verifiable=True, instances_recipe='fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)')
+
+    @pytest.mark.parametrize("rel", V3, ids=lambda r: r.name)
+    def test_differential_v1_v3(rel):
+        p = rel.params
+        pl = plan(p)
+        s3 = rel.compile(p, False)
+        tb3 = tables(s3, "cpu")
+        _, s1, h1, pv1 = _v1_unit_of(rel)
+        tb1 = tables(s1, "cpu")
+        other = OTHER[rel.name]
+        n_pos = n_neg = 0
+        for lo in range(0, N_DIFF, BATCH):
+            n = min(BATCH, N_DIFF - lo)
+            c, a, b, y = _cases(rel, n, seed=3000 + lo)
+            claims = [("honest", y)]
+            for bit in range(32):
+                if pl.fp8 and bit < pl.drop:
+                    continue
+                claims.append((f"bit {bit}", y ^ (1 << bit)))
+            claims.append(("+1 ulp", (y + 2**pl.drop) % 2**32))
+            claims.append(("-1 ulp", (y - 2**pl.drop) % 2**32))
+            yo = np.array([tc_dot(other, int(c[i]), a[i].tolist(), b[i].tolist()) for i in range(n)], dtype=np.int64)
+            claims.append(("other pipeline", yo))
+            for name, yc in claims:
+                fin = ((yc >> 23) & 0xFF) != 0xFF
+                if pl.fp8:
+                    fin &= (yc & (2**pl.drop - 1)) == 0
+                idx = np.nonzero(fin)[0]
+                if len(idx) == 0:
+                    continue
+                cc, aa, bb, yy = c[idx], a[idx], b[idx], yc[idx]
+                ok3 = _witness_accepts(s3, tb3, rel.hints, rel.public_vectors, p, cc, aa, bb, yy)
+                ok1 = _witness_accepts(s1, tb1, h1, pv1, p, cc, aa, bb, yy)
+                truth = torch.as_tensor(yy == y[idx])
+>               assert torch.equal(ok3, truth), f"{rel.name} {name}: v3 accepts != (claim == model) at {torch.nonzero(ok3 != truth)[:5].flatten().tolist()}"
+E               AssertionError: fp8-ada-v3 honest: v3 accepts != (claim == model) at [15, 27, 35, 108, 111]
+E               assert False
+E                +  where False = <built-in method equal of type object at 0x725268e1df60>(tensor([True, True, True,  ..., True, True, True]), tensor([True, True, True,  ..., True, True, True]))
+E                +    where <built-in method equal of type object at 0x725268e1df60> = torch.equal
+
+backends/direct/ligero/privsel/relation_test.py:95: AssertionError
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[bf16-hopper-v3]
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[bf16-ampere-v3]
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[fp8-hopper-v3]
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[fp8-ada-v3]
+4 failed, 165 passed, 1 skipped in 331.10s (0:05:31)

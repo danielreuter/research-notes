@@ -1,0 +1,240 @@
+{
+ "format": {
+  "system": "ligero-system/v2",
+  "statement": "ligero-statement/v4",
+  "proof": "ligero-proof/v1"
+ },
+ "relation": "fp4-nvf4",
+ "commit": "21694f8c0ae5c25787d3d60425f0821f570a53c6",
+ "device": "cuda",
+ "system": {
+  "rows": 1583,
+  "by_kind": {
+   "hint": 86,
+   "bit": 972,
+   "prod": 210,
+   "inv": 2,
+   "pin": 141,
+   "sel": 172
+  },
+  "linear": 306,
+  "quadratic": 1389,
+  "pins": 141,
+  "hints": 86
+ },
+ "zk": false,
+ "mode": "interactive",
+ "impl": "device",
+ "files": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "vus": [
+    0,
+    682
+   ],
+   "stmt": "rep1/sub_00.stmt",
+   "proof": "rep1/sub_00.proof",
+   "stmt_sha256": "6ce840d3f33ac83a2ab3a1fb44c4e2976ae756d432460618ca2e077f10f6df49",
+   "proof_bytes": 2894748,
+   "proof_sha256": "63d919aca34852e88babf043355829ede088a24c2d027c874fb6e59198252ab2",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.075s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.072s)",
+    "seconds": 0.07599808997474611
+   },
+   "prover_seconds": 0.0295169114575123,
+   "coins": "rep1/sub_00.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "bec9defd2706fb62de86a61d7859764c9068d8cdcccba6355d4ad8fbe2e2b2a4"
+  },
+  {
+   "rep": 1,
+   "sub": 1,
+   "vus": [
+    682,
+    1364
+   ],
+   "stmt": "rep1/sub_01.stmt",
+   "proof": "rep1/sub_01.proof",
+   "stmt_sha256": "3914521707f04de6918f1fde6ae2226e3c7071195ee27db3a4532c9b16aabd9b",
+   "proof_bytes": 2894748,
+   "proof_sha256": "3057abdd6607598f3b7e663aa1c24aa020ec7842f0d2598c0fca76f6d107816f",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.081s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.080s)",
+    "seconds": 0.08392594894394279
+   },
+   "prover_seconds": 0.030046660760013454,
+   "coins": "rep1/sub_01.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "501b74dd12d07ca439246cef5f8c78a74a27970de415a75e43f839159d1fb657"
+  },
+  {
+   "rep": 1,
+   "sub": 2,
+   "vus": [
+    1364,
+    2046
+   ],
+   "stmt": "rep1/sub_02.stmt",
+   "proof": "rep1/sub_02.proof",
+   "stmt_sha256": "6b875b2a05e677ca4941775cc0ebe19d86a64a0cb856cde6bb667fb1a2c02369",
+   "proof_bytes": 2894748,
+   "proof_sha256": "72bfb430be018a1589ff2656635173b58f03baef610ec5b291e6e22ff8ca17e6",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.067s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.070s)",
+    "seconds": 0.07308890298008919
+   },
+   "prover_seconds": 0.0295969436576028,
+   "coins": "rep1/sub_02.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "2fbb1be8410ac317615b3cd6eff5afcfaaac434177b1d34eb30b4c81544465f3"
+  },
+  {
+   "rep": 1,
+   "sub": 3,
+   "vus": [
+    2046,
+    2728
+   ],
+   "stmt": "rep1/sub_03.stmt",
+   "proof": "rep1/sub_03.proof",
+   "stmt_sha256": "a4e1a1cd372cf59e676652e6e6d1893b972890118d9a4e720f8c1ebe4f17a57e",
+   "proof_bytes": 2894748,
+   "proof_sha256": "815783c99b5e35e588c9e5f2a22379d64d9b7c3cb94ebb0aa3dc0407890c2f5c",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.070s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.069s)",
+    "seconds": 0.07487542391754687
+   },
+   "prover_seconds": 0.030947062962658027,
+   "coins": "rep1/sub_03.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "c9a564bb22b148f8b15a046114efb29fc3cdd368f8f84c1c838afc723b48c4bd"
+  },
+  {
+   "rep": 1,
+   "sub": 4,
+   "vus": [
+    2728,
+    3410
+   ],
+   "stmt": "rep1/sub_04.stmt",
+   "proof": "rep1/sub_04.proof",
+   "stmt_sha256": "d2d3fe1a405b4d5a6054fb0765aadb4a192f3614831238664dd09476c32f8d10",
+   "proof_bytes": 2894748,
+   "proof_sha256": "cb3f7d75175e1d5a3c22d0904ac45085a79645d8ca475ca99cf215e563c06907",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.069s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.080s)",
+    "seconds": 0.08358861785382032
+   },
+   "prover_seconds": 0.030818797322790307,
+   "coins": "rep1/sub_04.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "d8597a4f07b4050f1616979d494557578290af291a82e933d99eb849dc7c5cff"
+  },
+  {
+   "rep": 1,
+   "sub": 5,
+   "vus": [
+    3410,
+    4092
+   ],
+   "stmt": "rep1/sub_05.stmt",
+   "proof": "rep1/sub_05.proof",
+   "stmt_sha256": "5feee2feee91e17b52d0ae784a6512f6f76e7d778ebcec7e1ea27696ae3ea2e5",
+   "proof_bytes": 2894748,
+   "proof_sha256": "21071e6b6410ca36dc83e07752b7b2259f9d1ab38ff9a2ec78191651b7d7f87d",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.083s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.070s)",
+    "seconds": 0.07404886884614825
+   },
+   "prover_seconds": 0.03028775268728324,
+   "coins": "rep1/sub_05.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "20e0086e9a88a3d03ff1371d0e27e77d50dd47eed48453475cbb6f60a107746d"
+  },
+  {
+   "rep": 1,
+   "sub": 6,
+   "vus": [
+    4092,
+    4096
+   ],
+   "stmt": "rep1/sub_06.stmt",
+   "proof": "rep1/sub_06.proof",
+   "stmt_sha256": "4e48964bb6b61abab63c0c91b1b789dab10338753175b6024aac401855b33fa5",
+   "proof_bytes": 2894748,
+   "proof_sha256": "716f46536508776adbb4db3d2aa9aadf28845d51debe49572a5896eabd288818",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.070s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.067s)",
+    "seconds": 0.07071627886034548
+   },
+   "prover_seconds": 0.0330016861043216,
+   "coins": "rep1/sub_06.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "96176c09cf3f4dccccdcafba11b26d3819ce1f86ff2da24164dc4b437678f496"
+  }
+ ],
+ "hints": "device",
+ "system_file": {
+  "path": "system.bin",
+  "sha256": "6bb9d77fac27118f60e316333508bade1c13eb952c43722372c13b5410c195c8",
+  "sys_id": "a825ba0b826a15366bfb8cdd720a5e9978603cbe589491abcbba7346ad35bf3c",
+  "bytes": 95330
+ },
+ "set": {
+  "total_vus": 4096,
+  "batch": 16384,
+  "per_proof": 682,
+  "n_proofs": 7,
+  "zk": false,
+  "mode": "interactive",
+  "reps": 3,
+  "relation": "fp4-nvf4",
+  "instances": {
+   "dataset": "bench-instances-nvfp4-sm120/v1",
+   "tier": "vu-k1536-nvfp4-sm120",
+   "range": [
+    0,
+    4096
+   ],
+   "manifest_sha256": "d2d65f6523b49e673847746d725fbce3282f2734b0b424637c01e88f188a240a",
+   "seed": 20260922,
+   "recipe": "fp4-nvf4 synthetic (edge families random, zero-scales, subnormal-scales, top-scales, top-scales-zero-acc, span-scales, sparse, sparse-subnormal-acc, all-zero-codes, half-codes, max-codes, cancel, cancel-acc, mixed cycling per VU; model-recorded accumulators)"
+  }
+ }
+}

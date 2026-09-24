@@ -1,0 +1,6 @@
+[12:49:18Z] START diag-fp8-local-3reps rel=fp8-hopper auth=bare batch=16384 pipeline=4 reps=3 dump=0 live=0 on=vy-dev-h100-2b
+research: run r20260923-124918-04bf launched on vy-dev-h100-2b (jzrtm9jfkc9kit) pid=5147 -> /workspace/research/runs/r20260923-124918-04bf
+research: observe with `research fetch r20260923-124918-04bf`; the workload does not depend on this session staying alive
+[12:49:23Z] diag-fp8-local-3reps -> r20260923-124918-04bf
+[12:49:45Z] END diag-fp8-local-3reps r20260923-124918-04bf finished: done
+research: r20260923-124918-04bf observed 2026-09-23T12:49:46.582Z: done rc=0 class=SUCCESS result=valid (research/result/v0.1)

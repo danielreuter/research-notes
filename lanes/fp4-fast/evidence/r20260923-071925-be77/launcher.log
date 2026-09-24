@@ -1,0 +1,4 @@
+research: run r20260923-071925-be77 -> /workspace/research/runs/r20260923-071925-be77
+[tele run] lane-nonzk-l16384-w7: rc=0 class=SUCCESS (established) -- exit status 0
+research: attempt published: 4 outputs drv=drv:42aa96593cba0b9cf6a6e92c596dba50650b4ab6c2e581e959642c3f1db3c509 reuse=384b7b03f02793f4f788fa80d85a7851e1137ee77969c30fff7e351a89b48815  local only (no remote configured; `research data push r20260923-071925-be77` with credentials preserves it)
+research: run r20260923-071925-be77 done rc=0 class=SUCCESS result=valid (research/result/v0.1) validation=passed  (research inspect r20260923-071925-be77)

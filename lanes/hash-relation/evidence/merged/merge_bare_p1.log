@@ -1,0 +1,50 @@
+fp8-ada census: {"rows_per_unit": 3769, "bit_rows": 2474, "selector_rows": 640, "hint_rows": 161, "pin_rows": 192, "product_rows": 301, "inverse_rows": 1, "linear_constraints": 589, "quadratic_constraints": 3532, "chain": true}
+1024 synthetic VUs (model-recorded accumulators) in 0.1s
+config Config(l=16384, n=65536, D=6, t=194, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk True, mode interactive; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 1024 VUs as 4 sub-batches of <= 341
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.006, 'hints_host': 0.121, 'witness': 0.049, 'self_check': 2.705, 'zk_masks': 0.01, 'encode': 0.005, 'transfer': 0.0, 'merkle': 0.006, 'tests_w': 0.96, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.007, 'tests': 0.96, 'total': 3.751}
+rep 1: prover 1.039s (+hints 0.026s) over 4 proofs; verifier 0.149s; pass wall 1.411s (1.040 ms/VU)
+{
+ "relation": "fp8-ada",
+ "seconds_per_vu": 0.0010399265361229482,
+ "prover_total": 1.064884772989899,
+ "verifier": 0.1490352633409202,
+ "bytes": {
+  "root": 128,
+  "w": 1597440,
+  "h": 1621920,
+  "cols": 3104,
+  "opened_columns": 11810720,
+  "merkle_paths": 397312,
+  "q_chain": 3170208,
+  "v_linear": 1597440,
+  "coin_commitments_and_openings": 768,
+  "auth_multiproofs": 0,
+  "total": 20199040
+ },
+ "n_proofs": 4,
+ "per_proof_vus": 341,
+ "t": 194,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 3398956032,
+ "soundness_log2": -128.6726794982701,
+ "per_proof_log2": -130.6726794982701,
+ "rows": 3769,
+ "medians": {
+  "statement": 0.0003023679926991463,
+  "hints_host": 0.026162496089935303,
+  "witness": 0.0027222400307655333,
+  "zk_masks": 0.00019798400253057482,
+  "encode": 0.39989414453506467,
+  "transfer": 6.144000100903213e-06,
+  "merkle": 0.012503455877304077,
+  "tests_w": 0.6087634239196777,
+  "tests_quad": 6.233599875122309e-05,
+  "tests_chain": 4.137599933892489e-05,
+  "openings": 0.005917696058750152,
+  "tests": 0.6088671359177679,
+  "total": 1.0387222768999635
+ },
+ "dumps": null,
+ "validation": "passed"
+}

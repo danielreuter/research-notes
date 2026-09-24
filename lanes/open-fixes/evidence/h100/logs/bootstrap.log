@@ -1,0 +1,65 @@
+
+=== [18:30:41] machine
+NVIDIA H100 80GB HBM3, GPU-2817f99f-6a09-235c-2bc7-e0a5bde13701, 81559 MiB, 580.126.09, 700.00 W, 1980 MHz
+224
+               total        used        free      shared  buff/cache   available
+Mem:            2015          51        1488           1         474        1952
+overlay          40G   36M   40G   1% /
+2380000 100000
+model name	: Intel(R) Xeon(R) Platinum 8480+
+14.22 14.95 19.83 11/14972 619
+98491d765ddd
+source tree: /workspace/src
+a0ff818
+
+=== [18:30:41] rustup stable + ligero-verify (background)
+
+=== [18:30:41] uv + python 3.12 + venv312
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source venv312/bin/activate
+Python 3.12.14
+
+=== [18:30:50] torch 2.6.0+cu124, numpy, cupy-cuda12x, blake3, pytest, pytest-timeout
+ + triton==3.2.0
+ + typing-extensions==4.16.0
+ + pytest==9.1.1
+ + pytest-timeout==2.4.0
+torch 2.6.0+cu124 numpy 2.5.3 cupy 14.2.0
+cuda True NVIDIA H100 80GB HBM3 12.4 (9, 0)
+matmul ok True
+cupy ok True
+merkle.gpu_available(): True | blake3 (host, placeholder) | blake3 (GPU, backends/shared/hash_gpu)
+
+=== [18:44:13] instance caches (fp8-hopper,bf16-hopper; n = 2048, 4096)
+fp8-hopper n=2048: 2048 VUs in 0.8s; digest ebeb20b91547a875...
+fp8-hopper n=4096: 4096 VUs in 1.4s; digest 0ff750026b8d8df0...
+bf16-hopper n=2048: 2048 VUs in 0.9s; digest c99fe812dea71cc8...
+bf16-hopper n=4096: 4096 VUs in 1.8s; digest 2a5babca16e82727...
+
+=== [18:44:20] rust build (join)
+error: rustup could not choose a version of rustc to run, because one wasn't specified explicitly, and no default is configured.
+help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.
+error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured.
+help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.
+total 4708
+drwxr-xr-x 2 root root      41 Sep 23 18:40 .
+drwxr-xr-x 1 root root    4096 Sep 23 18:30 ..
+-rwxr-xr-x 1 root root 4816528 Sep 23 18:40 ligero-verify.relay
+RUST_OK
+c5446f4f0d568193148c824f150a0268bc139824d3db7c372e39b8e513430cba  /workspace/bin/ligero-verify
+
+=== [18:44:20] versions
+Using Python 3.12.14 environment at: /workspace/venv312
+blake3                   1.0.9
+numpy                    2.5.3
+pytest                   9.1.1
+pytest-timeout           2.4.0
+torch                    2.6.0+cu124
+triton                   3.2.0
+error: rustup could not choose a version of rustc to run, because one wasn't specified explicitly, and no default is configured.
+help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.
+overlay          40G   12G   29G  28% /
+
+=== [18:44:20] done
+BOOTSTRAP_OK

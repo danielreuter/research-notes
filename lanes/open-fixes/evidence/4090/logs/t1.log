@@ -1,0 +1,26 @@
+19:21:51 T1 start: fp8-ada:341:13  lane=a0ff818+t2test(wip) base=a0ff818-minus-e689b72 (tree bdae32a)
+19:22:09 bx fp8-ada base rc=0
+19:22:19 bx fp8-ada lane rc=0
+BITEXACT fp8-ada zk=True pipeline=4 subs=13 vus/sub=341: 40/40 files identical; urandom calls 66 vs 66
+19:22:20 bx fp8-ada lane rust rc=0
+19:22:37 bench fp8-ada base round 1 --zk: === 19:22:37 rc=0 wall=17s
+19:22:54 bench fp8-ada lane round 1 --zk: === 19:22:54 rc=0 wall=17s
+19:23:11 bench fp8-ada base round 2 --zk: === 19:23:11 rc=0 wall=17s
+19:23:26 bench fp8-ada lane round 2 --zk: === 19:23:26 rc=0 wall=15s
+19:23:40 gate fp8-ada --zk: === 19:23:40 rc=0 wall=14s
+19:23:41 dump fp8-ada rep1 rust rc=0
+19:23:51 ntt_cuda_test: 1 passed, 31 warnings in 9.01s
+19:23:51 T1_CORE_DONE
+19:24:04 gate fp8-ada plain: === 19:24:04 rc=0 wall=13s
+19:24:24 bench fp8-ada base round 3 nozk: === 19:24:24 rc=0 wall=20s
+19:24:47 bench fp8-ada lane round 3 nozk: === 19:24:47 rc=0 wall=23s
+19:24:47 T1_DONE
+19:25:12 bench fp8-ada lane round 4 --zk: === 19:25:12 rc=0 wall=17s
+19:25:30 bench fp8-ada base round 4 --zk: === 19:25:30 rc=0 wall=18s
+19:25:48 bench fp8-ada base round 5 --zk: === 19:25:48 rc=0 wall=18s
+19:26:05 bench fp8-ada lane round 5 --zk: === 19:26:05 rc=0 wall=16s
+19:26:21 bench fp8-ada lane round 6 --zk: === 19:26:21 rc=0 wall=16s
+19:26:39 bench fp8-ada base round 6 --zk: === 19:26:39 rc=0 wall=18s
+19:26:57 bench fp8-ada base round 7 --zk: === 19:26:57 rc=0 wall=18s
+19:27:14 bench fp8-ada lane round 7 --zk: === 19:27:14 rc=0 wall=17s
+19:27:14 T1_MORE_DONE 4..7

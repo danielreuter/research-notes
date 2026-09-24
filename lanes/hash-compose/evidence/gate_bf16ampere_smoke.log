@@ -1,0 +1,7 @@
+bf16-ampere hashed chain system: {'rows': 5861, 'by_kind': {'hint': 727, 'bit': 2534, 'prod': 1909, 'sel': 610, 'inv': 64, 'pin': 17}, 'linear': 364, 'quadratic': 5747, 'pins': 17, 'hints': 727} compiled in 0.47s; census {'rows_base': 3516, 'rows_private_operands': 608, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 5861, 'rows_added': 2345, 'linear_added': 17, 'quadratic_added': 2360, 'hints_added': 624, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 16, 'k': 16}; device cuda
+bf16-ampere hashed vu-k1536 [0, 32): l=4096 prover 28.69s (+hints 0.21s) multiproofs 0 B -> True 
+bf16-ampere hashed gate: 1 honest sub-batches, 34 negatives, 0 failures
+
+real	0m37.364s
+user	0m34.489s
+sys	0m2.997s

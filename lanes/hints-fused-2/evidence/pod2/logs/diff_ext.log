@@ -1,0 +1,22 @@
+=== 22:46:15 tree=/workspace/src sha=e57637f cmd: /workspace/venv312/bin/python -m pytest -q -rfE -p no:cacheprovider --durations=10 backends/direct/ligero/hints_fused_test.py
+........................................................................ [ 87%]
+..........                                                               [100%]
+=============================== warnings summary ===============================
+backends/direct/ligero/hints_fused_test.py: 40 warnings
+  /root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=18873) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 10 durations =============================
+12.74s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[fp8-ada-v3x4]
+10.40s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[bf16-ampere-v3x4]
+10.00s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[fp8-hopper-v3x4]
+8.43s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_and_reference_in_domain[fp8-ada-v3x4]
+8.13s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_adversarial[bf16-hopper-v3x4]
+6.81s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_and_reference_in_domain[bf16-ampere-v3x4]
+6.67s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_and_reference_in_domain[fp8-hopper-v3x4]
+6.39s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_real_subbatch[fp8-ada-v3x4]
+5.76s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_real_subbatch[fp8-hopper-v3x4]
+5.45s call     backends/direct/ligero/hints_fused_test.py::test_fused_equals_torch_and_reference_in_domain[bf16-hopper-v3x4]
+82 passed, 40 warnings in 159.32s (0:02:39)
+=== 22:48:55 rc=0 wall=160s

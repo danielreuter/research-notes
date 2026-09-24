@@ -1,0 +1,114 @@
+lane tree: /workspace/src-hp2  main tree: /workspace/src-main  seed 20260922 subs 4  07:26:18
+--- Rust verifier identical to main?
+ligero-verify: IDENTICAL
+=== bf16h-int-zk (bf16-hopper interactive zk impl=device)
+  sub_02: 4.68 MB, prove 0.035s (+hints 0.003s), urandom calls so far 21
+  sub_03: 4.68 MB, prove 0.036s (+hints 0.003s), urandom calls so far 21
+wrote /workspace/hp2/bx5/bf16h-int-zk/main 13 files
+  sub_02: 4.68 MB, prove 0.025s (+hints 0.001s), urandom calls so far 21
+  sub_03: 4.68 MB, prove 0.026s (+hints 0.001s), urandom calls so far 21
+wrote /workspace/hp2/bx5/bf16h-int-zk/lane 13 files
+bf16h-int-zk-seq: 13 / 13 files identical
+  pipeline stats: {'n': 4, 'depth': 3, 'wall': 0.0692, 'host_busy': 0.0276, 'host_waited': 0.0414}
+  pipelined pass: 4 sub-batches in 0.069s wall = 17.3 ms/sub-batch; measured phases {'measured_statement': 0.0007, 'measured_hints_host': 0.0153, 'measured_witn
+wrote /workspace/hp2/bx5/bf16h-int-zk/lane-p3 13 files
+bf16h-int-zk-p3: 13 / 13 files identical
+=== bf16h-int-nonzk (bf16-hopper interactive nozk impl=device)
+  sub_02: 4.20 MB, prove 0.035s (+hints 0.003s), urandom calls so far 17
+  sub_03: 4.20 MB, prove 0.034s (+hints 0.003s), urandom calls so far 17
+wrote /workspace/hp2/bx5/bf16h-int-nonzk/main 13 files
+  sub_02: 4.20 MB, prove 0.026s (+hints 0.001s), urandom calls so far 17
+  sub_03: 4.20 MB, prove 0.026s (+hints 0.001s), urandom calls so far 17
+wrote /workspace/hp2/bx5/bf16h-int-nonzk/lane 13 files
+bf16h-int-nonzk-seq: 13 / 13 files identical
+  pipeline stats: {'n': 4, 'depth': 3, 'wall': 0.0743, 'host_busy': 0.0246, 'host_waited': 0.0494}
+  pipelined pass: 4 sub-batches in 0.074s wall = 18.6 ms/sub-batch; measured phases {'measured_statement': 0.0008, 'measured_hints_host': 0.0193, 'measured_witn
+wrote /workspace/hp2/bx5/bf16h-int-nonzk/lane-p3 13 files
+bf16h-int-nonzk-p3: 13 / 13 files identical
+=== fp8h-int-zk (fp8-hopper interactive zk impl=device)
+  sub_02: 4.76 MB, prove 0.036s (+hints 0.007s), urandom calls so far 21
+  sub_03: 4.76 MB, prove 0.036s (+hints 0.007s), urandom calls so far 21
+wrote /workspace/hp2/bx5/fp8h-int-zk/main 13 files
+  sub_02: 4.76 MB, prove 0.026s (+hints 0.004s), urandom calls so far 21
+  sub_03: 4.76 MB, prove 0.026s (+hints 0.004s), urandom calls so far 21
+wrote /workspace/hp2/bx5/fp8h-int-zk/lane 13 files
+fp8h-int-zk-seq: 13 / 13 files identical
+  pipeline stats: {'n': 4, 'depth': 3, 'wall': 0.1041, 'host_busy': 0.0494, 'host_waited': 0.0545}
+  pipelined pass: 4 sub-batches in 0.104s wall = 26.0 ms/sub-batch; measured phases {'measured_statement': 0.0002, 'measured_hints_host': 0.0304, 'measured_witn
+wrote /workspace/hp2/bx5/fp8h-int-zk/lane-p3 13 files
+fp8h-int-zk-p3: 13 / 13 files identical
+=== fp8h-int-nonzk (fp8-hopper interactive nozk impl=device)
+  sub_02: 4.28 MB, prove 0.034s (+hints 0.007s), urandom calls so far 17
+  sub_03: 4.28 MB, prove 0.034s (+hints 0.007s), urandom calls so far 17
+wrote /workspace/hp2/bx5/fp8h-int-nonzk/main 13 files
+  sub_02: 4.28 MB, prove 0.026s (+hints 0.004s), urandom calls so far 17
+  sub_03: 4.28 MB, prove 0.026s (+hints 0.004s), urandom calls so far 17
+wrote /workspace/hp2/bx5/fp8h-int-nonzk/lane 13 files
+fp8h-int-nonzk-seq: 13 / 13 files identical
+  pipeline stats: {'n': 4, 'depth': 3, 'wall': 0.1012, 'host_busy': 0.048, 'host_waited': 0.053}
+  pipelined pass: 4 sub-batches in 0.101s wall = 25.3 ms/sub-batch; measured phases {'measured_statement': 0.0002, 'measured_hints_host': 0.0342, 'measured_witn
+wrote /workspace/hp2/bx5/fp8h-int-nonzk/lane-p3 13 files
+fp8h-int-nonzk-p3: 13 / 13 files identical
+=== bf16h-int-zk-legacy (bf16-hopper interactive zk impl=legacy)
+  sub_02: 4.68 MB, prove 0.035s (+hints 0.003s), urandom calls so far 21
+  sub_03: 4.68 MB, prove 0.036s (+hints 0.003s), urandom calls so far 21
+wrote /workspace/hp2/bx5/bf16h-int-zk-legacy/main 13 files
+  sub_02: 4.68 MB, prove 0.035s (+hints 0.001s), urandom calls so far 21
+  sub_03: 4.68 MB, prove 0.034s (+hints 0.001s), urandom calls so far 21
+wrote /workspace/hp2/bx5/bf16h-int-zk-legacy/lane 13 files
+bf16h-int-zk-legacy-seq: 13 / 13 files identical
+=== bf16h-int-zk-ragged (bf16-hopper interactive zk impl=device)
+  sub_02: 4.68 MB, prove 0.036s (+hints 0.003s), urandom calls so far 21
+  sub_03: 4.68 MB, prove 0.037s (+hints 0.003s), urandom calls so far 21
+wrote /workspace/hp2/bx5/bf16h-int-zk-ragged/main 13 files
+  sub_02: 4.68 MB, prove 0.025s (+hints 0.001s), urandom calls so far 21
+  sub_03: 4.68 MB, prove 0.242s (+hints 0.001s), urandom calls so far 21
+wrote /workspace/hp2/bx5/bf16h-int-zk-ragged/lane 13 files
+bf16h-int-zk-ragged-seq: 13 / 13 files identical
+  pipeline stats: {'n': 4, 'depth': 3, 'wall': 0.3172, 'host_busy': 0.2574, 'host_waited': 0.0596}
+  pipelined pass: 4 sub-batches in 0.317s wall = 79.3 ms/sub-batch; measured phases {'measured_statement': 0.0007, 'measured_hints_host': 0.0152, 'measured_witn
+wrote /workspace/hp2/bx5/bf16h-int-zk-ragged/lane-p3 13 files
+bf16h-int-zk-ragged-p3: 13 / 13 files identical
+=== fp8h-int-zk-ragged (fp8-hopper interactive zk impl=device)
+  sub_02: 4.76 MB, prove 0.036s (+hints 0.007s), urandom calls so far 21
+  sub_03: 4.76 MB, prove 0.036s (+hints 0.007s), urandom calls so far 21
+wrote /workspace/hp2/bx5/fp8h-int-zk-ragged/main 13 files
+  sub_02: 4.76 MB, prove 0.026s (+hints 0.004s), urandom calls so far 21
+  sub_03: 4.76 MB, prove 0.255s (+hints 0.005s), urandom calls so far 21
+wrote /workspace/hp2/bx5/fp8h-int-zk-ragged/lane 13 files
+fp8h-int-zk-ragged-seq: 13 / 13 files identical
+  pipeline stats: {'n': 4, 'depth': 3, 'wall': 0.3496, 'host_busy': 0.3007, 'host_waited': 0.0486}
+  pipelined pass: 4 sub-batches in 0.350s wall = 87.4 ms/sub-batch; measured phases {'measured_statement': 0.0002, 'measured_hints_host': 0.0304, 'measured_witn
+wrote /workspace/hp2/bx5/fp8h-int-zk-ragged/lane-p3 13 files
+fp8h-int-zk-ragged-p3: 13 / 13 files identical
+=== bf16h-fs-zk (bf16-hopper fiat-shamir zk impl=device)
+  sub_02: 6.30 MB, prove 0.040s (+hints 0.003s), urandom calls so far 5
+  sub_03: 6.30 MB, prove 0.040s (+hints 0.003s), urandom calls so far 5
+wrote /workspace/hp2/bx5/bf16h-fs-zk/main 9 files
+  sub_02: 6.30 MB, prove 0.031s (+hints 0.001s), urandom calls so far 5
+  sub_03: 6.30 MB, prove 0.031s (+hints 0.001s), urandom calls so far 5
+wrote /workspace/hp2/bx5/bf16h-fs-zk/lane 9 files
+bf16h-fs-zk-seq: 9 / 9 files identical
+  pipeline stats: {'n': 4, 'depth': 3, 'wall': 0.1099, 'host_busy': 0.0488, 'host_waited': 0.0609}
+  pipelined pass: 4 sub-batches in 0.110s wall = 27.5 ms/sub-batch; measured phases {'measured_statement': 0.0007, 'measured_hints_host': 0.0158, 'measured_witn
+wrote /workspace/hp2/bx5/bf16h-fs-zk/lane-p3 9 files
+bf16h-fs-zk-p3: 9 / 9 files identical
+TOTAL: 187 / 187 files identical
+=== Rust ligero-verify on the lane dumps (system digest + batch --target-bits 128)
+-- /workspace/hp2/bx5/bf16h-fs-zk/lane-p3: {"sys_id":"9dcc7cdc1377a00d877440cc01a0dcdb73b3e989d86df8244eccb35a81be0df4","table_digest":"74ce68a2801e14fbeaab2b241886bbe3fa9146234289e52c774fd4160a6c469c","pinned_relation":"bf16-hopper","format":"ligero-system/v1","m":3292,"L":339,"Q":3164,"pins":96,"chain":true,"chain_end":"word"}
+4 proofs: 4 accepted, 0 rejected (0 against their own coins); batch ACCEPT (accept: all 4 sub-batches accepted; union bound 2^-128.02 <= 2^-128); batch bits 128.018485 at target 128; system pinned (bf16-hopper); python agreement 0/0 (0 disagree); verify sum 2.223s, wall 1.157s at 3 jobs x 1 threads
+-- /workspace/hp2/bx5/bf16h-int-nonzk/lane-p3: {"sys_id":"9dcc7cdc1377a00d877440cc01a0dcdb73b3e989d86df8244eccb35a81be0df4","table_digest":"74ce68a2801e14fbeaab2b241886bbe3fa9146234289e52c774fd4160a6c469c","pinned_relation":"bf16-hopper","format":"ligero-system/v1","m":3292,"L":339,"Q":3164,"pins":96,"chain":true,"chain_end":"word"}
+4 proofs: 4 accepted, 0 rejected (4 against their own coins); batch ACCEPT (accept: all 4 sub-batches accepted; union bound 2^-128.18 <= 2^-128); batch bits 128.183043 at target 128; system pinned (bf16-hopper); python agreement 0/0 (0 disagree); verify sum 1.817s, wall 0.930s at 3 jobs x 1 threads
+-- /workspace/hp2/bx5/bf16h-int-zk-ragged/lane-p3: {"sys_id":"9dcc7cdc1377a00d877440cc01a0dcdb73b3e989d86df8244eccb35a81be0df4","table_digest":"74ce68a2801e14fbeaab2b241886bbe3fa9146234289e52c774fd4160a6c469c","pinned_relation":"bf16-hopper","format":"ligero-system/v1","m":3292,"L":339,"Q":3164,"pins":96,"chain":true,"chain_end":"word"}
+4 proofs: 4 accepted, 0 rejected (4 against their own coins); batch ACCEPT (accept: all 4 sub-batches accepted; union bound 2^-128.67 <= 2^-128); batch bits 128.672679 at target 128; system pinned (bf16-hopper); python agreement 0/0 (0 disagree); verify sum 1.901s, wall 0.964s at 3 jobs x 1 threads
+-- /workspace/hp2/bx5/bf16h-int-zk/lane-p3: {"sys_id":"9dcc7cdc1377a00d877440cc01a0dcdb73b3e989d86df8244eccb35a81be0df4","table_digest":"74ce68a2801e14fbeaab2b241886bbe3fa9146234289e52c774fd4160a6c469c","pinned_relation":"bf16-hopper","format":"ligero-system/v1","m":3292,"L":339,"Q":3164,"pins":96,"chain":true,"chain_end":"word"}
+4 proofs: 4 accepted, 0 rejected (4 against their own coins); batch ACCEPT (accept: all 4 sub-batches accepted; union bound 2^-128.67 <= 2^-128); batch bits 128.672679 at target 128; system pinned (bf16-hopper); python agreement 0/0 (0 disagree); verify sum 1.915s, wall 0.975s at 3 jobs x 1 threads
+-- /workspace/hp2/bx5/fp8h-int-nonzk/lane-p3: {"sys_id":"c7cbebe365cb5f773a679bc13b5382fb45714511b1912e4e4ab7fb48accd4bc3","table_digest":"d5b77463fee9b3d777174755144edaa84461b3eec6ac6a1750c887dc861d58e7","pinned_relation":"fp8-hopper","format":"ligero-system/v1","m":3396,"L":554,"Q":3164,"pins":192,"chain":true,"chain_end":"word"}
+4 proofs: 4 accepted, 0 rejected (4 against their own coins); batch ACCEPT (accept: all 4 sub-batches accepted; union bound 2^-128.18 <= 2^-128); batch bits 128.183043 at target 128; system pinned (fp8-hopper); python agreement 0/0 (0 disagree); verify sum 1.985s, wall 1.012s at 3 jobs x 1 threads
+-- /workspace/hp2/bx5/fp8h-int-zk-ragged/lane-p3: {"sys_id":"c7cbebe365cb5f773a679bc13b5382fb45714511b1912e4e4ab7fb48accd4bc3","table_digest":"d5b77463fee9b3d777174755144edaa84461b3eec6ac6a1750c887dc861d58e7","pinned_relation":"fp8-hopper","format":"ligero-system/v1","m":3396,"L":554,"Q":3164,"pins":192,"chain":true,"chain_end":"word"}
+4 proofs: 4 accepted, 0 rejected (4 against their own coins); batch ACCEPT (accept: all 4 sub-batches accepted; union bound 2^-128.67 <= 2^-128); batch bits 128.672679 at target 128; system pinned (fp8-hopper); python agreement 0/0 (0 disagree); verify sum 1.967s, wall 1.005s at 3 jobs x 1 threads
+-- /workspace/hp2/bx5/fp8h-int-zk/lane-p3: {"sys_id":"c7cbebe365cb5f773a679bc13b5382fb45714511b1912e4e4ab7fb48accd4bc3","table_digest":"d5b77463fee9b3d777174755144edaa84461b3eec6ac6a1750c887dc861d58e7","pinned_relation":"fp8-hopper","format":"ligero-system/v1","m":3396,"L":554,"Q":3164,"pins":192,"chain":true,"chain_end":"word"}
+4 proofs: 4 accepted, 0 rejected (4 against their own coins); batch ACCEPT (accept: all 4 sub-batches accepted; union bound 2^-128.67 <= 2^-128); batch bits 128.672679 at target 128; system pinned (fp8-hopper); python agreement 0/0 (0 disagree); verify sum 1.990s, wall 0.996s at 3 jobs x 1 threads
+-- /workspace/hp2/bx5/bf16h-int-zk-legacy/lane: {"sys_id":"9dcc7cdc1377a00d877440cc01a0dcdb73b3e989d86df8244eccb35a81be0df4","table_digest":"74ce68a2801e14fbeaab2b241886bbe3fa9146234289e52c774fd4160a6c469c","pinned_relation":"bf16-hopper","format":"ligero-system/v1","m":3292,"L":339,"Q":3164,"pins":96,"chain":true,"chain_end":"word"}
+4 proofs: 4 accepted, 0 rejected (4 against their own coins); batch ACCEPT (accept: all 4 sub-batches accepted; union bound 2^-128.67 <= 2^-128); batch bits 128.672679 at target 128; system pinned (bf16-hopper); python agreement 0/0 (0 disagree); verify sum 1.828s, wall 0.881s at 3 jobs x 1 threads
+BITEXACT_DONE 07:30:35

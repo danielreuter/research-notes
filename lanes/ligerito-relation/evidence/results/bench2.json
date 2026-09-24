@@ -1,0 +1,474 @@
+{
+ "schema": "research/result/v0.1",
+ "run_id": "ligerito-fp8-ada-local-1790190028",
+ "workload_fingerprint": {
+  "profile": "fp8-ada-mma-draft/2026-09-22",
+  "domain": "finite",
+  "K": 1536,
+  "B": 4096,
+  "N_subbatches": 1,
+  "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+  "authentication": "excluded",
+  "zk_mode": "none",
+  "security": {
+   "target": -128,
+   "field": "BabyBear",
+   "challenge_field": "F_{p^6} = F_p[x]/(x^6 - 31)",
+   "pcs": "ligerito",
+   "parameter_set": "B (pow2: level-1 rate 1/2, later 1/4)",
+   "n": 30,
+   "kprime": [
+    6,
+    4,
+    4,
+    3,
+    3
+   ],
+   "queries": [
+    311,
+    192,
+    192,
+    195,
+    196
+   ],
+   "rate_log2": [
+    1,
+    2,
+    2,
+    2,
+    2
+   ],
+   "final_len": 1024,
+   "coins": "local",
+   "zk": false,
+   "bound_model": "union bound: paper (17) per level with the sampling base ((1+rho)/2)^|S| + field terms, the three sumchecks and the batching coins over F_{p^6} (params.LigeritoParams.soundness)",
+   "hash_assumption": "BLAKE3 Merkle (collision resistance); coins independent of the prover's messages",
+   "achieved_log2": -128.00080574436683,
+   "achieved_bits": 128.00080574436683,
+   "terms_log2": {
+    "L1.proximity ((1+rho)/2)^|S|": -129.07666227572042,
+    "L1.field k' n/|F|": -157.8563810772295,
+    "L1.sumcheck 2k'/|F|": -181.8563810772295,
+    "L2.proximity ((1+rho)/2)^|S|": -130.18980578162643,
+    "L2.field k' n/|F|": -161.44134357795068,
+    "L2.sumcheck 2k'/|F|": -182.44134357795068,
+    "L2.batching (|S|+1)/|F|": -177.15594135908842,
+    "L3.proximity ((1+rho)/2)^|S|": -130.18980578162643,
+    "L3.field k' n/|F|": -165.44134357795068,
+    "L3.sumcheck 2k'/|F|": -182.44134357795068,
+    "L3.batching (|S|+1)/|F|": -177.8488865406826,
+    "L4.proximity ((1+rho)/2)^|S|": -132.22402149696435,
+    "L4.field k' n/|F|": -168.8563810772295,
+    "L4.sumcheck 2k'/|F|": -182.8563810772295,
+    "L4.batching (|S|+1)/|F|": -177.8488865406826,
+    "L5.proximity ((1+rho)/2)^|S|": -132.90209340207699,
+    "L5.field k' n/|F|": -171.8563810772295,
+    "L5.sumcheck 2k'/|F|": -182.8563810772295,
+    "L5.batching (|S|+1)/|F|": -177.82663373383548,
+    "ZC.constraint batching (Q+Lin)/|F|": -173.42802090452523,
+    "ZC.Schwartz-Zippel eq(tau) col_vars/|F|": -181.35388073670035,
+    "ZC.sumcheck (3 col_vars + 7 + 4)/|F|": -179.4871472675638,
+    "II.sumcheck 2 x 2 row_vars/|F|": -179.8563810772295,
+    "L1.claim batching (chain + masks)/|F|": -181.98191195931338,
+    "PCS.claim batching beta J/|F|": -183.44134357795068
+   },
+   "union_over": 1,
+   "stubbed": "zk.py not wired (no masks, no salted leaves, no Libra sumcheck masks); coins not live"
+  },
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA A100-SXM4-80GB",
+    "driver": "580.159.04",
+    "cuda": "13.0",
+    "count": 1,
+    "memory_total_bytes": 85899345920
+   },
+   "cpu": {
+    "model": "AMD EPYC 7742 64-Core Processor",
+    "count": 128
+   }
+  },
+  "software": {
+   "backend": {
+    "name": "ligerito",
+    "commit": "wip",
+    "hash": "blake3",
+    "challenge_expander": "SHAKE-256",
+    "pcs": "Ligerito (proto/pcs.py pieces; multi-claim open in prove.py)",
+    "coins": "local"
+   },
+   "toolchain": {
+    "python": "3.12.14",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.3"
+   }
+  },
+  "preprocessing": "constraint compilation + layout constraints + verification key (functions of the relation only, 1.57s)",
+  "retention": "retained",
+  "instances": {
+   "dataset": "bench-instances-fp8-ada/v1",
+   "tier": "vu-k1536-fp8-ada",
+   "range": [
+    0,
+    4096
+   ],
+   "manifest_sha256": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d",
+   "seed": 20260922,
+   "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)"
+  },
+  "scope": "vu",
+  "omitted": "external authentication; ZK masking (zk.py not wired (no masks, no salted leaves, no Libra sumcheck masks); coins not live)",
+  "relation": "GemmCoordinate<1536> over sm89.mma.m16n8k32.e4m3",
+  "model": "ADA_E4M3_M16N8K32",
+  "commit": "wip",
+  "step_k": 32,
+  "steps_per_vu": 48,
+  "rows": 3769,
+  "committed_rows": 3577,
+  "layout": {
+   "m": 3577,
+   "n_i": 12,
+   "l": 16384,
+   "n_j": 14,
+   "n_sub": 13,
+   "S": 16,
+   "n_k": 12,
+   "K": 3936,
+   "R": 4096,
+   "C": 262144,
+   "N_log2": 30,
+   "virtual_rows": 200,
+   "n_links": 3
+  },
+  "witness_generation": "torch hint generator (fp8/witness.py, gen_step semantics on the adder-side params) + torch program (derived rows)",
+  "statement_format": "LGTS0001",
+  "proof_format": "LGTO0001",
+  "key_format": "LGVK0001",
+  "key_sha256": "da27387bb23ff60a60b4b21ef99f180c84c17456edf41efa31e5797aaed9227b",
+  "note": "4096 VUs as ONE Ligerito batch of 13 sub-batches x l = 16384 columns (S = 16), N = 2^30 cells; prover time includes witness generation (Ligero's hints + build_witness, marshal cached across reps as in relchain); public claim per VU = the final FP32 word (22-bit packing: low 10 bits provably zero)"
+ },
+ "validation": {
+  "status": "passed",
+  "checker": "backends.direct.ligerito.run bench[fp8-ada] (the in-process Python verifier accepted every rep; shares the claim algebra with the prover)",
+  "detail": "3 reps at 4096 VUs, coins local; proof 695590 B",
+  "evidence": {
+   "soundness": {
+    "terms_log2": {
+     "L1.proximity ((1+rho)/2)^|S|": -129.07666227572042,
+     "L1.field k' n/|F|": -157.8563810772295,
+     "L1.sumcheck 2k'/|F|": -181.8563810772295,
+     "L2.proximity ((1+rho)/2)^|S|": -130.18980578162643,
+     "L2.field k' n/|F|": -161.44134357795068,
+     "L2.sumcheck 2k'/|F|": -182.44134357795068,
+     "L2.batching (|S|+1)/|F|": -177.15594135908842,
+     "L3.proximity ((1+rho)/2)^|S|": -130.18980578162643,
+     "L3.field k' n/|F|": -165.44134357795068,
+     "L3.sumcheck 2k'/|F|": -182.44134357795068,
+     "L3.batching (|S|+1)/|F|": -177.8488865406826,
+     "L4.proximity ((1+rho)/2)^|S|": -132.22402149696435,
+     "L4.field k' n/|F|": -168.8563810772295,
+     "L4.sumcheck 2k'/|F|": -182.8563810772295,
+     "L4.batching (|S|+1)/|F|": -177.8488865406826,
+     "L5.proximity ((1+rho)/2)^|S|": -132.90209340207699,
+     "L5.field k' n/|F|": -171.8563810772295,
+     "L5.sumcheck 2k'/|F|": -182.8563810772295,
+     "L5.batching (|S|+1)/|F|": -177.82663373383548,
+     "ZC.constraint batching (Q+Lin)/|F|": -173.42802090452523,
+     "ZC.Schwartz-Zippel eq(tau) col_vars/|F|": -181.35388073670035,
+     "ZC.sumcheck (3 col_vars + 7 + 4)/|F|": -179.4871472675638,
+     "II.sumcheck 2 x 2 row_vars/|F|": -179.8563810772295,
+     "L1.claim batching (chain + masks)/|F|": -181.98191195931338,
+     "PCS.claim batching beta J/|F|": -183.44134357795068
+    },
+    "total_log2": -128.00080574436683,
+    "target_log2": -128.0,
+    "meets_target": true,
+    "field_log2": 185.44134357795068,
+    "formula": "union bound of paper (17) per level + relation terms; e_i = (n_i - tall_i)/2"
+   },
+   "dumps": null,
+   "rust": null,
+   "reps": [
+    {
+     "prover": {
+      "witness": 0.14946638699620962,
+      "transcript": 0.0009979200549423695,
+      "commit_r1_alloc": 2.3806001991033554e-05,
+      "commit_r1_encode": 0.0713523798622191,
+      "commit_r1_merkle": 0.015829739160835743,
+      "zero_check": 0.45142481895163655,
+      "sumcheck_r1_contract": 0.022614548914134502,
+      "sumcheck_host": 0.026257246732711792,
+      "sumcheck_r1_fold": 0.005321217700839043,
+      "recursion_encode": 0.011330829933285713,
+      "recursion_merkle": 0.0036042160354554653,
+      "serialize_openings": 0.009105316363275051,
+      "recursion_contract": 0.03706215089187026,
+      "sumcheck_device": 0.0031194682233035564,
+      "recursion_fold": 0.0010806974023580551,
+      "serialize_final": 0.0014752638526260853,
+      "serialize_proof": 0.00040627969428896904,
+      "total": 0.8118028799071908,
+      "sumcheck_detail": {
+       "tables": 0.0351456799544394,
+       "sumcheck1": 0.3354208650998771,
+       "sumcheck2_coef": 0.04260937590152025,
+       "sumcheck2_eq": 0.0005883639678359032,
+       "sumcheck2_matvec": 0.010040535125881433,
+       "sumcheck2": 0.06291198590770364,
+       "sumcheck3": 0.016418674029409885,
+       "total": 0.4499028157442808
+      }
+     },
+     "verifier": {
+      "t_public": 0.12112455116584897,
+      "t_sumcheck": 1.282801539171487,
+      "t_pcs": 0.7075288011692464,
+      "soundness_log2": -128.00080574436683,
+      "seconds": 2.1394285992719233,
+      "coins": 92
+     }
+    },
+    {
+     "prover": {
+      "witness": 0.17647392489016056,
+      "transcript": 0.0009749270975589752,
+      "commit_r1_alloc": 2.248259261250496e-05,
+      "commit_r1_encode": 0.07864594366401434,
+      "commit_r1_merkle": 0.015500024892389774,
+      "zero_check": 0.454304622951895,
+      "sumcheck_r1_contract": 0.02303461404517293,
+      "sumcheck_host": 0.026120019610971212,
+      "sumcheck_r1_fold": 0.005331817083060741,
+      "recursion_encode": 0.011333884671330452,
+      "recursion_merkle": 0.00365062290802598,
+      "serialize_openings": 0.009282059501856565,
+      "recursion_contract": 0.037114950362592936,
+      "sumcheck_device": 0.003127342090010643,
+      "recursion_fold": 0.0010805567726492882,
+      "serialize_final": 0.0014921161346137524,
+      "serialize_proof": 0.0005939039401710033,
+      "total": 0.8494857046753168,
+      "sumcheck_detail": {
+       "tables": 0.03489752113819122,
+       "sumcheck1": 0.3392448481172323,
+       "sumcheck2_coef": 0.04268322512507439,
+       "sumcheck2_eq": 0.0005699698813259602,
+       "sumcheck2_matvec": 0.009826018009334803,
+       "sumcheck2": 0.06260484410449862,
+       "sumcheck3": 0.01626302022486925,
+       "total": 0.4530156021937728
+      }
+     },
+     "verifier": {
+      "t_public": 0.13295405404642224,
+      "t_sumcheck": 1.2794894156977534,
+      "t_pcs": 0.15942234126850963,
+      "soundness_log2": -128.00080574436683,
+      "seconds": 1.60138407535851,
+      "coins": 92
+     }
+    },
+    {
+     "prover": {
+      "witness": 0.14940932812169194,
+      "transcript": 0.0009860373102128506,
+      "commit_r1_alloc": 2.2361986339092255e-05,
+      "commit_r1_encode": 0.07704722601920366,
+      "commit_r1_merkle": 0.015509833116084337,
+      "zero_check": 0.4497194797731936,
+      "sumcheck_r1_contract": 0.022634386084973812,
+      "sumcheck_host": 0.02620332408696413,
+      "sumcheck_r1_fold": 0.005335623864084482,
+      "recursion_encode": 0.01137973042204976,
+      "recursion_merkle": 0.003617469687014818,
+      "serialize_openings": 0.009120455011725426,
+      "recursion_contract": 0.03703073086217046,
+      "sumcheck_device": 0.0031467084772884846,
+      "recursion_fold": 0.0010922071523964405,
+      "serialize_final": 0.0014886492863297462,
+      "serialize_proof": 0.0003980039618909359,
+      "total": 0.8154987902380526,
+      "sumcheck_detail": {
+       "tables": 0.03491093637421727,
+       "sumcheck1": 0.33482968620955944,
+       "sumcheck2_coef": 0.042589057236909866,
+       "sumcheck2_eq": 0.0005581667646765709,
+       "sumcheck2_matvec": 0.010215807240456343,
+       "sumcheck2": 0.06268368335440755,
+       "sumcheck3": 0.015986114740371704,
+       "total": 0.4484132551588118
+      }
+     },
+     "verifier": {
+      "t_public": 0.1206311471760273,
+      "t_sumcheck": 1.2721766871400177,
+      "t_pcs": 0.4755324348807335,
+      "soundness_log2": -128.00080574436683,
+      "seconds": 1.8987026112154126,
+      "coins": 92
+     }
+    }
+   ]
+  }
+ },
+ "measurements": [
+  {
+   "name": "t.witness",
+   "value": 0.14946638699620962,
+   "unit": "s"
+  },
+  {
+   "name": "t.encoding_commitment",
+   "value": 0.10757662123069167,
+   "unit": "s"
+  },
+  {
+   "name": "t.arithmetic",
+   "value": 0.5437606805935502,
+   "unit": "s"
+  },
+  {
+   "name": "t.lookup",
+   "value": 0.0,
+   "unit": "s"
+  },
+  {
+   "name": "t.zk_additional",
+   "value": 0.0,
+   "unit": "s"
+  },
+  {
+   "name": "t.serialization",
+   "value": 0.011993145570158958,
+   "unit": "s"
+  },
+  {
+   "name": "t.total",
+   "value": 0.8154987902380526,
+   "unit": "s"
+  },
+  {
+   "name": "verifier.seconds",
+   "value": 1.8987026112154126,
+   "unit": "s"
+  },
+  {
+   "name": "transcript.bytes",
+   "value": 695590,
+   "unit": "B"
+  },
+  {
+   "name": "rounds.protocol",
+   "value": 92,
+   "unit": "count"
+  },
+  {
+   "name": "rounds.sequential_depth",
+   "value": 92,
+   "unit": "count"
+  },
+  {
+   "name": "mem.peak_device_bytes",
+   "value": 48318915584,
+   "unit": "B"
+  },
+  {
+   "name": "census.witness_elements",
+   "value": 937689088,
+   "unit": "count"
+  },
+  {
+   "name": "census.committed_elements",
+   "value": 1073741824,
+   "unit": "count"
+  },
+  {
+   "name": "census.bytes_encoded",
+   "value": 8589934592,
+   "unit": "B"
+  },
+  {
+   "name": "vu.seconds_per_vu",
+   "value": 0.00019909638433546206,
+   "unit": "s"
+  },
+  {
+   "name": "vu.count",
+   "value": 4096,
+   "unit": "count"
+  },
+  {
+   "name": "rate.proved_flop_per_second",
+   "value": 15429712.650250427,
+   "unit": "FLOP/s"
+  },
+  {
+   "name": "rate.native_peak_flop_per_second",
+   "value": 330300000000000.0,
+   "unit": "FLOP/s"
+  },
+  {
+   "name": "overhead.vs_native_peak",
+   "value": 21406749.917318724,
+   "unit": "ratio"
+  },
+  {
+   "name": "proof_bytes",
+   "value": 695590,
+   "unit": "B"
+  },
+  {
+   "name": "proof.sumcheck_bytes",
+   "value": 4645,
+   "unit": "B"
+  },
+  {
+   "name": "proof.pcs_rows_bytes",
+   "value": 302144,
+   "unit": "B"
+  },
+  {
+   "name": "proof.pcs_merkle_bytes",
+   "value": 362304,
+   "unit": "B"
+  },
+  {
+   "name": "proof.pcs_sumcheck_bytes",
+   "value": 1440,
+   "unit": "B"
+  },
+  {
+   "name": "proof.pcs_final_bytes",
+   "value": 24576,
+   "unit": "B"
+  },
+  {
+   "name": "prove_wall",
+   "value": 0.8154987902380526,
+   "unit": "s"
+  },
+  {
+   "name": "verify_wall",
+   "value": 1.8987026112154126,
+   "unit": "s"
+  },
+  {
+   "name": "soundness_bits",
+   "value": 128.00080574436683,
+   "unit": "bits"
+  },
+  {
+   "name": "split.zero_check_seconds",
+   "value": 0.45142481895163655,
+   "unit": "s"
+  },
+  {
+   "name": "split.witness_seconds",
+   "value": 0.14946638699620962,
+   "unit": "s"
+  }
+ ],
+ "measurement_files": [],
+ "artifacts": []
+}

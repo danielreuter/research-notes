@@ -1,0 +1,29 @@
+=== [11:20:15] LOCAL bf16-hopper --batch 16384 --pipeline 2 --reps 3
+rc=0
+rep 1: prover 0.414s (+hints 0.020s) over 25 proofs; verifier 0.631s; pass wall 3.199s (0.106 ms/VU)
+rep 2: prover 0.338s (+hints 0.019s) over 25 proofs; verifier 0.611s; pass wall 0.970s (0.087 ms/VU)
+rep 3: prover 0.299s (+hints 0.015s) over 25 proofs; verifier 0.648s; pass wall 0.965s (0.077 ms/VU)
+LOCAL3 local3_bf16-hopper_b16384_p2.json {'t.witness': 0.0196, 't.encoding_commitment': 0.0756, 't.arithmetic': 0.2179, 't.lookup': 0.0, 't.zk_additional': 0.0003, 't.serialization': 0.0437, 't.total': 0.3561, 'mem.peak_device_bytes': 2937174528, 'overhead.vs_native_peak': 27999610.4695, 'split.subbatches': 25, 'split.per_proof_vus': 170, 'split.hints_seconds': 0.0185, 'split.witness_torch_seconds': 0.001, 'split.encode_seconds': 0.0453, 'split.transfer_seconds': 0.0, 'split.merkle_seconds': 0.0302, 'split.tests_seconds': 0.2179, 'split.openings_seconds': 0.0428, 'split.zk_masks_seconds': 0.0003, 'proof_bytes': 118027300} passed
+=== [11:20:41] LOCAL bf16-hopper --batch 16384 --pipeline 4 --reps 3
+rc=1
+rep 1: prover 0.267s (+hints 0.016s) over 25 proofs; verifier 0.642s; pass wall 2.751s (0.069 ms/VU)
+=== [11:21:07] LOCAL fp8-hopper --batch 16384 --pipeline 4 --reps 3
+rc=0
+rep 1: prover 0.182s (+hints 0.013s) over 13 proofs; verifier 0.377s; pass wall 1.223s (0.048 ms/VU)
+rep 2: prover 0.127s (+hints 0.015s) over 13 proofs; verifier 0.334s; pass wall 0.477s (0.035 ms/VU)
+rep 3: prover 0.104s (+hints 0.018s) over 13 proofs; verifier 0.339s; pass wall 0.465s (0.030 ms/VU)
+LOCAL3 local3_fp8-hopper_b16384_p4.json {'t.witness': 0.0163, 't.encoding_commitment': 0.0241, 't.arithmetic': 0.0876, 't.lookup': 0.0, 't.zk_additional': 0.0001, 't.serialization': 0.0106, 't.total': 0.1421, 'mem.peak_device_bytes': 5590672896, 'overhead.vs_native_peak': 22353743.4273, 'split.subbatches': 13, 'split.per_proof_vus': 341, 'split.hints_seconds': 0.0151, 'split.witness_torch_seconds': 0.0012, 'split.encode_seconds': 0.0144, 'split.transfer_seconds': 0.0, 'split.merkle_seconds': 0.0097, 'split.tests_seconds': 0.0876, 'split.openings_seconds': 0.0103, 'split.zk_masks_seconds': 0.0001, 'proof_bytes': 62254400} passed
+=== [11:21:18] pytest OMP_NUM_THREADS=16
+PYTEST_OMP16 rc=0
+........................................................................ [ 51%]
+....................................................................     [100%]
+============================= slowest 8 durations ==============================
+13.95s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-ampere-v2]
+12.96s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-ada-v2]
+11.14s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-hopper-v2]
+10.71s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-hopper-v2]
+8.54s call     backends/direct/ligero/witness_device_test.py::test_fused_witness_equals_torch_program_fp4
+8.20s call     backends/direct/ligero/hashchain_test.py::test_negatives_rejected
+5.77s call     backends/direct/ligero/live_test.py::test_honest_session_accepted_and_negatives_refused
+3.64s call     backends/direct/ligero/relations_test.py::test_negative_battery_rejected[fp8-hopper]
+140 passed in 155.72s (0:02:35)

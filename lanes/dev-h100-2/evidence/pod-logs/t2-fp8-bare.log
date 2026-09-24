@@ -1,0 +1,6 @@
+[12:41:55Z] START t2-fp8-bare rel=fp8-hopper auth=bare batch=16384 pipeline=4 reps=3 dump=1 live=1 on=vy-dev-h100-2b
+research: run r20260923-124155-2270 launched on vy-dev-h100-2b (jzrtm9jfkc9kit) pid=2643 -> /workspace/research/runs/r20260923-124155-2270
+research: observe with `research fetch r20260923-124155-2270`; the workload does not depend on this session staying alive
+[12:42:00Z] t2-fp8-bare -> r20260923-124155-2270
+[12:42:56Z] END t2-fp8-bare r20260923-124155-2270 finished: done
+research: r20260923-124155-2270 observed 2026-09-23T12:42:58.422Z: done rc=0 class=SUCCESS result=valid (research/result/v0.1); 1 listed artifact(s) missing

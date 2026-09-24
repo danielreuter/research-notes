@@ -1,0 +1,56 @@
+
+=== [10:49:42] bf16-hopper --batch 4096 --pipeline 1
+SWEEP bf16-hopper batch=4096 pipeline=1 rc=0 wall=52s t.total=2.443836040794849 t.total_live=29.31889384612441 net.rtt_ms=135.7724629342556 net.wait_seconds=26.87505780532956 verify.wall_s=7.266282249242067 peak_device_bytes=None validation=passed
+
+=== [10:50:34] bf16-hopper --batch 4096 --pipeline 2
+SWEEP bf16-hopper batch=4096 pipeline=2 rc=0 wall=46s t.total=2.9006845839321604 t.total_live=16.12217914685607 net.rtt_ms=138.86962831020355 net.wait_seconds=13.221494562923908 verify.wall_s=6.335244346410036 peak_device_bytes=None validation=passed
+
+=== [10:51:20] bf16-hopper --batch 4096 --pipeline 4
+SWEEP bf16-hopper batch=4096 pipeline=4 rc=0 wall=34s t.total=2.508827127516268 t.total_live=8.486100845038896 net.rtt_ms=134.9553670734167 net.wait_seconds=5.977273717522628 verify.wall_s=12.08895007520914 peak_device_bytes=None validation=passed
+
+=== [10:51:54] bf16-hopper --batch 8192 --pipeline 1
+SWEEP bf16-hopper batch=8192 pipeline=1 rc=0 wall=39s t.total=1.8300674818456175 t.total_live=15.472986534237862 net.rtt_ms=137.60192692279816 net.wait_seconds=13.642919052392244 verify.wall_s=4.752648539841175 peak_device_bytes=None validation=passed
+
+=== [10:52:33] bf16-hopper --batch 8192 --pipeline 2
+SWEEP bf16-hopper batch=8192 pipeline=2 rc=0 wall=34s t.total=1.3599418997764587 t.total_live=8.319914817810062 net.rtt_ms=139.72598314285278 net.wait_seconds=6.959972918033604 verify.wall_s=6.132146909832954 peak_device_bytes=None validation=passed
+
+=== [10:53:08] bf16-hopper --batch 8192 --pipeline 4
+SWEEP bf16-hopper batch=8192 pipeline=4 rc=0 wall=31s t.total=1.3035791218280792 t.total_live=5.013382457196714 net.rtt_ms=142.0114692300558 net.wait_seconds=3.709803335368635 verify.wall_s=7.328488055616617 peak_device_bytes=None validation=passed
+
+=== [10:53:39] bf16-hopper --batch 16384 --pipeline 1
+SWEEP bf16-hopper batch=16384 pipeline=1 rc=0 wall=34s t.total=1.3966001980006697 t.total_live=8.788933537900448 net.rtt_ms=143.36434192955494 net.wait_seconds=7.392333339899778 verify.wall_s=4.178997814655304 peak_device_bytes=None validation=passed
+
+=== [10:54:13] bf16-hopper --batch 16384 --pipeline 2
+SWEEP bf16-hopper batch=16384 pipeline=2 rc=0 wall=38s t.total=1.0245609134435654 t.total_live=5.048055864870549 net.rtt_ms=145.92869207262993 net.wait_seconds=4.023494951426984 verify.wall_s=5.845069084316492 peak_device_bytes=None validation=passed
+
+=== [10:54:51] bf16-hopper --batch 16384 --pipeline 4
+SWEEP bf16-hopper batch=16384 pipeline=4 rc=1 wall=35s FAILED
+bf16-hopper census: {"rows_per_unit": 3292, "bit_rows": 2391, "selector_rows": 542, "hint_rows": 97, "pin_rows": 96, "product_rows": 166, "inverse_rows": 0, "linear_constraints": 339, "quadratic_constraints": 3164, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.6s
+config Config(l=16384, n=65536, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=170, steps=96); zk True, mode interactive; system {'rows': 3292, 'by_kind': {'hint': 97, 'bit': 2391, 'prod': 166, 'pin': 96, 'sel': 542}, 'linear': 339, 'quadratic': 3164, 'pins': 96, 'hints': 97}; 4096 VUs as 25 sub-batches of <= 170
+live verifier tcp://213.173.105.69:30899: one session per recorded rep, 25 sub-batches each
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.001, 'hints_host': 11.083, 'witness': 0.034, 'self_check': 2.194, 'zk_masks': 0.018, 'encode': 0.003, 'transfer': 0.0, 'merkle': 0.003, 'tests_w': 1.042, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.004, 'tests': 1.042, 'total': 3.3}
+rep 1: live verifier REJECTED 24/25 (1 sub-batch(es) rejected: sub_02: proximity test failed); net wait 3.103s over 50 round trips (median rtt 216.2 ms); verifier wall 5.15s cpu 4.93s; t.total_live 3.883s
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/research/src/64c00bd6c78ba96cc08372642d5b07122db1e61d/backends/direct/ligero/run.py", line 469, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/research/src/64c00bd6c78ba96cc08372642d5b07122db1e61d/backends/direct/ligero/run.py", line 462, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/research/src/64c00bd6c78ba96cc08372642d5b07122db1e61d/backends/direct/ligero/relchain.py", line 973, in bench_vu_rel
+    assert ok, f"sub-batch [{lo}, {hi}): {why}"
+           ^^
+AssertionError: sub-batch [340, 510): proximity test failed
+
+=== [10:55:26] bf16-hopper --batch 32768 --pipeline 1
+SWEEP bf16-hopper batch=32768 pipeline=1 rc=0 wall=43s t.total=1.5809773094952106 t.total_live=6.003915660083294 net.rtt_ms=159.13709439337254 net.wait_seconds=4.422938350588083 verify.wall_s=4.176534775644541 peak_device_bytes=None validation=passed
+
+=== [10:56:09] bf16-hopper --batch 32768 --pipeline 2
+SWEEP bf16-hopper batch=32768 pipeline=2 rc=0 wall=44s t.total=2.0784628763794903 t.total_live=4.22103401273489 net.rtt_ms=158.44194032251835 net.wait_seconds=2.1425711363554 verify.wall_s=5.8339112140238285 peak_device_bytes=None validation=passed
+
+=== [10:56:53] bf16-hopper --batch 32768 --pipeline 4
+SWEEP bf16-hopper batch=32768 pipeline=4 rc=0 wall=46s t.total=2.170788921415806 t.total_live=3.72331815212965 net.rtt_ms=296.02210596203804 net.wait_seconds=1.5525292307138445 verify.wall_s=5.4812688529491425 peak_device_bytes=None validation=passed
+SWEEP_DONE

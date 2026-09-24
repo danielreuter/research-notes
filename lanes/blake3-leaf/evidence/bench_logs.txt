@@ -1,0 +1,91 @@
+=== [18:08:09] blake3_b4096: --relation fp8-ada-x4+blake3 bench-vu --zk --mode interactive --total-vus 4096 --reps 3 --target -128 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --auth included-hash --batch 4096
+rc=0 [18:09:46]
+== blake3_b4096 | auth included-hash hash blake3-keyed B 4096 N_sub 13 rows/unit None
+  t.witness = 0.112 s
+  t.encoding_commitment = 3.8484 s
+  t.arithmetic = 1.2263 s
+  t.zk_additional = 0.0001 s
+  t.total = 7.505 s
+  mem.peak_device_bytes = 14665027072 B
+  rate.native_peak_flop_per_second = 330300000000000.0 FLOP/s
+  overhead.vs_native_peak = 197004939.4576 ratio
+  split.hints_seconds = 0.098 s
+  split.witness_torch_seconds = 0.0141 s
+  split.encode_seconds = 3.8484 s
+  split.merkle_seconds = 0.0 s
+  split.tests_seconds = 1.2263 s
+  split.openings_seconds = 0.0589 s
+  split.zk_masks_seconds = 0.0001 s
+  proof_bytes = 831521808 B
+  rows_per_unit = 79152 count
+  relation.hash.rows_added_per_unit = 64277 count
+  relation.hash.linked_rows = 101 count
+  relation.hash.commit_seconds = 6.8367 s
+  relation.hash.sponge_seconds = 0.2744 s
+  relation.hash.committed_x_rows = 4096 count
+  relation.hash.statement_bytes_total = 1887096 B
+  relation.hash.multiproof_bytes_total = 14016 B
+  relation.census.rows_per_unit = 79152 count
+  relation.census.bit_rows = 41622 count
+  relation.census.selector_rows = 2560 count
+  relation.census.hint_rows = 3537 count
+  relation.census.pin_rows = 99 count
+=== [18:09:46] blake3_b2048: --relation fp8-ada-x4+blake3 bench-vu --zk --mode interactive --total-vus 4096 --reps 3 --target -128 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --auth included-hash --batch 2048
+rc=0 [18:11:33]
+== blake3_b2048 | auth included-hash hash blake3-keyed B 4096 N_sub 25 rows/unit None
+  t.witness = 0.1647 s
+  t.encoding_commitment = 6.9336 s
+  t.arithmetic = 1.3357 s
+  t.zk_additional = 0.0001 s
+  t.total = 10.0428 s
+  mem.peak_device_bytes = 7388987904 B
+  rate.native_peak_flop_per_second = 330300000000000.0 FLOP/s
+  overhead.vs_native_peak = 263623345.2974 ratio
+  split.hints_seconds = 0.1535 s
+  split.witness_torch_seconds = 0.0113 s
+  split.encode_seconds = 6.9335 s
+  split.merkle_seconds = 0.0 s
+  split.tests_seconds = 1.3357 s
+  split.openings_seconds = 0.1113 s
+  split.zk_masks_seconds = 0.0001 s
+  proof_bytes = 1648281500 B
+  rows_per_unit = 79152 count
+  relation.hash.rows_added_per_unit = 64277 count
+  relation.hash.linked_rows = 101 count
+  relation.hash.commit_seconds = 6.7313 s
+  relation.hash.sponge_seconds = 0.2769 s
+  relation.hash.committed_x_rows = 4096 count
+  relation.hash.statement_bytes_total = 1895320 B
+  relation.hash.multiproof_bytes_total = 25536 B
+  relation.census.rows_per_unit = 79152 count
+  relation.census.bit_rows = 41622 count
+  relation.census.selector_rows = 2560 count
+  relation.census.hint_rows = 3537 count
+  relation.census.pin_rows = 99 count
+ALL_DONE
+=== [18:01:14] blake3_b4096: --relation fp8-ada-x4+blake3 bench-vu --zk --mode interactive --total-vus 4096 --reps 3 --target -128 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --auth included-hash --batch 4096
+rc=1 [18:01:32]
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/bench/blake3_b4096/result.json'
+=== [18:01:32] fp8ada_bare_b16384: --relation fp8-ada bench-vu --zk --mode interactive --total-vus 4096 --reps 3 --target -128 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --batch 16384 --pipeline 1
+rc=0 [18:02:01]
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+AttributeError: 'list' object has no attribute 'get'
+=== [18:02:01] fp8ada_p2_b16384: --relation fp8-ada bench-vu --zk --mode interactive --total-vus 4096 --reps 3 --target -128 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --auth included-hash --batch 16384
+rc=0 [18:02:17]
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+AttributeError: 'list' object has no attribute 'get'
+=== [18:02:17] fp8adax4_bare_b4096: --relation fp8-ada-x4 bench-vu --zk --mode interactive --total-vus 4096 --reps 3 --target -128 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --batch 4096 --pipeline 1
+rc=0 [18:02:50]
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+AttributeError: 'list' object has no attribute 'get'
+=== [18:02:50] blake3_b8192: --relation fp8-ada-x4+blake3 bench-vu --zk --mode interactive --total-vus 4096 --reps 3 --target -128 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --auth included-hash --batch 8192
+rc=1 [18:03:10]
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/bench/blake3_b8192/result.json'
+ALL_DONE

@@ -1,0 +1,127 @@
+bf16-hopper census: {"rows_per_unit": 3292, "bit_rows": 2391, "selector_rows": 542, "hint_rows": 97, "pin_rows": 96, "product_rows": 166, "inverse_rows": 0, "linear_constraints": 339, "quadratic_constraints": 3164, "chain": true}
+4096 synthetic VUs (model-recorded accumulators) in 0.6s
+config Config(l=16384, n=65536, D=7, t=288, target_log2=-128.0, zk=True, t_pad=512, mode='fiat-shamir'); layout Layout(l=16384, n_vus=170, steps=96); zk True, mode fiat-shamir; system {'rows': 3292, 'by_kind': {'hint': 97, 'bit': 2391, 'prod': 166, 'pin': 96, 'sel': 542}, 'linear': 339, 'quadratic': 3164, 'pins': 96, 'hints': 97}; 4096 VUs as 25 sub-batches of <= 170
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.005, 'witness': 0.039, 'self_check': 2.841, 'zk_masks': 0.03, 'encode': 1.307, 'transfer': 0.0, 'merkle': 0.004, 'tests_w': 0.019, 'tests_quad': 0.063, 'tests_chain': 0.025, 'tests': 0.106, 'openings': 0.034, 'total': 4.366, 'hints_host': 12.833}
+rep 1: prover 0.823s (+hints 0.075s) over 25 proofs; verifier 0.816s; pass wall 5.142s (0.219 ms/VU)
+rep 2: prover 0.737s (+hints 0.065s) over 25 proofs; verifier 0.809s; pass wall 4.601s (0.196 ms/VU)
+rep 3: prover 0.757s (+hints 0.067s) over 25 proofs; verifier 0.854s; pass wall 4.837s (0.201 ms/VU)
+dumped 25 proofs to /workspace/research/runs/r20260923-031657-a769/proofs
+dumps: 25/25 accepted cold from bytes by the Python file verifier in 0.89s; batch verdict per rep: ['accept: all 25 sub-batches accepted; union bound 2^-128.04 <= 2^-128']
+{
+ "relation": "bf16-hopper",
+ "seconds_per_vu": 0.00020103695624129614,
+ "prover_total": 0.823447372764349,
+ "verifier": 0.8161760754883289,
+ "bytes": {
+  "root": 800,
+  "w": 11827200,
+  "h": 12184900,
+  "cols": 28800,
+  "opened_columns": 96019200,
+  "merkle_paths": 3686400,
+  "q_chain": 23295300,
+  "v_linear": 11827200,
+  "coin_commitments_and_openings": 0,
+  "auth_multiproofs": 0,
+  "total": 158869800
+ },
+ "n_proofs": 25,
+ "per_proof_vus": 170,
+ "t": 288,
+ "zk": true,
+ "k": 16896,
+ "peak_device_bytes": 2804486656,
+ "soundness_log2": -128.0449289476942,
+ "per_proof_log2": -132.68878513746859,
+ "rows": 3292,
+ "medians": {
+  "statement": 0.04042999818921089,
+  "witness": 0.029224544763565063,
+  "zk_masks": 0.017111513763666153,
+  "encode": 0.11408164352178574,
+  "transfer": 0.0004575364291667938,
+  "merkle": 0.04907553642988205,
+  "tests_w": 0.24659426137804985,
+  "tests_quad": 0.061321891844272614,
+  "tests_chain": 0.06875113025307655,
+  "tests": 0.38257912918925285,
+  "openings": 0.11687877401709557,
+  "total": 0.7566520683467388,
+  "hints_host": 0.06679530441761017
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "accepted": 25,
+  "total": 25,
+  "batch": {
+   "1": {
+    "n_subbatches": 25,
+    "target_bits": 128.0,
+    "batch_log2": -128.04492894769385,
+    "per_proof_log2": [
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859,
+     -132.68878513746859
+    ],
+    "n_proofs_claimed": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ],
+    "accepted": true,
+    "reason": "accept: all 25 sub-batches accepted; union bound 2^-128.04 <= 2^-128"
+   }
+  },
+  "batch_accepted": true,
+  "seconds": 0.7838607244193554,
+  "wall": 0.8915535695850849,
+  "coins": "n/a (Fiat-Shamir)"
+ },
+ "validation": "passed"
+}

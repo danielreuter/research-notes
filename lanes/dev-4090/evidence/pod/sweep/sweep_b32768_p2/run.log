@@ -1,0 +1,30 @@
+fp8-ada census: {"rows_per_unit": 3769, "bit_rows": 2474, "selector_rows": 640, "hint_rows": 161, "pin_rows": 192, "product_rows": 301, "inverse_rows": 1, "linear_constraints": 589, "quadratic_constraints": 3532, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.2s
+config Config(l=32768, n=131072, D=6, t=194, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=32768, n_vus=682, steps=48); zk True, mode interactive; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 4096 VUs as 7 sub-batches of <= 682
+live verifier tcp://213.173.105.69:30899: one session per recorded rep, 7 sub-batches each
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/src/backends/direct/ligero/run.py", line 469, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/src/backends/direct/ligero/run.py", line 462, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 964, in bench_vu_rel
+    R.prove_vus_many([data[lo_:hi_] for lo_, hi_ in warm],
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 315, in prove_vus_many
+    proofs, wall = prove_many([starter(i) for i in range(len(batches))], self.device, depth=depth)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/pipeline.py", line 356, in prove_many
+    job.step()
+  File "/workspace/src/backends/direct/ligero/pipeline.py", line 313, in step
+    self.waitable = self.gen.send(None) if self.started else next(self.gen)
+                                                             ^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/protocol.py", line 1347, in _prove_stages
+    U = eval_on_coset(coefs, n)                           # (M, n), the coset g <w_n> (disjoint from H)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/field.py", line 165, in eval_on_coset
+    return ntt((coeffs % P * coset_scale(n, coeffs.device)) % P)
+                ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 3.72 GiB. GPU 0 has a total capacity of 23.52 GiB of which 371.75 MiB is free. Including non-PyTorch memory, this process has 23.14 GiB memory in use. Of the allocated memory 18.89 GiB is allocated by PyTorch, with 14.00 MiB allocated in private pools (e.g., CUDA Graphs), and 2.91 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

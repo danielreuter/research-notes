@@ -1,0 +1,4 @@
+research: run r20260923-070527-cfe9 -> /workspace/research/runs/r20260923-070527-cfe9
+[tele run] base-nonzk-l4096: rc=0 class=SUCCESS (established) -- exit status 0
+research: attempt published: 4 outputs drv=drv:c07d3e7ba1838167d4a166b9a69d024296f6eec8fcf55949d40a2cdea07ca1a5 reuse=361b28cbbf4f992f1aa697578a9566b4884c274e505544380d924f296f348268  local only (no remote configured; `research data push r20260923-070527-cfe9` with credentials preserves it)
+research: run r20260923-070527-cfe9 done rc=0 class=SUCCESS result=valid (research/result/v0.1) validation=passed  (research inspect r20260923-070527-cfe9)

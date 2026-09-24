@@ -1,0 +1,8 @@
+config Config(l=16384, n=65536, D=6, t=196, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk True, mode interactive; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 4096 VUs as 13 sub-batches of <= 341
+rep 1: prover 0.189s (+hints 0.028s) over 13 proofs; verifier 0.508s; pass wall 1.695s (0.053 ms/VU)
+rep 2: prover 0.182s (+hints 0.027s) over 13 proofs; verifier 0.511s; pass wall 0.833s (0.051 ms/VU)
+rep 3: prover 0.161s (+hints 0.026s) over 13 proofs; verifier 0.513s; pass wall 0.811s (0.046 ms/VU)
+ "peak_device_bytes": 6148892672,
+rep 1: prover 0.287s (+hints 0.055s) over 13 proofs; verifier 0.514s; pass wall 2.175s (0.084 ms/VU)
+rep 2: prover 0.273s (+hints 0.055s) over 13 proofs; verifier 0.510s; pass wall 0.839s (0.080 ms/VU)
+rep 3: prover 0.239s (+hints 0.052s) over 13 proofs; verifier 0.515s; pass wall 0.819s (0.071 ms/VU)

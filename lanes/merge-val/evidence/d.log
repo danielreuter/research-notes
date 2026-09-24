@@ -1,0 +1,64 @@
+fp8-ada-v3 chain system: {'rows': 1806, 'by_kind': {'hint': 1491, 'bit': 169, 'inv': 71, 'prod': 23, 'pin': 22, 'sel': 30}, 'linear': 130, 'quadratic': 2542, 'pins': 22, 'hints': 1491} compiled in 0.41s; device cuda
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/src/backends/direct/ligero/run.py", line 466, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/src/backends/direct/ligero/run.py", line 459, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 780, in gate_vu_rel
+    negs = negatives(R, data[:2], getattr(args, "row_negatives", 60))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 541, in negatives
+    pf, pb, ly = R.prove_vus(base, check=False, mutate=break_link)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 240, in prove_vus
+    proof = run_to_completion(gen)
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/pipeline.py", line 293, in run_to_completion
+    w = next(gen)
+        ^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/protocol.py", line 1233, in _prove_stages
+    hints = hints_fn()
+            ^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 249, in hints_fn
+    hints = self.rel.hints(self.p, self.sys, bd["c_d"], bd["a_d"], bd["b_d"], bd["y_d"], self.device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relations.py", line 316, in _v3_hints
+    return hints_v3(p, sys, c_in, a, b, y_out, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/privsel/hints.py", line 197, in hints_v3
+    return g.run(c, a, b, y)
+           ^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/privsel/hints.py", line 223, in run
+    self.graph.replay()
+  File "/workspace/venv312/lib/python3.12/site-packages/torch/cuda/graphs.py", line 88, in replay
+    super().replay()
+RuntimeError: Offset increment outside graph capture encountered unexpectedly.
+fp8-ada-v3 vu-k1536 [0, 85): l=4096 prover 19.86s -> True accept (0.037s)
+fp8-ada-v3 vu-k1536 [85, 170): l=4096 prover 0.02s -> True accept (0.030s)
+fp8-ada-v3 vu-k1536 [170, 255): l=4096 prover 0.02s -> True accept (0.030s)
+fp8-ada-v3 vu-k1536 [255, 340): l=4096 prover 0.02s -> True accept (0.031s)
+fp8-ada-v3 vu-k1536 [340, 425): l=4096 prover 0.02s -> True accept (0.029s)
+fp8-ada-v3 vu-k1536 [425, 510): l=4096 prover 0.02s -> True accept (0.030s)
+fp8-ada-v3 vu-k1536 [510, 595): l=4096 prover 0.02s -> True accept (0.033s)
+fp8-ada-v3 vu-k1536 [595, 680): l=4096 prover 0.02s -> True accept (0.034s)
+fp8-ada-v3 vu-k1536 [680, 765): l=4096 prover 0.03s -> True accept (0.040s)
+fp8-ada-v3 vu-k1536 [765, 850): l=4096 prover 0.02s -> True accept (0.033s)
+fp8-ada-v3 vu-k1536 [850, 935): l=4096 prover 0.02s -> True accept (0.032s)
+fp8-ada-v3 vu-k1536 [935, 1020): l=4096 prover 0.02s -> True accept (0.032s)
+fp8-ada-v3 vu-k1536 [1020, 1105): l=4096 prover 0.02s -> True accept (0.028s)
+fp8-ada-v3 vu-k1536 [1105, 1190): l=4096 prover 0.02s -> True accept (0.030s)
+fp8-ada-v3 vu-k1536 [1190, 1275): l=4096 prover 0.02s -> True accept (0.031s)
+fp8-ada-v3 vu-k1536 [1275, 1360): l=4096 prover 0.02s -> True accept (0.035s)
+fp8-ada-v3 vu-k1536 [1360, 1445): l=4096 prover 0.03s -> True accept (0.039s)
+fp8-ada-v3 vu-k1536 [1445, 1530): l=4096 prover 0.03s -> True accept (0.036s)
+fp8-ada-v3 vu-k1536 [1530, 1615): l=4096 prover 0.02s -> True accept (0.032s)
+fp8-ada-v3 vu-k1536 [1615, 1700): l=4096 prover 0.02s -> True accept (0.032s)
+fp8-ada-v3 vu-k1536 [1700, 1785): l=4096 prover 0.02s -> True accept (0.030s)
+fp8-ada-v3 vu-k1536 [1785, 1870): l=4096 prover 0.02s -> True accept (0.029s)
+fp8-ada-v3 vu-k1536 [1870, 1955): l=4096 prover 0.02s -> True accept (0.029s)
+fp8-ada-v3 vu-k1536 [1955, 2040): l=4096 prover 0.02s -> True accept (0.028s)
+fp8-ada-v3 vu-k1536 [2040, 2048): l=512 prover 0.26s -> True accept (0.023s)

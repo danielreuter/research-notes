@@ -1,0 +1,59 @@
+[10:39:53Z] (gate_bare) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada gate-vu --vus 2048 --batch 16384 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache
+[10:39:53Z] (pytest) START: /workspace/venv312/bin/python -m pytest backends/direct/ligero -q -x -p no:cacheprovider
+[10:39:55Z] (pytest) EXIT=1  elapsed=2s
+[10:40:30Z] (gate_bare) EXIT=0  elapsed=37s
+[10:40:30Z] (gate_hash) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada gate-vu --vus 2048 --batch 16384 --device cuda --auth included-hash --instance-procs 16 --instances-cache /workspace/instances-cache
+[10:41:00Z] (pytest_noprivsel) START: /workspace/venv312/bin/python -m pytest backends/direct/ligero -q -x -p no:cacheprovider --ignore=backends/direct/ligero/privsel
+[10:41:04Z] (pytest_noprivsel) EXIT=1  elapsed=4s
+[10:41:06Z] (gate_hash) EXIT=0  elapsed=36s
+[10:42:02Z] (sweep_b16384_p1) START
+[10:42:25Z] (sweep_b16384_p1) EXIT=0  elapsed=23s
+[10:42:25Z] (sweep_b16384_p2) START
+[10:42:51Z] (sweep_b16384_p2) EXIT=0  elapsed=26s
+[10:42:51Z] (sweep_b16384_p4) START
+[10:43:21Z] (sweep_b16384_p4) EXIT=0  elapsed=30s
+[10:43:21Z] (sweep_b32768_p1) START
+[10:43:54Z] (sweep_b32768_p1) EXIT=0  elapsed=33s
+[10:43:54Z] (sweep_b32768_p2) START
+[10:44:14Z] (sweep_b16384_p1) START
+[10:44:22Z] (sweep_b16384_p1) EXIT=0  elapsed=8s
+[10:44:22Z] (sweep_b16384_p2) START
+[10:44:31Z] (sweep_b16384_p2) EXIT=0  elapsed=9s
+[10:44:31Z] (sweep_b16384_p4) START
+[10:44:40Z] (sweep_b16384_p4) EXIT=1  elapsed=9s
+[10:44:40Z] (sweep_b32768_p1) START
+[10:44:50Z] (sweep_b32768_p1) EXIT=0  elapsed=10s
+[10:44:50Z] (sweep_b32768_p2) START
+[10:44:56Z] (sweep_b32768_p2) EXIT=1  elapsed=6s
+[10:44:56Z] (sweep_b32768_p4) START
+[10:45:02Z] (sweep_b32768_p4) EXIT=1  elapsed=6s
+[10:45:02Z] (sweep_b8192_p1) START
+[10:45:11Z] (sweep_b8192_p1) EXIT=0  elapsed=9s
+[10:45:11Z] (sweep_b8192_p2) START
+[10:45:20Z] (sweep_b8192_p2) EXIT=0  elapsed=9s
+[10:45:20Z] (sweep_b8192_p4) START
+[10:45:29Z] (sweep_b8192_p4) EXIT=0  elapsed=9s
+[10:45:29Z] (sweep_b4096_p1) START
+[10:45:38Z] (sweep_b4096_p1) EXIT=0  elapsed=9s
+[10:45:38Z] (sweep_b4096_p2) START
+[10:45:48Z] (sweep_b4096_p2) EXIT=0  elapsed=10s
+[10:45:48Z] (sweep_b4096_p4) START
+[10:45:58Z] (sweep_b4096_p4) EXIT=1  elapsed=10s
+[10:46:48Z] (diag_p4_local) START
+[10:46:56Z] (diag_p4_local) EXIT=0
+[10:58:31Z] (ctrl_p1) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --verifier tcp://213.173.105.69:30899 --target -128 --total-vus 4096 --batch 16384 --pipeline 1 --reps 3 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --out /workspace/d4090/ctrl/p1_result.json
+[10:58:43Z] (ctrl_p1) EXIT=0 elapsed=12s
+[10:58:43Z] (ctrl_p4_live) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --verifier tcp://213.173.105.69:30899 --target -128 --total-vus 4096 --batch 16384 --pipeline 4 --reps 3 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --out /workspace/d4090/ctrl/p4_result.json
+[10:58:55Z] (ctrl_p4_live) EXIT=1 elapsed=12s
+[10:58:55Z] (gate_bare2) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada gate-vu --vus 2048 --batch 16384 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache
+[10:59:01Z] (gate_bare2) EXIT=0 elapsed=6s
+[10:59:01Z] (gate_hash2) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada gate-vu --vus 2048 --batch 16384 --device cuda --auth included-hash --instance-procs 16 --instances-cache /workspace/instances-cache
+[10:59:10Z] (gate_hash2) EXIT=0 elapsed=9s
+[10:59:10Z] (pytest_noprivsel2) START: /workspace/venv312/bin/python -m pytest backends/direct/ligero -q -x -p no:cacheprovider --ignore=backends/direct/ligero/privsel
+[11:02:02Z] (pytest_noprivsel2) EXIT=0 elapsed=172s
+POST_DONE
+[11:17:54Z] (rep_bare_p2) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --verifier tcp://213.173.105.69:30899 --target -128 --total-vus 4096 --batch 16384 --pipeline 2 --reps 3 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --out /workspace/d4090/ctrl/rep_bare_p2.json
+[11:18:07Z] (rep_bare_p2) EXIT=0 elapsed=13s
+[11:18:07Z] (rep_committed) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --verifier tcp://213.173.105.69:30899 --target -128 --total-vus 4096 --batch 16384 --pipeline 2 --reps 3 --device cuda --instance-procs 16 --instances-cache /workspace/instances-cache --auth included-hash --out /workspace/d4090/ctrl/rep_committed.json
+[11:18:31Z] (rep_committed) EXIT=0 elapsed=24s
+REPEAT_DONE

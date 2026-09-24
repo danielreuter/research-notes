@@ -1,0 +1,41 @@
+{
+ "input": "/tmp/pcs_sparse_rust.json",
+ "python_verify_open": {
+  "honest": {
+   "accepted": true,
+   "reason": "accept",
+   "expected": true
+  },
+  "value+1": {
+   "accepted": false,
+   "reason": "sumcheck round 1 failed",
+   "expected": false
+  },
+  "weights+1": {
+   "accepted": false,
+   "reason": "sumcheck round 1 failed",
+   "expected": false
+  },
+  "cells reversed": {
+   "accepted": false,
+   "reason": "sumcheck round 1 failed",
+   "expected": false
+  },
+  "term dropped": {
+   "accepted": false,
+   "reason": "sumcheck round 1 failed",
+   "expected": false
+  },
+  "no terms": {
+   "accepted": false,
+   "reason": "sumcheck round 1 failed",
+   "expected": false
+  },
+  "eval value+1": {
+   "accepted": false,
+   "reason": "claimed evaluation differs from the proof's",
+   "expected": false
+  }
+ },
+ "mismatches": 0
+}

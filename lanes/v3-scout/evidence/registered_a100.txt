@@ -1,0 +1,3 @@
+a3p4 result=art:b9951d7fac67103170e24067ccdf287abdc2d1c9379d3ef282deb69063bbe24d run_files=art:cea16745549798273d42528c64a041e6ce295960e2a9376fefe96fe20a089109 t.total=0.3339 rust=25/25-pinned
+a1p4 result=art:d711b39a337fe88978d721b661e75653ee41cadeb118e13fccde260def8e0709 run_files=art:825d719cfbfcea6cdfcab8a35dbe35c9a4c87508d04112e824c3281732f6e791 t.total=0.3249 rust=25/25-pinned
+a3p8 result=art:d981bd3dc3c3ab657fdd2c63e71f1a9fd379edf69d81411f6c0f72c5d4c5fb98 run_files=art:ec1a4e9daf45a70cb1916276cb251adee3c1ed05362e88137b20dbbfaa996b73 t.total=0.3439 rust=25/25-pinned

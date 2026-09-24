@@ -1,0 +1,4 @@
+=== 18:22:13 tree=/workspace/src sha=ecec3ef+t3fix(wip) cmd: /workspace/venv312/bin/python -m pytest -q -p no:cacheprovider backends/direct/ligero/pipeline_race_test.py -k hint_graphs
+...                                                                      [100%]
+3 passed, 6 deselected in 4.50s
+=== 18:22:19 rc=0 wall=6s

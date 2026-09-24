@@ -1,0 +1,13 @@
+..                                                                       [100%]
+2 passed in 20.60s
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+142 passed, 8 warnings in 655.56s (0:10:55)
+......                                                                   [100%]
+6 passed in 21.20s
+== same file on the BASE tree (expected: encoder tests FAIL at l=16384/4096)
+backends/direct/ligero/pipeline_race_test.py:131: AssertionError
+E       AssertionError: l=16384 t_pad=256: 10/10 concurrent trials wrote wrong codewords (871 rows)
+backends/direct/ligero/pipeline_race_test.py:131: AssertionError
+E       AssertionError: l=4096 t_pad=0: 10/10 concurrent trials wrote wrong codewords (1093 rows)
+backends/direct/ligero/pipeline_race_test.py:131: AssertionError
+3 failed, 1 passed, 2 deselected in 2.32s

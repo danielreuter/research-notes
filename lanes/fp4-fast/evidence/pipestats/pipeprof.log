@@ -1,0 +1,22 @@
+   tail sub-batches [6]: event-measured sum per sub-batch 32.7 ms
+pass 1: wall 65.9 ms (sync 66.4); host busy 44.4 ms = 67% of wall, blocked 21.2 ms; stage_busy_ms {0: 14.79, 1: 0.42, 2: 5.66, 3: 13.71, 4: 9.88}
+   event-measured per sub-batch (ms, median over the 7; sum of medians 47.1): total=23.87 tests_w=16.30 encode=2.17 openings=2.07 hints_host=1.49 merkle=1.15
+   full sub-batches [0, 1, 2, 3, 4, 5]: event-measured sum per sub-batch 47.9 ms
+   tail sub-batches [6]: event-measured sum per sub-batch 41.5 ms
+peak device 3.31 GB
+PROFILE pass: wall 77.9 ms; sum of GPU kernel self time 46.8 ms (60% of wall; streams overlap so > 100% is possible)
+      8.47 ms  x14    rs_encode_ligero
+      7.07 ms  x119   blake3_chunks
+      2.73 ms  x21    lincomb_u64_D6
+      2.17 ms  x119   aten::copy_
+      2.14 ms  x7     boolcomb_rows_u32_D6
+      2.13 ms  x336   triton_poi_fused_cat_0
+      1.85 ms  x7     quad_u32_D6
+      1.57 ms  x497   void at::native::vectorized_elementwise_kernel<2, at::native::BUnaryFunctor<long, long, long, at::native::rema
+      1.44 ms  x7     void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at
+      1.39 ms  x350   void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{la
+      1.29 ms  x7     witness_program
+      1.13 ms  x350   void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul> >(int,
+      0.87 ms  x21    Memcpy HtoD (Pinned -> Device)
+      0.85 ms  x49    Memcpy DtoH (Device -> Pinned)
+   main-thread CPU self time (ms): cudaEventSynchronize=13.8; cudaGraphLaunch=8.4; cudaMemcpyAsync=2.4; cudaStreamSynchronize=1.4; aten::select=1.0; aten::to=0.9; cuLaunchKernel=0.8; cudaLaunchKernel=0.7

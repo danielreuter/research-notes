@@ -1,0 +1,153 @@
+=== tree
+NVIDIA GeForce RTX 4090, 595.91.07
+model name	: AMD EPYC 75F3 32-Core Processor
+128
+=== 1. pytest backends/direct/ligero (minus v2)
+                    continue
+                assert not R.verify_vus(proof3, pubs3, lay3)[0], v
+                exercised += 1
+            assert exercised >= 2
+>           del torch
+                ^^^^^
+E           UnboundLocalError: cannot access local variable 'torch' where it is not associated with a value
+
+backends/direct/ligero/fp4/relation_test.py:251: UnboundLocalError
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/fp4/relation_test.py::test_chain_two_vus_cpu - ...
+1 failed, 54 passed, 1 skipped in 249.86s (0:04:09)
+### pytest: 1
+--- t+252s
+=== 1b. pytest backends/direct/ligero/v2
+..                                                                       [100%]
+2 passed in 1.61s
+### pytest-v2: 0
+--- t+254s
+=== 2. gate bf16-ampere: gate-vu --root /workspace/bench-instances/v1 --vus 64 --device cuda
+chain system: {'rows': 3516, 'by_kind': {'hint': 103, 'bit': 2534, 'prod': 173, 'pin': 96, 'sel': 610}, 'linear': 347, 'quadratic': 3387, 'pins': 96, 'hints': 103} compiled in 0.31s; device cuda
+vu-k1536 [0, 42): l=4096 prover 32.97s -> True accept (0.027s)
+vu-k1536 [42, 64): l=4096 prover 0.03s -> True accept (0.021s)
+negatives: 52/52 rejected
+mutations: 252/252 rejected (one per gadget scope x row class + 3 chain-specific, l=256)
+### gate-bf16-ampere: 0
+--- t+304s
+=== 2. gate bf16-hopper-device: --relation bf16-hopper gate-vu --vus 64 --device cuda --impl device --instances-cache /workspace/instances-cache
+  negative row prod[3].prod15 (prod) +1 in column 3: REJECTED linear constraints failed
+  negative row prod[3].prod16 (prod) +1 in column 179: REJECTED linear constraints failed
+  negative row prod[3].prod[3].z1.b0 (bit) +1 in column 59: REJECTED linear constraints failed
+  negative row prod[3].prod17 (prod) +1 in column 148: REJECTED quadratic constraints failed
+bf16-hopper gate: 2 honest sub-batches, 87 negatives, 0 failures
+### gate-bf16-hopper-device: 0
+--- t+318s
+=== 2. gate bf16-hopper-legacy: --relation bf16-hopper gate-vu --vus 64 --device cuda --impl legacy --instances-cache /workspace/instances-cache
+  negative row prod[3].prod15 (prod) +1 in column 3: REJECTED linear constraints failed
+  negative row prod[3].prod16 (prod) +1 in column 179: REJECTED linear constraints failed
+  negative row prod[3].prod[3].z1.b0 (bit) +1 in column 59: REJECTED linear constraints failed
+  negative row prod[3].prod17 (prod) +1 in column 148: REJECTED quadratic constraints failed
+bf16-hopper gate: 2 honest sub-batches, 87 negatives, 0 failures
+### gate-bf16-hopper-legacy: 0
+--- t+334s
+=== 2. gate fp8-hopper: --relation fp8-hopper gate-vu --vus 64 --device cuda --instances-cache /workspace/instances-cache
+  negative row x.b[18].s (pin) +1 in column 1: REJECTED linear constraints failed
+  negative row x.b[19].s (pin) +1 in column 89: REJECTED linear constraints failed
+  negative row x.b[20].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[21].s (pin) +1 in column 74: REJECTED linear constraints failed
+fp8-hopper gate: 1 honest sub-batches, 92 negatives, 0 failures
+### gate-fp8-hopper: 0
+--- t+342s
+=== 2. gate fp8-ada: --relation fp8-ada gate-vu --vus 64 --device cuda --instances-cache /workspace/instances-cache
+  negative row x.b[18].s (pin) +1 in column 1: REJECTED linear constraints failed
+  negative row x.b[19].s (pin) +1 in column 89: REJECTED linear constraints failed
+  negative row x.b[20].s (pin) +1 in column 29: REJECTED linear constraints failed
+  negative row x.b[21].s (pin) +1 in column 74: REJECTED linear constraints failed
+fp8-ada gate: 1 honest sub-batches, 92 negatives, 0 failures
+### gate-fp8-ada: 0
+--- t+391s
+=== 2. gate fp4-nvf4: --relation fp4-nvf4 gate-vu --vus 64 --batch 1024 --device cuda --out /workspace/research/runs/r20260923-040725-74cd/gate_fp4.json
+fp4 vu-k1536 [42, 64): l=1024 prover 0.02s -> True accept (0.021s)
+wrong-rule variants that reach the model's final word on every synthetic VU (no chain-level negative; the unit tier exercises them): ['frac26', 'frac28', 'window37', 'nearest-align', 'negzero', 'participate-zero-scale']
+negatives: 114/114 rejected (l=256)
+unit negatives (wrong-rule witnesses, own claim): 3015/3015 rejected over 1008 units x 14 variants
+vu-k1536 64/64 ok; vu-k1536-neg 114/114 ok; tu-k64-neg 3015/3015 ok
+### gate-fp4-nvf4: 0
+--- t+414s
+=== 3. bit-exactness on the merged tree: --impl device vs --impl legacy (seeded coins + mask keys)
+  sub_01: 4.67 MB, prove 0.030s (+hints 0.002s), urandom calls so far 15
+  sub_02: 4.67 MB, prove 0.028s (+hints 0.002s), urandom calls so far 20
+wrote /workspace/research/runs/r20260923-040725-74cd/bitexact/bf16h-int-zk/device 10 files
+  sub_01: 4.67 MB, prove 0.040s (+hints 0.002s), urandom calls so far 15
+  sub_02: 4.67 MB, prove 0.037s (+hints 0.002s), urandom calls so far 20
+wrote /workspace/research/runs/r20260923-040725-74cd/bitexact/bf16h-int-zk/legacy 10 files
+bf16h-int-zk: 10 / 10 files identical (device vs legacy)
+### bitexact-bf16h-int-zk: 0
+-- Rust on the device dumps: {"sys_id":"9dcc7cdc1377a00d877440cc01a0dcdb73b3e989d86df8244eccb35a81be0df4","table_digest":"74ce68a2801e14fbeaab2b241886bbe3fa9146234289e52c774fd4160a6c469c","pinned_relation":"bf16-hopper","m":3292,"L":339,"Q":3164,"pins":96,"chain":true}
+3 proofs: 3 accepted, 0 rejected (3 against their own coins); batch ACCEPT (accept: all 3 sub-batches accepted; union bound 2^-128.41 <= 2^-128); batch bits 128.414146 at target 128; system pinned (bf16-hopper); python agreement 0/0 (0 disagree); verify sum 0.869s, wall 0.298s at 3 jobs x 1 threads
+--- t+430s
+  sub_01: 4.75 MB, prove 0.031s (+hints 0.006s), urandom calls so far 15
+  sub_02: 4.75 MB, prove 0.029s (+hints 0.006s), urandom calls so far 20
+wrote /workspace/research/runs/r20260923-040725-74cd/bitexact/fp8h-int-zk/device 10 files
+  sub_01: 4.75 MB, prove 0.047s (+hints 0.006s), urandom calls so far 15
+  sub_02: 4.75 MB, prove 0.042s (+hints 0.006s), urandom calls so far 20
+wrote /workspace/research/runs/r20260923-040725-74cd/bitexact/fp8h-int-zk/legacy 10 files
+fp8h-int-zk: 10 / 10 files identical (device vs legacy)
+### bitexact-fp8h-int-zk: 0
+-- Rust on the device dumps: {"sys_id":"c7cbebe365cb5f773a679bc13b5382fb45714511b1912e4e4ab7fb48accd4bc3","table_digest":"d5b77463fee9b3d777174755144edaa84461b3eec6ac6a1750c887dc861d58e7","pinned_relation":"fp8-hopper","m":3396,"L":554,"Q":3164,"pins":192,"chain":true}
+3 proofs: 3 accepted, 0 rejected (3 against their own coins); batch ACCEPT (accept: all 3 sub-batches accepted; union bound 2^-128.41 <= 2^-128); batch bits 128.414146 at target 128; system pinned (fp8-hopper); python agreement 0/0 (0 disagree); verify sum 0.907s, wall 0.312s at 3 jobs x 1 threads
+--- t+446s
+BITEXACT TOTAL: 20 / 20 files identical
+=== 4. bench-vu bf16h (bf16-hopper --zk --mode interactive --batch 16384 --total-vus 340 --instance-procs 8 --instances-cache /workspace/instances-cache)
+  "seconds": 0.056384958093985915,
+  "wall": 0.06103037088178098,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}
+### bench-bf16h: 0
+--- t+467s
+-- python verify-batch (bf16h)
+2 proofs: 2 accepted, 0 rejected; batch ACCEPT (accept: all 2 sub-batches accepted; union bound 2^-128.33 <= 2^-128); batch bits 128.325538 at target 128.0
+### pyverify-bf16h: 0
+-- rust batch (bf16h): {"sys_id":"9dcc7cdc1377a00d877440cc01a0dcdb73b3e989d86df8244eccb35a81be0df4","table_digest":"74ce68a2801e14fbeaab2b241886bbe3fa9146234289e52c774fd4160a6c469c","pinned_relation":"bf16-hopper","m":3292,"L":339,"Q":3164,"pins":96,"chain":true}
+2 proofs: 2 accepted, 0 rejected (2 against their own coins); batch ACCEPT (accept: all 2 sub-batches accepted; union bound 2^-128.33 <= 2^-128); batch bits 128.325538 at target 128; system pinned (bf16-hopper); python agreement 2/2 (0 disagree); verify sum 0.565s, wall 0.293s at 2 jobs x 1 threads
+rust rc=0 (fp4: expected non-zero, ligero-verify lacks system/v2)
+--- t+473s
+=== 4. bench-vu fp8h (fp8-hopper --zk --mode interactive --batch 16384 --total-vus 682 --instance-procs 8 --instances-cache /workspace/instances-cache)
+  "seconds": 0.05856744293123484,
+  "wall": 0.06390989199280739,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}
+### bench-fp8h: 0
+--- t+481s
+-- python verify-batch (fp8h)
+2 proofs: 2 accepted, 0 rejected; batch ACCEPT (accept: all 2 sub-batches accepted; union bound 2^-128.33 <= 2^-128); batch bits 128.325538 at target 128.0
+### pyverify-fp8h: 0
+-- rust batch (fp8h): {"sys_id":"c7cbebe365cb5f773a679bc13b5382fb45714511b1912e4e4ab7fb48accd4bc3","table_digest":"d5b77463fee9b3d777174755144edaa84461b3eec6ac6a1750c887dc861d58e7","pinned_relation":"fp8-hopper","m":3396,"L":554,"Q":3164,"pins":192,"chain":true}
+2 proofs: 2 accepted, 0 rejected (2 against their own coins); batch ACCEPT (accept: all 2 sub-batches accepted; union bound 2^-128.33 <= 2^-128); batch bits 128.325538 at target 128; system pinned (fp8-hopper); python agreement 2/2 (0 disagree); verify sum 0.592s, wall 0.303s at 2 jobs x 1 threads
+rust rc=0 (fp4: expected non-zero, ligero-verify lacks system/v2)
+--- t+486s
+=== 4. bench-vu fp4 (fp4-nvf4 --zk --mode interactive --batch 4096 --total-vus 170)
+  "wall": 0.0406360540073365,
+  "coins": "the transcript's own coins replayed (file verifier)",
+  "rust_ligero_verify": "cannot verify this relation: pins bf16-ampere / fp8-ada / bf16-hopper / fp8-hopper only, parses ligero-system/v1 only (this system is /v2: component chain ends for the FP32 word), has no E2M1 / UE4M3 public decode (backends/ligero-verify/src/relation.rs, format.rs)"
+ },
+ "validation": "passed"
+}
+### bench-fp4: 0
+--- t+493s
+-- python verify-batch (fp4)
+1 proofs: 1 accepted, 0 rejected; batch ACCEPT (accept: all 1 sub-batches accepted; union bound 2^-128.07 <= 2^-128); batch bits 128.069099 at target 128.0
+### pyverify-fp4: 0
+-- rust batch (fp4): system file: not a ligero-system/v1 file
+1 proofs: 0 accepted, 1 rejected (1 against their own coins); batch reject (sub_00.proof: system file: not a ligero-system/v1 file); batch bits inf at target 128; system pinned (digests match no pinned relation); python agreement 0/1 (1 disagree); verify sum 0.000s, wall 0.002s at 1 jobs x 1 threads
+rust rc=0 (fp4: expected non-zero, ligero-verify lacks system/v2)
+--- t+496s
+result_bf16h.json t.total 0.0626 impl device cold python verify 2 / 2 achieved -128.33
+result_fp4.json t.total 0.0384 impl None cold python verify 1 / 1 achieved -128.07
+result_fp8h.json t.total 0.0708 impl device cold python verify 2 / 2 achieved -128.33
+rust_bf16h.json accepted 2 / 2 batch True python_agree 2 disagree 0 pinned True
+rust_fp4.json accepted 0 / 1 batch False python_agree 0 disagree 1 pinned True
+rust_fp8h.json accepted 2 / 2 batch True python_agree 2 disagree 0 pinned True
+### FAILS=1
+--- t+496s
+VALIDATE_DONE

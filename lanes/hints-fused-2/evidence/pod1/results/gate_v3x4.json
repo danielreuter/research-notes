@@ -1,0 +1,579 @@
+{
+ "relation": "fp8-ada-v3x4",
+ "model": "ADA_E4M3_M16N8K32 x4 (4 instruction steps per column, K=128)",
+ "system": {
+  "rows": 7090,
+  "by_kind": {
+   "hint": 5949,
+   "bit": 583,
+   "inv": 275,
+   "prod": 77,
+   "pin": 86,
+   "sel": 120
+  },
+  "linear": 510,
+  "quadratic": 10036,
+  "pins": 86,
+  "hints": 5949
+ },
+ "census": {
+  "rows_per_unit": 7090,
+  "bit_rows": 583,
+  "selector_rows": 120,
+  "hint_rows": 5949,
+  "pin_rows": 86,
+  "product_rows": 77,
+  "inverse_rows": 275,
+  "linear_constraints": 510,
+  "quadratic_constraints": 10036,
+  "chain": true
+ },
+ "positives": [
+  {
+   "range": [
+    0,
+    1365
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "accept (0.119s)",
+   "timings": {
+    "statement": 0.005705728054046631,
+    "hints_host": 633.3013125,
+    "witness": 0.065561279296875,
+    "self_check": 2.963420166015625,
+    "encode": 0.005214208126068115,
+    "transfer": 2.0479999948292972e-06,
+    "merkle": 0.007385248184204101,
+    "tests_w": 1.11660791015625,
+    "tests_quad": 1.4271999709308147e-05,
+    "tests_chain": 1.113600004464388e-05,
+    "openings": 0.01614521598815918,
+    "tests": 1.116633318156004,
+    "total": 4.197296981379395
+   }
+  },
+  {
+   "range": [
+    1365,
+    2048
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "accept (0.066s)",
+   "timings": {
+    "statement": 8.70399996638298e-05,
+    "hints_host": 564.5435,
+    "witness": 0.00436787223815918,
+    "self_check": 0.0796385269165039,
+    "encode": 0.0050462718009948735,
+    "transfer": 2.0479999948292972e-06,
+    "merkle": 0.005785439968109131,
+    "tests_w": 0.017694944381713866,
+    "tests_quad": 1.2543999589979648e-05,
+    "tests_chain": 1.0463999584317207e-05,
+    "openings": 0.0018195199966430664,
+    "tests": 0.017717952380888163,
+    "total": 0.12636227594316551
+   }
+  }
+ ],
+ "negatives": [
+  {
+   "name": "claimed word bit 0 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 1 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 2 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 3 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 4 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 5 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 6 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 7 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 8 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 9 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 10 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 11 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 12 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 13 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 14 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 15 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 16 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 17 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 18 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 19 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 20 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 21 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word +1 ulp",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word -1 ulp",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "off-domain operand 0x7f in a",
+   "accepted": false,
+   "why": "public inputs: public inputs rejected: a: E4M3 NaN operand"
+  },
+  {
+   "name": "off-domain operand 0xff in a",
+   "accepted": false,
+   "why": "public inputs: public inputs rejected: a: E4M3 NaN operand"
+  },
+  {
+   "name": "off-domain operand 0xff in b",
+   "accepted": false,
+   "why": "public inputs: public inputs rejected: b: E4M3 NaN operand"
+  },
+  {
+   "name": "operand a[10][1] exponent bit flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "folded boundary VU (honest control: must ACCEPT)",
+   "accepted": false,
+   "why": "honest boundary VU accepted"
+  },
+  {
+   "name": "folded boundary: proved the 1-step intermediate of the last column as the final word",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "name": "folded boundary: proved the 2-step intermediate of the last column as the final word",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "name": "folded boundary: proved the 3-step intermediate of the last column as the final word",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "name": "folded boundary: a words 1439 and 1440 swapped across base step 1 of the last column, original claim",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "name": "folded boundary: b words 1439 and 1440 swapped across base step 1 of the last column, original claim",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "name": "folded boundary: a words 1407 and 1408 swapped across columns 10|11, original claim",
+   "accepted": false,
+   "why": "chain constraints failed (sum over H)"
+  },
+  {
+   "name": "link c.f[20] != y.f[19]",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "c_0 != 0 at a chain start",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "accumulator fraction bit 12 flipped in a linked unit",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "accumulator fraction bit 0 flipped in a linked unit",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row acc.s (hint) +1 in column 3",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.t (hint) +1 in column 19",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row acc.f (hint) +2 in column 14",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row acc.nz (hint) +1 in column 17",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row acc.z (hint) +1 in column 11",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.t.b0 (bit) +2 in column 9",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row acc.t.finite.inv (inv) +1 in column 13",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.nz1.inv (inv) +1 in column 13",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.f.b0 (bit) +2 in column 18",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row acc.z1.inv (inv) +2 in column 23",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row acc.prod0 (prod) +1 in column 20",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].s (hint) +2 in column 3",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].nz (hint) +2 in column 10",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].x[0] (hint) +1 in column 23",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].x[1] (hint) +1 in column 20",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].x[2] (hint) +2 in column 8",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].x[3] (hint) +2 in column 5",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].f[0] (hint) +2 in column 11",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].f[1] (hint) +2 in column 22",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].f[2] (hint) +2 in column 20",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[0].top.inv (inv) +2 in column 23",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row b_words[0].s (hint) +1 in column 3",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].nz (hint) +2 in column 7",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].x[0] (hint) +1 in column 19",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].x[1] (hint) +1 in column 23",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].x[2] (hint) +2 in column 22",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].x[3] (hint) +1 in column 17",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].f[0] (hint) +2 in column 14",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].f[1] (hint) +2 in column 21",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].f[2] (hint) +1 in column 23",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[0].top.inv (inv) +1 in column 18",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row a_words[1].s (hint) +1 in column 16",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].nz (hint) +1 in column 0",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].x[0] (hint) +2 in column 23",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].x[1] (hint) +1 in column 7",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].x[2] (hint) +1 in column 5",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].x[3] (hint) +2 in column 20",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].f[0] (hint) +1 in column 1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].f[1] (hint) +2 in column 13",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].f[2] (hint) +1 in column 23",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[1].top.inv (inv) +1 in column 14",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row b_words[1].s (hint) +1 in column 4",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].nz (hint) +1 in column 10",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].x[0] (hint) +1 in column 17",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].x[1] (hint) +2 in column 8",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].x[2] (hint) +2 in column 15",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].x[3] (hint) +1 in column 17",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].f[0] (hint) +1 in column 21",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].f[1] (hint) +1 in column 7",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].f[2] (hint) +2 in column 0",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row b_words[1].top.inv (inv) +1 in column 2",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row a_words[2].s (hint) +2 in column 19",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[2].nz (hint) +1 in column 20",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[2].x[0] (hint) +1 in column 11",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[2].x[1] (hint) +2 in column 4",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[2].x[2] (hint) +2 in column 1",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[2].x[3] (hint) +1 in column 0",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[2].f[0] (hint) +1 in column 22",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[2].f[1] (hint) +1 in column 7",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row a_words[2].f[2] (hint) +1 in column 18",
+   "accepted": false,
+   "why": "linear constraints failed"
+  }
+ ],
+ "failures": 0
+}

@@ -1,0 +1,28 @@
+
+=== [11:09:45] fp8-hopper --batch 8192 --pipeline 1
+SWEEP fp8-hopper batch=8192 pipeline=1 rc=0 wall=19s t.total=1.0917003452777863 t.total_live=8.276909001171589 net.rtt_ms=139.91556875407696 net.wait_seconds=7.185208655893803 verify.wall_s=2.7145148888230324 peak_device_bytes=None validation=passed
+
+=== [11:10:04] fp8-hopper --batch 8192 --pipeline 2
+SWEEP fp8-hopper batch=8192 pipeline=2 rc=0 wall=20s t.total=0.83708992600441 t.total_live=4.7180031314492235 net.rtt_ms=136.14877499639988 net.wait_seconds=3.880913205444813 verify.wall_s=3.014351025223732 peak_device_bytes=None validation=passed
+
+=== [11:10:24] fp8-hopper --batch 8192 --pipeline 4
+SWEEP fp8-hopper batch=8192 pipeline=4 rc=0 wall=19s t.total=0.7822890132665634 t.total_live=3.0097968317568298 net.rtt_ms=139.77059163153172 net.wait_seconds=2.2275078184902664 verify.wall_s=2.9499604888260365 peak_device_bytes=None validation=passed
+
+=== [11:10:43] fp8-hopper --batch 16384 --pipeline 1
+SWEEP fp8-hopper batch=16384 pipeline=1 rc=0 wall=16s t.total=1.0182410962879658 t.total_live=5.003071028739214 net.rtt_ms=146.85367979109287 net.wait_seconds=3.984829932451248 verify.wall_s=2.6283756345510483 peak_device_bytes=None validation=passed
+
+=== [11:10:59] fp8-hopper --batch 16384 --pipeline 2
+SWEEP fp8-hopper batch=16384 pipeline=2 rc=0 wall=17s t.total=0.6177146807312964 t.total_live=3.151481531560421 net.rtt_ms=148.80785904824734 net.wait_seconds=2.5337668508291245 verify.wall_s=3.6724273897707462 peak_device_bytes=None validation=passed
+
+=== [11:11:16] fp8-hopper --batch 16384 --pipeline 4
+SWEEP fp8-hopper batch=16384 pipeline=4 rc=0 wall=16s t.total=0.5184504054486752 t.total_live=2.5636361725628376 net.rtt_ms=234.86175574362278 net.wait_seconds=2.0451857671141624 verify.wall_s=3.879218976944685 peak_device_bytes=None validation=passed
+
+=== [11:11:32] fp8-hopper --batch 32768 --pipeline 1
+SWEEP fp8-hopper batch=32768 pipeline=1 rc=0 wall=15s t.total=0.8832795321941375 t.total_live=3.686273641884327 net.rtt_ms=164.21079635620117 net.wait_seconds=2.8029941096901894 verify.wall_s=3.0862466655671597 peak_device_bytes=None validation=passed
+
+=== [11:11:47] fp8-hopper --batch 32768 --pipeline 2
+SWEEP fp8-hopper batch=32768 pipeline=2 rc=0 wall=17s t.total=1.2712460197508337 t.total_live=2.5379471294581895 net.rtt_ms=150.89628472924232 net.wait_seconds=1.2667011097073557 verify.wall_s=3.7777617163956165 peak_device_bytes=None validation=passed
+
+=== [11:12:04] fp8-hopper --batch 32768 --pipeline 4
+SWEEP fp8-hopper batch=32768 pipeline=4 rc=0 wall=18s t.total=1.1905306242406368 t.total_live=2.2571468874812126 net.rtt_ms=329.7035340219736 net.wait_seconds=1.0666162632405758 verify.wall_s=3.7339994497597218 peak_device_bytes=None validation=passed
+SWEEP_DONE

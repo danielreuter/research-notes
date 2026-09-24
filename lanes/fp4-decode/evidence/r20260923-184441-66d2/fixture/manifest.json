@@ -1,0 +1,79 @@
+{
+ "format": {
+  "system": "ligero-system/v3",
+  "statement": "ligero-statement/v5",
+  "proof": "ligero-proof/v1"
+ },
+ "relation": {
+  "name": "fp4-nvf4",
+  "model": "blackwell_sm120_nvf4_m16n8k64",
+  "profile": "nvfp4-sm120-mma-draft/2026-09-22",
+  "word_dtype": "<u1",
+  "y_dtype": "<u4",
+  "y_bits": 32,
+  "rust_verifiable": true
+ },
+ "authentication": "included-hash",
+ "commit": null,
+ "device": "cuda",
+ "system": {
+  "rows": 4442,
+  "by_kind": {
+   "hint": 819,
+   "bit": 1004,
+   "prod": 2400,
+   "inv": 30,
+   "sel": 172,
+   "pin": 17
+  },
+  "linear": 334,
+  "quadratic": 4252,
+  "pins": 17,
+  "hints": 819
+ },
+ "zk": false,
+ "mode": "interactive",
+ "impl": "device",
+ "files": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "vus": [
+    0,
+    40
+   ],
+   "stmt": "rep1/sub_00.stmt",
+   "proof": "rep1/sub_00.proof",
+   "proof_bytes": 3530008,
+   "proof_sha256": "388b3332ae67b57a396cfb906906b01ded58d1f686da366ad9e2ec23317ce15b",
+   "stmt_bytes": 7738,
+   "python_verdict": {
+    "accepted": true,
+    "reason": ""
+   },
+   "prover_seconds": 0.2523253969848156,
+   "multiproof_bytes": 192,
+   "auth_openings_seconds": 0.00011714547872543335,
+   "coins": "rep1/sub_00.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "22d8d2a751d19ae60fdf7f63514a10a0c209990fce05fed94e6b0f08ad88ad71"
+  }
+ ],
+ "system_file": {
+  "path": "system.bin",
+  "sha256": "80ac30a956d569a2aae360a59ff0b5ea150fce98200b68fec54520bd4d3719f7",
+  "sys_id": "8c6d260c675cad40ae7263db08974f1842d04997f344cb4f9e52821e70bb25f5",
+  "bytes": 832135
+ },
+ "set": {
+  "total_vus": 40,
+  "batch": 1024,
+  "per_proof": 42,
+  "n_proofs": 1,
+  "zk": false,
+  "mode": "interactive",
+  "reps": 1,
+  "dump_reps": 1,
+  "instances": "a3d24094ce04edc34ec0f5154f65ea3ac2f60b08044b4f2f6cf21939e0a39cde"
+ }
+}

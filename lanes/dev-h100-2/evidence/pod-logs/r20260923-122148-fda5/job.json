@@ -1,0 +1,213 @@
+{
+ "schema": "telemetry/job/v0.2",
+ "written_utc": "2026-09-23T12:22:57.111Z",
+ "writer_stream": "7850b3800bf0:1508:517540452",
+ "ownership": {
+  "project": "verity",
+  "task": null,
+  "job": "r20260923-122148-fda5",
+  "attempt": 1,
+  "lane": null,
+  "generation": 1
+ },
+ "computation": {
+  "tree_sha": "11c7075d21ba8cfc9dfa95659cec2efd8a57785d",
+  "tree_sha_reason": null,
+  "release_tag": null,
+  "workload_digest": null,
+  "workload_digest_reason": "not supplied",
+  "stage": "gates",
+  "inputs": [],
+  "profile": {}
+ },
+ "environment": {
+  "pod_id": null,
+  "hostname": "7850b3800bf0",
+  "boot_id": "0161010d-ee97-47c7-832c-6b002393d29e",
+  "kernel": "6.8.0-106-generic",
+  "machine": "x86_64",
+  "python": "3.11.10",
+  "cpu_count": 224,
+  "cpu_count_note": "CPUs this process may run on (affinity/cpuset), not the host's",
+  "cpu_count_host": 224,
+  "host_memory_total_bytes": 2163943403520,
+  "host_memory_note": "host total, not the job's bound; the bound is cgroup.effective_memory_max_bytes",
+  "host_class": "gpu",
+  "gpu": {
+   "available": true,
+   "reason": null,
+   "devices": [
+    {
+     "index": "0",
+     "uuid": "GPU-1e1ca32d-5cd8-fe34-8963-5d4658c3c235",
+     "name": "NVIDIA H100 80GB HBM3",
+     "memory_total_bytes": 85520809984,
+     "driver": "580.126.09"
+    }
+   ],
+   "cuda_visible_devices": null
+  },
+  "cgroup": {
+   "version": 2,
+   "path": "/",
+   "mount_read_only": false,
+   "reason": null,
+   "ancestors": [],
+   "ancestors_visible": false,
+   "ancestors_reason": "cgroup namespace root: ancestors outside the namespace are not readable from here",
+   "memory_max_bytes": 250999996416,
+   "memory_max_kind": "finite",
+   "memory_max_source": "/sys/fs/cgroup/memory.max",
+   "memory_max_reason": null,
+   "memory_high_bytes": null,
+   "memory_high_kind": "unlimited",
+   "swap_max_bytes": 0,
+   "swap_max_kind": "finite",
+   "cpu_max": "2380000 100000",
+   "pids_max": "14848",
+   "cpuset_cpus_effective": "0-223",
+   "controllers": [
+    "cpuset",
+    "cpu",
+    "io",
+    "memory",
+    "hugetlb",
+    "pids",
+    "rdma",
+    "misc"
+   ],
+   "effective_memory_max_bytes": 250999996416,
+   "effective_memory_max_kind": "visible_minimum"
+  },
+  "limits_visibility": [
+   "cgroup ancestors hidden by the cgroup namespace",
+   "kernel log (dmesg) not readable: OOM victim identity unavailable from the kernel"
+  ]
+ },
+ "execution": {
+  "command": [
+   "bash",
+   "/workspace/gates.sh"
+  ],
+  "command_redacted": [],
+  "declared_outputs": [],
+  "timeout_s": null,
+  "reservation": {
+   "gpu": null,
+   "host_memory_bytes": null
+  },
+  "policy_version": null,
+  "policy_sha256": null
+ },
+ "telemetry": {
+  "schema": "telemetry/v0.1",
+  "collector_version": "0.1.1",
+  "classifier_version": "0.1.2",
+  "instruments": [
+   "cgroup",
+   "process",
+   "pss",
+   "gpu",
+   "storage"
+  ],
+  "instruments_unavailable": {},
+  "cadence_s": 1.0,
+  "pss_every_s": 5.0,
+  "level": 0
+ },
+ "tool": {
+  "research_version": "0.1.0",
+  "research_git_sha": null,
+  "research_git_sha_reason": "shipped snapshot",
+  "research_dirty": null,
+  "research_snapshot": "6868461a25b79eb6",
+  "telemetry_schema": "telemetry/v0.1",
+  "job_schema_base": "telemetry/job/v0.1",
+  "collector_version": "0.1.1",
+  "classifier_version": "0.1.2"
+ },
+ "run": {
+  "id": "r20260923-122148-fda5",
+  "runs_root": "/workspace/research/runs",
+  "created_utc": "2026-09-23T12:22:57.113Z",
+  "launched_from": "7850b3800bf0",
+  "remote": {
+   "machine": "vy-dev-h100-2",
+   "pod_id": "g8zrn40cutw95q",
+   "pod_name": "vy-dev-h100-2-veritor-campaign",
+   "host": "103.207.149.101",
+   "port": 13792,
+   "root": "/workspace/research",
+   "tool": "/workspace/research/tool/6868461a25b79eb6",
+   "source_sha": "11c7075d21ba8cfc9dfa95659cec2efd8a57785d",
+   "launched_from": "Daniels-MacBook-Pro.local",
+   "request": "/workspace/research/requests/r20260923-122148-fda5/request.json"
+  }
+ },
+ "workload_fingerprint": {
+  "expected": null,
+  "observed_in": "result.json (workload_fingerprint); expected and observed are never merged"
+ },
+ "cost": {
+  "provider": "runpod",
+  "pod_id": "g8zrn40cutw95q",
+  "machine": "vy-dev-h100-2",
+  "currency": "USD",
+  "rate_usd_per_hour": 3.49,
+  "rate_observed_utc": "2026-09-23T12:21:49.396Z",
+  "reason": null,
+  "shared": false,
+  "concurrent_runs_at_launch": []
+ },
+ "store": {
+  "tool": {
+   "name": "bash",
+   "version": null,
+   "spec": null
+  },
+  "derivation": "drv:216e45c947a7e32c9fe42161fdac7541245a7f8eff2a0dbe7a8cd691aef3c865",
+  "reuse_key": "c8b0dd039c4162124b1c07f996f5b0b3c0a76c9ed6ea6ee92b9a50af68ca1d37",
+  "key_params": [],
+  "key_conditions": [],
+  "params": {
+   "argv": [
+    "bash",
+    "/workspace/gates.sh"
+   ]
+  },
+  "key_params_resolved": {},
+  "inputs": {},
+  "closure": {},
+  "conditions": {
+   "source.commit": "11c7075d21ba8cfc9dfa95659cec2efd8a57785d",
+   "source.tree": "08a4ceeeb7f55660db708fb40c78b935480a1d63",
+   "source.dirty": false,
+   "source.dirty_digest": null,
+   "rt.os": "Linux",
+   "rt.kernel": "6.8.0-106-generic",
+   "rt.python": "3.11.10",
+   "rt.rust": null,
+   "rt.cuda": "13.0",
+   "rt.driver": "580.126.09",
+   "rt.torch": "2.4.1+cu124",
+   "rt.triton": "3.0.0",
+   "rt.nvcc": null,
+   "hw.family": "h100",
+   "hw.sku": "NVIDIA H100 80GB HBM3",
+   "hw.count": 1,
+   "hw.vram_mb": 81559,
+   "hw.cpu": "Intel(R) Xeon(R) Platinum 8480+ x224",
+   "hw.hostname": "7850b3800bf0",
+   "exec.exclusive": false,
+   "exec.load_start": 6.87,
+   "exec.load_end": null,
+   "exec.project": "verity",
+   "exec.campaign": "r23-dev-h100-2",
+   "exec.runs_root": "/workspace/research/runs",
+   "source.lockfiles.uv.lock": "3f48f03aba4c84334567aa72826d498a76782ae7bc06dd6b43e81ea680f6992b"
+  },
+  "scratch": {},
+  "campaign": "r23-dev-h100-2",
+  "store_root": "/workspace/research/store"
+ }
+}

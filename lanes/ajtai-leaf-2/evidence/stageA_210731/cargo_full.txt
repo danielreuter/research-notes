@@ -1,0 +1,8 @@
+    Finished `release` profile [optimized + debuginfo] target(s) in 10.84s
+test result: ok. 27 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.11s
+test ajtai_statement_negatives_are_rejected ... FAILED
+test ajtai_system_mismatches_and_the_key_check_are_enforced ... FAILED
+thread 'ajtai_statement_negatives_are_rejected' (51575) panicked at tests/relations.rs:1111:13:
+thread 'ajtai_system_mismatches_and_the_key_check_are_enforced' (51576) panicked at tests/relations.rs:1189:5:
+test result: FAILED. 17 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.30s

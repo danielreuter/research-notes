@@ -1,0 +1,129 @@
+21:00:46 start b3p4 rel=bf16-hopper-v3 l=16384 p=4 load=16.11 19.38 17.35
+21:02:32 bench b3p4 rc=0 wall=106s |  "validation": "passed" 
+21:02:32 rust b3p4 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.210s  python=true (accept (0.024s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:02:32 start b1p4 rel=bf16-hopper l=16384 p=4 load=15.80 18.13 17.10
+21:03:10 bench b1p4 rc=0 wall=38s |  "validation": "passed" 
+21:03:10 rust b1p4 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.324s  python=true (accept (0.023s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:03:10 start f3p4 rel=fp8-hopper-v3 l=16384 p=4 load=14.21 17.44 16.91
+21:04:59 bench f3p4 rc=0 wall=109s |  "validation": "passed" 
+21:04:59 rust f3p4 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.108s  python=true (accept (0.023s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:04:59 start f1p4 rel=fp8-hopper l=16384 p=4 load=15.75 17.08 16.84
+21:05:32 bench f1p4 rc=0 wall=33s | contract problems: ['buckets and joints sum to 0.118232 s, more than t.total 0.115222 s by over 1%: something is double-counted']  "validation": "passed" 
+21:05:32 rust f1p4 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.188s  python=true (accept (0.024s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:05:32 start b3p8 rel=bf16-hopper-v3 l=16384 p=8 load=15.73 16.94 16.80
+21:07:07 bench b3p8 rc=0 wall=95s | contract problems: ['buckets and joints sum to 0.282872 s, more than t.total 0.274956 s by over 1%: something is double-counted']  "validation": "passed" 
+21:07:07 rust b3p8 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.222s  python=true (accept (0.024s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:07:07 start b1p8 rel=bf16-hopper l=16384 p=8 load=14.69 16.29 16.58
+21:07:38 bench b1p8 rc=0 wall=31s |  "validation": "passed" 
+21:07:38 rust b1p8 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.201s  python=true (accept (0.024s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:07:38 start f3p8 rel=fp8-hopper-v3 l=16384 p=8 load=14.14 16.01 16.48
+21:09:21 bench f3p8 rc=0 wall=103s |  "validation": "passed" 
+21:09:21 rust f3p8 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.125s  python=true (accept (0.024s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:09:21 start f1p8 rel=fp8-hopper l=16384 p=8 load=53.57 28.11 20.66
+21:09:39 bench f1p8 rc=0 wall=18s |  "validation": "passed" 
+21:09:39 rust f1p8 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.183s  python=true (accept (0.024s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:09:39 start b3p4L rel=bf16-hopper-v3 l=32768 p=4 load=46.50 27.85 20.70
+21:12:28 bench b3p4L rc=0 wall=169s |  "validation": "passed" 
+21:12:29 rust b3p4L rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.392s  python=true (accept (0.035s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:12:29 start b1p4L rel=bf16-hopper l=32768 p=4 load=10.76 19.48 18.66
+21:13:14 bench b1p4L rc=0 wall=45s |  "validation": "passed" 
+21:13:14 rust b1p4L rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.456s  python=true (accept (0.032s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:13:14 start f3p4L rel=fp8-hopper-v3 l=32768 p=4 load=19.51 20.14 18.90
+21:16:21 bench f3p4L rc=0 wall=187s |  "validation": "passed" 
+21:16:22 rust f3p4L rc=0 | sub_06.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.175s  python=true (accept (0.039s)) 7 proofs: 7 accepted, 0 rejected (7 against their own coins); batch ACCEPT (accept: all 7 sub-batches accepted; union 
+21:16:22 start f1p4L rel=fp8-hopper l=32768 p=4 load=31.89 23.14 20.18
+21:16:37 bench f1p4L rc=0 wall=15s |  "validation": "passed" 
+21:16:38 rust f1p4L rc=0 | sub_06.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.340s  python=true (accept (0.032s)) 7 proofs: 7 accepted, 0 rejected (7 against their own coins); batch ACCEPT (accept: all 7 sub-batches accepted; union 
+21:16:38 start b3p8L rel=bf16-hopper-v3 l=32768 p=8 load=30.57 23.28 20.27
+21:19:33 bench b3p8L rc=0 wall=175s |  "validation": "passed" 
+21:19:33 rust b3p8L rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.280s  python=true (accept (0.034s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:19:33 start b1p8L rel=bf16-hopper l=32768 p=8 load=35.66 24.02 20.77
+21:20:22 bench b1p8L rc=0 wall=49s | contract problems: ['buckets and joints sum to 1.6473 s, more than t.total 1.60285 s by over 1%: something is double-counted']  "validation": "passed" 
+21:20:23 rust b1p8L rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.360s  python=true (accept (0.033s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:20:23 start f3p8L rel=fp8-hopper-v3 l=32768 p=8 load=37.44 25.81 21.52
+21:23:29 bench f3p8L rc=0 wall=186s |  "validation": "passed" 
+21:23:29 rust f3p8L rc=0 | sub_06.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.183s  python=true (accept (0.038s)) 7 proofs: 7 accepted, 0 rejected (7 against their own coins); batch ACCEPT (accept: all 7 sub-batches accepted; union 
+21:23:29 start f1p8L rel=fp8-hopper l=32768 p=8 load=25.44 25.07 21.93
+21:23:49 bench f1p8L rc=0 wall=20s |  "validation": "passed" 
+21:23:50 rust f1p8L rc=0 | sub_06.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.376s  python=true (accept (0.035s)) 7 proofs: 7 accepted, 0 rejected (7 against their own coins); batch ACCEPT (accept: all 7 sub-batches accepted; union 
+21:23:50 CHAIN_DONE b3p4:bf16-hopper-v3:16384:4 b1p4:bf16-hopper:16384:4 f3p4:fp8-hopper-v3:16384:4 f1p4:fp8-hopper:16384:4 b3p8:bf16-hopper-v3:16384:8 b1p8:bf16-hopper:16384:8 f3p8:fp8-hopper-v3:16384:8 f1p8:fp8-hopper:16384:8 b3p4L:bf16-hopper-v3:32768:4 b1p4L:bf16-hopper:32768:4 f3p4L:fp8-hopper-v3:32768:4 f1p4L:fp8-hopper:32768:4 b3p8L:bf16-hopper-v3:32768:8 b1p8L:bf16-hopper:32768:8 f3p8L:fp8-hopper-v3:32768:8 f1p8L:fp8-hopper:32768:8
+21:23:50 start b3p4r2 rel=bf16-hopper-v3 l=16384 p=4 load=21.29 24.13 21.70
+21:25:23 bench b3p4r2 rc=0 wall=93s |  "validation": "passed" 
+21:25:23 rust b3p4r2 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.291s  python=true (accept (0.022s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:25:23 start b1p4r2 rel=bf16-hopper l=16384 p=4 load=18.19 22.38 21.30
+21:25:55 bench b1p4r2 rc=0 wall=32s |  "validation": "passed" 
+21:25:56 rust b1p4r2 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.270s  python=true (accept (0.025s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:25:56 start f3p4r2 rel=fp8-hopper-v3 l=16384 p=4 load=15.14 21.14 20.92
+21:27:40 bench f3p4r2 rc=0 wall=104s |  "validation": "passed" 
+21:27:40 rust f3p4r2 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.141s  python=true (accept (0.025s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:27:40 start f1p4r2 rel=fp8-hopper l=16384 p=4 load=49.61 30.88 24.43
+21:28:02 bench f1p4r2 rc=0 wall=22s |  "validation": "passed" 
+21:28:02 rust f1p4r2 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.190s  python=true (accept (0.025s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:28:02 start b3p8r2 rel=bf16-hopper-v3 l=16384 p=8 load=38.88 29.64 24.15
+21:29:37 bench b3p8r2 rc=0 wall=95s |  "validation": "passed" 
+21:29:37 rust b3p8r2 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.223s  python=true (accept (0.023s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:29:37 start b1p8r2 rel=bf16-hopper l=16384 p=8 load=39.82 34.43 26.52
+21:30:13 bench b1p8r2 rc=0 wall=36s |  "validation": "passed" 
+21:30:13 rust b1p8r2 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.218s  python=true (accept (0.023s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:30:13 start f3p8r2 rel=fp8-hopper-v3 l=16384 p=8 load=37.79 34.15 26.70
+21:31:55 bench f3p8r2 rc=0 wall=102s |  "validation": "passed" 
+21:31:56 rust f3p8r2 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.134s  python=true (accept (0.025s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:31:56 start f1p8r2 rel=fp8-hopper l=16384 p=8 load=15.56 27.51 25.11
+21:32:17 bench f1p8r2 rc=0 wall=21s |  "validation": "passed" 
+21:32:17 rust f1p8r2 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.188s  python=true (accept (0.025s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:32:17 start b1p4r3 rel=bf16-hopper l=16384 p=4 load=13.56 26.28 24.75
+21:32:47 bench b1p4r3 rc=0 wall=30s |  "validation": "passed" 
+21:32:48 rust b1p4r3 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.259s  python=true (accept (0.024s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:32:48 start b3p4r3 rel=bf16-hopper-v3 l=16384 p=4 load=27.44 28.09 25.38
+21:34:20 bench b3p4r3 rc=0 wall=92s |  "validation": "passed" 
+21:34:21 rust b3p4r3 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.155s  python=true (accept (0.025s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:34:21 start f1p4r3 rel=fp8-hopper l=16384 p=4 load=16.27 24.45 24.37
+21:34:38 bench f1p4r3 rc=0 wall=17s |  "validation": "passed" 
+21:34:38 rust f1p4r3 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.232s  python=true (accept (0.025s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:34:38 start f3p4r3 rel=fp8-hopper-v3 l=16384 p=4 load=14.29 23.61 24.09
+21:36:17 bench f3p4r3 rc=0 wall=99s |  "validation": "passed" 
+21:36:17 rust f3p4r3 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.153s  python=true (accept (0.023s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:36:17 start b1p8r3 rel=bf16-hopper l=16384 p=8 load=9.34 19.20 22.45
+21:36:48 bench b1p8r3 rc=0 wall=31s |  "validation": "passed" 
+21:36:48 rust b1p8r3 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.215s  python=true (accept (0.023s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:36:48 start b3p8r3 rel=bf16-hopper-v3 l=16384 p=8 load=18.23 20.06 22.62
+21:38:23 bench b3p8r3 rc=0 wall=95s |  "validation": "passed" 
+21:38:23 rust b3p8r3 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.286s  python=true (accept (0.022s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:38:23 start f1p8r3 rel=fp8-hopper l=16384 p=8 load=12.59 17.79 21.56
+21:38:43 bench f1p8r3 rc=0 wall=20s |  "validation": "passed" 
+21:38:43 rust f1p8r3 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.212s  python=true (accept (0.025s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:38:43 start f3p8r3 rel=fp8-hopper-v3 l=16384 p=8 load=12.14 17.35 21.34
+21:40:26 bench f3p8r3 rc=0 wall=103s | contract problems: ['buckets and joints sum to 0.172208 s, more than t.total 0.168547 s by over 1%: something is double-counted']  "validation": "passed" 
+21:40:26 rust f3p8r3 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.131s  python=true (accept (0.024s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:40:26 start b3p2 rel=bf16-hopper-v3 l=16384 p=2 load=10.88 15.30 20.17
+21:41:54 bench b3p2 rc=0 wall=88s |  "validation": "passed" 
+21:41:55 rust b3p2 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.278s  python=true (accept (0.022s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+21:41:55 start f3p2 rel=fp8-hopper-v3 l=16384 p=2 load=12.24 14.59 19.48
+21:43:26 bench f3p2 rc=0 wall=91s |  "validation": "passed" 
+21:43:26 rust f3p2 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.153s  python=true (accept (0.023s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+21:43:26 CHAIN_DONE b3p4r2:bf16-hopper-v3:16384:4 b1p4r2:bf16-hopper:16384:4 f3p4r2:fp8-hopper-v3:16384:4 f1p4r2:fp8-hopper:16384:4 b3p8r2:bf16-hopper-v3:16384:8 b1p8r2:bf16-hopper:16384:8 f3p8r2:fp8-hopper-v3:16384:8 f1p8r2:fp8-hopper:16384:8 b1p4r3:bf16-hopper:16384:4 b3p4r3:bf16-hopper-v3:16384:4 f1p4r3:fp8-hopper:16384:4 f3p4r3:fp8-hopper-v3:16384:4 b1p8r3:bf16-hopper:16384:8 b3p8r3:bf16-hopper-v3:16384:8 f1p8r3:fp8-hopper:16384:8 f3p8r3:fp8-hopper-v3:16384:8 b3p2:bf16-hopper-v3:16384:2 f3p2:fp8-hopper-v3:16384:2
+22:25:21 start b3p4r4 rel=bf16-hopper-v3 l=16384 p=4 load=5.94 8.40 10.73
+22:26:52 bench b3p4r4 rc=0 wall=91s |  "validation": "passed" 
+22:26:52 rust b3p4r4 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.168s  python=true (accept (0.023s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+22:26:52 start b1p4r4 rel=bf16-hopper l=16384 p=4 load=5.76 7.77 10.29
+22:27:21 bench b1p4r4 rc=0 wall=29s |  "validation": "passed" 
+22:27:21 rust b1p4r4 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.315s  python=true (accept (0.023s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+22:27:21 start f3p4r4 rel=fp8-hopper-v3 l=16384 p=4 load=7.53 7.93 10.26
+22:28:55 bench f3p4r4 rc=0 wall=94s |  "validation": "passed" 
+22:28:55 rust f3p4r4 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.130s  python=true (accept (0.024s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+22:28:55 start f1p4r4 rel=fp8-hopper l=16384 p=4 load=6.73 7.49 9.88
+22:29:08 bench f1p4r4 rc=0 wall=13s |  "validation": "passed" 
+22:29:09 rust f1p4r4 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.235s  python=true (accept (0.025s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+22:29:09 start b3p8r4 rel=bf16-hopper-v3 l=16384 p=8 load=6.81 7.46 9.84
+22:30:43 bench b3p8r4 rc=0 wall=94s | contract problems: ['buckets and joints sum to 0.21302 s, more than t.total 0.208258 s by over 1%: something is double-counted']  "validation": "passed" 
+22:30:43 rust b3p8r4 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.260s  python=true (accept (0.023s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+22:30:43 start b1p8r4 rel=bf16-hopper l=16384 p=8 load=6.62 7.20 9.51
+22:31:16 bench b1p8r4 rc=0 wall=33s | contract problems: ['buckets and joints sum to 0.245319 s, more than t.total 0.239963 s by over 1%: something is double-counted']  "validation": "passed" 
+22:31:16 rust b1p8r4 rc=0 | sub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.273s  python=true (accept (0.023s)) 25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; un
+22:31:16 start f3p8r4 rel=fp8-hopper-v3 l=16384 p=8 load=6.66 7.16 9.41
+22:32:58 bench f3p8r4 rc=0 wall=102s |  "validation": "passed" 
+22:32:58 rust f3p8r4 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.134s  python=true (accept (0.025s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+22:32:58 start f1p8r4 rel=fp8-hopper l=16384 p=8 load=5.91 6.77 9.04
+22:33:17 bench f1p8r4 rc=0 wall=19s |  "validation": "passed" 
+22:33:17 rust f1p8r4 rc=0 | sub_12.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins)) 0.226s  python=true (accept (0.024s)) 13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; un
+22:33:17 CHAIN_DONE b3p4r4:bf16-hopper-v3:16384:4 b1p4r4:bf16-hopper:16384:4 f3p4r4:fp8-hopper-v3:16384:4 f1p4r4:fp8-hopper:16384:4 b3p8r4:bf16-hopper-v3:16384:8 b1p8r4:bf16-hopper:16384:8 f3p8r4:fp8-hopper-v3:16384:8 f1p8r4:fp8-hopper:16384:8

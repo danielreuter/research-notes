@@ -1,0 +1,20 @@
+=== [11:30:11] bf16-hopper --batch 16384 --pipeline 3 --reps 3 (local coins)
+PROBE batch=16384 pipeline=3 rc=1
+AssertionError: sub-batch [170, 340): proximity test failed
+=== [11:30:35] bf16-hopper --batch 16384 --pipeline 4 --reps 3 (local coins)
+PROBE batch=16384 pipeline=4 rc=1
+AssertionError: sub-batch [170, 340): proximity test failed
+rep 1: prover 0.271s (+hints 0.017s) over 25 proofs; verifier 0.626s; pass wall 2.488s (0.070 ms/VU)
+=== [11:31:01] bf16-hopper --batch 8192 --pipeline 4 --reps 3 (local coins)
+PROBE batch=8192 pipeline=4 rc=1
+AssertionError: sub-batch [170, 255): proximity test failed
+=== [11:31:19] bf16-hopper --batch 32768 --pipeline 4 --reps 3 (local coins)
+PROBE batch=32768 pipeline=4 rc=0
+rep 1: prover 1.295s (+hints 0.215s) over 13 proofs; verifier 0.465s; pass wall 3.220s (0.369 ms/VU)
+rep 2: prover 1.297s (+hints 0.177s) over 13 proofs; verifier 0.466s; pass wall 1.943s (0.360 ms/VU)
+rep 3: prover 1.347s (+hints 0.125s) over 13 proofs; verifier 0.468s; pass wall 1.947s (0.359 ms/VU)
+=== [11:32:00] bf16-hopper --batch 16384 --pipeline 2 --reps 3 (local coins)
+PROBE batch=16384 pipeline=2 rc=0
+rep 1: prover 0.394s (+hints 0.020s) over 25 proofs; verifier 0.649s; pass wall 3.060s (0.101 ms/VU)
+rep 2: prover 0.323s (+hints 0.017s) over 25 proofs; verifier 0.636s; pass wall 0.979s (0.083 ms/VU)
+rep 3: prover 0.297s (+hints 0.014s) over 25 proofs; verifier 0.649s; pass wall 0.972s (0.076 ms/VU)

@@ -1,0 +1,80 @@
+   Compiling verity-ligero-verify v0.1.0 (/Users/danielreuter/projects/verity-main-wt/hostphase/backends/ligero-verify)
+warning: unused import: `sha256`
+  --> src/auth.rs:23:19
+   |
+23 | use crate::hash::{sha256, Sha256};
+   |                   ^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `auth` is never read
+  --> tests/relations.rs:60:5
+   |
+53 | struct Stmt {
+   |        ---- field in this struct
+...
+60 |     auth: Option<Vec<u8>>,
+   |     ^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `pad` is never used
+   --> src/auth.rs:102:8
+    |
+102 | pub fn pad(domain: &[u8; 32], rank: u64) -> [u8; 32] {
+    |        ^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `verity-ligero-verify` (test "relations") generated 1 warning
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 2 warnings (run `cargo fix --bin "ligero-verify" -p verity-ligero-verify` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.69s
+     Running unittests src/main.rs (target/debug/deps/ligero_verify-25d03add74d30e63)
+
+running 17 tests
+test auth::tests::digest_bytes_match_python ... ok
+test auth::tests::uint_is_minimal_big_endian ... ok
+test field::tests::coset_encode_is_evaluation_on_the_coset ... ok
+test field::tests::ntt_matches_naive_and_inverts ... ok
+test hash::tests::blake2b_256_empty ... ok
+test hash::tests::blake2b_256_multiblock_vs_hashlib ... ok
+test hash::tests::blake3_empty_and_abc ... ok
+test auth::tests::range_identity_and_domain_match_python ... ok
+test hash::tests::shake256_empty ... ok
+test relation::tests::e4m3_decode_matches_public_vectors_fp8 ... ok
+test relation::tests::bf16_decode_matches_unit_public_vectors ... ok
+test relation::tests::names_are_distinct_and_digests_unique ... ok
+test hash::tests::sha256_vectors ... ok
+test hash::tests::shake256_multiblock_vs_hashlib ... ok
+test auth::tests::leaves_nodes_and_root_match_python ... ok
+test field::tests::barrett_matches_the_divide ... ok
+test auth::tests::check_positions_and_roots ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/fixture.rs (target/debug/deps/fixture-7772d685ee3060e5)
+
+running 7 tests
+test a_flipped_public_word_is_rejected ... ok
+test honest_b1_zk_proof_is_accepted ... ok
+test every_region_of_the_proof_is_bound ... ok
+test interactive_mode_own_coins_are_checked ... ok
+test batch_verdict_and_statement_do_not_depend_on_jobs ... ok
+test a_corrupted_sub_batch_rejects_the_batch_with_the_same_error_on_any_jobs ... ok
+test the_batch_union_bound_and_n_proofs_are_enforced ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 8.84s
+
+     Running tests/relations.rs (target/debug/deps/relations-d22598157c0b772f)
+
+running 6 tests
+test system_digest_names_every_pinned_relation ... ok
+test batch_reports_the_pin_and_reads_the_parent_manifest ... ok
+test fp8_ada_negatives_are_rejected ... ok
+test a_statement_against_another_relations_system_is_rejected_unless_unpinned ... ok
+test v4_named_bf16_statement_is_the_v2_statement_and_the_hopper_name_is_pinned_apart ... ok
+test fp8_ada_v4_honest_proof_is_accepted_against_its_pinned_system ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.60s
+
+rc=0

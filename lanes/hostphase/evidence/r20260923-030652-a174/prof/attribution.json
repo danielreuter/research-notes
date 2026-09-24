@@ -1,0 +1,448 @@
+{
+ "relation": "bf16-hopper",
+ "zk": true,
+ "mode": "interactive",
+ "vus": 170,
+ "l": 16384,
+ "cfg": "Config(l=16384, n=65536, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive')",
+ "system": {
+  "m": 3292,
+  "pins": 96,
+  "hints": 97,
+  "L": 339,
+  "Q": 3164,
+  "program_ops": 552,
+  "kinds": {
+   "hint": 97,
+   "bits": 174,
+   "prod": 166,
+   "pin": 96,
+   "sels": 19
+  }
+ },
+ "unprofiled_timings": {
+  "statement": 0.0013667531311511993,
+  "witness": 0.0010523721575737,
+  "zk_masks": 0.000658079981803894,
+  "encode": 0.004480767995119095,
+  "transfer": 6.099790334701538e-05,
+  "merkle": 0.001921180635690689,
+  "tests_w": 0.008334945887327194,
+  "tests_quad": 0.0021984726190567017,
+  "tests_chain": 0.0029406510293483734,
+  "tests": 0.01347406953573227,
+  "openings": 0.0031039156019687653,
+  "total": 0.02618541568517685,
+  "hints_host": 0.0023353174328804016
+ },
+ "profiled_timings": {
+  "statement": 0.001535210758447647,
+  "witness": 0.0013695023953914642,
+  "zk_masks": 0.00101514533162117,
+  "encode": 0.004494871944189072,
+  "transfer": 0.00011224672198295593,
+  "merkle": 0.0020084045827388763,
+  "tests_w": 0.010450530797243118,
+  "tests_quad": 0.00401948019862175,
+  "tests_chain": 0.0059509798884391785,
+  "tests": 0.020420990884304047,
+  "openings": 0.0035777613520622253,
+  "total": 0.034648895263671875,
+  "hints_host": 0.0054899901151657104
+ },
+ "rows": [
+  {
+   "phase": "statement",
+   "wall_ms": 1.57453515625,
+   "gpu_kernel_ms": 0.0,
+   "kernels": 0,
+   "launches": 0,
+   "graph_launches": 0,
+   "syncs": 1,
+   "sync_ms": 0.01148,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 6,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": []
+  },
+  {
+   "phase": "witness",
+   "wall_ms": 1.3200400390625,
+   "gpu_kernel_ms": 0.74978,
+   "kernels": 4,
+   "launches": 3,
+   "graph_launches": 0,
+   "syncs": 1,
+   "sync_ms": 0.678572,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 104,
+   "verdict": "sync-bound",
+   "top_kernels": [
+    [
+     "witness_program",
+     712.245
+    ],
+    [
+     "void at::native::(anonymous namespace)::CatArrayBatchedCopy<",
+     29.854999999999997
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     7.68
+    ]
+   ]
+  },
+  {
+   "phase": "zk_masks",
+   "wall_ms": 1.001208984375,
+   "gpu_kernel_ms": 0.089056,
+   "kernels": 22,
+   "launches": 21,
+   "graph_launches": 0,
+   "syncs": 11,
+   "sync_ms": 0.06906699999999999,
+   "memcpy": 0,
+   "d2h_mb": 4e-06,
+   "torch_ops": 118,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     27.680000000000007
+    ],
+    [
+     "chacha20_blocks",
+     21.088
+    ],
+    [
+     "void at::native::index_elementwise_kernel<128, 4, at::native",
+     9.184
+    ],
+    [
+     "void at_cuda_detail::cub::DeviceSelectSweepKernel<at_cuda_de",
+     8.8
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     8.48
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     6.24
+    ]
+   ]
+  },
+  {
+   "phase": "encode",
+   "wall_ms": 4.4786005859375,
+   "gpu_kernel_ms": 4.32451,
+   "kernels": 36,
+   "launches": 19,
+   "graph_launches": 0,
+   "syncs": 5,
+   "sync_ms": 0.636015,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 235,
+   "verdict": "GPU-bound",
+   "top_kernels": [
+    [
+     "rs_encode_ligero",
+     3345.423
+    ],
+    [
+     "triton_poi_fused_cat_0",
+     331.99499999999995
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     315.674
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_",
+     240.604
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     43.39200000000001
+    ],
+    [
+     "void at::native::(anonymous namespace)::indexSelectLargeInde",
+     23.839
+    ]
+   ]
+  },
+  {
+   "phase": "transfer",
+   "wall_ms": 0.0728564453125,
+   "gpu_kernel_ms": 0.0,
+   "kernels": 0,
+   "launches": 0,
+   "graph_launches": 0,
+   "syncs": 1,
+   "sync_ms": 0.004768,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 1,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": []
+  },
+  {
+   "phase": "merkle",
+   "wall_ms": 2.0077568359375,
+   "gpu_kernel_ms": 1.7481350000000002,
+   "kernels": 21,
+   "launches": 0,
+   "graph_launches": 0,
+   "syncs": 3,
+   "sync_ms": 1.3230130000000002,
+   "memcpy": 0,
+   "d2h_mb": 3.2e-05,
+   "torch_ops": 0,
+   "verdict": "GPU-bound",
+   "top_kernels": [
+    [
+     "blake3_chunks",
+     1636.6490000000001
+    ],
+    [
+     "blake3_parents",
+     111.486
+    ]
+   ]
+  },
+  {
+   "phase": "tests_w",
+   "wall_ms": 10.4524326171875,
+   "gpu_kernel_ms": 0.736758,
+   "kernels": 50,
+   "launches": 47,
+   "graph_launches": 0,
+   "syncs": 5,
+   "sync_ms": 0.590519,
+   "memcpy": 0,
+   "d2h_mb": 0.79872,
+   "torch_ops": 283,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "lincomb_u64_D6",
+     551.511
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     51.424
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     50.111999999999995
+    ],
+    [
+     "void at::native::(anonymous namespace)::CatArrayBatchedCopy<",
+     29.534999999999997
+    ],
+    [
+     "void at::native::reduce_kernel<128, 4, at::native::ReduceOp<",
+     25.6
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     15.776
+    ]
+   ]
+  },
+  {
+   "phase": "tests_quad",
+   "wall_ms": 3.9918740234375,
+   "gpu_kernel_ms": 1.916645,
+   "kernels": 44,
+   "launches": 26,
+   "graph_launches": 0,
+   "syncs": 1,
+   "sync_ms": 0.011699999999999999,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 219,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "boolcomb_rows_u32_D6",
+     1299.693
+    ],
+    [
+     "quad_u32_D6",
+     422.138
+    ],
+    [
+     "triton_poi_fused_cat_0",
+     72.32
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     41.18299999999999
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     30.4
+    ],
+    [
+     "void at::native::reduce_kernel<128, 4, at::native::ReduceOp<",
+     22.494999999999997
+    ]
+   ]
+  },
+  {
+   "phase": "tests_chain",
+   "wall_ms": 5.9401533203125,
+   "gpu_kernel_ms": 0.5474490000000001,
+   "kernels": 157,
+   "launches": 140,
+   "graph_launches": 0,
+   "syncs": 7,
+   "sync_ms": 0.236373,
+   "memcpy": 0,
+   "d2h_mb": 1.585104,
+   "torch_ops": 731,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     159.45399999999998
+    ],
+    [
+     "rs_encode_ligero",
+     100.479
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     96.863
+    ],
+    [
+     "triton_poi_fused_cat_0",
+     72.06299999999999
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_",
+     33.919
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     29.439
+    ]
+   ]
+  },
+  {
+   "phase": "openings",
+   "wall_ms": 3.556576171875,
+   "gpu_kernel_ms": 0.09894399999999999,
+   "kernels": 51,
+   "launches": 2,
+   "graph_launches": 0,
+   "syncs": 13,
+   "sync_ms": 0.552131,
+   "memcpy": 0,
+   "d2h_mb": 4.333008,
+   "torch_ops": 47,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "cupy_take",
+     29.72800000000001
+    ],
+    [
+     "void at::native::(anonymous namespace)::indexSelectLargeInde",
+     28.48
+    ],
+    [
+     "cupy_bitwise_xor__int64_int_int64",
+     18.17600000000001
+    ],
+    [
+     "cupy_right_shift__int64_int_int64",
+     18.11200000000001
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 2, at::native::gpu_",
+     2.528
+    ],
+    [
+     "cupy_concatenate_same_size",
+     1.92
+    ]
+   ]
+  },
+  {
+   "phase": "_tail",
+   "wall_ms": 0.065703125,
+   "gpu_kernel_ms": 0.0,
+   "kernels": 0,
+   "launches": 0,
+   "graph_launches": 0,
+   "syncs": 0,
+   "sync_ms": 0.0,
+   "memcpy": 0,
+   "d2h_mb": 0.0,
+   "torch_ops": 0,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": []
+  },
+  {
+   "phase": "hints+marshal(pre-prove)",
+   "wall_ms": 33.6537509765625,
+   "gpu_kernel_ms": 0.6422940000000006,
+   "kernels": 379,
+   "launches": 34,
+   "graph_launches": 1,
+   "syncs": 21,
+   "sync_ms": 1.466845,
+   "memcpy": 0,
+   "d2h_mb": 3e-06,
+   "torch_ops": 1175,
+   "verdict": "CPU-compute/Python",
+   "top_kernels": [
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native",
+     383.2930000000003
+    ],
+    [
+     "void at::native::unrolled_elementwise_kernel<at::native::dir",
+     154.45899999999995
+    ],
+    [
+     "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<",
+     38.367000000000004
+    ],
+    [
+     "void at::native::(anonymous namespace)::CatArrayBatchedCopy<",
+     29.055
+    ],
+    [
+     "void at::native::(anonymous namespace)::indexSelectSmallInde",
+     12.672
+    ],
+    [
+     "void at::native::(anonymous namespace)::CatArrayBatchedCopy_",
+     8.896
+    ]
+   ]
+  }
+ ],
+ "full_pass": {
+  "statement": 0.03856828063726425,
+  "witness": 0.029140565544366837,
+  "zk_masks": 0.018824581056833267,
+  "encode": 0.11159536987543106,
+  "transfer": 0.0016117803752422333,
+  "merkle": 0.04877037927508354,
+  "tests_w": 0.20960939303040504,
+  "tests_quad": 0.055950701236724854,
+  "tests_chain": 0.09834573045372963,
+  "tests": 0.3639058247208595,
+  "openings": 0.07856468483805656,
+  "total": 0.6927235685288906,
+  "hints_host": 0.0726928636431694,
+  "_pass_wall": 3.6769916489720345
+ }
+}

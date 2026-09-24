@@ -1,0 +1,26 @@
+{
+ "schema": "research/result/v0.1",
+ "run_id": "r20260923-040553-4611",
+ "workload_fingerprint": {
+  "workload": "bench-instances/build",
+  "dataset": "bench-instances/v1",
+  "manifest_sha256": "5795e82de77e2f268d26782455dbb8f1d22ad420becc91bc7edaae775d165b8a",
+  "hf_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+  "vu_hawkeye_disagreements": 0
+ },
+ "validation": {
+  "status": "passed",
+  "checker": "verity_numerical.bench.instances",
+  "detail": "built; digests and sample recheck ok",
+  "evidence": []
+ },
+ "measurements": [
+  {
+   "name": "build_seconds",
+   "value": 37.8,
+   "unit": "s"
+  }
+ ],
+ "measurement_files": [],
+ "artifacts": []
+}

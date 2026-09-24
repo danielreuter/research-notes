@@ -1,0 +1,329 @@
+{
+ "format": {
+  "system": "ligero-system/v1",
+  "statement": "ligero-statement/v4",
+  "proof": "ligero-proof/v1"
+ },
+ "relation": {
+  "name": "fp8-ada",
+  "model": "ADA_E4M3_M16N8K32",
+  "profile": "fp8-ada-mma-draft/2026-09-22",
+  "word_dtype": "<u1",
+  "y_dtype": "<u4",
+  "y_bits": 22,
+  "rust_verifiable": false
+ },
+ "authentication": "excluded",
+ "commit": null,
+ "device": "cuda",
+ "system": {
+  "rows": 3769,
+  "by_kind": {
+   "hint": 161,
+   "bit": 2474,
+   "prod": 301,
+   "inv": 1,
+   "pin": 192,
+   "sel": 640
+  },
+  "linear": 589,
+  "quadratic": 3532,
+  "pins": 192,
+  "hints": 161
+ },
+ "zk": true,
+ "mode": "interactive",
+ "impl": "device",
+ "files": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "vus": [
+    0,
+    341
+   ],
+   "stmt": "rep1/sub_00.stmt",
+   "proof": "rep1/sub_00.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "efe3c45c877c17718844264beace12a44b1b5eb65fe421bc8fcb55bf55870135",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.021s)"
+   },
+   "prover_seconds": 0.013469079844739676,
+   "coins": "rep1/sub_00.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "8fea76486a6c1b17809855b6cbaf5da6984d86b49b54814cdb2e3154b3f21f2f"
+  },
+  {
+   "rep": 1,
+   "sub": 1,
+   "vus": [
+    341,
+    682
+   ],
+   "stmt": "rep1/sub_01.stmt",
+   "proof": "rep1/sub_01.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "8f31b433c9dc703093bc6ce7e06b698dd96f10e5e42b1d1089ab4a582a911ef5",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.011381740411294054,
+   "coins": "rep1/sub_01.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "597e295ebbc1ea9896f66191e7aae0c55860bcd1a55f630d2de1431396750868"
+  },
+  {
+   "rep": 1,
+   "sub": 2,
+   "vus": [
+    682,
+    1023
+   ],
+   "stmt": "rep1/sub_02.stmt",
+   "proof": "rep1/sub_02.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "876e9829eefc0031767a07a4d136a3c8f876592a44a5c114961b604ab473d592",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.011739155036662223,
+   "coins": "rep1/sub_02.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "f18bb540d3231e1389feadc0f0386324c9a58fbb7c72d6ed10125c7f1b8ac562"
+  },
+  {
+   "rep": 1,
+   "sub": 3,
+   "vus": [
+    1023,
+    1364
+   ],
+   "stmt": "rep1/sub_03.stmt",
+   "proof": "rep1/sub_03.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "bc36973c9a4aebed847d8ebbedf1310db17d99b2f8e62195ea292a2b204c3866",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.011958188202572679,
+   "coins": "rep1/sub_03.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "66857a5b2cd1a42bc6f71884c93d44c328e6f66cb6f31b5a97551cf171c6d284"
+  },
+  {
+   "rep": 1,
+   "sub": 4,
+   "vus": [
+    1364,
+    1705
+   ],
+   "stmt": "rep1/sub_04.stmt",
+   "proof": "rep1/sub_04.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "f9b01005679435b1fcb497b2323b7f90ef2fa1311f9cabc915f0c58f6e67e4c5",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.013426337530954518,
+   "coins": "rep1/sub_04.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "450af6dbfecc69cb3688e418b85a326114cfc97ce89beb826dfafc4f6db27133"
+  },
+  {
+   "rep": 1,
+   "sub": 5,
+   "vus": [
+    1705,
+    2046
+   ],
+   "stmt": "rep1/sub_05.stmt",
+   "proof": "rep1/sub_05.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "ae8bd2d7b718b2074f585305976e4e1f8dc5a74315290a3225fd4c432fddf92d",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.012157190671150253,
+   "coins": "rep1/sub_05.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "3740b1392f8ae25ed5af3b58c387176f9d8b5e09614983abf91e34aefebd596a"
+  },
+  {
+   "rep": 1,
+   "sub": 6,
+   "vus": [
+    2046,
+    2387
+   ],
+   "stmt": "rep1/sub_06.stmt",
+   "proof": "rep1/sub_06.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "9bae762a94aeaca587aa750ca62c34a91fbd9fdb63d486825261c4d7549b0fcd",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.010955324831233888,
+   "coins": "rep1/sub_06.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "d2e3bddbe677cfd8a0ff1acd520fb0da6e1f0c28900d9ce7b353019fecdf946f"
+  },
+  {
+   "rep": 1,
+   "sub": 7,
+   "vus": [
+    2387,
+    2728
+   ],
+   "stmt": "rep1/sub_07.stmt",
+   "proof": "rep1/sub_07.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "6e70490f07351cf74df5c3a6fef0dd16d7bfa9935f5075d87bc0b5168dc21405",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.011834169098470904,
+   "coins": "rep1/sub_07.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "d25209349e434b25ea0cdef2d06fd7ed631f266c29427eae263b457e1797d2fa"
+  },
+  {
+   "rep": 1,
+   "sub": 8,
+   "vus": [
+    2728,
+    3069
+   ],
+   "stmt": "rep1/sub_08.stmt",
+   "proof": "rep1/sub_08.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "bfca5c05c76ca1cb0332a163f43a21ad67f3aa399f47c1e2e19d2a37f581e843",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.008915647520224813,
+   "coins": "rep1/sub_08.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "bb662d014d8a5d86de83eaec56a7a89eba81c3c6b105966545bc22b91ee472f3"
+  },
+  {
+   "rep": 1,
+   "sub": 9,
+   "vus": [
+    3069,
+    3410
+   ],
+   "stmt": "rep1/sub_09.stmt",
+   "proof": "rep1/sub_09.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "9095130df2cb5087984acf15f6beaff10d7d1af45907f35c71c1b27163308c5d",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.01052600286547994,
+   "coins": "rep1/sub_09.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "52b1f428f026314e3e9bb6bc5d79a1c5dc00257cb7bc2b94ecb83b26aa6b7987"
+  },
+  {
+   "rep": 1,
+   "sub": 10,
+   "vus": [
+    3410,
+    3751
+   ],
+   "stmt": "rep1/sub_10.stmt",
+   "proof": "rep1/sub_10.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "016c7781873a53b596645880c1b2ab7d3c44fbc21fde7faee4533a40bb2b0ea1",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.011346319638633931,
+   "coins": "rep1/sub_10.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "88ce707f5ea12a9ca6c331643c13ffe8a499eb545f712e483b19dcce242eabe1"
+  },
+  {
+   "rep": 1,
+   "sub": 11,
+   "vus": [
+    3751,
+    4092
+   ],
+   "stmt": "rep1/sub_11.stmt",
+   "proof": "rep1/sub_11.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "06c168fffd6fa2ecf6bc9318abf087f48278e1594af96cf9ddf32bc5ed70e0d8",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.019s)"
+   },
+   "prover_seconds": 0.010662191584557081,
+   "coins": "rep1/sub_11.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "1ea18c32ea123ab782fdf86a464b94b3db35e1e64ce9f89c8311cb61dcd65c0a"
+  },
+  {
+   "rep": 1,
+   "sub": 12,
+   "vus": [
+    4092,
+    4096
+   ],
+   "stmt": "rep1/sub_12.stmt",
+   "proof": "rep1/sub_12.proof",
+   "proof_bytes": 5081276,
+   "proof_sha256": "978beed3d1239cb3d63a9110322b330a6820d020f1287d7cc4167c1b1a04fa50",
+   "stmt_bytes": 1114184,
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.018s)"
+   },
+   "prover_seconds": 0.011710005971222678,
+   "coins": "rep1/sub_12.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "314c9e020b3c83d36b075706ef9dc8b72a44f96f0c5736d7d3d8619a620ae1f5"
+  }
+ ],
+ "system_file": {
+  "path": "system.bin",
+  "sha256": "cba9a09f79baa90fe9bf1c763706f146857aedb9c64088956f4fab503a225fd4",
+  "sys_id": "6b570eef0c7faa07ccd1dddb2508e2699bd5367b108b15920469d46d16073d37",
+  "bytes": 246605
+ },
+ "set": {
+  "total_vus": 4096,
+  "batch": 16384,
+  "per_proof": 341,
+  "n_proofs": 13,
+  "zk": true,
+  "mode": "interactive",
+  "reps": 3,
+  "dump_reps": 1,
+  "instances": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d"
+ }
+}

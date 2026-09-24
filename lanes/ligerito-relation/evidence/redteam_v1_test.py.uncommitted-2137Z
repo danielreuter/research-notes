@@ -1,0 +1,41 @@
+"""Red-team V1 (virtual rows unconstrained): the true witness proved against a changed statement, the difference committed
+on the virtual rows.  Without the zero claims the verifier accepts it; with them the PCS rejects.  GPU."""
+from __future__ import annotations
+
+import numpy as np
+import pytest
+
+torch = pytest.importorskip("torch")
+if not torch.cuda.is_available():
+    pytest.skip("needs a GPU", allow_module_level=True)
+
+from backends.direct.ligero.relchain import instances  # noqa: E402
+
+from . import prove as prove_mod  # noqa: E402
+from .prove import Prover, make_coins  # noqa: E402
+from .run import _stmt_with  # noqa: E402
+
+
+@pytest.fixture(scope="module")
+def forged():
+    pv = Prover("fp8-ada", "cuda", 256)
+    bt = pv.batch(instances(pv.rel, 12), "fiat-shamir")
+    y = bt.stmt.y[0].copy()
+    y[pv.steps - 1] += 1
+    return pv, bt, _stmt_with(bt.stmt, y=[y] + bt.stmt.y[1:])
+
+
+def test_zero_claims_reject(forged):
+    pv, bt, st = forged
+    ok, why, _ = pv.verify(st, pv.prove(bt, make_coins("fiat-shamir", 1), forge_stmt=st).proof, make_coins("fiat-shamir", 1))
+    assert not ok and why.startswith("PCS"), why
+
+
+def test_without_zero_claims_accepts(forged, monkeypatch):
+    pv, bt, st = forged
+    monkeypatch.setattr(prove_mod, "zero_blocks", lambda lay, zk: [])
+    b2 = pv.batch(instances(pv.rel, 12), "fiat-shamir")
+    assert b2.params["zero_blocks"] == []
+    ok, why, _ = pv.verify(st, pv.prove(b2, make_coins("fiat-shamir", 1), forge_stmt=st).proof, make_coins("fiat-shamir", 1))
+    assert ok, why
+    assert np.array_equal(st.a[0], bt.stmt.a[0])

@@ -1,0 +1,101 @@
+bf16-ampere hashed chain system: {'rows': 5861, 'by_kind': {'hint': 727, 'bit': 2534, 'prod': 1909, 'sel': 610, 'inv': 64, 'pin': 17}, 'linear': 364, 'quadratic': 5747, 'pins': 17, 'hints': 727} compiled in 0.44s; census {'rows_base': 3516, 'rows_private_operands': 608, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 5861, 'rows_added': 2345, 'linear_added': 17, 'quadratic_added': 2360, 'hints_added': 624, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 16, 'k': 16}; device cuda
+bf16-ampere hashed vu-k1536 [0, 170): l=16384 prover 4.24s (+hints 0.20s) multiproofs 672 B -> True 
+bf16-ampere hashed vu-k1536 [170, 340): l=16384 prover 0.12s (+hints 0.01s) multiproofs 960 B -> True 
+bf16-ampere hashed vu-k1536 [340, 510): l=16384 prover 0.12s (+hints 0.01s) multiproofs 672 B -> True 
+bf16-ampere hashed vu-k1536 [510, 680): l=16384 prover 0.13s (+hints 0.01s) multiproofs 1248 B -> True 
+bf16-ampere hashed vu-k1536 [680, 850): l=16384 prover 0.12s (+hints 0.01s) multiproofs 960 B -> True 
+bf16-ampere hashed vu-k1536 [850, 1020): l=16384 prover 0.12s (+hints 0.01s) multiproofs 672 B -> True 
+bf16-ampere hashed vu-k1536 [1020, 1190): l=16384 prover 0.12s (+hints 0.01s) multiproofs 1344 B -> True 
+bf16-ampere hashed vu-k1536 [1190, 1360): l=16384 prover 0.12s (+hints 0.01s) multiproofs 864 B -> True 
+bf16-ampere hashed vu-k1536 [1360, 1530): l=16384 prover 0.12s (+hints 0.01s) multiproofs 672 B -> True 
+bf16-ampere hashed vu-k1536 [1530, 1700): l=16384 prover 0.12s (+hints 0.01s) multiproofs 1248 B -> True 
+bf16-ampere hashed vu-k1536 [1700, 1870): l=16384 prover 0.12s (+hints 0.01s) multiproofs 864 B -> True 
+bf16-ampere hashed vu-k1536 [1870, 2040): l=16384 prover 0.12s (+hints 0.01s) multiproofs 768 B -> True 
+bf16-ampere hashed vu-k1536 [2040, 2048): l=1024 prover 0.66s (+hints 0.22s) multiproofs 768 B -> True 
+  negative claimed word bit 0 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 15 flipped: REJECTED column challenge mismatch
+  negative accumulator link c.f[20] != y.f[19]: REJECTED linear constraints failed
+  negative accumulator fraction bit 12 flipped in a linked unit: REJECTED linear constraints failed
+  negative off-domain operand 0x7f80 computed on: REJECTED prover: ValueError: public inputs rejected: a.t off the finite range
+  negative x digest lane 0 of VU 0 flipped: REJECTED column challenge mismatch
+  negative W digest lane 0 of VU 1 changed: REJECTED column challenge mismatch
+  negative digests of VU 0 and VU 1 swapped: REJECTED column challenge mismatch
+  negative is_end moved one column early: REJECTED column challenge mismatch
+  negative multiproof sibling of tree a corrupted: REJECTED auth: a: multiproof rejected
+  negative multiproof of tree a truncated: REJECTED auth: a: multiproof rejected
+  negative multiproof sibling of tree b corrupted: REJECTED auth: b: multiproof rejected
+  negative multiproof of tree b truncated: REJECTED auth: b: multiproof rejected
+  negative multiproof sibling of tree y corrupted: REJECTED auth: y: multiproof rejected
+  negative multiproof of tree y truncated: REJECTED auth: y: multiproof rejected
+  negative x root replaced by the W root (verifier's statement): REJECTED column challenge mismatch
+  negative x tree binding changed (verifier's statement): REJECTED column challenge mismatch
+  negative VU 0 claims VU 1's x row (two VUs, one leaf, different digests): REJECTED column challenge mismatch
+  negative W leaf index out of range: REJECTED column challenge mismatch
+  negative a multiproof missing: REJECTED auth: expected one multiproof per tree
+  negative one word of the committed x row flipped (computed on the flipped row): REJECTED auth: a: multiproof rejected
+  negative VU 0 computed on VU 1's W column, claims its own: REJECTED auth: b: multiproof rejected
+  negative VU 0 computed on VU 1's x row, claims its own: REJECTED auth: a: multiproof rejected
+  negative bit 0 of hashed word b[0] flipped in unit 3 (computation unchanged): REJECTED linear constraints failed
+  negative sponge capacity link broken at unit 7: REJECTED quadratic constraints failed
+  negative nonzero sponge capacity at a chain start: REJECTED quadratic constraints failed
+  negative row hash.a[0].b0 (hint) +2 in column 172: REJECTED linear constraints failed
+  negative row hash.a[0].b1 (hint) +2 in column 157: REJECTED linear constraints failed
+  negative row hash.a[0].b2 (hint) +2 in column 13: REJECTED linear constraints failed
+  negative row hash.a[0].b3 (hint) +1 in column 180: REJECTED linear constraints failed
+  negative row hash.a[0].b4 (hint) +1 in column 32: REJECTED linear constraints failed
+  negative row hash.a[0].b5 (hint) +2 in column 153: REJECTED linear constraints failed
+  negative row hash.a[0].b6 (hint) +2 in column 115: REJECTED linear constraints failed
+  negative row hash.a[0].b7 (hint) +1 in column 151: REJECTED linear constraints failed
+  negative row hash.a[0].b8 (hint) +2 in column 160: REJECTED linear constraints failed
+  negative row hash.a[0].b9 (hint) +2 in column 25: REJECTED linear constraints failed
+  negative row hash.a[0].b10 (hint) +1 in column 163: REJECTED linear constraints failed
+  negative row hash.a[0].b11 (hint) +2 in column 91: REJECTED linear constraints failed
+  negative row hash.a[0].b12 (hint) +1 in column 172: REJECTED linear constraints failed
+  negative row hash.a[0].b13 (hint) +1 in column 126: REJECTED linear constraints failed
+  negative row hash.a[0].b14 (hint) +2 in column 66: REJECTED linear constraints failed
+  negative row hash.a[0].b15 (hint) +1 in column 132: REJECTED linear constraints failed
+  negative row hash.a[0].tinv (inv) +2 in column 169: REJECTED quadratic constraints failed
+  negative row hash.prod0 (prod) +1 in column 163: REJECTED linear constraints failed
+  negative row hash.a[0].finite.inv (inv) +2 in column 174: REJECTED quadratic constraints failed
+  negative row hash.a[1].b0 (hint) +1 in column 102: REJECTED linear constraints failed
+  negative row hash.a[1].b1 (hint) +1 in column 60: REJECTED linear constraints failed
+  negative row hash.a[1].b2 (hint) +2 in column 53: REJECTED linear constraints failed
+  negative row hash.a[1].b3 (hint) +2 in column 74: REJECTED linear constraints failed
+  negative row hash.a[1].b4 (hint) +2 in column 73: REJECTED linear constraints failed
+  negative row hash.a[1].b5 (hint) +2 in column 75: REJECTED linear constraints failed
+  negative row hash.a[1].b6 (hint) +2 in column 68: REJECTED linear constraints failed
+  negative row hash.a[1].b7 (hint) +1 in column 123: REJECTED linear constraints failed
+  negative row hash.a[1].b8 (hint) +2 in column 182: REJECTED linear constraints failed
+  negative row hash.a[1].b9 (hint) +2 in column 132: REJECTED linear constraints failed
+  negative row hash.a[1].b10 (hint) +1 in column 54: REJECTED linear constraints failed
+  negative row hash.a[1].b11 (hint) +1 in column 132: REJECTED linear constraints failed
+  negative row hash.a[1].b12 (hint) +2 in column 2: REJECTED linear constraints failed
+  negative row hash.a[1].b13 (hint) +2 in column 105: REJECTED linear constraints failed
+  negative row hash.a[1].b14 (hint) +2 in column 173: REJECTED linear constraints failed
+  negative row hash.a[1].b15 (hint) +2 in column 46: REJECTED linear constraints failed
+  negative row hash.a[1].tinv (inv) +1 in column 12: REJECTED quadratic constraints failed
+  negative row hash.prod1 (prod) +2 in column 20: REJECTED linear constraints failed
+  negative row hash.a[1].finite.inv (inv) +1 in column 172: REJECTED quadratic constraints failed
+  negative row hash.a[2].b0 (hint) +1 in column 16: REJECTED linear constraints failed
+  negative row hash.a[2].b1 (hint) +2 in column 24: REJECTED linear constraints failed
+  negative row hash.a[2].b2 (hint) +2 in column 30: REJECTED linear constraints failed
+  negative row hash.a[2].b3 (hint) +1 in column 117: REJECTED linear constraints failed
+  negative row hash.a[2].b4 (hint) +2 in column 91: REJECTED linear constraints failed
+  negative row hash.a[2].b5 (hint) +1 in column 155: REJECTED linear constraints failed
+  negative row hash.a[2].b6 (hint) +1 in column 127: REJECTED linear constraints failed
+  negative row hash.a[2].b7 (hint) +2 in column 180: REJECTED linear constraints failed
+  negative row hash.a[2].b8 (hint) +2 in column 131: REJECTED linear constraints failed
+  negative row hash.a[2].b9 (hint) +2 in column 50: REJECTED linear constraints failed
+  negative row hash.a[2].b10 (hint) +2 in column 185: REJECTED linear constraints failed
+  negative row hash.a[2].b11 (hint) +2 in column 60: REJECTED linear constraints failed
+  negative row hash.a[2].b12 (hint) +2 in column 149: REJECTED linear constraints failed
+  negative row hash.a[2].b13 (hint) +2 in column 136: REJECTED linear constraints failed
+  negative row hash.a[2].b14 (hint) +1 in column 148: REJECTED linear constraints failed
+  negative row hash.a[2].b15 (hint) +1 in column 151: REJECTED linear constraints failed
+  negative row hash.a[2].tinv (inv) +2 in column 180: REJECTED quadratic constraints failed
+  negative row hash.prod2 (prod) +2 in column 100: REJECTED linear constraints failed
+  negative row hash.a[2].finite.inv (inv) +1 in column 60: REJECTED quadratic constraints failed
+  negative row hash.a[3].b0 (hint) +2 in column 138: REJECTED linear constraints failed
+  negative row hash.a[3].b1 (hint) +1 in column 136: REJECTED linear constraints failed
+  negative row hash.a[3].b2 (hint) +1 in column 85: REJECTED linear constraints failed
+bf16-ampere hashed gate: 13 honest sub-batches, 86 negatives, 0 failures

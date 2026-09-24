@@ -1,0 +1,179 @@
+=== 05:51:09 bootstrap -> r20260923-055109-aff1 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bootstrap.sh"
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danielreuter/projects/verity-main-wt/enc-hopper/.venv/bin/research", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/danielreuter/projects/verity-main-wt/enc-hopper/tools/research/src/research/cli.py", line 504, in main
+    return cmd_run(rest)
+  File "/Users/danielreuter/projects/verity-main-wt/enc-hopper/tools/research/src/research/cli.py", line 124, in cmd_run
+    return _run_remote(ns, run_id, run_dir, harness_opts, command)
+  File "/Users/danielreuter/projects/verity-main-wt/enc-hopper/tools/research/src/research/cli.py", line 294, in _run_remote
+    rec = remote.launch(run_id=run_id, local_dir=run_dir, machine_name=ns.on, project=ns.project, command=command, harness_args=harness_args,
+                        source=Path(ns.source).expanduser() if ns.source else None, sends=[Path(s).expanduser() for s in ns.send],
+                        cwd=None, env=env, exclusive=ns.exclusive)
+  File "/Users/danielreuter/projects/verity-main-wt/enc-hopper/tools/research/src/research/remote.py", line 349, in launch
+    write_json_atomic(local_dir / "remote.json", rec)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielreuter/projects/verity-main-wt/enc-hopper/tools/research/src/research/telemetry/job.py", line 167, in write_json_atomic
+    tmp.write_text(json.dumps(doc, indent=1, sort_keys=False) + "\n")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielreuter/.local/share/uv/python/cpython-3.13.5-macos-aarch64-none/lib/python3.13/pathlib/_local.py", line 555, in write_text
+    return PathBase.write_text(self, data, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielreuter/.local/share/uv/python/cpython-3.13.5-macos-aarch64-none/lib/python3.13/pathlib/_abc.py", line 651, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device
+=== 05:55:00 bootstrap -> r20260923-055500-137d : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bootstrap.sh"
+research: run r20260923-055500-137d launched on vy-enc-hopper (de87jjrsjm8pdg) pid=289 -> /workspace/research/runs/r20260923-055500-137d
+research: observe with `research fetch r20260923-055500-137d`; the workload does not depend on this session staying alive
+=== 05:59:53 profile-main -> r20260923-055953-7662 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/ncu.sh"
+research: run r20260923-055953-7662 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=1075 -> /workspace/research/runs/r20260923-055953-7662
+research: observe with `research fetch r20260923-055953-7662`; the workload does not depend on this session staying alive
+06:00:20 profile-main r20260923-055953-7662 state=done 0 wall=22s
+=== 06:01:11 sass-main -> r20260923-060111-3131 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/sass.sh"
+research: run r20260923-060111-3131 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=1669 -> /workspace/research/runs/r20260923-060111-3131
+research: observe with `research fetch r20260923-060111-3131`; the workload does not depend on this session staying alive
+06:01:37 sass-main r20260923-060111-3131 state=done 0 wall=22s
+=== 06:08:06 dev-commit1 -> r20260923-060806-518a : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/dev.sh" /workspace/venv312/bin/python "$RESEARCH_RUN_DIR/inputs/test_commit.py"
+research: run r20260923-060806-518a launched on vy-enc-hopper (de87jjrsjm8pdg) pid=1999 -> /workspace/research/runs/r20260923-060806-518a
+research: observe with `research fetch r20260923-060806-518a`; the workload does not depend on this session staying alive
+06:08:44 dev-commit1 r20260923-060806-518a state=done 0 wall=33s
+=== 06:10:20 dev-ablate1 -> r20260923-061020-f214 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/dev.sh" /workspace/venv312/bin/python "$RESEARCH_RUN_DIR/inputs/enc_ablate.py" 16384 3328
+research: run r20260923-061020-f214 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=2348 -> /workspace/research/runs/r20260923-061020-f214
+research: observe with `research fetch r20260923-061020-f214`; the workload does not depend on this session staying alive
+06:10:47 dev-ablate1 r20260923-061020-f214 state=done 0 wall=23s
+=== 06:12:44 dev-encv2 -> r20260923-061244-1a14 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/dev.sh" /workspace/venv312/bin/python "$RESEARCH_RUN_DIR/inputs/enc_v2.py" 16384 3328
+research: run r20260923-061244-1a14 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=2669 -> /workspace/research/runs/r20260923-061244-1a14
+research: observe with `research fetch r20260923-061244-1a14`; the workload does not depend on this session staying alive
+06:13:32 dev-encv2 r20260923-061244-1a14 state=done 0 wall=44s
+=== 06:14:43 dev-encv2-abl -> r20260923-061443-5caa : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/dev.sh" /workspace/venv312/bin/python "$RESEARCH_RUN_DIR/inputs/enc_v2_ablate.py"
+research: run r20260923-061443-5caa launched on vy-enc-hopper (de87jjrsjm8pdg) pid=3032 -> /workspace/research/runs/r20260923-061443-5caa
+research: observe with `research fetch r20260923-061443-5caa`; the workload does not depend on this session staying alive
+06:15:09 dev-encv2-abl r20260923-061443-5caa state=done 0 wall=22s
+=== 06:21:04 dev-v2-test -> r20260923-062104-79f1 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/dev.sh" bash "$RESEARCH_RUN_DIR/inputs/dev_test1.sh"
+research: run r20260923-062104-79f1 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=3452 -> /workspace/research/runs/r20260923-062104-79f1
+research: observe with `research fetch r20260923-062104-79f1`; the workload does not depend on this session staying alive
+06:36:56 dev-v2-test r20260923-062104-79f1 state=done 0 wall=948s
+=== 06:45:15 validate-cp1 -> r20260923-064515-edd8 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate1.sh"
+research: run r20260923-064515-edd8 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=7369 -> /workspace/research/runs/r20260923-064515-edd8
+research: observe with `research fetch r20260923-064515-edd8`; the workload does not depend on this session staying alive
+=== 07:22:22 validate-cp2 -> r20260923-072222-9279 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate2.sh"
+=== 07:30:18 validate-cp2 -> r20260923-073018-cb94 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate2.sh"
+research: run r20260923-073018-cb94 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=18930 -> /workspace/research/runs/r20260923-073018-cb94
+research: observe with `research fetch r20260923-073018-cb94`; the workload does not depend on this session staying alive
+07:40:09 validate-cp2 r20260923-073018-cb94 state=done 0 wall=564s
+=== 07:40:52 bench-lane-bf16h-zk (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --zk --mode interactive) -> r20260923-074052-bb4f
+research: run r20260923-074052-bb4f launched on vy-enc-hopper (de87jjrsjm8pdg) pid=30536 -> /workspace/research/runs/r20260923-074052-bb4f
+research: observe with `research fetch r20260923-074052-bb4f`; the workload does not depend on this session staying alive
+07:41:39 bench-lane-bf16h-zk r20260923-074052-bb4f state=done 0 wall=43s
+=== 07:41:39 bench-main-bf16h-zk (/tmp/enchop/main-6babe27 bf16-hopper --zk --mode interactive) -> r20260923-074139-fe6a
+research: run r20260923-074139-fe6a launched on vy-enc-hopper (de87jjrsjm8pdg) pid=31009 -> /workspace/research/runs/r20260923-074139-fe6a
+research: observe with `research fetch r20260923-074139-fe6a`; the workload does not depend on this session staying alive
+07:42:27 bench-main-bf16h-zk r20260923-074139-fe6a state=done 0 wall=43s
+=== 07:42:27 bench-lane-fp8h-zk (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8-hopper --zk --mode interactive) -> r20260923-074227-4a84
+research: run r20260923-074227-4a84 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=31482 -> /workspace/research/runs/r20260923-074227-4a84
+research: observe with `research fetch r20260923-074227-4a84`; the workload does not depend on this session staying alive
+07:42:52 bench-lane-fp8h-zk r20260923-074227-4a84 state=done 0 wall=21s
+=== 07:42:52 bench-main-fp8h-zk (/tmp/enchop/main-6babe27 fp8-hopper --zk --mode interactive) -> r20260923-074252-b61d
+research: run r20260923-074252-b61d launched on vy-enc-hopper (de87jjrsjm8pdg) pid=31812 -> /workspace/research/runs/r20260923-074252-b61d
+research: observe with `research fetch r20260923-074252-b61d`; the workload does not depend on this session staying alive
+07:43:17 bench-main-fp8h-zk r20260923-074252-b61d state=done 0 wall=21s
+=== 07:45:14 bench-lane-bf16h-nozk (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --mode interactive) -> r20260923-074514-8243
+research: run r20260923-074514-8243 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=32303 -> /workspace/research/runs/r20260923-074514-8243
+research: observe with `research fetch r20260923-074514-8243`; the workload does not depend on this session staying alive
+07:46:00 bench-lane-bf16h-nozk r20260923-074514-8243 state=done 0 wall=42s
+=== 07:46:01 bench-main-bf16h-nozk (/tmp/enchop/main-6babe27 bf16-hopper --mode interactive) -> r20260923-074601-745f
+research: run r20260923-074601-745f launched on vy-enc-hopper (de87jjrsjm8pdg) pid=32774 -> /workspace/research/runs/r20260923-074601-745f
+research: observe with `research fetch r20260923-074601-745f`; the workload does not depend on this session staying alive
+07:46:47 bench-main-bf16h-nozk r20260923-074601-745f state=done 0 wall=42s
+=== 07:46:47 bench-lane-fp8h-nozk (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8-hopper --mode interactive) -> r20260923-074647-9f88
+research: run r20260923-074647-9f88 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=33249 -> /workspace/research/runs/r20260923-074647-9f88
+research: observe with `research fetch r20260923-074647-9f88`; the workload does not depend on this session staying alive
+07:47:12 bench-lane-fp8h-nozk r20260923-074647-9f88 state=done 0 wall=21s
+=== 07:47:12 bench-main-fp8h-nozk (/tmp/enchop/main-6babe27 fp8-hopper --mode interactive) -> r20260923-074712-ecf3
+research: run r20260923-074712-ecf3 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=33581 -> /workspace/research/runs/r20260923-074712-ecf3
+research: observe with `research fetch r20260923-074712-ecf3`; the workload does not depend on this session staying alive
+07:47:58 bench-main-fp8h-nozk r20260923-074712-ecf3 state=done 0 wall=42s
+=== 07:48:48 bench-lane-bf16h-nozk-r2 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --mode interactive) -> r20260923-074848-afc4
+research: run r20260923-074848-afc4 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=34014 -> /workspace/research/runs/r20260923-074848-afc4
+research: observe with `research fetch r20260923-074848-afc4`; the workload does not depend on this session staying alive
+=== 07:57:17 bench-lane-bf16h-zk-v2 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --zk --mode interactive) -> r20260923-075717-96da
+research run --on vy-enc-hopper: refused: /Users/danielreuter/projects/verity-main-wt/enc-hopper has uncommitted changes; commit them (an unpushed commit is fine) or the snapshot would be mislabeled as HEAD
+=== 08:07:40 bench-lane-bf16h-zk-v2 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --zk --mode interactive) -> r20260923-080740-9e3d
+research: run r20260923-080740-9e3d launched on vy-enc-hopper (de87jjrsjm8pdg) pid=35896 -> /workspace/research/runs/r20260923-080740-9e3d
+research: observe with `research fetch r20260923-080740-9e3d`; the workload does not depend on this session staying alive
+08:08:50 bench-lane-bf16h-zk-v2 r20260923-080740-9e3d state=done 0 wall=42s
+=== 08:09:23 validate-cp2b -> r20260923-080923-40cf : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate2.sh"
+research: run r20260923-080923-40cf launched on vy-enc-hopper (de87jjrsjm8pdg) pid=36385 -> /workspace/research/runs/r20260923-080923-40cf
+research: observe with `research fetch r20260923-080923-40cf`; the workload does not depend on this session staying alive
+08:20:25 validate-cp2b r20260923-080923-40cf state=done 0 wall=658s
+=== 08:20:25 bench-lane-fp8h-zk-v2 (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8-hopper --zk --mode interactive) -> r20260923-082025-839f
+research: run r20260923-082025-839f launched on vy-enc-hopper (de87jjrsjm8pdg) pid=48113 -> /workspace/research/runs/r20260923-082025-839f
+research: observe with `research fetch r20260923-082025-839f`; the workload does not depend on this session staying alive
+08:21:15 bench-lane-fp8h-zk-v2 r20260923-082025-839f state=done 0 wall=44s
+=== 08:21:15 bench-lane-fp8h-nozk-v2 (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8-hopper --mode interactive) -> r20260923-082115-3f71
+research: run r20260923-082115-3f71 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=48485 -> /workspace/research/runs/r20260923-082115-3f71
+research: observe with `research fetch r20260923-082115-3f71`; the workload does not depend on this session staying alive
+08:21:42 bench-lane-fp8h-nozk-v2 r20260923-082115-3f71 state=done 0 wall=22s
+=== 08:21:42 bench-lane-bf16h-nozk-v2 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --mode interactive) -> r20260923-082142-d70a
+research: run r20260923-082142-d70a launched on vy-enc-hopper (de87jjrsjm8pdg) pid=48817 -> /workspace/research/runs/r20260923-082142-d70a
+research: observe with `research fetch r20260923-082142-d70a`; the workload does not depend on this session staying alive
+08:22:32 bench-lane-bf16h-nozk-v2 r20260923-082142-d70a state=done 0 wall=44s
+=== 08:58:22 validate-cp3 -> r20260923-085822-cb9f : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate2.sh"
+research: run r20260923-085822-cb9f launched on vy-enc-hopper (de87jjrsjm8pdg) pid=51673 -> /workspace/research/runs/r20260923-085822-cb9f
+research: observe with `research fetch r20260923-085822-cb9f`; the workload does not depend on this session staying alive
+=== 09:04:41 validate-cp3 -> r20260923-090441-7ab0 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate2.sh"
+research: run r20260923-090441-7ab0 refused on vy-enc-hopper: machine is exclusively held by run r20260923-085822-cb9f (still live); not starting r20260923-090441-7ab0  (recorded in /Users/danielreuter/.research/runs/r20260923-090441-7ab0)
+09:08:36 validate-cp3 r20260923-085822-cb9f state=done 0 wall=589s
+=== 09:25:54 validate-cp4 -> r20260923-092554-cc4c : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate2.sh"
+research: run r20260923-092554-cc4c launched on vy-enc-hopper (de87jjrsjm8pdg) pid=64691 -> /workspace/research/runs/r20260923-092554-cc4c
+research: observe with `research fetch r20260923-092554-cc4c`; the workload does not depend on this session staying alive
+09:35:35 validate-cp4 r20260923-092554-cc4c state=done 0 wall=557s
+=== 09:36:10 bench-lane-bf16h-zk bf16-hopper --zk-v3 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16h-zk bf16-hopper --zk --mode interactive) -> r20260923-093610-07e9
+research: run r20260923-093610-07e9 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=76390 -> /workspace/research/runs/r20260923-093610-07e9
+research: observe with `research fetch r20260923-093610-07e9`; the workload does not depend on this session staying alive
+09:36:34 bench-lane-bf16h-zk bf16-hopper --zk-v3 r20260923-093610-07e9 state=failed 2 wall=20s
+=== 09:36:35 bench-lane-fp8h-zk fp8-hopper --zk-v3 (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8h-zk fp8-hopper --zk --mode interactive) -> r20260923-093635-dbd1
+research: run r20260923-093635-dbd1 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=76542 -> /workspace/research/runs/r20260923-093635-dbd1
+research: observe with `research fetch r20260923-093635-dbd1`; the workload does not depend on this session staying alive
+09:36:59 bench-lane-fp8h-zk fp8-hopper --zk-v3 r20260923-093635-dbd1 state=failed 2 wall=21s
+=== 09:36:59 bench-lane-bf16h-nozk bf16-hopper-v3 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16h-nozk bf16-hopper --mode interactive) -> r20260923-093659-50b1
+research: run r20260923-093659-50b1 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=76694 -> /workspace/research/runs/r20260923-093659-50b1
+research: observe with `research fetch r20260923-093659-50b1`; the workload does not depend on this session staying alive
+09:37:24 bench-lane-bf16h-nozk bf16-hopper-v3 r20260923-093659-50b1 state=failed 2 wall=21s
+=== 09:37:24 bench-lane-fp8h-nozk fp8-hopper-v3 (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8h-nozk fp8-hopper --mode interactive) -> r20260923-093724-6594
+research: run r20260923-093724-6594 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=76846 -> /workspace/research/runs/r20260923-093724-6594
+research: observe with `research fetch r20260923-093724-6594`; the workload does not depend on this session staying alive
+09:37:49 bench-lane-fp8h-nozk fp8-hopper-v3 r20260923-093724-6594 state=failed 2 wall=21s
+=== 09:38:05 bench-lane-bf16h-zk-v3 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --zk --mode interactive) -> r20260923-093805-28f2
+research: run r20260923-093805-28f2 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=76998 -> /workspace/research/runs/r20260923-093805-28f2
+research: observe with `research fetch r20260923-093805-28f2`; the workload does not depend on this session staying alive
+09:39:02 bench-lane-bf16h-zk-v3 r20260923-093805-28f2 state=done 0 wall=53s
+=== 09:39:02 bench-lane-fp8h-zk-v3 (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8-hopper --zk --mode interactive) -> r20260923-093902-224b
+research: run r20260923-093902-224b launched on vy-enc-hopper (de87jjrsjm8pdg) pid=77486 -> /workspace/research/runs/r20260923-093902-224b
+research: observe with `research fetch r20260923-093902-224b`; the workload does not depend on this session staying alive
+09:39:27 bench-lane-fp8h-zk-v3 r20260923-093902-224b state=done 0 wall=21s
+=== 09:39:27 bench-lane-bf16h-nozk-v3 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --mode interactive) -> r20260923-093927-06f2
+research: run r20260923-093927-06f2 launched on vy-enc-hopper (de87jjrsjm8pdg) pid=77812 -> /workspace/research/runs/r20260923-093927-06f2
+research: observe with `research fetch r20260923-093927-06f2`; the workload does not depend on this session staying alive
+09:40:13 bench-lane-bf16h-nozk-v3 r20260923-093927-06f2 state=done 0 wall=42s
+=== 09:40:13 bench-lane-fp8h-nozk-v3 (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8-hopper --mode interactive) -> r20260923-094013-2f1b
+research: run r20260923-094013-2f1b launched on vy-enc-hopper (de87jjrsjm8pdg) pid=78277 -> /workspace/research/runs/r20260923-094013-2f1b
+research: observe with `research fetch r20260923-094013-2f1b`; the workload does not depend on this session staying alive
+09:40:38 bench-lane-fp8h-nozk-v3 r20260923-094013-2f1b state=done 0 wall=21s
+=== 10:19:26 validate-cp5 -> r20260923-101926-dcdc : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/validate2.sh"
+research: run r20260923-101926-dcdc launched on vy-enc-hopper (de87jjrsjm8pdg) pid=81294 -> /workspace/research/runs/r20260923-101926-dcdc
+research: observe with `research fetch r20260923-101926-dcdc`; the workload does not depend on this session staying alive
+10:31:41 validate-cp5 r20260923-101926-dcdc state=done 0 wall=503s
+=== 10:49:41 bench-lane-bf16h-zk-cp5 (/Users/danielreuter/projects/verity-main-wt/enc-hopper bf16-hopper --mode interactive --zk) -> r20260923-104941-5d2f
+research: run r20260923-104941-5d2f launched on vy-enc-hopper (de87jjrsjm8pdg) pid=92800 -> /workspace/research/runs/r20260923-104941-5d2f
+research: observe with `research fetch r20260923-104941-5d2f`; the workload does not depend on this session staying alive
+=== 10:59:05 bench-lane-fp8h-zk-cp5 (/Users/danielreuter/projects/verity-main-wt/enc-hopper fp8-hopper --mode interactive --zk) -> r20260923-105905-271b
+research: run r20260923-105905-271b launched on vy-enc-hopper (de87jjrsjm8pdg) pid=93286 -> /workspace/research/runs/r20260923-105905-271b
+research: observe with `research fetch r20260923-105905-271b`; the workload does not depend on this session staying alive
+10:59:41 bench-lane-fp8h-zk-cp5 r20260923-105905-271b state=done 0 wall=31s

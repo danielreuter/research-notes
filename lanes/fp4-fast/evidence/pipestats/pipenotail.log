@@ -1,0 +1,16 @@
+=== vus 4092 (no tail)
+l=16384 n_proofs=6 per=682 zk=True depth=3 m=1583
+pass 0: wall 56.0 ms (sync 56.2); host busy 37.0 ms = 66% of wall, blocked 18.7 ms; stage_busy_ms {0: 16.35, 1: 0.54, 2: 2.5,
+pass 1: wall 64.3 ms (sync 64.7); host busy 43.3 ms = 67% of wall, blocked 20.7 ms; stage_busy_ms {0: 17.96, 1: 0.44, 2: 5.6,
+pass 2: wall 56.3 ms (sync 56.8); host busy 31.6 ms = 56% of wall, blocked 24.5 ms; stage_busy_ms {0: 16.99, 1: 0.51, 2: 4.96
+pass 3: wall 56.6 ms (sync 57.2); host busy 31.6 ms = 56% of wall, blocked 24.8 ms; stage_busy_ms {0: 17.17, 1: 0.41, 2: 5.38
+pass 4: wall 52.6 ms (sync 53.1); host busy 30.0 ms = 57% of wall, blocked 22.4 ms; stage_busy_ms {0: 15.98, 1: 0.48, 2: 4.38
+pass 5: wall 51.5 ms (sync 52.0); host busy 30.0 ms = 58% of wall, blocked 21.3 ms; stage_busy_ms {0: 16.01, 1: 0.51, 2: 4.49
+=== vus 4774 (no tail)
+l=16384 n_proofs=7 per=682 zk=True depth=3 m=1583
+pass 0: wall 74.9 ms (sync 75.5); host busy 54.6 ms = 73% of wall, blocked 19.9 ms; stage_busy_ms {0: 15.22, 1: 0.48, 2: 14.9
+pass 1: wall 69.2 ms (sync 70.3); host busy 49.7 ms = 72% of wall, blocked 19.2 ms; stage_busy_ms {0: 20.4, 1: 0.64, 2: 4.88,
+pass 2: wall 70.2 ms (sync 72.2); host busy 49.2 ms = 70% of wall, blocked 20.7 ms; stage_busy_ms {0: 23.61, 1: 0.45, 2: 3.45
+pass 3: wall 65.2 ms (sync 66.3); host busy 40.0 ms = 61% of wall, blocked 24.9 ms; stage_busy_ms {0: 19.49, 1: 0.55, 2: 5.32
+pass 4: wall 69.4 ms (sync 69.7); host busy 43.3 ms = 62% of wall, blocked 25.8 ms; stage_busy_ms {0: 20.09, 1: 0.45, 2: 4.75
+pass 5: wall 60.5 ms (sync 61.9); host busy 34.5 ms = 57% of wall, blocked 25.7 ms; stage_busy_ms {0: 17.08, 1: 0.5, 2: 4.63,

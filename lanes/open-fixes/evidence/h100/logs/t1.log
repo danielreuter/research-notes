@@ -1,0 +1,83 @@
+18:44:56 T1 start: fp8-hopper:341:13 bf16-hopper:170:25  lane=a0ff818 base=a0ff818-minus-e689b72 (tree bdae32a)
+18:45:39 bx fp8-hopper base rc=1
+18:45:44 bx fp8-hopper lane rc=1
+Traceback (most recent call last):
+  File "/workspace/cmpdig.py", line 5, in <module>
+    a, b = (json.load(open(f"{d}/digests.json")) for d in sys.argv[1:3])
+    ^^^^
+  File "/workspace/cmpdig.py", line 5, in <genexpr>
+    a, b = (json.load(open(f"{d}/digests.json")) for d in sys.argv[1:3])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/t1/bx_fp8-hopper_base/digests.json'
+18:45:44 bx fp8-hopper lane rust rc=2
+18:46:04 bx bf16-hopper base rc=1
+18:46:09 bx bf16-hopper lane rc=1
+Traceback (most recent call last):
+  File "/workspace/cmpdig.py", line 5, in <module>
+    a, b = (json.load(open(f"{d}/digests.json")) for d in sys.argv[1:3])
+    ^^^^
+  File "/workspace/cmpdig.py", line 5, in <genexpr>
+    a, b = (json.load(open(f"{d}/digests.json")) for d in sys.argv[1:3])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/t1/bx_bf16-hopper_base/digests.json'
+18:46:09 bx bf16-hopper lane rust rc=2
+18:46:24 bench fp8-hopper base round 1 --zk: === 18:46:24 rc=0 wall=15s
+18:46:37 bench fp8-hopper lane round 1 --zk: === 18:46:37 rc=0 wall=13s
+18:47:07 bench bf16-hopper base round 1 --zk: === 18:47:07 rc=0 wall=30s
+18:47:38 bench bf16-hopper lane round 1 --zk: === 18:47:38 rc=0 wall=31s
+18:47:51 bench fp8-hopper base round 2 --zk: === 18:47:51 rc=0 wall=13s
+18:48:02 bench fp8-hopper lane round 2 --zk: === 18:48:02 rc=0 wall=11s
+18:48:33 bench bf16-hopper base round 2 --zk: === 18:48:33 rc=0 wall=31s
+18:49:03 bench bf16-hopper lane round 2 --zk: === 18:49:03 rc=0 wall=30s
+18:49:14 gate fp8-hopper --zk: === 18:49:14 rc=0 wall=11s
+18:52:11 gate bf16-hopper --zk: === 18:52:11 rc=0 wall=177s
+18:52:12 dump fp8-hopper rep1 rust rc=0
+18:52:13 dump bf16-hopper rep1 rust rc=0
+18:52:22 ntt_cuda_test: 1 passed, 31 warnings in 8.18s
+18:52:22 T1_CORE_DONE
+18:52:32 gate fp8-hopper plain: === 18:52:32 rc=0 wall=10s
+18:55:23 gate bf16-hopper plain: === 18:55:23 rc=0 wall=171s
+18:55:35 bench fp8-hopper base round 3 nozk: === 18:55:35 rc=0 wall=12s
+18:55:46 bench fp8-hopper lane round 3 nozk: === 18:55:46 rc=0 wall=11s
+18:56:18 bench bf16-hopper base round 3 nozk: === 18:56:18 rc=0 wall=32s
+18:56:47 bench bf16-hopper lane round 3 nozk: === 18:56:47 rc=0 wall=29s
+18:56:47 T1_DONE
+18:56:58 bx fp8-hopper base rc=0
+18:57:06 bx fp8-hopper lane rc=0
+BITEXACT fp8-hopper zk=True pipeline=4 subs=13 vus/sub=341: 40/40 files identical; urandom calls 66 vs 66
+18:57:06 bx fp8-hopper lane rust rc=0 {"dir":"/workspace/t1/bx_fp8-hopper_lane","jobs":13,"available_parallelism":23,"threads":1,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"c
+18:57:23 bx bf16-hopper base rc=0
+18:57:34 bx bf16-hopper lane rc=0
+BITEXACT bf16-hopper zk=True pipeline=4 subs=25 vus/sub=170: 76/76 files identical; urandom calls 126 vs 126
+18:57:35 bx bf16-hopper lane rust rc=0 {"dir":"/workspace/t1/bx_bf16-hopper_lane","jobs":23,"available_parallelism":23,"threads":1,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"
+18:57:35 T1_BX_DONE
+18:57:46 bench fp8-hopper lane round 4 --zk: === 18:57:46 rc=0 wall=11s
+18:57:59 bench fp8-hopper base round 4 --zk: === 18:57:59 rc=0 wall=13s
+18:58:28 bench bf16-hopper lane round 4 --zk: === 18:58:28 rc=0 wall=29s
+18:59:00 bench bf16-hopper base round 4 --zk: === 18:59:00 rc=0 wall=32s
+18:59:13 bench fp8-hopper base round 5 --zk: === 18:59:13 rc=0 wall=13s
+18:59:24 bench fp8-hopper lane round 5 --zk: === 18:59:24 rc=0 wall=11s
+18:59:55 bench bf16-hopper base round 5 --zk: === 18:59:55 rc=0 wall=31s
+19:00:25 bench bf16-hopper lane round 5 --zk: === 19:00:25 rc=0 wall=30s
+19:00:36 bench fp8-hopper lane round 6 --zk: === 19:00:36 rc=0 wall=11s
+19:00:49 bench fp8-hopper base round 6 --zk: === 19:00:49 rc=0 wall=13s
+19:01:18 bench bf16-hopper lane round 6 --zk: === 19:01:18 rc=0 wall=29s
+19:01:48 bench bf16-hopper base round 6 --zk: === 19:01:48 rc=0 wall=30s
+19:02:01 bench fp8-hopper base round 7 --zk: === 19:02:01 rc=0 wall=13s
+19:02:13 bench fp8-hopper lane round 7 --zk: === 19:02:13 rc=0 wall=12s
+19:02:44 bench bf16-hopper base round 7 --zk: === 19:02:44 rc=0 wall=31s
+19:03:13 bench bf16-hopper lane round 7 --zk: === 19:03:13 rc=0 wall=29s
+19:03:13 T1_MORE_DONE 4..7
+19:04:35 bench fp8-hopper lane round 8 nozk: === 19:04:35 rc=0 wall=12s
+19:04:47 bench fp8-hopper base round 8 nozk: === 19:04:47 rc=0 wall=12s
+19:05:17 bench bf16-hopper lane round 8 nozk: === 19:05:17 rc=0 wall=29s
+19:05:48 bench bf16-hopper base round 8 nozk: === 19:05:48 rc=0 wall=31s
+19:06:00 bench fp8-hopper base round 9 nozk: === 19:06:00 rc=0 wall=12s
+19:06:12 bench fp8-hopper lane round 9 nozk: === 19:06:11 rc=0 wall=11s
+19:06:42 bench bf16-hopper base round 9 nozk: === 19:06:42 rc=0 wall=30s
+19:07:13 bench bf16-hopper lane round 9 nozk: === 19:07:13 rc=0 wall=31s
+19:07:16 dispatch fp8-hopper lane: NTT_DISPATCH cuda4step 9 Domain.get (torch-chain NTTs and other domain users) 0
+19:07:21 dispatch bf16-hopper lane: NTT_DISPATCH cuda4step 9 Domain.get (torch-chain NTTs and other domain users) 0
+19:07:28 dispatch fp8-hopper base: NTT_DISPATCH cuda4step 0 Domain.get (torch-chain NTTs and other domain users) 9
+19:07:36 dispatch bf16-hopper base: NTT_DISPATCH cuda4step 0 Domain.get (torch-chain NTTs and other domain users) 9
+19:07:36 T1_TAIL_DONE

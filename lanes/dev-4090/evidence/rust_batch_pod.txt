@@ -1,0 +1,16 @@
+== r20260923-104729-92cb
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 2.919s, wall 0.245s at 13 jobs x 1 threa
+{"dir":"r20260923-104729-92cb/proofs/rep1","jobs":13,"available_parallelism":13,"threads":1,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"6b570eef0c7faa07ccd1dddb2508e2699bd5367b108b15920469d46d16073d37","table_digest":"443e4fc74c0ac0cc864e50f7125d9585d71986c0b95ff5336d93a6939f
+== r20260923-104925-7636
+wall 0.264 s user 2.553 s sys 0.350 s
+wall 0.589 s user 6.601 s sys 0.525 s
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada+hash); python agreement 13/13 (0 disagree); verify sum 7.219s, wall 0.583s at 13 jobs x 1 
+{"dir":"r20260923-104925-7636/proofs/rep1","jobs":13,"available_parallelism":13,"threads":1,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"c4c4b403e07da47f7747b947ad76899ef231112bcc6d62dc0448a83ef8696618","table_digest":"c0e2f48119e2c83ca81cbc8eb1cbba51a676b67a600b8125d75bf438b7
+== r20260923-105300-bbc4
+wall 0.173 s user 1.804 s sys 0.213 s
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada-v2); python agreement 13/13 (0 disagree); verify sum 2.015s, wall 0.169s at 13 jobs x 1 th
+{"dir":"r20260923-105300-bbc4/proofs/rep1","jobs":13,"available_parallelism":13,"threads":1,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"f23461f82dec60ba24ce05000cc91b72dabcce3c87c249d0cee61a6cdba9eb36","table_digest":"82b3041e8cbcf0fc7db77fa1b8693c4517b6d8e62d28e4f1f87ea8e8c5
+== r20260923-110726-418f
+wall 0.251 s user 2.512 s sys 0.353 s
+13 proofs: 13 accepted, 0 rejected (13 against their own coins); batch ACCEPT (accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128); batch bits 128.319381 at target 128; system pinned (fp8-ada); python agreement 13/13 (0 disagree); verify sum 2.857s, wall 0.234s at 13 jobs x 1 threa
+{"dir":"r20260923-110726-418f/proofs/rep1","jobs":13,"available_parallelism":13,"threads":1,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"6b570eef0c7faa07ccd1dddb2508e2699bd5367b108b15920469d46d16073d37","table_digest":"443e4fc74c0ac0cc864e50f7125d9585d71986c0b95ff5336d93a6939f

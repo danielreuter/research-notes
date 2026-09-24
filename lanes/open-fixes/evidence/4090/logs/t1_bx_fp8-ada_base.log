@@ -1,0 +1,19 @@
+tree=/workspace/src-base impl=device rel=fp8-ada zk=True mode=interactive vus/sub=341 subs=13 seed=7
+  shake overlapped (libcrypto): True
+  warm-up done; urandom counter reset to 1
+  pipeline stats: {'n': 13, 'depth': 4, 'wall': 0.6915, 'host_busy': 0.59, 'host_waited': 0.1007, 'net_idle': 0.0, 'stage_busy_ms': {-1: 0.82, 0: 26.76, 1: 1.44, 2: 474.64, 3: 38.45, 4: 48.67}}
+  pipelined pass: 13 sub-batches in 0.692s wall = 53.2 ms/sub-batch; measured phases {'measured_statement': 0.0019, 'measured_hints_host': 0.0542, 'measured_witness': 0.0043, 'measured_zk_masks': 0.0005, 'measured_encode': 0.164, 'measured_transfer': 0.0, 'measured_merkle': 0.0, 'measured_tests_w': 0.9826, 'measured_tests_quad': 0.0, 'measured_tests_chain': 0.0, 'measured_openings': 0.0619, 'measured_total': 1.7319}
+  sub_00: 5.08 MB, prove 0.052s (+hints 0.001s), urandom calls so far 66
+  sub_01: 5.08 MB, prove 0.046s (+hints 0.007s), urandom calls so far 66
+  sub_02: 5.08 MB, prove 0.049s (+hints 0.004s), urandom calls so far 66
+  sub_03: 5.08 MB, prove 0.048s (+hints 0.005s), urandom calls so far 66
+  sub_04: 5.08 MB, prove 0.053s (+hints 0.001s), urandom calls so far 66
+  sub_05: 5.08 MB, prove 0.052s (+hints 0.001s), urandom calls so far 66
+  sub_06: 5.08 MB, prove 0.052s (+hints 0.001s), urandom calls so far 66
+  sub_07: 5.08 MB, prove 0.052s (+hints 0.001s), urandom calls so far 66
+  sub_08: 5.08 MB, prove 0.052s (+hints 0.001s), urandom calls so far 66
+  sub_09: 5.08 MB, prove 0.049s (+hints 0.004s), urandom calls so far 66
+  sub_10: 5.08 MB, prove 0.049s (+hints 0.004s), urandom calls so far 66
+  sub_11: 5.08 MB, prove 0.045s (+hints 0.008s), urandom calls so far 66
+  sub_12: 5.08 MB, prove 0.052s (+hints 0.001s), urandom calls so far 66
+wrote /workspace/t1/bx_fp8-ada_base 40 files

@@ -1,0 +1,96 @@
+{
+ "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+ "independent": false,
+ "statement_format": "ligero-statement/v5",
+ "accepted": 7,
+ "total": 7,
+ "batch": {
+  "1": {
+   "n_subbatches": 7,
+   "target_bits": 128.0,
+   "batch_log2": -128.5388950890883,
+   "per_proof_log2": [
+    -131.3462500111459,
+    -131.3462500111459,
+    -131.3462500111459,
+    -131.3462500111459,
+    -131.3462500111459,
+    -131.3462500111459,
+    -131.3462500111459
+   ],
+   "n_proofs_claimed": [
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "accepted": true,
+   "reason": "accept: all 7 sub-batches accepted; union bound 2^-128.54 <= 2^-128"
+  }
+ },
+ "batch_accepted": true,
+ "seconds": 0.2678036019206047,
+ "wall": 0.2843049466609955,
+ "coins": "the transcript's own coins replayed (file verifier)",
+ "items": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "proof": "rep1/sub_00.proof",
+   "accepted": true,
+   "reason": "",
+   "seconds": 0.039295345544815063
+  },
+  {
+   "rep": 1,
+   "sub": 1,
+   "proof": "rep1/sub_01.proof",
+   "accepted": true,
+   "reason": "",
+   "seconds": 0.03882043808698654
+  },
+  {
+   "rep": 1,
+   "sub": 2,
+   "proof": "rep1/sub_02.proof",
+   "accepted": true,
+   "reason": "",
+   "seconds": 0.03899957239627838
+  },
+  {
+   "rep": 1,
+   "sub": 3,
+   "proof": "rep1/sub_03.proof",
+   "accepted": true,
+   "reason": "",
+   "seconds": 0.03949347510933876
+  },
+  {
+   "rep": 1,
+   "sub": 4,
+   "proof": "rep1/sub_04.proof",
+   "accepted": true,
+   "reason": "",
+   "seconds": 0.03935082629323006
+  },
+  {
+   "rep": 1,
+   "sub": 5,
+   "proof": "rep1/sub_05.proof",
+   "accepted": true,
+   "reason": "",
+   "seconds": 0.039400216192007065
+  },
+  {
+   "rep": 1,
+   "sub": 6,
+   "proof": "rep1/sub_06.proof",
+   "accepted": true,
+   "reason": "",
+   "seconds": 0.03244372829794884
+  }
+ ]
+}

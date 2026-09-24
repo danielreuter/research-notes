@@ -1,0 +1,271 @@
+{
+ "relation": "fp8-ada",
+ "l": 256,
+ "vus": 12,
+ "positives": [
+  {
+   "coins": "fiat-shamir",
+   "ok": true,
+   "why": "accept",
+   "bytes": {
+    "total": 323797,
+    "sumcheck": 3493,
+    "pcs_rows": 153280,
+    "pcs_merkle": 141216,
+    "pcs_sumcheck": 864,
+    "pcs_final": 24576,
+    "roots": 96,
+    "header": 272
+   },
+   "timings": {
+    "witness": 0.26772569213062525,
+    "transcript": 0.0004383400082588196,
+    "commit_r1_alloc": 0.002810962963849306,
+    "commit_r1_encode": 0.0016367100179195404,
+    "commit_r1_merkle": 0.020706465002149343,
+    "zero_check": 0.2062911638058722,
+    "sumcheck_r1_contract": 0.2121305731125176,
+    "sumcheck_host": 0.05182947823777795,
+    "sumcheck_r1_fold": 0.00021595880389213562,
+    "recursion_encode": 0.01305092591792345,
+    "recursion_merkle": 0.003322822041809559,
+    "serialize_openings": 0.02750731399282813,
+    "recursion_contract": 0.10660599637776613,
+    "recursion_fold": 0.009696193039417267,
+    "serialize_final": 0.00206634309142828,
+    "serialize_proof": 0.0004553021863102913,
+    "total": 0.9275232772342861,
+    "sumcheck_detail": {
+     "tables": 0.05549281509593129,
+     "sumcheck1": 0.08433117996901274,
+     "sumcheck2_coef": 0.04452099557965994,
+     "sumcheck2_eq": 0.000411229208111763,
+     "sumcheck2_matvec": 0.000316019169986248,
+     "sumcheck2": 0.05498186685144901,
+     "sumcheck3": 0.010444840881973505,
+     "total": 0.20525402016937733
+    }
+   },
+   "verify": {
+    "t_public": 0.03187629906460643,
+    "t_sumcheck": 0.9609318571165204,
+    "t_pcs": 0.057759798131883144,
+    "soundness_log2": -128.01692801556666,
+    "seconds": 1.0513988281600177,
+    "coins": 64
+   }
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "bytes round trip",
+   "ok": true,
+   "why": "accept"
+  }
+ ],
+ "negatives": [
+  {
+   "coins": "fiat-shamir",
+   "name": "wrong y: claimed word bit 0 flipped (proved)",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "wrong y: claimed word bit 7 flipped (proved)",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "wrong y: claimed word bit 21 flipped (proved)",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "wrong y: +1 ulp in the statement (honest proof)",
+   "accepted": false,
+   "why": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "off-domain operand 0x7f in a",
+   "accepted": false,
+   "why": "statement sub-batch 0: public inputs rejected: E4M3 NaN operand"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "operand a[10][1] exponent bit flipped (honest proof)",
+   "accepted": false,
+   "why": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "violated chain link c.f[20] != y.f[19]",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "c_0 != 0 at a chain start",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "accumulator fraction bit 12 flipped in a linked unit",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "accumulator fraction bit 0 flipped in a linked unit",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "row x.acc.s (hint) +1 in column 12",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "row x.acc.nz1.b0 (bit) +1 in column 76",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "row x.prod0 (prod, quadratic) +2 in column 56",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "row x.acc.z1.inv (inv) +1 in column 68",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "row g0.align_state.g0.align_state.pow.sel0 (sel, lookup) +1 in column 46",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "row x.prod1 (prod, quadratic) +2 in column 38",
+   "accepted": false,
+   "why": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "violated chain link + zero-check opening round forged (cheat=round1)",
+   "accepted": false,
+   "why": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "violated chain link + every zero-check round forged (cheat=all)",
+   "accepted": false,
+   "why": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "row x.prod0 (prod, quadratic) +2 in column 56 + every zero-check round forged (cheat=all)",
+   "accepted": false,
+   "why": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "row g0.align_state.g0.align_state.pow.sel0 (sel, lookup) +1 in column 46 + every zero-check round forged (cheat=all)",
+   "accepted": false,
+   "why": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered opened row (round 1)",
+   "accepted": false,
+   "why": "Merkle multi-path of round 1 failed"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered opened row (last round)",
+   "accepted": false,
+   "why": "Merkle multi-path of the last round failed"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered root 1",
+   "accepted": false,
+   "why": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered root 2",
+   "accepted": false,
+   "why": "Merkle multi-path of round 1 failed"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered final vector",
+   "accepted": false,
+   "why": "Merkle multi-path of the last round failed"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered Merkle sibling",
+   "accepted": false,
+   "why": "Merkle multi-path of round 1 failed"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered PCS sumcheck message",
+   "accepted": false,
+   "why": "PCS sumcheck round 1 failed"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered zero-check message",
+   "accepted": false,
+   "why": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "tampered claim value",
+   "accepted": false,
+   "why": "shift sumcheck final: succ(rho, r_c) V(rho) != claim"
+  },
+  {
+   "coins": "fiat-shamir",
+   "name": "statement of another batch size (n_vus)",
+   "accepted": false,
+   "why": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim"
+  }
+ ],
+ "system": {
+  "rows": 3769,
+  "by_kind": {
+   "hint": 161,
+   "bit": 2474,
+   "prod": 301,
+   "inv": 1,
+   "pin": 192,
+   "sel": 640
+  },
+  "linear": 589,
+  "quadratic": 3532,
+  "pins": 192,
+  "hints": 161
+ },
+ "failures": 0,
+ "python_dump_verify": {
+  "verifier": "python (backends.direct.ligerito.prove.Prover.verify; shares the claim algebra with the prover)",
+  "independent": false,
+  "total": 31,
+  "agree": 31,
+  "wall": 10.185699447989464
+ },
+ "rust": null
+}

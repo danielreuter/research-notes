@@ -1,0 +1,396 @@
+{
+ "format": {
+  "system": "ligero-system/v2",
+  "statement": "ligero-statement/v4",
+  "proof": "ligero-proof/v1"
+ },
+ "relation": "fp4-nvf4",
+ "commit": "3dfdb21d39ea700c8cc7c6d639e03e200d0dcc08",
+ "device": "cuda",
+ "system": {
+  "rows": 1583,
+  "by_kind": {
+   "hint": 86,
+   "bit": 972,
+   "prod": 210,
+   "inv": 2,
+   "pin": 141,
+   "sel": 172
+  },
+  "linear": 306,
+  "quadratic": 1389,
+  "pins": 141,
+  "hints": 86
+ },
+ "zk": true,
+ "mode": "interactive",
+ "impl": "device",
+ "files": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "vus": [
+    0,
+    341
+   ],
+   "stmt": "rep1/sub_00.stmt",
+   "proof": "rep1/sub_00.proof",
+   "stmt_sha256": "4d5e86a1a9956ba8f4569333bbccf81f8e5d5ea154b262a4adffed2f5bb4342e",
+   "proof_bytes": 2385100,
+   "proof_sha256": "16cedd3c3c404935ad7aadd45b3c84d99f995477397b9b70c6650a13d512ea4b",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.047s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.046s)",
+    "seconds": 0.05014533596113324
+   },
+   "prover_seconds": 0.018947402946650982,
+   "coins": "rep1/sub_00.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "78ec0f3c9365c21eeb321b2bc361bb8e20254d1813bca1dad780eb3772c3d320"
+  },
+  {
+   "rep": 1,
+   "sub": 1,
+   "vus": [
+    341,
+    682
+   ],
+   "stmt": "rep1/sub_01.stmt",
+   "proof": "rep1/sub_01.proof",
+   "stmt_sha256": "55cfcaee21d3b5ea10a98e4f738a266d27c13018831779d3e902e64dde217fdc",
+   "proof_bytes": 2385100,
+   "proof_sha256": "4bed8a0c76bb536014c846d6ae625d868c0bd89e2d6cdda2156cab7cb0575297",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.045s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.046s)",
+    "seconds": 0.04961751098744571
+   },
+   "prover_seconds": 0.019541566027328372,
+   "coins": "rep1/sub_01.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "e797826c6969f0d7a3b22be7c55849e8a5b8d25c2198149d9689ae58ab86160b"
+  },
+  {
+   "rep": 1,
+   "sub": 2,
+   "vus": [
+    682,
+    1023
+   ],
+   "stmt": "rep1/sub_02.stmt",
+   "proof": "rep1/sub_02.proof",
+   "stmt_sha256": "f5e660312de4042200a9667038eec32593cb6b754dd8ee62eefebc7f1d19e2c0",
+   "proof_bytes": 2385100,
+   "proof_sha256": "2bd60718ad63e0acd9a9051e0d08f3dcb47a0a3a6355fa83473b45082f8704b2",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.045s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.046s)",
+    "seconds": 0.04966385313309729
+   },
+   "prover_seconds": 0.01818655920214951,
+   "coins": "rep1/sub_02.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "83d9f69b5be934341a2cdfcbeef145534527f57c7e51e6d74d1e349d76eb0476"
+  },
+  {
+   "rep": 1,
+   "sub": 3,
+   "vus": [
+    1023,
+    1364
+   ],
+   "stmt": "rep1/sub_03.stmt",
+   "proof": "rep1/sub_03.proof",
+   "stmt_sha256": "6dce80e3e733036334f7c7c299ec364c59766688a6e5d573e2388a14bc12470b",
+   "proof_bytes": 2385100,
+   "proof_sha256": "d1239eb33c07db2acce52a8e1f6ff753780cc9a43a16657ae30ef9b48386bdb4",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.045s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.049s)",
+    "seconds": 0.05243995599448681
+   },
+   "prover_seconds": 0.017967278137803078,
+   "coins": "rep1/sub_03.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "76af7a44729c1b23f2905aad049f5faea494e4e68b8cdf1730e7d9338b15a928"
+  },
+  {
+   "rep": 1,
+   "sub": 4,
+   "vus": [
+    1364,
+    1705
+   ],
+   "stmt": "rep1/sub_04.stmt",
+   "proof": "rep1/sub_04.proof",
+   "stmt_sha256": "c92301513f05a40683820a6791736a89ac661e10b451324f26f4655ea89044ec",
+   "proof_bytes": 2385100,
+   "proof_sha256": "8004c809d03b52606070b8dc3425be0148097730c1ccc28d6627a1062141fa9d",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.044s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.046s)",
+    "seconds": 0.05006136489100754
+   },
+   "prover_seconds": 0.018295050133019686,
+   "coins": "rep1/sub_04.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "b8b2192752c4381391be0e59a98db2da3ca3936da63a3ed042f7e327ed785a75"
+  },
+  {
+   "rep": 1,
+   "sub": 5,
+   "vus": [
+    1705,
+    2046
+   ],
+   "stmt": "rep1/sub_05.stmt",
+   "proof": "rep1/sub_05.proof",
+   "stmt_sha256": "9bbde3cda3065ca8fa3608a399f2d26b8b38743ea5362460488d23c3a2fba04d",
+   "proof_bytes": 2385100,
+   "proof_sha256": "a1e04c35e1ec5c181dbdcc39ad21a193f2fdaf682a2c49bc97e88783f9e86a78",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.045s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.046s)",
+    "seconds": 0.049966394202783704
+   },
+   "prover_seconds": 0.019433935172855854,
+   "coins": "rep1/sub_05.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "5b4e5f833a1bbe4954f7619fe4e586d1b5f6b8c7b3c512ea9715b9e809d9ddd4"
+  },
+  {
+   "rep": 1,
+   "sub": 6,
+   "vus": [
+    2046,
+    2387
+   ],
+   "stmt": "rep1/sub_06.stmt",
+   "proof": "rep1/sub_06.proof",
+   "stmt_sha256": "74e81f00b3945b838416161510246e30fedb561e48a120caa8f87964ee23e395",
+   "proof_bytes": 2385100,
+   "proof_sha256": "3fab177e50c6e139cbd6eb07b5831f5453ceaf78243565a01423241db12ef4b7",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.044s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.048s)",
+    "seconds": 0.0514123709872365
+   },
+   "prover_seconds": 0.017863956978544593,
+   "coins": "rep1/sub_06.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "784ed8c7c22259ce87ddaaf0cc5d9d4c24ac1d09a6fd709edb38f91f6051d700"
+  },
+  {
+   "rep": 1,
+   "sub": 7,
+   "vus": [
+    2387,
+    2728
+   ],
+   "stmt": "rep1/sub_07.stmt",
+   "proof": "rep1/sub_07.proof",
+   "stmt_sha256": "8d9d9e751015802349b4861a92bc1e01113d7958dd0c1b08be303faabf4a97e8",
+   "proof_bytes": 2385100,
+   "proof_sha256": "e3432167fca7ff79a33e084f8f30d7fa268b2b997d2a7378ebb5a889390dfdee",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.044s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.047s)",
+    "seconds": 0.050417156890034676
+   },
+   "prover_seconds": 0.018083907896652818,
+   "coins": "rep1/sub_07.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "558ef4008f586a8c1dea1f2f50484a25e820730f83b5c09cf67ca460e5c1e173"
+  },
+  {
+   "rep": 1,
+   "sub": 8,
+   "vus": [
+    2728,
+    3069
+   ],
+   "stmt": "rep1/sub_08.stmt",
+   "proof": "rep1/sub_08.proof",
+   "stmt_sha256": "95dd48bdab7e64d25d241c01b90e7447327cebdf9e12d7de2ee93c2d84a51928",
+   "proof_bytes": 2385100,
+   "proof_sha256": "3e5fbb87f0f2604a10d10104202dba12b1f1e4dbd913e07c78a68a9757e75b4a",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.045s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.047s)",
+    "seconds": 0.05083376890979707
+   },
+   "prover_seconds": 0.01878762198612094,
+   "coins": "rep1/sub_08.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "d733b814ff9e4805ed449f235f51c81063eca394840ec6493a506c9070f43eef"
+  },
+  {
+   "rep": 1,
+   "sub": 9,
+   "vus": [
+    3069,
+    3410
+   ],
+   "stmt": "rep1/sub_09.stmt",
+   "proof": "rep1/sub_09.proof",
+   "stmt_sha256": "73865f3bf1eadca408ce45bafef39a2da6f24bc08ace0269dd29fa3fd21282bc",
+   "proof_bytes": 2385100,
+   "proof_sha256": "b56f42f387db70614c291047e227093c9bf75398eca6ca63979e71fdecdcaf94",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.045s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.047s)",
+    "seconds": 0.050956017803400755
+   },
+   "prover_seconds": 0.020202368032187223,
+   "coins": "rep1/sub_09.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "6756d4d34cad85c6c2bbd0a3d0fa88ebbfe7f6fb8d07361b5da3d19eee3d7138"
+  },
+  {
+   "rep": 1,
+   "sub": 10,
+   "vus": [
+    3410,
+    3751
+   ],
+   "stmt": "rep1/sub_10.stmt",
+   "proof": "rep1/sub_10.proof",
+   "stmt_sha256": "cfe137b90b63bc26062f1a0e3d5c72b5775b3ee84481b8f311234627f1efaf64",
+   "proof_bytes": 2385100,
+   "proof_sha256": "95e8cdcb6abe2af1e94ab72330e382742f99bc94a031fae3af4a28941655bc28",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.044s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.046s)",
+    "seconds": 0.04987192410044372
+   },
+   "prover_seconds": 0.017984437057748437,
+   "coins": "rep1/sub_10.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "0ad5cdf6b91f31679230824295189c67c496794fc111ac3ab000d8f07926bb57"
+  },
+  {
+   "rep": 1,
+   "sub": 11,
+   "vus": [
+    3751,
+    4092
+   ],
+   "stmt": "rep1/sub_11.stmt",
+   "proof": "rep1/sub_11.proof",
+   "stmt_sha256": "b2519383c65ff67bed583bba7e84a46d9f69dbf8cef0838808e8860e51691a90",
+   "proof_bytes": 2385100,
+   "proof_sha256": "06e413a006ae522851a0954649cbe05ea2312e3e75fa4f5278ba6131028ab7eb",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.045s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.046s)",
+    "seconds": 0.04954116209410131
+   },
+   "prover_seconds": 0.018081967951729894,
+   "coins": "rep1/sub_11.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "0102c9b4207baf55872c686c9439584e75a372faad2311023394c1dce0b99b73"
+  },
+  {
+   "rep": 1,
+   "sub": 12,
+   "vus": [
+    4092,
+    4096
+   ],
+   "stmt": "rep1/sub_12.stmt",
+   "proof": "rep1/sub_12.proof",
+   "stmt_sha256": "39187fdb49b1ad6c70fff482e5ca496c693d9d53269c278b0ac0c40ecc4df35f",
+   "proof_bytes": 2385100,
+   "proof_sha256": "e12cb6d307b7a4b2579d7797731cfe454e429aed97bdf89a5228d71753a472ce",
+   "python_verdict": {
+    "accepted": true,
+    "reason": "accept (0.043s)"
+   },
+   "python_file_verdict": {
+    "accepted": true,
+    "reason": "accept (0.044s)",
+    "seconds": 0.0475902131292969
+   },
+   "prover_seconds": 0.020613800967112184,
+   "coins": "rep1/sub_12.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "e975cefeb8b6617ba6cfd02bdad69497ce1771b5fc82e77947c91cb3bd4ac46f"
+  }
+ ],
+ "hints": "device",
+ "system_file": {
+  "path": "system.bin",
+  "sha256": "6bb9d77fac27118f60e316333508bade1c13eb952c43722372c13b5410c195c8",
+  "sys_id": "a825ba0b826a15366bfb8cdd720a5e9978603cbe589491abcbba7346ad35bf3c",
+  "bytes": 95330
+ },
+ "set": {
+  "total_vus": 4096,
+  "batch": 8192,
+  "per_proof": 341,
+  "n_proofs": 13,
+  "zk": true,
+  "mode": "interactive",
+  "reps": 3,
+  "relation": "fp4-nvf4",
+  "instances": {
+   "dataset": "bench-instances-nvfp4-sm120/v1",
+   "tier": "vu-k1536-nvfp4-sm120",
+   "range": [
+    0,
+    4096
+   ],
+   "manifest_sha256": "d2d65f6523b49e673847746d725fbce3282f2734b0b424637c01e88f188a240a",
+   "seed": 20260922,
+   "recipe": "fp4-nvf4 synthetic (edge families random, zero-scales, subnormal-scales, top-scales, top-scales-zero-acc, span-scales, sparse, sparse-subnormal-acc, all-zero-codes, half-codes, max-codes, cancel, cancel-acc, mixed cycling per VU; model-recorded accumulators)"
+  }
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "n_subbatches": 1,
+ "target_bits": 128.0,
+ "batch_log2": -128.06909944038262,
+ "per_proof_log2": [
+  -128.06909944038262
+ ],
+ "n_proofs_claimed": [
+  1
+ ],
+ "accepted": true,
+ "reason": "accept: all 1 sub-batches accepted; union bound 2^-128.07 <= 2^-128",
+ "batch_bits": 128.06909944038262,
+ "n_accepted": 1,
+ "n_rejected": 0,
+ "seconds": 0.9157528441864997,
+ "verifier": "python (backends.direct.ligero.protocol.verify + batch_bound)",
+ "items": [
+  {
+   "name": "sub_00.proof",
+   "accepted": true,
+   "reason": "accept (0.865s)",
+   "seconds": 0.8687900740187615,
+   "own_coins": true,
+   "per_proof_log2": -128.06909944038262,
+   "n_proofs": 1
+  }
+ ]
+}

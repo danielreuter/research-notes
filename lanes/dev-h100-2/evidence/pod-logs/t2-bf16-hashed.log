@@ -1,0 +1,6 @@
+[12:39:35Z] START t2-bf16-hashed rel=bf16-hopper auth=hashed batch=16384 pipeline=4 reps=3 dump=1 live=1 on=vy-dev-h100-2b
+research: run r20260923-123935-0781 launched on vy-dev-h100-2b (jzrtm9jfkc9kit) pid=2019 -> /workspace/research/runs/r20260923-123935-0781
+research: observe with `research fetch r20260923-123935-0781`; the workload does not depend on this session staying alive
+[12:39:40Z] t2-bf16-hashed -> r20260923-123935-0781
+[12:41:54Z] END t2-bf16-hashed r20260923-123935-0781 finished: done
+research: r20260923-123935-0781 observed 2026-09-23T12:41:55.609Z: done rc=0 class=SUCCESS result=valid (research/result/v0.1); 1 listed artifact(s) missing

@@ -1,0 +1,19 @@
+=== 18:15:14 tree=/workspace/src sha=ecec3ef0f6a0f7ead6e87814abebe24ceeb812cd cmd: /workspace/venv312/bin/python /workspace/zero_sum_probe.py /workspace/unit_92536.json
+fp8-hopper-v2      unit92536    units=   1 zero_words=   1  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-hopper-v2      constructed  units= 256 zero_words= 256  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-ada-v2         unit92536    units=   1 zero_words=   0  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-ada-v2         constructed  units= 256 zero_words= 123  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+bf16-hopper-v2     constructed  units= 256 zero_words= 256  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+bf16-ampere-v2     constructed  units= 115 zero_words= 115  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-hopper-v2x4    constructed  units= 256 zero_words=  61  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-ada-v2x4       constructed  units= 256 zero_words=  33  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+bf16-hopper-v2x4   constructed  units=  59 zero_words=  59  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+bf16-ampere-v2x4   constructed  units=  32 zero_words=  32  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-hopper-v3      unit92536    units=   1 zero_words=   1  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-hopper-v3      constructed  units= 256 zero_words= 256  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-ada-v3         unit92536    units=   1 zero_words=   0  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+fp8-ada-v3         constructed  units= 256 zero_words= 123  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+bf16-hopper-v3     constructed  units= 256 zero_words= 256  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+bf16-ampere-v3     constructed  units= 115 zero_words= 115  unit: rejected=0 [] wrong_accepted=0  chain: rejected=0 []
+PROBE_BAD 0
+=== 18:15:25 rc=0 wall=11s

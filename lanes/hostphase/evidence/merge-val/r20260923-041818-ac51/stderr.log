@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/research/runs/r20260923-041818-ac51/result_fp4_device.json'
+sha256sum: '/workspace/research/runs/r20260923-041818-ac51/proofs_fp4_*/system.bin': No such file or directory

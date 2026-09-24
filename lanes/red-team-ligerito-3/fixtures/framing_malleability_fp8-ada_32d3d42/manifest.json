@@ -1,0 +1,73 @@
+{
+ "format": {
+  "proof": "LGTO0001",
+  "statement": "LGTS0001",
+  "key": "LGVK0001"
+ },
+ "relation": "fp8-ada",
+ "l": 256,
+ "commit": "32d3d42",
+ "kind": "red-team-ligerito-3 framing re-encodings (accepted today; must reject once framing is canonical)",
+ "files": [
+  {
+   "proof": "framing_space.lgto.neg",
+   "stmt": "framing_space.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "name": "honest FS proof, framing re-encoded (space): '{\"sib_len\": [78048,39424,22912],\"final_len\":1024}'",
+   "proof_sha256": "e23d2ddf39179d1111543fec2ee66b82e9ab5548ea113cf50331322b7b4d6b99",
+   "rust_verdict_today": {
+    "accepted": false,
+    "reason": "proof: non-canonical framing"
+   }
+  },
+  {
+   "proof": "framing_extra_key.lgto.neg",
+   "stmt": "framing_extra_key.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "name": "honest FS proof, framing re-encoded (extra_key): '{\"sib_len\":[78048,39424,22912],\"final_len\":1024,\"zz\":1}'",
+   "proof_sha256": "a882465c57011161eb6bf3fa6c97dec112738c765d2e13d0948bb34ab8a76fe9",
+   "rust_verdict_today": {
+    "accepted": false,
+    "reason": "proof: non-canonical framing"
+   }
+  },
+  {
+   "proof": "framing_reordered.lgto.neg",
+   "stmt": "framing_reordered.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "name": "honest FS proof, framing re-encoded (reordered): '{\"final_len\":1024,\"sib_len\":[78048,39424,22912]}'",
+   "proof_sha256": "18221e938f94fe1445c046fd1ec76bcc671a0e8ae4d95f2e906187fd91998513",
+   "rust_verdict_today": {
+    "accepted": false,
+    "reason": "proof: non-canonical framing"
+   }
+  },
+  {
+   "proof": "framing_indented.lgto.neg",
+   "stmt": "framing_indented.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "name": "honest FS proof, framing re-encoded (indented): '{\\n  \"sib_len\": [\\n    78048,\\n    39424,\\n    22912\\n  ],\\n  \"fin'",
+   "proof_sha256": "8c2b24288e380c7ff46fa14587d0fcdc069502e9900bdfdb879082935e8c6fa2",
+   "rust_verdict_today": {
+    "accepted": false,
+    "reason": "proof: non-canonical framing"
+   }
+  },
+  {
+   "proof": "framing_t_pad_zero.lgto.neg",
+   "stmt": "framing_t_pad_zero.stmt",
+   "expect": "reject",
+   "coins": "fiat-shamir",
+   "name": "honest FS proof, framing re-encoded (t_pad_zero): '{\"sib_len\":[78048,39424,22912],\"final_len\":1024,\"t_pad\":0}'",
+   "proof_sha256": "cb1315ecd2ed4f43fc0d1706ff8b72c2a9dc8c973df09aa7f5818a922684982d",
+   "rust_verdict_today": {
+    "accepted": false,
+    "reason": "proof: non-canonical framing"
+   }
+  }
+ ]
+}

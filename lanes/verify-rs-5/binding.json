@@ -1,0 +1,6 @@
+{
+ "branch": "lane/verify-rs-3",
+ "pod": "none",
+ "succeeds": "verify-rs-4",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/verify-rs-3"
+}

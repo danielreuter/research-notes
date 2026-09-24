@@ -1,0 +1,1157 @@
+{
+ "schema": "research/result/v0.1",
+ "run_id": "r20260923-040725-74cd",
+ "workload_fingerprint": {
+  "profile": "nvfp4-sm120-mma-draft/2026-09-22",
+  "domain": "finite",
+  "K": 1536,
+  "B": 64,
+  "N_subbatches": 2,
+  "proof_class": "NON_ZK_PROOF_DIAGNOSTIC",
+  "authentication": "excluded",
+  "zk_mode": "none",
+  "security": {
+   "target": -128,
+   "field": "BabyBear",
+   "challenge_coords": 6,
+   "rs_n": 4096,
+   "rs_k": 1024,
+   "rs_l": 1024,
+   "zk": false,
+   "t_pad": 0,
+   "mode": "interactive",
+   "bound_model": "interactive: statistical, live verifier coins committed at step 0 (HM96); no Fiat-Shamir loss",
+   "hash_assumption": "collision resistance of Blake2b (coin commitments) + Blake3 (Merkle); the challenge expander is a PRG of the verifier's coins",
+   "zk_statement": "none (no masking)",
+   "fiat_shamir_queries_log2": null,
+   "opened_columns": 189,
+   "achieved_log2": -127.04909939407844,
+   "terms_log2": {
+    "irs_query": -128.04909939407844,
+    "linear_query": -188.86689315687454,
+    "quadratic_query": -188.73385125975915,
+    "irs_field": -173.44099140047038,
+    "linear_field": -185.44134357795068,
+    "quadratic_field": -185.44134357795068,
+    "coin_commitment_hiding": -191.0
+   },
+   "per_proof_target_log2": -129.0,
+   "per_proof_total_log2": -128.04909939407844,
+   "union_over": 2,
+   "hash_placeholder": true
+  },
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA GeForce RTX 4090",
+    "driver": "595.91.07",
+    "cuda": "13.2",
+    "count": 1,
+    "memory_total_bytes": 25757220864
+   },
+   "cpu": {
+    "model": "AMD EPYC 75F3 32-Core Processor",
+    "count": 128
+   }
+  },
+  "software": {
+   "backend": {
+    "name": "b-ligero chain, fp4-nvf4 relation (backends/direct/ligero/fp4)",
+    "commit": "ef17cc54fbbf79e5e9db5cf9622bc006f10bf1c2"
+   },
+   "toolchain": {
+    "python": "3.12.14",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.3"
+   }
+  },
+  "preprocessing": "constraint compilation (a function of NVFP4Params only, 0.18s)",
+  "retention": "retained",
+  "instances": {
+   "dataset": "bench-instances-nvfp4-sm120/v1",
+   "tier": "vu-k1536-nvfp4-sm120",
+   "range": [
+    0,
+    64
+   ],
+   "manifest_sha256": "3dd1bf7098788b3393acab0658e8524e17e41740bc725e477b09bb6cb6e33214",
+   "seed": 20260922,
+   "recipe": "fp4-nvf4 synthetic (edge families random, zero-scales, subnormal-scales, top-scales, top-scales-zero-acc, span-scales, sparse, sparse-subnormal-acc, all-zero-codes, half-codes, max-codes, cancel, cancel-acc, mixed cycling per VU; model-recorded accumulators)"
+  },
+  "scope": "vu",
+  "omitted": "external authentication, ZK masking",
+  "relation": "GemmAccumulator<1536> over sm120.mma.m16n8k64.e2m1.nvf4",
+  "model": "blackwell_sm120_nvf4_m16n8k64",
+  "instruction": "sm120.mma.m16n8k64.e2m1.nvf4",
+  "commit": "ef17cc54fbbf79e5e9db5cf9622bc006f10bf1c2",
+  "step_k": 64,
+  "steps_per_vu": 24,
+  "rows": 1583,
+  "committed_rows": 1583,
+  "linear_constraints": 306,
+  "quadratic_constraints": 1389,
+  "census": {
+   "rows_per_unit": 1583,
+   "bit_rows": 972,
+   "selector_rows": 172,
+   "hint_rows": 86,
+   "pin_rows": 141,
+   "product_rows": 210,
+   "inverse_rows": 2,
+   "linear_constraints": 306,
+   "quadratic_constraints": 1389,
+   "chain": true,
+   "steps_per_vu": 24,
+   "rows_per_vu": 37992,
+   "bit_rows_per_vu": 23328,
+   "shifters_per_unit": 6,
+   "digit_positions": 6,
+   "digit_radix": 12,
+   "lookups_per_unit": 18
+  },
+  "checker": "prove+verify (b-ligero chain) + constraint tables on wrong-rule witnesses",
+  "witness_generation": "numpy hint generator (fp4/witness.py, one line per constraint) + torch program (derived rows)",
+  "B_proof": 42,
+  "negatives": {
+   "chain": [
+    "claimed word bit 0 flipped",
+    "claimed word bit 1 flipped",
+    "claimed word bit 2 flipped",
+    "claimed word bit 3 flipped",
+    "claimed word bit 4 flipped",
+    "claimed word bit 5 flipped",
+    "claimed word bit 6 flipped",
+    "claimed word bit 7 flipped",
+    "claimed word bit 8 flipped",
+    "claimed word bit 9 flipped",
+    "claimed word bit 10 flipped",
+    "claimed word bit 11 flipped",
+    "claimed word bit 12 flipped",
+    "claimed word bit 13 flipped",
+    "claimed word bit 14 flipped",
+    "claimed word bit 15 flipped",
+    "claimed word bit 16 flipped",
+    "claimed word bit 17 flipped",
+    "claimed word bit 18 flipped",
+    "claimed word bit 19 flipped",
+    "claimed word bit 20 flipped",
+    "claimed word bit 21 flipped",
+    "claimed word bit 22 flipped",
+    "claimed word bit 23 flipped",
+    "claimed word bit 24 flipped",
+    "claimed word bit 25 flipped",
+    "claimed word bit 26 flipped",
+    "claimed word bit 27 flipped",
+    "claimed word bit 28 flipped",
+    "claimed word bit 29 flipped",
+    "claimed word bit 30 flipped",
+    "claimed word bit 31 flipped",
+    "claimed word +1 ulp",
+    "claimed word -1 ulp",
+    "UE4M3 NaN scale 0x7f in a",
+    "UE4M3 padding bit 0x80 in b",
+    "E2M1 code 16 in a",
+    "operand a[10][1] sign bit flipped",
+    "scale b[11][2] exponent bit flipped",
+    "link c.s[20] != y.s[19]",
+    "c_0.s != 0 at a chain start",
+    "link c.t[20] != y.t[19]",
+    "c_0.t != 0 at a chain start",
+    "link c.f[20] != y.f[19]",
+    "c_0.f != 0 at a chain start",
+    "accumulator fraction bit 12 flipped in a linked unit",
+    "wrong-rule witness, own claim: window35 (VU 27, first differing step 11)",
+    "wrong-rule witness, own claim: floor-align (VU 12, first differing step 19)",
+    "wrong-rule witness, own claim: scale-sub-as-normal (VU 0, first differing step 0)",
+    "wrong-rule witness, own claim: scale-exp+1 (VU 0, first differing step 0)",
+    "wrong-rule witness, own claim: rne-norm (VU 0, first differing step 0)",
+    "wrong-rule witness, own claim: acc-exp+1 (VU 0, first differing step 1)",
+    "wrong-rule witness, own claim: wrong-sign-acc (VU 0, first differing step 1)",
+    "wrong-rule witness, own claim: drop-group3 (VU 0, first differing step 0)",
+    "row acc.s (hint) +1 in column 6",
+    "row acc.t (hint) +1 in column 38",
+    "row acc.f (hint) +2 in column 28",
+    "row acc.nz (hint) +1 in column 34",
+    "row acc.z (hint) +1 in column 23",
+    "row acc.fh (hint) +2 in column 19",
+    "row acc.fl (hint) +1 in column 26",
+    "row acc.t.nz1.b0 (bit) +1 in column 26",
+    "row acc.prod0 (prod) +2 in column 36",
+    "row acc.fh.b0 (bit) +2 in column 47",
+    "row acc.fh.b1 (bit) +1 in column 41",
+    "row acc.fh.b2 (bit) +2 in column 6",
+    "row acc.fh.b3 (bit) +2 in column 21",
+    "row acc.fh.b4 (bit) +1 in column 47",
+    "row acc.fh.b5 (bit) +1 in column 41",
+    "row acc.fh.b6 (bit) +2 in column 16",
+    "row acc.fh.b7 (bit) +2 in column 11",
+    "row acc.fh.b8 (bit) +2 in column 22",
+    "row acc.fh.b9 (bit) +2 in column 45",
+    "row acc.fh.b10 (bit) +2 in column 40",
+    "row acc.fl.b0 (bit) +2 in column 47",
+    "row acc.fl.b1 (bit) +1 in column 6",
+    "row acc.fl.b2 (bit) +2 in column 14",
+    "row acc.fl.b3 (bit) +1 in column 39",
+    "row acc.fl.b4 (bit) +1 in column 47",
+    "row acc.fl.b5 (bit) +2 in column 44",
+    "row acc.fl.b6 (bit) +1 in column 34",
+    "row acc.fl.b7 (bit) +2 in column 28",
+    "row acc.fl.b8 (bit) +2 in column 42",
+    "row acc.fl.b9 (bit) +1 in column 46",
+    "row acc.fl.b10 (bit) +1 in column 37",
+    "row acc.fl.b11 (bit) +1 in column 32",
+    "row acc.prod1 (prod) +1 in column 0",
+    "row acc.z1.inv (inv) +2 in column 46",
+    "row x.a[0].n (pin) +1 in column 14",
+    "row x.a[1].n (pin) +1 in column 11",
+    "row x.a[2].n (pin) +2 in column 41",
+    "row x.a[3].n (pin) +1 in column 3",
+    "row x.a[4].n (pin) +2 in column 27",
+    "row x.a[5].n (pin) +1 in column 47",
+    "row x.a[6].n (pin) +1 in column 29",
+    "row x.a[7].n (pin) +1 in column 8",
+    "row x.a[8].n (pin) +1 in column 21",
+    "row x.a[9].n (pin) +1 in column 34",
+    "row x.a[10].n (pin) +2 in column 16",
+    "row x.a[11].n (pin) +2 in column 30",
+    "row x.a[12].n (pin) +1 in column 35",
+    "row x.a[13].n (pin) +1 in column 42",
+    "row x.a[14].n (pin) +1 in column 14",
+    "row x.a[15].n (pin) +2 in column 0",
+    "row x.a[16].n (pin) +1 in column 4",
+    "row x.a[17].n (pin) +2 in column 39",
+    "row x.a[18].n (pin) +1 in column 41",
+    "row x.a[19].n (pin) +1 in column 23",
+    "row x.a[20].n (pin) +2 in column 9",
+    "row x.a[21].n (pin) +2 in column 3",
+    "row x.a[22].n (pin) +1 in column 0",
+    "row x.a[23].n (pin) +1 in column 44",
+    "row x.a[24].n (pin) +1 in column 14",
+    "row x.a[25].n (pin) +1 in column 37"
+   ],
+   "unit_variants": {
+    "frac26": {
+     "differing": 11,
+     "rejected": 11
+    },
+    "frac28": {
+     "differing": 13,
+     "rejected": 13
+    },
+    "window35": {
+     "differing": 1,
+     "rejected": 1
+    },
+    "window37": {
+     "differing": 0,
+     "rejected": 0
+    },
+    "nearest-align": {
+     "differing": 76,
+     "rejected": 76
+    },
+    "floor-align": {
+     "differing": 125,
+     "rejected": 125
+    },
+    "negzero": {
+     "differing": 49,
+     "rejected": 49
+    },
+    "scale-sub-as-normal": {
+     "differing": 372,
+     "rejected": 372
+    },
+    "scale-exp+1": {
+     "differing": 577,
+     "rejected": 577
+    },
+    "rne-norm": {
+     "differing": 167,
+     "rejected": 167
+    },
+    "participate-zero-scale": {
+     "differing": 20,
+     "rejected": 20
+    },
+    "acc-exp+1": {
+     "differing": 514,
+     "rejected": 514
+    },
+    "wrong-sign-acc": {
+     "differing": 523,
+     "rejected": 523
+    },
+    "drop-group3": {
+     "differing": 567,
+     "rejected": 567
+    }
+   }
+  },
+  "note": "gate: 64 honest VUs of 14 edge families proved and verified as 2 proofs; 114 chain-level negatives; unit-level wrong-rule witnesses on 1008 units"
+ },
+ "validation": {
+  "status": "passed",
+  "checker": "backends.direct.ligero.fp4.chain gate_vu_fp4 (prove+verify every honest sub-batch with the prover's self-check; chain negatives through verify; wrong-rule unit witnesses through the constraint tables)",
+  "detail": "vu-k1536 64/64 ok; vu-k1536-neg 114/114 ok; tu-k64-neg 3015/3015 ok",
+  "evidence": {
+   "soundness": {
+    "terms_log2": {
+     "irs_query": -128.04909939407844,
+     "linear_query": -188.86689315687454,
+     "quadratic_query": -188.73385125975915,
+     "irs_field": -173.44099140047038,
+     "linear_field": -185.44134357795068,
+     "quadratic_field": -185.44134357795068,
+     "coin_commitment_hiding": -191.0
+    },
+    "per_proof_total_log2": -128.04909939407844,
+    "n_proofs": 2,
+    "total_log2": -127.04909939407844,
+    "per_proof_target_log2": -129.0,
+    "field": "BabyBear^6",
+    "t": 189,
+    "n": 4096,
+    "k": 1024,
+    "l": 1024,
+    "rate": 0.25,
+    "zk": false,
+    "t_pad": 0,
+    "mode": "interactive",
+    "coin_commitment": true,
+    "fiat_shamir_queries_log2": null,
+    "bound_model": "interactive: statistical, live verifier coins committed at step 0 (HM96); no Fiat-Shamir loss",
+    "hash_assumption": "collision resistance of Blake2b (coin commitments) + Blake3 (Merkle); the challenge expander is a PRG of the verifier's coins",
+    "zk_statement": "none (no masking)",
+    "privacy_terms_log2": {
+     "coin_commitment_binding_collision": -128.0,
+     "mask_sampling_bias_per_symbol": "0 (rejection sampling; the simulator's distance is ChaCha20's PRF advantage on the mask key)"
+    },
+    "note": "k = l + 1 stands in for the non-ZK k = l (the accounting's validate() needs l < k); the linear test here sends nothing (the verifier encodes beta itself), so its query term is at most the Appendix-C ((k+l)/n)^t used; total_log2 is the union bound over n_proofs sub-batches; + the step-0 coin-commitment hiding term (commitment_hash)"
+   },
+   "negatives": [
+    {
+     "name": "claimed word bit 0 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 1 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 2 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 3 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 4 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 5 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 6 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 7 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 8 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 9 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 10 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 11 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 12 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 13 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 14 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 15 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 16 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 17 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 18 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 19 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 20 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 21 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 22 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 23 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 24 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 25 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 26 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 27 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 28 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 29 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 30 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word bit 31 flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word +1 ulp",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "claimed word -1 ulp",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "UE4M3 NaN scale 0x7f in a",
+     "accepted": false,
+     "why": "public inputs: public inputs rejected: a: UE4M3 NaN scale"
+    },
+    {
+     "name": "UE4M3 padding bit 0x80 in b",
+     "accepted": false,
+     "why": "public inputs: public inputs rejected: b: UE4M3 scale byte with the padding bit set (PTX ISA: invalid)"
+    },
+    {
+     "name": "E2M1 code 16 in a",
+     "accepted": false,
+     "why": "public inputs: public inputs rejected: a: E2M1 code outside 4 bits"
+    },
+    {
+     "name": "operand a[10][1] sign bit flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "scale b[11][2] exponent bit flipped",
+     "accepted": false,
+     "why": "column challenge mismatch"
+    },
+    {
+     "name": "link c.s[20] != y.s[19]",
+     "accepted": false,
+     "why": "quadratic constraints failed"
+    },
+    {
+     "name": "c_0.s != 0 at a chain start",
+     "accepted": false,
+     "why": "quadratic constraints failed"
+    },
+    {
+     "name": "link c.t[20] != y.t[19]",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "c_0.t != 0 at a chain start",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "link c.f[20] != y.f[19]",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "c_0.f != 0 at a chain start",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "accumulator fraction bit 12 flipped in a linked unit",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "wrong-rule witness, own claim: window35 (VU 27, first differing step 11)",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "wrong-rule witness, own claim: floor-align (VU 12, first differing step 19)",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "wrong-rule witness, own claim: scale-sub-as-normal (VU 0, first differing step 0)",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "wrong-rule witness, own claim: scale-exp+1 (VU 0, first differing step 0)",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "wrong-rule witness, own claim: rne-norm (VU 0, first differing step 0)",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "wrong-rule witness, own claim: acc-exp+1 (VU 0, first differing step 1)",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "wrong-rule witness, own claim: wrong-sign-acc (VU 0, first differing step 1)",
+     "accepted": false,
+     "why": "chain constraints failed (sum over H)"
+    },
+    {
+     "name": "wrong-rule witness, own claim: drop-group3 (VU 0, first differing step 0)",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.s (hint) +1 in column 6",
+     "accepted": false,
+     "why": "quadratic constraints failed"
+    },
+    {
+     "name": "row acc.t (hint) +1 in column 38",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.f (hint) +2 in column 28",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.nz (hint) +1 in column 34",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.z (hint) +1 in column 23",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh (hint) +2 in column 19",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl (hint) +1 in column 26",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.t.nz1.b0 (bit) +1 in column 26",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.prod0 (prod) +2 in column 36",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b0 (bit) +2 in column 47",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b1 (bit) +1 in column 41",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b2 (bit) +2 in column 6",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b3 (bit) +2 in column 21",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b4 (bit) +1 in column 47",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b5 (bit) +1 in column 41",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b6 (bit) +2 in column 16",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b7 (bit) +2 in column 11",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b8 (bit) +2 in column 22",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b9 (bit) +2 in column 45",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fh.b10 (bit) +2 in column 40",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b0 (bit) +2 in column 47",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b1 (bit) +1 in column 6",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b2 (bit) +2 in column 14",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b3 (bit) +1 in column 39",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b4 (bit) +1 in column 47",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b5 (bit) +2 in column 44",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b6 (bit) +1 in column 34",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b7 (bit) +2 in column 28",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b8 (bit) +2 in column 42",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b9 (bit) +1 in column 46",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b10 (bit) +1 in column 37",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.fl.b11 (bit) +1 in column 32",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.prod1 (prod) +1 in column 0",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row acc.z1.inv (inv) +2 in column 46",
+     "accepted": false,
+     "why": "quadratic constraints failed"
+    },
+    {
+     "name": "row x.a[0].n (pin) +1 in column 14",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[1].n (pin) +1 in column 11",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[2].n (pin) +2 in column 41",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[3].n (pin) +1 in column 3",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[4].n (pin) +2 in column 27",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[5].n (pin) +1 in column 47",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[6].n (pin) +1 in column 29",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[7].n (pin) +1 in column 8",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[8].n (pin) +1 in column 21",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[9].n (pin) +1 in column 34",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[10].n (pin) +2 in column 16",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[11].n (pin) +2 in column 30",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[12].n (pin) +1 in column 35",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[13].n (pin) +1 in column 42",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[14].n (pin) +1 in column 14",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[15].n (pin) +2 in column 0",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[16].n (pin) +1 in column 4",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[17].n (pin) +2 in column 39",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[18].n (pin) +1 in column 41",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[19].n (pin) +1 in column 23",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[20].n (pin) +2 in column 9",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[21].n (pin) +2 in column 3",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[22].n (pin) +1 in column 0",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[23].n (pin) +1 in column 44",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[24].n (pin) +1 in column 14",
+     "accepted": false,
+     "why": "linear constraints failed"
+    },
+    {
+     "name": "row x.a[25].n (pin) +1 in column 37",
+     "accepted": false,
+     "why": "linear constraints failed"
+    }
+   ],
+   "unit_negatives": {
+    "units": 1008,
+    "differing": 3015,
+    "rejected": 3015,
+    "by_variant": {
+     "frac26": {
+      "differing": 11,
+      "rejected": 11
+     },
+     "frac28": {
+      "differing": 13,
+      "rejected": 13
+     },
+     "window35": {
+      "differing": 1,
+      "rejected": 1
+     },
+     "window37": {
+      "differing": 0,
+      "rejected": 0
+     },
+     "nearest-align": {
+      "differing": 76,
+      "rejected": 76
+     },
+     "floor-align": {
+      "differing": 125,
+      "rejected": 125
+     },
+     "negzero": {
+      "differing": 49,
+      "rejected": 49
+     },
+     "scale-sub-as-normal": {
+      "differing": 372,
+      "rejected": 372
+     },
+     "scale-exp+1": {
+      "differing": 577,
+      "rejected": 577
+     },
+     "rne-norm": {
+      "differing": 167,
+      "rejected": 167
+     },
+     "participate-zero-scale": {
+      "differing": 20,
+      "rejected": 20
+     },
+     "acc-exp+1": {
+      "differing": 514,
+      "rejected": 514
+     },
+     "wrong-sign-acc": {
+      "differing": 523,
+      "rejected": 523
+     },
+     "drop-group3": {
+      "differing": 567,
+      "rejected": 567
+     }
+    }
+   }
+  }
+ },
+ "measurements": [
+  {
+   "name": "t.witness",
+   "value": 0.06530813197605312,
+   "unit": "s"
+  },
+  {
+   "name": "t.encoding_commitment",
+   "value": 0.1188043300062418,
+   "unit": "s"
+  },
+  {
+   "name": "t.arithmetic",
+   "value": 0.6418282010126859,
+   "unit": "s"
+  },
+  {
+   "name": "t.lookup",
+   "value": 0.0,
+   "unit": "s"
+  },
+  {
+   "name": "t.zk_additional",
+   "value": 0.0,
+   "unit": "s"
+  },
+  {
+   "name": "t.serialization",
+   "value": 0.03478606208227575,
+   "unit": "s"
+  },
+  {
+   "name": "t.total",
+   "value": 3.2415176250506192,
+   "unit": "s"
+  },
+  {
+   "name": "verifier.seconds",
+   "value": 0.050175233045592904,
+   "unit": "s"
+  },
+  {
+   "name": "vu.count",
+   "value": 64,
+   "unit": "count"
+  },
+  {
+   "name": "vu.seconds_per_vu",
+   "value": 0.050648712891415926,
+   "unit": "s"
+  },
+  {
+   "name": "rate.proved_flop_per_second",
+   "value": 60653.07141340309,
+   "unit": "FLOP/s"
+  },
+  {
+   "name": "rate.native_peak_flop_per_second",
+   "value": 1676000000000000.0,
+   "unit": "FLOP/s"
+  },
+  {
+   "name": "overhead.vs_native_peak",
+   "value": 27632566017.582386,
+   "unit": "ratio"
+  },
+  {
+   "name": "soundness_bits",
+   "value": 127.04909939407844,
+   "unit": "bits"
+  },
+  {
+   "name": "rows_per_unit",
+   "value": 1583,
+   "unit": "count"
+  },
+  {
+   "name": "units_per_vu",
+   "value": 24,
+   "unit": "count"
+  },
+  {
+   "name": "gate.honest_vus_ok",
+   "value": 64,
+   "unit": "count"
+  },
+  {
+   "name": "gate.chain_negatives",
+   "value": 114,
+   "unit": "count"
+  },
+  {
+   "name": "gate.chain_negatives_rejected",
+   "value": 114,
+   "unit": "count"
+  },
+  {
+   "name": "gate.unit_negatives",
+   "value": 3015,
+   "unit": "count"
+  },
+  {
+   "name": "gate.unit_negatives_rejected",
+   "value": 3015,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.rows_per_unit",
+   "value": 1583,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.bit_rows",
+   "value": 972,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.selector_rows",
+   "value": 172,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.hint_rows",
+   "value": 86,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.pin_rows",
+   "value": 141,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.product_rows",
+   "value": 210,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.inverse_rows",
+   "value": 2,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.linear_constraints",
+   "value": 306,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.quadratic_constraints",
+   "value": 1389,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.steps_per_vu",
+   "value": 24,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.rows_per_vu",
+   "value": 37992,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.bit_rows_per_vu",
+   "value": 23328,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.shifters_per_unit",
+   "value": 6,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.digit_positions",
+   "value": 6,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.digit_radix",
+   "value": 12,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.lookups_per_unit",
+   "value": 18,
+   "unit": "count"
+  }
+ ],
+ "measurement_files": [],
+ "artifacts": []
+}

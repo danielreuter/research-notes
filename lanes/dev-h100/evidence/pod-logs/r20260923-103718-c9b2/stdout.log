@@ -1,0 +1,84 @@
+
+=== [10:37:24] machine
+NVIDIA H100 80GB HBM3, GPU-352e04eb-3fa2-0b3b-c24f-5c9567d275af, 81559 MiB, 580.126.09, 700.00 W, 1980 MHz
+208
+               total        used        free      shared  buff/cache   available
+Mem:            2015          67         974          10         973        1920
+overlay          60G  124M   60G   1% /
+2210000 100000
+model name	: Intel(R) Xeon(R) Platinum 8470
+8.36 10.27 10.61 10/7509 417
+519f05c0b3b3
+source tree: /workspace/research/src/64c00bd6c78ba96cc08372642d5b07122db1e61d
+
+=== [10:37:24] rustup stable + ligero-verify (background)
+
+=== [10:37:24] uv + python 3.12 + venv312
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source /workspace/venv312/bin/activate
+Python 3.12.14
+
+=== [10:37:26] torch 2.6.0+cu124, numpy, cupy-cuda12x, blake3, pytest
+ + triton==3.2.0
+ + typing-extensions==4.16.0
+ + pygments==2.21.0
+ + pytest==9.1.1
+torch 2.6.0+cu124 numpy 2.5.3 cupy 14.2.0
+cuda True NVIDIA H100 80GB HBM3 12.4 (9, 0)
+device memory bytes 85017493504
+matmul ok True
+cupy ok True
+merkle.gpu_available(): True | blake3 (host, placeholder) | blake3 (GPU, backends/shared/hash_gpu)
+
+=== [10:37:42] relation instance caches (bf16-hopper, fp8-hopper; 2048 + 4096 VUs)
+bf16-hopper 4096 4096 1.2s
+bf16-hopper 2048 2048 1.0s
+fp8-hopper 4096 4096 1.0s
+fp8-hopper 2048 2048 0.6s
+total 301840
+drwxr-xr-x 2 root root       172 Sep 23 10:37 .
+drwxr-xr-x 1 root root       130 Sep 23 10:37 ..
+-rw-r--r-- 1 root root  51905242 Sep 23 10:37 bf16-hopper-20260922-2048.npz
+-rw-r--r-- 1 root root 103809754 Sep 23 10:37 bf16-hopper-20260922-4096.npz
+-rw-r--r-- 1 root root  51118810 Sep 23 10:37 fp8-hopper-20260922-2048.npz
+-rw-r--r-- 1 root root 102236890 Sep 23 10:37 fp8-hopper-20260922-4096.npz
+
+=== [10:37:47] pytest backends/direct/ligero -q -x (the brief's gate)
+    from .relation import ShiftPlan, shift_plan
+backends/direct/ligero/privsel/relation.py:46: in <module>
+    from ..pubsel.relation import (ACC_FRAC, CMP_BITS, LIMB, Y_PACK_BITS, Plan, _bit_exprs, _clamp_table, _hint, _norm_window,
+E   ImportError: cannot import name '_clamp_table' from 'ligero.pubsel.relation' (/workspace/research/src/64c00bd6c78ba96cc08372642d5b07122db1e61d/backends/direct/ligero/pubsel/relation.py)
+=========================== short test summary info ============================
+ERROR backends/direct/ligero/privsel/relation_test.py
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 error in 1.87s
+PYTEST_FAILED
+
+=== [10:37:50] rust build (join)
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 1 warning
+    Finished `release` profile [optimized + debuginfo] target(s) in 8.65s
+total 4628
+drwxr-xr-x 2 root root      35 Sep 23 10:37 .
+drwxr-xr-x 1 root root     130 Sep 23 10:37 ..
+-rwxr-xr-x 1 root root 4735456 Sep 23 10:37 ligero-verify
+RUST_OK
+usage: ligero-verify verify|batch|system-digest ... (see src/main.rs)
+5d2d47778c7037e22e54d7ab548c44ae856b28eced439cb3e9e0f2b5481c2621  /workspace/bin/ligero-verify
+
+=== [10:37:50] versions
+blake3                   1.0.9
+numpy                    2.5.3
+pytest                   9.1.1
+torch                    2.6.0+cu124
+triton                   3.2.0
+rustc 1.98.1 (48a229cea 2026-09-01)
+overlay          60G   12G   49G  20% /
+NVIDIA H100 80GB HBM3, 81559 MiB
+model name	: Intel(R) Xeon(R) Platinum 8470
+9.78 10.44 10.65 9/7535 1173
+
+=== [10:37:50] done
+BOOTSTRAP_FAILED

@@ -1,0 +1,39 @@
+manifest.json
+rep1
+system.bin
+verify_python.json
+926203	system.bin
+92123617	rep1
+39
+{
+ "format": {
+  "system": "ligero-system/v3",
+  "statement": "ligero-statement/v5",
+  "proof": "ligero-proof/v1"
+ },
+ "relation": {
+  "name": "fp8-ada",
+  "model": "ADA_E4M3_M16N8K32",
+  "profile": "fp8-ada-mma-draft/2026-09-22",
+  "word_dtype": "<u1",
+  "y_dtype": "<u4",
+  "y_bits": 22,
+  "rust_verifiable": false
+ },
+ "authentication": "included-hash",
+ "commit": null,
+ "device": "cuda",
+ "system": {
+  "rows": 6210,
+  "by_kind": {
+   "hint": 881,
+   "bit": 2474,
+   "prod": 2069,
+   "inv": 129,
+   "sel": 640,
+   "pin": 17
+  },
+  "linear": 606,
+  "quadratic": 6020,
+  "pins": 17,
+  "hints": 881

@@ -1,0 +1,89 @@
+fp8-ada census: {"rows_per_unit": 3769, "bit_rows": 2474, "selector_rows": 640, "hint_rows": 161, "pin_rows": 192, "product_rows": 301, "inverse_rows": 1, "linear_constraints": 589, "quadratic_constraints": 3532, "chain": true}
+1024 synthetic VUs (model-recorded accumulators) in 0.2s
+config Config(l=16384, n=65536, D=6, t=194, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk True, mode interactive; system {'rows': 3769, 'by_kind': {'hint': 161, 'bit': 2474, 'prod': 301, 'inv': 1, 'pin': 192, 'sel': 640}, 'linear': 589, 'quadratic': 3532, 'pins': 192, 'hints': 161}; 1024 VUs as 4 sub-batches of <= 341
+live verifier tcp://213.173.105.69:30899: one session per recorded rep, 4 sub-batches each
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.001, 'hints_host': 0.116, 'witness': 0.051, 'self_check': 2.938, 'zk_masks': 0.012, 'encode': 0.005, 'transfer': 0.0, 'merkle': 0.006, 'tests_w': 1.268, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.008, 'tests': 1.268, 'total': 4.292}
+rep 1: live verifier ACCEPTED 4/4 (accepted); net wait 0.403s over 8 round trips (median rtt 38.7 ms); verifier wall 0.89s cpu 0.88s; t.total_live 1.587s
+rep 1: prover 1.156s (+hints 0.028s) over 4 proofs; verifier 0.157s; pass wall 2.988s (1.156 ms/VU)
+dumped 4 proofs to /tmp/mv/bare1/proofs
+dumps: 4/4 accepted cold from bytes by the Python file verifier in 0.17s; batch verdict per rep: ['accept: all 4 sub-batches accepted; union bound 2^-128.67 <= 2^-128']
+{
+ "relation": "fp8-ada",
+ "seconds_per_vu": 0.0011563081243366469,
+ "prover_total": 1.1840595193207264,
+ "verifier": 0.1569412164390087,
+ "bytes": {
+  "root": 128,
+  "w": 1597440,
+  "h": 1621920,
+  "cols": 3104,
+  "opened_columns": 11810720,
+  "merkle_paths": 397312,
+  "q_chain": 3170208,
+  "v_linear": 1597440,
+  "coin_commitments_and_openings": 768,
+  "auth_multiproofs": 0,
+  "total": 20199040
+ },
+ "n_proofs": 4,
+ "per_proof_vus": 341,
+ "t": 194,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 3398956032,
+ "soundness_log2": -128.6726794982701,
+ "per_proof_log2": -130.6726794982701,
+ "rows": 3769,
+ "medians": {
+  "statement": 0.0003762953579425813,
+  "hints_host": 0.02837427282333374,
+  "witness": 0.003043328016996383,
+  "zk_masks": 0.0003873920030891895,
+  "encode": 0.4243188409805298,
+  "transfer": 7.999999914318323e-06,
+  "merkle": 0.012403647899627685,
+  "tests_w": 0.7077538734823465,
+  "tests_quad": 6.396800186485053e-05,
+  "tests_chain": 6.0928000137209895e-05,
+  "openings": 0.00513261327147483,
+  "tests": 0.7078787694843486,
+  "total": 1.1556852464973926,
+  "net_wait": 0.4027111139148474,
+  "net_wait_commit": 0.003970872610807419,
+  "net_wait_open1": 0.1280344184488058,
+  "net_wait_open2": 0.27070582285523415
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v4",
+  "accepted": 4,
+  "total": 4,
+  "batch": {
+   "1": {
+    "n_subbatches": 4,
+    "target_bits": 128.0,
+    "batch_log2": -128.6726794982701,
+    "per_proof_log2": [
+     -130.6726794982701,
+     -130.6726794982701,
+     -130.6726794982701,
+     -130.6726794982701
+    ],
+    "n_proofs_claimed": [
+     4,
+     4,
+     4,
+     4
+    ],
+    "accepted": true,
+    "reason": "accept: all 4 sub-batches accepted; union bound 2^-128.67 <= 2^-128"
+   }
+  },
+  "batch_accepted": true,
+  "seconds": 0.1541429553180933,
+  "wall": 0.1709973607212305,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}

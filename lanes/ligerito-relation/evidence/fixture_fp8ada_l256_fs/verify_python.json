@@ -1,0 +1,257 @@
+{
+ "verifier": "python (backends.direct.ligerito.prove.Prover.verify; shares the claim algebra with the prover)",
+ "independent": false,
+ "total": 31,
+ "agree": 31,
+ "wall": 10.185699447989464,
+ "items": [
+  {
+   "proof": "honest_fiat-shamir.lgto",
+   "expect": "accept",
+   "accepted": true,
+   "reason": "accept",
+   "seconds": 1.047600814141333,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_00.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04540356760844588,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_01.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.045510339085012674,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_02.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.044826844707131386,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_03.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim",
+   "seconds": 0.07658428931608796,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_04.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "statement sub-batch 0: public inputs rejected: E4M3 NaN operand",
+   "seconds": 0.0023652189411222935,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_05.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim",
+   "seconds": 0.07712944224476814,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_06.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04573187977075577,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_07.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04550652205944061,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_08.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04573663789778948,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_09.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04533964581787586,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_10.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04444410093128681,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_11.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04466895619407296,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_12.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.045403408352285624,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_13.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04516905406489968,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_14.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04484605183824897,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_15.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 0: sum_{x1,x2} eq(tau, x) M[x1][x2] != claim",
+   "seconds": 0.04560760362073779,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_16.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim",
+   "seconds": 0.07642273278906941,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_17.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim",
+   "seconds": 0.3593064923770726,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_18.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim",
+   "seconds": 0.3620247389189899,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_19.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check final: eq(tau, r) (Az Bz - Cz)(r) != claim",
+   "seconds": 0.36091160168871284,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_20.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "Merkle multi-path of round 1 failed",
+   "seconds": 0.9959319708868861,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_21.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "Merkle multi-path of the last round failed",
+   "seconds": 1.0111848791129887,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_22.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim",
+   "seconds": 0.0769279901869595,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_23.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "Merkle multi-path of round 1 failed",
+   "seconds": 0.9814248480834067,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_24.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "Merkle multi-path of the last round failed",
+   "seconds": 1.0126266186125576,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_25.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "Merkle multi-path of round 1 failed",
+   "seconds": 0.9925975669175386,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_26.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "PCS sumcheck round 1 failed",
+   "seconds": 0.9913172121159732,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_27.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim",
+   "seconds": 0.07698720181360841,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_28.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "shift sumcheck final: succ(rho, r_c) V(rho) != claim",
+   "seconds": 0.9883191138505936,
+   "agrees": true
+  },
+  {
+   "proof": "neg_fiat-shamir_29.lgto.neg",
+   "expect": "reject",
+   "accepted": false,
+   "reason": "zero-check round 2: (1 - tau) q(0) + tau q(1) != claim",
+   "seconds": 0.07744225393980742,
+   "agrees": true
+  }
+ ]
+}

@@ -1,0 +1,66 @@
+=== 22:54:05 tree=/workspace/src sha=4287a92b cmd: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation bf16-hopper-v3 bench-vu --zk --mode interactive --reps 3 --device cuda --instances-cache /workspace/instances-cache --total-vus 4096 --batch 16384 --pipeline 4 --out /workspace/results3/r6_fu_bf16h-v3_p4_16k.json
+bf16-hopper-v3 census: {"rows_per_unit": 1519, "bit_rows": 119, "selector_rows": 27, "hint_rows": 1285, "pin_rows": 32, "product_rows": 18, "inverse_rows": 38, "linear_constraints": 110, "quadratic_constraints": 2245, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.6s
+config Config(l=16384, n=65536, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=170, steps=96); zk True, mode interactive; system {'rows': 1519, 'by_kind': {'hint': 1285, 'bit': 119, 'inv': 38, 'prod': 18, 'pin': 32, 'sel': 27}, 'linear': 110, 'quadratic': 2245, 'pins': 32, 'hints': 1285}; 4096 VUs as 25 sub-batches of <= 170
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.006, 'hints_host': 0.045, 'witness': 0.036, 'self_check': 3.098, 'zk_masks': 0.034, 'encode': 0.002, 'transfer': 0.0, 'merkle': 0.004, 'tests_w': 1.333, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.006, 'tests': 1.333, 'total': 4.521}
+rep 1: prover 0.296s (+hints 0.009s) over 25 proofs; verifier 0.868s; pass wall 3.114s (0.075 ms/VU)
+rep 2: prover 0.220s (+hints 0.006s) over 25 proofs; verifier 0.854s; pass wall 1.081s (0.055 ms/VU)
+rep 3: prover 0.204s (+hints 0.008s) over 25 proofs; verifier 0.872s; pass wall 1.087s (0.052 ms/VU)
+{
+ "relation": "bf16-hopper-v3",
+ "seconds_per_vu": 5.555500659375744e-05,
+ "prover_total": 0.22755330700803048,
+ "verifier": 0.8675479553639889,
+ "bytes": {
+  "root": 800,
+  "w": 9984000,
+  "h": 10137000,
+  "cols": 19700,
+  "opened_columns": 30633500,
+  "merkle_paths": 2521600,
+  "q_chain": 19813800,
+  "v_linear": 9984000,
+  "coin_commitments_and_openings": 4800,
+  "auth_multiproofs": 0,
+  "total": 83099200
+ },
+ "n_proofs": 25,
+ "per_proof_vus": 170,
+ "t": 197,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 3904846848,
+ "soundness_log2": -128.04953484711905,
+ "per_proof_log2": -132.69339103689367,
+ "rows": 1519,
+ "medians": {
+  "statement": 0.0004289436527892354,
+  "hints_host": 0.008039386332409958,
+  "witness": 0.004034910367096166,
+  "zk_masks": 0.00011053871808083926,
+  "encode": 0.043476082796860244,
+  "transfer": 1.725902410926305e-05,
+  "merkle": 1.5185940145131388e-05,
+  "tests_w": 0.15229018465528743,
+  "tests_quad": 1.7587079605575752e-05,
+  "tests_chain": 1.7418162275341654e-05,
+  "openings": 0.01924247323408783,
+  "tests": 0.1523272449307483,
+  "total": 0.2195139206756205,
+  "measured_statement": 0.0014931200090795758,
+  "measured_hints_host": 0.02830780813097954,
+  "measured_witness": 0.013565823972225189,
+  "measured_zk_masks": 0.00039132799766957756,
+  "measured_encode": 0.1555930564403534,
+  "measured_transfer": 5.907200044021009e-05,
+  "measured_merkle": 5.0912000355310734e-05,
+  "measured_tests_w": 0.542435103416443,
+  "measured_tests_quad": 5.926400062162429e-05,
+  "measured_tests_chain": 5.8400000212714066e-05,
+  "measured_openings": 0.06656780815124512,
+  "measured_total": 0.8302630331665278
+ },
+ "dumps": null,
+ "validation": "passed"
+}
+=== 22:54:23 rc=0 wall=18s

@@ -1,0 +1,68 @@
+diff --git a/backends/direct/ligero/witness_device.py b/backends/direct/ligero/witness_device.py
+index 2e6116d..e548662 100644
+--- a/backends/direct/ligero/witness_device.py
++++ b/backends/direct/ligero/witness_device.py
+@@ -107,21 +107,30 @@ def _eval(e: Expr, tab: list | None = None) -> str:
+     return f"(({terms}) + {c}ULL) % P"
+ 
+ 
+-def _n_terms(sys: System) -> int:
++def _n_terms(program: list) -> int:
+     n = 0
+-    for op in sys.program:
++    for op in program:
+         for x in op[2:]:
+             if isinstance(x, Expr):
+                 n += len(x.lin)
+     return n
+ 
+ 
+-def generate(sys: System, tab: list | None = None) -> str:
++def _program(sys: System) -> list:
++    """``sys.program`` without the product rows a witness hook writes (``sys.witness_hooks``: objects with ``rows``,
++    the row indices they fill, and ``launch(cp, W_u32, l)`` run after the program on the same stream; hashchain.py's
++    Poseidon2 kernel).  Nothing in the program reads a hook's rows, so the order is immaterial."""
++    hooks = getattr(sys, "witness_hooks", None) or ()
++    skip = set().union(*(h.rows for h in hooks)) if hooks else set()
++    return [op for op in sys.program if not (op[0] == "prod" and op[1] in skip)]
++
++
++def generate(sys: System, tab: list | None = None, program: list | None = None) -> str:
+     """The kernel source; with ``tab`` (a list the caller keeps) dense operands are appended to it as (row, coef)."""
+     hpos = {n: i for i, (_, n) in enumerate(sys.hints)}
+     ppos = {n: i for i, (_, n) in enumerate(sys.pins)}
+     stmts: list[list[str]] = []          # one list of C statements per program op
+-    for op in sys.program:
++    for op in (sys.program if program is None else program):
+         kind = op[0]
+         out: list[str] = []
+         if kind == "pin":
+@@ -184,8 +193,10 @@ class FusedWitness:
+     def __init__(self, sys: System, device):
+         import cupy as cp
+         self.cp, self.sys, self.device = cp, sys, torch.device(device)
+-        tab: list | None = [] if _n_terms(sys) > TAB_THRESHOLD else None
+-        self.src = generate(sys, tab)
++        self.hooks = list(getattr(sys, "witness_hooks", None) or ())
++        program = _program(sys)
++        tab: list | None = [] if _n_terms(program) > TAB_THRESHOLD else None
++        self.src = generate(sys, tab, program)
+         self.digest = hashlib.sha256(self.src.encode()).hexdigest()
+         self.mod = cp.RawModule(code=self.src, options=("-std=c++17",))
+         self.kernel = self.mod.get_function("witness_program")
+@@ -209,11 +220,14 @@ class FusedWitness:
+         with warnings.catch_warnings():
+             warnings.simplefilter("ignore", DeprecationWarning)
+             stream = cp.cuda.ExternalStream(ts.cuda_stream)
+-        args = (cp.asarray(pub_rows), cp.asarray(hints), cp.asarray(W).view(cp.uint32), np.int32(l))
++        W_u32 = cp.asarray(W).view(cp.uint32)
++        args = (cp.asarray(pub_rows), cp.asarray(hints), W_u32, np.int32(l))
+         if self.tables is not None:
+             args = args + self.tables
+         with stream:
+             self.kernel((-(-l // THREADS),), (THREADS,), args)
++            for h in self.hooks:
++                h.launch(cp, W_u32, l)
+         return W
+ 
+ 

@@ -1,0 +1,140 @@
+NVIDIA GeForce RTX 4090, GPU-f34166bc-7b0b-27d8-9e7c-e9339701fff7, 570.195.03
+fp4-nvf4 census: {"rows_per_unit": 4442, "bit_rows": 1004, "selector_rows": 172, "hint_rows": 819, "pin_rows": 17, "product_rows": 2400, "inverse_rows": 30, "linear_constraints": 334, "quadratic_constraints": 4252, "chain": true}
+fp4-nvf4 hashed (included-hash, sharing none): {"rows_base": 1583, "rows_private_operands": 1122, "rows_hash": 1720, "rows_digest_pins": 17, "rows_total": 4442, "rows_added": 2859, "linear_added": 28, "quadratic_added": 2863, "hints_added": 733, "permutations_per_unit": 2, "sbox_rows_per_permutation": 852, "linked_rows": 19, "word_bits": 4, "k": 68, "lane_bits": 24, "rate_lanes_used": 12, "elements_per_unit": 72}
+4096 synthetic VUs (recorded accumulators) in 2.4s
+committed: x tree 4096 rows, W tree 4096 columns, y tree 4096 words (leaf/v2h Poseidon2 + SHA-256) in 0.6s (row sponges on cuda: 0.20s); roots a=827d70a00dee222c b=44629b3c08fb04b1
+config Config(l=16384, n=65536, D=6, t=195, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=682, steps=24); zk True, mode interactive; system {'rows': 4442, 'by_kind': {'hint': 819, 'bit': 1004, 'prod': 2400, 'inv': 30, 'sel': 172, 'pin': 17}, 'linear': 334, 'quadratic': 4252, 'pins': 17, 'hints': 819}; 4096 VUs as 7 sub-batches of <= 682
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.0, 'witness': 0.029, 'self_check': 1.66, 'zk_masks': 0.006, 'encode': 0.005, 'transfer': 0.0, 'merkle': 0.004, 'tests_w': 0.676, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.007, 'tests': 0.676, 'total': 2.39, 'auth_openings': 0.004, 'hints_host': 0.209}
+rep 1: prover 0.959s (+hints 1.818s) over 7 proofs; verifier 0.274s; pass wall 3.801s (0.678 ms/VU)
+rep 2: prover 0.266s (+hints 0.063s) over 7 proofs; verifier 0.296s; pass wall 1.365s (0.080 ms/VU)
+rep 3: prover 0.270s (+hints 0.061s) over 7 proofs; verifier 0.267s; pass wall 1.330s (0.081 ms/VU)
+dumped 7 proofs to /workspace/research/runs/r20260923-185428-5079/proofs
+dumps: 7/7 accepted cold from bytes by the Python file verifier in 0.28s; batch verdict per rep: ['accept: all 7 sub-batches accepted; union bound 2^-128.54 <= 2^-128']
+{
+ "relation": "fp4-nvf4",
+ "seconds_per_vu": 8.121568498609122e-05,
+ "prover_total": 0.33265944570302963,
+ "verifier": 0.27408507466316223,
+ "bytes": {
+  "root": 224,
+  "w": 2795520,
+  "h": 2838360,
+  "cols": 5460,
+  "opened_columns": 24449880,
+  "merkle_paths": 698880,
+  "q_chain": 5547864,
+  "v_linear": 2795520,
+  "coin_commitments_and_openings": 1344,
+  "auth_multiproofs": 0,
+  "total": 39133052
+ },
+ "n_proofs": 7,
+ "per_proof_vus": 682,
+ "t": 195,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 10039997440,
+ "soundness_log2": -128.53889508908833,
+ "per_proof_log2": -131.3462500111459,
+ "rows": 4442,
+ "medians": {
+  "statement": 0.0003178559988737106,
+  "witness": 0.004771808028221131,
+  "zk_masks": 0.0006387839927338064,
+  "encode": 0.0732608003616333,
+  "transfer": 9.471999830566346e-06,
+  "merkle": 9.98399977106601e-06,
+  "tests_w": 0.18303408050537107,
+  "tests_quad": 1.2479999917559326e-05,
+  "tests_chain": 9.439999819733204e-06,
+  "openings": 0.005125183999538422,
+  "tests": 0.18305584050528706,
+  "total": 0.26999256759881973,
+  "auth_openings": 0.0018884502351284027,
+  "hints_host": 0.0626668781042099
+ },
+ "dumps": {
+  "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+  "independent": false,
+  "statement_format": "ligero-statement/v5",
+  "accepted": 7,
+  "total": 7,
+  "batch": {
+   "1": {
+    "n_subbatches": 7,
+    "target_bits": 128.0,
+    "batch_log2": -128.5388950890883,
+    "per_proof_log2": [
+     -131.3462500111459,
+     -131.3462500111459,
+     -131.3462500111459,
+     -131.3462500111459,
+     -131.3462500111459,
+     -131.3462500111459,
+     -131.3462500111459
+    ],
+    "n_proofs_claimed": [
+     7,
+     7,
+     7,
+     7,
+     7,
+     7,
+     7
+    ],
+    "accepted": true,
+    "reason": "accept: all 7 sub-batches accepted; union bound 2^-128.54 <= 2^-128"
+   }
+  },
+  "batch_accepted": true,
+  "seconds": 0.2678036019206047,
+  "wall": 0.2843049466609955,
+  "coins": "the transcript's own coins replayed (file verifier)"
+ },
+ "validation": "passed"
+}
+BENCH_RC=0
+keys ['artifacts', 'measurement_files', 'measurements', 'run_id', 'schema', 'validation', 'workload_fingerprint']
+=== Rust: every dumped sub-batch
+/workspace/research/runs/r20260923-185428-5079/proofs:
+total 836
+drwxr-xr-x 3 root root    103 Sep 23 18:54 .
+drwxr-xr-x 4 root root   4096 Sep 23 18:54 ..
+-rw-r--r-- 1 root root   5402 Sep 23 18:54 manifest.json
+drwxr-xr-x 2 root root   4096 Sep 23 18:54 rep1
+-rw-r--r-- 1 root root 832135 Sep 23 18:54 system.bin
+-rw-r--r-- 1 root root   1852 Sep 23 18:54 verify_python.json
+
+/workspace/research/runs/r20260923-185428-5079/proofs/rep1:
+total 39028
+drwxr-xr-x 2 root root    4096 Sep 23 18:54 .
+drwxr-xr-x 3 root root     103 Sep 23 18:54 ..
+-rw-r--r-- 1 root root     128 Sep 23 18:54 sub_00.coins
+-rw-r--r-- 1 root root 5590480 Sep 23 18:54 sub_00.proof
+-rw-r--r-- 1 root root  118450 Sep 23 18:54 sub_00.stmt
+-rw-r--r-- 1 root root     128 Sep 23 18:54 sub_01.coins
+-rw-r--r-- 1 root root 5590480 Sep 23 18:54 sub_01.proof
+-rw-r--r-- 1 root root  118834 Sep 23 18:54 sub_01.stmt
+-rw-r--r-- 1 root root     128 Sep 23 18:54 sub_02.coins
+sub_00.proof: reject (the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)) 0.001s  python=true ()  ** DISAGREE **
+sub_01.proof: reject (the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)) 0.001s  python=true ()  ** DISAGREE **
+sub_02.proof: reject (the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)) 0.001s  python=true ()  ** DISAGREE **
+sub_03.proof: reject (the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)) 0.001s  python=true ()  ** DISAGREE **
+sub_04.proof: reject (the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)) 0.001s  python=true ()  ** DISAGREE **
+sub_05.proof: reject (the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)) 0.001s  python=true ()  ** DISAGREE **
+sub_06.proof: reject (the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)) 0.000s  python=true ()  ** DISAGREE **
+7 proofs: 0 accepted, 7 rejected (7 against their own coins); batch reject (sub_00.proof: the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)); batch bits inf at target 128; system pinned (digests match no pinned relation); python agreement 0/7 (7 disagree); verify sum 0.007s, wall 0.008s at 7 jobs x 8 threads
+{"dir":"/workspace/research/runs/r20260923-185428-5079/proofs/rep1","jobs":7,"available_parallelism":13,"threads":8,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"8c6d260c675cad40ae7263db08974f1842d04997f344cb4f9e52821e70bb25f5","table_digest":"8dad2d286e92d9927464afb81846fcbdb16f09b2c01910e36fcf8aaac432fc3a","pinned_relation":null},"n":7,"accepted":0,"rejected":7,"own_coins":7,"batch_accepted":false,"batch_reason":"sub_00.proof: the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)","batch_log2":null,"batch_bits":null,"per_proof_bits":[],"n_proofs_claimed":[],"python_agree":0,"python_disagree":7,"verify_seconds_sum":0.0067,"shared_seconds":0.0016,"wall_seconds":0.0083,"items":[{"name":"sub_00.proof","accepted":false,"system_pinned":true,"reason":"the fp4-nvf4 relation has no pinned hashed system (authentication = included-hash is not composed for it)","statement":{"l":16384,"n":65536,"D":6,"t":195,"zk":true,"mode":"interactive","n_proofs":7,"n_vus":682,"steps":24,"K":64,"format":"ligero-statement/v5","relation":"fp4-nvf4","digest":null},"timing":{"shared":0.000000,"parse":0.000000,"soundness":0.000000,"statement_hash":0.000000,"challenge_hash":0.000000,"merkle":0.000000,"ntt":0.000000,"dfold":0.000000,"quadratic":0.000000,"chain":0.000000,"auth":0.000000,"total":0.001433},"reps":1,"soundness":null,"python":{"accepted":true,"reason":""},"agree":false},{"name":"sub_01.proof","accepted":false,"system_pinne
+RUST_RC=3
+sub_00.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 682 VUs, 682 x rows + 682 W columns + 682 y words under the a/b/y roots) [system NOT pinned: --allow-any-system; sys_id 8c6d260c675cad40...]) 0.398s  python=true ()
+sub_01.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 682 VUs, 682 x rows + 682 W columns + 682 y words under the a/b/y roots) [system NOT pinned: --allow-any-system; sys_id 8c6d260c675cad40...]) 0.405s  python=true ()
+sub_02.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 682 VUs, 682 x rows + 682 W columns + 682 y words under the a/b/y roots) [system NOT pinned: --allow-any-system; sys_id 8c6d260c675cad40...]) 0.374s  python=true ()
+sub_03.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 682 VUs, 682 x rows + 682 W columns + 682 y words under the a/b/y roots) [system NOT pinned: --allow-any-system; sys_id 8c6d260c675cad40...]) 0.410s  python=true ()
+sub_04.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 682 VUs, 682 x rows + 682 W columns + 682 y words under the a/b/y roots) [system NOT pinned: --allow-any-system; sys_id 8c6d260c675cad40...]) 0.402s  python=true ()
+sub_05.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 682 VUs, 682 x rows + 682 W columns + 682 y words under the a/b/y roots) [system NOT pinned: --allow-any-system; sys_id 8c6d260c675cad40...]) 0.383s  python=true ()
+sub_06.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 4 VUs, 4 x rows + 4 W columns + 4 y words under the a/b/y roots) [system NOT pinned: --allow-any-system; sys_id 8c6d260c675cad40...]) 0.392s  python=true ()
+7 proofs: 7 accepted, 0 rejected (7 against their own coins); batch ACCEPT (accept: all 7 sub-batches accepted; union bound 2^-128.54 <= 2^-128); batch bits 128.538895 at target 128; system NOT PINNED (--allow-any-system) (digests match no pinned relation); python agreement 7/7 (0 disagree); verify sum 2.764s, wall 0.415s at 7 jobs x 8 threads
+{"dir":"/workspace/research/runs/r20260923-185428-5079/proofs/rep1","jobs":7,"available_parallelism":13,"threads":8,"reps":1,"target_bits":128,"system_pinned":false,"system":{"sys_id":"8c6d260c675cad40ae7263db08974f1842d04997f344cb4f9e52821e70bb25f5","table_digest":"8dad2d286e92d9927464afb81846fcbdb16f09b2c01910e36fcf8aaac432fc3a","pinned_relation":null},"n":7,"accepted":7,"rejected":0,"own_coins":7,"batch_accepted":true,"batch_reason":"accept: all 7 sub-batches accepted; union bound 2^-128.54 <= 2^-128","batch_log2":-128.538895089,"batch_bits":128.538895089,"per_proof_bits":[131.346250011,131.346250011,131.346250011,131.346250011,131.346250011,131.346250011,131.346250011],"n_proofs_claimed":[7,7,7,7,7,7,7],"python_agree":7,"python_disagree":0,"verify_seconds_sum":2.7638,"shared_seconds":0.0016,"wall_seconds":0.4152,"items":[{"name":"sub_00.proof","accepted":true,"system_pinned":false,"reason":"accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 682 VUs, 682 x rows + 682 W columns + 682 y words under the a/b/y roots) [system NOT pinned: --allow-any-system; sys_id 8c6d260c675cad40...]","statement":{"l":16384,"n":65536,"D":6,"t":195,"zk":true,"mode":"interactive","n_proofs":7,"n_vus":682,"steps":24,"K":64,"format":"ligero-statement/v5","relation":"fp4-nvf4","digest":"653890706da9350dc321b5c4ed7d9fb3256fcd24e17a0763a95f3f9b9b304a94"},"timing":{"shared":0.000001,"parse":0.005164,"soundness":0.000001,"statement_hash":0.003638,"challenge_has
+RUST_ANY_RC=0
+{"sys_id":"8c6d260c675cad40ae7263db08974f1842d04997f344cb4f9e52821e70bb25f5","table_digest":"8dad2d286e92d9927464afb81846fcbdb16f09b2c01910e36fcf8aaac432fc3a","pinned_relation":null,"format":"ligero-system/v3","m":4442,"L":334,"Q":4252,"pins":17,"chain":true,"chain_end":[{"lo":31,"bits":1},{"lo":23,"bits":8},{"lo":0,"bits":23}]}
+80ac30a956d569a2aae360a59ff0b5ea150fce98200b68fec54520bd4d3719f7  /workspace/research/runs/r20260923-185428-5079/proofs/system.bin

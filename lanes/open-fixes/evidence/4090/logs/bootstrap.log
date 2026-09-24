@@ -1,0 +1,63 @@
+
+=== [18:11:41] machine
+NVIDIA GeForce RTX 4090, GPU-b89a9731-a344-15f9-85c2-417fc7e60182, 24564 MiB, 580.159.04, 450.00 W, 3105 MHz
+64
+               total        used        free      shared  buff/cache   available
+Mem:             881          38         253           5         589         829
+overlay          60G  129M   60G   1% /
+model name	: AMD EPYC 7282 16-Core Processor
+9.40 6.90 6.87 6/3562 241
+18200666af7c
+source tree: /workspace/src
+ecec3ef0f6a0f7ead6e87814abebe24ceeb812cd
+
+=== [18:11:41] rustup stable + ligero-verify (background)
+
+=== [18:11:41] uv + python 3.12 + venv312
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source /workspace/venv312/bin/activate
+Python 3.12.14
+
+=== [18:11:48] torch 2.6.0+cu124, numpy, cupy-cuda12x, blake3, pytest, pytest-timeout
+ + triton==3.2.0
+ + typing-extensions==4.16.0
+ + pytest==9.1.1
+ + pytest-timeout==2.4.0
+torch 2.6.0+cu124 numpy 2.5.3 cupy 14.2.0
+cuda True NVIDIA GeForce RTX 4090 12.4 (8, 9)
+matmul ok True
+cupy ok True
+merkle.gpu_available(): True | blake3 (host, placeholder) | blake3 (GPU, backends/shared/hash_gpu)
+
+=== [18:14:11] instance caches (fp8-ada,fp8-ada-v3; n = 2048, 4096)
+fp8-ada n=2048: 2048 VUs in 1.2s; digest e584568c2a6a1521...
+fp8-ada n=4096: 4096 VUs in 1.9s; digest e66ff0f21c8e67d1...
+fp8-ada-v3 n=2048: 2048 VUs in 1.4s; digest c4dd161da909943b...
+fp8-ada-v3 n=4096: 4096 VUs in 2.1s; digest cbc5408e3c8d5014...
+
+=== [18:14:20] rust build (join)
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 1 warning
+    Finished `release` profile [optimized + debuginfo] target(s) in 12.38s
+total 4704
+drwxr-xr-x 2 root root      27 Sep 23 18:12 .
+drwxr-xr-x 1 root root     150 Sep 23 18:12 ..
+-rwxr-xr-x 1 root root 4816528 Sep 23 18:12 ligero-verify
+RUST_OK
+c5446f4f0d568193148c824f150a0268bc139824d3db7c372e39b8e513430cba  /workspace/bin/ligero-verify
+
+=== [18:14:20] versions
+Using Python 3.12.14 environment at: /workspace/venv312
+blake3                   1.0.9
+numpy                    2.5.3
+pytest                   9.1.1
+pytest-timeout           2.4.0
+torch                    2.6.0+cu124
+triton                   3.2.0
+rustc 1.98.1 (48a229cea 2026-09-01)
+overlay          60G   12G   49G  20% /
+
+=== [18:14:20] done
+BOOTSTRAP_OK

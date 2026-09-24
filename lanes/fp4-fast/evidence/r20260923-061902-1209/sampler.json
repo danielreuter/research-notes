@@ -1,0 +1,20 @@
+{
+ "schema": "telemetry/resources/v0.1",
+ "pid": 2731,
+ "stream": "abc315f081d1:2731:106647287",
+ "last_utc": "2026-09-23T06:19:34.912Z",
+ "last_mono": 1066494.073589315,
+ "scope": "shared_pod_cgroup",
+ "scope_reason": "workload cgroup '/' is the pod's (shared with the sampler and every other job)",
+ "gaps": 0,
+ "cpu_s": 0.3255,
+ "maxrss_bytes": 21868544,
+ "elapsed_s": 21.143325749086216,
+ "samples": 22,
+ "bytes_written": 220295,
+ "cadence_s": 1.0,
+ "base_cadence_s": 1.0,
+ "errors": {},
+ "error_samples": [],
+ "collector_version": "0.1.1"
+}

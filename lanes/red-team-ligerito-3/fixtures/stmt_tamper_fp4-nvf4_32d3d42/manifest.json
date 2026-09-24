@@ -1,0 +1,111 @@
+{
+ "format": {
+  "proof": "LGTO0001",
+  "statement": "LGTS0001",
+  "key": "LGVK0001"
+ },
+ "relation": "fp4-nvf4",
+ "l": 256,
+ "commit": "32d3d42",
+ "kind": "red-team-ligerito-3 statement tampers (honest local proof, edited statement)",
+ "files": [
+  {
+   "proof": "tamper_y_nonend_1.lgto.neg",
+   "stmt": "tamper_y_nonend_1.stmt",
+   "expect": "reject",
+   "coins": "local",
+   "coins_seed": 1,
+   "name": "claimed word 1 at a non-end column (honest proof made for 0 there)",
+   "proof_sha256": "4db6d7469ef1f41ed0e16d1a884dd368890997413e2f196062e428378b56ebbf",
+   "stmt_sha256": "ca6eedc97afb73b74fa20ae82ab515453c89892a76d8ca124c7cd6730dfbcbe0",
+   "rust_verdict": {
+    "accepted": false,
+    "reason": "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   }
+  },
+  {
+   "proof": "tamper_y_out_of_range.lgto.neg",
+   "stmt": "tamper_y_out_of_range.stmt",
+   "expect": "reject",
+   "coins": "local",
+   "coins_seed": 1,
+   "name": "claimed word 2^(8 y_bytes) - 1 at a non-end column",
+   "proof_sha256": "4db6d7469ef1f41ed0e16d1a884dd368890997413e2f196062e428378b56ebbf",
+   "stmt_sha256": "aa41a4fc4a9c55cc668e284e40a6695ba8d09310e80054b86035ce12105c2c22",
+   "rust_verdict": {
+    "accepted": false,
+    "reason": "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   }
+  },
+  {
+   "proof": "tamper_y_end_plus1.lgto.neg",
+   "stmt": "tamper_y_end_plus1.stmt",
+   "expect": "reject",
+   "coins": "local",
+   "coins_seed": 1,
+   "name": "first end column's claimed word + 1",
+   "proof_sha256": "4db6d7469ef1f41ed0e16d1a884dd368890997413e2f196062e428378b56ebbf",
+   "stmt_sha256": "c6df19ba27cf82d71fee3f20137e661f2e2b5f57a585b9c4d0bf117db19833f0",
+   "rust_verdict": {
+    "accepted": false,
+    "reason": "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   }
+  },
+  {
+   "proof": "tamper_a_real_plus1.lgto.neg",
+   "stmt": "tamper_a_real_plus1.stmt",
+   "expect": "reject",
+   "coins": "local",
+   "coins_seed": 1,
+   "name": "operand a word of unit 0, operand 0, + 1",
+   "proof_sha256": "4db6d7469ef1f41ed0e16d1a884dd368890997413e2f196062e428378b56ebbf",
+   "stmt_sha256": "fcd8faddfd696cab7b2c2c0672f6c21c6f04a3b7a7fe5bdb9bba0ea181abe93a",
+   "rust_verdict": {
+    "accepted": false,
+    "reason": "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   }
+  },
+  {
+   "proof": "tamper_pad_a.lgto.neg",
+   "stmt": "tamper_pad_a.stmt",
+   "expect": "reject",
+   "coins": "local",
+   "coins_seed": 1,
+   "name": "first pad unit 240: operand a[0] = 1",
+   "proof_sha256": "4db6d7469ef1f41ed0e16d1a884dd368890997413e2f196062e428378b56ebbf",
+   "stmt_sha256": "52bf98799f5ca740d9a26752a62996a4198c07d2ae21a1ede7df4393cafb3f1f",
+   "rust_verdict": {
+    "accepted": false,
+    "reason": "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   }
+  },
+  {
+   "proof": "tamper_pad_b.lgto.neg",
+   "stmt": "tamper_pad_b.stmt",
+   "expect": "reject",
+   "coins": "local",
+   "coins_seed": 1,
+   "name": "first pad unit 240: operand b[1] = 1",
+   "proof_sha256": "4db6d7469ef1f41ed0e16d1a884dd368890997413e2f196062e428378b56ebbf",
+   "stmt_sha256": "8d9c408a2821e671de4c785646a4ece804a5b653e3a5c6dc53d5ae6d7d23b397",
+   "rust_verdict": {
+    "accepted": false,
+    "reason": "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   }
+  },
+  {
+   "proof": "tamper_pad_y.lgto.neg",
+   "stmt": "tamper_pad_y.stmt",
+   "expect": "reject",
+   "coins": "local",
+   "coins_seed": 1,
+   "name": "first pad unit 240: claimed word 7",
+   "proof_sha256": "4db6d7469ef1f41ed0e16d1a884dd368890997413e2f196062e428378b56ebbf",
+   "stmt_sha256": "7bc5fa0732c7f9da749d86556a25ac101b3e32443368e5f0f7240bb60b9a329f",
+   "rust_verdict": {
+    "accepted": false,
+    "reason": "combined final: beta coef(r_i) z(r_i, r_c) + succ(rho, r_c) V(rho) != claim"
+   }
+  }
+ ]
+}

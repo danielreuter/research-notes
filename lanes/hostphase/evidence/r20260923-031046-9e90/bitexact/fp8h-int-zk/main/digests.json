@@ -1,0 +1,75 @@
+{
+ "args": {
+  "tree": "/workspace/src-main",
+  "rel": "fp8-hopper",
+  "zk": true,
+  "mode": "interactive",
+  "vus": 341,
+  "subs": 3,
+  "seed": 20260922,
+  "out": "/workspace/research/runs/r20260923-031046-9e90/bitexact/fp8h-int-zk/main",
+  "impl": null,
+  "cache": "/workspace/instances-cache",
+  "total": 4096
+ },
+ "files": {
+  "system.bin": "968d99d6d010c3c8dbfa7123bb5b8afc7e190b037f6eaeb44f9167cdb6f1215a",
+  "sub_00.stmt": "4bc1e00e85909ca1009527092c43307ba5c4dc5b448ff9564bd868baca6c9b54",
+  "sub_00.proof": "6dc4c961ed9b47251731186ee89edcfa0d09289c6538838a9d69eeb3bd8627e9",
+  "sub_00.coins": "f88950a583d4e2a99a1c208f4b307f8f728b6d69d928e32fc902c6e0824a5109",
+  "sub_01.stmt": "3abe7775c297ba8929b7079aa472905175775c47c7db34a332392ef163c1d6fc",
+  "sub_01.proof": "a5a09c72cc469f1bc93364fc50ae02992216b849f1b9df70d534245cba2589e5",
+  "sub_01.coins": "de557e45d038fc18c4a26052cfdcd281da58dbb5628ba2701c2ee0cee3b84c52",
+  "sub_02.stmt": "827d8d93048d7c9b54c85d2513bb694177250bb1f2d45a508830b39570408f30",
+  "sub_02.proof": "acc2d7f80e125cbee764833242c1e0e81a65716d8b8444c854ff57f3cf1ce5e3",
+  "sub_02.coins": "1359f457db2c37c6e388019392883b42a23d2f0ee6255247a39506443c627630"
+ },
+ "timings": [
+  {
+   "statement": 0.0027,
+   "witness": 0.4064,
+   "zk_masks": 0.0429,
+   "encode": 2.6339,
+   "transfer": 0.0,
+   "merkle": 0.0032,
+   "tests_w": 0.0191,
+   "tests_quad": 0.0695,
+   "tests_chain": 0.0224,
+   "tests": 0.111,
+   "openings": 0.0064,
+   "total": 3.2064,
+   "hints_host": 0.1627
+  },
+  {
+   "statement": 0.0016,
+   "witness": 0.0188,
+   "zk_masks": 0.0007,
+   "encode": 0.0047,
+   "transfer": 0.0,
+   "merkle": 0.002,
+   "tests_w": 0.0156,
+   "tests_quad": 0.0041,
+   "tests_chain": 0.003,
+   "tests": 0.0226,
+   "openings": 0.0055,
+   "total": 0.0559,
+   "hints_host": 0.0049
+  },
+  {
+   "statement": 0.0016,
+   "witness": 0.0188,
+   "zk_masks": 0.0007,
+   "encode": 0.0047,
+   "transfer": 0.0,
+   "merkle": 0.002,
+   "tests_w": 0.0138,
+   "tests_quad": 0.0036,
+   "tests_chain": 0.003,
+   "tests": 0.0204,
+   "openings": 0.0047,
+   "total": 0.0529,
+   "hints_host": 0.0049
+  }
+ ],
+ "urandom_calls": 20
+}

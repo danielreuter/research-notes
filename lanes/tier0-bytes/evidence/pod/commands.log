@@ -1,0 +1,9 @@
+[17:43:50Z] (hash_before) START trim=0 pipeline=4
+[17:44:57Z] (hash_before) EXIT=0  elapsed=67s
+[17:44:57Z] (hash_after) START trim=1 pipeline=4
+[17:45:11Z] (hash_after) EXIT=0  elapsed=14s
+[17:45:11Z] (bare_before) START trim=0 pipeline=4
+[17:45:39Z] (bare_before) EXIT=0  elapsed=28s
+[17:45:39Z] (bare_after) START trim=1 pipeline=4
+[17:45:48Z] (bare_after) EXIT=0  elapsed=9s
+MEASURE_DONE

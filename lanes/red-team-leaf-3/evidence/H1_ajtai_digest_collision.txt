@@ -1,0 +1,3 @@
+role 0: n = 64; committed row 48 cols, forged row 112 cols; t has 3174 set bits; digest(forged) == digest(committed): True
+  W side: digest(forged W) == digest(committed W): True; <x*, W*> = 25158640 vs <x', W'> = 64547712 (prover-chosen via t, u)
+role 1: n = 64; committed row 48 cols, forged row 112 cols; t has 3045 set bits; digest(forged) == digest(committed): True

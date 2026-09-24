@@ -1,0 +1,6 @@
+[12:53:06Z] START diag-bf16-live-p1 rel=bf16-hopper auth=bare batch=16384 pipeline=1 reps=1 dump=0 live=1 on=vy-dev-h100-2b
+research: run r20260923-125306-4e9b launched on vy-dev-h100-2b (jzrtm9jfkc9kit) pid=6054 -> /workspace/research/runs/r20260923-125306-4e9b
+research: observe with `research fetch r20260923-125306-4e9b`; the workload does not depend on this session staying alive
+[12:53:10Z] diag-bf16-live-p1 -> r20260923-125306-4e9b
+[12:53:44Z] END diag-bf16-live-p1 r20260923-125306-4e9b finished: done
+research: r20260923-125306-4e9b observed 2026-09-23T12:53:45.412Z: done rc=0 class=- result=valid (research/result/v0.1)

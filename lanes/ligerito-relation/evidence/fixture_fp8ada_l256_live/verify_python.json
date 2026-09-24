@@ -1,0 +1,25 @@
+{
+ "verifier": "python (backends.direct.ligerito.prove.Prover.verify; shares the claim algebra with the prover)",
+ "independent": false,
+ "total": 2,
+ "agree": 2,
+ "wall": 2.1064843060448766,
+ "items": [
+  {
+   "proof": "batch_live_0.lgto",
+   "expect": "accept",
+   "accepted": true,
+   "reason": "accept",
+   "seconds": 1.05694445874542,
+   "agrees": true
+  },
+  {
+   "proof": "batch_live_1.lgto",
+   "expect": "accept",
+   "accepted": true,
+   "reason": "accept",
+   "seconds": 1.045758104417473,
+   "agrees": true
+  }
+ ]
+}

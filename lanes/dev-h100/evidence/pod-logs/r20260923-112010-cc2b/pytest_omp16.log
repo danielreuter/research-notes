@@ -1,0 +1,12 @@
+........................................................................ [ 51%]
+....................................................................     [100%]
+============================= slowest 8 durations ==============================
+13.95s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-ampere-v2]
+12.96s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-ada-v2]
+11.14s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-hopper-v2]
+10.71s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-hopper-v2]
+8.54s call     backends/direct/ligero/witness_device_test.py::test_fused_witness_equals_torch_program_fp4
+8.20s call     backends/direct/ligero/hashchain_test.py::test_negatives_rejected
+5.77s call     backends/direct/ligero/live_test.py::test_honest_session_accepted_and_negatives_refused
+3.64s call     backends/direct/ligero/relations_test.py::test_negative_battery_rejected[fp8-hopper]
+140 passed in 155.72s (0:02:35)

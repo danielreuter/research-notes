@@ -1,0 +1,92 @@
+# Device-wave inputs (coordinator scratch; collected as lanes finish)
+
+## v3-scout-2 (FINAL 22:47Z; snapshot art:98198cab, 51 cells, all Rust-pinned ACCEPT; pods gone)
+- H100/A100: v3 is SLOWER than v1 at each relation's best depth (+22 % fp8-hopper, +15 % bf16-hopper, +9 % bf16-ampere; v3 hint gen
+  dominates). 4090 fp8-ada: v3 faster (0.155 vs 0.180 s, open-fixes). Both v1 and v3 are private-operand-safe.
+- => Headline per cell = the faster private-safe relation MEASURED IN THE WAVE: run v1 and v3 (and hints-fused-2's fused v3/v3x4 if it
+  lands and is byte-identical), >= 3 rounds, alternate order (H100 host noise up to 64 % between rounds).
+- Local-coin references (l=16384): H100 fp8 v1 0.119 s @d4 / v3 0.145 @d4; H100 bf16 v1 0.186 @d8 / v3 0.214 @d8;
+  A100 bf16-ampere v1 0.309 @d8 / v3 0.337 @d4; 4090 fp8-ada v3 0.155 @d4 / v1 0.180.
+- A100: use the chain runner (`run.py --relation bf16-ampere[-v3] bench-vu --pipeline N`), not vu.py (v1-only, sequential, 0.622 s).
+- No --batch 32768 (3.2-7.6x slower). Depth 8 allowed where it wins (Table 2 policy said depth <= 2 in the morning; revisit: say depth).
+
+## live-2c (partial 22:38Z)
+- tax same-DC 1.07x fp8-ada / 1.13x bf16-hopper; CZ 30 ms 2.6x / 2.95x -> provision verifier in the prover's DC per device.
+
+## hints-fused-2 (partial 22:44Z)
+- fused fp8-ada-v3x4 p8 l=4096 0.1103 s / p4 0.1210 s vs fp8-ada-v3 p4 0.155 (4090).
+
+## share-logup-3 (partial 22:44Z)
+- fp8-ada 4090 p4: bare 0.158 / +hash 0.373 / +shared 0.253-0.309 (target 1.3x not yet met).
+
+## Open soundness
+- H1 (red-team-leaf-3): Rust never binds statement.steps to the relation; Ajtai steps>n collisions accepted by the pinned verifier ->
+  ajtai-leaf-3 fixing; red team scoping bare relations. Nothing Ajtai goes in the wave until fixed.
+
+## live-2c FINAL 22:55Z (lane/live-2c 54e748f; $0.94; 44 artifacts on R2; RUNBOOK = its report §6)
+- KEPT VERIFIER: vy-live2b-verifier-ro-veritor-campaign pitmqu0zrycw5i, EU-RO-1, tcp://213.173.105.92:56412 (ssh 56411),
+  serving live-verifier@80547525ac60. CZ, prover and temp US verifier terminated.
+- Tax (bbr, depth 4, 4090): same-DC 1.07x fp8-ada / 1.13x bf16-hopper; 30 ms 2.6x / 2.95x (depth 8: 2.2x / 2.05x); 111 ms 8.4x / 8.8x.
+- Rebuild: `research pods sync vy-live2b-verifier-ro --dest /workspace/lv-src-<sha>` + `research pods ssh ... -- 'bash
+  /workspace/lv-src-<sha>/backends/direct/ligero/live_serve.sh'` (~80 s). MERGE lane/live-2c (live_serve.sh) into integration first.
+  Do not restart under ligerito-relation-2's sessions (~23:00-23:20Z).
+- POLICY for the wave (user decision 05:39Z = live verifier, interactive ZK): provision provers in EU-RO-1 where the GPU type exists
+  (same-DC tax ~1.1x) and headline t.total_live from a live same-DC run, with the local-coins t.total of the same pod/tree beside it as
+  the prover-only number; where the GPU is only available cross-region, add a CPU verifier pod in that DC (live_serve.sh on a bare pod
+  is tested) rather than quoting a 2.6-8.8x cross-region number. Record RTT + both DCs per cell.
+
+## red-team-leaf-3 FINAL 22:55Z (lane/red-team-leaf-3 89cd6cf7; fixtures in its evidence/, 42 MB)
+- H1 BREAK (Ajtai n64/n128 steps > n collisions, accepted pinned, also on ajtai-leaf-3 47d191e2) + H2 BLOCKING (no pin fixes steps
+  for ANY relation) -> ajtai-leaf-3 owns the generic shared fix (handoff 2258Z). BEFORE THE WAVE: integration must contain it, and
+  every Table 2 cell is re-verified with the steps-pinned binary (no re-measurement needed if honest proofs still accept).
+- G1 FIXED on ajtai-leaf-3; F5/F7/F8 FIXED; G3 PARTIAL (share-logup-3 owns); BLAKE3 framing, share pair negatives, leaf-iface OK.
+- Table 1 lines (Poseidon2 / BLAKE3 / Ajtai) in its report.
+
+## blake3-leaf-3 FINAL 22:59Z (lane/blake3-leaf-3 820aa6f = 1db0008 + cherry-pick 1cf9178 + level-scheduled interpreter; $0.50)
+- 4090 4096 VUs local: fp8-ada bare 0.170 / +hash 0.421 / +blake3 5.22 s p4 (best 4.70 l=4096 p2); bf16-hopper 0.261 / 0.805 / 10.70.
+  Rows/unit 3769 / 6210 / 35370. BLAKE3 = ~12x Poseidon2 in-circuit -> DRILL-DOWN ONLY (one 4090 fp8-ada cell), not a wave column.
+- l=16384 does not fit +blake3 on 24 GB; next bottleneck constraint tests 2.74 s of 4.70.
+- 820aa6f level-scheduled witness interpreter (LIGERO_INTERP_LEVELS=0 = old path; byte-identical): CHECK at integration whether
+  +hash / +ajtai use the same interpreter path -> if so re-measure them, it may cut their commit time too.
+- +shared: share-logup-3 accepts only Poseidon2.
+- H2 canonical steps for +blake3 relations not listed (lane finished 1 min after the handoff) -> take from the relation specs at integration.
+
+## ajtai-leaf-3 FINAL 23:05Z (lane/ajtai-leaf-3 47d191e, $0.59, pod gone) -- did NOT do H1/H2 (missed both handoffs)
+- G1 fixed (Rust 8768997 + Python/fixture 62e3fde; verifier-only, no re-pin). Gates 0 failures; Rust pinned 13/13, 25/25.
+- 4090 l=16384 local: fp8-ada p4 bare 0.215 / +hash 0.448 / +ajtai-n64 0.447; bf16-hopper p3 bare 0.329 / +hash 0.823 / +ajtai-n128
+  1.407 (p4 OOM: hash_hints, ~10 GB per-stream graph pools). Ajtai = Poseidon2 on fp8; 1.7x on bf16. Artifacts art:a0dc1a4b, b6b526d4,
+  355f5334, c1f6c5e7, 2f731699 (file trees, not attempts: `research fetch --all` copied 4 KB of a 1.2 GB run).
+- H1/H2 -> NEW lane steps-pin bd486635 (base 47d191e; FINAL 00:45Z): audit all statement fields, bind in shared pin table, negatives,
+  honest re-accepts, entries for other branches. INTEGRATION WAITS FOR IT; Ajtai stays out of the wave until merged.
+
+## hints-fused-2 FINAL 23:05Z (lane/hints-fused-2 4287a92, code = e57637f; $0.58; 10 artifacts on R2; pod gone)
+- Fused hint kernel is the DEFAULT on this branch (`LIGERO_FUSED_HINTS=0` = old torch CUDA-graph path); byte-identical 82/82 across
+  all 16 v2/v3 relations; no system/statement/transcript/pin change. Bench knob `LIGERO_REFERENCE_HINTS=0` skips warm-up reference check.
+- 4090, 4096 VUs, local coins: fp8-ada-v3x4 p4 l=4096 0.114 s (4.12 GiB) vs fp8-ada-v3 p4 l=16384 0.1715 (torch) / 0.1405 (fused);
+  bf16-hopper-v3x4 p4 l=4096 0.2014 vs bf16-hopper-v3 fused 0.2248; fp8-hopper-v3x4 p4 l=4096 0.1043 vs v3 fused 0.1511.
+- => DEVICE WAVE candidates per cell (all private-safe): v1 @ best depth (l=16384), v3 fused (l=16384), v3x4 fused (l=4096, p4 and p8).
+  v3-scout-2's "v3 slower than v1 on H100/A100" used the torch hint path -> superseded; re-measure there.
+- Next bottleneck: witness-program kernel 30 % (serial per column, 7090 rows) -> row-parallel / fold hints into it; then Merkle BLAKE3
+  13 %, quadratic test 12 %, RS 10 %. The 820aa6f level-scheduled interpreter (blake3-leaf-3) is the same idea -> check overlap.
+- CHECKED 23:12Z: 820aa6f changes the GENERIC witness interpreter in backends/direct/ligero/witness_device.py (level-scheduled, default
+  on, falls back to sequential unless every row has one writer and no read-before-write). That is very likely the "witness-program
+  kernel, serial per column" hints-fused-2 names as the 30 % bottleneck. merge-val-3 MUST A/B v3x4-fused l=4096 p4 and v1 p4 with
+  LIGERO_INTERP_LEVELS=1 vs 0 on the integrated tree (and report whether the level path is actually taken for bare relations).
+
+## share-logup-3 FINAL 23:11Z (lane/share-logup-3 453d7cf4; $0.68; 23 arts remote=1; pod gone)
+- 4090, 4096 VUs, l=16384, p4, interactive NON-ZK local coins: shared/bare fp8-ada 0.268/0.159 = 1.69x (target 1.3x missed;
+  device floor 0.213 s/pass > 0.205 needed); fp8-hopper 0.308/0.136 = 2.27x (noisy 3 reps); bf16-hopper 0.512/0.256 = 2.0x;
+  bf16-ampere 0.480/0.262 = 1.83x. Unshared +hash same pod: 0.373 / 0.355 / 0.774 / 0.744 -> shared beats +hash by 14-38 %.
+- Rust pins for all four +shared relations accept every dump; gates 0 failures. bf16 graph re-capture fix (2.84 -> 0.51 s).
+- NOT WAVE-READY: no ZK run, and G3 (coins_h prover-sampled) blocks a live verifier. Launched `shared-live` 297f7c16 at 23:15Z
+  (base 453d7cf4; G3 fix + --zk + local/live bare-vs-shared table; FINAL 00:45Z). Column 2 headline = +shared if shared-live lands
+  with live accepts, else +hash (unshared Poseidon2) as tonight.
+
+## fp4-decode-3 FINAL 23:17Z (lane/fp4-decode-3 6ffa035; ~$1.2; 68 arts remote=1; both pods gone)
+- 5090 COLUMN 2 EXISTS NOW: fp4-nvf4+poseidon2 (pins as fp4-nvf4+hash sys 8c6d260c). 4096 VUs, l=16384, --zk interactive, LOCAL
+  coins, p4: bare 0.0576 s / hashed 0.2038 s (3.54x; 6-run spread 0.058-0.067 / 0.204-0.234). 4090 p4: 0.0532 / 0.2617 (4.92x).
+  Pinned Rust batch 7/7 on all 18 dumps (2^-128.54), gates 0 failures, cargo 48/48.
+- 6ffa035: sm_120 cold compile of the fused witness kernel 449.6 s -> 46.2 s via sm_89 PTX JIT (bit-identical differential test;
+  LIGERO_WITNESS_PTX_ARCH=native restores). Needed on every fresh 5090 in the wave.
+- Table 2 5090 cells come from the device wave (same-DC live, p4), not from these local-coin runs; 0.0576 is the expectation.
+- Integration: needs 6ffa035; steps-pin writes the fp4-nvf4+poseidon2 steps entry from this branch.

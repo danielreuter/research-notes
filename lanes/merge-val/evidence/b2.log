@@ -1,0 +1,138 @@
+bf16-hopper chain system: {'rows': 3292, 'by_kind': {'hint': 97, 'bit': 2391, 'prod': 166, 'pin': 96, 'sel': 542}, 'linear': 339, 'quadratic': 3164, 'pins': 96, 'hints': 97} compiled in 0.37s; device cuda
+bf16-hopper vu-k1536 [0, 42): l=4096 prover 18.55s -> True accept (0.039s)
+bf16-hopper vu-k1536 [42, 84): l=4096 prover 0.03s -> True accept (0.029s)
+bf16-hopper vu-k1536 [84, 126): l=4096 prover 0.03s -> True accept (0.027s)
+bf16-hopper vu-k1536 [126, 168): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [168, 210): l=4096 prover 0.03s -> True accept (0.025s)
+bf16-hopper vu-k1536 [210, 252): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [252, 294): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [294, 336): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [336, 378): l=4096 prover 0.03s -> True accept (0.029s)
+bf16-hopper vu-k1536 [378, 420): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [420, 462): l=4096 prover 0.03s -> True accept (0.030s)
+bf16-hopper vu-k1536 [462, 504): l=4096 prover 0.03s -> True accept (0.025s)
+bf16-hopper vu-k1536 [504, 546): l=4096 prover 0.03s -> True accept (0.028s)
+bf16-hopper vu-k1536 [546, 588): l=4096 prover 0.03s -> True accept (0.028s)
+bf16-hopper vu-k1536 [588, 630): l=4096 prover 0.03s -> True accept (0.031s)
+bf16-hopper vu-k1536 [630, 672): l=4096 prover 0.03s -> True accept (0.027s)
+bf16-hopper vu-k1536 [672, 714): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [714, 756): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [756, 798): l=4096 prover 0.03s -> True accept (0.025s)
+bf16-hopper vu-k1536 [798, 840): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [840, 882): l=4096 prover 0.03s -> True accept (0.025s)
+bf16-hopper vu-k1536 [882, 924): l=4096 prover 0.03s -> True accept (0.029s)
+bf16-hopper vu-k1536 [924, 966): l=4096 prover 0.03s -> True accept (0.033s)
+bf16-hopper vu-k1536 [966, 1008): l=4096 prover 0.03s -> True accept (0.028s)
+bf16-hopper vu-k1536 [1008, 1050): l=4096 prover 0.03s -> True accept (0.028s)
+bf16-hopper vu-k1536 [1050, 1092): l=4096 prover 0.05s -> True accept (0.027s)
+bf16-hopper vu-k1536 [1092, 1134): l=4096 prover 0.03s -> True accept (0.026s)
+bf16-hopper vu-k1536 [1134, 1176): l=4096 prover 0.03s -> True accept (0.029s)
+bf16-hopper vu-k1536 [1176, 1218): l=4096 prover 0.03s -> True accept (0.029s)
+bf16-hopper vu-k1536 [1218, 1260): l=4096 prover 0.03s -> True accept (0.027s)
+bf16-hopper vu-k1536 [1260, 1302): l=4096 prover 0.03s -> True accept (0.030s)
+bf16-hopper vu-k1536 [1302, 1344): l=4096 prover 0.03s -> True accept (0.030s)
+bf16-hopper vu-k1536 [1344, 1386): l=4096 prover 0.03s -> True accept (0.033s)
+bf16-hopper vu-k1536 [1386, 1428): l=4096 prover 0.03s -> True accept (0.032s)
+bf16-hopper vu-k1536 [1428, 1470): l=4096 prover 0.03s -> True accept (0.034s)
+bf16-hopper vu-k1536 [1470, 1512): l=4096 prover 0.03s -> True accept (0.031s)
+bf16-hopper vu-k1536 [1512, 1554): l=4096 prover 0.03s -> True accept (0.029s)
+bf16-hopper vu-k1536 [1554, 1596): l=4096 prover 0.03s -> True accept (0.029s)
+bf16-hopper vu-k1536 [1596, 1638): l=4096 prover 0.03s -> True accept (0.028s)
+bf16-hopper vu-k1536 [1638, 1680): l=4096 prover 0.03s -> True accept (0.027s)
+bf16-hopper vu-k1536 [1680, 1722): l=4096 prover 0.03s -> True accept (0.030s)
+bf16-hopper vu-k1536 [1722, 1764): l=4096 prover 0.03s -> True accept (0.025s)
+bf16-hopper vu-k1536 [1764, 1806): l=4096 prover 0.03s -> True accept (0.025s)
+bf16-hopper vu-k1536 [1806, 1848): l=4096 prover 0.04s -> True accept (0.027s)
+bf16-hopper vu-k1536 [1848, 1890): l=4096 prover 0.03s -> True accept (0.032s)
+bf16-hopper vu-k1536 [1890, 1932): l=4096 prover 0.03s -> True accept (0.029s)
+bf16-hopper vu-k1536 [1932, 1974): l=4096 prover 0.03s -> True accept (0.032s)
+bf16-hopper vu-k1536 [1974, 2016): l=4096 prover 0.03s -> True accept (0.032s)
+bf16-hopper vu-k1536 [2016, 2048): l=4096 prover 0.03s -> True accept (0.028s)
+  negative claimed word bit 0 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 1 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 2 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 3 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 4 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 5 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 6 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 7 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 8 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 9 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 10 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 11 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 12 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 13 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 14 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 15 flipped: REJECTED column challenge mismatch
+  negative claimed word +1 ulp: REJECTED column challenge mismatch
+  negative claimed word -1 ulp: REJECTED column challenge mismatch
+  negative off-domain operand 0x7f80 in a: REJECTED public inputs: public inputs rejected: a.t off the finite range
+  negative off-domain operand 0xff80 in a: REJECTED public inputs: public inputs rejected: a.t off the finite range
+  negative off-domain operand 0x7fc0 in a: REJECTED public inputs: public inputs rejected: a.t off the finite range
+  negative off-domain operand 0x7fc0 in b: REJECTED public inputs: public inputs rejected: b.t off the finite range
+  negative operand a[10][1] exponent bit flipped: REJECTED column challenge mismatch
+  negative link c.f[20] != y.f[19]: REJECTED linear constraints failed
+  negative c_0 != 0 at a chain start: REJECTED linear constraints failed
+  negative accumulator fraction bit 12 flipped in a linked unit: REJECTED linear constraints failed
+  negative accumulator fraction bit 0 flipped in a linked unit: REJECTED linear constraints failed
+  negative row x.acc.s (hint) +1 in column 25: REJECTED quadratic constraints failed
+  negative row x.acc.t.b0 (bit) +1 in column 153: REJECTED linear constraints failed
+  negative row x.prod0 (prod) +2 in column 113: REJECTED linear constraints failed
+  negative row x.prod1 (prod) +1 in column 136: REJECTED linear constraints failed
+  negative row x.prod2 (prod) +1 in column 93: REJECTED linear constraints failed
+  negative row x.a[0].s (pin) +2 in column 77: REJECTED linear constraints failed
+  negative row x.a[1].s (pin) +1 in column 105: REJECTED linear constraints failed
+  negative row x.a[2].s (pin) +1 in column 104: REJECTED linear constraints failed
+  negative row x.a[3].s (pin) +2 in column 144: REJECTED linear constraints failed
+  negative row x.a[4].s (pin) +2 in column 188: REJECTED linear constraints failed
+  negative row x.a[5].s (pin) +1 in column 166: REJECTED linear constraints failed
+  negative row x.a[6].s (pin) +2 in column 27: REJECTED linear constraints failed
+  negative row x.a[7].s (pin) +2 in column 85: REJECTED linear constraints failed
+  negative row x.a[8].s (pin) +1 in column 190: REJECTED linear constraints failed
+  negative row x.a[9].s (pin) +1 in column 164: REJECTED linear constraints failed
+  negative row x.a[10].s (pin) +2 in column 66: REJECTED linear constraints failed
+  negative row x.a[11].s (pin) +2 in column 47: REJECTED linear constraints failed
+  negative row x.a[12].s (pin) +2 in column 88: REJECTED linear constraints failed
+  negative row x.a[13].s (pin) +2 in column 180: REJECTED linear constraints failed
+  negative row x.a[14].s (pin) +2 in column 161: REJECTED linear constraints failed
+  negative row x.a[15].s (pin) +2 in column 188: REJECTED linear constraints failed
+  negative row x.b[0].s (pin) +1 in column 25: REJECTED linear constraints failed
+  negative row x.b[1].s (pin) +2 in column 59: REJECTED linear constraints failed
+  negative row x.b[2].s (pin) +1 in column 158: REJECTED linear constraints failed
+  negative row x.b[3].s (pin) +1 in column 188: REJECTED linear constraints failed
+  negative row x.b[4].s (pin) +2 in column 178: REJECTED linear constraints failed
+  negative row x.b[5].s (pin) +1 in column 138: REJECTED linear constraints failed
+  negative row x.b[6].s (pin) +2 in column 113: REJECTED linear constraints failed
+  negative row x.b[7].s (pin) +2 in column 170: REJECTED linear constraints failed
+  negative row x.b[8].s (pin) +1 in column 185: REJECTED linear constraints failed
+  negative row x.b[9].s (pin) +1 in column 149: REJECTED linear constraints failed
+  negative row x.b[10].s (pin) +1 in column 131: REJECTED linear constraints failed
+  negative row x.b[11].s (pin) +1 in column 2: REJECTED linear constraints failed
+  negative row x.b[12].s (pin) +2 in column 186: REJECTED linear constraints failed
+  negative row x.b[13].s (pin) +1 in column 58: REJECTED linear constraints failed
+  negative row x.b[14].s (pin) +1 in column 46: REJECTED linear constraints failed
+  negative row x.b[15].s (pin) +2 in column 164: REJECTED linear constraints failed
+  negative row prod[0].prod[0].z (hint) +1 in column 14: REJECTED linear constraints failed
+  negative row prod[0].prod3 (prod) +2 in column 108: REJECTED linear constraints failed
+  negative row prod[0].prod4 (prod) +1 in column 191: REJECTED linear constraints failed
+  negative row prod[0].prod[0].z1.b0 (bit) +1 in column 117: REJECTED linear constraints failed
+  negative row prod[0].prod5 (prod) +1 in column 33: REJECTED quadratic constraints failed
+  negative row prod[0].prod6 (prod) +1 in column 84: REJECTED linear constraints failed
+  negative row prod[1].prod[1].z (hint) +1 in column 139: REJECTED linear constraints failed
+  negative row prod[1].prod7 (prod) +2 in column 65: REJECTED linear constraints failed
+  negative row prod[1].prod8 (prod) +2 in column 120: REJECTED linear constraints failed
+  negative row prod[1].prod[1].z1.b0 (bit) +1 in column 143: REJECTED linear constraints failed
+  negative row prod[1].prod9 (prod) +1 in column 171: REJECTED quadratic constraints failed
+  negative row prod[1].prod10 (prod) +1 in column 58: REJECTED linear constraints failed
+  negative row prod[2].prod[2].z (hint) +2 in column 0: REJECTED linear constraints failed
+  negative row prod[2].prod11 (prod) +1 in column 17: REJECTED linear constraints failed
+  negative row prod[2].prod12 (prod) +2 in column 157: REJECTED linear constraints failed
+  negative row prod[2].prod[2].z1.b0 (bit) +1 in column 164: REJECTED linear constraints failed
+  negative row prod[2].prod13 (prod) +1 in column 95: REJECTED quadratic constraints failed
+  negative row prod[2].prod14 (prod) +2 in column 36: REJECTED linear constraints failed
+  negative row prod[3].prod[3].z (hint) +2 in column 14: REJECTED linear constraints failed
+  negative row prod[3].prod15 (prod) +1 in column 3: REJECTED linear constraints failed
+  negative row prod[3].prod16 (prod) +1 in column 179: REJECTED linear constraints failed
+  negative row prod[3].prod[3].z1.b0 (bit) +1 in column 59: REJECTED linear constraints failed
+  negative row prod[3].prod17 (prod) +1 in column 148: REJECTED quadratic constraints failed
+bf16-hopper gate: 49 honest sub-batches, 87 negatives, 0 failures

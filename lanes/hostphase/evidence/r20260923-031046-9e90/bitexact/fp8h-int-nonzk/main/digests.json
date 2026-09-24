@@ -1,0 +1,72 @@
+{
+ "args": {
+  "tree": "/workspace/src-main",
+  "rel": "fp8-hopper",
+  "zk": false,
+  "mode": "interactive",
+  "vus": 341,
+  "subs": 3,
+  "seed": 20260922,
+  "out": "/workspace/research/runs/r20260923-031046-9e90/bitexact/fp8h-int-nonzk/main",
+  "impl": null,
+  "cache": "/workspace/instances-cache",
+  "total": 4096
+ },
+ "files": {
+  "system.bin": "968d99d6d010c3c8dbfa7123bb5b8afc7e190b037f6eaeb44f9167cdb6f1215a",
+  "sub_00.stmt": "22e6cf837c065c02a2db46d136fa753268cccc350115238fad686f862ad80e59",
+  "sub_00.proof": "1c970f4230cee9071c7eda86c4626abe958314f64cf86f776925ee084e88a4e0",
+  "sub_00.coins": "f88950a583d4e2a99a1c208f4b307f8f728b6d69d928e32fc902c6e0824a5109",
+  "sub_01.stmt": "d69680a314ce882c12b15937121577ec9d4265b835476180982927c46ae4c471",
+  "sub_01.proof": "ca0bec31a4457a358dc5470c3be6c26378d6a9326db31cc6da1c88ffd647f3d9",
+  "sub_01.coins": "e7a0371cfb47ecd07634107d797c2a7c71f6740a411030dac0e0b836d086d1b5",
+  "sub_02.stmt": "40fb5247c50322ae0505a2ea126ea319b691f155ddc7712df3414f34367cf0e0",
+  "sub_02.proof": "ee9023ba5e2b5e62f06ebd65ea3ab8c7937f1bbadc724d0ccb62f32b25130e26",
+  "sub_02.coins": "822a2ae845b4a6ced152ee039a74d5161c252112563aa023cff73f60aab295d0"
+ },
+ "timings": [
+  {
+   "statement": 0.0026,
+   "witness": 0.3771,
+   "encode": 0.0282,
+   "transfer": 0.0,
+   "merkle": 0.0027,
+   "tests_w": 0.0125,
+   "tests_quad": 2.7149,
+   "tests_chain": 0.019,
+   "tests": 2.7464,
+   "openings": 0.0071,
+   "total": 3.1642,
+   "hints_host": 0.1525
+  },
+  {
+   "statement": 0.0017,
+   "witness": 0.0189,
+   "encode": 0.0037,
+   "transfer": 0.0,
+   "merkle": 0.002,
+   "tests_w": 0.0141,
+   "tests_quad": 0.0036,
+   "tests_chain": 0.0032,
+   "tests": 0.0209,
+   "openings": 0.0056,
+   "total": 0.0528,
+   "hints_host": 0.0056
+  },
+  {
+   "statement": 0.0016,
+   "witness": 0.0189,
+   "encode": 0.0037,
+   "transfer": 0.0,
+   "merkle": 0.0019,
+   "tests_w": 0.0116,
+   "tests_quad": 0.0036,
+   "tests_chain": 0.003,
+   "tests": 0.0182,
+   "openings": 0.0035,
+   "total": 0.0478,
+   "hints_host": 0.0049
+  }
+ ],
+ "urandom_calls": 17
+}

@@ -1,0 +1,68 @@
+fp8-hopper census: {"rows_per_unit": 3396, "bit_rows": 2196, "selector_rows": 577, "hint_rows": 148, "pin_rows": 192, "product_rows": 282, "inverse_rows": 1, "linear_constraints": 554, "quadratic_constraints": 3164, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.2s
+config Config(l=16384, n=65536, D=6, t=196, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=341, steps=48); zk True, mode interactive; system {'rows': 3396, 'by_kind': {'hint': 148, 'bit': 2196, 'prod': 282, 'inv': 1, 'pin': 192, 'sel': 577}, 'linear': 554, 'quadratic': 3164, 'pins': 192, 'hints': 148}; 4096 VUs as 13 sub-batches of <= 341
+live verifier tcp://213.173.105.69:30899: one session per recorded rep, 13 sub-batches each
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.001, 'hints_host': 0.085, 'witness': 0.035, 'self_check': 2.19, 'zk_masks': 0.01, 'encode': 0.003, 'transfer': 0.0, 'merkle': 0.005, 'tests_w': 0.747, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.014, 'tests': 0.747, 'total': 3.007}
+rep 1: live verifier ACCEPTED 13/13 (accepted); net wait 2.045s over 26 round trips (median rtt 234.9 ms); verifier wall 3.88s cpu 3.33s; t.total_live 2.564s
+rep 1: prover 0.511s (+hints 0.007s) over 13 proofs; verifier 0.369s; pass wall 8.084s (0.127 ms/VU)
+{
+ "relation": "fp8-hopper",
+ "seconds_per_vu": 0.00012657480601774296,
+ "prover_total": 0.5184504054486752,
+ "verifier": 0.3686104193329811,
+ "bytes": {
+  "root": 416,
+  "w": 5191680,
+  "h": 5271240,
+  "cols": 10192,
+  "opened_columns": 34978944,
+  "merkle_paths": 1304576,
+  "q_chain": 10303176,
+  "v_linear": 5191680,
+  "coin_commitments_and_openings": 2496,
+  "auth_multiproofs": 0,
+  "total": 62254400
+ },
+ "n_proofs": 13,
+ "per_proof_vus": 341,
+ "t": 196,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 5590672896,
+ "soundness_log2": -128.31938080587952,
+ "per_proof_log2": -132.01982052402082,
+ "rows": 3396,
+ "medians": {
+  "statement": 0.00013775017602057796,
+  "hints_host": 0.007196623277960947,
+  "witness": 0.0008823908549072127,
+  "zk_masks": 0.0001441405041645583,
+  "encode": 0.003134101316795455,
+  "transfer": 2.8018506646457034e-06,
+  "merkle": 0.0017656951633868196,
+  "tests_w": 0.3121140672120924,
+  "tests_quad": 3.256057344187636e-06,
+  "tests_chain": 2.8648617942269197e-06,
+  "openings": 0.19306671417354407,
+  "tests": 0.3121201881312309,
+  "total": 0.5112537821707142,
+  "measured_statement": 0.002125920005142689,
+  "measured_hints_host": 0.08748544001579284,
+  "measured_witness": 0.010895967960357664,
+  "measured_zk_masks": 0.001708031978458166,
+  "measured_encode": 0.04231219196319581,
+  "measured_transfer": 3.8080000784248115e-05,
+  "measured_merkle": 0.024032768130302428,
+  "measured_tests_w": 6.336504364013671,
+  "measured_tests_quad": 4.492799937725067e-05,
+  "measured_tests_chain": 3.872000076808035e-05,
+  "measured_openings": 2.6377909698486324,
+  "measured_total": 9.09299331536889,
+  "net_wait": 2.0451857671141624,
+  "net_wait_commit": 0.0,
+  "net_wait_open1": 0.0,
+  "net_wait_open2": 0.0
+ },
+ "dumps": null,
+ "validation": "passed"
+}

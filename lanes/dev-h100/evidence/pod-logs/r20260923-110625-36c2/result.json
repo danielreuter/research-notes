@@ -1,0 +1,920 @@
+{
+ "schema": "research/result/v0.1",
+ "run_id": "r20260923-110625-36c2",
+ "workload_fingerprint": {
+  "profile": "bf16-hopper-mma-draft/2026-09-22",
+  "domain": "finite",
+  "K": 1536,
+  "B": 4096,
+  "N_subbatches": 25,
+  "proof_class": "COMPLETE_ZK_BACKEND",
+  "authentication": "included-hash",
+  "zk_mode": "Ligero HVZK masking: t_pad uniform coefficients (Z_H s_j) per row, 6D committed mask rows (prox/lin/quad x2/chain x2: q masked by a uniform zero-sum polynomial, AHIV22 u_add -- red team F1 fixed), evaluation on the coset g<w_n> disjoint from H (PROTOCOL.md 8b); malicious-verifier: HM96/GK step-0 commitment c_i = H(r_i || s_i) to both verifier coins before root, opened after root / after the test messages, prover aborts on a mismatched opening; challenges are functions of the coins alone (F2 fixed), simulator by rewinding with a CRH only (PROTOCOL.md 8c; redteam/simulator.py against the real verify()); NOTE: this statement publishes the operands a, b and the words y16 (statement_digest), so privacy is vacuous for it today -- the ZK claim is about the construction (masking + coins) and becomes meaningful once operands are committed (auth-integration LEAF_V2)",
+  "security": {
+   "target": -128,
+   "field": "BabyBear",
+   "challenge_coords": 6,
+   "rs_n": 65536,
+   "rs_k": 16640,
+   "rs_l": 16384,
+   "zk": true,
+   "t_pad": 256,
+   "mode": "interactive",
+   "bound_model": "interactive: statistical, live verifier coins committed at step 0 (HM96); no Fiat-Shamir loss",
+   "hash_assumption": "collision resistance of Blake2b (coin commitments) + Blake3 (Merkle); the challenge expander is a PRG of the verifier's coins",
+   "zk_statement": "malicious-verifier ZK (simulator by rewinding V* after step 0, CRH only); operands a, b and words y16 are PUBLIC in this statement, so privacy is vacuous today",
+   "fiat_shamir_queries_log2": null,
+   "opened_columns": 197,
+   "achieved_log2": -128.04953484711893,
+   "achieved_bits": 128.04953484711893,
+   "verifier_target_bits": 128.0,
+   "terms_log2": {
+    "irs_query": -132.69339103690618,
+    "linear_query": -194.78823068161887,
+    "quadratic_query": -192.5935408333944,
+    "irs_field": -169.44132156433932,
+    "linear_field": -185.44134357795068,
+    "quadratic_field": -185.44134357795068,
+    "coin_commitment_hiding": -191.0
+   },
+   "per_proof_target_log2": -132.64385618977474,
+   "per_proof_total_log2": -132.69339103689367,
+   "union_over": 25,
+   "hash_placeholder": true
+  },
+  "hardware": {
+   "gpu": {
+    "name": "NVIDIA H100 80GB HBM3",
+    "driver": "580.126.09",
+    "cuda": "13.0",
+    "count": 1,
+    "memory_total_bytes": 85520809984
+   },
+   "cpu": {
+    "model": "Intel(R) Xeon(R) Platinum 8470",
+    "count": 208
+   }
+  },
+  "software": {
+   "backend": {
+    "name": "b-ligero chain, bf16-hopper relation (backends/direct/ligero/unit.py at Params.from_model(HOPPER_BF16_M16N8K16))",
+    "commit": null,
+    "hash": "blake3 (GPU, backends/shared/hash_gpu)",
+    "challenge_expander": "SHAKE-256 (placeholder)",
+    "impl": "device",
+    "pipeline": 0
+   },
+   "toolchain": {
+    "python": "3.12.14",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.3"
+   }
+  },
+  "preprocessing": "constraint compilation (a function of the relation's Params only, 0.48s)",
+  "retention": "retained",
+  "instances": {
+   "dataset": "bench-instances-bf16-hopper/v1",
+   "tier": "vu-k1536-bf16-hopper",
+   "range": [
+    0,
+    4096
+   ],
+   "manifest_sha256": "2a5babca16e82727611ae483a125b8d853e27e4c9deedda7c35927cc1e456869",
+   "seed": 20260922,
+   "recipe": "bf16-hopper synthetic (random_finite_bf16: finite BF16 words incl. subnormals and exact zeros, model-recorded accumulators)"
+  },
+  "scope": "vu",
+  "omitted": "external authentication; unopened columns hidden by Blake3 of a uniform column",
+  "relation": "GemmCoordinate<1536> over sm90.mma.m16n8k16.bf16",
+  "model": "HOPPER_BF16_M16N8K16",
+  "commit": null,
+  "step_k": 16,
+  "steps_per_vu": 96,
+  "rows": 5637,
+  "committed_rows": {
+   "x": 4096,
+   "w": 4096,
+   "y": 4096
+  },
+  "linear_constraints": 356,
+  "quadratic_constraints": 5524,
+  "census": {
+   "rows_per_unit": 5637,
+   "bit_rows": 2391,
+   "selector_rows": 542,
+   "hint_rows": 721,
+   "pin_rows": 17,
+   "product_rows": 1902,
+   "inverse_rows": 64,
+   "linear_constraints": 356,
+   "quadratic_constraints": 5524,
+   "chain": true
+  },
+  "witness_generation": "torch hint generator (hints_torch.py, gen_step semantics at the Hopper widths) + torch program (derived rows)",
+  "B_proof": 170,
+  "statement_format": "ligero-statement/v5",
+  "note": "4096 VUs as 25 independently committed proofs of <= 170 VUs each (l = 16384 columns, 64 pad columns per proof); prover time = sum over the proofs; soundness = union bound; public claim per VU = f32_to_bf16(final accumulator), the BF16 word the kernel stores; authentication = included-hash: the operand words are private witness wires, each unit hashes its 16 lanes of x and of W with Poseidon2 (BabyBear, width 24, rate 16, x^7; Plonky3 constants 852 product rows per permutation) along the chain, the digests are chain-end pins and leaf/v2h leaves under the x / W roots; sharing = none (4096 x rows + 4096 W columns committed for 4096 VUs); the statement carries digests, leaf indices, roots and SHA-256 multiproofs instead of the operand words; hash = poseidon2-babybear-w24",
+  "hash": "poseidon2-babybear-w24",
+  "sharing": "none"
+ },
+ "validation": {
+  "status": "passed",
+  "checker": "backends.direct.ligero.relchain bench_vu_rel[bf16-hopper] (verifier accepted every rep; prover self-check on the warm-up sub-batch; Python file verifier (serialize.verify_files, shares code with the prover) on every dumped proof, cold from bytes; live verifier at tcp://213.173.105.69:30899)",
+  "detail": "3 reps, 4096 VUs as 25 proofs at l=16384; batch accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128; dumps: 25/25 accepted cold from bytes (ligero-statement/v5) by the Python file verifier in 0.97s wall on cuda, in-process (a self-check: it shares code with the prover; an independent verifier has to judge the same bytes); dumped batch verdict per rep: ['accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128']; live verifier tcp://213.173.105.69:30899: 3 session(s), all accepted, median rtt 139.39 ms over 150 round trips, t.total_live 8.714s vs t.total 1.336s (verdicts as the prover received them; the independent record is the verifier's own dump + verdict artifact)",
+  "evidence": {
+   "soundness": {
+    "terms_log2": {
+     "irs_query": -132.69339103690618,
+     "linear_query": -194.78823068161887,
+     "quadratic_query": -192.5935408333944,
+     "irs_field": -169.44132156433932,
+     "linear_field": -185.44134357795068,
+     "quadratic_field": -185.44134357795068,
+     "coin_commitment_hiding": -191.0
+    },
+    "per_proof_total_log2": -132.69339103689367,
+    "n_proofs": 25,
+    "total_log2": -128.04953484711905,
+    "per_proof_target_log2": -132.64385618977474,
+    "field": "BabyBear^6",
+    "t": 197,
+    "n": 65536,
+    "k": 16640,
+    "l": 16384,
+    "rate": 0.25390625,
+    "zk": true,
+    "t_pad": 256,
+    "mode": "interactive",
+    "coin_commitment": true,
+    "fiat_shamir_queries_log2": null,
+    "bound_model": "interactive: statistical, live verifier coins committed at step 0 (HM96); no Fiat-Shamir loss",
+    "hash_assumption": "collision resistance of Blake2b (coin commitments) + Blake3 (Merkle); the challenge expander is a PRG of the verifier's coins",
+    "zk_statement": "malicious-verifier ZK (simulator by rewinding V* after step 0, CRH only); operands a, b and words y16 are PUBLIC in this statement, so privacy is vacuous today",
+    "privacy_terms_log2": {
+     "coin_commitment_binding_collision": -128.0,
+     "mask_sampling_bias_per_symbol": "0 (rejection sampling; the simulator's distance is ChaCha20's PRF advantage on the mask key)"
+    },
+    "note": "ZK: k = l + t_pad, every row carries t_pad > t uniform coefficients (Lemma 4.15); the linear test here sends nothing (the verifier encodes beta itself), so its query term is at most the Appendix-C ((k+l)/n)^t used; total_log2 is the union bound over n_proofs sub-batches; + the step-0 coin-commitment hiding term (commitment_hash)"
+   },
+   "batch": {
+    "n_subbatches": 25,
+    "target_bits": 128.0,
+    "batch_log2": -128.04953484711893,
+    "per_proof_log2": [
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367,
+     -132.69339103689367
+    ],
+    "n_proofs_claimed": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ],
+    "accepted": true,
+    "reason": "accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128"
+   },
+   "reps": [
+    {
+     "prover_total": 2.224511492997408,
+     "verifier": 1.0008218325674534
+    },
+    {
+     "prover_total": 1.3158299513161182,
+     "verifier": 0.9074760638177395
+    },
+    {
+     "prover_total": 1.3443401977419853,
+     "verifier": 0.9383646249771118
+    }
+   ],
+   "verify_wall": "the live in-process Python verifier, median over the reps of the sum over the sub-batches (shares code with the prover), batch verdict included; not a file verifier's process wall",
+   "dumps": {
+    "verifier": "python (backends.direct.ligero.serialize.verify_files; shares code with the prover: a self-check)",
+    "independent": false,
+    "statement_format": "ligero-statement/v5",
+    "accepted": 25,
+    "total": 25,
+    "batch": {
+     "1": {
+      "n_subbatches": 25,
+      "target_bits": 128.0,
+      "batch_log2": -128.04953484711893,
+      "per_proof_log2": [
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367,
+       -132.69339103689367
+      ],
+      "n_proofs_claimed": [
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25,
+       25
+      ],
+      "accepted": true,
+      "reason": "accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128"
+     }
+    },
+    "batch_accepted": true,
+    "seconds": 0.885955698788166,
+    "wall": 0.9747222401201725,
+    "coins": "the transcript's own coins replayed (file verifier)"
+   },
+   "live_verifier": {
+    "sessions": 3,
+    "messages": 543,
+    "bytes_out": 646468146,
+    "bytes_in": 25143,
+    "rtt_ms_median": 139.390392228961,
+    "rtt_ms_p90": 146.16352319717407,
+    "rtt_ms_min": 131.07465580105782,
+    "round_trips": 150,
+    "wait_seconds": [
+     7.382077734917402,
+     7.37782670930028,
+     7.270857080817223
+    ],
+    "proof_send_seconds": [
+     2.2955897822976112,
+     1.4163531325757504,
+     2.3165381141006947
+    ],
+    "session_wall_seconds": [
+     19.46009024605155,
+     18.060025323182344,
+     17.89471898600459
+    ],
+    "verify_wall_s": 15.561309687793255,
+    "verify_cpu_s": 15.385020999999998,
+    "accepted": true,
+    "verdicts": [
+     {
+      "schema": "live-verifier-session/v1",
+      "session_id": "s20260923T110647Z-7d59",
+      "accepted": true,
+      "reason": "accepted",
+      "independent": true,
+      "verifier": "live-verifier@64c00bd6c78b",
+      "verifier_commit": "64c00bd6c78ba96cc08372642d5b07122db1e61d",
+      "verifier_core": "ligero-verify",
+      "ligero_verify_sha256": "e4b5a74474f88c89709777f0796384b9fbf30763eff91d143a5a663ae80226f9",
+      "verifier_host": "7793aa6958da",
+      "mode": "interactive",
+      "coins": "generated by this verifier (os.urandom), committed before the prover's first message, one fresh pair per sub-batch",
+      "n_proofs": 25,
+      "proofs_received": 25,
+      "accepted_subbatches": 25,
+      "live_rejections": [],
+      "errors": [],
+      "target_bits": 128.0,
+      "batch": {
+       "rc": 0,
+       "wall_s": 3.977374840527773,
+       "cpu_s": 17.376033,
+       "stderr_tail": "n: included-hash, 170 VUs, 170 x rows + 170 W columns + 170 y words under the a/b/y roots)) 0.788s\nsub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 16 VUs, 16 x rows + 16 W columns + 16 y words under the a/b/y roots)) 0.562s\n25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128); batch bits 128.049535 at target 128; system pinned (bf16-hopper+hash); python agreement 0/0 (0 disagree); verify sum 21.527s, wall 3.974s at 6 jobs x 1 threads",
+       "n": 25,
+       "accepted": 25,
+       "rejected": 0,
+       "own_coins": 25,
+       "batch_accepted": true,
+       "batch_reason": "accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128",
+       "batch_bits": 128.049534847,
+       "system_pinned": true,
+       "system": {
+        "sys_id": "3c7570fa029de39af30363599480c7a7bdbb51ba8e5fbe552a852b2ffb0ba1e1",
+        "table_digest": "def0ccdae79f092f41bc35ecd054ad64e54e2cfe9769c8cec41737c1ebab6617",
+        "pinned_relation": "bf16-hopper+hash"
+       },
+       "verify_seconds_sum": 21.5274,
+       "wall_seconds": 3.9743,
+       "jobs": 6,
+       "threads": 1
+      },
+      "hello": {
+       "relation": "bf16-hopper",
+       "mode": "interactive",
+       "zk": true,
+       "total_vus": 4096,
+       "batch": 16384,
+       "target": -128.0,
+       "target_bits": 128.0,
+       "run_id": "r20260923-110625-36c2",
+       "lane": "r23-dev-h100",
+       "prover_host": "519f05c0b3b3",
+       "prover_commit": null,
+       "device": "cuda",
+       "n_proofs": 25,
+       "rep": 1,
+       "wire": 1,
+       "channel": "ctrl"
+      },
+      "verify": {
+       "wall_s": 16.997449167072773,
+       "cpu_s": 16.179071,
+       "wall_s_per_subbatch": 0.6798979666829109,
+       "batch_wall_s": 3.977374840527773,
+       "batch_cpu_s": 17.376033,
+       "jobs": 6,
+       "threads": 1
+      },
+      "bytes_in": 215313767,
+      "bytes_out": 5785,
+      "t_start": 1790161607.4118736,
+      "t_end": 1790161625.814082,
+      "wall_s": 18.40220832824707,
+      "peer": [
+       "64.247.201.59",
+       57924
+      ]
+     },
+     {
+      "schema": "live-verifier-session/v1",
+      "session_id": "s20260923T110708Z-37bc",
+      "accepted": true,
+      "reason": "accepted",
+      "independent": true,
+      "verifier": "live-verifier@64c00bd6c78b",
+      "verifier_commit": "64c00bd6c78ba96cc08372642d5b07122db1e61d",
+      "verifier_core": "ligero-verify",
+      "ligero_verify_sha256": "e4b5a74474f88c89709777f0796384b9fbf30763eff91d143a5a663ae80226f9",
+      "verifier_host": "7793aa6958da",
+      "mode": "interactive",
+      "coins": "generated by this verifier (os.urandom), committed before the prover's first message, one fresh pair per sub-batch",
+      "n_proofs": 25,
+      "proofs_received": 25,
+      "accepted_subbatches": 25,
+      "live_rejections": [],
+      "errors": [],
+      "target_bits": 128.0,
+      "batch": {
+       "rc": 0,
+       "wall_s": 3.613160613924265,
+       "cpu_s": 16.894833000000002,
+       "stderr_tail": "n: included-hash, 170 VUs, 170 x rows + 170 W columns + 170 y words under the a/b/y roots)) 0.727s\nsub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 16 VUs, 16 x rows + 16 W columns + 16 y words under the a/b/y roots)) 0.525s\n25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128); batch bits 128.049535 at target 128; system pinned (bf16-hopper+hash); python agreement 0/0 (0 disagree); verify sum 20.127s, wall 3.609s at 6 jobs x 1 threads",
+       "n": 25,
+       "accepted": 25,
+       "rejected": 0,
+       "own_coins": 25,
+       "batch_accepted": true,
+       "batch_reason": "accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128",
+       "batch_bits": 128.049534847,
+       "system_pinned": true,
+       "system": {
+        "sys_id": "3c7570fa029de39af30363599480c7a7bdbb51ba8e5fbe552a852b2ffb0ba1e1",
+        "table_digest": "def0ccdae79f092f41bc35ecd054ad64e54e2cfe9769c8cec41737c1ebab6617",
+        "pinned_relation": "bf16-hopper+hash"
+       },
+       "verify_seconds_sum": 20.1267,
+       "wall_seconds": 3.6094,
+       "jobs": 6,
+       "threads": 1
+      },
+      "hello": {
+       "relation": "bf16-hopper",
+       "mode": "interactive",
+       "zk": true,
+       "total_vus": 4096,
+       "batch": 16384,
+       "target": -128.0,
+       "target_bits": 128.0,
+       "run_id": "r20260923-110625-36c2",
+       "lane": "r23-dev-h100",
+       "prover_host": "519f05c0b3b3",
+       "prover_commit": null,
+       "device": "cuda",
+       "n_proofs": 25,
+       "rep": 2,
+       "wire": 1,
+       "channel": "ctrl"
+      },
+      "verify": {
+       "wall_s": 15.561309687793255,
+       "cpu_s": 15.385020999999998,
+       "wall_s_per_subbatch": 0.6224523875117302,
+       "batch_wall_s": 3.613160613924265,
+       "batch_cpu_s": 16.894833000000002,
+       "jobs": 6,
+       "threads": 1
+      },
+      "bytes_in": 215313767,
+      "bytes_out": 5785,
+      "t_start": 1790161628.1682205,
+      "t_end": 1790161645.123799,
+      "wall_s": 16.955578565597534,
+      "peer": [
+       "64.247.201.59",
+       47018
+      ]
+     },
+     {
+      "schema": "live-verifier-session/v1",
+      "session_id": "s20260923T110727Z-846a",
+      "accepted": true,
+      "reason": "accepted",
+      "independent": true,
+      "verifier": "live-verifier@64c00bd6c78b",
+      "verifier_commit": "64c00bd6c78ba96cc08372642d5b07122db1e61d",
+      "verifier_core": "ligero-verify",
+      "ligero_verify_sha256": "e4b5a74474f88c89709777f0796384b9fbf30763eff91d143a5a663ae80226f9",
+      "verifier_host": "7793aa6958da",
+      "mode": "interactive",
+      "coins": "generated by this verifier (os.urandom), committed before the prover's first message, one fresh pair per sub-batch",
+      "n_proofs": 25,
+      "proofs_received": 25,
+      "accepted_subbatches": 25,
+      "live_rejections": [],
+      "errors": [],
+      "target_bits": 128.0,
+      "batch": {
+       "rc": 0,
+       "wall_s": 3.558625668287277,
+       "cpu_s": 16.401660999999997,
+       "stderr_tail": "n: included-hash, 170 VUs, 170 x rows + 170 W columns + 170 y words under the a/b/y roots)) 0.662s\nsub_24.proof: ACCEPT (accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 16 VUs, 16 x rows + 16 W columns + 16 y words under the a/b/y roots)) 0.635s\n25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128); batch bits 128.049535 at target 128; system pinned (bf16-hopper+hash); python agreement 0/0 (0 disagree); verify sum 20.657s, wall 3.554s at 6 jobs x 1 threads",
+       "n": 25,
+       "accepted": 25,
+       "rejected": 0,
+       "own_coins": 25,
+       "batch_accepted": true,
+       "batch_reason": "accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128",
+       "batch_bits": 128.049534847,
+       "system_pinned": true,
+       "system": {
+        "sys_id": "3c7570fa029de39af30363599480c7a7bdbb51ba8e5fbe552a852b2ffb0ba1e1",
+        "table_digest": "def0ccdae79f092f41bc35ecd054ad64e54e2cfe9769c8cec41737c1ebab6617",
+        "pinned_relation": "bf16-hopper+hash"
+       },
+       "verify_seconds_sum": 20.6567,
+       "wall_seconds": 3.5544,
+       "jobs": 6,
+       "threads": 1
+      },
+      "hello": {
+       "relation": "bf16-hopper",
+       "mode": "interactive",
+       "zk": true,
+       "total_vus": 4096,
+       "batch": 16384,
+       "target": -128.0,
+       "target_bits": 128.0,
+       "run_id": "r20260923-110625-36c2",
+       "lane": "r23-dev-h100",
+       "prover_host": "519f05c0b3b3",
+       "prover_commit": null,
+       "device": "cuda",
+       "n_proofs": 25,
+       "rep": 3,
+       "wire": 1,
+       "channel": "ctrl"
+      },
+      "verify": {
+       "wall_s": 15.378285992890596,
+       "cpu_s": 15.134217999999999,
+       "wall_s_per_subbatch": 0.6151314397156239,
+       "batch_wall_s": 3.558625668287277,
+       "batch_cpu_s": 16.401660999999997,
+       "jobs": 6,
+       "threads": 1
+      },
+      "bytes_in": 215313768,
+      "bytes_out": 5785,
+      "t_start": 1790161647.0889497,
+      "t_end": 1790161663.9271874,
+      "wall_s": 16.838237762451172,
+      "peer": [
+       "64.247.201.59",
+       53244
+      ]
+     }
+    ],
+    "url": "tcp://213.173.105.69:30899"
+   }
+  }
+ },
+ "measurements": [
+  {
+   "name": "t.witness",
+   "value": 0.1400580911487341,
+   "unit": "s"
+  },
+  {
+   "name": "t.encoding_commitment",
+   "value": 0.5225587853980251,
+   "unit": "s"
+  },
+  {
+   "name": "t.arithmetic",
+   "value": 0.590094661637442,
+   "unit": "s"
+  },
+  {
+   "name": "t.lookup",
+   "value": 0.0,
+   "unit": "s"
+  },
+  {
+   "name": "t.zk_additional",
+   "value": 0.00619100795686245,
+   "unit": "s"
+  },
+  {
+   "name": "t.serialization",
+   "value": 0.04290491940081121,
+   "unit": "s"
+  },
+  {
+   "name": "t.total",
+   "value": 1.3362787812948227,
+   "unit": "s"
+  },
+  {
+   "name": "verifier.seconds",
+   "value": 0.9383646249771118,
+   "unit": "s"
+  },
+  {
+   "name": "transcript.bytes",
+   "value": 164223800,
+   "unit": "B"
+  },
+  {
+   "name": "rounds.protocol",
+   "value": 3,
+   "unit": "count"
+  },
+  {
+   "name": "rounds.sequential_depth",
+   "value": 3,
+   "unit": "count"
+  },
+  {
+   "name": "mem.peak_device_bytes",
+   "value": 10519703552,
+   "unit": "B"
+  },
+  {
+   "name": "census.witness_elements",
+   "value": 2308915200,
+   "unit": "count"
+  },
+  {
+   "name": "census.committed_elements",
+   "value": 9235660800,
+   "unit": "count"
+  },
+  {
+   "name": "census.bytes_encoded",
+   "value": 36942643200,
+   "unit": "B"
+  },
+  {
+   "name": "vu.seconds_per_vu",
+   "value": 0.0003262399368395563,
+   "unit": "s"
+  },
+  {
+   "name": "vu.count",
+   "value": 4096,
+   "unit": "count"
+  },
+  {
+   "name": "rate.proved_flop_per_second",
+   "value": 9416382.401737649,
+   "unit": "FLOP/s"
+  },
+  {
+   "name": "rate.native_peak_flop_per_second",
+   "value": 989400000000000.0,
+   "unit": "FLOP/s"
+  },
+  {
+   "name": "overhead.vs_native_peak",
+   "value": 105072198.40789616,
+   "unit": "ratio"
+  },
+  {
+   "name": "split.subbatches",
+   "value": 25,
+   "unit": "count"
+  },
+  {
+   "name": "split.per_proof_vus",
+   "value": 170,
+   "unit": "count"
+  },
+  {
+   "name": "split.hints_seconds",
+   "value": 0.1253230832517147,
+   "unit": "s"
+  },
+  {
+   "name": "split.witness_torch_seconds",
+   "value": 0.014735007897019387,
+   "unit": "s"
+  },
+  {
+   "name": "split.encode_seconds",
+   "value": 0.4482739849090577,
+   "unit": "s"
+  },
+  {
+   "name": "split.transfer_seconds",
+   "value": 7.404800178483127e-05,
+   "unit": "s"
+  },
+  {
+   "name": "split.merkle_seconds",
+   "value": 0.07421075248718262,
+   "unit": "s"
+  },
+  {
+   "name": "split.tests_seconds",
+   "value": 0.590094661637442,
+   "unit": "s"
+  },
+  {
+   "name": "split.openings_seconds",
+   "value": 0.041415061742067355,
+   "unit": "s"
+  },
+  {
+   "name": "proof.opened_columns_bytes",
+   "value": 111758100,
+   "unit": "B"
+  },
+  {
+   "name": "proof.merkle_paths_bytes",
+   "value": 2521600,
+   "unit": "B"
+  },
+  {
+   "name": "proof.w_h_q_bytes",
+   "value": 49918800,
+   "unit": "B"
+  },
+  {
+   "name": "split.zk_masks_seconds",
+   "value": 0.00619100795686245,
+   "unit": "s"
+  },
+  {
+   "name": "prove_wall",
+   "value": 1.3362787812948227,
+   "unit": "s"
+  },
+  {
+   "name": "verify_wall",
+   "value": 0.9383646249771118,
+   "unit": "s"
+  },
+  {
+   "name": "proof_bytes",
+   "value": 164223800,
+   "unit": "B"
+  },
+  {
+   "name": "depth",
+   "value": 3,
+   "unit": "count"
+  },
+  {
+   "name": "soundness_bits",
+   "value": 128.04953484711905,
+   "unit": "bits"
+  },
+  {
+   "name": "rows_per_unit",
+   "value": 5637,
+   "unit": "count"
+  },
+  {
+   "name": "units_per_vu",
+   "value": 96,
+   "unit": "count"
+  },
+  {
+   "name": "t.total_live",
+   "value": 8.714105490595102,
+   "unit": "s"
+  },
+  {
+   "name": "net.rtt_ms",
+   "value": 139.390392228961,
+   "unit": "ms"
+  },
+  {
+   "name": "net.messages",
+   "value": 543,
+   "unit": "count"
+  },
+  {
+   "name": "net.bytes_out",
+   "value": 646468146,
+   "unit": "B"
+  },
+  {
+   "name": "net.bytes_in",
+   "value": 25143,
+   "unit": "B"
+  },
+  {
+   "name": "net.wait_seconds",
+   "value": 7.37782670930028,
+   "unit": "s"
+  },
+  {
+   "name": "verify.wall_s",
+   "value": 15.561309687793255,
+   "unit": "s"
+  },
+  {
+   "name": "verify.cpu_s",
+   "value": 15.385020999999998,
+   "unit": "s"
+  },
+  {
+   "name": "relation.hash.rows_added_per_unit",
+   "value": 2345,
+   "unit": "count"
+  },
+  {
+   "name": "relation.hash.permutations_per_unit",
+   "value": 2,
+   "unit": "count"
+  },
+  {
+   "name": "relation.hash.linked_rows",
+   "value": 19,
+   "unit": "count"
+  },
+  {
+   "name": "relation.hash.commit_seconds",
+   "value": 7.588285233825445,
+   "unit": "s"
+  },
+  {
+   "name": "relation.hash.sponge_seconds",
+   "value": 1.0495709888637066,
+   "unit": "s"
+  },
+  {
+   "name": "relation.hash.auth_openings_seconds",
+   "value": 0.005535382777452469,
+   "unit": "s"
+  },
+  {
+   "name": "relation.hash.committed_x_rows",
+   "value": 4096,
+   "unit": "count"
+  },
+  {
+   "name": "relation.hash.committed_w_cols",
+   "value": 4096,
+   "unit": "count"
+  },
+  {
+   "name": "relation.hash.statement_bytes_total",
+   "value": 1166357,
+   "unit": "B"
+  },
+  {
+   "name": "relation.hash.multiproof_bytes_total",
+   "value": 25536,
+   "unit": "B"
+  },
+  {
+   "name": "relation.census.rows_per_unit",
+   "value": 5637,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.bit_rows",
+   "value": 2391,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.selector_rows",
+   "value": 542,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.hint_rows",
+   "value": 721,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.pin_rows",
+   "value": 17,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.product_rows",
+   "value": 1902,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.inverse_rows",
+   "value": 64,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.linear_constraints",
+   "value": 356,
+   "unit": "count"
+  },
+  {
+   "name": "relation.census.quadratic_constraints",
+   "value": 5524,
+   "unit": "count"
+  }
+ ],
+ "measurement_files": [],
+ "artifacts": [
+  "proofs"
+ ]
+}

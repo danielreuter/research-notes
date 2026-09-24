@@ -1,0 +1,15 @@
+=== GC_OFF=
+pass 0: wall 60.1 ms (sync 60.3); host busy 33.9 ms = 56% of wall, blocked 25.9 ms; stage_busy_ms {0: 19.5, 1: 0.45, 2: 
+pass 1: wall 71.2 ms (sync 71.7); host busy 49.4 ms = 69% of wall, blocked 21.5 ms; stage_busy_ms {0: 17.68, 1: 0.63, 2:
+pass 2: wall 58.7 ms (sync 59.1); host busy 32.6 ms = 56% of wall, blocked 25.8 ms; stage_busy_ms {0: 17.8, 1: 0.46, 2: 
+pass 3: wall 64.5 ms (sync 64.9); host busy 42.8 ms = 66% of wall, blocked 21.5 ms; stage_busy_ms {0: 16.99, 1: 0.47, 2:
+pass 4: wall 58.7 ms (sync 59.2); host busy 32.2 ms = 55% of wall, blocked 26.2 ms; stage_busy_ms {0: 17.4, 1: 0.45, 2: 
+pass 5: wall 69.8 ms (sync 70.4); host busy 46.1 ms = 66% of wall, blocked 23.4 ms; stage_busy_ms {0: 17.36, 1: 0.42, 2:
+=== GC_OFF=1
+DIAGNOSTIC: gc disabled for the timed passes
+pass 0: wall 59.0 ms (sync 59.3); host busy 31.6 ms = 54% of wall, blocked 27.2 ms; stage_busy_ms {0: 16.16, 1: 0.45, 2:
+pass 1: wall 67.6 ms (sync 68.1); host busy 45.3 ms = 67% of wall, blocked 22.1 ms; stage_busy_ms {0: 15.65, 1: 0.52, 2:
+pass 2: wall 55.6 ms (sync 56.0); host busy 28.3 ms = 51% of wall, blocked 27.0 ms; stage_busy_ms {0: 13.8, 1: 0.44, 2: 
+pass 3: wall 62.1 ms (sync 62.6); host busy 39.5 ms = 64% of wall, blocked 22.4 ms; stage_busy_ms {0: 14.11, 1: 0.45, 2:
+pass 4: wall 55.3 ms (sync 55.7); host busy 27.8 ms = 50% of wall, blocked 27.3 ms; stage_busy_ms {0: 13.83, 1: 0.41, 2:
+pass 5: wall 64.3 ms (sync 64.8); host busy 40.6 ms = 63% of wall, blocked 23.6 ms; stage_busy_ms {0: 13.4, 1: 0.4, 2: 6

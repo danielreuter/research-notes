@@ -1,0 +1,4 @@
+research: run r20260923-061823-38a5 -> /workspace/research/runs/r20260923-061823-38a5
+[tele run] lane-intzk-l8192: rc=0 class=SUCCESS (established) -- exit status 0
+research: attempt published: 4 outputs drv=drv:e06999a15facb599c217fdee4c5291e88e2b1c0dd2614c622c19a143ea3aba1b reuse=754ef9ee4f843bd5f6bbed557234cc64aab9625a75fd7ae281762b7457ba2047  local only (no remote configured; `research data push r20260923-061823-38a5` with credentials preserves it)
+research: run r20260923-061823-38a5 done rc=0 class=SUCCESS result=valid (research/result/v0.1) validation=passed  (research inspect r20260923-061823-38a5)

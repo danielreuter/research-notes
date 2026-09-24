@@ -1,0 +1,224 @@
+diff --git a/backends/direct/ligerito/sumcheck.py b/backends/direct/ligerito/sumcheck.py
+index fa3c664c..6ed1abc4 100644
+--- a/backends/direct/ligerito/sumcheck.py
++++ b/backends/direct/ligerito/sumcheck.py
+@@ -343,8 +343,9 @@ def balanced_arities(n: int, max_arity: int) -> tuple:
+ 
+ 
+ def _tail_arities(log_table: int, n_vars: int, small_log2: int, max_arity: int = ZK_MAX_ARITY) -> list:
+-    """Bind ``n_vars`` variables of a table of ``2^log_table`` cells: arity 3 (the CUDA kernels) while the table has more than
+-    ``2^small_log2`` cells, then balanced rounds of at most ``max_arity`` (the engines' flat path)."""
++    """Bind ``n_vars`` variables of a table of ``2^log_table`` cells: arity 3 (``zc_msg3``) while the table has more than
++    ``2^small_log2`` cells, then balanced rounds of at most ``max_arity`` (``zc_red`` / ``pp_red``: they re-read the corners
++    per entry, 4^v loads per group, so only on tables that are small by then)."""
+     out = []
+     while n_vars > 0 and log_table > small_log2:
+         a = min(3, n_vars)
+@@ -355,7 +356,7 @@ def _tail_arities(log_table: int, n_vars: int, small_log2: int, max_arity: int =
+ 
+ def lean_schedule(n_zc: int, n_cmb: int) -> Schedule:
+     """LGSC0003 with fewer coins (``--schedule lean``; the default is unchanged): arity 3 (``zc_msg3``) down to 2^16 cells,
+-    then arity <= 4 (the engines' flat path), a final table round of 4 variables; combined: arity 3 down to 2^12 cells,
++    then arity <= 4, a final table round of 4 variables; combined: arity 3 down to 2^12 cells,
+     then <= 4.  fp8-ada: zc 3,3,3,3,3,4,4,3 / vf 4 / cmb 3,3,4,4,4 = 15 coins (default 18)."""
+     vf = min(4, n_zc - 4)
+     zc = [3] + _tail_arities(n_zc - 3, n_zc - 3 - vf, 16, MAX_ARITY)
+@@ -364,13 +365,13 @@ def lean_schedule(n_zc: int, n_cmb: int) -> Schedule:
+ 
+ def zk_default_schedule(lay: Layout, vf: int = 10) -> Schedule:
+     """LGSC0004's default (coins first: one round trip ~ 0.1 s live; a coin is worth ~30 ms of prover time and ~20 KB): the
+-    opening round, arity 3 (``zc_msg3``) down to 2^16 cells, then arity <= 6; a final table round of ``vf`` variables
++    opening round, arity 3 (``zc_msg3``) down to 2^21 cells, then arity <= 6; a final table round of ``vf`` variables
+     (``<= n_c - 4``: every final-table entry keeps >= 16 product-row cells); combined: arity 3 down to 2^18 cells, then
+-    <= 6; row reduction <= 6.  fp8-ada: zc 3,3,3,3,3,5 / vf 10 / cmb 6,6,6 / rb 6,6 = 13 coins."""
++    <= 6; row reduction <= 6.  fp8-ada: zc 3,3,3,6,5 / vf 10 / cmb 6,6,6 / rb 6,6 = 12 coins."""
+     n, n_cmb = lay.n_k + lay.n_c, n_cmb_of(lay)
+     zc, rem = [3], n - 3
+     vf = max(1, min(vf, lay.n_c - 4, rem - 1, ZK_MAX_VF))
+-    zc += _tail_arities(rem, rem - vf, 16)
++    zc += _tail_arities(rem, rem - vf, 21)
+     return Schedule(tuple(zc), vf, tuple(_tail_arities(n_cmb, n_cmb, 18)), balanced_arities(lay.n_i, ZK_MAX_ARITY))
+ 
+ 
+@@ -598,27 +599,20 @@ class _RefPP:
+         self.T = [fold_top(T, r) for T in self.T]
+ 
+ 
+-class _FlatPP(_RefPP):
+-    """``_RefPP`` with ``_fm``: the CUDA engines' tail once a round of arity > 3 runs (small tables, launch-bound)."""
++class _RowRed:
++    """LGSC0004's row reduction ``sum_i s_w(i) wr(i)``: two ``(R, 6)`` tables, any arity; launch-bound, so ``_fm``."""
++
++    def __init__(self, s_w: torch.Tensor, wr: torch.Tensor):
++        self.T = [s_w, wr]
+ 
+     def round(self, v: int) -> torch.Tensor:
+         X = [mixed_rep(to_corners(T, v), v) for T in self.T]
+-        s = _fm(X[0], X[1])
+-        if len(X) > 2:
+-            s = s + _fm(X[2], X[3])
+-        return s.sum(-2) % P
++        return _fm(X[0], X[1]).sum(-2) % P
+ 
+     def fold(self, r: torch.Tensor) -> None:
+         self.T = [_fold_fm(T, r) for T in self.T]
+ 
+ 
+-class _RowRed(_FlatPP):
+-    """LGSC0004's row reduction ``sum_i s_w(i) wr(i)``: two ``(R, 6)`` tables, any arity; launch-bound, so ``_fm``."""
+-
+-    def __init__(self, s_w: torch.Tensor, wr: torch.Tensor):
+-        super().__init__([s_w, wr])
+-
+-
+ def _fold_fm(T: torch.Tensor, r: torch.Tensor) -> torch.Tensor:
+     """``fold_top`` with ``_fm``."""
+     Tc = to_corners(T, r.shape[0])
+@@ -1479,8 +1473,10 @@ def check_claims(lay: Layout, z: torch.Tensor, claims: list) -> bool:
+ #   matrices (no ``Az/Bz/Cz`` base tables: 12.9 GB and a 12.9 GB write + 2 reads saved at 2^30); the message kernel runs
+ #   one block per (``k'``, ``a_1`` slice), 9 of the 27 entries per thread, the ``eq`` row weight applied once per block.
+ # zc_msg2: a bivariate round on ext tables (the O(N) rounds), 54 accumulators per thread, block-reduced.
++# zc_msg3: the trivariate analogue on big tables, X1 split over blockIdx.y.
++# zc_red / pp_red: any arity <= 6, one block row per entry (arity >= 4 only on small tables).
+ # zc_small / pp_small: any arity <= 3 on small tables: every group writes its 3^v entries, torch sums.
+-# zc_fold: in-place fold of up to 4 tables by the 2^v eq weights of the round's challenges.
++# zc_fold: in-place fold of up to 4 tables by the 2^v (v <= 6) eq weights of the round's challenges.
+ 
+ R_MONT = (1 << 32) % P
+ R2_MONT = (1 << 64) % P
+@@ -1874,6 +1870,10 @@ __device__ void zc_red_body(const int* __restrict__ A, const int* __restrict__ B
+ extern "C" __global__ void zc_red1(const int* A, const int* B, const int* Cm, const u32* wr, const u32* wc, u64* acc, long long nq, int cb, long long nwr, long long nwc, long long ps) { zc_red_body<1>(A, B, Cm, wr, wc, acc, nq, cb, nwr, nwc, ps); }
+ extern "C" __global__ void zc_red2(const int* A, const int* B, const int* Cm, const u32* wr, const u32* wc, u64* acc, long long nq, int cb, long long nwr, long long nwc, long long ps) { zc_red_body<2>(A, B, Cm, wr, wc, acc, nq, cb, nwr, nwc, ps); }
+ extern "C" __global__ void zc_red3(const int* A, const int* B, const int* Cm, const u32* wr, const u32* wc, u64* acc, long long nq, int cb, long long nwr, long long nwc, long long ps) { zc_red_body<3>(A, B, Cm, wr, wc, acc, nq, cb, nwr, nwc, ps); }
++// arity 4..6 (LGSC0004's tail rounds): tables of <= 2^18 cells, so the per-entry corner re-reads hit L2
++extern "C" __global__ void zc_red4(const int* A, const int* B, const int* Cm, const u32* wr, const u32* wc, u64* acc, long long nq, int cb, long long nwr, long long nwc, long long ps) { zc_red_body<4>(A, B, Cm, wr, wc, acc, nq, cb, nwr, nwc, ps); }
++extern "C" __global__ void zc_red5(const int* A, const int* B, const int* Cm, const u32* wr, const u32* wc, u64* acc, long long nq, int cb, long long nwr, long long nwc, long long ps) { zc_red_body<5>(A, B, Cm, wr, wc, acc, nq, cb, nwr, nwc, ps); }
++extern "C" __global__ void zc_red6(const int* A, const int* B, const int* Cm, const u32* wr, const u32* wc, u64* acc, long long nq, int cb, long long nwr, long long nwc, long long ps) { zc_red_body<6>(A, B, Cm, wr, wc, acc, nq, cb, nwr, nwc, ps); }
+ 
+ template <int V>
+ __device__ void pp_red_body(const int* __restrict__ T, u64* acc, long long nq, long long ps)
+@@ -1896,6 +1896,9 @@ __device__ void pp_red_body(const int* __restrict__ T, u64* acc, long long nq, l
+ extern "C" __global__ void pp_red1(const int* T, u64* acc, long long nq, long long ps) { pp_red_body<1>(T, acc, nq, ps); }
+ extern "C" __global__ void pp_red2(const int* T, u64* acc, long long nq, long long ps) { pp_red_body<2>(T, acc, nq, ps); }
+ extern "C" __global__ void pp_red3(const int* T, u64* acc, long long nq, long long ps) { pp_red_body<3>(T, acc, nq, ps); }
++extern "C" __global__ void pp_red4(const int* T, u64* acc, long long nq, long long ps) { pp_red_body<4>(T, acc, nq, ps); }
++extern "C" __global__ void pp_red5(const int* T, u64* acc, long long nq, long long ps) { pp_red_body<5>(T, acc, nq, ps); }
++extern "C" __global__ void pp_red6(const int* T, u64* acc, long long nq, long long ps) { pp_red_body<6>(T, acc, nq, ps); }
+ 
+ extern "C" __global__ void zc_small1(const int* A, const int* B, const int* Cm, const u32* wr, const u32* wc, u32* out, long long nq, int cb, long long nwr, long long nwc, long long ps) { zc_small_body<1>(A, B, Cm, wr, wc, out, nq, cb, nwr, nwc, ps); }
+ extern "C" __global__ void zc_small2(const int* A, const int* B, const int* Cm, const u32* wr, const u32* wc, u32* out, long long nq, int cb, long long nwr, long long nwc, long long ps) { zc_small_body<2>(A, B, Cm, wr, wc, out, nq, cb, nwr, nwc, ps); }
+@@ -1927,8 +1930,8 @@ extern "C" __global__ void pp_small3(const int* T, u32* out, long long nq, long
+ // in-place fold of ntab tables (planes at T + t * tstride, plane stride ps) by the 2^v corner weights eqr (Montgomery)
+ extern "C" __global__ void zc_fold(int* T, int ntab, long long tstride, const u32* __restrict__ eqr, int v, long long nq, long long ps)
+ {
+-    __shared__ u32 eqs[16 * 6];
+-    if (threadIdx.x < (6 << v)) eqs[threadIdx.x] = eqr[threadIdx.x];
++    __shared__ u32 eqs[64 * 6];
++    for (int i = threadIdx.x; i < (6 << v); i += blockDim.x) eqs[i] = eqr[i];
+     __syncthreads();
+     for (long long x = (long long)blockIdx.x * blockDim.x + threadIdx.x; x < nq; x += (long long)gridDim.x * blockDim.x) {
+         for (int tb = 0; tb < ntab; tb++) {
+@@ -2119,20 +2122,8 @@ class CudaZC:
+         self.tau, self.tau_r, self.tau_c = tau, tau[self.n_c:], tau[:self.n_c]
+         self._planes: dict = {}
+         self.T = None
+-        self.F = None                    # flat (n, 6) ext tables once a round of arity > 3 (a small table) has run
+         self.logn = self.n_k + self.n_c
+ 
+-    def _to_flat(self) -> None:
+-        n = 1 << self.logn
+-        self.F = [from_mont(self.T[s, :, :n].t()) for s in range(3)]
+-        self.T = None
+-
+-    def _flat_round(self, v: int) -> torch.Tensor:
+-        Ah, Bh, Ch = (mixed_rep(to_corners(T, v), v) for T in self.F)
+-        q = (_fm(Ah, Bh) - Ch * noinf_mask(v, self.dev)[(...,) + (None, None)]) % P
+-        w = eq_table_cuda(self.tau[:self.logn - v]) if self.logn > v else fc_one((1,), self.dev)
+-        return _fm(q, w).sum(-2) % P
+-
+     def _plane(self, which: str, t: int) -> torch.Tensor:
+         """``eq_table(tau_part[:t])`` as Montgomery planes ``(6, 2^t)`` (built on first use)."""
+         key = (which, t)
+@@ -2152,10 +2143,6 @@ class CudaZC:
+ 
+     def round(self, v: int) -> torch.Tensor:
+         import cupy as cp
+-        if self.F is None and self.T is not None and v > 3:
+-            self._to_flat()
+-        if self.F is not None:
+-            return self._flat_round(v)
+         if self.T is None:
+             if v != 3:
+                 raise ValueError("CudaZC: the opening round binds 3 variables")
+@@ -2185,8 +2172,8 @@ class CudaZC:
+             _kernel("zc_msg3")((gx, 3), block, (_cp(A), _cp(B), _cp(Cm), _cp(wr), _cp(wc), _cp(acc), cp.int64(nq), cp.int32(cb),
+                                                 cp.int64(wr.shape[1]), cp.int64(wc.shape[1]), cp.int64(ps)))
+             return from_mont(acc).reshape(3, 3, 3, D)
+-        if v > 3:
+-            raise ValueError(f"CudaZC: arity {v} > 3")
++        if v > ZK_MAX_ARITY:
++            raise ValueError(f"CudaZC: arity {v} > {ZK_MAX_ARITY}")
+         ne = 3 ** v
+         acc = torch.zeros((ne * D,), dtype=torch.int64, device=self.dev)
+         (gx,), block = _launch(nq, 256, max(1, 2048 // ne))
+@@ -2197,10 +2184,6 @@ class CudaZC:
+     def fold(self, r: torch.Tensor) -> None:
+         import cupy as cp
+         v = r.shape[0]
+-        if self.F is not None:
+-            self.F = [_fold_fm(T, r) for T in self.F]
+-            self.logn -= v
+-            return
+         if self.T is None:
+             K8 = self.K // 8
+             n0 = K8 * self.C
+@@ -2219,8 +2202,6 @@ class CudaZC:
+         self.logn -= v
+ 
+     def final_tables(self) -> torch.Tensor:
+-        if self.F is not None:
+-            return torch.stack(self.F)
+         n = 1 << self.logn
+         return from_mont(self.T[:, :, :n].permute(0, 2, 1))               # (3, n, 6)
+ 
+@@ -2232,16 +2213,9 @@ class CudaPP:
+         self.dev = tabs[0].device
+         self.T = torch.stack([mont_planes(t) for t in tabs]).contiguous()
+         self.logn = tabs[0].shape[0].bit_length() - 1
+-        self.F = None                    # a _FlatPP on the flat tables once a round of arity > 3 (a small table) has run
+ 
+     def round(self, v: int) -> torch.Tensor:
+         import cupy as cp
+-        if self.F is None and v > 3:
+-            n = 1 << self.logn
+-            self.F = _FlatPP([from_mont(self.T[k, :, :n].t()) for k in range(4)])
+-            self.T = None
+-        if self.F is not None:
+-            return self.F.round(v)
+         nq = 1 << (self.logn - v)
+         ne = 3 ** v
+         acc = torch.zeros((ne * D,), dtype=torch.int64, device=self.dev)
+@@ -2252,10 +2226,6 @@ class CudaPP:
+     def fold(self, r: torch.Tensor) -> None:
+         import cupy as cp
+         v = r.shape[0]
+-        if self.F is not None:
+-            self.F.fold(r)
+-            self.logn -= v
+-            return
+         nq = 1 << (self.logn - v)
+         ps = self.T.shape[2]
+         eqr = to_mont(_corner_eq(r)).to(torch.int32).contiguous()
+diff --git a/backends/direct/ligerito/sumcheck_zk_test.py b/backends/direct/ligerito/sumcheck_zk_test.py
+index 1507b02e..00854d70 100644
+--- a/backends/direct/ligerito/sumcheck_zk_test.py
++++ b/backends/direct/ligerito/sumcheck_zk_test.py
+@@ -110,7 +110,7 @@ def test_zk_default_coins_real_n():
+     from .layout import ZK_CELLS_PER_VAR
+     lay = SimpleNamespace(n_k=12, n_c=18, n_i=12)                 # fp8-ada / bf16-hopper, one N = 2^30 batch
+     s = sc.zk_default_schedule(lay)
+-    assert (s.zc, s.vf, s.cmb, s.rb) == ((3, 3, 3, 3, 3, 5), 10, (6, 6, 6), (6, 6)) and s.coins() == 13
++    assert (s.zc, s.vf, s.cmb, s.rb) == ((3, 3, 3, 6, 5), 10, (6, 6, 6), (6, 6)) and s.coins() == 12
+     small = sc.zk_schedule(lay, sc.default_schedule(30, 18), rb_arity=4)
+     assert small.rb == (4, 4, 4) and small.coins() == 21
+     for t in (s, small):                                          # one g row at C = 2^18, inside the layout's reservation

@@ -1,0 +1,12 @@
+art:b7f84dedc191f12e9fd25cb149587d4bf9f696b9a9fcc54840833bc0fa54780e PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:0765b1edc365ff2e1c38af5dcaf29ce9572ed56fee9a03d202be8de89fa19cc2 PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:e08ca9b4a39293774d9f34d69b2ca82b5df555c831fde544817258c5ecf9ed1d PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:310d32ce53660c156634d1bed1e9970fd9dd80770214682a9f52860f9e2d08cf PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:be70d2c3a7ed8969236057f35959d7c673505127eb8c393f603615facb5aad58 PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:2d17165f331e56c65f60e0e3a0caeb3db5e912d7508314a83623a4296b9f5c52 PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:a24b28cd28f064343783d84a8b6835557574805ccbee196bacfa5a926203c0bd PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:34facf96957a5cf1d86613f0194bcd3253ad89cda1b5a378109dc5680a6a6b0f PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:da049ed5a3bd4039d950f3dc9778824d736bb8f052e87886f31babecce03e5b4 PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:7e2b844c4b90d07c2bad70e2efdaf89e776ed9ceed17c4ef1d478204a6954813 PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:9571564044ba4232752689becadaeb4dee07b97918fbf06ad842a3e4ee152ec6 PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0
+art:a005a52fbeb5f8c3103e020821ef66a0d7b058e46b71b1370dbcd74b51e9b5e4 PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0

@@ -1,0 +1,5 @@
+=== 19:07:21 tree=/workspace/src-base sha=a0ff818-minus-e689b72 (tree bdae32a) cmd: /workspace/venv312/bin/python /workspace/ntt_dispatch.py fp8-hopper 341
+fp8-hopper l=16384 CUDA_NTT=None ntt_cuda=absent
+   ('torch-chain', 65536) 9
+NTT_DISPATCH cuda4step 0 Domain.get (torch-chain NTTs and other domain users) 9
+=== 19:07:28 rc=0 wall=7s

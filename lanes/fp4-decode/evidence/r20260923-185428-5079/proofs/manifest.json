@@ -1,0 +1,217 @@
+{
+ "format": {
+  "system": "ligero-system/v3",
+  "statement": "ligero-statement/v5",
+  "proof": "ligero-proof/v1"
+ },
+ "relation": {
+  "name": "fp4-nvf4",
+  "model": "blackwell_sm120_nvf4_m16n8k64",
+  "profile": "nvfp4-sm120-mma-draft/2026-09-22",
+  "word_dtype": "<u1",
+  "y_dtype": "<u4",
+  "y_bits": 32,
+  "rust_verifiable": true
+ },
+ "authentication": "included-hash",
+ "commit": null,
+ "device": "cuda",
+ "system": {
+  "rows": 4442,
+  "by_kind": {
+   "hint": 819,
+   "bit": 1004,
+   "prod": 2400,
+   "inv": 30,
+   "sel": 172,
+   "pin": 17
+  },
+  "linear": 334,
+  "quadratic": 4252,
+  "pins": 17,
+  "hints": 819
+ },
+ "zk": true,
+ "mode": "interactive",
+ "impl": "device",
+ "files": [
+  {
+   "rep": 1,
+   "sub": 0,
+   "vus": [
+    0,
+    682
+   ],
+   "stmt": "rep1/sub_00.stmt",
+   "proof": "rep1/sub_00.proof",
+   "proof_bytes": 5590480,
+   "proof_sha256": "c7eb73283f9b68846f151d891ea0f6faebe54225b27efb6057d9ac92fee5d4c9",
+   "stmt_bytes": 118450,
+   "python_verdict": {
+    "accepted": true,
+    "reason": ""
+   },
+   "prover_seconds": 0.48435014113783836,
+   "multiproof_bytes": 672,
+   "auth_openings_seconds": 0.00025721266865730286,
+   "coins": "rep1/sub_00.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "5194733d781775b8e3174fb5bae540fa7e6dd4485fa4851a31da6fad05c3d684"
+  },
+  {
+   "rep": 1,
+   "sub": 1,
+   "vus": [
+    682,
+    1364
+   ],
+   "stmt": "rep1/sub_01.stmt",
+   "proof": "rep1/sub_01.proof",
+   "proof_bytes": 5590480,
+   "proof_sha256": "dab6f996e928ee0c8bd018d8897027da8bd513f5c6293cf125fd35a8759df613",
+   "stmt_bytes": 118834,
+   "python_verdict": {
+    "accepted": true,
+    "reason": ""
+   },
+   "prover_seconds": 0.03777104616165161,
+   "multiproof_bytes": 1056,
+   "auth_openings_seconds": 0.0003001019358634949,
+   "coins": "rep1/sub_01.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "6280f1dfab819dce5e2a5c5b51582813345e19f543b240807b5e746984019b48"
+  },
+  {
+   "rep": 1,
+   "sub": 2,
+   "vus": [
+    1364,
+    2046
+   ],
+   "stmt": "rep1/sub_02.stmt",
+   "proof": "rep1/sub_02.proof",
+   "proof_bytes": 5590480,
+   "proof_sha256": "b630db7588d82b65fbf419343b3189129205281827c26a51aee57876b5c59392",
+   "stmt_bytes": 118450,
+   "python_verdict": {
+    "accepted": true,
+    "reason": ""
+   },
+   "prover_seconds": 0.03824654594063759,
+   "multiproof_bytes": 672,
+   "auth_openings_seconds": 0.0002617090940475464,
+   "coins": "rep1/sub_02.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "f959d0c65f2b7aca64076bef7173039c60580914487c12d248f816bbc6332e32"
+  },
+  {
+   "rep": 1,
+   "sub": 3,
+   "vus": [
+    2046,
+    2728
+   ],
+   "stmt": "rep1/sub_03.stmt",
+   "proof": "rep1/sub_03.proof",
+   "proof_bytes": 5590480,
+   "proof_sha256": "9e8483ed2c90e1ec46d9294f49a222a965632af44a4b20ebfe5ec95192e1a4b7",
+   "stmt_bytes": 119218,
+   "python_verdict": {
+    "accepted": true,
+    "reason": ""
+   },
+   "prover_seconds": 0.038858287036418915,
+   "multiproof_bytes": 1440,
+   "auth_openings_seconds": 0.00027099624276161194,
+   "coins": "rep1/sub_03.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "110bacca8ab8e7861e950c51a9e7655d2855ec02590cab50b8cd43adec9f9acf"
+  },
+  {
+   "rep": 1,
+   "sub": 4,
+   "vus": [
+    2728,
+    3410
+   ],
+   "stmt": "rep1/sub_04.stmt",
+   "proof": "rep1/sub_04.proof",
+   "proof_bytes": 5590480,
+   "proof_sha256": "3a415da24d84729458cc3336700181578b29383d1d8ee4e683e09267f1ff105e",
+   "stmt_bytes": 118834,
+   "python_verdict": {
+    "accepted": true,
+    "reason": ""
+   },
+   "prover_seconds": 0.038301702588796616,
+   "multiproof_bytes": 1056,
+   "auth_openings_seconds": 0.0002723708748817444,
+   "coins": "rep1/sub_04.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "e47a3333085eac0fb959ed7f8e8362a8bcc030abcf3365c67532b48e1b2f0493"
+  },
+  {
+   "rep": 1,
+   "sub": 5,
+   "vus": [
+    3410,
+    4092
+   ],
+   "stmt": "rep1/sub_05.stmt",
+   "proof": "rep1/sub_05.proof",
+   "proof_bytes": 5590480,
+   "proof_sha256": "c6bb994ed9fba49b392fa8fff63e9f778a9e830d7bb6025b0f61b551b53434d9",
+   "stmt_bytes": 118450,
+   "python_verdict": {
+    "accepted": true,
+    "reason": ""
+   },
+   "prover_seconds": 0.038313839584589005,
+   "multiproof_bytes": 672,
+   "auth_openings_seconds": 0.0002708025276660919,
+   "coins": "rep1/sub_05.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "860a3dad72962cdaa13891dad80608c513b5eb821ef22b78f251717c44172381"
+  },
+  {
+   "rep": 1,
+   "sub": 6,
+   "vus": [
+    4092,
+    4096
+   ],
+   "stmt": "rep1/sub_06.stmt",
+   "proof": "rep1/sub_06.proof",
+   "proof_bytes": 5590480,
+   "proof_sha256": "2d2054f281976dfa9d8e05b86256d9f0807dd06cccf783f4397e6e0431d2f485",
+   "stmt_bytes": 67210,
+   "python_verdict": {
+    "accepted": true,
+    "reason": ""
+   },
+   "prover_seconds": 0.28358328714966774,
+   "multiproof_bytes": 960,
+   "auth_openings_seconds": 0.00014634430408477783,
+   "coins": "rep1/sub_06.coins",
+   "coins_bytes": 128,
+   "coins_sha256": "c48a0bfd9ee1c8e671548f23b722e240a1834138e5b132389d44d68abb513059"
+  }
+ ],
+ "system_file": {
+  "path": "system.bin",
+  "sha256": "80ac30a956d569a2aae360a59ff0b5ea150fce98200b68fec54520bd4d3719f7",
+  "sys_id": "8c6d260c675cad40ae7263db08974f1842d04997f344cb4f9e52821e70bb25f5",
+  "bytes": 832135
+ },
+ "set": {
+  "total_vus": 4096,
+  "batch": 16384,
+  "per_proof": 682,
+  "n_proofs": 7,
+  "zk": true,
+  "mode": "interactive",
+  "reps": 3,
+  "dump_reps": 1,
+  "instances": "d2d65f6523b49e673847746d725fbce3282f2734b0b424637c01e88f188a240a"
+ }
+}

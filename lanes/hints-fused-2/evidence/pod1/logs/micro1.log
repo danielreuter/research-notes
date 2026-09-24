@@ -1,0 +1,6 @@
+=== 21:07:10 tree=/workspace/src sha=a6178cd cmd: /workspace/venv312/bin/python micro.py fp8-ada-v3:16384 fp8-ada-v3x4:16384 fp8-ada-v3x4:4096 fp8-ada-v2x4:16384
+fp8-ada-v3 l=16384 hints=1491 fused 0.40 ms  graph 5.02 ms  x12.5  equal=True
+fp8-ada-v3x4 l=16384 hints=5949 fused 1.42 ms  graph 20.38 ms  x14.3  equal=True
+fp8-ada-v3x4 l=4096 hints=5949 fused 0.52 ms  graph 16.46 ms  x31.5  equal=True
+fp8-ada-v2x4 l=16384 hints=541 fused 0.34 ms  graph 3.75 ms  x11.0  equal=True
+=== 21:07:27 rc=0 wall=17s

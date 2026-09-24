@@ -1,0 +1,2 @@
+{"run_files": "art:2348f9dec4c0d5cd9c5ed0c4dcb4ed3bf4cac70208c8a4094790810472077dd2", "verdict": "art:eece3af96ecade1483546e0d441ca1574391c92b2c4263aaa993f72973e70720", "accepted": true, "independent": true, "sessions": 3, "subbatches": "39/39"}
+labelled art:bf27fe7cc87e1843de5976506c0e37b43cdc5aa637531be7f31e249cb5c4dbdf: verified=accepted --by live-verifier --ref art:eece3af96ecade1483546e0d441ca1574391c92b2c4263aaa993f72973e70720

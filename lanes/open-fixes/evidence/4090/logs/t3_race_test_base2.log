@@ -1,0 +1,38 @@
+=== 18:22:08 tree=/workspace/src-base sha=720820d cmd: /workspace/venv312/bin/python -m pytest -q -p no:cacheprovider backends/direct/ligero/pipeline_race_test.py -k hint_graphs
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+____________ test_hint_graphs_not_shared_across_streams[fp8-ada-v2] ____________
+
+rel_name = 'fp8-ada-v2'
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="the pipelined prover races are a CUDA-stream matter")
+    @pytest.mark.parametrize("rel_name", ["fp8-ada", "fp8-ada-v2", "fp8-ada-v3"])
+    def test_hint_graphs_not_shared_across_streams(rel_name):
+        """Every hint generator's CUDA graph is per stream: concurrent generation on two streams equals the sequential hints
+        (the v3 relations failed the pipelined self-check at any depth > 1 with another sub-batch's hints)."""
+        bad = hints_concurrent_trials(rel_name, 5)
+>       assert bad == 0, f"{rel_name}: {bad} of 10 concurrent hint matrices differ from the sequential ones"
+E       AssertionError: fp8-ada-v2: 5 of 10 concurrent hint matrices differ from the sequential ones
+E       assert 5 == 0
+
+backends/direct/ligero/pipeline_race_test.py:173: AssertionError
+____________ test_hint_graphs_not_shared_across_streams[fp8-ada-v3] ____________
+
+rel_name = 'fp8-ada-v3'
+
+    @pytest.mark.skipif(not torch.cuda.is_available(), reason="the pipelined prover races are a CUDA-stream matter")
+    @pytest.mark.parametrize("rel_name", ["fp8-ada", "fp8-ada-v2", "fp8-ada-v3"])
+    def test_hint_graphs_not_shared_across_streams(rel_name):
+        """Every hint generator's CUDA graph is per stream: concurrent generation on two streams equals the sequential hints
+        (the v3 relations failed the pipelined self-check at any depth > 1 with another sub-batch's hints)."""
+        bad = hints_concurrent_trials(rel_name, 5)
+>       assert bad == 0, f"{rel_name}: {bad} of 10 concurrent hint matrices differ from the sequential ones"
+E       AssertionError: fp8-ada-v3: 5 of 10 concurrent hint matrices differ from the sequential ones
+E       assert 5 == 0
+
+backends/direct/ligero/pipeline_race_test.py:173: AssertionError
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/pipeline_race_test.py::test_hint_graphs_not_shared_across_streams[fp8-ada-v2]
+FAILED backends/direct/ligero/pipeline_race_test.py::test_hint_graphs_not_shared_across_streams[fp8-ada-v3]
+2 failed, 1 passed, 6 deselected in 3.79s
+=== 18:22:13 rc=1 wall=5s

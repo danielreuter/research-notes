@@ -1,0 +1,39 @@
+=== 21:32:25 tree=/workspace/src sha=ff52e47 cmd: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada-v3x4 bench-vu --zk --mode interactive --reps 3 --device cuda --instances-cache /workspace/instances-cache --total-vus 4096 --batch 16384 --pipeline 4 --out /workspace/results/ab1_to_v3x4_p4_16k.json
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/src/backends/direct/ligero/run.py", line 504, in <module>
+    _sys.exit(main())
+              ^^^^^^
+  File "/workspace/src/backends/direct/ligero/run.py", line 497, in main
+    return (gate_vu_rel if args.cmd == "gate-vu" else bench_vu_rel)(args, rel)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 1058, in bench_vu_rel
+    R.prove_vus_many([data[lo_:hi_] for lo_, hi_ in warm],
+  File "/workspace/src/backends/direct/ligero/relchain.py", line 327, in prove_vus_many
+    proofs, wall = prove_many([starter(i) for i in range(len(batches))], self.device, depth=depth)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/pipeline.py", line 356, in prove_many
+    job.step()
+  File "/workspace/src/backends/direct/ligero/pipeline.py", line 313, in step
+    self.waitable = self.gen.send(None) if self.started else next(self.gen)
+                                                             ^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/protocol.py", line 1322, in _prove_stages
+    _graph_run(st, "commit_graph", commit_body, device)
+  File "/workspace/src/backends/direct/ligero/protocol.py", line 1100, in _graph_run
+    _capture_failed(e)
+  File "/workspace/src/backends/direct/ligero/protocol.py", line 721, in _capture_failed
+    raise e
+  File "/workspace/src/backends/direct/ligero/protocol.py", line 1093, in _graph_run
+    body()
+  File "/workspace/src/backends/direct/ligero/protocol.py", line 1300, in commit_body
+    _, Cg = enc.encode(Wg, Sg["W"], want_coefs=True, out=st.U[:m])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/direct/ligero/encode_simt.py", line 554, in encode
+    coefs = torch.empty((R, self.l), dtype=torch.int32, device=self.device) if want_coefs else None
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 444.00 MiB. GPU 0 has a total capacity of 23.53 GiB of which 434.69 MiB is free. Including non-PyTorch memory, this process has 23.09 GiB memory in use. Of the allocated memory 20.90 GiB is allocated by PyTorch, with 5.92 GiB allocated in private pools (e.g., CUDA Graphs), and 407.43 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+fp8-ada-v3x4 census: {"rows_per_unit": 7090, "bit_rows": 583, "selector_rows": 120, "hint_rows": 5949, "pin_rows": 86, "product_rows": 77, "inverse_rows": 275, "linear_constraints": 510, "quadratic_constraints": 10036, "chain": true}
+4096 synthetic VUs (recorded accumulators) in 0.4s
+config Config(l=16384, n=65536, D=6, t=194, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=1365, steps=12); zk True, mode interactive; system {'rows': 7090, 'by_kind': {'hint': 5949, 'bit': 583, 'inv': 275, 'prod': 77, 'pin': 86, 'sel': 120}, 'linear': 510, 'quadratic': 10036, 'pins': 86, 'hints': 5949}; 4096 VUs as 4 sub-batches of <= 1365
+=== 21:32:43 rc=1 wall=18s

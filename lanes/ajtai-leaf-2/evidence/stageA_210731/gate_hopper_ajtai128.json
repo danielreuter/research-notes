@@ -1,0 +1,624 @@
+{
+ "relation": "bf16-hopper+ajtai-n128",
+ "model": "HOPPER_BF16_M16N8K16",
+ "authentication": "included-hash",
+ "leaf": "ajtai-n128",
+ "system": {
+  "rows": 4669,
+  "by_kind": {
+   "hint": 1217,
+   "bit": 2391,
+   "prod": 198,
+   "sel": 542,
+   "inv": 64,
+   "pin": 257
+  },
+  "linear": 852,
+  "quadratic": 4060,
+  "pins": 257,
+  "hints": 1217
+ },
+ "census": {
+  "rows_per_unit": 4669,
+  "bit_rows": 2391,
+  "selector_rows": 542,
+  "hint_rows": 1217,
+  "pin_rows": 257,
+  "product_rows": 198,
+  "inverse_rows": 64,
+  "linear_constraints": 852,
+  "quadratic_constraints": 4060,
+  "chain": true
+ },
+ "hash_census": {
+  "rows_base": 3292,
+  "rows_private_operands": 608,
+  "rows_hash": 512,
+  "rows_digest_pins": 257,
+  "rows_total": 4669,
+  "rows_added": 1377,
+  "linear_added": 513,
+  "quadratic_added": 896,
+  "hints_added": 1120,
+  "ajtai_n": 128,
+  "ajtai_m_col": 256,
+  "ajtai_linear_rows_per_unit": 256,
+  "ajtai_terms_per_linear_row": 258,
+  "ajtai_key_blocks": 2,
+  "linked_rows": 259,
+  "word_bits": 16,
+  "k": 16,
+  "leaf": "ajtai-n128",
+  "digest_elems": 128,
+  "carry_elems": 128
+ },
+ "positives": [
+  {
+   "range": [
+    0,
+    170
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "",
+   "timings": {
+    "statement": 0.0004967679977416992,
+    "witness": 0.16021318054199218,
+    "self_check": 2.9797109375,
+    "encode": 0.0033525760173797607,
+    "transfer": 2.0479999948292972e-06,
+    "merkle": 0.003935199975967407,
+    "tests_w": 1.249095703125,
+    "tests_quad": 1.462399959564209e-05,
+    "tests_chain": 1.0847999714314937e-05,
+    "openings": 0.008624575614929198,
+    "tests": 1.24912117512431,
+    "total": 4.408391918987036,
+    "auth_openings": 0.007225971668958664,
+    "hints_host": 0.34826451912522316
+   },
+   "multiproof_bytes": 480
+  },
+  {
+   "range": [
+    170,
+    340
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "",
+   "timings": {
+    "statement": 9.046400338411331e-05,
+    "witness": 0.0023461759090423586,
+    "self_check": 0.09788211059570312,
+    "encode": 0.0031047680377960206,
+    "transfer": 2.0479999948292972e-06,
+    "merkle": 0.0036152000427246093,
+    "tests_w": 0.04564566421508789,
+    "tests_quad": 1.2799999676644803e-05,
+    "tests_chain": 1.0367999784648419e-05,
+    "openings": 0.00111628794670105,
+    "tests": 0.04566883221454918,
+    "total": 0.1543911211192608,
+    "auth_openings": 0.0002475827932357788,
+    "hints_host": 0.027462255209684372
+   },
+   "multiproof_bytes": 768
+  },
+  {
+   "range": [
+    340,
+    510
+   ],
+   "l": 16384,
+   "ok": true,
+   "why": "",
+   "timings": {
+    "statement": 8.128000050783158e-05,
+    "witness": 0.0022841598987579344,
+    "self_check": 0.08251494598388671,
+    "encode": 0.003063807964324951,
+    "transfer": 1.0239999974146486e-06,
+    "merkle": 0.003622623920440674,
+    "tests_w": 0.0456610221862793,
+    "tests_quad": 1.3151999562978745e-05,
+    "tests_chain": 1.0528000071644782e-05,
+    "openings": 0.0010622400045394898,
+    "tests": 0.045684702185913924,
+    "total": 0.13893172144889832,
+    "auth_openings": 0.00023304298520088196,
+    "hints_host": 0.025477085262537003
+   },
+   "multiproof_bytes": 480
+  },
+  {
+   "range": [
+    510,
+    512
+   ],
+   "l": 256,
+   "ok": true,
+   "why": "",
+   "timings": {
+    "statement": 6.457599997520447e-05,
+    "witness": 0.00469532823562622,
+    "self_check": 0.039512065887451174,
+    "encode": 0.0006830080151557922,
+    "transfer": 1.0239999974146486e-06,
+    "merkle": 0.000538752019405365,
+    "tests_w": 0.19445794677734374,
+    "tests_quad": 1.3535999692976475e-05,
+    "tests_chain": 1.0432000271975994e-05,
+    "openings": 0.0009524800181388855,
+    "tests": 0.1944819147773087,
+    "total": 0.2415044941008091,
+    "auth_openings": 0.00017887726426124573,
+    "hints_host": 0.25065547227859497
+   },
+   "multiproof_bytes": 768
+  }
+ ],
+ "negatives": [
+  {
+   "name": "claimed word bit 0 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "claimed word bit 15 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "accumulator link c.f[20] != y.f[19]",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "accumulator fraction bit 12 flipped in a linked unit",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "off-domain operand 0x7f80 computed on",
+   "accepted": false,
+   "why": "prover: ValueError: public inputs rejected: a.t off the finite range"
+  },
+  {
+   "name": "x digest lane 0 of VU 0 flipped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "W digest lane 0 of VU 1 changed",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "digests of VU 0 and VU 1 swapped",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "is_end moved one column early",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "multiproof sibling of tree a corrupted",
+   "accepted": false,
+   "why": "auth: a: multiproof rejected"
+  },
+  {
+   "name": "multiproof of tree a truncated",
+   "accepted": false,
+   "why": "auth: a: multiproof rejected"
+  },
+  {
+   "name": "multiproof sibling of tree b corrupted",
+   "accepted": false,
+   "why": "auth: b: multiproof rejected"
+  },
+  {
+   "name": "multiproof of tree b truncated",
+   "accepted": false,
+   "why": "auth: b: multiproof rejected"
+  },
+  {
+   "name": "multiproof sibling of tree y corrupted",
+   "accepted": false,
+   "why": "auth: y: multiproof rejected"
+  },
+  {
+   "name": "multiproof of tree y truncated",
+   "accepted": false,
+   "why": "auth: y: multiproof rejected"
+  },
+  {
+   "name": "x root replaced by the W root (verifier's statement)",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "x tree binding changed (verifier's statement)",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "VU 0 claims VU 1's x row (two VUs, one leaf, different digests)",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "W leaf index out of range",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "a multiproof missing",
+   "accepted": false,
+   "why": "auth: expected one multiproof per tree"
+  },
+  {
+   "name": "one word of the committed x row flipped (computed on the flipped row)",
+   "accepted": false,
+   "why": "auth: a: multiproof rejected"
+  },
+  {
+   "name": "VU 0 computed on VU 1's W column, claims its own",
+   "accepted": false,
+   "why": "auth: b: multiproof rejected"
+  },
+  {
+   "name": "VU 0 computed on VU 1's x row, claims its own",
+   "accepted": false,
+   "why": "auth: a: multiproof rejected"
+  },
+  {
+   "name": "bit 0 of hashed word b[0] flipped in unit 3 (computation unchanged)",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "leaf carry link broken at unit 7",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "nonzero leaf carry at a chain start",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b0 (hint) +2 in column 172",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b1 (hint) +2 in column 157",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b2 (hint) +2 in column 13",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b3 (hint) +1 in column 180",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b4 (hint) +1 in column 32",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b5 (hint) +2 in column 153",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b6 (hint) +2 in column 115",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b7 (hint) +1 in column 151",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b8 (hint) +2 in column 160",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b9 (hint) +2 in column 25",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b10 (hint) +1 in column 163",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b11 (hint) +2 in column 91",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b12 (hint) +1 in column 172",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b13 (hint) +1 in column 126",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b14 (hint) +2 in column 66",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].b15 (hint) +1 in column 132",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].tinv (inv) +2 in column 169",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row hash.prod0 (prod) +1 in column 163",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[0].finite.inv (inv) +2 in column 174",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b0 (hint) +1 in column 102",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b1 (hint) +1 in column 60",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b2 (hint) +2 in column 53",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b3 (hint) +2 in column 74",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b4 (hint) +2 in column 73",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b5 (hint) +2 in column 75",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b6 (hint) +2 in column 68",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b7 (hint) +1 in column 123",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b8 (hint) +2 in column 182",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b9 (hint) +2 in column 132",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b10 (hint) +1 in column 54",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b11 (hint) +1 in column 132",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b12 (hint) +2 in column 2",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b13 (hint) +2 in column 105",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b14 (hint) +2 in column 173",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].b15 (hint) +2 in column 46",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].tinv (inv) +1 in column 12",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row hash.prod1 (prod) +2 in column 20",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[1].finite.inv (inv) +1 in column 172",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b0 (hint) +1 in column 16",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b1 (hint) +2 in column 24",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b2 (hint) +2 in column 30",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b3 (hint) +1 in column 117",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b4 (hint) +2 in column 91",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b5 (hint) +1 in column 155",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b6 (hint) +1 in column 127",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b7 (hint) +2 in column 180",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b8 (hint) +2 in column 131",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b9 (hint) +2 in column 50",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b10 (hint) +2 in column 185",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b11 (hint) +2 in column 60",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b12 (hint) +2 in column 149",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b13 (hint) +2 in column 136",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b14 (hint) +1 in column 148",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].b15 (hint) +1 in column 151",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].tinv (inv) +2 in column 180",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row hash.prod2 (prod) +2 in column 100",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[2].finite.inv (inv) +1 in column 60",
+   "accepted": false,
+   "why": "quadratic constraints failed"
+  },
+  {
+   "name": "row hash.a[3].b0 (hint) +2 in column 138",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[3].b1 (hint) +1 in column 136",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "row hash.a[3].b2 (hint) +1 in column 85",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "digest of a different row published for VU 0's x row",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "digest of a different row, its rank claimed (relation digest != published)",
+   "accepted": false,
+   "why": "column challenge mismatch"
+  },
+  {
+   "name": "one bit of the hashed x row flipped (digest recomputed consistently)",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "non-binary operand bit s = 2 (digest recomputed consistently)",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "non-binary bit vector of the same word value (2*1 + 0*2 for 0*1 + 1*2)",
+   "accepted": false,
+   "why": "linear constraints failed"
+  },
+  {
+   "name": "leaf accumulator output row tampered",
+   "accepted": false,
+   "why": "linear constraints failed"
+  }
+ ],
+ "failures": 0
+}

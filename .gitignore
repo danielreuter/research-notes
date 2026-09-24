@@ -1,0 +1,25 @@
+# The notes repo holds text: reports, handoffs, briefs, kb docs, small evidence (patches, scripts, logs, JSON).
+# Proof dumps, binaries and archives belong in the research store (`research data put ... --preserve`, cite the art: id).
+# `research notes snapshot` also skips any file over 1 MB.
+*.proof
+*.stmt
+*.neg
+*.bin
+*.npy
+*.npz
+*.pt
+*.safetensors
+*.so
+*.o
+*.tgz
+*.tar
+*.tar.*
+*.gz
+*.zst
+*.xz
+*.zip
+*.sqlite
+*.db
+.inbox-seen
+.DS_Store
+__pycache__/

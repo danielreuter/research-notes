@@ -1,0 +1,4 @@
+research: run r20260923-071655-984d -> /workspace/research/runs/r20260923-071655-984d
+[tele run] base-intzk-l16384: rc=0 class=SUCCESS (established) -- exit status 0
+research: attempt published: 4 outputs drv=drv:decd8e6536ac9e9e2500b8ad16bf2fa790cfc6a3d2d1d399e736e0a3cfee654c reuse=8631d2d48e719e625c2645dbb83574c6921f0334b257e8fe816b2568df7696d8  local only (no remote configured; `research data push r20260923-071655-984d` with credentials preserves it)
+research: run r20260923-071655-984d done rc=0 class=SUCCESS result=valid (research/result/v0.1) validation=passed  (research inspect r20260923-071655-984d)

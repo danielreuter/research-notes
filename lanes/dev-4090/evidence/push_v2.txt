@@ -1,0 +1,6 @@
+art:0d5b229a8c90c175a03068d2b2194670906aebff06787423ae75584b50c61e3e  bench-result/v1  PRESERVED  1 objects (1 uploaded, 0 already there) 0.0 MB in 0.7s  1.5 obj/s  verified sha256-readback
+art:0d14e41c310bcc7d0559bd613d8e1b268c0f8b79b608cdda5d0d872c9a51327b  run-files/v1  PRESERVED  43 objects (29 uploaded, 14 already there) 45.6 MB in 7.8s  5.5 obj/s  verified etag-md5
+art:a6cf3bc38b74a4c53712b12242d934e99531944593a946e35dc2d1af1f9ac562  telemetry/v1  PRESERVED  2 objects (2 uploaded, 0 already there) 0.0 MB in 1.2s  1.7 obj/s  verified etag-md5
+art:97834c753c7652a18c4e1f2a6f6ee31a02753424ce204a4c4649234f2b757ca2  telemetry/v1  PRESERVED  2 objects (2 uploaded, 0 already there) 0.2 MB in 1.3s  1.6 obj/s  verified etag-md5
+r20260923-105300-bbc4  attempt  PRESERVED
+5/5 preserved on s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com

@@ -1,0 +1,105 @@
+=== 21:58:55 tree=/workspace/src sha=ff52e47 cmd: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada-v2x4 gate-vu --vus 2048 --batch 16384 --device cuda --instances-cache /workspace/instances-cache --zk --out /workspace/results/gatezk_v2x4.json
+fp8-ada-v2x4 chain system: {'rows': 1255, 'by_kind': {'hint': 541, 'bit': 498, 'inv': 11, 'prod': 77, 'pin': 128}, 'linear': 193, 'quadratic': 1871, 'pins': 128, 'hints': 541} compiled in 0.48s; device cuda
+fp8-ada-v2x4 vu-k1536 [0, 1365): l=16384 prover 4.57s -> True accept (0.079s)
+fp8-ada-v2x4 vu-k1536 [1365, 2048): l=16384 prover 0.04s -> True accept (0.053s)
+  negative claimed word bit 0 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 1 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 2 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 3 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 4 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 5 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 6 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 7 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 8 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 9 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 10 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 11 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 12 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 13 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 14 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 15 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 16 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 17 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 18 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 19 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 20 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 21 flipped: REJECTED column challenge mismatch
+  negative claimed word +1 ulp: REJECTED column challenge mismatch
+  negative claimed word -1 ulp: REJECTED column challenge mismatch
+  negative off-domain operand 0x7f in a: REJECTED public inputs: public inputs rejected: a: E4M3 NaN operand
+  negative off-domain operand 0xff in a: REJECTED public inputs: public inputs rejected: a: E4M3 NaN operand
+  negative off-domain operand 0xff in b: REJECTED public inputs: public inputs rejected: b: E4M3 NaN operand
+  negative operand a[10][1] exponent bit flipped: REJECTED column challenge mismatch
+  negative folded boundary VU (honest control: must ACCEPT): REJECTED honest boundary VU accepted
+  negative folded boundary: proved the 1-step intermediate of the last column as the final word: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: proved the 2-step intermediate of the last column as the final word: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: proved the 3-step intermediate of the last column as the final word: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: a words 1439 and 1440 swapped across base step 1 of the last column, original claim: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: b words 1439 and 1440 swapped across base step 1 of the last column, original claim: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: a words 1407 and 1408 swapped across columns 10|11, original claim: REJECTED chain constraints failed (sum over H)
+  negative link c.f[20] != y.f[19]: REJECTED linear constraints failed (public values)
+  negative c_0 != 0 at a chain start: REJECTED linear constraints failed (public values)
+  negative accumulator fraction bit 12 flipped in a linked unit: REJECTED linear constraints failed (public values)
+  negative accumulator fraction bit 0 flipped in a linked unit: REJECTED linear constraints failed (public values)
+  negative row acc.s (hint) +1 in column 3: REJECTED quadratic constraints failed
+  negative row acc.t (hint) +1 in column 19: REJECTED linear constraints failed (public values)
+  negative row acc.f (hint) +2 in column 14: REJECTED linear constraints failed (public values)
+  negative row acc.nz (hint) +1 in column 17: REJECTED quadratic constraints failed
+  negative row acc.z (hint) +1 in column 11: REJECTED quadratic constraints failed
+  negative row acc.t.b0 (bit) +2 in column 9: REJECTED linear constraints failed (public values)
+  negative row acc.t.finite.inv (inv) +1 in column 13: REJECTED quadratic constraints failed
+  negative row acc.nz1.inv (inv) +1 in column 13: REJECTED quadratic constraints failed
+  negative row acc.f.b0 (bit) +2 in column 18: REJECTED linear constraints failed (public values)
+  negative row acc.z1.inv (inv) +2 in column 23: REJECTED quadratic constraints failed
+  negative row acc.prod0 (prod) +1 in column 20: REJECTED quadratic constraints failed
+  negative row g0.g0.G (pin) +2 in column 3: REJECTED linear constraints failed (public values)
+  negative row g0.sel[0] (hint) +2 in column 10: REJECTED linear constraints failed (public values)
+  negative row g0.sel[1] (hint) +1 in column 23: REJECTED linear constraints failed (public values)
+  negative row g0.sel[2] (hint) +1 in column 20: REJECTED linear constraints failed (public values)
+  negative row g0.sel[3] (hint) +2 in column 8: REJECTED linear constraints failed (public values)
+  negative row g0.sel[4] (hint) +2 in column 5: REJECTED linear constraints failed (public values)
+  negative row g0.sel[5] (hint) +2 in column 11: REJECTED linear constraints failed (public values)
+  negative row g0.sel[6] (hint) +2 in column 22: REJECTED linear constraints failed (public values)
+  negative row g0.sel[7] (hint) +2 in column 20: REJECTED linear constraints failed (public values)
+  negative row g0.sel[8] (hint) +2 in column 23: REJECTED linear constraints failed (public values)
+  negative row g0.sel[9] (hint) +1 in column 3: REJECTED linear constraints failed (public values)
+  negative row g0.sel[10] (hint) +2 in column 7: REJECTED linear constraints failed (public values)
+  negative row g0.sel[11] (hint) +1 in column 19: REJECTED linear constraints failed (public values)
+  negative row g0.sel[12] (hint) +1 in column 23: REJECTED linear constraints failed (public values)
+  negative row g0.sel[13] (hint) +2 in column 22: REJECTED linear constraints failed (public values)
+  negative row g0.sel[14] (hint) +1 in column 17: REJECTED linear constraints failed (public values)
+  negative row g0.sel[15] (hint) +2 in column 14: REJECTED linear constraints failed (public values)
+  negative row g0.sel[16] (hint) +2 in column 21: REJECTED linear constraints failed (public values)
+  negative row g0.sel[17] (hint) +1 in column 23: REJECTED linear constraints failed (public values)
+  negative row g0.sel[18] (hint) +1 in column 18: REJECTED linear constraints failed (public values)
+  negative row g0.sel[19] (hint) +1 in column 16: REJECTED linear constraints failed (public values)
+  negative row g0.sel[20] (hint) +1 in column 0: REJECTED linear constraints failed (public values)
+  negative row g0.sel[21] (hint) +2 in column 23: REJECTED linear constraints failed (public values)
+  negative row g0.sel[22] (hint) +1 in column 7: REJECTED linear constraints failed (public values)
+  negative row g0.sel[23] (hint) +1 in column 5: REJECTED linear constraints failed (public values)
+  negative row g0.sel[24] (hint) +2 in column 20: REJECTED linear constraints failed (public values)
+  negative row g0.sel[25] (hint) +1 in column 1: REJECTED linear constraints failed (public values)
+  negative row g0.sel[26] (hint) +2 in column 13: REJECTED linear constraints failed (public values)
+  negative row g0.sel[27] (hint) +1 in column 23: REJECTED linear constraints failed (public values)
+  negative row g0.sel[28] (hint) +1 in column 14: REJECTED linear constraints failed (public values)
+  negative row g0.sel[29] (hint) +1 in column 4: REJECTED linear constraints failed (public values)
+  negative row g0.max.prod1 (prod) +1 in column 10: REJECTED linear constraints failed (public values)
+  negative row g0.max.keydiff.b0 (bit) +1 in column 17: REJECTED linear constraints failed (public values)
+  negative row g0.delta (hint) +2 in column 8: REJECTED linear constraints failed (public values)
+  negative row g0.Q (hint) +2 in column 15: REJECTED linear constraints failed (public values)
+  negative row g0.q (hint) +1 in column 17: REJECTED quadratic constraints failed
+  negative row g0.sgn (hint) +1 in column 21: REJECTED quadratic constraints failed
+  negative row g0.v (hint) +1 in column 7: REJECTED linear constraints failed (public values)
+  negative row g0.sum.v.b0 (bit) +2 in column 0: REJECTED linear constraints failed (public values)
+  negative row g0.sum.prod2 (prod) +1 in column 2: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[0] (hint) +2 in column 19: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[1] (hint) +1 in column 20: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[2] (hint) +1 in column 11: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[3] (hint) +2 in column 4: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[4] (hint) +2 in column 1: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[5] (hint) +1 in column 0: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[6] (hint) +1 in column 22: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[7] (hint) +1 in column 7: REJECTED linear constraints failed (public values)
+  negative row g0.nsel[8] (hint) +1 in column 18: REJECTED linear constraints failed (public values)
+fp8-ada-v2x4 gate: 2 honest sub-batches, 99 negatives, 0 failures
+=== 22:01:11 rc=0 wall=136s

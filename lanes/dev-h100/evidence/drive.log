@@ -1,0 +1,60 @@
+=== 10:32:10 bootstrap -> r20260923-103210-3a89 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bootstrap.sh"
+
+=== 10:37:18 bootstrap -> r20260923-103718-c9b2 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/bootstrap.sh"
+research: run r20260923-103718-c9b2 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=393 -> /workspace/research/runs/r20260923-103718-c9b2
+research: observe with `research fetch r20260923-103718-c9b2`; the workload does not depend on this session staying alive
+10:37:50 bootstrap r20260923-103718-c9b2 state=failed 1 wall=27s
+=== 10:38:48 gates -> r20260923-103848-ae36 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/gates.sh"
+research: run r20260923-103848-ae36 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=1272 -> /workspace/research/runs/r20260923-103848-ae36
+research: observe with `research fetch r20260923-103848-ae36`; the workload does not depend on this session staying alive
+10:48:23 gates r20260923-103848-ae36 state=failed 1 wall=570s
+=== 10:49:36 sweep-bf16-hopper -> r20260923-104936-2e37 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/sweep.sh" bf16-hopper
+research: run r20260923-104936-2e37 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=6288 -> /workspace/research/runs/r20260923-104936-2e37
+research: observe with `research fetch r20260923-104936-2e37`; the workload does not depend on this session staying alive
+=== 11:01:28 diag-local -> r20260923-110128-96af : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/diag.sh"
+research: run r20260923-110128-96af launched on vy-dev-h100 (vz9l4h0esp2t31) pid=10791 -> /workspace/research/runs/r20260923-110128-96af
+research: observe with `research fetch r20260923-110128-96af`; the workload does not depend on this session staying alive
+11:02:27 diag-local r20260923-110128-96af state=done 0 wall=50s
+=== 11:03:16 bf16-hopper-p4-rerun (bf16-hopper batch=16384 pipeline=4 --reps 1) -> r20260923-110316-a6a5
+research: run r20260923-110316-a6a5 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=11629 -> /workspace/research/runs/r20260923-110316-a6a5
+research: observe with `research fetch r20260923-110316-a6a5`; the workload does not depend on this session staying alive
+11:04:13 bf16-hopper-p4-rerun r20260923-110316-a6a5 state=failed 1 wall=46s
+=== 11:04:36 bf16-hopper-bare (bf16-hopper batch=16384 pipeline=2 ) -> r20260923-110436-3af6
+research: run r20260923-110436-3af6 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=12127 -> /workspace/research/runs/r20260923-110436-3af6
+research: observe with `research fetch r20260923-110436-3af6`; the workload does not depend on this session staying alive
+=== 11:06:25 bf16-hopper-committed (bf16-hopper batch=16384 pipeline=2 --auth included-hash) -> r20260923-110625-36c2
+research: run r20260923-110625-36c2 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=12719 -> /workspace/research/runs/r20260923-110625-36c2
+research: observe with `research fetch r20260923-110625-36c2`; the workload does not depend on this session staying alive
+=== 11:09:39 sweep-fp8-hopper -> r20260923-110939-5be2 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/sweep.sh" fp8-hopper
+research: run r20260923-110939-5be2 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=13316 -> /workspace/research/runs/r20260923-110939-5be2
+research: observe with `research fetch r20260923-110939-5be2`; the workload does not depend on this session staying alive
+=== 11:13:05 fp8-hopper-bare (fp8-hopper batch=16384 pipeline=4 ) -> r20260923-111305-1373
+research: run r20260923-111305-1373 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=15603 -> /workspace/research/runs/r20260923-111305-1373
+research: observe with `research fetch r20260923-111305-1373`; the workload does not depend on this session staying alive
+11:13:54 fp8-hopper-bare r20260923-111305-1373 state=done 0 wall=43s
+=== 11:14:06 fp8-hopper-committed (fp8-hopper batch=16384 pipeline=4 --auth included-hash) -> r20260923-111406-14ab
+research: run r20260923-111406-14ab launched on vy-dev-h100 (vz9l4h0esp2t31) pid=16050 -> /workspace/research/runs/r20260923-111406-14ab
+research: observe with `research fetch r20260923-111406-14ab`; the workload does not depend on this session staying alive
+=== 11:18:09 bf16-hopper-v2-bare (bf16-hopper-v2 batch=16384 pipeline=2 --reps 1) -> r20260923-111809-5c19
+research: run r20260923-111809-5c19 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=16520 -> /workspace/research/runs/r20260923-111809-5c19
+research: observe with `research fetch r20260923-111809-5c19`; the workload does not depend on this session staying alive
+11:18:46 bf16-hopper-v2-bare r20260923-111809-5c19 state=done 0 wall=33s
+=== 11:19:13 fp8-hopper-v2-bare (fp8-hopper-v2 batch=16384 pipeline=4 --reps 1) -> r20260923-111913-9a71
+research: run r20260923-111913-9a71 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=17087 -> /workspace/research/runs/r20260923-111913-9a71
+research: observe with `research fetch r20260923-111913-9a71`; the workload does not depend on this session staying alive
+11:19:49 fp8-hopper-v2-bare r20260923-111913-9a71 state=done 0 wall=32s
+=== 11:20:10 local3-drilldown -> r20260923-112010-cc2b : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/local3.sh"
+research: run r20260923-112010-cc2b launched on vy-dev-h100 (vz9l4h0esp2t31) pid=17596 -> /workspace/research/runs/r20260923-112010-cc2b
+research: observe with `research fetch r20260923-112010-cc2b`; the workload does not depend on this session staying alive
+=== 11:30:05 p4-probe -> r20260923-113005-c5f0 : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/p4probe.sh"
+research: run r20260923-113005-c5f0 launched on vy-dev-h100 (vz9l4h0esp2t31) pid=23559 -> /workspace/research/runs/r20260923-113005-c5f0
+research: observe with `research fetch r20260923-113005-c5f0`; the workload does not depend on this session staying alive
+11:32:32 p4-probe r20260923-113005-c5f0 state=done 0 wall=141s
+=== 11:49:46 fp8-hopper-bare-p2 (fp8-hopper batch=16384 pipeline=2 ) -> r20260923-114946-e45e
+research: run r20260923-114946-e45e launched on vy-dev-h100 (vz9l4h0esp2t31) pid=25756 -> /workspace/research/runs/r20260923-114946-e45e
+research: observe with `research fetch r20260923-114946-e45e`; the workload does not depend on this session staying alive
+11:50:36 fp8-hopper-bare-p2 r20260923-114946-e45e state=done 0 wall=44s
+=== 11:50:54 local-fp8-p2 -> r20260923-115054-ee2f : bash -c exec bash "$RESEARCH_RUN_DIR/inputs/localfp8.sh"
+research: run r20260923-115054-ee2f launched on vy-dev-h100 (vz9l4h0esp2t31) pid=26192 -> /workspace/research/runs/r20260923-115054-ee2f
+research: observe with `research fetch r20260923-115054-ee2f`; the workload does not depend on this session staying alive
+11:51:17 local-fp8-p2 r20260923-115054-ee2f state=done 0 wall=17s

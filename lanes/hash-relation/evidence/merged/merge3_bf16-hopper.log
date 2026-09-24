@@ -1,0 +1,52 @@
+bf16-hopper census: {"rows_per_unit": 3292, "bit_rows": 2391, "selector_rows": 542, "hint_rows": 97, "pin_rows": 96, "product_rows": 166, "inverse_rows": 0, "linear_constraints": 339, "quadratic_constraints": 3164, "chain": true}
+4096 synthetic VUs (model-recorded accumulators) in 0.9s
+config Config(l=16384, n=65536, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive'); layout Layout(l=16384, n_vus=170, steps=96); zk True, mode interactive; system {'rows': 3292, 'by_kind': {'hint': 97, 'bit': 2391, 'prod': 166, 'pin': 96, 'sel': 542}, 'linear': 339, 'quadratic': 3164, 'pins': 96, 'hints': 97}; 4096 VUs as 25 sub-batches of <= 170
+warm-up (one sub-batch, with the prover's self-check): {'statement': 0.006, 'hints_host': 18.079, 'witness': 0.106, 'self_check': 3.168, 'zk_masks': 0.08, 'encode': 0.028, 'transfer': 0.0, 'merkle': 0.023, 'tests_w': 2.278, 'tests_quad': 0.0, 'tests_chain': 0.0, 'openings': 0.124, 'tests': 2.278, 'total': 5.815}
+rep 1: prover 4.265s (+hints 0.670s) over 25 proofs; verifier 0.925s; pass wall 8.376s (1.205 ms/VU)
+rep 2: prover 0.622s (+hints 0.129s) over 25 proofs; verifier 0.907s; pass wall 1.662s (0.183 ms/VU)
+rep 3: prover 0.632s (+hints 0.129s) over 25 proofs; verifier 0.906s; pass wall 1.671s (0.186 ms/VU)
+{
+ "relation": "bf16-hopper",
+ "seconds_per_vu": 0.00018585212944799423,
+ "prover_total": 0.7612503222189844,
+ "verifier": 0.9071051329374313,
+ "bytes": {
+  "root": 800,
+  "w": 9984000,
+  "h": 10137000,
+  "cols": 19700,
+  "opened_columns": 65561600,
+  "merkle_paths": 2521600,
+  "q_chain": 19813800,
+  "v_linear": 9984000,
+  "coin_commitments_and_openings": 4800,
+  "auth_multiproofs": 0,
+  "total": 118027300
+ },
+ "n_proofs": 25,
+ "per_proof_vus": 170,
+ "t": 197,
+ "zk": true,
+ "k": 16640,
+ "peak_device_bytes": 3256264704,
+ "soundness_log2": -128.04953484711905,
+ "per_proof_log2": -132.69339103689367,
+ "rows": 3292,
+ "medians": {
+  "statement": 0.0011151680015027523,
+  "hints_host": 0.12908544063568117,
+  "witness": 0.007153663963079452,
+  "zk_masks": 0.0017910719960927961,
+  "encode": 0.13374067163467407,
+  "transfer": 3.126399999018758e-05,
+  "merkle": 0.06795123100280762,
+  "tests_w": 0.3911036491394042,
+  "tests_quad": 0.00036249599885195493,
+  "tests_chain": 0.0002613439988344908,
+  "openings": 0.020968960046768185,
+  "tests": 0.39172665713727467,
+  "total": 0.6321648815833032
+ },
+ "dumps": null,
+ "validation": "passed"
+}

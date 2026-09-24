@@ -1,0 +1,53 @@
+[09:43:52Z] (a) START: /workspace/venv312/bin/python -m pytest -q backends/direct/ligero -x -p no:cacheprovider
+[09:43:52Z] (b1) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada gate-vu --device cuda --vus 2048 --batch 4096 --instance-procs 8 --instances-cache /workspace/instances-cache
+[09:44:54Z] (b1) EXIT=0  elapsed=62s
+[09:44:54Z] (b2) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation bf16-hopper gate-vu --device cuda --vus 2048 --batch 4096 --instance-procs 8 --instances-cache /workspace/instances-cache
+[09:45:56Z] (e) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 2 --verifier tcp://213.173.105.69:30899 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/bare/result.json --dump-dir /tmp/mv/bare/proofs --dump-reps 1
+[09:45:57Z] (a) EXIT=1  elapsed=125s
+[09:46:08Z] (e) EXIT=1  elapsed=12s
+[09:46:08Z] (rust_e) START: /workspace/src/backends/ligero-verify/target/release/ligero-verify batch --dir /tmp/mv/bare/proofs/rep1 --system /tmp/mv/bare/proofs/system.bin --target-bits 128
+[09:46:08Z] (rust_e) EXIT=2  elapsed=0s
+[09:46:29Z] (a2) START: pytest -q backends/direct/ligero -p no:cacheprovider (no -x)
+[09:47:38Z] (g) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 2 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/local/result.json --dump-dir /tmp/mv/local/proofs --dump-reps 1
+[09:47:47Z] (g) EXIT=1  elapsed=9s
+[09:47:47Z] (e1) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 1 --verifier tcp://213.173.105.69:30899 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/bare1/result.json --dump-dir /tmp/mv/bare1/proofs --dump-reps 1
+[09:47:59Z] (e1) EXIT=0  elapsed=12s
+[09:47:59Z] (rust_e1) START: /workspace/src/backends/ligero-verify/target/release/ligero-verify batch --dir /tmp/mv/bare1/proofs/rep1 --system /tmp/mv/bare1/proofs/system.bin --target-bits 128
+[09:47:59Z] (rust_e1) EXIT=0  elapsed=0s
+[09:48:31Z] (g_nozk) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 2 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/local_nozk/result.json --dump-dir /tmp/mv/local_nozk/proofs --dump-reps 1
+[09:48:34Z] (b2) EXIT=0  elapsed=220s
+[09:48:34Z] (c) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada gate-vu --device cuda --vus 2048 --batch 16384 --auth included-hash --instance-procs 8 --instances-cache /workspace/instances-cache
+[09:48:39Z] (g_nozk) EXIT=1  elapsed=8s
+[09:48:39Z] (rust_g_nozk) START: /workspace/src/backends/ligero-verify/target/release/ligero-verify batch --dir /tmp/mv/local_nozk/proofs/rep1 --system /tmp/mv/local_nozk/proofs/system.bin --target-bits 128
+[09:48:39Z] (rust_g_nozk) EXIT=2  elapsed=0s
+[09:49:14Z] (f) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --auth included-hash --verifier tcp://213.173.105.69:30899 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/hash/result.json --dump-dir /tmp/mv/hash/proofs --dump-reps 1
+[09:49:23Z] (c) EXIT=0  elapsed=49s
+[09:49:23Z] (d) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada-v3 gate-vu --device cuda --vus 2048 --batch 4096 --instance-procs 8 --instances-cache /workspace/instances-cache
+[09:49:29Z] (f) EXIT=1  elapsed=15s
+[09:49:29Z] (rust_f) START: /workspace/src/backends/ligero-verify/target/release/ligero-verify batch --dir /tmp/mv/hash/proofs/rep1 --system /tmp/mv/hash/proofs/system.bin --target-bits 128
+[09:49:31Z] (rust_f) EXIT=0  elapsed=2s
+[09:50:16Z] (a3-relmin-private-9a42e39) START: pytest -q backends/direct/ligero/privsel/relation_test.py -k differential -p no:cacheprovider
+[09:51:34Z] (g) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 2 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/local/result.json --dump-dir /tmp/mv/local/proofs --dump-reps 1
+[09:51:44Z] (g) EXIT=1  elapsed=10s
+[09:52:04Z] (a2) EXIT=0
+[09:52:42Z] (a3) EXIT=0
+[note] chain.py patched (link_fams host list cached; pod-local experiment)
+[09:55:16Z] (g) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 2 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/local/result.json --dump-dir /tmp/mv/local/proofs --dump-reps 1
+[09:55:26Z] (g) EXIT=0  elapsed=10s
+[09:55:26Z] (rust_g) START: /workspace/src/backends/ligero-verify/target/release/ligero-verify batch --dir /tmp/mv/local/proofs/rep1 --system /tmp/mv/local/proofs/system.bin --target-bits 128
+[09:55:26Z] (rust_g) EXIT=0  elapsed=0s
+[09:56:18Z] (e) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 2 --verifier tcp://213.173.105.69:30899 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/bare/result.json --dump-dir /tmp/mv/bare/proofs --dump-reps 1
+[09:56:31Z] (e) EXIT=0  elapsed=13s
+[09:56:31Z] (rust_e) START: /workspace/src/backends/ligero-verify/target/release/ligero-verify batch --dir /tmp/mv/bare/proofs/rep1 --system /tmp/mv/bare/proofs/system.bin --target-bits 128
+[09:56:31Z] (rust_e) EXIT=0  elapsed=0s
+[note] chain.py = lane/merge-val fix (link_fams_list in the tables)
+[09:56:56Z] (g) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --zk --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 2 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/local/result.json --dump-dir /tmp/mv/local/proofs --dump-reps 1
+[09:57:07Z] (g) EXIT=0  elapsed=11s
+[09:57:07Z] (rust_g) START: /workspace/src/backends/ligero-verify/target/release/ligero-verify batch --dir /tmp/mv/local/proofs/rep1 --system /tmp/mv/local/proofs/system.bin --target-bits 128
+[09:57:07Z] (rust_g) EXIT=0  elapsed=0s
+[09:57:07Z] (g_nozk) START: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada bench-vu --mode interactive --batch 16384 --total-vus 1024 --reps 1 --target -128 --device cuda --pipeline 2 --instance-procs 8 --instances-cache /workspace/instances-cache --out /tmp/mv/local_nozk/result.json --dump-dir /tmp/mv/local_nozk/proofs --dump-reps 1
+[09:57:18Z] (g_nozk) EXIT=0  elapsed=11s
+[09:57:18Z] (rust_g_nozk) START: /workspace/src/backends/ligero-verify/target/release/ligero-verify batch --dir /tmp/mv/local_nozk/proofs/rep1 --system /tmp/mv/local_nozk/proofs/system.bin --target-bits 128
+[09:57:18Z] (rust_g_nozk) EXIT=0  elapsed=0s
+(a4-chain-fix) EXIT=0 
+[10:01:13Z] (d) EXIT=1  elapsed=710s

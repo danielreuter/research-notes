@@ -1,0 +1,13 @@
+[10:19:42Z] amp-hash-nonzk-int-l16k -> r20260923-101935-ab9f
+[10:20:27Z] amp-hash-nonzk-int-l16k r20260923-101935-ab9f state=done
+ "validation": "passed"
+}
+[10:20:36Z] amp-hash-fs-zk-l16k -> r20260923-102029-f7a8
+[10:21:22Z] amp-hash-fs-zk-l16k r20260923-102029-f7a8 state=done
+ "validation": "passed"
+}
+[10:21:32Z] bare-vu-int-zk-l8k -> r20260923-102124-5062
+[10:21:55Z] bare-vu-int-zk-l8k r20260923-102124-5062 state=done
+ }
+}
+DRIVER2_DONE

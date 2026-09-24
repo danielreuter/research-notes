@@ -1,0 +1,25 @@
+=== 19:27:14 tree=/workspace/src sha=a0ff818+t2test(wip) cmd: /workspace/venv312/bin/python -m pytest -q -p no:cacheprovider backends/direct/ligero --deselect backends/direct/ligero/v2
+
+==================================== ERRORS ====================================
+_______ ERROR collecting backends/direct/ligero/._pipeline_race_test.py ________
+ImportError while importing test module '/workspace/src/backends/direct/ligero/._pipeline_race_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'ligero.'
+______ ERROR collecting backends/direct/ligero/pubsel/._relation_test.py _______
+ImportError while importing test module '/workspace/src/backends/direct/ligero/pubsel/._relation_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ModuleNotFoundError: No module named 'ligero.pubsel.'
+=========================== short test summary info ============================
+ERROR backends/direct/ligero/._pipeline_race_test.py
+ERROR backends/direct/ligero/pubsel/._relation_test.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+2 deselected, 2 errors in 2.54s
+=== 19:27:17 rc=2 wall=3s

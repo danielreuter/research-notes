@@ -1,0 +1,56 @@
+
+=== [04:05:58] machine
+NVIDIA GeForce RTX 4090, GPU-7674e46e-3ac9-4d40-8bf1-080147dafe49, 24564 MiB, 595.91.07
+128
+               total        used        free      shared  buff/cache   available
+Mem:             503          39          50           0         413         459
+overlay          80G  110M   80G   1% /
+model name	: AMD EPYC 75F3 32-Core Processor
+22.78 22.34 24.19 23/8891 416
+source tree: /workspace/research/src/ef17cc54fbbf79e5e9db5cf9622bc006f10bf1c2
+
+=== [04:05:58] rustup stable + ligero-verify (background)
+
+=== [04:05:58] uv + python 3.12 + venv312
+uv 0.12.18 (x86_64-unknown-linux-gnu)
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+Activate with: source /workspace/venv312/bin/activate
+Python 3.12.14
+
+=== [04:06:00] torch 2.6.0+cu124, numpy, cupy-cuda12x, blake3, pytest
+ + triton==3.2.0
+ + typing-extensions==4.16.0
+ + pygments==2.21.0
+ + pytest==9.1.1
+torch 2.6.0+cu124 triton 3.2.0 numpy 2.5.3 cupy 14.2.0
+cuda True NVIDIA GeForce RTX 4090 12.4
+matmul ok True
+cupy ok True
+
+=== [04:06:15] bench instances -> /workspace/bench-instances/v1
+tu recheck: {'instances': 64, 'mismatches': [], 'full': False}
+negatives: 52 instances, 0 problems
+OK
+
+=== [04:06:53] rust build (join)
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 2 warnings (run `cargo fix --bin "ligero-verify" -p verity-ligero-verify` to apply 1 suggestion)
+    Finished `release` profile [optimized + debuginfo] target(s) in 6.82s
+total 4156
+drwxr-xr-x 2 root root      35 Sep 23 04:06 .
+drwxr-xr-x 1 root root     142 Sep 23 04:06 ..
+-rwxr-xr-x 1 root root 4253208 Sep 23 04:06 ligero-verify
+RUST_OK
+d4f5024dfba8528825bc1dfccc6de55a284daa78cd978c05f088e1f5df9d83d1  /workspace/bin/ligero-verify
+
+=== [04:06:53] versions
+blake3                   1.0.9
+numpy                    2.5.3
+pytest                   9.1.1
+torch                    2.6.0+cu124
+triton                   3.2.0
+overlay          80G   12G   69G  15% /
+
+=== [04:06:53] done
+BOOTSTRAP_OK

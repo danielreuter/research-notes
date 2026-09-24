@@ -1,0 +1,6 @@
+== r20260923-101935-ab9f
+25 proofs: 25 accepted, 0 rejected (25 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; union bound 2^-128.25 <= 2^-128); batch bits 128.251334 at target 128; system pinned (bf16-ampere+hash); python agreement 25/25 (0 disagree); verify sum 34.963s, wall 2.882s at 13 jobs x 1 threads
+== r20260923-102029-f7a8
+25 proofs: 25 accepted, 0 rejected (0 against their own coins); batch ACCEPT (accept: all 25 sub-batches accepted; union bound 2^-128.04 <= 2^-128); batch bits 128.044929 at target 128; system pinned (bf16-ampere+hash); python agreement 25/25 (0 disagree); verify sum 42.471s, wall 3.513s at 13 jobs x 1 threads
+== r20260923-102124-5062
+49 proofs: 49 accepted, 0 rejected (49 against their own coins); batch ACCEPT (accept: all 49 sub-batches accepted; union bound 2^-128.20 <= 2^-128); batch bits 128.201915 at target 128; system pinned (bf16-ampere); python agreement 49/49 (0 disagree); verify sum 8.669s, wall 0.752s at 13 jobs x 1 threads

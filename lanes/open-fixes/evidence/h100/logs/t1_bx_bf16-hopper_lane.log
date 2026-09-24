@@ -1,0 +1,31 @@
+tree=/workspace/src impl=device rel=bf16-hopper zk=True mode=interactive vus/sub=170 subs=25 seed=7
+  shake overlapped (libcrypto): True
+  warm-up done; urandom counter reset to 1
+  pipeline stats: {'n': 25, 'depth': 4, 'wall': 0.6333, 'host_busy': 0.5305, 'host_waited': 0.1016, 'net_idle': 0.0, 'stage_busy_ms': {-1: 1.24, 0: 30.99, 1: 2.11, 2: 380.21, 3: 49.68, 4: 65.69, 5: 1.78}}
+  pipelined pass: 25 sub-batches in 0.633s wall = 25.3 ms/sub-batch; measured phases {'measured_statement': 0.0023, 'measured_hints_host': 0.0526, 'measured_witness': 0.0043, 'measured_zk_masks': 0.0006, 'measured_encode': 0.1379, 'measured_transfer': 0.0001, 'measured_merkle': 0.0001, 'measured_tests_w': 1.0412, 'measured_tests_quad': 0.0001, 'measured_tests_chain': 0.0001, 'measured_openings': 0.0824, 'measured_total': 1.3589}
+  sub_00: 4.72 MB, prove 0.025s (+hints 0.001s), urandom calls so far 126
+  sub_01: 4.72 MB, prove 0.024s (+hints 0.002s), urandom calls so far 126
+  sub_02: 4.72 MB, prove 0.025s (+hints 0.000s), urandom calls so far 126
+  sub_03: 4.72 MB, prove 0.025s (+hints 0.000s), urandom calls so far 126
+  sub_04: 4.72 MB, prove 0.025s (+hints 0.000s), urandom calls so far 126
+  sub_05: 4.72 MB, prove 0.024s (+hints 0.001s), urandom calls so far 126
+  sub_06: 4.72 MB, prove 0.025s (+hints 0.001s), urandom calls so far 126
+  sub_07: 4.72 MB, prove 0.024s (+hints 0.002s), urandom calls so far 126
+  sub_08: 4.72 MB, prove 0.021s (+hints 0.004s), urandom calls so far 126
+  sub_09: 4.72 MB, prove 0.023s (+hints 0.002s), urandom calls so far 126
+  sub_10: 4.72 MB, prove 0.025s (+hints 0.001s), urandom calls so far 126
+  sub_11: 4.72 MB, prove 0.025s (+hints 0.001s), urandom calls so far 126
+  sub_12: 4.72 MB, prove 0.024s (+hints 0.001s), urandom calls so far 126
+  sub_13: 4.72 MB, prove 0.023s (+hints 0.003s), urandom calls so far 126
+  sub_14: 4.72 MB, prove 0.024s (+hints 0.001s), urandom calls so far 126
+  sub_15: 4.72 MB, prove 0.022s (+hints 0.003s), urandom calls so far 126
+  sub_16: 4.72 MB, prove 0.024s (+hints 0.001s), urandom calls so far 126
+  sub_17: 4.72 MB, prove 0.025s (+hints 0.001s), urandom calls so far 126
+  sub_18: 4.72 MB, prove 0.024s (+hints 0.002s), urandom calls so far 126
+  sub_19: 4.72 MB, prove 0.024s (+hints 0.002s), urandom calls so far 126
+  sub_20: 4.72 MB, prove 0.024s (+hints 0.001s), urandom calls so far 126
+  sub_21: 4.72 MB, prove 0.023s (+hints 0.002s), urandom calls so far 126
+  sub_22: 4.72 MB, prove 0.021s (+hints 0.004s), urandom calls so far 126
+  sub_23: 4.72 MB, prove 0.021s (+hints 0.005s), urandom calls so far 126
+  sub_24: 4.72 MB, prove 0.025s (+hints 0.000s), urandom calls so far 126
+wrote /workspace/t1/bx_bf16-hopper_lane 76 files

@@ -1,0 +1,105 @@
+=== 21:37:43 tree=/workspace/src sha=ff52e47 cmd: /workspace/venv312/bin/python -m backends.direct.ligero.run --relation fp8-ada-v3x4 gate-vu --vus 2048 --batch 16384 --device cuda --instances-cache /workspace/instances-cache --zk --out /workspace/results/gatezk_v3x4.json
+fp8-ada-v3x4 chain system: {'rows': 7090, 'by_kind': {'hint': 5949, 'bit': 583, 'inv': 275, 'prod': 77, 'pin': 86, 'sel': 120}, 'linear': 510, 'quadratic': 10036, 'pins': 86, 'hints': 5949} compiled in 3.20s; device cuda
+fp8-ada-v3x4 vu-k1536 [0, 1365): l=16384 prover 4.32s -> True accept (0.094s)
+fp8-ada-v3x4 vu-k1536 [1365, 2048): l=16384 prover 0.13s -> True accept (0.060s)
+  negative claimed word bit 0 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 1 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 2 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 3 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 4 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 5 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 6 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 7 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 8 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 9 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 10 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 11 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 12 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 13 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 14 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 15 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 16 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 17 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 18 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 19 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 20 flipped: REJECTED column challenge mismatch
+  negative claimed word bit 21 flipped: REJECTED column challenge mismatch
+  negative claimed word +1 ulp: REJECTED column challenge mismatch
+  negative claimed word -1 ulp: REJECTED column challenge mismatch
+  negative off-domain operand 0x7f in a: REJECTED public inputs: public inputs rejected: a: E4M3 NaN operand
+  negative off-domain operand 0xff in a: REJECTED public inputs: public inputs rejected: a: E4M3 NaN operand
+  negative off-domain operand 0xff in b: REJECTED public inputs: public inputs rejected: b: E4M3 NaN operand
+  negative operand a[10][1] exponent bit flipped: REJECTED column challenge mismatch
+  negative folded boundary VU (honest control: must ACCEPT): REJECTED honest boundary VU accepted
+  negative folded boundary: proved the 1-step intermediate of the last column as the final word: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: proved the 2-step intermediate of the last column as the final word: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: proved the 3-step intermediate of the last column as the final word: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: a words 1439 and 1440 swapped across base step 1 of the last column, original claim: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: b words 1439 and 1440 swapped across base step 1 of the last column, original claim: REJECTED chain constraints failed (sum over H)
+  negative folded boundary: a words 1407 and 1408 swapped across columns 10|11, original claim: REJECTED chain constraints failed (sum over H)
+  negative link c.f[20] != y.f[19]: REJECTED linear constraints failed (public values)
+  negative c_0 != 0 at a chain start: REJECTED linear constraints failed (public values)
+  negative accumulator fraction bit 12 flipped in a linked unit: REJECTED linear constraints failed (public values)
+  negative accumulator fraction bit 0 flipped in a linked unit: REJECTED linear constraints failed (public values)
+  negative row acc.s (hint) +1 in column 3: REJECTED quadratic constraints failed
+  negative row acc.t (hint) +1 in column 19: REJECTED linear constraints failed (public values)
+  negative row acc.f (hint) +2 in column 14: REJECTED linear constraints failed (public values)
+  negative row acc.nz (hint) +1 in column 17: REJECTED linear constraints failed (public values)
+  negative row acc.z (hint) +1 in column 11: REJECTED quadratic constraints failed
+  negative row acc.t.b0 (bit) +2 in column 9: REJECTED linear constraints failed (public values)
+  negative row acc.t.finite.inv (inv) +1 in column 13: REJECTED quadratic constraints failed
+  negative row acc.nz1.inv (inv) +1 in column 13: REJECTED quadratic constraints failed
+  negative row acc.f.b0 (bit) +2 in column 18: REJECTED linear constraints failed (public values)
+  negative row acc.z1.inv (inv) +2 in column 23: REJECTED quadratic constraints failed
+  negative row acc.prod0 (prod) +1 in column 20: REJECTED linear constraints failed (public values)
+  negative row a_words[0].s (hint) +2 in column 3: REJECTED linear constraints failed (public values)
+  negative row a_words[0].nz (hint) +2 in column 10: REJECTED linear constraints failed (public values)
+  negative row a_words[0].x[0] (hint) +1 in column 23: REJECTED linear constraints failed (public values)
+  negative row a_words[0].x[1] (hint) +1 in column 20: REJECTED linear constraints failed (public values)
+  negative row a_words[0].x[2] (hint) +2 in column 8: REJECTED linear constraints failed (public values)
+  negative row a_words[0].x[3] (hint) +2 in column 5: REJECTED linear constraints failed (public values)
+  negative row a_words[0].f[0] (hint) +2 in column 11: REJECTED linear constraints failed (public values)
+  negative row a_words[0].f[1] (hint) +2 in column 22: REJECTED linear constraints failed (public values)
+  negative row a_words[0].f[2] (hint) +2 in column 20: REJECTED linear constraints failed (public values)
+  negative row a_words[0].top.inv (inv) +2 in column 23: REJECTED quadratic constraints failed
+  negative row b_words[0].s (hint) +1 in column 3: REJECTED linear constraints failed (public values)
+  negative row b_words[0].nz (hint) +2 in column 7: REJECTED linear constraints failed (public values)
+  negative row b_words[0].x[0] (hint) +1 in column 19: REJECTED linear constraints failed (public values)
+  negative row b_words[0].x[1] (hint) +1 in column 23: REJECTED linear constraints failed (public values)
+  negative row b_words[0].x[2] (hint) +2 in column 22: REJECTED linear constraints failed (public values)
+  negative row b_words[0].x[3] (hint) +1 in column 17: REJECTED linear constraints failed (public values)
+  negative row b_words[0].f[0] (hint) +2 in column 14: REJECTED linear constraints failed (public values)
+  negative row b_words[0].f[1] (hint) +2 in column 21: REJECTED linear constraints failed (public values)
+  negative row b_words[0].f[2] (hint) +1 in column 23: REJECTED linear constraints failed (public values)
+  negative row b_words[0].top.inv (inv) +1 in column 18: REJECTED quadratic constraints failed
+  negative row a_words[1].s (hint) +1 in column 16: REJECTED linear constraints failed (public values)
+  negative row a_words[1].nz (hint) +1 in column 0: REJECTED linear constraints failed (public values)
+  negative row a_words[1].x[0] (hint) +2 in column 23: REJECTED linear constraints failed (public values)
+  negative row a_words[1].x[1] (hint) +1 in column 7: REJECTED linear constraints failed (public values)
+  negative row a_words[1].x[2] (hint) +1 in column 5: REJECTED linear constraints failed (public values)
+  negative row a_words[1].x[3] (hint) +2 in column 20: REJECTED linear constraints failed (public values)
+  negative row a_words[1].f[0] (hint) +1 in column 1: REJECTED linear constraints failed (public values)
+  negative row a_words[1].f[1] (hint) +2 in column 13: REJECTED linear constraints failed (public values)
+  negative row a_words[1].f[2] (hint) +1 in column 23: REJECTED linear constraints failed (public values)
+  negative row a_words[1].top.inv (inv) +1 in column 14: REJECTED quadratic constraints failed
+  negative row b_words[1].s (hint) +1 in column 4: REJECTED linear constraints failed (public values)
+  negative row b_words[1].nz (hint) +1 in column 10: REJECTED linear constraints failed (public values)
+  negative row b_words[1].x[0] (hint) +1 in column 17: REJECTED linear constraints failed (public values)
+  negative row b_words[1].x[1] (hint) +2 in column 8: REJECTED linear constraints failed (public values)
+  negative row b_words[1].x[2] (hint) +2 in column 15: REJECTED linear constraints failed (public values)
+  negative row b_words[1].x[3] (hint) +1 in column 17: REJECTED linear constraints failed (public values)
+  negative row b_words[1].f[0] (hint) +1 in column 21: REJECTED linear constraints failed (public values)
+  negative row b_words[1].f[1] (hint) +1 in column 7: REJECTED linear constraints failed (public values)
+  negative row b_words[1].f[2] (hint) +2 in column 0: REJECTED linear constraints failed (public values)
+  negative row b_words[1].top.inv (inv) +1 in column 2: REJECTED quadratic constraints failed
+  negative row a_words[2].s (hint) +2 in column 19: REJECTED linear constraints failed (public values)
+  negative row a_words[2].nz (hint) +1 in column 20: REJECTED linear constraints failed (public values)
+  negative row a_words[2].x[0] (hint) +1 in column 11: REJECTED linear constraints failed (public values)
+  negative row a_words[2].x[1] (hint) +2 in column 4: REJECTED linear constraints failed (public values)
+  negative row a_words[2].x[2] (hint) +2 in column 1: REJECTED linear constraints failed (public values)
+  negative row a_words[2].x[3] (hint) +1 in column 0: REJECTED linear constraints failed (public values)
+  negative row a_words[2].f[0] (hint) +1 in column 22: REJECTED linear constraints failed (public values)
+  negative row a_words[2].f[1] (hint) +1 in column 7: REJECTED linear constraints failed (public values)
+  negative row a_words[2].f[2] (hint) +1 in column 18: REJECTED linear constraints failed (public values)
+fp8-ada-v3x4 gate: 2 honest sub-batches, 99 negatives, 0 failures
+=== 21:58:55 rc=0 wall=1272s

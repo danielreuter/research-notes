@@ -1,0 +1,50 @@
+=== 20:05:07 tree=/workspace/src-base sha=21a8716 minus ecec3ef (= final head) cmd: /workspace/venv312/bin/python -m pytest -q -rfE -p no:cacheprovider --durations=12 backends/direct/ligero --deselect backends/direct/ligero/v2 --deselect backends/direct/ligero/fold_test.py::test_folded_unit_is_exactly_four_chained_base_steps --deselect backends/direct/ligero/fold_test.py::test_folded_chain_is_the_base_claim_cpu
+.........................................F..s........................... [ 29%]
+................................ss...................................... [ 58%]
+........................................................................ [ 87%]
+...............................                                          [100%]
+=================================== FAILURES ===================================
+__________ test_folded_fixture_is_the_compiled_system[bf16-ampere-x4] __________
+
+rel = Relation(name='bf16-ampere-x4', target=Target(name='first-campaign-target/2026-09-21', family='veritor.tc-ampere-bf16@...x72cfa4b859e0>, rust_verifiable=True, instances_recipe=None, frozen_tier='vu-k1536', fold=4, folded_from='bf16-ampere')
+
+    @pytest.mark.parametrize("rel", FOLDED, ids=lambda r: r.name)
+    def test_folded_fixture_is_the_compiled_system(rel):
+        base = _base(rel)
+        sys4 = rel.compile(rel.params, True)
+        assert system_bytes(sys4) == (FIX / f"systems/{rel.name}.system.bin").read_bytes(), f"{rel.name}: fixture != compile"
+        assert system_bytes(rel.compile(rel.params, True)) == system_bytes(sys4), "compile is deterministic"
+        c4, c1 = census(sys4), census(base.compile(base.params, True))
+        assert rel.k == 4 * base.k and rel.steps * 4 == base.steps and rel.fold == 4 and base.fold == 1
+        # rows per unit: sub-linear in the fold for the Hopper / Ada units (the accumulator decode is shared), but the Ampere v1
+        # unit's rows are almost all per-group bit rows, and its fold costs 3.6 % MORE rows per unit than four units (14576 vs
+        # 4 x 3516 at x4) -- there the fold's only saving is the 4x fewer sub-batches
+        ratio = c4["rows_per_unit"] / c1["rows_per_unit"]
+>       assert ratio < (4.1 if rel.name == "bf16-ampere-x4" else 4.0), (c4["rows_per_unit"], c1["rows_per_unit"])
+E       AssertionError: (14576, 3516)
+E       assert 4.145620022753128 < 4.1
+
+backends/direct/ligero/fold_test.py:73: AssertionError
+=============================== warnings summary ===============================
+backends/direct/ligero/pipeline_race_test.py: 28 warnings
+  /root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=12800) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================= slowest 12 durations =============================
+125.63s call     backends/direct/ligero/leaf/conformance_test.py::test_committed_operand_negatives_rejected[poseidon2]
+72.84s call     backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[bf16-ampere-v3]
+67.21s call     backends/direct/ligero/leaf/conformance_test.py::test_committed_operand_negatives_rejected[dummy]
+64.86s call     backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[bf16-hopper-v3]
+60.66s call     backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[fp8-ada-v3]
+55.36s call     backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[fp8-hopper-v3]
+47.47s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-ampere-v2]
+40.18s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[bf16-hopper-v2]
+38.83s call     backends/direct/ligero/witness_device_test.py::test_fused_witness_equals_torch_program[fp8-hopper]
+36.90s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-ada-v2]
+31.78s call     backends/direct/ligero/pubsel/relation_test.py::test_differential_v1_v2[fp8-hopper-v2]
+28.91s call     backends/direct/ligero/hashchain_test.py::test_negatives_rejected
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/fold_test.py::test_folded_fixture_is_the_compiled_system[bf16-ampere-x4]
+1 failed, 243 passed, 3 skipped, 18 deselected, 28 warnings in 1271.26s (0:21:11)
+=== 20:26:30 rc=1 wall=1283s

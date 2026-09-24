@@ -1,0 +1,18 @@
+=== fp8-ada hashed 512
+fp8-ada hashed chain system: {'rows': 6210, 'by_kind': {'hint': 881, 'bit': 2474, 'prod': 2069, 'inv': 129, 'sel': 640, 'pin': 17}, 'linear': 606, 'quadratic': 6020, 'pins': 17, 'hints': 881} compiled in 1.98s; census {'rows_base': 3769, 'rows_private_operands': 704, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 6210, 'rows_added': 2441, 'linear_added': 17, 'quadratic_added': 2488, 'hints_added': 720, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 8, 'k': 32}; device cuda
+fp8-ada hashed vu-k1536 [0, 341): l=16384 prover 5.65s (+hints 0.28s) multiproofs 480 B -> True 
+fp8-ada hashed vu-k1536 [341, 512): l=16384 prover 0.15s (+hints 0.01s) multiproofs 480 B -> True 
+fp8-ada hashed gate: 2 honest sub-batches, 86 negatives, 0 failures
+=== fp8-ada tile
+fp8-ada hashed chain system: {'rows': 6210, 'by_kind': {'hint': 881, 'bit': 2474, 'prod': 2069, 'inv': 129, 'sel': 640, 'pin': 17}, 'linear': 606, 'quadratic': 6020, 'pins': 17, 'hints': 881} compiled in 1.59s; census {'rows_base': 3769, 'rows_private_operands': 704, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 6210, 'rows_added': 2441, 'linear_added': 17, 'quadratic_added': 2488, 'hints_added': 720, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 8, 'k': 32}; device cuda
+fp8-ada hashed vu-k1536 [0, 341): l=16384 prover 6.04s (+hints 0.26s) multiproofs 288 B -> True 
+fp8-ada hashed vu-k1536 [341, 512): l=16384 prover 0.14s (+hints 0.01s) multiproofs 320 B -> True 
+fp8-ada hashed gate: 2 honest sub-batches, 86 negatives, 0 failures
+=== fp8-hopper hashed 512
+fp8-hopper hashed vu-k1536 [0, 341): l=16384 prover 5.67s (+hints 0.24s) multiproofs 480 B -> True 
+fp8-hopper hashed vu-k1536 [341, 512): l=16384 prover 0.15s (+hints 0.02s) multiproofs 480 B -> True 
+fp8-hopper hashed gate: 2 honest sub-batches, 86 negatives, 0 failures
+=== fp8-ada zk int
+fp8-ada hashed chain system: {'rows': 6210, 'by_kind': {'hint': 881, 'bit': 2474, 'prod': 2069, 'inv': 129, 'sel': 640, 'pin': 17}, 'linear': 606, 'quadratic': 6020, 'pins': 17, 'hints': 881} compiled in 1.88s; census {'rows_base': 3769, 'rows_private_operands': 704, 'rows_hash': 1720, 'rows_digest_pins': 17, 'rows_total': 6210, 'rows_added': 2441, 'linear_added': 17, 'quadratic_added': 2488, 'hints_added': 720, 'permutations_per_unit': 2, 'sbox_rows_per_permutation': 852, 'linked_rows': 19, 'word_bits': 8, 'k': 32}; device cuda
+fp8-ada hashed vu-k1536 [0, 64): l=4096 prover 5.81s (+hints 0.26s) multiproofs 0 B -> True 
+fp8-ada hashed gate: 1 honest sub-batches, 86 negatives, 0 failures

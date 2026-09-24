@@ -1,0 +1,90 @@
+system m=3292 pins=96 hints=97 L=339 Q=3164 program ops=552 {'hint': 97, 'bits': 174, 'prod': 166, 'pin': 96, 'sels': 19}
+config Config(l=16384, n=65536, D=6, t=197, target_log2=-128.0, zk=True, t_pad=256, mode='interactive') layout Layout(l=16384, n_vus=170, steps=96)
+warm-up verify: True accept (0.034s) {'statement': 0.0146, 'witness': 0.0317, 'self_check': 2.3922, 'zk_masks': 0.0235, 'encode': 0.8267, 'transfer': 0.0001, 'merkle': 0.0032, 'tests_w': 0.0135, 'tests_quad': 0.0647, 'tests_chain': 0.0217, 'tests': 0.0998, 'openings': 0.0239, 'total': 3.4157, 'hints_host': 11.3645}
+un-profiled sub-batch: {'statement': 0.0014, 'witness': 0.0011, 'zk_masks': 0.0007, 'encode': 0.0045, 'transfer': 0.0001, 'merkle': 0.0019, 'tests_w': 0.0083, 'tests_quad': 0.0022, 'tests_chain': 0.0029, 'tests': 0.0135, 'openings': 0.0031, 'total': 0.0262, 'hints_host': 0.0023}
+profiled sub-batch: {'statement': 0.0015, 'witness': 0.0014, 'zk_masks': 0.001, 'encode': 0.0045, 'transfer': 0.0001, 'merkle': 0.002, 'tests_w': 0.0105, 'tests_quad': 0.004, 'tests_chain': 0.006, 'tests': 0.0204, 'openings': 0.0036, 'total': 0.0346, 'hints_host': 0.0055} prove_vus wall 0.0701
+trace /workspace/research/runs/r20260923-030652-a174/prof/trace_subbatch.json 12 MB
+
+phase                         wall ms GPU kern ms  kernels launches graphs syncs  sync ms memcpy  D2H MB torch ops         verdict
+statement                        1.57        0.00        0        0      0     1     0.01      0    0.00         6CPU-compute/Python
+witness                          1.32        0.75        4        3      0     1     0.68      0    0.00       104      sync-bound
+zk_masks                         1.00        0.09       22       21      0    11     0.07      0    0.00       118CPU-compute/Python
+encode                           4.48        4.32       36       19      0     5     0.64      0    0.00       235       GPU-bound
+transfer                         0.07        0.00        0        0      0     1     0.00      0    0.00         1CPU-compute/Python
+merkle                           2.01        1.75       21        0      0     3     1.32      0    0.00         0       GPU-bound
+tests_w                         10.45        0.74       50       47      0     5     0.59      0    0.80       283CPU-compute/Python
+tests_quad                       3.99        1.92       44       26      0     1     0.01      0    0.00       219CPU-compute/Python
+tests_chain                      5.94        0.55      157      140      0     7     0.24      0    1.59       731CPU-compute/Python
+openings                         3.56        0.10       51        2      0    13     0.55      0    4.33        47CPU-compute/Python
+_tail                            0.07        0.00        0        0      0     0     0.00      0    0.00         0CPU-compute/Python
+hints+marshal(pre-prove)        33.65        0.64      379       34      1    21     1.47      0    0.00      1175CPU-compute/Python
+
+unattributed: {}
+
+[witness] top kernels (name: us):
+          712  witness_program
+           30  void at::native::(anonymous namespace)::CatArrayBatchedCopy<
+            8  void at::native::vectorized_elementwise_kernel<4, at::native
+
+[zk_masks] top kernels (name: us):
+           28  void at::native::vectorized_elementwise_kernel<4, at::native
+           21  chacha20_blocks
+            9  void at::native::index_elementwise_kernel<128, 4, at::native
+            9  void at_cuda_detail::cub::DeviceSelectSweepKernel<at_cuda_de
+            8  void at::native::elementwise_kernel<128, 2, at::native::gpu_
+            6  void at::native::unrolled_elementwise_kernel<at::native::dir
+
+[encode] top kernels (name: us):
+         3345  rs_encode_ligero
+          332  triton_poi_fused_cat_0
+          316  void at::native::vectorized_elementwise_kernel<4, at::native
+          241  void at::native::elementwise_kernel<128, 4, at::native::gpu_
+           43  void at::native::elementwise_kernel<128, 2, at::native::gpu_
+           24  void at::native::(anonymous namespace)::indexSelectLargeInde
+
+[merkle] top kernels (name: us):
+         1637  blake3_chunks
+          111  blake3_parents
+
+[tests_w] top kernels (name: us):
+          552  lincomb_u64_D6
+           51  void at::native::vectorized_elementwise_kernel<4, at::native
+           50  void at::native::unrolled_elementwise_kernel<at::native::dir
+           30  void at::native::(anonymous namespace)::CatArrayBatchedCopy<
+           26  void at::native::reduce_kernel<128, 4, at::native::ReduceOp<
+           16  void at::native::elementwise_kernel<128, 2, at::native::gpu_
+
+[tests_quad] top kernels (name: us):
+         1300  boolcomb_rows_u32_D6
+          422  quad_u32_D6
+           72  triton_poi_fused_cat_0
+           41  void at::native::vectorized_elementwise_kernel<4, at::native
+           30  void at::native::unrolled_elementwise_kernel<at::native::dir
+           22  void at::native::reduce_kernel<128, 4, at::native::ReduceOp<
+
+[tests_chain] top kernels (name: us):
+          159  void at::native::vectorized_elementwise_kernel<4, at::native
+          100  rs_encode_ligero
+           97  void at::native::elementwise_kernel<128, 2, at::native::gpu_
+           72  triton_poi_fused_cat_0
+           34  void at::native::elementwise_kernel<128, 4, at::native::gpu_
+           29  void at::native::unrolled_elementwise_kernel<at::native::dir
+
+[openings] top kernels (name: us):
+           30  cupy_take
+           28  void at::native::(anonymous namespace)::indexSelectLargeInde
+           18  cupy_bitwise_xor__int64_int_int64
+           18  cupy_right_shift__int64_int_int64
+            3  void at::native::elementwise_kernel<128, 2, at::native::gpu_
+            2  cupy_concatenate_same_size
+
+[hints+marshal(pre-prove)] top kernels (name: us):
+          383  void at::native::vectorized_elementwise_kernel<4, at::native
+          154  void at::native::unrolled_elementwise_kernel<at::native::dir
+           38  void at::native::reduce_kernel<512, 1, at::native::ReduceOp<
+           29  void at::native::(anonymous namespace)::CatArrayBatchedCopy<
+           13  void at::native::(anonymous namespace)::indexSelectSmallInde
+            9  void at::native::(anonymous namespace)::CatArrayBatchedCopy_
+
+full pass (one rep, 25 sub-batches): {'statement': 0.039, 'witness': 0.029, 'zk_masks': 0.019, 'encode': 0.112, 'transfer': 0.002, 'merkle': 0.049, 'tests_w': 0.21, 'tests_quad': 0.056, 'tests_chain': 0.098, 'tests': 0.364, 'openings': 0.079, 'total': 0.693, 'hints_host': 0.073, '_pass_wall': 3.677}
+wrote /workspace/research/runs/r20260923-030652-a174/prof/attribution.json

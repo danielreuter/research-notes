@@ -1,0 +1,4 @@
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/privsel/relation_test.py::test_differential_v1_v3[bf16-hopper-v3]
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 81 passed, 1 skipped in 95.23s (0:01:35)

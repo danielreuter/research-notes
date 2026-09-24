@@ -1,0 +1,22 @@
+--- 07:37:51 h1-lane-bf16h-zk-p3 /Users/danielreuter/projects/verity-main-wt/hp2-ship bf16-hopper --zk --mode interactive --pipeline 3
+07:44:39 h1-lane-bf16h-zk-p3 r20260923-073751-ea7d state=done 0 wall=35s
+RUN=r20260923-073751-ea7d
+--- 07:44:39 h1-lane-fp8h-zk-p3 /Users/danielreuter/projects/verity-main-wt/hp2-ship fp8-hopper --zk --mode interactive --pipeline 3
+07:45:13 h1-lane-fp8h-zk-p3 r20260923-074439-05b0 state=done 0 wall=23s
+RUN=r20260923-074439-05b0
+--- 07:45:13 h1-lane-bf16h-nozk-p3 /Users/danielreuter/projects/verity-main-wt/hp2-ship bf16-hopper --mode interactive --pipeline 3
+07:46:01 h1-lane-bf16h-nozk-p3 r20260923-074513-9cc3 state=done 0 wall=35s
+RUN=r20260923-074513-9cc3
+--- 07:46:01 h1-lane-fp8h-nozk-p3 /Users/danielreuter/projects/verity-main-wt/hp2-ship fp8-hopper --mode interactive --pipeline 3
+07:46:35 h1-lane-fp8h-nozk-p3 r20260923-074601-7cbd state=done 0 wall=23s
+RUN=r20260923-074601-7cbd
+--- 07:46:35 h1-lane-bf16h-zk-seq /Users/danielreuter/projects/verity-main-wt/hp2-ship bf16-hopper --zk --mode interactive --pipeline 0
+07:47:20 h1-lane-bf16h-zk-seq r20260923-074635-4c55 state=done 0 wall=35s
+RUN=r20260923-074635-4c55
+--- 07:47:20 h1-lane-fp8h-zk-seq /Users/danielreuter/projects/verity-main-wt/hp2-ship fp8-hopper --zk --mode interactive --pipeline 0
+07:47:54 h1-lane-fp8h-zk-seq r20260923-074721-d600 state=done 0 wall=22s
+RUN=r20260923-074721-d600
+--- 07:47:54 h1-lane-bf16h-zk-p2 /Users/danielreuter/projects/verity-main-wt/hp2-ship bf16-hopper --zk --mode interactive --pipeline 2
+07:48:39 h1-lane-bf16h-zk-p2 r20260923-074754-65e8 state=done 0 wall=34s
+RUN=r20260923-074754-65e8
+DRIVE2_DONE 07:48:39

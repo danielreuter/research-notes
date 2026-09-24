@@ -54,6 +54,12 @@ By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pur
   * test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way: 15 s timeout; fails alone on STAGING too
 - a2e16920 pushed (TP-08d tests deleted)
 
+- 06:35Z rp57 rerun: PASS "decision retire-v1 (accepted)". fB2 exit 0 (bookkeeping-only diffs). fB3/fB4 exit 1:
+  replay_partition r68 + r67 (olmoe b32) MOVED: MoeSum_v1 strata keys moe/L<k> -> model.layers.<k>.mlp.experts
+  (2016 / 2416 keys), every count equal. Probes rpv2_r68 / rpv2_r67 launched 06:37/06:39Z. retire-v1 decisions for
+  r67 + r68 written in fixtures.toml (uncommitted). Next: rerun `replay_partition and (r67 or r68)` with decisions, then
+  one `rebaseline write` over hrec/rp57 + the r67/r68 records.
+
 CHECKPOINT rv-suite MET 06:34Z tip-vs-staging suite read out (0 regressions after a2e16920; 3 flaky named); harness T0+T1 running since 05:52/06:01Z
 CHECKPOINT rv-tests MET 05:56Z converted test files @6813fe06 on cpu3: 212 pass / 173 skip / 2 F (both staging-known), 0 regressions per test vs staging junit
 

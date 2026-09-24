@@ -31,3 +31,10 @@ r20260924-071929-6745, PRESERVED; source lane/agkr-table @ bab91f23, the LogUp s
 `art:8db49ca05e52e5a42367e367e500991ae635e414ce6085ba73971eccb2bfe59e`. t.total median 1.424 s (reps 1.428 / 1.421 /
 1.424). `proofs/rep{0,1,2}.bin` sha256 `f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c` (unchanged);
 same command with `DIR` = `research data fetch art:8db49ca0 --to DIR`, same expected output.
+
+**Appended 07:55Z** -- bench-result/v1 `art:300a526a9ed8ac4f4677176b3ad48ce181d10ef8058b98eb9c018776aa018405` (attempt
+r20260924-073947-78c1, PRESERVED; source lane/agkr-table @ 6d56b860, LogUp kernel micro-optimisations); run-files
+`art:e201b726a21d4fa55c1466becfbc73ac2a6a96cc19548132fdc1b3663545f016`. t.total median 1.351 s (reps 1.351 / 1.334 /
+1.378). `proofs/rep{0,1,2}.bin` sha256 `f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c` (unchanged);
+same command with `DIR` = `research data fetch art:e201b726 --to DIR`, same expected output. This is the lane's best A100
+result so far; if you only verify one of the appended results, verify this one.

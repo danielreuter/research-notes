@@ -184,6 +184,14 @@ created: 2026-09-24T17:36Z
 - ~22:58Z own 1 h read-only key minted on the laptop -> `/root/r2ro.env` (raw ssh, 786 bytes, never printed); `prefetch_all.sh`
   (flock) running -> `logs/prefetch.log`; a detached waiter starts `run_full.sh` (flock) only on "prefetch done ok=26 fail=0".
   `judge_a.py` + a1's `baseline-gate_a.xml.gz` on the pod (dry run on a1 vs itself: 158 / 64 passed / 94 skipped).
+- **23:05:25Z prefetch done ok=26 fail=0, key deleted; 23:05:29Z `run_full.sh` started** (head `/workspace/head-reg` 4fb0eb2c,
+  base `/workspace/basetree-reg` 72884c8a, T0+T1, nothing deselected). 23:09Z head 22 results (in `T1-replay_partition-r11`, 62 GB),
+  base 12 (in `T0-manifest_digest-r11`, `query.cli build` child).
+  RACE (harness, not f3): head SKIPPED `T0-manifest_digest-r11` (passed at both trees on the 64 GB pod). `store_io.fetch` materialises
+  each artifact into the SHARED store cache and only checks the returned path exists; with a fresh store, the other process was still
+  writing #11's programs tree, so `programs_root()` found no `build_request*/instances.json.gz` -> NotResolvable -> skip. The resolver
+  checks sha/size per file, so the race yields "not resolvable" skips, not failures. Plan: after both finish, rerun alone (trees
+  complete by then) every test that passed in one tree and skipped as unresolvable in the other; report both.
 - 23:0xZ the 64 GB pod `drd3w6z9d22gvd` TERMINATED after copying its gate (b) evidence (`evidence/cpu_pod/`: gate_b_final
   log/xml/fails/rss/env, the 9bddf741 run, targeted run, scripts) and the OOM partials (`evidence/gate_a_oom/`).
 ## (done) big pod `vyv-rf-f3-big`, RunPod `sda06pqcfi51jt`

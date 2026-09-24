@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT ab57df0a (23:11Z) [open] 23:13Z sweep: disk 9.8 GiB; lanes alive (arith 5090 port, agkr-fp8/nvf4 hill-climbing, d3-h100 US-MO-1 prover+separate verifier, verify-po); reindex +16; Table 2 unchanged since 3:57 PM PT
 CHECKPOINT e8503e2d (23:05Z) [open] 23:15Z ship-mtime audit (read-only): no table cell exposed; 1 recorded inversion (Sep 22 A-GKR CPU latency, not tabled); most Rust builds unrecorded -> producer self-check binaries unprovable; scripts in evidence/ship-mtime-*.py
 CHECKPOINT 58e4c1aa (22:56Z) [open] 22:56Z merged lane/sp1-128 0e8cc6ea --no-ff -> main 58e4c1aa, pushed; cli moved; steward kickstarted; scoreboard re-rendered 3:55 PM PT (SP1 stock/precompile labels, D1 whole-proof security)
 CHECKPOINT 048e6a41 (22:37Z) [open] 22:38Z sweep: disk 14 GiB; all lanes alive (arith on A100 port, agkr-fp8 H100, agkr-nvf4 5090 0.529s new, verify-po, d3-h100 starting); sp1-128 resumed for labels; no idle pods

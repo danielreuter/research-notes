@@ -17,3 +17,19 @@ CHECKPOINT 2c5e038b (08:38Z) [open] #57 @2c5e038b pairs 0,1 clean (oracle 159,84
 CHECKPOINT 2c5e038b (08:12Z) [open] #57 rerun @2c5e038b: C2 oracle compare 159,840/159,840 equal, 0 mismatch (was 432); local_replay+verdict pending. Trial onto retire-v1 9d80e302 clean, tests 237 pass/0 fail. #67 Match running
 CHECKPOINT 2c5e038b (08:01Z) [open] #57 Commit r20260924-075409-3621 @2c5e038b running (ETA ~09:00Z); #67 Build PASS art:5b7e5bcf, Match r20260924-075730-80bd running; 2c5e tests green (3 watchdog fails = ninja not on PATH); laptop disk at guardian floor, handed to coordinator
 CHECKPOINT 2c5e038b (07:50Z) [open] successor took over 07:50Z; 2c5e038b on origin+sw57, #57 rerun at it not yet launched; #67 Build r20260924-063717-5860 PASS 07:42Z; next: launch #57 Commit at 2c5e038b + #67 Match
+
+## Final (13:11Z)
+- **Cause (#57):** two v2 gaps.
+  1. The sweep's replay addressed Program rows by the v1 rule. Staging `38122d1f` already fixes that; it's also what #67's 20,928 `identities_without_rows` were.
+  2. A `v2-query` manifest carries no producer annotations. So form (B) couldn't pick among a fused norm's two narrowings, and Commit hooked `model`'s forward return instead of the embed scale its body hands to `model.layers.0` (432 `model/out` mismatches).
+- **Fixes:**
+  - `4f6f6d1d`: form (B) derives producer facts from the Programs of record by dataflow.
+  - `8b606f16`: row_pod takes all snapshot steps when form (B) needs them.
+  - `2c5e038b`: values a module body hands down are marked promoted and observed at their first consumer's input.
+  - `f16703a2`: staging `2c8aa2b3` (merged with the relayout) kept 5 stale function-local imports and crashed every v2 Commit. This commit repoints them and adds `tests/test_imports_resolve.py`.
+- **#57:** Commit PASS at `2c5e038b` (verdict `art:b99af6c6`), on the retire-v1 trial merge (`art:6b939117`), and on the merged tree `f16703a2` (`r20260924-103124-47d5`, `art:bad7b21c`). All 3/3 runs, every check PASS.
+- **#67:** Commit PASS at `f16703a2` (`r20260924-102613-0196`, `art:51826b81`), 3/3 runs, replay 38,748/38,748 ×3. The earlier run at `2c5e038b` failed on MoeSum replay (fixed by retire-v1 `6813fe06`). 67-pass was met at 13:10Z, 40 min late, with AT-RISK posted ahead of the deadline.
+- **Pods:** vyv-sw-67b drained and terminated. vyv-sw-57 is still up, idle, and hosts the integrator.
+- **Open for the integrator:**
+  - Take `f16703a2`.
+  - On FA2-tap rows, the replay-cache key misses every pair because the binding map carries cumulative `fa2_tap_bounded` counters. It's fail-safe and costs about 55 min per OLMoE Commit.

@@ -28,6 +28,8 @@ Updated 2026-09-24T06:05Z.
 - anchor `art:6153de7d560f1c4cff87953c8df4aad4c838b24c729691cf2623b2d2686387e3` (fixed; label superseded_by = newest index)
 - The index has 544,010 messages, 2285 chats, 2415 notes, and 1937 files. 1498/1498 transcript chats have metadata. Redactions: secret_assignment 123, aws_access_key_id 42, bearer 37, sk 21, runpod 9, huggingface 1, cloudflare 1; none in notes or titles.
 - Fresh-machine check (empty store): the anchor led to the index, which pulled and unpacked in 12 s, and search worked.
+- Independent read-back from R2 (`research data verify`, 1 h read-only credential, since deleted) returned PRESERVED with no errors for transcripts (1938 objects), notes (2646 objects) and index (2 objects). The metadata artifact was PRESERVED at ingest.
+- Tests at the shipped tip c313a38c on the pod: test_chats + test_cli 12 passed. Other suites fail identically on origin/main on the pod (they need the repo checkout and a non-root user), so those failures are not regressions.
 
 ## Deletion evidence (2026-09-24)
 - Every transcript id has composerData (1498/1498): no orphaned transcripts from deleted chats.

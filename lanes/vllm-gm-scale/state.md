@@ -31,3 +31,18 @@ Task: close the fresh B64 GM-01 cell for row #23 (llama32-1b bf16 L40S tp1 b64);
   plus a dangling-path load failure in-row. `fast` measured 230 s / 8 workers on vyv-v2cpu2 over the acquire lane's record art:33632a00.
 - `F-r18-tap-GM-runtime`: not found in the repo (any branch), notes, or transcripts.
 - Match artifact skipped `match/instances.jsonl` (> MAX_FILE). The only stored copy: row-dir tar `art:50076ee1…` (40.5 GB, fixture/v1).
+
+## Earlier lane (coordinator note 08:05Z)
+- `origin/lane/vllm-v2-gm-scale` = one commit `6bf4a00b` on the v2 merge `22e10e0e`. Merged into staging (`lane/vllm-cleanup-2`) at
+  `68112222` (2026-09-23 17:48Z); hence also in the sweep source `014563ac`. NOT in `lane/vllm-v2` or `main`. Worktree `v2-gm` holds no
+  other GM work (only two rebuilt .so files modified).
+- What it did: CLI default `record` -> `fast`, `relocate_components()` for a staged Build's dangling component paths, stderr banner.
+  Measured on vyv-v2cpu2 over the acquire lane's v2 record `art:33632a00`: fast w8 230 s / 13.7 GB main RSS; fast w1 525 s / 19.5 GB;
+  record checker killed at 2081 s, 49 GB, in G7. Harness lift 0 diffs vs frozen; decomp_hashes only `oracle.digest` (= R19 Build epoch,
+  shared with v1 a131). Preserved `art:be911dec…`. Caveat it noted: 8 forked CoW workers can raise the cgroup by up to ~90 GB in X-09.
+- Its fix holds up and is already in my base; nothing to port.
+
+## Pod vyv-gm
+- `vc6jt5jzdb7gcv`, cpu3m 32 vCPU / 256 GB cgroup, 250 GB disk, $1.76/h, 38.80.152.147:32544, created 07:52Z. In machines.toml.
+- Source `38122d1f` shipped via git archive (33 s) to /workspace/research/src/<sha>. Bootstrap --cpu BOOTSTRAP-OK 07:55Z. py-spy + GNU time.
+- 07:56Z pod-side fetch of `art:50076ee1` (b23.tar) -> /workspace/gm/row (script /workspace/gm/fetch.sh, log fetch.log).

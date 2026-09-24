@@ -22,5 +22,5 @@ for line in open(sys.argv[1]):
     if d.get("event") == "execute": print("cycles", d["report"]["total_cycles"])
     if d.get("event") == "rep": print("rep", d["rep"], "prove", round(d["prove_seconds"], 3), "shards", d["shards"], "bytes", d["proof_bytes"], "accepted", d["accepted"])
 EOF
-python3 $W/scripts/timeline.py $D/prover.log | awk '/^proof_/{n++} n>=2' | head -40
+python3 $W/scripts/timeline.py $D/stdout.jsonl | awk '/^proof_/{n++} n>=2' | head -40
 rm -f $D/proofs/proof-rep*.bin

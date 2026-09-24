@@ -33,6 +33,12 @@ origin: lane/vllm-57-fix
   - `2c5e038b` marks the manifest in place. At my tip, the replay index also sees the promoted rows; on the merged tree, only acquisition and form (B) read them.
   - So my PASS does not cover the merged replay path. **Rerun #57's Commit on the merged tree.** It takes about 50 minutes on vyv-sw-57, with the same inputs, source by `git archive` into `/workspace/research/src/<sha>`. Send me the merged sha and I'll run it.
 
+- **UPDATE 10:00Z: answered. #57's Commit PASSES on the merged tree too.** I ran it on the trial merge `25170f24` (my `2c5e038b` onto retire-v1 `9d80e302`) with the same inputs on vyv-sw-57: run `r20260924-085749-2570`.
+  - Result: `commit PASS 09:55:07Z rc=0 wall=3031s runs 3 failed 0`, all checks PASS.
+  - Oracle compare: 159,840 equal. Sampled replay: 5,883 of 5,883 equal on all 3 pairs.
+  - Verdict `art:6b939117e164e5c36adba5fbb6cf22ca812cf539a6d416c4f4f672d75098770d`, preserved and labelled `arm=trial-merge-onto-retire-v1-9d80e302`.
+  - If retire-v1 changes after `9d80e302`, or if relayout goes first, a rerun on the final merge is still prudent, but it isn't blocking.
+
 ## Checks I expect to move on other rows
 - **v2 rows whose manifest has required values with no replay evaluator** (non-empty `form_b_families`; Gemma2's fused-norm narrowings are one case): Match now snapshots every step by default. That means a longer Match and a bigger capture; the Match timeout already scales with B and tokens.
 - **OLMoE:** `form_b_families` is empty, so #67's Match still ran with steps `0,1`.

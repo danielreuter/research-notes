@@ -75,6 +75,10 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 - 09:33Z trial-merge #57 pair 0: SAMPLED REPLAY COMPLETE 5,883/5,883, BOUNDARY LINKAGE 432/432 (the merged replay path holds).
   #67 pair 0 C2 ORACLE COMPARE partial (Match snapshot steps 0,1): compared 16,120 equal 16,120 mismatch 0; 262,484 values at
   unsnapshotted steps go to the sampled replay (form_b_families empty, so a partial C2 is not a gap; the sweep failed only population).
+- 09:55Z trial-merge #57 (25170f24 = 2c5e038b onto retire-v1 9d80e302) r20260924-085749-2570: commit PASS rc=0 wall=3031s runs 3
+  failed 0, every check PASS; replay 5,883/5,883 x3. verdict art:6b939117e164e5c36adba5fbb6cf22ca812cf539a6d416c4f4f672d75098770d
+  (preserved rc 0, 6 labels incl. arm=trial-merge-onto-retire-v1-9d80e302). Appended to the integrator ready note. vyv-sw-57 idle.
+- 10:00Z #67 Commit pair 0 in the sampled replay (32 workers, 38,748 VUs).
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)

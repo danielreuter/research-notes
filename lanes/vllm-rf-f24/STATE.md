@@ -41,6 +41,11 @@
 - The lane agent restarted from an 18:0xZ context; this note is the state of record. Pod at 22:22Z: `a_final` (pid 14128, since 20:50Z)
   and `a_rerun_t0` (pid 19020, since 21:54Z) still running; `after_final` chain waits for `a_final`. Worktree clean at `be366f80`.
 - Plan: wait for the gates, fill READY.md; rebase onto `origin/main` (coordinator 22:13Z), lints on the pod, allowlists, push; terminate the pod.
+- 22:24Z rebased locally onto `origin/main` `1d9c3198`: clean, head `2dfc3d33` (not pushed yet). Two new lint violations of this branch, fixed in
+  the worktree (uncommitted): P9 forbidden-import `research.store` (`research_tools.code_identity` now hashes with hashlib/json) and P11
+  class-name `FastProg` (renamed `MemoProg`, code + `tests/check/test_global_match.py`). Pod tree `/workspace/head3` (`research pods sync`,
+  ~7 min per sync: the pod has no rsync). Next: lints there, allowlists, commit, D5/D10 tests at the new head, push `--force-with-lease`.
+- 22:42Z `a_final` 76/158.
 
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
 - origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.

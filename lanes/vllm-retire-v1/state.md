@@ -13,21 +13,25 @@ Census: run with python3.13 (`/opt/homebrew/bin/python3.13 tests/dead_code_censu
 By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pure AST, laptop-safe).
 
 ## Tip
-- bda6f73a
+- a71869e5 (pushed)
 
 ## Done
 - bda6f73a: ACQUIRE_ENGINE switch, v1_decision, gate v1 compare, plan class residuals, compiled_source v1 branch,
-  commit_delta class-table extension, pod_match_v2.sh + match_compare.py (root dropped). Not yet run on a pod.
+  commit_delta class-table extension, pod_match_v2.sh + match_compare.py (root dropped).
+- c517b71b: harness v2-only (resolver ENGINE/BASELINE_ENGINE, rebaseline --engine, manifest_digest v1 builder).
+- 53d20e6c: required_manifest.py + required_values.py deleted; sampled_replay v2-only addressing; replay_partition recompute v2;
+  tests converted (test_sampled_replay.v2_manifest helper; test_manifest_format replaces test_required_manifest). allowlist -56.
+- a71869e5: cascade vu_canonical.py + 3 tests. allowlist -1.
+- NOT YET RUN ON A POD since 53d20e6c: converted tests may need fixes.
 
 ## Decisions / findings
 - TP rank committers (tp/worker.py make_committer) have NO acquisition plan: they select by native_host's class tables.
-  The plan has no rule for TP collective-site outputs, so switching TP to the plan is a design change needing a GPU TP Commit.
   => class tables + _select_modules KEPT (TP only); report as the one v1 survivor.
 - verdict.py structural-leak notes name "native_host.ACQUIRE_CLASSES" / "required_manifest.members_for": left (verdict.json content).
+- deleted without v2 replacement: test_sampled_replay_moe_tp_sum_copy.py (args-less v1-vocabulary fixture; v2 copy path not
+  exercised by it); sampled_replay/commit_verdict still read a manifest's `cross_check` (v1-only field) -- left (follow-up).
 
 ## Next
-- harness: ENGINE / BASELINE_ENGINE (resolver.py, manifest_digest.py), replay_partition v1 recompute
-- sampled_replay v1 addressing (V1.members_for), then required_manifest.py + required_values.py + their tests
-  (many tests build manifests with v1 build_manifest -> convert or delete)
+- pod: run converted test files; fix; staging vs tip full suite; harness T0+T1 (replay_partition -> retire-v1 decision if it moves)
 - roots: drop GEN-lane runners (own commit, revertable); uncertain: canary.sh
-- pod vyv-v2cpu3: ramlock /workspace/ramlock/retire-v1.json; staging + tip suites, harness T0+T1
+- pod vyv-v2cpu3: ramlock /workspace/ramlock/retire-v1.json

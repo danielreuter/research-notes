@@ -1,0 +1,79 @@
+03:47:02Z bare-v1-p4-l16384-r1 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=26s status=passed t.total=0.040537973865866654 t.total_live=None rtt_ms=None bytes=23522912 
+03:47:16Z bare-v1-p8-l16384-r1 local rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=14s status=passed t.total=0.04230652004480362 t.total_live=None rtt_ms=None bytes=23522912 
+03:47:27Z bare-v1-p1-l16384-r1 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=11s status=passed t.total=0.07228203117847443 t.total_live=None rtt_ms=None bytes=23522912 
+03:47:41Z bare-v1-p4-l8192-r1 local rel=fp4-nvf4 l=8192 p=4 reps=5 rc=0 wall=14s status=passed t.total=0.03936280310153961 t.total_live=None rtt_ms=None bytes=31005728 
+03:48:03Z bare-v1-live-l16384-r1 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=22s status=passed t.total=0.07859931699931622 t.total_live=0.1253384966403246 rtt_ms=3.162798471748829 bytes=23522912 
+03:48:26Z bare-v1-live-l16384-r2 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=23s status=passed t.total=0.07926332764327527 t.total_live=0.13849008083343506 rtt_ms=3.3052368089556694 bytes=23522912 
+03:48:39Z bare-v1-p4-l8192-r2 local rel=fp4-nvf4 l=8192 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.04032532311975956 t.total_live=None rtt_ms=None bytes=31005728 
+03:48:49Z bare-v1-p1-l16384-r2 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=10s status=passed t.total=0.07307465746998788 t.total_live=None rtt_ms=None bytes=23522912 
+03:49:04Z bare-v1-p8-l16384-r2 local rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=15s status=passed t.total=0.04295041039586067 t.total_live=None rtt_ms=None bytes=23522912 
+03:49:17Z bare-v1-p4-l16384-r2 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.04110423102974892 t.total_live=None rtt_ms=None bytes=23522912 
+03:49:30Z bare-v1-p4-l16384-r3 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.038588887080550194 t.total_live=None rtt_ms=None bytes=23522912 
+03:49:44Z bare-v1-p8-l16384-r3 local rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=14s status=passed t.total=0.04220239631831646 t.total_live=None rtt_ms=None bytes=23522912 
+03:49:55Z bare-v1-p1-l16384-r3 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=11s status=passed t.total=0.07402129471302031 t.total_live=None rtt_ms=None bytes=23522912 
+03:50:08Z bare-v1-p4-l8192-r3 local rel=fp4-nvf4 l=8192 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.040690381079912186 t.total_live=None rtt_ms=None bytes=31005728 
+03:50:30Z bare-v1-live-l16384-r3 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=22s status=passed t.total=0.08208407275378704 t.total_live=0.13340443186461926 rtt_ms=3.1558452174067497 bytes=23522912 
+BARE_ROUNDS_DONE 1 2 3
+03:51:58Z bare-v1-live-j1-l16384-r4 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=24s status=passed t.total=0.08056699112057686 t.total_live=0.11599642783403397 rtt_ms=2.953195944428444 bytes=23522912 
+03:52:11Z bare-v1-p4-l16384-r4 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.04021204076707363 t.total_live=None rtt_ms=None bytes=23522912 
+03:52:22Z bare-v1-p1-l16384-r4 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=11s status=passed t.total=0.07267544604837894 t.total_live=None rtt_ms=None bytes=23522912 
+03:52:33Z bare-v1-p1-l16384-r5 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=11s status=passed t.total=0.071459686383605 t.total_live=None rtt_ms=None bytes=23522912 
+03:52:45Z bare-v1-p4-l16384-r5 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=12s status=passed t.total=0.04065505601465702 t.total_live=None rtt_ms=None bytes=23522912 
+03:53:09Z bare-v1-live-j1-l16384-r5 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=24s status=passed t.total=0.07984164915978909 t.total_live=0.11411839537322521 rtt_ms=3.014129586517811 bytes=23522912 
+03:53:34Z bare-v1-live-j1-l16384-r6 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=25s status=passed t.total=0.07948659919202328 t.total_live=0.11628076061606407 rtt_ms=3.079002723097801 bytes=23522912 
+03:53:47Z bare-v1-p4-l16384-r6 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.04056579619646072 t.total_live=None rtt_ms=None bytes=23522912 
+03:53:57Z bare-v1-p1-l16384-r6 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=10s status=passed t.total=0.07210439257323742 t.total_live=None rtt_ms=None bytes=23522912 
+LIVE_J1_DONE 4 5 6
+04:08:25Z bare-v1-live-v8-l16384-r7 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=15s status=passed t.total=0.07931661047041416 t.total_live=0.12456479109823704 rtt_ms=3.034559078514576 bytes=23522912 
+04:08:38Z bare-v1-p4-l16384-r7 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.03913171775639057 t.total_live=None rtt_ms=None bytes=23522912 
+04:08:49Z bare-v1-p1-l16384-r7 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=11s status=passed t.total=0.07458923570811749 t.total_live=None rtt_ms=None bytes=23522912 
+04:09:00Z bare-v1-p1-l16384-r8 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=11s status=passed t.total=0.07261562906205656 t.total_live=None rtt_ms=None bytes=23522912 
+04:09:13Z bare-v1-p4-l16384-r8 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.03989240154623985 t.total_live=None rtt_ms=None bytes=23522912 
+04:09:29Z bare-v1-live-v8-l16384-r8 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=16s status=passed t.total=0.07923067547380924 t.total_live=0.11376220919191837 rtt_ms=1.8641585484147072 bytes=23522912 
+04:09:45Z bare-v1-live-v8-l16384-r9 live rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=16s status=passed t.total=0.08158527687191963 t.total_live=0.11205856315791607 rtt_ms=2.204306423664093 bytes=23522912 
+04:09:57Z bare-v1-p4-l16384-r9 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=12s status=passed t.total=0.03983316756784916 t.total_live=None rtt_ms=None bytes=23522912 
+04:10:09Z bare-v1-p1-l16384-r9 local rel=fp4-nvf4 l=16384 p=1 reps=5 rc=0 wall=12s status=passed t.total=0.07586113177239895 t.total_live=None rtt_ms=None bytes=23522912 
+LIVE_V8_DONE 7 8 9
+04:11:34Z smoke-livepipe-p4 live rel=fp4-nvf4 l=16384 p=4 reps=2 rc=0 wall=14s status=passed t.total=0.07633984088897706 t.total_live=0.08414386212825777 rtt_ms=4.101640544831753 bytes=23522912 
+04:12:17Z bare-v1-livepipe-p4-v8-l16384-r10 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=19s status=passed t.total=0.0645396076142788 t.total_live=0.07641963101923466 rtt_ms=3.7426315248012543 bytes=23522912 
+04:12:38Z bare-v1-livepipe-p8-v8-l16384-r10 live rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=21s status=passed t.total=0.063145212829113 t.total_live=0.06720996275544167 rtt_ms=3.3752452582120895 bytes=23522912 
+04:13:05Z bare-v1-livepipe-p4-v2-l16384-r10 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=27s status=passed t.total=0.06774629279971123 t.total_live=0.07482407800853252 rtt_ms=3.7575392052531242 bytes=23522912 
+04:13:17Z bare-v1-p4-l16384-r10 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=12s status=passed t.total=0.04075842909514904 t.total_live=None rtt_ms=None bytes=23522912 
+04:13:30Z bare-v1-p4-l16384-r11 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=12s status=passed t.total=0.03884255513548851 t.total_live=None rtt_ms=None bytes=23522912 
+04:13:57Z bare-v1-livepipe-p4-v2-l16384-r11 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=27s status=passed t.total=0.06686234287917613 t.total_live=0.07426913455128668 rtt_ms=3.6461148411035538 bytes=23522912 
+04:14:17Z bare-v1-livepipe-p8-v8-l16384-r11 live rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=20s status=passed t.total=0.06168075278401374 t.total_live=0.06825177557766436 rtt_ms=3.512808121740818 bytes=23522912 
+04:14:36Z bare-v1-livepipe-p4-v8-l16384-r11 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=19s status=passed t.total=0.0626427847892046 t.total_live=0.07730673812329769 rtt_ms=4.132183268666267 bytes=23522912 
+04:14:54Z bare-v1-livepipe-p4-v8-l16384-r12 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=18s status=passed t.total=0.06286733411252499 t.total_live=0.07138797082006931 rtt_ms=3.5817399621009827 bytes=23522912 
+04:15:14Z bare-v1-livepipe-p8-v8-l16384-r12 live rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=20s status=passed t.total=0.0668521523475647 t.total_live=0.07062483765184879 rtt_ms=3.7878770381212234 bytes=23522912 
+04:15:41Z bare-v1-livepipe-p4-v2-l16384-r12 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=27s status=passed t.total=0.06347712874412537 t.total_live=0.07091183587908745 rtt_ms=3.823653794825077 bytes=23522912 
+04:15:54Z bare-v1-p4-l16384-r12 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.04131995514035225 t.total_live=None rtt_ms=None bytes=23522912 
+LIVE_PIPE_DONE 10 11 12
+04:19:23Z c2-hash-p4-l16384-r1 local rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=38s status=passed t.total=0.15483697624728762 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:19:36Z c2-bare-p4-l16384-r1 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.041809326037764556 t.total_live=None rtt_ms=None bytes=23522912 
+04:20:07Z c2-hash-live-p4-v8-l16384-r1 live rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=31s status=passed t.total=0.16111001198283656 t.total_live=0.16341575619868262 rtt_ms=3.5767937079072 bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:20:26Z c2-bare-live-p4-v8-l16384-r1 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=19s status=passed t.total=0.06802553869783878 t.total_live=0.07717959955334663 rtt_ms=3.9945095777511597 bytes=23522912 
+04:20:46Z c2-bare-live-p8-v8-l16384-r1 live rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=20s status=passed t.total=0.06411998532712458 t.total_live=0.09221295267343521 rtt_ms=4.282866604626179 bytes=23522912 
+04:21:01Z c2-bare-p8-l16384-r1 local rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=15s status=passed t.total=0.043168043717741966 t.total_live=None rtt_ms=None bytes=23522912 
+04:21:15Z c2-bare-p8-l16384-r2 local rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=14s status=passed t.total=0.04391774162650108 t.total_live=None rtt_ms=None bytes=23522912 
+04:21:37Z c2-bare-live-p8-v8-l16384-r2 live rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=22s status=passed t.total=0.06098926067352295 t.total_live=0.06729304976761341 rtt_ms=3.6271819844841957 bytes=23522912 
+04:21:56Z c2-bare-live-p4-v8-l16384-r2 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=19s status=passed t.total=0.06703422218561172 t.total_live=0.07354229688644409 rtt_ms=3.7159398198127747 bytes=23522912 
+04:22:26Z c2-hash-live-p4-v8-l16384-r2 live rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=30s status=passed t.total=0.16158164965657995 t.total_live=0.16387460308818624 rtt_ms=3.472423180937767 bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:22:39Z c2-bare-p4-l16384-r2 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=13s status=passed t.total=0.03870636038482189 t.total_live=None rtt_ms=None bytes=23522912 
+04:22:55Z c2-hash-p4-l16384-r2 local rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=16s status=passed t.total=0.15624205869607263 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:23:12Z c2-hash-p4-l16384-r3 local rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=17s status=passed t.total=0.15464633042604012 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:23:24Z c2-bare-p4-l16384-r3 local rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=12s status=passed t.total=0.038282521069049835 t.total_live=None rtt_ms=None bytes=23522912 
+04:23:52Z c2-hash-live-p4-v8-l16384-r3 live rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=28s status=passed t.total=0.1586054302752018 t.total_live=0.1610307041555643 rtt_ms=3.2075978815555573 bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:24:12Z c2-bare-live-p4-v8-l16384-r3 live rel=fp4-nvf4 l=16384 p=4 reps=5 rc=0 wall=20s status=passed t.total=0.06704970449209215 t.total_live=0.0753896050155163 rtt_ms=3.6898916587233543 bytes=23522912 
+04:24:33Z c2-bare-live-p8-v8-l16384-r3 live rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=21s status=passed t.total=0.06628846004605293 t.total_live=0.07273230887949467 rtt_ms=3.754986450076103 bytes=23522912 
+04:24:47Z c2-bare-p8-l16384-r3 local rel=fp4-nvf4 l=16384 p=8 reps=5 rc=0 wall=14s status=passed t.total=0.04183826595544815 t.total_live=None rtt_ms=None bytes=23522912 
+COMMITTED_DONE 1 2 3
+04:28:04Z c2-hash-p8-l16384-r4 local rel=fp4-nvf4+poseidon2 l=16384 p=8 reps=5 rc=0 wall=19s status=passed t.total=0.14965751159730772 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:28:39Z c2-hash-live-p8-v8-l16384-r4 live rel=fp4-nvf4+poseidon2 l=16384 p=8 reps=5 rc=0 wall=35s status=passed t.total=0.15886886790394783 t.total_live=0.16191666014492512 rtt_ms=2.920183353126049 bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:28:55Z c2-hash-p4-l16384-r4 local rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=16s status=passed t.total=0.15437106601893905 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:29:11Z c2-hash-p4-l16384-r5 local rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=16s status=passed t.total=0.15510417520999908 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:29:45Z c2-hash-live-p8-v8-l16384-r5 live rel=fp4-nvf4+poseidon2 l=16384 p=8 reps=5 rc=0 wall=34s status=passed t.total=0.15871979986762075 t.total_live=0.16223178749417333 rtt_ms=3.54783795773983 bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:30:04Z c2-hash-p8-l16384-r5 local rel=fp4-nvf4+poseidon2 l=16384 p=8 reps=5 rc=0 wall=19s status=passed t.total=0.15344745660225811 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:30:22Z c2-hash-p8-l16384-r6 local rel=fp4-nvf4+poseidon2 l=16384 p=8 reps=5 rc=0 wall=18s status=passed t.total=0.14938919618725774 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:30:58Z c2-hash-live-p8-v8-l16384-r6 live rel=fp4-nvf4+poseidon2 l=16384 p=8 reps=5 rc=0 wall=36s status=passed t.total=0.1571324873744135 t.total_live=0.16003519632207203 rtt_ms=3.1758826225996017 bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+04:31:14Z c2-hash-p4-l16384-r6 local rel=fp4-nvf4+poseidon2 l=16384 p=4 reps=5 rc=0 wall=16s status=passed t.total=0.1578739657998085 t.total_live=None rtt_ms=None bytes=39133052 --auth included-hash --auth-cache /workspace/auth-cache-fp4h
+COMMITTED_P8_DONE 4 5 6

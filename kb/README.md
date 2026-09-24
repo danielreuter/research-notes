@@ -18,3 +18,4 @@ History: the whole notes tree is its own git repo, separate from the code repo, 
 Size on 2026-09-24: 30 MB of tracked text, 10 MB packed history.
 
 - `LANE-CONTRACT.md`: how every lane works. Read it first.
+- `bench-instances.md`: which instances ref a bench run carries and whether Table 2 counts it (frozen, instance-equiv, tile).

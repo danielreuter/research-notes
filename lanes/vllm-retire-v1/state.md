@@ -35,6 +35,11 @@ By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pur
 - counts (git cat-file, = wc -l; reproduces the 209,413 baseline): 815b837c 652 files / 209,413 lines -> adc55ce7 632 / 199,445 (-20 / -9,968)
 - test_repository.py 6/6 on laptop @adc55ce7; allowlist 293 -> 234
 
+- harness partial 06:14Z: fA 6/6, fB3 6/6, fB5 6/7 byte-identical to staging. MOVED: replay_partition r57 (gemma2-2b b8):
+  4150 Bf16MulScalarTensor_v1 rows evaluable under the v2 rule (vus 651982->656132, strata_n 5846->5883, draw/lifetime follow).
+  proof probe: staging code's check with the record's addresses.rule forced to "v2-query" vs tip actual
+  (/workspace/rv1/rpv2.sh ROW TIPREC -> logs/rpv2_r57.out). If equal -> retire-v1 decision + rebaseline write for that row/check.
+
 CHECKPOINT rv-tests MET 05:56Z converted test files @6813fe06 on cpu3: 212 pass / 173 skip / 2 F (both staging-known), 0 regressions per test vs staging junit
 
 ## Done

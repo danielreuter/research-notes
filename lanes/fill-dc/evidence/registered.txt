@@ -28,3 +28,11 @@
 06:51Z a100 ab-x4p8-r3 result=art:7244a94d35c8f7828c00f795f49f73e89f797ca01b7a1516f509f0269faa369f t.total=0.2479 | a100 sweep ab-x4p8-r3 local coins (no dump)
 06:51Z a100 ah-v1p8-r1 result=art:4ae8ea57169abbd5a29b9dc65d84eeae67135fa8ab6c244b5d4660a486a69aab t.total=1.0149 | a100 sweep ah-v1p8-r1 local coins (no dump)
 06:51Z a100 ah-v1p8-r2 result=art:4efb60a85c004b2f4d85c29c4e85fb703fcd68657c7d8a7f8ad82f55e1caaa51 t.total=0.9958 | a100 sweep ah-v1p8-r2 local coins (no dump)
+06:55Z h100 f8b-x4p4-r1 result=art:771e9ecb3af25d66b4f79629fddf6c57e6978d11518d2fc9a99f5c56ca55344c t.total=0.0884 | h100 sweep local rel=fp8-hopper-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:56Z h100 f8b-v1p4-r1 result=art:62c9dadb64019175d355f70749cb9a8c77c6e4793b40d66c1daffcd69787a898 t.total=0.1124 | h100 sweep local rel=fp8-hopper l=16384 p=4 reps=5 dump=0 live= args=
+06:56Z h100 f8h-v1p4-r1 result=art:9ba6f7da1231bb86ddea45050649d89901647123430e4d85b9fa30a1bf6279e9 t.total=0.3103 | h100 sweep local rel=fp8-hopper l=16384 p=4 reps=5 dump=0 live= args=--auth included-hash
+06:56Z h100 b16b-x4p4-r1 result=art:00aa0e503420836fed37cbd88654bae7835680a665e51e0ecc77095643a759b8 t.total=0.1481 | h100 sweep local rel=bf16-hopper-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:56Z h100 b16b-x4p8-r1 result=art:4eeb0b8a15afcd1d689b2c33547867fca1a11989abe4abd0c3f2b826249bb7bf t.total=0.1285 | h100 sweep local rel=bf16-hopper-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
+06:56Z h100 b16b-v1p8-r1 result=art:cfb2fffb673471c08e44d7a15d5cc4d921eadfdf6d8824f5c834f9350b8e7f0c t.total=0.1784 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=
+06:56Z h100 b16h-v1p8-r1 result=art:a65a8f870ff3a03ad6f6cb202a5636023dcc8ed28b2cc0bd9a86243763918504 t.total=0.5473 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash
+06:56Z h100 b16h-v1p8-r2 result=art:8a21fc7fac25519335fea52ddf780111c6a1e6a5f32e4c98f8789e20d0ec728b t.total=0.5445 | h100 sweep local rel=bf16-hopper l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash

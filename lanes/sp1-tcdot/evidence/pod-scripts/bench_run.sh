@@ -2,7 +2,8 @@
 # One contract bench-result of the modified-SP1 (TC_DOT chip) variant on the A100: backends/sp1/tcdot/bench.py
 # (= benchmarks/dot_product/vector_run.py --backend sp1-bare) over vu-k1536 [0, 4096) of bench-instances/v1.
 # Env: TAG (run dir name), REPS (3), VPR (vus per read, 64), THRESH (vu_software_threshold, 8), NOTE, EXTRA (more args),
-# SERVER_HOME (home-bf16 = fork fe35cc50's server; home-shard = d14b4c62's), ELEMENT_THRESHOLD (honoured from d14b4c62).
+# SERVER_HOME (home-bf16 = fork fe35cc50's server; home-shard = d14b4c62's; home-stream = e3756374's; home-merge =
+# 6096d886's); prover options go in EXTRA as --prover-env KEY=VALUE (vector_run records them).
 set -euo pipefail
 W=/workspace/sp1-tcdot
 S=$W/src
@@ -17,6 +18,9 @@ export RESEARCH_RUN_ID=sp1-tcdot-$TAG
 H=$W/target-tcdot/release/verity-tcdot-host
 RUN=$W/runs/$TAG
 mkdir -p $RUN
+# A finished run leaves its server's socket behind, and a client that finds it gets ECONNREFUSED before the new server
+# rebinds; no server of this pod outlives its host process.
+pgrep -x sp1-gpu-server >/dev/null || rm -f /tmp/sp1-cuda-*.sock
 echo "source $RESEARCH_SOURCE_COMMIT host $(sha256sum $H | cut -c1-16) server $(sha256sum $HOME/.sp1/bin/sp1-gpu-server | cut -c1-16) threshold $VERITY_TCDOT_VU_SOFTWARE_THRESHOLD"
 cd $S
 python3 backends/sp1/tcdot/bench.py --host $H --instances $W/bi --reps ${REPS:-3} --warmup-vus 64 --vus-per-read ${VPR:-64} \

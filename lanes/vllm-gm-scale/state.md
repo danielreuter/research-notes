@@ -13,7 +13,7 @@ Task: close the fresh B64 GM-01 cell for row #23 (llama32-1b bf16 L40S tp1 b64);
 
 ## Log
 - 07:46Z start. Worktree created. R2 credential minted `--via local --ttl 7h` into `~/.research/scratch/gm-scale/cred.env` (0600, not printed).
-- CHECKPOINT gm-answer MET (08:31Z). YES: sweep Match `r20260923-233020-dc38` (source 014563ac, ACQUIRE_ENGINE=v2, vyv-sw-67) ran GM-01
+- CHECKPOINT gm-answer MET (08:26Z). YES: sweep Match `r20260923-233020-dc38` (source 014563ac, ACQUIRE_ENGINE=v2, vyv-sw-67) ran GM-01
   in full, fresh, in-row: impl fast, 8 workers, process wall 317 s (timeline span match.global_match 00:02:24-00:07:41Z; phases 282.7 s),
   verdict PASS (G1..G8 PASS, X-09 PASS xreq_total 0, alternate `sequence` PASS). Commit `ca81` PASS consumed that Match.
   Harness lift vs frozen #23: all verdict fields equal; only fold_record_pins differ (new fold record). decomp_hashes: all 64 per-request

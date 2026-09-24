@@ -1,0 +1,19 @@
+entries 163409 163409 top keys ['entries', 'layout', 'note', 'schema', 'snapshot_max_bytes', 'snapshot_max_bytes_op', 'steps', 'total_bytes']
+differing entries 96 [161, 162, 170, 4959, 4960, 4968, 9964, 9965, 9973, 14969, 14970, 14978, 19974, 19975, 19983, 24979, 24980, 24988, 29984, 29985]
+differing names ['None']
+161 meta {"event": 72, "path": "args.src_block_table_ptrs", "view": {"$v": [224, 0, [1], [1], "uint64", "cuda:0"]}, "dtype": "uint64", "shape": [1], "strides": [1], "byte_offset": 0, "nbytes": 8, "layout": "spanned-storage-bytes", "step": 0} same_meta True
+   bytes 8 8
+   differing bytes 3 first/last (3, 5)
+162 meta {"event": 72, "path": "args.dst_block_table_ptrs", "view": {"$v": [225, 0, [1], [1], "uint64", "cuda:0"]}, "dtype": "uint64", "shape": [1], "strides": [1], "byte_offset": 0, "nbytes": 8, "layout": "spanned-storage-bytes", "step": 0} same_meta True
+   bytes 8 8
+   differing bytes 3 first/last (3, 5)
+170 meta {"event": 74, "path": "args.block_table_ptrs", "view": {"$v": [224, 0, [1], [1], "uint64", "cuda:0"]}, "dtype": "uint64", "shape": [1], "strides": [1], "byte_offset": 0, "nbytes": 8, "layout": "spanned-storage-bytes", "step": 0} same_meta True
+   bytes 8 8
+   differing bytes 3 first/last (3, 5)
+4959 meta {"event": 823, "path": "args.src_block_table_ptrs", "view": {"$v": [224, 0, [1], [1], "uint64", "cuda:0"]}, "dtype": "uint64", "shape": [1], "strides": [1], "byte_offset": 0, "nbytes": 8, "layout": "spanned-storage-bytes", "step": 1} same_meta True
+   bytes 8 8
+   differing bytes 3 first/last (3, 5)
+bbcd179cb0c4da18 /workspace/head/integrations/vllm/out/gen/r9/cmt-hidden/src/hidden_gpu.py
+bbcd179cb0c4da18 /workspace/head/integrations/vllm/verity_vllm/acquire/hidden_gpu_src/hidden_gpu.py
+bbcd179cb0c4da18 /workspace/basetree/integrations/vllm/verity_vllm/acquire/hidden_gpu_src/hidden_gpu.py
+96 Counter({'args.src_block_table_ptrs': 32, 'args.dst_block_table_ptrs': 32, 'args.block_table_ptrs': 32}) steps 32

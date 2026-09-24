@@ -1,0 +1,7 @@
+bootstrap OK 2026-09-24T22:16:43Z
+head: exit 0 2026-09-24T22:28:21Z
+base: exit 0 2026-09-24T22:40:33Z
+record {'run_roots': ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5'], 'program': '079ee0a8e3e0355b', 'manifest': '368283add1a11808'}
+head run_roots ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5'] == record: True | commit_pass True | program ccc213475e7c4eed manifest 90f8186879d5035a | collector layout None | first_fail None
+base run_roots ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5'] == record: True | commit_pass True | program ccc213475e7c4eed manifest 90f8186879d5035a | collector layout None | first_fail None
+done 2026-09-24T22:40:33Z

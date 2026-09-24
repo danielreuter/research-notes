@@ -41,6 +41,9 @@ created: 2026-09-24T17:27Z
   - gate (a) head: `nice gate_a.sh /workspace/head-reg a_head`. The integrator's split harness took ~1 h (#11, #39) + ~2 h (the rest).
   - pre-check on the pod at `39c5ee7a`: `pytest integrations/vllm/tests/lint` 41 pass, 30 s on the loaded pod; with and without
     conftest, no torch / vllm / triton / numpy / verity_vllm module in `sys.modules` afterwards.
+- 19:19Z: b_head_x12 98% (real-HF derive tail); b_base_serial 66%; a_base at row #68 (45%+); a_head at row #23.
+  Local watcher `/tmp/rfa1/watch.sh` prints `DONE <run>` per finished run. Compare: pod `python3 /workspace/rfa1/jdiff.py BASE.xml HEAD.xml`.
+  READY draft: `/tmp/rfa1/READY.draft.md` (gate section to fill; move to the notes dir only when the gates are in).
 - Pod hygiene: never `pkill -f <pattern>` over ssh (the pattern matches the remote shell and kills the session); kill by pid.
 - Laptop: the brief forbids pytest on the laptop; the early local lint runs (uvx pytest, AST only, <1 GB) were a slip; lints run on the pod now.
 

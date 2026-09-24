@@ -45,7 +45,7 @@ Worktrees are in `~/projects/verity-wt/rf-<lane>`, branches are `lane/vllm-rf-<l
 | a23 | dead code, data and paths | `c1cf11ef` (4 commits) | `vyv-rf-a23` = `qcky3qlmvh896c` | The deletions are done: `tools/`, CMT-1, `engine_rs`, dead PoC files. Two modules the survey called dead are live and were kept (`resolve_decomp`, `hidden_engine`). Data and paths not started. **Silent since 18:02Z although its session exists: treat as stuck.** |
 | f1 | D1: value check over opened values | none | none yet | Died at 18:02Z and resumed at 18:46Z. STATE 19:04Z; it is mapping compared vs opened positions. The largest lane, and it will need GPU pods for a dense, a MoE and a TP2 row. |
 | f24 | D5, D6, D7, D10, D11, D13 | `76020a66` (5 commits) | `vyv-rf-f24` = `0zb24mk1w6nb4o` | The most advanced lane: identity designs done, D10 (no core monkeypatching) under test on its pod. Survived. |
-| f3 | D3, D4, D14, D15 | `0f970b0e` (2 commits) | none yet | Died and resumed at 18:46Z. D3 and D4 are done and pushed. Nobody sets `VERITY_LEAF_LAYOUT` and no ops script passes `--layout`, so every regression row is v1 on both sides and D3 shouldn't change roots. D14 and D15 are next. The D15 tables live in `fixtures/W11*`: a23 moves them into package data, and f3 deletes the environment overrides and pins digests. |
+| f3 | D3, D4, D14, D15 | `0f970b0e` (2 commits) | `vyv-rf-f3` = `drd3w6z9d22gvd` (since 19:18Z) | Died and resumed at 18:46Z. D3 and D4 are done and pushed. Nobody sets `VERITY_LEAF_LAYOUT` and no ops script passes `--layout`, so every regression row is v1 on both sides and D3 shouldn't change roots. D14 and D15 are next. The D15 tables live in `fixtures/W11*`: a23 moves them into package data, and f3 deletes the environment overrides and pins digests. |
 | f56 | D16, D17 | none | none yet (needs a 2-GPU pod, an L40S and an H100) | Died and resumed at 18:48Z. It found recorded TP4 all-reduce evidence (`art:53e58b1c…`), so the order can be fixed rather than refused. The FA-tap cross-check scripts were deleted by our own cleanup (`ca5d65e8`); they are recovered in `/tmp/rff56` and become the property check. |
 
 **Liveness.**
@@ -54,7 +54,7 @@ Worktrees are in `~/projects/verity-wt/rf-<lane>`, branches are `lane/vllm-rf-<l
 - STATE.md older than about 40 minutes with no worktree edits means stuck or dead.
 
 **Pods and money.**
-- Three CPU pods (cpu3g, 16 vCPU, 64 GB) at $0.64/h each, $1.92/h in total.
+- Three CPU pods (cpu3g, 16 vCPU, 64 GB) at $0.64/h each, $1.92/h in total. At 19:18Z f3 created a fourth, `vyv-rf-f3` = `drd3w6z9d22gvd`, bringing the total to about $2.56/h.
 - The budget and deadline daemons run on `vy-control-verity`: `ssh -i ~/.runpod/ssh/runpodctl-ssh-key -p 11754 root@213.173.105.92`.
   - **Budget:** tag `2026-09-23-vyv-rebuild`, spent $241.80 against a cap of $600 (the file `/root/dm/CAP`), rate cap $45/h, owns the `vyv-` prefix. To raise it, write the CAP file and log the change to `/root/dm/dm.log`.
   - **Deadline:** `bash /root/dm/deadline.sh vyv- 1790305200` terminates every `vyv-` pod at 2026-09-25T03:00Z. To re-arm, kill it and start `setsid nohup bash /root/dm/deadline.sh vyv- <epoch>`; `dm.log` has the exact past commands.

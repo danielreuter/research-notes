@@ -113,6 +113,10 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   (already preserved as art:6b939117). Past imports, warm-up at 10:32Z. ETA ~11:25Z (last wall 3031 s).
 - 10:45Z #57@f16703a2 pair 0: BINDING coverage 171,388/171,388, COMPOSITION OK, MANIFEST COVERAGE OK 163,168 missing 0.
   #67@f16703a2 pair 0: source identity OK f16703a2 (all four trees), control tokens_eq True; attempt running. 0 errors on both.
+- 10:58Z #57@f16703a2 pair 0: producer facts used (318 members, 0 conflicts), 432 model/out rows marked promoted, C2 ORACLE COMPARE OK
+  159,840/159,840 (so the repointed oracle_compare import is live; dropped facts would show compared 114,480). Replay next.
+  #67@f16703a2 pair 0: producer facts used (181, 0 conflicts), MANIFEST COVERAGE OK 406,220, C2 partial 16,120/16,120 equal --
+  identical to the 2c5e038b run. The decider is pair 0's sampled replay (MoeSum strata, fixed by 6813fe06), expected ~11:40Z.
 
 ## Checkpoints
 - CHECKPOINT 67-pass AT-RISK 10:28Z -- #67 Commit at 2c5e038b failed on MoeSum replay (fixed by retire-v1 6813fe06, now on staging);

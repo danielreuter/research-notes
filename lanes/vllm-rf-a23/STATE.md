@@ -18,20 +18,22 @@ created: 2026-09-24T17:27Z
   `research pods create --name vyv-rf-a23 --cpu cpu3g --vcpu 16 --disk 80` (launcher `/tmp/rfa23/research.sh` =
   `PYTHONPATH=<wt>/tools/research/src python3.12 -m research`).
 
-- 17:52Z base tree shipped: `git archive 72884c8a | ssh ... tar -x -C /workspace/base` (pod has no rsync; ssh line from `research pods ssh vyv-rf-a23 --print`, wrapper `/tmp/rfa23/ssh.sh`).
-- commits (pushed): `b9b23ebf` tools/ + test_relayout_map deleted; `84c691c9` CMT-1 (reference_engine/, adapter, cmt_ref_* in commit_delta) + engine_rs/ + their tests + schemes.py CmtRef/veritor adapters; `446fe8b6` poc_rows, poc_verify_bindings (dist_identity -> observe/engine_profile.py), compiled_fx_kernels (normalise_kernel -> check/kernel_identity.py), batch_candidate, capture_identities_program, rebuild_digest_gate, row_pod_tp2.sh (+ test parts, census roots, keep list, allowlist).
+- 17:52Z base tree shipped: `git archive 72884c8a | ssh ... tar -x -C /workspace/base` (pod has no rsync; ssh line from `research pods ssh vyv-rf-a23 --print`, wrapper `/tmp/rfa23/ssh.sh`). The ship job exited 1 only because its trailing `command -v rsync` failed; the extraction is complete.
+- 17:54Z `pod_bootstrap.sh --cpu --out /workspace/bootstrap` BOOTSTRAP-OK (py 3.12, torch cu129 CPU mode, vllm d9105ea80, checkpoint B0; venv `/workspace/venv312`, HF_HOME `/workspace/hf`, log `/workspace/logs/bootstrap.log`).
+- 18:00Z synthetic git index in `/workspace/base` (census and source-identity tests need a checkout): bootstrap `__pycache__` removed, marker moved to `/workspace/base.tree`, `git init && git add -A -f && git commit`; tree `7db3f3ba` = 72884c8a's tree, 2814 files. Do the same for the lane tree. Store config copied to pod `/workspace/store.toml` (no secrets).
+- commits (pushed): `b9b23ebf` tools/ + test_relayout_map deleted; `84c691c9` CMT-1 (reference_engine/, adapter, cmt_ref_* in commit_delta) + engine_rs/ + their tests + schemes.py CmtRef/veritor adapters; `446fe8b6` poc_rows, poc_verify_bindings (dist_identity -> observe/engine_profile.py), compiled_fx_kernels (normalise_kernel -> check/kernel_identity.py), batch_candidate, capture_identities_program, rebuild_digest_gate, row_pod_tp2.sh (+ test parts, census roots, keep list, allowlist); `c1cf11ef` moves to tests (fa2_prototype/ + fixtures, stream_merkle, synthetic -> tests/commit/; adversarial -> tests/check/; fa2_attn_oracle -> tests/acquire/; b1_authored, serve3_authored, inductor_models -> tests/program/; hidden_engine trimmed to what the committers import).
 
 ## Running
-- pod bootstrap on `qcky3qlmvh896c`: `cd /workspace/base/integrations/vllm && bash verity_vllm/ops/pod_bootstrap.sh --cpu --out /workspace/bootstrap`, log `/workspace/logs/bootstrap.log` (venv `/workspace/venv312`, HF_HOME `/workspace/hf`).
+- nothing on the pod.
 
 ## Next
-1. Moves to tests (fa2_prototype/, stream_merkle, synthetic, adversarial, fa2_attn_oracle, b1_authored + serve3_authored, inductor_models).
-2. Data/paths (sys.path.insert x8, parents[N] x16, machine paths, package data, commit_delta tests/ read).
-3. Pod: base gates (a)+(b) at 72884c8a (a1 baseline not yet written), then lane gates.
+1. Data/paths (sys.path.insert x8, parents[N] x16, machine paths, package data incl. `fa2_relation.tables_dir()` MUFU tables, commit_delta tests/ read).
+2. Gates. a1 (`vllm-rf-a1/STATE.md`) measures the baseline with pytest-xdist 3.8.0 (`OMP_NUM_THREADS=3 ... -n 12 --dist loadfile`) plus a serial run, and gate (a) with a read-only R2 credential. Use a1's `baseline.md` if written by then; otherwise measure base on this pod in the same environment (install pytest-xdist 3.8.0, same flags). Gate (a) credential: `research data mint-credential --permission object-read-only --via local --env` in a subshell with `~/.config/verity/r2.env`, passed to the pod through ssh stdin, never written to disk; gate (b) runs without it.
 
 ## Decisions so far
 - SKIPPED as live: `correspondence/resolve_decomp.py` (used by tests/regression/checks/decomp_hashes.py, a census root); `commit/hidden_engine.py` (imported by acquire/native_host, native_collect, leafhash, hidden_gpu, commit/hidden_stream, padding_steps) -- only its dead `_POC` sys.path and fa2_prototype-only helpers go.
 - `registry_version()` hashes the source of registry/prims.py + b1.py: editing prims.py (sys.path line) changes that digest; it is export-report provenance only (no Program/manifest digest, no regression check reads it).
+- Left as is (record content, not code): the `CORE` label in `tests/program/padded_commit_tiny.py` naming `stream_merkle`, and the frozen `why` strings naming `row_pod_tp2.sh` in `tests/regression/expected/*.json` (the live string in `checks/manifest_digest.py` now names `tp_stage.sh`). Both go in READY.md.
 
 ## Open questions
 - none yet

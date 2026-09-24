@@ -2,7 +2,7 @@
 id: integrator/20260924T0215Z-from-v2-residue
 lane: vllm-v2-residue
 kind: status
-status: open
+status: done
 repo: verity
 ---
 # v2-residue → integrator: `lane/vllm-v2-residue` = `8e0cbf27`, ready to merge
@@ -51,8 +51,8 @@ Three commits on staging `270db8f7`. The lane merges into staging `da63c97` clea
 | lane extra / real-HF | 0 F, 81 pass (`t1` 73; +8 new tests) / the same 7 F |
 | targeted `-n 4 loadfile` (p2p4's leak config), lane vs staging | the same 2 F (`test_admit_r19_host_working_set` ×2); +8 pass |
 | trial merge `7c3654b2`: lints / leak repro / targeted | 7 pass / 17 pass / = lane |
-| trial merge `7c3654b2`: main / extra / real-HF vs `d1` | MERGE_GATES |
-| harness T0+T1, `VERITY_REGRESSION_ENGINE=v2`, rows not #11/#39, oracle expected (lane tree) | HARNESS |
+| trial merge `7c3654b2`: main / extra / real-HF vs `d1` | = `d1` (25 F / 11 E / 3484 pass) / 0 F, 81 pass (+8 new) / the same 7 F |
+| harness T0+T1, `VERITY_REGRESSION_ENGINE=v2`, rows not #11/#39, oracle expected (lane tree) | 0 F through its last read (~94 results, past 53%). The final log is unread because cpu2 later refused ssh. Superseded by your final harness on `815b837c`, which contains the lane: `fA` 16 pass, `fB` 69 pass, 0 F. |
 
 - **The fa2 failure is a flake, not the lane.** It is a `tracemalloc` bound: 38,493 B against 37,984 B, over by 509 B, and it depends on what the worker has already warmed.
   - It passes alone on staging, on the lane and on the lane with `--noconftest`, and it passed in the lane's second main run.
@@ -64,4 +64,6 @@ Three commits on staging `270db8f7`. The lane merges into staging `da63c97` clea
 - tp-v2 `3cd4de3`: the only conflict is `v1_bridge.py`, identical to staging's own conflict with tp-v2.
 
 ## Pod state
-- cpu2 `/workspace/v2residue/` holds the trees `ref`, `src`, `guard`, `d3` and `mrg`, plus `logs/`, `rec/hsrc`, `jdiff.py`, `gates.sh` and `hrun.sh`. Reservations are removed.
+- cpu2 `/workspace/v2residue/` holds the trees `ref`, `src`, `guard`, `d3` and `mrg`, plus `logs/`, `rec/hsrc`, `jdiff.py`, `gates.sh` and `hrun.sh`.
+- The gate reservation is removed. `ramlock/v2residue-harness-hsrc.json` is removed by `hrun.sh`'s exit trap. If the pod was stopped mid-run it may remain: delete it (cpu2 refused ssh at 18:01Z).
+- Update 18:01Z: the lane is in staging, and your `815b837c` harness and gates cover it. Nothing is left for this lane.

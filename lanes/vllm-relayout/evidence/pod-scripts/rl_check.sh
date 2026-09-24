@@ -3,7 +3,7 @@
 # and everything collectible), then optionally the cleanup-2 gates (lints / main / extra / real-HF / research / core / root) with the
 # test paths of whichever layout TREE has.  Logs /workspace/relayout/logs/TAG/.
 T=$1; TAG=$2; L=/workspace/relayout/logs/$TAG; mkdir -p $L; LOCK=/workspace/ramlock/integrator-relayout-$TAG.json
-echo "{\"owner\":\"integrator\",\"gb\":48,\"started\":\"$(date -u +%FT%TZ)\",\"pid\":$$,\"note\":\"lane/vllm-relayout check @ $(cat $T/.sha) ($TAG)\"}" > $LOCK
+echo "{\"owner\":\"integrator\",\"gb\":${RL_GB:-48},\"started\":\"$(date -u +%FT%TZ)\",\"pid\":$$,\"note\":\"lane/vllm-relayout check @ $(cat $T/.sha) ($TAG)\"}" > $LOCK
 trap "rm -f $LOCK" EXIT
 export PYTHONPATH=$T/packages/verity/src:$T/integrations/vllm:$T/tools/research/src:$T/backends/numerical/python:/workspace/p5_tools
 export OMP_NUM_THREADS=3

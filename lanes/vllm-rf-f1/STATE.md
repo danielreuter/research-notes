@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T20:26Z
+updated: 2026-09-24T20:47Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -81,10 +81,17 @@ updated: 2026-09-24T20:26Z
   - Plan per row: Build -> Match -> copy `/workspace/sweep/<row>` to `/workspace/sweep_head/<row>` -> Commit(base, `72884c8a`, sweep) and Commit(head, sweep_head) back to back, alone on the pod (timings). Head source: pre-seed `/workspace/research/src/<head sha>/` on each pod from the base tree + `git diff` (the launcher adopts a pre-seeded tree by per-file sha256), so the head launch uploads nothing big.
 - 20:25Z code: `tests/check/opened.py` rewritten (uncommitted): one tensor spec `(name, bytes[, ordinal[, dtype, shape]])`; `commit_steps` (GPU-tree block, needs torch) and `commit_host_steps` (per-tensor host path via `commit_offline`, torch-free; the retained copy IS the caller's buffer so a bytearray can be mutated after the commit). `native_host.commit_offline` accepts optional dtype/shape per tensor (uncommitted). 11 test files still call removed APIs (`committed_reader`, `_t6_4_check(com)`, `compare_match_oracle(dir)`, `_tp2_attribution(None)`): porting now.
 
+- 20:40Z COMMIT `232cd7d1` (pushed): 9 test files ported to `OpenedReader` over real CPU committers (no stub committers left; `committed_reader` gone from code); new `tests/check/test_opened_values.py` (D1 attack on both layouts: retained copy changed after the commit to agree with a wrong oracle -> memory compare PASS, opened compare FAIL by name; linkage + replay paths) and `tests/acquire/test_range_openings.py`; TP negatives in `test_tp_partial_match_oracle` / `test_tp2_t6_4_check` / `test_tp2_attribution`. `test_tp2_sampled_replay_fold.py` needs no port (its stubs fail closed before the reader is built). Compiled locally only (py_compile).
+- 20:41Z #101 Match `r20260924-202429-ba17` PASS. #67 Build (g1b) and #70 Build (tp2) still running.
+- 20:44Z head tree pre-seeded on BOTH pods: `/workspace/research/src/232cd7d1…` = the 2,814 base files (by `git ls-tree` list, so no READY.json / build byproducts) + `git apply` of `git diff 72884c8a 232cd7d1` (158 KB) -> 2,817 files; the launcher adopted it (per-file sha256). Script `/tmp/rff1/seed_head.sh <sha>` (needs `/tmp/rff1_base.files0` + `/tmp/rff1_head.patch` on the pod).
+- 20:45Z targeted tests at head on tp2: `r20260924-204543-9d4d` (70 files importing the touched modules; xdist -n 12 loadfile; tree copied to `/workspace/tests/t-232cd7d1-targeted`; junit `/workspace/tests/t-232cd7d1-targeted.xml`). Job script `/tmp/rff1/pytest_job.sh TAG files…` (sent with `--send`).
+- Constraint (coordinator 19:40Z): no new pod -> gates (a)/(b) run on tp2 while its stages are untimed (Build/Match), never beside a timed Commit.
+
 ## Next
-1. Implement committer_api + native_host range methods; OpenedReader; wire call sites; update tests that use `committed_reader`.
-2. Read `tools/research/README.md`, `integrations/vllm/ops/`, `tests/regression/fixtures.toml` for the regression rows; measure before (base) on pods.
-3. CPU tests on a pod, then GPU rows.
+1. Targeted tests green (vs a1 baseline), then full gate (b) xdist on tp2 (-> `baseline-jdiff.py baseline-gate_b-xdist.xml.gz`).
+2. g1b after #67 Build: #101 Commit(base) then Commit(head) alone; then #67 Match -> Commit(base) -> Commit(head).
+3. tp2: #70 Match -> Commit(base) -> Commit(head); gate (a) at head (mint key on laptop, fetch, delete).
+4. Pod negative run: VERITY_FAULT-style mutate-after-commit on #101 Commit(head).
 
 ## Open questions
 - none yet

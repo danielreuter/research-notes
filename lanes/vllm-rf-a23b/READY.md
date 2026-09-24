@@ -2,7 +2,7 @@
 id: vllm-rf-a23b/ready
 lane: vllm-rf-a23b
 kind: ready
-status: draft (gates running)
+status: draft (gate (b) done; gate (a) running)
 created: 2026-09-24T20:50Z
 ---
 # vllm-rf-a23b READY: dead code, data and paths
@@ -10,12 +10,74 @@ created: 2026-09-24T20:50Z
 a23b took over from a23 at `c1cf11ef`. a23 did part 1 (dead code out, moves to tests); a23b did part 2 (data and paths).
 
 - **Branch:** `lane/vllm-rf-a23b`
-- **Head:** `4e26d864` (tree `a8917dce`)
-- **Base for gates and diffs:** `72884c8a`
+- **Head:** `748d71c5` (tree `1158eb69`)
+- **Base for gates and diffs:** `72884c8a` (tree `7db3f3ba`)
 
 ## Gate evidence
 
-_Pending: filled in when the runs finish._
+Both gates ran at `748d71c5` on `vyv-rf-a23b-big` (RunPod `n2ei0ahhoeu80j`). A base run of each gate ran on the same pod
+with the same flags. Scripts beside this note: `gate_a.sh`, `gate_b.sh` (a1's with the log directory moved), `prefetch.sh`.
+
+**Pod and environment.** cpu3m, 64 vCPU, 512 GB, AMD EPYC 9655 with AVX512, Linux 6.8.0-87, glibc 2.35. The venv comes
+from `pod_bootstrap.sh --cpu` (BOOTSTRAP-OK) plus `pytest-xdist==3.8.0`, with `xgrammar` pinned to 0.2.7. Its
+`uv pip freeze` is identical to a1's `baseline-freeze.txt`:
+
+- python 3.12.14;
+- torch 2.13.0+cu129 (CPU only);
+- vllm 0.28.1rc1.dev472+gd9105ea80;
+- triton 3.7.1;
+- numpy 2.3.5, transformers 5.17.0, tokenizers 0.23.2, safetensors 0.8.0, huggingface-hub 1.33.0;
+- pytest 9.1.1, pytest-xdist 3.8.0.
+
+Trees:
+
+- Head was shipped with `research pods sync` (tree `1158eb69` plus the sync stamp files).
+- Base was built on the pod by reverse-applying `git diff -M --binary 748d71c5 72884c8a` (verified tree `7db3f3ba`,
+  2,814 files; its stamp names `72884c8a`).
+- Neither tree has a `.git`, as in a1's baseline. Each run used its own copy.
+
+### Gate (b): `OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -ra -n 12 --dist loadfile`
+
+| run | total | passed | failed | error | skipped | xfailed |
+|---|---|---|---|---|---|---|
+| head `748d71c5` | 3,833 | 3,476 | 54 | 11 | 286 | 6 |
+| base `72884c8a`, same pod | 3,904 | 3,534 | 56 | 11 | 297 | 6 |
+| a1's base (baseline.md, xdist) | 3,904 | 3,536 | 54 | 11 | 297 | 6 |
+
+Comparison with a1's `baseline-jdiff.py` (exit 0 in every direction):
+
+- **Head vs a1's base:**
+  - 0 new failures or errors, 0 new skips and 0 new skip reasons.
+  - The 65 failures and errors are exactly baseline.md's 65.
+  - 71 tests exist only in the base. They are all tests of code deleted in part 1: `test_relayout_map` 8,
+    `test_torch_sha256` 23, `test_commit_host` 9, `test_triton_sha256` 1, the `cmt_ref_engine` scheme cases of
+    `acquire/test_security.py` 15, `test_gen_ovbatch`'s batch_candidate tests 3, and `test_derive_negative`'s
+    corr-binding tests 12.
+  - One outcome change: `observe/test_observer_encoding::test_weakref_death...` went from skip to pass. It depends on
+    test order at base.
+- **Head vs the same-pod base:** 0 new failures and 0 new skips. The gc-freeze pair in
+  `harness/test_admit_r19_host_working_set.py` passes at head and fails at base; that pair depends on test order at base.
+- **Same-pod base vs a1's base:** only the gc-freeze pair differs.
+
+The JUnit XMLs are beside this note: `gate_b-xdist-head-748d71c5.xml.gz` and `gate_b-xdist-base-72884c8a-samepod.xml.gz`.
+
+An earlier gate (b) run at `6da1b430`, on the first pod, found the one regression this lane introduced:
+`harness/test_source_identity.py::test_shipped_tree_{takes_its_sha_from_research_source_sha,still_refuses_a_foreign_package}`.
+The test's stub "shipped tree" copied only `source_identity.py`, which now imports `verity_vllm.config`. `748d71c5`
+makes the stub copy `config.py` too. The production path is not affected, because a shipped tree is the whole package.
+
+### Gate (a): `VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/vllm/tests/regression -m regression`
+
+_Running (started 21:37:17Z)._
+
+Fixtures: a read-only key (3 h) was minted on the laptop and piped to `/root/r2ro.env`. `prefetch.sh` fetched all 26
+fixture artifacts into `/workspace/research/store` (26 ok, 0 FAIL) and deleted the key at 21:36:51Z, before gate (a)
+started. The run has no `AWS_*` variables.
+
+**T1 needs a big pod.** `tests/regression/checks/replay_partition.py` loads each B=1 row's whole Program JSON. Its
+docstring says "0.9-1.7 GB compressed and need 120-250 GB of RAM as Python objects: a big pod". On the first pod
+(`vyv-rf-a23`, cpu3g 64 GB), gate (a) T0+T1 was OOM-killed twice. The second kill also took sshd, so that pod was
+terminated. On the 512 GB pod, row #11's `replay_partition` passed at about 63 GB.
 
 ## What changed
 
@@ -32,7 +94,7 @@ _Pending: filled in when the runs finish._
   to `tests/commit/`; `adversarial` to `tests/check/`; `fa2_attn_oracle` to `tests/acquire/`; `b1_authored`,
   `serve3_authored`, `inductor_models` to `tests/program/`. `commit/hidden_engine.py` was trimmed to what the committers import.
 
-### Part 2 (a23b, `96c12c0b`..`4e26d864`)
+### Part 2 (a23b, `96c12c0b`..`748d71c5`)
 
 - `96c12c0b`: the W11, W11R and W11C MUFU and RMS tables (7 `.xz` files) moved with `git mv` to
   `verity_vllm/program/numerics/tables/<fixture id>/`. `fa2_relation.tables_dir()`, `rms_relation.tables_dir()` and the
@@ -60,12 +122,14 @@ _Pending: filled in when the runs finish._
 - `ed81ba7f`: the profile lookup error messages and docstrings stop naming `data/hf_configs` (message text only).
 - `4e26d864`: `weights_of_record._default_manifest()` walked `dirname(__file__)/../..`; it now tries
   `config.CHECKPOINTS`, then the cwd, in the same order.
+- `748d71c5`: the shipped-tree stub in `tests/harness/test_source_identity.py` also copies `verity_vllm/config.py`.
 
 `pyproject.toml` is unchanged: hatchling's wheel with `packages = ["verity_vllm"]` ships every non-ignored file under the
-package. `uv build --wheel integrations/vllm` on the pod gave `verity_vllm-0.1.0-py3-none-any.whl`, which contains all
-7 `.xz` tables, the `.npy`, the `.jsonl`, `corpus_coverage.json` and the tanh tables.
+package. `uv build --wheel integrations/vllm` on the first pod (at `6da1b430`) gave
+`verity_vllm-0.1.0-py3-none-any.whl`, which contains all 7 `.xz` tables, the `.npy`, the `.jsonl`,
+`corpus_coverage.json` and the tanh tables.
 
-### Counts (rename-aware, `72884c8a`..`4e26d864`)
+### Counts (rename-aware, `72884c8a`..`748d71c5`)
 
 | | files | lines |
 |---|---|---|
@@ -74,17 +138,21 @@ package. `uv build --wheel integrations/vllm` on the pod gave `verity_vllm-0.1.0
 | `integrations/vllm/tools/` deleted | 3 | 3,068 |
 | moved from `verity_vllm/` to `tests/` | 18 text + 7 binary (`.npz`) | 8,361 |
 | data moved into the package | 9 (7 `.xz`, 1 `.npy`, 1 `.jsonl`) | binary / data |
-| whole lane | 113 files changed | +231 / -8,479 |
+| whole lane | 114 files changed | +235 / -8,480 |
 
-Part 2 alone (`c1cf11ef`..`4e26d864`): `verity_vllm/` 33 files +102/-81; `tests/` 7 files +8/-19.
+Part 2 alone (`c1cf11ef`..`748d71c5`): `verity_vllm/` 33 files +102/-81; `tests/` 8 files +12/-20.
 
-### Path smoke at the head (CPU pod, HF_HOME unset, cwd `/tmp`)
+### Path smoke (CPU, HF_HOME unset, cwd `/tmp`)
 
-`smoke_paths.py` beside this note, run in a fresh tree at `4e26d864`: `config.ROOT` is the tree's `integrations/vllm`;
-`MANIFESTS`, `WORKLOADS` and `CHECKPOINTS` exist; `checkpoints_hf_home()` and `apply_env()` give `/workspace/hf`;
-`_default_manifest()` gives the tree's `manifests/checkpoints.json`; `workload.CORPUS` exists; `case_for(SmolLM2)` is
-`B0`; the cos_sin table and calibration resolve with sha256 `7f7891085473...` and `fac806350bec...`;
-`fa2_relation.tables_dir()` lists the two W11 tables; `rms_relation.tables()` loads.
+`smoke_paths.py` is beside this note. It ran in a fresh tree at `4e26d864`, which has the same library code as the head,
+and every path resolved:
+
+- `config.ROOT` is the tree's `integrations/vllm`, and `MANIFESTS`, `WORKLOADS` and `CHECKPOINTS` exist.
+- `checkpoints_hf_home()` and `apply_env()` give `/workspace/hf`.
+- `_default_manifest()` gives the tree's `manifests/checkpoints.json`.
+- `workload.CORPUS` exists, and `case_for(SmolLM2)` is `B0`.
+- The cos_sin table and the calibration resolve, with sha256 `7f7891085473...` and `fac806350bec...`.
+- `fa2_relation.tables_dir()` lists the two W11 tables, and `rms_relation.tables()` loads.
 
 No GPU smoke Build was needed. The GPU-only paths are the JIT build in `hidden_gpu.py` and native_host's
 `_gpu_ext_load`, and neither changed. The one `hidden_gpu.py` change is the dropped `vllm-poc` entry, and the module-level
@@ -147,6 +215,9 @@ lint-allowlist entries for the modules this lane deleted or moved.
 
 ## Found, not fixed
 
+- **Gate (a) at T0+T1 needs a pod with well over 64 GB.** `replay_partition` (T1) on the B=1 rows loads whole Programs;
+  its docstring says 120-250 GB. A cpu3g 64 GB pod OOMs, and the OOM can take sshd with it. a1's T0+T1 base on
+  `vyv-rf-a1` (64 GB) will hit this.
 - `backends/sp1/common/src/ftz.rs:41`: a comment names the old `vllm-poc` W11 table path.
 - `program/registry/conformance.py:75`: the record string names `docs/data/l8-nan-scan-2026-09-07/`, but the files are at
   `data/l8-nan-scan-2026-09-07/`.
@@ -157,5 +228,7 @@ lint-allowlist entries for the modules this lane deleted or moved.
 - `tests/program/test_composition.py`: its `W11`, `W11R` and `B0_DIV` fixture paths (`natural/`, `stress/`,
   `index.json`) aren't in the tree, so those tests skip at base and at head. The module docstring still names
   `fixtures/W11-*`.
-- `input_provenance/test_analytic.py::test_check_cos_sin_against_the_captured_b0_table` fails at base (29,154 words
-  differ) and at head. The table bytes are the same.
+- Host dependence: on the first pod (AMD EPYC 7702P, no AVX512), 6 of baseline.md's failures passed at `6da1b430`.
+  Five are CPU numerics checks: `test_analytic` cos_sin, `test_gen_dense2` inv_freq, `test_ref_prims` gelu (2) and
+  `test_derive_realhf` gpt2 bf16. The sixth is the `test_row_pod_cancel_forwarding` 15 s timeout. On that host the
+  gc-freeze pair also failed at base with the file run alone. The AVX512 pod reproduces baseline.md's failure list exactly.

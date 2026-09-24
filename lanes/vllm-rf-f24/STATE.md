@@ -71,9 +71,16 @@
   D11 `FULL_DIGEST_RE` constant + inline checks (P10); `FastProg` -> `MemoProg` (P11). Allowlists: moved/deleted entries, 8 P10 caps
   lowered, one new P4 `reason-prefix` entry (replay_codes.not_evaluable_codes, the legacy decode) -> say so in READY.md.
 - 23:36Z gate (b) at a2e2843e: `b_head4_x12` (`OMP_NUM_THREADS=3 gate_b.sh /workspace/head4 b_head4_x12 -n 12 --dist loadfile`).
+- 23:44Z pushed `a2e2843e` (`--force-with-lease` against be366f80). NOT rebasing onto origin/main 58e4c1aa: its 11 commits since
+  1d9c3198 touch only backends/ and benchmarks/ (disjoint from this branch), and the coordinator has not said main moved.
+- 23:43Z D13 verdict A/B at head4 (`verdict_ab.py` -> `/workspace/out/d13/verdict_head4`): byte-identical to base for all 10 records.
+- 23:47Z `a_head4` = gate (a) subset at the FINAL head, keyless (`/workspace/rff24/head4_gate.sh`): T0 minus manifest_digest on every
+  row, T1 on #4/#11/#23 (deselect T1-replay_partition-r11), decisions. Supersedes `after_final`/`a_rerun_t1` (killed at 23:45Z; its
+  key sweep matched its own pattern text, a false positive; head4_gate.sh's sweep needs a 20+ char secret-shaped value, self-tested).
+  Why the subset suffices: the commits after be366f80 reach, among regression checks, only verdict (A/B'd), decomp_hashes
+  (program_compare) and replay_partition (sampled_replay); manifest_digest's rebuild (query.cli) imports only batch_decomp.derived_shape.
 - Next: after gate (b), GM-01 #23 at head4 (`/workspace/gm_run.sh /workspace/head4 head4_1`), compare with base1/branch1
-  (byte-identical global program). After `a_final` + `a_rerun_t1`: READY.md (heads be366f80 -> a2e2843e), rebase onto current
-  origin/main (58e4c1aa: SP1-only commits), push `--force-with-lease`, terminate the pod.
+  (byte-identical global program). After `a_final` + `a_head4`: READY.md (heads be366f80 -> a2e2843e), terminate the pod.
 
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
 - origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.

@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T23:20Z
+updated: 2026-09-24T23:50Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -130,6 +130,8 @@ updated: 2026-09-24T23:20Z
 - 23:09Z #67 Match `r20260924-220341-0afd` PASS (wall 3947 s; verdict PASS, global PASS, tokens_equal, fold True). `/workspace/sweep_head/<row67>` copied 23:10Z (28 GB, 56,314 files, identical path+size listing).
 - 23:11Z #67 Commit(base) `r20260924-231111-b648` (PAIRS=3) CANCELLED at 23:16Z (cancel-intent manual on pgids 32613 `timeout 14400 … commit_delta` and 32111; rc 143): the last 3-pair #67 Commit took 8787 s = 2h26m (`r20260924-102613-0196`, ~41 min per pair), so base+head at 3 pairs end ~04:10Z > 03:00Z deadline. **#67 runs PAIRS=1 for BOTH arms** (`--env PAIRS=1`; row_pod.sh reads PAIRS), ~64 min per arm. Partial commit outputs removed from `/workspace/sweep/<row67>` (commit/, commit.log, verdict.json) before the relaunch; the head copy predates the cancelled run.
 - 23:16Z **#67 Commit(base, PAIRS=1) `r20260924-231650-a561`** (g1b). Head next on `/workspace/sweep_head` at `e2f85a82`, `--env PAIRS=1`.
+- 23:44Z **#70 Commit(base) `r20260924-221949-8668` DONE: FAIL as the fixture** (`commit FAIL rc=1 wall=5062s pass False pairs 3`; tokens equal x6; tp run root `0b91229f06480ce4…` in all 3 pairs; replay False (partial: rank0 484 / rank1 475 q/k-norm strata recycled-window), linkage True (434/434 per rank per pair), xrank False (TP-12 picks 154 = equal 154, but AllGather2 sites without a stratum), fold_binding False ("fold Match record missing (tp2_fold_match.json / tp2_rank_match.json) -- REQUIRED"), weights_pin True). Per pair per rank: match_oracle 14592 = equal 14592; attribution ok; openings 128/128. value_check.json per rank tap 24960/24960 equal, reexec 22656/22656; t6_4 True. Extractor: `/tmp/rff1/tpstats.py <rowdir>` (run on the pod via `python3 - <dir> < tpstats.py`).
+- 23:45Z **#70 Commit(head) `r20260924-234524-0620`** (tp2, `e2f85a82`, `/workspace/sweep_head`, PAIRS=3; no other row process live, GPUs 0 MiB at launch). ETA ~01:15-01:30Z.
 - Plan: tp2 #70 Commit(base) then Commit(head) as soon as gate (b) `e2f85a82` ends (gate (a) serial still running beside them: noted for timings, same for both). g1b: #67 Match -> Commit(base) -> Commit(head). Pods die at 03:00Z (deadline daemon).
 
 ## Next

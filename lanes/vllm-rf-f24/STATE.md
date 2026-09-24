@@ -44,11 +44,15 @@
   tests/regression/test_regression.py::test_reproduces[T1-replay_partition-r11] --deselect ...[T1-replay_partition-r39]`
   -> `a_final.{log,xml,status}` (the two B=1 replay_partition checks need 120-250 GB each: big pod below).
 - 20:51Z gate (b) at `be366f80`: `OMP_NUM_THREADS=3 gate_b.sh /workspace/head2 b_final_x12 -n 12 --dist loadfile`.
-- Big pod `vyv-rf-f24-big` (je00gvavwlklve, cpu3m x64, 512 GB cgroup, $3.52/h, up 20:49Z; `/tmp/rff24/ssh_big.sh`) for the two B=1
-  replay_partition checks. Its own 3 h key: minted 20:55:40Z, fetched #11/#39 + top-level, deleted 20:56:53Z. A first start ran two
-  runner instances by accident (both #11 runs passed, interleaved log; moved to `gates/dup/`); clean rerun 21:14:28Z,
-  `/workspace/rff24/run_big.sh` (flock; #11 and #39 side by side, one gate_a.sh process each) -> `big_r{11,39}.{log,xml,status,rss}`,
-  `big.DONE`. TERMINATE as soon as they finish.
+- Big pod `vyv-rf-f24-big` (cpu3m x64, 512 GB; 20:49-21:45Z, terminated): its own 3 h key minted 20:55:40Z, fetched #11/#39 +
+  top-level, deleted 20:56:53Z. A first start ran two runner instances by accident (both #11 runs passed; logs in its `gates/dup/`,
+  not evidence); clean run 21:14:28Z (flock), at be366f80, no key: T1 replay_partition #11 PASS (843 s, peak RSS 67 GB), #39 PASS
+  (1364 s, 109 GB). Evidence `evidence/big/`.
+
+## D13 verdict A/B (main pod, 21:50Z; `evidence/d13/`)
+- `verdict.from_record(row).dumps()` (the T0 verdict check's reconstruction; it calls the D13-changed `_replay_seed_of_record`,
+  `_complete_replay_population_gap`, `_partial_replay_named_gap`) over the 10 regression records with a Commit verdict: base == head
+  byte for byte, 0 errors. `commit_summary` only lifts the recorded `commit/verdict.json`, so this A/B is the direct evidence.
 - GPU pod `vyv-rf-f24-gpu` (RTX 4090) ran the Build A/B 21:03-21:47Z and is terminated. Evidence: `evidence/build_ab/`.
 
 ## Build A/B (RTX 4090, one venv: vllm 0.28.1rc1.dev472+gd9105ea80, torch 2.13.0+cu129, triton 3.7.1 = the records' versions)
@@ -83,8 +87,7 @@
   (`rebuild_digest_gate` passes model / revision / max_model_len / tp / target). No digest, root or verdict moves.
 
 ## Next
-1. Gate (b) vs a1's baseline (no new F/E, no new skip reason); gate (a) green.
-2. READY.md; terminate pod.
+1. Gate (a) `a_final` (main pod) to finish; then READY.md (drafted) with its counts; terminate the main pod.
 
 ## Open questions
 - none

@@ -1,0 +1,10 @@
+{"model": "Qwen/Qwen3-4B-Instruct-2507", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "Qwen/Qwen2.5-1.5B", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "unsloth/Llama-3.2-1B", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "Qwen/Qwen3-4B-Instruct-2507-FP8", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "fp8", "model_config.quantization": "fp8", "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "unsloth/mistral-7b-v0.3", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "unsloth/Llama-3.2-1B", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "unsloth/Llama-3.2-1B", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "allenai/OLMoE-1B-7B-0924", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "allenai/OLMoE-1B-7B-0924", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}
+{"model": "unsloth/gemma-2-2b", "recorded_model_pin_dtype": "bfloat16", "engine_dtype": "bfloat16", "model_config.quantization": null, "model_config.dtype": "torch.bfloat16", "via": "create_model_config"}

@@ -1,0 +1,1 @@
+rc=0 wall_s=664.0 cpu_user_s=2517.0 cpu_sys_s=124.6 max_rss_gib=13.34 end=2026-09-24T19:42:44Z

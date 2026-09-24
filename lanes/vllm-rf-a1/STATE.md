@@ -2,7 +2,7 @@
 id: vllm-rf-a1/state
 lane: vllm-rf-a1
 kind: state
-status: active
+status: ready
 created: 2026-09-24T17:27Z
 ---
 # vllm-rf-a1: guardrails and baseline (state)
@@ -26,7 +26,7 @@ created: 2026-09-24T17:27Z
   all 65 failures grouped by cause; 50 skip reasons; per-file appendix). Beside it: `baseline-freeze.txt`, `baseline-gate_{a,b}.sh`.
   Local copies: `/tmp/rfa1/pull/b_base_x12.{xml,log,md}`, composer `/tmp/rfa1/compose.py`.
 
-## Running (pod vyv-rf-a1, scripts `/workspace/rfa1/gate_{a,b}.sh`, logs `/workspace/rfa1/logs/`)
+## Runs (pod vyv-rf-a1, terminated 21:48Z; scripts were `/workspace/rfa1/gate_{a,b}.sh`, local copies in `/tmp/rfa1/pull/`)
 - DONE 18:22Z gate (b) base, xdist: `OMP_NUM_THREADS=3 gate_b.sh /workspace/base b_base_x12 -n 12 --dist loadfile` (exit 1, 65 F/E).
 - 17:42Z gate (a) base: `nice gate_a.sh /workspace/base-reg a_base` -> `a_base.{log,xml}`. 18:01Z past the first row build, passing.
 - 17:46Z gate (b) base, serial (the brief's exact command): `gate_b.sh /workspace/base-serial b_base_serial` -> `b_base_serial.{log,xml}`. 18:01Z at 53%.
@@ -62,7 +62,18 @@ created: 2026-09-24T17:27Z
   filled, status complete; XML beside it as `baseline-gate_a.xml.gz`. The skips are 39 tier (the brief's command runs T0 only),
   13 attempt_provenance, 12 stoch_value greedy, 21 Commit/Match n/a on #4/#70/#75, and 9 `step_segmentation`: the store trees
   lack `build_request*/descriptor.json.gz`. The integrator (live rows root) passed those 9: 73/85.
-- 20:30Z watcher `/tmp/rfa1/watch2.sh` (local background) prints `DONE a_head` / `DONE b_head_serial`.
+- DONE 21:29:57Z gate (a) head (`a_head`), exit 0: 158 = 64 pass / 94 skip (2 h 36 min), identical to a_base test by test.
+- DONE 21:32:49Z gate (b) head serial (`b_head_serial`), exit 1: 3945 = 3574 pass / 57 F / 11 E / 297 s / 6 xf. The same 68 F/E
+  as b_base_serial, plus 41 lint passes. One flip: `observe/test_observer_encoding::test_weakref_death...` pass -> skip
+  ("allocator did not reuse the pointer"). Checked on the pod (`/workspace/rfa1/obs_exp.sh`): run alone, with no lint test
+  collected, it skipped in 2 of 4 runs; after `tests/lint` in 2 of 5. It is heap noise, not the lints.
+- 21:44Z `baseline-jdiff.py` (notes copy): an `UNSTABLE` set with the 4 order-dependent tests (the gc-freeze pair,
+  `test_specified_list_is_closed`, observer weakref) is listed "not counted"; reasons are whitespace-collapsed. On the archived XMLs,
+  base -> head exits 0 for gate (a), serial (b) and xdist (b). Head XMLs are beside READY as `head-gate_*.xml.gz`.
+- 21:46Z **READY.md published** (gate table, per-mode comparison, lint timing 41 pass in 25 s on the idle pod).
+  Branch `origin/lane/vllm-rf-a1` = `39c5ee7a` (checked with ls-remote), worktree clean, 28 new files.
+- 21:48Z pod `y2uelocmg62eu0` terminated (`research pods terminate <POD_ID>`; the name form returns 404); `pods get` -> 404.
+  Local copies of every run's XML/log: `/tmp/rfa1/pull/`.
 - Pod hygiene: never `pkill -f <pattern>` over ssh (the pattern matches the remote shell and kills the session); kill by pid.
 - Laptop: the brief forbids pytest on the laptop; the early local lint runs (uvx pytest, AST only, <1 GB) were a slip; lints run on the pod now.
 
@@ -75,9 +86,7 @@ created: 2026-09-24T17:27Z
 - Pod run (gate_b env): `cd /workspace/head && python -m pytest integrations/vllm/tests/lint -q -p no:cacheprovider`.
 
 ## Next
-1. When a_head and b_head_serial finish (a_head ~50%, b_head_serial 54% at 20:28Z): jdiff vs a_base / b_base_serial; fill the gate section of `/tmp/rfa1/READY.draft.md`;
-   move it to `READY.md`; update STATE; terminate vyv-rf-a1 (`research pods terminate vyv-rf-a1`) after pulling the XMLs/logs
-   to `/tmp/rfa1/pull/` and copying the needed ones beside baseline.md.
+- Nothing pending in this lane. Waiting for the coordinator on the open questions below. No pod is running.
 
 ## Open questions
 - Gate (b) cannot be 0 failures at 72884c8a (10 fail in any environment; 3 more are order-dependent in the serial run).

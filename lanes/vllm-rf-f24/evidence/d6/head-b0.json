@@ -1,0 +1,15 @@
+{
+ "tree": "head-b0",
+ "sources_sha256": "b941f9040cf4d0a169e1fceb97f622999c678688d07c7496ac963e0af42a270b",
+ "n_files": 14,
+ "files_hashed_as_missing": 0,
+ "n_rules": 27,
+ "recorded_builds": [
+  {
+   "sources_sha256": "ad140226763b5890f4017730c3cc851590b1d7e74371e8464448fcf3f2e28563",
+   "files_hashed_as_missing": "14/14",
+   "equals_this_tree": false,
+   "n_builds": 180
+  }
+ ]
+}

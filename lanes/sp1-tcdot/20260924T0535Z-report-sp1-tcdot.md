@@ -1,3 +1,5 @@
+CHECKPOINT e654633 (10:08Z) [final] TC_DOT_BF16 (modified SP1) A100 B=4096: t.total 4.258s art:0a66c35e (witness arm, fork 6655716e), 1.48M MAC/s, 4.66x vs stock SP1; 2^-97 drill-down; pod terminated 10:06Z ~$7; verify-night 0954Z handoff open
+CHECKPOINT e654633 (10:08Z) [final] TC_DOT_BF16 (modified SP1) A100 B=4096: t.total 4.258s art:0a66c35e (witness arm, fork 6655716e), 1.48M MAC/s, 4.66x vs stock SP1; 2^-97 drill-down; pod terminated 10:06Z ~$7; verify-night 0954Z handoff open
 CHECKPOINT 3510b39a7 (10:05Z) [open] HC6 art:b147a31c 5.631s (patch 0010: subnormals on chip, 0.86M cycles); HC7 art:2a4760fb 4.980s (0011 parallel tracegen); HC8 art:0a66c35e 4.258s (ET 2x, 4 chunks) = 4.66x vs stock SP1. verify-night handoff 0954Z. Tuning plateaued; wrapping up.
 CHECKPOINT 0742a046 (08:42Z) [open] hill-climb 5 art:174d7b4d (runs art:ff5eaf2a): fork patch 0009 (prover-only local-memory merge, FORK_HEAD_WIT 6096d886), t.total 5.811s, 8 shards, 11.4MB: 3.41x faster than stock SP1's best (19.83s, sp1-table art:fffbf728). verify-night handoff 0841Z (build from the witness fork: vk does not pin the AIR). Next: the 74 software-routed VUs (2.45M of 3.74M cycles).
 CHECKPOINT b189a963 (08:24Z) [open] hill-climb 4 art:76c113f4 (runs art:44bded3a): fork patch 0008 (operands from the input stream) + sp1-table k7 merged + two trace chunks, t.total 5.923s, 8 shards, 11.4MB: 3.76x faster than stock SP1's best (22.27s, art:1d6aa0c3). Next: patch 0009 (prover-only local-memory merge), screened 5.6s.
@@ -288,3 +290,65 @@ Budget $12, FINAL 12:00Z.
   - 2.34x (2 precompile shards), 3 chunks: 4.68 / 4.21 s. With 4 chunks: 4.55 / 4.29 s. With 2 chunks: the client
     missed the new server's socket (harness race, not a prover limit).
   - 4.67x (one 393k-call precompile shard), 2 chunks: 6.94 / 5.18 s. Nothing overlaps its tracegen.
+- **Hill-climb 8, `art:0a66c35e…` (runs `art:2dc0261c…`), source `97b5b60a`, fork `6655716e`; prover env
+  ELEMENT_THRESHOLD 805306368 (2x), MINIMAL_TRACE_CHUNK_THRESHOLD 1250000, SP1_WORKER_NUM_SPLICING_WORKERS 4.**
+  - t.total **4.258 s** (reps 4.22-4.25 s), 8 shards (5 CPU, 3 TcDotBf16 of at most 135k calls), 11.48 MB, -97.0;
+    52/52 negatives; verify 0.50 s; peak device memory 18.5 GB.
+  - **4.66x** faster than stock SP1's best (19.83 s, `art:fffbf728`). Rate: 4096 x 1536 MACs / 4.258 s = 1.48M MAC/s
+    (2.95 MFLOP/s). Overhead vs 312 TFLOP/s: 1.06e8x.
+  - The pod's `6655716e` host verifies rep 0 of this result and of hill-climb 6 (`0e00bd15`: 0011 is prover-only).
+    Patches 0010-0011 reproduce `6655716e` (tree `4ca5a6ca`) under `git am` from `6096d886`.
+  - verify-night handoff `20260924T0954Z` covers hill-climbs 8, 7 and 6. The AIR changed at 0010 while the vk stayed
+    `0x00896ef4…`, so they need a verifier built at `6655716e`.
+- **Last screens (plateau).** 5 chunks with 5 splicers: 4.44 / 4.21 s (9 shards). 6 chunks with 6 splicers: 4.45 /
+  4.50 s (10 shards). ELEMENT_THRESHOLD 1.94x cuts the same shards as 2x (byte-identical proof size): 4.22 / 4.09 s,
+  which is noise.
+  - The GPU is now busy without a gap from +1.2 s: 8 shards, about 0.2 s fixed each, 2.7 s in all.
+  - Before that come 1.2 s of server startup (executor setup 0.39 s, execution 0.31 s, the first chunk's tracing
+    0.34 s) and about 0.3 s of request and proof transfer.
+  - `ProverSemaphore::new(1)` and one preallocated `CudaShardProver` keep shards serial on the GPU.
+
+## FINAL
+
+~~~text
+tip: lane/sp1-tcdot @ 97b5b60a (base main@0b0768ed)        merge-with: lane/sp1-table@2da1e77e (already contained)
+known-failures: none    pod: terminated 10:06Z (vy-tcdot-a100 4haxoz642k8ho1, 05:27Z-10:06Z at $1.39-1.59/h); ~$7
+artifacts: art:0a66c35e art:2dc0261c art:2a4760fb art:4b3dc262 art:b147a31c art:ee9b4fdf art:174d7b4d art:ff5eaf2a art:76c113f4 art:44bded3a art:a68f2446 art:204f58d0 art:255f4f78 art:4afa9f4e art:6e415853 art:a965d150 art:90671b80 art:d9a862c5
+~~~
+
+**What TC_DOT is.** The original chip (`~/projects/sp1` tc-dot-precompile, on SP1 v6.4.0) computes one accumulator
+coordinate of an m16n8k16 step per row, with fp8 E4M3 operands pushed through the Ampere BF16 GroupSum pipeline. That
+matches none of the five targets. This lane added TC_DOT_BF16, whose back end is parameterized rather than copied:
+- one tc-ampere-bf16 step per call, K = 16, groups [8, 8], a 25-bit adder, floor -132, truncation;
+- bit-exact with `common/src/tc.rs`: the host crosscheck finds 0 kernel mismatches over all 393,152 chip steps.
+
+It is a `modified` backend (CL10), labelled "modified SP1 (TC_DOT chip)" everywhere, and core-proof only.
+
+**Soundness status.**
+- Every chip constraint family has negative tests that tamper with honest traces, including the subnormal path added
+  in patch 0010. The CPU prove tests pass, and 52/52 statement negatives are rejected per run.
+- The best results use the witness-operands arm: operands are free witness values from the input stream. That is sound
+  for relation-bare (existential in x and W), not for an authenticated statement.
+- SP1's 100-bit target per shard proof gives 2^-97 after the union bound. So these are D1/D2 drill-down rows, not
+  Table 2 cells: `tables` excludes them only for security.target -100.
+
+**Numbers (B=4096, K=1536, A100 SXM4 80GB CUDA prover).**
+- Witness arm: t.total 4.258 s, 1.48M MAC/s, R = 2KB/t = 2.95 MFLOP/s, overhead 1.06e8x vs 312 TFLOP/s, 4.66x faster
+  than unmodified SP1 (19.83 s).
+- Memory-operands arm: best is hill-climb 2, 11.485 s (patches 0010-0011 not ported to it).
+
+**Handoffs received and acted on.**
+- `20260924T0528Z-handoff-coordinator-emitter.md`: vector_run.py emitter, reused via `--variant`.
+- `20260924T0530Z-handoff-coordinator.md`: five-target scope, A100 BF16 first, chip parameterized.
+- `20260924T0545Z-handoff-from-sp1-table.md` (relation-bare/v1) and `20260924T0622Z-handoff-from-sp1-table.md` (v2):
+  the guest proves their statement byte-identically.
+- `20260924T0640Z-handoff-from-sp1-table.md`: `--variant` and `--prover-env` adopted.
+- `20260924T0741Z-handoff-from-sp1-table.md`: k4, then k7, merged; the software fallback uses `bare::check_one`.
+- `20260924T0710Z-handoff-from-verify-night.md`: ELF vs vk reproducibility, recorded in `kb/sp1-prover.md`.
+
+**Left.**
+- The other four targets (fp8 Ada/Hopper, BF16 Hopper, NVFP4 Blackwell pipelines) are not built.
+- The next structural win is one syscall per VU: 96 chained rows per call, as ShaExtend's 48. That removes the 393k
+  ecalls' SyscallInstrs/Global rows, about 1/3 of all cells, and most CPU shards.
+- A second GPU prover instance would overlap per-shard fixed costs.
+- verify-night has hill-climbs 4-8 to label.

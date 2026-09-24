@@ -32,6 +32,25 @@ Task: close the fresh B64 GM-01 cell for row #23 (llama32-1b bf16 L40S tp1 b64);
   incl. (json.dumps 27.7% -- the canonical serialization before sha256; changing it would change hashes of record), compare_steps 42%,
   X-09 decompose 21%, component build on workers 16.8% (built once, held by parent, shared CoW -- no reloads), fold load json decode 8.6%.
   py-spy exited 1 (9 sampling errors); GM-01 inside it PASS, diff = timing + the sep-mode decomp_out path only.
+- Worker scaling (same pod, same record; all PASS, all outputs equal to dc38 except timing / worker config / sep-mode output path):
+  | MATCH_WORKERS | wall s | load_fold | x09 | per-req + alternate | avg CPU | max RSS 1 proc | cgroup anon peak |
+  | 1  | 880 | 106 | 591 | 81 + 50 | 100% | 19.6 GB | 18.6 GiB |
+  | 8 (default) | 435 | 106 | 135 | 71 + 73 | 355% | 14.0 GB | 29.1 GiB |
+  | 16 | 360 | 107 | 82 | 59 + 62 | 452% | 14.0 GB | 30.4 GiB |
+  | 32 | 339 | 106 | 77 | 52 + 53 | 564% | 14.0 GB | 36.5 GiB |
+  X-09 scales (591 -> 77 s). Floor ~290 s = serial load_fold (json decode + sha256 of the 2.2 GB instances.jsonl) + per-request and
+  alternate phases that barely gain from workers (largest legs straggle; parent 14-30 s CPU each) + ~40 s startup/output.
+  (cgroup memory.current peaks of 97-116 GiB were page cache from the 38 GB tar, not GM.)
+- Conclusion for Step 2: NOT triggered. Worst case (1 worker) 15 min, default 5-7 min; 84% of CPU already on forked workers. The
+  remaining serial pieces are ~2 min; cutting them would mean touching the fold loader or the canonical-hash serialization of record
+  (changes identity risk) for a minute or two. No code change.
+
+## Rebase
+- 08:40Z staging moved: retire-v1 merged (5ad682d3) and the vllm relayout applied at 738e63f5 (08:22Z; GM now
+  `verity_vllm/check/global_match.py`, fixtures.toml path unchanged). Branch fast-forwarded to 738e63f5 (no local commits then).
+- Validation Attempt `r20260924-084953-66e6` launched 08:49:53Z at 738e63f5 (tree shipped afresh; my smoke test's __pycache__
+  quarantined). Command = dc38's recorded line with `-m verity_capture.experimental.cb_a.global_match` -> `-m verity_vllm.check.global_match`.
+  Expected non-timing diffs: impl.module, impl.source_sha256 (the checker's identity, relayout rewrote its imports).
 
 ## Step 1 evidence (gm-answer)
 - Sweep Match `r20260923-233020-dc38` (vllm.match, source `014563ac`, vyv-sw-67, 23:30:30Z-00:07:42Z, state done rc=0 validation=passed),

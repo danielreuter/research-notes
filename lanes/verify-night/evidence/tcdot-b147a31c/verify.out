@@ -35,3 +35,7 @@ rc=1
 Error: proof rejected
 rc=1
 --- proof-rep2.bin [6096d886 host]
+{"backend":"sp1 tc-dot","elf_sha256":"e17c880266bccbd426e6fd54fc71fabaa3dd81d7d336c6187fdc9dea31c1c620","error":"Core machine verification error: invalid shard proof: invalid shape of proof","fork_head":"6096d886e433ca854504ac0c97abf19ed17a7997","label":"modified SP1 (TC_DOT chip)","load_seconds":0.02090434,"ok":false,"operands":"stream","public_values":"5e0dd245187bab03bf06c5105545342c7a3ec422069f1464614b5a49e14286bb01","setup_seconds":2.809139037,"shards":8,"statement_match":true,"unsound":false,"verdict":true,"verify_seconds":0.001482218,"vk_hash":"0x00896ef46d917e41bd6f29ef3f4504676f1bccffe2c10936a150113a9ca49384"}
+Error: proof rejected
+rc=1
+=== [10:20:18] done

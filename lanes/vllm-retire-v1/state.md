@@ -23,6 +23,12 @@ By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pur
   cpu3 fB "not r11 and not r39" -> /workspace/rv1/hrec/fB, log /workspace/rv1/logs/h_fB.out (lock retire-v1-harness-fB.json)
   cpu2 fA "r11 or r39" -> /workspace/rv1/hrec/fA, log /workspace/rv1/logs/h_fA.out (lock retire-v1-harness-fA.json); ssh /tmp/rv1ssh2
 - staging harness to compare against (815b837c, T0,T1,T2): cpu3 /workspace/p6_rec/fB, cpu2 /workspace/p6_rec/fA (integrator's)
+- converted test files @6813fe06 (cpu3, logs/conv2_tip.{log,xml}): 212 pass / 173 skip / 2 F, both F on staging's list
+  (test_norm_chain::test_mean_pins_match_installed_vllm, test_compiled_source::test_renumber_assigns_invocations_per_call_site);
+  skips environmental (157 VERITY_REGRESSION-gated, CUDA, real Programs). vs staging junit per test (jcmp.py): 0 pass->fail,
+  0 pass->skip; 25 v1-comparison tests gone, 14 new/renamed pass. No fixes needed.
+
+CHECKPOINT rv-tests MET 05:56Z converted test files @6813fe06 on cpu3: 212 pass / 173 skip / 2 F (both staging-known), 0 regressions per test vs staging junit
 
 ## Done
 - bda6f73a: ACQUIRE_ENGINE switch, v1_decision, gate v1 compare, plan class residuals, compiled_source v1 branch,

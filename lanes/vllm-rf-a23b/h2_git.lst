@@ -22,6 +22,7 @@
 100644 021cf19fbdbd77f791f34c77827de57cbd5988c7 backends/ligero-verify/fixtures/fp8-ada/sub_00.stmt
 100644 023df9237d73d6a1fd95645934be584569dca0f8 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/down_proj_prefill_2/fixture.json
 100644 023fad836a98a38d155d5414eabf9439062a8fa8 backends/direct/ligero/tool.py
+100644 026b5e892f21c1f9defecd844f4f97cc05a449a8 integrations/vllm/docs/data/ref-prims/RoPEHeadGptJ_v1+RoPEGptJ_v1-bf16.json
 100644 02716f19843810771887a6eacb0ac9ea2a59c762 fixtures/bench-instances/v1/seeds/gate_up_proj_decode_2/fixture.json
 100644 02716f19843810771887a6eacb0ac9ea2a59c762 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/gate_up_proj_decode_2/fixture.json
 100644 027dbf7a7e1c6d78ace0f7cc78ea61f8033d3dbf fixtures/redteam-v2/gkr/neg/epilogue_ovf_flip/epilogue.bin
@@ -40,7 +41,6 @@
 100644 0376e3153b77c81b6fc29f780e6220074d7ea995 packages/verity/src/verity/commitments/leaves.py
 100644 0394bea1649d45628a8d49a5ffdb0135ca37f5a8 fixtures/typed-obligation-v0/identity--unsampled-input-mismatch-survives.json
 100644 0399a492b54db66a1a609354a202246591cad8f3 backends/vole/bench.py
-100644 0434327241809c9f5fd79e9aa7698f3c4ef61e14 integrations/vllm/docs/data/ref-prims/ref-vocab-manifest.json
 100644 044eef64eed89926480ee8a85fdb588fba3a009f integrations/vllm/verity_vllm/observe/engine_driver.py
 100644 0469c27430574192e09b66ebda44b536212f32b2 fixtures/bench-instances/v1/seeds/gate_up_proj_decode_1/w_row.u16
 100644 0469c27430574192e09b66ebda44b536212f32b2 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/gate_up_proj_decode_1/w_row.u16
@@ -118,7 +118,6 @@
 100644 0a12c42a6cb5c15ee349d066c24a9148270f7bf5 tools/research/src/research/runs.py
 100644 0a57951aaedaaaa6e45831ca63c4e847a3d583bb integrations/vllm/tests/check/test_compare_synthetic.py
 100644 0a6536651b69724cf70a1f830321e93ba119dd8a packages/verity/tests/verification/test_target.py
-100644 0a739125398d05a444d0fb5d3853854180206aa7 integrations/vllm/docs/data/ref-prims/RoPEHeadGptJ_v1+RoPEGptJ_v1-bf16.json
 100644 0a88296ec83a9b2fc2ce536c5f45d6e2992985de backends/numerical/tests/bench/test_latency.py
 100644 0aaf309c8b979eacb1a635a84ab711739d9a6be5 backends/sp1/common/src/lib.rs
 100644 0ad0ba174505129cd8acb0e3cf144ec12aa8719d backends/numerical/reports/ledger/a-gpu.jsonl
@@ -178,7 +177,6 @@
 100644 1046c25fc83af833cdc95968c8371f7d4ba998f3 integrations/vllm/tests/acquire/test_security.py
 100644 105b1b4c140f961da4b3261bf1cc119a67895b56 integrations/vllm/workloads/workload_cov_b0_b1_c256_t1.json
 100644 1063194c6d050766c965ad89cb9689bed2479324 fixtures/typed-obligation-v0/identity--fine-grained.json
-100644 106451a87bdc68399771f3127d83738754e0979e integrations/vllm/docs/data/ref-prims/LayerNormRef_v1-bf16.json
 100644 106858c38fb8a50f78f2417807ec097e5253457b backends/direct/ligero/bench_vu_test.py
 100644 10878bfb034dae21d0490e000ceafe17db96a543 integrations/vllm/workloads/workload_b0_conc4_mixed.json
 100644 10a1bd3729efd4fc784773729d9579921d706fd5 integrations/vllm/verity_vllm/program/frontend/rules/padding.py
@@ -191,15 +189,14 @@
 100644 10f707b888f1b6b59fd312a7575b33c4fce40e6e packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/down_proj_decode_0/fixture.json
 100644 10fc5c0f6f2da55def0d123d91f76863f533a611 fixtures/discrepancy_log.json
 100644 1103dd09cf6370f063178a5f1766024185f26035 backends/vole/profile_buckets.py
-100644 11163ea72153af4727f54d6b65d3a2953f0f2900 integrations/vllm/docs/data/ref-prims/SoftmaxRef_v1-bf16.json
 100644 1129566de0d7bc680dcd8b54d6c5e1f273c283af backends/gkr/gpu/prover.py
 100644 112b4008d3c53c737c36d005813cc5295123e278 tools/research/tests/test_store_vocab.py
 100644 112d2c57b801b927e6f01ab8d0144a1dae1bd837 backends/shared/hash_gpu/README.md
 100644 1144783e65621009a0995679c139f3448a73ff79 backends/direct/encode/buckets_ref.py
-100644 11adcacb9b1780bbb3009dbcf3483971d4f975f0 integrations/vllm/docs/data/ref-prims/EmbeddingRef_v1+AddRef_v1+MulRef_v1+ArgmaxRef_v1-f32.json
 100644 11bd725130e5c260f275e1d5069560e94130e7f4 backends/gkr/bench_result.py
 100644 11c8219f71d7176c376c7e7e788d8dc43ffda9b6 integrations/vllm/verity_vllm/tp/capture.py
 100644 1201baa7c4259a9700d298b68f1e8a6616c3ed14 integrations/vllm/docs/data/ref-prims/GeluRef_v1[APPROX=none]-f32.json
+100644 124127deea5624dfb55dc558b4b90bbc256f9537 integrations/vllm/docs/data/ref-prims/RoPERef_v1-f32.json
 100644 128a3f72bda664f1a3ce83637b2a798beb6483e8 integrations/vllm/workloads/workload_qwen05_32x16_1req.json
 100644 129ba400f5cae795b61f960ed22d2926c7a2faf9 integrations/vllm/verity_vllm/correspondence/resolve_decomp.py
 100644 12a96da4e732732c42c6c330f7f6e5bd7d36e6a8 fixtures/typed-obligation-v0/accept--empty.json
@@ -212,7 +209,6 @@
 100644 13111476c4d536e9e2e27c27aa8c958ee8b5a242 integrations/vllm/tests/program/test_gemm_targets.py
 100644 1322a74e338ec300ce6b76ca07ba2217a9154260 backends/shared/anchor_a100/results/packed/agreement_test.log
 100644 132da2ad3348c8bd4da2666fc16250d91106018c backends/ligero-verify/fixtures/manifests/neg_fiat-shamir_zk.manifest.json
-100644 1346f052a92dd9cdaada17d6b4f155be68cff588 integrations/vllm/docs/data/ref-prims/RoPEInterleavedRef_v1-f32.json
 100644 134eedbcf71e1c5137af7f7ebc132a7dfa73cc65 backends/direct/ligero/auth.py
 100644 135a8b66c0d00b25d22a00c54c2c9ef49e211640 integrations/vllm/verity_vllm/ops/fa3_row_negatives.sh
 100644 137eca67ed46891d3c44de0fef70ae6398d9d46a backends/numerical/tests/redteam/test_redteam_v2_fixtures.py
@@ -364,6 +360,7 @@
 100644 1fc308f5d6a2cd36f865dc900005bc0dcc7462a8 backends/ligero-verify/fixtures/fp8-ada-hash/sub_00.proof
 100644 1fc99c7a2f5bd27607f556ceccf838ee73b23ef9 integrations/vllm/verity_vllm/program/registry/quarantine/dense/bf16_div_scalar.py
 100644 1fff777278d8c7c2c0a19c29915222b801824122 fixtures/typed-obligation-v0/accept--packed-word-pinned-input.json
+100644 20127b64d53e822071f930350560ecb528ab7411 integrations/vllm/docs/data/ref-prims/RoPEInterleavedRef_v1-bf16.json
 100644 201289ad1465ce90e0c8b463249aa79f812095e1 integrations/vllm/workloads/smollm2-135m__bf16__l40s__tp1__b1__i32__o32__earlystop__greedy__bi-eager.json
 100644 2017d134401de9b7098efbaff535e46a47bc77b1 tools/research/src/research/store/kinds.py
 100644 20510d35b1c1ad58e8825e5c668c2dee04a585b2 backends/gkr/fixtures/negatives/normalise.flip_clamp.bin
@@ -385,7 +382,6 @@
 100644 2159316913a41790f2b96f3deedc466190c8234c backends/numerical/python/verity_numerical/bench/contract.py
 100644 215a9fa6803a57bb143c7e54b837784d9fb3d081 fixtures/typed-obligation-v0/identity--mut--leaf-rank-collision.json
 100644 215b2da93352899862542314861d0cca1564a48e backends/gkr/fixtures/negatives/bf16.nz_set_on_zero.bin
-100644 2172cd94d714ea4fb9f2bb7233340491659b571f integrations/vllm/docs/data/ref-prims/F32ExpRn_v1-f32.json
 100644 2173bddf6351e4f332709f8effe75d17d10ea755 integrations/vllm/tests/harness/fixtures/admission/fp8_b1_sizing.json
 100644 21a95c0a6d07ea034008806d858ba6b3465670ff backends/gkr/gpu/circuit.py
 100644 2208590d57a166ebc49fb30ce023ba60ce0f8c5d backends/direct/ligero/relations_test.py
@@ -448,7 +444,6 @@
 100644 25d8fe6c94a09617faa7e218dd7709b0bc902816 backends/numerical/tests/security/test_accounting.py
 100644 25dc5413683f0b8f78d460e8c588f16fa0c3b21e backends/gkr/fixtures/negatives/fp32.wrapped_reconstruction.bin
 100644 25e3b30a113c7ab935b227ae51783ad4cce8af33 backends/ligero-verify/fixtures/steps-pin/fp8-ada-poseidon2-steps32/sub_00.proof
-100644 25fc1286d4642dd6fc760e8dbd3c886932bd2559 integrations/vllm/docs/data/ref-prims/SoftmaxRef_v1-f32.json
 100644 26423e3d28552474d9d831c2abd6840601f5fb1f backends/direct/ligero/hints_torch.py
 100644 26511c2610ad2c1a8a69ef539b24e67afaae9848 integrations/vllm/data/rec/compact-probe-b0-nl1-v1024-lp2s1.json
 100644 265e4eecbae72260c26db2e1ac738e479117b8ab integrations/vllm/workloads/llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.json
@@ -524,6 +519,7 @@
 100644 2c4ee1c3f7e3fff403b6d8443a25f69d70b2aca6 integrations/vllm/tests/tp/test_tp2_match_mid_module_rows.py
 100644 2c7ce4a027974244504abd98489f517190023fef integrations/vllm/tests/check/test_replay_synthetic.py
 100644 2c8f2c4f8d697c43d7cee2c3e9b72159a7c84774 backends/numerical/tests/bench/test_bench_judge.py
+100644 2ca07c6a422c8905d954b207427159c5b9d943ef integrations/vllm/docs/data/ref-prims/SoftmaxRef_v1-f32.json
 100644 2cac32dc57e6a7f405472dd4e3e4020f978f2a99 backends/gkr/verifier/src/verify.rs
 100644 2cb36a44c2ef37f8a662b187f166c18c261a1734 integrations/vllm/tests/input_provenance/test_weights_of_record_routed_experts.py
 100644 2cb51c4b3c09a545bef5f8477589469fe43f6fbd fixtures/redteam/babybear-battery/v1/wrap-50a0d4a385.json
@@ -540,6 +536,7 @@
 100644 2db1c270675c358a98c9137324476e834ee437b6 integrations/vllm/tests/check/test_compiled_autotune.py
 100644 2dc22f35df5d033b592935a3ff105e53facce0cb packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/down_proj_decode_1/x.u16
 100644 2dc2eecb3907128ee10e15efff567602306b9c2d backends/numerical/tests/redteam/test_redteam_checker.py
+100644 2dc9d271a7a84cddf563f6415b9663a5f130631d integrations/vllm/docs/data/ref-prims/SoftmaxRef_v1-bf16.json
 100644 2dd4e916125acafedb3351e24b69d385b4aa3921 fixtures/bench-instances/v1/seeds/lm_head_decode_2/fixture.json
 100644 2dd4e916125acafedb3351e24b69d385b4aa3921 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/lm_head_decode_2/fixture.json
 100644 2dd6ed80ab3a6afb7adea3b6697c7c794ba025cb integrations/vllm/workloads/llama32-1b__bf16__l40s__tp2__b1__i256__o32__mixed__greedy__bi-eager.json
@@ -585,6 +582,7 @@
 100644 31f2bbe83c492c1549207d98a9157ce65763917c backends/shared/hash_gpu/sha256_cuda.py
 100644 31f664b801b16c7b0269ed8ec9cba685be1eeca1 backends/numerical/python/verity_numerical/checker/v2/__init__.py
 100644 322361b9a0d61cf2b03c18dd456db691b5fd5e42 backends/numerical/python/verity_numerical/gkr_export/babybear.py
+100644 3229f902bbedfef6f5d59d17f39313e6ec9d0fc7 integrations/vllm/docs/data/ref-prims/EagerAttentionHeadRef_v1[SCALE_OP=mul]-bf16.json
 100644 322c2cafd54ef3e34e32d83d9c1eb29e54eebeb7 integrations/vllm/tests/program/test_topp_splits_operand.py
 100644 32375a58b1de1500a037dfffee6303bbc76b9e9f integrations/vllm/tests/harness/fixtures/admission/fp8_b1_try5_bounded_none/steps.jsonl
 100644 32420c1d7eea0029f70bc42fc396de7bd7f508f6 fixtures/redteam/babybear-battery/v1/wrap-2acccc0846.json
@@ -637,6 +635,7 @@
 100644 37674143eb00498cfc90e17e1e5d9101659d59f1 backends/numerical/tests/explore/test_vole.py
 100644 379c90618196907cddadc5aa40a9e75e68f8b95c backends/sp1/common/tests/typed_obligation_v0.rs
 100644 37b0c987318cef8502e90314c4cef2b200d416ab integrations/vllm/verity_vllm/program/numerics/libdevice_sampling.py
+100644 37be1b97df0e0497c88d97d3252c9781fded02b0 integrations/vllm/docs/data/ref-prims/GeluRef_v1[APPROX=tanh]-bf16.json
 100644 37c0cf15ad36fa05cf4539ea42899173b67b048a backends/direct/ligero/redteam/simulator.py
 100644 38078370806af30cd2857b005bc2284e4b7f4888 backends/numerical/tests/checker/test_negative.py
 100644 38156ebe8816829b262903b5e1bc50648059301c integrations/vllm/verity_vllm/input_provenance/__init__.py
@@ -651,6 +650,7 @@
 100644 395d54e1ec7f0dab7eb05cc15b9cc10898ccc3d1 tools/research/src/research/store/preserved.py
 100644 39627682ae32daf60b8883282608c62965d32100 integrations/vllm/verity_vllm/program/registry/targets.py
 100644 39653f0e251cd9aa433dc622a18db803a1b24588 integrations/vllm/verity_vllm/program/frontend/derive.py
+100644 39750dd1c74701168011daef65c8e685736488ac integrations/vllm/docs/data/ref-prims/EagerAttentionHeadRef_v1[SCALE_OP=mul]-f32.json
 100644 39aeab9d45f9de66621fc393ae1f15e996d4321b integrations/vllm/verity_vllm/check/quarantine_lint.py
 100644 39cd5fefa773d0d899230026e106253e9c05f227 integrations/vllm/tests/program/test_applicability.py
 100644 39dab6020d02999e4ac66ca0d7ff8c0a48b31103 integrations/vllm/verity_vllm/ops/cov_pod.sh
@@ -664,6 +664,7 @@
 100644 3b09bcb5a4a6793dce82189855a1006142c65862 fixtures/bench-instances/v1/seeds/gate_up_proj_prefill_1/x.u16
 100644 3b09bcb5a4a6793dce82189855a1006142c65862 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/gate_up_proj_prefill_1/x.u16
 100644 3b28913e2a260536830917439bb11de7b8c6301c backends/gkr/fixtures/negatives/state_out.deny_overflow.bin
+100644 3b410a7019cb7e886b21203cae08391892e086b8 integrations/vllm/docs/data/ref-prims/LayerNormRef_v1-f32.json
 100644 3b526d3c8e62818ce9b82a4bd76c6e183f98bbe0 backends/ligero-verify/fixtures/systems/fp8-ada-v2x4.system.bin
 100644 3b5b8d03b408df91bf5f05e7b28b551865f12a00 backends/gkr/verifier/src/lanes.rs
 100644 3bc8691ddfd5755d66d84eb2c6e7fd2df8add77c backends/shared/hash_gpu/tests/test_hash_gpu.py
@@ -704,6 +705,7 @@
 100644 40b0298ed6fb8357daa204547e65a88903d9aa5c integrations/vllm/verity_vllm/program/registry/quarantine/collective/__init__.py
 100644 40d0f2d7b5aa0b516320c182d4467b7c559e6a8a backends/ligero-verify/fixtures/fp8-ada-hash/sub_00.coins
 100644 40f03ea2f59b1c42269902f899936ed05fa66b18 fixtures/redteam/vu-battery/v1/a/a_swap_words/public.bin
+100644 410d0fc5b1784acf09bed36c2f448e0c8efc2887 integrations/vllm/docs/data/ref-prims/F32TanhRn_v1-f32.json
 100644 4110942f8923d0d20d5731e6b597e1e11b92a5e0 backends/gkr/fixtures/negatives/fp32.subnormal_hidden_bit.bin
 100644 416860933230b49493cdc16e9ecd30c9dcc96387 packages/verity/tests/ml/fixtures/tc-total-2026-09-07/4090/cvt_special.json
 100644 4172933ca2eec660da6b799794a8ab76870c9a95 integrations/vllm/tests/program/test_moe_pad_route_a3.py
@@ -757,6 +759,7 @@
 100644 45f1071dce493eebe50a1ecb57b79ac3d61e8fe4 fixtures/redteam-v2/gkr/neg/honest/epilogue.txt
 100644 45f1071dce493eebe50a1ecb57b79ac3d61e8fe4 fixtures/redteam-v2/gkr/neg/swap_vu_epilogues/epilogue.txt
 100644 45f1071dce493eebe50a1ecb57b79ac3d61e8fe4 fixtures/redteam-v2/gkr/neg/unit0_noninitial_state/epilogue.txt
+100644 464eae6adcdce6dd1074322f34c82764b475ec3d integrations/vllm/docs/data/ref-prims/I64ToI32_v1-i32.json
 100644 468880a3d2a05b2c135b5d0357e19430948ca861 packages/verity/tests/ml/fixtures/golden/ada_e4m3_m16n8k32.json
 100644 46966e277e3c63840c29454dca6512970d06d8e4 tools/research/src/research/pods/connect.py
 100644 46b1e177f05d79ac04860300b3d84c7734b847e5 backends/numerical/tests/bench/test_ledger.py
@@ -794,7 +797,6 @@
 100644 48e04db3009cf16341691d063d0b5ad0a5ccfe1d integrations/vllm/tests/query/gate/row60_mistral-7b_b8.json
 100644 49100bc04afa9def24243fc4b51f3cb6e64d6ebd tools/research/tests/test_undeclared_derivation.py
 100644 492da2c04c66341d325f540e0660ddeea153899e backends/numerical/reports/ledger/a-protocol-diff.jsonl
-100644 49475a2116260c5cc9275ca5cb5cd58a018bea1e integrations/vllm/docs/data/ref-prims/RoPEInterleavedRef_v1-bf16.json
 100644 494f1cf2e4dfc03525ad1f8070eba6fea42b8bc7 packages/verity/tests/ml/test_codec_ml.py
 100644 4952c8389a837c5c24bcd5bb365b3017cba0dd3a backends/shared/hash_gpu/poseidon2_ref.py
 100644 497fa67d03ab48cb647ad76aad6940d0414807de integrations/vllm/tests/program/test_sampling_policy.py
@@ -901,14 +903,12 @@
 100644 53d3140a90b4b39f252162cafd7034b3db040cf3 integrations/vllm/tests/commit/fa2_prototype/fixture.py
 100644 53d74a43e35b817b1be0f4a9efacd19c565fd2b7 integrations/vllm/data/contract/a56-coverage/gpu/head/manifest.json
 100644 53d8fa1a7767f96d9469bdd772ced7731114d500 fixtures/typed-obligation-v0/identity--input-inside-vu-product-rejects.json
-100644 53df3f85d6b85eee206eb2081c295975f0a9bbed integrations/vllm/docs/data/ref-prims/EagerAttentionRef_v1-bf16.json
 100644 53e147a24a92b7e6d0b6c3c8928a8978d43588d2 backends/direct/ligero/tests_bench.py
 100644 53e8564c77d27beb086996d17f002db05cc9f78c backends/gkr/fixtures/babybear/vu_synth/negatives/public_wrong_word.bin
 100644 53e8564c77d27beb086996d17f002db05cc9f78c backends/gkr/fixtures/v2_synth/negatives/public_wrong_word.bin
 100644 53e8564c77d27beb086996d17f002db05cc9f78c backends/gkr/fixtures/vu_synth/negatives/public_wrong_word.bin
 100644 54076863b593630b4f297d0ba97c67fc031116ea fixtures/bench-instances/v1/seeds/o_proj_prefill_1/w_row.u16
 100644 54076863b593630b4f297d0ba97c67fc031116ea packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/o_proj_prefill_1/w_row.u16
-100644 542505e1e2ebb9c66e0d64aaf11e8b381e6a87f4 integrations/vllm/docs/data/ref-prims/EagerAttentionHeadRef_v1[SCALE_OP=div]-f32.json
 100644 5437712c94a180e7bf80d517c171a075b0433947 backends/numerical/tests/reference/hawkeye_harness.cpp
 100644 549782daa6b6d180cd4d047c2b9ca9f60b0f6fa4 backends/direct/vendor/p3-baby-bear/.cargo_vcs_info.json
 100644 54c1138da4ff4da0a40af672457a41e8250e50df backends/direct/ligero/redteam/leaf2_share_pair.py
@@ -968,7 +968,6 @@
 100644 59cf4da4e2c6b16c5848b50256f7eb0b86bac3fe backends/numerical/reports/b_measured_4090.json
 100644 59d5d4f4fd3d712355bdb7efad21054dcc273336 fixtures/typed-obligation-v0/accept--tc-store-cast-nan-sw-rejects-hw-word.json
 100644 59d8144a0a105da72ab97265cbf392b947a8d953 backends/ligero-verify/fixtures/systems/bf16-hopper-v2.system.bin
-100644 59da23c0e3edb88e6cbf2bee466fbbf61435566b integrations/vllm/docs/data/ref-prims/EagerAttentionHeadRef_v1[SCALE_OP=mul]-bf16.json
 100644 59fde8c0a6d2dbd63c06d2362295728178f50f0a tools/research/tests/test_record_result.py
 100644 5a0345c330aeecc47545a6c06e73502b861c1941 integrations/vllm/tests/tp/test_tp2_match_sites.py
 100644 5a0cb45eaadecbb589f75732cafef05365e5f8d9 integrations/vllm/verity_vllm/acquire/native_gather.cu
@@ -1000,7 +999,6 @@
 100644 5bfd24bdc2ddd2033ec59fa28a08514bfa8b06a5 integrations/vllm/data/census/census_frontier.json
 100644 5c291dffc7eb86c40f2e35177d6cbc2122c9aba2 integrations/vllm/verity_vllm/program/registry/quarantine/dense/mul_vec_f32.py
 100644 5c2a77190b2dba0ee96d78740531805b4bc20965 integrations/vllm/verity_vllm/program/numerics/cpp/rms_triton_model.cpp
-100644 5c34a1d59fefd8541c6562d539b1d2c443e62211 integrations/vllm/docs/data/ref-prims/F32TanhRn_v1-f32.json
 100644 5c7c8fbd9b8dc0c92612b4d7025f019b804497df integrations/vllm/tests/commit/test_commit_fail_closed.py
 100644 5cb5a304981c3bb367a6e5032bd8534b78678196 integrations/vllm/tests/by_name_allowlist.json
 100644 5cb602aeb71ad276cd7e3ed0e207f76a340273a6 backends/numerical/tests/checker/conftest.py
@@ -1035,7 +1033,6 @@
 100644 5f8d000f5ccdfea0c5b7d491aac8559b661379ef integrations/vllm/verity_vllm/correspondence/runtime.py
 100644 5f8d4935e706b1447995cbf74b02759046f29bde packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/down_proj_prefill_1/w_row.u16
 100644 5f9a1201242a93a5a9d08beb6d3b74354b259693 fixtures/redteam/babybear-battery/v1/wrap-3622b96394.json
-100644 5fb9133bbadbd10293e65700ac5462694da43817 integrations/vllm/docs/data/ref-prims/RoPERef_v1-bf16.json
 100644 5fc75be044cfeabf1bc38a94043b94ed4fe785da fixtures/tc/vectors/fp8-hopper-wgmma-k1536.json
 100644 600ae326974db78dcc326837647bed61acfea1ea integrations/vllm/workloads/llama32-1b__bf16__h100__tp1__b8__i1024__o128__mixed__stoch-t0.8-p0.95__bi-eager.json
 100644 600bec13b5157c3ed6bf9b89da97a5fa3027feff integrations/vllm/verity_vllm/tp/export_ops.py
@@ -1078,6 +1075,7 @@
 100644 6382301314d3c22215b45b68cbef413bc1760285 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/gate_up_proj_decode_2/w_row.u16
 100644 6388b0f83266d1388d95785da2422480962b711d backends/ligero-verify/fixtures/systems/fp8-hopper-v3x4.system.bin
 100644 638c32368cc04fbf264de89c23385e76c79c2918 integrations/vllm/tests/observe/test_dense_generic.py
+100644 63b12dd51df9088166a5ca3755476b00c945ac60 integrations/vllm/docs/data/ref-prims/EagerAttentionRef_v1-bf16.json
 100644 63d2d72ee75fe10fa1f2e928102eae098b647f65 fixtures/typed-obligation-v0/identity--mut--format-noncontiguous-target.json
 100644 63ea866ebdd95cf0ea3afb6d05721cb517c954c0 integrations/vllm/data/contract/a56-coverage/records/forced_head_run-TINY-t2-L1-h2-after-F2.json
 100644 63ebaaca76cca7250fd072e52d5026af3a77408b fixtures/typed-obligation-v0/reject--dangling-incoming.json
@@ -1135,7 +1133,6 @@
 100644 679dc9d79cf0fa5fa41bfd18fcfbb98dbec8b5bc fixtures/bench-instances/v1/.gitignore
 100644 67b84db48c62301ef4230bf97b32dcf4ef75a635 backends/sp1/common/src/pad.rs
 100644 67bc3fedb4537362e6052e08d5cd46ec8b3a4bda integrations/vllm/tests/observe/test_gen_ov_moe_padded.py
-100644 67c74ccfe45038875b42c6549a0c1ab0bcd0184f integrations/vllm/docs/data/ref-prims/SiluRef_v1-f32.json
 100644 682160c857c31f0a157673fceda6f75ebd825bc4 packages/verity/src/verity/ml/tc/relation.py
 100644 684ffcc74008effb5e66da5df54b97545c53ded8 integrations/vllm/verity_vllm/program/registry/quarantine/dense/scale_row_bf16.py
 100644 685afa4b97b9986d39470a5fe2011e5d5501a7df integrations/vllm/tests/harness/fixtures/admission/phi3b1.json
@@ -1150,7 +1147,6 @@
 100644 68c231d447ce4a17c3c455910eb328d0484471a2 backends/ligero-verify/fixtures/systems/fp8-ada-v3x4.system.bin
 100644 68d082cae1f0a43b1d6a37b5b46734d80808f5ac backends/gkr/packed/logup_gpu.py
 100644 68d42832cf7d6e361598024100bc934248273bfa integrations/vllm/verity_vllm/observe/profiles/expected/derived_QWEN3_30B_A3B.json
-100644 691118e4bbb78cdbc03383dbc09edaad4995d67d integrations/vllm/docs/data/ref-prims/EagerAttentionHeadRef_v1[SCALE_OP=mul]-f32.json
 100644 691d05d04ae41857d11b06e9d2180cdc823a147e fixtures/redteam-v2/gkr/neg/epilogue_ovf_flip/public.bin
 100644 693427c5267cf7d8404a672598d060a5fe625c7a integrations/vllm/tests/program/test_pad_prims.py
 100644 6938660c992c5cf7a1ba5e8bbdfad95b2016177a backends/direct/encode/inverse_bench.py
@@ -1176,6 +1172,7 @@
 100644 6ba4586da94af13a35b7f5a05c2522f3a91120e7 backends/gkr/fixtures/negatives/group_max.false_selector.bin
 100644 6ba839ae9de28f1b5400aa1004be8d7784dd6362 backends/gkr/gpu/v2/tests/test_epilogue_limbs.py
 100644 6ba9f14bc4fa98885dcee4960069695a669a6468 integrations/vllm/workloads/llama32-1b__bf16__l40s__tp1__b4__i256__o32__mixed__greedy__bi-eager.json
+100644 6bf82d7cfaaab20d15615aae8924670c5ad8a3bf integrations/vllm/docs/data/ref-prims/LinearRef_v1-bf16.json
 100644 6c2640489be2d5d9f047f3c2d50ef373503c9686 integrations/vllm/verity_vllm/acquire/fa3_tap_src/apply_fa3_tap.py
 100644 6c54976fc17c7f6447f64aa36cbab3c069934040 integrations/vllm/tests/tp/test_tp_collective.py
 100644 6c8612543714474c602a1734f7a51bf7b5b99652 backends/direct/src/air_v2.rs
@@ -1259,7 +1256,6 @@
 100644 76aa1adc64f81bf493e564a4792e2b6bb3c40635 backends/ligero-verify/fixtures/systems/fp8-ada-x4.system.bin
 100644 76e591ad3edd8c35d2f40e678e323495ac1d1c37 integrations/vllm/tests/input_provenance/test_weights_of_record.py
 100644 771adb4e2760b2ac72cf0137dd173bdea312b5a9 fixtures/redteam/babybear-battery/v1/wrap-97c7486356.json
-100644 7724960e39977c48b2cd351e3e689fa0e09e95e7 integrations/vllm/docs/data/ref-prims/EagerAttentionHeadRef_v1[SCALE_OP=div]-bf16.json
 100644 7743e14c418c9e31bb38232f653edd83080c905f integrations/vllm/tests/commit/test_negatives.py
 100644 7762a96ca742b705f07fd051862db0ba5c469822 tools/tc_probe/tiles_common.cuh
 100644 7767948d61337db06d11c00e18cc453315c7ef6d backends/ligero-verify/fixtures/bf16-ampere-hash/sub_00.proof
@@ -1268,6 +1264,7 @@
 100644 77aceae287465b8ee2e29afdc3158d141fe6d0a3 backends/numerical/python/verity_numerical/checker/__init__.py
 100644 77fef9989b6659ba421050a4f2813b81dfe055e6 fixtures/redteam/babybear-battery/v1/wrap-0725403454.json
 100644 7829dd42809f5b496331ca95470b5e67dddbe320 integrations/vllm/verity_vllm/ops/stoch_negative_n3.sh
+100644 78313797d3bb681d916c5bf46660ffdb51475b29 integrations/vllm/docs/data/ref-prims/GeluRef_v1[APPROX=tanh]-f32.json
 100644 783c192b90dde636aacfb529dc44a36307d6174a backends/numerical/python/verity_numerical/reference/leaf_v2.py
 100644 783d394809e10d9ec1a4b7e73fee73ba99201e3a backends/gkr/verifier/src/main.rs
 100644 783d4c8225694bb41f94bc49ae6d9d93db2a19da fixtures/typed-obligation-v0/reject--width-mismatch-argument.json
@@ -1305,12 +1302,14 @@
 100644 7b4212f83395f94615ec19555c2b5346dd254a93 integrations/vllm/data/hf_configs/QWEN3_4B.config.json
 100644 7b5fa823e85046c23c3b14c3840dce75b2f0a9b2 backends/gkr/fixtures/negatives/normalise.m_plus_one.bin
 100644 7b7ec5655b74e8a9229a5b9f81e8f92bd699636f integrations/vllm/verity_vllm/observe/profiles/expected/derived_QWEN3_30B_A3B_tp2.json
+100644 7b8b3c7fab0ffc1d71447d9ad09fbeb0030a0c2d integrations/vllm/docs/data/ref-prims/EmbeddingRef_v1+AddRef_v1+MulRef_v1+ArgmaxRef_v1-bf16.json
 100644 7bab76ebff96f11406da214b59d1d3af2c551992 packages/verity/tests/commitments/test_poseidon2.py
 100644 7bbe14e980cca6968a5257b22bedb12ad94879b8 tools/research/tests/test_store_short_ids.py
 100644 7bc658470528d5f70926c943aaaeaa4ae4d2ef21 tools/research/src/research/store/remote.py
 100644 7c0dfcb3ced80c055fa7939c96242561401dfb17 backends/sp1/common/src/ftz.rs
 100644 7c36664e4d9aed0486a9eef766898e28a78ee375 backends/shared/anchor_a100/results/fused/stdout.log
 100644 7c51d64724981d76968fd3c3477ad907c9d0d3ba backends/gkr/fixtures/negatives/pack.hidden_only.bin
+100644 7c52582299c7718e6932afedd2ef466daf0e9f26 integrations/vllm/docs/data/ref-prims/EmbeddingRef_v1+AddRef_v1+MulRef_v1+ArgmaxRef_v1-f32.json
 100644 7c5736c65dfaab3aa9d3b3e6da503436171bcd51 fixtures/typed-obligation-v0/identity--mut--projection-boundary-marked-dead.json
 100644 7c6cedd13310fcd5381caab8086c9d6869292186 backends/numerical/reports/ledger/b-e2e-v2.jsonl
 100644 7c79ae31e7cae1f60b2c70dcc49f7d278e0a875d fixtures/typed-obligation-v0/reject--leaf-beyond-count.json
@@ -1342,6 +1341,7 @@
 100644 7e01b323b2018741923cc3106604bead0691fd32 fixtures/bench-instances/v1/seeds/o_proj_decode_2/w_row.u16
 100644 7e01b323b2018741923cc3106604bead0691fd32 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/o_proj_decode_2/w_row.u16
 100644 7e1bc1a0f2adc2cc87a985126a1c6863fb321700 backends/sp1/common/tests/vectors.json
+100644 7e228ef66e29e459ba38f1e19e64f742df0ff563 integrations/vllm/docs/data/ref-prims/EagerAttentionRef_v1-f32.json
 100644 7e308ff1f328e36ce05a1a83f54f41a1e4588328 fixtures/lean-vectors/q7.json
 100644 7e4424059f8f1d7e116f197fab44ea0721d71254 packages/verity/src/verity/ir/query_ast.py
 100644 7e49f948728add7c10f3607d664139c6622f7c14 backends/direct/ligero/live.py
@@ -1406,6 +1406,7 @@
 100644 82b9435f59cfacdf126ca20d5dd365fed64308f3 integrations/vllm/tests/regression/test_attempt_resolution.py
 100644 82bc5629fbf05a36e3c3b4f021f1000c95827706 integrations/vllm/workloads/smollm2-135m__bf16__l40s__tp1__b8__i256__o32__mixed__greedy__bi-eager.json
 100644 82c951b8d82402c4d2044bc850e3986c55c995d6 integrations/vllm/data/census/scaling/lp4_s8.json
+100644 82ce56f6217b8ae8d0cd3ee056597b160029d639 integrations/vllm/docs/data/ref-prims/RMSNormRef_v1-f32.json
 100644 82e2e2191b0e4792b9474969eb9113c57672063b backends/gkr/fixtures/manifest.json
 100644 82e95cf661dae2307e10eeba96de0caa3beada6d backends/numerical/tests/checker/test_fp8.py
 100644 83050585472c603144d14fefa87807f8d5e0d541 backends/gkr/fixtures/negatives/bf16.non_finite_7f81.bin
@@ -1414,10 +1415,10 @@
 100644 834f8ae3375fd8766fe85ff6b71b6d7b9e3e5e5d integrations/vllm/verity_vllm/check/protected.py
 100644 8358abf4c877b9ee61a874902ff2352cd293b582 integrations/vllm/tests/observe/test_compiled_execution_header.py
 100644 835f328968a92aee3ca416fe6c49f7a8dbc8cb28 integrations/vllm/data/census/scaling/lp8_s4.json
-100644 8381121ac74233025c7d23c2aa0e08cac6d83ba7 integrations/vllm/docs/data/ref-prims/I64ToI32_v1-i32.json
 100644 838ef4182f953adb9e741e8348b1c540f5359bc0 backends/gkr/fixtures/negatives/signed_sum.claim_nonzero.bin
 100644 839267933f4787d774738f3acc38de9eaf82688f integrations/vllm/tests/commit/test_oracle.py
 100644 83d2b0383a93c752ff058db9f04379c387897804 fixtures/typed-obligation-v0/reject--dangling-subcircuit.json
+100644 83f91d481dec2452777c43a06d4694b563fb6bc9 integrations/vllm/docs/data/ref-prims/EagerAttentionHeadRef_v1[SCALE_OP=div]-bf16.json
 100644 8416a946f0f1bd9f60abe6a996c77ef16a1f40e5 backends/gkr/Cargo.lock
 100644 8416eca211ece71a6fa0b67b2bd98cf0536f2975 backends/ligero-verify/tests/relations.rs
 100644 84430a480b92afc35bf51b54b17df0885ed01c37 packages/verity/tests/ml/fixtures/tc-total-2026-09-07/a100/mma_special.reduced.json.gz
@@ -1481,7 +1482,6 @@
 100644 891f2b82fd79189ccd95e5bb0fc73fa628d6a68d integrations/vllm/tests/ops/test_row_pod_policy_defaults.py
 100644 896652f4d2f54372b453b835427d656607e629f6 integrations/vllm/verity_vllm/observe/resolver.py
 100644 89a1fb2921b47c0acc879931b3570c83a89bb283 fixtures/bench-instances/v1/hardware/r20260922-022913-d462.probe_results.json
-100644 89aee0b99b5ec90e912f73e520d0c21516864a17 integrations/vllm/docs/data/ref-prims/SiluRef_v1-bf16.json
 100644 89b447683d20a2faee733b8d97bf6a936f33666b fixtures/bench-instances/v1/seeds/qkv_proj_decode_0/fixture.json
 100644 89b447683d20a2faee733b8d97bf6a936f33666b packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/qkv_proj_decode_0/fixture.json
 100644 8a107a14c30514650dab299a28f1d67cf3ca4ddf backends/gkr/packed/reprice_v2.py
@@ -1506,6 +1506,7 @@
 100644 8bb091bd83d720c53e99aa5a99b87919041ecccb fixtures/typed-obligation-v0/identity--mut--domain-unlisted-root.json
 100644 8bc578e1295bf5d8c5c9f70f69d58c72db6ac9bd backends/direct/encode/commit_stream.py
 100644 8be18a01451c18d46ef69ffa167bc956798040ab integrations/vllm/workloads/mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.json
+100644 8bfacd2c48565bad282a0dfb550fc527228f7ef5 integrations/vllm/docs/data/ref-prims/F32ExpRn_v1-f32.json
 100644 8c263535707138cfcefe5d7a6918794d863159f7 integrations/vllm/verity_vllm/harness/spans.py
 100644 8c32cfec3e3c1ec0c55898a52b3bea4ade7f63d8 backends/gkr/verifier/scripts/f1_run1.sh
 100644 8c42856e13d282d21567e736f9b7e988adb38579 integrations/vllm/tests/regression/expected/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.json
@@ -1534,11 +1535,13 @@
 100644 8e83cf44516f37c3f9990ce51e5a11388048c987 integrations/vllm/verity_vllm/observe/prefix_cache.py
 100644 8e8d0830bf8bf13bbed4c21d0410d49928885b85 backends/ligero-verify/fixtures/rust_verdicts/mut_fiat-shamir_plain.json
 100644 8e91a216d52996cfa943e7b7b9d64e18535bb307 backends/ligero-verify/fixtures/fp4-nvf4/sub_00.proof
+100644 8e9a61d50d23cfc22069dbc49f32c938e5c4f9b5 integrations/vllm/docs/data/ref-prims/EagerAttentionHeadRef_v1[SCALE_OP=div]-f32.json
 100644 8f0fa5026ae0962720292eca156831549ec875f1 fixtures/bench-instances/v1/seeds/o_proj_prefill_2/fixture.json
 100644 8f0fa5026ae0962720292eca156831549ec875f1 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/o_proj_prefill_2/fixture.json
 100644 8f1f2a317e90341ad18eab87a3798403de2ba878 integrations/vllm/verity_vllm/acquire/native_collect.cpp
 100644 8f2258c4e3d6f99c5145ac415adff1704ec6bfaf tools/research/tests/fixtures/run_v0.2/out/verify.jsonl
 100644 8f3acc1ba3b8eb4b03c97ce5cf543b0e4f38178c integrations/vllm/tests/check/test_rev_r16_named_population_gap.py
+100644 8f5c4bfd4e880da2cd4cc181c36bb4d5eee7d1af integrations/vllm/docs/data/ref-prims/ref-vocab-manifest.json
 100644 8f794a3f675bc2033f205483f49e0e5cc74b7cad backends/numerical/python/verity_numerical/explore/authentication.py
 100644 8f9a3db30561ed67ce33ea6bbd857dd505bacce8 integrations/vllm/verity_vllm/acquire/fa3_tap_src/verity_tap_fa3.h
 100644 8f9aebe0cce694202eca178313324cee7614b965 fixtures/typed-obligation-v0/reject--width-mismatch-binding.json
@@ -1900,6 +1903,7 @@
 100644 b1e352e8ef32b347807f3404961c43a32c245b00 backends/direct/vendor/p3-baby-bear/src/x86_64_avx512/packing.rs
 100644 b1e559b9d1553e585e5b8ac2d0c7a74eac33d5f9 integrations/vllm/tests/commit/test_stream_merkle.py
 100644 b20ae0f41cc2a2314a710c18548c58bd3c249544 backends/ligero-verify/fixtures/bf16-ampere-hash/sub_00.coins
+100644 b2226cab3efaa03d0c9cce9264739908b3b20360 integrations/vllm/docs/data/ref-prims/RMSNormRef_v1-bf16.json
 100644 b22ada79810bd0474e4ebc199045e9c2147473a1 integrations/vllm/tests/regression/checks/global_match_checks.py
 100644 b235838b3ada985322296737487e110b85318db7 backends/direct/vendor/p3-baby-bear/src/x86_64_avx512/poseidon2.rs
 100644 b2577e52fec37d14b5d3db296c28cee26b434e20 integrations/vllm/data/census/scaling/lp65_s1.json
@@ -1922,6 +1926,7 @@
 100644 b32cf0fa2af71359d5e5d11e4af2eda3234954f3 integrations/vllm/data/rec/p1-b0-lp32s15-parts/p1-b0-run-C.log.gz
 100644 b3435787faa9a1dded277b90b55c33c85e03d2f6 integrations/vllm/tests/check/test_compare_splits_binding.py
 100644 b3458c0b7db9d12c659753a34eacf8972c2335cc integrations/vllm/manifests/semantic-profiles/llama-eager-batch-invariant-v2.json
+100644 b3669f56ec8f5031a299327c83450e917c139e17 integrations/vllm/docs/data/ref-prims/SiluRef_v1-f32.json
 100644 b3b6e64b408279dcaf3d14169f195f6bdf858d85 backends/vole/patches/README.md
 100644 b3b93375ce62ab168048d2fc83daf0a2fadb44a3 integrations/vllm/verity_vllm/program/registry/__init__.py
 100644 b3d99f30160f4c4578506f6254a2afa49a4f4304 integrations/vllm/verity_vllm/query/program_view.py
@@ -1989,7 +1994,6 @@
 100644 b9b031fadda61a035b2e8ceb4362cbf604002b21 integrations/vllm/verity_vllm/observe/profiles/hf_configs/PHI3_MINI.config.json
 100644 b9bf0177eba592fdd584b6ea43d6cab48cf98437 integrations/vllm/tests/acquire/test_fa2_tap_geometry.py
 100644 b9c797aab9a3635257dfe6c53a103c780a7f3e16 fixtures/typed-obligation-v0/identity--input-inside-vu-honest.json
-100644 b9cc7bd44f259e8c9388ce9ac3ef1448ac67b0ab integrations/vllm/docs/data/ref-prims/RMSNormRef_v1-bf16.json
 100644 b9db7caf5ad54a2bf023c6f160930b3d05fe3e27 integrations/vllm/workloads/llama32-1b__bf16__l40s__tp1__b4__i256__o32__mixed-arrivals__greedy__bi-eager.json
 100644 ba170dfa9cd3de8b7f1a357fee6b21c9f528b2f5 integrations/vllm/verity_vllm/check/oracle_compare.py
 100644 ba23567e9b5ecf19005f74999fb17397436e4697 integrations/vllm/tests/program/test_derive_realhf.py
@@ -2076,7 +2080,6 @@
 100644 c19ca549fdcd35f0657870b5ccb7b8cedd4f3919 packages/verity/tests/ml/test_models.py
 100644 c1a40393177bd3da087333cdae47d457fb0e9ccd integrations/vllm/tests/commit/fa2_prototype/__init__.py
 100644 c1ab60ee98edb65ba39ee57e5aba601a943ab2ec backends/sp1/host/build.rs
-100644 c1ced43d88badcf171f283c2a740b9a27cc50843 integrations/vllm/docs/data/ref-prims/RoPERef_v1-f32.json
 100644 c1ec060f2283ca691fd64b1af21856b8b3088df9 integrations/vllm/verity_vllm/input_provenance/weights_of_record.py
 100644 c1f93e11ab7a4675a6caea63e777789ea1fb6070 tools/research/src/research/pods/runpod.py
 100644 c20cca2219b596bf387befa4e09045a626ff867c tools/research/src/research/pods/part.py
@@ -2123,7 +2126,6 @@
 100644 c7ce9d0b1d4458371d6c81e4fb12ac7de5fd59ae integrations/vllm/fixtures/B0-divergence-20260907T1604Z/layers.0.self_attn.rotary_emb/compiled/in_qkv.npy
 100644 c7dde110dca2b6f333fc08653c0d672a64b236c5 backends/gkr/fixtures/negatives/pack.wrapped.bin
 100644 c7edda6448ce542ba09104b530f2be393cadede7 integrations/vllm/verity_vllm/acquire/native_leafhash.cu
-100644 c81a4142fedf508dd481ca6dd8e8e84c4b1d5e12 integrations/vllm/docs/data/ref-prims/LinearRef_v1-f32.json
 100644 c83ae3d54403a634582846665778154f9faad917 integrations/vllm/verity_vllm/correspondence/resolve.py
 100644 c856ba30317290f37bc648d67bf79457ca65c3d0 integrations/vllm/verity_vllm/observe/profiles/hf_configs/QWEN3_4B_FP8.config.json
 100644 c89452875edfb772f346350b817e009166e2ccec backends/gkr/tensor/fused/tests/conftest.py
@@ -2146,7 +2148,6 @@
 100644 c9e4d0dc19c730688b11c8ff7583a7bce2b0e482 integrations/vllm/tests/harness/test_run_config_load_stages.py
 100644 c9e680e2cb71b15cfdf3821f7345184973d28ee8 backends/gkr/fixtures/v2_synth/negatives/units_broken_chain.bin
 100644 ca0d4df5ffc3c5380dc18cf539893e00fc928c44 backends/direct/tests/lookup.rs
-100644 ca23c1421615ddefb475f44ed8d96fab1ecf7004 integrations/vllm/docs/data/ref-prims/LinearRef_v1-bf16.json
 100644 ca343e177c0c5a69827d112ff3b01ee660e0714f tools/research/src/research/compare.py
 100644 ca9baf10c7e95413cb1b9b4c60223d653bace39e integrations/vllm/verity_vllm/acquire/native_collect.py
 100644 caa22ae095bcc3ed788b06fbaaf911ccec54a961 integrations/vllm/data/contract/a56-coverage/gpu/final-pull-0606Z.txt
@@ -2234,7 +2235,6 @@
 100644 d11f03aaf7e959d32603cd85f124690550eef683 integrations/vllm/data/contract/ck-elem/argmax_rule/measure_archive.py
 100644 d136d8e3c0da6f9175da2696924e94e7dfda63fb integrations/vllm/verity_vllm/program/numerics/kernel_zoo.py
 100644 d14f5f0ae82a3dae3ae443c6a818151b8df9f3e9 backends/numerical/python/verity_numerical/redteam/z3_checker.py
-100644 d1519036d5ca1b52077aa3d0e5097c9b80143061 integrations/vllm/docs/data/ref-prims/EmbeddingRef_v1+AddRef_v1+MulRef_v1+ArgmaxRef_v1-bf16.json
 100644 d18a7d20855d64016fd84568c5850cceb73a6e93 integrations/vllm/tests/harness/fixtures/admission/b4.json
 100644 d193107e8d79572ba5e438cd1184aecb9f839965 integrations/vllm/tests/commit/fa2_prototype/derived.py
 100644 d1a1a30d9dd70fca0f69b4ab97764bdd8a92de6d integrations/vllm/tests/acquire/test_leafhash_device.py
@@ -2342,7 +2342,6 @@
 100644 dbb4870a0db7a32fe6f611bddc2d1d37704666e9 packages/verity/src/verity/ir/codec.py
 100644 dbd3cd2060a77419859cdb72e947a2579f559f96 backends/direct/ligero/PROTOCOL.md
 100644 dbdef810339bc60ca7b82988031ec18dba0baea9 integrations/vllm/tests/check/test_commit_verdict_hopper_no_evaluator_gap.py
-100644 dbeccacd0f48625c51105f42d1870f15c8240a5b integrations/vllm/docs/data/ref-prims/EagerAttentionRef_v1-f32.json
 100644 dc0171d1e704a7c63cde2ee0ed8abe1701178a28 integrations/vllm/data/contract/a56-coverage/gpu/approved/manifest.json
 100644 dc1a342cddc2d4c4f1c2049008f3599ef02c299e fixtures/bench-instances/v1/seeds/lm_head_prefill_0/x.u16
 100644 dc1a342cddc2d4c4f1c2049008f3599ef02c299e packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/lm_head_prefill_0/x.u16
@@ -2426,7 +2425,6 @@
 100644 e216d5231af272b498b1243ffe23bb464aacecaa backends/gkr/gpu/README.md
 100644 e23b7b41057eaaca6fa427ba247b1f93461a08c5 fixtures/redteam-zk/manifest.json
 100644 e24d29c91f46ae527872b77b6c5798626f049b7b integrations/vllm/tests/ops/test_row_pod_weights_of_record_reuse.py
-100644 e25f4c1f16b79aa08337d029a2d2c84802af5f59 integrations/vllm/docs/data/ref-prims/RMSNormRef_v1-f32.json
 100644 e263805d8e6a8ab13f770915b3bdb647fe31874d backends/numerical/python/verity_numerical/explore/auth_integration.py
 100644 e2791b64797790230d5255eda52ebe8e26dd1f44 integrations/vllm/tests/commit/fa2_prototype/layouts.py
 100644 e2947b602ab083471a43a397589e18e7cc1c0737 integrations/vllm/workloads/smollm2-135m__bf16__l40s__tp1__b2__i32__o32__mixedstop__greedy__bi-eager.json
@@ -2497,6 +2495,7 @@
 100644 e6df3e9b3d97c49ef6fbe6861a340fad44bd8fb5 fixtures/redteam-v2/gkr/neg/b1_wrong_word/units.bin
 100644 e707423ad4430b36a99c4fe75423588c4524726c integrations/vllm/workloads/workload_b0_chunked_200p.json
 100644 e72d3e17d974e16e333a5724a1033e5f56d52464 backends/direct/ligero/leaf/ajtai_key_test.py
+100644 e73b951dd497a77cea01f2052b326ecdb4a923a3 integrations/vllm/docs/data/ref-prims/LinearRef_v1-f32.json
 100644 e74565cd5a6e056f404d245ddbba4a8bd488bd99 fixtures/typed-obligation-v0/identity--mut--projection-index-beyond.json
 100644 e76cc0083063e6d7ae0a96f5069469a3eb4c3e9d integrations/vllm/tests/observe/test_gen_ov_sampling.py
 100644 e78c3caca37eb21b10a5bf1ee81c9495bb5c957c integrations/vllm/verity_vllm/harness/release_json.py
@@ -2520,6 +2519,7 @@
 100644 e8e840dfa677d4ba501a39f1d3964b3b41be3153 integrations/vllm/fixtures/B0-divergence-20260907T1604Z/layers.0.self_attn.rotary_emb/eager/in_positions.npy
 100644 e90a7c39d2af227a99574ef9081fb0b3db73e945 fixtures/redteam/ligero-binding/v1/README.md
 100644 e94ed6a73a6bf691903ea36256d3a41fd33bf346 integrations/vllm/tests/commit/fa2_prototype/fixtures/p0/SHA256SUMS
+100644 e95f4de8b18e800d8c04de977412cb68d70829d7 integrations/vllm/docs/data/ref-prims/SiluRef_v1-bf16.json
 100644 e9849189f6f843b6b0192db587cc1042fe6ec110 integrations/vllm/verity_vllm/program/registry/hopper.py
 100644 e9aabcb99cd1b607d6f8be0cf67a1643e4c78735 fixtures/proof-format-v3/vectors.json
 100644 e9afea9e447682d55181a8fc4ff70458521855b2 integrations/vllm/tests/commit/fa2_prototype/oracle.py
@@ -2612,7 +2612,6 @@
 100644 f2ae71af820593a29d9fb97b23cb57db52cdc9d6 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/qkv_proj_prefill_0/x.u16
 100644 f2c4e84e7b94a36632559de7367d5fe841f0c41d backends/numerical/python/verity_numerical/redteam/z3_air_v2.py
 100644 f2d446ac090cec442b6037e7fa411d0adf83c3b4 packages/verity/tests/ml/fixtures/gemm-B1-b3eba618b1b5-20260907T1731Z/README.md
-100644 f320d0508eecadf8d6f77a4d9c46dace68fd9e32 integrations/vllm/docs/data/ref-prims/GeluRef_v1[APPROX=tanh]-f32.json
 100644 f34b0acbdf5aca9a2f173494341f3432cda3cc7f integrations/vllm/data/rec/p1-b0-lp32s15-parts/p1-b0-lp32s15-B.plan.json
 100644 f386f69da9092c4ddc3c5c2c5ab80e1bd83b71b6 backends/gkr/fixtures/negatives/fp32.false_nonzero.bin
 100644 f39126bc8d2f4031e30858a5b186717b3b1ef2e7 backends/numerical/reports/ledger/red-team-zk2.jsonl
@@ -2643,13 +2642,14 @@
 100644 f5baea83444ece9a3ced421dc2fb5500795c45b9 tools/research/src/research/pods/drain.py
 100644 f5c2a6dc189553bbddabb7cbe96b0c03f97ca4ab integrations/vllm/verity_vllm/observe/profiles/hf_configs/OLMOE.config.json
 100644 f5ee02ab57d7a373f88104e6d93b043b308830bd fixtures/redteam/babybear-battery/v1/z3-cf9f7f0671.json
-100644 f5f2e686ebac2320e96e5348c821941f9e5f8640 integrations/vllm/docs/data/ref-prims/GeluRef_v1[APPROX=tanh]-bf16.json
 100644 f6728cb42484abdf3647cea59db24a4dd2835e5c integrations/vllm/tests/commit/fa2_prototype/kernel_dump.py
 100644 f68a0717af16e226146620e03beab3cc820b74ed backends/numerical/python/verity_numerical/checker/reference.py
 100644 f692fbec2a6cd7c1490a91b6c63912e9a0c53232 backends/numerical/reports/fused_logup_4090.json
 100644 f6a110873b0e529f55c6a95fe646b43beff0d1b3 backends/gkr/tools/battery_adapter.py
 100644 f6b66f6eddaf4db09595971a8aee6f8bd0424100 backends/direct/tests/chain.rs
 100644 f726a8f5ebbe71371e53862531f9384d207aba83 integrations/vllm/tests/query/test_partition_stubs.py
+100644 f72d3998c7babc07b848944894341497fd9a91ee integrations/vllm/docs/data/ref-prims/RoPEInterleavedRef_v1-f32.json
+100644 f72e146d6df03be4e074ac7f0a8fb30c5db1b964 integrations/vllm/docs/data/ref-prims/RoPERef_v1-bf16.json
 100644 f7408be65b45ca0d19d8e8af6e77c63f642a10b6 backends/ligero-verify/fixtures/manifests/small_fiat-shamir_zk.manifest.json
 100644 f7469a1ec810544eebabc19e358900be00fbc754 integrations/vllm/workloads/olmoe-1b-7b__bf16__l40s__tp1__b1__i1024__o128__mixed__greedy__bi-eager.json
 100644 f75eb9da209e9faed85eb8197d4661f4e3bd0912 integrations/vllm/tests/program/test_torch_frontend.py
@@ -2663,6 +2663,7 @@
 100644 f85c0f495c319bfbc8b639aa778408a95fe27c11 backends/gkr/fixtures/vu_synth/epilogue.bin
 100644 f85c5c00795f792119eed1c77ede922713413615 tools/research/tests/test_pods_part.py
 100644 f86d3ec9883759107483d24ee10fb85584955151 integrations/vllm/verity_vllm/observe/profiles/vllm_d9105ea80_sm89_eager.py
+100644 f8872d2450115c364f1d79bdbd9fc8da1c0fac23 integrations/vllm/docs/data/ref-prims/LayerNormRef_v1-bf16.json
 100644 f8e9426fc607f54f4ddd731f3f43ec311c72d396 integrations/vllm/data/rec/predicates-kind-table-tiny-p1-cu-operator.json
 100644 f921c0a1c9b56af64995a6a615fae18c2f6ec254 fixtures/tc/autoproof-SEMANTICS.lock.v1.json
 100644 f9238bafad1dad14b74585ef36c0a46c480b6bf5 backends/direct/vendor/p3-baby-bear/benches/bench_field.rs
@@ -2759,7 +2760,6 @@
 100644 ffd04fdbc8e0be379aad5657839cf213cf81cc5e backends/numerical/python/verity_numerical/gkr_export/v2.py
 100644 ffdc233fc21770096efa6ffab3e9014e2fe3bb30 integrations/vllm/tests/program/data/topp_split_fixture/fixture.npz
 100644 ffe04bc59c263d0b0e499e3fe72bd797a73fd120 backends/numerical/python/verity_numerical/redteam/relation_target.py
-100644 ffe49a69541920395c1ce5132b0bc47afeecc8d9 integrations/vllm/docs/data/ref-prims/LayerNormRef_v1-f32.json
 100644 fff709a75e1088a59cc540c6648901c8ec45a692 integrations/vllm/tests/regression/rebaseline.py
 100755 03b5d5eb2bd24e957b2a280309cf156eed250150 backends/direct/run_soundness_gate.sh
 100755 085570ee64e5ae88060cadaef9b32140f3dcc4f4 backends/direct/run_bind_gate.sh

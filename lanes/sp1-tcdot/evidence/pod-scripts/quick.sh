@@ -2,10 +2,11 @@
 # Screening run (not a registered result): bare-prove B=4096 with a warm-up and REPS proofs under the caller's env
 # (ELEMENT_THRESHOLD, SHARD_SIZE, SP1_WORKER_*, VERITY_TCDOT_VU_SOFTWARE_THRESHOLD, ...), then the per-shard timeline.
 #   TAG=e1 ELEMENT_THRESHOLD=536870912 bash quick.sh
+# SERVER_HOME picks the server: home-bf16 (fork fe35cc50) or home-shard (d14b4c62, which honours ELEMENT_THRESHOLD).
 set -euo pipefail
 W=/workspace/sp1-tcdot
 export PATH=$HOME/.cargo/bin:/usr/local/cuda/bin:$PATH
-export HOME=$W/home-bf16 CUDA_VISIBLE_DEVICES=0 SP1_PROVER=cuda RUST_LOG=debug
+export HOME=$W/${SERVER_HOME:-home-bf16} CUDA_VISIBLE_DEVICES=0 SP1_PROVER=cuda RUST_LOG=debug
 H=$W/target-tcdot/release/verity-tcdot-host
 D=$W/runs/quick-${TAG:-x}
 rm -rf $D && mkdir -p $D

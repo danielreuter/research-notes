@@ -11,6 +11,9 @@ log() { echo; echo "=== [$(date -u +%H:%M:%S)] $*"; }
 
 rm -rf $V && mkdir -p $V && tar -xzf $W/tcdot-src.tgz -C $V
 ln -sfn $W/sp1-bf16 $V/backends/sp1/tcdot/sp1
+# The stock workspace must exclude tcdot/ (else cargo resolves the fork crates' inherited fields from it).
+grep -q '^exclude = \["tcdot"\]' $V/backends/sp1/Cargo.toml ||
+  sed -i 's/^members = \(.*\)$/members = \1\nexclude = ["tcdot"]/' $V/backends/sp1/Cargo.toml
 export VERITY_TCDOT_FORK_HEAD=$(git -C $W/sp1-bf16 rev-parse HEAD)
 export CARGO_TARGET_DIR=$W/target-tcdot
 cd $V/backends/sp1/tcdot

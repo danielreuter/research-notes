@@ -33,7 +33,7 @@ Read this fully before starting. Your prompt gives your lane id and scope.
    - The integration has pod bootstrap scripts in `integrations/vllm/ops/`. Record the exact environment (python, torch, vllm and triton versions) with your results.
 4. **Behavior preservation.** Your change must not change Program digests, manifest digests, commitment roots, leaf ids or regression verdicts. The exception is where your scope says the fix changes a result; then show before-and-after evidence.
 5. **Gate before READY.** On a pod, at your branch head:
-   - (a) `VERITY_REGRESSION=1 python -m pytest integrations/vllm/tests/regression -m regression` is green.
+   - (a) `VERITY_REGRESSION=1 python -m pytest integrations/vllm/tests/regression -m regression` is green. For its fixtures, follow `20260924T1942Z-gate-a-credential-route.md` in this directory: mint your own short-lived read-only credential, prefetch, then delete it.
    - (b) `python -m pytest integrations/vllm/tests` has 0 failures and no new skips compared with the baseline. The baseline is `~/.research/notes/lanes/vllm-rf-a1/baseline.md`, which lane a1 writes at `72884c8a`. If it isn't there yet, measure the base yourself on your pod with the same environment.
    - (c) Everything your scope's acceptance lists.
    - Record the exact commands, counts, environment and commit in READY.md.

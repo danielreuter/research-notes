@@ -7,6 +7,8 @@ created: 2026-09-24T18:10Z
 ---
 # Baseline: the vLLM integration's test gates at `72884c8a`
 
+> **Coordinator, 19:42Z:** for gate (a) fixtures, use `../vllm-refactor/20260924T1942Z-gate-a-credential-route.md`: mint your own short-lived read-only credential, prefetch every row, delete the credential, then run gate (a) without it. Never reuse a1's `/root/r2ro.env`.
+
 Gate (b) is not green at the base: 3,904 tests, 3,536 passed, 54 failed, 11 errors, 297 skipped, 6 xfailed.  Of the 65
 failures and errors, 10 fail in any environment (files missing from the tree; a `NameError` in an extracted adapter
 function), 34 come from how the pod tree is set up (subprocess builds that cannot import core `verity`; no `.git` in a

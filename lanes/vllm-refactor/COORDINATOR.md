@@ -23,7 +23,9 @@ updated: 2026-09-24T19:30Z
   - The CAP file on `vy-control-verity` is 600. Spend was $238.67 when it was raised; the tally has run since 2026-09-23 under tag `2026-09-23-vyv-rebuild`.
   - The rate cap is $45/h.
   - The deadline daemon terminates `vyv-` pods at 03:00Z.
-  - Three daemons run on `vy-control-verity`, all vLLM's, as checked at 19:31Z: `budget_cap.py` (pid 8950), `deadline.sh vyv- 1790305200` (pid 20985) and `balance_floor.py` (pid 7241). The balance floor terminates every `vyv-` pod when the account balance drops below $25. The balance was $167.69 at 19:17Z, so it, not the $600 cap, is the real limit: only about $142 of spend is left above the floor. The owner is deciding whether to extend the deadline or change the cap; hold until he answers.
+  - Three daemons run on `vy-control-verity`, all vLLM's, as checked at 19:31Z: `budget_cap.py` (pid 8950), `deadline.sh vyv- 1790305200` (pid 20985) and `balance_floor.py` (pid 7241). The balance floor terminates every `vyv-` pod when the account balance drops below $25. It's only a backstop: the account auto-tops-up below about $100, so report only if the balance falls below about $90 without refilling. The binding limits are the $600 cap and the deadline. The owner's rule: push the deadline back a few hours at a time, never in one big jump, so it still works as a dead-man switch.
+- Of the six lanes, a1, f1, f24, f3 and f56 are subagents of the old chat (eb746331), which can't be messaged while they run; steer them only through their files or pods, or restart them. a23b is the vLLM coordinator's own background subagent. Don't delete the old chat. Its role: `../vllm-coordinator/20260924T1945Z-setup-for-old-chat.md`.
+- Gate (a) credential route: `20260924T1942Z-gate-a-credential-route.md`.
 - **Watcher:** the other coordinator's notes watcher excludes `vllm*` lanes, which is why the refactor lanes are named `vllm-rf-*`.
 
 ## Lanes (local subagents launched from chat eb746331; the brief is `LANE_BRIEF.md`)

@@ -39,15 +39,20 @@ created: 2026-09-24T17:40Z
 
 - 19:50Z #70 at the base (integrator note `20260924T0240Z-from-vllm-tp-v2-ready-4f3a1e7.md` + `vllm-tp-v2/20260924T1810Z-70-commit-fail-diagnosis.md`): Build PASS (manifest `ede1ad81`, 357,796), Match PASS collective-level (oracle 14,592/14,592 per rank), Commit `r20260924-021402-69d8` FAIL rc 12 with legs query_population False (25,408 per rank, build_global keeps one request's op_path_aliases), cross_rank_collectives False (AllGather2 161 sites / 1 covered), sampled_replay partial, fold_match_binding None; every compared value equal (replay 9,656/9,665 0 mismatches, weight pins 212/212, TP-12 154/154, linkage 434/434). Build `art:962a12b3…`, Match `art:7ecab74a…` preserved. Regression expected files: #70 and #75 class FAIL, only `program_digest` applies (gate (a) covers it). "Verdict unchanged" for #70 = the same FAIL legs and numbers.
 
-## Running (pods created 19:45-19:48Z)
-- CPU `vyv-rf-f56` = RunPod `3rl2gsbclq3nhs` (cpu3g x16, 80 GB): `research pods sync` of `9b07c19f` to `/workspace/base` in flight (laptop background shell).
-- 2x L40S `vyv-rf-f56-l40s` = `lhe6h1dv0bw43c` (300 GB disk): not bootstrapped yet.
-- 1x H100 SXM `vyv-rf-f56-h100` = `1ja36qvgnyy0g3` (150 GB disk): not bootstrapped yet.
+- (times above marked 19:50Z are laptop guesses; pod clock: CPU pod created ~19:29Z, gates started 19:37:00Z)
+- 19:40Z pinned vLLM `0.28.1rc1.dev472+gd9105ea80` (CPU pod site-packages), load-bearing for D16a/D17:
+  - `SharedFusedMoE` occurs NOWHERE in vllm/ and `fused_moe/shared_fused_moe.py` does not exist. Models build MoE through `FusedMoEFactory` (`fused_moe/layer.py:88`); shared experts are inside the runner (`fused_moe/runner/shared_experts.py`; `moe_runner.py:453` all-reduces `shared_output`, `:473` `fused_output`, `:509` `states`), and only `runner/moe_runner.py` binds `tensor_model_parallel_all_reduce`. So D16a's additions to the committer (`SharedFusedMoE` class, `shared_fused_moe` module row; import failure skipped by `partial_source.install`'s try/except) are inert on the pinned vLLM for every model; both lists already had `MoERunner`. SYNTHESIS D16's "shared-expert MoE: collectives recorded but partials not committed" does not hold on this vLLM -> contradicted evidence for READY.
+  - `flash_attn_interface.py`: `flash_attn_varlen_func` keywords = my call's; it calls `torch.ops._vllm_fa2_C.varlen_fwd` (l.317) / `torch.ops._vllm_fa3_C.fwd` (l.349) by attribute at call time, all positional -> `_vllm_args` recorder holds.
+- 19:45Z DECISION: no TP2 live row. f1 already runs #70 base vs head on `vyv-rf-f1-tp2`; D16a is inert on the pinned vLLM (above); D16b/D16c do not act at world 2 (gate (a) re-derives the TP rows' program digests, the only check that applies to #70/#75). Budget (COORDINATOR.md: ~$142 above the balance floor at 19:17Z, all lanes) argues against a ~$5 duplicate. 2x L40S `lhe6h1dv0bw43c` terminated ~19:43Z before any bootstrap; FA2 record moved to a 1x L40S.
+
+## Running
+- CPU `vyv-rf-f56` = `3rl2gsbclq3nhs` ($0.64/h): venv from a1 recipe (bootstrap --cpu OK 19:35Z, xdist 3.8.0); scripts `/workspace/rff56/gate_{a,b}.sh` (= a1's, logs `/workspace/rff56/logs/`). Started 19:37:00Z at `9b07c19f`: gate (a) `nice gate_a.sh /workspace/head-reg a_head` (read-only R2 credential `/root/r2ro.env`, 6h TTL from ~19:36Z); gate (b) `OMP_NUM_THREADS=3 gate_b.sh /workspace/base b_head_x12 -n 12 --dist loadfile`.
+- H100 `vyv-rf-f56-h100` = `1ja36qvgnyy0g3` ($3.49/h!): `pod_bootstrap.sh --cpu` (steps 1-3 only) then `VENV=/workspace/venv312 pod_fa3_tap.sh`, detached; logs `/workspace/rff56/{bootstrap,fa3_tap}.log`. Terminate as soon as the FA3 record is preserved.
+- 1x L40S `vyv-rf-f56-fa2` = `hpz7n4zvjmytn7` ($1.09/h): tree sync in flight; then bootstrap --cpu + `pod_fa2_tap.sh`.
 
 ## Next
-1. CPU: a1 recipe venv, gates (a)/(b) at `9b07c19f`; check vLLM `flash_attn_varlen_func` keyword names + which models build `SharedFusedMoE` (site-packages source).
-2. GPU pods: sync tree, `verity_vllm/ops/pod_bootstrap.sh` (builds FA2 tap; FA3 on the H100). Then `python -m verity_vllm.check.fa_tap_exactness --so <tap .so> --out DIR` on each (L40S FA2, H100 FA3) under `research run` so the record is preserved.
-3. L40S: TP2 #70 at head (reuse Build/Match artifacts or rerun), compare to the base Commit legs above.
+1. When a tap is built: run `python -m verity_vllm.check.fa_tap_exactness --so <tap .so> --out DIR` under pod-side `research run` (store `/workspace/research/store`, `store.pod.toml`) so the record is an attempt; publish with a minted read-write credential, then `research pods drain` from the laptop. FA2 .so `/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so`, FA3 `/workspace/cp/fa2/build/fa3_matReq/verity_fa3_matReq.so`.
+2. Gates: compare gate (b) failures/skips with a1's baseline list; gate (a) must be green.
 
 ## Open questions
 - none yet

@@ -2,6 +2,8 @@
 # gate (a): VERITY_REGRESSION=1 python -m pytest integrations/vllm/tests/regression -m regression, from the tree root, in venv312.
 #   usage: gate_a.sh TREE TAG [pytest args...]      logs: /workspace/rfa1/logs/TAG.{log,xml,env}
 #   The frozen rows' fixture/v1 trees come from the store remote (store.pod.toml) with a read-only minted credential in /root/r2ro.env.
+#   Other lanes: don't copy the r2ro.env line. Mint your own credential, prefetch every row, delete it, then run this without it:
+#   ~/.research/notes/lanes/vllm-refactor/20260924T1942Z-gate-a-credential-route.md
 T=$1; TAG=$2; shift 2
 L=/workspace/rfa1/logs; mkdir -p $L /workspace/rfa1/scratch/$TAG
 cd "$T" || exit 3

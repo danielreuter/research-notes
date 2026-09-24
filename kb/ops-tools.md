@@ -73,7 +73,13 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
 * Pod credential (measured on a cpu3c pod): RunPod puts a pod-scoped `RUNPOD_API_KEY` (not the account key) in `/proc/1/environ`.
   ssh sessions do not inherit it. It can read nothing: REST `GET /pods` and `/pods/{self}` return 403, and GraphQL `myself` is
   Unauthorized. REST `DELETE /pods/{self}` returns 403 too, but GraphQL `podTerminate` of its own pod works, and the guard used
-  it (17:10:36Z). The account key never goes to a pod.
+  it (17:10:36Z). The account key never goes to a job pod. The one exception is the shared control pod `vy-control-verity`: its
+  `/root/.runpod/config.toml` holds an account key, which the `vyv-` budget, deadline and balance-floor daemons use to list and
+  terminate pods (vllm-coordinator, 2026-09-24).
+* Gap: `research run` doesn't pull a run's store inputs onto the pod. The regression gate's fixture trees need an R2 credential on
+  the pod. Interim, owner-approved route: a lane mints its own short-lived read-only credential on the laptop, pipes it onto its
+  own pod, prefetches, and deletes the credential at once (`lanes/vllm-refactor/20260924T1942Z-gate-a-credential-route.md`). The
+  fix: the launcher fetches declared inputs onto the pod itself.
 * To stop a guard on your own pod, run `pkill -f "[p]od_guard.sh daemon"`. Without the brackets, pkill also kills the ssh shell
   running it.
 * The launcher streams the source archive. Its Python stays around 20 MiB during the ship and peaks near 40 MiB (the manifest

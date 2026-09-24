@@ -20,3 +20,6 @@ shared64p4-r1 art:46824988
 bare-v3p8-r2 art:b0219651 art:e9543111
 bare-v3p8-r2 art:7428cdd5 art:e9543111
 shared64p8-r1 art:f72bb306 
+shared64p8-r1 art:e736ce3e art:42373f8e
+live-v3p8-r1 art:a2b2dc3f 
+live-v3p4-r1 art:1fab5137 

@@ -25,3 +25,16 @@ Measured facts and how-tos for the NVFP4 relation and its hashed (committed) com
   0.0613 s (median ratio 3.9x); all 6 dumps Rust-pinned 7/7 ACCEPT; bench.summary contract ok. Report
   `lanes/fp4-port-2/*report*`.
 - fp4-decode-3 (6ffa0351 base d86e014): hashed 0.2617 s, bare 0.0532 s on another 4090.
+
+## RTX 5090 numbers (wave-5090-2, EU-RO-1, 4096 VUs, l = 16384, --zk --mode interactive, reps 5, medians of 3+ alternating rounds)
+- bare local: p4 0.0404 s (12 rounds), p8 0.0423, p1 0.0727; l = 8192 p4 0.0403. committed (+poseidon2 included-hash,
+  d30c32f6 = main + fp4-port 1aa1f00e): p4 0.1550, p8 0.1497 (3.7x bare).
+- live, same-DC 8-vCPU CPU verifier: bare p8 t.total_live 0.0683 (p4 0.0764); committed p8 0.1619 (p4 0.1634).
+  Every session accepted (152/152 over both verifiers); Rust reverify PASS. Report `lanes/wave-5090-2/*report*`.
+- Before lane/wave-5090 b278f508, `bench-vu --verifier` proved fp4-nvf4 sub-batches SEQUENTIALLY whatever `--pipeline`
+  said (`fp4/chain.py`: `... and live is None`): live bare was 0.114-0.133 s. b278f508 wires live pipelining as relchain does
+  (HELLO window = N, `live.pipeline_factory`, `set_statement` per sub-batch).
+- The live tax on the bare cell (0.068 live vs 0.040-0.042 local) is the in-session opening round trip: ~3-4 ms median while
+  `live probe` says 0.6-0.8 ms idle; it did NOT change with the verifier's CPU (2 vCPU jobs 2 / jobs 1 / 8 vCPU jobs 8:
+  sequential 0.133 / 0.116 / 0.114). At 40 ms per rep, 14 round trips of ~3.5 ms cannot hide; the hashed cell (155 ms) hides them.
+- `reverify.py` before lane/wave-5090 04141baf crashed on fp4/chain.py dumps (manifest `relation` is a bare string there).

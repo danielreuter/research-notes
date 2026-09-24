@@ -1,0 +1,8 @@
+host  cpu quota 13.6 of 128 cores (OMP_NUM_THREADS=13)  load 129.7  29.1 GiB free on /workspace
+gpu   NVIDIA GeForce RTX 4090 (rtx-4090)  SM 2565/3105 MHz  mem 10251/10501 MHz  power 450/450 W  PCIe gen4 x16 (max gen4 x16)  persistence Enabled  69 C
+gpu processes: 1731 /workspace/venv312/bin/python 848
+bench encode l=4096 n=16384 x2048 rows: 2.515 ms (ref 0.3302: 7.62x)  |  matmul bf16 8192^3: 73.5 TFLOP/s (ref 160.41: 2.18x)
+warning: 1 other GPU compute process(es): 1731 /workspace/venv312/bin/python 848
+warning: load average 129.7 > 128 cores
+DEGRADED: more than 20% slower than the rtx-4090 reference -- replace this pod
+rc 3

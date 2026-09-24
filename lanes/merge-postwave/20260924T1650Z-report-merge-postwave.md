@@ -1,3 +1,4 @@
+CHECKPOINT 04700cb5 (17:36Z) [open] sync done (tree f27d6187 = 04700cb5); SP1 check + relation-bare pass (r20260924-172629-f417), tcdot fork OK, check-tcdot running; validate r20260924-173554-eb0d (py+ligero+gkr)
 CHECKPOINT 04700cb5 (17:18Z) [open] SP1 checks running from git-archive of 04700cb5 (r20260924-171410-4069); setup r20260924-171002-37a0; sync ~141/252MB; next: validate.sh (py + ligero + gkr) after sync
 CHECKPOINT 04700cb5 (17:06Z) [open] --source launch killed by guardian disk floor (handoff to coordinator); pods sync running (~100KB/s), setup r20260924-170644-a490 on pod; validate after sync
 CHECKPOINT 04700cb5 (16:55Z) [open] render identical to 1540Z except A-GKR hash text; pod vy-merge-postwave (3jmqlddtas1bj3, cpu3c) running validate r20260924-165536-47d1 (py suites + cargo check)

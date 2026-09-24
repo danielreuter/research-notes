@@ -13,9 +13,13 @@ created: 2026-09-24T17:27Z
 
 ## Done
 - 17:27Z worktree created.
+- 17:35-17:50Z re-verified deletion candidates at 72884c8a (analysis only; findings in "Found, not fixed" and READY.md later).
+- 17:55Z pod `vyv-rf-a23-veritor-campaign` = RunPod `qcky3qlmvh896c` (cpu3g, 16 vCPU / 64 GB, 80 GB disk, US, ~$0.64/h), created with
+  `research pods create --name vyv-rf-a23 --cpu cpu3g --vcpu 16 --disk 80` (launcher `/tmp/rfa23/research.sh` =
+  `PYTHONPATH=<wt>/tools/research/src python3.12 -m research`).
 
 ## Running
-- nothing yet
+- pod bootstrap on `qcky3qlmvh896c` (base tree = `git archive 72884c8a` at `/workspace/base`)
 
 ## Next
 1. Re-verify every deletion candidate at 72884c8a (imports, importlib/string paths, `-m` in ops/tests, research_tools).

@@ -5,6 +5,7 @@ created: 2026-09-24T06:22Z
 status: open
 ---
 
+CHECKPOINT 1b3c7be6 (11:07Z) [open] 11:07Z idle poll: inbox empty, no producer activity. 62 labels, Table 2 unchanged, pod idle ~$2.2.
 CHECKPOINT 1b3c7be6 (10:51Z) [open] 10:51Z idle poll: inbox empty; no producer activity (agkr-table 08:30Z, sp1-formats 07:45Z open but silent; others FINAL). 62 labels, Table 2 unchanged, pod idle ~$2.1.
 CHECKPOINT 1b3c7be6 (10:36Z) [open] 10:36Z inbox empty. sp1-tcdot FINAL 10:08Z before my 1020Z note, so escalated to coordinator 1040Z: its headline art:0a66c35e does not verify (vk 0x009f022f from pinned source vs recorded 0x00896ef4; host has no key cache, leading hypothesis GPU-server setup differs); D2 TC_DOT fastest verified stays art:174d7b4d 5.811 s. 62 labels; Table 2 unchanged. Polling to FINAL.
 CHECKPOINT 1b3c7be6 (10:20Z) [open] 10:20Z labelled art:0a1bc6cd (2nd registration of k7-warm run; byte-identical proofs re-verified; verdict art:f4a6fc79): 62 labels. NOT labelled: art:0a66c35e + art:b147a31c (my fresh 6655716e host from pins 97b5b60a/4ca5a6ca has vk 0x009f022f, not the recorded 0x00896ef4; rejects all 6 proofs 'global cumulative sum is not zero'; 6096d886 host rejects on shape; guest loaded sections identical, so fork-side vk change; producer host may be stale) and art:2a4760fb (run-files have no proofs). Handoff sp1-tcdot 1020Z. Table 2 unchanged.

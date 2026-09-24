@@ -40,6 +40,11 @@ By-name lint: `/opt/homebrew/bin/python3.13 tests/test_no_by_name_rules.py` (pur
   proof probe: staging code's check with the record's addresses.rule forced to "v2-query" vs tip actual
   (/workspace/rv1/rpv2.sh ROW TIPREC -> logs/rpv2_r57.out). If equal -> retire-v1 decision + rebaseline write for that row/check.
 
+- 06:21Z probe: staging code under v2 rule == tip actual for r57 replay_partition: True (solely the rule).
+  retire-v1 decision added to fixtures.toml (r57 replay_partition; uncommitted until the rerun passes by decision);
+  06:26Z rerun `replay_partition and r57` on tree /workspace/rv1/tip2 (tip + decision) -> hrec/rp57, logs/h_rp57.out
+  then: rebaseline write --record hrec/rp57 (pod, tip2) -> copy expected/<gemma row>.json back -> commit + push
+
 CHECKPOINT rv-tests MET 05:56Z converted test files @6813fe06 on cpu3: 212 pass / 173 skip / 2 F (both staging-known), 0 regressions per test vs staging junit
 
 ## Done

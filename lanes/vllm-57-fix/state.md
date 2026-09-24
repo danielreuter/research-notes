@@ -6,6 +6,14 @@ pod: vyv-sw-57 (ssh -i ~/.runpod/ssh/runpodctl-ssh-key -p 12152 root@202.181.159
 ---
 # vllm-57-fix: running state
 
+**#67 SCOPE CHANGE (06:30Z, for the coordinator):** a Commit-only rerun of #67 is impossible. Its row dir lived only on vyv-sw-67
+(terminated 04:16Z), and the stored artifacts are account summaries: Build art:a0fb7ea8 (vllm-build/v1, 0.9 GB) skipped every
+`instances.json.gz` (the Programs), Match art:f3430c8f (vllm-match-record/v1, 1.4 MB) skipped match/instances.jsonl + match/program.json;
+no full row-dir tree exists for #67 (store select meta.row=olmoe-...b32...: 9 artifacts, all summaries). The Commit reads exactly those.
+So the offline repro over #67's inputs is impossible too. Plan: run #67's full row (Build -> Match -> Commit, same flags, source
+8b606f16) on vyv-sw-67b, one laptop `research run --on` per stage as the sweep did. Estimate from the sweep: Build ~26 min, Match
+~45 min, Commit ~1h40m => ~3h after bootstrap (~10:00Z), ~$5-6 at $1.58/h. Proceeding unless told to stop.
+
 Task: #57 v2 Commit local_replay fix (432 promoted model/out identities_without_rows + form (B) None; snapshot-steps gap);
 #67 follow-on if same cause. Spec: pod /workspace/lane/BRIEF.md; facts /workspace/lane/sweep-status-0205Z.md.
 Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 09:00Z, 57-pass 10:00Z, 57-ready 10:30Z, 67-pod 10:30Z, 67-pass 12:30Z).
@@ -52,6 +60,13 @@ instance_outputs with no replay evaluator) and MATCH_SNAP_STEPS is unset; an exp
   (06:07Z attempt refused: shipping 168 MB from the laptop exceeded 600s at ~0.3 MB/s. Workaround: build /workspace/research/src/<sha>/ on
   the pod with `git archive <sha> | tar -x` from /workspace/verity; the launcher adopts it by per-file sha256 (legacy path). Local record
   r20260924-061901-c333 is an orphan stuck at phase=shipping; nothing ran for it.)
+
+- vyv-sw-67b: pod w5aiv36vhliqbu, 2x L40S COMMUNITY, 251 GB, 56 vCPU, 300 GB disk, driver 550.144 (CUDA 12.4; the stack is cu129 --
+  bootstrap's torch_cuda check decides; if it fails, replace the pod with a >=575 driver host), $1.58/h, ssh -p 1728 root@193.183.22.51
+  (runpodctl key), machines.toml entry added. Source 8b606f16 shipped as a gzip'd git archive over ssh (55 s) then adopted by the launcher.
+  Bootstrap run r20260924-062646-d1a9 (`pod_bootstrap.sh --gpu --cases OLMOE`), launched 06:27Z.
+- #67 row args: OLMOE allenai/OLMoE-1B-7B-0924 6d84c48581ece794365f2b8e9cfb043c68ade9c5, row
+  olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager, --retain host --build-jobs auto --sweep-dir /workspace/cp/sweep-v2s.
 
 ## Next
 - #57 rerun -> verdict; preserve (data push + preserved --mode recorded + labels); ready note; #67 judgment (MoE experts output, 20,928 identities_without_rows).

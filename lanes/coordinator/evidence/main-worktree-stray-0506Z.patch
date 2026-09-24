@@ -1,0 +1,1737 @@
+diff --git a/backends/direct/ligero/relchain.py b/backends/direct/ligero/relchain.py
+index 92da392e..0ce4c517 100644
+--- a/backends/direct/ligero/relchain.py
++++ b/backends/direct/ligero/relchain.py
+@@ -15,7 +15,6 @@ accumulators recorded by the model ``tc_dot``); ``--instances-cache DIR`` keeps
+ from __future__ import annotations
+ 
+ import dataclasses
+-import functools
+ import hashlib
+ import json
+ import os
+@@ -36,7 +35,6 @@ from .compile import P
+ from .fp8.census import census
+ from .protocol import Config, config_for, n_rows, prove, soundness, verify
+ from .relations import K_VU, Relation, relation
+-from .serialize import hashed_statement_format
+ from .witness import tables
+ 
+ __all__ = ["RelationChainRunner", "bench_vu_rel", "gate_vu_rel", "instances", "instances_digest", "vu_units"]
+@@ -184,13 +182,6 @@ def tile_instances(rel: Relation, nx: int, nw: int, seed: int | None = None, pro
+     return vus, x, w
+ 
+ 
+-def tile_digest(rel: Relation, nx: int, nw: int, seed: int | None = None) -> str:
+-    """The manifest digest of :func:`tile_instances` for a relation whose ``instances_digest`` names a FROZEN set (the
+-    tile is a synthetic draw either way; the non-frozen relations keep ``instances_digest(rel, nx nw)``)."""
+-    seed = rel.instance_seed if seed is None else seed
+-    return hashlib.sha256(f"{rel.name} synthetic tile|seed={seed}|{nx}x{nw}|K={K_VU}".encode()).hexdigest()
+-
+-
+ def tile_indices(nx: int, nw: int, lo: int, hi: int) -> tuple[list[int], list[int], list[int]]:
+     """(vu_index, x_index, w_index) of the tile's VUs ``[lo, hi)``."""
+     vus = list(range(lo, hi))
+@@ -297,9 +288,7 @@ class RelationChainRunner:
+ 
+         def hints_fn():
+             hints = self.rel.hints(self.p, self.sys, bd["c_d"], bd["a_d"], bd["b_d"], bd["y_d"], self.device)
+-            # the gate: the device generator must equal the checker's gen_step (LIGERO_REFERENCE_HINTS=0 skips it on a bench's
+-            # warm-up sub-batch only -- minutes of Python per folded sub-batch; the constraint self-check still runs)
+-            if check and self.rel.reference_hints is not None and os.environ.get("LIGERO_REFERENCE_HINTS", "1") != "0":
++            if check and self.rel.reference_hints is not None:  # the gate: the torch generator must equal the checker's gen_step
+                 ref = self.rel.reference_hints(self.p, self.sys, bd["units"], self.device)
+                 assert torch.equal(ref, hints), f"{self.rel.name}: torch hints != gen_step"
+             return hints
+@@ -308,14 +297,14 @@ class RelationChainRunner:
+                                          mutate=mutate, chain=(lay, bd["ypub_d"]), words={"a": bd["a"], "b": bd["b"], "y16": bd["ypub"]},
+                                          coins=coins, rel=self.hooks, hints_fn=hints_fn, slot=slot)
+ 
+-    def prove_vus_many(self, batches: list[list[tuple]], coins_factory, depth: int = 2, min_l: int = 256, vu_ids_list=None):
++    def prove_vus_many(self, batches: list[list[tuple]], coins_factory, depth: int = 2, min_l: int = 256):
+         """``len(batches)`` sub-batches proved with up to ``depth`` in flight on their own CUDA streams (``pipeline.prove_many``):
+         the host work of one sub-batch (challenge expansion, transcript copies, launch overhead) hides under the device work
+         of the next.  ``coins_factory(i)`` is called per sub-batch when it starts, in order (the honest verifier's step 0);
+         with a live verifier (``coins`` exposing ``set_statement``) the statement is fixed per sub-batch before proving, and
+         the coin exchange is non-blocking (the stage yields a Future the pipeline driver polls -- ``live.LiveCoins``).
+         Returns ``[(coins, proof, pubs, lay)]`` in sub-batch order and the pass wall; each proof's ``timings`` is the
+-        sub-batch's share of the wall (see ``pipeline._rescale``).  ``vu_ids_list`` is the hashed runner's (unused here)."""
++        sub-batch's share of the wall (see ``pipeline._rescale``)."""
+         from .pipeline import prove_many
+         bundles = [self.marshal(vus, min_l) for vus in batches]
+         coins_of: list = [None] * len(batches)
+@@ -377,54 +366,44 @@ class RelationChainRunner:
+ 
+ class HashedRelationRunner(RelationChainRunner):
+     """``authentication = included-hash`` (``hashchain.py``, ``hashauth.py``): the relation's chain system composed with
+-    private operands and the two operand-row gadgets of a pluggable leaf scheme (``leaf/``; Poseidon2 sponges by
+-    default); the statement is the digest table + leaf indices + roots, and the verifier checks the published digests'
+-    Merkle multiproofs after the Ligero verdict.
++    private operands and the two Poseidon2 sponges; the statement is the digest table + leaf indices + roots, and the
++    verifier checks the published digests' Merkle multiproofs after the Ligero verdict.
+ 
+-    ``pubs`` of :meth:`prove_vus` / :meth:`verify_vus` is ``(table (l, 1 + 2 digest_elems), indices (n_vus, 3), ypub (l,),
+-    auth, siblings)``: the public table (``hash.is_end | hash.d[..]`` per column), the ``(vu, x, W)`` leaf triples, the chain-end words,
++    ``pubs`` of :meth:`prove_vus` / :meth:`verify_vus` is ``(table (l, 17), indices (n_vus, 3), ypub (l,), auth, siblings)``:
++    the public table (``hash.is_end | hash.d[0..15]`` per column), the ``(vu, x, W)`` leaf triples, the chain-end words,
+     the :class:`hashauth.HashAuth` block and the three multiproofs.  ``commit(...)`` sets the trees the prover opens."""
+ 
+     AUTH = "included-hash"
+ 
+     def __init__(self, rel: Relation, device: str, target: float, rate_log2: int = 2, n_proofs: int = 1, zk: bool = False,
+-                 mode: str = protocol_mod.MODE_INTERACTIVE, leaf=None):
+-        """``leaf``: the leaf scheme (``leaf.registry`` name, default ``"poseidon2"`` -- the historical ``+hash``)."""
++                 mode: str = protocol_mod.MODE_INTERACTIVE):
+         from . import hashchain
+-        from .leaf import registry as leaf_registry
+         from .protocol import RelationHooks
+         self.rel = rel
+         self.p = rel.params
+         self.zk, self.mode, self.device, self.target, self.rate_log2, self.n_proofs = zk, mode, device, target, rate_log2, n_proofs
+         self.steps = rel.steps
+         t0 = time.perf_counter()
+-        self.hr = hashchain.compose(rel, leaf)
+-        self.leaf = self.hr.leaf
+-        self.leaf_name = leaf_registry.suffix_of(self.leaf)     # the relation suffix ("poseidon2", "blake3", "ajtai-n64")
++        self.hr = hashchain.compose(rel)
+         self.sys = self.hr.sys
+         self.tb = tables(self.sys, self.device)
+         self.compile_seconds = time.perf_counter() - t0
+         self._cfg = {}
+         self._base_sys = dataclasses.replace(self.sys, hints=self.sys.hints[:self.hr.n_base_hints])
+         self.base_tag = b"hash/v2h|" + rel.tag
+-        self.hooks = RelationHooks(functools.partial(hashchain.hash_public_vectors, n_digest=2 * self.leaf.digest_elems),
+-                                   word_dtype="<u4", y16_dtype=rel.y_dtype, y16_bits=rel.y_bits, tag=self.base_tag,
+-                                   steps=rel.steps, max_steps=getattr(self.leaf, "max_steps", None))
++        self.hooks = RelationHooks(hashchain.hash_public_vectors, word_dtype="<u4", y16_dtype=rel.y_dtype,
++                                   y16_bits=rel.y_bits, tag=self.base_tag)
+         self.trees = None
+         self.tile = None                    # (nx, nw) of the tile workload, None for the worst case
+         self.rows, self.sponges, self.sponge_seconds = None, None, 0.0
+-        self._marshal_cache = {}
+ 
+     @property
+     def relation(self) -> str:
+-        """The v5 statement's relation string: ``<rel>`` for Poseidon2 (byte-identical to every ``+hash`` statement
+-        before the leaf interface), ``<rel>+<leaf>`` for any other scheme (``leaf.registry.relation_name``)."""
+-        from .leaf import registry as leaf_registry
+-        return leaf_registry.relation_name(self.rel.name, self.leaf_name)
++        return self.rel.name
+ 
+     def hooks_for(self, auth):
+         from . import hashauth
+-        return dataclasses.replace(self.hooks, tag=self.base_tag + hashauth.digest_bytes(auth, leaf=self.leaf))
++        return dataclasses.replace(self.hooks, tag=self.base_tag + hashauth.digest_bytes(auth))
+ 
+     def commit(self, *, x_rows, w_cols, y_words, bindings, cache=None, tile=None):
+         """Build (or load) the three trees of the committed set; ``tile = (nx, nw)`` records the sharing layout."""
+@@ -432,147 +411,30 @@ class HashedRelationRunner(RelationChainRunner):
+         x_rows, w_cols = np.asarray(x_rows, dtype=np.int64), np.asarray(w_cols, dtype=np.int64)
+         self.trees, self.digests, cached = hashauth.load_or_build_trees(
+             cache, x_rows=x_rows, w_cols=w_cols,
+-            y_words=np.asarray(y_words, dtype=np.int64), word_bits=self.hr.word_bits, y_bits=self.rel.y_bits, bindings=bindings,
+-            leaf=self.leaf)
++            y_words=np.asarray(y_words, dtype=np.int64), word_bits=self.hr.word_bits, y_bits=self.rel.y_bits, bindings=bindings)
+         self.tile = tile
+-        # the chain states of every committed row, once (the prover's cost of hashing; gathered per sub-batch in prove_vus)
++        # the sponges of every committed row, once (the prover's cost of hashing; gathered per sub-batch in prove_vus)
+         t0 = time.perf_counter()
+         self.rows = {"a": x_rows, "b": w_cols}
+-        self.sponges = {nm: hashchain.row_chain(self.hr, self.rows[nm], role, self.device) for _, nm, role in hashchain.ROLES}
++        self.sponges = {nm: hashchain.row_sponges(self.hr, self.rows[nm], role, self.device) for _, nm, role in hashchain.ROLES}
+         if str(self.device).startswith("cuda"):
+             torch.cuda.synchronize()
+         self.sponge_seconds = time.perf_counter() - t0
+-        self._committed_digests()
+         return cached
+ 
+-    def _committed_digests(self):
+-        """Host copies of the committed rows' digests (public: the leaves of the x / W trees) for the statement tables
+-        of the pipelined prover, and device copies of the committed rows (the hash side gathers its witness from them)."""
+-        self._marshal_cache = {}
+-        self.dg_host = {nm: self.sponges[nm][1].cpu().numpy().astype(np.int64) for nm in self.sponges}
+-        self.rows_d = {nm: torch.as_tensor(self.rows[nm], dtype=torch.int64).to(self.device) for nm in self.rows}
+-
+-    def marshal_hashed(self, vus: list, vu_ids, min_l: int = 256) -> dict:
+-        """The sub-batch's statement (public table from the committed digests, leaf indices, authentication block, public
+-        vectors) and its device-resident words, once per run (cached like :meth:`RelationChainRunner.marshal`): what
+-        the pipelined prover (:meth:`prove_vus_many`) reads, so a timed sub-batch does no host marshalling.  ``gather``:
+-        the committed-row indices per operand whose words ARE the committed rows (their precomputed chains are gathered
+-        on the device inside the prover's clock)."""
+-        vu_ids = list(vu_ids)
+-        key = ("hashed", len(vus), id(vus[0]), id(vus[-1]), id(vus[len(vus) // 2]), vu_ids[0], vu_ids[-1], min_l)
+-        hit = self._marshal_cache.get(key)
+-        if hit is not None:
+-            return hit
+-        from . import hashchain
+-        bd = dict(RelationChainRunner.marshal(self, vus, min_l))
+-        n_vus, lay, dev = len(vus), bd["lay"], self.device
+-        auth = self.auth_for(vu_ids)
+-        idx = auth.indices()
+-        gather = {}
+-        for nm, ix in (("a", auth.x_index), ("b", auth.w_index)):
+-            ix = np.asarray(ix, dtype=np.int64)
+-            words = bd[nm][:n_vus * self.steps].reshape(n_vus, self.steps * self.rel.k)
+-            if self.sponges is not None and len(ix) == n_vus and np.array_equal(self.rows[nm][ix], words):
+-                gather[nm] = torch.as_tensor(ix).to(dev)
+-        dg = np.concatenate([self.dg_host["a"][np.asarray(auth.x_index)], self.dg_host["b"][np.asarray(auth.w_index)]], 1)
+-        table = hashchain.public_table(dg, n_vus, self.steps, lay.l)
+-        bd.update({"auth": auth, "idx": idx, "table": table, "gather": gather, "hooks": self.hooks_for(auth),
+-                   "pub": self.hooks.public_vectors(self.p, None, table, idx, None, device=dev)})
+-        if str(dev).startswith("cuda"):
+-            torch.cuda.synchronize(dev)
+-        self._marshal_cache[key] = bd
+-        return bd
+-
+-    def _gather_sponges(self, gather: dict) -> dict | None:
+-        out = {}
+-        for nm, t in gather.items():
+-            sp = self.sponges[nm]
+-            out[nm] = (sp[0][t], sp[1][t])
+-            if len(sp) > 2:
+-                out[nm] += ({n_: v[t] for n_, v in sp[2].items()},)
+-        return out or None
+-
+-    def _prove_stages_hashed(self, bd: dict, coins, slot=None, sibs_out: list | None = None):
+-        """The pipelined prover's generator for one sub-batch (``pipeline.prove_many``): the hints on the device (the
+-        base generator + the leaf chains gathered from the committed set, no host round trip), ``protocol.prove_stages``,
+-        then the multiproofs (host, timed ``auth_openings``)."""
+-        from . import hashauth, hashchain
+-        lay, dev, n_vus = bd["lay"], self.device, bd["lay"].n_vus
+-
+-        def hints_fn():
+-            base = self.rel.hints(self.p, self._base_sys, bd["c_d"], bd["a_d"], bd["b_d"], bd["y_d"], dev)
+-            extra, _ = hashchain.hash_hints(self.hr, bd["a_d"], bd["b_d"], n_vus, lay.l, dev,
+-                                            sponges=self._gather_sponges(bd["gather"]))
+-            return torch.cat([base, extra], 0)
+-
+-        proof = yield from protocol_mod.prove_stages(
+-            self.p, self.sys, self.tb, self.cfg(lay.l), bd["pub"], None, dev, chain=(lay, bd["ypub_d"]),
+-            words={"a": bd["table"], "b": bd["idx"], "y16": bd["ypub"]}, coins=coins, rel=bd["hooks"], hints_fn=hints_fn,
+-            slot=slot)
+-        t1 = time.perf_counter()
+-        sibs = hashauth.open_trees(self.trees, bd["auth"])
+-        proof.timings["auth_openings"] = time.perf_counter() - t1
+-        if sibs_out is not None:
+-            sibs_out.append(sibs)
+-        return proof
+-
+-    def _pipelined(self, bundles: list, stage, coins_factory, depth: int, live_statement=None):
+-        """``prove_many`` over ``stage(bundle, coins, slot, sibs_out)`` generators.  Local coins, or -- when the runner
+-        passes ``live_statement(bundle, coins)`` (the statement, multiproofs included, handed to the live source before
+-        the root) -- a live verifier's coins; without it a live source is refused."""
+-        from .pipeline import prove_many
+-        coins_of: list = [None] * len(bundles)
+-        sibs_of: list = [[] for _ in bundles]
+-
+-        def starter(i):
+-            def start(slot):
+-                c = coins_factory(i)
+-                if hasattr(c, "set_statement"):
+-                    if live_statement is None:
+-                        raise NotImplementedError(f"--auth {self.AUTH} --pipeline: live verifier coins are not wired (local coins only)")
+-                    live_statement(bundles[i], c)
+-                coins_of[i] = c
+-                return stage(bundles[i], c, slot, sibs_of[i])
+-            return start
+-
+-        proofs, wall = prove_many([starter(i) for i in range(len(bundles))], self.device, depth=depth)
+-        return proofs, [s[0] for s in sibs_of], coins_of, wall
+-
+-    def prove_vus_many(self, batches: list[list[tuple]], coins_factory, depth: int = 2, min_l: int = 256, vu_ids_list=None):
+-        """:meth:`RelationChainRunner.prove_vus_many` for the hashed statement: ``vu_ids_list[i]`` the committed-set VU
+-        indices of ``batches[i]`` (default: consecutive from 0).  Returns ``[(coins, proof, pubs, lay)]`` and the wall."""
+-        if vu_ids_list is None:
+-            vu_ids_list, at = [], 0
+-            for vus in batches:
+-                vu_ids_list.append(range(at, at + len(vus)))
+-                at += len(vus)
+-        bundles = [self.marshal_hashed(vus, ids, min_l) for vus, ids in zip(batches, vu_ids_list)]
+-
+-        def live_statement(bd, c):
+-            # live verifier: the statement -- multiproofs included -- travels with the root (as prove_vus)
+-            from . import hashauth
+-            from .live import set_statement
+-            sibs = hashauth.open_trees(self.trees, bd["auth"])
+-            set_statement(c, self, (bd["table"], bd["idx"], bd["ypub"], bd["auth"], sibs), bd["lay"], self.cfg(bd["lay"].l), self.n_proofs)
+-
+-        proofs, sibs, coins_of, wall = self._pipelined(
+-            bundles, lambda bd, c, slot, so: self._prove_stages_hashed(bd, c, slot, so), coins_factory, depth,
+-            live_statement=live_statement)
+-        return [(coins_of[i], pf, (bd["table"], bd["idx"], bd["ypub"], bd["auth"], sibs[i]), bd["lay"])
+-                for i, (pf, bd) in enumerate(zip(proofs, bundles))], wall
+-
+     def commit_vus(self, data: list, dataset: str = "synthetic", tier: str = "dev", manifest_sha256: str = "", cache=None, tile=None,
+                    x_rows=None, w_cols=None):
+         """Commit an instance list: the worst case (every VU its own x row and W column: ``x_rows = a``, ``w_cols = b``) or a
+         tile (``x_rows`` / ``w_cols`` given, ``tile = (nx, nw)``)."""
+         from . import hashauth
++        from verity.commitments.rowleaf import SCHEMA_ROW
+         y = [self.rel.y_public(int(v[3])) for v in data]
+         if tile is None:
+             x_rows = [v[0] for v in data]
+             w_cols = [v[1] for v in data]
+         ysch, _ = hashauth.word_schema(self.rel.y_bits)
+         bindings = {n: hashauth.binding_digest(dataset=dataset, tier=tier, manifest_sha256=manifest_sha256, lo=0, hi=len(data),
+-                                               K=K_VU, tree=n, schema=(self.leaf.schema if n != "y" else ysch)) for n in ("a", "b", "y")}
++                                               K=K_VU, tree=n, schema=(SCHEMA_ROW if n != "y" else ysch)) for n in ("a", "b", "y")}
+         return self.commit(x_rows=x_rows, w_cols=w_cols, y_words=y, bindings=bindings, cache=cache, tile=tile)
+ 
+     def auth_for(self, vu_ids: list[int]):
+@@ -598,11 +460,9 @@ class HashedRelationRunner(RelationChainRunner):
+             idx = np.asarray(idx, dtype=np.int64)
+             words = (a if nm == "a" else b)[:n_vus * self.steps].reshape(n_vus, self.steps * self.hr.k)
+             if len(idx) == n_vus and (idx < len(self.rows[nm])).all() and np.array_equal(self.rows[nm][idx], words):
+-                cap, dg = self.sponges[nm][0], self.sponges[nm][1]
++                cap, dg = self.sponges[nm]
+                 t = torch.as_tensor(idx, device=cap.device)
+                 out[nm] = (cap[t], dg[t])
+-                if len(self.sponges[nm]) > 2:
+-                    out[nm] += ({n_: v[t] for n_, v in self.sponges[nm][2].items()},)
+         return out or None
+ 
+     def prove_vus(self, vus, check=True, mutate=None, min_l: int = 256, coins=None, vu_ids=None, auth=None, words_override=None):
+@@ -634,7 +494,7 @@ class HashedRelationRunner(RelationChainRunner):
+         hints = torch.cat([base, extra], 0)
+         table = hashchain.public_table(digests.cpu().numpy(), len(vus), self.steps, lay.l)
+         idx = auth.indices()
+-        pub = self.hooks.public_vectors(self.p, None, table, idx, None, device=self.device)
++        pub = hashchain.hash_public_vectors(self.p, None, table, idx, None, device=self.device)
+         if str(self.device).startswith("cuda"):
+             torch.cuda.synchronize()
+         hints_seconds = time.perf_counter() - t0
+@@ -658,21 +518,6 @@ class HashedRelationRunner(RelationChainRunner):
+         proof.timings["hints_host"] = hints_seconds
+         return proof, (table, idx, ypub, auth, sibs), lay
+ 
+-    def _system_key_error(self) -> str | None:
+-        """A keyed leaf's check of the compiled system (Ajtai: the chain the digests come from uses the key re-derived
+-        from the public tag; red-team-leaf-2 G1), once per system."""
+-        check = getattr(self.leaf, "check_system", None)
+-        if check is None:
+-            return None
+-        if getattr(self, "_key_checked", None) is not self.sys:
+-            try:
+-                check(self.sys)
+-                self._key_error = None
+-            except ValueError as e:
+-                self._key_error = f"system: the {self.leaf.name} chain does not use the derived key: {e}"
+-            self._key_checked = self.sys
+-        return self._key_error
+-
+     def verify_vus(self, proof, pubs, lay: Layout, coins=None, auth_timing: dict | None = None):
+         from . import hashauth, hashchain
+         table, idx, ypub, auth, sibs = pubs
+@@ -680,9 +525,6 @@ class HashedRelationRunner(RelationChainRunner):
+             coins = proof.coins
+         if not np.array_equal(np.asarray(idx, dtype=np.int64), auth.indices()) or auth.n_vus != lay.n_vus:
+             return False, "authentication block does not match the statement's indices / layout"
+-        key_err = self._system_key_error()
+-        if key_err:
+-            return False, key_err
+         ok, why = verify(self.p, self.sys, self.tb, self.cfg(lay.l), None, table, idx, None, proof, self.device,
+                          chain=(lay, ypub), coins=coins, rel=self.hooks_for(auth))
+         if not ok:
+@@ -693,567 +535,12 @@ class HashedRelationRunner(RelationChainRunner):
+         if (tab[ends, 0] != 1).any() or tab[:, 0].sum() != lay.n_vus or tab[np.setdiff1d(np.arange(lay.l), ends)].any():
+             return False, "public table: is_end / digests off the chain ends"
+         y_words = np.asarray(ypub, dtype=np.int64)[ends]
+-        ok, why = hashauth.verify_hash_auth(auth, sibs, digests=tab[ends, 1:1 + 2 * self.leaf.digest_elems], y_words=y_words,
+-                                            y_bits=self.rel.y_bits, leaf=self.leaf)
+-        if auth_timing is not None:
+-            auth_timing["seconds"] = auth_timing.get("seconds", 0.0) + (time.perf_counter() - t0)
+-        return ok, why
+-
+-
+-INTERLEAVE_PAIR = True      # the pipelined pair: H on its own slot, interleaved with G (False: G then H on one slot)
+-H_SLOT_BASE = 64            # pipeline.slot_for index of the hash side's slot for job slot i: H_SLOT_BASE + i
+-
+-
+-@dataclasses.dataclass
+-class SharedProof:
+-    """The paired transcript of one sub-batch under ``authentication = included-hash-shared``: ``g`` the GEMM side
+-    (``hashchain.compose_shared``: private operands, lane rows, the fingerprint message ``g.fp``), ``h`` the hash side
+-    (``hashchain.row_hash_system``: one Poseidon2 sponge per DISTINCT operand row of the sub-batch, its fingerprint a
+-    statement value).  ``timings`` is the sum of the two provers' clocks (``total`` included)."""
+-    g: protocol_mod.Proof
+-    h: protocol_mod.Proof
+-    timings: dict
+-    lay_h: Layout                   # the hash side's layout (units = distinct rows; the verifier derives it from auth)
+-
+-    @property
+-    def coins(self):
+-        return (self.g.coins, self.h.coins)
+-
+-    @property
+-    def hash_name(self):
+-        return self.g.hash_name
+-
+-    def n_bytes(self) -> dict:
+-        bg, bh = self.g.n_bytes(), self.h.n_bytes()
+-        out = {k: bg.get(k, 0) + bh.get(k, 0) for k in set(bg) | set(bh)}
+-        out["g_total"], out["h_total"] = bg["total"], bh["total"]
+-        return out
+-
+-
+-class SharedHashedRunner(HashedRelationRunner):
+-    """``authentication = included-hash-shared`` (lane share-logup; chain.py "Fingerprint constraints"): every operand row
+-    is hashed ONCE per sub-batch, not once per VU.  Per sub-batch two Ligero proofs share one session:
+-
+-    * **G** (``hashchain.compose_shared``): the relation with private operands and 16 lane rows per operand per unit, no
+-      sponge.  After the root, challenge 1 also yields the fingerprint coins ``rho`` (C = 8); the prover sends
+-      ``F_G[v][o][x] = sum_{s,i} rho_x^(16 s + i) lane_o[i][steps v + s]`` (``Proof.fp``) and the chain test checks it
+-      against the committed lanes (no witness rows: rho-dependent coefficients of the general linear test).
+-    * **H** (``hashchain.row_hash_system``): one unit per DISTINCT x row / W column the sub-batch's VUs claim
+-      (``hashchain.shared_units`` from the authentication block), each hashing its row with the role's IV over ``steps``
+-      columns, its digest a chain-end pin, and the SAME fingerprint as a statement value: ``rho`` = G's coins, ``F_H[u]``
+-      = the F_G of the VUs that use the row.
+-
+-    The verifier: G accepts (its ``rho`` is the verifier's own derivation), the VUs sharing a unit sent equal F, H accepts
+-    on the statement ``(table, units, rho, F_H)``, the table's roles / ends match the units, and H's digests open as
+-    leaf/v2h leaves at the units' ranks under the x / W roots (``hashauth.verify_hash_auth`` on the per-VU expansion).
+-    Soundness: a VU whose G row differs from the committed row of its claimed leaf must collide on all 8 fingerprint
+-    coordinates (``protocol.fingerprint_collision``: (16 steps - 1)^8 / p^8 ~ 2^-171 at 48 steps), or H must open a
+-    Poseidon2 preimage of the leaf digest other than the committed row.  ``pubs`` of :meth:`prove_vus` /
+-    :meth:`verify_vus`: ``(is_end (l, 1), indices (n_vus, 3), ypub (l,), auth, siblings, table_h (l_h, 10),
+-    units (n_units, 2))``."""
+-
+-    AUTH = "included-hash-shared"
+-
+-    def __init__(self, rel: Relation, device: str, target: float, rate_log2: int = 2, n_proofs: int = 1, zk: bool = False,
+-                 mode: str = protocol_mod.MODE_INTERACTIVE, leaf=None):
+-        """``leaf``: accepted for the runner interface; the hash side is the Poseidon2 sponge of ``hashchain.row_hash_system``,
+-        so only the default scheme (``None`` / ``"poseidon2"`` / ``"hash"``) is allowed."""
+-        from . import hashchain
+-        from .leaf import registry as leaf_registry
+-        from .protocol import RelationHooks
+-        leaf_n = leaf_registry.canonical(leaf if leaf is None or isinstance(leaf, str) else leaf_registry.suffix_of(leaf))
+-        if leaf_n != leaf_registry.DEFAULT:
+-            raise ValueError(f"--auth {self.AUTH}: row sharing hashes with Poseidon2 only (hashchain.row_hash_system); got leaf {leaf_n!r}")
+-        self.rel = rel
+-        self.p = rel.params
+-        self.zk, self.mode, self.device, self.target, self.rate_log2, self.n_proofs = zk, mode, device, target, rate_log2, n_proofs
+-        self.steps = rel.steps
+-        t0 = time.perf_counter()
+-        from .chain import FP_COORDS, FP_COORDS_FS
+-        self.fp_coords = FP_COORDS if mode == protocol_mod.MODE_INTERACTIVE else FP_COORDS_FS
+-        self.hr = hashchain.compose_shared(rel, self.fp_coords)
+-        self.leaf = self.hr.leaf
+-        self.leaf_name = leaf_registry.suffix_of(self.leaf)
+-        self.sys = self.hr.sys
+-        self.tb = tables(self.sys, self.device)
+-        self.rh = hashchain.row_hash_system(rel, self.fp_coords)
+-        self.sys_h = self.rh.sys
+-        self.tb_h = tables(self.sys_h, self.device)
+-        self.compile_seconds = time.perf_counter() - t0
+-        self._cfg = {}
+-        self._cfg_h: dict[int, Config] = {}
+-        self._base_sys = dataclasses.replace(self.sys, hints=self.sys.hints[:self.hr.n_base_hints])
+-        self.base_tag = hashchain.SHARED_TAG + rel.tag
+-        self.base_tag_h = hashchain.ROWS_TAG + rel.tag
+-        self.hooks = RelationHooks(hashchain.shared_public_vectors, word_dtype="<u4", y16_dtype=rel.y_dtype,
+-                                   y16_bits=rel.y_bits, tag=self.base_tag)
+-        self.hooks_h = RelationHooks(hashchain.row_hash_public_vectors, word_dtype="<u4", y16_dtype=rel.y_dtype,
+-                                     y16_bits=rel.y_bits, tag=self.base_tag_h)
+-        self.trees = None
+-        self.tile = None
+-        self.rows, self.sponges, self.sponge_seconds = None, None, 0.0
+-        self._marshal_cache = {}
+-
+-    # both proofs of a sub-batch are sized for the union over 2 n_proofs commitments (PROTOCOL.md 8c, batch verification)
+-    def cfg(self, l: int) -> Config:
+-        if l not in self._cfg:
+-            self._cfg[l] = config_for(l, self.target, self.rate_log2, 2 * self.n_proofs, zk=self.zk, mode=self.mode)
+-        return self._cfg[l]
+-
+-    def cfg_h(self, l: int) -> Config:
+-        if l not in self._cfg_h:
+-            self._cfg_h[l] = config_for(l, self.target, self.rate_log2, 2 * self.n_proofs, zk=self.zk, mode=self.mode)
+-        return self._cfg_h[l]
+-
+-    def hooks_h_for(self, auth):
+-        from . import hashauth
+-        return dataclasses.replace(self.hooks_h, tag=self.base_tag_h + hashauth.digest_bytes(auth))
+-
+-    def commit(self, *, x_rows, w_cols, y_words, bindings, cache=None, tile=None):
+-        """The trees as the hashed runner builds them, and the sponge of every committed row ONCE (the hash side's
+-        witness is a function of the committed rows alone: gathered per sub-batch in :meth:`prove_vus`, as the hashed
+-        runner does; ~2 x 64 rows at the 64x64 tile against 2 x 4096 for it)."""
+-        from . import hashauth, hashchain
+-        x_rows, w_cols = np.asarray(x_rows, dtype=np.int64), np.asarray(w_cols, dtype=np.int64)
+-        self.trees, self.digests, cached = hashauth.load_or_build_trees(
+-            cache, x_rows=x_rows, w_cols=w_cols,
+-            y_words=np.asarray(y_words, dtype=np.int64), word_bits=self.hr.word_bits, y_bits=self.rel.y_bits, bindings=bindings)
+-        self.tile = tile
+-        self.rows = {"a": x_rows, "b": w_cols}
+-        t0 = time.perf_counter()
+-        self.sponges = {nm: hashchain.row_sponges(self.rh, self.rows[nm], role, self.device) for _, nm, role in hashchain.ROLES}
+-        if str(self.device).startswith("cuda"):
+-            torch.cuda.synchronize()
+-        self.sponge_seconds = time.perf_counter() - t0
+-        self._committed_digests()
+-        return cached
+-
+-    def marshal_shared(self, vus: list, vu_ids, min_l: int = 256) -> dict:
+-        """The pair's statements for one sub-batch, once per run (as :meth:`marshal_hashed`): G's ``is_end`` / indices /
+-        public vectors / device words; H's units, layout, public table (roles + the committed digests at the unit ends),
+-        public vectors, and the device indices of its rows in the committed set (H's witness is gathered from the
+-        committed rows and their precomputed sponges inside the prover's clock)."""
+-        vu_ids = list(vu_ids)
+-        key = ("shared", len(vus), id(vus[0]), id(vus[-1]), id(vus[len(vus) // 2]), vu_ids[0], vu_ids[-1], min_l)
+-        hit = self._marshal_cache.get(key)
+-        if hit is not None:
+-            return hit
+-        from . import hashchain
+-        bd = dict(RelationChainRunner.marshal(self, vus, min_l))
+-        n_vus, lay, dev, steps = len(vus), bd["lay"], self.device, self.steps
+-        auth = self.auth_for(vu_ids)
+-        idx = auth.indices()
+-        is_end = np.zeros((lay.l, 1), dtype=np.int64)
+-        is_end[np.arange(n_vus) * steps + steps - 1, 0] = 1
+-        units_np, ux, uw = hashchain.shared_units(auth)
+-        n_units = len(units_np)
+-        lay_h = self.layout_h(n_units, lay.l)
+-        rx, rw = units_np[units_np[:, 0] == 0, 1], units_np[units_np[:, 0] == 1, 1]
+-        table_h = np.zeros((lay_h.l, 2 + hashchain.N_ROW_DIGEST), dtype=np.int64)
+-        ends_h = np.arange(n_units) * steps + steps - 1
+-        table_h[ends_h, 0] = 1
+-        table_h[:n_units * steps, 1] = np.repeat(units_np[:, 0], steps)
+-        table_h[ends_h, 2:] = np.concatenate([self.dg_host["a"][rx], self.dg_host["b"][rw]], 0)
+-        bd.update({"auth": auth, "idx": idx, "is_end": is_end, "hooks": self.hooks_for(auth),
+-                   "pub": hashchain.shared_public_vectors(self.p, None, is_end, idx, None, device=dev),
+-                   "units": units_np, "ux": ux, "uw": uw, "lay_h": lay_h, "table_h": table_h,
+-                   "hooks_h": self.hooks_h_for(auth),
+-                   "pub_h": hashchain.row_hash_public_vectors(self.p, None, table_h, units_np, None, device=dev),
+-                   "gx": torch.as_tensor(rx).to(dev), "gw": torch.as_tensor(rw).to(dev),
+-                   "ypub_h": torch.zeros(lay_h.l, dtype=torch.int64), "ypub_h_d": torch.zeros(lay_h.l, dtype=torch.int64).to(dev)})
+-        if str(dev).startswith("cuda"):
+-            torch.cuda.synchronize(dev)
+-        self._marshal_cache[key] = bd
+-        return bd
+-
+-    def _prove_stages_shared(self, bd: dict, coins, coins_h, slot=None, sibs_out: list | None = None, sibs_fut=None):
+-        """The pair of one sub-batch as ONE generator for ``pipeline.prove_many``, the two provers interleaved: H (its
+-        witness gathered on the device from the committed rows + sponges; its commitment does not depend on G) starts
+-        first on its own slot -- stream and pinned buffers -- and waits after its root for its fingerprint statement;
+-        G (hints on the device) runs on the job's slot and hands ``(rho, F_G)`` over as soon as its messages are on the
+-        host; F_H (host, vectorised) resolves H's statement; the multiproofs are opened on a pool thread meanwhile.
+-        The transcripts are those of :meth:`prove_vus` (H's root is committed before rho is drawn instead of after:
+-        the witness it commits to is a function of the committed rows alone)."""
+-        from concurrent.futures import Future
+-
+-        from . import hashauth, hashchain, pipeline
+-        from .chain import FpArgs
+-        lay, lay_h, dev = bd["lay"], bd["lay_h"], self.device
+-        if slot is None or not INTERLEAVE_PAIR:
+-            return (yield from self._prove_stages_shared_seq(bd, coins, coins_h, slot, sibs_out, sibs_fut=sibs_fut))
+-        slot_h = pipeline.slot_for(dev, H_SLOT_BASE + slot.index)
+-
+-        def hints_g():
+-            base = self.rel.hints(self.p, self._base_sys, bd["c_d"], bd["a_d"], bd["b_d"], bd["y_d"], dev)
+-            return torch.cat([base, hashchain.shared_hints(self.hr, bd["a_d"], bd["b_d"], lay.l, dev)], 0)
+-
+-        def hints_h():
+-            gx, gw = bd["gx"], bd["gw"]
+-            rows = torch.cat([self.rows_d["a"][gx], self.rows_d["b"][gw]], 0)
+-            cap_u = torch.cat([self.sponges["a"][0][gx], self.sponges["b"][0][gw]], 0)
+-            return hashchain.row_hash_witness(self.rh, rows, lay_h.n_vus, lay_h.l, cap_units=cap_u)
+-
+-        if sibs_fut is None:
+-            sibs_fut = pipeline.POOL.submit(hashauth.open_trees, self.trees, bd["auth"])
+-        fp_sink, fp_h = Future(), Future()
+-        gen_h = protocol_mod.prove_stages(
+-            self.p, self.sys_h, self.tb_h, self.cfg_h(lay_h.l), bd["pub_h"], None, dev, chain=(lay_h, bd["ypub_h_d"], fp_h),
+-            words={"a": bd["table_h"], "b": bd["units"], "y16": bd["ypub_h"]}, coins=coins_h, rel=bd["hooks_h"],
+-            hints_fn=hints_h, slot=slot_h)
+-        gen_g = protocol_mod.prove_stages(
+-            self.p, self.sys, self.tb, self.cfg(lay.l), bd["pub"], None, dev, chain=(lay, bd["ypub_d"]),
+-            words={"a": bd["is_end"], "b": bd["idx"], "y16": bd["ypub"]}, coins=coins, rel=bd["hooks"], hints_fn=hints_g,
+-            slot=slot, fp_sink=fp_sink)
+-        t_fp = 0.0
+-        gens = {"h": (gen_h, slot_h), "g": (gen_g, slot)}
+-        out, waits = {}, {"h": None, "g": None}           # H first: its commitment launches ahead of G's
+-        started = set()
+-
+-        def step(name):
+-            gen, s = gens[name]
+-            with pipeline.stream_context(s):
+-                if name in started:
+-                    return gen.send(None)
+-                started.add(name)
+-                return next(gen)
+-
+-        while waits:
+-            if fp_sink.done() and not fp_h.done():
+-                t0 = time.perf_counter()
+-                rho_np, fp_np = fp_sink.result()
+-                F_h = self._fp_h(fp_np.astype(np.int64), bd["ux"], bd["uw"], lay_h.n_vus, lay_h.l // self.steps)
+-                if F_h is None:
+-                    raise ValueError("G's fingerprints disagree between VUs of one shared row")
+-                fp_h.set_result(FpArgs(torch.as_tensor(rho_np.astype(np.int64)), torch.as_tensor(F_h)))
+-                t_fp += time.perf_counter() - t0
+-            ready = [nm for nm, w in waits.items() if pipeline._is_ready(w)]
+-            if not ready:
+-                yield pipeline.AnyOf(waits.values())
+-                continue
+-            for nm in ready:
+-                try:
+-                    waits[nm] = step(nm)
+-                except StopIteration as stop:
+-                    out[nm] = stop.value
+-                    del waits[nm]
+-        proof_g, proof_h = out["g"], out["h"]
+-        t1 = time.perf_counter()
+-        if not sibs_fut.done():
+-            yield sibs_fut
+-        sibs = sibs_fut.result()
+-        if sibs_out is not None:
+-            sibs_out.append(sibs)
+-        timings = {k: proof_g.timings.get(k, 0.0) + proof_h.timings.get(k, 0.0) for k in set(proof_g.timings) | set(proof_h.timings)}
+-        timings["auth_openings"] = time.perf_counter() - t1
+-        timings["hints_host"] = timings.get("hints_host", 0.0) + t_fp
+-        return SharedProof(proof_g, proof_h, timings, lay_h)
+-
+-    def _prove_stages_shared_seq(self, bd: dict, coins, coins_h, slot=None, sibs_out: list | None = None, sibs_fut=None):
+-        """The pair of one sub-batch as ONE generator, the two provers in sequence on one slot: G (hints on the device,
+-        the stages up to its openings), then F_H from G's message (host, vectorised) and H, then the multiproofs."""
+-        from . import hashauth, hashchain
+-        from .chain import FpArgs
+-        lay, lay_h, dev = bd["lay"], bd["lay_h"], self.device
+-
+-        def hints_g():
+-            base = self.rel.hints(self.p, self._base_sys, bd["c_d"], bd["a_d"], bd["b_d"], bd["y_d"], dev)
+-            return torch.cat([base, hashchain.shared_hints(self.hr, bd["a_d"], bd["b_d"], lay.l, dev)], 0)
+-
+-        def hints_h():
+-            gx, gw = bd["gx"], bd["gw"]
+-            rows = torch.cat([self.rows_d["a"][gx], self.rows_d["b"][gw]], 0)
+-            cap_u = torch.cat([self.sponges["a"][0][gx], self.sponges["b"][0][gw]], 0)
+-            return hashchain.row_hash_witness(self.rh, rows, lay_h.n_vus, lay_h.l, cap_units=cap_u)
+-
+-        proof_g = yield from protocol_mod.prove_stages(
+-            self.p, self.sys, self.tb, self.cfg(lay.l), bd["pub"], None, dev, chain=(lay, bd["ypub_d"]),
+-            words={"a": bd["is_end"], "b": bd["idx"], "y16": bd["ypub"]}, coins=coins, rel=bd["hooks"], hints_fn=hints_g,
+-            slot=slot)
+-        t0 = time.perf_counter()
+-        F_h = self._fp_h(proof_g.fp.astype(np.int64), bd["ux"], bd["uw"], lay_h.n_vus, lay_h.l // self.steps)
+-        if F_h is None:
+-            raise ValueError("G's fingerprints disagree between VUs of one shared row")
+-        fp_h = FpArgs(torch.as_tensor(proof_g.rho.astype(np.int64)), torch.as_tensor(F_h))
+-        t_fp = time.perf_counter() - t0
+-        proof_h = yield from protocol_mod.prove_stages(
+-            self.p, self.sys_h, self.tb_h, self.cfg_h(lay_h.l), bd["pub_h"], None, dev, chain=(lay_h, bd["ypub_h_d"], fp_h),
+-            words={"a": bd["table_h"], "b": bd["units"], "y16": bd["ypub_h"]}, coins=coins_h, rel=bd["hooks_h"],
+-            hints_fn=hints_h, slot=slot)
+-        t1 = time.perf_counter()
+-        sibs = sibs_fut.result() if sibs_fut is not None else hashauth.open_trees(self.trees, bd["auth"])
+-        openings = time.perf_counter() - t1
+-        if sibs_out is not None:
+-            sibs_out.append(sibs)
+-        timings = {k: proof_g.timings.get(k, 0.0) + proof_h.timings.get(k, 0.0) for k in set(proof_g.timings) | set(proof_h.timings)}
+-        timings["auth_openings"] = openings
+-        timings["hints_host"] = timings.get("hints_host", 0.0) + t_fp
+-        return SharedProof(proof_g, proof_h, timings, lay_h)
+-
+-    def prove_vus_many(self, batches: list[list[tuple]], coins_factory, depth: int = 2, min_l: int = 256, vu_ids_list=None):
+-        """The pipelined pair: ``len(batches)`` sub-batches, each ONE job (G then H on the job's stream), up to ``depth``
+-        jobs in flight (``pipeline.prove_many``).  ``coins_factory(i)`` gives G's step-0 coins; H's are sampled when the
+-        job starts (interactive mode).  ``timings``: the job's share of the wall; ``g_total`` / ``h_total`` split it in
+-        the ratio of the two sides' event-measured clocks."""
+-        if vu_ids_list is None:
+-            vu_ids_list, at = [], 0
+-            for vus in batches:
+-                vu_ids_list.append(range(at, at + len(vus)))
+-                at += len(vus)
+-        bundles = [self.marshal_shared(vus, ids, min_l) for vus, ids in zip(batches, vu_ids_list)]
+-        live_sibs: dict[int, object] = {}
+-
+-        def live_statement(bd, c):
+-            # the pair's v6 statement (multiproofs included) on the pool, before either root; the stage reuses the openings
+-            from . import hashauth, pipeline
+-            from .serialize import _statement_of, statement_bytes
+-            sibs_fut = pipeline.POOL.submit(hashauth.open_trees, self.trees, bd["auth"])
+-            live_sibs[id(bd)] = sibs_fut
+-
+-            def build():
+-                pubs = (bd["is_end"], bd["idx"], bd["ypub"], bd["auth"], sibs_fut.result(), bd["table_h"], bd["units"])
+-                return statement_bytes(_statement_of(self, pubs, bd["lay"], self.cfg(bd["lay"].l), self.n_proofs))
+-            c.set_statement(pipeline.POOL.submit(build) if getattr(c.session, "pipelined", False) else build())
+-
+-        def stage(bd, c, slot, so):
+-            ch = self._coins_h_for(c)
+-            return self._prove_stages_shared(bd, c, ch, slot, so, sibs_fut=live_sibs.pop(id(bd), None))
+-
+-        proofs, sibs, coins_of, wall = self._pipelined(bundles, stage, coins_factory, depth, live_statement=live_statement)
+-        out = []
+-        for i, (pf, bd) in enumerate(zip(proofs, bundles)):
+-            g_m = pf.g.timings.get("total", 0.0) + pf.g.timings.get("hints_host", 0.0)
+-            h_m = pf.h.timings.get("total", 0.0) + pf.h.timings.get("hints_host", 0.0)
+-            share = pf.timings["total"] + pf.timings.get("hints_host", 0.0)
+-            pf.timings["g_total"] = share * g_m / max(g_m + h_m, 1e-12)
+-            pf.timings["h_total"] = share - pf.timings["g_total"]
+-            out.append((coins_of[i], pf, (bd["is_end"], bd["idx"], bd["ypub"], bd["auth"], sibs[i], bd["table_h"], bd["units"]),
+-                        bd["lay"]))
+-        return out, wall
+-
+-    def _coins_h_for(self, coins, coins_h=None):
+-        """The hash side's step-0 coin source.  G's source live (``live.LiveCoins``): H's is the SAME verifier's second
+-        coin set of this pair (``coins.h_coins()``) and a prover-sampled one is refused -- in an interactive proof every
+-        coin comes from the verifier.  Local G coins: ``coins_h`` or a fresh local sample (interactive mode)."""
+-        if hasattr(coins, "set_statement"):
+-            if coins_h is None:
+-                coins_h = coins.h_coins()
+-            if not hasattr(coins_h, "set_statement") or getattr(coins_h, "session", None) is not coins.session:
+-                raise ValueError("live verifier: the hash side's coins must come from the same live session (prover-sampled coins_h refused)")
+-            return coins_h
+-        if coins_h is None and self.interactive:
+-            coins_h = protocol_mod.Coins.sample()
+-        return coins_h
+-
+-    def _sponges_for_units(self, units_np: np.ndarray, rows: np.ndarray):
+-        """The precomputed sponges of the hash side's units, or None when ``rows`` are not the committed rows (overrides)."""
+-        if self.sponges is None or not np.array_equal(self._unit_rows(units_np), rows):
+-            return None
+-        caps, dgs = [], []
+-        for role, nm in ((0, "a"), (1, "b")):                    # units: the x rows (role 0) then the W columns (role 1)
+-            ranks = units_np[units_np[:, 0] == role, 1]
+-            cap, dg = self.sponges[nm]
+-            t = torch.as_tensor(ranks, device=cap.device)
+-            caps.append(cap[t])
+-            dgs.append(dg[t])
+-        return torch.cat(caps), torch.cat(dgs)
+-
+-    def layout_h(self, n_units: int, l_g: int = 256) -> Layout:
+-        """The hash side's layout from the unit count and G's ``l`` alone (the verifier's derivation): the smallest power of
+-        two holding the units, floored at ``l_g // 4`` so the sub-batches of one batch share a layout (the tests graph is
+-        captured per layout; a 64x64 tile's sub-batches touch 70 or 71 rows, both under l_g / 4 = 4096 at l_g = 16384)."""
+-        l = max(256, l_g // 4, 1 << (n_units * self.steps - 1).bit_length())
+-        return Layout(l, n_units, self.steps)
+-
+-    def _unit_rows(self, units: np.ndarray) -> np.ndarray:
+-        """(n_units, steps k) the committed words of every hash-side unit."""
+-        out = np.zeros((len(units), self.steps * self.rel.k), dtype=np.int64)
+-        for u, (role, rank) in enumerate(units.tolist()):
+-            out[u] = self.rows["a" if role == 0 else "b"][rank]
+-        return out
+-
+-    @staticmethod
+-    def _fp_h(fp_g: np.ndarray, ux: np.ndarray, uw: np.ndarray, n_units: int, n_slots: int):
+-        """``F_H`` (n_slots, 1, C) from G's message (n_vus, 2, C) through the VU -> unit maps; ``None`` if two VUs of one
+-        unit sent different fingerprints (the verifier's rejection; the honest prover never hits it)."""
+-        C = fp_g.shape[2]
+-        F = np.zeros((n_slots, 1, C), dtype=np.int64)
+-        for o, um in ((0, ux), (1, uw)):
+-            F[um, 0] = fp_g[:, o]
+-        for o, um in ((0, ux), (1, uw)):
+-            if not np.array_equal(F[um, 0], fp_g[:, o]):
+-                return None
+-        return F
+-
+-    def prove_vus(self, vus, check=True, mutate=None, min_l: int = 256, coins=None, vu_ids=None, auth=None, words_override=None,
+-                  rows_override=None, coins_h=None, mutate_h=None, rho_override=None):
+-        """As the hashed runner: ``words_override(a, b)`` edits the words G computes on; ``rows_override(rows)`` edits the
+-        committed rows H hashes (negatives: the two sides then disagree); ``mutate`` / ``mutate_h`` edit the witness of G / H;
+-        ``rho_override(rho)`` edits the coins H's statement takes (a negative: H on other coins than G's challenge drew).
+-        ``coins`` / ``coins_h``: the verifier's step-0 coins of the two proofs (interactive mode; sampled here when None)."""
+-        from . import hashauth, hashchain
+-        from .chain import FpArgs
+-        if self.interactive:
+-            coins = protocol_mod.Coins.sample() if coins is None else coins
+-            coins_h = self._coins_h_for(coins, coins_h)
+-        vu_ids = list(range(len(vus))) if vu_ids is None else list(vu_ids)
+-        auth = self.auth_for(vu_ids) if auth is None else auth
+-        lay = self.layout(len(vus), min_l)
+-        live_sibs = None
+-        if hasattr(coins, "set_statement"):
+-            # a live verifier: the pair's v6 statement (multiproofs included) travels ahead of G's root; outside the clocks
+-            from .live import set_statement
+-            bd = self.marshal_shared(vus, vu_ids, min_l)
+-            live_sibs = hashauth.open_trees(self.trees, auth)
+-            set_statement(coins, self, (bd["is_end"], bd["idx"], bd["ypub"], auth, live_sibs, bd["table_h"], bd["units"]),
+-                          lay, self.cfg(lay.l), self.n_proofs)
+-        units_np, ux, uw = hashchain.shared_units(auth)
+-        n_units = len(units_np)
+-        lay_h = self.layout_h(n_units, lay.l)                # from the authentication block and G's l alone (the verifier's derivation)
+-        units, ypub = [], torch.zeros(lay.l, dtype=torch.int64)
+-        for v, (a, b, accs, y) in enumerate(vus):
+-            units += vu_units(self.rel, a, b, accs)
+-            ypub[self.steps * v + self.steps - 1] = self.rel.y_public(int(y))
+-        while len(units) < lay.l:
+-            units.append(self._pad_unit())
+-        a = np.asarray([u[1] for u in units], dtype=np.int64)
+-        b = np.asarray([u[2] for u in units], dtype=np.int64)
+-        c_in = np.asarray([u[0] for u in units], dtype=np.int64)
+-        y_out = np.asarray([u[3] for u in units], dtype=np.int64)
+-        if words_override is not None:
+-            a, b = words_override(a, b)
+-        # --- G: the GEMM side --------------------------------------------------------------------------------------------
+-        t0 = time.perf_counter()
+-        base = self.rel.hints(self.p, self._base_sys, c_in, a, b, y_out, self.device)
+-        extra = hashchain.shared_hints(self.hr, a, b, lay.l, self.device)
+-        hints = torch.cat([base, extra], 0)
+-        is_end = np.zeros((lay.l, 1), dtype=np.int64)
+-        is_end[np.arange(len(vus)) * self.steps + self.steps - 1, 0] = 1
+-        idx = auth.indices()
+-        pub = hashchain.shared_public_vectors(self.p, None, is_end, idx, None, device=self.device)
+-        if str(self.device).startswith("cuda"):
+-            torch.cuda.synchronize()
+-        hints_seconds = time.perf_counter() - t0
+-        proof_g = prove(self.p, self.sys, self.tb, self.cfg(lay.l), pub, hints, self.device, check=check, mutate=mutate,
+-                        chain=(lay, ypub), words={"a": is_end, "b": idx}, coins=coins, rel=self.hooks_for(auth))
+-        # --- H: the hash side, on the coins G's challenge 1 drew and the fingerprints G sent --------------------------------
+-        t0 = time.perf_counter()
+-        rows = self._unit_rows(units_np)
+-        if rows_override is not None:
+-            rows = rows_override(rows)
+-        n_slots_h = lay_h.l // self.steps
+-        F_h = self._fp_h(proof_g.fp.astype(np.int64), ux, uw, n_units, n_slots_h)
+-        if F_h is None:
+-            raise ValueError("G's fingerprints disagree between VUs of one shared row")
+-        hints_h, table_h, _ = hashchain.row_hash_hints(self.rh, rows, units_np[:, 0], n_units, lay_h.l, self.device,
+-                                                       sponges=self._sponges_for_units(units_np, rows))
+-        table_h_np = table_h.cpu().numpy()
+-        pub_h = hashchain.row_hash_public_vectors(self.p, None, table_h, units_np, None, device=self.device)
+-        rho = proof_g.rho.astype(np.int64) if rho_override is None else np.asarray(rho_override(proof_g.rho.astype(np.int64)), dtype=np.int64)
+-        fp_h = FpArgs(torch.as_tensor(rho), torch.as_tensor(F_h))
+-        ypub_h = torch.zeros(lay_h.l, dtype=torch.int64)
+-        if str(self.device).startswith("cuda"):
+-            torch.cuda.synchronize()
+-        hints_seconds += time.perf_counter() - t0
+-        proof_h = prove(self.p, self.sys_h, self.tb_h, self.cfg_h(lay_h.l), pub_h, hints_h, self.device, check=check, mutate=mutate_h,
+-                        chain=(lay_h, ypub_h, fp_h), words={"a": table_h_np, "b": units_np}, coins=coins_h, rel=self.hooks_h_for(auth))
+-        t1 = time.perf_counter()
+-        sibs = hashauth.open_trees(self.trees, auth) if live_sibs is None else live_sibs
+-        openings = time.perf_counter() - t1
+-        timings = {k: proof_g.timings.get(k, 0.0) + proof_h.timings.get(k, 0.0) for k in set(proof_g.timings) | set(proof_h.timings)}
+-        timings["auth_openings"] = openings
+-        timings["hints_host"] = hints_seconds
+-        timings["g_total"], timings["h_total"] = proof_g.timings["total"], proof_h.timings["total"]
+-        return SharedProof(proof_g, proof_h, timings, lay_h), (is_end, idx, ypub, auth, sibs, table_h_np, units_np), lay
+-
+-    def verify_vus(self, proof, pubs, lay: Layout, coins=None, auth_timing: dict | None = None):
+-        from . import hashauth, hashchain
+-        from .chain import FpArgs
+-        is_end, idx, ypub, auth, sibs, table_h, units_given = pubs
+-        if coins is None and self.interactive:
+-            coins = proof.coins
+-        if coins is not None and not isinstance(coins, tuple):     # one Coins given: G's; H's from the transcript (local runs)
+-            coins = (coins, proof.h.coins)
+-        coins_g, coins_h = coins if coins is not None else (None, None)
+-        if not np.array_equal(np.asarray(idx, dtype=np.int64), auth.indices()) or auth.n_vus != lay.n_vus:
+-            return False, "authentication block does not match the statement's indices / layout"
+-        ends = np.arange(lay.n_vus) * lay.steps + lay.steps - 1
+-        e = np.asarray(is_end, dtype=np.int64)
+-        if e.shape != (lay.l, 1) or (e[ends, 0] != 1).any() or e[:, 0].sum() != lay.n_vus:
+-            return False, "public table: is_end off the chain ends"
+-        # (1) G on its own statement; this verifier's rho
+-        got: dict = {}
+-        ok, why = verify(self.p, self.sys, self.tb, self.cfg(lay.l), None, is_end, idx, None, proof.g, self.device,
+-                         chain=(lay, ypub), coins=coins_g, rel=self.hooks_for(auth), out=got)
+-        if not ok:
+-            return False, f"G: {why}"
+-        rho = got.get("rho")
+-        if rho is None or proof.g.fp is None:
+-            return False, "G: no fingerprint coins / message"
+-        # (2) the hash side's units from the authentication block; the VUs of one unit agree on F
+-        units_np, ux, uw = hashchain.shared_units(auth)
+-        n_units = len(units_np)
+-        if not np.array_equal(np.asarray(units_given, dtype=np.int64), units_np):
+-            return False, "hash side: units do not match the authentication block"
+-        lay_h = self.layout_h(n_units, lay.l)
+-        n_slots_h = lay_h.l // self.steps
+-        F_h = self._fp_h(proof.g.fp.astype(np.int64), ux, uw, n_units, n_slots_h)
+-        if F_h is None:
+-            return False, "two VUs claim one committed row with different fingerprints"
+-        # (3) H on the statement (table, units, rho, F_H)
+-        tab = np.asarray(table_h, dtype=np.int64)
+-        if tab.shape != (lay_h.l, 2 + hashchain.N_ROW_DIGEST):
+-            return False, "hash side: malformed public table"
+-        ends_h = np.arange(n_units) * lay_h.steps + lay_h.steps - 1
+-        if (tab[ends_h, 0] != 1).any() or tab[:, 0].sum() != n_units:
+-            return False, "hash side: is_end off the unit ends"
+-        roles = np.repeat(units_np[:, 0], lay_h.steps)
+-        if not np.array_equal(tab[:n_units * lay_h.steps, 1], roles) or tab[n_units * lay_h.steps:, 1:].any() or tab[n_units * lay_h.steps:, 0].any():
+-            return False, "hash side: roles / pad columns do not match the units"
+-        off_ends = np.setdiff1d(np.arange(n_units * lay_h.steps), ends_h)
+-        if tab[off_ends, 2:].any():
+-            return False, "hash side: digests off the unit ends"
+-        fp_h = FpArgs(torch.as_tensor(rho.astype(np.int64)), torch.as_tensor(F_h))
+-        ok, why = verify(self.p, self.sys_h, self.tb_h, self.cfg_h(lay_h.l), None, tab, units_np, None, proof.h, self.device,
+-                         chain=(lay_h, torch.zeros(lay_h.l, dtype=torch.int64), fp_h), coins=coins_h, rel=self.hooks_h_for(auth))
+-        if not ok:
+-            return False, f"H: {why}"
+-        # (4) the units' digests are the leaves at their ranks (per-VU expansion: what verify_hash_auth checks)
+-        t0 = time.perf_counter()
+-        dg = tab[ends_h, 2:]                                                    # (n_units, 8)
+-        digests = np.concatenate([dg[ux], dg[uw]], 1)                           # (n_vus, 16): x digest | W digest
+-        y_words = np.asarray(ypub, dtype=np.int64)[ends]
+-        ok, why = hashauth.verify_hash_auth(auth, sibs, digests=digests, y_words=y_words, y_bits=self.rel.y_bits)
++        ok, why = hashauth.verify_hash_auth(auth, sibs, digests=tab[ends, 1:1 + hashchain.N_DIGEST], y_words=y_words,
++                                            y_bits=self.rel.y_bits)
+         if auth_timing is not None:
+             auth_timing["seconds"] = auth_timing.get("seconds", 0.0) + (time.perf_counter() - t0)
+         return ok, why
+ 
+-    def soundness_report(self, cfg: Config, n_proofs: int, lays_h: list[Layout] | None = None) -> dict:
+-        """``protocol.soundness`` of the PAIR per sub-batch: G's terms + the fingerprint collision term, H's terms (one
+-        per hash-side layout in ``lays_h``, ``n_proofs`` of them), the union over ``2 n_proofs`` commitments (what
+-        :meth:`cfg` sized t for) -- the same sum :meth:`batch_bound` takes."""
+-        g = soundness(cfg, self.tb.L, self.tb.Q, 2 * n_proofs, fp=(self.fp_coords, self.steps, 2))
+-        if not lays_h:
+-            return g
+-        hs = [soundness(self.cfg_h(lh.l), self.tb_h.L, self.tb_h.Q, 2 * n_proofs) for lh in lays_h]
+-        per = [g["per_proof_total_log2"]] * n_proofs + [h["per_proof_total_log2"] for h in hs]
+-        return {**g, "h": hs[0], "h_layouts": [dataclasses.asdict(lh) for lh in lays_h],
+-                "total_log2": protocol_mod.log2_sum(per), "n_proofs": 2 * n_proofs}
+-
+-    def batch_bound(self, cfgs: list[Config], n_proofs_claimed: list[int], target_bits: float = 128.0,
+-                    names: list[str] | None = None, lays_h: list[Layout] | None = None) -> dict:
+-        """The union over BOTH proofs of every sub-batch (each sized for ``2 n_proofs``); ``lays_h`` the hash-side layouts."""
+-        per, claimed, nm = [], [], []
+-        names = names or [f"sub_{i:02d}" for i in range(len(cfgs))]
+-        for i, (c, k) in enumerate(zip(cfgs, n_proofs_claimed)):
+-            per.append(soundness(c, self.tb.L, self.tb.Q, 1, fp=(self.fp_coords, self.steps, 2))["per_proof_total_log2"])
+-            claimed.append(2 * int(k))
+-            nm.append(names[i] + ".G")
+-            lh = lays_h[i] if lays_h is not None else self.layout_h(1)
+-            per.append(soundness(self.cfg_h(lh.l), self.tb_h.L, self.tb_h.Q, 1)["per_proof_total_log2"])
+-            claimed.append(2 * int(k))
+-            nm.append(names[i] + ".H")
+-        return protocol_mod.batch_bound(per, claimed, target_bits, nm)
+-
+ 
+ # ---------------------------------------------------------------------------------------------------------------------
+ # Gate: honest VUs accepted, a negative battery rejected (on the device)
+@@ -1407,8 +694,7 @@ def hashed_negatives(R: HashedRelationRunner, data: list, row_negatives: int = 4
+         negs.append((name, R.verify_vus(proof, pubs, lay)))
+     t = table.copy(); t[ends[0], 1] ^= 1
+     V((t, idx, ypub, auth, sibs), "x digest lane 0 of VU 0 flipped")
+-    de = R.leaf.digest_elems
+-    t = table.copy(); t[ends[1], 1 + de] = (t[ends[1], 1 + de] + 1) % P
++    t = table.copy(); t[ends[1], 9] = (t[ends[1], 9] + 1) % P
+     V((t, idx, ypub, auth, sibs), "W digest lane 0 of VU 1 changed")
+     t = table.copy(); t[ends[0], 1:], t[ends[1], 1:] = table[ends[1], 1:].copy(), table[ends[0], 1:].copy()
+     V((t, idx, ypub, auth, sibs), "digests of VU 0 and VU 1 swapped")
+@@ -1456,16 +742,15 @@ def hashed_negatives(R: HashedRelationRunner, data: list, row_negatives: int = 4
+         W[hb0, 3] = (W[hb0, 3] + 1) % P
+     pf, pb, ly = R.prove_vus(base, check=False, mutate=flip_hashed_bit, vu_ids=ids)
+     negs.append(("bit 0 of hashed word b[0] flipped in unit 3 (computation unchanged)", R.verify_vus(pf, pb, ly)))
+-    cap_rows = R.sys.chain["c"][3:]                 # the leaf chains' carried rows (after the 3 accumulator links)
+-    ce = R.leaf.carry_elems
++    cap_rows = R.sys.chain["c"]
+     def break_cap(W):
+-        W[cap_rows[min(5, ce - 1)], 7] = (W[cap_rows[min(5, ce - 1)], 7] + 1) % P
++        W[cap_rows[5], 7] = (W[cap_rows[5], 7] + 1) % P
+     pf, pb, ly = R.prove_vus(base, check=False, mutate=break_cap, vu_ids=ids)
+-    negs.append(("leaf carry link broken at unit 7", R.verify_vus(pf, pb, ly)))
++    negs.append(("sponge capacity link broken at unit 7", R.verify_vus(pf, pb, ly)))
+     def cap_start(W):
+-        W[cap_rows[ce + min(4, ce - 1)], steps] = 5
++        W[cap_rows[12], steps] = 5
+     pf, pb, ly = R.prove_vus(base, check=False, mutate=cap_start, vu_ids=ids)
+-    negs.append(("nonzero leaf carry at a chain start", R.verify_vus(pf, pb, ly)))
++    negs.append(("nonzero sponge capacity at a chain start", R.verify_vus(pf, pb, ly)))
+     # one witness row per (scope, class) of the added rows
+     seen, picks = set(), []
+     for r in R.sys.rows[R.hr.census["rows_base"]:]:
+@@ -1488,165 +773,15 @@ def hashed_negatives(R: HashedRelationRunner, data: list, row_negatives: int = 4
+     return negs
+ 
+ 
+-def shared_negatives(R: SharedHashedRunner, data: list, row_negatives: int = 40) -> list[tuple[str, tuple[bool, str]]]:
+-    """The row-sharing negatives (§3.2 of the leaf-campaign brief): a VU computing on a row other than the one it claims
+-    (alone on its unit, and sharing the unit with an honest VU), the fingerprint message edited / swapped, two VUs claiming
+-    one leaf with different rows, the hash side hashing another row, its digest / role / is_end / units edited, its
+-    witness broken (a hashed bit, a capacity link, a nonzero capacity start), the multiproofs and roots as for the hashed
+-    runner, a lane row of G edited; then one witness row per (scope, class) of G's added gadget."""
+-    from .auth import TreeRef
+-    rel, steps = R.rel, R.steps
+-    j = next((i for i in range(1, len(data)) if list(data[i][0]) != list(data[0][0]) and list(data[i][1]) != list(data[0][1])), 1)
+-    base = [data[0], data[j]]
+-    ids = [0, j]
+-    negs = []
+-    proof, pubs, lay = R.prove_vus(base, check=False, vu_ids=ids)
+-    is_end, idx, ypub, auth, sibs, table_h, units = pubs
+-    units_np, ux, uw = __import__("backends.direct.ligero.hashchain", fromlist=["shared_units"]).shared_units(auth)
+-    ends_h = np.arange(len(units_np)) * steps + steps - 1
+-
+-    def V(p, name):
+-        negs.append((name, R.verify_vus(p[0], p[1], lay)))
+-    def with_h(t=None, u=None, s=None, a=None, e=None, i=None):
+-        return (proof, (is_end if e is None else e, idx if i is None else i, ypub, auth if a is None else a, sibs if s is None else s,
+-                        table_h if t is None else t, units if u is None else u))
+-    t = table_h.copy(); t[ends_h[ux[0]], 2] ^= 1
+-    V(with_h(t=t), "x digest lane 0 of VU 0's unit flipped")
+-    t = table_h.copy(); t[ends_h[uw[1]], 9] = (t[ends_h[uw[1]], 9] + 1) % P
+-    V(with_h(t=t), "W digest lane 7 of VU 1's unit changed")
+-    t = table_h.copy(); t[ends_h[ux[0]], 2:], t[ends_h[uw[0]], 2:] = table_h[ends_h[uw[0]], 2:].copy(), table_h[ends_h[ux[0]], 2:].copy()
+-    V(with_h(t=t), "digests of the x unit and the W unit of VU 0 swapped")
+-    t = table_h.copy(); t[ends_h[0], 0] = 0; t[ends_h[0] - 1, 0] = 1
+-    V(with_h(t=t), "hash side: is_end moved one column early")
+-    t = table_h.copy(); t[:steps, 1] ^= 1
+-    V(with_h(t=t), "hash side: role of unit 0 flipped (x row hashed with the W IV)")
+-    u2 = units.copy(); u2[0, 1] += 1
+-    V(with_h(u=u2), "hash side: unit 0's leaf rank changed in the statement")
+-    e2 = is_end.copy(); e2[steps - 1, 0] = 0; e2[steps - 2, 0] = 1
+-    V(with_h(e=e2), "GEMM side: is_end moved one column early")
+-    # the fingerprint message
+-    g = dataclasses.replace(proof.g, fp=proof.g.fp.copy()); g.fp[0, 0, 0] ^= 1
+-    V((dataclasses.replace(proof, g=g), pubs), "fingerprint F[VU 0][x][0] flipped in the message")
+-    g = dataclasses.replace(proof.g, fp=proof.g.fp.copy()); g.fp[0, 0], g.fp[1, 0] = proof.g.fp[1, 0].copy(), proof.g.fp[0, 0].copy()
+-    V((dataclasses.replace(proof, g=g), pubs), "x fingerprints of VU 0 and VU 1 swapped in the message")
+-    g = dataclasses.replace(proof.g, fp=proof.g.fp[:1].copy())
+-    V((dataclasses.replace(proof, g=g), pubs), "fingerprint message truncated to one VU")
+-    g = dataclasses.replace(proof.g, fp=None)
+-    V((dataclasses.replace(proof, g=g), pubs), "fingerprint message missing")
+-    for ti, tn in enumerate(("a", "b", "y")):
+-        if sibs[ti]:
+-            s2 = [list(s) for s in sibs]
+-            s2[ti][0] = bytes([s2[ti][0][0] ^ 1]) + s2[ti][0][1:]
+-            V(with_h(s=s2), f"multiproof sibling of tree {tn} corrupted")
+-            s2 = [list(s) for s in sibs]
+-            s2[ti] = s2[ti][:-1]
+-            V(with_h(s=s2), f"multiproof of tree {tn} truncated")
+-    ra, rb, ry = auth.trees
+-    other = dataclasses.replace(auth, trees=(TreeRef("a", ra.binding, ra.owner, ra.count, rb.root), rb, ry))
+-    V(with_h(a=other), "x root replaced by the W root (verifier's statement)")
+-    other = dataclasses.replace(auth, trees=(TreeRef("a", rb.binding, ra.owner, ra.count, ra.root), rb, ry))
+-    V(with_h(a=other), "x tree binding changed (verifier's statement)")
+-    other = dataclasses.replace(auth, w_index=(auth.w_index[0], ra.count))
+-    idx2 = idx.copy(); idx2[1, 2] = ra.count
+-    V(with_h(a=other, i=idx2), "W leaf index out of range")
+-    V(with_h(s=sibs[:2]), "a multiproof missing")
+-    # two VUs claim one leaf with different rows: G's fingerprints for that unit disagree
+-    other = dataclasses.replace(auth, x_index=(auth.x_index[1], auth.x_index[1]))
+-    try:
+-        pf, pb, ly = R.prove_vus(base, check=False, vu_ids=ids, auth=other)
+-        negs.append(("VU 0 claims VU 1's x row (two VUs, one leaf, different rows)", R.verify_vus(pf, pb, ly)))
+-    except ValueError as e:
+-        negs.append(("VU 0 claims VU 1's x row (two VUs, one leaf, different rows)", (False, f"prover: {e}")))
+-    # the prover computed on other rows than the committed ones
+-    def recomputed(a, b):
+-        k, accs, c = rel.k, [], 0
+-        for s in range(rel.steps):
+-            c = tc_dot(rel.model, c, a[k * s:k * s + k], b[k * s:k * s + k])
+-            accs.append(c)
+-        return (a, b, accs, accs[-1])
+-    a0, b0 = list(base[0][0]), list(base[0][1])
+-    a_flip = list(a0); a_flip[5] ^= 1
+-    pf, pb, ly = R.prove_vus([recomputed(a_flip, b0), base[1]], check=False, vu_ids=ids)
+-    negs.append(("one word of the committed x row flipped (computed on the flipped row, alone on its unit)", R.verify_vus(pf, pb, ly)))
+-    pf, pb, ly = R.prove_vus([recomputed(a0, list(base[1][1])), base[1]], check=False, vu_ids=ids)
+-    negs.append(("VU 0 computed on VU 1's W column, claims its own", R.verify_vus(pf, pb, ly)))
+-    pf, pb, ly = R.prove_vus([recomputed(list(base[1][0]), b0), base[1]], check=False, vu_ids=ids)
+-    negs.append(("VU 0 computed on VU 1's x row, claims its own", R.verify_vus(pf, pb, ly)))
+-    # a shared unit: two VUs on one x row (if the set has them), one computing on a flipped copy
+-    sh = next((i for i in range(1, len(data)) if list(data[i][0]) == list(data[0][0]) and i != 0), None)
+-    if sh is not None:
+-        try:
+-            pf, pb, ly = R.prove_vus([recomputed(a_flip, b0), data[sh]], check=False, vu_ids=[0, sh])
+-            negs.append(("shared x row: VU 0 computed on a flipped copy, VU sh honest", R.verify_vus(pf, pb, ly)))
+-        except ValueError as e:
+-            negs.append(("shared x row: VU 0 computed on a flipped copy, VU sh honest", (False, f"prover: {e}")))
+-    def rows_flip(rows):
+-        rows = rows.copy(); rows[0, 7] ^= 1
+-        return rows
+-    pf, pb, ly = R.prove_vus(base, check=False, vu_ids=ids, rows_override=rows_flip)
+-    negs.append(("hash side hashes a flipped copy of unit 0's row", R.verify_vus(pf, pb, ly)))
+-    pf, pb, ly = R.prove_vus(base, check=False, vu_ids=ids, rho_override=lambda rho: (rho + 1) % P)
+-    negs.append(("hash side proved on other coins than G's challenge drew (rho reused / replaced)", R.verify_vus(pf, pb, ly)))
+-    pf, pb, ly = R.prove_vus(base, check=False, vu_ids=ids, rho_override=lambda rho: rho * 0 + 1)
+-    negs.append(("hash side proved on rho = 1 (a degenerate coin)", R.verify_vus(pf, pb, ly)))
+-    # witness-level: G's lane row, H's hashed bit, H's capacity links
+-    lane0 = R.sys.chain["fp"]["lanes"][0][0]
+-    def flip_lane(W):
+-        W[lane0, 3] = (W[lane0, 3] + 1) % P
+-    pf, pb, ly = R.prove_vus(base, check=False, mutate=flip_lane, vu_ids=ids)
+-    negs.append(("GEMM side: lane row a.lane[0] +1 in unit 3", R.verify_vus(pf, pb, ly)))
+-    rows_h = {r.name: r.idx for r in R.sys_h.rows}
+-    hb0 = rows_h["hash.r[0].b0"]
+-    def flip_hashed_bit(W):
+-        W[hb0, 3] = (W[hb0, 3] + 1) % P
+-    pf, pb, ly = R.prove_vus(base, check=False, mutate_h=flip_hashed_bit, vu_ids=ids)
+-    negs.append(("hash side: bit 0 of hashed word r[0] flipped in unit 3", R.verify_vus(pf, pb, ly)))
+-    cap_rows = R.sys_h.chain["c"]
+-    def break_cap(W):
+-        W[cap_rows[5], 7] = (W[cap_rows[5], 7] + 1) % P
+-    pf, pb, ly = R.prove_vus(base, check=False, mutate_h=break_cap, vu_ids=ids)
+-    negs.append(("hash side: sponge capacity link broken at column 7", R.verify_vus(pf, pb, ly)))
+-    def cap_start(W):
+-        W[cap_rows[2], steps] = 5
+-    pf, pb, ly = R.prove_vus(base, check=False, mutate_h=cap_start, vu_ids=ids)
+-    negs.append(("hash side: nonzero sponge capacity at a chain start", R.verify_vus(pf, pb, ly)))
+-    # one witness row per (scope, class) of G's added rows
+-    seen, picks = set(), []
+-    for r in R.sys.rows[R.hr.census["rows_base"]:]:
+-        key = (".".join(r.name.split(".")[:3]), r.kind)
+-        if key not in seen:
+-            seen.add(key)
+-            picks.append(r)
+-    rng = np.random.default_rng(13)
+-    for r in picks[:max(0, row_negatives)]:
+-        col = int(rng.integers(0, 2 * steps))
+-        delta = int(rng.integers(1, 3))
+-        def mutate(W, idx_=r.idx, col=col, delta=delta, kind=r.kind):
+-            if kind == "inv":
+-                nz = (W[idx_, :2 * steps] != 0).nonzero().flatten()
+-                col = int(nz[col % len(nz)]) if len(nz) else col
+-            W[idx_, col] = (W[idx_, col] + delta) % P
+-        pf, pb, ly = R.prove_vus(base, check=False, mutate=mutate, vu_ids=ids)
+-        negs.append((f"row {r.name} ({r.kind}) +{delta} in column {col}", R.verify_vus(pf, pb, ly)))
+-    return negs
+-
+-
+ def gate_hashed(args, rel: Relation) -> int:
+-    """``gate-vu --auth included-hash`` / ``--auth included-hash-shared``: honest sub-batches of the hashed relation accepted
+-    (worst case, or the tile of ``--tile``), the relation's own negative families still rejected (claimed word, off-domain
+-    word now caught by the private decode, broken accumulator link, accumulator bits) and the committed-operand negatives
+-    of ``hashed_negatives`` / ``shared_negatives``."""
+-    R = make_runner(args, rel)
+-    shared = isinstance(R, SharedHashedRunner)
++    """``gate-vu --auth included-hash``: honest sub-batches of the hashed relation accepted (worst case, or the tile of
++    ``--tile``), the relation's own negative families still rejected (claimed word, off-domain word now caught by the
++    private decode, broken accumulator link, accumulator bits) and the committed-operand negatives of ``hashed_negatives``."""
++    R = HashedRelationRunner(rel, args.device, args.target, args.rate_log2, zk=args.zk, mode=args.mode)
+     log = print
+-    log(f"{R.relation} hashed chain system ({R.leaf.name} leaves): {R.sys.summary()} compiled in {R.compile_seconds:.2f}s; "
+-        f"census {R.hr.census}; device {args.device}")
+-    if shared:
+-        log(f"{R.relation} hash side (row units): {R.sys_h.summary()}; census {R.rh.census}")
+-    report = {"relation": R.relation, "model": rel.model_name, "authentication": R.AUTH, "leaf": R.leaf.name, "system": R.sys.summary(),
++    log(f"{rel.name} hashed chain system: {R.sys.summary()} compiled in {R.compile_seconds:.2f}s; census {R.hr.census}; device {args.device}")
++    report = {"relation": rel.name, "model": rel.model_name, "authentication": R.AUTH, "system": R.sys.summary(),
+               "census": census(R.sys), "hash_census": R.hr.census, "positives": [], "negatives": []}
+-    if shared:
+-        report["hash_side"] = {"system": R.sys_h.summary(), "census": R.rh.census}
+     failures = 0
+     per_proof = args.batch // R.steps
+     tile = parse_tile(getattr(args, "tile", None))
+@@ -1657,31 +792,29 @@ def gate_hashed(args, rel: Relation) -> int:
+         data = instances(rel, args.vus, procs=procs, cache=cache, root=root)
+         R.commit_vus(data, manifest_sha256=instances_digest(rel, args.vus, root=root))
+     else:
+-        # a frozen-tier relation (bf16-ampere) has no tile layout in its frozen set: its tile is the synthetic draw
++        if rel.frozen_tier:
++            raise SystemExit(f"--tile: the frozen {rel.frozen_tier} set has no tile layout (sharing = none only for {rel.name})")
+         data, x_rows, w_cols = tile_instances(rel, *tile, procs=procs, cache=cache)
+         data = data[:args.vus]
+-        R.commit_vus(data, manifest_sha256=(tile_digest(rel, *tile) if rel.frozen_tier else instances_digest(rel, len(data))),
+-                     tile=tile, x_rows=x_rows, w_cols=w_cols)
++        R.commit_vus(data, manifest_sha256=instances_digest(rel, len(data)), tile=tile, x_rows=x_rows, w_cols=w_cols)
+     for lo in range(0, len(data), per_proof):
+         vus = data[lo:lo + per_proof]
+         proof, pubs, lay = R.prove_vus(vus, check=True, vu_ids=range(lo, lo + len(vus)))
+         ok, why = R.verify_vus(proof, pubs, lay)
+         sib_bytes = 32 * sum(len(s) for s in pubs[4])
+-        extra = f" (G {proof.timings['g_total']:.2f}s + H {proof.timings['h_total']:.2f}s, H layout {proof.lay_h})" if shared else ""
+-        log(f"{rel.name} hashed vu-k1536 [{lo}, {lo + len(vus)}): l={lay.l} prover {proof.timings['total']:.2f}s{extra} "
++        log(f"{rel.name} hashed vu-k1536 [{lo}, {lo + len(vus)}): l={lay.l} prover {proof.timings['total']:.2f}s "
+             f"(+hints {proof.timings['hints_host']:.2f}s) multiproofs {sib_bytes} B -> {ok} {why}")
+         report["positives"].append({"range": [lo, lo + len(vus)], "l": lay.l, "ok": ok, "why": why, "timings": proof.timings,
+-                                    "multiproof_bytes": sib_bytes, "proof_bytes": proof.n_bytes()})
++                                    "multiproof_bytes": sib_bytes})
+         failures += not ok
+     # the relation's own negatives on the hashed system: claimed word, links, accumulator bits (the operand words are
+     # private now: the off-domain family becomes "a word off the finite domain is proved" -> rejected by the decode)
+     base = data[:2]
+-    proof, pubs, lay = R.prove_vus(base, check=False, vu_ids=[0, 1])
+-    ypub = pubs[2]
++    proof, (table, idx, ypub, auth, sibs), lay = R.prove_vus(base, check=False, vu_ids=[0, 1])
+     negs = []
+     for bit in (0, rel.y_bits - 1):
+         y_bad = ypub.clone(); y_bad[R.steps - 1] ^= 1 << bit
+-        negs.append((f"claimed word bit {bit} flipped", R.verify_vus(proof, pubs[:2] + (y_bad,) + pubs[3:], lay)))
++        negs.append((f"claimed word bit {bit} flipped", R.verify_vus(proof, (table, idx, y_bad, auth, sibs), lay)))
+     c_rows = R.sys.chain["c"]
+     def break_link(W):
+         W[c_rows[2], 20] = (W[c_rows[2], 20] + 1) % P
+@@ -1704,9 +837,7 @@ def gate_hashed(args, rel: Relation) -> int:
+         negs.append((f"off-domain operand 0x{rel.off_domain[0]:x} computed on", R.verify_vus(pf, pb, ly)))
+     except Exception as e:                                  # the hint generator itself refuses the word: also a rejection
+         negs.append((f"off-domain operand 0x{rel.off_domain[0]:x} computed on", (False, f"prover: {type(e).__name__}: {e}")))
+-    negs += (shared_negatives if shared else hashed_negatives)(R, data, getattr(args, "row_negatives", 40))
+-    if hasattr(R.leaf, "step"):
+-        negs += leaf_negatives(R, data)                      # the linear leaf's own battery (brief §3.4)
++    negs += hashed_negatives(R, data, getattr(args, "row_negatives", 40))
+     for name, (ok, why) in negs:
+         log(f"  negative {name}: {'REJECTED' if not ok else 'ACCEPTED (BUG)'} {why}")
+         report["negatives"].append({"name": name, "accepted": ok, "why": why})
+@@ -1718,108 +849,18 @@ def gate_hashed(args, rel: Relation) -> int:
+     return 2 if failures else 0
+ 
+ 
+-#: what a scheme without a `privacy_note` (the contract's optional attribute; red-team-leaf F5) is assumed to be: a
+-#: deterministic unsalted compressing hash (Poseidon2, BLAKE3)
+-DEFAULT_PRIVACY_NOTE = "deterministic, unsalted: hides only up to preimage search on a row"
+-
+-
+-def leaf_privacy_note(leaf) -> str:
+-    """``LeafScheme.privacy_note`` of the scheme, or :data:`DEFAULT_PRIVACY_NOTE`."""
+-    return getattr(leaf, "privacy_note", None) or DEFAULT_PRIVACY_NOTE
+-
+-
+-def leaf_negatives(R: HashedRelationRunner, data: list) -> list[tuple[str, tuple[bool, str]]]:
+-    """The brief's three negatives of a LINEAR ``leaf/`` digest (§3.4, lane ajtai-leaf; a scheme exposing ``step(acc, bits)``),
+-    each a self-consistent proof of the wrong thing: the digest of ANOTHER committed row published (the tree opens it, the
+-    relation's digest of the row computed on does not match); one operand bit of the hashed row flipped in the witness
+-    (every bit row is a committed wire; the accumulator rows are recomputed so the digest changes and no longer opens
+-    under the root); a non-binary ``s``: a bit row set to 2 with the accumulator recomputed consistently (the booleanity
+-    constraint, not the digest, must reject)."""
+-    from . import hashchain
+-    leaf, steps, k, nb = R.leaf, R.steps, R.hr.k, R.hr.word_bits
+-    j = next((i for i in range(1, len(data)) if list(data[i][0]) != list(data[0][0]) and list(data[i][1]) != list(data[0][1])), 1)
+-    base, ids = [data[0], data[j]], [0, j]
+-    negs = []
+-    n = leaf.digest_elems
+-    proof, (table, idx, ypub, auth, sibs), lay = R.prove_vus(base, check=False, vu_ids=ids)
+-    # 1. the digest of a different row: VU 0 publishes VU j's x digest (the tree opens VU j's leaf only under VU j's rank)
+-    t = table.copy()
+-    t[steps - 1, 1:1 + n] = table[2 * steps - 1, 1:1 + n]
+-    negs.append(("digest of a different row published for VU 0's x row", R.verify_vus(proof, (t, idx, ypub, auth, sibs), lay)))
+-    # ... and claiming VU j's rank for it too (then the multiproof opens, but the relation's digest is of VU 0's bits)
+-    idx2 = idx.copy(); idx2[0, 1] = auth.x_index[1]
+-    other = dataclasses.replace(auth, x_index=(auth.x_index[1], auth.x_index[1]))
+-    negs.append(("digest of a different row, its rank claimed (relation digest != published)",
+-                 R.verify_vus(proof, (t, idx2, ypub, other, sibs), lay)))
+-    rows = {r.name: r.idx for r in R.sys.rows}
+-    acc_rows = {nm: [rows[f"hash.{nm}.cap[{x}]"] for x in range(n)] for _, nm, _ in hashchain.ROLES}
+-    out_rows = {nm: [rows[f"hash.{leaf._out_name(role, x)}"] for x in range(n)] for _, nm, role in hashchain.ROLES}
+-    bit_rows = {nm: [rows[f"hash.{nm}[{i}].b{j_}"] for i in range(k) for j_ in range(nb)] for _, nm, _ in hashchain.ROLES}
+-    role_of = {nm: role for _, nm, role in hashchain.ROLES}
+-
+-    def recompute(W, nm: str, col0: int):
+-        """Recompute the accumulator rows of the VU holding column ``col0`` from its (mutated) bit rows: a prover that keeps
+-        its own state consistent, so only the digest pin / booleanity can catch it."""
+-        v0 = (col0 // steps) * steps
+-        bits = W[bit_rows[nm]][:, v0:v0 + steps].T.to(torch.int64)             # (steps, m)
+-        acc = torch.zeros(n, dtype=torch.int64, device=W.device)
+-        for s in range(steps):
+-            W[acc_rows[nm], v0 + s] = acc.to(W.dtype)                          # W is int32 on the device, int64 on the CPU
+-            acc = leaf.step(acc, bits[s], role_of[nm])
+-            W[out_rows[nm], v0 + s] = acc.to(W.dtype)
+-
+-    # 2. one bit flipped in the hashed x row of VU 0 (column 2, word 3, bit 1), state recomputed
+-    def flip_bit(W):
+-        r = bit_rows["a"][3 * nb + 1]
+-        W[r, 2] = 1 - W[r, 2]
+-        recompute(W, "a", 2)
+-    pf, pb, ly = R.prove_vus(base, check=False, mutate=flip_bit, vu_ids=ids)
+-    negs.append(("one bit of the hashed x row flipped (digest recomputed consistently)", R.verify_vus(pf, pb, ly)))
+-    # 3. non-binary s: a bit row of the W column of VU j set to 2, state recomputed (booleanity must reject)
+-    def non_binary(W):
+-        r = bit_rows["b"][5 * nb]
+-        W[r, steps + 1] = 2
+-        recompute(W, "b", steps + 1)
+-    pf, pb, ly = R.prove_vus(base, check=False, mutate=non_binary, vu_ids=ids)
+-    negs.append(("non-binary operand bit s = 2 (digest recomputed consistently)", R.verify_vus(pf, pb, ly)))
+-    # 3b. non-binary s AND the digest pin honoured: bit 0 of one word set to 2 while bit 1 is cleared (same word value,
+-    # different bit vector -> a different digest unless caught): the decode constraint word = sum b_j 2^j still holds
+-    def non_binary_same_word(W):
+-        r0, r1 = bit_rows["b"][7 * nb], bit_rows["b"][7 * nb + 1]
+-        if W[r1, steps + 2] == 1 and W[r0, steps + 2] == 0:
+-            W[r0, steps + 2], W[r1, steps + 2] = 2, 0
+-        else:
+-            W[r0, steps + 2], W[r1, steps + 2] = (W[r0, steps + 2] + 2) % P, (W[r1, steps + 2] + P - 1) % P
+-        recompute(W, "b", steps + 2)
+-    pf, pb, ly = R.prove_vus(base, check=False, mutate=non_binary_same_word, vu_ids=ids)
+-    negs.append(("non-binary bit vector of the same word value (2*1 + 0*2 for 0*1 + 1*2)", R.verify_vus(pf, pb, ly)))
+-    # 4. the carried state tampered without recomputation: acc_out[3] + 1 at one column (the linear row must reject)
+-    def tamper_out(W):
+-        W[out_rows["a"][3], 1] = (W[out_rows["a"][3], 1] + 1) % P
+-    pf, pb, ly = R.prove_vus(base, check=False, mutate=tamper_out, vu_ids=ids)
+-    negs.append(("leaf accumulator output row tampered", R.verify_vus(pf, pb, ly)))
+-    return negs
+-
+-
+ def make_runner(args, rel: Relation, **kw):
+     """The runner ``--auth`` selects: ``excluded`` (the bare v4 statement) or ``included-hash`` (``HashedRelationRunner``)."""
+     auth = getattr(args, "auth", "excluded") or "excluded"
+     if auth == "excluded":
+         return RelationChainRunner(rel, args.device, args.target, args.rate_log2, zk=args.zk, mode=args.mode, **kw)
+     if auth == HashedRelationRunner.AUTH:
+-        R = HashedRelationRunner(rel, args.device, args.target, args.rate_log2, zk=args.zk, mode=args.mode,
+-                                 leaf=getattr(args, "leaf", None), **kw)
+-        if getattr(R.leaf, "test_only", False):
+-            raise SystemExit(f"leaf scheme {R.leaf.name!r} is test-only (insecure): it cannot be benched")
+-        return R
+-    if auth == SharedHashedRunner.AUTH:
+-        return SharedHashedRunner(rel, args.device, args.target, args.rate_log2, zk=args.zk, mode=args.mode,
+-                                  leaf=getattr(args, "leaf", None), **kw)
+-    raise SystemExit(f"--auth {auth}: not a mode of the relation runner (excluded | included-hash | included-hash-shared)")
++        return HashedRelationRunner(rel, args.device, args.target, args.rate_log2, zk=args.zk, mode=args.mode, **kw)
++    raise SystemExit(f"--auth {auth}: not a mode of the relation runner (excluded | included-hash)")
+ 
+ 
+ def gate_vu_rel(args, rel: Relation) -> int:
+-    if getattr(args, "auth", "excluded") in (HashedRelationRunner.AUTH, SharedHashedRunner.AUTH):
++    if getattr(args, "auth", "excluded") == HashedRelationRunner.AUTH:
+         return gate_hashed(args, rel)
+     R = RelationChainRunner(rel, args.device, args.target, args.rate_log2, zk=args.zk, mode=args.mode)
+     log = print
+@@ -1863,11 +904,9 @@ def bench_vu_rel(args, rel: Relation) -> int:
+     the run directory is listed in ``artifacts`` so it travels with the Attempt as run-files (``vu.dump_artifacts``)."""
+     from .run import _git_commit as _git_commit_repo
+     from .vu import ZK_MODE, ZK_MODE_FS, ZK_MODE_HM96, ZK_VACUOUS_NOTE, dump_artifacts
+-    ZK_SHARED_NOTE = ("; NOTE: authentication = included-hash-shared: as included-hash, the rows hashed once per sub-batch on the "
+-                      "hash side; IN ADDITION the GEMM side's proof PUBLISHES the fingerprints F (red-team-leaf F8): C verifier-known "
+-                      "random linear functionals (C x ~31 bits) of EVERY private operand row it touches, x rows and W columns alike -- "
+-                      "a leak of the private weights beyond the digests, whatever the leaf; folding the hash side into the masked "
+-                      "witness (v2) removes it and is not built")
++    ZK_HASHED_NOTE = ("; NOTE: authentication = included-hash: the operand rows x, W are NOT in this statement (private witness, "
++                      "hashed in-circuit); the statement publishes their Poseidon2-BabyBear row digests (deterministic, unsalted: "
++                      "hiding only up to preimage search on a row), the Merkle roots + (vu, x_index, w_index), and the words y16")
+ 
+     def _git_commit():
+         return os.environ.get("RESEARCH_GIT_COMMIT") or _git_commit_repo()
+@@ -1880,24 +919,15 @@ def bench_vu_rel(args, rel: Relation) -> int:
+     depth = 3 if interactive else 1
+     R = make_runner(args, rel, n_proofs=n_proofs)
+     hashed = isinstance(R, HashedRelationRunner)
+-    # red-team-leaf F5: the hiding caveat is the SCHEME's (`LeafScheme.privacy_note`), not Poseidon2's for everyone -- a linear
+-    # leaf (Ajtai) is binding-only and says so in the fingerprint
+-    ZK_HASHED_NOTE = ("; NOTE: authentication = included-hash: the operand rows x, W are NOT in this statement (private witness, "
+-                      f"hashed in-circuit); the statement publishes their {R.leaf.hash_name} row digests ({leaf_privacy_note(R.leaf)}), "
+-                      "the Merkle roots + (vu, x_index, w_index), and the words y16") if hashed else ""
+-    shared = isinstance(R, SharedHashedRunner)
+-    # --pipeline N (lane hp2-host): the staged prover; the hashed runners' stage generators (marshal_hashed / marshal_shared)
+-    pipeline_depth = int(getattr(args, "pipeline", 0) or 0)
++    # --pipeline N (lane hp2-host): the staged prover; the hashed runner (lane hash-relation) has no stage generator yet
++    pipeline_depth = int(getattr(args, "pipeline", 0) or 0) if not hashed else 0
+     tile = parse_tile(getattr(args, "tile", None)) if hashed else None
+     if tile is not None and tile[0] * tile[1] != total_vus:
+         raise SystemExit(f"--tile {tile[0]}x{tile[1]} is {tile[0] * tile[1]} VUs; --total-vus {total_vus}")
+     cen = census(R.sys)
+     print(f"{rel.name} census:", json.dumps(cen))
+     if hashed:
+-        print(f"{R.relation} hashed ({R.AUTH}, {R.leaf.name} leaves, sharing {'none' if tile is None else 'tile%dx%d' % tile}):",
+-              json.dumps(R.hr.census))
+-    if shared:
+-        print(f"{R.relation} hash side (row units): {R.sys_h.summary()}; census {json.dumps(R.rh.census)}")
++        print(f"{rel.name} hashed ({R.AUTH}, sharing {'none' if tile is None else 'tile%dx%d' % tile}):", json.dumps(R.hr.census))
+     subs = [(lo, min(lo + per_proof, total_vus)) for lo in range(0, total_vus, per_proof)]
+     root = getattr(args, "root", None)
+     t0 = time.perf_counter()
+@@ -1905,10 +935,10 @@ def bench_vu_rel(args, rel: Relation) -> int:
+         data = instances(rel, total_vus, procs=getattr(args, "instance_procs", 1), cache=getattr(args, "instances_cache", None), root=root)
+         x_rows = w_cols = None
+     else:
+-        # a frozen-tier relation (bf16-ampere): its frozen set has no tile layout, the tile is the synthetic draw
++        if rel.frozen_tier:
++            raise SystemExit(f"--tile: the frozen {rel.frozen_tier} set has no tile layout (sharing = none only for {rel.name})")
+         data, x_rows, w_cols = tile_instances(rel, *tile, procs=getattr(args, "instance_procs", 1), cache=getattr(args, "instances_cache", None))
+-    frozen = bool(rel.frozen_tier) and tile is None
+-    inst_digest = tile_digest(rel, *tile) if (tile is not None and rel.frozen_tier) else instances_digest(rel, total_vus, root=root)
++    inst_digest = instances_digest(rel, total_vus, root=root)
+     print(f"{total_vus} {'frozen ' + rel.frozen_tier if rel.frozen_tier else 'synthetic'} VUs (recorded accumulators) in {time.perf_counter() - t0:.1f}s")
+     commit_seconds = 0.0
+     if hashed:
+@@ -1917,7 +947,7 @@ def bench_vu_rel(args, rel: Relation) -> int:
+                      cache=getattr(args, "auth_cache", None), tile=tile, x_rows=x_rows, w_cols=w_cols)
+         commit_seconds = time.perf_counter() - t0
+         print(f"committed: x tree {R.trees['a'].count} rows, W tree {R.trees['b'].count} columns, y tree {R.trees['y'].count} words "
+-              f"({R.leaf.schema} + SHA-256) in {commit_seconds:.1f}s (row digests on {args.device}: {R.sponge_seconds:.2f}s); "
++              f"(leaf/v2h Poseidon2 + SHA-256) in {commit_seconds:.1f}s (row sponges on {args.device}: {R.sponge_seconds:.2f}s); "
+               f"roots a={R.trees['a'].root.hex()[:16]} b={R.trees['b'].root.hex()[:16]}")
+     lay = R.layout(per_proof)
+     l = lay.l
+@@ -1937,11 +967,6 @@ def bench_vu_rel(args, rel: Relation) -> int:
+         dump_manifest["relation"] = {"name": rel.name, "model": rel.model_name, "profile": rel.target.name,
+                                      "word_dtype": rel.word_dtype, "y_dtype": rel.y_dtype, "y_bits": rel.y_bits,
+                                      "rust_verifiable": rel.rust_verifiable}
+-        if hashed:
+-            # the statement's relation string ("<rel>" for Poseidon2, "<rel>+<leaf>" otherwise) and the leaf scheme
+-            dump_manifest["relation"]["statement_relation"] = R.relation
+-            dump_manifest["relation"]["leaf"] = {"scheme": R.leaf.name, "schema": R.leaf.schema,
+-                                                 "params_sha256": R.leaf.params_sha256, "digest_elems": R.leaf.digest_elems}
+         _write_system(dump_dir, R, dump_manifest)
+         dump_manifest["set"] = {"total_vus": total_vus, "batch": args.batch, "per_proof": per_proof, "n_proofs": n_proofs,
+                                 "zk": args.zk, "mode": args.mode, "reps": args.reps, "dump_reps": dump_reps,
+@@ -1981,8 +1006,7 @@ def bench_vu_rel(args, rel: Relation) -> int:
+             # sent on the data channel after the pass.
+             local_factory = lambda i: (protocol_mod.Coins.sample() if interactive else None)  # noqa: E731
+             factory = live.pipeline_factory(local_factory) if live is not None else local_factory
+-            many, _wall = R.prove_vus_many([data[lo:hi] for lo, hi in subs], factory, depth=pipeline_depth, min_l=l,
+-                                           vu_ids_list=[range(lo, hi) for lo, hi in subs])
++            many, _wall = R.prove_vus_many([data[lo:hi] for lo, hi in subs], factory, depth=pipeline_depth, min_l=l)
+             for si, ((lo, hi), (V, proof, pubs, lay_i)) in enumerate(zip(subs, many)):
+                 if live is not None:
+                     V = live.proved(si, proof, V)            # PROOF si on the data channel (async); coins -> plain Coins
+@@ -2005,15 +1029,8 @@ def bench_vu_rel(args, rel: Relation) -> int:
+                 if pipeline_depth > 1 and args.device.startswith("cuda"):
+                     # every pipeline slot once (its stream's hint graph capture, pinned buffers): untimed, like the warm-up
+                     warm = subs[:pipeline_depth] + (subs[-1:] if len(subs) > pipeline_depth else [])   # + the ragged last layout
+-                    passes = 1
+-                    if shared:
+-                        # the hash side's layout varies per sub-batch (70 / 71 row units at the 64x64 tile) and the tests
+-                        # graph is captured per (stream, layout): every slot must meet every layout before a timed pass
+-                        warm, passes = list(subs), 3
+-                    for _ in range(passes):
+-                        R.prove_vus_many([data[lo_:hi_] for lo_, hi_ in warm],
+-                                         (lambda i: protocol_mod.Coins.sample() if interactive else None), depth=pipeline_depth,
+-                                         min_l=l, vu_ids_list=[range(lo_, hi_) for lo_, hi_ in warm])
++                    R.prove_vus_many([data[lo_:hi_] for lo_, hi_ in warm],
++                                     (lambda i: protocol_mod.Coins.sample() if interactive else None), depth=pipeline_depth, min_l=l)
+                 break                                        # warm-up: one sub-batch (compile, graph capture, self-check)
+         if live is not None:
+             live.end_rep(rep, agg)                           # END; the verifier's session verdict (waits for its Rust verify)
+@@ -2028,16 +1045,11 @@ def bench_vu_rel(args, rel: Relation) -> int:
+                 stem = f"sub_{si:02d}"
+                 st = _statement_of(R, pubs, lay_i, R.cfg(lay_i.l), n_proofs)          # ligero-statement/v4: R.relation names it
+                 (rd / f"{stem}.stmt").write_bytes(statement_bytes(st))
+-                # the pair (shared): <stem>.proof the GEMM side (v3, F after the body), <stem>.hproof the hash side (v1)
+-                (rd / f"{stem}.proof").write_bytes(proof_bytes(proof.g if shared else proof))
++                (rd / f"{stem}.proof").write_bytes(proof_bytes(proof))
+                 entry = {"rep": rep, "sub": si, "vus": [lo, hi], "stmt": f"rep{rep}/{stem}.stmt", "proof": f"rep{rep}/{stem}.proof",
+                          "proof_bytes": (rd / f"{stem}.proof").stat().st_size, "proof_sha256": sha256_file(rd / f"{stem}.proof"),
+                          "stmt_bytes": (rd / f"{stem}.stmt").stat().st_size,
+                          "python_verdict": {"accepted": ok, "reason": why}, "prover_seconds": proof.timings.get("total")}
+-                if shared:
+-                    (rd / f"{stem}.hproof").write_bytes(proof_bytes(proof.h))
+-                    entry.update({"proof_h": f"rep{rep}/{stem}.hproof", "proof_h_bytes": (rd / f"{stem}.hproof").stat().st_size,
+-                                  "proof_h_sha256": sha256_file(rd / f"{stem}.hproof"), "n_units": int(len(pubs[6]))})
+                 if hashed:
+                     entry["multiproof_bytes"] = 32 * sum(len(x) for x in pubs[4])
+                     entry["auth_openings_seconds"] = proof.timings.get("auth_openings")
+@@ -2046,22 +1058,14 @@ def bench_vu_rel(args, rel: Relation) -> int:
+                     entry["coins"] = f"rep{rep}/{stem}.coins"
+                     entry["coins_bytes"] = (rd / f"{stem}.coins").stat().st_size
+                     entry["coins_sha256"] = sha256_file(rd / f"{stem}.coins")     # D7: the step-0 coins' custody, like proof_sha256
+-                    if shared and proof.h.coins is not None:
+-                        Vh = proof.h.coins                                      # the hash side's coins (the live verifier's under --verifier)
+-                        (rd / f"{stem}.hcoins").write_bytes(Vh.r1 + Vh.s1 + Vh.r2 + Vh.s2)
+-                        entry["coins_h"] = f"rep{rep}/{stem}.hcoins"
+                 dump_manifest["files"].append(entry)
+-        lays_h_seen = [pf.lay_h for _, _, _, _, pf, _, _ in proved] if shared else None
+         del proved
+         if rep > 0:
+             # the batch verdict (PROTOCOL.md 8c, "Batch verification"; D10): every sub-batch verified above; now the union
+             # bound of this verifier's own per-proof bounds over the n_proofs presented, and each proof's n_proofs (what
+             # config_for sized t for) against that count.  Arithmetic on n_proofs numbers, inside the verifier time.
+             t0 = time.perf_counter()
+-            if shared:
+-                batch = R.batch_bound(cfgs_seen, [n_proofs] * len(cfgs_seen), target_bits, lays_h=lays_h_seen)
+-            else:
+-                batch = R.batch_bound(cfgs_seen, [n_proofs] * len(cfgs_seen), target_bits)
++            batch = R.batch_bound(cfgs_seen, [n_proofs] * len(cfgs_seen), target_bits)
+             vsum += time.perf_counter() - t0
+             assert batch["accepted"], batch["reason"]
+         wall = time.perf_counter() - t_pass
+@@ -2081,7 +1085,7 @@ def bench_vu_rel(args, rel: Relation) -> int:
+     vmed = statistics.median(r[1] for r in runs)
+     peak_dev = torch.cuda.max_memory_allocated() if args.device.startswith("cuda") else 0
+     nbytes = {k_: v_ * n_proofs for k_, v_ in proof.n_bytes().items()}
+-    snd = R.soundness_report(cfg, n_proofs, lays_h_seen) if shared else soundness(cfg, R.tb.L, R.tb.Q, n_proofs)
++    snd = soundness(cfg, R.tb.L, R.tb.Q, n_proofs)
+     # security.achieved_log2 is the BATCH bound -log2 sum_i 2^b_i as the verifier's batch_bound computed it (vu.bench_vu since
+     # lane b-batch-bound); the prover-side soundness() of the same n_proofs must agree with it to the last bit.
+     assert batch is not None and abs(batch["batch_log2"] - snd["total_log2"]) < 1e-6, (batch, snd["total_log2"])
+@@ -2094,7 +1098,7 @@ def bench_vu_rel(args, rel: Relation) -> int:
+           "toolchain": {"python": platform.python_version(), "torch": torch.__version__, "numpy": np.__version__}}
+     # The bare v4 statement publishes the operands, so vu.py's ZK_VACUOUS_NOTE applies; the hashed v5 statement does not
+     # (hash-relation final report §9): it carries the operand rows' Poseidon2 digests + the Merkle roots + y16 instead.
+-    privacy_note = (ZK_SHARED_NOTE if shared else ZK_HASHED_NOTE if hashed else ZK_VACUOUS_NOTE)
++    privacy_note = (ZK_HASHED_NOTE if hashed else ZK_VACUOUS_NOTE)
+     auth_omitted = ("" if hashed else "external authentication; ")
+     if cfg.zk and interactive:
+         proof_class, zk_mode = "COMPLETE_ZK_BACKEND", ZK_MODE + ZK_MODE_HM96 + privacy_note
+@@ -2106,15 +1110,11 @@ def bench_vu_rel(args, rel: Relation) -> int:
+         proof_class, zk_mode, omitted = "NON_ZK_PROOF_DIAGNOSTIC", "none", auth_omitted + "ZK masking"
+     zk_statement = snd["zk_statement"]
+     if hashed and cfg.zk:
+-        zk_statement = zk_statement.split("; operands a, b")[0] + privacy_note.replace("; NOTE: ", "; ", 1)
+-    if frozen:
++        zk_statement = zk_statement.split("; operands a, b")[0] + ZK_HASHED_NOTE.replace("; NOTE: ", "; ", 1)
++    if rel.frozen_tier:
+         # the frozen set: the same ``instances`` block as vu.bench_vu (no seed, no recipe), so the committed column of the
+         # A100 cell names exactly the bare cell's instances
+         inst = contract.instances_ref(rel.instances_tier, 0, total_vus, inst_digest, dataset=rel.instances_dataset)
+-    elif rel.frozen_tier:
+-        inst = {"dataset": "synthetic", "tier": f"tile{tile[0]}x{tile[1]}", "range": [0, total_vus], "manifest_sha256": inst_digest,
+-                "seed": rel.instance_seed, "recipe": f"{rel.name} synthetic GEMM tile (relchain.tile_instances: {rel.operands.__name__} "
+-                                                     f"rows / columns, model-recorded accumulators); NOT the frozen {rel.frozen_tier} set"}
+     else:
+         inst = {"dataset": rel.instances_dataset, "tier": rel.instances_tier, "range": [0, total_vus],
+                 "manifest_sha256": inst_digest, "seed": rel.instance_seed}
+@@ -2139,37 +1139,21 @@ def bench_vu_rel(args, rel: Relation) -> int:
+         relation=rel.relation_name, model=rel.model_name, commit=_git_commit(), step_k=rel.k, steps_per_vu=steps,
+         rows=R.sys.m, committed_rows=n_rows(cfg, R.sys.m, True), linear_constraints=R.tb.L, quadratic_constraints=R.tb.Q,
+         census=cen, witness_generation=rel.witness_generation, B_proof=per_proof,
+-        statement_format=("ligero-statement/v6 (+ ligero-proof/v3 G, /v1 H)" if shared else
+-                          hashed_statement_format() if hashed else "ligero-statement/v4"),   # what --dump-dir writes (serialize.py)
++        statement_format="ligero-statement/v5" if hashed else "ligero-statement/v4",   # what --dump-dir writes (serialize.py)
+         note=f"{total_vus} VUs as {n_proofs} independently committed proofs of <= {per_proof} VUs each (l = {l} columns, "
+              f"{l - per_proof * steps} pad columns per proof); prover time = sum over the proofs; soundness = union bound; "
+              f"{rel.claim_note}"
+-             + (f"; authentication = {R.AUTH}: the operand words are private witness wires with 16 lane rows per operand per "
+-                f"unit; every DISTINCT x row / W column of a sub-batch is hashed ONCE in a paired hash-side proof (one Poseidon2 "
+-                f"sponge per row unit, {R.rh.census['rows_total']} rows/unit, l_H = {lays_h_seen[0].l}) and each VU proves its "
+-                f"operands equal that row by a post-commitment fingerprint ({R.fp_coords} coordinates, coins after the root, "
+-                f"collision <= ((16 x {steps} - 1) / p)^{R.fp_coords}); the digests are the hash side's chain-end pins and leaf/v2h "
+-                f"leaves under the x / W roots; sharing = {'none' if tile is None else 'tile%dx%d' % tile} ({R.trees['a'].count} "
+-                f"x rows + {R.trees['b'].count} W columns committed for {total_vus} VUs); 2 proofs per sub-batch, both sized for "
+-                f"the union over {2 * n_proofs}; hash = poseidon2-babybear-w24" if shared else
+-                f"; authentication = {R.AUTH}: the operand words are private witness wires, each unit hashes its {rel.k} words of "
+-                f"x and of W with the {R.leaf.name} leaf scheme ({R.leaf.assumption}; {R.hr.census['rows_hash']} hash rows per unit) "
+-                f"along the chain, the digests ({R.leaf.digest_elems} elements each) are chain-end pins and {R.leaf.schema} leaves "
+-                f"under the x / W roots; sharing = {'none' if tile is None else 'tile%dx%d' % tile} ({R.trees['a'].count} x rows + "
++             + (f"; authentication = {R.AUTH}: the operand words are private witness wires, each unit hashes its 16 lanes of "
++                f"x and of W with Poseidon2 (BabyBear, width 24, rate 16, x^7; Plonky3 constants {R.hr.census['sbox_rows_per_permutation']} "
++                f"product rows per permutation) along the chain, the digests are chain-end pins and leaf/v2h leaves under the "
++                f"x / W roots; sharing = {'none' if tile is None else 'tile%dx%d' % tile} ({R.trees['a'].count} x rows + "
+                 f"{R.trees['b'].count} W columns committed for {total_vus} VUs); the statement carries digests, leaf indices, "
+-                f"roots and SHA-256 multiproofs instead of the operand words; hash = {R.leaf.hash_name}" if hashed else ""),
++                f"roots and SHA-256 multiproofs instead of the operand words; hash = poseidon2-babybear-w24" if hashed else ""),
+     )
+     if hashed:
+-        fp["hash"] = R.leaf.hash_name
+-        fp["leaf"] = {"scheme": R.leaf.name, "suffix": R.leaf_name, "schema": R.leaf.schema, "params_sha256": R.leaf.params_sha256,
+-                      "digest_elems": R.leaf.digest_elems, "digest_bytes_per_row": len(R.leaf.leaf_bytes(np.asarray(R.digests["a"])[0])),
+-                      "assumption": R.leaf.assumption, "privacy_note": leaf_privacy_note(R.leaf)}
++        fp["hash"] = "poseidon2-babybear-w24"
+         fp["sharing"] = "none" if tile is None else f"tile{tile[0]}x{tile[1]}"
+         fp["committed_rows"] = {"x": R.trees["a"].count, "w": R.trees["b"].count, "y": R.trees["y"].count}
+-    if shared:
+-        fp["row_sharing"] = {"mechanism": "fingerprint chain (chain.py); paired hash-side proof per sub-batch",
+-                             "fp_coords": R.fp_coords, "g_rows_per_unit": R.sys.m, "h_rows_per_unit": R.sys_h.m,
+-                             "h_layouts": [dataclasses.asdict(lh) for lh in lays_h_seen]}
+     meas = [
+         contract.measurement("t.witness", med["witness"] + med["hints_host"]),
+         contract.measurement("t.encoding_commitment", med["encode"] + med["transfer"] + med["merkle"]),
+@@ -2215,24 +1199,13 @@ def bench_vu_rel(args, rel: Relation) -> int:
+         meas += live_fields[0]           # t.total_live / net.* / verify.* (lane live-verifier; additive)
+     if hashed:
+         meas += [contract.measurement("relation.hash.rows_added_per_unit", R.hr.census["rows_added"], "count"),
+-                 contract.measurement("relation.hash.permutations_per_unit", R.hr.census.get("permutations_per_unit", 0), "count"),
++                 contract.measurement("relation.hash.permutations_per_unit", R.hr.census["permutations_per_unit"], "count"),
+                  contract.measurement("relation.hash.linked_rows", R.hr.census["linked_rows"], "count"),
+                  contract.measurement("relation.hash.commit_seconds", commit_seconds, "s"),
+                  contract.measurement("relation.hash.sponge_seconds", R.sponge_seconds, "s"),
+                  contract.measurement("relation.hash.auth_openings_seconds", med.get("auth_openings", 0.0), "s"),
+                  contract.measurement("relation.hash.committed_x_rows", R.trees["a"].count, "count"),
+                  contract.measurement("relation.hash.committed_w_cols", R.trees["b"].count, "count")]
+-    if shared:
+-        meas += [contract.measurement("relation.share.g_seconds", med.get("g_total", 0.0), "s"),
+-                 contract.measurement("relation.share.h_seconds", med.get("h_total", 0.0), "s"),
+-                 contract.measurement("relation.share.g_rows_per_unit", R.sys.m, "count"),
+-                 contract.measurement("relation.share.h_rows_per_unit", R.sys_h.m, "count"),
+-                 contract.measurement("relation.share.h_l", lays_h_seen[0].l, "count"),
+-                 contract.measurement("relation.share.h_units", lays_h_seen[0].n_vus, "count"),
+-                 contract.measurement("relation.share.fp_coords", R.fp_coords, "count"),
+-                 contract.measurement("relation.share.fingerprint_bytes", nbytes.get("fingerprints", 0), "B"),
+-                 contract.measurement("relation.share.g_proof_bytes", nbytes.get("g_total", 0), "B"),
+-                 contract.measurement("relation.share.h_proof_bytes", nbytes.get("h_total", 0), "B")]
+         if dump_manifest is not None and dump_manifest["files"]:
+             fs = [e for e in dump_manifest["files"] if e["rep"] == 1]
+             meas += [contract.measurement("relation.hash.statement_bytes_total", sum(e["stmt_bytes"] for e in fs), "B"),
+@@ -2308,13 +1281,7 @@ def _verify_dumps(dump_dir: Path, manifest: dict, R: RelationChainRunner, device
+         per_rep.setdefault(e["rep"], []).append(read_statement((dump_dir / e["stmt"]).read_bytes()))
+     batches = {}
+     for rep, sts in sorted(per_rep.items()):
+-        names = [f"sub_{st_i:02d}" for st_i in range(len(sts))]
+-        if isinstance(R, SharedHashedRunner):
+-            # the pair: the hash side's layout is the statement's (its l floors at l_G / 4: layout_h), not the minimum
+-            b = R.batch_bound([st.config() for st in sts], [st.n_proofs for st in sts], target_bits, names,
+-                              lays_h=[st.shared.layout(st.steps) for st in sts])
+-        else:
+-            b = R.batch_bound([st.config() for st in sts], [st.n_proofs for st in sts], target_bits, names)
++        b = R.batch_bound([st.config() for st in sts], [st.n_proofs for st in sts], target_bits, [f"sub_{st_i:02d}" for st_i in range(len(sts))])
+         batches[str(rep)] = b
+         if not b["accepted"]:
+             print(f"!! dumped rep {rep}: batch verdict REJECTED: {b['reason']}", flush=True)
+diff --git a/backends/ligero-verify/src/main.rs b/backends/ligero-verify/src/main.rs
+index 958cf157..75d2823d 100644
+--- a/backends/ligero-verify/src/main.rs
++++ b/backends/ligero-verify/src/main.rs
+@@ -14,10 +14,6 @@
+ //!                      # is N (`batch: n_proofs mismatch`).  Agreement with the python_verdict of DIR/manifest.json, or
+ //!                      # of DIR/../manifest.json naming the proofs as `<DIR name>/<file>` (a bench-vu dump's rep dirs).
+ //! ligero-verify system-digest --system system.bin           # the two digests (and the relation they are pinned for)
+-//!
+-//! Row sharing (`authentication = included-hash-shared`, a `ligero-statement/v6` with a `ligero-proof/v3` of the GEMM
+-//! side and X.hproof of the hash side): add `--system-h system_h.bin` to `verify` / `batch`; the pair is verified as
+-//! one sub-batch (verify.rs `verify_pair`); `--coins-h FILE` / DIR/X.hcoins are the hash side's own step-0 coins.
+ //! ~~~
+ //!
+ //! The statement names the relation (`ligero-statement/v4`; v2 / v3 = bf16-ampere) and the system file must carry
+@@ -28,7 +24,6 @@ mod auth;
+ mod field;
+ mod format;
+ mod hash;
+-mod leaf;
+ mod relation;
+ mod verify;
+ 
+@@ -153,14 +148,9 @@ fn verdict_json(v: &verify::Verdict, name: &str, python: Option<(bool, &str)>, r
+     )
+ }
+ 
+-/// `<relation>` for the relation's v1 system, `<relation>+hash` for its Poseidon2 hashed system (authentication =
+-/// included-hash; the historical spelling), `<relation>+<leaf>` for a hashed system with another leaf scheme.
+-fn pinned_name(name: &str, leaf: Option<&leaf::LeafScheme>) -> String {
+-    match leaf {
+-        None => name.to_string(),
+-        Some(l) if l.name == leaf::DEFAULT => format!("{name}+hash"),
+-        Some(l) => format!("{name}+{}", l.name),
+-    }
++/// `<relation>` for the relation's v1 system, `<relation>+hash` for its hashed system (authentication = included-hash).
++fn pinned_name(name: &str, hashed: bool) -> String {
++    if hashed { format!("{name}+hash") } else { name.to_string() }
+ }
+ 
+ /// The system file's digests and the relation they are pinned for (`null`: none), as a JSON object.
+@@ -251,22 +241,11 @@ fn run_one(sys: &[u8], st: &[u8], pf: &[u8], opt: &verify::Options, reps: usize)
+     best.unwrap()
+ }
+ 
+-/// The hash side of a row-sharing pair (`--system-h`): its parsed system and, per sub-batch, X.hproof [+ X.hcoins].
+-struct PairSide<'a> {
+-    shared: &'a verify::Shared,
+-    coins: Option<[u8; 128]>,
+-}
+-
+-/// `run_one` against a `Shared` (batch mode): the fastest of `reps` verifications of this one sub-batch.  With a
+-/// hash side, `pf_h` is the pair's other proof and the sub-batch is the pair.
+-fn run_one_with(shared: &verify::Shared, st: &[u8], pf: &[u8], opt: &verify::Options, reps: usize,
+-                pair: Option<(&PairSide, &[u8])>) -> verify::Verdict {
++/// `run_one` against a `Shared` (batch mode): the fastest of `reps` verifications of this one sub-batch.
++fn run_one_with(shared: &verify::Shared, st: &[u8], pf: &[u8], opt: &verify::Options, reps: usize) -> verify::Verdict {
+     let mut best: Option<verify::Verdict> = None;
+     for _ in 0..reps.max(1) {
+-        let v = match pair {
+-            Some((side, pf_h)) => verify::verify_pair(shared, side.shared, st, pf, pf_h, opt, side.coins),
+-            None => verify::verify_with(shared, st, pf, opt),
+-        };
++        let v = verify::verify_with(shared, st, pf, opt);
+         best = Some(match best {
+             Some(b) if b.timing.total <= v.timing.total => b,
+             _ => v,
+@@ -289,8 +268,7 @@ struct BatchItem {
+ /// proof, own challenges, own checks, `--threads` inside); only the parsed system, its pinned-digest verdict and the
+ /// domain tables are shared, read-only.  Results land in proof order, so the report and the batch verdict do not
+ /// depend on which thread finished first.
+-fn verify_batch(shared: &verify::Shared, proofs: &[PathBuf], opt: &verify::Options, reps: usize, jobs: usize,
+-                side_h: Option<&verify::Shared>) -> Vec<BatchItem> {
++fn verify_batch(shared: &verify::Shared, proofs: &[PathBuf], opt: &verify::Options, reps: usize, jobs: usize) -> Vec<BatchItem> {
+     let next = AtomicUsize::new(0);
+     let jobs = jobs.max(1).min(proofs.len().max(1));
+     let mut slots: Vec<Option<BatchItem>> = (0..proofs.len()).map(|_| None).collect();
+@@ -333,36 +311,7 @@ fn verify_batch(shared: &verify::Shared, proofs: &[PathBuf], opt: &verify::Optio
+                             }
+                         }
+                         item.own_coins = o.own_coins.is_some();
+-                        // a row-sharing pair: X.hproof (and X.hcoins when X.coins was read) beside X.proof
+-                        let (pf_h, side) = match side_h {
+-                            Some(sh) => {
+-                                let pf_h = match read(&p.with_extension("hproof")) {
+-                                    Ok(x) => x,
+-                                    Err(e) => {
+-                                        item.io_error = Some(e);
+-                                        mine.push((i, item));
+-                                        continue;
+-                                    }
+-                                };
+-                                let hc = p.with_extension("hcoins");
+-                                let coins = if opt.own_coins.is_none() && o.own_coins.is_some() && hc.is_file() {
+-                                    match read(&hc).and_then(parse_coins) {
+-                                        Ok(c) => Some(c),
+-                                        Err(e) => {
+-                                            item.io_error = Some(format!("{}: {e}", hc.display()));
+-                                            mine.push((i, item));
+-                                            continue;
+-                                        }
+-                                    }
+-                                } else {
+-                                    None
+-                                };
+-                                item.own_coins = o.own_coins.is_some() && coins.is_some();
+-                                (pf_h, Some(PairSide { shared: sh, coins }))
+-                            }
+-                            None => (Vec::new(), None),
+-                        };
+-                        item.verdict = Some(run_one_with(shared, &st, &pf, &o, reps, side.as_ref().map(|s| (s, &pf_h[..]))));
++                        item.verdict = Some(run_one_with(shared, &st, &pf, &o, reps));
+                         mine.push((i, item));
+                     }
+                     mine
+@@ -422,24 +371,7 @@ fn main() {
+             let sys = std::fs::read(arg(&args, "--system").expect("--system")).expect("read system");
+             let st = std::fs::read(arg(&args, "--statement").expect("--statement")).expect("read statement");
+             let pf = std::fs::read(arg(&args, "--proof").expect("--proof")).expect("read proof");
+-            let v = match arg(&args, "--system-h") {
+-                Some(sys_h_path) => {
+-                    // a row-sharing pair: X.proof (GEMM side, ligero-proof/v3) + X.hproof (hash side)
+-                    let sys_h = std::fs::read(&sys_h_path).expect("read system-h");
+-                    let pf_h_path = arg(&args, "--proof-h").unwrap_or_else(|| {
+-                        PathBuf::from(arg(&args, "--proof").unwrap()).with_extension("hproof").to_string_lossy().to_string()
+-                    });
+-                    let pf_h = std::fs::read(&pf_h_path).expect("read proof-h");
+-                    let coins_h = arg(&args, "--coins-h").map(|path| {
+-                        parse_coins(std::fs::read(&path).expect("--coins-h file")).unwrap_or_else(|e| panic!("--coins-h {path}: {e}"))
+-                    });
+-                    let shared_g = verify::Shared::new(&sys, &opt);
+-                    let shared_h = verify::Shared::new(&sys_h, &opt);
+-                    let side = PairSide { shared: &shared_h, coins: coins_h };
+-                    run_one_with(&shared_g, &st, &pf, &opt, reps, Some((&side, &pf_h[..])))
+-                }
+-                None => run_one(&sys, &st, &pf, &opt, reps),
+-            };
++            let v = run_one(&sys, &st, &pf, &opt, reps);
+             let js = verdict_json(&v, &arg(&args, "--proof").unwrap(), None, reps);
+             println!("{js}");
+             if let Some(p) = arg(&args, "--json") {
+@@ -482,9 +414,8 @@ fn main() {
+             // by the first sub-batch that reaches them and reused by the rest)
+             let t0 = Instant::now();
+             let shared = verify::Shared::new(&sys, &opt);
+-            let shared_h = arg(&args, "--system-h").map(|p| verify::Shared::new(&std::fs::read(&p).expect("read system-h"), &opt));
+             let shared_secs = t0.elapsed().as_secs_f64();
+-            let results = verify_batch(&shared, &proofs, &opt, reps, jobs, shared_h.as_ref());
++            let results = verify_batch(&shared, &proofs, &opt, reps, jobs);
+             // the batch rule, inside the wall: this verifier's bound of every sub-batch (from its own statement) and the
+             // n_proofs each was sized for, against the number presented -- arithmetic on N numbers
+             let mut per_bits: Vec<f64> = Vec::with_capacity(results.len());
+@@ -493,24 +424,13 @@ fn main() {
+             for item in &results {
+                 if let Some(v) = &item.verdict {
+                     if let Some(s) = &v.soundness {
+-                        if s.sides.is_empty() {
+-                            per_bits.push(s.per_proof_log2);
+-                            claimed.push(v.statement.as_ref().map_or(0, |st| st.n_proofs));
+-                            names.push(item.name.clone());
+-                        } else {
+-                            // a pair: two commitments per sub-batch, each sized for 2 n_proofs (serialize.verify_batch_dir)
+-                            let k = 2 * v.statement.as_ref().map_or(0, |st| st.n_proofs);
+-                            for (b, tag) in s.sides.iter().zip(["G", "H"]) {
+-                                per_bits.push(*b);
+-                                claimed.push(k);
+-                                names.push(format!("{}.{tag}", item.name));
+-                            }
+-                        }
++                        per_bits.push(s.per_proof_log2);
++                        claimed.push(v.statement.as_ref().map_or(0, |st| st.n_proofs));
++                        names.push(item.name.clone());
+                     }
+                 }
+             }
+-            let every_verdict_in = per_bits.len() == results.len() * if shared_h.is_some() { 2 } else { 1 }
+-                && results.iter().all(|i| i.verdict.as_ref().map_or(false, |v| v.accepted));
++            let every_verdict_in = per_bits.len() == results.len() && results.iter().all(|i| i.verdict.as_ref().map_or(false, |v| v.accepted));
+             let bound = if every_verdict_in { Some(verify::batch_bound(&per_bits, &claimed, target_bits, &names)) } else { None };
+             let wall = t0.elapsed().as_secs_f64();
+             // the report, in proof order whatever the scheduling
+diff --git a/tools/research/src/research/store/index.py b/tools/research/src/research/store/index.py
+index 051b8b31..1b5351a0 100644
+--- a/tools/research/src/research/store/index.py
++++ b/tools/research/src/research/store/index.py
+@@ -262,11 +262,6 @@ class Index:
+     def artifacts(self) -> list[dict]:
+         return [self._art_row(r) for r in self.db.execute("SELECT * FROM artifacts ORDER BY id")]
+ 
+-    def resolve_art_prefix(self, prefix: str, limit: int = 2) -> list[str]:
+-        """Catalogued artifact ids starting with `prefix` (`art:<hex>`), at most `limit`: a primary-key range scan (hex digits sort
+-        below 'g', so [prefix, prefix + 'g') is exactly the ids with that prefix)."""
+-        return [r[0] for r in self.db.execute("SELECT id FROM artifacts WHERE id >= ? AND id < ? ORDER BY id LIMIT ?", (prefix, prefix + "g", limit))]
+-
+     def attempt(self, run_id: str) -> dict | None:
+         r = self.db.execute("SELECT manifest_json FROM attempts WHERE id=?", (run_id,)).fetchone()
+         return json.loads(r[0]) if r else None

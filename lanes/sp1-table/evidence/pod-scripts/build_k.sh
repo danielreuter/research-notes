@@ -9,7 +9,7 @@ cd /workspace/src/backends/sp1
 CARGO_TARGET_DIR=/workspace/sp1-target-cuda-relation-bare cargo build --release --locked -p veritor-zk-host \
   --features cuda,relation-bare 2>&1 | tail -6 > /workspace/sp1-table/build-$TAG.log
 cp /workspace/sp1-target-cuda-relation-bare/release/veritor-zk-host /workspace/bin/veritor-zk-host-cuda-relation-bare-$TAG
-cp target/elf-compilation/riscv64im-succinct-zkvm-elf/release/veritor-zk-guest /workspace/sp1-table/guest-$TAG.elf
+cp /workspace/sp1-target-cuda-relation-bare/elf-compilation/riscv64im-succinct-zkvm-elf/release/veritor-zk-guest /workspace/sp1-table/guest-$TAG.elf
 OBJDUMP=$(ls ~/.sp1/toolchains/*/lib/rustlib/*/bin/llvm-objdump 2>/dev/null | head -1)
 if [ -n "$OBJDUMP" ]; then
   $OBJDUMP -d -C --no-show-raw-insn /workspace/sp1-table/guest-$TAG.elf > /workspace/sp1-table/guest-$TAG.s

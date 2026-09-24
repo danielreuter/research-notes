@@ -266,3 +266,23 @@ Budget $12, FINAL 12:00Z.
   Both passes sit between a precompile shard's events and its GPU proof. The patch follows ShaExtend's pattern:
   `par_chunks_mut` rows, and lookups counted over `par_chunks` of events into per-thread maps. Trace values,
   multiplicities, AIR and verifier are unchanged.
+- **Fork patch 0011 (prover only), fork `6655716e`, tree `4ca5a6ca`: TcDotBf16's trace and byte lookups generated in
+  parallel (ShaExtend's pattern).**
+  - 5/5 chip tests pass, including the CPU prove test, which checks the lookup multiplicities end to end. The host
+    checks are unchanged: 0 kernel mismatches, flip-y rejected, 52/52 negatives rejected.
+  - The first precompile shard now reaches the GPU at +2.7 s instead of +3.2 s, right behind the CPU shards.
+- **Hill-climb 7, `art:2a4760fb…` (runs `art:4b3dc262…`), source `97b5b60a`, fork `6655716e`, step 6's prover env.**
+  - t.total **4.980 s** (reps 4.95-4.97 s), 8 shards, 11.35 MB, -97.0; 52/52 negatives; verify 0.49 s.
+  - Rate: 1.26M MAC/s (2.53 MFLOP/s). Overhead vs 312 TFLOP/s: 1.24e8x.
+- **Screens on 6655716e (reps 0 / 1).** With parallel tracegen, bigger precompile shards now win. A shard costs about
+  0.25 s fixed plus 1.5 ns per cell on the GPU. More trace chunks, with as many splicing workers, get the CPU shards'
+  records out sooner.
+  - ELEMENT_THRESHOLD 1.25x, 2 chunks: 5.01 / 4.90 and 5.05 / 4.88 s (8 shards).
+  - 1.5x, 2 chunks: 4.88 / 4.64 s (7 shards).
+  - 2x, 2 chunks: 4.45 / 4.35 s (6 shards: 3 precompile shards of at most 135k calls, 8.59 MB).
+  - 1.25x, 3 chunks, 3 splicers: 4.76 / 4.62 s (9 shards).
+  - 2x, 3 chunks, 3 splicers: 4.21 / 4.26 s (7 shards).
+  - **2x, 4 chunks, 4 splicers: 4.22 / 4.12 s (8 shards).**
+  - 2.34x (2 precompile shards), 3 chunks: 4.68 / 4.21 s. With 4 chunks: 4.55 / 4.29 s. With 2 chunks: the client
+    missed the new server's socket (harness race, not a prover limit).
+  - 4.67x (one 393k-call precompile shard), 2 chunks: 6.94 / 5.18 s. Nothing overlaps its tracegen.

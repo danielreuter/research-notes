@@ -43,6 +43,10 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   `OPENBLAS_NUM_THREADS` and `VY_CPU_THREADS` to floor(quota). torch's intra-op pool follows (checked: 13 on a 13.6-core 4090 pod);
   its inter-op pool does not (still nproc). GNU `nproc` honours `OMP_NUM_THREADS` too, so `$(nproc)` in scripts gives the quota
   after `source env.sh`. The instance-build `NP` is capped at the quota. The bootstrap ends with the health check (`HEALTH=0` skips it).
+* `research run --on` does NOT source env.sh, so a recorded workload script has to export the four caps itself (floor of
+  `cpu.cfs_quota_us / cpu.cfs_period_us`). Without them, a 5090 pod (13.6-core quota, nproc 32) measured the A-GKR fp4-nvf4
+  prover at 0.314 s instead of 0.274 s, and the Rust verifier at 0.19 s instead of 0.164 s. Same tree, same proof bytes; it
+  reproduced by hand outside research run. See lane agkr-nvf4, `04_record.sh`.
 * `research pods health <pod>` reports quota vs nproc, GPU clocks, power limit, PCIe gen/width and persistence (read under load),
   other GPU processes and free disk. It then runs a ~20 s benchmark (SIMT encoder at l=4096 x 2048 rows, and a bf16 8192^3 matmul)
   against the SKU's entry in `backends/direct/ligero/pod_health_ref.json`. `DEGRADED` (exit 3) means replace the pod.

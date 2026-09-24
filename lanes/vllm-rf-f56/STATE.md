@@ -82,14 +82,21 @@ created: 2026-09-24T17:40Z
 - 22:43Z #70 BUILD `r20260924-224322-888b` at `9b07c19f` (f1's form: `--tool vllm.build --stage run --cwd source -- bash integrations/vllm/verity_vllm/ops/run_row_v2.sh stage build <row> OLMOE allenai/OLMoE-1B-7B-0924 6d84c485… --retain host --sweep-dir /workspace/sweep`).
 - f1's base chain for #70 (f1 STATE l.82-126): Build `r20260924-202455-105b` PASS; Match `r20260924-210318-37b0` FAILED rc 11 at the fold only (capture/control/check pass: 8448 collectives, 0 mismatches, tokens True; `fold_match` derived_OLMOE_tp2 errors 4096 / unresolved 3544); Commit(base) `r20260924-222022-d9a6` over that Match dir (commit does not gate on the Match verdict).
 
+- 22:50Z lints at `f3abe292`: 41 passed; touched tests: 2 FAILED (my new commit-refusal assertion: py3.12 argparse quotes the value, `invalid choice: '3'`); regex fixed, AMENDED -> **final head `ce41390d`** (pushed --force-with-lease). At `ce41390d` (old pod, tree = 6c893a29 archive + `git diff 6c893a29 ce41390d`, 3,061 blobs == ls-tree): **lints 41 passed (rc 0)**; touched tests (`check/test_fa_tap_exactness.py`, `tp/test_tp_world_n.py`, `correspondence/test_runtime_correspondence.py`, `tp/test_tp_collective.py`, `test_no_by_name_rules.py`, `test_no_dead_modules.py`) **78 passed**. Logs on that pod were lost with it (summary lines above are the record; rerun on the CPU pod).
+- 22:52Z old pod `vyv-rf-f56-tp2` TERMINATED (`research pods drain mp50pono1fkqjt`, minted 1 h key): "0 attempts recorded" -- `--on` attempts stay "local only" on the pod, so the failed bootstrap attempt `r20260924-215601-763a` went with it (facts above). For tp2b: pull + `research data push --verify readback` each attempt BEFORE draining.
+- 22:52Z CPU pod `vyv-rf-f56-cpu` = `hmb9fu3hu7rdm9` (cpu3g 16 vCPU, 80 GB; host load ~330, slow); trees `/workspace/head-final` = `ce41390d` (3,061 == ls-tree), `/workspace/base-1d9c` = `1d9c3198` (3,058 == ls-tree); bootstrap `--cpu` OK; pytest-xdist 3.8.0.
+- GATE (a) TIER GAP (load-bearing): the brief's gate (a) is `VERITY_REGRESSION_TIERS=T0,T1`; my 21:10Z gate (a) (a1's recipe) ran T0 only (26 T1 skips: decomp_hashes, replay_partition). a1's baseline is T0-only and calls tiers an open question. Fix: T0,T1 at the final head + a T0,T1 base control at `1d9c3198` (my new base), same pod. `gate_a.sh` now defaults TIERS=T0,T1.
+- 22:54Z gate (b) at `ce41390d` started (`b_final`, xdist 12, OMP 3). 23:04Z prefetch (3 h RO key minted on laptop, piped): 26/26 ok, 0 FAIL, secret in no text file (/workspace/rff56, /root/.research, /tmp, both trees), key deleted 23:04:29Z. 23:04:41Z gate (a) T0,T1 started at head (`a_final`) and base (`a_base1d9c`); 0 `AWS_*` in their environ.
+- 23:16Z **#70 BUILD at `9b07c19f` PASS: program_digest `64bee6d6e8264461` == f1's base Build**; wall 1359 s (f1 1279 s); build manifest complete, identities 357796, tp_peer_binding_n_unbound 0, unmodelled {}, digest `1bb40895671dd791`; result valid. 23:16:41Z #70 MATCH `r20260924-231641-5152`.
+
 ## Running
-- `vyv-rf-f56-tp2b` ($2.18/h): #70 Build `r20260924-224322-888b` (~21 min), then Match, Commit at `9b07c19f`.
-- `vyv-rf-f56-tp2` ($1.58/h, driver 550, no GPU use): lint reruns at `f3abe292`; terminate after (gates at the final head go to a fresh CPU pod: GPU presence could change skip reasons vs the CPU baseline).
+- `vyv-rf-f56-tp2b` ($2.18/h): #70 Match `r20260924-231641-5152`, then Commit at `9b07c19f`.
+- `vyv-rf-f56-cpu` ($~0.6/h): gate (b) `b_final` (~98% at 23:17Z), gate (a) T0,T1 `a_final` + `a_base1d9c`.
 
 ## Next
-1. Lints green (41) at `f3abe292` + the touched tests; then fresh CPU pod (a1 recipe): gate (b) and gate (a) (mint 3h RO key, prefetch, delete) at the final head; lints there too.
-2. #70 Match -> Commit on tp2b; compare each stage with f1's base chain; FA2 record at the final head on tp2b after the chain (moved driver; decide FA3/H100 after); push attempts (minted credential), drain.
-3. READY: both heads (`9b07c19f` pre-rebase, final), lint run, the D17 move and why, D16c restructure; summary <= 250 words.
+1. Gate (b): jdiff vs a1 `b_base_x12.xml` (+ my `b_head_x12.xml` at 9b07c19f); gate (a): jdiff head vs base control, both T0,T1; lints on the CPU pod too.
+2. #70 Commit after Match; get f1's per-stage numbers (read-only from f1's run logs) and compare; FA2 record at the final head on tp2b after the chain (moved driver); decide FA3; pull + push attempts, drain.
+3. READY: both heads (`9b07c19f` pre-rebase, `ce41390d` final), lint run, the D17 move and why, D16c restructure, the tier gap; summary <= 250 words.
 
 ## Open questions
 - none yet

@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT ab57df0a (23:18Z) [open] recorded r20260924-223922-5cff @ab57df0a t.total 0.314s art:ad8f92b9 result art:82f70cb9 run-files PRESERVED, verify-po handoff 2305Z; found record script lacked env.sh thread caps (+40ms; fixed, kb ops-tools); next: fused input claims, re-record ~0.27s
 CHECKPOINT ab57df0a (22:40Z) [open] recording ab57df0a (depth-1 flatten, merged LK, eq_rows_dot, leaf_q, gate_eval qvals) dev t.total 0.274s; prior recorded c20d 0.529s + 3b51 1.044s preserved; verify-po handoff for 3b51 filed; next: register, new handoff, hill-climb
 CHECKPOINT 18ab232e (22:17Z) [open] recorded c20d t.total 0.529s (eq_rows_dot kernel, a8d471ba) art:202f23f1 result art:6aff989d run-files PRESERVED; merged LogUp tables 18ab232e dev 0.378s; negatives on merged circuit running; verify-po handoff for 3b51 written
 CHECKPOINT 3c769c6d (21:52Z) [open] cell r20260924-213637-3b51 t.total 1.044s 2^-130.19 art:fe57e68b result, art:30c5bdf7 run-files PRESERVED; next: verify-po handoff, recorded negatives, hill-climb

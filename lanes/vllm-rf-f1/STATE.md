@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T22:22Z
+updated: 2026-09-24T23:20Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -125,6 +125,11 @@ updated: 2026-09-24T22:22Z
 - 22:19Z **GATE (b) at the final head `e2f85a82`: MEETS THE RULE.** `r20260924-220342-5e8a` (tp2, CUDA hidden, `-n 12 --dist loadfile`, tree at `/workspace/gate/gate_b-e2f85a82-xdist`, 15 min): 3927 tests, 3559 P / 54 F / 11 E / 297 S (+6 xf); `baseline-jdiff.py` vs a1 xdist exits 0: **new failures 0, new skips 0, new skip reasons 0**; failures+errors 65 = base 65. Outcome changes: the 2 `test_admit_r19_host_working_set` gc-freeze tests pass -> fail (jdiff: order-dependent at base, not counted; they fail in a1's serial base and a1's own xdist head), 2 base failures now pass (`test_row_pod_cancel_forwarding::test_sigint…` timeout, `test_norm_chain::test_mean_pins_match_installed_vllm`). 24 new tests (only in head) all PASS; 1 test renamed (`…committed_reader_answers…` -> `…opened_reader_answers…`). Evidence beside this note: `head-gate_b-xdist.xml.gz`, `head-gate_b-xdist.jdiff.txt`.
 - 22:20Z **#70 Commit(base) `r20260924-222022-d9a6`** (tp2, base tree `72884c8a`, `--tool vllm.commit`, `--retain host --sweep-dir /workspace/sweep`; gate (a) serial still running beside it). Head follows on `/workspace/sweep_head` at `e2f85a82`.
 - 22:30Z READY.md DRAFT at `/tmp/rff1/READY.draft.md` (laptop; TBD = #67, #70, gate (a)). Move to this directory as READY.md when complete.
+- **#70 Commit(base) of record = `r20260924-221949-8668`** (tp2, `72884c8a`, launched 22:19:49Z; tp.commit since 22:29:48Z; PAIRS=3). `r20260924-222022-d9a6` (22:20:22Z) is a VOID DUPLICATE of the same launch (my launch call was re-issued when the harness restarted the turn; both records say `--source verity-wt/rf-f1-base`, same args). The duplicate rebuilt `manifest.json` (same digest `1bb40895671dd791`, 22:20:33-22:30:19 beside the first's manifest phase 22:20:02-22:29:46), truncated/reopened `commit.log` at 22:30:21, died 12 s into its tp.commit (GPUs held by the first), wrote a FAIL verdict.json the first overwrites at its end, and appended its lines to row.log / stages.txt / timeline.jsonl. => #70 base timings: use the tp.commit phase and per-pair / value-check spans, not the manifest phase. Pair 0 (base) at 23:11Z: match oracle rank0/1 PASS 14592/14592 equal; sampled replay partial (484 / 475 q/k-norm strata recycled-window, as the fixture), linkage 434/434; weights pin 212/212; xrank TP-12 False (160/161 AllGather2 sites without a stratum, as the fixture); openings 128/128. PAIRS=3 -> base ends ~23:50Z-00:10Z; head (~1h40m) fits before 03:00Z.
+- **LAUNCH RULE (after the duplicate): before any `research run --on`, check the pod has no live run with the same command** (`ps -eo pid,args | grep run_row_v2`).
+- 23:09Z #67 Match `r20260924-220341-0afd` PASS (wall 3947 s; verdict PASS, global PASS, tokens_equal, fold True). `/workspace/sweep_head/<row67>` copied 23:10Z (28 GB, 56,314 files, identical path+size listing).
+- 23:11Z #67 Commit(base) `r20260924-231111-b648` (PAIRS=3) CANCELLED at 23:16Z (cancel-intent manual on pgids 32613 `timeout 14400 … commit_delta` and 32111; rc 143): the last 3-pair #67 Commit took 8787 s = 2h26m (`r20260924-102613-0196`, ~41 min per pair), so base+head at 3 pairs end ~04:10Z > 03:00Z deadline. **#67 runs PAIRS=1 for BOTH arms** (`--env PAIRS=1`; row_pod.sh reads PAIRS), ~64 min per arm. Partial commit outputs removed from `/workspace/sweep/<row67>` (commit/, commit.log, verdict.json) before the relaunch; the head copy predates the cancelled run.
+- 23:16Z **#67 Commit(base, PAIRS=1) `r20260924-231650-a561`** (g1b). Head next on `/workspace/sweep_head` at `e2f85a82`, `--env PAIRS=1`.
 - Plan: tp2 #70 Commit(base) then Commit(head) as soon as gate (b) `e2f85a82` ends (gate (a) serial still running beside them: noted for timings, same for both). g1b: #67 Match -> Commit(base) -> Commit(head). Pods die at 03:00Z (deadline daemon).
 
 ## Next

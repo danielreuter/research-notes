@@ -3,6 +3,6 @@
  "brief": "/Users/danielreuter/.research/notes/campaigns/robustness/BRIEF.md",
  "budget": "$2",
  "final": "18:30Z",
- "pod": "none",
+ "pod": "vy-pod-runs-test",
  "worktree": "/Users/danielreuter/projects/verity-main-wt/pod-runs"
 }

@@ -64,6 +64,7 @@ Severity: **high** = affects what the verifier can soundly claim, or blocks the 
 - `hidden_engine.py:92` `path_in_levels` duplicates `merkle.MerkleTree.path`; `padding_steps.py:313-323` `opening` hand-rolls the same sibling walk. **low**
 - `binding.py:676-716` `challenge_identities` is one of seven sample/challenge derivations in the slice (see Map 1 and §2.3). **medium**
 - `padding_steps.py:54` `LIFTED_CONTAINER` dtype-alias table restates dtype names other modules already normalise (`program/dtypes.py`, `check/sampled_replay.py:66-69`). **low**
+- A second selectable committer: `reference_engine/` + `reference_engine_adapter.py` (CMT-1, `pos_leaf` leaves, its own roots) are reachable through `harness/commit_delta.py:456-457`, which offers `cmt_ref_torch | cmt_ref_host | cmt_ref_torch_compiled` beside the native committer. Not dead; a parallel commitment path with 1,400 lines of its own. **medium**
 
 **VERSION-RESIDUE** (code names, not hashed data)
 - `commit/reference_engine/` = "CMT-1", `reference_engine_adapter.py` bridges "CMT-1 to CMT-2/3", `semantic_layout.py:1` "C0", `engine_rs` "C1 pilot", `hidden_engine` "C0/C1": round codenames as module identities. **medium**
@@ -101,8 +102,6 @@ Severity: **high** = affects what the verifier can soundly claim, or blocks the 
 - `reference_engine/engine.py:432` `leaf = hashing.leaf_hash if False else pos_leaf`: a dead conditional. **low**
 - `stream_merkle.py` (179): re-exported by `hidden_engine.py:30,32` but no library code uses `StreamingMerkle`/`stream_root`/`replay_to_open`; only `tests/commit/test_stream_merkle.py`. high confidence. **low**
 - `fa2_prototype/*`: no library importer; kept for `tests/commit/test_{oracle,kernel_dump,negatives,roundtrip,encoding,derived_rule}.py` per `dead_code_keep.json`. Test support living in the library. high confidence. **medium**
-- Not dead, but a parallel path: `reference_engine/` + `reference_engine_adapter.py` (CMT-1) are reachable only through `harness/commit_delta.py:456-457`, which offers `cmt_ref_torch | cmt_ref_host | cmt_ref_torch_compiled` as committer names beside the native committer. That is a second production-selectable leaf scheme (`pos_leaf`), not an experiment behind a test. **medium**
-
 **NAMING**
 - "hidden" names an FA2-specific stream (`hidden_stream`) *and* the generic step-root binder (`hidden_engine.bind_root`) that every native step uses; "engine" means a Merkle builder (`hidden_engine`, `reference_engine`, `engine_rs`) and elsewhere the vLLM engine. **medium**
 - `commit/identity.py` vs core `commitments/identity.py`: same module name, different jobs (id grammar vs canonical JSON). **low**
@@ -274,4 +273,145 @@ Severity: **high** = affects what the verifier can soundly claim, or blocks the 
 - `protected.py:128` runs a code string with `python -c` in a subprocess against the head checkout; `noninterference.py:729-752` orchestrates engine subprocesses from library code. **medium**
 - `global_match.py:828` a 1,234-line function. **high**
 
-<!-- SECTION-MAPS -->
+---
+
+## 3. Map 1: evaluation and replay
+
+### 3.1 Evaluators (who computes what a Call should produce)
+
+| id | evaluator | code | unit | callers | checked against core at run time? |
+|---|---|---|---|---|---|
+| E1 | core gate evaluator | `packages/verity/src/verity/ir/evaluate.py:22` `evaluate_region`, `:50` `evaluate_call` | gate by gate over a transcript of Python ints | slice: `fold_compare.py:736`, `replay.py:287,515`, `difftest.py:143-170`, `twins.py:767-778`, `commit/fa2_prototype/oracle.py:104`, `stoch_recompute` "lane" (via `difftest.evaluate_spec`). Outside: `correspondence/capture_identities.py:547,573`, `query/vu_query.py:796`, `program/descriptor_equivalence.py:371`, `program/registry/crosscheck.py:64-125`, `program/registry/serve3_reference.py:87`, `tests/check/test_compare_synthetic.py:44` (used by `adversarial`) | it is the reference |
+| E2 | `check/twins.py` | nine `*Twin` classes; numpy + C++ (`program/numerics/cpu_model`, `fa2_model.cpp`) compiled by g++ at first use | one spec instance, rows vectorized | `replay.py` tiers b/c (`--evaluator twins|auto`) | yes: `twins.self_check`/`check_spec` against E1 via `crosscheck._standalone` |
+| E3 | `program/registry/derived_rows.py` (944) | numpy primitives (`add_rn`, `mul_rn`, `fma_*`, MUFU tables, `tc_dot16[_hopper]`) + row functions (`dot_bf16[_for]`, `rope_rows`, `rmsnorm_*_rows`, `silu_mul_rows`, `attention_rows`, `fp8_*`) | one VU row | `sampled_replay.evaluate` (`:746,1020`) | tests only (`tests/program/test_derived_rows.py`) |
+| E4 | `sampled_replay.evaluate` ladder | `sampled_replay.py:743-920` (20 families: calls E3, composes Embedding/BiasAdd/MoE/MoeSum inline), `:707` greedy select, `:718` Gumbel top-p (-> `program/registry/sampling_topp_difftest`), `:1013` padded MoE block, `:1091` MoE router | one VU from committed words | `_evaluate_row :2132` -> `replay_vu :2268` -> `_parallel_replay :2480` | no |
+| E5 | PoC relation checkers | `relations.py:227-450` (ten op-type checkers) + INDEPENDENT models registered from `program/numerics/relations.py:494-509`, `rms_relation.py:166-181`, `fa2_relation.py:247-262` (share `fa2_model` MUFU tables with E2) | one opened op output | `relations.check :759`, `harness/synthetic.py` | no |
+| E6 | Inductor kernel relations | `program/numerics/compiled_relations.relation` | one compiled kernel launch | `compiled_kernel_check.py:24` | no |
+| E7 | same-runtime torch re-execution | `value_check.py:37-196` (re-run Linear/RMSNorm/SiluAndMul/RoPE on tap clones), `compiled_value_check.py:32-186` (eager Linear, lm_head, argmax) | module call | `harness/commit_delta.py --value-check`, `tp/worker.py` | n/a: tests kernel determinism, not Definition semantics |
+| E8 | sampler recompute | `stoch_recompute.py:117` `{"lane": E1, "rows": program/registry/sampling_rows}` | one sampled row | `ops/row_pod.sh:681`, `ops/stoch_negatives.sh:47` | "rows" re-checked by "lane" on `STOCH_REFERENCE_ROWS` rows (`:608-613`) |
+| E9 | standalone references | `check/fa2_attn_oracle.py` (numpy), `commit/fa2_prototype/oracle.py` (E1 + MUFU preload), `commit/fa2_prototype/reference.py` (numpy, not bit-exact) | one attention head | tests | vs P0 kernel dumps |
+
+Comparison without evaluation (acquisition cross-checks, not replay): `oracle_compare` (committed bytes vs the Match capture's snapshot bytes), `fold_compare.compare_boundary` and `noninterference` (hashes), `program_compare`/`global_match` (structure).
+
+### 3.2 Replay drivers (sample -> resolve inputs -> evaluate -> compare)
+
+| driver | path | input source | evaluator | sampler |
+|---|---|---|---|---|
+| `replay.Replayer` + `tier_a/b/c/chain` | observe/fold | event snapshots (`fold_compare.SnapshotStore`) | E1 / E2 | `random.Random(seed)` (`:533,948`) |
+| `fold_compare.compare_subcircuits` (`:709`) | observe/fold | snapshots | E1 | selection by instance |
+| `sampled_replay.sampled_replay` (`:2585`) | native Commit, C2 of record | live committer memory (`oracle_compare.committed_reader`) | E3/E4 | `challenge_seed` or run root -> `random.Random` (`:2051`) |
+| `compiled_kernel_check.CompiledKernelCheck` | compiled Commit | committed step streams | E6 | `random.Random(seed or 0)` (`:206`) |
+| `stoch_recompute.recompute_run` (`:400`) | stochastic rows | Match capture snapshots | E8 | every row + `random.Random(...)` reference subset (`:610`) |
+| `relations.check` (`:759`) | PoC bundle | opened **and verified** leaves (`_open_verified :735`) | E5 | `draw_sample` `np.random.default_rng(seed=0)` (`:1143-1158`) |
+| `difftest` | Definition admission | random inputs | E1 vs production kernel | `random.Random`/`default_rng` (`:94,103`) |
+| `query/vu_query.py:796` (outside slice) | query | record | E1 | caller |
+
+Each driver has its own sampler, input resolver, dtype decoding, compare and result dict.
+
+### 3.3 How they relate
+- E2 and E3 implement the same nine families twice with different primitive code, and neither imports the other. E4 layers a third copy of the composite families on E3; E5 is a fourth set, keyed by PoC op-type names instead of Definition names. E1 is the reference for E2 (at run time), E3 (in tests) and E8 (on a subset); E4, E5, E6 and E7 are never compared to E1 while a check runs.
+- There are six "wrap one spec and call E1" helpers (§2.1 INTERNAL-DUP).
+- The C2 of record (`sampled_replay`) and the observe-path replay (`replay`) share no code: different stores, samplers, evaluators and reports.
+
+### 3.4 One evaluator interface + thin drivers
+
+~~~python
+class Evaluator(Protocol):
+    def evaluate(self, spec_id: str, statics: Mapping[str, int], inputs: Sequence[np.ndarray]) -> Mapping[str, np.ndarray]: ...
+    # raises Unresolved(spec_id, why) outside its domain; never returns aliases
+
+REFERENCE = CoreEvaluator()          # verity.ir.evaluate over the registered Definition (one standalone-program builder)
+FAST = TwinRegistry(REFERENCE)       # one twin library keyed by Definition id (merge twins.py + derived_rows.py + E4's inline compositions)
+def self_check(spec_id, rng): ...    # FAST vs REFERENCE on random operands: replaces twins.self_check, test_derived_rows, stoch reference rows, crosscheck
+~~~
+
+A driver then becomes four calls: `sample(population, challenge)` (one derivation, §4.4) -> `resolve(unit) -> (spec_id, statics, input words, expected words)` from an `OpenedValues` source (verified openings on the Commit path; snapshots on the observe path) -> `FAST.evaluate` -> `compare` into one result record (Map 3). That replaces the `sampled_replay` family ladder + `_evaluate_row` + `replay_vu`, `replay.Replayer` tiers, the `relations.check` runner and op-type checkers, the `compiled_kernel_check` loop, the `stoch_recompute.recompute_run` loop, `fold_compare.compare_subcircuits`, `difftest.evaluate_spec`, `crosscheck._standalone` and the test copies. E6 becomes one more backend of `FAST` (Inductor kernels as Definitions). E7 and `oracle_compare` stay, renamed as acquisition/determinism checks rather than evaluators.
+
+### 3.5 `sampled_replay` vs core `Obligation` / `KindProgram`
+
+| | core (`packages/verity/src/verity/verification/statement.py:76,249`) | `check/sampled_replay.py` |
+|---|---|---|
+| unit | VU index + replay unit, bound to `session` and `compiled` digests | (request, step, op_path, member) identity from the binding map |
+| relation | data: `KindProgram` gate ops over `("port", k)`/`("local", j)`, one program per kind, identified by kind digest | code: the `evaluate()` family ladder; arity, argument order and member names restated per family; provenance as prose (`EVALUATORS`, `:73-158`) |
+| inputs/outputs | explicit `positions` `(commitment, rank, position, schema)` with `inputs`/`outputs` slot indices | found at run time by walking Program arguments (`ProgramIndex :294`, `resolve_op_path :596`, `_interior_slice :938`) and reading bytes by tensor name + ordinal |
+| authentication | every touched position is opened under a `CommitmentRef` root (`commitments.merkle`, multiproofs) | none: bytes come from the committer's in-process memory (`oracle_compare.committed_reader :914`); openings are a separate sample of 64+ leaves graded by `commit_verdict`, not the replayed values |
+| sampling | outside the statement (`verification/plan.py` rates) | inside the check: strata, round-robin, `random.Random` (`:2044-2080`) |
+| outcome | verifier accepts, or rejects with a `VerificationCode` | a report dict (`equal`/`mismatch`/`not_evaluated`, why-classes, population buckets) that `commit_verdict` later judges by matching prose |
+
+To emit core Obligations, sampled replay would need (a) a `KindProgram` per family, which core already builds from a subcircuit (`verification/lowering.py:220` `_lower_subcircuit`; `:242` `lower` and `:328` `to_statement` take a `typed_obligation.TypedObligationSet` to a `Statement`, and `:184` `commitment_position` maps references to commitment positions); (b) positions in core commitment coordinates; (c) an opening for every replayed value. (b) is the blocker: no production root uses `commitments.merkle` framing (Map 2). Ironically, the PoC path (`relations.check`) already authenticates each replayed value before evaluating it; the production path dropped that.
+
+---
+
+## 4. Map 2: commitments
+
+### 4.1 Leaf rules
+
+| rule | preimage | Python | native copies | used for | vs core |
+|---|---|---|---|---|---|
+| L1 `verity-vllm/leaf/v1` (id-bound) | `H(LEAF_TAG, id, dtype, shape_text, value)`, `H = sha256(u32be len(tag) ‖ tag ‖ (u64be len(p) ‖ p)*)` | `commit/hashing.py:101-109`; `fasttree.py:71-82` (header precomputed, same bytes) | `engine_rs` (header read from a plan file) | PoC capture bundles (`observe/capture_v1`, `commit/merkle.MerkleTree`), `relations.check` | **byte-identical** to `commitments/leaves.py:63-67` |
+| L2 `pos_leaf` | `sha256("verity/pos-leaf/v0" ‖ u64be len ‖ value)`: tag not length-prefixed, not `H`-framed | `semantic_layout.py:44,150-151` | `acquire/native_leafhash.cu:8,75` (pos_leaves_kernel), `reference_engine/torch_sha256.py`, `triton_sha256.py`, `engine_rs --pos` (`main.rs:19,35`) | weights registration (`acquire/native_host.py:1169-1213`), host-pos-leaf step layout (`native_host.py:1841-1959`), host padding, CMT-1 committer | no counterpart |
+| L3 `fa2h` chunk leaf (`chunk-leaf-v1`/`v2`) | `sha256(16 little-endian u32 header words ‖ chunk words)`; word 0 = `0x68326166`, word 1 = `VERSION<<16 | src`, then chunk index, launch tag, geometry | `hidden_stream.py:34-35,144-151` | `acquire/native_tree.cu:163-165`, `hidden_gpu_src/hidden_gpu_tree.cu:168-170`, `fa2_tap_src/verity_tap.h:487` (thread leaves inside the FA2 kernel) | the GPU tree for **every** tensor (`native_host.py:1511,2473`), padding (`padding_steps.py:257-275`) | no counterpart |
+
+### 4.2 Node, lift, empty
+- `node = H(NODE_TAG, l, r)`, `lift = H(LIFT_TAG, c)` for an odd tail, `empty = H(EMPTY_TAG)`: `hashing.py:112-130`, `fasttree.py:37-38,85-105`, `stream_merkle.py:88-128`, `torch_sha256.py:132-215`, `native_tree.cu:72-73`, `native_leafhash.cu:73-74`, `hidden_gpu_tree.cu`, `engine_rs/src/main.rs:44-69,126-127`. All byte-identical to `commitments/leaves.py:70-89` for non-empty trees. **Exception:** `engine_rs` returns `[0u8; 32]` for an empty tree (`main.rs:69`); Python returns `H("verity-vllm/empty/v1")`.
+- Core `commitments/merkle.py:26-149` is a different scheme: `sha256("veritor/protocol/merkle/frame/v3\0" ‖ u32 len(tag) ‖ tag ‖ ...)`, tags `leaf`/`node`/`pad`/`empty`, every leaf and node bound to a `domain_id` (binding, owner, position domain), nodes bound to `(level, index)`, odd tails padded rather than lifted. **No integration root verifies under `commitments.merkle`.** L1 roots verify under `commitments.leaves`; L2/L3 roots verify under nothing in core.
+
+### 4.3 Root bindings (raw `sha256(tag ‖ ...)`, no `H` framing)
+- `hidden_engine.py:34,49` `bind_root` (`verity/fa2c/root/v0` ‖ program ‖ ctx ‖ geo ‖ layout ‖ u64 n ‖ merkle root): the step root of every native step, despite the FA2 name.
+- `hidden_stream.py:205-207` `bind_stream_root` (`verity/fa2-hidden/root/v7`), `:323-325` `bind_thread_root` (`.../thread-root/v7`).
+- Run root `verity/cmt-integ/run-root/v0`: `acquire/native_host.py:57,2063,2484` and `padding_steps.py:49,308-310` (three copies).
+- Weights root `verity/cmt-integ/weights-root/v0`: `native_host.py:1212`.
+- `semantic_layout.py:45,154` `semantic_root` (dead); `reference_engine/engine.py` CMT-1 roots.
+- Digest helpers: `hashing.py:141` `json_digest`, `:152` `profile_id`; binding-map digest in `binding.py`.
+
+### 4.4 Hashes, JSON canonicalization, challenges
+- **SHA-256 implementations:** four CUDA copies of the compression function (`native_tree.cu:32`, `native_leafhash.cu:35` "VERBATIM native_tree.cu", `hidden_gpu_tree.cu:31`, `verity_tap.h:480`), torch (`torch_sha256.py:26`), generated Triton (`triton_sha256.py`), Rust `sha2`, hashlib; `fasttree.backend` also offers blake3 and a no-op hash (`:56-68`).
+- **JSON serializations that feed digests:** (1) `hashing.canonical_json_bytes` (sorted, compact, ASCII, no NaN); (2) core `commitments/identity.py:44-62` (non-ASCII kept, floats rejected); (3) core `verity.ir.codec.canonical_json` (`global_match.py:287-294`); (4) `json.dumps(sort_keys=True, separators=(",",":"))` at `hidden_engine.py:46`, `reference_engine/engine.py:58`, `reference_engine/positions.py:147`, `fa2_prototype/encoding.py:112`, `fa2_prototype/fixture.py:53`, `global_match.py:1020`; (5) unsorted compact at `semantic_layout.py:71`, `padding_steps.py:245` (= `native_host.py:1164` verbatim), `native_host.py:1211`; (6) `json.dumps(sort_keys=True)` with default separators at `hidden_stream.py:136,274` (layout and geometry digests that enter the stream root), `holdout.py:51`, `native_host.py:1080` (`default=str`).
+- **Challenge / sample derivations:** `binding.py:676-716` (`sha256(run_root ‖ map digest ‖ salt)`, then `sha256(seed ‖ u32 i) mod n`, plus forced picks); `sampled_replay.py:2522-2528` (`sha256(challenge ‖ "|" ‖ run_root)[:8]`, expanded with Python's Mersenne Twister at `:2051`); `compiled_kernel_check.py:206` (caller seed, default 0); `relations.py:1143-1158` (`default_rng(seed=0)`; `make_challenge :547` records a sample, does not derive it); `replay.py:533,948`; `stoch_recompute.py:610`. Core has no challenge derivation at all.
+
+**Verdict on byte identity:** only L1 + the node/lift/empty framing equal a core scheme (`commitments/leaves.py`), and `engine_rs` breaks that for empty trees. L2, L3, every root binding, and every challenge derivation are integration-only, with Python and CUDA/torch/Triton/Rust copies kept in agreement by tests and comments ("VERBATIM"), not by a shared definition.
+
+---
+
+## 5. Map 3: verdicts
+
+| system | code | outcome vocabulary | input | consumers |
+|---|---|---|---|---|
+| V0 core | `verification/codes.py:16-50` `VerificationCode`, `Reject`; `verification/binding.py:79` `BindingCode` | `StrEnum` wire codes | proofs/statements | not used by `check/` |
+| V1 gates | `gates.py:201` `GateResult`, `:1189-1203` `verdict` | per gate `pass/fail/skipped/error/unsupported/unverified`; run `ACCEPTED/REJECTED/INCOMPLETE` | an observe/fold run directory (`harness/run_config.py`): `noninterference.json`, `census.json`, `compare.json`, `wiring.json`, `replay_a.json`, `golden.json`, `quarantine.json`, `holdouts.json` | `observe/fold.py`, `query/query_artifact.py`, `harness/card.py`, `harness/run_config.py` |
+| V2 commit verdict | `commit_verdict.py:480-704` | `(bool, first_fail_reason)` | the commit record dict of `harness/commit_delta.py` | `commit_delta`, `tp/commit.py`, `verdict.py` |
+| V3 typed verdict | `verdict.py:170,200` `CheckVerdict`, `Verdict` | `PASS/FAIL/INSUFFICIENT_EVIDENCE/NOT_RUN` in seven groups | the same record, re-derived rule by rule; reconciles with V2's `commit_pass` | `ops/row_pod.sh`, `ops/compiled_commit.sh` |
+| V4 PoC rows | `poc_rows.py:22,294-421` | `PASS/PARTIAL/FAIL/UNSUPPORTED/BLOCKED/NOT_RUN` + `first_blocker` | PoC Table 1-4 rows | only `poc_verify_bindings`, whose consumer is missing (dead chain) |
+| V5 relations report | `relations.py:563-578,580,650-918` `VUResult`, `CheckReport.ok` | `exact/mismatch/auth_failed/missing/schema/structural/unimplemented/unresolved/unknown_relation/error` | a PoC capture bundle + challenge | `harness/synthetic.py` |
+
+Per-check result dicts (not systems, but read by key by V1/V2/V3): `global_match` (`PASS/FAIL/ERROR`), `sampled_replay` (`equal/mismatch/not_evaluated` + `ok` + why-classes), `oracle_compare` (`equal/mismatch` + `ok`), `compiled_kernel_check` (`exact/mismatch/missing`), `value_check` and `compiled_value_check` (`PASS/FAIL`, `equal`), `stoch_recompute` (`PASS/FAIL/INCOMPLETE`, rows `exact-match/mismatch`), `executed_prefix` (`ok`), `noninterference` (`PASS`), `fold_compare`/`operand_provenance`/`golden`/`holdout`/`difftest`/`quarantine_lint` (`pass/fail`), `replay` tiers (`pass/fail/equal/mismatch`). Four casings of success: `"PASS"`, `"pass"`, `ok: True`, `"exact"`/`"equal"`. Shell scripts add their own judges (`ops/stoch_negatives.sh:49-69`: inline Python printing `NEGATIVE-CAUGHT`).
+
+**How they relate.** One verdict system per pipeline era: observe/fold -> V1; native Commit -> V2 -> V3; PoC bundle -> V5 -> V4. They share no status type, no record shape and no core code. V3 is a deliberate re-implementation of V2 (`verdict.py:24-29`) that reaches into V2's private helpers; both are live, and the Commit decision is written to four files (`commit/verdict.json`, `commit/runs.jsonl`, `commit_summary.json`, `verdict.json`). V2 reads per-check dicts by matching prose (`commit_verdict.py:107,152,353-354`). V1 treats integration-level properties (golden, holdout, non-interference, census) as per-run gates (Map 4). V3's `CheckVerdict` (name, claim, inputs, scope, outcome, differences) is the best candidate for the one record every check emits, with outcomes mapped onto `VerificationCode` where a verifier would reject; V1, V2, V4 and V5 would become producers of those records plus one aggregator.
+
+---
+
+## 6. Map 4: properties vs per-run checks
+
+**Properties of the integration** (true or false of a model x vLLM build x profile x Definition set, not of one run):
+
+| module | property | how it runs | where the result goes |
+|---|---|---|---|
+| `noninterference.py` | observer off/on/hooks give identical tokens and boundary hashes | spawns three engine processes (`:729-752`) | `nonint/noninterference.json` -> G1 |
+| `census.py` + `kernel_allowlist.py` | every launched kernel is accounted for | GPU half + laptop half CLI | `census.json` -> G1 |
+| `golden.py` + `golden/corpus.json` | previously accepted logs still resolve identically | CLI | `golden.json` -> G6 |
+| `holdout.py` | the profile generalizes to unseen workloads | `ops/verify_lane.sh`, `ops/cov_pod.sh` | `holdouts.json` -> G7 |
+| `difftest.py` | a registered body equals the production kernel on random inputs | quarantine admission, `program/registry/*_difftest.py` | `quarantine.json` -> G4 |
+| `quarantine_lint.py` | quarantine code is pure and identity-stable | `ops/verify_lane.sh` | G4 admission |
+| `protected.py` | a lane's diff does not touch frozen paths | `ops/verify_lane.sh` | sealed-verifier record |
+| `adversarial.py` | detectors reject named mutations (checker sensitivity) | tests only | test asserts |
+| `twins.py` `self_check` | twins are bit-exact vs `evaluate_call` | CLI, tests, `replay --evaluator auto` | per replay |
+| `fa2_attn_oracle.py`, `commit/fa2_prototype/*` | the FA2 Definition matches P0 kernel dumps | tests | test asserts |
+| `kernel_identity.py`, `compiled_fx_kernels.py`, `compiled_autotune.py` | production and replay compile the same kernels; autotune candidates are equivalent | `observe/vllm_adapter.py:855` per run; `compiled_fx_kernels` only via dead `poc_verify_bindings`; `compiled_autotune` via `compiled_kernel_check` | kernel pins, C2 notes |
+
+**Negative tests** are spread over: `ops/stoch_negatives.sh`, `ops/stoch_negative_n3.sh`, `ops/fa3_row_negatives.sh`; `sampled_replay` `targets` (`:2047,2600`); fault-injection flags in production code outside the slice (`tp/commit.py:358-402`, `tp/worker.py:674-682`, `tp/partial_source.py:106-120`, `harness/commit_delta.py`, `acquire/native_collect.py`); negative bookkeeping in `poc_rows`/`poc_verify_bindings`; `gates.py:771-778` quarantine `negative_matcher_tests`; `tests/commit/test_negatives.py`.
+
+**Per-run checks:** `sampled_replay`, `oracle_compare`, `value_check`, `compiled_value_check`, `compiled_kernel_check`, `stoch_recompute`, `executed_prefix`, `global_match` (+`_fast`), `program_compare`, `fold_compare`, `operand_provenance`, `replay`, `relations`, `commit_verdict`, `verdict`, `gates`.
+
+**Observation.** Property harnesses live beside per-run checks, share their CLI and file conventions, and are consumed as per-run gates (G1, G4, G6, G7), so a run either re-establishes an integration property or re-reads a file claiming it. Their "frozen" status is enforced by `protected.py` against a governance document (`out/capture/decisions.md`) that is not in the repo. A `properties/` package (or `tests/integration/`) with its own record, referenced from per-run verdicts by digest, would separate them.
+
+<!-- SECTION-SUMMARY -->

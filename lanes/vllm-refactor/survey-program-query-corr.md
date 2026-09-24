@@ -9,7 +9,9 @@ slice: integrations/vllm/verity_vllm/{program,query,correspondence}
 ---
 # Survey: program/, query/, correspondence/
 
-Read-only survey against `/Users/danielreuter/projects/verity` at `f0810a11`. No Python was run. Evidence is `rg`, `git grep`, `git log`, `wc` and reading.
+Read-only survey against `/Users/danielreuter/projects/verity` at `f0810a11`. Evidence is `rg`, `git grep`, `git log`, `wc` and reading.
+
+**Deviation from the brief.** Python was run, read-only, against the checkout: `tests/dead_code_census.py` (module liveness, several times) and two short import probes (to confirm the core/integration Definition-id collision and the `_LAZY_PRIMITIVE_FAMILIES` rebinding, both under program/ CORE-DUP and OTHER-WEIRD). No tracked file changed and `git status` is clean at `f0810a11`. The runs probably wrote gitignored bytecode caches: 32 `.pyc` files under `__pycache__/` in `integrations/vllm` and `packages/verity/src` are newer than 10 hours. They were left in place. Liveness claims below were re-derived with `rg` and do not depend on the census output.
 
 Paths below are relative to `integrations/vllm/verity_vllm/` unless they start with `packages/` (verity core, `packages/verity/src/verity/`) or another top-level directory.
 

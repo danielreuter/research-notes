@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT 2b25df7f (23:42Z) [open] recorded r20260924-233405-1b1d @2b25df7f t.total 0.245s art:5adf62eb result art:d6673af2 run-files PRESERVED (thread caps fixed); verify-po handoff 2350Z supersedes; next: torch.compile'd chain step (witness 28.7->12.1ms) + re-record
 CHECKPOINT ab57df0a (23:18Z) [open] recorded r20260924-223922-5cff @ab57df0a t.total 0.314s art:ad8f92b9 result art:82f70cb9 run-files PRESERVED, verify-po handoff 2305Z; found record script lacked env.sh thread caps (+40ms; fixed, kb ops-tools); next: fused input claims, re-record ~0.27s
 CHECKPOINT ab57df0a (22:40Z) [open] recording ab57df0a (depth-1 flatten, merged LK, eq_rows_dot, leaf_q, gate_eval qvals) dev t.total 0.274s; prior recorded c20d 0.529s + 3b51 1.044s preserved; verify-po handoff for 3b51 filed; next: register, new handoff, hill-climb
 CHECKPOINT 18ab232e (22:17Z) [open] recorded c20d t.total 0.529s (eq_rows_dot kernel, a8d471ba) art:202f23f1 result art:6aff989d run-files PRESERVED; merged LogUp tables 18ab232e dev 0.378s; negatives on merged circuit running; verify-po handoff for 3b51 written
@@ -62,6 +63,9 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
   - e7ffeafe E2M1X2 into LK too (one 2^25 LogUp tree instead of 2^24 + 2^23): 0.262 -> 0.254 s; negatives 115/115 (Rust 54/54,
     mutate 148/148).
   - 2b25df7f numpy serialization (Proof.to_bytes, absorb_exts, Merkle.path; same bytes): 0.254 -> 0.249 s.
+- recorded r20260924-233405-1b1d @ 2b25df7f (thread caps on): t.total 0.245 s (0.245 / 0.240 / 0.278), Rust 3/3, 2^-130.19;
+  result art:5adf62eb…, run-files art:d6673af2…, PRESERVED; proofs 9467080 B sha 091fecad… (= dev).  verify-po handoff
+  `lanes/verify-po/20260924T2350Z-handoff-from-agkr-nvf4.md` (supersedes 2200Z and 2305Z).
   - tried and dropped: vectorizing add_lookup_claim's per-query term loop (09_terms.py: only 1.5 ms of its 20 ms is Python).
 - stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.

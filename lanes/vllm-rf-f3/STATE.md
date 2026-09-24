@@ -91,17 +91,33 @@ created: 2026-09-24T17:36Z
   `ref_vocab_digest` 82fd6a28 -> 63c73b5e, which is base drift since 0018fea0 -- f3 does not touch ref_prims.py or any function its
   manifest hashes). A gate (b) re-run in a used tree tests against those rewritten records -> always run gates in a fresh tree.
 
+- 20:41Z **GATE (b) GREEN at `4fb0eb2c`** (tree `/workspace/base`, fresh; `-n 12 --dist loadfile`, OMP_NUM_THREADS=3; 19 min 42 s):
+  54 failed, 3553 passed, 297 skipped, 6 xfailed, 11 errors = the base's counts (+17 passed: the new f3 tests). All 65 F/E are named in
+  a1's baseline: 63 of its xdist list + the two `harness/test_admit_r19_host_working_set.py` gc-freeze tests of its serial section
+  (fail serially / alone at base). Two xdist-list entries passed this time: `check/test_twins::test_check_writes_the_evidence_schema`
+  ("openmp key on this host") and `ops/test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way` (15 s timeout under load).
+  Skip reasons: all in a1's list (297, same as base). A/B 20:44Z: the gc-freeze file alone fails the same 2 tests at head and at base
+  (`/workspace/b0` = 72884c8a rebuilt from the head tree + `git diff --binary 4fb0eb2c 72884c8a`, 36 blobs checked == git ls-tree, 3
+  head-only files absent). Logs: `logs/gate_b_final.{log,xml,env,rss}`, `logs/gate_b_final.fails.txt`.
+- 20:26Z GPU pod `vyv-rf-f3-g1` (`qslw50vgt2kt9m`, 1x L40S, SECURE, $1.09/h) created; no ip/port by 20:44Z (image pull?).
+  D3 plan (known_roots.json smollm2 cc 8.9 `cb129578…` is R12-era, not updated since 09-21, i.e. before the v2 flip and the vLLM
+  pin move -> may not reproduce even at base): A/B on the one L40S -- `row_pod.sh` SmolLM2 B1 256/32 `build,match,commit` PAIRS=1
+  from a head tree and from a base tree (same reverse-diff rebuild, verified by blob hash); compare Build program/manifest digests,
+  plan digest, binding-map digest, run roots; known_roots as a secondary reference. No native source differs base..head, so one
+  bootstrap (venv312, FA2 tap /workspace/cp/fa2, nc_build, torch-ext cache) serves both trees.
+
 ## Running (pod `vyv-rf-f3-veritor-campaign`, RunPod `drd3w6z9d22gvd`, cpu3g 16 vCPU, created 19:17Z)
 - Trees: `/workspace/base` = `4fb0eb2c` (rsync 20:17Z; only bootstrap ran in it); copies `/workspace/{tgt,ga,gb}` = `9bddf741`.
   Bootstrap `/workspace/bootstrap`, venv `/workspace/venv312`. Scripts `/workspace/rff3/gate_{a,b}.sh` (a1's), logs `/workspace/rff3/logs/`.
 - Gate (a) @ `9bddf741` in `/workspace/ga`, started 20:09Z, serial, no key on the pod -> `logs/gate_a.{log,xml,out}`. `4fb0eb2c` differs from
   `9bddf741` only in two `tests/observe/` files gate (a) does not collect, so this run stands for the head.
-- Gate (b) final @ `4fb0eb2c` in `/workspace/base`, started 20:21Z, `-n 12 --dist loadfile`, OMP_NUM_THREADS=3 (a1's recipe) -> `logs/gate_b_final.*`.
+- Gate (b) final: done (above). `/workspace/base` is now dirty (test_ref_prims rewrote docs/data/ref-prims); `/workspace/b0` = base rebuild.
 
 ## Next
-1. Judge gate (b) final vs the a1 list (expect: base list + at most the order-dependent tests a1 names); gate (a) vs a1's gate (a) section.
-2. GPU pod (L40S): D3 Commit row re-run (canary.sh SmolLM2, roots vs `known_roots.json` / regression record).
-3. READY.md in this dir when gates are in; terminate pods.
+1. Gate (a): judge per check vs a1's `baseline-gate_a.xml.gz` (green = nothing fails and every check that passed at base passes).
+2. GPU: once `vyv-rf-f3-g1` has ssh -- sync head tree, rebuild base tree, `pod_bootstrap.sh --gpu --cases B0`, A/B rows (plan above).
+   If no ssh by ~20:56Z (create's 30 min wait): terminate, recreate (COMMUNITY or another DC).
+3. READY.md in this dir when gates + D3 row are in; terminate both pods.
 
 ## Open questions
 - D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.

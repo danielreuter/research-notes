@@ -44,7 +44,7 @@ created: 2026-09-24T19:30Z
 - 20:39Z `4e26d864` (pushed): `weights_of_record._default_manifest` used `dirname(__file__)/../..`; now config.CHECKPOINTS then the cwd.
 - 20:40Z a_lane (T0 only, 6da1b430) killed by pid (2172, 3343, 3923) after the 20:33Z tiers note. Head tree `/workspace/a23b/head` = cp /workspace/base + `deleted4.txt` rm + `lane4.patch` (`git diff -M --binary --diff-filter=d 72884c8a 4e26d864`); write-tree `a8917dce` = 4e26d864^{tree}, 2791 files; .git moved to `head.git`; copy `head-reg`.
 - **20:42:33Z gate (a) T0+T1 at 4e26d864:** `cd /workspace/a23b && setsid nohup nice ./gate_a_t01.sh /workspace/a23b/head-reg a_head_t01` -> pid 4531 (sid 4531); logs `a_head_t01.{log,xml,env,run}`; script copy `gate_a.sh` beside this note. Store already holds every row's fixtures (20:23Z prefetch); no key on the pod.
-- Next: when b_lane_x12 (6da1b430) exits, run gate (b) again at head: `OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/a23b/head b_head_x12 -n 12 --dist loadfile`.
+- **20:43:00Z gate (b) at 4e26d864:** `cd /workspace/a23b && OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/a23b/head b_head_x12 -n 12 --dist loadfile` -> gate_b.sh pid 4650 (sid 4650), pytest pid 4659; logs `b_head_x12.{log,xml,env,rss,run}`. b_lane_x12 (6da1b430) left to finish as extra evidence. Compare: `/workspace/venv312/bin/python /workspace/a23b/cmp.py /workspace/a23b/logs/b_head_x12.xml /workspace/a23b/baseline.md`.
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

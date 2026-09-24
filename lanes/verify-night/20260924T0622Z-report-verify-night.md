@@ -2,9 +2,11 @@
 lane: verify-night
 kind: report
 created: 2026-09-24T06:22Z
-status: open
+status: final
 ---
 
+CHECKPOINT 1b3c7be6 (12:04Z) [final] FINAL: 62 verified=accepted (15 instance-equiv + 47 results), 0 rejects; Table 2: 12/20 cells changed vs 06:25Z (unchanged since 09:02Z); not labelled: art:0a66c35e, art:b147a31c (vk does not reproduce), art:2a4760fb (no proofs); pod terminated 12:02Z, $2.72
+CHECKPOINT 1b3c7be6 (12:03Z) [final] FINAL: 62 verified=accepted (15 instance-equiv + 47 results), 0 rejects; Table 2: 12/20 cells changed vs 06:25Z (unchanged since 09:02Z); not labelled: art:0a66c35e, art:b147a31c (vk does not reproduce), art:2a4760fb (no proofs); pod terminated 12:02Z, $2.72
 CHECKPOINT 1b3c7be6 (11:37Z) [open] 11:37Z idle poll: inbox empty, no producer activity. 62 labels, Table 2 unchanged, pod idle ~$2.5. Next: final pod render ~11:55Z, FINAL + pod terminate by ~12:15Z.
 CHECKPOINT 1b3c7be6 (11:22Z) [open] 11:22Z idle poll: inbox empty, no producer activity. 62 labels, Table 2 unchanged, pod idle ~$2.4.
 CHECKPOINT 1b3c7be6 (11:07Z) [open] 11:07Z idle poll: inbox empty, no producer activity. 62 labels, Table 2 unchanged, pod idle ~$2.2.
@@ -152,7 +154,27 @@ tells it to write `verified accepted --by verify-night` for anything verified ou
 producers. Every such label points to a preserved verdict artifact with the evidence.
 
 ## Handoffs received (all acted on)
-fused-phases 0554Z (15 equivalences: done); sp1-table 0632Z (art:2a10bc89), 0739Z (art:1d6aa0c3, art:c7ca70a0),
+Files in `lanes/verify-night/`, with the outcome of each:
+- `20260924T0554Z-handoff-from-fused-phases.md`: 15 instance-equiv/v1 artifacts, all labelled.
+- `20260924T0632Z-handoff-from-sp1-table.md`: art:2a10bc89, labelled.
+- `20260924T0644Z-handoff-from-agkr-table.md`: art:03e21c7f, labelled.
+- `20260924T0646Z-handoff-from-coordinator-fused-cells.md`: reverify round r2, 5 results labelled.
+- `20260924T0655Z-handoff-from-sp1-tcdot.md`: art:90671b80, labelled.
+- `20260924T0712Z-handoff-from-agkr-table.md`: art:21d253bd, art:f47f8006 and art:300a526a, labelled.
+- `20260924T0712Z-handoff-from-sp1-formats.md`: 4 results, labelled.
+- `20260924T0725Z-handoff-from-fill-consumer.md`: reverify round r4b, 4 results labelled.
+- `20260924T0727Z-handoff-from-sp1-tcdot.md`: art:255f4f78, labelled.
+- `20260924T0736Z-handoff-from-fill-dc.md`: reverify rounds r5 and r6, 8 results labelled.
+- `20260924T0739Z-handoff-from-sp1-table.md`: art:1d6aa0c3 and art:c7ca70a0, labelled.
+- `20260924T0742Z-handoff-from-sp1-formats-3510cfcf.md`: 4 results, labelled.
+- `20260924T0830Z-handoff-from-agkr-table.md`: art:c09947fd, labelled.
+- `20260924T0835Z-handoff-from-sp1-table.md`: art:fffbf728, labelled.
+- `20260924T0841Z-handoff-from-sp1-tcdot.md`: art:174d7b4d, art:76c113f4 and art:a68f2446, labelled.
+- `20260924T0906Z-handoff-from-sp1-table.md`: art:7233a6a3, labelled; also art:0a1bc6cd, the same run.
+- `20260924T0954Z-handoff-from-sp1-tcdot.md`: art:0a66c35e, art:b147a31c and art:2a4760fb, NOT labelled (see "Not
+  verified").
+
+Short form: fused-phases 0554Z (15 equivalences: done); sp1-table 0632Z (art:2a10bc89), 0739Z (art:1d6aa0c3, art:c7ca70a0),
 0835Z (art:fffbf728), 0906Z (art:7233a6a3); agkr-table 0644Z (art:03e21c7f), 0712Z plus its appends (art:21d253bd,
 art:f47f8006, art:300a526a), 0830Z (art:c09947fd); coordinator-fused-cells 0646Z (r2); sp1-tcdot 0655Z (art:90671b80),
 0727Z (art:255f4f78), 0841Z (art:174d7b4d, art:76c113f4, art:a68f2446), 0954Z (art:0a66c35e, art:b147a31c,
@@ -160,3 +182,34 @@ art:2a4760fb: none verifiable, see above); sp1-formats 0712Z (4 results),
 0742Z-3510cfcf (4 results); fill-consumer 0725Z (r4b); fill-dc 0736Z (r5, r6).
 
 Handoffs sent: coordinator 0655Z, 0738Z, 0826Z, 1040Z; tables-fix 0700Z; sp1-tcdot 0710Z, 1020Z; sp1-formats 0752Z.
+
+## FINAL
+
+~~~text
+tip: lane/verify-night @ 1b3c7be6 (base lane/post-wave@1b3c7be6)        merge-with: none
+known-failures: none    pod: terminated 12:02Z; $2.72 (vy-verify-night, cpu3c 16 vCPU, 06:22-12:02Z at $0.48/h)
+artifacts: art:37da32c6 art:459be5bc art:4f6076a5 art:e204b7a5 art:c4c07317 art:e752de6a art:1ea71064 art:74217d9d art:1fd23626 art:3900aa81 art:5a189d17 art:3837bc63 art:d777e736 art:fbe590d8 art:54f71c4b art:1bb8867b art:11449f0b art:00a44dc0 art:17dd99d4 art:94b5efd0 art:3a77bc67 art:eb8b5d1e art:4a7da737 art:d5bc4887 art:93ac51e5 art:a3b6f486 art:8fffdb23 art:57e5bc15 art:4bfc9e7e art:c8364c39 art:d31b2d47 art:fa53e2b2 art:10516470 art:6fa7dbfb art:cfe2c4cb art:09a816d7 art:8f08082e art:96ba405a art:68bed1f1 art:f7f60315 art:d6bc611e art:4f2ae620 art:de8cfda8 art:4aaf03ef art:cf044220 art:1bcd7e75 art:ae2aa029 art:b1e0d8c2 art:257e47e5 art:170d1493 art:024f2960 art:6ea8ee21 art:3613ced9 art:93eeb513 art:d8d1d688 art:a1ca5c6e art:275bcf09 art:ed71145f art:b0c999f6 art:72eb0459 art:17f3fa24 art:f4a6fc79
+~~~
+
+The artifacts are the 62 `verification-verdict/v1` records, one per `verified=accepted` label (in label order, as listed
+above). All are PRESERVED. No code: verify-night has no commits and produced no benchmark results.
+
+- **Equivalences:** all 15 instance-equiv/v1 were re-derived three ways and labelled.
+- **Bench results:** 47 labelled: 23 B-Ligero via reverify.py, 5 A-GKR, 14 stock SP1, 5 SP1 + TC_DOT.
+- **Table 2:** 12 of 20 cells changed from 06:25Z to 11:59Z (9 faster, 3 newly filled; table above). Unchanged since
+  09:02Z. The SP1 column stays empty under the 2^-128 rule.
+- **Not labelled:** art:0a66c35e and art:b147a31c (neither host I built verifies them; the vk does not reproduce), and
+  art:2a4760fb (no proofs uploaded). sp1-tcdot went final before my note, so I escalated to the coordinator at 1040Z.
+  The 11:59Z D2 shows art:0a66c35e (4.26 s, unverified) in the TC_DOT cell. The fastest verified TC_DOT result is
+  art:174d7b4d (5.81 s).
+- **Left for others:**
+  - The 8 no-dump unverified results that would beat a cell by under 3% need re-runs with dumps to count.
+  - tables.producers() lineage gap (tables-fix 0700Z).
+  - Laptop catalog / guardian disk floor (coordinator 0826Z).
+  - TC_DOT 6655716e vk (coordinator 1040Z).
+- **Durable facts written to kb:**
+  - `sp1-prover.md`: the vk does not pin the AIR; the stock host exits 0 on rejection; the open 6655716e vk; comparing
+    loaded ELF sections.
+  - `ops-tools.md`: catalog wipes, rendering on a pod, the `attempts/` prefix for reverify.
+  - `bench-instances.md`: A100 binding checks.
+- **Pod outputs:** all text outputs (188 files) copied to `evidence/pod-final/` before termination.

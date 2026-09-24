@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# verify-po: negatives for a B-Ligero run-files tree, with my ligero-verify. On rep0 of the tree:
+# verify-po: negatives for a B-Ligero run-files tree, with my ligero-verify. On the first dumped rep of the tree (called rep0
+# below; the bench dumps rep1 with --dump-reps 1):
 #   base      unmodified rep0                     -> expect batch ACCEPT
 #   proofbyte one byte flipped mid-way in proof 0 -> expect REJECT
 #   stmtbyte  one byte flipped in the last 64 bytes of statement 0 (the chain-end y words) -> expect REJECT
@@ -13,7 +14,7 @@ rm -rf $O; mkdir -p $O
 $PY -m research data fetch $T --to $O/tree > $O/fetch.out 2>&1 || { echo "fetch failed"; cat $O/fetch.out; exit 2; }
 P=$(dirname $(find $O/tree -name manifest.json -path '*proofs*' | head -1))
 SYS=$($PY -c "import json,sys; m=json.load(open('$P/manifest.json')); print((m.get('system_file') or {}).get('path','system.bin'))")
-R0=$P/rep0; ls $R0 | head -4 > $O/rep0-files.txt
+R0=$(ls -d $P/rep* | head -1); echo "base rep: $R0" > $O/rep0-files.txt; ls $R0 | head -4 >> $O/rep0-files.txt
 mk() { rm -rf $P/$1; cp -r $R0 $P/$1; }
 mk neg-base
 mk neg-proofbyte; f=$(ls $P/neg-proofbyte/*.proof | head -1); $PY - "$f" <<'EOF'
@@ -22,7 +23,7 @@ EOF
 mk neg-stmtbyte; f=$(ls $P/neg-stmtbyte/*.stmt | head -1); $PY - "$f" <<'EOF'
 import sys; p=sys.argv[1]; b=bytearray(open(p,'rb').read()); i=len(b)-8; b[i]^=0x01; open(p,'wb').write(b); print("flipped", p, i)
 EOF
-mk neg-swapstmt; set -- $(ls $P/neg-swapstmt/*.stmt | head -2); mv $1 $P/neg-swapstmt/tmp.x; mv $2 $1; mv $P/neg-swapstmt/tmp.x $2; echo "swapped $1 $2"
+mk neg-swapstmt; S=($(ls $P/neg-swapstmt/*.stmt | head -2)); mv ${S[0]} $P/neg-swapstmt/tmp.x; mv ${S[1]} ${S[0]}; mv $P/neg-swapstmt/tmp.x ${S[1]}; echo "swapped ${S[0]} ${S[1]}"
 cd $P
 for c in base proofbyte stmtbyte swapstmt; do
   $V batch --system $SYS --dir neg-$c --jobs 16 --threads 1 --target-bits 128 --json $O/$c.json > $O/$c.out 2>&1; rc=$?

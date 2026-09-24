@@ -56,6 +56,8 @@
 - Keyless rerun of what ran while it was on disk: `a_rerun_t0` (21:54:17Z, `-k "(T0 and (r4 or r11 or r23)) or (manifest_digest and
   r39)"`, parallel to `a_final`); after `a_final`: `a_rerun_t1` (`-k "T1 and (r4 or r11 or r23)"`, deselect T1-replay_partition-r11).
 - READY.md drafted (status draft); fill gate (a) counts when `a_final` and both reruns are done.
+- Slip (22:0xZ): one empty `python3 - <<EOF` fallback ran on the laptop while summarising the Build A/B diffs (no input, no repo
+  import); switched to jq. Laptop rule: no python, ever.
 
 ## D13 verdict A/B (main pod, 21:50Z; `evidence/d13/`)
 - `verdict.from_record(row).dumps()` (the T0 verdict check's reconstruction; it calls the D13-changed `_replay_seed_of_record`,

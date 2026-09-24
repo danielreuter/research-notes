@@ -21,7 +21,7 @@ arm() {
 }
 EXTRA=("$@")
 arms=(${ARMS:-base tip})
-for rr in $(seq ${ROUNDS:-3}); do
+for rr in $(seq ${FROM:-1} ${ROUNDS:-3}); do
   if [ $((rr % 2)) = 1 ]; then order="${arms[*]}"; else order=$(printf '%s\n' "${arms[@]}" | tac | tr '\n' ' '); fi
   for a in $order; do arm $a $rr; done
 done

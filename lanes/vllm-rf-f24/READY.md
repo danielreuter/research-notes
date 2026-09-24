@@ -15,12 +15,13 @@ created: 2026-09-24T22:05Z
 ## Gate evidence
 
 Environment on every pod (the venv of `integrations/vllm/verity_vllm/ops/pod_bootstrap.sh`, `--cpu` on the CPU pods): Python
-3.12.14, torch 2.13.0+cu129, vLLM 0.28.1rc1.dev472+gd9105ea80, triton 3.7.1, pytest 9.1.1, pytest-xdist 3.8.0. Each tree was
-shipped with `research pods sync` at `be366f80` (`dirty: false`); the base tree is `git archive 72884c8a`.
+3.12.14, torch 2.13.0+cu129, vLLM 0.28.1rc1.dev472+gd9105ea80.cu129, triton 3.7.1, pytest 9.1.1, pytest-xdist 3.8.0. The head
+trees are at `be366f80` (the commit in each tree's `.research-source.json`, printed in every gate `.status`); the base tree is at
+`72884c8a`.
 
 | pod | RunPod | used for |
 |---|---|---|
-| `vyv-rf-f24` | cpu3g, 16 vCPU / 64 GB | gate (a) T0+T1, gate (b), GM-01 A/B, verdict A/B, D6/D7 probes |
+| `vyv-rf-f24-veritor-campaign` (`0zb24mk1w6nb4o`) | cpu3g, 16 vCPU / 64 GB | gate (a) T0+T1, gate (b), GM-01 A/B, verdict A/B, D6/D7 probes |
 | `vyv-rf-f24-big` | cpu3m, 64 vCPU / 512 GB, terminated | the two T1 `replay_partition` checks of the B=1 rows #11 and #39 |
 | `vyv-rf-f24-gpu` | RTX 4090, terminated | the Build A/B (a Build cannot run on a CPU pod, see Found, not fixed) |
 
@@ -46,7 +47,7 @@ VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/
   fixture artifacts (0 failures) and deleted `/root/r2ro.env` at 20:47:22Z. Big pod: its own `--ttl 3h` key, minted 20:55:40Z,
   fetched rows #11 and #39 plus the top-level artifact, deleted 20:56:53Z, before its clean run at 21:14:28Z.
 - **Deviation: a key stayed on the main pod's disk during the first hour of `a_final`.** Before the route was published, I
-  had piped an earlier key (`--ttl 12h`, written 17:43Z) into `/workspace/r2ro.env` for the D10 GM-01 inputs. It was never
+  had piped an earlier key (`--ttl 12h`, written 17:43Z) into `/workspace/r2ro.env` for the lane's first fetches. It was never
   deleted, and `gate_a.sh`'s `key_file_present` check looks only at `/root/r2ro.env`. I found it and deleted it at 21:52:03Z,
   while `a_final` was on row #39. The checks could not have used it: the store reads credentials only from the environment
   variables `store.pod.toml` names, the pod has no `~/.aws`, and the gate process and its children had no `AWS_*` variables
@@ -167,5 +168,6 @@ At `be366f80`: **56 failed, 11 errors, 296 skipped, 3,550 passed, 6 xfailed** (3
   works, because the profile makes the Program independent of the host.
 - Gate (a)'s T1 `replay_partition` on the B=1 rows #11 and #39 peaks at 67 and 109 GB, beyond the 64 GB CPU pod.
 - On this pod the gc-freeze pair fails at base even with its file run alone (both tests; a1 saw one).
-- Tooling: `research pods create --vcpu` must be a power of 2 (the help text doesn't say), and `research pods terminate` takes
-  only the pod id (the name gives HTTP 404), while `sync` and `ssh` accept the name.
+- Tooling: `research pods create --vcpu` must be a power of 2 (RunPod refuses otherwise; the help text doesn't say).
+- Tooling: `gate_a.sh`'s `key_file_present` (from a1's recipe) checks only `/root/r2ro.env`, so a key anywhere else on the pod
+  goes unnoticed; that's how the deviation above went unseen for an hour. A sweep for key values before the run would catch it.

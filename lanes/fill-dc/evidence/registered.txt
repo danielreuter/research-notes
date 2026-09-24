@@ -59,3 +59,7 @@
 06:58Z a100 ab-x4p4-r2 result=art:83aa209aff629acfb8c8f7e16b6754bcc0ec71b1e8e7e65d32d942f7a854f061 t.total=0.2702 | a100 sweep local rel=bf16-ampere-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
 06:58Z a100 ab-x4p8-r2 result=art:8a34106a672542b718e87ad48cbec185f49957af9f50a5d1fd056b9a45ac623b t.total=0.4992 | a100 sweep local rel=bf16-ampere-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
 06:58Z a100 ab-v3p8-r2 result=art:8aee3f9c7f3cddcf8e3125a157d2cd3254c21e6af329ce1041bd0470f04dc81a t.total=0.2597 | a100 sweep local rel=bf16-ampere-v3 l=16384 p=8 reps=5 dump=0 live= args=
+06:58Z a100 ab-v3p8-r3 result=art:7a43966bc39a5ef2d83fece673c3ad4be43ab72912a94a39a7e4f79015c631d9 t.total=0.2764 | a100 sweep local rel=bf16-ampere-v3 l=16384 p=8 reps=5 dump=0 live= args=
+06:58Z a100 ab-x4p8-r3 result=art:62bdfe0184ec6e1bb33db0e3ed5f1b46d1a1022c13029c0feaa06378553b8941 t.total=0.2479 | a100 sweep local rel=bf16-ampere-v3x4 l=4096 p=8 reps=5 dump=0 live= args=
+06:59Z a100 ab-x4p4-r3 result=art:13937ab1e2528d4e2ec92448c7b47c5c5903378c4bf6a2843cafe97ab98a7de1 t.total=0.2503 | a100 sweep local rel=bf16-ampere-v3x4 l=4096 p=4 reps=5 dump=0 live= args=
+06:59Z a100 ah-v1p8-r3 result=art:374d4472e95f4bc7811c254b70ac4483701ddd27906b7bee2dad6822f1f11194 t.total=0.9758 | a100 sweep local rel=bf16-ampere l=16384 p=8 reps=5 dump=0 live= args=--auth included-hash

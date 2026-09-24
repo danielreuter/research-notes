@@ -1,0 +1,55 @@
+=== [06:54:54] build
+warning: `verity-gkr-verify` (bin "verity-gkr-verify") generated 5 warnings
+    Finished `release` profile [optimized + debuginfo] target(s) in 16.21s
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+ee899383c03cfac31c281041bc93037146363a75dacd0b92ba9dcf7efd41cef7  /workspace/agkr-target/release/verity-gkr-verify
+=== [06:55:24] fetch art:83324658dba8001165838a53b58d177e1104998bd862e744dc25f63987fe7378
+/workspace/verify-night/agkr-03e21c7f/tree
+tree: /workspace/verify-night/agkr-03e21c7f/tree
+/workspace/verify-night/agkr-03e21c7f/tree:
+proofs
+prove_reps.json
+statement
+verify_independent.json
+verify_rep0.json
+verify_rep1.json
+verify_rep2.json
+
+/workspace/verify-night/agkr-03e21c7f/tree/statement:
+chain.txt
+circuit.txt
+epilogue.txt
+manifest.json
+public.bin
+f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c  /workspace/verify-night/agkr-03e21c7f/tree/proofs/rep0.bin
+f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c  /workspace/verify-night/agkr-03e21c7f/tree/proofs/rep1.bin
+f2c058519710faaa2cabae0fa8557ddfd82e7e48c1adf930e7f809623074729c  /workspace/verify-night/agkr-03e21c7f/tree/proofs/rep2.bin
+=== [06:55:30] statement: regenerate Params-only files from my tree (8 VUs), compare
+    x, w = read_u16(_need(root / f"{tier}.x.u16")), read_u16(_need(root / f"{tier}.w.u16"))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/src/backends/numerical/python/verity_numerical/bench/instances.py", line 209, in _need
+    raise FileNotFoundError(f"{path} is missing; the operand arrays are built, not committed: run "
+FileNotFoundError: /workspace/src/fixtures/bench-instances/v1/vu-k1536.x.u16 is missing; the operand arrays are built, not committed: run `python -m verity_numerical.bench.instances build --out /workspace/src/fixtures/bench-instances/v1`
+cmp: /workspace/verify-night/agkr-03e21c7f/regen/circuit.txt: No such file or directory
+cmp: /workspace/verify-night/agkr-03e21c7f/regen/epilogue.txt: No such file or directory
+cmp: /workspace/verify-night/agkr-03e21c7f/regen/chain.txt: No such file or directory
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/verify-night/agkr-03e21c7f/regen/manifest.json'
+=== [06:55:31] verify
+rep0 rc=0 wall=3.28s {"accepted": true, "error": null, "verify_seconds": 3.156247, "t_parse": 0.029017, "t_transcript": 0.016638, "t_functional_value": 1.648014, "t_merkle_proximity": 0.108245, "t_rows_linear_test": 1.350336, "t_rows_fill_cpu": 10.402114, "t_rows_eval_cpu": 8.600308, "bytes_read": 21213880, "msgs": 11843, "slots": 3524, "committed_elements": 109132728, "ligero_rows": 26644, "threads": 15, "peak_rss_by
+rep1 rc=0 wall=4.26s {"accepted": true, "error": null, "verify_seconds": 4.104316, "t_parse": 0.032292, "t_transcript": 0.015984, "t_functional_value": 1.567753, "t_merkle_proximity": 0.103126, "t_rows_linear_test": 2.380667, "t_rows_fill_cpu": 19.306924, "t_rows_eval_cpu": 14.332836, "bytes_read": 21213880, "msgs": 11843, "slots": 3524, "committed_elements": 109132728, "ligero_rows": 26644, "threads": 15, "peak_rss_b
+rep2 rc=0 wall=3.31s {"accepted": true, "error": null, "verify_seconds": 3.045611, "t_parse": 0.107795, "t_transcript": 0.033894, "t_functional_value": 1.607966, "t_merkle_proximity": 0.017469, "t_rows_linear_test": 1.275164, "t_rows_fill_cpu": 9.925857, "t_rows_eval_cpu": 8.508771, "bytes_read": 21213880, "msgs": 11843, "slots": 3524, "committed_elements": 109132728, "ligero_rows": 26644, "threads": 15, "peak_rss_byt
+=== [06:55:42] negatives (mutate --sample 64 on rep0)
+mutate rc=0
+  message_count: 2/2 rejected
+  statement: 2/2 rejected
+rejection reasons: {"LogUp ALIGN": 6, "LogUp LEAD level": 4, "LogUp LEADNORM level": 2, "LogUp R": 16, "LogUp SHIFT level": 11, "LogUp SSHIFT_HI level": 5, "LogUp SSHIFT_LO level": 6, "LogUp TNORM level": 6, "LogUp T_OP level": 40, "epilogue/depth": 1, "ligero: merkle path": 255, "proof.bin: message count": 1, "proof.bin: non-canonical extension coordinate": 1, "proof.bin: opening shape t=": 1, "proof:": 1}
+mutations rejected: 356/356; mean verify 0.664 s; accepted (BUGS): []
+=== [06:59:39] done

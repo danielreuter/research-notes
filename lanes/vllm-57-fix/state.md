@@ -25,20 +25,29 @@ Two independent failures; the first is already fixed on staging, the second is t
    Cause: the oracle selects a producer by the manifest row's v1 annotations (producer_operand / producer_ordinal; promoted + consumers).
    A `v2-query` manifest (v1_bridge.request_manifest) carries none of them, so the oracle can neither pick among the fused norm's two
    narrowings nor resolve the embed scale through its consumers.
-Fix (in progress): derive the same facts from the Programs of record by dataflow at Commit time (v1_bridge.population: producing Call
-family, first-operand producer family, reading modules outside the producer's module) and merge them where the manifest row declares none;
-the oracle resolves a member through the Value (consumer operand -> producer output, M-0721(1)'s mechanism) when the fold has no instance
-of the producer family under the identity's path.
+Fix (committed): derive the same facts from the Programs of record by dataflow at Commit time (oracle_compare.program_producer_facts:
+producing Call family, first-operand producer family, reading modules outside the producer's module) and merge them where the manifest
+row declares none (merge_producers); the oracle resolves a member through the Value (consumer operand -> producer output, M-0721(1)'s
+mechanism) when the fold has no instance of the producer family under the identity's path. Facts that disagree across Programs carry no selector.
+Snapshot-steps gap: row_pod.sh sets Match snapshot steps = all when sampled_replay.form_b_families(manifest) is non-empty (required
+instance_outputs with no replay evaluator) and MATCH_SNAP_STEPS is unset; an explicit partial value is kept with a WARN naming the families.
 
 ## Tip
-- 38122d1f (= staging); fix uncommitted in the worktree (oracle_compare.py, commit_delta.py)
+- 8b606f16 (origin + sw57): 4f6f6d1d form (B) producer facts by dataflow; 8b606f16 row_pod.sh snapshot steps + tests.
 
 ## Done
-- worktree + pod remote set up; pod checkout fast-forwarded to 38122d1f.
+- worktree + pod remote set up; pod checkout at 8b606f16.
 - pod-side pilot worker loop is stopped (/workspace/lane/STOP_WORKER 05:40Z); its idle `agent worker` pid 37762 left alone.
+- tests on the pod at 8b606f16: new commit/tests/test_oracle_compare_v2_producers.py + touched oracle_compare/commit_delta/sampled_replay
+  tests + tests/test_no_by_name_rules.py all pass.
+- original failing Commit 8cb4 evidence copied to /workspace/lane/evidence/commit_8cb4 (+ commit_8cb4.log) before the rerun.
+- R2 credential: minted 06:07Z with the worktree's research (`PYTHONPATH=tools/research/src python -m research data mint-credential
+  --ttl 6h --via local --env`, r2.env sourced in a subshell; the laptop venv's `research` binary is too old to have `data`), valid to ~12:07Z.
 
 ## Running
-- none
+- #57 Commit-only rerun: `research run --on vyv-sw-57 --tool vllm.commit --source . (8b606f16)` with build=art:f1baace0…, match=art:a225cf5f…
+  (launched 06:07Z from the laptop; run id pending in the launch output).
+- offline repro, fixed oracle: pod `repro57.py oracle-fixed`, log /workspace/lane/logs/repro_oracle_fixed.log (derived 318 producers, 0 conflicts).
 
 ## Next
-- commit + push fix; offline oracle repro with the fix (repro57.py oracle-fixed); snapshot-steps derivation in row_pod.sh; tests; Commit-only rerun.
+- #57 rerun -> verdict; preserve (data push + preserved --mode recorded + labels); ready note; #67 judgment (MoE experts output, 20,928 identities_without_rows).

@@ -1,0 +1,8 @@
+{
+ "branch": "lane/fill-consumer",
+ "brief": "/Users/danielreuter/.research/notes/campaigns/morning-tables/BRIEF.md",
+ "budget": "$10: 1x RTX 4090 + 1x RTX 5090 + same-DC SECURE verifier pods",
+ "final": "11:30Z",
+ "pod": "none",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/fill-consumer"
+}

@@ -1,3 +1,4 @@
+CHECKPOINT edf1fb4 (06:05Z) [open] TC_DOT_BF16 chip (fork patches 0004-5, tree 6d55145f) passes prove+negative tests on A100 pod; op-bench batch2048 repro 21,033,942 cycles = orig, 34.75s A100 (4090: 40.59s). Building tcdot host; next: crosscheck/execute/negatives, then B=4096 prove.
 CHECKPOINT 0b0768ed (05:25Z) [open] TC_DOT = fp8-E4M3 operands in Ampere BF16 pipeline (K=16/call), not tc-ampere-bf16: cannot prove the A100 BF16 statement as-is. Building fork (v6.4.0+3 patches) + GPU server on A100 pod 4haxoz642k8ho1; next: BF16-operand chip variant.
 # sp1-tcdot report (campaign morning-tables)
 

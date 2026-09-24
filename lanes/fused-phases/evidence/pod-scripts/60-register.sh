@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # fused-phases (laptop side): register pod runs, one at a time: run-files/v1 tree (result.json, log, proofs/) + bench-result/v1
-# (meta = result.json + label / lane / tag, ref run_files=<tree>), both --preserve.  Keeps the local copy under $KEEP for
-# bench.summary / tables.  Prints "TAG tree=art:... result=art:..." and appends it to $OUT.
+# (meta = result.json + label / lane / tag, ref run_files=<tree>), both --preserve.  Keeps result.json + log under $KEEP for
+# bench.summary / tables (proofs/ dropped once preserved).  Prints "TAG tree=art:... result=art:..." and appends it to $OUT.
 # Usage: SSH="ssh ... root@IP" OUT=file KEEP=dir bash 60-register.sh TAG[=LABEL] ...
 set -uo pipefail
 R=~/.research/bin/research
@@ -21,5 +21,5 @@ PY
   [ -n "$tree" ] || { echo "$tag tree put failed"; continue; }
   res=$($R data put --kind bench-result/v1 --meta @$d.meta.json --ref run_files=$tree --preserve 2>&1 | grep -o 'art:[0-9a-f]*' | tail -1)
   echo "$tag tree=$tree result=${res:-FAILED}" | tee -a ${OUT:-/dev/null}
-  rm -f $d.meta.json
+  rm -rf $d.meta.json $d/proofs   # the laptop keeps result.json + log only (contract §7: no dump trees)
 done

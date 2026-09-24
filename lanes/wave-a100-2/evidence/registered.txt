@@ -37,3 +37,4 @@ live-x4p4-r4 art:1ebeb4c1
 live-v3p4-r4 art:23ac00ce 
 live-v3p8-r4 art:e4ae7fd1 
 hashp8-r1 art:1387dc26 
+live-hashp8-r1 art:875be1cc art:0c639da7

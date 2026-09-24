@@ -151,6 +151,8 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   Fix would key on the map minus collector.fa2_tap_bounded; left for the integrator (touches replay-reuse semantics before int-final).
 - 12:27Z #67 pair 1 clean: SAMPLED REPLAY COMPLETE 38,748/38,748, LINKAGE 1308/1308, WEIGHTS PIN 212/212. Pair 2 (binding 12:11)
   coverage OK 406,220, C2 16,120 equal; replay running. Verdict ~12:52Z.
+- 12:52Z #67 verdict.json: commit_pass True, runs_instrumented 3, runs_failed 0. Pair 2: replay 38,748/38,748, LINKAGE 1308/1308,
+  WEIGHTS PIN 212/212. 13:00Z the stage is in verity_vllm.query.manifest.verify (single-core, 8 min so far) before its stage line + publish.
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)
   now compares 159,840 (equal 159,408, incl. all 44,928 fused-norm narrowings) but MISMATCHES the 432 `model/out`. The Commit hooks

@@ -66,6 +66,9 @@ created: 2026-09-24T19:30Z
 - **21:42Z gate (b) done, same pod, same flags:** head `b_head2_x12` (748d71c5): 3833 = 3476 pass / 54 F / 11 E / 286 skip / 6 xf (778 s); base `b_base_x12` (72884c8a): 3904 = 3534 / 56 / 11 / 297 / 6 (762 s).
   a1's `baseline-jdiff.py`: head vs a1's base xdist -> 0 new failures, 0 new skips, 0 new skip reasons, the SAME 65 F/E; 71 tests only in base (all tests of code part 1 deleted); 1 outcome change (observer weakref s -> pass, order-dependent). Head vs same-pod base -> 0 new F, 0 new skips; gc-freeze pair F -> pass (order-dependent). Same-pod base vs a1's base: only the gc-freeze pair differs. XMLs beside this note (`gate_b-xdist-{head-748d71c5,base-72884c8a-samepod}.xml.gz`).
 - 21:48Z gate (a): r11 `replay_partition` (T1) passed, peak ~63 GB RSS. Order is per row (r4, r11, r23, r39, ...), 12 checks each. Plan: start a same-pod BASE gate (a) T0+T1 in `/workspace/base-reg` (copied 21:51Z) once head is past r39, so the two heavy loads never overlap: `setsid nohup nice ./gate_a.sh /workspace/base-reg a_base_t01`.
+- 22:10Z head gate (a) on r39 `replay_partition` (test 47 of 158), peak 115 GB (VmHWM), still computing. r23's two T1 checks skipped (reasons in the final -ra summary).
+- **22:10:30Z same-pod base gate (a) T0+T1 at 72884c8a:** `cd /workspace/a23b && setsid nohup nice ./gate_a.sh /workspace/base-reg a_base_t01` -> pid 6852 (sid 6852); logs `a_base_t01.{log,xml,env,run}`. Peaks (63 GB r11, 115 GB r39) leave room for both runs in 512 GB.
+- READY.md drafted with the gate (b) evidence; gate (a) section to fill. Compare gate (a): `python a1/baseline-jdiff.py logs/a_base_t01.xml logs/a_head2_t01.xml` on the pod, and head vs a1's T0 `a1/baseline-gate_a.xml.gz`.
 - Kill by pid only (never pkill -f over ssh).
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)

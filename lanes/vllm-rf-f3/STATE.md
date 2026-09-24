@@ -163,10 +163,22 @@ created: 2026-09-24T17:36Z
   `...[T1-replay_partition-r39]` (collect-only: 156 of 158 selected), started once per tag by `/workspace/rff3/launch_once.sh`
   (flock), both `nice`, same trees (no file written in them by the killed runs), no key: head `/workspace/head-reg` (4fb0eb2c) ->
   `logs/a_head_t01f.*`; base `/workspace/b0-reg` (72884c8a) -> `logs/a_base_t01f.*`. Dead runs: `logs/a_{head,base}_t01{,d,e}.*`.
+  22:12Z both at 36 results, identical strings (`ssssssssssss.ss.s....ss.ss.s....sss`), 0 F/E; pod memory 8 GB.
 ## Running (big pod `vyv-rf-f3-big`, RunPod `sda06pqcfi51jt`)
 - prefetch (above), then `/workspace/rff3/run_big.sh /workspace/head big`: `T1-replay_partition-r11` and `-r39` at head side by side
   (`-k`, own tree copy + scratch each, gate_a_t01.sh) -> `logs/big_r{11,39}.{log,xml,out}`, memory `logs/big.rss`, `logs/big.DONE`.
   Terminate the big pod as soon as they finish.
+- **22:08Z `T1-replay_partition-r11` at head PASSED** ("1 passed, 190 deselected in 602.55s", exit 0). `-r39` running (~100 GB RSS at 22:09Z).
+## Running (GPU pod `vyv-rf-f3-g3`, RunPod `91c19vn318ptnj`, 1x L40S; raw ssh `/tmp/rf-f3/ssh_g3.sh`)
+- Why: SmolLM2 (the 21:35Z A/B) is not a regression row, and the acceptance says "roots == regression record". So D3 is re-run on
+  frozen row **#101** `llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager` (the one T0/T1 L40S B=1 row
+  with a Commit record: run root `7adcef49…`, program `079ee0a8…`, manifest `368283ad…`, `--pairs 1`).
+- 22:05-22:07Z head `4fb0eb2c` -> `/workspace/head` (research pods sync). 22:07Z `pod_bootstrap.sh --gpu --cases LLAMA32_1B` ->
+  `/workspace/rff3/bootstrap.log` (22:08:28Z checkpoint OK LLAMA32_1B). 22:10Z base worktree on the laptop
+  `/Users/danielreuter/projects/verity-wt/rf-f3-base` (detached 72884c8a, clean; remove after) -> `/workspace/basetree` (sync running).
+- `/workspace/rff3/row101.sh` (started 22:07Z, waits for BOOTSTRAP-OK): `row_pod.sh <#101> LLAMA32_1B unsloth/Llama-3.2-1B 9535bd9b…
+  build,match,commit` PAIRS=1, VERITY_(LEAF_)LAYOUT unset, head then base -> `logs/r101_{head,base}.log`, rows
+  `/workspace/cp/sweep-{head,base}/<row>/`, summary vs the record in `logs/row101.out`.
 
 ## (older) CPU pod notes
 - Trees: `/workspace/base` = `4fb0eb2c` (rsync 20:17Z; only bootstrap ran in it); copies `/workspace/{tgt,ga,gb}` = `9bddf741`.
@@ -175,11 +187,11 @@ created: 2026-09-24T17:36Z
 - Gate (b) final: done (above). `/workspace/base` is now dirty (test_ref_prims rewrote docs/data/ref-prims); `/workspace/b0` = base rebuild (dirty copy).
 
 ## Next
-1. Big pod `vyv-rf-f3-big` (cpu3m x64, 512 GB): sync head, bootstrap --cpu, own key -> prefetch #11/#39 -> delete key; run
-   `T1-replay_partition-r11` and `-r39` at head side by side (as f24). Terminate as soon as they finish.
-2. Gate (a): judge head vs my base (same pod, same env; green = nothing fails and every check that passed at base passes).
-3. Late-read A/B result into READY; terminate the GPU pod.
-4. READY.md (draft `/tmp/rf-f3/READY.draft.md` on the laptop) when gate (a) is in; terminate all pods.
+1. Big pod: wait for `-r39`, copy logs/xml into `evidence/gate_a_big/`, terminate.
+2. GPU pod g3: #101 head (and base) roots vs the record -> `evidence/d3_r101/`; terminate. If head != record, check base first
+   (does the base reproduce the record on this pod?) before calling it f3's.
+3. Gate (a): judge head vs my base (same pod, same env; green = nothing fails and every check that passed at base passes).
+4. READY.md (draft `/tmp/rf-f3/READY.draft.md` on the laptop) when gate (a) is in; terminate all pods; remove the laptop base worktree.
 
 ## Open questions
 - D15 table location: a23 owns package-data moves; if a23 does not move `fixtures/W11*`, coordinator decides who does.

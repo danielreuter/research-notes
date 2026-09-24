@@ -51,5 +51,17 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
   - ab57df0a `_flatten`: products deeper than MAX_DEPTH commit their deep operand as a column (scope "flat");
     depth 1 -> 485 columns, 654 wires, 2 GKR layers: 0.274 s (depth 2: 0.298 s).  Negatives 115/115 (Rust 54/54,
     mutate 148/148) on the merged and on the depth-1 circuits.
+  - r20260924-223922-5cff @ ab57df0a (depth-1 flatten + merged LK + gate_eval + leaf_q): t.total 0.314 s (0.314 / 0.312 /
+    0.320); result art:ad8f92b9…, run-files art:82f70cb9…; proofs 9491200 B, sha b6cf5f09….  verify-po handoff
+    `lanes/verify-po/20260924T2305Z-handoff-from-agkr-nvf4.md`.  This record is ~40 ms slow for an environmental reason:
+    `research run` doesn't source env.sh, so without its thread caps the pools size to nproc 32 under a 13.6-core quota.
+    Same tree, same proof sha: 0.314 s by hand without caps, 0.273 s with only the caps exported (Rust 0.19 -> 0.164 s).
+    Fixed in `04_record.sh` from 23:20Z; kb ops-tools.md.
+- hill-climb after 5cff (dev):
+  - fcc9a1e0 add_input_claims (the two input claims of a segment in one rank-1 pass; same bytes): 0.274 -> 0.262 s.
+  - e7ffeafe E2M1X2 into LK too (one 2^25 LogUp tree instead of 2^24 + 2^23): 0.262 -> 0.254 s; negatives 115/115 (Rust 54/54,
+    mutate 148/148).
+  - 2b25df7f numpy serialization (Proof.to_bytes, absorb_exts, Merkle.path; same bytes): 0.254 -> 0.249 s.
+  - tried and dropped: vectorizing add_lookup_claim's per-query term loop (09_terms.py: only 1.5 ms of its 20 ms is Python).
 - stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.

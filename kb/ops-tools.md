@@ -107,6 +107,9 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   `COPYFILE_DISABLE=1 tar`, or delete macOS `._*` files on the pod afterwards, because they double the counts. Then run
   `research data labels-sync --pull-only` and `reindex --remote` there, which fetches only what the pod lacks (about 5 min).
   Script: `lanes/verify-night/evidence/pod-scripts/21-pod-render.sh`.
+* On a fresh pod with an empty catalog, `reindex --remote` fetches manifests one by one (~150/min, over an hour for the
+  full store; verify-po 2026-09-24). A verifier doesn't need it: pass FULL art ids, since `get_manifest`, `get_attempt`
+  and `fetch` fall back to the remote (`lanes/verify-po/evidence/pod-scripts/03-reverify.sh`).
 * `reverify.py` on runner-attempt results reads `attempts/`. A `mint-credential` scoped to objects/manifests/labels fails with
   HTTP 403, so add `--prefix attempts/`.
 

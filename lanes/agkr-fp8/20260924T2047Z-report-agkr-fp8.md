@@ -5,6 +5,7 @@ created: 2026-09-24T20:47Z
 status: open
 ---
 
+CHECKPOINT bb859220 (23:35Z) [open] H100 cell re-recorded 0.482s (was 0.688; art:b1010ac8, proofs identical; handoff 2326Z). H100 terminated 23:26Z (~$7.2 total). 4090 pod 5vnbd6rfwm3wmd bootstrapped; fp8-ada dev pass running, then int32 Acc test and recorded run.
 CHECKPOINT ab57df0a (23:10Z) [open] H100 hill-climb: prove 0.626->0.432s byte-identical (11 commits to bb859220). Recording improved fp8-hopper cell r20260924-230813-9198 now; next push+handoff, then 4090 fp8-ada re-record on a new pod.
 CHECKPOINT ab57df0a (22:39Z) [open] Both FP8 cells recorded (4090 in Table 2; H100 0.688s handed off). Hill-climb on H100: eq_table one-launch + numpy ext serialization committed (048e6a41, 8670d0f7), prove 0.599->0.537s, bytes identical. Testing query-value caching; then re-record H100.
 CHECKPOINT 891572a0 (22:10Z) [open] H100 FP8 cell recorded: art:2e7baba7 (run-files art:438ada92, r20260924-215501-f96b @891572a0) t.total 0.688s med, Rust 3/3, 2^-130.19, only rejection=indep. verif.; negatives art:cdaabf41; handoff coordinator/20260924T2212Z. 4090 cell art:1b4fd4a1 now IN Table 2. next: profile + hill-climb
@@ -78,3 +79,18 @@ Median warm prove (06_ab.sh, 4 timed proves at 4096 VUs), start 0.626 s:
 - 6517652d incremental eq prefix in packed phase 1 + 2dacc949 depth-batched eval_wires (12 -> 4.7 ms) -> 0.459
 Remaining profile: lookup 0.196 (graphed LogUp: ~18.6k tiny kernels ~7.7 us each, fs_step SHA-256 14 us; latency-bound, fusing
 kernels is the only lever, transcript fixed), arith 0.115 (phase-1 per-round host/sync), open_acc 0.073, open_wq 0.038.
+- 10b726f9 host numpy for phase-2 sumcheck_prod (<= 4096 rows), e8503e2d both input claims of a segment as one rank-1 update,
+  bb859220 skip the int8 fold matrices in packed phase 1 -> 0.432 s.
+
+## H100 FP8 (fp8-hopper) improved cell, recorded 23:08Z @ bb859220
+- r20260924-230813-9198 (clean): result art:b1010ac8, run-files art:ec01de08; PRESERVED (pod push, `data preserved` ok); reindex ok.
+- t.total median 0.482 s (0.490 / 0.480 / 0.482), was 0.688; buckets witness 0.026, commit 0.010, lookup 0.200, arithmetic 0.200,
+  serialization 0.044. Proofs byte-identical to the 21:55Z cell (f80ecc53…), Rust 3/3 (0.63 s at 22 threads), 2^-130.19,
+  contract clean. Warm-up 436 s. Overhead 7.57e7x.
+- Negatives on bb859220: dev run r20260924-232156-7658, NEGATIVES OK, tree art:9eee02c9 (ref result art:b1010ac8).
+- Predicate: only `not independently verified`. Handoff lanes/coordinator/20260924T2326Z-handoff-from-agkr-fp8.md.
+- H100 pod ac0m34rqaw3hti drained + terminated 23:26Z (21:35-23:26, $3.49/h, ~$6.46).
+
+## RTX 4090 re-record
+- New pod vy-agkr-fp8 = RTX 4090 5vnbd6rfwm3wmd (reference part, EPYC 7532, 12 vCPU, created 23:27Z); sync 226 s, bootstrap
+  RELS=fp8-ada 4 min (BOOTSTRAP_OK). Dev pass at bb859220: r20260924-233453-ee05.

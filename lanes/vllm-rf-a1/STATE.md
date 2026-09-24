@@ -31,6 +31,12 @@ created: 2026-09-24T17:27Z
 - 17:42Z gate (a) base: `nice gate_a.sh /workspace/base-reg a_base` -> `a_base.{log,xml}`. 18:01Z past the first row build, passing.
 - 17:46Z gate (b) base, serial (the brief's exact command): `gate_b.sh /workspace/base-serial b_base_serial` -> `b_base_serial.{log,xml}`. 18:01Z at 53%.
 - Summarizer: local `/tmp/rfa1/summarize.py RUN.xml` (overall/per-file counts, failures, grouped skips).
+- 18:37Z prefetch of rows #57-#101 fixture blobs into `/workspace/research/store` (`/workspace/rfa1/prefetch.sh`, log `logs/prefetch.log`):
+  the credential expires 20:38Z, gate (a) fetches row trees lazily, and it would reach the late rows after that. `fetch --to <tmp>`
+  caches blobs + manifests only, so it never races the runs on `trees/<id>`.
+- 18:44Z head `f1a513a9` synced to `/workspace/head` (2842 files = base + 28 lint files), copy `/workspace/head-reg`:
+  - gate (b) head xdist: `OMP_NUM_THREADS=3 gate_b.sh /workspace/head b_head_x12 -n 12 --dist loadfile` (same flags as base).
+  - gate (a) head: `nice gate_a.sh /workspace/head-reg a_head`. The integrator's split harness took ~1 h (#11, #39) + ~2 h (the rest).
 
 ## Lints: committed f1a513a9, pushed (`integrations/vllm/tests/lint/`, 41 tests, ~9 s, green locally)
 - `_ratchet.py` (keys, allowlist compare, messages), `_imports.py` (import graph, INTERIM_LAYER from §5.2), `test_p01..p12_*.py`,

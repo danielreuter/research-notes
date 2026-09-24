@@ -1,0 +1,4 @@
+5c5
+< | A-GKR | specialized data-parallel GKR/sumcheck prover (checker v2 + LogUp lookups) for the exact numerical relation | No | honest (non-ZK, soundness only) | 2^-128 | none (no trusted setup) | interactive; Fiat–Shamir variant non-interactive | collision-resistant hash (BLAKE3 Merkle); Fiat–Shamir in the random-oracle model for the non-interactive variant; LogUp fractional-sum soundness over BabyBear^6 |
+---
+> | A-GKR | specialized data-parallel GKR/sumcheck prover (checker v2 + LogUp lookups) for the exact numerical relation | No | honest (non-ZK, soundness only) | 2^-128 | none (no trusted setup) | interactive; Fiat–Shamir variant non-interactive | collision-resistant hash (SHA-512 Merkle); Fiat–Shamir in the random-oracle model for the non-interactive variant; LogUp fractional-sum soundness over BabyBear^6 |

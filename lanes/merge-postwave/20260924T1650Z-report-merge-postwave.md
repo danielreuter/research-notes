@@ -1,3 +1,4 @@
+CHECKPOINT 04700cb5 (16:51Z) [open] 5 merges clean (no conflicts), sp1-formats no-op confirmed; A-GKR hash fix 04700cb5; next: laptop render diff + pod cargo check/tests
 CHECKPOINT 1b3c7be6 (16:50Z) [open] started; tips match brief; merging main, fill-consumer, agkr-table, sp1-table, sp1-tcdot next
 # merge-postwave report
 

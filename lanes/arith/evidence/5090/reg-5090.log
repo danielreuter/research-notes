@@ -1,0 +1,52 @@
+/workspace/arith/scripts/85-reg-rv.sh: line 6: /workspace/arith/registered.txt: No such file or directory
+f4-tip-r1 tree=art:09209e8a5ea7c8adf2c3458accaba7bfd18e41a241163dcea2d31f4d39741195 result=art:97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1
+f4-base-r1 tree=none result=art:47916d6e4dab191c7fd0aa4481d2e125d1e199cf24e63202b609abcc1bae2c2e
+f4-tip-r2 tree=art:1f143bb3da16654491890212e16c31362dd206c293459b262efd906380dc6b18 result=art:0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154
+f4-base-r2 tree=none result=art:0e0647a5eeba3a22dac3cd4052a1e1350a1371668ec280a1d731cd572cb1ddce
+f4-tip-r3 tree=art:63e79147a81105021edfaa8adc46435f25e7e0590defb2fba110f1614fe37ae3 result=art:c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0
+f4-base-r3 tree=none result=art:16a4a6bee5058d206a492484c98d93988e662e14886795e7d29e50a89a269560
+f4-tip-r4 tree=art:3b4464a20bbd5880fc93a045da392896c49b6904bc8a00141692e322473a0a9f result=art:227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439
+f4-base-r4 tree=none result=art:b4e0b9ee90c6f2a28e7086d504701c9b502c25588e890109fee4e6de4239f496
+f4a-base-r1 tree=none result=art:20c31e6efd4cd96c7d767ecf5d23ceaac94d66d20dca6713354d55f4ca477ebc
+f4a-base-r2 tree=none result=art:cb33ff3025c58689f19f6f14253a7c489a3e68051f81bcdba6a1de754e2586f0
+f4a-base-r3 tree=none result=art:11e67b6573027fbeaa3283c6c5fd13ccf824d3d3ee6731e3608a7562861363f0
+f4a-baseh-r1 tree=none result=art:33debc04844e1dd1c9410c0c0a07a5eda0a3fe9696d5f8273bf8eb3f71629ad1
+f4a-baseh-r2 tree=none result=art:2d1e51ef395a84e916a6164e93576167d0619605a46a28dd4d75004716d8a58d
+f4a-baseh-r3 tree=none result=art:52e0b1caef576c14973c0bc7da8b2e936aff1fa97985fdac9b8cbebb0f896406
+f4a-tip-r1 tree=none result=art:b56d75774deef805c95c72ae3b3e922de86debb3de932f9b2eeab9a005974699
+f4a-tip-r2 tree=none result=art:c14cb3d3b7880c33a196c745c219fdf04fa9d417bd25fb6a04008db4fa339a07
+f4a-tip-r3 tree=none result=art:81f9e7e086c940d6ba50df7fd5183591f5f4346f4cb0174e8d08f0fce000240b
+f4a-tipnf-r1 tree=none result=art:54f2dd7a9ad8f713636d945d34ae99c948b1852ce736fccb22a6a32c83cb3049
+f4a-tipnf-r2 tree=none result=art:922f08c6f07b9de366fad51790e89c692024838ebaa78a4bae93f2d083315207
+f4a-tipnf-r3 tree=none result=art:d2f02438b2c8cf55d5552bc3e5c415389b50b30102985debcd3a36831a61e764
+DONE-80
+reverify 5090: art:97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1
+art:0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154
+art:c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0
+art:227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439
+reverify 5090 rc=0
+/workspace/research/store/labels/art_97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1/20260924T232914Z-arith.json
+/workspace/research/store/labels/art_97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1/20260924T232914Z-arith~2.json
+/workspace/research/store/labels/art_97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1/20260924T232914Z-arith~3.json
+/workspace/research/store/labels/art_97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1/20260924T232914Z-arith~4.json
+art:97e0f3ba867b… r20260924-231826-b39a: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:809fd020153681f695aa1a70b1d8707f77a96082389ea46ff00b73f3a3fc8692  (3.1s)
+/workspace/research/store/labels/art_0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154/20260924T232917Z-arith.json
+/workspace/research/store/labels/art_0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154/20260924T232917Z-arith~2.json
+/workspace/research/store/labels/art_0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154/20260924T232917Z-arith~3.json
+/workspace/research/store/labels/art_0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154/20260924T232917Z-arith~4.json
+art:0e0e7ac5e9f0… r20260924-231826-b39a: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:484a414f4fba8ce8c116ad7abb600d3468333ee6eef2fd611c5623e08f16ba4d  (2.5s)
+/workspace/research/store/labels/art_c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0/20260924T232919Z-arith.json
+/workspace/research/store/labels/art_c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0/20260924T232919Z-arith~2.json
+/workspace/research/store/labels/art_c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0/20260924T232919Z-arith~3.json
+/workspace/research/store/labels/art_c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0/20260924T232919Z-arith~4.json
+art:c3d76d7b8b7b… r20260924-231826-b39a: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:94f38f5542f48b4807a4d8867e58af03c6716f118f3d79e4a7c725738ee51893  (2.0s)
+/workspace/research/store/labels/art_227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439/20260924T232921Z-arith.json
+/workspace/research/store/labels/art_227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439/20260924T232921Z-arith~2.json
+/workspace/research/store/labels/art_227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439/20260924T232921Z-arith~3.json
+/workspace/research/store/labels/art_227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439/20260924T232921Z-arith~4.json
+art:227aeb2a0da2… r20260924-231826-b39a: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:d8bde8c9ca8ae8331dc1a4dd483e9b9480da04128bf86940a0c5315e40403e1f  (2.5s)
+4 result(s): PASS 4; verifier ligero-verify(sha256 d89cffc7b759e1f5)
+DONE-85
+28 arts
+preserved 5090 try 1 rc=0: PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com
+DONE-ALL

@@ -1,0 +1,21 @@
+/workspace/research/store/labels/art_97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1/20260924T232914Z-arith.json
+/workspace/research/store/labels/art_97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1/20260924T232914Z-arith~2.json
+/workspace/research/store/labels/art_97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1/20260924T232914Z-arith~3.json
+/workspace/research/store/labels/art_97e0f3ba867b14657ad9629566ef6381413419bf0b36530c61f926260f18c2a1/20260924T232914Z-arith~4.json
+art:97e0f3ba867b… r20260924-231826-b39a: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:809fd020153681f695aa1a70b1d8707f77a96082389ea46ff00b73f3a3fc8692  (3.1s)
+/workspace/research/store/labels/art_0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154/20260924T232917Z-arith.json
+/workspace/research/store/labels/art_0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154/20260924T232917Z-arith~2.json
+/workspace/research/store/labels/art_0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154/20260924T232917Z-arith~3.json
+/workspace/research/store/labels/art_0e0e7ac5e9f035712e5a108eca44cbd674ea437e8f18ffa4d93c2d393fc2c154/20260924T232917Z-arith~4.json
+art:0e0e7ac5e9f0… r20260924-231826-b39a: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:484a414f4fba8ce8c116ad7abb600d3468333ee6eef2fd611c5623e08f16ba4d  (2.5s)
+/workspace/research/store/labels/art_c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0/20260924T232919Z-arith.json
+/workspace/research/store/labels/art_c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0/20260924T232919Z-arith~2.json
+/workspace/research/store/labels/art_c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0/20260924T232919Z-arith~3.json
+/workspace/research/store/labels/art_c3d76d7b8b7b08307c00f9ba45bca08ef9f787593a238be59d9bed41cc3c79f0/20260924T232919Z-arith~4.json
+art:c3d76d7b8b7b… r20260924-231826-b39a: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:94f38f5542f48b4807a4d8867e58af03c6716f118f3d79e4a7c725738ee51893  (2.0s)
+/workspace/research/store/labels/art_227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439/20260924T232921Z-arith.json
+/workspace/research/store/labels/art_227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439/20260924T232921Z-arith~2.json
+/workspace/research/store/labels/art_227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439/20260924T232921Z-arith~3.json
+/workspace/research/store/labels/art_227aeb2a0da200ec207326bfaec9b9804773e004a46fd48f2b5abf4ab8800439/20260924T232921Z-arith~4.json
+art:227aeb2a0da2… r20260924-231826-b39a: custody 40/40, pinned=fp4-nvf4, 13/13, 2^-128.11 PASS -> verdict art:d8bde8c9ca8ae8331dc1a4dd483e9b9480da04128bf86940a0c5315e40403e1f  (2.5s)
+4 result(s): PASS 4; verifier ligero-verify(sha256 d89cffc7b759e1f5)

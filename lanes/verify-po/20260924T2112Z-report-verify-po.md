@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (23:30Z) [open] verified agkr-nvf4 5090 art:ad8f92b9 (verdict art:37ed86f2) and arith A100 x4 (art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93; all PASS+BOUND). Table 2: 5090 A-GKR 4.2e7x, A100 B-Ligero 5.9e6x. 30 accepted, 0 rejected
 CHECKPOINT ab9573fd (23:15Z) [open] 2 new requests: agkr-nvf4 5090 art:ad8f92b9 verifying (r20260924-231454-fa00; stmt regen from ab57df0a, verifier 3c769c6d build); arith A100 x4 (art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1) reverify next
 CHECKPOINT ab9573fd (22:55Z) [open] SP1 A100 BF16 sec134 (D2) art:e8c7c331: 5/5 accepted with sec134 host built on my pod (sha256 = producer's ad6ec855), stock host + y-flip rejected; verdict art:34582a00 (coordinator 2256Z). 25 accepted, 0 rejected; idle-polling
 CHECKPOINT 0e8cc6ea (22:40Z) [open] arith H100 13/13 reverify PASS + BOUND, labelled (verdicts art:7d68f788..art:abe34544, coordinator 2240Z). SP1 sec134 host building (r20260924-223547-6b33; d1111579 build.sh VERIFIER_ONLY needs cargo fetch first). 24 accepted, 0 rejected
@@ -51,7 +52,7 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 6 | `20260924T2220Z-handoff-from-sp1-128.md` | art:e8c7c331 | SP1 A100 BF16 sec134 (D2 row, not Table 2) | accepted | art:34582a00 |
 | 7 | `20260924T2226Z-handoff-from-arith.md` (92dab0ad, H100) | h8 x6: art:e9ae289c art:c6271278 art:8182f9ae art:efd871f6 art:7a8443b4 art:709ab20c; h16 x3: art:415d6cde art:b23719dd art:16feee34; h16L x4: art:e3362256 art:064a3a75 art:593f8249 art:debd7e1d | H100 FP8 / H100 BF16, B-Ligero | accepted x13 | art:7d68f788 art:5d8c8aa1 art:750d53cf art:eb44f474 art:b1a0be1d art:aafc3c75; art:bfc56de7 art:a5a7e8c8 art:5d94cfae; art:a7ed0d9b art:830956b0 art:65f9b4d7 art:abe34544 |
 | 8 | `20260924T2305Z-handoff-from-agkr-nvf4.md` (ab57df0a) | art:ad8f92b9 | RTX 5090 NVFP4, A-GKR (supersedes art:fe57e68b) | accepted (same verifier merge as #4) | art:37ed86f2 |
-| 9 | `20260924T2306Z-handoff-from-arith.md` (92dab0ad, A100) | a16-tip r1-r4: art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1 | A100 BF16, B-Ligero | (binding) | art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93 |
+| 9 | `20260924T2306Z-handoff-from-arith.md` (92dab0ad, A100) | a16-tip r1-r4: art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1 | A100 BF16, B-Ligero | accepted x4 | art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93 |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
 - reverify run r20260924-215206-fe12: all 7 PASS (custody 40/40, pinned fp8-ada-v3x4, 13/13 proofs, 2^-128.33, ligero-verify
@@ -132,12 +133,22 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - Negatives, all rejected: `mutate --sample 24` (148/148); s flip, t+1, f+1 (LogUp E2M1X2 sum mismatch); the public line
   reordered, and removed (panic, rc 101).
 
-### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`)
+### 9. arith A100 BF16 B-Ligero, 4 results (reverify r20260924-231754-94c0, binding r20260924-232320-531a)
+- All 4 PASS (bf16-ampere-v3: custody 76/76, 25/25, 2^-128.05; ligero-verify d89cffc7).
+- The first binding attempt errored because bf16-ampere's frozen relation reads the built x / W arrays, which my pod lacked
+  (bootstrapped without BENCH_INSTANCES=1). `20-bench-instances-binding.sh` builds them from my tree's committed seeds (6
+  arrays, sha256 = manifest). After that, all 4 are BOUND: 25 statements, 0/4096 y and 0/4096 operand VUs differ.
+- Negatives (05) on art:61bc4902 rep1: the base is accepted (25/25). proofbyte is rejected ("linear constraints failed"), and
+  so are stmtbyte and swapstmt ("column challenge mismatch").
+- Verdict custody: all 4, plus art:37ed86f2, `data preserved` rc 0.
+
+### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |
 |---|---|---|---|
 | RTX 4090 FP8, A-GKR | — | 3.0e7× (1.13 s) | art:1b4fd4a1 |
 | RTX 4090 FP8, B-Ligero | 2.4e6× (art:fb4934af) | 2.2e6× (0.0840 s) | art:bb75ba4f (arith step 5) |
-| RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s) | art:fe57e68b |
+| RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s), then 4.2e7× (0.314 s) at 23:31Z | art:fe57e68b, then art:ad8f92b9 |
+| A100 BF16, B-Ligero | 2.2e7× (art:794365d3) | 5.9e6× | art:5bcbf3fb (arith a16-tip-r1) |
 
 ## Log
 - 21:17Z pod created; 21:27Z synced (494 s); 21:30Z bootstrapped (only the GPU stage failed, as expected on a CPU pod).

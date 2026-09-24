@@ -14,5 +14,5 @@ find . -maxdepth 2 \( -name index.jsonl -o -name serve.log -o -name hello.json -
 cp /workspace/live/serve.out $D/serve.out; cp /workspace/live/start.sh $D/start.sh
 cd $D && find . -type f ! -name sha256.txt -print0 | sort -z | xargs -0 sha256sum > sha256.txt
 echo "sessions=$(ls -d s* 2>/dev/null | wc -l) files=$(find . -type f | wc -l) bytes=$(du -sb . | cut -f1)"
-meta=$($PY -c 'import json,os; print(json.dumps({"lane": "d3-h100", "label": "d3-h100 live verifier records (" + os.environ.get("VDESC", "vy-d3-h100v cpu3c 4 vCPU, US-MO-1, host e5e505739a45") + ", live-verifier@1d9c3198bbd7, ligero-verify 72565600)", "pod": "vy-d3-h100v (4tdtl6xuhxaa3o, US-MO-1)"}))')
+meta=$($PY -c 'import json,os; print(json.dumps({"lane": "d3-h100", "label": "d3-h100 live verifier records (" + os.environ.get("VDESC", "vy-d3-h100v cpu3c 4 vCPU, US-MO-1, host e5e505739a45") + ", live-verifier@1d9c3198bbd7, ligero-verify 72565600)", "pod": os.environ.get("VPOD", "vy-d3-h100v (4tdtl6xuhxaa3o, US-MO-1)")}))')
 $PY -m research data put --kind run-files/v1 --tree . --meta "$meta" --preserve --json | $PY -c 'import json,sys; d=json.load(sys.stdin); print("records", d["id"], "preserved" if (d.get("preserve") or {}).get("preserved") else "NOT PRESERVED")'

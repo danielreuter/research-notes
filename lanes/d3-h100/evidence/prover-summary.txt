@@ -1,0 +1,25 @@
+23:00:30 warm-b16b rc=0 t.total=0.1729 acc=None dc=None->None rtt=-1.00 wall=172s 
+23:03:58 warm-f8b rc=0 t.total=0.5987 acc=None dc=None->None rtt=-1.00 wall=208s 
+23:03:58 probe             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+23:03:58 probe ConnectionResetError: [Errno 104] Connection reset by peer
+23:04:18 L-b16b-r1 rc=1  wall=18s ConnectionError: peer closed the connection
+23:04:34 L-f8b-r1 rc=1  wall=16s ConnectionError: peer closed the connection
+23:05:48 L-b16h-r1 rc=1  wall=74s ConnectionError: peer closed the connection
+23:09:02 probe  "mbps_median": 2532.090879653986
+23:09:02 probe }
+23:10:05 L-b16b-r1 rc=0 t.total=0.2293 t.total_live=0.2303 verify.cpu_s=8.6280 acc=True dc=US-MO-1->US-MO-1 rtt=4.46 wall=61s 
+23:10:42 L-f8b-r1 rc=0 t.total=0.1078 t.total_live=0.1153 verify.cpu_s=4.4435 acc=True dc=US-MO-1->US-MO-1 rtt=3.33 wall=37s 
+23:13:59 L-b16h-r1 rc=0 t.total=0.6779 t.total_live=0.6779 verify.cpu_s=35.0352 acc=True dc=US-MO-1->US-MO-1 rtt=8.35 wall=197s 
+23:16:11 L-f8h-r1 rc=0 t.total=0.6799 t.total_live=0.6942 verify.cpu_s=17.8150 acc=True dc=US-MO-1->US-MO-1 rtt=8.58 wall=132s 
+23:18:05 L-f8h-r2 rc=0 t.total=0.3393 t.total_live=0.3551 verify.cpu_s=17.6555 acc=True dc=US-MO-1->US-MO-1 rtt=8.75 wall=114s 
+23:21:25 L-b16h-r2 rc=0 t.total=0.9335 t.total_live=0.9335 verify.cpu_s=34.1918 acc=True dc=US-MO-1->US-MO-1 rtt=9.82 wall=200s 
+23:22:07 L-f8b-r2 rc=0 t.total=0.0982 t.total_live=0.1010 verify.cpu_s=4.6795 acc=True dc=US-MO-1->US-MO-1 rtt=2.84 wall=42s 
+23:23:10 L-b16b-r2 rc=0 t.total=0.2318 t.total_live=0.2413 verify.cpu_s=8.8932 acc=True dc=US-MO-1->US-MO-1 rtt=4.15 wall=63s 
+23:23:10 LIVE_DONE
+23:25:16 probe  "mbps_median": 2898.537426167609
+23:25:16 probe }
+23:25:54 L-b16b-r3 rc=0 t.total=0.5724 t.total_live=0.7817 verify.cpu_s=8.7242 acc=True dc=US-MO-1->US-MO-1 rtt=4.29 wall=36s 
+23:26:22 L-f8b-r3 rc=0 t.total=0.2002 t.total_live=0.2092 verify.cpu_s=4.4165 acc=True dc=US-MO-1->US-MO-1 rtt=4.80 wall=28s 
+23:27:30 L-b16h-r3 rc=0 t.total=0.6023 t.total_live=0.6164 verify.cpu_s=36.4644 acc=True dc=US-MO-1->US-MO-1 rtt=11.74 wall=68s 
+23:28:20 L-f8h-r3 rc=0 t.total=0.3525 t.total_live=0.3653 verify.cpu_s=17.2859 acc=True dc=US-MO-1->US-MO-1 rtt=12.58 wall=50s 
+23:28:20 LIVE_DONE

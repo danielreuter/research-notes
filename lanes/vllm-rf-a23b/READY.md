@@ -10,7 +10,9 @@ created: 2026-09-24T20:50Z
 a23b took over from a23 at `c1cf11ef`. a23 did part 1 (dead code out, moves to tests); a23b did part 2 (data and paths).
 
 - **Branch:** `lane/vllm-rf-a23b`
-- **Head:** `748d71c5` (tree `1158eb69`)
+- **Head:** `9be6e462` (tree `9cdc02c5`), rebased onto `main` `58e4c1aa`. See "Rebase onto main" below.
+- **Pre-rebase head, where gates (a) and (b) ran:** `748d71c5` (tree `1158eb69`). `verity_vllm/` is identical at both
+  heads except for one blank line in `tp/worker.py`.
 - **Base for gates and diffs:** `72884c8a` (tree `7db3f3ba`)
 
 ## Gate evidence
@@ -214,16 +216,44 @@ Of the 8 `sys.path.insert` calls at base, 4 were removed (prims, twins, padding_
 - `registry_version()` hashes the source of `registry/prims.py`, so the `sys.path` edit there changes that digest. It is
   export-report provenance only: no Program or manifest digest, and no regression check, reads it.
 
-## Rebase note
+## Rebase onto main
 
-When `main` moves (a1 merges first): rebase, add `"verity_vllm.config": "config"` to a1's `INTERIM_LAYER`, and delete the
-lint-allowlist entries for the modules this lane deleted or moved.
+The coordinator's 22:13Z broadcast said main was at `1d9c3198`. By 23:15Z main was at `58e4c1aa`, but nothing under
+`integrations/vllm` changed between the two. The rebase used `git rebase origin/main` (`58e4c1aa`).
+
+- **One conflict,** in `check/fold_compare.py` (commit `dfb8cd8b`), as the coordinator predicted. Both sides drop the
+  laptop `DEFAULT_RECORD`. I kept this lane's side (`--theirs`): `DEFAULT_COS_SIN` from package data and no `REPO`. The
+  file is byte-identical to its `748d71c5` version.
+- `git diff 748d71c5 ea6625d3 -- integrations/vllm/verity_vllm` is empty. In `git range-diff`, 12 of the 13 commits are
+  `=`, and the 13th is the `fold_compare.py` resolution.
+- **Lints** (`python -m pytest integrations/vllm/tests/lint -q`, from the tree root, in gate (b)'s environment, on the
+  pod):
+  - At `ea6625d3` (rebased, no fixes): 11 failed.
+  - After the two commits below: **41 passed**, on a pod tree whose `git write-tree` is `9cdc02c5` = `9be6e462^{tree}`.
+- `3f794427`: `tp/worker.py` had grown to 1,580 lines, one over its recorded 1,579 (P10). The cause was the blank line
+  `ed31d31c` put between the two function-local imports; this commit drops it. The repo has no isort config that wants
+  the blank line.
+- `9be6e462`: allowlists and `INTERIM_LAYER`:
+  - Deleted the stale entries left by the deleted and moved modules and by the `sys.path`, `parents[N]` and
+    machine-path fixes: P3 4, P6 10, P7 12, P8 22, P9 35, P10 1, P11 32.
+  - Lowered five P10 caps to the current sizes: `twins` 1,050, `padding_steps` 933, `commit_delta` 3,022 and its
+    `main` 1,918, `weights_of_record` 1,000.
+  - Moved one P7 entry. `weights_of_record._default_manifest` still reads the cwd, now spelled `Path.cwd()`, so the
+    entry changed from `os.getcwd` to `pathlib.Path.cwd`.
+  - Dropped the 7 `INTERIM_LAYER` names that moved to `tests/`.
+  - Added `"verity_vllm.config": "config"`. `config.py` imports nothing from `verity_vllm`; the 9 new P9 layering hits
+    were `-> config` imports.
+- Pushed with `--force-with-lease` (`748d71c5` -> `9be6e462`).
 
 ## Found, not fixed
 
 - **Gate (a) at T0+T1 needs a pod with well over 64 GB.** `replay_partition` (T1) on the B=1 rows loads whole Programs;
-  its docstring says 120-250 GB. A cpu3g 64 GB pod OOMs, and the OOM can take sshd with it. a1's T0+T1 base on
-  `vyv-rf-a1` (64 GB) will hit this.
+  its docstring says 120-250 GB. A cpu3g 64 GB pod OOMs, and the OOM can take sshd with it. Any lane's T0+T1 gate (a)
+  needs a big pod (here: cpu3m, 512 GB).
+- **Gate (b) writes into the tree.** `tests/program/test_ref_prims.py` writes its records to `$REF_PRIMS_RECORD_DIR`,
+  which defaults to the tree's `docs/data/ref-prims/`. After a gate (b) run, 29 of those files differ from git, with the
+  same bytes at head and base. A tree that ran gate (b) is not the commit's tree any more; here, gate (a) and the lint
+  run used copies that had not run it.
 - `backends/sp1/common/src/ftz.rs:41`: a comment names the old `vllm-poc` W11 table path.
 - `program/registry/conformance.py:75`: the record string names `docs/data/l8-nan-scan-2026-09-07/`, but the files are at
   `data/l8-nan-scan-2026-09-07/`.

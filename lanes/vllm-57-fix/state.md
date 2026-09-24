@@ -138,6 +138,9 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
   (binding 11:27) ends ~12:00Z, pair 2 ~12:33Z => verdict ~12:35Z, preserved + vyv-sw-67b drained ~12:45Z. Everything so far is
   clean (pair 0 all checks OK; pair 1 coverage 406,220 OK, C2 16,120 equal). Not interrupting the run; no cheaper path to a
   3-pair verdict.
+- 11:56Z drain prep: `research pods unpreserved vyv-sw-67b` = 0 NOT preserved (Build 063717-5860, Match 075730-80bd; the killed and
+  crashed Commits published nothing). Pod-only evidence (/workspace/lane minus 2.8 GB binding maps: 2c5e038b MoeSum FAIL, 2c8aa2b3
+  import crash, repro67) stored as art:b7d4ea83eb715fca8ecfcdc9831c87cd272550bbc625a76cc7619a0389c26675 (preserved, 3 labels durable).
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)
 - CHECKPOINT 57-pass AT-RISK 07:05Z -- the #57 rerun (r20260924-061950-2148) exposed a second v2 gap on the ACQUISITION side: form (B)
   now compares 159,840 (equal 159,408, incl. all 44,928 fused-norm narrowings) but MISMATCHES the 432 `model/out`. The Commit hooks

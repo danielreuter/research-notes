@@ -12,7 +12,7 @@ case $REL in fp8-ada) MODEL=ada_e4m3_m16n8k32;; fp8-hopper) MODEL=hopper_e4m3_wg
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 cd /workspace/src/backends/gkr
 export PYTHONPATH=/workspace/src/backends/gkr:$PYTHONPATH
-H=/workspace/agkr-fp8/$REL
+H=${H:-/workspace/agkr-fp8/$REL}
 mkdir -p $H /workspace/bin
 T=$(nproc)
 echo "== 0. verifier build ($(date -u +%H:%M:%S))"
@@ -22,7 +22,7 @@ fi
 sha256sum /workspace/bin/verity-gkr-verify
 echo "== 1. circuits ($(date -u +%H:%M:%S))"
 rm -rf $H/stmt
-$PY -m gpu.v2.export circuits --model $MODEL --out $H/stmt | cut -c1-400
+$PY -m gpu.v2.export circuits --model $MODEL --out $H/stmt ${EXPORT_ARGS:-} | cut -c1-400
 echo "== 2. recipe parity ($(date -u +%H:%M:%S))"
 $PY -m gpu.v2.witness recipe --relation $REL --vus 64 --procs 16 2>&1 | grep -v -i warn | head -24
 echo "== 3. bench_result --relation $REL --vus $N ($(date -u +%H:%M:%S))"

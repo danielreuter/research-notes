@@ -66,6 +66,12 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
 - recorded r20260924-233405-1b1d @ 2b25df7f (thread caps on): t.total 0.245 s (0.245 / 0.240 / 0.278), Rust 3/3, 2^-130.19;
   result art:5adf62eb…, run-files art:d6673af2…, PRESERVED; proofs 9467080 B sha 091fecad… (= dev).  verify-po handoff
   `lanes/verify-po/20260924T2350Z-handoff-from-agkr-nvf4.md` (supersedes 2200Z and 2305Z).
+  - 1839946c torch.compile'd chain step + one-shot operand decode in `nvf4/witness.py` (graphed witness 28.7 -> 12.1 ms,
+    same rows, same sha): 0.249 -> 0.232 s.  Cold compile adds ~200 s to the untimed warm-up (7.5 s warm).
+  - 05904fbb..716ea008: agkr-fp8's 12 shared-file prover commits cherry-picked (eq_table_vars, numpy serialization, lookup
+    plan, py_ext tolist, incremental eq_points, wire plans, host phase-2 sumchecks, fused input claims, int8 fold skip,
+    int32 Acc). Conflicts resolved toward theirs, except that my one-launch gate_eval query path stays first, with their
+    planned gather as the fallback.
   - tried and dropped: vectorizing add_lookup_claim's per-query term loop (09_terms.py: only 1.5 ms of its 20 ms is Python).
 - stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.

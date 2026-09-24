@@ -7,7 +7,23 @@ Container IPs (172.x) are separate networks. So a same-DC live verifier on a sec
 `timeout 4 bash -c '</dev/tcp/IP/PORT'` from the prover BEFORE launching live runs. (wave-h100-2, 2026-09-24 04:08Z; EU-RO-1
 pods did reach each other per live-2c.)
 
-## H100 SXM (80GB HBM3) has no same-DC verifier on RunPod right now (fill-dc, 2026-09-24 06:25-06:40Z)
+## H100 SXM (80GB HBM3) + separate-host same-DC verifier: US-MO-1 works, through GraphQL (d3-h100, 2026-09-24 22:40-23:31Z)
+- Find the DC: GraphQL `{ dataCenters { id gpuAvailability { gpuTypeId stockStatus } } }` (H100 stock) and
+  `{ cpuFlavors { id specifics(input:{dataCenterId:"DC"}) { stockStatus } } }` (CPU stock). At 22:40Z H100 was in AP-IN-1/2,
+  EUR-IS-3, EUR-NO-2, US-MO-1, US-NE-1; CPU pods only in US-MO-1 and US-NE-1 of those (EUR-IS-3: every cpu3/cpu5 flavor refused).
+- REST `dataCenterIds` rejects US-MO-1 / US-NE-1 (not in its enum), so `research pods create --data-center` cannot place pods
+  there. GraphQL can: `deployCpuPod(input:{instanceId:"cpu3c-32-64", dataCenterId:"US-MO-1", ...})` and
+  `podFindAndDeployOnDemand(input:{gpuTypeId:"NVIDIA H100 80GB HBM3", dataCenterId:"US-MO-1", ...})`; scripts
+  `lanes/d3-h100/evidence/gql_cpu_pod.py`, `gql_gpu_pod.py` (register the machines.toml entry by hand). CPU sizes come and go:
+  only cpu3c-4-8 at 22:46Z, cpu3c-32-64 at 23:23Z.
+- US-MO-1 hairpins: H100 64.247.201.34 -> CPU pods 64.247.201.13 / 64.247.206.95 on the mapped :7000, `live probe` RTT 1.5 ms,
+  2.5-4.3 Gbps; in-session RTT median 3-12 ms. Hosts: H100 Xeon 8470 (22.1-core quota), CPU pods EPYC 7702P at load 50-145.
+- Verifier CPU is host-dependent: the same sessions cost 1.2-1.3x (bare) / 1.5-1.6x (+hash) more `verify.cpu_s` on the EPYC
+  7702P verifier than on the Xeon 8470 prover pod (loopback). Results: `lanes/d3-h100/` report, 12 bench-results.
+- GOTCHA: a leftover test listener on :7000 makes `live_serve.sh` print SERVING (it only checks that the port listens) while
+  the real server loops on `Address already in use`; sessions then fail `peer closed the connection`. Kill test listeners first.
+
+## Older: H100 SXM had no same-DC verifier (fill-dc, 2026-09-24 06:25-06:40Z)
 - EU-NL-1: H100 prover and a cpu3g CPU pod both sit behind ONE public IP (91.199.227.82); prover -> verifier's mapped ports
   (ssh and :7000) `Connection refused`, and the 172.x container nets do not route to each other. Same as CA-MTL-1.
 - EU-FR-1 and AP-IN-1 list only H100 (no CPU pod of cpu3c/cpu3g/cpu3m/cpu5c, no cheap GPU); US-NE-1 is not a REST
@@ -72,7 +88,8 @@ bf16-ampere 4096 VUs = 6.6 GB. The records worth keeping are small (~7 MB for 48
   pod-side (`research run --on <pod> ... python3 -m research data preserved <art>`), same credential via `--env`.
 - D3 (drilldown.py) reads verifier cost from live records: the cell's own if it ran against a same-DC live verifier at 2^-128,
   else the median-`verify.cpu_s` run of the same config (relation, l, B, K, instances, authentication, SKU, pipeline).
-  H100 rows: verifier on the prover pod (loopback, EU-NL-1); no same-DC RunPod CPU pod was used for H100.
+  H100 rows: verifier on the prover pod (loopback, EU-NL-1); separate-host US-MO-1 runs exist since 23:30Z (d3-h100), but the
+  median-CPU rule still picks loopback records (they ran on a faster CPU): see lanes/coordinator/20260924T2352Z-handoff-from-d3-h100.md.
 
 ## A-GKR verifier cost (offline, no live protocol)
 - `verity-gkr-verify` (backends/gkr/verifier, no deps) re-verifies a GPU A-GKR cell's proof (4096 VUs) in ~2.9 s wall /

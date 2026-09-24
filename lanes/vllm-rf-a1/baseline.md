@@ -94,6 +94,14 @@ Test ids below are relative to `integrations/vllm/tests/`.  Failures and errors:
 
 **Subprocess builds cannot import core `verity`: the tests launch them with `PYTHONPATH` set to the integration tree only, and the bootstrap puts core on `PYTHONPATH` rather than in the venv (`ModuleNotFoundError: No module named 'verity'` in every build log)** (30):
 
+The integrator's pods show the same 11 `test_applicability` errors ("same on main"). The 19
+`test_artifact_applicability_independent` failures need `HF_HOME` set when that file's builder probe runs: exported, as
+in this recipe, or set by `commit_delta.apply_env()` when a module importing `commit_delta` was collected earlier in
+the same process. Without it the file skips as a whole (integrator, `20260924T0550Z-state`: the file alone with
+`HF_HOME` gives 19 F / 3 P / 3 S, without it all skip). A run that shows these 19 as skips instead has the same defect,
+not a new skip. Installing core into the venv would make the builds importable, but that is not what the bootstrap
+does, so the recipe keeps the bootstrap's environment.
+
 - `program/test_applicability.py::test_case_i_b_capability_applied_only_around_the_export_is_refused` (error): setup error: the base build's `result.json` is missing (its build log ends in the `verity` import error)
 - `program/test_applicability.py::test_case_i_same_digest_different_identity_manifest_reports_applied[cap80_108-cap0-108]` (error): setup error: the base build's `result.json` is missing (its build log ends in the `verity` import error)
 - `program/test_applicability.py::test_case_i_same_digest_different_identity_manifest_reports_applied[sms132-cap1-132]` (error): setup error: the base build's `result.json` is missing (its build log ends in the `verity` import error)

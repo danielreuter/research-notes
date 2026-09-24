@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T19:17Z
+updated: 2026-09-24T19:41Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -24,6 +24,9 @@ updated: 2026-09-24T19:17Z
 - 19:08Z design settled (below). Still no code changed.
 - 19:17Z written (uncommitted, not yet run anywhere): `committer_api.RangeOpening`; `native_host`: `_open_range_levels` (one gather + one D2H per range for tensor levels), `_run_root` (shared by `verify`/`verify_range`), `leaf_span`, `_tensor_of_leaves`, `open_range`, `_range_leaves`, `verify_range`. Checked against `open`/`verify` leaf rules, `_apply_padding` (mixed steps refold both `_levels` and `_gpu_levels`), `_HostWindows`/`_HostRanges` (`holds`/slicing span windows), `merkle.range_path_shape`/`fold_range` (`CommitError` is a `ValueError`).
 - Cost concern: GPU-tree leaves are 256 B and `oracle_compare` reads every binding entry's element range, so a whole-row compare re-hashes ~all compared bytes in Python (~1-1.6 us/leaf incl. fold). Measure bytes read + wall on the base row before deciding on batching/caching.
+- 19:30Z written (uncommitted, not run): `oracle_compare.py`: `committed_reader` REMOVED; `meta_by_name`, `OpeningNotVerified`, `OPENED_METHOD`, `OpenedReader(com, run)` (`__call__(step, name, lo, hi)`, `read_meta(step, m, lo, hi)`, `or_none`, `record()`; stats reads/leaves/bytes/not_retained/failed/seconds); `oracle_compare` catches `OpeningNotVerified` per entry -> mismatch. `commit_delta.py`: oracle_compare + sampled_replay/boundary_linkage use `OC.OpenedReader(com, rc)`, `padded_population` uses `_rd.or_none`; `value_source` recorded beside both. `sampled_replay.py`: `replay_vu` wrapper -> VU False on `OpeningNotVerified`; children return their reader stats (`opened_in_children`); `_UnverifiedUnlinked` store wrapper -> boundary pair unlinked.
+- 19:38Z pods: g1 (2x L40S) replaced by g1b (1x L40S) per the coordinator's 19:35Z note; TP2 bootstrap found never launched (stuck at `shipping`), relaunched.
+- NEXT in code: TP (`worker.py` 1192 sampled replay, `_tp2_attribution`, `tp2_commit_xrank_dump`, `_t6_4_check`; `partial_source._committed` -> reader; `compare()`/`compare_match_oracle()` take the reader), `value_check.ValueChecker.compare(reader)` (feeds `value_correspondence` in dense `--value-check` and TP `commit.py:990`, so verdict-bearing: now IN scope). Then tests that call `committed_reader` (7 files) -> OpenedReader over a real CPU committer.
 
 ## Compared vs opened positions (at `72884c8a`, paths under `integrations/vllm/verity_vllm/`)
 
@@ -39,7 +42,8 @@ updated: 2026-09-24T19:17Z
 - `padded_population` (`commit_delta.py:2564`, same `_rd`): padding entries read back == bot.
 - TP per rank: `tp/worker.py:1192` `rd = OC.committed_reader(com)` -> `SR.sampled_replay` + `SR.boundary_linkage` on the rank. Rank run commitment is `st["rc"]` after `tp2_commit_finalize` (`worker.py:894`).
 - TP, second reader `tp/partial_source.py:58` `_committed(com, step, meta)` (whole meta): used by `partial_source.compare()` (`:402`), `compare_match_oracle()` (`:513`), `worker._tp2_attribution` (`:969`), `worker.tp2_commit_xrank_dump` (`:1268`), `worker._t6_4_check` (`:1507`). `compare()`/`_t6_4_check` run in `tp2_commit_value_check` (its own finalize -> local `rc`).
-- Not in scope: `check/value_check.py:105` `_committed` (E7, `--value-check`), `compiled_value_check.py`.
+- `check/value_check.py:105` `ValueChecker._committed` (host copy else GPU block): feeds `value_correspondence` (dense `commit_delta.py:1913` `--value-check`, TP `tp/commit.py:990` via `worker.tp2_commit_value_check`) -> verdict-bearing, IN scope (revised 19:40Z).
+- Not in scope: `compiled_value_check.py`, `compiled_kernel_check.py` (compiled-graph rows only; not in the three regression rows) -> "Found, not fixed".
 
 **Leaf layout (`acquire/native_host.py`)**:
 - Packed steps (GPU block `_gpu_blocks`, host stream `_streams`, padding): leaf `i` = stream bytes `[i*chunk, min((i+1)*chunk, n))`; member at `[m.stream_off, +m.nbytes)` (GPU: `stream_off == dev_off`, chunk 256; padding metas `dev_off -1`, leaves `>= ps.leaf_base`, `ps.stream[s - ps.stream_base]`).
@@ -57,8 +61,10 @@ updated: 2026-09-24T19:17Z
 - Negative tests (CPU, `commit_offline` host path): mutate retained bytes after finalize -> oracle_compare result False naming the opening; variant where the oracle agrees with the mutated memory (PASS before the fix, FAIL after). Pod: one real row with a mutate-after-commit fault.
 
 ## Running
-> **Coordinator, 19:35Z:** move the tp1 rows off `vyv-rf-f1-g1` (2x L40S) onto a one-GPU L40S pod `vyv-rf-f1-g1b`, then terminate g1. See `20260924T1935Z-handoff-from-vllm-coordinator.md` in this dir.
-- nothing (no pods)
+> **Coordinator, 19:35Z:** move the tp1 rows off `vyv-rf-f1-g1` (2x L40S) onto a one-GPU L40S pod `vyv-rf-f1-g1b`, then terminate g1. See `20260924T1935Z-handoff-from-vllm-coordinator.md` in this dir. **Done 19:38Z.**
+- Pod `vyv-rf-f1-g1b` (`u7awphw9p8i2ru`, 1x L40S, 188 GB, 16 vCPU, $1.09/h, created 19:37Z; in machines.toml): rows #11 (dense) and #67 (MoE), ONE AT A TIME (timings). Bootstrap `pod_bootstrap.sh --cases LLAMA32_1B,OLMOE` from the base worktree `verity-wt/rf-f1-base` (`72884c8a`, clean), launched 19:39Z, log `/tmp/rff1/boot_g1b.log`.
+- Pod `vyv-rf-f1-tp2` (`t70u3qv3dm09dl`, 2x L40S, $2.18/h, created 19:21Z): row #70 (olmoe TP2 b8). First bootstrap `r20260924-192617-ea73` never left `shipping` (the shipping shell died); relaunched 19:39Z (`--cases OLMOE`), log `/tmp/rff1/boot_tp2.log`.
+- `vyv-rf-f1-g1` (`p8njwdgmlcgycu`) TERMINATED 19:38Z (its bootstrap `r20260924-192616-7a8d` was still running; nothing kept). One-GPU create needed `--min-ram 60 --min-vcpu 8` (per GPU); `--min-ram 120 --min-vcpu 16` returned HTTP 500.
 
 ## Next
 1. Implement committer_api + native_host range methods; OpenedReader; wire call sites; update tests that use `committed_reader`.

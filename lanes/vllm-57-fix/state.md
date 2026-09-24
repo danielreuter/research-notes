@@ -55,7 +55,9 @@ Schedule: 20260924T0545Z-from-coordinator-schedule.md (57-cause 07:00Z, 57-fix 0
 - 08:22Z #67 early check (repro67.log): population over the fresh Build's 32 Programs at 2c5e038b reconciles: vus 5,745,046,
   query_checks ok, accounted, vus_outside_query 0, identities_without_rows 0 (sweep: 20,928 MoE experts out at 014563ac),
   unreachable_by_alias 0, rows_disagree 0. => #67's population failure is #57's cause 1 (v1 addressing in the sweep's replay),
-  already fixed at staging 38122d1f. Promoted-member listing still running.
+  already fixed at staging 38122d1f. Producer facts: 181 derived members, 0 conflicts; promote_handed_down selects 0 members
+  on OLMoE => 2c5e038b changes nothing in #67's acquisition (no-behaviour-change evidence for a second model family).
+- 08:27Z #57 at pair 1 (MANIFEST COVERAGE pair 1 OK 163,168). Laptop free disk back to 3.95 GB (someone freed space).
 
 ## Checkpoints
 - CHECKPOINT 57-cause MET 05:56Z -- offline repro on the pod (logs /workspace/lane/logs/repro_{pop,oracle}_base.log; script evidence/pod-scripts/repro57.py)

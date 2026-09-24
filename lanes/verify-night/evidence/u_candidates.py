@@ -7,7 +7,7 @@ import json
 import sys
 from pathlib import Path
 
-STORE = Path.home() / ".research" / "store"
+STORE = __import__("pathlib").Path(__import__("os").environ.get("VN_STORE", str(__import__("pathlib").Path.home() / ".research/store")))
 U = "not independently verified"
 E = "(instance-equiv:"
 

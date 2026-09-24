@@ -1,3 +1,4 @@
+CHECKPOINT d3a5b955 (08:00Z) [open] hill-climb 3 art:a68f2446 (runs art:204f58d0): witness-operands arm (fork patch 0007 cbf66ccd, TC_DOT_BF16 operands as free witness values; coordinator asked 07:45Z), t.total 8.771s, 10 shards, 14.4MB. Building patch 0008 (operands from the input stream, never in memory).
 CHECKPOINT 0b0768ed (07:26Z) [open] hill-climb 2 art:255f4f78 (runs art:4afa9f4e): fork patch 0006 (CPU-shard estimate fix + ELEMENT_THRESHOLD 1.25x), t.total 11.485s, 10 shards, 14.9MB, verify 0.61s; emitter now vector_run --variant (merged sp1-table b9b76e75). Next: verify-night addendum, next lever.
 CHECKPOINT none (07:08Z) [open] hill-climb 1 art:6e415853 (runs art:a965d150): guest chains each VU's 96 TC_DOT_BF16 ecalls in one asm block, 4.91M cycles (was 8.04M), t.total 11.946s, 16 shards. Building fork patch 0006 (sharding estimate + ELEMENT_THRESHOLD).
 CHECKPOINT 572018a3 (06:54Z) [open] B=4096 A100 result art:90671b80 (runs art:d9a862c5): t.total 12.763s, 17 shards, 2.34x faster than stock SP1 art:2a10bc89; verify-night handoff written; sp1-table 06:40Z: adopt --variant at next rebase. Next: hill-climb (shard threshold, guest loop).
@@ -107,7 +108,9 @@ Budget $12, FINAL 12:00Z.
     the precompile shard. The estimate stays an upper bound on the CPU shard.
   - `local_gpu_opts` honours `ELEMENT_THRESHOLD` when it is set. The 4 pinned trace buffers and the LDE (4x area)
     scale with it, so stay under 2^31 LDE elements, i.e. an area of at most about 5.3e8.
-  - No AIR or verifier change: the vk depends only on the ELF and the chips.
+  - No AIR or verifier change. (Correction, 08:00Z: SP1's vk hash commits to the program, not to the chips. Patch
+    0007 changed the TcDotBf16 AIR and the vk hash stayed `0x00b4876f…`, so only the verifier's fork head tells the
+    arms apart.)
 - **Hill-climb 2, `art:255f4f78…` (runs `art:4afa9f4e…`), source `64014888`, fork `d14b4c62`,
   `--prover-env ELEMENT_THRESHOLD=503316480` (1.25x).**
   - Same ELF and vk as hill-climb 1 (`70d03135…`, `0x00b4876f…`): patch 0006 does not touch the vk.
@@ -137,3 +140,32 @@ Budget $12, FINAL 12:00Z.
   corrected in `lanes/verify-night/20260924T0727Z-handoff-from-sp1-tcdot.md`, which also asks for `art:255f4f78…`.
   Fix for future builds: also remap the fork checkout's canonical path in `host/build.rs` (not done, since it would
   change nothing verified here).
+- **Witness-operands arm (decision asked of the coordinator: `lanes/coordinator/20260924T0745Z-handoff-from-sp1-tcdot.md`).**
+  - The bare statement is existential in x and W, so SP1's memory argument for the 25 MB of operands adds no
+    soundness to it. It is also 76% of the cells.
+  - Fork patch 0007 (`sp1-patches/witness-operands/`, `build_fork.sh OPERANDS=witness`, pin `FORK_HEAD_WIT`
+    `cbf66ccd`, tree `dc7b3cbd`) makes TC_DOT_BF16's operands free witness values. Both executors read them with
+    `mr_slice_unsafe` (no memory event, no page-prot check), and the event carries them as `ab_words`.
+  - The chip drops the 8 operand address, memory-read and page-prot columns and the equality between the decode and
+    the read words: 1262 to 1166 cells per row.
+  - Each limb stays fully determined by its range-checked decode `2^15 s + 2^7 ef + m`. A row therefore proves
+    `D = C + A.B` for the operands its decode holds. A proof shows the accumulator chain is reachable from some finite
+    BF16 operands, which is exactly relation-bare. It is not sound for a statement that authenticates x and W.
+  - The patch reproduces commit and tree under `git am --committer-date-is-author-date`. The executor unit tests, all
+    9 chip tests (BF16 prove plus every negative tamper, fp8 unchanged) and cost/complexity consistency pass.
+  - The guest and ELF are unchanged. Execution gives the same public values, --flip-y returns false, and 52/52
+    negatives are rejected.
+  - The arm is separate: the memory arm's pins, patches and backend name are unchanged. `bench.py` takes the arm
+    from the host's fork pin and records its operand binding (`fork.operands`, "witness operands" in the backend
+    name).
+- **Hill-climb 3 (witness arm), `art:a68f2446…` (runs `art:204f58d0…`), source `d3a5b955`, fork `cbf66ccd`,
+  ELEMENT_THRESHOLD 503316480.**
+  - t.total **8.771 s** (reps 8.92/8.73/8.75), 10 shards, 14.4 MB, -96.7 after the union bound. That is 1.31x faster
+    than the memory arm (11.485 s) and 3.4x faster than stock SP1 (29.91 s).
+  - A 1.5x threshold crashes the GPU tracegen (`global.rs:127` "invalid configuration argument": Global rows exceed
+    a kernel launch limit), so 1.25x is the ceiling.
+  - Per shard: 4 memory shards (1.72G cells, the hint init/finalize of the operands, which still sit in memory) take
+    2.6 s; 1 CPU shard 0.63 s; 5 precompile shards at 0.48 s each (TcDotBf16 1166 x 84544 plus 3 Global rows per call
+    for the accumulator and the syscall); and 2.6 s before the first shard.
+  - Next: fork patch 0008, where the executor takes each step's operands from the input stream, so they never enter
+    memory (guest and host `stream-operands` feature).

@@ -6,6 +6,23 @@ pod: vyv-sw-57 (ssh -i ~/.runpod/ssh/runpodctl-ssh-key -p 12152 root@202.181.159
 ---
 # vllm-57-fix: running state
 
+**07:58Z successor took over (predecessor died 06:51Z with Cursor).** BLOCKER (laptop-wide, handed to coordinator
+`lanes/coordinator/20260924T0758Z-handoff-from-vllm-57-fix.md`): laptop free disk is at the guardian's 3.5 GB floor
+(cursor_db 69.8 GB and growing). The guardian SIGKILLed my laptop `research run` launchers 3x (07:52Z, 07:57Z). Freed: data evict
+0.23 GB, ~/Library/Caches/com.apple.python 0.16 GB, uv cache 0.40 GB; each launch then squeaked through. Every further
+laptop launch (#67 Commit, preserve) needs >=3.5 GB free.
+
+## Now (07:58Z)
+- #57 Commit-only rerun at the tip 2c5e038b: run r20260924-075409-3621 on vyv-sw-57 (GPU 0), same inputs as 061950-2148
+  (build art:f1baace0, match art:a225cf5f), source tree /workspace/research/src/2c5e038b… built on the pod by git archive. ETA ~09:00Z.
+- #67 Build r20260924-063717-5860 PASS 07:42Z (build_wall 2012 s; manifest 406,432 identities, digest 4799063127e655ff); published
+  from the pod: build art:5b7e5bcf7655c313dc4ca28a4891ffcdbfabaa3fb1fc41810795c5519ac052e0 (+evidence art:cb051bae, logs art:e76c34f2).
+- #67 Match: run r20260924-075730-80bd on vyv-sw-67b (GPU 0), source 2c5e038b (shipped as a gzip'd git archive, 57 s),
+  --input build=art:5b7e5bcf…, no extra env (8b606f16's row_pod picks all snapshot steps if form (B) needs them). ETA ~08:45Z.
+- 2c5e038b pod tests (/workspace/lane/logs/tests_2c5e.log, run by the predecessor 06:51Z): all pass except 3
+  test_commit_fail_closed dead-watchdog tests, which fail on "Ninja is required to load C++ extensions" in a subprocess
+  (environment, not the fix). Confirming with PATH fixed.
+
 **#67 SCOPE CHANGE (06:30Z, for the coordinator):** a Commit-only rerun of #67 is impossible. Its row dir lived only on vyv-sw-67
 (terminated 04:16Z), and the stored artifacts are account summaries: Build art:a0fb7ea8 (vllm-build/v1, 0.9 GB) skipped every
 `instances.json.gz` (the Programs), Match art:f3430c8f (vllm-match-record/v1, 1.4 MB) skipped match/instances.jsonl + match/program.json;

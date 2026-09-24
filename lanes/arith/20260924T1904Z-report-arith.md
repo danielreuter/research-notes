@@ -91,3 +91,18 @@ Inbox at startup: nothing new.
   for its slot; that slot's holder is always the oldest active job, which the scheduler already blocks on). The
   (slot, layout) pairs are then identical every pass, so only the first (warm-up) pass captures. This is a prover
   scheduling change (no proof-system change) -- disclosed to the coordinator.
+- Step-4 A/B (s3 vs fixed slots, 4 rounds): s3 0.0831 / 0.0914 / 0.3427 / 0.0915, tip 0.0874 / 0.3456 / 0.0826 / 0.1859
+  -- the fixed slots alone do not remove the outliers. Per-rep: t.total is the MEDIAN rep (phase_rep rule), and rep 1 was
+  ALWAYS ~0.33 s: the untimed warm pass (relchain) proved subs[:depth] + subs[-1:], i.e. the ragged sub-batch as job 8 ->
+  slot 0, while the timed passes run it as job 12 -> slot 4 (fixed) / wherever (old). So every run paid one ~0.25 s
+  capture in rep 1 and an outlier needs only 2 more slow reps out of 4. (fp4/chain.py already warms with a full pass for
+  the same reason, r20260923-091019-38d8.)
+- Every graph capture costs ~0.22 s, nearly all of it a gen-2 gc.collect() that torch.cuda.graph runs on entry (dbg_patch2
+  gc callback: gen=2 ms=211-229 before each capture) -- the big Python heap, not the capture itself.
+
+### 21:10Z step 5: full untimed warm pass (lane/arith 92dab0ad)
+- relchain warm pass = every sub-batch once (with FIXED_SLOTS: each slot meets exactly the layouts it will run).
+  Result: tip rep 1 0.079-0.080 s (was 0.33-0.35 s in every run before).
+- A second, independent slow-rep mechanism remains: timed rep 2 (right after rep 1's proof dump) is 0.3-1.9 s in most
+  non-diagnostic runs of every arm, and was clean in all 7 runs made with PYTHONUNBUFFERED=1 + the capture log. Diagnosis
+  run 77-dbg3.sh (per-pass stage/gc log, buffered vs unbuffered).

@@ -2,9 +2,9 @@
 id: vllm-rf-f24/ready
 lane: vllm-rf-f24
 kind: ready
-status: draft (gate (a) at be366f80 and GM-01 at a2e2843e still running)
+status: ready
 created: 2026-09-24T22:05Z
-updated: 2026-09-25T00:20Z
+updated: 2026-09-25T01:45Z
 ---
 # vllm-rf-f24 READY: identity and integrity (D5, D6, D7, D10, D11, D13)
 
@@ -31,7 +31,7 @@ code the regression reaches: under `integrations/vllm`, main changed only `check
 
 | pod | RunPod | used for |
 |---|---|---|
-| `vyv-rf-f24-veritor-campaign` (`0zb24mk1w6nb4o`) | cpu3g, 16 vCPU / 64 GB | gate (a) T0+T1, gate (b), GM-01, verdict A/B, D6/D7 probes |
+| `vyv-rf-f24-veritor-campaign` (`0zb24mk1w6nb4o`) | cpu3g, 16 vCPU / 64 GB, terminated 01:43Z | gate (a) T0+T1, gate (b), GM-01, verdict A/B, D6/D7/D11 probes |
 | `vyv-rf-f24-big` | cpu3m, 64 vCPU / 512 GB, terminated | the two T1 `replay_partition` checks of the B=1 rows #11 and #39 |
 | `vyv-rf-f24-gpu` | RTX 4090, terminated | the Build A/B (a Build cannot run on a CPU pod, see Found, not fixed) |
 
@@ -65,6 +65,10 @@ VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/
   manifest with `verity_vllm.query.cli`, which imports nothing `a2e2843e` changed except `batch_decomp.derived_shape` (unchanged).
   On this pod both T1 checks skip on rows #4, #11 and #23: not applicable, or the fold record and request descriptors aren't in
   the fixtures. Test by test against `a_final` (`jdiff.py`, the 110 tests both ran): no outcome and no skip reason differs.
+- **`a2e2843e`, main pod, second run** (`head4_t1.sh`: `gate_a.sh /workspace/head4 a_head4_t1 -k "(T1 and replay_partition and
+  (r101 or r57 or r60)) or (T0 and manifest_digest and r60)"`, 01:19Z, keyless): **4 passed, 187 deselected** (1,244 s, exit 0).
+  This runs `replay_partition` at the final head on the three rows where it passed cheapest in `a_final`, plus one
+  `manifest_digest`. `decomp_hashes` skips on every row in these fixtures, and GM-01 at `a2e2843e` (below) runs `program_compare`.
 - **Fixtures and the credential** (`20260924T1942Z-gate-a-credential-route.md`). Every key was minted on the laptop
   (`--permission object-read-only --via local`) and piped into the pod, never echoed. Main pod: `prefetch.sh` fetched all 26
   fixture artifacts (0 failures) and deleted `/root/r2ro.env` at 20:47:22Z. Big pod: its own `--ttl 3h` key, minted 20:55:40Z,
@@ -120,7 +124,7 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
     differ: the tree path, and the number of files opened (for #74 `step`, 208 vs 181 paths outside site-packages and 12,904 vs
     11,506 distinct paths). I kept only the diff of the traces, not the traces themselves, so I can't attribute each path.
 - **D6 on every recorded Build** (`evidence/d6`, `cv_evidence.py`): base hashes 14/14 sources as missing (`4a9cdf5b...`, a
-  constant of the file names); head hashes all 14 by content. The 180 recorded Builds all carry `ad140226...`, 14/14 missing.
+  constant of the file names); head hashes all 14 by content. (The brief says 13; `_CONSTRUCTION_SOURCES` lists 14.) The 180 recorded Builds all carry `ad140226...`, 14/14 missing.
 - **D7 on every recorded Build** (`evidence/d7`, `fp8_dtype.py`, each Build's own target and pin through
   `EngineArgs.create_model_config()`): 9 BF16 rows give `bfloat16` (as recorded); the FP8 row gives `fp8` (quantization `fp8`,
   model dtype bf16), where the record says `bfloat16`.
@@ -141,8 +145,10 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
   `_partial_replay_named_gap`), is byte-identical at base, `be366f80` and `a2e2843e` for all 10 regression records with a Commit
   verdict. `commit_summary` only lifts the recorded `commit/verdict.json`, so this A/B is the direct evidence. The records carry
   no codes, so this also exercises the decoding of legacy texts.
-- **D11:** every program digest in the regression records is a full 64-hex sha256 (a scan of all records), so the stricter
-  comparison moves no verdict of record.
+- **D11:** the regression records carry no truncated digest. A scan of the fixtures' 14 trees (all 13 rows' `records` and the
+  shared `commit_logs`; `evidence/d11/scan.txt`, `scan_digests.py`) reads every program, manifest and component digest a
+  weights-of-record check or the Commit's weights pin can compare: 48, all full 64-hex sha256. So the stricter comparison moves
+  no verdict of record.
 - **New identity tests pass** (gate (b), both heads): `test_hot_commit` (3 new, including the core-edit key test),
   `test_research_tools`, `tp/test_commit_tree_of_record` (2), `test_derive_step_identity` (4).
 

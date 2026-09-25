@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (01:05Z) [open] 4090 FP8 A-GKR merged-LK art:45c5be4a verified, verdict art:df4d2c3c registered, label HELD per coordinator 0050Z (handoff 0104Z); now art:ecd96143 (unchanged stmt, 0006Z handoff found in coordinator folder)
 CHECKPOINT ab9573fd (00:41Z) [open] idle: inbox empty since 00:22Z; 48 accepted, 0 rejected; pod vy-verify-po up (no credential on it), polling every 10 min until 03:45Z
 CHECKPOINT ab9573fd (00:22Z) [open] verified agkr-nvf4 5090 art:49757870 (716ea008, same proof bytes as 5adf62eb; verdict art:9618b325; A-GKR cell 2.5e7x; coordinator 0022Z). 48 accepted, 0 rejected; cred removed; idle-polling
 CHECKPOINT ab9573fd (00:15Z) [open] d3-h100 LIVE x12 all PASS+BOUND, labelled (verdicts art:e13419b4..art:41e3a98b, coordinator 0017Z); Table 2 unchanged (also_valid, D3). 47 accepted, 0 rejected; idle-polling
@@ -61,6 +62,8 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 10 | `20260924T2335Z-handoff-from-arith.md` (92dab0ad, 5090) | f4-tip r1-r4: art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a | RTX 5090 NVFP4, B-Ligero (also_valid; cell stays art:d5c9e1f3) | accepted x4 | art:0b229064 art:c6a8328b art:f538c335 art:20b47418 |
 | 11 | `20260924T2350Z-handoff-from-agkr-nvf4.md` (2b25df7f) | art:5adf62eb | RTX 5090 NVFP4, A-GKR (supersedes #4, #8) | accepted (same verifier merge as #4) | art:4791cc89 |
 | 13 | `20260925T0005Z-handoff-from-agkr-nvf4.md` (716ea008) | art:49757870 | RTX 5090 NVFP4, A-GKR (supersedes #11; same proof bytes) | accepted (same verifier merge as #4) | art:9618b325 |
+| 14 | `20260925T0045Z-handoff-from-agkr-fp8.md` (3be6a35f) + `20260925T0050Z-handoff-from-coordinator.md` (HOLD) | art:45c5be4a | RTX 4090 FP8, A-GKR, merged LK | PASS, label HELD (coordinator) | art:df4d2c3c |
+| 15 | `lanes/coordinator/20260925T0006Z-handoff-from-agkr-fp8.md` (f2363663; sent to coordinator's folder, found 01:05Z) | art:ecd96143 | RTX 4090 FP8, A-GKR, unchanged statement | (verifying) | |
 | 12 | `20260924T2351Z-handoff-from-d3-h100.md` (main 1d9c3198, live) | b16b r1-3: art:c6e250c2 art:c1c05324 art:166551a5; f8b r1-3: art:971820ba art:7be63d37 art:c58d45c6; b16h r1-3: art:137b923a art:60d0622f art:d9d21d03; f8h r1-3: art:83c7d5a7 art:9aed3426 art:5b6d6d6d | H100 BF16/FP8 (+hash) B-Ligero LIVE, D3 (also_valid in Table 2) | accepted x12 | art:e13419b4 art:209fdd63 art:ed310632; art:d0aeef7f art:fe61cce4 art:f765ab6c; art:649e27ed art:0b754787 art:1e442d10; art:cc7fa7cd art:549ee1d3 art:41e3a98b |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
@@ -176,6 +179,18 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - `10-agkr-nvf4-verify.sh PREV=716ea008` on its own tree (art:78b3aadf). All 5 reps are accepted; each is sha256 091fecad,
   the same bytes as #11. Each takes 0.66-0.81 s. The statement is byte-identical to 716ea008's export, public.bin shows 0 rows
   mismatched, and every negative is rejected (mutate 148/148). Table 2 (00:21Z): 2.5e7× (0.1905 s).
+
+### 14. agkr-fp8 A-GKR 4090 FP8 merged LK art:45c5be4a (run r20260925-005647-bf66; verdict r20260925-010004-3e5d) -- HELD
+- The coordinator's hold (0050Z): register the verdict, write no label until red-team-lk passes and the coordinator sends
+  "release". Table 2 reads labels only; verdicts feed only the drilldown's verify-CPU column. Release command:
+  `25-verdict-45c5be4a.sh` with HOLD=0 VID=art:df4d2c3c (11-label.py `--vid`).
+- main's verifier (a48eac01) accepts 3/3 (sha256 c31c1cd8): 727 slots, 1790 msgs, 17966656 bytes; 1.29-1.43 s each. The
+  statement is byte-identical to 3be6a35f's export, and public.bin shows 0 mismatches against main's frozen fp8-ada set.
+- Rewrite: `git diff 07a8edd6 3be6a35f -- backends/gkr/gpu/v2` is only `merge_tables`, which I reviewed and found sound.
+  `--no-merge` reproduces art:1b4fd4a1's verified statement, byte for byte. `23-lk-merge-check.py` (main's parser) finds the
+  dump to be exactly its tag-merge: 150/150 queries, 10 tables, 261819 rows as a multiset, unique first column below P.
+- Negatives, all rejected: mutate 356/356; my VU-17 +1; the producer's r5_key / shift_out / t_op_out / tnorm_out ("LogUp LK
+  level 0: final check") and 4 claim negatives. The honest case is accepted.
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |

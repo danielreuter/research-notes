@@ -1,0 +1,7 @@
+# machine vy-flock-backend-cpu: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "v3yo9bhazozcet"
+project = "verity"
+guard = 30
+registered_by = "cursor"
+registered_at = "2026-09-25T18:53Z"

@@ -1,0 +1,54 @@
+base 4046 {'error': 11, 'failed': 51, 'passed': 3691, 'skipped': 287, 'xfailed': 6}
+head 4081 {'error': 11, 'failed': 48, 'passed': 3729, 'skipped': 287, 'xfailed': 6}
+only in base (deleted or renamed): 4
+  - tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.replay.sampled_replay-sampled_replay] passed
+  - tests.program.test_twins::test_twin_for_covers_every_logged_specialization[m1-statics0] passed
+  - tests.program.test_twins::test_twin_for_covers_every_logged_specialization[m6-statics1] passed
+  - tests.program.test_twins::test_twin_for_declines_statics_outside_the_body passed
+only in head: 39 {'passed': 39}
+  + tests.check.test_challenge_seeds::test_sampled_replay_draws_its_challenge_seed_from_the_challenge_module passed
+  + tests.check.test_challenge_seeds::test_the_derivations_of_record_are_pinned passed
+  + tests.check.test_challenge_seeds::test_the_generators_are_the_stdlib_and_numpy_ones_over_the_seed_as_given passed
+  + tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.replay.driver-sampled_replay] passed
+  + tests.program.test_kernel_self_check::test_every_row_family_and_twin_is_registered_with_core passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Attention_v2-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Attention_v3-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Attention_v3-twin] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Bf16MulScalarTensor_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[BiasAdd_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[BiasAdd_v1-twin] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Embedding_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Embedding_v1-twin] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Fp8GroupQuant_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Gemm_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Gemm_v1-twin] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[Gemm_v2-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[GumbelTopPTokenSelect_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[MoeExpertGemmW_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[MoeExpertGemm_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[MoeFfnFixedL_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[MoeFfnFixed_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[MoeRouterTopKNorm_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[MoeRouterTopK_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[MoeSum_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[RMSNormFusedCuda_v2-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[RMSNormFusedCuda_v2-twin] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[RMSNormTriton_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[RMSNormTriton_v1-twin] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[RoPE_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[RoPE_v1-twin] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[ScaledMmFp8Block_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[SiluMul_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[SiluMul_v1-twin] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[TokenSelect_v1-rows] passed
+  + tests.program.test_kernel_self_check::test_kernel_matches_the_reference[TokenSelect_v1-twin] passed
+  + tests.program.test_twins::test_twins_cover_every_logged_specialization[m1-statics0] passed
+  + tests.program.test_twins::test_twins_cover_every_logged_specialization[m6-statics1] passed
+  + tests.program.test_twins::test_twins_decline_statics_outside_the_body passed
+outcome changed: 3
+  ~ tests.pipeline.test_admit_r19_host_working_set::test_fork_gc_freeze_opt_out_is_named_on_the_record: failed -> passed  [assert False + where False = all(<generator object test_fork_gc_freeze_opt_out_is_named_on_the_record.<locals>.<genexpr> at 0x7fe35c4219a0>)]
+  ~ tests.pipeline.test_admit_r19_host_working_set::test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins: failed -> passed  [assert 375 == 0 + where 375 = <built-in function get_freeze_count>() + where <built-in function get_freeze_count> = gc.get_freeze_count]
+  ~ tests.program.test_twins::test_check_writes_the_evidence_schema: failed -> passed  [AssertionError: assert {'fa2_model',...', 'tc_model'} == {'fa2_model',...', 'tc_model'} Extra items in the left set: 'openmp' Use -v to get more diff]
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 62, head 59, fixed on head 3

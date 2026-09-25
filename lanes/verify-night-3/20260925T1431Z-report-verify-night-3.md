@@ -2,9 +2,11 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: final
+status: open
 ---
 
+CHECKPOINT 906255b2 (19:42Z) [open] reopened for 3 cells (coordinator 1940Z/1945Z): ac1f532c+dc455fc8, 675a03a3+40b23d0b, f7aac95f+d4402d29: NOT final
+CHECKPOINT 906255b2 (19:41Z) [final] flock-backend CPU drill-down art:827f594c verified=accepted (replay r20260925-193306-85c5, 18/18 sessions of art:904398d8); pod mzclpkcwdyp4xm terminated 19:39Z ~$0.10. Coordinator 1940Z/1945Z queue (2 sha256 cells + vllm-v1 cell) NOT taken: needs a new launch
 CHECKPOINT 906255b2 (19:39Z) [final] flock-backend CPU drill-down art:827f594c verified=accepted: 20-pure.sh replay @ab5c1156 run r20260925-193306-85c5, 18/18 sessions of art:904398d8 accepted, lowering da1bbe2c PINNED; note: CPU drill-down (rule K). Pod mzclpkcwdyp4xm terminated 19:39Z, ~$0.10
 CHECKPOINT 906255b2 (19:31Z) [open] pod vy-verify-night-3 mzclpkcwdyp4xm (cpu3c 16 vCPU, $0.48/h, guard 30) for flock replay; staging art:904398d8 then 20-pure.sh MODE=replay @ab5c1156
 CHECKPOINT 906255b2 (19:25Z) [open] reopened for flock-backend CPU drill-down replay (art:827f594c / art:904398d8, coordinator 19:24Z): NOT final; will create one cheap CPU pod vy-verify-night-3 (budget $3)
@@ -60,3 +62,15 @@ known-failures: none                                                            
 artifacts: art:73aa7efe art:7b44bcad art:cc5f72de art:99a5a9fd art:47cf9051 art:192c1ed9 art:3b2b8e2f
 ~~~
 7/7 accepted. 977ad27b: reverify reads a proof tree published at its root (the +sha256 x4 trees need it); test 906255b2, reverify_test 10/10.
+
+## Reopen 1 (19:24Z): flock-backend CPU drill-down replay
+- Request: `lanes/cell-verifier/20260925T1930Z-handoff-from-coordinator.md` (redirected to me). Confirmation: `20260925T1937Z-handoff-from-coordinator.md`.
+- Pod vy-verify-night-3 mzclpkcwdyp4xm (cpu3c 16 vCPU). Inputs art:904398d8 were staged by r20260925-193226-9540. The replay ran as
+  r20260925-193306-85c5: `20-pure.sh REL=bf16-hopper MODE=replay` @ cursor/flock-backend-4983 ab5c1156, `--tool flock_pure --custody-r2`.
+- **art:827f594c: verified=accepted.** 18/18 sessions REPLAY accepted (p0-1024, p1-2048, p2-4096; 6 each). Instances were regenerated on
+  the pod; the lowering da1bbe2c is PINNED. The note says it's a CPU drill-down (rule K) and a file re-verification.
+- Sent: `lanes/coordinator/20260925T1926Z-handoff-from-verify-night-3.md` (REOPENED), `lanes/coordinator/20260925T1940Z-handoff-from-verify-night-3.md`.
+- Pod terminated 19:39Z, about $0.10.
+- Queued, **not taken in this job** (they need a new launch):
+  - `20260925T1940Z-handoff-from-coordinator.md`: SHA-256 cells art:ac1f532c and art:675a03a3, plus equivalence documents art:dc455fc8 and art:40b23d0b.
+  - `20260925T1945Z-handoff-from-coordinator.md`: the vllm-v1 cell art:f7aac95f and its equivalence document art:d4402d29.

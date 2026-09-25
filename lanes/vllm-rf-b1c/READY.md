@@ -2,9 +2,9 @@
 id: vllm-rf-b1c/ready
 lane: vllm-rf-b1c
 kind: ready
-status: DRAFT
+status: READY
 created: 2026-09-25T18:10Z
-updated: 2026-09-25T18:10Z
+updated: 2026-09-25T19:45Z
 ---
 # vllm-rf-b1c READY: evaluator kernels and replay
 
@@ -25,7 +25,7 @@ rebased it, merged main and a5c into it, and fixed the merge fallout. Agent bc-e
     `verity_vllm` module); p06 takes a5's list, P10 `commit.py::main` at the merged size 1776.
   A static scan of the merged tree (every `from verity_vllm…/tests… import` resolves, every `cli.COMMANDS` module
   exists) finds nothing but the pre-existing `workload_target` import below.
-- **Gates at `1fd7e9dc`:** lints GATE_LINTS; gate (b) vs `40b9e571` GATE_B. Gate (a) T0+T1 and #101 were run by b1b on
+- **Gates at `1fd7e9dc`:** lints 45/45 at head and base; gate (b) vs `40b9e571` meets the rule (0 new failures, errors, skips or skip reasons; failures + errors 62 -> 59). Gate (a) T0+T1 and #101 were run by b1b on
   `8c0bec08` (the same lane code; nothing in the merges touches replay, kernels or the regression checks beyond import
   lines) and carry over.
 - **GPU rows:** #101 head = base = record; #70 (TP2) head = f1's base record on 32/32 fields; **#67 not reached on
@@ -91,6 +91,24 @@ Hunks in other lanes' files (import lines unless stated):
   (`SR.X` -> `IX.` / `POP.` / `SM.X` of the split modules; `sampled_replay as SR` -> `driver as SR`).
 
 ## Gate evidence
+
+**At the merge-request head `1fd7e9dc` (base `40b9e571`), run `r20260925-180315-713f` on `vyv-rf-b5pat-cpu`** (cpu3g 16
+vCPU; head shipped by `research run --source`, base by `research pods sync`; `/workspace/b1c/chain.sh`, head then base on the
+same pod; custody-r2):
+- Lints (`tests/lint`, `test_no_by_name_rules.py`, `test_imports_resolve.py`): 45/45 at head and at base.
+- Gate (b) (`OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -ra -n 12 --dist loadfile`): base 4,046 tests: 3,691
+  passed, 51 failed, 11 errors, 287 skipped, 6 xfailed (1,973 s). Head 4,081: 3,729 passed, 48 failed, 11 errors, 287
+  skipped, 6 xfailed (2,075 s). `baseline-jdiff.py` rc 0: new failures 0, new skips 0, new skip reasons 0; failures +
+  errors 62 -> 59. Renamed 4 (the same 4 as below); 39 head-only ids all pass (31 self-check pairs, the registration test,
+  3 challenge-seed tests, 4 renamed). Fixed on head: `test_admit_r19_host_working_set::test_fork_gc_freeze_opt_out_is_named_on_the_record`
+  and `::test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins` (base failures; order/fork
+  dependent, not claimed as fixes), `test_twins::test_check_writes_the_evidence_schema` (as b1b saw).
+- Evidence: `evidence/gate_b-1fd7e9dc.tgz` (head/base/lint XML + jdiff), `evidence/jdiff-base-head-1fd7e9dc.txt`; R2
+  `art:002d54b535b854cbc6d4de6869e45a493aa1e817e0b16471371b07478b044d98`.
+- Superseded: `r20260925-170048-b4b9` (head `ec6219f5`: 50 F / 3,704 P / 11 E; base arm at `38a8d35d` stopped when a5 went
+  first); `r20260925-165541-b7a7` (`8f94cb48`, stopped on the P10 lint that `ec6219f5` fixes).
+
+**Earlier, at `8c0bec08` (b1b), carried over:**
 
 Pod trees: head is `research pods sync` of the worktree at `8c0bec08` (the GPU #101 tree at `19ca2453`, whose production
 code is `8c0bec08`'s; `8c0bec08` changes one test), and base is `git archive 10996616`. On `vyv-rf-b1-cpu` the head
@@ -236,4 +254,4 @@ tree was checked against git blob by blob before the final gate (b).
 ## Pods and cost
 
 b1c (from 16:20Z): `vyv-rf-b1-tp2` terminated 16:28Z (~$0.3); `vyv-rf-b1-g2` terminated 18:03Z (~$1.9); `vyv-rf-b5pat-cpu`
-(from b5patc, 16:40Z) GATE_CPU. b1c total ~COST_B1C of its $10. b1 + b1b before: ~$32 of $45 (b1b's estimate).
+(from b5patc, 16:40Z) terminated 19:43Z (~$2.0). b1c total ~$4.2 of its $10. b1 + b1b before: ~$32 of $45 (b1b's estimate).

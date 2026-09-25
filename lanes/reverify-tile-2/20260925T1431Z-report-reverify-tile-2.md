@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 4ee9dd72 (15:06Z) [open] 15:07Z merge-ready handoff to coordinator (1505Z) sent; conformance rerun still on case 1 (25 min); stopping it at 15:15Z
 CHECKPOINT 4ee9dd72 (14:55Z) [open] 14:56Z conformance negatives rerun r20260925-144115-7dcf (dummy/poseidon2/sha256) still on its first case after 14 min at ~12 cores; cutoff 15:15Z, then FINAL with whatever it shows
 CHECKPOINT 4ee9dd72 (14:41Z) [open] 14:46Z repro dumps PRESERVED art:5c0841d1 (r20260925-143352-ed68). Focus tests at 4ee9dd72 green (r20260925-143423-0436: cargo all ok, pytest 62 passed; PRESERVED). live_test G3 shared-pair [None] fails identically on main 33e4d8d1 (r20260925-143650-342c) and on the tip (d0ef): pre-existing, not this lane. Pod vy-reverify-tile-2 terminated (its regression log in evidence/logs). Conformance negatives rerun r20260925-144115-7dcf running. Review request sent to red-team-standard-hash-2
 CHECKPOINT 4ee9dd72 (14:39Z) [open] 14:38Z repro benches (run on vy-reverify-tile, finished 12:37Z / 13:05Z) both PASS under set.tile recompute: fp8-ada 13/13 + batch 26 sub-batches 2^-128.66, bf16-hopper 25/25 + batch 50 2^-128.28, negatives refused; preserving via custody-r2 run r20260925-143352-ed68. Tip 4ee9dd72 (merged main 33e4d8d1) pushed; focus tests r20260925-143423-0436 running. rvt-regression-3 (f3cdfd5d, pod 2) stopped after 2.5h: 126 passed, 4 failed (live G3 shared-pair 2^-99.86<2^-100; 3 conformance timeouts at load 500); isolating live failure vs main (d0ef / 342c)

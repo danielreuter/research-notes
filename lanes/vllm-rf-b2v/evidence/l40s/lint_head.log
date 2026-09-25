@@ -1,0 +1,89 @@
+.....................F......F............FF..                            [100%]
+=================================== FAILURES ===================================
+____________________________ test_no_new_violations ____________________________
+
+    def test_no_new_violations() -> None:
+>       R.assert_no_new(NAME, scan(), RULE,
+                        "Read model and target facts from program/registry/quarantine/ or the engine profile, not from a "
+                        "literal.")
+
+integrations/vllm/tests/lint/test_p08_facts.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'p08_facts'
+violations = (Violation(file='verity_vllm/acquire/fa2_tap_src/build_ext.py', kind='sm-arch', symbol='main', detail='sm_80', line=50...tion(file='verity_vllm/acquire/fa2_tap_src/build_ext.py', kind='sm-arch', symbol='main', detail='sm_80', line=55), ...)
+rule = 'P8 (model and target facts live in their two homes)'
+fix = 'Read model and target facts from program/registry/quarantine/ or the engine profile, not from a literal.'
+
+    def assert_no_new(name: str, violations: Iterable[Violation], rule: str, fix: str) -> None:
+        new = new_violations(name, violations)
+>       assert not new, (f"{rule}: {len(new)} violation(s) not in allowlists/{name}.json. {fix} "
+               ^^^^^^^
+                         "(If an allowlisted violation only moved, move its entry in the same change.)\n" + "\n".join(new))
+E       AssertionError: P8 (model and target facts live in their two homes): 1 violation(s) not in allowlists/p08_facts.json. Read model and target facts from program/registry/quarantine/ or the engine profile, not from a literal. (If an allowlisted violation only moved, move its entry in the same change.)
+E         verity_vllm/properties/record.py:30 [layer-class] <module>: FlashAttention
+
+integrations/vllm/tests/lint/_ratchet.py:272: AssertionError
+________________________ test_no_new_or_grown_offenders ________________________
+
+    def test_no_new_or_grown_offenders() -> None:
+        caps = R.load_allowlist(NAME)
+        bad = []
+        for k, n in sorted(sizes().items()):
+            if k not in caps:
+                bad.append(f"  {k[0]} [{k[1]}] {k[2]}: {n} lines (limit {MODULE_MAX if k[1] == 'module' else FUNCTION_MAX})")
+            elif n > caps[k]:
+                bad.append(f"  {k[0]} [{k[1]}] {k[2]}: {n} lines, above its recorded {caps[k]}")
+>       assert not bad, (f"{RULE}: {len(bad)} module(s)/function(s) over the limit or above their recorded size in "
+                         f"allowlists/{NAME}.json. Split them; recorded sizes only come down.\n" + "\n".join(bad))
+E       AssertionError: P10 (size ratchet): 3 module(s)/function(s) over the limit or above their recorded size in allowlists/p10_size.json. Split them; recorded sizes only come down.
+E           verity_vllm/pipeline/commit.py [module] <module>: 3022 lines, above its recorded 3021
+E           verity_vllm/pipeline/tp/commit.py [function] main: 853 lines, above its recorded 852
+E           verity_vllm/pipeline/tp/commit.py [module] <module>: 1161 lines, above its recorded 1160
+E       assert not ['  verity_vllm/pipeline/commit.py [module] <module>: 3022 lines, above its recorded 3021', '  verity_vllm/pipeline/tp... above its recorded 852', '  verity_vllm/pipeline/tp/commit.py [module] <module>: 1161 lines, above its recorded 1160']
+
+integrations/vllm/tests/lint/test_p10_size.py:61: AssertionError
+____________________ test_every_by_name_rule_is_allowlisted ____________________
+
+    def test_every_by_name_rule_is_allowlisted() -> None:
+        offenders = scan()
+        entries = load_allowlist()
+        uncovered, _ = match(offenders, entries)
+>       assert not uncovered, (
+            f"{len(uncovered)} by-name rule(s) not in {ALLOWLIST.name} (Draft 3.1 §12.4: decide from the Program / query / "
+            "runtime correspondence, not from a name; if this is an existing rule that moved, update its entry):\n"
+            + "\n".join(f"  {o.file}:{o.line} [{o.kind}] {o.symbol}: {o.detail}" for o in uncovered))
+E       AssertionError: 6 by-name rule(s) not in by_name_allowlist.json (Draft 3.1 §12.4: decide from the Program / query / runtime correspondence, not from a name; if this is an existing rule that moved, update its entry):
+E           verity_vllm/properties/noninterference_families.py:7 [table] _PRE_FF_RE: _PRE_FF_RE
+E           verity_vllm/properties/noninterference_families.py:8 [table] _POST_FF_RE: _POST_FF_RE
+E           verity_vllm/properties/noninterference_families.py:30 [path-predicate] unfused_norm_boundaries: mod in ("model.norm", "logits_processor")
+E           verity_vllm/properties/noninterference_families.py:60 [table] _NEOX_LAYER_RE: _NEOX_LAYER_RE
+E           verity_vllm/properties/noninterference_families.py:60 [model-name] <module>: ^gpt_neox\.layers\.(\d+)$
+E           verity_vllm/properties/noninterference_families.py:85 [model-name] parallel_residual_boundaries: gpt_neox.final_layer_norm
+E       assert not [Offender(file='verity_vllm/properties/noninterference_families.py', kind='table', line=7, symbol='_PRE_FF_RE', detail...e_families.py', kind='model-name', line=85, symbol='parallel_residual_boundaries', detail='gpt_neox.final_layer_norm')]
+
+integrations/vllm/tests/test_no_by_name_rules.py:314: AssertionError
+_________________________ test_allowlist_only_shrinks __________________________
+
+    def test_allowlist_only_shrinks() -> None:
+        offenders = scan()
+        entries = load_allowlist()
+        _, stale = match(offenders, entries)
+>       assert not stale, (
+            f"{len(stale)} allowlist entr(y/ies) match nothing any more -- the by-name rule is gone, delete the entry:\n"
+            + "\n".join(f"  {e['file']} [{e['kind']}] {e['symbol']}: /{e['pattern']}/" for e in stale))
+E       AssertionError: 5 allowlist entr(y/ies) match nothing any more -- the by-name rule is gone, delete the entry:
+E           verity_vllm/properties/noninterference.py [model-name] <module>: /^\^gpt_neox\\\.layers\\\.\(\\d\+\)\$$/
+E           verity_vllm/properties/noninterference.py [path-predicate] _unfused_norm_boundaries: /^mod\ in\ \("model\.norm",\ "logits_processor"\)$/
+E           verity_vllm/properties/noninterference.py [table] _NEOX_LAYER_RE: /^_NEOX_LAYER_RE$/
+E           verity_vllm/properties/noninterference.py [table] _POST_FF_RE: /^_POST_FF_RE$/
+E           verity_vllm/properties/noninterference.py [table] _PRE_FF_RE: /^_PRE_FF_RE$/
+E       assert not [{'file': 'verity_vllm/properties/noninterference.py', 'kind': 'model-name', 'symbol': '<module>', 'pattern': '^\\^gpt... 'verity_vllm/properties/noninterference.py', 'kind': 'table', 'symbol': '_PRE_FF_RE', 'pattern': '^_PRE_FF_RE$', ...}]
+
+integrations/vllm/tests/test_no_by_name_rules.py:324: AssertionError
+=========================== short test summary info ============================
+FAILED integrations/vllm/tests/lint/test_p08_facts.py::test_no_new_violations
+FAILED integrations/vllm/tests/lint/test_p10_size.py::test_no_new_or_grown_offenders
+FAILED integrations/vllm/tests/test_no_by_name_rules.py::test_every_by_name_rule_is_allowlisted
+FAILED integrations/vllm/tests/test_no_by_name_rules.py::test_allowlist_only_shrinks
+exit 1 2026-09-25T10:47:23Z

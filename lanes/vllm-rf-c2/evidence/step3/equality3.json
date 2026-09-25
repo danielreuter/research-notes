@@ -1,0 +1,851 @@
+{
+ "seed": 20260925,
+ "quick": false,
+ "base": "/workspace/base",
+ "head": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3",
+ "pools": {
+  "old": 32,
+  "new": 16
+ },
+ "evaluators": {
+  "F32Sat": {
+   "cases": 4294967296,
+   "chunks": 1024,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "444a03fa62f879db8f73a5e2c3e0165e642bedfc572153f76f4a4c79da120a35",
+   "rollup_new": "444a03fa62f879db8f73a5e2c3e0165e642bedfc572153f76f4a4c79da120a35",
+   "done_at_s": 1324.1
+  },
+  "F32Fabs": {
+   "cases": 4294967296,
+   "chunks": 1024,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "5cf39eb4b92b3c219a380763f8cfa1ef3acdb5d1c4d81555a3c343b99c36a15a",
+   "rollup_new": "5cf39eb4b92b3c219a380763f8cfa1ef3acdb5d1c4d81555a3c343b99c36a15a",
+   "done_at_s": 1368.9
+  },
+  "F32Neg": {
+   "cases": 4294967296,
+   "chunks": 1024,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "ad0ead5cc8284616e629bd936c98b04dcbe90b24e2eba750d508fa9eb0c1934e",
+   "rollup_new": "ad0ead5cc8284616e629bd936c98b04dcbe90b24e2eba750d508fa9eb0c1934e",
+   "done_at_s": 1447.4
+  },
+  "F32BitsShl23": {
+   "cases": 4294967296,
+   "chunks": 1024,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "d4bcf564f84e8a3418e9e0290f765faed5bc980b09d4ffbba47cb48daf924a3b",
+   "rollup_new": "d4bcf564f84e8a3418e9e0290f765faed5bc980b09d4ffbba47cb48daf924a3b",
+   "done_at_s": 1536.4
+  },
+  "F32IsFinite": {
+   "cases": 4294967296,
+   "chunks": 1024,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "07456f9c4cd35bb09f8e0b9e60688b0afd7272387abce93d25578365dad9454b",
+   "rollup_new": "07456f9c4cd35bb09f8e0b9e60688b0afd7272387abce93d25578365dad9454b",
+   "done_at_s": 1611.5
+  },
+  "Bf16GtStrict": {
+   "cases": 4294967296,
+   "chunks": 1024,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "18878f12dc5c3bc5b6207358b87ade7a9a4c1b012a3f8daf55d3d25ea9fe442b",
+   "rollup_new": "18878f12dc5c3bc5b6207358b87ade7a9a4c1b012a3f8daf55d3d25ea9fe442b",
+   "done_at_s": 2680.3
+  },
+  "F32ToE4m3Sat": {
+   "cases": 8327680,
+   "chunks": 64,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "9bad84a989ce7322c376b8234ccfa6ebfb3b91c805055c55ab7fd3660e002e50",
+   "rollup_new": "9bad84a989ce7322c376b8234ccfa6ebfb3b91c805055c55ab7fd3660e002e50",
+   "done_at_s": 2680.3
+  },
+  "F32Fmaxf": {
+   "cases": 100664196,
+   "chunks": 97,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "43410a08413f99a6e4866308f7063e898874c7a71c67885f3ef634e481aa3b86",
+   "rollup_new": "43410a08413f99a6e4866308f7063e898874c7a71c67885f3ef634e481aa3b86",
+   "done_at_s": 2699.4
+  },
+  "F32Fminf": {
+   "cases": 100664196,
+   "chunks": 97,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "3d6dfa0277cfe4d10d4cb435d72d73e8042f31af4e18a7a08720888d6f2b7e7b",
+   "rollup_new": "3d6dfa0277cfe4d10d4cb435d72d73e8042f31af4e18a7a08720888d6f2b7e7b",
+   "done_at_s": 2723.4
+  },
+  "F32Eq": {
+   "cases": 100664196,
+   "chunks": 97,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "ee9831ee5aa68fbf2f3dbbccfdcb4fb1b6a7b634423e794cb480e1be98b5deea",
+   "rollup_new": "ee9831ee5aa68fbf2f3dbbccfdcb4fb1b6a7b634423e794cb480e1be98b5deea",
+   "done_at_s": 2726.3
+  },
+  "I32Le": {
+   "cases": 100664196,
+   "chunks": 97,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "c800c57065615a59c3f935d6a07df9ad2d9577a4f9f5ae46ea4895c45afe51e0",
+   "rollup_new": "c800c57065615a59c3f935d6a07df9ad2d9577a4f9f5ae46ea4895c45afe51e0",
+   "done_at_s": 2728.6
+  },
+  "I32Eq": {
+   "cases": 100664196,
+   "chunks": 97,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "417206e40925d4cd35d3ccba8f8452b2211e7193c3fad2000640c2e26a0ee971",
+   "rollup_new": "417206e40925d4cd35d3ccba8f8452b2211e7193c3fad2000640c2e26a0ee971",
+   "done_at_s": 2731.1
+  },
+  "I32Add": {
+   "cases": 100664196,
+   "chunks": 97,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "ff0821ea3baaee89725b1ed4a4ae94a6c60d4dd234506b8aa08eb42b61127b03",
+   "rollup_new": "ff0821ea3baaee89725b1ed4a4ae94a6c60d4dd234506b8aa08eb42b61127b03",
+   "done_at_s": 2733.4
+  },
+  "SelectF32": {
+   "cases": 4194304,
+   "chunks": 16,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "1f3d852bca6590c0069af2f6d84d2ea2ac61eb92566dec5e91434dc697bda75e",
+   "rollup_new": "1f3d852bca6590c0069af2f6d84d2ea2ac61eb92566dec5e91434dc697bda75e",
+   "done_at_s": 2733.4
+  },
+  "SelectBf16": {
+   "cases": 4194304,
+   "chunks": 16,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "bee416149e9c0a8ba9b2ff8bc39ad72db51a54d37a86612019e64f12afec0e6e",
+   "rollup_new": "bee416149e9c0a8ba9b2ff8bc39ad72db51a54d37a86612019e64f12afec0e6e",
+   "done_at_s": 2733.4
+  },
+  "SelectI32": {
+   "cases": 4194304,
+   "chunks": 16,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "1f3d852bca6590c0069af2f6d84d2ea2ac61eb92566dec5e91434dc697bda75e",
+   "rollup_new": "1f3d852bca6590c0069af2f6d84d2ea2ac61eb92566dec5e91434dc697bda75e",
+   "done_at_s": 2733.4
+  },
+  "BitAnd": {
+   "cases": 16,
+   "chunks": 1,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "2f061aafb9da8c15ee9c8f5520d4a9ca3596948028fc6c0bf9bc494dd361711b",
+   "rollup_new": "2f061aafb9da8c15ee9c8f5520d4a9ca3596948028fc6c0bf9bc494dd361711b",
+   "done_at_s": 2733.4
+  },
+  "BitOr": {
+   "cases": 16,
+   "chunks": 1,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "cfc123e13925c508080cd256a4e623b014183a43c9a05284615564669a49a2c1",
+   "rollup_new": "cfc123e13925c508080cd256a4e623b014183a43c9a05284615564669a49a2c1",
+   "done_at_s": 2733.4
+  },
+  "BitNot": {
+   "cases": 4,
+   "chunks": 1,
+   "chunks_differ": 0,
+   "first_difference": null,
+   "rollup_old": "b7b4652de4ac7518487cbb35c939ef72991a39de621038be62b23d00c17898e6",
+   "rollup_new": "b7b4652de4ac7518487cbb35c939ef72991a39de621038be62b23d00c17898e6",
+   "done_at_s": 2733.4
+  }
+ },
+ "dot": {
+  "special_grid": {
+   "cases": 18816,
+   "old_vs_new_differ": 0,
+   "new_vs_core_kernel_differ": 0,
+   "old_vs_old_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 10176,
+   "nonfinite_outputs": 10176,
+   "zero_outputs": 408,
+   "sha256_old": "e7d2b38e5f645daaa195a4fa64b8cb28c9159c3f591596e66d3912f8f8cbeb58",
+   "sha256_new": "e7d2b38e5f645daaa195a4fa64b8cb28c9159c3f591596e66d3912f8f8cbeb58",
+   "first_old_vs_new": null,
+   "first_new_vs_kernel": null,
+   "first_old_vs_twin": null,
+   "collect_seconds": 0.3,
+   "done_at_s": 2733.8
+  },
+  "dense_specials": {
+   "cases": 300000,
+   "old_vs_new_differ": 0,
+   "new_vs_core_kernel_differ": 0,
+   "old_vs_old_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 289719,
+   "nonfinite_outputs": 289719,
+   "zero_outputs": 0,
+   "sha256_old": "b45bc84e553fc6c4c340ac60647b4f6be424c5ad8aee6a0b3ae68fc653833e0d",
+   "sha256_new": "b45bc84e553fc6c4c340ac60647b4f6be424c5ad8aee6a0b3ae68fc653833e0d",
+   "first_old_vs_new": null,
+   "first_new_vs_kernel": null,
+   "first_old_vs_twin": null,
+   "collect_seconds": 2.3,
+   "done_at_s": 2736.1
+  },
+  "sample_tc": {
+   "cases": 1000000,
+   "old_vs_new_differ": 0,
+   "new_vs_core_kernel_differ": 0,
+   "old_vs_old_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 375969,
+   "nonfinite_outputs": 375969,
+   "zero_outputs": 59899,
+   "sha256_old": "3a1a70c325254f37b73c7514c5ff51988b0d2a3460680bc2155f96f5c876b1a0",
+   "sha256_new": "3a1a70c325254f37b73c7514c5ff51988b0d2a3460680bc2155f96f5c876b1a0",
+   "first_old_vs_new": null,
+   "first_new_vs_kernel": null,
+   "first_old_vs_twin": null,
+   "collect_seconds": 6.3,
+   "done_at_s": 2742.3
+  },
+  "uniform_bytes": {
+   "cases": 300000,
+   "old_vs_new_differ": 0,
+   "new_vs_core_kernel_differ": 0,
+   "old_vs_old_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 119095,
+   "nonfinite_outputs": 119095,
+   "zero_outputs": 2,
+   "sha256_old": "87ad65879f6609e9a7d447628d7246a911292f797667283fe3974630b5d822ed",
+   "sha256_new": "87ad65879f6609e9a7d447628d7246a911292f797667283fe3974630b5d822ed",
+   "first_old_vs_new": null,
+   "first_new_vs_kernel": null,
+   "first_old_vs_twin": null,
+   "collect_seconds": 0.9,
+   "done_at_s": 2743.2
+  },
+  "acc_passthrough": {
+   "cases": 200030,
+   "old_vs_new_differ": 0,
+   "new_vs_core_kernel_differ": 0,
+   "old_vs_old_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 803,
+   "nonfinite_outputs": 803,
+   "zero_outputs": 4,
+   "sha256_old": "772cc26d8735e4ba91fa107bdc5abb08f09c20cd76e6ff3675a26552ee1a0b6d",
+   "sha256_new": "772cc26d8735e4ba91fa107bdc5abb08f09c20cd76e6ff3675a26552ee1a0b6d",
+   "first_old_vs_new": null,
+   "first_new_vs_kernel": null,
+   "first_old_vs_twin": null,
+   "collect_seconds": 0.6,
+   "done_at_s": 2743.7
+  }
+ },
+ "encodings": {
+  "import_failed": {
+   "base": {},
+   "head": {}
+  },
+  "modules": {
+   "base": 58,
+   "head": 58
+  },
+  "ids_only_base": [],
+  "ids_only_head": [
+   "AmpereBF16TcDot16_v2"
+  ],
+  "prims": {
+   "F32ToE4m3Sat": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": false,
+    "doc_equal": false,
+    "body_text_equal": false,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "packages/verity/src/verity/ml/prims.py"
+    ],
+    "conformance": [
+     "exact-model-tested; every f32 word (2^32) through cvt.rn.satfinite.e4m3x2.f32 on the H100 (2026-09-08, gpu/tc-fp8/vllm_fp8_kernels_probe.py --cvt): 0 mismatches; NaN of either sign -> 0x7F",
+     "exact-model-tested; every f32 word (2^32) through cvt.rn.satfinite.e4m3x2.f32 on the H100 (tc-fp8-2026-09-08 cvt_e4m3): 0 mismatches; NaN of either sign -> 0x7F"
+    ]
+   },
+   "HopperE4m3QgmmaDot32": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": false,
+    "doc_equal": false,
+    "body_text_equal": false,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "packages/verity/src/verity/ml/prims.py"
+    ],
+    "conformance": [
+     "exact-model-tested; H100 80GB 2026-09-08 gpu/tc-fp8 campaign: 16 families, 35,289 tiles x3, 144,543,744 words, 0 mismatches (docs/data/tc-fp8-2026-09-08/)",
+     "exact-model-tested; H100 80GB QGMMA.64x64x32.F32.E4M3.E4M3 campaign (tc-fp8-2026-09-08): 16 families, 35,289 tiles x3, 144,543,744 words, 0 mismatches"
+    ]
+   },
+   "F32Fabs": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "F32Neg": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/moe.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "F32Fmaxf": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "F32Fminf": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "F32Sat": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": false,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/moe.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "F32BitsShl23": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": false,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/moe.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "F32IsFinite": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": false,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/moe.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "F32Eq": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": false,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/sampling.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "Bf16GtStrict": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": false,
+    "body_text_equal": false,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "I32Le": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "I32Eq": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "I32Add": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "BitAnd": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": false,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/pad_prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "BitNot": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": false,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/pad_prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "BitOr": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/sampling.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "SelectF32": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "SelectBf16": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   },
+   "SelectI32": {
+    "encoding_equal": true,
+    "params_equal": true,
+    "ret_equal": true,
+    "conformance_equal": true,
+    "doc_equal": true,
+    "body_text_equal": true,
+    "file": [
+     "integrations/vllm/verity_vllm/program/registry/prims.py",
+     "packages/verity/src/verity/ml/scalar.py"
+    ]
+   }
+  },
+  "programs": {
+   "n_base": 36,
+   "n_head": 36,
+   "keys_equal": true,
+   "differ": [],
+   "only_base": [],
+   "only_head": [],
+   "errors_base": {
+    "ScaledMmFp8Block_v1{\"G\": 128, \"K\": 256, \"N\": 2}": "AssertionError: (2, 128)"
+   },
+   "errors_head": {
+    "ScaledMmFp8Block_v1{\"G\": 128, \"K\": 256, \"N\": 2}": "AssertionError: (2, 128)"
+   },
+   "digests_head": {
+    "ArgmaxStepF32_v1": "7504a2fc2dac6314600a1c17920d54de64c949487a6d5e4b79f687bb0f7be8a8",
+    "ArgmaxStep_v1": "7bdc5f6fa88a5b6a499da28a95eccd5ece42039231446bae6a79255c728a50ce",
+    "Fp8RowScale_v1": "422723bf360b2120c28abb8eb42083b4453d3ccf90f13721e830f0134f3f2311",
+    "GumbelArgmaxStep_v1": "2eee697197af261dfe9bac3ce7551aec7cf9376f7125747442ce98054102add3",
+    "GumbelSelectStep_v1": "d49eb69410ba431e48dab6b43aa98094d9359fbffd39d789de8df2fd2b7cf383",
+    "NvExpf_v1": "565545b358e439332d29bd7e3c69cb5326db1a344c856827ecd53f6259750e37",
+    "RouterArgmaxStep_v1": "0a483e81e3caa26e01c0aba765feae7e8c00d2ba1a9b78a0be08fce6fd8ca8ed",
+    "SiluRefElem_v1": "498ab5a8ffdbe8b7562952824b4681cbf48a0ced7a0a4ed6ef00999801e3d23a",
+    "TemperatureLane_v1": "4edc3fbfd7a7fe9cb20d947022f4ad726a8b482bc977f4928c1bdf8f41eb1032",
+    "Fp8RowAbsMax_v1{\"K\": 256}": "d1a09490f03d6782b46033d9b5e11cf171c6852b3b3a90cce27a269257bc180c",
+    "Fp8ActQuant_v1{\"K\": 256}": "24b7d59762b540c0283c3dfcc2afeae1f7c2474c78132b2772aa1187c7fe0f71",
+    "DotE4m3_v1{\"K\": 64}": "dd3570561463968e3aa03817a0c68c9e7405e741053e30bc6ffa6174827d7d1b",
+    "ScaledMmFp8Coordinate_v1{\"BIAS\": true, \"K\": 64}": "13af0d0c7acd861e82e62acc8912096848c8393dfbabc78f160243527638df62",
+    "ScaledMmFp8Coordinate_v1{\"BIAS\": false, \"K\": 64}": "ad69ccc6da9474b4c6b76c1f05ba2dccda343bcfd184fcdcde8e552cace01467",
+    "ScaledMmFp8_v1{\"BIAS\": false, \"K\": 64, \"N\": 2}": "2c3283da38cdfa95c1bd9e23e88a286dafa3eb58e099b278fc1f3e3e843b3613",
+    "QuantLinearFp8_v1{\"BIAS\": true, \"K\": 256, \"N\": 2}": "a87450026814c09b6df1dfc4bbf8f48ee5e242a00d06151227702c8f89cbbbbe",
+    "Fp8GroupScale_v1{\"G\": 128}": "316bac3087c4162552aabef74c29a40b7d07afbc111437bce99389c40dad0d9d",
+    "Fp8GroupQuant_v1{\"G\": 128, \"K\": 256}": "37a1f08b6f579447b248118f02a2b54eb17d8d06923dcb0874d1b57094e62b35",
+    "ScaledMmFp8BlockCoordinate_v1{\"G\": 128, \"K\": 256}": "42d2b74128c1503863ddff9793970f7803a243dd2e036e951db817126c54229a",
+    "MoeRouterTopK_v1{\"E\": 8, \"TOPK\": 2, \"VPT\": 8}": "fe70173d240ad2d5bdf76c62a16c7f27e31920798afbae156e3f5b629aa30cb8",
+    "MoeRouterTopKNorm_v1{\"E\": 8, \"TOPK\": 2, \"VPT\": 8}": "f1433eb256d6cfae33bf8bf941d9985bc5b4f2023540624531ed529ef308fe2f",
+    "MoeSumCoordinate_v1{\"TOPK\": 2}": "e0779f96b77db90de80c3e46507092b0714edcff6a4406f7585bdae4b1766671",
+    "MoeSum_v1{\"H\": 4, \"TOPK\": 2}": "1722882c3d758456f064a58ea71ee75296a2e46572060e0fb19823682850e7d1",
+    "TemperatureScale_v1{\"V\": 8}": "ad06cc82de958de7290b0f3019f1a8bb7624bf7a48685e0e668e2bc771c92e04",
+    "GumbelSelectF32_v1{\"V\": 8}": "dbda973e0d6126751f45848dd893a7170f7f9104c4ff7aa381e1f5ef22c37772",
+    "GumbelTokenSelect_v1{\"V\": 8}": "f5b4cc82f3281f3f349b096d20ae4e8390cc52a4d0c8657130435bab0c6ae236",
+    "TopPMaskStep_v1{\"V\": 8}": "6feaafdd429f23eef6c36168fad98f91229c35abec6e2211bca9baf69895d0fa",
+    "TopPMask_v1{\"V\": 8}": "8d241979164c9966a8f83d68105fb57e25a7213a31e93be7cffd59595a601eac",
+    "GumbelTopPTokenSelect_v1{\"V\": 8}": "d9edc48d69b3df6dde4144caa966150ee763ed405816e32ad79f0d8839e846ae",
+    "Accept_v1{\"K\": 2}": "39999c39ae9aaad9970eb2315721815477235263e4ee45f120d108556f693f27",
+    "Advance_v1{\"K\": 2}": "e6af01e44c2124ac519ce461b357f59278bce1329f6180a87c38549a97ee5885",
+    "PadGuard_v1{\"EOS\": 2}": "c1172f98b64deda9123a1ea92fbb099353611b824ed52e49a89ea5eba44e9c03",
+    "MoeSlotDownCoordinate_v1{\"K\": 64}": "3e20e0c0bab6ce761c340a3a51b6837151435d144fc8c581daf378bcb545f066",
+    "MoeSlotDown_v1{\"K\": 64, \"N\": 2}": "fded5e92809fc1d3ba71e1f5c6b7a1ffbed3139ef99178e7494f655367dca712",
+    "ArgmaxRef_v1{\"DT\": \"f32\", \"V\": 8}": "2c37f803bed2764176dfb61aed4226f3498f1ccab394081f8dea816d7526f18c",
+    "ArgmaxRef_v1{\"DT\": \"bf16\", \"V\": 8}": "c55993fac58c190d5c257b61432bf8b124349e61a2f694e01bf9c21713d3b319"
+   }
+  },
+  "e4m3_word_fn_body_equal": true,
+  "pins": {
+   "base": {
+    "registry_version": "beb5d5f73aff6abdd89c799fe25c340a0c25b0745e1fa69077ccb8965ae9530f",
+    "ref_vocab_digest": "63c73b5ecfaac756dcbe1ad192f34858d3b66e23ac09b0c2902ca84499dc169a",
+    "vocabularies": {
+     "PROFILE_B1_EAGER": "a2dcd5c2ed3919bb",
+     "PROFILE_B1_EAGER_V2": "2145f8ecc2118059",
+     "PROFILE_B1_EAGER_V3": "b1a14d881eeda3e0",
+     "PROFILE_DENSE2_EAGER_V1": "810f5908c0a5dd85",
+     "REFERENCE_CPU_F32": "f955cb18bda06826"
+    }
+   },
+   "head": {
+    "registry_version": "e183ae76b405d45a51129c4a9879f968c607c043f7b9c70d4e10564e5c909aae",
+    "ref_vocab_digest": "afb8df0652817b63084c416152efb9de70c68b64cbc270ba04a409222ee7c9cc",
+    "vocabularies": {
+     "PROFILE_B1_EAGER": "a2dcd5c2ed3919bb",
+     "PROFILE_B1_EAGER_V2": "2145f8ecc2118059",
+     "PROFILE_B1_EAGER_V3": "b1a14d881eeda3e0",
+     "PROFILE_DENSE2_EAGER_V1": "810f5908c0a5dd85",
+     "REFERENCE_CPU_F32": "a05926da8eaeb697"
+    }
+   }
+  },
+  "host_nan": {
+   "base": {
+    "machine": "x86_64",
+    "numpy": "2.3.5",
+    "F32Add(inf,-inf)": "0xffc00000",
+    "F32Mul(inf,0)": "0xffc00000",
+    "F32Div(0,0)": "0xffc00000",
+    "F32Add(1,sNaN)": "0x7fc00001",
+    "F32Add(1,-qNaN)": "0xffc00000"
+   },
+   "head": {
+    "machine": "x86_64",
+    "numpy": "2.3.5",
+    "F32Add(inf,-inf)": "0xffc00000",
+    "F32Mul(inf,0)": "0xffc00000",
+    "F32Div(0,0)": "0xffc00000",
+    "F32Add(1,sNaN)": "0x7fc00001",
+    "F32Add(1,-qNaN)": "0xffc00000"
+   }
+  }
+ },
+ "whoami": {
+  "old": {
+   "side": "old",
+   "pid": 16460,
+   "verity": "/workspace/base/packages/verity/src/verity/__init__.py",
+   "modules_core_prims": false,
+   "defs": {
+    "F32ToE4m3Sat": {
+     "id": "F32ToE4m3Sat_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "line": 168
+    },
+    "HopperE4m3QgmmaDot32": {
+     "id": "HopperE4m3QgmmaDot32_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "line": 182
+    },
+    "F32Fabs": {
+     "id": "F32Fabs_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "line": 83
+    },
+    "F32Fmaxf": {
+     "id": "F32Fmaxf_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "line": 111
+    },
+    "F32Fminf": {
+     "id": "F32Fminf_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/fp8.py",
+     "line": 117
+    },
+    "F32Sat": {
+     "id": "F32Sat_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/moe.py",
+     "line": 49
+    },
+    "F32Neg": {
+     "id": "F32Neg_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/moe.py",
+     "line": 117
+    },
+    "F32BitsShl23": {
+     "id": "F32BitsShl23_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/moe.py",
+     "line": 123
+    },
+    "F32IsFinite": {
+     "id": "F32IsFinite_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/moe.py",
+     "line": 179
+    },
+    "F32Eq": {
+     "id": "F32Eq_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/sampling.py",
+     "line": 312
+    },
+    "BitOr": {
+     "id": "BitOr_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/sampling.py",
+     "line": 318
+    },
+    "BitAnd": {
+     "id": "BitAnd_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/pad_prims.py",
+     "line": 49
+    },
+    "BitNot": {
+     "id": "BitNot_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/pad_prims.py",
+     "line": 56
+    },
+    "I32Le": {
+     "id": "I32Le_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 670
+    },
+    "I32Eq": {
+     "id": "I32Eq_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 684
+    },
+    "I32Add": {
+     "id": "I32Add_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 678
+    },
+    "SelectF32": {
+     "id": "SelectF32_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 689
+    },
+    "SelectBf16": {
+     "id": "SelectBf16_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 695
+    },
+    "SelectI32": {
+     "id": "SelectI32_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 700
+    },
+    "Bf16GtStrict": {
+     "id": "Bf16GtStrict_v1",
+     "file": "/workspace/base/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 705
+    }
+   }
+  },
+  "new": {
+   "side": "new",
+   "pid": 16491,
+   "verity": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/__init__.py",
+   "modules_core_prims": true,
+   "defs": {
+    "F32ToE4m3Sat": {
+     "id": "F32ToE4m3Sat_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/prims.py",
+     "line": 77
+    },
+    "HopperE4m3QgmmaDot32": {
+     "id": "HopperE4m3QgmmaDot32_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/prims.py",
+     "line": 85
+    },
+    "F32Fabs": {
+     "id": "F32Fabs_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 34
+    },
+    "F32Neg": {
+     "id": "F32Neg_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 40
+    },
+    "F32Fmaxf": {
+     "id": "F32Fmaxf_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 68
+    },
+    "F32Fminf": {
+     "id": "F32Fminf_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 74
+    },
+    "F32Sat": {
+     "id": "F32Sat_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 80
+    },
+    "F32BitsShl23": {
+     "id": "F32BitsShl23_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 90
+    },
+    "F32IsFinite": {
+     "id": "F32IsFinite_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 101
+    },
+    "F32Eq": {
+     "id": "F32Eq_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 107
+    },
+    "Bf16GtStrict": {
+     "id": "Bf16GtStrict_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 115
+    },
+    "I32Le": {
+     "id": "I32Le_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 123
+    },
+    "I32Eq": {
+     "id": "I32Eq_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 131
+    },
+    "I32Add": {
+     "id": "I32Add_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 139
+    },
+    "BitAnd": {
+     "id": "BitAnd_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 145
+    },
+    "BitNot": {
+     "id": "BitNot_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 151
+    },
+    "BitOr": {
+     "id": "BitOr_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 157
+    },
+    "SelectF32": {
+     "id": "SelectF32_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 162
+    },
+    "SelectBf16": {
+     "id": "SelectBf16_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 168
+    },
+    "SelectI32": {
+     "id": "SelectI32_v1",
+     "file": "/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3/packages/verity/src/verity/ml/scalar.py",
+     "line": 173
+    }
+   }
+  }
+ },
+ "all_equal": true,
+ "ok": {
+  "encodings": true,
+  "evaluators": true,
+  "dot": true
+ },
+ "seconds": 2743.9
+}

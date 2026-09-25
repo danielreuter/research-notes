@@ -1,0 +1,9 @@
+release UNRELEASED 2026-09-25T10:12:18Z commit=unknown tree=/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm branch=None dirty= (no /workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh)
+precheck PASS 2026-09-25T10:12:18Z source identity == /workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T10:12:20Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+build PASS 2026-09-25T10:14:46Z rc=0/0 wall=122s digest=03ace66f1c80b04a workload_digest=a2b43bde001d335a manifest=90f8186879d5035a 7043
+match PASS 2026-09-25T10:35:42Z rc=0/0/0 wall=1256s verdict PASS global PASS  dag concurrency 1 tokens_equal True fold True
+release UNRELEASED 2026-09-25T10:37:37Z commit=unknown tree=/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm branch=None dirty= (no /workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh)
+precheck PASS 2026-09-25T10:37:37Z source identity == /workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T10:37:39Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+commit PASS 2026-09-25T10:42:54Z rc=0 wall=295s outcome=PASS runs 1 failed 0 checks runtime_match=PASS local_replay=PASS boundary_linkage=PASS checkpoint_binding=PASS execution_extent=PASS required_value_coverage=PASS program_source_identity=PASS manifest_verify=True

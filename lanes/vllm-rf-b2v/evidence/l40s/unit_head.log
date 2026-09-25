@@ -1,0 +1,74 @@
+bringing up nodes...
+bringing up nodes...
+
+........................................................................ [  7%]
+........................................................................ [ 14%]
+........................................................................ [ 21%]
+...........................................ssss...s..ss................. [ 28%]
+........................................................................ [ 35%]
+........................................................................ [ 42%]
+......s...........................s..F...........ss......ssssss......... [ 49%]
+.....................................................x.................. [ 56%]
+........................................................................ [ 63%]
+...............................F........................................ [ 70%]
+........................................................x.....x..ssss... [ 77%]
+.............x.x....................s.ss...............sss.............. [ 84%]
+..........................................ssssssssssss.................. [ 91%]
+.....................................................................s.. [ 98%]
+............                                                             [100%]
+=================================== FAILURES ===================================
+_____________________ test_card_json_roundtrip_and_schema ______________________
+[gw4] linux -- Python 3.12.14 /workspace/venv312/bin/python
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-1/popen-gw4/test_card_json_roundtrip_and_s0')
+
+    def test_card_json_roundtrip_and_schema(tmp_path):
+        arts = passing_artifacts()
+        card = _card(tmp_path, arts)
+        p = CARD.write_card(card, tmp_path / "cards" / f"{card.config_id}.json")
+        back = CARD.load_card(p)
+        assert back.schema == "verity-gen/card/v1" and back.gates["G1"]["status"] == "pass" and back.C["NL"] == {"value": NL, "provenance": "hand"}
+        assert back.C["BN"]["provenance"] == "derived"
+        assert set(back.counts) >= {"unsupported", "ambiguous", "operand_provenance", "sampled_vus", "served_tokens", "chained_slices"}
+        assert back.diagnostics["structure"]["status"] == "ok"
+        schema = Path(__file__).resolve().parents[2] / "out/gen/cards/SCHEMA.md"
+>       text = schema.read_text()
+               ^^^^^^^^^^^^^^^^^^
+
+integrations/vllm/tests/check/test_gates_fixtures.py:845: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/workspace/head/integrations/vllm/out/gen/cards/SCHEMA.md')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/workspace/head/integrations/vllm/out/gen/cards/SCHEMA.md'
+
+/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______ test_pod_release_fails_closed_on_a_stale_so_and_records_the_digest ______
+[gw11] linux -- Python 3.12.14 /workspace/venv312/bin/python
+
+    def test_pod_release_fails_closed_on_a_stale_so_and_records_the_digest():
+        """pod_release.sh's collector step asserts missing_bindings == [] and prints source_digest= beside the sha; release_json keeps it."""
+>       s = open(os.path.join(HERE, "..", "sweep", "pod_release.sh")).read()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/workspace/head/integrations/vllm/tests/commit/../sweep/pod_release.sh'
+
+integrations/vllm/tests/commit/test_native_jit_keying.py:99: FileNotFoundError
+=========================== short test summary info ============================
+FAILED integrations/vllm/tests/check/test_gates_fixtures.py::test_card_json_roundtrip_and_schema
+FAILED integrations/vllm/tests/commit/test_native_jit_keying.py::test_pod_release_fails_closed_on_a_stale_so_and_records_the_digest
+exit 1 2026-09-25T10:48:01Z

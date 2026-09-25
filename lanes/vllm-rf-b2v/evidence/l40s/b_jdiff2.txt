@@ -1,0 +1,25 @@
+base 3990 {'failed': 32, 'passed': 3646, 'skipped': 306, 'xfailed': 6}
+head 4005 {'failed': 31, 'passed': 3662, 'skipped': 306, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 15 {'passed': 15}
+  + tests.check.test_gates_fixtures::test_verdict_is_the_match_verdict_over_check_results passed
+  + tests.check.test_verdict::test_from_record_cites_property_records_by_digest passed
+  + tests.check.test_verdict::test_the_code_is_the_outcome passed
+  + tests.properties.test_noninterference::test_a_differing_request_is_named_and_does_not_hold passed
+  + tests.properties.test_noninterference::test_equal_arms_hold_at_world_one_and_two[1] passed
+  + tests.properties.test_noninterference::test_equal_arms_hold_at_world_one_and_two[2] passed
+  + tests.properties.test_noninterference::test_missing_arm_wrong_world_and_boundary_hashes passed
+  + tests.properties.test_noninterference::test_other_worlds_are_refused[0] passed
+  + tests.properties.test_noninterference::test_other_worlds_are_refused[3] passed
+  + tests.properties.test_noninterference::test_other_worlds_are_refused[4] passed
+  + tests.properties.test_noninterference::test_the_record_is_the_registered_property passed
+  + tests.properties.test_record::test_harnesses_return_sealed_records passed
+  + tests.properties.test_record::test_records_of_a_run_and_their_citations passed
+  + tests.properties.test_record::test_seal_binds_ok_and_every_field_to_the_digest passed
+  + tests.properties.test_record::test_the_registry_names_each_harness_schema_once passed
+outcome changed: 1
+  ~ tests.ops.test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way: failed -> passed  [subprocess.TimeoutExpired: Command '['bash', '<path>']' timed out after 15 seconds]
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 32, head 31, fixed on head 1
+jdiff exit 0

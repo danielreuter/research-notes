@@ -1,0 +1,149 @@
+{
+ "schema": "verity-gen/stages/v1",
+ "stages": [
+  {
+   "stage": "capture",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "control",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "census",
+   "cmd": "/workspace/venv312/bin/python -m verity_vllm.properties.census --workload workloads/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.json --case LLAMA32_1B --max-num-seqs 1 --checkpoints manifests/checkpoints.json --engine-arg=max_num_batched_tokens=2048 --engine-arg=max_model_len=288 --engine-arg=gpu_memory_utilization=0.5 --out /workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/census --no-traces",
+   "log": "/workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/logs/census.log",
+   "status": "ok",
+   "returncode": 0,
+   "reason": null,
+   "seconds": 20.029
+  },
+  {
+   "stage": "nonint",
+   "cmd": "/workspace/venv312/bin/python -m verity_vllm.properties.noninterference --workload workloads/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.json --case LLAMA32_1B --max-num-seqs 1 --checkpoints manifests/checkpoints.json --engine-arg=max_num_batched_tokens=2048 --engine-arg=max_model_len=288 --engine-arg=gpu_memory_utilization=0.5 --out /workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/nonint --python /workspace/venv312/bin/python --accepted-ctl /workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/match/control/tokens.json",
+   "log": "/workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/logs/nonint.log",
+   "status": "ok",
+   "returncode": 0,
+   "reason": null,
+   "seconds": 78.349
+  },
+  {
+   "stage": "resolve",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "census_reconcile",
+   "cmd": "/workspace/venv312/bin/python -m verity_vllm.properties.census --reconcile /workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/census/census.json --log /workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/match/capture/log.jsonl.gz --profile derived_LLAMA32_1B --report /workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/census_reconcile",
+   "log": "/workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/logs/census_reconcile.log",
+   "status": "ok",
+   "returncode": 0,
+   "reason": null,
+   "seconds": 6.543
+  },
+  {
+   "stage": "nonint_compare",
+   "cmd": "/workspace/venv312/bin/python -m verity_vllm.properties.noninterference --compare --out /workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/nonint --workload workloads/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.json --case LLAMA32_1B --accepted-ctl /workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/match/control/tokens.json",
+   "log": "/workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/logs/nonint_compare.log",
+   "status": "ok",
+   "returncode": 0,
+   "reason": null,
+   "seconds": 4.504
+  },
+  {
+   "stage": "compare",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "fold",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "fold_2",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "root_policy",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "golden",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "wiring",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "replay_a",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "replay_chain",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  },
+  {
+   "stage": "gates",
+   "status": "skipped",
+   "returncode": null,
+   "seconds": 0.0,
+   "log": null,
+   "cmd": null,
+   "reason": "--skip"
+  }
+ ]
+}

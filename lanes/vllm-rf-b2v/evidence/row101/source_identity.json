@@ -1,0 +1,80 @@
+{
+ "schema": "research-infra/source-identity/v1",
+ "requested_root": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64",
+ "requested": {
+  "git_sha": "5483d13b9ec566671185f54cd1ddeb06869b8c64",
+  "git_sha_source": "RESEARCH_SOURCE_SHA",
+  "dirty_patch_sha256": null,
+  "branch": null
+ },
+ "sys_path0": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm",
+ "sys_executable": "/workspace/venv312/bin/python",
+ "cwd": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm",
+ "packages": {
+  "verity": {
+   "package": "verity",
+   "resolved_path": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/packages/verity/src/verity/__init__.py",
+   "repo_root": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64",
+   "loaded": false,
+   "reason": null,
+   "git_sha": "5483d13b9ec566671185f54cd1ddeb06869b8c64",
+   "git_sha_source": "RESEARCH_SOURCE_SHA",
+   "dirty_patch_sha256": null,
+   "branch": null,
+   "import_name": "verity",
+   "expected_sys_path_entry": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/packages/verity/src",
+   "sys_path_entry": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/packages/verity/src"
+  },
+  "verity_vllm": {
+   "package": "verity_vllm",
+   "resolved_path": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm/verity_vllm/__init__.py",
+   "repo_root": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64",
+   "loaded": true,
+   "reason": null,
+   "git_sha": "5483d13b9ec566671185f54cd1ddeb06869b8c64",
+   "git_sha_source": "RESEARCH_SOURCE_SHA",
+   "dirty_patch_sha256": null,
+   "branch": null,
+   "import_name": "verity_vllm",
+   "expected_sys_path_entry": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm",
+   "sys_path_entry": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm"
+  },
+  "hidden_gpu": {
+   "package": "hidden_gpu",
+   "resolved_path": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm/verity_vllm/commit/committer/hidden_gpu_src/hidden_gpu.py",
+   "repo_root": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64",
+   "loaded": false,
+   "reason": null,
+   "candidates": [
+    "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm/out/gen/r9/cmt-hidden/src/hidden_gpu.py",
+    "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm/verity_vllm/commit/committer/hidden_gpu_src/hidden_gpu.py"
+   ],
+   "git_sha": "5483d13b9ec566671185f54cd1ddeb06869b8c64",
+   "git_sha_source": "RESEARCH_SOURCE_SHA",
+   "dirty_patch_sha256": null,
+   "branch": null,
+   "file_sha256": "78df121543ed33dd225695b15dfd8ba83172a3d9a19a6d14a9e2c7f6d231e806"
+  },
+  "research": {
+   "package": "research",
+   "resolved_path": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/tools/research/src/research/__init__.py",
+   "repo_root": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64",
+   "loaded": true,
+   "reason": null,
+   "git_sha": "5483d13b9ec566671185f54cd1ddeb06869b8c64",
+   "git_sha_source": "RESEARCH_SOURCE_SHA",
+   "dirty_patch_sha256": null,
+   "branch": null,
+   "import_name": "research",
+   "expected_sys_path_entry": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/tools/research/src",
+   "sys_path_entry": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/tools/research/src"
+  }
+ },
+ "ok": true,
+ "fail_class": null,
+ "mismatches": [],
+ "VERITOR_REPO": "/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/integrations/vllm",
+ "PYTHONPATH": ".:/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/packages/verity/src:/workspace/research/src/5483d13b9ec566671185f54cd1ddeb06869b8c64/tools/research/src",
+ "RESEARCH_SOURCE_SHA": "5483d13b9ec566671185f54cd1ddeb06869b8c64",
+ "stage": "precheck"
+}

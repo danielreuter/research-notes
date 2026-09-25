@@ -1,0 +1,40 @@
+{
+ "schema": "verity-vllm/noninterference/v2",
+ "world": 1,
+ "run": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+ "subject": {
+  "case": "LLAMA32_1B",
+  "model": "unsloth/Llama-3.2-1B"
+ },
+ "arms": {
+  "observed": {
+   "file": "capture/tokens.json",
+   "sha256": "f146d9db8a131b7acacfb12b0a60548c6d407046e49a724c440f342097587f1c",
+   "world": 1
+  },
+  "bare": {
+   "file": "control/tokens.json",
+   "sha256": "cdce3de542f11a4c3fcad68c166516b3bcee63b461e42c861a19ddd9a13bb08c",
+   "world": 1
+  }
+ },
+ "tokens": {
+  "equal": true,
+  "requests": 1,
+  "requests_bare": 1,
+  "differing": []
+ },
+ "boundary_hashes": {
+  "sha256": "d6033ba86a3b2978f3885352a5ec0bc1af9bb3284c6aa72369e6abfd4760d997",
+  "PASS": true,
+  "problems": [],
+  "hash_comparisons": 1088,
+  "hash_equal": 1088,
+  "expected_steps": 32,
+  "layers": 16,
+  "expected_layers": 16
+ },
+ "problems": [],
+ "ok": true,
+ "digest": "be83f67833921627f88647eaaddb87f3f3e52698fac1fe76292a4736c7861361"
+}

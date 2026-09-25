@@ -1,0 +1,988 @@
+{
+ "expected_steps": 32,
+ "expected_steps_source": "c_bare timing.engine_steps",
+ "expected_layers": 16,
+ "layers": 16,
+ "schema": "verity-capture/noninterference/v1",
+ "utc": "2026-09-25T10:37:34Z",
+ "dir": "/workspace/cp/sweep/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/props_run/nonint",
+ "variants": {
+  "a_observer": "full observer + hash-only snapshots of every step (HashOnlyCapture)",
+  "b_hooks": "bare engine (no observer, no dispatch mode, no Triton hook); register_forward_hook on model.layers.N, model.norm, logits_processor, lm_head; async pinned D2H copy of each output tensor at hook time; one torch.cuda.synchronize() + sha256 after every engine.step()",
+  "c_bare": "bench.m1_capture --no-observer (driver.run_requests, nothing installed)"
+ },
+ "hooked_modules_b": [
+  "model.layers.0",
+  "model.layers.1",
+  "model.layers.2",
+  "model.layers.3",
+  "model.layers.4",
+  "model.layers.5",
+  "model.layers.6",
+  "model.layers.7",
+  "model.layers.8",
+  "model.layers.9",
+  "model.layers.10",
+  "model.layers.11",
+  "model.layers.12",
+  "model.layers.13",
+  "model.layers.14",
+  "model.layers.15",
+  "model.norm",
+  "lm_head",
+  "logits_processor"
+ ],
+ "hook_fire_counts_b": {
+  "model.layers.0": 32,
+  "model.layers.1": 32,
+  "model.layers.2": 32,
+  "model.layers.3": 32,
+  "model.layers.4": 32,
+  "model.layers.5": 32,
+  "model.layers.6": 32,
+  "model.layers.7": 32,
+  "model.layers.8": 32,
+  "model.layers.9": 32,
+  "model.layers.10": 32,
+  "model.layers.11": 32,
+  "model.layers.12": 32,
+  "model.layers.13": 32,
+  "model.layers.14": 32,
+  "model.layers.15": 32,
+  "model.norm": 32,
+  "logits_processor": 32
+ },
+ "tokens": {
+  "a_observer": {
+   "d73b90fd-3f5e-5f82-a4c7-16a7321ad556": [
+    323,
+    81625,
+    430,
+    1364,
+    2643,
+    387,
+    83975,
+    3950,
+    369,
+    1077,
+    5041,
+    11,
+    3952,
+    433,
+    1139,
+    1077,
+    2010,
+    311,
+    2015,
+    1077,
+    311,
+    2543,
+    927,
+    323,
+    2073,
+    676,
+    11,
+    1418,
+    1364,
+    11937,
+    4024,
+    311
+   ]
+  },
+  "b_hooks": {
+   "d73b90fd-3f5e-5f82-a4c7-16a7321ad556": [
+    323,
+    81625,
+    430,
+    1364,
+    2643,
+    387,
+    83975,
+    3950,
+    369,
+    1077,
+    5041,
+    11,
+    3952,
+    433,
+    1139,
+    1077,
+    2010,
+    311,
+    2015,
+    1077,
+    311,
+    2543,
+    927,
+    323,
+    2073,
+    676,
+    11,
+    1418,
+    1364,
+    11937,
+    4024,
+    311
+   ]
+  },
+  "c_bare": {
+   "d73b90fd-3f5e-5f82-a4c7-16a7321ad556": [
+    323,
+    81625,
+    430,
+    1364,
+    2643,
+    387,
+    83975,
+    3950,
+    369,
+    1077,
+    5041,
+    11,
+    3952,
+    433,
+    1139,
+    1077,
+    2010,
+    311,
+    2015,
+    1077,
+    311,
+    2543,
+    927,
+    323,
+    2073,
+    676,
+    11,
+    1418,
+    1364,
+    11937,
+    4024,
+    311
+   ]
+  },
+  "accepted": {
+   "d73b90fd-3f5e-5f82-a4c7-16a7321ad556": [
+    323,
+    81625,
+    430,
+    1364,
+    2643,
+    387,
+    83975,
+    3950,
+    369,
+    1077,
+    5041,
+    11,
+    3952,
+    433,
+    1139,
+    1077,
+    2010,
+    311,
+    2015,
+    1077,
+    311,
+    2543,
+    927,
+    323,
+    2073,
+    676,
+    11,
+    1418,
+    1364,
+    11937,
+    4024,
+    311
+   ]
+  },
+  "accepted_ctl_file": {
+   "d73b90fd-3f5e-5f82-a4c7-16a7321ad556": [
+    323,
+    81625,
+    430,
+    1364,
+    2643,
+    387,
+    83975,
+    3950,
+    369,
+    1077,
+    5041,
+    11,
+    3952,
+    433,
+    1139,
+    1077,
+    2010,
+    311,
+    2015,
+    1077,
+    311,
+    2543,
+    927,
+    323,
+    2073,
+    676,
+    11,
+    1418,
+    1364,
+    11937,
+    4024,
+    311
+   ]
+  }
+ },
+ "tokens_equal_accepted": {
+  "a_observer": true,
+  "b_hooks": true,
+  "c_bare": true,
+  "accepted_ctl_file": true
+ },
+ "reference": "clean control run (generated_token_ids)",
+ "tokens_equal_workload_accepted": null,
+ "steps": [
+  {
+   "step": 0,
+   "rows_a": 256,
+   "rows_b": 256,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    323
+   ],
+   "sampled_b": [
+    323
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 1,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    81625
+   ],
+   "sampled_b": [
+    81625
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 2,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    430
+   ],
+   "sampled_b": [
+    430
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 3,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1364
+   ],
+   "sampled_b": [
+    1364
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 4,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    2643
+   ],
+   "sampled_b": [
+    2643
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 5,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    387
+   ],
+   "sampled_b": [
+    387
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 6,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    83975
+   ],
+   "sampled_b": [
+    83975
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 7,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    3950
+   ],
+   "sampled_b": [
+    3950
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 8,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    369
+   ],
+   "sampled_b": [
+    369
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 9,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1077
+   ],
+   "sampled_b": [
+    1077
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 10,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    5041
+   ],
+   "sampled_b": [
+    5041
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 11,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    11
+   ],
+   "sampled_b": [
+    11
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 12,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    3952
+   ],
+   "sampled_b": [
+    3952
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 13,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    433
+   ],
+   "sampled_b": [
+    433
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 14,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1139
+   ],
+   "sampled_b": [
+    1139
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 15,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1077
+   ],
+   "sampled_b": [
+    1077
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 16,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    2010
+   ],
+   "sampled_b": [
+    2010
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 17,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    311
+   ],
+   "sampled_b": [
+    311
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 18,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    2015
+   ],
+   "sampled_b": [
+    2015
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 19,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1077
+   ],
+   "sampled_b": [
+    1077
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 20,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    311
+   ],
+   "sampled_b": [
+    311
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 21,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    2543
+   ],
+   "sampled_b": [
+    2543
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 22,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    927
+   ],
+   "sampled_b": [
+    927
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 23,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    323
+   ],
+   "sampled_b": [
+    323
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 24,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    2073
+   ],
+   "sampled_b": [
+    2073
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 25,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    676
+   ],
+   "sampled_b": [
+    676
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 26,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    11
+   ],
+   "sampled_b": [
+    11
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 27,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1418
+   ],
+   "sampled_b": [
+    1418
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 28,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1364
+   ],
+   "sampled_b": [
+    1364
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 29,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    11937
+   ],
+   "sampled_b": [
+    11937
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 30,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    4024
+   ],
+   "sampled_b": [
+    4024
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 31,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 16,
+   "layers_b": 16,
+   "hidden_eq": 16,
+   "residual_eq": 16,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 34,
+   "equal": 34,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    311
+   ],
+   "sampled_b": [
+    311
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  }
+ ],
+ "hash_comparisons": 1088,
+ "hash_equal": 1088,
+ "mismatches": [],
+ "problems": [],
+ "PASS": true
+}

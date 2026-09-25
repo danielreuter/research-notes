@@ -1,0 +1,6 @@
+Using Python 3.12.14 environment at: /workspace/venv312
+Resolved 7 packages in 89ms
+Prepared 2 packages in 10ms
+Installed 2 packages in 8ms
+ + execnet==2.1.2
+ + pytest-xdist==3.8.0

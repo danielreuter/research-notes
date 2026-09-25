@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/b2v/jdiff.py", line 102, in <module>
+    main()
+  File "/workspace/b2v/jdiff.py", line 64, in main
+    b, rb = outcomes(head_p)
+            ^^^^^^^^^^^^^^^^
+  File "/workspace/b2v/jdiff.py", line 31, in outcomes
+    with (gzip.open(path) if path.endswith(".gz") else open(path, "rb")) as f:
+                                                       ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/out/gates/b_head.xml'
+jdiff exit 1

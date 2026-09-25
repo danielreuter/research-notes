@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (00:22Z) [open] verified agkr-nvf4 5090 art:49757870 (716ea008, same proof bytes as 5adf62eb; verdict art:9618b325; A-GKR cell 2.5e7x; coordinator 0022Z). 48 accepted, 0 rejected; cred removed; idle-polling
 CHECKPOINT ab9573fd (00:15Z) [open] d3-h100 LIVE x12 all PASS+BOUND, labelled (verdicts art:e13419b4..art:41e3a98b, coordinator 0017Z); Table 2 unchanged (also_valid, D3). 47 accepted, 0 rejected; idle-polling
 CHECKPOINT ab9573fd (23:53Z) [open] verified 5090: agkr-nvf4 art:5adf62eb (verdict art:4791cc89, A-GKR cell 3.3e7x) + arith B-Ligero x4 (art:0b229064 art:c6a8328b art:f538c335 art:20b47418; also_valid behind d5c9e1f3). 35 accepted, 0 rejected; idle-polling
 CHECKPOINT ab9573fd (23:45Z) [open] 2 new: agkr-nvf4 5090 art:5adf62eb (2b25df7f, supersedes ad8f92b9) + arith 5090 fp4-nvf4 B-Ligero x4 (art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a) verifying in r20260924-234455-6524
@@ -58,6 +59,7 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 9 | `20260924T2306Z-handoff-from-arith.md` (92dab0ad, A100) | a16-tip r1-r4: art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1 | A100 BF16, B-Ligero | accepted x4 | art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93 |
 | 10 | `20260924T2335Z-handoff-from-arith.md` (92dab0ad, 5090) | f4-tip r1-r4: art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a | RTX 5090 NVFP4, B-Ligero (also_valid; cell stays art:d5c9e1f3) | accepted x4 | art:0b229064 art:c6a8328b art:f538c335 art:20b47418 |
 | 11 | `20260924T2350Z-handoff-from-agkr-nvf4.md` (2b25df7f) | art:5adf62eb | RTX 5090 NVFP4, A-GKR (supersedes #4, #8) | accepted (same verifier merge as #4) | art:4791cc89 |
+| 13 | `20260925T0005Z-handoff-from-agkr-nvf4.md` (716ea008) | art:49757870 | RTX 5090 NVFP4, A-GKR (supersedes #11; same proof bytes) | accepted (same verifier merge as #4) | art:9618b325 |
 | 12 | `20260924T2351Z-handoff-from-d3-h100.md` (main 1d9c3198, live) | b16b r1-3: art:c6e250c2 art:c1c05324 art:166551a5; f8b r1-3: art:971820ba art:7be63d37 art:c58d45c6; b16h r1-3: art:137b923a art:60d0622f art:d9d21d03; f8h r1-3: art:83c7d5a7 art:9aed3426 art:5b6d6d6d | H100 BF16/FP8 (+hash) B-Ligero LIVE, D3 (also_valid in Table 2) | accepted x12 | art:e13419b4 art:209fdd63 art:ed310632; art:d0aeef7f art:fe61cce4 art:f765ab6c; art:649e27ed art:0b754787 art:1e442d10; art:cc7fa7cd art:549ee1d3 art:41e3a98b |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
@@ -169,12 +171,17 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   On the hash tree, stmtbyte fails with "auth: y: multiproof rejected (root mismatch)".
 - Custody: all 12 verdicts `data preserved` rc 0. Table 2 (00:16Z) is unchanged: all 12 are also_valid.
 
+### 13. agkr-nvf4 art:49757870 (run r20260925-001640-4f37)
+- `10-agkr-nvf4-verify.sh PREV=716ea008` on its own tree (art:78b3aadf). All 5 reps are accepted; each is sha256 091fecad,
+  the same bytes as #11. Each takes 0.66-0.81 s. The statement is byte-identical to 716ea008's export, public.bin shows 0 rows
+  mismatched, and every negative is rejected (mutate 148/148). Table 2 (00:21Z): 2.5e7× (0.1905 s).
+
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |
 |---|---|---|---|
 | RTX 4090 FP8, A-GKR | — | 3.0e7× (1.13 s) | art:1b4fd4a1 |
 | RTX 4090 FP8, B-Ligero | 2.4e6× (art:fb4934af) | 2.2e6× (0.0840 s) | art:bb75ba4f (arith step 5) |
-| RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s); 4.2e7× (0.314 s) at 23:31Z; 3.3e7× (0.245 s) at 23:52Z | art:fe57e68b; art:ad8f92b9; art:5adf62eb |
+| RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s); 4.2e7× (0.314 s) at 23:31Z; 3.3e7× (0.245 s) at 23:52Z; 2.5e7× (0.1905 s) at 00:21Z | art:fe57e68b; art:ad8f92b9; art:5adf62eb; art:49757870 |
 | A100 BF16, B-Ligero | 2.2e7× (art:794365d3) | 5.9e6× | art:5bcbf3fb (arith a16-tip-r1) |
 
 ## Log

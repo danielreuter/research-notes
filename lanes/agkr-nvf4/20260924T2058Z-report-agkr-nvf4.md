@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT c3982dd5 (00:21Z) [open] dev 0.1828s (sha 091fecad same): e1bcf472 pinned H2D, 0b7dbb3a leaves into graph buffers, c3982dd5 keep query tuples on 32GB. ff98 0.1905s PRESERVED. Next: LogUp tree deinterleave/T4_big copies (tree 8.4ms).
 CHECKPOINT 57038af (00:05Z) [open] ff98 @716ea008 recorded+PRESERVED: t.total 0.1905s, 2^-130.19, arts 49757870/78b3aadf, verify-po handoff 0005Z. e1bcf472 pinned H2D -> 0.1885 dev. Next: lookup pad closed form, phase-1 host work.
 CHECKPOINT 716ea008 (00:03Z) [open] recorded r20260924-235457-ff98 @716ea008 t.total 0.1905s (5 reps) art:49757870 result art:78b3aadf run-files, same proof bytes as 1b1d; verify-po handoff 0005Z; adopted agkr-fp8 prover commits + compiled witness step; next: phase-1 pinned H2D
 CHECKPOINT 2b25df7f (23:42Z) [open] recorded r20260924-233405-1b1d @2b25df7f t.total 0.245s art:5adf62eb result art:d6673af2 run-files PRESERVED (thread caps fixed); verify-po handoff 2350Z supersedes; next: torch.compile'd chain step (witness 28.7->12.1ms) + re-record

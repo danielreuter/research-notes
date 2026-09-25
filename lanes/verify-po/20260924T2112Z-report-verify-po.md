@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT none (02:00Z) [open] 5090 NVFP4 A-GKR art:53a64e8b (same stmt+proofs as dfbc86c4) verified; verdict art:223c8efe PRESERVED, label HELD (coordinator 0200Z). Held x4: 45c5be4a 3ae971dd dfbc86c4 53a64e8b. 49 accepted + 4 held, 0 rejected; cred removed; polling
 CHECKPOINT none (01:41Z) [open] H100 FP8 A-GKR merged-LK art:3ae971dd 3/3 + stmt + LK-merge check OK; verdict art:e96f50ac PRESERVED, label HELD (coordinator 0142Z). Held: 45c5be4a 3ae971dd dfbc86c4. 49 accepted + 3 held, 0 rejected; cred removed; polling
 CHECKPOINT 90c21455 (01:26Z) [open] 4090 FP8 A-GKR art:ecd96143 labelled (verdict art:eededf7d; Table 2 1.75e7x). 5090 art:dfbc86c4 verdict art:7d3aaf2e PRESERVED, label HELD (coordinator 0127Z x2). 49 accepted + 2 held, 0 rejected; cred removed; polling
 CHECKPOINT ab9573fd (01:21Z) [open] labelled 4090 FP8 A-GKR art:ecd96143 (unchanged stmt; verdict art:eededf7d). art:dfbc86c4 (5090, BOOL_QUADRATIC+PAIRED) 5/5 + stmt + rewrite-equivalence check OK; registering verdict, label HELD
@@ -69,6 +70,7 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 15 | `lanes/coordinator/20260925T0006Z-handoff-from-agkr-fp8.md` (f2363663; sent to coordinator's folder, found 01:05Z) | art:ecd96143 | RTX 4090 FP8, A-GKR, unchanged statement | accepted | art:eededf7d |
 | 16 | `20260925T0100Z-handoff-from-agkr-nvf4.md` (b7cec878) | art:dfbc86c4 | RTX 5090 NVFP4, A-GKR, BOOL_QUADRATIC + PAIRED | PASS, label HELD (coordinator 0050Z) | art:7d3aaf2e |
 | 17 | `20260925T0132Z-handoff-from-agkr-fp8.md` (3be6a35f) | art:3ae971dd | H100 FP8, A-GKR, merged LK | PASS, label HELD (coordinator 0050Z) | art:e96f50ac |
+| 18 | `20260925T0150Z-handoff-from-agkr-nvf4.md` (00145f51) | art:53a64e8b | RTX 5090 NVFP4, A-GKR (supersedes #16; same statement and proof bytes) | PASS, label HELD (coordinator 0050Z) | art:223c8efe |
 | 12 | `20260924T2351Z-handoff-from-d3-h100.md` (main 1d9c3198, live) | b16b r1-3: art:c6e250c2 art:c1c05324 art:166551a5; f8b r1-3: art:971820ba art:7be63d37 art:c58d45c6; b16h r1-3: art:137b923a art:60d0622f art:d9d21d03; f8h r1-3: art:83c7d5a7 art:9aed3426 art:5b6d6d6d | H100 BF16/FP8 (+hash) B-Ligero LIVE, D3 (also_valid in Table 2) | accepted x12 | art:e13419b4 art:209fdd63 art:ed310632; art:d0aeef7f art:fe61cce4 art:f765ab6c; art:649e27ed art:0b754787 art:1e442d10; art:cc7fa7cd art:549ee1d3 art:41e3a98b |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
@@ -227,6 +229,15 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   10 tables (R6), 261968 rows as a multiset.
 - Negatives, all rejected: mutate 356/356; my VU-17 +1; the producer's r6_key, shift_out, t_op_out and tnorm_out (LK level 0
   final check) and 4 claim negatives (art:70bbba68). The honest case is accepted.
+
+### 18. agkr-nvf4 A-GKR 5090 NVFP4 art:53a64e8b (run r20260925-015434-8c48; verdict r20260925-015724-d06b) -- HELD
+- The changes are prover-only (0.1462 s); the statement and proofs are those of #16. Release command:
+  `30-verdict-53a64e8b.sh` with HOLD=0 VID=art:223c8efe. Coordinator handoff 0200Z (5090-agkr-53a64e8b-held), which also
+  corrects 0127Z's attribution of the #16 negatives.
+- `10-agkr-nvf4-verify.sh PREV=00145f51` (source shipped by `git archive`): 5/5 accepted (0.47-0.53 s), the verifier sources
+  are identical to 3c769c6d's, the statement is byte-identical to 00145f51's export, and public.bin has 0 rows mismatched.
+  Every proof and statement file equals #16's (cmp), and `27-nvf4-rewrite-check.py` passes.
+- Negatives, all rejected: mutate 148/148; my s flip, t+1, f+1, reordered public line and removed public line.
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |

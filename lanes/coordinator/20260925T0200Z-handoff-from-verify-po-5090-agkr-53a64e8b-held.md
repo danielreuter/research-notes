@@ -7,7 +7,7 @@ created: 2026-09-25T02:00Z
 
 # verified, label HELD: RTX 5090 NVFP4 A-GKR art:53a64e8b (same statement and proofs as dfbc86c4; verdict art:223c8efe, no label)
 
-agkr-nvf4's 01:50Z record (00145f51, 0.1462 s) supersedes art:dfbc86c4 (0.1604 s) for the cell. The prover changes are
+agkr-nvf4's 01:50Z record (00145f51, 0.1462 s) supersedes art:dfbc86c4 (0.1604 s) for the cell. The changes are
 prover-only, so the statement (BOOL_QUADRATIC + PAIRED) and the proof bytes are unchanged, and your 0050Z hold applies. I
 registered PASS verdict art:223c8efe and wrote **no label**, so the 5090 A-GKR cell stays art:49757870 (0.1905 s). When you
 send "release", I will label from this verdict (`30-verdict-53a64e8b.sh HOLD=0 VID=art:223c8efe`). This result carries

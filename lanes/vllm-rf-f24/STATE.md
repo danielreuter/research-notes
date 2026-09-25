@@ -103,8 +103,13 @@
   default root = `config.ROOT` (a23b's; same directory, output-neutral). NOT PUSHED YET (push after lints are green).
 - New pod `vyv-rf-f24-rb` = `hpdi919qixzrw0` (cpu3g 16 vCPU / 64 GB), ssh `/tmp/rff24/ssh_rb.sh`. Trees: `/workspace/head5`
   (47ba6e80, synced), `/workspace/main5` (= bbbe936c: head5 with `git apply -R` of the branch diff; 28 blobs verified).
-  Bootstrap `--cpu` running (`/workspace/logs/bootstrap.log`). Next: lints at head5; gate (b) at head5 then main5
-  (`OMP_NUM_THREADS=3 gate_b.sh TREE TAG -n 12 --dist loadfile`), jdiff; push `--force-with-lease`; READY.md (both heads); terminate.
+  Bootstrap OK 01:51:54Z (same versions; + pytest-xdist 3.8.0 via `uv pip`).
+- 01:56Z Lints at head5: P10 asked to lower commit_delta.main 1918->1917 and weights_of_record module 1000->999 -> commit
+  `e818a5d4`; re-synced; lints **41 passed** (`/workspace/out/gates/lint_head5.log`). PUSHED `e818a5d4` (--force-with-lease over a2e2843e).
+- Running: gate (b) at head5 `b_head5_x12` (start 01:56:22Z); queued `/workspace/rff24/after_head5.sh` -> gate (b) at main5
+  `b_main5_x12` when head5 exits. Next: jdiff main5 vs head5 (`/workspace/rff24/jdiff.py`), pull evidence to `evidence/gate_b/`
+  + lint log, READY.md gate (b) section at the final head, status ready, terminate `hpdi919qixzrw0`.
+- READY.md already rewritten for the new head (header, three heads + commit mapping, pod table, What changed hashes, rebase notes).
 - 01:17:55Z `a_final` DONE: 71 passed, 85 skipped, 35 deselected, exit 0 (16068 s). T1 replay_partition passed on 7 rows;
   decomp_hashes skips on all 13. jdiff vs a_head4 (110 common): no outcome / skip-reason difference. Evidence pulled; READY.md filled.
 - 01:19:23Z `a_head4_t1` at a2e2843e (`/workspace/rff24/head4_t1.sh`, keyless): T1 replay_partition r101/r57/r60 + manifest_digest

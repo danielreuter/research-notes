@@ -208,7 +208,8 @@ created: 2026-09-24T17:36Z
   00:30Z head 72, base 70 (both entering row #67), 0 F/E.
   00:50Z head 94 (past `T1-replay_partition-r67`; at #68's), base 82 (in `T1-replay_partition-r67`, 35 GB), 0 F/E.
   01:10Z head 108, base 108 (both entering row #73), 0 F/E.
-  01:10Z head 108, base 108 (both entering row #73), 0 F/E.
+  01:39Z head 130, base 120 (#73 took ~25 min per tree), 0 F/E.
+  01:59Z head 156 (2 to go), base 130 (in a #74 check, 38 GB), 0 F/E.
   NOTE (my tooling): `AwaitShell` without a shell id returned at once while reporting "slept N s" -- the pod "clock jumps" earlier
   were that; waits now block on a laptop watcher loop.
 - 23:0xZ the 64 GB pod `drd3w6z9d22gvd` TERMINATED after copying its gate (b) evidence (`evidence/cpu_pod/`: gate_b_final

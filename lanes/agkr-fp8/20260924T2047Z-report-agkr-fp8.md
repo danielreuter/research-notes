@@ -2,9 +2,10 @@
 lane: agkr-fp8
 kind: report
 created: 2026-09-24T20:47Z
-status: open
+status: final
 ---
 
+CHECKPOINT a97576b5 (01:58Z) [final] FINAL a97576b5: H100 FP8 0.409s unchanged stmt (art:b0c27291, 0146Z) / 0.280s merged LK (art:ad76c106, held); 4090 0.666s (art:ecd96143, in Table 2) / 0.490s merged (art:45c5be4a, verified, held). 2^-130.19. Pods terminated, ~$12.1.
 CHECKPOINT a97576b5 (01:46Z) [open] H100 fp8-hopper UNCHANGED statement 0.409s @a97576b5: art:b0c27291 (run-files art:25c57ccb, proofs f80ecc53 = verified bytes), negatives art:07b5adb8; handoff 0146Z (no hold). Merged H100 re-record @a97576b5 running r20260925-014451-54f2.
 CHECKPOINT a97576b5 (01:31Z) [open] H100 merged fp8-hopper 0.328s recorded: art:3ae971dd (run-files art:0c23dfc9, r20260925-010941-b9eb @3be6a35f), Rust 3/3, 2^-130.19, negatives art:70bbba68; handoff 0132Z (held). 10 nvf4 picks -> a97576b5, bytes same (fp8 + bf16). Unmerged H100 dev @a97576b5 running.
 CHECKPOINT 3be6a35f (01:11Z) [open] H100 pod 28sqi5rstcudhk (00:50Z): fp8-hopper MERGED dev @3be6a35f t.total 0.330-0.335s (cell 0.482), Rust 2/2, negatives OK. Recorded run r20260925-010941-b9eb running; then push, lookup negatives, handoff.

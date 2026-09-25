@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT f893ba0 (13:18Z) [open] x4 instance-equiv/v1 8192 art:d9b3724d + 32768 art:b6f2e1df (PR#21 shape, equal, reproduce) -> verify-night-2. blake3-xob class granted w/ conditions (red-team 1226Z). x4 xob plateau art:ecccca50 handed off. x1 xob sweep running; FINAL by 15:00Z.
 CHECKPOINT 5b28557b (13:10Z) [open] x4+blake3-xob sweep done: plateau 32768 5676 VU/s e2e 5.773s 1.89e7x ACCEPT 97/97 2^-128.07 art:ecccca50 (PROVISIONAL, not converged, 65536 OOM). x1 xob sweep r20260925-130720-ab7a running. Handoffs next, FINAL chores by 14:40Z.
 CHECKPOINT 5b28557b (12:17Z) [open] blake3-xob PROVISIONAL cells (5b28557b, gated, pinned, Rust ACCEPT): x1 frozen e2e 1.974s (1.963+0.010) 5.18e7x art:b47828e4; x4 0.799s (0.790+0.009) 2.10e7x art:bb69174b; same-tree +blake3 controls 3.539/1.977s. Sent to verify-night-2, coord; x4 xob sweep running r..121605-357f.
 CHECKPOINT 5b28557b (11:44Z) [open] x4 instance-equiv/v1 art:6fdeed7e registered (equal, check reproduces) -> verify-night-2; 8192 prefix-equal evidence to coordinator. blake3-xob: tests 27+16 pass, 71f39e44 kept, xob pins x1 3d6cc67b (28584 rows vs 35370) x4 f90e7b41 in 5b28557b; rust+gates r..114349-ea8d; red-team review asked.
@@ -387,6 +388,20 @@ Pod scripts: `evidence/pod-scripts/`.
     | plateau 32768 (proofs) | art:ecccca50500cecececefcd7dfb4aa97572a1e334332f1c191744489fbeccf82a | art:0785fd3dffe9bb80fcdc3cb3feae85bf32dd22c8b4b4fc06248d8f2e7e9bc5a6 |
   x4 points above 4096 use instances beyond the frozen 4096 (prefix rule, coordinator decision pending).
 * 13:07Z r20260925-130720-ab7a: the x1+blake3-xob plateau sweep (same settings, MAX = 32768).
+* 13:10-13:20Z: read red-team 1226Z (**blake3-xob CLASS GRANTED WITH CONDITIONS**: re-verify from ≥ 5b28557b or 06, 04 BOUND
+  ≤ 2^-128, run at 5b28557b / 672b23ae; 0 free rows in both shapes; twin relabel refused both ways; H2 / R1 / R4 pass) and
+  verify-night-2 1230Z (the controls are queued at main; the xob pair goes through a second verifier, main plus my diff).
+  I had missed coordinator 1124Z / 1125Z (PR #21: instance-equiv/v1 can reference the synthetic stream past 4096; do only 8192).
+  - The pod tree predates PR #21 and a sweep was running from it, so 43-equiv-8192.sh overlays main 2c92b9e3's
+    `bench/{instance_equiv,tables,views}.py` on a copy of verity_numerical. There is no relchain / relations diff, and it
+    runs at nice 19 with 8 procs. The sweep's points stayed `contended=False`.
+  - **x4 8192: art:d9b3724db1d21db49cbd399642685f1a2b4aa8d21d4bab3b6c7623caaf0ca7f3.** frozen = the stream over [0, 8192]
+    (35a95ed5…); candidate 5ca6851d… (art:6b6d4484's ref); equal, and `--check` reproduces it.
+  - **x4 32768: art:b6f2e1dfcc3473058aad66d1aa271b4828140f3e667ef646ee176ca81a26109a.** frozen a80b38f2…; candidate
+    fd076a29… (the x4 xob plateau art:ecccca50's ref); equal, and it reproduces.
+  - The documents are in `evidence/equiv/`.
+  - Handoffs: verify-night-2 1315Z (both documents, the x4 xob plateau), coordinator 1320Z (the same, plus the merge
+    decision for blake3-xob), red-team 1320Z (the three xob cells in scope).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

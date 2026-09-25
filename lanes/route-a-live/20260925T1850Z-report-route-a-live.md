@@ -5,6 +5,7 @@ created: 2026-09-25T18:50Z
 status: final
 ---
 
+CHECKPOINT 7d03a87b (22:17Z) [final] reopen 2: re-registered art:3d7cbea23e9bdd7b14698d1871d7b4f6c24974a70cbd34ba04edfb5bbad58f60 (supersedes art:4b52879f): refs.run_files art:d9666f5a + attempt r20260925-221620-2466, protocol (uncontended; guard throttle rule self-tripped), sweep plateau by memory cap, commit.seconds 38.97 s CPU; PR #38 renderer: only U left. No pod
 CHECKPOINT 504f75b6 (21:28Z) [final] reopen: re-derived art:4b52879f (4096; rounds 4076, t.total 12.59/live 13.63) + art:aa9223c2 (1024); FAILS interaction tolerance at 1 ms (-18%; run RTT 0.36 ms), passes at measured RTT (-3%): decision to coordinator. Fail-fast prime verifier + negatives. PR #36 @ 504f75b6. No pods, $0
 CHECKPOINT dec08973 (20:26Z) [final] route (a) cell with live prime coins: NON_ZK_PROOF 2^-130.19, A100 4096 VUs 14.01 s same-DC (art:3bfb2f58; 1024: art:d5731679); G2 replay + negatives (art:837d95c8); >4096 OOM on A100. PR #36 @ dec08973. Pods terminated 20:19Z/20:25Z, ~$2.3. Re-audit + G3 requested
 CHECKPOINT 3bc72407 (19:58Z) [open] READY verifier serving r20260925-195835-65ab on vy-route-a-live-ver 154.54.102.18:11662 (ssh :11661), US-MD-1 with the A100 154.54.102.35; sizes 1024 4096 x5. Probe r20260925-194129-7a4c: live cell OK @1024/4096 loopback (4096: 3006 prime rounds), 8192 OOM on A100 80GB (prime). Polling in turn.
@@ -95,3 +96,7 @@ tip: lane/route-a-live @ 504f75b6 (base lane/agkr-flock-cell@7585828d)        me
 known-failures: tests/test_repository.py::test_no_tracked_blob_exceeds_limit (on main too)    pod: none this round; $0 (lane ~$2.3)
 artifacts: art:4b52879f art:aa9223c2 art:3bfb2f58 art:d5731679 art:837d95c8
 ~~~
+
+# Reopen 2 (renderer 2215Z): re-registered as art:3d7cbea2
+- `cell.py rederive` @ 7d03a87b, run as local attempt r20260925-221620-2466 (`evidence/pod-scripts/40-rederive-4096.sh`): refs.run_files art:d9666f5a (prover dump), verifier_files art:42841b22, supersedes art:4b52879f; protocol (`evidence/protocol-4096.json`: contended false, guard throttling rule tripped by the cell's own Flock prover), sweep (`evidence/sweep-4096.json`: plateau by memory cap), commit.seconds 38.97 s (CPU committer). PR #38's renderer: only U left.
+- Handoffs: `lanes/{coordinator,verify-night-3,red-team-flock}/20260925T2225Z-handoff-from-route-a-live.md`. Received: `lanes/coordinator/20260925T2215Z-handoff-from-renderer.md` (via the root). No pod, $0.

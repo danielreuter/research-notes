@@ -1,0 +1,9 @@
+{"warm": true, "warmup": "1 local warm-up session per size in the same process (loopback verifier; Triton kernels compiled)",
+ "runs": 5, "statistic": "median", "contended": false,
+ "contention": {"contended": false, "method": "the bench timing guard's criteria (backends/direct/ligero/timing_guard.py) applied to the harness's 1 s telemetry of the sweep run r20260925-201056-1018 (art:512bf437, 20:10:58-20:15:08Z, 48 GPU and 252 cgroup samples)",
+   "other_gpu_procs": 0, "gpu_pids_seen": ["13497", "15160"], "gpu_pids_note": "both are the sweep's own tools/cell.py prime prover (one per size, parent the run's bash 13450)",
+   "throttled_while_gpu_busy": 0.234, "throttled_all": 0.190, "load1": "not sampled",
+   "cpu_seconds_by_process": {"flock-link": 1121.2, "verity-gkr-verify": 318.1, "python": 75.7},
+   "reasons": [],
+   "notes": ["no process outside the cell used the GPU or measurable CPU: flock-link is the cell's own Flock prover (and the idle loopback warm-up verifier), verity-gkr-verify the per-session prime check that runs between sessions, python the prime prover and the sampler",
+             "the guard's throttling rule (> 10% of periods throttled while the GPU is busy) trips at 23.4%: the cell's Flock prover runs 13 rayon threads on the pod's 13.6-core quota beside the GPU prover by design; that is the workload's own CPU, not a competitor, so the verdict is uncontended"]}}

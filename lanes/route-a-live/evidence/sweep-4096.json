@@ -1,0 +1,10 @@
+{"id": "route-a-live A100-SXM4-80GB US-MD-1 2026-09-25 (probe r20260925-194129-7a4c, sweep r20260925-201056-1018)",
+ "point": 4096, "plateau": true,
+ "plateau_basis": "memory cap: 4,096 VUs is the largest batch the prime prover fits in one proof on an 80 GB A100 (8,192 and 16,384 run out of GPU memory). The per-VU cost still falls from 1,024 to 4,096 VUs, so this is the plateau by memory cap, not a throughput plateau.",
+ "points": [
+  {"vus": 1024, "result": "art:aa9223c29bae5741e8fc8867f78803e7a4af70692882abbf4c42a3a9586c3f8b", "t_total_s": 4.9465, "ms_per_vu": 4.83},
+  {"vus": 4096, "t_total_s": 12.5937, "ms_per_vu": 3.07},
+  {"vus": 8192, "status": "out of memory", "detail": "prime prover: CUDA OOM allocating 41.30 GiB with 56.09 GiB in use of 79.25 GiB"},
+  {"vus": 16384, "status": "out of memory", "detail": "prime prover: CUDA OOM allocating 6.30 GiB with 2.98 GiB free"},
+  {"vus": 32768, "status": "failed", "detail": "witness: query tuple not in table T_OP (the tiled statement); not a memory result"}],
+ "evidence": "art:54b53a85e600c43479c30b943160c43b7a59d6ec32b04d6d6d242e745bf882fa out/probe.tsv (probe run r20260925-194129-7a4c)"}

@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT 5b41d4af (23:04Z) [open] SHA-256 row-leaf layouts (ShaBf16/ShaFp8) CPU all-pass 8/64 (5b41d4af); GPU runs: H100 bf16-hopper-sha r20260925-230109-4f67, A100 bf16-ampere-sha r20260925-230228-82ee, 4090 fp8-ada-sha r20260925-230253-5f62; fp8-hopper-sha next on H100
 CHECKPOINT 48045063 (22:49Z) [open] layouts landed: fp8-hopper H100 16384 VUs 1.15 s (14.3k VU/s, art:58ae6210); bf16-ampere A100 8192 2.75-2.88 s (2.95k VU/s, art:01d31b1b); handoffs 2242Z/2250Z to flock-backend + red-team-flock; pods terminated; nvfp4 blocked (no unit circuit); next: frame-v3 SHA-256 leaf layout
 CHECKPOINT 48045063 (20:54Z) [open] STEP 2 landed: fp8-ada layout on RTX 4090 (sm_89): GPU selftest all-pass 8/64, 4096 VUs 0.44-0.54 s e2e (~8.3k VU/s, ~1.3e7x) loopback; art:0a6be58a art:e5cc3594; 4090 terminated 20:53Z; handoff 2055Z; lane ~$8.3; no pods up
 CHECKPOINT 4f7db693 (20:29Z) [open] STEP 1 landed: device inputs + unit-witness reuse: H100 8192 VUs 1.233 s e2e loopback (was 2.41), 4096 0.648 s; v2 GPU selftest all-pass 8/64 (r20260925-202058-61f1 art:9b34fdb4); H100 terminated 20:29Z; handoff 2030Z. Step 2: fp8-ada layout CPU all-pass (4f7db693), GPU next

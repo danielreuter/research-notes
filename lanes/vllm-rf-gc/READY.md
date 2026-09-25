@@ -3,7 +3,36 @@ id: vllm-rf-gc/ready
 lane: vllm-rf-gc
 kind: ready
 created: 2026-09-25T18:45Z
-updated: 2026-09-25T22:45Z
+updated: 2026-09-25T23:00Z
+---
+# gc3 READY: test_harden_guards resolves every path from the integration
+
+branch `lane/vllm-rf-gc3` @ `411c5cee` = gc2 head `a0ec1083` + merge of origin/main `5f8d8789` (`cdb31950`) + one commit. gc2 was not
+in main when I started, so **gc3 contains gc2**: merging gc3 merges gc2 too (or merge gc2 first; gc3 then adds `411c5cee` only).
+
+## Change (`411c5cee`, `tests/program/test_harden_guards.py` only)
+`ROOT` was `dirname(dirname(verity.ir.__file__))` = `packages/verity/src`; every use now resolves from `INTEGRATION` (integrations/vllm):
+- **G4c bindings glob + relpath** (b5vc's line): matched nothing, so the 13 `rules/vllm_bindings/*.py` files were never scanned. Now
+  16 files are scanned, 0 literal hits: **G4c passes and is load-bearing.** No product defect found.
+- **EVIDENCE** -> `integrations/vllm/out/gen/r10/cb-fix/evidence/fix`. The R10 evidence is **not in this repo** (never migrated; veritor
+  is not reachable from here: `gh repo view danielreuter/veritor` -> not found), so G1a-G4b still skip (10) — same outcome, the skip
+  reason now names the right path. Found-not-fixed: migrate those artefacts (register in `fixtures/artifacts.json`) or retire G1-G4b.
+- **DERIVE_STEP** -> `integrations/vllm/verity_vllm/pipeline/build.py` (exists). G4b (xfail strict) still skips at `_load` first.
+- **G5** (HARDEN_LIVE=1): PYTHONPATH `INTEGRATION:CORE_SRC` (was `ROOT:ROOT/vllm-poc:ROOT/src`), cwd `INTEGRATION`. **Not run live**:
+  it needs vLLM with a device (a CPU pod stops in vLLM's platform detection, as gc saw); run it on a GPU pod with `HARDEN_LIVE=1`.
+- Module docstring: evidence location and builder path corrected, notes that evidence is absent.
+
+## Gate (pod vyv-rf-gc3-cpu, cpu3g 8 vCPU, run r20260925-224928-36b7, preserved; script `evidence/gate_c.sh`)
+Base `5f8d8789` (origin/main) and head `411c5cee`, each a git clone from the pod's bare repo, `protocols/sampled_proofs` on PYTHONPATH
+(import checked), fresh bootstrap. Lints rc 0 both. `test_harden_guards.py`: base 2 passed / 11 skipped, head 2 passed / 11 skipped,
+identical per-test outcomes (G4c, G6 pass; G1a-G4b skip on evidence; G5 skip on HARDEN_LIVE). Only difference: the evidence skip
+reason's path (`packages/verity/src/verity/out/...` -> `integrations/vllm/out/...`) — a jdiff lists that as a changed skip reason, not
+a new skip. Base G4c passes vacuously (it scans nothing there), head's scans 16 files. Evidence: `evidence/gc3-harden-guards-base-5f8d8789-head-411c5cee.txt`.
+Full gate (b) not run (one test file changed, per the 2255Z handoff).
+
+## Pods, spend
+vyv-rf-gc3-cpu (7dp0fczy1rns5r) created 22:48Z, terminated 22:53Z after the run was preserved. Spend about $0.03 of $2.
+
 ---
 # gc2 READY: gate (b) in a git checkout; veritor-era file tests retired; G4c fixed
 

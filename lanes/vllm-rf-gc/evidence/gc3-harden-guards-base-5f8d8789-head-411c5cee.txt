@@ -1,0 +1,26 @@
+== base
+PASSED integrations/vllm/tests/program/test_harden_guards.py::test_G4c_no_capability_or_sm_literal_outside_target_profile
+PASSED integrations/vllm/tests/program/test_harden_guards.py::test_G6_program_digest_carries_input_shape_and_dtype
+SKIPPED [10] integrations/vllm/tests/program/test_harden_guards.py:62: recorded evidence /workspace/gc3/base/packages/verity/src/verity/out/gen/r10/cb-fix/evidence/fix/base not present in this tree
+SKIPPED [1] integrations/vllm/tests/program/test_harden_guards.py:256: live constructions need the pod venv (vLLM); set HARDEN_LIVE=1
+== head
+PASSED integrations/vllm/tests/program/test_harden_guards.py::test_G4c_no_capability_or_sm_literal_outside_target_profile
+PASSED integrations/vllm/tests/program/test_harden_guards.py::test_G6_program_digest_carries_input_shape_and_dtype
+SKIPPED [10] integrations/vllm/tests/program/test_harden_guards.py:63: recorded evidence /workspace/gc3/head/integrations/vllm/out/gen/r10/cb-fix/evidence/fix/base not present in this tree
+SKIPPED [1] integrations/vllm/tests/program/test_harden_guards.py:256: live constructions need the pod venv (vLLM); set HARDEN_LIVE=1
+[
+ {
+  "case": "G4c capability / NUM_SMS literals outside target_profile.py",
+  "expected": "none",
+  "observed": "[]",
+  "verdict": "PASS",
+  "cause": ""
+ },
+ {
+  "case": "G6 digest vs T=3 / T=4 / bf16 input",
+  "expected": "distinct digests (or refusal for the dtype)",
+  "observed": "ed281c0119 9edf010337 bf16 ok=False",
+  "verdict": "PASS",
+  "cause": "the specialisation IS pinned in the digest; the gap is only that the reuse API cannot see the request"
+ }
+]

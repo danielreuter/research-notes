@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT c88bb683 (22:51Z) [open] 22:51Z xob hopper x4 GRANTED WITH CONDITIONS (2252Z; art:01d83252, run r20260925-221248-ab04); pod drained; waiting for cell ids (not before verify-night-3)
 CHECKPOINT c88bb683 (22:13Z) [open] 22:13Z xob hopper: scans 16:2 + 8:2 running on VM (leaf code = 5b28557b); pod dm92ozi7xllxg8 runs H2/R1/R4 + twin relabel
 CHECKPOINT c88bb683 (22:09Z) [open] 22:09Z reopened: blake3-xob hopper class review (775786b7): NOT final
 CHECKPOINT c88bb683 (22:06Z) [final] 22:06Z FINAL: vllm-v1 GRANTED (2206Z), labels art:f7aac95f art:6d6464d1; x4 hopper +blake3 plateau labels art:d88a9948 art:5ea60c40 (1932Z grant); xob hopper not granted; no pod; tip c88bb683
@@ -153,3 +154,11 @@ Inherited handoffs: all 20 were addressed to red-team-standard-hash and acted on
   keyed-BLAKE3 x4 cells"). Done at 22:10Z under the 1932Z grant: art:d88a9948 (fp8-hopper-x4+blake3, 65,536 VUs, 2^-128.40) and
   art:5ea60c40 (bf16-hopper-x4+blake3, 16,384 VUs, 2^-128.07). verify-night-3 accepted both from main 78b8935b, which contains
   9a78cd68. The blake3-xob hopper cells were not labelled: no grant covers them.
+
+## 22:09Z: blake3-xob hopper x4 class review (x4-hopper-blake3 775786b7)
+
+* The xob leaf code is byte-identical to 5b28557b. Scans on the VM: 16:2 has 0 free rows in 95,452 mutations and 8:2 has 0 in
+  95,384; each control shows 16. art:01d83252.
+* Pod dm92ozi7xllxg8 ran r20260925-221248-ab04 from 22:12 to 22:50Z, about $0.15, drained. H2 and the twin relabel (both
+  directions) are refused on both relations, and so are R1 and R4.
+* Verdict: CLASS GRANTED WITH CONDITIONS (handoff coordinator/2252Z). Labels wait for the cell ids and verify-night-3.

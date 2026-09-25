@@ -1,0 +1,7 @@
+# machine vyv-rf-gc3-cpu: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "7dp0fczy1rns5r"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-25T22:49Z"

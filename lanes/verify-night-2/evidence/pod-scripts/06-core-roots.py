@@ -146,12 +146,20 @@ def check(st, art):
         n_stmt = 0
         covered = set()
         per_rep = {}
+        entries = {}
+        pdir = pman[0].parent
         for f in man.get("files", []):
             if not f.get("stmt"):
                 continue
+            rdir = f["stmt"].split("/", 1)[0]
+            entries.setdefault(rdir, set()).add(f["stmt"])
+            # red-team SH R4: only a statement with a proof covers its VUs (reverify's batch counts .proof files)
+            if not (f.get("proof") and f.get("proof_sha256")) or f["proof"].split("/", 1)[0] != rdir:
+                problems.append(f"{f['stmt']}: manifest entry has no proof / proof_sha256 in its rep dir")
+                continue
             lo, hi = f["vus"]
-            per_rep.setdefault(f.get("rep"), []).append((lo, hi))
-            s = read_statement((pman[0].parent / f["stmt"]).read_bytes())
+            per_rep.setdefault(rdir, []).append((lo, hi))
+            s = read_statement((pdir / f["stmt"]).read_bytes())
             n_stmt += 1
             ha = s.hash_auth
             if ha is None:
@@ -172,11 +180,22 @@ def check(st, art):
             rngs = sorted(rngs)
             if rngs[0][0] != 0 or rngs[-1][1] != N or any(rngs[i][1] != rngs[i + 1][0] for i in range(len(rngs) - 1)):
                 problems.append(f"rep {rep}: sub-batch ranges do not tile [0,{N}) exactly: {rngs[:3]}...{rngs[-2:]}")
+        on_disk = {}
+        for p in pdir.rglob("*.stmt"):
+            rel = p.relative_to(pdir).as_posix()
+            on_disk.setdefault(rel.split("/", 1)[0], set()).add(rel)
+        for rdir in sorted(set(on_disk) | set(entries)):
+            if on_disk.get(rdir, set()) != entries.get(rdir, set()):
+                problems.append(f"{rdir}: .stmt files on disk ({len(on_disk.get(rdir, ()))}) != the manifest's stmt entries "
+                                f"({len(entries.get(rdir, ()))})")
         res.update({"statements": n_stmt, "reps": sorted(per_rep, key=str), "vus_covered": len(covered), "commit_evidence_absent": absent,
+                    "entries_per_rep": {r: len(v) for r, v in per_rep.items()},
                     "checks": "R1: every statement's (vu_index, x_index, w_index) == untiled layout (x = W = vu) over its dumped range, and "
                               "each rep's ranges tile [0, N) disjointly; R2: bindings (hashauth.binding_digest == core identity_digest over "
                               "my tree's dataset/tier/manifest/lo/hi/K/tree/schema), owner, count and roots (verity.commitments core) "
-                              "recomputed from my tree's instance set == every statement's trees",
+                              "recomputed from my tree's instance set == every statement's trees; R4: coverage counts only entries with "
+                              "a proof + proof_sha256 in the same rep dir, each rep dir's .stmt files == its manifest entries, and "
+                              "(16) reverify's per-rep batch n == entries_per_rep",
                     "problems": problems[:12]})
         res["status"] = "ROOTS-MATCH" if not problems and len(covered) == N else "MISMATCH"
     return res

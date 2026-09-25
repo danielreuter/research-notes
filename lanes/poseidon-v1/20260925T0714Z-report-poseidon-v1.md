@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT 10996616 (08:37Z) [open] A100 DONE: plateau n=32768 P=5729/s (1.77e7x), commit 0.53s, art:b5a4454f (+n4096 art:289841b1), byteid ok, to verify-night-2; pod terminated. H100 afx80tft4x2ejt syncing. R1/R2 fix: merge when steps-pin lands
 CHECKPOINT 756d04d2 (07:59Z) [open] 4090 DONE: plateau n=32768 P=12589/s (8.53e6x), commit 0.389s, art:c8b52ee2 (+n4096 art:d87b4895) preserved, handed to verify-night-2; pod terminated ~$0.56. A100 sweep running (r20260925-075843-60eb)
 CHECKPOINT 32f783c5 (07:14Z) [open] 07:15Z started; merged hash-commit 6e1cc576 harness (47485b81); 4090 pod n005v24vgiougo syncing+bootstrap; next: fp8-ada l8192 p4 sweep 1024..32768 w/ commit-reps 5
 
@@ -78,3 +79,22 @@ N = 330e12 / 3072 = 1.074e11 instances/s (spec dense FP8 330 T). Every point: wa
 Byte identity at 4096 vs main's committer: IDENTICAL (ev 247e44ca, stmts e0e53b61; main's commit 8.56 s), tree art:26127a90.
 Old cell art:1abdf12a: t.total 0.3474 s at 4096 (9.1e6x proving only, no commitment, not warm-protocol).
 Pod: 07:03-07:48Z, $0.74/h, ~$0.56.
+
+## A100 BF16 (bf16-ampere +hash, l=16384 p8), sweep a100-bf16ampere, committer b862be30, pod qb68wysl3ejx8b (EPYC 7742, quota 13.6)
+N = 312e12 / 3072 = 1.016e11 /s. Every point warm, 5 timed runs, contended false, Rust accept. n > 4096 = the frozen 4096 recycled
+(i mod 4096; flagged to the coordinator).
+| n | P /s | e2e s | t.total s | commit s (cold) | N/P | result | tree |
+|---|---|---|---|---|---|---|---|
+| 1024 | 4129 | 0.2480 | 0.2017 | 0.0462 (0.149) | 2.46e7 | art:3c472d8f | art:0d4741e7 slim |
+| 2048 | 4950 | 0.4137 | 0.3549 | 0.0587 (0.139) | 2.05e7 | art:c833eef0 | art:e3171c7e slim |
+| 4096 | 5380 | 0.7613 | 0.6813 | 0.0800 (0.158) | 1.89e7 | art:289841b1 | art:decbf2b3 full |
+| 8192 | 5507 | 1.4875 | 1.3395 | 0.1480 (0.231) | 1.84e7 | art:0dab1f58 | art:c9507331 slim |
+| 16384 | 5632 | 2.9091 | 2.6454 | 0.2637 (0.348) | 1.80e7 | art:b035214a | art:8c28b17b slim |
+| **32768 plateau** | **5729** | 5.7200 | 5.1900 | 0.5300 (0.639) | **1.77e7** | **art:b5a4454f** | art:da6298bf full |
+| 65536 | 5701 | 11.4959 | 10.4961 | 0.9998 (1.188) | 1.78e7 | art:ee9859ec | art:d7e0259c slim |
+Byte identity at 4096 vs main's committer: IDENTICAL (ev 71b51d0b, stmts d54de18b; main's commit 15.8 s), tree art:c8e71ffe.
+Old cell art:794365d3: t.total 0.8965 s at 4096 (host EPYC 7713). Runs: bootstrap r20260925-075623-deac, row r20260925-075843-60eb,
+register r20260925-082255-9c25 (all .custody). Laptop `data preserved` batch 1 rc 0. Pod 07:50-08:28Z, $1.59/h, ~$1.01.
+Handoff verify-night-2/20260925T0835Z-handoff-from-poseidon-v1.md.
+- 08:30Z H100 pod afx80tft4x2ejt (EU-FR-1, EPYC 9554, quota 23.8; registered by hand again). First sync died at 41 MB (my
+  shell dropped it); re-running.

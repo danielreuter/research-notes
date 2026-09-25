@@ -1,0 +1,9 @@
+# machine vyv-rf-c1-g2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "pbsu9tvac48iqr"
+project = "verity"
+guard = 90
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T08:39Z"
+# 1x L40S; created 2026-09-25 08:36Z by lane vllm-rf-c1 (vllm-v1 scheme): GPU Commit row #101 head + base, test_scheme_cuda.py.
+# Terminate once its logs are fetched.

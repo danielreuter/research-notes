@@ -33,7 +33,7 @@ echo "=== [$(date -u +%H:%M:%S)] core roots + R1/R2"
 $PY $I/06-core-roots.py "$@" > $O/core-roots.json; echo "core-roots rc=$?"
 echo "=== [$(date -u +%H:%M:%S)] per-result verdicts (LABEL=${LABEL:-0})"
 $PY - $O "${LABEL:-0}" "$I/11-label.py" "$@" <<'PYEOF'
-import json, subprocess, sys
+import json, os, subprocess, sys
 from pathlib import Path
 O, label, lab = Path(sys.argv[1]), sys.argv[2] == "1", sys.argv[3]
 arts = sys.argv[4:]
@@ -46,28 +46,35 @@ summary = []
 for a in arts:
     full = next((k for k in rv if k.startswith(a)), a)
     r, b, c = rv.get(full, {}), bd.get(full, {}), cr.get(full, {})
-    ok = r.get("status") == "PASS" and b.get("status") == "BOUND" and c.get("status") == "ROOTS-MATCH"
-    vsec = max((x.get("verify_seconds_sum", 0) for x in (r.get("reps") or {}).values()), default=0)
     reps = r.get("reps") or {}
+    # red-team SH R4: every rep reverify batch-verified has exactly as many proofs as 06 counted proof-backed stmt entries
+    epr = c.get("entries_per_rep") or {}
+    r4 = bool(reps) and set(reps) == set(epr) and all(int(reps[k].get("n", -1)) == int(epr[k]) for k in reps)
+    ok = r.get("status") == "PASS" and b.get("status") == "BOUND" and c.get("status") == "ROOTS-MATCH" and r4
+    vsec = max((x.get("verify_seconds_sum", 0) for x in (r.get("reps") or {}).values()), default=0)
     acc = sum(x.get("accepted", 0) for x in reps.values()); n = sum(x.get("n", 0) for x in reps.values())
     bits = min((x.get("batch_bits", 0) for x in reps.values()), default=0)
     core = c.get("core") or {}
     line = (f"{full[:12]} {r.get('relation')}: reverify {r.get('status')} ({acc}/{n}, 2^-{bits:.2f}, custody {r.get('custody')}); "
             f"binding {b.get('status')} (y_bad {b.get('y_mismatched')}); R1/R2 {c.get('status')} "
             f"(roots a {core.get('a', {}).get('root', '')[:8]} b {core.get('b', {}).get('root', '')[:8]} y {core.get('y', {}).get('root', '')[:8]}; "
-            f"{c.get('statements')} stmts, reps {c.get('reps')}, {c.get('vus_covered')} VUs; {c.get('problems') or ''})")
+            f"{c.get('statements')} stmts, reps {c.get('reps')}, {c.get('vus_covered')} VUs; {c.get('problems') or ''}); "
+            f"R4 proof-per-entry {'ok' if r4 else 'FAIL'} (batch n {({k: v.get('n') for k, v in reps.items()})} vs entries {epr})"
+            + (f"; beyond frozen: {b['beyond_frozen']}" if b.get("beyond_frozen") else ""))
     print(("PASS " if ok else "FAIL ") + line, flush=True)
     summary.append({"result": full, "ok": ok, "line": line})
     if not (ok and label):
         continue
     ev = O / f"ev-{full[4:16]}.json"
     ev.write_text(json.dumps({"reverify": r, "binding": b, "core_roots_r1r2": c}, indent=1))
-    detail = (f"verify-night-2, red-team SH R1/R2 checked: {line}. R1 = every statement's (vu_index, x_index, w_index) equals the "
-              f"untiled layout (x = W = vu) over its dumped range and each rep's sub-batches tile [0, 4096) disjointly; R2 = the three "
+    N = int(os.environ.get("VN2_N", 4096))
+    detail = (f"verify-night-2, red-team SH R1/R2/R4 checked: {line}. R1 = every statement's (vu_index, x_index, w_index) equals the "
+              f"untiled layout (x = W = vu) over its dumped range and each rep's proof-backed sub-batches tile [0, {N}) disjointly "
+              f"(R4: a stmt entry without a proof covers nothing; batch n == entries per rep); R2 = the three "
               f"trees' binding (hashauth.binding_digest), owner, count and root recomputed from my tree's instance set (framing and "
               f"trees: verity.commitments core; row digests: {(c.get('info') or {}).get('row_digest_ref')}) equal every statement's. "
               f"Proofs: ligero-verify d89cffc7 (main 00ffe398) on the dumped rep(s), "
-              f"interactive transcripts replay the runner's coins (not transferable).")
+              f"interactive transcripts replay the runner's coins (not transferable)." + (f" {os.environ['VN2_NOTE']}" if os.environ.get("VN2_NOTE") else ""))
     p = subprocess.run([sys.executable, lab, full, "--tree", r.get("run_files") or c.get("run_files"), "--verifier",
                         "ligero-verify d89cffc7 (main 00ffe398) + verify-night-2 R1/R2 core recompute (06-core-roots.py)",
                         "--detail", detail, "--seconds", str(vsec), str(ev)], capture_output=True, text=True)

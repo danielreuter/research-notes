@@ -4,7 +4,7 @@ lane: vllm-rf-c4ir
 kind: state
 status: active
 created: 2026-09-25T06:55Z
-updated: 2026-09-25T08:06Z
+updated: 2026-09-25T08:39Z
 ---
 # vllm-rf-c4ir: boundary, partition and liveness into core `verity.ir` (state)
 
@@ -67,9 +67,17 @@ updated: 2026-09-25T08:06Z
   switched to core. Static checks: no new pyflakes findings; no string literal of the moved modules differs from core
   except the interval helper names (limit messages identical); nothing records a module path.
 
+- 08:08Z pod `vyv-rf-c4ir-cpu` = RunPod hpbzk8p38jgf8s (cpu3m 8 vCPU, registered, guard 90). Run
+  r20260925-080843-de5f never started (`--timeout 45m` rejected on the pod: seconds only); fetched.
+- Pre-check r20260925-081543-0c3c at `4a2ccf11`: bootstrap ok; core 661 passed / 1 skipped; lints: one failure,
+  P11 stale entry `verity_vllm/tp/__init__.py` doc-date = a4's own (a4 dropped it in `756d04d2` after `14b0cf9f`).
+- a4 moved to `10996616` (P11 entry drop + test file moves). Rebase of the prep onto it is clean (same tree as a merge);
+  prep branch = merge `7313e799`, pushed fast-forward to `lane/vllm-rf-c4ir-p2-on-a4`.
+
 ## Running
-- (08:06Z) pre-check pod for `4a2ccf11`: lints (41 + by-name + imports), core suite, integration `tests/query` +
-  `tests/program`.
+- r20260925-081543-0c3c: integration `tests/query` + `tests/program` (-n 8) at `4a2ccf11`, ~97% at 08:35Z.
+- r20260925-083804-0840: lints at `7313e799`; the same integration dirs at base `14b0cf9f` (built on the pod from the
+  shipped `4a2ccf11` tree + reverse patch) for a same-pod head/base comparison.
 
 ## Next
 - Phase 2 proper when a4 is in origin/main: rebase lane onto origin/main (cherry-pick `18e29d92`, `4a2ccf11`), then

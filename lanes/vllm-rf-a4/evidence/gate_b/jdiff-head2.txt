@@ -1,0 +1,123 @@
+base 4001 {'error': 11, 'failed': 56, 'passed': 3641, 'skipped': 287, 'xfailed': 6}
+head 4001 {'error': 11, 'failed': 57, 'passed': 3641, 'skipped': 286, 'xfailed': 6}
+only in base (deleted or renamed): 13
+  - tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.compiled_kernel_check-CompiledKernelCheck] passed
+  - tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.relations-draw_sample] passed
+  - tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.relations-ensure_adjacent_pair] passed
+  - tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.replay-tier_a] passed
+  - tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.replay-tier_chain] passed
+  - tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.sampled_replay-sampled_replay] passed
+  - tests.engine.test_gen_dense2::test_embedded_hf_config_is_the_registered_one[verity_vllm.observe.profiles.derived_GEMMA2_2B] passed
+  - tests.engine.test_gen_dense2::test_embedded_hf_config_is_the_registered_one[verity_vllm.observe.profiles.derived_PHI3_MINI] passed
+  - tests.lint.test_p09_layering::test_interim_layer_map_names_existing_modules passed
+  - tests.pipeline.test_source_identity::test_hidden_gpu_resolves_repo_from_its_own_file_not_the_environment[verity_vllm/acquire/hidden_gpu_src] passed
+  - tests.program.test_lint::test_no_model_names[v1_bridge.py] passed
+  - tests.program.test_lint::test_no_startswith[v1_bridge.py] passed
+  - tests.program.test_lint::test_no_v1_membership_tables[v1_bridge.py] passed
+only in head: 13 {'passed': 13}
+  + tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.replay.compiled_kernel_check-CompiledKernelCheck] passed
+  + tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.replay.replay-tier_a] passed
+  + tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.replay.replay-tier_chain] passed
+  + tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.check.replay.sampled_replay-sampled_replay] passed
+  + tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.program.kernels.relations-draw_sample] passed
+  + tests.check.test_challenge_seeds::test_the_seed_has_no_default[verity_vllm.program.kernels.relations-ensure_adjacent_pair] passed
+  + tests.engine.test_gen_dense2::test_embedded_hf_config_is_the_registered_one[verity_vllm.engine.profiles.derived_GEMMA2_2B] passed
+  + tests.engine.test_gen_dense2::test_embedded_hf_config_is_the_registered_one[verity_vllm.engine.profiles.derived_PHI3_MINI] passed
+  + tests.lint.test_p09_layering::test_layer_map_names_existing_modules passed
+  + tests.pipeline.test_source_identity::test_hidden_gpu_resolves_repo_from_its_own_file_not_the_environment[verity_vllm/commit/committer/hidden_gpu_src] passed
+  + tests.program.test_lint::test_no_model_names[required.py] passed
+  + tests.program.test_lint::test_no_startswith[required.py] passed
+  + tests.program.test_lint::test_no_v1_membership_tables[required.py] passed
+outcome changed: 2
+  ~ tests.observe.test_observer_encoding::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation: skipped -> passed  [allocator did not reuse the pointer]  (order-dependent at base; not counted)
+  ~ tests.program.test_twins::test_check_writes_the_evidence_schema: passed -> failed  [AssertionError: assert {'fa2_model',...', 'tc_model'} == {'fa2_model',...', 'tc_model'} Extra items in the left set: 'openmp' Use -v to get more diff]
+new failures on head: 1
+  ! tests.program.test_twins::test_check_writes_the_evidence_schema: passed -> failed  [AssertionError: assert {'fa2_model',...', 'tc_model'} == {'fa2_model',...', 'tc_model'} Extra items in the left set: 'openmp' Use -v to get more diff]
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 67, head 68, fixed on head 0
+renamed test ids: 942 in 85 files
+   -> 
+  tests.acquire.test_bound_phases -> tests.commit.test_bound_phases
+  tests.acquire.test_native_collect_flush -> tests.commit.test_native_collect_flush
+  tests.acquire.test_native_collect_splits -> tests.commit.test_native_collect_splits
+  tests.acquire.test_native_host_security -> tests.commit.test_native_host_security
+  tests.acquire.test_native_jit_keying -> tests.commit.test_native_jit_keying
+  tests.acquire.test_openings_after_release -> tests.commit.test_openings_after_release
+  tests.acquire.test_p0_footprint -> tests.commit.test_p0_footprint
+  tests.acquire.test_pinned_pool_exact -> tests.commit.test_pinned_pool_exact
+  tests.acquire.test_plan_key -> tests.commit.test_plan_key
+  tests.acquire.test_promoted_input_acquisition -> tests.commit.test_promoted_input_acquisition
+  tests.acquire.test_x03_identities -> tests.commit.test_x03_identities
+  tests.check.test_difftest -> tests.properties.test_difftest
+  tests.check.test_fa_tap_exactness -> tests.properties.test_fa_tap_exactness
+  tests.check.test_golden -> tests.properties.test_golden
+  tests.check.test_quarantine_lint -> tests.properties.test_quarantine_lint
+  tests.check.test_twins -> tests.program.test_twins
+  tests.correspondence.test_batch_decomp -> tests.check.test_batch_decomp
+  tests.correspondence.test_batch_decomp_e2e -> tests.check.test_batch_decomp_e2e
+  tests.harness.test_admission_commit -> tests.pipeline.test_admission_commit
+  tests.harness.test_admission_hook -> tests.pipeline.test_admission_hook
+  tests.harness.test_admission_planner -> tests.pipeline.test_admission_planner
+  tests.harness.test_admission_telemetry -> tests.pipeline.test_admission_telemetry
+  tests.harness.test_admit_r19_host_working_set -> tests.pipeline.test_admit_r19_host_working_set
+  tests.harness.test_commit_delta_cli -> tests.pipeline.test_commit_delta_cli
+  tests.harness.test_commit_delta_placement_b1 -> tests.pipeline.test_commit_delta_placement_b1
+  tests.harness.test_compiled_merge_identity -> tests.pipeline.test_compiled_merge_identity
+  tests.harness.test_coverage_workloads -> tests.pipeline.test_coverage_workloads
+  tests.harness.test_derive_step_identity -> tests.pipeline.test_derive_step_identity
+  tests.harness.test_engine_schedule -> tests.pipeline.test_engine_schedule
+  tests.harness.test_experiment_index -> tests.pipeline.test_experiment_index
+  tests.harness.test_gc_tuning -> tests.pipeline.test_gc_tuning
+  tests.harness.test_hot_commit -> tests.pipeline.test_hot_commit
+  tests.harness.test_prescribed_input_linkage -> tests.check.test_prescribed_input_linkage
+  tests.harness.test_release_json -> tests.pipeline.test_release_json
+  tests.harness.test_research_outputs_tp -> tests.pipeline.test_research_outputs_tp
+  tests.harness.test_research_tools -> tests.pipeline.test_research_tools
+  tests.harness.test_run_config_dry_run -> tests.pipeline.test_run_config_dry_run
+  tests.harness.test_run_config_load_stages -> tests.pipeline.test_run_config_load_stages
+  tests.harness.test_snapshot_cap -> tests.pipeline.test_snapshot_cap
+  tests.harness.test_source_identity -> tests.pipeline.test_source_identity
+  tests.harness.test_target_family -> tests.test_target_family
+  tests.input_provenance.test_analytic -> tests.program.test_analytic
+  tests.input_provenance.test_root_policy -> tests.check.test_root_policy
+  tests.input_provenance.test_weights_of_record -> tests.check.test_weights_of_record
+  tests.input_provenance.test_weights_of_record_root_host_independent -> tests.check.test_weights_of_record_root_host_independent
+  tests.input_provenance.test_weights_of_record_routed_experts -> tests.check.test_weights_of_record_routed_experts
+  tests.observe.test_compiled_execution_header -> tests.engine.test_compiled_execution_header
+  tests.observe.test_cov_difr_b0 -> tests.engine.test_cov_difr_b0
+  tests.observe.test_dense_generic -> tests.engine.test_dense_generic
+  tests.observe.test_execution_label -> tests.engine.test_execution_label
+  tests.observe.test_gen_dense2 -> tests.engine.test_gen_dense2
+  tests.observe.test_gen_dense_gemma2_patterns -> tests.engine.test_gen_dense_gemma2_patterns
+  tests.observe.test_gen_dense_softcap -> tests.engine.test_gen_dense_softcap
+  tests.observe.test_gen_llama -> tests.engine.test_gen_llama
+  tests.observe.test_gen_ln -> tests.engine.test_gen_ln
+  tests.observe.test_gen_ov_easy -> tests.engine.test_gen_ov_easy
+  tests.observe.test_gen_ov_moe -> tests.engine.test_gen_ov_moe
+  tests.observe.test_gen_ov_moe_padded -> tests.engine.test_gen_ov_moe_padded
+  tests.observe.test_gen_ov_moe_qwen3 -> tests.engine.test_gen_ov_moe_qwen3
+  tests.observe.test_gen_ov_sampling -> tests.engine.test_gen_ov_sampling
+  tests.observe.test_profiles_generic -> tests.engine.test_profiles_generic
+  tests.program.test_global_program_regress -> tests.pipeline.test_global_program_regress
+  tests.program.test_gp01_moe_construction -> tests.pipeline.test_gp01_moe_construction
+  tests.query.test_compiled_manifest -> tests.acquire.test_compiled_manifest
+  tests.query.test_vu_conformance -> tests.check.test_vu_conformance
+  tests.tp.test_commit_tree_of_record -> tests.pipeline.test_commit_tree_of_record
+  tests.tp.test_tp2_analyze -> tests.collectives.test_tp2_analyze
+  tests.tp.test_tp2_attribution -> tests.engine.test_tp2_attribution
+  tests.tp.test_tp2_commit_query_population -> tests.pipeline.test_tp2_commit_query_population
+  tests.tp.test_tp2_d90_fixture -> tests.check.test_tp2_d90_fixture
+  tests.tp.test_tp2_match_mid_module_rows -> tests.pipeline.test_tp2_match_mid_module_rows
+  tests.tp.test_tp2_match_provenance_digests -> tests.pipeline.test_tp2_match_provenance_digests
+  tests.tp.test_tp2_match_sites -> tests.pipeline.test_tp2_match_sites
+  tests.tp.test_tp2_rank_profiles -> tests.engine.test_tp2_rank_profiles
+  tests.tp.test_tp2_request_program_dirs -> tests.engine.test_tp2_request_program_dirs
+  tests.tp.test_tp2_sampled_replay_fold -> tests.pipeline.test_tp2_sampled_replay_fold
+  tests.tp.test_tp2_serve_shard_from -> tests.pipeline.test_tp2_serve_shard_from
+  tests.tp.test_tp2_t6_4_check -> tests.engine.test_tp2_t6_4_check
+  tests.tp.test_tp2_xrank_collectives -> tests.check.test_tp2_xrank_collectives
+  tests.tp.test_tp_collective -> tests.collectives.test_tp_collective
+  tests.tp.test_tp_partial_match_oracle -> tests.acquire.test_tp_partial_match_oracle
+  tests.tp.test_tp_partial_source_mid_module -> tests.acquire.test_tp_partial_source_mid_module
+  tests.tp.test_tp_partial_source_moe -> tests.acquire.test_tp_partial_source_moe
+  tests.tp.test_tp_world_n -> tests.pipeline.test_tp_world_n

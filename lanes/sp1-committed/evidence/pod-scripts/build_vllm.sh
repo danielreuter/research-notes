@@ -20,6 +20,17 @@ stamp "frame-v3 committed guest at this tip"
 grep -q "\"elf_sha256\":\"$PIN_ELF\"" "$OUT/check-vllm/frame-v3-info.json" && grep -q "\"vk_hash\":\"$PIN_VK\"" "$OUT/check-vllm/frame-v3-info.json" \
   || { echo "the frame-v3 committed guest changed at this tip"; exit 1; }
 echo "frame-v3 committed identity unchanged: elf $PIN_ELF vk $PIN_VK"
+install -m 755 /workspace/sp1-target-cuda-relation-committed/release/veritor-zk-host /workspace/bin/veritor-zk-host-cuda-relation-committed
+
+# the instance-root check (red-team SH R2) retro on the measured frame-v3 run's proofs (same guest, same vk)
+F3=/workspace/bin/veritor-zk-host-cuda-relation-committed
+RUN=/workspace/research/runs/r20260925-080516-d8ac
+V=(committed-verify --expect-vk "$PIN_VK")
+vf() { local name=$1; shift; stamp "frame-v3 verify $name"; set +e; SP1_PROVER=cpu RUST_LOG=error "$F3" "${V[@]}" "$@" | tee "$OUT/check-vllm/f3-verify-$name.json"; echo "rc=${PIPESTATUS[0]}" | tee -a "$OUT/check-vllm/f3-verify-$name.json"; set -e; }
+for r in 0 1 2 3 4; do vf "rep$r-batch" --proof "$RUN/proofs/proof-rep$r.bin" --statement "$RUN/proofs/statement.json" --batch "$OUT/fp8-ada.bin"; done
+vf "rep0-wrong-root-a-batch" --proof "$RUN/proofs/proof-rep0.bin" --statement "$RUN/proofs/statement.json" --batch "$OUT/fp8-ada.bin" --wrong-root a
+vf "tampered-adopt-batch" --proof "$RUN/proofs-tampered/proof-rep0.bin" --statement "$RUN/proofs-tampered/statement.json" --batch "$OUT/fp8-ada.bin" --adopt-published-roots
+vf "tampered-adopt-nobatch" --proof "$RUN/proofs-tampered/proof-rep0.bin" --statement "$RUN/proofs-tampered/statement.json" --adopt-published-roots
 
 stamp "cargo test committed"
 (cd backends/sp1 && CARGO_TARGET_DIR=/workspace/sp1-target-test cargo test --release -p veritor-zk-common --lib committed 2>&1 | grep -E "^test |test result|error|panicked")

@@ -24,5 +24,5 @@ m["label"] = sys.argv[2]; m["lane"] = "sp1-committed"; m["pod_run"] = sys.argv[3
 print(json.dumps(m))
 EOF
 br=$($R data put --kind bench-result/v1 --meta @"$W/meta.json" --ref run_files="$rf" --preserve --json | python3 -c 'import json,sys;print(json.load(sys.stdin)["id"])')
-echo "$rid art:${br} art:${rf}"
+echo "$rid ${br} ${rf}"
 rm -rf "$W"

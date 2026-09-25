@@ -24,6 +24,8 @@ def rename(tid):
     for old, new in dotted.items():
         if cls == old or cls.endswith("." + old):
             return cls[: len(cls) - len(old)] + new + "::" + rest
+        if not cls and (rest == old or rest.endswith("." + old)):
+            return "::" + rest[: len(rest) - len(old)] + new
     return tid
 
 

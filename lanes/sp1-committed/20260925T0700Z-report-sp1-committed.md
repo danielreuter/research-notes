@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT b54e42ed (08:38Z) [open] frame-v3 cell: art:49695f7c (run-files art:9e3c06bd) t.total 51.04s+commit 8ms, 69 shards 2^-92.9, plateau. Red-team R2 acted on: b54e42ed committed-verify --batch (roots vs frozen set) + prover-chosen-roots negative. Build/retro check r20260925-083540-f37a running.
 CHECKPOINT cafa9464 (08:18Z) [open] frame-v3 measured r20260925-080516-d8ac: 9/9 negs rejected, 5 reps proved+verified (~4.9s verify), sweep B1024/2048 running. Next: register, build vllm-v1 (build_vllm.sh), vllm measured, same-pod bare baseline.
 CHECKPOINT b06a7ec3 (07:59Z) [open] measured fp8-ada frame-v3 run r20260925-073644-5901: 5 reps prove ~52.6s B=4096, 69 shards, 105MB, commit ~8ms, 5/5 pinned verify; sweep in progress. vllm-v1 variant coded+pushed (tip b06a7ec3, main 5631e667 merged); next: pod build+negatives, measured vllm run
 CHECKPOINT dcd4eca0 (07:36Z) [open] committed host built (vk 0x009893321b66..3a66, elf f4fc749f; stock identity reproduced); pod: common tests ok incl committed::*, fp8-ada set = art:4a6f7602; exec negatives all rejected (flip-y, sign-of-zero tamper-x @tree a, wrong roots); 215M cycles/4096 VU (hash 54M). launching measured run
@@ -32,3 +33,49 @@ leaves (`sha256/row/v1`, PR #15's schema), the host checking the trees natively;
 - Commitment bucket: each timed rep first commits the batch natively (row digests + trees, `commit.seconds`), then proves;
   `e2e.seconds = commit.seconds + t.total` (the views' P divides this).
 - Line: the RTX 4090 FP8 Ada set (cheapest pod and half the hash blocks of BF16, within the lane's 4090/H100 pod rule).
+
+## Results (08:40Z)
+
+- **frame-v3 cell** (run r20260925-080516-d8ac, 4090, source cafa9464): bench-result/v1
+  art:49695f7caa4ddf4a8d80760524ead491f1bbb5048c10f69af809d77eac819a89, run-files art:9e3c06bd9680153b2369a2734292d9428f24a68501e1bb6f506e5078f41e2b92
+  (statement, proof-rep0, tampered proof, JSON; reps 1-4 in the run's R2 custody). The numbers:
+  - fp8-ada [0, 4096); t.total 51.036 s (prove + serialize, median of 5), commit.seconds 0.008 s (a separate bucket, so
+    e2e 51.044 s and 80.2 VU/s); plateau over B 1024/2048/4096 (70.2 / 78.6 / 80.2 VU/s);
+  - 69 shards, 105 MB, verify 4.9 s CPU, peak device 21.1 GB; 215.5M cycles (52.6k per VU);
+  - 9/9 executor negatives rejected (flip-y, sign-of-zero tamper-x caught at tree a, wrong roots); 4/4 proof negatives rejected;
+  - security 2^-92.891 per proof (-99.0 + log2 69), flag "algebraic hash inside SP1: not for highest-stakes use".
+- **Overhead vs survey §4.4** (+3–15% projected). Against the bare guest (sp1-formats art:8d9df3a2, another 4090 host): +35%
+  cycles, +92% shards, +117% t.total. The likely cause is ShapeChecker charging deferred precompile memory to CPU shards (kb).
+  51 compressions per VU are used, against the survey's ~100.
+- **Red-team SH R2** (the roots are prover-chosen): acted on at b54e42ed. `committed-verify --batch` recomputes the roots from the
+  frozen set; `--adopt-published-roots` is the negative; vector_run verifies with `--batch` and requires the prover-chosen-roots
+  negative to be rejected by the instance check only. Replayed locally (/tmp harness); not yet compiled on a pod.
+
+## FINAL
+
+- **Tip:** lane/sp1-committed b54e42ed (pushed; main 5631e667 merged in).
+- **What works:**
+  - the relation-committed guest (frame-v3 sha256/row/v1 through the SP1 precompile), with the host tree check, statement,
+    vectors and Python reference;
+  - vector_run `--backend sp1-committed`; the measured frame-v3 cell above, handed to verify-night-2 with the R2
+    root-recomputation requirement;
+  - the vllm-v1 variant (guest feature relation-committed-vllm, host, Python, fixtures/sp1-committed/committed-vllm-vectors.json,
+    views/drilldown lines), tested locally against the core vllm_v1 vectors.
+- **Known failures and gaps:**
+  - b54e42ed (host `--batch` / `--adopt-published-roots`) is not compiled yet: build run r20260925-083540-f37a was cut by pod
+    termination;
+  - vllm-v1 is not built on a pod and not measured;
+  - there is no same-pod bare baseline;
+  - the in-run verifier of art:49695f7c did not check the roots against the instances (R2);
+  - bench.views marks vllm-v1 core-defined on this branch, which needs the coordinator's acceptance.
+- **Next steps:** on a 4090 pod, from source b54e42ed:
+  1. `research run --on POD --project verity --source . --cwd source --stage sp1c.build-vllm -- bash -c "$(cat evidence/pod-scripts/build_vllm.sh)"`.
+     It builds the vllm and bare hosts, checks that the frame-v3 ELF/vk pin is unchanged, and installs the frame-v3 host at the
+     tip. It then runs the retro `--batch` verifies on the d8ac proofs (it needs the run dir, or fetch it from custody or
+     art:9e3c06bd) and the vllm executor negatives.
+  2. `vector_run.py --backend sp1-committed --committed-scheme vllm-v1 --batch /workspace/sp1-committed/fp8-ada.bin --reps 5 --expect-vk <vllm vk> --sweep-b 1024,2048`
+     with `--custody-r2 --custody-ttl 8h --exclusive`, then register it with evidence/reg.sh.
+  3. Run the same-pod `--backend sp1-bare` baseline.
+  4. Optionally, fork patch 0006 to test the ShapeChecker explanation (non-stock).
+- **Pod:** vy-sp1-committed (6n0tv9llnhs142, 4090, $0.74/h), up about 2 h (roughly $1.5), terminated at WRAP UP.
+- **Artifacts:** art:49695f7c (bench-result), art:9e3c06bd (run-files), fp8-ada set art:4a6f7602.

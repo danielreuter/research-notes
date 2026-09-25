@@ -1,0 +1,53 @@
+{
+ "module_paths": {
+  "source_identity": "verity_vllm.pipeline.source_identity",
+  "research_tools": "verity_vllm.pipeline.research_tools",
+  "build": "verity_vllm.pipeline.build",
+  "hot": "verity_vllm.pipeline.hot"
+ },
+ "code_identity": {
+  "sha256": "a2cf5fc7267c3c4ba005266be6dd7f76cf9230cd95e51caa74a044d44886a67e",
+  "files": 1178
+ },
+ "hot_commit_key": "a2cf5fc7267c3c4ba005266be6dd7f76cf9230cd95e51caa74a044d44886a67e",
+ "research_tools_closure": {
+  "VLLM_BUILD": {
+   "files": 1178,
+   "sha256": "a2cf5fc7267c3c4ba005266be6dd7f76cf9230cd95e51caa74a044d44886a67e"
+  },
+  "VLLM_COMMIT": {
+   "files": 1178,
+   "sha256": "a2cf5fc7267c3c4ba005266be6dd7f76cf9230cd95e51caa74a044d44886a67e"
+  },
+  "VLLM_MATCH": {
+   "files": 1178,
+   "sha256": "a2cf5fc7267c3c4ba005266be6dd7f76cf9230cd95e51caa74a044d44886a67e"
+  }
+ },
+ "construction_version": {
+  "sources_sha256": "53cfbe1cff28691479252b5344e9e3123accb2b6bde0d9bf88f8026c08d129e9",
+  "files": [
+   "verity_vllm/program/frontend/export_compat.py",
+   "verity_vllm/program/frontend/vllm_meta.py",
+   "verity_vllm/pipeline/build.py",
+   "verity_vllm/program/frontend/triton_capture.py",
+   "verity_vllm/program/frontend/rules/vllm_bindings.py",
+   "verity_vllm/program/frontend/rules/vocab.py",
+   "verity_vllm/program/frontend/rules/triton_iface.py",
+   "verity_vllm/program/frontend/rules/vllm_iface.py",
+   "verity_vllm/program/frontend/derive.py",
+   "verity_vllm/program/frontend/target_profile.py",
+   "verity_vllm/program/registry/targets.py",
+   "verity_vllm/program/frontend/export_ops.py",
+   "verity_vllm/program/registry/b1_tp2.py",
+   "verity_vllm/program/frontend/rules/vllm_sampling.py"
+  ]
+ },
+ "registry_version": {
+  "digest": "beb5d5f73aff6abdd89c799fe25c340a0c25b0745e1fa69077ccb8965ae9530f",
+  "sources": {
+   "verity_vllm.program.registry.prims": "250fae5a91b79d2a58749ea800db1f1db58f5138fd2a1222b27d0133c7d8484c",
+   "verity_vllm.program.registry.b1": "3a7576cc005b9a2785c766885663882fbf03bbdb83ceac17778f5eb2d5e290d0"
+  }
+ }
+}

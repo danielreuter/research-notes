@@ -157,3 +157,15 @@ v6.4.0 source (`f66b4bff5`).
 - `backends/sp1/tcdot/build_fork.sh OPERANDS=witness SKIP_SERVER=1` on a CPU pod reproduces the witness-arm fork (HEAD
   6655716e, tree == FORK_TREE_WIT). `cargo check --release -p verity-tcdot-host --features stream-operands` then takes 8m52s
   on 16 vCPU (r20260924-171410-4069).
+
+## Committed statements (lane sp1-committed, 2026-09-25)
+
+- `relation-committed/v1` (frame-v3 sha256/row/v1 through the SHA-256 precompile, 51 compressions per VU) on fp8-ada B=4096
+  (4090): 215.5M cycles, 69 shards, t.total 51.0 s. The bare guest on the same set: 160.1M cycles, 36 shards, 23.5 s. The
+  precompile adds 35% cycles but 92% shards, because ShapeChecker charges deferred precompile memory to CPU shard estimates
+  (fork patch 0006 fixes it, non-stock). Survey §4.4's +3–15% does not hold on stock 6.4.0.
+- A committed statement's roots are only as good as their source: check them against the frozen set (`committed-verify --batch`,
+  or a core-only recomputation). The tree check alone accepts prover-chosen roots (red-team SH R2).
+- Guest line numbers are baked into the ELF (panic locations): add guest/common code only at the end or in new modules, and
+  edit cfg lines in place, to keep a pinned vk. Host-only edits keep the ELF.
+- `info`'s public_values_len is the bare statement's, not the committed one's.

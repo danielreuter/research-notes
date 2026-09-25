@@ -22,9 +22,26 @@ from backends.direct.ligero.serialize import read_statement
 from research.store.local import LocalStore
 from verity_numerical.bench.instance_equiv import frozen_relation
 
-N = 4096
+N_FROZEN = 4096
+# VN2_N > 4096 (a sweep point past the frozen tier): the statements are compared with MY tree's relchain.instances(rel, N)
+# (synthetic recipe continued, or frozen ids recycled i mod 4096), whose first 4096 VUs must equal the frozen set
+N = int(os.environ.get("VN2_N", N_FROZEN))
 PROCS = int(os.environ.get("VY_CPU_THREADS", os.cpu_count() or 1))
 _sets = {}
+_own = {}
+
+
+def own_set(rel, target):
+    """(VUs of relchain.instances(rel, N), frozen-prefix report) for N > 4096."""
+    if rel.name not in _own:
+        vus = relchain.instances(rel, N, procs=PROCS)
+        _, fz = frozen_set(target)
+        bad = [i for i in range(N_FROZEN) if not (np.array_equal(np.asarray(vus[i][0]).reshape(-1), np.asarray(fz[i][0]).reshape(-1))
+                                                  and np.array_equal(np.asarray(vus[i][1]).reshape(-1), np.asarray(fz[i][1]).reshape(-1))
+                                                  and rel.y_public(int(vus[i][3])) == frozen_set(target)[0].y_public(int(fz[i][3])))]
+        _own[rel.name] = (vus, {"n": N, "set": f"relchain.instances({rel.name}, {N})", "digest": relchain.instances_digest(rel, N),
+                                "frozen_prefix_vus": N_FROZEN, "frozen_prefix_mismatched": len(bad)})
+    return _own[rel.name]
 
 
 class _FP4:
@@ -42,8 +59,8 @@ def frozen_set(target):
             from backends.direct.ligero.fp4.chain import instances_fp4
             _sets[target] = (_FP4, [(np.asarray(A).reshape(-1), np.asarray(B).reshape(-1), accs, y) for A, B, accs, y in instances_fp4(N)])
         else:
-            base, _ = frozen_relation(target, N)
-            _sets[target] = (base, relchain.instances(base, N, procs=PROCS))
+            base, _ = frozen_relation(target, N_FROZEN)
+            _sets[target] = (base, relchain.instances(base, N_FROZEN, procs=PROCS))
     return _sets[target]
 
 
@@ -69,6 +86,11 @@ def check(st, art):
             tname = rel.target.name
         base, vus = frozen_set(tname)
         out.update({"relation": rel_name, "target": tname, "frozen_relation": base.name})
+        if N > N_FROZEN:
+            if rel is _FP4:
+                raise ValueError("fp4-nvf4 past the frozen tier: not handled")
+            vus, own = own_set(rel, tname)
+            out["beyond_frozen"] = own
         n_stmt = n_vus = y_bad = op_checked = op_bad = 0
         covered = set()
         problems = []
@@ -106,7 +128,8 @@ def check(st, art):
         reps = sorted({f["rep"] for f in man.get("files", []) if f.get("stmt")})
         out.update({"statements": n_stmt, "reps": reps, "vus_checked": n_vus, "vus_covered": len(covered), "y_mismatched": y_bad,
                     "operand_vus_checked": op_checked, "operand_mismatched": op_bad, "problems": problems})
-        out["status"] = "BOUND" if (not problems and y_bad == 0 and op_bad == 0 and len(covered) == N) else "NOT-BOUND"
+        prefix_ok = (out.get("beyond_frozen") or {}).get("frozen_prefix_mismatched", 0) == 0
+        out["status"] = "BOUND" if (not problems and y_bad == 0 and op_bad == 0 and len(covered) == N and prefix_ok) else "NOT-BOUND"
     return out
 
 

@@ -1,7 +1,7 @@
 # machine vy-b-ligero-sha256: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "nncdmk8s54vnud"
+pod_id = "qmiq4rs1f0y4tr"
 project = "verity"
 guard = 90
 registered_by = "Daniels-MacBook-Pro.local"
-registered_at = "2026-09-25T07:09Z"
+registered_at = "2026-09-25T08:41Z"

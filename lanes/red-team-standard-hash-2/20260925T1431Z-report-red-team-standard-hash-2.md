@@ -2,9 +2,10 @@
 lane: red-team-standard-hash-2
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT c88bb683 (23:42Z) [final] 23:42Z FINAL: xob hopper x4 labels art:955a52e0 art:f15909f5 (2252Z grant) after verify-night-3 accepted; no pod; tip c88bb683
 CHECKPOINT c88bb683 (22:51Z) [open] 22:51Z xob hopper x4 GRANTED WITH CONDITIONS (2252Z; art:01d83252, run r20260925-221248-ab04); pod drained; waiting for cell ids (not before verify-night-3)
 CHECKPOINT c88bb683 (22:13Z) [open] 22:13Z xob hopper: scans 16:2 + 8:2 running on VM (leaf code = 5b28557b); pod dm92ozi7xllxg8 runs H2/R1/R4 + twin relabel
 CHECKPOINT c88bb683 (22:09Z) [open] 22:09Z reopened: blake3-xob hopper class review (775786b7): NOT final
@@ -162,3 +163,6 @@ Inherited handoffs: all 20 were addressed to red-team-standard-hash and acted on
 * Pod dm92ozi7xllxg8 ran r20260925-221248-ab04 from 22:12 to 22:50Z, about $0.15, drained. H2 and the twin relabel (both
   directions) are refused on both relations, and so are R1 and R4.
 * Verdict: CLASS GRANTED WITH CONDITIONS (handoff coordinator/2252Z). Labels wait for the cell ids and verify-night-3.
+* 23:43Z labelled proof_class + finding (ref 2252Z) on art:955a52e0 (fp8-hopper-x4+blake3-xob, 32,768 VUs, 2^-128.07) and
+  art:f15909f5 (bf16-hopper-x4+blake3-xob, 32,768 VUs, 2^-128.40). verify-night-3 accepted both from main 6c3568dc, which
+  contains 775786b7. No pod was used.

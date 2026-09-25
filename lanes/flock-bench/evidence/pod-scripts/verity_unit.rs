@@ -219,6 +219,96 @@ impl Netlist {
     }
 }
 
+/// The BLAKE3 row-leaf table (slot 0, k = 2^14) and the unit table (slot 1, k = 2^13) in ONE union
+/// proof (one commitment, one opening), as `mixed::MixedSetup` does for SHA-256 + BLAKE3. The
+/// glue between them (chains, relation-leaf region equality, public endpoints) is not modelled.
+#[derive(Debug)]
+pub struct CombinedSetup {
+    pub nu: usize,
+    pub net: Netlist,
+    pub blake3_r1cs: BlockR1cs,
+    pub unit_r1cs: BlockR1cs,
+    pub registry: Registry,
+}
+
+impl CombinedSetup {
+    pub fn new(net: Netlist, max_count: usize) -> Self {
+        let nu = min_n_blocks_log(max_count);
+        let blake3_r1cs = crate::r1cs_hashes::blake3::build_block_r1cs(nu);
+        let unit_r1cs = net.block_r1cs(nu);
+        blake3_r1cs.csc_lincheck_circuit();
+        unit_r1cs.csc_lincheck_circuit();
+        let registry = Registry::new(
+            vec![
+                crate::schedule::TableType::from_block_r1cs(&blake3_r1cs),
+                crate::schedule::TableType::from_block_r1cs(&unit_r1cs),
+            ],
+            nu,
+        );
+        let _ = registry.digest();
+        Self { nu, net, blake3_r1cs, unit_r1cs, registry }
+    }
+
+    pub fn pcs_params(&self, counts: [usize; 2]) -> PcsParams {
+        let profile = LigeritoProfile::Fast;
+        let union = UnionInstance::new(&self.registry, counts.to_vec());
+        let lb = embedded_initial_k_or_default(union.dense_m(), profile);
+        PcsParams {
+            m: union.dense_m(),
+            log_inv_rate: profile.log_inv_rate(),
+            log_batch_size: lb,
+            profile,
+            num_lanes: union.commit_lanes(lb),
+            merkle_hash: Default::default(),
+        }
+    }
+
+    pub fn prove<Ch: Challenger>(
+        &self,
+        blake3_inputs: &[crate::r1cs_hashes::blake3::Compression],
+        ids: &[u32],
+        challenger: &mut Ch,
+    ) -> (R1csProofMergedLigerito, Commitment, R1csClaim) {
+        let counts = [blake3_inputs.len(), ids.len()];
+        let union = UnionInstance::new(&self.registry, counts.to_vec());
+        let pcs_params = self.pcs_params(counts);
+        let (nu, net) = (self.nu, &self.net);
+        let slots = vec![
+            UnionSlotProverInput::in_place(
+                move |dst| crate::r1cs_hashes::blake3::generate_witness_batch_major_partial_into(blake3_inputs, nu, dst),
+                self.blake3_r1cs.csc_lincheck_circuit(),
+            ),
+            UnionSlotProverInput::in_place(
+                move |dst| {
+                    crate::r1cs_hashes::common::drive_witness_batch_major_partial_into(
+                        ids,
+                        nu,
+                        K_LOG,
+                        net.useful,
+                        dst,
+                        |g, rz, ra, rb| net.build_group(g, rz, ra, rb),
+                    )
+                },
+                self.unit_r1cs.csc_lincheck_circuit(),
+            ),
+        ];
+        prove_fast_ligerito_union(&union, &pcs_params, slots, challenger)
+    }
+
+    pub fn verify<Ch: Challenger>(
+        &self,
+        counts: [usize; 2],
+        commitment: &Commitment,
+        proof: &R1csProofMergedLigerito,
+        challenger: &mut Ch,
+    ) -> Result<R1csClaim, FlockVerifyError> {
+        let union = UnionInstance::new(&self.registry, counts.to_vec());
+        let circuits: [&dyn LincheckCircuit; 2] =
+            [self.blake3_r1cs.csc_lincheck_circuit(), self.unit_r1cs.csc_lincheck_circuit()];
+        verify_ligerito_union(&union, &circuits, commitment, proof, &self.pcs_params(counts), challenger)
+    }
+}
+
 pub fn min_n_blocks_log(n: usize) -> usize {
     n.max(8).next_power_of_two().trailing_zeros() as usize
 }

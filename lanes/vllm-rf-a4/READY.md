@@ -17,7 +17,49 @@ created: 2026-09-25T08:50Z
 
 ## Gate evidence
 
-GATE_EVIDENCE
+Every pod tree was built the same way (`tools/mkhead.sh`): copy the base tree `00ffe398`, remove `__pycache__` and the
+numerics `cpp/build`, `git apply` the binary diff `git diff --binary -M 00ffe398 10996616`, and drop the emptied
+directories. On the pods, head is `/workspace/head2` and base is `/workspace/basemain`. The trees also carry 29
+`docs/data/ref-prims` JSONs that the base gate (b) run regenerated (`tests/program/test_ref_prims.py` writes them). No
+regression check or stage reads them.
+
+- **Lints:** 45/45 pass at head and at base (`vyv-rf-a4-cpu`; `evidence/gate_b/cpu-pod-logs.tgz`: `head2-lints.log`,
+  `basemain-lints.log`).
+- **Gate (b)**, xdist `-n 12 --dist loadfile`, head and base on the same pod (`vyv-rf-a4-cpu`), compared with
+  `tools/jdiff_moved.py` (which wraps `baseline-jdiff.py` and maps base ids through the move list):
+  - Base: 4,001 tests, 3,641 passed, 56 failed, 11 errors, 287 skipped, 6 xfailed. Head: 3,641 passed, 57 failed, 11
+    errors, 286 skipped, 6 xfailed.
+  - No new error, no new skip and no new skip reason.
+  - **One new failure**, `tests/program/test_twins.py::test_check_writes_the_evidence_schema`. It fails whenever the
+    numerics build directory starts empty, at base as well: the first process to JIT-build `tc_model` records
+    `libraries["openmp"]`, which the test does not expect. The base tree on the gate (b) pod already held the built
+    libraries and the head tree did not. Same pod (`vyv-rf-a4-reg`), empty `VERITY_NUMERICS_BUILD_DIR`: base and head
+    both 19 passed, 1 failed (this test), 1 skipped. Rerun on the now-built directory: both 20 passed, 1 skipped
+    (`evidence/twins/twins-fresh-vs-built.tgz`, `evidence/gate_b/twins-rerun.txt`).
+  - `tests/observe/test_observer_encoding.py::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation` went
+    from skipped to passed. It is known to depend on test order ("allocator did not reuse the pointer").
+  - **Renamed test ids:** 942 in 85 files, listed old -> new in `evidence/gate_b/jdiff-head2.txt`. That file also lists 13
+    parametrized ids whose parameter is a module path or file name, which differ only in the embedded path; all 13 pass
+    on both sides. One test function was renamed, `tests/lint/test_p09_layering.py::test_interim_layer_map_names_existing_modules`
+    -> `test_layer_map_names_existing_modules`, together with the map it checks.
+  - XML: `evidence/gate_b/gate_b-xdist-{base-00ffe398-samepod,head-10996616}.xml.gz`, plus the early head run at
+    `14b0cf9f`, whose failures `756d04d2` and `10996616` fixed.
+- **Gate (a) T0+T1:**
+GATE_A_RESULT
+- **GPU smoke, row #101** (`vyv-rf-a4-g1`, 1x L40S; `row_pod.sh … build,match,commit`, PAIRS=1, through the moved
+  entry points `verity_vllm.pipeline.{cli,match,hot,commit}`), head, then base on the same pod:
+  - Both exit 0. run_root `7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5` on both, equal to the
+    record. Program `ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b` and manifest
+    `90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac` on both. `commit_pass` true, with every Commit
+    check PASS. Build digest `03ace66f1c80b04a` and workload digest `a2b43bde001d335a` are equal.
+  - A normalized diff of every output JSON (`evidence/gpu_r101/r101_normdiff.txt`) finds 42 files the same. The
+    differences are code provenance, measurements and per-run values. Code provenance covers
+    `construction_version` (and the `artifact_identity` and `identity` fields built on it), the registry digest,
+    `derived.tool`, module names in the match spec's `driver` (so the spec digest `8de1a58e…` -> `d14c9938…`), the
+    declaration evidence module (`properties.fa_tap_exactness`), and `hidden_gpu`'s path and file hash. Measurements
+    are timings, calibrated byte bounds and gc counts. Per-run values are internal request ids and paths. The
+    workload's component `descriptor.json.gz` differs only in `annotations.derive.registry`.
+- **`python -m` in `ops/*.sh`:** all 33 targets resolve at head, and each has a `__main__` guard (`tools/pym.txt`).
 
 ## What changed (one commit per destination package; each importable and pushed)
 

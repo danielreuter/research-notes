@@ -8,6 +8,8 @@ updated: 2026-09-25T09:02Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
 
+> **Coordinator, 09:18Z: NEW TASK, do it before phase 2.** Confirm or replace research lane agkr-bound's provisional `verity/gkr-commit/vllm-v1` operand-domain mapping (program, ctx, geo, layout) against vLLM's actual serving commitments. Then write the verdict to the research coordinator's inbox, `~/.research/notes/lanes/coordinator/{ts}-handoff-from-vllm-rf-c1.md`, and copy it to `lanes/agkr-bound/`. Details: `20260925T0918Z-handoff-from-vllm-coordinator.md` in this directory.
+
 Deadline for vyv- pods: 2026-09-25T09:00Z (coordinator extends). Budget: $35 pod spend; spent about $0.40 before phase 2 pods (phase 2 pods: $4.61/h from 08:36Z).
 
 ## Status

@@ -10,7 +10,7 @@ for s in ${SWEEPS:?}; do
   gpu_idle || exit 3
   echo "##### $(date -u +%H:%M:%SZ) sweep $tag"
   $PY -m backends.direct.ligero.sweep_vu --relation $REL --out-dir $SD --start ${START:-1024} --max ${MAX:-131072} --dump plateau -- \
-      --zk --mode interactive --auth included-hash --commit-per-rep --batch $L --pipeline $PP --target -128 --reps ${REPS:-5} --device cuda --instance-procs ${IPROCS:-16}
+      --zk --mode interactive --auth included-hash --commit-per-rep --batch $L --pipeline $PP --target -128 --reps ${REPS:-5} --device cuda --instance-procs ${IPROCS:-16} ${EXTRA:-}
   r=$?; [ $r -ne 0 ] && rc=$r
   for pd in $SD/p*/proofs; do [ -d $pd/rep1 ] || continue
     ( cd $pd; echo "rust on $pd"

@@ -29,15 +29,17 @@ tree check (domain derivation, node/level/index, vllm-v1 path shape + root field
 | R3 | SP1 relation-committed/v1 and -vllm/v1 `committed-verify` | BLOCKING (the R2 pattern) | e2e at tree-check level: prover-chosen roots under the frozen set's bindings and id accepted | art:b11bc6ee |
 | R4 | the R2 coverage checks: de2fa317 `reverify.commitment_problems`, verify-night-2 06 | BREAK of coverage (throughput claim; relation soundness unaffected) | e2e: 1 of 3 VUs proven, reverify PASS (de2fa317) and main reverify PASS + 06 ROOTS-MATCH (stmt-only manifest entries) | art:c7683eb2 |
 | fix re-test | b-ligero-standard-hash 3af90e71 + de2fa317 | R1 closed; H2 PASS; R4 open | e2e | art:9fa210e7, art:c7683eb2 |
+| fix re-test 2 | ligero-steps-pin 24ab6c7d; b-ligero-standard-hash 806a2f73 | R1, R2 and R4 closed; H2 PASS | e2e | art:cd2c38ea, art:be211735 |
+| R3 re-review | sp1-committed b54e42ed | open on `--instances` and without `--batch` (fails open) | code read | lanes/sp1-committed 0925Z |
 
 ## Verdicts
 | statement | verdict | evidence | handoffs |
 |---|---|---|---|
-| fp8-ada+blake3 (b-ligero-standard-hash, frame-v3 keyed-BLAKE3 rows, v5 included-hash) | FAIL (R1); every included-hash cell pulled until fixed, or counted only through verify-night-2's 06 | art:2b51c5fd, art:8f2112e2 | coordinator 0735Z, 0805Z; b-ligero-standard-hash 0735Z; verify-night-2 0805Z |
+| fp8-ada+blake3 (b-ligero-standard-hash, frame-v3 keyed-BLAKE3 rows, v5 included-hash) | FAIL (R1) at main; PASS on 24ab6c7d / 806a2f73. Cells count once the fix is on main and each dump is re-verified with it (or with 06) | art:2b51c5fd, art:8f2112e2, art:cd2c38ea, art:be211735 | coordinator 0735Z, 0805Z, 0920Z; b-ligero-standard-hash 0735Z, 0920Z; ligero-steps-pin 0920Z; verify-night-2 0805Z |
 | H2 steps pin (main c5cf7f6d, fp8-ada+blake3) | PASS: every forged steps value tried (incl. 64, 40) refused by both verifiers; honest 48 accepted pinned | art:efaa3a46 | in coordinator 0735Z |
 | blake3-80gb cells | FAIL inherited from R1 (same verifier); re-verifying the dumps with a fixed verifier or 06 is enough | art:2b51c5fd | blake3-80gb 0750Z |
 | b-ligero-sha256 `sha256/row/v1` (922120d2) | not ready (no pinned system); gadget review found nothing; R1/R2 apply as for +blake3 | code read | none yet |
-| sp1-committed relation-committed/v1 and -vllm/v1 (d12770c3) | PASS on the guest and tree check (no R1 analog); R3: counts only with a non-producer root recomputation | art:b11bc6ee | coordinator 0820Z; sp1-committed 0820Z |
+| sp1-committed relation-committed/v1 and -vllm/v1 (d12770c3, b54e42ed) | PASS on the guest and tree check. R3 FAIL (open): the `--instances` path and `committed-verify` without `--batch` still accept prover-chosen roots, so those cells are pulled | art:b11bc6ee | coordinator 0820Z, 0925Z; sp1-committed 0820Z, 0925Z |
 | agkr-bound row-digest (caacca10), frame-v3 + vllm-v1 | native tree check PASS: all 4 pins reproduced core-only from the frozen sets; in-proof hash layer not ready (no verdict) | art:8dee00aa | coordinator 0905Z; agkr-bound 0905Z |
 | verify-night-2 06 procedure (R1/R2/R4) | PASS after their 0850Z R4 fix (control ROOTS-MATCH, both R4 dumps MISMATCH) | art:8f2112e2, art:c7683eb2, art:8dee00aa | coordinator 0805Z, 0835Z, 0905Z; verify-night-2 0805Z, 0835Z |
 
@@ -98,3 +100,25 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
 * 08:50Z received `20260925T0850Z-handoff-from-verify-night-2.md` ("R4 fixed in verify-night-2's 06/16..."). Re-ran their
   new 06 on my R4 dumps (rtsh-vn2b-0935): control ROOTS-MATCH, orphan-stmt and stmt-entry MISMATCH. Confirmed. 09:05Z
   handoffs to the coordinator and agkr-bound.
+* 08:44Z received `20260925T0844Z-handoff-from-blake3-80gb.md` ("FYI: H100 +blake3 results ... use the same v5 statement as
+  fp8-ada+blake3"). Their dumps are art:5b08aeae, art:f020c25b and art:c6462d1a. The same statement means the same verdict:
+  the cells count once they are re-verified with the fixed reverify, or with verify-night-2's 06.
+* 09:02Z run rtsh-lsp-24ab6c7d on ligero-steps-pin 24ab6c7d (ligero-verify built from that tree):
+  - R1 remap refused by Python, Rust pinned and reverify;
+  - R4 orphan (3 VUs): control PASS 3/3, orphan-stmt and stmt-entry FAIL;
+  - fixed 06 on the same dumps: control ROOTS-MATCH, both variants MISMATCH;
+  - H2 steps 48 accepted, 64 refused.
+  art:cd2c38ea.
+* 09:05Z received `20260925T0905Z-handoff-from-b-ligero-standard-hash.md` ("R4 fixed, via ligero-steps-pin 06176b41 plus
+  my 806a2f73 ... Please re-run"). Ran rtsh-bls-806a2f73 on 806a2f73 with the same suite; every result was the same.
+  art:be211735.
+* 09:10Z gadget read at 806a2f73 (`leaf/blake3.py`, `hashchain.py`); no finding:
+  - the operand words are boolean-bit sums, so the limbs cannot alias;
+  - the half-block layout, counter and flags come from the carried `pos`;
+  - the digest is pinned at `is_end`;
+  - `leaf_bytes_many` equals `leaf_bytes`.
+* 09:15Z sp1 b54e42ed review. The R3 fix is correct on `--batch`. It fails open elsewhere: `committed-verify` without
+  `--batch` gives ok with `instance_roots: null`, and `vector_run --instances` never passes `--batch` and skips the
+  prover-chosen-roots negative.
+* 09:20Z handoffs to ligero-steps-pin, the coordinator and b-ligero-standard-hash (PASS on R1, R2, R4 and H2). 09:25Z
+  handoffs to sp1-committed and the coordinator (R3 open on `--instances`; those cells pulled).

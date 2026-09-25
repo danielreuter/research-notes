@@ -5,6 +5,7 @@ created: 2026-09-25T18:50Z
 status: final
 ---
 
+CHECKPOINT 504f75b6 (21:28Z) [final] reopen: re-derived art:4b52879f (4096; rounds 4076, t.total 12.59/live 13.63) + art:aa9223c2 (1024); FAILS interaction tolerance at 1 ms (-18%; run RTT 0.36 ms), passes at measured RTT (-3%): decision to coordinator. Fail-fast prime verifier + negatives. PR #36 @ 504f75b6. No pods, $0
 CHECKPOINT dec08973 (20:26Z) [final] route (a) cell with live prime coins: NON_ZK_PROOF 2^-130.19, A100 4096 VUs 14.01 s same-DC (art:3bfb2f58; 1024: art:d5731679); G2 replay + negatives (art:837d95c8); >4096 OOM on A100. PR #36 @ dec08973. Pods terminated 20:19Z/20:25Z, ~$2.3. Re-audit + G3 requested
 CHECKPOINT 3bc72407 (19:58Z) [open] READY verifier serving r20260925-195835-65ab on vy-route-a-live-ver 154.54.102.18:11662 (ssh :11661), US-MD-1 with the A100 154.54.102.35; sizes 1024 4096 x5. Probe r20260925-194129-7a4c: live cell OK @1024/4096 loopback (4096: 3006 prime rounds), 8192 OOM on A100 80GB (prime). Polling in turn.
 CHECKPOINT 3bc72407 (19:41Z) [open] relaunched (first launch failed: --tool unregistered): probe r20260925-194129-7a4c on vy-route-a-live-a100 (setup, statements 1024-32768, loopback probe per size, negs+battery@4096), verifier setup r20260925-194138-e528 on vy-route-a-live-ver (US-MD-1 both). Staying in turn polling; READY when statements land. tip 5d1f
@@ -74,3 +75,23 @@ known-failures: tests/test_repository.py::test_no_tracked_blob_exceeds_limit (on
 artifacts: art:3bfb2f58 art:d5731679 art:837d95c8
 ~~~
 Handoffs received: none. Handoff written: `lanes/coordinator/20260925T2030Z-handoff-from-route-a-live.md`.
+
+# Reopen (21:30Z handoff from the coordinator): re-derived result, fail-fast verifier
+
+- **Result:** `tools/cell.py rederive` from art:3bfb2f58's embedded sessions (no pod): art:4b52879f (4,096: t.total 12.59 s
+  compute, t.total_live 13.63 s, rounds 4,076, wait 1.03 s) and art:aa9223c2 (1,024: 4.95 / 5.78 s, 3,607 rounds);
+  contract problems [], `refs.supersedes` the old ones. `views.interaction_problem` (main a2bad079): **fails** at the
+  1 ms reference (-18% / -32%; formula 16.67 / 8.55 s), passes at the measured 0.36 ms RTT (-3% / -9%). The old envelope
+  was classified non-interactive (rounds 0). Decision handed to the coordinator (tolerance at the measured RTT, or a
+  netem 1 ms re-run).
+- **Fail-fast:** the spin was `open_set` over zero coins from a missing/short round. First-failure checks + a draw cap;
+  4 unit negatives; real 4,096 record on the VM: dropped/short last round rejected in 1.0 s, honest accepted 7.1 s.
+- Tip 504f75b6 (PR #36). No pods; $0. Handoffs: `lanes/coordinator/`, `lanes/verify-night-3/`, `lanes/red-team-flock/`
+  (`20260925T2210Z-handoff-from-route-a-live.md`). Received: `20260925T2130Z-handoff-from-coordinator.md` (this section).
+
+## FINAL (reopen)
+~~~text
+tip: lane/route-a-live @ 504f75b6 (base lane/agkr-flock-cell@7585828d)        merge-with: PR #28, then PR #36
+known-failures: tests/test_repository.py::test_no_tracked_blob_exceeds_limit (on main too)    pod: none this round; $0 (lane ~$2.3)
+artifacts: art:4b52879f art:aa9223c2 art:3bfb2f58 art:d5731679 art:837d95c8
+~~~

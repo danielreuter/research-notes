@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: open
 ---
 
+CHECKPOINT 8854e8d3 (23:33Z) [open] 4 cells registered w/ corrected coin waits: H100 bf16 art:bb289d47, 4090 art:ed0047be, H100 fp8 art:37215309, A100 art:fb526e50; old ids PULLED; +-10% check fails 3/4 at TCP-connect RTT (needs established-connection RTT); all pods terminated 23:33Z; handoffs 2348Z
 CHECKPOINT a6a6e548 (22:17Z) [open] cells re-registered for 01:00Z: H100 art:6d1295ed (6,265 VU/s, 5.1e7x, r20260925-220115-3522 / verifier r20260925-220103-b7c0), 4090 art:d1961ba4 (10,159 VU/s, 1.05e7x, r20260925-215031-5d4e / r20260925-214955-238b); same-run loopback + TCP RTT + verifier commit/sha + union bound; old ids PULLED; all pods terminated 22:16Z; sent to verify-flock-pure, red-team-flock, coordinator (2218Z)
 CHECKPOINT a6a6e548 (22:01Z) [open] 4090 fp8-ada cell re-measured with same-run loopback + TCP RTT: 10,159 VU/s (1.05e7x), r20260925-215031-5d4e, verifier r20260925-214955-238b, registered art:d1961ba4 (verifier commit+sha, union). H100 rerun WAIT vy-flock-backend-h100b r20260925-220115-3522 check-back 22:20Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983 (first rerun c2d4 plateau contended: host load)
 CHECKPOINT e5d54118 (21:22Z) [open] Flock cells measured, pods terminated 21:21Z (~$5.5): H100 bf16-hopper 6,235 VU/s = 5.1e7x (r20260925-210043-fcce art:1ad208b6, verifier r20260925-210019-0afe); 4090 fp8-ada 10,080 VU/s = 1.06e7x (r20260925-211314-4880 art:949bcc35, verifier r20260925-210919-f0c6). Sent to verify-flock-pure + coordinator (2124Z: +-10% check question)

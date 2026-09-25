@@ -1,0 +1,16 @@
+verity/link-L/v2
+scheme blake3-keyed/row/v2
+lambda_f pos=((port*vus+v)*K+word)*bits+i
+lambda_b pos=row*512+u->((4+u/128)<<nu|row)*128+u%128
+points 2 gf2_128 x^128+x^7+x^2+x+1
+vus 4096
+k 1536
+bits 16
+n 201326592
+m 28
+flock_nu 19
+flock_circuit 03915f638c5a2e8621186fb50f35e6ffd17319dcc1b6ef26a496c89a0b5a0fac
+flock_registry 0ddeb64312bc11a757ff9a53c3673d2b78356cf937363cdb45a28d33b2ae9bd2
+flock_profile fast100 reps 2
+prime_commitment 950d40bcc060d3b5e2070771fe3125af60afd02fe1736d51d16b71d360c09440
+leaf_digests 8192 ae91a73f4254506fc4a1616599c7e5513ba27a5d37d954ec61db34e14b4c08b7

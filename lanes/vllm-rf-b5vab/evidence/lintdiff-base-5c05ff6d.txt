@@ -1,0 +1,13 @@
+p01_core_abstractions: entries 33, allowed total 34, found keys 33, found total 34
+p02_value_checks: entries 1, allowed total 1, found keys 1, found total 1
+p03_one_evaluator: entries 35, allowed total 36, found keys 35, found total 36
+p04_one_result: entries 64, allowed total 100, found keys 64, found total 100
+p05_properties: entries 2, allowed total 2, found keys 2, found total 2
+p06_one_cli: entries 217, allowed total 330, found keys 217, found total 330
+p07_declared_inputs: entries 337, allowed total 405, found keys 337, found total 405
+p08_facts: entries 300, allowed total 399, found keys 300, found total 399
+p09_layering: entries 133, allowed total 133, found keys 133, found total 133
+p10_size: entries 76, allowed total 67386, found keys 76, found total 67386
+p11_names: entries 710, allowed total 961, found keys 710, found total 961
+p12_shared_keys: entries 15, allowed total 15, found keys 15, found total 15
+problems: 0

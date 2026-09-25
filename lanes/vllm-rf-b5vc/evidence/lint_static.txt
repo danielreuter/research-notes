@@ -1,0 +1,35 @@
+p07_declared_inputs: old {}  new {'broad-except': 3}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/attention.py", "kind": "broad-except", "symbol": "_vllm_op", "detail": "except Exception"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/collectives.py", "kind": "broad-except", "symbol": "_tp_op", "detail": "except Exception"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/pins.py", "kind": "broad-except", "symbol": "tuned_gemm_table_sha256", "detail": "except Exception"}
+p08_facts: old {}  new {'model': 1, 'gpu': 2, 'layer-class': 1, 'sm-arch': 2}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/collectives.py", "kind": "model", "symbol": "AllReduce2Rule", "detail": "llama"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/fp8.py", "kind": "gpu", "symbol": "CutlassScaledMmFp8BlockRule", "detail": "h100"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/fp8.py", "kind": "gpu", "symbol": "PerTokenGroupFp8QuantRule", "detail": "h100"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/observations.py", "kind": "layer-class", "symbol": "declared_derived_accounting", "detail": "RMSNorm"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/observations.py", "kind": "sm-arch", "symbol": "declared_derived_accounting", "detail": "sm_90"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/triton_launches.py", "kind": "sm-arch", "symbol": "TritonGemmRule", "detail": "sm_89"}
+p11_names: old {}  new {'doc-date': 1, 'doc-board-id': 1, 'doc-round': 6, 'doc-lane': 2}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/__init__.py", "kind": "doc-date", "symbol": "<module>", "detail": "date"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/collectives.py", "kind": "doc-board-id", "symbol": "_collective_hint", "detail": "F-rN"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/collectives.py", "kind": "doc-lane", "symbol": "AllGatherRule", "detail": "[lane"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/collectives.py", "kind": "doc-lane", "symbol": "AllReduceRule", "detail": "[lane"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/collectives.py", "kind": "doc-round", "symbol": "AllReduce2Rule", "detail": "R1N"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/collectives.py", "kind": "doc-round", "symbol": "_collective_hint", "detail": "R1N"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/elementwise.py", "kind": "doc-round", "symbol": "_softcap_member", "detail": "R1N"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/fp8.py", "kind": "doc-round", "symbol": "CutlassScaledMmFp8BlockRule", "detail": "R1N"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/observations.py", "kind": "doc-round", "symbol": "observe_launch_context", "detail": "R1N"}
+   + {"file": "verity_vllm/program/frontend/rules/vllm_bindings/pins.py", "kind": "doc-round", "symbol": "active_gemm_target", "detail": "R1N"}
+p01_core_abstractions: new 0 stale 0
+p02_value_checks: new 0 stale 0
+p03_one_evaluator: new 0 stale 0
+p04_one_result: new 0 stale 0
+p05_properties: new 0 stale 0
+p06_one_cli: new 0 stale 0
+p07_declared_inputs: new 0 stale 0
+p08_facts: new 0 stale 0
+p09_layering: new 0 stale 0
+p10_size: new 0 stale 0
+p11_names: new 0 stale 0
+p12_shared_keys: new 0 stale 0
+LINTS-OK

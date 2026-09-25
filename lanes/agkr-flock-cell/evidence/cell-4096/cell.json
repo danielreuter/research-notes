@@ -1,0 +1,6 @@
+{
+ "relation": "bf16-ampere+blake3",
+ "vus": 4096,
+ "prime_commitment": "950d40bcc060d3b5e2070771fe3125af60afd02fe1736d51d16b71d360c09440",
+ "sigma": "f40e0f45cbdb346cfd77ff59b6e4bc82c32ad1f3e7c071351f14d22843da923c"
+}

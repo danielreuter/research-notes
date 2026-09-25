@@ -1,0 +1,4 @@
+statements: 77 moved (excluding 11 imports, the docstring and __all__)
+  missing: 0, duplicated: 0, not from the original: 0, names bound twice: 0
+between-statement comment lines: 59, lost: 0
+OK

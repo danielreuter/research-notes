@@ -1,0 +1,8 @@
+vllm_adapter: 205 lines, 6 moved statements
+build: 318 lines, 17 moved statements
+code_identity: 407 lines, 18 moved statements
+run_facts: 220 lines, 7 moved statements
+pinned: 42 lines, 3 moved statements
+capture: 795 lines, 5 moved statements
+56 statements checked; 0 problem(s)
+original top-level names not bound in the new vllm_adapter (37): Callable EmptyMode Event LogWriter ModuleNamer Note Observer Recorder Root RunEnd SampleEnd StepEnd StepLink StepStart StorageAdapter StorageAlloc ViewDesc _CUBIN_DENY_PREFIX _PATH_STRING_RE _Step _TRITON_CACHE_INDEX _binary_identity _elf_section_bytes _split_path_strings _triton_cache_files dataclass dtype_name encode_arg engine_env field hooks os reenter_impl_name time to_json torch triton_adapter

@@ -33,6 +33,9 @@ status: open
      kernels still draft, a16z/jolt PR #1618; Metal/CPU today); (c) LayerZero's CUDA Jolt prover "Zero" (check if open). Report per
      target: CUDA build status on A100/H100/4090/5090, achieved security (BN254 ~100 bits), ZK status (Akita non-ZK), guest porting
      (SP1 committed guest with SHA-256 Merkle openings), cost. Then a $10-15 lane only if a CUDA path is real.
+  9. JOLT: scout FINAL 08:07Z = NO-GO for Table 2 (curve Jolt ~100-bit / ~2^-110; ICICLE path dead; live CUDA only in draft
+     a16z/jolt PR #1618, 5.7-8x CPU on a 4090; Lattice Jolt no CUDA; LayerZero closed). Optional drill-down lane (~$6, 6-8 h) once
+     PR #1618 merges: lanes/coordinator/20260925T0810Z-handoff-from-jolt-scout.md. kb/jolt-prover.md added.
   6. Test failures on clean main (known): test_no_tracked_blob_exceeds_limit, test_this_repository_resolves_every_workspace_package_
      inside_the_tree, test_evict_runs_only_preserved_terminal_quiet_runs..., test_d6_deferred_hash_records...
 - Disk: sweep every 30 min (timer); report < 5 GiB. R2 direct-hash check 20:40Z: evidence/20260924T2040Z-r2-hash-check.tsv.

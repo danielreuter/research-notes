@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 0b5d873f (08:10Z) [open] 08:12Z jolt-scout FINAL: no-go for Table 2 (~100-bit; CUDA only in draft PR #1618), pod gone $1; optional drill-down later. Slot kept as headroom for vLLM Phase 2 under the 20-agent cap. research spend since 11:51 PM PT: $12.88 of $300; running $13.10/h
 CHECKPOINT e51d79b1 (07:53Z) [open] 08:02Z merged #20 5631e667 (tables/views read finding labels); labelled abb219fa + 4 hash-commit results UNDER RE-VERIFICATION; 4090 +hash cell now abb219fa 7.5e6x (marked); scoreboard re-rendered. research spend since 11:51 PM PT: $8.97 of $300; running $13.60/h
 CHECKPOINT 597b6c6 (07:50Z) [open] 07:55Z merged #19 b9cd5368 (sweep points >4096 count; A100 repeats rejected); survey gate lifted, 8 lane handoffs with its recommendations; launched flock-bench ($12). 13 agents mine. research spend since 11:51 PM PT: $8.54 of $300; running $11.95/h
 CHECKPOINT 447e3a64 (07:46Z) [open] 07:57Z 5 published +in-proof-hash cells marked UNDER RE-VERIFICATION (finding labels by coordinator on the 5 result arts, pushed; scoreboard 'Marked cells' block from labels; re-rendered 12:46 AM PT); verify-night-2 clears/pulls via finding labels. research spend since 11:51 PM PT: $7.82 of $300; running $10.36/h

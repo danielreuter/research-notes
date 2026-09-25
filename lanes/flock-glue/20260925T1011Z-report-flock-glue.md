@@ -5,6 +5,8 @@ created: 2026-09-25T10:11Z
 status: final
 ---
 
+CHECKPOINT b3a3bf2 (12:17Z) [final] FINAL (re-check after naming handoffs by file): 4096 VUs Flock b684b12 Fast (~2^-100, NOT CLEARED) e2e vs bare A100 BF16 3.26x->1.18x, H100 BF16 12.3x->1.58x, H100 FP8 6.04x->1.42x; r2 stand-in NOT GRANTED 2.18/2.87/2.59x; pods terminated 12:11Z, ~$7.4; no lane branch (notes-only lane).
+CHECKPOINT b3a3bf2 (12:16Z) [final] 4096 VUs Flock b684b12 Fast (~2^-100, NOT CLEARED) e2e vs B-Ligero bare before->after: A100 BF16 3.26x->1.18x, H100 BF16 12.3x->1.58x, H100 FP8 6.04x->1.42x; kernel 1.00->1.11x, 1.24->1.41x, 1.05->1.18x; r2 stand-in (NOT GRANTED) 2.18/2.87/2.59x. GPU PoW grind + device unit witness + side-stream overlap. Pods 56nan0h04ho1u9 + oypxgunobip13f terminated 12:11Z, ~$7.4. Runs r20260925-114930-2278/-aed8 PRESERVED.
 CHECKPOINT ba852261 (12:10Z) [open] H=2 witness (64 VU/CTA) bit-exact but no gain on H100 BF16 4096 (devovl 0.1673 vs H=1 0.1683, dev run); keep H=1. Final runs A100 r20260925-114930-2278, H100 r20260925-114930-aed8 preserved. Wrapping up: pods drain, report, handoff.
 CHECKPOINT 78b1a62e (11:51Z) [open] final recorded runs launched: A100 r20260925-114930-2278 (ampere_bf16), H100 r20260925-114930-aed8 (hopper bf16+e4m3): before/devwit/devgpu/devovl x 1024/4096 (Flock b684b12 default ~2^-100) + flock-128-r2 cost (Fast100 x2) + nsys per-batch kernel time. Found: GPU grind cutoff 8 bits (host below) halves idle GPU gaps; side-stream witness overlap -19 ms A100, ~0 H100 at 4096 (SM contention), -25 ms H100 at 1024. Witness kernel knobs flat (~25 ms@64VU H100): per-level latency bound.
 CHECKPOINT ac2a497 (11:20Z) [open] recorded runs r20260925-111311-dc17 (A100) / -250b (H100), Flock b684b12 default ~2^-100: 4096 VUs prover wall before->devgpu: A100 bf16 0.871->0.302 s (3.67x->1.27x bare), H100 bf16 1.033->0.195 (9.1x->1.72x), H100 fp8 0.485->0.114 (6.9x->1.61x). Building mode 3 (side-stream witness overlapping BLAKE3 proof). flock-128 handoff 1055Z received: r2 = 2x Fast100, will re-time.
@@ -162,21 +164,21 @@ upload. The device witness brings it to 0.325 s.
   `40-final.sh` (the final-run driver), plus `unit_witness.cuh`.
 
 ## Handoffs received
-- **20260925T1020Z coordinator** (Flock baselines are about 2^-100; label every timing with its profile; re-time under
+- **`20260925T1020Z-handoff-from-coordinator.md`** (Flock baselines are about 2^-100; label every timing with its profile; re-time under
   flock-128): acted on. Every table is labelled, and the r2 re-time is the second 4096 table.
-- **20260925T1055Z flock-128** (flock-128-r2 is `Fast100` x 2 with live coins, no PoW credit): acted on through the r2
+- **`20260925T1055Z-handoff-from-flock-128.md`** (flock-128-r2 is `Fast100` x 2 with live coins, no PoW credit): acted on through the r2
   cost stand-in, with `GLUE_PROFILE=fast100 GLUE_FLOCK_REPS=2`.
-- **20260925T1128Z flock-128** (r2 numbers; upload the witness once): acted on. The device witness is built once per
+- **`20260925T1128Z-handoff-from-flock-128.md`** (r2 numbers; upload the witness once): acted on. The device witness is built once per
   batch and reused by both reps, giving 0.325 s against their 0.51 s estimate on H100 BF16.
-- **20260925T1130Z red-team-flock** (flock-128-r2 NOT GRANTED, R1–R8): noted. The r2 rows are labelled NOT GRANTED and
+- **`20260925T1130Z-handoff-from-red-team-flock.md`** (flock-128-r2 NOT GRANTED, R1–R8): noted. The r2 rows are labelled NOT GRANTED and
   not cleared, and the stand-in doesn't bind the reps (R1).
-- **20260925T1131Z coordinator** (pods idle; upload once; not cleared): acted on. Everything is labelled "not cleared",
+- **`20260925T1131Z-handoff-from-coordinator.md`** (pods idle; upload once; not cleared): acted on. Everything is labelled "not cleared",
   and the upload-once point is covered by the device witness.
-- **20260925T1146Z coordinator** (`--custody-r2` always; no `fetch --all` or big fetches to the laptop): acted on. The
+- **`20260925T1146Z-handoff-from-coordinator.md`** (`--custody-r2` always; no `fetch --all` or big fetches to the laptop): acted on. The
   final runs used `--custody-r2`, results were inspected on the pod, and nothing big was fetched.
-- **20260925T1202Z coordinator** (`--custody-r2` caveat: check `data preserved`): acted on. All four recorded bench
+- **`20260925T1202Z-handoff-from-coordinator.md`** (`--custody-r2` caveat: check `data preserved`): acted on. All four recorded bench
   runs show PRESERVED, and no repush was needed.
-- **20260925T1210Z coordinator** (STOP: laptop disk; write FINAL now): acted on. Both pods were terminated at about
+- **`20260925T1210Z-handoff-from-coordinator.md`** (STOP: laptop disk; write FINAL now): acted on. Both pods were terminated at about
   5:11 AM PT, and this report and FINAL were written without fetching anything.
 
 ## Runs and artifacts (all PRESERVED on R2)
@@ -201,7 +203,7 @@ The H=2 test and the kernel-knob sweeps were unrecorded dev runs on the pods, so
 
 ~~~text
 tip: none (no repo worktree; notes and pods only; Flock patch and harness in lanes/flock-glue/evidence/)        merge-with: none
-known-failures: all Flock timings are profile-labelled and NOT CLEARED (b684b12 Fast ~2^-100 with PoW credit, 2^-50 under FS; r2 NOT GRANTED per red-team-flock); BLAKE3 leaves from device-resident rows and the unit-to-leaf bit glue not built; H100 BF16 before e2e is noisy (1.03-1.40 s across runs); H=2 and knob sweeps are unrecorded dev runs    pod: A100 56nan0h04ho1u9 terminated 12:11Z, H100 oypxgunobip13f terminated 12:11Z; ~$7.4
+known-failures: all Flock timings are profile-labelled and NOT CLEARED (b684b12 Fast ~2^-100 with PoW credit, 2^-50 under FS; r2 NOT GRANTED per red-team-flock); BLAKE3 leaves from device-resident rows and the unit-to-leaf bit glue not built; H100 BF16 before e2e is noisy (1.03-1.40 s across runs); H=2 and knob sweeps are unrecorded dev runs; no lane/flock-glue branch exists because the lane made no repo commits (code is the patch plus scripts in evidence/), so --require-pushed reports it missing    pod: A100 56nan0h04ho1u9 terminated 12:11Z, H100 oypxgunobip13f terminated 12:11Z; ~$7.4
 artifacts: art:863fbebf9c14c0ba1b87c7ea1f4cbfe335f2f8758facb746c0d1bd465edbd1af art:406987995a6bc7a879063f6a2fcbe0c21357f16d654bbc7bd973ea6bd141a573 art:3a68ff63ed2330adc0e772382e7128976824b0fe87564f31fad44e67f418752e art:9402a68e36c442d967a3ece0058135fc3e22116938c33f4e618b266572ed73a2
 ~~~
 

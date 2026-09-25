@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 5b28557b (12:17Z) [open] blake3-xob PROVISIONAL cells (5b28557b, gated, pinned, Rust ACCEPT): x1 frozen e2e 1.974s (1.963+0.010) 5.18e7x art:b47828e4; x4 0.799s (0.790+0.009) 2.10e7x art:bb69174b; same-tree +blake3 controls 3.539/1.977s. Sent to verify-night-2, coord; x4 xob sweep running r..121605-357f.
 CHECKPOINT 5b28557b (11:44Z) [open] x4 instance-equiv/v1 art:6fdeed7e registered (equal, check reproduces) -> verify-night-2; 8192 prefix-equal evidence to coordinator. blake3-xob: tests 27+16 pass, 71f39e44 kept, xob pins x1 3d6cc67b (28584 rows vs 35370) x4 f90e7b41 in 5b28557b; rust+gates r..114349-ea8d; red-team review asked.
 CHECKPOINT 672b23ae (11:21Z) [open] x1 malloc sweep DONE: plateau 16384 e2e 13.821s (13.787+0.034) 1185 VU/s 9.07e7x 2^-128.40 art:c9f4a645 (32768 OOM rc-9: not converged); handed to verify-night-2. XOB (blake3-xob) tests+fixtures running r..112012-8420. 1040Z: done (lib.sh exports; merged).
 CHECKPOINT fb29b130 (10:54Z) [open] x1 malloc sweep r..103611-67e0 at p4 16384 (p0-p3 1073/1128/1150/1176 VU/s). XOB wired as new scheme blake3-xob (same schema blake3-keyed/row/v2 = same frame-v3 commitment, new circuit): xadd op in all witness generators, ce86046b+tests; pod tests/pins after the sweep.
@@ -345,6 +346,32 @@ Pod scripts: `evidence/pod-scripts/`.
   **This is far more than the row ratio: 0.81 at x1 and 0.83 at x4 would give about 1.2×.** Unexplained. Two confounds I can
   test: (a) the tree, since 806a2f73 predates main 767115db; (b) GPU memory pressure at p2 for the pinned x4 system. For (a),
   the same-tree control is r20260925-120625-4b74: +blake3 x1 and x4 re-measured at 5b28557b.
+  - **Control DONE (12:06-12:12Z, same pod, flags and tree):**
+    - fp8-ada+blake3: t.total 3.528 s + commit 0.0103 s = **e2e 3.539 s** (1158 VU/s, 9.29e7×); encoding + commitment
+      2.023 s, arithmetic 1.157 s. ACCEPT 49/49, 2^-128.40.
+    - fp8-ada-x4+blake3: 1.969 s + 0.0087 s = **e2e 1.977 s** (2072 VU/s, 5.19e7×); encoding + commitment 1.158 s,
+      arithmetic 0.614 s. ACCEPT 13/13, 2^-128.33.
+  - **So the tree is not the cause: the xob speed-up (1.79× x1, 2.47× x4) holds on one tree.** What does track it is the
+    number of product rows:
+
+    | | x1 | x4 |
+    |---|---|---|
+    | product rows | 15 085 → 8 043 (0.53×) | 30 821 → 16 737 (0.54×) |
+    | total rows | 0.81× | 0.83× |
+    | arithmetic speed-up | 2.0× | 2.1× |
+
+    The xob design adds cheap boolean `r·r = r` quadratics and removes general products (one per XOR bit). Hypothesis, not
+    shown: the prover's cost follows the general products, not m. Possibly the x4 encoding also gains from less memory
+    pressure at p2 (18.1 → 15.2 GB peak).
+  - Registered 12:13-12:14Z (PRESERVED):
+
+    | cell | result | tree |
+    |---|---|---|
+    | xob x1 4096 frozen (PROVISIONAL) | art:b47828e4a584ff5b9e75cd171f467dc0a583115a67bb978083b4fdd61c13b32a | art:b33bc6f45d3711a933f6a1a04b599950af87d98807a97e89eb2de35ecfe38876 |
+    | xob x4 4096 (PROVISIONAL) | art:bb69174bbe23bb356649fc77896b9402161c4e6c5df68e0e2a0379159c559079 | art:c32f3385afc28b8b777db07a8932b0737bdd61dd87d9754690ebe6f3450ed3cf |
+    | control +blake3 x1 4096 frozen at 5b28557b | art:448029fe222f48c2339978fa9eb44db9b4e82ef48d4e979acee6c8b1d0ea04db | art:118fc65941d0bd060d6bc4cb97a021d92e973767dd8163cc1f61622cddda0cef |
+    | control +blake3 x4 4096 at 5b28557b | art:49b345a825225fa624a3ddb9238657326fff22f5e29e14161f1c78bc4c1b4e43 | art:7ab931c9c87459d347785bc26f3acb1700bd4bd40a64aa513e0abb1c4e2c3d5e |
+* 12:16Z r20260925-121605-357f: the x4+blake3-xob plateau sweep (30-sweep.sh, l = 4096, p2, malloc env, custody-r2).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

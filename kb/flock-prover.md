@@ -128,3 +128,28 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
     whatever Flock does. C8 accounting question, open.
   - B-Ligero: 2^-128.05 + 2^-195.5 still passes.
 - **Negatives to keep:** report §5 (10 items). The first: reps with different roots are rejected.
+
+## Flock-CUDA host glue (flock-glue, 2026-09-25; profile b684b12 `Fast`, about 2^-100, not cleared)
+Report: `lanes/flock-glue/20260925T1011Z-report-flock-glue.md`.
+
+- **Host PoW grinding is the hidden cost.** `FsChallenger` grinds every PoW site on the host with single-thread SHA-256.
+  That costs 0.09–0.14 s per unit proof and 0.25–0.27 s per BLAKE3 proof at 4096 VUs, or 0.20–0.33 s per batch.
+  - `pow_grind.cuh` `search_sha256_proof_of_work_nonce` returns the same minimal nonce, so routing grinding there
+    leaves the proofs unchanged.
+  - Keep sites under 8 bits on the host, because the GPU round trip loses there. A cutoff of 12 leaves 0.5–1.9 ms gaps.
+  - The patch is in `lanes/flock-glue/evidence/flock-glue-b684b12-tracked.patch`.
+- **The unit witness can be built on the device.** One CTA per 32 VUs, bit-sliced over the level-ordered census
+  netlist, matches the host witness bit for bit (z, a, b and the byte-packed z_lincheck).
+  - It takes 47 ms on A100 and 21 ms on H100 at BF16, and 10 ms on H100 FP8. The time is nearly independent of the VU
+    count.
+  - It's latency-bound at about 1,600–1,900 cycles per level, with 96 units in series per VU. Kernel knobs and 64 VUs
+    per CTA don't help.
+  - It replaces the 2.15 GB pageable upload, which takes 0.38 s on A100 and 1.0 s on H100.
+- **Every `cudaDeviceSynchronize()` in `prove_ffi.cu` and `ligerito_f256.cuh` defeats side streams.** Change them to
+  `cudaStreamSynchronize(0)` before overlapping anything with a proof. Even then, overlapping the witness with the
+  BLAKE3 proof gains nothing on H100 at 4096 VUs, where the two compete for SMs. It saves 19 ms on A100.
+- **Idle-gap floor.** About 16–17 ms of idle GPU time per batch, in about 1,500–2,000 gaps, from host FS round trips and
+  launches. After the fixes above, Flock-CUDA's proof kernels alone run at 1.00x, 1.24x and 1.05x B-Ligero bare (A100
+  BF16, H100 BF16, H100 FP8).
+- **Harness pitfall.** Building `BlockR1cs` for BLAKE3 per call costs about 1 s. Cache the statement and its digest once
+  (the `stmt()` cache in `gen_test.py`).

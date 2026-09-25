@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 10996616 (09:42Z) [open] 09:45Z tip 88b82757: SHA-256 row_sponges on GPU (commit 21s->0.2s, identical roots). Found: per-proof 2.3s in opened_from_pinned = first-touch page faults on this H100 host (91MB fresh alloc 5.6s; reused 8ms). Testing glibc MALLOC_MMAP_MAX_=0 fix, then screen.
 CHECKPOINT 10996616 (09:20Z) [open] 09:20Z tip be1a3bcb (merged main 94b1c4d2 GPU committer; PINS fp8-hopper-x4/fp8-ada-x4 +sha256). Gates 2048VU 7 honest+86 neg 0 fail both (art:c1351b8a, art:5b0162d6); gadget-row negs 30/30 (art:bdfcc3b3); Rust pinned batch ACCEPT. H100 screen l8192/16384 running.
 CHECKPOINT 24ab6c7d (09:00Z) [open] 09:00Z H100 qmiq4rs1f0y4tr healthy (hostmem ok). r20260925-085824-e359: fp8-hopper-x4+sha256 fixture ok, gate honest 2048 VUs all True (0.31s/341VU); negatives running; fp8-ada-x4 next. Then PINS rows, Rust batch, screen, sweep cell.
 CHECKPOINT a816a2b1 (08:15Z) [open] fixture fp8-ada-x4+sha256 OK: 90,848 rows/col, sys_id d6b0cd8d, table b04a579c, Python ACCEPT. First gate spent 8 min single-threaded with GPU idle (cause unknown; killed). a816a2b1 lazy conformance fixture; r20260925-080759-dd48: x4 conformance 5 passed so far, gate rerun unbuffered

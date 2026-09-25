@@ -57,6 +57,7 @@ for k in range(16):
     for b in range(256):
         U[k, b] = sum((rho[8 * k + s] for s in range(8) if (b >> s) & 1), np.zeros(6, dtype=np.int64)) % P
 U = torch.from_numpy(U).to(dev)
+U32 = U.to(torch.int32)
 bits = torch.from_numpy(rng.integers(0, 2, size=N, dtype=np.int8)).to(dev)
 
 
@@ -95,12 +96,14 @@ def coef_ip(TB, U, BITS, ACC, n, p, BLOCK: tl.constexpr):
         c3 += tl.load(q + 3, mask=m, other=0)
         c4 += tl.load(q + 4, mask=m, other=0)
         c5 += tl.load(q + 5, mask=m, other=0)
-    tl.atomic_add(ACC + 0, tl.sum((c0 % p) * bit, 0))
-    tl.atomic_add(ACC + 1, tl.sum((c1 % p) * bit, 0))
-    tl.atomic_add(ACC + 2, tl.sum((c2 % p) * bit, 0))
-    tl.atomic_add(ACC + 3, tl.sum((c3 % p) * bit, 0))
-    tl.atomic_add(ACC + 4, tl.sum((c4 % p) * bit, 0))
-    tl.atomic_add(ACC + 5, tl.sum((c5 % p) * bit, 0))
+    # c_e < 16 p < 2^35 and a block sums <= BLOCK of them: one reduction mod p per block, partials summed on the host
+    o = ACC + tl.program_id(0).to(tl.int64) * 6
+    tl.store(o + 0, tl.sum(c0 * bit, 0) % p)
+    tl.store(o + 1, tl.sum(c1 * bit, 0) % p)
+    tl.store(o + 2, tl.sum(c2 * bit, 0) % p)
+    tl.store(o + 3, tl.sum(c3 * bit, 0) % p)
+    tl.store(o + 4, tl.sum(c4 * bit, 0) % p)
+    tl.store(o + 5, tl.sum(c5 * bit, 0) % p)
 
 
 def run():
@@ -115,11 +118,13 @@ def run():
         eq_level[(triton.cdiv(h, BL),)](t, tb, tabs[j], h, BLOCK=BL)
     torch.cuda.synchronize(dev)
     t1 = time.perf_counter()
-    acc = torch.zeros(6, dtype=torch.int64, device=dev)
-    coef_ip[(triton.cdiv(N, BL),)](tb, U, bits, acc, N, P, BLOCK=BL)
+    nb = triton.cdiv(N, BL)
+    part = torch.empty((nb, 6), dtype=torch.int64, device=dev)
+    coef_ip[(nb,)](tb, U32, bits, part, N, P, BLOCK=BL)
+    acc = part.sum(0) % P
     torch.cuda.synchronize(dev)
     t2 = time.perf_counter()
-    return t, acc % P, t1 - t0, t2 - t1
+    return t, acc, t1 - t0, t2 - t1
 
 
 runs = []

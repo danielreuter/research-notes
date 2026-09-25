@@ -144,3 +144,8 @@ art:7e6a93cf. Old cell art:5387c1b5: t.total 0.2957 s at 4096. H100 pod 08:28-09
 Handoff verify-night-2/20260925T0925Z-handoff-from-poseidon-v1.md (both plateaus + both n=4096).
 - 09:10Z verify-night-2 checkpoint: my 4 results (4090/A100 n=4096 + 32768) all checks PASS; relabeling incl. art:af008992.
 - 09:20Z RTX 5090 pod requested.
+- 09:3xZ laptop `data preserved --mode head` on the 28 H100 artifacts: 4 batches rc 0, 28/28 PRESERVED. Renderer check on the
+  bf16-hopper plateau meta: `views.instance_range` -> ('stream', None), `views._protocol` -> None.
+- 09:20-09:31Z 5090: SECURE had no stock (HTTP 500 x6). My retry loop misread a successful COMMUNITY create as a failure and
+  created 3 pods (cdsbrseysgi0rh CA $0.69, 4opwt5mylvd9qr $0.69, i1k6ayj2vk65nu $0.99) before I killed it: the first two
+  terminated within ~3 min (~$0.07). Kept i1k6ayj2vk65nu (RTX 5090 32 GB, Ryzen 9 9950X; registered by hand). Sync by tar.

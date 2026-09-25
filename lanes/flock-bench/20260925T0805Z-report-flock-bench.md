@@ -168,8 +168,8 @@ high-water, including inputs (unit, BLAKE3), or max RSS (union).
 - Per slot bit, including witness generation, the unit table costs 0.29-0.33 ns and BLAKE3 0.147-0.156 ns: about 2x.
   Most of the gap is my unoptimized witness builder, whose cold standalone time (0.41-1.20 s at N=4096) is 30-95 % of
   unit prove. Flock's own BLAKE3 witness is under 10 % of its prove. The prove core alone was not isolated on CPU. On
-  the GPU, where the unit witness is built outside prove, the unit table proves in 0.5-1.6x BLAKE3's time at the same
-  m (next section). So the census's key assumption, that Flock's BLAKE3 rate carries over per slot bit, holds for the
+  the GPU, where the unit witness is built outside prove, the unit table proves (minus upload) in 0.2-1.7x Flock-CUDA's
+  BLAKE3 time at the same m (m26/30/31/32; next section). So the census's key assumption, that Flock's BLAKE3 rate carries over per slot bit, holds for the
   prover proper; the unit's witness generation still needs a real implementation.
 - The union proof costs the sum of the two tables (BF16 2.59 s against 1.32 + 1.26). Verify and proof size barely
   move: 8-24 ms, about 0.5 MB.
@@ -264,5 +264,5 @@ verifier is already around 1 s.
 | §3.9: Flock `cuda-ghash` has no public throughput | 1.35 M/s at N=4096 BF16 (m33 0.291 s); per-m configs non-monotone; no m29 config | now measured |
 | §3.9/§4.1: `clmad` rate unmeasured | 5090: 1.00 T CLMAD/s; GF(2^128) mul 143 G/s | now measured (H100: 80gb lane) |
 | §3.9: needs CUDA 13.3 | toolkit 13.3 with driver 580 works | toolkit floor, not driver |
-| census: unit table at Flock's BLAKE3 rate per slot bit | GPU, witness outside prove: 0.5-1.6x BLAKE3 at the same m. CPU with my naive witness inside prove: 2x | holds for the prover; unit witness gen needs work |
+| census: unit table at Flock's BLAKE3 rate per slot bit | GPU, witness outside prove: 0.2-1.7x BLAKE3 at the same m. CPU with my naive witness inside prove: 2x | holds for the prover; unit witness gen needs work |
 | census: 5090 BF16 relation + BLAKE3 about 0.25 s | 0.42-0.58 s on Flock-CUDA; about 0.21 s if both ran at zorch rate | 1.7-2.3x on today's GPU code |

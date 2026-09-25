@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (02:05Z) [open] red-team-lk 0200Z PASS noted; 4 held labels wait for coordinator 'release' (0050Z: coordinator sends it), release staged (31-release.sh). Verifying agkr-fp8 0203Z: H100 art:b0c27291 (unchanged stmt) + art:ad76c106 (merged, held) in r20260925-020532-8dac
 CHECKPOINT none (02:00Z) [open] 5090 NVFP4 A-GKR art:53a64e8b (same stmt+proofs as dfbc86c4) verified; verdict art:223c8efe PRESERVED, label HELD (coordinator 0200Z). Held x4: 45c5be4a 3ae971dd dfbc86c4 53a64e8b. 49 accepted + 4 held, 0 rejected; cred removed; polling
 CHECKPOINT none (01:41Z) [open] H100 FP8 A-GKR merged-LK art:3ae971dd 3/3 + stmt + LK-merge check OK; verdict art:e96f50ac PRESERVED, label HELD (coordinator 0142Z). Held: 45c5be4a 3ae971dd dfbc86c4. 49 accepted + 3 held, 0 rejected; cred removed; polling
 CHECKPOINT 90c21455 (01:26Z) [open] 4090 FP8 A-GKR art:ecd96143 labelled (verdict art:eededf7d; Table 2 1.75e7x). 5090 art:dfbc86c4 verdict art:7d3aaf2e PRESERVED, label HELD (coordinator 0127Z x2). 49 accepted + 2 held, 0 rejected; cred removed; polling

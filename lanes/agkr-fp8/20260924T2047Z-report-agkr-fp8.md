@@ -5,6 +5,8 @@ created: 2026-09-24T20:47Z
 status: final
 ---
 
+CHECKPOINT a97576b5 (02:06Z) [final] DONE a97576b5: 4090 0.666s art:ecd96143 (labelled) / merged 0.490s art:45c5be4a; H100 0.409s art:b0c27291 / merged 0.280s art:ad76c106; 2^-130.19; merged labels held pending release (red-team-lk PASS); pods terminated ~$12.1
+CHECKPOINT a97576b5 (02:05Z) [final] DONE a97576b5: 4090 0.666s art:ecd96143 (labelled) / merged 0.490s art:45c5be4a; H100 0.409s art:b0c27291 / merged 0.280s art:ad76c106; 2^-130.19; merged labels held pending release (red-team-lk PASS); pods terminated ~$12.1
 CHECKPOINT a97576b5 (01:58Z) [final] FINAL a97576b5: H100 FP8 0.409s unchanged stmt (art:b0c27291, 0146Z) / 0.280s merged LK (art:ad76c106, held); 4090 0.666s (art:ecd96143, in Table 2) / 0.490s merged (art:45c5be4a, verified, held). 2^-130.19. Pods terminated, ~$12.1.
 CHECKPOINT a97576b5 (01:46Z) [open] H100 fp8-hopper UNCHANGED statement 0.409s @a97576b5: art:b0c27291 (run-files art:25c57ccb, proofs f80ecc53 = verified bytes), negatives art:07b5adb8; handoff 0146Z (no hold). Merged H100 re-record @a97576b5 running r20260925-014451-54f2.
 CHECKPOINT a97576b5 (01:31Z) [open] H100 merged fp8-hopper 0.328s recorded: art:3ae971dd (run-files art:0c23dfc9, r20260925-010941-b9eb @3be6a35f), Rust 3/3, 2^-130.19, negatives art:70bbba68; handoff 0132Z (held). 10 nvf4 picks -> a97576b5, bytes same (fp8 + bf16). Unmerged H100 dev @a97576b5 running.
@@ -158,3 +160,56 @@ kernels is the only lever, transcript fixed), arith 0.115 (phase-1 per-round hos
 - Recorded r20260925-013353-ea44 (clean): result art:b0c27291, run-files art:25c57ccb; PRESERVED. t.total median 0.409 s
   (0.416 / 0.409 / 0.409), was 0.482 (art:b1010ac8) and 0.688 (art:2e7baba7, in Table 2); buckets witness 0.026, commit 0.010,
   lookup 0.179, arithmetic 0.169, serialization 0.025. Rust 3/3, 2^-130.19. Negatives art:07b5adb8. Handoff 0146Z.
+
+## H100 FP8 (fp8-hopper) on the merged statement, re-recorded @ a97576b5
+- Result art:ad76c106, run-files art:55eb421d; PRESERVED. t.total median 0.280 s (was 0.328 s at art:3ae971dd, same proof sha
+  0021aa91, so verify-po's structural and verifier evidence art:e96f50ac covers these bytes). Rust 3/3, 2^-130.19.
+  Negatives art:70bbba68. Handoff 0158Z. The label is held under the coordinator's 0050Z rule.
+
+## FINAL
+tip: lane/agkr-fp8 @ a97576b5 (base main@ab9573fd) merge-with: agkr-nvf4. Both lanes edit the same prover files and cherry-picked
+  each other's commits. agkr-nvf4 took 048e6a41…f2363663, 5034767f and 3be6a35f; I took a8d471ba (as bba64ea1), 605b1bbb, 285c32cc,
+  the Merkle.path part of 2b25df7f, and e1bcf472..79f00fd3 (10 commits). Expect same-hunk conflicts; resolve them to either side,
+  since both produce the same bytes (06_ab).
+known-failures: the backends/gkr pod test suite was not run on a97576b5. The evidence is 06_ab byte identity (fp8 and bf16), Rust
+  3/3 per cell, and negatives per cell, including cheating-prover lookup negatives (12_lookup_neg.sh).
+pod: terminated 01:58Z; ~$12.1 of $15 (4090 terminated 00:48Z; H100 terminated 01:58Z; machines.toml updated).
+artifacts: art:ecd961433c94c2b49b06d722b0d349a73d8bb89fb1858ce1b167e18836576d61 (4090, unchanged, 0.666 s; run-files art:0667ed46,
+  negatives art:9398f028; verified by verify-po, verdict art:eededf7d, labelled) ·
+  art:45c5be4aeef2c558bc7f8c230a2a6e6a6d0744b2a2253057a9525bf3452bdc42 (4090, merged, 0.490 s; run-files art:979e37aa, negatives
+  art:f01f7196; verify-po verdict art:df4d2c3c, label HELD) ·
+  art:b0c27291de3ed71c08219d428c7bca4678c0506842c959fcccb26ed70c3b1d71 (H100, unchanged, 0.409 s; run-files
+  art:25c57ccb8815d411bcb985633dbcbe75ed3e3bcc11bb2916c19e1f93970e5b83, negatives art:07b5adb8; awaiting verify-po) ·
+  art:ad76c1062a287b985b6974f30bfb64e785173366da27d0f36370a2379affba3e (H100, merged, 0.280 s; run-files
+  art:55eb421ddcb57aa7d8880822530126fcc3fc5e2eddaf0ca95cc09262a51b660e, negatives art:70bbba68; the bytes art:3ae971dd was verified
+  with, verdict art:e96f50ac, label HELD).
+
+Summary. All four cells are Table-2-valid (K=1536, B=4096, frozen set, prover on the row's SKU, NON_ZK_PROOF_DIAGNOSTIC, phase
+buckets sum to t.total, proofs preserved, 2^-130.19 ≥ 2^-128). The Rust verifier is unchanged since ab9573fd. The merged-LK cells
+change the statement, not the soundness accounting: the LogUp/GKR/Ligero terms are unchanged, and the bound is the same 2^-130.19.
+
+Verifier command (verify-po, per cell): main's `/workspace/bin/verity-gkr-verify` on the result art's statement + proof dump, as
+listed in `lanes/verify-po/20260925T0203Z-handoff-from-agkr-fp8.md`.
+
+Coordinator decisions needed:
+1. Release the merged-LK cells. red-team-lk passed merge_tables d5d80e0b and cell art:45c5be4a (0200Z). verify-po's verdicts are
+   art:df4d2c3c (4090) and art:e96f50ac (H100 bytes 0021aa91). If released, Table 2 becomes 4090 art:45c5be4a (0.490 s) and
+   H100 art:ad76c106 (0.280 s).
+2. Otherwise, for the unchanged statement, the H100 cell should move from art:2e7baba7 (0.688 s) to art:b0c27291 (0.409 s) once
+   verify-po verifies it. The 4090 art:ecd96143 is already labelled.
+3. Merge order with agkr-nvf4 (see merge-with).
+
+Handoffs received (all read and acted on):
+- 20260924T2115Z-handoff-from-coordinator.md: verification requests go to verify-po. My 0006Z–0158Z requests went to the
+  coordinator folder by mistake. Fixed at 0203Z with `lanes/verify-po/20260925T0203Z-handoff-from-agkr-fp8.md`, which
+  consolidates the H100 requests.
+- 20260924T2120Z-handoff-from-agkr-nvf4.md, 20260924T2205Z-handoff-from-agkr-nvf4.md, 20260924T2325Z-handoff-from-agkr-nvf4.md,
+  20260924T0000Z-handoff-from-agkr-nvf4.md, 20260925T0110Z-handoff-from-agkr-nvf4.md: I adopted their prover picks (a8d471ba,
+  605b1bbb, 285c32cc, 2b25df7f part, e1bcf472..79f00fd3) and applied the CPU thread caps (N=10 on the 4090, N=23/T=22 on the
+  H100).
+- 20260925T0050Z-handoff-from-coordinator.md: labels on rewritten statements are held until red-team-lk passes. I followed this;
+  I relabelled nothing.
+- 20260925T0200Z-handoff-from-red-team-lk.md: PASS for merge_tables (d5d80e0b) and art:45c5be4a.
+Handoffs sent: coordinator 2129Z, 2212Z, 2326Z, 0006Z, 0045Z, 0115Z, 0132Z, 0146Z, 0158Z; verify-po 0203Z.
+Branch not pushed: the launch contract says "commit only, do NOT push". The coordinator can fetch lane/agkr-fp8 from the local
+worktree, or run `research notes push agkr-fp8` if they want it pushed.

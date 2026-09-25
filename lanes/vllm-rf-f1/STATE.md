@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T04:40Z
+updated: 2026-09-25T04:48Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -263,3 +263,8 @@ updated: 2026-09-25T04:40Z
   test_admit_r19_host_working_set; test_native_jit_keying pod_release.sh; test_compiled_source CUDA driver) -- the same as the
   03:13Z targeted run at d1f18fc8 plus the gc-freeze pair (added this time).  f24's reason-code + verdict tests and every
   test_sampled_replay* pass beside D1.  Gate (b) head and main both at 97%.
+- 04:48Z PRESERVED on s3://verity-dev (fetch --all, attempt publish, data push; 18/18): the four voids `-042334-f76f` `-042642-c979`
+  `-042715-a96f` `-042717-8109` (cancelled ones classed CANCELLED_MANUAL), bootstrap `-042905-a8bb`, lints+touched `-043155-7013`.
+  Gate (b) head and main: all files done except test_derive_realhf / test_derive_hf5b_realhf (one worker each, ~50% through by the
+  d1f18fc8 run's per-case times; this EPYC 7713 host is ~2x slower per core) -> ETA ~05:05Z.  READY draft updated for both heads
+  (placeholders RESULTS_299 / GATEB_299 for the gate (b) numbers).

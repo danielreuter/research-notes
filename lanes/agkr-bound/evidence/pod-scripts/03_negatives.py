@@ -118,7 +118,7 @@ def prove(rows, bind):
     clear = None
     if bind is not None:
         try:
-            prover.verify(inst, proof, False)
+            prover.verify(inst, prover.prove(inst, False)[0], False)
             clear = "accept"
         except prover.VerifyError as e:
             clear = f"reject ({str(e)[:80]})"

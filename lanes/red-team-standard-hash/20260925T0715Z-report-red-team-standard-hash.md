@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 5aa9f63 (09:52Z) [open] 10:32Z +sha256 be1a3bcb FAIL R1+R4 inherited (art:0e8faae7), closed by c8a16e2b merge (art:57a22acb); BLAKE3 gadget mutate-recompute scan 0 free rows on 3 shapes, control 18; sp1 R3 open
 CHECKPOINT 15f74f3 (09:28Z) [open] 10:00Z 24ab6c7d+806a2f73 PASS R1/R2/R4/H2 (art:cd2c38ea, art:be211735); sp1 R3 fix open on --instances (handoffs 0925Z); running: +sha256 R1/R4/H2 at be1a3bcb and +fix, BLAKE3 gadget mutate-recompute scan
 CHECKPOINT 10996616 (09:01Z) [open] 09:02Z re-testing ligero-steps-pin tip 24ab6c7d on pod (R1 remap, R4 orphan vus3 + vn2 06b, H2 48/64); sp1 R3 fix b54e42ed review note pending; sha256 PINS not landed
 CHECKPOINT 5c73abf (08:56Z) [open] c81ed1c8: agkr native tree check PASS (4 pins core-reproduced, art:8dee00aa); vn2 R4 fix confirmed; open: ligero-steps-pin fix handoff, sha256 pins, agkr hash layers, survey §3.8 link

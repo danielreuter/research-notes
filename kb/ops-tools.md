@@ -67,6 +67,14 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   clean way to terminate at FINAL: it lists the attempts and refuses while any is unpreserved (agkr-nvf4, 2026-09-25).
 * The runpod CPU image (Ubuntu 22.04) has curl. Listing `curl` in `apt-get install` made apt upgrade it from a security-pool URL
   that returned 404, and the whole install failed with rc 100. Leave curl and ca-certificates out of the list (merge-postwave, 2026-09-24).
+* Rust/rayon ignores the cgroup quota too: on an H100 pod (quota 17 CPU, nproc 160) Flock's CPU prover took 1.3 s for a 64-VU
+  proof with 160 threads vs 0.03 s with `RAYON_NUM_THREADS=16`. Set it from `/sys/fs/cgroup/cpu.max` (cgroup v2: `quota period`).
+  (flock-bench-80gb, 2026-09-25, `evidence/pod-scripts/10-cpu.sh`).
+* CUDA 13.3 binaries on a driver-570 pod fail with "CUDA driver version is insufficient". `apt-get install cuda-compat-13-3` +
+  `LD_LIBRARY_PATH=/usr/local/cuda-13.3/compat` fixes it (driver >= 580 needs nothing). (flock-bench-80gb, 2026-09-25, `00-setup.sh`).
+* `research pods create` killed before sshd answers leaves the pod RUNNING but unregistered and unguarded: `research pods
+  register NAME --pod-id ID --project P --replace`, then add `guard = N` to `notes/machines.d/NAME.toml` by hand. `research run
+  --on` rejects `--name` (the pod-side runner fails in launcher.log; the run stays `submitted` forever). (flock-bench-80gb, 2026-09-25)
 
 ## Pod guard and streamed ships in `research run --on` (pod-runs, 2026-09-24, lane/pod-runs)
 * Opt a job pod in with `guard = N` (idle minutes; `true` = 90) in its `machines.toml` entry. An entry without `guard` never

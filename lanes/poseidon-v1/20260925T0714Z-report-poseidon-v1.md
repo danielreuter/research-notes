@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT none (09:53Z) [open] 5090 pod i1k6ayj2vk65nu up (Ryzen 9950X; SECURE had no stock; 2 stray pods from a retry-loop bug terminated in ~3 min). Bootstrap 1 failed only at the instance-cache stage (fp4 is --relation fp4-nvf4 + included-hash); rerun r20260925-095252-cff3. H100 28/28 preserved.
 CHECKPOINT none (09:31Z) [open] H100 DONE (pod terminated 09:19Z): bf16-hopper plateau n=32768 P=10191 (3.16e7x) commit 0.163s art:72e2b0ba; fp8-hopper n=65536 P=18679 (3.45e7x) commit 0.326s art:23528a63; BYTEID ok; handoff vn2 0925Z. 5090: no SECURE stock, retrying COMMUNITY+SECURE.
 CHECKPOINT none (09:03Z) [open] 0847Z handoff acted on (main 94b1c4d2 merged, 82adc8a7). H100 bf16-hopper sweep done: plateau n=32768 P=10191/s e2e 3.215s commit 0.163s, N/P 3.16e7, BYTEID IDENTICAL; fp8-hopper sweeping (n4096 P=15498). Registration after both rows.
 CHECKPOINT 10996616 (08:37Z) [open] A100 DONE: plateau n=32768 P=5729/s (1.77e7x), commit 0.53s, art:b5a4454f (+n4096 art:289841b1), byteid ok, to verify-night-2; pod terminated. H100 afx80tft4x2ejt syncing. R1/R2 fix: merge when steps-pin lands

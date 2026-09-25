@@ -23,5 +23,7 @@ Size on 2026-09-24: 30 MB of tracked text, 10 MB packed history.
 - `bench-instances.md`: which instances ref a bench run carries and whether Table 2 counts it (frozen, instance-equiv, tile).
 - `jolt-prover.md`: Jolt (a16z): what GPU paths exist (draft PR #1618 CUDA only), security (~100-bit), building guests
   and PR #1618 on a pod, measured VU guest cycles and CPU/CUDA prove times.
+- `flock-prover.md`: Flock (GF(2) batch-R1CS): build profile, CUDA/driver floors, Flock-CUDA per-m configs and the
+  host-witness patch, zorch goldens, measured N=4096 constants (CPU, 5090) and link primitives.
 - `sp1-prover.md`: SP1 6.4.0 GPU prover: building a forked chip's server, sharding knobs that do and do not work, the
   memory argument's cost per word, measured per-shard constants.

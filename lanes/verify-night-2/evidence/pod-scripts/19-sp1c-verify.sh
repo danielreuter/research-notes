@@ -48,7 +48,10 @@ def leaf(args):
 with Pool(16) as pool:
     dx = pool.map(leaf, [(np.asarray(v[0]).reshape(-1), rowleaf.ROLE_X) for v in data], chunksize=32)
     dw = pool.map(leaf, [(np.asarray(v[1]).reshape(-1), rowleaf.ROLE_W) for v in data], chunksize=32)
-y = [int(rel.y_public(int(v[3]))) for v in data]
+# SP1's fp8-ada y (bare.rs Format::Fp8Ada) is the final FP32 accumulator word itself (u32); B-Ligero publishes
+# rel.y_public(word) = fp8.relation.pack_public (22 bits) of the same word, a different y leaf value over the same set
+y = [int(v[3]) & 0xFFFFFFFF for v in data]
+y_bl = [int(rel.y_public(int(v[3]))) for v in data]
 
 def stmt(lo, hi):
     inst = {"dataset": rel.instances_dataset, "tier": rel.instances_tier, "manifest_sha256": msha, "lo": lo, "hi": hi}
@@ -70,6 +73,8 @@ mine = stmt(0, N)
 keys = ("format", "K", "B", "identity", "id", "instances", "scheme", "row_schema", "binding_tag", "trees")
 diff = [k for k in keys if dump.get(k) != mine.get(k)]
 print("my roots:", {t["name"]: t["root"][:16] for t in mine["trees"]}, "identity:", mine["identity"])
+y = y_bl
+print("for comparison, y root with B-Ligero's y_public words:", stmt(0, N)["trees"][2]["root"][:16])
 print("dump roots:", {t["name"]: t["root"][:16] for t in dump.get("trees", [])})
 print("dump statement == mine on", keys, ":", "YES" if not diff else f"NO, differs on {diff}")
 PYEOF
@@ -130,7 +135,9 @@ ev.write_text(json.dumps({"honest": h, "negatives": neg, "batch": b, "info": jso
 detail = (f"verify-night-2: sp1-committed frame-v3 cell (fp8-ada [0, 4096), 4090, 69 shards, 2^-92.9 per proof, algebraic flag; "
           f"below 2^-128 so a drill-down result, not a Table 2 cell). My CPU host built from b54e42ed (guest/common == run source "
           f"cafa9464), vk {h.get('vk_hash')}. The statement is MINE: roots/bindings/id recomputed with verity.commitments core "
-          f"(sha256/row/v1 rows, u32 y, v2h bindings) from my tree's fp8-ada set; proof-rep0 verifies against it (SP1 + the public "
+          f"(sha256/row/v1 rows; u32 y leaves = the final FP32 accumulator word, SP1 bare.rs's fp8-ada y, NOT B-Ligero's "
+          f"pack_public 22-bit word, so this y root differs from the B-Ligero fp8-ada y root over the same set while a / b agree; "
+          f"v2h bindings) from my tree's fp8-ada set; proof-rep0 verifies against it (SP1 + the public "
           f"digests' trees == my roots + id/format/K/B). Negatives rejected: {sorted(n for n, v in negok.items() if v)}. Producer's "
           f"--batch instance check on set art:4a6f7602: instance_roots {b and b.get('instance_roots')}. Only rep0's proof is in the "
           f"run files (R4: one proof, one statement; reps 1-4 not re-verified).")

@@ -5,6 +5,7 @@ created: 2026-09-25T00:04Z
 status: open
 ---
 
+CHECKPOINT 4bd6c54c (00:55Z) [open] H100 (sm_90, vy-red-team-arith-h100 EUR-IS-3): tests_fused_test PASS, redteam 227 PASS + same 3 smem launch errors (robustness, old kernels OK); byte A/B h8/h16 running r20260925-004904-c8a2 (laptop->pod sync too slow: shipped a 3.6 MB git-archive subset)
 CHECKPOINT a4333dd0 (00:35Z) [open] 5090 (sm_120) done: tests_fused_test PASS; byte A/B all 6 trees IDENTICAL on fp4-nvf4 l8192 p8 bare, +hash, FS; seed control differs; art:34e47954 art:35fdf2ab art:75a715b5 art:4d2a8176 art:25e89894; H100 syncing
 CHECKPOINT none (00:04Z) [open] read diffs (lincomb2 staging, beta removal, intt_rows, quad_v4); wrote adversarial tests + det-urandom A/B runner (0be285a9); 5090 pod vy-red-team-arith up, bootstrap+tests+A/B running r20260925-000238-66aa
 # red-team-arith: independent check that lane/arith 92dab0ad leaves the proof bytes unchanged

@@ -14,8 +14,9 @@ set -a; . /root/r2.env; set +a
 export PATH=$HOME/.cargo/bin:$PATH CARGO_TARGET_DIR=/workspace/agkr-target
 V=$CARGO_TARGET_DIR/release/verity-gkr-verify
 O=/workspace/verify-po/agkr-$TAG; mkdir -p $O
-PSRC=/workspace/agkr-07a8edd6/src
+PSRC=/workspace/agkr-${PREV:-07a8edd6}/src   # PREV: the producer commit whose export regenerates the statement
 {
+echo "statement source: $PSRC ($(cat $PSRC/../REV))"
 if [ ! -x $V ]; then
   echo "=== [$(date -u +%H:%M:%S)] build + test verity-gkr-verify from /workspace/src"
   (cd /workspace/src/backends/gkr/verifier && cargo build --release 2>&1 | tail -2 && cargo test --release 2>&1 | grep -E '^test result|FAILED|panicked')
@@ -25,7 +26,7 @@ echo "=== [$(date -u +%H:%M:%S)] fetch $TREE"
 [ -d $O/tree ] || $PY -m research data fetch $TREE --to $O/tree | tail -1
 D=$(dirname $(find $O/tree -name public.bin | head -1))/..; D=$(cd $D && pwd); echo "tree: $D"
 sha256sum $D/proofs/*.bin $D/statement/*
-echo "=== [$(date -u +%H:%M:%S)] regenerate the statement files with the producer's named source ($(cat /workspace/agkr-07a8edd6/REV))"
+echo "=== [$(date -u +%H:%M:%S)] regenerate the statement files with the producer's named source ($(cat $PSRC/../REV))"
 (cd $PSRC/backends/gkr && PYTHONPATH=$PSRC/backends/gkr:$PSRC/packages/verity/src:$PSRC/backends/numerical/python:$PSRC \
    $PY -m gpu.v2.export circuits --model $MODEL --out $O/regen > $O/regen.json 2>&1; echo "regen rc=$?")
 echo "=== [$(date -u +%H:%M:%S)] statement check (public.bin vs MY tree's frozen $TARGET)"

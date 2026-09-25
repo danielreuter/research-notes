@@ -49,3 +49,19 @@ Facts measured by lane arith (2026-09-24, lanes/arith/20260924T1904Z-report-arit
 - `research notes checkpoint LANE final` reads the laptop catalog, which never sees `data put --preserve` done on a pod.
 - To fix it, run a bounded laptop-side `research data preserved <ids>` in batches of about 7, with the store creds
   loaded; each batch takes about 6 s. After that the checker counts the arts as preserved.
+
+## Commitment building of B-Ligero + in-proof hash (lane hash-commit, 2026-09-25; paused when Poseidon2 was dropped)
+- `bench-vu --commit-reps N --commit-evidence FILE` (lane/hash-commit 96cb0d28) builds the commitment 1 + N times, asserts
+  identical evidence, and reports `commit.seconds` (median of the N), `commit.cold_seconds`, the breakdown
+  `commit.{rows,chain,trees,host}_seconds` and `e2e.seconds` = commit + t.total. The evidence JSON holds tree roots, level shas,
+  digest and chain shas. Without `--auth-cache`: Table 2's 4090 cell (1.04 s) ran WITH it, so its trees were loaded.
+- Where main's committer spends 2.30 s (4090 fp8-ada, 4096 VUs): host numpy Poseidon2 in `Poseidon2Leaf.native` 1.77 s,
+  the same sponges again in torch for the prover's chain states 0.33 s, `np.asarray` over 2 x 4096 x 1536 Python ints
+  0.18 s (the instance lists; `.tolist()` in instances, converted back in commit), Python SHA trees ~0.04 s.
+- lane/hash-commit b862be30: 0.035 s (cold 0.089), byte-identical (evidence, stmt files, Rust accepts). It uses one CUDA
+  thread per committed row for the whole sponge, passes the instance arrays through, and hashes SHA-256 trees from a per-domain
+  prefix `.copy()`. The last two carry over to any hash: a SHA-256 / BLAKE3 committer should not rebuild rows from Python lists.
+- `research run --on M --send F --cwd DIR`: sent files land in `$RESEARCH_RUN_DIR/inputs/`, not the cwd.
+- A `pods sync`ed tree has `.research-sync-files` and `.research-source.json` besides the git files, and it does ship
+  tracked-but-ignored files; to prove a synced / patched tree IS commit X, `git add -A . && git add -f <git ls-files -ci
+  --exclude-standard>`, drop those two, `git write-tree`, compare with `X^{tree}` (lanes/hash-commit 30-ab.sh).

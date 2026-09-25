@@ -1,7 +1,7 @@
 ---
 kind: kb
 topic: the tables the user wants
-updated: 2026-09-25T19:50Z (lane tables-switch: Flock family, the switch's commands; before that 2026-09-25T06:30Z: rewrite with the user's decisions of 2026-09-24 evening, published from the Project store's docs/tables-spec-draft.md; replaces the 2026-09-24T20:20Z spec, kept as kb/TABLES-v1-20260924.md)
+updated: 2026-09-25T22:25Z (coordinator: self-throttling is not contention, criterion 7); before that 2026-09-25T19:50Z (lane tables-switch: Flock family, the switch's commands; before that 2026-09-25T06:30Z: rewrite with the user's decisions of 2026-09-24 evening, published from the Project store's docs/tables-spec-draft.md; replaces the 2026-09-24T20:20Z spec, kept as kb/TABLES-v1-20260924.md)
 ---
 
 # The tables the user wants (standing spec; do not redesign without the user)
@@ -187,6 +187,7 @@ A result counts in any proving view (Tables 2 and 3, and a ✓ in D2) only if al
    - The producer's own verification never counts.
    - A proof counts only under a pinned identity. An SP1 verification names the fork commit, and a verifying key must be reproduced from a fresh build before its proofs count.
 7. **It was measured under the protocol:** warm, at least five timed runs, uncontended.
+   Self-throttling is not contention (root, 2026-09-25): when the CPU throttling the timing guard sees comes from the cell's own components sharing the pod's quota (e.g. route (a)'s Flock CPU prover beside its A-GKR GPU prover), it can only make the cell slower, so the cell counts as uncontended with a note naming the self-throttling (art:77411c93). The rule still excludes interference from outside workloads: another GPU process, or throttling not attributable to the cell's own processes.
 8. **The red team has not capped it** below the family's declared class. The latest `red-team-*` audit on its configuration's statement stands, downgrades included, and nothing is upgraded.
 
 **Red-team review of statement changes.** A change to what a configuration proves or how it is checked (the relation's lowering, circuit or compiled system, the commitment scheme, the transcript) makes its results provisional. They stay provisional until a `red-team-*` audit of the new statement grants its declared class. A prover-only change keeps the clearance when its proof bytes equal a cleared version's under fixed coins, and its verification records that comparison.

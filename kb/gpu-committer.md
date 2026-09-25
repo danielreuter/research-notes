@@ -33,7 +33,7 @@ Lane hash-commit / commit-gpu (2026-09-25), branch `lane/hash-commit`. Report:
 - Byte-identity suites 98/98 on A100 80GB PCIe (sm_80) and H100 NVL (sm_90) at bcf75db7. bench-vu bf16-hopper+blake3 (4096 VUs,
   batch 8192, p2): commit evidence c90e6d0d… and the 49 statement files are identical on 4090 / A100 / H100, GPU or host
   committer; Rust batch accepts 49/49. Committer (rows + trees): 4090 4.9-5.2 ms, H100 NVL 3.5 ms (host 15.8 s), A100 5.7 ms
-  (host 27.2 s). H100 art:c2212273, A100 in the report.
+  (host 27.2 s). H100 art:c2212273, A100 art:2474855e.
 - commit_cost --impl gpu, 4096 x 1536 B rows, commit (leaf + tree, h2d apart): 4090 0.50-0.58 ms, H100 0.53-0.65, A100 0.84-0.87;
   6.3 M 2-byte words: frame-v3 12.5 / 9.3 / 14.6 ms, vllm-v1 8.4 / 6.0 / 9.2 ms (4090 / H100 / A100).
 - Gotcha (not the committer): on sm_90, torch 2.6+cu124's `torch._int_mm` (cuBLASLt INT8) accepts only M % 32 == 0 rows

@@ -35,3 +35,16 @@ Report section "Dense-check kernels and gap_alt_operand (10:05Z)". Evidence art:
 say otherwise. Relabelling would change labels only; no digest changes.
 
 Disk: this lane has pulled nothing large to the laptop.
+
+## Update 10:25Z: the dense check measured inside the real proof (art:400126e2)
+
+- **The link map is a bijection.** Unit u = v·U + s reads words k·s … k·s + k − 1 of x row v and of W column v, each
+  word once, so unit bits map one-to-one onto the leaf value bits. The `sha256/row/v1` value is block-aligned after one
+  64-byte prefix block. This answers part of the red team's binding question.
+- **The dense check needs no new machinery on the prime side.** A-GKR opens one materialised Ligero functional, and the
+  dense check becomes one more `a += c` term. On the real BF16 in-unit A100 proof:
+  - prove 1.20 → **1.41 s** (the term costs 0.21 s in an unoptimised wrapper; the bare kernel is 0.066 s);
+  - Python verify 1.25 → 1.47 s;
+  - gap_alt_operand: accepted without the term, **rejected** with it ("linear functional value mismatch").
+- **Route (a) prime side per BF16 batch:** 0.776 → about 1.44 s (+86%) with one point, or about 1.65 s with two. Flock
+  is extra.

@@ -370,8 +370,8 @@ def main() -> int:
     out_path = sys.argv[1]
     quick = "--quick" in sys.argv
     ctx = mp.get_context("spawn")
-    ncpu = os.cpu_count() or 4
-    n_old, n_new = max(1, (3 * ncpu) // 4), max(1, ncpu - (3 * ncpu) // 4)
+    ncpu = int(os.environ.get("C2_NPROC", "32"))  # the container's vCPUs (os.cpu_count() reports the host's)
+    n_old, n_new = ncpu, max(1, ncpu // 2)
     t0 = time.time()
     res: dict = {"seed": SEED, "quick": quick, "base": BASE, "head": HEAD, "pools": {"old": n_old, "new": n_new},
                  "evaluators": {}, "dot": {}, "encodings": {}}
@@ -397,6 +397,7 @@ def main() -> int:
                        "differ": sorted(k for k in set(po_) & set(ph_) if po_[k] != ph_[k]),
                        "only_base": sorted(set(po_) - set(ph_)), "only_head": sorted(set(ph_) - set(po_)),
                        "errors_base": eo["program_errors"], "errors_head": eh["program_errors"], "digests_head": ph_}
+    enc["e4m3_word_fn_body_equal"] = eo["e4m3_word_fn_body_sha"] == eh["e4m3_word_fn_body_sha"]
     enc["pins"] = {"base": eo["pins"], "head": eh["pins"]}
     enc["host_nan"] = {"base": eo["host_nan"], "head": eh["host_nan"]}
     print("encodings:", json.dumps({k: enc[k] for k in ("modules", "import_failed", "ids_only_base")}), flush=True)
@@ -411,38 +412,38 @@ def main() -> int:
         print(json.dumps(res["whoami"], indent=1), flush=True)
 
         total = 1 << (24 if quick else 32)
-        for name in ("F32Fabs", "F32Neg", "F32BitsShl23", "F32IsFinite", "F32Sat"):
-            _run(pools, name, [("range", s, min(CHUNK, total - s)) for s in range(0, total, CHUNK)], res)
-            json.dump(res, open(out_path, "w"), indent=1)
         na = 4 if quick else 64
-        _run(pools, "Bf16GtStrict", [("bf16grid", a, na) for a in range(0, (1 << 8) if quick else (1 << 16), na)], res)
-        json.dump(res, open(out_path, "w"), indent=1)
-
-        w = _e4m3_words(quick)
-        m = 1 << 17
-        _run(pools, "F32ToE4m3Sat", [("words", w[s:s + m]) for s in range(0, len(w), m)], res)
-        json.dump(res, open(out_path, "w"), indent=1)
-
         nchunks, m = (4, 1 << 16) if quick else (96, 1 << 20)
-        for name in ("F32Fmaxf", "F32Fminf", "F32Eq", "I32Le", "I32Eq", "I32Add"):
-            _run(pools, name, [("cross",)] + [("f32pairs", c, m) for c in range(nchunks)], res)
-            json.dump(res, open(out_path, "w"), indent=1)
-        for name, width in (("SelectF32", 32), ("SelectBf16", 16), ("SelectI32", 32)):
-            _run(pools, name, [("select", c, 1 << 18, width) for c in range(4 if quick else 16)], res)
+        w, mw = _e4m3_words(quick), 1 << 17
         g = [(x, y) for x in range(4) for y in range(4)]
-        _run(pools, "BitAnd", [("bits", ([x for x, _ in g], [y for _, y in g]))], res)
-        _run(pools, "BitOr", [("bits", ([x for x, _ in g], [y for _, y in g]))], res)
-        _run(pools, "BitNot", [("bits", ([0, 1, 2, 3],))], res)
-        json.dump(res, open(out_path, "w"), indent=1)
+        plan = [(n, [("range", s, min(CHUNK, total - s)) for s in range(0, total, CHUNK)])
+                for n in ("F32Sat", "F32Fabs", "F32Neg", "F32BitsShl23", "F32IsFinite")]
+        plan.append(("Bf16GtStrict", [("bf16grid", a, na) for a in range(0, (1 << 8) if quick else (1 << 16), na)]))
+        plan.append(("F32ToE4m3Sat", [("words", w[s:s + mw]) for s in range(0, len(w), mw)]))
+        plan += [(n, [("cross",)] + [("f32pairs", c, m) for c in range(nchunks)])
+                 for n in ("F32Fmaxf", "F32Fminf", "F32Eq", "I32Le", "I32Eq", "I32Add")]
+        plan += [(n, [("select", c, 1 << 18, wd) for c in range(4 if quick else 16)])
+                 for n, wd in (("SelectF32", 32), ("SelectBf16", 16), ("SelectI32", 32))]
+        plan += [("BitAnd", [("bits", ([x for x, _ in g], [y for _, y in g]))]),
+                 ("BitOr", [("bits", ([x for x, _ in g], [y for _, y in g]))]), ("BitNot", [("bits", ([0, 1, 2, 3],))])]
+        jobs = [_submit(pools, n, specs) for n, specs in plan]
 
         from verity.ml.kernels import group_sum_total_batch
         from verity.ml.tc.total_fp8 import HOPPER_E4M3_WGMMA_K32
 
+        dots = []
         for part, (acc, a, b) in _dot_inputs(quick).items():
-            t = time.time()
             m = 5_000
             tasks = [(i, acc[s:s + m], a[s:s + m], b[s:s + m]) for i, s in enumerate(range(0, len(acc), m))]
-            ao, an = pold.map_async(_dot, tasks, chunksize=1), pnew.map_async(_dot, tasks, chunksize=1)
+            dots.append((part, acc, a, b, tasks, pold.map_async(_dot, tasks, chunksize=1), pnew.map_async(_dot, tasks, chunksize=1)))
+        print(f"submitted {len(jobs)} evaluator jobs, {len(dots)} dot parts at {time.time() - t0:.0f}s", flush=True)
+
+        for job in jobs:
+            _collect(pools, job, res, t0)
+            json.dump(res, open(out_path, "w"), indent=1)
+
+        for part, acc, a, b, tasks, ao, an in dots:
+            t = time.time()
             ro, rn = {r["cid"]: r for r in ao.get()}, {r["cid"]: r for r in an.get()}
             so = np.concatenate([ro[i]["scalar"] for i in range(len(tasks))])
             sn = np.concatenate([rn[i]["scalar"] for i in range(len(tasks))])
@@ -458,13 +459,14 @@ def main() -> int:
                                 "nonfinite_outputs": int(((sn & 0x7F800000) == 0x7F800000).sum()), "zero_outputs": int((sn == 0).sum()),
                                 "sha256_old": hashlib.sha256(so.tobytes()).hexdigest(), "sha256_new": hashlib.sha256(sn.tobytes()).hexdigest(),
                                 "first_old_vs_new": ex(d_on), "first_new_vs_kernel": ex(d_k), "first_old_vs_twin": ex(d_tw),
-                                "seconds": round(time.time() - t, 1)}
+                                "collect_seconds": round(time.time() - t, 1), "done_at_s": round(time.time() - t0, 1)}
             print(f"dot {part}: " + json.dumps({k: v for k, v in res['dot'][part].items() if not k.startswith('first')}), flush=True)
             json.dump(res, open(out_path, "w"), indent=1)
 
     p = enc["prims"]
     ok_enc = (all(v["encoding_equal"] and v["params_equal"] and v["ret_equal"] for v in p.values())
-              and enc["programs"]["keys_equal"] and not enc["programs"]["differ"] and not enc["import_failed"]["head"])
+              and not enc["programs"]["only_base"] and not enc["programs"]["differ"] and not enc["ids_only_base"]
+              and not enc["import_failed"]["head"])
     ok_eval = all(v["chunks_differ"] == 0 for v in res["evaluators"].values())
     ok_dot = all(v["old_vs_new_differ"] == 0 and v["new_vs_core_kernel_differ"] == 0 for v in res["dot"].values())
     ok = ok_enc and ok_eval and ok_dot
@@ -472,7 +474,7 @@ def main() -> int:
     res["seconds"] = round(time.time() - t0, 1)
     json.dump(res, open(out_path, "w"), indent=1)
     print("ALL-EQUAL" if ok else "DIFFERENCES", json.dumps(res["ok"]), res["seconds"], "s", flush=True)
-    return 0 if ok else 1
+    return 0 if ok else 3
 
 
 if __name__ == "__main__":

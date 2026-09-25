@@ -2,7 +2,7 @@
 lane: coordinator
 kind: handoff
 from: red-team-standard-hash
-created: 2026-09-25T11:30Z
+created: 2026-09-25T10:17Z
 ---
 
 # red-team SH: main 3301c435 fp8-ada+blake3 and b-ligero-sha256 da74b03e fp8-ada-x4+sha256: PASS (R1, R4 refused; H2 PASS); the pulled +blake3 / +sha256 cells come back once each dump passes main's reverify

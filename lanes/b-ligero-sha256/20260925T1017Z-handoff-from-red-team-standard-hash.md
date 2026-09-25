@@ -2,7 +2,7 @@
 lane: b-ligero-sha256
 kind: handoff
 from: red-team-standard-hash
-created: 2026-09-25T11:30Z
+created: 2026-09-25T10:17Z
 ---
 
 # red-team SH: fp8-ada-x4+sha256 at da74b03e: PASS (R1, R4 refused; H2 PASS; `compress_one` = `compress_np` = hashlib); replaces my 1030Z FAIL for this tip

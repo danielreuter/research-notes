@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT a7f3f26 (10:24Z) [open] Dense check folded into the real BF16 in-unit A100 proof: prove 1.20->1.41 s, Py verify 1.25->1.47; gap_alt_operand accept->REJECT. Link map is a bijection (27). art:64220e14, art:400126e2. MALLOC env set. Scaffold only.
 CHECKPOINT ee2a319f (10:05Z) [open] Dense check 0.066 s/point on A100 (int8 tensor-core coefs); route (a) prime side 0.776->1.30 s (1 pt) / 1.36 s (2 pts). gap_alt_operand rejected by link identity (62/128, 69/128 planes). art:64220e14. Handoff 1005Z. Nothing big on laptop.
 CHECKPOINT 10996616 (09:55Z) [open] Dense GF(2^128) check at N=201,326,592 (BF16 batch) on A100: fused Triton 0.367 s; int8 tensor-core coefs 0.066 s (eq 0.023, coef+ip 0.044), cross-checked vs torch. u_t 0.032 s. Now: gap_alt_operand vs link checks (r20260925-095534-ad8c). Scaffold only.
 CHECKPOINT 88b82757 (09:34Z) [open] Per 0922Z: link bits in-unit (86f86084) BF16 A100 0.776->1.199s (+55%), Rust verify accepts; negatives bit_flip/non_boolean/alt_honest_bits rejected, alt_alt_bits accepted (link residual). Dense GF(2^128) check 0.875s A100 / 0.85s CPU; u_t 0.03s. art:35bce6f5.
@@ -210,8 +211,8 @@ and match the torch reference's BabyBear^6 value exactly.
 - The tensor-core kernel computes c_i = Σ_t ρ_t bit_t(eq_i) as bits[B, 128] × ρ split into 7-bit limbs (int8 → int32),
   then folds in b_i per block. Block 128 gives 0.080 s; block 512 spills registers and takes 1.15 s.
 - The byte-table kernel is gather-bound (96 table loads per bit). eq is memory-bound: it writes 4.3 GB for 2^28 entries.
-- The kernel produces the claimed inner product. The Ligero linear test instead needs c folded per committed column.
-  That is the same pass with a different reduction, and I have not measured it.
+- The kernel produces the claimed inner product. In A-GKR the dense check instead enters the one materialised Ligero
+  functional as `a[pos(i)] += c_i`, which is measured on the real proof in the next section (10:25Z).
 - flock-bench's handoff (0946Z) estimated this prover step at "a few ms on GPU, derived, not run". Measured on A100 it is
   66 ms per point, 23 ms of it the eq expansion, so their GPU figure is about 10× optimistic. Their CPU figure, 0.51 s per
   point on Zen4 16T, is consistent with my 0.85 s on Zen 2 13T.
@@ -243,3 +244,49 @@ witness. The script checks what the link's two sides see instead.
 - vllm-rf-c1 recommends relabelling the four vllm-v1 operand-domain digests as "backend-owned" rather than "provisional,
   integration owns". I have not changed anything: ruling 4 (0922Z) stands until the coordinator decides.
 - The laptop disk rule is noted. This lane has pulled nothing large to the laptop; all evidence is on the pod and in R2.
+
+## Link layout, and the dense check inside the real proof (10:25Z)
+
+Benchmarks and scaffold only: pod scripts 27 and 28, with no repo change, the link protocol not built and no cell
+counts. Every measured run from here sets MALLOC_MMAP_MAX_=0 and MALLOC_TRIM_THRESHOLD_=1000000000000 (coordinator,
+1003Z).
+
+**Operand-to-message layout** (r20260925-100729-6578, pod script 27_layout; this is the red team's "digest-to-operand
+binding" question).
+- The generator orders units VU-major: unit u = v·U + s, with U = K/k = 96 for BF16 and 48 for fp8. Unit s consumes
+  x[v, k·s … k·s + k − 1] and the same words of W column v.
+- Every operand word appears in exactly one unit, so the link map from unit bits to leaf value bits is a **bijection**.
+  That is 201,326,592 bits on both sides for BF16 and 100,663,296 for fp8. There is no duplication for the link to
+  dedupe.
+- `sha256/row/v1`: the value starts after one constant 64-byte prefix block, so it is block-aligned at bit offset 512. A
+  leaf is 50 compressions, or 49 given the prefix midstate. Row words are little-endian u16, while the SHA-256 schedule
+  reads big-endian 32-bit words: a fixed bit permutation.
+- `blake3-keyed/row/v2` has no prefix.
+- U = 96 and 48 are not powers of two, so bit index → (v, s, word, bit) is not a concatenation of bit fields. A verifier
+  that wants eq(r, π(i)) succinctly would need padded unit slots. The O(N) verifier used here does not care.
+
+**The dense check as one more term of A-GKR's batched Ligero functional** (r20260925-101520-bc72, pod script
+28_link_dense, bf16-ampere+sha256 in-unit statement, A100, 4,096 VUs, 1 warm-up + 3 reps).
+- A-GKR opens every residual claim as one materialised functional ⟨a, X⟩ = b (`gpu/prover.py` `Acc`,
+  `ligero.prove_open`). The script wraps `prove_open` and `verify_open`:
+  - The prover draws r ∈ GF(2^128)^28 from the transcript, computes eq(r, i) and the plane sums S_t, and absorbs
+    u_t = ⌊S_t/2⌋. This stands in for u_t's own commitment, measured separately at 0.032 s and 471 KB.
+  - It then draws ρ_t ∈ BabyBear^6 and adds c_i = Σ_t ρ_t bit_t(eq_i) into a at the link-bit columns.
+  - The verifier does the same O(N) work into its own a, and adds b += Σ_t ρ_t (2u_t + z_t). z is a stand-in computed
+    from the honest message bits; the Flock side is not built.
+
+| | in-unit bits only | + dense check | link term (median) |
+| --- | --- | --- | --- |
+| median prove | 1.201 s | **1.413 s** | 0.211 s |
+| Python verify (GPU) | 1.246 s | 1.469 s | 0.155 s (binary-side z stand-in excluded) |
+| honest | accept | accept | |
+| gap_alt_operand, altered operand with its own bits | **accept** | **reject** ("ligero: linear functional value mismatch") | |
+
+- The link term is 3× the bare kernel (0.066 s). The extra cost is the transcript challenges, the numpy table build,
+  a separate plane-sum pass over the eq table, and the read-modify-write of `a` (4.8 GB). I have not optimised it.
+- **Route (a) prime side per BF16 batch on A100, measured on the real proof.** 0.776 s (no link) → 1.20 s (in-unit bits)
+  → 1.41 s (+ dense check, one point), plus u_t's commitment at about 0.03 s. That is about **1.44 s (+86%)** with one
+  point, or about 1.65 s (+113%) with the two points 2^-128 needs if the link term just repeats. This replaces the
+  kernel-only 1.30 s / 1.36 s estimate above. Flock is extra.
+- Registered as art:400126e2 (gate-log/v1, refs art:64220e14 and art:35bce6f5). Runs r20260925-100729-6578 and
+  r20260925-101520-bc72 are preserved.

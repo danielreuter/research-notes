@@ -45,10 +45,48 @@ committer baselines (`lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.
 
 | 2 | `20260925T0745Z-handoff-from-coordinator.md` (red-team SH R1/R2) | published +hash cells art:794365d3 [4] art:271e0e3a [8] art:5387c1b5 [12] art:1abdf12a [16] art:99867b4c [20]; re-check of #1 | A100 BF16 / H100 BF16 / H100 FP8 / 4090 FP8 / 5090 NVFP4, B-Ligero +hash | PASS x5 (+ #1 PASS x5) | art:488f12f0 art:1de26956 art:6844cc11 art:edb24a45 art:0ec89f16; #1: art:9909ec89 art:4c7497f2 art:eea752f6 art:0249a538 art:8460a8dd |
 | 3 | `20260925T0835Z-handoff-from-red-team-standard-hash.md` (R4) | the 10 of #1 and #2 | (as above) | R4 fixed; 10/10 re-PASS, no verdict changes | none (recheck only) |
-| 4 | `20260925T0800Z-handoff-from-poseidon-v1.md`, `20260925T0835Z-handoff-from-poseidon-v1.md` | art:d87b4895 (4090, n 4096) art:c8b52ee2 (4090, n 32768) art:289841b1 (A100, n 4096) art:b5a4454f (A100, n 32768) | RTX 4090 FP8 / A100 BF16, B-Ligero +hash (Poseidon2, alg.), TABLES.md sweep | accepted (4096 x2; 32768 pending relabel) | art:66b0d958 (d87b4895) art:a4c00776 (289841b1) |
-| 5 | `20260925T0850Z-handoff-from-coordinator.md` | sp1-committed art:49695f7c | RTX 4090 FP8, SP1 frame-v3 committed (2^-92.9, drill-down) | in progress | |
+| 4 | `20260925T0800Z-handoff-from-poseidon-v1.md`, `20260925T0835Z-handoff-from-poseidon-v1.md` | art:d87b4895 (4090, n 4096) art:c8b52ee2 (4090, n 32768) art:289841b1 (A100, n 4096) art:b5a4454f (A100, n 32768) | RTX 4090 FP8 / A100 BF16, B-Ligero +hash (Poseidon2, alg.), TABLES.md sweep | accepted x4 | art:66b0d958 (d87b4895) art:a4c00776 (289841b1) art:2c83448c (c8b52ee2) art:258c8dd3 (b5a4454f) |
+| 5 | `20260925T0850Z-handoff-from-coordinator.md` | sp1-committed art:49695f7c | RTX 4090 FP8, SP1 frame-v3 committed (2^-92.9, alg. hash in SP1) | accepted; CLEARED (5/5 reps instance_roots true) | art:58978516 |
 | 6 | `20260925T0905Z-handoff-from-b-ligero-standard-hash.md` | art:5d20ad00 (4096 frozen) art:d6328cf5 (16384 plateau) | RTX 4090 FP8, B-Ligero +hash BLAKE3 (standard hash, full relation) | accepted x2 | art:5c100a08 art:41e8f1a0 |
 | 7 | `20260925T0900Z-handoff-from-poseidon-v1.md` | art:af008992 (same run as art:289841b1) | A100 BF16 +hash, sweep bounded by the frozen set | accepted | art:9a29580b |
+| 8 | `20260925T0925Z-handoff-from-poseidon-v1.md` | art:72e2b0ba (BF16 32768) art:23528a63 (FP8 65536) art:f25486f6 (BF16 4096) art:6c512437 (FP8 4096) | H100 BF16 / FP8, B-Ligero +hash (Poseidon2, alg.) @3301c435 | accepted x4 | art:31e5458f art:181ccbdb art:87ddb393 art:55208f00 |
+| 9 | `20260925T0844Z-` + `0935Z-handoff-from-blake3-80gb.md` | art:855cc597 (A100 4096) art:f32eec55 art:3b78cbda (H100 4096) art:4d1d6d6e (H100 32768) | A100 BF16 / H100 BF16 / FP8, B-Ligero +blake3 | not re-verifiable yet (fail-closed: run_files lack proofs/) | none; blake3-80gb asked to re-register |
+| 10 | `20260925T0958Z-` + `1008Z-handoff-from-b-ligero-standard-hash.md`, coordinator 1017Z | art:e9932b72 (live) art:e7d59ab6 (x1) art:017a7069 (x4 4096) art:6b6d4484 (x4 8192); #6 again @3301c435 | RTX 4090 FP8, B-Ligero +blake3 | running (r20260925-102219-11de) | |
+
+### 8. H100 poseidon-v1 cells and the 3301c435 verifier (run r20260925-093931-f022; `22-batch.sh`)
+- ligero-verify was rebuilt from main 3301c435 (ligero-steps-pin merged) to sha256 596529d2; the old binary is kept as
+  `ligero-verify-d89cffc7`. From here on, every verdict's detail names "ligero-verify sha256 596529d2 (main 3301c435)".
+- The H100 cells, all ROOTS-MATCH, R4 ok and BOUND, with negatives base ACCEPT and 3 REJECT on all four trees:
+
+| result | line | reverify | roots a / b / y | steps, K |
+|---|---|---|---|---|
+| art:72e2b0ba | bf16-hopper, 32768 | 193/193, 2^-128.47 | 29eb6f09 / 5dff9f39 / 0af34437 | (96, 1536) |
+| art:23528a63 | fp8-hopper, 65536 | 193/193, 2^-128.47 | 957f1eac / 86563e13 / 58393eb1 | (48, 1536) |
+| art:f25486f6 | bf16-hopper, 4096 | 25/25, 2^-128.05 | ce346697 / c7f14384 / 3f3fd633 | (96, 1536) |
+| art:6c512437 | fp8-hopper, 4096 | 13/13, 2^-128.32 | 57ac9df1 / 170d0a18 / 22fa3c6e | (48, 1536) |
+
+- The plateaus are bound to `relchain.instances(rel, N)`, whose first 4096 VUs equal the frozen set (0 mismatched).
+- The #6 BLAKE3 cells get a dry-run PASS with main 3301c435's reverify (49/49, 193/193, pinned fp8-ada+blake3). They do not fail
+  closed; fresh 3301c435 labels are in #10.
+- **blake3-80gb (#9):** the run_files keep manifest.json and rep1/ at the root, and 3301c435's reverify refuses them ("has no
+  proofs/ or dumps/ manifest.json"). 05 needs the same layout. So these are not re-verifiable yet (fail-closed), not PULLED.
+  Handoff `lanes/blake3-80gb/20260925T1030Z-…`.
+
+### 7. sp1-committed frame-v3 cell art:49695f7c (runs r20260925-095557-7799 failed on custody, r20260925-100420-dc5b; `18`, `19`)
+- **Build:** host `--features relation-committed` from a git archive of b54e42ed, built on my pod with SP1 6.4.0 CPU. It
+  reproduces ELF f4fc749f… and vk 0x00989332…3a66. The committed tests: 8 pass, and 2 committed_vllm tests fail (a missing
+  vllm_v1 vectors file in the archive; not the frame-v3 path).
+- **My statement:** written from my tree's fp8-ada set with `verity.commitments` only (sha256/row/v1 row leaves, u32 y leaves, v2h
+  bindings, frame-v3 trees). It equals the dump's statement on every field. Roots a f3ffcf70, b 8cd05fd5, y bd462407.
+- **Custody:** the attempt's run_files art:17f1205b holds all 5 reps. The handed-off art:9e3c06bd holds rep 0 only, and its
+  rep 0 and statement are byte-equal. The first run used `research fetch <run>`, found nothing and failed the gate unlabelled.
+- **`committed-verify --batch` against set art:4a6f7602 (sha 531a5c01):** ok with `instance_roots: true` on reps 0–4, against my
+  statement and the dump's (10/10). The honest verify is ok (sp1_ok, vk pinned).
+- **Negatives, 7/7 REJECT:** wrong root a, wrong root b, wrong root y, the dump's tampered proof, one proof byte flipped, my
+  statement over [0, 4095), and tampered + adopt + batch.
+- The coordinator's rule for this cell makes it CLEARED.
+- **Finding:** SP1's y leaf is the raw chain-end FP32 word, while B-Ligero's is `pack_public` (22 bits). The y roots differ
+  (bd462407 vs 49023558), and a and b agree. Reported to the coordinator 1030Z.
 
 ### 6. b-ligero-standard-hash BLAKE3 cells (run r20260925-090956-57e5; `21-batch.sh`, `20-cells.sh`)
 - The manifest's `relation.name` is `fp8-ada`, and the leaf is in `statement_relation` (`fp8-ada+blake3`). 06 now prefers

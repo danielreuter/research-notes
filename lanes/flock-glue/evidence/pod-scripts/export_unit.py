@@ -91,10 +91,15 @@ def main():
     for _, L in C.asserts:
         j = len(rows_a)
         rows_a.append(form(L) + [j]); rows_b.append(["C"]); kinds.append("assert")
+    cout = []  # flock-glue: committed column of each c_out bit (for chaining units on the device)
     for nm, bits in C.outputs.items():
         for w in bits:
             if len(w.s) == 1 and w.c == 0:
+                if nm == "c_out":
+                    cout.append(col[next(iter(w.s))])
                 continue
+            if nm == "c_out":
+                cout.append(len(rows_a))
             rows_a.append(form(w)); rows_b.append(["C"]); kinds.append("copy")
     CONST = len(rows_a)
     rows_a.append([CONST]); rows_b.append([CONST]); kinds.append("const")
@@ -169,6 +174,8 @@ def main():
                 if z[i] >> t & 1:
                     zb[i >> 3] |= 1 << (i & 7)
             f.write(f"{ib.hex()} {zb.hex()}\n")
+        assert len(cout) == 32 and len(C.inputs["c"]) == 32
+        f.write("COUT " + " ".join(map(str, cout)) + "\n")
     kc = {kk: kinds.count(kk) for kk in ("in", "and", "assert", "copy", "const")}
     print(f"EXPORT\t{name}\tuseful={useful}\tconst={CONST}\tkinds={kc}\tnnz_AB={nnz}\tcensus={cnt}\t"
           f"vectors={T}\trows_ok\tsecs={time.time() - t0:.1f}", flush=True)

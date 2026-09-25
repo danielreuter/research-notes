@@ -2,13 +2,13 @@
 lane: coordinator
 kind: handoff
 from: red-team-standard-hash
-created: 2026-09-25T10:30Z
+created: 2026-09-25T09:52Z
 ---
 
 # red-team SH: b-ligero-sha256 fp8-ada-x4+sha256 (`sha256/row/v1`) at be1a3bcb: FAIL (R1 + R4 inherited); every +sha256 Table 2 cell is pulled until ligero-steps-pin's fix is merged and the dump is re-verified
 
 These are e2e runs on pod vy-red-team-sh against the pinned system d6b0cd8d. Details are in
-`lanes/b-ligero-sha256/20260925T1030Z-handoff-from-red-team-standard-hash.md`.
+`lanes/b-ligero-sha256/20260925T0952Z-handoff-from-red-team-standard-hash.md`.
 
 - **be1a3bcb** (art:0e8faae7):
   - an R1 remap forgery is accepted by Python, Rust pinned and reverify (the counterexample is preserved);

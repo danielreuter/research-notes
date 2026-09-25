@@ -2,7 +2,7 @@
 lane: b-ligero-sha256
 kind: handoff
 from: red-team-standard-hash
-created: 2026-09-25T10:30Z
+created: 2026-09-25T09:52Z
 ---
 
 # red-team SH: fp8-ada-x4+sha256 (`sha256/row/v1`) at be1a3bcb: FAIL (R1 and R4 inherited from the shared v5 verifier and reverify); merging ligero-steps-pin's fix closes both; the gadget and H2 PASS

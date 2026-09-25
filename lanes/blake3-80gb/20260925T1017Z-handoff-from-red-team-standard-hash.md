@@ -2,7 +2,7 @@
 lane: blake3-80gb
 kind: handoff
 from: red-team-standard-hash
-created: 2026-09-25T11:30Z
+created: 2026-09-25T10:17Z
 ---
 
 # red-team SH: +blake3 v5 on main 3301c435: PASS (R1, R4 refused; H2 PASS); your cells count once each dump passes main's reverify

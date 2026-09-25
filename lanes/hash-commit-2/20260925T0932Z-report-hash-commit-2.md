@@ -2,9 +2,10 @@
 lane: hash-commit-2
 kind: report
 created: 2026-09-25T09:32Z
-status: open
+status: final
 ---
 
+CHECKPOINT 2a92fe61 (10:22Z) [final] tip 2a92fe61 merge-ready (Poseidon2 int8 sm_90 fix); GPU committer byte-identical on A100 sm_80 + H100 sm_90 (98/98, ev c90e6d0d == 4090), committer H100 3.5ms A100 5.7ms 4090 4.9-5.2ms; 4090 A/B closed; all pods terminated; ~$3.5
 CHECKPOINT 2a92fe61 (10:11Z) [open] H100 NVL sm_90 DONE: 98/98 byte-identity, fix 2a92fe61 (Poseidon2 torch int8 _int_mm M%32) -> 348 pass; bf16 GPU committer 3.5ms ev c90e6d0d == 4090 (art:c2212273); cc art:d789044f; Flock 7.51 T CLMAD/s art:31a799a7; pods 4090+H100 terminated; A100 host arm last
 CHECKPOINT bcf75db7 (10:06Z) [open] PORTABILITY: byte-identity 98/98 on A100 sm_80 + H100 sm_90; bench bf16-hopper+blake3 GPU arm ev c90e6d0d stmts c9ed5a64 == 4090, Rust 49; committer H100 3.5ms (host 15.8s), A100 5.7ms. H100 neighbour fail = Poseidon2 torch int8 _int_mm (sm_90 needs M%32); fix testing r20260925-100554-2e7b
 CHECKPOINT bcf75db7 (09:54Z) [open] 4090 bcf75db7 A/B closed + 15 results preserved (fp8 GPU art:91a9287e, bf16 GPU art:728e07b2, cc art:6cb3eb00); H100 NVL r20260925-094905-04b2 + A100 r20260925-095225-92f7 bootstrap->byte-identity->timing running. Laptop-disk handoff 0946Z: compliant, nothing pulled
@@ -76,9 +77,47 @@ commit_cost --impl gpu at 4096 (median of 20; every root == reference root, open
 | 4096 x 1536 B rows | frame-v3-blake3-row | 0.58 | 0.53 | 0.85 |
 | 4096 x 1536 B rows | vllm-v1 | 0.50 | 0.65 | 0.87 |
 | 4096 x 3072 B rows | frame-v3-sha256-row | 0.55 | 0.59 | 0.86 |
-| 4096 x 3072 B rows | frame-v3-blake3-row | | 0.53 | 0.84 |
-| 4096 x 3072 B rows | vllm-v1 | | 0.94 | 1.26 |
+| 4096 x 3072 B rows | frame-v3-blake3-row | (art:189b63d4) | 0.53 | 0.84 |
+| 4096 x 3072 B rows | vllm-v1 | (art:189b63d4) | 0.94 | 1.26 |
 | 6,291,456 x 2 B words | frame-v3 | 12.5 | 9.3 | 14.6 |
 | 6,291,456 x 2 B words | vllm-v1 | 8.4 | 6.0 | 9.2 |
 Profile (75-cg-prof.py, fp8 shape): H100 row_tree 0.65 ms, y word tree 0.52, pinned 6 MiB h2d 0.12; A100 row_tree 1.96 (min 1.17),
 word tree 0.83, pinned h2d 0.26. The committer is launch/tree-level bound (tree ~0.4-0.6 ms regardless of leaf hash), not hash bound.
+
+### Registered + preserved (pod-side, runs r20260925-100906-f2da H100 and r20260925-101747-4071 A100)
+- H100 NVL: bf16 GPU arm art:c2212273 (full tree art:4d515578), host arm art:2091ad4d (slim art:79490945); commit_cost rows1536
+  art:d789044f, rows3072 art:4a7208bc, words2 art:51c2e751; logs (runs.txt, arch, prof, tests incl. the post-fix run, bootstrap)
+  art:3791e8c4; Flock sm_90 art:31a799a7.
+- A100 80GB: bf16 GPU arm art:2474855e (full tree art:50f90ea2), host arm art:c51f7642 (slim art:f2b91649); commit_cost rows1536
+  art:81c31b1c, rows3072 art:8a9387cf, words2 art:8a2cdb40; logs (incl. tests-all-2a92fe61: 348 passed, 1 skipped) art:45dcccbe.
+
+## 3. Flock (survey §4.1 ask from hash-commit/0752Z; flock-bench cross-check ask hash-commit/0950Z)
+Flock b684b125, CUDA 13.3.1 redist (nvcc V13.3.73) AOT, 40 CLMAD SASS lines in clmad_peak on both parts.
+RTX 4090 sm_89 (driver 580.159): clmad_peak 0.67 T CLMAD/s; GF(2^128) mul schoolbook+clmad 75 G/s, binius+clmad ~50, software 17 (art:855d5a32).
+H100 NVL sm_90 (driver 580.126, no cuda-compat needed): 7.51 T CLMAD/s; binius+clmad 575-607 G/s, schoolbook 363-371, karatsuba 325,
+software 7-10 (art:31a799a7). Answers flock-bench's question: the ~8x H100-over-5090 clmad rate reproduces on a second H100
+(NVL, 7.5 vs SXM 8.3 T/s). test_f128 exits 1 on both only for want of its vectors.bin input (a cargo dump bin never run).
+kb: flock-prover.md (two measured lines), gpu-committer.md (portability section + the sm_90 _int_mm gotcha).
+
+## Handoffs
+Received: coordinator/0946Z "Laptop disk at 2.6 GiB" (complied: nothing fetched to the laptop, all registration pod-side);
+coordinator/1003Z "Export MALLOC_MMAP_MAX_=0 ..." (no measured run started after it; the runs above predate it and say so);
+hash-commit/0950Z flock-bench "5090 reference for your clmad runs" (answered by the H100 run, section 3).
+Sent: coordinator/20260925T1024Z-handoff-from-hash-commit-2.md (merge-ready 2a92fe61),
+b-ligero-sha256/20260925T1022Z-handoff-from-hash-commit-2.md, blake3-80gb/20260925T1022Z-handoff-from-hash-commit-2.md.
+
+## Pods and cost
+vy-commit-gpu g6sehoo9nur00q (4090, 06:50Z-10:09Z, $0.74/h: ~$2.46 total, ~$0.48 of it mine), vy-hash-commit-2-h100
+053peggdba5ubj (09:37Z-10:11Z, $3.19/h: ~$1.81), vy-hash-commit-2-a100 fertega4i5qs2a (09:37Z-10:21Z, $1.59/h: ~$1.17).
+Lane total including hash-commit ~$6.5 of $40.
+
+## FINAL
+~~~text
+tip: lane/hash-commit @ 2a92fe61 (base lane/hash-commit@bcf75db7)        merge-with: lane/hash-commit@2a92fe61 (1 commit on main 3301c435, merges clean)
+known-failures: none    pod: vy-commit-gpu terminated 10:09Z, vy-hash-commit-2-h100 10:11Z, vy-hash-commit-2-a100 10:21Z; ~$3.5 this lane (~$6.5 with hash-commit)
+artifacts: art:91a9287e art:728e07b2 art:c2212273 art:2091ad4d art:2474855e art:c51f7642 art:6cb3eb00 art:d789044f art:81c31b1c art:855d5a32 art:31a799a7
+~~~
+The GPU committer (frame-v3 word / SHA-256-row / keyed-BLAKE3-row, vllm-v1) is byte-identical and fast on sm_80, sm_89 and sm_90
+without code changes: 3.5 ms (H100 NVL) / 4.9-5.2 ms (4090) / 5.7 ms (A100) per 4,096 bf16 instances, evidence c90e6d0d and statements
+identical across all three and against the host committer. The only portability defect was in the Poseidon2 torch int8 MDS
+(off Table 2), fixed in 2a92fe61. The 4090 A/B at bcf75db7 is closed (fp8 3.9-4.0 ms vs 11.9-12.3 s host).

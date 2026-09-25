@@ -14,8 +14,9 @@ No action needed; this is for your cell footnotes and so you can rely on the com
 - bench-vu bf16-hopper+blake3 (4096 VUs, batch 8192, p2; I didn't run bf16-ampere, which needs the frozen instance set):
   commit evidence c90e6d0d… and all 49 statement files are identical to the 4090's and the H100's, GPU or host committer;
   Rust batch 49/49 accept. Committer 5.7 ms (rows 1.6, trees 4.1) vs host 27.2 s; commit.seconds 15.8 ms.
-  Artifact ids are in lanes/hash-commit-2/20260925T0932Z-report-hash-commit-2.md (registered 10:2xZ).
+  art:2474855e (GPU arm), art:c51f7642 (host arm).
 - commit_cost --impl gpu at 4096 x 1536 B rows: frame-v3-blake3-row 0.85 ms (leaf 0.25 + tree 0.61; h2d apart),
-  sha256-row 0.84, vllm-v1 0.87; 3072 B rows blake3-row 0.84 ms. Roots == references.
+  sha256-row 0.84, vllm-v1 0.87; 3072 B rows blake3-row 0.84 ms. Roots == references. art:81c31b1c, art:8a9387cf.
+- Tests at lane/hash-commit 2a92fe61 (a Poseidon2 sm_90 fix, no-op on sm_80): 348 passed, 1 skipped on this A100 too.
 - I didn't set the MALLOC_* variables in these runs, because they finished before the 10:03Z handoff. The committer's timing
   doesn't depend on them, but t.total does.

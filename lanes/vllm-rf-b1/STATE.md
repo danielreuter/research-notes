@@ -2,7 +2,7 @@
 id: vllm-rf-b1/state
 lane: vllm-rf-b1
 kind: state
-updated: 2026-09-25T09:41Z
+updated: 2026-09-25T10:26Z
 ---
 # b1 (evaluator kernels and replay): state
 
@@ -20,6 +20,11 @@ a4 base: 10996616
 - bf3bdbec `derived_rows.py` moves `program/registry/` -> `program/kernels/` (git mv + import lines + allowlist paths). **c2: two import lines in your files changed** (`program/registry/ref_prims.py:850`, `program/registry/sampling_rows.py:34`), nothing else in `program/registry/`.
 
 - a6613e94 (pushed) `program/kernels/rows.py` (the sampled-replay evaluator ladder as 22 per-family row kernels, registered with core `register_kernel` under kernel "rows", samplers + small check specialisations) and `program/kernels/kernel_registry.py` (instance form with decline reason, check targets, registered list: upstream candidates). `sampled_replay.evaluate` dispatches via `rows.ROWS`; `_Unresolved = Declined`. Gumbel kernel uses core `evaluate` (drops the check -> properties import, p05 entry deleted). Allowlists: p03/p05/by_name entries deleted, p08/p11 entries moved to rows.py, p10 SR 3099 -> 2614. Laptop lint scan 0 failing.
+- fce215be rows.py imports `type_dtype`/`type_shape` from `verity.evaluation.batch`.
+- c42923bc twins -> core kernels (kernel "twin"): Twin protocol, `twin_for`, `why_no_twin`, `TwinDeclined`, `self_check`, `gate_words` deleted; `twins.admit` runs core `self_check` per instance; `replay.twin_of` uses `kernel_registry.covers/instance`. Renamed tests: `test_twin_for_covers_every_logged_specialization` -> `test_twins_cover_every_logged_specialization`, `test_twin_for_declines_statics_outside_the_body` -> `test_twins_decline_statics_outside_the_body`.
+- e86c93b3 `tests/program/test_kernel_self_check.py`: every registered (kernel, Definition) pair against core `self_check`.
+- ee2a319f test fix (MoE router / padded memo live in rows). head-touched2 at e86c93b3: 2 failed (these), 239 passed.
+- a6ba1e5b `check/replay/challenge.py`: every seed derivation of record + the only generator constructors; routed: SR.sample, SR.challenge_seed, replay tier_a/tier_chain, compiled_kernel_check, stoch_recompute reference rows, vu_query.production_sample, admission.produce (difftest), relations draw_sample/ensure_adjacent_pair, pipeline/commit.py main (3 one-line hunks + 1 import). RNG_OWNERS; 10 p03 entries deleted; P10 SR module 2614 -> 2611, commit.main 1914 -> 1913. Pinned-value tests in tests/check/test_challenge_seeds.py.
 
 ## Plan
 1. done (derived_rows move).
@@ -30,15 +35,16 @@ a4 base: 10996616
 6. Pods: gate (b) head vs base, gate (a) T0+T1 on cpu3m 512 GB, GPU #101, #67 PAIRS=1, #70 if rank path changes.
 
 ## Running
-- pod `vyv-rf-b1-cpu` (RunPod cei1t48zvrcnzu, cpu3g 32 vCPU / 128 GB cgroup, $1.28/h, created 08:47Z), bootstrapped at base. Trees: /workspace/base (10996616), /workspace/head (a6613e94). Logs /workspace/b1/logs.
-  - base gate (b) xdist `-n 12 --dist loadfile`, started 09:38Z (first launch at 09:06 never ran: empty gate_b.sh).
-  - head touched tests (sampled_replay*, derived_rows*, twins, lints) `-n 6`, started 09:39Z.
+- pod `vyv-rf-b1-cpu` (RunPod cei1t48zvrcnzu, cpu3g 32 vCPU / 128 GB cgroup, $1.28/h, created 08:47Z). Trees: /workspace/base (10996616), /workspace/head (a6ba1e5b). Logs /workspace/b1/logs.
+  - base gate (b) done 10:18Z: 52 failed, 3645 passed, 287 skipped, 6 xfailed, 11 errors (base-xdist.xml).
+  - head gate (b) at a6ba1e5b (intermediate), `-n 12 --dist loadfile`, started 10:24Z (head-a6ba-xdist).
 
 ## Next
-- twins -> core kernels (step 3) while the pod runs; then read the touched-test results.
+- split sampled_replay.py (step 5) while head gate (b) runs; difftest evaluate -> core `evaluate`; then final head gate (b), gate (a) on a cpu3m 512 GB pod, GPU rows.
 
 ## Open questions
 - difftest lives in properties/admission.py (b2v's `properties/`): will keep hunks to the rng call + evaluate call + import lines.
 
 ## Found, not fixed
 - replay row evaluators differ from their Definitions on edge words (twins document the Definition's behaviour): TokenSelect_v1 with a NaN logits[0] (Definition -> 0; row kernel -> argmax of the rest); BiasAdd_v1 NaN result word (Definition 0x7FC0; row kernel 0x7FFF); Gemm_v1 / MoeExpertGemm(W)_v1 / padded MoE blocks evaluate lanes with a non-finite operand or accumulator with the vectorised twin instead of declining. Not reachable on finite committed words; kept as is (no per-VU result may move), the batch kernel declines them.
+- Not routed through the challenge module (other lanes' files or P10-capped outside scope): engine/rank_worker.py:1220 root seed (b4), check/commit_verdict.py seed recompute (b2v), commit/binding.challenge_identities (c1), correspondence/capture_identities.run default_rng(seed) (module at its P10 cap). relations draw_sample/ensure_adjacent_pair have no caller in the integration.

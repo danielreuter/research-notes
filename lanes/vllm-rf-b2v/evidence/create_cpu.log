@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/danielreuter/projects/verity-main-wt/cli/tools/research/src/research/__main__.py", line 5, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/danielreuter/projects/verity-main-wt/cli/tools/research/src/research/cli.py", line 749, in main
+    return pods_main(rest)
+  File "/Users/danielreuter/projects/verity-main-wt/cli/tools/research/src/research/pods/part.py", line 139, in main
+    pod = runpod.create(ns)
+  File "/Users/danielreuter/projects/verity-main-wt/cli/tools/research/src/research/pods/runpod.py", line 226, in create
+    pod = _request("POST", "/pods", body)
+  File "/Users/danielreuter/projects/verity-main-wt/cli/tools/research/src/research/pods/runpod.py", line 150, in _request
+    raise PodError(f"{method} {path} -> HTTP {error.code}: {what}", code=error.code, pod_id=pod_id) from None
+research.pods.runpod.PodError: POST /pods -> HTTP 500: {"error":"create pod: There are no longer any instances available with the requested specifications. Please refresh and try again.","status":500}
+

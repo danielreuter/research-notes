@@ -453,10 +453,10 @@ index 38132093..00000000
 -    with pytest.raises(ValueError, match="out of range"):
 -        narrow_rows([np.array([0, 1 << word_bits])], word_bits)
 diff --git a/backends/direct/ligero/hashauth.py b/backends/direct/ligero/hashauth.py
-index a07ad245..7f4b3f94 100644
+index c3984c56..7f4b3f94 100644
 --- a/backends/direct/ligero/hashauth.py
 +++ b/backends/direct/ligero/hashauth.py
-@@ -26,10 +26,8 @@ import numpy as np
+@@ -26,16 +26,14 @@ import numpy as np
  from verity.commitments import identity_digest, verify_multiproof
  from verity.commitments.rowleaf import SCHEMA_ROW
  
@@ -468,6 +468,13 @@ index a07ad245..7f4b3f94 100644
  from .auth import build_word_tree as _build_word_tree_u16
  from .leaf import registry as leaf_registry
  from verity.errors import ResourceLimit
+ 
+ __all__ = ["BINDING_TAG", "HASH_AUTH_VERSION", "HashAuth", "binding_digest", "build_row_tree", "build_trees", "digest_bytes",
+-           "layout_error", "load_or_build_trees", "open_trees", "verify_hash_auth", "word_schema"]
++           "load_or_build_trees", "open_trees", "verify_hash_auth", "word_schema"]
+ 
+ HASH_AUTH_VERSION = "ligero-b/auth/v2h"
+ BINDING_TAG = "verity/ligero-b/auth-binding/v2h"
 @@ -82,30 +80,21 @@ def _levels(domain, leaves: list[bytes], count: int) -> list[np.ndarray]:
      return levels
  
@@ -543,6 +550,187 @@ index a07ad245..7f4b3f94 100644
      ty = build_word_tree("y", bindings["y"], y_words, y_bits)
      return {"a": ta, "b": tb, "y": ty}, {"a": da, "b": db}
  
+@@ -230,26 +211,6 @@ def digest_bytes(auth: HashAuth, leaf=None) -> bytes:
+     return bytes(out)
+ 
+ 
+-def layout_error(auth: HashAuth) -> str | None:
+-    """The x row and W column of a VU are fixed by its ``y`` leaf and the committed layout, never chosen by the prover:
+-    one leaf per VU in all three trees (unshared) is x = W = vu; an ``nx`` x ``nw`` tile (x tree ``nx``, W tree ``nw``,
+-    y tree ``nx * nw`` leaves, :func:`relchain.tile_indices`) is x = vu // nw, W = vu % nw.  Any other tree shape or
+-    claim is refused (red-team-standard-hash R1: a statement pairing an output with another VU's rows)."""
+-    na, nb, ny = (int(t.count) for t in auth.trees)
+-    vu = np.asarray(auth.vu_index, dtype=np.int64)
+-    if vu.size and int(vu.max()) >= ny:
+-        return "auth: y: leaf index out of range"
+-    if na == nb == ny:
+-        ex, ew = vu, vu
+-    elif na * nb == ny:
+-        ex, ew = vu // nb, vu % nb
+-    else:
+-        return f"auth: tree counts a={na} b={nb} y={ny} are neither one leaf per VU nor an nx x nw tile"
+-    if not (np.array_equal(np.asarray(auth.x_index, dtype=np.int64), ex) and np.array_equal(np.asarray(auth.w_index, dtype=np.int64), ew)):
+-        return "auth: a VU's x row / W column is not the one its index fixes in the committed layout"
+-    return None
+-
+-
+ def _ranks(auth: HashAuth) -> dict[str, np.ndarray]:
+     return {"a": np.unique(np.asarray(auth.x_index, dtype=np.int64)), "b": np.unique(np.asarray(auth.w_index, dtype=np.int64)),
+             "y": np.asarray(auth.vu_index, dtype=np.int64)}
+@@ -276,8 +237,6 @@ def verify_hash_auth(auth: HashAuth, siblings: Sequence[Sequence[bytes]], *, dig
+         return False, "auth: digest / word table does not match the VU count"
+     if len(siblings) != len(TREE_NAMES):
+         return False, "auth: expected one multiproof per tree"
+-    if (why := layout_error(auth)) is not None:
+-        return False, why
+     if ((digests < 0) | (digests >= h2.P)).any():
+         return False, "auth: digest lane out of the field"
+     yschema, ybytes = word_schema(y_bits)
+diff --git a/backends/direct/ligero/hashauth_test.py b/backends/direct/ligero/hashauth_test.py
+deleted file mode 100644
+index 3ee5f69a..00000000
+--- a/backends/direct/ligero/hashauth_test.py
++++ /dev/null
+@@ -1,139 +0,0 @@
+-"""hashauth.layout_error: a VU's x row and W column are fixed by its y leaf and the committed layout (red-team-standard-hash
+-R1), the same rule as ligero-verify's ``auth::layout_error``.  End to end (the red-team's ``rtsh_remap_e2e`` 2-VU fixture,
+-fp8-ada+blake3 on the CPU): VU 0's committed output is VU 1's under honest x / W roots and the statement claims VU 0 on
+-(x row 1, W column 1) -- refused by Python and ``$LIGERO_VERIFY`` (when set); ``reverify.commitment_problems`` (R2) flags
+-its y root against the recomputed instance set, a statement without a proof (R4) and a rep that claims a VU twice; the
+-honest dump passes all three.
+-
+-    uv run pytest backends/direct/ligero/hashauth_test.py
+-"""
+-from __future__ import annotations
+-
+-import json
+-import os
+-import shutil
+-import subprocess
+-from pathlib import Path
+-
+-import pytest
+-
+-from .auth import TreeRef
+-from .hashauth import HashAuth, layout_error
+-
+-
+-def _auth(vu, x, w, counts) -> HashAuth:
+-    trees = tuple(TreeRef(n, bytes(32), o, c, bytes(32)) for n, o, c in zip(("a", "b", "y"), (-1, -2, -1), counts))
+-    return HashAuth(tuple(vu), tuple(x), tuple(w), trees)
+-
+-
+-def test_unshared_is_x_equals_w_equals_vu() -> None:
+-    assert layout_error(_auth([0, 2, 5], [0, 2, 5], [0, 2, 5], (6, 6, 6))) is None
+-    assert "committed layout" in layout_error(_auth([0, 1], [1, 1], [1, 1], (2, 2, 2)))       # VU 0 on VU 1's (x, W)
+-    assert "committed layout" in layout_error(_auth([0, 1], [0, 1], [1, 0], (2, 2, 2)))       # W columns swapped
+-
+-
+-def test_tile_is_row_major_over_the_columns() -> None:
+-    assert layout_error(_auth([3, 4, 5], [1, 1, 1], [0, 1, 2], (2, 3, 6))) is None             # relchain.tile_indices(2, 3, 3, 6)
+-    assert "committed layout" in layout_error(_auth([3, 4, 5], [1, 1, 1], [0, 2, 2], (2, 3, 6)))
+-    assert "committed layout" in layout_error(_auth([3], [0], [1], (3, 2, 6)))
+-
+-
+-def test_other_shapes_and_ranges_are_refused() -> None:
+-    assert layout_error(_auth([0], [0], [0], (1, 1, 1))) is None
+-    assert "neither" in layout_error(_auth([0], [0], [0], (2, 3, 5)))
+-    assert layout_error(_auth([6], [2], [0], (2, 3, 6))) == "auth: y: leaf index out of range"
+-    assert layout_error(_auth([], [], [], (0, 0, 0))) is None
+-
+-
+-LAYOUT = "auth: a VU's x row / W column is not the one its index fixes in the committed layout"
+-
+-
+-@pytest.fixture(scope="module")
+-def remap(tmp_path_factory):
+-    """``{tag: (dir, python (ok, why), manifest)}`` for the honest dump and the R1 forgery (``rtsh_remap_e2e`` with
+-    ``--set-binding``): 2 VUs, l = 256, trees bound to the relation's instance set as a producer binds them."""
+-    pytest.importorskip("torch")
+-    pytest.importorskip("blake3", exc_type=ImportError)
+-    from .relations import relation
+-    from .relchain import HashedRelationRunner, instances, instances_digest
+-    from .serialize import _statement_of, proof_bytes, statement_bytes, system_bytes
+-
+-    rel, n = relation("fp8-ada"), 2
+-    base = instances(rel, n)
+-    assert int(base[0][3]) != int(base[1][3])
+-    digest = instances_digest(rel, n)
+-    bkw = {"dataset": rel.instances_dataset, "tier": rel.instances_tier, "manifest_sha256": digest}
+-    R = HashedRelationRunner(rel, "cpu", -132.0, zk=False, mode="fiat-shamir", leaf="blake3")
+-    man = {"relation": rel.name, "mode": "fiat-shamir", "set": {"total_vus": n, "instances": digest}}
+-    root, out = tmp_path_factory.mktemp("remap"), {}
+-
+-    def emit(tag, committed, vus, xi, wi):
+-        R.commit_vus(committed, **bkw)
+-        auth = HashAuth.for_vus(R.trees, list(range(n)), xi, wi)
+-        proof, pubs, lay = R.prove_vus(vus, check=False, vu_ids=list(range(n)), auth=auth, coins=None, min_l=256)
+-        py = R.verify_vus(proof, pubs, lay, coins=None)
+-        d = root / tag
+-        (d / "rep0").mkdir(parents=True)
+-        (d / "system.bin").write_bytes(system_bytes(R.sys))
+-        (d / "rep0" / "sub_00.stmt").write_bytes(statement_bytes(_statement_of(R, pubs, lay, R.cfg(lay.l), 1)))
+-        (d / "rep0" / "sub_00.proof").write_bytes(proof_bytes(proof))
+-        out[tag] = (d, (bool(py[0]), py[1]))
+-
+-    served = list(base)
+-    served[0] = (base[0][0], base[0][1], base[0][2], base[1][3])
+-    emit("honest", base, base, [0, 1], [0, 1])
+-    emit("forgery", served, [base[1], base[1]], [1, 1], [1, 1])
+-    return out, man
+-
+-
+-def _rust(d: Path) -> dict:
+-    exe = os.environ.get("LIGERO_VERIFY")
+-    if not exe:
+-        pytest.skip("LIGERO_VERIFY is not set")
+-    r = subprocess.run([exe, "verify", "--system", str(d / "system.bin"), "--statement", str(d / "rep0" / "sub_00.stmt"),
+-                        "--proof", str(d / "rep0" / "sub_00.proof")], capture_output=True, text=True)
+-    return json.loads(r.stdout.strip().splitlines()[-1])
+-
+-
+-def test_the_honest_remap_fixture_verifies(remap) -> None:
+-    from .reverify import commitment_problems
+-    out, man = remap
+-    d, py = out["honest"]
+-    assert py == (True, "")
+-    assert commitment_problems(d, man, "fp8-ada+blake3", ["rep0"]) == (True, [])
+-    js = _rust(d)
+-    assert js["accepted"] and js["system_pinned"], js
+-
+-
+-def test_a_vu_on_another_vus_operands_is_refused(remap) -> None:
+-    out, _ = remap
+-    d, py = out["forgery"]
+-    assert not py[0] and LAYOUT in py[1], py
+-    js = _rust(d)
+-    assert not js["accepted"] and LAYOUT in js["reason"], js
+-
+-
+-def test_reverify_recomputes_the_trees_and_the_cover(remap, tmp_path) -> None:
+-    from .reverify import commitment_problems
+-    out, man = remap
+-    hashed, bad = commitment_problems(out["forgery"][0], man, "fp8-ada+blake3", ["rep0"])
+-    assert hashed and bad == ["rep0/sub_00.stmt: tree y root differ from the instance set's"], bad
+-    twice = shutil.copytree(out["honest"][0], tmp_path / "twice")
+-    shutil.copy(twice / "rep0" / "sub_00.stmt", twice / "rep0" / "sub_01.stmt")
+-    assert commitment_problems(twice, man, "fp8-ada+blake3", ["rep0"])[1] == [
+-        "rep0: 1 statement(s) without a proof, 0 proof(s) without a statement"]
+-    shutil.copy(twice / "rep0" / "sub_00.proof", twice / "rep0" / "sub_01.proof")
+-    assert commitment_problems(twice, man, "fp8-ada+blake3", ["rep0"])[1] == [
+-        "rep0: statements cover 2 distinct VUs of [0, 2) (2 claimed twice)"]
+-    listed = dict(man, files=[{"proof": "rep0/sub_00.proof", "stmt": "rep0/sub_00.stmt"}, {"stmt": "rep0/sub_01.stmt"}])
+-    assert "rep0: the manifest lists a statement without a proof" in commitment_problems(twice, listed, "fp8-ada+blake3", ["rep0"])[1]
+-    e = {i: {"proof": f"rep0/sub_0{i}.proof", "stmt": f"rep0/sub_0{i}.stmt"} for i in (0, 1)}
+-    crossed = dict(man, files=[{**e[0], "stmt": e[1]["stmt"]}, {**e[1], "stmt": e[0]["stmt"]}])
+-    assert commitment_problems(twice, crossed, "fp8-ada+blake3", ["rep0"])[1] == [
+-        "rep0: the manifest pairs a proof with another sub-batch's statement"]
+-    assert commitment_problems(twice, dict(man, files=[e[0], e[0], e[1]]), "fp8-ada+blake3", ["rep0"])[1] == [
+-        "rep0: the manifest's proofs are not the rep's proofs"]
+-    (twice / "rep0" / "sub_01.stmt").write_bytes(b"stmt-1")
+-    assert commitment_problems(twice, man, "fp8-ada+blake3", ["rep0"])[1][0].startswith("rep0/sub_01.stmt: unreadable statement")
+-    other = dict(man, set={"total_vus": 3, "instances": man["set"]["instances"]})
+-    assert "manifest digest" in commitment_problems(out["honest"][0], other, "fp8-ada+blake3", ["rep0"])[1][0]
 diff --git a/backends/direct/ligero/hashchain.py b/backends/direct/ligero/hashchain.py
 index 84966b12..54bed35e 100644
 --- a/backends/direct/ligero/hashchain.py
@@ -903,7 +1091,7 @@ index 3899da51..758d934b 100644
          out = {"permutations_per_unit": 2,
                 "sbox_rows_per_permutation": 4 * (h2.WIDTH * 2 * h2.HALF_FULL_ROUNDS + h2.PARTIAL_ROUNDS)}
 diff --git a/backends/direct/ligero/relchain.py b/backends/direct/ligero/relchain.py
-index 3fb42a38..7f5acb50 100644
+index 7949206a..7f5acb50 100644
 --- a/backends/direct/ligero/relchain.py
 +++ b/backends/direct/ligero/relchain.py
 @@ -47,21 +47,16 @@ __all__ = ["RelationChainRunner", "bench_vu_rel", "gate_vu_rel", "instances", "i
@@ -1134,6 +1322,18 @@ index 3fb42a38..7f5acb50 100644
          ysch, _ = hashauth.word_schema(self.rel.y_bits)
          bindings = {n: hashauth.binding_digest(dataset=dataset, tier=tier, manifest_sha256=manifest_sha256, lo=0, hi=len(data),
                                                 K=getattr(self.rel, "vu_words", K_VU), tree=n,
+@@ -931,9 +832,9 @@ class SharedHashedRunner(HashedRelationRunner):
+         self.base_tag = hashchain.SHARED_TAG + rel.tag
+         self.base_tag_h = hashchain.ROWS_TAG + rel.tag
+         self.hooks = RelationHooks(hashchain.shared_public_vectors, word_dtype="<u4", y16_dtype=rel.y_dtype,
+-                                   y16_bits=rel.y_bits, tag=self.base_tag, steps=rel.steps)
++                                   y16_bits=rel.y_bits, tag=self.base_tag)
+         self.hooks_h = RelationHooks(hashchain.row_hash_public_vectors, word_dtype="<u4", y16_dtype=rel.y_dtype,
+-                                     y16_bits=rel.y_bits, tag=self.base_tag_h, steps=rel.steps)
++                                     y16_bits=rel.y_bits, tag=self.base_tag_h)
+         self.trees = None
+         self.tile = None
+         self.rows, self.sponges, self.sponge_seconds = None, None, 0.0
 @@ -2049,8 +1950,7 @@ def bench_vu_rel(args, rel: Relation) -> int:
      t0 = time.perf_counter()
      if tile is None:
@@ -1144,6 +1344,409 @@ index 3fb42a38..7f5acb50 100644
      else:
          # a frozen-tier relation (bf16-ampere): its frozen set has no tile layout, the tile is the synthetic draw
          data, x_rows, w_cols = tile_instances(rel, *tile, procs=getattr(args, "instance_procs", 1), cache=getattr(args, "instances_cache", None))
+diff --git a/backends/direct/ligero/reverify.py b/backends/direct/ligero/reverify.py
+index 21e769f7..25d1f580 100644
+--- a/backends/direct/ligero/reverify.py
++++ b/backends/direct/ligero/reverify.py
+@@ -12,9 +12,6 @@ RESULT is a bench-result/v1 artifact id (abbreviated ids welcome).  For each one
+      (and the attempt's `relation` param, and --relation when given);
+   4. `ligero-verify batch --target-bits 128` on every rep dir: batch ACCEPT, zero rejections, Rust/Python verdicts agree, and
+      the rep holds as many proofs as the manifest lists for it;
+-     before it, a dump whose statements carry hash authentication (included-hash) must commit to the claimed instance set: the
+-     a/b/y bindings and roots are recomputed from the set (--instances-root, default $BENCH_INSTANCES) and every statement's
+-     trees must equal them, and each rep's statements must cover every VU of [0, total) exactly once;
+   5. PASS -> a PRESERVED verification-verdict/v1 artifact (refs proof=<run-files>, result=RESULT; the per-rep batch JSON as its
+      payload) and labels on RESULT by --by: verified=accepted, verifier, verifier_seconds, note (pushed with the labels sync).
+      FAIL (custody / pin / verifier rejection) -> nothing is written; the per-rep JSON stays in --work, exit 1.
+@@ -128,7 +125,6 @@ class Report:
+     reps: dict[str, dict] = field(default_factory=dict)
+     verdict: str | None = None
+     labels: list[str] = field(default_factory=list)
+-    hashed: bool = False                    # included-hash statements: trees recomputed from the instance set
+ 
+     def line(self) -> str:
+         acc = sum(v.get("accepted", 0) for v in self.reps.values())
+@@ -174,147 +170,7 @@ def expected_relations(man: dict, params: dict, asserted: str | None) -> dict[st
+     return out
+ 
+ 
+-# ---- the committed set (authentication = included-hash) ---------------------------------------------------------------------------------
+-
+-TreeKey = tuple[bytes, int, int, bytes]          # (binding, owner, count, root)
+-
+-
+-def _row_digests(rows, word_bits: int, role: int) -> list[bytes]:
+-    """Keyed-BLAKE3 row digests (``blake3-keyed/row/v2``): the ``blake3`` package when installed, else core's reference."""
+-    from verity.commitments import rowleaf
+-    key = rowleaf.blake3_row_key(role)
+-    try:
+-        import blake3
+-    except ImportError:
+-        return [rowleaf.blake3_row_digest(r, word_bits, role) for r in rows]
+-    return [blake3.blake3(rowleaf.row_bytes(r, word_bits), key=key).digest() for r in rows]
+-
+-
+-def committed_trees(pinned: str, man: dict, *, instances_root: str | None = None) -> dict[str, TreeKey]:
+-    """The x / W / y tree references of the instance set the dump names, recomputed from the set itself: the pinned relation
+-    (``system-digest``) fixes the relation and leaf scheme, the manifest's ``set`` block the range ``[0, total_vus)`` and the
+-    set's manifest digest, which the regenerated set must reproduce.  Bindings are ``hashauth.binding_digest`` of (dataset,
+-    tier, manifest digest, range, K, tree, schema); keyed-BLAKE3 row trees are framed by core ``frame-v3`` over digests of the
+-    raw rows (independent of the prover's leaf code); other leaf schemes use the backend's reference tree builder.
+-    ``ValueError`` when the set cannot be recomputed (no ``set`` block, a tile, a digest mismatch, an operand format with
+-    its own lanes)."""
+-    from verity.commitments import CommitmentDomain, RangeIndexedDomain
+-    from verity.commitments.frame_v3 import FrameV3, Port, RowLeaf, WordLeaf
+-    from verity.commitments.rowleaf import ROLE_W, ROLE_X
+-
+-    from . import hashauth
+-    from .auth import OWNER
+-    from .leaf import registry as leaf_registry
+-    from .relations import relation
+-    from .relchain import instances, instances_digest
+-
+-    base, leaf_name = leaf_registry.split_relation_name(pinned)
+-    s = man.get("set") or {}
+-    total, claimed = s.get("total_vus"), s.get("instances")
+-    if not isinstance(total, int) or total <= 0 or not isinstance(claimed, str):
+-        raise ValueError("the dump names no instance set (manifest `set`: total_vus, instances): the commitments cannot be recomputed")
+-    if s.get("tile") or s.get("sharing") not in (None, "none"):
+-        raise ValueError(f"shared-row layouts (set {s.get('tile') or s.get('sharing')}) are not recomputed")
+-    rel = relation(base)
+-    if getattr(rel, "hash_format", None) is not None or rel.word_dtype not in ("<u1", "<u2"):
+-        raise ValueError(f"{rel.name}: operands of dtype {rel.word_dtype} / a lane format are not recomputed")
+-    digest = instances_digest(rel, total, root=instances_root)
+-    if digest != claimed:
+-        raise ValueError(f"the regenerated {rel.name} set of {total} VUs has manifest digest {digest[:16]}…, the dump claims {claimed[:16]}…")
+-    data = instances(rel, total, root=instances_root)
+-    word_bits = 16 if rel.word_dtype == "<u2" else 8
+-    K = int(getattr(rel, "vu_words", 1536))
+-    scheme = leaf_registry.get(leaf_name)
+-    ysch, ybytes = hashauth.word_schema(rel.y_bits)
+-    x_rows = [[int(w) for w in v[0]] for v in data]
+-    w_cols = [[int(w) for w in v[1]] for v in data]
+-    y_words = [int(rel.y_public(int(v[3]))) for v in data]
+-    if any(len(r) != K for r in x_rows + w_cols):
+-        raise ValueError(f"{rel.name}: instance rows are not K = {K} words")
+-    bindings = {n: hashauth.binding_digest(dataset=rel.instances_dataset, tier=rel.instances_tier, manifest_sha256=claimed, lo=0,
+-                                           hi=total, K=K, tree=n, schema=(scheme.schema if n != "y" else ysch)) for n in ("a", "b", "y")}
+-    if scheme.schema == "blake3-keyed/row/v2":
+-        dom = {n: CommitmentDomain(bindings[n], OWNER[n], RangeIndexedDomain(0, total)) for n in ("a", "b", "y")}
+-        fv = FrameV3({"a": Port(dom["a"], RowLeaf("blake3", ROLE_X, word_bits, K)), "b": Port(dom["b"], RowLeaf("blake3", ROLE_W, word_bits, K)),
+-                      "y": Port(dom["y"], WordLeaf(ysch, ybytes))})
+-        leaves = {"a": [fv.tree_leaf("a", r, d) for r, d in enumerate(_row_digests(x_rows, word_bits, ROLE_X))],
+-                  "b": [fv.tree_leaf("b", r, d) for r, d in enumerate(_row_digests(w_cols, word_bits, ROLE_W))],
+-                  "y": [fv.tree_leaf("y", r, fv.leaf_layout("y", r).digest(w.to_bytes(ybytes, "big"))) for r, w in enumerate(y_words)]}
+-        return {n: (bindings[n], OWNER[n], total, fv.root(n, leaves[n])) for n in ("a", "b", "y")}
+-    import numpy as np
+-    trees, _ = hashauth.build_trees(x_rows=np.asarray(x_rows), w_cols=np.asarray(w_cols), y_words=np.asarray(y_words),
+-                                    word_bits=word_bits, y_bits=rel.y_bits, bindings=bindings, leaf=scheme)
+-    return {n: (t.ref.binding, t.ref.owner, t.ref.count, t.ref.root) for n, t in trees.items()}
+-
+-
+-def commitment_problems(pdir: Path, man: dict, pinned: str, reps: list[str], *, instances_root: str | None = None) -> tuple[bool, list[str]]:
+-    """``(hashed, problems)``.  A dump whose pinned relation names a leaf (``+hash``, ``+blake3``, ...: the systems that take a
+-    hash-authentication block) passes only when every statement carries the block, its three tree references equal
+-    :func:`committed_trees` and each rep's statements' ``vu_index`` together cover ``[0, total_vus)`` exactly once
+-    (red-team-standard-hash R2); a bare relation's statements are not read here.  Coverage counts only what ``batch``
+-    verifies, so in every dump each rep's ``.stmt`` stems must equal its ``.proof`` stems and the manifest's entries for it
+-    (red-team-standard-hash R4: a statement without a proof claims VUs nobody proved)."""
+-    from .serialize import read_statement
+-
+-    orphans: list[str] = []
+-    for r in reps:
+-        stmts, proofs = ({f.stem for f in (pdir / r).glob(f"*.{s}")} for s in ("stmt", "proof"))
+-        listed = [f for f in man.get("files", []) if isinstance(f, dict) and str(f.get("proof") or f.get("stmt") or "").split("/", 1)[0] == r]
+-        if stmts != proofs:
+-            orphans.append(f"{r}: {len(stmts - proofs)} statement(s) without a proof, {len(proofs - stmts)} proof(s) without a statement")
+-        if any(not f.get("proof") for f in listed):
+-            orphans.append(f"{r}: the manifest lists a statement without a proof")
+-        listed_proofs = [Path(f["proof"]).stem for f in listed if f.get("proof")]
+-        if listed and (set(listed_proofs) != proofs or len(listed_proofs) != len(set(listed_proofs))):
+-            orphans.append(f"{r}: the manifest's proofs are not the rep's proofs")
+-        if any(f.get("stmt") and Path(f["stmt"]).stem != Path(f["proof"]).stem for f in listed if f.get("proof")):
+-            orphans.append(f"{r}: the manifest pairs a proof with another sub-batch's statement")
+-    hashed = "+" in (pinned or "")
+-    if orphans or not hashed:
+-        return hashed, orphans
+-    per_rep: dict[str, list] = {}
+-    unreadable: list[str] = []
+-    for r in reps:
+-        for f in sorted((pdir / r).glob("*.stmt")):
+-            try:
+-                per_rep.setdefault(r, []).append((f.name, read_statement(f.read_bytes())))
+-            except Exception as e:  # noqa: BLE001  (a statement batch would reject cannot be counted either)
+-                unreadable.append(f"{r}/{f.name}: unreadable statement ({type(e).__name__}: {e})")
+-    if unreadable:
+-        return True, unreadable[:8] + ([f"… {len(unreadable) - 8} more"] if len(unreadable) > 8 else [])
+-    if n_v6 := sum(bool(getattr(st, "v6", False)) for sts in per_rep.values() for _, st in sts):
+-        return True, [f"commitment: {n_v6} row-sharing (v6) statement(s): shared-row layouts are not recomputed"]
+-    try:
+-        want = committed_trees(pinned, man, instances_root=instances_root)
+-    except ValueError as e:
+-        return True, [f"commitment: {e}"]
+-    total = want["y"][2]
+-    problems: list[str] = []
+-    for r in reps:
+-        sts = per_rep.get(r, [])
+-        covered: list[int] = []
+-        for name, st in sts:
+-            ha = getattr(st, "hash_auth", None)
+-            if ha is None:
+-                problems.append(f"{r}/{name}: no hash-authentication block beside hashed statements")
+-                continue
+-            if sorted(t.name for t in ha.trees) != sorted(want):
+-                problems.append(f"{r}/{name}: trees {sorted(t.name for t in ha.trees)}, the instance set commits {sorted(want)}")
+-                continue
+-            for t in ha.trees:
+-                got = (bytes(t.binding), int(t.owner), int(t.count), bytes(t.root))
+-                if got != want[t.name]:
+-                    what = [k for k, a, b in zip(("binding", "owner", "count", "root"), got, want[t.name]) if a != b]
+-                    problems.append(f"{r}/{name}: tree {t.name} {'/'.join(what)} differ from the instance set's")
+-            covered += list(ha.vu_index)
+-        if sorted(covered) != list(range(total)):
+-            dup = len(covered) - len(set(covered))
+-            problems.append(f"{r}: statements cover {len(set(covered))} distinct VUs of [0, {total}) ({dup} claimed twice)")
+-    return True, problems[:8] + ([f"… {len(problems) - 8} more"] if len(problems) > 8 else [])
+-
+-
+-def verify_tree(pdir: Path, man: dict, v: Verifier, rep: Report, *, jobs: int, params: dict, asserted: str | None, out_dir: Path,
+-                instances_root: str | None = None) -> None:
++def verify_tree(pdir: Path, man: dict, v: Verifier, rep: Report, *, jobs: int, params: dict, asserted: str | None, out_dir: Path) -> None:
+     n, bad, missing = custody(pdir, man)
+     rep.custody = {"files": n, "mismatched": len(bad), "missing": len(missing)}
+     if bad:
+@@ -349,10 +205,6 @@ def verify_tree(pdir: Path, man: dict, v: Verifier, rep: Report, *, jobs: int, p
+     if not reps:
+         rep.status, rep.why = "FAIL", ["no rep*/ directory in the dump"]
+         return
+-    rep.hashed, bad = commitment_problems(pdir, man, rep.relation, reps, instances_root=instances_root)
+-    if bad:
+-        rep.status, rep.why = "FAIL", bad
+-        return
+     out_dir.mkdir(parents=True, exist_ok=True)
+     for r in reps:
+         out = out_dir / f"{r}.json"
+@@ -371,8 +223,6 @@ def verify_tree(pdir: Path, man: dict, v: Verifier, rep: Report, *, jobs: int, p
+             problems.append(f"{r}: Rust/Python disagree on {x['python_disagree']}")
+         if per_rep_n.get(r) not in (None, x.get("n")):
+             problems.append(f"{r}: {x.get('n')} proofs verified, manifest lists {per_rep_n[r]}")
+-        if x.get("n") != (n_stmt := len(list((pdir / r).glob("*.stmt")))):
+-            problems.append(f"{r}: {x.get('n')} proofs verified, the rep holds {n_stmt} statements")
+     rep.status, rep.why = ("FAIL", problems) if problems else ("PASS", [])
+ 
+ 
+@@ -384,8 +234,6 @@ def detail(rep: Report, v: Verifier) -> str:
+          f"(custody: {rep.custody['files']}/{rep.custody['files']} files match proofs/manifest.json): {acc}/{tot} accepted over {len(rep.reps)} rep(s), "
+          f"every batch ACCEPT, min union bound 2^-{bits:.2f}, system PINNED ({rep.relation}), Rust/Python verdict agreement {tot}/{tot}; "
+          f"host {os.uname().nodename}, 1 thread per proof; mode={rep.mode}")
+-    if rep.hashed:
+-        s += "; hash commitments recomputed from the instance set (a/b/y bindings + roots equal, every VU covered once per rep)"
+     if rep.mode == "interactive":
+         s += (" -- each sub-batch verified against its recorded step-0 coins (the live verifier's session coins): consistency with that "
+               "session, not transferable evidence (D7)")
+@@ -397,8 +245,7 @@ def free_bytes(path: Path) -> int:
+     return st.f_bavail * st.f_frsize
+ 
+ 
+-def reverify(st: Any, result: str, v: Verifier, *, by: str | None, jobs: int, work: Path, asserted: str | None, dry_run: bool, keep: bool,
+-             instances_root: str | None = None) -> Report:
++def reverify(st: Any, result: str, v: Verifier, *, by: str | None, jobs: int, work: Path, asserted: str | None, dry_run: bool, keep: bool) -> Report:
+     from research.store import evict as EV
+     from research.store.ids import is_run_id
+ 
+@@ -431,7 +278,7 @@ def reverify(st: Any, result: str, v: Verifier, *, by: str | None, jobs: int, wo
+         man = json.loads((pdir / "manifest.json").read_text())
+         rep.mode = man.get("mode") or params.get("mode")
+         per_rep = work / f"{d.name}.reps"
+-        verify_tree(pdir, man, v, rep, jobs=jobs, params=params, asserted=asserted, out_dir=per_rep, instances_root=instances_root)
++        verify_tree(pdir, man, v, rep, jobs=jobs, params=params, asserted=asserted, out_dir=per_rep)
+         if rep.status != "PASS":
+             if per_rep.is_dir():
+                 print(f"reverify: {result}: per-rep verifier JSON kept in {per_rep}", file=sys.stderr)
+@@ -483,8 +330,6 @@ def main(argv: list[str] | None = None) -> int:
+     ap.add_argument("--keep", action="store_true", help="keep the fetched trees")
+     ap.add_argument("--dry-run", action="store_true", help="fetch, check and verify; write nothing to the store")
+     ap.add_argument("--store", default=None, help="store root (default $RESEARCH_STORE or ~/.research/store)")
+-    ap.add_argument("--instances-root", default=os.environ.get("BENCH_INSTANCES"),
+-                    help="where frozen instance sets live, to recompute hash commitments (default $BENCH_INSTANCES)")
+     ap.add_argument("--json", action="store_true")
+     ns = ap.parse_args(argv)
+     if not ns.by and not ns.dry_run:
+@@ -500,8 +345,7 @@ def main(argv: list[str] | None = None) -> int:
+     for res in expand_short_ids("show", [*ns.results, *(["--store", ns.store] if ns.store else [])])[:len(ns.results)]:
+         t0 = time.monotonic()
+         try:
+-            rep = reverify(st, res, v, by=ns.by, jobs=ns.jobs, work=ns.work, asserted=ns.relation, dry_run=ns.dry_run, keep=ns.keep,
+-                           instances_root=ns.instances_root)
++            rep = reverify(st, res, v, by=ns.by, jobs=ns.jobs, work=ns.work, asserted=ns.relation, dry_run=ns.dry_run, keep=ns.keep)
+         except Exception as e:  # noqa: BLE001  (one result's environment failure must not abandon the batch)
+             rep = Report(res, "ERROR", [f"{type(e).__name__}: {e}"])
+         reports.append(rep)
+diff --git a/backends/direct/ligero/serialize.py b/backends/direct/ligero/serialize.py
+index c54d582f..052ce1e4 100644
+--- a/backends/direct/ligero/serialize.py
++++ b/backends/direct/ligero/serialize.py
+@@ -346,7 +346,7 @@ class Statement:
+     shared: "SharedSide | None" = None   # v6 (authentication = included-hash-shared): the hash side; ``a`` is then the
+     #                                      (l, 1) table [is_end] and ``b`` the (n_vus, 3) index rows
+     trimmed: bool = False            # hashed statement written as v6 (chain-end words only) instead of v5 (the l-vector)
+-    row_words: int | None = None     # v5 / v6 as read: the header's K (``_K_of`` = K_VU; not in the statement digest, so
++    row_words: int | None = None     # v5 as read: the header's K (``_K_of`` = K_VU; not in the statement digest, so
+     #                                  ``verify_files`` compares it with K_VU)
+ 
+     @property
+@@ -660,7 +660,7 @@ def _read_v6(r: _R, l, n, D, t, target, zk, t_pad, mode_code, n_proofs, n_vus, s
+     is_end[np.arange(n_vus) * steps + steps - 1, 0] = 1
+     shared = SharedSide(l_h, n_h, D_h, t_h, t_pad_h, coords, units, rows[:, 1:])
+     return Statement(l, n, D, t, target, zk, t_pad, MODE_NAMES[mode_code], n_proofs, n_vus, steps, is_end, auth.indices(), y16,
+-                     None, relation, 4, yb, auth, sibs, shared, row_words=K)
++                     None, relation, 4, yb, auth, sibs, shared)
+ 
+ 
+ def _read_v5(r: _R, l, n, D, t, target, zk, t_pad, mode_code, n_proofs, n_vus, steps, K, trimmed: bool = False) -> Statement:
+@@ -884,7 +884,7 @@ def verify_files(stmt_path: Path, proof_path: Path, device: str = "cpu", runner=
+     coins = own_coins if (st.interactive and own_coins is not None) else pf.coins if (st.interactive and pf.coins is not None) else None
+     if st.interactive and coins is None:
+         return False, "interactive transcript carries no coins", 0.0
+-    if (st.v5 or st.v6) and st.row_words is not None:
++    if st.v5 and st.row_words is not None:
+         from .chain import Layout
+         # the VU shape first (protocol.layout_error, as protocol.verify would), then the header K, which is not in the
+         # statement digest: every hashed writer emits K_VU (``_K_of``; for fp4-nvf4 24 x 64 codes, not steps x WORDS)
+diff --git a/backends/direct/ligero/steps_pin_test.py b/backends/direct/ligero/steps_pin_test.py
+index 9be45cbe..74a1a323 100644
+--- a/backends/direct/ligero/steps_pin_test.py
++++ b/backends/direct/ligero/steps_pin_test.py
+@@ -1,17 +1,14 @@
+ """steps-pin (red-team-leaf-3 H1 / H2): the Python verifier binds a chain statement's VU shape to the relation.  steps
+ (columns per VU) must be the relation's canonical value (``Relation.steps``, fp4 ``STEPS``, vu.py ``STEPS``) and never
+-exceed the leaf's structural bound (Ajtai: the ring degree n); a v5 / v6 header's K must be K_VU = 1536 (what every hashed writer emits).  The twin
++exceed the leaf's structural bound (Ajtai: the ring degree n); a v5 header's K must be K_VU = 1536 (what every hashed writer emits).  The twin
+ of ligero-verify's ``check_vu_shape`` (tests/relations.rs ``steps_pin_*`` / ``a_statement_whose_vu_shape_*``).
+ 
+ Must-reject: the red-team collide pairs (n64 steps 96, n128 steps 192) and n64 steps 32; real steps = 32 proofs of the
+ bare and the +hash fp8-ada relation (``redteam/steps_pin_forge.py``); header rewrites of every family's steps and a v5
+-K; a real steps = 32 +shared (v6) pair and v6 header rewrites, built on the CPU (through ``$LIGERO_VERIFY`` too when it
+-is set).  Honest: every committed fixture still verifies."""
++K.  Honest: every committed fixture still verifies."""
+ from __future__ import annotations
+ 
+ import json
+-import os
+-import subprocess
+ from pathlib import Path
+ 
+ import pytest
+@@ -147,109 +144,3 @@ def test_relation_registry_steps_are_the_rust_pins() -> None:
+     for name, steps in want.items():
+         if name in RELATIONS:
+             assert relation(name).steps == steps, name
+-
+-
+-# ---- +shared (v6): both sides of the pair carry the relation's VU shape (SharedHashedRunner.hooks / .hooks_h; the Rust
+-# pair verifier runs check_vu_shape on G and H).  fp8-ada, 2x2 tile, 4 VUs, Fiat-Shamir + ZK, on the CPU as
+-# redteam/leaf2_share_pair.py builds them; the steps = 32 pair is the honest prover with K_VU bumped (steps_pin_forge.py).
+-
+-def _shared_pair(root: Path, name: str, steps: int | None = None) -> tuple[Path, object]:
+-    from . import relations as RM
+-    from . import relchain as RC
+-    from .relchain import SharedHashedRunner, tile_instances
+-    from .serialize import _statement_of, proof_bytes, statement_bytes, system_bytes
+-    rel = relation("fp8-ada")
+-    k_vu = RM.K_VU
+-    try:
+-        if steps is not None:
+-            RM.K_VU = RC.K_VU = steps * rel.k
+-        R = SharedHashedRunner(rel, "cpu", -128.0, zk=True, mode="fiat-shamir")
+-        data, x_rows, w_cols = tile_instances(rel, 2, 2)
+-        R.commit_vus(data, tile=(2, 2), x_rows=x_rows, w_cols=w_cols)
+-        pf, pubs, lay = R.prove_vus(data[:4], check=False, vu_ids=range(4))
+-        st = _statement_of(R, pubs, lay, R.cfg(lay.l), 1)
+-        d = root / name
+-        d.mkdir()
+-        (d / "sub_00.stmt").write_bytes(statement_bytes(st))
+-        (d / "sub_00.proof").write_bytes(proof_bytes(pf.g))
+-        (d / "sub_00.hproof").write_bytes(proof_bytes(pf.h))
+-        if steps is None:
+-            (root / "system.bin").write_bytes(system_bytes(R.sys))
+-            (root / "system_h.bin").write_bytes(system_bytes(R.sys_h))
+-    finally:
+-        RM.K_VU = RC.K_VU = k_vu
+-    return d, R
+-
+-
+-@pytest.fixture(scope="module")
+-def shared(tmp_path_factory):
+-    root = tmp_path_factory.mktemp("shared")
+-    honest, R = _shared_pair(root, "honest")
+-    forged, _ = _shared_pair(root, "steps32", steps=32)
+-    return root, honest, forged, R
+-
+-
+-def _rust_pair(root: Path, stmt: Path, d: Path) -> dict | None:
+-    """``ligero-verify verify --system-h`` on the pinned (canonical) G / H systems; None without ``$LIGERO_VERIFY``."""
+-    exe = os.environ.get("LIGERO_VERIFY")
+-    if not exe or not Path(exe).is_file():
+-        return None
+-    r = subprocess.run([exe, "verify", "--system", str(root / "system.bin"), "--system-h", str(root / "system_h.bin"),
+-                        "--statement", str(stmt), "--proof", str(d / "sub_00.proof"), "--proof-h", str(d / "sub_00.hproof"),
+-                        "--soundness-bits", "100"], capture_output=True, text=True)
+-    return json.loads(r.stdout.strip().splitlines()[-1])
+-
+-
+-def _as_pair(root: Path, d: Path, edits: list[tuple[int, int]]) -> Path:
+-    """The pair ``d`` with header words rewritten, as ``root/<name>/sub_00.{stmt,proof,hproof}`` (the hash-side proof is
+-    found beside the statement)."""
+-    out = root / f"{d.name}-{'-'.join(f'{a}_{v}' for a, v in edits)}"
+-    out.mkdir(exist_ok=True)
+-    raw = bytearray((d / "sub_00.stmt").read_bytes())
+-    for at, v in edits:
+-        raw[at:at + 4] = int(v).to_bytes(4, "little")
+-    (out / "sub_00.stmt").write_bytes(bytes(raw))
+-    for f in ("sub_00.proof", "sub_00.hproof"):
+-        (out / f).write_bytes((d / f).read_bytes())
+-    return out
+-
+-
+-def test_the_shared_runner_carries_the_relations_vu_shape(shared) -> None:
+-    *_, R = shared
+-    assert R.hooks.steps == R.hooks_h.steps == relation("fp8-ada").steps == 48
+-
+-
+-def test_an_honest_shared_pair_verifies(shared) -> None:
+-    root, honest, _, _ = shared
+-    ok, why, _ = verify_files(honest / "sub_00.stmt", honest / "sub_00.proof", DEV)
+-    assert ok, why
+-    js = _rust_pair(root, honest / "sub_00.stmt", honest)
+-    if js is not None:
+-        assert js["accepted"] and js["system_pinned"], js
+-
+-
+-def test_reverify_fails_a_shared_pair_closed(shared) -> None:
+-    from .reverify import commitment_problems
+-    root, honest, _, _ = shared
+-    man = {"set": {"total_vus": 4, "instances": "0" * 64}}
+-    assert commitment_problems(root, man, "fp8-ada+hash", [honest.name]) == (
+-        True, ["commitment: 1 row-sharing (v6) statement(s): shared-row layouts are not recomputed"])
+-
+-
+-SHARED_NEG = [
+-    ("steps32", [], _shape(32, 48), "G: statement: steps = 32 columns per VU, the fp8-ada relation's VU is 48 columns"),
+-    ("honest", [(STEPS_AT, 32)], _shape(32, 48), "G: statement: steps = 32 columns per VU, the fp8-ada relation's VU is 48 columns"),
+-    ("honest", [(K_AT, 48 * 16)], "statement: K = 768 words per row, a hashed statement's row is K = 1536",
+-     "G: statement: K = 768 words per row, a hashed statement's row is K = 1536"),
+-]
+-
+-
+-@pytest.mark.parametrize("which,edits,why,why_rust", SHARED_NEG, ids=["forged-steps32", "header-steps32", "header-K768"])
+-def test_a_shared_pair_with_another_vu_shape_is_refused(shared, which, edits, why, why_rust) -> None:
+-    root, honest, forged, _ = shared
+-    d = _as_pair(root, forged if which == "steps32" else honest, edits)
+-    ok, got, _ = verify_files(d / "sub_00.stmt", d / "sub_00.proof", DEV)
+-    assert not ok and got.startswith(why), got
+-    js = _rust_pair(root, d / "sub_00.stmt", d)
+-    if js is not None:
+-        assert not js["accepted"] and js["reason"].startswith(why_rust), js
 diff --git a/backends/shared/hash_gpu/frame_v3.py b/backends/shared/hash_gpu/frame_v3.py
 deleted file mode 100644
 index 33f32fa3..00000000

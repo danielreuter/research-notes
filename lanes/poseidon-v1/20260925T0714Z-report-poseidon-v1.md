@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT none (10:27Z) [open] 5090 DONE (MALLOC vars set): plateau n=131072 P=36637 (1.49e7x) commit 0.444s art:6740eb22, BYTEID ok, vn2 handoff 1030Z; A/B vs unset +0.0% at plateau. Coordinator handoff 1035Z lists all 5 cells. Next: H100 rows re-measured with MALLOC vars (new pod).
 CHECKPOINT none (10:09Z) [open] 5090 sweep r5090-fp4nvf4 hit its 131072 cap with the stop rule unfired (P 36636 >= 1.02 P(32768)); continuing to 262144+ (r20260925-100932-d810), then re-register (10:06Z ids superseded). Acked 0946Z disk rule: my laptop run dirs < 1 MB, no proofs pulled.
 CHECKPOINT none (09:53Z) [open] 5090 pod i1k6ayj2vk65nu up (Ryzen 9950X; SECURE had no stock; 2 stray pods from a retry-loop bug terminated in ~3 min). Bootstrap 1 failed only at the instance-cache stage (fp4 is --relation fp4-nvf4 + included-hash); rerun r20260925-095252-cff3. H100 28/28 preserved.
 CHECKPOINT none (09:31Z) [open] H100 DONE (pod terminated 09:19Z): bf16-hopper plateau n=32768 P=10191 (3.16e7x) commit 0.163s art:72e2b0ba; fp8-hopper n=65536 P=18679 (3.45e7x) commit 0.326s art:23528a63; BYTEID ok; handoff vn2 0925Z. 5090: no SECURE stock, retrying COMMUNITY+SECURE.
@@ -167,3 +168,23 @@ Handoff verify-night-2/20260925T0925Z-handoff-from-poseidon-v1.md (both plateaus
   lib.sh records both in each point's meta.txt, register.sh copies them into meta.protocol.malloc_env; the 5090 row is
   re-measured from 1024 as a NEW sweep r5090m-fp4nvf4 with both set (r5090m.sh, run r20260925-101124-095a, cap 1048576).
   The r5090-fp4nvf4 points (unset) then serve as an A/B on the same pod.
+
+## RTX 5090 NVFP4 (fp4-nvf4 --auth included-hash = fp4-nvf4+poseidon2, l=8192 p8), sweep r5090m-fp4nvf4, MALLOC vars set
+Pod i1k6ayj2vk65nu (RTX 5090 32 GB, Ryzen 9 9950X, PCIe x8), run r20260925-101124-095a, tree 82adc8a7, committer main 58b113bc.
+N = 1676e12 / 3072 = 5.456e11 /s. Every point warm, 5 timed runs, contended false, Rust batch accept, malloc_env recorded.
+Last column: the same point in the malloc-unset sweep r5090-fp4nvf4 on the same pod (A/B).
+| n | P /s | e2e s | t.total s | commit s (cold) | N/P | result | tree | unset P (m vs unset) |
+|---|---|---|---|---|---|---|---|---|
+| 1024 | 24157 | 0.0424 | 0.0359 | 0.0065 (0.071) | 2.26e7 | art:b349198e | art:da02fd25 slim | 24330 (-0.7%) |
+| 2048 | 28930 | 0.0708 | 0.0600 | 0.0108 (0.072) | 1.89e7 | art:647aff38 | art:181892cc slim | 27793 (+4.1%) |
+| 4096 | 32428 | 0.1263 | 0.1103 | 0.0160 (0.066) | 1.68e7 | art:70f275ac | art:d8a0d856 full | 31433 (+3.2%) |
+| 8192 | 34308 | 0.2388 | 0.2094 | 0.0294 (0.068) | 1.59e7 | art:3aa1f51a | art:5471efc7 slim | 33753 (+1.6%) |
+| 16384 | 35458 | 0.4621 | 0.4053 | 0.0568 (0.095) | 1.54e7 | art:a2b8c472 | art:98f20582 slim | 35237 (+0.6%) |
+| 32768 | 36182 | 0.9056 | 0.7949 | 0.1107 (0.152) | 1.51e7 | art:466875a2 | art:ec065971 slim | 35479 (+2.0%) |
+| 65536 | 36489 | 1.7960 | 1.5717 | 0.2243 (0.273) | 1.50e7 | art:08c4ae96 | art:fcc00dec slim | 36462 (+0.1%) |
+| **131072 plateau** | **36637** | 3.5776 | 3.1334 | 0.4442 (0.494) | **1.49e7** | **art:6740eb22** | art:dcef74f1 full | 36636 (+0.0%) |
+Stop: P(131072) < 1.02 P(32768). Byte identity at 4096: IDENTICAL (ev 1829c793, stmts 15cd70b9; main's commit 1.108 s), tree
+art:4e704415. Commit evidence and statements are identical between the two sweeps at every point checked (1024, 4096).
+Renderer check on the plateau meta: instance_range ('stream', None), _protocol None. Old cell art:99867b4c: t.total 0.1387 s
+at 4096. Pod 09:31-10:25Z, $0.99/h, ~$0.89 (+ ~$0.07 for the two stray pods). Evidence evidence/5090/.
+Handoff verify-night-2/20260925T1030Z-handoff-from-poseidon-v1.md.

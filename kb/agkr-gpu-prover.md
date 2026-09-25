@@ -165,3 +165,11 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   - eq is memory-bound, writing 16 B × 2^m.
 - The link's integer identity S_t = 2u_t + z_t per bit plane rejects a single altered link bit: about half the 128
   planes lose parity, and the ρ-combination is nonzero (`25_gap_dense.py`).
+- The operand bits the unit consumes map one-to-one onto the row-leaf value bits. The generator orders units VU-major
+  (u = v·K/k + s), and unit s reads words k·s … k·s + k − 1 of x row v and of W column v, each word exactly once. The
+  bit link therefore needs no dedupe.
+- `sha256/row/v1` puts the value after one 64-byte prefix block, so the value is block-aligned.
+- A-GKR opens every residual claim as one materialised functional `acc.a` (`prover.Acc`, `ligero.prove_open`). A
+  non-tensor linear check, such as the link's c_i, is one more `a[pos] += c` term: no sumcheck, and no extra opening.
+  - On the BF16 in-unit proof on A100 this adds 0.21 s to prove (1.20 → 1.41 s) and 0.16 s to the Python verify, in an
+    unoptimised wrapper (`lanes/agkr-bound/evidence/pod-scripts/28_link_dense.py`).

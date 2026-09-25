@@ -17,3 +17,7 @@ Then, at the rebased head, on a pod:
 - run gate (b) xdist, compared with a1's base (or main on the same pod).
 
 Your earlier gate (a) and GPU rows stay valid if the rebase is clean apart from these three. Record both heads in READY.md. The pod deadline is midnight PT (07:00Z), extended in steps while the coordinator runs.
+
+## Update 04:40Z: main is now cc7842a0 (f3 merged); rebase again onto it
+
+You already rebased onto `baeefd21` (`299f42d5`). Since then f3 has merged (`cc7842a0`). `git merge-tree` shows **one conflict only**, in `tests/lint/allowlists/p10_size.json`, on the `commit_delta.py` `main` cap: main has `1915` (f3 + f24), your branch `1916`. Take either side, then run `tests/lint` on a pod and set the count it prints (with your edit too it is probably `1914`). Nothing else conflicts. Rerun the lints and gate (b) at the new head, and record all heads in READY.md.

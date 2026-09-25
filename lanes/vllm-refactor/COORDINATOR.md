@@ -77,6 +77,7 @@ Since 19:25Z the research coordinator does every merge to `main`, so two agents 
 - 04:05Z **f24 merged as `24e3b391`, f56 as `baeefd21`** (research coordinator). f3-integrated merges cleanly onto `baeefd21`, and the merge result's `integrations/vllm` and `packages/verity` trees are byte-identical to the tested tree `68e75c14`.
 - 04:10Z the combined gate (b) (`r20260925-034304-3b78`, preserved) is **green** against a1's xdist base: 0 new failures or skips. There are 66 F/E; one skip reason is main's `test_ship_roots` wording. **f3 merge request sent: `lane/vllm-rf-f3-integrated` @ `68e75c14`.** Pod `vyv-rf-coord-gb` terminated.
 - 04:06Z f1 was told to rebase onto `baeefd21` (handoff `vllm-rf-f1/20260925T0406Z-...`): import-line conflicts in `check/sampled_replay.py` and `tp/partial_source.py`, plus `p10_size.json`.
+- 04:37Z **f3 merged** (`lane/vllm-rf-f3-integrated`, main `cc7842a0`, lints 41/41). Phase 0/1 is merged except f1. At 04:40Z f1 was told to rebase `299f42d5` onto `cc7842a0`; the only conflict is the `p10_size.json` `commit_delta.main` cap.
 - **Decision 1 (commitment framing): on hold, pending the owner's confirmation.** The owner first chose (a), frame-v3 in production, with vLLM keeping its CUDA and passing core conformance vectors. He then asked to consider standardizing on vLLM's existing framing as a named `verity.commitments` scheme, provided proof backends don't fork per format. No plan or code change until he confirms.
 
 ## Next phases (not started)

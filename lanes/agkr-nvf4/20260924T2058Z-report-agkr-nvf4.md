@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT 00145f51 (01:36Z) [open] dev tip 00145f51 ~0.1431s same bytes ebe7c545 (w via eq_rows_dot, radix4 encoder, fused lookup_mults); record 86d4 @90c21455 0.168s spoiled by host jitter (not preserved); negatives running, re-record next
 CHECKPOINT 6d13c3e4 (01:17Z) [open] a4e2 0.1604s preserved (art:dfbc86c4; label held for red-team-lk); handoffs to verify-po/red-team-lk/agkr-fp8 done; took fp8 5034767f+3be6a35f (neutral); open-wq: L2 chunking dropped (slower), testing eq_rows_dot for w
 CHECKPOINT 79f00fd3 (00:58Z) [open] a4e2 PRESERVED 0.1604s (art:dfbc86c4, run-files 50f4fe91, 2^-130.19, new stmt BOOL_QUADRATIC+PAIRED; label held per coord 0050Z); verify-po + red-team-lk handoffs 0100Z; dev tip 79f00fd3 ~0.1507s; hill-climbing
 CHECKPOINT 57e9e4b (00:42Z) [open] b7cec878: circuit 226->166 queries/unit (bits as products, paired narrow ranges) -> LogUp 2^24; dev t.total 0.1578s, new sha ebe7c545, Rust 5/5, 2^-130.19. Negatives running on pod; then record + verify-po handoff.
@@ -112,5 +113,18 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
     columns D2H through pinned memory: t_open_cols 5.9 -> 2.4 ms, to_bytes 5.5 -> 3.8 ms, t.total ~0.152 s.
   - 79f00fd3 phase 1 queues round i+1's challenge-independent operands behind round i's message D2H (event-synced):
     t_arith ~50.4 -> ~49.1 ms, t.total ~0.1507 s.
+  - 90e1fe97 / 6d13c3e4: agkr-fp8's 5034767f (key → row map in multiplicities) and 3be6a35f (their keep rule replaces my
+    c3982dd5 one; both keep on the 5090). Neutral here: ~0.1515 s.
+  - 2f8663f4 opening w = Σ r_i X_i as one eq_rows_dot read of the committed rows (was Limbs8 + int8 GEMM); the transposed
+    functional is allocated empty with only its tail zeroed: t_open_wq 17.1 -> 14.5 ms, t.total ~0.1473 s.
+  - 90c21455 SIMT encoder radix-4 with two CTAs per SM (15_enc.py: the 70k-row open encode 5.1 -> 3.6 ms, same words), and
+    row_code_dot split 64 (4.5 -> 3.9 ms): t_open_wq 14.5 -> 12.5 ms, t_commit 4.85 -> 4.64 ms, t.total ~0.1463 s.
+  - 00145f51 kernels.lookup_mults: multiplicities over the key map in one Triton pass (map lookup, compare, int32 atomic
+    count, device miss counter, one sync; 16_mults.py: equal counts and misses, 4.9 -> 1.7 ms): t_mults 5.7 -> 3.2 ms,
+    t.total ~0.1431 s.
+  - tried and dropped: open_w_qc_eval in L2-sized row chunks (14_qcsweep.sh: 32 / 64 / 104 / 160 rows, all ≥ one pass; the
+    encode is not DRAM-bound); int32 padded layer inputs (pad_rows): peak -0.26 GB, no time.
+- record r20260925-012509-86d4 @ 90c21455: t.total 0.168 s, but reps spread 0.155–0.175 s with t_arith 50–71 ms and Rust
+  0.20–0.24 s (pod host jitter). Not a valid best, not preserved, superseded.
 - stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.

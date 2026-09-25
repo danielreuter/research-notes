@@ -8,7 +8,7 @@ REL=${1:-fp8-hopper}; N=${2:-4096}
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 cd /workspace/src/backends/gkr
 export PYTHONPATH=/workspace/src/backends/gkr:$PYTHONPATH
-REL=$REL N=$N H=/workspace/agkr-fp8/$REL $PY - <<'EOF' 2>&1 | grep -v -i -E "warn|searchsorted"
+REL=$REL N=$N H=${H:-/workspace/agkr-fp8/$REL} $PY - <<'EOF' 2>&1 | grep -v -i -E "warn|searchsorted"
 import gc, hashlib, json, os, statistics, time
 from pathlib import Path
 

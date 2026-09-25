@@ -85,6 +85,30 @@ for n in ("prove_range_table_graphed", "prove_ext_table_graphed", "prove_range_t
 for n in ("build_leaves", "multiplicities", "table_rows"):
     timed(logup, n, key="logup." + n)
 timed(ligero, "commit", key="ligero.commit")
+
+_GX = getattr(logup_packed, "_FSGraphExtDev", None)
+if _GX is not None:
+    def _replay_fs(self, tr, out):
+        def lap(key, t):
+            torch.cuda.synchronize()
+            cur[key] += time.perf_counter() - t
+            return time.perf_counter()
+        torch.cuda.synchronize()
+        t = time.perf_counter()
+        self.fs.load(tr)
+        self.g_tree.replay()
+        t = lap("lx.tree", t)
+        for lv in range(self.n):
+            for (_, _, g) in self.g_levels[lv]:
+                g.replay()
+            if lv in (9, 19, 22, 23):
+                t = lap(f"lx.levels<={lv}", t)
+        t = lap("lx.levels_rest", t)
+        r = self._finish_fs(tr, out)
+        lap("lx.finish", t)
+        return r
+    _GX._replay_fs = _replay_fs
+    timed(_GX, "prove_fs_ext", key="lx.prove_fs_ext")
 timed(ligero, "prove_open", key="ligero.prove_open")
 
 orig_prove = prover.prove

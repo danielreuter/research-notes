@@ -260,7 +260,7 @@ fn glue_check() {
     let (x, w) = gen_rows(&g, n_vu, 20260925, false);
     upload_rows(&g, &x, &w, n_vu);
     let len = 1usize << (m - 7);
-    let (mut hz, mut ha, mut hb, mut hzl) = (vec![F128::ZERO; len], vec![F128::ZERO; len], vec![F128::ZERO; len], vec![0u8; len * 16]);
+    let (mut hz, mut ha, mut hb, mut hzl) = (vec![F128 { lo: 0, hi: 0 }; len], vec![F128 { lo: 0, hi: 0 }; len], vec![F128 { lo: 0, hi: 0 }; len], vec![0u8; len * 16]);
     let mut secs = 0f64;
     let rc = unsafe { flock_glue_unit_witness_dump(m as i32, 13, hz.as_mut_ptr(), ha.as_mut_ptr(), hb.as_mut_ptr(), hzl.as_mut_ptr(), &mut secs) };
     assert_eq!(rc, 0);

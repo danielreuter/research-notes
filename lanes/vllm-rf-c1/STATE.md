@@ -4,9 +4,13 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T10:08Z
+updated: 2026-09-25T10:40Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
+
+## 10:40Z
+- Gate (a) at `7218ffbb`: 108/158 (48 pass, 60 skip, 0 fail) at 10:39Z; ETA ~11:20Z. A4 still not in origin/main (10:35Z; main
+  `5ac28010`, whose new commits touch neither packages/verity nor integrations/vllm). Pod deadline now 14:00Z (coordinator 10:01Z).
 
 ## 10:08Z
 - **Gate (b) at `53314d1c`: 0 new failures** vs same-pod base (`r20260925-094310-c681`, `evidence/gates/jdiff_b_head3_vs_base.txt`);

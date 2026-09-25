@@ -3,7 +3,7 @@ id: vllm-rf-c2/state
 lane: vllm-rf-c2
 kind: state
 agent: bc-568d82f4 (Cursor), coordinator bc-ba6cec03
-updated: 2026-09-25T10:07Z
+updated: 2026-09-25T10:40Z
 ---
 # c2 (Definition library, D8/D9, decision 3a): state
 
@@ -27,7 +27,14 @@ a4 base: 10996616
   equal. `test_derived_rows.py` + `packages/verity/tests/ml` green (separate processes).
 - Quick head `e0fc636f` (run `r20260925-092504-63c3`): lints green; registry test files green incl. the new one-process test.
 
-## Step 3 (code written, committing now)
+## Commits (step 3, pushed)
+- `d838f4c4` verity.ml.scalar: 18 basic int/bit/select/compare prims; registry cites them.
+- `5e21eead` verity.ml.prims: F32ToE4m3Sat_v1 + HopperE4m3QgmmaDot32_v1 (+ numpy kernel); registry cites them; P8 -2, P11 -1.
+- Tests at `5e21eead` (`r20260925-102525-d29e`, `evidence/step3-tests-5e21eead/`): lints 45/45; core ml 132/132; 32 registry
+  test files 678 tests, 3 fail, all 3 also fail at base (test_gen_sampling NameError, test_twins openmp, test_sampling_rows NaN
+  sign on x86); equality harness crashed on a harness bug (Vocabulary.version is a property), fixed.
+
+## Step 3 (details)
 - Moved into core, same id/signature/conformance: `verity.ml.prims` F32ToE4m3Sat_v1, HopperE4m3QgmmaDot32_v1
   (cast `f32_to_e4m3_sat_word` verbatim); new `verity.ml.scalar`: F32Fabs, F32Neg, F32Fmaxf, F32Fminf, F32Sat,
   F32BitsShl23, F32IsFinite, F32Eq, Bf16GtStrict, I32Le/Eq/Add, BitAnd/Not/Or, SelectF32/Bf16/I32. Compares and
@@ -38,7 +45,11 @@ a4 base: 10996616
 - `ref_vocab_digest` changes at steps 2 and 3 (code-identity pin; record before/after).
 
 ## Running
-- `vyv-rf-c2-cpu` (RunPod `v34wij1rkanus8`, cpu3g 32 vCPU / 128 GB, EPYC 7702P, guard 90): idle; next: step-3 equality.
+- `vyv-rf-c2-cpu` (RunPod `v34wij1rkanus8`, cpu3g 32 vCPU / 128 GB, EPYC 7702P, guard 90, from 08:51Z):
+  `r20260925-103740-ee23` step-3 equality (quick then full, ~40 min).
+- `vyv-rf-c2-reg` (RunPod `ht2p5tooi75gev`, cpu3m 32 vCPU / 256 GB, EPYC 7713P, 200 GB, ~$1.76/h, from 10:32Z; no 64 vCPU
+  cpu3m/cpu5m in any DC): base tree shipped, bootstrap running. For gate (a) T0+T1 (peak 115 GB/process fits), gate (b)
+  head vs base, #73/#74 re-encode.
 
 ## Next
 1. Step 3 equality run (`tools/equality3.py`) + lints + core ml tests + registry tests on `vyv-rf-c2-cpu`.

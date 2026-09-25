@@ -41,3 +41,13 @@ every binding then "mismatches" (b-ligero-standard-hash report, 08:19Z).
   pins.
 - **Plateau before main's GPU committer** (sweep r20260925-073210-f45c, l = 4096, p = 2, `--commit-per-rep`): 870 VU/s
   e2e at 16 384 VUs (art:d6328cf5…). The commitment was ~2.2 s of ~19 s per rep; 32 768 VUs OOM on 24 GB.
+- **After main's GPU committer and the x4 fold** (b-ligero-standard-hash, RTX 4090, tree 806a2f73; l = 4096, p2, 5 reps,
+  `--commit-per-rep`, malloc env):
+  - fp8-ada+blake3, 4096 frozen: e2e 3.558 s (1151 VU/s, commit 0.011 s), art:9b80f566…;
+  - fp8-ada-x4+blake3, 4096: e2e 1.981 s (2067 VU/s), art:050ddede…;
+  - x4 plateau at 8192: 2165 VU/s, art:19be6afa….
+
+  The x4 fold is 1.8× x1, as the row count predicts: 79 184 rows per column × 12 columns vs 35 370 × 48. On a 24 GB
+  4090, x4 at l = 4096 fits only at p2 (p3 OOMs; peak 18.7 GB at p2).
+- **The malloc env** (MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12) gained +2.7 % at the x4 plateau on the 4090
+  (2108.7 -> 2165.0 VU/s). The prover's per-rep times were already steady there.

@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT 0f71b5b4 (10:39Z) [open] 10:40Z: sigma-form link (S1) in-repo at 136a714c (gpu/link.py, C1 GF(2^256) one point, verifier-derived bijective Λ, booleanity check). Launching 30_link_build (timing+prime-side negatives; MALLOC_MMAP_MAX_=0/TRIM set). Rust verifier side next. Drill-down (L) only.
 CHECKPOINT a7f3f26 (10:24Z) [open] Dense check folded into the real BF16 in-unit A100 proof: prove 1.20->1.41 s, Py verify 1.25->1.47; gap_alt_operand accept->REJECT. Link map is a bijection (27). art:64220e14, art:400126e2. MALLOC env set. Scaffold only.
 CHECKPOINT ee2a319f (10:05Z) [open] Dense check 0.066 s/point on A100 (int8 tensor-core coefs); route (a) prime side 0.776->1.30 s (1 pt) / 1.36 s (2 pts). gap_alt_operand rejected by link identity (62/128, 69/128 planes). art:64220e14. Handoff 1005Z. Nothing big on laptop.
 CHECKPOINT 10996616 (09:55Z) [open] Dense GF(2^128) check at N=201,326,592 (BF16 batch) on A100: fused Triton 0.367 s; int8 tensor-core coefs 0.066 s (eq 0.023, coef+ip 0.044), cross-checked vs torch. u_t 0.032 s. Now: gap_alt_operand vs link checks (r20260925-095534-ad8c). Scaffold only.

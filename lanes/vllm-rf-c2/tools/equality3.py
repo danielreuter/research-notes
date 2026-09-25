@@ -54,9 +54,22 @@ def _use_base() -> None:
     sys.path[:0] = [f"{BASE}/integrations/vllm", f"{BASE}/packages/verity/src"]
 
 
+_INIT_ERR = None
+
+
 def _init(side: str) -> None:
-    global _SIDE, _D
+    """Pool initializer; an exception here would make the pool respawn workers forever, so it is recorded instead."""
+    global _SIDE, _INIT_ERR
     _SIDE = side
+    try:
+        _init_side(side)
+    except BaseException as e:  # noqa: BLE001
+        import traceback
+        _INIT_ERR = f"{type(e).__name__}: {e}\n{traceback.format_exc()[-3000:]}"
+
+
+def _init_side(side: str) -> None:
+    global _D
     if side in ("old", "oldall"):
         _use_base()
     import verity
@@ -69,7 +82,7 @@ def _init(side: str) -> None:
               "F32BitsShl23": M.F32BitsShl23, "F32IsFinite": M.F32IsFinite, "F32Eq": SM.F32Eq, "BitOr": SM.BitOr,
               "BitAnd": PP.BitAnd, "BitNot": PP.BitNot, "I32Le": P.I32Le, "I32Eq": P.I32Eq, "I32Add": P.I32Add,
               "SelectF32": P.SelectF32, "SelectBf16": P.SelectBf16, "SelectI32": P.SelectI32, "Bf16GtStrict": P.Bf16GtStrict}
-        assert "verity.ml.scalar" not in sys.modules and "verity.ml.prims" not in sys.modules, "old side imported core prims"
+        assert "verity.ml.scalar" not in sys.modules, "old side imported core scalar"
     elif side == "new":
         from verity.ml import prims as C, scalar as S
         _D = {"F32ToE4m3Sat": C.F32ToE4m3Sat, "HopperE4m3QgmmaDot32": C.HopperE4m3QgmmaDot32} | {n: getattr(S, n) for n in SCALAR}
@@ -80,8 +93,10 @@ def _init(side: str) -> None:
 
 
 def _whoami(_=None) -> dict:
+    if _INIT_ERR:
+        return {"side": _SIDE, "pid": os.getpid(), "init_error": _INIT_ERR}
     import verity
-    return {"side": _SIDE, "pid": os.getpid(), "verity": verity.__file__,
+    return {"side": _SIDE, "pid": os.getpid(), "verity": verity.__file__, "modules_core_prims": "verity.ml.prims" in sys.modules,
             "defs": {k: {"id": d.id, "file": d.evaluate.__code__.co_filename, "line": d.evaluate.__code__.co_firstlineno}
                      for k, d in _D.items()}}
 
@@ -268,6 +283,8 @@ def _encodings(_=None) -> dict:
     import inspect
     import pkgutil
 
+    if _INIT_ERR:
+        raise RuntimeError(f"{_SIDE} init: {_INIT_ERR}")
     from verity.ir.codec import _encode_definition, canonical_json, program_digest
     from verity.ir.defs import REGISTRY, CompositeDefinition, bind
     from verity.ir.program import Program
@@ -410,6 +427,9 @@ def main() -> int:
         pools = {"old": pold, "new": pnew}
         res["whoami"] = {"old": pold.apply(_whoami), "new": pnew.apply(_whoami)}
         print(json.dumps(res["whoami"], indent=1), flush=True)
+        if any("init_error" in v for v in res["whoami"].values()):
+            json.dump(res, open(out_path, "w"), indent=1)
+            raise SystemExit(1)
 
         total = 1 << (24 if quick else 32)
         na = 4 if quick else 64

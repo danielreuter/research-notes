@@ -1,0 +1,565 @@
+{
+ "expected_steps": 16,
+ "expected_steps_source": "c_bare timing.engine_steps",
+ "expected_layers": 30,
+ "layers": 30,
+ "schema": "verity-capture/noninterference/v1",
+ "utc": "2026-09-25T10:18:55Z",
+ "dir": "/workspace/cp/nonint-head",
+ "variants": {
+  "a_observer": "full observer + hash-only snapshots of every step (HashOnlyCapture)",
+  "b_hooks": "bare engine (no observer, no dispatch mode, no Triton hook); register_forward_hook on model.layers.N, model.norm, logits_processor, lm_head; async pinned D2H copy of each output tensor at hook time; one torch.cuda.synchronize() + sha256 after every engine.step()",
+  "c_bare": "bench.m1_capture --no-observer (driver.run_requests, nothing installed)"
+ },
+ "hooked_modules_b": [
+  "model.layers.0",
+  "model.layers.1",
+  "model.layers.2",
+  "model.layers.3",
+  "model.layers.4",
+  "model.layers.5",
+  "model.layers.6",
+  "model.layers.7",
+  "model.layers.8",
+  "model.layers.9",
+  "model.layers.10",
+  "model.layers.11",
+  "model.layers.12",
+  "model.layers.13",
+  "model.layers.14",
+  "model.layers.15",
+  "model.layers.16",
+  "model.layers.17",
+  "model.layers.18",
+  "model.layers.19",
+  "model.layers.20",
+  "model.layers.21",
+  "model.layers.22",
+  "model.layers.23",
+  "model.layers.24",
+  "model.layers.25",
+  "model.layers.26",
+  "model.layers.27",
+  "model.layers.28",
+  "model.layers.29",
+  "model.norm",
+  "lm_head",
+  "logits_processor"
+ ],
+ "hook_fire_counts_b": {
+  "model.layers.0": 16,
+  "model.layers.1": 16,
+  "model.layers.2": 16,
+  "model.layers.3": 16,
+  "model.layers.4": 16,
+  "model.layers.5": 16,
+  "model.layers.6": 16,
+  "model.layers.7": 16,
+  "model.layers.8": 16,
+  "model.layers.9": 16,
+  "model.layers.10": 16,
+  "model.layers.11": 16,
+  "model.layers.12": 16,
+  "model.layers.13": 16,
+  "model.layers.14": 16,
+  "model.layers.15": 16,
+  "model.layers.16": 16,
+  "model.layers.17": 16,
+  "model.layers.18": 16,
+  "model.layers.19": 16,
+  "model.layers.20": 16,
+  "model.layers.21": 16,
+  "model.layers.22": 16,
+  "model.layers.23": 16,
+  "model.layers.24": 16,
+  "model.layers.25": 16,
+  "model.layers.26": 16,
+  "model.layers.27": 16,
+  "model.layers.28": 16,
+  "model.layers.29": 16,
+  "model.norm": 16,
+  "logits_processor": 16
+ },
+ "tokens": {
+  "a_observer": {
+   "7cc7c3bb-adf5-58cd-87fc-9f1b8e7c34d6": [
+    359,
+    253,
+    1123,
+    1183,
+    282,
+    253,
+    1772,
+    338,
+    553,
+    7527,
+    288,
+    11492,
+    351,
+    260,
+    4340,
+    1357
+   ]
+  },
+  "b_hooks": {
+   "7cc7c3bb-adf5-58cd-87fc-9f1b8e7c34d6": [
+    359,
+    253,
+    1123,
+    1183,
+    282,
+    253,
+    1772,
+    338,
+    553,
+    7527,
+    288,
+    11492,
+    351,
+    260,
+    4340,
+    1357
+   ]
+  },
+  "c_bare": {
+   "7cc7c3bb-adf5-58cd-87fc-9f1b8e7c34d6": [
+    359,
+    253,
+    1123,
+    1183,
+    282,
+    253,
+    1772,
+    338,
+    553,
+    7527,
+    288,
+    11492,
+    351,
+    260,
+    4340,
+    1357
+   ]
+  },
+  "accepted": {
+   "7cc7c3bb-adf5-58cd-87fc-9f1b8e7c34d6": [
+    359,
+    253,
+    1123,
+    1183,
+    282,
+    253,
+    1772,
+    338,
+    553,
+    7527,
+    288,
+    11492,
+    351,
+    260,
+    4340,
+    1357
+   ]
+  }
+ },
+ "tokens_equal_accepted": {
+  "a_observer": true,
+  "b_hooks": true,
+  "c_bare": true
+ },
+ "reference": "clean control run (generated_token_ids)",
+ "tokens_equal_workload_accepted": {
+  "a_observer": true,
+  "b_hooks": true,
+  "c_bare": true
+ },
+ "steps": [
+  {
+   "step": 0,
+   "rows_a": 32,
+   "rows_b": 32,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    359
+   ],
+   "sampled_b": [
+    359
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 1,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    253
+   ],
+   "sampled_b": [
+    253
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 2,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1123
+   ],
+   "sampled_b": [
+    1123
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 3,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1183
+   ],
+   "sampled_b": [
+    1183
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 4,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    282
+   ],
+   "sampled_b": [
+    282
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 5,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    253
+   ],
+   "sampled_b": [
+    253
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 6,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1772
+   ],
+   "sampled_b": [
+    1772
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 7,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    338
+   ],
+   "sampled_b": [
+    338
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 8,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    553
+   ],
+   "sampled_b": [
+    553
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 9,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    7527
+   ],
+   "sampled_b": [
+    7527
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 10,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    288
+   ],
+   "sampled_b": [
+    288
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 11,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    11492
+   ],
+   "sampled_b": [
+    11492
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 12,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    351
+   ],
+   "sampled_b": [
+    351
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 13,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    260
+   ],
+   "sampled_b": [
+    260
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 14,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    4340
+   ],
+   "sampled_b": [
+    4340
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  },
+  {
+   "step": 15,
+   "rows_a": 1,
+   "rows_b": 1,
+   "layers_a": 30,
+   "layers_b": 30,
+   "hidden_eq": 30,
+   "residual_eq": 30,
+   "final_eq": true,
+   "logits_eq": true,
+   "compared": 62,
+   "equal": 62,
+   "noncontiguous_b": [],
+   "sampled_a": [
+    1357
+   ],
+   "sampled_b": [
+    1357
+   ],
+   "sampled_eq_by_request": true,
+   "batch_order_is_request_order": true,
+   "sampled_eq": true
+  }
+ ],
+ "hash_comparisons": 992,
+ "hash_equal": 992,
+ "mismatches": [],
+ "problems": [],
+ "PASS": true,
+ "subprocesses": {
+  "a_observer": {
+   "rc": 0,
+   "s": 28.6
+  },
+  "b_hooks": {
+   "rc": 0,
+   "s": 14.3
+  },
+  "c_bare": {
+   "rc": 0,
+   "s": 15.0
+  }
+ }
+}

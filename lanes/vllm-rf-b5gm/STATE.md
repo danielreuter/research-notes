@@ -22,8 +22,20 @@ created: 2026-09-25T09:10Z
   Tests: `test_global_match.py`, `test_compare_splits_binding.py`, `test_global_program_regress.py` import the moved names
   from their new modules. Laptop: pyflakes clean, every lint test function passes (stdlib runner), by_name 0/0.
 
-## Running
-- 10:10Z creating pods `vyv-rf-b5gm-cpu` (cpu3g 16 vCPU) and `vyv-rf-b5gm-big` (cpu3m 64 vCPU / 512 GB).
+## Pods
+- `vyv-rf-b5gm-cpu` = RunPod `d8iv0xx7nruohu` (cpu3g 16 vCPU / 64 GB cgroup, EPYC 7713 host, 80 GB, $0.64/h), created ~10:08Z.
+  Bootstrap run `r20260925-100929-878e` BOOTSTRAP-OK; + pytest-xdist 3.8.0, xgrammar 0.2.7, googleapis-common-protos 1.75.3,
+  uvicorn 0.53.0 -> `uv pip freeze` identical to a1's `baseline-freeze.txt`. Trees: `/workspace/research/src/{55b9d1ff...,10996616...}`
+  (base shipped from a detached worktree `~/projects/verity-wt/rf-b5gm-base`, run `r20260925-101120-a5ca`).
+  GM-01 inputs: ro key minted on the laptop, piped in, fetched (matchrec 66 s, build 160 s), key deleted 10:18:45Z.
+- `vyv-rf-b5gm-big` = RunPod `jnuvfc6j890g7v` (cpu3m 32 vCPU / 256 GB, EPYC 9655 as a23b's, 200 GB, $1.76/h), created 10:31Z.
+  cpu3m and cpu5m x64 (512 GB) were "no instances available" on every try 10:08-10:30Z; a single T0+T1 run peaked ~63 GB at a23b.
+  Bootstrap run `r20260925-103915-eb0b`.
+
+## Runs
+- Lints at head (cpu): `r20260925-102424-bb2e` rc 0, 45 tests passed.
+- GM-01 base1 (base tree): `r20260925-102545-9b89` rc 0, wall 550.6 s, CPU 1878.3+211.5 s, 13.34 GiB (host load ~210).
+- GM-01 head1: `r20260925-103943-2969` running.
 
 ## Next
 - cpu: bootstrap, GM-01 inputs (own ro key, deleted after fetch), lints, GM-01 ABAB base/head, gate (b) head + base.

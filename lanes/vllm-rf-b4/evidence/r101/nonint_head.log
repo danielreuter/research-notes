@@ -1,0 +1,9 @@
+start 2026-09-25T10:17:54Z tree /workspace/head (head)
+[nonint] === a_observer: /workspace/venv312/bin/python -m verity_vllm.properties.noninterference --variant observer --out /workspace/cp/nonint-head/a_observer --workload workloads/workload_32x16_1req.json --checkpoints manifests/checkpoints.json --max-num-seqs 8
+[nonint] === a_observer: rc=0 in 28.6s
+[nonint] === b_hooks: /workspace/venv312/bin/python -m verity_vllm.properties.noninterference --variant hooks --out /workspace/cp/nonint-head/b_hooks --workload workloads/workload_32x16_1req.json --checkpoints manifests/checkpoints.json --max-num-seqs 8
+[nonint] === b_hooks: rc=0 in 14.3s
+[nonint] === c_bare: /workspace/venv312/bin/python -m verity_vllm.pipeline.m1_capture --no-observer --out /workspace/cp/nonint-head/c_bare --workload workloads/workload_32x16_1req.json --checkpoints manifests/checkpoints.json --max-num-seqs 8
+[nonint] === c_bare: rc=0 in 15.0s
+[nonint] PASS: hashes 992/992, tokens {'a_observer': True, 'b_hooks': True, 'c_bare': True}, problems 0 -> /workspace/cp/nonint-head/noninterference.json
+exit 0 2026-09-25T10:18:56Z

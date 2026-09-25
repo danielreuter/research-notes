@@ -182,3 +182,6 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
   `sha256_leaf_bytes` read: nothing found (equal-length headers with equal CV give the same leaf; metadata only).
 * 10:33Z +sha256 class verdict handoff to the coordinator, copied to verify-night-2 and b-ligero-sha256: "CLASS GRANTED WITH
   CONDITIONS" (run ≥ da74b03e; reverify from a tree with 3301c435 + the sha256 scheme, or 06; 04 BOUND ≥ 2^-128).
+* 10:35Z run rtsh-h2h (`h2_hopper_sha256.sh`, da74b03e binary e045e016): H2 on fp8-hopper-x4+sha256; steps 12 accepted
+  (system 6cf20505 = PINS), 24 and 6 refused by Python and Rust. art:43b92cc7. 10:39Z amendment handoff (coordinator,
+  verify-night-2, b-ligero-sha256).

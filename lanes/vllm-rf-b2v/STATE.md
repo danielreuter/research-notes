@@ -2,7 +2,7 @@
 id: vllm-rf-b2v/state
 lane: vllm-rf-b2v
 kind: state
-updated: 2026-09-25T10:37Z
+updated: 2026-09-25T10:42Z
 ---
 # b2v (one verdict and `properties/` records): state
 
@@ -44,9 +44,12 @@ Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/project
 - `vyv-rf-b2v-l40s` (clgfo42ik8b60d, 1x L40S, cgroup 62 GB): first bootstrap `r20260925-093143-cafd` FAILED rc=3 (FA2 tap
   build OOM-killed: `ninja -j 128`, exit 137; pod_bootstrap.sh defaults MAX_JOBS=nproc=128). Rerun MAX_JOBS=32
   `r20260925-095828-2f7d` BOOTSTRAP-OK 10:04Z. #101 chain `r20260925-101202-5fdc` at 5483d13b (`evidence/chain101.sh`):
-  build PASS 10:14Z (manifest 90f8186879d5035a), match PASS 10:35Z; property stages running; then commit.
+  build PASS 10:14Z (manifest 90f8186879d5035a), match PASS 10:35Z; props rc=0 10:37Z: `<row>/properties/`
+  noninterference.json ok digest be83f678… (world 1, tokens equal, boundary hashes 1088/1088), census.json ok digest
+  33a41e9c…; commit stage running since 10:37Z.
 - `vyv-rf-b2v-tp2` (qxi7kk83o1oxz4, 2x L40S, cgroup 377 GB): BOOTSTRAP-OK 09:56Z. #70 build,match `r20260925-095754-ee6c`
-  at 66eaaa50 (PAIRS=1). Then noninterference.record(world 2) → `<row>/properties/`, commit at 66eaaa50, then
+  at 66eaaa50 (PAIRS=1): build PASS 10:20Z digest 64bee6d6e8264461, manifest 1bb40895671dd791 (both = record); match
+  capture+check pass 10:37Z; fold running. Then noninterference.record(world 2) → `<row>/properties/`, commit at 66eaaa50, then
   `check.verdict from-record` at the head (tp_stage.sh writes no vllm-verdict/v1).
 - No CPU pod available (10:25Z: cpu3m x64/x32, cpu5m x64/x32, cpu3g x16 all "no instances available"). Plan: lints, unit
   tests and gate (b) head+base on the L40S pod after #101 (GPUs hidden, `evidence/l40s_gates.sh`); gate (a) T0,T1 and the

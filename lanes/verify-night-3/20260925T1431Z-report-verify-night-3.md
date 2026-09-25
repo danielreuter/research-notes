@@ -5,6 +5,9 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 906255b2 (20:28Z) [open] reopened for route (a) live-coin G3 (art:3bfb2f58 4096, envelope art:d5731679; PR #36 dec08973): NOT final
+CHECKPOINT 906255b2 (20:22Z) [final] 4 cells + 4 equiv accepted: ac1f532c(833fc972)+dc455fc8(388e52d3), 675a03a3(19d49495)+40b23d0b arrays direct(16c71390), f7aac95f(83483c9f)+d4402d29(7d6d25db), H100 6d6464d1(c319dee2)+9b5f1e24(c42c70b9); pod p3ink8nhwnomt7 terminated 20:21Z ~$0.30
+CHECKPOINT 906255b2 (20:21Z) [final] 4 cells + 4 equiv accepted: ac1f532c(833fc972)+dc455fc8(388e52d3), 675a03a3(19d49495)+40b23d0b arrays direct(16c71390), f7aac95f(83483c9f)+d4402d29(7d6d25db), H100 6d6464d1(c319dee2)+9b5f1e24(c42c70b9); pod p3ink8nhwnomt7 terminated 20:21Z ~$0.30
 CHECKPOINT 906255b2 (20:13Z) [open] accepted: 675a03a3 (vd 19d49495), ac1f532c (833fc972), f7aac95f (83483c9f) + 3 equiv. Queue +1: H100 fp8-hopper-x4+vllm-v1 art:6d6464d1 (equiv 9b5f1e24) running @acd50fec
 CHECKPOINT 906255b2 (20:00Z) [open] equiv accepted: dc455fc8 (vd 388e52d3), 40b23d0b arrays direct (vd 16c71390), d4402d29 regen at acd50fec + 7da00370 (vd 7d6d25db). reverify: 675a03a3 PASS; ac1f532c running, then f7aac95f
 CHECKPOINT 906255b2 (19:48Z) [open] pod vy-verify-night-3 p3ink8nhwnomt7 (cpu3c 16 vCPU 100GB, $0.48/h) for ac1f532c/675a03a3 (@main 7da00370) + f7aac95f (@lane/b-ligero-vllm-v1 acd50fec) and their equiv docs
@@ -77,3 +80,21 @@ artifacts: art:73aa7efe art:7b44bcad art:cc5f72de art:99a5a9fd art:47cf9051 art:
 - Queued, **not taken in this job** (they need a new launch):
   - `20260925T1940Z-handoff-from-coordinator.md`: SHA-256 cells art:ac1f532c and art:675a03a3, plus equivalence documents art:dc455fc8 and art:40b23d0b.
   - `20260925T1945Z-handoff-from-coordinator.md`: the vllm-v1 cell art:f7aac95f and its equivalence document art:d4402d29.
+
+## Reopen 2 (19:42Z): 3 queued cells + the H100 vllm-v1 cell
+- Requests: `20260925T1940Z-handoff-from-coordinator.md`, `20260925T1945Z-handoff-from-coordinator.md`, and b-ligero-vllm-v1's
+  2010Z (relayed by the coordinator's launch message).
+- Pod vy-verify-night-3 p3ink8nhwnomt7 (cpu3c 16 vCPU, 100 GB). Scripts: `evidence/pod-scripts/41-regen.sh`, `42-reverify-tree.sh`,
+  `43-round2.sh`. Equivalence evidence: `evidence/equiv/regen-*.json`.
+- Runs: r20260925-194914-20b4 and r20260925-201329-502e, both PRESERVED.
+
+| cell | tree | batch | verdict | equiv | equiv verdict |
+|---|---|---|---|---|---|
+| art:ac1f532c 4090 fp8-ada-x4+sha256 16384 | main 7da00370 | 97/97, 2^-128.31, sys d6b0cd8d | art:833fc972 | art:dc455fc8 (re-derived + --check) | art:388e52d3 |
+| art:675a03a3 A100 bf16-ampere-x4+sha256 4096 | main 7da00370 | 25/25, 2^-128.05, sys a862f7a0 | art:19d49495 | art:40b23d0b (arrays regenerated from the frozen set, x/W/y sha256 equal) | art:16c71390 |
+| art:f7aac95f 4090 fp8-ada-x4+vllm-v1 16384 | lane/b-ligero-vllm-v1 acd50fec | 97/97, 2^-128.31, sys f7f31613 | art:83483c9f | art:d4402d29 (re-run at acd50fec and 7da00370) | art:7d6d25db |
+| art:6d6464d1 H100 fp8-hopper-x4+vllm-v1 32768 | acd50fec | 49/49, 2^-128.20, sys 69054deb | art:c319dee2 | art:9b5f1e24 (re-run at acd50fec) | art:c42c70b9 |
+
+- Sent: `lanes/coordinator/20260925T2023Z-handoff-from-verify-night-3.md`.
+- Pod terminated 20:21Z, about $0.30.
+- Also received: `20260925T2011Z-handoff-from-b-ligero-vllm-v1.md` (art:6d6464d1 and art:f7aac95f): both answered above.

@@ -5,6 +5,7 @@ created: 2026-09-25T17:21Z
 status: open
 ---
 
+CHECKPOINT dca6a867 (20:27Z) [open] relaunched after adding protocols/sampled_proofs to PYTHONPATH (pod venvs lack verity_sampled_proofs; main's Commit fails without it): gate r20260925-202716-cf90 (cpu, ~21:40Z), #101 r20260925-202723-eb11 (g2, ~20:50Z)
 CHECKPOINT dca6a867 (20:12Z) [open] head dca6a867 (layer-map fix after merge); gate r20260925-200850-e37c on vyv-rf-b1c-cpu (~21:25Z), #101 r20260925-201117-8d31 on vyv-rf-b1c-g2 (~21:00Z); asked coordinator to extend past 20:30Z
 CHECKPOINT 4f968954 (20:04Z) [open] head 4f968954 (merged main 7da00370: commit/challenge.py the one challenge module, check/replay/challenge.py deleted, PR #29 hunks in split modules; pushed). re-gate r20260925-195449-51c1 on vyv-rf-b1c-cpu (bootstrap+lints+gate(b) vs 7da00370); #101 r20260925-195843-ae6d on vyv-rf-b1c-g1 (head+base vs record)
 CHECKPOINT 1fd7e9dc (19:50Z) [open] reopened for PR #29 reconcile (handoff 20260925T1955Z-handoff-from-vllm-coordinator.md): NOT final. merging main, moving seeds into commit/challenge.py, re-gate + #101

@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T18:20Z
+updated: 2026-09-25T20:25Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -60,7 +60,18 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
 - moe67's live run is `r20260925-175229-a415` (not `...-2424`, which failed on quoting): #101 PASS (build 573313ed, manifest
   ee65240e = c2b's epoch value), now #4.
 
+## 20:25Z check
+- `row_pod.sh` has no TP hook: #70 (17:55–19:38Z) and #75 first ran the TP1 path, which is invalid. `rows.sh` now picks `tp_stage.sh`
+  for WORLD > 1. #75 relaunched on tp75 `r20260925-201729-6f0c` (tp_stage); #70 goes to the new `vyv-rf-epoch-tp70b` (`wto6vcl88f3aau`,
+  2x L40S, 233 GB, $2.18/h; bootstrap `r20260925-201842-c282`, then `rows70-tp70b`).
+- #39 Build OOM (rc 137) at 125 GB (moe68). #57 Build running, and its Match advisory would refuse at 119 GiB. #4 Build 2 h, now Match.
+  #73 Build 2 h 20 min and going. #67 Build (tp70 GPU 0) since 19:38Z.
+- #68: no >= 256 GB pod yet (loop to 21:00Z). Decision asked in `lanes/vllm-coordinator/20260925T2025Z-handoff-from-vllm-rf-epoch.md`.
+
 ## Next
+- Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the
+  recording trees (`a784d421`, `89cd9d1a` for #67/#68) lack a5 and b1 (digest-neutral by their gates). READY: flag `a784d421`'s
+  `vllm_adapter.py` hunk under owner review (protected file). vyv- deadline now 00:30Z.
 - Rows at `a784d421` once each bootstrap ends. Golden re-record (item 5, `/tmp/ep/golden.sh`) on a pod.
 - `rebaseline.py run --record DIR` with `VERITY_REGRESSION_ROWS_ROOT=<run>/sweep` on each recording pod, then table / write.
 

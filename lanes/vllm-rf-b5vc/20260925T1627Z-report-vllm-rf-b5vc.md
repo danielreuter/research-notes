@@ -5,6 +5,9 @@ created: 2026-09-25T16:27Z
 status: final
 ---
 
+CHECKPOINT 90300f52 (20:24Z) [final] READY: lane/vllm-rf-b5vc 90300f52 on main b989a321; lints 45=45, gate (b) 0 new, gate (a) 158=158 0 changes, #101 SAME-OF-RECORD; pods a5-g1, a5-t1 terminated; spend ~$4.8; merge-ready handoff 2020Z
+CHECKPOINT 90300f52 (20:22Z) [final] READY: lane/vllm-rf-b5vc 90300f52 on main b989a321; lints 45=45, gate (b) 0 new, gate (a) 158=158 0 changes, #101 SAME-OF-RECORD; pods a5-g1, a5-t1 terminated; spend ~$4.8; merge-ready handoff 2020Z
+CHECKPOINT 90300f52 (20:19Z) [final] READY: lane/vllm-rf-b5vc 90300f52 on main b989a321; lints 45=45, gate (b) 0 new, gate (a) 158=158 0 changes, #101 SAME-OF-RECORD; pods a5-g1, a5-t1 terminated; spend ~$4.8; merge-ready handoff 2020Z
 CHECKPOINT 90300f52 (20:17Z) [final] READY: lane/vllm-rf-b5vc 90300f52 on main b989a321; lints 45=45, gate (b) 0 new, gate (a) 158=158 0 changes, #101 SAME-OF-RECORD; pods a5-g1, a5-t1 terminated; spend ~$4.8; merge-ready handoff 2020Z
 CHECKPOINT 90300f52 (18:59Z) [open] gate (b) head 4f090959 vs 40b9e571 (=main b989a321 tree): 0 new failures/skips (jdiff 4046=4046); lints 45=45. gate (a) running in r20260925-181451-4e3d since 18:28Z, check back ~20:15Z
 CHECKPOINT 90300f52 (18:20Z) [open] head 90300f52 (main b989a321 merged; vllm tree == 4f090959). t1 r20260925-181451-4e3d running: gate (b) ~18:45Z, gate (a) ~20:30Z; check back 18:50Z then 20:30Z

@@ -211,8 +211,8 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - The 3c769c6d build (f271e422) accepts 5/5 (sha256 ebe7c545), taking 0.62-1.39 s each. The verifier sources at b7cec878
   are identical to 3c769c6d's, the statement is byte-identical to b7cec878's export, public.bin has 0 rows mismatched, and
   the fp8 regression is accepted.
-- Negatives, all rejected: mutate 148/148; the producer's s_flip, t_plus, f_plus and public_reordered (LK level 1 sum
-  mismatch).
+- Negatives, all rejected: mutate 148/148; my s_flip, t_plus, f_plus and public_reordered (LK level 1 sum mismatch) and
+  the removed public line (parse error). The producer named no negatives tree.
 - `27-nvf4-rewrite-check.py` (main's parser) compares with the 2b25df7f circuit (#11) and finds the same 226 lookup facts
   per unit. The 46 R1 lookups become 46 e·e product wires with asserts w − e = 0, and the PR blocks are exactly all
   (x + 2^b·y, x, y). v1 (r20260925-011239-a1df) failed on three bugs in the checker itself: the tag is on column 0,

@@ -5,6 +5,7 @@ created: 2026-09-25T01:05Z
 status: open
 ---
 
+CHECKPOINT 0d3fe370 (01:55Z) [open] control+audit preserved art:5419ef15: nvf4 tagless control moves rejection LogUp->assertions (tag alone rejects); fp8 control confounded (forged col also breaks ALIGN4/R5 queries), audit shows target tuple differs from a real LK row only in tag; no isolated fp8 forgery exists. Next: terminate pod, report, handoffs, FINAL.
 CHECKPOINT 0d719a8 (01:25Z) [open] art:49757870 tree (716ea008) PASS: static merge/flatten equivalence, statement sha = cell's, forgeries tag x2 + flatten aux rejected by py+Rust; evidence art:9a6280c5 PRESERVED. b7cec878 + fp8 forges running (fp8 static PASS, stmt = art:979e37aa's).
 CHECKPOINT 48a2588c (01:16Z) [open] static equivalence PASS on 716ea008 (merge+flatten) and b7cec878 (merge+flatten+bool 46->46+paired); selftests catch all planted defects. Forgeries r20260925-011408-c1b3 running (nvf4 716ea008 first). Handoff 0100Z agkr-nvf4 (art:dfbc86c4) in scope.
 CHECKPOINT 4bd6c54c (01:05Z) [open] pod vy-red-team-lk (5090) up, trees 3be6a35f/716ea008/b7cec878 rebuilt from patches, Rust verifiers building. Paper review: all 5 rewrites equivalence-preserving so far (tag col constant in queries). Next: static equivalence + forgery harness.
@@ -72,3 +73,59 @@ equivalent -> (our export with the rewrite on) -> byte-identical to the NEW cell
 - Non-vacuity (`selftest`): planted defects all caught on the three statements: query tag changed, LK row tag changed, LK
   row dropped, key shifted by 2^20, pad column nonzero, output column +1; PR5 row x out of range, PR5 x/y swapped, PR3 query
   dropped; flatten def dropped, flattened product operand swapped, quadratic dropped, range dropped.
+
+## Forgeries (pod, cheating prover, our Rust verifiers; 64 VUs; outputs out/<rev>/forge{,.log})
+Cheating prover = our tree copy with the LogUp "fractional sum is not zero" raises sed'ed to `pass` (logup.py 1, logup_packed.py
+3) and `logup.multiplicities` swapped for a first-column match with no membership check (so a forged query is counted
+against the colliding LK row). Honest control accepted by Python and Rust in every tree. Every forgery REJECTED by both:
+
+| tree | proof bytes | forgery | Rust rejection |
+|---|---|---|---|
+| 716ea008 (art:49757870) | 649000 | tag.R1_as_R16 (R1 query's key = R16 row key + R16 tag shift), tag.E2M1X2_as_POW19 (full POW19 row, E2M1X2 tag) | LogUp LK level 0: final check |
+| | | flatten.aux+1 (column flat.g2.shift.prod79.a + 1) | unit/assertions: phase-1 round 0 sum mismatch |
+| b7cec878 (art:dfbc86c4) | 652840 | tag.R5_as_R16, tag.E2M1X2_as_POW19, paired.PR3.carry (x+2^3, y-1: same key), paired.PR3.wrap (x-2^3 mod p, y+1) | LogUp LK level 0: final check |
+| | | bool.two (bit = 2), bool.half (bit = (p+1)/2), flatten.aux+1 | unit/assertions: phase-1 round 0 sum mismatch |
+| 3be6a35f (art:45c5be4a) | 817888 | tag.R5_as_R7 (q105 key = 33 + 5·2^20, R7's row), tag.T_OP_as_ALIGN4 (full ALIGN4 row, T_OP tag) | LogUp LK level 0: final check |
+
+No accepted forgery. fp8 needed the 5-line Triton 3.4 constexpr fix (from b7cec878's packed/kernels_triton.py, 05_fp8_rerun.sh)
+in OUR copy only to run the honest generator on the 5090; it touches no statement or proof code.
+
+## Control: tag-stripped LK (06_control.sh, 07_audit.sh, 08_iso.sh)
+The same tag forgeries against a deliberately unsound statement = LK with its tag column deleted from rows and queries,
+plus a per-forgery audit of every changed (query, unit) tuple against the LK row set:
+- nvf4 716ea008: the target tuple is the ONLY LK miss with the tag, and there is NO miss without it; Rust/Python rejection moves
+  from "LogUp LK final check" to "unit/assertions" on the tagless statement. So the tag column alone is what rejects the
+  collision at LogUp (the flatten/assert layer then still catches the bad value).
+- fp8 3be6a35f: control CONFOUNDED: the forged column is also read by other queries (tag.R5_as_R7: q64 ALIGN4 and q106 R5;
+  tag.T_OP_as_ALIGN4: q65 ALIGN4) that miss LK with or without the tag, so LogUp rejects either way. The audit shows the
+  target tuples (q105, q0) are LK misses only with the tag, i.e. without it they equal real LK rows. A search for an
+  isolated fp8 range-tag forgery (every range query x every wider range table x up to 256 keys, forged unit) found none: every
+  fp8 range-checked column also feeds a query that the change breaks. The fp8 verdict therefore rests on the exact static
+  equivalence + the Rust rejections, with this audit as attribution, not on a clean end-to-end control.
+
+## Evidence (research data put --preserve from the pod, minted credential; laptop reindex --remote; `data preserved` bounded)
+- art:9a6280c5 redteam-findings/v1, 716ea008, ref result=art:49757870 (static, selftest, forge statements/rows/proofs/verdicts).
+- art:319062b4 redteam-findings/v1, b7cec878, ref result=art:dfbc86c4.
+- art:ca49b2f8 redteam-findings/v1, 3be6a35f, ref result=art:45c5be4a.
+- art:5419ef15 redteam-findings/v1, control + audit (both trees) + fp8 isolated search, refs result=art:49757870, result_fp8=art:45c5be4a.
+- (art:41147034: an earlier put of 716ea008 under the unknown kind gate-log/v1; superseded by art:9a6280c5, not cited.)
+- Labels (labels-sync pushed, confirmed local+remote): art:45c5be4a, art:49757870, art:dfbc86c4 each
+  `proof_class=NON_ZK_PROOF_DIAGNOSTIC --by red-team-lk` (the cells' own class: no downgrade) + `finding=HOLDS (red-team-lk): ...`,
+  ref evidence.
+- Harness lane/red-team-lk 7a042646 48a2588c f054da0d 0731bede 2f859869 b81c0f23 0d3fe370 (`backends/gkr/tools/red_team_lk.py` only).
+
+## Deviations / limits
+- nvf4 verified with a verifier built by us from b7cec878 (main's cannot parse `public s t f`; see Setup); fp8 with main's.
+- The H100 FP8 cell art:3ae971dd (verify-po 01:42Z handoff; same 3be6a35f `merge_tables`, 139 q/unit, R6 for R5): the rewrite
+  verdict covers the encoding it uses, but I did not export, statically check or forge against THAT statement (pod gone);
+  verify-po's structural check art:e96f50ac is the statement-level evidence. Not labelled by me.
+- Forgeries are single-unit witness edits at B = 64 VUs; the static checks cover every query/row of the full statements.
+
+## Inbox
+- `20260925T0100Z-handoff-from-agkr-nvf4.md`: acted (b7cec878 / art:dfbc86c4 red-teamed above).
+- `20260925T0123Z-handoff-from-verify-po.md`: acted (verdict + labels; verify-po may release its held labels).
+- `20260925T0142Z-handoff-from-verify-po.md`: acted (art:3ae971dd scope stated under Deviations; rewrite PASS applies to the encoding).
+
+## Handoffs sent
+- `~/.research/notes/lanes/coordinator/20260925T0200Z-handoff-from-red-team-lk.md` "red-team LK: PASS ...", copies
+  `lanes/agkr-fp8/20260925T0200Z-handoff-from-red-team-lk.md`, `lanes/agkr-nvf4/20260925T0200Z-handoff-from-red-team-lk.md`, `lanes/verify-po/20260925T0200Z-handoff-from-red-team-lk.md`.

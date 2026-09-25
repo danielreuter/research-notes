@@ -5,6 +5,7 @@ created: 2026-09-25T16:23Z
 status: open
 ---
 
+CHECKPOINT 8f94cb48 (16:57Z) [open] re-gate r20260925-165541-b7a7 on vyv-rf-b5pat-cpu (handed over by b5patc): lints + gate(b) head 8f94cb48 then base 38a8d35d; #67 head Commit on g2 running
 CHECKPOINT 8f94cb48 (16:51Z) [open] merged origin/main 38a8d35d -> 8f94cb48 (pushed; import/allowlist conflicts only, static import scan clean); re-gate head 8f94cb48 vs base 38a8d35d next on b5pat-cpu; #67 head Commit running
 CHECKPOINT 0e954bf0 (16:47Z) [open] #67 head Commit on g2 still running (since 16:03Z); waiting on b5patc cpu handoff for re-gate
 CHECKPOINT 0e954bf0 (16:33Z) [open] branch lane/vllm-rf-b1c @0e954bf0 (rebased on main 239c0e28, pushed); #70 done 32/32 = record (R2 preserved), tp2 terminated; #67 head Commit running on g2; STATE.md up

@@ -2,7 +2,7 @@
 id: vllm-rf-gc/state
 lane: vllm-rf-gc
 kind: state
-updated: 2026-09-25T16:30Z
+updated: 2026-09-25T17:00Z
 ---
 # gc (gate (b) green where the cause is the test harness or the tree): state
 
@@ -10,14 +10,19 @@ updated: 2026-09-25T16:30Z
 > bc-2b8cd51c. Start commit `8a3aa083` (origin/main incl. c1) + cherry-pick of `wip/vllm-rf-gb-1604` @ `176d3bff`.
 > Coordinator: vLLM coordinator bc-ecac3029. Budget $5 new spend, CPU only. vyv- deadline 2026-09-25T20:30Z.
 
-base: 8a3aa083 (triage XML from gb at 33e4d8d1)
+base: 38a8d35d (coordinator 16:55Z; lane merged origin/main 2603dfcc, whose diff over 38a8d35d is backends/numerical only)
 branch: lane/vllm-rf-gc
 
 ## Commits
-- none yet
+- 0b54b584 execution_of_workload in the torch-free load_workload extraction (gb's WIP 176d3bff; 4 NameErrors)
+- 79206954 core verity on the applicability builds' PYTHONPATH (11 E + 19 F)
+- 301ce7dc gc.freeze tests isolated from an engine frozen earlier in the worker (2 F)
+- f2599a27 merge origin/main 2603dfcc
 
 ## Running
-- nothing yet
+- gb-cpu r20260925-165445-d918: lints + gate (b) base at 38a8d35d (started 16:55Z)
+- gb-cpu r20260925-165502-2bc9: lints + gate (b) head at f2599a27, waits for the base run (no overlap)
+- stopped: r20260925-163811-0e25 (base 8a3aa083, killed at 97% per coordinator 16:55Z); r20260925-163221-f7ab rc127 (script path)
 
 ## Pods
 - `vyv-rf-gb-cpu` (0d4uj5m7e8o5cz, cpu3g 32 vCPU, $1.28/h), adopted from gb.

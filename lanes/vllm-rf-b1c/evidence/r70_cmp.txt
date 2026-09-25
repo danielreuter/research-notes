@@ -1,0 +1,45 @@
+release UNRELEASED 2026-09-25T14:24:08Z commit=unknown tree=/workspace/head/integrations/vllm branch=None dirty= (no /workspace/head/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh) tp=2
+precheck PASS 2026-09-25T14:24:08Z source identity == /workspace/head/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T14:24:08Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+build PASS 2026-09-25T14:46:18Z rc=0 wall=1330s digest=64bee6d6e8264461 digests_r1..=d8cc47009eb82cb3 workload_digests_r0..=2f6367e27e967b30/9b96c11ff9901044 shapes=8
+release UNRELEASED 2026-09-25T14:56:04Z commit=unknown tree=/workspace/head/integrations/vllm branch=None dirty= (no /workspace/head/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh) tp=2
+precheck PASS 2026-09-25T14:56:04Z source identity == /workspace/head/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T14:56:04Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+match FAIL 2026-09-25T15:15:43Z rc=0/0/0/1 wall=1179s tp2_match[pass True structure True n_coll_r0 8448 sig_len 66 steps 128 provenance True 8448 mismatches 0 tokens True] fold_match rc=1 pass False legs {"fold_per_rank": {"0": false, "1": false}, "compare_per_rank": {"0": null, "1": null}, "global_match_per_rank": {"0": null, "1": null}, "cross_rank": "FAIL"} problems ["rank 0: fold not ok (rc 0, errors 4096, unresolved 3544): [{\"class\": \"FoldError\", \"step\": 101, \"message\": \"AllGather2_v1{N=1024}.parts: own partial must be a row-major bf16 [1, 1024] view, got View(a36719+0 bfloat16[1, 1024] s=[3072, 1])\", \"event\": 158233, \"op\": \"vllm.all_gather.default\", \"pattern\": \"tp.collective\"}, {\"class\": \"FoldError\", \"step\": 101, \"me", "rank 1: f
+release UNRELEASED 2026-09-25T15:15:43Z commit=unknown tree=/workspace/head/integrations/vllm branch=None dirty= (no /workspace/head/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh) tp=2
+precheck PASS 2026-09-25T15:15:44Z source identity == /workspace/head/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T15:15:44Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+commit FAIL 2026-09-25T16:13:03Z rc=1 wall=3439s pass False pairs 1 delta 1.7895264383405447 roots ["0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957"] tokens [True, True] replay False linkage True xrank False fold_binding False weights_pin True [tp2commit] FAIL delta 1.7895264383405447 s (86.66528442855136%) roots ['0b91229f06480ce4']
+OK   tp_run_root (every pair) 
+OK   per_rank_roots (every pair) 
+OK   rank 0 leaves 
+OK   rank 0 tensors 
+OK   rank 0 bytes_bound 
+OK   rank 0 classes 
+OK   rank 0 openings verified/n 
+OK   rank 1 leaves 
+OK   rank 1 tensors 
+OK   rank 1 bytes_bound 
+OK   rank 1 classes 
+OK   rank 1 openings verified/n 
+OK   tokens_equal all 
+OK   commit_pass (every pair) 
+OK   pass 
+OK   value_check 
+OK   match_oracle rank 0 
+OK   match_oracle rank 1 
+OK   sampled_replay.result 
+OK   boundary_linkage.result 
+OK   cross_rank_collectives.result 
+OK   fold_match_binding.result 
+OK   query_population.result 
+OK   weights_pin.result 
+OK   cross_rank_collectives picks / pair 
+OK   cross_rank_collectives equal == picks 
+OK   fold_match_binding.why 
+OK   weights_pin roots of record 
+OK   query_population counts 
+OK   required manifest digest 
+OK   required_classes 
+OK   committer / openings 
+32/32 equal; pairs head 1 base 3

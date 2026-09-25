@@ -276,7 +276,7 @@ verifier is already around 1 s.
 
 ~~~text
 tip: lane/flock-bench @ b9cd5368 (base main@b9cd5368)        merge-with: none
-known-failures: none    pod: terminated 09:52Z (gpu tsxroyl1ffz7px), 09:35Z (cpu4 mfe8808gesdhml), cpu/cpu2/cpu3 by 08:44Z; ~$4 est. (rate x uptime)
+known-failures: none    pod: terminated 09:52Z (gpu tsxroyl1ffz7px), 09:35Z (cpu4 mfe8808gesdhml), cpu/cpu2/cpu3 by 08:44Z; $3.48 (coordinator spend-ledger: gpu 1.39, cpu4 1.64, cpu 0.15, cpu2 0.03, cpu3 0.26)
 artifacts: art:aa24c7eb art:59d7c080 art:85d4fb7a art:1ef9ac52 art:9be695b0 art:1e54492e art:0bd23b01 art:469d0d63 art:025a0ed4 art:7218310f art:e4f684ac art:3f5173a2
 ~~~
 

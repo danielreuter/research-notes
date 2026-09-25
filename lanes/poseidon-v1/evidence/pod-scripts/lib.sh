@@ -27,7 +27,7 @@ run() {
   gpu_idle || return 1
   local t0=$(date +%s) rid=r$(date -u +%Y%m%d-%H%M%S)-$(openssl rand -hex 2)
   echo $rid > $d/run_id
-  echo "tag=$tag tree=$tree rel=$rel l=$l p=$p n=$n reps=${REPS:-5} creps=${CREPS:-5} args=$* load=$(cut -d' ' -f1-3 /proc/loadavg) start=$(date -u +%FT%TZ)" > $d/meta.txt
+  echo "tag=$tag tree=$tree rel=$rel l=$l p=$p n=$n reps=${REPS:-5} creps=${CREPS:-5} args=$* load=$(cut -d' ' -f1-3 /proc/loadavg) start=$(date -u +%FT%TZ) MALLOC_MMAP_MAX_=${MALLOC_MMAP_MAX_:-unset} MALLOC_TRIM_THRESHOLD_=${MALLOC_TRIM_THRESHOLD_:-unset}" > $d/meta.txt
   ( cd $tree && PYTHONPATH="$tree/packages/verity/src:$tree/backends/numerical/python:$tree/tools/research/src:$tree" \
     RESEARCH_GIT_COMMIT=$(python3 -c "import json;print(json.load(open('$tree/.research-source.json'))['commit'])" 2>/dev/null || cat $tree/.commit) \
     $PY -m backends.direct.ligero.run --relation $rel bench-vu --zk --mode interactive --batch $l --pipeline $p \

@@ -47,6 +47,8 @@ r = json.load(open(res))
 pts = [json.loads(l) for l in open(jpath) if l.strip()]
 me = next(p for p in pts if p.get("tag") == tag)
 cont = r.get("contention") or {}
+kv = dict(t.split("=", 1) for t in open(res.rsplit("/", 1)[0] + "/meta.txt").readline().split() if "=" in t)
+malloc = {k: kv.get(k, "unset") for k in ("MALLOC_MMAP_MAX_", "MALLOC_TRIM_THRESHOLD_")}
 m = {x["name"]: x["value"] for x in r["measurements"]}
 sid = tag.rsplit("-n", 1)[0]
 r.update(lane="poseidon-v1", tag=tag, pod=pod, committer=committer,
@@ -56,7 +58,7 @@ r.update(lane="poseidon-v1", tag=tag, pod=pod, committer=committer,
                                 "every layout: graph captures, allocator growth) before the timed reps; the first of the 1 + N "
                                 "commitment builds is cold (commit.cold_seconds) and never enters commit.seconds",
                    "runs": me.get("reps"), "commit_runs": m.get("commit.reps"),
-                   "contended": cont.get("contended"), "contention": cont,
+                   "contended": cont.get("contended"), "contention": cont, "malloc_env": malloc,
                    "statistic": "t.total and the t.* buckets are the median rep's (phases.median_rep); commit.seconds is the "
                                 "median of the N warm commitment builds; e2e.seconds = commit.seconds + t.total; P = B / e2e.seconds"},
          sweep={"id": sid, "axis": "total_vus (B), doubled from 1024 at fixed per-proof settings", "point": me["n"],

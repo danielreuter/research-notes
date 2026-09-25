@@ -6,6 +6,7 @@
 set -uo pipefail
 cd /workspace/src && source /workspace/env.sh
 set -a; . /root/r2.env; set +a
+export MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1000000000000
 I=$RESEARCH_RUN_DIR/inputs; W=/workspace/verify-night-2
 LV=$(sha256sum /workspace/bin/ligero-verify | cut -c1-8)
 export VN2_VDESC="ligero-verify sha256 $LV (main 3301c435)"
@@ -32,6 +33,9 @@ BL="Producer b-ligero-standard-hash (tree 806a2f73 = its lane + main 94b1c4d2 GP
 TAG=4090-b3-4096 VN2_N=4096 LABEL=1 PV_NOTE="$BL" bash $I/20-cells.sh \
   art:08225c8c209777cde883d544ed19b59704b2e9d3e8c60000137b5f2cdbfa1c4a art:0a95eb1e36bf2003501911d5d7983eb2c39a9356635994007ac60eab78ebc240 -- \
   art:e7d59ab6a7bad2140c776f1d160efa302f46439ea1ceda9edff68d228a6df022 art:017a706919fd4f694ab7bfa25f63e3123a1fbd2ddd7b0bb0aff800cb447c2ae4
+echo "=== [$(date -u +%H:%M:%S)] (3a') 4090 fp8-ada+blake3 4096, live-verifier run (1008Z)"
+TAG=4090-b3-live VN2_N=4096 LABEL=1 PV_NOTE="$BL The producer's live verifier (own coins, run_files live/) ran on the prover's pod; this is the file re-verification of rep 1." bash $I/20-cells.sh \
+  art:6a36cde712108a60fe919043996cfdeda11e06a93e583544bd1438b09966742c -- art:e9932b72b71ed81a6d4a94ea62e36bc3f1db521258c9237744c5c31459ca71ee
 echo "=== [$(date -u +%H:%M:%S)] (3b) 4090 fp8-ada-x4+blake3 plateau 8192"
 TAG=4090-b3x4-8192 VN2_N=8192 LABEL=1 PV_NOTE="$BL n = 8192: $SYN." bash $I/20-cells.sh \
   art:f35d43aa392b154f2af73bc41920ce1dc17c96b58d9ccd5a608aed9ebf7a453f -- art:6b6d4484c7a3911946431ec8a7d3ef609137274157003e47654313d25be77631

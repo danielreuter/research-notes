@@ -8,6 +8,7 @@ final: 16:00Z hard; budget $12
 status: open
 ---
 
+CHECKPOINT d6e36fb (10:12Z) [open] 10:13Z H100 BF16 32768 art:72e2b0ba accepted (3301c435). SP1 49695f7c rerun w/ full custody art:17f1205b: reps0-1 instance_roots true. 23 queued (8 +blake3 cells incl live e9932b72, x4 equiv f70cf39f; MALLOC vars set, verify-only). No laptop pulls.
 CHECKPOINT 10996616 (09:56Z) [open] 09:57Z coord 0935Z: H100 x4 + BLAKE3 xcheck on main 3301c435 verifier/reverify (r20260925-093931-f022); no CLEARED until red-team ok. SP1 art:49695f7c: host repro vk 0x0098..3a66, my core stmt==dump; all-5-rep --batch running. Laptop: nothing big pulled. Next: blake3-80gb A100
 CHECKPOINT e0fc636f (09:31Z) [open] 09:32Z verified BLAKE3 4090 cells art:5d20ad00 (vd 5c100a08) + plateau art:d6328cf5 (vd 41e8f1a0), handed off 0915Z/0930Z; poseidon-v1 4096 x3 labelled (66b0d958, 9a29580b, a4c00776); 32768 relabel + sp1c host build running
 CHECKPOINT 10996616 (09:10Z) [open] 09:11Z poseidon-v1 4 results all checks PASS (labels refused by over-broad self-label guard, fixed); running r20260925-090956-57e5: BLAKE3 cells art:5d20ad00 + art:d6328cf5 (priority), pv relabels incl art:af008992, then sp1-committed host build

@@ -159,3 +159,11 @@ Handoff verify-night-2/20260925T0925Z-handoff-from-poseidon-v1.md (both plateaus
   run.py relation: the row is `--relation fp4-nvf4 --auth included-hash`, fp4/hashed.py); r20260925-095252-cff3 (no RELS)
   BOOTSTRAP_OK: encode 0.187 ms, matmul bf16 238.7 TFLOP/s, PCIe x8 of x16, no 5090 health reference.
 - 09:54Z 5090 row run r20260925-095432-4465: r5090.sh (row.sh r5090-fp4nvf4 fp4-nvf4 8192 8, cap 131072, then register).
+- 10:06Z first 5090 sweep r5090-fp4nvf4 (run r20260925-095432-4465, registered + preserved from the pod): P 24330 / 27793 /
+  31433 / 33753 / 35237 / 35479 / 36462 / 36636 at n = 1024 ... 131072; BYTEID IDENTICAL (ev 1829c793); it ended at its 131072
+  cap with the stop rule unfired (36636 >= 1.02 x 35479), so it is NOT a finished sweep. Its ids (plateau art:e0da2cab...,
+  tree art:ea6e0378) are not handed off. Continuation r20260925-100932-d810 started 10:09Z, killed within 1 min (no point).
+- Inbox 1003Z (coordinator): MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1000000000000 in every measured run from now. Acted:
+  lib.sh records both in each point's meta.txt, register.sh copies them into meta.protocol.malloc_env; the 5090 row is
+  re-measured from 1024 as a NEW sweep r5090m-fp4nvf4 with both set (r5090m.sh, run r20260925-101124-095a, cap 1048576).
+  The r5090-fp4nvf4 points (unset) then serve as an A/B on the same pod.

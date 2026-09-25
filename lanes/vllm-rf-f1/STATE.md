@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T03:13Z
+updated: 2026-09-25T04:20Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -212,3 +212,27 @@ updated: 2026-09-25T03:13Z
   `r20260925-033833-dec1` (vyv-rf-f1-t1, four processes, 15-20 min each, peak 251 GB), rc 0.  Same outcome on all 13 as `e2f85a82`
   (tp2) and as a23b's T0+T1 base at `72884c8a`.  Preserved; **vyv-rf-f1-t1 drained and TERMINATED 04:02Z** (~40 min).  The serial
   rest of gate (a) (`r20260925-032012-ef74`, vyv-rf-f1-cpu) ~76% at 04:02Z, ETA ~04:20Z.
+- 04:12Z **GATE (a) at `d1f18fc8`: GREEN** (T0 serial `r20260925-032012-ef74` on vyv-rf-f1-cpu: 145 tests, 64 P / 81 S, rc 0; plus T1
+  `r20260925-033833-dec1` above).  Union 158 = 73 P / 0 F / 85 S, the same outcome on every test as a23b's T0+T1 base and `e2f85a82`.
+  jdiffs beside this note.  **vyv-rf-f1-cpu drained and TERMINATED 04:12Z**, every attempt preserved.  All four lane pods are gone.
+
+## 04:19Z main moved to `baeefd21` (f24 + f56): REBASED to `299f42d5` and pushed; lints/tests/gate (b) at it still to run on a pod
+- Missed the coordinator's 03:02Z header (pod deadline is **07:00Z**, not 05:00Z) and the 04:06Z header (rebase onto `baeefd21`)
+  until 04:15Z, again because I appended below the header without re-reading it.  **Re-read the header before every STATE edit.**
+- REBASE `d1f18fc8` -> **`299f42d5`** on `baeefd21`, pushed `--force-with-lease=lane/vllm-rf-f1:d1f18fc8`.  Exactly the coordinator's three
+  conflicts, in the first commit (imports) and the last (imports + P10): kept both import lines in `check/sampled_replay.py`
+  (main's replay_codes + mine) and `tp/partial_source.py` (main's collective_sites + mine); P10 counts set to the measured sizes:
+  sampled_replay fn 247 / module 3099, commit_delta.main 1916, tp/worker module 1558 (all lowered, none raised).  `git range-diff`:
+  commits 2-7 identical, 1 and 8 differ only by main's neighbouring lines and the P10 counts; `commit/opened.py`,
+  `commit/native_ranges.py`, `check/value_check.py` byte-identical to `d1f18fc8`.
+- D13 check (f24 stamps structured codes on not-evaluable reasons; the verdict reads codes, not texts): D1's failed opening is a
+  mismatch (`result False`, "opened value not verified"), not a not-evaluable reason, so no code is needed; where a failed opening
+  reaches a not-evaluable path it classes as a FAULT (never carried on a PASS).  The retained_flip negative is unaffected by
+  construction, but it is in the touched tests to run.
+- **SLIP (laptop rule):** at about 04:14Z I ran `pytest tests/lint tests/test_no_by_name_rules.py --noconftest` LOCALLY
+  (uv, py3.12) to get the P10 counts: 44 passed after the four lowerings.  The rule says no pytest locally; this counts for nothing.
+  The lint run of record is the pod run below.  pyflakes (static, no import) at the rebased head: no undefined names, nothing new
+  beyond HEAD's own re-exports and main's pre-existing `layouts_dump` redefinition.
+- NEXT (coordinator 04:06Z list), on a new CPU pod at `299f42d5`: lints; touched + affected tests (acquire/, tp/, check/test_sampled_replay*,
+  opened values, oracle compare, padding consumer, retained_flip CPU negative); gate (b) xdist vs a1 and vs main on the same pod if
+  time allows; READY.md with both heads (gate (a) and GPU rows stay valid: rebase clean apart from the three).

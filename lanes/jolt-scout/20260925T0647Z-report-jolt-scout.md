@@ -2,9 +2,10 @@
 lane: jolt-scout
 kind: report
 created: 2026-09-25T06:47Z
-status: open
+status: final
 ---
 
+CHECKPOINT 95facf3 (08:08Z) [final] NO-GO for Table 2: curve Jolt ~100-bit (BN254) + 125-bit challenges; ICICLE dead, lattice no CUDA, Jolt Pro closed. PR1618 CUDA works on 4090 (5.7-8x CPU at 2^24). VU committed keyed-BLAKE3 126.1k cyc/VU; 4096 VUs ~5-14 min/4090. Pod terminated 08:07Z, ~$1.00. art:a53998e6
 CHECKPOINT a33671b (08:04Z) [open] 08:04Z: adopted survey rec: keyed-BLAKE3 row leaves via compression inline = 81.5k cyc/VU (SHA-256 195k); committed 126.1k/VU, digests match blake3 crate, B=64 CPU 30.5s valid. hash-bench: SHA-256 ~1,915/compression, BLAKE3 ~700. Running BLAKE3 guest on PR1618 cuda.
 CHECKPOINT 597b6c6 (07:56Z) [open] 07:55Z: VU guest on PR1618 cuda (4090): committed B=48 2^24 9.50s (CPU 54.5s), B=64 2^25 20.6s/22GB; bare B=256 2^24 16.8s (CPU 50.0s, only 3.0x). Projection 4096 committed ~11 min/4090 in ~70 2^24 proofs. Running hash-bench for BLAKE3 vs SHA-256 inline cost.
 CHECKPOINT d69d082 (07:39Z) [open] 07:41Z: PR1618 CUDA on 4090 works: sha2-chain 2^24 prove 5.83s vs CPU 46.5s (8.0x; 2^22 5.8x), GPU mem 12.7GB@2^24. VU guest v2: 43.8k cyc/VU bare, 239.5k committed; B=64 committed CPU 55-62s. BlindFold ZK +3-5%. Next: VU guest on PR1618 cuda.
@@ -14,7 +15,8 @@ CHECKPOINT 7fcedf47 (06:47Z) [open] startup: jolt main has no ICICLE (removed #7
 
 # jolt-scout: can Jolt (a16z) be a Table 2 backend? (feasibility scout)
 
-Status: measurements done 08:10Z; FINAL section at the end. Pod vy-jolt-scout (RTX 4090 24 GB, Ryzen 9 7950X
+Status: measurements done 08:05Z, pod terminated 08:07Z; FINAL section at the end. Evidence (every pod log, bench
+output, GPU sample, script and the guest source): art:a53998e6d3c89ac1e579bc974c417f0928f33aad8adea1fa0fa66148c80dbb52. Pod vy-jolt-scout (RTX 4090 24 GB, Ryzen 9 7950X
 16 vCPU, driver 580.159.04, CUDA 12.4 image + CUDA 12.9 nvcc installed). Scripts: `evidence/pod-scripts/` (00-setup, 10/11/12
 main, 20-22 ICICLE, 30 PR #1618, vu-k1536/ = the VU guest).
 
@@ -157,3 +159,30 @@ upstream code that is still a draft.
   - The survey's "no CUDA in the repo" is right for main. Draft PR #1618 does run on the 4090 (above).
   - The survey's ~63k hash cycles per VU used 96 compressions at 648 cycles each. The measured figure is 81.5k: 100
     compressions at ~815 cycles each, including the loop.
+
+## FINAL
+~~~text
+tip: lane/jolt-scout @ 7fcedf47 (base main@7fcedf47)  merge-with: none
+known-failures: none    pod: terminated 08:07Z; $1.00 (vy-jolt-scout RTX 4090, ~06:46-08:07Z at $0.74/h)
+artifacts: art:a53998e6d3c89ac1e579bc974c417f0928f33aad8adea1fa0fa66148c80dbb52
+~~~
+
+**Verdict: NO-GO for Table 2.** Curve Jolt misses 2^-128 on both counts: ~100-bit BN254 and 125-bit sumcheck
+challenges (~2^-110). Any Jolt result is drill-down only.
+
+| target | CUDA on our GPU | security | ZK | status |
+|---|---|---|---|---|
+| (a) curve Jolt + ICICLE | dead: only HyperKZG MSMs, removed 2025-07/08, last rev doesn't compile. Draft PR #1618 native CUDA builds and runs on the 4090 (5.7-8x CPU at 2^24, max 2^25) | ~100-bit comp., ~2^-110 stat. | BlindFold, +3-5% | measured |
+| (b) lattice Jolt (Akita) | no CUDA code (Metal draft only) | not assessed | none | skipped (user rule) |
+| (c) LayerZero Jolt Pro | closed source | n/a | "roadmap" | not runnable |
+
+- Guest cycles/VU: kernel 34.1k; committed 126.1k with keyed-BLAKE3 leaves, 239.6k with SHA-256.
+- Prove times: CPU B=64 keyed-BLAKE3 takes 30.5 s (verified). The 4090 cuda backend runs B=48 SHA-256 in 9.5 s.
+- 4,096-VU projection on one 4090: bare ~3.3 min, committed ~5-14 min, as multiple proofs. SP1 bare on an A100 is 18.5 s.
+- The handoff `lanes/coordinator/20260925T0810Z-handoff-from-jolt-scout.md` recommends no-go now. It describes an
+  optional `jolt-drilldown` lane (~$6, 6-8 agent-hours), triggered when PR #1618 merges.
+- Durable facts are in `kb/jolt-prover.md` (new; listed in `kb/README.md`).
+- Not done:
+  - An A100/H100 run: it would not change the verdict.
+  - Keyed-BLAKE3 on cuda: PR #1618's decoder rejects the BLAKE3 inline.
+  - The real frozen rows: the rows were synthetic in-domain BF16.

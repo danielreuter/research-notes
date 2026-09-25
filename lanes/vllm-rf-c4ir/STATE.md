@@ -4,7 +4,7 @@ lane: vllm-rf-c4ir
 kind: state
 status: active
 created: 2026-09-25T06:55Z
-updated: 2026-09-25T07:52Z
+updated: 2026-09-25T08:06Z
 ---
 # vllm-rf-c4ir: boundary, partition and liveness into core `verity.ir` (state)
 
@@ -52,14 +52,30 @@ updated: 2026-09-25T07:52Z
   with `integrations/vllm` on PYTHONPATH (equivalence live) 193 passed.
 - `cfe0ae63` equivalence tidy (stub counter restore, re-exports). Lane head = `cfe0ae63`, pushed.
 
+- Run r20260925-074934-4692 at `cfe0ae63` (JUnit): core 664 tests / 0 fail / 3 skip (the two equivalence files and
+  test_trust skip without `verity_vllm`/`research`); `tests/ir` with the integration 195 passed; integration
+  `tests/query` + `test_frontend_analyses` + `test_running_example` 317 tests / 0 fail / 9 skip (compiled_manifest:
+  row-of-record output code not present). Phase 1 complete. Pod terminated 07:53Z and unregistered.
+- Phase 2 prepared ahead of a4 (a4 not in origin/main yet): local branch = phase 1 cherry-picked onto a4 head
+  `14b0cf9f`, plus `18e29d92` (core partition names `family_tiling` / `CheckedTiling` publicly: `registry/lifted.py`'s
+  structural n_out bound reads them, and P1 `core-private` forbids `_family_tiling` / `_Tiling` off core with no
+  allowlist growth) and `4a2ccf11` (importers -> `verity.ir.{liveness,boundary,partition}`; the three integration
+  modules, the package re-export of `dead_gates`, the three `LAYER` "core" entries, 6 stale allowlist entries
+  (p07 x3, p10 x2, p11 x1) and the two equivalence test files deleted; README query prose). Pushed as
+  `lane/vllm-rf-c4ir-p2-on-a4` (NOT the lane branch; the lane branch stays on origin/main until a4 lands).
+  Integration tests of the analyses on registry Programs (test_boundary_oracle, test_partition_*, counterexamples) kept,
+  switched to core. Static checks: no new pyflakes findings; no string literal of the moved modules differs from core
+  except the interval helper names (limit messages identical); nothing records a module path.
+
 ## Running
-- `vyv-rf-c4ir-cpu`: run r20260925-074934-4692 at `cfe0ae63` = core suite, `tests/ir` with integration, and the
-  integration's `tests/query` + frontend-analysis tests (still on the integration copies; baseline for phase 2).
+- (08:06Z) pre-check pod for `4a2ccf11`: lints (41 + by-name + imports), core suite, integration `tests/query` +
+  `tests/program`.
 
 ## Next
-- Fetch r20260925-074934-4692; terminate the pod.
-- Phase 2 waits on a4 in origin/main. 07:51Z: origin/main = `b9cd5368`, a4 head `14b0cf9f` (INTERIM_LAYER -> LAYER
-  done) not yet merged.
+- Phase 2 proper when a4 is in origin/main: rebase lane onto origin/main (cherry-pick `18e29d92`, `4a2ccf11`), then
+  lints, core, gate (b) head vs base same pod, gate (a) T0+T1 on cpu3m 512 GB, GPU smoke #101.
+- 08:05Z: origin/main = `b9cd5368`; a4 head `14b0cf9f` not merged. Gate (a) alone is ~2 h 40 min, so phase 2 gates
+  need the pod deadline (09:00Z) extended.
 
 ## Found, not fixed
 - `intervals.strided_intervals` (the integration's liveness `_strided_targets`, moved unchanged): a zero-outer-stride,

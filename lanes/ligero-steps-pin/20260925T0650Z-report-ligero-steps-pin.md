@@ -5,6 +5,7 @@ created: 2026-09-25T06:50Z
 status: open
 ---
 
+CHECKPOINT 1571143b (08:08Z) [open] steps_pin_test 34/34 at 1571143b (4 new +shared: honest ok; forged steps32, hdr steps32, hdr K768 refused Py+Rust; main's Py ACCEPTED hdr K768); 9 R2 dumps all accepted; regression 132 ok, 1 pre-existing live_test fail (same on main); rest running
 CHECKPOINT 1571143b (07:36Z) [open] regression: 9 R2 dumps (fp8 bare/hash T2, bare-local x2, shared-local x2, blake3 x3) Rust pinned batch all accepted + Python 1st/last sub ok; before-fix comparison + regression pytest running
 CHECKPOINT 1571143b (07:06Z) [open] cargo 32+7+27 ok on pod; steps_pin_test 33/34 (1 own-test bug fixed 1571143b); +shared forged steps32 / header steps32 / K768 refused Python+Rust; 9 R2 dumps fetched, reverify + regression pytest running
 CHECKPOINT 236020a6 (06:50Z) [open] fix already on main (steps-pin c5cf7f6d/3781590e); audit found Python +shared v6 gap (no steps in SharedHashedRunner hooks, no v6 K check) -> 236020a6 pushed; pod setup running; next cargo+pytest+R2 regression

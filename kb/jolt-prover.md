@@ -1,7 +1,8 @@
 # Jolt (a16z) zkVM: measured facts and gotchas
 
-Sources: lane jolt-scout report (`lanes/jolt-scout/20260925T0647Z-report-jolt-scout.md`), scripts in
-`lanes/jolt-scout/evidence/pod-scripts/`, a16z/jolt main @ 922af71c (2026-09-24), PR #1618 head 66e33a9e. Pod: RTX 4090
+Sources: lane jolt-scout report (`lanes/jolt-scout/20260925T0647Z-report-jolt-scout.md`), evidence
+art:a53998e6d3c89ac1e579bc974c417f0928f33aad8adea1fa0fa66148c80dbb52 (logs, scripts, guest source; also in
+`lanes/jolt-scout/evidence/pod-scripts/`), a16z/jolt main @ 922af71c (2026-09-24), PR #1618 head 66e33a9e. Pod: RTX 4090
 24 GB + Ryzen 9 7950X (16 vCPU), 124 GB RAM.
 
 ## What exists (2026-09-25)
@@ -33,8 +34,16 @@ Sources: lane jolt-scout report (`lanes/jolt-scout/20260925T0647Z-report-jolt-sc
   kernel 34.1k cycles/VU; bare statement 43.8k/VU incl. input decode; frame-v3 SHA-256 row digests (2 rows x 49
   compressions, `jolt_inlines_sha2`) +195.0k/VU (~1,990 cycles/compression), committed total 239.5k/VU.
   Passing rows as `Vec<u64>` instead costs ~100k cycles/VU of postcard varint decode.
+- Keyed-BLAKE3 row leaves (frame-v3's keyed leaf) cost 81.5k cycles/VU (2 rows × 50 compressions, ~815 each incl. the
+  block loop), so committed = 126.1k/VU, against 239.6k with SHA-256. The SDK's `Blake3` hashes at most 64 B; for 3 KB
+  rows call the compression inline per block (`compress_direct`, crate-private upstream: `sed` it to `pub`), and check
+  the result against `blake3::keyed_hash` (the vu-k1536 host does). hash-bench inline costs: SHA-256 ~1,915 cycles per
+  extra block; BLAKE3 649-750 per 64 B compression; software BLAKE3 ~2,220.
 - CPU prove (main, all verified): B=16 bare 2^20 9.5 s, committed 2^22 21 s; B=64 bare 2^22 19 s, committed 2^24
-  55-62 s, peak RSS 7.4 GB. Verify 0.07-0.2 s. BlindFold ZK adds 3-5% prove time at B=16 (verify 0.16 s).
+  55-62 s, peak RSS 7.4 GB. Keyed-BLAKE3 committed: B=16 2^21 13.0 s, B=64 2^23 30.5 s. Verify 0.07-0.2 s. BlindFold ZK adds 3-5% prove time at B=16 (verify 0.16 s).
 - PR #1618 sha2-chain prove, cuda vs optimized CPU: 2^20 1.56 vs 4.80 s; 2^22 2.46 vs 14.18 s; 2^24 5.83 vs 46.53 s
   (8.0x). GPU memory 12.7 GB at 2^24, so 2^25 does not fit a 24 GB card. Process wall adds ~9 s of trace/preprocess.
 - PR #1618's older SDK base traces the same VU guest ~18% longer (B=16 committed 4,509,134 vs 3,832,804 on main).
+- PR #1618 VU guest, cuda vs CPU: SHA-256 committed B=48 2^24 9.50 vs 54.5 s (14.1 GB), B=64 2^25 20.6 vs 93.9 s
+  (22.1 GB, the 24 GB limit); bare B=256 2^24 16.8 vs 50.0 s. The bare kernel costs ~2x more per padded cycle on
+  the GPU than hashing does. Its modular decoder rejects the BLAKE3 inline (`Expansion(UnsupportedInstruction)`).

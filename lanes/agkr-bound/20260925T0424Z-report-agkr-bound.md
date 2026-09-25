@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT 02927b7b (08:07Z) [open] vllm-v1 dev run done: bf16/fp8 +vllm-v1 roots match pins, rust tree rebuild OK, scaffold verdict as designed. Survey adopted: launching CPU hash spike (flat SHA-256 in BabyBear via Rust CPU prover B=64/4096 + Flock benches). Link protocol not built.
 CHECKPOINT de225a9b (07:56Z) [open] 3 frame-v3 commit cells accept natively, roots match (bf16-ampere+sha256 0.883s, fp8-hopper+blake3 0.459s, fp4-nvf4+sha256 0.402s). Negatives: all expected but 1 stale expectation (fixed). vllm-v1 variant de225a9b: 27 cargo tests vs vectors ok; pins added; bench running.
 CHECKPOINT 14b0cf9f (07:38Z) [open] commit scaffold d48f5bc2: frame-v3 native check + pins bf16-ampere+sha256/fp8-hopper+blake3. bf16-ampere --commit sha256: t.total 0.883s, native tree check accepts, roots match; R+sha256 claim refused (no circuit pin, by design). fp8/fp4 cells running; negatives next.
 CHECKPOINT 14b0cf9f (07:29Z) [open] pod vy-agkr-bound2 (A100 SXM, guard 90) up 07:18Z. 44e18670: gpu/commit.py + bench_result --commit + commitment.txt absorbed in both transcripts. Running r20260925-072901-b125: cargo/pytest/root pins/3 commit cells. Survey not in.
@@ -49,3 +50,38 @@ CHECKPOINT a2edab4d (04:24Z) [open] merged agkr-fp8+agkr-nvf4 as a2edab4d (pushe
   +426 to +1280 committed columns per unit.
 - Handoff "agkr-bound revised estimate" (0540Z) gives options a, b and c. The lane is **blocked** on it.
 - Pod vy-agkr-bound was drained and terminated at 05:37Z. Spend so far is about $2.2 (A100, about 04:15–05:37Z).
+
+## Progress (08:10Z)
+
+**Retarget (coordinator 0640Z/0650Z): frame-v3, then vllm-v1 row digests, checked natively.** Lane tip 02927b7b.
+
+- Verifier `commitments.rs` rebuilds frame-v3 trees (sha256/row/v1, blake3-keyed/row/v2) and, since de225a9b, vllm-v1
+  trees (`vllm_v1.rs`, pos-leaf/v0, StepDomain chunk null) from x.bin/W/y, and compares them with `commitment.txt`.
+  sha256(commitment.txt) is absorbed in both transcripts; the digests are published as 32 epilogue limbs per VU.
+- Relations are `R+sha256`, `R+blake3`, `R+vllm-v1`. Root pins: bf16-ampere+sha256, fp8-hopper+blake3 (d48f5bc2),
+  bf16-ampere+vllm-v1, fp8-hopper+vllm-v1 (83582436). No circuit is pinned under these relations yet, so every cell's
+  status is `failed` by design ("scaffold": the digest columns are not constrained in-proof).
+- A100 cells, 1 rep, scaffold check accepted and roots match:
+  - bf16-ampere+sha256: t.total 0.883 s; serving commit 0.36 s; Rust verify 1.95 s.
+  - fp8-hopper+blake3: 0.459 s. fp4-nvf4+sha256: 0.402 s (no fp4 pin).
+  - bf16-ampere+vllm-v1: 0.862 s, serving commit 0.33 s, verify 1.96 s (r20260925-075248-f4dc).
+  - fp8-hopper+vllm-v1: 0.431 s, serving commit 0.09 s, verify 0.97 s.
+- Python and Rust agree on vllm-v1 roots and domain digests. The pins were computed in Python and the Rust verifier
+  rebuilt the same roots.
+- Negatives r20260925-074931-1329, on bf16-ampere+sha256 and fp8-hopper+blake3: wrong digest, swapped W, y word,
+  limb range, spec manifest, spec leaf, no commitment and relabelled claims are all rejected.
+  `gap_alt_operand` is ACCEPTED: this is the expected scaffold gap. One expectation (wrong_digest_up) was stale and is
+  fixed in 10; the rerun with pins compiled in, including vllm-v1, is still pending.
+- The vllm-v1 operand-domain mapping (program/ctx/geo/layout under "verity/gkr-commit/vllm-v1") is PROVISIONAL and
+  owned by integration.
+
+**Survey (0752Z) adopted.** I have not built the link protocol and will not build it until the red-team.
+
+- Spike r20260925-080740-fb11 (running) covers two things:
+  - in-field Longfellow flat SHA-256 in BabyBear (`tools/sha256_flat.py`: 6,657 committed columns, 30,272 products,
+    7,024 asserts, depth 5 per compression), proved by the Rust CPU prover at B = 64 and 4,096;
+  - Flock b684b12 `hash_throughput` on the same CPU.
+- Caveat: the pod CPU is an EPYC 7742 (Zen 2) with no AVX-512 or VPCLMULQDQ, so Flock falls back to its portable path
+  and its numbers are pessimistic.
+- The GPU prover can't take the flat-SHA circuit: `gpu/circuit.layers()` spans every wire per layer, with dense wiring.
+  The Rust CPU prover is sparse.

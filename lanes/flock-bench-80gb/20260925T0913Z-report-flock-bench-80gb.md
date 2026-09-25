@@ -5,6 +5,7 @@ created: 2026-09-25T09:13Z
 status: final
 ---
 
+CHECKPOINT none (10:09Z) [final] FINAL 10:14Z: 4096VU binary backend (Flock-CUDA unit+BLAKE3) vs B-Ligero bare: A100 BF16 0.745s 3.1x, H100 BF16 0.745s 6.6x, H100 FP8 0.33s 4.7x; kernel floor 1.0-1.2x; host-bound. art:2a541cd8 art:8b4c35bf. Pods terminated, ~$3.2
 CHECKPOINT none (10:09Z) [final] FINAL 10:12Z: 4096VU binary backend (Flock-CUDA unit+BLAKE3) vs B-Ligero bare: A100 BF16 0.745s 3.1x, H100 BF16 0.745s 6.6x, H100 FP8 0.33s 4.7x; kernel floor 1.0-1.2x; host-bound. art:2a541cd8 art:8b4c35bf. Pods terminated, ~$3.2
 CHECKPOINT none (09:53Z) [open] 0946Z disk handoff read: my laptop runs total ~17MB (largest r20260925-091229-073a 6.4MB), no big pulls; A100 inspected on pod only. A100 pod q7bv9o3wbj95j8 up (quota 13.6, driver 580); full line r20260925-095215-eaeb in setup (first launch 9eec died: --name).
 CHECKPOINT none (09:38Z) [open] H100 done+terminated (~$2.5): clmad 8.4T/s art:7b941558; CPU union BF16 1.32s FP8 0.74s art:8b4c35bf; GPU unit+B3 BF16 0.75s FP8 0.33s art:876ab350; kernel floor BF16 0.137 FP8 0.071 art:b6148b4a,art:83f2d55d. A100 next.
@@ -134,5 +135,10 @@ kb updates:
 - `kb/flock-prover.md`: H100 constants, the sm_90/sm_80 build, the host-bound finding.
 - `kb/ops-tools.md`: rayon versus the cgroup quota, cuda-compat on driver 570, re-registering after an interrupted
   `pods create`, and `run --on --name` failing.
+
+Two notes on the FINAL checks:
+- `pushed: lane/flock-bench-80gb missing` is expected, because this lane had no worktree or branch.
+- notes sync skipped the three `unit-*.netlist` files (over 1 MB). They are in the preserved H100 run inputs, and
+  `export_unit.py` regenerates them in under a second.
 
 Left undone: A100 FP8 (not a Table 2 line), flock-zorch on the 80 GB cards, and a pinned-memory upload variant.

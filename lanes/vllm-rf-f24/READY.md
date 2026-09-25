@@ -2,9 +2,9 @@
 id: vllm-rf-f24/ready
 lane: vllm-rf-f24
 kind: ready
-status: draft (gate (b) at e818a5d4 and bbbe936c running)
+status: ready
 created: 2026-09-24T22:05Z
-updated: 2026-09-25T02:05Z
+updated: 2026-09-25T02:26Z
 ---
 # vllm-rf-f24 READY: identity and integrity (D5, D6, D7, D10, D11, D13)
 
@@ -40,7 +40,7 @@ and no gate (a) check reaches it. The rebase kept each commit's change: `90389ae
 | pod | RunPod | used for |
 |---|---|---|
 | `vyv-rf-f24-veritor-campaign` (`0zb24mk1w6nb4o`) | cpu3g, 16 vCPU / 64 GB, terminated 01:43Z | gate (a) T0+T1, gate (b), GM-01, verdict A/B, D6/D7/D11 probes |
-| `vyv-rf-f24-rb-veritor-campaign` (`hpdi919qixzrw0`) | cpu3g, 16 vCPU / 64 GB | lints and gate (b) at `e818a5d4`, gate (b) at `bbbe936c` |
+| `vyv-rf-f24-rb-veritor-campaign` (`hpdi919qixzrw0`) | cpu3g, 16 vCPU / 64 GB, terminated 02:25Z | lints and gate (b) at `e818a5d4`, gate (b) at `bbbe936c` |
 | `vyv-rf-f24-big` | cpu3m, 64 vCPU / 512 GB, terminated | the two T1 `replay_partition` checks of the B=1 rows #11 and #39 |
 | `vyv-rf-f24-gpu` | RTX 4090, terminated | the Build A/B (a Build cannot run on a CPU pod, see Found, not fixed) |
 
@@ -100,6 +100,13 @@ VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/
 OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile      # gate_b.sh, as a1's baseline
 ~~~
 
+- **At `e818a5d4` (final head): 54 failed, 11 errors, 286 skipped, 3,532 passed, 6 xfailed** (3,889 tests, 830 s on the new pod,
+  whose host is faster). **At `bbbe936c`**, same pod and command, one run after the other: 56 failed, 11 errors, 286 skipped,
+  3,515 passed, 6 xfailed (3,874 tests, 808 s). The `bbbe936c` tree is the head's tree with the branch diff reverse-applied; its
+  28 modified files match `bbbe936c`'s blobs and the 6 added files are absent. Test by test (`evidence/e818a5d4/`,
+  `jdiff.py`): 16 new tests, all pass; the replaced base test as below; **no new skip reason and no test that passed at
+  `bbbe936c` fails at the head.** The one outcome change is the gc-freeze pair (below), failed -> passed: order-dependent, and in
+  code this branch doesn't touch.
 - **At `a2e2843e`: 55 failed, 11 errors, 296 skipped, 3,592 passed, 6 xfailed** (3,960 tests, 2,241 s). Against a1's head run
   (a1's lints on the base, same command), test by test (`jdiff.py`): one outcome change,
   `ops/test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way` failed -> passed (it also failed at `be366f80`; a
@@ -117,7 +124,8 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
     alone and after `observe/test_execution_label.py`. It also fails in a1's own head run, which has no f24 change.
   - 1 outcome change to passed: `observe/test_observer_encoding.py::test_weakref_death_...` (allocator reuse; a1's documented noise).
   - **No new skip reason.** Against a1's head run, no outcome changed.
-- **Lints** (`tests/lint`, a1's P1-P12 ratchets) at `a2e2843e`: 41 passed, alone and in the full run.
+- **Lints** (`tests/lint`, a1's P1-P12 ratchets): at `e818a5d4`, 41 passed alone (`python -m pytest integrations/vllm/tests/lint`,
+  gate (b)'s environment) and in the full run; at `a2e2843e`, 41 passed, alone and in the full run.
 
 ### (c) Acceptance
 
@@ -158,7 +166,7 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
   shared `commit_logs`; `evidence/d11/scan.txt`, `scan_digests.py`) reads every program, manifest and component digest a
   weights-of-record check or the Commit's weights pin can compare: 48, all full 64-hex sha256. So the stricter comparison moves
   no verdict of record.
-- **New identity tests pass** (gate (b), both heads): `test_hot_commit` (3 new, including the core-edit key test),
+- **New identity tests pass** (gate (b), all three heads): `test_hot_commit` (3 new, including the core-edit key test),
   `test_research_tools`, `tp/test_commit_tree_of_record` (2), `test_derive_step_identity` (4).
 
 ## What changed

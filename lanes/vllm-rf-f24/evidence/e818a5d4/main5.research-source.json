@@ -1,0 +1,12 @@
+{
+ "branch": "lane/vllm-rf-f24",
+ "commit": "bbbe936c (origin/main), built as head5 47ba6e80 with the branch diff reverse-applied; 28 modified files match its blobs",
+ "dirty": false,
+ "dirty_digest": null,
+ "files": 3053,
+ "from": "Daniels-MacBook-Pro.local:/Users/danielreuter/projects/verity-wt/rf-f24",
+ "schema": "research/source-stamp/v1",
+ "synced_utc": "2026-09-25T01:48:41Z",
+ "to": "hpdi919qixzrw0:/workspace/head5",
+ "tree": "853f3217d06acf14027319687f9c87d4360763c8"
+}

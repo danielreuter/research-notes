@@ -16,7 +16,22 @@ created: 2026-09-24T17:36Z
 >
 > **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** When your running gates finish, rebase onto `origin/main` (it's clean with your head) and push with `--force-with-lease`. Run `tests/lint` on your pod, fix the allowlists it prints (your D3, D4, D14 and D15 work likely makes P7 `environ` / `seed-default` entries stale), and record both heads plus the green lint run in READY.md. Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.
 
-## NOW (02:17Z): all gates done at 4fb0eb2c; READY.md written (pre-rebase); NEXT = the coordinator's rebase (notes above)
+## NOW (02:27Z): REBASED + PUSHED; lint pod bootstrapping
+- **Rebase done:** pre-rebase head `4fb0eb2c` -> post-rebase head `bca6ab61` on origin/main `bbbe936c` (main moved once more after
+  `4bd6c54c`; `bbbe936c` contains it; re-fetched 02:26Z, unchanged). D15 conflicts in the 3 files resolved per the 00:32Z note (rerere +
+  review); `9bddf741` dropped by git as already upstream. `git push --force-with-lease` done: origin/lane/vllm-rf-f3 == `bca6ab61`.
+  f3 does not touch `check/fold_compare.py` / `tests/program/test_ship_roots.py`.
+- **Lint pod** `vyv-rf-f3-lint`, RunPod `xroshfy57ofi18`, cpu3g 16 vCPU / 64 GB (cgroup 59.6 GiB), $0.64/h, created 02:18Z. Raw ssh
+  `/tmp/rf-f3/ssh_lint.sh`; scripts `/tmp/rf-f3/lint/` -> pod `/workspace/rff3/` (boot.sh, lint.sh, targeted.sh, gate_b.sh,
+  launch_once.sh SCRIPT TREE TAG = fresh copy TREE-TAG + flock). `/workspace/head` = `bca6ab61` (synced 02:19Z, no `._*` files);
+  `/workspace/main` = `bbbe936c` syncing (laptop detached worktree `/Users/danielreuter/projects/verity-wt/rf-f3-main`).
+  boot.sh (pod_bootstrap --cpu, pytest-xdist 3.8.0, xgrammar 0.2.7, freeze diff vs a1) started 02:24Z -> `/workspace/rff3/bootstrap.log`.
+- **Plan:** (1) post-rebase checks the 00:32Z note asks for: `tables_dir()` under `program/numerics/tables/` + `test_mufu_tables_pinned.py`;
+  (2) `tests/lint` at head and at main (A/B), fix allowlists, commit, push, rerun till 41 passed; (3) targeted tests at head; (4) gate (b)
+  at head then at main, same pod (`-n 12 --dist loadfile`, OMP 3; ~20 min each): the rebase was not clean (the D15 conflicts), so the
+  22:13Z note's "gates stay valid" condition doesn't strictly hold; (5) READY.md: both heads + green lint + reruns; terminate pod.
+
+## (earlier) 02:17Z: all gates done at 4fb0eb2c; READY.md written (pre-rebase); NEXT = the coordinator's rebase (notes above)
 - Gate (a) T0+T1 GREEN at 4fb0eb2c on big2 (head 72 passed / 86 skipped / 0 F/E; base 73 / 85 / 0; the one diff is the shared-store
   race skip of `T0-manifest_digest-r11`, 1 passed alone). D3 #101 head == base == record. Gate (b) green. Evidence under `evidence/`.
 - ALL PODS TERMINATED (big2 02:14Z). Laptop base worktree removed. READY.md at `~/.research/notes/lanes/vllm-rf-f3/READY.md`.

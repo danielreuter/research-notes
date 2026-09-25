@@ -1,0 +1,12 @@
+{
+  "branch": "lane/vllm-rf-f24",
+  "commit": "e818a5d432664465e0ba55ec2ce84e5eb478bb86",
+  "dirty": false,
+  "dirty_digest": null,
+  "files": 3053,
+  "from": "Daniels-MacBook-Pro.local:/Users/danielreuter/projects/verity-wt/rf-f24",
+  "schema": "research/source-stamp/v1",
+  "synced_utc": "2026-09-25T01:53:02Z",
+  "to": "hpdi919qixzrw0:/workspace/head5",
+  "tree": "0ce036ea2a8ec1cfd6f95a9f460e8a70654d7f14"
+}

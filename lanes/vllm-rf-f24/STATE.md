@@ -110,6 +110,11 @@
   `b_main5_x12` when head5 exits. Next: jdiff main5 vs head5 (`/workspace/rff24/jdiff.py`), pull evidence to `evidence/gate_b/`
   + lint log, READY.md gate (b) section at the final head, status ready, terminate `hpdi919qixzrw0`.
 - READY.md already rewritten for the new head (header, three heads + commit mapping, pod table, What changed hashes, rebase notes).
+- 02:23:52Z gate (b) DONE. head5 (e818a5d4): 54 failed, 11 errors, 286 skipped, 3532 passed, 6 xfailed (830 s). main5
+  (bbbe936c): 56 / 11 / 286 / 3515 / 6 (808 s). jdiff: 16 new tests pass, 1 replaced, no new skip reason, no pass->fail; only
+  the gc-freeze pair failed->passed (order-dependent). Lints 41/41 alone and inside both full runs. Evidence `evidence/e818a5d4/`.
+- 02:24:59Z pod `hpdi919qixzrw0` terminated (no attempts). No vyv-rf-f24 pods remain.
+- **DONE.** READY.md status ready at head `e818a5d4` (pushed). Nothing running.
 - 01:17:55Z `a_final` DONE: 71 passed, 85 skipped, 35 deselected, exit 0 (16068 s). T1 replay_partition passed on 7 rows;
   decomp_hashes skips on all 13. jdiff vs a_head4 (110 common): no outcome / skip-reason difference. Evidence pulled; READY.md filled.
 - 01:19:23Z `a_head4_t1` at a2e2843e (`/workspace/rff24/head4_t1.sh`, keyless): T1 replay_partition r101/r57/r60 + manifest_digest

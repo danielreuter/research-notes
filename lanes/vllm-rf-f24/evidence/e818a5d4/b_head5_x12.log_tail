@@ -1,0 +1,80 @@
+SKIPPED [1] integrations/vllm/tests/program/test_pad_prims.py:48: could not import 'veritor.core.pad_serve': No module named 'veritor'
+SKIPPED [1] integrations/vllm/tests/program/test_pad_prims.py:74: could not import 'veritor.core.pad_serve': No module named 'veritor'
+SKIPPED [1] integrations/vllm/tests/program/test_ship_roots.py:66: this checkout has no record_v5/ship.sh or data/hf_configs
+SKIPPED [1] integrations/vllm/tests/program/test_rmsnorm_fused.py:99: B0 bundle not present: /workspace/head5/integrations/vllm/vllm-poc/bundles/B0-358bb6d66805-ta1eager-commit.tar.xz
+SKIPPED [1] integrations/vllm/tests/check/test_replay_m1.py:74: full-size build: set CAPTURE_BIG=1 (DESIGN §11)
+SKIPPED [1] integrations/vllm/tests/check/test_replay_m1.py:110: full-size build: set CAPTURE_BIG=1 (DESIGN §11)
+SKIPPED [1] integrations/vllm/tests/check/test_replay_m1.py:150: full-size build: set CAPTURE_BIG=1 (DESIGN §11)
+XFAIL integrations/vllm/tests/check/test_gen_adversarial.py::test_hole1_wrong_producer_is_invisible_to_provenance - HOLE-1: pattern-declared operand views are not cross-checked against the event's tensor arguments
+XFAIL integrations/vllm/tests/check/test_gen_adversarial.py::test_hole1_equal_bytes_wrong_producer_accepted_by_every_checker - HOLE-1 (equal bytes): no byte-based check can react and the identity check does not see the declared view
+XFAIL integrations/vllm/tests/check/test_gen_adversarial.py::test_hole2_partial_tiling_with_wrong_remainder_fails - HOLE-2: partial tiling (un-tiled returns are never evaluated) does not fail tier a / G4
+XFAIL integrations/vllm/tests/check/test_gen_adversarial.py::test_hole3_unregistered_definition_outside_quarantine_is_a_quarantine_spec - HOLE-3: a Definition outside verity_vllm.program.registry that is not under *.quarantine.* is not a quarantine spec for G4
+XFAIL integrations/vllm/tests/check/test_gen_adversarial.py::test_hole4_transparent_claiming_a_compute_kernel_is_flagged - HOLE-4: census.declared_kernels_of_step / reconcile do not distinguish Transparent from Compute claims of a compute kernel
+XFAIL integrations/vllm/tests/program/test_heldout_codec_compose.py::test_hopper_descriptor_decodes_in_a_fresh_process_only_if_the_binding_module_is_imported - a fresh process without `verity_vllm.program.registry.hopper` cannot decode the Hopper descriptor: {'bare': (1, "KeyError: 'primitive GatherBf16x64_v1 is not in the registry'"), 'with_b1': (1, "KeyError: 'primitive HopperBF16WgmmaDot16_v1 is not in the registry'"), 'with_hopper': (0, 'gates 37172')}
+ERROR integrations/vllm/tests/program/test_applicability.py::test_program_digest_of_b0_8_4_unchanged_and_cross_host
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_i_same_digest_different_identity_manifest_reports_applied[cap80_108-cap0-108]
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_i_same_digest_different_identity_manifest_reports_applied[sms132-cap1-132]
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_i_b_capability_applied_only_around_the_export_is_refused
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_ii_consistently_changed_target_is_refused_verbatim[cap100-numerics_unregistered: no registered GEMM specialization for target cc 10.0 (tuned_gemm_arch_family='blackwell')-applied0]
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_ii_consistently_changed_target_is_refused_verbatim[triton_attn-numerics_unregistered: attention impl='vllm.v1.attention.backends.triton_attn.TritonAttentionImpl' (observed on layer 'model.layers.0.self_attn.attn') differs from the target's 'vllm.v1.attention.backends.flash_attn.FlashAttentionImpl'-applied1]
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_iv_hopper_target_binds_the_registered_hopper_definitions[cap90-3-Attention_v2{T,NH,KVH,D,BN=fa3_kblock_n(D,seqlen_q,NH/KVH),DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1}-bi-eager]
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_iv_hopper_target_binds_the_registered_hopper_definitions[cap90_fa2-2-Attention_v2{T,NH,KVH,D,BN=fa2_kblock_n(D),DOT=HopperBF16WgmmaDot16_v1,INV=Fa2InvSum_v1}-bi-eager-fa2]
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_iii_identity_is_host_independent
+ERROR integrations/vllm/tests/program/test_applicability.py::test_case_iv_reuse_under_mismatched_profile_is_rejected
+ERROR integrations/vllm/tests/program/test_applicability.py::test_dead_env_var_is_recorded_as_ignored_not_declared
+FAILED integrations/vllm/tests/check/test_gates_fixtures.py::test_card_json_roundtrip_and_schema
+FAILED integrations/vllm/tests/program/test_derive.py::test_s3_untied_lm_head_loses_sharing_and_is_refused_by_family
+FAILED integrations/vllm/tests/program/test_ref_prims.py::test_gelu_ref_vs_torch[none-bf16]
+FAILED integrations/vllm/tests/observe/test_gen_dense2.py::test_inv_freq_models_cuda_reciprocal_multiply_and_is_identity_for_power_of_two_D
+FAILED integrations/vllm/tests/program/test_ref_prims.py::test_gelu_ref_vs_torch[none-f32]
+FAILED integrations/vllm/tests/observe/test_gen_ov_sampling.py::test_b1_workloads_load_to_the_intended_sampling
+FAILED integrations/vllm/tests/observe/test_gen_ov_sampling.py::test_mixed_batch_per_request_variant
+FAILED integrations/vllm/tests/observe/test_patterns_synthetic.py::test_gumbel_two_stage_sampler_is_one_token_select
+FAILED integrations/vllm/tests/harness/test_source_identity.py::test_precheck_passes_with_matching_veritor_repo_and_sha[repo]
+FAILED integrations/vllm/tests/harness/test_source_identity.py::test_precheck_passes_with_matching_veritor_repo_and_sha[integration]
+FAILED integrations/vllm/tests/harness/test_source_identity.py::test_negative_requested_sha_mismatch_fails_by_name
+FAILED integrations/vllm/tests/harness/test_source_identity.py::test_repo_root_resolution_prefers_export_json_then_git_then_markers
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_v_program_digest_unchanged_by_the_patch
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_i_a_base_manifest_declares_the_capability_the_shim_applied
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_i_b_mutating_the_applied_capability_changes_the_manifest[verity_vllm/program/frontend/target_profile.py]
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_i_c_artifact_identity_distinguishes_targets_even_when_digests_are_equal
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_i_d_host_answering_another_capability_than_declared
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_a_capability_9_0_declared_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_b_target_8_0_with_108_sms_declared_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_c_num_sms_repinned_132_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iii_two_hosts_same_profile_same_identity
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iii_identity_excludes_host_facts
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iv_reuse_under_mismatched_profile_is_rejected
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iv_reuse_under_mismatched_applicability_is_rejected
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iv_tampered_wrapper_is_rejected[target_profile.compute_capability-value0-requester0]
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iv_tampered_wrapper_is_rejected[<program digest>-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-requester1]
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iv_tampered_wrapper_is_rejected[applicability.vllm_flash_attn_version-value2-requester2]
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iii_identity_is_recomputable_from_its_published_definition
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iii_manifest_and_wrapper_agree_on_the_identity
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iv_reuse_under_the_matching_profile_is_accepted
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_vi_dead_env_var_is_not_recorded_as_a_declared_fact
+FAILED integrations/vllm/tests/check/test_twins.py::test_check_writes_the_evidence_schema
+FAILED integrations/vllm/tests/program/test_norm_chain.py::test_mean_pins_match_installed_vllm
+FAILED integrations/vllm/tests/observe/test_gen_sampling.py::test_load_workload_honours_sampling_block_and_keeps_greedy_default
+FAILED integrations/vllm/tests/harness/test_release_json.py::test_pod_release_sh_writes_through_the_module_and_checks
+FAILED integrations/vllm/tests/harness/test_release_json.py::test_pod_release_busy_pattern_names_the_stage_processes_launched_outside_row_pod
+FAILED integrations/vllm/tests/observe/test_gen_ov_easy.py::test_serve_untied_is_not_registered_and_binds_from_the_profile_config
+FAILED integrations/vllm/tests/observe/test_gen_ov_easy.py::test_serve_untied_differs_from_serve_v4_only_at_the_lm_head_operands
+FAILED integrations/vllm/tests/input_provenance/test_analytic.py::test_check_cos_sin_against_the_captured_b0_table
+FAILED integrations/vllm/tests/program/test_sampling_rows.py::test_nv_logf_and_nv_log1pf_are_word_equal_to_the_libdevice_transcriptions_on_every_non_nan_word
+FAILED integrations/vllm/tests/acquire/test_native_jit_keying.py::test_pod_release_fails_closed_on_a_stale_so_and_records_the_digest
+FAILED integrations/vllm/tests/acquire/test_compiled_source.py::test_renumber_assigns_invocations_per_call_site
+FAILED integrations/vllm/tests/program/test_ship_roots.py::test_ship_roots_name_out_gen_hf_configs
+FAILED integrations/vllm/tests/program/test_ship_roots.py::test_r17_sparse_patterns_re_include_hf_configs
+FAILED integrations/vllm/tests/observe/test_cov_difr_b0.py::test_t1_workloads_load_as_seeded_temperature_one_headers
+FAILED integrations/vllm/tests/ops/test_row_pod_cancel_forwarding.py::test_sigint_is_forwarded_the_same_way
+FAILED integrations/vllm/tests/program/test_derive_realhf.py::test_realhf_case[llama-sdpa-bf16-tie0-fwd]
+FAILED integrations/vllm/tests/program/test_derive_realhf.py::test_realhf_case[qwen2-sdpa-bf16-tie0-fwd]
+FAILED integrations/vllm/tests/program/test_derive_hf5b_realhf.py::test_hf5b_case[llama-sdpa-f32-tie1-greedy]
+FAILED integrations/vllm/tests/program/test_derive_hf5b_realhf.py::test_hf5b_case[qwen2-sdpa-f32-tie1-greedy]
+FAILED integrations/vllm/tests/program/test_derive_hf5b_realhf.py::test_hf5b_case[gpt2-sdpa-f32-tie1-greedy-gelu_pytorch_tanh]
+FAILED integrations/vllm/tests/program/test_derive_realhf.py::test_realhf_case[mistral-sdpa-bf16-tie0-fwd]
+FAILED integrations/vllm/tests/program/test_derive_hf5b_realhf.py::test_hf5b_case[qwen3-sdpa-f32-tie1-greedy]
+FAILED integrations/vllm/tests/program/test_derive_realhf.py::test_realhf_case[gpt2-sdpa-bf16-tie1-greedy-gelu_pytorch_tanh]
+54 failed, 3532 passed, 286 skipped, 6 xfailed, 41 warnings, 11 errors in 829.68s (0:13:49)
+exit 1 2026-09-25T02:10:12Z

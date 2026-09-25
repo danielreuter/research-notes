@@ -118,7 +118,6 @@ static bool g_pre_ok = false;
         CK(cudaMemcpyAsync(d_a, g_pre[1], len * sizeof(F128), cudaMemcpyDeviceToDevice, 0));
         CK(cudaMemcpyAsync(d_b, g_pre[2], len * sizeof(F128), cudaMemcpyDeviceToDevice, 0));
         CK(cudaMemcpyAsync(d_zlin, g_pre[3], (size_t)len * 16, cudaMemcpyDeviceToDevice, 0));
-        g_pre_ok = false;
     } else if (mode == 2) {
         if (!g_net_ok || !g_dx || k_log != UW_K_LOG) { printf("FFI: unit netlist / rows not set (or k_log %d)\\n", k_log); return 106; }
         CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total,

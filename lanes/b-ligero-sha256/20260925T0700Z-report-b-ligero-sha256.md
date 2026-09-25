@@ -184,7 +184,17 @@ per round is the floor for a bit design with committed booleans.
   - b009fdc8 PINS row.
 * 10:46Z r20260925-104636-6976 (b009fdc8): Rust rebuild; cargo tests 34 + 7 + 27 pass; bf16 fixture pinned ACCEPT
   2^-128.05.  Then sweep bf16-hopper-x4+sha256 l4096 p4: 2048 2803, 4096 3048, 8192 3165 VU/s, …
+  - 16384 point spoiled by my own custody retry: load1 26 on a 23.8-core quota.  Reps 2 and 3 e2e 44.7 s and 13.4 s,
+    against 5.2 s clean, so the median fell to 2190 VU/s and the sweep stopped.
+  - Plateau 8192 VUs, 3165 VU/s, 49/49 Rust ACCEPT.  Preserved (art:a8a1fc9f + proofs art:aeca551a); superseded.
 * 10:55Z main 767115db merged 98d878ca (the sha256 scheme + MALLOC default).
+* 11:13Z e592 custody: the runner had already pushed the bench-results (verified 10:47Z) before `RemoteDisconnected`, and
+  the attempt was in the pod's store.
+  - `custody --publish` hung on a stalled R2 read (0 B/s, one socket), so I switched to `data push --jobs 8`.
+  - The proofs tree (6.7 GB, 299 blobs) hit `TimeoutError: read operation timed out`; retrying.
+  - The runner's own sockets sat in CLOSE-WAIT (R2 closing connections).
+* 11:30Z r20260925-113022-5a5f: bf16-hopper-x4+sha256 re-sweep, l4096 p4, pod otherwise idle apart from the network-only
+  push.
 * vllm-v1 variant: design only, not built.
   - Position leaf = `SHA-256("verity/pos-leaf/v0" || u64be(len) || value)`, a 26-byte prefix.  The leaf's blocks start
     at byte offset 38 of a column, so they straddle column boundaries, and no block is a midstate the verifier can

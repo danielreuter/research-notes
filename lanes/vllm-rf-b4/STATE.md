@@ -2,11 +2,11 @@
 id: vllm-rf-b4/state
 lane: vllm-rf-b4
 kind: state
-updated: 2026-09-25T11:07Z
+updated: 2026-09-25T11:31Z
 ---
 # b4 (engine and hooks): state
 
-> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T14:00Z (7 AM PT)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
+> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT; updated 11:31Z)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
 
 Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/projects/verity-wt/rf-b4`, branch
 `lane/vllm-rf-b4`. **a4 base: 10996616.** Budget $25 of pod spend. Deadline (coordinator 09:03Z): 13:00Z.
@@ -50,9 +50,11 @@ Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/proje
   time, about 1.9x slower than a23b's pod (one CPU-bound thread on a shared host), so **ETA about 13:30Z**, before the
   14:00Z pod deadline. A second copy on a cpu3m/cpu5m pod was not possible (no stock at 64 or 32 vCPU, 11:05Z).
 - #101 base `r20260925-104202-d6d9` DONE: head == base == record (run root, commit_pass), Program / manifest head == base.
-- `vyv-rf-b4-h100` (ew9cx2468ey9gx, 1x H100 PCIe cc 9.0, $1.99/h): FA3 tap, `r20260925-104827-1825` = bootstrap (builds
-  the FA3 matReq tap), then the Llama-3.2-1B B1 1024/128 H100 row build/match/commit at head and base. Time box: drop it if
-  the FA3 tap is not built by ~11:50Z.
+- `vyv-rf-b4-h100` (ew9cx2468ey9gx, 1x H100 PCIe cc 9.0, 114 SMs, $1.99/h): `r20260925-104827-1825` = bootstrap OK
+  (FA3-TAP-OK `e0fb0036…` 11:01Z), then the Llama-3.2-1B B1 1024/128 H100 row: Build PASS at head, Match refused by
+  `build_engine` ("num_sms declared 132, device 114": the H100 rows declare an H100 SXM), so I stopped it by pgid.
+  Now `r20260925-113014-592b`: the canary's Llama-3.2-1B B1 256/32 greedy row (no declared target; target-family precheck
+  waived by name as canary.sh does on Hopper) build/match/commit with the FA3 tap, head then base.
 - `vyv-rf-b4-tp2` (19vmzfvh0x589w, 2x L40S, 377 GB cgroup): `r20260925-101142-d268` = bootstrap OLMOE, then #70
   build / match / commit (PAIRS=1) at 3bdcd0ad (0f71b5b4 differs only in tests/engine/test_hooks.py). Build PASS
   10:39Z, program 64bee6d6e8264461 = record; build-global, match and commit next.

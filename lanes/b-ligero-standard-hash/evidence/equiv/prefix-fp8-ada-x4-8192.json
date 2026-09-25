@@ -1,0 +1,42 @@
+{
+  "what": "prefix of the x4 8192 set vs the frozen 4096 set",
+  "frozen_relation": "fp8-ada",
+  "frozen": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "tier": "vu-k1536-fp8-ada",
+    "range": [
+      0,
+      4096
+    ],
+    "manifest_sha256": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d"
+  },
+  "candidate_8192": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "tier": "vu-k1536-fp8-ada",
+    "range": [
+      0,
+      8192
+    ],
+    "manifest_sha256": "5ca6851d01ae0335eea8d1d92d4598fe26955de59324133efab032d0c659f9af",
+    "seed": 20260922,
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)"
+  },
+  "arrays": {
+    "x": {
+      "frozen_sha256": "d64fec05ec1f50cbc4fb644bf413e95cf870ab69dfde381d43a4f3c6dcb92405",
+      "candidate_prefix_sha256": "d64fec05ec1f50cbc4fb644bf413e95cf870ab69dfde381d43a4f3c6dcb92405",
+      "candidate_rows": 8192
+    },
+    "W": {
+      "frozen_sha256": "f7cb2046f2fdc78c0d007b08aa8091405d686884612ed4b37be11c8c4b61ccd0",
+      "candidate_prefix_sha256": "f7cb2046f2fdc78c0d007b08aa8091405d686884612ed4b37be11c8c4b61ccd0",
+      "candidate_rows": 8192
+    },
+    "y": {
+      "frozen_sha256": "27cdcef18aa66b03cdce5e7491d87ddedc039e6643379abedcb77d8458d60c00",
+      "candidate_prefix_sha256": "27cdcef18aa66b03cdce5e7491d87ddedc039e6643379abedcb77d8458d60c00",
+      "candidate_rows": 8192
+    }
+  },
+  "prefix_equal": true
+}

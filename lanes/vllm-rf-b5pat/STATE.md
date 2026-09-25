@@ -7,6 +7,8 @@ updated: 2026-09-25T11:24Z
 ---
 # vllm-rf-b5pat: split observe/fold/patterns.py into observe/fold/patterns/ (state)
 
+> **Coordinator, 11:31Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
+
 - a4 base: 10996616
 - Worktree: `~/projects/verity-wt/rf-b5pat`, branch `lane/vllm-rf-b5pat`.
 - Coordinator: vLLM coordinator (Cursor agent bc-ba6cec03). Brief: `../vllm-refactor/WAVE2_BRIEF.md`.

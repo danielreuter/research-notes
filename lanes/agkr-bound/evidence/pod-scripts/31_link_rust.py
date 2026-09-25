@@ -11,6 +11,7 @@ verifier's own copy of the operand words gives y; results are drill-down only (r
   root_b_changed       the prover's root_b differs from the statement's (the points must change) -> reject
   z_differs            the verifier's z has one word altered, honest prover -> reject (Rust: x.bin altered, which
                        no longer hashes to the public digest -> statement reject)
+  vu_remap             the prover's sigma under Lambda with VUs 0 and 1 swapped, honest witness -> reject
   S dup_cell           two link columns with one name -> setup reject
   S no_booleanity      one booleanity assertion dropped -> setup reject
 
@@ -248,6 +249,32 @@ for name, d in (("sigma_range", LAY.n_cells + 2 if LAY.n_cells % 2 == 0 else LAY
     (sdc / "proof.bin").write_bytes(proof.to_bytes())
     del inst, proof
 LK.plane_sums = _ps
+
+
+def remapped(T, lay, z, cols):
+    # the prover's sigma under Lambda' = Lambda with VUs 0 and 1 swapped (its committed witness stays honest)
+    if cols is None:
+        return _ps(T, lay, z, cols)
+    c2 = cols.clone()
+    c2[0:steps, lay.col0:] = cols[steps:2 * steps, lay.col0:]
+    c2[steps:2 * steps, lay.col0:] = cols[0:steps, lay.col0:]
+    r = _ps(T, lay, z, c2)
+    del c2
+    return r
+
+
+sdc, pubc = statement("vu_remap")
+inst = instance(sdc, pubc, hunits, honest_rows.epilogue)
+LK.plane_sums = remapped
+proof, _ = prover.prove(inst, True)
+LK.plane_sums = _ps
+py = verdict(inst, proof)
+good = py.startswith("reject")
+results["vu_remap"] = {"python": py, "expected": "reject", "ok": good}
+ok &= good
+print(f"{'vu_remap':16s} python={py} -> {'OK' if good else 'UNEXPECTED'}", flush=True)
+(sdc / "proof.bin").write_bytes(proof.to_bytes())
+del inst, proof
 
 case("root_b_changed", hunits, honest_rows.epilogue, prover_kw={"root_b": hashlib.sha256(b"another binary root").digest()})
 zx = X.copy(); zx[v, t] ^= 1

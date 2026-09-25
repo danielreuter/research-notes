@@ -293,3 +293,64 @@ binding" question).
   kernel-only 1.30 s / 1.36 s estimate above. Flock is extra.
 - Registered as art:400126e2 (gate-log/v1, refs art:64220e14 and art:35bce6f5). Runs r20260925-100729-6578 and
   r20260925-101520-bc72 are preserved.
+
+## The link built: sigma form, both verifiers (11:30Z)
+
+Per coordinator 1020Z (build allowed to the checklist; sigma-in-clear for A-GKR, NON_ZK_PROOF class only; one
+GF(2^256) point; verifier-derived injective maps) and red-team-link §4 ("build the prime side now").  lane/agkr-bound
+78b1a62e: `gpu/link.py` (prover + Python verifier), `verifier/src/link.rs` (Rust verifier), PROTOCOL.md §17.
+
+**What is built (prime side), against the checklist.**
+- C1: one point r in GF(2^256)^28 (x^256 + x^10 + x^5 + x^2 + 1), each coordinate one whole transcript digest
+  (`challenge_bytes`, its own coin slot), drawn after the Ligero root, every GKR message and root_b (C2 ordering).
+- C5: both verifiers derive Lambda_F from the unit circuit (column names, order) and the checker-v2 layout, and check
+  it is a bijection onto [0, n_pos) with a bitmap.  C6: n_cells = n_pos <= p - 1 enforced (BF16 at K = 1536: <= 40,960
+  VUs), sigma_t canonical in [0, n_cells].  C7: booleanity and recomposition assertions checked for every link bit.
+- S1: 256 sigma_t messages in the clear, parity = bit_t(y), then one rho and the 256 constraints as one dense term of
+  the batched Ligero functional (no new rows, no second commitment).
+- STAND-IN binary side: root_b = SHA-256(TAG, "/root-b-standin/", commitment.txt); y from `x.bin` / `w.bin`, which
+  the Rust verifier first requires to hash (sha256/row/v1) to every VU's public digest limbs.  Not built: C3 (Flock at
+  2^-128), C4 (chain glue), C8 (accountant), Lambda_B's SHA-256 big-endian bit order (F2, binary side).
+
+**Results** (A100 80GB vy-agkr-bound2, bf16-ampere+sha256 in-unit statement, frozen bench-instances/v1, 4,096 VUs,
+1 warm-up + 3 reps, MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1000000000000 set in every run; final run
+r20260925-112019-a85e at 78b1a62e; breakdown r20260925-112412-a19c):
+
+| | in-unit bits | + sigma link | delta |
+| --- | --- | --- | --- |
+| median prove | 1.2016 s | **1.5418 s** | +0.340 s (+28%) |
+| Python verify (GPU) | 1.249 s | 1.575 s | +0.33 s |
+| Rust verify (13 threads, EPYC 7742) | 3.419 s | 4.665 s | +1.25 s, plus 0.435 s Lambda_F derivation at load |
+| proof bytes | 58,988,200 | 58,994,344 | +6,144 (256 messages) |
+
+- Prover link time 0.333 s: eq table 0.137 (2^28 x 32 B, nibble-table levels), z bits 0.010, y and sigma plane sums
+  in one fused int8 tensor-core pass 0.062, the term of a 0.124 (five per-limb int8 dots into one tile).  First build
+  was 0.72 s (r20260925-104121-b263); the fused pass, the per-limb tile and the nibble tables took it to 0.33 s, each
+  step re-verified by the independent Rust verifier.
+- Rust verifier: GF(2^256) products by PCLMULQDQ (cargo test against shift-and-add), eq split 2^14 x 2^14, one product
+  and 32 byte-table lookups per cell in the row fill; derivation first 1.77 s, 0.44 s after removing the divisions.
+- **Route (a) prime side per BF16 batch on A100, measured**: 0.776 s (no link) -> 1.20 s (in-unit bits) -> **1.54 s**
+  (sigma link, one GF(2^256) point), about +99% over no link.  This replaces the 1.44 s / 1.65 s estimates of 10:25Z
+  (GF(2^128), u committed).  Flock (binary side) is extra: flock-bench-80gb measured 0.745 s on A100 BF16 as shipped.
+
+**Negatives** (each rejected by the Python AND the Rust verifier; honest and honest-without-link accepted by both):
+
+| case (red team #) | Python | Rust |
+| --- | --- | --- |
+| bit_flip (1) | GKR assertions | GKR assertions |
+| non_boolean (4) | GKR assertions | GKR assertions |
+| alt_alt_bits, altered operand with its own bits (3) | sigma parity | sigma parity |
+| sigma_range, sigma_0 + n_cells + 2, parity kept (6) | sigma range | sigma range |
+| sigma_plus2, in range, parity kept | functional value | functional value |
+| root_b_changed, points change with roots (11) | sigma parity | sigma parity |
+| z_differs, verifier's z altered (10) | sigma parity | statement: x.bin no longer hashes to the digest |
+| vu_remap, prover's sigma under Lambda with VUs 0 and 1 swapped, honest witness (7) | sigma parity | sigma parity |
+| dup_cell, two link columns one name (8) | derive | derive |
+| no_booleanity, one assertion dropped (C7) | derive | derive |
+
+Not run: the forged middle block (needs Flock chaining, C4).  vu_remap was added in the confirming run
+r20260925-113047-d490 (same commit; prove 1.1994 -> 1.5286 s, Python verify 1.261 -> 1.564 s, Rust 3.414 ->
+4.676 / 4.719 s): 11 of 11 negatives rejected by both verifiers.  Registered art:bd3d8b2c (gate-log/v1, refs
+art:400126e2, art:64220e14) and the addendum art:fc687ece; runs preserved.  Drill-down only (L).
+- BabyBear cap: the code enforces n_cells <= p - 1, i.e. at most 40,960 BF16 VUs at K = 1536 (p - 1 = 40,960 x
+  49,152); the red team's figure is 40,959, one VU stricter.  Both are far above 4,096; I kept the derived bound.

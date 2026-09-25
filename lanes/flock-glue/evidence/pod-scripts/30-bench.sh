@@ -8,6 +8,7 @@
 # then one diagnostic phase-timer run per mode (FLOCK_GLUE_PHASES=1, syncs at each phase: not a timing run).
 # Flock profile: b684b12 default (Fast Ligerito, SHA-256 FS + Merkle, GF(2^128), "strict 128" = 16-bit PoW credit;
 # about 2^-100 under campaign accounting, red-team-link §3).
+# PROFILE=fast100 FREPS=2: flock-128-r2 cost (two Fast100 proof pairs per batch, no PoW credit; lanes/flock-128).
 # env: PIPES="ampere_bf16" NVUS="1024 4096" VARIANTS="before devwit devgpu devovl" REPS=5 PHASES=1
 set -uxo pipefail
 export MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1000000000000
@@ -33,7 +34,8 @@ unbl() {  # pipe nvu -> unit nbl (m = 13 + nbl); FP8 1024 VUs is m29, which has 
 }
 run() {  # tag pipe nvu mode reps [env...]
   local tag=$1 pipe=$2 nvu=$3 mode=$4 reps=$5; shift 5
-  env "$@" VU_NETLIST=$W/net/net-$pipe.txt VU_NAME=$pipe VU_NVU=$nvu GLUE_MODE=$mode GLUE_REPS=$reps \
+  [ "${PROFILE:-fast}" != fast ] || [ "${FREPS:-1}" != 1 ] && tag=$tag-${PROFILE:-fast}x${FREPS:-1}
+  env "$@" GLUE_PROFILE=${PROFILE:-fast} GLUE_FLOCK_REPS=${FREPS:-1} VU_NETLIST=$W/net/net-$pipe.txt VU_NAME=$pipe VU_NVU=$nvu GLUE_MODE=$mode GLUE_REPS=$reps \
     GLUE_B3_NBL=$(b3nbl $pipe $nvu) GLUE_UNIT_NBL=$(unbl $pipe $nvu) \
     /usr/bin/time -v $BIN --ignored --nocapture --exact glue_bench > $OUT/$tag.txt 2>&1
   echo "rc=$? $tag"; grep -E "VWIT|VSUMMARY|REJECTED|panicked|Maximum resident" $OUT/$tag.txt | head -8

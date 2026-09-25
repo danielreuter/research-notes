@@ -7,7 +7,7 @@ updated: 2026-09-25T11:21Z
 ---
 # c2 (Definition library, D8/D9, decision 3a): state
 
-> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T14:00Z (7 AM PT)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
+> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT; updated 11:31Z)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
 
 a4 base: 10996616
 

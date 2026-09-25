@@ -173,3 +173,20 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   non-tensor linear check, such as the link's c_i, is one more `a[pos] += c` term: no sumcheck, and no extra opening.
   - On the BF16 in-unit proof on A100 this adds 0.21 s to prove (1.20 → 1.41 s) and 0.16 s to the Python verify, in an
     unoptimised wrapper (`lanes/agkr-bound/evidence/pod-scripts/28_link_dense.py`).
+- The sigma-form bit link (red team S1) is built in A-GKR (lane/agkr-bound 78b1a62e: `gpu/link.py`,
+  `verifier/src/link.rs`, PROTOCOL.md §17). It is NON_ZK_PROOF only: the 256 plane sums sigma_t go in the clear.
+  - One GF(2^256) point: m = log2ceil(n_pos) whole transcript digests (`challenge_bytes`), drawn after the GKR messages
+    and root_b; the link runs before the functional's rho's.
+  - Lambda_F is derived by both verifiers from the extended unit circuit and checked bijective; the circuit must
+    carry booleanity + recomposition for every `link.b{col}.{i}`.
+  - The binary side is a STAND-IN: root_b = SHA-256(TAG, "/root-b-standin/", commitment.txt), y from x.bin / w.bin
+    (the Rust verifier checks they hash to the public row digests).
+  - Cost on A100 BF16 4,096 VUs: prove 1.20 -> 1.54 s (+0.34 s), Python verify 1.25 -> 1.58 s, Rust verify
+    3.42 -> 4.67 s (+0.44 s derivation at load), proof +6,144 B (art:bd3d8b2c).
+- Triton kernels defined inside a function resolve `tl` through the module globals: bind `triton`, `tl` with
+  `global` in the lazy loader or the jit fails with "NameError: tl is not defined".
+- GF(2^256) plane sums / dense terms on A100: build the bit matrix from int32 words, reduce with int8 tensor-core dots
+  (rows [z; b; 0] @ e for sums, e @ 7-bit limbs of rho^t for the term), and fuse passes that share the point. A
+  cross-thread `tl.sum` over the cell axis or six strided read-modify-writes cost 2-4x more. eq-table levels by
+  nibble tables (64 x 16 x 32 B per level) are 1.4x faster than byte tables (32 x 256 x 32 B, L2-resident); the first
+  compile takes ~25 s.

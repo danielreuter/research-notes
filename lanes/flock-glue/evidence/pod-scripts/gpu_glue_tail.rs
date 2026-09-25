@@ -169,6 +169,14 @@ fn setup_device(g: &Glue) -> usize {
     depth
 }
 
+fn glue_profile() -> flock_prover::pcs::ligerito::LigeritoProfile {
+    match env_or("GLUE_PROFILE", "fast").as_str() {
+        "fast100" => flock_prover::pcs::ligerito::LigeritoProfile::Fast100,
+        "fast" => Default::default(),
+        p => panic!("GLUE_PROFILE {p}: fast | fast100"),
+    }
+}
+
 fn splitmix(s: &mut u64) -> u64 {
     *s = s.wrapping_add(0x9E3779B97F4A7C15);
     let mut z = *s;
@@ -392,41 +400,51 @@ fn glue_bench() {
         Ok(()) => println!("VWARM unit verified"),
         Err(e) => println!("VWARM unit REJECTED: {e}"),
     }
+    // one batch = GLUE_FLOCK_REPS full (unit, BLAKE3) proof pairs; flock-128-r2 = 2 reps under GLUE_PROFILE=fast100
+    // (cost stand-in: both reps share the FS domain, so they are identical proofs; the unit witness is built once)
+    let fr: usize = env_or("GLUE_FLOCK_REPS", "1").parse().unwrap();
     let mut e2e = Vec::new();
     let mut ffi = Vec::new();
     let mut pw = Vec::new();
     for rep in 0..reps {
         let t0 = Instant::now();
-        let (mut ba, mut hb) = (None, (0.0, 0.0));
+        let (mut arts, mut parse) = (Vec::new(), 0.0);
         if mode == 3 {
             launch();
-            ba = Some(b3());
-            hb = *LAST_HOST.lock().unwrap();
         }
-        let ua = unit();
-        let t_unit = t0.elapsed().as_secs_f64();
-        let hu = *LAST_HOST.lock().unwrap();
-        if mode != 3 && b3_nbl > 0 {
-            ba = Some(b3());
-            hb = *LAST_HOST.lock().unwrap();
+        for _ in 0..fr {
+            if mode == 3 {
+                arts.push(("b3", b3()));
+                parse += LAST_HOST.lock().unwrap().1;
+            }
+            arts.push(("unit", unit()));
+            parse += LAST_HOST.lock().unwrap().1;
+            if mode != 3 && b3_nbl > 0 {
+                arts.push(("b3", b3()));
+                parse += LAST_HOST.lock().unwrap().1;
+            }
         }
         let t_all = t0.elapsed().as_secs_f64();
-        // prover wall: from entering the unit call until the BLAKE3 proof bytes are back (host parse excluded)
-        let prover = t_all - hu.1 - hb.1;
-        println!("VHOST rep={rep} unit_pre={:.4} unit_parse={:.4} b3_pre={:.4} b3_parse={:.4} prover_wall={prover:.4}", hu.0, hu.1, hb.0, hb.1);
+        // prover wall: from the batch start until the last proof's bytes are back (host stream parse excluded)
+        let prover = t_all - parse;
         pw.push(prover);
-        let uv = verify_art(&ua);
-        let bv = ba.as_ref().map(verify_art);
-        let f = ua.prove_secs + ba.as_ref().map_or(0.0, |b| b.prove_secs);
-        println!(
-            "VGLUE rep={rep} m={m} b3_nbl={b3_nbl} unit_ffi={:.4} b3_ffi={:.4} ffi_sum={f:.4} call_unit={t_unit:.4} call_e2e={t_all:.4} unit_verify={} b3_verify={}",
-            ua.prove_secs,
-            ba.as_ref().map_or(0.0, |b| b.prove_secs),
-            if uv.is_ok() { "ok".to_string() } else { format!("REJECTED {:?}", uv.as_ref().err()) },
-            match &bv { None => "-".to_string(), Some(Ok(())) => "ok".to_string(), Some(Err(e)) => format!("REJECTED {e}") },
-        );
+        let f: f64 = arts.iter().map(|(_, a)| a.prove_secs).sum();
+        let mut vs = Vec::new();
+        let mut all_ok = true;
+        for (tag, a) in &arts {
+            match verify_art(a) {
+                Ok(()) => vs.push(format!("{tag}=ok")),
+                Err(e) => {
+                    all_ok = false;
+                    vs.push(format!("{tag}=REJECTED {e}"));
+                }
+            }
+        }
+        let secs: Vec<String> = arts.iter().map(|(tag, a)| format!("{tag}:{:.4}", a.prove_secs)).collect();
+        println!("VGLUE rep={rep} m={m} b3_nbl={b3_nbl} flock_reps={fr} ffi=[{}] ffi_sum={f:.4} prover_wall={prover:.4} call_e2e={t_all:.4} verify=[{}]",
+            secs.join(" "), vs.join(" "));
         if !plant {
-            assert!(uv.is_ok() && bv.as_ref().map_or(true, |r| r.is_ok()), "a proof failed to verify");
+            assert!(all_ok, "a proof failed to verify");
         }
         e2e.push(t_all);
         ffi.push(f);
@@ -434,6 +452,6 @@ fn glue_bench() {
     e2e.sort_by(|a, b| a.partial_cmp(b).unwrap());
     ffi.sort_by(|a, b| a.partial_cmp(b).unwrap());
     pw.sort_by(|a, b| a.partial_cmp(b).unwrap());
-    println!("VSUMMARY pipe={} mode={mode} n_vu={n_vu} m={m} b3_nbl={b3_nbl} reps={reps} ffi_sum_median={:.4} ffi_sum_min={:.4} prover_wall_median={:.4} call_e2e_median={:.4}",
-        env_or("VU_NAME", "?"), ffi[reps / 2], ffi[0], pw[reps / 2], e2e[reps / 2]);
+    println!("VSUMMARY pipe={} profile={} flock_reps={fr} mode={mode} n_vu={n_vu} m={m} b3_nbl={b3_nbl} reps={reps} ffi_sum_median={:.4} ffi_sum_min={:.4} prover_wall_median={:.4} call_e2e_median={:.4}",
+        env_or("VU_NAME", "?"), env_or("GLUE_PROFILE", "fast"), ffi[reps / 2], ffi[0], pw[reps / 2], e2e[reps / 2]);
 }

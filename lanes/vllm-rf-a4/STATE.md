@@ -6,7 +6,7 @@ updated: 2026-09-25T11:25Z
 ---
 # a4 (re-home into the §5.1 tree): state
 
-> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T14:00Z (7 AM PT)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
+> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT; updated 11:31Z)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
 
 > **Coordinator, 06:35Z: owner-approved naming. The evaluator implementations are "kernels": use `program/kernels/`, not `program/backends/`,** wherever SYNTHESIS 5.1/5.2 say `program/backends/`. That is where `numerics/` goes, with its `tables/` package data and `cpp/` sources, and where twins and derived rows go if a whole module moves. Put it in your move map now, and use "kernels" in `INTERIM_LAYER` / layer names. Details: `20260925T0635Z-handoff-from-vllm-coordinator.md`.
 > **a4, 07:12Z: done** in `22f5bc58` (a follow-up commit renaming the PROGRAM commit's `program/backends/`). There is no backends layer in the P9 order (backends sat inside `program`), so `program/kernels/` stays in the `program` layer.

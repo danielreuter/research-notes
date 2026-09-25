@@ -36,6 +36,7 @@ t = sub(t, "        prove_secs: t_prove.as_secs_f64(),\n    }\n}",
         "            *LAST_HOST.lock().unwrap() = (pre_secs, t_entry.elapsed().as_secs_f64() - pre_secs - t_prove.as_secs_f64());\n"
         "            t_prove.as_secs_f64()\n        },\n    }\n}")
 t = sub(t, "let matrices = BLAKE3_CSC_MATRICES.get_or_init(", "let matrices = mats.get_or_init(")
+t = sub(t, "        profile: Default::default(),\n        num_lanes: None,", "        profile: glue_profile(),\n        num_lanes: None,")
 t = sub(t, "    let rc = unsafe { flock_cuda_prove_blake3(&params, &mut out, &mut out_len) };",
         "    let rc = unsafe {\n        match mode {\n"
         "            0 => flock_cuda_prove_blake3(&params, &mut out, &mut out_len),\n"

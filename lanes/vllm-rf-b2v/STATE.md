@@ -2,17 +2,17 @@
 id: vllm-rf-b2v/state
 lane: vllm-rf-b2v
 kind: state
-updated: 2026-09-25T11:13Z
+updated: 2026-09-25T11:33Z
 ---
 # b2v (one verdict and `properties/` records): state
 
-> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T14:00Z (7 AM PT)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
+> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT; updated 11:31Z)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
 
 > **Coordinator, 08:32Z: the 08:24Z pause is CANCELLED.** A slot freed, so continue your lane normally; there is no PAUSE file any more.
 
 Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/projects/verity-wt/rf-b2v`, branch
-`lane/vllm-rf-b2v`. **a4 base: 10996616.** Budget $30 of pod spend. Spent so far (est., 11:13Z): ~$5.6
-(l40s $1.09/h since 09:28Z, tp2 $2.18/h since 09:30Z).
+`lane/vllm-rf-b2v`. **a4 base: 10996616.** Budget $30 of pod spend. Spent so far (est., 11:33Z): ~$6.6
+(l40s $1.09/h 09:28Z-11:27Z, terminated; tp2 $2.18/h since 09:30Z).
 
 ## Design (settled)
 - `check/result.py`: one `CheckResult(name, code: VerificationCode|None, evidence...)`; outcome derived from code
@@ -41,31 +41,22 @@ Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/project
 - `824a9924` properties: holdout reads `check.gates.HOLDOUT_GATES` (P4 allowlist −6 g-literal entries).
 - `fd9220c9` / `95515e42` / `8d847755`: lint fixes (by-name entries follow the families split; P8 claim wording; P10 import lines).
 
-## Running (11:13Z)
-- **Lints at 824a9924 FAILED (4 tests; caught on the pod, pytest is not allowed on the laptop):** by-name entries had not
-  followed the families split; P8 `FlashAttention` literal in the registry claim; P10 +1 line in `pipeline/commit.py` and
-  `pipeline/tp/commit.py` (import lines). Fixed in `fd9220c9`, `95515e42`, `8d847755` (no allowlist grows: 9 by-name
-  entries moved/re-pointed; P10 main cap 1914 → 1913). **Lints at 8d847755: 45 passed** (`lint_head2`, L40S, 11:01Z).
-- `vyv-rf-b2v-l40s`: #101 chain done (build PASS, match PASS, props records ok, **commit PASS** 10:42:54Z; program
-  ccc213475e7c4eed…, manifest 90f8186879d5035a…, run root 7adcef49… = record; verdict cites census 33a41e9c… and
-  noninterference be83f678…). Byte check: from_record at 8d847755 == at the run's tree 5483d13b (same inputs, sha
-  bdf5a75e…); base 10996616 differs only by the `properties` citations; the stored verdict.json differs from today's
-  rebuild only by `compat.stage_line`/`stage_outcome` (stages.txt got the commit line after the verdict was written).
-  Gate (b): `b_base` (10996616) running in `r20260925-104642-9085`; `b_head` (824a9924) killed by pid (stale);
-  `b_head2` (8d847755) `r20260925-110128-3b30` since 11:01Z. Trees built by `evidence/mktree.sh` (blob-verified).
-- `vyv-rf-b2v-tp2`: #70 build PASS (64bee6d6e8264461), manifest 1bb40895671dd791 (= record); match capture/check pass,
-  fold FAIL 10:49:59Z (rank-0 fold errors 4096, unresolved 3544; record: fold_binding False) → run state failed as
-  expected. World-2 record `<row>/properties/noninterference.json` ok 442979b3… (8/8 equal); worlds 3, 4 refused.
-  Commit at 66eaaa50 `r20260925-111138-272a` (worktree `/tmp/b2v-66e`, remove at end) since 11:11Z; then from-record at 8d847755.
-  Prefetch 26 ok / 0 FAIL, **key deleted 10:52:13Z** (no AWS_ vars in the gate env). Gate (a) T0,T1 at 824a9924 in
-  `r20260925-105008-bca1` (two processes, since 10:52Z). Verdict bytes: 10 rows with a Commit record, from_record under
-  10996616 == under 824a9924 == under 8d847755 (`diff -r` exit 0); 3 rows have no commit/verdict.json. Targeted gate (a)
-  `-k "verdict or commit_summary"` at 8d847755 `r20260925-110440-71eb`.
-- Spend (est., 11:13Z): ~$5.6.
+## Running (11:33Z)
+- **Lints at 8d847755: 45 passed** (`lint_head2`, L40S). The failures at 824a9924 were fixed in `fd9220c9`, `95515e42`,
+  `8d847755` (no allowlist grows).
+- **Gate (b) done** (L40S): head `8d847755` 31F/3662P/306S/6xF (4005) vs base `10996616` 32F/3646P/306S/6xF (3990);
+  jdiff exit 0: no new failure/skip/skip reason, 15 new tests pass, none deleted/renamed; sigint test failed -> passed.
+- **#101 done** (L40S, world 1): commit PASS; program/manifest/run root = record; verdict cites census 33a41e9c… and
+  noninterference be83f678… (ok). **L40S pod terminated 11:27:26Z**, evidence in `evidence/l40s/`, `evidence/row101/`.
+- `vyv-rf-b2v-tp2`: #70 build/manifest = record, fold FAIL as recorded, world-2 record 442979b3… ok. Commit at 66eaaa50
+  `r20260925-111729-3301` (in the engine since 11:27Z). Gate (a) T0,T1 at 824a9924 `r20260925-105008-bca1` (since 10:52Z).
+  Verdict bytes: 10 rows with a Commit record identical under 10996616 / 824a9924 / 8d847755. Targeted gate (a)
+  `verdict or commit_summary` at 8d847755: 20 passed, 6 skipped. Key deleted 10:52:13Z.
+- READY.md drafted (gate (a) and #70 commit placeholders).
 
 ## Next
-1. #70 commit → from-record at 8d847755 (citation of 442979b3…) → compare legs with the record.
-2. Gate (b) jdiff b_base vs b_head2; gate (a) jdiff vs a23b; fetch; terminate; READY.md.
+1. #70 commit -> from-record at 8d847755 (citation of 442979b3…) -> compare legs with the record.
+2. Gate (a) jdiff vs a23b; fetch TP2 evidence and runs; terminate TP2; remove /tmp worktrees; READY.md final.
 
 ## Open questions
 - none

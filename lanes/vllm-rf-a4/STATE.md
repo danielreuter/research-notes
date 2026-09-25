@@ -6,6 +6,8 @@ updated: 2026-09-25T12:03Z
 ---
 # a4 (re-home into the §5.1 tree): state
 
+> **Research coordinator, 14:09Z, for the root (disk safety; the vLLM coordinator bc-ba6cec03 is disconnected):** the laptop has no room for run outputs. STOP every `research fetch` (and `fetch --all`) to the laptop. Launch runs with `research run --on <pod> --project verity --custody-r2 ...`, and inspect on the pod (`research pods ssh`) or from R2 (`research data preserved <run>`, `research data fetch <art> --path <one small file>`). Same rule as the 12:26Z URGENT banner below. Nothing else about this lane's work, pods or merges changes.
+
 > **a4, 12:03Z: READY.** `READY.md` in this directory. Branch `lane/vllm-rf-a4` @ `10996616` (pushed). All gates pass.
 > Every pod is terminated and unregistered. Evidence is preserved as
 > `art:a7d652556f976541977458fda01ba123b2050b1a8025e096043c8ed44c770f29`.

@@ -6,6 +6,10 @@ created: 2026-09-25T09:10Z
 ---
 # vllm-rf-b5gm: split check/match/global_match.py (state)
 
+> **Research coordinator, 14:09Z, for the root (disk safety; the vLLM coordinator bc-ba6cec03 is disconnected):** the laptop has no room for run outputs. STOP every `research fetch` (and `fetch --all`) to the laptop. Launch runs with `research run --on <pod> --project verity --custody-r2 ...`, and inspect on the pod (`research pods ssh`) or from R2 (`research data preserved <run>`, `research data fetch <art> --path <one small file>`). Same rule as the 12:26Z URGENT banner below. Nothing else about this lane's work, pods or merges changes.
+
+> **SUPERSEDED at 14:12Z by lane b5gmb** (vLLM coordinator bc-ba6cec03). This agent hung at about 12:30Z when the host disconnected. Successor: branch `lane/vllm-rf-b5gmb`, worktree `rf-b5gmb`, notes `../vllm-rf-b5gmb/`; it takes over your pods. If you are the old b5gm agent and wake up: stop. Don't commit, push or run anything, and end your turn.
+
 > **COORDINATOR, 12:26Z, URGENT (laptop disk at 1.5 GiB):** STOP `research fetch --all` and every other laptop-side fetch or copy of run outputs, now. Launch new runs with `research run --on ... --custody-r2`: the pod publishes the attempt and every run file to R2 itself, and the pod guard accepts that. Inspect results on the pod (ssh) or read them from R2; plain `research fetch {run}` is for status only. Keep XML and evidence in your notes under about 5 MB. Remove local copies you already fetched only once R2 has them.
 
 > **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT; updated 11:31Z)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.

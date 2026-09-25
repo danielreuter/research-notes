@@ -2,9 +2,10 @@
 lane: agkr-flock-cell
 kind: report
 created: 2026-09-25T17:38Z
-status: open
+status: final
 ---
 
+CHECKPOINT 7585828d (19:35Z) [final] reopened round NOT completed: same-DC sweep code + statements (serving commit 38.6 s at 4096) done, but no co-located sessions (I waited without a wake; verifier idled out). Headline stays art:8f7ef58b. Pods terminated 19:34Z; lane ~$5.2
 CHECKPOINT 7585828d (18:46Z) [open] WAITING: chose (a) A100 (cell capped at 4096; 8192+ tiled = timing only). (b) H100 not now: prime side supports bf16-hopper but no H100 stock in a DC with a same-DC CPU verifier via REST (H100 only AP-IN/JP, CA-MTL-1 no hairpin, EUR-NO-2, US-GA-2, US-NE-1 GraphQL-only) and ~70 min left. Prep run r20260925-184103-5c18 at 8192 statements; check ~19:00Z
 CHECKPOINT 7585828d (18:45Z) [open] WAITING: chose (a) A100 (cell capped at 4096; 8192+ tiled = timing only). (b) H100 not now: prime side supports bf16-hopper but no H100 stock in a DC with a same-DC CPU verifier via REST (H100 only AP-IN/JP, CA-MTL-1 no hairpin, EUR-NO-2, US-GA-2, US-NE-1 GraphQL-only) and ~70 min left. Prep run r20260925-184103-5c18 at 8192 statements; check ~19:00Z
 CHECKPOINT 7585828d (18:42Z) [open] WAITING: sweep prep run r20260925-184103-5c18 on vy-agkr-flock-cell-a100-2 (yeerzt741imi2s, US-MD-1 secure A100): setup + fresh statements (timed serving commit) for 1024/4096/8192/16384/32768 VUs (>4096 tiled, flagged). cell-verifier building same-DC verifier (US-MD-1). Next: publish statements to evidence/sweep + READY, then the timed sweep. Check ~19:00Z
@@ -62,3 +63,45 @@ tip: lane/agkr-flock-cell @ c95dd13a (merged origin/main; base lane/flock-link@4
 known-failures: tests/test_repository.py::test_no_tracked_blob_exceeds_limit (on main too, per flock-link)    pod: vy-agkr-flock-cell-a100 terminated 18:19Z; ~$3.1 (A100 ~2.0 h × $1.39/h + cell-verifier ~$0.76)
 artifacts: art:8f7ef58b art:9464fe7a art:3b185b68 art:5a7ccc3b art:79d8d4a5
 ~~~
+
+## Reopened round (18:34–19:35Z): same-DC re-time and batch sweep, NOT completed
+
+- **Asked:** re-time the cell with a same-datacenter verifier, sweep batch size to the plateau, record rounds, bytes,
+  RTT and the compute-vs-wait split (coordinator 1836Z, handoff `20260925T1836Z-handoff-from-coordinator.md`), and
+  time the serving commit.
+- **Done:**
+  - Code for the sweep and the interactive record (7585828d): the frozen set tiled past 4,096 VUs and flagged;
+    per-session rounds, bytes up and down, RTT (median TCP connect to the verifier pod's ssh port, plus in-session
+    wait / round trips), and the Flock prover-compute / network-wait / verifier-compute split, in the sessions and in
+    the result envelope.
+  - A secure A100 in US-MD-1 (yeerzt741imi2s).
+  - Fresh statements for 1,024, 4,096, 8,192, 16,384 and 32,768 VUs, with the serving commit timed (run
+    r20260925-184103-5c18, preserved). The 4,096 prime commitment is 950d40bc…, unchanged.
+- **Serving commit** (CPU reference committer, `gpu.commit`, blake3-keyed/row/v2 + frame-v3):
+
+  | VUs | 1,024 | 4,096 | 8,192 | 16,384 | 32,768 |
+  |---|---|---|---|---|---|
+  | seconds | 10.7 | 38.6 | 76.2 | 151.3 | 304.1 |
+
+  It is linear, about 9.3 ms per VU, and at 4,096 VUs it is more than the co-located proving time. A GPU committer
+  would change this.
+- **Choice (a):** the cell stays on the A100, capped at 4,096 VUs (the renderer rejects tiled A100 batches). Not (b):
+  the prime side supports bf16-hopper, but no H100 was available in a datacenter with a proven same-DC CPU verifier,
+  and the time was too short.
+- **Not done, my error:** I ended my turn WAITING at 18:46Z expecting a wake-up when the prep run finished. None came.
+  - READY was never published, so cell-verifier's same-DC pod (4vmp4qarp4dko7, US-MD-1, confirmed) idled out at 19:27Z.
+  - My A100 idled from about 19:00Z until I terminated it at 19:34Z.
+  - No co-located sessions and no sweep timings exist. The headline result stays art:8f7ef58b (the remote verifier).
+  - Next step: recreate both pods in US-MD-1 together, publish READY at once, and run `10-cell.sh` with
+    VUS="1024 4096 8192 16384 32768" WARMUP_LOCAL=1 SESSIONS=5 RTT_PROBE=<verifier ssh>.
+
+## FINAL (19:35Z)
+
+~~~text
+tip: lane/agkr-flock-cell @ 7585828d (PR #28)        merge-with: none
+known-failures: tests/test_repository.py::test_no_tracked_blob_exceeds_limit (on main too)    pod: vy-agkr-flock-cell-a100 terminated 18:19Z, vy-agkr-flock-cell-a100-2 terminated 19:34Z (+ 2 stray A100s terminated within minutes); lane ~$5.2 (A100s ~$3.7 + cell-verifier ~$1.46)
+artifacts: art:8f7ef58b art:9464fe7a art:3b185b68 art:5a7ccc3b art:79d8d4a5
+~~~
+
+Handoffs received this round: `20260925T1836Z-handoff-from-coordinator.md` (sweep + interactive record): code done, runs
+not done (above).

@@ -5,6 +5,9 @@ created: 2026-09-25T14:31Z
 status: final
 ---
 
+CHECKPOINT 906255b2 (19:39Z) [final] flock-backend CPU drill-down art:827f594c verified=accepted: 20-pure.sh replay @ab5c1156 run r20260925-193306-85c5, 18/18 sessions of art:904398d8 accepted, lowering da1bbe2c PINNED; note: CPU drill-down (rule K). Pod mzclpkcwdyp4xm terminated 19:39Z, ~$0.10
+CHECKPOINT 906255b2 (19:31Z) [open] pod vy-verify-night-3 mzclpkcwdyp4xm (cpu3c 16 vCPU, $0.48/h, guard 30) for flock replay; staging art:904398d8 then 20-pure.sh MODE=replay @ab5c1156
+CHECKPOINT 906255b2 (19:25Z) [open] reopened for flock-backend CPU drill-down replay (art:827f594c / art:904398d8, coordinator 19:24Z): NOT final; will create one cheap CPU pod vy-verify-night-3 (budget $3)
 CHECKPOINT 906255b2 (15:04Z) [final] 7/7 accepted: equiv d9b3724d->73aa7efe, b6f2e1df->7b44bcad; xob b47828e4->cc5f72de, bb69174b->99a5a9fd, ecccca50->47cf9051; sha256 fcd6a623->192c1ed9, 4aa258ee->3b2b8e2f (reverify root-layout fix 977ad27b, merge-ready 906255b2). 5090 NVFP4 still fail-closed. Pod terminated 15:06Z, ~$0.30
 CHECKPOINT 977ad27b (14:59Z) [open] accepted: xob b47828e4 (vd cc5f72de), bb69174b (99a5a9fd), ecccca50 (47cf9051); sha256 fcd6a623 (192c1ed9, via reverify fix 977ad27b). Handoff red-team-standard-hash-2 1502Z. Running 4aa258ee r20260925-145803-dd7d
 CHECKPOINT 977ad27b (14:51Z) [open] xob b47828e4 + bb69174b PASS (labels pending push); ecccca50 running. sha256 fcd6a623 ERROR (tree has proofs at root, no proofs/): reverify patched 977ad27b to read root layout, rerunning; 4aa258ee fetching

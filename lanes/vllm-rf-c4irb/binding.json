@@ -1,0 +1,7 @@
+{
+ "branch": "lane/vllm-rf-c4irb",
+ "budget": "remainder of c4ir phase 2 $15",
+ "pod": "vyv-rf-c4ir-reg",
+ "succeeds": "vllm-rf-c4ir",
+ "worktree": "/Users/danielreuter/projects/verity-wt/rf-c4irb"
+}

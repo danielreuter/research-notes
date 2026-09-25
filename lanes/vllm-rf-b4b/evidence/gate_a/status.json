@@ -1,0 +1,61 @@
+{
+ "schema": "telemetry/status/v0.1",
+ "transitions": [
+  {
+   "state": "running",
+   "t_utc": "2026-09-25T10:17:51.251Z",
+   "t_mono": 12784693.620800853,
+   "stream": "745ddc1b55b3:10368:1278469332",
+   "pid": 10377,
+   "pgid": 10377,
+   "starttime_ticks": 1278469362,
+   "stage": "gate_a_head",
+   "timeout_s": null,
+   "started_mono": 12784693.62010674,
+   "started_utc": "2026-09-25T10:17:51.251Z",
+   "command": [
+    "bash",
+    "/workspace/b4/tools/gate_a.sh",
+    "/workspace/head-reg",
+    "gate_a_head"
+   ]
+  },
+  {
+   "state": "done",
+   "t_utc": "2026-09-25T12:39:28.212Z",
+   "t_mono": 12793190.582396988,
+   "stream": "745ddc1b55b3:10368:1278469332",
+   "rc": 0,
+   "signal": null,
+   "timed_out": false,
+   "ended_mono": 12793190.581067655,
+   "ended_utc": "2026-09-25T12:39:28.212Z",
+   "wall_s": 8496.960960915312,
+   "rc_is_shell_status": true
+  }
+ ],
+ "state": "done",
+ "updated_utc": "2026-09-25T12:39:28.212Z",
+ "updated_mono": 12793190.582396988,
+ "updated_stream": "745ddc1b55b3:10368:1278469332",
+ "pid": 10377,
+ "pgid": 10377,
+ "starttime_ticks": 1278469362,
+ "stage": "gate_a_head",
+ "timeout_s": null,
+ "started_mono": 12784693.62010674,
+ "started_utc": "2026-09-25T10:17:51.251Z",
+ "command": [
+  "bash",
+  "/workspace/b4/tools/gate_a.sh",
+  "/workspace/head-reg",
+  "gate_a_head"
+ ],
+ "rc": 0,
+ "signal": null,
+ "timed_out": false,
+ "ended_mono": 12793190.581067655,
+ "ended_utc": "2026-09-25T12:39:28.212Z",
+ "wall_s": 8496.960960915312,
+ "rc_is_shell_status": true
+}

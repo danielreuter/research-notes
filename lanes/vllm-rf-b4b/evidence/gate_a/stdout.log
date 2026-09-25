@@ -1,0 +1,4 @@
+start 2026-09-25T10:17:51Z tree /workspace/head-reg
+exit 0 2026-09-25T12:39:28Z
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: attempt_provenance does not apply to #101: no candidate Attempt ids (VERITY_REGRESSION_CANDIDATE is unset or a directory)
+73 passed, 85 skipped, 33 deselected in 8494.12s (2:21:34)

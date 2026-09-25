@@ -1,0 +1,4 @@
+research: run r20260925-101742-278e -> /workspace/research/runs/r20260925-101742-278e  cwd=/workspace/research/runs/r20260925-101742-278e
+[tele run] gate_a_head: rc=0 class=SUCCESS (established) -- exit status 0
+research: attempt published: 2 outputs drv=drv:2e8c801ba5e99a2250974cf256c68eb60c23794d41c3396e95c5d475281928f3 reuse=-  local only (no remote configured; `research data push r20260925-101742-278e` with credentials preserves it)
+research: run r20260925-101742-278e done rc=0 class=SUCCESS result=absent (looked for /workspace/research/runs/r20260925-101742-278e/result.json: write $RESEARCH_RUN_DIR/result.json)  (research inspect r20260925-101742-278e)

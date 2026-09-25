@@ -1,0 +1,9 @@
+{
+ "branch": "lane/red-team-standard-hash-2",
+ "brief": "/Users/danielreuter/.research/notes/kb/TABLES.md",
+ "budget": "$10",
+ "final": "15:30Z",
+ "pod": "vy-red-team-sh",
+ "succeeds": "red-team-standard-hash",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/red-team-standard-hash"
+}

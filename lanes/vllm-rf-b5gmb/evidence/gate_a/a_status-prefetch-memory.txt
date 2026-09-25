@@ -1,0 +1,41 @@
+start 2026-09-25T11:46:08Z tree /workspace/trees/a_tail sha  key_file_present=no args: -k r73 or r74 or r75 or r101 or negative_57 or decisions_are_listed
+exit 0 2026-09-25T12:41:25Z
+start 2026-09-25T10:51:06Z tree /workspace/research/src/55b9d1ffc0709ab4fe79ee906dd698c4e051d39d sha  key_file_present=no args: 
+exit 0 2026-09-25T13:33:50Z
+start 2026-09-25T10:41:43Z 26 artifacts
+ok top commit_logs 3s
+ok 4 records 6s
+ok 11 records 13s
+ok 11 programs 9s
+ok 23 records 71s
+ok 23 programs 19s
+ok 39 records 11s
+ok 39 programs 23s
+ok 57 records 18s
+ok 57 programs 7s
+ok 60 records 19s
+ok 60 programs 6s
+ok 67 records 40s
+ok 67 programs 14s
+ok 68 records 39s
+ok 68 programs 14s
+ok 70 records 25s
+ok 70 programs 8s
+ok 73 records 19s
+ok 73 programs 13s
+ok 74 records 20s
+ok 74 programs 17s
+ok 75 records 11s
+ok 75 programs 5s
+ok 101 records 36s
+ok 101 programs 1s
+key deleted; done 2026-09-25T10:49:30Z
+
+memory.peak 131180027904 max 256000000000
+low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0
+32

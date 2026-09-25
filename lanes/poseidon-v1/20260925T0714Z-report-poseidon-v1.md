@@ -5,9 +5,10 @@ created: 2026-09-25T07:14Z
 brief: coordinator launch message (LANE-CONTRACT form); kb/TABLES.md (protocol + Amendments 11:36 / 11:41 PM PT)
 branch: lane/poseidon-v1 (worktree ~/projects/verity-main-wt/poseidon-v1), base main@00ffe398
 final: 14:30Z hard; budget $30
-status: open
+status: superseded
 ---
 
+CHECKPOINT none (14:05Z) [superseded] closed by coordinator 14:05Z: agent died in the 12:30-13:50Z laptop worker disconnect; branch clean and pushed; pods already gone; open verification and red-team items carried by verify-night-3 / red-team-standard-hash-2 (cloud); measurement work resumes as cloud lanes if the coordinator relaunches it
 CHECKPOINT none (12:01Z) [open] A100 re-measured w/ MALLOC (terminated 11:58Z): n4096 (set bound) P=5477 (1.85e7x) commit 0.063s art:ba387d41, BYTEID ok, A/B +0.1%; vn2 handoff 1205Z. 4090 re-measure pod 0d2olfrqxg82q5 syncing. Spend ~$10.
 CHECKPOINT none (11:44Z) [open] H100 re-measured w/ MALLOC (Xeon pod, terminated 11:39Z): bf16 plateau n32768 P=10299 art:a250d4b7, fp8 n32768 P=18483 art:752dcde9; same-pod A/B +2.1%/+0.1% at plateau; vn2 handoff 1150Z. A100 re-measure w/ MALLOC on 25b8diy5t3f3tc bootstrapping; 4090 after.
 CHECKPOINT none (11:11Z) [open] h100m-bf16hopper (MALLOC set): n65536 P=10066 (dip at 16384 kept the rule open), n131072 running; fp8 + same-pod A/B next. 5090 blocked on main reverify (fp4-nvf4 + FP4Format not recomputed), coordinator informed by vn2.

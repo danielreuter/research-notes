@@ -1,0 +1,52 @@
+start 2026-09-25T14:17:23Z tree /workspace/research/src/ba8522613b3f87e3e8c5e605e5ced60478e1caae log /workspace/b5pat/rows/101-records/match/capture/log.jsonl.gz profile derived_LLAMA32_1B
+fold rc=0 2026-09-25T14:18:18Z
+/workspace/b5patb/refold/r101_head/fold_summary.json  digest=cc48449d534f7e10  instances=46686  steps=32  unresolved=0  unknown_roots=0  rss=1.734 GB  persisted=['accesses', 'instances', 'program']
+resolve rc=0 2026-09-25T14:18:26Z
+total 79656
+drwxr-xr-x 2 root root      142 Sep 25 14:18 .
+drwxr-xr-x 3 root root      119 Sep 25 14:18 ..
+-rw-r--r-- 1 root root  3222153 Sep 25 14:18 accesses.jsonl.gz
+-rw-r--r-- 1 root root 60986770 Sep 25 14:18 instances.jsonl
+-rw-r--r-- 1 root root 17119764 Sep 25 14:18 program.json
+-rw-r--r-- 1 root root   199013 Sep 25 14:18 resolution.json
+-rw-r--r-- 1 root root    31257 Sep 25 14:18 resolution.md
+8ce403dc3aa48d25c9a616af9abbeb95ab848d08daa214817409fa0f997c3c60  accesses.jsonl.gz
+3743f58cf693882f78fa6680aa386ca35c0b2cba4726b1e43f747f5fc692de07  instances.jsonl
+ef5b2fe5c749d9d927c2d81878b01ed66f32e43f1e41f424fd2a012105d7a700  program.json
+b9af5ad174770197291b61462bc36b3df02d561cfe02ef0033636b94c8add579  resolution.json
+0e9077694849d0371b3f528e3d9ef7bfde114a99b024757157c0838aee324187  resolution.md
+start 2026-09-25T14:18:27Z tree /workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc log /workspace/b5pat/rows/101-records/match/capture/log.jsonl.gz profile derived_LLAMA32_1B
+fold rc=0 2026-09-25T14:19:11Z
+/workspace/b5patb/refold/r101_base/fold_summary.json  digest=cc48449d534f7e10  instances=46686  steps=32  unresolved=0  unknown_roots=0  rss=1.731 GB  persisted=['accesses', 'instances', 'program']
+resolve rc=0 2026-09-25T14:19:22Z
+total 79656
+drwxr-xr-x 2 root root      142 Sep 25 14:19 .
+drwxr-xr-x 3 root root      119 Sep 25 14:19 ..
+-rw-r--r-- 1 root root  3222153 Sep 25 14:19 accesses.jsonl.gz
+-rw-r--r-- 1 root root 60986770 Sep 25 14:19 instances.jsonl
+-rw-r--r-- 1 root root 17119764 Sep 25 14:18 program.json
+-rw-r--r-- 1 root root   199019 Sep 25 14:19 resolution.json
+-rw-r--r-- 1 root root    31257 Sep 25 14:19 resolution.md
+3de9d5f2463d769231bdce2aa727447e0f7b3574416a7e3b85c96d6a488ff3ba  accesses.jsonl.gz
+3743f58cf693882f78fa6680aa386ca35c0b2cba4726b1e43f747f5fc692de07  instances.jsonl
+ef5b2fe5c749d9d927c2d81878b01ed66f32e43f1e41f424fd2a012105d7a700  program.json
+1b76398d6b658bdaec9f8935dab321a05650851492cc41b003421ecffaef521a  resolution.json
+0e9077694849d0371b3f528e3d9ef7bfde114a99b024757157c0838aee324187  resolution.md
+profile fixture gen_llama_llama32_1b / head derived_LLAMA32_1B / base derived_LLAMA32_1B
+digest fixture cc48449d534f7e10d0af382f44aff63cf0812ccac0c8ad1181e663a1d3aae9fc
+digest head    cc48449d534f7e10d0af382f44aff63cf0812ccac0c8ad1181e663a1d3aae9fc  == fixture
+digest base    cc48449d534f7e10d0af382f44aff63cf0812ccac0c8ad1181e663a1d3aae9fc  == fixture
+persisted head vs fixture: DIFFER: {"program": {"bytes": 17119764, "digest": "cc48449d534f7e10d0af382f44aff63cf0812ccac0c8ad1181e663a1d3aae9fc", "n_input_nodes": 3}, "instances": {"bytes": 60986770, "n": 46686, "operand_refs_form": "runs"}, "accesses": {"bytes": 3222153, "n": 162017}} vs {"program": {"bytes": 17119853, "digest": "cc48449d534f7e10d0af382f44aff63cf0812ccac0c8ad1181e663a1d3aae9fc", "n_input_nodes": 3}, "instances": {"bytes": 35203717, "n": 46686, "operand_refs_form": "progressions"}, "accesses": {"bytes": 4973841, "n": 162017}}
+persisted base vs fixture: DIFFER: {"program": {"bytes": 17119764, "digest": "cc48449d534f7e10d0af382f44aff63cf0812ccac0c8ad1181e663a1d3aae9fc", "n_input_nodes": 3}, "instances": {"bytes": 60986770, "n": 46686, "operand_refs_form": "runs"}, "accesses": {"bytes": 3222153, "n": 162017}} vs {"program": {"bytes": 17119853, "digest": "cc48449d534f7e10d0af382f44aff63cf0812ccac0c8ad1181e663a1d3aae9fc", "n_input_nodes": 3}, "instances": {"bytes": 35203717, "n": 46686, "operand_refs_form": "progressions"}, "accesses": {"bytes": 4973841, "n": 162017}}
+fold_summary head vs base: DIFFER in per_step, fold
+fold_summary head vs fixture (information): differ in profile, profile_id, per_step, fold, persisted
+fold.report.by_pattern head vs fixture: identical, same order (13 patterns, 17199 matches)
+fold.report.by_pattern head vs base: identical, same order (13 patterns, 17199 matches)
+resolution.json head vs base: DIFFER in steps
+resolution.json head vs fixture (information): differ in profile, steps, by_spec, spec_modules, primary_report, target
+accesses.jsonl.gz        head 8ce403dc3aa48d25  base 3de9d5f2463d7692  DIFFER  (3222153 bytes)
+instances.jsonl          head 3743f58cf693882f  base 3743f58cf693882f  byte-identical  (60986770 bytes)
+program.json             head ef5b2fe5c749d9d9  base ef5b2fe5c749d9d9  byte-identical  (17119764 bytes)
+resolution.json          head b9af5ad174770197  base 1b76398d6b658bda  DIFFER  (199013 bytes)
+resolution.md            head 0e9077694849d037  base 0e9077694849d037  byte-identical  (31257 bytes)
+REFOLD-MISMATCH

@@ -1,0 +1,7 @@
+{
+ "branch": "lane/vllm-rf-b5gmb",
+ "brief": "/Users/danielreuter/.research/notes/lanes/vllm-refactor/WAVE2_BRIEF.md",
+ "budget": "$15 (b5gm remainder), CPU only",
+ "succeeds": "vllm-rf-b5gm",
+ "worktree": "/Users/danielreuter/projects/verity-wt/rf-b5gmb"
+}

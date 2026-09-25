@@ -1,0 +1,20 @@
+10996616 built from /workspace/head by mktree.sh; blob ids verified
+cat: /workspace/head/.b2v-tree: No such file or directory
+8d847755 built from /workspace/base by mktree.sh; blob ids verified
+
+== base /workspace/base 10996616 built from /workspace/head by mktree.sh; blob ids verified
+rc=0 sha256=a7c32c87e721e82d05e258a8f00db6857713b000cf0598b581e555aefa5c2870 bytes=33283
+== run /workspace/research/src/66eaaa50e548d0f9fb08e0ee3fa35cf12bdf00b6 
+rc=0 sha256=a7c32c87e721e82d05e258a8f00db6857713b000cf0598b581e555aefa5c2870 bytes=33283
+== head2 /workspace/head2 8d847755 built from /workspace/base by mktree.sh; blob ids verified
+rc=0 sha256=bc9511ac49d29a7b928c68f3bbe94579e1899be6215a80558b22af5d74a7eb1d bytes=33551
+base outcome INSUFFICIENT_EVIDENCE | program None | manifest None | roots [] | properties []
+   notes ['record incomplete: commit/verdict.json not on the row (Commit never closed / never ran)']
+run outcome INSUFFICIENT_EVIDENCE | program None | manifest None | roots [] | properties []
+   notes ['record incomplete: commit/verdict.json not on the row (Commit never closed / never ran)']
+head2 outcome INSUFFICIENT_EVIDENCE | program None | manifest None | roots [] | properties [('noninterference', '442979b3aa090ccc', True)]
+   notes ['record incomplete: commit/verdict.json not on the row (Commit never closed / never ran)']
+keys head-only: ['properties'] base-only: []
+every shared key equal: True []
+head without `properties` == base, as JSON: True
+run tree == head2 bytes: False

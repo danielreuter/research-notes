@@ -1,0 +1,1456 @@
+{
+ "schema": "verity/commit-integ/delta-tp/v1",
+ "label": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+ "tp": 2,
+ "committer": "native_collect_v2b",
+ "pairs": 3,
+ "openings": 64,
+ "control_wall": [
+  2.048963390290737,
+  3.384953362867236,
+  3.320787576958537
+ ],
+ "treatment_wall": [
+  4.264189871028066,
+  4.407434104010463,
+  6.094366485252976
+ ],
+ "delta_wall": [
+  2.2152264807373285,
+  1.0224807411432266,
+  2.7735789082944393
+ ],
+ "delta_wall_mean": 2.003762043391665,
+ "delta_wall_pct": 68.66349682988088,
+ "tp_run_roots": [
+  "0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957",
+  "0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957",
+  "0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957"
+ ],
+ "per_rank_roots": [
+  {
+   "0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e",
+   "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"
+  },
+  {
+   "0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e",
+   "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"
+  },
+  {
+   "0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e",
+   "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"
+  }
+ ],
+ "per_rank_coverage": [
+  {
+   "0": {
+    "leaves": 72446015,
+    "tensors": 91600,
+    "bytes_bound": 18546163172,
+    "classes": {
+     "input_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 16724
+     },
+     "instance_outputs_native": {
+      "how": "bound-as-leaf",
+      "tensors": 39552,
+      "bytes": 4509530880
+     },
+     "sampled_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 3472
+     },
+     "weights": {
+      "how": "registered-input",
+      "tensors": 212,
+      "bytes": 6922440960
+     },
+     "norm_bf16tof32_lift": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "norm_interiors_derived_row": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "fa2_hidden_m1_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 4096,
+      "bytes": 19844481024
+     },
+     "moe_block_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 24576,
+      "bytes": 8228743168
+     },
+     "tp_rank_partials": {
+      "how": "bound-as-leaf",
+      "tensors": 16896,
+      "bytes": 3365986816
+     }
+    },
+    "openings": {
+     "n": 64,
+     "verified": 64,
+     "generate_s": 0.009355874732136726,
+     "verify_s": 0.01011517271399498,
+     "bytes_mean": 1033.0,
+     "error": null
+    }
+   },
+   "1": {
+    "leaves": 72446015,
+    "tensors": 91600,
+    "bytes_bound": 18546163172,
+    "classes": {
+     "input_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 16724
+     },
+     "instance_outputs_native": {
+      "how": "bound-as-leaf",
+      "tensors": 39552,
+      "bytes": 4509530880
+     },
+     "sampled_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 3472
+     },
+     "weights": {
+      "how": "registered-input",
+      "tensors": 212,
+      "bytes": 6922440960
+     },
+     "norm_bf16tof32_lift": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "norm_interiors_derived_row": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "fa2_hidden_m1_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 4096,
+      "bytes": 19844481024
+     },
+     "moe_block_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 24576,
+      "bytes": 8228743168
+     },
+     "tp_rank_partials": {
+      "how": "bound-as-leaf",
+      "tensors": 16896,
+      "bytes": 3365986816
+     }
+    },
+    "openings": {
+     "n": 64,
+     "verified": 64,
+     "generate_s": 0.01912809908390045,
+     "verify_s": 0.020525798201560974,
+     "bytes_mean": 1058.5,
+     "error": null
+    }
+   }
+  },
+  {
+   "0": {
+    "leaves": 72446015,
+    "tensors": 91600,
+    "bytes_bound": 18546163172,
+    "classes": {
+     "input_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 16724
+     },
+     "instance_outputs_native": {
+      "how": "bound-as-leaf",
+      "tensors": 39552,
+      "bytes": 4509530880
+     },
+     "sampled_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 3472
+     },
+     "weights": {
+      "how": "registered-input",
+      "tensors": 212,
+      "bytes": 6922440960
+     },
+     "norm_bf16tof32_lift": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "norm_interiors_derived_row": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "fa2_hidden_m1_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 6144,
+      "bytes": 29766721536
+     },
+     "moe_block_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 36864,
+      "bytes": 12343114752
+     },
+     "tp_rank_partials": {
+      "how": "bound-as-leaf",
+      "tensors": 25344,
+      "bytes": 5048980224
+     }
+    },
+    "openings": {
+     "n": 64,
+     "verified": 64,
+     "generate_s": 0.014648739248514175,
+     "verify_s": 0.016689768061041832,
+     "bytes_mean": 1048.5,
+     "error": null
+    }
+   },
+   "1": {
+    "leaves": 72446015,
+    "tensors": 91600,
+    "bytes_bound": 18546163172,
+    "classes": {
+     "input_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 16724
+     },
+     "instance_outputs_native": {
+      "how": "bound-as-leaf",
+      "tensors": 39552,
+      "bytes": 4509530880
+     },
+     "sampled_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 3472
+     },
+     "weights": {
+      "how": "registered-input",
+      "tensors": 212,
+      "bytes": 6922440960
+     },
+     "norm_bf16tof32_lift": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "norm_interiors_derived_row": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "fa2_hidden_m1_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 6144,
+      "bytes": 29766721536
+     },
+     "moe_block_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 36864,
+      "bytes": 12343114752
+     },
+     "tp_rank_partials": {
+      "how": "bound-as-leaf",
+      "tensors": 25344,
+      "bytes": 5048980224
+     }
+    },
+    "openings": {
+     "n": 64,
+     "verified": 64,
+     "generate_s": 0.02639879658818245,
+     "verify_s": 0.02499546855688095,
+     "bytes_mean": 1081.5,
+     "error": null
+    }
+   }
+  },
+  {
+   "0": {
+    "leaves": 72446015,
+    "tensors": 91600,
+    "bytes_bound": 18546163172,
+    "classes": {
+     "input_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 16724
+     },
+     "instance_outputs_native": {
+      "how": "bound-as-leaf",
+      "tensors": 39552,
+      "bytes": 4509530880
+     },
+     "sampled_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 3472
+     },
+     "weights": {
+      "how": "registered-input",
+      "tensors": 212,
+      "bytes": 6922440960
+     },
+     "norm_bf16tof32_lift": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "norm_interiors_derived_row": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "fa2_hidden_m1_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 8192,
+      "bytes": 39688962048
+     },
+     "moe_block_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 49152,
+      "bytes": 16457486336
+     },
+     "tp_rank_partials": {
+      "how": "bound-as-leaf",
+      "tensors": 33792,
+      "bytes": 6731973632
+     }
+    },
+    "openings": {
+     "n": 64,
+     "verified": 64,
+     "generate_s": 0.010522739961743355,
+     "verify_s": 0.014023743569850922,
+     "bytes_mean": 1065.0,
+     "error": null
+    }
+   },
+   "1": {
+    "leaves": 72446015,
+    "tensors": 91600,
+    "bytes_bound": 18546163172,
+    "classes": {
+     "input_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 16724
+     },
+     "instance_outputs_native": {
+      "how": "bound-as-leaf",
+      "tensors": 39552,
+      "bytes": 4509530880
+     },
+     "sampled_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128,
+      "bytes": 3472
+     },
+     "weights": {
+      "how": "registered-input",
+      "tensors": 212,
+      "bytes": 6922440960
+     },
+     "norm_bf16tof32_lift": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "norm_interiors_derived_row": {
+      "how": "derived-from-bound",
+      "tensors": null,
+      "bytes": null
+     },
+     "fa2_hidden_m1_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 8192,
+      "bytes": 39688962048
+     },
+     "moe_block_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 49152,
+      "bytes": 16457486336
+     },
+     "tp_rank_partials": {
+      "how": "bound-as-leaf",
+      "tensors": 33792,
+      "bytes": 6731973632
+     }
+    },
+    "openings": {
+     "n": 64,
+     "verified": 64,
+     "generate_s": 0.013841254636645317,
+     "verify_s": 0.015515271574258804,
+     "bytes_mean": 1060.0,
+     "error": null
+    }
+   }
+  }
+ ],
+ "tokens_equal": [
+  true,
+  true,
+  true,
+  true,
+  true,
+  true
+ ],
+ "commit_pass": [
+  false,
+  false,
+  false
+ ],
+ "value_check": {
+  "verdict": "PASS",
+  "per_rank": {
+   "0": "PASS",
+   "1": "PASS"
+  }
+ },
+ "attribution": {
+  "match_record": {
+   "path": "/workspace/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture/tokens.json",
+   "requests": 8,
+   "generated_total": 434,
+   "tp2_match_verdict": true,
+   "capture_dir": "/workspace/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture",
+   "stored_steps_per_rank": {
+    "0": 128,
+    "1": 128
+   }
+  },
+  "per_rank": {
+   "0": {
+    "ok": true,
+    "steps_checked": 128,
+    "rows_checked": 434,
+    "mismatches_n": 0,
+    "why": null
+   },
+   "1": {
+    "ok": true,
+    "steps_checked": 128,
+    "rows_checked": 434,
+    "mismatches_n": 0,
+    "why": null
+   }
+  }
+ },
+ "match_oracle": {
+  "0": {
+   "verdict": "PASS",
+   "steps_compared": 128,
+   "tensors": 14592,
+   "equal": 14592,
+   "mismatch_n": 0,
+   "missing_n": 0,
+   "not_in_oracle_n": 0,
+   "by_member": {
+    "partial": {
+     "tensors": 8448,
+     "equal": 8448
+    },
+    "out": {
+     "tensors": 6144,
+     "equal": 6144
+    }
+   },
+   "why": null,
+   "error": null
+  },
+  "1": {
+   "verdict": "PASS",
+   "steps_compared": 128,
+   "tensors": 14592,
+   "equal": 14592,
+   "mismatch_n": 0,
+   "missing_n": 0,
+   "not_in_oracle_n": 0,
+   "by_member": {
+    "partial": {
+     "tensors": 8448,
+     "equal": 8448
+    },
+    "out": {
+     "tensors": 6144,
+     "equal": 6144
+    }
+   },
+   "why": null,
+   "error": null
+  }
+ },
+ "oracle_compare": {
+  "result": true,
+  "complete": false,
+  "oracle_match_verdict": true,
+  "oracle_is_failed_match_run": false,
+  "reference": "Match record /workspace/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture/tokens.json (tp2_match capture arm, independent instrumented run; tp2_match verdict True): (a) sampled ids per (request, engine step) [attribution]; (b) TP partials / MoE received outputs vs the recorder's stored collectives per (step, k) [tp_partials]; per rank",
+  "attribution": {
+   "complete": true,
+   "result": true,
+   "per_rank": {
+    "0": true,
+    "1": true
+   },
+   "rows_checked_per_rank": {
+    "0": 434,
+    "1": 434
+   }
+  },
+  "tp_partials": {
+   "result": true,
+   "per_rank": {
+    "0": {
+     "verdict": "PASS",
+     "steps_compared": 128,
+     "tensors": 14592,
+     "equal": 14592,
+     "mismatch_n": 0,
+     "missing_n": 0,
+     "not_in_oracle_n": 0,
+     "by_member": {
+      "partial": {
+       "tensors": 8448,
+       "equal": 8448
+      },
+      "out": {
+       "tensors": 6144,
+       "equal": 6144
+      }
+     },
+     "why": null,
+     "error": null
+    },
+    "1": {
+     "verdict": "PASS",
+     "steps_compared": 128,
+     "tensors": 14592,
+     "equal": 14592,
+     "mismatch_n": 0,
+     "missing_n": 0,
+     "not_in_oracle_n": 0,
+     "by_member": {
+      "partial": {
+       "tensors": 8448,
+       "equal": 8448
+      },
+      "out": {
+       "tensors": 6144,
+       "equal": 6144
+      }
+     },
+     "why": null,
+     "error": null
+    }
+   }
+  },
+  "identities": {
+   "families_covered": [
+    "tp_rank_partials",
+    "sampled_token_ids"
+   ],
+   "families_not_covered": [
+    "fa2_hidden_m1_stream",
+    "instance_outputs",
+    "input_token_ids",
+    "moe_block_stream",
+    "weights"
+   ],
+   "covered_n": 58156,
+   "total_n": 357796
+  },
+  "why": null
+ },
+ "sampled_replay": {
+  "result": false,
+  "n": 19321,
+  "sample": {
+   "picked": 20280,
+   "evaluated": 19321,
+   "equal": 19321,
+   "mismatch_n": 0,
+   "not_evaluated_n": 959,
+   "per_stratum": 2
+  },
+  "population": {
+   "n": 4826610,
+   "per_rank": {
+    "0": 2413305,
+    "1": 2413305
+   },
+   "source": "Program instances.json.gz rows (every row; evaluable = families with a registered evaluator)",
+   "by_family": {
+    "Attention_v3": 133792,
+    "Gemm_v1": 402244,
+    "MoeExpertGemmW_v1": 1070336,
+    "MoeExpertGemm_v1": 1070336,
+    "MoeRouterTopK_v1": 133792,
+    "MoeSum_v1": 133792,
+    "RMSNormFusedCuda_v2": 267584,
+    "RMSNormTriton_v1": 275946,
+    "RoPE_v1": 267584,
+    "SiluMul_v1": 1070336,
+    "TokenSelect_v1": 868
+   }
+  },
+  "weights": {
+   "0": true,
+   "1": true
+  },
+  "weights_self_consistent": {
+   "0": true,
+   "1": true
+  },
+  "weights_pinned": {
+   "0": null,
+   "1": null
+  },
+  "weights_note": "self-consistency, not a weights-of-record pin (rev-cb M-0610, COORD M-0614; tp M-0632 for the per-rank shard pin)",
+  "unreplayable": [
+   {
+    "family": "AllGather2_v1",
+    "n": 268452,
+    "why": "no registered evaluator",
+    "ranks": [
+     0,
+     1
+    ]
+   },
+   {
+    "family": "AllReduce2_v1",
+    "n": 275946,
+    "why": "no registered evaluator",
+    "ranks": [
+     0,
+     1
+    ]
+   },
+   {
+    "family": "EmbeddingShard_v1",
+    "n": 8362,
+    "why": "no registered evaluator",
+    "ranks": [
+     0,
+     1
+    ]
+   }
+  ],
+  "per_rank": {
+   "0": {
+    "result": null,
+    "grade": "partial",
+    "why": "484 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.1.self_attn.k_norm|recycled-window']",
+    "rank": 0,
+    "rank_note": null
+   },
+   "1": {
+    "result": null,
+    "grade": "partial",
+    "why": "475 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.1.self_attn.k_norm|recycled-window']",
+    "rank": 1,
+    "rank_note": null
+   }
+  },
+  "per_run": [
+   {
+    "0": {
+     "sampled_replay": null,
+     "grade": "partial",
+     "boundary_linkage": true
+    },
+    "1": {
+     "sampled_replay": null,
+     "grade": "partial",
+     "boundary_linkage": true
+    }
+   },
+   {
+    "0": {
+     "sampled_replay": null,
+     "grade": "partial",
+     "boundary_linkage": true
+    },
+    "1": {
+     "sampled_replay": null,
+     "grade": "partial",
+     "boundary_linkage": true
+    }
+   },
+   {
+    "0": {
+     "sampled_replay": null,
+     "grade": "partial",
+     "boundary_linkage": true
+    },
+    "1": {
+     "sampled_replay": null,
+     "grade": "partial",
+     "boundary_linkage": true
+    }
+   }
+  ],
+  "why": "rank 0: partial 484 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.1.self_attn.k_norm|recycled-window']; rank 1: partial 475 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.1.self_attn.k_norm|recycled-window']"
+ },
+ "boundary_linkage": {
+  "result": true,
+  "method": "per rank, exhaustive over (engine step, request): committed input_token_ids at the arrival step == the declared prompt of the workload; at every later step == that request's committed sampled_token_ids of the previous step (manbind boundary_linkage on the rank's map)",
+  "checked": 868,
+  "linked": 868,
+  "per_rank": {
+   "0": {
+    "result": true,
+    "pairs": 434,
+    "linked": 434,
+    "why": null
+   },
+   "1": {
+    "result": true,
+    "pairs": 434,
+    "linked": 434,
+    "why": null
+   }
+  },
+  "why": null
+ },
+ "cross_rank_collectives": {
+  "result": false,
+  "pairs": 3,
+  "picks": 462,
+  "equal": 462,
+  "mismatch_n": 0,
+  "missing_n": 0,
+  "by_family": {
+   "AllGather2_v1": {
+    "picks": 156,
+    "equal": 156,
+    "mismatch": 0,
+    "missing": 0
+   },
+   "AllReduce2_v1": {
+    "picks": 297,
+    "equal": 297,
+    "mismatch": 0,
+    "missing": 0
+   },
+   "EmbeddingShard_v1": {
+    "picks": 9,
+    "equal": 9,
+    "mismatch": 0,
+    "missing": 0
+   }
+  },
+  "families": [
+   "AllGather2_v1",
+   "AllReduce2_v1",
+   "EmbeddingShard_v1"
+  ],
+  "why": "coverage of the unreplayable collective sites incomplete -- sites without a stratum: AllGather2_v1: ['model.layers.0.self_attn.all_gather2', 'model.layers.0.self_attn.all_gather2_1', 'model.layers.0.self_attn.all_gather2_100', 'model.layers.0.self_attn.all_gather2_132']",
+  "coverage_of_unreplayable": {
+   "complete": false,
+   "per_pair": [
+    {
+     "complete": false,
+     "families": {
+      "AllGather2_v1": {
+       "sites": 161,
+       "covered": 1,
+       "missing": [
+        "model.layers.0.self_attn.all_gather2",
+        "model.layers.0.self_attn.all_gather2_1",
+        "model.layers.0.self_attn.all_gather2_100",
+        "model.layers.0.self_attn.all_gather2_132",
+        "model.layers.0.self_attn.all_gather2_133",
+        "model.layers.0.self_attn.all_gather2_33",
+        "model.layers.0.self_attn.all_gather2_34",
+        "model.layers.0.self_attn.all_gather2_66",
+        "model.layers.0.self_attn.all_gather2_67",
+        "model.layers.0.self_attn.all_gather2_99",
+        "model.layers.1.self_attn.all_gather2_101",
+        "model.layers.1.self_attn.all_gather2_102",
+        "model.layers.1.self_attn.all_gather2_134",
+        "model.layers.1.self_attn.all_gather2_135",
+        "model.layers.1.self_attn.all_gather2_2",
+        "model.layers.1.self_attn.all_gather2_3",
+        "model.layers.1.self_attn.all_gather2_35",
+        "model.layers.1.self_attn.all_gather2_36",
+        "model.layers.1.self_attn.all_gather2_68",
+        "model.layers.1.self_attn.all_gather2_69",
+        "model.layers.10.self_attn.all_gather2_119",
+        "model.layers.10.self_attn.all_gather2_120",
+        "model.layers.10.self_attn.all_gather2_152",
+        "model.layers.10.self_attn.all_gather2_153",
+        "model.layers.10.self_attn.all_gather2_20",
+        "model.layers.10.self_attn.all_gather2_21",
+        "model.layers.10.self_attn.all_gather2_53",
+        "model.layers.10.self_attn.all_gather2_54",
+        "model.layers.10.self_attn.all_gather2_86",
+        "model.layers.10.self_attn.all_gather2_87",
+        "model.layers.11.self_attn.all_gather2_121",
+        "model.layers.11.self_attn.all_gather2_122",
+        "model.layers.11.self_attn.all_gather2_154",
+        "model.layers.11.self_attn.all_gather2_155",
+        "model.layers.11.self_attn.all_gather2_22",
+        "model.layers.11.self_attn.all_gather2_23",
+        "model.layers.11.self_attn.all_gather2_55",
+        "model.layers.11.self_attn.all_gather2_56",
+        "model.layers.11.self_attn.all_gather2_88",
+        "model.layers.11.self_attn.all_gather2_89",
+        "model.layers.12.self_attn.all_gather2_123",
+        "model.layers.12.self_attn.all_gather2_124",
+        "model.layers.12.self_attn.all_gather2_156",
+        "model.layers.12.self_attn.all_gather2_157",
+        "model.layers.12.self_attn.all_gather2_24",
+        "model.layers.12.self_attn.all_gather2_25",
+        "model.layers.12.self_attn.all_gather2_57",
+        "model.layers.12.self_attn.all_gather2_58",
+        "model.layers.12.self_attn.all_gather2_90",
+        "model.layers.12.self_attn.all_gather2_91",
+        "model.layers.13.self_attn.all_gather2_125",
+        "model.layers.13.self_attn.all_gather2_126",
+        "model.layers.13.self_attn.all_gather2_158",
+        "model.layers.13.self_attn.all_gather2_159",
+        "model.layers.13.self_attn.all_gather2_26",
+        "model.layers.13.self_attn.all_gather2_27",
+        "model.layers.13.self_attn.all_gather2_59",
+        "model.layers.13.self_attn.all_gather2_60",
+        "model.layers.13.self_attn.all_gather2_92",
+        "model.layers.13.self_attn.all_gather2_93",
+        "model.layers.14.self_attn.all_gather2_127",
+        "model.layers.14.self_attn.all_gather2_128",
+        "model.layers.14.self_attn.all_gather2_160",
+        "model.layers.14.self_attn.all_gather2_161",
+        "model.layers.14.self_attn.all_gather2_28",
+        "model.layers.14.self_attn.all_gather2_29",
+        "model.layers.14.self_attn.all_gather2_61",
+        "model.layers.14.self_attn.all_gather2_62",
+        "model.layers.14.self_attn.all_gather2_94",
+        "model.layers.14.self_attn.all_gather2_95",
+        "model.layers.15.self_attn.all_gather2_129",
+        "model.layers.15.self_attn.all_gather2_130",
+        "model.layers.15.self_attn.all_gather2_162",
+        "model.layers.15.self_attn.all_gather2_163",
+        "model.layers.15.self_attn.all_gather2_30",
+        "model.layers.15.self_attn.all_gather2_31",
+        "model.layers.15.self_attn.all_gather2_63",
+        "model.layers.15.self_attn.all_gather2_64",
+        "model.layers.15.self_attn.all_gather2_96",
+        "model.layers.15.self_attn.all_gather2_97",
+        "model.layers.2.self_attn.all_gather2_103",
+        "model.layers.2.self_attn.all_gather2_104",
+        "model.layers.2.self_attn.all_gather2_136",
+        "model.layers.2.self_attn.all_gather2_137",
+        "model.layers.2.self_attn.all_gather2_37",
+        "model.layers.2.self_attn.all_gather2_38",
+        "model.layers.2.self_attn.all_gather2_4",
+        "model.layers.2.self_attn.all_gather2_5",
+        "model.layers.2.self_attn.all_gather2_70",
+        "model.layers.2.self_attn.all_gather2_71",
+        "model.layers.3.self_attn.all_gather2_105",
+        "model.layers.3.self_attn.all_gather2_106",
+        "model.layers.3.self_attn.all_gather2_138",
+        "model.layers.3.self_attn.all_gather2_139",
+        "model.layers.3.self_attn.all_gather2_39",
+        "model.layers.3.self_attn.all_gather2_40",
+        "model.layers.3.self_attn.all_gather2_6",
+        "model.layers.3.self_attn.all_gather2_7",
+        "model.layers.3.self_attn.all_gather2_72",
+        "model.layers.3.self_attn.all_gather2_73",
+        "model.layers.4.self_attn.all_gather2_107",
+        "model.layers.4.self_attn.all_gather2_108",
+        "model.layers.4.self_attn.all_gather2_140",
+        "model.layers.4.self_attn.all_gather2_141",
+        "model.layers.4.self_attn.all_gather2_41",
+        "model.layers.4.self_attn.all_gather2_42",
+        "model.layers.4.self_attn.all_gather2_74",
+        "model.layers.4.self_attn.all_gather2_75",
+        "model.layers.4.self_attn.all_gather2_8",
+        "model.layers.4.self_attn.all_gather2_9",
+        "model.layers.5.self_attn.all_gather2_10",
+        "model.layers.5.self_attn.all_gather2_109",
+        "model.layers.5.self_attn.all_gather2_11",
+        "model.layers.5.self_attn.all_gather2_110",
+        "model.layers.5.self_attn.all_gather2_142",
+        "model.layers.5.self_attn.all_gather2_143",
+        "model.layers.5.self_attn.all_gather2_43",
+        "model.layers.5.self_attn.all_gather2_44",
+        "model.layers.5.self_attn.all_gather2_76",
+        "model.layers.5.self_attn.all_gather2_77",
+        "model.layers.6.self_attn.all_gather2_111",
+        "model.layers.6.self_attn.all_gather2_112",
+        "model.layers.6.self_attn.all_gather2_12",
+        "model.layers.6.self_attn.all_gather2_13",
+        "model.layers.6.self_attn.all_gather2_144",
+        "model.layers.6.self_attn.all_gather2_145",
+        "model.layers.6.self_attn.all_gather2_45",
+        "model.layers.6.self_attn.all_gather2_46",
+        "model.layers.6.self_attn.all_gather2_78",
+        "model.layers.6.self_attn.all_gather2_79",
+        "model.layers.7.self_attn.all_gather2_113",
+        "model.layers.7.self_attn.all_gather2_114",
+        "model.layers.7.self_attn.all_gather2_14",
+        "model.layers.7.self_attn.all_gather2_146",
+        "model.layers.7.self_attn.all_gather2_147",
+        "model.layers.7.self_attn.all_gather2_15",
+        "model.layers.7.self_attn.all_gather2_47",
+        "model.layers.7.self_attn.all_gather2_48",
+        "model.layers.7.self_attn.all_gather2_80",
+        "model.layers.7.self_attn.all_gather2_81",
+        "model.layers.8.self_attn.all_gather2_115",
+        "model.layers.8.self_attn.all_gather2_116",
+        "model.layers.8.self_attn.all_gather2_148",
+        "model.layers.8.self_attn.all_gather2_149",
+        "model.layers.8.self_attn.all_gather2_16",
+        "model.layers.8.self_attn.all_gather2_17",
+        "model.layers.8.self_attn.all_gather2_49",
+        "model.layers.8.self_attn.all_gather2_50",
+        "model.layers.8.self_attn.all_gather2_82",
+        "model.layers.8.self_attn.all_gather2_83",
+        "model.layers.9.self_attn.all_gather2_117",
+        "model.layers.9.self_attn.all_gather2_118",
+        "model.layers.9.self_attn.all_gather2_150",
+        "model.layers.9.self_attn.all_gather2_151",
+        "model.layers.9.self_attn.all_gather2_18",
+        "model.layers.9.self_attn.all_gather2_19",
+        "model.layers.9.self_attn.all_gather2_51",
+        "model.layers.9.self_attn.all_gather2_52",
+        "model.layers.9.self_attn.all_gather2_84",
+        "model.layers.9.self_attn.all_gather2_85"
+       ],
+       "picks": 52,
+       "equal": 52
+      },
+      "AllReduce2_v1": {
+       "sites": 33,
+       "covered": 33,
+       "missing": [],
+       "picks": 99,
+       "equal": 99
+      },
+      "EmbeddingShard_v1": {
+       "sites": 1,
+       "covered": 1,
+       "missing": [],
+       "picks": 3,
+       "equal": 3
+      }
+     },
+     "strata_sites_n": 50,
+     "errors": null,
+     "rule": "every site of every replay-unreplayable collective family (from the rank Programs) has >= 1 stratum in this pass; else missing by name",
+     "why": "sites without a stratum: AllGather2_v1: ['model.layers.0.self_attn.all_gather2', 'model.layers.0.self_attn.all_gather2_1', 'model.layers.0.self_attn.all_gather2_100', 'model.layers.0.self_attn.all_gather2_132']"
+    },
+    {
+     "complete": false,
+     "families": {
+      "AllGather2_v1": {
+       "sites": 161,
+       "covered": 1,
+       "missing": [
+        "model.layers.0.self_attn.all_gather2",
+        "model.layers.0.self_attn.all_gather2_1",
+        "model.layers.0.self_attn.all_gather2_100",
+        "model.layers.0.self_attn.all_gather2_132",
+        "model.layers.0.self_attn.all_gather2_133",
+        "model.layers.0.self_attn.all_gather2_33",
+        "model.layers.0.self_attn.all_gather2_34",
+        "model.layers.0.self_attn.all_gather2_66",
+        "model.layers.0.self_attn.all_gather2_67",
+        "model.layers.0.self_attn.all_gather2_99",
+        "model.layers.1.self_attn.all_gather2_101",
+        "model.layers.1.self_attn.all_gather2_102",
+        "model.layers.1.self_attn.all_gather2_134",
+        "model.layers.1.self_attn.all_gather2_135",
+        "model.layers.1.self_attn.all_gather2_2",
+        "model.layers.1.self_attn.all_gather2_3",
+        "model.layers.1.self_attn.all_gather2_35",
+        "model.layers.1.self_attn.all_gather2_36",
+        "model.layers.1.self_attn.all_gather2_68",
+        "model.layers.1.self_attn.all_gather2_69",
+        "model.layers.10.self_attn.all_gather2_119",
+        "model.layers.10.self_attn.all_gather2_120",
+        "model.layers.10.self_attn.all_gather2_152",
+        "model.layers.10.self_attn.all_gather2_153",
+        "model.layers.10.self_attn.all_gather2_20",
+        "model.layers.10.self_attn.all_gather2_21",
+        "model.layers.10.self_attn.all_gather2_53",
+        "model.layers.10.self_attn.all_gather2_54",
+        "model.layers.10.self_attn.all_gather2_86",
+        "model.layers.10.self_attn.all_gather2_87",
+        "model.layers.11.self_attn.all_gather2_121",
+        "model.layers.11.self_attn.all_gather2_122",
+        "model.layers.11.self_attn.all_gather2_154",
+        "model.layers.11.self_attn.all_gather2_155",
+        "model.layers.11.self_attn.all_gather2_22",
+        "model.layers.11.self_attn.all_gather2_23",
+        "model.layers.11.self_attn.all_gather2_55",
+        "model.layers.11.self_attn.all_gather2_56",
+        "model.layers.11.self_attn.all_gather2_88",
+        "model.layers.11.self_attn.all_gather2_89",
+        "model.layers.12.self_attn.all_gather2_123",
+        "model.layers.12.self_attn.all_gather2_124",
+        "model.layers.12.self_attn.all_gather2_156",
+        "model.layers.12.self_attn.all_gather2_157",
+        "model.layers.12.self_attn.all_gather2_24",
+        "model.layers.12.self_attn.all_gather2_25",
+        "model.layers.12.self_attn.all_gather2_57",
+        "model.layers.12.self_attn.all_gather2_58",
+        "model.layers.12.self_attn.all_gather2_90",
+        "model.layers.12.self_attn.all_gather2_91",
+        "model.layers.13.self_attn.all_gather2_125",
+        "model.layers.13.self_attn.all_gather2_126",
+        "model.layers.13.self_attn.all_gather2_158",
+        "model.layers.13.self_attn.all_gather2_159",
+        "model.layers.13.self_attn.all_gather2_26",
+        "model.layers.13.self_attn.all_gather2_27",
+        "model.layers.13.self_attn.all_gather2_59",
+        "model.layers.13.self_attn.all_gather2_60",
+        "model.layers.13.self_attn.all_gather2_92",
+        "model.layers.13.self_attn.all_gather2_93",
+        "model.layers.14.self_attn.all_gather2_127",
+        "model.layers.14.self_attn.all_gather2_128",
+        "model.layers.14.self_attn.all_gather2_160",
+        "model.layers.14.self_attn.all_gather2_161",
+        "model.layers.14.self_attn.all_gather2_28",
+        "model.layers.14.self_attn.all_gather2_29",
+        "model.layers.14.self_attn.all_gather2_61",
+        "model.layers.14.self_attn.all_gather2_62",
+        "model.layers.14.self_attn.all_gather2_94",
+        "model.layers.14.self_attn.all_gather2_95",
+        "model.layers.15.self_attn.all_gather2_129",
+        "model.layers.15.self_attn.all_gather2_130",
+        "model.layers.15.self_attn.all_gather2_162",
+        "model.layers.15.self_attn.all_gather2_163",
+        "model.layers.15.self_attn.all_gather2_30",
+        "model.layers.15.self_attn.all_gather2_31",
+        "model.layers.15.self_attn.all_gather2_63",
+        "model.layers.15.self_attn.all_gather2_64",
+        "model.layers.15.self_attn.all_gather2_96",
+        "model.layers.15.self_attn.all_gather2_97",
+        "model.layers.2.self_attn.all_gather2_103",
+        "model.layers.2.self_attn.all_gather2_104",
+        "model.layers.2.self_attn.all_gather2_136",
+        "model.layers.2.self_attn.all_gather2_137",
+        "model.layers.2.self_attn.all_gather2_37",
+        "model.layers.2.self_attn.all_gather2_38",
+        "model.layers.2.self_attn.all_gather2_4",
+        "model.layers.2.self_attn.all_gather2_5",
+        "model.layers.2.self_attn.all_gather2_70",
+        "model.layers.2.self_attn.all_gather2_71",
+        "model.layers.3.self_attn.all_gather2_105",
+        "model.layers.3.self_attn.all_gather2_106",
+        "model.layers.3.self_attn.all_gather2_138",
+        "model.layers.3.self_attn.all_gather2_139",
+        "model.layers.3.self_attn.all_gather2_39",
+        "model.layers.3.self_attn.all_gather2_40",
+        "model.layers.3.self_attn.all_gather2_6",
+        "model.layers.3.self_attn.all_gather2_7",
+        "model.layers.3.self_attn.all_gather2_72",
+        "model.layers.3.self_attn.all_gather2_73",
+        "model.layers.4.self_attn.all_gather2_107",
+        "model.layers.4.self_attn.all_gather2_108",
+        "model.layers.4.self_attn.all_gather2_140",
+        "model.layers.4.self_attn.all_gather2_141",
+        "model.layers.4.self_attn.all_gather2_41",
+        "model.layers.4.self_attn.all_gather2_42",
+        "model.layers.4.self_attn.all_gather2_74",
+        "model.layers.4.self_attn.all_gather2_75",
+        "model.layers.4.self_attn.all_gather2_8",
+        "model.layers.4.self_attn.all_gather2_9",
+        "model.layers.5.self_attn.all_gather2_10",
+        "model.layers.5.self_attn.all_gather2_109",
+        "model.layers.5.self_attn.all_gather2_11",
+        "model.layers.5.self_attn.all_gather2_110",
+        "model.layers.5.self_attn.all_gather2_142",
+        "model.layers.5.self_attn.all_gather2_143",
+        "model.layers.5.self_attn.all_gather2_43",
+        "model.layers.5.self_attn.all_gather2_44",
+        "model.layers.5.self_attn.all_gather2_76",
+        "model.layers.5.self_attn.all_gather2_77",
+        "model.layers.6.self_attn.all_gather2_111",
+        "model.layers.6.self_attn.all_gather2_112",
+        "model.layers.6.self_attn.all_gather2_12",
+        "model.layers.6.self_attn.all_gather2_13",
+        "model.layers.6.self_attn.all_gather2_144",
+        "model.layers.6.self_attn.all_gather2_145",
+        "model.layers.6.self_attn.all_gather2_45",
+        "model.layers.6.self_attn.all_gather2_46",
+        "model.layers.6.self_attn.all_gather2_78",
+        "model.layers.6.self_attn.all_gather2_79",
+        "model.layers.7.self_attn.all_gather2_113",
+        "model.layers.7.self_attn.all_gather2_114",
+        "model.layers.7.self_attn.all_gather2_14",
+        "model.layers.7.self_attn.all_gather2_146",
+        "model.layers.7.self_attn.all_gather2_147",
+        "model.layers.7.self_attn.all_gather2_15",
+        "model.layers.7.self_attn.all_gather2_47",
+        "model.layers.7.self_attn.all_gather2_48",
+        "model.layers.7.self_attn.all_gather2_80",
+        "model.layers.7.self_attn.all_gather2_81",
+        "model.layers.8.self_attn.all_gather2_115",
+        "model.layers.8.self_attn.all_gather2_116",
+        "model.layers.8.self_attn.all_gather2_148",
+        "model.layers.8.self_attn.all_gather2_149",
+        "model.layers.8.self_attn.all_gather2_16",
+        "model.layers.8.self_attn.all_gather2_17",
+        "model.layers.8.self_attn.all_gather2_49",
+        "model.layers.8.self_attn.all_gather2_50",
+        "model.layers.8.self_attn.all_gather2_82",
+        "model.layers.8.self_attn.all_gather2_83",
+        "model.layers.9.self_attn.all_gather2_117",
+        "model.layers.9.self_attn.all_gather2_118",
+        "model.layers.9.self_attn.all_gather2_150",
+        "model.layers.9.self_attn.all_gather2_151",
+        "model.layers.9.self_attn.all_gather2_18",
+        "model.layers.9.self_attn.all_gather2_19",
+        "model.layers.9.self_attn.all_gather2_51",
+        "model.layers.9.self_attn.all_gather2_52",
+        "model.layers.9.self_attn.all_gather2_84",
+        "model.layers.9.self_attn.all_gather2_85"
+       ],
+       "picks": 52,
+       "equal": 52
+      },
+      "AllReduce2_v1": {
+       "sites": 33,
+       "covered": 33,
+       "missing": [],
+       "picks": 99,
+       "equal": 99
+      },
+      "EmbeddingShard_v1": {
+       "sites": 1,
+       "covered": 1,
+       "missing": [],
+       "picks": 3,
+       "equal": 3
+      }
+     },
+     "strata_sites_n": 50,
+     "errors": null,
+     "rule": "every site of every replay-unreplayable collective family (from the rank Programs) has >= 1 stratum in this pass; else missing by name",
+     "why": "sites without a stratum: AllGather2_v1: ['model.layers.0.self_attn.all_gather2', 'model.layers.0.self_attn.all_gather2_1', 'model.layers.0.self_attn.all_gather2_100', 'model.layers.0.self_attn.all_gather2_132']"
+    },
+    {
+     "complete": false,
+     "families": {
+      "AllGather2_v1": {
+       "sites": 161,
+       "covered": 1,
+       "missing": [
+        "model.layers.0.self_attn.all_gather2",
+        "model.layers.0.self_attn.all_gather2_1",
+        "model.layers.0.self_attn.all_gather2_100",
+        "model.layers.0.self_attn.all_gather2_132",
+        "model.layers.0.self_attn.all_gather2_133",
+        "model.layers.0.self_attn.all_gather2_33",
+        "model.layers.0.self_attn.all_gather2_34",
+        "model.layers.0.self_attn.all_gather2_66",
+        "model.layers.0.self_attn.all_gather2_67",
+        "model.layers.0.self_attn.all_gather2_99",
+        "model.layers.1.self_attn.all_gather2_101",
+        "model.layers.1.self_attn.all_gather2_102",
+        "model.layers.1.self_attn.all_gather2_134",
+        "model.layers.1.self_attn.all_gather2_135",
+        "model.layers.1.self_attn.all_gather2_2",
+        "model.layers.1.self_attn.all_gather2_3",
+        "model.layers.1.self_attn.all_gather2_35",
+        "model.layers.1.self_attn.all_gather2_36",
+        "model.layers.1.self_attn.all_gather2_68",
+        "model.layers.1.self_attn.all_gather2_69",
+        "model.layers.10.self_attn.all_gather2_119",
+        "model.layers.10.self_attn.all_gather2_120",
+        "model.layers.10.self_attn.all_gather2_152",
+        "model.layers.10.self_attn.all_gather2_153",
+        "model.layers.10.self_attn.all_gather2_20",
+        "model.layers.10.self_attn.all_gather2_21",
+        "model.layers.10.self_attn.all_gather2_53",
+        "model.layers.10.self_attn.all_gather2_54",
+        "model.layers.10.self_attn.all_gather2_86",
+        "model.layers.10.self_attn.all_gather2_87",
+        "model.layers.11.self_attn.all_gather2_121",
+        "model.layers.11.self_attn.all_gather2_122",
+        "model.layers.11.self_attn.all_gather2_154",
+        "model.layers.11.self_attn.all_gather2_155",
+        "model.layers.11.self_attn.all_gather2_22",
+        "model.layers.11.self_attn.all_gather2_23",
+        "model.layers.11.self_attn.all_gather2_55",
+        "model.layers.11.self_attn.all_gather2_56",
+        "model.layers.11.self_attn.all_gather2_88",
+        "model.layers.11.self_attn.all_gather2_89",
+        "model.layers.12.self_attn.all_gather2_123",
+        "model.layers.12.self_attn.all_gather2_124",
+        "model.layers.12.self_attn.all_gather2_156",
+        "model.layers.12.self_attn.all_gather2_157",
+        "model.layers.12.self_attn.all_gather2_24",
+        "model.layers.12.self_attn.all_gather2_25",
+        "model.layers.12.self_attn.all_gather2_57",
+        "model.layers.12.self_attn.all_gather2_58",
+        "model.layers.12.self_attn.all_gather2_90",
+        "model.layers.12.self_attn.all_gather2_91",
+        "model.layers.13.self_attn.all_gather2_125",
+        "model.layers.13.self_attn.all_gather2_126",
+        "model.layers.13.self_attn.all_gather2_158",
+        "model.layers.13.self_attn.all_gather2_159",
+        "model.layers.13.self_attn.all_gather2_26",
+        "model.layers.13.self_attn.all_gather2_27",
+        "model.layers.13.self_attn.all_gather2_59",
+        "model.layers.13.self_attn.all_gather2_60",
+        "model.layers.13.self_attn.all_gather2_92",
+        "model.layers.13.self_attn.all_gather2_93",
+        "model.layers.14.self_attn.all_gather2_127",
+        "model.layers.14.self_attn.all_gather2_128",
+        "model.layers.14.self_attn.all_gather2_160",
+        "model.layers.14.self_attn.all_gather2_161",
+        "model.layers.14.self_attn.all_gather2_28",
+        "model.layers.14.self_attn.all_gather2_29",
+        "model.layers.14.self_attn.all_gather2_61",
+        "model.layers.14.self_attn.all_gather2_62",
+        "model.layers.14.self_attn.all_gather2_94",
+        "model.layers.14.self_attn.all_gather2_95",
+        "model.layers.15.self_attn.all_gather2_129",
+        "model.layers.15.self_attn.all_gather2_130",
+        "model.layers.15.self_attn.all_gather2_162",
+        "model.layers.15.self_attn.all_gather2_163",
+        "model.layers.15.self_attn.all_gather2_30",
+        "model.layers.15.self_attn.all_gather2_31",
+        "model.layers.15.self_attn.all_gather2_63",
+        "model.layers.15.self_attn.all_gather2_64",
+        "model.layers.15.self_attn.all_gather2_96",
+        "model.layers.15.self_attn.all_gather2_97",
+        "model.layers.2.self_attn.all_gather2_103",
+        "model.layers.2.self_attn.all_gather2_104",
+        "model.layers.2.self_attn.all_gather2_136",
+        "model.layers.2.self_attn.all_gather2_137",
+        "model.layers.2.self_attn.all_gather2_37",
+        "model.layers.2.self_attn.all_gather2_38",
+        "model.layers.2.self_attn.all_gather2_4",
+        "model.layers.2.self_attn.all_gather2_5",
+        "model.layers.2.self_attn.all_gather2_70",
+        "model.layers.2.self_attn.all_gather2_71",
+        "model.layers.3.self_attn.all_gather2_105",
+        "model.layers.3.self_attn.all_gather2_106",
+        "model.layers.3.self_attn.all_gather2_138",
+        "model.layers.3.self_attn.all_gather2_139",
+        "model.layers.3.self_attn.all_gather2_39",
+        "model.layers.3.self_attn.all_gather2_40",
+        "model.layers.3.self_attn.all_gather2_6",
+        "model.layers.3.self_attn.all_gather2_7",
+        "model.layers.3.self_attn.all_gather2_72",
+        "model.layers.3.self_attn.all_gather2_73",
+        "model.layers.4.self_attn.all_gather2_107",
+        "model.layers.4.self_attn.all_gather2_108",
+        "model.layers.4.self_attn.all_gather2_140",
+        "model.layers.4.self_attn.all_gather2_141",
+        "model.layers.4.self_attn.all_gather2_41",
+        "model.layers.4.self_attn.all_gather2_42",
+        "model.layers.4.self_attn.all_gather2_74",
+        "model.layers.4.self_attn.all_gather2_75",
+        "model.layers.4.self_attn.all_gather2_8",
+        "model.layers.4.self_attn.all_gather2_9",
+        "model.layers.5.self_attn.all_gather2_10",
+        "model.layers.5.self_attn.all_gather2_109",
+        "model.layers.5.self_attn.all_gather2_11",
+        "model.layers.5.self_attn.all_gather2_110",
+        "model.layers.5.self_attn.all_gather2_142",
+        "model.layers.5.self_attn.all_gather2_143",
+        "model.layers.5.self_attn.all_gather2_43",
+        "model.layers.5.self_attn.all_gather2_44",
+        "model.layers.5.self_attn.all_gather2_76",
+        "model.layers.5.self_attn.all_gather2_77",
+        "model.layers.6.self_attn.all_gather2_111",
+        "model.layers.6.self_attn.all_gather2_112",
+        "model.layers.6.self_attn.all_gather2_12",
+        "model.layers.6.self_attn.all_gather2_13",
+        "model.layers.6.self_attn.all_gather2_144",
+        "model.layers.6.self_attn.all_gather2_145",
+        "model.layers.6.self_attn.all_gather2_45",
+        "model.layers.6.self_attn.all_gather2_46",
+        "model.layers.6.self_attn.all_gather2_78",
+        "model.layers.6.self_attn.all_gather2_79",
+        "model.layers.7.self_attn.all_gather2_113",
+        "model.layers.7.self_attn.all_gather2_114",
+        "model.layers.7.self_attn.all_gather2_14",
+        "model.layers.7.self_attn.all_gather2_146",
+        "model.layers.7.self_attn.all_gather2_147",
+        "model.layers.7.self_attn.all_gather2_15",
+        "model.layers.7.self_attn.all_gather2_47",
+        "model.layers.7.self_attn.all_gather2_48",
+        "model.layers.7.self_attn.all_gather2_80",
+        "model.layers.7.self_attn.all_gather2_81",
+        "model.layers.8.self_attn.all_gather2_115",
+        "model.layers.8.self_attn.all_gather2_116",
+        "model.layers.8.self_attn.all_gather2_148",
+        "model.layers.8.self_attn.all_gather2_149",
+        "model.layers.8.self_attn.all_gather2_16",
+        "model.layers.8.self_attn.all_gather2_17",
+        "model.layers.8.self_attn.all_gather2_49",
+        "model.layers.8.self_attn.all_gather2_50",
+        "model.layers.8.self_attn.all_gather2_82",
+        "model.layers.8.self_attn.all_gather2_83",
+        "model.layers.9.self_attn.all_gather2_117",
+        "model.layers.9.self_attn.all_gather2_118",
+        "model.layers.9.self_attn.all_gather2_150",
+        "model.layers.9.self_attn.all_gather2_151",
+        "model.layers.9.self_attn.all_gather2_18",
+        "model.layers.9.self_attn.all_gather2_19",
+        "model.layers.9.self_attn.all_gather2_51",
+        "model.layers.9.self_attn.all_gather2_52",
+        "model.layers.9.self_attn.all_gather2_84",
+        "model.layers.9.self_attn.all_gather2_85"
+       ],
+       "picks": 52,
+       "equal": 52
+      },
+      "AllReduce2_v1": {
+       "sites": 33,
+       "covered": 33,
+       "missing": [],
+       "picks": 99,
+       "equal": 99
+      },
+      "EmbeddingShard_v1": {
+       "sites": 1,
+       "covered": 1,
+       "missing": [],
+       "picks": 3,
+       "equal": 3
+      }
+     },
+     "strata_sites_n": 50,
+     "errors": null,
+     "rule": "every site of every replay-unreplayable collective family (from the rank Programs) has >= 1 stratum in this pass; else missing by name",
+     "why": "sites without a stratum: AllGather2_v1: ['model.layers.0.self_attn.all_gather2', 'model.layers.0.self_attn.all_gather2_1', 'model.layers.0.self_attn.all_gather2_100', 'model.layers.0.self_attn.all_gather2_132']"
+    }
+   ]
+  },
+  "rule": "per pick (site, step, row subset): all_reduce -> committed received (each rank) == bf16(f32(part_rank0) + f32(part_rank1)) elementwise and equal across ranks; all_gather -> committed received == concat(shard_rank0, shard_rank1) on the last dim; embedding site additionally (EmbeddingShard_v1) -> each rank's committed partial == masked gather of the committed ids (<site>/in) from the rank's pinned vocab shard (rows outside the rank's vocab range are zero); partials and received are the ranks' COMMITTED bytes (bound + under the run roots), never the hook-time clone",
+  "seed": "the pair's combined run root (fixed after commitment)",
+  "per_pair_artifacts": [
+   "/workspace/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/xrank_pair0.json",
+   "/workspace/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/xrank_pair1.json",
+   "/workspace/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/xrank_pair2.json"
+  ]
+ },
+ "fold_match_binding": {
+  "result": false,
+  "n_bindings": 0,
+  "n_recorder": {},
+  "n_bad_bindings": null,
+  "why": "fold Match record missing (tp2_fold_match.json / tp2_rank_match.json): the peer leaves have no Match-stage binding -- REQUIRED"
+ },
+ "query_population": {
+  "result": false,
+  "per_rank": {
+   "0": {
+    "present": true,
+    "ok": false,
+    "counts": {
+     "vus_outside_query": 25408,
+     "identities_without_rows": 25408,
+     "identities_unreachable_by_alias": 0,
+     "rows_disagree": 0,
+     "rows_annotation_inconsistent": 0,
+     "controller_rows_disagree": 0
+    },
+    "fail": "C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out)"
+   },
+   "1": {
+    "present": true,
+    "ok": false,
+    "counts": {
+     "vus_outside_query": 25408,
+     "identities_without_rows": 25408,
+     "identities_unreachable_by_alias": 0,
+     "rows_disagree": 0,
+     "rows_annotation_inconsistent": 0,
+     "controller_rows_disagree": 0
+    },
+    "fail": "C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out)"
+   }
+  },
+  "rule": "population.query_checks.ok True on EVERY rank (R17-3 reconciliation against Q(P)); False / absent with a required manifest = the rank FAILs by name (F-r17b-38)",
+  "why": "rank 0: C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out); rank 1: C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out)"
+ },
+ "weights_pin": {
+  "result": true,
+  "per_rank": {
+   "0": {
+    "result": true,
+    "root_of_record": "5254f796ee4f2ec26b7bc309d58d41fb6c6c84a6fae201fbb894e89160e8d5e2",
+    "compared": 212,
+    "mismatched_n": 0,
+    "missing": [],
+    "unpinned": [],
+    "all_shards_pinned": true,
+    "committed_weights_root": "6c6a0377bdeec355fed4c030ee50b3b1afc9b8ccf73b8893b05a55ccb323a7dd",
+    "why": null
+   },
+   "1": {
+    "result": true,
+    "root_of_record": "0e852a139d6dae8a6c8ada1407e401f16cfff8c5528193141599b2ae552a0975",
+    "compared": 212,
+    "mismatched_n": 0,
+    "missing": [],
+    "unpinned": [],
+    "all_shards_pinned": true,
+    "committed_weights_root": "b142f8a3b64235a0bd925ccde0ec50f8852048ec18ae64ddd2eb7d71494837b3",
+    "why": null
+   }
+  },
+  "why": null,
+  "checkpoint_dir": "/workspace/hf/hub/models--allenai--OLMoE-1B-7B-0924/snapshots/6d84c48581ece794365f2b8e9cfb043c68ade9c5"
+ },
+ "required_manifest": {
+  "path": "/workspace/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json",
+  "manifest_digest": "1bb40895671dd79144528cd3f4af30041625e15afcfde9bab3057aeb7e27a3aa",
+  "identities": 357796,
+  "program_digest_per_rank": {
+   "0": "2f6367e27e967b30ad4407acb748a7eb891251c7cac70f03cdf0fda90d1f3795",
+   "1": "9b96c11ff9901044d97f96f335dc28de6613c4861245a271e1013975dae45490"
+  }
+ },
+ "negatives": {
+  "omit_rank": null,
+  "no_tp_partials": false,
+  "relabel_rank": null,
+  "swap_requests": null,
+  "wrong_root_rank": null,
+  "omit_rank_partials": null,
+  "omit_partial_site": null,
+  "flip_partial": null
+ },
+ "pass": false,
+ "required_classes": [
+  "input_token_ids",
+  "instance_outputs_native",
+  "sampled_token_ids",
+  "weights",
+  "fa2_hidden_m1_stream",
+  "tp_rank_partials",
+  "moe_block_stream"
+ ],
+ "negative_applied": null
+}

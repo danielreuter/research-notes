@@ -1,0 +1,16 @@
+start 2026-09-25T12:38:13Z src /workspace/research/src/7313e7994a52123d0e3e343b564988980f1b7a50
+bootstrap OK 2026-09-25T12:46:42Z
+head: exit 0 2026-09-25T12:59:24Z
+expected {'run_roots': ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5'], 'program': 'ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b', 'manifest': '90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac'}
+head run_roots ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5'] == record: True
+head program ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b == record: True
+head manifest 90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac == record: True
+head commit_pass True | first_fail None
+done 2026-09-25T12:59:25Z
+exit 0 2026-09-25T12:59:24Z
+release UNRELEASED 2026-09-25T12:46:42Z commit=unknown tree=/workspace/c4ir-head/integrations/vllm branch=None dirty= (no /workspace/c4ir-head/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh)
+precheck PASS 2026-09-25T12:46:43Z source identity == /workspace/c4ir-head/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T12:46:45Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+build PASS 2026-09-25T12:49:47Z rc=0/0 wall=150s digest=03ace66f1c80b04a workload_digest=a2b43bde001d335a manifest=90f8186879d5035a 7043
+match PASS 2026-09-25T12:54:06Z rc=0/0/0 wall=259s verdict PASS global PASS  dag concurrency 1 tokens_equal True fold True
+commit PASS 2026-09-25T12:59:24Z rc=0 wall=295s outcome=PASS runs 1 failed 0 checks runtime_match=PASS local_replay=PASS boundary_linkage=PASS checkpoint_binding=PASS execution_extent=PASS required_value_coverage=PASS program_source_identity=PASS manifest_verify=True

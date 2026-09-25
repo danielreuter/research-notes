@@ -2,9 +2,10 @@
 lane: b-ligero-sha256
 kind: report
 created: 2026-09-25T07:00Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT none (14:05Z) [superseded] closed by coordinator 14:05Z: agent died in the 12:30-13:50Z laptop worker disconnect; branch clean and pushed; pods already gone; open verification and red-team items carried by verify-night-3 / red-team-standard-hash-2 (cloud); measurement work resumes as cloud lanes if the coordinator relaunches it
 CHECKPOINT 89433d06 (12:22Z) [open] 12:22Z: fp8-hopper+sha256 (e592, 6162 VU/s) + bf16 (5a5f, 3062 VU/s) cells PRESERVED, handed to verify-night-2/red-team. Draining H100 after e60f custody check; next fp8-ada-x4+sha256 on 4090. Laptop 1.6GiB free - checking my local tmp.
 CHECKPOINT 5b28557b (11:49Z) [open] fp8-hopper-x4+sha256 cell PRESERVED 13/13 (art:4aa258ee + proofs art:61842848), verify-night-2 handoff 1150Z sent. bf16-hopper-x4+sha256 re-sweep 5a5f: plateau 8192 3062 VU/s, 49/49 Rust ACCEPT; custody in progress.
 CHECKPOINT 5e21eead (11:15Z) [open] e592 fp8-hopper-x4+sha256 plateau art:4aa258ee (bench-result) + art:61842848 (proofs) pushing to R2 (runner custody failed, retry via data push). bf16-hopper-x4+sha256 sweep 6976 plateau 8192 3165 VU/s but 16384 spoiled by my custody load: re-sweep after uploads.

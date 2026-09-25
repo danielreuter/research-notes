@@ -1,0 +1,8 @@
+{
+ "branch": "lane/reverify-tile-2",
+ "brief": "/Users/danielreuter/.research/notes/kb/TABLES.md",
+ "budget": "$10",
+ "final": "15:30Z",
+ "succeeds": "reverify-tile",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/ligero-steps-pin"
+}

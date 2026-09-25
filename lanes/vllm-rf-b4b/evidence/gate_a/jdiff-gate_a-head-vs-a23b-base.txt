@@ -1,0 +1,11 @@
+base 158 {'passed': 73, 'skipped': 85}
+head 158 {'passed': 73, 'skipped': 85}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 2
+  1 x manifest_digest does not apply to #70: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+  1 x manifest_digest does not apply to #75: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+failures+errors: base 0, head 0, fixed on head 0
+jdiff rc 1

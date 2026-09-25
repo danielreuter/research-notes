@@ -2,9 +2,10 @@
 lane: reverify-tile
 kind: report
 created: 2026-09-25T10:22Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT f3cdfd5d (14:03Z) [superseded] by reverify-tile-2 (relaunch): agent died in the 12:30-13:50Z worker disconnect; relaunched on a cloud VM (laptop is coordinators-only)
 CHECKPOINT ba852261 (12:26Z) [open] 12:25Z: fp8-ada/bf16-hopper benches 87/85 min in, no dump yet; regression rerun on pod 2 at ~40 tests (slow host, load ~540). Handoff 1146Z/1202Z (custody rules) noted; no more laptop fetches (laptop 1.9 GiB).
 CHECKPOINT 2c92b9e3 (12:10Z) [open] 12:10Z: rvt-regression-3 launched on pod 2 (custody-r2; setup+build+regression list). Pod 1 benches continue (fp8-ada 72 min, bf16-hopper 70 min in, no dump yet). Cutoff for bf16-hopper stays 13:40Z.
 CHECKPOINT 4ef9b05 (12:00Z) [open] 12:00Z: rvt-regression killed on pod 1 (pytest held 16 runnable threads, starving the benches); fp8-ada bench now ~10 cores. Pod 2 vy-reverify-tile-2 (cpu3c 16, $0.48/h, guard) created for the regression rerun.

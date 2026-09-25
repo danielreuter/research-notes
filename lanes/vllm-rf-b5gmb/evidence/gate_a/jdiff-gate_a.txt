@@ -1,0 +1,34 @@
+## head 55b9d1ff vs a23b base 72884c8a (samepod)
+base 158 {'passed': 73, 'skipped': 85}
+head 158 {'passed': 73, 'skipped': 85}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 2
+  1 x manifest_digest does not apply to #70: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+  1 x manifest_digest does not apply to #75: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+failures+errors: base 0, head 0, fixed on head 0
+rc=1
+
+## head 55b9d1ff vs a4 head 10996616 (this lane's base)
+base 158 {'passed': 73, 'skipped': 85}
+head 158 {'passed': 73, 'skipped': 85}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 0, head 0, fixed on head 0
+rc=0
+
+## tail 55b9d1ff (50 tests, concurrent, -k r73|r74|r75|r101|negative_57|decisions_are_listed) vs full head run
+base 158 {'passed': 73, 'skipped': 85}
+head 50 {'passed': 25, 'skipped': 25}
+only in base (deleted or renamed): 108
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 0, head 0, fixed on head 0
+rc=0

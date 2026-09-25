@@ -1,0 +1,115 @@
+keys only in run: []
+keys only in record: []
+
+≠ attribution: run {"match_record": {"capture_dir": "/workspace/cp/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture", "generated_total": ... (584 chars, sha256 1198d5abcb6a6aca)
+    record {"match_record": {"capture_dir": "/workspace/cp/sweep/57a66b1/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture", "generated_... (600 chars, sha256 2707a2e2a285e685)
+= boundary_linkage: run {"checked": 868, "linked": 868, "method": "per rank, exhaustive over (engine step, request): committed input_token_ids at the arrival step == the declared promp... (485 chars, sha256 850457b4cd8a135c)
+≠ commit_pass: run [false]
+    record [false, false, false]
+= committer: run "native_collect_v2b"
+≠ control_wall: run [2.0115686655044556]
+    record [2.037910281214863, 2.0501264152117074, 2.0404947879724205]
+≠ cross_rank_collectives: run {"by_family": {"AllGather2_v1": {"equal": 52, "mismatch": 0, "missing": 0, "picks": 52}, "AllReduce2_v1": {"equal": 99, "mismatch": 0, "missing": 0, "picks": 99... (9222 chars, sha256 919f50194e9aabe2)
+    record {"by_family": {"AllGather2_v1": {"equal": 156, "mismatch": 0, "missing": 0, "picks": 156}, "AllReduce2_v1": {"equal": 297, "mismatch": 0, "missing": 0, "picks":... (24872 chars, sha256 94f3ac4dd6a74b51)
+≠ delta_wall: run [2.283693004399538]
+    record [1.5631081638857722, 3.1215845849364996, 1.6025569690391421]
+≠ delta_wall_mean: run 2.283693004399538
+    record 2.0957499059538045
+≠ delta_wall_pct: run 113.52796668399286
+    record 102.5898248849086
+≠ fold_match_binding: run {"n_bad_bindings": null, "n_bindings": 0, "n_recorder": {}, "result": false, "why": "fold Match record missing (tp2_fold_match.json / tp2_rank_match.json): the ... (213 chars, sha256 6ba744ca19d72ce4)
+    record {"n_bad_bindings": null, "n_bindings": 0, "n_recorder": {}, "result": null, "why": "fold Match record missing (tp2_fold_match.json / tp2_rank_match.json): the p... (241 chars, sha256 37e7af0e262ff888)
+= label: run "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager"
+= match_oracle: run {"0": {"by_member": {"out": {"equal": 6144, "tensors": 6144}, "partial": {"equal": 8448, "tensors": 8448}}, "equal": 14592, "error": null, "mismatch_n": 0, "mis... (534 chars, sha256 ef1065477964b0dd)
+= negative_applied: run null
+= negatives: run {"flip_partial": null, "no_tp_partials": false, "omit_partial_site": null, "omit_rank": null, "omit_rank_partials": null, "relabel_rank": null, "swap_requests":... (191 chars, sha256 c6de5579641d1293)
+= openings: run 64
+≠ oracle_compare: run {"attribution": {"complete": true, "per_rank": {"0": true, "1": true}, "result": true, "rows_checked_per_rank": {"0": 434, "1": 434}}, "complete": false, "ident... (1465 chars, sha256 fff0fe353f832f78)
+    record {"attribution": {"complete": true, "per_rank": {"0": true, "1": true}, "result": true, "rows_checked_per_rank": {"0": 434, "1": 434}}, "complete": false, "ident... (1473 chars, sha256 c3c4a9188996da6c)
+≠ pairs: run 1
+    record 3
+= pass: run false
+≠ per_rank_coverage: run [{"0": {"bytes_bound": 18546163172, "classes": {"fa2_hidden_m1_stream": {"bytes": 19844481024, "how": "bound-as-leaf", "tensors": 4096}, "input_token_ids": {"by... (1988 chars, sha256 c57dd47a36433c3e)
+    record [{"0": {"bytes_bound": 18546163172, "classes": {"fa2_hidden_m1_stream": {"bytes": 19844481024, "how": "bound-as-leaf", "tensors": 4096}, "input_token_ids": {"by... (5970 chars, sha256 680cdf7445f1aa90)
+≠ per_rank_roots: run [{"0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e", "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"}]
+    record [{"0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e", "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"}, {"0": "3e64... (444 chars, sha256 6eb3a444c174dd15)
+= query_population: run {"per_rank": {"0": {"counts": {"controller_rows_disagree": 0, "identities_unreachable_by_alias": 0, "identities_without_rows": 25408, "rows_annotation_inconsist... (2045 chars, sha256 d6c92957e511c68b)
+= required_classes: run ["input_token_ids", "instance_outputs_native", "sampled_token_ids", "weights", "fa2_hidden_m1_stream", "tp_rank_partials", "moe_block_stream"]
+≠ required_manifest: run {"identities": 357796, "manifest_digest": "1bb40895671dd79144528cd3f4af30041625e15afcfde9bab3057aeb7e27a3aa", "path": "/workspace/cp/sweep/olmoe-1b-7b__bf16__l4... (400 chars, sha256 3f9f528b0ab781b6)
+    record {"identities": 357796, "manifest_digest": "ede1ad81eb1118279c9f176e61cdca361244a63158d632155546d58aa4652524", "path": "/workspace/cp/sweep/57a66b1/olmoe-1b-7b__... (408 chars, sha256 6d112a283b1b5ccb)
+≠ sampled_replay: run {"n": 19321, "per_rank": {"0": {"grade": "partial", "rank": 0, "rank_note": null, "result": null, "why": "484 strata not evaluated: ['RMSNormTriton_v1{N=2048,EP... (3241 chars, sha256 f3906d6e4b433197)
+    record {"n": 19321, "per_rank": {"0": {"grade": "partial", "rank": 0, "rank_note": null, "result": null, "why": "484 strata not evaluated: ['RMSNormTriton_v1{N=2048,EP... (3553 chars, sha256 7343da84db95aa9a)
+= schema: run "verity/commit-integ/delta-tp/v1"
+≠ tokens_equal: run [true, true]
+    record [true, true, true, true, true, true]
+= tp: run 2
+≠ tp_run_roots: run ["0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957"]
+    record ["0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957", "0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957", "0b91229f06480ce4047fa3... (204 chars, sha256 da9ca45a28dd9af4)
+≠ treatment_wall: run [4.295261669903994]
+    record [3.6010184451006353, 5.171711000148207, 3.6430517570115626]
+≠ value_check: run {"verdict": "PASS"}
+    record {"verdict": "FAIL"}
+= weights_pin: run {"checkpoint_dir": "/workspace/hf/hub/models--allenai--OLMoE-1B-7B-0924/snapshots/6d84c48581ece794365f2b8e9cfb043c68ade9c5", "per_rank": {"0": {"all_shards_pinn... (787 chars, sha256 bed63b768466540d)
+
+-- roots
+run tp_run_roots: ["0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957"]
+rec tp_run_roots: ["0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957", "0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957", "0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957"]
+run per_rank_roots: [{"0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e", "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"}]
+rec per_rank_roots: [{"0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e", "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"}, {"0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e", "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"}, {"0": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e", "1": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c"}]
+
+-- files present in both, byte-compared
+  binding_map_rank0.json: run only
+  binding_map_rank1.json: run only
+≠ committer_make.json: run e211944147299952 record d09523a0b575667d (21534 / 20550 bytes)
+≠ coverage.json: run 9a51bcb10ddba5fb record 1670849031b094a5 (42112 / 62156 bytes)
+≠ declaration_rank0.json: run 020a4297dbd11ed9 record 202b1ebfab6dbe9d (15464 / 15516 bytes)
+≠ declaration_rank1.json: run 72e9b93cfabda3e5 record 801a00f43f120409 (15464 / 15516 bytes)
+≠ finalize_pair0.json: run 73fbb6c9e731dd9d record 844047acfcfb48d5 (4684669 / 4667956 bytes)
+  finalize_warmup.json: run only
+≠ fold_match_binding.json: run d0644563bf35b994 record 6ad174b2a03713b6 (558 / 602 bytes)
+≠ import_path_runtime.json: run 2a9e6c54cae8732c record 262af768ff9a4a39 (17468 / 12645 bytes)
+≠ runs.jsonl: run 0d843a12ac5d7784 record eb9ddb9894ac4dbc (781868 / 2303149 bytes)
+≠ sampled_replay.json: run 273da4deffce664b record c86842a902ff15c9 (11876 / 12578 bytes)
+≠ summary.json: run 6aa0d93ab9f94c7d record 4a18aa3080f9de37 (26214 / 51320 bytes)
+≠ t6_4_check.json: run 6d0f5313451035b6 record 824d9b77643281c6 (104252 / 102820 bytes)
+≠ value_check.json: run 647d326366764cac record 09f658641f0a57c7 (64561 / 62737 bytes)
+≠ versions.json: run d1ab3079161595ff record cf5fa0cdfcd864c2 (14159 / 13093 bytes)
+≠ weights_pin.json: run 2ac9e4725e055152 record f021a89b1156a26c (1228 / 1228 bytes)
+≠ xrank_collectives.json: run 6021c7f5f8105013 record 11a192e6761a9eb3 (10673 / 28911 bytes)
+≠ xrank_pair0.json: run cca4105ed8a90d99 record 1e8e3a704940f14f (42795 / 41444 bytes)
+
+-- xrank_collectives.json: top-level keys differing
+  by_family: run {"AllGather2_v1": {"equal": 52, "mismatch": 0, "missing": 0, "picks": 52}, "AllReduce2_v1": {"equal": 99, "mismatch": 0, "missing": 0, "picks": 99}, "EmbeddingShard_v1": {"equal": 3, "mismatch": 0, "m... (224 chars, sha256 9e0608530386bbd7)
+      record {"AllGather2_v1": {"equal": 156, "mismatch": 0, "missing": 0, "picks": 156}, "AllReduce2_v1": {"equal": 297, "mismatch": 0, "missing": 0, "picks": 297}, "EmbeddingShard_v1": {"equal": 9, "mismatch": 0... (228 chars, sha256 8a89139a6d3b184e)
+  coverage_of_unreplayable: run {"complete": false, "per_pair": [{"complete": false, "errors": null, "families": {"AllGather2_v1": {"covered": 1, "equal": 52, "missing": ["model.layers.0.self_attn.all_gather2", "model.layers.0.self_... (7726 chars, sha256 4e5ea4e4c253b316)
+      record {"complete": false, "per_pair": [{"complete": false, "errors": null, "families": {"AllGather2_v1": {"covered": 1, "equal": 52, "missing": ["model.layers.0.self_attn.all_gather2", "model.layers.0.self_... (23112 chars, sha256 05c287c47d9b9c4b)
+  equal: run 154
+      record 462
+  pairs: run 1
+      record 3
+  per_pair_artifacts: run ["/workspace/cp/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/xrank_pair0.json"]
+      record ["/workspace/cp/sweep/57a66b1/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/xrank_pair0.json", "/workspace/cp/sweep/57a66b1/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o12... (378 chars, sha256 c47fdadf5ca394e5)
+  picks: run 154
+      record 462
+
+-- fold_match_binding.json: top-level keys differing
+  fold_match: run "/workspace/cp/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/fold_match/tp2_fold_match.json"
+      record "/workspace/cp/sweep/57a66b1/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/fold_match/tp2_fold_match.json"
+  rank_match: run "/workspace/cp/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/fold_match/tp2_rank_match.json"
+      record "/workspace/cp/sweep/57a66b1/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/fold_match/tp2_rank_match.json"
+  result: run false
+      record null
+  why: run "fold Match record missing (tp2_fold_match.json / tp2_rank_match.json): the peer leaves have no Match-stage binding -- REQUIRED"
+      record "fold Match record missing (tp2_fold_match.json / tp2_rank_match.json): the peer leaves have no Match-stage binding; Match is collective-level only (\u25d0)"
+
+-- sampled_replay.json: top-level keys differing
+  per_pair_artifacts: run ["/workspace/cp/sweep/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/finalize_pair0.json"]
+      record ["/workspace/cp/sweep/57a66b1/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/finalize_pair0.json", "/workspace/cp/sweep/57a66b1/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__... (387 chars, sha256 9599717e4deca7d5)
+  sampled_replay: run {"method": "per rank, in the rank's committing process (tp2_worker finalize): manbind sampled_replay on THIS rank's binding map (identity.rank == r), THIS rank's request Programs of record (derive_ste... (8916 chars, sha256 c4bfa7fb146c5896)
+      record {"method": "per rank, in the rank's committing process (tp2_worker finalize): manbind sampled_replay on THIS rank's binding map (identity.rank == r), THIS rank's request Programs of record (derive_ste... (9228 chars, sha256 e01ab46b63f8a804)
+  unreplayable_collectives_evaluated_by: run {"artifact": "xrank_collectives.json", "by_family": {"AllGather2_v1": {"equal": 52, "mismatch": 0, "missing": 0, "picks": 52}, "AllReduce2_v1": {"equal": 99, "mismatch": 0, "missing": 0, "picks": 99},... (405 chars, sha256 acda5f5895d86ce1)
+      record {"artifact": "xrank_collectives.json", "by_family": {"AllGather2_v1": {"equal": 156, "mismatch": 0, "missing": 0, "picks": 156}, "AllReduce2_v1": {"equal": 297, "mismatch": 0, "missing": 0, "picks": 2... (409 chars, sha256 ba3150925ece8654)
+
+-- weights_pin.json: top-level keys differing
+  pairs: run 1
+      record 3

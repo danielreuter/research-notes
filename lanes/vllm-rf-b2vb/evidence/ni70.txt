@@ -1,0 +1,21 @@
+== text diff base -> head2 (from_record on #70)
+1034a1035,1044
+>  ],
+>  "properties": [
+>   {
+>    "name": "noninterference",
+>    "schema": "verity-vllm/noninterference/v2",
+>    "digest": "442979b3aa090ccc79d57b35116934c2fe4d78e40ad387462913514438471a7b",
+>    "ok": true,
+>    "source": "properties/noninterference.json",
+>    "problems": []
+>   }
+diff rc=1
+stored: noninterference ok True digest 442979b3aa090ccc79d57b35116934c2fe4d78e40ad387462913514438471a7b problems []
+world 2 | keys ['arms', 'boundary_hashes', 'digest', 'ok', 'problems', 'run', 'schema', 'subject', 'tokens', 'world']
+{'schema': 'verity-vllm/noninterference/v2', 'world': 2, 'run': 'olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager', 'boundary_hashes': None, 'ok': True}
+rebuilt from the row's Match arms at the head: ok 442979b3aa090ccc79d57b35116934c2fe4d78e40ad387462913514438471a7b == stored
+world 3: ValueError: tensor-parallel world 3 refused: non-interference is recorded at worlds (1, 2)
+world 4: ValueError: tensor-parallel world 4 refused: non-interference is recorded at worlds (1, 2)
+records_of(row): [('noninterference', '442979b3aa090ccc', True)]
+rc=0

@@ -1,0 +1,27 @@
+base 158 {'passed': 73, 'skipped': 85}
+head 158 {'passed': 73, 'skipped': 85}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 2
+  1 x manifest_digest does not apply to #70: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+  1 x manifest_digest does not apply to #75: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+failures+errors: base 0, head 0, fixed on head 0
+rc=1 (2 skip-reason texts: row_pod_tp2.sh -> tp_stage.sh, a4 base 10996616 manifest_digest.py:46)
+
+test                                                                   head      base(samepod)      a23b base
+test_reproduces[T1-replay_partition-r101]                      pass     3.4       pass     3.4   pass     5.5
+test_reproduces[T1-replay_partition-r11]                       pass   465.7       pass   469.8   pass   413.0
+test_reproduces[T1-replay_partition-r23]                       skip     0.4       skip     0.5   skip     0.4
+test_reproduces[T1-replay_partition-r39]                       pass   833.2       pass   838.9   pass   788.8
+test_reproduces[T1-replay_partition-r4]                        skip     0.3       skip     0.5   skip     0.3
+test_reproduces[T1-replay_partition-r57]                       pass   165.6       pass   166.6   pass   149.8
+test_reproduces[T1-replay_partition-r60]                       pass   168.1       pass   170.0   pass   157.0
+test_reproduces[T1-replay_partition-r67]                       pass   359.4       pass   362.2   pass   328.7
+test_reproduces[T1-replay_partition-r68]                       pass   361.0       pass   355.5   pass   363.2
+test_reproduces[T1-replay_partition-r70]                       skip     0.3       skip     0.5   skip     0.4
+test_reproduces[T1-replay_partition-r73]                       pass   472.0       pass   473.0   pass   473.8
+test_reproduces[T1-replay_partition-r74]                       pass   580.9       pass   582.7   pass   582.9
+test_reproduces[T1-replay_partition-r75]                       skip     0.3       skip     0.5   skip     0.4
+passed total s: head 3409 base 3422 a23b 3263

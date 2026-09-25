@@ -1,0 +1,8 @@
+base 4001 {'error': 11, 'failed': 51, 'passed': 3647, 'skipped': 286, 'xfailed': 6}
+head 4001 {'error': 11, 'failed': 51, 'passed': 3647, 'skipped': 286, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 62, head 62, fixed on head 0

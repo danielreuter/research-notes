@@ -1,0 +1,21 @@
+14:15Z KILLED-UNOWNED 2026-09-25T09:32:51.008526+00:00 KILLED pid=29889 mem=0.58GB reason=disk floor 3.4GB free cwd=/Users/danielreuter cmd=/Users/danielreuter/projects/verity-main-wt/main/.venv/bin/python -m research data reindex --remote
+14:15Z KILLED-UNOWNED 2026-09-25T09:33:23.758455+00:00 KILLED pid=31028 mem=0.58GB reason=disk floor 3.4GB free cwd=/Users/danielreuter cmd=/Users/danielreuter/projects/verity-main-wt/main/.venv/bin/python -m research data reindex --remote
+14:15Z KILLED-UNOWNED 2026-09-25T09:33:50.522329+00:00 KILLED pid=31595 mem=0.59GB reason=disk floor 3.4GB free cwd=/Users/danielreuter cmd=/Users/danielreuter/projects/verity-main-wt/main/.venv/bin/python -m research data reindex --remote
+14:15Z KILLED-UNOWNED 2026-09-25T09:43:39.287905+00:00 KILLED pid=72833 mem=0.46GB reason=disk floor 2.7GB free cwd=/Users/danielreuter/.research/notes/lanes/vllm-rf-a5/tools cmd=python relint.py /Users/danielreuter/projects/verity-wt/rf-a5
+14:15Z KILLED-UNOWNED 2026-09-25T09:44:28.367932+00:00 KILLED pid=74256 mem=0.25GB reason=disk floor 2.6GB free cwd=/Users/danielreuter/projects/verity-wt/rf-a5/integrations/vllm/tests/lint cmd=/Users/danielreuter/projects/verity-main-wt/main/.venv/bin/python -m research data push --pending
+14:15Z KILLED-UNOWNED 2026-09-25T09:52:56.396078+00:00 KILLED pid=26320 mem=0.46GB reason=disk floor 2.8GB free cwd=/Users/danielreuter/.research/notes/lanes/vllm-rf-a5/tools cmd=python relint.py /Users/danielreuter/projects/verity-wt/rf-a5
+14:15Z KILLED-UNOWNED 2026-09-25T12:01:52.325753+00:00 KILLED pid=29022 mem=0.46GB reason=disk floor 2.4GB free cwd=/Users/danielreuter/projects/verity-wt/rf-a5 cmd=python /Users/danielreuter/.research/notes/lanes/vllm-rf-a5/tools/relint.py /Users/danielreuter/projects/verity-wt/rf-a5
+14:15Z KILLED-UNOWNED 2026-09-25T12:02:02.400108+00:00 KILLED pid=29323 mem=0.46GB reason=disk floor 2.4GB free cwd=/Users/danielreuter cmd=python /Users/danielreuter/.research/notes/lanes/vllm-rf-a5/tools/relint.py /Users/danielreuter/projects/verity-wt/rf-a5
+14:15Z ROUTED coordinator 1: 20260925T1415Z-handoff-steward-guardian.md (agkr-bound is final)
+14:15Z RENDER-REFRESH-FAILED renders/daily@13:00Z: FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/workspace/steward/verity')
+14:15Z RENDER-FAILED renders/daily@13:00Z (tables): FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/workspace/steward/verity')
+14:15Z RENDER-FAILED renders/daily@13:00Z (drilldown): FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/workspace/steward/verity')
+14:15Z pass 1: 4 open, 0 stale
+== 2026-09-25T14:16:14Z
+lane                         state     life via         ckpt commit  edit dirty pods        inbox     checkpoint
+coordinator                  open        5m report        5m      -     -     - -           0         14:12Z (7:12 AM PT) TOOK OVER as research coordinator (successor to bc
+red-team-standard-hash-2 #2  open        3m report         -      -     -     0 -           1 (58m)   (no report yet)
+reverify-tile-2 #3           open        3m report         -      -     -     0 -           0         (no report yet)
+verify-night-3 #3            open        3m report         -      -     -     0 -           2 (109m)  (no report yet)
+vllm-rf-b5gmb #2             open        0m report         -   255m     -     0 -           0         (no report yet)
+research spend since 11:51 PM PT: $93.72 of $300; running $2.30/h

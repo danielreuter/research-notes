@@ -1,0 +1,8 @@
+base 158 {'passed': 73, 'skipped': 85}
+head 158 {'passed': 73, 'skipped': 85}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 0, head 0, fixed on head 0

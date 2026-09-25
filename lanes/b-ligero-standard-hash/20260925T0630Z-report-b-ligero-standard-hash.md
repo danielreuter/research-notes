@@ -2,9 +2,10 @@
 lane: b-ligero-standard-hash
 kind: report
 created: 2026-09-25T06:30Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT none (14:05Z) [superseded] closed by coordinator 14:05Z: agent died in the 12:30-13:50Z laptop worker disconnect; branch clean and pushed; pods already gone; open verification and red-team items carried by verify-night-3 / red-team-standard-hash-2 (cloud); measurement work resumes as cloud lanes if the coordinator relaunches it
 CHECKPOINT f893ba0 (13:18Z) [open] x4 instance-equiv/v1 8192 art:d9b3724d + 32768 art:b6f2e1df (PR#21 shape, equal, reproduce) -> verify-night-2. blake3-xob class granted w/ conditions (red-team 1226Z). x4 xob plateau art:ecccca50 handed off. x1 xob sweep running; FINAL by 15:00Z.
 CHECKPOINT 5b28557b (13:10Z) [open] x4+blake3-xob sweep done: plateau 32768 5676 VU/s e2e 5.773s 1.89e7x ACCEPT 97/97 2^-128.07 art:ecccca50 (PROVISIONAL, not converged, 65536 OOM). x1 xob sweep r20260925-130720-ab7a running. Handoffs next, FINAL chores by 14:40Z.
 CHECKPOINT 5b28557b (12:17Z) [open] blake3-xob PROVISIONAL cells (5b28557b, gated, pinned, Rust ACCEPT): x1 frozen e2e 1.974s (1.963+0.010) 5.18e7x art:b47828e4; x4 0.799s (0.790+0.009) 2.10e7x art:bb69174b; same-tree +blake3 controls 3.539/1.977s. Sent to verify-night-2, coord; x4 xob sweep running r..121605-357f.

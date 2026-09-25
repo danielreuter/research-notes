@@ -102,6 +102,9 @@ every binding then "mismatches" (b-ligero-standard-hash report, 08:19Z).
 - **instance-equiv/v1 for re-packed relations** (x4 etc.): run `python -m verity_numerical.bench.instance_equiv --relation
   <rel> --vus 4096 --out F` on a pod, then `research data put --kind instance-equiv/v1 --meta @F+lane --preserve` (the
   renderer reads the meta). The kind is not in the CLI's known list; it prints "storing anyway", which is fine. The tool's
-  `tool` field is `@unknown` on pods (REPO = parents[4]). `frozen` must equal FROZEN_INSTANCES (range [0, 4096]), so
-  plateaus at n > 4096 cannot be expressed. fp8-ada-x4's 8192 set is prefix-equal to the frozen set (art:6fdeed7e /
-  lane evidence).
+  `tool` field is `@unknown` on pods (REPO = parents[4]; set RESEARCH_GIT_COMMIT). Since main bfb0b928 (PR #21) `frozen`
+  may be the frozen ref, a prefix of it, or the synthetic stream over [0, n) by generator / seed / n, so sweep plateaus
+  past 4096 get their own document (`--vus n`); `candidate` must equal the result's `workload_fingerprint.instances`.
+  Examples: x4 8192 art:d9b3724d, x4 32768 art:b6f2e1df. If the pod tree is older and busy, overlaying main's
+  `bench/{instance_equiv,tables,views}.py` on a copy of verity_numerical first on PYTHONPATH works; the loaders
+  (relchain) are unchanged (b-ligero-standard-hash 43-equiv-8192.sh).

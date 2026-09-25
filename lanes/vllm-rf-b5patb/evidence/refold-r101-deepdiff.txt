@@ -1,0 +1,13 @@
+fold_summary.json 66 differing leaves; leaf names: ['digest_s', 'fold_s', 'max_rss_gb', 'path', 'program_s', 'seconds', 'utc']
+    $.utc 2026-09-25T14:17:59Z | 2026-09-25T14:18:57Z
+    $.per_step[0].seconds 13.028 | 12.466
+    $.per_step[1].seconds 0.164 | 0.108
+    $.per_step[2].seconds 0.162 | 0.106
+run/resolution.json 32 differing leaves; leaf names: ['seconds']
+    $.steps[0].seconds 2.4645 | 3.3914
+    $.steps[1].seconds 0.0301 | 0.0419
+    $.steps[2].seconds 0.0302 | 0.0418
+    $.steps[3].seconds 0.03 | 0.0423
+accesses decompressed: 69010040 69010040 identical
+  gzip header r101_head 1f8b08089f82b66a02ff mtime 1790345887
+  gzip header r101_base 1f8b0808d682b66a02ff mtime 1790345942

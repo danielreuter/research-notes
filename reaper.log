@@ -25,3 +25,4 @@
 16:49Z REAP-BLOCKED verify-night-3 vy-verify-night-2: its run dirs' custody is unknown: no guard state on the pod (no guard = N in its machines entry?)
 17:21Z REAP-BLOCKED verify-night-3 vy-verify-night-2: its run dirs' custody is unknown: no guard state on the pod (no guard = N in its machines entry?)
 18:59Z REAP-BLOCKED agkr-flock-cell vy-agkr-flock-cell-a100-2: art:79d8d4a5: no verified remote replica recorded, 234 MB to read back -> research data preserved art:79d8d4a5
+19:18Z REAPED cell-verifier vy-cell-verifier-3 4vmp4qarp4dko7 $0.96/h (STALE 20m, idle 32m); custody: no art: cited; 2 attempt(s) preserved, 2 run dir(s) with custody (guard)

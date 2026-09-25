@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 906255b2 (19:48Z) [open] pod vy-verify-night-3 p3ink8nhwnomt7 (cpu3c 16 vCPU 100GB, $0.48/h) for ac1f532c/675a03a3 (@main 7da00370) + f7aac95f (@lane/b-ligero-vllm-v1 acd50fec) and their equiv docs
 CHECKPOINT 906255b2 (19:42Z) [open] reopened for 3 cells (coordinator 1940Z/1945Z): ac1f532c+dc455fc8, 675a03a3+40b23d0b, f7aac95f+d4402d29: NOT final
 CHECKPOINT 906255b2 (19:41Z) [final] flock-backend CPU drill-down art:827f594c verified=accepted (replay r20260925-193306-85c5, 18/18 sessions of art:904398d8); pod mzclpkcwdyp4xm terminated 19:39Z ~$0.10. Coordinator 1940Z/1945Z queue (2 sha256 cells + vllm-v1 cell) NOT taken: needs a new launch
 CHECKPOINT 906255b2 (19:39Z) [final] flock-backend CPU drill-down art:827f594c verified=accepted: 20-pure.sh replay @ab5c1156 run r20260925-193306-85c5, 18/18 sessions of art:904398d8 accepted, lowering da1bbe2c PINNED; note: CPU drill-down (rule K). Pod mzclpkcwdyp4xm terminated 19:39Z, ~$0.10

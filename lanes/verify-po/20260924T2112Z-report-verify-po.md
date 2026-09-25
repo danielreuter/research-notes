@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT 90c21455 (01:26Z) [open] 4090 FP8 A-GKR art:ecd96143 labelled (verdict art:eededf7d; Table 2 1.75e7x). 5090 art:dfbc86c4 verdict art:7d3aaf2e PRESERVED, label HELD (coordinator 0127Z x2). 49 accepted + 2 held, 0 rejected; cred removed; polling
 CHECKPOINT ab9573fd (01:21Z) [open] labelled 4090 FP8 A-GKR art:ecd96143 (unchanged stmt; verdict art:eededf7d). art:dfbc86c4 (5090, BOOL_QUADRATIC+PAIRED) 5/5 + stmt + rewrite-equivalence check OK; registering verdict, label HELD
 CHECKPOINT ab9573fd (01:05Z) [open] 4090 FP8 A-GKR merged-LK art:45c5be4a verified, verdict art:df4d2c3c registered, label HELD per coordinator 0050Z (handoff 0104Z); now art:ecd96143 (unchanged stmt, 0006Z handoff found in coordinator folder)
 CHECKPOINT ab9573fd (00:41Z) [open] idle: inbox empty since 00:22Z; 48 accepted, 0 rejected; pod vy-verify-po up (no credential on it), polling every 10 min until 03:45Z
@@ -64,7 +65,8 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 11 | `20260924T2350Z-handoff-from-agkr-nvf4.md` (2b25df7f) | art:5adf62eb | RTX 5090 NVFP4, A-GKR (supersedes #4, #8) | accepted (same verifier merge as #4) | art:4791cc89 |
 | 13 | `20260925T0005Z-handoff-from-agkr-nvf4.md` (716ea008) | art:49757870 | RTX 5090 NVFP4, A-GKR (supersedes #11; same proof bytes) | accepted (same verifier merge as #4) | art:9618b325 |
 | 14 | `20260925T0045Z-handoff-from-agkr-fp8.md` (3be6a35f) + `20260925T0050Z-handoff-from-coordinator.md` (HOLD) | art:45c5be4a | RTX 4090 FP8, A-GKR, merged LK | PASS, label HELD (coordinator) | art:df4d2c3c |
-| 15 | `lanes/coordinator/20260925T0006Z-handoff-from-agkr-fp8.md` (f2363663; sent to coordinator's folder, found 01:05Z) | art:ecd96143 | RTX 4090 FP8, A-GKR, unchanged statement | (verifying) | |
+| 15 | `lanes/coordinator/20260925T0006Z-handoff-from-agkr-fp8.md` (f2363663; sent to coordinator's folder, found 01:05Z) | art:ecd96143 | RTX 4090 FP8, A-GKR, unchanged statement | accepted | art:eededf7d |
+| 16 | `20260925T0100Z-handoff-from-agkr-nvf4.md` (b7cec878) | art:dfbc86c4 | RTX 5090 NVFP4, A-GKR, BOOL_QUADRATIC + PAIRED | PASS, label HELD (coordinator 0050Z) | art:7d3aaf2e |
 | 12 | `20260924T2351Z-handoff-from-d3-h100.md` (main 1d9c3198, live) | b16b r1-3: art:c6e250c2 art:c1c05324 art:166551a5; f8b r1-3: art:971820ba art:7be63d37 art:c58d45c6; b16h r1-3: art:137b923a art:60d0622f art:d9d21d03; f8h r1-3: art:83c7d5a7 art:9aed3426 art:5b6d6d6d | H100 BF16/FP8 (+hash) B-Ligero LIVE, D3 (also_valid in Table 2) | accepted x12 | art:e13419b4 art:209fdd63 art:ed310632; art:d0aeef7f art:fe61cce4 art:f765ab6c; art:649e27ed art:0b754787 art:1e442d10; art:cc7fa7cd art:549ee1d3 art:41e3a98b |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
@@ -193,10 +195,31 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - Negatives, all rejected: mutate 356/356; my VU-17 +1; the producer's r5_key / shift_out / t_op_out / tnorm_out ("LogUp LK
   level 0: final check") and 4 claim negatives. The honest case is accepted.
 
+### 15. agkr-fp8 A-GKR 4090 FP8 art:ecd96143 (run r20260925-010528-640f; label r20260925-010712-c573)
+- The request was written to the coordinator's folder at 00:06Z; I found it at 01:05Z. The statement is unchanged
+  (f2363663, before merged LK), so it was labelled as usual. Coordinator handoff 0127Z (4090-agkr-ecd96143).
+- main's verifier (a48eac01) accepts 3/3 (sha256 b5ef0238), taking 1.28-1.48 s each. The statement is byte-identical to
+  f2363663's export, and public.bin has 0 mismatches.
+- Negatives, all rejected: mutate 356/356; my VU-17 +1; the producer's exp_plus, sign_flip, word_minus and word_plus
+  (art:9398f028). The honest case is accepted.
+
+### 16. agkr-nvf4 A-GKR 5090 NVFP4 art:dfbc86c4 (run r20260925-010734-e1f8; check r20260925-011927-349e; verdict r20260925-012106-7e86) -- HELD
+- The statement is new: BOOL_QUADRATIC + PAIRED. Release command: `28-verdict-dfbc86c4.sh` with HOLD=0 VID=art:7d3aaf2e.
+  Coordinator handoff 0127Z (5090-agkr-dfbc86c4-held).
+- The 3c769c6d build (f271e422) accepts 5/5 (sha256 ebe7c545), taking 0.62-1.39 s each. The verifier sources at b7cec878
+  are identical to 3c769c6d's, the statement is byte-identical to b7cec878's export, public.bin has 0 rows mismatched, and
+  the fp8 regression is accepted.
+- Negatives, all rejected: mutate 148/148; the producer's s_flip, t_plus, f_plus and public_reordered (LK level 1 sum
+  mismatch).
+- `27-nvf4-rewrite-check.py` (main's parser) compares with the 2b25df7f circuit (#11) and finds the same 226 lookup facts
+  per unit. The 46 R1 lookups become 46 e·e product wires with asserts w − e = 0, and the PR blocks are exactly all
+  (x + 2^b·y, x, y). v1 (r20260925-011239-a1df) failed on three bugs in the checker itself: the tag is on column 0,
+  product indices shift, and the block hash included the tag column. v2 fixes them. Sent to red-team-lk (0123Z).
+
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |
 |---|---|---|---|
-| RTX 4090 FP8, A-GKR | — | 3.0e7× (1.13 s) | art:1b4fd4a1 |
+| RTX 4090 FP8, A-GKR | — | 3.0e7× (1.13 s); 1.75e7× (0.666 s) at 01:24Z | art:1b4fd4a1; art:ecd96143 |
 | RTX 4090 FP8, B-Ligero | 2.4e6× (art:fb4934af) | 2.2e6× (0.0840 s) | art:bb75ba4f (arith step 5) |
 | RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s); 4.2e7× (0.314 s) at 23:31Z; 3.3e7× (0.245 s) at 23:52Z; 2.5e7× (0.1905 s) at 00:21Z | art:fe57e68b; art:ad8f92b9; art:5adf62eb; art:49757870 |
 | A100 BF16, B-Ligero | 2.2e7× (art:794365d3) | 5.9e6× | art:5bcbf3fb (arith a16-tip-r1) |
@@ -207,3 +230,6 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   relaunched with full art ids (get_manifest / get_attempt / fetch fall back to the remote); 03-reverify.sh keeps REINDEX=1
   as an option.
 - 22:55Z SP1 labelled (verdict art:34582a00); /root/r2.env removed from the pod.
+- 01:24Z /root/r2.env removed, `reindex --remote` rc 0, art:eededf7d and art:7d3aaf2e PRESERVED, 0 verify-po labels on
+  45c5be4a and dfbc86c4. The verify-po worktree's .venv is empty, so the laptop tables render now runs main's
+  `.venv/bin/python` read-only from /tmp with PYTHONPATH unset.

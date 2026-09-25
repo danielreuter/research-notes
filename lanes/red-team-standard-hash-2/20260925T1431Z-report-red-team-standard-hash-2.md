@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 540b3f70 (20:37Z) [open] 20:37Z vllm-v1 code read done (leaf, vllm_tree, hashauth, reverify, Rust vllm_v1.rs): no finding yet; 8:2 gadget scan running on VM; creating pod vy-red-team-sh-2 for tests + H2/R1/R4 + 6 port attacks
 CHECKPOINT 540b3f70 (20:32Z) [open] 20:32Z starting vllm-v1 statement review (PR #37 acd50fec; cells art:f7aac95f, art:6d6464d1): NOT final
 CHECKPOINT 540b3f70 (20:29Z) [open] 20:29Z bf16-ampere-x4+sha256 GRANTED (2029Z); proof_class on art:675a03a3 + art:ac1f532c; x4 hopper plateau ids pending; vllm-v1 review not started (asked coordinator 2029Z); no pod running; tip 540b3f70
 CHECKPOINT 1874b18d (19:56Z) [open] 19:56Z acting on inbox 1940Z (bf16-ampere-x4+sha256 grant; shape 16:2 = scanned at 1441Z, leaf code unchanged to 7da00370) -> pod for H2/R1/R4; 1945Z vllm-v1 review queued next. Still waiting on x4 hopper plateau verified labels

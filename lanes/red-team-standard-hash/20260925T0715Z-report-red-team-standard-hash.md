@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT a33671b (08:07Z) [open] e1138866: vn2 06-core-roots closes R1/R2 (flags forgery, art:8f2112e2); sp1-committed PASS guest/tree, R3 prover-chosen roots art:b11bc6ee; handoffs sent; polling for ligero-steps-pin fix, sha256 pins
 CHECKPOINT a2d67679 (07:46Z) [open] R1 remap BREAK fp8-ada+blake3 FAIL art:2b51c5fd; H2 steps pin PASS art:efaa3a46; blake3-80gb FAIL inherited (handoff sent); sha256/agkr not ready; now reviewing sp1-committed
 CHECKPOINT 7a8268cf (07:31Z) [open] fp8-ada+blake3 FAIL: R1 (vu,x,W) triple prover-chosen -> swapped y under honest x/W roots accepted pinned+python+reverify PASS; R2 reverify recomputes no roots/binding/coverage; handoffs sent; art:2b51c5fd. Next: H2 steps forge on +blake3
 CHECKPOINT 57e77c14 (07:16Z) [open] pod vy-red-team-sh (cpu3c 4vCPU) syncing; R1 candidate BREAK: (vu,x,W) triple prover-chosen in v5 verify (Rust+Py) -> wrong y under honest x/W roots; R2: reverify.py recomputes no root/binding/coverage; e2e 57e77c14 pending
@@ -19,8 +20,19 @@ tree check (domain derivation, node/level/index, vllm-v1 path shape + root field
 
 | id | statement | severity | status | evidence |
 |---|---|---|---|---|
-| R1 | every v5 hashed statement (`+blake3`, `+poseidon2`, `+ajtai-*`), ligero-verify + Python | BREAK (candidate; e2e pending) | code read | `auth.rs::check_hashed`, `hashauth.verify_hash_auth`, `redteam/rtsh_remap_e2e.py` @57e77c14 |
-| R2 | B-Ligero independent re-verification (`reverify.py`) | BLOCKING (candidate) | code read | `reverify.py::verify_tree` |
+| R1 | every v5 hashed statement (`+blake3`, `+poseidon2`, `+ajtai-*`), ligero-verify + Python | BREAK | e2e: forgery accepted pinned + Python + reverify PASS; again under production bindings | art:2b51c5fd, art:8f2112e2 |
+| R2 | B-Ligero independent re-verification (`reverify.py`) | BLOCKING | code read; closed for results checked by verify-night-2's `06-core-roots.py` (it flags the R1 forgery MISMATCH) | art:8f2112e2 |
+| R3 | SP1 relation-committed/v1 and -vllm/v1 `committed-verify` | BLOCKING (the R2 pattern) | e2e at tree-check level: prover-chosen roots under the frozen set's bindings and id accepted | art:b11bc6ee |
+
+## Verdicts
+| statement | verdict | evidence | handoffs |
+|---|---|---|---|
+| fp8-ada+blake3 (b-ligero-standard-hash, frame-v3 keyed-BLAKE3 rows, v5 included-hash) | FAIL (R1); every included-hash cell pulled until fixed, or counted only through verify-night-2's 06 | art:2b51c5fd, art:8f2112e2 | coordinator 0735Z, 0805Z; b-ligero-standard-hash 0735Z; verify-night-2 0805Z |
+| H2 steps pin (main c5cf7f6d, fp8-ada+blake3) | PASS: every forged steps value tried (incl. 64, 40) refused by both verifiers; honest 48 accepted pinned | art:efaa3a46 | in coordinator 0735Z |
+| blake3-80gb cells | FAIL inherited from R1 (same verifier); re-verifying the dumps with a fixed verifier or 06 is enough | art:2b51c5fd | blake3-80gb 0750Z |
+| b-ligero-sha256 `sha256/row/v1` (922120d2) | not ready (no pinned system); gadget review found nothing; R1/R2 apply as for +blake3 | code read | none yet |
+| sp1-committed relation-committed/v1 and -vllm/v1 (d12770c3) | PASS on the guest and tree check (no R1 analog); R3: counts only with a non-producer root recomputation | art:b11bc6ee | coordinator 0820Z; sp1-committed 0820Z |
+| agkr-bound row-digest (d48f5bc2) | not ready (no hash-layer circuit); native tree check: no break found | code read | none yet |
 
 ### R1: the (vu, x, W) leaf triple is prover-chosen
 Both verifiers check only that each VU's x digest opens at `x_index[v]` under root a, its W digest at `w_index[v]` under
@@ -46,3 +58,16 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
 * 07:21Z setup run rtsh-setup-0719 OK. 07:22Z r1 run at 4 VUs l=1024 OOM-killed (8 GB cgroup) -> 2 VUs l=256.
 * 07:27Z r1b: forgery python ACCEPT, rust refused on bits only (2^-127.88); 07:29Z r1c (target -132): FORGERY ACCEPTED pinned, reverify PASS.
 * 07:33Z art:2b51c5fd preserved; 07:35Z handoffs coordinator + b-ligero-standard-hash (FAIL, cell pulled).
+* 07:35-07:45Z H2 runs rtsh-h2-0735 and rtsh-h2b-0739 (`rtsh_steps_e2e.py`, a2d67679): the honest steps-48 run is accepted
+  pinned; forged steps are refused by Python and by Rust ("statement: steps = 64 columns per VU, the fp8-ada relation's VU is
+  48 columns of K = 32"). PASS, art:efaa3a46. 07:50Z handoff to blake3-80gb (FAIL inherited).
+* 07:41Z received `20260925T0745Z-handoff-from-coordinator.md` ("Thanks for R1/R2. Two follow-ups"): (1) whether verify-night-2's
+  procedure closes R1/R2; (2) re-test ligero-steps-pin's fix when it hands off (pending: no handoff yet).
+* 07:57Z run rtsh-r1pb-0810 (harness 8ace1ada `--set-binding`): R1 forgery under the relation's instance-set bindings; a/b trees
+  equal the core's; still accepted by Python, Rust pinned and reverify. verify-night-2's `06-core-roots.py` `check()` run
+  verbatim (`vn2_check_on_r1.py`): MISMATCH on the leaf indices and the y root. art:8f2112e2. 08:05Z handoffs to the
+  coordinator ("YES, 06 closes R1/R2") and to verify-night-2 (a nit on how 06 picks the manifest).
+* 08:15Z sp1-committed review (d12770c3), runs rtsh-sp1-0815 and rtsh-sp1c-0818 (`rtsh_sp1_roots.py`, e1138866): the guest and
+  tree check are sound and positional; the roots are prover-chosen (R3). A statement over the frozen fp8-ada set's [0, 1) with
+  all-zero rows is accepted by `check`. Core-only roots over the true rows equal the SP1 reference's. art:b11bc6ee. 08:20Z
+  handoffs to the coordinator and sp1-committed.

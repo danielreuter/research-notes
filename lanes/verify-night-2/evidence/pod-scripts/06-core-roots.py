@@ -123,8 +123,10 @@ def check(st, art):
     ev = (((m.meta or {}).get("validation") or {}).get("evidence") or {}).get("commit", {}).get("evidence", {})
     with tempfile.TemporaryDirectory(dir="/workspace/verify-night-2") as td:
         d = Path(st.fetch(tree, Path(td) / "t", paths=["*manifest.json", "*.stmt", "*commit-evidence.json"]))
-        mans = sorted(d.rglob("manifest.json"))
-        pman = [p for p in mans if "proofs" in p.parts] or mans
+        # exactly the manifest reverify verifies: proofs/manifest.json, else dumps/manifest.json
+        pman = [d / n / "manifest.json" for n in ("proofs", "dumps") if (d / n / "manifest.json").is_file()]
+        if not pman:
+            raise FileNotFoundError(f"{tree}: no proofs/ or dumps/ manifest.json")
         man = json.loads(pman[0].read_text())
         rel_name = man["relation"]["name"] if isinstance(man.get("relation"), dict) else man.get("relation")
         ce = sorted(d.rglob("commit-evidence.json"))

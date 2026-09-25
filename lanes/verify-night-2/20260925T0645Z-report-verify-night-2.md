@@ -50,6 +50,9 @@ committer baselines (`lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.
   leaf is a lane-formatted Poseidon2 (FP4Format: 72 nibbles on 24-bit lanes) with no core reference, so its row digests come
   from my tree's backend committer. The first run errored on it in the core `pack_words`; I reran it (r20260925-075910-98b2).
 - Coordinator handoff 0805Z. Evidence: `evidence/r2-sh-recheck/`.
+- red-team-standard-hash 0805Z: my `06` check() flags their R1 forgery as MISMATCH (leaf indices + y root; art:8f2112e2).
+  They had one nit: pick exactly reverify's manifest (proofs/manifest.json, else dumps/). Fixed in 04 and 06. The rerun
+  (r20260925-080440-d9e6) gives the same result for all 10: BOUND and ROOTS-MATCH, same roots.
 
 ### 1. hash-commit 4090 fp8-ada Poseidon2 committer (runs r20260925-065838-66e5 checks, r20260925-070823-6d5a labels)
 - The verifier is ligero-verify d89cffc7, built from main 7fcedf47. hash-commit's diff touches only Python: auth, hashauth, hashchain,

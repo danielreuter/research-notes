@@ -16,13 +16,13 @@ if [ "${CONF:-1}" = 1 ]; then
 fi
 for rel in ${RELS:-fp8-ada-x4}; do
   echo "=== $(date -u +%H:%M:%SZ) fixture $rel+sha256"
-  $PY -m backends.direct.ligero.leaf.fixtures --relation $rel --leaf sha256 --device cuda --out $RD/fixtures/$rel-sha256 > $RD/fixture-$rel.log 2>&1
+  $PY -u -m backends.direct.ligero.leaf.fixtures --relation $rel --leaf sha256 --device cuda --out $RD/fixtures/$rel-sha256 > $RD/fixture-$rel.log 2>&1
   echo "rc=$?"; tail -6 $RD/fixture-$rel.log
   [ "${GATES:-1}" = 1 ] || continue
   gpu_idle
   echo "=== $(date -u +%H:%M:%SZ) gate $rel+sha256 --vus $GATE_VUS --batch ${GATE_BATCH:-4096}"
   t0=$(date +%s)
-  $PY -m backends.direct.ligero.run --relation $rel+sha256 gate-vu --vus $GATE_VUS --batch ${GATE_BATCH:-4096} --zk --mode interactive \
+  $PY -u -m backends.direct.ligero.run --relation $rel+sha256 gate-vu --vus $GATE_VUS --batch ${GATE_BATCH:-4096} --zk --mode interactive \
       --auth included-hash --target -128 --device cuda > $RD/gate-$rel.log 2>&1
   echo "rc=$? wall=$(( $(date +%s) - t0 ))s"; tail -8 $RD/gate-$rel.log
 done

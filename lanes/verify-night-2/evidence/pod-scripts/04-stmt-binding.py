@@ -55,7 +55,10 @@ def check(st, art):
         return {**out, "status": "NO-DUMPS"}
     with tempfile.TemporaryDirectory(dir="/workspace/verify-night-2") as td:
         d = st.fetch(tree, Path(td) / "t", paths=["*manifest.json", "*.stmt"])
-        mans = sorted(Path(d).rglob("manifest.json"))
+        # exactly the manifest reverify verifies: proofs/manifest.json, else dumps/manifest.json
+        mans = [Path(d) / n / "manifest.json" for n in ("proofs", "dumps") if (Path(d) / n / "manifest.json").is_file()]
+        if not mans:
+            raise FileNotFoundError(f"{tree}: no proofs/ or dumps/ manifest.json")
         man = json.loads(mans[0].read_text())
         pdir = mans[0].parent
         rel_name = man["relation"]["name"] if isinstance(man.get("relation"), dict) else man.get("relation")

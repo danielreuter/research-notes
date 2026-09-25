@@ -13,6 +13,7 @@ status: open
 - Lanes (local agents, heavy work on pods; FINAL 03:30Z unless noted): arith bc-da525da2 (01:10Z), agkr-fp8 bc-c0324f23 ($15),
   agkr-nvf4 bc-581636de ($10), sp1-128 bc-d7883bfb ($25). Worktrees moved (no new disk): agkr-table -> agkr-fp8, wave-5090 -> agkr-nvf4,
   sp1-tcdot -> sp1-128 (old branches kept; their tips are in main). Lanes hand off to me for NON-PRODUCER verification.
+- STANDING RULE (Daniel 8:56 PM PT 09-24): the coordinator reviews and merges every PR into main, timed around live lanes; a PR Daniel has commented on waits.
 - Not ours: remote-state campaign (separate Project workstream; its branches come to me for merge). vyv-* pods = vLLM coordinator's.
 - BACKLOG (checked on main ab9573fd 20:35Z; all still open):
   1. contract.result(...) builder for ~20 bench-result emitters (spec 20260924T0531Z-handoff-from-coordinator-contract-result.md).

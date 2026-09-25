@@ -6,6 +6,8 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT baeefd21 (03:59Z) [open] 04:02Z merged vllm-rf-f24 e818a5d4 -> 24e3b391, vllm-rf-f56 a4b823a3 -> baeefd21 (--no-ff, integrations/vllm only, lints 41/41 on merged tree); pushed; cli moved
+CHECKPOINT 3d48c00 (03:58Z) [open] 04:00Z standing rule: coordinator merges every PR (Daniel-commented PRs wait); #7 #8 #9 #10 already merged
 CHECKPOINT 7b724ae2 (03:56Z) [open] 04:00Z merged #7 c67542be (pod registry, off on laptop) and #10 7b724ae2 (lease/liveness/service, opt-in); 106 tests pass incl rsync; cli+steward moved
 CHECKPOINT none (03:48Z) [open] 03:58Z lanes FINAL: arith, agkr-fp8, agkr-nvf4, red-team-arith, red-team-lk, verify-po (pods gone). H100 FP8 A-GKR art:ad76c106 marked provisional; red-team-lk resumed for its statement check. Backlog += arith shared-memory opt-in; A-GKR integration after switch-over.
 CHECKPOINT none (03:45Z) [open] 03:52Z verify-po released 6 labels; T2 A-GKR H100 FP8 4.4e7x, 4090 1.3e7x, 5090 1.8e7x; scoreboard re-rendered 8:52 PM PT

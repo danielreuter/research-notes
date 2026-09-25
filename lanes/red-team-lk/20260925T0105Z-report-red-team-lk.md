@@ -2,9 +2,10 @@
 lane: red-team-lk
 kind: report
 created: 2026-09-25T01:05Z
-status: final
+status: open
 ---
 
+CHECKPOINT 14fc57e1 (03:58Z) [open] coordinator follow-up: static merged-LK check of H100 FP8 cell art:ad76c106 (run-files art:55eb421d) on a 4090 pod; first pod reaped (lane was final), recreating. 14fc57e1 enforces keys<2^20.
 CHECKPOINT 0d3fe370 (01:57Z) [final] red-team LK: PASS all rewrites (fp8 merge_tables; nvf4 merged LK+E2M1X2, depth-1 flatten, t drop, BOOL_QUADRATIC, PAIRED); art:49757870 stands; evidence art:9a6280c5 art:ca49b2f8 art:319062b4 art:5419ef15; pod terminated 01:55Z ~$0.99
 CHECKPOINT 0d3fe370 (01:55Z) [open] control+audit preserved art:5419ef15: nvf4 tagless control moves rejection LogUp->assertions (tag alone rejects); fp8 control confounded (forged col also breaks ALIGN4/R5 queries), audit shows target tuple differs from a real LK row only in tag; no isolated fp8 forgery exists. Next: terminate pod, report, handoffs, FINAL.
 CHECKPOINT 0d719a8 (01:25Z) [open] art:49757870 tree (716ea008) PASS: static merge/flatten equivalence, statement sha = cell's, forgeries tag x2 + flatten aux rejected by py+Rust; evidence art:9a6280c5 PRESERVED. b7cec878 + fp8 forges running (fp8 static PASS, stmt = art:979e37aa's).

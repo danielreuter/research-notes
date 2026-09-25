@@ -1,0 +1,32 @@
+lints base2 rc=0 2026-09-25T20:29:02Z ...............................................                          [100%]
+gate_b base2 rc=1 2026-09-25T21:05:14Z 72 failed, 3291 passed, 286 skipped, 6 xfailed, 41 warnings, 46 errors in 2170.05s (0:36:10)
+verity_sampled_proofs importable
+lints base3 rc=0 2026-09-25T21:06:16Z ...............................................                          [100%]
+gate_b base3 rc=1 2026-09-25T21:43:08Z 41 failed, 3727 passed, 287 skipped, 6 xfailed, 27 warnings, 11 errors in 2210.58s (0:36:50)
+verity_sampled_proofs importable
+lints head3 rc=0 2026-09-25T21:43:47Z ...............................................                          [100%]
+gate_b head3 rc=1 2026-09-25T22:20:41Z 35 failed, 3729 passed, 286 skipped, 6 xfailed, 41 warnings, 11 errors in 2212.04s (0:36:52)
+base 4072 {'error': 11, 'failed': 41, 'passed': 3727, 'skipped': 287, 'xfailed': 6}
+head 4067 {'error': 11, 'failed': 35, 'passed': 3729, 'skipped': 286, 'xfailed': 6}
+only in base (deleted or renamed): 7
+  - tests.check.test_gates_fixtures::test_card_json_roundtrip_and_schema failed
+  - tests.commit.test_native_jit_keying::test_pod_release_fails_closed_on_a_stale_so_and_records_the_digest failed
+  - tests.pipeline.test_release_json::test_pod_release_busy_pattern_names_the_stage_processes_launched_outside_row_pod failed
+  - tests.pipeline.test_release_json::test_pod_release_sh_writes_through_the_module_and_checks failed
+  - tests.program.test_ship_roots::test_r17_sparse_patterns_re_include_hf_configs failed
+  - tests.program.test_ship_roots::test_ship_pack_carries_out_gen_hf_configs skipped
+  - tests.program.test_ship_roots::test_ship_roots_name_out_gen_hf_configs failed
+only in head: 2 {'passed': 2}
+  + tests.check.test_gates_fixtures::test_card_json_roundtrip passed
+  + tests.commit.test_native_jit_keying::test_release_json_records_the_collector_source_digest passed
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 52, head 46, fixed on head 0
+JDIFF_RC=0
+Traceback (most recent call last):
+  File "/workspace/gc2/gap.py", line 14, in <module>
+    ch=[(k,u[k],f.get(k)) for k in sorted(set(u)|set(f)) if u.get(k,("absent",""))[0]!=f.get(k,("absent",""))[0]]
+           ~^^^
+KeyError: 'tests.acquire.test_security::test_altered_value_rejected[c0_primitive]'
+0 head3-fails.txt

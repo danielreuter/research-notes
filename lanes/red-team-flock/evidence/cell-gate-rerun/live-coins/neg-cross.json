@@ -1,0 +1,50 @@
+{
+ "kind": "cell-gate/v1",
+ "admitted": false,
+ "session": "/tmp/v5/out/sessions-4096/l0000-6153",
+ "sigma": "f40e0f45cbdb346cfd77ff59b6e4bc82c32ad1f3e7c071351f14d22843da923c",
+ "record_sha256": "e09ced920029b690c68a2b7bab36cac8d13da81363cf1a3b624f0be287fe5209",
+ "checks": {
+  "exchange": {
+   "ok": true,
+   "detail": "link_mode 'exchange'"
+  },
+  "gated": {
+   "ok": true,
+   "detail": "require_link True"
+  },
+  "sigma": {
+   "ok": true,
+   "detail": "hello \u03a3 f40e0f45cbdb346cfd77ff59b6e4bc82c32ad1f3e7c071351f14d22843da923c, link \u03a3 f40e0f45cbdb346cfd77ff59b6e4bc82c32ad1f3e7c071351f14d22843da923c, cell \u03a3 f40e0f45cbdb346cfd77ff59b6e4bc82c32ad1f3e7c071351f14d22843da923c"
+  },
+  "accepted": {
+   "ok": true,
+   "detail": "accepted True, aborted None, reps [True, True]"
+  },
+  "context": {
+   "ok": true,
+   "detail": "2 points of [28, 28], 2 y, m 28"
+  },
+  "preserved": {
+   "ok": true,
+   "detail": "proofs kept {'chain/rep0': True, 'chain/rep1': True}, want ['chain/rep0', 'chain/rep1']"
+  },
+  "prime_live": {
+   "ok": true,
+   "detail": "prime_live True, hello 'live-coins/v1', 3006 rounds, before_commit 3004, well formed True"
+  },
+  "replayable": {
+   "ok": true,
+   "detail": "root_f, root_b ['chain'], publics [786432] bytes"
+  },
+  "non_producer": {
+   "ok": true,
+   "detail": "operator 'route-a-live' pod ''; producers ['nobody'] pods []"
+  },
+  "prime": {
+   "ok": false,
+   "detail": "rc 1, accepted False, circuit pinned True, commitment pinned True, error R2-prime: round 1: the proof's messages differ from those committed before the coin (then the verifier: LogUp T_OP level 1 round 0: sum mismatch), 0.046597 s",
+   "proof_sha256": "40225d914fe0155a6ce0af79ed242f9afd56aa1e329983969384513cbc792049"
+  }
+ }
+}

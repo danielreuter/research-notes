@@ -5,6 +5,9 @@ created: 2026-09-25T11:07Z
 status: open
 ---
 
+CHECKPOINT 3301c435 (21:21Z) [open] reopened 21:22Z: record decision 57 in findings; fp8-ada block layout review (PR #30 @ 48045063)
+CHECKPOINT 3301c435 (21:19Z) [final] flock-pure-block/v2 GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-195.44/proof, 2^-193.44 over 4 sub-batches; label art:ca6029c1); route (a) live coins GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-130.19; label art:3bfb2f58; RA1 verifier DoS). fp8-ada block review (2100Z) queued, not done. ~$0.15
+CHECKPOINT 3301c435 (21:16Z) [final] flock-pure-block/v2 GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-195.44/proof, 2^-193.44 over 4 sub-batches; selftest 18/18 art:ac1aeeeb; label art:ca6029c1); route (a) live coins GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-130.19; label art:3bfb2f58; RA1 verifier DoS on dropped round). Pods terminated ~$0.15
 CHECKPOINT 3301c435 (20:40Z) [open] route (a) re-audit PAUSED 20:41Z (priority: flock-pure-block/v2). So far: code review OK (live prime coins, replay in Rust/py), my gate re-run 5/5 prime+replayable+prime_live pass, non_producer fails (verifier operator route-a-live); negatives cross/word/state/before_commit rejected
 CHECKPOINT 3301c435 (20:28Z) [open] fifth audit started 20:29Z (lane REOPENED): route (a) live prime coins, PR #36 @ dec08973, art:3bfb2f58
 CHECKPOINT 3301c435 (18:45Z) [final] FOURTH AUDIT: route (a) cell art:8f7ef58b GRANTED WITH CONDITIONS at NON_ZK_PROOF_DIAGNOSTIC (downgrade: prime coins FS); 2^-130.19 at current convention (Daniel: hash q^2/2^256, FS x2^60); cell-verifier not non-producer; gate re-run 5/5 admitted; labels written; no pods
@@ -550,3 +553,66 @@ artifacts: art:8f7ef58b (labelled) art:3b185b68 art:9464fe7a art:5a7ccc3b (read)
 
 Handoff: `lanes/coordinator/20260925T1905Z-handoff-from-red-team-flock.md`. agkr-flock-cell and cell-verifier are
 final, so the coordinator's copy stands in for theirs.
+
+# flock-pure-block/v2 review (20:41–21:20Z; ordered ahead of the route (a) re-audit)
+
+**GRANTED WITH CONDITIONS at NON_ZK_PROOF.** The whole-proof bound is 2^-195.44 per 8,192-VU proof, and 2^-193.44 over
+a 32,768-VU batch of 4 sub-batches, at the current hash convention. Labels are on art:ca6029c1.
+
+Detail: `lanes/coordinator/20260925T2120Z-handoff-from-red-team-flock.md`.
+
+Evidence:
+- a rerun of the producer's CPU selftest at d3e96304: 18/18 at 8 and 64 VUs (run r20260925-210925-a744,
+  **art:ac1aeeeb**; script `evidence/pod-scripts/40-pure-selftest.sh`);
+- a local check of the lowering: the netlist sha equals PINS, all rows are topological with 33 assertion rows, and 400
+  random units differ from `verity.ml.tc` in 0 cases, including subnormals and extreme exponents.
+
+Conditions:
+- **PB1:** each result names the verifier commit and binary. art:ca6029c1 has `commit: "unknown"`.
+- **PB2:** the security block reports the union over sub-batches.
+- **PB3:** a non-producer replay labels `verified` (verify-flock-pure).
+- **PB4:** each evidence record carries `link_mode` exchange, `require_link` true, and the cell's Σ.
+- **Dependency:** the hash convention, for Flock-CUDA's SHA-256 Merkle trees.
+
+Pods: the first vy-red-team-flock pod (mm6men5q8u23gn) never got an IP, and I terminated it. n3xdvq91lphcno ran from
+20:57 to 21:14Z. About $0.15. The first launch, r20260925-205906-e9ea, failed on a path (inputs vs --cwd source) and is
+superseded by r20260925-210925-a744.
+
+Handoffs received:
+- `20260925T2045Z-handoff-from-coordinator.md` (this review);
+- `20260925T2050Z-handoff-from-coordinator.md` (order change: this review first).
+
+# Fifth audit (20:29–21:25Z, paused 20:41–21:20Z): route (a) with live prime coins (PR #36 @ dec08973, art:3bfb2f58)
+
+**GRANTED WITH CONDITIONS at NON_ZK_PROOF.** Live prime coins close the fourth audit's Fiat–Shamir downgrade. The bound
+is 2^-130.19 at the current convention. Labels are on art:3bfb2f58.
+
+Detail: `lanes/coordinator/20260925T2125Z-handoff-from-red-team-flock.md`.
+
+My store re-run (local, own `verity-gkr-verify` at dec08973, records art:42841b22, proofs art:d9666f5a):
+- every gate check passes on 5 of 5 sessions except `non_producer` (a producer-operated verifier);
+- the negatives were rejected: cross-pair, a coin word, the post-y state, a before_commit shift, the prime record
+  removed, and a Fiat–Shamir proof on a live record.
+
+Evidence files:
+- `evidence/cell-gate-rerun/live-coins/gate-s1..s5.json`;
+- `evidence/cell-gate-rerun/live-coins/neg-*.json`.
+
+Conditions:
+- **RA1 (DoS):** dropping the last prime round makes the Rust verifier spin for more than 35 minutes. It must fail fast.
+- **RA2:** fix the stale `prime.sequential_depth: 328`. The real count is 3,006 prime rounds plus 1,070 Flock rounds.
+- **RA3:** MET, by verify-night-3's non-producer re-run (`verified=accepted`, 20:53Z).
+- **Dependency:** the hash convention (as in the fourth audit).
+
+## Fifth-audit FINAL
+
+~~~text
+tip: none (notes + evidence + labels)        merge-with: none
+known-failures: none    pod: n3xdvq91lphcno terminated 21:14Z, mm6men5q8u23gn terminated (never up); ~$0.15
+artifacts: art:ac1aeeeb art:ca6029c1 (labelled) art:3bfb2f58 (labelled) art:42841b22 art:d9666f5a (read)
+~~~
+
+Handoff received: `20260925T2100Z-handoff-from-coordinator.md`, a queued class review of the fp8-ada block layout (PR #30 @
+48045063, RTX 4090). **Not done yet.** This turn's instruction was pure-block first, then route (a). The fp8-ada layout is
+next when relaunched. Its layout (4f7db693 / 48045063) changes `pure_block.rs`, so it needs its own review; the bf16
+grant above doesn't cover it.

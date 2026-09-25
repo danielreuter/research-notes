@@ -5,6 +5,7 @@ created: 2026-09-25T16:32Z
 status: open
 ---
 
+CHECKPOINT 7585828d (18:57Z) [open] round 3 build r20260925-184518-8bf6 done (flock-link 874cac3f); waiting for sweep/READY
 CHECKPOINT 7585828d (18:45Z) [open] round 3 pod 4vmp4qarp4dko7 cpu3c 32vCPU US-MD-1 (GraphQL-verified, same DC as yeerzt741imi2s); endpoint3 154.54.102.15:12671 (ssh :12670); building r20260925-184518-8bf6
 CHECKPOINT 7585828d (18:42Z) [open] reopened: round 3, same-DC (US-MD-1) verifier for agkr-flock-cell's batch sweep
 CHECKPOINT a83d7de7 (18:15Z) [final] run1 r20260925-164419-448b (3 accepted + 1 probe); run2 r20260925-172927-6883 (5/5 accepted, 1058 rounds; producer sent 5 so server stopped by SIGTERM 18:14Z instead of 6th); both preserved rc=0; pods uv4jqaw47zdr59 (17:10Z) and ffjgm1r55fc2f7 (18:15Z) terminated; total ~$0.76

@@ -1,0 +1,146 @@
+{
+ "compare": {
+  "producer_tags_dropped": [
+   "lane",
+   "provenance"
+  ],
+  "fields_compared": [
+   "arrays",
+   "candidate",
+   "canonical",
+   "equal",
+   "frozen",
+   "schema",
+   "target"
+  ],
+  "differ": [],
+  "equal_regen": true,
+  "arrays": {
+   "W": {
+    "doc": {
+     "candidate_sha256": "da301f94aa96ab9da7b285891400db3877d2947fa325f5c58783a52231725588",
+     "dtype": "<u2",
+     "frozen_sha256": "da301f94aa96ab9da7b285891400db3877d2947fa325f5c58783a52231725588",
+     "shape": [
+      4096,
+      1536
+     ]
+    },
+    "regen": {
+     "frozen_sha256": "da301f94aa96ab9da7b285891400db3877d2947fa325f5c58783a52231725588",
+     "candidate_sha256": "da301f94aa96ab9da7b285891400db3877d2947fa325f5c58783a52231725588",
+     "dtype": "<u2",
+     "shape": [
+      4096,
+      1536
+     ]
+    }
+   },
+   "x": {
+    "doc": {
+     "candidate_sha256": "ebef04e94f90248cc86e1c7d157a9739a979d1cf2c4a98cec90cc501e6f6f3bd",
+     "dtype": "<u2",
+     "frozen_sha256": "ebef04e94f90248cc86e1c7d157a9739a979d1cf2c4a98cec90cc501e6f6f3bd",
+     "shape": [
+      4096,
+      1536
+     ]
+    },
+    "regen": {
+     "frozen_sha256": "ebef04e94f90248cc86e1c7d157a9739a979d1cf2c4a98cec90cc501e6f6f3bd",
+     "candidate_sha256": "ebef04e94f90248cc86e1c7d157a9739a979d1cf2c4a98cec90cc501e6f6f3bd",
+     "dtype": "<u2",
+     "shape": [
+      4096,
+      1536
+     ]
+    }
+   },
+   "y": {
+    "doc": {
+     "candidate_sha256": "8971827c81deaf9b09e1f6b7ea0812113e598ac215da4b08d1d59b85f33ad9ec",
+     "dtype": "<u4",
+     "frozen_sha256": "8971827c81deaf9b09e1f6b7ea0812113e598ac215da4b08d1d59b85f33ad9ec",
+     "shape": [
+      4096
+     ]
+    },
+    "regen": {
+     "frozen_sha256": "8971827c81deaf9b09e1f6b7ea0812113e598ac215da4b08d1d59b85f33ad9ec",
+     "candidate_sha256": "8971827c81deaf9b09e1f6b7ea0812113e598ac215da4b08d1d59b85f33ad9ec",
+     "dtype": "<u4",
+     "shape": [
+      4096
+     ]
+    }
+   }
+  },
+  "arrays_match": true,
+  "tool_doc": "verity_numerical.bench.instance_equiv@8edb80005237b46b8dd27f719fe2673bba0e421a",
+  "tool_regen": "verity_numerical.bench.instance_equiv@7da00370979d7d44446c590f8296f3bc75a7a66f",
+  "result_instances": {
+   "dataset": "bench-instances/v1",
+   "manifest_sha256": "059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea",
+   "range": [
+    0,
+    4096
+   ],
+   "tier": "vu-k1536"
+  },
+  "candidate_equals_result_instances": true
+ },
+ "check": "candidate ref {'dataset': 'bench-instances/v1', 'manifest_sha256': '059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea', 'range': [0, 4096], 'tier': 'vu-k1536'} names 6 registered relations: ['bf16-ampere', 'bf16-ampere-v2', 'bf16-ampere-v3', 'bf16-ampere-v2x4', 'bf16-ampere-v3x4', 'bf16-ampere-x4']\n",
+ "regenerated": {
+  "schema": "instance-equiv/v1",
+  "target": "first-campaign-target/2026-09-21",
+  "frozen": {
+   "dataset": "bench-instances/v1",
+   "tier": "vu-k1536",
+   "range": [
+    0,
+    4096
+   ],
+   "manifest_sha256": "059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea"
+  },
+  "candidate": {
+   "dataset": "bench-instances/v1",
+   "tier": "vu-k1536",
+   "range": [
+    0,
+    4096
+   ],
+   "manifest_sha256": "059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea"
+  },
+  "canonical": "each side decoded by its own loader: frozen = relchain.instances('bf16-ampere', 4096) (the registered relation whose runner ref is the target's declared set over [0, 4096): FROZEN_INSTANCES[target], or its synthetic stream by generator, seed and n), candidate = relchain.instances('bf16-ampere-x4', 4096); x = the a operand words, W = the b operand words, as <u2 bit words of the datatype (AMPERE_BF16_M16N8K16), little-endian; y = the chain-end FP32 accumulator word (the final recorded accumulator of the VU; the public claim is the relation's y_public of it), <u4 little-endian; index order VU-major, then K",
+  "arrays": {
+   "x": {
+    "frozen_sha256": "ebef04e94f90248cc86e1c7d157a9739a979d1cf2c4a98cec90cc501e6f6f3bd",
+    "candidate_sha256": "ebef04e94f90248cc86e1c7d157a9739a979d1cf2c4a98cec90cc501e6f6f3bd",
+    "dtype": "<u2",
+    "shape": [
+     4096,
+     1536
+    ]
+   },
+   "W": {
+    "frozen_sha256": "da301f94aa96ab9da7b285891400db3877d2947fa325f5c58783a52231725588",
+    "candidate_sha256": "da301f94aa96ab9da7b285891400db3877d2947fa325f5c58783a52231725588",
+    "dtype": "<u2",
+    "shape": [
+     4096,
+     1536
+    ]
+   },
+   "y": {
+    "frozen_sha256": "8971827c81deaf9b09e1f6b7ea0812113e598ac215da4b08d1d59b85f33ad9ec",
+    "candidate_sha256": "8971827c81deaf9b09e1f6b7ea0812113e598ac215da4b08d1d59b85f33ad9ec",
+    "dtype": "<u4",
+    "shape": [
+     4096
+    ]
+   }
+  },
+  "equal": true,
+  "tool": "verity_numerical.bench.instance_equiv@7da00370979d7d44446c590f8296f3bc75a7a66f"
+ }
+}

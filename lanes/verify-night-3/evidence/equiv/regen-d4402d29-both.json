@@ -1,0 +1,298 @@
+{
+ "lane/b-ligero-vllm-v1 acd50fec": {
+  "compare": {
+   "producer_tags_dropped": [
+    "lane",
+    "for_result",
+    "note",
+    "produced_by_run"
+   ],
+   "fields_compared": [
+    "arrays",
+    "candidate",
+    "canonical",
+    "equal",
+    "frozen",
+    "schema",
+    "target"
+   ],
+   "differ": [],
+   "equal_regen": true,
+   "arrays": {
+    "W": {
+     "doc": {
+      "candidate_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+      "dtype": "|u1",
+      "frozen_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+      "shape": [
+       16384,
+       1536
+      ]
+     },
+     "regen": {
+      "frozen_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+      "candidate_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+      "dtype": "|u1",
+      "shape": [
+       16384,
+       1536
+      ]
+     }
+    },
+    "x": {
+     "doc": {
+      "candidate_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+      "dtype": "|u1",
+      "frozen_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+      "shape": [
+       16384,
+       1536
+      ]
+     },
+     "regen": {
+      "frozen_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+      "candidate_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+      "dtype": "|u1",
+      "shape": [
+       16384,
+       1536
+      ]
+     }
+    },
+    "y": {
+     "doc": {
+      "candidate_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+      "dtype": "<u4",
+      "frozen_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+      "shape": [
+       16384
+      ]
+     },
+     "regen": {
+      "frozen_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+      "candidate_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+      "dtype": "<u4",
+      "shape": [
+       16384
+      ]
+     }
+    }
+   },
+   "arrays_match": true,
+   "tool_doc": "verity_numerical.bench.instance_equiv@f84192916513cdb4e49d5d074a6dac1cfe22549c",
+   "tool_regen": "verity_numerical.bench.instance_equiv@acd50fec57ac0465d1d89a9373d97d52885b154e",
+   "result_instances": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "manifest_sha256": "c0d64c223d90c7f5c81833f65a6ea4c5e7b2dfcd7394d53abe466785f333f97c",
+    "range": [
+     0,
+     16384
+    ],
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)",
+    "seed": 20260922,
+    "tier": "vu-k1536-fp8-ada"
+   },
+   "candidate_equals_result_instances": true
+  },
+  "check": "/workspace/verify-night-3/regen-d4402d29-src-vllm/doc.json: fp8-ada-x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@f84192916513cdb4e49d5d074a6dac1cfe22549c, re-derived by verity_numerical.bench.instance_equiv@acd50fec57ac0465d1d89a9373d97d52885b154e\n",
+  "regenerated": {
+   "schema": "instance-equiv/v1",
+   "target": "fp8-ada-mma-draft/2026-09-22",
+   "frozen": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "tier": "vu-k1536-fp8-ada",
+    "range": [
+     0,
+     16384
+    ],
+    "manifest_sha256": "b8722924a9accc1ab0f523cd35a044114fa6b137513c93b39dab549a4ae53834",
+    "seed": 20260922,
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)"
+   },
+   "candidate": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "tier": "vu-k1536-fp8-ada",
+    "range": [
+     0,
+     16384
+    ],
+    "manifest_sha256": "c0d64c223d90c7f5c81833f65a6ea4c5e7b2dfcd7394d53abe466785f333f97c",
+    "seed": 20260922,
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)"
+   },
+   "canonical": "each side decoded by its own loader: frozen = relchain.instances('fp8-ada', 16384) (the registered relation whose runner ref is the target's declared set over [0, 16384): FROZEN_INSTANCES[target], or its synthetic stream by generator, seed and n), candidate = relchain.instances('fp8-ada-x4', 16384); x = the a operand words, W = the b operand words, as |u1 bit words of the datatype (ADA_E4M3_M16N8K32), little-endian; y = the chain-end FP32 accumulator word (the final recorded accumulator of the VU; the public claim is the relation's y_public of it), <u4 little-endian; index order VU-major, then K",
+   "arrays": {
+    "x": {
+     "frozen_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+     "candidate_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+     "dtype": "|u1",
+     "shape": [
+      16384,
+      1536
+     ]
+    },
+    "W": {
+     "frozen_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+     "candidate_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+     "dtype": "|u1",
+     "shape": [
+      16384,
+      1536
+     ]
+    },
+    "y": {
+     "frozen_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+     "candidate_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+     "dtype": "<u4",
+     "shape": [
+      16384
+     ]
+    }
+   },
+   "equal": true,
+   "tool": "verity_numerical.bench.instance_equiv@acd50fec57ac0465d1d89a9373d97d52885b154e"
+  }
+ },
+ "main 7da00370": {
+  "compare": {
+   "producer_tags_dropped": [
+    "lane",
+    "for_result",
+    "note",
+    "produced_by_run"
+   ],
+   "fields_compared": [
+    "arrays",
+    "candidate",
+    "canonical",
+    "equal",
+    "frozen",
+    "schema",
+    "target"
+   ],
+   "differ": [],
+   "equal_regen": true,
+   "arrays": {
+    "W": {
+     "doc": {
+      "candidate_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+      "dtype": "|u1",
+      "frozen_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+      "shape": [
+       16384,
+       1536
+      ]
+     },
+     "regen": {
+      "frozen_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+      "candidate_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+      "dtype": "|u1",
+      "shape": [
+       16384,
+       1536
+      ]
+     }
+    },
+    "x": {
+     "doc": {
+      "candidate_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+      "dtype": "|u1",
+      "frozen_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+      "shape": [
+       16384,
+       1536
+      ]
+     },
+     "regen": {
+      "frozen_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+      "candidate_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+      "dtype": "|u1",
+      "shape": [
+       16384,
+       1536
+      ]
+     }
+    },
+    "y": {
+     "doc": {
+      "candidate_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+      "dtype": "<u4",
+      "frozen_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+      "shape": [
+       16384
+      ]
+     },
+     "regen": {
+      "frozen_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+      "candidate_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+      "dtype": "<u4",
+      "shape": [
+       16384
+      ]
+     }
+    }
+   },
+   "arrays_match": true,
+   "tool_doc": "verity_numerical.bench.instance_equiv@f84192916513cdb4e49d5d074a6dac1cfe22549c",
+   "tool_regen": "verity_numerical.bench.instance_equiv@7da00370979d7d44446c590f8296f3bc75a7a66f"
+  },
+  "check": "/workspace/verify-night-3/regen-d4402d29-src/doc.json: fp8-ada-x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@f84192916513cdb4e49d5d074a6dac1cfe22549c, re-derived by verity_numerical.bench.instance_equiv@7da00370979d7d44446c590f8296f3bc75a7a66f\n",
+  "regenerated": {
+   "schema": "instance-equiv/v1",
+   "target": "fp8-ada-mma-draft/2026-09-22",
+   "frozen": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "tier": "vu-k1536-fp8-ada",
+    "range": [
+     0,
+     16384
+    ],
+    "manifest_sha256": "b8722924a9accc1ab0f523cd35a044114fa6b137513c93b39dab549a4ae53834",
+    "seed": 20260922,
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)"
+   },
+   "candidate": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "tier": "vu-k1536-fp8-ada",
+    "range": [
+     0,
+     16384
+    ],
+    "manifest_sha256": "c0d64c223d90c7f5c81833f65a6ea4c5e7b2dfcd7394d53abe466785f333f97c",
+    "seed": 20260922,
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)"
+   },
+   "canonical": "each side decoded by its own loader: frozen = relchain.instances('fp8-ada', 16384) (the registered relation whose runner ref is the target's declared set over [0, 16384): FROZEN_INSTANCES[target], or its synthetic stream by generator, seed and n), candidate = relchain.instances('fp8-ada-x4', 16384); x = the a operand words, W = the b operand words, as |u1 bit words of the datatype (ADA_E4M3_M16N8K32), little-endian; y = the chain-end FP32 accumulator word (the final recorded accumulator of the VU; the public claim is the relation's y_public of it), <u4 little-endian; index order VU-major, then K",
+   "arrays": {
+    "x": {
+     "frozen_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+     "candidate_sha256": "6b97b6c71cdcbb0dc4b98643788d4bd96c3db170ccb403868d1da743e2cf1498",
+     "dtype": "|u1",
+     "shape": [
+      16384,
+      1536
+     ]
+    },
+    "W": {
+     "frozen_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+     "candidate_sha256": "3559e7f98814a003e874fef0015cb0bcd537cc3e2d068569a9a0d2371272d9bb",
+     "dtype": "|u1",
+     "shape": [
+      16384,
+      1536
+     ]
+    },
+    "y": {
+     "frozen_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+     "candidate_sha256": "253e3c0c6105f9fb19291e2e091882482416dbd74a7cb11718564d764e264a2d",
+     "dtype": "<u4",
+     "shape": [
+      16384
+     ]
+    }
+   },
+   "equal": true,
+   "tool": "verity_numerical.bench.instance_equiv@7da00370979d7d44446c590f8296f3bc75a7a66f"
+  }
+ }
+}

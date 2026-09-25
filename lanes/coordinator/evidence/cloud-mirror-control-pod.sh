@@ -4,7 +4,7 @@
 #            *-handoff-from-coordinator*.md written in the store, machines.d/  ->  pod notes clone; then `research notes sync` there
 #   reverse: pod kb/, lanes/*/*.md, machines.d/  ->  store, never the files cloud writers own (their reports, evidence, handoffs)
 # Both directions compare by checksum and never replace a newer receiver file (-c -u); nothing is deleted; files over 1 MB stay out.
-# Loop: tmux session cloud-mirror on the cloud research coordinator's VM, `while :; do bash THIS; sleep 300; done`.
+# Loop: tmux session cloud-mirror on the cloud research coordinator's VM runs a local copy (~/cloud-mirror/pass.sh) every 5 min.
 set -u
 S=/cursor/stores/bc-36415049-30db-4fff-a34b-81f0afc0124d/internal
 N=/workspace/steward/research-notes
@@ -15,7 +15,11 @@ cd "$REPO" || exit 1
 line=$(PYTHONPATH=tools/research/src python3 -m research pods ssh vy-control-verity --print 2>&1) || { echo "$(stamp) FAIL ssh line: $line"; exit 1; }
 host=${line##* }
 sshcmd=${line% *}
-lanes=$(grep -Ev '^\s*(#|$)' "$S/lanes/CLOUD-LANES.txt" | tr -d ' \r')
+for i in 1 2 3 4 5 6; do l=$(cat "$S/lanes/CLOUD-LANES.txt" 2>/dev/null) && break; sleep 5; done
+[ -n "${l:-}" ] || { echo "$(stamp) FAIL CLOUD-LANES.txt unreadable (store busy)"; exit 1; }
+lanes=$(grep -Ev '^\s*(#|$)' <<<"$l" | tr -d ' \r')
+# the store answers EAGAIN under load: rsync rc 23/24 (some files unread) is a partial pass, the next one catches up
+ok() { [ "$1" = 0 ] || [ "$1" = 23 ] || [ "$1" = 24 ]; }
 
 fwd=(--include=/lanes/ --include=/lanes/*/ --include=/machines.d/ --include=/machines.d/*.toml
      --include=/lanes/coordinator/*-report-coordinator.md --include=/lanes/*/*-handoff-from-coordinator*.md
@@ -29,17 +33,19 @@ fwd+=(--exclude='*')
 rev+=(--include=/kb/*** --include=/lanes/ --include=/lanes/*/ --include=/lanes/*/*.md --include=/machines.d/ --include=/machines.d/*.toml --exclude='*')
 
 opts=(-rcu --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
-out=$(rsync "${opts[@]}" "${fwd[@]}" "$S/" "$host:$N/" 2>&1) || { echo "$(stamp) FAIL forward rsync: ${out: -300}"; exit 1; }
+out=$(rsync "${opts[@]}" "${fwd[@]}" "$S/" "$host:$N/" 2>&1); frc=$?
+ok $frc || { echo "$(stamp) FAIL forward rsync rc=$frc: ${out: -300}"; exit 1; }
 nf=$(grep -c '^<f' <<<"$out")
 
 sync=$(timeout 240 $sshcmd "$host" "cd /workspace/steward/verity && PY=\$(/root/.local/bin/uv python find 3.12) && \
   PYTHONPATH=tools/research/src \$PY -m research notes sync --root $N -m 'cloud mirror $(date -u +%Y-%m-%dT%H:%MZ): $nf files' 2>&1 | tail -3")
 src=$?
 
-out2=$(rsync "${opts[@]}" "${rev[@]}" "$host:$N/" "$S/" 2>&1) || { echo "$(stamp) FAIL reverse rsync: ${out2: -300}"; exit 1; }
+out2=$(rsync "${opts[@]}" "${rev[@]}" "$host:$N/" "$S/" 2>&1); rrc=$?
+ok $rrc || { echo "$(stamp) FAIL reverse rsync rc=$rrc: ${out2: -300}"; exit 1; }
 nr=$(grep -c '^>f' <<<"$out2")
 
-echo "$(stamp) pass: forward $nf, reverse $nr, lanes [$(echo $lanes | tr ' ' ,)]; sync rc=$src: $(tr '\n' ' ' <<<"$sync")"
+echo "$(stamp) pass: forward $nf (rc $frc), reverse-rc $rrc, reverse $nr, lanes [$(echo $lanes | tr ' ' ,)]; sync rc=$src: $(tr '\n' ' ' <<<"$sync")"
 [ "$nf" -gt 0 ] && grep '^<f' <<<"$out" | awk '{print "  > " $2}' | head -20
 [ "$nr" -gt 0 ] && grep '^>f' <<<"$out2" | awk '{print "  < " $2}' | head -20
 exit 0

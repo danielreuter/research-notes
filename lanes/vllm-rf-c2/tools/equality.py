@@ -205,8 +205,8 @@ def main() -> int:
             chunk = min(CONV_CHUNK, total)
             tasks = [(name, s, min(chunk, total - s), False) for s in range(0, total, chunk)]
             t = time.time()
-            rc = {r["start"]: r for r in pc.imap_unordered(_conv, tasks, chunksize=1)}
-            ri = {r["start"]: r for r in pi.imap_unordered(_conv, tasks, chunksize=1)}
+            ac, ai = pc.map_async(_conv, tasks, chunksize=1), pi.map_async(_conv, tasks, chunksize=1)
+            rc, ri = {r["start"]: r for r in ac.get()}, {r["start"]: r for r in ai.get()}
             bad_scalar = sorted(s for s in rc if rc[s]["scalar"] != ri[s]["scalar"])
             bad_kernel = sorted(s for s in rc if rc[s]["kernel"] != rc[s]["scalar"])
             first = None
@@ -234,8 +234,8 @@ def main() -> int:
             t = time.time()
             m = 20_000
             tasks = [(i, acc[s:s + m], a[s:s + m], b[s:s + m]) for i, s in enumerate(range(0, len(acc), m))]
-            rc = {r["cid"]: r for r in pc.imap_unordered(_dot, tasks, chunksize=1)}
-            ri = {r["cid"]: r for r in pi.imap_unordered(_dot, tasks, chunksize=1)}
+            ac, ai = pc.map_async(_dot, tasks, chunksize=1), pi.map_async(_dot, tasks, chunksize=1)
+            rc, ri = {r["cid"]: r for r in ac.get()}, {r["cid"]: r for r in ai.get()}
             sc = np.concatenate([rc[i]["scalar"] for i in range(len(tasks))])
             si = np.concatenate([ri[i]["scalar"] for i in range(len(tasks))])
             tw = np.concatenate([ri[i]["twin"] for i in range(len(tasks))])

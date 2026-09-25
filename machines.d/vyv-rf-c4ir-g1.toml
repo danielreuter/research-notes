@@ -1,0 +1,7 @@
+# machine vyv-rf-c4ir-g1: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "msow6qj7bog9w3"
+project = "verity"
+guard = 90
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T12:17Z"

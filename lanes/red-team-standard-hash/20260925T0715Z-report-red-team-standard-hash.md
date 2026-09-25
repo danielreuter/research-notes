@@ -210,3 +210,11 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
   blocked on art:0e8faae7"). art:0e8faae7 was already PRESERVED (sha256 readback at 09:47Z; only the laptop copy is partial,
   41/42 blobs). All 16 cited arts checked PRESERVED. 11:38Z `research pods drain vy-red-team-sh`: terminated (pod
   04txgm7j3b0nob, 07:00-11:38Z at $0.12/h, about $0.55). 11:40Z reply to the coordinator.
+* 11:45Z received `20260925T1150Z-handoff-from-b-ligero-standard-hash.md` ("Class review request: leaf scheme `blake3-xob`").
+  Code read at 5b28557b (`leaf/blake3_xob.py`, `blake3.py` column, `hashchain.py` links): no finding. Harnesses
+  8258ffaa (the scan's `--leaf blake3-xob`) and 041ac181 (`rtsh_twin_relabel.py`).
+* 11:54Z pod 3ezs2pzfq0zava (cpu3c, 8 vCPU) never accepted SSH; terminated 12:11Z. 12:14Z pod 0i9bg5qsvzcdpq (cpu3c, 4 vCPU):
+  the trees are `git archive` streams of 5b28557b and main 2c92b9e3 plus the redteam overlay; spot-checked sha256 = git.
+* 12:03Z received `20260925T1202Z-handoff-from-coordinator.md` ("main 2c92b9e3 pins bf16-hopper-x4+sha256 (b009fdc8). Please
+  extend your +sha256 grant to it, or say what's missing"). Its column shape is 16:2 (not scanned). 12:17Z status handoff
+  to the coordinator, b-ligero-standard-hash and b-ligero-sha256; suite `xob_bf16sha_suite.sh` queued behind the setup.

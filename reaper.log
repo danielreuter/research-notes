@@ -9,3 +9,4 @@
 08:41Z REAP-BLOCKED verify-night-2 vy-verify-night-2: art:8f2112e2: no verified remote replica recorded, 94 MB to read back -> research data preserved art:8f2112e2
 11:22Z REAP-BLOCKED red-team-standard-hash vy-red-team-sh: art:0e8faae7: no verified remote replica recorded, 99 MB to read back -> research data preserved art:0e8faae7
 12:30Z REAPED red-team-flock vy-red-team-flock fzs8rjhcj9oxjq $0.48/h (final 64m ago)
+12:32Z REAPED red-team-flock vy-red-team-flock x8gaf462paw582 $0.48/h (final 66m ago)

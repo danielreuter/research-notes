@@ -167,3 +167,30 @@ Report: `lanes/flock-glue/20260925T1011Z-report-flock-glue.md`.
   first round.
 - Flock's union prover commits and binds inside `prove_fast_ligerito_union`, so a session driver needs a commit-then-prove
   split or the exchange above. Negative 15 (cross-session replay against both reps) passes.
+
+## Re-audit: flock-128-r2 as implemented is GRANTED WITH CONDITIONS (red-team-flock, 2026-09-25 5:55 AM PT, `lanes/coordinator/20260925T1255Z-handoff-from-red-team-flock.md`)
+- **Scope:** flock-live @ a43f6254, merged into main as b874764f. R1–R4 and R6–R8 hold, and 17 new attacks on R1, R2, R3
+  and R7 were all rejected (art:1bd3368b, art:12a6b845; `lanes/red-team-flock/evidence/rtf_live_attacks_tail.rs`).
+  flock-live's selftest passes 44/44.
+- **Holds:**
+  - R1: rep 1 claiming rep 0's root but proving another witness is rejected at rep-1 round 0 on replay.
+  - R2: split rounds and extra rounds are rejected. Interleaved reps are accepted, which is sound.
+  - R3: a wrong fork position or altered seed words are rejected.
+  - R7: a reordered hello, reps = 3, a third rep stream, rep 1 in rep 0's domain, and Fast proofs are all rejected.
+- **Conditions, Flock side:**
+  - **F1:** evidence counts only from session records with `require_link: true` and a non-null `link_sha256`, run by a
+    non-producer verifier. A `--no-link` verifier accepts link-less sessions, and flock-live's sessions ran on the
+    prover's own pod.
+  - **F2:** pin the production statement verifiers the same way (Fast100 params, the configured registry digest and
+    counts): the census unit + BLAKE3 union on CPU, and the GPU unit table. Today's CPU verifier covers only the
+    BLAKE3-table statement.
+  - **F3 (hardening):** refuse child streams opened before their root's binding round, or at parent position 0.
+- **Conditions, link side (route (a) stays provisional until they hold):**
+  - L1: a real exchange replaces the R5 stub: root_F and root_B, then the link points as the verifier's own coin slot,
+    then y, then Flock's coins. root_B is the single root R1 binds.
+  - L2: the link claims are opened in both reps (about 2^-244), or over GF(2^256). Link negatives 10 and 11 run against
+    both reps.
+  - L3: the GPU pair runs as one session, or as two sessions bound to the same Σ and link context.
+  - L4: chain glue and endpoints (C4).
+- **Composition** is unchanged: 2^-130.2 on the A-GKR route, bounded by A-GKR. The C8 hash-budget question is open, with
+  Daniel.

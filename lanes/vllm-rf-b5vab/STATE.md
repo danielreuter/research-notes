@@ -2,7 +2,7 @@
 id: vllm-rf-b5vab/state
 lane: vllm-rf-b5vab
 kind: state
-updated: 2026-09-25T18:25Z
+updated: 2026-09-25T19:05Z
 ---
 # b5vab (B5 split of `engine/vllm_adapter.py`): state
 
@@ -18,6 +18,9 @@ Split `integrations/vllm/verity_vllm/engine/vllm_adapter.py` (1,913 lines at bas
 moves proven by an AST/source script; `load_workload` and everything it calls stay in `vllm_adapter.py`.
 
 ## Done
+- 18:58Z gate (b) at `3201c3f4` vs b4c `9689a1ef`, same pod (b4b-cpu), runs `r20260925-181128-fbe5` / `r20260925-181148-2918`:
+  lints rc 0 both; 4063 tests both; 0 only-one-side, 0 new failures, 0 new skips / skip reasons; the 2 flaky gc-freeze tests
+  failed->passed (`evidence/jdiff-gate_b-head-3201c3f4-vs-9689a1ef.txt`). All 3 gate (b) runs PRESERVED; b4b-cpu terminated 19:03Z.
 - 18:10Z `3201c3f4` = merge of b4c `9689a1ef` (+ a5c `40b9e571`): conflicts only in README, p08, p10 (kept both sides' moves,
   dropped the vllm_adapter P10 entry). Lint scan 0 problems, split proof 56/56, every `va.X` in the tree is in the facade.
 - Mint log: 18:17:52Z mint (ttl 3h, read-only, manifests/ + objects/sha256/) lost in a failed ssh pipe, never stored;
@@ -43,13 +46,11 @@ moves proven by an AST/source script; `load_workload` and everything it calls st
 - 16:57Z handoff to the coordinator: head final for gate (a); asked for a fixture-holding pod (c4ir-reg not coming soon).
 
 ## Running
-- `vyv-rf-b4b-cpu` (cjzaq3ploo8kok): lints + gate (b), head `3201c3f4` run `r20260925-181128-fbe5` and base b4c `9689a1ef`
-  run `r20260925-181148-2918` (both lints rc 0; suites running; check back ~18:45Z). Earlier head `42cf1781` vs b4c
-  `5494e29f` XML (run `r20260925-172259-170d`): 4040 tests both sides, 0 new failures/skips/skip reasons, 2 flaky gc-freeze
-  tests failed->passed (`evidence/jdiff-gate_b-head-42cf1781-vs-5494e29f.txt`).
-- `vyv-rf-c4ir-reg` (oh3k08zb07i38u, handed over 18:20Z, fixtures local, no key): gate (a) T0+T1 at `3201c3f4`, split in
-  two concurrent halves, timeout 8 h each: `-k replay_partition` run `r20260925-181956-7c6e`, `-k "not replay_partition"`
-  run `r20260925-182011-fabf`. Started 18:20Z; check back ~21:00Z. Merge the two JUnits, jdiff vs a23b base XML.
+- `vyv-rf-b4b-g1` (nplcyinf9r2si8, L40S, handed over 18:50Z): #101 build,match,commit (FA2 tap, MAX_JOBS=12) +
+  non-interference at `3201c3f4`, run `r20260925-185918-5fec` (b4c's g1_cli.sh / nonint_cli.sh, TAG b5vab-head). Started
+  19:00Z; check back ~20:15Z. Record: program `ccc21347…`, manifest `90f81868…`, run root `7adcef49…`, commit PASS, nonint 992/992.
+- `vyv-rf-c4ir-reg`: gate (a) halves `r20260925-181956-7c6e` (replay_partition) + `r20260925-182011-fabf` (rest) at
+  `3201c3f4`, started 18:20Z; check back ~21:00Z.
 
 ## Next
 1. On handoff: lints + gate (b) at `42cf1781` on vyv-rf-b4b-cpu (base = b4c's head XML at `5494e29f` on that pod).

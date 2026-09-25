@@ -3,7 +3,7 @@ id: vllm-rf-b5vc/state
 lane: vllm-rf-b5vc
 kind: state
 created: 2026-09-25T16:47Z
-updated: 2026-09-25T18:17Z
+updated: 2026-09-25T19:00Z
 ---
 # vllm-rf-b5vc: split program/frontend/rules/vllm_bindings.py into a package (B5) (state)
 
@@ -64,9 +64,20 @@ base: 8a3aa083
   **Gate (b) base is now `40b9e571`** (a5c's same-pod head run: `/workspace/a5c/logs/head-40b9e571-{lints,gate_b}.xml`).
   Stopped `r20260925-180950-f886` (eb97ecb4; lints rc 0 only) by pgid.
 
+- 18:26Z merged `origin/main` `b989a321` (a5 merged) -> **head `90300f52`** (pushed). integrations/vllm + packages identical to
+  `4f090959`, and `b989a321` == `40b9e571` there, so the running gate (b) is head `90300f52` vs base `b989a321` file for file
+  (handoff 1827Z to the coordinator). Deadline is 2026-09-26T00:30Z (coordinator 1822Z).
+
+- 18:41Z gate (b) on t1 (`r20260925-181451-4e3d`): lints head 45 passed = base 45 (jdiff 0 changes). Gate (b) head `4f090959`:
+  56 failed, 3685 passed, 288 skipped, 6 xfailed, 11 errors (12:46) vs base `40b9e571` (a5c, same pod): 57 / 3685 / 287 / 6 / 11.
+  jdiff: 4046 = 4046, 0 only-in-base, 0 only-in-head, **0 new failures, 0 new skips or skip reasons**; 2 outcome changes, both
+  flaky/non-regressions: `test_roundtrip::test_transient_storage_is_released` failed -> passed (memory bound), and
+  `test_observer_encoding::test_weakref_death...` passed -> skipped ("allocator did not reuse the pointer", order-dependent at
+  base; jdiff doesn't count it). `evidence/jdiff_{b,lints}.txt`.
+
 ## Running
 - t1 `r20260925-181451-4e3d` (`--custody-r2`, `chain.sh 4f090959`): lints + gate (b) head (~18:45Z), jdiff vs 40b9e571,
-  then gate (a) T0+T1 head, jdiff vs a23b's same-pod base. Expected end ~20:30Z; asked the coordinator (handoff 1813Z) to
+  gate (b) done (above); gate (a) T0+T1 head started 18:28Z, then jdiff vs a23b's same-pod base. Expected end ~20:10-20:30Z; asked the coordinator (handoff 1813Z) to
   extend the deadline. Check back ~18:50Z and ~20:30Z. Logs `/workspace/b5vc/logs/`.
 
 ## Next

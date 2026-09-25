@@ -21,11 +21,18 @@ branch: lane/vllm-rf-gc
 - 301ce7dc gc.freeze tests isolated from an engine frozen earlier in the worker (2 F)
 - f2599a27 merge origin/main 2603dfcc
 
+## gc2 (follow-up, branch lane/vllm-rf-gc2 from 270b0de2)
+- commits: 0a043f11 retire pod_release.sh checks; 1c6efa53 retire ship.sh + sparse-patterns checks; 1ec0c565 retire SCHEMA.md half of the
+  card test; 6f95928a test_source_identity docstring: needs a git checkout. Gate tree = git clone of the shipped sha from the pod's bare repo.
+
 ## Running
-- nothing. Gates done: base r20260925-165445-d918, head r20260925-165502-2bc9, jdiff rc 0 (6 fixed). READY.md written.
+- vyv-rf-gc2-cpu (2a6r9033cmk5vg): base 270b0de2 r20260925-185947-d8fe (~19:40Z), then head 6f95928a r20260925-190114-7dc1 (~20:20Z).
+- dead: r20260925-185442-5782 / -185503-1558 (clone check tripped on research's READY.json, fixed); r20260925-185949-ed90 (head, wrong
+  WAIT_RUN, killed ~1 min into base's gate).
 
 ## Pods
 - `vyv-rf-gb-cpu` (0d4uj5m7e8o5cz) terminated at READY.
+- `vyv-rf-gc2-cpu` (2a6r9033cmk5vg) created 18:52Z for gc2.
 
 ## Next
 1. Classify the 62 failures/errors in gb's base XML (run r20260925-145521-2b1c).

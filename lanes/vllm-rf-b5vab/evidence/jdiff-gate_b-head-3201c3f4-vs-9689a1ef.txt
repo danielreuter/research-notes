@@ -1,0 +1,12 @@
+base 4063 {'error': 11, 'failed': 56, 'passed': 3703, 'skipped': 287, 'xfailed': 6}
+head 4063 {'error': 11, 'failed': 54, 'passed': 3705, 'skipped': 287, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 2
+  ~ tests.pipeline.test_admit_r19_host_working_set::test_fork_gc_freeze_opt_out_is_named_on_the_record: failed -> passed  [assert False + where False = all(<generator object test_fork_gc_freeze_opt_out_is_named_on_the_record.<locals>.<genexpr> at 0x72c93cf32960>)]
+  ~ tests.pipeline.test_admit_r19_host_working_set::test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins: failed -> passed  [assert 375 == 0 + where 375 = <built-in function get_freeze_count>() + where <built-in function get_freeze_count> = gc.get_freeze_count]
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 67, head 65, fixed on head 2
+lints rc=0 ...............................................                          [100%] 2026-09-25T18:12:12Z
+lints rc=0 ...............................................                          [100%] 2026-09-25T18:12:44Z

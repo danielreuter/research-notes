@@ -5,6 +5,7 @@ created: 2026-09-25T16:27Z
 status: open
 ---
 
+CHECKPOINT 90300f52 (18:59Z) [open] gate (b) head 4f090959 vs 40b9e571 (=main b989a321 tree): 0 new failures/skips (jdiff 4046=4046); lints 45=45. gate (a) running in r20260925-181451-4e3d since 18:28Z, check back ~20:15Z
 CHECKPOINT 90300f52 (18:20Z) [open] head 90300f52 (main b989a321 merged; vllm tree == 4f090959). t1 r20260925-181451-4e3d running: gate (b) ~18:45Z, gate (a) ~20:30Z; check back 18:50Z then 20:30Z
 CHECKPOINT 4f090959 (18:17Z) [open] merged a5c 40b9e571 -> head 4f090959; t1 r20260925-181451-4e3d: gate (b) vs 40b9e571 then gate (a), end ~20:30Z (deadline extension asked); check back 18:50Z
 CHECKPOINT 4f090959 (18:15Z) [open] merged a5c 40b9e571 -> head 4f090959; t1 r20260925-181451-4e3d: gate (b) vs 40b9e571 then gate (a), end ~20:30Z (deadline extension asked); check back 18:50Z

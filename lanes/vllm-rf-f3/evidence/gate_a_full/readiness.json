@@ -1,0 +1,95 @@
+{
+ "schema": "verity-vllm/readiness/v1",
+ "checks": {
+  "python_3_12": {
+   "ok": true,
+   "value": true
+  },
+  "torch_cpu": {
+   "ok": true,
+   "value": {
+    "torch": "2.13.0+cu129",
+    "cuda_available": false,
+    "threads": 64
+   }
+  },
+  "vllm_import": {
+   "ok": true,
+   "value": "0.28.1rc1.dev472+gd9105ea80"
+  },
+  "vllm_commit_d9105ea80": {
+   "ok": true,
+   "value": true
+  },
+  "verity_from_tree": {
+   "ok": true,
+   "value": "/workspace/head/packages/verity/src/verity/ir/__init__.py"
+  },
+  "verity_vllm_from_tree": {
+   "ok": true,
+   "value": "/workspace/head/integrations/vllm/verity_vllm/program/registry/__init__.py"
+  },
+  "research_telemetry_from_tree": {
+   "ok": true,
+   "value": "/workspace/head/tools/research/src/research/telemetry/__init__.py"
+  },
+  "numpy_import": {
+   "ok": true,
+   "value": "2.3.5"
+  },
+  "no_old_tree_on_path": {
+   "ok": true,
+   "value": true
+  }
+ },
+ "identities": {
+  "python": "3.12.14",
+  "executable": "/workspace/venv312/bin/python",
+  "platform": "Linux-6.17.0-35-generic-x86_64-with-glibc2.35",
+  "torch": {
+   "torch": "2.13.0+cu129",
+   "cuda_available": false,
+   "threads": 64
+  },
+  "vllm": "0.28.1rc1.dev472+gd9105ea80",
+  "driver": null,
+  "gpu": null,
+  "cuda_home": null,
+  "nvcc": "",
+  "tree": {
+   "integration_root": "/workspace/head/integrations/vllm",
+   "verity_core": "/workspace/head/packages/verity/src",
+   "research": "/workspace/head/tools/research/src"
+  },
+  "native": {}
+ },
+ "mode": "cpu",
+ "cuda_available": false,
+ "ok": true,
+ "measurements": {
+  "network": {
+   "down_MBps": 144.6,
+   "up_MBps": 57.6,
+   "probe": "speed.cloudflare.com",
+   "bytes": {
+    "down": 67108864,
+    "up": 16777216
+   }
+  },
+  "disk": {
+   "path": "/workspace",
+   "total_bytes": 107374182400,
+   "free_bytes": 94715830272
+  },
+  "memory": {
+   "total_bytes": 1081936154624,
+   "cgroup": "v2",
+   "cgroup_max_bytes": 512000000000
+  },
+  "cpu": {
+   "nproc": 256,
+   "affinity": 64,
+   "model": "AMD EPYC 7713 64-Core Processor"
+  }
+ }
+}

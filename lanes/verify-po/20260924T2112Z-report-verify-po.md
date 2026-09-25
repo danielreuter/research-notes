@@ -72,6 +72,8 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 16 | `20260925T0100Z-handoff-from-agkr-nvf4.md` (b7cec878) | art:dfbc86c4 | RTX 5090 NVFP4, A-GKR, BOOL_QUADRATIC + PAIRED | PASS, label HELD (coordinator 0050Z) | art:7d3aaf2e |
 | 17 | `20260925T0132Z-handoff-from-agkr-fp8.md` (3be6a35f) | art:3ae971dd | H100 FP8, A-GKR, merged LK | PASS, label HELD (coordinator 0050Z) | art:e96f50ac |
 | 18 | `20260925T0150Z-handoff-from-agkr-nvf4.md` (00145f51) | art:53a64e8b | RTX 5090 NVFP4, A-GKR (supersedes #16; same statement and proof bytes) | PASS, label HELD (coordinator 0050Z) | art:223c8efe |
+| 19 | `20260925T0203Z-handoff-from-agkr-fp8.md` (a97576b5; quotes its 0146Z and 0158Z notes, sent to the coordinator's folder) | art:b0c27291 | H100 FP8, A-GKR, unchanged statement (supersedes art:b1010ac8, 2326Z, never sent to me) | accepted | art:eca0995c |
+| 20 | same handoff (a97576b5) | art:ad76c106 | H100 FP8, A-GKR, merged LK (same statement and proofs as #17) | PASS, label HELD (coordinator 0050Z) | art:b86ca2a8 |
 | 12 | `20260924T2351Z-handoff-from-d3-h100.md` (main 1d9c3198, live) | b16b r1-3: art:c6e250c2 art:c1c05324 art:166551a5; f8b r1-3: art:971820ba art:7be63d37 art:c58d45c6; b16h r1-3: art:137b923a art:60d0622f art:d9d21d03; f8h r1-3: art:83c7d5a7 art:9aed3426 art:5b6d6d6d | H100 BF16/FP8 (+hash) B-Ligero LIVE, D3 (also_valid in Table 2) | accepted x12 | art:e13419b4 art:209fdd63 art:ed310632; art:d0aeef7f art:fe61cce4 art:f765ab6c; art:649e27ed art:0b754787 art:1e442d10; art:cc7fa7cd art:549ee1d3 art:41e3a98b |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
@@ -239,6 +241,18 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   are identical to 3c769c6d's, the statement is byte-identical to 00145f51's export, and public.bin has 0 rows mismatched.
   Every proof and statement file equals #16's (cmp), and `27-nvf4-rewrite-check.py` passes.
 - Negatives, all rejected: mutate 148/148; my s flip, t+1, f+1, reordered public line and removed public line.
+
+### 19-20. agkr-fp8 A-GKR H100 FP8 art:b0c27291 and art:ad76c106 (run r20260925-020532-8dac; label/verdict r20260925-021048-f428)
+- One run, `32-agkr-h100-a97576b5.sh`, on a97576b5's source (shipped by `git archive`). Its verifier and `export.py` are
+  unchanged from 3be6a35f. `08-agkr-verify.sh` gained `EXPORT_ARGS` because a97576b5's export merges by default.
+- b0c27291 (0.409 s): main's verifier accepts 3/3 (sha256 f80ecc53): 2711 slots, 8912 msgs; 0.95-1.07 s each. The statement
+  is byte-identical to `--no-merge`'s export, and public.bin has 0 mismatches. All files equal #5's (art:2e7baba7). Negatives,
+  all rejected: mutate 356/356; my VU-17 +1; the producer's 4 claim negatives (art:07b5adb8). The honest case is accepted.
+  Labelled.
+- ad76c106 (0.280 s), HELD: 3/3 accepted (sha256 0021aa91; 0.87 s each). The statement is byte-identical to the export,
+  public.bin has 0 mismatches, `--no-merge` reproduces #5's statement, and `23-lk-merge-check.py` passes. All files equal
+  #17's. Negatives, all rejected: mutate 356/356; my VU-17 +1; the producer's 4 LK-aimed and 4 claim negatives
+  (art:70bbba68). Release: `34-verdict-ad76c106.sh` with HOLD=0 VID=art:b86ca2a8, included in `31-release.sh`.
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |

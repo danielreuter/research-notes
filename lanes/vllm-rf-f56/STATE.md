@@ -115,14 +115,16 @@ created: 2026-09-24T17:40Z
 - FA3 not rerun, reason recorded: AST comparison shows the D17 split is a pure move (every function/constant of 9b07c19f's module in exactly one of the two files, byte-identical except `_case_ok`/`_negative_ok` -> public, 4 call sites).
 - `origin/main` = `a47a45bd` (00:05Z): commits since `1d9c3198` touch nothing under integrations/vllm nor my files; `git merge-tree origin/main ce41390d` clean -> no second rebase (would void the ce41390d gates). `git range-diff`: dfd21f73 = 3262ebb4, 9b07c19f = 6c893a29.
 
+- 02:08:18Z **GATE (a) T0,T1 at `ce41390d` GREEN** (tp2b, `a_final_t01`): exit 0, 158 = 73 passed / 85 skipped (33 deselected), 7,969 s. jdiff vs my T0 at `ce41390d`: only the 26 T1 checks change: `replay_partition` skipped (tier) -> passed on #11 #39 #57 #60 #67 #68 #73 #74 #101; 17 new skip reasons, all T1 "does not apply" / "not resolvable" (`replay_partition` #4 #23 #70 #75: no sampled_replay record; `decomp_hashes` all 13: 6 "no match_decomp.json", 7 batched rows "match<path> not resolvable here"); 0 F / 0 E. **jdiff vs a23b's T0+T1 base at `72884c8a`** (`vllm-rf-a23b/gate_a-t0t1-base-72884c8a-samepod.xml.gz`, a23b's 512 GB pod): 73 / 85 both, 0 only-in, 0 outcome changes, 0 new skip reasons. Log/XML: laptop `/tmp/rff56/gate_final/a_final_t01.{log,xml}`.
+- 02:12Z coordinator banners read: deadline 05:00Z (was 03:00Z); **rebase onto main** (`20260925T0032Z-main-moved-a23b.md`: `4bd6c54c`, a23b merged, f56 clean). `origin/main` is now `bbbe936c` (= `4bd6c54c` + one tools/research commit); `git merge-tree origin/main ce41390d` clean; main since `1d9c3198` touches 5 of my files (by_name_allowlist, census_roots, p08, p10, tp/worker.py) without overlap.
+
 ## Running
-- `vyv-rf-f56-tp2b` ($2.18/h): only gate (a) T0,T1 `a_final_t01` (log `/workspace/rff56/logs/a_final_t01.{log,xml}`); every attempt preserved.
-- Pods die at 03:00Z (deadline daemon). If gate (a) is not done by 02:40Z: SIGINT the pytest (junit is still written), pull, drain.
+- `vyv-rf-f56-tp2b` ($2.18/h): idle (gate (a) done, every attempt preserved). Kept for the post-rebase lint run.
 
 ## Next
-1. Gate (a) T0,T1 done -> pull log/xml, jdiff vs the T0 runs (T1 rows are new), drain tp2b (minted 1 h key).
-2. READY: fill GATE_A_T01, PODS, CREATED in `/tmp/rff56/READY.draft.md`; move to this directory as READY.md; summary <= 250 words.
-3. READY: both heads (`9b07c19f` pre-rebase, `ce41390d` final), lint run, the D17 move and why, D16c restructure, the tier gap; summary <= 250 words.
+1. Rebase onto `origin/main` `bbbe936c`, push `--force-with-lease`; ship the tree to tp2b (patch over `head-final` + blob check); `tests/lint` + touched tests; fix allowlists until 41 passed.
+2. Drain tp2b (minted 1 h key).
+3. READY: fill GATE_A_T01, PODS, CREATED, the third head; move to this directory as READY.md; summary <= 250 words.
 
 ## Open questions
 - none yet

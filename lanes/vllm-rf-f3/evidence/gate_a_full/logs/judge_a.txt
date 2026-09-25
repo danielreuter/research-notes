@@ -1,0 +1,43 @@
+head 158 {'skipped': 86, 'passed': 72}
+base 158 {'skipped': 85, 'passed': 73}
+only in head: []
+only in base: []
+outcome changed base -> head (1):
+  test_reproduces[T0-manifest_digest-r11]: passed -> skipped | head: llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager: merged Programs view has no instances.json.gz (5 files linked under /workspace/rff3/scratch/full_head/r19-regress/llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__gr | base: 
+same outcome, different skip/fail message (0):
+head failures/errors (0):
+head skip reasons:
+  13 x program_digest is tier T<n>; set VERITY_REGRESSION_TIERS=T<n> to run it
+  13 x attempt_provenance does not apply to #<n>: no candidate Attempt ids (VERITY_REGRESSION_CANDIDATE is unset or a directory)
+  12 x stoch_value does not apply to #<n>: no match_stoch.json on this row (a greedy row: no sampler value check, rcs = -<n>)
+  6 x decomp_hashes does not apply to #<n>: no match_decomp.json (B=<n> rows have no decomposition; FAIL rows never reached it)
+  4 x replay_partition does not apply to #<n>: no sampled_replay record on this row (the row's Commit never reached C<n>)
+  3 x step_segmentation does not apply to #<n>: no build_workload/workload_program.json + chronology.json on this row (no workload Program composed)
+  3 x global_match_checks does not apply to #<n>: no global_match.json on this row (Match never reached GM-<n>)
+  3 x coverage does not apply to #<n>: no instrumented layouts on this row (Commit never ran)
+  3 x commit_summary does not apply to #<n>: no commit_summary.json on this row (Commit never closed)
+  2 x manifest_digest does not apply to #<n>: TP row: rank Programs (build/rank*/) are merged by row_pod_tp<n>.sh, not by build/build-global
+  2 x executed_prefix does not apply to #<n>: no GP-<n> workload_program.json (declared EOS / LAG) on this row
+  2 x verdict does not apply to #<n>: no Commit verdict on this row (Commit never closed): nothing to grade
+  1 x manifest_digest does not apply to #<n>: no manifest of record on this row (Commit never built one)
+  1 x executed_prefix does not apply to #<n>: no tokens.json (served tokens) on this row
+  1 x verdict does not apply to #<n>: row not reachable here (no rows root / live dir / store replica)
+  1 x llama<n>-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: merged Programs view has no instances.json.gz (<n> files linked under <path>
+  1 x llama<n>-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: build_request/descriptor.json.gz not resolvable here (roots tried: []; artifacts:
+  1 x llama<n>-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: build_request_LP<n>_T<n>/descriptor.json.gz not resolvable here (roots tried: [];
+  1 x llama<n>-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: match/program.json not resolvable here (roots tried: []; artifacts: {'records': '
+  1 x qwen<n>-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: build_request/descriptor.json.gz not resolvable here (roots tried: []; artifacts: 
+  1 x gemma<n>-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: build_request_LP<n>_T<n>/descriptor.json.gz not resolvable here (roots tried: [];
+  1 x gemma<n>-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: match/program.json not resolvable here (roots tried: []; artifacts: {'records': '
+  1 x mistral-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: build_request_LP<n>_T<n>/descriptor.json.gz not resolvable here (roots tried: []; 
+  1 x mistral-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: match/program.json not resolvable here (roots tried: []; artifacts: {'records': 'a
+  1 x olmoe-<n>b-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: build_request_LP<n>_T<n>/descriptor.json.gz not resolvable here (roots tried: [
+  1 x olmoe-<n>b-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: match/program.json not resolvable here (roots tried: []; artifacts: {'records':
+  1 x olmoe-<n>b-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed-arrivals__greedy__bi-eager: build_request_LP<n>_T<n>/descriptor.json.gz not resolvable here (roots
+  1 x olmoe-<n>b-<n>b__bf<n>__l<n>s__tp<n>__b<n>__i<n>__o<n>__mixed-arrivals__greedy__bi-eager: match/program.json not resolvable here (roots tried: []; artifacts: {'
+  1 x qwen<n>-<n>b__bf<n>__h<n>__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: build_request_LP<n>_T<n>/descriptor.json.gz not resolvable here (roots tried: []; a
+  1 x qwen<n>-<n>b__bf<n>__h<n>__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: match/program.json not resolvable here (roots tried: []; artifacts: {'records': 'ar
+  1 x qwen<n>-<n>b-fp<n>__fp<n>__h<n>__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: build_request_LP<n>_T<n>/descriptor.json.gz not resolvable here (roots tried:
+  1 x qwen<n>-<n>b-fp<n>__fp<n>__h<n>__tp<n>__b<n>__i<n>__o<n>__mixed__greedy__bi-eager: match/program.json not resolvable here (roots tried: []; artifacts: {'records
+a1 baseline: 158 tests, 64 passed; of those not passed at head (1): [('test_reproduces[T0-manifest_digest-r11]', 'skipped')]
+passed at head, not passed in a1's baseline (9): ['test_reproduces[T1-replay_partition-r101]', 'test_reproduces[T1-replay_partition-r11]', 'test_reproduces[T1-replay_partition-r39]', 'test_reproduces[T1-replay_partition-r57]', 'test_reproduces[T1-replay_partition-r60]', 'test_reproduces[T1-replay_partition-r67]', 'test_reproduces[T1-replay_partition-r68]', 'test_reproduces[T1-replay_partition-r73]', 'test_reproduces[T1-replay_partition-r74]']

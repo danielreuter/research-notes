@@ -141,6 +141,34 @@ per round is the floor for a bit design with committed booleans.
     run from 09:49Z.
   - da74b03e: `leaf_bytes` by a Python-int compression (0.09 ms vs 2.2 ms).
 * 09:40Z merged origin/main 3301c435 (steps pin + R1/R2/R4, ligero-steps-pin c8a16e2b) -> 329b3e1a, clean.
+* 09:49Z screen r20260925-094921-6a6d (art:8f340f20…), 8192 VUs, `--commit-per-rep`, 3 reps, malloc fix:
+  - l4096 p4: t.total 1.341 s + commit 0.063 s = e2e 1.404 s, 5837 VU/s, 36.8 GB, 2^-128.05.
+  - l8192 p2: 1.522 s, 46 GB.
+  - l8192 p3: erratic (55.6 GB).
+  - l16384 p1: refused (`--commit-per-rep` needs p >= 2).
+  - Chose l4096 p4 for the sweep.
+* 09:55Z sweep r20260925-095503-e592, l4096 p4, 5 reps:
+
+  | VUs | VU/s |
+  | --- | --- |
+  | 1024 | 4145 |
+  | 2048 | 4739 |
+  | 4096 | 5356 |
+  | 8192 | 5860 |
+  | 16384 | 5768 |
+  | 32768 | 6162 |
+
+  The 32768 point gained 6.8%, which resets the plateau rule, so 65536 is running.
+* 10:03Z coordinator asked for the malloc setting as a merge-ready default.  98d878ca: pod_bootstrap env.sh exports both
+  variables; `contract.fingerprint` records `software.allocator` (value or "unset") for every bench; 2 tests (bench suite
+  257 passed).  Cherry-picks cleanly onto main 3301c435.  Handoff: coordinator/20260925T1015Z.
+* vllm-v1 variant: design only, not built.
+  - Position leaf = `SHA-256("verity/pos-leaf/v0" || u64be(len) || value)`, a 26-byte prefix.  The leaf's blocks start
+    at byte offset 38 of a column, so they straddle column boundaries, and no block is a midstate the verifier can
+    precompute; all 25 compressions per leaf go in-circuit.
+  - Needs a third gated compression slot per column (~1.4x the frame-v3 hash rows), a vllm-v1 leaf tree in hashauth,
+    and a Rust `sha256.rs` leaf-shape change + PINS rows.
+  - Deferred: frame-v3 is the cell this lane owns; b-ligero-standard-hash is told.
 
 ## Discrepancies
 (none yet)

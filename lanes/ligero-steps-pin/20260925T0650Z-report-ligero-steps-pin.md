@@ -2,9 +2,11 @@
 lane: ligero-steps-pin
 kind: report
 created: 2026-09-25T06:50Z
-status: open
+status: final
 ---
 
+CHECKPOINT c8a16e2b (10:17Z) [final] x
+CHECKPOINT c8a16e2b (10:15Z) [final] FINAL c8a16e2b: steps pin (H2, +shared Py gap) + R1/R2 cherry-picks + R4 fix; cargo 33+7+27, pytest 50 + regression 167 ok (1 pre-existing), 9/9 dumps, R2 T2 PASS, red-team harnesses refused. Pod terminated, ~$0.88.
 CHECKPOINT c8a16e2b (09:48Z) [open] 09:48Z ready c8a16e2b sent. Disk notice ack: pulled only 228 KB of logs (art:61aedd27), deleted /tmp copy; nothing big. Regression r12 at ~163/171 (1 pre-existing live_test F). FINAL after it ends.
 CHECKPOINT c8a16e2b (09:31Z) [open] 09:38Z READY handoff sent: c8a16e2b (steps pin + R1/R2/R4), art:61aedd27. 806a2f73 superseded by c8a16e2b (explained). Final pytest 50 passed; 9/9 dumps; R2 T2 PASS. Waiting on regression r12 (92/171) before FINAL.
 CHECKPOINT 8e2f793c (09:03Z) [open] 09:07Z tip 8e2f793c. 9/9 dumps accepted w/ R1 (Rust pinned+Py). R2 recompute passes fp8-ada+poseidon2 T2 (4096 VUs); v6 shared fails closed. Red-team remap+orphan not reproduced, steps48 ok. R4 fix + reverify_test fix in. Regression running.
@@ -105,7 +107,7 @@ The +shared gap is the steps-pin lane's own integration note (`give hooks_h_for 
 
 ## FINAL
 
-tip: lane/ligero-steps-pin @ c8a16e2b (pushed; merges cleanly into origin/main 94b1c4d2)
+tip: lane/ligero-steps-pin @ c8a16e2b (pushed; merged into main 3301c435 by the coordinator)
 known-failures: live_test.py::test_shared_pair_every_coin_from_the_verifier[None] also fails on main (2^-99.86 < 2^-100); conformance [blake3] not run (CPU); reverify.py now fails +shared (v6) dumps and hashed dumps without a `set` block closed (by design)
 pod: vy-ligero-steps-pin (7byyo9s4i8rh58, cpu3c, $0.24/h), 06:35Z-10:15Z, terminated; about $0.88 (cap $8); no laptop build, so no cargo clean needed
 artifacts: art:61aedd2762f64fe16c5189c5378cab94dc86b221188922931a1fe85d307ad7b7 (all logs, JSON and pod scripts at c8a16e2b), art:e7b78840f270857bc54e82b53f659163a0df11e71e7c75a02a7884d89b60bea7 (regression list)

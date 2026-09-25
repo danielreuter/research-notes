@@ -24,17 +24,17 @@
   },
   "24p5jceya2gfbn": {
    "name": "vy-verify-night-2-veritor-campaign",
-   "usd": 1.6342,
+   "usd": 1.6503,
    "rate": 0.48,
    "first_seen": 1790319111.3402529,
-   "last_seen": 1790331325.530011
+   "last_seen": 1790331446.4333382
   },
   "whwiqx4qyy75am": {
    "name": "vy-b-ligero-sh-veritor-campaign",
-   "usd": 2.5202,
+   "usd": 2.5451,
    "rate": 0.74,
    "first_seen": 1790319111.3402529,
-   "last_seen": 1790331325.530011
+   "last_seen": 1790331446.4333382
   },
   "7byyo9s4i8rh58": {
    "name": "vy-ligero-steps-pin-veritor-campaign",
@@ -45,10 +45,10 @@
   },
   "04txgm7j3b0nob": {
    "name": "vy-red-team-sh-veritor-campaign",
-   "usd": 0.3887,
+   "usd": 0.3927,
    "rate": 0.12,
    "first_seen": 1790319716.3409579,
-   "last_seen": 1790331325.530011
+   "last_seen": 1790331446.4333382
   },
   "n005v24vgiougo": {
    "name": "vy-poseidon-v1-veritor-campaign",
@@ -73,10 +73,10 @@
   },
   "ftqlbtan129je6": {
    "name": "vy-agkr-bound2-veritor-campaign",
-   "usd": 4.7003,
+   "usd": 4.7537,
    "rate": 1.59,
    "first_seen": 1790320804.401966,
-   "last_seen": 1790331325.530011
+   "last_seen": 1790331446.4333382
   },
   "qb68wysl3ejx8b": {
    "name": "vy-poseidon-v1-veritor-campaign",
@@ -129,10 +129,10 @@
   },
   "qmiq4rs1f0y4tr": {
    "name": "vy-b-ligero-sha256-veritor-campaign",
-   "usd": 5.6299,
+   "usd": 5.7471,
    "rate": 3.49,
    "first_seen": 1790325639.127691,
-   "last_seen": 1790331325.530011
+   "last_seen": 1790331446.4333382
   },
   "nhdu3eiw255yv5": {
    "name": "vy-blake3-80gb-veritor-campaign",
@@ -157,10 +157,10 @@
   },
   "i1k6ayj2vk65nu": {
    "name": "vy-poseidon-v1-veritor-campaign",
-   "usd": 0.8652,
+   "usd": 0.8984,
    "rate": 0.99,
    "first_seen": 1790328299.228321,
-   "last_seen": 1790331325.530011
+   "last_seen": 1790331446.4333382
   },
   "nec3rr3s4638z9": {
    "name": "vy-g1-smoke-veritor-campaign",
@@ -171,10 +171,10 @@
   },
   "fertega4i5qs2a": {
    "name": "vy-hash-commit-2-a100-veritor-campaign",
-   "usd": 1.1763,
+   "usd": 1.2297,
    "rate": 1.59,
    "first_seen": 1790328783.397394,
-   "last_seen": 1790331325.530011
+   "last_seen": 1790331446.4333382
   },
   "053peggdba5ubj": {
    "name": "vy-hash-commit-2-h100-veritor-campaign",
@@ -192,10 +192,10 @@
   },
   "0std0gx3ah22o1": {
    "name": "vy-blake3-80gb-veritor-campaign",
-   "usd": 1.6438,
+   "usd": 1.761,
    "rate": 3.49,
    "first_seen": 1790329750.744663,
-   "last_seen": 1790331325.530011
+   "last_seen": 1790331446.4333382
   },
   "9bkz4idcq7fsg6": {
    "name": "vy-red-team-link-veritor-campaign",
@@ -205,7 +205,7 @@
    "last_seen": 1790330961.493906
   }
  },
- "last_poll": 1790331325.530011,
- "total_usd": 46.435,
+ "last_poll": 1790331446.4333382,
+ "total_usd": 46.854,
  "running_rate": 12.73
 }

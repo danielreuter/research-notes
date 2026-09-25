@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T04:28Z
+updated: 2026-09-25T04:30Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -249,3 +249,9 @@ updated: 2026-09-25T04:28Z
   (ORDER_DIR), since two gate (b) runs share the pod.  Scripts in /tmp/rff1/{pytest_job_order.sh,orderprobe.py,lint_touched.sh}.
 - main moved again at ~04:25Z: `5e0c7ca7` (Merge #12, tools/research only, 5 files; merge-tree clean with 299f42d5; integrations/vllm
   identical to baeefd21).  Staying on baeefd21 as the coordinator's 04:06Z note says; say so in READY.
+- 04:29Z **VOID x4 (launch errors, mine):** main's research tool (since `baeefd21`) runs a workload in its RUN DIR unless `--cwd source`
+  is passed; I left it out, so bootstrap `r20260925-042334-f76f` failed at once (rc 1, `cd integrations/vllm`), and my three test runs'
+  wait loop (`while pgrep -f pod_bootstrap.sh`) matched its own command line and would never have ended (and would have copied the run
+  dir).  Cancelled with `research tele cancel-intent --actor manual --signal 15 --deliver` (evidence in each attempt dir): `-042642-c979`,
+  `-042715-a96f`, `-042717-8109`, all rc 143.  Preserve all four as void.  Bootstrap relaunched with `--cwd source`: `r20260925-042905-a8bb`;
+  the three test runs launch only after it reports BOOTSTRAP-OK (no wait loops).

@@ -6,6 +6,8 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT a2edab4d (04:47Z) [open] 04:50Z sweep: disk 6.7 GiB; agkr-bound alive (integration a2edab4d pushed; A100 pod); parity pass 1 re-run stuck at last replica 5286/5287 >20 min; sweep timer lane list updated
+CHECKPOINT a2edab4d (04:45Z) [open] 04:48Z merged #13 c1891d48 (A-GKR circuit pin; cargo test 15/15 on pod vy-coord-cargo, terminated); cli 9:45 PM PT; agkr-bound told to merge main + add E4M3/NVFP4 pins + own relation name; circuit red-team after A-GKR integration merges
 CHECKPOINT cc7842a0 (04:33Z) [open] 04:35Z merged vllm-rf-f3-integrated 68e75c14 --no-ff -> cc7842a0 (vllm-only; trees identical to tested; lints 41/41); pushed; cli moved
 CHECKPOINT a2edab4d (04:26Z) [open] 04:30Z red-team-lk H100 FP8 PASS -> art:ad76c106 no longer provisional; scoreboard re-rendered
 CHECKPOINT a2edab4d (04:25Z) [open] 04:27Z merged #12 5e0c7ca7 (reconcile-attempts; cli 9:24 PM PT); reconciled exactly the 9 Sep-22 attempts (local copies in attempts/.superseded, reconcile.log saved to parity assets + Project internal/); parity pass 1 re-run started

@@ -5,6 +5,8 @@ kind: state
 created: 2026-09-25T16:47Z
 updated: 2026-09-25T17:14Z
 ---
+
+> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-2ddd7f1e-8f60-5cdf-b9e2-a95ab5634c72: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # vllm-rf-b5vc: split program/frontend/rules/vllm_bindings.py into a package (B5) (state)
 
 > **Successor of vllm-rf-b5vb** (agent bc-19e6c2c5; no commits, no pods; its session ended at the 16:03Z laptop restart).

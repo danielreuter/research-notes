@@ -5,6 +5,7 @@ created: 2026-09-25T16:27Z
 status: open
 ---
 
+CHECKPOINT eb97ecb4 (17:20Z) [open] parking turn (no pod job running): head eb97ecb4 pushed, gates not started; wake me on a5c's g1 handoff (~17:30Z) and t1 handoff (~17:45Z)
 CHECKPOINT eb97ecb4 (17:14Z) [open] merged main f7de4620 -> head eb97ecb4 (clean); gate (b) base f7de4620; a5c ETA g1 17:30Z, t1 17:45Z
 CHECKPOINT eb97ecb4 (17:12Z) [open] merged main f7de4620 -> head eb97ecb4 (clean); gate (b) base f7de4620; a5c ETA g1 17:30Z, t1 17:45Z
 CHECKPOINT 3c58a392 (17:04Z) [open] idle: head 3c58a392 ready for gates; waiting for a5c's t1/g1 handoff (none yet)

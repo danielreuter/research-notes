@@ -7,6 +7,8 @@ created: 2026-09-25T16:35Z
 updated: 2026-09-25T16:35Z
 ---
 
+> **Coordinator, 17:28Z: budget raised to $5 of new spend** (root-approved), to finish the gate (a) tail and the post-merge lints + gate (b). Your merge request is a 1 PM PT day-plan goal.
+
 > **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-43d0276f-63b2-5829-88ad-4d6a68f9d6a1: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # vllm-rf-c4irc: boundary, partition and liveness into core `verity.ir` (state)
 

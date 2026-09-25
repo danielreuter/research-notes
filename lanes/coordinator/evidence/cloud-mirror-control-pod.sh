@@ -43,7 +43,9 @@ sync=$(timeout 240 $sshcmd "$host" "cd /workspace/steward/verity && PY=\$(/root/
   PYTHONPATH=tools/research/src \$PY -m research notes sync --root $N -m 'cloud mirror $(date -u +%Y-%m-%dT%H:%MZ): $nf files' 2>&1 | tail -3")
 src=$?
 
-out2=$(rsync "${ropts[@]}" "${rev[@]}" "$host:$N/" "$S/" 2>&1); rrc=$?
+echo "$(stamp) forward $nf (rc $frc); sync rc=$src: $(tr '\n' ' ' <<<"$sync")"
+out2=$(timeout 240 rsync "${ropts[@]}" "${rev[@]}" "$host:$N/" "$S/" 2>&1); rrc=$?
+[ $rrc = 124 ] && { echo "$(stamp) reverse cut at 240 s (continues next pass)"; exit 0; }
 ok $rrc || { echo "$(stamp) FAIL reverse rsync rc=$rrc: ${out2: -300}"; exit 1; }
 nr=$(grep -c '^>f' <<<"$out2")
 

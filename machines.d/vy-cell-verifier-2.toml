@@ -1,0 +1,7 @@
+# machine vy-cell-verifier-2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "ffjgm1r55fc2f7"
+project = "verity"
+guard = 40
+registered_by = "cursor"
+registered_at = "2026-09-25T17:26Z"

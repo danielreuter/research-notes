@@ -2,10 +2,8 @@
 id: vllm-rf-b1c/state
 lane: vllm-rf-b1c
 kind: state
-updated: 2026-09-25T17:12Z
+updated: 2026-09-25T18:12Z
 ---
-
-> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-e079e6ee-aaec-5359-bfea-fcec618b3c2d: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # b1c (evaluator kernels and replay): state
 
 **b1c succeeds b1b** (agent bc-033f1f34; its session ended at the 16:03Z laptop restart). Agent bc-e079e6ee (cloud), coordinator
@@ -42,9 +40,20 @@ as it stood at 16:09Z (verbatim).
   ARMS=base): does base survive the same fork? Same OOM => pod shape (f1's 188 GB g1b ran base #67 sampled replay 1 h 50 min
   on 72884c8a without OOM); base survives => head memory regression in replay.
 
+- 17:51Z **#67 base Commit OOM-killed identically** (rc 137, 2,676 s vs head 2,598 s; same fork of 32 workers, 250,867,638
+  objects frozen; shmem 85.8 GiB; anon curve within 1-3 GiB of head's). => pod shape, not a regression. g2 TERMINATED 18:03Z
+  (fe8e PRESERVED).
+- 17:40Z gate (b) head `ec6219f5` (triage only now): 50 F / 3704 P / 287 S / 6 xf / 11 E; base 38a8d35d arm killed 18:02Z (superseded).
+  Logs on the pod: `/workspace/b1c/logs-ec6219f5/`.
+- 18:00Z coordinator: a5 goes first. **`1fd7e9dc` = merge `lane/vllm-rf-a5c` 40b9e571** (row_pod.sh's form_b import ->
+  `pipeline/row_stages.py`; twins imports; beyond_gemm/crosscheck keep a5's Options form in tests/program, and their
+  `verity-vllm` commands are removed from `pipeline/cli.py`; p06 = a5's; P10 commit.main 1776). Pushed.
+- 18:03Z **re-gate `r20260925-180315-713f`** on b5pat-cpu: lints + gate (b) head `1fd7e9dc` vs base `40b9e571`; ends ~19:25Z.
+  READY.md drafted beside this file (GATE_* placeholders).
+
 ## b1c Next
-1. #67: compare base's memory curve with head's (`/workspace/b1/tools/memdetail.py` on resources.jsonl). Terminate g2.
-2. Gate (b) jdiff base 38a8d35d -> head ec6219f5; terminate b5pat-cpu.
+1. When 713f ends (~19:25Z): jdiff base 40b9e571 -> head 1fd7e9dc, fill READY GATE_*, terminate b5pat-cpu.
+2. Merge-ready handoff to the coordinator.
 3. READY.md (NEEDS / R67_SHORT / R70_SHORT), merge-ready handoff.
 
 ## b1c Open questions

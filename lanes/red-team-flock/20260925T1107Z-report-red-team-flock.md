@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (15:40Z) [open] third audit started 15:41Z (lane REOPENED, not final): flock-link L1-L4/F2/F3 CPU, PR #25 lane/flock-link@4b560b2b. Pods only after 15:52Z.
 CHECKPOINT 3301c435 (12:50Z) [final] RE-AUDIT: GRANTED WITH CONDITIONS flock-128-r2 as implemented (flock-live@a43f6254): R1-R4,R6-R8 hold, 17 attacks rejected (art:1bd3368b art:12a6b845); R5 stub -> class for route (a) conditional on link L1-L4; F1-F3. Pods terminated 12:49Z ~$0.2
 CHECKPOINT 3301c435 (12:39Z) [open] re-audit in progress (lane reopened, NOT final): two vy-red-team-flock pods vanished ~2 min after launch (likely FINAL-POD reap from my 11:30Z final); retrying pod + local fallback build. Attack harness evidence/rtf_live_attacks_tail.rs
 CHECKPOINT 3301c435 (12:30Z) [open] re-audit started: read flock-live report + lane/flock-live@a43f6254 lib.rs/bin (server, replay, forks, pins); inbox 1129Z coordinator handoff read (superseded by this re-audit). Next: attack harness on cpu pod (R1/R2/R3/R7)

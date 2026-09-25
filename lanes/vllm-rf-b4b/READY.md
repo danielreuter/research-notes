@@ -1,29 +1,39 @@
 ---
-id: vllm-rf-b4/ready
-lane: vllm-rf-b4
+id: vllm-rf-b4b/ready
+lane: vllm-rf-b4b
 kind: ready
-updated: 2026-09-25T11:05Z
+updated: 2026-09-25T14:30Z
 ---
-# b4 (engine and hooks): READY
+# b4b (engine and hooks): READY
 
-**Branch** `lane/vllm-rf-b4`, **head `0f71b5b4`**, **base `10996616`** (a4's head). Four commits, all pushed; not merged
-anywhere. Coordinator: bc-ba6cec03. Agent: bc-95aa165d.
+**Branch** `lane/vllm-rf-b4b`, **head `2908cca1`**, **base main `33e4d8d1`** (a4 merged). Four commits, all pushed; not merged
+anywhere. Coordinator: bc-ba6cec03. Agents: b4 bc-95aa165d (hung at about 12:30Z, head `0f71b5b4` on `lane/vllm-rf-b4`), then
+its successor b4b bc-892f86c5 (gate (a) evidence, rebase, teardown, this file).
+
+**Rebase.** Every gate below ran at `0f71b5b4` against a4's head `10996616`. a4 has since merged (main `33e4d8d1`), so b4b ran
+`git rebase --onto origin/main 10996616`: clean, no conflicts, pushed with `--force-with-lease`. At `2908cca1` the
+`integrations/vllm` and `packages` trees are byte-identical to `0f71b5b4`'s (`git diff 0f71b5b4 2908cca1 -- integrations/vllm
+packages` is empty), and the lane's delta has the same stable patch-id (`03695fc0…`) against main as against `10996616`. The
+52 files main adds over `10996616` are all outside the lane (`backends/`, `benchmarks/commitments`, one root test, and five
+`tools/research` files: `notes.py`, `store/cli.py`, `store/local.py` and their tests); none overlaps the lane's 31 files, and the
+lints scan only `integrations/vllm`. So the gates weren't re-run at `2908cca1`.
 
 **Summary.** `engine/hooks.py` is the one owner of every runtime patch on a vLLM, torch or Triton object, and every patch
 uninstalls to what the owner held. All 43 P9 `runtime-patch` allowlist entries are gone, and P9 now fails any other module
 that sets an attribute on an imported object. `engine/env.py` is the one writer of vLLM's environment pins, and a new P7
 check fails any other library module that writes a `VLLM_` / `HF_` / `TORCHINDUCTOR_` / `TOKENIZERS_` switch (17 P7
 entries gone). No allowlist grew. `build_engine` / `engine_kwargs_for` signatures are unchanged. No identity changed: the
-Program, manifest, run root and verdict of #101 (L40S, FA2 tap) and #70 (TP2) equal the record and the base; FA3 on H100:
-FA3_RESULT. Gates (b) and lints are green; gate (a): GATE_A_RESULT.
+Program, manifest, run root and verdict of #101 (L40S, FA2 tap) and #70 (TP2) equal the record and the base; the FA3 tap on
+an H100 PCIe gives head == base (run root, Program, manifest, commit PASS) on the canary row. Lints (47/47) and gate (b) are
+green. Gate (a) T0+T1 matches a23b's base XML test by test: 158 tests, 73 passed and 85 skipped on both sides.
 
 ## Commits
-| commit | what | digests |
-|---|---|---|
-| `5ddb68f8` | `engine/hooks.py`: `patch` / `wrap` / `append` / `patched` / `Hooks` / `live` / `triton_launch`; every patch site moved onto it; 43 P9 entries deleted; P10 caps follow the shrunk modules | code identity only (construction_version) |
-| `619b7451` | `engine/env.py`: the one writer of the env pins; 17 P7 entries deleted; P7 pin-writer check | code identity only (construction_version) |
-| `3bdcd0ad` | P11: the moved docstring loses its board tag (2 entries deleted) | none |
-| `0f71b5b4` | test fix: the MoE export-shim test imports vLLM's fused_moe before it records the packet | none |
+| commit (on main) | before the rebase | what | digests |
+|---|---|---|---|
+| `b9f3707f` | `5ddb68f8` | `engine/hooks.py`: `patch` / `wrap` / `append` / `patched` / `Hooks` / `live` / `triton_launch`; every patch site moved onto it; 43 P9 entries deleted; P10 caps follow the shrunk modules | code identity only (construction_version) |
+| `286c263e` | `619b7451` | `engine/env.py`: the one writer of the env pins; 17 P7 entries deleted; P7 pin-writer check | code identity only (construction_version) |
+| `d579da38` | `3bdcd0ad` | P11: the moved docstring loses its board tag (2 entries deleted) | none |
+| `2908cca1` | `0f71b5b4` | test fix: the MoE export-shim test imports vLLM's fused_moe before it records the packet | none |
 
 No commit moves a Program, manifest, commitment root, leaf id or verdict, so nothing here is labeled for the re-baseline
 epoch.
@@ -31,7 +41,8 @@ epoch.
 **Code identity before and after.** `construction_version.sources_sha256` (hashes `pipeline/build.py`'s
 `_CONSTRUCTION_SOURCES`): base `53cfbe1cff28691479252b5344e9e3123accb2b6bde0d9bf88f8026c08d129e9`, `5ddb68f8`
 `043c8138…`, `619b7451` `a625a383…`, head `92aed41014de8f215a1b84ac571e1253705088ad6e695e79d5d1dd20fd6b6cab` (the head
-value is also the one in #101's head `build_request/artifact.json`; `tools/cv.py` computes it from git). It moves because
+value is also the one in #101's head `build_request/artifact.json`; `tools/cv.py` computes it from git). The rebase moves
+neither value: main `33e4d8d1` gives `53cfbe1c…` (= base) and `2908cca1` gives `92aed410…` (= `0f71b5b4`). It moves because
 `export_compat.py`, `export_ops.py`, `triton_capture.py`, `vllm_meta.py` and `pipeline/build.py` are construction sources
 and were edited, and because `engine/env.py` joined the list (it now carries the pins `vllm_meta` used to write). The
 artifact `identity` hashes construction_version, so it moves with it: #101 `build_request` base `2dfc73d495f11f95…` ->
@@ -40,6 +51,8 @@ top-level keys of `artifact.json` that differ between the head and base Builds o
 construction_version there is `53cfbe1c…`, as computed from git); `program_digest` and `correspondence_digest` are equal.
 
 ## Gates
+Paths: `evidence/{gate_b,r101,r70,h100}/` and `tools/` (other than `custody.sh`) are b4's, under `../vllm-rf-b4/`;
+`evidence/gate_a/` and `tools/custody.sh` are b4b's, beside this file.
 
 ### Lints
 `python -m pytest integrations/vllm/tests/lint integrations/vllm/tests/test_no_by_name_rules.py integrations/vllm/tests/test_imports_resolve.py -q`
@@ -69,7 +82,33 @@ packet exists once vLLM's fused_moe is imported, and the test first imported it 
 test, and code behaves as at base. XMLs and logs: `evidence/gate_b/{base,head,head2}.{xml,log,env}`.
 
 ### Gate (a)
-GATE_A_SECTION
+`VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/vllm/tests/regression -m regression -ra`
+(`../vllm-rf-b4/tools/gate_a.sh`) at `0f71b5b4` on `vyv-rf-b4-g1` (1x L40S, 188 GB cgroup; GPU hidden, nice 10). No cpu3m
+pod was in stock at 64 or 32 vCPU at 11:05Z. The tree `/workspace/head-reg` matches git `0f71b5b4` on the file that commit
+changed and on `engine/hooks.py` and `engine/env.py`. All 26 fixture artifacts were prefetched and the read-only key deleted
+(10:13:34Z) before the run. Run `r20260925-101742-278e`: 10:17:51Z to 12:39:28Z, **exit 0, 73 passed, 85 skipped,
+33 deselected** (8,494 s).
+
+`baseline-jdiff.py gate_a-t0t1-base-72884c8a-samepod.xml.gz gate_a_head.xml`, run on the pod
+(`evidence/gate_a/jdiff-gate_a-head-vs-a23b-base.txt`):
+
+| | tests | passed | skipped | failed / error |
+|---|---|---|---|---|
+| a23b base `72884c8a` | 158 | 73 | 85 | 0 |
+| head `0f71b5b4` | 158 | 73 | 85 | 0 |
+
+0 tests only on one side, 0 outcome changes, 0 new failures, 0 new skips. jdiff exits 1 on two reworded skip reasons,
+`manifest_digest` for #70 and #75: "merged by `row_pod_tp2.sh`" became "merged by `tp_stage.sh`". The rewording is a4's:
+`10996616` already has it in `tests/regression/checks/manifest_digest.py`, and this lane touches nothing under
+`tests/regression`. a4's own gate (a) reported the same two rewordings. So gate (a) is identical to a4's.
+
+Evidence: `evidence/gate_a/` holds `gate_a_head.xml.gz` (sha256 of the XML `1b3aa861…`), `gate_a_head.log.gz` (log
+`ca16511c…`), `.env`, the jdiff, and the run's `stdout.log`, `status.json` and `launcher.log`. The run predates the custody
+rule. R2 holds its attempt as PRESERVED (`research data preserved r20260925-101742-278e`: manifest plus telemetry events and
+resources, sha256 read back), but without a run record. `research data custody --publish` on the pod, with a 1 h delete-free
+key minted on the laptop and deleted after use, refused: the attempt already exists without a run record, and only
+`research fetch --all` could supply one. That fetch is barred, so the run-record files that matter are the small ones above.
+`research pods drain` then found 1 attempt, preserved, and terminated the pod.
 
 ### GPU rows
 Each row is compared with its regression record (program_digest, manifest_digest, run root, verdict) and with the base
@@ -207,19 +246,28 @@ Evidence: `evidence/r101/nonint_{head,base}.log`, `evidence/r101/nonint-{head,ba
 - `known_roots.json` has no cc 9.0 root for the Llama-3.2-1B B1 256/32 greedy canary row. Its FA3 root on an H100 PCIe
   (head and base) is `f64a6611e49c2c7fe7a505cdf560e1364bcf9b1a7a73cbd14232d41648648747`, from one pair; it isn't pinned
   there.
+- Custody for a run that predates `--custody-r2` and whose attempt reached R2 without a run record: `research data custody
+  RUN --publish` refuses (the attempt exists), the pod guard refuses to self-terminate (no `.fetched`), and the only remedy
+  it names is `research fetch --all`, which the 12:26Z / 14:09Z banners bar. The waiver `store/custody.py` documents,
+  `research data label RUN custody waived --by WHO`, is refused because `custody` isn't in the label vocabulary (it needs
+  `--off-vocab`, not used here). `research pods drain` (attempt preserved) was the way out.
 
 ## Pods and spend
-All registered with guard 90, every run fetched (`research fetch --all`), then terminated and unregistered.
+All registered with guard 90. Every run except gate (a) was fetched with `research fetch --all` before the 12:26Z rule (their
+local copies have since had their telemetry evicted to R2). Gate (a) is covered above. **No `vyv-rf-b4-*` pod is left**: g1
+was drained at 14:19Z, and b4b unregistered the three `machines.d` entries (g1, h100, tp2) that were still present.
 
 | pod | part | up (Z) | $/h | spend | runs |
 |---|---|---|---|---|---|
 | `vyv-rf-b4-cpu` eroe8y957ahhjr | cpu3g 32 vCPU / 128 GB | 09:23-10:37 | 1.28 | 1.58 | gate (b) + lints: `r20260925-095236-2684`, `r20260925-095250-e4e8`, `r20260925-101530-aa45` |
-| `vyv-rf-b4-g1` 17ez42q6mb3wo2 | 1x L40S, 188 GB | 09:55-G1_END | 1.09 | G1_COST | `r20260925-100039-940f` (bootstrap, #101 head, non-interference), `r20260925-104202-d6d9` (#101 base), `r20260925-101742-278e` (gate (a)) |
+| `vyv-rf-b4-g1` 17ez42q6mb3wo2 | 1x L40S, 188 GB | 09:55-14:19 | 1.09 | 4.80 | `r20260925-100039-940f` (bootstrap, #101 head, non-interference), `r20260925-104202-d6d9` (#101 base), `r20260925-101742-278e` (gate (a)) |
 | `vyv-rf-b4-tp2` 19vmzfvh0x589w | 2x L40S, 377 GB | 10:05-12:15 | 2.18 | 4.72 | `r20260925-101142-d268` (#70) |
 | `vyv-rf-b4-h100` ew9cx2468ey9gx | 1x H100 PCIe | 10:45-11:57 | 1.99 | 2.39 | `r20260925-104827-1825`, `r20260925-113014-592b` (FA3) |
 
-Total about TOTAL_COST of the $25 budget. Fixture key: one 3 h read-only key minted on the laptop, piped into `vyv-rf-b4-g1`
-only, deleted by `tools/prefetch.sh` at 10:13:34Z after 26/26 artifacts, before gate (a) started.
+Total **about $13.5 of the $25** budget. g1 sat idle from 12:39Z to 14:19Z (about $1.80), because the host disconnect
+stopped b4. Keys: b4 minted one 3 h read-only key on the laptop and piped it into `vyv-rf-b4-g1` only; `tools/prefetch.sh`
+deleted it at 10:13:34Z after 26/26 artifacts, before gate (a). b4b minted one 1 h delete-free custody key (the
+`--custody-r2` action set) and piped it into g1 only; `tools/custody.sh` deleted it at 14:16:07Z.
 
-Scripts: `tools/` (boot, lints, gate_b, gate_a, prefetch, g1, r101_base, tp2, h100, h100c, cv.py, cmp70.py,
-create_cuda.py). Evidence: `evidence/{gate_b,gate_a,r101,r70,h100}/`.
+Scripts: `../vllm-rf-b4/tools/` (boot, lints, gate_b, gate_a, prefetch, g1, r101_base, tp2, h100, h100c, cv.py, cmp70.py,
+create_cuda.py) and `tools/custody.sh`. Evidence: `../vllm-rf-b4/evidence/{gate_b,r101,r70,h100}/`, `evidence/gate_a/`.

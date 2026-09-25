@@ -7,6 +7,8 @@ updated: 2026-09-25T14:08Z
 ---
 # vllm-rf-b5patb: split observe/fold/patterns.py into observe/fold/patterns/ (state)
 
+> **Coordinator, 14:27Z: the vyv- pod deadline is now 2026-09-25T18:30Z (11:30 AM PT)**, extended in steps of at most 4 h while the coordinator runs. It replaces every earlier deadline line in this file.
+
 > **Coordinator, 14:20Z: a4 is MERGED** (main `33e4d8d1`; its `integrations/vllm` and `packages/verity` trees are identical to `10996616`). Rebase now: `git fetch origin main && git rebase --onto origin/main 10996616 lane/vllm-rf-b5patb`, then `git push --force-with-lease`. Gate evidence gathered on 10996616 carries over unchanged, so record both heads in READY.md.
 
 > **Successor of b5pat** (bc-c87a1519, hung at the 12:30Z host disconnect). Agent bc-c7bcfa82. Start commit `ba852261`
@@ -55,6 +57,18 @@ updated: 2026-09-25T14:08Z
   at both head and base: profile `gen_llama_llama32_1b` (the record's name) no longer exists since P6; the role's
   profile is `derived_LLAMA32_1B`. Nothing was compared.
 
+- 14:19Z #101 re-fold `r20260925-141717-7caf` (big pod, `derived_LLAMA32_1B`): fold digest `cc48449d…` at head, base and in
+  the record; `program.json` (`ef5b2fe5…`, 17,119,764 B) and `instances.jsonl` byte-identical head vs base;
+  `accesses.jsonl.gz` differs only in the gzip header mtime (decompressed identical); fold_summary / resolution.json differ
+  only in timings, utc, paths, RSS. by_pattern 13 patterns / 17,199 matches, same order as the record.
+  Evidence `evidence/refold-r101{,-deepdiff}.txt`.
+- 14:22Z a4 merged into main (`33e4d8d1`, 14:13:54Z). Rebased `git rebase --onto origin/main 10996616`: `ba852261` ->
+  **`4537961b`** (`695bd4c2`, `4537961b`), pushed with `--force-with-lease`. No conflict; `integrations/vllm` at `4537961b`
+  is identical to `ba852261`, and main == a4 inside `integrations/vllm`. Main's other 52 files are outside it
+  (backends, benchmarks, `tools/research` notes.py + an opt-in `refresh --payloads` in store/local.py, cli.py).
+- 14:24Z laptop re-check of the split (`tools/verify_split.py`): 84/84 statements verbatim; fp8/collectives differ only in
+  import lines.
+
 ## Pods (inherited)
 - `vyv-rf-b5pat-cpu` = RunPod `andiw61o3shls8` (cpu3g 16 vCPU / 64 GB, $0.64/h), created ~12:10Z. Idle since 13:31Z.
 - `vyv-rf-b5pat-big` = RunPod `8n2373g922sb59` (cpu3m 32 vCPU / 256 GB, $1.76/h), created 12:13Z.
@@ -63,9 +77,13 @@ updated: 2026-09-25T14:08Z
   - 14:17Z #101 re-fold at head and base: run `r20260925-141717-7caf` (`--custody-r2`, `/workspace/b5patb/refold_chain.sh`,
     profile `derived_LLAMA32_1B`), out `/workspace/b5patb/refold/`.
 
+- 14:26Z cpu pod: lints + gate (b) at the rebased head `4537961b`: run `r20260925-142622-edbe` (`--custody-r2`), tags
+  `lints_rb`, `b_rb`; jdiff vs `b_head` and `b_base` into `/workspace/b5patb/jdiff_rb_vs_{head,base}.txt`.
+
 ## Next
-- Re-fold result; then terminate the cpu pod.
-- Gate (a): compare with a23b's same-pod base XML test by test when it finishes; terminate the big pod.
+- `r20260925-142622-edbe` result (~15:00Z); then drain the cpu pod.
+- Gate (a) at `ba852261` (~16:15Z est.): compare with a23b's same-pod base XML test by test; drain the big pod.
+  It carries to `4537961b` (identical `integrations/vllm` and `packages/`; main's `tools/research` change is opt-in).
 - READY.md.
 
 ## Open questions

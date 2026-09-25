@@ -2,19 +2,37 @@
 id: vllm-rf-b4b/state
 lane: vllm-rf-b4b
 kind: state
-updated: 2026-09-25T14:15Z
+updated: 2026-09-25T14:30Z
 ---
 # b4b (engine and hooks): state
 
+> **Coordinator, 14:27Z: the vyv- pod deadline is now 2026-09-25T18:30Z (11:30 AM PT)**, extended in steps of at most 4 h while the coordinator runs. It replaces every earlier deadline line in this file.
+
 > **Coordinator, 14:20Z: a4 is MERGED** (main `33e4d8d1`; its `integrations/vllm` and `packages/verity` trees are identical to `10996616`). Rebase now: `git fetch origin main && git rebase --onto origin/main 10996616 lane/vllm-rf-b4b`, then `git push --force-with-lease`. Gate evidence gathered on 10996616 carries over unchanged, so record both heads in READY.md.
+
+**READY (14:30Z): `READY.md` beside this file. Head `2908cca1` on `lane/vllm-rf-b4b`, rebased onto main `33e4d8d1`
+(pre-rebase `0f71b5b4`). No pods left.**
 
 **b4b succeeds b4** (bc-95aa165d, hung at about 12:30Z). Agent bc-892f86c5; coordinator bc-ba6cec03. Worktree
 `~/projects/verity-wt/rf-b4b`, branch `lane/vllm-rf-b4b`, **start commit `0f71b5b4`** (= `origin/lane/vllm-rf-b4`, pushed).
-a4 base: `10996616`. Budget: what remains of b4's $25. Pods: `vyv-rf-b4-g1` (the only one left).
+a4 base: `10996616` (a4 has merged; the lane is rebased onto main). Budget: what remains of b4's $25; about $13.5 spent in total.
 
 ## b4b log
 - 14:10Z `vyv-rf-b4-g1`: gate (a) `r20260925-101742-278e` finished 12:39:28Z, exit 0, **73 passed, 85 skipped, 33 deselected**
-  (2:21:34). Next: jdiff on the pod vs a23b's base XML, R2 custody check, drain g1, READY.md.
+  (2:21:34).
+- 14:13Z jdiff on the pod vs a23b's base XML: 158 = 158, 0 outcome changes, 0 new failures or skips. The two reworded skip
+  reasons (#70 and #75: `row_pod_tp2.sh` became `tp_stage.sh`) come from a4's base `10996616`, the same as a4's gate (a).
+  Evidence in `evidence/gate_a/` (XML gz, log gz, jdiff, run stdout/status/launcher; 20 KB).
+- 14:16Z custody: the attempt is PRESERVED on R2 (manifest and telemetry) without a run record. `data custody --publish`
+  refused (the attempt exists); the 1 h custody key was deleted. The `custody waived` label was refused: not in the vocabulary.
+- 14:19Z `research pods drain vyv-rf-b4-g1`: 1 attempt, preserved; **TERMINATED**. Unregistered the `machines.d` entries for
+  g1, h100 and tp2. No `vyv-rf-b4-*` pod is left.
+- 14:22Z a4 is in main (`33e4d8d1`). `git rebase --onto origin/main 10996616`: clean. `integrations/vllm` and `packages` are
+  byte-identical to `0f71b5b4`; same patch-id; construction_version unchanged (main `53cfbe1c…`, head `92aed410…`).
+  Pushed `2908cca1` with `--force-with-lease`.
+
+## Next
+- None: READY. Open questions and "Found, not fixed" are in READY.md.
 
 ---
 Predecessor b4's state as it stood (banners kept):

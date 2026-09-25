@@ -6,6 +6,8 @@ updated: 2026-09-25T14:25Z
 ---
 # a5b (one CLI, typed config, decision-8 `verity_vllm.LLM`): state
 
+> **Coordinator, 14:27Z: the vyv- pod deadline is now 2026-09-25T18:30Z (11:30 AM PT)**, extended in steps of at most 4 h while the coordinator runs. It replaces every earlier deadline line in this file.
+
 > **Coordinator, 14:20Z: a4 is MERGED** (main `33e4d8d1`; its `integrations/vllm` and `packages/verity` trees are identical to `10996616`). Rebase now: `git fetch origin main && git rebase --onto origin/main 10996616 lane/vllm-rf-a5b`, then `git push --force-with-lease`. Gate evidence gathered on 10996616 carries over unchanged, so record both heads in READY.md.
 
 **a5b succeeds a5** (agent bc-95dc5f40, hung at the 12:30Z host disconnect). Agent bc-a9b686f7; coordinator bc-ba6cec03.
@@ -30,14 +32,24 @@ Budget: what remains of a5's $35 (a5 spent ~ $14 by 14:15Z, estimated from pod h
   cuda-compat-12-9 installed but `CUDA unknown error`. **Drained/terminated 14:20Z.**
 - t1 (cyu8vao39x21th, 32 vCPU / 755 GB): bootstrap `r20260925-121213-3f2d` SUCCESS at `1452248c`; nothing else run.
 
-## Running
-- Poller `~/.research/notes/lanes/vllm-rf-a5b/tools/tp2-poll.sh` (laptop pid 53615, log /tmp/a5b-tp2-poll.log): 2x L40S
-  with CUDA >= 12.9, registers `vyv-rf-a5-tp2d`. None available at 14:18Z.
+- `da9e4847` (pushed) the last 3 gate (b) failures: weights-of-record provenance test runs the CLI's process path and
+  asserts the base's argv (flags only); release_json test runs `verity-vllm release-json` as a child process (row_pod.sh
+  and pod_release.sh, its file-as-script callers, are gone) and its docstring usage lines say so; dry-run resolve index 3 -> 4.
+
+## Running (14:30Z, all `--custody-r2`)
+- cpu `r20260925-142039-11a3`: gate 1 + gate (b) at `da9e4847` + jdiff vs `/workspace/a5/logs/base-10996616.xml`
+  (logs `/workspace/a5/logs/head-da9e4847*`, `jdiff-base-head-da9e4847.txt`).
+- t1 `r20260925-142613-7113`: prefetch (own 3 h read-only key minted 14:25Z into /root/r2ro.env; prefetch.sh deletes it)
+  then gate (a) T0+T1 serial at `da9e4847`, jdiff vs a23b's same-pod base XML (`/workspace/a5/logs/gate_a-head-da9e4847.*`).
+- g1 `r20260925-142335-a597` (head `da9e4847`): LLM verity vs vllm-same greedy+sampled EQUAL again (6 requests);
+  vllm-plain failed: the pod's nvcc is 12.4, too old for FlashInfer's sampler JIT (`--compress-mode`).
+- g1 `r20260925-142811-0998` (base tree `10996616`, worktree `~/projects/verity-wt/rf-a5b-base`): vllm-plain with only
+  `VLLM_USE_FLASHINFER_SAMPLER=0` + compare, then OLMoE b1 base side `ab_row.sh base /workspace/sweep-base ...`.
+- Poller `tools/tp2-poll.sh` (background, log /tmp/a5b-tp2-poll.log): 2x L40S with CUDA >= 12.9 -> `vyv-rf-a5-tp2d`.
 
 ## Next
-1. Fix the 3 remaining gate (b) failures; commit, push.
-2. cpu: gate 1 + gate (b) at new head vs base xml already on the pod. t1: prefetch + gate (a) T0+T1.
-3. g1: LLM vllm-plain with PATH fixed + compare; OLMoE b1 base side (A/B). 4. #70 when a TP2 pod appears.
+1. Compare OLMoE b1 head (/workspace/sweep) vs base (/workspace/sweep-base) on g1: program, manifest, run root, verdict.
+2. jdiff gate (b), gate (a). 3. #70 via `verity-vllm row` when a TP2 pod appears (~2 h of pod time). 4. READY.md.
 
 ## Open questions
 - (a5's) b4: `verity_vllm.LLM` calls `engine.vllm_adapter.build_engine(checkpoints, *, max_num_seqs, engine_args, target,

@@ -6,6 +6,8 @@ updated: 2026-09-25T14:20Z
 ---
 # b1b (evaluator kernels and replay): state
 
+> **Coordinator, 14:27Z: the vyv- pod deadline is now 2026-09-25T18:30Z (11:30 AM PT)**, extended in steps of at most 4 h while the coordinator runs. It replaces every earlier deadline line in this file.
+
 > **Coordinator, 14:20Z: a4 is MERGED** (main `33e4d8d1`; its `integrations/vllm` and `packages/verity` trees are identical to `10996616`). Rebase now: `git fetch origin main && git rebase --onto origin/main 10996616 lane/vllm-rf-b1b`, then `git push --force-with-lease`. Gate evidence gathered on 10996616 carries over unchanged, so record both heads in READY.md.
 
 **b1b succeeds b1** (agent bc-910bfdb6, hung ~12:30Z when the host disconnected). Agent bc-033f1f34 (b1b), coordinator bc-ba6cec03.
@@ -22,6 +24,31 @@ Everything below the `## b1b` section is b1's STATE.md as it stood at the hang (
 - **`vyv-rf-b1-tp2` (0g809k86dbuwyv, 2x L40S, 1.5 TB RAM, $2.18/h) was created 13:09Z** by b1's detached retry loop and registered
   (guard 90), idle since (nothing on it). Using it for #70 (head only, PAIRS=1, `tools/tp2.sh`, cmp70 vs f1's base Commit of record).
 - `vyv-rf-b1-big`: nothing running; terminate once gate (a)'s run has R2 custody (pod-side publish under a minted key).
+- 14:17Z **#70 launched on tp2: `r20260925-141723-16b0`** (`--custody-r2 --custody-ttl 6h`; head tree = `research pods sync` of rf-b1b
+  @ 8c0bec08, tree 887fa79d; `tools/tp2.sh`, cmp70.py, f1's base summary.json in `tools/f1base70/`). Bootstrap OK 14:24Z; Build running.
+- 14:22Z **GATE (a) MEETS THE RULE**: head merged (158 tests) vs a23b's `gate_a-t0t1-base-72884c8a-samepod.xml.gz` with
+  baseline-jdiff.py: same 158 ids, 73 passed / 85 skipped on both, 0 outcome changes, 0 failures, 0 new skips. jdiff rc 1 only for 2 skip
+  *reason texts* (T0 manifest_digest #70/#75: "merged by row_pod_tp2.sh" -> "merged by tp_stage.sh"), which is a4's base text
+  (10996616 `tests/regression/checks/manifest_digest.py:46`), not b1's. replay_partition (9 pass / 4 skip each): head 3,409 s vs base
+  (same pod) 3,422 s vs a23b 3,263 s (other pod); per row within 1.6% of base. Evidence: `evidence/gate_a/`.
+- 14:25-14:27Z gate (a) run and big's bootstrap run could not get `data custody --publish` ("attempt names no run record"), so their run
+  dirs went to R2 from the pod as run-files/v1: gate (a) `r20260925-115853-be37` -> `art:c62253feccee236bd2da2346e3e8db370dafc0be6e7f5a1861b376f06fdfb1e1`
+  (put run r20260925-142513-1ea7), bootstrap `r20260925-114312-0306` -> `art:51404728361cc2f4b3abeef0dc3183784594f41094ce8db20cffcf95a9d63e07`
+  (put run r20260925-142649-553e); both preserved: true. (`r20260925-142100-57b5` = the refused custody --publish try, has custody.)
+- ~14:30Z **`vyv-rf-b1-big` TERMINATED** (`research pods drain --custody-r2 --force`, reason logged: the two legacy runs' art ids).
+- 14:31Z #67 Build: 31 of 32 shapes (LP 9..887) done, LP 1024 left; ~10 min per large-LP shape, so Build ends ~14:50Z. This g2 host
+  builds ~1.9x slower than f1's (Build ~155 min vs ~83), so Match ~2 h -> ~16:50Z, head Commit -> ~18:00-18:30Z, base -> ~19:30Z.
+
+## b1b spend (estimate, 14:35Z): ~$23 of $45
+cpu 3.35 h x 1.28 = 4.3; g1 ~1.05 h x 1.09 = 1.2; big 3.1 h x 3.52 = 10.9; g2 3.3 h x 1.09 = 3.6 (running); tp2 1.4 h x 2.18 = 3.1 (running).
+Projected: tp2 to ~16:20Z +3.8; g2 to ~19:30Z +5.4; total ~$32.
+
+## b1b Open questions
+- **Ask (14:35Z): extend the deadline for `vyv-rf-b1-g2` only (1x L40S, $1.09/h), to about 19:30Z.** #67's head Commit (the acceptance
+  row: program/manifest/run root/verdict vs record) should land ~18:00-18:30Z on this slow host; base Commit (replay wall "before") ~19:30Z.
+  Without an extension, g2 stops at 17:00Z with Build (and maybe Match) vs record only; the MoE replay evidence is then gate (a)'s T1
+  replay_partition on #67/#68/#73/#74 (head = base, times within 1.6%). If you'd rather stop after the head Commit, say so and I'll kill
+  the base arm. #70 on tp2 (~$3.8 more) should end ~16:20Z, inside 17:00Z.
 
 # b1's STATE.md at the hang
 

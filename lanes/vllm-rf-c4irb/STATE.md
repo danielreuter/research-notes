@@ -2,11 +2,13 @@
 id: vllm-rf-c4irb/state
 lane: vllm-rf-c4irb
 kind: state
-status: running (phase 2 gates stacked on a4 at 7313e799; gate (a) in progress)
+status: running (head 793f14af on main; gates (b), lints, core, #101 pass; gate (a) in progress)
 created: 2026-09-25T14:05Z
-updated: 2026-09-25T14:20Z
+updated: 2026-09-25T14:26Z
 ---
 # vllm-rf-c4irb: boundary, partition and liveness into core `verity.ir` (state)
+
+> **Coordinator, 14:27Z: the vyv- pod deadline is now 2026-09-25T18:30Z (11:30 AM PT)**, extended in steps of at most 4 h while the coordinator runs. It replaces every earlier deadline line in this file.
 
 > **Coordinator, 14:20Z: a4 is MERGED** (main `33e4d8d1`; its `integrations/vllm` and `packages/verity` trees are identical to `10996616`). Rebase now: `git fetch origin main && git rebase --onto origin/main 10996616 lane/vllm-rf-c4irb`, then `git push --force-with-lease`. Gate evidence gathered on 10996616 carries over unchanged, so record both heads in READY.md.
 
@@ -36,6 +38,14 @@ updated: 2026-09-25T14:20Z
 - 14:18Z `vyv-rf-c4ir-g1` and 14:19Z `vyv-rf-c4ir-cpu` terminated (`research pods drain --custody-r2 --force --reason` naming
   the preserved copy; drain refuses otherwise because the original dirs carry no `.custody`) and unregistered.
 
+- **14:24Z a4 is in main** (`33e4d8d1`, merge of `10996616`, 14:13:54Z). `git rebase --onto origin/main 10996616`: clean, 13
+  commits, head **`793f14af`** (tree `03f38c29`). Pushed as `lane/vllm-rf-c4irb` and, `--force-with-lease` from `cfe0ae63`, as
+  `lane/vllm-rf-c4ir` (phase 1 + phase 2 in one branch now). Phase 2 diff patch-id equal before and after (`5f5e9fc2`);
+  `integrations/vllm` (`1796cb6b`) and `packages/verity` (`cc5d4794`) subtrees identical to the gated `7313e799`, and the
+  base subtrees of a4 `10996616` and main `33e4d8d1` identical (`ae743c95`, `bde581db`): main's other changes since a4 are in
+  `backends/`, `benchmarks/`, `tests/test_commit_cost_benchmark.py` and `tools/research` only. So every gate at `7313e799`
+  (head) vs `10996616` (base) is the same comparison for `793f14af` vs main. Importer check `rg` finds nothing.
+
 ## Running (c4irb)
 - `vyv-rf-c4ir-reg` (oh3k08zb07i38u, $1.76/h): gate (a) r20260925-120631-fb6b at `7313e799`. 14:21Z: on MoE row #67 (a23b's
   test 73 of 158, which a23b reached at 2779 s; here 7400 s, so 2.66x slower: single-threaded build-global at 100% CPU, host
@@ -49,8 +59,7 @@ updated: 2026-09-25T14:20Z
 ## Next (c4irb)
 - Gate (a) done: compare `gate_a.xml` test by test with `gate_a-t0t1-base-72884c8a-samepod.xml.gz` on the pod; publish with a
   custody copy run; drain and unregister reg; READY.md.
-- When a4 is in origin/main: `git rebase --onto origin/main 10996616`, re-check importers, push `lane/vllm-rf-c4ir`
-  `--force-with-lease`; keep `lane/vllm-rf-c4irb`.
+- (done 14:24Z) rebase onto main and push `lane/vllm-rf-c4ir`.
 
 ## Spend (phase 2, c4ir + c4irb)
 - g1 12:17–14:18Z at $1.09/h, about $2.2; cpu 12:10–14:19Z at $1.28/h, about $2.75; reg from 12:06Z at $1.76/h, about $4.0 by

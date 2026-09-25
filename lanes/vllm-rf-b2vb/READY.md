@@ -1,18 +1,26 @@
 ---
-id: vllm-rf-b2v/ready
-lane: vllm-rf-b2v
+id: vllm-rf-b2vb/ready
+lane: vllm-rf-b2vb
 kind: ready
-status: draft
+status: final
 created: 2026-09-25T11:30Z
-updated: 2026-09-25T11:30Z
+updated: 2026-09-25T14:40Z
 ---
-# vllm-rf-b2v READY: one verdict and `properties/` records (SYNTHESIS §6 B2, verdict part)
+# vllm-rf-b2vb READY: one verdict and `properties/` records (SYNTHESIS §6 B2, verdict part)
 
-- **Branch:** `lane/vllm-rf-b2v` (pushed). **Head:** `8d847755`. **Base:** `10996616` (a4's head, not merged).
+b2vb succeeds b2v (agent bc-7d05cc29, hung at the 12:30Z host disconnect) from its pushed head `8d847755`. b2vb added no code:
+it finished #70 (world 2) and its Commit comparison, the verdict A/B on #70, custody of the TP2 pod's runs, and this file. Evidence
+added by b2vb is in `vllm-rf-b2vb/evidence/`; b2v's is in `vllm-rf-b2v/evidence/`.
+
+- **Branch:** `lane/vllm-rf-b2vb` (pushed; = `lane/vllm-rf-b2v`). **Head:** `8d847755`. **Base:** `10996616` (a4's head, not merged at 14:40Z).
 - 10 commits, 48 files (all under `integrations/vllm`), +1,889 / -1,400 against `10996616`. Nothing under `packages/verity`.
-- Gates: lints 45/45 at `8d847755`; gate (b) head vs base on one pod: no new failure / skip / skip reason, 15 new tests pass; gate (a) T0,T1: 73 passed / 85 skipped of 158, test by test as a23b's (no outcome change; two skip texts
-  renamed before the base); GPU
-  rows #101 (world 1, L40S) and #70 (world 2, 2x L40S) reproduce the record's digests and cite their `properties/` records.
+- Gates: lints 45/45 at `8d847755`; gate (b) head vs base on one pod: no new failure / skip / skip reason, 15 new tests pass;
+  gate (a) T0,T1: 73 passed / 85 skipped of 158, test by test as a23b's (no outcome change; two skip texts renamed before the base).
+- Acceptance: the verdict JSON is byte-identical at base and head for the 10 regression rows with a Commit record, and for #101 and
+  #70 apart from the appended `properties` citation. Row #101 (world 1, L40S) equals the record: program, manifest, run root, PASS.
+  Row #70 (world 2, 2x L40S) equals the record: program, manifest, tp run root `0b91229f…`, FAIL, and 32/32 Commit fields against f1's
+  base Commit of record. Each row cites its non-interference record by digest (`be83f678…` world 1, `442979b3…` world 2).
+- All pods terminated (TP2 at 14:31Z after its runs went to R2). Spend about $13.1 of $30.
 
 ## Gate evidence
 
@@ -101,6 +109,9 @@ directory moved and GPUs hidden), both trees on the L40S pod, overlapping in tim
   trees (`diff -r` exit 0; `evidence/tp2/gates/verdict_bytes.{base,head,head2}.txt` list the sha256 per row, the texts are in
   `verdict_bytes/`). The other 3 rows (the OLMoE and
   Qwen3-30B-A3B TP2 rows and the SmolLM2 B=16 row) have no `commit/verdict.json`. No regression row has `properties/`, so the new key is absent.
+- **The two GPU rows of this lane, which do carry `properties/`**: #101 (below) under `5483d13b` and `8d847755` byte-identical, and
+  under the base only without the appended `properties`; #70 after its Commit under `10996616` and `66eaaa50` byte-identical, and
+  under `8d847755` the same text with the 10-line `properties` block inserted (b2vb, `vllm-rf-b2vb/evidence/fr70.txt`).
 
 ### (5) GPU acceptance
 
@@ -130,20 +141,54 @@ directory moved and GPUs hidden), both trees on the L40S pod, overlapping in tim
   `row_pod.sh` appends the commit line to `stages.txt` after writing the verdict.
 
 **Row #70** (`olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager`, 2x L40S, world 2), every stage at
-`66eaaa50` (`tp_stage.sh`, `WORLD=2 NCCL_P2P_DISABLE=1 PAIRS=1`), runs `r20260925-095754-ee6c` (build, match) and ROW70_COMMIT_RUN:
+`66eaaa50` (`tp_stage.sh`, `WORLD=2 NCCL_P2P_DISABLE=1 PAIRS=1`), runs `r20260925-095754-ee6c` (build, match) and
+`r20260925-111729-3301` (commit). Reference: the fixture (class FAIL) and f1's base Commit of record at `72884c8a`
+(`r20260924-221949-8668`, PAIRS=3, `vllm-rf-f1/commit70-base-head.tgz`), the one lane b4 compared against.
 
 | | this run | record |
 |---|---|---|
 | build | PASS 10:20Z | |
 | program_digest | `64bee6d6e8264461` | `64bee6d6e8264461` |
 | manifest_digest | `1bb40895671dd791` (357,796 identities, complete) | `1bb40895671dd791` |
-| match | capture + check pass (8,448 collectives, 0 mismatches, tokens equal); fold FAIL (rank 0 errors 4,096, unresolved 3,544) | fold_binding False |
-ROW70_ROWS
+| match | capture + check pass (8,448 collectives, 0 mismatches, tokens equal); fold FAIL (rank 0 errors 4,096, unresolved 3,544) | the same (f1 base, b4) |
+| commit | **FAIL** rc=1 12:20:11Z (3,751 s), pass False | FAIL, pass False (class FAIL) |
+| tp run root | `0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957` | same, in each of the 3 pairs |
+| per-rank roots | `3e646ae3…` / `bf129350…` | same |
 
+- **The Commit, field by field** (b4's `cmp70.py` on this run's `commit/summary.json` vs f1's base Commit of record,
+  `evidence/cmp70-66eaaa50-vs-f1base.txt`): **32/32 equal**: tp run root and per-rank roots; leaves, tensors, bytes and classes per
+  rank; openings 64/64 per rank; tokens equal; commit_pass and pass False; value check PASS; match oracle per rank; sampled replay
+  False (partial: 484 q/k-norm strata not evaluated); boundary linkage True; cross-rank collectives False (154 picks per pair, all
+  equal; the AllGather2 sites without a stratum); fold-match binding False with the same reason; query population False (25,408 per
+  rank) with the same counts; weights pin (same roots of record); required manifest digest and classes; committer and openings.
+  The 09-22 record on the pod (57a66b1 / 6d9cad0c) has the same roots; its `value_check` FAIL and manifest `ede1ad81` are pre-v2 and
+  differ from f1's base in the same way (`evidence/cmp70.txt`).
 - **Non-interference, world 2**: `<row>/properties/noninterference.json`, `ok`, digest
   `442979b3aa090ccc79d57b35116934c2fe4d78e40ad387462913514438471a7b`: both arms taken at world 2 (`tp: 2`), 8 / 8 requests
-  equal. Worlds 3 and 4 raise `ValueError` ("tensor-parallel world 3 refused: non-interference is recorded at worlds (1, 2)").
-ROW70_CITE
+  equal. At the head (`evidence/ni70.txt`): the stored digest recomputes; `noninterference.record(match, 2)` rebuilt from the row's
+  own Match arms gives the same digest; worlds 3 and 4 raise `ValueError` ("tensor-parallel world 3 refused: non-interference is
+  recorded at worlds (1, 2)"); `records_of(row)` = [noninterference `442979b3…`, ok].
+- **The run cites it, and the verdict text is otherwise unchanged** (`evidence/fr70.txt`, TP2 pod, after the Commit):
+  `from_record(row).dumps()` under the base `10996616` and under the run's tree `66eaaa50` is byte-identical (sha256 `a7c32c87…`,
+  33,283 bytes); under the head `8d847755` it is that text with one inserted `properties` block (10 lines: noninterference,
+  `verity-vllm/noninterference/v2`, digest `442979b3…`, ok, no problems) and nothing else (`diff` shows only the insertion). The
+  outcome is INSUFFICIENT_EVIDENCE under all three trees: the TP Commit writes no `commit/verdict.json` (see Found, not fixed); the
+  row's decision is `tp_stage.sh`'s commit FAIL above.
+
+### Pods, spend and custody
+
+- `vyv-rf-b2v-l40s` terminated 11:27Z (its runs fetched by b2v before the 12:26Z rule, evidence in `vllm-rf-b2v/evidence/l40s/`).
+  `vyv-rf-b2v-tp2` terminated 14:31Z by `research pods drain` ("all 8 attempt(s) preserved"). Spend: L40S ~1.98 h x $1.09 +
+  TP2 ~5.0 h x $2.18 = **about $13.1 of $30**.
+- The TP2 pod's 7 runs predate `--custody-r2`, and their attempts had been published to the pod's store without a run record. b2vb
+  pushed the 7 attempts to R2 with `research data custody RUN --publish` (a delete-free key minted on the laptop, 1 h, piped into
+  the pod and deleted after 43 s; `evidence/custody_tp2.sh`). That tool refuses to give custody to logs of attempts published
+  without a record ("only `research fetch --all`"), so their run files went to R2 through a `--custody-r2` run instead:
+  `r20260925-142514-883f` (`evidence/preserve.sh`) copied the 7 run dirs (99 files, 124 MB), #70's row evidence (28 files, 22 MB:
+  top level, `commit/` without the two 219 MB binding maps, `properties/`, `match/` files under 1 MB to depth 2), the gate outputs
+  (52 files) and the pod scratch, with a `PRESERVED.sha256` list. Custody: run record
+  `art:b250b63253504c1cbcfba56a1aa115a9896f26026ae47cd5c05762de31642a3b`, 207 files, PRESERVED with sha256 readback. Not kept:
+  #70's 37 GB capture, its 171 MB manifest, its binding maps and rank Programs (reproducible, digests above), the fixtures.
 
 ## What changed
 
@@ -199,7 +244,7 @@ ROW70_CITE
 
 ## Rebase notes
 
-- Onto `origin/main` when a4 merges: `git rebase --onto origin/main 10996616 lane/vllm-rf-b2v`, then `--force-with-lease`.
+- Onto `origin/main` when a4 merges: `git rebase --onto origin/main 10996616 lane/vllm-rf-b2vb`, then `--force-with-lease`.
 - Conflict risk: `pipeline/commit.py` (476-477, 1315) and `pipeline/tp/commit.py` (199, 313-314) import lines, a5's files;
   `tests/lint/allowlists/*.json` and `tests/by_name_allowlist.json` (moved entries); `check/replay/*` docstrings still say
   `commit_verdict._x` (b1's).
@@ -219,3 +264,8 @@ ROW70_CITE
 - `research run --cwd source` runs from the source root when launched outside the source's `integrations/vllm`; the relative
   `verity_vllm/ops/tp_stage.sh` then isn't found (runs `r20260925-111138-272a`, `r20260925-111454-b341`, both failed at once).
   `--cwd source/integrations/vllm` works.
+- The TP Commit (`pipeline/tp/commit.py`, a5's) writes `commit/summary.json` (`delta-tp/v1`) but no `commit/verdict.json`, so
+  `verdict.from_record` on a TP row gives INSUFFICIENT_EVIDENCE with program, manifest and run roots empty, at base and head alike.
+  Folding the TP decision into `vllm-verdict/v1` belongs with the `row_pod.sh` heredoc (a5's CLI).
+- research tooling: `research data custody --triage` suggests `research data label RUN custody waived --by WHO`, but the store's
+  vocabulary has no `custody` key, so the label is refused (nothing written; not forced with `--off-vocab`).

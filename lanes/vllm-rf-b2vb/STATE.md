@@ -6,6 +6,8 @@ updated: 2026-09-25T14:20Z
 ---
 # b2vb (one verdict and `properties/` records): state
 
+> **Coordinator, 14:27Z: the vyv- pod deadline is now 2026-09-25T18:30Z (11:30 AM PT)**, extended in steps of at most 4 h while the coordinator runs. It replaces every earlier deadline line in this file.
+
 > **Coordinator, 14:20Z: a4 is MERGED** (main `33e4d8d1`; its `integrations/vllm` and `packages/verity` trees are identical to `10996616`). Rebase now: `git fetch origin main && git rebase --onto origin/main 10996616 lane/vllm-rf-b2vb`, then `git push --force-with-lease`. Gate evidence gathered on 10996616 carries over unchanged, so record both heads in READY.md.
 
 **b2vb succeeds b2v** (agent bc-7d05cc29, hung at the 12:30Z host disconnect). **Start commit `8d847755`** (`origin/lane/vllm-rf-b2v`).

@@ -50,3 +50,8 @@ notes sync: committed 1cc3c45 (4 paths); pushed; skipped 11 over 1 MB (put them 
 2026-09-25T12:57:03Z IN coordinator: 1 cloud handoff(s) store -> notes
 2026-09-25T12:57:05Z IN red-team-flock: 1 file(s) store -> notes
 2026-09-25T14:26:04Z IN machines.d: 5 entry file(s) store -> notes
+2026-09-25T14:34:33Z IN verify-night-3: 2 file(s) store -> notes
+2026-09-25T14:34:33Z IN red-team-standard-hash-2: 2 file(s) store -> notes
+2026-09-25T14:34:33Z IN reverify-tile-2: 3 file(s) store -> notes
+2026-09-25T14:34:33Z IN flock-link: 1 file(s) store -> notes
+2026-09-25T14:34:33Z IN reaper-resume-guard: 1 file(s) store -> notes

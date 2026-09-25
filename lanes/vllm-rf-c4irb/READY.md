@@ -1,142 +1,81 @@
 ---
-id: vllm-rf-c4ir/ready
-lane: vllm-rf-c4ir
+id: vllm-rf-c4irb/ready
+lane: vllm-rf-c4irb
 kind: ready
-status: phase 1 complete and verified; phase 2 prepared on a4 and pre-checked; phase 2 gates blocked (a4 not in main)
-created: 2026-09-25T09:02Z
+status: DRAFT (gate (a) pending)
+created: 2026-09-25T14:30Z
 ---
-# vllm-rf-c4ir READY: boundary, partition and liveness in core `verity.ir`
+# vllm-rf-c4irb READY: boundary, partition and liveness in core `verity.ir`, integration switched (phases 1 + 2)
 
-## Branches
+c4irb succeeds c4ir (agent bc-fbcf78e2, hung about 12:30Z). Start commit `7313e799` (`lane/vllm-rf-c4ir-p2-on-a4`).
+Phase 1 and phase 2 descriptions, the core API, the design questions and "Found, not fixed" are c4ir's
+(`../vllm-rf-c4ir/READY.md`, still accurate); this file adds the phase 2 gates and the branch after a4's merge.
 
-| Branch | Head | Tree | Base | What |
-|---|---|---|---|---|
-| `lane/vllm-rf-c4ir` | `cfe0ae63` | `5ac05b9c` | `origin/main` `00ffe398` | Phase 1: core analyses + core tests + equivalence tests. Core only; the integration is untouched. |
-| `lane/vllm-rf-c4ir-p2-on-a4` | `7313e799` | `95fc9177` | `lane/vllm-rf-a4` `10996616` | Phase 2 prepared ahead of a4: phase 1 cherry-picked onto a4, then `18e29d92` and `4a2ccf11`, then a merge of a4's newer head. |
+## Branch
 
-`lane/vllm-rf-c4ir-p2-on-a4` is not for merging. It holds the two phase 2 commits so they can be replayed once a4 is in
-`origin/main` (see "Finishing phase 2"). Rebasing it onto `10996616` instead of merging gives the same tree
-(`95fc9177`, checked).
-
-## Phase 1: core API (all under `packages/verity/src/verity/ir/`, stdlib only, no integration types)
-
-- `intervals.py` (new) is the one sorted-disjoint half-open interval algebra: `norm`, `full`, `total`, `contains`,
-  `isect`, `restrict`, `complement`, `ref_intervals`, `strided_intervals`, `IntervalLimit`. It replaces the private
-  copies in the integration's liveness and boundary modules, and in `query_ast` (`_merge_intervals`, `_range_len`,
-  `_complement_ranges`).
-- `liveness.py` (new) provides `dead_gates(program, limit=64, transitive=False) -> DeadGateReport`, `Liveness` and
-  `BodyLiveness`. The logic is the integration's, unchanged. `LivenessLimit` became `IntervalLimit`, with the same
-  message; nothing caught it by name.
-- `layout.resolve_gate(scope, ref) -> (gate, PrimitiveDefinition)` (new) is the integration boundary's
-  `_resolve_prim` walk. `resolve` and `param_leaf` delegate to it and return the same results and errors.
-- `boundary.py` (new) provides `in_gates`, `out_gates`, `w_out`, `w_out_bound`, `gate_prim`, `consumer_index`,
-  `BoundaryLimit` and the rest, with the logic unchanged.
-- `partition.py` (new) provides `validate_partition`, `validate_width`, `gate_width_readiness`, `readiness_32bit`,
-  `validate_vu_family`, `validate_vu_partition`, `VuVerdict` and the rest, with the logic unchanged; the `_BOUNDARY`
-  test hook is kept. Phase 2 adds the public `family_tiling` and `CheckedTiling`, previously the private
-  `_family_tiling` and `_Tiling`.
-- `parts.py` module map lists the two new modules.
-
-Core tests sit next to the existing IR tests and use test-local primitives only (`register=False`):
-`test_ir_boundary.py` (the integration's oracle suite, with registry families replaced by local analogues),
-`test_ir_liveness.py`, `test_ir_partition.py` and `test_ir_intervals.py`. Phase 1 also had
-`test_ir_{boundary,partition}_equivalence.py`, which re-ran every core boundary and partition test with the module
-replaced by a differential stand-in (both copies run, results compared), plus the integration's library Programs and
-liveness on every specialization. Phase 2 deletes them together with the integration copies.
-
-## Phase 2: integration switched to core (`18e29d92`, `4a2ccf11`)
-
-- **Importers switched to `verity.ir.{liveness,boundary,partition}`:**
-  - library: `program/frontend/derive.py`, `program/frontend/torch_frontend.py`, `program/registry/lifted.py`
-  - tests: `padded_commit_tiny.py`, `test_frontend_analyses`, `test_lifted_r17`, `test_lifted_tiny`,
-    `test_boundary_oracle`, `test_partition_structural`, `test_partition_sweep`, `test_query_artifact`,
-    `test_query_counterexamples`
-- **Deleted, with no shims:**
-  - `query/boundary.py`, `query/partition.py`, `program/frontend/liveness.py`
-  - the unused package re-export of `dead_gates` / `DeadGateReport` in `program/frontend/__init__.py`
-  - the two equivalence test files
-- **Lint maps:** the three `"core"` entries are gone from `LAYER`; the `core` layer itself stays, because P9's order
-  test needs its rank. The allowlists only shrink: p07 loses 3 entries, p10 loses 2 and p11 loses 1. No entry was
-  added.
-- **Kept:** the integration tests of the analyses on registry Programs (`test_boundary_oracle`, `test_partition_*`, the
-  counterexamples). They now test core on real Programs, which the core ports replace with local analogues.
-- **README:** the `query/` tree line and prose.
-
-**Why `18e29d92` exists.** `registry/lifted.py`'s `n_out_structural_bound` reads the validator's member classes
-(`PT._family_tiling`, `PT._Tiling`). Once that module is core, P1 `core-private` forbids those reads, and the allowlist
-may not grow. Core therefore names them publicly: `family_tiling`, and `CheckedTiling`, because `query_ast.Tiling`
-already names the plan it interprets.
-
-## Evidence
-
-All runs used `research run --on vyv-rf-c4ir-cpu --source <clean worktree> --cwd source` on cpu3m, 8 vCPU. The JUnit
-XMLs are beside this note.
-
-| Run | Tree | What | Result |
+| Branch | Head | Tree | Base |
 |---|---|---|---|
-| r20260925-074934-4692 | `cfe0ae63` | core suite (no integration) | 664 tests, 0 fail, 3 skip (the equivalence pair + test_trust, modules absent) |
-| same | `cfe0ae63` | `packages/verity/tests/ir` with the integration (equivalence live) | 195 passed |
-| same | `cfe0ae63` | integration `tests/query` + frontend-analysis + running-example (integration copies) | 317 tests, 0 fail, 9 skip (fixtures absent) |
-| r20260925-081543-0c3c | `4a2ccf11` | core suite after phase 2 | 661 passed, 1 skipped |
-| r20260925-083804-0840 | `7313e799` | lints: `tests/lint` + `test_no_by_name_rules` + `test_imports_resolve` | 45 passed (41 + 3 + 1), 0 failed |
-| r20260925-084225-f233 | `7313e799` | every test touching the switched code (`tests/query`, frontend analyses/rulings, lifted r17/tiny, padded_commit_tiny, b1/serve3 authored, composition, derive_negative, running_example) | 583 tests, 0 fail, 0 error, 15 skip (all test_composition, fixtures absent) |
-| r20260925-081543-0c3c | `4a2ccf11` | integration `tests/query` + `tests/program`, `-n 8`, interrupted at 08:58Z before the pod deadline (JUnit flushed) | 1710 tests: 31 fail + 11 error, **all 42 on the known-failure list** of a23b's gate (b) (`gate_b-xdist-rebased-9be6e462`: applicability, artifact_applicability, realhf, ref_prims, ship_roots, ...), 0 new |
+| `lane/vllm-rf-c4ir` (for merge) | `793f14af` | `03f38c29` | `origin/main` `33e4d8d1` (a4 merged, 14:13:54Z) |
+| `lane/vllm-rf-c4irb` (working) | `793f14af` | same | same |
 
-The same-pod base run of that last set (base `14b0cf9f`, rebuilt on the pod as the shipped `4a2ccf11` tree plus a
-reverse patch) was cut off by the deadline before writing its summary, so there is no same-pod base list.
+- `lane/vllm-rf-c4ir` was force-pushed with lease from `cfe0ae63` (phase 1 only) to `793f14af`: 13 commits, phase 1's
+  11 (rebased; their combined diff has the same patch-id as `00ffe398..cfe0ae63`, `8545f5da`) then phase 2's `ee9be814` (core names `family_tiling` / `CheckedTiling` publicly) and
+  `793f14af` (integration importers to `verity.ir`, integration copies deleted, allowlists shrink). Phase 1's pending
+  merge request at `cfe0ae63` is superseded by this head.
+- `git rebase --onto origin/main 10996616` was clean. The phase 2 diff has the same patch-id before and after (`5f5e9fc2`).
+- **Why the gates at `7313e799` stand for `793f14af`:** the `integrations/vllm` (`1796cb6b`) and `packages/verity`
+  (`cc5d4794`) subtrees of `793f14af` equal those of the gated `7313e799`, and the base's subtrees at a4 `10996616` equal
+  main `33e4d8d1`'s (`ae743c95`, `bde581db`). Main's other changes since a4 are in `backends/`, `benchmarks/`,
+  `tests/test_commit_cost_benchmark.py` and `tools/research` only, and apply to both sides of every comparison.
+- The importer check finds nothing:
+  `rg "verity_vllm\.query\.(boundary|partition)\b|query import (boundary|partition)|frontend\.liveness|frontend import liveness"`.
 
-**Not run: gate (a) T0+T1, gate (b) head vs base, GPU smoke #101.** a4 is not in `origin/main` (`94b1c4d2` at 08:51Z;
-a4 head `10996616`), and gate (a) alone takes about 2 h 40 min, past the 09:00Z pod deadline.
+## Gates
 
-**Digest invariant.** Nothing in phase 2 changes Program construction, encoding or manifest code:
-- phase 2 changes import paths and makes two private names public;
-- the analyses' logic is the integration's, and phase 1's differential tests saw equal results from both copies on the
-  library Programs they cover (b1 Gemm, RMSNormTriton, SiluMul, TokenSelect, AttentionHead/Attention v3, Embedding,
-  the MoE router and expert, Gumbel, ServeV4 tiny) and on every core test input;
-- no string literal of the moved modules differs from core, apart from the interval helper names (the limit messages
-  are identical);
-- nothing records a module path.
+All on RunPod pods, launched with `research run --on ... --source <clean worktree at 7313e799> --cwd source`.
+Head = `7313e799`; base = a4 `10996616` (on the cpu pod: the head tree plus `tools/to_base.patch`, the reverse diff, in c4ir's notes).
 
-Gate (a) and the #101 smoke still have to confirm this.
+| Gate | Run | Pod | Result |
+|---|---|---|---|
+| Lints (`tests/lint`, `test_no_by_name_rules`, `test_imports_resolve`) | r20260925-121359-3a93 | cpu3g 32 vCPU | head 45 passed, base 45 passed. Allowlists only shrink (p07 -3, p10 -2, p11 -1; `LAYER` -3) |
+| Core (`packages/verity/tests`) | same | same | head 661 passed, 1 skipped |
+| Gate (b) (`-n 12 --dist loadfile`, `OMP_NUM_THREADS=3`), head and base concurrently on one pod | same | same | head 51 failed / 3640 passed / 287 skipped / 6 xfailed / 11 errors; base 51 / 3647 / 286 / 6 / 11. `baseline-jdiff.py` rc 0: **0 new failures, 0 new skips, 0 new skip reasons** |
+| Gate (a) T0+T1 | r20260925-120631-fb6b | cpu3m 32 vCPU / 1 TB host, 256 GB cgroup | PENDING |
+| GPU Build smoke #101 (`row_pod.sh build,match,commit`, `PAIRS=1`) | r20260925-122601-35bc | 1x L40S | build, match, commit PASS; run_roots `7adcef49…` = record; program `ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b` = record; manifest `90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac` = record; `commit_pass` True, every commit check PASS |
 
-## Finishing phase 2 (after a4 is in `origin/main`)
+Gate (b) detail (`gate_b-jdiff-base10996616-head7313e799.txt`):
+- 6 tests are only in base, not renamed: `tests.program.test_lint::test_no_{model_names,startswith,v1_membership_tables}`
+  parametrized over `[boundary.py]` and `[partition.py]`, the deleted `query/` modules. That accounts for the 6 missing
+  passes.
+- 1 outcome change, on jdiff's UNSTABLE list: `test_observer_encoding::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation`
+  passed -> skipped ("allocator did not reuse the pointer"). That accounts for the 7th pass and the extra skip.
+- The #101 record values are a4's (`../vllm-rf-a4/evidence/gpu_r101/`: run root from the frozen record; program and
+  manifest from f3's base rebuild).
 
-1. In the lane worktree, `git checkout lane/vllm-rf-c4ir && git rebase origin/main`. Phase 1 touches core only; a4
-   touches nothing in core.
-2. `git cherry-pick 18e29d92 4a2ccf11`. Git's rename detection carries the edits to test files that a4 moved; the
-   same cherry-pick onto a4's `10996616` was clean. Then check that
-   `rg "verity_vllm\.query\.(boundary|partition)\b|query import (boundary|partition)|frontend\.liveness" integrations`
-   finds nothing, since anything that landed in main in between could add an importer.
-3. Gates on pods:
-   - lints;
-   - core;
-   - gate (b) at head and at base on the same pod, compared with `baseline-jdiff.py`;
-   - gate (a) T0+T1 on cpu3m 512 GB against `gate_a-t0t1-base-72884c8a-samepod.xml.gz`;
-   - GPU Build smoke of #101, with program_digest and manifest_digest equal to the record's.
-4. Push `lane/vllm-rf-c4ir`.
+## Evidence and custody
 
-## Design questions for the owner
+- Beside this note: `lints-{head-7313e799,base-10996616}.xml.gz`, `core-head-7313e799.xml.gz`,
+  `gate_b-{head-7313e799,base-10996616}.xml.gz`, `gate_b-jdiff-base10996616-head7313e799.txt`, `gpu-r101-7313e799.txt`.
+- The three gate runs were launched before the `--custody-r2` rule. Their full run dirs are on R2 as copies inside
+  custody runs launched on the same pods (`tools/custody_copy.sh`, which also writes a sha256 list per copied dir):
+  - r20260925-141336-a832 holds r20260925-122601-35bc (106 files, 30 MB), run record `art:964ada3009abb1edbdaaea5aa38b18db53ecf6fc0b0455d0c0f83cedb7f649af`;
+  - r20260925-141353-7997 holds r20260925-121359-3a93 (27 files, 48 MB), run record `art:58597aaa6120ac8fe2572e5291cfaad1ec97208116a14c8660653c511a89bda5`;
+  - gate (a): PENDING.
 
-1. Core now exposes `partition.family_tiling` and `partition.CheckedTiling` (its attributes `classes`, `instances`,
-   `spec`, `problems`) because `registry/lifted.py` reads them. The alternative is to move the n_out structural bound
-   into core as a public function and keep the tiling private. `CheckedTiling(...)` raises the private `_Malformed`,
-   which callers can only catch as `Exception`.
-2. The analyses' broad `except Exception` in `family_tiling`, `_family_count` and `_family_index` moved to core
-   unchanged. P7 does not scan core.
+## Invariants
 
-## Found, not fixed (behaviour = spec)
+- No Program digest, manifest digest, run root or verdict changed: #101 equals the record, and gate (a) PENDING.
+- No digest-moving commit; nothing for the re-baseline epoch.
+- Lints green; allowlists only shrink.
 
-- `intervals.strided_intervals`: a zero-outer-stride, unit-inner-stride `Strided` with `0 < count < inner` is reported
-  as the whole row. This is sound (it over-reports reads), and no known producer makes such a view.
-- `intervals.complement(iv, n)` assumes `iv` lies within `[0, n)`, as `query_ast`'s old helper did. The docstring
-  says so.
-- The integration's `vu_query` keeps its own interval helpers, and `query_artifact.py` stays in the integration. Both
-  are out of scope.
+## Found, not fixed
 
-## Spend
+c4ir's list stands (`../vllm-rf-c4ir/READY.md`). New:
+- Gate (a) on `vyv-rf-c4ir-reg` ran about 2.7 times slower than a23b's same-pod reference (6391 s): the single-threaded
+  `build-global` at 100% of one core, the host 64% idle, no cgroup CPU cap. So the per-core speed was lower; the
+  results are unaffected.
 
-Two cpu3m 8 vCPU pods at $0.44/h:
-- `zt96bucqlpis7i`, 07:32–07:53Z;
-- `hpbzk8p38jgf8s`, 08:08–08:58Z.
+## Pods and spend (phase 2, c4ir + c4irb)
 
-That is about $0.52 in total. Both are terminated and unregistered.
+- `vyv-rf-c4ir-g1` (L40S, $1.09/h) 12:17–14:18Z, about $2.2; `vyv-rf-c4ir-cpu` (cpu3g 32, $1.28/h) 12:10–14:19Z, about $2.75;
+  `vyv-rf-c4ir-reg` (cpu3m 32, $1.76/h) from 12:06Z: PENDING. Both terminated pods were unregistered.

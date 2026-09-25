@@ -1,0 +1,36 @@
+base 158 {'passed': 64, 'skipped': 94}
+head 158 {'passed': 73, 'skipped': 85}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 9
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r101]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r11]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r39]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r57]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r60]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r67]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r68]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r73]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+  ~ tests.regression.test_regression::test_reproduces[T1-replay_partition-r74]: skipped -> passed  [replay_partition is tier T1; set VERITY_REGRESSION_TIERS=T1 to run it]
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 19
+  1 x decomp_hashes does not apply to #101: no match_decomp.json (B=1 rows have no decomposition; FAIL rows never reached it)
+  1 x decomp_hashes does not apply to #11: no match_decomp.json (B=1 rows have no decomposition; FAIL rows never reached it)
+  1 x decomp_hashes does not apply to #39: no match_decomp.json (B=1 rows have no decomposition; FAIL rows never reached it)
+  1 x decomp_hashes does not apply to #4: no match_decomp.json (B=1 rows have no decomposition; FAIL rows never reached it)
+  1 x decomp_hashes does not apply to #70: no match_decomp.json (B=1 rows have no decomposition; FAIL rows never reached it)
+  1 x decomp_hashes does not apply to #75: no match_decomp.json (B=1 rows have no decomposition; FAIL rows never reached it)
+  1 x gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager: match<path> not resolvable here (roots tried: []; artifacts: {'records': 'art:f6512887b6c0
+  1 x llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager: match<path> not resolvable here (roots tried: []; artifacts: {'records': 'art:7f399d73aa
+  1 x manifest_digest does not apply to #70: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+  1 x manifest_digest does not apply to #75: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+  1 x mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager: match<path> not resolvable here (roots tried: []; artifacts: {'records': 'art:a3c0e7c3063
+  1 x olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager: match<path> not resolvable here (roots tried: []; artifacts: {'records': 'art:
+  1 x olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager: match<path> not resolvable here (roots tried: []; artifacts: {'records': 'art:ca12debfd
+  1 x qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager: match<path> not resolvable here (roots tried: []; artifacts: {'records': 'art:85924a1f30
+  1 x qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager: match<path> not resolvable here (roots tried: []; artifacts: {'records': 'art:1b095a95f7515
+  1 x replay_partition does not apply to #23: no sampled_replay record on this row (the row's Commit never reached C2)
+  1 x replay_partition does not apply to #4: no sampled_replay record on this row (the row's Commit never reached C2)
+  1 x replay_partition does not apply to #70: no sampled_replay record on this row (the row's Commit never reached C2)
+  1 x replay_partition does not apply to #75: no sampled_replay record on this row (the row's Commit never reached C2)
+failures+errors: base 0, head 0, fixed on head 0

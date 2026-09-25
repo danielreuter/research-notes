@@ -1,0 +1,34 @@
+OK   tp_run_root (every pair) 
+OK   per_rank_roots (every pair) 
+OK   rank 0 leaves 
+OK   rank 0 tensors 
+OK   rank 0 bytes_bound 
+OK   rank 0 classes 
+OK   rank 0 openings verified/n 
+OK   rank 1 leaves 
+OK   rank 1 tensors 
+OK   rank 1 bytes_bound 
+OK   rank 1 classes 
+OK   rank 1 openings verified/n 
+OK   tokens_equal all 
+OK   commit_pass (every pair) 
+OK   pass 
+OK   value_check 
+OK   match_oracle rank 0 
+OK   match_oracle rank 1 
+OK   sampled_replay.result 
+OK   boundary_linkage.result 
+OK   cross_rank_collectives.result 
+OK   fold_match_binding.result 
+OK   query_population.result 
+OK   weights_pin.result 
+OK   cross_rank_collectives picks / pair 
+OK   cross_rank_collectives equal == picks 
+OK   fold_match_binding.why 
+OK   weights_pin roots of record 
+OK   query_population counts 
+OK   required manifest digest 
+OK   required_classes 
+OK   committer / openings 
+32/32 equal; pairs head 1 base 3
+CMP70_RC=0

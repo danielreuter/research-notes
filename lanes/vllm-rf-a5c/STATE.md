@@ -2,10 +2,8 @@
 id: vllm-rf-a5c/state
 lane: vllm-rf-a5c
 kind: state
-updated: 2026-09-25T16:40Z
+updated: 2026-09-25T17:56Z
 ---
-
-> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-ac8c8a30-44dd-575f-b5aa-45d0e17beb15: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # a5c (one CLI, typed config, decision-8 `verity_vllm.LLM`): state
 
 **a5c succeeds a5b** (agent bc-a9b686f7, session ended at the 16:03Z laptop restart), itself successor of a5 (bc-95dc5f40).
@@ -35,16 +33,13 @@ One early checkpoint went into a second report file (`20260925T1632Z-report-vllm
   failures, 0 new skips; 2 skip reasons new on head (#70/#75 `manifest_digest`: "TP row: rank Programs are merged by tp_stage.sh";
   the same skip, reworded). Carries to the rebased head only for files c1 didn't touch.
 
-## Running
-- t1 `r20260925-163433-6956`: lints + gate (b) at rebased head `ce6d69d4` (`/workspace/a5c/gate_b.sh`, logs `/workspace/a5c/logs/`).
-  Then base `239c0e28` on the same pod.
-- tp2d `r20260925-144310-53e5`: #70 head via `verity-vllm row`. Build PASS; match FAIL at fold_match (AllGather2 fold errors), which is
-  #70's record (class FAIL, "no fold-Match binding"); KEEP_GOING -> tp-commit since 15:46Z (timeout 7200). Then cmp70 vs f1's base.
-- g1: idle; #101 smoke at the rebased head after gate (b).
-
-## Next
-1. jdiff gate (b) head vs base. 2. #70 cmp70 (32/32), terminate tp2d. 3. #101 smoke on g1 at `ce6d69d4`. 4. READY.md, handoff.
-5. Hand t1 and g1 to vllm-rf-b5vc.
+## Final (17:55Z)
+- Merged main `f7de4620` (coordinator 1655Z) -> head **`40b9e571`**. Lints 45/45; gate (b) head `r20260925-170857-a861` vs base
+  `r20260925-173534-b495` (t1): 0 new failures/skips/skip reasons. #101 at 40b9e571 (g1 `r20260925-170927-4a2d`) SAME-OF-RECORD.
+- #70 (tp2d `r20260925-144310-53e5`): commit FAIL of record, cmp70 32/32 equal. tp2d terminated 16:47Z.
+- READY.md beside this file; merge-ready handoff `lanes/vllm-coordinator/20260925T1755Z-handoff-from-vllm-rf-a5c.md`.
+- Pods: g1 handed to b5vc (1740Z handoff), t1 handed to b5vc (1755Z handoff). New spend about $5.
+- b2vb's row_pod heredoc item: now `row_records.match_summary`; not folded (see Found, not fixed).
 
 ## Open questions
 - none
@@ -53,3 +48,4 @@ One early checkpoint went into a second report file (`20260925T1632Z-report-vllm
 - TP rows' Commit (`pipeline/tp/commit.py`) writes runs.jsonl/summary.json but no `commit/verdict.json`, so `check.verdict.from_record`
   gives INSUFFICIENT_EVIDENCE on them. Fixing means teaching from_record the TP document set and mapping its checks to verdict
   rules: a verdict-semantics change, not small, outside a5's invariants.
+- The row_pod.sh heredoc Match verdict is now `pipeline/row_records.match_summary`; folding it into `check/verdict.py` is not small.

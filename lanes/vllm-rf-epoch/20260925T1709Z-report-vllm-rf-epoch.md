@@ -5,6 +5,7 @@ created: 2026-09-25T17:09Z
 status: open
 ---
 
+CHECKPOINT 80b19e59 (17:55Z) [open] WAIT vyv-rf-epoch-{g1,g2,moe67,moe68,tp70,tp75,h100} runs r20260925-175445-{95ae,d7a7,2424,4e8f,cc81,fa68,08bb} check-back 19:00Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: bootstraps then 13 rows at a784d421 (+golden on moe67); MoE rows end ~23:30Z
 CHECKPOINT 80b19e59 (17:46Z) [open] epoch commits 30427930 (c2b v2 cherry-pick) + a784d421 (profile id: no pod id, no fallback) pushed; items 2c/3/4 deferred as >S (STATE.md); moe67 bootstrapping; retrying L40S/2xL40S/H100 pod creation (stock low)
 CHECKPOINT 80b19e59 (17:33Z) [open] branch lane/vllm-rf-epoch (worktree /workspace-wt/epoch) = b4c 5494e29f + epoch cherry-pick of c2b dedf5313 (local 30427930, unpushed); items 2a/2b/4 in progress, 2c+3 look larger than S; pod vyv-rf-epoch-moe67 (mzp252g5m1qswn, L40S, $1.09/h) up; L40S stock low, other pods failing
 CHECKPOINT 80b19e59 (17:32Z) [open] branch lane/vllm-rf-epoch (worktree /workspace-wt/epoch) = b4c 5494e29f + epoch cherry-pick of c2b dedf5313 (local 30427930, unpushed); items 2a/2b/4 in progress, 2c+3 look larger than S; pod vyv-rf-epoch-moe67 (mzp252g5m1qswn, L40S, $1.09/h) up; L40S stock low, other pods failing

@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T17:48Z
+updated: 2026-09-25T17:56Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -25,15 +25,29 @@ updated: 2026-09-25T17:48Z
   in `padded_binding_map_of_committer` and `padded_map_of_record`), so relabelling host maps needs label and rule split first.
   None of the 13 rows is affected: all commit with `native_collect_v2b` + GPU tree (`row_pod.sh:822`, `tp_stage.sh:258`).
 
-## Running
-- `vyv-rf-epoch-moe67` (RunPod `mzp252g5m1qswn`, 1x L40S, 125 GB, 32 vCPU, $1.09/h, driver 580.126.20): bootstrap (B0, OLMOE),
-  first `research run` still shipping git history (~17:39Z).
-- Pod creation retries (tmux `epoch-create`, `/tmp/ep/retry_create.sh`): moe68, tp70 (2x), tp75 (2x), g1, h100 (SXM).
-  L40S stock is low.
+## Running (all registered, guard 90, driver 580, created 17:3x–17:49Z)
+| pod | RunPod | shape | $/h | bootstrap run | rows planned |
+|---|---|---|---|---|---|
+| vyv-rf-epoch-g1 | k9n58r873y9d0s | 1x L40S, 188 GB | 1.09 | r20260925-174831-74aa (B0,LLAMA32_1B,B1,GEMMA2_2B,MISTRAL7B) | #67 (+OLMOE) |
+| vyv-rf-epoch-g2 | qe443tt2vohzix | 1x L40S, 188 GB | 1.09 | (B0,B1,GEMMA2_2B,MISTRAL7B) | #68 (+OLMOE) |
+| vyv-rf-epoch-moe67 | mzp252g5m1qswn | 1x L40S, 125 GB | 1.09 | r20260925-173935-1a0c (B0,OLMOE) | #101 #4 #11 #23 (+LLAMA32_1B) |
+| vyv-rf-epoch-moe68 | 4ltk4vvdjnoq3o | 1x L40S, 125 GB | 1.09 | r20260925-174653-4b13 (B0,OLMOE) | #39 #57 #60 (+B1,GEMMA2_2B,MISTRAL7B) |
+| vyv-rf-epoch-tp70 | m635zk3ooaylcm | 2x L40S, 251 GB | 2.18 | r20260925-174653-5401 (B0,OLMOE) | #70 |
+| vyv-rf-epoch-tp75 | 3svupto9cex43o | 2x L40S, 204 GB | 2.18 | r20260925-174831-7d12 (B0,QWEN3_30B_A3B) | #75 |
+| vyv-rf-epoch-h100 | tev3epl52xt8gd | H100 80GB HBM3 (SXM) | 3.49 | r20260925-174952-66c1 (B0,QWEN3_4B,QWEN3_4B_FP8) | #73 #74 + golden |
+(#67/#68 Commit needs ~180 GB, hence the 188 GB pods; pod names predate that assignment.)
+
+Row runs at `a784d421`, launched 17:54Z (each waits for its pod's bootstrap, adds `BOOT_CASES`, then rows in order):
+- g1 `r20260925-175445-95ae` #67 · g2 `r20260925-175445-d7a7` #68 · moe67 `r20260925-175445-2424` #101 #4 #11 #23 then golden ·
+  moe68 `r20260925-175445-4e8f` #39 #57 #60 · tp70 `r20260925-175445-cc81` #70 · tp75 `r20260925-175445-fa68` #75
+  (GPU_UTIL 0.92, COMMIT_GPU_UTIL 0.80) · h100 `r20260925-175445-08bb` #73 #74.
+- 17:52Z runs `r20260925-175229-*` failed at once (unexpanded `$RESEARCH_RUN_DIR` in the launch line); nothing ran.
+Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit even on a Match FAIL, PAIRS=1, evidence
+`$RESEARCH_RUN_DIR/sweep/<row>/`.
 
 ## Next
-- Rows at `a784d421`: #67 on moe67 first, then the rest as pods appear. Golden re-record (item 5) on a pod.
-- `rebaseline.py run/table/write --dry-run/write`.
+- Rows at `a784d421` once each bootstrap ends. Golden re-record (item 5, `/tmp/ep/golden.sh`) on a pod.
+- `rebaseline.py run --record DIR` with `VERITY_REGRESSION_ROWS_ROOT=<run>/sweep` on each recording pod, then table / write.
 
 ## Open questions
 - (none)

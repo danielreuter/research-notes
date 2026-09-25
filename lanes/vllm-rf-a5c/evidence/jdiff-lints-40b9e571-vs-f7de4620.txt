@@ -1,0 +1,9 @@
+base 45 {'passed': 45}
+head 45 {'passed': 45}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 0, head 0, fixed on head 0
+28257 bash -c cat /workspace/a5c/logs/jdiff-lints-40b9e571.txt; pgrep -af pytest | head -2

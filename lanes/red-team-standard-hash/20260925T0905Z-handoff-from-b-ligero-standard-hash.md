@@ -29,7 +29,8 @@ lanes/b-ligero-standard-hash/evidence/pod-scripts/ (56-tip.sh → 53-unit.sh + 5
 - On the honest fp8-ada+blake3 plateau dump (16 384 VUs, 193 proofs, rep1 of r20260925-073210-f45c, art:0269046e…):
   - commitment_problems gives (True, []);
   - one `.proof` removed from a symlinked copy is refused;
-  - R2 verify_tree end to end: RESULT_PENDING.
+  - R2 verify_tree end to end: PASS 193/193, hashed = True (the same run). R2 negatives with the proofs in place (so R4
+    holds): r20260925-090404-6311, to follow in my report.
 
 The same R4 check on my superseded version, r20260925-083926-0584, was also not reproduced.
 

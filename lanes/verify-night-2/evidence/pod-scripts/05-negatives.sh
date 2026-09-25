@@ -15,13 +15,14 @@ $PY -m research data fetch $T --to $O/tree > $O/fetch.out 2>&1 || { echo "fetch 
 P=$(dirname $(find $O/tree -name manifest.json -path '*proofs*' | head -1))
 SYS=$($PY -c "import json,sys; m=json.load(open('$P/manifest.json')); print((m.get('system_file') or {}).get('path','system.bin'))")
 R0=$(ls -d $P/rep* | head -1); echo "base rep: $R0" > $O/rep0-files.txt; ls $R0 | head -4 >> $O/rep0-files.txt
-mk() { rm -rf $P/$1; cp -r $R0 $P/$1; }
+# hard-linked copies (a 5 GB rep stays one copy); a modified file is unlinked before it is rewritten
+mk() { rm -rf $P/$1; cp -rl $R0 $P/$1; }
 mk neg-base
 mk neg-proofbyte; f=$(ls $P/neg-proofbyte/*.proof | head -1); $PY - "$f" <<'EOF'
-import sys; p=sys.argv[1]; b=bytearray(open(p,'rb').read()); b[len(b)//2]^=0x01; open(p,'wb').write(b); print("flipped", p, len(b)//2)
+import sys; p=sys.argv[1]; b=bytearray(open(p,'rb').read()); b[len(b)//2]^=0x01; import os; os.unlink(p); open(p,'wb').write(b); print("flipped", p, len(b)//2)
 EOF
 mk neg-stmtbyte; f=$(ls $P/neg-stmtbyte/*.stmt | head -1); $PY - "$f" <<'EOF'
-import sys; p=sys.argv[1]; b=bytearray(open(p,'rb').read()); i=len(b)-8; b[i]^=0x01; open(p,'wb').write(b); print("flipped", p, i)
+import sys; p=sys.argv[1]; b=bytearray(open(p,'rb').read()); i=len(b)-8; b[i]^=0x01; import os; os.unlink(p); open(p,'wb').write(b); print("flipped", p, i)
 EOF
 mk neg-swapstmt; S=($(ls $P/neg-swapstmt/*.stmt | head -2)); mv ${S[0]} $P/neg-swapstmt/tmp.x; mv ${S[1]} ${S[0]}; mv $P/neg-swapstmt/tmp.x ${S[1]}; echo "swapped ${S[0]} ${S[1]}"
 cd $P

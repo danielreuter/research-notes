@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 806a2f73 (09:04Z) [open] tip 806a2f73: merged ligero-steps-pin R4 + main 94b1c4d2 (GPU committer); fixed R4 test regression; cells art:5d20ad00 (4096) + art:d6328cf5 (plateau) -> verify-night-2; handoffs red-team/coordinator/steps-pin; next GPU smoke + x4 fold
 CHECKPOINT f4d797b (08:50Z) [open] R4 not reproduced; merged ligero-steps-pin 06176b41 at fcf9a35b; tip check running; next handoffs + x4 fold
 CHECKPOINT fcf9a35b (08:50Z) [open] R4 not reproduced on my fix (r..083926); merged ligero-steps-pin 06176b41 (their R1/R2/R4) at fcf9a35b to avoid divergence; tip check r..084934 running; next: handoffs red-team/coordinator (plateau art:d6328cf5 for verify), x4 fold probe+sweep.
 CHECKPOINT d69d082 (07:39Z) [open] fp8-ada+blake3 4090 l4096 p2 4096 VUs (r..6238, art:fdda2a3a run record): t.total 4.31s + commit 0.65s = e2e 4.96s, 1.30e8x, 2^-128.40, Rust batch ACCEPT pinned. Merged blake3-80gb (sweep_vu + steps-pin). Plateau sweep r..f45c at 8192 VUs.

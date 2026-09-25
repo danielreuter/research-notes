@@ -40,8 +40,8 @@ for tag in ("epoch", "head"):
     out[tag] = {"run_roots": v.get("run_roots"), "commit_pass": v.get("commit_pass"), "program_digest": rm.get("program_digest"),
                 "manifest_digest": rm.get("manifest_digest"), "first_fail_reason": v.get("first_fail_reason"),
                 "build_summary": {k: (x.get("program_digest") if isinstance(x, dict) else None) for k, x in bs.items() if isinstance(x, dict)},
-                "ampere_ids": sorted({i for p in glob.glob(f"{d}/build_request*/descriptor.json.gz")
-                                      for i in __import__("json").load(__import__("gzip").open(p, "rt"))["definitions"] if "AmpereBF16TcDot16" in i})}
+                "ampere_ids": sorted({x["id"] for p in glob.glob(f"{d}/build_request*/descriptor.json.gz")
+                                      for x in json.load(__import__("gzip").open(p, "rt"))["definitions"].values() if "AmpereBF16TcDot16" in x["id"]})}
     print(tag, json.dumps(out[tag]))
 json.dump(out, open(sys.argv[1] + "/r101_epoch_summary.json", "w"), indent=1)
 if len(out) == 2:

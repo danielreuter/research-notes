@@ -3,7 +3,7 @@ id: vllm-rf-c2/state
 lane: vllm-rf-c2
 kind: state
 agent: bc-568d82f4 (Cursor), coordinator bc-ba6cec03
-updated: 2026-09-25T10:57Z
+updated: 2026-09-25T11:21Z
 ---
 # c2 (Definition library, D8/D9, decision 3a): state
 
@@ -43,6 +43,15 @@ a4 base: 10996616
   MUFU (b1's kernels + package tables), ref vocabulary (pinned unit), F32Max (kernel), app-specific, DotBf16_v1 family,
   DotE4m3{K}, collectives, AmpereBF16TcDot16 (v1 vs core v2: epoch).
 - `ref_vocab_digest` changes at steps 2 and 3 (code-identity pin; record before/after).
+
+## Gates at the pre-epoch head `5e21eead` (so far)
+- Gate (b) `r20260925-104202-1d10` (vyv-rf-c2-reg, head and base concurrently): base 51 F / 3647 P / 286 S / 11 E; head 51 F /
+  3648 P / 287 S / 11 E. jdiff: 0 new failures, 0 new skips / skip reasons, 0 renamed; +2 new tests (the one-process test, both
+  orders); 1 outcome change = a1's known order-dependent allocator test. `evidence/gate_b-5e21eead/`.
+- Stored Programs, #101 (the only row whose store tree carries its descriptors): 3 descriptors, stored digest == artifact.json,
+  decode + re-encode through base and head reproduce it; all 727 registered composites re-specialize through either library to
+  the stored v1 encoding (`r20260925-111122-91e4`). Other rows' store trees have instances only (spec ids): closure run
+  `r20260925-111909-09b4` re-specializes every top-level spec id through base and head and scans for AmpereBF16TcDot16_v1.
 
 ## Running
 - `vyv-rf-c2-cpu` (RunPod `v34wij1rkanus8`, cpu3g 32 vCPU / 128 GB, EPYC 7702P, guard 90, from 08:51Z, $1.28/h):

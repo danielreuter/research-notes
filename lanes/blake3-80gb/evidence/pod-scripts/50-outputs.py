@@ -24,7 +24,8 @@ for sj in sorted(rd.glob("*/sweep.json")):
         proofs = sj.parent / p["dir"] / "proofs"
         ent = {"name": name, "kind": "bench-result/v1", "meta": meta}
         if (proofs / "rep1").is_dir():
-            outs.append({"name": name + "-proofs", "kind": "run-files/v1", "tree": str(proofs.relative_to(rd)),
+            # rooted at the point dir: main's reverify reads <tree>/proofs/manifest.json (verify-night-2 1030Z)
+            outs.append({"name": name + "-proofs", "kind": "run-files/v1", "tree": str(proofs.parent.relative_to(rd)),
                          "meta": {"lane": lane, "tag": f"{tag}/{p['dir']}/proofs", "label": f"{lane} {tag} {p['dir']} proof dump"}})
             ent["refs"] = {"run_files": "@" + name + "-proofs"}
         outs.append(ent)

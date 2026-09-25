@@ -95,6 +95,12 @@ static UnitNetDev g_net{};
 static bool g_net_ok = false;
 static uint8_t *g_dx = nullptr, *g_dw = nullptr;
 static int g_eb = 0, g_nvu = 0, g_upv = 0, g_rowlen = 0;
+// mode 3: unit witness launched ahead on a non-blocking stream (overlapping the BLAKE3 proof), then copied in
+static cudaStream_t g_pre_st = nullptr;
+static cudaEvent_t g_pre_ev = nullptr;
+static void* g_pre[4] = {nullptr, nullptr, nullptr, nullptr};
+static int g_pre_m = -1;
+static bool g_pre_ok = false;
 '''
     s = sub(s, "cudaError_t lig_arena_alloc(void** p, size_t bytes)", helpers + "\ncudaError_t lig_arena_alloc(void** p, size_t bytes)")
     s = sub(s, "int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {",
@@ -105,7 +111,15 @@ static int g_eb = 0, g_nvu = 0, g_upv = 0, g_rowlen = 0;
             "    auto glue_t0 = std::chrono::steady_clock::now(); g_ph_t = glue_t0; g_ph_g = flock_glue_grind_secs;")
     s = sub(s, "    const int n_blocks_log = m - 14;", "    const int n_blocks_log = m - k_log;")
     blk = "    {\n        uint32_t *d_cv, *d_m, *d_blen, *d_flags; b3u64* d_ctr;"
-    s = sub(s, blk, """    if (mode == 2) {
+    s = sub(s, blk, """    if (mode == 3) {
+        if (!g_pre_ok || g_pre_m != m) { printf("FFI: no unit witness launched for m %d\\n", m); return 108; }
+        CK(cudaStreamWaitEvent(0, g_pre_ev, 0));
+        CK(cudaMemcpyAsync(df, g_pre[0], len * sizeof(F128), cudaMemcpyDeviceToDevice, 0));
+        CK(cudaMemcpyAsync(d_a, g_pre[1], len * sizeof(F128), cudaMemcpyDeviceToDevice, 0));
+        CK(cudaMemcpyAsync(d_b, g_pre[2], len * sizeof(F128), cudaMemcpyDeviceToDevice, 0));
+        CK(cudaMemcpyAsync(d_zlin, g_pre[3], (size_t)len * 16, cudaMemcpyDeviceToDevice, 0));
+        g_pre_ok = false;
+    } else if (mode == 2) {
         if (!g_net_ok || !g_dx || k_log != UW_K_LOG) { printf("FFI: unit netlist / rows not set (or k_log %d)\\n", k_log); return 106; }
         CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total,
                                (uw_u64*)df, (uw_u64*)d_a, (uw_u64*)d_b, d_zlin));
@@ -163,6 +177,30 @@ int flock_cuda_prove_host(const FlockCudaProveParams* P, const F128* z, const F1
 int flock_glue_prove_unit(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
     return prove_impl(P, out, out_len, 2, nullptr, nullptr, nullptr, nullptr);
 }
+int flock_glue_prove_unit_pre(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
+    return prove_impl(P, out, out_len, 3, nullptr, nullptr, nullptr, nullptr);
+}
+// Enqueue the unit witness for an m-sized proof on the side stream and return at once (consumed by mode 3).
+int flock_glue_unit_witness_launch(int m, int k_log) {
+    if (!g_net_ok || !g_dx || k_log != UW_K_LOG) return 106;
+    long long len = 1LL << (m - 7), n_total = 1LL << (m - k_log);
+    if (!g_pre_st) {
+        CK(cudaStreamCreateWithFlags(&g_pre_st, cudaStreamNonBlocking));
+        CK(cudaEventCreateWithFlags(&g_pre_ev, cudaEventDisableTiming));
+    }
+    if (g_pre_m != m) {
+        for (int i = 0; i < 4; i++) {
+            if (g_pre[i]) { CK(cudaFree(g_pre[i])); }
+            CK(cudaMalloc(&g_pre[i], len * 16));
+        }
+        g_pre_m = m;
+    }
+    CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total, (uw_u64*)g_pre[0], (uw_u64*)g_pre[1],
+                           (uw_u64*)g_pre[2], (uint8_t*)g_pre[3], g_pre_st));
+    CK(cudaEventRecord(g_pre_ev, g_pre_st));
+    g_pre_ok = true;
+    return 0;
+}
 // hdr = useful, const_pos, n_in, n_x, n_w, n_c, k, bits, n_gates, n_segs, n_batches
 int flock_glue_unit_setup(const int* hdr, const uint32_t* gdesc, const uint32_t* gstart, const uint16_t* cols, int n_cols,
                           const int* seg_end, const int* batch_seg, const int* cout) {
@@ -216,6 +254,17 @@ int flock_glue_unit_witness_dump(int m, int k_log, F128* hz, F128* ha, F128* hb,
 }
 '''
     s = sub(s, '} // extern "C"', api + '} // extern "C"')
+    # every prover kernel and copy is on the legacy stream: syncing it keeps the prover's ordering and lets the
+    # mode-3 side stream keep running (a device-wide sync would wait for it)
+    s = s.replace("cudaDeviceSynchronize()", "cudaStreamSynchronize(0)")
     s = "// flock-glue patched (see lanes/flock-glue/evidence/pod-scripts/patch_ffi.py)\n" + s
     p.write_text(s)
     print("patched prove_ffi.cu")
+
+p = pathlib.Path("cuda-ghash/ligerito_f256.cuh")
+s = p.read_text()
+if MARK not in s:
+    assert s.count("cudaDeviceSynchronize()") == 1
+    s = "// flock-glue: device-wide sync -> legacy-stream sync\n" + s.replace("cudaDeviceSynchronize()", "cudaStreamSynchronize(0)")
+    p.write_text(s)
+    print("patched ligerito_f256.cuh")

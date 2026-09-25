@@ -1,0 +1,1 @@
+# global_match impl=fast (MATCH_IMPL='fast') workers=8 (MATCH_WORKERS=default) compact_args=True relocated_components=64 (Build recorded '/workspace/v2corr/llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager/shapes/build_request_LP1024_T46' ...)

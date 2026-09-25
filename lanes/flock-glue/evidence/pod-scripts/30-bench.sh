@@ -4,10 +4,11 @@
 #   before  = mode 1: host-built unit witness (flock-bench tiled vectors) + 2.1 GB pageable upload, host PoW grinding
 #   devwit  = mode 2: unit witness built on the device from resident operand rows, host PoW grinding
 #   devgpu  = mode 2 + FLOCK_GLUE_GPU_GRIND=1 (Fiat-Shamir PoW searched on the GPU)
+#   devovl  = devgpu + mode 3: unit witness on a side stream overlapping the BLAKE3 proof, then the unit proof
 # then one diagnostic phase-timer run per mode (FLOCK_GLUE_PHASES=1, syncs at each phase: not a timing run).
 # Flock profile: b684b12 default (Fast Ligerito, SHA-256 FS + Merkle, GF(2^128), "strict 128" = 16-bit PoW credit;
 # about 2^-100 under campaign accounting, red-team-link §3).
-# env: PIPES="ampere_bf16" NVUS="1024 4096" VARIANTS="before devwit devgpu" REPS=5 PHASES=1
+# env: PIPES="ampere_bf16" NVUS="1024 4096" VARIANTS="before devwit devgpu devovl" REPS=5 PHASES=1
 set -uxo pipefail
 export MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1000000000000
 W=/workspace/flock-glue; F=$W/flock
@@ -39,11 +40,12 @@ run() {  # tag pipe nvu mode reps [env...]
 }
 for pipe in ${PIPES:-ampere_bf16}; do
   for nvu in ${NVUS:-1024 4096}; do
-    for v in ${VARIANTS:-before devwit devgpu}; do
+    for v in ${VARIANTS:-before devwit devgpu devovl}; do
       case $v in
         before) run $pipe-$nvu-before $pipe $nvu 1 ${REPS:-5};;
         devwit) run $pipe-$nvu-devwit $pipe $nvu 2 ${REPS:-5};;
         devgpu) run $pipe-$nvu-devgpu $pipe $nvu 2 ${REPS:-5} FLOCK_GLUE_GPU_GRIND=1;;
+        devovl) run $pipe-$nvu-devovl $pipe $nvu 3 ${REPS:-5} FLOCK_GLUE_GPU_GRIND=1;;
       esac
     done
     if [ "${PHASES:-1}" = 1 ]; then

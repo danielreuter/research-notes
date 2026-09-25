@@ -40,7 +40,10 @@ def t(f):
 for rep in range(REPS + 1):
     tr = Transcript(b"prof")
     pts, t_pts = t(lambda: LK.points(tr, link))
-    T, t_eq = t(lambda: LK.eq_table(pts, dev))
+    T, t_eq = t(lambda: LK.eq_table(pts, dev, lay.n_pos))
+    if rep == 0:
+        assert torch.equal(LK.eq_table(pts, dev)[:lay.n_pos], T), "truncated eq table differs"
+        print("truncated eq table equals the full one on every row < n_pos", flush=True)
     z, t_z = t(lambda: LK.z_bits(link, dev))
     (sy, sb), t_y = t(lambda: LK.plane_sums(T, lay, z, cols))
     t_s = 0.0

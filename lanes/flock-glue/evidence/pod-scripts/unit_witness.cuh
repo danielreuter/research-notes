@@ -29,6 +29,9 @@ typedef unsigned long long uw_u64;
 #define UW_MAX_SEGS 1024
 #define UW_MAX_BATCHES 256
 
+#ifndef UW_PROFILE_ON
+#define UW_PROFILE_ON 0       // -DUW_PROFILE_ON=1: clock64 phase split of CTA 0 (it lengthens the critical path)
+#endif
 __device__ unsigned long long uw_prof[8];   // cycles in CTA 0: input, copy, narrow, wide, output; [5] narrow segs, [6] wide segs
 #define UW_PROF(slot) do { if (prof) { long long _t = clock64(); pacc[slot] += _t - prof_t; prof_t = _t; } } while (0)
 
@@ -105,7 +108,7 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
     uint32_t* scr_a = scratch + (size_t)blockIdx.x * 2 * UW_K;
     uint32_t* scr_b = scr_a + UW_K;
     const int U = pad ? 1 : units_per_vu;
-    const bool prof = blockIdx.x == 0 && tid == 0;
+    const bool prof = UW_PROFILE_ON && blockIdx.x == 0 && tid == 0;
     long long prof_t = clock64(), pacc[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     const int v = (int)blockIdx.x * 32 + lane;
     const bool vv = !pad && v < n_vu;

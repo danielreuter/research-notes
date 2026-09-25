@@ -2,6 +2,8 @@
 // ======================= flock-glue =======================
 // Census unit witness built on the device from resident operand rows (mode 2), the host-built + uploaded
 // witness (mode 1, flock-bench's port: the "before" path), and Flock-CUDA's BLAKE3 row-leaf proof (mode 0).
+// Mode 3 = mode 2 with the unit witness enqueued on a side stream first, the BLAKE3 proof run while it builds,
+// then the unit proof (it waits for the witness and copies it into its arena).
 use flock_prover::r1cs_hashes::verity_unit::Netlist;
 
 static UNIT_CSC: OnceLock<CscMatrices> = OnceLock::new();
@@ -11,6 +13,8 @@ unsafe extern "C" {
     fn flock_cuda_prove_host(p: *const ProveParams, z: *const F128, a: *const F128, b: *const F128,
         zl: *const u8, out: *mut *mut u8, out_len: *mut usize) -> i32;
     fn flock_glue_prove_unit(p: *const ProveParams, out: *mut *mut u8, out_len: *mut usize) -> i32;
+    fn flock_glue_prove_unit_pre(p: *const ProveParams, out: *mut *mut u8, out_len: *mut usize) -> i32;
+    fn flock_glue_unit_witness_launch(m: i32, k_log: i32) -> i32;
     fn flock_glue_unit_setup(hdr: *const i32, gdesc: *const u32, gstart: *const u32, cols: *const u16, n_cols: i32,
         seg_end: *const i32, batch_seg: *const i32, cout: *const i32) -> i32;
     fn flock_glue_rows_upload(x: *const u8, w: *const u8, elem_bytes: i32, n_vu: i32, units_per_vu: i32, row_len: i32) -> i32;
@@ -357,7 +361,7 @@ fn glue_bench() {
     let nbl: usize = std::env::var("GLUE_UNIT_NBL").map_or_else(|_| nbl_for(n_vu * g.upv), |s| s.parse().unwrap());
     assert!(1usize << nbl >= n_vu * g.upv);
     let m = 13 + nbl;
-    if mode == 2 {
+    if mode >= 2 {
         setup_device(&g);
         let (x, w) = gen_rows(&g, n_vu, 20260925, plant);
         upload_rows(&g, &x, &w, n_vu);
@@ -373,9 +377,15 @@ fn glue_bench() {
     }
     let unit = || gpu_prove_with(stmt((1, nbl), || unit_r1cs(&g, nbl)), &UNIT_CSC, mode, None);
     let b3 = || gpu_prove(b3_nbl, None);
+    let launch = || assert_eq!(unsafe { flock_glue_unit_witness_launch(m as i32, 13) }, 0, "unit witness launch");
+    assert!(mode != 3 || b3_nbl > 0, "mode 3 overlaps the unit witness with the BLAKE3 proof");
     // warm-up (arena, twiddles, matrices, zerocheck tables)
+    if mode == 3 {
+        launch();
+        let _ = b3();
+    }
     let a = unit();
-    if b3_nbl > 0 {
+    if b3_nbl > 0 && mode != 3 {
         let _ = b3();
     }
     match verify_art(&a) {
@@ -387,12 +397,20 @@ fn glue_bench() {
     let mut pw = Vec::new();
     for rep in 0..reps {
         let t0 = Instant::now();
+        let (mut ba, mut hb) = (None, (0.0, 0.0));
+        if mode == 3 {
+            launch();
+            ba = Some(b3());
+            hb = *LAST_HOST.lock().unwrap();
+        }
         let ua = unit();
         let t_unit = t0.elapsed().as_secs_f64();
         let hu = *LAST_HOST.lock().unwrap();
-        let ba = if b3_nbl > 0 { Some(b3()) } else { None };
+        if mode != 3 && b3_nbl > 0 {
+            ba = Some(b3());
+            hb = *LAST_HOST.lock().unwrap();
+        }
         let t_all = t0.elapsed().as_secs_f64();
-        let hb = if b3_nbl > 0 { *LAST_HOST.lock().unwrap() } else { (0.0, 0.0) };
         // prover wall: from entering the unit call until the BLAKE3 proof bytes are back (host parse excluded)
         let prover = t_all - hu.1 - hb.1;
         println!("VHOST rep={rep} unit_pre={:.4} unit_parse={:.4} b3_pre={:.4} b3_parse={:.4} prover_wall={prover:.4}", hu.0, hu.1, hb.0, hb.1);

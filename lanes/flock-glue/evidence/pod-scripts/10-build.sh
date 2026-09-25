@@ -8,7 +8,7 @@ source $HOME/.cargo/env
 export PATH=/usr/local/cuda-13.3/bin:$PATH NVCC=/usr/local/cuda-13.3/bin/nvcc
 cd $F
 # re-apply from pristine each time (the patchers are idempotent only on first application)
-git checkout -q cuda-ghash/prove_ffi.cu cuda-ghash/challenger.hpp
+git checkout -q cuda-ghash/prove_ffi.cu cuda-ghash/challenger.hpp cuda-ghash/ligerito_f256.cuh
 python3 $I/patch_ffi.py $I || exit 1
 P=crates/flock-prover
 cat $I/verity_unit.rs $I/verity_unit_glue.rs > $P/src/r1cs_hashes/verity_unit.rs

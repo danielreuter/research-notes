@@ -9,9 +9,10 @@ created: 2026-09-25T09:50Z
 
 ## Branch
 - `lane/vllm-rf-c1` (pushed to origin; worktree `~/projects/verity-wt/rf-c1`), head **`53314d1c`**, on A4 head `10996616`
-  (`lane/vllm-rf-a4`). **A4 is not in `origin/main` yet** (last checked GATE_A_CHECK). When it lands: `git rebase --onto origin/main
-  10996616` and push (fast-forward is impossible after a rebase: the coordinator decides; I did not force-push). `origin/main` past
-  the A4 fork touches neither `packages/verity` nor `integrations/vllm`, so the gates below carry over if A4 lands unchanged.
+  (`lane/vllm-rf-a4`). **A4 is not in `origin/main` yet** (last checked 11:19Z, main `767115db`). When it lands: `git rebase --onto
+  origin/main 10996616`; pushing that rewrites the pushed branch, so it needs the coordinator's say (I did not force-push; a merge of
+  main into the branch is the alternative). `origin/main` since the A4 fork `00ffe398` touches neither
+  `packages/verity/src/verity/commitments` nor `integrations/vllm`, so the gates below carry over if A4 lands unchanged.
 - Commits (39 files, +726 / -501):
   1. `af8d9711` one `commit/scheme.py` routes every `vllm-v1` leaf and root rule over `verity.commitments.vllm_v1`: `pos_leaf` /
      `fold` / `fold_levels` stay local (prefix-once, pluggable `new`) over core's tags; headers and roots delegate to core through
@@ -51,7 +52,11 @@ Detail: STATE.md "Results", `evidence/cuda_vectors.*.json`, `evidence/weights_ro
   subprocess timeout on base: timing). `evidence/gates/jdiff_b_head3_vs_base.txt` (a1's `baseline-jdiff.py`).
   Earlier heads, same base: `472207c3` 1 new failure (dead modules -> commit 4); `7218ffbb` 1 new failure (stale p09 entry ->
   commit 5). Diffs: `evidence/gates/jdiff_b_*`.
-- **Gate (a)** T0+T1 (cpu3m 512 GB): GATE_A
+- **Gate (a)** T0+T1 (cpu3m 512 GB, `vyv-rf-c1-big`) at `7218ffbb` (`r20260925-092323-bdf1`, 09:23-11:16Z; `53314d1c` differs by one
+  allowlist line the regression tests do not read), from the prefetched fixture store, vs a23b's
+  `gate_a-t0t1-base-72884c8a-samepod.xml.gz`: **158 tests, 73 passed / 85 skipped on both, 0 outcome changes, 0 new failures, 0 new
+  skips**. 2 skip reasons are reworded (#70, #75 TP rows: "merged by row_pod_tp2.sh" -> "merged by tp_stage.sh"), from `5cc0506e`
+  between that base and A4's head, not from this branch. `evidence/gates/jdiff_a_head2_vs_a23b_base.txt`.
 - **GPU Commit row #101** (L40S, head and base on the same pod; `r20260925-084508-e7c3` at `472207c3`, `r20260925-092150-e650` at
   `7218ffbb`; `53314d1c` differs by one allowlist line no runtime path reads):
   - run root `7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5` == the regression record, head and base;
@@ -91,7 +96,8 @@ no per-port operand tree. Its step domain is program = the committer's `root_pro
 
 ## Pods, spend, keys
 - `vyv-rf-c1-g1` (L40S, phase 1) 07:07-07:29Z; `vyv-rf-c1-g2` (L40S, $1.09/h) 08:36-09:44Z; `vyv-rf-c1-big` (cpu3m 64 vCPU /
-  512 GB, $3.52/h) 08:36Z-POD_END; two duplicate creates terminated within ~3 min, unused. All registered `guard = 90`
-  (`machines.d/vyv-rf-c1-*.toml`, marked TERMINATED). Spend: SPEND (cap $35).
+  512 GB, $3.52/h) 08:36-11:18Z; two duplicate creates terminated within ~3 min, unused. All registered `guard = 90`
+  (`machines.d/vyv-rf-c1-*.toml`, marked TERMINATED); **no pod of this lane is running**. Spend: about **$11.4** (phase 1 $0.40,
+  g2 $1.24, big $9.50, duplicates $0.23; cap $35).
 - Fixture keys: minted on the laptop (3 h, object-read-only), piped by ssh into `/root/r2ro.env` on my own pod, never printed; deleted
   right after each fetch (07:23Z on g1; 09:02:43Z on big, confirmed absent). No other lane's key used.

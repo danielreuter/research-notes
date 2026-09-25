@@ -5,6 +5,7 @@ created: 2026-09-25T10:22Z
 status: open
 ---
 
+CHECKPOINT none (11:17Z) [open] 11:16Z: re-productions still benching (fp8-ada 18 min, bf16-hopper 16 min CPU, no rep dir yet); regression at ~50%. Report: tests, tile negatives, old-dump fail-closed, cells needing re-run drafted.
 CHECKPOINT none (11:05Z) [open] 11:05Z: fp8-ada and bf16-hopper shared-local CPU re-productions with set.tile running on vy-reverify-tile (both benching); regression at 36%+ (1 F so far, checking). Tip f3cdfd5d pushed; focus tests 62 passed + cargo green.
 CHECKPOINT 824a9924 (10:58Z) [open] tip f3cdfd5d (merged main 767115db per 1040Z handoff): cargo all ok, pytest focus 62 passed; old fa2be398/b460261f fail closed (no set.tile, unshared digest); running: rvt-regression, shipping rvt-repro-fp8-ada-2 (CPU re-production)
 CHECKPOINT c06cbc9 (10:41Z) [open] 0e0d663b Rust batch refuses stmt w/o proof + test; d525c08d set.tile writer + reverify tile recompute + tile negatives; pod vy-reverify-tile (cpu3c 16vCPU) running rvt-tests-1; next: re-produce shared-local fp8-ada/bf16-hopper dumps with set.tile

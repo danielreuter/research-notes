@@ -1,0 +1,329 @@
+# flock-128-r2 GPU patch: git diff vs flock b684b12 on the H100 pod (run r20260925-110456-324e, art:4e0271fe).
+# gpu_roundtrip.rs + Cargo.toml hunks = pod-scripts/g128_patch.py (profile, reps, per-rep domain, negatives);
+# build.rs = sm_90 + cuda-13.3 (flock-bench-80gb 20-gpu.sh); prove_ffi.cu = flock-bench 22-gpu-unit.sh host-witness port (unchanged).
+# The generated tests/gpu_unit.rs (untracked) is 22-gpu-unit.sh's transform of the patched gpu_roundtrip.rs.
+diff --git a/crates/flock-cuda-ffi/Cargo.toml b/crates/flock-cuda-ffi/Cargo.toml
+index 2473795..c0e7eeb 100644
+--- a/crates/flock-cuda-ffi/Cargo.toml
++++ b/crates/flock-cuda-ffi/Cargo.toml
+@@ -16,6 +16,7 @@ gpu = []
+ [dependencies]
+ 
+ [dev-dependencies]
++bincode = { workspace = true }
+ flock-core = { path = "../flock-core" }
+ flock-prover = { path = "../flock-prover" }
+ 
+diff --git a/crates/flock-cuda-ffi/build.rs b/crates/flock-cuda-ffi/build.rs
+index 2a3f707..f387f8f 100644
+--- a/crates/flock-cuda-ffi/build.rs
++++ b/crates/flock-cuda-ffi/build.rs
+@@ -43,7 +43,7 @@ fn main() {
+ 
+     let status = Command::new(&nvcc)
+         .args(["-O3", "-std=c++17", "-lineinfo"])
+-        .args(["-gencode", "arch=compute_120,code=sm_120"])
++        .args(["-gencode", "arch=compute_90,code=sm_90"])
+         .args(["-Xcompiler", "-fPIC"])
+         .arg("-lib")
+         .arg(&src)
+@@ -56,7 +56,7 @@ fn main() {
+     println!("cargo:rustc-link-search=native={}", out_dir.display());
+     println!("cargo:rustc-link-lib=static=flock_cuda_prover");
+     // CUDA runtime + C++ host runtime for the nvcc-generated host code.
+-    for dir in ["/usr/local/cuda/lib64", "/usr/local/cuda/lib64/stubs"] {
++    for dir in ["/usr/local/cuda-13.3/lib64", "/usr/local/cuda-13.3/lib64/stubs"] {
+         println!("cargo:rustc-link-search=native={dir}");
+     }
+     println!("cargo:rustc-link-lib=dylib=cudart");
+diff --git a/crates/flock-cuda-ffi/tests/gpu_roundtrip.rs b/crates/flock-cuda-ffi/tests/gpu_roundtrip.rs
+index c191d3d..5d4e7a7 100644
+--- a/crates/flock-cuda-ffi/tests/gpu_roundtrip.rs
++++ b/crates/flock-cuda-ffi/tests/gpu_roundtrip.rs
+@@ -48,6 +48,35 @@ const DOMAIN: &[u8] = b"flock-lig-r1cs-v0";
+ /// it instead of inheriting the repo default (BLAKE3).
+ const CUDA_HASH: HashKind = HashKind::Sha256;
+ static GPU_TEST_LOCK: Mutex<()> = Mutex::new(());
++static G128_DOMAIN: Mutex<Vec<u8>> = Mutex::new(Vec::new());
++fn g128_env(k: &str, d: &str) -> String {
++    std::env::var(k).unwrap_or_else(|_| d.to_string())
++}
++fn g128_profile() -> flock_core::pcs::ligerito::LigeritoProfile {
++    use flock_core::pcs::ligerito::LigeritoProfile as L;
++    match g128_env("GPU_PROFILE", "fast").as_str() {
++        "fast" => L::Fast,
++        "fast100" => L::Fast100,
++        o => panic!("GPU_PROFILE {o}"),
++    }
++}
++fn g128_other(l: flock_core::pcs::ligerito::LigeritoProfile) -> flock_core::pcs::ligerito::LigeritoProfile {
++    use flock_core::pcs::ligerito::LigeritoProfile as L;
++    if l == L::Fast { L::Fast100 } else { L::Fast }
++}
++fn g128_reps() -> usize {
++    g128_env("GPU_REPS", "1").parse().unwrap()
++}
++fn g128_rep_domain(rep: usize) -> Vec<u8> {
++    format!("flock-128/{}x{}/rep{rep}", g128_env("GPU_PROFILE", "fast"), g128_reps()).into_bytes()
++}
++fn g128_set_rep(rep: usize) {
++    *G128_DOMAIN.lock().unwrap() = g128_rep_domain(rep);
++}
++fn g128_domain() -> Vec<u8> {
++    let d = G128_DOMAIN.lock().unwrap().clone();
++    if d.is_empty() { DOMAIN.to_vec() } else { d }
++}
+ static BLAKE3_CSC_MATRICES: OnceLock<CscMatrices> = OnceLock::new();
+ 
+ struct CscMatrices {
+@@ -220,7 +249,7 @@ fn gpu_prove(n_blocks_log: usize, dump_z: Option<&str>) -> GpuArtifacts {
+         m,
+         log_inv_rate: 1,
+         log_batch_size: 6,
+-        profile: Default::default(),
++        profile: g128_profile(),
+         num_lanes: None,
+         merkle_hash: CUDA_HASH,
+     };
+@@ -262,11 +291,12 @@ fn gpu_prove(n_blocks_log: usize, dump_z: Option<&str>) -> GpuArtifacts {
+     let opt = |b: Option<u32>| b.map_or(0, |x| x as i32);
+ 
+     let dump_c = dump_z.map(|p| CString::new(p).unwrap());
++    let dom = g128_domain();
+     let params = ProveParams {
+         m: m as i32,
+         statement_digest: digest.as_ptr(),
+-        domain: DOMAIN.as_ptr(),
+-        domain_len: DOMAIN.len() as u32,
++        domain: dom.as_ptr(),
++        domain_len: dom.len() as u32,
+         a_col_ptr: matrices.a_col_ptr.as_ptr(),
+         a_rows: matrices.a_rows.as_ptr(),
+         a_nnz: matrices.a_rows.len() as u32,
+@@ -427,74 +457,73 @@ fn gpu_prove(n_blocks_log: usize, dump_z: Option<&str>) -> GpuArtifacts {
+     }
+ }
+ 
+-/// Full roundtrip: GPU prove, Rust verify; with `tamper`, also check that two
+-/// corrupted variants are rejected.
++/// flock-128 roundtrip: GPU_REPS sequential proofs (one transcript domain each), GPU_RUNS timed runs.
+ fn roundtrip<const N_BLOCKS_LOG: usize, const TAMPER: bool>() {
+     let _test_guard = GPU_TEST_LOCK.lock().expect("GPU test lock poisoned");
++    let reps = g128_reps();
++    let runs: usize = g128_env("GPU_RUNS", "3").parse().unwrap();
++    let expect_reject = g128_env("EXPECT_REJECT", "0") == "1";
++    g128_set_rep(0);
+     let warmup_secs = gpu_prove(N_BLOCKS_LOG, None).prove_secs;
+-    let GpuArtifacts {
+-        r1cs,
+-        pcs_params,
+-        proof,
+-        commitment,
+-        prove_secs,
+-    } = gpu_prove(N_BLOCKS_LOG, None);
++    let mut run_secs: Vec<f64> = Vec::new();
++    let mut last: Vec<GpuArtifacts> = Vec::new();
++    for _ in 0..runs {
++        last.clear();
++        for rep in 0..reps {
++            g128_set_rep(rep);
++            last.push(gpu_prove(N_BLOCKS_LOG, None));
++        }
++        run_secs.push(last.iter().map(|g| g.prove_secs).sum());
++    }
++    let r1cs = &last[0].r1cs;
+     let m = r1cs.m;
+     let lc_circuit = SparseMatrixCircuit::new(&r1cs.a_0, &r1cs.b_0).with_const_pin(r1cs.const_pin);
++    let check = |g: &GpuArtifacts, proof: &R1csProofLigerito, dom: &[u8], pp: &PcsParams, cm: &Commitment| {
++        let mut ch = FsChallenger::with_hash(dom, CUDA_HASH);
++        verify_ligerito(&g.r1cs, cm, proof, &lc_circuit, pp, &mut ch)
++    };
+     let t1 = Instant::now();
+-    let mut ch_v = FsChallenger::with_hash(DOMAIN, CUDA_HASH);
+-    let claim = verify_ligerito(
+-        &r1cs,
+-        &commitment,
+-        &proof,
+-        &lc_circuit,
+-        &pcs_params,
+-        &mut ch_v,
+-    )
+-    .unwrap_or_else(|e| panic!("Rust verifier rejected the GPU proof at m={m}: {e:?}"));
++    let mut ok = true;
++    for (rep, g) in last.iter().enumerate() {
++        let r = check(g, &g.proof, &g128_rep_domain(rep), &g.pcs_params, &g.commitment);
++        if expect_reject {
++            assert!(r.is_err(), "witness-tampered GPU proof accepted at m={m}");
++            println!("G128NEG {{\"m\":{m},\"negative\":\"witness_tampered_rep{rep}\",\"rejected\":true,\"why\":\"{:?}\"}}", r.err().unwrap());
++            ok = false;
++        } else {
++            r.unwrap_or_else(|e| panic!("Rust verifier rejected GPU rep{rep} proof at m={m}: {e:?}"));
++        }
++    }
++    let verify_secs = t1.elapsed().as_secs_f64();
++    let mut sorted = run_secs.clone();
++    sorted.sort_by(|a, b| a.partial_cmp(b).unwrap());
++    let bytes: Vec<usize> = last.iter().map(|g| bincode::serialize(&g.proof).unwrap().len() + bincode::serialize(&g.commitment).unwrap().len()).collect();
+     println!(
+-        "GPU proof verified: m={m}, warmup {:.4}s, steady prove(+glue) {:.4}s, verify {:.4}s, ab claim {:016x}:{:016x}",
+-        warmup_secs,
+-        prove_secs,
+-        t1.elapsed().as_secs_f64(),
+-        claim.ab.value.hi,
+-        claim.ab.value.lo
++        "G128RESULT {{\"m\":{m},\"nbl\":{},\"profile\":\"{}\",\"reps\":{reps},\"netlist\":\"{}\",\"warmup_s\":{warmup_secs:.4},\"prove_median_s\":{:.4},\"prove_min_s\":{:.4},\"prove_runs_s\":{:?},\"verify_s\":{verify_secs:.4},\"proof_bytes\":{},\"proof_bytes_per_rep\":{:?},\"all_verified\":{ok}}}",
++        N_BLOCKS_LOG, g128_env("GPU_PROFILE", "fast"), g128_env("VU_NAME", "blake3"),
++        sorted[sorted.len() / 2], sorted[0], run_secs, bytes.iter().sum::<usize>(), bytes
+     );
+-
+-    if TAMPER {
+-        // Flip one bit of the final-level clear polynomial -> reject.
+-        let mut bad = proof.clone();
+-        bad.pcs_open.ligerito.final_proof.yr[0].lo ^= 1;
+-        let mut ch_t = FsChallenger::with_hash(DOMAIN, CUDA_HASH);
+-        assert!(
+-            verify_ligerito(
+-                &r1cs,
+-                &commitment,
+-                &bad,
+-                &lc_circuit,
+-                &pcs_params,
+-                &mut ch_t
+-            )
+-            .is_err(),
+-            "verifier accepted a tampered GPU proof"
+-        );
+-        // Corrupt one zerocheck round message -> transcript replay rejects.
+-        let mut bad = proof.clone();
+-        bad.zerocheck.multilinear_rounds[0].0.hi ^= 1;
+-        let mut ch_t = FsChallenger::with_hash(DOMAIN, CUDA_HASH);
+-        assert!(
+-            verify_ligerito(
+-                &r1cs,
+-                &commitment,
+-                &bad,
+-                &lc_circuit,
+-                &pcs_params,
+-                &mut ch_t
+-            )
+-            .is_err(),
+-            "verifier accepted a zerocheck-tampered GPU proof"
+-        );
++    if expect_reject || g128_env("GPU_NEG", "0") != "1" {
++        return;
++    }
++    let neg = |name: &str, r: Result<_, _>| {
++        let e = match r { Ok(_) => panic!("negative {name} ACCEPTED at m={m}"), Err(e) => e };
++        println!("G128NEG {{\"m\":{m},\"profile\":\"{}\",\"negative\":\"{name}\",\"rejected\":true,\"why\":\"{e:?}\"}}", g128_env("GPU_PROFILE", "fast"));
++    };
++    let g0 = &last[0];
++    if reps >= 2 {
++        neg("rep0_proof_replayed_as_rep1", check(g0, &g0.proof, &g128_rep_domain(1), &g0.pcs_params, &g0.commitment));
+     }
++    let mut bad = g0.proof.clone();
++    bad.pcs_open.ligerito.final_proof.yr[0].lo ^= 1;
++    neg("yr0_bit_flipped", check(g0, &bad, &g128_rep_domain(0), &g0.pcs_params, &g0.commitment));
++    let mut bad = g0.proof.clone();
++    bad.zerocheck.multilinear_rounds[0].0.hi ^= 1;
++    neg("zerocheck_round_flipped", check(g0, &bad, &g128_rep_domain(0), &g0.pcs_params, &g0.commitment));
++    let mut pp = g0.pcs_params.clone();
++    pp.profile = g128_other(pp.profile);
++    let cm = Commitment { cap: g0.commitment.cap.clone(), params: pp.clone() };
++    neg("rep0_verified_under_other_ligerito_profile", check(g0, &g0.proof, &g128_rep_domain(0), &pp, &cm));
+ }
+ 
+ #[test]
+@@ -716,3 +745,27 @@ fn gpu_debug_diff<const M: usize>() {
+     );
+     println!("no divergence found (proofs identical at m={m})");
+ }
++
++#[test]
++#[ignore]
++fn gpu_roundtrip_vs16() {
++    roundtrip::<16, false>();
++}
++
++#[test]
++#[ignore]
++fn gpu_roundtrip_vs17() {
++    roundtrip::<17, false>();
++}
++
++#[test]
++#[ignore]
++fn gpu_roundtrip_vs18() {
++    roundtrip::<18, false>();
++}
++
++#[test]
++#[ignore]
++fn gpu_roundtrip_vs19() {
++    roundtrip::<19, false>();
++}
+diff --git a/cuda-ghash/prove_ffi.cu b/cuda-ghash/prove_ffi.cu
+index c078623..69bd087 100644
+--- a/cuda-ghash/prove_ffi.cu
++++ b/cuda-ghash/prove_ffi.cu
+@@ -13,6 +13,7 @@
+ // crates/flock-cuda-ffi/tests/gpu_roundtrip.rs::parse_proof.
+ 
+ #include <cstdio>
++#include <chrono>
+ #include <cstdint>
+ #include <cstdlib>
+ #include <cstring>
+@@ -417,13 +418,14 @@ int flock_cuda_device_count() {
+ void flock_cuda_free(uint8_t* p) { free(p); }
+ 
+ // Returns 0 on success; out/out_len receive a malloc'd flat proof stream.
+-int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
++static int prove_impl(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len,
++                      const F128* hz, const F128* ha, const F128* hb, const uint8_t* hzl) {
+     static std::mutex prover_mutex;
+     std::lock_guard<std::mutex> prover_lock(prover_mutex);
+     const int m = P->m, k_log = P->k_log, k_skip = 6;
+     const int log_n = m - 7;                    // packed-witness log length
+     const long long len = 1LL << log_n;         // packed F128 elements
+-    const int n_blocks_log = m - 14;
++    const int n_blocks_log = m - k_log;
+     const long long n_total = 1LL << n_blocks_log;
+     const int n_blocks = (int)n_total;
+     if (n_blocks_log < 3) { printf("FFI: m too small\n"); return 101; }
+@@ -438,7 +440,15 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+     CK(ffi_malloc(&d_a, len * sizeof(F128)));
+     CK(ffi_malloc(&d_b, len * sizeof(F128)));
+     CK(ffi_malloc(&d_zlin, (size_t)len * 16));
+-    {
++    if (hz) {
++        auto tu0 = std::chrono::steady_clock::now();
++        CK(cudaMemcpy(df, hz, len * sizeof(F128), cudaMemcpyHostToDevice));
++        CK(cudaMemcpy(d_a, ha, len * sizeof(F128), cudaMemcpyHostToDevice));
++        CK(cudaMemcpy(d_b, hb, len * sizeof(F128), cudaMemcpyHostToDevice));
++        CK(cudaMemcpy(d_zlin, hzl, (size_t)len * 16, cudaMemcpyHostToDevice));
++        CK(cudaDeviceSynchronize());
++        printf("FFI: host witness upload %.4f s (%.3f GB)\n", std::chrono::duration<double>(std::chrono::steady_clock::now() - tu0).count(), 4.0 * (double)len * 16 / 1e9);
++    } else {
+         uint32_t *d_cv, *d_m, *d_blen, *d_flags; b3u64* d_ctr;
+         CK(ffi_malloc(&d_cv, (size_t)n_blocks * 8 * 4)); CK(ffi_malloc(&d_m, (size_t)n_blocks * 16 * 4));
+         CK(ffi_malloc(&d_blen, (size_t)n_blocks * 4)); CK(ffi_malloc(&d_flags, (size_t)n_blocks * 4));
+@@ -1007,4 +1017,11 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+     return 0;
+ }
+ 
++int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
++    return prove_impl(P, out, out_len, nullptr, nullptr, nullptr, nullptr);
++}
++int flock_cuda_prove_host(const FlockCudaProveParams* P, const F128* z, const F128* a, const F128* b,
++                          const uint8_t* zl, uint8_t** out, size_t* out_len) {
++    return prove_impl(P, out, out_len, z, a, b, zl);
++}
+ } // extern "C"
+ M Cargo.lock
+ M crates/flock-cuda-ffi/Cargo.toml
+ M crates/flock-cuda-ffi/build.rs
+ M crates/flock-cuda-ffi/tests/gpu_roundtrip.rs
+ M crates/flock-prover/src/r1cs_hashes.rs
+ M cuda-ghash/prove_ffi.cu
+?? crates/flock-cuda-ffi/tests/gpu_unit.rs
+?? crates/flock-prover/src/r1cs_hashes/verity_unit.rs

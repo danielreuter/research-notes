@@ -7,3 +7,4 @@ registered_by = "Daniels-MacBook-Pro.local"
 registered_at = "2026-09-25T08:39Z"
 # cpu3m 64 vCPU / 512 GB, 200 GB disk; created 2026-09-25 08:36Z by lane vllm-rf-c1 (vllm-v1 scheme): lints, gate (b) head + base,
 # gate (a) T0+T1. Terminate once its logs are fetched.
+# TERMINATED 2026-09-25T11:18Z (runs 18b5, de22, 8c77, b86c, bdf1, daa0, c681 of 2026-09-25 fetched --all).

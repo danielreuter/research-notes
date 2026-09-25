@@ -1,0 +1,226 @@
+{
+ "a": "base2",
+ "b": "head2",
+ "only_a": [],
+ "only_b": [],
+ "identical": [
+  "cmd.txt",
+  "global_match_global_program.json",
+  "stderr.log"
+ ],
+ "differ": {
+  "env.txt": [
+   {
+    "sha256_a": "6d375a1040286f7a22ddadf5e2aba4dd886ec0237ae1a56d4b381a06cd29db93",
+    "sha256_b": "d8a6f6041fb77532c7ac1bdb68f6db7854068d86b4c688944550b5874fa65035"
+   }
+  ],
+  "global_match.json": [
+   {
+    "path": "$.alternate_verdict.seconds",
+    "a": "115.9",
+    "b": "113.2"
+   },
+   {
+    "path": "$.phases[0].cpu_s",
+    "a": "0.305",
+    "b": "0.295"
+   },
+   {
+    "path": "$.phases[0].dt_s",
+    "a": "0.305",
+    "b": "0.295"
+   },
+   {
+    "path": "$.phases[0].t_end_s",
+    "a": "0.305",
+    "b": "0.295"
+   },
+   {
+    "path": "$.phases[1].cpu_s",
+    "a": "129.627",
+    "b": "125.889"
+   },
+   {
+    "path": "$.phases[1].dt_s",
+    "a": "131.513",
+    "b": "127.216"
+   },
+   {
+    "path": "$.phases[1].t_end_s",
+    "a": "131.817",
+    "b": "127.511"
+   },
+   {
+    "path": "$.phases[2].cpu_s",
+    "a": "42.037",
+    "b": "46.437"
+   },
+   {
+    "path": "$.phases[2].dt_s",
+    "a": "167.52",
+    "b": "189.943"
+   },
+   {
+    "path": "$.phases[2].t_end_s",
+    "a": "299.338",
+    "b": "317.454"
+   },
+   {
+    "path": "$.phases[3].cpu_s",
+    "a": "0.952",
+    "b": "0.909"
+   },
+   {
+    "path": "$.phases[3].dt_s",
+    "a": "0.953",
+    "b": "0.91"
+   },
+   {
+    "path": "$.phases[3].t_end_s",
+    "a": "300.29",
+    "b": "318.363"
+   },
+   {
+    "path": "$.phases[4].cpu_s",
+    "a": "2.002",
+    "b": "1.817"
+   },
+   {
+    "path": "$.phases[4].dt_s",
+    "a": "2.057",
+    "b": "1.817"
+   },
+   {
+    "path": "$.phases[4].t_end_s",
+    "a": "302.347",
+    "b": "320.18"
+   },
+   {
+    "path": "$.phases[5].t_end_s",
+    "a": "302.349",
+    "b": "320.182"
+   },
+   {
+    "path": "$.phases[6].cpu_s",
+    "a": "18.833",
+    "b": "18.857"
+   },
+   {
+    "path": "$.phases[6].dt_s",
+    "a": "115.38",
+    "b": "118.877"
+   },
+   {
+    "path": "$.phases[6].t_end_s",
+    "a": "417.729",
+    "b": "439.059"
+   },
+   {
+    "path": "$.phases[7].cpu_s",
+    "a": "1.019",
+    "b": "0.909"
+   },
+   {
+    "path": "$.phases[7].dt_s",
+    "a": "1.019",
+    "b": "0.909"
+   },
+   {
+    "path": "$.phases[7].t_end_s",
+    "a": "418.749",
+    "b": "439.968"
+   },
+   {
+    "path": "$.phases[8].cpu_s",
+    "a": "4.299",
+    "b": "4.039"
+   },
+   {
+    "path": "$.phases[8].dt_s",
+    "a": "4.3",
+    "b": "4.039"
+   },
+   {
+    "path": "$.phases[8].t_end_s",
+    "a": "423.049",
+    "b": "444.007"
+   },
+   {
+    "path": "$.phases[9].cpu_s",
+    "a": "1.872",
+    "b": "1.826"
+   },
+   {
+    "path": "$.phases[9].dt_s",
+    "a": "1.872",
+    "b": "1.827"
+   },
+   {
+    "path": "$.phases[9].t_end_s",
+    "a": "424.921",
+    "b": "445.834"
+   },
+   {
+    "path": "$.phases[10].cpu_s",
+    "a": "26.529",
+    "b": "26.696"
+   },
+   {
+    "path": "$.phases[10].dt_s",
+    "a": "116.475",
+    "b": "113.942"
+   },
+   {
+    "path": "$.phases[10].t_end_s",
+    "a": "541.396",
+    "b": "559.776"
+   },
+   {
+    "path": "$.seconds",
+    "a": "424.9",
+    "b": "445.8"
+   },
+   {
+    "path": "$.utc",
+    "a": "2026-09-25T10:51:24Z",
+    "b": "2026-09-25T11:03:47Z"
+   },
+   {
+    "path": "$.x09.seconds",
+    "a": "166.4",
+    "b": "188.9"
+   }
+  ],
+  "global_match.log": [
+   {
+    "sha256_a": "6c27d094b8a0af4cffd6f00a46a59b89170a00a000c8f46e2d3dc724e6d223c3",
+    "sha256_b": "54fea2cef8388151d5a09b5297d381954107c6134094bd9a3a782d3aa2f28faa"
+   }
+  ],
+  "match_decomp.json": [
+   {
+    "path": "$.seconds",
+    "a": "166.4",
+    "b": "188.9"
+   },
+   {
+    "path": "$.utc",
+    "a": "2026-09-25T10:53:41Z",
+    "b": "2026-09-25T11:06:00Z"
+   }
+  ],
+  "start.txt": [
+   {
+    "sha256_a": "bb6d01859fe52b417ed317fd19ad85d9863645ac32d795ebe67c823adfa6c99b",
+    "sha256_b": "a4afb9920b8a5ef11abb905c9f4093742b649fe5b4047e2b77eac50994f3cece"
+   }
+  ],
+  "wall.txt": [
+   {
+    "sha256_a": "e8c273d854ae05daae2e96120c6ea834866911445415f952adb7089ec8fad69c",
+    "sha256_b": "2e65860cf9a09122ac91c4475aea2f58d224a3d67fd7944d2bf95a863dc04925"
+   }
+  ]
+ }
+}

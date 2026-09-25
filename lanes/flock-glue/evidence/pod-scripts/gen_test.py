@@ -40,6 +40,7 @@ t = sub(t, "    let rc = unsafe { flock_cuda_prove_blake3(&params, &mut out, &mu
         "    let rc = unsafe {\n        match mode {\n"
         "            0 => flock_cuda_prove_blake3(&params, &mut out, &mut out_len),\n"
         "            2 => flock_glue_prove_unit(&params, &mut out, &mut out_len),\n"
+        "            3 => flock_glue_prove_unit_pre(&params, &mut out, &mut out_len),\n"
         "            _ => {\n                let h = HOST_WIT.get().expect(\"host witness\");\n"
         "                flock_cuda_prove_host(&params, h.0.as_ptr(), h.1.as_ptr(), h.2.as_ptr(), h.3.as_ptr(), &mut out, &mut out_len)\n"
         "            }\n        }\n    };")

@@ -42,7 +42,12 @@ created: 2026-09-25T09:10Z
   timing lines; `env.txt` only the tree path in PYTHONPATH. Verdict PASS / PASS.
 - Gate (a) head on big: prefetch 26/26 ok, key deleted 10:49:30Z; run `r20260925-105053-df3a` (`gate_a.sh $PWD a_head`) running.
 - GM-01 base2: `r20260925-105040-e8bc` rc 0, wall 592.7 s, CPU 2116.2+237.7 s, 13.34 GiB; vs head1 the same diff classes as pair 1.
-- GM-01 head2: `r20260925-110305-f7fe` running (then gate (b) head, gate (b) base on this pod).
+- GM-01 head2: `r20260925-110305-f7fe` rc 0, wall 610.5 s, CPU 2049.7+240.0 s, 13.14 GiB.
+- **GM-01 done (11:14Z).** All 4 pairs (b1/h1, b2/h2, b1/b2, h1/h2) have the same diff classes: timing fields only
+  (plus `env.txt` tree path between trees). `global_match_global_program.json` sha256 `e5c5afba...` in all four.
+  Wall: pair 1 +4.1 %, pair 2 +3.0 %, mean +3.6 %; CPU (user+sys) pair 1 +3.0 %, pair 2 -2.7 %, mean -0.05 %.
+  Evidence: `evidence/gm/{base1,base2,head1,head2,diff_*.json}`.
+- Gate (b) head: `r20260925-111421-2742` running (copy `/workspace/trees/b_head`).
 
 ## Next
 - cpu: bootstrap, GM-01 inputs (own ro key, deleted after fetch), lints, GM-01 ABAB base/head, gate (b) head + base.

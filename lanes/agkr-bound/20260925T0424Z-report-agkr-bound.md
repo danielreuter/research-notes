@@ -2,9 +2,10 @@
 lane: agkr-bound
 kind: report
 created: 2026-09-25T04:24Z
-status: open
+status: final
 ---
 
+CHECKPOINT 89433d06 (12:15Z) [final] FINAL 12:16Z tip 89433d06: sigma link built, both verifiers. A100 BF16 prove 1.20->1.53 s, FP8 0.61->0.78 s; 11/11 negs rejected Py+Rust both rows. Drill-down (L). Pod vy-agkr-bound2 terminated 12:15Z; lane ~$10.3. Reindex failed laptop+pod (timeout). MALLOC env set in all runs.
 CHECKPOINT 89433d06 (12:08Z) [open] 12:08Z: FP8 link OK (MALLOC_MMAP_MAX_=0 TRIM=1e12): prove 0.607->0.778 s, PyV 0.489->0.648, Rust 1.71->2.35; 11/11 negs rejected Py+Rust; art:60cabb96. PROTOCOL 17.4 89433d06. Custody-r2 adopted (1146Z). Reindex running on pod (laptop's killed). Next: drain + FINAL.
 CHECKPOINT 78b1a62e (11:51Z) [open] 11:50Z: Flock AVX-512/GPU nums in drill-down (A100 BF16 route a ~2.29 s w/ Flock-CUDA). FP8 sigma link on A100 (MALLOC_MMAP_MAX_=0 TRIM=1e12): prove 0.6025->0.7816 s, py verify 0.489->0.648; Rust rerun (unpinned flag) r20260925-114925-2f5c. Laptop reindex SIGKILLed again; moving it to pod.
 CHECKPOINT 011a9f1 (11:39Z) [open] 11:40Z: link built+verified (78b1a62e): prove 1.20->1.53 s, PyV 1.25->1.56, Rust 3.41->4.68 s (+0.44 derive); 11/11 negs rejected Py+Rust incl vu_remap; art:bd3d8b2c+fc687ece; handoff 1140Z. MALLOC env set. Laptop reindex killed w/o output (retry later). Drill-down L.

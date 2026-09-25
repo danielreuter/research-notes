@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 2c92b9e3 (12:12Z) [open] 12:12Z blake3-xob class review (b-ligero-standard-hash 1150Z, tip 5b28557b): code read no finding (limb ranges by construction via linked carries; pairing identity ok); scan+twin-relabel harnesses 8258ffaa/041ac181; pod recreate (1st host unreachable, terminated)
 CHECKPOINT 10996616 (11:40Z) [open] 11:40Z pod vy-red-team-sh drained/terminated (~$0.55); all 16 cited arts PRESERVED incl art:0e8faae7; remaining: label +sha256 / H100 +blake3 cells when vn2 accepts; recreate pod only for new statements
 CHECKPOINT 3ee25e12 (11:22Z) [open] 11:22Z tips b-ligero-standard-hash 672b23ae / b-ligero-sha256 b009fdc8: no statement-path change vs main 767115db, verdicts stand; 6 +blake3 cells labelled COMPLETE_ZK_BACKEND; waiting on vn2 acceptance of +sha256 cells to label; pod idle
 CHECKPOINT a81f0800 (10:41Z) [open] 10:41Z main 767115db: +blake3 and +sha256 CLASS GRANTED WITH CONDITIONS carry over (statement code = da74b03e); H2 fp8-hopper-x4+sha256 PASS art:43b92cc7; queue: agkr hash layer / vllm-v1 variants not landed; polling

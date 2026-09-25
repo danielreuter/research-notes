@@ -1,0 +1,1975 @@
+{
+ "checks": [
+  {
+   "name": "runtime_match",
+   "claim": "The committed record is the runtime occurrence's: the instrumented engine served the control's tokens, every attempted value acquisition was bound, the committed bytes open against the run root, and no committed value differs from the Match oracle where the oracle looked.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "rules": {
+     "runtime_match/tokens_equal": "PASS",
+     "runtime_match/reference_integrity": "PASS",
+     "runtime_match/fa2_zero_rows": "NOT_RUN",
+     "runtime_match/collector_errors": "PASS",
+     "runtime_match/openings": "PASS",
+     "runtime_match/openings_after_release": "PASS",
+     "runtime_match/openings_population": "NOT_RUN",
+     "runtime_match/bounded_staging": "PASS",
+     "runtime_match/oracle_compare": "PASS",
+     "runtime_match/compiled_check": "NOT_RUN"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "tokens_equal",
+    "openings",
+    "openings_after_release",
+    "oracle_compare",
+    "value_correspondence",
+    "expected_tensors",
+    "committed_tensors",
+    "errors_n",
+    "tokens_equal_ref",
+    "commit_summary.tokens_equal",
+    "extra.expected_tensors",
+    "extra.committed_tensors",
+    "fa2_zero_rows",
+    "extra.errors_n",
+    "extra.errors",
+    "openings.n",
+    "openings.verified",
+    "openings.skipped",
+    "openings.deferred_replay_n",
+    "commit_summary.openings",
+    "openings_after_release.n",
+    "openings_after_release.verified",
+    "openings_after_release.source",
+    "openings_after_release.replay_root_equal",
+    "openings_after_release.replay_errors_n",
+    "openings_after_release.retained_device_after",
+    "openings_after_release.deferred_received_positions",
+    "binding.openings_population.n",
+    "binding.openings_population.unbound_n",
+    "binding.openings_population.opened",
+    "binding.openings_population.verified",
+    "binding.openings_population.skipped",
+    "extra.bounded_staging",
+    "oracle_compare.result",
+    "oracle_compare.mismatch_n",
+    "value_correspondence.result",
+    "value_correspondence.components",
+    "value_correspondence.compiled_check",
+    "compiled_source.stats"
+   ],
+   "group": "runtime_match",
+   "rule": null,
+   "notes": [
+    "structural_leak: oracle_compare.NO_ORACLE_FAMILY_PREFIXES (kernel-interior streams excluded from the oracle by name prefix)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "local_replay",
+   "claim": "A post-commitment sample of required values replays exactly from the committed bytes under the Program's relations (C2 form (A)), over the required-value manifest Q(P) of record, with every unevaluated stratum named.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "sample_seed": 8310235722615523954,
+    "seed_source": "run root (first 8 bytes, after commitment)",
+    "artifact": "/workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/commit/sampled_replay_p0.json",
+    "commit/sampled_replay_p0.json": "9b589bfb767b9fd4d2b562eec3797990867a6ee44c002806cc2c99688629ed86",
+    "commit/sampled_replay_p1.json": "a76dca143ba18e7caf2157fb1abbb7c7df28a8059314cdcc5e3fedee0eb288d9",
+    "commit/sampled_replay_p2.json": "a76dca143ba18e7caf2157fb1abbb7c7df28a8059314cdcc5e3fedee0eb288d9"
+   },
+   "scope": {
+    "rules": {
+     "local_replay/sampled_replay": "PASS",
+     "local_replay/seed_of_record": "PASS",
+     "local_replay/population_gaps": "FAIL",
+     "local_replay/population_scope": "PASS",
+     "local_replay/attribution": "PASS"
+    }
+   },
+   "outcome": "FAIL",
+   "differences": [
+    {
+     "name": "population_gap_uncovered",
+     "why": "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not check and form (B) result None (attribution-complete): attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a -- 651550 x no registered evaluator for NarrowF32ToBf16_v1 | 107900 ",
+     "pair": 0,
+     "rule": "local_replay/population_gaps"
+    },
+    {
+     "name": "population_gap_uncovered",
+     "why": "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not check and form (B) result None (attribution-complete): attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a -- 651550 x no registered evaluator for NarrowF32ToBf16_v1 | 107900 ",
+     "pair": 1,
+     "rule": "local_replay/population_gaps"
+    },
+    {
+     "name": "population_gap_uncovered",
+     "why": "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not check and form (B) result None (attribution-complete): attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a -- 651550 x no registered evaluator for NarrowF32ToBf16_v1 | 107900 ",
+     "pair": 2,
+     "rule": "local_replay/population_gaps"
+    }
+   ],
+   "compat": [
+    "sampled_replay",
+    "sampled_replay_p*.json",
+    "replay_cache",
+    "sampled_replay.result",
+    "sampled_replay.grade",
+    "sampled_replay.why",
+    "sampled_replay.sample",
+    "sampled_replay.sample.seed",
+    "sampled_replay.sample.seed_source",
+    "sampled_replay.sample.challenge",
+    "sampled_replay.population.not_evaluable",
+    "sampled_replay.strata_unevaluated",
+    "sampled_replay.unevaluated_strata",
+    "oracle_compare",
+    "sampled_replay.population.query_total",
+    "sampled_replay.population.query_checks",
+    "sampled_replay.population.scope",
+    "sampled_replay.population.uncovered_by_name",
+    "binding.population.requests",
+    "oracle_compare.attribution"
+   ],
+   "group": "local_replay",
+   "rule": null,
+   "notes": [
+    "structural_leak: sampled_replay.EVALUATORS / NOT_YET (which families the replay can evaluate is a table by family name (the stated applicability domain))"
+   ],
+   "reason": "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not check and form (B) result None (attribution-complete): attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a -- 651550 x no registered evaluator for NarrowF32ToBf16_v1 | 107900 x no registered evaluator for AttentionSoftcap_v1 | 107900 x no registered evaluator for GeluTanhMul_v1 | 432 x no registered evaluator for Bf16MulScalar_v1"
+  },
+  {
+   "name": "boundary_linkage",
+   "claim": "Every (engine step, request) boundary is linked: the declared prompt to the input ids at the arrival step, and each sampled id to the next step's input id (C2 ordered boundary linkage).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "rules": {
+     "boundary_linkage/ordered_linkage": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "boundary_linkage",
+    "linkage",
+    "boundary_linkage.result",
+    "boundary_linkage.unlinked_n",
+    "boundary_linkage.pairs",
+    "boundary_linkage.horizon"
+   ],
+   "group": "boundary_linkage",
+   "rule": null,
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "checkpoint_binding",
+   "claim": "Every served parameter the Program names equals, by digest, the checkpoint-composed tensor of record (MAN-09), with the shards pinned by their manifest sha256.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "weights_program_digest": "db4288cb88435015ba626094541823295158e2e2a6e7d132010f7a6a1b488a77",
+    "root_of_record": "42ebeb07df842ab16f73240084096f487cf879747df67382929316e9f4a3edbe",
+    "committed_weights_root": "bea5d2c761bf97d3d585650497e1631eedad32d83280bbd50541aff493d8cff2",
+    "checkpoint_entry": "{'repo': 'unsloth/gemma-2-2b', 'revision': '25319945f7fd83b8b903e12081777b7eef2ba993'}"
+   },
+   "scope": {
+    "rules": {
+     "checkpoint_binding/weights_of_record": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "weights_pin",
+    "weights_pin.result",
+    "weights_pin.why",
+    "weights_pin.compared",
+    "weights_pin.mismatched",
+    "weights_pin.missing",
+    "weights_pin.shards"
+   ],
+   "group": "checkpoint_binding",
+   "rule": null,
+   "notes": [
+    "structural_leak: weights_of_record.FUSED / EXPERTS / EXPERTS_MIXTRAL (the checkpoint composition of fused / expert tensors is keyed by known parameter-name tables)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "execution_extent",
+   "claim": "Each request's executed prefix of record (served length; the cap on a length stop, served + LAG on an EOS stop) is derived from the declared stop rule, linked to the Match account of the same attempt, and no committed row lies past it.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "tokens_json_sha256": "644925a592dc1974cce03a1c2abf44ef55abe8ab96d3cff06be90164b6737678",
+    "global_match_sha256": "af323d6fc7f9cefe4afeddb520a87797c90061add883c2f18a9c818994b1933e"
+   },
+   "scope": {
+    "rules": {
+     "execution_extent/executed_prefix_of_record": "PASS",
+     "execution_extent/match_account_link": "PASS",
+     "execution_extent/rows_past_the_stop": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "executed_prefix",
+    "executed_prefix_of_record",
+    "executed_prefix_facts",
+    "match_account_link",
+    "rows_past_the_stop",
+    "account_missing",
+    "binding.coverage.executed_prefix_of_record",
+    "sampled_replay.executed_prefix_of_record",
+    "coverage.executed_prefix_of_record",
+    "binding.coverage.match_account_link",
+    "executed_prefix_facts.linked",
+    "executed_prefix_facts.lag_attested",
+    "binding.coverage.rows_past_the_stop",
+    "executed_prefix_facts.rows_past_stop"
+   ],
+   "group": "execution_extent",
+   "rule": null,
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "required_value_coverage",
+   "claim": "Every identity of the required-value manifest Q(P) has exactly one committed binding, every required value class was acquired, and the manifest used is the one rebuilt from this attempt's Program x workload.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "required_classes": [
+     "input_token_ids",
+     "instance_outputs_native",
+     "sampled_token_ids",
+     "weights",
+     "fa2_hidden_m1_stream"
+    ]
+   },
+   "scope": {
+    "rules": {
+     "required_value_coverage/identity_coverage": "FAIL",
+     "required_value_coverage/manifest_coverage": "FAIL",
+     "required_value_coverage/required_classes": "PASS",
+     "required_value_coverage/manifest_of_record_verified": "NOT_RUN"
+    }
+   },
+   "outcome": "FAIL",
+   "differences": [
+    {
+     "name": "manifest_incomplete",
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 r",
+     "unmodelled": null,
+     "pair": 0,
+     "rule": "required_value_coverage/identity_coverage"
+    },
+    {
+     "name": "manifest_incomplete",
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 r",
+     "unmodelled": null,
+     "pair": 1,
+     "rule": "required_value_coverage/identity_coverage"
+    },
+    {
+     "name": "manifest_incomplete",
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 r",
+     "unmodelled": null,
+     "pair": 2,
+     "rule": "required_value_coverage/identity_coverage"
+    },
+    {
+     "name": "identities_uncovered",
+     "missing_n": 163052,
+     "missing_by_family": {
+      "(unmodelled)": 163052
+     },
+     "families_missing_entirely": [
+      "Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)"
+     ],
+     "first": {},
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundar",
+     "pair": 0,
+     "rule": "required_value_coverage/manifest_coverage"
+    },
+    {
+     "name": "identities_uncovered",
+     "missing_n": 163052,
+     "missing_by_family": {
+      "(unmodelled)": 163052
+     },
+     "families_missing_entirely": [
+      "Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)"
+     ],
+     "first": {},
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundar",
+     "pair": 1,
+     "rule": "required_value_coverage/manifest_coverage"
+    },
+    {
+     "name": "identities_uncovered",
+     "missing_n": 163052,
+     "missing_by_family": {
+      "(unmodelled)": 163052
+     },
+     "families_missing_entirely": [
+      "Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)"
+     ],
+     "first": {},
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundar",
+     "pair": 2,
+     "rule": "required_value_coverage/manifest_coverage"
+    }
+   ],
+   "compat": [
+    "coverage",
+    "binding.coverage",
+    "required_classes",
+    "required_classes_source",
+    "classes",
+    "manifest_verify",
+    "binding.coverage.ok",
+    "binding.coverage.error",
+    "binding.coverage.missing_n",
+    "binding.coverage.ambiguous_n",
+    "binding.coverage.expected_n",
+    "binding.coverage.bound_n",
+    "coverage.ok",
+    "coverage.missing_n",
+    "coverage.missing_by_family",
+    "coverage.families_missing_entirely",
+    "coverage.error",
+    "coverage.manifest_digest",
+    "commit_summary.coverage",
+    "declaration_*.json",
+    "manifest_verify.ok",
+    "manifest_verify.used_digest",
+    "manifest_verify.rebuilt_digest",
+    "stages.txt manifest_verify="
+   ],
+   "group": "required_value_coverage",
+   "rule": null,
+   "notes": [
+    "structural_leak: required_manifest.members_for (a Program family is INTERIOR because the vocabulary names no member for it -- by name, F-r19-int-20)"
+   ],
+   "reason": "identity coverage: manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x209; Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x541; Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x559; Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x780; Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x799; Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x83"
+  },
+  {
+   "name": "program_source_identity",
+   "claim": "The committed identities are the Program of record's: every step's committed identity set matches the expected manifest (X-03: modules, one attention row per layer, one sampled-ids tensor, the same multiset every step) and the binding map was built for this Program, layout and run roots.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "binding_program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "root_program_digest": "ab2ba8707b69e4df9ec6a39073b8f3f1a00f7ecd4d7ccbcd90e669e5236e4546",
+    "map_digest": "49ac4b250f39bee4edaa71733b9d10d1fddf975d249eb2ddbb73ee2a96a66190"
+   },
+   "scope": {
+    "rules": {
+     "program_source_identity/identity_layout": "FAIL",
+     "program_source_identity/binding_context": "PASS"
+    }
+   },
+   "outcome": "FAIL",
+   "differences": [
+    {
+     "name": "fa2_layers_bad",
+     "steps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "steps_n": 5,
+     "first": {
+      "step": 1,
+      "fa2_layers_bad": {
+       "0": 48,
+       "2": 48,
+       "4": 48,
+       "6": 48,
+       "8": 48,
+       "10": 48,
+       "12": 48,
+       "14": 48,
+       "16": 48,
+       "18": 48,
+       "20": 48,
+       "22": 48,
+       "24": 48
+      }
+     },
+     "pair": 0,
+     "rule": "program_source_identity/identity_layout"
+    },
+    {
+     "name": "fa2_layers_bad",
+     "steps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "steps_n": 5,
+     "first": {
+      "step": 1,
+      "fa2_layers_bad": {
+       "0": 48,
+       "2": 48,
+       "4": 48,
+       "6": 48,
+       "8": 48,
+       "10": 48,
+       "12": 48,
+       "14": 48,
+       "16": 48,
+       "18": 48,
+       "20": 48,
+       "22": 48,
+       "24": 48
+      }
+     },
+     "pair": 1,
+     "rule": "program_source_identity/identity_layout"
+    },
+    {
+     "name": "fa2_layers_bad",
+     "steps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "steps_n": 5,
+     "first": {
+      "step": 1,
+      "fa2_layers_bad": {
+       "0": 48,
+       "2": 48,
+       "4": 48,
+       "6": 48,
+       "8": 48,
+       "10": 48,
+       "12": 48,
+       "14": 48,
+       "16": 48,
+       "18": 48,
+       "20": 48,
+       "22": 48,
+       "24": 48
+      }
+     },
+     "pair": 2,
+     "rule": "program_source_identity/identity_layout"
+    }
+   ],
+   "compat": [
+    "identity",
+    "identity_check",
+    "binding.context",
+    "extra.identity_check.ok",
+    "extra.identity_check.violations",
+    "extra.identity_check.violations_n",
+    "extra.identity_check.steps_checked",
+    "binding.error",
+    "binding.context.ok",
+    "binding.context.why",
+    "binding.program_digest",
+    "binding.map_digest"
+   ],
+   "group": "program_source_identity",
+   "rule": null,
+   "notes": [
+    "structural_leak: native_host.ACQUIRE_CLASSES (the expected module set is selected by module class name, not by the Program)"
+   ],
+   "reason": "identity check: 106 step(s) differ from the expected manifest (first: step 1 {\"fa2_layers_bad\": {\"0\": 48, \"2\": 48, \"4\": 48, \"6\": 48, \"8\": 48, \"10\": 48, \"12\": 48, \"14\": 48, \"16\": 48, \"18\": 48, \"20\": 48, \"22\": 48, \"24\": 48}, \"sampler_ids\":)"
+  },
+  {
+   "name": "runtime_match/tokens_equal",
+   "claim": "The instrumented engine served exactly the control engine's token ids for every request.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "tokens_equal": true,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "tokens_equal_ref",
+    "commit_summary.tokens_equal"
+   ],
+   "group": "runtime_match",
+   "rule": "X-03 tokens",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/reference_integrity",
+   "claim": "Every value acquisition the collector attempted was bound (attempted == committed, both > 0).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "attempted": 81838,
+    "committed": 81838,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "extra.expected_tensors",
+    "extra.committed_tensors"
+   ],
+   "group": "runtime_match",
+   "rule": "X-03 (R12) counters",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/fa2_zero_rows",
+   "claim": "No attention hidden-value row was bound as all-zero bytes (the tap was staged before it was zeroed).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "rows_checked": false,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "NOT_RUN",
+     "1": "NOT_RUN",
+     "2": "NOT_RUN"
+    }
+   },
+   "outcome": "NOT_RUN",
+   "differences": [],
+   "compat": [
+    "fa2_zero_rows"
+   ],
+   "group": "runtime_match",
+   "rule": "R13 p0b tap ordering",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/collector_errors",
+   "claim": "No collector, arena or hook error was recorded during the instrumented run.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "errors_n": 0,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "extra.errors_n",
+    "extra.errors"
+   ],
+   "group": "runtime_match",
+   "rule": "X-03 errors",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/openings",
+   "claim": "Every challenge-drawn opening of the committed bytes verified against the run root, and at least min_openings were drawn (C3).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "sample_size": 64,
+    "verified": 64,
+    "min_openings": 64,
+    "skipped": null,
+    "challenge_n": 64,
+    "deferred_replay_n": 0,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "openings.n",
+    "openings.verified",
+    "openings.skipped",
+    "openings.deferred_replay_n",
+    "commit_summary.openings"
+   ],
+   "group": "runtime_match",
+   "rule": "C3 openings",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/openings_after_release",
+   "claim": "After the raw device staging was released, every opening (the challenge's and every pick the in-run stages deferred to replay) verified against the ORIGINAL roots, the replay reproduced the run root, and no raw byte stayed on the device.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "sample_size": 68,
+    "verified": 68,
+    "source": "host",
+    "replay_root_equal": null,
+    "retained_device_after": 0,
+    "deferred_received_n": 0,
+    "forced_n": 4,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "openings_after_release.n",
+    "openings_after_release.verified",
+    "openings_after_release.source",
+    "openings_after_release.replay_root_equal",
+    "openings_after_release.replay_errors_n",
+    "openings_after_release.retained_device_after",
+    "openings_after_release.deferred_received_positions"
+   ],
+   "group": "runtime_match",
+   "rule": "R13 P0 / R17-5 openings after release",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/openings_population",
+   "claim": "Every opening drawn from the required-value population had a binding and verified (BIND-01 (3); retain=none: the deferred share opens by replay).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "NOT_RUN",
+     "1": "NOT_RUN",
+     "2": "NOT_RUN"
+    }
+   },
+   "outcome": "NOT_RUN",
+   "differences": [],
+   "compat": [
+    "binding.openings_population.n",
+    "binding.openings_population.unbound_n",
+    "binding.openings_population.opened",
+    "binding.openings_population.verified",
+    "binding.openings_population.skipped"
+   ],
+   "group": "runtime_match",
+   "rule": "R14 BIND-01 (3)",
+   "notes": [
+    "not graded: binding_context / identity_coverage failed first (v1 binding_check returns at the first failing part)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/bounded_staging",
+   "claim": "A bounded-staging record run carries no learned-only step and was not finalized in learn-only mode.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "learn_only": false,
+    "learned_only_steps": [],
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "extra.bounded_staging"
+   ],
+   "group": "runtime_match",
+   "rule": "R17 fp8 bounded staging",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/oracle_compare",
+   "claim": "No committed value differs from the Match oracle's (form (B): the Match capture's instance-output snapshots and sampled ids of the same attempt) where the oracle looked; scope states how much it looked at.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "compared": 6736,
+    "mismatch_n": 0,
+    "complete": false,
+    "grade": "attribution-complete",
+    "attribution_complete": true,
+    "attribution_pairs": 432,
+    "compared_by_family": {
+     "input_token_ids": 432,
+     "instance_outputs": 5872,
+     "sampled_token_ids": 432
+    },
+    "method": "sampled-exact-replay(complete) + boundary-linkage + oracle-compare(partial) + offline-suite (verity_capture/bench/tests/test_binding_negatives.py: late-read, relabel)",
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "oracle_compare.result",
+    "oracle_compare.mismatch_n",
+    "value_correspondence.result",
+    "value_correspondence.components"
+   ],
+   "group": "runtime_match",
+   "rule": "C2 form (B) / R15 COORD M-0111 (2)",
+   "notes": [
+    "form (B) attribution-complete: attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a complete C2); step not snapshotted by the Match x152672",
+    "structural_leak: oracle_compare.NO_ORACLE_FAMILY_PREFIXES (kernel-interior streams excluded from the oracle by name prefix)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/compiled_check",
+   "claim": "Under compiled acquisition every kernel launch replays exactly and the compiled ring refused / mis-shaped no acquisition (S3).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "NOT_RUN",
+     "1": "NOT_RUN",
+     "2": "NOT_RUN"
+    }
+   },
+   "outcome": "NOT_RUN",
+   "differences": [],
+   "compat": [
+    "value_correspondence.compiled_check",
+    "compiled_source.stats"
+   ],
+   "group": "runtime_match",
+   "rule": "R15 compiled S3",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "local_replay/sampled_replay",
+   "claim": "A post-commitment stratified sample of required values replays exactly (bit-for-bit) from the committed bytes under the Program's registered relations.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "sample_seed": 8310235722615523954,
+    "seed_source": "run root (first 8 bytes, after commitment)",
+    "artifact": "/workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/commit/sampled_replay_p0.json",
+    "commit/sampled_replay_p0.json": "9b589bfb767b9fd4d2b562eec3797990867a6ee44c002806cc2c99688629ed86",
+    "commit/sampled_replay_p1.json": "a76dca143ba18e7caf2157fb1abbb7c7df28a8059314cdcc5e3fedee0eb288d9",
+    "commit/sampled_replay_p2.json": "a76dca143ba18e7caf2157fb1abbb7c7df28a8059314cdcc5e3fedee0eb288d9"
+   },
+   "scope": {
+    "result": true,
+    "grade": "complete",
+    "sample_size": 5846,
+    "picked": 5846,
+    "equal": 5846,
+    "mismatch_n": 0,
+    "not_evaluated_n": 0,
+    "per_stratum": 2,
+    "positions": 381,
+    "requests": 8,
+    "strata": 5846,
+    "strata_unevaluated": 0,
+    "population_vus": 651982,
+    "population_by_family": {
+     "Embedding_v1": 4150,
+     "Gemm_v1": 431600,
+     "RoPE_v1": 215800,
+     "TokenSelect_v1": 432
+    },
+    "not_evaluable": {
+     "no registered evaluator for NarrowF32ToBf16_v1": 651550,
+     "no registered evaluator for AttentionSoftcap_v1": 107900,
+     "no registered evaluator for GeluTanhMul_v1": 107900,
+     "no registered evaluator for Bf16MulScalar_v1": 432
+    },
+    "query_total": null,
+    "query_id": "Q_module_v1",
+    "query_checks_ok": true,
+    "replay_cache": {
+     "distinct_replays": 1,
+     "reused_pairs": 2
+    },
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "sampled_replay.result",
+    "sampled_replay.grade",
+    "sampled_replay.why",
+    "sampled_replay.sample",
+    "sampled_replay_p*.json",
+    "replay_cache"
+   ],
+   "group": "local_replay",
+   "rule": "DECISIONS-2 \u00a74 C2 form (A) / F-cb-02",
+   "notes": [
+    "structural_leak: sampled_replay.EVALUATORS / NOT_YET (which families the replay can evaluate is a table by family name (the stated applicability domain))"
+   ],
+   "reason": null
+  },
+  {
+   "name": "local_replay/seed_of_record",
+   "claim": "The replay's seed is post-commitment as a FACT: recomputed from the run root (or the recorded verifier challenge), never prover-chosen.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "sample_seed": 8310235722615523954,
+    "seed_source": "run root (first 8 bytes, after commitment)",
+    "artifact": "/workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/commit/sampled_replay_p0.json",
+    "commit/sampled_replay_p0.json": "9b589bfb767b9fd4d2b562eec3797990867a6ee44c002806cc2c99688629ed86",
+    "commit/sampled_replay_p1.json": "a76dca143ba18e7caf2157fb1abbb7c7df28a8059314cdcc5e3fedee0eb288d9",
+    "commit/sampled_replay_p2.json": "a76dca143ba18e7caf2157fb1abbb7c7df28a8059314cdcc5e3fedee0eb288d9"
+   },
+   "scope": {
+    "seed_source": "run root (first 8 bytes, after commitment)",
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "sampled_replay.sample.seed",
+    "sampled_replay.sample.seed_source",
+    "sampled_replay.sample.challenge"
+   ],
+   "group": "local_replay",
+   "rule": "F-r16-23 / M-0579",
+   "notes": [
+    "seed == run_root[:8] (recomputed)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "local_replay/population_gaps",
+   "claim": "Every VU the replay left unevaluated is named under a class form (B) covers, and form (B) is complete over the values where it must stand in; plane-fed VUs never pass by name.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "FAIL",
+     "1": "FAIL",
+     "2": "FAIL"
+    }
+   },
+   "outcome": "FAIL",
+   "differences": [
+    {
+     "name": "population_gap_uncovered",
+     "why": "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not check and form (B) result None (attribution-complete): attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a -- 651550 x no registered evaluator for NarrowF32ToBf16_v1 | 107900 ",
+     "pair": 0
+    },
+    {
+     "name": "population_gap_uncovered",
+     "why": "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not check and form (B) result None (attribution-complete): attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a -- 651550 x no registered evaluator for NarrowF32ToBf16_v1 | 107900 ",
+     "pair": 1
+    },
+    {
+     "name": "population_gap_uncovered",
+     "why": "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not check and form (B) result None (attribution-complete): attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a -- 651550 x no registered evaluator for NarrowF32ToBf16_v1 | 107900 ",
+     "pair": 2
+    }
+   ],
+   "compat": [
+    "sampled_replay.population.not_evaluable",
+    "sampled_replay.strata_unevaluated",
+    "sampled_replay.unevaluated_strata",
+    "oracle_compare"
+   ],
+   "group": "local_replay",
+   "rule": "COORD M-0721 (1) / F-r16-02 / F-r16-07 / F-r16-20",
+   "notes": [],
+   "reason": "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not check and form (B) result None (attribution-complete): attribution-complete: steps [2, 3, 4, 5, 6, 7, 8, 9]... not snapshotted by the Match (row_pod MATCH_SNAP_STEPS=all for a -- 651550 x no registered evaluator for NarrowF32ToBf16_v1 | 107900 x no registered evaluator for AttentionSoftcap_v1 | 107900 x no registered evaluator for GeluTanhMul_v1 | 432 x no registered evaluator for Bf16MulScalar_v1"
+  },
+  {
+   "name": "local_replay/population_scope",
+   "claim": "The replay's population is the required-value manifest Q(P) of record, reconciled identity by identity (reach + uncovered-by-name == |Q(P)|; engines agree).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "query_total": null,
+    "query_id": "Q_module_v1",
+    "query_checks_ok": true,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "sampled_replay.population.query_total",
+    "sampled_replay.population.query_checks",
+    "sampled_replay.population.scope",
+    "sampled_replay.population.uncovered_by_name"
+   ],
+   "group": "local_replay",
+   "rule": "R17-3 / R17-10 reqval",
+   "notes": [
+    "C2 population scope (R17-3; query of record Q_module_v1): Q_module_v1(P) = 163052 identities (fa2_hidden_m1_stream 3328, input_token_ids 432, instance_outputs 158544, sampled_token_ids 432, weights 316; guard armed (traversal); cross-check AGREED (traversal vs inventory: 163052 / 163052 identities)); exact replay reaches 68256 (41.9%), under an evaluated module 6466; uncovered by name: NarrowF32ToBf16_v1 x67824 (no-evaluator), AttentionSoftcap_v1 x11232 (no-evaluator), GeluTanhMul_v1 x11232 (no-evaluator), Bf16MulScalar_v1 x432 (no-evaluator), fa2_hidden_m1_stream x3328 (mechanism), input_token_ids x432 (mechanism), weights x316 (mechanism)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "local_replay/attribution",
+   "claim": "At B >= 2 the per-(step, request) attribution of every committed value is verified by a complete form (B); else the gap is named on the PASS.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "requests": 8,
+    "attribution_complete": true,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.population.requests",
+    "oracle_compare.attribution"
+   ],
+   "group": "local_replay",
+   "rule": "F-cb-23 / rev M-0243",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "boundary_linkage/ordered_linkage",
+   "claim": "Every (engine step, request) boundary is linked: declared prompt -> input ids at the arrival step; sampled id[s-1] -> input id[s]; none unlinked.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "pairs": 432,
+    "unlinked_n": 0,
+    "linked": 432,
+    "prescribed": {
+     "seed": {
+      "rule": "committed runner.sampler/seed word == the DECLARED workload seed of the request (i64 exact) at every step with a committed sampled id (constant per request; stoch M-0446)",
+      "requests_declared": 0,
+      "checked": 0,
+      "linked": 0,
+      "why": "no declared seed on any request (greedy workload; no committed seed word): not applicable"
+     },
+     "splits": {
+      "rule": "committed runner.sampler/splits word at step s == SplitsFor_v1(#requests with a committed sampled id at s, num_SMs of record) (REQ-03 derived S)",
+      "requests_derived": 0,
+      "checked": 0,
+      "linked": 0,
+      "steps": 0,
+      "why": "no request Program declares derived S (constant S / greedy): not applicable"
+     }
+    },
+    "embed_op_path": "model.embed_tokens",
+    "requests": 8,
+    "prompt_linked_n": 8,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "boundary_linkage.result",
+    "boundary_linkage.unlinked_n",
+    "boundary_linkage.pairs",
+    "boundary_linkage.horizon",
+    "linkage"
+   ],
+   "group": "boundary_linkage",
+   "rule": "DECISIONS-2 \u00a74 C2 boundary linkage",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "checkpoint_binding/weights_of_record",
+   "claim": "Every served parameter the Program names equals by digest the checkpoint-composed tensor of record; every shard is pinned by its manifest sha256.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "weights_program_digest": "db4288cb88435015ba626094541823295158e2e2a6e7d132010f7a6a1b488a77",
+    "root_of_record": "42ebeb07df842ab16f73240084096f487cf879747df67382929316e9f4a3edbe",
+    "committed_weights_root": "bea5d2c761bf97d3d585650497e1631eedad32d83280bbd50541aff493d8cff2",
+    "checkpoint_entry": "{'repo': 'unsloth/gemma-2-2b', 'revision': '25319945f7fd83b8b903e12081777b7eef2ba993'}"
+   },
+   "scope": {
+    "compared": 316,
+    "mismatched": 0,
+    "missing": 0,
+    "unresolved": 0,
+    "unpinned": 0,
+    "shards": 1,
+    "all_shards_pinned": true,
+    "shards_ok": true,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "weights_pin.result",
+    "weights_pin.why",
+    "weights_pin.compared",
+    "weights_pin.mismatched",
+    "weights_pin.missing",
+    "weights_pin.shards"
+   ],
+   "group": "checkpoint_binding",
+   "rule": "MAN-09 / rev-cb M-0610",
+   "notes": [
+    "structural_leak: weights_of_record.FUSED / EXPERTS / EXPERTS_MIXTRAL (the checkpoint composition of fused / expert tensors is keyed by known parameter-name tables)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "execution_extent/executed_prefix_of_record",
+   "claim": "Each request's executed prefix is the cap on a length stop, or served + the Program's declared LAG on an EOS stop whose last served token is a declared EOS id; never defaulted.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "requests": 8,
+    "lag": 1,
+    "eos_of_record": [
+     1
+    ],
+    "served_known": true,
+    "any_eos_stop": false,
+    "lengths": {
+     "r0": [
+      81,
+      81,
+      81
+     ],
+     "r1": [
+      107,
+      107,
+      107
+     ],
+     "r2": [
+      19,
+      19,
+      19
+     ],
+     "r3": [
+      31,
+      31,
+      31
+     ],
+     "r4": [
+      53,
+      53,
+      53
+     ],
+     "r5": [
+      11,
+      11,
+      11
+     ],
+     "r6": [
+      2,
+      2,
+      2
+     ],
+     "r7": [
+      128,
+      128,
+      128
+     ]
+    },
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.coverage.executed_prefix_of_record",
+    "sampled_replay.executed_prefix_of_record",
+    "executed_prefix_facts",
+    "coverage.executed_prefix_of_record"
+   ],
+   "group": "execution_extent",
+   "rule": "R17-1 / F-moe-r17-03",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "execution_extent/match_account_link",
+   "claim": "The Commit's served lengths equal the Match record's (tokens.json) and GM-01's G6 account of the same attempt, and the LAG is attested on every leg.",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "tokens_json_sha256": "644925a592dc1974cce03a1c2abf44ef55abe8ab96d3cff06be90164b6737678",
+    "global_match_sha256": "af323d6fc7f9cefe4afeddb520a87797c90061add883c2f18a9c818994b1933e"
+   },
+   "scope": {
+    "required": false,
+    "gating": false,
+    "lag_attested": true,
+    "tokens_json": "/workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/match/capture/tokens.json",
+    "global_match_verdict": "PASS",
+    "g6_status": "PASS",
+    "requests_linked": 8,
+    "facts_linked": {
+     "r0": true,
+     "r1": true,
+     "r2": true,
+     "r3": true,
+     "r4": true,
+     "r5": true,
+     "r6": true,
+     "r7": true
+    },
+    "account_missing": null,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.coverage.match_account_link",
+    "executed_prefix_facts.linked",
+    "executed_prefix_facts.lag_attested",
+    "account_missing"
+   ],
+   "group": "execution_extent",
+   "rule": "COORD R17-27 (a)(b)",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "execution_extent/rows_past_the_stop",
+   "claim": "No committed row lies at a position >= a request's executed prefix (execution past the stop).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "entries_n": 0,
+    "padded_record": false,
+    "padding_entries_n": 0,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.coverage.rows_past_the_stop",
+    "executed_prefix_facts.rows_past_stop"
+   ],
+   "group": "execution_extent",
+   "rule": "COORD R17-27 (c)",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "required_value_coverage/identity_coverage",
+   "claim": "Every identity of the required-value population has exactly one committed binding (a duplicate never covers a missing one; BIND-01 (2) / MAN-02).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "expected_n": 170956,
+    "bound_n": 170956,
+    "requests": 8,
+    "steps": 128,
+    "population_source": "required-manifest (lane manifest: Q_module(P) -- module-boundary population over the Program, families selected by the c",
+    "extra_n": 0,
+    "physical_copies_n": 0,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "FAIL",
+     "1": "FAIL",
+     "2": "FAIL"
+    }
+   },
+   "outcome": "FAIL",
+   "differences": [
+    {
+     "name": "manifest_incomplete",
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 r",
+     "unmodelled": null,
+     "pair": 0
+    },
+    {
+     "name": "manifest_incomplete",
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 r",
+     "unmodelled": null,
+     "pair": 1
+    },
+    {
+     "name": "manifest_incomplete",
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 r",
+     "unmodelled": null,
+     "pair": 2
+    }
+   ],
+   "compat": [
+    "binding.coverage.ok",
+    "binding.coverage.error",
+    "binding.coverage.missing_n",
+    "binding.coverage.ambiguous_n",
+    "binding.coverage.expected_n",
+    "binding.coverage.bound_n"
+   ],
+   "group": "required_value_coverage",
+   "rule": "R14 BIND-01 (2) / MAN-02",
+   "notes": [
+    "structural_leak: required_manifest.members_for (a Program family is INTERIOR because the vocabulary names no member for it -- by name, F-r19-int-20)"
+   ],
+   "reason": "identity coverage: manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x209; Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x541; Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x559; Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x780; Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x799; Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x83"
+  },
+  {
+   "name": "required_value_coverage/manifest_coverage",
+   "claim": "Every identity the required-value manifest names (Program x query, per request / step / member / element range) was committed with its full extent (MAN-01).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "checked": 163052,
+    "checked_by_family": {},
+    "steps_committed_n": 0,
+    "composition_mismatch_n": null,
+    "committed_extras_n": 0,
+    "duplicate_names_n": 0,
+    "engine_step_basis": "engine schedule of record (request step + observed arrival)",
+    "manifest_of_record": {
+     "identities_n": 163052,
+     "required_n": 163052,
+     "not_executed_n": 0,
+     "edited": false
+    },
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "FAIL",
+     "1": "FAIL",
+     "2": "FAIL"
+    }
+   },
+   "outcome": "FAIL",
+   "differences": [
+    {
+     "name": "identities_uncovered",
+     "missing_n": 163052,
+     "missing_by_family": {
+      "(unmodelled)": 163052
+     },
+     "families_missing_entirely": [
+      "Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)"
+     ],
+     "first": {},
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundar",
+     "pair": 0
+    },
+    {
+     "name": "identities_uncovered",
+     "missing_n": 163052,
+     "missing_by_family": {
+      "(unmodelled)": 163052
+     },
+     "families_missing_entirely": [
+      "Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)"
+     ],
+     "first": {},
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundar",
+     "pair": 1
+    },
+    {
+     "name": "identities_uncovered",
+     "missing_n": 163052,
+     "missing_by_family": {
+      "(unmodelled)": 163052
+     },
+     "families_missing_entirely": [
+      "Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)",
+      "Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)"
+     ],
+     "first": {},
+     "error": "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundar",
+     "pair": 2
+    }
+   ],
+   "compat": [
+    "coverage.ok",
+    "coverage.missing_n",
+    "coverage.missing_by_family",
+    "coverage.families_missing_entirely",
+    "coverage.error",
+    "coverage.manifest_digest",
+    "commit_summary.coverage"
+   ],
+   "group": "required_value_coverage",
+   "rule": "R14 MAN-01",
+   "notes": [
+    "structural_leak: required_manifest.members_for (a Program family is INTERIOR because the vocabulary names no member for it -- by name, F-r19-int-20)"
+   ],
+   "reason": "manifest coverage: 163052 required identities uncovered ({'(unmodelled)': 163052}); whole families missing: ['Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)', 'Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)', 'Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)', 'Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)', 'Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)', 'Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)', 'Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)', 'Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing)']; first: step None None/None inv None want None got None"
+  },
+  {
+   "name": "required_value_coverage/required_classes",
+   "claim": "Every required value class is declared by the committer and every declared leaf-binding class bound > 0 tensors (REL-02: an omitted producer cannot pass).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "required_classes": [
+     "input_token_ids",
+     "instance_outputs_native",
+     "sampled_token_ids",
+     "weights",
+     "fa2_hidden_m1_stream"
+    ]
+   },
+   "scope": {
+    "required": [
+     "input_token_ids",
+     "instance_outputs_native",
+     "sampled_token_ids",
+     "weights",
+     "fa2_hidden_m1_stream"
+    ],
+    "declared": {
+     "input_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128
+     },
+     "instance_outputs_native": {
+      "how": "bound-as-leaf",
+      "tensors": 46976
+     },
+     "sampled_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 128
+     },
+     "weights": {
+      "how": "registered-input",
+      "tensors": 316
+     },
+     "norm_bf16tof32_lift": {
+      "how": "derived-from-bound",
+      "tensors": null
+     },
+     "norm_interiors_derived_row": {
+      "how": "derived-from-bound",
+      "tensors": null
+     },
+     "fa2_hidden_m1_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 6656
+     }
+    },
+    "source": "program/query manifest 5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0 (R14 MAN-01; classes kept as a secondary check)",
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "required_classes",
+    "required_classes_source",
+    "classes",
+    "declaration_*.json"
+   ],
+   "group": "required_value_coverage",
+   "rule": "REL-02 / R-14",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "required_value_coverage/manifest_of_record_verified",
+   "claim": "The required-value manifest the Commit used is byte-identical (rows digest) to the one rebuilt from this attempt's Program x workload (EXEC-05 / MAN-05).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "NOT_RUN",
+     "1": "NOT_RUN",
+     "2": "NOT_RUN"
+    }
+   },
+   "outcome": "NOT_RUN",
+   "differences": [],
+   "compat": [
+    "manifest_verify.ok",
+    "manifest_verify.used_digest",
+    "manifest_verify.rebuilt_digest",
+    "stages.txt manifest_verify="
+   ],
+   "group": "required_value_coverage",
+   "rule": "R15 EXEC-05 / MAN-05",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "program_source_identity/identity_layout",
+   "claim": "Every committed step's identity set is the expected manifest's: every expected module produced >= 1 tensor and none came from outside it, every attention layer carries the same positive count of hidden rows, exactly one sampled-ids tensor, the same name multiset as step 0 (X-03).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+   },
+   "scope": {
+    "steps_checked": 128,
+    "modules": 265,
+    "layers": 26,
+    "fa2_hidden_per_layer": 1,
+    "sampler_ids": 1,
+    "moe_layers": 0,
+    "tp_sites": 0,
+    "tp_rank": null,
+    "padding": null,
+    "violations_n": 106,
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "FAIL",
+     "1": "FAIL",
+     "2": "FAIL"
+    }
+   },
+   "outcome": "FAIL",
+   "differences": [
+    {
+     "name": "fa2_layers_bad",
+     "steps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "steps_n": 5,
+     "first": {
+      "step": 1,
+      "fa2_layers_bad": {
+       "0": 48,
+       "2": 48,
+       "4": 48,
+       "6": 48,
+       "8": 48,
+       "10": 48,
+       "12": 48,
+       "14": 48,
+       "16": 48,
+       "18": 48,
+       "20": 48,
+       "22": 48,
+       "24": 48
+      }
+     },
+     "pair": 0
+    },
+    {
+     "name": "fa2_layers_bad",
+     "steps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "steps_n": 5,
+     "first": {
+      "step": 1,
+      "fa2_layers_bad": {
+       "0": 48,
+       "2": 48,
+       "4": 48,
+       "6": 48,
+       "8": 48,
+       "10": 48,
+       "12": 48,
+       "14": 48,
+       "16": 48,
+       "18": 48,
+       "20": 48,
+       "22": 48,
+       "24": 48
+      }
+     },
+     "pair": 1
+    },
+    {
+     "name": "fa2_layers_bad",
+     "steps": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "steps_n": 5,
+     "first": {
+      "step": 1,
+      "fa2_layers_bad": {
+       "0": 48,
+       "2": 48,
+       "4": 48,
+       "6": 48,
+       "8": 48,
+       "10": 48,
+       "12": 48,
+       "14": 48,
+       "16": 48,
+       "18": 48,
+       "20": 48,
+       "22": 48,
+       "24": 48
+      }
+     },
+     "pair": 2
+    }
+   ],
+   "compat": [
+    "extra.identity_check.ok",
+    "extra.identity_check.violations",
+    "extra.identity_check.violations_n",
+    "extra.identity_check.steps_checked"
+   ],
+   "group": "program_source_identity",
+   "rule": "X-03 (R13) identities",
+   "notes": [
+    "structural_leak: native_host.ACQUIRE_CLASSES (the expected module set is selected by module class name, not by the Program)"
+   ],
+   "reason": "identity check: 106 step(s) differ from the expected manifest (first: step 1 {\"fa2_layers_bad\": {\"0\": 48, \"2\": 48, \"4\": 48, \"6\": 48, \"8\": 48, \"10\": 48, \"12\": 48, \"14\": 48, \"16\": 48, \"18\": 48, \"20\": 48, \"22\": 48, \"24\": 48}, \"sampler_ids\":)"
+  },
+  {
+   "name": "program_source_identity/binding_context",
+   "claim": "The binding map was built for this run: its Program digest, layout and roots are the run's own (BIND-01 (1)).",
+   "inputs": {
+    "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+    "run_root": "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50",
+    "binding_program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+    "root_program_digest": "ab2ba8707b69e4df9ec6a39073b8f3f1a00f7ecd4d7ccbcd90e669e5236e4546",
+    "map_digest": "49ac4b250f39bee4edaa71733b9d10d1fddf975d249eb2ddbb73ee2a96a66190"
+   },
+   "scope": {
+    "map_digest": "49ac4b250f39bee4edaa71733b9d10d1fddf975d249eb2ddbb73ee2a96a66190",
+    "map_entries_n": 315656,
+    "program_digest_source": "required-manifest",
+    "layout": "chunk-leaf-v1",
+    "rules_version": "r14-v1",
+    "runs": [
+     0,
+     1,
+     2
+    ],
+    "outcome_by_run": {
+     "0": "PASS",
+     "1": "PASS",
+     "2": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.error",
+    "binding.context.ok",
+    "binding.context.why",
+    "binding.program_digest",
+    "binding.map_digest"
+   ],
+   "group": "program_source_identity",
+   "rule": "R14 BIND-01 (1)",
+   "notes": [],
+   "reason": null
+  }
+ ],
+ "outcome": "FAIL",
+ "program_digest": "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53",
+ "manifest_digest": "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0",
+ "query_id": "Q_module_v1",
+ "correspondence_digest": null,
+ "correspondence_digest_source": "absent",
+ "correspondence_digests": {},
+ "schema": "vllm-verdict/v1",
+ "row": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+ "run_roots": [
+  "7353e35c36428a72cfa450adbaf4f16d845273d8be0049427eb357e6f41eaa50"
+ ],
+ "runs": {
+  "instrumented": 3,
+  "failed": 3,
+  "control": 3,
+  "not_pass_by_reconstruction": 3,
+  "pairs": [
+   0,
+   1,
+   2
+  ]
+ },
+ "inputs": {
+  "commit/verdict.json": "4649f881281fcac6e7fd552ad0ecd7ce93a80e2066709e45a4f5dd5555b61d6e",
+  "commit/runs.jsonl": "802d5fa76725698ccfae4379d4f56c7b82668283ff4cf867584ee429b2f2cbe4",
+  "commit_summary.json": "95ab14530bc9b290f2d9f44736db97a26fab2263e5e9bde65b40acc2464ee1d4",
+  "commit/summary.json": "afff142999ac7098c8b50e58e5e6bc14f209f7724a00204ff7eeb77f7e0323cf",
+  "commit.log": "730c5c5d051f9390655188500c27c0d975a50cf80eb08b8eebc4044a52eda179",
+  "global_match.json": "af323d6fc7f9cefe4afeddb520a87797c90061add883c2f18a9c818994b1933e",
+  "match_summary.json": "d2843ad62914364fa0dbe8fa59ba118ebc61d34c813527edbfa1d560f8349a06",
+  "build_summary.json": "b73c57496dbbcfe49e33f6c50827a04a565f8293b2110cba8e95a78c389d4b49",
+  "commit/sampled_replay_p0.json": "9b589bfb767b9fd4d2b562eec3797990867a6ee44c002806cc2c99688629ed86",
+  "commit/sampled_replay_p1.json": "a76dca143ba18e7caf2157fb1abbb7c7df28a8059314cdcc5e3fedee0eb288d9",
+  "commit/sampled_replay_p2.json": "a76dca143ba18e7caf2157fb1abbb7c7df28a8059314cdcc5e3fedee0eb288d9"
+ },
+ "execution": {
+  "committer": "native_collect_v2b",
+  "collector_variant": "windowed",
+  "retention": "host",
+  "engine_settings": {
+   "gpu_memory_utilization": 0.5,
+   "max_num_seqs": 8,
+   "openings": 64,
+   "pairs": 3,
+   "open_after_release": true,
+   "required_manifest": true
+  },
+  "collector": {
+   "variant": "native_collect_v2_auto_nw+hidden_m1",
+   "retention": "host",
+   "window_mb": 256,
+   "window_slots": 8,
+   "arena_mb": 0,
+   "layout": "chunk-leaf-v1",
+   "gpu_tree": true,
+   "fa2_tap_bounded": {
+    "cap_bytes": 2147483648,
+    "bound_alloc_bytes": 2147483648,
+    "bound_used_peak_bytes": 1779433472,
+    "geometry_buffers_bytes": 7930112,
+    "tap_resident_bytes": 2155413760,
+    "split_launches": 0,
+    "split_groups": 0,
+    "cap_exceeded_launches": 0,
+    "cap_exceeded_peak_bytes": 0,
+    "windows": 0,
+    "split_steps": [],
+    "peak_group_bytes": 0,
+    "largest_unbounded_launch_bytes": 1779433472,
+    "torch_alloc_peak_in_tap": 0,
+    "torch_max_memory_allocated": 0,
+    "bounded": true
+   }
+  },
+  "cmd": "/workspace/venv312/bin/python -m verity_capture.bench.commit_delta --case GEMMA2_2B --workload workloads/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.json --committer native_collect_v2b --fast-copy --gpu-tree --hidden-so /workspace/cp/fa2/build/matReq/verity_fa2_matReq.so --openings 64 --pairs 3 --warmup 2 --max-num-seqs 8 --engine-arg gpu_memory_utilization=0.5 --label gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager --out /workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/commit --window-mb 256 --window-slots 8 --retain host --open-after-release --tap-cap-mb 2048 --replay-cache --required-manifest /workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json --program-digest 44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53 --match-dir /workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/match --programs-root /workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager --weights-of-record /workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/build_request_LP719_T80/weights_of_record.json",
+  "moe_source": {
+   "mode": "auto",
+   "attached": false
+  },
+  "rules_version": "r14-v1"
+ },
+ "compat": {
+  "commit_pass": false,
+  "first_fail_reason": "identity coverage: manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x209; Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x541; Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x559; Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x780; Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x799; Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x83",
+  "runs_failed": 3,
+  "rc": 3,
+  "commit_summary_pass": false,
+  "commit_summary_deprecated": "F-r19-int-21 / P5: commit_summary.json is no longer written (its pass was rc == 0 and tokens_equal); this verdict is the record",
+  "per_run": [
+   {
+    "pair": 0,
+    "commit_pass": false,
+    "commit_fail_reason": "identity coverage: manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x209; Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x541; Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x559; Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x780; Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x799; Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x83"
+   },
+   {
+    "pair": 1,
+    "commit_pass": false,
+    "commit_fail_reason": "identity coverage: manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x209; Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x541; Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x559; Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x780; Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x799; Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x83"
+   },
+   {
+    "pair": 2,
+    "commit_pass": false,
+    "commit_fail_reason": "identity coverage: manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x1042; Bf16MulScalarTensor_v1: 137 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x137; Bf16MulScalarTensor_v1: 209 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x209; Bf16MulScalarTensor_v1: 541 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x541; Bf16MulScalarTensor_v1: 559 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x559; Bf16MulScalarTensor_v1: 780 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x780; Bf16MulScalarTensor_v1: 799 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x799; Bf16MulScalarTensor_v1: 83 row(s) whose output the Program reads across a module boundary while the vocabulary names no member for it (unnamed crossing) x83"
+   }
+  ],
+  "negatives": null,
+  "reconstruction_mismatch": null,
+  "only_arm": null,
+  "stage_line": "commit FAIL 2026-09-22T17:20:04Z rc=3 wall=1368s runs 6 delta 0.3867530814384159 openings [None, None, None] tokens [True, True, True] manifest_verify=not-run",
+  "stage_outcome": "FAIL"
+ },
+ "notes": []
+}

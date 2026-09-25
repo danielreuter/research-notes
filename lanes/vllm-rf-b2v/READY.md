@@ -10,7 +10,8 @@ updated: 2026-09-25T11:30Z
 
 - **Branch:** `lane/vllm-rf-b2v` (pushed). **Head:** `8d847755`. **Base:** `10996616` (a4's head, not merged).
 - 10 commits, 48 files (all under `integrations/vllm`), +1,889 / -1,400 against `10996616`. Nothing under `packages/verity`.
-- Gates: lints 45/45 at `8d847755`; gate (b) head vs base on one pod: no new failure / skip / skip reason, 15 new tests pass; gate (a) T0,T1: GATE_A_SUMMARY; GPU
+- Gates: lints 45/45 at `8d847755`; gate (b) head vs base on one pod: no new failure / skip / skip reason, 15 new tests pass; gate (a) T0,T1: 73 passed / 85 skipped of 158, test by test as a23b's (no outcome change; two skip texts
+  renamed before the base); GPU
   rows #101 (world 1, L40S) and #70 (world 2, 2x L40S) reproduce the record's digests and cite their `properties/` records.
 
 ## Gate evidence
@@ -68,7 +69,21 @@ directory moved and GPUs hidden), both trees on the L40S pod, overlapping in tim
 `VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/vllm/tests/regression -m regression`
 (`evidence/gate_a.sh`), TP2 pod.
 
-GATE_A_DETAIL
+- **At `824a9924`: 73 passed, 85 skipped, 0 failed** (158 tests), run `r20260925-105008-bca1` (`evidence/tp2_gates.sh`), in two
+  processes started together at 10:52Z with `CUDA_VISIBLE_DEVICES=""`: `-k replay_partition` 9 passed, 4 skipped (1:14:12,
+  `a_head_rp`), `-k "not replay_partition"` 64 passed, 81 skipped (0:58:56, `a_head_rest`); merged into `a_head.xml`.
+- **Test by test against a23b's** `gate_a-t0t1-base-72884c8a-samepod.xml.gz` (`jdiff.py`, `a_jdiff.txt`): 158 = 158, 73 passed and
+  85 skipped on both sides, **no test deleted, renamed or added, no outcome changed, no new failure, no new skip**. jdiff exits 1
+  on two skip reasons only: `manifest_digest` on #70 and #75 now says "merged by `tp_stage.sh`" where a23b's says "merged by
+  `row_pod_tp2.sh`". That text is `tests/regression/checks/manifest_digest.py:46`, renamed by `5cc0506e`, which lies between a23b's
+  `72884c8a` and this lane's base `10996616`; this branch doesn't touch `tests/regression/`.
+- **The final head `8d847755`** differs from `824a9924` by import lines (the same `REQUIRED_CLASSES_DEFAULT` /
+  `required_classes_default` objects bound at the top of `verdict.py`, `pipeline/commit.py`, `pipeline/tp/commit.py`), the moved
+  `FINAL_NORM_MODULES` tuple, one claim string in `properties/record.py`, and allowlist JSON. The gate's `verdict` and
+  `commit_summary` checks were rerun there (`a_head2_vc`, run `r20260925-110440-71eb`): 26 tests, 20 passed and 6 skipped, each
+  with the outcome and skip reason it has in a23b's run and in `a_head` (`a_head2_vc_vs_ref.txt`).
+- All outputs are in `evidence/tp2/gates/` (`.log`, `.xml`, `.status`, `.env`; the `.env` files hold variable names and paths, no
+  credential).
 
 - **Fixtures and the credential.** One key, minted on the laptop at 10:43Z (`--ttl 3h --permission object-read-only --via
   local`) and piped into `/root/r2ro.env` on the TP2 pod, never echoed (only its variable names were listed). `prefetch.sh`
@@ -83,7 +98,8 @@ GATE_A_DETAIL
   the same 20 that pass in a23b's base run.
 - **Direct byte comparison** (`evidence/verdict_bytes.py`, TP2 pod): for each of the **10 rows with a Commit record**,
   `from_record(row).dumps()` under `10996616`, under `824a9924` and under `8d847755`. **All 10 byte-identical** across the three
-  trees (`diff -r` exit 0; `verdict_bytes.{base,head,head2}.txt` list the sha256 per row). The other 3 rows (the OLMoE and
+  trees (`diff -r` exit 0; `evidence/tp2/gates/verdict_bytes.{base,head,head2}.txt` list the sha256 per row, the texts are in
+  `verdict_bytes/`). The other 3 rows (the OLMoE and
   Qwen3-30B-A3B TP2 rows and the SmolLM2 B=16 row) have no `commit/verdict.json`. No regression row has `properties/`, so the new key is absent.
 
 ### (5) GPU acceptance

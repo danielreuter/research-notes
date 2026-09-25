@@ -1,0 +1,8 @@
+s.s.....s..s.                                                            [100%]
+=========================== short test summary info ============================
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: replay_partition does not apply to #4: no sampled_replay record on this row (the row's Commit never reached C2)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: replay_partition does not apply to #23: no sampled_replay record on this row (the row's Commit never reached C2)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: replay_partition does not apply to #70: no sampled_replay record on this row (the row's Commit never reached C2)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: replay_partition does not apply to #75: no sampled_replay record on this row (the row's Commit never reached C2)
+9 passed, 4 skipped, 178 deselected in 4452.64s (1:14:12)
+exit 0 2026-09-25T12:06:38Z

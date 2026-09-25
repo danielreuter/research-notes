@@ -2,15 +2,16 @@
 id: vllm-rf-c4ir/state
 lane: vllm-rf-c4ir
 kind: state
-status: blocked (phase 1 done; phase 2 prepared and pre-checked; waits on a4 in origin/main)
+status: running (phase 2 gates stacked on a4 at 7313e799)
 created: 2026-09-25T06:55Z
-updated: 2026-09-25T09:03Z
+updated: 2026-09-25T12:17Z
 ---
 # vllm-rf-c4ir: boundary, partition and liveness into core `verity.ir` (state)
 
 > Coordinator: vLLM coordinator, Cursor agent bc-ba6cec03. Research coordinator merges; never merge into main.
 > Branch `lane/vllm-rf-c4ir`, worktree `/Users/danielreuter/projects/verity-wt/rf-c4ir`, from `origin/main` `00ffe398`.
-> Deadline: every `vyv-` pod dies at 2026-09-25T09:00Z (coordinator extends it here). Budget: $15 of pod spend.
+> Deadline: every `vyv-` pod dies at 2026-09-25T15:30Z (extended in steps). Budget: $15 (phase 1) + $15 (phase 2).
+> a4 base: 10996616. Phase 2 branch `lane/vllm-rf-c4ir-p2-on-a4` = `7313e799` (stacked on a4, 12:05Z instruction).
 
 - **Scope:** owner decision 5 (5a for boundary, partition, liveness). Phase 1: add the three analyses to core
   `verity.ir` (integration behaviour = spec; extend core's partial versions), core tests + equivalence tests, core suite
@@ -87,13 +88,20 @@ updated: 2026-09-25T09:03Z
 - 08:58Z pod hpbzk8p38jgf8s terminated and unregistered. Spend about $0.52 in total. JUnit evidence beside this note.
 - 09:02Z READY.md written.
 
+- 12:05Z coordinator: resume phase 2 stacked on a4 `10996616` without waiting for its merge; deadline 15:30Z.
+
 ## Running
-- Nothing. No c4ir pods.
+- `vyv-rf-c4ir-reg` = RunPod oh3k08zb07i38u, cpu3m 32 vCPU / 256 GB cgroup, 250 GB disk, $1.76/h, guard 90. Run
+  r20260925-120631-fb6b at `7313e799`: bootstrap, fixture prefetch with my own read-only key (`/root/r2ro.env`,
+  deleted when the prefetch ends), then gate (a) T0+T1 (`tools/reg_gate_a.sh`).
+- `vyv-rf-c4ir-cpu` = RunPod qx6hqw41rl0d83, cpu3g 32 vCPU, 120 GB disk, guard 90. Run r20260925-121359-3a93 at
+  `7313e799`: lints head + base, core head, gate (b) head and base `10996616` concurrently on the same pod
+  (`tools/cpu_gate_b.sh`, base = head tree + `tools/to_base.patch`).
 
 ## Next
-- Phase 2 proper when a4 is in origin/main: rebase lane onto origin/main, cherry-pick `18e29d92` + `4a2ccf11`, then
-  lints, core, gate (b) head vs base same pod, gate (a) T0+T1 on cpu3m 512 GB, GPU smoke #101 (READY.md "Finishing
-  phase 2"). Blocked: a4 not in origin/main at 08:51Z (`94b1c4d2`), and pods died at the 09:00Z deadline.
+- GPU smoke #101 at `7313e799` on 1x L40S (a4's `row101.sh`); compare program/manifest digests and run root to record.
+- Compare gate (b) with `baseline-jdiff.py`; gate (a) against a23b's base XML. Fetch, terminate, READY.md.
+- When a4 is in origin/main: `git rebase --onto origin/main 10996616`, drop phase 1 if merged, push `lane/vllm-rf-c4ir`.
 
 ## Found, not fixed
 - `intervals.strided_intervals` (the integration's liveness `_strided_targets`, moved unchanged): a zero-outer-stride,

@@ -2,7 +2,7 @@
 id: vllm-rf-b4/state
 lane: vllm-rf-b4
 kind: state
-updated: 2026-09-25T11:31Z
+updated: 2026-09-25T12:17Z
 ---
 # b4 (engine and hooks): state
 
@@ -44,25 +44,23 @@ Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/proje
 - construction_version.sources_sha256: base 53cfbe1c..., head 92aed410... (code identity; computed from git, equal
   to the pod's artifact.json).
 
+- #101 base `r20260925-104202-d6d9`: head == base == record (run root, commit_pass), Program / manifest head == base.
+- FA3 on H100 PCIe (`vyv-rf-b4-h100`, terminated 11:57Z): the H100 rows of record declare an H100 SXM (132 SMs), so
+  `build_engine` refused the part (114 SMs) after the Build (`r20260925-104827-1825`, stopped by pgid). The canary's
+  Llama-3.2-1B B1 256/32 greedy row instead (`r20260925-113014-592b`, target-family precheck waived by name as canary.sh
+  does): head == base, run root f64a6611..., commit PASS, fa3_hidden_m1_stream committed.
+- #70 TP2 (`vyv-rf-b4-tp2`, terminated 12:15Z, `r20260925-101142-d268`): Build program 64bee6d6e8264461, manifest
+  1bb40895671dd791 (357,796), Match fold fails rc 11 with the base's counts, Commit FAIL pass False with tp run root
+  0b91229f... = the base's; `tools/cmp70.py` 32/32 fields equal to f1's base Commit of record (per pair).
+
 ## Running (pods registered, guard 90)
 - `vyv-rf-b4-g1` (17ez42q6mb3wo2, 1x L40S, 188 GB cgroup): gate (a) T0+T1 at `0f71b5b4` `r20260925-101742-278e`
-  (GPU hidden; 26/26 fixtures prefetched, key deleted 10:13:34Z). 46/158 tests at 11:00Z = 22.5% of a23b's per-test
-  time, about 1.9x slower than a23b's pod (one CPU-bound thread on a shared host), so **ETA about 13:30Z**, before the
-  14:00Z pod deadline. A second copy on a cpu3m/cpu5m pod was not possible (no stock at 64 or 32 vCPU, 11:05Z).
-- #101 base `r20260925-104202-d6d9` DONE: head == base == record (run root, commit_pass), Program / manifest head == base.
-- `vyv-rf-b4-h100` (ew9cx2468ey9gx, 1x H100 PCIe cc 9.0, 114 SMs, $1.99/h): `r20260925-104827-1825` = bootstrap OK
-  (FA3-TAP-OK `e0fb0036…` 11:01Z), then the Llama-3.2-1B B1 1024/128 H100 row: Build PASS at head, Match refused by
-  `build_engine` ("num_sms declared 132, device 114": the H100 rows declare an H100 SXM), so I stopped it by pgid.
-  Now `r20260925-113014-592b`: the canary's Llama-3.2-1B B1 256/32 greedy row (no declared target; target-family precheck
-  waived by name as canary.sh does on Hopper) build/match/commit with the FA3 tap, head then base.
-- `vyv-rf-b4-tp2` (19vmzfvh0x589w, 2x L40S, 377 GB cgroup): `r20260925-101142-d268` = bootstrap OLMOE, then #70
-  build / match / commit (PAIRS=1) at 3bdcd0ad (0f71b5b4 differs only in tests/engine/test_hooks.py). Build PASS
-  10:39Z, program 64bee6d6e8264461 = record; build-global, match and commit next.
+  (GPU hidden; 26/26 fixtures prefetched, key deleted 10:13:34Z). 120/158 at 12:15Z (78% of a23b's per-test time),
+  **ETA about 12:50Z**. A second copy on a cpu3m/cpu5m pod was not possible (no stock at 64 or 32 vCPU, 11:05Z).
 
 ## Next
-1. Collect: gate (b) jdiff at 0f71b5b4; #101 vs record; noninterference head vs base; gate (a) vs a23b's base; #70 vs
-   f1/f56's record (program 64bee6d6e8264461, manifest 1bb40895671dd791, tp run root 0b91229f..., commit FAIL).
-2. READY.md; terminate every pod after fetch.
+1. Gate (a) jdiff vs a23b's base XML; fetch; terminate g1.
+2. READY.md (drafted; gate (a) and spend left); final message.
 
 ## Open questions (none blocking)
 - `engine.hooks` sits in the `core` P9 layer (stdlib only; a test asserts it imports nothing from `verity_vllm`), so

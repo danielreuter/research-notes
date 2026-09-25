@@ -1,0 +1,1112 @@
+{
+ "checker": "verity/coverage/binding-r15-tp04 (verity_vllm.commit.binding per TP rank; population of record = manbind's required manifest (Program(rank) x canonical query, rows with rank=r: instance outputs incl. AllReduce2/AllGather2 outputs + tp_rank_partials + fa2 hidden + weights + tokens); coverage counted per rank; no rank folded)",
+ "verdict": "FAIL",
+ "rules_version": "r15-tp04-v1",
+ "world": 2,
+ "ranks_present": [
+  0,
+  1
+ ],
+ "skipped": null,
+ "population_source": "required-manifest",
+ "required_manifest": {
+  "path": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json",
+  "manifest_digest": "1bb40895671dd79144528cd3f4af30041625e15afcfde9bab3057aeb7e27a3aa",
+  "identities": 357796,
+  "by_family": {
+   "fa2_hidden_m1_stream": 4096,
+   "instance_outputs": 210924,
+   "tp_rank_partials": 57288,
+   "input_token_ids": 868,
+   "moe_block_stream": 83328,
+   "sampled_token_ids": 868,
+   "weights": 424
+  },
+  "complete": true,
+  "ranks": 2,
+  "program_digest_per_rank": {
+   "0": "2f6367e27e967b30ad4407acb748a7eb891251c7cac70f03cdf0fda90d1f3795",
+   "1": "9b96c11ff9901044d97f96f335dc28de6613c4861245a271e1013975dae45490"
+  },
+  "query_digest": null,
+  "tp_rule": {
+   "world": 2,
+   "collectives": 5790,
+   "peer_inputs": 330
+  }
+ },
+ "manifest_digest": "1bb40895671dd79144528cd3f4af30041625e15afcfde9bab3057aeb7e27a3aa",
+ "manifest_digests_per_rank": {
+  "0": "3eb3eb894c1f07152b5867aa430b03279d82556fc87ff0d0919690634c89be47",
+  "1": "6ab00b7fa2829666b6819eb7ecbc1ec6f74f83e92830b7c011bef8ea933bc236"
+ },
+ "manifest_rows_per_rank": {
+  "0": 183794,
+  "1": 183794
+ },
+ "structural_coverage_ok_per_rank": {
+  "0": false,
+  "1": false
+ },
+ "structural_coverage_note": "informational (not a verdict): coverage of the collector's structural population, recorded beside the manifest coverage",
+ "population_n_per_rank": {
+  "0": 183794,
+  "1": 183794
+ },
+ "binding_map_digest": "8281db56961215b3+a0269ab47931f84a",
+ "binding_map_digests_per_rank": {
+  "0": "8281db56961215b3aaa01621bd723f96449f125487f6faec946cef309477eda3",
+  "1": "a0269ab47931f84a5d5d475a056fafb030334699783f02a4e5df4b42fc3203fb"
+ },
+ "binding_map_files": {
+  "0": "binding_map_rank0.json",
+  "1": "binding_map_rank1.json"
+ },
+ "program_digests_per_rank": {
+  "0": "2f6367e27e967b30ad4407acb748a7eb891251c7cac70f03cdf0fda90d1f3795",
+  "1": "9b96c11ff9901044d97f96f335dc28de6613c4861245a271e1013975dae45490"
+ },
+ "coverage_per_rank": {
+  "0": {
+   "ok": true,
+   "expected_n": 183794,
+   "bound_n": 183794,
+   "missing_n": 0,
+   "extra_n": 0,
+   "physical_copies_n": 0
+  },
+  "1": {
+   "ok": true,
+   "expected_n": 183794,
+   "bound_n": 183794,
+   "missing_n": 0,
+   "extra_n": 0,
+   "physical_copies_n": 0
+  }
+ },
+ "identity_coverage": false,
+ "openings_population": "expected population",
+ "openings_checked": 164,
+ "openings_ok": 164,
+ "openings_unbound": 0,
+ "openings_per_rank": {
+  "0": {
+   "rank": 0,
+   "n": 82,
+   "opened": 82,
+   "verified": 82,
+   "unbound_n": 0,
+   "unbound": [],
+   "late_step_in_sample": true,
+   "families": [
+    "attn",
+    "embed_tokens",
+    "experts",
+    "fa2.m1",
+    "gate",
+    "input_layernorm",
+    "k_norm",
+    "logits_processor",
+    "moe",
+    "norm",
+    "o_proj",
+    "post_attention_layernorm",
+    "q_norm",
+    "qkv_proj",
+    "rotary_emb",
+    "sampler",
+    "self_attn"
+   ],
+   "tp_partial_identities_drawn": 10,
+   "open_verify_s": 0.12052868120372295,
+   "map_digest": "8281db56961215b3aaa01621bd723f96449f125487f6faec946cef309477eda3",
+   "claimed_root": "3e646ae3ddeb0eb678326fe0fe1bc942dcd3bc7132a92250204f4c098e70da8e",
+   "claimed_root_is_own": true,
+   "context": {
+    "ok": true,
+    "why": "PASS"
+   }
+  },
+  "1": {
+   "rank": 1,
+   "n": 82,
+   "opened": 82,
+   "verified": 82,
+   "unbound_n": 0,
+   "unbound": [],
+   "late_step_in_sample": true,
+   "families": [
+    "attn",
+    "embed_tokens",
+    "experts",
+    "fa2.m1",
+    "gate",
+    "input_layernorm",
+    "k_norm",
+    "logits_processor",
+    "moe",
+    "norm",
+    "o_proj",
+    "post_attention_layernorm",
+    "q_norm",
+    "qkv_proj",
+    "rotary_emb",
+    "sampler",
+    "self_attn"
+   ],
+   "tp_partial_identities_drawn": 13,
+   "open_verify_s": 0.11605362594127655,
+   "map_digest": "a0269ab47931f84a5d5d475a056fafb030334699783f02a4e5df4b42fc3203fb",
+   "claimed_root": "bf12935056ccd83927ad6c82481cf2c999720c07d7b259407a5324b9756d371c",
+   "claimed_root_is_own": true,
+   "context": {
+    "ok": true,
+    "why": "PASS"
+   }
+  }
+ },
+ "late_step_in_sample": true,
+ "value_correctness": true,
+ "value_correctness_note": "value correspondence (C2) is a separate labelled check: --value-check -> value_check.json (per rank: module outputs by value_check.ValueChecker, TP partials by TPPartialSource.compare); never folded into this coverage verdict",
+ "attribution_per_rank": {
+  "0": {
+   "ok": true,
+   "steps_checked": 128,
+   "rows_checked": 434,
+   "mismatches_n": 0,
+   "why": null,
+   "swap_requests_negative": null
+  },
+  "1": {
+   "ok": true,
+   "steps_checked": 128,
+   "rows_checked": 434,
+   "mismatches_n": 0,
+   "why": null,
+   "swap_requests_negative": null
+  }
+ },
+ "attribution_reference": {
+  "path": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture/tokens.json",
+  "requests": 8,
+  "generated_total": 434,
+  "tp2_match_verdict": true,
+  "capture_dir": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture",
+  "stored_steps_per_rank": {
+   "0": 128,
+   "1": 128
+  }
+ },
+ "openings_after_release": true,
+ "collector_variant": "windowed",
+ "retention": "host",
+ "negatives_suite": "tp2_commit --omit-rank / --omit-rank-partials <r> / --omit-partial-site r:site / --flip-partial r:site (TP-12) / --serve-shard-from r:param:from (TP-10) / --relabel-rank a:b / --wrong-root-rank <r> / --no-tp-partials / --swap-requests r:ra:rb (this lane) + bind test_binding_negatives.py (BIND-01, TP1)",
+ "negatives": {
+  "omit_rank": null,
+  "no_tp_partials": false,
+  "relabel_rank": null,
+  "swap_requests": null,
+  "wrong_root_rank": null,
+  "omit_rank_partials": null,
+  "omit_partial_site": null,
+  "flip_partial": null
+ },
+ "reason": "rank 0: sampled replay (C2 of record, rank 0): partial -- 484 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.1.self_attn.k_norm|recycled-window']; also: C2 population (rank 0, F-r17b-38): C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out); rank 1: sampled replay (C2 of record, rank 1): partial -- 475 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.1.self_attn.k_norm|recycled-window']; also: C2 population (rank 1, F-r17b-38): C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out); rank 0: cross-rank collective outputs (TP-12): coverage of the unreplayable collective sites incomplete -- sites without a stratum: AllGather2_v1: ['model.layers.0.self_attn.all_gather2', 'model.layers.0.self_attn.all_gather2_1', 'model.layers.0.self_attn.all_gather2_100', 'model.layers.0.self_attn.all_gather2_132']; rank 1: cross-rank collective outputs (TP-12): coverage of the unreplayable collective sites incomplete -- sites without a stratum: AllGather2_v1: ['model.layers.0.self_attn.all_gather2', 'model.layers.0.self_attn.all_gather2_1', 'model.layers.0.self_attn.all_gather2_100', 'model.layers.0.self_attn.all_gather2_132']",
+ "value_correspondence": {
+  "method": "sampled-exact-replay(partial, per rank) + boundary-linkage + oracle-compare: per identity, committed bytes == hook-time reference clone (T) AND == re-execution of the registered relation on the clone's inputs (R) per module output [value_check.ValueChecker]; TP partials: == collective INPUT reference clone (T) AND == rank-local shard-GEMM re-execution (R) [TPPartialSource.compare]; per rank; FAIL names the identity (tap_mismatch/reexec_mismatch/missing_in_commit)",
+  "result": false,
+  "file": "value_check.json",
+  "artifact": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/value_check.json",
+  "components": {
+   "tap_reexec": {
+    "result": true,
+    "reference": "hook-time reference clone (T) of every module output and TP partial + re-execution (R) of the registered relation / rank-local shard GEMM on the tapped inputs, per rank, in the committing process (value_check.json); not an independent oracle",
+    "per_rank": {
+     "0": "PASS",
+     "1": "PASS"
+    }
+   },
+   "oracle_compare": {
+    "result": true,
+    "complete": false,
+    "oracle_match_verdict": true,
+    "oracle_is_failed_match_run": false,
+    "reference": "Match record /workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture/tokens.json (tp2_match capture arm, independent instrumented run; tp2_match verdict True): (a) sampled ids per (request, engine step) [attribution]; (b) TP partials / MoE received outputs vs the recorder's stored collectives per (step, k) [tp_partials]; per rank",
+    "attribution": {
+     "complete": true,
+     "result": true,
+     "per_rank": {
+      "0": true,
+      "1": true
+     },
+     "rows_checked_per_rank": {
+      "0": 434,
+      "1": 434
+     }
+    },
+    "tp_partials": {
+     "result": true,
+     "per_rank": {
+      "0": {
+       "verdict": "PASS",
+       "steps_compared": 128,
+       "tensors": 14592,
+       "equal": 14592,
+       "mismatch_n": 0,
+       "missing_n": 0,
+       "not_in_oracle_n": 0,
+       "by_member": {
+        "partial": {
+         "tensors": 8448,
+         "equal": 8448
+        },
+        "out": {
+         "tensors": 6144,
+         "equal": 6144
+        }
+       },
+       "why": null,
+       "error": null
+      },
+      "1": {
+       "verdict": "PASS",
+       "steps_compared": 128,
+       "tensors": 14592,
+       "equal": 14592,
+       "mismatch_n": 0,
+       "missing_n": 0,
+       "not_in_oracle_n": 0,
+       "by_member": {
+        "partial": {
+         "tensors": 8448,
+         "equal": 8448
+        },
+        "out": {
+         "tensors": 6144,
+         "equal": 6144
+        }
+       },
+       "why": null,
+       "error": null
+      }
+     }
+    },
+    "identities": {
+     "families_covered": [
+      "tp_rank_partials",
+      "sampled_token_ids"
+     ],
+     "families_not_covered": [
+      "fa2_hidden_m1_stream",
+      "instance_outputs",
+      "input_token_ids",
+      "moe_block_stream",
+      "weights"
+     ],
+     "covered_n": 58156,
+     "total_n": 357796
+    },
+    "why": null
+   },
+   "linkage": {
+    "result": true,
+    "method": "per rank: committed runner.sampler/sampled_token_ids row j of engine step s -> request of row j in the rank's request->rows map (InputBatch.req_ids x num_scheduled_tokens at sample time) -> k-th generated id of that request in the Match record (/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture/tokens.json, tp2_match capture arm, an independent instrumented run); every step, every row, both ranks",
+    "checked": 868,
+    "why": null,
+    "per_rank": {
+     "0": {
+      "ok": true,
+      "steps_checked": 128,
+      "rows_checked": 434,
+      "mismatches_n": 0,
+      "requests": {
+       "r0": {
+        "sampled_rows_committed": 5,
+        "match_record_generated": 5
+       },
+       "r1": {
+        "sampled_rows_committed": 128,
+        "match_record_generated": 128
+       },
+       "r2": {
+        "sampled_rows_committed": 31,
+        "match_record_generated": 31
+       },
+       "r3": {
+        "sampled_rows_committed": 25,
+        "match_record_generated": 25
+       },
+       "r4": {
+        "sampled_rows_committed": 101,
+        "match_record_generated": 101
+       },
+       "r5": {
+        "sampled_rows_committed": 47,
+        "match_record_generated": 47
+       },
+       "r6": {
+        "sampled_rows_committed": 95,
+        "match_record_generated": 95
+       },
+       "r7": {
+        "sampled_rows_committed": 2,
+        "match_record_generated": 2
+       }
+      }
+     },
+     "1": {
+      "ok": true,
+      "steps_checked": 128,
+      "rows_checked": 434,
+      "mismatches_n": 0,
+      "requests": {
+       "r0": {
+        "sampled_rows_committed": 5,
+        "match_record_generated": 5
+       },
+       "r1": {
+        "sampled_rows_committed": 128,
+        "match_record_generated": 128
+       },
+       "r2": {
+        "sampled_rows_committed": 31,
+        "match_record_generated": 31
+       },
+       "r3": {
+        "sampled_rows_committed": 25,
+        "match_record_generated": 25
+       },
+       "r4": {
+        "sampled_rows_committed": 101,
+        "match_record_generated": 101
+       },
+       "r5": {
+        "sampled_rows_committed": 47,
+        "match_record_generated": 47
+       },
+       "r6": {
+        "sampled_rows_committed": 95,
+        "match_record_generated": 95
+       },
+       "r7": {
+        "sampled_rows_committed": 2,
+        "match_record_generated": 2
+       }
+      }
+     }
+    }
+   },
+   "root_compare": {
+    "result": null,
+    "reference": "no known-good TP2 run root pinned (known_roots has no tp2 entry); the instrumented pairs' combined roots were identical: 0b91229f06480ce4"
+   },
+   "replay": {
+    "result": false,
+    "reference": "see components.sampled_replay (manbind MAN-06 sampled exact replay, per rank)"
+   },
+   "sampled_replay": {
+    "result": false,
+    "method": "per rank, in the rank's committing process (tp2_worker finalize): manbind sampled_replay on THIS rank's binding map (identity.rank == r), THIS rank's request Programs of record (derive_step --tp 2 --rank r; components per (LP, T)), the rank's committed members and its weight SHARDS re-registered at replay; stratified seeded sample, bit-exact compare with the committed output members; rows fed by a peer rank's partial have no evaluator and are counted by name",
+    "population": {
+     "n": 4826610,
+     "per_rank": {
+      "0": 2413305,
+      "1": 2413305
+     },
+     "source": "Program instances.json.gz rows (every row; evaluable = families with a registered evaluator)",
+     "by_family": {
+      "Attention_v3": 133792,
+      "Gemm_v1": 402244,
+      "MoeExpertGemmW_v1": 1070336,
+      "MoeExpertGemm_v1": 1070336,
+      "MoeRouterTopK_v1": 133792,
+      "MoeSum_v1": 133792,
+      "RMSNormFusedCuda_v2": 267584,
+      "RMSNormTriton_v1": 275946,
+      "RoPE_v1": 267584,
+      "SiluMul_v1": 1070336,
+      "TokenSelect_v1": 868
+     }
+    },
+    "n": 19321,
+    "sample": {
+     "picked": 20280,
+     "evaluated": 19321,
+     "equal": 19321,
+     "mismatch_n": 0,
+     "not_evaluated_n": 959,
+     "per_stratum": 2
+    },
+    "strata": {
+     "n": 20280,
+     "ranks": [
+      "rank 0",
+      "rank 1"
+     ],
+     "mechanisms": [
+      "Attention_v3{NB=1,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=1,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=10,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=10,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=11,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=11,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=12,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=12,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=13,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=13,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=14,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=14,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=15,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=15,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=16,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=16,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=17,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=2,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=2,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=3,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=3,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=4,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=4,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=5,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=5,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=6,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=6,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=7,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=7,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=8,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=8,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=9,last=full,NH=8,KVH=8,D=128,BN=64}",
+      "Attention_v3{NB=9,last=partial,NH=8,KVH=8,D=128,BN=64}",
+      "Gemm_v1{K=1024,N=2048}",
+      "Gemm_v1{K=2048,N=25152}",
+      "Gemm_v1{K=2048,N=3072}",
+      "Gemm_v1{K=2048,N=64}",
+      "MoeExpertGemmW_v1{E=64,K=512,N=2048}",
+      "MoeExpertGemm_v1{E=64,K=2048,N=1024}",
+      "MoeRouterTopK_v1{E=64,TOPK=8,VPT=8}",
+      "MoeSum_v1{TOPK=8,H=2048}",
+      "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+      "RoPE_v1{NHEADS=8,D=128}",
+      "SiluMul_v1{I=512}",
+      "TokenSelect_v1{V=50304}"
+     ],
+     "requests": [
+      "r0",
+      "r1",
+      "r2",
+      "r3",
+      "r4",
+      "r5",
+      "r6",
+      "r7"
+     ],
+     "phases": [
+      "first-decode",
+      "last",
+      "mid",
+      "prefill"
+     ],
+     "steps": {
+      "early": [
+       0,
+       1
+      ],
+      "late": [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23,
+       24,
+       25,
+       26,
+       27,
+       28,
+       29,
+       30,
+       31,
+       32,
+       33,
+       34,
+       35,
+       36,
+       37,
+       38,
+       39,
+       40,
+       41,
+       42,
+       43,
+       44,
+       45,
+       46,
+       47,
+       48,
+       49,
+       50,
+       51,
+       52,
+       53,
+       54,
+       55,
+       56,
+       57,
+       58,
+       59,
+       60,
+       61,
+       62,
+       63,
+       64,
+       65,
+       66,
+       67,
+       68,
+       69,
+       70,
+       71,
+       72,
+       73,
+       74,
+       75,
+       76,
+       77,
+       78,
+       79,
+       80,
+       81,
+       82,
+       83,
+       84,
+       85,
+       86,
+       87,
+       88,
+       89,
+       90,
+       91,
+       92,
+       93,
+       94,
+       95,
+       96,
+       97,
+       98,
+       99,
+       100,
+       101,
+       102,
+       103,
+       104,
+       105,
+       106,
+       107,
+       108,
+       109,
+       110,
+       111,
+       112,
+       113,
+       114,
+       115,
+       116,
+       117,
+       118,
+       119,
+       120,
+       121,
+       122,
+       123,
+       124,
+       125,
+       126,
+       127
+      ]
+     },
+     "lifetime": {
+      "values": {
+       "fresh-window": 4387728,
+       "recycled-window": 438882
+      },
+      "ring_slots": 8
+     },
+     "key": "spec | request | rank | phase | module op_path | lifetime (window); attention rows: spec with T -> NB = ceil(T/BN) (the block-count mechanism; the row's own spec keeps T) [R17-11]",
+     "unevaluated": [
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.k_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.q_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.1.self_attn.k_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.1.self_attn.q_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.10.self_attn.k_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.10.self_attn.q_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.11.self_attn.k_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.11.self_attn.q_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.12.self_attn.k_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.12.self_attn.q_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.13.self_attn.k_norm|recycled-window",
+      "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.13.self_attn.q_norm|recycled-window"
+     ]
+    },
+    "seed": {
+     "0": {
+      "seed": 4495835854935887542,
+      "source": "this rank's run root (first 8 bytes, after commitment)"
+     },
+     "1": {
+      "seed": 13768228984087959609,
+      "source": "this rank's run root (first 8 bytes, after commitment)"
+     }
+    },
+    "weights": {
+     "0": true,
+     "1": true
+    },
+    "weights_self_consistent": {
+     "0": true,
+     "1": true
+    },
+    "weights_pinned": {
+     "0": null,
+     "1": null
+    },
+    "weights_note": "self-consistency, not a weights-of-record pin (rev-cb M-0610, COORD M-0614; tp M-0632 for the per-rank shard pin)",
+    "unreplayable": [
+     {
+      "family": "AllGather2_v1",
+      "n": 268452,
+      "why": "no registered evaluator",
+      "ranks": [
+       0,
+       1
+      ]
+     },
+     {
+      "family": "AllReduce2_v1",
+      "n": 275946,
+      "why": "no registered evaluator",
+      "ranks": [
+       0,
+       1
+      ]
+     },
+     {
+      "family": "EmbeddingShard_v1",
+      "n": 8362,
+      "why": "no registered evaluator",
+      "ranks": [
+       0,
+       1
+      ]
+     }
+    ],
+    "mismatch": [],
+    "per_rank": {
+     "0": {
+      "result": null,
+      "grade": "partial",
+      "why": "484 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.1.self_attn.k_norm|recycled-window']",
+      "rank": 0,
+      "rank_note": null
+     },
+     "1": {
+      "result": null,
+      "grade": "partial",
+      "why": "475 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.1.self_attn.k_norm|recycled-window']",
+      "rank": 1,
+      "rank_note": null
+     }
+    },
+    "per_run": [
+     {
+      "0": {
+       "sampled_replay": null,
+       "grade": "partial",
+       "boundary_linkage": true
+      },
+      "1": {
+       "sampled_replay": null,
+       "grade": "partial",
+       "boundary_linkage": true
+      }
+     }
+    ],
+    "why": "rank 0: partial 484 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank0|last|model.layers.1.self_attn.k_norm|recycled-window']; rank 1: partial 475 strata not evaluated: ['RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.k_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.0.self_attn.q_norm|recycled-window', 'RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}|r1|rank1|last|model.layers.1.self_attn.k_norm|recycled-window']"
+   },
+   "boundary_linkage": {
+    "result": true,
+    "method": "per rank, exhaustive over (engine step, request): committed input_token_ids at the arrival step == the declared prompt of the workload; at every later step == that request's committed sampled_token_ids of the previous step (manbind boundary_linkage on the rank's map)",
+    "checked": 868,
+    "linked": 868,
+    "per_rank": {
+     "0": {
+      "result": true,
+      "pairs": 434,
+      "linked": 434,
+      "why": null
+     },
+     "1": {
+      "result": true,
+      "pairs": 434,
+      "linked": 434,
+      "why": null
+     }
+    },
+    "why": null
+   },
+   "query_population": {
+    "result": false,
+    "per_rank": {
+     "0": {
+      "present": true,
+      "ok": false,
+      "counts": {
+       "vus_outside_query": 25408,
+       "identities_without_rows": 25408,
+       "identities_unreachable_by_alias": 0,
+       "rows_disagree": 0,
+       "rows_annotation_inconsistent": 0,
+       "controller_rows_disagree": 0
+      },
+      "fail": "C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out)"
+     },
+     "1": {
+      "present": true,
+      "ok": false,
+      "counts": {
+       "vus_outside_query": 25408,
+       "identities_without_rows": 25408,
+       "identities_unreachable_by_alias": 0,
+       "rows_disagree": 0,
+       "rows_annotation_inconsistent": 0,
+       "controller_rows_disagree": 0
+      },
+      "fail": "C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out)"
+     }
+    },
+    "rule": "population.query_checks.ok True on EVERY rank (R17-3 reconciliation against Q(P)); False / absent with a required manifest = the rank FAILs by name (F-r17b-38)",
+    "why": "rank 0: C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out); rank 1: C2 population does not reconcile with Q(P) (R17-3): the replay's enumeration of the Program rows and the required manifest disagree on what the Program produces -- vus_outside_query x25408 (first r1 step 5 model.layers.0.self_attn.all_gather2_165/out); identities_without_rows x25408 (first r1 step 5 model.layers.0.self_attn/out)"
+   },
+   "weights_pin": {
+    "result": true,
+    "per_rank": {
+     "0": {
+      "result": true,
+      "root_of_record": "5254f796ee4f2ec26b7bc309d58d41fb6c6c84a6fae201fbb894e89160e8d5e2",
+      "compared": 212,
+      "mismatched_n": 0,
+      "missing": [],
+      "unpinned": [],
+      "all_shards_pinned": true,
+      "committed_weights_root": "6c6a0377bdeec355fed4c030ee50b3b1afc9b8ccf73b8893b05a55ccb323a7dd",
+      "why": null
+     },
+     "1": {
+      "result": true,
+      "root_of_record": "0e852a139d6dae8a6c8ada1407e401f16cfff8c5528193141599b2ae552a0975",
+      "compared": 212,
+      "mismatched_n": 0,
+      "missing": [],
+      "unpinned": [],
+      "all_shards_pinned": true,
+      "committed_weights_root": "b142f8a3b64235a0bd925ccde0ec50f8852048ec18ae64ddd2eb7d71494837b3",
+      "why": null
+     }
+    },
+    "pairs": 1,
+    "method": "MAN-09 per rank: sha256(served shard bytes) == digest composed from the PINNED checkpoint shards by the rank Program's shard map, every weight field",
+    "reference": "the checkpoint of record (manifests/checkpoints.json revision + shard sha256), never the live engine (rev-cb M-0610)",
+    "checkpoint_dir": "/workspace/hf/hub/models--allenai--OLMoE-1B-7B-0924/snapshots/6d84c48581ece794365f2b8e9cfb043c68ade9c5",
+    "why": null
+   },
+   "cross_rank_collectives": {
+    "result": false,
+    "pairs": 1,
+    "picks": 154,
+    "equal": 154,
+    "mismatch_n": 0,
+    "missing_n": 0,
+    "by_family": {
+     "AllGather2_v1": {
+      "picks": 52,
+      "equal": 52,
+      "mismatch": 0,
+      "missing": 0
+     },
+     "AllReduce2_v1": {
+      "picks": 99,
+      "equal": 99,
+      "mismatch": 0,
+      "missing": 0
+     },
+     "EmbeddingShard_v1": {
+      "picks": 3,
+      "equal": 3,
+      "mismatch": 0,
+      "missing": 0
+     }
+    },
+    "families": [
+     "AllGather2_v1",
+     "AllReduce2_v1",
+     "EmbeddingShard_v1"
+    ],
+    "why": "coverage of the unreplayable collective sites incomplete -- sites without a stratum: AllGather2_v1: ['model.layers.0.self_attn.all_gather2', 'model.layers.0.self_attn.all_gather2_1', 'model.layers.0.self_attn.all_gather2_100', 'model.layers.0.self_attn.all_gather2_132']",
+    "coverage_of_unreplayable": {
+     "complete": false,
+     "per_pair": [
+      {
+       "complete": false,
+       "families": {
+        "AllGather2_v1": {
+         "sites": 161,
+         "covered": 1,
+         "missing": [
+          "model.layers.0.self_attn.all_gather2",
+          "model.layers.0.self_attn.all_gather2_1",
+          "model.layers.0.self_attn.all_gather2_100",
+          "model.layers.0.self_attn.all_gather2_132",
+          "model.layers.0.self_attn.all_gather2_133",
+          "model.layers.0.self_attn.all_gather2_33",
+          "model.layers.0.self_attn.all_gather2_34",
+          "model.layers.0.self_attn.all_gather2_66",
+          "model.layers.0.self_attn.all_gather2_67",
+          "model.layers.0.self_attn.all_gather2_99",
+          "model.layers.1.self_attn.all_gather2_101",
+          "model.layers.1.self_attn.all_gather2_102",
+          "model.layers.1.self_attn.all_gather2_134",
+          "model.layers.1.self_attn.all_gather2_135",
+          "model.layers.1.self_attn.all_gather2_2",
+          "model.layers.1.self_attn.all_gather2_3",
+          "model.layers.1.self_attn.all_gather2_35",
+          "model.layers.1.self_attn.all_gather2_36",
+          "model.layers.1.self_attn.all_gather2_68",
+          "model.layers.1.self_attn.all_gather2_69",
+          "model.layers.10.self_attn.all_gather2_119",
+          "model.layers.10.self_attn.all_gather2_120",
+          "model.layers.10.self_attn.all_gather2_152",
+          "model.layers.10.self_attn.all_gather2_153",
+          "model.layers.10.self_attn.all_gather2_20",
+          "model.layers.10.self_attn.all_gather2_21",
+          "model.layers.10.self_attn.all_gather2_53",
+          "model.layers.10.self_attn.all_gather2_54",
+          "model.layers.10.self_attn.all_gather2_86",
+          "model.layers.10.self_attn.all_gather2_87",
+          "model.layers.11.self_attn.all_gather2_121",
+          "model.layers.11.self_attn.all_gather2_122",
+          "model.layers.11.self_attn.all_gather2_154",
+          "model.layers.11.self_attn.all_gather2_155",
+          "model.layers.11.self_attn.all_gather2_22",
+          "model.layers.11.self_attn.all_gather2_23",
+          "model.layers.11.self_attn.all_gather2_55",
+          "model.layers.11.self_attn.all_gather2_56",
+          "model.layers.11.self_attn.all_gather2_88",
+          "model.layers.11.self_attn.all_gather2_89",
+          "model.layers.12.self_attn.all_gather2_123",
+          "model.layers.12.self_attn.all_gather2_124",
+          "model.layers.12.self_attn.all_gather2_156",
+          "model.layers.12.self_attn.all_gather2_157",
+          "model.layers.12.self_attn.all_gather2_24",
+          "model.layers.12.self_attn.all_gather2_25",
+          "model.layers.12.self_attn.all_gather2_57",
+          "model.layers.12.self_attn.all_gather2_58",
+          "model.layers.12.self_attn.all_gather2_90",
+          "model.layers.12.self_attn.all_gather2_91",
+          "model.layers.13.self_attn.all_gather2_125",
+          "model.layers.13.self_attn.all_gather2_126",
+          "model.layers.13.self_attn.all_gather2_158",
+          "model.layers.13.self_attn.all_gather2_159",
+          "model.layers.13.self_attn.all_gather2_26",
+          "model.layers.13.self_attn.all_gather2_27",
+          "model.layers.13.self_attn.all_gather2_59",
+          "model.layers.13.self_attn.all_gather2_60",
+          "model.layers.13.self_attn.all_gather2_92",
+          "model.layers.13.self_attn.all_gather2_93",
+          "model.layers.14.self_attn.all_gather2_127",
+          "model.layers.14.self_attn.all_gather2_128",
+          "model.layers.14.self_attn.all_gather2_160",
+          "model.layers.14.self_attn.all_gather2_161",
+          "model.layers.14.self_attn.all_gather2_28",
+          "model.layers.14.self_attn.all_gather2_29",
+          "model.layers.14.self_attn.all_gather2_61",
+          "model.layers.14.self_attn.all_gather2_62",
+          "model.layers.14.self_attn.all_gather2_94",
+          "model.layers.14.self_attn.all_gather2_95",
+          "model.layers.15.self_attn.all_gather2_129",
+          "model.layers.15.self_attn.all_gather2_130",
+          "model.layers.15.self_attn.all_gather2_162",
+          "model.layers.15.self_attn.all_gather2_163",
+          "model.layers.15.self_attn.all_gather2_30",
+          "model.layers.15.self_attn.all_gather2_31",
+          "model.layers.15.self_attn.all_gather2_63",
+          "model.layers.15.self_attn.all_gather2_64",
+          "model.layers.15.self_attn.all_gather2_96",
+          "model.layers.15.self_attn.all_gather2_97",
+          "model.layers.2.self_attn.all_gather2_103",
+          "model.layers.2.self_attn.all_gather2_104",
+          "model.layers.2.self_attn.all_gather2_136",
+          "model.layers.2.self_attn.all_gather2_137",
+          "model.layers.2.self_attn.all_gather2_37",
+          "model.layers.2.self_attn.all_gather2_38",
+          "model.layers.2.self_attn.all_gather2_4",
+          "model.layers.2.self_attn.all_gather2_5",
+          "model.layers.2.self_attn.all_gather2_70",
+          "model.layers.2.self_attn.all_gather2_71",
+          "model.layers.3.self_attn.all_gather2_105",
+          "model.layers.3.self_attn.all_gather2_106",
+          "model.layers.3.self_attn.all_gather2_138",
+          "model.layers.3.self_attn.all_gather2_139",
+          "model.layers.3.self_attn.all_gather2_39",
+          "model.layers.3.self_attn.all_gather2_40",
+          "model.layers.3.self_attn.all_gather2_6",
+          "model.layers.3.self_attn.all_gather2_7",
+          "model.layers.3.self_attn.all_gather2_72",
+          "model.layers.3.self_attn.all_gather2_73",
+          "model.layers.4.self_attn.all_gather2_107",
+          "model.layers.4.self_attn.all_gather2_108",
+          "model.layers.4.self_attn.all_gather2_140",
+          "model.layers.4.self_attn.all_gather2_141",
+          "model.layers.4.self_attn.all_gather2_41",
+          "model.layers.4.self_attn.all_gather2_42",
+          "model.layers.4.self_attn.all_gather2_74",
+          "model.layers.4.self_attn.all_gather2_75",
+          "model.layers.4.self_attn.all_gather2_8",
+          "model.layers.4.self_attn.all_gather2_9",
+          "model.layers.5.self_attn.all_gather2_10",
+          "model.layers.5.self_attn.all_gather2_109",
+          "model.layers.5.self_attn.all_gather2_11",
+          "model.layers.5.self_attn.all_gather2_110",
+          "model.layers.5.self_attn.all_gather2_142",
+          "model.layers.5.self_attn.all_gather2_143",
+          "model.layers.5.self_attn.all_gather2_43",
+          "model.layers.5.self_attn.all_gather2_44",
+          "model.layers.5.self_attn.all_gather2_76",
+          "model.layers.5.self_attn.all_gather2_77",
+          "model.layers.6.self_attn.all_gather2_111",
+          "model.layers.6.self_attn.all_gather2_112",
+          "model.layers.6.self_attn.all_gather2_12",
+          "model.layers.6.self_attn.all_gather2_13",
+          "model.layers.6.self_attn.all_gather2_144",
+          "model.layers.6.self_attn.all_gather2_145",
+          "model.layers.6.self_attn.all_gather2_45",
+          "model.layers.6.self_attn.all_gather2_46",
+          "model.layers.6.self_attn.all_gather2_78",
+          "model.layers.6.self_attn.all_gather2_79",
+          "model.layers.7.self_attn.all_gather2_113",
+          "model.layers.7.self_attn.all_gather2_114",
+          "model.layers.7.self_attn.all_gather2_14",
+          "model.layers.7.self_attn.all_gather2_146",
+          "model.layers.7.self_attn.all_gather2_147",
+          "model.layers.7.self_attn.all_gather2_15",
+          "model.layers.7.self_attn.all_gather2_47",
+          "model.layers.7.self_attn.all_gather2_48",
+          "model.layers.7.self_attn.all_gather2_80",
+          "model.layers.7.self_attn.all_gather2_81",
+          "model.layers.8.self_attn.all_gather2_115",
+          "model.layers.8.self_attn.all_gather2_116",
+          "model.layers.8.self_attn.all_gather2_148",
+          "model.layers.8.self_attn.all_gather2_149",
+          "model.layers.8.self_attn.all_gather2_16",
+          "model.layers.8.self_attn.all_gather2_17",
+          "model.layers.8.self_attn.all_gather2_49",
+          "model.layers.8.self_attn.all_gather2_50",
+          "model.layers.8.self_attn.all_gather2_82",
+          "model.layers.8.self_attn.all_gather2_83",
+          "model.layers.9.self_attn.all_gather2_117",
+          "model.layers.9.self_attn.all_gather2_118",
+          "model.layers.9.self_attn.all_gather2_150",
+          "model.layers.9.self_attn.all_gather2_151",
+          "model.layers.9.self_attn.all_gather2_18",
+          "model.layers.9.self_attn.all_gather2_19",
+          "model.layers.9.self_attn.all_gather2_51",
+          "model.layers.9.self_attn.all_gather2_52",
+          "model.layers.9.self_attn.all_gather2_84",
+          "model.layers.9.self_attn.all_gather2_85"
+         ],
+         "picks": 52,
+         "equal": 52
+        },
+        "AllReduce2_v1": {
+         "sites": 33,
+         "covered": 33,
+         "missing": [],
+         "picks": 99,
+         "equal": 99
+        },
+        "EmbeddingShard_v1": {
+         "sites": 1,
+         "covered": 1,
+         "missing": [],
+         "picks": 3,
+         "equal": 3
+        }
+       },
+       "strata_sites_n": 50,
+       "errors": null,
+       "rule": "every site of every replay-unreplayable collective family (from the rank Programs) has >= 1 stratum in this pass; else missing by name",
+       "why": "sites without a stratum: AllGather2_v1: ['model.layers.0.self_attn.all_gather2', 'model.layers.0.self_attn.all_gather2_1', 'model.layers.0.self_attn.all_gather2_100', 'model.layers.0.self_attn.all_gather2_132']"
+      }
+     ]
+    },
+    "rule": "per pick (site, step, row subset): all_reduce -> committed received (each rank) == bf16(f32(part_rank0) + f32(part_rank1)) elementwise and equal across ranks; all_gather -> committed received == concat(shard_rank0, shard_rank1) on the last dim; embedding site additionally (EmbeddingShard_v1) -> each rank's committed partial == masked gather of the committed ids (<site>/in) from the rank's pinned vocab shard (rows outside the rank's vocab range are zero); partials and received are the ranks' COMMITTED bytes (bound + under the run roots), never the hook-time clone",
+    "seed": "the pair's combined run root (fixed after commitment)",
+    "per_pair_artifacts": [
+     "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit/xrank_pair0.json"
+    ]
+   },
+   "fold_match_binding": {
+    "result": false,
+    "n_bindings": 0,
+    "n_recorder": {},
+    "n_bad_bindings": null,
+    "why": "fold Match record missing (tp2_fold_match.json / tp2_rank_match.json): the peer leaves have no Match-stage binding -- REQUIRED",
+    "rule": null,
+    "artifact": "fold_match_binding.json"
+   }
+  },
+  "oracle": "hook-time reference clone + re-executed relation (same attempt, same rank, independent of the collector's bytes); not the Match fold",
+  "identities_checked": {
+   "0": {
+    "module_outputs": 24960,
+    "tp_partials": 14592
+   },
+   "1": {
+    "module_outputs": 24960,
+    "tp_partials": 14592
+   }
+  },
+  "per_rank": {
+   "0": {
+    "verdict": "PASS",
+    "modules": "PASS",
+    "tp_partials": "PASS"
+   },
+   "1": {
+    "verdict": "PASS",
+    "modules": "PASS",
+    "tp_partials": "PASS"
+   }
+  },
+  "c2_of_record": {
+   "form": "A (sampled replay) per rank",
+   "result": false,
+   "rule": "MAN-06 O1: result true on EVERY rank and pair, else the Commit FAILs named"
+  }
+ }
+}

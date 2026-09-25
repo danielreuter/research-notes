@@ -193,5 +193,6 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   cross-thread `tl.sum` over the cell axis or six strided read-modify-writes cost 2-4x more. eq-table levels by
   nibble tables (64 x 16 x 32 B per level) are 1.4x faster than byte tables (32 x 256 x 32 B, L2-resident); the first
   compile takes ~25 s.
-- The laptop's `research data reindex --remote` is SIGKILLed (rc 137, no output) under the laptop guardian. Run it
-  on the pod with the store credential instead (`04_store.sh reindex`, lane agkr-bound pod-scripts).
+- `research data reindex --remote` did not complete for lane agkr-bound (2026-09-25). On the laptop it is SIGKILLed
+  (rc 137, no output). On the A100 pod with the store credential (`04_store.sh reindex`) it ran 15 min, network-bound
+  (29 s CPU at 8 min), with no output, until `timeout 900`. Puts and pushes preserve fine without it.

@@ -1,0 +1,11 @@
+{
+ "tp": 2,
+ "schema": "verity/tp2/commit-binding/v1",
+ "fold_match": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/fold_match/tp2_fold_match.json",
+ "rank_match": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/fold_match/tp2_rank_match.json",
+ "failures": [],
+ "n_bindings": 0,
+ "n_recorder": {},
+ "result": false,
+ "why": "fold Match record missing (tp2_fold_match.json / tp2_rank_match.json): the peer leaves have no Match-stage binding -- REQUIRED"
+}

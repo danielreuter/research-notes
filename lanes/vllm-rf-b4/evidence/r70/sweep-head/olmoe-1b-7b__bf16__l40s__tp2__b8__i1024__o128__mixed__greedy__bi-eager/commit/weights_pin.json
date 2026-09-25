@@ -1,0 +1,34 @@
+{
+ "schema": "verity-sweep/tp-weights-pin/v1",
+ "tp": 2,
+ "result": true,
+ "per_rank": {
+  "0": {
+   "result": true,
+   "root_of_record": "5254f796ee4f2ec26b7bc309d58d41fb6c6c84a6fae201fbb894e89160e8d5e2",
+   "compared": 212,
+   "mismatched_n": 0,
+   "missing": [],
+   "unpinned": [],
+   "all_shards_pinned": true,
+   "committed_weights_root": "6c6a0377bdeec355fed4c030ee50b3b1afc9b8ccf73b8893b05a55ccb323a7dd",
+   "why": null
+  },
+  "1": {
+   "result": true,
+   "root_of_record": "0e852a139d6dae8a6c8ada1407e401f16cfff8c5528193141599b2ae552a0975",
+   "compared": 212,
+   "mismatched_n": 0,
+   "missing": [],
+   "unpinned": [],
+   "all_shards_pinned": true,
+   "committed_weights_root": "b142f8a3b64235a0bd925ccde0ec50f8852048ec18ae64ddd2eb7d71494837b3",
+   "why": null
+  }
+ },
+ "pairs": 1,
+ "method": "MAN-09 per rank: sha256(served shard bytes) == digest composed from the PINNED checkpoint shards by the rank Program's shard map, every weight field",
+ "reference": "the checkpoint of record (manifests/checkpoints.json revision + shard sha256), never the live engine (rev-cb M-0610)",
+ "checkpoint_dir": "/workspace/hf/hub/models--allenai--OLMoE-1B-7B-0924/snapshots/6d84c48581ece794365f2b8e9cfb043c68ade9c5",
+ "why": null
+}

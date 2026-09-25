@@ -1,0 +1,1493 @@
+{
+ "checks": [
+  {
+   "name": "runtime_match",
+   "claim": "The committed record is the runtime occurrence's: the instrumented engine served the control's tokens, every attempted value acquisition was bound, the committed bytes open against the run root, and no committed value differs from the Match oracle where the oracle looked.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "rules": {
+     "runtime_match/tokens_equal": "PASS",
+     "runtime_match/reference_integrity": "PASS",
+     "runtime_match/fa2_zero_rows": "NOT_RUN",
+     "runtime_match/collector_errors": "PASS",
+     "runtime_match/openings": "PASS",
+     "runtime_match/openings_after_release": "PASS",
+     "runtime_match/openings_population": "PASS",
+     "runtime_match/bounded_staging": "PASS",
+     "runtime_match/oracle_compare": "PASS",
+     "runtime_match/compiled_check": "NOT_RUN"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "tokens_equal",
+    "openings",
+    "openings_after_release",
+    "oracle_compare",
+    "value_correspondence",
+    "expected_tensors",
+    "committed_tensors",
+    "errors_n",
+    "tokens_equal_ref",
+    "commit_summary.tokens_equal",
+    "extra.expected_tensors",
+    "extra.committed_tensors",
+    "fa2_zero_rows",
+    "extra.errors_n",
+    "extra.errors",
+    "openings.n",
+    "openings.verified",
+    "openings.skipped",
+    "openings.deferred_replay_n",
+    "commit_summary.openings",
+    "openings_after_release.n",
+    "openings_after_release.verified",
+    "openings_after_release.source",
+    "openings_after_release.replay_root_equal",
+    "openings_after_release.replay_errors_n",
+    "openings_after_release.retained_device_after",
+    "openings_after_release.deferred_received_positions",
+    "binding.openings_population.n",
+    "binding.openings_population.unbound_n",
+    "binding.openings_population.opened",
+    "binding.openings_population.verified",
+    "binding.openings_population.skipped",
+    "extra.bounded_staging",
+    "oracle_compare.result",
+    "oracle_compare.mismatch_n",
+    "value_correspondence.result",
+    "value_correspondence.components",
+    "value_correspondence.compiled_check",
+    "compiled_source.stats"
+   ],
+   "group": "runtime_match",
+   "rule": null,
+   "notes": [
+    "structural_leak: oracle_compare.NO_ORACLE_FAMILY_PREFIXES (kernel-interior streams excluded from the oracle by name prefix)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "local_replay",
+   "claim": "A post-commitment sample of required values replays exactly from the committed bytes under the Program's relations (C2 form (A)), over the required-value manifest Q(P) of record, with every unevaluated stratum named.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "sample_seed": 8853214064722388274,
+    "seed_source": "run root (first 8 bytes, after commitment)",
+    "artifact": "/workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/commit/sampled_replay_p0.json",
+    "commit/sampled_replay_p0.json": "a9aad0133305ce44d07b25ddd64feaf6cdf856e2381d7a7743f5f401bda38fb3"
+   },
+   "scope": {
+    "rules": {
+     "local_replay/sampled_replay": "PASS",
+     "local_replay/seed_of_record": "PASS",
+     "local_replay/population_gaps": "PASS",
+     "local_replay/population_scope": "PASS",
+     "local_replay/attribution": "NOT_RUN"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "sampled_replay",
+    "sampled_replay_p*.json",
+    "replay_cache",
+    "sampled_replay.result",
+    "sampled_replay.grade",
+    "sampled_replay.why",
+    "sampled_replay.sample",
+    "sampled_replay.sample.seed",
+    "sampled_replay.sample.seed_source",
+    "sampled_replay.sample.challenge",
+    "sampled_replay.population.not_evaluable",
+    "sampled_replay.strata_unevaluated",
+    "sampled_replay.unevaluated_strata",
+    "oracle_compare",
+    "sampled_replay.population.query_total",
+    "sampled_replay.population.query_checks",
+    "sampled_replay.population.scope",
+    "sampled_replay.population.uncovered_by_name",
+    "binding.population.requests",
+    "oracle_compare.attribution"
+   ],
+   "group": "local_replay",
+   "rule": null,
+   "notes": [
+    "structural_leak: sampled_replay.EVALUATORS / NOT_YET (which families the replay can evaluate is a table by family name (the stated applicability domain))"
+   ],
+   "reason": null
+  },
+  {
+   "name": "boundary_linkage",
+   "claim": "Every (engine step, request) boundary is linked: the declared prompt to the input ids at the arrival step, and each sampled id to the next step's input id (C2 ordered boundary linkage).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "rules": {
+     "boundary_linkage/ordered_linkage": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "boundary_linkage",
+    "linkage",
+    "boundary_linkage.result",
+    "boundary_linkage.unlinked_n",
+    "boundary_linkage.pairs",
+    "boundary_linkage.horizon"
+   ],
+   "group": "boundary_linkage",
+   "rule": null,
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "checkpoint_binding",
+   "claim": "Every served parameter the Program names equals, by digest, the checkpoint-composed tensor of record (MAN-09), with the shards pinned by their manifest sha256.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "weights_program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "root_of_record": "120a8d6f82f781939c513ecbc58e3d4785463048883803b50a946f4318bf6c24",
+    "committed_weights_root": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+    "checkpoint_entry": "{'repo': 'unsloth/Llama-3.2-1B', 'revision': '9535bd9b1d1dea6acafbdc4813b728796aeb28da'}"
+   },
+   "scope": {
+    "rules": {
+     "checkpoint_binding/weights_of_record": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "weights_pin",
+    "weights_pin.result",
+    "weights_pin.why",
+    "weights_pin.compared",
+    "weights_pin.mismatched",
+    "weights_pin.missing",
+    "weights_pin.shards"
+   ],
+   "group": "checkpoint_binding",
+   "rule": null,
+   "notes": [
+    "structural_leak: weights_of_record.FUSED / EXPERTS / EXPERTS_MIXTRAL (the checkpoint composition of fused / expert tensors is keyed by known parameter-name tables)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "execution_extent",
+   "claim": "Each request's executed prefix of record (served length; the cap on a length stop, served + LAG on an EOS stop) is derived from the declared stop rule, linked to the Match account of the same attempt, and no committed row lies past it.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "tokens_json_sha256": "c83936017d07fd6fbf69f33f1395a2772f485c83c94f5d82b58ed2e07c989228",
+    "global_match_sha256": "19aa14d0f1e668b7cda1ab114f07e1e206ec303efcab655562cca717ac79c5af"
+   },
+   "scope": {
+    "rules": {
+     "execution_extent/executed_prefix_of_record": "PASS",
+     "execution_extent/match_account_link": "PASS",
+     "execution_extent/rows_past_the_stop": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "executed_prefix",
+    "executed_prefix_of_record",
+    "executed_prefix_facts",
+    "match_account_link",
+    "rows_past_the_stop",
+    "account_missing",
+    "binding.coverage.executed_prefix_of_record",
+    "sampled_replay.executed_prefix_of_record",
+    "coverage.executed_prefix_of_record",
+    "binding.coverage.match_account_link",
+    "executed_prefix_facts.linked",
+    "executed_prefix_facts.lag_attested",
+    "binding.coverage.rows_past_the_stop",
+    "executed_prefix_facts.rows_past_stop"
+   ],
+   "group": "execution_extent",
+   "rule": null,
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "required_value_coverage",
+   "claim": "Every identity of the required-value manifest Q(P) has exactly one committed binding, every required value class was acquired, and the manifest used is the one rebuilt from this attempt's Program x workload.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "required_classes": [
+     "input_token_ids",
+     "instance_outputs_native",
+     "sampled_token_ids",
+     "weights",
+     "fa2_hidden_m1_stream"
+    ],
+    "used_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "rebuilt_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "used_program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "rebuilt_program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de"
+   },
+   "scope": {
+    "rules": {
+     "required_value_coverage/identity_coverage": "PASS",
+     "required_value_coverage/manifest_coverage": "PASS",
+     "required_value_coverage/required_classes": "PASS",
+     "required_value_coverage/manifest_of_record_verified": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "coverage",
+    "binding.coverage",
+    "required_classes",
+    "required_classes_source",
+    "classes",
+    "manifest_verify",
+    "binding.coverage.ok",
+    "binding.coverage.error",
+    "binding.coverage.missing_n",
+    "binding.coverage.ambiguous_n",
+    "binding.coverage.expected_n",
+    "binding.coverage.bound_n",
+    "coverage.ok",
+    "coverage.missing_n",
+    "coverage.missing_by_family",
+    "coverage.families_missing_entirely",
+    "coverage.error",
+    "coverage.manifest_digest",
+    "commit_summary.coverage",
+    "declaration_*.json",
+    "manifest_verify.ok",
+    "manifest_verify.used_digest",
+    "manifest_verify.rebuilt_digest",
+    "stages.txt manifest_verify="
+   ],
+   "group": "required_value_coverage",
+   "rule": null,
+   "notes": [
+    "structural_leak: required_manifest.members_for (a Program family is INTERIOR because the vocabulary names no member for it -- by name, F-r19-int-20)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "program_source_identity",
+   "claim": "The committed identities are the Program of record's: every step's committed identity set matches the expected manifest (X-03: modules, one attention row per layer, one sampled-ids tensor, the same multiset every step) and the binding map was built for this Program, layout and run roots.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "binding_program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "root_program_digest": "fc9a71f1aa3d7bcb57e20ab66743f8ab277bbac0790934bc86819b6e23af9b8d",
+    "map_digest": "10353eec7ca0ac62b8ffbae612a5c1de7a44dcbb8e99488d22b97a7f15952ff8"
+   },
+   "scope": {
+    "rules": {
+     "program_source_identity/identity_layout": "PASS",
+     "program_source_identity/binding_context": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "identity",
+    "identity_check",
+    "binding.context",
+    "extra.identity_check.ok",
+    "extra.identity_check.violations",
+    "extra.identity_check.violations_n",
+    "extra.identity_check.steps_checked",
+    "binding.error",
+    "binding.context.ok",
+    "binding.context.why",
+    "binding.program_digest",
+    "binding.map_digest"
+   ],
+   "group": "program_source_identity",
+   "rule": null,
+   "notes": [
+    "structural_leak: native_host.ACQUIRE_CLASSES (the expected module set is selected by module class name, not by the Program)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/tokens_equal",
+   "claim": "The instrumented engine served exactly the control engine's token ids for every request.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "tokens_equal": true,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "tokens_equal_ref",
+    "commit_summary.tokens_equal"
+   ],
+   "group": "runtime_match",
+   "rule": "X-03 tokens",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/reference_integrity",
+   "claim": "Every value acquisition the collector attempted was bound (attempted == committed, both > 0).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "attempted": 6880,
+    "committed": 6880,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "extra.expected_tensors",
+    "extra.committed_tensors"
+   ],
+   "group": "runtime_match",
+   "rule": "X-03 (R12) counters",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/fa2_zero_rows",
+   "claim": "No attention hidden-value row was bound as all-zero bytes (the tap was staged before it was zeroed).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "rows_checked": false,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "NOT_RUN"
+    }
+   },
+   "outcome": "NOT_RUN",
+   "differences": [],
+   "compat": [
+    "fa2_zero_rows"
+   ],
+   "group": "runtime_match",
+   "rule": "R13 p0b tap ordering",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/collector_errors",
+   "claim": "No collector, arena or hook error was recorded during the instrumented run.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "errors_n": 0,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "extra.errors_n",
+    "extra.errors"
+   ],
+   "group": "runtime_match",
+   "rule": "X-03 errors",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/openings",
+   "claim": "Every challenge-drawn opening of the committed bytes verified against the run root, and at least min_openings were drawn (C3).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "sample_size": 64,
+    "verified": 64,
+    "min_openings": 64,
+    "skipped": null,
+    "challenge_n": 64,
+    "deferred_replay_n": 0,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "openings.n",
+    "openings.verified",
+    "openings.skipped",
+    "openings.deferred_replay_n",
+    "commit_summary.openings"
+   ],
+   "group": "runtime_match",
+   "rule": "C3 openings",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/openings_after_release",
+   "claim": "After the raw device staging was released, every opening (the challenge's and every pick the in-run stages deferred to replay) verified against the ORIGINAL roots, the replay reproduced the run root, and no raw byte stayed on the device.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "sample_size": 68,
+    "verified": 68,
+    "source": "host",
+    "replay_root_equal": null,
+    "retained_device_after": 0,
+    "deferred_received_n": 0,
+    "forced_n": 4,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "openings_after_release.n",
+    "openings_after_release.verified",
+    "openings_after_release.source",
+    "openings_after_release.replay_root_equal",
+    "openings_after_release.replay_errors_n",
+    "openings_after_release.retained_device_after",
+    "openings_after_release.deferred_received_positions"
+   ],
+   "group": "runtime_match",
+   "rule": "R13 P0 / R17-5 openings after release",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/openings_population",
+   "claim": "Every opening drawn from the required-value population had a binding and verified (BIND-01 (3); retain=none: the deferred share opens by replay).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "sample_size": 79,
+    "bound": 79,
+    "opened": 79,
+    "verified": 79,
+    "skipped": null,
+    "families": [
+     "act_fn",
+     "attn",
+     "down_proj",
+     "embed_tokens",
+     "gate_up_proj",
+     "input_layernorm",
+     "logits_processor",
+     "m1",
+     "norm",
+     "o_proj",
+     "post_attention_layernorm",
+     "qkv_proj",
+     "rotary_emb",
+     "sampler"
+    ],
+    "deferred_replay_n": 0,
+    "late_step_in_sample": true,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.openings_population.n",
+    "binding.openings_population.unbound_n",
+    "binding.openings_population.opened",
+    "binding.openings_population.verified",
+    "binding.openings_population.skipped"
+   ],
+   "group": "runtime_match",
+   "rule": "R14 BIND-01 (3)",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/bounded_staging",
+   "claim": "A bounded-staging record run carries no learned-only step and was not finalized in learn-only mode.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "learn_only": false,
+    "learned_only_steps": [],
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "extra.bounded_staging"
+   ],
+   "group": "runtime_match",
+   "rule": "R17 fp8 bounded staging",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/oracle_compare",
+   "claim": "No committed value differs from the Match oracle's (form (B): the Match capture's instance-output snapshots and sampled ids of the same attempt) where the oracle looked; scope states how much it looked at.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "compared": 6304,
+    "mismatch_n": 0,
+    "complete": false,
+    "grade": "attribution-complete",
+    "attribution_complete": true,
+    "attribution_pairs": 32,
+    "compared_by_family": {
+     "input_token_ids": 32,
+     "instance_outputs": 6240,
+     "sampled_token_ids": 32
+    },
+    "method": "sampled-exact-replay(complete) + boundary-linkage + oracle-compare(partial) + offline-suite (verity_capture/bench/tests/test_binding_negatives.py: late-read, relabel)",
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "oracle_compare.result",
+    "oracle_compare.mismatch_n",
+    "value_correspondence.result",
+    "value_correspondence.components"
+   ],
+   "group": "runtime_match",
+   "rule": "C2 form (B) / R15 COORD M-0111 (2)",
+   "notes": [
+    "form (B) attribution-complete: attribution-complete: no fold instance of this op at this step x64",
+    "structural_leak: oracle_compare.NO_ORACLE_FAMILY_PREFIXES (kernel-interior streams excluded from the oracle by name prefix)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "runtime_match/compiled_check",
+   "claim": "Under compiled acquisition every kernel launch replays exactly and the compiled ring refused / mis-shaped no acquisition (S3).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "NOT_RUN"
+    }
+   },
+   "outcome": "NOT_RUN",
+   "differences": [],
+   "compat": [
+    "value_correspondence.compiled_check",
+    "compiled_source.stats"
+   ],
+   "group": "runtime_match",
+   "rule": "R15 compiled S3",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "local_replay/sampled_replay",
+   "claim": "A post-commitment stratified sample of required values replays exactly (bit-for-bit) from the committed bytes under the Program's registered relations.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "sample_seed": 8853214064722388274,
+    "seed_source": "run root (first 8 bytes, after commitment)",
+    "artifact": "/workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/commit/sampled_replay_p0.json",
+    "commit/sampled_replay_p0.json": "a9aad0133305ce44d07b25ddd64feaf6cdf856e2381d7a7743f5f401bda38fb3"
+   },
+   "scope": {
+    "result": true,
+    "grade": "complete",
+    "sample_size": 1374,
+    "picked": 1374,
+    "equal": 1374,
+    "mismatch_n": 0,
+    "not_evaluated_n": 0,
+    "per_stratum": 2,
+    "positions": 32,
+    "requests": 1,
+    "strata": 868,
+    "strata_unevaluated": 0,
+    "population_vus": 46558,
+    "population_by_family": {
+     "Embedding_v1": 287,
+     "RMSNormTriton_v1": 287,
+     "Gemm_v1": 18400,
+     "RoPE_v1": 9184,
+     "Attention_v3": 4592,
+     "RMSNormFusedCuda_v2": 9184,
+     "SiluMul_v1": 4592,
+     "GumbelTopPTokenSelect_v1": 32
+    },
+    "not_evaluable": null,
+    "query_total": null,
+    "query_id": "Q_module_v1",
+    "query_checks_ok": true,
+    "replay_cache": {
+     "distinct_replays": 1,
+     "reused_pairs": 0
+    },
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "sampled_replay.result",
+    "sampled_replay.grade",
+    "sampled_replay.why",
+    "sampled_replay.sample",
+    "sampled_replay_p*.json",
+    "replay_cache"
+   ],
+   "group": "local_replay",
+   "rule": "DECISIONS-2 \u00a74 C2 form (A) / F-cb-02",
+   "notes": [
+    "structural_leak: sampled_replay.EVALUATORS / NOT_YET (which families the replay can evaluate is a table by family name (the stated applicability domain))"
+   ],
+   "reason": null
+  },
+  {
+   "name": "local_replay/seed_of_record",
+   "claim": "The replay's seed is post-commitment as a FACT: recomputed from the run root (or the recorded verifier challenge), never prover-chosen.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "sample_seed": 8853214064722388274,
+    "seed_source": "run root (first 8 bytes, after commitment)",
+    "artifact": "/workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/commit/sampled_replay_p0.json",
+    "commit/sampled_replay_p0.json": "a9aad0133305ce44d07b25ddd64feaf6cdf856e2381d7a7743f5f401bda38fb3"
+   },
+   "scope": {
+    "seed_source": "run root (first 8 bytes, after commitment)",
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "sampled_replay.sample.seed",
+    "sampled_replay.sample.seed_source",
+    "sampled_replay.sample.challenge"
+   ],
+   "group": "local_replay",
+   "rule": "F-r16-23 / M-0579",
+   "notes": [
+    "seed == run_root[:8] (recomputed)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "local_replay/population_gaps",
+   "claim": "Every VU the replay left unevaluated is named under a class form (B) covers, and form (B) is complete over the values where it must stand in; plane-fed VUs never pass by name.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "sampled_replay.population.not_evaluable",
+    "sampled_replay.strata_unevaluated",
+    "sampled_replay.unevaluated_strata",
+    "oracle_compare"
+   ],
+   "group": "local_replay",
+   "rule": "COORD M-0721 (1) / F-r16-02 / F-r16-07 / F-r16-20",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "local_replay/population_scope",
+   "claim": "The replay's population is the required-value manifest Q(P) of record, reconciled identity by identity (reach + uncovered-by-name == |Q(P)|; engines agree).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "query_total": null,
+    "query_id": "Q_module_v1",
+    "query_checks_ok": true,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "sampled_replay.population.query_total",
+    "sampled_replay.population.query_checks",
+    "sampled_replay.population.scope",
+    "sampled_replay.population.uncovered_by_name"
+   ],
+   "group": "local_replay",
+   "rule": "R17-3 / R17-10 reqval",
+   "notes": [
+    "C2 population scope (R17-3; query of record Q_module_v1): Q_module_v1(P) = 7043 identities (fa2_hidden_m1_stream 512, input_token_ids 32, instance_outputs 6240, sampled_token_ids 32, sampler_seed 32, sampler_splits 32, weights 163; guard armed (traversal); cross-check AGREED (traversal vs inventory: 7043 / 7043 identities)); exact replay reaches 6272 (89.1%), under an evaluated module 1480; uncovered by name: fa2_hidden_m1_stream x512 (mechanism), input_token_ids x32 (mechanism), sampler_seed x32 (mechanism), sampler_splits x32 (mechanism), weights x163 (mechanism)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "local_replay/attribution",
+   "claim": "At B >= 2 the per-(step, request) attribution of every committed value is verified by a complete form (B); else the gap is named on the PASS.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "requests": 1,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "NOT_RUN"
+    }
+   },
+   "outcome": "NOT_RUN",
+   "differences": [],
+   "compat": [
+    "binding.population.requests",
+    "oracle_compare.attribution"
+   ],
+   "group": "local_replay",
+   "rule": "F-cb-23 / rev M-0243",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "boundary_linkage/ordered_linkage",
+   "claim": "Every (engine step, request) boundary is linked: declared prompt -> input ids at the arrival step; sampled id[s-1] -> input id[s]; none unlinked.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "pairs": 32,
+    "unlinked_n": 0,
+    "linked": 32,
+    "prescribed": {
+     "seed": {
+      "rule": "committed runner.sampler/seed word == the DECLARED workload seed of the request (i64 exact) at every step with a committed sampled id (constant per request; stoch M-0446)",
+      "requests_declared": 1,
+      "checked": 32,
+      "linked": 32
+     },
+     "splits": {
+      "rule": "committed runner.sampler/splits word at step s == SplitsFor_v1(#requests with a committed sampled id at s, num_SMs of record) (REQ-03 derived S)",
+      "requests_derived": 1,
+      "checked": 32,
+      "linked": 32,
+      "steps": 32,
+      "num_sms": 142,
+      "schedule": {
+       "0": 32,
+       "1": 32,
+       "2": 32,
+       "3": 32,
+       "4": 32,
+       "5": 32,
+       "6": 32,
+       "7": 32,
+       "8": 32,
+       "9": 32,
+       "10": 32,
+       "11": 32,
+       "12": 32,
+       "13": 32,
+       "14": 32,
+       "15": 32,
+       "16": 32,
+       "17": 32,
+       "18": 32,
+       "19": 32,
+       "20": 32,
+       "21": 32,
+       "22": 32,
+       "23": 32,
+       "24": 32,
+       "25": 32,
+       "26": 32,
+       "27": 32,
+       "28": 32,
+       "29": 32,
+       "30": 32,
+       "31": 32
+      }
+     }
+    },
+    "embed_op_path": "model.embed_tokens",
+    "requests": 1,
+    "prompt_linked_n": 1,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "boundary_linkage.result",
+    "boundary_linkage.unlinked_n",
+    "boundary_linkage.pairs",
+    "boundary_linkage.horizon",
+    "linkage"
+   ],
+   "group": "boundary_linkage",
+   "rule": "DECISIONS-2 \u00a74 C2 boundary linkage",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "checkpoint_binding/weights_of_record",
+   "claim": "Every served parameter the Program names equals by digest the checkpoint-composed tensor of record; every shard is pinned by its manifest sha256.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "weights_program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "root_of_record": "120a8d6f82f781939c513ecbc58e3d4785463048883803b50a946f4318bf6c24",
+    "committed_weights_root": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+    "checkpoint_entry": "{'repo': 'unsloth/Llama-3.2-1B', 'revision': '9535bd9b1d1dea6acafbdc4813b728796aeb28da'}"
+   },
+   "scope": {
+    "compared": 163,
+    "mismatched": 0,
+    "missing": 0,
+    "unresolved": 0,
+    "unpinned": 0,
+    "shards": 1,
+    "all_shards_pinned": true,
+    "shards_ok": true,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "weights_pin.result",
+    "weights_pin.why",
+    "weights_pin.compared",
+    "weights_pin.mismatched",
+    "weights_pin.missing",
+    "weights_pin.shards"
+   ],
+   "group": "checkpoint_binding",
+   "rule": "MAN-09 / rev-cb M-0610",
+   "notes": [
+    "structural_leak: weights_of_record.FUSED / EXPERTS / EXPERTS_MIXTRAL (the checkpoint composition of fused / expert tensors is keyed by known parameter-name tables)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "execution_extent/executed_prefix_of_record",
+   "claim": "Each request's executed prefix is the cap on a length stop, or served + the Program's declared LAG on an EOS stop whose last served token is a declared EOS id; never defaulted.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "requests": 1,
+    "lag": 1,
+    "eos_of_record": [
+     128001
+    ],
+    "served_known": true,
+    "any_eos_stop": false,
+    "lengths": {
+     "r0": [
+      32,
+      32,
+      32
+     ]
+    },
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.coverage.executed_prefix_of_record",
+    "sampled_replay.executed_prefix_of_record",
+    "executed_prefix_facts",
+    "coverage.executed_prefix_of_record"
+   ],
+   "group": "execution_extent",
+   "rule": "R17-1 / F-moe-r17-03",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "execution_extent/match_account_link",
+   "claim": "The Commit's served lengths equal the Match record's (tokens.json) and GM-01's G6 account of the same attempt, and the LAG is attested on every leg.",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "tokens_json_sha256": "c83936017d07fd6fbf69f33f1395a2772f485c83c94f5d82b58ed2e07c989228",
+    "global_match_sha256": "19aa14d0f1e668b7cda1ab114f07e1e206ec303efcab655562cca717ac79c5af"
+   },
+   "scope": {
+    "required": false,
+    "gating": false,
+    "lag_attested": true,
+    "tokens_json": "/workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/match/capture/tokens.json",
+    "global_match_verdict": "PASS",
+    "g6_status": "PASS",
+    "requests_linked": 1,
+    "facts_linked": {
+     "r0": true
+    },
+    "account_missing": null,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.coverage.match_account_link",
+    "executed_prefix_facts.linked",
+    "executed_prefix_facts.lag_attested",
+    "account_missing"
+   ],
+   "group": "execution_extent",
+   "rule": "COORD R17-27 (a)(b)",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "execution_extent/rows_past_the_stop",
+   "claim": "No committed row lies at a position >= a request's executed prefix (execution past the stop).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "entries_n": 0,
+    "padded_record": false,
+    "padding_entries_n": 0,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.coverage.rows_past_the_stop",
+    "executed_prefix_facts.rows_past_stop"
+   ],
+   "group": "execution_extent",
+   "rule": "COORD R17-27 (c)",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "required_value_coverage/identity_coverage",
+   "claim": "Every identity of the required-value population has exactly one committed binding (a duplicate never covers a missing one; BIND-01 (2) / MAN-02).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "expected_n": 7043,
+    "bound_n": 7043,
+    "requests": 1,
+    "steps": 32,
+    "population_source": "required-manifest (lane manifest: Q_module(P) -- module-boundary population over the Program, families selected by the c",
+    "extra_n": 0,
+    "physical_copies_n": 0,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.coverage.ok",
+    "binding.coverage.error",
+    "binding.coverage.missing_n",
+    "binding.coverage.ambiguous_n",
+    "binding.coverage.expected_n",
+    "binding.coverage.bound_n"
+   ],
+   "group": "required_value_coverage",
+   "rule": "R14 BIND-01 (2) / MAN-02",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "required_value_coverage/manifest_coverage",
+   "claim": "Every identity the required-value manifest names (Program x query, per request / step / member / element range) was committed with its full extent (MAN-01).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "checked": 6880,
+    "checked_by_family": {
+     "fa2_hidden_m1_stream": 512,
+     "instance_outputs": 6240,
+     "input_token_ids": 32,
+     "sampled_token_ids": 32,
+     "sampler_seed": 32,
+     "sampler_splits": 32
+    },
+    "steps_committed_n": 32,
+    "composition_mismatch_n": 0,
+    "committed_extras_n": 0,
+    "duplicate_names_n": 0,
+    "engine_step_basis": "engine schedule of record (request step + observed arrival)",
+    "manifest_of_record": {
+     "identities_n": 7043,
+     "required_n": 7043,
+     "not_executed_n": 0,
+     "edited": false
+    },
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "coverage.ok",
+    "coverage.missing_n",
+    "coverage.missing_by_family",
+    "coverage.families_missing_entirely",
+    "coverage.error",
+    "coverage.manifest_digest",
+    "commit_summary.coverage"
+   ],
+   "group": "required_value_coverage",
+   "rule": "R14 MAN-01",
+   "notes": [
+    "structural_leak: required_manifest.members_for (a Program family is INTERIOR because the vocabulary names no member for it -- by name, F-r19-int-20)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "required_value_coverage/required_classes",
+   "claim": "Every required value class is declared by the committer and every declared leaf-binding class bound > 0 tensors (REL-02: an omitted producer cannot pass).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "required_classes": [
+     "input_token_ids",
+     "instance_outputs_native",
+     "sampled_token_ids",
+     "weights",
+     "fa2_hidden_m1_stream"
+    ]
+   },
+   "scope": {
+    "required": [
+     "input_token_ids",
+     "instance_outputs_native",
+     "sampled_token_ids",
+     "weights",
+     "fa2_hidden_m1_stream"
+    ],
+    "declared": {
+     "input_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 32
+     },
+     "instance_outputs_native": {
+      "how": "bound-as-leaf",
+      "tensors": 6304
+     },
+     "sampled_token_ids": {
+      "how": "bound-as-leaf",
+      "tensors": 32
+     },
+     "weights": {
+      "how": "registered-input",
+      "tensors": 163
+     },
+     "norm_bf16tof32_lift": {
+      "how": "derived-from-bound",
+      "tensors": null
+     },
+     "norm_interiors_derived_row": {
+      "how": "derived-from-bound",
+      "tensors": null
+     },
+     "fa2_hidden_m1_stream": {
+      "how": "bound-as-leaf",
+      "tensors": 1024
+     }
+    },
+    "source": "program/query manifest 368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2 (R14 MAN-01; classes kept as a secondary check)",
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "required_classes",
+    "required_classes_source",
+    "classes",
+    "declaration_*.json"
+   ],
+   "group": "required_value_coverage",
+   "rule": "REL-02 / R-14",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "required_value_coverage/manifest_of_record_verified",
+   "claim": "The required-value manifest the Commit used is byte-identical (rows digest) to the one rebuilt from this attempt's Program x workload (EXEC-05 / MAN-05).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "used_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "rebuilt_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "used_program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "rebuilt_program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de"
+   },
+   "scope": {
+    "rebuilt_engine": "traversal",
+    "rebuilt_identities": 7043,
+    "used_identities": 7043,
+    "rebuilt_complete": true,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "manifest_verify.ok",
+    "manifest_verify.used_digest",
+    "manifest_verify.rebuilt_digest",
+    "stages.txt manifest_verify="
+   ],
+   "group": "required_value_coverage",
+   "rule": "R15 EXEC-05 / MAN-05",
+   "notes": [],
+   "reason": null
+  },
+  {
+   "name": "program_source_identity/identity_layout",
+   "claim": "Every committed step's identity set is the expected manifest's: every expected module produced >= 1 tensor and none came from outside it, every attention layer carries the same positive count of hidden rows, exactly one sampled-ids tensor, the same name multiset as step 0 (X-03).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+   },
+   "scope": {
+    "steps_checked": 32,
+    "modules": 133,
+    "layers": 16,
+    "fa2_hidden_per_layer": 1,
+    "sampler_ids": 1,
+    "moe_layers": 0,
+    "tp_sites": 0,
+    "tp_rank": null,
+    "padding": null,
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "extra.identity_check.ok",
+    "extra.identity_check.violations",
+    "extra.identity_check.violations_n",
+    "extra.identity_check.steps_checked"
+   ],
+   "group": "program_source_identity",
+   "rule": "X-03 (R13) identities",
+   "notes": [
+    "structural_leak: native_host.ACQUIRE_CLASSES (the expected module set is selected by module class name, not by the Program)"
+   ],
+   "reason": null
+  },
+  {
+   "name": "program_source_identity/binding_context",
+   "claim": "The binding map was built for this run: its Program digest, layout and roots are the run's own (BIND-01 (1)).",
+   "inputs": {
+    "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "binding_program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+    "root_program_digest": "fc9a71f1aa3d7bcb57e20ab66743f8ab277bbac0790934bc86819b6e23af9b8d",
+    "map_digest": "10353eec7ca0ac62b8ffbae612a5c1de7a44dcbb8e99488d22b97a7f15952ff8"
+   },
+   "scope": {
+    "map_digest": "10353eec7ca0ac62b8ffbae612a5c1de7a44dcbb8e99488d22b97a7f15952ff8",
+    "map_entries_n": 6881,
+    "program_digest_source": "required-manifest",
+    "layout": "chunk-leaf-v1",
+    "rules_version": "r14-v1",
+    "runs": [
+     0
+    ],
+    "outcome_by_run": {
+     "0": "PASS"
+    }
+   },
+   "outcome": "PASS",
+   "differences": [],
+   "compat": [
+    "binding.error",
+    "binding.context.ok",
+    "binding.context.why",
+    "binding.program_digest",
+    "binding.map_digest"
+   ],
+   "group": "program_source_identity",
+   "rule": "R14 BIND-01 (1)",
+   "notes": [],
+   "reason": null
+  }
+ ],
+ "outcome": "PASS",
+ "program_digest": "079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de",
+ "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+ "query_id": "Q_module_v1",
+ "correspondence_digest": null,
+ "correspondence_digest_source": "absent",
+ "correspondence_digests": {},
+ "schema": "vllm-verdict/v1",
+ "row": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+ "run_roots": [
+  "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+ ],
+ "runs": {
+  "instrumented": 1,
+  "failed": 0,
+  "control": 1,
+  "not_pass_by_reconstruction": 0,
+  "pairs": [
+   0
+  ]
+ },
+ "inputs": {
+  "commit/verdict.json": "50182eda8b3a230854a217409db1139f62697dd895c019926716b54398dc5fed",
+  "commit/runs.jsonl": "fb341fd7a97ce5aa5fd2861e78e7cf54a747c0f00cda005159e6be322e561c1d",
+  "commit_summary.json": "82e4727439394e42f30d323beb60a491c7ffa3f6bbb3853f09506345ab5958f2",
+  "commit/manifest_verify.json": "26f42d0b16b8fa2295400a3a5847d8a8ba00022145aa233b9fa275a2bd64c6da",
+  "commit/summary.json": "f2b8e6b3bcc4fef8214be85eb2b8a53cdb191b44c17bf9d3493843e069f5c83c",
+  "commit.log": "cb9c5f64c7ed02fedd18380e88fab4d87b55ec6361c26efc7ca8eae86fcdfb0e",
+  "global_match.json": "19aa14d0f1e668b7cda1ab114f07e1e206ec303efcab655562cca717ac79c5af",
+  "match_summary.json": "2cc703c5da86faedc1c8ea882b26ea175e1e728019f1ce792de5f7dc4241c75e",
+  "build_summary.json": "72fe78e160374c04d77504f859747e634ea396aa8d03275a0c26bca00f917b78",
+  "commit/sampled_replay_p0.json": "a9aad0133305ce44d07b25ddd64feaf6cdf856e2381d7a7743f5f401bda38fb3"
+ },
+ "execution": {
+  "committer": "native_collect_v2b",
+  "collector_variant": "windowed",
+  "retention": "host",
+  "engine_settings": {
+   "gpu_memory_utilization": 0.5,
+   "max_num_seqs": 1,
+   "openings": 64,
+   "pairs": 1,
+   "open_after_release": true,
+   "required_manifest": true
+  },
+  "collector": {
+   "variant": "native_collect_v2_auto_nw+hidden_m1",
+   "retention": "host",
+   "window_mb": 256,
+   "window_slots": 8,
+   "arena_mb": 0,
+   "layout": "chunk-leaf-v1",
+   "gpu_tree": true,
+   "fa2_tap_bounded": {
+    "cap_bytes": 2147483648,
+    "bound_alloc_bytes": 0,
+    "bound_used_peak_bytes": 0,
+    "geometry_buffers_bytes": 25972224,
+    "tap_resident_bytes": 25972224,
+    "split_launches": 0,
+    "split_groups": 0,
+    "cap_exceeded_launches": 0,
+    "cap_exceeded_peak_bytes": 0,
+    "windows": 0,
+    "split_steps": [],
+    "peak_group_bytes": 0,
+    "largest_unbounded_launch_bytes": 0,
+    "torch_alloc_peak_in_tap": 0,
+    "torch_max_memory_allocated": 0,
+    "bounded": true
+   }
+  },
+  "cmd": "/workspace/venv312/bin/python -m verity_capture.bench.commit_delta --case LLAMA32_1B --workload workloads/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.json --committer native_collect_v2b --fast-copy --gpu-tree --hidden-so /workspace/cp/fa2/build/matReq/verity_fa2_matReq.so --openings 64 --pairs 1 --warmup 2 --max-num-seqs 1 --engine-arg gpu_memory_utilization=0.5 --label llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager --out /workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/commit --window-mb 256 --window-slots 8 --retain host --open-after-release --tap-cap-mb 2048 --replay-cache --required-manifest /workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/manifest.json --program-digest 079ee0a8e3e0355b2600b8576588edb4d5df56bb21f3ff707e9117a8e843c1de --match-dir /workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/match --program-dir /workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/build_request --weights-of-record /workspace/stoch/canary/v1-reference-stoch/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/build_request/weights_of_record.json",
+  "moe_source": {
+   "mode": "auto",
+   "attached": false
+  },
+  "rules_version": "r14-v1"
+ },
+ "compat": {
+  "commit_pass": true,
+  "first_fail_reason": null,
+  "runs_failed": 0,
+  "rc": 0,
+  "commit_summary_pass": true,
+  "commit_summary_deprecated": "F-r19-int-21 / P5: commit_summary.json is no longer written (its pass was rc == 0 and tokens_equal); this verdict is the record",
+  "per_run": [
+   {
+    "pair": 0,
+    "commit_pass": true,
+    "commit_fail_reason": "PASS (C2 population scope (R17-3; query of record Q_module_v1): Q_module_v1(P) = 7043 identities (fa2_hidden_m1_stream 512, input_token_ids 32, instance_outputs 6240, sampled_token_ids 32, sampler_seed 32, sampler_splits 32, weights 163; guard armed (traversal); cross-check AGREED (traversal vs inventory: 7043 / 7043 identities)); exact replay reaches 6272 (89.1%), under an evaluated module 1480; uncovered by name: fa2_hidden_m1_stream x512 (mechanism), input_token_ids x32 (mechanism), sampler_seed x32 (mechanism), sampler_splits x32 (mechanism), weights x163 (mechanism))"
+   }
+  ],
+  "negatives": null,
+  "reconstruction_mismatch": null,
+  "only_arm": null,
+  "stage_line": "commit PASS 2026-09-23T20:42:37Z rc=0 wall=173s runs 2 delta 0.8676687812972927 openings [None] tokens [True] manifest_verify=True",
+  "stage_outcome": "PASS"
+ },
+ "notes": []
+}

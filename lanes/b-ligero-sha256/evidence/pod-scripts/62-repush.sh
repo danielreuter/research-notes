@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # b-ligero-sha256: push finished runs of this pod whose runner custody push failed (RemoteDisconnected) from the runner's own store
-# (/workspace/research/store, which holds every blob), with this run's minted custody key; then report `data preserved` per run.
+# (/workspace/research/store, which holds every blob), with this run's minted custody key.  The push prints PRESERVED per
+# artifact (head / multipart-ETag verified); a separate `data preserved` reads multipart blobs back in full (3.3 GB, then stalled).
 #   research run --on vy-b-ligero-sha256 --project verity --custody-r2 --custody-ttl 2h --send 62-repush.sh \
 #       --env RUNS="r... r..." -- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/62-repush.sh"'
 set -u
@@ -17,6 +18,5 @@ for run in ${RUNS:?}; do
     python3 -m research data push $run --store $S --jobs ${JOBS:-16} --verify head && break
     sleep $((8 * i))
   done
-  python3 -m research data preserved $run --store $S; r=$?; echo "preserved $run rc=$r"; [ $r -ne 0 ] && rc=$r
 done
 exit $rc

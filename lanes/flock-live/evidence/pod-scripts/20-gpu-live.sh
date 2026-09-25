@@ -3,7 +3,7 @@
 # Fiat-Shamir, same pod, alternating. Setup = flock-128's 40-gpu128.sh (CUDA 13.3, g128_patch.py, flock-bench's
 # 22-gpu-unit.sh shipped as fb_*) plus backends/flock/cuda_live_patch.py and backends/flock/live (from --source).
 # The verifier is `flock-live serve-gpu`, a separate process per shape on loopback (the prover never sees its RNG).
-# env: ROUNDS=2 GPU_RUNS=3 SM=90 BUILD_ONLY
+# env: ROUNDS=2 GPU_RUNS=3 SM=90 BUILD_ONLY SKIP_NEG RAYON_QUOTA=1 (RAYON_NUM_THREADS = cgroup CPU quota, prover and verifier)
 set -uxo pipefail
 SM=${SM:-90}; SRC=$(pwd)
 W=/workspace/flock-bench; F=$W/flock; O=$RESEARCH_RUN_DIR/out; mkdir -p $W $O
@@ -44,7 +44,7 @@ declare -A PORT
 srv() {  # name port table nbl [netlist]
   local key=$1 port=$2 table=$3 nbl=$4 net=${5:-}
   PORT[$key]=$port
-  nice -n 5 $LV serve-gpu --listen 127.0.0.1:$port --out $O/sessions/$key --table $table --nbl $nbl ${net:+--netlist $net} > $O/serve-$key.log 2>&1 &
+  $LV serve-gpu --listen 127.0.0.1:$port --out $O/sessions/$key --table $table --nbl $nbl ${net:+--netlist $net} > $O/serve-$key.log 2>&1 &
 }
 srv b19 7001 blake3 19; srv b18 7002 blake3 18; srv b17 7003 blake3 17
 srv u19 7004 hopper_bf16 19 $NETS/net-hopper_bf16.txt; srv u17 7005 hopper_bf16 17 $NETS/net-hopper_bf16.txt
@@ -59,10 +59,15 @@ t() {  # key test-binary tag pipe(or -) nbl [env...]
   echo "rc=$? $tag $pipe $GPU_PROFILE x$GPU_REPS live=$GPU_LIVE $RTAG"; grep -hE "G128RESULT|G128NEG|panicked|refused" $f | cut -c1-600
 }
 # live negatives first (each is a separate live session that must be rejected), then the witness tamper
+if [ "${RAYON_QUOTA:-0}" = 1 ]; then
+  Q=$(awk '$1 != "max" {print int($1 / $2)}' /sys/fs/cgroup/cpu.max 2>/dev/null); export RAYON_NUM_THREADS=${Q:-16}; echo "RAYON_NUM_THREADS=$RAYON_NUM_THREADS"
+fi
 export GPU_PROFILE=fast100 GPU_REPS=2 GPU_LIVE=1 RTAG=neg
+[ -z "${SKIP_NEG:-}" ] && {
 t b17 gpu_roundtrip gpu_roundtrip_vs17 - GPU_RUNS=1 GPU_NEG=1
 t u17 gpu_unit gpu_unit_nbl17 hopper_bf16 GPU_RUNS=1 GPU_NEG=1
 RTAG=negw t u17 gpu_unit gpu_unit_nbl17 hopper_bf16 GPU_RUNS=1 VU_TAMPER_W=1 EXPECT_REJECT=1
+}
 for r in $(seq 1 ${ROUNDS:-2}); do
   for mode in "fast100 2 1" "fast100 2 0" "fast 1 0"; do
     read GPU_PROFILE GPU_REPS GPU_LIVE <<< "$mode"; export GPU_PROFILE GPU_REPS GPU_LIVE RTAG=r$r GPU_RUNS=${GPU_RUNS:-3}

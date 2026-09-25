@@ -122,7 +122,18 @@ chain at `72884c8a` (Build `r20260924-202455-105b`, Match `r20260924-210318-37b0
 |---|---|---|
 | Build | PASS, program `64bee6d6e8264461`, manifest `1bb40895671dd791` | PASS 10:39Z, program **`64bee6d6e8264461`**, rank-1 digests `d8cc47009eb82cb3`, 8 shapes, wall 1,276 s (f1 1,279 s) |
 | Match | tp2_match pass (8,448 collectives, 0 mismatches, tokens equal); `fold_match` fails on both ranks, errors 4,096 / unresolved 3,544 each, rc 11 | **the same**: tp2_match pass True, 8,448 collectives, 0 mismatches, tokens True; fold errors 4,096 / unresolved 3,544 on each rank, rc 11; wall 1,181 s |
-R70_COMMIT
+| manifest | `1bb40895671dd791`, 357,796 identities, 0 unbound peer bindings | **the same** |
+| Commit | FAIL rc=1, pass False (as the fixture's class FAIL), PAIRS=3, tp run root `0b91229f…` in every pair | **FAIL rc=1, pass False**, PAIRS=1, tp run root **`0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957`**; wall 3,538 s |
+
+`tools/cmp70.py` compares head's `commit/summary.json` with f1's base Commit of record field by field, per pair
+(`evidence/r70/cmp70-head-vs-f1base.txt`): **32/32 equal**. That covers the tp run root and per-rank roots; leaves
+(72,446,015 per rank), tensors, bytes and classes per rank; openings 64/64 per rank; tokens equal; commit_pass and pass
+False; value check PASS per rank; match oracle 14,592 = 14,592 per rank; sampled replay False (20,280 picked, 19,321
+evaluated = equal, 959 not evaluated); boundary linkage True; cross-rank collectives False (154 picks per pair, all
+equal); fold-match binding False, with the same reason; query population and weights pin (same roots of record); the
+required manifest digest and classes; committer and openings. The script gives 32/32 on f1's own head vs base as a
+check. The record's Commit ran PAIRS=3 and this one PAIRS=1; its pair is identical to each of the record's three.
+Evidence: `evidence/r70/`.
 
 ### Non-interference
 `python -m verity_vllm.properties.noninterference --workload workloads/workload_32x16_1req.json` on `vyv-rf-b4-g1` (L40S),

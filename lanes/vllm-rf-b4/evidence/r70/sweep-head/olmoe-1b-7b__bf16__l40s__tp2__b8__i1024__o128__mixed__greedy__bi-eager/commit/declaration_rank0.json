@@ -1,0 +1,379 @@
+{
+ "schema": "verity/commit-integ/coverage-declaration/v1",
+ "committer": "native_collect_v2_auto_nw+hidden_m1+moe+tp_partial",
+ "path": "native-host-sha256",
+ "classes": [
+  {
+   "class": "input_token_ids",
+   "how": "bound-as-leaf",
+   "rule": null,
+   "count": null,
+   "bytes": 16724,
+   "tensors": 128,
+   "covers_families": [
+    "Input32_v1"
+   ],
+   "acquisitions": [
+    "naturally-materialized",
+    "registered-input"
+   ],
+   "evidence": "forward hooks on ['VocabParallelEmbedding']; pos_leaf chunk=256; per-step bind_root; run root"
+  },
+  {
+   "class": "instance_outputs_native",
+   "how": "bound-as-leaf",
+   "rule": null,
+   "count": null,
+   "bytes": 4509530880,
+   "tensors": 39552,
+   "covers_families": [
+    "Attention_v3",
+    "Embedding_v1",
+    "Gemm_v1",
+    "RMSNormFusedCuda_v2",
+    "RMSNormTriton_v1",
+    "RoPE_v1"
+   ],
+   "acquisitions": [
+    "naturally-materialized",
+    "registered-input"
+   ],
+   "evidence": "forward hooks on ['Attention', 'Linear', 'LogitsProcessor', 'RMSNorm', 'RotaryEmbedding', 'VocabParallelEmbedding', 'experts', 'self_attn']; pos_leaf chunk=256; per-step bind_root; run root"
+  },
+  {
+   "class": "sampled_token_ids",
+   "how": "bound-as-leaf",
+   "rule": null,
+   "count": null,
+   "bytes": 3472,
+   "tensors": 128,
+   "covers_families": [
+    "TokenSelect_v1"
+   ],
+   "acquisitions": [
+    "naturally-materialized",
+    "registered-input"
+   ],
+   "evidence": "forward hooks on ['Sampler']; pos_leaf chunk=256; per-step bind_root; run root"
+  },
+  {
+   "class": "weights",
+   "how": "registered-input",
+   "covers_families": [
+    "Input16_v1"
+   ],
+   "acquisitions": [
+    "registered-input"
+   ],
+   "rule": "register_weights(): per-tensor chunked pos_leaf subtree, fold of subtree roots bound with names/dtypes/shapes (once per process)",
+   "count": null,
+   "bytes": 6922440960,
+   "tensors": 212,
+   "evidence": "root 6c6a0377bdeec355"
+  },
+  {
+   "class": "norm_bf16tof32_lift",
+   "how": "derived-from-bound",
+   "covers": [
+    "rmsnormfusedcuda2/int/bf16tof32_v1/bf16tof32_fo1",
+    "rmsnormfusedcuda2/int/bf16tof32_v1/bf16tof32_fo2",
+    "rmsnormtriton1/int/bf16tof32_v1/bf16tof32_fo1",
+    "rmsnormtriton1/int/bf16tof32_v1/bf16tof32_fo2"
+   ],
+   "rule": "out/gen/r8/fa2-commit/derived_value_rule.md \u00a71 (Bf16ToF32 injective lift of the bound bf16 residual word; every consumer lowered to read the source and apply phi) \u2014 a PROTOCOL CLAUSE, not a hash; reported separately",
+   "count": null,
+   "bytes": null,
+   "evidence": "source = the RMSNorm residual output tensor bound above"
+  },
+  {
+   "class": "norm_interiors_derived_row",
+   "how": "derived-from-bound",
+   "verified": false,
+   "covers": [
+    "rmsnormfusedcuda2/int/f32mul_v1/f32mul_fo1",
+    "rmsnormfusedcuda2/int/f32add_v1/f32add_fo1",
+    "rmsnormfusedcuda2/int/f32div_v1/f32div_fo1",
+    "rmsnormfusedcuda2/int/rsqrtapprox_v1/rsqrtapprox_fo2",
+    "rmsnormtriton1/int/f32add_v1/f32add_fo2",
+    "rmsnormtriton1/int/f32fma_v1/f32fma_fo1",
+    "rmsnormtriton1/int/f32mul_v1/f32mul_fo1",
+    "rmsnormtriton1/int/f32fma_v1/f32fma_fo2",
+    "rmsnormtriton1/int/f32add_v1/f32add_fo1",
+    "rmsnormtriton1/int/divfullrcp_v1/divfullrcp_fo1",
+    "rmsnormtriton1/int/mufusqrtftz_v1/mufusqrtftz_fo2",
+    "rmsnormtriton1/int/divfullscalea_v1/divfullscalea_fo1",
+    "rmsnormtriton1/int/f32mul_v1/f32mul_fo2"
+   ],
+   "rule": "derived-row rule (candidate, NOT verified here): phi = registry exact model of the pinned norm kernel over the bound source row (R2e residual / R2b embedding bf16 row) + registered weight row; opening = source-row leaf + weight opening + replay; verifier + binding/value tests not implemented in this lane",
+   "count": null,
+   "bytes": null,
+   "evidence": "source rows bound above; exact-model conformance from verity.ir registry (row-4 work)"
+  },
+  {
+   "class": "fa2_hidden_m1_stream",
+   "how": "bound-as-leaf",
+   "covers_rows": [
+    "R5",
+    "R6",
+    "R7",
+    "R8"
+   ],
+   "rule": null,
+   "count": null,
+   "bytes": 19844481024,
+   "tensors": 4096,
+   "tap_layout": 8,
+   "hdims": [
+    64,
+    96,
+    128,
+    256
+   ],
+   "evidence": "CMT-2 M1 export tap verity_fa2_matReq (mode 3, src 59, layout v8, hdims [64, 96, 128, 256]) in place of _vllm_fa2_C.varlen_fwd; stream buffer per launch acquired into the packed step stream (same run root); geometries (HB, M, NB[, kBlockN, head_dim]) {'(8, 1, 10, 64, 128)': 94976}; tap_skipped 0; value correspondence: CMT-2 xcheck_m1.json / check_base.json (hd 64, 38 shapes); out/lse bit-identical to the installed kernel: verity_vllm.properties.fa_tap_exactness",
+   "bounded_tap": {
+    "cap_bytes": 2147483648,
+    "bound_alloc_bytes": 2147483648,
+    "bound_used_peak_bytes": 1242562560,
+    "geometry_buffers_bytes": 94976,
+    "tap_resident_bytes": 2147578624,
+    "split_launches": 0,
+    "split_groups": 0,
+    "cap_exceeded_launches": 0,
+    "cap_exceeded_peak_bytes": 0,
+    "windows": 0,
+    "split_steps": [],
+    "peak_group_bytes": 0,
+    "largest_unbounded_launch_bytes": 1242562560,
+    "torch_alloc_peak_in_tap": 0,
+    "torch_max_memory_allocated": 0,
+    "bounded": true
+   }
+  },
+  {
+   "class": "moe_block_stream",
+   "how": "bound-as-leaf",
+   "covers_families": [
+    "MoeRouterTopK_v1",
+    "MoeExpertGemm_v1",
+    "SiluMul_v1",
+    "MoeExpertGemmW_v1",
+    "MoeSum_v1"
+   ],
+   "rule": null,
+   "count": null,
+   "bytes": 8228743168,
+   "tensors": 24576,
+   "layers": 16,
+   "tensors_per_layer": 6,
+   "plane_flushes": 4096,
+   "evidence": "MOE-03 source: wraps vllm._custom_ops.topk_softmax / moe_sum and fused_moe.invoke_fused_moe_triton_kernel (also at experts.triton_moe); per MoE layer per step router_w, router_ids, up, act, down, sum snapshotted into the packed step stream (same run root) right after each kernel; [FLUSH-03] the up plane is flushed off the device right after staging (its workspace is the block's own w2 output: cache1/cache3 alias) -- 4096 flushes; identity_check requires exactly 6 per layer per step; value correspondence: verity_vllm/ops/moe_kernel_xcheck.py (cp-moe, registry.moe Definitions bit-exact vs the same kernels); shapes seen {'router_w:(3755, 8):float32': 32, 'router_ids:(3755, 8):int32': 32, 'up:(3755, 8, 1024):bfloat16': 32, 'act:(30040, 512):bfloat16': 32, 'down:(3755, 8, 2048):bfloat16': 32, 'sum:(3755, 2048):bfloat16': 32, 'router_w:(8, 8):float32': 32, 'router_ids:(8, 8):int32': 32, 'up:(8, 8, 1024):bfloat16': 32, 'act:(64, 512):bfloat16': 32, 'down:(8, 8, 2048):bfloat16': 32, 'sum:(8, 2048):bfloat16': 32, 'router_w:(7, 8):float32': 96, 'router_ids:(7, 8):int32': 96, 'up:(7, 8, 1024):bfloat16': 96, 'act:(56, 512):bfloat16': 96, 'down:(7, 8, 2048):bfloat16': 96, 'sum:(7, 2048):bfloat16': 96, 'router_w:(6, 8):float32': 640, 'router_ids:(6, 8):int32': 640, 'up:(6, 8, 1024):bfloat16': 640, 'act:(48, 512):bfloat16': 640, 'down:(6, 8, 2048):bfloat16': 640, 'sum:(6, 2048):bfloat16': 640, 'router_w:(5, 8):float32': 192, 'router_ids:(5, 8):int32': 192, 'up:(5, 8, 1024):bfloat16': 192, 'act:(40, 512):bfloat16': 192, 'down:(5, 8, 2048):bfloat16': 192, 'sum:(5, 2048):bfloat16': 192, 'router_w:(4, 8):float32': 512, 'router_ids:(4, 8):int32': 512, 'up:(4, 8, 1024):bfloat16': 512, 'act:(32, 512):bfloat16': 512, 'down:(4, 8, 2048):bfloat16': 512, 'sum:(4, 2048):bfloat16': 512, 'router_w:(3, 8):float32': 1536, 'router_ids:(3, 8):int32': 1536, 'up:(3, 8, 1024):bfloat16': 1536, 'act:(24, 512):bfloat16': 1536, 'down:(3, 8, 2048):bfloat16': 1536, 'sum:(3, 2048):bfloat16': 1536, 'router_w:(2, 8):float32': 192, 'router_ids:(2, 8):int32': 192, 'up:(2, 8, 1024):bfloat16': 192, 'act:(16, 512):bfloat16': 192, 'down:(2, 8, 2048):bfloat16': 192, 'sum:(2, 2048):bfloat16': 192, 'router_w:(1, 8):float32': 864, 'router_ids:(1, 8):int32': 864, 'up:(1, 8, 1024):bfloat16': 864, 'act:(8, 512):bfloat16': 864, 'down:(1, 8, 2048):bfloat16': 864, 'sum:(1, 2048):bfloat16': 864}"
+  },
+  {
+   "class": "tp_rank_partials",
+   "how": "bound-as-leaf",
+   "covers_families": [
+    "Gemm_v1 (rank shard, K/W) -> AllReduce2_v1 input",
+    "EmbeddingShard_v1 -> AllReduce2_v1 input",
+    "Gemm_v1 (lm_head shard) -> AllGather2_v1 input",
+    "MoeSum_v1 (rank-local fused expert output, MoERunner) -> AllReduce2_v1 input"
+   ],
+   "rule": null,
+   "count": null,
+   "bytes": 3365986816,
+   "tensors": 16896,
+   "rank": 0,
+   "world": 2,
+   "sites": 50,
+   "site_names": [
+    "model.embed_tokens",
+    "model.layers.0.self_attn.o_proj",
+    "model.layers.0.mlp.experts",
+    "model.layers.1.self_attn.o_proj",
+    "model.layers.1.mlp.experts",
+    "model.layers.2.self_attn.o_proj",
+    "model.layers.2.mlp.experts",
+    "model.layers.3.self_attn.o_proj",
+    "model.layers.3.mlp.experts",
+    "model.layers.4.self_attn.o_proj",
+    "model.layers.4.mlp.experts",
+    "model.layers.5.self_attn.o_proj",
+    "model.layers.5.mlp.experts",
+    "model.layers.6.self_attn.o_proj",
+    "model.layers.6.mlp.experts",
+    "model.layers.7.self_attn.o_proj",
+    "model.layers.7.mlp.experts",
+    "model.layers.8.self_attn.o_proj",
+    "model.layers.8.mlp.experts",
+    "model.layers.9.self_attn.o_proj",
+    "model.layers.9.mlp.experts",
+    "model.layers.10.self_attn.o_proj",
+    "model.layers.10.mlp.experts",
+    "model.layers.11.self_attn.o_proj",
+    "model.layers.11.mlp.experts",
+    "model.layers.12.self_attn.o_proj",
+    "model.layers.12.mlp.experts",
+    "model.layers.13.self_attn.o_proj",
+    "model.layers.13.mlp.experts",
+    "model.layers.14.self_attn.o_proj",
+    "model.layers.14.mlp.experts",
+    "model.layers.15.self_attn.o_proj",
+    "model.layers.15.mlp.experts",
+    "logits_processor",
+    "model.layers.0.self_attn",
+    "model.layers.1.self_attn",
+    "model.layers.2.self_attn",
+    "model.layers.3.self_attn",
+    "model.layers.4.self_attn",
+    "model.layers.5.self_attn",
+    "model.layers.6.self_attn",
+    "model.layers.7.self_attn",
+    "model.layers.8.self_attn",
+    "model.layers.9.self_attn",
+    "model.layers.10.self_attn",
+    "model.layers.11.self_attn",
+    "model.layers.12.self_attn",
+    "model.layers.13.self_attn",
+    "model.layers.14.self_attn",
+    "model.layers.15.self_attn"
+   ],
+   "received_site_names": [
+    "model.layers.0.mlp.experts",
+    "model.layers.1.mlp.experts",
+    "model.layers.2.mlp.experts",
+    "model.layers.3.mlp.experts",
+    "model.layers.4.mlp.experts",
+    "model.layers.5.mlp.experts",
+    "model.layers.6.mlp.experts",
+    "model.layers.7.mlp.experts",
+    "model.layers.8.mlp.experts",
+    "model.layers.9.mlp.experts",
+    "model.layers.10.mlp.experts",
+    "model.layers.11.mlp.experts",
+    "model.layers.12.mlp.experts",
+    "model.layers.13.mlp.experts",
+    "model.layers.14.mlp.experts",
+    "model.layers.15.mlp.experts",
+    "model.layers.0.self_attn",
+    "model.layers.1.self_attn",
+    "model.layers.2.self_attn",
+    "model.layers.3.self_attn",
+    "model.layers.4.self_attn",
+    "model.layers.5.self_attn",
+    "model.layers.6.self_attn",
+    "model.layers.7.self_attn",
+    "model.layers.8.self_attn",
+    "model.layers.9.self_attn",
+    "model.layers.10.self_attn",
+    "model.layers.11.self_attn",
+    "model.layers.12.self_attn",
+    "model.layers.13.self_attn",
+    "model.layers.14.self_attn",
+    "model.layers.15.self_attn"
+   ],
+   "nested_moe_sites_dropped": [],
+   "mid_module_sites": {
+    "model.layers.0.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.1.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.2.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.3.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.4.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.5.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.6.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.7.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.8.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.9.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.10.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.11.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.12.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.13.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.14.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    },
+    "model.layers.15.self_attn": {
+     "cls": "OlmoeAttention",
+     "calls": {
+      "all_gather": 2
+     }
+    }
+   },
+   "evidence": "TP-03 source: wraps tensor_model_parallel_all_reduce (linear, vocab_parallel_embedding) and tensor_model_parallel_all_gather/gather (logits_processor) in THIS rank's process, plus the same names in the python module of every model class that calls one directly (mid-module sites, R19 moe: OlmoeAttention's q/k gathers); the collective INPUT (rank 0's partial GEMM / masked embedding / logits shard / mid-module operand) is snapshotted into the packed step stream before the collective, attributed to the issuing module by a forward pre-hook; identity_check requires exactly the declared count of partials per site per step (50 sites; 1 each, a mid-module site its static call count); value correspondence: tp/match.py cross-rank provenance (received == AllReduce2/AllGather2(part_rank0, part_rank1) bit-exact; part_rank_r == Gemm_v1{K/W} on the shard, R13 tp2_semantics); kinds seen {'all_reduce': 8448, 'all_gather': 8448}; shapes seen {'all_reduce:(3755, 2048):bfloat16': 66, 'all_gather:(3755, 1024):bfloat16': 64, 'all_gather:(8, 25152):bfloat16': 4, 'all_reduce:(8, 2048):bfloat16': 66, 'all_gather:(8, 1024):bfloat16': 64, 'all_reduce:(7, 2048):bfloat16': 198, 'all_gather:(7, 1024):bfloat16': 192, 'all_gather:(7, 25152):bfloat16': 6, 'all_reduce:(6, 2048):bfloat16': 1320, 'all_gather:(6, 1024):bfloat16': 1280, 'all_gather:(6, 25152):bfloat16': 40, 'all_reduce:(5, 2048):bfloat16': 396, 'all_gather:(5, 1024):bfloat16': 384, 'all_gather:(5, 25152):bfloat16': 12, 'all_reduce:(4, 2048):bfloat16': 1056, 'all_gather:(4, 1024):bfloat16': 1024, 'all_gather:(4, 25152):bfloat16': 32, 'all_reduce:(3, 2048):bfloat16': 3168, 'all_gather:(3, 1024):bfloat16': 3072, 'all_gather:(3, 25152):bfloat16': 96, 'all_reduce:(2, 2048):bfloat16': 396, 'all_gather:(2, 1024):bfloat16': 384, 'all_gather:(2, 25152):bfloat16': 12, 'all_reduce:(1, 2048):bfloat16': 1782, 'all_gather:(1, 1024):bfloat16': 1728, 'all_gather:(1, 25152):bfloat16': 54}"
+  }
+ ],
+ "notes": [
+  "binds ONLY naturally materialised values (module outputs in HBM); FA2 interior (hidden-fa2) and norm kernel interiors (hidden-vllm-kernel) are NOT bound by this committer \u2014 the hidden path (CMT-2) covers those classes",
+  "value identity = (step, tensor ordinal, byte range) via the published per-step layout whose digest is in the step root"
+ ]
+}

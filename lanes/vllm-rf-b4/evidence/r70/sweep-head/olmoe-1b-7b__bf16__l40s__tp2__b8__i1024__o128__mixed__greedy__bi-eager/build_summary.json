@@ -1,0 +1,136 @@
+{
+ "tp": {
+  "world": 2
+ },
+ "ranks": {
+  "rank0": {
+   "build_step": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "64bee6d6e82644614d1d35b0ed0722561da75d2332d7ee667bd7acecf26edab3"
+   },
+   "build_request_LP1024_T1": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "9693f8cc5d69ab309afa133da8b3c9ecc4fb9b1d4dd30460ea2d882ce1fa2029"
+   },
+   "build_request_LP11_T30": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "014fabd7918f037b63bb3976920a0b8f9ad3a4e376c3272b5eb07c78cd9353a2"
+   },
+   "build_request_LP19_T100": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "8dce710148637ef9fec01b8506d8a707179bb79b3df2f7e825cf7bb4a69b1658"
+   },
+   "build_request_LP493_T127": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "f71001af1ff28b35d49e623568787eb17efe4c6718328c6c9c807840abc8c560"
+   },
+   "build_request_LP625_T94": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "9ac0352871add18e7299da7f8afa88a8a5e2bee6994e66978e1ce7ebc4b5b5d2"
+   },
+   "build_request_LP685_T24": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "c421462d13c836f61d6b872555a2b6d87183979bdceeb0c2d5a6346ed746a241"
+   },
+   "build_request_LP813_T46": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "ef9ad33c8fa53df5e9900ebc67ecebd1e25ba0c8d8f8719f36481992294aad8b"
+   },
+   "build_request_LP85_T4": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "5abf9219b003b4fdf84726ca780bc1365740ae07199d2ce320b8e171781b5cbb"
+   },
+   "workload": {
+    "ok": true,
+    "workload_digest": "2f6367e27e967b30ad4407acb748a7eb891251c7cac70f03cdf0fda90d1f3795",
+    "reason": null,
+    "message": null,
+    "mechanism": "GP-01 cb_a.global_program"
+   }
+  },
+  "rank1": {
+   "build_step": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "d8cc47009eb82cb38d9c7f157bde7465433b09413a1b2a2ffdfb6aabd70e2376"
+   },
+   "build_request_LP1024_T1": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "c6a7861fca41bd76d3c26d6d91fba6211fc0f90e17b78fb3885bde6d4f18252b"
+   },
+   "build_request_LP11_T30": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "5c8b8417cade2dab80b1ea935092c76410fa84b36070826345c89695daa466bf"
+   },
+   "build_request_LP19_T100": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "7bc98fbbb4d167cabe8f37d32659ee2a8f00849294278c7122d13eb27a9ef775"
+   },
+   "build_request_LP493_T127": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "f226b3b7708be4b3191068c22b9ee5bd9757b95ff1400d3edde67fed888bb20a"
+   },
+   "build_request_LP625_T94": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "164d3b1aebc331884552be48f21d8503c576393bfdf2118657d5f81d26c8e3cb"
+   },
+   "build_request_LP685_T24": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "adbe2503ed62211183a330a7ad389d63ce99fada1f64e4963afd13b8f43a78af"
+   },
+   "build_request_LP813_T46": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "88e3df0611c9a5f49c521a1da5a959b51069bb5dbd2709e966b1350be080f6a8"
+   },
+   "build_request_LP85_T4": {
+    "ok": true,
+    "unsupported": null,
+    "message": "",
+    "program_digest": "17a01a4773cb2a621294449714f8151d0aa0dea2da451aecfbcbef48621af6f6"
+   },
+   "workload": {
+    "ok": true,
+    "workload_digest": "9b96c11ff9901044d97f96f335dc28de6613c4861245a271e1013975dae45490",
+    "reason": null,
+    "message": null,
+    "mechanism": "GP-01 cb_a.global_program"
+   }
+  }
+ },
+ "step": {
+  "program_digest": "64bee6d6e82644614d1d35b0ed0722561da75d2332d7ee667bd7acecf26edab3"
+ }
+}

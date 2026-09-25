@@ -1,0 +1,478 @@
+{
+ "schema": "verity/commit-integ/delta-tp/v1",
+ "git_head": null,
+ "tree": {
+  "source": "source_identity.code_identity",
+  "root": "/workspace/head",
+  "closure": [
+   "integrations/vllm/**",
+   "packages/verity/src/verity/*.py",
+   "packages/verity/src/verity/commitments/**",
+   "packages/verity/src/verity/ir/**",
+   "packages/verity/src/verity/ml/**",
+   "packages/verity/src/verity/verification/**"
+  ],
+  "sha256": "8bef1a0a0aad033e4a74525b06551f948b0c52808b3818f64146dd9347bc2b2e",
+  "files": 1175
+ },
+ "argv": [
+  "/workspace/head/integrations/vllm/verity_vllm/pipeline/tp/commit.py",
+  "--workload",
+  "workloads/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.json",
+  "--case",
+  "OLMOE",
+  "--tp",
+  "2",
+  "--committer",
+  "native_collect_v2b",
+  "--hidden-so",
+  "/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so",
+  "--openings",
+  "64",
+  "--max-num-seqs",
+  "8",
+  "--engine-arg",
+  "gpu_memory_utilization=0.6",
+  "--engine-arg",
+  "max_model_len=1152",
+  "--engine-arg",
+  "max_num_batched_tokens=3763",
+  "--engine-arg",
+  "disable_custom_all_reduce=true",
+  "--build-rank",
+  "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank0",
+  "--build-rank",
+  "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank1",
+  "--required-manifest",
+  "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json",
+  "--match-dir",
+  "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match",
+  "--checkpoint-dir",
+  "/workspace/hf/hub/models--allenai--OLMoE-1B-7B-0924/snapshots/6d84c48581ece794365f2b8e9cfb043c68ade9c5",
+  "--checkpoint-model",
+  "allenai/OLMoE-1B-7B-0924",
+  "--pairs",
+  "1",
+  "--warmup",
+  "2",
+  "--value-check",
+  "--replay-workers",
+  "32",
+  "--label",
+  "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+  "--out",
+  "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/commit",
+  "--require-fold-match"
+ ],
+ "tp": 2,
+ "build_s": 8.8,
+ "engine_kwargs": {
+  "dtype": "bfloat16",
+  "seed": 0,
+  "max_model_len": 1152,
+  "gpu_memory_utilization": 0.6,
+  "trust_remote_code": false,
+  "tensor_parallel_size": 2,
+  "enforce_eager": true,
+  "enable_prefix_caching": false,
+  "max_num_seqs": 8,
+  "max_num_batched_tokens": 3763,
+  "disable_custom_all_reduce": true,
+  "worker_extension_cls": "verity_vllm.engine.rank_worker.TP2CaptureWorkerExtension"
+ },
+ "env": {
+  "NCCL_P2P_DISABLE": "1",
+  "VLLM_BATCH_INVARIANT": "1",
+  "NATIVE_COLLECT_BUILD": "/workspace/cp/nc_build",
+  "VLLM_USE_V2_MODEL_RUNNER": "1",
+  "VLLM_ENABLE_V1_MULTIPROCESSING": "0",
+  "VLLM_USE_FLASHINFER_SAMPLER": "0",
+  "VLLM_OMP_NUM_THREADS_SET_BY_VLLM": "1",
+  "VLLM_OBJECT_STORAGE_SHM_BUFFER_NAME": "VLLM_OBJECT_STORAGE_SHM_BUFFER_808542b4b1394c5d96e41054c0b69123"
+ },
+ "env_required": {
+  "NCCL_P2P_DISABLE": "1"
+ },
+ "ranks": [
+  {
+   "pid": 17882,
+   "ppid": 17665,
+   "cuda_visible_devices": null,
+   "worker_class": "vllm.v1.worker.worker_base.WorkerBase",
+   "worker_mro": [
+    "vllm.v1.worker.gpu_worker.Worker",
+    "vllm.v1.worker.worker_base.WorkerBase",
+    "verity_vllm.engine.rank_worker.TP2CaptureWorkerExtension",
+    "builtins.object"
+   ],
+   "runner_class": "vllm.v1.worker.gpu.model_runner.GPUModelRunner",
+   "device": {
+    "current": 0,
+    "name": "NVIDIA L40S",
+    "count_visible": 2
+   },
+   "tp": {
+    "rank": 0,
+    "world_size": 2,
+    "global_rank": 0,
+    "group_name": "tp:0",
+    "use_custom_op_call": true,
+    "device_communicator": "vllm.distributed.device_communicators.cuda_communicator.CudaCommunicator",
+    "ca_comm": null,
+    "qr_comm": null,
+    "symm_mem_comm": null,
+    "pynccl_comm": {
+     "class": "PyNcclCommunicator",
+     "disabled": false,
+     "max_size": 0,
+     "available": true
+    },
+    "fi_allreduce_fusion": null,
+    "all2all_manager": null,
+    "pp_world_size": 1
+   },
+   "nccl_env": {
+    "NCCL_P2P_DISABLE": "1",
+    "NCCL_LAUNCH_MODE": "GROUP",
+    "NCCL_COLLNET_ENABLE": "0",
+    "NCCL_NVLS_ENABLE": "0",
+    "NCCL_P2P_NET_DISABLE": "1",
+    "NCCL_MIN_NCHANNELS": "1",
+    "NCCL_MAX_NCHANNELS": "1",
+    "NCCL_PROTO": "Simple",
+    "NCCL_ALGO": "allreduce:tree",
+    "NCCL_NTHREADS": "1",
+    "NCCL_SOCKET_NTHREADS": "1"
+   },
+   "parallel_config": {
+    "tensor_parallel_size": 2,
+    "pipeline_parallel_size": 1,
+    "world_size": 2,
+    "distributed_executor_backend": "mp",
+    "disable_custom_all_reduce": true,
+    "worker_cls": "vllm.v1.worker.gpu_worker.Worker",
+    "worker_extension_cls": "verity_vllm.engine.rank_worker.TP2CaptureWorkerExtension"
+   },
+   "param_shapes": {
+    "model.embed_tokens.weight": [
+     25152,
+     2048
+    ],
+    "model.layers.0.self_attn.qkv_proj.weight": [
+     3072,
+     2048
+    ],
+    "model.layers.0.self_attn.q_norm.weight": [
+     2048
+    ],
+    "model.layers.0.self_attn.k_norm.weight": [
+     2048
+    ],
+    "model.layers.0.self_attn.o_proj.weight": [
+     2048,
+     1024
+    ],
+    "model.layers.0.mlp.gate.weight": [
+     64,
+     2048
+    ],
+    "model.layers.0.mlp.experts.routed_experts.w13_weight": [
+     64,
+     1024,
+     2048
+    ],
+    "model.layers.0.mlp.experts.routed_experts.w2_weight": [
+     64,
+     2048,
+     512
+    ],
+    "model.layers.0.input_layernorm.weight": [
+     2048
+    ],
+    "model.layers.0.post_attention_layernorm.weight": [
+     2048
+    ],
+    "model.norm.weight": [
+     2048
+    ],
+    "lm_head.weight": [
+     25152,
+     2048
+    ]
+   },
+   "n_params": 147,
+   "modules": {
+    "model.embed_tokens": "VocabParallelEmbedding",
+    "model.layers.0.self_attn.qkv_proj": "QKVParallelLinear",
+    "model.layers.0.self_attn.o_proj": "RowParallelLinear",
+    "model.layers.0.self_attn.attn": "Attention",
+    "lm_head": "ParallelLMHead",
+    "logits_processor": "LogitsProcessor"
+   },
+   "logits_processor": {
+    "use_all_gather": true,
+    "org_vocab_size": 50304,
+    "vocab_size": 50304
+   }
+  },
+  {
+   "pid": 17895,
+   "ppid": 17665,
+   "cuda_visible_devices": null,
+   "worker_class": "vllm.v1.worker.worker_base.WorkerBase",
+   "worker_mro": [
+    "vllm.v1.worker.gpu_worker.Worker",
+    "vllm.v1.worker.worker_base.WorkerBase",
+    "verity_vllm.engine.rank_worker.TP2CaptureWorkerExtension",
+    "builtins.object"
+   ],
+   "runner_class": "vllm.v1.worker.gpu.model_runner.GPUModelRunner",
+   "device": {
+    "current": 1,
+    "name": "NVIDIA L40S",
+    "count_visible": 2
+   },
+   "tp": {
+    "rank": 1,
+    "world_size": 2,
+    "global_rank": 1,
+    "group_name": "tp:0",
+    "use_custom_op_call": true,
+    "device_communicator": "vllm.distributed.device_communicators.cuda_communicator.CudaCommunicator",
+    "ca_comm": null,
+    "qr_comm": null,
+    "symm_mem_comm": null,
+    "pynccl_comm": {
+     "class": "PyNcclCommunicator",
+     "disabled": false,
+     "max_size": 0,
+     "available": true
+    },
+    "fi_allreduce_fusion": null,
+    "all2all_manager": null,
+    "pp_world_size": 1
+   },
+   "nccl_env": {
+    "NCCL_P2P_DISABLE": "1",
+    "NCCL_LAUNCH_MODE": "GROUP",
+    "NCCL_COLLNET_ENABLE": "0",
+    "NCCL_NVLS_ENABLE": "0",
+    "NCCL_P2P_NET_DISABLE": "1",
+    "NCCL_MIN_NCHANNELS": "1",
+    "NCCL_MAX_NCHANNELS": "1",
+    "NCCL_PROTO": "Simple",
+    "NCCL_ALGO": "allreduce:tree",
+    "NCCL_NTHREADS": "1",
+    "NCCL_SOCKET_NTHREADS": "1"
+   },
+   "parallel_config": {
+    "tensor_parallel_size": 2,
+    "pipeline_parallel_size": 1,
+    "world_size": 2,
+    "distributed_executor_backend": "mp",
+    "disable_custom_all_reduce": true,
+    "worker_cls": "vllm.v1.worker.gpu_worker.Worker",
+    "worker_extension_cls": "verity_vllm.engine.rank_worker.TP2CaptureWorkerExtension"
+   },
+   "param_shapes": {
+    "model.embed_tokens.weight": [
+     25152,
+     2048
+    ],
+    "model.layers.0.self_attn.qkv_proj.weight": [
+     3072,
+     2048
+    ],
+    "model.layers.0.self_attn.q_norm.weight": [
+     2048
+    ],
+    "model.layers.0.self_attn.k_norm.weight": [
+     2048
+    ],
+    "model.layers.0.self_attn.o_proj.weight": [
+     2048,
+     1024
+    ],
+    "model.layers.0.mlp.gate.weight": [
+     64,
+     2048
+    ],
+    "model.layers.0.mlp.experts.routed_experts.w13_weight": [
+     64,
+     1024,
+     2048
+    ],
+    "model.layers.0.mlp.experts.routed_experts.w2_weight": [
+     64,
+     2048,
+     512
+    ],
+    "model.layers.0.input_layernorm.weight": [
+     2048
+    ],
+    "model.layers.0.post_attention_layernorm.weight": [
+     2048
+    ],
+    "model.norm.weight": [
+     2048
+    ],
+    "lm_head.weight": [
+     25152,
+     2048
+    ]
+   },
+   "n_params": 147,
+   "modules": {
+    "model.embed_tokens": "VocabParallelEmbedding",
+    "model.layers.0.self_attn.qkv_proj": "QKVParallelLinear",
+    "model.layers.0.self_attn.o_proj": "RowParallelLinear",
+    "model.layers.0.self_attn.attn": "Attention",
+    "lm_head": "ParallelLMHead",
+    "logits_processor": "LogitsProcessor"
+   },
+   "logits_processor": {
+    "use_all_gather": true,
+    "org_vocab_size": 50304,
+    "vocab_size": 50304
+   }
+  }
+ ],
+ "root_combination": "tp_run_root = SHA-256(tag || u32 world || (u32 rank || root_rank)...)",
+ "root_tag": "verity/tp-run-root/v1",
+ "layout_version_per_rank": "chunk-leaf-v1 (unchanged)",
+ "required_classes": [
+  "input_token_ids",
+  "instance_outputs_native",
+  "sampled_token_ids",
+  "weights",
+  "fa2_hidden_m1_stream",
+  "tp_rank_partials",
+  "moe_block_stream"
+ ],
+ "required_classes_source": "default (REL-02) + tp_rank_partials (R14 TP-03), checked per rank + moe_block_stream (R15 TP-MOE-SRC: MoE-runner modules on every rank)",
+ "negatives": {
+  "omit_rank": null,
+  "no_tp_partials": false,
+  "relabel_rank": null,
+  "swap_requests": null,
+  "wrong_root_rank": null,
+  "omit_rank_partials": null,
+  "omit_partial_site": null,
+  "flip_partial": null
+ },
+ "required_manifest": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json",
+ "value_check": true,
+ "rules_version": "r15-tp04-v1",
+ "build_program_digest_kind": {
+  "0": "workload (GP-01)",
+  "1": "workload (GP-01)"
+ },
+ "build_program_digest": {
+  "0": "2f6367e27e967b30ad4407acb748a7eb891251c7cac70f03cdf0fda90d1f3795",
+  "1": "9b96c11ff9901044d97f96f335dc28de6613c4861245a271e1013975dae45490"
+ },
+ "match_record": {
+  "path": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture/tokens.json",
+  "requests": 8,
+  "generated_total": 434,
+  "tp2_match_verdict": true,
+  "capture_dir": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/match/capture",
+  "stored_steps_per_rank": {
+   "0": 128,
+   "1": 128
+  }
+ },
+ "sampled_replay": {
+  "of_record": {
+   "0": [
+    "014fabd7918f037b63bb3976920a0b8f9ad3a4e376c3272b5eb07c78cd9353a2",
+    "2f6367e27e967b30ad4407acb748a7eb891251c7cac70f03cdf0fda90d1f3795",
+    "5abf9219b003b4fdf84726ca780bc1365740ae07199d2ce320b8e171781b5cbb",
+    "8dce710148637ef9fec01b8506d8a707179bb79b3df2f7e825cf7bb4a69b1658",
+    "9693f8cc5d69ab309afa133da8b3c9ecc4fb9b1d4dd30460ea2d882ce1fa2029",
+    "9ac0352871add18e7299da7f8afa88a8a5e2bee6994e66978e1ce7ebc4b5b5d2",
+    "c421462d13c836f61d6b872555a2b6d87183979bdceeb0c2d5a6346ed746a241",
+    "ef9ad33c8fa53df5e9900ebc67ecebd1e25ba0c8d8f8719f36481992294aad8b",
+    "f71001af1ff28b35d49e623568787eb17efe4c6718328c6c9c807840abc8c560"
+   ],
+   "1": [
+    "164d3b1aebc331884552be48f21d8503c576393bfdf2118657d5f81d26c8e3cb",
+    "17a01a4773cb2a621294449714f8151d0aa0dea2da451aecfbcbef48621af6f6",
+    "5c8b8417cade2dab80b1ea935092c76410fa84b36070826345c89695daa466bf",
+    "7bc98fbbb4d167cabe8f37d32659ee2a8f00849294278c7122d13eb27a9ef775",
+    "88e3df0611c9a5f49c521a1da5a959b51069bb5dbd2709e966b1350be080f6a8",
+    "9b96c11ff9901044d97f96f335dc28de6613c4861245a271e1013975dae45490",
+    "adbe2503ed62211183a330a7ad389d63ce99fada1f64e4963afd13b8f43a78af",
+    "c6a7861fca41bd76d3c26d6d91fba6211fc0f90e17b78fb3885bde6d4f18252b",
+    "f226b3b7708be4b3191068c22b9ee5bd9757b95ff1400d3edde67fed888bb20a"
+   ]
+  },
+  "per_stratum": 2,
+  "max_evaluate": 2000,
+  "seed": null,
+  "challenge": null,
+  "rule": "manbind MAN-06 O1-O6 per rank: the rank's Programs of record x the rank's map x the rank's committed members + weight shards"
+ },
+ "weights_pin": {
+  "checkpoint_dir": "/workspace/hf/hub/models--allenai--OLMoE-1B-7B-0924/snapshots/6d84c48581ece794365f2b8e9cfb043c68ade9c5",
+  "checkpoints_manifest": null,
+  "required": true,
+  "rule": "MAN-09 per rank: sha256(served shard) == digest composed from the PINNED checkpoint shards by the rank Program's shard map, every field; absent with --required-manifest = FAIL 'weights unpinned (MAN-09)' unless --no-weights-pin"
+ },
+ "attention_plane_classes": {
+  "0": {
+   "declarations": 16,
+   "source": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank0/build_request_LP1024_T1/result.json",
+   "classes": [
+    "global-mha"
+   ],
+   "per_rank_heads": [
+    [
+     8,
+     8,
+     128
+    ]
+   ],
+   "rule": "per-layer plane class derived per step from the rank Program's attention statics (fa2_plane_classes)"
+  },
+  "1": {
+   "declarations": 16,
+   "source": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank1/build_request_LP1024_T1/result.json",
+   "classes": [
+    "global-mha"
+   ],
+   "per_rank_heads": [
+    [
+     8,
+     8,
+     128
+    ]
+   ],
+   "rule": "per-layer plane class derived per step from the rank Program's attention statics (fa2_plane_classes)"
+  }
+ },
+ "moe_source": {
+  "0": {
+   "layers": 16,
+   "tensors_per_layer": 6,
+   "modules": [
+    "model.layers.0.mlp.experts",
+    "model.layers.1.mlp.experts",
+    "model.layers.10.mlp.experts",
+    "model.layers.11.mlp.experts",
+    "..."
+   ]
+  },
+  "1": {
+   "layers": 16,
+   "tensors_per_layer": 6,
+   "modules": [
+    "model.layers.0.mlp.experts",
+    "model.layers.1.mlp.experts",
+    "model.layers.10.mlp.experts",
+    "model.layers.11.mlp.experts",
+    "..."
+   ]
+  }
+ }
+}

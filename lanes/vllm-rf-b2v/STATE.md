@@ -2,7 +2,7 @@
 id: vllm-rf-b2v/state
 lane: vllm-rf-b2v
 kind: state
-updated: 2026-09-25T11:33Z
+updated: 2026-09-25T12:15Z
 ---
 # b2v (one verdict and `properties/` records): state
 
@@ -41,7 +41,7 @@ Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/project
 - `824a9924` properties: holdout reads `check.gates.HOLDOUT_GATES` (P4 allowlist −6 g-literal entries).
 - `fd9220c9` / `95515e42` / `8d847755`: lint fixes (by-name entries follow the families split; P8 claim wording; P10 import lines).
 
-## Running (11:33Z)
+## Running (12:15Z)
 - **Lints at 8d847755: 45 passed** (`lint_head2`, L40S). The failures at 824a9924 were fixed in `fd9220c9`, `95515e42`,
   `8d847755` (no allowlist grows).
 - **Gate (b) done** (L40S): head `8d847755` 31F/3662P/306S/6xF (4005) vs base `10996616` 32F/3646P/306S/6xF (3990);
@@ -49,7 +49,10 @@ Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/project
 - **#101 done** (L40S, world 1): commit PASS; program/manifest/run root = record; verdict cites census 33a41e9c… and
   noninterference be83f678… (ok). **L40S pod terminated 11:27:26Z**, evidence in `evidence/l40s/`, `evidence/row101/`.
 - `vyv-rf-b2v-tp2`: #70 build/manifest = record, fold FAIL as recorded, world-2 record 442979b3… ok. Commit at 66eaaa50
-  `r20260925-111729-3301` (in the engine since 11:27Z). Gate (a) T0,T1 at 824a9924 `r20260925-105008-bca1` (since 10:52Z).
+  `r20260925-111729-3301` (pair 0 instrumented + finalize; the record's took ~90 min). **Gate (a) done** (824a9924,
+  `r20260925-105008-bca1`): 73 passed / 85 skipped of 158 = a23b test by test; jdiff exit 1 only on 2 skip texts renamed by
+  `5cc0506e` (before the base: `row_pod_tp2.sh` -> `tp_stage.sh`). Outputs in `evidence/tp2/gates/`. From-record at 8d847755 on
+  #70 before the commit: NOT_RUN, cites noninterference 442979b3… ok.
   Verdict bytes: 10 rows with a Commit record identical under 10996616 / 824a9924 / 8d847755. Targeted gate (a)
   `verdict or commit_summary` at 8d847755: 20 passed, 6 skipped. Key deleted 10:52:13Z.
 - READY.md drafted (gate (a) and #70 commit placeholders).

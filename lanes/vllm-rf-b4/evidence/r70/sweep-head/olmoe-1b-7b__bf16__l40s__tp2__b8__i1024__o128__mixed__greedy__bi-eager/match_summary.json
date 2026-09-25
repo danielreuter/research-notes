@@ -1,0 +1,267 @@
+{
+ "pass": false,
+ "level": "fold (D90 per-rank fold Match + collective-level)",
+ "capture_rc": 0,
+ "control_rc": 0,
+ "check_rc": 0,
+ "fold_rc": 1,
+ "fold_profile": "derived_OLMOE_tp2",
+ "tp2_match": {
+  "pass": true,
+  "structure": {
+   "pass": true,
+   "per_rank": {
+    "0": {
+     "build_signature_len": 66,
+     "build_digest": "64bee6d6e82644614d1d35b0ed0722561da75d2332d7ee667bd7acecf26edab3",
+     "n_steps": 128,
+     "n_collectives": 8448,
+     "steps_mismatching": [],
+     "sites_checked_per_step": 66,
+     "steps_site_mismatching": [],
+     "n_steps_site_mismatching": 0,
+     "site_rule": "record.module == link.module (link.module_path minus the derive's RECORDED model_root, ' (Class)' dropped), per k; a None on either side is a mismatch (fail closed by absence, rev-pm M-0470)",
+     "model_root": "inner.model",
+     "links_without_module_path": 0,
+     "prefill": {
+      "n": 66,
+      "rows_all_reduce": [
+       3755
+      ],
+      "rows_all_gather": [
+       8,
+       3755
+      ],
+      "equal_signature": true,
+      "equal_sites": true,
+      "sites_named_equal": 66
+     },
+     "decode_rows_all_reduce": [
+      [
+       1
+      ],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       4
+      ],
+      [
+       5
+      ],
+      [
+       6
+      ],
+      [
+       7
+      ],
+      [
+       8
+      ]
+     ],
+     "decode_rows_all_gather": [
+      [
+       1
+      ],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       4
+      ],
+      [
+       5
+      ],
+      [
+       6
+      ],
+      [
+       7
+      ],
+      [
+       8
+      ]
+     ],
+     "by_kind": {
+      "all_gather": 4224,
+      "all_reduce": 4224
+     },
+     "modules": {
+      "OlmoeAttention": 4096,
+      "MoERunner": 2048,
+      "RowParallelLinear": 2048,
+      "LogitsProcessor": 128,
+      "VocabParallelEmbedding": 128
+     }
+    },
+    "1": {
+     "build_signature_len": 66,
+     "build_digest": "d8cc47009eb82cb38d9c7f157bde7465433b09413a1b2a2ffdfb6aabd70e2376",
+     "n_steps": 128,
+     "n_collectives": 8448,
+     "steps_mismatching": [],
+     "sites_checked_per_step": 66,
+     "steps_site_mismatching": [],
+     "n_steps_site_mismatching": 0,
+     "site_rule": "record.module == link.module (link.module_path minus the derive's RECORDED model_root, ' (Class)' dropped), per k; a None on either side is a mismatch (fail closed by absence, rev-pm M-0470)",
+     "model_root": "inner.model",
+     "links_without_module_path": 0,
+     "prefill": {
+      "n": 66,
+      "rows_all_reduce": [
+       3755
+      ],
+      "rows_all_gather": [
+       8,
+       3755
+      ],
+      "equal_signature": true,
+      "equal_sites": true,
+      "sites_named_equal": 66
+     },
+     "decode_rows_all_reduce": [
+      [
+       1
+      ],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       4
+      ],
+      [
+       5
+      ],
+      [
+       6
+      ],
+      [
+       7
+      ],
+      [
+       8
+      ]
+     ],
+     "decode_rows_all_gather": [
+      [
+       1
+      ],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       4
+      ],
+      [
+       5
+      ],
+      [
+       6
+      ],
+      [
+       7
+      ],
+      [
+       8
+      ]
+     ],
+     "by_kind": {
+      "all_gather": 4224,
+      "all_reduce": 4224
+     },
+     "modules": {
+      "OlmoeAttention": 4096,
+      "MoERunner": 2048,
+      "RowParallelLinear": 2048,
+      "LogitsProcessor": 128,
+      "VocabParallelEmbedding": 128
+     }
+    }
+   },
+   "prefill_all_reduce_rows_equal_prompt_tokens": true,
+   "prefill_all_gather_rows_equal_requests": true,
+   "prefill_all_gather_rows": {
+    "observed": [
+     8,
+     3755
+    ],
+    "sampled_rows": 8,
+    "prompt_tokens": 3755,
+    "rule": "logits all-gather rows == #requests (required); mid-module all-gather rows == prompt tokens; nothing else"
+   }
+  },
+  "provenance": {
+   "pass": true,
+   "steps_checked": 128,
+   "collectives_checked": 8448,
+   "elements_checked": 578406656,
+   "all_reduce_checked": 4224,
+   "all_gather_checked": 4224,
+   "mismatches": [],
+   "received_equal_both_ranks": 8448,
+   "recorder_sha256": {
+    "0": "353249823977e67678bc64032707bda6bee1a292ce2c8baf82f653617fae34c2",
+    "1": "28c41d0a1e5d843c52c5c376ea36def96c172d7d98622d0ea7f54b6d638e2471"
+   },
+   "tensors_digested": 33792,
+   "digest_mismatches": [],
+   "n_digest_mismatches": 0,
+   "digest_rule": "sha256(tensor.contiguous() viewed uint8 for bf16, else raw) == coll.rank<r>.jsonl row part_sha256 / out_sha256 at (rank, step, k)",
+   "definition_order": "world 2: bf16(f32(part0) + f32(part1)); world > 2: acc = part[order[0]]; acc = bf16(f32(acc) + f32(part[r])) for r in order[1:], order = [1, 0] (b1_tp2.allreduce_order)",
+   "alt_f32_once_equal": 0,
+   "alt_ascending_equal": 0,
+   "n_mismatches": 0
+  },
+  "tokens": {
+   "pass": true,
+   "n_requests": 8,
+   "generated_lengths": [
+    5,
+    128,
+    31,
+    25,
+    101,
+    47,
+    95,
+    2
+   ],
+   "capture_run_s": 361.234,
+   "control_run_s": 1.993
+  }
+ },
+ "tp2_fold_match": {
+  "pass": false,
+  "legs": {
+   "fold_per_rank": {
+    "0": false,
+    "1": false
+   },
+   "compare_per_rank": {
+    "0": null,
+    "1": null
+   },
+   "global_match_per_rank": {
+    "0": null,
+    "1": null
+   },
+   "cross_rank": "FAIL"
+  },
+  "problems": [
+   "rank 0: fold not ok (rc 0, errors 4096, unresolved 3544): [{\"class\": \"FoldError\", \"step\": 101, \"message\": \"AllGather2_v1{N=1024}.parts: own partial must be a row-major bf16 [1, 1024] view, got View(a36719+0 bfloat16[1, 1024] s=[3072, 1])\", \"event\": 158233, \"op\": \"vllm.all_gather.default\", \"pattern\": \"tp.collective\"}, {\"class\": \"FoldError\", \"step\": 101, \"me",
+   "rank 1: fold not ok (rc 0, errors 4096, unresolved 3544): [{\"class\": \"FoldError\", \"step\": 101, \"message\": \"AllGather2_v1{N=1024}.parts: own partial must be a row-major bf16 [1, 1024] view, got View(a36719+0 bfloat16[1, 1024] s=[3072, 1])\", \"event\": 158233, \"op\": \"vllm.all_gather.default\", \"pattern\": \"tp.collective\"}, {\"class\": \"FoldError\", \"step\": 101, \"me"
+  ],
+  "seconds": 726.3
+ }
+}

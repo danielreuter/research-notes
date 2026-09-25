@@ -1,0 +1,10 @@
+ss..............ss....ss..                                               [100%]
+=========================== short test summary info ============================
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: commit_summary does not apply to #4: no commit_summary.json on this row (Commit never closed)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: verdict does not apply to #4: row not reachable here (no rows root / live dir / store replica)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: commit_summary does not apply to #70: no commit_summary.json on this row (Commit never closed)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: verdict does not apply to #70: no Commit verdict on this row (Commit never closed): nothing to grade
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: commit_summary does not apply to #75: no commit_summary.json on this row (Commit never closed)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: verdict does not apply to #75: no Commit verdict on this row (Commit never closed): nothing to grade
+20 passed, 6 skipped, 165 deselected in 14.31s
+exit 0 2026-09-25T11:05:24Z

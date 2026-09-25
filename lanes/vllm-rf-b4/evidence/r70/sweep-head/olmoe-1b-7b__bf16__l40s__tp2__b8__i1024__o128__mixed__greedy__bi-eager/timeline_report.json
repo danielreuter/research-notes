@@ -1,0 +1,115 @@
+{
+ "schema": "verity-sweep/timeline/v1/report",
+ "events": 12,
+ "spans": 6,
+ "unclosed": [],
+ "attempt": "last",
+ "attempts_in_file": 1,
+ "t_first_utc": "2026-09-25T10:17:53Z",
+ "t_last_utc": "2026-09-25T10:48:33Z",
+ "elapsed_s": 1839.794,
+ "envelope": [
+  {
+   "stage": "stage.build",
+   "s": 1276.441,
+   "proc": "tp_stage"
+  },
+  {
+   "stage": "row",
+   "s": 1839.538,
+   "proc": "tp_stage"
+  }
+ ],
+ "categories": {
+  "validation": {
+   "spans": 3,
+   "sum_s": 1384.229,
+   "union_s": 982.043,
+   "stages": {
+    "build.global_program_r0": 402.186,
+    "build.global_program_r1": 420.926,
+    "build.required_manifest": 561.117
+   }
+  },
+  "other": {
+   "spans": 1,
+   "sum_s": 0.069,
+   "union_s": 0.069,
+   "stages": {
+    "precheck": 0.069
+   }
+  }
+ },
+ "engine": {
+  "starts": 0,
+  "reuses": 0,
+  "restart_reasons": {},
+  "build_s": [],
+  "hot_values": [
+   false
+  ],
+  "processes": 1
+ },
+ "spans_detail": [
+  {
+   "proc": "tp_stage",
+   "pid": 2233,
+   "stage": "precheck",
+   "s": 0.069,
+   "category": "other",
+   "t0_utc": "10:17:53",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "tp_stage",
+   "pid": 2233,
+   "stage": "stage.build",
+   "s": 1276.441,
+   "category": "other",
+   "t0_utc": "10:17:53",
+   "hot": false,
+   "ok": "PASS"
+  },
+  {
+   "proc": "tp_stage",
+   "pid": 2233,
+   "stage": "row",
+   "s": 1839.538,
+   "category": "other",
+   "t0_utc": "10:17:53",
+   "hot": false,
+   "ok": true
+  },
+  {
+   "proc": "tp_stage",
+   "pid": 2233,
+   "stage": "build.global_program_r0",
+   "s": 402.186,
+   "category": "validation",
+   "t0_utc": "10:32:08",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "tp_stage",
+   "pid": 2233,
+   "stage": "build.global_program_r1",
+   "s": 420.926,
+   "category": "validation",
+   "t0_utc": "10:32:08",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "tp_stage",
+   "pid": 2233,
+   "stage": "build.required_manifest",
+   "s": 561.117,
+   "category": "validation",
+   "t0_utc": "10:39:10",
+   "hot": false,
+   "rc": 0
+  }
+ ]
+}

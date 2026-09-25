@@ -1,0 +1,854 @@
+[
+ {
+  "rank": 0,
+  "committer": "native_collect_v2_auto_nw",
+  "hidden_source": "/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so",
+  "moe_source": {
+   "layers": 16,
+   "tensors_per_layer": 6,
+   "modules": [
+    "model.layers.0.mlp.experts",
+    "model.layers.1.mlp.experts",
+    "model.layers.10.mlp.experts",
+    "model.layers.11.mlp.experts",
+    "..."
+   ]
+  },
+  "tp_partial_source": {
+   "sites": [
+    [
+     "model.embed_tokens",
+     "VocabParallelEmbedding"
+    ],
+    [
+     "model.layers.0.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.0.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.1.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.1.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.2.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.2.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.3.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.3.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.4.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.4.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.5.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.5.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.6.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.6.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.7.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.7.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.8.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.8.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.9.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.9.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.10.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.10.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.11.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.11.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.12.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.12.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.13.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.13.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.14.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.14.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.15.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.15.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "logits_processor",
+     "LogitsProcessor"
+    ],
+    [
+     "model.layers.0.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.1.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.2.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.3.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.4.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.5.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.6.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.7.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.8.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.9.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.10.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.11.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.12.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.13.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.14.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.15.self_attn",
+     "OlmoeAttention"
+    ]
+   ],
+   "extra_step_bytes": {
+    "per_token_bytes": 462848,
+    "per_seq_bytes": 50304,
+    "tensors_per_step": 114
+   },
+   "relabel_rank": null,
+   "omit_site": null,
+   "flip_site": null
+  },
+  "arena_sizing": {
+   "per_token_bytes": 2739204,
+   "per_seq_bytes": 201216,
+   "per_step_bytes": 58368,
+   "widths": {
+    "VocabParallelEmbedding": 4100,
+    "LinearBase": 165888,
+    "RMSNorm": 532480,
+    "RotaryEmbedding": 131072,
+    "Attention": 65536,
+    "LogitsProcessor": 0,
+    "MoeBlock": 1377280
+   },
+   "rope_per_layer": true,
+   "rope_modules": 1,
+   "rope_invocations_per_step": 16,
+   "prefill_tokens": 3763,
+   "prefill_step_bytes": 50071726284,
+   "prefill_hidden_bytes": 39762001920,
+   "decode_step_bytes": 67693088,
+   "decode_hidden_bytes": 43679744,
+   "step_bound_bytes": 50071726284,
+   "block_bytes": 74286810624,
+   "prefill_block_bytes": 74286810624,
+   "decode_block_bytes": 138352128,
+   "retained_bytes_bound": 154866404452,
+   "envelope": {
+    "batch": 8,
+    "max_prompt": 1024,
+    "max_new": 128,
+    "max_num_batched_tokens": 3763,
+    "max_model_len": 1152
+   },
+   "model": {
+    "hidden": 2048,
+    "heads": 16,
+    "kv_heads": 16,
+    "head_dim": 128,
+    "inter": 1024,
+    "layers": 16,
+    "vocab": 50304,
+    "hidden_m1": true,
+    "attn_backend": "fa2",
+    "moe_layers": 16,
+    "moe_bytes_per_token": 1377280
+   },
+   "extra_sources": {
+    "per_token_bytes": 462848,
+    "per_seq_bytes": 50304,
+    "tensors_per_step": 114,
+    "prefill_add": 1742128640,
+    "decode_add": 4134400
+   },
+   "device_free_bytes": 18353618944,
+   "device_total_bytes": 47665709056,
+   "blocks_preallocated": 0,
+   "explicit_block_bytes": null,
+   "gpu_memory_utilization_max": 0.0,
+   "prealloc_bytes": 0,
+   "staging": "windowed"
+  },
+  "window_ring": {
+   "windowed": true,
+   "window_bytes": 268435456,
+   "slots": 8,
+   "ring_bytes": 2147483648,
+   "scratch_bytes": 268435456,
+   "largest_tensor_bound": 2485125120,
+   "backpressure": "block-until-slot-free (no drop)",
+   "slot_wait_timeout_s": 600.0,
+   "dead_watchdog": {
+    "grace_s": 120.0,
+    "marker": null,
+    "rc": 3
+   },
+   "layout": "chunk-leaf-v1",
+   "in_place_hashing": "hit-plan steps only (v1 binds the step length into every leaf); learning steps re-upload from host"
+  },
+  "flip_weight": null,
+  "serve_shard_from": null,
+  "weight_registration": {
+   "root": "6c6a0377bdeec355fed4c030ee50b3b1afc9b8ccf73b8893b05a55ccb323a7dd",
+   "tensors": 212,
+   "bytes": 6922440960,
+   "wall_s": 55.539824614301324,
+   "label": "measured; once per process, excluded from steady state",
+   "hash": "host",
+   "chunk": 256
+  },
+  "weights_pin": {
+   "result": true,
+   "root_of_record": "5254f796ee4f2ec26b7bc309d58d41fb6c6c84a6fae201fbb894e89160e8d5e2",
+   "program_digest": "9693f8cc5d69ab309afa133da8b3c9ecc4fb9b1d4dd30460ea2d882ce1fa2029",
+   "program_of_record": null,
+   "of_record_set": null,
+   "checkpoint_entry": {
+    "repo": "allenai/OLMoE-1B-7B-0924",
+    "revision": "6d84c48581ece794365f2b8e9cfb043c68ade9c5"
+   },
+   "checkpoint_entry_of_record": null,
+   "compared": 212,
+   "mismatched": [],
+   "missing": [],
+   "unpinned": [],
+   "placeholders_deleted": [],
+   "placeholders_deleted_note": null,
+   "analytic": [
+    {
+     "field": "inner.model.model.layers.0.self_attn.rotary_emb.cos_sin_cache",
+     "served_name": "model.layers.0.self_attn.rotary_emb.cos_sin_cache",
+     "table": "cos_sin",
+     "expected_shape": [
+      4096,
+      128
+     ],
+     "status": "pass",
+     "shape": [
+      4096,
+      128
+     ],
+     "shape_ok": true,
+     "reason": null,
+     "n_elements": 524288,
+     "n_diff": 739,
+     "max_ulp": 32,
+     "n_outside_bound": 0,
+     "max_excess": 0.0,
+     "first_offending": [],
+     "ulp_histogram": {
+      "0": 523549,
+      "1": 648,
+      "2": 51,
+      "4": 22,
+      "8+": 18
+     }
+    }
+   ],
+   "engine_assumptions": {
+    "kv_cache_dtype": "auto"
+   },
+   "unpinned_note": "every declared weight field is pinned: checkpoint bytes by digest, kv scales as the engine constant, the rotary table by the frozen analytic bound",
+   "unresolved": [],
+   "shards": {
+    "model-00001-of-00003.safetensors": {
+     "sha256": "5e3cff7e367794685c241169072c940d200918617d5e2813f1c387dff52d845e",
+     "pinned_sha256": "5e3cff7e367794685c241169072c940d200918617d5e2813f1c387dff52d845e",
+     "pinned": true
+    },
+    "model-00002-of-00003.safetensors": {
+     "sha256": "15ef5c730ee3cfed7199498788cd2faf337203fc74b529625e7502cdd759f4a7",
+     "pinned_sha256": "15ef5c730ee3cfed7199498788cd2faf337203fc74b529625e7502cdd759f4a7",
+     "pinned": true
+    },
+    "model-00003-of-00003.safetensors": {
+     "sha256": "a9abac4ac1b55c9adabac721a02fa39971f103eea9a65c310972b1246de76e04",
+     "pinned_sha256": "a9abac4ac1b55c9adabac721a02fa39971f103eea9a65c310972b1246de76e04",
+     "pinned": true
+    }
+   },
+   "all_shards_pinned": true,
+   "shards_ok": true,
+   "method": "sha256(served parameter bytes) == sha256(checkpoint-composed tensor of record) per Program weight field, shards pinned by manifests/checkpoints.json sha256, record bound to the Program of record (MAN-09 + W1/W2); engine constants: kv scales == f32 1.0 under kv_cache_dtype auto, rotary table within analytic.check_cos_sin's bound (MAN-09c)",
+   "why": null,
+   "rank": 0,
+   "program_dir": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank0/build_request_LP1024_T1",
+   "w2_program_of_record": {
+    "built_in_process_from": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank0/build_request_LP1024_T1",
+    "record_program_digest": "9693f8cc5d69ab309afa133da8b3c9ecc4fb9b1d4dd30460ea2d882ce1fa2029",
+    "rank_program_digest_of_record": "2f6367e27e967b30ad4407acb748a7eb891251c7cac70f03cdf0fda90d1f3795"
+   },
+   "live_params": 212,
+   "committed_weights_root": "6c6a0377bdeec355fed4c030ee50b3b1afc9b8ccf73b8893b05a55ccb323a7dd"
+  },
+  "attention_plane_classes": {
+   "rank": 0,
+   "declarations": 16,
+   "source": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank0/build_request_LP1024_T1/result.json",
+   "classes": [
+    "global-mha"
+   ],
+   "per_rank_heads": [
+    [
+     8,
+     8,
+     128
+    ]
+   ],
+   "rule": "per-layer plane class derived per step from the rank Program's attention statics (fa2_plane_classes)"
+  },
+  "required_manifest": {
+   "path": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json",
+   "manifest_digest": "1bb40895671dd79144528cd3f4af30041625e15afcfde9bab3057aeb7e27a3aa",
+   "complete": true,
+   "program_digest_for_rank": "2f6367e27e967b30ad4407acb748a7eb891251c7cac70f03cdf0fda90d1f3795",
+   "program_digest_matches": true,
+   "identities": 357796,
+   "ranks": 2
+  }
+ },
+ {
+  "rank": 1,
+  "committer": "native_collect_v2_auto_nw",
+  "hidden_source": "/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so",
+  "moe_source": {
+   "layers": 16,
+   "tensors_per_layer": 6,
+   "modules": [
+    "model.layers.0.mlp.experts",
+    "model.layers.1.mlp.experts",
+    "model.layers.10.mlp.experts",
+    "model.layers.11.mlp.experts",
+    "..."
+   ]
+  },
+  "tp_partial_source": {
+   "sites": [
+    [
+     "model.embed_tokens",
+     "VocabParallelEmbedding"
+    ],
+    [
+     "model.layers.0.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.0.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.1.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.1.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.2.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.2.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.3.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.3.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.4.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.4.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.5.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.5.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.6.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.6.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.7.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.7.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.8.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.8.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.9.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.9.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.10.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.10.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.11.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.11.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.12.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.12.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.13.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.13.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.14.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.14.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "model.layers.15.self_attn.o_proj",
+     "RowParallelLinear"
+    ],
+    [
+     "model.layers.15.mlp.experts",
+     "MoERunner"
+    ],
+    [
+     "logits_processor",
+     "LogitsProcessor"
+    ],
+    [
+     "model.layers.0.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.1.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.2.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.3.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.4.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.5.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.6.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.7.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.8.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.9.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.10.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.11.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.12.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.13.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.14.self_attn",
+     "OlmoeAttention"
+    ],
+    [
+     "model.layers.15.self_attn",
+     "OlmoeAttention"
+    ]
+   ],
+   "extra_step_bytes": {
+    "per_token_bytes": 462848,
+    "per_seq_bytes": 50304,
+    "tensors_per_step": 114
+   },
+   "relabel_rank": null,
+   "omit_site": null,
+   "flip_site": null
+  },
+  "arena_sizing": {
+   "per_token_bytes": 2739204,
+   "per_seq_bytes": 201216,
+   "per_step_bytes": 58368,
+   "widths": {
+    "VocabParallelEmbedding": 4100,
+    "LinearBase": 165888,
+    "RMSNorm": 532480,
+    "RotaryEmbedding": 131072,
+    "Attention": 65536,
+    "LogitsProcessor": 0,
+    "MoeBlock": 1377280
+   },
+   "rope_per_layer": true,
+   "rope_modules": 1,
+   "rope_invocations_per_step": 16,
+   "prefill_tokens": 3763,
+   "prefill_step_bytes": 50071726284,
+   "prefill_hidden_bytes": 39762001920,
+   "decode_step_bytes": 67693088,
+   "decode_hidden_bytes": 43679744,
+   "step_bound_bytes": 50071726284,
+   "block_bytes": 74286810624,
+   "prefill_block_bytes": 74286810624,
+   "decode_block_bytes": 138352128,
+   "retained_bytes_bound": 154866404452,
+   "envelope": {
+    "batch": 8,
+    "max_prompt": 1024,
+    "max_new": 128,
+    "max_num_batched_tokens": 3763,
+    "max_model_len": 1152
+   },
+   "model": {
+    "hidden": 2048,
+    "heads": 16,
+    "kv_heads": 16,
+    "head_dim": 128,
+    "inter": 1024,
+    "layers": 16,
+    "vocab": 50304,
+    "hidden_m1": true,
+    "attn_backend": "fa2",
+    "moe_layers": 16,
+    "moe_bytes_per_token": 1377280
+   },
+   "extra_sources": {
+    "per_token_bytes": 462848,
+    "per_seq_bytes": 50304,
+    "tensors_per_step": 114,
+    "prefill_add": 1742128640,
+    "decode_add": 4134400
+   },
+   "device_free_bytes": 18353618944,
+   "device_total_bytes": 47665709056,
+   "blocks_preallocated": 0,
+   "explicit_block_bytes": null,
+   "gpu_memory_utilization_max": 0.0,
+   "prealloc_bytes": 0,
+   "staging": "windowed"
+  },
+  "window_ring": {
+   "windowed": true,
+   "window_bytes": 268435456,
+   "slots": 8,
+   "ring_bytes": 2147483648,
+   "scratch_bytes": 268435456,
+   "largest_tensor_bound": 2485125120,
+   "backpressure": "block-until-slot-free (no drop)",
+   "slot_wait_timeout_s": 600.0,
+   "dead_watchdog": {
+    "grace_s": 120.0,
+    "marker": null,
+    "rc": 3
+   },
+   "layout": "chunk-leaf-v1",
+   "in_place_hashing": "hit-plan steps only (v1 binds the step length into every leaf); learning steps re-upload from host"
+  },
+  "flip_weight": null,
+  "serve_shard_from": null,
+  "weight_registration": {
+   "root": "b142f8a3b64235a0bd925ccde0ec50f8852048ec18ae64ddd2eb7d71494837b3",
+   "tensors": 212,
+   "bytes": 6922440960,
+   "wall_s": 57.15322957932949,
+   "label": "measured; once per process, excluded from steady state",
+   "hash": "host",
+   "chunk": 256
+  },
+  "weights_pin": {
+   "result": true,
+   "root_of_record": "0e852a139d6dae8a6c8ada1407e401f16cfff8c5528193141599b2ae552a0975",
+   "program_digest": "c6a7861fca41bd76d3c26d6d91fba6211fc0f90e17b78fb3885bde6d4f18252b",
+   "program_of_record": null,
+   "of_record_set": null,
+   "checkpoint_entry": {
+    "repo": "allenai/OLMoE-1B-7B-0924",
+    "revision": "6d84c48581ece794365f2b8e9cfb043c68ade9c5"
+   },
+   "checkpoint_entry_of_record": null,
+   "compared": 212,
+   "mismatched": [],
+   "missing": [],
+   "unpinned": [],
+   "placeholders_deleted": [],
+   "placeholders_deleted_note": null,
+   "analytic": [
+    {
+     "field": "inner.model.model.layers.0.self_attn.rotary_emb.cos_sin_cache",
+     "served_name": "model.layers.0.self_attn.rotary_emb.cos_sin_cache",
+     "table": "cos_sin",
+     "expected_shape": [
+      4096,
+      128
+     ],
+     "status": "pass",
+     "shape": [
+      4096,
+      128
+     ],
+     "shape_ok": true,
+     "reason": null,
+     "n_elements": 524288,
+     "n_diff": 739,
+     "max_ulp": 32,
+     "n_outside_bound": 0,
+     "max_excess": 0.0,
+     "first_offending": [],
+     "ulp_histogram": {
+      "0": 523549,
+      "1": 648,
+      "2": 51,
+      "4": 22,
+      "8+": 18
+     }
+    }
+   ],
+   "engine_assumptions": {
+    "kv_cache_dtype": "auto"
+   },
+   "unpinned_note": "every declared weight field is pinned: checkpoint bytes by digest, kv scales as the engine constant, the rotary table by the frozen analytic bound",
+   "unresolved": [],
+   "shards": {
+    "model-00001-of-00003.safetensors": {
+     "sha256": "5e3cff7e367794685c241169072c940d200918617d5e2813f1c387dff52d845e",
+     "pinned_sha256": "5e3cff7e367794685c241169072c940d200918617d5e2813f1c387dff52d845e",
+     "pinned": true
+    },
+    "model-00002-of-00003.safetensors": {
+     "sha256": "15ef5c730ee3cfed7199498788cd2faf337203fc74b529625e7502cdd759f4a7",
+     "pinned_sha256": "15ef5c730ee3cfed7199498788cd2faf337203fc74b529625e7502cdd759f4a7",
+     "pinned": true
+    },
+    "model-00003-of-00003.safetensors": {
+     "sha256": "a9abac4ac1b55c9adabac721a02fa39971f103eea9a65c310972b1246de76e04",
+     "pinned_sha256": "a9abac4ac1b55c9adabac721a02fa39971f103eea9a65c310972b1246de76e04",
+     "pinned": true
+    }
+   },
+   "all_shards_pinned": true,
+   "shards_ok": true,
+   "method": "sha256(served parameter bytes) == sha256(checkpoint-composed tensor of record) per Program weight field, shards pinned by manifests/checkpoints.json sha256, record bound to the Program of record (MAN-09 + W1/W2); engine constants: kv scales == f32 1.0 under kv_cache_dtype auto, rotary table within analytic.check_cos_sin's bound (MAN-09c)",
+   "why": null,
+   "rank": 1,
+   "program_dir": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank1/build_request_LP1024_T1",
+   "w2_program_of_record": {
+    "built_in_process_from": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank1/build_request_LP1024_T1",
+    "record_program_digest": "c6a7861fca41bd76d3c26d6d91fba6211fc0f90e17b78fb3885bde6d4f18252b",
+    "rank_program_digest_of_record": "9b96c11ff9901044d97f96f335dc28de6613c4861245a271e1013975dae45490"
+   },
+   "live_params": 212,
+   "committed_weights_root": "b142f8a3b64235a0bd925ccde0ec50f8852048ec18ae64ddd2eb7d71494837b3"
+  },
+  "attention_plane_classes": {
+   "rank": 1,
+   "declarations": 16,
+   "source": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/build/rank1/build_request_LP1024_T1/result.json",
+   "classes": [
+    "global-mha"
+   ],
+   "per_rank_heads": [
+    [
+     8,
+     8,
+     128
+    ]
+   ],
+   "rule": "per-layer plane class derived per step from the rank Program's attention statics (fa2_plane_classes)"
+  },
+  "required_manifest": {
+   "path": "/workspace/cp/sweep-head/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json",
+   "manifest_digest": "1bb40895671dd79144528cd3f4af30041625e15afcfde9bab3057aeb7e27a3aa",
+   "complete": true,
+   "program_digest_for_rank": "9b96c11ff9901044d97f96f335dc28de6613c4861245a271e1013975dae45490",
+   "program_digest_matches": true,
+   "identities": 357796,
+   "ranks": 2
+  }
+ }
+]

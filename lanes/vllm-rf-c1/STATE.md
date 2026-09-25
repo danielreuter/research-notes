@@ -4,9 +4,16 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T10:40Z
+updated: 2026-09-25T11:22Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
+
+## 11:22Z: DONE, READY.md written
+- **Gate (a) T0+T1 at `7218ffbb` matches** a23b's same-pod base XML: 158 tests, 73 pass / 85 skip both sides, 0 outcome changes
+  (`r20260925-092323-bdf1`, `evidence/gates/jdiff_a_head2_vs_a23b_base.txt`; 2 reworded skip reasons from `5cc0506e`, base drift).
+- `vyv-rf-c1-big` TERMINATED 11:18Z after every run was fetched; no pod of this lane is running. Spend about $11.4 of $35.
+- Branch `lane/vllm-rf-c1` pushed at `53314d1c`; A4 still not in origin/main (11:19Z, main `767115db`); rebase onto main pending.
+- READY.md: `~/.research/notes/lanes/vllm-rf-c1/READY.md`.
 
 ## 10:40Z
 - Gate (a) at `7218ffbb`: 108/158 (48 pass, 60 skip, 0 fail) at 10:39Z; ETA ~11:20Z. A4 still not in origin/main (10:35Z; main

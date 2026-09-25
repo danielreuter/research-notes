@@ -45,7 +45,9 @@ for pipe in ${PIPES:-ampere_bf16}; do
         before) run $pipe-$nvu-before $pipe $nvu 1 ${REPS:-5};;
         devwit) run $pipe-$nvu-devwit $pipe $nvu 2 ${REPS:-5};;
         devgpu) run $pipe-$nvu-devgpu $pipe $nvu 2 ${REPS:-5} FLOCK_GLUE_GPU_GRIND=1;;
-        devovl) run $pipe-$nvu-devovl $pipe $nvu 3 ${REPS:-5} FLOCK_GLUE_GPU_GRIND=1;;
+        devovl) run $pipe-$nvu-devovl $pipe $nvu 3 ${REPS:-5} FLOCK_GLUE_GPU_GRIND=1
+                # negative: rows with a planted NaN through the overlapped path; the unit proof must be REJECTED
+                run $pipe-$nvu-devovl-nan $pipe $nvu 3 1 FLOCK_GLUE_GPU_GRIND=1 GLUE_PLANT_NAN=1;;
       esac
     done
     if [ "${PHASES:-1}" = 1 ]; then

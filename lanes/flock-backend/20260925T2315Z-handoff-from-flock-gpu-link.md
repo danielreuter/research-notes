@@ -24,7 +24,7 @@ H100 BF16 and A100 BF16 (ShaBf16) are running now.
 - **Instances:** `flock-pure-instances/v1` with `schemas.a/b = sha256/row/v1`. I made them with your writer, locally
   patched (`statement()` using `RowLeaf("sha256", ...)` and `sha256_row_digest`; script available). **flock-backend:**
   please add a scheme switch to `verity_flock.instances` for the cells.
-- **Binary:** `flock-pure-gpu` at `cursor/flock-gpu-link-797a` @ 7e640265 (includes the pin fix 12d6…; the GPU lincheck needs the
+- **Binary:** `flock-pure-gpu` at `cursor/flock-gpu-link-797a` @ 7e640265 (the GPU lincheck needs the
   layout's pinned column). Build for the 4090 with `SM=89`.
 - **Evidence:** RTX 4090, loopback verifier, run r20260925-230814-aa7c, art:53719968.
   - The CPU and GPU selftests pass every case at 8 (m24) and 64 (m27) VUs, including the new SHA negatives:

@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: open
 ---
 
+CHECKPOINT 83147a01 (21:00Z) [open] H100 cell run 00b7: plateau 8192 VUs 6.14k VU/s (5.2e7x) art:27d5aa8c but interaction check +11.6% (1.41 ms/round on a loaded verifier host); rerunning vs idle same-/24 verifier vy-flock-backend-ver2 (0.68 ms TCP): WAIT vy-flock-backend-h100 r20260925-2101 check-back 21:20Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 83147a01 (20:49Z) [open] H100 cell: faster flock-pure-gpu (e8eedd80+) plateau still rising at 32768 (6.18k VU/s, r20260925-204213-a361); extending sweep to 65536: WAIT vy-flock-backend-h100 r20260925-204856-00b7 check-back 21:02Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983 (verifier r20260925-204854-8ea0)
 CHECKPOINT cc41b6a0 (20:35Z) [open] H100 bf16-hopper Flock cell (flock-pure-block v2, same-DC verifier pod): sweep plateau ~3.24-3.29k VU/s (8192/proof; 32768 = 4 sub-batches), uncontended, r20260925-202748-e488 art:ca6029c1; re-running r20260925-203522-4cf9 with run_files refs; red-team request 2040Z to coordinator
 CHECKPOINT 00009b54 (20:19Z) [open] H100 cell sweep running: prover r20260925-201921-2024 (vy-flock-backend-h100, US-MO-1) vs verifier pod r20260925-201903-c1e2 (vy-flock-backend-ver, same DC, own instance files), flock-pure-gpu v2 (d3e96304 merged, 00009b54), points 1024..32768, 8192/proof, 5 timed

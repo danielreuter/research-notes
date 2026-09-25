@@ -1,0 +1,16 @@
+base 4072 {'error': 11, 'failed': 50, 'passed': 3718, 'skipped': 287, 'xfailed': 6}
+head 4080 {'error': 11, 'failed': 50, 'passed': 3726, 'skipped': 287, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 8 {'passed': 8}
+  + tests.commit.test_production_vectors::test_chunk_header_matches_the_pre_c1_u32_header[0] passed
+  + tests.commit.test_production_vectors::test_chunk_header_matches_the_pre_c1_u32_header[1099511627779] passed
+  + tests.commit.test_production_vectors::test_chunk_header_matches_the_pre_c1_u32_header[4294967295] passed
+  + tests.commit.test_production_vectors::test_chunk_header_matches_the_pre_c1_u32_header[4294967296] passed
+  + tests.commit.test_production_vectors::test_chunk_header_matches_the_pre_c1_u32_header[4294967303] passed
+  + tests.commit.test_production_vectors::test_chunk_header_matches_the_pre_c1_u32_header[5036944512] passed
+  + tests.commit.test_production_vectors::test_chunk_header_matches_the_pre_c1_u32_header[8] passed
+  + tests.commit.test_production_vectors::test_chunk_header_of_a_step_past_2_32_words passed
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 61, head 61, fixed on head 0

@@ -1,0 +1,17 @@
+start 2026-09-25T21:46:04Z src /workspace/research/src/271a09528ea047333a0ecdfa595a0c9c1bdf4d83
+bootstrap rc=0 2026-09-25T21:47:11Z BOOTSTRAP-OK
+pins rc=0 2026-09-25T21:47:11Z
+base patch rc=0
+targeted head rc=1 2026-09-25T21:47:33Z 1 failed, 498 passed, 32 skipped, 12 warnings in 20.74s
+new tests rc=0 ........                                                                 [100%]
+lints base rc=0 2026-09-25T21:47:55Z ...............................................                          [100%]
+gate_b base rc=1 2026-09-25T22:01:55Z 50 failed, 3718 passed, 287 skipped, 6 xfailed, 41 warnings, 11 errors in 838.10s (0:13:58)
+lints head rc=0 2026-09-25T22:02:14Z ...............................................                          [100%]
+gate_b head rc=1 2026-09-25T22:17:32Z 50 failed, 3726 passed, 287 skipped, 6 xfailed, 41 warnings, 11 errors in 916.88s (0:15:16)
+jdiff rc=0
+  + tests.commit.test_production_vectors::test_chunk_header_of_a_step_past_2_32_words passed
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 61, head 61, fixed on head 0
+done 2026-09-25T22:17:32Z

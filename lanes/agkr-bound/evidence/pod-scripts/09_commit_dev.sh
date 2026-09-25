@@ -10,7 +10,6 @@
 set -uo pipefail
 HERE=$(pwd)
 ROOT=$(cd ../.. && pwd)
-[ -f /workspace/env.sh ] && source /workspace/env.sh
 export PYTHONPATH="$ROOT/packages/verity/src:$ROOT/backends/numerical/python:$ROOT/tools/research/src:$ROOT:$HERE"
 export CARGO_TARGET_DIR=/workspace/cargo-target PATH="/workspace/venv312/bin:$HOME/.cargo/bin:/usr/local/cuda/bin:$PATH"
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True

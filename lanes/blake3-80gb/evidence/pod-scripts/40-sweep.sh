@@ -20,4 +20,5 @@ for s in ${SWEEPS:?}; do
     echo "rust batch rc=$? wall=$(( $(date +%s) - t1 ))s $(tail -n 1 rust_batch.out | cut -c1-300)"
     sha256sum $V > ligero_verify.sha256 )
 done
+$PY "$IN/50-outputs.py" $RD blake3-80gb
 exit $rc

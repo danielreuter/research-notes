@@ -1,0 +1,142 @@
+{
+ "case": "LLAMA32_1B",
+ "execution": "bi-eager",
+ "chunk": 256,
+ "engine": {
+  "build_s": 39.6,
+  "checkpoint": {
+   "repo": "unsloth/Llama-3.2-1B",
+   "revision": "9535bd9b1d1dea6acafbdc4813b728796aeb28da"
+  },
+  "kwargs": {
+   "model": "/workspace/hf/hub/models--unsloth--Llama-3.2-1B/snapshots/9535bd9b1d1dea6acafbdc4813b728796aeb28da",
+   "tokenizer": "/workspace/hf/hub/models--unsloth--Llama-3.2-1B/snapshots/9535bd9b1d1dea6acafbdc4813b728796aeb28da",
+   "dtype": "bfloat16",
+   "seed": 0,
+   "max_model_len": 4096,
+   "gpu_memory_utilization": 0.8,
+   "trust_remote_code": false,
+   "enforce_eager": true,
+   "enable_prefix_caching": false,
+   "max_num_seqs": 1,
+   "kernel_config": {
+    "enable_flashinfer_autotune": false
+   }
+  },
+  "effective": {
+   "mode": "0",
+   "cudagraph_mode": "NONE",
+   "enforce_eager": true,
+   "model_runner": "v2",
+   "custom_ops": [
+    "all"
+   ],
+   "optimization_level": 2,
+   "enable_prefix_caching": false,
+   "enable_chunked_prefill": true,
+   "max_num_batched_tokens": 4096,
+   "max_num_seqs": 1,
+   "max_model_len": 4096,
+   "dtype": "torch.bfloat16",
+   "block_size": 16,
+   "gpu_memory_utilization": 0.8,
+   "async_scheduling": true,
+   "flash_attn_version": 2,
+   "execution_label": "bi-eager"
+  }
+ },
+ "env": {
+  "torch": "2.13.0+cu129",
+  "cuda": "12.9",
+  "vllm": "0.28.1rc1.dev472+gd9105ea80",
+  "device": "NVIDIA L40S"
+ },
+ "geo_digest": "222df080535810a8619573513d85b253d8405af916d3f74874995c09c19c718b",
+ "geo_doc": {
+  "hidden_size": 2048,
+  "num_hidden_layers": 16,
+  "num_attention_heads": 32,
+  "num_key_value_heads": 8,
+  "head_dim": 64,
+  "intermediate_size": 8192,
+  "vocab_size": 128256,
+  "model_type": "llama",
+  "repo": "unsloth/Llama-3.2-1B",
+  "revision": "9535bd9b1d1dea6acafbdc4813b728796aeb28da",
+  "chunk": 256
+ },
+ "geo_digest_recomputed": "222df080535810a8619573513d85b253d8405af916d3f74874995c09c19c718b",
+ "production": {
+  "host": {
+   "root": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+   "tensors": 163,
+   "bytes": 2488406272,
+   "wall_s": 25.25937963090837,
+   "hash": "host",
+   "chunk": 256,
+   "device_checked_tensors": null
+  },
+  "device": {
+   "root": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+   "tensors": 163,
+   "bytes": 2488406272,
+   "wall_s": 0.10389253497123718,
+   "hash": "device",
+   "chunk": 256,
+   "device_checked_tensors": null
+  },
+  "device-checked": {
+   "root": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+   "tensors": 163,
+   "bytes": 2488406272,
+   "wall_s": 15.54959642002359,
+   "hash": "device-checked",
+   "chunk": 256,
+   "device_checked_tensors": 163
+  }
+ },
+ "core": {
+  "root": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+  "tensors": 163,
+  "bytes": 2488406272,
+  "wall_s": 33.6,
+  "names_digest": "75cfc105d28ac30570763833761ac700ea3f1eaa7af45dd1eec56b68164ddd12",
+  "reference": "verity.commitments.vllm_v1 (pos_leaf, fold, weights_root)"
+ },
+ "recorded": [
+  {
+   "path": "commit/runs.jsonl#1/commit/weight_registration",
+   "root": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+   "tensors": 163,
+   "bytes": 2488406272,
+   "hash": "host",
+   "chunk": 256,
+   "file": "commit/runs.jsonl"
+  }
+ ],
+ "weights_of_record": {
+  "file": "build_request/weights_of_record.json",
+  "root_of_record": "120a8d6f82f781939c513ecbc58e3d4785463048883803b50a946f4318bf6c24",
+  "n_fields": 163,
+  "n_pinned": 163,
+  "check": {
+   "result": true,
+   "compared": 163,
+   "mismatched": [],
+   "missing": [],
+   "unpinned": [],
+   "all_shards_pinned": true,
+   "shards_ok": true,
+   "why": null
+  }
+ },
+ "roots": {
+  "production.host": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+  "production.device": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+  "production.device-checked": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+  "core": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16",
+  "recorded[0] commit/runs.jsonl#1/commit/weight_registration": "8baa442834d58dc7a6cc2555da33fac41ab2fa50419fa5a4bada45e1f8aa9b16"
+ },
+ "all_equal": true,
+ "wall_s": 127.6
+}

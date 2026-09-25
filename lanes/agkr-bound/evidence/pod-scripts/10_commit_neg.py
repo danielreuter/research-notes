@@ -24,6 +24,7 @@ Cases (SC = --allow-any-circuit --require-commitment: no circuit set is pinned f
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -128,6 +129,8 @@ def statement(name: str, limb_cols: np.ndarray, commitment_text: str | None = C.
 
 def prove(sd: Path, rows, limb_cols: np.ndarray, pub: np.ndarray):
     ch = read_chain(sd / "chain.txt", uc, ec, steps, [int(v) for v in pub.reshape(-1)])
+    ct = sd / "commitment.txt"
+    ch.commit_digest = hashlib.sha256(ct.read_bytes()).digest() if ct.is_file() else None
     epi = torch.cat([rows.epilogue, torch.from_numpy(limb_cols).to(dev)], 1)
     inst = prover.Instance([prover.Segment("unit", uc, ul, rows.units, uc.hash),
                             prover.Segment("epilogue", ec, el, epi, ec.hash)], ch)

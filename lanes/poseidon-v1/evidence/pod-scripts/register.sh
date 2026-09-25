@@ -34,7 +34,7 @@ for tag in $($PY -c "import json;[print(json.loads(l)['tag']) for l in open('$J'
   [ -f $d/result.json ] || { echo "$tag: no result.json"; continue; }
   ( cd $d && find proofs -type f | sort | xargs sha256sum > proofs.sha256 )
   src=$d
-  if [ "$tag" != "$plateau" ]; then
+  if [ "$tag" != "$plateau" ] && [ "$tag" != "$sid-n4096" ]; then
     s=$PV/slim/$tag; rm -rf $s; mkdir -p $s
     cp -a $d/result.json $d/log $d/run_id $d/meta.txt $d/commit-evidence.json $d/proofs.sha256 $d/proofs $s/
     rm -f $s/proofs/rep1/*.proof
@@ -73,4 +73,15 @@ PY
   res=$($PY -m research data put --kind bench-result/v1 --meta @$PV/meta-$tag.json --ref run_files=$tree --preserve | grep -o 'art:[0-9a-f]*' | tail -1)
   echo "$(date -u +%H:%M:%SZ) $tag plateau=$([ "$tag" = "$plateau" ] && echo yes || echo no) tree=$tree result=${res:-FAILED}" | tee -a $PV/registered.txt
 done
+# the byte-identity run (main's committer, row.sh step 3): its run-files tree only, slim, as evidence (not a sweep point)
+bt=$sid-maincommitter-n4096; d=$PV/runs/$bt
+if [ -f $d/result.json ]; then
+  ( cd $d && find proofs -type f | sort | xargs sha256sum > proofs.sha256 )
+  s=$PV/slim/$bt; rm -rf $s; mkdir -p $s
+  cp -a $d/result.json $d/log $d/run_id $d/meta.txt $d/commit-evidence.json $d/proofs.sha256 $d/proofs $s/
+  cp -a $PV/sweeps/$sid.byteid $s/ 2>/dev/null; rm -f $s/proofs/rep1/*.proof
+  tree=$($PY -m research data put --kind run-files/v1 --tree $s --preserve \
+    --meta "{\"lane\": \"poseidon-v1\", \"tag\": \"$bt\", \"label\": \"poseidon-v1 $bt: main's committer (47485b81) at n=4096, byte-identity evidence vs the tip\"}" | grep -o 'art:[0-9a-f]*' | tail -1)
+  echo "$(date -u +%H:%M:%SZ) $bt byteid-evidence tree=${tree:-FAILED}" | tee -a $PV/registered.txt
+fi
 echo REGISTER_DONE $sid

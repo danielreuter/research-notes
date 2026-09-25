@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 00ffe398 (07:26Z) [open] d5b299ff: +blake3 commit 18s->0.65s (per-row leaf_bytes fold batched; roots identical; 17 tests pass). Dev fp8-ada 4090 l4096 p2: t.total 4.49s, e2e 5.14s, 1.35e8x. Measured 5-rep cell r20260925-072604-6238 running (custody-r2). Handoff to blake3-80gb.
 CHECKPOINT none (07:08Z) [open] Acted on coordinator 0650Z handoff: merged main 00ffe398 (4de530e5); names now commit.seconds/e2e.seconds per bench.views. +blake3 pins bf16-ampere/fp8-hopper (071e3ef7). Dev fp8-ada 4090: prove 4.4s, commit 18s/rep (host leaf_bytes loop?); profiling r..b881.
 CHECKPOINT 00ffe398 (06:58Z) [open] 071e3ef7: +blake3 pinned on bf16-ampere (5b762054) + fp8-hopper (433bdfc3): gates 49/86/0F + 25/86/0F, fixtures pinned ACCEPT, cargo test green; fp4-nvf4+blake3 needs NVFP4 row byte schema (core-schemes). Next: fp8-ada+blake3 --commit-per-rep dev run on 4090
 CHECKPOINT c21b8ccf (06:47Z) [open] started 06:30Z; 820aa6f+1cf9178 already in main (step 2 no-op); 82453d30 bench-vu --commit-per-rep (commitment bucket per rep); 4090 pod vy-b-ligero-sh bootstrapping; next: bf16-ampere/fp8-hopper +blake3 pins+gates, fp8-ada+blake3 cell dev run

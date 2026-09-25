@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 7a8268cf (07:31Z) [open] fp8-ada+blake3 FAIL: R1 (vu,x,W) triple prover-chosen -> swapped y under honest x/W roots accepted pinned+python+reverify PASS; R2 reverify recomputes no roots/binding/coverage; handoffs sent; art:2b51c5fd. Next: H2 steps forge on +blake3
 CHECKPOINT 57e77c14 (07:16Z) [open] pod vy-red-team-sh (cpu3c 4vCPU) syncing; R1 candidate BREAK: (vu,x,W) triple prover-chosen in v5 verify (Rust+Py) -> wrong y under honest x/W roots; R2: reverify.py recomputes no root/binding/coverage; e2e 57e77c14 pending
 # red-team-standard-hash: red team of tonight's committed-relation statements
 
@@ -41,3 +42,6 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
 * 07:00Z pod: cpu3c 16/8, cpu5c, cpu3g, cpu3m no capacity; cpu3c 4 vCPU created (04txgm7j3b0nob), registered, bound.
 * 07:03Z `research pods sync` (245 MB over the laptop uplink, slow).
 * 07:10Z R1/R2 from code reading; 57e77c14 e2e harness `rtsh_remap_e2e.py`.
+* 07:21Z setup run rtsh-setup-0719 OK. 07:22Z r1 run at 4 VUs l=1024 OOM-killed (8 GB cgroup) -> 2 VUs l=256.
+* 07:27Z r1b: forgery python ACCEPT, rust refused on bits only (2^-127.88); 07:29Z r1c (target -132): FORGERY ACCEPTED pinned, reverify PASS.
+* 07:33Z art:2b51c5fd preserved; 07:35Z handoffs coordinator + b-ligero-standard-hash (FAIL, cell pulled).

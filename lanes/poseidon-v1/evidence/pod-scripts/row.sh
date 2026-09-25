@@ -7,7 +7,7 @@
 #     equal the tip's n = 4096 point
 set -uo pipefail
 SCRIPTS=/workspace/poseidon-v1/scripts; source $SCRIPTS/lib.sh
-row=$1 rel=$2 l=$3 p=$4 nmax=${5:-32768}
+row=$1 rel=$2 l=$3 p=$4 nmax=${5:-131072}
 M=/workspace/src-main
 if [ ! -f $M/.poseidon-v1-main-ok ]; then
   rm -rf $M; cp -a /workspace/src $M

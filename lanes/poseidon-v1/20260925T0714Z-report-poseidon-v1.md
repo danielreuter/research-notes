@@ -43,3 +43,14 @@ All: bench-vu --zk --mode interactive --target -128, K = 1536, sharing none.
 
 ## Log
 - 07:03Z merged 6e1cc576 (47485b81, pushed); 4090 pod created; sync + bootstrap (RELS=fp8-ada, NS 1024..32768).
+- 07:15Z verify-night-2 accepted hash-commit b862be30 (coordinator/20260925T0715Z-handoff-from-verify-night-2.md: art:abb219fa,
+  20-run byte identity) before I measured -> merged b862be30 (54ad119d, pushed): COMMITTER = b862be30 for every row.
+- 07:16Z bootstrap run r20260925-071613-baa2 BOOTSTRAP_OK (tree 47485b81; sync 708 s via tar); health OK (encode 1.05x,
+  matmul 0.99x, quota 13.6 of 48). Tip synced by rsync (20 s).
+- 07:19Z row run r20260925-071902-a923 (row.sh r4090-fp8ada fp8-ada 8192 4, cap 32768): sweep + byte identity.
+- 07:28Z BYTEID IDENTICAL (4090 fp8-ada n=4096): tip ev 247e44ca stmts e0e53b61 commit 0.058 s; main's committer (src-main =
+  47485b81 files) same ev, same stmts, commit 8.56 s on this host. ev/stmts also equal hash-commit's 0612Z runs.
+- 07:28Z run r20260925-072829-f5b2 failed rc=127 (cont.sh not yet on the pod, a race in my ship step); relaunched as
+  r20260925-072901-ad83: cont.sh r4090-fp8ada 65536..131072 (P still > 1.02 P(n/4) at 32768).
+- 07:30Z handoff coordinator/20260925T0730Z-handoff-from-poseidon-v1.md: plateau n > 4096 gets reason I in bench.views
+  (synthetic manifest_sha256 depends on n).

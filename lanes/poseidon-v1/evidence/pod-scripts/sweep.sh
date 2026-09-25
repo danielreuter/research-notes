@@ -3,10 +3,14 @@
 # (l, p) until two successive doublings together raise the median throughput P = n / e2e.seconds by less than 2 %
 # (P(n) < 1.02 * P(n/4)), memory runs out (a failed point), or n exceeds NMAX. Plateau = the point with the highest P.
 #   bash sweep.sh SWEEP_ID TREE REL L P [NMAX=32768]      -> $PV/sweeps/SWEEP_ID.jsonl (one JSON point per line) + .done
+#   NMIN=N bash sweep.sh ...                                continues SWEEP_ID from n = N (appends)
 source ${SCRIPTS:-/workspace/poseidon-v1/scripts}/lib.sh
 sid=$1 tree=$2 rel=$3 l=$4 p=$5 nmax=${6:-32768}
-mkdir -p $PV/sweeps; J=$PV/sweeps/$sid.jsonl; : > $J
-echo "$(date -u +%H:%M:%SZ) SWEEP $sid tree=$tree rel=$rel l=$l p=$p nmax=$nmax" | tee -a $LOG
+mkdir -p $PV/sweeps; J=$PV/sweeps/$sid.jsonl
+# NMIN set: continue an existing sweep (append; the stop rule reads every point so far)
+[ -n "${NMIN:-}" ] || : > $J
+rm -f $J.done
+echo "$(date -u +%H:%M:%SZ) SWEEP $sid tree=$tree rel=$rel l=$l p=$p nmin=${NMIN:-1024} nmax=$nmax" | tee -a $LOG
 n=${NMIN:-1024}
 while [ $n -le $nmax ]; do
   tag=$sid-n$n

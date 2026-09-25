@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 922120d2 (07:27Z) [open] 922120d2 pushed: leaf/sha256.py (sha256/row/v1, 18,128 rows/blk: 1-row sels XOR/Maj, 16b-limb adds; CV published, pad block native) + ligero-verify SHA256 scheme+vectors. census fp8-ada-x4+sha256 90,848 rows/col. next: pod fixtures/pins/gates.
 CHECKPOINT 00ffe398 (07:08Z) [open] started 07:00Z; merged b-ligero-standard-hash ad4c3440; design: publish CV after last data block, padding compression native; x4 folds (2 blocks/col); survey absent; next: sha256 leaf native+Rust+harness
 # b-ligero-sha256: B-Ligero frame-v3 `sha256/row/v1` row leaves (SHA-256 half of the standard-hash track)
 

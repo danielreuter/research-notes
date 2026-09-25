@@ -2,9 +2,10 @@
 lane: cell-verifier
 kind: report
 created: 2026-09-25T16:32Z
-status: final
+status: open
 ---
 
+CHECKPOINT 7585828d (18:42Z) [open] reopened: round 3, same-DC (US-MD-1) verifier for agkr-flock-cell's batch sweep
 CHECKPOINT a83d7de7 (18:15Z) [final] run1 r20260925-164419-448b (3 accepted + 1 probe); run2 r20260925-172927-6883 (5/5 accepted, 1058 rounds; producer sent 5 so server stopped by SIGTERM 18:14Z instead of 6th); both preserved rc=0; pods uv4jqaw47zdr59 (17:10Z) and ffjgm1r55fc2f7 (18:15Z) terminated; total ~$0.76
 CHECKPOINT a83d7de7 (17:30Z) [open] SERVING round 2: endpoint2 157.157.221.30:26732 verifier run r20260925-172927-6883 (6 sessions, same inputs); pod ffjgm1r55fc2f7 cpu5c 16vCPU; build r20260925-172618-2bfe flock-link 83008ec3
 CHECKPOINT a83d7de7 (17:17Z) [open] reopened: second verifier run (6 sessions) for agkr-flock-cell

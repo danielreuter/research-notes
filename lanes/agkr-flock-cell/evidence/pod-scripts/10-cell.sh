@@ -2,7 +2,7 @@
 # agkr-flock-cell: build flock-link (patch + live crate) and the gkr verifier from this tree, then per VUS: the cell
 # statement and SESSIONS sessions of the prime prover + Flock prover against VERIFIER (host:port), or a loopback
 # cell-serve when VERIFIER is empty (a self-test: the loopback operator is the producer, never evidence).
-# env: VUS="8"  SESSIONS=2  WARMUP=1  VERIFIER=  WARMUP_LOCAL= (warm-ups against a loopback verifier)  RESULT=  STATEMENT_ONLY=
+# env: RTT_PROBE=host:sshport  FRESH_STATEMENT=1 (rebuild, timing the serving commit)  VUS="8"  SESSIONS=2  WARMUP=1  VERIFIER=  WARMUP_LOCAL= (warm-ups against a loopback verifier)  RESULT=  STATEMENT_ONLY=
 set -uxo pipefail
 SRC=$(pwd); source /workspace/env.sh; source $HOME/.cargo/env
 export PYTHONPATH="$SRC/packages/verity/src:$SRC/backends/numerical/python:$SRC/tools/research/src:$SRC:$SRC/backends/gkr"
@@ -25,6 +25,7 @@ $PY -m pytest -q tests/test_cell_gate.py 2>&1 | tail -2
 lscpu | grep 'Model name'; nvidia-smi --query-gpu=name --format=csv,noheader
 for v in ${VUS:-8}; do
   CELL=/workspace/cell/c$v
+  [ -n "${FRESH_STATEMENT:-}" ] && rm -f $CELL/cell.json
   [ -f $CELL/cell.json ] || $PY tools/cell.py statement --cell $CELL --instances /workspace/bench-instances/v1 --vus $v --flock $B || exit 1
   cp -r $CELL/statement $O/statement-$v; cp $CELL/cell.json $O/cell-$v.json; cp $CELL/leaf_digests.bin $O/leaf_digests-$v.bin
   [ -n "${STATEMENT_ONLY:-}" ] && continue
@@ -36,7 +37,14 @@ for v in ${VUS:-8}; do
     SP=$!; WV=127.0.0.1:7200; [ -z "$ADDR" ] && ADDR=$WV
     for i in $(seq 120); do grep -q SERVING $O/serve-$v.log && break; sleep 1; done
   fi
-  $PY tools/cell.py prove --cell $CELL --flock $B --verifier $ADDR --sessions ${SESSIONS:-2} --warmup ${WARMUP:-1} --rust $VB --threads $TH ${WV:+--warmup-verifier $WV} --result ${RESULT:-$O/result-$v.json} 2>&1 | tee $O/cell-$v.txt
+  RTT=; if [ -n "${RTT_PROBE:-}" ]; then
+    # RTT: median TCP connect time to the verifier pod's ssh port (never its session port: a bare connection is a session)
+    RTT=$($PY -c "import socket,time,statistics as S;h,p='${RTT_PROBE}'.split(':');t=[]
+for _ in range(20):
+    a=time.perf_counter();c=socket.create_connection((h,int(p)),timeout=3);t.append((time.perf_counter()-a)*1e3);c.close();time.sleep(0.05)
+print(round(S.median(t),3))"); echo "RTT probe $RTT_PROBE: $RTT ms" | tee -a $O/rtt.txt
+  fi
+  $PY tools/cell.py prove --cell $CELL --flock $B --verifier $ADDR --sessions ${SESSIONS:-2} --warmup ${WARMUP:-1} --rust $VB --threads $TH ${WV:+--warmup-verifier $WV} --result ${RESULT:-$O/result-$v.json} ${RTT:+--rtt-ms $RTT --rtt-method "median of 20 TCP connects to the verifier pod's ssh port ($RTT_PROBE)"} 2>&1 | tee $O/cell-$v.txt
   mkdir -p $O/cell-$v; for s in $CELL/s*; do d=$O/cell-$v/$(basename $s); mkdir -p $d; cp $s/*.json $s/*.txt $s/*.jsonl $s/proof.bin $d/ 2>/dev/null; done
   [ -n "${SP:-}" ] && { sleep 3; kill $SP; wait $SP 2>/dev/null; unset SP; }
 done

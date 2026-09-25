@@ -1,0 +1,24 @@
+start 2026-09-25T16:54:57Z src /workspace/research/src/38a8d35deb71f48ddb083116ebc8650fc21576ba tree /workspace/gc/base38
+lints base38 rc=0 2026-09-25T16:55:36Z .............................................                            [100%]
+gate_b base38 rc=1 2026-09-25T17:34:27Z 51 failed, 3668 passed, 287 skipped, 6 xfailed, 55 warnings, 11 errors in 2328.05s (0:38:48)
+done 2026-09-25T17:34:27Z
+waited for /workspace/research/runs/r20260925-165445-d918 2026-09-25T17:34:44Z
+start 2026-09-25T17:34:45Z src /workspace/research/src/f2599a27bd837a5213f933c7877bde6a229a9ab0 tree /workspace/gc/head
+lints head rc=0 2026-09-25T17:35:25Z .............................................                            [100%]
+gate_b head rc=1 2026-09-25T18:13:20Z 45 failed, 3674 passed, 287 skipped, 6 xfailed, 55 warnings, 11 errors in 2273.69s (0:37:53)
+done 2026-09-25T18:13:20Z
+base 4023 {'error': 11, 'failed': 51, 'passed': 3668, 'skipped': 287, 'xfailed': 6}
+head 4023 {'error': 11, 'failed': 45, 'passed': 3674, 'skipped': 287, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 6
+  ~ tests.engine.test_cov_difr_b0::test_t1_workloads_load_as_seeded_temperature_one_headers: failed -> passed  [NameError: name 'execution_of_workload' is not defined]
+  ~ tests.engine.test_gen_ov_sampling::test_b1_workloads_load_to_the_intended_sampling: failed -> passed  [NameError: name 'execution_of_workload' is not defined]
+  ~ tests.engine.test_gen_ov_sampling::test_mixed_batch_per_request_variant: failed -> passed  [NameError: name 'execution_of_workload' is not defined]
+  ~ tests.observe.test_gen_sampling::test_load_workload_honours_sampling_block_and_keeps_greedy_default: failed -> passed  [NameError: name 'execution_of_workload' is not defined]
+  ~ tests.pipeline.test_admit_r19_host_working_set::test_fork_gc_freeze_opt_out_is_named_on_the_record: failed -> passed  [assert False + where False = all(<generator object test_fork_gc_freeze_opt_out_is_named_on_the_record.<locals>.<genexpr> at 0x7ce53cce7d80>)]
+  ~ tests.pipeline.test_admit_r19_host_working_set::test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins: failed -> passed  [assert 375 == 0 + where 375 = <built-in function get_freeze_count>() + where <built-in function get_freeze_count> = gc.get_freeze_count]
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 62, head 56, fixed on head 6
+JDIFF_RC=0

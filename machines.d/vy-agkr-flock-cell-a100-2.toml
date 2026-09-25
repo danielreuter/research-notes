@@ -1,7 +1,7 @@
 # machine vy-agkr-flock-cell-a100-2: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "dxxxub5511qldl"
+pod_id = "yeerzt741imi2s"
 project = "verity"
 guard = 45
 registered_by = "cursor"
-registered_at = "2026-09-25T18:35Z"
+registered_at = "2026-09-25T18:39Z"

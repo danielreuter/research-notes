@@ -2,9 +2,10 @@
 lane: vllm-rf-gc
 kind: report
 created: 2026-09-25T16:25Z
-status: open
+status: final
 ---
 
+CHECKPOINT f2599a27 (18:41Z) [final] READY f2599a27 (base 38a8d35d): jdiff rc 0, 6 fixed, 0 new fail/skip, lints green; merge-ready handoff sent; vyv-rf-gb-cpu terminated; spend ~$3.1
 CHECKPOINT f2599a27 (17:21Z) [open] waiting detached: base 38a8d35d r20260925-165445-d918 (~98%, ends ~17:40Z), then head f2599a27 r20260925-165502-2bc9 auto-starts after it (ends ~18:25Z), both on vyv-rf-gb-cpu. Check back 18:25Z; next: jdiff, READY.md, handoff, terminate gb-cpu
 CHECKPOINT f2599a27 (17:18Z) [open] base 38a8d35d gate (b) still running; head queued
 CHECKPOINT f2599a27 (17:08Z) [open] base 38a8d35d gate (b) running on gb-cpu; head queued

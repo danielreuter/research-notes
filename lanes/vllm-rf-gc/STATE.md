@@ -2,7 +2,7 @@
 id: vllm-rf-gc/state
 lane: vllm-rf-gc
 kind: state
-updated: 2026-09-25T17:00Z
+updated: 2026-09-25T18:45Z
 ---
 
 > **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-2b8cd51c-4a8f-59a6-ac9b-72d101b919ad: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
@@ -22,12 +22,10 @@ branch: lane/vllm-rf-gc
 - f2599a27 merge origin/main 2603dfcc
 
 ## Running
-- gb-cpu r20260925-165445-d918: lints + gate (b) base at 38a8d35d (started 16:55Z)
-- gb-cpu r20260925-165502-2bc9: lints + gate (b) head at f2599a27, waits for the base run (no overlap)
-- stopped: r20260925-163811-0e25 (base 8a3aa083, killed at 97% per coordinator 16:55Z); r20260925-163221-f7ab rc127 (script path)
+- nothing. Gates done: base r20260925-165445-d918, head r20260925-165502-2bc9, jdiff rc 0 (6 fixed). READY.md written.
 
 ## Pods
-- `vyv-rf-gb-cpu` (0d4uj5m7e8o5cz, cpu3g 32 vCPU, $1.28/h), adopted from gb.
+- `vyv-rf-gb-cpu` (0d4uj5m7e8o5cz) terminated at READY.
 
 ## Next
 1. Classify the 62 failures/errors in gb's base XML (run r20260925-145521-2b1c).

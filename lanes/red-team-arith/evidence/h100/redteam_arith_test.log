@@ -1,0 +1,233 @@
+{'gpu': 'NVIDIA H100 80GB HBM3', 'cc': '9.0', 'torch': '2.6.0+cu124', 'smem_optin': 232448}
+PASS lincomb2_D1_R1_R20_c4 {'lincomb2_ok': True}
+PASS lincomb2_D1_R1_R21_c4 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1_R20_c4 {'lincomb2_ok': True}
+PASS lincomb2_D1_R3_R21_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R3_R22_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R3_R23_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R3_R20_c12 {'lincomb2_ok': True}
+PASS lincomb2_D1_R5_R21_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R5_R22_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R5_R24_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R5_R25_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R5_R20_c8 {'lincomb2_ok': True}
+PASS lincomb2_D1_R1023_R21_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1023_R2511_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1023_R21022_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1023_R21023_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1023_R20_c64 {'lincomb2_ok': True}
+PASS lincomb2_D1_R1024_R21_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1024_R2512_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1024_R21023_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1024_R21024_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1024_R20_c132 {'lincomb2_ok': True}
+PASS lincomb2_D1_R1025_R21_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1025_R2512_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1025_R21024_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1025_R21025_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R1025_R20_c2176 {'lincomb2_ok': True}
+PASS lincomb2_D1_R4097_R21_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R4097_R22048_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R4097_R24096_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R4097_R24097_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_R4097_R20_c256 {'lincomb2_ok': True}
+PASS lincomb2_D1_pm1_R1037_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D1_exactR1_R1000 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1_R20_c4 {'lincomb2_ok': True}
+PASS lincomb2_D2_R1_R21_c4 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1_R20_c4 {'lincomb2_ok': True}
+PASS lincomb2_D2_R3_R21_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R3_R22_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R3_R23_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R3_R20_c12 {'lincomb2_ok': True}
+PASS lincomb2_D2_R5_R21_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R5_R22_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R5_R24_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R5_R25_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R5_R20_c8 {'lincomb2_ok': True}
+PASS lincomb2_D2_R1023_R21_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1023_R2511_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1023_R21022_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1023_R21023_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1023_R20_c64 {'lincomb2_ok': True}
+PASS lincomb2_D2_R1024_R21_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1024_R2512_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1024_R21023_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1024_R21024_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1024_R20_c132 {'lincomb2_ok': True}
+PASS lincomb2_D2_R1025_R21_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1025_R2512_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1025_R21024_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1025_R21025_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R1025_R20_c2176 {'lincomb2_ok': True}
+PASS lincomb2_D2_R4097_R21_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R4097_R22048_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R4097_R24096_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R4097_R24097_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_R4097_R20_c256 {'lincomb2_ok': True}
+PASS lincomb2_D2_pm1_R1037_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D2_exactR1_R1000 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1_R20_c4 {'lincomb2_ok': True}
+PASS lincomb2_D6_R1_R21_c4 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1_R20_c4 {'lincomb2_ok': True}
+PASS lincomb2_D6_R3_R21_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R3_R22_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R3_R23_c12 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R3_R20_c12 {'lincomb2_ok': True}
+PASS lincomb2_D6_R5_R21_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R5_R22_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R5_R24_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R5_R25_c8 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R5_R20_c8 {'lincomb2_ok': True}
+PASS lincomb2_D6_R1023_R21_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1023_R2511_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1023_R21022_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1023_R21023_c64 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1023_R20_c64 {'lincomb2_ok': True}
+PASS lincomb2_D6_R1024_R21_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1024_R2512_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1024_R21023_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1024_R21024_c132 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1024_R20_c132 {'lincomb2_ok': True}
+PASS lincomb2_D6_R1025_R21_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1025_R2512_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1025_R21024_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1025_R21025_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R1025_R20_c2176 {'lincomb2_ok': True}
+PASS lincomb2_D6_R4097_R21_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R4097_R22048_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R4097_R24096_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R4097_R24097_c256 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_R4097_R20_c256 {'lincomb2_ok': True}
+PASS lincomb2_D6_pm1_R1037_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_D6_exactR1_R1000 {'lincomb2_ok': True, 'old_equal': True}
+PASS (domain) lincomb2_D6_noncanonX_R517 {'lincomb2_ok': True}
+PASS lincomb2_D7_R1037_c2176 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_big_D6_R22730_c4096 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_big_D6_R22730_c16384 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_big_D6_R40000_c16384 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_big_D7_R22730_c4096 {'lincomb2_ok': True, 'old_equal': True}
+PASS lincomb2_big_D7_R22730_c16384 {'lincomb2_ok': True, 'old_equal': True}
+ERROR lincomb2_big_D7_R40000_c16384 RuntimeError: CUDADriverError: CUDA_ERROR_INVALID_VALUE: invalid argument [smem 56000 B max; old two-lincomb path OK on the same inputs]
+PASS quad_D1_Q1_c4_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 4}
+PASS quad_D1_Q1_c4_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 4}
+PASS quad_D1_Q5_c8_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 4}
+PASS quad_D1_Q5_c8_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 4}
+PASS quad_D1_Q127_c64_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 4}
+PASS quad_D1_Q127_c64_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 4}
+PASS quad_D1_Q129_c4096_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 8}
+PASS quad_D1_Q129_c4096_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 8}
+PASS quad_D1_Q4097_c256_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 132}
+PASS quad_D1_Q4097_c256_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 132}
+PASS quad_D1_Q301_splits1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 1204}
+PASS quad_D1_Q301_splits3 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 404}
+PASS quad_D1_Q301_splits1000 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 4}
+PASS quad_D6_Q1_c4_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 24}
+PASS quad_D6_Q1_c4_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 24}
+PASS quad_D6_Q5_c8_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 24}
+PASS quad_D6_Q5_c8_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 24}
+PASS quad_D6_Q127_c64_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 24}
+PASS quad_D6_Q127_c64_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 24}
+PASS quad_D6_Q129_c4096_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 48}
+PASS quad_D6_Q129_c4096_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 48}
+PASS quad_D6_Q4097_c256_rand {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 792}
+PASS quad_D6_Q4097_c256_pm1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 792}
+PASS quad_D6_Q301_splits1 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 7224}
+PASS quad_D6_Q301_splits3 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 2424}
+PASS quad_D6_Q301_splits1000 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 24}
+PASS (domain) quad_D6_noncanonX {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 48}
+PASS quad_D7_Q301 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 84}
+PASS quad_big_D6_Q100000 {'new_vs_ref': None, 'old_vs_ref': None, 'smem_bytes': 18768}
+ERROR quad_big_D6_Q300000 RuntimeError: CUDADriverError: CUDA_ERROR_INVALID_VALUE: invalid argument [quad_v4 shared 56256 B; the scalar quad kernel ran OK on the same inputs]
+ERROR quad_big_D7_Q250000 RuntimeError: CUDADriverError: CUDA_ERROR_INVALID_VALUE: invalid argument [quad_v4 shared 54712 B; the scalar quad kernel ran OK on the same inputs]
+PASS intt_D1_n2_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n2_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n2_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n4_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n4_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n4_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n8_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n8_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n8_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n16_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n16_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n16_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n32_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n32_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n32_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n64_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n64_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n64_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n128_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n128_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n256_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n256_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n512_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n512_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n1024_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n1024_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n2048_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n2048_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n4096_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n4096_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n8192_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n8192_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n16384_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n16384_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n32768_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n32768_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D1_n65536_rand {'intt_ok': False, 'smem_optin': 232448}
+PASS intt_D1_n65536_pm1 {'intt_ok': False, 'smem_optin': 232448}
+PASS intt_D1_n131072_rand {'intt_ok': False, 'smem_optin': 232448}
+PASS intt_D1_n131072_pm1 {'intt_ok': False, 'smem_optin': 232448}
+PASS intt_D6_n2_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n2_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n2_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n4_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n4_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n4_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n8_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n8_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n8_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n16_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n16_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n16_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n32_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n32_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n32_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n64_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n64_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n64_zero {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n128_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n128_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n256_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n256_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n512_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n512_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n1024_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n1024_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n2048_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n2048_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n4096_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n4096_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n8192_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n8192_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n16384_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n16384_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n32768_rand {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n32768_pm1 {'intt_ok': True, 'mismatch': None}
+PASS intt_D6_n65536_rand {'intt_ok': False, 'smem_optin': 232448}
+PASS intt_D6_n65536_pm1 {'intt_ok': False, 'smem_optin': 232448}
+PASS intt_D6_n131072_rand {'intt_ok': False, 'smem_optin': 232448}
+PASS intt_D6_n131072_pm1 {'intt_ok': False, 'smem_optin': 232448}
+PASS intt_ginv_protocol_D6_n1024 {'mismatch': None}
+PASS intt_ginv_protocol_D6_n8192 {'mismatch': None}
+PASS intt_ginv_protocol_D6_n16384 {'mismatch': None}
+PASS intt_ginv_protocol_D6_n32768 {'mismatch': None}
+PASS reduce_partial_S1 {'mismatch': None}
+PASS reduce_partial_S2 {'mismatch': None}
+PASS reduce_partial_S128 {'mismatch': None}
+PASS reduce_partial_S512 {'mismatch': None}
+PASS graph_first_use_in_capture 
+failed: ['lincomb2_big_D7_R40000_c16384', 'quad_big_D6_Q300000', 'quad_big_D7_Q250000']
+red-team verdict: FAIL

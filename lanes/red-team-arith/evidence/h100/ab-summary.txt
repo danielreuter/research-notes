@@ -1,0 +1,60 @@
+00:54:24Z h8 22741456 commit=22741456 seed=default rc=0 wall=181s files=40 dumps_sha=1b0e649c12fe78f2 urandom_last_pass=[65 6d5419836225 kernels=_reduce:290,lincomb:232,quad_general:58]
+00:54:43Z h8 9d1a7f15 commit=9d1a7f15 seed=default rc=0 wall=19s files=40 dumps_sha=1b0e649c12fe78f2 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:31,_reduce:290,lincomb:232,quad_general:58]
+00:55:03Z h8 0baefa9d commit=0baefa9d seed=default rc=0 wall=20s files=40 dumps_sha=1b0e649c12fe78f2 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:31,_reduce:229,lincomb:141,lincomb2:30,quad_general:58]
+00:55:18Z h8 f550fdc6 commit=f550fdc6 seed=default rc=0 wall=15s files=40 dumps_sha=1b0e649c12fe78f2 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:31,_reduce:229,intt_scaled:62,lincomb:141,lincomb2:30,quad_general:58]
+00:55:34Z h8 92ea2531 commit=92ea2531 seed=default rc=0 wall=16s files=40 dumps_sha=1b0e649c12fe78f2 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:31,_reduce:229,intt_scaled:62,lincomb:141,lincomb2:30,quad_general:58]
+00:55:53Z h8 tip commit=a4333dd0 seed=default rc=0 wall=19s files=40 dumps_sha=1b0e649c12fe78f2 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:28,_reduce:220,intt_scaled:56,lincomb:138,lincomb2:27,quad_general:55]
+  h8 22741456 vs 22741456: IDENTICAL
+  h8 9d1a7f15 vs 22741456: IDENTICAL
+  h8 0baefa9d vs 22741456: IDENTICAL
+  h8 f550fdc6 vs 22741456: IDENTICAL
+  h8 92ea2531 vs 22741456: IDENTICAL
+  h8 tip vs 22741456: IDENTICAL
+  h8 tip rust ligero-verify rc=0 13 / 13 accept: all 13 sub-batches accepted; union bound 2^-128.33 <= 2^-128
+00:58:20Z h16 22741456 commit=22741456 seed=default rc=0 wall=147s files=76 dumps_sha=f1e0cac4ac7b9341 urandom_last_pass=[125 efa6c6a11148 kernels=_reduce:395,lincomb:316,quad_general:79]
+00:58:42Z h16 9d1a7f15 commit=9d1a7f15 seed=default rc=0 wall=22s files=76 dumps_sha=f1e0cac4ac7b9341 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:395,lincomb:316,quad_general:79]
+00:59:02Z h16 0baefa9d commit=0baefa9d seed=default rc=0 wall=20s files=76 dumps_sha=f1e0cac4ac7b9341 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+00:59:22Z h16 f550fdc6 commit=f550fdc6 seed=default rc=0 wall=20s files=76 dumps_sha=f1e0cac4ac7b9341 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,intt_scaled:56,lincomb:234,lincomb2:27,quad_general:79]
+00:59:43Z h16 92ea2531 commit=92ea2531 seed=default rc=0 wall=21s files=76 dumps_sha=f1e0cac4ac7b9341 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,intt_scaled:56,lincomb:234,lincomb2:27,quad_general:79]
+01:00:05Z h16 tip commit=a4333dd0 seed=default rc=0 wall=22s files=76 dumps_sha=f1e0cac4ac7b9341 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,intt_scaled:56,lincomb:234,lincomb2:27,quad_general:79]
+  h16 22741456 vs 22741456: IDENTICAL
+  h16 9d1a7f15 vs 22741456: IDENTICAL
+  h16 0baefa9d vs 22741456: IDENTICAL
+  h16 f550fdc6 vs 22741456: IDENTICAL
+  h16 92ea2531 vs 22741456: IDENTICAL
+  h16 tip vs 22741456: IDENTICAL
+  h16 tip rust ligero-verify rc=0 25 / 25 accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128
+01:00:36Z h8seed tip commit=a4333dd0 seed=alt rc=0 wall=26s files=40 dumps_sha=22ed4a03217da096 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:28,_reduce:220,intt_scaled:56,lincomb:138,lincomb2:27,quad_general:55]
+  h8seed tip vs tip: IDENTICAL
+  h8seed tip rust ligero-verify rc=0 13 / 13 accept: all 13 sub-batches accepted; union bound 2^-128.33 <= 2^-128
+01:02:38Z h8h 22741456 commit=22741456 seed=default rc=0 wall=122s files=40 dumps_sha=21bce6affd4365e3 urandom_last_pass=[65 6d5419836225 kernels=_reduce:290,lincomb:232,quad_general:58]
+01:03:46Z h8h 9d1a7f15 commit=9d1a7f15 seed=default rc=0 wall=68s files=40 dumps_sha=21bce6affd4365e3 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:31,_reduce:290,lincomb:232,quad_general:58]
+01:04:12Z h8h 0baefa9d commit=0baefa9d seed=default rc=0 wall=26s files=40 dumps_sha=21bce6affd4365e3 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:31,_reduce:229,lincomb:141,lincomb2:30,quad_general:58]
+01:04:37Z h8h f550fdc6 commit=f550fdc6 seed=default rc=0 wall=25s files=40 dumps_sha=21bce6affd4365e3 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:31,_reduce:229,lincomb:141,lincomb2:30,quad_general:58]
+01:05:03Z h8h 92ea2531 commit=92ea2531 seed=default rc=0 wall=26s files=40 dumps_sha=21bce6affd4365e3 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:31,_reduce:229,lincomb:141,lincomb2:30,quad_general:58]
+01:05:35Z h8h tip commit=a4333dd0 seed=default rc=0 wall=32s files=40 dumps_sha=21bce6affd4365e3 urandom_last_pass=[65 6d5419836225 kernels=_quad_v4:28,_reduce:220,lincomb:138,lincomb2:27,quad_general:55]
+  h8h 22741456 vs 22741456: IDENTICAL
+  h8h 9d1a7f15 vs 22741456: IDENTICAL
+  h8h 0baefa9d vs 22741456: IDENTICAL
+  h8h f550fdc6 vs 22741456: IDENTICAL
+  h8h 92ea2531 vs 22741456: IDENTICAL
+  h8h tip vs 22741456: IDENTICAL
+  h8h tip rust ligero-verify rc=0 13 / 13 accept: all 13 sub-batches accepted; union bound 2^-128.32 <= 2^-128
+01:06:49Z h16h 22741456 commit=22741456 seed=default rc=0 wall=72s files=76 dumps_sha=7019296d2412d777 urandom_last_pass=[125 efa6c6a11148 kernels=_reduce:395,lincomb:316,quad_general:79]
+01:07:47Z h16h 9d1a7f15 commit=9d1a7f15 seed=default rc=0 wall=58s files=76 dumps_sha=7019296d2412d777 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:31,_reduce:410,lincomb:328,quad_general:82]
+01:08:45Z h16h 0baefa9d commit=0baefa9d seed=default rc=0 wall=58s files=76 dumps_sha=7019296d2412d777 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+01:09:21Z h16h f550fdc6 commit=f550fdc6 seed=default rc=0 wall=36s files=76 dumps_sha=7019296d2412d777 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+01:09:55Z h16h 92ea2531 commit=92ea2531 seed=default rc=0 wall=34s files=76 dumps_sha=7019296d2412d777 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+01:10:33Z h16h tip commit=a4333dd0 seed=default rc=0 wall=38s files=76 dumps_sha=7019296d2412d777 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+  h16h 22741456 vs 22741456: IDENTICAL
+  h16h 9d1a7f15 vs 22741456: IDENTICAL
+  h16h 0baefa9d vs 22741456: IDENTICAL
+  h16h f550fdc6 vs 22741456: IDENTICAL
+  h16h 92ea2531 vs 22741456: IDENTICAL
+  h16h tip vs 22741456: IDENTICAL
+  h16h tip rust ligero-verify rc=0 25 / 25 accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128
+01:10:59Z h8fs 22741456 commit=22741456 seed=default rc=0 wall=24s files=27 dumps_sha=73fa565d7d801aaa urandom_last_pass=[13 97e569d9c54f kernels=_reduce:290,lincomb:232,quad_general:58]
+01:11:19Z h8fs tip commit=a4333dd0 seed=default rc=0 wall=20s files=27 dumps_sha=73fa565d7d801aaa urandom_last_pass=[13 97e569d9c54f kernels=_quad_v4:28,_reduce:220,intt_scaled:56,lincomb:138,lincomb2:27,quad_general:55]
+  h8fs 22741456 vs 22741456: IDENTICAL
+  h8fs tip vs 22741456: IDENTICAL
+  h8fs tip rust ligero-verify rc=0 13 / 13 accept: all 13 sub-batches accepted; union bound 2^-128.39 <= 2^-128

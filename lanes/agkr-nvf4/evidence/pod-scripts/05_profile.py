@@ -154,7 +154,9 @@ def _wq_eval(cm, a, r):
 
 
 from gpu import kernels as _k
-ligero.open_w_qc_eval = _wq_eval
+if "--wq2" in sys.argv:
+    sys.argv.remove("--wq2")
+    ligero.open_w_qc_eval = _wq_eval
 timed(ligero, "open_w_qc_eval", key="wq.eval")
 timed(ligero, "row_coeffs", key="wq.row_coeffs")
 timed(ligero, "_mm", key="wq._mm", desc=shp)

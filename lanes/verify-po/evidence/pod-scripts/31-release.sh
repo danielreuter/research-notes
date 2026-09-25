@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # verify-po: the coordinator's "release" of held A-GKR labels (hold 20260925T0050Z). Writes verified=accepted --by verify-po
-# from each already-registered verdict; no new verdict.  RELEASE="45c5be4a 3ae971dd dfbc86c4 53a64e8b" (any subset).
+# from each already-registered verdict; no new verdict.  RELEASE="45c5be4a 3ae971dd ad76c106 dfbc86c4 53a64e8b" (any subset).
 set -uo pipefail
-declare -A SCRIPT=([45c5be4a]=25-verdict-45c5be4a.sh [dfbc86c4]=28-verdict-dfbc86c4.sh [3ae971dd]=29-verdict-3ae971dd.sh [53a64e8b]=30-verdict-53a64e8b.sh)
+declare -A SCRIPT=([45c5be4a]=25-verdict-45c5be4a.sh [dfbc86c4]=28-verdict-dfbc86c4.sh [3ae971dd]=29-verdict-3ae971dd.sh [53a64e8b]=30-verdict-53a64e8b.sh
+                   [ad76c106]=34-verdict-ad76c106.sh)
 declare -A VIDS=(
   [45c5be4a]=art:df4d2c3c08b423132ea331409ab12b3ef59acef922c66e6f15e7b608d694d8ee
   [dfbc86c4]=art:7d3aaf2e00a74d9f90495735bc9e945d8806a0e811d90464613fe3e1178c0954

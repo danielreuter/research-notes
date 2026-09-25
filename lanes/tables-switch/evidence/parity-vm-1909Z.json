@@ -1,0 +1,131 @@
+{
+  "schema": "verity/tables-parity/v1",
+  "rules": "legacy",
+  "ok": true,
+  "differences": [],
+  "snapshot": null,
+  "snapshot_artifact": null,
+  "tables_cells": 15,
+  "cells": [
+    {
+      "line": "first-campaign-target/2026-09-21",
+      "column": "A-GKR",
+      "artifact": "art:300a526a9ed8ac4f4677176b3ad48ce181d10ef8058b98eb9c018776aa018405",
+      "views_overhead": 33507234.441731982,
+      "tables_overhead": 33507234.441731982,
+      "printed": "3.4e7\u00d7"
+    },
+    {
+      "line": "first-campaign-target/2026-09-21",
+      "column": "B-Ligero",
+      "artifact": "art:5bcbf3fb67cbd1b49df2120b87e62b7643c44a39f780537cda3df682a9b7db52",
+      "views_overhead": 5885505.739655628,
+      "tables_overhead": 5885505.739655629,
+      "printed": "5.9e6\u00d7"
+    },
+    {
+      "line": "first-campaign-target/2026-09-21",
+      "column": "B-Ligero + in-proof hash",
+      "artifact": "art:289841b1075e0fc56450cce92109fd6edc84c3dd594515d8b47a37953a06c6a4",
+      "views_overhead": 16893755.890201587,
+      "tables_overhead": 16893755.890201587,
+      "printed": "1.7e7\u00d7"
+    },
+    {
+      "line": "bf16-hopper-mma-draft/2026-09-22",
+      "column": "A-GKR",
+      "artifact": "art:c09947fd5184047d90bc24ec87bbb37ba1215a92cabed467e7647a6ff7f8804f",
+      "views_overhead": 62280717.8046969,
+      "tables_overhead": 62280717.8046969,
+      "printed": "6.2e7\u00d7"
+    },
+    {
+      "line": "bf16-hopper-mma-draft/2026-09-22",
+      "column": "B-Ligero",
+      "artifact": "art:e336225676820478ea8f93c1922fe17c975b326ac6d918b6d8164f95ca6f339c",
+      "views_overhead": 8891365.85933148,
+      "tables_overhead": 8891365.85933148,
+      "printed": "8.9e6\u00d7"
+    },
+    {
+      "line": "bf16-hopper-mma-draft/2026-09-22",
+      "column": "B-Ligero + in-proof hash",
+      "artifact": "art:f25486f62a49570c9e13013b1683d19e6f51680cfdae0ea4fed874c02fc3d4d0",
+      "views_overhead": 31247072.45447667,
+      "tables_overhead": 31247072.45447667,
+      "printed": "3.1e7\u00d7"
+    },
+    {
+      "line": "fp8-hopper-wgmma-draft/2026-09-22",
+      "column": "A-GKR",
+      "artifact": "art:ad76c1062a287b985b6974f30bfb64e785173366da27d0f36370a2379affba3e",
+      "views_overhead": 44083632.38241897,
+      "tables_overhead": 44083632.382418975,
+      "printed": "4.4e7\u00d7"
+    },
+    {
+      "line": "fp8-hopper-wgmma-draft/2026-09-22",
+      "column": "B-Ligero",
+      "artifact": "art:709ab20c51540d02d80cb6b44f15193ad11e4066ff69bb92a18b935ccc0dc0dd",
+      "views_overhead": 11098326.771700567,
+      "tables_overhead": 11098326.771700565,
+      "printed": "1.1e7\u00d7"
+    },
+    {
+      "line": "fp8-hopper-wgmma-draft/2026-09-22",
+      "column": "B-Ligero + in-proof hash",
+      "artifact": "art:279b8685af35d3850fd020fa9e6ae65ba3009d1e6434ac61990c654659ba43f5",
+      "views_overhead": 36519580.467864186,
+      "tables_overhead": 36519580.467864186,
+      "printed": "3.7e7\u00d7"
+    },
+    {
+      "line": "fp8-ada-mma-draft/2026-09-22",
+      "column": "A-GKR",
+      "artifact": "art:45c5be4aeef2c558bc7f8c230a2a6e6a6d0744b2a2253057a9525bf3452bdc42",
+      "views_overhead": 12866267.506872475,
+      "tables_overhead": 12866267.506872475,
+      "printed": "1.3e7\u00d7"
+    },
+    {
+      "line": "fp8-ada-mma-draft/2026-09-22",
+      "column": "B-Ligero",
+      "artifact": "art:bb75ba4f68dcf0a27733243eda903082067903c650173f054894056e06fd38db",
+      "views_overhead": 2205603.97972136,
+      "tables_overhead": 2205603.97972136,
+      "printed": "2.2e6\u00d7"
+    },
+    {
+      "line": "fp8-ada-mma-draft/2026-09-22",
+      "column": "B-Ligero + in-proof hash",
+      "artifact": "art:abb219fadaa5b293718e815088c7e64151ddd50b21b78e4dda9dd1afac8fba24",
+      "views_overhead": 7476609.216310047,
+      "tables_overhead": 7476609.216310048,
+      "printed": "7.5e6\u00d7"
+    },
+    {
+      "line": "nvfp4-sm120-mma-draft/2026-09-22",
+      "column": "A-GKR",
+      "artifact": "art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c",
+      "views_overhead": 18486237.3681464,
+      "tables_overhead": 18486237.3681464,
+      "printed": "1.8e7\u00d7"
+    },
+    {
+      "line": "nvfp4-sm120-mma-draft/2026-09-22",
+      "column": "B-Ligero",
+      "artifact": "art:d5c9e1f3bd9f06e3bfb5bdfec09788a12bcf5ac5f7e5f7e4d463aedd35a0dd30",
+      "views_overhead": 4524597.496669002,
+      "tables_overhead": 4524597.496669002,
+      "printed": "4.5e6\u00d7"
+    },
+    {
+      "line": "nvfp4-sm120-mma-draft/2026-09-22",
+      "column": "B-Ligero + in-proof hash",
+      "artifact": "art:70f275ac21a3da6073c261b1981dd3dd7f253af204f25efd63fe7a780ebb7a33",
+      "views_overhead": 14687216.886244414,
+      "tables_overhead": 14687216.886244414,
+      "printed": "1.5e7\u00d7"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 ---
 kind: kb
 topic: the tables the user wants
-updated: 2026-09-25T06:30Z (rewrite with the user's decisions of 2026-09-24 evening, published from the Project store's docs/tables-spec-draft.md; replaces the 2026-09-24T20:20Z spec, kept as kb/TABLES-v1-20260924.md)
+updated: 2026-09-25T19:50Z (lane tables-switch: Flock family, the switch's commands; before that 2026-09-25T06:30Z: rewrite with the user's decisions of 2026-09-24 evening, published from the Project store's docs/tables-spec-draft.md; replaces the 2026-09-24T20:20Z spec, kept as kb/TABLES-v1-20260924.md)
 ---
 
 # The tables the user wants (standing spec; do not redesign without the user)
@@ -14,7 +14,7 @@ The tables answer three questions about every proof backend: what each configura
 - **Instance:** one evaluation of a subcircuit, such as one output word of a GEMM coordinate.
 - **Instance set:** a subcircuit's seeded inputs and expected outputs, content-addressed (see Inputs).
 - **Hardware class:** a GPU SKU and board variant (memory within 12% of the datasheet part). Each result also records the driver, CUDA version and host CPU.
-- **Backend family:** A-GKR, B-Ligero, SP1: one Table 2 column each. Adding a family needs the user's approval.
+- **Backend family:** A-GKR, B-Ligero, SP1, Flock: one Table 2 column each (Flock is its own family, Daniel, 2026-09-25 11:17 AM PT). The Flock column holds pure-Flock configurations only: the relation and its row hashes in one binary-field circuit. Route (a), the A-GKR prime side with Flock's row hashes and the sigma link, is an A-GKR configuration and stays in the A-GKR column. Adding a family needs the user's approval.
 - **Configuration:** a backend with one declared variant and its parameters. Its record holds all its security properties (Table 1). The backend declares it; nothing infers it from names.
 - **Commitment scheme:** a way of committing port values defined in `verity.commitments` (leaf encoding and tree rules), with a spec, a reference implementation and conformance vectors. A configuration names the scheme its statements bind.
 - **Serving:** the live inference path of an application of Verity, such as the vLLM application serving requests. **Serving overhead** is what committing the values costs there; **proving overhead** is what proving costs (Table 3).
@@ -247,14 +247,14 @@ PYTHONPATH=... python -m verity_numerical.bench.drilldown --root ~/.research/sto
 - The steward renders both daily at 13:00Z into `renders/daily/` (`steward.toml`).
 - The tables are re-rendered on every verified result and for the user's 6:00 PM PT digest. Big changes are reported right away: a new backend, a gap filled, a headline record broken.
 - The new views render beside today's tables as a labelled preview, which is never shown as the published numbers.
-- After the switch, the new views' command replaces the two above.
+- After the switch, the new views' command replaces the two above: `python -m verity_numerical.bench.views --root <store> --published` is published as `<stamp>-tables.md`, and the frozen tables render unchanged as the drill-down `<stamp>-tables-frozen.md` (a `[[render]]` entry with `published = "views"` in `steward.toml`). The drill-downs D1–D3 are unchanged.
 
 ## The switch
 
-The published numbers switch once, in a 6:00 PM PT digest labelled as a change of method. That digest shows each old number beside its replacement, or beside the reason it left Table 2. The switch waits for all of:
+The published numbers switch once, in a 6:00 PM PT digest labelled as a change of method. That digest shows each old number beside its replacement, or beside the reason it left Table 2 (`python -m verity_numerical.bench.switch --root <store>`). The switch waits for all of:
 
 1. the user's approval of this spec;
-2. **parity:** the new views, rendered with today's parameters, select exactly the cells of a `tables --snapshot` taken for the purpose, with the same artifacts and ratios. Today's parameters are a 2^-128 security filter, a batch of 4,096, K = 1536, today's bare and "+ in-proof hash" columns with Poseidon2 per row and no sharing, and proving time only. The parity render is recorded as an artifact;
+2. **parity:** the new views, rendered with today's parameters, select exactly the cells of a `tables --snapshot` taken for the purpose, with the same artifacts and ratios. Today's parameters are a 2^-128 security filter, a batch of 4,096, K = 1536, today's bare and "+ in-proof hash" columns with Poseidon2 per row and no sharing, and proving time only. The parity render is recorded as an artifact: `python -m verity_numerical.bench.views --root <store> --parity --take-snapshot --record` takes the snapshot, compares, and stores a `tables-parity/v1` artifact (exit 1 on a difference);
 3. every configuration that heads a Table 2 cell under this spec swept to its plateau, with each plateau point independently verified.
 
 If no configuration qualifies yet, Table 2 is published empty, with every old number beside the reason it left. Until the switch, this spec's views are previews. The Verity Foundation site publishes no tables before the switch, and its first public tables come from the switch render.

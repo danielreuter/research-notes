@@ -30,8 +30,13 @@ rebased it, merged main and a5c into it, and fixed the merge fallout. Agent bc-e
   lines) and carry over.
 - **GPU rows:** #101 head = base = record; #70 (TP2) head = f1's base record on 32/32 fields; **#67 not reached on
   either arm: the Commit is OOM-killed on this pod shape at base exactly as at head** (below).
-- **Needs a decision:** whether #67 is re-run on a 1x L40S host with >= ~256 GB (~4.5 h from scratch: Build 2.7 h, Match
-  42 min, Commit ~1-2 h; outside b1c's $10), or accepted on gate (a)'s T1 replay_partition for the MoE rows.
+- **#67 (root decision, coordinator 18:10Z):** doesn't block this merge. The MoE replay evidence is gate (a)'s T1 CPU
+  `replay_partition` on #67/#68/#73/#74 (head = base, times within 1.6%); the two OOM runs are a pod-shape finding. The epoch
+  lane re-records #67 on a pod with no memory limit.
+- **Behaviour changes:** `verity-vllm beyond-gemm` and `verity-vllm crosscheck` are gone from a5's `pipeline/cli.py`. Their
+  modules moved to `tests/program/` in b1's `19ca2453` because nothing in production imports them (`test_no_dead_modules`);
+  the only callers were a person at a shell (the GPU numerics probe, the composite-vs-model cross-check) and the tests that
+  import them. Run them as `main(Options(...))` from `tests.program.{beyond_gemm,crosscheck}`. Nothing else in behaviour.
 
 ## What changed
 
@@ -218,8 +223,8 @@ tree was checked against git blob by blob before the final gate (b).
 
 - `pipeline/commit.py` (`from verity_vllm.pipeline.workload import workload_target`, on main since before `10996616`):
   the function lives in `pipeline/global_program.py`, so the ImportError is always swallowed and the admission bound's
-  `lag` is always 1 (its comment calls that the sound side). Not this lane's file.
-- #67 on a 188 GB 1x L40S host: Commit exceeds the cgroup at head and base (above); the admission advisory already says
+  `lag` is always 1 (its comment calls that the sound side). Not fixed here: the epoch lane takes it over (coordinator 18:10Z).
+- Pod-shape finding: #67 on a 188 GB 1x L40S host: Commit exceeds the cgroup at head and base (above); the admission advisory already says
   so, but only as a WARN, so the stage runs ~45 min before the kill. After the kill the engine child keeps the GPU, so a
   following Commit on the same pod fails at vLLM start (`Free memory on device ... less than desired`): row_pod did not
   reap it (seen in `r20260925-120629-a48a`'s base arm).

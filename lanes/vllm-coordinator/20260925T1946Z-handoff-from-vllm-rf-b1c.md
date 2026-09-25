@@ -14,12 +14,12 @@ created: 2026-09-25T19:46Z
   Gate (a) T0+T1 158/158 = a23b base and #101 head = base = record carry over from b1b at `8c0bec08`.
 - **GPU:** #70 TP2 32/32 = f1's record (`r20260925-141723-16b0`). **#67 not produced:** Commit OOM-killed on the 188 GB
   L40S at head AND at base identically (rc 137 at 2598 s / 2676 s, same 32-worker replay fork, shmem 85.8 GiB; admission
-  predicted short 11.7 GiB). Not a code change. **Decision for you:** accept gate (a) T1 replay_partition for MoE, or
-  re-run #67 on a >= ~256 GB 1x L40S (~4.5 h, over b1c's budget).
+  predicted short 11.7 GiB). Not a code change. Per your 18:10Z root decision: gate (a) T1 replay_partition is the MoE
+  evidence in READY.md; the OOM runs are recorded as a pod-shape finding; the epoch lane re-records #67.
 - **Behaviour changes from the merges:** `verity-vllm beyond-gemm` and `crosscheck` commands removed from `pipeline/cli.py`
-  (their modules are test-side since b1's `19ca2453`); `pipeline/row_stages.form_b` imports `check.replay.coverage`.
+  (their modules are test-side since b1's `19ca2453`; no production caller, only manual shell use and the tests); `pipeline/row_stages.form_b` imports `check.replay.coverage`.
   No digest, manifest, root, leaf id or verdict change; no allowlist grew.
 - **Found-not-fixed:** `pipeline/commit.py` imports `workload_target` from `pipeline.workload` (it lives in
-  `global_program`), so admission `lag` is always 1; after an OOM kill the engine child keeps the GPU (next Commit on the pod
+  `global_program`), so admission `lag` is always 1 (left for the epoch lane); after an OOM kill the engine child keeps the GPU (next Commit on the pod
   fails at vLLM start). Full list in READY.md.
 - READY: `lanes/vllm-rf-b1c/READY.md`. Pods: tp2, g2, b5pat-cpu all terminated. b1c spend ~$4.2 of $10.

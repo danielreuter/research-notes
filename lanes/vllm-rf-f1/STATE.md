@@ -198,3 +198,11 @@ updated: 2026-09-25T03:13Z
   reason; 24 new tests all pass; 1 renamed; sigint + norm_chain fixed; F+E 67 -> 65).  vs a1 (72884c8a): new failures 0, F+E 65 = 65;
   72 base-only = main's deleted tests + my rename; 65 head-only all pass (24 mine, 41 main's lints); gc-freeze pair fails (this pod's uv
   3.12.14 also starts at freeze count 375; fails in a23b's run too); one skip reason = main's own `test_ship_roots`.  Files beside this note.
+- 03:42Z GATE (a) re-planned.  vyv-rf-f1-cpu has a **32 GB cgroup limit** (`free` shows the host's 755 GB): the 3-way run
+  `r20260925-031034-be4b` was OOM-killed (B, C rc 137 when three manifest builds overlapped; A stopped by me, rc 143; telemetry
+  class CGROUP_OOM; VOID, preserved).  T1 replay_partition needs 63-115 GB per process (a23b READY) -> cannot run there at all.
+  Now: (1) `r20260925-032012-ef74` on vyv-rf-f1-cpu since 03:20Z: serial, T0,T1 with `-k "not replay_partition"` (145 tests);
+  (2) NEW POD **vyv-rf-f1-t1** (`zig5sdm8q8q4ub`, cpu3m 64 vCPU / 512 GB, 100 GB; created 03:22Z, synced d1f18fc8, BOOTSTRAP-OK
+  03:29Z, 26/26 fixtures on two keys, both deleted) running `r20260925-033833-dec1`: the 13 replay_partition tests as four serial
+  row-disjoint processes (A r39 r4 r23; B r74 r67 r75 r70; C r11 r73; D r68 r57 r60 r101), ETA ~04:05Z.  Union = gate (a)'s 158.
+  Gate (b) run preserved on the remote; be4b too.  Both pods registered in machines.toml; drain both by ~04:40Z.

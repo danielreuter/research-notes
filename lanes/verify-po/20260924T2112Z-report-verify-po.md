@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: final
 ---
 
+CHECKPOINT ab9573fd (03:40Z) [final] FINAL: 56 accepted + labelled (6 released per coordinator 0322Z), 0 rejected; pod terminated 03:38Z, $3.05; handoff coordinator 0339Z
 CHECKPOINT ab9573fd (03:38Z) [final] FINAL: 56 accepted + labelled (6 released per coordinator 0322Z: 45c5be4a 3ae971dd ad76c106 dfbc86c4 53a64e8b f277786d), 0 rejected; pod terminated 03:38Z, $3.05; handoff coordinator 0339Z
 CHECKPOINT ab9573fd (03:02Z) [open] idle: inbox empty since 02:15Z; 50 accepted + 6 held, 0 rejected; no 'release' from coordinator yet (31-release.sh staged); no cred on pod; polling; wrap-up from 03:30Z
 CHECKPOINT ab9573fd (02:40Z) [open] idle: inbox empty since 02:15Z; 50 accepted + 6 held (45c5be4a 3ae971dd ad76c106 dfbc86c4 53a64e8b f277786d), 0 rejected; waiting for coordinator 'release' (31-release.sh staged); no cred on pod; polling
@@ -299,8 +300,7 @@ artifacts: art:7dae93fd art:9a59e106 art:4ecc7aee art:00dabdc8 art:11c4595f art:
 - Handoffs received:
   - lanes/verify-po: 20260924T2129Z-agkr-fp8, 2140Z-arith, 2200Z-agkr-nvf4, 2212Z-agkr-fp8, 2220Z-sp1-128, 2226Z-arith,
     2305Z-agkr-nvf4, 2306Z-arith, 2335Z-arith, 2350Z-agkr-nvf4, 2351Z-d3-h100; 20260925T0005Z-agkr-nvf4, 0045Z-agkr-fp8,
-    0050Z-coordinator, 0100Z-agkr-nvf4, 0132Z-agkr-fp8, 0150Z-agkr-nvf4, 0200Z-red-team-lk, 0203Z-agkr-fp8, 0210Z-agkr-nvf4,
-    0322Z-coordinator.
+    0050Z-coordinator, 0100Z-agkr-nvf4, 0132Z-agkr-fp8, 0150Z-agkr-nvf4, 0200Z-red-team-lk, 0203Z-agkr-fp8, 0210Z-agkr-nvf4, and 20260925T0322Z-handoff-from-coordinator.md (RELEASE, done).
   - Misdelivered to lanes/coordinator: 20260925T0006Z-handoff-from-agkr-fp8.md.
   - First request: from the launch message.
 - For the coordinator: the agkr-nvf4 verifier change (the optional `public` line) must merge before main can verify NVFP4. The

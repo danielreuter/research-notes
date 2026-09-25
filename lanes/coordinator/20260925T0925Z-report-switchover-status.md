@@ -5,6 +5,7 @@ created: 2026-09-25T09:25Z
 status: open
 ---
 
+CHECKPOINT none (09:30Z) [open] 09:30Z (2:30 AM PT) hash-commit agent bc-cbc8d78b died 09:25Z (activity task timed out; worktree clean+pushed, pod job in flight). Relaunched per contract C as hash-commit-2 (bc-96dbced5): collect the pod job, then GPU committer byte-identity + timing on A100 (sm_80) and H100 (sm_90) for the B-Ligero lanes; FINAL 13:30Z, $40 total (~$3 spent). Agents 11/11. Spend ~$28 of $300.
 CHECKPOINT none (09:24Z) [open] 09:26Z (2:26 AM PT) switch-over status, one line per step in lanes/coordinator/20260925T0925Z-report-switchover-status.md: 0 done (lanes open by design) | 1 BLOCKED: 5 vllm-rf-* branches unpushed (vLLM coordinator); flock-bench pushed | 2.1 done (pending=0) | 2.2 PENDING Daniel waiver (324 no-custody, 58 unpreserved) | 3 done | 4 done (store.toml write_through=true 09:20Z) | 5 done | 6 done (A4 552=552) | 7 done | 8.1-8.7a done | 8.8 lease HELD by vy-control-verity pid 71094, renewed 09:16Z; 6 AM render pending | 8.9 reboot test BLOCKED on 9 | 9 NOT DONE: old vyv daemons still run; needs vLLM agreement, then bc-21aca6c8 | 10.1 done | 10.2 G1 PENDING bc-21aca6c8 | 10.3 done | 11 pending (root) | notes sync ON, write-through ON. Spend $27.77+ of $300.
 # Cloud switch-over status, 2:25 AM PT (runbook `docs/cloud-switchover-runbook.md`)
 

@@ -5,6 +5,9 @@ created: 2026-09-25T11:07Z
 status: final
 ---
 
+CHECKPOINT 3301c435 (22:22Z) [final] NON_ZK_PROOF labels: art:6d1295ed (H100, a6a6e548), art:d1961ba4 (4090, d93ce18b) — verifier commits zero-diff from reviewed path; route (a) art:3d7cbea2 + art:77411c93. No pod.
+CHECKPOINT 3301c435 (22:20Z) [final] NON_ZK_PROOF labels on art:6d1295ed (H100, a6a6e548) + art:d1961ba4 (4090, d93ce18b): both verifier commits zero-diff from e5d54118 = reviewed path; route (a) art:3d7cbea2 labelled. No pod.
+CHECKPOINT 3301c435 (22:18Z) [open] reopened 22:19Z: verify verifier commits a6a6e548 / d93ce18b for re-registered art:6d1295ed / art:d1961ba4 (no pod)
 CHECKPOINT 3301c435 (21:40Z) [final] labels NON_ZK_PROOF on route (a) art:4b52879f + art:aa9223c2 (RA1 fail-fast verified at 504f75b6); 4090 art:949bcc35 meets PB2/PB4/FA1, PB3 pending, PB1 missing (commit unknown; source e5d54118 checked equivalent) -> label the re-registered id. No pod.
 CHECKPOINT 3301c435 (21:34Z) [open] reopened 21:35Z: check 4090 fp8-ada result art:949bcc35 against PB1-PB4/FA1 (no pod)
 CHECKPOINT 3301c435 (21:32Z) [final] decision 57 recorded on art:ca6029c1 + art:3bfb2f58; fp8-ada block layout (48045063) GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-195.54/proof; selftest fp8 16/16 + bf16 18/18 art:1f2fe1e9; FA1 separate-pod verifier, FA2 fp8 negatives). Pod terminated 21:31Z ~$0.10
@@ -661,3 +664,23 @@ Handoffs received, all acted on above:
 - `20260925T2140Z-handoff-from-coordinator.md`
 - `20260925T2145Z-handoff-from-coordinator.md`
 - `20260925T2210Z-handoff-from-route-a-live.md`
+
+# Re-registered cells labelled (22:19–22:25Z)
+
+`proof_class=NON_ZK_PROOF` written on:
+- art:6d1295ed (H100 bf16-hopper, verifier commit a6a6e548);
+- art:d1961ba4 (RTX 4090 fp8-ada, verifier commit d93ce18b);
+- art:3d7cbea2 (route (a), superseding art:4b52879f).
+
+Both verifier commits have zero `backends/flock` diff from e5d54118, which is equivalent to the reviewed 48045063 path.
+Each verifier run's source sha matches the result's named commit. Detail:
+`lanes/coordinator/20260925T2225Z-handoff-from-red-team-flock.md`.
+
+Handoff received: `20260925T2225Z-handoff-from-route-a-live.md` (the art:3d7cbea2 request). Acted on above.
+
+art:77411c93 (route (a), the same runs re-registered once more, with `live.loopback_round_seconds`) is also labelled
+`NON_ZK_PROOF`.
+
+Handoffs received:
+- `20260925T2220Z-handoff-from-coordinator.md` (label the new route (a) id): done, art:77411c93;
+- `20260925T2218Z-handoff-from-flock-backend.md` (the re-registered Flock cells): done, art:6d1295ed and art:d1961ba4.

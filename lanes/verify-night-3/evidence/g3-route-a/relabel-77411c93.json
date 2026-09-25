@@ -1,0 +1,26 @@
+{
+ "subject": "art:77411c934df40460f2c2a737d8363d62934d9aaa40912a111960e97b2a4d152d",
+ "supersedes_chain": [
+  "art:112afcfa",
+  "art:3d7cbea2",
+  "art:4b52879f",
+  "art:3bfb2f58"
+ ],
+ "result_proofs": [
+  "aca34e061e8daa742b260b60f01b2b60b9765252788ebf6a23ed63b8bc2f13fa",
+  "40225d914fe0155a6ce0af79ed242f9afd56aa1e329983969384513cbc792049",
+  "c42073e7fc1f12e7e86b74057c7485107c8057bc1421c872fd7f244b1db0056b",
+  "39c33d076f1da6be8739d9caa7447f28a7ccb855ee88545a411c5dcf3ace2e96",
+  "2ca36b9f7d4faef08b27906f01ce0a67251a39887e2356fb80ccc8a4ebba15ec"
+ ],
+ "gated_proofs": {
+  "honest-c4096-s1": "aca34e061e8daa742b260b60f01b2b60b9765252788ebf6a23ed63b8bc2f13fa",
+  "honest-c4096-s2": "40225d914fe0155a6ce0af79ed242f9afd56aa1e329983969384513cbc792049",
+  "honest-c4096-s3": "c42073e7fc1f12e7e86b74057c7485107c8057bc1421c872fd7f244b1db0056b",
+  "honest-c4096-s4": "39c33d076f1da6be8739d9caa7447f28a7ccb855ee88545a411c5dcf3ace2e96",
+  "honest-c4096-s5": "2ca36b9f7d4faef08b27906f01ce0a67251a39887e2356fb80ccc8a4ebba15ec"
+ },
+ "every_result_proof_gated": true,
+ "sessions_equal_to_4b52879f": true,
+ "changed_vs_4b52879f": "envelope only: commit.seconds, live.loopback_round_seconds, workload_fingerprint.commit/protocol/sweep/interaction notes, refs run_files/verifier_files/sweep_*; no proof, record, class or security field"
+}

@@ -12,7 +12,7 @@ REPO=${REPO:-/workspace}
 stamp() { date -u +%H:%MZ; }
 
 cd "$REPO" || exit 1
-line=$(PYTHONPATH=tools/research/src python3 -m research pods ssh vy-control-verity --print 2>&1) || { echo "$(stamp) FAIL ssh line: $line"; exit 1; }
+line=$(RESEARCH_MACHINES_D=/tmp/machines.d PYTHONPATH=tools/research/src python3 -m research pods ssh vy-control-verity --print 2>&1) || { echo "$(stamp) FAIL ssh line: $line"; exit 1; }
 host=${line##* }
 sshcmd=${line% *}
 for i in 1 2 3 4 5 6; do l=$(cat "$S/lanes/CLOUD-LANES.txt" 2>/dev/null) && break; sleep 5; done

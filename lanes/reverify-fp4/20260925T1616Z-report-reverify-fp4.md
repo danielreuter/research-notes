@@ -5,6 +5,7 @@ created: 2026-09-25T16:16Z
 status: open
 ---
 
+CHECKPOINT 70097174 (17:01Z) [open] 17:03Z reverify PASS x6, verified=accepted --by reverify-fp4 pushed: 70f275ac (v art:372a815a) 6740eb22 (art:fa407916) 6d067ed3 (art:e5be8bad) f4dc0501 (art:1349ad06) 4d43ab87 (art:de6c7491) 4d151f38 (art:039313a7). instance-equiv art:9b5f1e24 (fp8-hopper-x4 32768) art:c2959a5c (bf16-hopper-x4 8192) registered
 CHECKPOINT 65d5b145 (16:49Z) [open] 16:52Z bootstrap OK r20260925-163611-4309; instance_equiv x4 fp8-hopper 32768 + bf16-hopper 8192 running r20260925-164233-1830; reverify 6 results running r20260925-164726-5540 (pod-local store copy, no pod creds)
 CHECKPOINT 65d5b145 (16:34Z) [open] pod vy-reverify-fp4 midl24pxz0jind (RTX A5000 SECURE $0.27/h; no CPU stock) created 16:34Z, registered guard 30; syncing lane/reverify-fp4 65d5b145
 CHECKPOINT 65d5b145 (16:25Z) [open] 65d5b145 pushed (lane/reverify-fp4): reverify recomputes fp4-nvf4+poseidon2 trees; 18 reverify tests green (5 fp4 negatives). Next: CPU pod, reverify 70f275ac/6740eb22 + 4 blake3-80gb H100, instance_equiv x4 sha256

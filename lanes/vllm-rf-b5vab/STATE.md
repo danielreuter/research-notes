@@ -2,7 +2,7 @@
 id: vllm-rf-b5vab/state
 lane: vllm-rf-b5vab
 kind: state
-updated: 2026-09-25T16:45Z
+updated: 2026-09-25T17:05Z
 ---
 # b5vab (B5 split of `engine/vllm_adapter.py`): state
 
@@ -11,7 +11,7 @@ updated: 2026-09-25T16:45Z
 > Coordinator: vLLM coordinator bc-ecac3029. Brief: `$STORE/internal/lane-briefs/vllm-b5vab.md`. Budget $16 new spend.
 
 base: 5c05ff6d (b4b)
-branch: lane/vllm-rf-b5vab (pushed)
+branch: lane/vllm-rf-b5vab (pushed), head 42cf1781
 
 ## Scope
 Split `integrations/vllm/verity_vllm/engine/vllm_adapter.py` (1,913 lines at base) into cohesive `engine/` modules, verbatim
@@ -32,14 +32,18 @@ moves proven by an AST/source script; `load_workload` and everything it calls st
 - `tests/engine/test_compiled_execution_header.py`: `target_mismatches` now reads `observed_flash_attn_version` / `torch`
   from `engine.build`, so the test patches `build` (was `vllm_adapter`). Only test change.
 - README engine lines updated.
+- 16:53Z `42cf1781` = merge of b4c's head `5494e29f` (5c05ff6d + main 38a8d35d) into the lane; clean. Lint scan 0 problems
+  and the split proof 56/56 hold at `42cf1781`. Pushed.
+- 16:57Z handoff to the coordinator: head final for gate (a); asked for a fixture-holding pod (c4ir-reg not coming soon).
 
 ## Running
-- nothing; no pods yet (waiting for the b4c handoff of `vyv-rf-b4b-cpu` / `vyv-rf-b4b-g1`, and c4irc's `vyv-rf-c4ir-reg`).
+- nothing; no pods yet. b4c (16:58Z) is gating `5494e29f` on b4b-cpu (head XML will stay at
+  `/workspace/b4c/head/gate_b.xml` = my gate (b) base) and #101 on b4b-g1; a second handoff will hand both pods over.
 
 ## Next
-1. On handoff: lints + gate (b) at `d0e04cf8` on vyv-rf-b4b-cpu (base = b4c's head XML at 5c05ff6d on that pod).
+1. On handoff: lints + gate (b) at `42cf1781` on vyv-rf-b4b-cpu (base = b4c's head XML at `5494e29f` on that pod).
 2. #101 GPU Build smoke on vyv-rf-b4b-g1 vs record (program `ccc21347…`, manifest `90f81868…`, run root `7adcef49…`).
-3. Gate (a) T0+T1 on vyv-rf-c4ir-reg vs a23b's base XML (start as soon as it's handed over; ~5 h).
+3. Gate (a) T0+T1 on the fixture pod the coordinator names, vs a23b's base XML (~5 h).
 
 ## Open questions
 - none

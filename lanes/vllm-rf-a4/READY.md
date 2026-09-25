@@ -9,8 +9,10 @@ created: 2026-09-25T08:50Z
 
 - **Branch:** `lane/vllm-rf-a4`
 - **Head:** `10996616`, on `origin/main` `00ffe398` (f1 merged; rebased at 06:55Z). All gates ran at this head.
-- **Base for gates and diffs:** `00ffe398`. Since then, main has moved to `5631e667` (merges #19 and #20). Those
-  merges touch only `backends/numerical/`.
+- **Base for gates and diffs:** `00ffe398`. Since then, main has moved to `94b1c4d2` (as of 09:08Z). The 23 files it
+  changed are all under `backends/`, `benchmarks/commitments/` and `tests/`, none of them is in this branch's diff, and
+  none names `verity_vllm` or `integrations/vllm`. `git merge-tree --write-tree origin/main lane/vllm-rf-a4` is clean.
+  I did not rebase: the gate evidence is for this exact tree, and the wave-2 lanes are stacked on `10996616`.
 - **Scope:** 500 files changed. There are 287 renames and 193 files edited in place (importers, strings, prose). 14
   package `__init__.py` files were added and 6 were removed; the removed ones belonged to the emptied `harness/`, `tp/`
   and `input_provenance/` packages and their test packages. No other file was deleted. No allowlist grew.
@@ -46,9 +48,11 @@ regression check or stage reads them.
     `14b0cf9f`, whose failures `756d04d2` and `10996616` fixed.
 - **Gate (a) T0+T1:**
 GATE_A_RESULT
-- **GPU smoke, row #101** (`vyv-rf-a4-g1`, 1x L40S; `row_pod.sh … build,match,commit`, PAIRS=1, through the moved
-  entry points `verity_vllm.pipeline.{cli,match,hot,commit}`), head, then base on the same pod:
-  - Both exit 0. run_root `7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5` on both, equal to the
+- **GPU smoke, row #101** (`vyv-rf-a4-g1`, 1x L40S; `ops/row_pod.sh … build,match,commit`, PAIRS=1), head, then base on
+  the same pod (`tools/row101.sh`). At head, the stages call the moved modules (`verity_vllm.pipeline.{build,cli,match,
+  hot,commit,…}`, `verity_vllm.check.{match,replay,verdict,weights_of_record}`, `verity_vllm.target_family`). The
+  precheck resolved source identity to the head tree:
+  - Both exit 0, and build, match and commit are PASS on both. run_root `7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5` on both, equal to the
     record. Program `ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b` and manifest
     `90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac` on both. `commit_pass` true, with every Commit
     check PASS. Build digest `03ace66f1c80b04a` and workload digest `a2b43bde001d335a` are equal.
@@ -141,6 +145,27 @@ script `tools/ident.py`).
   "difftest", "tp2_worker") was not rewritten. Only paths and dotted names were.
 - **Test ids renamed:** 942 test ids in 85 files. The full old -> new list is in `evidence/gate_b/jdiff-head2.txt`. The
   parametrized ids that embed module paths are listed there too (13 each side, same outcomes).
+
+## Pods and spend
+
+Budget $45. Every pod was named `vyv-rf-a4-*` and had guard 90. They were registered in `machines.toml` (cpu) or
+`notes/machines.d` (reg, g1). Each was terminated once its results were fetched, and each registration is marked or
+removed.
+
+| pod | id | hardware | rate | up (UTC) | cost |
+|---|---|---|---|---|---|
+| `vyv-rf-a4-cpu` | `4q60rifwx2r1bp` | cpu3g, 16 vCPU / 64 GB | $0.64/h | 06:20-08:42 | ~$1.5 |
+| `vyv-rf-a4-g1` | `7pmzr4ccgcomqa` | 1x L40S | $1.09/h | 07:46-09:07 | ~$1.5 |
+| `vyv-rf-a4-reg` | `04fijzazbf1yj6` | A100-SXM4 host, 250 GB cgroup, 13.6 CPUs | $1.59/h | 07:53-REG_END | REG_COST |
+
+- No cpu3m or cpu5m pod with 256-512 GB was available, so gate (a) ran on a GPU host with a 250 GB cgroup
+  (`--min-ram 250`). T1's `replay_partition` needs 63-115 GB per process. REG_MEM
+- Pins on reg only: `pytest-xdist==3.8.0` and `xgrammar==0.2.7`, on top of `pod_bootstrap.sh --cpu` from the head tree,
+  as a23b did. The resulting freeze (`evidence/gate_a/freeze.txt`) equals a1's `baseline-freeze.txt` except for two
+  unpinned transitive packages: `googleapis-common-protos` 1.75.3 -> 1.75.4 and `uvicorn` 0.53.0 -> 0.54.0.
+- Fixtures: a 3 h read-only key minted on the laptop and piped into reg, then used for the prefetch (26 rows ok, 0
+  failed), and deleted at 08:30:01Z before gate (a) started.
+- Pod-to-pod tree copy used an ephemeral ssh key that lived only on the pods; it went with them.
 
 ## Found, not fixed (pre-existing)
 

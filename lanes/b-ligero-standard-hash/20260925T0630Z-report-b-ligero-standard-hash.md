@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 806a2f73 (09:20Z) [open] GPU committer smoke: device==host evidence, 4096 x1 e2e 3.64s (1125 VU/s). x4 fold probe l4096p2: e2e 2.05s @4096 (1999 VU/s, 1.78x x1; p3 OOM). x4 sweep r..091922-a390 running (custody). R2 negs on tip all caught.
 CHECKPOINT 806a2f73 (09:04Z) [open] tip 806a2f73: merged ligero-steps-pin R4 + main 94b1c4d2 (GPU committer); fixed R4 test regression; cells art:5d20ad00 (4096) + art:d6328cf5 (plateau) -> verify-night-2; handoffs red-team/coordinator/steps-pin; next GPU smoke + x4 fold
 CHECKPOINT f4d797b (08:50Z) [open] R4 not reproduced; merged ligero-steps-pin 06176b41 at fcf9a35b; tip check running; next handoffs + x4 fold
 CHECKPOINT fcf9a35b (08:50Z) [open] R4 not reproduced on my fix (r..083926); merged ligero-steps-pin 06176b41 (their R1/R2/R4) at fcf9a35b to avoid divergence; tip check r..084934 running; next: handoffs red-team/coordinator (plateau art:d6328cf5 for verify), x4 fold probe+sweep.
@@ -165,7 +166,18 @@ Pod scripts: `evidence/pod-scripts/`.
   The row chains in t.witness fell from ~0.8 s to 0.002 s per rep. **--commit-evidence is equal, device vs host**
   (sha256 f62b873f…; roots a = 2f9ff265…, b = 0413c926…).
   Before main, the 4096 cell was commit 0.646 s + t.total 4.31 s = 4.96 s (826 VU/s).
-* 09:13Z r20260925-091311-104c (`60-fold.sh`): fp8-ada-x4+blake3 probe at 4096 VUs over l:p = 4096:2, 2048:2, 2048:3, 4096:3.
+* 09:13Z r20260925-091311-104c (`60-fold.sh`, 806a2f73): **fp8-ada-x4+blake3 probe**, 4096 VUs, 2 reps, `--commit-per-rep`,
+  GPU committer. The system is 79 184 rows per column (12 columns per VU); 341 VUs per proof at l = 4096.
+
+  | l : p | e2e | VU/s | commit | t.total | peak GPU mem |
+  |---|---|---|---|---|---|
+  | **4096 : 2** | **2.049 s** | **1999** | 0.009 s | 2.040 s | 18.1 GB |
+  | 2048 : 2 | 2.457 s | 1667 | | | 9.7 GB |
+  | 2048 : 3 | 2.188 s | 1872 | | | 13.3 GB |
+  | 4096 : 3 | CUDA OOM (tried 4.84 GiB with 21.2 GiB in use) | | | | |
+
+  Against x1 on the same tree (1125 VU/s), x4 is **1.78× the throughput**, matching ~1.8× fewer rows per VU.
+* 09:19Z **x4 sweep r20260925-091922-a390** (`30-sweep.sh`, REL = fp8-ada-x4+blake3, l = 4096, p2, 5 reps, custody-r2 8h).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

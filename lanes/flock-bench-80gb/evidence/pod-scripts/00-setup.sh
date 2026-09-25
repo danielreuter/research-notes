@@ -24,6 +24,13 @@ fi
 [ -x /usr/bin/time ] || { apt-get install -y -qq time || { apt-get update -qq && apt-get install -y -qq time; }; }
 C13=/usr/local/cuda-13.3
 $C13/bin/nvcc --version; $C13/bin/ptxas --version
+# CUDA 13.x runtime needs driver >= 580; on older datacenter drivers use the forward-compat user-mode driver
+DRV=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1 | cut -d. -f1)
+if [ "$DRV" -lt 580 ]; then
+  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq cuda-compat-13-3 || exit 1
+  export LD_LIBRARY_PATH=$C13/compat:${LD_LIBRARY_PATH:-}
+  echo "driver $DRV < 580: using cuda-compat-13-3 ($(ls $C13/compat/libcuda.so.*))"
+fi
 if ! command -v cargo >/dev/null; then
   [ -x $HOME/.cargo/bin/cargo ] || curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
 fi

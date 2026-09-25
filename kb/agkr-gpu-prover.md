@@ -116,3 +116,21 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   Prover work therefore grows with units × 2^ceil(log2 nwires) per layer. An in-circuit Poseidon2 (852 rows per permutation,
   2 per unit) takes BF16 from 290 to about 3,700 wires (8× per layer) and from 264 to about 1,970 committed columns. The
   estimate is 4–8× t.total (coordinator handoff 0550Z).
+
+## Hashing row digests in-proof (lane agkr-bound, 2026-09-25)
+- Commit scaffold (lane tip ≥ 83582436):
+  - `gpu/commit.py` publishes per-VU x-row/W-column digests as 32 epilogue limbs; `verifier/src/commitments.rs`
+    (+ `vllm_v1.rs`) rebuilds the frame-v3 or vllm-v1 trees natively and compares the roots.
+  - Relations: `R+sha256`, `R+blake3`, `R+vllm-v1`.
+  - Until a circuit binds the digest columns no circuit is pinned, so a cell reports `failed` by design and verifies only
+    with `--allow-any-circuit --require-commitment`.
+  - `--allow-unpinned-commitment` waives only a missing root pin.
+- In-field SHA-256, Longfellow flat layout (`tools/sha256_flat.py`, BabyBear, 16-bit-half adder checks):
+  - per compression: 6,657 columns, 30,272 products, 36,929 wires, depth 5 (the BF16 unit is 290 wires);
+  - it can't run on the GPU prover at all (dense layers spanning every wire);
+  - Rust CPU prover, EPYC 7742 with 13 threads: B = 64 takes 3.26 s, B = 4,096 takes 106.7 s (arith 101.6 s, 9.1 GB RSS,
+    5.5 MB proof), about 0.7 µs per wire;
+  - a 4,096-VU BF16 batch hashes about 393k compressions (96 per VU), so this is about 10^4 s on CPU, arithmetic-bound
+    rather than commitment-bound.
+- Flock's `hash_throughput` bench needs `HASH_BENCH_LOG2S` ≥ 8. Its fast x86 path needs AVX-512 + VPCLMULQDQ, which
+  RunPod A100 hosts (EPYC 7742, Zen 2) lack.

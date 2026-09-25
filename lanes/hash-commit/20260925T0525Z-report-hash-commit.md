@@ -8,6 +8,7 @@ final: 13:30Z hard; budget $40 (commit-gpu retarget 06:35Z, incl. ~$1.3 spent)
 status: open
 ---
 
+CHECKPOINT caa144d (08:12Z) [open] commit-gpu 08:13Z: @5f83bd96 (pointer args, fused top levels, 1-kernel digests) 96 tests pass; profile row_tree 0.78ms, y tree 0.54ms (~3.4ms committer); first A/B pair at 0787f4a9 committer 5.0ms, ev identical, rust ok; full A/B+commit_cost rerun at 5f83bd96 running
 CHECKPOINT b27471b (08:03Z) [open] commit-gpu 08:06Z: fixes 0787f4a9/399a3fe3 (device heads, u8 rows); profile ~3.9ms/4096 fp8 committer on 4090; A/B p2 running (host r1 ok ev f62b873f rust ok); survey adopted as-is + Flock clmad built sm_89 (native CLMAD), runs after A/B
 CHECKPOINT a2d67679 (07:54Z) [open] commit-gpu 07:54Z: 4090 A/B fp8-ada+blake3 evidence identical host vs GPU (f62b873f); committer host 12.2s -> GPU 12-14ms; >5ms from int64 row h2d (8.8ms) + host midstates; fixed @0787f4a9 (device heads, u8 rows); A/B OOM at batch 8192 -> rerun smaller
 CHECKPOINT 8d4ad41 (07:22Z) [open] commit-gpu 86d7edb7 (main 00ffe398 merged; core frame_v3/vllm_v1 schemas+vectors): 4090 vy-commit-gpu tests 95/95 pass (GPU frame-v3 word/sha256-row/blake3-row + vllm-v1 trees == core vectors, host builders, commit_cost refs); neighbours running, then harness A/B + commit_cost GPU

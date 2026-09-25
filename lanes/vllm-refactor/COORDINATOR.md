@@ -105,7 +105,15 @@ Since 19:25Z the research coordinator does every merge to `main`, so two agents 
     - Phase 1 now: CUDA copies against the vectors, and the weights root live check (evidence only).
     - Phase 2 after A4 and PR #15 (`fa9c4594`, `origin/cursor/vllm-commitment-scheme-f2e6`) are both in main: commit path over `verity.commitments.vllm_v1` plus per-scheme throughput instrumentation.
   - `c4ir`, bc-fbcf78e2: boundary, partition and liveness into `verity.ir`; budget $15. Core side now, integration switch after A4.
-- **To launch when A4 merges**, in the a4 prompt style, at most about 6 running at once:
+- 08:25Z **Wave 2 started early on a4's pushed head `10996616`** (root: use idle capacity, since these lanes need a4's layout but not its merge). Shared rules: `WAVE2_BRIEF.md`. Each lane rebases with `git rebase --onto origin/main 10996616` once a4 merges.
+  - `a5`, bc-95dc5f40: CLI, typed config and decision-8 `verity_vllm.LLM`; $35.
+  - `c2`, bc-568d82f4: Definition library under the owner's principle; the digest-neutral dedup first, and the AmpereBF16TcDot16 v2 epoch commit last and separate; $25.
+  - `b1`, bc-910bfdb6: kernels in `program/kernels/` registered with core `verity.evaluation`, and `check/replay/`; $45.
+  - `b4`, bc-95aa165d: engine and hooks; $25.
+  - `b2v`, bc-7d05cc29: one verdict and properties records; $30.
+  - Budgets across all 8 lanes come to about $255 of the $300.
+- a4 status at 08:15Z: every file move is committed and pushed (14 commits, head `10996616` at 01:10 PT). Left: head lints plus gate (b) against main on its CPU pod, gate (a) T0+T1, and the GPU smoke of #101 (its `reg` and `g1` pods are up). ETA for its merge request is about 4 AM PT. Its STATE.md lagged its commits by about an hour; commits are the liveness signal.
+- **To launch when A4 merges (now mostly launched early; what remains):** B5 splits (native_host after C1). After A5: B3 and B2's heredoc part. After B4: C3. After C1 to C3: the re-baseline epoch. The original list:
   - A5 (one CLI and typed config, with the decision-8 API `verity_vllm.LLM(...)`), about $30;
   - C2 (Definition library under the owner's principle), about $20;
   - B1 (evaluator kernels and replay; `program/kernels/`), about $40;

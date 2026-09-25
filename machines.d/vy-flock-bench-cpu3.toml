@@ -1,0 +1,7 @@
+# machine vy-flock-bench-cpu3: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "m9m9k4ouftjji0"
+project = "verity"
+guard = 45
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T08:13Z"

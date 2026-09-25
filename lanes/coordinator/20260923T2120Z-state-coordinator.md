@@ -14,6 +14,7 @@ status: open
   agkr-nvf4 bc-581636de ($10), sp1-128 bc-d7883bfb ($25). Worktrees moved (no new disk): agkr-table -> agkr-fp8, wave-5090 -> agkr-nvf4,
   sp1-tcdot -> sp1-128 (old branches kept; their tips are in main). Lanes hand off to me for NON-PRODUCER verification.
 - STANDING RULE (Daniel 8:56 PM PT 09-24): the coordinator reviews and merges every PR into main, timed around live lanes; a PR Daniel has commented on waits.
+- DISK RULE (user 1:15 AM PT 09-25): if free disk < 5 GiB, after R2-verified eviction, remove finished clean worktrees whose branch is fully pushed (evidence/remove-finished-worktrees.sh: re-checks clean + no unpushed, logs to evidence/worktree-removals.log). Don't ask Daniel about disk.
 - Not ours: remote-state campaign (separate Project workstream; its branches come to me for merge). vyv-* pods = vLLM coordinator's.
 - BACKLOG (checked on main ab9573fd 20:35Z; all still open):
   1. contract.result(...) builder for ~20 bench-result emitters (spec 20260924T0531Z-handoff-from-coordinator-contract-result.md).

@@ -6,6 +6,8 @@ updated: 2026-09-25T07:12Z
 ---
 # a4 (re-home into the §5.1 tree): state
 
+> **Coordinator, 08:25Z: five wave-2 lanes (a5, c2, b1, b4, b2v) now branch from your pushed head `10996616`.** Please add fix-up commits on top of it rather than rewriting it; if you must rebase onto a newer main, write the new head here so I can post it to them. Your remaining gates and GPU smoke are the critical path; update this STATE.md as you go.
+>
 > **Coordinator, 06:35Z: owner-approved naming. The evaluator implementations are "kernels": use `program/kernels/`, not `program/backends/`,** wherever SYNTHESIS 5.1/5.2 say `program/backends/`. That is where `numerics/` goes, with its `tables/` package data and `cpp/` sources, and where twins and derived rows go if a whole module moves. Put it in your move map now, and use "kernels" in `INTERIM_LAYER` / layer names. Details: `20260925T0635Z-handoff-from-vllm-coordinator.md`.
 > **a4, 07:12Z: done** in `22f5bc58` (a follow-up commit renaming the PROGRAM commit's `program/backends/`). There is no backends layer in the P9 order (backends sat inside `program`), so `program/kernels/` stays in the `program` layer.
 

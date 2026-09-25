@@ -5,7 +5,7 @@
 #  plus the same-pod A-GKR baseline: the v1 transition unit (fixtures/babybear) at B = 4096 tiled
 # research run --on vy-agkr-bound2 --project verity --source . --cwd source/backends/gkr --send 12_hash_spike.sh \
 #     -- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/12_hash_spike.sh"'
-# usage: [BS="64 4096"] [FLOCK_LOG2S="6 12 16"] [FLOCK=1] bash 12_hash_spike.sh
+# usage: [BS="64 4096"] [FLOCK_LOG2S="8 12 16 18"] [FLOCK=1] bash 12_hash_spike.sh   (Flock's bench needs log2 >= 8)
 set -uo pipefail
 HERE=$(pwd)
 ROOT=$(cd ../.. && pwd)
@@ -42,7 +42,7 @@ echo "== 1. baseline: v1 transition unit x 4096 ($(date -u +%H:%M:%S))"
 $VG run --circuit fixtures/babybear/circuit.txt --witness fixtures/babybear/honest8.bin --units 4096 --out $H/base-4096.json > $H/base-4096.log 2>&1
 echo "rc=$?"; grep -E "^(ncols|nwires)" fixtures/babybear/circuit.txt | tr '\n' ' '; echo; summ $H/base-4096.json
 
-for B in ${BS:-64 4096}; do
+for B in ${BS-64 4096}; do
   O=$H/flat-$B
   echo "== 2. in-field flat SHA-256, B = $B ($(date -u +%H:%M:%S))"
   $PY tools/sha256_flat.py --out $O --blocks $B | cut -c1-300
@@ -61,7 +61,7 @@ F=/workspace/flock
 ( cd $F && git checkout -q b684b12 && git log --oneline -1 )
 export CARGO_TARGET_DIR=/workspace/cargo-target-flock
 for T in $NT 1; do
-  ( cd $F && RUSTFLAGS="-C target-cpu=native" RAYON_NUM_THREADS=$T HASH_BENCH_LOG2S="${FLOCK_LOG2S:-6 12 16}" HASH_BENCH_RUNS=3 \
+  ( cd $F && RUSTFLAGS="-C target-cpu=native" RAYON_NUM_THREADS=$T HASH_BENCH_LOG2S="${FLOCK_LOG2S:-8 12 16 18}" HASH_BENCH_RUNS=3 \
       cargo bench --bench hash_throughput ) > $H/flock-$T.log 2>&1
   echo "flock threads $T rc=$? ($(date -u +%H:%M:%S))"
   grep -E "^RESULT|error\[|panicked" $H/flock-$T.log | head -20

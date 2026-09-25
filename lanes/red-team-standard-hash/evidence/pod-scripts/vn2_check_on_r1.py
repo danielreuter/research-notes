@@ -5,7 +5,7 @@ manifest's relation set to the statement's full name and each file given the (vu
 Expected: forgery -> MISMATCH naming the leaf indices and the y tree; a/b trees (binding, owner, count, root) equal core.
 (The control shares the forgery's committed y tree, so it is MISMATCH on y only.)
 
-    VN2_N=2 python vn2_check_on_r1.py FIXTURE_DIR PATH_TO_06
+    VN2_N=2 python vn2_check_on_r1.py FIXTURE_DIR PATH_TO_06 [TAG...]   (default tags: forgery control)
 """
 import importlib.util
 import json
@@ -41,12 +41,16 @@ class FakeStore:
 
 
 out = {}
-for tag in ("forgery", "control"):
+tags = sys.argv[3:] or ["forgery", "control"]
+for tag in tags:
     r = cr.check(FakeStore(), tag)
     r.pop("info", None)
     out[tag] = r
     print(f"{tag}: {r['status']} problems={r.get('problems')}", flush=True)
 print(json.dumps(out, indent=1))
+if "forgery" not in out:
+    print(json.dumps({t: out[t]["status"] for t in out}))
+    sys.exit(0)
 fp = " | ".join(out["forgery"]["problems"])
 ok = (out["forgery"]["status"] == "MISMATCH" and "leaf indices" in fp and "tree y" in fp
       and "tree a" not in fp and "tree b" not in fp)

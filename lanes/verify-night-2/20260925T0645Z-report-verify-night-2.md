@@ -8,6 +8,7 @@ final: 16:00Z hard; budget $12
 status: open
 ---
 
+CHECKPOINT cafa9464 (08:17Z) [open] 08:17Z idle-polling; 10 verdicts preserved (hash-commit x5 + R1/R2 recheck x5), nit fixed; pod vy-verify-night-2 idle at main 00ffe398; awaiting BLAKE3 full-relation cell from b-ligero-standard-hash
 CHECKPOINT 00ffe398 (08:04Z) [open] R1/R2 recheck: 5 published +hash cells PASS (art:794365d3 art:271e0e3a art:5387c1b5 art:1abdf12a art:99867b4c; verdicts art:488f12f0..art:0ec89f16) + hash-commit x5 PASS; handoff coordinator 0805Z; polling for BLAKE3 cell
 CHECKPOINT 00ffe398 (07:49Z) [open] coordinator 0745Z (red-team SH R1/R2): 06-core-roots strengthened (triple==untiled layout, per-rep disjoint coverage, binding via hashauth.binding_digest, count, roots); rechecking 5 published +hash cells + my 5 hash-commit results in r20260925-074901-8cce
 CHECKPOINT 00ffe398 (07:31Z) [open] idle-ready: pod at main 00ffe398, ligero-verify d89cffc7 (cargo 66/66), core commitments+leaf conformance 184 pass; 06-core-roots now handles +blake3/+sha256 core row leaves; inbox empty; polling

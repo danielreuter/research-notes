@@ -8,7 +8,8 @@ source $HOME/.cargo/env
 cd $W/flock
 cp "$RESEARCH_RUN_DIR/inputs/verity_shape.rs" crates/flock-prover/benches/verity_shape.rs
 grep -q 'name = "verity_shape"' crates/flock-prover/Cargo.toml || printf '\n[[bench]]\nname = "verity_shape"\nharness = false\n' >> crates/flock-prover/Cargo.toml
-cargo build --release -p flock-prover --bench verity_shape --bench blake3_proof --bench sha2_proof -j $(nproc) 2>&1 | tail -3 || exit 1
+# bench profile (thin LTO), as flock's own `cargo bench` numbers
+cargo bench --no-run -p flock-prover --bench verity_shape --bench blake3_proof --bench sha2_proof -j $(nproc) 2>&1 | tail -3 || exit 1
 BIN=$(ls -t target/release/deps/verity_shape-* | grep -v '\.d$' | head -1)
 lscpu | grep -E 'Model name|^CPU\(s\)|Thread' | tee $OUT/host.txt; nproc | tee -a $OUT/host.txt; cat /sys/fs/cgroup/memory.max | tee -a $OUT/host.txt
 THREADS_LIST=${THREADS_LIST:-"8 1"}

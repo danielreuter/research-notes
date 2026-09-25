@@ -2324,3 +2324,37 @@ utc	action	bytes	path	sha256_r2_key_verified
 2026-09-25T06:44:45Z	deleted-run-file	4077	/Users/danielreuter/.research/runs/r20260923-224543-40e2/inputs/ajtai3_bench.sh	objects/sha256/dbcec9df4369d91e0a1e1182b27fe2d7ea92e465136cd6119725ad5612290422
 2026-09-25T06:44:45Z	evicted-run	239576323	/Users/danielreuter/.research/runs/r20260923-224543-40e2	141 files
 2026-09-25T06:44:45Z	total-freed	2848987224	-	-
+2026-09-25T08:12:26Z	deleted-blob	40301028	/Users/danielreuter/.research/store/objects/sha256/94a1746caf68f336ed1dfd5968b0fa6d342184ca680136cc4f6fbad5416c1558	objects/sha256/94a1746caf68f336ed1dfd5968b0fa6d342184ca680136cc4f6fbad5416c1558
+2026-09-25T08:12:26Z	deleted-blob	40301028	/Users/danielreuter/.research/store/objects/sha256/6f4227bb540b10ad346f9b3b1378fd5edc1e8aa71c29290b28a37d2457eb2016	objects/sha256/6f4227bb540b10ad346f9b3b1378fd5edc1e8aa71c29290b28a37d2457eb2016
+2026-09-25T08:12:26Z	deleted-blob	8732695	/Users/danielreuter/.research/store/objects/sha256/8d92b27ab92e0f82dfcdb37d91425d009ca2fb0af7aa5ccee396de3d7da8f7a0	objects/sha256/8d92b27ab92e0f82dfcdb37d91425d009ca2fb0af7aa5ccee396de3d7da8f7a0
+2026-09-25T08:12:26Z	deleted-blob	40301028	/Users/danielreuter/.research/store/objects/sha256/e95336cca11c2bca7789c8eddc8169e023b2f7bba00564e56598541de19c067e	objects/sha256/e95336cca11c2bca7789c8eddc8169e023b2f7bba00564e56598541de19c067e
+2026-09-25T08:12:28Z	presence-updated	0	11 artifacts	-
+2026-09-25T08:12:29Z	deleted-run-file	0	/Users/danielreuter/.research/runs/r20260922-222501-6487/stderr.log	objects/sha256/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+2026-09-25T08:12:29Z	deleted-run-file	5246	/Users/danielreuter/.research/runs/r20260922-222501-6487/result.json	objects/sha256/c6aa6678dde9e94b4f773a9b617d6fbb0f51491efa09611484bc9e579a5eebfc
+2026-09-25T08:12:29Z	deleted-run-file	1792	/Users/danielreuter/.research/runs/r20260922-222501-6487/failure.0.1.2.json	objects/sha256/f5b949f0bc17ac8b1cc9583324ec65dd37f2db54d334eecef77ff5ef2d35f052
+2026-09-25T08:12:29Z	deleted-run-file	0	/Users/danielreuter/.research/runs/r20260922-222501-6487/sampler.log	objects/sha256/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+2026-09-25T08:12:29Z	deleted-run-file	551	/Users/danielreuter/.research/runs/r20260922-222501-6487/sampler.json	objects/sha256/b184fa1a41d7380434e0312cf451e09950eaa7a2546c860a5054e462e3450366
+2026-09-25T08:12:29Z	deleted-run-file	5883	/Users/danielreuter/.research/runs/r20260922-222501-6487/stdout.log	objects/sha256/6717ebbc8bc7aaacf74110331ddeb478241ec1e7df3c4fbe606e7634ecd02834
+2026-09-25T08:12:29Z	deleted-run-file	1830	/Users/danielreuter/.research/runs/r20260922-222501-6487/events.jsonl	objects/sha256/70af5a6bfcf68eb421ad1c6bccc92b7655ed80114c3f41359a46d35e934ea029
+2026-09-25T08:12:29Z	deleted-run-file	19092	/Users/danielreuter/.research/runs/r20260922-222501-6487/job.json	objects/sha256/59a695ed84b1edb03d62a97a41cd3928b98de219b4f122c94024246da78637ea
+2026-09-25T08:12:29Z	deleted-run-file	1687	/Users/danielreuter/.research/runs/r20260922-222501-6487/remote.json	objects/sha256/cb6f04aa7dfed83d9b0c70df0987b74e7ec5541e102698950d1166e37ca3cdee
+2026-09-25T08:12:29Z	deleted-run-file	2063	/Users/danielreuter/.research/runs/r20260922-222501-6487/launch.json	objects/sha256/995576dee927039eeb32bf29f06186786369008908d7d14c700a845842c69ddd
+2026-09-25T08:12:29Z	deleted-run-file	1093743	/Users/danielreuter/.research/runs/r20260922-222501-6487/resources.jsonl	objects/sha256/c06f74cff31f2bcf5619051a86409cb00c85ff169e1c706a4fef141a17e4e4e7
+2026-09-25T08:12:29Z	deleted-run-file	1792	/Users/danielreuter/.research/runs/r20260922-222501-6487/failure.json	objects/sha256/f5b949f0bc17ac8b1cc9583324ec65dd37f2db54d334eecef77ff5ef2d35f052
+2026-09-25T08:12:29Z	deleted-run-file	618	/Users/danielreuter/.research/runs/r20260922-222501-6487/launcher.log	objects/sha256/2c0c15707f99e8d7221406e4bdc00b1c9268229de25776d7c4a87f2991ff2ce1
+2026-09-25T08:12:29Z	deleted-run-file	2062	/Users/danielreuter/.research/runs/r20260922-222501-6487/status.json	objects/sha256/02388189070d8b0787598fced77bb0e5a1cf254257680d35c77a171425933cb1
+2026-09-25T08:12:29Z	deleted-run-file	8459	/Users/danielreuter/.research/runs/r20260922-222501-6487/bench_vu.json	objects/sha256/2e85573b0f4c27227a8b772b6f005d274103bcf388ded2acfd982bc7cccf1834
+2026-09-25T08:12:29Z	evicted-run	1144818	/Users/danielreuter/.research/runs/r20260922-222501-6487	15 files
+2026-09-25T08:12:30Z	deleted-run-file	0	/Users/danielreuter/.research/runs/r20260923-071555-23f9/stderr.log	objects/sha256/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+2026-09-25T08:12:30Z	deleted-run-file	0	/Users/danielreuter/.research/runs/r20260923-071555-23f9/sampler.log	objects/sha256/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+2026-09-25T08:12:30Z	deleted-run-file	560	/Users/danielreuter/.research/runs/r20260923-071555-23f9/sampler.json	objects/sha256/de1106ba00f12f401a3e6d39d8ee3585bde61fd07427bd6c5310484ff68e1c36
+2026-09-25T08:12:30Z	deleted-run-file	71	/Users/danielreuter/.research/runs/r20260923-071555-23f9/stdout.log	objects/sha256/f9754358ba43c418c2080eb223075c239ccf5759dbac9a33fe344c1fba621446
+2026-09-25T08:12:30Z	deleted-run-file	1765	/Users/danielreuter/.research/runs/r20260923-071555-23f9/events.jsonl	objects/sha256/add26ff95b8b66e05d3efd408ba88891e7a7bd6cc08e9fd142c985de766a2373
+2026-09-25T08:12:30Z	deleted-run-file	7152	/Users/danielreuter/.research/runs/r20260923-071555-23f9/job.json	objects/sha256/95402637489ab0fd9acc46167c4f6f4e140ab286056579e1781c0084db3e428e
+2026-09-25T08:12:30Z	deleted-run-file	2095	/Users/danielreuter/.research/runs/r20260923-071555-23f9/remote.json	objects/sha256/eed9fb891c1361ede413aaca0e4d6473601914227281def364e41b42a6858452
+2026-09-25T08:12:30Z	deleted-run-file	2138	/Users/danielreuter/.research/runs/r20260923-071555-23f9/launch.json	objects/sha256/dca59aae02a751b6bed24aac78c673143c22ae35571720b009c80a5c56b633a9
+2026-09-25T08:12:30Z	deleted-run-file	2090258	/Users/danielreuter/.research/runs/r20260923-071555-23f9/resources.jsonl	objects/sha256/2432d5dd4cc495d7e80920b483ada61ea349d2f009fde013a8d9be9a9c9e82fd
+2026-09-25T08:12:30Z	deleted-run-file	86	/Users/danielreuter/.research/runs/r20260923-071555-23f9/launcher.log	objects/sha256/2846e7a547a0e2f5d4be00581fe7fdb2c8c1f07c54682f047da1aeae3c6aa5df
+2026-09-25T08:12:30Z	deleted-run-file	3229	/Users/danielreuter/.research/runs/r20260923-071555-23f9/status.json	objects/sha256/be5ca681c1de3c020b86cc4b62168541479fac4669d4de5296ee3607a8d46838
+2026-09-25T08:12:30Z	evicted-run	2107354	/Users/danielreuter/.research/runs/r20260923-071555-23f9	11 files
+2026-09-25T08:12:30Z	total-freed	132887951	-	-

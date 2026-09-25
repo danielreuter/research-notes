@@ -5,9 +5,10 @@ created: 2026-09-24T21:12Z
 brief: launch message (coordinator), kb/TABLES.md
 branch: lane/verify-po (worktree ~/projects/verity-main-wt/verify-po), base main@ab9573fd
 final: 03:45Z hard; budget $6
-status: open
+status: final
 ---
 
+CHECKPOINT ab9573fd (03:38Z) [final] FINAL: 56 accepted + labelled (6 released per coordinator 0322Z: 45c5be4a 3ae971dd ad76c106 dfbc86c4 53a64e8b f277786d), 0 rejected; pod terminated 03:38Z, $3.05; handoff coordinator 0339Z
 CHECKPOINT ab9573fd (03:02Z) [open] idle: inbox empty since 02:15Z; 50 accepted + 6 held, 0 rejected; no 'release' from coordinator yet (31-release.sh staged); no cred on pod; polling; wrap-up from 03:30Z
 CHECKPOINT ab9573fd (02:40Z) [open] idle: inbox empty since 02:15Z; 50 accepted + 6 held (45c5be4a 3ae971dd ad76c106 dfbc86c4 53a64e8b f277786d), 0 rejected; waiting for coordinator 'release' (31-release.sh staged); no cred on pod; polling
 CHECKPOINT ab9573fd (02:18Z) [open] 5090 NVFP4 A-GKR art:f277786d (final; same stmt+proofs as dfbc86c4) verified; verdict art:4513180d PRESERVED, HELD (coordinator 0220Z). 50 accepted + 6 held, 0 rejected; release staged (31-release.sh); cred removed; polling
@@ -284,3 +285,23 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 - 01:24Z /root/r2.env removed, `reindex --remote` rc 0, art:eededf7d and art:7d3aaf2e PRESERVED, 0 verify-po labels on
   45c5be4a and dfbc86c4. The verify-po worktree's .venv is empty, so the laptop tables render now runs main's
   `.venv/bin/python` read-only from /tmp with PYTHONPATH unset.
+
+## FINAL
+tip: lane/verify-po @ ab9573fd (base main@ab9573fd) merge-with: none
+known-failures: none pod: terminated 03:38Z; $3.05
+artifacts: art:7dae93fd art:9a59e106 art:4ecc7aee art:00dabdc8 art:11c4595f art:6a6c101b art:1ca0fbef art:a40f5576 art:acf87c5c art:ccafc0f7 art:7d68f788 art:5d8c8aa1 art:750d53cf art:eb44f474 art:b1a0be1d art:aafc3c75 art:bfc56de7 art:a5a7e8c8 art:5d94cfae art:a7ed0d9b art:830956b0 art:65f9b4d7 art:abe34544 art:34582a00 art:37ed86f2 art:4791cc89 art:9618b325 art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93 art:0b229064 art:c6a8328b art:f538c335 art:20b47418 art:e13419b4 art:209fdd63 art:ed310632 art:d0aeef7f art:fe61cce4 art:f765ab6c art:649e27ed art:0b754787 art:1e442d10 art:cc7fa7cd art:549ee1d3 art:41e3a98b art:eededf7d art:df4d2c3c art:7d3aaf2e art:e96f50ac art:223c8efe art:eca0995c art:b86ca2a8 art:4513180d
+
+- RELEASE (coordinator 0322Z): at 03:38Z I labelled the 6 held results on the laptop from their existing verdicts
+  (45c5be4a/df4d2c3c, 3ae971dd/e96f50ac, ad76c106/b86ca2a8, dfbc86c4/7d3aaf2e, 53a64e8b/223c8efe, f277786d/4513180d) and
+  pushed them with labels-sync (30 rows). Coordinator handoff 0339Z. Rows 14, 16-18 and 20-21 are now accepted and labelled.
+- Totals: 56 results accepted and labelled, 0 rejected, 0 still held. No code commits; the worktree is clean. `cargo clean` had
+  nothing to clean (no Cargo.toml at the root; no builds on the laptop).
+- Handoffs received:
+  - lanes/verify-po: 20260924T2129Z-agkr-fp8, 2140Z-arith, 2200Z-agkr-nvf4, 2212Z-agkr-fp8, 2220Z-sp1-128, 2226Z-arith,
+    2305Z-agkr-nvf4, 2306Z-arith, 2335Z-arith, 2350Z-agkr-nvf4, 2351Z-d3-h100; 20260925T0005Z-agkr-nvf4, 0045Z-agkr-fp8,
+    0050Z-coordinator, 0100Z-agkr-nvf4, 0132Z-agkr-fp8, 0150Z-agkr-nvf4, 0200Z-red-team-lk, 0203Z-agkr-fp8, 0210Z-agkr-nvf4,
+    0322Z-coordinator.
+  - Misdelivered to lanes/coordinator: 20260925T0006Z-handoff-from-agkr-fp8.md.
+  - First request: from the launch message.
+- For the coordinator: the agkr-nvf4 verifier change (the optional `public` line) must merge before main can verify NVFP4. The
+  A-GKR E4M3 and NVFP4 circuit builders are not on main.

@@ -2,9 +2,13 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT 906255b2 (23:49Z) [final] H100 blake3-xob x4: 955a52e0 (vd 120b459a) + f15909f5 (vd f8b8836c) accepted @main 6c3568dc; equiv 72745743 (c43ec491) + 04f24f73 (835ca8d9) accepted; handoffs to red-team-standard-hash-2 + coordinator. Pod o2gvkt3wwmn1le terminated 23:41Z ~$0.35
+CHECKPOINT 906255b2 (23:45Z) [final] H100 blake3-xob x4: 955a52e0 (vd 120b459a) + f15909f5 (vd f8b8836c) accepted @main 6c3568dc; equiv 72745743 (c43ec491) + 04f24f73 (835ca8d9) accepted; handoffs to red-team-standard-hash-2 + coordinator. Pod o2gvkt3wwmn1le terminated 23:41Z ~$0.35
+CHECKPOINT 906255b2 (23:44Z) [final] H100 blake3-xob x4: 955a52e0 (vd 120b459a) + f15909f5 (vd f8b8836c) accepted @main 6c3568dc; equiv 72745743 (c43ec491) + 04f24f73 (835ca8d9) accepted; handoffs to red-team-standard-hash-2 + coordinator. Pod o2gvkt3wwmn1le terminated 23:41Z ~$0.35
+CHECKPOINT 906255b2 (23:23Z) [open] pod vy-verify-night-3 o2gvkt3wwmn1le (cpu3c 32 vCPU, $0.96/h) for H100 blake3-xob x4 955a52e0/f15909f5 + equiv 72745743/04f24f73 @main 6c3568dc (pins 775786b7)
 CHECKPOINT 906255b2 (23:21Z) [open] reopened: H100 blake3-xob x4 fp8 955a52e0 / bf16 f15909f5 + equiv 72745743 / 04f24f73 (coordinator 23:21Z): NOT final
 CHECKPOINT 906255b2 (22:25Z) [final] route (a) re-registration art:77411c93 verified=accepted (vd eb1a010f; same 5 proofs and records as the G3 gate, envelope-only changes); no pod
 CHECKPOINT 906255b2 (22:23Z) [final] route (a) re-registration art:77411c93 verified=accepted (vd eb1a010f; same 5 proofs and records as the G3 gate, envelope-only changes); no pod
@@ -143,3 +147,14 @@ artifacts: art:73aa7efe art:7b44bcad art:cc5f72de art:99a5a9fd art:47cf9051 art:
   sessions equal art:4b52879f's. Only envelope fields changed. Evidence: `evidence/g3-route-a/relabel-77411c93.json`.
 - I left art:112afcfa and art:3d7cbea2 unlabelled, as instructed.
 - Also received: `20260925T2220Z-handoff-from-coordinator.md` (announces this re-registration). Answered by the art:77411c93 label above.
+
+## Reopen 6 (23:21Z): H100 blake3-xob x4
+- Request: the coordinator's launch message, from `lanes/coordinator/20260925T2308Z-handoff-from-x4-hopper-blake3.md`.
+- Pod vy-verify-night-3 o2gvkt3wwmn1le (cpu3c 32 vCPU). Run r20260925-232422-96b1 at main 6c3568dc (`evidence/pod-scripts/70-round5.sh`).
+  - art:955a52e0: accepted, verdict art:120b459a.
+  - art:f15909f5: accepted, verdict art:f8b8836c.
+  - Equivalence art:72745743: accepted, verdict art:c43ec491.
+  - Equivalence art:04f24f73: accepted, verdict art:835ca8d9.
+- Sent: `lanes/red-team-standard-hash-2/20260925T2342Z-handoff-from-verify-night-3.md`, `lanes/coordinator/20260925T2342Z-handoff-from-verify-night-3.md`.
+- Pod terminated 23:41Z, about $0.35.
+- Also received: `20260925T2335Z-handoff-from-coordinator.md` (the same request). Answered above.

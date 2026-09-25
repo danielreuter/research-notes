@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T22:15Z
+updated: 2026-09-25T23:45Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -117,6 +117,17 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
 - **Custody gap to close before terminating any pod:** Commit re-runs write into the recording runs' sweep dirs, which the
   recording runs' custody has already published (or, for 08bb, never will). Do a custody-copy run of each pod's sweep, then run
   rebaseline on the pod.
+
+## 23:45Z
+- Dropped, staying on old expected:
+  - **#75**: rank Build of request LP1024_T127 hit `TIMEOUT after 7200s`, and there's no time for a rerun.
+  - **#73**: Commit OOM-killed at the 251 GB cgroup (`memory.events oom_kill 1`) after C2 compare. Build PASS `345ebaf9…`,
+    Match PASS. Small-file copy of its recording run in `r20260925-234027-23b6` (PRESERVED).
+  - **#74** (time), **#11, #39** (memory).
+- tp75 and h100 drained and terminated at 23:44Z.
+- The first commitonly runs never started: their wait matched the recording runs' `research run` supervisors, which were still
+  uploading custody (tp70b: 38 GB since 22:06Z). Relaunched with anchored patterns as `r20260925-233854-{4602 tp70b #70,
+  9e59 moe68 #57 #60, 42c8 tp70 #67, 8ece big #68, c7c4 moe67 #4 #23}`. #70 and #57 Commits started at 23:39Z.
 
 ## Next
 - Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the

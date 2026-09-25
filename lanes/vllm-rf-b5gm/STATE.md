@@ -57,7 +57,9 @@ created: 2026-09-25T09:10Z
   negative_57 or decisions_are_listed"` (50 of 158 tests), started 11:46:08Z under nohup (pid 7966) on its own tree copy
   `/workspace/trees/a_tail` (research run refused: `a_head` holds `--exclusive`). When `a_head` reaches r73, SIGINT its
   pytest by pid; its XML then covers r4..r70 (108 tests) and the two XMLs are merged for the comparison.
-- READY.md drafted (gate (a)/(b) sections TBD).
+- READY.md drafted (gate (a)/(b) sections TBD). Merge script for the two gate (a) halves: `/tmp/b5gm/merge_junit.py`
+  (self-tested on a23b's XMLs: 108 + 50 = 158, jdiff as the unsplit run).
+- 12:04Z gate (a): `a_head` 58/158 (in r57), `a_tail` 10/50 (in r73). Gate (b) base ~97 %.
 
 ## Next
 - cpu: bootstrap, GM-01 inputs (own ro key, deleted after fetch), lints, GM-01 ABAB base/head, gate (b) head + base.

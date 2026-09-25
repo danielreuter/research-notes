@@ -5,6 +5,7 @@ created: 2026-09-25T10:22Z
 status: open
 ---
 
+CHECKPOINT 2c92b9e3 (12:10Z) [open] 12:10Z: rvt-regression-3 launched on pod 2 (custody-r2; setup+build+regression list). Pod 1 benches continue (fp8-ada 72 min, bf16-hopper 70 min in, no dump yet). Cutoff for bf16-hopper stays 13:40Z.
 CHECKPOINT 4ef9b05 (12:00Z) [open] 12:00Z: rvt-regression killed on pod 1 (pytest held 16 runnable threads, starving the benches); fp8-ada bench now ~10 cores. Pod 2 vy-reverify-tile-2 (cpu3c 16, $0.48/h, guard) created for the regression rerun.
 CHECKPOINT none (11:42Z) [open] 11:44Z: benches parallelism-bound (~5 cores each), ~5.5 min/proof: fp8-ada ETA ~12:15Z, bf16-hopper ~13:25Z (cutoff 13:40Z). Fetched rvt-setup/tests-1/tests-2/old-dumps; cargo 69 passed, focus pytest 62 passed; logs in evidence/logs.
 CHECKPOINT 10996616 (11:26Z) [open] 11:27Z: re-productions run 13 (fp8-ada) / 25 (bf16-hopper) proofs at ~7-8.5 min each under contention; reniced the regression pytest to 19 to free cores. bf16-hopper ETA at risk (~13:4xZ); re-checking the cycle rate at 11:40Z.

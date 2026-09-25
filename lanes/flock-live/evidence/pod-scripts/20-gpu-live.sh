@@ -41,14 +41,14 @@ nvidia-smi --query-gpu=name,driver_version,memory.total,clocks.max.sm --format=c
 [ "${BUILD_ONLY:-0}" = 1 ] && exit 0
 LV=$F/target/release/flock-live
 declare -A PORT
-srv() {  # name table nbl [netlist]
-  local key=$1 table=$2 nbl=$3 net=${4:-}; local port=$((7000 + ${#PORT[@]}))
+srv() {  # name port table nbl [netlist]
+  local key=$1 port=$2 table=$3 nbl=$4 net=${5:-}
   PORT[$key]=$port
   nice -n 5 $LV serve-gpu --listen 127.0.0.1:$port --out $O/sessions/$key --table $table --nbl $nbl ${net:+--netlist $net} > $O/serve-$key.log 2>&1 &
 }
-srv b19 blake3 19; srv b18 blake3 18; srv b17 blake3 17
-srv u19 hopper_bf16 19 $NETS/net-hopper_bf16.txt; srv u17 hopper_bf16 17 $NETS/net-hopper_bf16.txt
-srv e18 hopper_e4m3 18 $NETS/net-hopper_e4m3.txt
+srv b19 7001 blake3 19; srv b18 7002 blake3 18; srv b17 7003 blake3 17
+srv u19 7004 hopper_bf16 19 $NETS/net-hopper_bf16.txt; srv u17 7005 hopper_bf16 17 $NETS/net-hopper_bf16.txt
+srv e18 7006 hopper_e4m3 18 $NETS/net-hopper_e4m3.txt
 sleep 5; grep -h SERVING $O/serve-*.log
 t() {  # key test-binary tag pipe(or -) nbl [env...]
   local key=$1 bin=$2 tag=$3 pipe=$4; shift 4

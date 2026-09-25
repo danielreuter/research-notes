@@ -24,6 +24,12 @@ with open(LOG, "a") as log:
         st = p.stat()
         if st.st_size < MIN_BYTES or time.time() - st.st_mtime < QUIET:
             continue
+        try:
+            machine = json.loads((p.parent / "remote.json").read_text()).get("machine") or ""
+        except (OSError, ValueError):
+            machine = ""
+        if not machine.startswith("vy-") or machine.startswith("vyv-"):
+            continue  # research pods only: vyv-* runs are the vLLM project's files
         status, size, _ = check(p)
         if status != "OK":
             log.write(f"{ts()}\tKEPT({status})\t{size}\t{p}\t-\n")

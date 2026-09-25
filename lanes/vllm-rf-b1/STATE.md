@@ -2,7 +2,7 @@
 id: vllm-rf-b1/state
 lane: vllm-rf-b1
 kind: state
-updated: 2026-09-25T12:02Z
+updated: 2026-09-25T12:10Z
 ---
 # b1 (evaluator kernels and replay): state
 
@@ -41,15 +41,18 @@ a4 base: 10996616
 5. Split sampled_replay.py into sample / open / evaluate / compare / c2 driver / linkage; delete it; repoint importers (import lines only in other lanes' files).
 6. Pods: gate (b) head vs base, gate (a) T0+T1 on cpu3m 512 GB, GPU #101, #67 PAIRS=1, #70 if rank path changes.
 
+## Results
+- **GATE (b) at 8c0bec08 MEETS THE RULE** (`r20260925-112532-d480`, vyv-rf-b1-cpu, same pod as base): head 50 F / 3683 P / 286 S / 6 xf / 11 E vs base 52 / 3645 / 287 / 6 / 11; `baseline-jdiff.py` rc 0: new failures 0, new skips 0, new skip reasons 0; failures+errors 63 -> 61. Renamed 4 (seed-default param id now names `driver`; the 3 twins renames); 39 new tests all pass (35 self-check pairs). test_transient_storage_is_released passes (the a6ba flip did not recur). Lint gate tests inside it: 45/45 pass. Evidence: `head-gate_b-8c0bec08-xdist.{xml.gz,jdiff-base.txt}`, `base-gate_b-10996616-xdist.xml.gz`, `cpu-pod-logs.tgz` (logs/env/rss of every cpu-pod run).
+- **#101 at head == base == record** (`r20260925-113151-99a2`, vyv-rf-b1-g1; head tree synced at 19ca2453, whose production code is 8c0bec08's): program ccc21347, manifest 90f81868, run root 7adcef49, commit PASS, every check the same; C2 oracle compare 6304 = 6304; sampled replay 1374 picked = evaluated = equal of 46558 VUs / 868 strata, seed 8853214064722388274, picks/strata/by_family digests equal; forked evaluators 84,118 reads both. Replay wall 79.3 s (base) -> 79.8 s (head), 32 workers; Commit 243 s (base, after the tree switch) / 191 s (head).
+- cpu pod terminated 12:08Z, g1 terminated 12:02Z (runs fetched --all).
+
 ## Running
-- `vyv-rf-b1-cpu` (cei1t48zvrcnzu, cpu3g 32 vCPU / 128 GB, $1.28/h, since 08:47Z): base gate (b) done 10:18Z (52 F, 3645 P, 287 S, 6 xf, 11 E; base-xdist.xml, nohup run). **Final head gate (b) at 8c0bec08: `r20260925-112532-d480`** (`gate_b.sh /workspace/head gate_b-head-8c0bec08 -n 12 --dist loadfile`, OMP 3; tree verified == git 8c0bec08 by blob hash, test-written ref-prims restored).
-- `vyv-rf-b1-g1` (nz7au6e51web6w, 1x L40S, driver 580.159.03, 125 GB cgroup, $1.09/h?, since 11:03Z): `r20260925-113151-99a2` = `/workspace/b1/tools/g1.sh`: bootstrap LLAMA32_1B (OK 11:37Z), #101 build,match,commit PAIRS=1 at head 8c0bec08 then at base 10996616, rowcmp vs record (program ccc21347, manifest 90f81868, run root 7adcef49).
-- `vyv-rf-b1-big` (61mmy8g18xcj0z, cpu3m 64 vCPU / 512 GB, $3.52/h, since 11:24Z): head 8c0bec08 + base synced, bootstrap OK 11:48Z; laptop-minted read-only key piped in 11:58Z. **Gate (a) `r20260925-115853-be37`** (`big_gate_a.sh`: prefetch deletes the key; head T0+T1 split 4-way, then base replay_partition on the same pod for replay wall time).
-- `vyv-rf-b1-g2` (l2w6439556ueod, 1x L40S, 188 GB, driver 580, $1.09/h): created 11:18:44Z by the first retry loop, which died before registering it; found and registered (guard 90) at 11:49Z, so ~30 min of it idle. Head + base trees shipping; then #67 = bootstrap OLMOE, Build+Match once at head, row dir copied, Commit PAIRS=1 at head then at base (f1's shared-Match pattern), rowcmp vs record (program fdd998d4, v2 manifest 47990631, commit_pass True).
+- `vyv-rf-b1-big` (61mmy8g18xcj0z, cpu3m 64 vCPU / 512 GB, $3.52/h, since 11:24Z): head 8c0bec08 + base synced, bootstrap OK 11:48Z; laptop-minted read-only key piped in 11:58Z. **Gate (a) `r20260925-115853-be37`** (`big_gate_a.sh`): prefetch done 12:07Z ok=26 fail=0 key_deleted=yes; head T0+T1 split 4-way running, then base replay_partition on the same pod for replay wall time.
+- `vyv-rf-b1-g2` (l2w6439556ueod, 1x L40S, 188 GB, driver 580, $1.09/h): created 11:18:44Z by the first retry loop, which died before registering it; found and registered (guard 90) at 11:49Z, so ~30 min of it idle. **#67 `r20260925-120629-a48a`** (12:06Z) = `g2.sh`: bootstrap OLMOE, Build+Match once at head, row dir copied, Commit PAIRS=1 at head then at base (f1's shared-Match pattern), rowcmp vs record (program fdd998d4, v2 manifest 47990631, commit_pass True).
 - #70 (2x L40S): still no capacity; the retry loop now tries tp2 only, until ~12:30Z.
 
 ## Next
-- gate (b) jdiff head vs base; #101 compare; gate (a) merged xml vs a23b base; #70 (covers MoE + TP2 rank path; OLMoE) if a 2x L40S appears, #67 PAIRS=1 if a >= 180 GB L40S appears; READY.md.
+- gate (a) merged xml vs a23b base (test by test) + replay_partition times head vs base; #67 stages vs record; #70 only if a 2x L40S appears; READY.md (draft /tmp/b1/READY.draft.md).
 
 ## Open questions
 - **Ask (12:02Z): extend the pod deadline for `vyv-rf-b1-g2` only, to about 17:30Z.** #67 from scratch on one 1x L40S (f1's timings on the same pod shape): Build ~83 min, Match ~66 min, each PAIRS=1 Commit ~65-100 min (sampled replay dominates). Head Commit should end around 15:30-16:00Z, base around 17:00-17:30Z. Without an extension I stop at 15:30Z with whatever #67 reached (Build/Match vs record, maybe the head Commit), and the MoE replay evidence is gate (a)'s T1 replay_partition on #67/#68/#73/#74. About $6 on g2.

@@ -324,6 +324,27 @@ Pod scripts: `evidence/pod-scripts/`.
 * 11:43Z r20260925-114349-ea8d (65-xob-pin.sh): the Rust rebuild with the xob pins, cargo test, the pinned batch of the
   11:39Z fixtures, then the gates of fp8-ada / fp8-ada-x4 under blake3-xob. The red-team class review was requested
   (red-team-standard-hash 1150Z).
+  - Rust build 12 s (ligero-verify 2562ed47…); cargo test 34 + 7 + 27 passed.
+  - Pinned batch ACCEPT for all three fixtures: fp8-ada+blake3, fp8-ada+blake3-xob and fp8-ada-x4+blake3-xob, each
+    "system pinned".
+  - **gate fp8-ada+blake3-xob: 25 honest sub-batches, 86 negatives, 0 failures (36 s).**
+  - **gate fp8-ada-x4+blake3-xob: 7 honest sub-batches, 86 negatives, 0 failures (43 s).**
+  - The fixtures took 17 s each here, so the 6.5 min at 11:33Z was a first-run cost.
+* 11:51Z r20260925-115150-1f42 (22-cells.sh, custody-r2, malloc env, tree 5b28557b): **the blake3-xob cells, PROVISIONAL
+  (the class is pending red-team review)**.
+
+  | cell | t.total | commit | e2e | VU/s | overhead | bits | Rust batch (pinned) | peak GPU |
+  |---|---|---|---|---|---|---|---|---|
+  | fp8-ada+blake3-xob 4096 frozen (e66ff0f2) | 1.963 s | 0.0103 s | **1.974 s** | 2075 | 5.18e7× | 128.40 | ACCEPT 49/49 | 7.0 GB |
+  | fp8-ada-x4+blake3-xob 4096 (c86e51a1) | 0.790 s | 0.0091 s | **0.799 s** | 5127 | 2.10e7× | 128.33 | ACCEPT 13/13 | 15.2 GB |
+
+  **Against +blake3 (r..102900-4391, tree 806a2f73):**
+  - x1: 3.558 s → 1.974 s (1.80×). Encoding + commitment 1.937 → 1.098 s, arithmetic 1.169 → 0.576 s.
+  - x4: 1.981 s → 0.799 s (2.48×). Encoding + commitment 1.200 → 0.336 s, arithmetic 0.608 → 0.290 s. Peak GPU 18.1 → 15.2 GB.
+
+  **This is far more than the row ratio: 0.81 at x1 and 0.83 at x4 would give about 1.2×.** Unexplained. Two confounds I can
+  test: (a) the tree, since 806a2f73 predates main 767115db; (b) GPU memory pressure at p2 for the pinned x4 system. For (a),
+  the same-tree control is r20260925-120625-4b74: +blake3 x1 and x4 re-measured at 5b28557b.
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

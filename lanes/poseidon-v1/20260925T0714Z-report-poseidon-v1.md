@@ -250,3 +250,6 @@ BYTEID IDENTICAL (ev 71b51d0b, stmts d54de18b; main's commit 16.05 s), tree art:
 (set +0.1 %). Against the first A100 pod (unset, same CPU model): 5380 -> 5477 (+1.8 %, t.total 0.681 -> 0.685 s, commit 0.080 ->
 0.063 s). Pod 11:41-11:58Z, $1.59/h, ~$0.45. Evidence evidence/a100m/. Handoff verify-night-2/20260925T1205Z.
 - 11:59Z RTX 4090 pod 0d2olfrqxg82q5 (US, EPYC 7642, $0.74/h; registered by hand); syncing.
+- Inbox 1146Z (coordinator): every run with --custody-r2, no `fetch --all` to the laptop. Already the case: every run of this
+  lane was launched with --custody-r2 --custody-ttl 8h, and my laptop run dirs total < 1 MB.
+- 12:07Z 4090 sync 265 s; bootstrap r20260925-120730-5acb (RELS=fp8-ada, NS 1024..65536).

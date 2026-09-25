@@ -5,7 +5,7 @@
 // unit u of VU v reads elements [u*k, (u+1)*k) of x row v and W column v; c_in(0) = +0 and c_in(u+1) =
 // c_out(u) (the chain is evaluated here, not proved: chain glue is not in the Flock statement).
 //
-// One CTA per 32 VUs, bit-sliced (bit l of every shared word = VU 32*cta + l), walking its 32 chains unit by
+// One CTA per 32 * UW_H VUs, bit-sliced (bit l of every shared word = VU 32 * UW_H * cta + l), walking its 32 chains unit by
 // unit: operands -> input wires by warp ballot; AND / assertion / copy rows in level order, the netlist streamed
 // through shared memory in batches (a batch = consecutive level segments whose column lists fit the buffer; a
 // __syncthreads after each segment), so no gate waits on an L2 round trip; then (z, a, b) per row transposed to
@@ -30,6 +30,15 @@ typedef unsigned long long uw_u64;
 #ifndef UW_FUSED
 #define UW_FUSED 0            // 1: one pass over a gate's A and B terms
 #endif
+#ifndef UW_H
+#define UW_H 1                // bit-slice word = 32 * UW_H VUs (2: uint64 words, half the CTAs at the same latency)
+#endif
+#if UW_H == 2
+typedef unsigned long long uw_w;
+#else
+typedef uint32_t uw_w;
+#endif
+#define UW_VPC (32 * UW_H)
 #define UW_WARPS (UW_THREADS / 32)
 #define UW_WIDE 64            // profiling split only: segments at least this wide count as wide
 #define UW_COLS_CAP 12288     // u16 column terms per batch (host packs at most 12284; the copy is 16-byte aligned)
@@ -56,17 +65,17 @@ struct UnitNetDev {
 };
 
 struct UwSmem {
-    uint32_t zs[UW_K];
+    uw_w zs[UW_K];
     uint16_t cols[UW_COLS_CAP + 16];
     uint32_t desc[UW_DESC_CAP];
     uint32_t start[UW_DESC_CAP + 1];
     int seg_end[UW_MAX_SEGS];
     int batch_seg[UW_MAX_BATCHES + 1];
-    uint32_t cbuf[32];
+    uw_w cbuf[32];
 };
 
 // G lanes per gate (G a power of two, uniform over the segment) so a narrow level finishes in one round
-__device__ __forceinline__ void uw_eval_seg(uint32_t* zs, const UwSmem& S, uint32_t* scr_a, uint32_t* scr_b,
+__device__ __forceinline__ void uw_eval_seg(uw_w* zs, const UwSmem& S, uw_w* scr_a, uw_w* scr_b,
                                             int e0, int e1, int tid) {
     const int ng = e1 - e0;
     int lg = UW_MAXLG;
@@ -74,7 +83,7 @@ __device__ __forceinline__ void uw_eval_seg(uint32_t* zs, const UwSmem& S, uint3
     const int G = 1 << lg, gl = tid & (G - 1), slots = UW_THREADS >> lg;
     for (int i0 = e0; i0 < e1; i0 += slots) {
         const int i = i0 + (tid >> lg);
-        uint32_t av = 0, bv = 0;
+        uw_w av = 0, bv = 0;
         int r = 0;
         if (i < e1) {
             const uint32_t d = S.desc[i];
@@ -82,7 +91,7 @@ __device__ __forceinline__ void uw_eval_seg(uint32_t* zs, const UwSmem& S, uint3
             const int st = S.start[i], mid = st + (d >> 16), en = S.start[i + 1];
 #if UW_FUSED
             for (int j = st + gl; j < en; j += G) {
-                const uint32_t x = zs[S.cols[j]];
+                const uw_w x = zs[S.cols[j]];
                 if (j < mid) av ^= x; else bv ^= x;
             }
 #else
@@ -104,12 +113,12 @@ __global__ void __launch_bounds__(UW_THREADS)
 unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8_t* __restrict__ w_cols,
                    int elem_bytes, int n_vu, int units_per_vu, int row_len, long long n_total,
                    uw_u64* __restrict__ z, uw_u64* __restrict__ a, uw_u64* __restrict__ b,
-                   uint32_t* __restrict__ scratch) {
+                   uw_w* __restrict__ scratch) {
     extern __shared__ __align__(16) unsigned char uw_raw[];
     UwSmem& S = *reinterpret_cast<UwSmem*>(uw_raw);
-    uint32_t* zs = S.zs;
+    uw_w* zs = S.zs;
     const int tid = threadIdx.x, lane = tid & 31, warp = tid >> 5;
-    const int n_vu_ctas = (n_vu + 31) / 32;
+    const int n_vu_ctas = (n_vu + UW_VPC - 1) / UW_VPC;
     const bool pad = (int)blockIdx.x >= n_vu_ctas;
     const long long n_units = (long long)n_vu * units_per_vu;
     const long long n_padblk = n_total - n_units;
@@ -120,13 +129,12 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
         pad_lo = n_units + per * ((int)blockIdx.x - n_vu_ctas);
         pad_hi = pad_lo + per < n_total ? pad_lo + per : n_total;
     }
-    uint32_t* scr_a = scratch + (size_t)blockIdx.x * 2 * UW_K;
-    uint32_t* scr_b = scr_a + UW_K;
+    uw_w* scr_a = scratch + (size_t)blockIdx.x * 2 * UW_K;
+    uw_w* scr_b = scr_a + UW_K;
     const int U = pad ? 1 : units_per_vu;
     const bool prof = UW_PROFILE_ON && blockIdx.x == 0 && tid == 0;
     long long prof_t = clock64(), pacc[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-    const int v = (int)blockIdx.x * 32 + lane;
-    const bool vv = !pad && v < n_vu;
+    const int v0 = (int)blockIdx.x * UW_VPC + lane;   // VU of bit lane + 32 h of a word: v0 + 32 h
     for (int i = tid; i < UW_K; i += UW_THREADS) zs[i] = 0;
     for (int i = tid; i < N.n_segs; i += UW_THREADS) S.seg_end[i] = N.seg_end[i];
     for (int i = tid; i <= N.n_batches; i += UW_THREADS) S.batch_seg[i] = N.batch_seg[i];
@@ -137,20 +145,27 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
             for (int e = warp; e < 2 * N.k; e += UW_WARPS) {
                 const int side = e >= N.k, ei = e - side * N.k;
                 const uint8_t* src = side ? w_cols : x_rows;
-                uint32_t val = 0;
-                if (vv) {
-                    long long idx = (long long)v * row_len + (long long)u * N.k + ei;
-                    val = elem_bytes == 2 ? ((const uint16_t*)src)[idx] : src[idx];
+                uint32_t val[UW_H];
+#pragma unroll
+                for (int h = 0; h < UW_H; h++) {
+                    const int v = v0 + 32 * h;
+                    val[h] = 0;
+                    if (v < n_vu) {
+                        long long idx = (long long)v * row_len + (long long)u * N.k + ei;
+                        val[h] = elem_bytes == 2 ? ((const uint16_t*)src)[idx] : src[idx];
+                    }
                 }
                 const int base = side * N.n_x + ei * N.bits;
                 for (int t = 0; t < N.bits; t++) {
-                    uint32_t word = __ballot_sync(0xffffffffu, (val >> t) & 1);
+                    uw_w word = 0;
+#pragma unroll
+                    for (int h = 0; h < UW_H; h++) word |= (uw_w)__ballot_sync(0xffffffffu, (val[h] >> t) & 1) << (32 * h);
                     if (lane == 0) zs[base + t] = word;
                 }
             }
             if (tid < 32) zs[N.n_x + N.n_w + tid] = S.cbuf[tid];
         }
-        if (tid == 0) zs[N.const_pos] = 0xffffffffu;
+        if (tid == 0) zs[N.const_pos] = ~(uw_w)0;
         __syncthreads();
         UW_PROF(0);
         for (int bt = 0; bt < N.n_batches; bt++) {
@@ -173,11 +188,11 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
             }
         }
         for (int c = warp; c < UW_WORDS; c += UW_WARPS) {
-            uint32_t zw[2], aw[2], bw[2];
+            uw_w zw[2], aw[2], bw[2];
 #pragma unroll
             for (int h = 0; h < 2; h++) {
                 const int r = c * 64 + h * 32 + lane;
-                uint32_t zz = 0, aa = 0, bb = 0;
+                uw_w zz = 0, aa = 0, bb = 0;
                 if (r < N.useful) {
                     zz = zs[r];
                     if (r < N.n_in || r == N.const_pos) { aa = zz; bb = zz; }
@@ -187,24 +202,31 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
             }
             uw_u64 Z = 0, A = 0, B = 0;
             if (!pad) {
+#pragma unroll
+                for (int q = 0; q < UW_H; q++) {
+                    const uint32_t zq0 = (uint32_t)(zw[0] >> (32 * q)), zq1 = (uint32_t)(zw[1] >> (32 * q));
+                    const uint32_t aq0 = (uint32_t)(aw[0] >> (32 * q)), aq1 = (uint32_t)(aw[1] >> (32 * q));
+                    const uint32_t bq0 = (uint32_t)(bw[0] >> (32 * q)), bq1 = (uint32_t)(bw[1] >> (32 * q));
 #pragma unroll 4
-                for (int l = 0; l < 32; l++) {
-                    uint32_t z0 = __ballot_sync(0xffffffffu, (zw[0] >> l) & 1), z1 = __ballot_sync(0xffffffffu, (zw[1] >> l) & 1);
-                    uint32_t a0 = __ballot_sync(0xffffffffu, (aw[0] >> l) & 1), a1 = __ballot_sync(0xffffffffu, (aw[1] >> l) & 1);
-                    uint32_t b0 = __ballot_sync(0xffffffffu, (bw[0] >> l) & 1), b1 = __ballot_sync(0xffffffffu, (bw[1] >> l) & 1);
-                    if (lane == l) {
-                        Z = z0 | ((uw_u64)z1 << 32); A = a0 | ((uw_u64)a1 << 32); B = b0 | ((uw_u64)b1 << 32);
+                    for (int l = 0; l < 32; l++) {
+                        uint32_t z0 = __ballot_sync(0xffffffffu, (zq0 >> l) & 1), z1 = __ballot_sync(0xffffffffu, (zq1 >> l) & 1);
+                        uint32_t a0 = __ballot_sync(0xffffffffu, (aq0 >> l) & 1), a1 = __ballot_sync(0xffffffffu, (aq1 >> l) & 1);
+                        uint32_t b0 = __ballot_sync(0xffffffffu, (bq0 >> l) & 1), b1 = __ballot_sync(0xffffffffu, (bq1 >> l) & 1);
+                        if (lane == l) {
+                            Z = z0 | ((uw_u64)z1 << 32); A = a0 | ((uw_u64)a1 << 32); B = b0 | ((uw_u64)b1 << 32);
+                        }
                     }
-                }
-                if (vv) {
-                    const long long blk = (long long)u * n_vu + v;
-                    z[blk * UW_WORDS + c] = Z; a[blk * UW_WORDS + c] = A; b[blk * UW_WORDS + c] = B;
+                    const int v = v0 + 32 * q;
+                    if (v < n_vu) {
+                        const long long blk = (long long)u * n_vu + v;
+                        z[blk * UW_WORDS + c] = Z; a[blk * UW_WORDS + c] = A; b[blk * UW_WORDS + c] = B;
+                    }
                 }
             } else {
                 // every lane holds the same zero-input instance: bit 0 of each word
-                uint32_t z0 = __ballot_sync(0xffffffffu, zw[0] & 1), z1 = __ballot_sync(0xffffffffu, zw[1] & 1);
-                uint32_t a0 = __ballot_sync(0xffffffffu, aw[0] & 1), a1 = __ballot_sync(0xffffffffu, aw[1] & 1);
-                uint32_t b0 = __ballot_sync(0xffffffffu, bw[0] & 1), b1 = __ballot_sync(0xffffffffu, bw[1] & 1);
+                uint32_t z0 = __ballot_sync(0xffffffffu, (uint32_t)zw[0] & 1), z1 = __ballot_sync(0xffffffffu, (uint32_t)zw[1] & 1);
+                uint32_t a0 = __ballot_sync(0xffffffffu, (uint32_t)aw[0] & 1), a1 = __ballot_sync(0xffffffffu, (uint32_t)aw[1] & 1);
+                uint32_t b0 = __ballot_sync(0xffffffffu, (uint32_t)bw[0] & 1), b1 = __ballot_sync(0xffffffffu, (uint32_t)bw[1] & 1);
                 Z = z0 | ((uw_u64)z1 << 32); A = a0 | ((uw_u64)a1 << 32); B = b0 | ((uw_u64)b1 << 32);
                 for (long long blk = pad_lo + lane; blk < pad_hi; blk += 32) {
                     z[blk * UW_WORDS + c] = Z; a[blk * UW_WORDS + c] = A; b[blk * UW_WORDS + c] = B;
@@ -252,7 +274,7 @@ inline cudaError_t launch_unit_witness(const UnitNetDev& N, const uint8_t* x_row
                                        int n_vu, int units_per_vu, int row_len, long long n_total,
                                        uw_u64* z, uw_u64* a, uw_u64* b, uint8_t* z_lincheck, cudaStream_t st = 0) {
     static bool attr = false;
-    static uint32_t* scratch = nullptr;
+    static uw_w* scratch = nullptr;
     static size_t scratch_ctas = 0;
     if (!attr) {
         cudaError_t e = cudaFuncSetAttribute(unit_witness_chain, cudaFuncAttributeMaxDynamicSharedMemorySize, (int)sizeof(UwSmem));
@@ -261,10 +283,10 @@ inline cudaError_t launch_unit_witness(const UnitNetDev& N, const uint8_t* x_row
     }
     long long n_units = (long long)n_vu * units_per_vu;
     if (n_units > n_total || N.n_segs > UW_MAX_SEGS || N.n_batches > UW_MAX_BATCHES) return cudaErrorInvalidValue;
-    int ctas = (n_vu + 31) / 32 + unit_witness_pad_ctas(n_units, n_total);
+    int ctas = (n_vu + UW_VPC - 1) / UW_VPC + unit_witness_pad_ctas(n_units, n_total);
     if ((size_t)ctas > scratch_ctas) {
         if (scratch) { cudaError_t e = cudaFree(scratch); if (e != cudaSuccess) return e; }
-        cudaError_t e = cudaMalloc(&scratch, (size_t)ctas * 2 * UW_K * sizeof(uint32_t));
+        cudaError_t e = cudaMalloc(&scratch, (size_t)ctas * 2 * UW_K * sizeof(uw_w));
         if (e != cudaSuccess) return e;
         scratch_ctas = ctas;
     }

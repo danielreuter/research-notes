@@ -5,6 +5,7 @@ created: 2026-09-25T09:25Z
 status: open
 ---
 
+CHECKPOINT none (12:10Z) [open] 12:10Z (5:12 AM PT) DISK 1.82 GiB (2.3 -> 1.82 in ~10 min): drain is vLLM runs' full fetches into ~/.research/runs (vyv-rf-b1-g1, -c2-reg, -b1-cpu resources.jsonl 20-35 MB); research lanes compliant. STOPPED flock-glue (lowest value; STOP handoff: FINAL now, terminate H100+A100, no fetches). Correction: my 11:43Z telemetry eviction also evicted 10 vLLM f1 files (vyv-rf-f1-*; R2-verified, stubs left, recoverable); script now research-only (vy-, not vyv-). Spend $81.64 of $300.
 CHECKPOINT none (12:03Z) [open] 12:03Z (5:05 AM PT) RunPod auto top-up FIRED between 11:59Z and 12:01Z: balance $100.88 -> $297.25 (~+$196). Balance watch timer and logger stopped (log kept: evidence/balance.log).
 CHECKPOINT none (12:02Z) [open] 12:02Z (5:04 AM PT) cherry-picked b-ligero-sha256 b009fdc8 (bf16-hopper-x4+sha256 PINS row; gate 13 honest + 86 negatives) -> main 2c92b9e3; CLI + steward updated. red-team SH asked to extend the +sha256 grant to bf16-hopper-x4; verify-night-2 to verify art:4aa258ee / art:fcd6a623 at >=2c92b9e3. Custody caveat (runner push RemoteDisconnected; 62-repush.sh) sent to all lanes.
 CHECKPOINT none (12:00Z) [open] 12:00Z (5:01 AM PT) disk 2.3 GiB (>1.8, no stop); ~/.research/runs 4.0 -> 4.1 GB in 10 min, now from vLLM runs (vyv-rf-b4-h100 r20260925-113014-592b, vyv-rf-c2-g1 r20260925-114645-150d resources.jsonl) -- research lanes compliant; asked root to relay the custody-r2/no-fetch rule to the vLLM coordinator. Balance $100.88 at 11:59Z, top-up not yet triggered.

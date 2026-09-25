@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT none (04:02Z) [open] 04:05Z disk hit 3.1 GiB (swap files 16->20 GB + parity re-fetched blobs); evicted 78 R2-verified blobs 1.35 GiB -> 7.4 GiB; timers armed (sweep 30 min, digest 01:00Z); parity pass 2 started
 CHECKPOINT baeefd21 (03:59Z) [open] 04:02Z merged vllm-rf-f24 e818a5d4 -> 24e3b391, vllm-rf-f56 a4b823a3 -> baeefd21 (--no-ff, integrations/vllm only, lints 41/41 on merged tree); pushed; cli moved
 CHECKPOINT 3d48c00 (03:58Z) [open] 04:00Z standing rule: coordinator merges every PR (Daniel-commented PRs wait); #7 #8 #9 #10 already merged
 CHECKPOINT 7b724ae2 (03:56Z) [open] 04:00Z merged #7 c67542be (pod registry, off on laptop) and #10 7b724ae2 (lease/liveness/service, opt-in); 106 tests pass incl rsync; cli+steward moved

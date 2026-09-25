@@ -206,3 +206,7 @@ updated: 2026-09-25T03:13Z
   03:29Z, 26/26 fixtures on two keys, both deleted) running `r20260925-033833-dec1`: the 13 replay_partition tests as four serial
   row-disjoint processes (A r39 r4 r23; B r74 r67 r75 r70; C r11 r73; D r68 r57 r60 r101), ETA ~04:05Z.  Union = gate (a)'s 158.
   Gate (b) run preserved on the remote; be4b too.  Both pods registered in machines.toml; drain both by ~04:40Z.
+- 04:03Z **T1 replay_partition at `d1f18fc8`: 9 passed, 4 skipped (#4 #23 #70 #75 "no sampled_replay record"), 0 failed** --
+  `r20260925-033833-dec1` (vyv-rf-f1-t1, four processes, 15-20 min each, peak 251 GB), rc 0.  Same outcome on all 13 as `e2f85a82`
+  (tp2) and as a23b's T0+T1 base at `72884c8a`.  Preserved; **vyv-rf-f1-t1 drained and TERMINATED 04:02Z** (~40 min).  The serial
+  rest of gate (a) (`r20260925-032012-ef74`, vyv-rf-f1-cpu) ~76% at 04:02Z, ETA ~04:20Z.

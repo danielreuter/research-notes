@@ -66,8 +66,12 @@ for cfg in "$@"; do
       | sort | xargs sha256sum > $o/sha256.txt)
     agg=$(sha256sum < $o/sha256.txt | cut -c1-16)
     nf=$(wc -l < $o/sha256.txt)
-    tr=$($PY -c "import json,hashlib; t=json.load(open('$o/urandom-trace.json'))['last_pass']; print(len(t), hashlib.sha256(json.dumps([(x['job'],x['i'],x['n']) for x in t]).encode()).hexdigest()[:12])" 2>/dev/null)
-    echo "$(date -u +%H:%M:%SZ) $name $r commit=${commit:0:8} rc=$rc wall=$(( $(date +%s) - t0 ))s files=$nf dumps_sha=$agg urandom_last_pass=[$tr]" | tee -a $SUM
+    tr=$($PY -c "
+import json, hashlib
+d = json.load(open('$o/urandom-trace.json')); t = d['last_pass']
+k = ','.join(f'{n}:{e[\"calls\"]}' for n, e in sorted(d.get('kernels', {}).items()))
+print(len(t), hashlib.sha256(json.dumps([(x['job'], x['i'], x['n']) for x in t]).encode()).hexdigest()[:12], 'kernels=' + k)" 2>/dev/null)
+    echo "$(date -u +%H:%M:%SZ) $name $r commit=${commit:0:8} seed=${RTA_SEED:-default} rc=$rc wall=$(( $(date +%s) - t0 ))s files=$nf dumps_sha=$agg urandom_last_pass=[$tr]" | tee -a $SUM
     [ $rc = 0 ] || tail -5 $o/log | sed 's/^/    /' | tee -a $SUM
   done
   base=$A/ab/$name/$(echo $REVS | cut -d' ' -f1)/sha256.txt
@@ -79,7 +83,7 @@ for cfg in "$@"; do
   if [ -x "${LIGERO_VERIFY:-}" ] && [ -d $A/ab/$name/tip/proofs ]; then
     timeout 600 $LIGERO_VERIFY batch --system $A/ab/$name/tip/proofs/system.bin --dir $A/ab/$name/tip/proofs/rep1 \
       --jobs $(nproc) > $A/ab/$name/tip/rust-verify.log 2>&1
-    echo "  $name tip rust ligero-verify rc=$? $(tail -1 $A/ab/$name/tip/rust-verify.log)" | tee -a $SUM
+    echo "  $name tip rust ligero-verify rc=$? $(tail -1 $A/ab/$name/tip/rust-verify.log | $PY -c 'import json,sys; d=json.loads(sys.stdin.read()); print(d.get("accepted"), "/", d.get("n"), d.get("batch_reason"))' 2>&1 | tail -1)" | tee -a $SUM
   fi
 done
 cp $SUM $RD/ 2>/dev/null

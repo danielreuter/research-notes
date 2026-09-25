@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT 57038af (00:05Z) [open] ff98 @716ea008 recorded+PRESERVED: t.total 0.1905s, 2^-130.19, arts 49757870/78b3aadf, verify-po handoff 0005Z. e1bcf472 pinned H2D -> 0.1885 dev. Next: lookup pad closed form, phase-1 host work.
 CHECKPOINT 716ea008 (00:03Z) [open] recorded r20260924-235457-ff98 @716ea008 t.total 0.1905s (5 reps) art:49757870 result art:78b3aadf run-files, same proof bytes as 1b1d; verify-po handoff 0005Z; adopted agkr-fp8 prover commits + compiled witness step; next: phase-1 pinned H2D
 CHECKPOINT 2b25df7f (23:42Z) [open] recorded r20260924-233405-1b1d @2b25df7f t.total 0.245s art:5adf62eb result art:d6673af2 run-files PRESERVED (thread caps fixed); verify-po handoff 2350Z supersedes; next: torch.compile'd chain step (witness 28.7->12.1ms) + re-record
 CHECKPOINT ab57df0a (23:18Z) [open] recorded r20260924-223922-5cff @ab57df0a t.total 0.314s art:ad8f92b9 result art:82f70cb9 run-files PRESERVED, verify-po handoff 2305Z; found record script lacked env.sh thread caps (+40ms; fixed, kb ops-tools); next: fused input claims, re-record ~0.27s
@@ -74,5 +75,10 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
     int32 Acc). Conflicts resolved toward theirs, except that my one-launch gate_eval query path stays first, with their
     planned gather as the fallback.
   - tried and dropped: vectorizing add_lookup_claim's per-query term loop (09_terms.py: only 1.5 ms of its 20 ms is Python).
+- recorded r20260925-*-ff98 @ 716ea008 (5 reps, thread caps on): t.total 0.1905 s (0.192 / 0.190 / 0.191 / 0.190 / 0.190),
+  Rust 5/5 (0.164 s), 2^-130.19; result art:49757870c9720787…, run-files art:78b3aadf21aabd37…, PRESERVED; proofs 9467080 B
+  sha 091fecad… (same bytes as 1b1d).  verify-po handoff `lanes/verify-po/20260925T0005Z-handoff-from-agkr-nvf4.md`.
+  - e1bcf472 phase-1 round operands in one pinned non-blocking H2D copy (gkr_packed._inputs; sumcheck_packed.to_dev pinned):
+    same sha, t_arith 54.5 -> 51.8 ms, t.total 0.1905 -> 0.1885 s (dev).
 - stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.

@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-24T23:50Z
+updated: 2026-09-25T00:07Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -132,6 +132,7 @@ updated: 2026-09-24T23:50Z
 - 23:16Z **#67 Commit(base, PAIRS=1) `r20260924-231650-a561`** (g1b). Head next on `/workspace/sweep_head` at `e2f85a82`, `--env PAIRS=1`.
 - 23:44Z **#70 Commit(base) `r20260924-221949-8668` DONE: FAIL as the fixture** (`commit FAIL rc=1 wall=5062s pass False pairs 3`; tokens equal x6; tp run root `0b91229f06480ce4…` in all 3 pairs; replay False (partial: rank0 484 / rank1 475 q/k-norm strata recycled-window), linkage True (434/434 per rank per pair), xrank False (TP-12 picks 154 = equal 154, but AllGather2 sites without a stratum), fold_binding False ("fold Match record missing (tp2_fold_match.json / tp2_rank_match.json) -- REQUIRED"), weights_pin True). Per pair per rank: match_oracle 14592 = equal 14592; attribution ok; openings 128/128. value_check.json per rank tap 24960/24960 equal, reexec 22656/22656; t6_4 True. Extractor: `/tmp/rff1/tpstats.py <rowdir>` (run on the pod via `python3 - <dir> < tpstats.py`).
 - 23:45Z **#70 Commit(head) `r20260924-234524-0620`** (tp2, `e2f85a82`, `/workspace/sweep_head`, PAIRS=3; no other row process live, GPUs 0 MiB at launch). ETA ~01:15-01:30Z.
+- 00:07Z progress: #70 head manifest 23:45:39-23:55:06 (9m27s, digest `1bb40895671dd791` = base; base's 9m44s overlapped the void duplicate, so ~no inflation), tp.commit warming up. #67 base (PAIRS=1) pair 0: warm-up instrumented 138 s; C2 oracle compare `partial` by design (Match snapshots steps 0,1 only): compared 16120 = equal 16120, mismatch 0, attribution False (11 ambiguous requests) -- identical to vllm-57-fix's #67 record, whose verdict was PASS. Gate (a) serial ~70% (tp2 CPUs shared with the Commits), ETA ~00:55Z.
 - Plan: tp2 #70 Commit(base) then Commit(head) as soon as gate (b) `e2f85a82` ends (gate (a) serial still running beside them: noted for timings, same for both). g1b: #67 Match -> Commit(base) -> Commit(head). Pods die at 03:00Z (deadline daemon).
 
 ## Next

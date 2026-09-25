@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 # agkr-fp8: lookup negatives on a merged FP8 statement ($H/stmt, one LK table): one unit's column read by an LK query is
 # changed by +1 (a T_OP / SHIFT / TNORM output, an R5 key term) and the prover is handed the *honest* multiplicities
-# (logup.multiplicities patched), so the proof is what a cheating prover would send; Python and Rust must both reject.
+# (logup.multiplicities patched), and runs from a copy of the prover whose LogUp self-check ("fractional sum is not zero")
+# is a no-op, so the proof is what a cheating prover would send (root claimed (0, q)); Python and Rust must both reject.
 set -uo pipefail
 source /workspace/env.sh
 REL=${1:-fp8-ada}; N=${2:-4096}
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-cd /workspace/src/backends/gkr
-export PYTHONPATH=/workspace/src/backends/gkr:$PYTHONPATH
+NS=/workspace/agkr-fp8/negsrc
+rm -rf $NS && mkdir -p $NS && cd /workspace/src/backends/gkr && cp -r *.py gpu packed tensor tools $NS/
+sed -i 's/raise ValueError("LogUp: fractional sum is not zero (a query is not in its table)")/pass  # cheating prover/' \
+    $NS/gpu/logup_packed.py $NS/gpu/logup.py
+grep -c "pass  # cheating prover" $NS/gpu/logup_packed.py $NS/gpu/logup.py
+cd $NS
+export PYTHONPATH=$NS:$PYTHONPATH
 REL=$REL N=$N H=${H:-/workspace/agkr-fp8/$REL} $PY - <<'EOF' 2>&1 | grep -v -i -E "warn|searchsorted"
 import json, os, subprocess
 from pathlib import Path

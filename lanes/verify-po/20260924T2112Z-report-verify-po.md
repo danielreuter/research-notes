@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (00:41Z) [open] idle: inbox empty since 00:22Z; 48 accepted, 0 rejected; pod vy-verify-po up (no credential on it), polling every 10 min until 03:45Z
 CHECKPOINT ab9573fd (00:22Z) [open] verified agkr-nvf4 5090 art:49757870 (716ea008, same proof bytes as 5adf62eb; verdict art:9618b325; A-GKR cell 2.5e7x; coordinator 0022Z). 48 accepted, 0 rejected; cred removed; idle-polling
 CHECKPOINT ab9573fd (00:15Z) [open] d3-h100 LIVE x12 all PASS+BOUND, labelled (verdicts art:e13419b4..art:41e3a98b, coordinator 0017Z); Table 2 unchanged (also_valid, D3). 47 accepted, 0 rejected; idle-polling
 CHECKPOINT ab9573fd (23:53Z) [open] verified 5090: agkr-nvf4 art:5adf62eb (verdict art:4791cc89, A-GKR cell 3.3e7x) + arith B-Ligero x4 (art:0b229064 art:c6a8328b art:f538c335 art:20b47418; also_valid behind d5c9e1f3). 35 accepted, 0 rejected; idle-polling

@@ -2,9 +2,10 @@
 lane: flock-bench
 kind: report
 created: 2026-09-25T08:05Z
-status: open
+status: final
 ---
 
+CHECKPOINT 4fbfb71 (09:54Z) [final] 09:58Z FINAL: census unit + BLAKE3 leaves N=4096 on 5090 BF16 0.42-0.58s (1.6-2.2x B-Ligero bare, 18-25x under +blake3), FP8 0.20-0.39s; CPU one union proof 2.59/1.26s; handoffs coord 0945Z+0946Z; pods terminated; ~$4; 64MB fetched pre-freeze
 CHECKPOINT 15f74f3 (09:29Z) [open] 09:30Z one Flock union proof BLAKE3 leaves+unit (CPU 32T) art:025a0ed4: BF16 4096VU 2.59s/24ms/523KB/15GB RSS, FP8 1.26s/500KB; 5090 hopper units art:e4f684ac (m32 0.29s). 80gb inbox read (parallel harness). Next: zorch m31, report+handoffs
 CHECKPOINT 806a2f73 (09:12Z) [open] 09:13Z unit circuit on Flock CPU (EPYC9654 32vCPU) art:0bd23b01: BF16 4096VU m32 prove 1.32s (0.66 naive witness) verify 4ms 461KB 8.2GB; BLAKE3 same host m33 1.26s; per-slot-bit ~equal; tamper rejected. GPU unit via patched Flock-CUDA host-witness building (r20260925-091040-8ec8)
 CHECKPOINT none (09:03Z) [open] 09:03Z NEW PRIORITY (coord 0830Z handoff) taken: census unit exported to Flock block-R1CS (BF16 7687 rows/2^13, 235k nnz), smoke 64VU prove .085s verify ok; full unit+BLAKE3 sweep on 32vCPU Zen4 r20260925-090255-c8f0; zorch B still running
@@ -17,12 +18,15 @@ CHECKPOINT a816a2b1 (08:05Z) [open] pods up (cpu3c 8vCPU Zen5 only; 16/32 sold o
 Goal (launch message): ground `docs/hash-proving-survey.md` §2/§3.1/§3.8/§3.9/§4.2-4.3/§6 "Flock plus link" projections
 in measurements at our batch shape. No repo commits (no reusable harness in the repo; harnesses live in
 `evidence/pod-scripts/`). Handoffs received:
-- coordinator 0830Z, NEW PRIORITY: prove the binary-backend unit circuit (census `internal/binary-census/`) plus the
+- `20260925T0830Z-handoff-from-coordinator.md` (NEW PRIORITY): prove the binary-backend unit circuit (census `internal/binary-census/`) plus the
   BLAKE3 table at 4,096 VUs on pod CPU and the 5090. Report "flock-bench: binary backend numbers" against the B-Ligero
   Table 2 cells and the census projection; do not build on the link doc. Taken, see "Binary-backend unit circuit" below.
-- flock-bench-80gb 0900Z (who writes the unit harness?): answered 0904Z by pointing it at mine. 0915Z: it wrote a
+- `20260925T0900Z-handoff-from-flock-bench-80gb.md` (who writes the unit harness?): answered 0904Z by pointing it
+  at mine. `20260925T0915Z-handoff-from-flock-bench-80gb.md`: it wrote a
   parallel harness (`unit_shape`) and is running A100/H100. Read, not re-run here: its numbers are its own lane's
   deliverable. I adopted its cgroup gotcha as a check (`nproc` = 32 on my CPU pod, so 32T was not oversubscribed).
+- `20260925T0946Z-handoff-from-coordinator.md` (laptop disk under 3 GiB): taken. No fetches after 09:49Z; everything
+  in R2 via `--preserve`. My runs already fetched to `~/.research/runs` total 64 MB (largest r20260925-082947-b255, 25 MB).
 
 ## What was proved (the shape)
 

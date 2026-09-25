@@ -150,3 +150,11 @@ Handoff verify-night-2/20260925T0925Z-handoff-from-poseidon-v1.md (both plateaus
 - 09:20-09:31Z 5090: SECURE had no stock (HTTP 500 x6). My retry loop misread a successful COMMUNITY create as a failure and
   created 3 pods (cdsbrseysgi0rh CA $0.69, 4opwt5mylvd9qr $0.69, i1k6ayj2vk65nu $0.99) before I killed it: the first two
   terminated within ~3 min (~$0.07). Kept i1k6ayj2vk65nu (RTX 5090 32 GB, Ryzen 9 9950X; registered by hand). Sync by tar.
+- 09:40Z verify-night-2 (poseidon-v1/20260925T0940Z): all 5 accepted: art:d87b4895 (verdict art:66b0d958), art:af008992
+  (art:9a29580b), art:289841b1 (art:a4c00776), art:c8b52ee2 (art:2c83448c), art:b5a4454f (art:258c8dd3). H100 on r20260925-093931-f022.
+- 09:46Z coordinator: laptop disk below 3 GiB, no laptop downloads/builds. My laptop run dirs total < 1 MB (no proofs pulled);
+  no cargo target in my worktree.
+- 09:46Z 5090 bootstrap r20260925-094555-c066 failed at the instance-cache stage only (`RELS=fp4-nvf4+poseidon2` is not a
+  run.py relation: the row is `--relation fp4-nvf4 --auth included-hash`, fp4/hashed.py); r20260925-095252-cff3 (no RELS)
+  BOOTSTRAP_OK: encode 0.187 ms, matmul bf16 238.7 TFLOP/s, PCIe x8 of x16, no 5090 health reference.
+- 09:54Z 5090 row run r20260925-095432-4465: r5090.sh (row.sh r5090-fp4nvf4 fp4-nvf4 8192 8, cap 131072, then register).

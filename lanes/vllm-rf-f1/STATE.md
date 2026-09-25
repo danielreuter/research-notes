@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T04:23Z
+updated: 2026-09-25T04:28Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -241,3 +241,11 @@ updated: 2026-09-25T04:23Z
   (`research run --source . --stage bootstrap`, pod_bootstrap.sh --cpu).  Plan: lints + touched tests at `299f42d5`, then gate (b)
   at `299f42d5` and at main `baeefd21` side by side on this pod (same command as `r20260925-025346-73c9`), jdiff head vs main and vs
   a1; preserve; drain.
+- 04:28Z RUNS on vyv-rf-f1-cpu2 (the three test runs wait for the bootstrap to exit, then need /workspace/venv312):
+  bootstrap `r20260925-042334-f76f` (299f42d5); gate (b) MAIN `r20260925-042642-c979` (baeefd21, from the rf-f1-base worktree);
+  lints + touched `r20260925-042715-a96f` (299f42d5: lint suite, then acquire/ commit/ tp/ check/test_sampled_replay* opened values,
+  oracle compare x2, committed-reader, alias fixture, f24's reason codes + verdict + global match, admit_r19, padding consumer; -n 8);
+  gate (b) HEAD `r20260925-042717-8109` (299f42d5).  Gate (b) command = `r20260925-025346-73c9`'s, but the order probe writes per run
+  (ORDER_DIR), since two gate (b) runs share the pod.  Scripts in /tmp/rff1/{pytest_job_order.sh,orderprobe.py,lint_touched.sh}.
+- main moved again at ~04:25Z: `5e0c7ca7` (Merge #12, tools/research only, 5 files; merge-tree clean with 299f42d5; integrations/vllm
+  identical to baeefd21).  Staying on baeefd21 as the coordinator's 04:06Z note says; say so in READY.

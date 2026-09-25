@@ -128,13 +128,14 @@ fn attacks(st: Arc<Stmt>) {
         report("fork_child_seed_words_altered", "R3", "reject", &session(&st, t, &h()), json!({}));
     }
 
-    // R2: one parent round split into two coin requests.
-    {
+    // R2: one round split into two coin requests (before the fork, after it, and on a fork child).
+    for (target, at_k) in [("blake3/rep0", 5usize), ("blake3/rep0", 80), ("blake3/rep1/f0", 10)] {
         let mut k = 0usize;
+        let tgt = target.to_string();
         let (t, _s, _i) = mitm(&st, true, move |req| match req {
-            Req::Round { stream, content, n } if stream == "blake3/rep0" => {
+            Req::Round { stream, content, n } if stream == tgt => {
                 k += 1;
-                if k == 5 && content.len() >= 32 {
+                if k == at_k && content.len() >= 32 {
                     let (a, b) = content.split_at(16);
                     vec![Req::Round { stream: stream.clone(), content: a.to_vec(), n: 1 }, Req::Round { stream, content: b.to_vec(), n }]
                 } else {
@@ -143,7 +144,7 @@ fn attacks(st: Arc<Stmt>) {
             }
             r => vec![r],
         });
-        report("parent_round_split_in_two", "R2", "reject", &session(&st, t, &h()), json!({}));
+        report(&format!("round_split_in_two_{}_k{at_k}", target.replace('/', "_")), "R2", "reject", &session(&st, t, &h()), json!({}));
     }
 
     // R2: an extra coin round on rep 0 (and separately on a fork child) after the proofs are done.
@@ -186,7 +187,7 @@ fn attacks(st: Arc<Stmt>) {
     }
 
     // R7: hello variants and a third rep.
-    let reordered = json!({"reps": 2, "profile": "fast100", "flavor": "rs", "tables": [TABLE]}).to_string();
+    let reordered = format!("{{\"reps\":2,\"profile\":\"fast100\",\"flavor\":\"rs\",\"tables\":[\"{TABLE}\"]}}");
     report("hello_keys_reordered", "R7", "reject", &session(&st, inproc(&st, true).0, &Plan { hello: Some(reordered), ..h() }), json!({}));
     report("hello_reps_3", "R7", "reject", &session(&st, inproc(&st, true).0,
         &Plan { hello: Some(json!({"profile":"fast100","reps":3,"flavor":"rs","tables":[TABLE]}).to_string()), reps: 3, witness: vec![0xA;3], profile: vec!["fast100";3], ..h() }), json!({}));

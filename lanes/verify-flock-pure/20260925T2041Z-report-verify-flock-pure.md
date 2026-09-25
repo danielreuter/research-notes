@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: final
 ---
 
+CHECKPOINT a37c90d2 (22:45Z) [final] FINAL: H100 art:6d1295ed + 4090 art:d1961ba4 verified=accepted (file re-verification, 108/108 + 102/102, r20260925-222222-a2cf); pod terminated 22:45Z ~$1.9; tip a37c90d2
 CHECKPOINT a37c90d2 (22:45Z) [final] H100 art:6d1295ed + 4090 art:d1961ba4 verified=accepted (file re-verification, 108/108 + 102/102, r20260925-222222-a2cf); pod terminated 22:45Z ~$1.9; tip a37c90d2
 CHECKPOINT a37c90d2 (22:36Z) [open] H100 art:6d1295ed labelled verified=accepted (108/108 sessions of verifier r20260925-220103-b7c0 replayed, negatives as expected; run r20260925-222222-a2cf). 4090 art:d1961ba4 replay running on same run; then handoff + terminate pod
 CHECKPOINT d53ed556 (21:30Z) [open] old H100 cell art:bf05be17 labelled verified=accepted (60/60 sessions replayed, file re-verification). WAITING r20260925-212804-f117 on vy-verify-flock-pure (fcce H100 108 sessions + 4090 fp8-ada), check after 22:05Z; agent bc-fedbe934-96ea-5edf-a736-be24e2a83811; next: label art:1ad208b6 (+art:949bcc35), handoff, terminate pod
@@ -21,6 +22,6 @@ artifacts: art:6d1295ed art:d1961ba4 art:bf05be17 (labelled targets); runs r2026
 
 H100 art:6d1295ed and 4090 art:d1961ba4 verified=accepted (file re-verification: 108/108 and 102/102 sessions replayed with
 own instance files, pinned lowering, own Σ/publics/link_sha256; 12/12 negatives as expected). Superseded art:bf05be17 accepted
-(60/60). Handoffs received: 20260925T2100Z-handoff-from-coordinator, 20260925T2123Z-handoff-from-flock-backend,
-20260925T2135Z-handoff-from-coordinator, 20260925T2150Z-handoff-from-coordinator, 20260925T2218Z-handoff-from-flock-backend
+(60/60). Handoffs received: 20260925T2100Z-handoff-from-coordinator.md, 20260925T2123Z-handoff-from-flock-backend.md,
+20260925T2135Z-handoff-from-coordinator.md, 20260925T2150Z-handoff-from-coordinator.md, 20260925T2218Z-handoff-from-flock-backend.md
 (all acted on). Sent: coordinator 20260925T2210Z and 20260925T2246Z.

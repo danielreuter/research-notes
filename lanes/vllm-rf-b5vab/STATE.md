@@ -2,7 +2,7 @@
 id: vllm-rf-b5vab/state
 lane: vllm-rf-b5vab
 kind: state
-updated: 2026-09-25T19:05Z
+updated: 2026-09-25T20:20Z
 ---
 # b5vab (B5 split of `engine/vllm_adapter.py`): state
 
@@ -18,6 +18,10 @@ Split `integrations/vllm/verity_vllm/engine/vllm_adapter.py` (1,913 lines at bas
 moves proven by an AST/source script; `load_workload` and everything it calls stay in `vllm_adapter.py`.
 
 ## Done
+- 20:15Z #101 at `3201c3f4` on b4b-g1, run `r20260925-185918-5fec` (rc 0, PRESERVED): build/match/commit PASS; program
+  `ccc21347…`, manifest `90f81868…` (7043), run root `7adcef49…`, commit PASS (all checks); non-interference PASS 992/992,
+  tokens equal = record. The multiset of program/manifest/run-root/verdict values in the row dir is identical (md5) to b4c's
+  `r101-9689a1ef` on the same pod (`evidence/r101-head-3201c3f4.txt`). b4b-g1 terminated 20:17Z.
 - 18:58Z gate (b) at `3201c3f4` vs b4c `9689a1ef`, same pod (b4b-cpu), runs `r20260925-181128-fbe5` / `r20260925-181148-2918`:
   lints rc 0 both; 4063 tests both; 0 only-one-side, 0 new failures, 0 new skips / skip reasons; the 2 flaky gc-freeze tests
   failed->passed (`evidence/jdiff-gate_b-head-3201c3f4-vs-9689a1ef.txt`). All 3 gate (b) runs PRESERVED; b4b-cpu terminated 19:03Z.
@@ -46,9 +50,6 @@ moves proven by an AST/source script; `load_workload` and everything it calls st
 - 16:57Z handoff to the coordinator: head final for gate (a); asked for a fixture-holding pod (c4ir-reg not coming soon).
 
 ## Running
-- `vyv-rf-b4b-g1` (nplcyinf9r2si8, L40S, handed over 18:50Z): #101 build,match,commit (FA2 tap, MAX_JOBS=12) +
-  non-interference at `3201c3f4`, run `r20260925-185918-5fec` (b4c's g1_cli.sh / nonint_cli.sh, TAG b5vab-head). Started
-  19:00Z; check back ~20:15Z. Record: program `ccc21347…`, manifest `90f81868…`, run root `7adcef49…`, commit PASS, nonint 992/992.
 - `vyv-rf-c4ir-reg`: gate (a) halves `r20260925-181956-7c6e` (replay_partition) + `r20260925-182011-fabf` (rest) at
   `3201c3f4`, started 18:20Z; check back ~21:00Z.
 

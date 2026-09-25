@@ -3,7 +3,7 @@ id: vllm-rf-b5vc/state
 lane: vllm-rf-b5vc
 kind: state
 created: 2026-09-25T16:47Z
-updated: 2026-09-25T19:00Z
+updated: 2026-09-25T20:20Z
 ---
 # vllm-rf-b5vc: split program/frontend/rules/vllm_bindings.py into a package (B5) (state)
 
@@ -75,15 +75,15 @@ base: 8a3aa083
   `test_observer_encoding::test_weakref_death...` passed -> skipped ("allocator did not reuse the pointer", order-dependent at
   base; jdiff doesn't count it). `evidence/jdiff_{b,lints}.txt`.
 
+- 20:03Z gate (a) T0+T1 at head (t1): 73 passed, 85 skipped, 0 failed; jdiff vs a23b's base 158 = 158, 0 outcome changes, 0 new
+  failures/skips; 2 reworded #70/#75 skip reasons (a5's). `evidence/jdiff_a.txt`, XMLs `evidence/gates-4f090959.tgz`.
+- 20:17Z t1 terminated (runs PRESERVED). 20:20Z READY.md + merge-ready handoff `vllm-coordinator/20260925T2020Z-handoff-from-vllm-rf-b5vc.md`.
+
 ## Running
-- t1 `r20260925-181451-4e3d` (`--custody-r2`, `chain.sh 4f090959`): lints + gate (b) head (~18:45Z), jdiff vs 40b9e571,
-  gate (b) done (above); gate (a) T0+T1 head started 18:28Z, then jdiff vs a23b's same-pod base. Expected end ~20:10-20:30Z; asked the coordinator (handoff 1813Z) to
-  extend the deadline. Check back ~18:50Z and ~20:30Z. Logs `/workspace/b5vc/logs/`.
+- (none; no pods)
 
 ## Next
-- On handoff of `vyv-rf-a5-t1`: lints at head; gate (b) head `eb97ecb4` and base `f7de4620` (reuse a5c's base run on t1, `r20260925-170857-a861`, if its tree and pod match) on the pod, jdiff; gate (a)
-  T0+T1 at head vs a23b's base XML. Code identities before/after.
-- READY.md, merge-ready handoff.
+- FINAL; coordinator merges.
 
 ## Open questions
 - (none)

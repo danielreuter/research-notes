@@ -1,0 +1,11 @@
+release UNRELEASED 2026-09-25T19:01:05Z commit=unknown tree=/workspace/research/src/3201c3f4d9add2ad2d295d9657144caa1aec9e32/integrations/vllm branch=None dirty= (no /workspace/research/src/3201c3f4d9add2ad2d295d9657144caa1aec9e32/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh)
+precheck PASS 2026-09-25T19:01:05Z source identity == /workspace/research/src/3201c3f4d9add2ad2d295d9657144caa1aec9e32/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T19:01:07Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+build PASS 2026-09-25T19:03:17Z rc=0/0 wall=105s digest=03ace66f1c80b04a workload_digest=a2b43bde001d335a manifest=90f8186879d5035a 7043
+match PASS 2026-09-25T19:07:50Z rc=0/0/0 wall=273s verdict PASS global PASS  dag concurrency 1 tokens_equal True fold True
+commit PASS 2026-09-25T19:12:22Z rc=0 wall=259s outcome=PASS runs 1 failed 0 checks runtime_match=PASS local_replay=PASS boundary_linkage=PASS checkpoint_binding=PASS execution_extent=PASS required_value_coverage=PASS program_source_identity=PASS manifest_verify=True
+[nonint] === c_bare: rc=0 in 15.9s
+[nonint] PASS: hashes 992/992, tokens {'a_observer': True, 'b_hooks': True, 'c_bare': True}, problems 0 -> /workspace/b4c/b5vab-head/nonint/noninterference.json
+digest/verdict multiset md5, head vs b4c r101-9689a1ef:
+6387e4d6c5e6ffcebeffa65fa99a5637  -
+6387e4d6c5e6ffcebeffa65fa99a5637  -

@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 906255b2 (20:13Z) [open] accepted: 675a03a3 (vd 19d49495), ac1f532c (833fc972), f7aac95f (83483c9f) + 3 equiv. Queue +1: H100 fp8-hopper-x4+vllm-v1 art:6d6464d1 (equiv 9b5f1e24) running @acd50fec
 CHECKPOINT 906255b2 (20:00Z) [open] equiv accepted: dc455fc8 (vd 388e52d3), 40b23d0b arrays direct (vd 16c71390), d4402d29 regen at acd50fec + 7da00370 (vd 7d6d25db). reverify: 675a03a3 PASS; ac1f532c running, then f7aac95f
 CHECKPOINT 906255b2 (19:48Z) [open] pod vy-verify-night-3 p3ink8nhwnomt7 (cpu3c 16 vCPU 100GB, $0.48/h) for ac1f532c/675a03a3 (@main 7da00370) + f7aac95f (@lane/b-ligero-vllm-v1 acd50fec) and their equiv docs
 CHECKPOINT 906255b2 (19:42Z) [open] reopened for 3 cells (coordinator 1940Z/1945Z): ac1f532c+dc455fc8, 675a03a3+40b23d0b, f7aac95f+d4402d29: NOT final

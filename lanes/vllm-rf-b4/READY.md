@@ -92,7 +92,25 @@ tree on the same pod.
 The record's Program / manifest digests predate the relayout; no from-scratch Build gives them (f3's and c1's finding;
 c1 and f3 got `ccc21347…` / `90f81868…` too). Evidence: `evidence/r101/`.
 
-**FA3 tap on H100.** FA3_SECTION
+**FA3 tap on H100.** 1x H100 PCIe `vyv-rf-b4-h100` (cc 9.0, 114 SMs), bootstrap from head (FA3-TAP-OK `e0fb0036…`,
+hdims 64,128, layout v9). The H100 rows of record declare an H100 SXM: the Llama-3.2-1B B1 1024/128 H100 row built at
+head (PASS, step `d26b34f804603abc`, manifest `a442399bf7828e04`), and then `build_engine` refused this part ("num_sms
+declared 132, device 114"), at head as it would at base. I stopped it (`r20260925-104827-1825`, rc 143) and ran the release
+canary's Llama-3.2-1B B1 256/32 greedy row instead: it declares no target, so it runs on this part with the FA3 engine;
+the target-family precheck is waived by name ("fa3 tap head-vs-base on an H100 PCIe"), as `canary.sh` does on the Hopper
+canary host. `row_pod.sh build,match,commit` PAIRS=1, head then base, same pod (`tools/h100c.sh`, `r20260925-113014-592b`).
+No record exists for this row on cc 9.0, so the comparison is head vs base.
+
+| | head `0f71b5b4` | base `10996616` |
+|---|---|---|
+| Build | PASS, step `d26b34f804603abc`, workload `0c050282fbf531ed`, manifest `a82276488fd23dc0` (6979) | same |
+| Match | PASS, global PASS, tokens_equal, fold | same |
+| Commit | PASS, every check PASS, manifest_verify True | same |
+| run root | `f64a6611e49c2c7fe7a505cdf560e1364bcf9b1a7a73cbd14232d41648648747` | = |
+| Program / manifest | `4a892d5dfe611393…` / `a82276488fd23dc0…` | = |
+| hidden class committed | `fa3_hidden_m1_stream` (512 checked) | same |
+
+Evidence: `evidence/h100/`.
 
 **#70** TP2 `olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager`, 2x L40S `vyv-rf-b4-tp2`,
 `tp_stage.sh` build / match / commit (`tools/tp2.sh`), run `r20260925-101142-d268`. The collective hooks

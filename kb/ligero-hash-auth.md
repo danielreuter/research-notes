@@ -51,3 +51,25 @@ every binding then "mismatches" (b-ligero-standard-hash report, 08:19Z).
   4090, x4 at l = 4096 fits only at p2 (p3 OOMs; peak 18.7 GB at p2).
 - **The malloc env** (MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12) gained +2.7 % at the x4 plateau on the 4090
   (2108.7 -> 2165.0 VU/s). The prover's per-rep times were already steady there.
+- **x1 plateau with the GPU committer and the malloc env** (r20260925-103611-67e0): 1185 VU/s e2e at 16 384 VUs
+  (art:c9f4a645…). **32 768 VUs is killed by the host OOM killer (rc -9)** with MALLOC_TRIM_THRESHOLD_=1e12: freed heap is
+  never returned, and the in-process verifier holds 386 proofs. The x1 sweep therefore stops on "a point failed", not on
+  the 2 % rule.
+- **`blake3-xob` scheme** (b-ligero-standard-hash, 5b28557b): the `blake3` leaf proved with the XOB compression. It is a
+  `Blake3Leaf` subclass that overrides only `_compress`, with the same schema `blake3-keyed/row/v2` and the same params,
+  so the commitments are byte-identical to +blake3. Its circuit and pins are its own:
+
+  | Relation | sys | rows | hash rows |
+  |---|---|---|---|
+  | fp8-ada+blake3-xob | 3d6cc67b… | 28 584 (vs 35 370, -19 %) | 24 012 |
+  | fp8-ada-x4+blake3-xob | f90e7b41… | 65 612 | |
+
+  Gated at 2048 VUs + 86 negatives each. The `xadd` witness op is kind 6 in the interpreter tables (4 operands, 32 rows
+  written). Two schemes may now share a schema: `by_schema` returns the first registered (blake3), and conformance
+  requires twins to share params, layout and `leaf_bytes`. **Its cells are provisional until red-team grants the class.**
+- **instance-equiv/v1 for re-packed relations** (x4 etc.): run `python -m verity_numerical.bench.instance_equiv --relation
+  <rel> --vus 4096 --out F` on a pod, then `research data put --kind instance-equiv/v1 --meta @F+lane --preserve` (the
+  renderer reads the meta). The kind is not in the CLI's known list; it prints "storing anyway", which is fine. The tool's
+  `tool` field is `@unknown` on pods (REPO = parents[4]). `frozen` must equal FROZEN_INSTANCES (range [0, 4096]), so
+  plateaus at n > 4096 cannot be expressed. fp8-ada-x4's 8192 set is prefix-equal to the frozen set (art:6fdeed7e /
+  lane evidence).

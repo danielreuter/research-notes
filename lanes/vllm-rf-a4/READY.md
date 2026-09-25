@@ -2,17 +2,26 @@
 id: vllm-rf-a4/ready
 lane: vllm-rf-a4
 kind: ready
-status: DRAFT
+status: READY
 created: 2026-09-25T08:50Z
+updated: 2026-09-25T12:00Z
 ---
 # vllm-rf-a4 READY: re-home into the §5.1 package tree (file moves only)
 
 - **Branch:** `lane/vllm-rf-a4`
 - **Head:** `10996616`, on `origin/main` `00ffe398` (f1 merged; rebased at 06:55Z). All gates ran at this head.
-- **Base for gates and diffs:** `00ffe398`. Since then, main has moved to `94b1c4d2` (as of 09:08Z). The 23 files it
-  changed are all under `backends/`, `benchmarks/commitments/` and `tests/`, none of them is in this branch's diff, and
-  none names `verity_vllm` or `integrations/vllm`. `git merge-tree --write-tree origin/main lane/vllm-rf-a4` is clean.
-  I did not rebase: the gate evidence is for this exact tree, and the wave-2 lanes are stacked on `10996616`.
+- **Gates:** all pass. Lints are 45/45. Gate (b) has no new error, skip or skip reason. Its one new failure is a
+  state-dependent twins test, reproduced at base. Gate (a) T0+T1 matches a23b's base test by test, 158/158. GPU smoke
+  #101 gives root `7adcef49…`, program `ccc21347…`, manifest `90f81868…` and commit PASS at head and at base. Every
+  `python -m` in `ops/*.sh` resolves. Evidence is preserved as
+  `art:a7d652556f976541977458fda01ba123b2050b1a8025e096043c8ed44c770f29` (kind `gate-evidence/v1`, tree `evidence/`).
+- **Base for gates and diffs:** `00ffe398`. Since then, main has moved to `c09d74e6` (as of 11:58Z). Its 48 changed
+  files are under `backends/`, `benchmarks/commitments/`, `tools/research/` and `tests/`. None of them is in this
+  branch's diff, and none names `verity_vllm` or `integrations/vllm`. `git merge-tree --write-tree origin/main
+  lane/vllm-rf-a4` is clean, and the merged tree has no reference to the removed `harness`, `tp`, `input_provenance` or
+  `numerics` module paths. I did not rebase: the gate evidence is for this exact tree, and the wave-2 lanes are stacked
+  on `10996616`.
+- **Needs an owner decision or blocking:** nothing. See "Deferred" for what the brief left to later phases.
 - **Scope:** 500 files changed. There are 287 renames and 193 files edited in place (importers, strings, prose). 14
   package `__init__.py` files were added and 6 were removed; the removed ones belonged to the emptied `harness/`, `tp/`
   and `input_provenance/` packages and their test packages. No other file was deleted. No allowlist grew.
@@ -75,6 +84,18 @@ regression check or stage reads them.
     are timings, calibrated byte bounds and gc counts. Per-run values are internal request ids and paths. The
     workload's component `descriptor.json.gz` differs only in `annotations.derive.registry`.
 - **`python -m` in `ops/*.sh`:** all 33 targets resolve at head, and each has a `__main__` guard (`tools/pym.txt`).
+
+**Which evidence covers which invariant:**
+
+| invariant | evidence |
+|---|---|
+| Program and manifest digests | gate (a) T0 `manifest_digest`, rebuilt with head code, passes on 10 rows; #101's Program and manifest digests are equal at head and base |
+| Definition ids | keyed by definition name, version and static parameters, never by module path; #101's component `descriptor.json.gz`, which lists them (`program/compact.py` rebuilds definitions from it), differs between head and base only in `annotations.derive.registry` |
+| Commitment roots and leaf ids | #101's run_root equals the record at head and at base; T1 `replay_partition` passes on 9 rows; T0 `verdict` and `commit_summary` pass on 10 |
+| Regression verdicts | gate (a), 158/158 same outcome |
+
+T2 `program_digest` is not part of gate (a). T1 `decomp_hashes` skips on every row at base as well, which is the
+store-fixture gap a23b reported.
 
 ## What changed (one commit per destination package; each importable and pushed)
 
@@ -167,15 +188,18 @@ removed.
 |---|---|---|---|---|---|
 | `vyv-rf-a4-cpu` | `4q60rifwx2r1bp` | cpu3g, 16 vCPU / 64 GB | $0.64/h | 06:20-08:42 | ~$1.5 |
 | `vyv-rf-a4-g1` | `7pmzr4ccgcomqa` | 1x L40S | $1.09/h | 07:46-09:07 | ~$1.5 |
-| `vyv-rf-a4-reg` | `04fijzazbf1yj6` | A100-SXM4 host, 250 GB cgroup, 13.6 CPUs | $1.59/h | 07:53-REG_END | REG_COST |
+| `vyv-rf-a4-reg` | `04fijzazbf1yj6` | A100-SXM4 host, 250 GB cgroup, 13.6 CPUs | $1.59/h | 07:53-11:54 | ~$6.4 |
+
+Total: about $9.4.
 
 - No cpu3m or cpu5m pod with 256-512 GB was available, so gate (a) ran on a GPU host with a 250 GB cgroup
-  (`--min-ram 250`). T1's `replay_partition` needs 63-115 GB per process. REG_MEM
+  (`--min-ram 250`). T1's `replay_partition` needs 63-115 GB per process. The run is serial and peaked at
+  130.8 GB, with no OOM event.
 - Pins on reg only: `pytest-xdist==3.8.0` and `xgrammar==0.2.7`, on top of `pod_bootstrap.sh --cpu` from the head tree,
   as a23b did. The resulting freeze (`evidence/gate_a/freeze.txt`) equals a1's `baseline-freeze.txt` except for two
   unpinned transitive packages: `googleapis-common-protos` 1.75.3 -> 1.75.4 and `uvicorn` 0.53.0 -> 0.54.0.
-- Fixtures: a 3 h read-only key minted on the laptop and piped into reg, then used for the prefetch (26 rows ok, 0
-  failed), and deleted at 08:30:01Z before gate (a) started.
+- Fixtures: a 3 h read-only key minted on the laptop and piped into reg, then used for the prefetch (13 rows x {records,
+  programs}: 26 ok, 0 failed), and deleted at 08:30:01Z before gate (a) started.
 - Pod-to-pod tree copy used an ephemeral ssh key that lived only on the pods; it went with them.
 
 ## Found, not fixed (pre-existing)
@@ -186,8 +210,7 @@ removed.
 - `check/match/global_match_fast.py:24` names mfast's `verity_vllm/harness/match_diff.py`.
 - The `commit/__init__.py` docstring describes native_collect, an artefact of the old relayout.
 - `tests/program/test_twins.py::test_check_writes_the_evidence_schema` depends on process state. The first process to
-  JIT-build `tc_model` records `libraries["openmp"]`, and the test then fails. It fails at base too on a tree without
-  the JIT build (`/workspace/basefresh`), and it passes at base and at head once the library exists
-  (`evidence/gate_b/twins-rerun.txt`).
+  JIT-build `tc_model` records `libraries["openmp"]`, and the test then fails. With an empty build directory it fails at
+  base and at head, and once the library exists it passes at both (`evidence/twins/twins-fresh-vs-built.tgz`).
 - `tests/commit/test_roundtrip.py::test_transient_storage_is_released` sits 152 B over its tracemalloc bound in one
   xdist ordering (early head run). It passes alone at base and at head, and it passed in the head run.

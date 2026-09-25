@@ -1,0 +1,18 @@
+[bootstrap] 2026-09-25T10:48:38Z creating /workspace/venv312 (Python 3.12)
+Downloading cpython-3.12.14-linux-x86_64-gnu (download) (32.7MiB)
+ Downloaded cpython-3.12.14-linux-x86_64-gnu (download)
+Using CPython 3.12.14
+Creating virtual environment at: /workspace/venv312
+Activate with: source /workspace/venv312/bin/activate
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  1  527M    1 5437k    0     0  5447k      0  0:01:39 --:--:--  0:01:39 5448k  9  527M    9 48.1M    0     0  23.7M      0  0:00:22  0:00:02  0:00:20 23.7M 18  527M   18 96.0M    0     0  31.6M      0  0:00:16  0:00:03  0:00:13 31.6M 26  527M   26  140M    0     0  34.9M      0  0:00:15  0:00:04  0:00:11 34.9M 33  527M   33  176M    0     0  35.1M      0  0:00:15  0:00:05  0:00:10 35.1M 41  527M   41  219M    0     0  36.6M      0  0:00:14  0:00:05  0:00:09 42.8M 50  527M   50  264M    0     0  37.7M      0  0:00:13  0:00:07  0:00:06 43.4M 59  527M   59  312M    0     0  38.9M      0  0:00:13  0:00:08  0:00:05 43.3M 69  527M   69  365M    0     0  40.6M      0  0:00:12  0:00:08  0:00:04 45.2M 78  527M   78  416M    0     0  41.5M      0  0:00:12  0:00:10  0:00:02 47.9M 88  527M   88  467M    0     0  42.5M      0  0:00:12  0:00:10  0:00:02 49.6M 97  527M   97  512M    0     0  42.5M      0  0:00:12  0:00:12 --:--:-- 49.2M100  527M  100  527M    0     0  42.7M      0  0:00:12  0:00:12 --:--:-- 50.0M
+[bootstrap] 2026-09-25T10:48:58Z installing vLLM + torch cu129 into /workspace/venv312
+[bootstrap] 2026-09-25T10:49:40Z checkpoint OK LLAMA32_1B
+[bootstrap] 2026-09-25T10:51:14Z HIDDEN-GPU-OK c3451dfe545dcf4b42d047ad42596c669674397dc5eca0bc0cddaba08ced3696 /root/.cache/torch_extensions/py312_cu129/hidden_gpu_tree/hidden_gpu_tree.so sm_90
+[bootstrap] 2026-09-25T10:58:39Z FA2-TAP-OK fcc1f20a32fdda3ae90bff0c49ce067750fd789defa89664521377d0f0dec3d3 /workspace/cp/fa2/build/matReq/verity_fa2_matReq.so arch=9.0 hdims=64,96,128,256 mask=284 layout=v8
+[bootstrap] 2026-09-25T11:01:07Z FA3-TAP-OK e0fb003657574a54929f600a5dde1000f15877b30ea7b107fc7c93422d47ea8c /workspace/cp/fa2/build/fa3_matReq/verity_fa3_matReq.so hdims=64,128 mask=20 layout=v9
+{"python_3_12": true, "torch_cuda": true, "vllm_import": true, "vllm_commit_d9105ea80": true, "verity_from_tree": true, "verity_vllm_from_tree": true, "research_telemetry_from_tree": true, "numpy_import": true, "no_old_tree_on_path": true, "hidden_gpu_so": true, "fa2_tap_so": true, "fa3_tap_so": true}
+measurements {"network": {"down_MBps": 67.9, "up_MBps": 78.5, "probe": "speed.cloudflare.com", "bytes": {"down": 67108864, "up": 16777216}}, "disk": {"path": "/workspace", "total_bytes": 128849018880, "free_bytes": 112871186432}, "memory": {"total_bytes": 2164134596608, "cgroup": "v1", "cgroup_max_bytes": 250999996416}}
+[bootstrap] 2026-09-25T11:01:19Z READY /workspace/bootstrap/readiness.json
+BOOTSTRAP-OK

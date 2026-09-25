@@ -183,6 +183,9 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
     (the Rust verifier checks they hash to the public row digests).
   - Cost on A100 BF16 4,096 VUs: prove 1.20 -> 1.54 s (+0.34 s), Python verify 1.25 -> 1.58 s, Rust verify
     3.42 -> 4.67 s (+0.44 s derivation at load), proof +6,144 B (art:bd3d8b2c).
+  - FP8 (fp8-hopper, 8-bit words, n_pos 2^26.6): prove 0.61 -> 0.78 s (link 0.18 s), Python verify 0.49 -> 0.65 s,
+    Rust 1.71 -> 2.35 s (+0.22 s derivation) (art:60cabb96). The Rust link loader checks only sha256 row leaves, so
+    FP8 needs a `--leaf sha256` commitment (unpinned: pass `--allow-unpinned-commitment`); blake3 rows are not loaded.
 - Triton kernels defined inside a function resolve `tl` through the module globals: bind `triton`, `tl` with
   `global` in the lazy loader or the jit fails with "NameError: tl is not defined".
 - GF(2^256) plane sums / dense terms on A100: build the bit matrix from int32 words, reduce with int8 tensor-core dots
@@ -190,3 +193,5 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   cross-thread `tl.sum` over the cell axis or six strided read-modify-writes cost 2-4x more. eq-table levels by
   nibble tables (64 x 16 x 32 B per level) are 1.4x faster than byte tables (32 x 256 x 32 B, L2-resident); the first
   compile takes ~25 s.
+- The laptop's `research data reindex --remote` is SIGKILLed (rc 137, no output) under the laptop guardian. Run it
+  on the pod with the store credential instead (`04_store.sh reindex`, lane agkr-bound pod-scripts).

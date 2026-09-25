@@ -237,3 +237,15 @@ Pod 10:30-11:39Z, $3.49/h, ~$4.01. Evidence evidence/h100m/. Handoff verify-nigh
 - Decision: the bf16 plateau moved by +2.1 % on the same pod, which meets my 2 % rule (noise is about 1-2 %), so the A100 and 4090 are
   re-measured with the vars set too. A100 pod 25b8diy5t3f3tc (US, EPYC 7742 like the first A100 pod) created 11:41Z; a100m.sh
   caps the sweep at the frozen set's 4096 (RULE_EXTRA names the bound in meta.sweep.rule).
+
+## A100 re-measured with the MALLOC vars (sweep a100m-bf16ampere, capped at the frozen set's 4096)
+Pod 25b8diy5t3f3tc (A100-SXM4-80GB, US, EPYC 7742), run r20260925-115155-e772, tree 7ffb7095. N = 1.016e11 /s.
+| n | P /s | e2e s | t.total s | commit s (cold) | N/P | result | tree |
+|---|---|---|---|---|---|---|---|
+| 1024 | 4236 | 0.2418 | 0.1990 | 0.0427 (17.03, first CUDA build) | 2.40e7 | art:266c210f | art:b5d2f09a slim |
+| 2048 | 4933 | 0.4152 | 0.3656 | 0.0496 (0.192) | 2.06e7 | art:9d808b33 | art:37f52bc5 slim |
+| **4096 plateau (set bound)** | **5477** | 0.7479 | 0.6848 | 0.0630 (0.222) | **1.85e7** | **art:ba387d41** | art:5eb0b2cc full |
+BYTEID IDENTICAL (ev 71b51d0b, stmts d54de18b; main's commit 16.05 s), tree art:ab442c56. Same-pod A/B at 4096: unset 5470
+(set +0.1 %). Against the first A100 pod (unset, same CPU model): 5380 -> 5477 (+1.8 %, t.total 0.681 -> 0.685 s, commit 0.080 ->
+0.063 s). Pod 11:41-11:58Z, $1.59/h, ~$0.45. Evidence evidence/a100m/. Handoff verify-night-2/20260925T1205Z.
+- 11:59Z RTX 4090 pod 0d2olfrqxg82q5 (US, EPYC 7642, $0.74/h; registered by hand); syncing.

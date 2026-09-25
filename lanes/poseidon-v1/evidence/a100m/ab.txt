@@ -1,0 +1,1 @@
+AB a100m-bf16ampere n=4096 set: n=4096 P=5476.9708 e2e=0.7479 t.total=0.6848 commit=0.0630 cold=0.2224 contended=False reps=5 ev=71b51d0bfdd7bdb5 stmts=25:d54de18b83eb072017ed9 rust=25 val=passed | unset: n=4096 P=5469.6181 e2e=0.7489 t.total=0.6848 commit=0.0640 cold=0.2216 contended=False reps=5 ev=71b51d0bfdd7bdb5 stmts=25:d54de18b83eb072017ed9 rust=25 val=passed

@@ -1,0 +1,16 @@
+11:52:00Z SWEEP a100m-bf16ampere tree=/workspace/src rel=bf16-ampere l=16384 p=8 nmin=1024 nmax=4096
+11:53:50Z a100m-bf16ampere-n1024 rel=bf16-ampere l=16384 p=8 n=1024 rc=0 rust=0 wall=109s n=1024 P=4235.6718 e2e=0.2418 t.total=0.1990 commit=0.0427 cold=17.0314 contended=False reps=5 ev=105cf3229eaeaa3d stmts=7:83e350e71365c51b62da87 rust=7 val=passed 
+11:54:22Z a100m-bf16ampere-n2048 rel=bf16-ampere l=16384 p=8 n=2048 rc=0 rust=0 wall=29s n=2048 P=4932.7031 e2e=0.4152 t.total=0.3656 commit=0.0496 cold=0.1917 contended=False reps=5 ev=44b918a1a0245329 stmts=13:dd6db5363c7cac33d7a75 rust=13 val=passed 
+11:55:08Z a100m-bf16ampere-n4096 rel=bf16-ampere l=16384 p=8 n=4096 rc=0 rust=0 wall=41s n=4096 P=5476.9708 e2e=0.7479 t.total=0.6848 commit=0.0630 cold=0.2224 contended=False reps=5 ev=71b51d0bfdd7bdb5 stmts=25:d54de18b83eb072017ed9 rust=25 val=passed 
+SWEEP_DONE /workspace/poseidon-v1/sweeps/a100m-bf16ampere.jsonl points [(1024, 4235.7), (2048, 4932.7), (4096, 5477.0)] plateau 4096 5477.0
+11:56:17Z a100m-bf16ampere-maincommitter-n4096 rel=bf16-ampere l=16384 p=8 n=4096 rc=0 rust=0 wall=65s n=4096 P=243.6412 e2e=16.8116 t.total=0.7594 commit=16.0522 cold=15.7831 contended=False reps=2 ev=71b51d0bfdd7bdb5 stmts=25:d54de18b83eb072017ed9 rust=25 val=passed 
+BYTEID IDENTICAL tip ev=71b51d0bfdd7bdb540f6016f96605b7511d264ac430a9ec2e5f2de51f29dce54 stmts=25:d54de18b83eb072017ed9af1d3c120fdc24a7bf75ffe9a4b3e7d8783db6dc300 commit=0.0630s | main-committer ev=71b51d0bfdd7bdb540f6016f96605b7511d264ac430a9ec2e5f2de51f29dce54 stmts=25:d54de18b83eb072017ed9af1d3c120fdc24a7bf75ffe9a4b3e7d8783db6dc300 commit=16.0522s
+ROW_DONE a100m-bf16ampere
+11:57:02Z a100m-bf16ampere-unset-n4096 rel=bf16-ampere l=16384 p=8 n=4096 rc=0 rust=0 wall=39s n=4096 P=5469.6181 e2e=0.7489 t.total=0.6848 commit=0.0640 cold=0.2216 contended=False reps=5 ev=71b51d0bfdd7bdb5 stmts=25:d54de18b83eb072017ed9 rust=25 val=passed 
+AB a100m-bf16ampere n=4096 set: n=4096 P=5476.9708 e2e=0.7479 t.total=0.6848 commit=0.0630 cold=0.2224 contended=False reps=5 ev=71b51d0bfdd7bdb5 stmts=25:d54de18b83eb072017ed9 rust=25 val=passed | unset: n=4096 P=5469.6181 e2e=0.7489 t.total=0.6848 commit=0.0640 cold=0.2216 contended=False reps=5 ev=71b51d0bfdd7bdb5 stmts=25:d54de18b83eb072017ed9 rust=25 val=passed
+11:57:05Z a100m-bf16ampere-n1024 plateau=no tree=art:b5d2f09a06c2e6f876baa76e09f698a82197fd6a6c942c4221b06206a5d32956 result=art:266c210f134a719b81ab3acfe6d673507f6212e2bb4a50e0f13517feee91e93b
+11:57:07Z a100m-bf16ampere-n2048 plateau=no tree=art:37f52bc57b252d99edae91b81342aabb809d74a04ac9386b5eabb2f862500d0b result=art:9d808b33ebf1fed4ade69e180f1a91dd0ad0d0b36e40f64778a8d0a61a6c3d12
+11:57:11Z a100m-bf16ampere-n4096 plateau=yes tree=art:5eb0b2cc73fb55da05902920afe9d7467d330e3036312b0c890588e7935ce320 result=art:ba387d41cb12945914624f0cbdabb4b3a8ffc2675779e1f7f17cc6dea8840f07
+11:57:14Z a100m-bf16ampere-maincommitter-n4096 byteid-evidence tree=art:ab442c560592472926d1ee708d4c308c394284ee389a842c9c57529c70e83ea2
+REGISTER_DONE a100m-bf16ampere
+A100M_DONE

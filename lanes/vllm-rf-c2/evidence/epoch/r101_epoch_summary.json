@@ -1,0 +1,36 @@
+{
+ "epoch": {
+  "run_roots": [
+   "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+  ],
+  "commit_pass": true,
+  "program_digest": "dd206e6c15be3f77163cc1452bfbca1fdc7545bff095703cd6c8a00f69d0f96a",
+  "manifest_digest": "ee65240e662ee5206effcf22d8b24a30120ac372f0cf58e75621d3b8476dc625",
+  "first_fail_reason": null,
+  "build_summary": {
+   "step": "573313eddc0cd75b028f981d6330b1ea033d150d6ec554c1798968b83cccf1e4",
+   "request": "dd206e6c15be3f77163cc1452bfbca1fdc7545bff095703cd6c8a00f69d0f96a",
+   "workload": null
+  },
+  "ampere_ids": [
+   "AmpereBF16TcDot16_v2"
+  ]
+ },
+ "head": {
+  "run_roots": [
+   "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+  ],
+  "commit_pass": true,
+  "program_digest": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b",
+  "manifest_digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac",
+  "first_fail_reason": null,
+  "build_summary": {
+   "step": "03ace66f1c80b04ac2a36a211b4ff38b4da073b16a9b0fc1b5d7f842c9bd16d2",
+   "request": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b",
+   "workload": null
+  },
+  "ampere_ids": [
+   "AmpereBF16TcDot16_v1"
+  ]
+ }
+}

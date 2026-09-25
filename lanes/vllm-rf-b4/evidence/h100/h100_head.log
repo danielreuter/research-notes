@@ -1,0 +1,18 @@
+start 2026-09-25T11:01:19Z tree /workspace/head (head)
+PAIRS=1
+PYTHONPATH=/workspace/research/tool/01c065613fe7befc:/workspace/research/tool/01c065613fe7befc
+SWEEP_DIR=/workspace/cp/sweep-head
+2026-09-25T11:01:23Z [row llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager] ADMISSION advisory llama32-1b limit 239372 MiB: build=ADMIT 15073MiB; match=ADMIT 19914MiB; commit=ADMIT 43269MiB
+2026-09-25T11:01:23Z [row llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager] start B=1 I=1024 O=128 LP=1024 T=127 ckpt=/workspace/hf/hub/models--unsloth--Llama-3.2-1B/snapshots/9535bd9b1d1dea6acafbdc4813b728796aeb28da stages=build,match,commit target={"compute_capability": [9, 0], "num_sms": 132} hidden_so=/workspace/cp/fa2/build/fa3_matReq/verity_fa3_matReq.so code=
+2026-09-25T11:18:50Z [row llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager] required-value manifest of record (Q_module_body_v1, B=1): {"identities": 27427, "manifest_digest": "a442399bf7828e04e742887b4a0b8f6f28e10517f30ffdc464776b554716d97d", "complete": true, "out": "/workspace/cp/sweep-head/llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager/manifest.json"}
+build PASS 2026-09-25T11:18:51Z rc=0/0 wall=837s digest=d26b34f804603abc workload_digest=67d82fa3931a1d5a manifest=a442399bf7828e04 27427
+2026-09-25T11:18:51Z [row llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager] fold: instances.jsonl stored form = progressions (F2)
+2026-09-25T11:18:51Z [row llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager] acquisition manifest for the capture: /workspace/cp/sweep-head/llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager/manifest.json (ACQUIRE_ENGINE=v2)
+match FAIL 2026-09-25T11:20:21Z rc=1/99/99 wall=89s verdict None global NO FOLD   concurrency None tokens_equal None fold False
+2026-09-25T11:20:21Z [row llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager] MATCH FAIL -> stop
+exit 11 2026-09-25T11:20:21Z
+release UNRELEASED 2026-09-25T11:01:19Z commit=unknown tree=/workspace/head/integrations/vllm branch=None dirty= (no /workspace/head/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh)
+precheck PASS 2026-09-25T11:01:19Z source identity == /workspace/head/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T11:01:23Z TARGET-FAMILY-OK row=h100(9.0) declared=9.0 device=9.0 built=?
+build PASS 2026-09-25T11:18:51Z rc=0/0 wall=837s digest=d26b34f804603abc workload_digest=67d82fa3931a1d5a manifest=a442399bf7828e04 27427
+match FAIL 2026-09-25T11:20:21Z rc=1/99/99 wall=89s verdict None global NO FOLD   concurrency None tokens_equal None fold False

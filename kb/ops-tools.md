@@ -65,6 +65,9 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
 * A pod job started as `ssh pod 'nohup cmd &'` can die with an empty log, for example when the same ssh call also had stdin
   piped in. `ssh pod '(setsid nohup cmd > log 2>&1 < /dev/null &)'` survives the session. `research pods drain <pod>` is the
   clean way to terminate at FINAL: it lists the attempts and refuses while any is unpreserved (agkr-nvf4, 2026-09-25).
+* `research pods ssh POD -- 'cat > f'` does NOT forward local stdin: the file arrives empty. To ship a small script
+  without `research run --send`, base64 it into the command: `research pods ssh POD -- "echo $B64 | base64 -d > f"`,
+  and compare sha256 on both sides (b-ligero-standard-hash, 2026-09-25).
 * The runpod CPU image (Ubuntu 22.04) has curl. Listing `curl` in `apt-get install` made apt upgrade it from a security-pool URL
   that returned 404, and the whole install failed with rc 100. Leave curl and ca-certificates out of the list (merge-postwave, 2026-09-24).
 * Rust/rayon ignores the cgroup quota too: on an H100 pod (quota 17 CPU, nproc 160) Flock's CPU prover took 1.3 s for a 64-VU

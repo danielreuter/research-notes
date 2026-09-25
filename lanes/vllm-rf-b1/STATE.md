@@ -2,7 +2,7 @@
 id: vllm-rf-b1/state
 lane: vllm-rf-b1
 kind: state
-updated: 2026-09-25T11:45Z
+updated: 2026-09-25T12:02Z
 ---
 # b1 (evaluator kernels and replay): state
 
@@ -44,13 +44,15 @@ a4 base: 10996616
 ## Running
 - `vyv-rf-b1-cpu` (cei1t48zvrcnzu, cpu3g 32 vCPU / 128 GB, $1.28/h, since 08:47Z): base gate (b) done 10:18Z (52 F, 3645 P, 287 S, 6 xf, 11 E; base-xdist.xml, nohup run). **Final head gate (b) at 8c0bec08: `r20260925-112532-d480`** (`gate_b.sh /workspace/head gate_b-head-8c0bec08 -n 12 --dist loadfile`, OMP 3; tree verified == git 8c0bec08 by blob hash, test-written ref-prims restored).
 - `vyv-rf-b1-g1` (nz7au6e51web6w, 1x L40S, driver 580.159.03, 125 GB cgroup, $1.09/h?, since 11:03Z): `r20260925-113151-99a2` = `/workspace/b1/tools/g1.sh`: bootstrap LLAMA32_1B (OK 11:37Z), #101 build,match,commit PAIRS=1 at head 8c0bec08 then at base 10996616, rowcmp vs record (program ccc21347, manifest 90f81868, run root 7adcef49).
-- `vyv-rf-b1-big` (61mmy8g18xcj0z, cpu3m 64 vCPU / 512 GB, since 11:24Z): head sync running; then bootstrap, laptop key -> prefetch -> key deleted, gate (a) head split 4-way + base replay_partition (same-pod replay wall time).
-- #67 (needs >= 180 GB RAM: Match 130 GB, Commit ~190-200 GB) and #70 (2x L40S): no RunPod capacity with CUDA 12.9/13.0 since 11:00Z; laptop retry loop every 60 s until ~12:04Z (/tmp/b1/retry_pods.log).
+- `vyv-rf-b1-big` (61mmy8g18xcj0z, cpu3m 64 vCPU / 512 GB, $3.52/h, since 11:24Z): head 8c0bec08 + base synced, bootstrap OK 11:48Z; laptop-minted read-only key piped in 11:58Z. **Gate (a) `r20260925-115853-be37`** (`big_gate_a.sh`: prefetch deletes the key; head T0+T1 split 4-way, then base replay_partition on the same pod for replay wall time).
+- `vyv-rf-b1-g2` (l2w6439556ueod, 1x L40S, 188 GB, driver 580, $1.09/h): created 11:18:44Z by the first retry loop, which died before registering it; found and registered (guard 90) at 11:49Z, so ~30 min of it idle. Head + base trees shipping; then #67 = bootstrap OLMOE, Build+Match once at head, row dir copied, Commit PAIRS=1 at head then at base (f1's shared-Match pattern), rowcmp vs record (program fdd998d4, v2 manifest 47990631, commit_pass True).
+- #70 (2x L40S): still no capacity; the retry loop now tries tp2 only, until ~12:30Z.
 
 ## Next
 - gate (b) jdiff head vs base; #101 compare; gate (a) merged xml vs a23b base; #70 (covers MoE + TP2 rank path; OLMoE) if a 2x L40S appears, #67 PAIRS=1 if a >= 180 GB L40S appears; READY.md.
 
 ## Open questions
+- **Ask (12:02Z): extend the pod deadline for `vyv-rf-b1-g2` only, to about 17:30Z.** #67 from scratch on one 1x L40S (f1's timings on the same pod shape): Build ~83 min, Match ~66 min, each PAIRS=1 Commit ~65-100 min (sampled replay dominates). Head Commit should end around 15:30-16:00Z, base around 17:00-17:30Z. Without an extension I stop at 15:30Z with whatever #67 reached (Build/Match vs record, maybe the head Commit), and the MoE replay evidence is gate (a)'s T1 replay_partition on #67/#68/#73/#74. About $6 on g2.
 - **Ask (11:42Z):** RunPod has had no 2x L40S (any cloud, CUDA 12.8-13.0) since 11:00Z. If a lane's 2x L40S pod (b4-tp2, b2v-tp2, a5-tp2) is about to be terminated, could it be handed to b1 for #70 instead (about 2.5 h: bootstrap OLMOE, build, match, commit PAIRS=1 at head)? I'd use my own trees under /workspace/b1-* and never touch theirs.
 - GPU capacity: no 2x L40S or >= 180 GB 1x L40S with CUDA >= 12.8 on RunPod since 11:00Z. #70 is OLMoE, so it covers the MoE family and the TP2 rank path together; if it never comes up, the MoE/TP replay evidence is gate (a)'s T1 replay_partition on #67/#68/#73/#74 (CPU, recorded words).
 - difftest lives in properties/admission.py (b2v's `properties/`): hunks are the rng call, the evaluate call and import lines.

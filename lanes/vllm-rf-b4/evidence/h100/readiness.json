@@ -1,0 +1,128 @@
+{
+ "schema": "verity-vllm/readiness/v1",
+ "checks": {
+  "python_3_12": {
+   "ok": true,
+   "value": true
+  },
+  "torch_cuda": {
+   "ok": true,
+   "value": {
+    "torch": "2.13.0+cu129",
+    "cuda": "12.9",
+    "device": "NVIDIA H100 PCIe",
+    "cc": "9.0"
+   }
+  },
+  "vllm_import": {
+   "ok": true,
+   "value": "0.28.1rc1.dev472+gd9105ea80"
+  },
+  "vllm_commit_d9105ea80": {
+   "ok": true,
+   "value": true
+  },
+  "verity_from_tree": {
+   "ok": true,
+   "value": "/workspace/head/packages/verity/src/verity/ir/__init__.py"
+  },
+  "verity_vllm_from_tree": {
+   "ok": true,
+   "value": "/workspace/head/integrations/vllm/verity_vllm/program/registry/__init__.py"
+  },
+  "research_telemetry_from_tree": {
+   "ok": true,
+   "value": "/workspace/head/tools/research/src/research/telemetry/__init__.py"
+  },
+  "numpy_import": {
+   "ok": true,
+   "value": "2.3.5"
+  },
+  "no_old_tree_on_path": {
+   "ok": true,
+   "value": true
+  },
+  "hidden_gpu_so": {
+   "ok": true,
+   "value": {
+    "path": "/root/.cache/torch_extensions/py312_cu129/hidden_gpu_tree/hidden_gpu_tree.so",
+    "sha256": "c3451dfe545dcf4b42d047ad42596c669674397dc5eca0bc0cddaba08ced3696"
+   }
+  },
+  "fa2_tap_so": {
+   "ok": true,
+   "value": {
+    "path": "/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so",
+    "sha256": "fcc1f20a32fdda3ae90bff0c49ce067750fd789defa89664521377d0f0dec3d3",
+    "tap_mode": 3,
+    "hdims_mask": 284
+   }
+  },
+  "fa3_tap_so": {
+   "ok": true,
+   "value": {
+    "path": "/workspace/cp/fa2/build/fa3_matReq/verity_fa3_matReq.so",
+    "sha256": "e0fb003657574a54929f600a5dde1000f15877b30ea7b107fc7c93422d47ea8c"
+   }
+  }
+ },
+ "identities": {
+  "python": "3.12.14",
+  "executable": "/workspace/venv312/bin/python",
+  "platform": "Linux-6.8.0-85-generic-x86_64-with-glibc2.35",
+  "torch": {
+   "torch": "2.13.0+cu129",
+   "cuda": "12.9",
+   "device": "NVIDIA H100 PCIe",
+   "cc": "9.0"
+  },
+  "vllm": "0.28.1rc1.dev472+gd9105ea80",
+  "driver": "580.159.04",
+  "gpu": "NVIDIA H100 PCIe",
+  "cuda_home": null,
+  "nvcc": "",
+  "tree": {
+   "integration_root": "/workspace/head/integrations/vllm",
+   "verity_core": "/workspace/head/packages/verity/src",
+   "research": "/workspace/head/tools/research/src"
+  },
+  "native": {
+   "hidden_gpu_so": {
+    "path": "/root/.cache/torch_extensions/py312_cu129/hidden_gpu_tree/hidden_gpu_tree.so",
+    "sha256": "c3451dfe545dcf4b42d047ad42596c669674397dc5eca0bc0cddaba08ced3696"
+   },
+   "fa2_tap_so": {
+    "path": "/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so",
+    "sha256": "fcc1f20a32fdda3ae90bff0c49ce067750fd789defa89664521377d0f0dec3d3",
+    "tap_mode": 3,
+    "hdims_mask": 284
+   },
+   "fa3_tap_so": {
+    "path": "/workspace/cp/fa2/build/fa3_matReq/verity_fa3_matReq.so",
+    "sha256": "e0fb003657574a54929f600a5dde1000f15877b30ea7b107fc7c93422d47ea8c"
+   }
+  }
+ },
+ "ok": true,
+ "measurements": {
+  "network": {
+   "down_MBps": 67.9,
+   "up_MBps": 78.5,
+   "probe": "speed.cloudflare.com",
+   "bytes": {
+    "down": 67108864,
+    "up": 16777216
+   }
+  },
+  "disk": {
+   "path": "/workspace",
+   "total_bytes": 128849018880,
+   "free_bytes": 112871186432
+  },
+  "memory": {
+   "total_bytes": 2164134596608,
+   "cgroup": "v1",
+   "cgroup_max_bytes": 250999996416
+  }
+ }
+}

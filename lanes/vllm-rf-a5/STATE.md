@@ -39,20 +39,22 @@ branch `lane/vllm-rf-a5`. **a4 base: 10996616.** Budget $35 of pod spend. Spent 
 - Row driver: `verity-vllm row run|stage|chain|shed` in `pipeline/row.py`; row_pod heredoc verdict moved intact.
 - `verity_vllm.LLM(model, revision=..., ...)` → `EnginePin.resolve` → `engine.vllm_adapter.build_engine(...)`.
 
-## Running
-- Pods (all in ~/.research/machines.toml, guard 90): `vyv-rf-a5-g1` 4w1vzyvmibdvdf (1x L40S; bootstrap r20260925-105115-01c0 OK),
-  `vyv-rf-a5-tp2` elzncz2ix7uehc (2x L40S community; bootstrap r20260925-105115-f9ea running), `vyv-rf-a5-cpu`
-  hgbirbizmvoxy0 (cpu5g 16 vCPU / 64 GB; bootstrap launching). cpu3m/cpu3g/cpu5m were out of stock at 11:00Z.
-- 11:04Z #101 (llama32-1b stoch B1) Build at head 7091cd8f via `verity-vllm row stage build` on g1: r20260925-110416-31fc;
-  base records r20260924-202429-ba17 (match) / r20260924-212151-1320 (commit), program_digest 03ace66f1c80b04a.
-- #70 plan: `row run --stages build,match` then `--stages commit` on tp2, vs base Commit r20260924-221949-8668
-  (tp run root 0b91229f06480ce4…, commit FAIL rc=12 at the stage, verdict FAIL).
-
-## Next
-1. Census (dead_code_keep entries now live; `verity-vllm <cmd>` shell edges); ops shells → launcher; delete the 3 shells.
-2. research Tools → CLI; shell-regex tests → unit tests; cli unit test.
-3. `verity_vllm.LLM` + README section; pyproject `[project.scripts]`; cli unit test.
-4. Pods: CPU (lints + gate b head/base), cpu3m (gate a), 1x L40S (#101, olmoe tp1, LLM example), 2x L40S (#70).
+## Running (12:05Z)
+- Head pushed: 8a9ea9d5 (clean). Uncommitted: cli argv fix, EnginePin downloaded-pin fix, `verity_vllm.LLM`, README, tests.
+- Pods (guard 90): `vyv-rf-a5-g1` 4w1vzyvmibdvdf (1x L40S, driver 580), `vyv-rf-a5-cpu` hgbirbizmvoxy0 (cpu5g 16 vCPU / 124 GB).
+  `vyv-rf-a5-tp2` elzncz2ix7uehc + an unregistered duplicate 2iay401nxruz8j + `vyv-rf-a5-tp2b` d79yu9mgk0zot2: all TERMINATED
+  (driver 550.163.01 = CUDA 12.4; torch cu129 BOOTSTRAP_FAIL_CUDA, as f56 found). No 2x L40S with CUDA >= 12.9
+  (`allowedCudaVersions`, /tmp/a5-create-cuda.py) since 11:30Z, SECURE or COMMUNITY; poll /tmp/a5-tp2-poll3.sh running (falls back
+  to any driver + cuda-compat-12-9 forward compatibility).
+- #101 (llama32-1b stoch B1) through `verity-vllm row stage build|match|commit` on g1 at 7091cd8f/8a9ea9d5:
+  Build r20260925-110416-31fc, Match r20260925-112925-ffa9, Commit r20260925-114105-43a2 = base (r20260924-202429-ba17 /
+  r20260924-212151-1320): program_digest ccc213475e7c4eed (step 03ace66f1c80b04a), manifest_digest 90f8186879d5035a,
+  run_roots [7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5], verdict PASS, every check's outcome equal.
+  Differences: file digests of inputs (timestamps), code identity (global_match impl module), match/run.json argv (fixed,
+  uncommitted) and sampling.seed 0 -> None (base-side: d0f169f3, challenge seeds never 0 by default).
+- Gate 1 at 8a9ea9d5 (cpu pod r20260925-113103-3070): lints + by-name + imports + dead modules 49 passed; tools/research
+  test_store_vllm_tools 11 passed.  Gate (b) base 10996616 done (r20260925-114039-ede8); head after the LLM commit.
+- #70 (TP2) blocked on a 2x L40S pod (see above).
 
 ## Open questions
 - b4: `verity_vllm.LLM` calls `engine.vllm_adapter.build_engine(checkpoints, *, max_num_seqs, engine_args, target,

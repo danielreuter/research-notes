@@ -383,8 +383,31 @@ Flock at 2^-128 (flock-128-r2, two `Fast100` runs with live coins; not granted, 
 - CPU union: 2.00x.
 - So the A100 GPU line stays at about 2.3 s if the 1.00x carries over from H100 (not measured on A100).
 
-Both Flock sides overlap with the prime side in time only if run concurrently. The totals above are sums. FP8 has no
-linked-circuit run in this lane, so only BF16 is given. Caveats:
+Both Flock sides overlap with the prime side in time only if run concurrently. The totals above are sums. Caveats:
 - fp4 is still unpinned, so there is no fp4 line.
 - The vllm-v1 mapping is PROVISIONAL.
 - Everything above is drill-down only (L).
+
+## The link on FP8 (11:55Z)
+
+Run r20260925-114925-2f5c used the same build (78b1a62e) and the same 31 harness on fp8-hopper:
+- 4,096 VUs, 8-bit words, n_pos = 100,663,296.
+- sha256 row leaves, so the Rust loader can check x/w, with an unpinned commitment (`--allow-unpinned-commitment`).
+- A100, 1 warm-up + 3 reps, MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12.
+
+| FP8, 4,096 VUs | in-unit bits, no link | + sigma link |
+| --- | --- | --- |
+| median prove | 0.6068 s | **0.7782 s** (link 0.178 s) |
+| Python verify | 0.489 s | 0.648 s |
+| Rust verify | 1.706 s | 2.360 / 2.337 s, plus 0.219 s derivation at load |
+| proof | 35,978,392 B | +6,144 B |
+
+- 11 of 11 negatives were rejected by both verifiers, for the same reasons as BF16, and honest plus honest_nolink were accepted.
+- The first attempt, r20260925-114542-3ca4, was refused by the Rust verifier as an unpinned commitment. That was policy,
+  not a link result, and the flag above fixed it.
+- Route (a) prime side per FP8 batch on A100 goes from about 0.46 s (fp8-hopper+blake3 committed, 1 rep, 07:56Z) to
+  0.78 s, about +70%. BF16 was +99%.
+- Flock is extra. flock-bench-80gb has no A100 FP8 line; H100 FP8 is 0.330 s Flock-CUDA as shipped and 0.741 s for the
+  CPU union on the AVX-512 host.
+- Registered as art:60cabb96 (gate-log/v1, ref art:bd3d8b2c), and both runs are pushed and preserved.
+- Drill-down only (L). The FP8 statement is not pinned under any relation.

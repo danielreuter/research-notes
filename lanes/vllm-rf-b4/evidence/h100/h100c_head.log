@@ -1,0 +1,29 @@
+start 2026-09-25T11:30:19Z tree /workspace/head (head)
+PAIRS=1
+PYTHONPATH=/workspace/research/tool/01c065613fe7befc:/workspace/research/tool/01c065613fe7befc
+SWEEP_DIR=/workspace/cp/sweep-c-head
+TARGET_FAMILY_WAIVER=fa3 tap head-vs-base on an H100 PCIe
+2026-09-25T11:30:22Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] ADMISSION advisory llama32-1b limit 239372 MiB: build=ADMIT 8112MiB; match=ADMIT 9280MiB; commit=ADMIT 27440MiB
+2026-09-25T11:30:22Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] start B=1 I=256 O=32 LP=256 T=31 ckpt=/workspace/hf/hub/models--unsloth--Llama-3.2-1B/snapshots/9535bd9b1d1dea6acafbdc4813b728796aeb28da stages=build,match,commit target=device hidden_so=/workspace/cp/fa2/build/fa3_matReq/verity_fa3_matReq.so code=
+2026-09-25T11:33:13Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] required-value manifest of record (Q_module_body_v1, B=1): {"identities": 6979, "manifest_digest": "a82276488fd23dc08c121ccce8960776c7fedb36682fec4fa04a6dfe8cfcda2e", "complete": true, "out": "/workspace/cp/sweep-c-head/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager/manifest.json"}
+build PASS 2026-09-25T11:33:14Z rc=0/0 wall=139s digest=d26b34f804603abc workload_digest=0c050282fbf531ed manifest=a82276488fd23dc0 6979
+2026-09-25T11:33:14Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] fold: instances.jsonl stored form = progressions (F2)
+2026-09-25T11:33:14Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] acquisition manifest for the capture: /workspace/cp/sweep-c-head/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager/manifest.json (ACQUIRE_ENGINE=v2)
+match PASS 2026-09-25T11:35:35Z rc=0/0/0 wall=141s verdict PASS global PASS  dag concurrency 1 tokens_equal True fold True
+2026-09-25T11:35:35Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] commit timeout 2400s (B=1 I=256 O=32; x1 x1 over the 2400 s floor)
+2026-09-25T11:35:35Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] required-value manifest of record: /workspace/cp/sweep-c-head/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager/manifest.json (built at the Build stage: {"identities": 6979, "manifest_digest": "a82276488fd23dc08c121ccce8960776c7fedb36682fec4fa04a6dfe8cfcda2e", "complete": true, "out": "/workspace/cp/sweep-c-head/llama32-1b__bf16__l40s__tp1__b1__i256__)
+2026-09-25T11:35:38Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] C2 live oracle-compare armed: --match-dir /workspace/cp/sweep-c-head/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager/match (Match record of this attempt; snapshot steps 0,1)
+2026-09-25T11:35:41Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] C2 of record armed: sampled exact VU replay + boundary linkage (--program-dir /workspace/cp/sweep-c-head/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager/build_request )
+2026-09-25T11:35:52Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] weights of record: weights_of_record: root 120a8d6f82f78193 fields 163/163 pinned (1 analytic), unpinned 0, unresolved 0, shards pinned True, complete True, of_record True -> /workspace/cp/sweep-c-head/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager/build_request/weights_of_record.json
+2026-09-25T11:41:58Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] manifest of record VERIFIED (manifest_verify: rebuilt by the query path from this attempt's Program x workload == used; commit/manifest_verify.json)
+2026-09-25T11:41:59Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] verdict.json (vllm-verdict/v1): PASS -> Commit stage PASS
+commit PASS 2026-09-25T11:41:59Z rc=0 wall=357s outcome=PASS runs 1 failed 0 checks runtime_match=PASS local_replay=PASS boundary_linkage=PASS checkpoint_binding=PASS execution_extent=PASS required_value_coverage=PASS program_source_identity=PASS manifest_verify=True
+2026-09-25T11:41:59Z [row llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__greedy__bi-eager] DONE
+exit 0 2026-09-25T11:41:59Z
+release UNRELEASED 2026-09-25T11:30:19Z commit=unknown tree=/workspace/head/integrations/vllm branch=None dirty= (no /workspace/head/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh)
+precheck PASS 2026-09-25T11:30:19Z source identity == /workspace/head/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target WAIVED 2026-09-25T11:30:22Z TARGET-FAMILY-WAIVED (fa3 tap head-vs-base on an H100 PCIe) row=l40s(8.9) declared=? device=9.0 built=? -- pod device 9.0 != row family 8.9 (stages build,match,commit)
+build-target WAIVED 2026-09-25T11:33:04Z TARGET-FAMILY-WAIVED (fa3 tap head-vs-base on an H100 PCIe) row=l40s(8.9) declared=? device=? built=9.0 -- Build target 9.0 != row family 8.9
+build PASS 2026-09-25T11:33:14Z rc=0/0 wall=139s digest=d26b34f804603abc workload_digest=0c050282fbf531ed manifest=a82276488fd23dc0 6979
+match PASS 2026-09-25T11:35:35Z rc=0/0/0 wall=141s verdict PASS global PASS  dag concurrency 1 tokens_equal True fold True
+commit PASS 2026-09-25T11:41:59Z rc=0 wall=357s outcome=PASS runs 1 failed 0 checks runtime_match=PASS local_replay=PASS boundary_linkage=PASS checkpoint_binding=PASS execution_extent=PASS required_value_coverage=PASS program_source_identity=PASS manifest_verify=True

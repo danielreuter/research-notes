@@ -10,3 +10,6 @@
 2026-09-25T11:49:27Z {"clientBalance": 107.8492253478, "spendLimit": 80, "currentSpendPerHr": 42.073}
 2026-09-25T11:51:28Z {"clientBalance": 104.3375425719, "spendLimit": 80, "currentSpendPerHr": 42.073}
 2026-09-25T11:53:28Z {"clientBalance": 104.3375425719, "spendLimit": 80, "currentSpendPerHr": 42.073}
+2026-09-25T11:55:29Z {"clientBalance": 101.8159546293, "spendLimit": 80, "currentSpendPerHr": 40.701}
+2026-09-25T11:57:29Z {"clientBalance": 100.8778486062, "spendLimit": 80, "currentSpendPerHr": 41.295}
+2026-09-25T11:59:30Z {"clientBalance": 100.8778486062, "spendLimit": 80, "currentSpendPerHr": 40.939}

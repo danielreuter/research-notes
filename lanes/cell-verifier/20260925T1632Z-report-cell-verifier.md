@@ -2,9 +2,10 @@
 lane: cell-verifier
 kind: report
 created: 2026-09-25T16:32Z
-status: open
+status: final
 ---
 
+CHECKPOINT 7585828d (19:30Z) [final] round 3 gave up: sweep/READY absent after 40 min (18:48-19:29Z); pod 4vmp4qarp4dko7 (US-MD-1, cpu3c 32vCPU) terminated ~19:27Z by idle guard; build r20260925-184518-8bf6 only, no verifier run; endpoint3 marked STALE; round 3 ~$0.70, lane total ~$1.46
 CHECKPOINT 7585828d (18:57Z) [open] round 3 build r20260925-184518-8bf6 done (flock-link 874cac3f); waiting for sweep/READY
 CHECKPOINT 7585828d (18:45Z) [open] round 3 pod 4vmp4qarp4dko7 cpu3c 32vCPU US-MD-1 (GraphQL-verified, same DC as yeerzt741imi2s); endpoint3 154.54.102.15:12671 (ssh :12670); building r20260925-184518-8bf6
 CHECKPOINT 7585828d (18:42Z) [open] reopened: round 3, same-DC (US-MD-1) verifier for agkr-flock-cell's batch sweep

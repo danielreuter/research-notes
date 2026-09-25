@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 1874b18d (19:31Z) [open] 19:31Z x4 hopper +blake3 GRANTED WITH CONDITIONS (handoff 1932Z; art:a75b03a5, run r20260925-190844-a540); pods terminated (~$0.11). Waiting, no pod, for the plateau cells' verified= labels to write proof_class
 CHECKPOINT 1874b18d (19:09Z) [open] 19:09Z blake3 16:2 scan at 9a78cd68: 0 free / 122,596 (control 16); 8:2 running (VM). Pods: nj2awhejyzbrjs + 9ix05r9kmxvoi8 never reachable (host 194.68.245.218), terminated; a5zj4kpsx1l14c (EU-RO-1) runs H2/R1/R4 r20260925-190844-a540
 CHECKPOINT 1874b18d (18:24Z) [open] 18:24Z reopened: class review fp8-hopper-x4+blake3 / bf16-hopper-x4+blake3 at x4-hopper-blake3 9a78cd68 (shapes 8:2 / 16:2): NOT final; pod vy-red-team-sh-2 next
 CHECKPOINT 1874b18d (18:17Z) [final] 18:17Z FINAL (reopen 2): fp4-nvf4+poseidon2 CLASS GRANTED (COMPLETE_ZK_BACKEND, algebraic); labels on art:70f275ac art:6740eb22; scan art:3808e520 0 effective/199k; H2/R1/R4 refused; pod drained 18:15Z ~$0.05; tip 1874b18d
@@ -113,3 +114,12 @@ Inherited handoffs: all 20 were addressed to red-team-standard-hash and acted on
   proof_class + finding on art:70f275ac and art:6740eb22.
 * Branch lane/red-team-standard-hash-2 @ 1874b18d, pushed. Its base 041ac181 predates main's fp4 code: the harnesses import
   it and run on main plus this overlay.
+
+## Reopened 18:24Z: fp8-hopper-x4+blake3 / bf16-hopper-x4+blake3 class review (x4-hopper-blake3 9a78cd68)
+
+* Received `coordinator/20260925T1824Z-handoff-from-x4-hopper-blake3.md` (forwarded by the coordinator).
+* BLAKE3 scan on the VM: 16:2 has 0 free rows in 122,596 mutations and 8:2 has 0 in 122,528; the 16:2 control shows 16. art:a75b03a5.
+* Pods: nj2awhejyzbrjs and 9ix05r9kmxvoi8 (host 194.68.245.218) never accepted SSH and were terminated. a5zj4kpsx1l14c
+  (EU-RO-1) ran r20260925-190844-a540 from 19:08 to 19:31Z and was drained; about $0.11 in total.
+  Results: H2 fp8 12 accepted / 24 refused, bf16 24 accepted / 12 refused. R1 and R4 refused on both.
+* Verdict: CLASS GRANTED WITH CONDITIONS. Handoff coordinator/1932Z. Plateau labels wait for verification, expected 19:30-20:30Z.

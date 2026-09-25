@@ -1,1 +1,1 @@
-154.54.102.15:12671 154.54.102.15:12670
+STALE (pod 4vmp4qarp4dko7 terminated ~19:27Z by idle guard; was 154.54.102.15:12671 ssh 154.54.102.15:12670; no verifier run started)

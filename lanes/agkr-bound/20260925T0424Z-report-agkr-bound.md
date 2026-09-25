@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT ee2a319f (10:05Z) [open] Dense check 0.066 s/point on A100 (int8 tensor-core coefs); route (a) prime side 0.776->1.30 s (1 pt) / 1.36 s (2 pts). gap_alt_operand rejected by link identity (62/128, 69/128 planes). art:64220e14. Handoff 1005Z. Nothing big on laptop.
 CHECKPOINT 10996616 (09:55Z) [open] Dense GF(2^128) check at N=201,326,592 (BF16 batch) on A100: fused Triton 0.367 s; int8 tensor-core coefs 0.066 s (eq 0.023, coef+ip 0.044), cross-checked vs torch. u_t 0.032 s. Now: gap_alt_operand vs link checks (r20260925-095534-ad8c). Scaffold only.
 CHECKPOINT 88b82757 (09:34Z) [open] Per 0922Z: link bits in-unit (86f86084) BF16 A100 0.776->1.199s (+55%), Rust verify accepts; negatives bit_flip/non_boolean/alt_honest_bits rejected, alt_alt_bits accepted (link residual). Dense GF(2^128) check 0.875s A100 / 0.85s CPU; u_t 0.03s. art:35bce6f5.
 CHECKPOINT 04286bb (09:10Z) [open] Bit-link prime side merged into real BF16 A100 proof: 0.819->1.401s (+71%), proof 21->61MB (py verify accepts). Red team reproduced my 4 pinned roots. Waiting on coordinator re handoff 0858Z (route, AVX-512 Flock, tag, vllm-v1 mapping, fp4).
@@ -191,3 +192,54 @@ columns / 290 wires to 776 / 1,314, under the R+sha256 scaffold statement, on A1
 **Route (a) per BF16 batch on A100, before Flock.** About 0.78 s rises to about 2.1 s: in-unit bits +0.42 s, dense check
 +0.88 s (an upper bound), u_t +0.03 s. Flock adds 3.3–7.5 s on Zen 2 CPU; the AVX-512 number comes from
 flock-bench-80gb. On the verifier side: Rust 2.0 s rises to 3.4 s, plus about 0.85 s for the dense check.
+
+## Dense-check kernels and gap_alt_operand (10:05Z)
+
+Benchmarks and scaffold only: the link protocol is not built and no cell counts. Registered as art:64220e14 (gate-log/v1,
+refs art:35bce6f5 and art:f2f07e3c). All runs are preserved and `data reindex --remote` succeeded.
+
+**Dense GF(2^128) check, one challenge point, N = 201,326,592 bits (m = 28), A100.** Both kernels pass the eq spot checks
+and match the torch reference's BabyBear^6 value exactly.
+
+| kernel (pod script) | run | eq(r, i) s | coefficients + inner product s | total s |
+| --- | --- | --- | --- | --- |
+| torch, unfused (21) | r20260925-092724-d4f8 | 0.35 | 0.53 | 0.875 |
+| Triton, fused byte tables (23) | r20260925-094400-b761 | 0.023 | 0.345 | 0.367 |
+| Triton, int8 tensor-core coefficients, block 256 (24) | r20260925-094840-969f | 0.023 | 0.044 | **0.066** |
+
+- The tensor-core kernel computes c_i = Σ_t ρ_t bit_t(eq_i) as bits[B, 128] × ρ split into 7-bit limbs (int8 → int32),
+  then folds in b_i per block. Block 128 gives 0.080 s; block 512 spills registers and takes 1.15 s.
+- The byte-table kernel is gather-bound (96 table loads per bit). eq is memory-bound: it writes 4.3 GB for 2^28 entries.
+- The kernel produces the claimed inner product. The Ligero linear test instead needs c folded per committed column.
+  That is the same pass with a different reduction, and I have not measured it.
+- flock-bench's handoff (0946Z) estimated this prover step at "a few ms on GPU, derived, not run". Measured on A100 it is
+  66 ms per point, 23 ms of it the eq expansion, so their GPU figure is about 10× optimistic. Their CPU figure, 0.51 s per
+  point on Zen4 16T, is consistent with my 0.85 s on Zen 2 13T.
+
+**Route (a), per BF16 batch on A100 (prime side), revised.** The base is 0.776 s. In-unit bits add +0.42 s, the dense check
++0.066 s per point, and u_t +0.03 s. That gives about **1.30 s with 1 point (+67%)** and **1.36 s with the 2 points 2^-128 needs
+(+76%)**, replacing the 2.1 s upper bound above. Flock is extra: BLAKE3 is 0.29 s on a 5090 (Flock-CUDA) and 2.33 s on
+Zen4 16 vCPU; SHA-256 is 5.47 s on Zen4 CPU and has no GPU number. flock-bench's handoff sets "A-GKR's 54 s CPU prover"
+against the link, without a source; it may come from a machine with more cores. At this pod's 13-thread cap my BabyBear
+CPU measurement is 361.5 s, where the link is about 1%, not 4–6%.
+
+**gap_alt_operand vs the link's prime-side checks** (r20260925-095534-ad8c, pod script 25_gap_dense). The witness is the
+same altered operand as `alt_alt_bits`: x ^= 1 at a word with w = ±0, public words honest. The in-unit proof accepts that
+witness. The script checks what the link's two sides see instead.
+
+| cell | altered | link bits that differ | altered x-row leaf digest = committed? | honest: planes with S_t ≠ 2u_t + z_t, combination | altered: planes mismatched, combination |
+| --- | --- | --- | --- | --- | --- |
+| bf16-ampere+sha256 | VU 21, word 9, 0x0 → 0x1 | 1 of 201,326,592 | no (64e6477f.. vs 28ba8a70..) | 0/128, 0 | 62/128, nonzero |
+| fp8-hopper+blake3 | VU 0, word 47, 0x12 → 0x13 | 1 of 100,663,296 | no (56742485.. vs 974ea8c5..) | 0/128, 0 | 69/128, nonzero |
+
+- The binary side proves the committed digest, so it can only open the honest preimage, and its z is the honest bits'
+  value. The altered bits then break parity on about half the planes, and no range-valid u_t (< 2^29) fixes an odd
+  residual. The BabyBear^6 ρ-combination is nonzero, so the check rejects.
+- Assumption, not built: z is computed over the honest bits in prime-side order. The operand-to-message bit layout (the
+  gadget's prefix, padding and offsets, which the red team asked about) is taken as given. An altered word appears in
+  exactly one unit here, so duplicated operands were not exercised.
+
+**Incoming (0945Z–0946Z).**
+- vllm-rf-c1 recommends relabelling the four vllm-v1 operand-domain digests as "backend-owned" rather than "provisional,
+  integration owns". I have not changed anything: ruling 4 (0922Z) stands until the coordinator decides.
+- The laptop disk rule is noted. This lane has pulled nothing large to the laptop; all evidence is on the pod and in R2.

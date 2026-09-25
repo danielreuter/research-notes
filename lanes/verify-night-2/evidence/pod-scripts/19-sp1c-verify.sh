@@ -100,7 +100,10 @@ echo "=== [$(date -u +%H:%M:%S)] set + custody"
 [ -f $O/set/fp8-ada.bin ] || { $PY -m research data fetch $SET --to $O/set | tail -1; }
 ls $O/set; B=$(find $O/set -name 'fp8-ada*.bin' | head -1); echo "set file: $B sha256 $(sha256sum $B | cut -c1-16) (coordinator: 531a5c01...)"
 RUN=r20260925-080516-d8ac
-[ -d $O/runs/$RUN/proofs ] || $PY -m research fetch $RUN --runs-dir $O/runs --all 2>&1 | tail -2
+RUNFILES=art:17f1205b63b5a8ae3ee638b57ac864f06158848faede4ff9d99a1c08ba87af4f
+[ -f $O/runs/$RUN/proofs/proof-rep4.bin ] || $PY -m research data fetch $RUNFILES --to $O/runs/$RUN 2>&1 | tail -2
+[ -f $O/runs/$RUN/proofs/proof-rep4.bin ] || { D=$(find $O/runs/$RUN -name proof-rep4.bin | head -1); [ -n "$D" ] && ln -sfn "$(dirname "$D")" $O/runs/$RUN/proofs; }
+echo "custody: attempt $RUN outputs.run_files $RUNFILES"
 ls -la $O/runs/$RUN/proofs/ 2>&1 | head -12
 cmp $PROOF $O/runs/$RUN/proofs/proof-rep0.bin && echo "custody rep0 == run-files rep0"
 cmp $STMT $O/runs/$RUN/proofs/statement.json && echo "custody statement == run-files statement"

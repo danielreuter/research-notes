@@ -156,3 +156,12 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   product) costs 0.875 s on A100 (torch, unfused: an upper bound) and about 0.85 s on EPYC 7742 with 13 threads
   (PCLMUL, `lanes/agkr-bound/evidence/pod-scripts/21_eq_cpu.c`).
 - A 3,968-element second-round Ligero proof (u_t) costs 0.03 s and 471 KB: the fixed query overhead dominates.
+- The same dense check fused in Triton on A100 costs 0.066 s per challenge point: eq 0.023 s and coefficients + inner
+  product 0.044 s.
+  - The coefficients c_i = Σ_t ρ_t bit_t(eq_i) are an int8 tensor-core matmul: bits[B, 128] × ρ in 7-bit limbs, with
+    int32 accumulation and block 256 (block 512 spills registers and takes 1.15 s). The script is
+    `lanes/agkr-bound/evidence/pod-scripts/24_dense_tc.py`.
+  - A byte-table gather kernel is 5× slower (0.345 s): it does 96 L2 gathers per bit.
+  - eq is memory-bound, writing 16 B × 2^m.
+- The link's integer identity S_t = 2u_t + z_t per bit plane rejects a single altered link bit: about half the 128
+  planes lose parity, and the ρ-combination is nonzero (`25_gap_dense.py`).

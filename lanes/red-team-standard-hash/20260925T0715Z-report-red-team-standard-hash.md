@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 5483d13b (10:04Z) [open] 10:58Z main 3301c435 fp8-ada+blake3: R1/R4 refused, H2 PASS (run rtsh-final-1050); da74b03e +sha256 suite + compress_one differential running; BLAKE3 scan 3/4 shapes 0 free; next sha256 gadget scan
 CHECKPOINT none (09:53Z) [open] 10:36Z disk: deleted my /tmp evidence copies (~560 MB, all preserved: art:0e8faae7 etc) + 4 scratch worktrees (~1 GB); store objects 8381eb93 (105MB) / ee92c75a (40MB) 08:3xZ may be from my art:c7683eb2 put. From now: pod-only, no laptop downloads
 CHECKPOINT 5aa9f63 (09:52Z) [open] 10:32Z +sha256 be1a3bcb FAIL R1+R4 inherited (art:0e8faae7), closed by c8a16e2b merge (art:57a22acb); BLAKE3 gadget mutate-recompute scan 0 free rows on 3 shapes, control 18; sp1 R3 open
 CHECKPOINT 15f74f3 (09:28Z) [open] 10:00Z 24ab6c7d+806a2f73 PASS R1/R2/R4/H2 (art:cd2c38ea, art:be211735); sp1 R3 fix open on --instances (handoffs 0925Z); running: +sha256 R1/R4/H2 at be1a3bcb and +fix, BLAKE3 gadget mutate-recompute scan

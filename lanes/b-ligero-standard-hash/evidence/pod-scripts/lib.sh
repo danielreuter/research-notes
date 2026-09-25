@@ -6,6 +6,8 @@ Q=$(cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us 2>/dev/null || echo -1); PER=$(cat /
 if [ -r /sys/fs/cgroup/cpu.max ]; then read -r Q PER < /sys/fs/cgroup/cpu.max; [ "$Q" = max ] && Q=-1; fi
 NT=$(( Q > 0 ? Q / PER : $(nproc) )); [ "$NT" -lt 1 ] && NT=1
 export OMP_NUM_THREADS=$NT MKL_NUM_THREADS=$NT OPENBLAS_NUM_THREADS=$NT VY_CPU_THREADS=$NT
+# glibc: no mmap for big blocks, no trim, so the host arrays fault in once (coordinator 1003Z / b-ligero-sha256 0955Z)
+export MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1000000000000
 export LIGERO_GPU_STRICT=1 LIGERO_GRAPH_STRICT=1 PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}
 V=${LIGERO_VERIFY:-/workspace/bin/ligero-verify}
 echo "cpu threads $NT (quota $Q / $PER, nproc $(nproc)); cwd $(pwd); commit ${RESEARCH_SOURCE_COMMIT:-$(git rev-parse HEAD 2>/dev/null || cat .research-source.json 2>/dev/null | head -c 300)}"

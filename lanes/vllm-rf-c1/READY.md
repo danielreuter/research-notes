@@ -44,7 +44,11 @@ Detail: STATE.md "Results", `evidence/cuda_vectors.*.json`, `evidence/weights_ro
 - **Lints** (`tests/lint` + `test_no_by_name_rules.py` + `test_imports_resolve.py`, 45 tests, `evidence/pod-scripts/lints.sh`): 45/45 at `53314d1c` (`r20260925-093225-daa0`), 45/45 at `472207c3` and at
   base (`r20260925-085512-8c77`). At `7218ffbb` the only failure was the stale p09 entry that `53314d1c` removes.
 - **Gate (b)** (xdist `-n 12 --dist loadfile`, OMP 3, same pod `vyv-rf-c1-big`, base `10996616` run once 08:56-09:11Z):
-  GATE_B3
+  at **`53314d1c`** (`r20260925-094310-c681`, 09:43-09:58Z): **0 new failures**. base 4001 tests (58 F / 11 E / 3640 P / 286 S /
+  6 xf), head 4006 (56 F / 11 E / 3646 P / 287 S / 6 xf). 4 new tests pass (test_spans x2, test_production_vectors x2); 1 new skip =
+  `tests.commit.test_scheme_cuda` (collection skip without a GPU, by design); 2 base failures pass on head:
+  `test_roundtrip::test_transient_storage_is_released` (passes on every head run) and `test_row_pod_cancel_forwarding` (a 15 s
+  subprocess timeout on base: timing). `evidence/gates/jdiff_b_head3_vs_base.txt` (a1's `baseline-jdiff.py`).
   Earlier heads, same base: `472207c3` 1 new failure (dead modules -> commit 4); `7218ffbb` 1 new failure (stale p09 entry ->
   commit 5). Diffs: `evidence/gates/jdiff_b_*`.
 - **Gate (a)** T0+T1 (cpu3m 512 GB): GATE_A
@@ -79,6 +83,9 @@ no per-port operand tree. Its step domain is program = the committer's `root_pro
 - The pod's nvcc is 12.4 while torch is cu129; every JIT extension here was built by that nvcc.
 - Strictness: where the rules now go through core, a malformed input raises `InvalidArtifact` (a `ValueError` subclass) instead of
   a bare `ValueError`; core's per-leaf `chunk_header` validation makes host verify paths slower (not the serving path).
+- `tests/commit/fasttree.py` (now a test helper of `stream_merkle`) keeps a prefix-once id-leaf form (`leaf_header` /
+  `leaf_digest`, pluggable hash); no test pins it to the `id_leaf` vectors (none did at base either; `hashing.leaf_hash`, which
+  production uses, is pinned). `tests/commit/semantic_layout.py` holds no rule copy (it calls `scheme`).
 - Pre-existing unused `hs` imports in native_host `_commit_step_gpu` / `_gpu_layout`; kept `native_host`'s coverage evidence string
   "per-step bind_root" and `hidden_stream.VERSION` on purpose (recorded strings).
 

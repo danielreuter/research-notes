@@ -29,6 +29,11 @@ for arg in "$@"; do
   s=$W/stage/$tag; rm -rf $s; mkdir -p $s
   cp -a $d/result.json $d/bench.log $s/; [ -f $d/proofs.sha256 ] && cp -a $d/proofs.sha256 $s/
   [ -d $d/proofs ] && cp -a $d/proofs $s/
+  # a live-verifier run (63-live.sh): its session records (hello / session / verdict / rust json, coins, index, logs), not
+  # the sessions' proof copies (proofs/ holds rep 1)
+  [ -d $d/live ] && ( cd $d && find live -maxdepth 2 -type f \( -name '*.json' -o -name '*.jsonl' -o -name '*.log' -o -name '*.coins' \) ) |
+    while read -r f; do mkdir -p "$s/$(dirname "$f")"; cp -a "$d/$f" "$s/$f"; done
+  [ -f $d/serve.log ] && cp -a $d/serve.log $s/
   [ -n "${SLIM:-}" ] && rm -f $s/proofs/rep1/*.proof
   python3 - "$s/result.json" "$label" "$tag" "$POD" > $s.meta.json <<'PY'
 import json, sys

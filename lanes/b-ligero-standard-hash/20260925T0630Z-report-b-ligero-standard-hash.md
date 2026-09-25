@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 806a2f73 (10:06Z) [open] Live same-pod verifier cell x1 4096 frozen: 5/5 sessions ACCEPT 49/49 own coins, e2e 3.596s, art:e9932b72 -> verify-night-2 (1008Z). Malloc env adopted from now (lib.sh + --env); x4 sweep re-run with it r..100526-b232.
 CHECKPOINT 806a2f73 (09:58Z) [open] GPU-committer cells registered: x1 4096 frozen e2e 3.585s art:e7d59ab6; x4 4096 e2e 2.048s art:017a7069; x4 plateau 8192 2109 VU/s art:6b6d4484 -> verify-night-2 (0958Z). Live same-pod verifier run r..095340 accepting 49/49/rep.
 CHECKPOINT 806a2f73 (09:20Z) [open] GPU committer smoke: device==host evidence, 4096 x1 e2e 3.64s (1125 VU/s). x4 fold probe l4096p2: e2e 2.05s @4096 (1999 VU/s, 1.78x x1; p3 OOM). x4 sweep r..091922-a390 running (custody). R2 negs on tip all caught.
 CHECKPOINT 806a2f73 (09:04Z) [open] tip 806a2f73: merged ligero-steps-pin R4 + main 94b1c4d2 (GPU committer); fixed R4 test regression; cells art:5d20ad00 (4096) + art:d6328cf5 (plateau) -> verify-night-2; handoffs red-team/coordinator/steps-pin; next GPU smoke + x4 fold
@@ -210,7 +211,20 @@ Pod scripts: `evidence/pod-scripts/`.
   c86e51a1… (counts via instance-equiv).
   Both registered 09:53Z. Handoff: lanes/verify-night-2/20260925T0958Z (the 2 cells + the x4 plateau).
 * 09:53Z r20260925-095340-c456 (`63-live.sh`): the x1 frozen cell against a same-pod live verifier (niced, 127.0.0.1:7000,
-  its own coins, pod ligero-verify), rep 1 dumped (coordinator 0915Z, decision 2).
+  its own coins, pod ligero-verify), rep 1 dumped (coordinator 0915Z, decision 2). **DONE** (bench rc 0, 527 s): the live
+  verifier ACCEPTED 49/49 in each of the 5 recorded reps (interactive: "coins are this verifier's step-0 coins";
+  included-hash).
+  - Timing: t.total 3.585 s, t.total_live 3.592 s, commit 0.010 s, e2e 3.596 s (1139 VU/s, 9.44e7×), 128.40 bits.
+  - Network: rtt median 0.55 ms, 7.37 GB out per 5 reps, net wait 0.006 s; verify.wall 128 s / cpu 127 s per rep.
+  - Rust batch on the dumped rep 1: ACCEPT 49/49 against its own (live) coins, 2^-128.40, pinned.
+  Registered 10:05Z with the session records (2.9 MB: hello / session / verdict json, coins, index, serve.log; not the
+  6.8 GB of session proof copies). Result art:e9932b72b71ed81a6d4a94ea62e36bc3f1db521258c9237744c5c31459ca71ee, tree
+  art:6a36cde712108a60fe919043996cfdeda11e06a93e583544bd1438b09966742c. Same pod as the prover, niced: the verifier's
+  process and coins are its own, not its machine.
+* 10:03Z coordinator (inbox 1003Z): export MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1000000000000 in measured runs. Now in
+  lib.sh, and passed as `--env` on the run (so job.json records it). Every cell above was measured WITHOUT it; they stand
+  as they are, and re-measured cells are new results.
+* 10:05Z r20260925-100526-b232: the x4 sweep again, **with the malloc env** (30-sweep.sh, l = 4096, p2, custody-r2).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

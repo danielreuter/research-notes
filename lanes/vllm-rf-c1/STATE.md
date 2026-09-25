@@ -4,9 +4,18 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T09:48Z
+updated: 2026-09-25T10:08Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
+
+## 10:08Z
+- **Gate (b) at `53314d1c`: 0 new failures** vs same-pod base (`r20260925-094310-c681`, `evidence/gates/jdiff_b_head3_vs_base.txt`);
+  2 base failures pass, 1 new skip (test_scheme_cuda, CPU), 4 new passing tests. READY.md drafted (gate (a) pending).
+- Gate (a) at `7218ffbb` (`r20260925-092323-bdf1`): 48/158 at 10:04Z; the base XML's remaining tests took 70 min -> ETA ~11:15Z.
+  Then fetch, jdiff vs a23b's same-pod base XML, terminate `vyv-rf-c1-big`, final message.
+- A4 still not in origin/main (09:54Z).
+
+> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T14:00Z (7 AM PT)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
 
 ## 09:48Z summary
 - Branch `lane/vllm-rf-c1` **pushed** (custody rule), head `53314d1c` = commit 5 (p09 allowlist: drop the `commit <-> program`

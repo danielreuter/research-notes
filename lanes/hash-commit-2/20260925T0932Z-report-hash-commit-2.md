@@ -5,6 +5,7 @@ created: 2026-09-25T09:32Z
 status: open
 ---
 
+CHECKPOINT bcf75db7 (10:06Z) [open] PORTABILITY: byte-identity 98/98 on A100 sm_80 + H100 sm_90; bench bf16-hopper+blake3 GPU arm ev c90e6d0d stmts c9ed5a64 == 4090, Rust 49; committer H100 3.5ms (host 15.8s), A100 5.7ms. H100 neighbour fail = Poseidon2 torch int8 _int_mm (sm_90 needs M%32); fix testing r20260925-100554-2e7b
 CHECKPOINT bcf75db7 (09:54Z) [open] 4090 bcf75db7 A/B closed + 15 results preserved (fp8 GPU art:91a9287e, bf16 GPU art:728e07b2, cc art:6cb3eb00); H100 NVL r20260925-094905-04b2 + A100 r20260925-095225-92f7 bootstrap->byte-identity->timing running. Laptop-disk handoff 0946Z: compliant, nothing pulled
 CHECKPOINT bcf75db7 (09:45Z) [open] 4090 rerun @bcf75db7 done rc0: fp8 GPU 3.9-4.0ms/host 11.9-12.3s ev f62b873f; bf16 GPU 4.9-5.2ms/host 24.3-25.0s ev c90e6d0d; Rust ok; registering (art:91a9287e art:728e07b2 ...); A100+H100 pods up, syncing
 CHECKPOINT bcf75db7 (09:32Z) [open] 09:33Z took over; in-flight run r20260925-084051-7b4e @bcf75db7 on vy-commit-gpu: fp8 x3 GPU 3.9-4.0ms vs host 11.9-12.3s ev f62b873f; bf16 r1 GPU 5.2ms vs 24.3s ev c90e6d0d rust 49; bf16 r2+commit_cost+flock left; next A100/H100 pods

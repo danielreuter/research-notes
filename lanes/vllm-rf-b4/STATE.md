@@ -6,6 +6,8 @@ updated: 2026-09-25T09:22Z
 ---
 # b4 (engine and hooks): state
 
+> **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T14:00Z (7 AM PT)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
+
 Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/projects/verity-wt/rf-b4`, branch
 `lane/vllm-rf-b4`. **a4 base: 10996616.** Budget $25 of pod spend. Deadline (coordinator 09:03Z): 13:00Z.
 
@@ -26,16 +28,25 @@ Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/proje
   vocab-parallel binding), pipeline/build + commit. All **43** P9 `runtime-patch` entries deleted; P9 now requires
   `setattr` on imported objects to live in `engine/hooks.py` only. `tests/engine/test_hooks.py`: uninstall restores
   originals (plain, class attr, inherited, by-value torch config, real Triton `JITFunction.run`, torch/vLLM targets).
-  Not yet run: lints and tests run on the CPU pod next.
+- `619b7451` (pushed) `engine/env.py`: the one writer of vLLM's env pins (ENGINE table = engine_profile.DECLARED_ENV,
+  EXPORT table = vllm_meta's five, apply_target for `TargetProfile.env()`, compiled per-process Inductor dir +
+  VLLM_DISABLE_COMPILE_CACHE). Callers write at the same points as before. P7: env.py is ENV_OWNERS, 17 environ
+  entries deleted, new check that no other library module writes a VLLM_/HF_/TORCHINDUCTOR_/TOKENIZERS_ switch.
+  `construction_version` also hashes engine/env.py.
+- `3bdcd0ad` (pushed) P11: the moved docstring loses its board tag (2 entries deleted).
+- Lints at head `3bdcd0ad`: 47 passed; at base 45 passed (vyv-rf-b4-cpu).
 
-## Running
-- (nothing yet) CPU pod `vyv-rf-b4-cpu` for lints + gate (b) head vs base next.
+## Running (pods registered, guard 90)
+- `vyv-rf-b4-cpu` (eroe8y957ahhjr, cpu3g 32 vCPU / 128 GB): gate (b) head `r20260925-095236-2684`, base
+  `r20260925-095250-e4e8` (same pod, -n 12 each).
+- `vyv-rf-b4-g1` (17ez42q6mb3wo2, 1x L40S, 188 GB cgroup): `r20260925-100039-940f` = bootstrap, #101 build,match,commit
+  (FA2 tap) at head, then properties.noninterference at head and base. Gate (a) T0+T1 goes beside it after bootstrap.
+- `vyv-rf-b4-tp2` (2x L40S): **not created**: RunPod has no 2x L40S instances (SECURE or COMMUNITY) since 10:00Z;
+  retrying.
 
 ## Next
-1. CPU pod: lints + gate (b) at head and at 10996616 side by side.
-2. `engine/env.py`: move the vLLM env-pin writers (engine_profile.apply_env, vllm_meta import-time setdefaults,
-   `os.environ.update(target.env())` in vllm_adapter/pipeline, VLLM_DISABLE_COMPILE_CACHE) behind it; P7 ENV_OWNERS.
-3. Gate (a) on a big-memory pod; GPU rows #101 (L40S, FA2 tap + non-interference), TP2 #70 (2x L40S).
+1. Gate (b) jdiff; gate (a) on g1 (prefetch with a laptop-minted 3 h RO key, delete key, run).
+2. #70 TP2 chain (Build ~23 min, Match ~21 min, Commit ~85 min) as soon as a 2x L40S is available.
 
 ## Open questions (none blocking)
 - `engine.hooks` sits in the `core` P9 layer (stdlib only; a test asserts it imports nothing from `verity_vllm`), so
@@ -45,6 +56,10 @@ Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/proje
   a runtime patch; that cleared 7 false positives (registry `PrimitiveDefinition(...)`, generic `types.ModuleType`).
 - `build_engine` / `engine_kwargs_for` signatures unchanged. The vllm_adapter -> build.py file split is left to B5
   (39 importers).
+- Env pins "at construction": the engine path pins inside `build_engine` / `engine_kwargs_for`. Three pipeline CLIs
+  (m1_capture, tp/capture, commit) still call `prof.apply_env()` at module import, and vllm_meta pins at import
+  (both now through engine/env.py), because huggingface_hub reads HF_HOME / HF_HUB_OFFLINE once at import: moving
+  those later would change what a process sees. Proposal: they move when a5's `pipeline/cli.py` owns process startup.
 - Code identity: `construction_version` moves (export_compat, export_ops, triton_capture, pipeline/build.py are
   construction sources). Before/after values go in READY.md; no Program/manifest/commitment digest change intended.
 

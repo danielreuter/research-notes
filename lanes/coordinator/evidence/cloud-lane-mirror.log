@@ -30,3 +30,8 @@ notes sync: committed 2982773 (26 paths); pushed; skipped 11 over 1 MB (put them
 2026-09-25T12:15:51Z IN machines.d: 1 entry file(s) store -> notes
 notes sync: committed 4c437af (93 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
 2026-09-25T12:21:00Z IN flock-live: 3 file(s) store -> notes
+notes sync: committed b4e2e25 (9 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
+2026-09-25T12:26:07Z IN agkr-bound: 1 cloud handoff(s) store -> notes
+2026-09-25T12:26:07Z IN coordinator: 1 cloud handoff(s) store -> notes
+2026-09-25T12:26:07Z IN flock-glue: 1 cloud handoff(s) store -> notes
+2026-09-25T12:26:09Z IN flock-live: 2 file(s) store -> notes

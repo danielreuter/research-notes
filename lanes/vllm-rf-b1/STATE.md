@@ -47,7 +47,7 @@ a4 base: 10996616
 - cpu pod terminated 12:08Z, g1 terminated 12:02Z (runs fetched --all).
 
 ## Running
-- `vyv-rf-b1-big` (61mmy8g18xcj0z, cpu3m 64 vCPU / 512 GB, $3.52/h, since 11:24Z): head 8c0bec08 + base synced, bootstrap OK 11:48Z; laptop-minted read-only key piped in 11:58Z. **Gate (a) `r20260925-115853-be37`** (`big_gate_a.sh`): prefetch done 12:07Z ok=26 fail=0 key_deleted=yes; head T0+T1 split 4-way running, then base replay_partition on the same pod for replay wall time.
+- `vyv-rf-b1-big` (61mmy8g18xcj0z, cpu3m 64 vCPU / 512 GB, $3.52/h, since 11:24Z): head 8c0bec08 + base synced, bootstrap OK 11:48Z; laptop-minted read-only key piped in 11:58Z. **Gate (a) `r20260925-115853-be37`** (`big_gate_a.sh`): prefetch done 12:07Z ok=26 fail=0 key_deleted=yes; head T0+T1 split 4-way from 12:07Z: R1 (r74 r67 r60 r70) 3 passed 1 skipped 1110 s, R3 (r39 r57 r101 r4 r23) 3 passed 2 skipped 1003 s; R2 and A running; then base replay_partition on the same pod for replay wall time.
 - `vyv-rf-b1-g2` (l2w6439556ueod, 1x L40S, 188 GB, driver 580, $1.09/h): created 11:18:44Z by the first retry loop, which died before registering it; found and registered (guard 90) at 11:49Z, so ~30 min of it idle. **#67 `r20260925-120629-a48a`** (12:06Z) = `g2.sh`: bootstrap OLMOE, Build+Match once at head, row dir copied, Commit PAIRS=1 at head then at base (f1's shared-Match pattern), rowcmp vs record (program fdd998d4, v2 manifest 47990631, commit_pass True).
 - #70 (2x L40S): still no capacity; the retry loop now tries tp2 only, until ~12:30Z.
 

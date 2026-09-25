@@ -1,0 +1,39 @@
+{
+ "schema": "verity-gen/golden-check/v1",
+ "status": "fail",
+ "utc": "2026-09-25T12:18:29Z",
+ "corpus": "/workspace/c2/gb-epoch/epoch/integrations/vllm/verity_vllm/properties/golden/corpus.json",
+ "entries": [
+  {
+   "name": "smollm2-135m-m1",
+   "log": "data/logs/m1.jsonl.gz",
+   "profile": "vllm_d9105ea80_sm89_eager",
+   "expected_digest": "d2b299f56e40d311504a81d18873131a06e13d04483cb9bf6451ab53703fe6e8",
+   "expected_attribution_sha": "099bfe628971c29d913d1e2eda16b2cab93322da0bbc73f7077c32ec47868f0a",
+   "got_digest": "d72cd7ad71fbf73854c8fc9af5d8fa51fa71ec4a65bcad396fbcc5834fb0e8e1",
+   "got_attribution_sha": "099bfe628971c29d913d1e2eda16b2cab93322da0bbc73f7077c32ec47868f0a",
+   "n_instances": 14226,
+   "seconds": 8.21,
+   "status": "fail",
+   "reason": "digest changed",
+   "expected_n_instances": 14226
+  },
+  {
+   "name": "qwen2.5-1.5b-m6",
+   "log": "data/logs/m6/log.jsonl.gz",
+   "profile": "vllm_d9105ea80_sm89_eager_qwen15",
+   "expected_digest": "14a3ac665ffd9d2f1f9c4b37e2f3521de7d3cc2fe87366348218dfa9bdd459f5",
+   "expected_attribution_sha": "c926d65ca202e1777350acb9b95b1a919fa071d259df990237223d8dcaa882e8",
+   "got_digest": "074e6caba4f1e1884fa336c1bf8798f845b3f6e06224462d7aa313f5488dd89c",
+   "got_attribution_sha": "c926d65ca202e1777350acb9b95b1a919fa071d259df990237223d8dcaa882e8",
+   "n_instances": 14602,
+   "seconds": 5.99,
+   "status": "fail",
+   "reason": "digest changed",
+   "expected_n_instances": 14602
+  }
+ ],
+ "n_pass": 0,
+ "n_fail": 2,
+ "n_skipped": 0
+}

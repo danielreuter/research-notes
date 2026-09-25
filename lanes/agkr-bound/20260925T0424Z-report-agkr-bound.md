@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: final
 ---
 
+CHECKPOINT 89433d06 (12:22Z) [final] FINAL 12:24Z tip 89433d06 (main 2c92b9e3 merges clean, not merged). BF16 1.20->1.53 s, FP8 0.61->0.78 s; 11/11 negs both verifiers. Route a A100 BF16 ~1.82 s w/ flock-glue. Pod terminated 12:15Z, ~$10.3. Reindex failed laptop+pod. All 22 handoffs named.
 CHECKPOINT 89433d06 (12:19Z) [final] FINAL 12:20Z tip 89433d06 (main 2c92b9e3 merges clean, not merged). BF16 1.20->1.53 s, FP8 0.61->0.78 s link; 11/11 negs both verifiers. Route a A100 BF16 ~1.82 s w/ flock-glue. Pod terminated 12:15Z, lane ~$10.3. Reindex failed (laptop+pod). All handoffs dispositioned.
 CHECKPOINT 89433d06 (12:15Z) [final] FINAL 12:16Z tip 89433d06: sigma link built, both verifiers. A100 BF16 prove 1.20->1.53 s, FP8 0.61->0.78 s; 11/11 negs rejected Py+Rust both rows. Drill-down (L). Pod vy-agkr-bound2 terminated 12:15Z; lane ~$10.3. Reindex failed laptop+pod (timeout). MALLOC env set in all runs.
 CHECKPOINT 89433d06 (12:08Z) [open] 12:08Z: FP8 link OK (MALLOC_MMAP_MAX_=0 TRIM=1e12): prove 0.607->0.778 s, PyV 0.489->0.648, Rust 1.71->2.35; 11/11 negs rejected Py+Rust; art:60cabb96. PROTOCOL 17.4 89433d06. Custody-r2 adopted (1146Z). Reindex running on pod (laptop's killed). Next: drain + FINAL.
@@ -464,21 +465,21 @@ Coordinator decisions needed:
 - who wires the real Flock root_b / chained blocks, the flock-glue lane or a new lane.
 
 Handoffs, with what I did about each:
-- coordinator 0447Z: done (merged main c1891d48, pin lines).
-- coordinator 0507Z: done (x/W/y committed, frame-v3).
-- coordinator 0512Z: done ("integration ready v2", art:3f562102).
-- coordinator 0546Z, 0640Z, 0650Z: done (SHA-256/BLAKE3 row leaves, $100 cap, vllm-v1 variant).
-- coordinator 0752Z: adopted (route (a), 08:55Z section).
-- red-team-standard-hash 0905Z: noted (the roots reproduce).
-- coordinator 0922Z: followed (no AVX-512 pod; tag kept; vllm-v1 PROVISIONAL; fp4 unpinned).
-- vllm-rf-c1 0945Z: not acted on, per the coordinator's 0922Z (mapping stays PROVISIONAL) and 1003Z (no relabel of
+- `20260925T0447Z-handoff-from-coordinator.md`: done (merged main c1891d48, pin lines).
+- `20260925T0507Z-handoff-from-coordinator.md`: done (x/W/y committed, frame-v3).
+- `20260925T0512Z-handoff-from-coordinator.md`: done ("integration ready v2", art:3f562102).
+- `20260925T0546Z-handoff-from-coordinator.md`, `20260925T0640Z-handoff-from-coordinator.md`, `20260925T0650Z-handoff-from-coordinator.md`: done (SHA-256/BLAKE3 row leaves, $100 cap, vllm-v1 variant).
+- `20260925T0752Z-handoff-from-coordinator.md`: adopted (route (a), 08:55Z section).
+- `20260925T0905Z-handoff-from-red-team-standard-hash.md`: noted (the roots reproduce).
+- `20260925T0922Z-handoff-from-coordinator.md`: followed (no AVX-512 pod; tag kept; vllm-v1 PROVISIONAL; fp4 unpinned).
+- `20260925T0945Z-handoff-from-vllm-rf-c1.md`: not acted on, per the coordinator's 0922Z (mapping stays PROVISIONAL) and 1003Z (no relabel of
   earlier numbers). Pending the coordinator.
-- coordinator 0946Z and 1146Z: followed (no laptop fetches or builds; `--custody-r2` for runs after 11:46Z; the two
+- `20260925T0946Z-handoff-from-coordinator.md`, `20260925T1146Z-handoff-from-coordinator.md`: followed (no laptop fetches or builds; `--custody-r2` for runs after 11:46Z; the two
   earlier runs were pushed from the pod).
-- flock-bench 0946Z, flock-bench-80gb 1010Z, flock-128 1128Z, flock-glue 1215Z: used in the drill-down.
-- coordinator 1003Z and 1040Z: MALLOC tunables exported in every run from 10:05Z, env.sh not sourced. The 1040Z main
+- `20260925T0946Z-handoff-from-flock-bench.md`, `20260925T1010Z-handoff-from-flock-bench-80gb.md`, `20260925T1128Z-handoff-from-flock-128.md`, `20260925T1215Z-handoff-from-flock-glue.md`: used in the drill-down.
+- `20260925T1003Z-handoff-from-coordinator.md`, `20260925T1040Z-handoff-from-coordinator.md`: MALLOC tunables exported in every run from 10:05Z, env.sh not sourced. The 1040Z main
   merge was not done (see merge-with).
-- coordinator 1020Z and red-team-link 1025Z: built accordingly (sigma in clear, non-ZK only, verifier-derived injective
+- `20260925T1020Z-handoff-from-coordinator.md`, `20260925T1025Z-handoff-from-red-team-link.md`: built accordingly (sigma in clear, non-ZK only, verifier-derived injective
   maps, one GF(2^256) point). The forged-block negative is still open.
-- red-team-flock 1130Z: noted (C8; R5 order matches).
-- coordinator 1202Z: checked (r20260925-115633-d5ec PRESERVED).
+- `20260925T1130Z-handoff-from-red-team-flock.md`: noted (C8; R5 order matches).
+- `20260925T1202Z-handoff-from-coordinator.md`: checked (r20260925-115633-d5ec PRESERVED).

@@ -31,7 +31,7 @@ checked for equal evaluators before it landed (below).
 Application-specific, stays (no flag): the model composites (Serve*, Attention*, AttnBlock*, RMSNorm*, RoPE*, SiluMul,
 Embedding, TokenSelect, BiasAdd, ResidualAdd, MoE*, Lifted/L* padding and liveness primitives, SplitsForSMS, LiveCount,
 sampling (GumbelStreamKey, GumbelNoiseLane, TopPMaskWord)), and the vLLM/aten kernel semantics SiluMulBf16, RopeOut,
-RopeOutAdd, GeluTanhMulBf16, GeluErfBf16 (quarantine), TanhF32Rn.
+RopeOutAdd, GeluTanhMulBf16, GeluErfBf16 (quarantine).
 
 Flagged: borderline, or silicon semantics left in the integration (one line each):
 - `F32Add/F32Mul/F32Div_v1`, `F32AddFtz/SubFtz/MulFtz_v1`: silicon (FADD/FMUL/div.rn), but evaluated through host numpy
@@ -49,6 +49,8 @@ Flagged: borderline, or silicon semantics left in the integration (one line each
 - `REFERENCE_CPU_F32` members (`ref_prims.py`: F32Sub, F32Sqrt, F32MaxRef, F32GtStrict, F32ExpRn, F32ErfRn, F32TanhRn,
   GatherF32x{V}, I64ToI32, DotRef{K}): the torch-CPU reference model's arithmetic, a pinned vocabulary unit
   (`ref_vocab_digest`), not a silicon op. Stays with the vocabulary.
+- `TanhF32Rn_v1` (dense.py): a quarantined stand-in for libdevice `tanhf` (float64 tanh, one RN32), not a measured
+  function. Stays in quarantine until measured.
 - `GatherBf16x{V}`, `BitAtx{W}`: basic (an element/bit select), but built per width at run time (prims.py / sampling.py).
   Moving them needs a core factory like `const()`; candidate, not moved.
 - `DotBf16_v1/GemmCoordinate_v1/Gemm_v1` (b1.py, K-only, the step named in the body): after the epoch each is the
@@ -84,7 +86,7 @@ Pre-epoch head `5e21eead` vs base `10996616`:
     Gemm_v2-family Program digests and 23 Const encodings equal.
   - Step 3, `r20260925-103740-ee23` (`evidence/step3/equality3.json`, 2743.9 s): ALL-EQUAL. F32Sat, F32Fabs, F32Neg,
     F32BitsShl23, F32IsFinite and Bf16GtStrict exhaustive (2^32 cases each). F32ToE4m3Sat 8.3 M cases. Fmaxf, Fminf,
-    Eq, I32Le/Eq/Add 100.7 M each; the selects 4.2 M; the bit ops exhaustive. HopperE4m3QgmmaDot32 2.1 M cases vs
+    Eq, I32Le/Eq/Add 100.7 M each; the selects 4.2 M; the bit ops exhaustive. HopperE4m3QgmmaDot32 1.82 M cases vs
     integration scalar, core kernel and the twin. Encodings of all 20 moved primitives equal, 36 Program digests equal,
     and the E4M3 word function body is byte-equal.
 - **Program digests on a CPU pod** (§6 C2):

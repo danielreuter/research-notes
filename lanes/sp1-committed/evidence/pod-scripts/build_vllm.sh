@@ -11,6 +11,8 @@ stamp() { echo; echo "=== [$(date -u +%H:%M:%S)] $*"; }
 mkdir -p "$OUT/check-vllm"
 
 SP1_HOST_FEATURES=cuda,relation-committed-vllm bash backends/sp1/pod_bootstrap.sh
+# the same-pod baseline: the bare guest (relation only, operands unbound) on the same set
+SP1_HOST_FEATURES=cuda,relation-bare bash backends/sp1/pod_bootstrap.sh
 
 stamp "frame-v3 committed guest at this tip"
 (cd backends/sp1 && CARGO_TARGET_DIR=/workspace/sp1-target-cuda-relation-committed cargo build --release -p veritor-zk-host --features cuda,relation-committed 2>&1 | tail -2)

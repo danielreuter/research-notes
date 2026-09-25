@@ -8,6 +8,7 @@ final: 13:30Z hard; budget $40 (commit-gpu retarget 06:35Z, incl. ~$1.3 spent)
 status: open
 ---
 
+CHECKPOINT b27471b (08:03Z) [open] commit-gpu 08:06Z: fixes 0787f4a9/399a3fe3 (device heads, u8 rows); profile ~3.9ms/4096 fp8 committer on 4090; A/B p2 running (host r1 ok ev f62b873f rust ok); survey adopted as-is + Flock clmad built sm_89 (native CLMAD), runs after A/B
 CHECKPOINT a2d67679 (07:54Z) [open] commit-gpu 07:54Z: 4090 A/B fp8-ada+blake3 evidence identical host vs GPU (f62b873f); committer host 12.2s -> GPU 12-14ms; >5ms from int64 row h2d (8.8ms) + host midstates; fixed @0787f4a9 (device heads, u8 rows); A/B OOM at batch 8192 -> rerun smaller
 CHECKPOINT 8d4ad41 (07:22Z) [open] commit-gpu 86d7edb7 (main 00ffe398 merged; core frame_v3/vllm_v1 schemas+vectors): 4090 vy-commit-gpu tests 95/95 pass (GPU frame-v3 word/sha256-row/blake3-row + vllm-v1 trees == core vectors, host builders, commit_cost refs); neighbours running, then harness A/B + commit_cost GPU
 CHECKPOINT fe9c7172 (07:01Z) [open] commit-gpu: fe9c7172 GPU frame-v3 committer (word/u16/u32 trees, keyed-BLAKE3 rows + chain witness, lazy device levels, commit.committer split) + byte-identity tests; 4090 pod vy-commit-gpu (g6sehoo9) up 06:50Z, syncing + bootstrap next
@@ -92,3 +93,26 @@ vllm-v1 after core-schemes. Target: <= 5 ms per 4096 instances, all ports, byte-
 - 07:22Z tests on 86d7edb7: 95 passed (hash_gpu/tests/test_frame_v3.py, frame_gpu_test.py, test_commit_cost_benchmark.py).
   Neighbour suites (61-cg-neighbours.sh: hash_gpu, hashchain, leaf_test, leaf/{blake3,conformance,core_schema}, verity
   commitments) running: CPU-heavy (12 cores) BLAKE3 gadget tests, slow; first attempt incl. ajtai killed at 54% (07:26Z).
+- 07:38Z neighbour suites on 86d7edb7: 325 passed, 1 skipped (hash_gpu, hashchain, leaf_test, leaf/core_schema, verity
+  commitments); blake3/conformance gadget tests run with HEAVY=1 only (CPU minutes each).
+- 07:40Z first A/B (fp8-ada+blake3, batch 8192, pipeline 4): both arms OOM in the prover after the commit (24 GB 4090);
+  the commits themselves: evidence f62b873f... identical host vs GPU; committer host 12.2 s, GPU 12-14 ms (rows 8.8 ms, trees
+  4-6 ms). Profile (75-cg-prof.py): the bench handed the committer 4096 per-VU int64 arrays (np.stack + 96 MiB h2d); a fresh
+  binding cost 3.2 ms per tree in host (pure-Python) midstates, hidden by the head cache across --commit-reps.
+- 0787f4a9: a tree's heads (pad, node levels, leaf + suffix) in one upload + one `sha_mids` launch (no host SHA; fresh tree
+  3.6 -> 0.50 ms); chain digests compared on the device; `HashedRelationRunner.committed_rows` gives the committer the rows in
+  their words' dtype (uint8 / uint16, `narrow_rows`), made once with the instance set, outside commit.* (the stacked int64
+  per-VU arrays are the bench's instance format, not the committed set; both arms get the same input). 399a3fe3:
+  `_torch_stream` no longer swallows an ImportError from its block. 96 tests pass on the pod.
+- Profile at 0787f4a9 (4090, ms, median of 30): h2d 6 MiB u8 0.54 (pinned 0.48: PCIe-bound, ~11.6 GB/s); keyed BLAKE3 4096 x
+  1536 B 0.14 (45 GB/s); frame tree 4096 leaves 0.50; row_tree (BLAKE3 + tree + digests + d2h) 1.08; y word tree 0.62; so
+  the fp8 committer ~= 2 x 0.57 + 2 x 1.08 + 0.62 = 3.9 ms (launch- / d2h-bound, not hash-bound).
+- 07:52Z SURVEY handoff (hash-proving-survey.md §4.1): adopted as is -- no change to the serving hashes (SHA-256 and keyed-BLAKE3
+  row leaves side by side, one shape per port), device framing/tree kernels continue, no prover witnesses at serving time; plus
+  Flock `cuda-ghash` clmad_peak / bench_f128 on the 4090 and H100 pods. Survey gate: not applicable to the native committer
+  (no in-circuit gadget here).
+- 08:05Z Flock b684b125 built AOT for sm_89 with CUDA 13.3.1 redist (nvcc V13.3.73) under /workspace/cuda-13.3
+  (80-flock-setup.sh); cuobjdump: clmad_peak 40 CLMAD SASS lines, bench_f128 1014 (native on sm_89). Driver 580.159 (CUDA 13.0):
+  runs via minor-version compatibility (AOT cubin, no PTX JIT). Run after the A/B (GPU idle).
+- 08:02Z A/B (batch 8192, pipeline 2) cg-host-fp8-ada_blake3-r1: rc 0, Rust 25 accept, ev f62b873f, stmts b09ff90f, committer
+  12.296 s (rows 1.4 ms, trees 12.295 s).

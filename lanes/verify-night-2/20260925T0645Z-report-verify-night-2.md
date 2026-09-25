@@ -8,6 +8,7 @@ final: 16:00Z hard; budget $12
 status: open
 ---
 
+CHECKPOINT 00ffe398 (08:04Z) [open] R1/R2 recheck: 5 published +hash cells PASS (art:794365d3 art:271e0e3a art:5387c1b5 art:1abdf12a art:99867b4c; verdicts art:488f12f0..art:0ec89f16) + hash-commit x5 PASS; handoff coordinator 0805Z; polling for BLAKE3 cell
 CHECKPOINT 00ffe398 (07:49Z) [open] coordinator 0745Z (red-team SH R1/R2): 06-core-roots strengthened (triple==untiled layout, per-rep disjoint coverage, binding via hashauth.binding_digest, count, roots); rechecking 5 published +hash cells + my 5 hash-commit results in r20260925-074901-8cce
 CHECKPOINT 00ffe398 (07:31Z) [open] idle-ready: pod at main 00ffe398, ligero-verify d89cffc7 (cargo 66/66), core commitments+leaf conformance 184 pass; 06-core-roots now handles +blake3/+sha256 core row leaves; inbox empty; polling
 CHECKPOINT 7fcedf47 (06:45Z) [open] started 06:40Z; pod vy-verify-night-2 (cpu3c 16 vCPU, no guard) created, syncing @ main 7fcedf47; next: bootstrap, then hash-commit 4090 fp8-ada P2 baselines art:71a37756 art:abb219fa + 20-run byte identity
@@ -35,6 +36,20 @@ committer baselines (`lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.
 | # | from | result(s) | cell | verdict | verdict art |
 |---|---|---|---|---|---|
 | 1 | launch msg + `lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.md` | art:71a37756 (before) art:4be5c412 art:381bcee8 art:9fdb64e0 art:abb219fa (after) | RTX 4090 FP8, B-Ligero +hash (Poseidon2, alg.) | accepted x5 | art:9b700f03 art:7b57c75f art:ae489182 art:2cb926f3 art:403784a7; bundle art:ad2bc9e1 |
+
+| 2 | `20260925T0745Z-handoff-from-coordinator.md` (red-team SH R1/R2) | published +hash cells art:794365d3 [4] art:271e0e3a [8] art:5387c1b5 [12] art:1abdf12a [16] art:99867b4c [20]; re-check of #1 | A100 BF16 / H100 BF16 / H100 FP8 / 4090 FP8 / 5090 NVFP4, B-Ligero +hash | PASS x5 (+ #1 PASS x5) | art:488f12f0 art:1de26956 art:6844cc11 art:edb24a45 art:0ec89f16; #1: art:9909ec89 art:4c7497f2 art:eea752f6 art:0249a538 art:8460a8dd |
+
+### 2. red-team SH R1/R2 recheck (runs r20260925-074901-8cce, r20260925-075910-98b2)
+- `06-core-roots.py` strengthened. R1: each statement's (vu_index, x_index, w_index) equals the untiled layout (x = W = vu) over
+  its dumped range, and each rep's sub-batch ranges tile [0, 4096) disjointly. R2: binding (hashauth.binding_digest, asserted
+  equal to core identity_digest), owner, count and root recomputed from my tree's set, compared with every statement.
+  Commit evidence is compared where present; old results carry none, which is fine.
+- `16-sh-recheck.sh`: reverify --dry-run + 04 binding + 06, then a verdict per PASS via `11-label.py` (the detail states
+  that R1/R2 were checked).
+- All 10 PASS. The A100 needed the frozen vu-k1536 arrays built from my tree's seeds (6/6 sha256 = manifest). The 5090 fp4-nvf4
+  leaf is a lane-formatted Poseidon2 (FP4Format: 72 nibbles on 24-bit lanes) with no core reference, so its row digests come
+  from my tree's backend committer. The first run errored on it in the core `pack_words`; I reran it (r20260925-075910-98b2).
+- Coordinator handoff 0805Z. Evidence: `evidence/r2-sh-recheck/`.
 
 ### 1. hash-commit 4090 fp8-ada Poseidon2 committer (runs r20260925-065838-66e5 checks, r20260925-070823-6d5a labels)
 - The verifier is ligero-verify d89cffc7, built from main 7fcedf47. hash-commit's diff touches only Python: auth, hashauth, hashchain,

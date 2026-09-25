@@ -1,0 +1,98 @@
+# test file moves (paths under integrations/vllm/tests/): SRC DST_DIR   ("." = tests/ root)
+# harness/ -> pipeline/ (the harness package is pipeline/), except subjects elsewhere
+harness/fixtures pipeline
+harness/test_admission_commit.py pipeline
+harness/test_admission_hook.py pipeline
+harness/test_admission_planner.py pipeline
+harness/test_admission_telemetry.py pipeline
+harness/test_admit_r19_host_working_set.py pipeline
+harness/test_commit_delta_cli.py pipeline
+harness/test_commit_delta_placement_b1.py pipeline
+harness/test_compiled_merge_identity.py pipeline
+harness/test_coverage_workloads.py pipeline
+harness/test_derive_step_identity.py pipeline
+harness/test_engine_schedule.py pipeline
+harness/test_experiment_index.py pipeline
+harness/test_gc_tuning.py pipeline
+harness/test_hot_commit.py pipeline
+harness/test_prescribed_input_linkage.py check
+harness/test_release_json.py pipeline
+harness/test_research_outputs_tp.py pipeline
+harness/test_research_tools.py pipeline
+harness/test_run_config_dry_run.py pipeline
+harness/test_run_config_load_stages.py pipeline
+harness/test_snapshot_cap.py pipeline
+harness/test_source_identity.py pipeline
+harness/test_target_family.py .
+# input_provenance/ -> check/ (root_policy, weights_of_record), program/ (analytic -> program/model.py)
+input_provenance/test_analytic.py program
+input_provenance/test_root_policy.py check
+input_provenance/test_weights_of_record.py check
+input_provenance/test_weights_of_record_root_host_independent.py check
+input_provenance/test_weights_of_record_routed_experts.py check
+# tp/ -> the package of each subject
+tp/fixtures collectives
+tp/test_commit_tree_of_record.py pipeline
+tp/test_tp2_commit_query_population.py pipeline
+tp/test_tp2_match_mid_module_rows.py pipeline
+tp/test_tp2_match_provenance_digests.py pipeline
+tp/test_tp2_match_sites.py pipeline
+tp/test_tp2_sampled_replay_fold.py pipeline
+tp/test_tp2_serve_shard_from.py pipeline
+tp/test_tp_world_n.py pipeline
+tp/test_tp2_attribution.py engine
+tp/test_tp2_request_program_dirs.py engine
+tp/test_tp2_t6_4_check.py engine
+tp/test_tp2_rank_profiles.py engine
+tp/test_tp2_analyze.py collectives
+tp/test_tp_collective.py collectives
+tp/test_tp2_xrank_collectives.py check
+tp/test_tp2_d90_fixture.py check
+tp/test_tp_partial_match_oracle.py acquire
+tp/test_tp_partial_source_mid_module.py acquire
+tp/test_tp_partial_source_moe.py acquire
+# acquire/ -> commit/ (the host committer moved to commit/committer/)
+acquire/test_bound_phases.py commit
+acquire/test_leafhash_device.py commit
+acquire/test_native_collect.py commit
+acquire/test_native_collect_flush.py commit
+acquire/test_native_collect_splits.py commit
+acquire/test_native_host_security.py commit
+acquire/test_native_jit_keying.py commit
+acquire/test_openings_after_release.py commit
+acquire/test_p0_footprint.py commit
+acquire/test_pinned_pool_exact.py commit
+acquire/test_plan_key.py commit
+acquire/test_promoted_input_acquisition.py commit
+acquire/test_x03_identities.py commit
+# check/ -> properties/ (difftest -> admission, golden, fa_tap_exactness, quarantine_lint), program/ (twins -> program/kernels/)
+check/fa_tap_exactness_gpu.py properties
+check/test_difftest.py properties
+check/test_fa_tap_exactness.py properties
+check/test_golden.py properties
+check/test_quarantine_lint.py properties
+check/test_twins.py program
+# correspondence/ -> check/ (batch_decomp -> check/match/)
+correspondence/test_batch_decomp.py check
+correspondence/test_batch_decomp_e2e.py check
+# observe/ -> engine/ (profiles, vllm_adapter)
+observe/test_profiles_generic.py engine
+observe/test_dense_generic.py engine
+observe/test_cov_difr_b0.py engine
+observe/test_compiled_execution_header.py engine
+observe/test_execution_label.py engine
+observe/test_gen_dense2.py engine
+observe/test_gen_dense_gemma2_patterns.py engine
+observe/test_gen_dense_softcap.py engine
+observe/test_gen_llama.py engine
+observe/test_gen_ln.py engine
+observe/test_gen_ov_easy.py engine
+observe/test_gen_ov_moe.py engine
+observe/test_gen_ov_moe_padded.py engine
+observe/test_gen_ov_moe_qwen3.py engine
+observe/test_gen_ov_sampling.py engine
+# program/ -> pipeline/ (global_program), query/ -> acquire/ (manifest/compiled -> acquire/compiled), check/ (vu_query -> check/replay/)
+program/test_global_program_regress.py pipeline
+program/test_gp01_moe_construction.py pipeline
+query/test_compiled_manifest.py acquire
+query/test_vu_conformance.py check

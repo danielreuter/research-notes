@@ -1,0 +1,7 @@
+[
+ {
+  "result": "art:99867b4c346f4a05cd4be2ba8ceb11d5b17cb4abebaede1415fe5aa2490a06b5",
+  "ok": true,
+  "line": "art:99867b4c fp4-nvf4+hash: reverify PASS (13/13, 2^-128.11, custody {'files': 40, 'mismatched': 0, 'missing': 0}); binding BOUND (y_bad 0); R1/R2 ROOTS-MATCH (roots a 84ce9030 b 3f2303f6 y 68c80a14; 13 stmts, reps [1], 4096 VUs; )"
+ }
+]

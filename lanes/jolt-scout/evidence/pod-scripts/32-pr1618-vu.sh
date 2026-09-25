@@ -14,6 +14,7 @@ S=$W/scout-src; rm -rf $S; mkdir -p $S; tar xzf $TGZ -C $S
 G=$W/target-vu-input/release/vu-input
 cd $W/jolt-pr1618
 rm -rf examples/vu-k1536; mkdir -p examples/vu-k1536; cp -r $S/vu-k1536/guest examples/vu-k1536/
+sed -i 's/^pub(crate) fn compress_direct(/pub fn compress_direct(/' jolt-inlines/blake3/src/sdk.rs
 grep -q '"examples/vu-k1536/guest"' Cargo.toml || sed -i 's|^  "examples/sha2-chain",|  "examples/vu-k1536/guest",\n  "examples/sha2-chain",|' Cargo.toml
 python3 $PATCH crates/jolt-prover/src/profile.rs
 export CARGO_TARGET_DIR=$W/target-pr1618

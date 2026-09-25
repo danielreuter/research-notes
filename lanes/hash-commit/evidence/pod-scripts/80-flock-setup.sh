@@ -7,7 +7,7 @@ curl -sfo redist.json $R/redistrib_$V.json
 python3 - "$V" <<'EOF' > urls.txt
 import json, sys
 d = json.load(open("redist.json"))
-for k in ("cuda_nvcc", "cuda_cudart", "cuda_cccl", "cuda_crt", "libnvvm", "cuda_nvrtc"):
+for k in ("cuda_nvcc", "cuda_cudart", "cuda_cccl", "cuda_crt", "libnvvm", "cuda_nvrtc", "cuda_cuobjdump", "cuda_nvdisasm"):
     if k in d and "linux-x86_64" in d[k]:
         print(k, d[k]["version"], d[k]["linux-x86_64"]["relative_path"])
 EOF
@@ -16,6 +16,7 @@ while read k ver path; do
   f=$(basename $path); [ -f $f ] || curl -sfO $R/$path
   tar -xf $f -C $C --strip-components=1
 done < urls.txt
+[ -e $C/lib64 ] || ln -s lib $C/lib64
 $C/bin/nvcc --version | tail -2
 [ -d /workspace/flock ] || git clone -q https://github.com/succinctlabs/flock /workspace/flock
 cd /workspace/flock && git log -1 --format='%H %cd' | cat && ls cuda-ghash | head -40

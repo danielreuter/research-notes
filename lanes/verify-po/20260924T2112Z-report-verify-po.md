@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT none (01:41Z) [open] H100 FP8 A-GKR merged-LK art:3ae971dd 3/3 + stmt + LK-merge check OK; verdict art:e96f50ac PRESERVED, label HELD (coordinator 0142Z). Held: 45c5be4a 3ae971dd dfbc86c4. 49 accepted + 3 held, 0 rejected; cred removed; polling
 CHECKPOINT 90c21455 (01:26Z) [open] 4090 FP8 A-GKR art:ecd96143 labelled (verdict art:eededf7d; Table 2 1.75e7x). 5090 art:dfbc86c4 verdict art:7d3aaf2e PRESERVED, label HELD (coordinator 0127Z x2). 49 accepted + 2 held, 0 rejected; cred removed; polling
 CHECKPOINT ab9573fd (01:21Z) [open] labelled 4090 FP8 A-GKR art:ecd96143 (unchanged stmt; verdict art:eededf7d). art:dfbc86c4 (5090, BOOL_QUADRATIC+PAIRED) 5/5 + stmt + rewrite-equivalence check OK; registering verdict, label HELD
 CHECKPOINT ab9573fd (01:05Z) [open] 4090 FP8 A-GKR merged-LK art:45c5be4a verified, verdict art:df4d2c3c registered, label HELD per coordinator 0050Z (handoff 0104Z); now art:ecd96143 (unchanged stmt, 0006Z handoff found in coordinator folder)
@@ -67,6 +68,7 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 14 | `20260925T0045Z-handoff-from-agkr-fp8.md` (3be6a35f) + `20260925T0050Z-handoff-from-coordinator.md` (HOLD) | art:45c5be4a | RTX 4090 FP8, A-GKR, merged LK | PASS, label HELD (coordinator) | art:df4d2c3c |
 | 15 | `lanes/coordinator/20260925T0006Z-handoff-from-agkr-fp8.md` (f2363663; sent to coordinator's folder, found 01:05Z) | art:ecd96143 | RTX 4090 FP8, A-GKR, unchanged statement | accepted | art:eededf7d |
 | 16 | `20260925T0100Z-handoff-from-agkr-nvf4.md` (b7cec878) | art:dfbc86c4 | RTX 5090 NVFP4, A-GKR, BOOL_QUADRATIC + PAIRED | PASS, label HELD (coordinator 0050Z) | art:7d3aaf2e |
+| 17 | `20260925T0132Z-handoff-from-agkr-fp8.md` (3be6a35f) | art:3ae971dd | H100 FP8, A-GKR, merged LK | PASS, label HELD (coordinator 0050Z) | art:e96f50ac |
 | 12 | `20260924T2351Z-handoff-from-d3-h100.md` (main 1d9c3198, live) | b16b r1-3: art:c6e250c2 art:c1c05324 art:166551a5; f8b r1-3: art:971820ba art:7be63d37 art:c58d45c6; b16h r1-3: art:137b923a art:60d0622f art:d9d21d03; f8h r1-3: art:83c7d5a7 art:9aed3426 art:5b6d6d6d | H100 BF16/FP8 (+hash) B-Ligero LIVE, D3 (also_valid in Table 2) | accepted x12 | art:e13419b4 art:209fdd63 art:ed310632; art:d0aeef7f art:fe61cce4 art:f765ab6c; art:649e27ed art:0b754787 art:1e442d10; art:cc7fa7cd art:549ee1d3 art:41e3a98b |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
@@ -215,6 +217,16 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   per unit. The 46 R1 lookups become 46 e·e product wires with asserts w − e = 0, and the PR blocks are exactly all
   (x + 2^b·y, x, y). v1 (r20260925-011239-a1df) failed on three bugs in the checker itself: the tag is on column 0,
   product indices shift, and the block hash included the tag column. v2 fixes them. Sent to red-team-lk (0123Z).
+
+### 17. agkr-fp8 A-GKR H100 FP8 merged LK art:3ae971dd (run r20260925-013458-825f; verdict r20260925-013819-badc) -- HELD
+- The rewrite is the same as #14's, at model hopper_e4m3_wgmma_k32. Release command: `29-verdict-3ae971dd.sh` with HOLD=0
+  VID=art:e96f50ac. Coordinator handoff 0142Z (h100fp8-agkr-3ae971dd-held); red-team-lk informed (0142Z).
+- main's verifier (a48eac01) accepts 3/3 (sha256 0021aa91): 703 slots, 1703 msgs, 17078296 bytes; 1.06-1.17 s each. The
+  statement is byte-identical to 3be6a35f's export, and public.bin has 0 mismatches against the fp8-hopper set.
+- `--no-merge` reproduces #5's (art:2e7baba7) statement, byte for byte. `23-lk-merge-check.py` passes: 139/139 queries,
+  10 tables (R6), 261968 rows as a multiset.
+- Negatives, all rejected: mutate 356/356; my VU-17 +1; the producer's r6_key, shift_out, t_op_out and tnorm_out (LK level 0
+  final check) and 4 claim negatives (art:70bbba68). The honest case is accepted.
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |

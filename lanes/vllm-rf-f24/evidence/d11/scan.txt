@@ -1,0 +1,5 @@
+2026-09-25T01:41:54Z
+root /workspace/regress/records (14 records artifacts)
+lengths: {64: 48, 'program_of_record=True': 28}
+non-64: 0
+revisions: {'record.checkpoint.entry.revision len=40': 10, 'workload.tokenizer_revision len=40': 1}

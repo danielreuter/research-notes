@@ -4,7 +4,7 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T07:31Z
+updated: 2026-09-25T07:50Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
 
@@ -14,7 +14,15 @@ Deadline for vyv- pods: 2026-09-25T09:00Z (coordinator extends). Budget: $35 pod
 - Phase 1 (evidence only, no repo commits): DONE 07:29Z. No mismatch anywhere (both results below).
   - Source for pod runs: clean detached worktree `~/projects/verity-wt/rf-c1-p1` at `origin/main` `00ffe398` ("Merge #15").
 - Phase 2: waiting for A4 (`lane/vllm-rf-a4`, head `34400229` at 07:27Z) to be in `origin/main`; PR #15 is already in.
-  Checked 07:27Z: `origin/main` = `00ffe398`, A4 not an ancestor.
+  Checked 07:27Z and 07:48Z: `origin/main` = `00ffe398`, A4 (now head `14b0cf9f`) not an ancestor.
+  - Drafting ahead: worktree `~/projects/verity-wt/rf-c1`, branch `lane/vllm-rf-c1` on A4 head `14b0cf9f` (local only, not pushed).
+    Rebase onto `origin/main` with `git rebase --onto origin/main 14b0cf9f` once A4 lands, then push.
+  - In the draft: new `commit/scheme.py` (headers and root bindings delegate to `verity.commitments.vllm_v1` via coercing adapters;
+    prefix-once fold and pos_leaf stay local for speed, tags from core); `fasttree.py` fold removed, uses `scheme.fold`.
+    Next: reroute semantic_layout, hidden_stream, padding_steps, native_host, native_collect, native_ranges, leafhash, hidden_gpu;
+    delete `hidden_engine.py`; shrink hashing/merkle to core re-exports; tests; Spans throughput.
+  - Host layout label (`chunk-leaf-v1` on host committers): NOT fixed. It flows `pipeline/commit.py` `collector["layout"]` into
+    `binding.build_binding_map` entries and so into `map_digest`; fixing it changes a digest. Listed for READY.md.
 
 ## Pods
 - `vyv-rf-c1-g1` (runpod `zaazjzf44rc4wr`), 1x L40S, CUDA 12.9/13.0 allowed, guard 90. Created 07:07Z, TERMINATED 07:29Z

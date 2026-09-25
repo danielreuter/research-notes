@@ -69,7 +69,10 @@ def core_trees(rel_name: str):
     kind = _leaf_kind(rel_name)
     row_schema = _row_schema(kind)
     base = rel_name.split("+")[0]
-    rel = RELATIONS[base]
+    if base.startswith("fp4-nvf4"):
+        from backends.direct.ligero.fp4.hashed import FP4_HASHED as rel
+    else:
+        rel = RELATIONS[base]
     data = relchain.instances(rel, N, procs=PROCS)
     msha = relchain.instances_digest(rel, N)
     K = getattr(rel, "vu_words", relchain.K_VU)
@@ -89,6 +92,8 @@ def core_trees(rel_name: str):
             binding = bytes.fromhex(identity_digest(BINDING_TAG, {"dataset": rel.instances_dataset, "tier": rel.instances_tier,
                                                                   "manifest_sha256": msha, "lo": 0, "hi": N, "K": int(K),
                                                                   "tree": n, "schema": schema}))
+            assert binding == hashauth.binding_digest(dataset=rel.instances_dataset, tier=rel.instances_tier, manifest_sha256=msha,
+                                                      lo=0, hi=N, K=int(K), tree=n, schema=schema), f"binding {n}"
             if n == "y":
                 values = [w.to_bytes(ynb, "big") for w in y]
             else:
@@ -116,9 +121,10 @@ def check(st, art):
         info, core = core_trees(str(rel_name))
         res.update({"relation": rel_name, "core": core, "info": info})
         problems = []
+        absent = []
         for src, trees in (("result-meta commit evidence", ev.get("trees")), ("commit-evidence.json", ce_trees)):
             if not trees:
-                problems.append(f"{src}: absent")
+                absent.append(src)
                 continue
             for n in ("a", "b", "y"):
                 for k in ("binding", "owner", "count", "root"):
@@ -126,10 +132,12 @@ def check(st, art):
                         problems.append(f"{src} {n}.{k}: {trees[n][k]} != core {core[n][k]}")
         n_stmt = 0
         covered = set()
+        per_rep = {}
         for f in man.get("files", []):
             if not f.get("stmt"):
                 continue
             lo, hi = f["vus"]
+            per_rep.setdefault(f.get("rep"), []).append((lo, hi))
             s = read_statement((pman[0].parent / f["stmt"]).read_bytes())
             n_stmt += 1
             ha = s.hash_auth
@@ -146,7 +154,17 @@ def check(st, art):
             covered.update(vi)
             if len(problems) > 8:
                 break
-        res.update({"statements": n_stmt, "vus_covered": len(covered), "problems": problems[:12]})
+        # R1 coverage: per dumped rep, the sub-batches' VU ranges tile [0, N) exactly (disjoint, no gap)
+        for rep, rngs in per_rep.items():
+            rngs = sorted(rngs)
+            if rngs[0][0] != 0 or rngs[-1][1] != N or any(rngs[i][1] != rngs[i + 1][0] for i in range(len(rngs) - 1)):
+                problems.append(f"rep {rep}: sub-batch ranges do not tile [0,{N}) exactly: {rngs[:3]}...{rngs[-2:]}")
+        res.update({"statements": n_stmt, "reps": sorted(per_rep, key=str), "vus_covered": len(covered), "commit_evidence_absent": absent,
+                    "checks": "R1: every statement's (vu_index, x_index, w_index) == untiled layout (x = W = vu) over its dumped range, and "
+                              "each rep's ranges tile [0, N) disjointly; R2: bindings (hashauth.binding_digest == core identity_digest over "
+                              "my tree's dataset/tier/manifest/lo/hi/K/tree/schema), owner, count and roots (verity.commitments core) "
+                              "recomputed from my tree's instance set == every statement's trees",
+                    "problems": problems[:12]})
         res["status"] = "ROOTS-MATCH" if not problems and len(covered) == N else "MISMATCH"
     return res
 

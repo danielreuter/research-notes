@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT a2d67679 (07:46Z) [open] R1 remap BREAK fp8-ada+blake3 FAIL art:2b51c5fd; H2 steps pin PASS art:efaa3a46; blake3-80gb FAIL inherited (handoff sent); sha256/agkr not ready; now reviewing sp1-committed
 CHECKPOINT 7a8268cf (07:31Z) [open] fp8-ada+blake3 FAIL: R1 (vu,x,W) triple prover-chosen -> swapped y under honest x/W roots accepted pinned+python+reverify PASS; R2 reverify recomputes no roots/binding/coverage; handoffs sent; art:2b51c5fd. Next: H2 steps forge on +blake3
 CHECKPOINT 57e77c14 (07:16Z) [open] pod vy-red-team-sh (cpu3c 4vCPU) syncing; R1 candidate BREAK: (vu,x,W) triple prover-chosen in v5 verify (Rust+Py) -> wrong y under honest x/W roots; R2: reverify.py recomputes no root/binding/coverage; e2e 57e77c14 pending
 # red-team-standard-hash: red team of tonight's committed-relation statements

@@ -8,6 +8,7 @@ final: 16:00Z hard; budget $12
 status: open
 ---
 
+CHECKPOINT 00ffe398 (07:49Z) [open] coordinator 0745Z (red-team SH R1/R2): 06-core-roots strengthened (triple==untiled layout, per-rep disjoint coverage, binding via hashauth.binding_digest, count, roots); rechecking 5 published +hash cells + my 5 hash-commit results in r20260925-074901-8cce
 CHECKPOINT 00ffe398 (07:31Z) [open] idle-ready: pod at main 00ffe398, ligero-verify d89cffc7 (cargo 66/66), core commitments+leaf conformance 184 pass; 06-core-roots now handles +blake3/+sha256 core row leaves; inbox empty; polling
 CHECKPOINT 7fcedf47 (06:45Z) [open] started 06:40Z; pod vy-verify-night-2 (cpu3c 16 vCPU, no guard) created, syncing @ main 7fcedf47; next: bootstrap, then hash-commit 4090 fp8-ada P2 baselines art:71a37756 art:abb219fa + 20-run byte identity
 # verify-night-2: non-producer verifier for the Proof optimization workstream (night 2)

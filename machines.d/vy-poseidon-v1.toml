@@ -1,7 +1,7 @@
 # machine vy-poseidon-v1: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "n005v24vgiougo"
+pod_id = "qb68wysl3ejx8b"
 project = "verity"
 guard = 60
 registered_by = "Daniels-MacBook-Pro.local"
-registered_at = "2026-09-25T07:04Z"
+registered_at = "2026-09-25T07:50Z"

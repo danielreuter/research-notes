@@ -55,6 +55,11 @@ updated: 2026-09-25T07:15Z
 - Phase 2 waits on a4 in origin/main (a4 at 07:12Z: groups commit/acquire/check/properties/collectives still to do).
 
 ## Found, not fixed
+- `intervals.strided_intervals` (the integration's liveness `_strided_targets`, moved unchanged): a zero-outer-stride,
+  unit-inner-stride `Strided` with `0 < count < inner` (one partial run of a broadcast row) is reported as the whole row
+  (`inner` leaves). Sound (over-reports reads) and no known producer makes such a view; kept for behaviour = spec, the
+  core test asserts superset there and exactness everywhere else.
+- `intervals.complement(iv, n)` assumes `iv` within `[0, n)` (so did query_ast's old `_complement_ranges`); docstring now says so.
 - `partition._family_tiling`/`_family_count`/`_family_index` swallow every `Exception` (kept: behaviour = spec).
 - `vu_query` keeps its own interval helpers in the integration (not in scope).
 - `query_artifact.py` is another generic analysis still in the integration (not in scope).

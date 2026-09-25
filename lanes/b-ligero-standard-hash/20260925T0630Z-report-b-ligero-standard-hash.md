@@ -73,7 +73,22 @@ Pod scripts: `evidence/pod-scripts/`.
   (8c50b497); split: H100 + A100 theirs, 4090 mine. Merged lane/blake3-80gb (fca28d54: + ligero-steps-pin 236020a6 via it,
   so the pin is in my base); dc2cae87 sweep_vu ranks by `e2e.vu_per_second`. Reply 07:31Z.
 * 07:32Z sweep r20260925-073210-f45c (tree dc2cae87, custody-r2): fp8-ada+blake3 l=4096 p2 5 reps `--commit-per-rep`, from
-  1024: 641.96 / 762.79 / 825.75 VU/s at 1024 / 2048 / 4096 ...
+  1024: 641.96 / 762.79 / 825.75 / 852.71 VU/s at 1024 / 2048 / 4096 / 8192; 16384 reps e2e 18.5-19.8 s (~867 VU/s, < 2 %
+  over 8192), so the rule needs 32768. Each point's in-bench Python verifier is ~97 s/rep: ~10 min per point at 16384.
+* 07:35Z inbox: red-team-standard-hash (lanes/coordinator/20260925T0735Z-handoff-from-red-team-standard-hash.md, evidence
+  art:2b51c5fd…, harness rtsh_remap_e2e.py on lane/red-team-standard-hash 8ace1ada): **R1 BREAK** -- the (vu, x, W) triple
+  of a v5 hashed statement was prover-chosen; neither verifier derived x_index / w_index from vu_index, so a committer serving
+  VU v a wrong y (another VU's true output) got it accepted on that VU's (x, W). **R2 BLOCKING** -- reverify recomputed no
+  commitment. My `+blake3` cells are pulled from Table 2 until both land and the red team re-runs the harness.
+* 07:53Z fixes pushed. 3af90e71 (R1): `auth::layout_error` (Rust, in `check_hashed`) and `hashauth.layout_error` (Python, in
+  `verify_hash_auth`): counts a = b = y -> x = W = vu; a.count x b.count = y.count -> x = vu // nw, W = vu % nw
+  (relchain.tile_indices); anything else refused. The honest prover (`auth_for`) is already canonical: existing dumps stay
+  valid. de2fa317 (R2): reverify recomputes the a/b/y bindings (hashauth.binding_digest of dataset, tier, the regenerated
+  set's manifest digest, [0, total), K, tree, schema) and roots (core frame-v3 over keyed-BLAKE3 digests of the raw rows,
+  not the prover's leaf code) and requires every statement's trees to equal them and each rep's vu_index to cover [0, total)
+  exactly once; a hashed dump with no `set` block, a tile, or a digest mismatch FAILs (fail closed). Pod check
+  `50-fixcheck.sh` (cargo test, pytest, the red team's harness, R2 honest + 3 negatives) waits for the sweep: a run syncs
+  /workspace/src, which later sweep points would import.
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.
 

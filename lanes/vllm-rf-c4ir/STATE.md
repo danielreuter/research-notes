@@ -4,7 +4,7 @@ lane: vllm-rf-c4ir
 kind: state
 status: active
 created: 2026-09-25T06:55Z
-updated: 2026-09-25T07:15Z
+updated: 2026-09-25T07:52Z
 ---
 # vllm-rf-c4ir: boundary, partition and liveness into core `verity.ir` (state)
 
@@ -46,13 +46,20 @@ updated: 2026-09-25T07:15Z
 - 07:32Z pod `vyv-rf-c4ir-cpu` = RunPod zt96bucqlpis7i, cpu3m 8 vCPU / 64 GB, 80 GB, $0.44/h (cpu3g x16 unavailable);
   registered by `research pods create --register --guard 90` (registry file `notes/machines.d/vyv-rf-c4ir-cpu.toml`,
   the registry's one-file-per-machine form of the machines.toml entry).
+- Pod run r20260925-073513-4b10: bootstrap ok. Run 1 at 297d2d84: 3 core test mistakes (two interval tests, one
+  partition assert with the stub still installed) + equivalence collection error (dataclass module not in
+  `sys.modules`); fixed in `b890473b`. Run r20260925-074537-7e2b at b890473b: core 661 passed / 3 skipped; `tests/ir`
+  with `integrations/vllm` on PYTHONPATH (equivalence live) 193 passed.
+- `cfe0ae63` equivalence tidy (stub counter restore, re-exports). Lane head = `cfe0ae63`, pushed.
 
 ## Running
-- `vyv-rf-c4ir-cpu`: run r20260925-073513-4b10 = pod_bootstrap.sh --cpu (source = lane head 297d2d84).
+- `vyv-rf-c4ir-cpu`: run r20260925-074934-4692 at `cfe0ae63` = core suite, `tests/ir` with integration, and the
+  integration's `tests/query` + frontend-analysis tests (still on the integration copies; baseline for phase 2).
 
 ## Next
-- Core suite (`packages/verity/tests`) at head with and without `integrations/vllm` on PYTHONPATH; fix; terminate.
-- Phase 2 waits on a4 in origin/main (a4 at 07:12Z: groups commit/acquire/check/properties/collectives still to do).
+- Fetch r20260925-074934-4692; terminate the pod.
+- Phase 2 waits on a4 in origin/main. 07:51Z: origin/main = `b9cd5368`, a4 head `14b0cf9f` (INTERIM_LAYER -> LAYER
+  done) not yet merged.
 
 ## Found, not fixed
 - `intervals.strided_intervals` (the integration's liveness `_strided_targets`, moved unchanged): a zero-outer-stride,

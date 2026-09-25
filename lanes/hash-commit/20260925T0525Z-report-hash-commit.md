@@ -8,6 +8,7 @@ final: 13:30Z hard; budget $40 (commit-gpu retarget 06:35Z, incl. ~$1.3 spent)
 status: open
 ---
 
+CHECKPOINT a2d67679 (07:54Z) [open] commit-gpu 07:54Z: 4090 A/B fp8-ada+blake3 evidence identical host vs GPU (f62b873f); committer host 12.2s -> GPU 12-14ms; >5ms from int64 row h2d (8.8ms) + host midstates; fixed @0787f4a9 (device heads, u8 rows); A/B OOM at batch 8192 -> rerun smaller
 CHECKPOINT 8d4ad41 (07:22Z) [open] commit-gpu 86d7edb7 (main 00ffe398 merged; core frame_v3/vllm_v1 schemas+vectors): 4090 vy-commit-gpu tests 95/95 pass (GPU frame-v3 word/sha256-row/blake3-row + vllm-v1 trees == core vectors, host builders, commit_cost refs); neighbours running, then harness A/B + commit_cost GPU
 CHECKPOINT fe9c7172 (07:01Z) [open] commit-gpu: fe9c7172 GPU frame-v3 committer (word/u16/u32 trees, keyed-BLAKE3 rows + chain witness, lazy device levels, commit.committer split) + byte-identity tests; 4090 pod vy-commit-gpu (g6sehoo9) up 06:50Z, syncing + bootstrap next
 CHECKPOINT b862be30 (06:31Z) [open] commit-gpu (retarget 06:35Z): GPU committer for frame-v3 word / SHA-256-row / keyed-BLAKE3-row leaves + trees, then vllm-v1; target <=5 ms per 4096 instances, byte-identical to core; surveying hash_gpu + leaf/blake3 now

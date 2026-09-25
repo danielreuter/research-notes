@@ -1,0 +1,7 @@
+# machine vy-flock-bench-gpu: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "tsxroyl1ffz7px"
+project = "verity"
+guard = 45
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T07:52Z"

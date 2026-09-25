@@ -5,6 +5,7 @@ created: 2026-09-25T06:47Z
 status: open
 ---
 
+CHECKPOINT 597b6c6 (07:56Z) [open] 07:55Z: VU guest on PR1618 cuda (4090): committed B=48 2^24 9.50s (CPU 54.5s), B=64 2^25 20.6s/22GB; bare B=256 2^24 16.8s (CPU 50.0s, only 3.0x). Projection 4096 committed ~11 min/4090 in ~70 2^24 proofs. Running hash-bench for BLAKE3 vs SHA-256 inline cost.
 CHECKPOINT d69d082 (07:39Z) [open] 07:41Z: PR1618 CUDA on 4090 works: sha2-chain 2^24 prove 5.83s vs CPU 46.5s (8.0x; 2^22 5.8x), GPU mem 12.7GB@2^24. VU guest v2: 43.8k cyc/VU bare, 239.5k committed; B=64 committed CPU 55-62s. BlindFold ZK +3-5%. Next: VU guest on PR1618 cuda.
 CHECKPOINT 9bfc8e2 (07:31Z) [open] 07:31Z: 4090 pod up. VU guest: kernel 34.1k cyc/VU, SHA-256 rowhash 195k/VU; B=16 committed CPU prove 26.4s valid. ICICLE path dead (removed #822, last rev broken). PR1618 CUDA built sm_89/nvcc12.9, sweep queued. ZK build running. Lattice/LayerZero: no CUDA/closed.
 CHECKPOINT 00ffe398 (07:08Z) [open] Dory+ICICLE never coexisted (Dory hard-codes use_icicle=false @16763aac); PR#1618 = curve/Dory CUDA draft, not lattice; Akita lattice: no CUDA, no zk; Jolt Pro closed. Building main VU guest (bare kernel verbatim) + old ICICLE rev on 4090

@@ -6,6 +6,8 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT e51d79b1 (07:53Z) [open] 08:02Z merged #20 5631e667 (tables/views read finding labels); labelled abb219fa + 4 hash-commit results UNDER RE-VERIFICATION; 4090 +hash cell now abb219fa 7.5e6x (marked); scoreboard re-rendered. research spend since 11:51 PM PT: $8.97 of $300; running $13.60/h
+CHECKPOINT 597b6c6 (07:50Z) [open] 07:55Z merged #19 b9cd5368 (sweep points >4096 count; A100 repeats rejected); survey gate lifted, 8 lane handoffs with its recommendations; launched flock-bench ($12). 13 agents mine. research spend since 11:51 PM PT: $8.54 of $300; running $11.95/h
 CHECKPOINT 447e3a64 (07:46Z) [open] 07:57Z 5 published +in-proof-hash cells marked UNDER RE-VERIFICATION (finding labels by coordinator on the 5 result arts, pushed; scoreboard 'Marked cells' block from labels; re-rendered 12:46 AM PT); verify-night-2 clears/pulls via finding labels. research spend since 11:51 PM PT: $7.82 of $300; running $10.36/h
 CHECKPOINT none (07:41Z) [open] 07:46Z red-team SH FAIL R1/R2 on B-Ligero included-hash -> fix to ligero-steps-pin; verify-night-2 strengthened + re-verifying published +hash column; sweep digest (reason I) -> renderer. research spend since 11:51 PM PT: $6.78 of $300; running $10.36/h
 CHECKPOINT 00ffe398 (07:10Z) [open] 07:12Z sweep: spend $1.78 of $300 (running $8.77/h); disk 5.9 GiB; 11 lanes alive (steps-pin tests ok on pod, commit-gpu frame-v3 GPU committer, sp1-committed guest, agkr-bound non-hash, jolt-scout building); no stale

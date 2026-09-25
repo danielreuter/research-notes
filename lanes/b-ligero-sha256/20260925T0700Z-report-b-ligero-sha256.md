@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 70cb6c59 (07:52Z) [open] 70cb6c59: survey landed 07:43Z, its SHA-256 rec (bit-sliced ~18k rows) = my design, adopted; merged peer dc2cae87 (sweep_vu); leaf_bytes_many + sha256_test; bench variant 'B-Ligero + SHA-256 in circuit' on frame-v3/sha256 line. pod run r20260925-075211-7893: conformance+fixtures+gate fp8-ada-x4
 CHECKPOINT 922120d2 (07:27Z) [open] 922120d2 pushed: leaf/sha256.py (sha256/row/v1, 18,128 rows/blk: 1-row sels XOR/Maj, 16b-limb adds; CV published, pad block native) + ligero-verify SHA256 scheme+vectors. census fp8-ada-x4+sha256 90,848 rows/col. next: pod fixtures/pins/gates.
 CHECKPOINT 00ffe398 (07:08Z) [open] started 07:00Z; merged b-ligero-standard-hash ad4c3440; design: publish CV after last data block, padding compression native; x4 folds (2 blocks/col); survey absent; next: sha256 leaf native+Rust+harness
 # b-ligero-sha256: B-Ligero frame-v3 `sha256/row/v1` row leaves (SHA-256 half of the standard-hash track)
@@ -62,6 +63,25 @@ per round is the floor for a bit design with committed booleans.
 * 07:00Z started; read LANE-CONTRACT v2.0, TABLES (+ amendments), decision doc, blake3-leaf-3 / red-team-leaf-3 /
   b-ligero-standard-hash / ligero-steps-pin reports, `leaf/blake3.py`, `leaf/base.py`, `hashchain.compose`, `rowleaf.py`,
   `ligero-verify/src/leaf.rs`; inbox empty.
+* 07:27Z 922120d2 `leaf/sha256.py` + registry + ligero-verify `SHA256` scheme (`leaf.rs`, `hash.rs::compress` pub(crate)) with
+  Python-generated vectors (x, w, x16, malformed).  Laptop checks (torch-free): native == core `sha256/row/v1` vectors; one
+  compression gadget evaluated from its witness program: 0 violations, output == SHA-256 compression, a flipped carry row fails.
+* 07:44Z pod vy-b-ligero-sha256 (RTX 4090, $0.74/h, guard 90) bootstrap r20260925-074414-ece7: OK except BENCH_INSTANCES
+  (BF16 frozen-set rebuild hit HTTP 429 on the range fetch; not needed for FP8). Health OK (encode 1.07x ref, matmul 0.99x).
+* 07:43Z survey landed (see §2); 07:52Z coordinator handoff: adopt it; R1/R2 (red-team SH: prover-chosen (vu, x, W) triple;
+  reverify recomputes no roots) gate counting until ligero-steps-pin's fix lands -- merge it then.
+* 07:50Z merged origin/lane/b-ligero-standard-hash dc2cae87 (sweep_vu, blake3 leaf_bytes_many, ligero-steps-pin 236020a6 via
+  blake3-80gb).  fff7bf76 sha256 `leaf_bytes_many` + `leaf/sha256_test.py` (4 passed, 0.6 s).  70cb6c59 bench: "B-Ligero +
+  SHA-256 in circuit" (drilldown variant, views config on the existing `frame-v3/sha256` line -- TABLES: five lines x three
+  schemes, the SHA-256 row leaf is that line's -- `tables._LEAF_FAMILIES`); bench tests 247 passed.
+* 07:52Z r20260925-075211-7893 (tree 70cb6c59): core_schema 3 passed; conformance on fp8-ada-x4 errored in the module fixture
+  (it composed every scheme; Poseidon2 has no x4 layout) -> a816a2b1 builds runners lazily.  x1 fp8-ada conformance (eager
+  fixture: all four schemes on CPU) killed after 6 passes at ~5 min; rerun on the new tree.
+* 07:58Z handoff to b-ligero-standard-hash: shared primitives (`_carry` 1-row parity/majority, `_add` 16-bit limbs, operand bits).
+* vllm-v1 analysis: pos leaf = 26-byte prefix + 1536 value bytes + pad -> 25 compressions, all in-circuit (block 0 and block 24
+  hold private bytes).  On x4 columns (128 value bytes) blocks become ready at 2c+2 by column c, and block 24 only in column 11,
+  so every column needs a 3rd slot per operand (column-uniform): ~1.4x frame-v3's rows, plus a native vllm-v1 tree check in
+  ligero-verify (new).  Deferred behind the frame-v3 cell.
 
 ## Discrepancies
 (none yet)

@@ -34,10 +34,10 @@ with frame_gpu._torch_stream():
     did = b"d" * 32
     t("build_tree 4096 x 32B (cached heads)", lambda: fv3.build_tree(did, N, "blake3-keyed/row/v2", lv, vlen=32))
     t("build_tree 4096 x 32B (fresh heads)", lambda: (fv3._Head._cache.clear(), fv3.build_tree(did, N, "blake3-keyed/row/v2", lv, vlen=32)))
-    t("build_tree 4096 u16 (cached heads)", lambda: fv3.build_tree(did, N, "u16", w.to(torch.int16), vmode=fv3.VALUE_U16))
+    t("build_tree 4096 u16 (cached heads)", lambda: fv3.build_tree(did, N, "u16", cp.asarray(w.to(torch.int16)).view(cp.uint16), vmode=fv3.VALUE_U16))
     t("blake3_digests", lambda: frame_gpu.blake3_digests(cvs, 1))
     t("blake3_digests .get()", lambda: frame_gpu.blake3_digests(cvs, 1).get())
-    t("_Head() one fresh", lambda: fv3._Head(os.urandom(90)))
+    t("heads() 14 fresh", lambda: fv3.heads([os.urandom(90) for _ in range(14)]))
     t("midstate() one", lambda: fv3.midstate(os.urandom(90)))
     k = cp.ElementwiseKernel("int32 x", "int32 y", "y = x", "noop")
     z = cp.zeros(1, dtype=cp.int32)

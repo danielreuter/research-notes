@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT b06a7ec3 (07:59Z) [open] measured fp8-ada frame-v3 run r20260925-073644-5901: 5 reps prove ~52.6s B=4096, 69 shards, 105MB, commit ~8ms, 5/5 pinned verify; sweep in progress. vllm-v1 variant coded+pushed (tip b06a7ec3, main 5631e667 merged); next: pod build+negatives, measured vllm run
 CHECKPOINT dcd4eca0 (07:36Z) [open] committed host built (vk 0x009893321b66..3a66, elf f4fc749f; stock identity reproduced); pod: common tests ok incl committed::*, fp8-ada set = art:4a6f7602; exec negatives all rejected (flip-y, sign-of-zero tamper-x @tree a, wrong roots); 215M cycles/4096 VU (hash 54M). launching measured run
 CHECKPOINT dcd4eca0 (07:26Z) [open] tip dcd4eca0: committed guest/host/py/vectors + vector_run sp1-committed pushed; pod build r20260925-071747-5eae (stock identity then cuda,relation-committed) running; next: pod cargo tests, executor negatives, measured fp8-ada run
 CHECKPOINT 4f1dacb4 (07:18Z) [open] merged main 00ffe398 (core frame-v3 schemas; vectors from core, stand-in dropped); host committed-* cmds + py reference (7 vectors) at 4f1dacb4; pod build r20260925-071747-5eae running; vllm-v1 variant queued after frame-v3 per handoff

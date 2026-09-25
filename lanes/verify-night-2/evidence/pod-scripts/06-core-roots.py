@@ -78,13 +78,21 @@ def core_trees(rel_name: str):
     K = getattr(rel, "vu_words", relchain.K_VU)
     backend_leaf = leaf_registry.get(None if kind == "poseidon2" else kind)
     assert backend_leaf.schema == row_schema, (backend_leaf.schema, row_schema)
-    word_bits = hashchain.compose(rel, backend_leaf).word_bits
+    hr = hashchain.compose(rel, backend_leaf)
+    word_bits = hr.word_bits
+    # a lane-formatted Poseidon2 leaf (fp4-nvf4: 68 words -> 72 nibbles on 24-bit lanes) has no core reference: its row
+    # digests come from the backend committer of MY tree; the framing, bindings and trees above them stay core
+    lane_leaf = hr.leaf if getattr(hr.leaf, "lanes", None) is not None else None
+    if lane_leaf is not None:
+        row_schema = lane_leaf.schema
     ysch, ynb = hashauth.word_schema(rel.y_bits)
     x_rows = [np.asarray(v[0]).reshape(-1) for v in data]
     w_cols = [np.asarray(v[1]).reshape(-1) for v in data]
     y = [int(rel.y_public(int(v[3]))) for v in data]
     info = {"relation": base, "leaf": kind, "row_schema": row_schema, "dataset": rel.instances_dataset, "tier": rel.instances_tier,
-            "manifest_sha256": msha, "K": K, "word_bits": word_bits, "y_schema": ysch}
+            "manifest_sha256": msha, "K": K, "word_bits": word_bits, "y_schema": ysch,
+            "row_digest_ref": ("backend committer of my tree (lane-formatted Poseidon2 leaf; no core reference)" if lane_leaf is not None
+                               else "verity.commitments core")}
     out = {}
     with Pool(PROCS) as pool:
         for n, rows, role in (("a", x_rows, p2.ROLE_X), ("b", w_cols, p2.ROLE_W), ("y", None, None)):
@@ -96,6 +104,9 @@ def core_trees(rel_name: str):
                                                       lo=0, hi=N, K=int(K), tree=n, schema=schema), f"binding {n}"
             if n == "y":
                 values = [w.to_bytes(ynb, "big") for w in y]
+            elif lane_leaf is not None:
+                dg = lane_leaf.native(np.asarray(rows, dtype=np.int64), word_bits=word_bits, role=role)
+                values = [lane_leaf.leaf_bytes(dg[r]) for r in range(len(rows))]
             else:
                 values = pool.map(_row_leaf, [(kind, r, word_bits, role) for r in rows], chunksize=16)
             dom = CommitmentDomain(binding, OWNER[n], RangeIndexedDomain(0, len(values)))

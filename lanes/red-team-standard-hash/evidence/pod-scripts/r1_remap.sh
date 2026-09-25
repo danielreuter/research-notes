@@ -4,7 +4,7 @@ set -uo pipefail
 source /workspace/env.sh
 export OMP_NUM_THREADS=$(nproc) MKL_NUM_THREADS=$(nproc) OPENBLAS_NUM_THREADS=$(nproc) VY_CPU_THREADS=$(nproc)
 cd /workspace/src
-REL=${REL:-fp8-ada}; LEAF=${LEAF:-blake3}; OUT=/workspace/red-team-standard-hash/r1-$REL-$LEAF
+REL=${REL:-fp8-ada}; LEAF=${LEAF:-blake3}; OUT=/workspace/red-team-standard-hash/r1-$REL-$LEAF${OUTSUF:-}
 git_sha=$(cat .research-source.json 2>/dev/null | python3 -c 'import json,sys; print(json.load(sys.stdin).get("commit","?"))' 2>/dev/null)
 echo "tree: $git_sha"
 if [ "${SKIP_BUILD:-0}" != 1 ]; then

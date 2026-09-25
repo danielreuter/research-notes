@@ -8,8 +8,10 @@ jolt-sdk = { workspace = true, features = ["host"] }
 tracing-subscriber.workspace = true
 tracing.workspace = true
 jolt-inlines-sha2 = { workspace = true, features = ["host"] }
+jolt-inlines-blake3 = { workspace = true, features = ["host"] }
+blake3.workspace = true
 guest = { package = "vu-k1536-guest", path = "./guest" }
 serde_bytes = "0.11"
 
 [package.metadata.cargo-machete]
-ignored = ["jolt-inlines-sha2"]
+ignored = ["jolt-inlines-sha2", "jolt-inlines-blake3"]

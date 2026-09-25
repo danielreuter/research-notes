@@ -19,6 +19,7 @@ fix, p06 = Path(sys.argv[1]), sys.argv[2]
 os.makedirs("/workspace/verify-night-2", exist_ok=True)
 spec = importlib.util.spec_from_file_location("core_roots", p06)
 cr = importlib.util.module_from_spec(spec)
+sys.modules["core_roots"] = cr
 spec.loader.exec_module(cr)
 n = cr.N
 

@@ -61,6 +61,12 @@ pub fn main() {
             let rows = serde_bytes::ByteBuf::from(words.iter().flat_map(|w| w.to_le_bytes()).collect::<Vec<u8>>());
             let native = guest::vu_batch(rows.clone(), y.clone(), mode as u8);
             assert!(native.0, "native check failed");
+            if mode == 2 {
+                let reference: Vec<[u8; 32]> =
+                    rows.chunks_exact(3072).map(|r| *blake3::keyed_hash(&guest::ROW_KEY, r).as_bytes()).collect();
+                assert_eq!(native.1, reference, "keyed BLAKE3 row digests differ from the blake3 crate");
+                println!("BLAKE3_REF_OK B={n} rows={}", reference.len());
+            }
             let summary = guest::analyze_vu_batch(rows.clone(), y.clone(), mode as u8);
             let tl = summary.trace_len();
             println!("TRACE B={n} mode={mode} trace_len={tl} per_vu={:.0}", tl as f64 / n as f64);
@@ -73,8 +79,9 @@ pub fn main() {
                 let valid = verify(rows.clone(), y.clone(), mode as u8, output.clone(), io.panic, proof);
                 let tv = t.elapsed().as_secs_f64();
                 println!(
-                    "RESULT B={n} mode={mode} rep={rep} trace_len={tl} proof_trace_length={padded} prove_s={tp:.3} verify_s={tv:.3} ok={} valid={valid}",
-                    output.0
+                    "RESULT B={n} mode={mode} rep={rep} trace_len={tl} proof_trace_length={padded} prove_s={tp:.3} verify_s={tv:.3} ok={} valid={valid} out_eq_native={}",
+                    output.0,
+                    output == native
                 );
             }
         }

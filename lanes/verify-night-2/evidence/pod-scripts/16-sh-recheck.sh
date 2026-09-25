@@ -64,8 +64,9 @@ for a in arts:
     ev.write_text(json.dumps({"reverify": r, "binding": b, "core_roots_r1r2": c}, indent=1))
     detail = (f"verify-night-2, red-team SH R1/R2 checked: {line}. R1 = every statement's (vu_index, x_index, w_index) equals the "
               f"untiled layout (x = W = vu) over its dumped range and each rep's sub-batches tile [0, 4096) disjointly; R2 = the three "
-              f"trees' binding (hashauth.binding_digest), owner, count and root recomputed from my tree's instance set with the "
-              f"verity.commitments core equal every statement's. Proofs: ligero-verify d89cffc7 (main 00ffe398) on the dumped rep(s), "
+              f"trees' binding (hashauth.binding_digest), owner, count and root recomputed from my tree's instance set (framing and "
+              f"trees: verity.commitments core; row digests: {(c.get('info') or {}).get('row_digest_ref')}) equal every statement's. "
+              f"Proofs: ligero-verify d89cffc7 (main 00ffe398) on the dumped rep(s), "
               f"interactive transcripts replay the runner's coins (not transferable).")
     p = subprocess.run([sys.executable, lab, full, "--tree", r.get("run_files") or c.get("run_files"), "--verifier",
                         "ligero-verify d89cffc7 (main 00ffe398) + verify-night-2 R1/R2 core recompute (06-core-roots.py)",

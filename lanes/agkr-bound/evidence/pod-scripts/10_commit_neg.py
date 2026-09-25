@@ -4,14 +4,15 @@ them to the operand columns yet.
 
 usage (cwd <tree>/backends/gkr): python 10_commit_neg.py REL LEAF EXPORT_DIR OUT VERIFIER [N] [THREADS]
   REL: bf16-ampere (frozen vu-k1536, /workspace/bench-instances/v1) | bf16-hopper | fp8-ada | fp8-hopper | fp4-nvf4
-  LEAF: sha256 | blake3.  The verifier must have REL+LEAF's root pin compiled in (commitments.rs PINS).
+  LEAF: sha256 | blake3 | vllm-v1.  The verifier must have REL+LEAF's root pin compiled in (commitments.rs PINS).
 
-Cases (SC = --allow-any-circuit --require-commitment: no circuit set is pinned for REL+LEAF until the hash layers):
+Cases (vllm-v1 adds spec_domain: a domain_a line not the derived one -> reject; SC = --allow-any-circuit --require-commitment: no circuit set is pinned for REL+LEAF until the hash layers):
   honest            honest witness, honest digests, SC                                  -> accept, commitment pinned
   honest_as_RL      the same claimed --relation REL+LEAF                                -> reject (no circuit pin)
   honest_as_R       the same claimed --relation REL                                     -> reject
   wrong_digest      re-proved with VU v's x digest = VU v+1's (a consistent proof), SC -> reject (tree a); python accepts
-  wrong_digest_up   the same, SC + --allow-unpinned-commitment                          -> accept (the root pin is what rejects)
+  wrong_digest_up   the same, SC + --allow-unpinned-commitment                          -> reject (the flag waives a missing pin,
+                                                                                           never a pinned set's roots)
   swap_w            re-proved with VU 0 / 1 W digests swapped, SC                       -> reject (tree b: ranks are VUs)
   y_word            honest proof, one y public word +1 in public.bin, SC                -> reject
   limb_range        honest proof, one limb set to 2^16 in public.bin, SC                -> reject (malformed)
@@ -187,7 +188,7 @@ py = prove(sd, honest_rows, L2, pub)
 got, err, _ = rust(sd, "sc", *SC)
 ok &= record("wrong_digest", False, got, err, py, True)
 got, err, _ = rust(sd, "up", *SC, "--allow-unpinned-commitment")
-ok &= record("wrong_digest_up", True, got, err)
+ok &= record("wrong_digest_up", False, got, err)
 
 L3 = L.copy()
 L3[[0, 1], 16:] = L[[1, 0], 16:]
@@ -206,9 +207,14 @@ for name, col, val in (("y_word", 0, None), ("limb_range", ny + 3, 1 << 16)):
     ok &= record(name, False, got, err)
 
 other = "blake3" if LEAF == "sha256" else "sha256"
-for name, text in (("spec_manifest", re.sub(r"(instances \S+ \S+ )[0-9a-f]{64}", lambda m: m.group(1) + "cd" * 32, C.text())),
-                   ("spec_leaf", C.text().replace(f"leaf {LEAF}", f"leaf {other}").replace(CM.SUFFIX[LEAF], CM.SUFFIX[other])),
-                   ("no_commitment", None)):
+spec_cases = [("spec_manifest", re.sub(r"(instances \S+ \S+ )[0-9a-f]{64}", lambda m: m.group(1) + "cd" * 32, C.text())),
+              ("spec_leaf", C.text().replace(f"leaf {LEAF}", f"leaf {other}").replace(CM.SUFFIX[LEAF], CM.SUFFIX[other])
+               if LEAF != CM.VLLM else C.text().replace("scheme vllm-v1\nleaf pos", "scheme frame-v3\nleaf sha256").replace(CM.SUFFIX[LEAF], "+sha256")),
+              ("no_commitment", None)]
+if LEAF == CM.VLLM:
+    # a domain_a line that is not the verifier's derived domain (the root binding is then checked under another domain)
+    spec_cases.append(("spec_domain", re.sub(r"domain_a [0-9a-f]{64}", "domain_a " + "ee" * 32, C.text())))
+for name, text in spec_cases:
     sd, pub = statement(name, L, text)
     got, err, _ = rust(sd, "sc", *SC, proof=honest / "proof.bin")
     ok &= record(name, False, got, err)

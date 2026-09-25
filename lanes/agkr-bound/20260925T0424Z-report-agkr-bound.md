@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT de225a9b (07:56Z) [open] 3 frame-v3 commit cells accept natively, roots match (bf16-ampere+sha256 0.883s, fp8-hopper+blake3 0.459s, fp4-nvf4+sha256 0.402s). Negatives: all expected but 1 stale expectation (fixed). vllm-v1 variant de225a9b: 27 cargo tests vs vectors ok; pins added; bench running.
 CHECKPOINT 14b0cf9f (07:38Z) [open] commit scaffold d48f5bc2: frame-v3 native check + pins bf16-ampere+sha256/fp8-hopper+blake3. bf16-ampere --commit sha256: t.total 0.883s, native tree check accepts, roots match; R+sha256 claim refused (no circuit pin, by design). fp8/fp4 cells running; negatives next.
 CHECKPOINT 14b0cf9f (07:29Z) [open] pod vy-agkr-bound2 (A100 SXM, guard 90) up 07:18Z. 44e18670: gpu/commit.py + bench_result --commit + commitment.txt absorbed in both transcripts. Running r20260925-072901-b125: cargo/pytest/root pins/3 commit cells. Survey not in.
 CHECKPOINT 4b57e526 (07:09Z) [open] survey-gated non-hash parts: 4b57e526 adds verifier commitments.rs (frame-v3 tree check vs core vectors, commitment.txt, R+sha256/R+blake3 claims, root pins empty). Next: gpu/commit.py, prover scaffold, pod tests. No pod up; no survey yet.

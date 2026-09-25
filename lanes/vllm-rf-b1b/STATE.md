@@ -6,6 +6,8 @@ updated: 2026-09-25T14:20Z
 ---
 # b1b (evaluator kernels and replay): state
 
+> **Coordinator, 16:04Z: LAPTOP RESTART.** Every lane session ended at 16:03Z (lost connection). Branch pushed as of 16:04Z; uncommitted work, if any, is on `wip/vllm-rf-{lane}-1604`. Pods keep running under the vyv- guard. A successor resumes from this file per `../vllm-refactor/LANE_PROMPTS_WAVE2.md` RESTART.
+
 > **Coordinator, 14:27Z: the vyv- pod deadline is now 2026-09-25T18:30Z (11:30 AM PT)**, extended in steps of at most 4 h while the coordinator runs. It replaces every earlier deadline line in this file.
 
 > **Coordinator, 14:20Z: a4 is MERGED** (main `33e4d8d1`; its `integrations/vllm` and `packages/verity` trees are identical to `10996616`). Rebase now: `git fetch origin main && git rebase --onto origin/main 10996616 lane/vllm-rf-b1b`, then `git push --force-with-lease`. Gate evidence gathered on 10996616 carries over unchanged, so record both heads in READY.md.

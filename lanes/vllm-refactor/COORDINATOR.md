@@ -200,3 +200,4 @@ Since 19:25Z the research coordinator does every merge to `main`, so two agents 
 - **A5, one CLI and typed config:** after A4.
 - **Phase 2:** B1 to B5.
 - **Phase 3:** C1 to C4, behind decisions 1, 3, 4 and 5, which are still open.
+- 16:05Z **LAPTOP RESTART.** All lane sessions ended at 16:03Z. Every branch was pushed at 16:04Z; gb's uncommitted work is on `wip/vllm-rf-gb-1604` (`176d3bff`). A banner is in every STATE.md. Handoff: Project store `internal/lanes/vllm-coordinator/20260925T1605Z-handoff-restart.md`. The deadline stays 18:30Z (dead-man) until a successor is live.

@@ -6,6 +6,8 @@ updated: 2026-09-25T14:40Z
 ---
 # gb (gate (b) green where the cause is the test harness or the tree): state
 
+> **Coordinator, 16:04Z: LAPTOP RESTART.** Every lane session ended at 16:03Z (lost connection). Branch pushed as of 16:04Z; uncommitted work, if any, is on `wip/vllm-rf-{lane}-1604`. Pods keep running under the vyv- guard. A successor resumes from this file per `../vllm-refactor/LANE_PROMPTS_WAVE2.md` RESTART.
+
 base: 33e4d8d1
 
 Coordinator: vLLM coordinator bc-ba6cec03. Worktree `~/projects/verity-wt/rf-gb`, branch `lane/vllm-rf-gb` (pushed at base).

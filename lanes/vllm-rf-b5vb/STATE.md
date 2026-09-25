@@ -7,6 +7,8 @@ updated: 2026-09-25T14:40Z
 ---
 # vllm-rf-b5vb: split program/frontend/rules/vllm_bindings.py into a package (B5) (state)
 
+> **Coordinator, 16:04Z: LAPTOP RESTART.** Every lane session ended at 16:03Z (lost connection). Branch pushed as of 16:04Z; uncommitted work, if any, is on `wip/vllm-rf-{lane}-1604`. Pods keep running under the vyv- guard. A successor resumes from this file per `../vllm-refactor/LANE_PROMPTS_WAVE2.md` RESTART.
+
 base: 33e4d8d1
 
 - Coordinator: vLLM coordinator (Cursor agent bc-ba6cec03). Briefs: `../vllm-refactor/WAVE2_BRIEF.md`, `LANE_BRIEF.md`.

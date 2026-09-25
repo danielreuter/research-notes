@@ -114,3 +114,7 @@ notes sync: committed dc0e97b (4 paths); pushed; skipped 11 over 1 MB (put them 
 2026-09-25T15:45:19Z IN red-team-flock: 1 file(s) store -> notes
 notes sync: committed 2274ac6 (3 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
 2026-09-25T15:50:31Z IN red-team-flock: 2 file(s) store -> notes
+2026-09-25T16:24:05Z IN reverify-fp4: 1 file(s) store -> notes
+2026-09-25T16:24:05Z IN agkr-flock-cell: 2 file(s) store -> notes
+2026-09-25T16:24:05Z IN ligero-hygiene: 1 file(s) store -> notes
+2026-09-25T16:24:05Z IN machines.d: 1 entry file(s) store -> notes

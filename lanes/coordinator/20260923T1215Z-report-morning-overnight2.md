@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 3b73895 (04:51Z) [open] 04:55Z PARITY PASS 1 exit 0 (PARITY OK) after reconcile; JSON internal/parity-pass1-20260925T0425Z.json; stall capture internal/parity-stall-20260925T0450Z.txt (one HEAD used 4x180s deadline, key unlogged); pass 2 started 0451Z
 CHECKPOINT a2edab4d (04:47Z) [open] 04:50Z sweep: disk 6.7 GiB; agkr-bound alive (integration a2edab4d pushed; A100 pod); parity pass 1 re-run stuck at last replica 5286/5287 >20 min; sweep timer lane list updated
 CHECKPOINT a2edab4d (04:45Z) [open] 04:48Z merged #13 c1891d48 (A-GKR circuit pin; cargo test 15/15 on pod vy-coord-cargo, terminated); cli 9:45 PM PT; agkr-bound told to merge main + add E4M3/NVFP4 pins + own relation name; circuit red-team after A-GKR integration merges
 CHECKPOINT cc7842a0 (04:33Z) [open] 04:35Z merged vllm-rf-f3-integrated 68e75c14 --no-ff -> cc7842a0 (vllm-only; trees identical to tested; lints 41/41); pushed; cli moved

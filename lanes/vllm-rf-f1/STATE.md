@@ -268,3 +268,8 @@ updated: 2026-09-25T04:48Z
   Gate (b) head and main: all files done except test_derive_realhf / test_derive_hf5b_realhf (one worker each, ~50% through by the
   d1f18fc8 run's per-case times; this EPYC 7713 host is ~2x slower per core) -> ETA ~05:05Z.  READY draft updated for both heads
   (placeholders RESULTS_299 / GATEB_299 for the gate (b) numbers).
+- 04:48Z PRESERVED on s3://verity-dev (fetch --all, attempt publish, data push; 18/18): the four voids `-042334-f76f` `-042642-c979`
+  `-042715-a96f` `-042717-8109` (cancelled ones classed CANCELLED_MANUAL), bootstrap `-042905-a8bb`, lints+touched `-043155-7013`.
+  Gate (b) head and main: all files done except test_derive_realhf / test_derive_hf5b_realhf (one worker each, ~50% through by the
+  d1f18fc8 run's per-case times; this EPYC 7713 host is ~2x slower per core) -> ETA ~05:05Z.  READY draft updated for both heads
+  (placeholders RESULTS_299 / GATEB_299 for the gate (b) numbers).

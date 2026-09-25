@@ -5,7 +5,7 @@
 #  1. the pinned-table entries of the five frozen sets (python -m gpu.bind pin)
 #  2. per cell: bench_result --bind (1 rep after 1 warm-up; Rust with --require-bound; a recipe set that is not yet
 #     pinned is re-verified with --allow-unpinned-instances), then 03_negatives.py
-# usage: bash 02_bind_dev.sh [PINS=0] [cells...]   cells: bf16-ampere bf16-hopper fp8-hopper fp8-ada fp4-nvf4
+# usage: [PINS=0] bash 02_bind_dev.sh [cells...]   cells: bf16-ampere bf16-hopper fp8-hopper fp8-ada fp4-nvf4
 set -uo pipefail
 HERE=$(pwd)
 ROOT=$(cd ../.. && pwd)

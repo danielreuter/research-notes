@@ -1,7 +1,7 @@
 # machine vy-flock-gpu-link-4090: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "ecd2xbvgn5tnvw"
+pod_id = "jdm3rnjrodybpj"
 project = "verity"
 guard = 60
 registered_by = "cursor"
-registered_at = "2026-09-25T20:32Z"
+registered_at = "2026-09-25T23:00Z"

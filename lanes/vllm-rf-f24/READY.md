@@ -48,7 +48,11 @@ VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/
 
 - **`be366f80`, main pod** (`gate_a.sh /workspace/head2-reg a_final`, 20:50Z), with
   `--deselect tests/regression/test_regression.py::test_reproduces[T1-replay_partition-r11]` and `...[T1-replay_partition-r39]`:
-  **PENDING**.
+  **71 passed, 85 skipped, 35 deselected** (16,068 s, exit 0, 01:17:55Z). Passed: `manifest_digest`, `verdict`,
+  `commit_summary`, `coverage`, `executed_prefix` and `global_match_checks` on 10 rows each, `step_segmentation` and
+  `stoch_value` on one row each, T1 `replay_partition` on 7 rows (#57, #60, #67, #68, #73, #74, #101), the #57 refusal, and the
+  decisions listing. T1 `decomp_hashes` skips on all 13 rows (no row's fold record `match/program.json` is in the fixtures),
+  and T2 `program_digest` is outside the tiers.
 - **`be366f80`, big pod**, the two deselected checks (`run_big.sh`: `gate_a.sh ... -k "replay_partition and r11"` and
   `... r39"`, each its own process): **#11 1 passed** (843 s, peak RSS 67 GB), **#39 1 passed** (1,364 s, peak RSS 109 GB). They
   need more than the 64 GB pod has.
@@ -60,7 +64,7 @@ VERITY_REGRESSION=1 VERITY_REGRESSION_TIERS=T0,T1 python -m pytest integrations/
   `program_compare`) and `replay_partition` (through `sampled_replay`). `manifest_digest` and the #57 refusal rebuild the
   manifest with `verity_vllm.query.cli`, which imports nothing `a2e2843e` changed except `batch_decomp.derived_shape` (unchanged).
   On this pod both T1 checks skip on rows #4, #11 and #23: not applicable, or the fold record and request descriptors aren't in
-  the fixtures.
+  the fixtures. Test by test against `a_final` (`jdiff.py`, the 110 tests both ran): no outcome and no skip reason differs.
 - **Fixtures and the credential** (`20260924T1942Z-gate-a-credential-route.md`). Every key was minted on the laptop
   (`--permission object-read-only --via local`) and piped into the pod, never echoed. Main pod: `prefetch.sh` fetched all 26
   fixture artifacts (0 failures) and deleted `/root/r2ro.env` at 20:47:22Z. Big pod: its own `--ttl 3h` key, minted 20:55:40Z,
@@ -208,7 +212,8 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
 - A Build can't run on a CPU pod with the bootstrap's CUDA vLLM wheel, even with a declared TargetProfile: vLLM makes no
   DeviceConfig without a GPU ("Device string must not be empty"). SYNTHESIS §6 validates F2 on "CPU pod: Build T0"; any CUDA GPU
   works, because the profile makes the Program independent of the host.
-- Gate (a)'s T1 `replay_partition` on the B=1 rows #11 and #39 peaks at 67 and 109 GB, beyond the 64 GB CPU pod.
+- Gate (a)'s T1 `replay_partition` on the B=1 rows #11 and #39 peaks at 67 and 109 GB, beyond the 64 GB CPU pod. #74's held
+  41.7 GiB of the pod's 59.6 GiB limit a minute before it finished, so running anything beside it risks an OOM kill of the gate.
 - On this pod the gc-freeze pair fails at base even with its file run alone (both tests; a1 saw one).
 - Tooling: `research pods create --vcpu` must be a power of 2 (RunPod refuses otherwise; the help text doesn't say).
 - Tooling: `gate_a.sh`'s `key_file_present` (from a1's recipe) checks only `/root/r2ro.env`, so a key anywhere else on the pod

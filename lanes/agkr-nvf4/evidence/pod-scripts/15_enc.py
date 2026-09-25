@@ -37,14 +37,12 @@ base(cp.asarray(at).view(cp.uint32), ref.view(cp.uint32), write_systematic=False
 out = cp.empty_like(ref)
 variants = {
     "default": {},
-    "radix4": {"radix4": True},
-    "t256": {"threads": 256},
-    "t1024": {"threads": 1024},
-    "t512_mb2": {"min_blocks_per_sm": 2},
-    "t256_r4": {"threads": 256, "radix4": True},
     "t512_r4_mb2": {"radix4": True, "min_blocks_per_sm": 2},
-    "blocks_sm": {"blocks": 170},
-    "blocks_sm4": {"blocks": 680},
+    "t256_r4_mb2": {"threads": 256, "radix4": True, "min_blocks_per_sm": 2},
+    "t256_r4_mb3": {"threads": 256, "radix4": True, "min_blocks_per_sm": 3},
+    "t256_r4_mb4": {"threads": 256, "radix4": True, "min_blocks_per_sm": 4},
+    "t1024_r4": {"threads": 1024, "radix4": True},
+    "t512_r4_mb2_b340": {"radix4": True, "min_blocks_per_sm": 2, "blocks": 340},
 }
 for name, kw in variants.items():
     try:
@@ -57,6 +55,6 @@ for name, kw in variants.items():
 
 ev = torch.as_tensor(ref, device=dev)
 r0 = kernels.row_code_dot(at, ev, code)
-for split in (8, 16, 32, 64):
+for split in (32, 64, 128, 256):
     ms = bench(lambda: kernels.row_code_dot(at, ev, code, split=split))
     print(f"row_code_dot split={split}: {ms:.2f} ms same={bool((kernels.row_code_dot(at, ev, code, split=split) == r0).all())}", flush=True)

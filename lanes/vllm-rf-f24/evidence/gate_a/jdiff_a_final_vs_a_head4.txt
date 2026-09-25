@@ -1,0 +1,56 @@
+BASE {'skipped': 85, 'passed': 71} total 156
+HEAD {'skipped': 57, 'passed': 53} total 110
+
+# outcome changed
+
+# only in HEAD
+
+# only in BASE
+  passed  tests.regression.test_regression::test_negative_57_refusal_reproduces
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r101]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r11]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r23]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r39]
+  skipped  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r4]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r57]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r60]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r67]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r68]
+  skipped  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r70]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r73]
+  passed  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r74]
+  skipped  tests.regression.test_regression::test_reproduces[T0-manifest_digest-r75]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r101]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r39]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r57]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r60]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r67]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r68]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r70]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r73]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r74]
+  skipped  tests.regression.test_regression::test_reproduces[T1-decomp_hashes-r75]
+  passed  tests.regression.test_regression::test_reproduces[T1-replay_partition-r101]
+  passed  tests.regression.test_regression::test_reproduces[T1-replay_partition-r57]
+  passed  tests.regression.test_regression::test_reproduces[T1-replay_partition-r60]
+  passed  tests.regression.test_regression::test_reproduces[T1-replay_partition-r67]
+  passed  tests.regression.test_regression::test_reproduces[T1-replay_partition-r68]
+  skipped  tests.regression.test_regression::test_reproduces[T1-replay_partition-r70]
+  passed  tests.regression.test_regression::test_reproduces[T1-replay_partition-r73]
+  passed  tests.regression.test_regression::test_reproduces[T1-replay_partition-r74]
+  skipped  tests.regression.test_regression::test_reproduces[T1-replay_partition-r75]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r101]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r11]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r23]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r39]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r4]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r57]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r60]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r67]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r68]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r70]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r73]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r74]
+  skipped  tests.regression.test_regression::test_reproduces[T2-program_digest-r75]
+
+# skip reasons in HEAD, not in BASE

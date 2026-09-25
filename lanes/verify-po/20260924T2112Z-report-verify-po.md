@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (01:21Z) [open] labelled 4090 FP8 A-GKR art:ecd96143 (unchanged stmt; verdict art:eededf7d). art:dfbc86c4 (5090, BOOL_QUADRATIC+PAIRED) 5/5 + stmt + rewrite-equivalence check OK; registering verdict, label HELD
 CHECKPOINT ab9573fd (01:05Z) [open] 4090 FP8 A-GKR merged-LK art:45c5be4a verified, verdict art:df4d2c3c registered, label HELD per coordinator 0050Z (handoff 0104Z); now art:ecd96143 (unchanged stmt, 0006Z handoff found in coordinator folder)
 CHECKPOINT ab9573fd (00:41Z) [open] idle: inbox empty since 00:22Z; 48 accepted, 0 rejected; pod vy-verify-po up (no credential on it), polling every 10 min until 03:45Z
 CHECKPOINT ab9573fd (00:22Z) [open] verified agkr-nvf4 5090 art:49757870 (716ea008, same proof bytes as 5adf62eb; verdict art:9618b325; A-GKR cell 2.5e7x; coordinator 0022Z). 48 accepted, 0 rejected; cred removed; idle-polling

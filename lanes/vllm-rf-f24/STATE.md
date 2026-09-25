@@ -95,7 +95,11 @@
   d13, lint).
 - 00:45Z `a_final` 128/158 (row #74's last checks; then #75 all-skip, #101, the #57 refusal rebuild, decisions). Pod store has no
   attempts (`/workspace/research/store/attempts` empty): terminate, no drain needed.
-- Next: when `a_final` exits (`/workspace/out/gates/a_final.status`): counts + jdiff of skip reasons vs a_head4 into READY.md, copy
+- 01:17:55Z `a_final` DONE: 71 passed, 85 skipped, 35 deselected, exit 0 (16068 s). T1 replay_partition passed on 7 rows;
+  decomp_hashes skips on all 13. jdiff vs a_head4 (110 common): no outcome / skip-reason difference. Evidence pulled; READY.md filled.
+- 01:19:23Z `a_head4_t1` at a2e2843e (`/workspace/rff24/head4_t1.sh`, keyless): T1 replay_partition r101/r57/r60 + manifest_digest
+  r60 (~25 min). Then: add to READY.md, pull evidence, status final, terminate the pod.
+- (old) Next: when `a_final` exits (`/workspace/out/gates/a_final.status`): counts + jdiff of skip reasons vs a_head4 into READY.md, copy
   a_final xml/log to evidence, status final, terminate the pod (`research pods terminate vyv-rf-f24-veritor-campaign`).
 
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)

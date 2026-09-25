@@ -146,6 +146,6 @@ kernels is the only lever, transcript fixed), arith 0.115 (phase-1 per-round hos
   ~5.2e7x (1.08e8x of the 0.688 s cell, scaled).
 - Lookup negatives r20260925-012601-e354: 4/4 rejected by both verifiers (T_OP out, SHIFT out, TNORM out, R6 key term). Negatives
   tree art:70bbba68. Predicate: only `not independently verified`. Handoff 0132Z (the label is held for red-team-lk).
-- Cherry-picked agkr-nvf4's 10 same-bytes prover commits (e1bcf472 … 79f00fd3 -> 1ba…a97576b5; clean picks). 06_ab
+- Cherry-picked agkr-nvf4's 10 same-bytes prover commits (e1bcf472 … 79f00fd3 -> 7f58961f..a97576b5; clean picks). 06_ab
   r20260925-012247-e20f: fp8-hopper merged sha 0021aa91 unchanged, bf16-hopper sha 4a05ada6 unchanged. Median prove 0.235 s (bench
   prove at 3be6a35f was 0.281): mults 23.5 -> 12.5 ms, open_acc 42 -> 28, arith 96 -> 88, open_cols 15 -> 4.

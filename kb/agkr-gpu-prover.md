@@ -108,7 +108,11 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   - relation name `R+bound`: circuit files pinned under R in `pins.txt`, instance digests pinned under `R+bound` in
     `verifier/src/instances.rs`;
   - plain `R` refuses a statement that has a `bind.txt`.
-  It costs about +0–15% t.total on A100. The user ruled it NOT the full relation: commit x, W and y and bind the commitments
+  It costs about +0–15% t.total on A100 (1 rep each). The user ruled it NOT the full relation: commit x, W and y and bind the commitments
   in-proof (coordinator 0507Z).
 - `gpu/v2/export.merge_tables` is torch-free from 2994bd25, so the circuit-pin pytest can regenerate the merged-LK E4M3 lines.
   To test torch-freeness, set `sys.modules['torch'] = None` before `runpy.run_module`.
+- `layers()` makes every product-depth layer span ALL wires (pass-through gates), and the assertion layer spans every assert.
+  Prover work therefore grows with units × 2^ceil(log2 nwires) per layer. An in-circuit Poseidon2 (852 rows per permutation,
+  2 per unit) takes BF16 from 290 to about 3,700 wires (8× per layer) and from 264 to about 1,970 committed columns. The
+  estimate is 4–8× t.total (coordinator handoff 0550Z).

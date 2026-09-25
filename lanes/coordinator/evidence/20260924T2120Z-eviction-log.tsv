@@ -2362,3 +2362,12 @@ utc	action	bytes	path	sha256_r2_key_verified
 2026-09-25T08:53:57Z	presence-updated	0	20 artifacts	-
 2026-09-25T08:53:57Z	total-freed	8732695	-	-
 2026-09-25T09:04:18Z	total-freed	0	-	-
+2026-09-25T09:04:36Z	deleted-blob	40950933	/Users/danielreuter/.research/store/objects/sha256/a1446a8fa148be03c74ed71d5638c9234fd1398d548cb2cdf817f9e912c546af	objects/sha256/a1446a8fa148be03c74ed71d5638c9234fd1398d548cb2cdf817f9e912c546af
+2026-09-25T09:04:36Z	deleted-blob	40939398	/Users/danielreuter/.research/store/objects/sha256/7fb8427747dc398ed3e484ea52508dbeacf34b0e6e9cf968190c605faa7bf67c	objects/sha256/7fb8427747dc398ed3e484ea52508dbeacf34b0e6e9cf968190c605faa7bf67c
+2026-09-25T09:04:36Z	deleted-blob	40918433	/Users/danielreuter/.research/store/objects/sha256/0bd89c1bad6de8d2588f6a01912a8490c9acb99edf6d27679170fb005e7a497f	objects/sha256/0bd89c1bad6de8d2588f6a01912a8490c9acb99edf6d27679170fb005e7a497f
+2026-09-25T09:04:36Z	deleted-blob	40886108	/Users/danielreuter/.research/store/objects/sha256/81adba68aff061a6411a387b85940653144df2aceded8a8f5a0b6f1347b12408	objects/sha256/81adba68aff061a6411a387b85940653144df2aceded8a8f5a0b6f1347b12408
+2026-09-25T09:04:36Z	deleted-blob	41448974	/Users/danielreuter/.research/store/objects/sha256/5afaeb8ff969d3b6d13ec8f67b2ea7eedb2adc261417029c9eaf29e71d5acbea	objects/sha256/5afaeb8ff969d3b6d13ec8f67b2ea7eedb2adc261417029c9eaf29e71d5acbea
+2026-09-25T09:04:37Z	deleted-blob	40938820	/Users/danielreuter/.research/store/objects/sha256/085e8ec5368af95a1fbe9643a152a4e6630f139355d2f6788bfa74f238ae2ee4	objects/sha256/085e8ec5368af95a1fbe9643a152a4e6630f139355d2f6788bfa74f238ae2ee4
+2026-09-25T09:04:38Z	presence-updated	0	6 artifacts	-
+2026-09-25T09:04:38Z	total-freed	246082666	-	-
+2026-09-25T09:12:16Z	total-freed	0	-	-

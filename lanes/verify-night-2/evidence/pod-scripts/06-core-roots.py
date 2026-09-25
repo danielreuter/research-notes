@@ -89,7 +89,7 @@ def core_trees(rel_name: str):
     x_rows = [np.asarray(v[0]).reshape(-1) for v in data]
     w_cols = [np.asarray(v[1]).reshape(-1) for v in data]
     y = [int(rel.y_public(int(v[3]))) for v in data]
-    info = {"relation": base, "leaf": kind, "row_schema": row_schema, "dataset": rel.instances_dataset, "tier": rel.instances_tier,
+    info = {"relation": base, "leaf": kind, "row_schema": row_schema, "steps": int(getattr(rel, "steps", 0) or 0), "dataset": rel.instances_dataset, "tier": rel.instances_tier,
             "manifest_sha256": msha, "K": K, "word_bits": word_bits, "y_schema": ysch,
             "row_digest_ref": ("backend committer of my tree (lane-formatted Poseidon2 leaf; no core reference)" if lane_leaf is not None
                                else "verity.commitments core")}
@@ -133,7 +133,9 @@ def check(st, art):
         if not pman:
             raise FileNotFoundError(f"{tree}: no proofs/ or dumps/ manifest.json")
         man = json.loads(pman[0].read_text())
-        rel_name = man["relation"]["name"] if isinstance(man.get("relation"), dict) else man.get("relation")
+        mrel = man.get("relation")
+        # the hashed relation (its leaf suffix) is `statement_relation` when the manifest's `name` is the bare target's
+        rel_name = (mrel.get("statement_relation") or mrel["name"]) if isinstance(mrel, dict) else mrel
         ce = sorted(d.rglob("commit-evidence.json"))
         ce_trees = json.loads(ce[0].read_text()).get("trees") if ce else None
         info, core = core_trees(str(rel_name))
@@ -152,6 +154,7 @@ def check(st, art):
         covered = set()
         per_rep = {}
         entries = {}
+        shapes = set()
         pdir = pman[0].parent
         for f in man.get("files", []):
             if not f.get("stmt"):
@@ -166,6 +169,7 @@ def check(st, art):
             per_rep.setdefault(rdir, []).append((lo, hi))
             s = read_statement((pdir / f["stmt"]).read_bytes())
             n_stmt += 1
+            shapes.add((int(s.steps), int(getattr(s, "row_words", 0) or 0)))
             ha = s.hash_auth
             if ha is None:
                 problems.append(f"{f['stmt']}: no hash_auth block")
@@ -195,6 +199,7 @@ def check(st, art):
                                 f"({len(entries.get(rdir, ()))})")
         res.update({"statements": n_stmt, "reps": sorted(per_rep, key=str), "vus_covered": len(covered), "commit_evidence_absent": absent,
                     "entries_per_rep": {r: len(v) for r, v in per_rep.items()},
+                    "stmt_shapes_steps_rowwords": sorted(shapes), "canonical_steps": info.get("steps"),
                     "checks": "R1: every statement's (vu_index, x_index, w_index) == untiled layout (x = W = vu) over its dumped range, and "
                               "each rep's ranges tile [0, N) disjointly; R2: bindings (hashauth.binding_digest == core identity_digest over "
                               "my tree's dataset/tier/manifest/lo/hi/K/tree/schema), owner, count and roots (verity.commitments core) "

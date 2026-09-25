@@ -11,6 +11,6 @@ for c in ${CONFIGS:?}; do
   echo "rc=$?"; grep -E "^rep |OOM|OutOfMemory|Error" $RD/$tag.log | cut -c1-300 | tail -6
   $PY - $RD/$tag.json <<'PY' 2>/dev/null
 import json,sys; d=json.load(open(sys.argv[1])); m={x["name"]:x["value"] for x in d["measurements"]}
-print({k: m.get(k) for k in ("t.total","commitment.seconds","end_to_end.seconds","end_to_end.vu_per_second","mem.peak_device_bytes","split.subbatches","soundness_bits")}, d.get("contention",{}).get("contended"))
+print({k: m.get(k) for k in ("t.total","commit.seconds","e2e.seconds","e2e.vu_per_second","e2e.overhead_vs_native_peak","mem.peak_device_bytes","split.subbatches","split.per_proof_vus","soundness_bits")}, d.get("contention",{}).get("contended"))
 PY
 done

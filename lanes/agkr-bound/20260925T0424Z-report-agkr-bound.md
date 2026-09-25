@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT 04286bb (09:10Z) [open] Bit-link prime side merged into real BF16 A100 proof: 0.819->1.401s (+71%), proof 21->61MB (py verify accepts). Red team reproduced my 4 pinned roots. Waiting on coordinator re handoff 0858Z (route, AVX-512 Flock, tag, vllm-v1 mapping, fp4).
 CHECKPOINT 74a016e (09:03Z) [open] Spike registered art:c35a50cd, scaffold+negatives art:f2f07e3c (NEGATIVES OK 4 cells incl vllm-v1). A-GKR BF16 CPU 361.5s; in-field SHA ~28x (not building); bit-link prime side +38% CPU/+64% GPU. Handoff 0858Z: route + 4 decisions.
 CHECKPOINT 58b113bc (08:47Z) [open] Link stub (512 op bits/unit, k=1) at 393k units: CPU 138s, A100 GPU 0.55s warm (vs BF16 cell 0.86s, +214M committed). k=2/4 slower. Flock portable SHA-256 393k ~7.5s CPU. In-field flat SHA ~1e4 s CPU, GPU infeasible. Running A-GKR BF16 CPU ref.
 CHECKPOINT e10e1d6 (08:29Z) [open] Spike: in-field flat SHA-256 (Rust CPU, 13 thr) B=64 3.26s, B=4096 106.7s (arith-bound, ~1e4 s/393k-compression batch). Flock portable (Zen2): SHA-256 52k/s, BLAKE3 120k/s. Link stub k=1 at 393k units 138s. Next: same-pod A-GKR BF16 CPU ref.
@@ -146,3 +147,11 @@ recomposition into the 32 words. The cross-field check itself is not built (red-
 - Hash spike: art:c35a50cd.
 - Both are gate-log/v1 and preserved. Runs are preserved through `04_store.sh push`, and `data reindex --remote` succeeded.
 - Handoff 0858Z asks five questions: the route, Flock on AVX-512, the binding tag, the vllm-v1 domain mapping, and fp4 pins.
+
+**Link, merged (09:10Z, r20260925-090709-6528, pod scripts 18_link_merged.sh and 18_wrap.py).** The stub runs as a third
+segment of the real BF16 A100 proof: 4,096 VUs, 1 warm-up and 3 reps, Python verifier.
+- The base cell's median t.total is 0.819 s, and its proof sha is f2c05851, byte-identical to the pinned cell.
+- With the link segment the median is 1.401 s: **+0.58 s, +71%**. Of that, arith is +0.30 s, open +0.15 s and commit
+  +0.04 s. The proof grows from 21.2 MB to 61.4 MB.
+- The Python verifier accepts. The Rust verifier rejects with "message count exceeds the statement's bound", as expected,
+  because it doesn't know the segment.

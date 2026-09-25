@@ -1,0 +1,34 @@
+DIFF build_request/artifact.json .construction_version.files[2].file .construction_version.files[2].sha256 .construction_version.files[4].sha256 .construction_version.files[8].sha256 .construction_version.files[9].sha256 .construction_version.files[10].sha256
+DIFF build_request/construction_manifest.json .artifact.construction_version.files[2].file .artifact.construction_version.files[2].sha256 .artifact.construction_version.files[4].sha256 .artifact.construction_version.files[8].sha256 .artifact.construction_version.files[9].sha256 .artifact.construction_version.files[10].sha256
+DIFF build_request/derive-report.json .provenance.registry.digest .provenance.registry.sources.verity_vllm.program.registry.prims
+DIFF build_request/inputs.json .distinct_paths .n_open_events .non_site_packages_paths[len 133!=135] .site_packages_by_package.transformers
+DIFF build_request/result.json .artifact.construction_version.files[2].file .artifact.construction_version.files[2].sha256 .artifact.construction_version.files[4].sha256 .artifact.construction_version.files[8].sha256 .artifact.construction_version.files[9].sha256 .artifact.construction_version.files[10].sha256
+DIFF build_request/weights_of_record.json .derived.tool
+DIFF build_step/artifact.json .construction_version.files[2].file .construction_version.files[2].sha256 .construction_version.files[4].sha256 .construction_version.files[8].sha256 .construction_version.files[9].sha256 .construction_version.files[10].sha256
+DIFF build_step/construction_manifest.json .artifact.construction_version.files[2].file .artifact.construction_version.files[2].sha256 .artifact.construction_version.files[4].sha256 .artifact.construction_version.files[8].sha256 .artifact.construction_version.files[9].sha256 .artifact.construction_version.files[10].sha256
+DIFF build_step/derive-report.json .provenance.registry.digest .provenance.registry.sources.verity_vllm.program.registry.prims
+DIFF build_step/inputs.json .distinct_paths .n_open_events .non_site_packages_paths[len 214!=189] .site_packages_by_package.PIL .site_packages_by_package.aiohappyeyeballs .site_packages_by_package.aiohttp
+DIFF build_step/result.json .artifact.construction_version.files[2].file .artifact.construction_version.files[2].sha256 .artifact.construction_version.files[4].sha256 .artifact.construction_version.files[8].sha256 .artifact.construction_version.files[9].sha256 .artifact.construction_version.files[10].sha256
+DIFF build_summary.json .request.identity .step.identity
+DIFF build_workload/workload_program.json .cost.component_secs.256,31 .cost.compose_secs .cost.total_secs .inputs.component_provenance.256,31.descriptor_sha256
+DIFF commit/admission_planner_native_collect_v2b.json .calibrated_bound_bytes .margin_bytes .margin_frac .terms.headroom.bytes
+DIFF commit/declaration_native_collect_v2_auto_nw+hidden_m1+plan.json .classes[6].evidence
+DIFF commit/planner_calibration_native_collect_v2b.json .bound_vs_forecast.conservative_bound_bytes .bound_vs_forecast.empirical_forecast_bytes .entry.predicted_bytes .predicted_bytes
+DIFF commit/sampled_replay_p0.json .sampled_replay.evaluator.fork.gc_frozen_objects .sampled_replay.evaluator.prewarmed_libraries.rms_triton_model .sampled_replay.evaluators.GumbelTopPTokenSelect_v1 .sampled_replay.executed_prefix_of_record.facts_of_record.r0.a_r_source .sampled_replay.population.not_executed_by_rule.by_request.r0.a_
+DIFF commit/source_identity.gpu_ext_load.json .loaded_modules.hidden_gpu.file .packages.hidden_gpu.file_sha256 .packages.hidden_gpu.resolved_path .sys_path0
+DIFF commit/source_identity.json .packages.hidden_gpu.file_sha256 .packages.hidden_gpu.resolved_path
+DIFF commit/summary.json .declaration.classes[6].evidence .delta_decode[0] .delta_decode_ci95[0] .delta_decode_ci95[1] .delta_prefill[0] .delta_prefill_ci95[0]
+DIFF commit/versions.json .argv[0] .hot.process_state.gc_frozen .source_identity.packages.hidden_gpu.file_sha256 .source_identity.packages.hidden_gpu.resolved_path
+DIFF global_match.json .impl.config.fold_load./workspace/cp/sweep-base/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/match(one side) .impl.config.fold_load./workspace/cp/sweep-head/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/match(one side) .impl.fold_load.
+DIFF manifest.json .program.artifact_identity
+SKIP match/capture/snapshots.json
+DIFF match/capture/tokens.json .timing.chunk_attribution.internal_request_ids.d73b90fd-3f5e-5f82-a4c7-16a7321ad556
+DIFF match/control/tokens.json .timing.chunk_attribution.internal_request_ids.d73b90fd-3f5e-5f82-a4c7-16a7321ad556
+DIFF match/experiment.json .checks.results.card.sha256 .checks.results.gates.sha256 .execution.control_tokens.bytes .execution.control_tokens.sha256 .execution.observation_log.bytes .execution.stats.bytes
+DIFF match/spec.json .configuration.harness.driver .digest
+DIFF match/stages.json .stages[0].cmd .stages[1].cmd .stages[4].cmd .stages[8].cmd
+DIFF source_identity.json .packages.hidden_gpu.file_sha256 .packages.hidden_gpu.resolved_path
+DIFF source_identity.venv312.json .packages.hidden_gpu.file_sha256 .packages.hidden_gpu.resolved_path
+DIFF timeline_report.json .categories.closure.stages.closure.verdict .categories.other.stages.admission .categories.other.stages.precheck .categories.other.stages.precheck-target .categories.preparation.stages.prep.register_weights .categories.preparation.stages.prep.warmup_control
+DIFF verdict.json .checks[1].inputs.commit/sampled_replay_p0.json .checks[4].inputs.global_match_sha256 .checks[4].inputs.tokens_json_sha256 .checks[17].inputs.commit/sampled_replay_p0.json .checks[18].inputs.commit/sampled_replay_p0.json .checks[25].inputs.global_match_sha256
+same 42

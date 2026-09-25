@@ -176,6 +176,49 @@ impl Netlist {
     }
 }
 
+impl Netlist {
+    /// The unit as a plain (non-union, RowMajor) block R1CS, for `prove_ligerito` and Flock-CUDA.
+    pub fn block_r1cs(&self, n_blocks_log: usize) -> BlockR1cs {
+        let k = 1usize << K_LOG;
+        let pad = |rows: &Vec<Vec<usize>>| {
+            let mut r = rows.clone();
+            r.resize(k, Vec::new());
+            SparseBinaryMatrix::new(k, k, r)
+        };
+        build_block_r1cs_with_matrices(n_blocks_log, K_LOG, K_SKIP, self.useful, pad(&self.a), pad(&self.b), Some(self.const_pos))
+    }
+
+    /// RowMajor packed (z, a, b, z_lincheck) with every one of the 2^n_blocks_log blocks a real
+    /// instance (vector id = block index mod #vectors), from per-vector blocks evaluated once.
+    pub fn witness_row_major(&self, n_blocks_log: usize) -> (Vec<F128>, Vec<F128>, Vec<F128>, Vec<u8>) {
+        let u = self.useful;
+        let nv = self.vectors.len();
+        let words = (1usize << K_LOG) / 64;
+        let mut pre: Vec<[Vec<u64>; 3]> = Vec::with_capacity(nv);
+        let (mut z, mut a, mut b) = (vec![0u8; u], vec![0u8; u], vec![0u8; u]);
+        for g in (0..nv).step_by(BM_V) {
+            self.eval8(from_fn(|j| (g + j) % nv), &mut z, &mut a, &mut b);
+            for j in 0..BM_V.min(nv - g) {
+                let blk: [Vec<u64>; 3] = from_fn(|t| {
+                    let src = [&z, &a, &b][t];
+                    let mut w = vec![0u64; words];
+                    for i in 0..u {
+                        w[i >> 6] |= (((src[i] >> j) & 1) as u64) << (i & 63);
+                    }
+                    w
+                });
+                pre.push(blk);
+            }
+        }
+        let ids: Vec<usize> = (0..1usize << n_blocks_log).map(|i| i % nv).collect();
+        crate::r1cs_hashes::common::drive_witness_packed_and_lincheck(&ids, None, n_blocks_log, K_LOG, |&id, zw, aw, bw| {
+            zw.copy_from_slice(&pre[id][0]);
+            aw.copy_from_slice(&pre[id][1]);
+            bw.copy_from_slice(&pre[id][2]);
+        })
+    }
+}
+
 pub fn min_n_blocks_log(n: usize) -> usize {
     n.max(8).next_power_of_two().trailing_zeros() as usize
 }

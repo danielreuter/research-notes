@@ -29,3 +29,8 @@ Lane hash-commit / commit-gpu (2026-09-25), branch `lane/hash-commit`. Report:
 
 ## Measured (RTX 4090 vy-commit-gpu, PCIe gen4 x8, EPYC 7663)
 - h2d 6 MiB uint8: pageable 0.54 ms, pinned 0.48 ms (link-bound ~12 GB/s): pinning does not pay here.
+- In a bench, under `--commit-per-rep` (b-ligero-standard-hash r20260925-090404-6311: RTX 4090 vy-b-ligero-sh, tree
+  806a2f73 = main 94b1c4d2 merged; fp8-ada+blake3, 4096 VUs, l = 4096, p2):
+  - commit.seconds is 0.0107 s on the device vs 0.058 s on host paths;
+  - the prover's row chains fall from ~0.8 s to 0.002 s, so t.total is 3.63 s vs 4.42 s;
+  - `--commit-evidence` is byte-equal device vs host (sha256 f62b873f…).

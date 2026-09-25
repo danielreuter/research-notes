@@ -1,0 +1,117 @@
+{
+ "schema": "verity-vllm/readiness/v1",
+ "checks": {
+  "python_3_12": {
+   "ok": true,
+   "value": true
+  },
+  "torch_cuda": {
+   "ok": true,
+   "value": {
+    "torch": "2.13.0+cu129",
+    "cuda": "12.9",
+    "device": "NVIDIA L40S",
+    "cc": "8.9"
+   }
+  },
+  "vllm_import": {
+   "ok": true,
+   "value": "0.28.1rc1.dev472+gd9105ea80"
+  },
+  "vllm_commit_d9105ea80": {
+   "ok": true,
+   "value": true
+  },
+  "verity_from_tree": {
+   "ok": true,
+   "value": "/workspace/head2/packages/verity/src/verity/ir/__init__.py"
+  },
+  "verity_vllm_from_tree": {
+   "ok": true,
+   "value": "/workspace/head2/integrations/vllm/verity_vllm/program/registry/__init__.py"
+  },
+  "research_telemetry_from_tree": {
+   "ok": true,
+   "value": "/workspace/head2/tools/research/src/research/telemetry/__init__.py"
+  },
+  "numpy_import": {
+   "ok": true,
+   "value": "2.3.5"
+  },
+  "no_old_tree_on_path": {
+   "ok": true,
+   "value": true
+  },
+  "hidden_gpu_so": {
+   "ok": true,
+   "value": {
+    "path": "/root/.cache/torch_extensions/py312_cu129/hidden_gpu_tree/hidden_gpu_tree.so",
+    "sha256": "28b5bf6556e9148ddd1425ff870e83dde46ceb911772e3e3ee1b8e799191422f"
+   }
+  },
+  "fa2_tap_so": {
+   "ok": true,
+   "value": {
+    "path": "/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so",
+    "sha256": "ccc84e5e2a326dbee1521b003e13d69ca2b56e3043dc26f9a0ff8bb1934eea91",
+    "tap_mode": 3,
+    "hdims_mask": 284
+   }
+  }
+ },
+ "identities": {
+  "python": "3.12.14",
+  "executable": "/workspace/venv312/bin/python",
+  "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+  "torch": {
+   "torch": "2.13.0+cu129",
+   "cuda": "12.9",
+   "device": "NVIDIA L40S",
+   "cc": "8.9"
+  },
+  "vllm": "0.28.1rc1.dev472+gd9105ea80",
+  "driver": "580.159.03",
+  "gpu": "NVIDIA L40S",
+  "cuda_home": null,
+  "nvcc": "",
+  "tree": {
+   "integration_root": "/workspace/head2/integrations/vllm",
+   "verity_core": "/workspace/head2/packages/verity/src",
+   "research": "/workspace/head2/tools/research/src"
+  },
+  "native": {
+   "hidden_gpu_so": {
+    "path": "/root/.cache/torch_extensions/py312_cu129/hidden_gpu_tree/hidden_gpu_tree.so",
+    "sha256": "28b5bf6556e9148ddd1425ff870e83dde46ceb911772e3e3ee1b8e799191422f"
+   },
+   "fa2_tap_so": {
+    "path": "/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so",
+    "sha256": "ccc84e5e2a326dbee1521b003e13d69ca2b56e3043dc26f9a0ff8bb1934eea91",
+    "tap_mode": 3,
+    "hdims_mask": 284
+   }
+  }
+ },
+ "ok": true,
+ "measurements": {
+  "network": {
+   "down_MBps": 91.8,
+   "up_MBps": 25.9,
+   "probe": "speed.cloudflare.com",
+   "bytes": {
+    "down": 67108864,
+    "up": 16777216
+   }
+  },
+  "disk": {
+   "path": "/workspace",
+   "total_bytes": 128849018880,
+   "free_bytes": 113163173888
+  },
+  "memory": {
+   "total_bytes": 879071936512,
+   "cgroup": "v2",
+   "cgroup_max_bytes": 101999996928
+  }
+ }
+}

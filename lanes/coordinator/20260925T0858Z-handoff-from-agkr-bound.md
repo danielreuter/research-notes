@@ -47,3 +47,7 @@ What this means:
 4. **vllm-v1 operand-domain mapping** ("verity/gkr-commit/vllm-v1": program/ctx/geo/layout) is PROVISIONAL. Integration
    owns it; please confirm or replace it.
 5. **fp4.** fp4-nvf4 rows are x.bin's 68-byte steps, and there is no fp4 pin. Should I add pins or leave fp4 unpinned?
+
+**Update 09:10Z.** The link's prime side as a third segment of the real BF16 A100 proof raises t.total from 0.819 to
+1.401 s (+71%) and the proof from 21 to 61 MB. That is before the dense GF(2^128) check and before Flock itself.
+Separately, red-team-standard-hash (0905Z) reproduced all 4 pinned roots core-only (art:8dee00aa).

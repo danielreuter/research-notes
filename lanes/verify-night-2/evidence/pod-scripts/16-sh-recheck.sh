@@ -59,7 +59,8 @@ for a in arts:
             f"binding {b.get('status')} (y_bad {b.get('y_mismatched')}); R1/R2 {c.get('status')} "
             f"(roots a {core.get('a', {}).get('root', '')[:8]} b {core.get('b', {}).get('root', '')[:8]} y {core.get('y', {}).get('root', '')[:8]}; "
             f"{c.get('statements')} stmts, reps {c.get('reps')}, {c.get('vus_covered')} VUs; {c.get('problems') or ''}); "
-            f"R4 proof-per-entry {'ok' if r4 else 'FAIL'} (batch n {({k: v.get('n') for k, v in reps.items()})} vs entries {epr})"
+            f"R4 proof-per-entry {'ok' if r4 else 'FAIL'} (batch n {({k: v.get('n') for k, v in reps.items()})} vs entries {epr}); "
+            f"stmt (steps, K) {c.get('stmt_shapes_steps_rowwords')}, relation steps {c.get('canonical_steps')} (pinned by main's Rust check_vu_shape)"
             + (f"; beyond frozen: {b['beyond_frozen']}" if b.get("beyond_frozen") else ""))
     print(("PASS " if ok else "FAIL ") + line, flush=True)
     summary.append({"result": full, "ok": ok, "line": line})

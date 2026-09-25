@@ -1,0 +1,235 @@
+{
+ "step": {
+  "ok": true,
+  "unsupported": null,
+  "exception": null,
+  "message": "",
+  "program_digest": "03ace66f1c80b04ac2a36a211b4ff38b4da073b16a9b0fc1b5d7f842c9bd16d2",
+  "identity": "4d512b660c9f23637a96d006a640b424a6a151ad4427fa3e6bd823b4c4b7e5d6",
+  "correspondence_digest": "17575403839ff707591ccd732b56027f4f9e28c379b406ffb097aae039985951",
+  "target": {
+   "attention_backend": null,
+   "batch_invariant": true,
+   "compute_capability": [
+    8,
+    9
+   ],
+   "flash_attn_version": null,
+   "num_sms": 142,
+   "numerics_profile": "b1-eager-v3",
+   "vllm_revision": "d9105ea80"
+  },
+  "applicability": {
+   "attention_backend": [
+    "FLASH_ATTN"
+   ],
+   "attention_impl": [
+    "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl"
+   ],
+   "execution": "bi-eager",
+   "flash_attn_version_applied": 2,
+   "flash_attn_version_declared": null,
+   "fused_add_rms_norm_dispatch": "batch_invariant",
+   "gemm_kernel_src_sha256": "4a7e9290c5dbee5e98e04eced96a469438b7514665cdfc1659ed554e293a7287",
+   "gemm_target": "ada",
+   "gemm_target_dot": "AmpereBF16TcDot16",
+   "gemm_target_refusal": null,
+   "num_sms": 142,
+   "numerics_profile": "b1-eager-v3",
+   "rms_kernel_src_sha256": "aa15c9b0f34d3f78b63bc21b5373d1edca7a063b17ecc45ee1468e7b803f2524",
+   "sampler": {
+    "geometry": {
+     "input": "splits: int32 [T+1] (request-owned Program Input; entry s = the split count of sampling event s), after the seed",
+     "live": "workload-derived",
+     "num_sms": 142,
+     "pipeline": "_apply_topp_split",
+     "relation": "SplitsFor_v1",
+     "rule": "S_t = SplitsFor_v1(|live(t)|, num_SMs); |live(t)| = requests with a sampled logits row at engine step t (workload-derived)",
+     "sampler_batch": 1,
+     "splits_range_1_to_B": [
+      32,
+      32
+     ]
+    },
+    "kind": "stochastic",
+    "seeded": true,
+    "splits": "derived",
+    "temperature": 0.8,
+    "top_k": 0,
+    "top_p": 0.95
+   },
+   "target_bindings": {
+    "attention_kind": "Attention_v3{T,NH,KVH,D,BN=fa2_kblock_n(D)}",
+    "dot": "AmpereBF16TcDot16_v1",
+    "flash_attn_version_effective": 2,
+    "gemm_kind": "Gemm_v1{K,N}",
+    "tensor_core_family": "ampere",
+    "tuned_gemm_arch_family": "ada"
+   },
+   "token_select": "GumbelTopPTokenSelect[vllm]_v1 (vllm_iface.gumbel_topp_token_select -> GumbelTopPTokenSelect_v1{V}; seed + derived S Program inputs)",
+   "torch_version": "2.13.0+cu129",
+   "triton_version": "3.7.1",
+   "tuned_gemm_arch_family": "ada",
+   "tuned_gemm_table_sha256": "79ef167629af489f6d4855c4373c6189bcbdecf6ed9455c75b9ce42bcee2df8f",
+   "vllm_flash_attn_version": [
+    "2"
+   ],
+   "vllm_version": "0.28.1rc1.dev472+gd9105ea80"
+  }
+ },
+ "request": {
+  "ok": true,
+  "unsupported": null,
+  "exception": null,
+  "message": "",
+  "program_digest": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b",
+  "identity": "e527e1a3729e6f5e1bb84beb0bcd86817f37da0320589dc13caddd825412a446",
+  "correspondence_digest": "61ab046d10f976c48fd7e18928f28bbcc81a4f01ff57c341d4ee2c95dbe3a9da",
+  "target": {
+   "attention_backend": null,
+   "batch_invariant": true,
+   "compute_capability": [
+    8,
+    9
+   ],
+   "flash_attn_version": null,
+   "num_sms": 142,
+   "numerics_profile": "b1-eager-v3",
+   "vllm_revision": "d9105ea80"
+  },
+  "applicability": {
+   "attention_backend": [
+    "FLASH_ATTN"
+   ],
+   "attention_impl": [
+    "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl"
+   ],
+   "execution": "bi-eager",
+   "flash_attn_version_applied": 2,
+   "flash_attn_version_declared": null,
+   "fused_add_rms_norm_dispatch": "batch_invariant",
+   "gemm_kernel_src_sha256": "4a7e9290c5dbee5e98e04eced96a469438b7514665cdfc1659ed554e293a7287",
+   "gemm_target": "ada",
+   "gemm_target_dot": "AmpereBF16TcDot16",
+   "gemm_target_refusal": null,
+   "num_sms": 142,
+   "numerics_profile": "b1-eager-v3",
+   "rms_kernel_src_sha256": "aa15c9b0f34d3f78b63bc21b5373d1edca7a063b17ecc45ee1468e7b803f2524",
+   "sampler": {
+    "geometry": {
+     "input": "splits: int32 [T+1] (request-owned Program Input; entry s = the split count of sampling event s), after the seed",
+     "live": "workload-derived",
+     "num_sms": 142,
+     "pipeline": "_apply_topp_split",
+     "relation": "SplitsFor_v1",
+     "rule": "S_t = SplitsFor_v1(|live(t)|, num_SMs); |live(t)| = requests with a sampled logits row at engine step t (workload-derived)",
+     "sampler_batch": 1,
+     "splits_range_1_to_B": [
+      32,
+      32
+     ]
+    },
+    "kind": "stochastic",
+    "seeded": true,
+    "splits": "derived",
+    "temperature": 0.8,
+    "top_k": 0,
+    "top_p": 0.95
+   },
+   "target_bindings": {
+    "attention_kind": "Attention_v3{T,NH,KVH,D,BN=fa2_kblock_n(D)}",
+    "dot": "AmpereBF16TcDot16_v1",
+    "flash_attn_version_effective": 2,
+    "gemm_kind": "Gemm_v1{K,N}",
+    "tensor_core_family": "ampere",
+    "tuned_gemm_arch_family": "ada"
+   },
+   "token_select": "GumbelTopPTokenSelect[vllm]_v1 (vllm_iface.gumbel_topp_token_select -> GumbelTopPTokenSelect_v1{V}; seed + derived S Program inputs)",
+   "torch_version": "2.13.0+cu129",
+   "triton_version": "3.7.1",
+   "tuned_gemm_arch_family": "ada",
+   "tuned_gemm_table_sha256": "79ef167629af489f6d4855c4373c6189bcbdecf6ed9455c75b9ce42bcee2df8f",
+   "vllm_flash_attn_version": [
+    "2"
+   ],
+   "vllm_version": "0.28.1rc1.dev472+gd9105ea80"
+  }
+ },
+ "workload": {
+  "ok": true,
+  "workload_digest": "a2b43bde001d335ad53dd6836749087a0758ac7125aa81f79f6b8efcb6495877",
+  "mechanism": "GP-01 cb_a.global_program",
+  "artifact": "build_workload/workload_program.json",
+  "reason": null,
+  "message": null,
+  "applicability": {
+   "schema": "verity/workload-program/v1/applicability",
+   "execution": "bi-eager",
+   "row_execution": "bi-eager",
+   "engine": {
+    "enforce_eager": true,
+    "enable_prefix_caching": false,
+    "enable_chunked_prefill": "modelled (a request's prefill rows may span engine steps)",
+    "async_scheduling": true
+   },
+   "components": {
+    "execution": "bi-eager",
+    "numerics_profile": "b1-eager-v3",
+    "gemm_target": "ada",
+    "tuned_gemm_arch_family": "ada",
+    "tuned_gemm_table_sha256": "79ef167629af489f6d4855c4373c6189bcbdecf6ed9455c75b9ce42bcee2df8f",
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "flash_attn_version_applied": 2,
+    "sampler": {
+     "geometry": {
+      "input": "splits: int32 [T+1] (request-owned Program Input; entry s = the split count of sampling event s), after the seed",
+      "live": "workload-derived",
+      "num_sms": 142,
+      "pipeline": "_apply_topp_split",
+      "relation": "SplitsFor_v1",
+      "rule": "S_t = SplitsFor_v1(|live(t)|, num_SMs); |live(t)| = requests with a sampled logits row at engine step t (workload-derived)",
+      "sampler_batch": 1,
+      "splits_range_1_to_B": [
+       32,
+       32
+      ]
+     },
+     "kind": "stochastic",
+     "seeded": true,
+     "splits": "derived",
+     "temperature": 0.8,
+     "top_k": 0,
+     "top_p": 0.95
+    },
+    "num_sms": 142,
+    "vllm_version": "0.28.1rc1.dev472+gd9105ea80",
+    "torch_version": "2.13.0+cu129",
+    "triton_version": "3.7.1",
+    "engine": null
+   },
+   "components_disagree": null,
+   "refusal": null
+  },
+  "stop_rule": {
+   "schema": "verity/workload-program/v1/stop-rule",
+   "eos_token_ids": [
+    128001
+   ],
+   "source": {
+    "generation_config.json": [
+     128001
+    ],
+    "config.json": [
+     128001
+    ]
+   },
+   "checkpoint_dir": "/workspace/hf/hub/models--unsloth--Llama-3.2-1B/snapshots/9535bd9b1d1dea6acafbdc4813b728796aeb28da",
+   "rule": "a request may stop before max_tokens only when its last served token is one of eos_token_ids (finish_reason stop/None); stop strings, aborts and drops are not modelled and FAIL G6",
+   "eos_lag_rows": 1,
+   "lag": 1,
+   "eos_lag_source": "Workload_v1 static `lag` = TargetProfile.lag() of the row's declared target (TargetProfile.effective_async_scheduling(): not declared in the target; the pinned resolver's value for an admitted profile (vllm/config/vllm.py:1273-1322 (VllmConfig.__post_init__), vLLM d9105ea80)); applicability.engine.async_scheduling carries the resolved value the record must attest (G1/G6)"
+  }
+ }
+}

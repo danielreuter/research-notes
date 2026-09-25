@@ -1,0 +1,300 @@
+{
+ "commit_pass": true,
+ "runs_instrumented": 1,
+ "runs_failed": 0,
+ "first_fail_reason": null,
+ "required_classes": [
+  "input_token_ids",
+  "instance_outputs_native",
+  "sampled_token_ids",
+  "weights",
+  "fa2_hidden_m1_stream"
+ ],
+ "required_classes_source": "program/query manifest 90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac (R14 MAN-01; classes kept as a secondary check)",
+ "required_manifest": {
+  "path": "/workspace/cp/sweep-base/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager/manifest.json",
+  "manifest_digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac",
+  "program_digest": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b",
+  "populations": {
+   "identities": 7043,
+   "by_family": {
+    "weights": 163,
+    "sampled_token_ids": 32,
+    "sampler_seed": 32,
+    "sampler_splits": 32,
+    "instance_outputs": 6240,
+    "input_token_ids": 32,
+    "fa2_hidden_m1_stream": 512
+   },
+   "steps": 32,
+   "attention_layers": 16,
+   "units": 148,
+   "boundary_values": 55301,
+   "required_values": 55908,
+   "literal_calls": 96
+  },
+  "query": {
+   "query_id": "Q_module_body_v1",
+   "query_id_digest": "7cbadc8a04a7f2d7e1c1e7bdaeefd08d69c47a9cb281e3bdf283007c82ba868e",
+   "query_text": "Q_module_body_v1: unit = module body = the maximal set of Calls whose recorded owning module path (correspondence: nn_module_stack-derived) is identical; a non-leaf module's own Calls are their own body; Calls with no module are the root body; boundary values = U_V (in(V) u out(V)) over these units (verity.verification.query.boundary_values) minus the Program's literals (the Values of Calls that read no Value: written in the descriptor, never acquired); policy: prescribed = record-typed inputs (weights); protocol = sampling-event outputs + recorded return slots + returned tensors (every Value of an fx node's output at a step once any of them crosses the body boundary); hidden = fa2_hidden_m1_stream; profile = ampere",
+   "engine": "v2-query",
+   "boundary": "module-body",
+   "profile": "ampere",
+   "attention_hidden_family": "fa2_hidden_m1_stream",
+   "required_families": [
+    "input_token_ids",
+    "instance_outputs",
+    "sampled_token_ids",
+    "weights",
+    "fa2_hidden_m1_stream",
+    "sampler_seed",
+    "sampler_splits"
+   ],
+   "policy": {
+    "prescribed_inputs": "every field of the Program's record-typed parameters",
+    "protocol_required": [
+     "sampling-event outputs",
+     "recorded return slots (RETURN-SLOT)",
+     "returned tensors: all rows / ports of an fx node's output once one crosses (TENSOR-RETURN)"
+    ]
+   },
+   "named_residuals": [
+    {
+     "family": "Gemm_v1",
+     "structural": "out",
+     "v1_member": "0",
+     "condition": "own_parameter",
+     "kind": "member",
+     "why": "vLLM `LinearBase.forward` returns `(output, output_bias)`; the collector binds slot 0.  The Program's Definition returns one array (`out`) and the Build recorded no return slot for the row -- the tuple slot is Python's, invisible to the Program"
+    },
+    {
+     "family": "Gemm_v2",
+     "structural": "out",
+     "v1_member": "0",
+     "condition": "own_parameter",
+     "kind": "member",
+     "why": "vLLM `LinearBase.forward` returns `(output, output_bias)`; the collector binds slot 0.  The Program's Definition returns one array (`out`) and the Build recorded no return slot for the row -- the tuple slot is Python's, invisible to the Program"
+    },
+    {
+     "family": "BiasAdd_v1",
+     "structural": "out",
+     "v1_member": "0",
+     "condition": "own_parameter",
+     "kind": "member",
+     "why": "vLLM `LinearBase.forward` returns `(output, output_bias)`; the collector binds slot 0.  The Program's Definition returns one array (`out`) and the Build recorded no return slot for the row -- the tuple slot is Python's, invisible to the Program (the biased linear's epilogue is the returned tensor)"
+    },
+    {
+     "family": "ScaledMmFp8Block_v1",
+     "structural": "out",
+     "v1_member": "0",
+     "condition": "own_parameter",
+     "kind": "member",
+     "why": "vLLM `LinearBase.forward` returns `(output, output_bias)`; the collector binds slot 0.  The Program's Definition returns one array (`out`) and the Build recorded no return slot for the row -- the tuple slot is Python's, invisible to the Program (blockwise-FP8 linear)"
+    },
+    {
+     "family": "<all_reduce>",
+     "structural": "out",
+     "v1_member": "0",
+     "condition": "operand_own_parameter",
+     "kind": "member",
+     "why": "vLLM `LinearBase.forward` returns `(output, output_bias)`; the collector binds slot 0.  The Program's Definition returns one array (`out`) and the Build recorded no return slot for the row -- the tuple slot is Python's, invisible to the Program (the row-parallel linear returns the all-reduced tensor as slot 0: an all-reduce of any world takes the slot of its rank-local operand when that operand is a Linear's reading its own weight)"
+    },
+    {
+     "family": "RoPE_v1",
+     "structural": "query",
+     "v1_member": "0",
+     "condition": null,
+     "kind": "member",
+     "why": "the Build records RoPE's return slots by keyword (`query` / `key`); v1 spells them as the tuple index of `RotaryEmbedding.forward -> (q, k)`.  Same slot, two spellings"
+    },
+    {
+     "family": "RoPE_v1",
+     "structural": "key",
+     "v1_member": "1",
+     "condition": null,
+     "kind": "member",
+     "why": "as `query` -> `0`"
+    },
+    {
+     "family": "*",
+     "structural": "in",
+     "v1_member": "in",
+     "condition": null,
+     "kind": "encoding",
+     "why": "v1 encodes the token ids a module consumes as `<consuming module>/in` (family input_token_ids): the Value is the prompt input or the previous step's sampled id, spelt at its consumer"
+    },
+    {
+     "family": "*",
+     "structural": "sampled_token_ids",
+     "v1_member": "sampled_token_ids",
+     "condition": null,
+     "kind": "encoding",
+     "why": "v1 encodes the sampling event's output under the fixed path `runner.sampler` (the root body has no module path)"
+    },
+    {
+     "family": "*",
+     "structural": "weight",
+     "v1_member": "weight",
+     "condition": null,
+     "kind": "encoding",
+     "why": "v1 encodes a registered weight as `<field path>/weight` with an open range, once per rank"
+    },
+    {
+     "family": "*",
+     "structural": "hidden",
+     "v1_member": "g<HB>x<M>x<NB>x<BN>x<D>",
+     "condition": null,
+     "kind": "encoding",
+     "why": "the attention M1 stream is a kernel-side stream under `fa2.m1/L<k>` (k = the attention body's ordinal); its member is the launch geometry (v1 `_fa2_geometry` / `_fa3_geometry`)"
+    },
+    {
+     "family": "*",
+     "structural": "<rank operand>",
+     "v1_member": "part_rank<r> / shard_rank<r>",
+     "condition": null,
+     "kind": "encoding",
+     "why": "TP-04: a collective's rank-local operand (the one Value of this rank it reads; its other operands are the received peer partials) is required per rank beside the collective's output, under the collective's module, as `part_rank<r>` (all-reduce) / `shard_rank<r>` (all-gather), family `tp_rank_partials`"
+    },
+    {
+     "family": "*",
+     "structural": "<collective site>",
+     "v1_member": "<enclosing module> @ invocation k",
+     "condition": null,
+     "kind": "encoding",
+     "why": "a collective whose rank-local operand another module produced is a collective SITE of the module whose forward calls it, at the site path `<enclosing module>.<fx node>`: the collector hooks the enclosing module and commits its k-th collective of the step as occurrence k, so the site's identities live at (enclosing module, k) -- k in Program order, from 1 when the enclosing module has required Values of its own -- and the site path is an `op_path_aliases` entry"
+    }
+   ],
+   "residuals_applied": {
+    "Gemm_v1:out->0": 18368,
+    "RoPE_v1:key->1": 4592,
+    "RoPE_v1:query->0": 4592,
+    "encoding:hidden": 512,
+    "encoding:in": 287,
+    "encoding:sampled_token_ids": 32
+   }
+  },
+  "coverage": [
+   {
+    "ok": true,
+    "manifest_digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac",
+    "checked": 6880,
+    "missing_n": 0,
+    "missing_by_family": {},
+    "checked_by_family": {
+     "fa2_hidden_m1_stream": 512,
+     "instance_outputs": 6240,
+     "input_token_ids": 32,
+     "sampled_token_ids": 32,
+     "sampler_seed": 32,
+     "sampler_splits": 32
+    },
+    "families_missing_entirely": [],
+    "steps_with_missing": [],
+    "requests_with_missing": [],
+    "missing": [],
+    "committed_unmatched_n": 0,
+    "committed_unmatched": [],
+    "committed_extras_n": 0,
+    "duplicate_names_n": 0,
+    "steps_committed": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ],
+    "composition_mismatch_n": 0,
+    "composition_mismatch": [],
+    "schedule": {
+     "use": "observed",
+     "basis": "engine schedule of record: per-committed-step request rows (the scheduler's row order as the collector recorded it); arrival = the first committed step the request ran in",
+     "why": null,
+     "all_equal_declared": true,
+     "declared_arrive_steps": {
+      "r0": 0
+     },
+     "observed_arrive_steps": {
+      "r0": 0
+     }
+    },
+    "engine_step_basis": "engine schedule of record (request step + observed arrival)",
+    "executed_prefix_of_record": {
+     "r0": {
+      "cap": 32,
+      "served_output_len": 32,
+      "executed_prefix_len": 32,
+      "cap_exhausted": true,
+      "eos_stop": false
+     },
+     "lag": 1,
+     "ok": true,
+     "problems": []
+    },
+    "not_executed_by_rule": {
+     "rule": "executed_prefix_len = cap when served_output_len == cap (length stop); served_output_len + LAG when the request stopped by EOS before its cap (the last served token must be a declared EOS id, F-pm-24, and it must be the FIRST EOS served -- tokens served after an EOS are served past the stop, F-r17-14); LAG = the workload Program's declared static (R17-1), never read from the trace; positions >= executed_prefix_len are programmed-but-unexecuted (not required; committed = execution past the stop)",
+     "n": 0,
+     "by_family": {},
+     "by_request": {},
+     "kind_by_family": {},
+     "scope": "NOT-EXECUTED-BY-RULE is an active-reference implementation classification only. In the lifted fixed Program the corresponding positions are REQUIRED logical values assigned the canonical inactive representation tau(e) = bot; there is no not-required-because-not-executed category. (COORD R17-27)"
+    },
+    "manifest_of_record": {
+     "digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac",
+     "identities_n": 7043,
+     "required_n": 7043,
+     "not_executed_n": 0,
+     "edited": false
+    }
+   }
+  ]
+ },
+ "moe_source": {
+  "mode": "auto",
+  "attached": false
+ },
+ "negatives": null,
+ "run_roots": [
+  "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5"
+ ],
+ "replay_cache": {
+  "enabled": true,
+  "distinct_replays": 1,
+  "reused_pairs": 0,
+  "rule": "coord M-0090 (5): C2 sampled replay once per distinct (run root, manifest digest, seed) per Commit stage; equal-root pairs reference that record",
+  "records": [
+   {
+    "evaluated_pair": 0,
+    "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+    "shared_by_pairs": [],
+    "roots_equal": true
+   }
+  ]
+ }
+}

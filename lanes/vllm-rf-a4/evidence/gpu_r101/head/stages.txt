@@ -1,0 +1,6 @@
+release UNRELEASED 2026-09-25T08:28:08Z commit=unknown tree=/workspace/head2/integrations/vllm branch=None dirty= (no /workspace/head2/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh)
+precheck PASS 2026-09-25T08:28:08Z source identity == /workspace/head2/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-25T08:28:10Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+build PASS 2026-09-25T08:31:15Z rc=0/0 wall=152s digest=03ace66f1c80b04a workload_digest=a2b43bde001d335a manifest=90f8186879d5035a 7043
+match PASS 2026-09-25T08:35:57Z rc=0/0/0 wall=281s verdict PASS global PASS  dag concurrency 1 tokens_equal True fold True
+commit PASS 2026-09-25T08:41:48Z rc=0 wall=327s outcome=PASS runs 1 failed 0 checks runtime_match=PASS local_replay=PASS boundary_linkage=PASS checkpoint_binding=PASS execution_extent=PASS required_value_coverage=PASS program_source_identity=PASS manifest_verify=True

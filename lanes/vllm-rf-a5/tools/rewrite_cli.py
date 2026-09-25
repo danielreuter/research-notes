@@ -155,8 +155,10 @@ def wrap(head: str, parts: list[str], call: ast.Call) -> str:
             first, *rest = p.split("\n")
             rest_lines = []
             base = min((len(r) - len(r.lstrip()) for r in rest if r.strip()), default=0)
+            m = re.match(r"\w+=", first)
+            pad = " " * (len(m.group(0)) if m else 0)
             for r in rest:
-                rest_lines.append(cont + " " * 0 + r[base:] if r.strip() else r)
+                rest_lines.append(cont + pad + r[base:] if r.strip() else r)
             block = first + "\n" + "\n".join(rest_lines)
             block += (", " if i < len(parts) - 1 else ")")
             if lines[-1].strip() and lines[-1] != head:
@@ -269,9 +271,14 @@ def convert(root: Path, rel: str) -> str:
     # remaining uses of the parser / subparser vars
     uses_error = False
     edits: list[tuple[int, int, int, int, str]] = []    # (l0, c0, l1, c1, text) 1-based lines
+    err_names = set()
+    for n in ast.walk(fn):
+        if isinstance(n, ast.Expr) and isinstance(n.value, ast.Call) and isinstance(n.value.func, ast.Attribute) \
+                and n.value.func.attr == "error" and ast.unparse(n.value.func.value) == parser:
+            err_names.add(id(n.value.func.value))
     for n in ast.walk(fn):
         if isinstance(n, ast.Name) and n.id in ({parser} | set(subparsers) | ({subs_var} if subs_var else set())):
-            if any(n in list(ast.walk(r)) for r in remove):
+            if any(n in list(ast.walk(r)) for r in remove) or id(n) in err_names:
                 continue
             raise Skip(f"parser variable {n.id} used at line {n.lineno}")
     # ap.error(...) statements -> raise UsageError(...)
@@ -305,7 +312,22 @@ def convert(root: Path, rel: str) -> str:
     def cls_text(name: str, doc: str | None, argl: list[Arg], fixed: tuple[str, str] | None) -> str:
         out = ["@dataclass(frozen=True, kw_only=True)", f"class {name}:"]
         if doc:
-            out.append(f"{ind}{doc}" if doc.startswith(('"', "'")) else f'{ind}"""{doc}"""')
+            try:
+                val = ast.literal_eval(doc)
+            except (ValueError, SyntaxError):
+                raise Skip(f"non-literal description for {name}")
+            val = " ".join(val.split()) if "\n" not in val.strip() else val.strip()
+            if "\n" in val:
+                out.append(f'{ind}"""' + val.replace("\n", "\n" + ind) + '"""')
+            else:
+                import textwrap
+                w = textwrap.wrap(val, WIDTH - len(ind) - 6)
+                if len(w) == 1:
+                    out.append(f'{ind}"""{w[0]}"""')
+                else:
+                    out.append(f'{ind}"""{w[0]}')
+                    out += [f"{ind}{x}" for x in w[1:-1]]
+                    out.append(f'{ind}{w[-1]}"""')
             if argl or fixed:
                 out.append("")
         for a in argl:

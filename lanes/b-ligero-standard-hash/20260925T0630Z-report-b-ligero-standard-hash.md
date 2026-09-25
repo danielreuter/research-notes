@@ -147,6 +147,25 @@ Pod scripts: `evidence/pod-scripts/`.
   e2e is the same sum.
 * 08:52Z the pod's /workspace/src was synced once from the wrong worktree (poseidon-v1: the shell's cwd had drifted),
   with no run on it. Re-synced from this worktree; every run since stamps its commit. Now `cd` explicitly before `research pods sync`.
+* 09:04Z r20260925-090404-6311 (`62-r2-smoke.sh`, tree 806a2f73). **R2 on the tip**: honest (True, []), verify_tree PASS
+  193/193 hashed=True. The negatives now keep the proofs in place (symlinked), so R4 holds and R2 is what is tested:
+  - wrong set digest -> "the regenerated fp8-ada set of 16384 VUs has manifest digest b8722924…, the dump claims 0000…";
+  - flipped root -> "tree a root differ from the instance set's";
+  - statement + proof + entry removed -> "statements cover 16299 distinct VUs of [0, 16384)";
+  - restored control (True, []).
+  (The first try, in r20260925-084934-4816, copied statements only, so R4 masked R2; and 51 / 52 shared a scratch dir.)
+  **GPU committer smoke** (frame_gpu_test + test_frame_v3: 94 passed), fp8-ada+blake3, 4096 VUs, l = 4096, p2, 2 reps,
+  `--commit-per-rep`, not a Table 2 point:
+
+  | committer | commit.seconds | t.total | e2e | VU/s |
+  |---|---|---|---|---|
+  | device (LIGERO_COMMIT_GPU=1) | 0.0107 s | 3.630 s | 3.640 s | 1125 |
+  | host (LIGERO_COMMIT_GPU=0) | 0.058 s | 4.423 s | 4.481 s | 914 |
+
+  The row chains in t.witness fell from ~0.8 s to 0.002 s per rep. **--commit-evidence is equal, device vs host**
+  (sha256 f62b873f…; roots a = 2f9ff265…, b = 0413c926…).
+  Before main, the 4096 cell was commit 0.646 s + t.total 4.31 s = 4.96 s (826 VU/s).
+* 09:13Z r20260925-091311-104c (`60-fold.sh`): fp8-ada-x4+blake3 probe at 4096 VUs over l:p = 4096:2, 2048:2, 2048:3, 4096:3.
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

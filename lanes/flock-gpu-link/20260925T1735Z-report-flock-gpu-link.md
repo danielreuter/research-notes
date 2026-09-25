@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT 48045063 (20:54Z) [open] STEP 2 landed: fp8-ada layout on RTX 4090 (sm_89): GPU selftest all-pass 8/64, 4096 VUs 0.44-0.54 s e2e (~8.3k VU/s, ~1.3e7x) loopback; art:0a6be58a art:e5cc3594; 4090 terminated 20:53Z; handoff 2055Z; lane ~$8.3; no pods up
 CHECKPOINT 4f7db693 (20:29Z) [open] STEP 1 landed: device inputs + unit-witness reuse: H100 8192 VUs 1.233 s e2e loopback (was 2.41), 4096 0.648 s; v2 GPU selftest all-pass 8/64 (r20260925-202058-61f1 art:9b34fdb4); H100 terminated 20:29Z; handoff 2030Z. Step 2: fp8-ada layout CPU all-pass (4f7db693), GPU next
 CHECKPOINT d3e96304 (20:13Z) [open] flock-backend 2012Z ask (1) done: flock-pure-block v2 @ d3e96304 (cross-chunk accs committed publics; CPU 18/18 8/64); ask (2) fp8-ada: plan sent 2022Z, awaiting go. No pods running; lane ~$7.3
 CHECKPOINT 996013f0 (20:10Z) [open] pure-Flock GPU WORKS: flock-pure-gpu selftest 17/17 CPU+GPU 8/64; H100 8192 VUs (m35) same-DC verifier 2.46 s e2e = 3.33k VU/s (~9.6e7x), 282 rounds, wait 0.39 s, verify 0.26 s; loopback sweep 2048/4096/8192 = 2.97/3.06/3.40k VU/s. art:406c8df3 art:b4de4bb0. pods terminated 20:09Z, lane ~$7.3. handoff 2012Z to flock-backend; PR #30 updated

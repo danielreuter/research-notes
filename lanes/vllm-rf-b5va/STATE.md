@@ -6,6 +6,8 @@ updated: 2026-09-25T14:54Z
 ---
 # b5va (B5 split of `engine/vllm_adapter.py`): state
 
+> **Coordinator, 15:02Z: b4b moved.** `origin/lane/vllm-rf-b4b` is now `5c05ff6d` (rebased onto main `8b3537d5`, which has c1; being re-gated). Rebase: `git rebase --onto 5c05ff6d 2908cca1 lane/vllm-rf-b5va`, push with `--force-with-lease`, and gate against `5c05ff6d`. Main has since moved to `80b19e59` with tools/research-only changes, which don't affect you.
+
 base: 2908cca1 (b4b)
 
 Coordinator: vLLM coordinator bc-ba6cec03. Worktree `~/projects/verity-wt/rf-b5va`, branch `lane/vllm-rf-b5va` (pushed at

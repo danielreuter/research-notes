@@ -1,0 +1,37 @@
+---
+lane: verify-night-3
+kind: handoff
+from: b-ligero-vllm-v1
+created: 2026-09-25T20:11Z
+---
+
+# Verify two B-Ligero vllm-v1 cells: H100 art:6d6464d1 (plateau 32768) and 4090 art:f7aac95f (plateau 16384)
+
+Please verify as a non-producer (coordinator's assignment). Code: lane/b-ligero-vllm-v1 @ acd50fec (PR #37): ligero-verify with
+leaf::VLLM_V1 + vllm_v1.rs and PINS rows fp8-ada-x4 / fp8-hopper-x4 +vllm-v1; `reverify.py` recomputes the vllm-v1 port roots from
+the core scheme (`_vllm_committed_trees`: pos_leaf, node/lift fold, step-root binding over vllm_tree's domains, ctx = instance set +
+range + port).
+
+1. **H100** **Cell, H100 80GB HBM3 (reference part, SECURE), fp8-hopper-x4+vllm-v1** (vllm-v1 SHA-256 position leaves; configuration
+"B-Ligero + vllm-v1 SHA-256 in circuit"):
+- bench-result **art:6d6464d1b0c801d102b3f70c687f8125b880262b77d7a6996f6a14327c85e538** (sweep sweep-bb36566fb98f, point 5 of 7, run
+  r20260925-181345-da25, run record art:45c6521b), proofs **art:38fb78564e7aa75bbca58ee8604d6338ea589b51b94a1d2f94de8ded0cc90f97**
+  (rep1 + system.bin + manifest); both PRESERVED (sha256-readback).
+- Plateau 32768 VUs (sweep 1024 3358, 2048 3124, 4096 3528, 8192 3803, 16384 3708, **32768 3979**, 65536 3896 VU/s, all uncontended;
+  131072 failed): e2e 8.235 s = t.total 8.192 + commit 0.043 s, **3979.1 VU/s, 1.62e8x**, 49 sub-batches x 682 VUs, l 8192, pipeline 2,
+  2^-128.20, 68.4 GB device.
+- Producer check (r20260925-193307-5070, PRESERVED): pod ligero-verify rebuilt at lane tip, system PINNED (fp8-hopper-x4+vllm-v1,
+  69054deb), 49/49 ACCEPT, python 49/49; cargo tests 37+8+27 pass; gadget-row negatives 58/58 classes, 0 failures. Gate: 7 honest +
+  86 negatives, 0 failures (r20260925-181202-65f3).
+- instance-equiv/v1: existing **art:9b5f1e24** (reverify-fp4; candidate manifest fb444761… = this result's ref, equal=true).
+- Interaction record: rounds 3 per proof (sequential depth 3); bytes down (prover -> verifier) 4.997 GB transcript for 49 proofs
+  (opened columns 4.94 GB); bytes up = verifier coins, 4 x 32 B per proof (6.3 KB); RTT **not measured** (local coins in one process,
+  no network). Wall split measured: prover compute 8.19 s, verifier compute 14.3 s (Python sum; Rust 22.4 s wall at 22 jobs), network
+  wait 0. At the reference network (1 ms, 100 Gb/s) the model adds 0.40 s transfer + 3 ms round trips per batch.
+2. **4090**, fp8-ada-x4+vllm-v1: bench-result art:f7aac95f5750d26638c68e38c2464259affe08ac5ec767b46de3ac1e415be7be, proofs
+   art:22b7cbad4e02e45819865d7ebb3793f233de9c935ece21991877bdcf610bfa2f, instance-equiv art:d4402d29587bb6d39a7d3d5411e4bcde828a74fada14ab83254e22f66cf0e50f
+   (16384, equal=true; `--check` cannot re-derive a 16384 synthetic candidate, so accept it by re-running
+   `instance_equiv --relation fp8-ada-x4 --vus 16384`); plateau 16384, 2271.5 VU/s, 4.73e7x, 97/97 pinned producer ACCEPT. Details in
+   coordinator/20260925T1941Z-handoff-from-b-ligero-vllm-v1.md.
+
+Both statements are provisional until red-team-standard-hash-2 grants the class.

@@ -24,17 +24,17 @@
   },
   "24p5jceya2gfbn": {
    "name": "vy-verify-night-2-veritor-campaign",
-   "usd": 4.1831,
+   "usd": 4.2153,
    "rate": 0.48,
    "first_seen": 1790319111.3402529,
-   "last_seen": 1790350454.162645
+   "last_seen": 1790350695.599315
   },
   "whwiqx4qyy75am": {
    "name": "vy-b-ligero-sh-veritor-campaign",
-   "usd": 6.4521,
+   "usd": 6.5017,
    "rate": 0.74,
    "first_seen": 1790319111.3402529,
-   "last_seen": 1790350454.162645
+   "last_seen": 1790350695.599315
   },
   "7byyo9s4i8rh58": {
    "name": "vy-ligero-steps-pin-veritor-campaign",
@@ -366,7 +366,7 @@
    "last_seen": 1790350212.4450712
   }
  },
- "last_poll": 1790350454.162645,
- "total_usd": 97.213,
- "running_rate": 2.26
+ "last_poll": 1790350695.599315,
+ "total_usd": 97.294,
+ "running_rate": 1.22
 }

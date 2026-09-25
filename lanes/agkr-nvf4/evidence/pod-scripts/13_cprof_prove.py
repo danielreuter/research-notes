@@ -24,6 +24,7 @@ def prove(*a, **k):
     st = pstats.Stats(pr)
     st.sort_stats("tottime").print_stats(40)
     st.sort_stats("cumulative").print_stats(60)
+    st.print_callers("built-in method torch.tensor|method 'cpu'|method 'tolist'|_cuda_synchronize")
     return r
 
 

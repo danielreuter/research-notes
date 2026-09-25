@@ -224,6 +224,9 @@ Pod scripts: `evidence/pod-scripts/`.
 * 10:03Z coordinator (inbox 1003Z): export MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1000000000000 in measured runs. Now in
   lib.sh, and passed as `--env` on the run (so job.json records it). Every cell above was measured WITHOUT it; they stand
   as they are, and re-measured cells are new results.
+* 10:25Z red-team-link (inbox 1025Z, FYI): Link L is CLEARED WITH CONDITIONS C1-C4. For this lane, route (a) is also blocked
+  for COMPLETE_ZK_BACKEND until Flock has ZK: it needs a two-tableau Ligero with a joint test, a third HM96 coin slot, and
+  a larger t for ε_B. Not built here: the coordinator parked the binary / link routes (0752Z).
 * 10:05Z r20260925-100526-b232: the x4 sweep again, **with the malloc env** (30-sweep.sh, l = 4096, p2, custody-r2).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its

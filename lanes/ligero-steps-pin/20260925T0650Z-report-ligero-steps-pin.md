@@ -5,7 +5,7 @@ created: 2026-09-25T06:50Z
 status: final
 ---
 
-CHECKPOINT c8a16e2b (10:17Z) [final] x
+CHECKPOINT c8a16e2b (10:17Z) [final] FINAL c8a16e2b (in main 3301c435): steps pin H2 (+shared Py gap) + R1/R2 cherry-picks + R4; cargo 33+7+27, pytest 50, regression 167 ok/1 pre-existing, 9/9 dumps, R2 T2 PASS, red-team harnesses refused. Pod terminated ~$0.88.
 CHECKPOINT c8a16e2b (10:15Z) [final] FINAL c8a16e2b: steps pin (H2, +shared Py gap) + R1/R2 cherry-picks + R4 fix; cargo 33+7+27, pytest 50 + regression 167 ok (1 pre-existing), 9/9 dumps, R2 T2 PASS, red-team harnesses refused. Pod terminated, ~$0.88.
 CHECKPOINT c8a16e2b (09:48Z) [open] 09:48Z ready c8a16e2b sent. Disk notice ack: pulled only 228 KB of logs (art:61aedd27), deleted /tmp copy; nothing big. Regression r12 at ~163/171 (1 pre-existing live_test F). FINAL after it ends.
 CHECKPOINT c8a16e2b (09:31Z) [open] 09:38Z READY handoff sent: c8a16e2b (steps pin + R1/R2/R4), art:61aedd27. 806a2f73 superseded by c8a16e2b (explained). Final pytest 50 passed; 9/9 dumps; R2 T2 PASS. Waiting on regression r12 (92/171) before FINAL.
@@ -89,12 +89,21 @@ The +shared gap is the steps-pin lane's own integration note (`give hooks_h_for 
 
 ## Handoffs received
 
-* coordinator 0745Z (add R1 + R2, one handoff, cap $8): done.
-* b-ligero-standard-hash 0805Z (take 3af90e71 + de2fa317): taken; replied 0845Z.
-* red-team-standard-hash 0835Z (R4): fixed in 06176b41 and follow-ups.
-* b-ligero-standard-hash 0900Z (cherry-pick 806a2f73): superseded by 24ab6c7d + c8a16e2b; replied 0915Z.
-* coordinator 0915Z (include 806a2f73): superseded, reason in the ready handoff.
-* red-team-standard-hash 0920Z (24ab6c7d PASS): cited in the ready handoff; asked to re-run on c8a16e2b (0937Z).
+* `20260925T0745Z-handoff-from-coordinator.md` (add R1 + R2, one handoff, cap $8): done.
+* `20260925T0805Z-handoff-from-b-ligero-standard-hash.md` (take 3af90e71 + de2fa317): taken. I replied in
+  `b-ligero-standard-hash/20260925T0845Z-handoff-from-ligero-steps-pin.md`.
+* `20260925T0835Z-handoff-from-red-team-standard-hash.md` (R4): fixed in 06176b41 and the follow-ups.
+* `20260925T0845Z-handoff-from-coordinator.md` (build on 3af90e71 + de2fa317, add R4, one handoff to the coordinator and
+  the red team): done, with one exception. Its optional "Rust `batch` refuses a `.stmt` that has no `.proof`" was **not
+  done**: reverify refuses orphans before it calls batch, and the binary was left unchanged.
+* `20260925T0900Z-handoff-from-b-ligero-standard-hash.md` (cherry-pick 806a2f73): superseded by 24ab6c7d + c8a16e2b. I
+  replied in `b-ligero-standard-hash/20260925T0915Z-handoff-from-ligero-steps-pin.md`.
+* `20260925T0915Z-handoff-from-coordinator.md` (include 806a2f73): superseded; the reason is in the ready handoff.
+* `20260925T0920Z-handoff-from-red-team-standard-hash.md` (24ab6c7d PASS): cited in the ready handoff. I asked the red
+  team to re-run on c8a16e2b (`red-team-standard-hash/20260925T0937Z-handoff-from-ligero-steps-pin.md`).
+* `20260925T0946Z-handoff-from-coordinator.md` (laptop disk): acknowledged. Only 228 KB of logs were pulled, then deleted.
+* `20260925T1017Z-handoff-from-coordinator.md` (c8a16e2b merged into main 3301c435; finish up): the regression count is
+  recorded, the pod is terminated, and FINAL is written.
 
 ## Log
 * 06:29Z start; contract, red-team-leaf-3 report, ajtai-leaf-3 handoffs read; inbox empty.

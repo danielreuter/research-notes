@@ -127,3 +127,8 @@ The ligero pytest regression list:
     That is not done here. The shared-local manifests name the *unshared* set digest.
 - R2 is enforced in `reverify.py` only. `ligero-verify` alone still checks just the openings under the statement's roots,
   plus the R1 layout. That is by design: the binary has no instance set.
+
+**Addendum (10:15Z).** The regression run lsp-r12 finished. The ligero pytest regression list got **167 passed**, 3
+skipped (CUDA, and 2 conformance fixture tests that expect a default-path binary), 9 deselected (conformance `[blake3]`)
+and **1 failure**: the known live_test case, which also fails on main. Evidence:
+art:e7b78840f270857bc54e82b53f659163a0df11e71e7c75a02a7884d89b60bea7. The pod is terminated.

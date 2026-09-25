@@ -2,9 +2,10 @@
 lane: red-team-link
 kind: report
 created: 2026-09-25T09:57Z
-status: open
+status: final
 ---
 
+CHECKPOINT 2c704b0 (10:15Z) [final] CLEARED WITH CONDITIONS: link parity argument holds; GAPs C1 GF(2^128) claim reduction ~2^-122 (use GF(2^256)), C3 Flock not 2^-128, C4 no chain glue; traps: Flock FS from root_B, B-Ligero r1 reuse; art:beeefd44; pod terminated 10:11Z ~$0.01; handoffs 1025Z
 CHECKPOINT 82adc8a7 (10:11Z) [open] toy harness art:beeefd44 (16 spec/flawed negatives OK; batched 2-point miss 5.3x independent in GF(2^8)); pod vy-red-team-link terminated 10:11Z; writing report + handoffs
 CHECKPOINT 5483d13b (10:05Z) [open] paper review: link math (sec 4) holds; found GAPs: binary-side GF(2^128) claim reduction ~2^-122 defeats 2-point squaring; Flock eps_B<2^-128 impossible today; A-GKR single-tableau (no root_F2), B-Ligero 2-coin HM96. Next: toy negatives harness on cheap CPU pod
 CHECKPOINT none (09:57Z) [open] started: read contract; reading flock-link-protocol, survey 3.8, census, flock-bench/agkr-bound reports; paper review first, no pod yet

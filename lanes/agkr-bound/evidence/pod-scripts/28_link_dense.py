@@ -191,6 +191,7 @@ for e in range(6):
 WC = WC.to(dev)
 LINK: dict = {"on": False}
 BLK = 256
+BYTESEL = ((np.arange(256)[:, None] >> np.arange(8)[None, :]) & 1).astype(bool)
 
 
 def challenges(tr, nb: int):
@@ -199,14 +200,13 @@ def challenges(tr, nb: int):
     r = [int.from_bytes(hashlib.sha256(seed + j.to_bytes(4, "little")).digest()[:16], "little") for j in range(m)]
     tabs = np.zeros((m, 16, 256, 2), dtype=np.int64)
     for jj in range(m):
-        for kk in range(16):
-            basis = [gmul(1 << (8 * kk + q), r[jj]) for q in range(8)]
-            for b in range(256):
-                acc = 0
-                for q in range(8):
-                    if (b >> q) & 1:
-                        acc ^= basis[q]
-                tabs[jj, kk, b] = split(acc)
+        basis, val = np.zeros((128, 2), dtype=np.int64), r[jj]
+        for s in range(128):
+            basis[s] = split(val)
+            val = ((val << 1) & MASK) ^ (0x87 if val >> 127 else 0)
+        basis = basis.reshape(16, 8, 2)
+        for q in range(8):
+            tabs[jj] ^= np.where(BYTESEL[None, :, q, None], basis[:, None, q, :], 0)
     tabs = torch.from_numpy(tabs).to(dev)
     T = torch.zeros((1 << m, 2), dtype=torch.int64, device=dev)
     T[0, 0] = 1

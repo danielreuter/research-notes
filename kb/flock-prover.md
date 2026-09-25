@@ -55,6 +55,18 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
 - GF(2^128) link primitives, Zen4 16T, per bit: eq expansion 1.98 ns, 128-way dense bit combination 0.53 ns, fold
   1.60 ns (art:1ef9ac52).
 
+## Link L red-team (red-team-link, 2026-09-25, `lanes/red-team-link/20260925T0957Z-report-red-team-link.md`, art:beeefd44)
+- Verdict: CLEARED WITH CONDITIONS. The parity argument holds.
+- The link claims can't go into Flock's GF(2^128) opening as one batch: the reduction costs about 2m/2^128 (2^-122 at m33) and
+  loses the two-point squaring. Use one point over GF(2^256), or independent reductions.
+- Flock's coins after root_B must be the live verifier's, or absorb root_F, the link points and y. Fiat–Shamir seeded from
+  root_B alone breaks it.
+- Today's Flock verity-shape runs are independent compressions: no chain glue, endpoints, counters or flags. Every block is
+  forgeable until P_B pins them.
+- Over BabyBear, keep 2^(w_u+1) ≤ p-1, so at most 21,845 BF16 VUs per linked proof (40,959 with σ sent in the clear). Never
+  range-check u as 2×16-bit limbs.
+- SHA-256 leaves need a big-endian Λ.
+
 ## Gaps (as of 2026-09-25)
 - No ZK.
 - The strict 128-bit profile relies on proof-of-work credit.

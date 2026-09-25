@@ -2,3 +2,4 @@
 22:36Z REAPED sp1-128 vy-sp1-128-cpu 0234rmrfmdcgez $0.12/h (final 20m ago)
 22:40Z REAPED sp1-128 vy-sp1-128-cpu hjm4gnyaivv17w $0.12/h (final 24m ago)
 22:42Z REAPED sp1-128 vy-sp1-128-cpu axvdik3et8o0z9 $0.14/h (final 26m ago)
+00:54Z REAP-BLOCKED verify-po vy-verify-po: art:585e4182: no verified remote replica recorded, 157 MB to read back -> research data preserved art:585e4182

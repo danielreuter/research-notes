@@ -196,6 +196,23 @@ per round is the floor for a bit design with committed booleans.
   - The runner's own sockets sat in CLOSE-WAIT (R2 closing connections).
 * 11:30Z r20260925-113022-5a5f: bf16-hopper-x4+sha256 re-sweep, l4096 p4, pod otherwise idle apart from the network-only
   push.
+* 11:47Z e592 cause found.  My 11:03Z `custody --publish` re-published e592 into the default `~/.research/store` (the
+  runner's store is `/workspace/research/store`) and stalled after ingesting 28 of 299 proof blobs.  Every later push then
+  fetched the missing 271 from R2 serially (`_resolve_blob`), and those GETs stalled at ~24 MB.
+  - `61-blob-census.py --ingest` from the run dir, then `data push --verify head`: all 300 objects were already on R2.
+  - **e592 13/13 PRESERVED.**
+* 11:50Z bf16 re-sweep 5a5f: 1024 2467, 2048 2843, 4096 3035, 8192 3062, 16384 3023 VU/s, no point contended.
+  - **Plateau 8192 VUs: t.total 2.608 s + commitment 0.067 s = e2e 2.675 s, 3062 VU/s.**
+  - e2e overhead 1.052e8, 49 sub-batches of 170 VUs, 2^-128.40, 36.2 GB, Rust 49/49 ACCEPT.
+  - Fingerprint `software.allocator` = {"0", "1000000000000"}.
+  - Runner custody also failed with RemoteDisconnected.  `62-repush.sh` as its own `--custody-r2` run
+    (r20260925-115731-730a) pushed it from `/workspace/research/store`: 10/10 PRESERVED.
+* Handoffs:
+  - verify-night-2/1150Z (fp8-hopper cell) and 1202Z (bf16-hopper cell).
+  - red-team-standard-hash/1152Z, b-ligero-standard-hash/1153Z.
+  - coordinator/1204Z: cherry-pick b009fdc8 + the custody finding.
+* 11:59Z r20260925-115933-887e: fp8-ada-x4+sha256 gate + sweep at b009fdc8 (the red team granted fp8-ada-x4; the
+  be1a3bcb-era gate does not count).
 * vllm-v1 variant: design only, not built.
   - Position leaf = `SHA-256("verity/pos-leaf/v0" || u64be(len) || value)`, a 26-byte prefix.  The leaf's blocks start
     at byte offset 38 of a column, so they straddle column boundaries, and no block is a midstate the verifier can

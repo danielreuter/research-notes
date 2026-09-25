@@ -1,0 +1,458 @@
+diff --git a/crates/flock-cuda-ffi/build.rs b/crates/flock-cuda-ffi/build.rs
+index 2a3f707..f387f8f 100644
+--- a/crates/flock-cuda-ffi/build.rs
++++ b/crates/flock-cuda-ffi/build.rs
+@@ -43,7 +43,7 @@ fn main() {
+ 
+     let status = Command::new(&nvcc)
+         .args(["-O3", "-std=c++17", "-lineinfo"])
+-        .args(["-gencode", "arch=compute_120,code=sm_120"])
++        .args(["-gencode", "arch=compute_90,code=sm_90"])
+         .args(["-Xcompiler", "-fPIC"])
+         .arg("-lib")
+         .arg(&src)
+@@ -56,7 +56,7 @@ fn main() {
+     println!("cargo:rustc-link-search=native={}", out_dir.display());
+     println!("cargo:rustc-link-lib=static=flock_cuda_prover");
+     // CUDA runtime + C++ host runtime for the nvcc-generated host code.
+-    for dir in ["/usr/local/cuda/lib64", "/usr/local/cuda/lib64/stubs"] {
++    for dir in ["/usr/local/cuda-13.3/lib64", "/usr/local/cuda-13.3/lib64/stubs"] {
+         println!("cargo:rustc-link-search=native={dir}");
+     }
+     println!("cargo:rustc-link-lib=dylib=cudart");
+diff --git a/crates/flock-prover/src/r1cs_hashes.rs b/crates/flock-prover/src/r1cs_hashes.rs
+index 0f990da..20ac3db 100644
+--- a/crates/flock-prover/src/r1cs_hashes.rs
++++ b/crates/flock-prover/src/r1cs_hashes.rs
+@@ -23,3 +23,5 @@ pub mod merkle_glue;
+ /// [`merkle_glue`] build on.
+ pub mod merkle_r1cs;
+ pub mod sha2;
++
++pub mod verity_unit;
+diff --git a/cuda-ghash/challenger.hpp b/cuda-ghash/challenger.hpp
+index 4ca47b9..37b44bf 100644
+--- a/cuda-ghash/challenger.hpp
++++ b/cuda-ghash/challenger.hpp
+@@ -108,6 +108,12 @@ static const uint8_t KIND_SCALAR = 0x01, KIND_SLICE = 0x02;
+ inline void le64(uint8_t* b, uint64_t v) { for (int i = 0; i < 8; i++) b[i] = (uint8_t)(v >> (8 * i)); }
+ inline uint64_t rd_le64(const uint8_t* b) { uint64_t v = 0; for (int i = 0; i < 8; i++) v |= (uint64_t)b[i] << (8 * i); return v; }
+ 
++#include <chrono>
++// flock-glue
++inline bool (*flock_glue_grind_hook)(const uint8_t* sd, uint32_t bits, uint64_t* nonce) = nullptr;
++inline double flock_glue_grind_secs = 0;
++inline long long flock_glue_grind_calls = 0, flock_glue_grind_bits = 0;
++
+ struct FsChallenger {
+     Sha256 hasher;
+ 
+@@ -198,7 +204,13 @@ struct FsChallenger {
+     uint64_t grind_pow(uint32_t bits) {
+         uint8_t sd[32]; { Sha256 h = hasher; h.finalize(sd); }   // fs_pow_state_digest
+         uint64_t nonce = 0;
+-        if (bits != 0) { while (!has_leading_zero_bits(sd, nonce, bits)) nonce++; }
++        auto glue_t0 = std::chrono::steady_clock::now();   // flock-glue: grind accounting + GPU hook
++        if (bits != 0 && !(flock_glue_grind_hook && flock_glue_grind_hook(sd, bits, &nonce))) {
++            while (!has_leading_zero_bits(sd, nonce, bits)) nonce++;
++        }
++        flock_glue_grind_secs += std::chrono::duration<double>(std::chrono::steady_clock::now() - glue_t0).count();
++        flock_glue_grind_calls += 1;
++        flock_glue_grind_bits += bits;
+         uint8_t nb[8]; le64(nb, nonce);
+         observe_bytes(nb, 8);     // absorb nonce
+         return nonce;
+diff --git a/cuda-ghash/ligerito_f256.cuh b/cuda-ghash/ligerito_f256.cuh
+index ef49209..7fbc9dc 100644
+--- a/cuda-ghash/ligerito_f256.cuh
++++ b/cuda-ghash/ligerito_f256.cuh
+@@ -1,3 +1,4 @@
++// flock-glue: device-wide sync -> legacy-stream sync
+ // The F256 Ligerito fold ladder on CUDA — port of
+ // crates/flock-core/src/pcs/ligerito/extension.rs::recursive_prover_with_basis_impl
+ // (transcript "flock-ligerito-basis-f256-split-v0", the ONLY ladder the branch
+@@ -568,7 +569,7 @@ inline int run_ligerito_f256(const LigF256Config& C, FsChallenger& ch, F128 targ
+         launch_ntt(d_cw_out, d_tw, *tt, rate, k_code, num_ntts);
+         LFCK(cudaGetLastError());
+         launch_merkle((const uint8_t*)d_cw_out, d_tree_out, bl, num_ntts * 16);
+-        LFCK(cudaDeviceSynchronize());
++        LFCK(cudaStreamSynchronize(0));
+         bl_out = bl;
+         lanes_out = num_ntts;
+         std::vector<MHash> cap = merkle_cap_layer_device(d_tree_out, (size_t)bl, caps[level]);
+diff --git a/cuda-ghash/prove_ffi.cu b/cuda-ghash/prove_ffi.cu
+index c078623..9bc25c0 100644
+--- a/cuda-ghash/prove_ffi.cu
++++ b/cuda-ghash/prove_ffi.cu
+@@ -1,3 +1,4 @@
++// flock-glue patched (see lanes/flock-glue/evidence/pod-scripts/patch_ffi.py)
+ // C-ABI GPU prover for the full R1CS Ligerito proof, linked into Rust by
+ // crates/flock-cuda-ffi. Reproduces crates/flock-prover/src/prover.rs::
+ // prove_ligerito byte-for-byte on the transcript:
+@@ -30,6 +31,8 @@
+ #include "sumcheck_ab.cuh"
+ #include "lincheck.cuh"
+ #include "blake3_witness.cuh"
++#include "unit_witness.cuh"   // flock-glue
++#include <chrono>
+ #include "zerocheck_round1.cuh"
+ #include "zerocheck_round1_cpustyle.cuh"
+ #include "zerocheck_round2.cuh"
+@@ -54,7 +57,7 @@ public:
+     cudaError_t begin(size_t required) {
+         if (!live_.empty()) return cudaErrorInvalidValue;
+         if (required > capacity_) {
+-            cudaError_t err = cudaDeviceSynchronize();
++            cudaError_t err = cudaStreamSynchronize(0);
+             if (err != cudaSuccess) return err;
+             if (base_) {
+                 err = cudaFree(base_);
+@@ -355,6 +358,49 @@ __global__ void ring_switch_combine_basis(const F128* __restrict__ suffix_ab,
+     combined[i] = acc;
+ }
+ 
++
++// ---- flock-glue: phase timers, GPU grinding hook, resident unit netlist + operand rows ----
++static bool glue_env(const char* k) { const char* v = getenv(k); return v && v[0] && v[0] != '0'; }
++static bool g_phases = glue_env("FLOCK_GLUE_PHASES");
++static std::chrono::steady_clock::time_point g_ph_t;
++static double g_ph_g = 0;
++static void glue_phase(const char* name) {
++    if (!g_phases) return;
++    cudaStreamSynchronize(0);
++    auto t = std::chrono::steady_clock::now();
++    printf("PHASE %-12s %.4f s  (grind %.4f s)\n", name, std::chrono::duration<double>(t - g_ph_t).count(),
++           flock_glue_grind_secs - g_ph_g);
++    g_ph_t = t; g_ph_g = flock_glue_grind_secs;
++}
++static bool glue_gpu_grind(const uint8_t* sd, uint32_t bits, uint64_t* nonce) {
++    static int min_bits = getenv("FLOCK_GLUE_GRIND_MIN") ? atoi(getenv("FLOCK_GLUE_GRIND_MIN")) : 8;
++    if ((int)bits < min_bits || bits > 64) return false;
++    static uint8_t* d_sd = nullptr; static unsigned long long* d_best = nullptr;
++    static uint8_t* h_sd = nullptr; static unsigned long long* h_best = nullptr;
++    if (!d_sd) {
++        if (cudaMalloc(&d_sd, 32) || cudaMalloc(&d_best, 8) || cudaMallocHost(&h_sd, 32) || cudaMallocHost(&h_best, 8)) return false;
++    }
++    memcpy(h_sd, sd, 32);
++    if (cudaMemcpyAsync(d_sd, h_sd, 32, cudaMemcpyHostToDevice)) return false;
++    const uint64_t chunk = 1ull << (bits + 3 > 20 ? bits + 3 : 20);
++    for (uint64_t start = 0;; start += chunk) {
++        if (cudaMemsetAsync(d_best, 0xff, 8)) return false;
++        search_sha256_proof_of_work_nonce<<<1024, 256>>>(d_sd, start, chunk, bits, d_best);
++        if (cudaMemcpy(h_best, d_best, 8, cudaMemcpyDeviceToHost)) return false;
++        if (*h_best != ULLONG_MAX) { *nonce = *h_best; return true; }
++    }
++}
++static UnitNetDev g_net{};
++static bool g_net_ok = false;
++static uint8_t *g_dx = nullptr, *g_dw = nullptr;
++static int g_eb = 0, g_nvu = 0, g_upv = 0, g_rowlen = 0;
++// mode 3: unit witness launched ahead on a non-blocking stream (overlapping the BLAKE3 proof), then copied in
++static cudaStream_t g_pre_st = nullptr;
++static cudaEvent_t g_pre_ev = nullptr;
++static void* g_pre[4] = {nullptr, nullptr, nullptr, nullptr};
++static int g_pre_m = -1;
++static bool g_pre_ok = false;
++
+ cudaError_t lig_arena_alloc(void** p, size_t bytes) { return device_arena.allocate(p, bytes); }
+ cudaError_t lig_arena_release(void* p) { return device_arena.release(p); }
+ 
+@@ -417,13 +463,17 @@ int flock_cuda_device_count() {
+ void flock_cuda_free(uint8_t* p) { free(p); }
+ 
+ // Returns 0 on success; out/out_len receive a malloc'd flat proof stream.
+-int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
++static int prove_impl(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len, int mode,
++                      const F128* hz, const F128* ha, const F128* hb, const uint8_t* hzl) {
++    if (glue_env("FLOCK_GLUE_GPU_GRIND")) flock_glue_grind_hook = glue_gpu_grind;
++    const double glue_g0 = flock_glue_grind_secs; const long long glue_c0 = flock_glue_grind_calls, glue_b0 = flock_glue_grind_bits;
++    auto glue_t0 = std::chrono::steady_clock::now(); g_ph_t = glue_t0; g_ph_g = flock_glue_grind_secs;
+     static std::mutex prover_mutex;
+     std::lock_guard<std::mutex> prover_lock(prover_mutex);
+     const int m = P->m, k_log = P->k_log, k_skip = 6;
+     const int log_n = m - 7;                    // packed-witness log length
+     const long long len = 1LL << log_n;         // packed F128 elements
+-    const int n_blocks_log = m - 14;
++    const int n_blocks_log = m - k_log;
+     const long long n_total = 1LL << n_blocks_log;
+     const int n_blocks = (int)n_total;
+     if (n_blocks_log < 3) { printf("FFI: m too small\n"); return 101; }
+@@ -438,7 +488,26 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+     CK(ffi_malloc(&d_a, len * sizeof(F128)));
+     CK(ffi_malloc(&d_b, len * sizeof(F128)));
+     CK(ffi_malloc(&d_zlin, (size_t)len * 16));
+-    {
++    if (mode == 3) {
++        if (!g_pre_ok || g_pre_m != m) { printf("FFI: no unit witness launched for m %d\n", m); return 108; }
++        CK(cudaStreamWaitEvent(0, g_pre_ev, 0));
++        CK(cudaMemcpyAsync(df, g_pre[0], len * sizeof(F128), cudaMemcpyDeviceToDevice, 0));
++        CK(cudaMemcpyAsync(d_a, g_pre[1], len * sizeof(F128), cudaMemcpyDeviceToDevice, 0));
++        CK(cudaMemcpyAsync(d_b, g_pre[2], len * sizeof(F128), cudaMemcpyDeviceToDevice, 0));
++        CK(cudaMemcpyAsync(d_zlin, g_pre[3], (size_t)len * 16, cudaMemcpyDeviceToDevice, 0));
++    } else if (mode == 2) {
++        if (!g_net_ok || !g_dx || k_log != UW_K_LOG) { printf("FFI: unit netlist / rows not set (or k_log %d)\n", k_log); return 106; }
++        CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total,
++                               (uw_u64*)df, (uw_u64*)d_a, (uw_u64*)d_b, d_zlin));
++    } else if (mode == 1) {
++        auto tu0 = std::chrono::steady_clock::now();
++        CK(cudaMemcpy(df, hz, len * sizeof(F128), cudaMemcpyHostToDevice));
++        CK(cudaMemcpy(d_a, ha, len * sizeof(F128), cudaMemcpyHostToDevice));
++        CK(cudaMemcpy(d_b, hb, len * sizeof(F128), cudaMemcpyHostToDevice));
++        CK(cudaMemcpy(d_zlin, hzl, (size_t)len * 16, cudaMemcpyHostToDevice));
++        CK(cudaStreamSynchronize(0));
++        printf("FFI: host witness upload %.4f s (%.3f GB)\n", std::chrono::duration<double>(std::chrono::steady_clock::now() - tu0).count(), 4.0 * (double)len * 16 / 1e9);
++    } else {
+         uint32_t *d_cv, *d_m, *d_blen, *d_flags; b3u64* d_ctr;
+         CK(ffi_malloc(&d_cv, (size_t)n_blocks * 8 * 4)); CK(ffi_malloc(&d_m, (size_t)n_blocks * 16 * 4));
+         CK(ffi_malloc(&d_blen, (size_t)n_blocks * 4)); CK(ffi_malloc(&d_flags, (size_t)n_blocks * 4));
+@@ -448,9 +517,10 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+         launch_blake3_witness_blocks(d_cv, d_m, d_ctr, d_blen, d_flags, n_blocks, n_total,
+                                      (b3u64*)df, (b3u64*)d_a, (b3u64*)d_b);
+         launch_blake3_lincheck_transpose((const b3u64*)df, n_total, d_zlin);
+-        CK(cudaDeviceSynchronize());
++        CK(cudaStreamSynchronize(0));
+         ffi_free(d_cv); ffi_free(d_m); ffi_free(d_blen); ffi_free(d_flags); ffi_free(d_ctr);
+     }
++    glue_phase("witness");
+     if (P->dump_z_path && P->dump_z_path[0]) {
+         vector<F128> z_host(len);
+         CK(cudaMemcpy(z_host.data(), df, len * sizeof(F128), cudaMemcpyDeviceToHost));
+@@ -480,7 +550,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+         }
+         CK(cudaGetLastError());
+         launch_merkle((const uint8_t*)d_cw0, d_tree0, l0_bl, num_ntts * 16);
+-        CK(cudaDeviceSynchronize());
++        CK(cudaStreamSynchronize(0));
+         // The commitment IS the cap layer (no root): 2^c nodes at the
+         // stratified schedule's cap depth for the L0 query count.
+         uint32_t c0 = stratified_cap_depth(
+@@ -488,6 +558,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+         l0_cap = merkle_cap_layer_device(d_tree0, (size_t)l0_bl, c0);
+     }
+ 
++    glue_phase("commit");
+     // ================= challenger + statement binding =======================
+     FsChallenger ch(P->domain, P->domain_len);
+     ch.observe_label((const uint8_t*)"flock-r1cs-v0", 13);
+@@ -553,7 +624,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+         launch_zerocheck_first_round_cpu_structured((const uint8_t*)d_a, (const uint8_t*)d_b,
+                                    (const uint8_t*)df, d_eq, 1LL << (m - 13),
+                                    round1_scale, d_r1ab, d_r1c);
+-        CK(cudaGetLastError()); CK(cudaDeviceSynchronize());
++        CK(cudaGetLastError()); CK(cudaStreamSynchronize(0));
+         CK(cudaMemcpy(zc_r1ab.data(), d_r1ab, 64 * sizeof(F128), cudaMemcpyDeviceToHost));
+         CK(cudaMemcpy(zc_r1c.data(), d_r1c, 64 * sizeof(F128), cudaMemcpyDeviceToHost));
+         { std::vector<ChF128> s(64);
+@@ -662,7 +733,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+ 
+         // final binding + evals
+         { long long half = L / 2; launch_sumcheck_fold(cA, cB, nA, nB, half, mlv_rhos.back());
+-          CK(cudaGetLastError()); CK(cudaDeviceSynchronize());
++          CK(cudaGetLastError()); CK(cudaStreamSynchronize(0));
+           F128* t; t = cA; cA = nA; nA = t; t = cB; cB = nB; nB = t; }
+         CK(cudaMemcpy(&zc_fa, cA, sizeof(F128), cudaMemcpyDeviceToHost));
+         CK(cudaMemcpy(&zc_fb, cB, sizeof(F128), cudaMemcpyDeviceToHost));
+@@ -674,6 +745,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+         ffi_free(d_eqlo); ffi_free(d_eqhi);
+         ffi_free(d_part8); ffi_free(d_out8);
+     }
++    glue_phase("zerocheck");
+     ffi_free(d_a); ffi_free(d_b);
+     // zerocheck proof section
+     W.f128s(zc_r1ab); W.f128s(zc_r1c);
+@@ -718,44 +790,22 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+             }
+         }
+ 
+-        static std::once_flag matrix_setup_once;
+-        static cudaError_t matrix_setup_error = cudaSuccess;
+-        static uint32_t *d_acp = nullptr, *d_ar = nullptr, *d_bcp = nullptr, *d_br = nullptr;
+-        static uint32_t setup_a_nnz = 0, setup_b_nnz = 0;
+-        static int setup_k_log = 0, setup_useful_bits = 0, setup_const_pin = -1;
+-        static const uint32_t *setup_a_col_ptr = nullptr, *setup_a_rows = nullptr;
+-        static const uint32_t *setup_b_col_ptr = nullptr, *setup_b_rows = nullptr;
+-        std::call_once(matrix_setup_once, [&] {
+-            setup_a_nnz = P->a_nnz; setup_b_nnz = P->b_nnz;
+-            setup_k_log = P->k_log; setup_useful_bits = P->useful_bits;
+-            setup_const_pin = P->const_pin_col;
+-            setup_a_col_ptr = P->a_col_ptr; setup_a_rows = P->a_rows;
+-            setup_b_col_ptr = P->b_col_ptr; setup_b_rows = P->b_rows;
+-            matrix_setup_error = cudaMalloc(&d_acp, (K + 1) * sizeof(uint32_t));
+-            if (matrix_setup_error == cudaSuccess)
+-                matrix_setup_error = cudaMalloc(&d_ar, (P->a_nnz ? P->a_nnz : 1) * sizeof(uint32_t));
+-            if (matrix_setup_error == cudaSuccess)
+-                matrix_setup_error = cudaMalloc(&d_bcp, (K + 1) * sizeof(uint32_t));
+-            if (matrix_setup_error == cudaSuccess)
+-                matrix_setup_error = cudaMalloc(&d_br, (P->b_nnz ? P->b_nnz : 1) * sizeof(uint32_t));
+-            if (matrix_setup_error == cudaSuccess)
+-                matrix_setup_error = cudaMemcpy(d_acp, P->a_col_ptr, (K + 1) * sizeof(uint32_t), cudaMemcpyHostToDevice);
+-            if (matrix_setup_error == cudaSuccess && P->a_nnz)
+-                matrix_setup_error = cudaMemcpy(d_ar, P->a_rows, P->a_nnz * sizeof(uint32_t), cudaMemcpyHostToDevice);
+-            if (matrix_setup_error == cudaSuccess)
+-                matrix_setup_error = cudaMemcpy(d_bcp, P->b_col_ptr, (K + 1) * sizeof(uint32_t), cudaMemcpyHostToDevice);
+-            if (matrix_setup_error == cudaSuccess && P->b_nnz)
+-                matrix_setup_error = cudaMemcpy(d_br, P->b_rows, P->b_nnz * sizeof(uint32_t), cudaMemcpyHostToDevice);
+-        });
+-        CK(matrix_setup_error);
+-        if (P->a_nnz != setup_a_nnz || P->b_nnz != setup_b_nnz ||
+-            P->k_log != setup_k_log || P->useful_bits != setup_useful_bits ||
+-            P->const_pin_col != setup_const_pin ||
+-            P->a_col_ptr != setup_a_col_ptr || P->a_rows != setup_a_rows ||
+-            P->b_col_ptr != setup_b_col_ptr || P->b_rows != setup_b_rows) {
+-            printf("FFI: BLAKE3 lincheck matrix storage changed after setup\n");
+-            return 104;
++        struct GlueMat { uint32_t *acp, *ar, *bcp, *br; };
++        static std::map<const uint32_t*, GlueMat> glue_mats;   // flock-glue: one entry per circuit
++        auto gm = glue_mats.find(P->a_col_ptr);
++        if (gm == glue_mats.end()) {
++            GlueMat g{};
++            CK(cudaMalloc(&g.acp, (K + 1) * sizeof(uint32_t)));
++            CK(cudaMalloc(&g.ar, (P->a_nnz ? P->a_nnz : 1) * sizeof(uint32_t)));
++            CK(cudaMalloc(&g.bcp, (K + 1) * sizeof(uint32_t)));
++            CK(cudaMalloc(&g.br, (P->b_nnz ? P->b_nnz : 1) * sizeof(uint32_t)));
++            CK(cudaMemcpy(g.acp, P->a_col_ptr, (K + 1) * sizeof(uint32_t), cudaMemcpyHostToDevice));
++            if (P->a_nnz) CK(cudaMemcpy(g.ar, P->a_rows, P->a_nnz * sizeof(uint32_t), cudaMemcpyHostToDevice));
++            CK(cudaMemcpy(g.bcp, P->b_col_ptr, (K + 1) * sizeof(uint32_t), cudaMemcpyHostToDevice));
++            if (P->b_nnz) CK(cudaMemcpy(g.br, P->b_rows, P->b_nnz * sizeof(uint32_t), cudaMemcpyHostToDevice));
++            gm = glue_mats.emplace(P->a_col_ptr, g).first;
+         }
++        uint32_t *d_acp = gm->second.acp, *d_ar = gm->second.ar, *d_bcp = gm->second.bcp, *d_br = gm->second.br;
+ 
+         F128 *d_eq_inner, *d_comb, *d_eq_outer, *d_nC, *d_nZ, *d_p1, *d_pinf, *d_e1, *d_einf;
+         CK(ffi_malloc(&d_eq_inner, K * sizeof(F128))); CK(ffi_malloc(&d_comb, K * sizeof(F128)));
+@@ -778,7 +828,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+         build_eq_device(d_eq_outer, xab_outer.data(), n_log);
+         CK(cudaGetLastError());
+         launch_linear_check_partial_fold(d_zlin, d_eq_outer, n_stripes, K, P->useful_bits, d_zvec);
+-        CK(cudaGetLastError()); CK(cudaDeviceSynchronize());
++        CK(cudaGetLastError()); CK(cudaStreamSynchronize(0));
+         CK(ffi_malloc(&d_zvec_initial, K * sizeof(F128)));
+         CK(cudaMemcpy(d_zvec_initial, d_zvec, K * sizeof(F128), cudaMemcpyDeviceToDevice));
+ 
+@@ -803,7 +853,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+             }
+             lc_rrounds.push_back(r);
+             launch_linear_check_fold_pair(cC, cZ, nC, nZ, half, r);
+-            CK(cudaGetLastError()); CK(cudaDeviceSynchronize());
++            CK(cudaGetLastError()); CK(cudaStreamSynchronize(0));
+             F128* t; t = cC; cC = nC; nC = t; t = cZ; cZ = nZ; nZ = t;
+             L = half;
+         }
+@@ -825,6 +875,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+         ffi_free(d_eq_outer);
+         ffi_free(d_p1); ffi_free(d_pinf); ffi_free(d_e1); ffi_free(d_einf);
+     }
++    glue_phase("lincheck");
+     ffi_free(d_zlin);
+     // lincheck proof section
+     W.u64(lc_e1s.size());
+@@ -947,6 +998,7 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+     W.u64(batching_nonces.size());
+     for (uint64_t n : batching_nonces) W.u64(n);
+ 
++    glue_phase("ring-switch");
+     // ================= ligerito recursion: the F256 fold ladder =============
+     // (ligerito_f256.cuh — port of extension.rs::recursive_prover_with_basis_impl;
+     // capped Merkle, stratified queries, claim/consistency PoW, code switches.)
+@@ -1000,11 +1052,101 @@ int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t
+     W.u64(lig.consistency_batch_nonces.size());
+     for (auto n : lig.consistency_batch_nonces) W.u64(n);
+ 
++    glue_phase("ligerito");
+     *out_len = W.buf.size();
+     *out = (uint8_t*)malloc(W.buf.size());
+     memcpy(*out, W.buf.data(), W.buf.size());
+     CK(device_arena.finish());
++    printf("FFI: mode %d m %d prove %.4f s, grind %.4f s over %lld sites (%lld bits)\n", mode, m,
++           std::chrono::duration<double>(std::chrono::steady_clock::now() - glue_t0).count(),
++           flock_glue_grind_secs - glue_g0, flock_glue_grind_calls - glue_c0, flock_glue_grind_bits - glue_b0);
+     return 0;
+ }
+ 
++
++int flock_cuda_prove_blake3(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
++    return prove_impl(P, out, out_len, 0, nullptr, nullptr, nullptr, nullptr);
++}
++int flock_cuda_prove_host(const FlockCudaProveParams* P, const F128* z, const F128* a, const F128* b,
++                          const uint8_t* zl, uint8_t** out, size_t* out_len) {
++    return prove_impl(P, out, out_len, 1, z, a, b, zl);
++}
++int flock_glue_prove_unit(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
++    return prove_impl(P, out, out_len, 2, nullptr, nullptr, nullptr, nullptr);
++}
++int flock_glue_prove_unit_pre(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
++    return prove_impl(P, out, out_len, 3, nullptr, nullptr, nullptr, nullptr);
++}
++// Enqueue the unit witness for an m-sized proof on the side stream and return at once (consumed by mode 3).
++int flock_glue_unit_witness_launch(int m, int k_log) {
++    if (!g_net_ok || !g_dx || k_log != UW_K_LOG) return 106;
++    long long len = 1LL << (m - 7), n_total = 1LL << (m - k_log);
++    if (!g_pre_st) {
++        CK(cudaStreamCreateWithFlags(&g_pre_st, cudaStreamNonBlocking));
++        CK(cudaEventCreateWithFlags(&g_pre_ev, cudaEventDisableTiming));
++    }
++    if (g_pre_m != m) {
++        for (int i = 0; i < 4; i++) {
++            if (g_pre[i]) { CK(cudaFree(g_pre[i])); }
++            CK(cudaMalloc(&g_pre[i], len * 16));
++        }
++        g_pre_m = m;
++    }
++    CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total, (uw_u64*)g_pre[0], (uw_u64*)g_pre[1],
++                           (uw_u64*)g_pre[2], (uint8_t*)g_pre[3], g_pre_st));
++    CK(cudaEventRecord(g_pre_ev, g_pre_st));
++    g_pre_ok = true;
++    return 0;
++}
++// hdr = useful, const_pos, n_in, n_x, n_w, n_c, k, bits, n_gates, n_segs, n_batches
++int flock_glue_unit_setup(const int* hdr, const uint32_t* gdesc, const uint32_t* gstart, const uint16_t* cols, int n_cols,
++                          const int* seg_end, const int* batch_seg, const int* cout) {
++    UnitNetDev N{};
++    N.useful = hdr[0]; N.const_pos = hdr[1]; N.n_in = hdr[2]; N.n_x = hdr[3]; N.n_w = hdr[4]; N.n_c = hdr[5];
++    N.k = hdr[6]; N.bits = hdr[7]; N.n_gates = hdr[8]; N.n_segs = hdr[9]; N.n_batches = hdr[10];
++    if (N.useful > UW_K || N.n_c != 32 || N.n_segs > UW_MAX_SEGS || N.n_batches > UW_MAX_BATCHES) return 107;
++    uint32_t *d_gd, *d_gs; uint16_t* d_c; int *d_se, *d_bs;
++    CK(cudaMalloc(&d_gd, N.n_gates * 4)); CK(cudaMalloc(&d_gs, (N.n_gates + 1) * 4)); CK(cudaMalloc(&d_c, n_cols * 2));
++    CK(cudaMalloc(&d_se, N.n_segs * 4)); CK(cudaMalloc(&d_bs, (N.n_batches + 1) * 4));
++    CK(cudaMemcpy(d_gd, gdesc, N.n_gates * 4, cudaMemcpyHostToDevice));
++    CK(cudaMemcpy(d_gs, gstart, (N.n_gates + 1) * 4, cudaMemcpyHostToDevice));
++    CK(cudaMemcpy(d_c, cols, n_cols * 2, cudaMemcpyHostToDevice));
++    CK(cudaMemcpy(d_se, seg_end, N.n_segs * 4, cudaMemcpyHostToDevice));
++    CK(cudaMemcpy(d_bs, batch_seg, (N.n_batches + 1) * 4, cudaMemcpyHostToDevice));
++    N.gdesc = d_gd; N.gstart = d_gs; N.cols = d_c; N.seg_end = d_se; N.batch_seg = d_bs;
++    for (int i = 0; i < 32; i++) N.cout[i] = cout[i];
++    g_net = N; g_net_ok = true;
++    return 0;
++}
++// The instance operands (x rows, W columns) as they would sit on the device after the matmul: uploaded once.
++int flock_glue_rows_upload(const uint8_t* x, const uint8_t* w, int elem_bytes, int n_vu, int units_per_vu, int row_len) {
++    if (g_dx) { CK(cudaFree(g_dx)); CK(cudaFree(g_dw)); g_dx = g_dw = nullptr; }
++    size_t bytes = (size_t)n_vu * row_len * elem_bytes;
++    CK(cudaMalloc(&g_dx, bytes)); CK(cudaMalloc(&g_dw, bytes));
++    CK(cudaMemcpy(g_dx, x, bytes, cudaMemcpyHostToDevice)); CK(cudaMemcpy(g_dw, w, bytes, cudaMemcpyHostToDevice));
++    g_eb = elem_bytes; g_nvu = n_vu; g_upv = units_per_vu; g_rowlen = row_len;
++    return 0;
++}
++// Device witness only (timed, synchronized), copied back for the host cross-check. Host buffers may be NULL.
++int flock_glue_unit_witness_dump(int m, int k_log, F128* hz, F128* ha, F128* hb, uint8_t* hzl, double* secs) {
++    if (!g_net_ok || !g_dx || k_log != UW_K_LOG) return 106;
++    long long len = 1LL << (m - 7), n_total = 1LL << (m - k_log);
++    F128 *df, *da, *db; uint8_t* dzl;
++    CK(cudaMalloc(&df, len * 16)); CK(cudaMalloc(&da, len * 16)); CK(cudaMalloc(&db, len * 16)); CK(cudaMalloc(&dzl, len * 16));
++    CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total, (uw_u64*)df, (uw_u64*)da, (uw_u64*)db, dzl));
++    CK(cudaStreamSynchronize(0));
++    { unsigned long long zero[8] = {0}; CK(cudaMemcpyToSymbol(uw_prof, zero, sizeof(zero))); }
++    auto t0 = std::chrono::steady_clock::now();
++    CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total, (uw_u64*)df, (uw_u64*)da, (uw_u64*)db, dzl));
++    CK(cudaStreamSynchronize(0));
++    *secs = std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count();
++    { unsigned long long pr[8]; CK(cudaMemcpyFromSymbol(pr, uw_prof, sizeof(pr)));
++      double U = g_upv;
++      printf("UWPROF cycles/unit (CTA 0): input %.0f copy %.0f narrow %.0f (%.0f segs) wide %.0f (%.0f segs) output %.0f\n",
++             pr[0] / U, pr[1] / U, pr[2] / U, pr[5] / U, pr[3] / U, pr[6] / U, pr[4] / U); }
++    if (hz) { CK(cudaMemcpy(hz, df, len * 16, cudaMemcpyDeviceToHost)); CK(cudaMemcpy(ha, da, len * 16, cudaMemcpyDeviceToHost));
++              CK(cudaMemcpy(hb, db, len * 16, cudaMemcpyDeviceToHost)); CK(cudaMemcpy(hzl, dzl, len * 16, cudaMemcpyDeviceToHost)); }
++    CK(cudaFree(df)); CK(cudaFree(da)); CK(cudaFree(db)); CK(cudaFree(dzl));
++    return 0;
++}
+ } // extern "C"

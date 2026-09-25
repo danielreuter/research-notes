@@ -67,6 +67,38 @@ every binding then "mismatches" (b-ligero-standard-hash report, 08:19Z).
   Gated at 2048 VUs + 86 negatives each. The `xadd` witness op is kind 6 in the interpreter tables (4 operands, 32 rows
   written). Two schemes may now share a schema: `by_schema` returns the first registered (blake3), and conformance
   requires twins to share params, layout and `leaf_bytes`. **Its cells are provisional until red-team grants the class.**
+## `+sha256` (schema `sha256/row/v1`, lane b-ligero-sha256, 2026-09-25)
+
+- **Leaf and statement.**
+  - Leaf: `SHA-256(prefix64(role, word_bits, n_words) || row_bytes)`, the core frame-v3 row digest.
+  - The data blocks are compressed in-circuit from the prefix midstate. The verifier does the padding compression
+    (Rust `sha256_leaf_bytes`).
+  - Gadget: 18 128 rows per 64-byte block. Digest 17 elements (header + 16 CV limbs), carry 33.
+  - Red-team class: `COMPLETE_ZK_BACKEND` granted with conditions (red-team 1033Z).
+    - Gadget scan found 0 free rows in 150 208 mutations (art:a3c5c339).
+    - Nothing before da74b03e counts: R1 is open there.
+- **Rows per column (x4 fold):**
+
+  | Relation | m | base | hash | sys |
+  |---|---|---|---|---|
+  | fp8-hopper-x4+sha256 | 89 356 | 13 383 | 73 122 | 6cf20505… |
+  | bf16-hopper-x4+sha256 | 88 381 | 12 792 | 73 122 | a02f283d… (PINS b009fdc8) |
+
+  That is about 6.7x the bare relation.
+- **The row-chain fast path matters.** `hashchain.row_chain` uses `leaf.row_sponges` when the scheme has it, and
+  `Sha256Leaf.row_sponges` is a cupy kernel with one thread per row (88b82757).
+  - Without it, the host numpy fold ran twice per rep: commitment 7.9 s and row chains 12.3 s per 8192 VUs.
+  - With it: 0.065 s and 0.011 s.
+- **H100 cells** (l = 4096, p4, `--commit-per-rep`, sweep plateau):
+  - fp8-hopper-x4+sha256: 32 768 VUs, e2e 5.317 s, 6162 VU/s, 2^-128.07, art:4aa258ee… (proofs art:61842848…).
+  - bf16-hopper-x4+sha256: 8192 VUs, e2e 2.675 s, 3062 VU/s, 2^-128.40, art:fcd6a623… (proofs art:c25cac59…).
+- **The malloc env is decisive on the H100 pod** (qmiq4rs1f0y4tr).
+  - First-touch host page faults run at ~20 MB/s. A fresh 91 MB numpy copy takes 4-7 s; a reused buffer takes 8 ms
+    (art:9771957…).
+  - `openings_device.opened_from_pinned` re-faults the opened columns every proof: 2.29 of 2.49 s per proof
+    (art:255ea993…).
+  - With MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12, the 8192-VU prover went from 7.7-29 s to 1.36-1.40 s per rep.
+  - The env is now in pod_bootstrap's env.sh and in every fingerprint (`software.allocator`, main 767115db).
 - **instance-equiv/v1 for re-packed relations** (x4 etc.): run `python -m verity_numerical.bench.instance_equiv --relation
   <rel> --vus 4096 --out F` on a pod, then `research data put --kind instance-equiv/v1 --meta @F+lane --preserve` (the
   renderer reads the meta). The kind is not in the CLI's known list; it prints "storing anyway", which is fine. The tool's

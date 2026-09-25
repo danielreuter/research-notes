@@ -112,6 +112,21 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   the same 229 MB tree) and was fast again right after. A full `--source` ship can take over an hour at that rate; the timeout is
   archive size / 64 KiB/s.
 
+## Finishing a failed `--custody-r2` push (b-ligero-sha256, 2026-09-25)
+* A runner's custody push can fail with `RemoteDisconnected` or a read timeout after the objects are already on R2. This
+  happened to runs of 7.3 and 3.6 GB on qmiq4rs1f0y4tr. The runner then deletes its minted key.
+* The runner's store is `<root>/store` (`/workspace/research/store`), not `~/.research/store`. Run the finish from the pod:
+  `research data push RUN --store /workspace/research/store --verify head`. It needs a key, so launch it as its own
+  `--custody-r2` run and read `requests/$RESEARCH_RUN_ID/custody/cred.json`. The script is
+  `lanes/b-ligero-sha256/evidence/pod-scripts/62-repush.sh`. It took about 1 min, with every object already there.
+* Don't run `custody RUN --publish` against the default store. It re-publishes the run into `~/.research/store`, hashing
+  and copying every file. If interrupted, that store holds the manifest but not the blobs, so every later push there
+  fetches the missing blobs from R2 serially (`LocalStore._resolve_blob`). From that pod those GETs stalled at ~24 MB with
+  0 B/s, and the push hung for 10+ min per blob.
+  - Fix: re-ingest from the run dir (`61-blob-census.py ART TREE --ingest`).
+* `pkill -f <script>` inside `research pods ssh ... -- '...'` also kills that ssh shell, so anything after it never runs. Use
+  PIDs or the `[x]` bracket trick above.
+
 ## Catalog wipes and rendering on a pod (verify-night, 2026-09-24)
 * `research data reindex` (`Index.rebuild`) empties the catalog tables first and refills them in stages, so an interrupted
   reindex leaves a catalog with few artifacts and 0 attempts/labels. Table 2 then renders silently wrong, and `research data

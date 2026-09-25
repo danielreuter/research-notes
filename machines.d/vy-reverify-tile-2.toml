@@ -1,0 +1,7 @@
+# machine vy-reverify-tile-2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "0mfgq7x71zr8y0"
+project = "verity"
+guard = 60
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T12:03Z"

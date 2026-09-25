@@ -13,3 +13,5 @@
 2026-09-25T11:55:29Z {"clientBalance": 101.8159546293, "spendLimit": 80, "currentSpendPerHr": 40.701}
 2026-09-25T11:57:29Z {"clientBalance": 100.8778486062, "spendLimit": 80, "currentSpendPerHr": 41.295}
 2026-09-25T11:59:30Z {"clientBalance": 100.8778486062, "spendLimit": 80, "currentSpendPerHr": 40.939}
+2026-09-25T12:01:30Z {"clientBalance": 297.2514704201, "spendLimit": 80, "currentSpendPerHr": 40.939}
+2026-09-25T12:03:31Z {"clientBalance": 297.2514704201, "spendLimit": 80, "currentSpendPerHr": 40.311}

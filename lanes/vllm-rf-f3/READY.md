@@ -4,29 +4,93 @@ lane: vllm-rf-f3
 kind: ready
 status: ready
 created: 2026-09-25T02:15Z
+updated: 2026-09-25T03:45Z
 ---
 # vllm-rf-f3: undeclared inputs (D3, D4, D14, D15) -- READY
 
-**Branch** `lane/vllm-rf-f3`, **head `4fb0eb2c`**, on `72884c8a` (6 commits, all pushed):
+**Branch** `lane/vllm-rf-f3`, **head `4c4159c5`**, rebased onto main `bbbe936c` (6 commits, all pushed; origin == `4c4159c5`).
+**Pre-rebase head `4fb0eb2c`**, on `72884c8a`.
 
-| commit | what |
-|---|---|
-| `a2164659` | D4: the gather flush tables in a torch-free module (`acquire/flush_points.py`); `acquire/plan.py` imports them unconditionally |
-| `0f970b0e` | D3: the leaf layout is one declared argument (`commit_delta --layout` -> collector, padding leaves, binding map); no layout env reads |
-| `bdcf4d5f` | D14: challenge seeds are required, never 0 by default; `run_config` refuses the sampled replay stages without `--seed` |
-| `d4a87683` | D15: the MUFU tables are the in-tree files pinned by digest; no table or arch env reads |
-| `9bddf741` | cherry-pick of a23b's W11 move `96c12c0b` (tables as package data under `program/numerics/tables/`), conflicts resolved to D15's form |
-| `4fb0eb2c` | D14 follow-up: the two `run_config --phase all` dry-run tests pass `--seed` |
+| commit | pre-rebase | what |
+|---|---|---|
+| `8d8952e2` | `a2164659` | D4: the gather flush tables in a torch-free module (`acquire/flush_points.py`); `acquire/plan.py` imports them unconditionally |
+| `688807b9` | `0f970b0e` | D3: the leaf layout is one declared argument (`commit_delta --layout` -> collector, padding leaves, binding map); no layout env reads |
+| `d0f169f3` | `bdcf4d5f` | D14: challenge seeds are required, never 0 by default; `run_config` refuses the sampled replay stages without `--seed` |
+| `bb675253` | `d4a87683` | D15: the MUFU tables are the in-tree files pinned by digest; no table or arch env reads |
+| (dropped) | `9bddf741` | cherry-pick of a23b's W11 move `96c12c0b`; main has it as `a9abe0a0`, so the rebase dropped it |
+| `bca6ab61` | `4fb0eb2c` | D14 follow-up: the two `run_config --phase all` dry-run tests pass `--seed` |
+| `4c4159c5` | | lint: main's ratchet allowlists after D3, D4, D14 and D15 (below) |
 
-Merge note: `9bddf741` is a cherry-pick of a23b's `96c12c0b` (the handoff allowed rebase or cherry-pick), taken without a23b's four
-earlier commits so that gate (b) compares with a1's base list. `git merge-tree`: clean against main `21688b01`, a1 `39c5ee7a`, f1
-`e2f85a82`, f24 `be366f80` and f56 `9b07c19f`. Against a23b `748d71c5` there are 3 conflicting hunks, all of one kind: a23b keeps the
-env override that D15 deletes. They are `fa2_relation.tables_dir()` and `rms_relation.tables_dir()` (the `os.environ.get(TABLES_ENV)`
-lines) and one docstring line of `fa2_attn_oracle.py`, which a23b moved to `tests/acquire/`. Take f3's side in each. `git grep` on a23b
-finds no other use of a name f3 removes. If a later a23b commit deletes `check/relations.py` (it hasn't so far), drop its 2 entries
-from `tests/check/test_challenge_seeds.py`.
+**Rebase** (coordinator notes 22:13Z and 00:32Z): `git rebase origin/main` from `4fb0eb2c` onto `bbbe936c` (main after a23b's merge
+`4bd6c54c` and one research-tools commit), then `git push --force-with-lease`. The only conflicts were the three the 00:32Z note names,
+all in the D15 commit: `fa2_relation.tables_dir()`, `rms_relation.tables_dir()` and the docstring of `tests/acquire/fa2_attn_oracle.py`.
+They are resolved as the note says: main's `resources.files(__package__) / "tables" / <fixture id>` location, D15's deletion of the env
+overrides, and its "pinned by TABLE_SHA256" docstring. That is the code the pre-rebase head already had through the cherry-pick: the
+three files are byte-identical at `4fb0eb2c` and `bca6ab61` (the oracle was in `check/` there). So `bca6ab61` is exactly
+`git merge-tree 4fb0eb2c bbbe936c` with f3's side taken in those three files. `git range-diff` shows every other patch unchanged, apart
+from context lines main edited. `9bddf741` came up empty and git dropped it.
 
-## Gate evidence
+**Merge note:** main has since moved to `ca396d13`: 7 commits touching only `tools/research/` and `backends/direct/`, none of f3's
+files, and `git merge-tree` with `4c4159c5` is clean. I have not rebased again because the brief says to rebase when the coordinator
+says main moved. `git merge-tree` against the open lanes: clean with f56 `a4b823a3`. It conflicts only in
+`tests/lint/allowlists/p10_size.json` with f1 `d1f18fc8` and f24 `e818a5d4`, where lanes changed neighbouring caps:
+- `commit_delta.py` `main` (main 1918): f3 cut it to 1916, f1 to 1917, and f24 to 1917. After merging, run `tests/lint` and set the
+  count it prints (the ratchet fails when a cap is above the count).
+- With f24 only: take f24's `check/verdict.py` counts (`c2_rules` 159, module 1407) and f3's `commit/padding_steps.py` 930.
+
+## At the rebased head `4c4159c5`
+
+On CPU pod `vyv-rf-f3-lint` (`xroshfy57ofi18`, cpu3g 16 vCPU / 64 GB, terminated), in `/workspace/venv312` from `pod_bootstrap.sh
+--cpu` plus pytest-xdist 3.8.0 and xgrammar 0.2.7. Its `uv pip freeze` equals a1's `baseline-freeze.txt` exactly, after pinning
+`googleapis-common-protos` back to a1's 1.75.3 (the bootstrap pulled 1.75.4). Every run used a fresh copy of its tree and gate (b)'s
+environment. Evidence: `evidence/lint_pod/` (xml, logs, env, freeze, scripts, `judge_b_exact.txt`).
+
+- **`python -m pytest integrations/vllm/tests/lint -q`: 41 passed** at `4c4159c5` (junit: 41 tests, no failures, errors or skips).
+  Main `bbbe936c` on the same pod: 41 passed. `bca6ab61` (rebased, before the lint commit): 37 passed, 4 failed. `4c4159c5` fixes them:
+  - P7: deleted 17 entries made stale by this lane. These were the `VERITY_LAYOUT` / `VERITY_LEAF_LAYOUT` reads (D3), the plan's
+    `except Exception` torch fallback (D4), the seed defaults (D14), and the MUFU table and `VERITY_ARCH` env reads (D15).
+  - P9: one new `layer` violation, `acquire.native_collect -> acquire.flush_points`. D4's new module had no `INTERIM_LAYER` entry,
+    so it took its package's layer `acquire`, one above `native_collect` (`observe|commit`), which held those tables at main. Fixed
+    by mapping `verity_vllm.acquire.flush_points` to `observe|commit`, like the other committer modules. `acquire.plan` imports it
+    downward.
+  - P10: 3 caps lowered (`native_collect.py` module 1931, `padding_steps.py` module 930, `commit_delta.main` 1916). Seven sizes the
+    lane had grown by 1-3 lines are back at their caps, and no cap was raised. The code changes:
+    - `replay.main` passes `seed=a.seed or 0` to the tier b / c self-checks instead of through a temporary.
+    - `run_config.main`'s seed check binds its stage list in the condition.
+    - `commit_delta.make_committer` binds `layout` in its check.
+    - `capture_identities.run` puts `coordinate_sample` on an existing line of its record, so the key now follows
+      `input_gate_records`. This key order is the lint commit's only observable effect.
+    - Formatting only, with the AST unchanged: two `run_config` help strings rewrapped (same text), one triple blank line in
+      `replay.py`, and one lone `}` in `native_host.py`.
+    - No other open lane touches `run_config.py`, `replay.py` or `capture_identities.py`.
+- **Post-rebase checks (00:32Z note)**, at `bca6ab61` and at `4c4159c5`: every `tables_dir()` resolves under
+  `verity_vllm/program/numerics/tables/` (`W11-…1800Z`, and `W11R-…1802Z` / `W11C-…1900Z` for `rms_relation` triton / cuda). Each
+  loads through its `TABLE_SHA256` check with `VERITY_MUFU_TABLES`, `VERITY_RMS_TABLES`, `VERITY_MUFU_TANH_TABLES` and `VERITY_ARCH`
+  unset, and again with them set to `/nonexistent` / `sm_90`, which is ignored. `MUFU_TANH_TABLE_DIR` is
+  `program/registry/quarantine/dense/tables`. The digest-pin test `tests/program/test_mufu_tables_pinned.py`: 3 passed.
+- **Targeted tests** (f3's test files and those of the code it touches, 31 files): 596 passed, 48 skipped, 3 failed. All three are in
+  a1's list with its messages: the two `observe/test_gen_ov_easy.py` serve_untied tests and `program/test_sampling_rows.py`'s
+  `nv_logf` NaN sign.
+- **Gate (b) at `4c4159c5` and at main `bbbe936c`**, one after the other on this pod, with the settings of the `4fb0eb2c` run below
+  (`-n 12 --dist loadfile`, `OMP_NUM_THREADS=3`):
+
+  | tree | passed | skipped | xfailed | failed | errors | wall |
+  |---|---|---|---|---|---|---|
+  | head `4c4159c5` | 3534 | 286 | 6 | 54 | 11 | 13 min 22 s |
+  | main `bbbe936c` | 3515 | 286 | 6 | 56 | 11 | 14 min 00 s |
+
+  Per test (`judge_b_exact.txt`):
+  - Every failure or error at head also fails at main. Main's two extra are the order-dependent
+    `harness/test_admit_r19_host_working_set.py` gc-freeze tests from a1's serial section, which passed at head.
+  - The 17 tests only at head are f3's, and all pass.
+  - Skip reasons are the same at head and main, reason by reason.
+  - Against a1's base runs, head's 65 failures and errors are exactly a1's xdist list. At head and at main alike, one skip reason is
+    in neither a1 run: `program/test_ship_roots.py::test_ship_pack_carries_out_gen_hf_configs`, "this checkout has no
+    record_v5/ship.sh or data/hf_configs". That comes from main's own change to the file, which f3 doesn't touch.
+- **Not re-run at the rebased head:** gate (a) and the GPU rows (below, at `4fb0eb2c`). The rebase changed none of f3's code (above),
+  and the lint commit's only observable effect is the key order in the `capture_identities` record, which neither covers.
+
+## Gate evidence at the pre-rebase head `4fb0eb2c`
 
 Environment (every pod, `/workspace/venv312` from `pod_bootstrap.sh`): Python 3.12.14, torch 2.13.0+cu129, vLLM
 0.28.1rc1.dev472+gd9105ea80.cu129, triton 3.7.1, numpy 2.3.5, transformers 5.17.0, safetensors 0.8.0, pytest 9.1.1 (= a1's table).

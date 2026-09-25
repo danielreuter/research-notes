@@ -52,7 +52,52 @@ The +shared gap is the steps-pin lane's own integration note (`give hooks_h_for 
   steps = 32 pair (honest prover, `K_VU` bumped); v6 header steps 32 and K 768; each refused by Python and by
   `$LIGERO_VERIFY` (G side's `check_vu_shape`) with the shape / K message.
 
+## R1 / R2 / R4 (added by the coordinator 07:45Z; same handoff)
+
+* Merge of origin/main 5631e667 (c733b7f4); R2 needs core `frame_v3`.
+* R1: b-ligero-standard-hash 3af90e71 cherry-picked as 71905f0f. Reviewed: Rust `auth::layout_error` and Python
+  `hashauth.layout_error` apply the same rule, x = W = vu for unshared trees and (vu // nb, vu % nb) for a tile; the
+  tile convention matches `relchain.tile_indices`.
+* R2: de2fa317 cherry-picked as 3e98dc55 (`reverify.commitment_problems` / `committed_trees`).
+* R4 (red-team-standard-hash 08:35Z), fixed here:
+  * 06176b41: `.stmt` stems == `.proof` stems == manifest entries; batch n == number of statements.
+  * 24ab6c7d: hashed is decided from the pinned relation, and bare statements are not parsed (this fixed the 3
+    reverify_test failures).
+  * 943d5e96: v6 fails closed.
+  * c8a16e2b: an unreadable statement is a problem; crossed or duplicate manifest entries are refused (this covers
+    806a2f73's cases).
+* Tests: `hashauth_test` has the red-team 2-VU remap end to end, plus the R2/R4 cases. `steps_pin_test` checks that a
+  +shared pair fails closed.
+
+## Results at c8a16e2b (art:61aedd2762f64fe16c5189c5378cab94dc86b221188922931a1fe85d307ad7b7)
+
+* `cargo test --release`: 33 + 7 + 27 passed.
+* `pytest hashauth_test reverify_test steps_pin_test`: 50 passed.
+* Regression dumps: 9/9 accepted (Rust pinned batch + Python), unshared and tile alike.
+* R2 over the dumps:
+  * fp8-ada+poseidon2 T2 (4096 VUs) PASSES the recompute;
+  * v6 shared-local dumps and hashed dumps without a `set` block fail closed.
+* Red-team harnesses:
+  * remap and orphan are not reproduced;
+  * steps 48 is accepted, steps 64 is refused by both verifiers;
+  * steps 32 cannot be built with blake3 (the gadget refuses 1-chunk rows).
+* Earlier, at 1571143b: steps_pin_test 34/34; `leaf2_share_pair` 15/15 as expected; ligero regression 132 passed and 1
+  pre-existing failure.
+
+## Handoffs received
+
+* coordinator 0745Z (add R1 + R2, one handoff, cap $8): done.
+* b-ligero-standard-hash 0805Z (take 3af90e71 + de2fa317): taken; replied 0845Z.
+* red-team-standard-hash 0835Z (R4): fixed in 06176b41 and follow-ups.
+* b-ligero-standard-hash 0900Z (cherry-pick 806a2f73): superseded by 24ab6c7d + c8a16e2b; replied 0915Z.
+* coordinator 0915Z (include 806a2f73): superseded, reason in the ready handoff.
+* red-team-standard-hash 0920Z (24ab6c7d PASS): cited in the ready handoff; asked to re-run on c8a16e2b (0937Z).
+
 ## Log
 * 06:29Z start; contract, red-team-leaf-3 report, ajtai-leaf-3 handoffs read; inbox empty.
 * 06:35Z pod created. Found fix already on main (steps-pin lane); audit -> +shared Python gap.
 * 06:47Z 236020a6 pushed; pod setup run lsp-setup launched.
+* 07:06Z–08:08Z cargo, steps_pin_test and the 9-dump regression at 1571143b. The regression pytest stalled on conformance
+  `[blake3]` (CPU), so I split it (regression_rest).
+* 08:17Z–09:20Z R1/R2 integrated, then the R4 fix; pod runs lsp-r12, lsp-rtsh, lsp-final.
+* 09:35Z ready handoff "steps pin + R1/R2 ready: c8a16e2b" sent to the coordinator.

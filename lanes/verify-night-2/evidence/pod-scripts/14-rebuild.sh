@@ -10,7 +10,7 @@ echo "=== [$(date -u +%H:%M:%S)] src $(cat /workspace/src/.research-source.json 
 cp -f $CARGO_TARGET_DIR/release/ligero-verify /workspace/bin/ligero-verify && sha256sum /workspace/bin/ligero-verify
 echo "=== [$(date -u +%H:%M:%S)] cargo test (ligero-verify)"
 (cd backends/ligero-verify && cargo test --release 2>&1 | grep -E "^test result|FAILED|panicked" | head -20)
-echo "=== [$(date -u +%H:%M:%S)] pytest core commitments + leaf schemas"
-$PY -m pytest -q -x packages/verity/tests/commitments backends/direct/ligero/leaf/core_schema_test.py backends/direct/ligero/leaf/conformance_test.py 2>&1 | tail -4
+echo "=== [$(date -u +%H:%M:%S)] pytest core commitments + leaf schemas (PYTEST=${PYTEST:-1})"
+[ "${PYTEST:-1}" = 1 ] && $PY -m pytest -q -x packages/verity/tests/commitments backends/direct/ligero/leaf/core_schema_test.py backends/direct/ligero/leaf/conformance_test.py 2>&1 | tail -4
 echo "=== [$(date -u +%H:%M:%S)] done"
 } 2>&1 | tee $O/rebuild-$(date -u +%H%M).out

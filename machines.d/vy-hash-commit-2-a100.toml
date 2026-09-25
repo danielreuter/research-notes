@@ -1,0 +1,7 @@
+# machine vy-hash-commit-2-a100: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "fertega4i5qs2a"
+project = "verity"
+guard = 60
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T09:34Z"

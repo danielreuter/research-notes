@@ -9,12 +9,14 @@ side must catch, Python and Rust (--allow-any-circuit --require-commitment) veri
   alt_honest_bits   altered operand (valid unit, public words honest), bits of the frozen one -> reject: recomposition
   alt_alt_bits      altered operand with its own bits                                        -> ACCEPT: only the cross-field
                                                                                                  link (not built) closes it
-    python 20_link_unit.py STMT OUT VERIFIER [N] [THREADS] [REPS]      (cwd backends/gkr)
+    [REL=bf16-ampere LEAF=sha256] python 20_link_unit.py STMT OUT VERIFIER [N] [THREADS] [REPS]      (cwd backends/gkr)
+(fp8 relations: 8 bits per operand code.)
 """
 from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -38,7 +40,9 @@ S, OUT, VB = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3]
 N = int(sys.argv[4]) if len(sys.argv) > 4 else 4096
 NT = int(sys.argv[5]) if len(sys.argv) > 5 else 13
 REPS = int(sys.argv[6]) if len(sys.argv) > 6 else 3
-REL, LEAF = "bf16-ampere", "sha256"
+REL, LEAF = os.environ.get("REL", "bf16-ampere"), os.environ.get("LEAF", "sha256")
+FP8 = REL.startswith("fp8")
+BITS = 8 if FP8 else 16
 dev = torch.device("cuda")
 OUT.mkdir(parents=True, exist_ok=True)
 man = json.loads((S / "manifest.json").read_text())
@@ -48,10 +52,10 @@ uc0 = parse_circuit(base_text)
 names = uc0.col_names
 k = (names.index("y.s") - 5) // 2
 COLS = list(range(5, 5 + 2 * k))
-utext = LS.extend_unit(base_text, COLS, 16)
+utext = LS.extend_unit(base_text, COLS, BITS)
 uc = parse_circuit(utext)
 ul0, ul = layers(uc0), layers(uc)
-print(f"unit: {uc0.ncols} columns / {uc0.nwires} wires -> {uc.ncols} / {uc.nwires} ({len(COLS)} operand columns x 16 bits); "
+print(f"{REL}+{LEAF} unit: {uc0.ncols} columns / {uc0.nwires} wires -> {uc.ncols} / {uc.nwires} ({len(COLS)} operand columns x {BITS} bits); "
       f"layers {len(ul0)} -> {len(ul)}", flush=True)
 etext = CM.extend_epilogue((S / "epilogue.txt").read_text())
 ec = parse_circuit(etext)
@@ -59,15 +63,22 @@ el = layers(ec)
 src = Path(br.__file__).resolve().parents[2]
 frozen = src / "fixtures" / "bench-instances" / "v1" / "manifest.json"
 
+from gpu.v2.fp8 import relation_params                 # noqa: E402
 from gpu.v2.witness import Generator, Ops              # noqa: E402
-from verity_numerical.checker import REAL              # noqa: E402
 
-x, W, y0, _ = br.load_frozen(Path("/workspace/bench-instances/v1"), frozen, br.TIER, 0, N)
+if REL == "bf16-ampere":
+    from verity_numerical.checker import REAL          # noqa: E402
+
+    x, W, y0, _ = br.load_frozen(Path("/workspace/bench-instances/v1"), frozen, br.TIER, 0, N)
+    params = REAL
+else:
+    x, W, y0, rel = br.load_relation(REL, src, 0, N, NT)
+    params = relation_params(rel)[0]
 X = np.array(x, dtype=np.uint16)
 yw = 4 if y0.dtype == np.uint32 else 2
 y = np.asarray(y0).reshape(N, 1)
 ops = Ops("cuda")
-gen = Generator(ops, REAL)
+gen = Generator(ops, params)
 
 
 def rows_for(xx):
@@ -79,7 +90,7 @@ C = CM.commit(LEAF, REL, iset, 0, X, W, y, yw)
 L = C.limb_columns()
 SC = ("--allow-any-circuit", "--require-commitment")
 ci = torch.tensor(COLS, device=dev)
-sh = torch.arange(16, device=dev)
+sh = torch.arange(BITS, device=dev)
 
 
 def bits_of(units: torch.Tensor) -> torch.Tensor:
@@ -174,13 +185,14 @@ def case(name, units, epi_rows, want):
 u = 7 * steps + 3
 b = hb.clone(); b[u, 5] ^= 1
 case("bit_flip", torch.cat([honest_rows.units, b], 1), honest_rows.epilogue, False)
-b = hb.clone(); j = next(i for i in range(0, hb.shape[1], 16) if int(hb[u, i + 1]) == 1)
+b = hb.clone(); j = next(i for i in range(0, hb.shape[1], BITS) if int(hb[u, i + 1]) == 1)
 b[u, j] += 2; b[u, j + 1] -= 1
 case("non_boolean", torch.cat([honest_rows.units, b], 1), honest_rows.epilogue, False)
 
 alt = None
-zero = (0x0000, 0x8000)
-for tried, (v, t) in enumerate((v, int(t)) for v in range(N) for t in np.nonzero(np.isin(W[v], zero))[0]):
+zero = (0x00, 0x80) if FP8 else (0x0000, 0x8000)
+cands = ((v, int(t)) for v in range(N) for t in np.nonzero(np.isin(W[v], zero))[0] if not (FP8 and (int(X[v, t]) & 0x7F) >= 0x7E))
+for tried, (v, t) in enumerate(cands):
     if tried >= 12:
         break
     xx = X.copy()

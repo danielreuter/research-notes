@@ -69,15 +69,16 @@ for a in arts:
     ev = O / f"ev-{full[4:16]}.json"
     ev.write_text(json.dumps({"reverify": r, "binding": b, "core_roots_r1r2": c}, indent=1))
     N = int(os.environ.get("VN2_N", 4096))
+    VDESC = os.environ.get("VN2_VDESC", "ligero-verify d89cffc7 (main 00ffe398)")
     detail = (f"verify-night-2, red-team SH R1/R2/R4 checked: {line}. R1 = every statement's (vu_index, x_index, w_index) equals the "
               f"untiled layout (x = W = vu) over its dumped range and each rep's proof-backed sub-batches tile [0, {N}) disjointly "
               f"(R4: a stmt entry without a proof covers nothing; batch n == entries per rep); R2 = the three "
               f"trees' binding (hashauth.binding_digest), owner, count and root recomputed from my tree's instance set (framing and "
               f"trees: verity.commitments core; row digests: {(c.get('info') or {}).get('row_digest_ref')}) equal every statement's. "
-              f"Proofs: ligero-verify d89cffc7 (main 00ffe398) on the dumped rep(s), "
+              f"Proofs: {VDESC} on the dumped rep(s), "
               f"interactive transcripts replay the runner's coins (not transferable)." + (f" {os.environ['VN2_NOTE']}" if os.environ.get("VN2_NOTE") else ""))
     p = subprocess.run([sys.executable, lab, full, "--tree", r.get("run_files") or c.get("run_files"), "--verifier",
-                        "ligero-verify d89cffc7 (main 00ffe398) + verify-night-2 R1/R2 core recompute (06-core-roots.py)",
+                        f"{VDESC} + verify-night-2 R1/R2/R4 core recompute (06-core-roots.py)",
                         "--detail", detail, "--seconds", str(vsec), str(ev)], capture_output=True, text=True)
     print("  label:", p.returncode, p.stdout.strip()[-300:], p.stderr.strip()[-300:], flush=True)
 (O / "summary.json").write_text(json.dumps(summary, indent=1))

@@ -16,7 +16,13 @@ CHECKPOINT a816a2b1 (08:05Z) [open] pods up (cpu3c 8vCPU Zen5 only; 16/32 sold o
 
 Goal (launch message): ground `docs/hash-proving-survey.md` §2/§3.1/§3.8/§3.9/§4.2-4.3/§6 "Flock plus link" projections
 in measurements at our batch shape. No repo commits (no reusable harness in the repo; harnesses live in
-`evidence/pod-scripts/`). Handoffs received: none (inbox empty at start and at every checkpoint).
+`evidence/pod-scripts/`). Handoffs received:
+- coordinator 0830Z, NEW PRIORITY: prove the binary-backend unit circuit (census `internal/binary-census/`) plus the
+  BLAKE3 table at 4,096 VUs on pod CPU and the 5090. Report "flock-bench: binary backend numbers" against the B-Ligero
+  Table 2 cells and the census projection; do not build on the link doc. Taken, see "Binary-backend unit circuit" below.
+- flock-bench-80gb 0900Z (who writes the unit harness?): answered 0904Z by pointing it at mine. 0915Z: it wrote a
+  parallel harness (`unit_shape`) and is running A100/H100. Read, not re-run here: its numbers are its own lane's
+  deliverable. I adopted its cgroup gotcha as a check (`nproc` = 32 on my CPU pod, so 32T was not oversubscribed).
 
 ## What was proved (the shape)
 
@@ -84,15 +90,179 @@ Driver 580 is enough when ptxas 13.3 assembles AOT (the survey's "needs CUDA 13.
 
 Flock-CUDA (flock `cuda-ghash` + `flock-cuda-ffi` roundtrip, BLAKE3 only, on-device witness generation, steady prove
 after one warm-up, proof verified by the Rust verifier; proof size = bincode of `R1csProofLigerito` + 4 KiB commitment):
-PENDING-REPS (first single-sample pass, r20260925-081807-9691: m26 0.104 s, m27 0.056 s, m30 0.104 s, m31 0.139 s,
-m32 0.093 s, m33 0.293 s; proof 395-521 KiB; verify 15-17 ms; host RSS 0.8 GB).
+art:9be695b0 (run r20260925-091303-5375), 3 reps, spread about 1 %. Random BLAKE3 compressions fill all 2^(m-14) slots:
 
-flock-zorch: PENDING.
+| m | slots | our batch at this m | prove s | verify ms | proof KB (incl. 4.1 KB commitment) |
+| --- | --- | --- | --- | --- | --- |
+| 26 | 4,096 | FP8 N=64 (3,072) | 0.105 | 14 | 408 |
+| 27 | 8,192 | BF16 N=64 (6,144) | 0.057 | 16 | 422 |
+| 30 | 65,536 | FP8 N=1024 (49,152) | 0.107 | 18 | 479 |
+| 31 | 131,072 | BF16 N=1024 (98,304) | 0.140 | 16 | 507 |
+| 32 | 262,144 | FP8 N=4096 (196,608) | **0.096** | 16 | 522 |
+| 33 | 524,288 | BF16 N=4096 (393,216) | **0.291** | 18 | 538 |
+
+Not monotone in m: each m has its own hard-coded Ligerito config, and m26/m30/m31 have worse ones than m27/m32. At N=4096,
+BF16 is 1.35 M BLAKE3/s (8.0x the 16-vCPU Zen4 pod, 4.3x the 32-vCPU EPYC 9654). Host RSS 0.8 GB; device memory was not
+sampled. There is no config at m=29 (the test panics), which matters for the unit circuit below.
+
+flock-zorch (fractalyze, JAX/XLA + clmad, BLAKE3; art:ZORCH_ART, run r20260925-082947-b255). Throughput mode proves from
+a packed witness, so the witness is excluded; seed mode generates it on device:
+
+| m | hashes (full slots) | throughput-mode prove ms | seed-mode ms | host RSS GB |
+| --- | --- | --- | --- | --- |
+| 27 | 8,192 | 21.0 | 20.1 | 2.4 |
+| 31 | 131,072 | **36.0** (3.64 M/s) | ZORCH_SEED31 | 5.8 |
+
+zorch is 2.7x faster than Flock-CUDA at m27 and 3.9x at m31. Its README floor (2.36 M/s at 2^17) is beaten at 3.64 M/s.
+Linear extrapolation at 59.6 G slot-bits/s puts m33 (BF16 N=4096) near 0.14 s; that point was not run. zorch needs a
+golden file of circuit constants even in seed mode, and the golden dump is single-threaded: m31 took about 35 min, so
+m32/m33 and all SHA-256 points were skipped. zorch is BLAKE3/SHA/Keccak only; it cannot run the unit circuit below.
+
+## Binary-backend unit circuit (coordinator 0830Z priority)
+
+**Export.** `export_unit.py` turns the census unit (`internal/binary-census/unit.py`, `gf2.py`, copied) into a Flock
+`BlockR1cs` over GF(2) with C = I and one row per committed bit:
+- inputs and the constant wire: A = B = {i};
+- an AND row: its two input forms (a form's constant term goes to the constant column);
+- an assertion L = 0: (L + z_j)·1 = z_j;
+- a non-trivial output bit: a copy row (f)·1 = z_j.
+
+It evaluates 64 random valid vectors bit-sliced and checks every row before writing. `verity_unit.rs` (installed as
+`crates/flock-prover/src/r1cs_hashes/verity_unit.rs`) loads it at k_log 13 with a bit-sliced 8-instance witness.
+`VerityUnitSetup` is the unit table alone; `CombinedSetup` is ONE union proof over two tables, the BLAKE3 row-leaf
+compressions (checked against `blake3::keyed_hash`) and the unit table, at the same VU count. Not modelled: glue making
+the unit's input bits equal the leaf message bits; the survey puts IO glue under 5 %.
+
+| pipeline | units / VU | useful bits (2^13 slot) | ANDs | asserts | copies | nnz(A)+nnz(B) |
+| --- | --- | --- | --- | --- | --- | --- |
+| ampere_bf16 | 96 | 7,687 | 7,100 | 33 | 9 | 235,134 |
+| hopper_bf16 | 96 | 7,305 | 6,718 | 33 | 9 | 241,107 |
+| ada_e4m3 | 48 | 7,373 | 6,744 | 65 | 19 | 221,085 |
+| hopper_e4m3 | 48 | 7,003 | 6,374 | 65 | 19 | 234,352 |
+
+AND counts match the census exactly; committed bits are 34-66 above the census's, from the copy rows and the constant wire.
+Controls: a NaN operand planted at unit n/2 makes `verify` fail on CPU (both formats) and on GPU (Lincheck
+ConsistencyFailed "sumcheck-final"); proof-tamper control passes.
+
+### CPU: Flock b684b12, AMD EPYC 9654, 32 vCPU pod, 32 threads (16T in brackets)
+
+Unit alone: art:0bd23b01 (r20260925-090255-c8f0) and art:469d0d63 (hopper, r20260925-091444-d620). One union proof:
+art:025a0ed4 (r20260925-091845-2c75). prove = best of 2-3 after a warm-up and includes witness generation, which
+`prove_fast` rebuilds on every call. "cold witness" = one separate first call of the witness builder, which includes
+page-faulting its buffers; it is only a rough upper bound on the witness share of prove. peak = process heap
+high-water, including inputs (unit, BLAKE3), or max RSS (union).
+
+| table | N VUs | m | prove s, 32T [16T] | cold witness s | verify ms | proof KB | peak GB (4096) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| unit ampere_bf16 | 64 / 1024 / 4096 | 26 / 30 / 32 | 0.095 / 0.364 / **1.32** [1.93] | 0.02 / 0.21 / 0.66 | 4.2 / 4.3 / 4.4 | 345 / 416 / 461 | 8.2 |
+| unit hopper_bf16 | 64 / 1024 / 4096 | 26 / 30 / 32 | 0.091 / 0.417 / **1.26** | 0.03 / 0.22 / 1.20 | 3.6 / 4.8 / 4.4 | 337 / 409 / 453 | 8.1 |
+| unit ada_e4m3 | 64 / 1024 / 4096 | 25 / 29 / 31 | 0.087 / 0.238 / **0.684** [0.953] | 0.02 / 0.08 / 0.47 | 4.0 / 4.5 / 4.0 | 324 / 322 / 438 | 4.0 |
+| unit hopper_e4m3 | 64 / 1024 / 4096 | 25 / 29 / 31 | 0.050 / 0.245 / **0.718** | 0.01 / 0.10 / 0.41 | 3.8 / 4.6 / 4.2 | 316 / 318 / 430 | 3.9 |
+| BLAKE3 leaves BF16 | 64 / 1024 / 4096 | 27 / 31 / 33 | 0.077 / 0.364 / **1.26** [1.76] | | 6.8 / 6.3 / 7.7 | 316 / 402 / 433 | 16.8 |
+| BLAKE3 leaves FP8 | 64 / 1024 / 4096 | 26 / 30 / 32 | 0.120 / 0.236 / **0.672** [0.755] | | 8.0 / 7.6 / 6.9 | 302 / 373 / 418 | 8.2 |
+| **union BLAKE3 + ampere_bf16** | 64 / 1024 / 4096 | 27 / 31 / 33 | 0.126 / 0.801 / **2.59** | | 8.5 / 8.2 / 24 | 406 / 492 / 523 | 15.4 RSS |
+| **union BLAKE3 + hopper_bf16** | 4096 | 33 | **2.51** | | 9.0 | 519 | |
+| **union BLAKE3 + ada_e4m3** | 64 / 1024 / 4096 | 26 / 30 / 32 | 0.113 / 0.395 / **1.26** | | 9.6 / 7.6 / 7.5 | 388 / 459 / 504 | |
+| **union BLAKE3 + hopper_e4m3** | 4096 | 32 | **1.26** | | 7.5 | 500 | |
+
+- Per slot bit, including witness generation, the unit table costs 0.29-0.33 ns and BLAKE3 0.147-0.156 ns: about 2x.
+  Most of the gap is my unoptimized witness builder, whose cold standalone time (0.41-1.20 s at N=4096) is 30-95 % of
+  unit prove. Flock's own BLAKE3 witness is under 10 % of its prove. The prove core alone was not isolated on CPU. On
+  the GPU, where the unit witness is built outside prove, the unit table proves in 0.5-1.6x BLAKE3's time at the same
+  m (next section). So the census's key assumption, that Flock's BLAKE3 rate carries over per slot bit, holds for the
+  prover proper; the unit's witness generation still needs a real implementation.
+- The union proof costs the sum of the two tables (BF16 2.59 s against 1.32 + 1.26). Verify and proof size barely
+  move: 8-24 ms, about 0.5 MB.
+
+### GPU: RTX 5090, Flock-CUDA patched for host witnesses
+
+`22-gpu-unit.sh` patches `cuda-ghash/prove_ffi.cu`: it replaces the hard-coded `n_blocks_log = m - 14` with
+`m - k_log` and adds `flock_cuda_prove_host`, which uploads a host-built RowMajor witness (z, a, b, z_lincheck).
+The GPU prover is the non-union `prove_ligerito` (full 2^nbl blocks, so N=4096 BF16 = 393,216 units proves 2^19 =
+524,288 blocks); the Rust `verify_ligerito` checks every proof. prove = steady state after a warm-up, including the
+host-to-device witness upload (shown separately). Unit tables: art:7218310f (r20260925-091040-8ec8, 3 reps) and
+art:e4f684ac (r20260925-091930-31a7, 2 reps).
+
+| pipeline | m (our N) | prove s | of which upload s | verify ms | proof KB |
+| --- | --- | --- | --- | --- | --- |
+| ampere_bf16 | 26 (64) / 30 (1024) / 32 (4096) | 0.028 / 0.127 / **0.257** | 0.003 / 0.037 / 0.133 | 8 / 10 / 9 | 404 / 474 / 518 |
+| hopper_bf16 | 26 / 30 / 32 | 0.073 / 0.089 / **0.291** | 0.003 / 0.039 / 0.133 | 8 / 10 / 9 | 404 / 474 / 518 |
+| ada_e4m3 | 25 (64) / 30 (1024, padded; m29 has no config) / 31 (4096) | 0.032 / 0.116 / **0.295** | 0.002 / 0.038 / 0.069 | 7 / 10 / 8 | 391 / 474 / 503 |
+| hopper_e4m3 | 25 / 30 (padded) / 31 | 0.084 / 0.137 / **0.173** | 0.002 / 0.039 / 0.069 | 7 / 10 / 9 | 391 / 474 / 503 |
+
+- The spread between circuits at the same m (up to 2.6x at m25-26; ada 0.295 s against hopper_e4m3 0.173 s at m31) is
+  real: the runs did not overlap zorch. It is not explained by the constant column's degree (ada's is highest) or the
+  max row degree. Treat 0.17-0.30 s as the per-circuit range at N=4096.
+- The host witness build (0.28 s at m32, CPU) is outside prove; an on-device witness, like Flock-CUDA's own BLAKE3
+  path, would also remove the 0.13 s upload. Device-only unit prove at m32 is therefore about 0.12-0.16 s.
+- No union prover on GPU, so relation + leaves on the 5090 is two proofs (the CPU union costs the sum, so two proofs
+  is a fair model).
+
+### Against B-Ligero and the census (N = 4,096 VUs)
+
+B-Ligero cells are from `lanes/coordinator/20260923T2250Z-device-wave-inputs.md:46` and were measured on an RTX 4090.
+Ours are on a 5090, which typically runs 1.3-1.7x faster, so the ratios below flatter the binary backend by about that.
+Census projections are from `docs/binary-backend-census.md`.
+
+| line | B-Ligero 4090 bare | B-Ligero +blake3 | census 5090 | Flock 5090: unit | Flock 5090: unit + BLAKE3 leaves | Flock CPU 32 vCPU: union |
+| --- | --- | --- | --- | --- | --- | --- |
+| BF16 (hopper) | 0.261 s | 10.70 s | 0.083 s unit, 0.25 s + BLAKE3 | 0.29 s (0.16 device-only) | 0.29 + 0.29 = **0.58 s** (0.45 device-only) | 2.51 s |
+| BF16 (ampere) | - | - | same | 0.26 s (0.12) | **0.55 s** (0.42) | 2.59 s |
+| FP8 (ada) | 0.170 s | 5.22 s (best 4.70) | 0.125 s + BLAKE3 | 0.30 s (0.23) | 0.30 + 0.10 = **0.39 s** (0.32) | 1.26 s |
+| FP8 (hopper_e4m3) | - | - | same | 0.17 s (0.10) | **0.27 s** (0.20) | 1.26 s |
+
+- **Relation plus BLAKE3 leaves, binary backend on a 5090:** BF16 0.42-0.58 s, which is 1.6-2.2x B-Ligero bare and
+  18-25x faster than B-Ligero +blake3. FP8 0.20-0.39 s, which is 1.2-2.3x bare and 12-26x faster than +blake3.
+- **Relation alone:** 0.10-0.30 s, which is 0.5-1.8x B-Ligero bare. The census projected 0.083 s for BF16, and 0.25 s
+  with BLAKE3, which is about 1x bare. The census assumed zorch-grade kernels; Flock-CUDA is 2.7-3.9x slower than zorch on BLAKE3 (above). At zorch's
+  measured rate the unit would take about 0.07 s and BLAKE3 about 0.14 s, 0.21 s together. That is close to the census's
+  0.25 s, but zorch cannot run the unit today.
+- **CPU:** the census's 0.88 s on 10 M4 cores assumed the paper's M4 Max rate (661k BLAKE3/s). This 32-vCPU pod does
+  311k/s (2.1x slower), and the naive unit witness doubles the unit table's cost. Together these give 2.9x the
+  census's time (2.59 s).
+- A100/H100: flock-bench-80gb's lane (its own harness, 0915Z handoff).
 
 ## Link estimate (survey §3.8; estimate only, nothing built)
 
-PENDING
+This is the Flock + link route: a prime-field relation plus a separate binary hash proof. The binary-backend route above
+needs no cross-field link, only in-proof glue. Per the coordinator, the link doc is queued for red-team review; nothing
+here builds on it beyond pricing its §3.8 steps.
+
+Measured primitives: art:1ef9ac52, Zen4 16T, per shared bit, GF(2^128). eq(r, i) expansion 1.98 ns; 128-way bit-count
+dense combination Σ_i C_{t,i}·b_i 0.53 ns; fold 1.60 ns. A BF16 N=4096 batch shares 2 × 3,072 B × 8 × 4,096 =
+2.01e8 bits.
+
+| term | per point, CPU 16T | GPU (derived from 143 GMul/s, not run) | for 2^-128 (2 points or GF(2^256)) |
+| --- | --- | --- | --- |
+| prover: eq + dense combination + y = ẑ(r) claim (materialized) | about 0.51 s | about 1.4 ms eq plus a memory-bound pass | x2: about 1.0 s CPU |
+| verifier: eq + dense combination (O(N), no succinct shortcut in §3.8) | about 0.72 s (about 30 ms if eq is streamed) | - | x2: about 1.4 s CPU |
+| prime side: N booleanity rows | B-Ligero +512 bit rows per BF16 unit (+14 %, so about +0.04 s on 0.261 s if linear); A-GKR +512/k elements per unit | | |
+| prime side: u_t commitment | 128 × 29 ≈ 3.7k elements, negligible | | x2 |
+| binary side: y = ẑ(r) through the IO slot | one more batched evaluation claim in Flock's opening; Flock's verify is 8-24 ms, so it is small | | |
+
+Flock + link, BF16 N=4096, 5090:
+- B-Ligero bare × 1.14 gives 0.30 s.
+- The Flock-CUDA BLAKE3 proof adds 0.29 s (about 0.14 s at zorch's rate).
+- The link prover on GPU adds a few ms.
+- Total: about 0.45-0.60 s, which is 1.7-2.3x bare. The survey says about 2x.
+
+The load-bearing new cost is the verifier. The link's O(N) eq and dense combination take about 0.7-1.4 s on CPU, which
+is 30-170x Flock's own verify. That matches the survey's "on the order of B-Ligero's verifier" only if B-Ligero's
+verifier is already around 1 s.
 
 ## Survey projections vs measured
 
-PENDING
+| survey claim | measured here | verdict |
+| --- | --- | --- |
+| §4.2: hash proof about 0.17 s on a 5090 (zorch floor) | zorch m31 36 ms, so m33 about 0.14 s extrapolated; Flock-CUDA m33 0.291 s | holds for zorch; Flock-CUDA is 1.7x |
+| §4.2: about 0.6 s on 32 CPU cores | 1.26 s on 32 vCPU (EPYC 9654, 16 cores with SMT); 2.33 s on 16 vCPU Zen4 | about 2x optimistic per vCPU; a 32-physical-core part is unmeasured |
+| §4.2: Flock + link BF16 about 2x total (GPU) | 1.7-2.3x (table above; 4090 vs 5090 caveat) | holds |
+| §4.3: 393k BLAKE3 in about 1.5 s on 12 threads | 1.77 s at 16T (EPYC 9654), 2.33 s at 16T (Zen4 16 vCPU) | about 1.5-2x optimistic |
+| §2/§4.2: SHA-256 about 2x BLAKE3 | 2.2-2.35x per VU (CPU) | holds |
+| §2: proofs 200-558 KiB, verify about 6 ms | 295-523 KiB; verify 4-24 ms (CPU), 7-19 ms (GPU proofs) | holds; verify 1-4x |
+| §2: flock-zorch 2.36 M BLAKE3/s at 2^17 ("stale, a floor") | 3.64 M/s at 2^17 | beaten (it was a floor) |
+| §3.9: Flock `cuda-ghash` has no public throughput | 1.35 M/s at N=4096 BF16 (m33 0.291 s); per-m configs non-monotone; no m29 config | now measured |
+| §3.9/§4.1: `clmad` rate unmeasured | 5090: 1.00 T CLMAD/s; GF(2^128) mul 143 G/s | now measured (H100: 80gb lane) |
+| §3.9: needs CUDA 13.3 | toolkit 13.3 with driver 580 works | toolkit floor, not driver |
+| census: unit table at Flock's BLAKE3 rate per slot bit | GPU, witness outside prove: 0.5-1.6x BLAKE3 at the same m. CPU with my naive witness inside prove: 2x | holds for the prover; unit witness gen needs work |
+| census: 5090 BF16 relation + BLAKE3 about 0.25 s | 0.42-0.58 s on Flock-CUDA; about 0.21 s if both ran at zorch rate | 1.7-2.3x on today's GPU code |

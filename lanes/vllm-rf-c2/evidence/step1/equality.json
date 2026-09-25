@@ -1,0 +1,230 @@
+{
+ "seed": 20260925,
+ "quick": false,
+ "nproc_per_side": 64,
+ "conversions": {
+  "Bf16ToF32": {
+   "inputs": 65536,
+   "chunks": 1,
+   "chunk": 65536,
+   "scalar_chunks_differ": 0,
+   "kernel_chunks_differ": 0,
+   "first_scalar_difference": null,
+   "rollup_sha256_core": "c47b9edf60e77a712548dc41ab4cfc078b31464d6b635da90f5706353fe9c603",
+   "rollup_sha256_integ": "c47b9edf60e77a712548dc41ab4cfc078b31464d6b635da90f5706353fe9c603",
+   "seconds": 0.0
+  },
+  "F32ToBf16Rn": {
+   "inputs": 4294967296,
+   "chunks": 1024,
+   "chunk": 4194304,
+   "scalar_chunks_differ": 0,
+   "kernel_chunks_differ": 0,
+   "first_scalar_difference": null,
+   "rollup_sha256_core": "f2e64d7e0a122b35be727bddaa2b029b50f63f2b662bdf1ce46ca74970eb8521",
+   "rollup_sha256_integ": "f2e64d7e0a122b35be727bddaa2b029b50f63f2b662bdf1ce46ca74970eb8521",
+   "seconds": 298.9
+  },
+  "F2fpBf16": {
+   "inputs": 4294967296,
+   "chunks": 1024,
+   "chunk": 4194304,
+   "scalar_chunks_differ": 0,
+   "kernel_chunks_differ": 0,
+   "first_scalar_difference": null,
+   "rollup_sha256_core": "6e3db8644a57530294a763430dbf95c92f52716a1b4a63690c91d6945d6fbcb7",
+   "rollup_sha256_integ": "6e3db8644a57530294a763430dbf95c92f52716a1b4a63690c91d6945d6fbcb7",
+   "seconds": 291.9
+  }
+ },
+ "dot": {
+  "special_grid": {
+   "cases": 18816,
+   "core_vs_integ_differ": 0,
+   "core_vs_core_kernel_differ": 0,
+   "core_vs_integ_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 13956,
+   "nonfinite_outputs": 14244,
+   "zero_outputs": 264,
+   "sha256_core": "5b141fa574131c57656f0cb91eef674dc8982e94845b498988424ad0fd6b1ee5",
+   "sha256_integ": "5b141fa574131c57656f0cb91eef674dc8982e94845b498988424ad0fd6b1ee5",
+   "first_core_vs_integ": null,
+   "first_core_vs_kernel": null,
+   "first_core_vs_twin": null,
+   "seconds": 0.6
+  },
+  "dense_specials": {
+   "cases": 400000,
+   "core_vs_integ_differ": 0,
+   "core_vs_core_kernel_differ": 0,
+   "core_vs_integ_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 392251,
+   "nonfinite_outputs": 398977,
+   "zero_outputs": 2,
+   "sha256_core": "29ff96b2170f4b8fe75cf5b7f1e7e07472f643991607700204c1d420fe654b65",
+   "sha256_integ": "29ff96b2170f4b8fe75cf5b7f1e7e07472f643991607700204c1d420fe654b65",
+   "first_core_vs_integ": null,
+   "first_core_vs_kernel": null,
+   "first_core_vs_twin": null,
+   "seconds": 2.9
+  },
+  "sample_tc": {
+   "cases": 5000000,
+   "core_vs_integ_differ": 0,
+   "core_vs_core_kernel_differ": 0,
+   "core_vs_integ_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 911861,
+   "nonfinite_outputs": 1613236,
+   "zero_outputs": 388332,
+   "sha256_core": "71e5ea9ccc3eae4f02dd0cd97493eaa5d72ac1caf2f13f3f6af3c8439ea86647",
+   "sha256_integ": "71e5ea9ccc3eae4f02dd0cd97493eaa5d72ac1caf2f13f3f6af3c8439ea86647",
+   "first_core_vs_integ": null,
+   "first_core_vs_kernel": null,
+   "first_core_vs_twin": null,
+   "seconds": 35.6
+  },
+  "uniform_words": {
+   "cases": 1000000,
+   "core_vs_integ_differ": 0,
+   "core_vs_core_kernel_differ": 0,
+   "core_vs_integ_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 120855,
+   "nonfinite_outputs": 898092,
+   "zero_outputs": 0,
+   "sha256_core": "3cfb46fd9fe57e21f785fd3d137c9d5c8fa619b9284716d6ecf8db7384cc6055",
+   "sha256_integ": "3cfb46fd9fe57e21f785fd3d137c9d5c8fa619b9284716d6ecf8db7384cc6055",
+   "first_core_vs_integ": null,
+   "first_core_vs_kernel": null,
+   "first_core_vs_twin": null,
+   "seconds": 7.2
+  },
+  "narrow_exponent": {
+   "cases": 1000000,
+   "core_vs_integ_differ": 0,
+   "core_vs_core_kernel_differ": 0,
+   "core_vs_integ_twin_differ_where_twin_finite": 0,
+   "twin_nonfinite": 0,
+   "nonfinite_outputs": 255674,
+   "zero_outputs": 0,
+   "sha256_core": "05a57ca6657b2902b50ba70832d138e5d785dcac68d1399d2b5e350f3aa57107",
+   "sha256_integ": "05a57ca6657b2902b50ba70832d138e5d785dcac68d1399d2b5e350f3aa57107",
+   "first_core_vs_integ": null,
+   "first_core_vs_kernel": null,
+   "first_core_vs_twin": null,
+   "seconds": 6.3
+  }
+ },
+ "encodings": {
+  "programs": {
+   "n": 32,
+   "keys_equal": true,
+   "differ": [],
+   "core": null,
+   "integ": null,
+   "digests": {
+    "DotBf16_v2{K=16,DOT=HopperBF16WgmmaDot16_v1}": "b477410612f71598b6bfde0433c2c64a2df7f1fa8217809ef3330d7b2cd90fbd",
+    "GemmCoordinate_v2{K=16,DOT=HopperBF16WgmmaDot16_v1}": "846a229735f05173c75428f78bd69ca23e65857d8accda94320bf121188aebc2",
+    "Gemm_v2{K=16,N=1,DOT=HopperBF16WgmmaDot16_v1}": "c9f968d090f5097185d5066e0d0fc9df32fdfea4d93db4713afaec3ac3293e33",
+    "Gemm_v2{K=16,N=3,DOT=HopperBF16WgmmaDot16_v1}": "dee27fd70de7ce6a34837bac7682bc9e13fb2f43bac7cc97f3eda9ee10b18535",
+    "DotBf16_v2{K=64,DOT=HopperBF16WgmmaDot16_v1}": "9d2aebb93c51bf4060713c584bd22a34d00cfe1c926a19f890f5e88c373abcd9",
+    "GemmCoordinate_v2{K=64,DOT=HopperBF16WgmmaDot16_v1}": "a55ed1e17d8534c4c356b0d43a622958cbddc4ea51b8c12a958a533292244c84",
+    "Gemm_v2{K=64,N=1,DOT=HopperBF16WgmmaDot16_v1}": "3d1d2fabf8bbcee053b44af01e7b898dae0af29d776e4866751f65030305904c",
+    "Gemm_v2{K=64,N=3,DOT=HopperBF16WgmmaDot16_v1}": "ef42d173412e8271fb04a81bd33cc31536af6774e9cf07724c7407a81251c00a",
+    "DotBf16_v2{K=896,DOT=HopperBF16WgmmaDot16_v1}": "389bf3a62cabb5fe5a38001ee2c6f4b648169caa8af8397a1a59bc1c07f90516",
+    "GemmCoordinate_v2{K=896,DOT=HopperBF16WgmmaDot16_v1}": "81d4232901817ecea34f1ebcfcbcf0189cea7be5131b62dc37b25d37903b26c9",
+    "Gemm_v2{K=896,N=1,DOT=HopperBF16WgmmaDot16_v1}": "7fd7ddfe552411199bf968e1b205e0b37f083fa540f5b76c24b420525299ebed",
+    "Gemm_v2{K=896,N=3,DOT=HopperBF16WgmmaDot16_v1}": "c8fb82695ac3d133746e35e4cb3d3b278df4a161bba0b4fbb00338c55f7eed29",
+    "DotBf16_v2{K=1536,DOT=HopperBF16WgmmaDot16_v1}": "0ee62294af39b019009318080cf5f655e24949467ed62d19666a848dd0e01aa6",
+    "GemmCoordinate_v2{K=1536,DOT=HopperBF16WgmmaDot16_v1}": "cf04225900a64cf739c6b5fb1a67ac5aea98bb876c7b14a418f0ed7a811bac47",
+    "Gemm_v2{K=1536,N=1,DOT=HopperBF16WgmmaDot16_v1}": "2ae90b913740c84a730bfe4dc95dc3ce7e7d7bb401f96a25d63ae3d8eac5db13",
+    "Gemm_v2{K=1536,N=3,DOT=HopperBF16WgmmaDot16_v1}": "3b552b5ace4944102d73ea454ebe9ad7afaf7444bd2c6677a7263c47bc4209a1",
+    "DotBf16_v2{K=16,DOT=AmpereBF16TcDot16_v1}": "195d2777c2d022d375e500b7fd5bbbdd6413b030970dea59e442c81e5c7af5b1",
+    "GemmCoordinate_v2{K=16,DOT=AmpereBF16TcDot16_v1}": "f5aa2d2302ac69644e474e75735481a77dd01f71d83a37f6d48288892213ca1e",
+    "Gemm_v2{K=16,N=1,DOT=AmpereBF16TcDot16_v1}": "65c8d5116b6712c0fb10da35f6fdefb527c03f609116577a3bcdc7b0ca2a56fd",
+    "Gemm_v2{K=16,N=3,DOT=AmpereBF16TcDot16_v1}": "204ea52ec05f9a2928485955371596c7f981f5d3d46d0a45c7a7349d4ef7a185",
+    "DotBf16_v2{K=64,DOT=AmpereBF16TcDot16_v1}": "c2f65b243c755a38cea013ca864430fed7b2c997ff20a4fd3e357d1364f12962",
+    "GemmCoordinate_v2{K=64,DOT=AmpereBF16TcDot16_v1}": "15ba42e52dcb2ba503c8031f0b1654251358b68261ad855b42545c935c9d72b3",
+    "Gemm_v2{K=64,N=1,DOT=AmpereBF16TcDot16_v1}": "95e77de530c21a3402f1dacfe26af1f4301dc7e0f2a0393ed6586c4d28b88497",
+    "Gemm_v2{K=64,N=3,DOT=AmpereBF16TcDot16_v1}": "8cac69d9e9ee0126bcccf86bd60fb5786f119b6fee08687185b2722c82ab700c",
+    "DotBf16_v2{K=896,DOT=AmpereBF16TcDot16_v1}": "9e805a3f0283f1b502e4a2b72e93922bdc815fb63ab1dcebdeb4036401a5d7ba",
+    "GemmCoordinate_v2{K=896,DOT=AmpereBF16TcDot16_v1}": "a35278f92104db88faeb34224b2553928371981ab047bf2289c476ffee110277",
+    "Gemm_v2{K=896,N=1,DOT=AmpereBF16TcDot16_v1}": "77a90afb8b89e67432c10a8bd5a22da897eaf6f78aeb205f60cfa4027cd7414a",
+    "Gemm_v2{K=896,N=3,DOT=AmpereBF16TcDot16_v1}": "6fc034cf0cfb8a11d12afa29caff382f4bf5c4f24fa330baa03e512b6e0c22b1",
+    "DotBf16_v2{K=1536,DOT=AmpereBF16TcDot16_v1}": "48fae6fd909457cd00e68ffe867fddab8da3d9f0db2e948b25e364b789fbcc9f",
+    "GemmCoordinate_v2{K=1536,DOT=AmpereBF16TcDot16_v1}": "4b492848429b8a849e4651d5422191bb5fa4052cbe5efca11e3d827396c47e29",
+    "Gemm_v2{K=1536,N=1,DOT=AmpereBF16TcDot16_v1}": "011b496dd975f90d6438e870dcfcdeb4f838a2eaaccdcf48955c8da83c9ecaf9",
+    "Gemm_v2{K=1536,N=3,DOT=AmpereBF16TcDot16_v1}": "08d88ab901e9dd0b9f4923c6480e59a083ea219dccbc7cf36ca4aa1a42283d53"
+   }
+  },
+  "prims": {
+   "n": 4,
+   "keys_equal": true,
+   "differ": [],
+   "core": null,
+   "integ": null
+  },
+  "consts": {
+   "n": 23,
+   "keys_equal": true,
+   "differ": [],
+   "core": null,
+   "integ": null
+  }
+ },
+ "whoami": {
+  "core": {
+   "side": "core",
+   "pid": 5215,
+   "defs": {
+    "Bf16ToF32": {
+     "id": "Bf16ToF32_v1",
+     "file": "/workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc/packages/verity/src/verity/ml/prims.py",
+     "line": 30
+    },
+    "F32ToBf16Rn": {
+     "id": "F32ToBf16Rn_v1",
+     "file": "/workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc/packages/verity/src/verity/ml/prims.py",
+     "line": 36
+    },
+    "F2fpBf16": {
+     "id": "F2fpBf16_v1",
+     "file": "/workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc/packages/verity/src/verity/ml/prims.py",
+     "line": 44
+    },
+    "HopperBF16WgmmaDot16": {
+     "id": "HopperBF16WgmmaDot16_v1",
+     "file": "/workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc/packages/verity/src/verity/ml/prims.py",
+     "line": 62
+    }
+   }
+  },
+  "integ": {
+   "side": "integ",
+   "pid": 6080,
+   "defs": {
+    "Bf16ToF32": {
+     "id": "Bf16ToF32_v1",
+     "file": "/workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 178
+    },
+    "F32ToBf16Rn": {
+     "id": "F32ToBf16Rn_v1",
+     "file": "/workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 184
+    },
+    "F2fpBf16": {
+     "id": "F2fpBf16_v1",
+     "file": "/workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc/integrations/vllm/verity_vllm/program/registry/prims.py",
+     "line": 194
+    },
+    "HopperBF16WgmmaDot16": {
+     "id": "HopperBF16WgmmaDot16_v1",
+     "file": "/workspace/research/src/109966166e67665bb013d9dc46476f4fb64a66cc/integrations/vllm/verity_vllm/program/registry/hopper.py",
+     "line": 71
+    }
+   }
+  }
+ },
+ "all_equal": true,
+ "seconds": 659.6
+}

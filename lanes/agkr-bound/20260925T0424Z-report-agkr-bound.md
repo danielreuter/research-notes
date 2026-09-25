@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT 88b82757 (09:34Z) [open] Per 0922Z: link bits in-unit (86f86084) BF16 A100 0.776->1.199s (+55%), Rust verify accepts; negatives bit_flip/non_boolean/alt_honest_bits rejected, alt_alt_bits accepted (link residual). Dense GF(2^128) check 0.875s A100 / 0.85s CPU; u_t 0.03s. art:35bce6f5.
 CHECKPOINT 04286bb (09:10Z) [open] Bit-link prime side merged into real BF16 A100 proof: 0.819->1.401s (+71%), proof 21->61MB (py verify accepts). Red team reproduced my 4 pinned roots. Waiting on coordinator re handoff 0858Z (route, AVX-512 Flock, tag, vllm-v1 mapping, fp4).
 CHECKPOINT 74a016e (09:03Z) [open] Spike registered art:c35a50cd, scaffold+negatives art:f2f07e3c (NEGATIVES OK 4 cells incl vllm-v1). A-GKR BF16 CPU 361.5s; in-field SHA ~28x (not building); bit-link prime side +38% CPU/+64% GPU. Handoff 0858Z: route + 4 decisions.
 CHECKPOINT 58b113bc (08:47Z) [open] Link stub (512 op bits/unit, k=1) at 393k units: CPU 138s, A100 GPU 0.55s warm (vs BF16 cell 0.86s, +214M committed). k=2/4 slower. Flock portable SHA-256 393k ~7.5s CPU. In-field flat SHA ~1e4 s CPU, GPU infeasible. Running A-GKR BF16 CPU ref.

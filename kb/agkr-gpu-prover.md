@@ -145,3 +145,14 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   - packing k = 2 / 4 is slower on CPU (173 / 563 s).
 - The CUDA prover takes a single-segment `prover.Instance([Segment(...)], None)` built from any circuit text; see
   `lanes/agkr-bound/evidence/pod-scripts/15_link_gpu.py`.
+- Unit wires that aren't products are inputs in wire order, so new columns can be appended after the last wire without
+  renumbering anything. `tools/link_stub.extend_unit(text, cols, bits)` uses this to commit an operand column's bits
+  in-unit (booleanity + recomposition).
+  - On BF16 under R+sha256 with 32 × 16 bits, the unit grows from 264 cols / 290 wires to 776 / 1,314, still 2 layers.
+  - A100 prove goes from 0.776 to 1.199 s (+55%; a separate third segment costs +71%). The Rust verifier accepts with
+    `--allow-any-circuit` in 3.38 s.
+  - `alt_alt_bits` (an altered operand with its own bits) is accepted: only the cross-field link can close it.
+- The dense GF(2^128) check for N = 2.0e8 bits (eq(r, i) doubling + BabyBear^6 byte-table coefficients + inner
+  product) costs 0.875 s on A100 (torch, unfused: an upper bound) and about 0.85 s on EPYC 7742 with 13 threads
+  (PCLMUL, `lanes/agkr-bound/evidence/pod-scripts/21_eq_cpu.c`).
+- A 3,968-element second-round Ligero proof (u_t) costs 0.03 s and 471 KB: the fixed query overhead dominates.

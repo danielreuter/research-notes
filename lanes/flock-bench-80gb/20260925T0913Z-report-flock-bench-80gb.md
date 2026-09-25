@@ -5,6 +5,7 @@ created: 2026-09-25T09:13Z
 status: open
 ---
 
+CHECKPOINT none (09:38Z) [open] H100 done+terminated (~$2.5): clmad 8.4T/s art:7b941558; CPU union BF16 1.32s FP8 0.74s art:8b4c35bf; GPU unit+B3 BF16 0.75s FP8 0.33s art:876ab350; kernel floor BF16 0.137 FP8 0.071 art:b6148b4a,art:83f2d55d. A100 next.
 CHECKPOINT 15f74f3 (09:27Z) [open] H100 done: CPU16T unit+BLAKE3 union 4096VU BF16 1.32s FP8 0.74s art:8b4c35bf; Flock-CUDA sm_90 BLAKE3 m33 0.30s m32 0.098s; GPU unit (flock-bench port) m32 0.45s incl 0.28s H2D art:876ab350; xcheck+clmad run r20260925-092702-cc5a; A100 next
 CHECKPOINT 10996616 (09:13Z) [open] H100 pod up (17-CPU quota, driver 570 + cuda-compat-13-3); clmad sm_90 8.33 TCLMAD/s, GF128 690 GMul/s; unit-circuit Flock harness bit-exact, proves+verifies; H100 CPU sweep + Flock-CUDA sm_90 running r20260925-091229-073a
 

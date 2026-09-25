@@ -27,6 +27,19 @@ Lane hash-commit / commit-gpu (2026-09-25), branch `lane/hash-commit`. Report:
   ("generator didn't stop after throw()"): import first, then yield outside the try.
 - fp8-ada+blake3 at batch 8192 with `--pipeline 4` OOMs a 24 GB 4090 in the prover; `--pipeline 2` fits.
 
+## Portability: sm_80 / sm_89 / sm_90 (hash-commit-2, 2026-09-25; report lanes/hash-commit-2/20260925T0932Z-report-hash-commit-2.md)
+- The kernels are NVRTC-JITed for the device at hand (`RawModule(options=("-std=c++17",))`, no arch flag); `fv3_top` sizes
+  itself from `max_threads_per_block` (896 on A100 and H100). No code change was needed for sm_80 / sm_90.
+- Byte-identity suites 98/98 on A100 80GB PCIe (sm_80) and H100 NVL (sm_90) at bcf75db7. bench-vu bf16-hopper+blake3 (4096 VUs,
+  batch 8192, p2): commit evidence c90e6d0d… and the 49 statement files are identical on 4090 / A100 / H100, GPU or host
+  committer; Rust batch accepts 49/49. Committer (rows + trees): 4090 4.9-5.2 ms, H100 NVL 3.5 ms (host 15.8 s), A100 5.7 ms
+  (host 27.2 s). H100 art:c2212273, A100 in the report.
+- commit_cost --impl gpu, 4096 x 1536 B rows, commit (leaf + tree, h2d apart): 4090 0.50-0.58 ms, H100 0.53-0.65, A100 0.84-0.87;
+  6.3 M 2-byte words: frame-v3 12.5 / 9.3 / 14.6 ms, vllm-v1 8.4 / 6.0 / 9.2 ms (4090 / H100 / A100).
+- Gotcha (not the committer): on sm_90, torch 2.6+cu124's `torch._int_mm` (cuBLASLt INT8) accepts only M % 32 == 0 rows
+  (17..40, 48, 100, 1000 fail with CUBLAS_STATUS_NOT_SUPPORTED; 32/64/128/1024 work); sm_80/89 take any M > 16. The Poseidon2
+  torch int8 MDS pads to 32 on cc >= 9 since 2a92fe61. Other `_int_mm` callers (backends/direct/encode/*) have the same limit.
+
 ## Measured (RTX 4090 vy-commit-gpu, PCIe gen4 x8, EPYC 7663)
 - h2d 6 MiB uint8: pageable 0.54 ms, pinned 0.48 ms (link-bound ~12 GB/s): pinning does not pay here.
 - In a bench, under `--commit-per-rep` (b-ligero-standard-hash r20260925-090404-6311: RTX 4090 vy-b-ligero-sh, tree

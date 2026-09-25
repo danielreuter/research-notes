@@ -250,11 +250,17 @@ STATIC_BINDS = [
 ]
 
 
-def _src_body(fn) -> str:
+def _body_sha(fn) -> str:
+    """sha256 of the function body's AST without its docstring (so a moved body compares equal under a new name/doc)."""
+    import ast
     import inspect
-    lines = inspect.getsource(fn).splitlines()
-    i = next(k for k, ln in enumerate(lines) if ln.lstrip().startswith("def "))
-    return "\n".join(lines[i + 1:])
+    import textwrap
+    node = ast.parse(textwrap.dedent(inspect.getsource(fn))).body[0]
+    body = node.body
+    if body and isinstance(body[0], ast.Expr) and isinstance(getattr(body[0], "value", None), ast.Constant) \
+            and isinstance(body[0].value.value, str):
+        body = body[1:]
+    return hashlib.sha256(ast.dump(ast.Module(body=body, type_ignores=[])).encode()).hexdigest()
 
 
 def _encodings(_=None) -> dict:
@@ -284,7 +290,13 @@ def _encodings(_=None) -> dict:
         out["prims"][n] = {"enc": json.loads(canonical_json(_encode_definition(d))), "params": [[p, repr(t)] for p, t in d.params],
                            "ret": repr(d.ret), "conformance": d.conformance, "doc": d.doc,
                            "file": os.path.relpath(inspect.getsourcefile(d.evaluate), BASE if _SIDE == "oldall" else HEAD),
-                           "body_sha": hashlib.sha256(_src_body(d.evaluate).encode()).hexdigest()}
+                           "body_sha": _body_sha(d.evaluate)}
+    if _SIDE == "oldall":
+        from verity_vllm.program.registry import fp8 as F
+        out["e4m3_word_fn_body_sha"] = _body_sha(F.f32_to_e4m3_sat_bits)
+    else:
+        from verity.ml.tc import cast
+        out["e4m3_word_fn_body_sha"] = _body_sha(cast.f32_to_e4m3_sat_word)
     for fid, d in sorted(REGISTRY.defs.items()):
         if isinstance(d, CompositeDefinition) and not d.statics:
             try:
@@ -316,12 +328,16 @@ def _encodings(_=None) -> dict:
 # ---- driver ---------------------------------------------------------------------------------------------------------------
 
 
-def _run(pools, name, specs, res, label=None):
-    """Evaluate `name` on every spec on both sides; record chunk agreement and the first difference."""
-    t = time.time()
+def _submit(pools, name, specs):
     tasks = [(name, s, False) for s in specs]
-    ao, an = pools["old"].map_async(_eval, tasks, chunksize=1), pools["new"].map_async(_eval, tasks, chunksize=1)
+    return name, specs, pools["old"].map_async(_eval, tasks, chunksize=1), pools["new"].map_async(_eval, tasks, chunksize=1)
+
+
+def _collect(pools, job, res, t0):
+    """Record chunk agreement of one submitted evaluator job and the first difference."""
+    name, specs, ao, an = job
     ro, rn = ao.get(), an.get()
+    tasks = specs
     bad = [i for i in range(len(tasks)) if ro[i]["out"] != rn[i]["out"] or ro[i]["in"] != rn[i]["in"]]
     first = None
     for i in bad[:1]:
@@ -341,11 +357,10 @@ def _run(pools, name, specs, res, label=None):
             else:
                 first["input"] = [hex(int(c[j])) for c in _inputs(s)]
     roll = lambda r: hashlib.sha256("".join(x["out"] for x in r).encode()).hexdigest()  # noqa: E731
-    key = label or name
-    res["evaluators"].setdefault(key, {})
+    key = name
     res["evaluators"][key] = {"cases": int(sum(x["n"] for x in ro)), "chunks": len(tasks), "chunks_differ": len(bad),
                               "first_difference": first, "rollup_old": roll(ro), "rollup_new": roll(rn),
-                              "seconds": round(time.time() - t, 1)}
+                              "done_at_s": round(time.time() - t0, 1)}
     print(f"{key}: " + json.dumps({k: v for k, v in res["evaluators"][key].items() if k != "first_difference"}), flush=True)
     if first:
         print("  first difference:", json.dumps(first), flush=True)

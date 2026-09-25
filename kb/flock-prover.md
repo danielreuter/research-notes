@@ -41,6 +41,11 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
   - Flock-CUDA BLAKE3 m33 0.291 s (1.35 M/s), device high-water 15.6 GB (art:9be695b0, art:3f5173a2).
   - flock-zorch BLAKE3 m31 36 ms (3.64 M/s), 2.7-3.9x Flock-CUDA (art:1e54492e).
   - `clmad` 1.00 T/s; GF(2^128) mul 143 G/s (art:85d4fb7a).
+- RTX 4090 (sm_89, driver 580.159, CUDA 13.3 AOT; hash-commit): `clmad_peak` 0.67 T/s; GF(2^128) mul schoolbook+clmad 75 G/s,
+  binius+clmad ~50 G/s, software 17 G/s (art:855d5a32).
+- H100 NVL (sm_90, driver 580.126 with CUDA 13.3 AOT, no cuda-compat needed; hash-commit-2): `clmad_peak` 7.51 T/s;
+  binius+clmad 575-607 G/s, schoolbook 363-371, karatsuba 325, software 7-10 (art:31a799a7). So the ~8x H100-over-consumer
+  clmad rate reproduces on a second H100 (NVL clocks a bit lower than SXM); 11x the 4090.
 - H100 80GB (sm_90; Xeon 8468 host, 16T) (flock-bench-80gb report):
   - `clmad` 8.33-8.40 T/s; GF(2^128) mul 690-695 G/s (binius+clmad) (art:7b941558).
   - Flock-CUDA builds for sm_90 with one sed on `flock-cuda-ffi/build.rs` (`compute_120,code=sm_120` -> 90, and the

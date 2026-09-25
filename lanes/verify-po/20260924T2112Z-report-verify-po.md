@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (02:18Z) [open] 5090 NVFP4 A-GKR art:f277786d (final; same stmt+proofs as dfbc86c4) verified; verdict art:4513180d PRESERVED, HELD (coordinator 0220Z). 50 accepted + 6 held, 0 rejected; release staged (31-release.sh); cred removed; polling
 CHECKPOINT ab9573fd (02:13Z) [open] H100 FP8 A-GKR art:b0c27291 labelled (verdict art:eca0995c; Table 2 6.4e7x, 0.409 s); art:ad76c106 verdict art:b86ca2a8, HELD (coordinator 0214Z). 50 accepted + 5 held, 0 rejected; cred removed; awaiting 'release'; polling
 CHECKPOINT ab9573fd (02:05Z) [open] red-team-lk 0200Z PASS noted; 4 held labels wait for coordinator 'release' (0050Z: coordinator sends it), release staged (31-release.sh). Verifying agkr-fp8 0203Z: H100 art:b0c27291 (unchanged stmt) + art:ad76c106 (merged, held) in r20260925-020532-8dac
 CHECKPOINT none (02:00Z) [open] 5090 NVFP4 A-GKR art:53a64e8b (same stmt+proofs as dfbc86c4) verified; verdict art:223c8efe PRESERVED, label HELD (coordinator 0200Z). Held x4: 45c5be4a 3ae971dd dfbc86c4 53a64e8b. 49 accepted + 4 held, 0 rejected; cred removed; polling
@@ -75,6 +76,8 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 18 | `20260925T0150Z-handoff-from-agkr-nvf4.md` (00145f51) | art:53a64e8b | RTX 5090 NVFP4, A-GKR (supersedes #16; same statement and proof bytes) | PASS, label HELD (coordinator 0050Z) | art:223c8efe |
 | 19 | `20260925T0203Z-handoff-from-agkr-fp8.md` (a97576b5; quotes its 0146Z and 0158Z notes, sent to the coordinator's folder) | art:b0c27291 | H100 FP8, A-GKR, unchanged statement (supersedes art:b1010ac8, 2326Z, never sent to me) | accepted | art:eca0995c |
 | 20 | same handoff (a97576b5) | art:ad76c106 | H100 FP8, A-GKR, merged LK (same statement and proofs as #17) | PASS, label HELD (coordinator 0050Z) | art:b86ca2a8 |
+| 21 | `20260925T0210Z-handoff-from-agkr-nvf4.md` (c97d2ad2) | art:f277786d | RTX 5090 NVFP4, A-GKR (final; same statement and proofs as #16/#18) | PASS, label HELD (coordinator 0050Z) | art:4513180d |
+| - | `20260925T0200Z-handoff-from-red-team-lk.md` | - | red-team-lk PASS on all five A-GKR rewrites; "verify-po may release" | not acted on: 0050Z says the coordinator sends "release" (coordinator 0214Z) | - |
 | 12 | `20260924T2351Z-handoff-from-d3-h100.md` (main 1d9c3198, live) | b16b r1-3: art:c6e250c2 art:c1c05324 art:166551a5; f8b r1-3: art:971820ba art:7be63d37 art:c58d45c6; b16h r1-3: art:137b923a art:60d0622f art:d9d21d03; f8h r1-3: art:83c7d5a7 art:9aed3426 art:5b6d6d6d | H100 BF16/FP8 (+hash) B-Ligero LIVE, D3 (also_valid in Table 2) | accepted x12 | art:e13419b4 art:209fdd63 art:ed310632; art:d0aeef7f art:fe61cce4 art:f765ab6c; art:649e27ed art:0b754787 art:1e442d10; art:cc7fa7cd art:549ee1d3 art:41e3a98b |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
@@ -254,6 +257,12 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   public.bin has 0 mismatches, `--no-merge` reproduces #5's statement, and `23-lk-merge-check.py` passes. All files equal
   #17's. Negatives, all rejected: mutate 356/356; my VU-17 +1; the producer's 4 LK-aimed and 4 claim negatives
   (art:70bbba68). Release: `34-verdict-ad76c106.sh` with HOLD=0 VID=art:b86ca2a8, included in `31-release.sh`.
+
+### 21. agkr-nvf4 A-GKR 5090 NVFP4 art:f277786d (run r20260925-021500-3af9; verdict r20260925-021635-b48c) -- HELD
+- The checks are #18's, via `35-agkr-nvf4-f277786d.sh` from c97d2ad2's source. 5/5 accepted (0.47-0.53 s), the verifier
+  sources are identical to 3c769c6d's, the statement is byte-identical, and public.bin has 0 rows mismatched. Every file
+  equals #16's, the rewrite check passes, and the negatives are all rejected (mutate 148/148 plus my 5). Release:
+  `36-verdict-f277786d.sh` with HOLD=0 VID=art:4513180d (in `31-release.sh`). Coordinator handoff 0220Z.
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |

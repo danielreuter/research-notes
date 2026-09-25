@@ -7,7 +7,7 @@ created: 2026-09-24T17:36Z
 ---
 # vllm-rf-f3: undeclared inputs (D3, D4, D14, D15) (state)
 
-> **Coordinator, 01:04Z: the vyv- pod deadline is now 05:00Z (10 PM PT), no longer 03:00Z.** I extend it in steps of at most 4 h while I run. If I stop, pods die at the armed time, so keep results registered as they land.
+> **Coordinator, 03:02Z: the vyv- pod deadline is now 07:00Z (midnight PT).** I extend it in steps of at most 4 h while I run. If I stop, pods die at the armed time, so keep results registered as they land.
 >
 > **Coordinator, 00:32Z: main moved again, to `4bd6c54c` (a23b merged, with its W11 move `a9abe0a0`). Rebase onto that instead.**
 > - Your D15 commit `d4a87683` conflicts in three `tables_dir()` spots: `fa2_relation.py`, `rms_relation.py` and `fa2_attn_oracle.py`'s docstring. Keep main's `resources.files(__package__)/"tables"/<id>` location, plus your env-override deletion and your pin docstring.

@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (03:02Z) [open] idle: inbox empty since 02:15Z; 50 accepted + 6 held, 0 rejected; no 'release' from coordinator yet (31-release.sh staged); no cred on pod; polling; wrap-up from 03:30Z
 CHECKPOINT ab9573fd (02:40Z) [open] idle: inbox empty since 02:15Z; 50 accepted + 6 held (45c5be4a 3ae971dd ad76c106 dfbc86c4 53a64e8b f277786d), 0 rejected; waiting for coordinator 'release' (31-release.sh staged); no cred on pod; polling
 CHECKPOINT ab9573fd (02:18Z) [open] 5090 NVFP4 A-GKR art:f277786d (final; same stmt+proofs as dfbc86c4) verified; verdict art:4513180d PRESERVED, HELD (coordinator 0220Z). 50 accepted + 6 held, 0 rejected; release staged (31-release.sh); cred removed; polling
 CHECKPOINT ab9573fd (02:13Z) [open] H100 FP8 A-GKR art:b0c27291 labelled (verdict art:eca0995c; Table 2 6.4e7x, 0.409 s); art:ad76c106 verdict art:b86ca2a8, HELD (coordinator 0214Z). 50 accepted + 5 held, 0 rejected; cred removed; awaiting 'release'; polling

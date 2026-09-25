@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT ab9573fd (01:06Z) [open] 01:10Z D4 parity on laptop FAILED TO COMPLETE: 2 attempts hung in R2 socket reads (17 min, 65 min; fresh store built 476 MB, then the compare/render phase stalled re-fetching evicted blobs); no JSON; /tmp cleaned. Sweep: disk 11 GiB, lanes alive
 CHECKPOINT 4bd6c54c (01:03Z) [open] 01:02Z 6 PM digest rendered (baseline render/0100Z-*); changed list reset
 CHECKPOINT 4bd6c54c (01:00Z) [open] 00:59Z user declined the security-matched 2^-100 drill-down: not run
 CHECKPOINT 39c5ee7a (00:49Z) [open] 00:53Z 5090 A-GKR art:49757870 marked PROVISIONAL (scoreboard + TABLES.md) pending red-team-lk; verify-po told to hold labels on rewritten-statement A-GKR results (4090 0.490s art:45c5be4a held)

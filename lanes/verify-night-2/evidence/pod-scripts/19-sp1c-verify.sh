@@ -96,8 +96,20 @@ except Exception as e:
 }
 rm -f $O/verdicts.txt
 echo "=== [$(date -u +%H:%M:%S)] verify"
+echo "=== [$(date -u +%H:%M:%S)] set + custody"
+[ -f $O/set/fp8-ada.bin ] || { $PY -m research data fetch $SET --to $O/set | tail -1; }
+ls $O/set; B=$(find $O/set -name 'fp8-ada*.bin' | head -1); echo "set file: $B sha256 $(sha256sum $B | cut -c1-16) (coordinator: 531a5c01...)"
+RUN=r20260925-080516-d8ac
+[ -d $O/runs/$RUN/proofs ] || $PY -m research fetch $RUN --runs-dir $O/runs --all 2>&1 | tail -2
+ls -la $O/runs/$RUN/proofs/ 2>&1 | head -12
+cmp $PROOF $O/runs/$RUN/proofs/proof-rep0.bin && echo "custody rep0 == run-files rep0"
+cmp $STMT $O/runs/$RUN/proofs/statement.json && echo "custody statement == run-files statement"
+for r in 0 1 2 3 4; do
+  P=$O/runs/$RUN/proofs/proof-rep$r.bin; [ -f $P ] || { echo "rep$r: proof missing"; continue; }
+  v rep$r-mine-batch --proof $P --statement $O/statement.mine.json --batch $B
+  v rep$r-dump-batch --proof $P --statement $STMT --batch $B
+done
 v honest --proof $PROOF --statement $O/statement.mine.json
-v honest-dumpstmt --proof $PROOF --statement $STMT
 for t in a b y; do v wrong-root-$t --proof $PROOF --statement $O/statement.mine.json --wrong-root $t; done
 [ -n "$TAMP" ] && v tampered-proof --proof $TAMP --statement $O/statement.mine.json
 cp $PROOF $O/proof.flip.bin; $PY - $O/proof.flip.bin <<'EOF'
@@ -105,10 +117,6 @@ import sys; p = sys.argv[1]; b = bytearray(open(p, 'rb').read()); i = len(b) * 3
 EOF
 v proof-byte --proof $O/proof.flip.bin --statement $O/statement.mine.json
 v other-range --proof $PROOF --statement $O/statement.short.json
-echo "=== [$(date -u +%H:%M:%S)] producer's --batch instance check (set $SET)"
-[ -f $O/set/fp8-ada.bin ] || { $PY -m research data fetch $SET --to $O/set | tail -1; }
-ls $O/set; B=$(find $O/set -name 'fp8-ada*.bin' | head -1); echo "set file: $B"
-[ -n "$B" ] && v batch --proof $PROOF --statement $O/statement.mine.json --batch $B
 [ -n "$B" ] && [ -n "$TAMP" ] && v tampered-adopt-batch --proof $TAMP --statement $O/statement.mine.json --adopt-published-roots --batch $B
 echo "=== [$(date -u +%H:%M:%S)] gate"
 $PY - $O "${LABEL:-0}" $I/11-label.py $RES $TREE <<'PYEOF'
@@ -121,17 +129,20 @@ def j(n):
     except Exception:
         return None
 h = j("honest")
-neg = {n: j(n) for n in ("wrong-root-a", "wrong-root-b", "wrong-root-y", "tampered-proof", "proof-byte", "other-range")}
+neg = {n: j(n) for n in ("wrong-root-a", "wrong-root-b", "wrong-root-y", "tampered-proof", "proof-byte", "other-range", "tampered-adopt-batch")}
 ok = bool(h and h.get("ok") and h.get("sp1_ok") and h.get("vk_pinned") and h.get("tree_check") is None)
-negok = {n: (d is None or not d.get("ok")) for n, d in neg.items()}
-b = j("batch")
-print("honest ok:", ok, "| negatives rejected:", negok, "| producer --batch instance_roots:", b and b.get("instance_roots"))
-allok = ok and all(negok.values()) and (b is None or b.get("instance_roots") is True)
+negok = {n: (d is not None and not d.get("ok")) for n, d in neg.items()}
+reps = {f"rep{r}-{s}": j(f"rep{r}-{s}-batch") for r in range(5) for s in ("mine", "dump")}
+repok = {n: bool(d and d.get("ok") and d.get("sp1_ok") and d.get("vk_pinned") and d.get("tree_check") is None
+                 and d.get("instance_roots") is True) for n, d in reps.items()}
+b = reps["rep0-mine"]
+print("honest ok:", ok, "| negatives rejected:", negok, "| every rep --batch instance_roots true:", repok)
+allok = ok and all(negok.values()) and all(repok.values())
 print("GATE", "PASS" if allok else "FAIL")
 if not (allok and label):
     sys.exit(0 if allok else 1)
 ev = O / "sp1c-evidence.json"
-ev.write_text(json.dumps({"honest": h, "negatives": neg, "batch": b, "info": json.loads((O / "info.json").read_text())}, indent=1))
+ev.write_text(json.dumps({"honest": h, "negatives": neg, "reps_batch": reps, "info": json.loads((O / "info.json").read_text())}, indent=1))
 detail = (f"verify-night-2: sp1-committed frame-v3 cell (fp8-ada [0, 4096), 4090, 69 shards, 2^-92.9 per proof, algebraic flag; "
           f"below 2^-128 so a drill-down result, not a Table 2 cell). My CPU host built from b54e42ed (guest/common == run source "
           f"cafa9464), vk {h.get('vk_hash')}. The statement is MINE: roots/bindings/id recomputed with verity.commitments core "
@@ -139,8 +150,9 @@ detail = (f"verify-night-2: sp1-committed frame-v3 cell (fp8-ada [0, 4096), 4090
           f"pack_public 22-bit word, so this y root differs from the B-Ligero fp8-ada y root over the same set while a / b agree; "
           f"v2h bindings) from my tree's fp8-ada set; proof-rep0 verifies against it (SP1 + the public "
           f"digests' trees == my roots + id/format/K/B). Negatives rejected: {sorted(n for n, v in negok.items() if v)}. Producer's "
-          f"--batch instance check on set art:4a6f7602: instance_roots {b and b.get('instance_roots')}. Only rep0's proof is in the "
-          f"run files (R4: one proof, one statement; reps 1-4 not re-verified).")
+          f"committed-verify --batch (set art:4a6f7602 fp8-ada.bin, sha 531a5c01) on ALL 5 reps (rep0 from the run files, reps 1-4 "
+          f"from run r20260925-080516-d8ac's custody), against my statement and against the dump's (== mine): ok, instance_roots "
+          f"true on 10/10 (coordinator 0935Z: CLEARED if every rep shows instance_roots true).")
 p = subprocess.run([sys.executable, lab, res, "--tree", tree, "--verifier", "veritor-zk-host committed-verify (b54e42ed, CPU, my build) + "
                     "verify-night-2 core statement (19-sp1c-verify.sh)", "--detail", detail, "--seconds", str(h.get("verify_seconds")), str(ev),
                     str(O / "verdicts.txt"), str(O / "statement.mine.json")], capture_output=True, text=True)

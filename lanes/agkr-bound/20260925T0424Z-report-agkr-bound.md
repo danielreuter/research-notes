@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT 10996616 (09:55Z) [open] Dense GF(2^128) check at N=201,326,592 (BF16 batch) on A100: fused Triton 0.367 s; int8 tensor-core coefs 0.066 s (eq 0.023, coef+ip 0.044), cross-checked vs torch. u_t 0.032 s. Now: gap_alt_operand vs link checks (r20260925-095534-ad8c). Scaffold only.
 CHECKPOINT 88b82757 (09:34Z) [open] Per 0922Z: link bits in-unit (86f86084) BF16 A100 0.776->1.199s (+55%), Rust verify accepts; negatives bit_flip/non_boolean/alt_honest_bits rejected, alt_alt_bits accepted (link residual). Dense GF(2^128) check 0.875s A100 / 0.85s CPU; u_t 0.03s. art:35bce6f5.
 CHECKPOINT 04286bb (09:10Z) [open] Bit-link prime side merged into real BF16 A100 proof: 0.819->1.401s (+71%), proof 21->61MB (py verify accepts). Red team reproduced my 4 pinned roots. Waiting on coordinator re handoff 0858Z (route, AVX-512 Flock, tag, vllm-v1 mapping, fp4).
 CHECKPOINT 74a016e (09:03Z) [open] Spike registered art:c35a50cd, scaffold+negatives art:f2f07e3c (NEGATIVES OK 4 cells incl vllm-v1). A-GKR BF16 CPU 361.5s; in-field SHA ~28x (not building); bit-link prime side +38% CPU/+64% GPU. Handoff 0858Z: route + 4 decisions.

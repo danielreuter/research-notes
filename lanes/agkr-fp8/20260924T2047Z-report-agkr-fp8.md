@@ -110,4 +110,11 @@ kernels is the only lever, transcript fixed), arith 0.115 (phase-1 per-round hos
   T_OP) becomes one row-listed `LK` (8 columns, 261819 rows: `(tag 2^20 + key, tag, outs.., 0..)`); the 150 queries per unit are
   rewritten into it. It is the default in `circuits()` for E4M3 models; `--no-merge` gives the old statement. The epilogue queries none.
   chain.txt unchanged. It is a new statement, so it needs new negatives and a new independent verification.
-- Dev pass r20260925-000446-6b38 (H=/workspace/agkr-fp8/fp8-ada-m).
+- Dev pass r20260925-000446-6b38 (H=/workspace/agkr-fp8/fp8-ada-m, f2363663 + the merge): bench 0.620 / 0.631 s, t_lookup 0.187
+  (was 0.224), t_mults 0.040 (was 0.024, searchsorted on the listed table), slots 2881 -> 727, proof 17966656 B sha c31c1cd8…,
+  soundness 2^-130.19 (recomputed live, -130.1898057610 vs -130.1898057657), Python + Rust 2/2, NEGATIVES OK. Committed d5d80e0b.
+- Cherry-picked from agkr-nvf4: 605b1bbb leaf_q (c94df52a), 285c32cc gate_eval query values (dfe89c36), the Merkle.path part of
+  2b25df7f (5ce007ea). Plus 5034767f (a key -> row map for listed-table multiplicities) and 3be6a35f (hold the query tuples on
+  < 48 GB parts while they total at most a tenth of the device). 06_ab on the merged statement: every step gives the same sha c31c1cd8;
+  median prove 0.447 s (leaf_q + gate_eval: t_lookup 0.187 -> 0.083 s), then 0.427 s (held tuples: t_lookup 0.060 s).
+- t_mults split (11_mults_prof.sh): query values 24 ms (gate_eval, 29.5M x 8 int64), multiplicities 14 ms.

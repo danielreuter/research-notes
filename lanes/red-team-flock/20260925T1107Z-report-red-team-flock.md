@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (12:30Z) [open] re-audit started: read flock-live report + lane/flock-live@a43f6254 lib.rs/bin (server, replay, forks, pins); inbox 1129Z coordinator handoff read (superseded by this re-audit). Next: attack harness on cpu pod (R1/R2/R3/R7)
 CHECKPOINT 3301c435 (11:27Z) [final] NOT GRANTED flock-128-r2: terms hold (2^-195.5 reproduced) but reps unbound to one root (BREAK, art:8d04b53f) + no live-coin challenger (FS-only <=2^-75.6); grantable w/ R1-R8; composed 2^-130.2 (A-GKR-bound). Pod terminated 11:24Z ~$0.07; handoffs 1130Z
 CHECKPOINT 3301c435 (11:24Z) [open] pod demo run r20260925-112210-2d3d (art:8d04b53f): two honest Fast100 reps over DIFFERENT witnesses both accepted (roots differ); downgrades/replay rejected; padding benign. Pod vy-red-team-flock terminated. Next: report + verdict handoffs
 CHECKPOINT 3301c435 (11:14Z) [open] findings so far: live-coin challenger absent (verifier is FS-only); reps commit separately + Mixed binding has no public io -> rep1 can be an honest proof of another witness (no squaring vs link); AG r1 nonce freedom (aarch64 only). Next: cheap CPU pod demo of unlinked reps

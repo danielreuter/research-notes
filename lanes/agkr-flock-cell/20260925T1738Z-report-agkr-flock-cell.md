@@ -5,6 +5,8 @@ created: 2026-09-25T17:38Z
 status: open
 ---
 
+CHECKPOINT 7585828d (18:46Z) [open] WAITING: chose (a) A100 (cell capped at 4096; 8192+ tiled = timing only). (b) H100 not now: prime side supports bf16-hopper but no H100 stock in a DC with a same-DC CPU verifier via REST (H100 only AP-IN/JP, CA-MTL-1 no hairpin, EUR-NO-2, US-GA-2, US-NE-1 GraphQL-only) and ~70 min left. Prep run r20260925-184103-5c18 at 8192 statements; check ~19:00Z
+CHECKPOINT 7585828d (18:45Z) [open] WAITING: chose (a) A100 (cell capped at 4096; 8192+ tiled = timing only). (b) H100 not now: prime side supports bf16-hopper but no H100 stock in a DC with a same-DC CPU verifier via REST (H100 only AP-IN/JP, CA-MTL-1 no hairpin, EUR-NO-2, US-GA-2, US-NE-1 GraphQL-only) and ~70 min left. Prep run r20260925-184103-5c18 at 8192 statements; check ~19:00Z
 CHECKPOINT 7585828d (18:42Z) [open] WAITING: sweep prep run r20260925-184103-5c18 on vy-agkr-flock-cell-a100-2 (yeerzt741imi2s, US-MD-1 secure A100): setup + fresh statements (timed serving commit) for 1024/4096/8192/16384/32768 VUs (>4096 tiled, flagged). cell-verifier building same-DC verifier (US-MD-1). Next: publish statements to evidence/sweep + READY, then the timed sweep. Check ~19:00Z
 CHECKPOINT c95dd13a (18:34Z) [open] reopened: re-time route (a) cell with a same-DC verifier (1-2 ms RTT), 1 warm-up + 5 timed, time the serving commit; NOT final. Budget $6
 CHECKPOINT c95dd13a (18:28Z) [final] route (a) cell art:8f7ef58b: A100 BF16 4096 VUs, 143.3 s (3.55e9x), 2^-130.19 (C8: A-GKR hash SHA-512 2^-384, no change). PR #28 @ c95dd13a (main merged). 5/5 sessions accepted by cell-verifier. A100 terminated 18:19Z; ~$3.1

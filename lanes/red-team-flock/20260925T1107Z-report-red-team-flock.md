@@ -2,9 +2,11 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (18:45Z) [final] FOURTH AUDIT: route (a) cell art:8f7ef58b GRANTED WITH CONDITIONS at NON_ZK_PROOF_DIAGNOSTIC (downgrade: prime coins FS); 2^-130.19 at current convention (Daniel: hash q^2/2^256, FS x2^60); cell-verifier not non-producer; gate re-run 5/5 admitted; labels written; no pods
+CHECKPOINT 3301c435 (18:44Z) [final] FOURTH AUDIT: route (a) cell art:8f7ef58b GRANTED WITH CONDITIONS at NON_ZK_PROOF_DIAGNOSTIC (downgrade: prime coins FS); 2^-130.19 at current convention (Daniel: hash q^2/2^256, FS x2^60); cell-verifier not non-producer; gate re-run 5/5 admitted; labels written; no pods
 CHECKPOINT 3301c435 (18:32Z) [open] fourth audit started 18:32Z (lane REOPENED): route (a) cell, agkr-flock-cell PR #28 @ c95dd13a, art:8f7ef58b. Paper/code review first.
 CHECKPOINT 3301c435 (15:58Z) [final] THIRD AUDIT: route (a) CPU GRANTED WITH CONDITIONS (flock-link@4b560b2b L1-L4,F2,F3 hold; art:20545959); composed 2^-130.2 (A-GKR-bound); no cell until E0 (ungated exchange accepted), E1 (evidence gate unenforced), P1-P3 (prime side). Pod terminated 15:57Z ~$0.05
 CHECKPOINT 3301c435 (15:40Z) [open] third audit started 15:41Z (lane REOPENED, not final): flock-link L1-L4/F2/F3 CPU, PR #25 lane/flock-link@4b560b2b. Pods only after 15:52Z.
@@ -435,3 +437,114 @@ artifacts: art:20545959 (and, read, art:00da1ce8)
 
 Handoff: `lanes/coordinator/20260925T1600Z-handoff-from-red-team-flock.md`. flock-link and agkr-bound are final, so the
 coordinator's copy stands in for theirs.
+
+# Fourth audit (18:32–18:50Z): route (a) cell art:8f7ef58b (agkr-flock-cell, PR #28 @ c95dd13a)
+
+**Grant: GRANTED WITH CONDITIONS at `proof_class = NON_ZK_PROOF_DIAGNOSTIC`,** a downgrade from the claimed
+`NON_ZK_PROOF`.
+
+**Bound: 2^-130.19 at the current hash convention,** in A-GKR's interactive model. Two things depend on Daniel's
+rulings (see Dependencies).
+
+**cell-verifier does not count as a non-producer.**
+
+Labels (by red-team-flock, on both local and remote) on art:8f7ef58b:
+- `proof_class=NON_ZK_PROOF_DIAGNOSTIC`;
+- `finding=...`.
+
+Their ref is `lanes/coordinator/20260925T1905Z-handoff-from-red-team-flock.md`. The filename stamp is ahead of the true
+write time, about 18:43Z.
+
+Handoffs received: `20260925T1835Z-handoff-from-coordinator.md` (REOPEN for the fourth audit). This section is the
+answer to it.
+
+Inputs:
+- agkr-flock-cell's handoff to the coordinator at 18:30Z (the re-audit request);
+- PROTOCOL §17.5, `cell_gate.py`, `gpu/link.py`, `gpu/transcript.py`, `soundness.py`, `cell.py`, `verifier/src/link.rs`
+  and flock/live `lib.rs` / `flock-link.rs`, all at c95dd13a;
+- the verifier records art:3b185b68 (round 2) and art:5a7ccc3b (round 1);
+- the prover run art:9464fe7a;
+- the result manifest art:8f7ef58b.
+
+No pods were used: the re-run was local, a 4-core VM with its own `verity-gkr-verify` build at 12 s. Spend $0.
+
+## Store re-run of the E1 gate (non-producer)
+
+`evidence/cell-gate-rerun/`:
+- The 5 round-2 records were paired with prover sessions s1–s5 by `link_txt` equality (s0 was the warm-up, against
+  another verifier, and isn't evidence).
+- All 5 were **admitted**. The prime check was the Rust verifier: accepted, circuit pinned, commitment pinned, 6.7 s
+  at 4 threads.
+- Negatives, all rejected:
+  - n1: the proof cross-paired onto another record (sigma_0 parity);
+  - n3: sigma.txt edited (Σ mismatch, and the prime verifier refuses);
+  - n4: commitment.txt edited (pin);
+  - n5: the record's y edited after the fact (sigma parity);
+  - n6: the operator listed as a producer.
+
+## Verdicts
+- **E0: HOLDS.** `SessionConfig::check` (called from `Server::new` and `try_new`) refuses an exchange without the gate,
+  and the R5 gate fires whenever `link` is set. `backends/flock` is identical between the verifier's source a83d7de7
+  and the tip.
+- **E1: HOLDS for the listed checks, with gaps G2 and G3:**
+  - The gate trusts the record's Flock verdict. The record keeps `publics_sha256` but not the committed public chunk
+    words, so no one else can replay the Flock verification offline.
+  - `non_producer` is self-declared (`verifier.json` operator vs a caller-supplied producer list), and
+    `runpod_pod_id` is null, so the pod check is vacuous.
+- **P1: HOLDS.** root_F (SHA-256 over the prime transcript state after the Ligero root and the GKR messages) is sent in
+  Commit before the OS points. The prime transcript absorbs Σ, root_B, the points and y. The Rust verifier recomputes
+  root_F and reads the context from the record's `link.txt`.
+- **P2: HOLDS.** Two GF(2^128) points, m = 28, 256 σ planes; Σ v2 names the choice.
+- **P3: HOLDS.** The keyed-BLAKE3 row leaf. The Flock verifier's leaf digests enter Σ, and the prime verifier checks Σ's
+  leaf-digest line against its pinned public digests, so the producer-supplied `leaf_digests.bin` is cross-checked.
+- **L1–L4, F2, F3: met** (the CPU path, unchanged from the third audit). F1/E1's non-producer part is not met (below).
+- **Non-producer: NO for TABLES criterion 6.**
+  - cell-verifier was launched and directed by the producer. The principal chain is the producer's, and its
+    independence is procedural only.
+  - It is sufficient as the protocol's live verifier: a separate pod, OS coins, records under its own preserved
+    attempts, and the audited build.
+  - My store re-run is independent for the prime proofs and the record fields, but not for the Flock verdict (G2).
+- **Class: DOWNGRADE to NON_ZK_PROOF_DIAGNOSTIC.**
+  - The prime proof's coins (the GKR challenges, rho, the Ligero queries) come from the prover's own SHA-256 transcript
+    (`gpu/transcript.py`: "Fiat-Shamir is what the CPU prover uses too (the interactive object ... not implemented);
+    the diagnostic label stays NON_ZK_PROOF_DIAGNOSTIC"; PROTOCOL §0's label rule).
+  - The cell nevertheless writes `proof_class="NON_ZK_PROOF"` and `mode: interactive`. That mode string is true only
+    for Flock and the link points.
+  - NON_ZK_PROOF_DIAGNOSTIC is in A-GKR's declared class (TABLES), so the cell can still fill Table 2.
+- **Composed bound: 2^-130.19 at the current convention.**
+  - Prime terms: encoding/opening (Ligero queries) 2^-130.19, lookup 2^-158.6, batching 2^-164.18, sumcheck 2^-176.41,
+    commitment hash (SHA-512, q²/2^512 at q = 2^64) 2^-384, σ batching 255/p^6 ≈ 2^-177.6, and Schwartz–Zippel over two
+    GF(2^128) points 2^-246.4.
+  - Flock and link terms: Flock r2 2^-195.5, and the link reduction in both reps 2^-243.9.
+  - The sum is 2^-130.19.
+
+## Dependencies (to Daniel)
+1. **Hash convention.** Counting q²/2^256 for every 256-bit hash adds about 2^-128 each for:
+   - Flock's BLAKE3 Merkle trees;
+   - the SHA-256 root_F / Σ binding;
+   - the row-leaf / frame-v3 binding.
+
+   That gives about 2^-126.5 to 2^-127, below 2^-128. The fix is 512-bit digests in Flock and root_F, or a smaller q.
+2. **Fiat–Shamir vs live for the prime half.** TABLES currently footnotes such results as "file re-verification
+   replaying the runner's coins, not transferable". The campaign's ×2^60 FS rule, which red-team-flock applied to Flock
+   and is why flock-128-r2 is live, would put the prime half at 2^-70.2. Serving the prime coins from the same live
+   session would lift both the class (to NON_ZK_PROOF) and this dependency.
+
+## Conditions
+- **G1:** the cell footnote states that the prime coins were runner-derived (FS, not transferable) while Flock and the
+  link were live. The class is NON_ZK_PROOF_DIAGNOSTIC.
+- **G2:** the session record keeps the Commit's public words (and the root bytes), and an offline Flock replay tool
+  replays records plus proofs.
+- **G3:** a non-producer verify lane runs the gate and replay from the store and labels `verified`. By the contract I
+  don't.
+
+## Fourth-audit FINAL
+
+~~~text
+tip: none (no repo commits; notes + evidence + labels)        merge-with: none
+known-failures: none    pod: none (local re-run); $0
+artifacts: art:8f7ef58b (labelled) art:3b185b68 art:9464fe7a art:5a7ccc3b (read)
+~~~
+
+Handoff: `lanes/coordinator/20260925T1905Z-handoff-from-red-team-flock.md`. agkr-flock-cell and cell-verifier are
+final, so the coordinator's copy stands in for theirs.

@@ -5,6 +5,7 @@ created: 2026-09-25T01:05Z
 status: open
 ---
 
+CHECKPOINT 0d719a8 (01:25Z) [open] art:49757870 tree (716ea008) PASS: static merge/flatten equivalence, statement sha = cell's, forgeries tag x2 + flatten aux rejected by py+Rust; evidence art:9a6280c5 PRESERVED. b7cec878 + fp8 forges running (fp8 static PASS, stmt = art:979e37aa's).
 CHECKPOINT 48a2588c (01:16Z) [open] static equivalence PASS on 716ea008 (merge+flatten) and b7cec878 (merge+flatten+bool 46->46+paired); selftests catch all planted defects. Forgeries r20260925-011408-c1b3 running (nvf4 716ea008 first). Handoff 0100Z agkr-nvf4 (art:dfbc86c4) in scope.
 CHECKPOINT 4bd6c54c (01:05Z) [open] pod vy-red-team-lk (5090) up, trees 3be6a35f/716ea008/b7cec878 rebuilt from patches, Rust verifiers building. Paper review: all 5 rewrites equivalence-preserving so far (tag col constant in queries). Next: static equivalence + forgery harness.
 # red-team-lk: independent red-team of the A-GKR statement rewrites (agkr-fp8 merged LK; agkr-nvf4 merge / flatten / bool / paired)

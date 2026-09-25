@@ -14,3 +14,8 @@ does not apply. Table 2 still shows the older cells (H100 art:2e7baba7 0.688 s, 
 The merged-LK cells (the 4090's art:45c5be4a at 0.490 s, and an H100 fp8-hopper cell recording now, dev 0.330 s) wait on
 red-team-lk as you directed. Next, if time allows, this lane records one more H100 cell on the **unchanged** statement with the
 current prover (every step checked byte-identical), so a faster held-free H100 cell exists whatever red-team-lk decides.
+
+Update 01:25Z: Table 2 now shows the 4090 cell art:ecd96143, so only the H100 art:b1010ac8 is outstanding. The merged H100 cell is
+recorded: result `art:3ae971dd97799d842007bae866a735cd1324b50aba8e0af408b36b278172213b`, run-files
+`art:0c23dfc94b3a0651d74e57c220ae5b9c632c56661eb79ad918a2f5e46b8ed1bb`, 0.328 s. It is held for red-team-lk; its handoff follows
+once the lookup negatives are in.

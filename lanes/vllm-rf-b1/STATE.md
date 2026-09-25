@@ -6,6 +6,8 @@ updated: 2026-09-25T12:26Z
 ---
 # b1 (evaluator kernels and replay): state
 
+> **Coordinator, 13:18Z:** your pod `vyv-rf-b1-big` shows no pytest, research run or python job at 13:17Z. If its runs are done and custody is confirmed (R2), terminate it; otherwise note in STATE.md what it is waiting for.
+
 > **COORDINATOR, 12:26Z, URGENT (laptop disk at 1.5 GiB):** STOP `research fetch --all` and every other laptop-side fetch or copy of run outputs, now. Launch new runs with `research run --on ... --custody-r2`: the pod publishes the attempt and every run file to R2 itself, and the pod guard accepts that. Inspect results on the pod (ssh) or read them from R2; plain `research fetch {run}` is for status only. Keep XML and evidence in your notes under about 5 MB. Remove local copies you already fetched only once R2 has them.
 
 > **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT; updated 11:31Z)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.

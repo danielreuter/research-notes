@@ -80,3 +80,14 @@ vllm-v1 after core-schemes. Target: <= 5 ms per 4096 instances, all ports, byte-
   witness from the same kernel's per-block CVs; relchain.commit keeps narrow (uint8 / int16) device rows, syncs around the
   timers, commit_timings.committer = rows + trees (commit.committer_seconds). Tests frame_gpu_test.py vs the host builders.
 - Pod vy-commit-gpu g6sehoo9nur00q (4090, SECURE, guard 90) created 06:50Z.
+- 06:50Z coordinator handoff 0650Z: both schemes first-class (frame-v3 + vllm-v1, core-defined on main 00ffe398: schemas
+  `sha256/row/v1`, `blake3-keyed/row/v2`, vectors, `benchmarks/commitments` commit_cost). Merged origin/main (5278dfd1); the
+  GPU paths now test against the core vectors (no local stand-in existed). 36ea7baf: keyed BLAKE3 of any length (one-chunk
+  rows get ROOT, partial blocks), vllm-v1 node/lift levels (no padding), frame_tree over given leaves. 86d7edb7:
+  `commit_cost.py --impl gpu` (commit_cost_gpu.py): the four variants on the device, every rep's root == the plain
+  reference's, leaves too, opening through verify_path; h2d / leaf / tree split; Tool key gets `impl` only when not python.
+- 07:16Z pod vy-commit-gpu: check-part = reference (RTX 4090, host EPYC 7663 x112, quota 23.8 cores, PCIe gen4 x8 of x16);
+  bootstrap OK (torch 2.6.0+cu124, cupy 14.2, ligero-verify 9ac92fdd). Sync via tar took 8 min (250 MB of fixtures), rsync after.
+- 07:22Z tests on 86d7edb7: 95 passed (hash_gpu/tests/test_frame_v3.py, frame_gpu_test.py, test_commit_cost_benchmark.py).
+  Neighbour suites (61-cg-neighbours.sh: hash_gpu, hashchain, leaf_test, leaf/{blake3,conformance,core_schema}, verity
+  commitments) running: CPU-heavy (12 cores) BLAKE3 gadget tests, slow; first attempt incl. ajtai killed at 54% (07:26Z).

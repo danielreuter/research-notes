@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT none (07:41Z) [open] 07:46Z red-team SH FAIL R1/R2 on B-Ligero included-hash -> fix to ligero-steps-pin; verify-night-2 strengthened + re-verifying published +hash column; sweep digest (reason I) -> renderer. research spend since 11:51 PM PT: $6.78 of $300; running $10.36/h
 CHECKPOINT 00ffe398 (07:10Z) [open] 07:12Z sweep: spend $1.78 of $300 (running $8.77/h); disk 5.9 GiB; 11 lanes alive (steps-pin tests ok on pod, commit-gpu frame-v3 GPU committer, sp1-committed guest, agkr-bound non-hash, jolt-scout building); no stale
 CHECKPOINT 6fcba5a (06:58Z) [open] 07:02Z +3 parallel lanes: b-ligero-sha256 ($60), blake3-80gb ($60), red-team-standard-hash ($10); 11 lanes + me = 12 agents (vLLM ~7). research spend since 11:51 PM PT: $0.42 of $300; running $3.68/h
 CHECKPOINT e903224 (06:55Z) [open] 06:56Z research budget $300 actual (window from 11:51 PM PT); spend ledger live (evidence/spend-ledger.py, 2-min poll): $0.05 spent, $3.68/h running across 6 pods; lane caps $362 as caps only; sweep timer re-armed as proof-opt-sweep-v3 with spend line

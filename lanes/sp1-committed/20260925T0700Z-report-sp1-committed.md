@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT dcd4eca0 (07:36Z) [open] committed host built (vk 0x009893321b66..3a66, elf f4fc749f; stock identity reproduced); pod: common tests ok incl committed::*, fp8-ada set = art:4a6f7602; exec negatives all rejected (flip-y, sign-of-zero tamper-x @tree a, wrong roots); 215M cycles/4096 VU (hash 54M). launching measured run
 CHECKPOINT dcd4eca0 (07:26Z) [open] tip dcd4eca0: committed guest/host/py/vectors + vector_run sp1-committed pushed; pod build r20260925-071747-5eae (stock identity then cuda,relation-committed) running; next: pod cargo tests, executor negatives, measured fp8-ada run
 CHECKPOINT 4f1dacb4 (07:18Z) [open] merged main 00ffe398 (core frame-v3 schemas; vectors from core, stand-in dropped); host committed-* cmds + py reference (7 vectors) at 4f1dacb4; pod build r20260925-071747-5eae running; vllm-v1 variant queued after frame-v3 per handoff
 CHECKPOINT 1efd4300 (07:04Z) [open] guest feature relation-committed (bare relation + sha256/row/v1 digests via SP1 precompile, frame-v3 tree check) at 1efd4300; pod vy-sp1-committed (4090) bootstrapping stock+committed builds; next host committed-* cmds, py reference

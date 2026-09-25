@@ -5,6 +5,7 @@ created: 2026-09-25T06:47Z
 status: open
 ---
 
+CHECKPOINT d69d082 (07:39Z) [open] 07:41Z: PR1618 CUDA on 4090 works: sha2-chain 2^24 prove 5.83s vs CPU 46.5s (8.0x; 2^22 5.8x), GPU mem 12.7GB@2^24. VU guest v2: 43.8k cyc/VU bare, 239.5k committed; B=64 committed CPU 55-62s. BlindFold ZK +3-5%. Next: VU guest on PR1618 cuda.
 CHECKPOINT 9bfc8e2 (07:31Z) [open] 07:31Z: 4090 pod up. VU guest: kernel 34.1k cyc/VU, SHA-256 rowhash 195k/VU; B=16 committed CPU prove 26.4s valid. ICICLE path dead (removed #822, last rev broken). PR1618 CUDA built sm_89/nvcc12.9, sweep queued. ZK build running. Lattice/LayerZero: no CUDA/closed.
 CHECKPOINT 00ffe398 (07:08Z) [open] Dory+ICICLE never coexisted (Dory hard-codes use_icicle=false @16763aac); PR#1618 = curve/Dory CUDA draft, not lattice; Akita lattice: no CUDA, no zk; Jolt Pro closed. Building main VU guest (bare kernel verbatim) + old ICICLE rev on 4090
 CHECKPOINT 7fcedf47 (06:47Z) [open] startup: jolt main has no ICICLE (removed #779 2025-07-15/#822 2025-08-01; README 'pre-alpha, do not use' since #730); Akita lattice PCS merged 09-15, PR#1618 still draft; pod vy-jolt-scout 4090 up; next: build icicle rev 4c259be4 + main on pod

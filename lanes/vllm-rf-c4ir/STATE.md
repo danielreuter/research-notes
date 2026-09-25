@@ -34,16 +34,24 @@ updated: 2026-09-25T07:15Z
 ## Done
 - 06:55Z worktree created at `origin/main` `00ffe398`; STATE.md created.
 - `e5f36b1f` intervals + liveness; `6b7493c1` boundary + `layout.resolve_gate`; `63a9ffef` partition (+ parts.py
-  module map). All pushed. Laptop checks only: ruff F/E9 clean, AST parse; nothing executed yet.
+  module map); `197789aa` query_ast onto `verity.ir.intervals`. All pushed.
+- Core tests (`packages/verity/tests/ir/`, test-local primitives only): `ebea7849` test_ir_boundary (the integration's
+  oracle suite: hand-built programs verbatim, registry families replaced by local analogues), `9ff3ef64`
+  test_ir_liveness (dead gates vs flat scan, reads vs operands), `6b02abe7` test_ir_partition (stubs + structural +
+  sweep, plus real-boundary and query_ast checks), `23904dd6` test_ir_intervals.
+- `297d2d84` equivalence: test_ir_{boundary,partition}_equivalence re-run every core boundary/partition test with the
+  module under test replaced by a differential stand-in (both copies run, results asserted equal), plus the
+  integration's library Programs (Gemm ... ServeV4 tiny) and liveness on every specialization. importorskip
+  `verity_vllm`; deleted in phase 2.
+- 07:32Z pod `vyv-rf-c4ir-cpu` = RunPod zt96bucqlpis7i, cpu3m 8 vCPU / 64 GB, 80 GB, $0.44/h (cpu3g x16 unavailable);
+  registered by `research pods create --register --guard 90` (registry file `notes/machines.d/vyv-rf-c4ir-cpu.toml`,
+  the registry's one-file-per-machine form of the machines.toml entry).
 
 ## Running
-- nothing.
+- `vyv-rf-c4ir-cpu`: run r20260925-073513-4b10 = pod_bootstrap.sh --cpu (source = lane head 297d2d84).
 
 ## Next
-- query_ast onto `verity.ir.intervals` (commit).
-- Core tests in `packages/verity/tests/ir/` (test-local primitives only), then equivalence tests (importorskip
-  `verity_vllm`; integration copy vs core copy on the same programs; deleted in phase 2).
-- CPU pod `vyv-rf-c4ir-cpu`: core suite + equivalence tests. Terminate after fetch.
+- Core suite (`packages/verity/tests`) at head with and without `integrations/vllm` on PYTHONPATH; fix; terminate.
 - Phase 2 waits on a4 in origin/main (a4 at 07:12Z: groups commit/acquire/check/properties/collectives still to do).
 
 ## Found, not fixed

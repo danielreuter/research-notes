@@ -10,7 +10,7 @@ for s in ${SWEEPS:?}; do
   gpu_idle || exit 3
   echo "##### $(date -u +%H:%M:%SZ) sweep $tag"
   $PY -m backends.direct.ligero.sweep_vu --relation $REL --out-dir $SD --start ${START:-1024} --max ${MAX:-131072} --dump plateau -- \
-      --zk --mode interactive --auth included-hash --commit-per-rep --batch $L --pipeline $PP --target -128 --reps ${REPS:-5} --device cuda
+      --zk --mode interactive --auth included-hash --commit-per-rep --batch $L --pipeline $PP --target -128 --reps ${REPS:-5} --device cuda --instance-procs ${IPROCS:-16}
   r=$?; [ $r -ne 0 ] && rc=$r
   pl=$($PY -c "import json;d=json.load(open('$SD/sweep.json'));print([p['dir'] for p in d['points'] if p['point']==d['plateau_point']][0])") || continue
   ( cd $SD/$pl/proofs || exit 1

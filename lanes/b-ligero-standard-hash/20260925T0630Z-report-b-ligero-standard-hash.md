@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT d69d082 (07:39Z) [open] fp8-ada+blake3 4090 l4096 p2 4096 VUs (r..6238, art:fdda2a3a run record): t.total 4.31s + commit 0.65s = e2e 4.96s, 1.30e8x, 2^-128.40, Rust batch ACCEPT pinned. Merged blake3-80gb (sweep_vu + steps-pin). Plateau sweep r..f45c at 8192 VUs.
 CHECKPOINT 00ffe398 (07:26Z) [open] d5b299ff: +blake3 commit 18s->0.65s (per-row leaf_bytes fold batched; roots identical; 17 tests pass). Dev fp8-ada 4090 l4096 p2: t.total 4.49s, e2e 5.14s, 1.35e8x. Measured 5-rep cell r20260925-072604-6238 running (custody-r2). Handoff to blake3-80gb.
 CHECKPOINT none (07:08Z) [open] Acted on coordinator 0650Z handoff: merged main 00ffe398 (4de530e5); names now commit.seconds/e2e.seconds per bench.views. +blake3 pins bf16-ampere/fp8-hopper (071e3ef7). Dev fp8-ada 4090: prove 4.4s, commit 18s/rep (host leaf_bytes loop?); profiling r..b881.
 CHECKPOINT 00ffe398 (06:58Z) [open] 071e3ef7: +blake3 pinned on bf16-ampere (5b762054) + fp8-hopper (433bdfc3): gates 49/86/0F + 25/86/0F, fixtures pinned ACCEPT, cargo test green; fp4-nvf4+blake3 needs NVFP4 row byte schema (core-schemes). Next: fp8-ada+blake3 --commit-per-rep dev run on 4090
@@ -62,6 +63,19 @@ Pod scripts: `evidence/pod-scripts/`.
   peak. (The full leaf/auth suite r20260925-071530-178a was stopped after 7 min: too slow for what it covers.)
 * 07:26Z measured cell r20260925-072604-6238: fp8-ada+blake3 l=4096 p2 5 reps, `--commit-per-rep`, custody-r2 8h, Rust batch.
 * 07:27Z handoff to blake3-80gb (d5b299ff + `--commit-per-rep`; H100 lines are theirs).
+* 07:30Z **r20260925-072604-6238 DONE** (tree d5b299ff, custody PRESERVED, run record art:fdda2a3a…, 171 files 1.46 GB):
+  fp8-ada+blake3, frozen `bench-instances-fp8-ada/v1` (manifest e66ff0f2…) [0, 4096), l=4096 p2 (49 sub-batches of <= 85
+  VUs), 5 reps, uncontended. **t.total 4.312 s** (witness 0.949, enc+commit 1.933, arith 1.216, ser 0.200), **commit.seconds
+  0.646 s** (cold 0.636), **e2e 4.958 s = 826.1 VU/s, 1.301e8x** native (proving alone 1.132e8x), soundness 2^-128.40.
+  Pod's pinned ligero-verify (sha256 e7f47a52…): sys_id 71f39e44…, `system pinned (fp8-ada+blake3)`, batch ACCEPT 49/49,
+  union 2^-128.40, python agreement 49/49 (producer check, not a label). Not a sweep point (no `sweep`/`protocol` block).
+* 07:09Z inbox (read 07:28Z): blake3-80gb handoff -- views need `sweep` {plateau} + `protocol` blocks; their sweep_vu
+  (8c50b497); split: H100 + A100 theirs, 4090 mine. Merged lane/blake3-80gb (fca28d54: + ligero-steps-pin 236020a6 via it,
+  so the pin is in my base); dc2cae87 sweep_vu ranks by `e2e.vu_per_second`. Reply 07:31Z.
+* 07:32Z sweep r20260925-073210-f45c (tree dc2cae87, custody-r2): fp8-ada+blake3 l=4096 p2 5 reps `--commit-per-rep`, from
+  1024: 641.96 / 762.79 / 825.75 VU/s at 1024 / 2048 / 4096 ...
+* Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
+  own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.
 
 ## 1. `--commit-per-rep` (82453d30, names aligned with main's `bench.views` in ad4c3440)
 Every rep (the warm-up included) drops the committed state and runs `commit_vus` with no tree cache, then rebuilds the hashed

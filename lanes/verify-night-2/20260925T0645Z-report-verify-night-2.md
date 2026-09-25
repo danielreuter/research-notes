@@ -56,3 +56,11 @@ committer baselines (`lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.
   only the GPU stage failed, as expected), ligero-verify d89cffc7.
 - 07:15Z request 1 done. main has moved to 00ffe398 (#15 core-schemes: frame-v3 SHA-256/BLAKE3 row leaves and vllm-v1 in
   `verity.commitments`; #18 views admit algebraic hashes). I will rebuild from it for the BLAKE3 cell.
+- 07:16Z lane/verify-night-2 fast-forwarded to main 00ffe398 (pushed) and the pod re-synced. Rebuild r20260925-071601-985d:
+  ligero-verify is still d89cffc7 (the crate is unchanged) and cargo test passes 32+7+27. pytest of the core commitments +
+  leaf core_schema/conformance: 184 passed, 3 skipped (13.5 min on CPU).
+- 07:40Z `06-core-roots.py` now picks the row leaf by relation suffix (+blake3 -> core `blake3_row_digest`, +sha256 ->
+  `sha256_row_digest`). Self-test `15-blake3-selftest.py` (r20260925-073720-71cc): the core-only fp8-ada+blake3 roots equal
+  the backend committer's (a 2f9ff265, b 0413c926, y 49023558; set bench-instances-fp8-ada/v1, manifest e66ff0f2). main's
+  Rust PINS already carry ("fp8-ada", "blake3", 71f39e44…); b-ligero-standard-hash's branch adds only bf16-ampere and
+  fp8-hopper pins.

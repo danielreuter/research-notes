@@ -60,3 +60,25 @@ arith's 5 commits). Budget $6, FINAL 03:30Z. All pods created by this lane; noth
   Q > 262144 general constraints per sub-batch, D = 7 with Q > 224768, and lincomb2 at D = 7 (the Fiat-Shamir extension
   degree at 2^-128, protocol.py) when a row chunk exceeds 877 rows (e.g. 40000 rows x 16384 columns). The replaced kernels
   run the same inputs. Reproduced on sm_120 (5090, below). The Table 2 shapes are far from it (see the kernel shapes per target).
+
+## RTX 5090 (sm_120): vy-red-team-arith 5bka200fx8d7jf, SECURE EUR-IS-1, host EPYC 9354, $0.99/h, 23:57Z-00:17Z (~$0.33)
+- Bootstrap OK (torch 2.8.0+cu128). Runs r20260925-000238-66aa (bootstrap + tests + A/B), r20260925-000748-f9fc (controls,
+  +hash, FS), r20260925-001452-9741 (register). Summaries: evidence/5090/{ab-summary.txt, redteam_arith_test.log, tests_fused_test.log}.
+- tests_fused_test.py: bit-exact PASS (all 14 cases).
+- redteam_arith_test.py: 225 cases PASS (lincomb2 with int64 extremes, strided C1, every R2 edge, D = 1/2/6/7, prover-sized
+  D = 6 up to 40000 x 16384 and D = 7 up to 22730 x 16384; quad_v4 all edge cases; intt_rows n = 2..16384 (32768+ not
+  admitted: 99 KiB opt-in); _intt_ginv; reduce_partial; capture). ERROR (launch failure, the robustness regression above):
+  lincomb2 D = 7 at 40000 x 16384, quad_v4 D = 6 Q = 300000, quad_v4 D = 7 Q = 250000.
+- Byte A/B, fp4-nvf4 l = 8192 p8 (the cell's config, 13 sub-batches, 40 files):
+  | config | 22741456 | 9d1a7f15 | 0baefa9d | f550fdc6 | 92ea2531 | 92dab0ad | Rust verify (tip) |
+  |---|---|---|---|---|---|---|---|
+  | bare interactive | d53a75a5 | = | = | = | = | = | 13/13, 2^-128.11 |
+  | + in-proof hash (--auth included-hash) | 354c6d3d | = | = | = | = | = | 13/13, 2^-128.11 |
+  | Fiat-Shamir (bare, D = 7) | 3f6f6f0c | . | . | . | . | = | 13/13, 2^-128.40 |
+  | control: tip, RTA_SEED=alt | | | | | | c4cb5e88 (differs) | 13/13 |
+  (first 16 hex of the sha256 over the per-file sha256 list; "=" identical to base, "." not run.)
+- Kernels reached (tip): lincomb2 27 calls (D 6, C1 (6, 1619) row stride 60658, C2 (6, 1583), X (1619, 8448) int32),
+  _quad_v4 28 (rho (6, 212), X (1583, 32768)), intt_scaled 0 (n = 32768 > the sm_120 limit: f550fdc6's kernel is not
+  exercised on this row; its micro-tests pass up to n = 16384 here).
+- Artifacts (all preserved, `data preserved` rc=0 on the pod): evidence tree art:34e47954; dumps bare base art:35fdf2ab,
+  tip art:75a715b5; +hash base art:4d2a8176, tip art:25e89894.

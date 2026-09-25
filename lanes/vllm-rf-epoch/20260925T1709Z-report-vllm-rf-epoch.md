@@ -5,4 +5,6 @@ created: 2026-09-25T17:09Z
 status: open
 ---
 
+CHECKPOINT 80b19e59 (17:33Z) [open] branch lane/vllm-rf-epoch (worktree /workspace-wt/epoch) = b4c 5494e29f + epoch cherry-pick of c2b dedf5313 (local 30427930, unpushed); items 2a/2b/4 in progress, 2c+3 look larger than S; pod vyv-rf-epoch-moe67 (mzp252g5m1qswn, L40S, $1.09/h) up; L40S stock low, other pods failing
+CHECKPOINT 80b19e59 (17:32Z) [open] branch lane/vllm-rf-epoch (worktree /workspace-wt/epoch) = b4c 5494e29f + epoch cherry-pick of c2b dedf5313 (local 30427930, unpushed); items 2a/2b/4 in progress, 2c+3 look larger than S; pod vyv-rf-epoch-moe67 (mzp252g5m1qswn, L40S, $1.09/h) up; L40S stock low, other pods failing
 CHECKPOINT 80b19e59 (17:09Z) [open] started (agent bc-e66a058f, reusing b5patc VM); branching lane/vllm-rf-epoch from b4c 5494e29f; reading c2b/c1 READY + code for the 5 epoch items

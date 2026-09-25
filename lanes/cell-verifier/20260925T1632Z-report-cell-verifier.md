@@ -5,6 +5,7 @@ created: 2026-09-25T16:32Z
 status: open
 ---
 
+CHECKPOINT a83d7de7 (17:30Z) [open] SERVING round 2: endpoint2 157.157.221.30:26732 verifier run r20260925-172927-6883 (6 sessions, same inputs); pod ffjgm1r55fc2f7 cpu5c 16vCPU; build r20260925-172618-2bfe flock-link 83008ec3
 CHECKPOINT a83d7de7 (17:17Z) [open] reopened: second verifier run (6 sessions) for agkr-flock-cell
 CHECKPOINT ac57a688 (17:11Z) [final] verifier run r20260925-164419-448b (4 sessions: l0001-l0003 accepted, 1058 rounds; l0000 connected but sent no hello, no verdict; preserved rc=0), build r20260925-164033-0afb, pod uv4jqaw47zdr59 terminated 17:10Z, ~$0.28
 CHECKPOINT 828ee00c (16:44Z) [open] SERVING: endpoint 154.54.102.15:19237 verifier run r20260925-164419-448b (4 sessions; prime_commitment 950d40bc..., vus 4096); build run r20260925-164033-0afb flock-link a36a7c07

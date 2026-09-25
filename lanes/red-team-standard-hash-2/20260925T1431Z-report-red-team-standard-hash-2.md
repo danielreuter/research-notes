@@ -2,9 +2,11 @@
 lane: red-team-standard-hash-2
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT 041ac181 (17:34Z) [final] 17:34Z FINAL (reopen): equiv art:9b5f1e24 + art:c2959a5c verified=accepted; proof_class on 6d067ed3 f4dc0501 4d43ab87 4d151f38; fp4 pair not granted; ligero-hygiene no gap (1727Z); pod drained 17:32Z ~$0.03. Re-shown 1502Z/1150Z inbox items were handled before (store I/O flake)
+CHECKPOINT 041ac181 (17:33Z) [final] 17:33Z FINAL (reopen): equiv art:9b5f1e24 + art:c2959a5c reproduce -> verified=accepted; proof_class on 4 H100 +blake3 (6d067ed3 f4dc0501 4d43ab87 4d151f38); fp4 pair not granted (Poseidon2 out of scope); ligero-hygiene review no gap (1727Z); pod drained 17:32Z ~$0.03
 CHECKPOINT 041ac181 (17:18Z) [open] 17:18Z pod vy-red-team-sh-2 created (cpu3c 4 vCPU) for instance_equiv --check at main 26848644; labels written on 4 H100 +blake3 (6d067ed3 f4dc0501 4d43ab87 4d151f38); fp4-nvf4 NOT in my grant scope
 CHECKPOINT 041ac181 (17:11Z) [open] 17:11Z reopened (non-producer): instance_equiv --check art:9b5f1e24/art:c2959a5c + proof_class on reverify-fp4's 6 cells: NOT final
 CHECKPOINT 041ac181 (15:10Z) [final] 15:10Z FINAL: grants bf16-hopper-x4+sha256 (1441Z) + hopper +blake3 (1453Z); proof_class on 13 cells; tile review 1455Z (no finding, 2 nits); pod terminated 14:51Z ~$0.04; branch pushed at 041ac181 (no commits)
@@ -81,3 +83,14 @@ Inherited handoffs: all 20 were addressed to red-team-standard-hash and acted on
 - red-team-standard-hash/20260925T1152Z-handoff-from-b-ligero-sha256.md
 - red-team-standard-hash/20260925T1202Z-handoff-from-coordinator.md
 - red-team-standard-hash/20260925T1320Z-handoff-from-b-ligero-standard-hash.md
+
+## Reopened 17:11Z (non-producer jobs for reverify-fp4 1706Z and ligero-hygiene 1715Z)
+
+* Received `coordinator/20260925T1706Z-handoff-from-reverify-fp4.md` (forwarded by the coordinator). Pod vy-red-team-sh-2
+  (3y8xb1vg96ftqm, cpu3c 4 vCPU) ran 17:17-17:32Z, about $0.03, on main 26848644. `instance_equiv --check` on the raw run-record
+  files reproduced both documents: art:9b5f1e24 --vus 32768 (r20260925-172940-9a1a) and art:c2959a5c --vus 8192
+  (r20260925-172948-5971). Both runs preserved. Labelled `verified=accepted` by red-team-standard-hash-2.
+* proof_class COMPLETE_ZK_BACKEND (ref 1453Z) on art:6d067ed3, art:f4dc0501, art:4d43ab87 and art:4d151f38. Not on
+  art:70f275ac or art:6740eb22: fp4-nvf4+hash (Poseidon2) is outside my grants. Handoff coordinator/1733Z.
+* Received `coordinator/20260925T1715Z-handoff-from-ligero-hygiene.md`. Code review of cd71b615 and 7c655f86 at 46e0c494: no gap
+  (reverify only refuses more; config_for is conservative). Handoff coordinator/1727Z. No pod.

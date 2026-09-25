@@ -2,7 +2,7 @@
 id: vllm-rf-b5vab/state
 lane: vllm-rf-b5vab
 kind: state
-updated: 2026-09-25T20:20Z
+updated: 2026-09-25T21:12Z
 ---
 # b5vab (B5 split of `engine/vllm_adapter.py`): state
 
@@ -18,6 +18,7 @@ Split `integrations/vllm/verity_vllm/engine/vllm_adapter.py` (1,913 lines at bas
 moves proven by an AST/source script; `load_workload` and everything it calls stay in `vllm_adapter.py`.
 
 ## Done
+- 21:05Z gate (a) at `3201c3f4` = a23b base (158: 73 passed / 85 skipped; 2 known reworded skip reasons). c4ir-reg terminated. READY.md + merge request.
 - 20:15Z #101 at `3201c3f4` on b4b-g1, run `r20260925-185918-5fec` (rc 0, PRESERVED): build/match/commit PASS; program
   `ccc21347…`, manifest `90f81868…` (7043), run root `7adcef49…`, commit PASS (all checks); non-interference PASS 992/992,
   tokens equal = record. The multiset of program/manifest/run-root/verdict values in the row dir is identical (md5) to b4c's
@@ -50,13 +51,10 @@ moves proven by an AST/source script; `load_workload` and everything it calls st
 - 16:57Z handoff to the coordinator: head final for gate (a); asked for a fixture-holding pod (c4ir-reg not coming soon).
 
 ## Running
-- `vyv-rf-c4ir-reg`: gate (a) halves `r20260925-181956-7c6e` (replay_partition) + `r20260925-182011-fabf` (rest) at
-  `3201c3f4`, started 18:20Z; check back ~21:00Z.
+- nothing; all pods terminated.
 
 ## Next
-1. On handoff: lints + gate (b) at `42cf1781` on vyv-rf-b4b-cpu (base = b4c's head XML at `5494e29f` on that pod).
-2. #101 GPU Build smoke on vyv-rf-b4b-g1 vs record (program `ccc21347…`, manifest `90f81868…`, run root `7adcef49…`).
-3. Gate (a) T0+T1 on the fixture pod the coordinator names, vs a23b's base XML (~5 h).
+- none: READY.md written, merge request sent to the coordinator; FINAL.
 
 ## Open questions
 - none

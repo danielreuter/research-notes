@@ -3,7 +3,7 @@
 #   forward: store lanes/<L>/ for L in CLOUD-LANES.txt, every *-handoff-from-<L>*.md, lanes/coordinator/*-report-coordinator.md,
 #            *-handoff-from-coordinator*.md written in the store, machines.d/  ->  pod notes clone; then `research notes sync` there
 #   reverse: pod kb/, lanes/*/*.md, machines.d/  ->  store, never the files cloud writers own (their reports, evidence, handoffs)
-# Both directions compare by checksum and never replace a newer receiver file (-c -u); nothing is deleted; files over 1 MB stay out.
+# Forward compares by checksum, reverse by size + mtime; neither replaces a newer receiver file (-u); nothing is deleted; files over 1 MB stay out.
 # Loop: tmux session cloud-mirror on the cloud research coordinator's VM runs a local copy (~/cloud-mirror/pass.sh) every 5 min.
 set -u
 S=/cursor/stores/bc-36415049-30db-4fff-a34b-81f0afc0124d/internal
@@ -33,6 +33,8 @@ fwd+=(--exclude='*')
 rev+=(--include=/kb/*** --include=/lanes/ --include=/lanes/*/ --include=/lanes/*/*.md --include=/machines.d/ --include=/machines.d/*.toml --exclude='*')
 
 opts=(-rcu --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
+# reverse by size + mtime: checksumming every notes file over the store mount took minutes
+ropts=(-rtu --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
 out=$(rsync "${opts[@]}" "${fwd[@]}" "$S/" "$host:$N/" 2>&1); frc=$?
 ok $frc || { echo "$(stamp) FAIL forward rsync rc=$frc: ${out: -300}"; exit 1; }
 nf=$(grep -c '^<f' <<<"$out")
@@ -41,7 +43,7 @@ sync=$(timeout 240 $sshcmd "$host" "cd /workspace/steward/verity && PY=\$(/root/
   PYTHONPATH=tools/research/src \$PY -m research notes sync --root $N -m 'cloud mirror $(date -u +%Y-%m-%dT%H:%MZ): $nf files' 2>&1 | tail -3")
 src=$?
 
-out2=$(rsync "${opts[@]}" "${rev[@]}" "$host:$N/" "$S/" 2>&1); rrc=$?
+out2=$(rsync "${ropts[@]}" "${rev[@]}" "$host:$N/" "$S/" 2>&1); rrc=$?
 ok $rrc || { echo "$(stamp) FAIL reverse rsync rc=$rrc: ${out2: -300}"; exit 1; }
 nr=$(grep -c '^>f' <<<"$out2")
 

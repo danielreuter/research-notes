@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT 716ea008 (00:03Z) [open] recorded r20260924-235457-ff98 @716ea008 t.total 0.1905s (5 reps) art:49757870 result art:78b3aadf run-files, same proof bytes as 1b1d; verify-po handoff 0005Z; adopted agkr-fp8 prover commits + compiled witness step; next: phase-1 pinned H2D
 CHECKPOINT 2b25df7f (23:42Z) [open] recorded r20260924-233405-1b1d @2b25df7f t.total 0.245s art:5adf62eb result art:d6673af2 run-files PRESERVED (thread caps fixed); verify-po handoff 2350Z supersedes; next: torch.compile'd chain step (witness 28.7->12.1ms) + re-record
 CHECKPOINT ab57df0a (23:18Z) [open] recorded r20260924-223922-5cff @ab57df0a t.total 0.314s art:ad8f92b9 result art:82f70cb9 run-files PRESERVED, verify-po handoff 2305Z; found record script lacked env.sh thread caps (+40ms; fixed, kb ops-tools); next: fused input claims, re-record ~0.27s
 CHECKPOINT ab57df0a (22:40Z) [open] recording ab57df0a (depth-1 flatten, merged LK, eq_rows_dot, leaf_q, gate_eval qvals) dev t.total 0.274s; prior recorded c20d 0.529s + 3b51 1.044s preserved; verify-po handoff for 3b51 filed; next: register, new handoff, hill-climb

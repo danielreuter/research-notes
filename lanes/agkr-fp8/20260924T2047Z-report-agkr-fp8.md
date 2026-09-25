@@ -5,6 +5,7 @@ created: 2026-09-24T20:47Z
 status: open
 ---
 
+CHECKPOINT f2363663 (00:05Z) [open] 4090 fp8-ada cell re-recorded 0.666s (was 1.130): art:ecd96143, run-files art:0667ed46, r20260924-234932-5828 @f2363663, proofs b5ef0238 unchanged, Rust 3/3, 2^-130.19; negatives art:9398f028; handoff 0006Z. Merged LK table dev pass r20260925-000446-6b38 running.
 CHECKPOINT bb859220 (23:46Z) [open] 4090 dev @bb859220 fp8-ada: warm t.total 0.692s (cell was 1.130), proofs sha b5ef0238 unchanged, Rust 2/2, negatives OK. A/B int32 Acc running r20260924-234548-cd34; then recorded 4090 run. Considering merged tagged LogUp table for FP8 unit.
 CHECKPOINT bb859220 (23:35Z) [open] H100 cell re-recorded 0.482s (was 0.688; art:b1010ac8, proofs identical; handoff 2326Z). H100 terminated 23:26Z (~$7.2 total). 4090 pod 5vnbd6rfwm3wmd bootstrapped; fp8-ada dev pass running, then int32 Acc test and recorded run.
 CHECKPOINT ab57df0a (23:10Z) [open] H100 hill-climb: prove 0.626->0.432s byte-identical (11 commits to bb859220). Recording improved fp8-hopper cell r20260924-230813-9198 now; next push+handoff, then 4090 fp8-ada re-record on a new pod.
@@ -94,4 +95,19 @@ kernels is the only lever, transcript fixed), arith 0.115 (phase-1 per-round hos
 
 ## RTX 4090 re-record
 - New pod vy-agkr-fp8 = RTX 4090 5vnbd6rfwm3wmd (reference part, EPYC 7532, 12 vCPU, created 23:27Z); sync 226 s, bootstrap
-  RELS=fp8-ada 4 min (BOOTSTRAP_OK). Dev pass at bb859220: r20260924-233453-ee05.
+  RELS=fp8-ada 4 min (BOOTSTRAP_OK). Dev pass at bb859220: r20260924-233453-ee05 (bench_result 0.692 s, proofs b5ef0238… unchanged,
+  Rust 2/2, NEGATIVES OK).
+- f2363663: `Acc.a` in int32 on CUDA (06_ab r20260924-234548-cd34: same sha, t_open_acc 113 -> 85 ms, median prove 0.594 s).
+- Recorded r20260924-234932-5828 @ f2363663 (clean; recipe as above with `--threads 10` and
+  `--env OMP_NUM_THREADS=10 MKL_NUM_THREADS=10 OPENBLAS_NUM_THREADS=10 VY_CPU_THREADS=10`): result art:ecd96143, run-files art:0667ed46,
+  PRESERVED, reindex ok. t.total median 0.666 s (0.667 / 0.666 / 0.665), was 1.130; buckets witness 0.038, commit 0.014, lookup 0.249,
+  arithmetic 0.309, serialization 0.055. Proofs b5ef0238… (as the 21:21Z cell), Rust 3/3 (1.37 s at 10 threads), 2^-130.19, status
+  passed. Overhead ~1.75e7x (the 1.130 s cell's 2.97e7x scaled). Negatives art:9398f028 (dev run ee05). Predicate: only
+  `not independently verified`. Handoff lanes/coordinator/20260925T0006Z-handoff-from-agkr-fp8.md.
+
+## Merged tagged LogUp table (statement change, FP8 unit circuit only)
+- `gpu/v2/export.py::merge_tables`: every table of the FP8 unit circuit (ALIGN4, LEAD, LEADNORM, R5, R7, SHIFT, SSHIFT_HI/LO, TNORM,
+  T_OP) becomes one row-listed `LK` (8 columns, 261819 rows: `(tag 2^20 + key, tag, outs.., 0..)`); the 150 queries per unit are
+  rewritten into it. It is the default in `circuits()` for E4M3 models; `--no-merge` gives the old statement. The epilogue queries none.
+  chain.txt unchanged. It is a new statement, so it needs new negatives and a new independent verification.
+- Dev pass r20260925-000446-6b38 (H=/workspace/agkr-fp8/fp8-ada-m).

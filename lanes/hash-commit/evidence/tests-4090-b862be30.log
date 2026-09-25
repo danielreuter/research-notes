@@ -1,0 +1,13 @@
+................s..................                                      [100%]
+=============================== warnings summary ===============================
+backends/direct/ligero/hashchain_test.py::test_row_sponge_kernel_equals_chain_witness_and_native[w8]
+backends/direct/ligero/hashchain_test.py::test_row_sponge_kernel_equals_chain_witness_and_native[w8]
+backends/direct/ligero/hashchain_test.py::test_row_sponge_kernel_equals_chain_witness_and_native[w16]
+backends/direct/ligero/hashchain_test.py::test_row_sponge_kernel_equals_chain_witness_and_native[w16]
+backends/direct/ligero/hashchain_test.py::test_row_sponge_kernel_equals_chain_witness_and_native[fp4]
+backends/direct/ligero/hashchain_test.py::test_row_sponge_kernel_equals_chain_witness_and_native[fp4]
+  /workspace/src/backends/direct/ligero/leaf/poseidon2.py:590: DeprecationWarning: ExternalStream is deprecated. Use Stream.from_external() instead to interoperate with external streams that implement the CUDA stream protocol.
+    return row_sponges_lanes(el, iv, n, steps)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+34 passed, 1 skipped, 6 warnings in 24.31s

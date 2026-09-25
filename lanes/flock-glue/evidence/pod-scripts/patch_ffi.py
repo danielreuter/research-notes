@@ -163,25 +163,22 @@ int flock_cuda_prove_host(const FlockCudaProveParams* P, const F128* z, const F1
 int flock_glue_prove_unit(const FlockCudaProveParams* P, uint8_t** out, size_t* out_len) {
     return prove_impl(P, out, out_len, 2, nullptr, nullptr, nullptr, nullptr);
 }
-// hdr = useful, const_pos, n_in, n_x, n_w, n_c, k, bits, depth
-int flock_glue_unit_setup(const int* hdr, const int* lvl_off, const int* lvl_rows, int n_lvl_rows,
-                          const int* a_off, const uint16_t* a_col, int a_nnz,
-                          const int* b_off, const uint16_t* b_col, int b_nnz, const int* cout) {
+// hdr = useful, const_pos, n_in, n_x, n_w, n_c, k, bits, n_gates, n_segs, n_batches
+int flock_glue_unit_setup(const int* hdr, const uint32_t* gdesc, const uint32_t* gstart, const uint16_t* cols, int n_cols,
+                          const int* seg_end, const int* batch_seg, const int* cout) {
     UnitNetDev N{};
     N.useful = hdr[0]; N.const_pos = hdr[1]; N.n_in = hdr[2]; N.n_x = hdr[3]; N.n_w = hdr[4]; N.n_c = hdr[5];
-    N.k = hdr[6]; N.bits = hdr[7]; N.depth = hdr[8];
-    if (N.useful > UW_K || N.n_c != 32) return 107;
-    int *d_lo, *d_lr, *d_ao, *d_bo; uint16_t *d_ac, *d_bc;
-    CK(cudaMalloc(&d_lo, (N.depth + 1) * sizeof(int))); CK(cudaMalloc(&d_lr, (n_lvl_rows ? n_lvl_rows : 1) * sizeof(int)));
-    CK(cudaMalloc(&d_ao, (N.useful + 1) * sizeof(int))); CK(cudaMalloc(&d_bo, (N.useful + 1) * sizeof(int)));
-    CK(cudaMalloc(&d_ac, (a_nnz ? a_nnz : 1) * 2)); CK(cudaMalloc(&d_bc, (b_nnz ? b_nnz : 1) * 2));
-    CK(cudaMemcpy(d_lo, lvl_off, (N.depth + 1) * sizeof(int), cudaMemcpyHostToDevice));
-    CK(cudaMemcpy(d_lr, lvl_rows, n_lvl_rows * sizeof(int), cudaMemcpyHostToDevice));
-    CK(cudaMemcpy(d_ao, a_off, (N.useful + 1) * sizeof(int), cudaMemcpyHostToDevice));
-    CK(cudaMemcpy(d_bo, b_off, (N.useful + 1) * sizeof(int), cudaMemcpyHostToDevice));
-    CK(cudaMemcpy(d_ac, a_col, a_nnz * 2, cudaMemcpyHostToDevice));
-    CK(cudaMemcpy(d_bc, b_col, b_nnz * 2, cudaMemcpyHostToDevice));
-    N.lvl_off = d_lo; N.lvl_rows = d_lr; N.a_off = d_ao; N.a_col = d_ac; N.b_off = d_bo; N.b_col = d_bc;
+    N.k = hdr[6]; N.bits = hdr[7]; N.n_gates = hdr[8]; N.n_segs = hdr[9]; N.n_batches = hdr[10];
+    if (N.useful > UW_K || N.n_c != 32 || N.n_segs > UW_MAX_SEGS || N.n_batches > UW_MAX_BATCHES) return 107;
+    uint32_t *d_gd, *d_gs; uint16_t* d_c; int *d_se, *d_bs;
+    CK(cudaMalloc(&d_gd, N.n_gates * 4)); CK(cudaMalloc(&d_gs, (N.n_gates + 1) * 4)); CK(cudaMalloc(&d_c, n_cols * 2));
+    CK(cudaMalloc(&d_se, N.n_segs * 4)); CK(cudaMalloc(&d_bs, (N.n_batches + 1) * 4));
+    CK(cudaMemcpy(d_gd, gdesc, N.n_gates * 4, cudaMemcpyHostToDevice));
+    CK(cudaMemcpy(d_gs, gstart, (N.n_gates + 1) * 4, cudaMemcpyHostToDevice));
+    CK(cudaMemcpy(d_c, cols, n_cols * 2, cudaMemcpyHostToDevice));
+    CK(cudaMemcpy(d_se, seg_end, N.n_segs * 4, cudaMemcpyHostToDevice));
+    CK(cudaMemcpy(d_bs, batch_seg, (N.n_batches + 1) * 4, cudaMemcpyHostToDevice));
+    N.gdesc = d_gd; N.gstart = d_gs; N.cols = d_c; N.seg_end = d_se; N.batch_seg = d_bs;
     for (int i = 0; i < 32; i++) N.cout[i] = cout[i];
     g_net = N; g_net_ok = true;
     return 0;

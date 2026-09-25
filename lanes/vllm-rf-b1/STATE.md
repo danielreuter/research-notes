@@ -2,7 +2,7 @@
 id: vllm-rf-b1/state
 lane: vllm-rf-b1
 kind: state
-updated: 2026-09-25T10:26Z
+updated: 2026-09-25T10:50Z
 ---
 # b1 (evaluator kernels and replay): state
 
@@ -25,6 +25,8 @@ a4 base: 10996616
 - e86c93b3 `tests/program/test_kernel_self_check.py`: every registered (kernel, Definition) pair against core `self_check`.
 - ee2a319f test fix (MoE router / padded memo live in rows). head-touched2 at e86c93b3: 2 failed (these), 239 passed.
 - a6ba1e5b `check/replay/challenge.py`: every seed derivation of record + the only generator constructors; routed: SR.sample, SR.challenge_seed, replay tier_a/tier_chain, compiled_kernel_check, stoch_recompute reference rows, vu_query.production_sample, admission.produce (difftest), relations draw_sample/ensure_adjacent_pair, pipeline/commit.py main (3 one-line hunks + 1 import). RNG_OWNERS; 10 p03 entries deleted; P10 SR module 2614 -> 2611, commit.main 1914 -> 1913. Pinned-value tests in tests/check/test_challenge_seeds.py.
+- 31a0be62 `check/sampled_replay.py` deleted: split into `check/replay/{index,opening,compare,evaluate,population,coverage,sample,linkage,driver}.py` (acyclic; driver `__all__` re-exports the caller interface so pipeline/commit.py and engine/rank_worker.py change one import line each). Allowlist entries moved in place (p03/p04/p07/p09/p10/p11/by_name); p10 SR module entry deleted (all new modules < 800).
+- 7cde62a5 difftest `evaluate_spec` = core `verity.evaluation.evaluate` (drops the hand-built one-call Program and the observe.fold `_replayer` import). Unverified on pod yet for unregistered `DT.spec(...)`.
 
 ## Plan
 1. done (derived_rows move).
@@ -40,7 +42,7 @@ a4 base: 10996616
   - head gate (b) at a6ba1e5b (intermediate), `-n 12 --dist loadfile`, started 10:24Z (head-a6ba-xdist).
 
 ## Next
-- split sampled_replay.py (step 5) while head gate (b) runs; difftest evaluate -> core `evaluate`; then final head gate (b), gate (a) on a cpu3m 512 GB pod, GPU rows.
+- read head-a6ba-xdist vs base; ship 7cde62a5 to /workspace/head; touched tests; final head gate (b); gate (a) on a cpu3m 512 GB pod; GPU rows.
 
 ## Open questions
 - difftest lives in properties/admission.py (b2v's `properties/`): will keep hunks to the rng call + evaluate call + import lines.

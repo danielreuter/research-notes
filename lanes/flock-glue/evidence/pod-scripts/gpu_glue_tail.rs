@@ -11,9 +11,8 @@ unsafe extern "C" {
     fn flock_cuda_prove_host(p: *const ProveParams, z: *const F128, a: *const F128, b: *const F128,
         zl: *const u8, out: *mut *mut u8, out_len: *mut usize) -> i32;
     fn flock_glue_prove_unit(p: *const ProveParams, out: *mut *mut u8, out_len: *mut usize) -> i32;
-    fn flock_glue_unit_setup(hdr: *const i32, lvl_off: *const i32, lvl_rows: *const i32, n_lvl_rows: i32,
-        a_off: *const i32, a_col: *const u16, a_nnz: i32, b_off: *const i32, b_col: *const u16, b_nnz: i32,
-        cout: *const i32) -> i32;
+    fn flock_glue_unit_setup(hdr: *const i32, gdesc: *const u32, gstart: *const u32, cols: *const u16, n_cols: i32,
+        seg_end: *const i32, batch_seg: *const i32, cout: *const i32) -> i32;
     fn flock_glue_rows_upload(x: *const u8, w: *const u8, elem_bytes: i32, n_vu: i32, units_per_vu: i32, row_len: i32) -> i32;
     fn flock_glue_unit_witness_dump(m: i32, k_log: i32, z: *mut F128, a: *mut F128, b: *mut F128, zl: *mut u8,
         secs: *mut f64) -> i32;
@@ -79,35 +78,61 @@ fn setup_device(g: &Glue) -> usize {
         lvl[r] = m + 1;
     }
     let depth = *lvl.iter().max().unwrap();
-    let mut lvl_off = vec![0i32];
-    let mut lvl_rows = Vec::new();
+    // level-ordered gates, A terms then B terms, own column dropped; segments = levels split to fit a batch;
+    // batches = consecutive segments whose terms / gates fit the device's shared buffers
+    const COLS_CAP: usize = 12288 - 4;
+    const DESC_CAP: usize = 1024;
+    let (mut gdesc, mut gstart, mut cols) = (Vec::<u32>::new(), vec![0u32], Vec::<u16>::new());
+    let (mut seg_end, mut batch_seg) = (Vec::<i32>::new(), vec![0i32]);
+    let (mut b_terms, mut b_gates) = (0usize, 0usize);
     for d in 1..=depth {
-        for r in n_in..u {
-            if r != cp && lvl[r] == d {
-                lvl_rows.push(r as i32);
+        let rows: Vec<usize> = (n_in..u).filter(|&r| r != cp && lvl[r] == d).collect();
+        let mut seg_terms = 0usize;
+        let mut seg_open = false;
+        for &r in &rows {
+            let fa: Vec<u16> = net.a[r].iter().filter(|&&c| c != r).map(|&c| c as u16).collect();
+            let fb: Vec<u16> = net.b[r].iter().filter(|&&c| c != r).map(|&c| c as u16).collect();
+            let t = fa.len() + fb.len();
+            assert!(t <= COLS_CAP && fa.len() < 65536);
+            if b_terms + t > COLS_CAP || b_gates + 1 > DESC_CAP {
+                if seg_open {
+                    seg_end.push(gdesc.len() as i32);
+                    seg_open = false;
+                }
+                batch_seg.push(seg_end.len() as i32);
+                b_terms = 0;
+                b_gates = 0;
             }
+            gdesc.push(r as u32 | ((fa.len() as u32) << 16));
+            cols.extend_from_slice(&fa);
+            cols.extend_from_slice(&fb);
+            gstart.push(cols.len() as u32);
+            b_terms += t;
+            b_gates += 1;
+            seg_terms += t;
+            seg_open = true;
         }
-        lvl_off.push(lvl_rows.len() as i32);
+        if seg_open {
+            seg_end.push(gdesc.len() as i32);
+        }
+        let _ = seg_terms;
     }
-    let csr = |rows: &Vec<Vec<usize>>| {
-        let mut off = vec![0i32];
-        let mut col = Vec::new();
-        for (r, row) in rows.iter().enumerate() {
-            col.extend(row.iter().filter(|&&c| c != r).map(|&c| c as u16));
-            off.push(col.len() as i32);
-        }
-        (off, col)
-    };
-    let (a_off, a_col) = csr(&net.a);
-    let (b_off, b_col) = csr(&net.b);
-    let hdr = [u as i32, cp as i32, n_in as i32, g.n_x as i32, g.n_w as i32, g.n_c as i32, g.k as i32, g.bits as i32, depth as i32];
+    if *batch_seg.last().unwrap() != seg_end.len() as i32 {
+        batch_seg.push(seg_end.len() as i32);
+    }
+    cols.extend_from_slice(&[0, 0, 0, 0]);
+    let n_gates = gdesc.len();
+    let n_segs = seg_end.len();
+    let n_batches = batch_seg.len() - 1;
+    let hdr = [u as i32, cp as i32, n_in as i32, g.n_x as i32, g.n_w as i32, g.n_c as i32, g.k as i32, g.bits as i32,
+        n_gates as i32, n_segs as i32, n_batches as i32];
     let cout: Vec<i32> = g.cout.iter().map(|&c| c as i32).collect();
     let rc = unsafe {
-        flock_glue_unit_setup(hdr.as_ptr(), lvl_off.as_ptr(), lvl_rows.as_ptr(), lvl_rows.len() as i32, a_off.as_ptr(),
-            a_col.as_ptr(), a_col.len() as i32, b_off.as_ptr(), b_col.as_ptr(), b_col.len() as i32, cout.as_ptr())
+        flock_glue_unit_setup(hdr.as_ptr(), gdesc.as_ptr(), gstart.as_ptr(), cols.as_ptr(), cols.len() as i32,
+            seg_end.as_ptr(), batch_seg.as_ptr(), cout.as_ptr())
     };
     assert_eq!(rc, 0, "flock_glue_unit_setup");
-    println!("VSETUP depth={depth} rows={} nnz={}", lvl_rows.len(), a_col.len() + b_col.len());
+    println!("VSETUP depth={depth} gates={n_gates} terms={} segments={n_segs} batches={n_batches}", cols.len() - 4);
     depth
 }
 
@@ -300,7 +325,8 @@ fn glue_bench() {
     let b3_nbl: usize = env_or("GLUE_B3_NBL", "0").parse().unwrap();
     let reps: usize = env_or("GLUE_REPS", "5").parse().unwrap();
     let plant = env_or("GLUE_PLANT_NAN", "0") == "1";
-    let nbl = nbl_for(n_vu * g.upv);
+    let nbl: usize = std::env::var("GLUE_UNIT_NBL").map_or_else(|_| nbl_for(n_vu * g.upv), |s| s.parse().unwrap());
+    assert!(1usize << nbl >= n_vu * g.upv);
     let m = 13 + nbl;
     if mode == 2 {
         setup_device(&g);
@@ -342,8 +368,8 @@ fn glue_bench() {
             "VGLUE rep={rep} m={m} b3_nbl={b3_nbl} unit_ffi={:.4} b3_ffi={:.4} ffi_sum={f:.4} call_unit={t_unit:.4} call_e2e={t_all:.4} unit_verify={} b3_verify={}",
             ua.prove_secs,
             ba.as_ref().map_or(0.0, |b| b.prove_secs),
-            if uv.is_ok() { "ok".to_string() } else { format!("REJECTED {:?}", uv.err()) },
-            match bv { None => "-".to_string(), Some(Ok(())) => "ok".to_string(), Some(Err(e)) => format!("REJECTED {e}") },
+            if uv.is_ok() { "ok".to_string() } else { format!("REJECTED {:?}", uv.as_ref().err()) },
+            match &bv { None => "-".to_string(), Some(Ok(())) => "ok".to_string(), Some(Err(e)) => format!("REJECTED {e}") },
         );
         if !plant {
             assert!(uv.is_ok() && bv.as_ref().map_or(true, |r| r.is_ok()), "a proof failed to verify");

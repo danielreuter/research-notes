@@ -10,7 +10,7 @@ verify() {  # TREE LIST [extras-allowed]
         | awk -F'\t' '$1!=$2' | wc -l)
   local extra
   extra=$(cd "$1" && comm -23 <(find . -type f ! -path '*/__pycache__/*' ! -path './.pytest_cache/*' \
-          ! -name .research-source.json ! -name .b2v-tree | sed 's|^\./||' | sort) <(cut -f2 "$2" | sort) | wc -l)
+          ! -name .research-source.json ! -name .research-sync-files ! -name .b2v-tree | sed 's|^\./||' | sort) <(cut -f2 "$2" | sort) | wc -l)
   echo "verify $1: files $(wc -l < "$2") mismatched $bad extra $extra"
   [ "$bad" = 0 ] && { [ "$extra" = 0 ] || [ -n "${3:-}" ]; }
 }

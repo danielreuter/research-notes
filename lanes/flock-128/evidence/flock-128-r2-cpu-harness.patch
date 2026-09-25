@@ -1,0 +1,326 @@
+--- pod-scripts/unit_shape.rs	2026-09-25 03:25:44
++++ pod-scripts/unit_shape128.rs	2026-09-25 03:43:11
+@@ -1,16 +1,23 @@
+-//! flock-bench-80gb (verity): Flock prove/verify of the census transition-unit table (verity_unit.rs), alone
+-//! (`US_MODE=unit`) or in ONE union proof with the BLAKE3 row-leaf table at the same VU count (`US_MODE=mixed`:
+-//! relation + standard-hash leaves, what a binary backend would prove; glue not modelled).
++//! flock-128: the flock-bench-80gb `unit_shape` statement (census unit table + BLAKE3 row-leaf table in ONE Flock
++//! union proof, or the unit table alone) under several soundness profiles, timed alternately on the same host.
+ //!
+-//! env: US_NET=path.netlist  US_MODE=unit|mixed  US_NS="64 1024 4096"  US_RUNS=3  US_SEED
+-//! Output: one `RESULT\t{json}` line per point. Timings: eval_s = bit-sliced unit witness evaluation + transpose
+-//! (outside the prove call); prove_s = Flock union prove (in-place slot assembly + BLAKE3 witness gen + PIOP + PCS).
++//! A profile is `<ligerito profile>x<reps>`:
++//!   fastx1     today's profile (b684b12 default `Fast`, one Fiat-Shamir run, PoW credited by upstream)
++//!   fast100x2  flock-128-r2: two sequential runs of `Fast100` (no PoW anywhere) on fresh coins, same statement
++//!   fastx2     two sequential runs of `Fast` (PoW kept, not credited)
++//! Run r of a repeated profile uses its own transcript domain (`flock-128/<profile>/rep<r>`), standing in for a live
++//! verifier's fresh coins; the reps are proved and verified one after the other.
++//!
++//! env: US_NET=path.netlist  US_MODE=mixed|unit  US_NS="1024 4096"  US_RUNS=5  US_PROFILES="fastx1 fast100x2"
++//!      US_NEG=1 (negatives once per N, after the timed runs)
++//! Output: `RESULT\t{json}` per (N, profile), `NEG\t{json}` per negative.
+ 
+ use std::{
+     alloc::{GlobalAlloc, Layout, System},
+     array::from_fn,
+     env::var,
+     hint::black_box,
++    panic::{AssertUnwindSafe, catch_unwind},
+     sync::atomic::{AtomicUsize, Ordering},
+     time::Instant,
+ };
+@@ -29,7 +36,7 @@
+     r1cs_hashes::{
+         blake3::{Compression, build_block_r1cs as build_blake3_r1cs, generate_witness_batch_major_partial_into,
+                  min_n_blocks_log},
+-        verity_unit::{Netlist, transpose64_selftest},
++        verity_unit::{Netlist, UnitWitness, transpose64_selftest},
+     },
+     schedule::{Registry, TableType},
+     union::UnionInstance,
+@@ -67,51 +74,76 @@
+ }
+ #[global_allocator]
+ static ALLOC: PeakAlloc = PeakAlloc;
+-fn mib(x: usize) -> f64 {
+-    x as f64 / 1048576.0
++
++#[derive(Clone, Copy)]
++struct Profile {
++    name: &'static str,
++    lig: LigeritoProfile,
++    reps: usize,
+ }
+ 
+-fn pcs_params(union: &UnionInstance<'_>) -> PcsParams {
++fn parse_profile(s: &str) -> Profile {
++    match s {
++        "fastx1" => Profile { name: "fastx1", lig: LigeritoProfile::Fast, reps: 1 },
++        "fastx2" => Profile { name: "fastx2", lig: LigeritoProfile::Fast, reps: 2 },
++        "fast100x1" => Profile { name: "fast100x1", lig: LigeritoProfile::Fast100, reps: 1 },
++        "fast100x2" => Profile { name: "fast100x2", lig: LigeritoProfile::Fast100, reps: 2 },
++        _ => panic!("unknown profile {s}"),
++    }
++}
++
++fn pcs_params(union: &UnionInstance<'_>, lig: LigeritoProfile) -> PcsParams {
+     let m = union.dense_m();
+-    let batch = embedded_initial_k_or_default(m, LigeritoProfile::Fast);
++    let batch = embedded_initial_k_or_default(m, lig);
+     PcsParams {
+         m,
+-        log_inv_rate: 1,
++        log_inv_rate: lig.log_inv_rate(),
+         log_batch_size: batch,
+-        profile: LigeritoProfile::Fast,
++        profile: lig,
+         num_lanes: union.commit_lanes(batch),
+         merkle_hash: Default::default(),
+     }
+ }
+ 
++fn domain(p: &Profile, rep: usize) -> Vec<u8> {
++    format!("flock-128/{}/rep{rep}", p.name).into_bytes()
++}
++
++fn median(v: &[f64]) -> f64 {
++    let mut s = v.to_vec();
++    s.sort_by(|a, b| a.partial_cmp(b).unwrap());
++    s[s.len() / 2]
++}
++
+ fn main() {
+     let _ = init_perf_thread_pool();
+     transpose64_selftest();
+     let path = var("US_NET").expect("US_NET");
+-    let mode = var("US_MODE").unwrap_or_else(|_| "unit".into());
+-    let runs: usize = var("US_RUNS").ok().and_then(|s| s.parse().ok()).unwrap_or(3);
+-    let seed: u64 = var("US_SEED").ok().and_then(|s| s.parse().ok()).unwrap_or(0x5EED_80);
++    let mode = var("US_MODE").unwrap_or_else(|_| "mixed".into());
++    let runs: usize = var("US_RUNS").ok().and_then(|s| s.parse().ok()).unwrap_or(5);
++    let neg = var("US_NEG").map(|s| s == "1").unwrap_or(false);
++    let seed: u64 = 0x5EED_80;
+     let ns: Vec<usize> = var("US_NS")
+-        .unwrap_or_else(|_| "64 1024 4096".into())
++        .unwrap_or_else(|_| "1024 4096".into())
+         .split([' ', ','])
+         .filter(|t| !t.is_empty())
+         .map(|t| t.parse().unwrap())
+         .collect();
++    let profiles: Vec<Profile> = var("US_PROFILES")
++        .unwrap_or_else(|_| "fastx1 fast100x2".into())
++        .split([' ', ','])
++        .filter(|t| !t.is_empty())
++        .map(parse_profile)
++        .collect();
+     let threads = rayon::current_num_threads();
+-    let t = Instant::now();
+     let net = Netlist::load(&path);
+     let (vok, vt, nrej, nt) = net.check_tests();
+-    eprintln!(
+-        "netlist {} useful={} n_in={} n_and={} nnz={} load {:.2}s; tests valid {vok}/{vt} negatives rejected {nrej}/{nt}",
+-        net.name, net.useful, net.n_in, net.n_and, net.nnz(), t.elapsed().as_secs_f64()
+-    );
+     assert!(vok == vt && nrej == nt, "bit-exact test vectors failed");
+     let upv = 1536 / net.terms;
+     let comp_per_vu = 1536 * net.op_bits / 8 * 2 / 64;
+     for &n in &ns {
+         let n_units = n * upv;
+         let n_comp = if mode == "mixed" { n * comp_per_vu } else { 0 };
+-        let t_setup = Instant::now();
+         let nu = min_n_blocks_log(n_units.max(n_comp));
+         let unit_r1cs = net.block_r1cs(nu);
+         let b3_r1cs = build_blake3_r1cs(if mode == "mixed" { nu } else { 3 });
+@@ -120,21 +152,18 @@
+             types.push(TableType::from_block_r1cs(&b3_r1cs));
+         }
+         let registry = Registry::new(types, nu);
+-        let _ = registry.digest();
+-        // slot order = registry order (capacity area descending): identify by k_log
+-        let order: Vec<&str> = registry.types().iter().map(|t| if t.k_log == net.k_log { "unit" } else { "blake3" }).collect();
++        let order: Vec<&str> =
++            registry.types().iter().map(|t| if t.k_log == net.k_log { "unit" } else { "blake3" }).collect();
+         let counts: Vec<usize> = order.iter().map(|&o| if o == "unit" { n_units } else { n_comp }).collect();
+         let unit_circ = unit_r1cs.csc_lincheck_circuit();
+         let b3_circ: &dyn LincheckCircuit = if mode == "mixed" { b3_r1cs.csc_lincheck_circuit() } else { unit_circ };
+-        let circs: Vec<&dyn LincheckCircuit> = order.iter().map(|&o| if o == "unit" { unit_circ as &dyn LincheckCircuit } else { b3_circ as &dyn LincheckCircuit }).collect();
++        let circs: Vec<&dyn LincheckCircuit> = order
++            .iter()
++            .map(|&o| if o == "unit" { unit_circ as &dyn LincheckCircuit } else { b3_circ })
++            .collect();
+         let union = UnionInstance::new(&registry, counts.clone());
+-        let pcs = pcs_params(&union);
+         flock_core::scratch::prewarm_prover(registry.m_total());
+-        let setup_s = t_setup.elapsed().as_secs_f64();
+-
+-        let t_eval = Instant::now();
+         let wit = net.gen_witness(n, upv, seed ^ n as u64);
+-        let eval_s = t_eval.elapsed().as_secs_f64();
+         let mut rng = Rng::new(0xB3 ^ n as u64);
+         let blocks: Vec<Compression> = (0..n_comp)
+             .map(|_| {
+@@ -143,55 +172,124 @@
+                 (cv, m, rng.next_u32() as u64, 64u32, 16u32 | (rng.next_u32() & 3))
+             })
+             .collect();
+-        eprintln!("N={n} mode={mode} nu={nu} M={} dense_m={} order={order:?} counts={counts:?} setup {setup_s:.2}s eval {eval_s:.3}s", registry.m_total(), pcs.m);
+-
+-        let fs = || FsChallenger::with_hash(b"flock-bench-80gb-v0", HashKind::default());
+-        let prove = || {
++        let prove_one = |w: &UnitWitness, pcs: &PcsParams, dom: &[u8]| {
+             let slots: Vec<UnionSlotProverInput<'_>> = order
+                 .iter()
+                 .map(|&o| {
+                     if o == "unit" {
+-                        UnionSlotProverInput::in_place(|dst| net.witness_into(&wit, nu, dst), unit_circ)
++                        UnionSlotProverInput::in_place(|dst| net.witness_into(w, nu, dst), unit_circ)
+                     } else {
+-                        UnionSlotProverInput::in_place(|dst| generate_witness_batch_major_partial_into(&blocks, nu, dst), b3_circ)
++                        UnionSlotProverInput::in_place(
++                            |dst| generate_witness_batch_major_partial_into(&blocks, nu, dst),
++                            b3_circ,
++                        )
+                     }
+                 })
+                 .collect();
+-            prove_fast_ligerito_union(&union, &pcs, slots, &mut fs())
++            let (proof, commitment, claim) =
++                prove_fast_ligerito_union(&union, pcs, slots, &mut FsChallenger::with_hash(dom, HashKind::default()));
++            (R1csProofBundleLigerito { commitment, proof }.to_bytes(), claim)
+         };
+-        black_box(prove());
+-        let mut ts = Vec::new();
++        let verify_one = |bytes: &[u8], pcs: &PcsParams, dom: &[u8]| -> Result<(), String> {
++            let b = R1csProofBundleLigerito::from_bytes(bytes).map_err(|e| format!("decode: {e:?}"))?;
++            let r = catch_unwind(AssertUnwindSafe(|| {
++                verify_ligerito_union(
++                    &union,
++                    &circs,
++                    &b.commitment,
++                    &b.proof,
++                    pcs,
++                    &mut FsChallenger::with_hash(dom, HashKind::default()),
++                )
++            }));
++            match r {
++                Ok(Ok(_)) => Ok(()),
++                Ok(Err(e)) => Err(format!("{e:?}").chars().take(160).collect()),
++                Err(_) => Err("verifier panicked".into()),
++            }
++        };
++        let pcss: Vec<PcsParams> = profiles.iter().map(|p| pcs_params(&union, p.lig)).collect();
++        eprintln!("N={n} mode={mode} nu={nu} M={} dense_m={} order={order:?}", registry.m_total(), union.dense_m());
++        for (p, pcs) in profiles.iter().zip(&pcss) {
++            for r in 0..p.reps {
++                black_box(prove_one(&wit, pcs, &domain(p, r)));
++            }
++        }
++        let mut times: Vec<Vec<f64>> = vec![Vec::new(); profiles.len()];
+         for _ in 0..runs {
+-            let t0 = Instant::now();
+-            let p = prove();
+-            ts.push(t0.elapsed().as_secs_f64());
+-            black_box(&p);
++            for (i, (p, pcs)) in profiles.iter().zip(&pcss).enumerate() {
++                let t0 = Instant::now();
++                for r in 0..p.reps {
++                    black_box(prove_one(&wit, pcs, &domain(p, r)));
++                }
++                times[i].push(t0.elapsed().as_secs_f64());
++            }
+         }
+-        PEAK.store(CUR.load(Ordering::Relaxed), Ordering::Relaxed);
+-        let base = CUR.load(Ordering::Relaxed);
+-        let (proof, commitment, claim) = prove();
+-        let peak = PEAK.load(Ordering::Relaxed) - base;
+-        let t = Instant::now();
+-        let claim_v = verify_ligerito_union(&union, &circs, &commitment, &proof, &pcs, &mut fs()).expect("verify failed");
+-        let verify_s = t.elapsed().as_secs_f64();
+-        assert_eq!(claim_v, claim);
+-        let size = R1csProofBundleLigerito { commitment, proof }.to_bytes().len();
+-        let best = ts.iter().cloned().fold(f64::INFINITY, f64::min);
+-        let slot_bits = (n_units << net.k_log) + (n_comp << 14);
+-        let tss: Vec<String> = ts.iter().map(|t| format!("{t:.4}")).collect();
+-        println!(
+-            "RESULT\t{{\"pipeline\":\"{}\",\"mode\":\"{mode}\",\"n_vu\":{n},\"n_units\":{n_units},\"n_comp\":{n_comp},\"nu\":{nu},\
+-             \"m_total\":{},\"dense_m\":{},\"threads\":{threads},\"eval_s\":{eval_s:.4},\"prove_best_s\":{best:.4},\
+-             \"prove_runs_s\":[{}],\"verify_s\":{verify_s:.4},\"proof_bytes\":{size},\"peak_heap_mib\":{:.1},\
+-             \"peak_heap_abs_mib\":{:.1},\"witness_rows_mib\":{:.1},\"slot_bits\":{slot_bits},\"slot_bits_per_s\":{:.4e}}}",
+-            net.name,
+-            registry.m_total(),
+-            pcs.m,
+-            tss.join(","),
+-            mib(peak),
+-            mib(PEAK.load(Ordering::Relaxed)),
+-            mib(wit.z.len() * 8 * 3),
+-            slot_bits as f64 / best
+-        );
++        for (i, (p, pcs)) in profiles.iter().zip(&pcss).enumerate() {
++            let base = CUR.load(Ordering::Relaxed);
++            PEAK.store(base, Ordering::Relaxed);
++            let mut bytes = Vec::new();
++            let mut claims = Vec::new();
++            for r in 0..p.reps {
++                let (b, c) = prove_one(&wit, pcs, &domain(p, r));
++                bytes.push(b);
++                claims.push(c);
++            }
++            let peak = PEAK.load(Ordering::Relaxed) - base;
++            let t = Instant::now();
++            for r in 0..p.reps {
++                verify_one(&bytes[r], pcs, &domain(p, r)).unwrap_or_else(|e| panic!("{} rep{r} verify failed: {e}", p.name));
++            }
++            let verify_s = t.elapsed().as_secs_f64();
++            let size: usize = bytes.iter().map(|b| b.len()).sum();
++            let ts: Vec<String> = times[i].iter().map(|t| format!("{t:.4}")).collect();
++            println!(
++                "RESULT\t{{\"pipeline\":\"{}\",\"mode\":\"{mode}\",\"profile\":\"{}\",\"ligerito\":\"{}\",\"reps\":{},\"n_vu\":{n},\
++                 \"dense_m\":{},\"threads\":{threads},\"prove_median_s\":{:.4},\"prove_min_s\":{:.4},\"prove_max_s\":{:.4},\
++                 \"prove_runs_s\":[{}],\"verify_s\":{verify_s:.4},\"proof_bytes\":{size},\"proof_bytes_per_rep\":{},\
++                 \"peak_heap_mib\":{:.1},\"all_verified\":true}}",
++                net.name,
++                p.name,
++                p.lig.as_str(),
++                p.reps,
++                union.dense_m(),
++                median(&times[i]),
++                times[i].iter().cloned().fold(f64::INFINITY, f64::min),
++                times[i].iter().cloned().fold(0.0, f64::max),
++                ts.join(","),
++                bytes[0].len(),
++                peak as f64 / 1048576.0
++            );
++            if neg && p.reps == 2 {
++                let mut out = Vec::new();
++                let replay = verify_one(&bytes[0], pcs, &domain(p, 1));
++                out.push(("rep0_proof_replayed_as_rep1", replay));
++                let mut t = bytes[1].clone();
++                let k = t.len() / 2;
++                t[k] ^= 0x01;
++                out.push(("rep1_proof_byte_flipped", verify_one(&t, pcs, &domain(p, 1))));
++                if let Some((j, _)) = profiles.iter().enumerate().find(|(_, q)| q.lig.as_str() != p.lig.as_str()) {
++                    let other = &pcss[j];
++                    out.push(("rep0_verified_under_other_ligerito_profile", verify_one(&bytes[0], other, &domain(p, 0))));
++                }
++                let mut bad = UnitWitness { n_inst: wit.n_inst, words: wit.words, z: wit.z.clone(), a: wit.a.clone(), b: wit.b.clone() };
++                let at = (wit.n_inst / 2) * wit.words;
++                bad.z[at] ^= 1 << 3;
++                let proved = catch_unwind(AssertUnwindSafe(|| prove_one(&bad, pcs, &domain(p, 0))));
++                match proved {
++                    Ok((b, _)) => out.push(("witness_bit_flipped_rep0", verify_one(&b, pcs, &domain(p, 0)))),
++                    Err(_) => out.push(("witness_bit_flipped_rep0", Err("prover panicked (no proof)".into()))),
++                }
++                for (what, res) in out {
++                    let rejected = res.is_err();
++                    let why = res.err().unwrap_or_default().replace('"', "'");
++                    println!(
++                        "NEG\t{{\"pipeline\":\"{}\",\"profile\":\"{}\",\"n_vu\":{n},\"negative\":\"{what}\",\"rejected\":{rejected},\"why\":\"{why}\"}}",
++                        net.name, p.name
++                    );
++                    assert!(rejected, "negative {what} was ACCEPTED");
++                }
++            }
++        }
+     }
+ }

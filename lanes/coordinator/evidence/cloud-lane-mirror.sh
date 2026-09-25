@@ -24,6 +24,18 @@ for d in "$NOTES"/lanes/*/; do
 done
 
 in=0
+# cloud lanes' handoffs to laptop lanes (and to the coordinator) land in those lanes' store dirs: bring them into the notes
+inc=()
+while read -r l; do [ -n "$l" ] && inc+=(--include="*-handoff-from-$l.md"); done < "$LIST"
+if [ ${#inc[@]} -gt 0 ]; then
+  for d in "$STORE"/lanes/*/; do
+    l=$(basename "$d"); cloud "$l" && continue
+    mkdir -p "$NOTES/lanes/$l"
+    n=$(rsync -a --ignore-existing --itemize-changes "${inc[@]}" --exclude='*' "$d" "$NOTES/lanes/$l/" | grep -c '^>f')
+    in=$((in + n))
+    [ "$n" -gt 0 ] && echo "$(date -u +%FT%TZ) IN $l: $n cloud handoff(s) store -> notes" >> "$LOG"
+  done
+fi
 while read -r l; do
   [ -n "$l" ] || continue
   mkdir -p "$NOTES/lanes/$l" "$STORE/lanes/$l"

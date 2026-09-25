@@ -2,7 +2,7 @@
 id: vllm-rf-b4/state
 lane: vllm-rf-b4
 kind: state
-updated: 2026-09-25T10:38Z
+updated: 2026-09-25T10:50Z
 ---
 # b4 (engine and hooks): state
 
@@ -46,9 +46,14 @@ Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/proje
 
 ## Running (pods registered, guard 90)
 - `vyv-rf-b4-g1` (17ez42q6mb3wo2, 1x L40S, 188 GB cgroup): gate (a) T0+T1 at `0f71b5b4` `r20260925-101742-278e`
-  (GPU hidden; 26/26 fixtures prefetched, key deleted 10:13:34Z).
+  (GPU hidden; 26/26 fixtures prefetched, key deleted 10:13:34Z). #101 from the base tree `r20260925-104202-d6d9`
+  (head vs base on the same pod; build at base already = head's digests).
+- `vyv-rf-b4-h100` (ew9cx2468ey9gx, 1x H100 PCIe cc 9.0, $1.99/h): FA3 tap, `r20260925-104827-1825` = bootstrap (builds
+  the FA3 matReq tap), then the Llama-3.2-1B B1 1024/128 H100 row build/match/commit at head and base. Time box: drop it if
+  the FA3 tap is not built by ~11:50Z.
 - `vyv-rf-b4-tp2` (19vmzfvh0x589w, 2x L40S, 377 GB cgroup): `r20260925-101142-d268` = bootstrap OLMOE, then #70
-  build / match / commit (PAIRS=1) at 3bdcd0ad (0f71b5b4 differs only in tests/engine/test_hooks.py).
+  build / match / commit (PAIRS=1) at 3bdcd0ad (0f71b5b4 differs only in tests/engine/test_hooks.py). Build PASS
+  10:39Z, program 64bee6d6e8264461 = record; build-global, match and commit next.
 
 ## Next
 1. Collect: gate (b) jdiff at 0f71b5b4; #101 vs record; noninterference head vs base; gate (a) vs a23b's base; #70 vs

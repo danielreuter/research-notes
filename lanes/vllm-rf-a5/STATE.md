@@ -2,7 +2,7 @@
 id: vllm-rf-a5/state
 lane: vllm-rf-a5
 kind: state
-updated: 2026-09-25T10:02Z
+updated: 2026-09-25T10:58Z
 ---
 # a5 (one CLI, typed config, decision-8 `verity_vllm.LLM`): state
 
@@ -23,6 +23,11 @@ branch `lane/vllm-rf-a5`. **a4 base: 10996616.** Budget $35 of pod spend. Spent:
   Lints: P6/P7 owners = pipeline/cli.py; P11 now checks option() flag/env names. Allowlists: P6 −~130, P7/P10 shrink,
   P8/P9/P11 moves. Static: pyflakes no new messages; all 12 ratchet lints 0 new / 0 stale (relint, pure ast).
   Tests not yet run (pods).
+- `aa2abe5b` WIP: `verity-vllm row run|stage|chain|shed|fa-version` in Python — `pipeline/row.py` (options, dispatch),
+  `row_driver.py` (evidence dir, logs, timeline, `timeout` + TERM/INT/HUP forwarding), `row_stages.py` (row_pod.sh),
+  `row_tp.py` (tp_stage.sh), `row_records.py` (the heredocs, moved intact; broad excepts narrowed), `research.py`
+  (run_row_v2.sh). RunEnv = options, machine defaults in `cli.MACHINE`, CLI environ = declared input. Shells not yet
+  deleted; tests/lints for it pending. Never executed yet (laptop rule) — first run on the GPU pods.
 
 ## Design (settled)
 - Entry point: `Options` (or `COMMANDS = {"sub": SubOptions}`) + `main(opts)`; cli returns main's int unchanged,
@@ -31,11 +36,13 @@ branch `lane/vllm-rf-a5`. **a4 base: 10996616.** Budget $35 of pod spend. Spent:
 - `verity_vllm.LLM(model, revision=..., ...)` → `EnginePin.resolve` → `engine.vllm_adapter.build_engine(...)`.
 
 ## Running
-- nothing (no pods yet).
+- 10:52Z creating `vyv-rf-a5-tp2` (2x L40S, #70) and `vyv-rf-a5-g1` (1x L40S: #101, olmoe tp1 b1, LLM example), guard 90.
+  #70 plan: full row at head via `verity-vllm row run --stages build,match` (Match FAILs at the fold at base too) then
+  `--stages commit`; compare with base Commit r20260924-221949-8668 (tp run root 0b91229f06480ce4…, commit FAIL rc=1).
 
 ## Next
-1. Census (dead_code_keep entries now live; `verity-vllm <cmd>` shell edges); ops shells → launcher.
-2. Row driver port (row_pod.sh, tp_stage.sh, run_row_v2.sh) + research Tools → CLI; shell-regex tests → unit tests.
+1. Census (dead_code_keep entries now live; `verity-vllm <cmd>` shell edges); ops shells → launcher; delete the 3 shells.
+2. research Tools → CLI; shell-regex tests → unit tests; cli unit test.
 3. `verity_vllm.LLM` + README section; pyproject `[project.scripts]`; cli unit test.
 4. Pods: CPU (lints + gate b head/base), cpu3m (gate a), 1x L40S (#101, olmoe tp1, LLM example), 2x L40S (#70).
 

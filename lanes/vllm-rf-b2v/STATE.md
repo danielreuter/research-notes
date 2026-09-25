@@ -2,7 +2,7 @@
 id: vllm-rf-b2v/state
 lane: vllm-rf-b2v
 kind: state
-updated: 2026-09-25T10:42Z
+updated: 2026-09-25T10:54Z
 ---
 # b2v (one verdict and `properties/` records): state
 
@@ -46,10 +46,18 @@ Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/project
   `r20260925-095828-2f7d` BOOTSTRAP-OK 10:04Z. #101 chain `r20260925-101202-5fdc` at 5483d13b (`evidence/chain101.sh`):
   build PASS 10:14Z (manifest 90f8186879d5035a), match PASS 10:35Z; props rc=0 10:37Z: `<row>/properties/`
   noninterference.json ok digest be83f678… (world 1, tokens equal, boundary hashes 1088/1088), census.json ok digest
-  33a41e9c…; commit stage running since 10:37Z.
+  33a41e9c…; **commit PASS 10:42:54Z** (295 s): program ccc213475e7c4eed…, manifest 90f8186879d5035a…, run root
+  7adcef49… (all = record); `verdict.json` cites census 33a41e9c… and noninterference be83f678… (both ok). Chain done.
+  Gates `r20260925-104642-9085` (`/workspace/b2v/l40s_gates.sh`: lints, unit, gate (b) head+base, jdiff) running since 10:47Z.
+  Trees `/workspace/{head,base}` built on the pod by `evidence/mktree.sh` (research src 5483d13b + `git diff --binary`
+  patch; every blob id checked against `git ls-tree`, 0 mismatched / 0 extra) — laptop upload was ~300 KB/s.
 - `vyv-rf-b2v-tp2` (qxi7kk83o1oxz4, 2x L40S, cgroup 377 GB): BOOTSTRAP-OK 09:56Z. #70 build,match `r20260925-095754-ee6c`
   at 66eaaa50 (PAIRS=1): build PASS 10:20Z digest 64bee6d6e8264461, manifest 1bb40895671dd791 (both = record); match
-  capture+check pass 10:37Z; fold running. Then noninterference.record(world 2) → `<row>/properties/`, commit at 66eaaa50, then
+  capture+check pass 10:37Z; fold running (2 workers ~42 GB each). **World-2 record written 10:53Z** (head code):
+  `<row>/properties/noninterference.json` ok digest 442979b3… (8/8 requests equal, both arms tp=2); worlds 3, 4 refused.
+  Key minted 10:43Z (3 h, read-only) → `/root/r2ro.env`; `prefetch.sh /workspace/head` running (14/26 ok, 0 FAIL at 10:52Z).
+  Trees: `/workspace/head` (sync, 824a9924, blob-verified), `/workspace/base` (mktree from head + reverse patch, verified).
+  Gate (a) next: two processes (`-k replay_partition` / `-k "not replay_partition"`), nice, oom_score_adj 1000. Then noninterference.record(world 2) → `<row>/properties/`, commit at 66eaaa50, then
   `check.verdict from-record` at the head (tp_stage.sh writes no vllm-verdict/v1).
 - No CPU pod available (10:25Z: cpu3m x64/x32, cpu5m x64/x32, cpu3g x16 all "no instances available"). Plan: lints, unit
   tests and gate (b) head+base on the L40S pod after #101 (GPUs hidden, `evidence/l40s_gates.sh`); gate (a) T0,T1 and the

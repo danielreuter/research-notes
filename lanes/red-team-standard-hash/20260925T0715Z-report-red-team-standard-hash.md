@@ -37,7 +37,8 @@ tree check (domain derivation, node/level/index, vllm-v1 path shape + root field
 | blake3-80gb cells | FAIL inherited from R1 (same verifier); re-verifying the dumps with a fixed verifier or 06 is enough | art:2b51c5fd | blake3-80gb 0750Z |
 | b-ligero-sha256 `sha256/row/v1` (922120d2) | not ready (no pinned system); gadget review found nothing; R1/R2 apply as for +blake3 | code read | none yet |
 | sp1-committed relation-committed/v1 and -vllm/v1 (d12770c3) | PASS on the guest and tree check (no R1 analog); R3: counts only with a non-producer root recomputation | art:b11bc6ee | coordinator 0820Z; sp1-committed 0820Z |
-| agkr-bound row-digest (d48f5bc2) | not ready (no hash-layer circuit); native tree check: no break found | code read | none yet |
+| agkr-bound row-digest (caacca10), frame-v3 + vllm-v1 | native tree check PASS: all 4 pins reproduced core-only from the frozen sets; in-proof hash layer not ready (no verdict) | art:8dee00aa | coordinator 0905Z; agkr-bound 0905Z |
+| verify-night-2 06 procedure (R1/R2/R4) | PASS after their 0850Z R4 fix (control ROOTS-MATCH, both R4 dumps MISMATCH) | art:8f2112e2, art:c7683eb2, art:8dee00aa | coordinator 0805Z, 0835Z, 0905Z; verify-night-2 0805Z, 0835Z |
 
 ### R1: the (vu, x, W) leaf triple is prover-chosen
 Both verifiers check only that each VU's x digest opens at `x_index[v]` under root a, its W digest at `w_index[v]` under

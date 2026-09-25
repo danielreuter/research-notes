@@ -1,6 +1,6 @@
 # machine vy-red-team-sh-2: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "f2j22l0sij2aak"
+pod_id = "dm92ozi7xllxg8"
 project = "verity"
 registered_by = "cursor"
-registered_at = "2026-09-25T20:38Z"
+registered_at = "2026-09-25T22:12Z"

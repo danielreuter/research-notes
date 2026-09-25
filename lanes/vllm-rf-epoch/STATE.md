@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T22:08Z
+updated: 2026-09-25T22:15Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -103,6 +103,20 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
 - When m32's sha arrives: cherry-pick it (non-epoch) onto lane/vllm-rf-epoch, then re-run Commit only, on each row's own pod, with
   SWEEP_DIR = that row's recording run's sweep. Needed for #4, #57, and every row whose Build+Match PASSes or is a FAIL-class Match.
 - Row Commits done so far: #101 PASS (its M is under 2^32).
+
+## 22:15Z: m32 fix cherry-picked; Commits released onto the fixed tree
+- `ad8050e9` = cherry-pick of m32's `271a0952` (pre-gate fix sha; non-epoch): `scheme.chunk_header` passes `M & 0xFFFFFFFF`
+  (+ `test_production_vectors.py`). Digest-neutral per m32. **Every row Commit from now on runs at `ad8050e9`**, over Build+Match
+  recorded at `a784d421` (#67 and #68 at `89cd9d1a`).
+- Per pod: `commitonly.sh` waits for the pod's recording chain to end, then re-runs Commit only, into the recording run's sweep.
+  `holdold.sh ad8050e9` stops any pre-fix-tree Commit (the recording chains' own Commit attempts). Old holdcommit released.
+  Runs `r20260925-221340-{f2ea tp70 #67, 4631 big #68, 926f tp70b #70, 4d89 tp75 #75, 6ae1 moe67 #4 #23, cd7f moe68 #57 #60,
+  d321 h100 #73}`.
+- h100: #74 dropped (Build ~3 h would end after 02:30Z). The rows.sh kill at 22:12Z also killed the recording run's supervisor
+  (`r20260925-175445-08bb`), so that run won't publish on its own. #73's row_pod (pid 4223) is still in Match.
+- **Custody gap to close before terminating any pod:** Commit re-runs write into the recording runs' sweep dirs, which the
+  recording runs' custody has already published (or, for 08bb, never will). Do a custody-copy run of each pod's sweep, then run
+  rebaseline on the pod.
 
 ## Next
 - Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the

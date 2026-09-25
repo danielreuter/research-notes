@@ -117,12 +117,15 @@ def core_trees(rel_name: str):
 
 
 def check(st, art):
-    m = st.get_manifest(art)
-    tree = (m.refs or {}).get("run_files")
+    if art.startswith("dir:"):  # a local dump directory (negative tests): no result manifest
+        tree, ev = None, {}
+    else:
+        m = st.get_manifest(art)
+        tree = (m.refs or {}).get("run_files")
+        ev = (((m.meta or {}).get("validation") or {}).get("evidence") or {}).get("commit", {}).get("evidence", {})
     res = {"result": art, "run_files": tree}
-    ev = (((m.meta or {}).get("validation") or {}).get("evidence") or {}).get("commit", {}).get("evidence", {})
     with tempfile.TemporaryDirectory(dir="/workspace/verify-night-2") as td:
-        d = Path(st.fetch(tree, Path(td) / "t", paths=["*manifest.json", "*.stmt", "*commit-evidence.json"]))
+        d = Path(art[4:]) if tree is None else Path(st.fetch(tree, Path(td) / "t", paths=["*manifest.json", "*.stmt", "*commit-evidence.json"]))
         # exactly the manifest reverify verifies: proofs/manifest.json, else dumps/manifest.json
         pman = [d / n / "manifest.json" for n in ("proofs", "dumps") if (d / n / "manifest.json").is_file()]
         if not pman:

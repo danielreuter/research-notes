@@ -83,6 +83,20 @@ per round is the floor for a bit design with committed booleans.
   hold private bytes).  On x4 columns (128 value bytes) blocks become ready at 2c+2 by column c, and block 24 only in column 11,
   so every column needs a 3rd slot per operand (column-uniform): ~1.4x frame-v3's rows, plus a native vllm-v1 tree check in
   ligero-verify (new).  Deferred behind the frame-v3 cell.
+* 07:58Z fixture fp8-ada-x4+sha256 (r20260925-075211-7893): 90,848 rows/col (base 14,875, operand bits 2,816, hash 73,122,
+  pins 35), sys_id d6b0cd8d69cb7ff5…, Rust `system-digest` table_digest b04a579ceb48fb57… (sys_id agrees), Python ACCEPT.
+* 08:19Z gate fp8-ada-x4+sha256 (r20260925-080759-dd48, unbuffered): compose 16.8 s; **7/7 honest sub-batches ACCEPT**
+  (2048 VUs, l = 4096, 341 VUs/proof; 3 s/proof unpipelined incl. check).  x4 conformance: 5 passed before I stopped it
+  (CPU runner too slow; the negatives were on their way on the GPU).  The negatives phase stalled single-threaded:
+  r20260925-082825-5ad9 (`12-prof.py`, cProfile of a 2-VU l=256 proof): 3.46 s of the proof in `opened_from_pinned`'s
+  numpy copy, 13.5 s of the Python verify in `astype`.  Direct test on the pod: 220 MB numpy copy 0.65-0.81 s, out of pinned
+  memory 9.6-11.4 s, astype int64 20.5 s -- **the host's memory was degraded** (pod health checks GPU encode/matmul only).
+  Nothing from that pod is a timing.  All four runs fetched and preserved; pod drained 08:40Z.  00-bootstrap.sh now checks
+  host memory (220 MB copies < 0.25 s).
+* 08:41Z new pod vy-b-ligero-sha256 = H100 80GB HBM3 SECURE reference part (qmiq4rs1f0y4tr, $3.49/h, 28 vCPU), the launch
+  message's 80 GB part.  Line: **FP8 Hopper (`fp8-hopper-x4+sha256`)**: FP8 rows are 24 blocks against BF16's 48, and the x4
+  fold carries 2 whole blocks per operand per column (no discarded compression), 89,356 rows/col x 12 = 1.07 M rows/VU
+  (fp8-hopper+blake3 x1: 34,997 x 48 = 1.68 M; blake3-80gb measured it at 1,471.7 VU/s plateau on H100).
 
 ## Discrepancies
 (none yet)

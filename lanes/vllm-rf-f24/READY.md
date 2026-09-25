@@ -127,7 +127,11 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
     2,409.3, head 693.5 / 2,728.7, base 664.0 / 2,641.6, head 692.2 / 2,642.8. The second pair is +4.2 % wall at equal CPU
     (+0.05 %), and the mean wall is +8.0 % (within 10 %). Per-phase CPU in the second pair is within 2.5 %. The host was shared
     (load average about 200), and the same code varied by 17 % in one phase.
-  - `a2e2843e`: **PENDING**.
+  - `a2e2843e` (`gm_run.sh /workspace/head4 head4_1`, 00:14Z, with `a_final` running beside it; `evidence/gm/head4_1`):
+    `global_match_global_program.json` byte-identical to the base run's and `be366f80`'s (sha256 `0f73ad22...`);
+    `match_decomp.json` differs in the same 2 timing fields; `global_match.json` in timings, `impl.source_sha256` and
+    `x09.pipeline.decomp_out`. Verdict PASS. Wall / CPU 569.5 / 2,186.2 s, below both base runs. It wasn't alternated with
+    base, so I don't read a speed-up into it.
 - **Verdicts unchanged (D13)** (`evidence/d13`): `verdict.from_record(row).dumps()`, which is the T0 `verdict` check's
   reconstruction and calls the three changed C2 functions (`_replay_seed_of_record`, `_complete_replay_population_gap`,
   `_partial_replay_named_gap`), is byte-identical at base, `be366f80` and `a2e2843e` for all 10 regression records with a Commit

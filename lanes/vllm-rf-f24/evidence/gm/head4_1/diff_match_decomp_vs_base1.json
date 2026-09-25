@@ -1,0 +1,24 @@
+{
+ "recorded": "base1/match_decomp.json",
+ "fresh": "head4_1/match_decomp.json",
+ "n": 2,
+ "by_class": {
+  "timing": [
+   {
+    "path": "$.seconds",
+    "recorded": 172.3,
+    "fresh": 161.2
+   },
+   {
+    "path": "$.utc",
+    "recorded": "2026-09-24T19:12:32Z",
+    "fresh": "2026-09-25T00:17:23Z"
+   }
+  ]
+ },
+ "verdicts": [
+  "PASS",
+  "PASS"
+ ],
+ "identical_except_timing_and_machine": true
+}

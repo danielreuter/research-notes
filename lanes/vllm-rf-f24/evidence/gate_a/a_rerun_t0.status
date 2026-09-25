@@ -1,0 +1,2 @@
+start 2026-09-24T21:54:17Z tree /workspace/head2-reg sha be366f8028def9e5846177e6df83e74ba3728f3c key_file_present=no args: -k (T0 and (r4 or r11 or r23)) or (manifest_digest and r39)
+exit 0 2026-09-24T22:52:09Z

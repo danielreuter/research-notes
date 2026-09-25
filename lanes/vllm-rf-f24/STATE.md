@@ -85,8 +85,12 @@
   only `ops/test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way` failed->passed (also failed at be366f80); 16 new
   pass; 1 replaced. vs be366f80: +41 lint tests pass, same sigint flip. One reworded skip reason (test_ship_roots) is main's e0c7bfe9.
 - 00:14:46Z GM-01 #23 at head4 running (`/workspace/out/gm/head4_1`); `a_final` on row #74 (118/~156 at 00:14Z).
-- Next: compare GM-01 head4_1 with base1/branch1 (gm_diff.py / jdiff); after `a_final`: READY.md (heads be366f80 -> a2e2843e),
-  terminate the pod.
+- 00:24Z GM-01 at head4 DONE: rc 0, 569.5 s wall / 2186.2 s CPU, 13.34 GiB. Global program byte-identical to base1 and branch2;
+  match_decomp 2 timing fields; global_match.json timing + impl.source_sha256 + x09.pipeline.decomp_out. PASS.
+- 00:27Z READY.md rewritten for a2e2843e (only `a_final` PENDING); head4 evidence pulled into `evidence/` (gate_a, gate_b, gm/head4_1,
+  d13, lint).
+- Next: when `a_final` exits (`/workspace/out/gates/a_final.status`): counts + jdiff of skip reasons vs a_head4 into READY.md, copy
+  a_final xml/log to evidence, status final, terminate the pod (`research pods terminate vyv-rf-f24-veritor-campaign`).
 
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
 - origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.

@@ -1,0 +1,19 @@
+sssssssss.s.s....s.s.s....s.                                             [100%]
+=========================== short test summary info ============================
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: manifest_digest does not apply to #4: no manifest of record on this row (Commit never built one)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: step_segmentation does not apply to #4: no build_workload/workload_program.json + chronology.json on this row (no workload Program composed)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: global_match_checks does not apply to #4: no global_match.json on this row (Match never reached GM-01)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: stoch_value does not apply to #4: no match_stoch.json on this row (a greedy row: no sampler value check, rcs = -1)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: executed_prefix does not apply to #4: no tokens.json (served tokens) on this row
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: coverage does not apply to #4: no instrumented layouts on this row (Commit never ran)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: commit_summary does not apply to #4: no commit_summary.json on this row (Commit never closed)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: verdict does not apply to #4: row not reachable here (no rows root / live dir / store replica)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: attempt_provenance does not apply to #4: no candidate Attempt ids (VERITY_REGRESSION_CANDIDATE is unset or a directory)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:155: llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager: build_request/descriptor.json.gz not resolvable here (roots tried: []; artifacts: {'records': 'art:bb37177f464bb0122c93724b13e91738fd5d19b24d0a84a5629c9e4e78894228', 'programs': 'art:db4499e73020f5d761b55a801bc4d926eaad36c15099d90f170ffe00928aaaf7'}; shared: ['commit_logs'])
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: stoch_value does not apply to #11: no match_stoch.json on this row (a greedy row: no sampler value check, rcs = -1)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: attempt_provenance does not apply to #11: no candidate Attempt ids (VERITY_REGRESSION_CANDIDATE is unset or a directory)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:155: llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager: build_request_LP1024_T46/descriptor.json.gz not resolvable here (roots tried: []; artifacts: {'records': 'art:7f399d73aa9bd7fe7632f1606f72d1eda927dd7573d09d783a8fc94ef41fcf75', 'programs': 'art:9556460da4f92484fc409d279753f26e7883853bd1b7ca9b33580d7ba9863947'}; shared: ['commit_logs'])
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: stoch_value does not apply to #23: no match_stoch.json on this row (a greedy row: no sampler value check, rcs = -1)
+SKIPPED [1] integrations/vllm/tests/regression/test_regression.py:143: attempt_provenance does not apply to #23: no candidate Attempt ids (VERITY_REGRESSION_CANDIDATE is unset or a directory)
+13 passed, 15 skipped, 163 deselected in 3471.52s (0:57:51)
+exit 0 2026-09-24T22:52:09Z

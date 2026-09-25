@@ -1,0 +1,213 @@
+{
+ "recorded": "branch2/global_match.json",
+ "fresh": "head4_1/global_match.json",
+ "n": 39,
+ "by_class": {
+  "timing": [
+   {
+    "path": "$.alternate_verdict.seconds",
+    "recorded": 137.4,
+    "fresh": 115.3
+   },
+   {
+    "path": "$.phases[0].cpu_s",
+    "recorded": 0.347,
+    "fresh": 0.356
+   },
+   {
+    "path": "$.phases[0].dt_s",
+    "recorded": 0.347,
+    "fresh": 0.358
+   },
+   {
+    "path": "$.phases[0].t_end_s",
+    "recorded": 0.347,
+    "fresh": 0.358
+   },
+   {
+    "path": "$.phases[1].cpu_s",
+    "recorded": 185.98,
+    "fresh": 150.572
+   },
+   {
+    "path": "$.phases[1].dt_s",
+    "recorded": 185.117,
+    "fresh": 149.341
+   },
+   {
+    "path": "$.phases[1].t_end_s",
+    "recorded": 185.464,
+    "fresh": 149.699
+   },
+   {
+    "path": "$.phases[2].cpu_s",
+    "recorded": 57.253,
+    "fresh": 43.309
+   },
+   {
+    "path": "$.phases[2].dt_s",
+    "recorded": 198.937,
+    "fresh": 161.729
+   },
+   {
+    "path": "$.phases[2].t_end_s",
+    "recorded": 384.401,
+    "fresh": 311.428
+   },
+   {
+    "path": "$.phases[3].cpu_s",
+    "recorded": 1.201,
+    "fresh": 1.026
+   },
+   {
+    "path": "$.phases[3].dt_s",
+    "recorded": 1.201,
+    "fresh": 1.026
+   },
+   {
+    "path": "$.phases[3].t_end_s",
+    "recorded": 385.602,
+    "fresh": 312.454
+   },
+   {
+    "path": "$.phases[4].cpu_s",
+    "recorded": 2.335,
+    "fresh": 1.975
+   },
+   {
+    "path": "$.phases[4].dt_s",
+    "recorded": 2.335,
+    "fresh": 1.975
+   },
+   {
+    "path": "$.phases[4].t_end_s",
+    "recorded": 387.937,
+    "fresh": 314.429
+   },
+   {
+    "path": "$.phases[5].cpu_s",
+    "recorded": 0.003,
+    "fresh": 0.002
+   },
+   {
+    "path": "$.phases[5].dt_s",
+    "recorded": 0.003,
+    "fresh": 0.002
+   },
+   {
+    "path": "$.phases[5].t_end_s",
+    "recorded": 387.94,
+    "fresh": 314.431
+   },
+   {
+    "path": "$.phases[6].cpu_s",
+    "recorded": 25.162,
+    "fresh": 19.788
+   },
+   {
+    "path": "$.phases[6].dt_s",
+    "recorded": 145.348,
+    "fresh": 121.364
+   },
+   {
+    "path": "$.phases[6].t_end_s",
+    "recorded": 533.287,
+    "fresh": 435.795
+   },
+   {
+    "path": "$.phases[7].cpu_s",
+    "recorded": 1.645,
+    "fresh": 1.56
+   },
+   {
+    "path": "$.phases[7].dt_s",
+    "recorded": 1.645,
+    "fresh": 1.56
+   },
+   {
+    "path": "$.phases[7].t_end_s",
+    "recorded": 534.933,
+    "fresh": 437.355
+   },
+   {
+    "path": "$.phases[8].cpu_s",
+    "recorded": 5.546,
+    "fresh": 4.706
+   },
+   {
+    "path": "$.phases[8].dt_s",
+    "recorded": 5.546,
+    "fresh": 4.706
+   },
+   {
+    "path": "$.phases[8].t_end_s",
+    "recorded": 540.479,
+    "fresh": 442.061
+   },
+   {
+    "path": "$.phases[9].cpu_s",
+    "recorded": 3.234,
+    "fresh": 2.849
+   },
+   {
+    "path": "$.phases[9].dt_s",
+    "recorded": 3.234,
+    "fresh": 2.849
+   },
+   {
+    "path": "$.phases[9].t_end_s",
+    "recorded": 543.713,
+    "fresh": 444.91
+   },
+   {
+    "path": "$.phases[10].cpu_s",
+    "recorded": 35.133,
+    "fresh": 28.249
+   },
+   {
+    "path": "$.phases[10].dt_s",
+    "recorded": 137.949,
+    "fresh": 115.767
+   },
+   {
+    "path": "$.phases[10].t_end_s",
+    "recorded": 681.662,
+    "fresh": 560.677
+   },
+   {
+    "path": "$.seconds",
+    "recorded": 543.7,
+    "fresh": 444.9
+   },
+   {
+    "path": "$.utc",
+    "recorded": "2026-09-24T19:42:45Z",
+    "fresh": "2026-09-25T00:14:47Z"
+   },
+   {
+    "path": "$.x09.seconds",
+    "recorded": 198.3,
+    "fresh": 161.2
+   }
+  ],
+  "impl_id": [
+   {
+    "path": "$.impl.source_sha256",
+    "recorded": "e5f4145e605385165933093504038065b609776d7702311636e851431b52ff37",
+    "fresh": "2970fa69fbceed2faa792c7c21d35763943fed8f1e4e80693f534d691442e49f"
+   }
+  ],
+  "other": [
+   {
+    "path": "$.x09.pipeline.decomp_out",
+    "recorded": "/workspace/out/gm/branch2/match_decomp.json",
+    "fresh": "/workspace/out/gm/head4_1/match_decomp.json"
+   }
+  ]
+ },
+ "verdicts": [
+  "PASS",
+  "PASS"
+ ],
+ "identical_except_timing_and_machine": false
+}

@@ -1,0 +1,193 @@
+{
+ "recorded": "base1/global_match.json",
+ "fresh": "head4_1/global_match.json",
+ "n": 35,
+ "by_class": {
+  "timing": [
+   {
+    "path": "$.alternate_verdict.seconds",
+    "recorded": 132.3,
+    "fresh": 115.3
+   },
+   {
+    "path": "$.phases[0].cpu_s",
+    "recorded": 0.322,
+    "fresh": 0.356
+   },
+   {
+    "path": "$.phases[0].dt_s",
+    "recorded": 0.322,
+    "fresh": 0.358
+   },
+   {
+    "path": "$.phases[0].t_end_s",
+    "recorded": 0.322,
+    "fresh": 0.358
+   },
+   {
+    "path": "$.phases[1].cpu_s",
+    "recorded": 157.947,
+    "fresh": 150.572
+   },
+   {
+    "path": "$.phases[1].dt_s",
+    "recorded": 157.108,
+    "fresh": 149.341
+   },
+   {
+    "path": "$.phases[1].t_end_s",
+    "recorded": 157.429,
+    "fresh": 149.699
+   },
+   {
+    "path": "$.phases[2].cpu_s",
+    "recorded": 46.277,
+    "fresh": 43.309
+   },
+   {
+    "path": "$.phases[2].dt_s",
+    "recorded": 172.856,
+    "fresh": 161.729
+   },
+   {
+    "path": "$.phases[2].t_end_s",
+    "recorded": 330.285,
+    "fresh": 311.428
+   },
+   {
+    "path": "$.phases[3].t_end_s",
+    "recorded": 331.311,
+    "fresh": 312.454
+   },
+   {
+    "path": "$.phases[4].cpu_s",
+    "recorded": 2.078,
+    "fresh": 1.975
+   },
+   {
+    "path": "$.phases[4].dt_s",
+    "recorded": 2.078,
+    "fresh": 1.975
+   },
+   {
+    "path": "$.phases[4].t_end_s",
+    "recorded": 333.389,
+    "fresh": 314.429
+   },
+   {
+    "path": "$.phases[5].t_end_s",
+    "recorded": 333.392,
+    "fresh": 314.431
+   },
+   {
+    "path": "$.phases[6].cpu_s",
+    "recorded": 21.132,
+    "fresh": 19.788
+   },
+   {
+    "path": "$.phases[6].dt_s",
+    "recorded": 132.646,
+    "fresh": 121.364
+   },
+   {
+    "path": "$.phases[6].t_end_s",
+    "recorded": 466.038,
+    "fresh": 435.795
+   },
+   {
+    "path": "$.phases[7].cpu_s",
+    "recorded": 1.546,
+    "fresh": 1.56
+   },
+   {
+    "path": "$.phases[7].dt_s",
+    "recorded": 1.546,
+    "fresh": 1.56
+   },
+   {
+    "path": "$.phases[7].t_end_s",
+    "recorded": 467.584,
+    "fresh": 437.355
+   },
+   {
+    "path": "$.phases[8].cpu_s",
+    "recorded": 4.718,
+    "fresh": 4.706
+   },
+   {
+    "path": "$.phases[8].dt_s",
+    "recorded": 4.718,
+    "fresh": 4.706
+   },
+   {
+    "path": "$.phases[8].t_end_s",
+    "recorded": 472.301,
+    "fresh": 442.061
+   },
+   {
+    "path": "$.phases[9].cpu_s",
+    "recorded": 3.024,
+    "fresh": 2.849
+   },
+   {
+    "path": "$.phases[9].dt_s",
+    "recorded": 3.024,
+    "fresh": 2.849
+   },
+   {
+    "path": "$.phases[9].t_end_s",
+    "recorded": 475.326,
+    "fresh": 444.91
+   },
+   {
+    "path": "$.phases[10].cpu_s",
+    "recorded": 31.069,
+    "fresh": 28.249
+   },
+   {
+    "path": "$.phases[10].dt_s",
+    "recorded": 132.841,
+    "fresh": 115.767
+   },
+   {
+    "path": "$.phases[10].t_end_s",
+    "recorded": 608.167,
+    "fresh": 560.677
+   },
+   {
+    "path": "$.seconds",
+    "recorded": 475.3,
+    "fresh": 444.9
+   },
+   {
+    "path": "$.utc",
+    "recorded": "2026-09-24T19:09:48Z",
+    "fresh": "2026-09-25T00:14:47Z"
+   },
+   {
+    "path": "$.x09.seconds",
+    "recorded": 172.3,
+    "fresh": 161.2
+   }
+  ],
+  "impl_id": [
+   {
+    "path": "$.impl.source_sha256",
+    "recorded": "5b579b7a7c623bf34eeae97b39aa372bda8a8a299cc38589c0040493b24b636c",
+    "fresh": "2970fa69fbceed2faa792c7c21d35763943fed8f1e4e80693f534d691442e49f"
+   }
+  ],
+  "other": [
+   {
+    "path": "$.x09.pipeline.decomp_out",
+    "recorded": "/workspace/out/gm/base1/match_decomp.json",
+    "fresh": "/workspace/out/gm/head4_1/match_decomp.json"
+   }
+  ]
+ },
+ "verdicts": [
+  "PASS",
+  "PASS"
+ ],
+ "identical_except_timing_and_machine": false
+}

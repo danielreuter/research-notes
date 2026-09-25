@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT acd50fec (20:11Z) [open] H100 cell art:6d6464d1 3979 VU/s 1.62e8x plateau 32768 (proofs art:38fb7856, equiv art:9b5f1e24), pinned 49/49; handoffs coordinator/verify-night-3/red-team-standard-hash-2; both pods terminated, ~$8.2; awaiting verification + red-team
 CHECKPOINT acd50fec (19:38Z) [open] 4090 cell art:f7aac95f 2271 VU/s 4.73e7x plateau 16384 (proofs art:22b7cbad, equiv art:d4402d29) -> coordinator; 4090 terminated. WAIT vy-b-ligero-vllm-v1-h100 r20260925-193307-5070 check-back 20:05Z agent bc-00554250-ebd7-5ace-b76e-296ea0be65e9 (H100 plateau 32768 3979 VU/s, pinned verify)
 CHECKPOINT f8419291 (18:14Z) [open] WAIT vy-b-ligero-vllm-v1-4090 r20260925-181325-17db check-back 18:45Z agent bc-00554250-ebd7-5ace-b76e-296ea0be65e9; also WAIT vy-b-ligero-vllm-v1-h100 r20260925-181345-da25 (after setup/gate r..181202-65f3); pinned Rust ACCEPT fp8-ada-x4+vllm-v1; 3 commits unpushed (verity token 401) -> evidence/patches
 CHECKPOINT f8419291 (18:12Z) [open] fp8-ada-x4+vllm-v1 gate 13 honest+86 neg 0 fail (r..180400-c457), Rust fixture ACCEPT; PINS f7f31613; 4090 pin-check+gadget negs+screen r20260925-181058-a012; H100 y5puhmozi3wh9r setup+gate r20260925-181202-65f3; code push blocked (verity token 401)
@@ -59,7 +60,7 @@ and paths, the step opening vector and its domain digest, the Python port domain
 | line | plateau | e2e | VU/s | N/P | proof | status |
 |---|---|---|---|---|---|---|
 | RTX 4090 FP8 (fp8-ada-x4+vllm-v1, l2048 p2) | 16384 | 7.213 s (7.188 + commit 0.025) | 2271.5 | 4.73e7x | art:f7aac95f (proofs art:22b7cbad), equiv art:d4402d29 | preserved, pinned producer ACCEPT 97/97; to verify-night |
-| H100 FP8 (fp8-hopper-x4+vllm-v1, l8192 p2) | 32768 | - | 3979 | ~1.6e8x | pending r20260925-193307-5070 | measured, pinned check running |
+| H100 FP8 (fp8-hopper-x4+vllm-v1, l8192 p2) | 32768 | 8.235 s (8.192 + commit 0.043) | 3979.1 | 1.62e8x | art:6d6464d1 (proofs art:38fb7856), equiv art:9b5f1e24 | preserved, pinned producer ACCEPT 49/49 (r..193307-5070); to verify-night-3 |
 
 * 4090: screen l2048p2 2164 VU/s (l2048p3, l4096p2 OOM); sweep 1844 / 2060 / 2170 / 2248 / 2271 / 2267 (sweep-8ed49ddb9ed7, run
   r20260925-181325-17db, run record art:9bd13765). Conformance 8 passed (r..181058-a012), gadget-row negatives 58/58 classes, 0 failures.
@@ -70,3 +71,6 @@ and paths, the step opening vector and its domain digest, the Python port domain
   measured (local coins, one process); prover 7.19 s, verifier 17.3 s, network 0. Reference network (1 ms, 100 Gb/s) model: +0.83 s
   transfer, +3 ms round trips.
 * Handoff coordinator (verify-night + red-team request). 4090 pod fxm6q6vt6doyh4 terminated 19:38Z (~$1.3).
+* H100 (20:10Z): pinned producer check 49/49 ACCEPT, 2^-128.20; gadget-row negatives 58/58; interaction: rounds 3/proof, 4.997 GB
+  down / 49 proofs, 6.3 KB coins up, RTT not measured (local coins), prover 8.19 s, verifier 14.3 s; reference network +0.40 s.
+  Handoffs coordinator, verify-night-3, red-team-standard-hash-2 (20:10Z). H100 pod y5puhmozi3wh9r terminated 20:10Z (~$6.9).

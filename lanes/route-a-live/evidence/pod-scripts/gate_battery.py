@@ -93,7 +93,8 @@ def main() -> int:
                      "details": {k: (ch.get(k) or {}).get("detail", "")[:300] for k in set(want_fail) | set(want_ok or [])},
                      "failed_checks": sorted(k for k, v in ch.items() if not v.get("ok"))})
 
-    honest = [n for n in provers if n.startswith(Path(a.cells).name + "/")]
+    # warm-ups ran against a loopback verifier whose records are not in --sessions
+    honest = [n for n in provers if n.startswith(Path(a.cells).name + "/") and not (provers[n][2] and pair[n] is None)]
     everything_but_producer = ["exchange", "gated", "sigma", "accepted", "context", "preserved", "prime_live", "replayable", "prime", "flock_replay"]
     admitted = []
     for n in honest:
@@ -111,7 +112,8 @@ def main() -> int:
                 case(f"neg stale prime state (coin before its commitment) {n} <- {k}", gate(recs[k][0], provers[n][0], f"neg-stale-{n.replace('/', '-')}"),
                      ["prime"], ["accepted", "prime_live", "flock_replay"], why="R2-prime")
     fs = [k for k, (_, r, _) in recs.items() if "R7" in str(r.get("aborted") or "")]
-    rows.append({"case": "neg fiat-shamir prime prover against the live verifier (hello pins prime: live-coins/v1)", "pass": bool(fs),
+    if a.neg_stale:  # the probe mode's sessions include the Fiat-Shamir prover's; a sweep's do not
+      rows.append({"case": "neg fiat-shamir prime prover against the live verifier (hello pins prime: live-coins/v1)", "pass": bool(fs),
                  "details": {"records": fs, "aborted": [recs[k][1].get("aborted", "")[:200] for k in fs]}})
     if len(admitted) >= 2:
         (na, ka), (nb, kb) = admitted[0], admitted[1]
@@ -133,7 +135,8 @@ def main() -> int:
         def word(r):
             w = r["prime"]["rounds"][3]["words"]
             w[0] = (w[0] + 1) % P
-        case("tampered record: a prime coin word", tampered("prime-word", word), ["prime"], ["flock_replay"], why="R2-prime")
+        # a coin feeds the verifier's next check before the next round's state comparison: rejected by that check
+        case("tampered record: a prime coin word", tampered("prime-word", word), ["prime"], ["flock_replay"])
         case("tampered record: prime before_commit - 1", tampered("prime-before", lambda r: r["prime"].update(before_commit=r["prime"]["before_commit"] - 1)),
              ["prime"], ["flock_replay"], why="root_F follows")
         case("tampered record: a prime state", tampered("prime-state", lambda r: r["prime"]["rounds"][2].update(state=flip_hex(r["prime"]["rounds"][2]["state"]))),

@@ -4,7 +4,7 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T07:50Z
+updated: 2026-09-25T08:25Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
 
@@ -13,16 +13,18 @@ Deadline for vyv- pods: 2026-09-25T09:00Z (coordinator extends). Budget: $35 pod
 ## Status
 - Phase 1 (evidence only, no repo commits): DONE 07:29Z. No mismatch anywhere (both results below).
   - Source for pod runs: clean detached worktree `~/projects/verity-wt/rf-c1-p1` at `origin/main` `00ffe398` ("Merge #15").
-- Phase 2: waiting for A4 (`lane/vllm-rf-a4`, head `34400229` at 07:27Z) to be in `origin/main`; PR #15 is already in.
-  Checked 07:27Z and 07:48Z: `origin/main` = `00ffe398`, A4 (now head `14b0cf9f`) not an ancestor.
-  - Drafting ahead: worktree `~/projects/verity-wt/rf-c1`, branch `lane/vllm-rf-c1` on A4 head `14b0cf9f` (local only, not pushed).
-    Rebase onto `origin/main` with `git rebase --onto origin/main 14b0cf9f` once A4 lands, then push.
-  - In the draft: new `commit/scheme.py` (headers and root bindings delegate to `verity.commitments.vllm_v1` via coercing adapters;
-    prefix-once fold and pos_leaf stay local for speed, tags from core); `fasttree.py` fold removed, uses `scheme.fold`.
-    Next: reroute semantic_layout, hidden_stream, padding_steps, native_host, native_collect, native_ranges, leafhash, hidden_gpu;
-    delete `hidden_engine.py`; shrink hashing/merkle to core re-exports; tests; Spans throughput.
+- Phase 2: A4 not yet in `origin/main` (checked 08:12Z: main `5631e667`; A4 head moved to `10996616`, linear over `14b0cf9f`,
+  test-file moves only). `origin/main` past the A4 fork (`00ffe398`) touches only `backends/numerical` (#19, #20), so gates run on the
+  A4-based head carry to the rebase onto main as long as A4 lands unchanged.
+  - Branch `lane/vllm-rf-c1` (worktree `~/projects/verity-wt/rf-c1`, local, not pushed yet), on A4 head `10996616`:
+    1. `af8d9711` scheme.py + rerouting (hidden_engine.py deleted; p10 caps native_host 2587->2579, padding_steps 930->914)
+    2. `09ed0361` pod-marked `tests/commit/test_scheme_cuda.py` + PROTOCOL.md section 6
+    3. `472207c3` per-scheme throughput in Spans / the Commit row (`spans_throughput`) + `tests/pipeline/test_spans.py`
+    Laptop ast checks (syntax, p10 sizes, imported names): 0 errors, 0 unresolved.
+  - When A4 lands: `git rebase --onto origin/main 10996616`, push `lane/vllm-rf-c1`.
   - Host layout label (`chunk-leaf-v1` on host committers): NOT fixed. It flows `pipeline/commit.py` `collector["layout"]` into
     `binding.build_binding_map` entries and so into `map_digest`; fixing it changes a digest. Listed for READY.md.
+  - Next: pod gates (lints; gate (b) head+base same pod; gate (a) T0+T1 cpu3m; GPU row #101 + throughput + test_scheme_cuda).
 
 ## Pods
 - `vyv-rf-c1-g1` (runpod `zaazjzf44rc4wr`), 1x L40S, CUDA 12.9/13.0 allowed, guard 90. Created 07:07Z, TERMINATED 07:29Z

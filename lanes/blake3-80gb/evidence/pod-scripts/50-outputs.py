@@ -23,9 +23,9 @@ for sj in sorted(rd.glob("*/sweep.json")):
         name = f"{tag}-p{p['point']}"
         proofs = sj.parent / p["dir"] / "proofs"
         ent = {"name": name, "kind": "bench-result/v1", "meta": meta}
-        if plateau and (proofs / "rep1").is_dir():
+        if (proofs / "rep1").is_dir():
             outs.append({"name": name + "-proofs", "kind": "run-files/v1", "tree": str(proofs.relative_to(rd)),
-                         "meta": {"lane": lane, "tag": f"{tag}/{p['dir']}/proofs", "label": f"{lane} {tag} plateau proof dump"}})
+                         "meta": {"lane": lane, "tag": f"{tag}/{p['dir']}/proofs", "label": f"{lane} {tag} {p['dir']} proof dump"}})
             ent["refs"] = {"run_files": "@" + name + "-proofs"}
         outs.append(ent)
 (rd / "outputs.json").write_text(json.dumps({"schema": "research/outputs/v0.1", "outputs": outs}, indent=1, default=str))

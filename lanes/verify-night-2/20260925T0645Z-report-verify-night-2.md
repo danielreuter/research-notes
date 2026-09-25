@@ -84,3 +84,7 @@ committer baselines (`lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.
   the backend committer's (a 2f9ff265, b 0413c926, y 49023558; set bench-instances-fp8-ada/v1, manifest e66ff0f2). main's
   Rust PINS already carry ("fp8-ada", "blake3", 71f39e44…); b-ligero-standard-hash's branch adds only bf16-ampere and
   fp8-hopper pins.
+- 08:30Z pre-review of lane/b-ligero-standard-hash (tip 8dace837) vs main, verifier side: auth.rs / hashauth.py
+  `layout_error` (R1, 3af90e71) only adds refusals (x = W = vu, or an nx x nw tile); leaf.rs adds 2 pins; serialize.py
+  extends the K check to v6; blake3 `leaf_bytes_many` is prover-side (my roots use core `blake3_row_digest`, not it);
+  reverify R2 (de2fa317) mirrors my 06 check. Nothing that would need the producer's verifier build.

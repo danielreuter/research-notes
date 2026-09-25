@@ -7,6 +7,8 @@ created: 2026-09-25T08:20Z
 ---
 # Wave 2 lanes (after A4): shared rules
 
+> **08:24Z: lane b2v is PAUSED** (owner's 20-agent project cap). If you are b2v, read your STATE.md banner, stop, and end your turn. At most 8 vLLM agents run at once, the coordinator included.
+
 Read this, then `LANE_BRIEF.md` for the older hard rules (laptop, style, crash-only). Where the two differ, this file wins. Then read `SYNTHESIS.md`: sections 4 and 5, section 6 for your lane, and the decision log at the end, which records all five owner decisions (2026-09-25).
 
 ## Base and branch

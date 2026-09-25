@@ -112,6 +112,9 @@ Since 19:25Z the research coordinator does every merge to `main`, so two agents 
   - `b4`, bc-95aa165d: engine and hooks; $25.
   - `b2v`, bc-7d05cc29: one verdict and properties records; $30.
   - Budgets across all 8 lanes come to about $255 of the $300.
+- 08:24Z **Agent cap (owner, 20 project-wide):** vLLM gets 8 including this coordinator, research 11 including its coordinator, and the survey 1.
+  - b2v (lowest priority) is **paused**, signalled through its STATE.md banner, `vllm-rf-b2v/PAUSE` and a WAVE2_BRIEF line. It keeps its worktree `rf-b2v` at `10996616`, with nothing pushed. That leaves 7 lanes (a4, c1, c4ir, a5, c2, b1, b4) plus the coordinator.
+  - **Queue as slots free:** first resume b2v (Task resume bc-7d05cc29; tell it to delete PAUSE, re-read STATE and continue), then the B5 splits one at a time (native_host after C1), then B3 and B2's heredoc part after A5, and C3 after B4.
 - a4 status at 08:15Z: every file move is committed and pushed (14 commits, head `10996616` at 01:10 PT). Left: head lints plus gate (b) against main on its CPU pod, gate (a) T0+T1, and the GPU smoke of #101 (its `reg` and `g1` pods are up). ETA for its merge request is about 4 AM PT. Its STATE.md lagged its commits by about an hour; commits are the liveness signal.
 - **To launch when A4 merges (now mostly launched early; what remains):** B5 splits (native_host after C1). After A5: B3 and B2's heredoc part. After B4: C3. After C1 to C3: the re-baseline epoch. The original list:
   - A5 (one CLI and typed config, with the decision-8 API `verity_vllm.LLM(...)`), about $30;

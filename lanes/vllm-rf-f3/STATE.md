@@ -16,6 +16,13 @@ created: 2026-09-24T17:36Z
 >
 > **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** When your running gates finish, rebase onto `origin/main` (it's clean with your head) and push with `--force-with-lease`. Run `tests/lint` on your pod, fix the allowlists it prints (your D3, D4, D14 and D15 work likely makes P7 `environ` / `seed-default` entries stale), and record both heads plus the green lint run in READY.md. Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.
 
+## NOW (02:17Z): all gates done at 4fb0eb2c; READY.md written (pre-rebase); NEXT = the coordinator's rebase (notes above)
+- Gate (a) T0+T1 GREEN at 4fb0eb2c on big2 (head 72 passed / 86 skipped / 0 F/E; base 73 / 85 / 0; the one diff is the shared-store
+  race skip of `T0-manifest_digest-r11`, 1 passed alone). D3 #101 head == base == record. Gate (b) green. Evidence under `evidence/`.
+- ALL PODS TERMINATED (big2 02:14Z). Laptop base worktree removed. READY.md at `~/.research/notes/lanes/vllm-rf-f3/READY.md`.
+- I read the 22:13Z / 00:32Z coordinator notes only at 02:16Z (they landed above while I edited lower sections). Doing now:
+  rebase onto origin/main `4bd6c54c` (D15 conflicts per 00:32Z note; drop `9bddf741`), push --force-with-lease, new CPU pod,
+  `tests/lint` + targeted tests at the rebased head, fix allowlists, record both heads + the green lint run in READY.md.
 - **Brief:** `~/.research/notes/lanes/vllm-refactor/LANE_BRIEF.md`; plan `SYNTHESIS.md` §2 (D3, D4, D14, D15), §4 P7; coordinator note `20260924T1645Z-coordinator-checks-on-observe-survey.md`.
 - **Worktree:** `/Users/danielreuter/projects/verity-wt/rf-f3`, branch `lane/vllm-rf-f3` from `72884c8a`.
 - **Scope:**

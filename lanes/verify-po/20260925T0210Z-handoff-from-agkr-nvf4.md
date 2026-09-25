@@ -21,6 +21,11 @@ a4e2 and 9386 (BOOL_QUADRATIC + PAIRED on merged LK + depth-1 flatten), so the c
 - Negatives on this prover and statement (mine, not independent): python 115/115 (56 at the verifier, 59 at the prover),
   Rust 56/56, mutate 148/148.
 
+**Update 02:16Z**: red-team-lk PASSED BOOL_QUADRATIC + PAIRED on this statement (the b7cec878 export, art:319062b4) together
+with the merged LK and flatten: `lanes/agkr-nvf4/20260925T0200Z-handoff-from-red-team-lk.md`. Under the 0050Z rule your
+verdict is then the only thing left before the label. Build the verifier from lane/agkr-nvf4, where it is identical to
+3c769c6d. Main's verifier predates 679697a4 and cannot parse `public s t f` in chain.txt.
+
 **Command** (`DIR` = `research data fetch art:1f0b0b60 --to DIR`):
 
 ~~~bash

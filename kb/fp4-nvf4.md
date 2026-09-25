@@ -77,5 +77,6 @@ the fix need an instance-equiv file or a rerun.
       (t_lookup 40.5 -> 28 ms).
   - The size of the tree is set by units × queries + table rows. At 98304 units the 2^24 boundary is 170 queries per unit,
     so count queries before adding any.
-  - The coordinator holds the Table 2 label for statements with rewrites until red-team-lk passes (0050Z). Until then Table 2
-    shows the provisional art:49757870 (0.1905 s, 2.5e7×). Prover-side details are in agkr-gpu-prover.md.
+  - Red-team-lk passed all the rewrites at 0200Z (`lanes/red-team-lk/20260925T0105Z-report-red-team-lk.md`), so the label
+    now waits only on verify-po. Until it lands, Table 2 shows art:49757870 (0.1905 s, 2.5e7×). Main's Rust verifier predates
+    `public s t f`, so verify from the lane's build. Prover-side details are in agkr-gpu-prover.md.

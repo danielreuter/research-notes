@@ -5,6 +5,8 @@ created: 2026-09-24T20:58Z
 status: final
 ---
 
+CHECKPOINT none (02:17Z) [final] tip c97d2ad2; A-GKR 5090 NVFP4 cell d098 0.1388s (~1.4e7x) 2^-130.19, art:f277786d / run-files art:1f0b0b60 PRESERVED; verify-po 0210Z; red-team-lk PASS 0200Z so only verify-po's label remains; pod terminated 02:13Z ~$5.4
+CHECKPOINT c97d2ad2 (02:15Z) [final] tip c97d2ad2; A-GKR 5090 NVFP4 cell d098 0.1388s (~1.4e7x) 2^-130.19, art:f277786d / run-files art:1f0b0b60 PRESERVED; verify-po 0210Z; red-team-lk PASS 0200Z so only verify-po's label remains; pod terminated 02:13Z ~$5.4
 CHECKPOINT c97d2ad2 (02:15Z) [final] tip c97d2ad2; cell A-GKR 5090 NVFP4 d098 t.total 0.1388s (~1.4e7x), 2^-130.19, result art:f277786d run-files art:1f0b0b60 PRESERVED; verify-po 0210Z (label held for red-team-lk); pod terminated 02:13Z ~$5.4
 CHECKPOINT 00145f51 (01:36Z) [open] dev tip 00145f51 ~0.1431s same bytes ebe7c545 (w via eq_rows_dot, radix4 encoder, fused lookup_mults); record 86d4 @90c21455 0.168s spoiled by host jitter (not preserved); negatives running, re-record next
 CHECKPOINT 6d13c3e4 (01:17Z) [open] a4e2 0.1604s preserved (art:dfbc86c4; label held for red-team-lk); handoffs to verify-po/red-team-lk/agkr-fp8 done; took fp8 5034767f+3be6a35f (neutral); open-wq: L2 chunking dropped (slower), testing eq_rows_dot for w
@@ -163,12 +165,18 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
   - ff98 (sha 091fecad) is on the older statement. It is labelled in Table 2 now and marked provisional by the coordinator.
 - **The cell** (A-GKR × RTX 5090 NVFP4, K=1536, B=4096, frozen NVFP4 set, NON_ZK_PROOF_DIAGNOSTIC): t.total 0.1388 s,
   ≈ 1.4e7×, soundness 2^-130.19 against a 2^-128 target (both met honestly, no relabel).
-  - Independent verification is handed off to verify-po (0210Z). Under the coordinator's 0050Z rule its `verified=accepted`
-    label is held until red-team-lk passes BOOL_QUADRATIC + PAIRED (handoff `lanes/red-team-lk/20260925T0100Z-handoff-from-agkr-nvf4.md`),
-    on top of the merged LK and the depth-1 flatten.
-  - If red-team-lk finds a hole in PAIRED or BOOL_QUADRATIC, the fallback is the provisional ff98 (0.1905 s, older statement).
+  - Independent verification is handed off to verify-po (0210Z).
+  - Red-team-lk PASSED all five rewrites at 0200Z, including BOOL_QUADRATIC + PAIRED on this statement (art:319062b4). So under
+    the coordinator's 0050Z rule, verify-po's verdict is the only thing left before the `verified=accepted` label.
+  - Verify-po needs the verifier built from the lane: main's cannot parse `public s t f`.
+- **Handoffs answered**:
+  - `20260924T2115Z-handoff-from-coordinator.md` (launch): this report.
+  - `20260925T0050Z-handoff-from-coordinator.md` (rewrite hold): new cells went to verify-po as usual, and the rewrite
+    details went to red-team-lk at 0100Z.
+  - `20260925T0200Z-handoff-from-red-team-lk.md` (PASS): nothing to answer; forwarded to verify-po in the 0210Z handoff.
 - **Coordinator decisions**:
-  1. Release the label for art:f277786d once verify-po and red-team-lk pass. It supersedes art:49757870 in Table 2.
+  1. Release the label for art:f277786d once verify-po passes (red-team-lk already has). It supersedes art:49757870 in
+     Table 2.
   2. Merge lane/agkr-nvf4 (shared files touched: gkr_packed, logup, logup_packed, kernels, field, ligero, prover,
      sumcheck_packed, nvf4/circuit). agkr-fp8 has the list in its 0110Z and 0215Z handoffs; keep-rule conflicts are
      resolved toward agkr-fp8's 3be6a35f.

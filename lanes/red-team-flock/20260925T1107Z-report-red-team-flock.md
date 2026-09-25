@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (12:50Z) [final] RE-AUDIT: GRANTED WITH CONDITIONS flock-128-r2 as implemented (flock-live@a43f6254): R1-R4,R6-R8 hold, 17 attacks rejected (art:1bd3368b art:12a6b845); R5 stub -> class for route (a) conditional on link L1-L4; F1-F3. Pods terminated 12:49Z ~$0.2
 CHECKPOINT 3301c435 (12:39Z) [open] re-audit in progress (lane reopened, NOT final): two vy-red-team-flock pods vanished ~2 min after launch (likely FINAL-POD reap from my 11:30Z final); retrying pod + local fallback build. Attack harness evidence/rtf_live_attacks_tail.rs
 CHECKPOINT 3301c435 (12:30Z) [open] re-audit started: read flock-live report + lane/flock-live@a43f6254 lib.rs/bin (server, replay, forks, pins); inbox 1129Z coordinator handoff read (superseded by this re-audit). Next: attack harness on cpu pod (R1/R2/R3/R7)
 CHECKPOINT 3301c435 (11:27Z) [final] NOT GRANTED flock-128-r2: terms hold (2^-195.5 reproduced) but reps unbound to one root (BREAK, art:8d04b53f) + no live-coin challenger (FS-only <=2^-75.6); grantable w/ R1-R8; composed 2^-130.2 (A-GKR-bound). Pod terminated 11:24Z ~$0.07; handoffs 1130Z
@@ -184,3 +185,127 @@ Evidence: `evidence/rtf_unlinked_reps.rs` (drop-in Flock example), `evidence/pod
 `evidence/rtf-results.tsv`. The earlier runs rtf-unlinked-1..3 used a non-run id, were not published as attempts, and
 are superseded by r20260925-112210-2d3d (same script). Handoffs written: `lanes/coordinator/`, with copies to
 `lanes/flock-128/`, `lanes/agkr-bound/` and `lanes/flock-glue/` (all `20260925T1130Z-handoff-from-red-team-flock.md`).
+
+# Re-audit (12:25–12:55Z): flock-live @ a43f6254 against R1–R8
+
+**Grant: GRANTED WITH CONDITIONS** for flock-128-r2's Flock part as implemented:
+- verity `lane/flock-live` @ a43f6254, `backends/flock/live/` and `cuda_live_patch.py`, on Flock b684b12;
+- on CPU, the BLAKE3-table union verifier; on GPU, the per-table `verify_ligerito` sessions.
+
+The whole-proof class for route (a) stays conditional on the link work (L1–L4 below). So no 2^-128 Table 2 cell exists
+yet.
+
+Inputs:
+- flock-live's report and evidence (`lanes/flock-live/`);
+- the code at `origin/lane/flock-live` a43f6254 (lib.rs 956 lines, bin 527 lines), read in full.
+
+Handoffs received:
+- `20260925T1129Z-handoff-from-coordinator.md` (flock-128 FINAL; audit as specified). The first audit answered it:
+  §2 listed the requirements for the live implementation, and this re-audit checks them.
+
+Evidence (all preserved):
+- run r20260925-124333-1a03, **art:1bd3368b** (n = 4096);
+- run r20260925-124555-21d5, **art:12a6b845** (n = 4096 and 16384, m26 and m28).
+
+Harness: `evidence/rtf_live_attacks_tail.rs`, which is flock-live's bin up to `fn main()` plus a man-in-the-middle
+prover transport and 17 attacks. Pod script: `evidence/pod-scripts/20-live-attacks.sh`. Results:
+`evidence/rtf-live-attacks.tsv`. I also re-ran flock-live's own `selftest`: all 22 cases pass at each n (44 of 44).
+
+## Design check (code reading)
+
+Soundness sits entirely on the verifier side: the `Server` plus `ReplayChallenger` running the unmodified Rust Flock
+verifier. The CPU/CUDA prover patches only affect completeness.
+- Every challenge the Rust verifier uses comes through the `Challenger` trait. The only non-test `FsChallenger`
+  constructions are in `matrix_fold` tests, and the RS lincheck skip point is a plain `sample_f128`. So the replay sees
+  every coin.
+- At each coin the replay checks sha256 of exactly the bytes the verifier absorbed since the previous coin, against the
+  round recorded before that coin was drawn from `/dev/urandom`. It also checks the coin count, and at the end checks
+  that every recorded round of the rep's streams was consumed. That is commit-before-coin, independent of anything the
+  prover says afterwards.
+
+## Attacks (all at n = 4096 and 16384)
+
+| # | attack | cond | result | stopped by |
+|---|---|---|---|---|
+| 1 | rep 1's live binding round claims rep 0's root, then proves witness B (so the server issues 103–116 rep-1 coins) | R1 | **rejected** | replay, rep-1 round 0 digest. The proof's absorbed root is B's, and the finish cap check backs it up |
+| 2 | child `rep1/f0` opened at parent position 0, *before* rep 1's binding round; the server issues it 2 coin rounds | R1/R3 | **rejected** | replay R3 (the child's position and label don't match the verifier's fork point) |
+| 3 | fork child opened at a claimed parent position off by one | R3 | rejected | server R3 position check |
+| 4 | fork child's seed words (the parent's coins) altered in its first round | R3 | rejected | replay, child round-0 digest |
+| 5 | one round split into two coin requests: rep 0 k=5, rep 0 k=80 (after the fork), `rep1/f0` k=10 | R2 | rejected ×3 | the server's fork position check (k=5); replay digest or count (k=80, child) |
+| 6 | an extra coin round after the proof, on rep 0 and on `rep1/f0` | R2 | rejected ×2 | replay: rounds recorded ≠ rounds consumed |
+| 7 | reps interleaved (rep 1 proving while rep 0 is still in flight) | R2 | accepted (allowed) | see below |
+| 8 | hello with keys reordered; reps = 3; a third rep stream opened; rep 1 opened with rep 0's domain | R7 | rejected ×4 | exact hello string, rep bound, per-rep domain |
+| 9 | Fast proofs in an r2 session | R7 | rejected | params pin |
+| 10 | arbitrary link bytes | R5 | **accepted** | stub: any bytes satisfy the gate |
+| 11 | verifier started with `--no-link`: session without link context | R5/R8 | **accepted** | the record shows `require_link: false`, `link_sha256: null` |
+
+flock-live's 22 selftest cases (its negatives 1–10 and R5) reproduce: all pass.
+
+## Verdicts per condition
+- **R1: HOLDS.** Rep 1 is refused until rep 0 has committed, and its binding round must carry rep 0's root. Attacks 1
+  and 2 show the server can be made to issue rep-1 coins (on a claimed root, or to an early child). Neither reaches a
+  verdict: acceptance requires the proof's absorbed bytes to match every recorded round and the proof's root to equal
+  the one committed.
+  - Hardening (not blocking): refuse a child `Open` on a root stream before its binding round, and refuse a child at
+    parent position 0.
+- **R2: HOLDS.** No split, merge, extra or late round, and no message altered after its coin, survives the replay.
+  - Interleaved reps are accepted. That's sound: each rep's per-round errors (Schwartz–Zippel sites, query and
+    proximity terms) are round-by-round bounds on fresh uniform coins over the same committed word, whatever the prover
+    has seen from the other rep. So the two-rep product 2^-97.8 × 2^-97.8 holds without enforced sequencing.
+- **R3: HOLDS.** The child is opened after the parent's seed round, the verifier checks its position and label, its
+  seed is absorbed as a message, and its coins are live (attacks 2–5; flock-live's fork negatives). Parent coins after
+  the fork being visible to the child (and the reverse) is the same independence Flock's fork argument already relies
+  on under FS, so it is unchanged.
+- **R4: HOLDS.** Nonces are messages. Coins don't depend on them (flock-live's `prover_chosen_pow_nonce_honest`
+  accepted, altered nonce rejected).
+- **R5: placeholder.** Only the arrival order is enforced (attack 10). Conditional on the link work (L1).
+- **R6: HOLDS (by reading, plus flock-live's H100 runs art:16c17a43 and art:5320c158).** GPU soundness is the same
+  Server, replay and `GpuVerifier` (Fast100, rate 1/2, batch 6, SHA-256 pinned). Not re-run on a GPU pod: nothing
+  GPU-specific sits on the verifier side.
+- **R7: HOLDS** (attacks 8–9, plus flock-live's fastx1, fast100x1, lone rep, relabel and AG flavour cases).
+- **R8: HOLDS with a policy condition.** The verdict is computed only from the session record. But a verifier run with
+  `--no-link`, or any record with `require_link: false` or `link_sha256: null`, must not count as flock-128-r2 evidence
+  (attack 11). The verifier that produces evidence for a cell must be run by a non-producer (TABLES criterion 6);
+  flock-live's sessions ran on the prover's own pod.
+
+## Grant: GRANTED WITH CONDITIONS
+
+Implementation conditions (Flock side):
+- **F1:** evidence counts only from records with `require_link: true` and a non-null `link_sha256`, from a verifier
+  operated by a non-producer.
+- **F2:** the production statement verifiers are pinned the same way `Verifier` and `GpuVerifier` are: registry
+  digest, counts or statement digest from the configured instance set, and the Fast100 params. That covers flock-128's
+  CPU line (census unit + BLAKE3 in one union) and the GPU unit table. Today's CPU verifier is the BLAKE3-table
+  statement only.
+- **F3 (hardening):** the early-child refusals under R1 above.
+
+Stays conditional on the link work (flock-glue / red-team-link):
+- **L1 (R5 / C2):** the real link exchange replaces the stub:
+  - commit root_F and root_B;
+  - the verifier issues the link points as its own coin slot after both roots;
+  - y is received;
+  - only then are Flock's coins issued.
+
+  root_B must be the one root the R1 check binds, which needs Flock's commit split from its prove, or a
+  `Commit(root_B)` round that the binding round must equal.
+- **L2 (C1):** the link claims y^k = ẑ(r^k) are opened in **both** reps against that root with fresh coins (about
+  2^-244), or verified over GF(2^256). Negatives 10 and 11 of red-team-link §4 must run against both reps.
+- **L3 (GPU pair):** the unit and BLAKE3 tables are proved today as two independent sessions. They must be one session,
+  or two sessions bound to the same Σ and link context (the verifier checks equal `link_sha256` and the pairing).
+- **L4 (C4):** chain glue and endpoints (red-team-link F5). Without them the BLAKE3 table proves unlinked compressions.
+
+Composition is unchanged. With L1–L4 in place the whole proof is 2^-130.2 on the A-GKR route (A-GKR-bound; 2^-127.7
+if the accountant counts A-GKR's hash budget, C8). Flock r2 is 2^-195.5 on CPU and 2^-194.5 for the GPU pair.
+
+## Re-audit FINAL
+
+~~~text
+tip: none (no repo commits; notes + evidence only)        merge-with: none
+known-failures: none    pod: vy-red-team-flock q59un0g9p7x5qz (cpu3c 16 vCPU) terminated 12:49Z; also x8gaf462paw582 and m7aqz4bhaf9640 (vanished about 2 min after launch, probably the steward's final-lane pod reaper acting on my 11:27Z FINAL) and 18ubkjsgz9amop (404 at registration); total re-audit spend about $0.2
+artifacts: art:1bd3368b art:12a6b845 (and, from the first audit, art:8d04b53f)
+~~~
+
+Runs r20260925-123224-2230 and r20260925-123625-6a37 were lost with their pods, before any result. They are superseded
+by r20260925-124333-1a03 and r20260925-124555-21d5 (the same script). Handoffs written:
+`lanes/coordinator/20260925T1255Z-handoff-from-red-team-flock.md` only. flock-live, flock-glue, agkr-bound and
+flock-128 are all final, so per contract §5 the coordinator's copy stands in for theirs.

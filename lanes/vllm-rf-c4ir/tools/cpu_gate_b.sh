@@ -33,7 +33,7 @@ echo "core head rc=$? $(date -u +%FT%TZ)"
 env | sort | grep -E '^(PATH|PYTHON|HF_|OMP_|MKL_|VERITY|VERITOR|RESEARCH|CUDA|TORCH|VLLM|TRITON)' > $L/gate_b.env
 for side in head base; do T=$H; [ $side = base ] && T=$B
   (cd $T && PYTHONPATH=$(pp $T) OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -ra -n 12 --dist loadfile \
-     -p no:cacheprovider -o junit_family=xunit1 --junitxml=$L/gate_b-$side.xml > $L/gate_b-$side.log 2>&1; \
+     -o junit_family=xunit1 --junitxml=$L/gate_b-$side.xml > $L/gate_b-$side.log 2>&1; \
    echo "gate_b $side rc=$? $(date -u +%FT%TZ)") &
 done
 wait

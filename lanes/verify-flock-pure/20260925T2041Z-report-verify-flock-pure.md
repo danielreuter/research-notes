@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT a37c90d2 (23:04Z) [open] reopened for more Flock cells (fp8-hopper H100, bf16-ampere A100, ...): NOT final; waiting for ids in lanes/verify-flock-pure/; budget $8 total (~$1.9 spent)
 CHECKPOINT a37c90d2 (22:45Z) [final] FINAL: H100 art:6d1295ed + 4090 art:d1961ba4 verified=accepted (file re-verification, 108/108 + 102/102, r20260925-222222-a2cf); pod terminated 22:45Z ~$1.9; tip a37c90d2
 CHECKPOINT a37c90d2 (22:45Z) [final] H100 art:6d1295ed + 4090 art:d1961ba4 verified=accepted (file re-verification, 108/108 + 102/102, r20260925-222222-a2cf); pod terminated 22:45Z ~$1.9; tip a37c90d2
 CHECKPOINT a37c90d2 (22:36Z) [open] H100 art:6d1295ed labelled verified=accepted (108/108 sessions of verifier r20260925-220103-b7c0 replayed, negatives as expected; run r20260925-222222-a2cf). 4090 art:d1961ba4 replay running on same run; then handoff + terminate pod

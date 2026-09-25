@@ -277,3 +277,10 @@ After these come new subcircuits, other K values first, each with its instance s
 - SHA-256 / BLAKE3 remain the preferred and target schemes; lane priorities are unchanged.
 - The renderer agent updates the renderer (bench.views, PR #16 follow-up) and this spec's text to match; until then this amendment wins
   over any sentence above that excludes algebraic hashes.
+
+## Amendment (user decision 2026-09-24 11:41 PM PT): both schemes are first-class for proof backends
+- frame-v3 and vllm-v1 (core-defined since PR #15, main 00ffe398) each get Table 2 lines; Table 3 splits serving (commitment)
+  and proving time for both.
+- Table 1 must note vllm-v1's weaker domain binding: it has no verifier-derived session binding (its roots bind program, query,
+  template, context digests, epoch and N, which the verifier must check against its own expectations; frame-v3's domain is
+  derived by the verifier).

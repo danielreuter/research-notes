@@ -264,6 +264,12 @@ def main():
         d = pkg / rel
         if d.exists() and not [x for x in d.parent.iterdir() if x.name not in ("__init__.py", "__pycache__")]:
             git(repo, "rm", "-q", str(d))
+    if group == "collectives":
+        ti = repo / "integrations/vllm/tests/collectives/__init__.py"
+        ti.parent.mkdir(parents=True, exist_ok=True)
+        if not ti.exists():
+            ti.write_text('"""tests.collectives: tests mirror the package"""\n', encoding="utf-8")
+            git(repo, "add", str(ti))
     for src_rel, dst_rel in M.TO_TESTS:
         src = repo / "integrations/vllm" / src_rel
         if group == "collectives" and src.exists():

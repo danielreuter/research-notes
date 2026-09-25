@@ -1,0 +1,7 @@
+# machine vy-jolt-scout: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "jo0fva56p8tpx5"
+project = "verity"
+guard = 60
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T06:46Z"

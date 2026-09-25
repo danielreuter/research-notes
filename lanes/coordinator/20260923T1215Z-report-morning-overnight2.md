@@ -6,6 +6,8 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 00ffe398 (06:47Z) [open] 06:48Z merged #18 6fdd261b (algebraic hashes admissible+flagged, F custody fix) and #15 00ffe398 (vllm-v1 + frame-v3 row-leaf schemas, commit_cost bench); 226 tests pass; pushed; cli + pod steward updated
+CHECKPOINT b862be30 (06:39Z) [open] 06:41Z merged f1 7fcedf47; #16 446f552b, #17 25f0c1de, #14 94faa96f; TABLES.md published + algebraic-hash amendment; launched ligero-steps-pin($5) b-ligero-standard-hash($120) verify-night-2($12) jolt-scout($5) sp1-committed($50); commit-gpu retarget ($40); agkr-bound unblocked ($100). Caps sum $332
 CHECKPOINT 8efb918e (06:22Z) [open] 06:22Z sweep: disk 5.6 GiB; steward on pod healthy; custody publish restarted (stdin bug); vyv-rf-a4-cpu pod = vLLM's
 CHECKPOINT none (06:17Z) [open] 06:18Z SWITCH-OVER laptop steps done: 1 branches (H1 exit 0, 165 pushed; 29 stale lanes closed), 2 pending=0 (+3 big runs published, 426 more publishing in background), 3/5 parity OK x2, 4 write-through via CLI wrapper (store.toml after f1), 6 notes on github (A4 515=515), 7 contract v2.0, 10.1 registry, 8.1-8.7 steward on vy-control-verity (lease held, E3 ok). Waiting: 9 guard (vLLM), reboot test, CLOUD 6.5/10.2/10.3/11
 CHECKPOINT 2994bd25 (05:47Z) [open] 05:52Z PARITY PASS 2 exit 0 (OK) -> internal/parity-pass2-20260925T0507Z.json; merged A-GKR integration v2 2994bd25 (agkr-fp8+nvf4+E4M3/NVFP4 pins) ff; hash-commit paused (Poseidon dropped), agkr-bound blocked pending SHA-256/BLAKE3 design

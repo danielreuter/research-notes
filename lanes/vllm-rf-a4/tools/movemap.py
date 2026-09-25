@@ -14,7 +14,6 @@ PIPELINE = [
     ("query/cli.py", "pipeline/cli.py"),
     ("program/global_program.py", "pipeline/global_program.py"),
     ("observe/m1_capture.py", "pipeline/m1_capture.py"),
-    ("tp/__init__.py", "pipeline/tp/__init__.py"),
     ("tp/capture.py", "pipeline/tp/capture.py"),
     ("tp/commit.py", "pipeline/tp/commit.py"),
     ("tp/match.py", "pipeline/tp/match.py"),
@@ -96,10 +95,11 @@ TO_TESTS = [
     ("verity_vllm/tp/collective_link.py", "tests/collectives/collective_link.py"),
 ]
 
-DELETED_INITS = ["input_provenance/__init__.py"]
+DELETED_INITS = ["input_provenance/__init__.py", "tp/__init__.py"]
 
 # new package inits: path -> docstring
 NEW_INITS = {
+    "pipeline/tp/__init__.py": "Tensor-parallel stage drivers: rank capture, commit, match and fold match.",
     "engine/__init__.py": "The vLLM engine: construction from a row, env pins, request driving, the rank worker and engine profiles.",
     "properties/__init__.py": "Property harnesses: non-interference, kernel census, golden and holdout corpora, admission difftests, quarantine and FA-tap exactness.",
     "collectives/__init__.py": "Collectives: the collective record, the communicator hook sites and the shard layout.",

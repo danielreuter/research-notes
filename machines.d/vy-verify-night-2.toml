@@ -1,0 +1,6 @@
+# machine vy-verify-night-2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "24p5jceya2gfbn"
+project = "verity"
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T06:40Z"

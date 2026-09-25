@@ -2,9 +2,11 @@
 lane: agkr-bound
 kind: report
 created: 2026-09-25T04:24Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT a7e88ab1 (06:49Z) [open] Unblocked (coordinator 0640Z/0650Z): retarget to frame-v3 SHA-256/BLAKE3 row digests; FINAL 15:00Z, cap $100. Now: merge main >= 00ffe398 (core frame_v3/vllm_v1), then non-hash parts (native tree check, digest publication, relation names/pins, commitment bucket, negatives scaffold); gadget waits for the survey.
+CHECKPOINT a7e88ab1 (06:38Z) [blocked] Still blocked on coordinator decision (estimate v2 0557Z). No pod; ~$2.2 spent; lane tip a7e88ab1 pushed.
 CHECKPOINT a7e88ab1 (06:17Z) [blocked] Waiting on coordinator decision on revised estimate v2 (0557Z: IRS/SHA-256 column commitment as a new core scheme; options a/b/c). No pod, ~$2.2 spent.
 CHECKPOINT a7e88ab1 (05:57Z) [blocked] Acted on 0546Z (non-algebraic hash): revised estimate v2 handoff 0557Z recommends a verifier-checked IRS/SHA-256 column commitment bound via my existing functional hook (+1-5% prover); needs core-scheme + scope decision. No pod.
 CHECKPOINT a7e88ab1 (05:44Z) [blocked] Still waiting on coordinator (revised estimate 0540Z + correction 0550Z: in-circuit Poseidon2 costs ~4-8x A-GKR t.total because layers span all wires; recommend b or c). No pod.

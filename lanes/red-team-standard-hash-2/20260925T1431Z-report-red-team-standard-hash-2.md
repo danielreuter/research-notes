@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 1874b18d (19:09Z) [open] 19:09Z blake3 16:2 scan at 9a78cd68: 0 free / 122,596 (control 16); 8:2 running (VM). Pods: nj2awhejyzbrjs + 9ix05r9kmxvoi8 never reachable (host 194.68.245.218), terminated; a5zj4kpsx1l14c (EU-RO-1) runs H2/R1/R4 r20260925-190844-a540
 CHECKPOINT 1874b18d (18:24Z) [open] 18:24Z reopened: class review fp8-hopper-x4+blake3 / bf16-hopper-x4+blake3 at x4-hopper-blake3 9a78cd68 (shapes 8:2 / 16:2): NOT final; pod vy-red-team-sh-2 next
 CHECKPOINT 1874b18d (18:17Z) [final] 18:17Z FINAL (reopen 2): fp4-nvf4+poseidon2 CLASS GRANTED (COMPLETE_ZK_BACKEND, algebraic); labels on art:70f275ac art:6740eb22; scan art:3808e520 0 effective/199k; H2/R1/R4 refused; pod drained 18:15Z ~$0.05; tip 1874b18d
 CHECKPOINT 041ac181 (17:48Z) [open] 17:48Z fp4 scan (VM, torch-free) running: controls decode+sponge show effective free rows; random/zero-scales 0 effective. Creating pod vy-red-team-sh-2 for R1/R4/H2/ZK.

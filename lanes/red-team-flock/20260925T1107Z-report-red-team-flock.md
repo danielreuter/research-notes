@@ -2,9 +2,12 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (23:31Z) [final] layouts fp8-hopper, bf16-ampere (AM1 pin pending), sha256/row/v1 ShaFp8/ShaBf16 and combos GRANTED WITH CONDITIONS at NON_ZK_PROOF (art:0f0b6f41, art:08295fa2); no cells routed yet; reopen to label cells / review next layouts. Pods terminated, ~$0.30.
+CHECKPOINT 3301c435 (23:31Z) [open] all new Flock layouts reviewed: fp8-hopper, bf16-ampere (AM1 pin pending), ShaFp8/ShaBf16 + combos: GRANTED WITH CONDITIONS at NON_ZK_PROOF. No cells routed yet; no pod running (CPU stock out). ~$0.30 spent.
+CHECKPOINT 3301c435 (23:29Z) [open] fp8-hopper + bf16-ampere GRANTED W/ CONDITIONS (art:0f0b6f41; bf16-ampere needs PINS AM1); sha256/row/v1 ShaFp8 (+ShaBf16 pre-review) GRANTED W/ CONDITIONS (art:08295fa2; SH1 instances switch, SH2 negatives). Waiting for routed cells.
 CHECKPOINT 3301c435 (23:16Z) [open] fp8-hopper + bf16-ampere layouts GRANTED WITH CONDITIONS at NON_ZK_PROOF (art:0f0b6f41 selftests all-pass; diff tests 0/400; bf16-ampere needs PINS entry AM1). Waiting for routed cells / next layout (frame-v3 SHA-256 leaf).
 CHECKPOINT 3301c435 (23:04Z) [open] reopened 23:05Z: review fp8-hopper (H100) and bf16-ampere (A100) block layouts, PR #30
 CHECKPOINT 3301c435 (22:22Z) [final] NON_ZK_PROOF labels: art:6d1295ed (H100, a6a6e548), art:d1961ba4 (4090, d93ce18b) — verifier commits zero-diff from reviewed path; route (a) art:3d7cbea2 + art:77411c93. No pod.
@@ -707,3 +710,38 @@ Pod pod9bu9s1938uo, 23:08–23:15Z, about $0.10.
 Handoffs received:
 - `20260925T2242Z-handoff-from-flock-gpu-link.md`: done, fp8-hopper;
 - `20260925T2250Z-handoff-from-flock-gpu-link.md`: done, bf16-ampere.
+
+# sha256/row/v1 layouts (23:15–23:32Z)
+
+ShaFp8 is **GRANTED WITH CONDITIONS at NON_ZK_PROOF.** ShaBf16, which has landed in the code but hasn't been handed off
+yet, is pre-reviewed with the same result.
+
+Evidence:
+- **art:08295fa2** (run r20260925-232225-1b40): the SHA selftests pass 13/13 ×4, and the BLAKE3 regression 16/16;
+- my own sha256/row/v1 instance generation passes the verifier's native root check;
+- `sha256_row_digest` == SHA-256(prefix‖row), checked locally.
+
+Conditions: PB1–PB4, FA1, **SH1** (the instances scheme switch), and **SH2** (hardening: a consistent-chain
+wrong-digest negative and an output-forge negative).
+
+Detail: `lanes/coordinator/20260925T2332Z-handoff-from-red-team-flock.md` (a copy is in `lanes/flock-backend/`).
+Pod d2hm2vfd1a98h4, 23:22–23:28Z. An earlier create hit an HTTP 500, and the mirrored machines.d entry went stale
+again, so I re-registered.
+
+Handoff received: `20260925T2315Z-handoff-from-flock-gpu-link.md`. Done.
+
+Spend this session: 3 CPU pods, about $0.30 in all.
+
+# SHA combinations (23:35–23:40Z)
+
+ShaBf16 × bf16-hopper, ShaBf16 × bf16-ampere and ShaFp8 × fp8-hopper are **GRANTED WITH CONDITIONS at NON_ZK_PROOF**.
+ad0aa41d is prover-only relative to 7e640265, and the coverage comes by composition from art:08295fa2 and art:0f0b6f41.
+
+I couldn't rerun the two new combinations: RunPod had no CPU stock (HTTP 500).
+
+Detail: `lanes/coordinator/20260925T2340Z-handoff-from-red-team-flock.md` (a copy is in `lanes/flock-backend/`).
+
+Handoffs received:
+- `20260925T2323Z-handoff-from-flock-gpu-link.md`: done;
+- `20260925T2328Z-handoff-from-flock-gpu-link.md`: done;
+- `20260925T2330Z-handoff-from-flock-gpu-link.md`: done.

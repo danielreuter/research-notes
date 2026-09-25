@@ -110,7 +110,51 @@ if _GX is not None:
     _GX._replay_fs = _replay_fs
     timed(_GX, "prove_fs_ext", key="lx.prove_fs_ext")
 timed(ligero, "prove_open", key="ligero.prove_open")
+def _wq_eval(cm, a, r):
+    import cupy as cp
+    p = cm.params
+    dev = a.device
+    rows, k, n = cm.rows, p.k, p.n
+    enc = ligero.simt_encoder(k, n)
+
+    def lap(key, t):
+        torch.cuda.synchronize()
+        now = time.perf_counter()
+        cur[key] += now - t
+        return now
+    torch.cuda.synchronize()
+    t = time.perf_counter()
+    xr = ligero.Limbs8(cm.x_rows, "b") if ligero.use_int8(dev) else cm.x_rows
+    w = ligero._mm(r.T.contiguous(), xr).T.contiguous()
+    del xr
+    t = lap("wq2.w", t)
+    l = a.shape[0]
+    full = l // k
+    at = torch.zeros((rows, ligero.DEG, k), dtype=torch.int32, device=dev)
+    t = lap("wq2.at_zeros", t)
+    if full:
+        at[:full] = a[: full * k].reshape(full, k, ligero.DEG).permute(0, 2, 1)
+    if l - full * k:
+        at[full, :, : l - full * k] = a[full * k:].T
+    at = at.view(rows * ligero.DEG, k)
+    t = lap(f"wq2.at_fill:{a.dtype}", t)
+    ev = cp.empty((rows * ligero.DEG, 3 * k), dtype=cp.int32)
+    enc[0](cp.asarray(at).view(cp.uint32), ev.view(cp.uint32), write_systematic=False)
+    t = lap("wq2.encode", t)
+    q_eval = _k.row_code_dot(at, torch.as_tensor(ev, device=dev), cm.code)
+    del at, ev
+    t = lap("wq2.row_code_dot", t)
+    q = ligero.ntt(q_eval, inverse=True)
+    t = lap("wq2.ntt", t)
+    if bool(q[:, 2 * k - 1:].any()):
+        raise RuntimeError("q past 2k-2")
+    out = w, q[:, : 2 * k - 1].T.contiguous()
+    lap("wq2.check", t)
+    return out
+
+
 from gpu import kernels as _k
+ligero.open_w_qc_eval = _wq_eval
 timed(ligero, "open_w_qc_eval", key="wq.eval")
 timed(ligero, "row_coeffs", key="wq.row_coeffs")
 timed(ligero, "_mm", key="wq._mm", desc=shp)

@@ -83,3 +83,25 @@ arith's 5 commits). Budget $6, FINAL 03:30Z. All pods created by this lane; noth
   exercised on this row; its micro-tests pass up to n = 16384 here).
 - Artifacts (all preserved, `data preserved` rc=0 on the pod): evidence tree art:34e47954; dumps bare base art:35fdf2ab,
   tip art:75a715b5; +hash base art:4d2a8176, tip art:25e89894.
+
+## H100 (sm_90): vy-red-team-arith-h100 qhspsqmvfh7wva, SECURE EUR-IS-3, host Xeon 8468, 17-core quota, $3.49/h, from 00:18Z
+- The laptop -> pod link ran at ~50-140 KB/s (`pods sync` of the full tree did not finish in 10 min; one attempt also picked
+  up another lane's cwd and shipped the wrong tree, which was deleted before use). Shipped instead: `git archive HEAD` of
+  the needed subset (3.6 MB: backends/direct, backends/ligero-verify without fixtures, packages/verity/src,
+  backends/numerical, tools/research, backends/shared, fixtures/bench-instances, pyproject.toml) at a4333dd0, with
+  .research-source.json naming it. Bootstrap OK (torch 2.6.0+cu124, ligero-verify built on the pod, instance caches for
+  bf16-hopper(-v3x4), fp8-hopper(-v3x4) at 4096 VUs).
+- Runs: r20260925-004904-c8a2 (bootstrap, tests, A/B h8 + h16), r20260925-005745-dac6 (control, +hash, FS),
+  r20260925-011026-ec41 (register).
+- tests_fused_test.py: bit-exact PASS. redteam_arith_test.py: 227 PASS, including intt_rows at n = 32768 (admitted on sm_90,
+  227 KiB opt-in) and `_intt_ginv` at n = 32768; the same 3 launch ERRORs as on the 5090 (quad_v4 56256 B / 54712 B,
+  lincomb2 56000 B of shared memory), each with the replaced kernel running the same inputs.
+- Byte A/B (local coins; the BF16 cell ran live, the prover's arithmetic is the same):
+  | config | 22741456 | 9d1a7f15 | 0baefa9d | f550fdc6 | 92ea2531 | 92dab0ad | Rust verify (tip) |
+  |---|---|---|---|---|---|---|---|
+  | E4M3 fp8-hopper-v3x4 l=4096 p8 (13 sub-batches) | 1b0e649c | = | = | = | = | = | 13/13, 2^-128.33 |
+  | BF16 bf16-hopper-v3x4 l=4096 p8 (25 sub-batches) | f1e0cac4 | = | = | = | = | = | 25/25, 2^-128.05 |
+  | E4M3 + in-proof hash: fp8-hopper l=16384 p8 --auth included-hash | 21bce6af | = | = | = | = | = | 13/13, 2^-128.32 |
+  | control: E4M3 tip, RTA_SEED=alt | | | | | | 22ed4a03 (differs) | 13/13 |
+- Kernels reached (tip, E4M3): lincomb2 27, _quad_v4 28, intt_scaled 56 (f550fdc6's kernel is exercised on sm_90);
+  BF16 the same three (27 / 28 / 56).

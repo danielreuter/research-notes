@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT a6ba1e5b (10:34Z) [open] sweep e592 fp8-hopper-x4+sha256 l4096p4: 8192 5860, 16384 5768, 32768 6162, 65536 6112 (self-contended flag), 131072 running (last point). MALLOC default 98d878ca handed to coordinator. Next: preserve plateau, verify-night-2 handoff, bf16-hopper-x4 cell.
 CHECKPOINT ee2a319f (10:14Z) [open] 98d878ca: MALLOC default in pod env.sh + software.allocator in every fingerprint (+2 tests), merge-ready handoff to coordinator. Screen fp8-hopper-x4+sha256 l4096p4 5837 VU/s e2e; sweep r20260925-095503-e592 running.
 CHECKPOINT 5483d13b (10:07Z) [open] 10:07Z tip da74b03e (+main 3301c435 R1/R2/R4). Page-fault fix (MALLOC_MMAP_MAX_=0) -> fp8-hopper-x4+sha256 l4096 p4 sweep r20260925-095503-e592: 1024 4145, 2048 4739, 4096 5356, 8192 5860, 16384 5768 VU/s e2e; 32768 running. Handoff to coordinator on page faults.
 CHECKPOINT 10996616 (09:42Z) [open] 09:45Z tip 88b82757: SHA-256 row_sponges on GPU (commit 21s->0.2s, identical roots). Found: per-proof 2.3s in opened_from_pinned = first-touch page faults on this H100 host (91MB fresh alloc 5.6s; reused 8ms). Testing glibc MALLOC_MMAP_MAX_=0 fix, then screen.

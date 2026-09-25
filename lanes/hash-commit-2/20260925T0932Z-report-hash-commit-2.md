@@ -100,9 +100,14 @@ software 7-10 (art:31a799a7). Answers flock-bench's question: the ~8x H100-over-
 kb: flock-prover.md (two measured lines), gpu-committer.md (portability section + the sm_90 _int_mm gotcha).
 
 ## Handoffs
-Received: coordinator/0946Z "Laptop disk at 2.6 GiB" (complied: nothing fetched to the laptop, all registration pod-side);
-coordinator/1003Z "Export MALLOC_MMAP_MAX_=0 ..." (no measured run started after it; the runs above predate it and say so);
-hash-commit/0950Z flock-bench "5090 reference for your clmad runs" (answered by the H100 run, section 3).
+Received:
+- 20260925T0946Z-handoff-from-coordinator.md "Laptop disk at 2.6 GiB": complied (nothing fetched to the laptop, all registration pod-side).
+- 20260925T1003Z-handoff-from-coordinator.md "Export MALLOC_MMAP_MAX_=0 ...": no measured run started after it; the runs above
+  predate it and the peer handoffs say so.
+- hash-commit/20260925T0950Z-handoff-from-flock-bench.md "5090 reference for your clmad runs": answered by the H100 Flock run (section 3).
+- Predecessor's, already acted on by hash-commit (its report): hash-commit/20260925T0546Z-handoff-from-coordinator.md (Poseidon2
+  PAUSE), hash-commit/20260925T0650Z-handoff-from-coordinator.md (both schemes first-class), and
+  hash-commit/20260925T0752Z-handoff-from-coordinator.md (survey). Its remaining ask, Flock on an H100, is done here (section 3).
 Sent: coordinator/20260925T1024Z-handoff-from-hash-commit-2.md (merge-ready 2a92fe61),
 b-ligero-sha256/20260925T1022Z-handoff-from-hash-commit-2.md, blake3-80gb/20260925T1022Z-handoff-from-hash-commit-2.md.
 

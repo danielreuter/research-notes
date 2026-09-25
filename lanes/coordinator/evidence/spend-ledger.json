@@ -24,17 +24,17 @@
   },
   "24p5jceya2gfbn": {
    "name": "vy-verify-night-2-veritor-campaign",
-   "usd": 1.747,
+   "usd": 1.7792,
    "rate": 0.48,
    "first_seen": 1790319111.3402529,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "whwiqx4qyy75am": {
    "name": "vy-b-ligero-sh-veritor-campaign",
-   "usd": 2.6945,
+   "usd": 2.7441,
    "rate": 0.74,
    "first_seen": 1790319111.3402529,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "7byyo9s4i8rh58": {
    "name": "vy-ligero-steps-pin-veritor-campaign",
@@ -45,10 +45,10 @@
   },
   "04txgm7j3b0nob": {
    "name": "vy-red-team-sh-veritor-campaign",
-   "usd": 0.4168,
+   "usd": 0.4248,
    "rate": 0.12,
    "first_seen": 1790319716.3409579,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "n005v24vgiougo": {
    "name": "vy-poseidon-v1-veritor-campaign",
@@ -73,10 +73,10 @@
   },
   "ftqlbtan129je6": {
    "name": "vy-agkr-bound2-veritor-campaign",
-   "usd": 5.0744,
+   "usd": 5.1811,
    "rate": 1.59,
    "first_seen": 1790320804.401966,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "qb68wysl3ejx8b": {
    "name": "vy-poseidon-v1-veritor-campaign",
@@ -129,10 +129,10 @@
   },
   "qmiq4rs1f0y4tr": {
    "name": "vy-b-ligero-sha256-veritor-campaign",
-   "usd": 6.4512,
+   "usd": 6.6854,
    "rate": 3.49,
    "first_seen": 1790325639.127691,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "nhdu3eiw255yv5": {
    "name": "vy-blake3-80gb-veritor-campaign",
@@ -192,10 +192,10 @@
   },
   "0std0gx3ah22o1": {
    "name": "vy-blake3-80gb-veritor-campaign",
-   "usd": 2.4651,
+   "usd": 2.6993,
    "rate": 3.49,
    "first_seen": 1790329750.744663,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "9bkz4idcq7fsg6": {
    "name": "vy-red-team-link-veritor-campaign",
@@ -206,34 +206,34 @@
   },
   "56nan0h04ho1u9": {
    "name": "vy-flock-glue-a100-veritor-campaign",
-   "usd": 0.3207,
+   "usd": 0.4274,
    "rate": 1.59,
    "first_seen": 1790331567.3659918,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "40f4u7lx3rjsf4": {
    "name": "vy-flock-128-cpu-veritor-campaign",
-   "usd": 0.0646,
+   "usd": 0.1076,
    "rate": 0.64,
    "first_seen": 1790331930.224983,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "t32im4q69yffh6": {
    "name": "vy-reverify-tile-veritor-campaign",
-   "usd": 0.0323,
+   "usd": 0.0645,
    "rate": 0.48,
    "first_seen": 1790332051.089411,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   },
   "h94xn599m62w1t": {
    "name": "vy-poseidon-v1-veritor-campaign",
-   "usd": 0.1179,
+   "usd": 0.3521,
    "rate": 3.49,
    "first_seen": 1790332172.727191,
-   "last_seen": 1790332172.727191
+   "last_seen": 1790332414.265454
   }
  },
- "last_poll": 1790332172.727191,
- "total_usd": 49.542,
+ "last_poll": 1790332414.265454,
+ "total_usd": 50.623,
  "running_rate": 16.11
 }

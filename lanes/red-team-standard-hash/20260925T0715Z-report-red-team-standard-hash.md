@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 53314d1c (10:34Z) [open] 10:34Z +sha256 @da74b03e CLASS GRANTED WITH CONDITIONS (run>=da74b03e, reverify w/ 3301c435+sha256 scheme or 06, 04 BOUND) -> coordinator/vn2/b-ligero-sha256 1033Z; sha256 scan 0 free (8:2, 8:0.5), control 17, art:a3c5c339; blake3 class 1027Z art:70722cab
 CHECKPOINT a37cea8 (10:18Z) [open] 11:32Z PASS main 3301c435 +blake3 and da74b03e +sha256 (R1/R4 refused, H2, compress_one diff; art:cd2828c5); sp1 cell counts only via vn2 19-sp1c gate; gadget scans: blake3 x4 finishing, sha256 queued
 CHECKPOINT 5483d13b (10:04Z) [open] 10:58Z main 3301c435 fp8-ada+blake3: R1/R4 refused, H2 PASS (run rtsh-final-1050); da74b03e +sha256 suite + compress_one differential running; BLAKE3 scan 3/4 shapes 0 free; next sha256 gadget scan
 CHECKPOINT none (09:53Z) [open] 10:36Z disk: deleted my /tmp evidence copies (~560 MB, all preserved: art:0e8faae7 etc) + 4 scratch worktrees (~1 GB); store objects 8381eb93 (105MB) / ee92c75a (40MB) 08:3xZ may be from my art:c7683eb2 put. From now: pod-only, no laptop downloads

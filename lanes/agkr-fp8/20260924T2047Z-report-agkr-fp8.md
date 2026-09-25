@@ -5,6 +5,7 @@ created: 2026-09-24T20:47Z
 status: open
 ---
 
+CHECKPOINT 3be6a35f (01:11Z) [open] H100 pod 28sqi5rstcudhk (00:50Z): fp8-hopper MERGED dev @3be6a35f t.total 0.330-0.335s (cell 0.482), Rust 2/2, negatives OK. Recorded run r20260925-010941-b9eb running; then push, lookup negatives, handoff.
 CHECKPOINT 3be6a35f (00:43Z) [open] 4090 fp8-ada on MERGED LK statement: 0.490s (art:45c5be4a, run-files art:979e37aa, r20260925-002240-8ed3 @3be6a35f), Rust 3/3, 2^-130.19, dev+lookup negatives art:f01f7196; handoff 0045Z. Next: drain 4090, H100 fp8-hopper merged re-record.
 CHECKPOINT f2363663 (00:05Z) [open] 4090 fp8-ada cell re-recorded 0.666s (was 1.130): art:ecd96143, run-files art:0667ed46, r20260924-234932-5828 @f2363663, proofs b5ef0238 unchanged, Rust 3/3, 2^-130.19; negatives art:9398f028; handoff 0006Z. Merged LK table dev pass r20260925-000446-6b38 running.
 CHECKPOINT bb859220 (23:46Z) [open] 4090 dev @bb859220 fp8-ada: warm t.total 0.692s (cell was 1.130), proofs sha b5ef0238 unchanged, Rust 2/2, negatives OK. A/B int32 Acc running r20260924-234548-cd34; then recorded 4090 run. Considering merged tagged LogUp table for FP8 unit.

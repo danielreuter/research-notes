@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (20:28Z) [open] fifth audit started 20:29Z (lane REOPENED): route (a) live prime coins, PR #36 @ dec08973, art:3bfb2f58
 CHECKPOINT 3301c435 (18:45Z) [final] FOURTH AUDIT: route (a) cell art:8f7ef58b GRANTED WITH CONDITIONS at NON_ZK_PROOF_DIAGNOSTIC (downgrade: prime coins FS); 2^-130.19 at current convention (Daniel: hash q^2/2^256, FS x2^60); cell-verifier not non-producer; gate re-run 5/5 admitted; labels written; no pods
 CHECKPOINT 3301c435 (18:44Z) [final] FOURTH AUDIT: route (a) cell art:8f7ef58b GRANTED WITH CONDITIONS at NON_ZK_PROOF_DIAGNOSTIC (downgrade: prime coins FS); 2^-130.19 at current convention (Daniel: hash q^2/2^256, FS x2^60); cell-verifier not non-producer; gate re-run 5/5 admitted; labels written; no pods
 CHECKPOINT 3301c435 (18:32Z) [open] fourth audit started 18:32Z (lane REOPENED): route (a) cell, agkr-flock-cell PR #28 @ c95dd13a, art:8f7ef58b. Paper/code review first.

@@ -26,9 +26,10 @@ branch: lane/vllm-rf-gc
   card test; 6f95928a test_source_identity docstring: needs a git checkout. Gate tree = git clone of the shipped sha from the pod's bare repo.
 
 ## Running
-- vyv-rf-gc2-cpu (2a6r9033cmk5vg): base 270b0de2 r20260925-185947-d8fe (~19:40Z), then head 6f95928a r20260925-190114-7dc1 (~20:20Z).
-- dead: r20260925-185442-5782 / -185503-1558 (clone check tripped on research's READY.json, fixed); r20260925-185949-ed90 (head, wrong
-  WAIT_RUN, killed ~1 min into base's gate).
+- gc2 round 2 on vyv-rf-gc2-cpu: base 7da00370 r20260925-202807-da6a (~21:08Z), then head a0ec1083 r20260925-202822-109a (~21:48Z).
+- round 1 (base 270b0de2 r20260925-185947-d8fe / head 6f95928a r20260925-190114-7dc1): jdiff 7 retired (deleted/renamed), 2 renamed pass,
+  source_identity x4 pass on both sides (git clone), but 2 "new" failures = the gc-freeze pair (gc's 301ce7dc not in 270b0de2; file
+  distribution changed). Fix: merged origin/main 7da00370 (contains gc) -> 0c49886a; + a0ec1083 G4c ROOT fix (b5vc).
 
 ## Pods
 - `vyv-rf-gb-cpu` (0d4uj5m7e8o5cz) terminated at READY.

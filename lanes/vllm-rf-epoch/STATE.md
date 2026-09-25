@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T20:25Z
+updated: 2026-09-25T20:40Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -67,6 +67,19 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
 - #39 Build OOM (rc 137) at 125 GB (moe68). #57 Build running, and its Match advisory would refuse at 119 GiB. #4 Build 2 h, now Match.
   #73 Build 2 h 20 min and going. #67 Build (tp70 GPU 0) since 19:38Z.
 - #68: no >= 256 GB pod yet (loop to 21:00Z). Decision asked in `lanes/vllm-coordinator/20260925T2025Z-handoff-from-vllm-rf-epoch.md`.
+
+## 20:40Z (decision 2030Z: partial epoch, deadline 03:00Z, budget $130)
+- `73a9a90a` epoch item 7: `research_tools.CLOSURE` + `verity/evaluation/**` (the only core package missing; commitments,
+  ir, ml, verification, errors.py already in). code_identity 54ed9053… (1191 files) -> e58416b9… (1194). Key-only: the regression's
+  `attempt_provenance` is skipped without VERITY_REGRESSION_CANDIDATE, and no other check reads the closure.
+- `vyv-rf-epoch-big` (`p7xeovgrfzatpz`, 2x L40S, 233 GB cgroup, $2.18/h) created 20:20Z by the loop: bootstrap `r20260925-202051-bcc1`,
+  then #68 on GPU 0 (`r20260925-202204-ecb5`, tree `89cd9d1a`). tp70b is also 233 GB; #70 via tp_stage since 20:30Z.
+- The row_pod planner (`telemetry.admission plan`, PAIRS=1), in MiB: #68 commit 191,021 and #67 193,326 fit 222,209 (233 GB).
+  #11 commit 229,925 and match 148,512 fit only tp70/h100 (239,372). #39 build 497,248 and commit 609,291 fit no pod.
+  Dense rows use uncalibrated phi3 coefficients and overestimate: #4 match is predicted at 125,105 but ran at 80 GB peak. So
+  #11/#39 are **not re-baselined** unless a >= 233 GB L40S slot frees early enough: none is free (big #68, tp70 #67, tp70b #70,
+  tp75 #75).
+- #11 is kept off moe67: the `skip11` run `r20260925-202938-00c9` stops its row_pod.sh when it starts, so rows.sh moves on to #23.
 
 ## Next
 - Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the

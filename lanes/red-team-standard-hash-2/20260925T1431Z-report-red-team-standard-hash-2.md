@@ -5,6 +5,8 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 540b3f70 (20:32Z) [open] 20:32Z starting vllm-v1 statement review (PR #37 acd50fec; cells art:f7aac95f, art:6d6464d1): NOT final
+CHECKPOINT 540b3f70 (20:29Z) [open] 20:29Z bf16-ampere-x4+sha256 GRANTED (2029Z); proof_class on art:675a03a3 + art:ac1f532c; x4 hopper plateau ids pending; vllm-v1 review not started (asked coordinator 2029Z); no pod running; tip 540b3f70
 CHECKPOINT 1874b18d (19:56Z) [open] 19:56Z acting on inbox 1940Z (bf16-ampere-x4+sha256 grant; shape 16:2 = scanned at 1441Z, leaf code unchanged to 7da00370) -> pod for H2/R1/R4; 1945Z vllm-v1 review queued next. Still waiting on x4 hopper plateau verified labels
 CHECKPOINT 1874b18d (19:31Z) [open] 19:31Z x4 hopper +blake3 GRANTED WITH CONDITIONS (handoff 1932Z; art:a75b03a5, run r20260925-190844-a540); pods terminated (~$0.11). Waiting, no pod, for the plateau cells' verified= labels to write proof_class
 CHECKPOINT 1874b18d (19:09Z) [open] 19:09Z blake3 16:2 scan at 9a78cd68: 0 free / 122,596 (control 16); 8:2 running (VM). Pods: nj2awhejyzbrjs + 9ix05r9kmxvoi8 never reachable (host 194.68.245.218), terminated; a5zj4kpsx1l14c (EU-RO-1) runs H2/R1/R4 r20260925-190844-a540
@@ -124,3 +126,11 @@ Inherited handoffs: all 20 were addressed to red-team-standard-hash and acted on
   (EU-RO-1) ran r20260925-190844-a540 from 19:08 to 19:31Z and was drained; about $0.11 in total.
   Results: H2 fp8 12 accepted / 24 refused, bf16 24 accepted / 12 refused. R1 and R4 refused on both.
 * Verdict: CLASS GRANTED WITH CONDITIONS. Handoff coordinator/1932Z. Plateau labels wait for verification, expected 19:30-20:30Z.
+* 19:39Z received `20260925T1940Z-handoff-from-coordinator.md` ("Class grant request: bf16-ampere-x4+sha256"). Acted on it: GRANTED
+  WITH CONDITIONS (handoff coordinator/2029Z). Pod y48ucqzibtr5ma ran r20260925-200024-faf4 (setup, R1, R4) and r20260925-201740-b843
+  (H2 with synthetic VUs, harness 540b3f70) from 20:00 to 20:28Z, about $0.06, drained. Labels on art:675a03a3 (ref 2029Z) and
+  art:ac1f532c (ref 1033Z).
+* 19:40Z received `20260925T1945Z-handoff-from-coordinator.md` ("Review request: the new vllm-v1 statement"), plus
+  `20260925T2011Z-handoff-from-b-ligero-vllm-v1.md`. Not started: it is a full new-scheme review, so I asked the coordinator
+  to confirm (2029Z).
+* The x4 hopper +blake3 plateau cells have no ids or verified labels yet (20:28Z).

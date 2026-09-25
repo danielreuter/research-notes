@@ -1,0 +1,31 @@
+== build 01:47:45
+{"cases": 115, "variants_not_exercised": ["frac26", "frac28", "negzero", "participate-zero-scale"]}
+== honest control 01:47:50
+{"rep": 0, "vus": 14, "units": 336, "prover_s": 2.067642707377672, "verifier_s": 0.16809799894690514, "verified": true, "error": null, "proof_bytes": 541120, "proof_elems": 945, "t_commit": 0.10823570
+proof written: /workspace/agkr-nvf4/neg-c97d/honest.bin (541192 bytes, round trip verified)
+{"accepted": true, "error": null, "verify_seconds": 0.030398, "t_parse": 0.000156, "t_transcript": 0.000733, "t_functional_value": 0.009070, "t_merkle_proximity": 0.002389, "t_rows_linear_test": 0.016889, "t_rows_fill_cpu": 0.007226, "t_rows_eval_cpu": 0.007730, "bytes_read": 541192, "msgs": 945, "slots": 489, "committed_elements": 273629, "ligero_rows": 67, "threads": 15, "peak_rss_bytes": 36450304, "cpu": "AMD Ryzen 9 9950X 16-Core Processor", "vus": 14, "units": 336, "steps": 24}
+rust honest rc=0
+== python negatives 01:47:54
+112 rejected at prover: query tuple not in table LK
+113 rejected at prover: query tuple not in table LK
+114 rejected at prover: query tuple not in table LK
+115/115 negatives rejected
+== rust negatives 01:48:24
+59: rejected: unit/assertions: phase-1 round 0 sum mismatch (0.000 s)
+negatives: 56 rejected, 0 accepted, 56 proofs
+rust negatives rc=0
+== rust mutate (honest control) 01:48:24
+  message_count: 2/2 rejected
+  statement: 2/2 rejected
+rejection reasons: {"LogUp LK level": 40, "epilogue/assertions phase-": 1, "epilogue/assertions: phase-": 1, "epilogue/depth": 1, "ligero: merkle path": 95, "proof.bin: message count": 1, "proof.bin: non-canonical extension coordinate": 1, "proof.bin: opening shape t=": 1, "proof:": 1, "unit/assertions phase-": 4, "unit/assertions: phase-": 1, "unit/depth": 1}
+mutations rejected: 148/148; mean verify 0.011 s; accepted (BUGS): []
+rust mutate rc=0
+{"python": "115/115", "python_where": {"verifier": 56, "prover": 59}, "python_accepted": [], "rust": "56/56", "rust_accepted": []}
+== done 01:48:26
+====
+chunk 0 wq 16.69 ms  total 0.1492 sha {'ebe7c545'}
+chunk 32 wq 22.17 ms  total 0.1555 sha {'ebe7c545'}
+chunk 64 wq 18.28 ms  total 0.1526 sha {'ebe7c545'}
+chunk 104 wq 16.84 ms  total 0.1506 sha {'ebe7c545'}
+chunk 160 wq 16.37 ms  total 0.151 sha {'ebe7c545'}
+sweep-done

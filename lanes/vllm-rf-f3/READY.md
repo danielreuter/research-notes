@@ -21,8 +21,8 @@ updated: 2026-09-25T03:45Z
 | `bca6ab61` | `4fb0eb2c` | D14 follow-up: the two `run_config --phase all` dry-run tests pass `--seed` |
 | `4c4159c5` | | lint: main's ratchet allowlists after D3, D4, D14 and D15 (below) |
 
-**Rebase** (coordinator notes 22:13Z and 00:32Z): `git rebase origin/main` from `4fb0eb2c` onto `bbbe936c` (main after a23b's merge
-`4bd6c54c` and one research-tools commit), then `git push --force-with-lease`. The only conflicts were the three the 00:32Z note names,
+**Rebase** (coordinator notes 22:13Z and 00:32Z): `git rebase origin/main` from `4fb0eb2c` onto `bbbe936c` (the 00:32Z note's
+`4bd6c54c`, which has a23b merged, plus one research-tools commit), then `git push --force-with-lease`. The only conflicts were the three the 00:32Z note names,
 all in the D15 commit: `fa2_relation.tables_dir()`, `rms_relation.tables_dir()` and the docstring of `tests/acquire/fa2_attn_oracle.py`.
 They are resolved as the note says: main's `resources.files(__package__) / "tables" / <fixture id>` location, D15's deletion of the env
 overrides, and its "pinned by TABLE_SHA256" docstring. That is the code the pre-rebase head already had through the cherry-pick: the
@@ -87,8 +87,10 @@ environment. Evidence: `evidence/lint_pod/` (xml, logs, env, freeze, scripts, `j
   - Against a1's base runs, head's 65 failures and errors are exactly a1's xdist list. At head and at main alike, one skip reason is
     in neither a1 run: `program/test_ship_roots.py::test_ship_pack_carries_out_gen_hf_configs`, "this checkout has no
     record_v5/ship.sh or data/hf_configs". That comes from main's own change to the file, which f3 doesn't touch.
-- **Not re-run at the rebased head:** gate (a) and the GPU rows (below, at `4fb0eb2c`). The rebase changed none of f3's code (above),
-  and the lint commit's only observable effect is the key order in the `capture_identities` record, which neither covers.
+- **Not re-run at the rebased head:** gate (a) and the GPU rows (below, at `4fb0eb2c`). `bca6ab61` is `4fb0eb2c` merged with main
+  (above). The lint commit's only observable effect is where `coordinate_sample` sits in the `capture_identities` JSON (written without
+  `sort_keys`). Neither the regression suite nor the row scripts run `capture_identities`. The tests that do are in gate (b) and in
+  the targeted set, and they pass at `4c4159c5`.
 
 ## Gate evidence at the pre-rebase head `4fb0eb2c`
 
@@ -108,18 +110,19 @@ files absent; on g3 and big2, `research pods sync` of a clean `72884c8a` worktre
 ### (b) `python -m pytest integrations/vllm/tests` -- green against a1's baseline (xdist vs xdist)
 
 ~~~
-cd /workspace/base      # 4fb0eb2c, fresh
+cd /workspace/base      # 4fb0eb2c, fresh (the 4c4159c5 / bbbe936c runs above: the same command)
 PATH=/workspace/venv312/bin:$PATH PYTHONPATH=$PWD/integrations/vllm:$PWD/packages/verity/src:$PWD/tools/research/src \
 HF_HOME=/workspace/hf PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=3 \
 python -m pytest integrations/vllm/tests -ra -o junit_family=xunit1 --junitxml=... -n 12 --dist loadfile
 ~~~
 
-**54 failed, 3553 passed, 297 skipped, 6 xfailed, 11 errors** in 19 min 42 s (base: 54 F, 3536 passed, 297 skipped, 6 xfailed,
-11 E; +17 passed = the new f3 tests). All 65 F/E are named in `vllm-rf-a1/baseline.md`: 63 from its xdist list, plus the two
-`harness/test_admit_r19_host_working_set.py` gc-freeze tests from its serial section ("fail serially", one "also fails when the file runs
-alone"). A/B: that file alone fails the same two tests at `4fb0eb2c` and at `72884c8a` on the same pod. Two xdist-list entries passed
-this run (`check/test_twins.py::test_check_writes_the_evidence_schema`, `ops/test_row_pod_cancel_forwarding.py::test_sigint_is_forwarded_the_same_way`,
-both host/timing entries in a1's list). Every skip reason is in a1's list.
+**55 failed, 3552 passed, 297 skipped, 6 xfailed, 11 errors** in 21 min 46 s (a1's base: 54 F, 3536 passed, 297 skipped, 6 xfailed,
+11 E; the 17 tests only at head are the new f3 tests, all passed). All 66 F/E are named in `vllm-rf-a1/baseline.md`: 64 from its xdist
+list, plus the two `harness/test_admit_r19_host_working_set.py` gc-freeze tests from its serial section ("fail serially", one "also
+fails when the file runs alone"). A/B: that file alone fails the same two tests at `4fb0eb2c` and at `72884c8a` on the same pod. One
+xdist-list entry passed this run: `ops/test_row_pod_cancel_forwarding.py::test_sigint_is_forwarded_the_same_way`, a timing entry in
+a1's list. Every skip reason is in a1's list. (Corrected 03:45Z: the first version of this file said 54 failed / 3553 passed and named
+two passing xdist-list entries; the junit and the pytest summary line say the above.)
 
 An earlier run at `9bddf741` had 3 more failures, all mine: the `test_gen_llama` / `test_gen_ov_easy` `run_config --phase all` dry runs
 plan `replay_a` / `replay_chain` without `--seed`, which D14 now refuses. `4fb0eb2c` passes `--seed 7` there.
@@ -214,8 +217,8 @@ also passed (`evidence/gate_a_big/`).
   `qkv_proj/0` leaf.
 - D14: "one derivation from the run root" (SYNTHESIS) is not done: unifying the forms moves samples and verdict checks
   (`commit_verdict._REPLAY_SEED_ROOT_FORM`, the compiled check's `seed_source`), so it waits for Phase 3 / core C4.
-- D15: the table location stays one function per table set (`tables_dir()`, `tables_dir(kernel)`, `MUFU_TANH_TABLE_DIR`), now a23b's
-  `importlib.resources` path.
+- D15: the table location stays one function per table set (`tables_dir()`, `tables_dir(kernel)`, `MUFU_TANH_TABLE_DIR`), now main's
+  `importlib.resources` path (a23b's W11 move `a9abe0a0`).
 
 ## Found, not fixed
 
@@ -242,3 +245,6 @@ also passed (`evidence/gate_a_big/`).
 - `research pods ssh` does not forward stdin and can run a command twice (two copies of each detached gate run once), so launch
   detached runs under `flock -n`. When launching over ssh, `cd X && setsid nohup job &` backgrounds the whole `&&` list; its subshell
   keeps the session open until the job ends, and its command line stays in `pgrep -f`. Write `cd X; setsid nohup job … &`.
+- `tests/lint` P9 gives a module with no `INTERIM_LAYER` entry its package's layer. A new module under `acquire/` therefore sits above
+  `acquire.native_collect` (`observe|commit`), and importing it from there fails P9, as D4's `acquire/flush_points.py` did until it got
+  an entry. Any lane that adds a module next to the committers will hit this.

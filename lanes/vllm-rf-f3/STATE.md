@@ -16,7 +16,21 @@ created: 2026-09-24T17:36Z
 >
 > **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** When your running gates finish, rebase onto `origin/main` (it's clean with your head) and push with `--force-with-lease`. Run `tests/lint` on your pod, fix the allowlists it prints (your D3, D4, D14 and D15 work likely makes P7 `environ` / `seed-default` entries stale), and record both heads plus the green lint run in READY.md. Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.
 
-## NOW (02:50Z): LINT GREEN at `4c4159c5` (pushed); gate (b) head -> main running on the lint pod
+## NOW (03:45Z): DONE. READY.md updated for the rebased head `4c4159c5`; all f3 pods terminated
+- Gate (b) at `4c4159c5` vs main `bbbe936c` (same pod, same settings): head 54 F / 3534 P / 286 S / 6 xF / 11 E (13:22); main
+  56 F / 3515 P / 286 S / 6 xF / 11 E (14:00). Head F/E subset of main's (main's extra 2 = admit_r19 gc-freeze, order-dependent);
+  17 head-only tests = f3's, all pass; skip reasons identical; head F/E == a1's xdist list exactly; the one skip reason outside a1's
+  runs (`test_ship_roots` record_v5) is at main too (main's change). Judge: `evidence/lint_pod/judge_b_exact.txt`.
+- Evidence copied to `evidence/lint_pod/` (516 KB); lint pod `xroshfy57ofi18` terminated 03:25Z. `research pods list`: no f3 pods.
+- Rebase check: `bca6ab61` == merge-tree(4fb0eb2c, bbbe936c) with f3's side in the 3 D15 conflict files (byte-identical to 4fb0eb2c's);
+  range-diff: other patches unchanged or context-only. Basis for not re-running gate (a) / GPU rows at the rebased head (READY.md).
+- main moved again to `ca396d13` (7 commits, `tools/research/` + `backends/direct/` only, no overlap, merge-tree clean). NOT rebased:
+  the brief says rebase when the coordinator says main moved. Merge-tree vs open lanes: f56 `a4b823a3` clean; f1 `d1f18fc8` and f24
+  `e818a5d4` conflict only in `p10_size.json` (commit_delta.main 1916/1917; f24 also verdict.py vs padding_steps.py) -> READY.md.
+- Corrected the pre-rebase gate (b) counts (55 F / 3552 P, 66 F/E; only test_sigint passed of a1's xdist list) in READY.md and below.
+- NEXT: nothing pending. Waiting for the coordinator (merge, or a rebase onto `ca396d13` if wanted).
+
+## (earlier) 02:50Z: LINT GREEN at `4c4159c5` (pushed); gate (b) head -> main running on the lint pod
 - 02:28Z post-rebase checks at `bca6ab61` OK (all 3 `tables_dir()` under `program/numerics/tables/`, load + TABLE_SHA256 check OK with
   the old env overrides unset and set to /nonexistent; `test_mufu_tables_pinned.py` 3 passed). venv == a1's baseline-freeze.txt
   exactly (after pinning googleapis-common-protos 1.75.3; bootstrap had pulled 1.75.4).
@@ -139,11 +153,13 @@ created: 2026-09-24T17:36Z
   `ref_vocab_digest` 82fd6a28 -> 63c73b5e, which is base drift since 0018fea0 -- f3 does not touch ref_prims.py or any function its
   manifest hashes). A gate (b) re-run in a used tree tests against those rewritten records -> always run gates in a fresh tree.
 
-- 20:41Z **GATE (b) GREEN at `4fb0eb2c`** (tree `/workspace/base`, fresh; `-n 12 --dist loadfile`, OMP_NUM_THREADS=3; 19 min 42 s):
-  54 failed, 3553 passed, 297 skipped, 6 xfailed, 11 errors = the base's counts (+17 passed: the new f3 tests). All 65 F/E are named in
-  a1's baseline: 63 of its xdist list + the two `harness/test_admit_r19_host_working_set.py` gc-freeze tests of its serial section
-  (fail serially / alone at base). Two xdist-list entries passed this time: `check/test_twins::test_check_writes_the_evidence_schema`
-  ("openmp key on this host") and `ops/test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way` (15 s timeout under load).
+- 20:41Z **GATE (b) GREEN at `4fb0eb2c`** (tree `/workspace/base`, fresh; `-n 12 --dist loadfile`, OMP_NUM_THREADS=3; 21 min 46 s):
+  55 failed, 3552 passed, 297 skipped, 6 xfailed, 11 errors (+17 passed vs base: the new f3 tests). All 66 F/E are named in
+  a1's baseline: 64 of its xdist list + the two `harness/test_admit_r19_host_working_set.py` gc-freeze tests of its serial section
+  (fail serially / alone at base). One xdist-list entry passed this time:
+  `ops/test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way` (15 s timeout under load). [03:45Z correction: this entry
+  first said 54 F / 3553 P / 19 min 42 s and also named `test_twins::test_check_writes_the_evidence_schema` as passing; the junit and
+  the pytest summary line (`evidence/cpu_pod/logs/gate_b_final.*`) say the above. Verdict unchanged.]
   Skip reasons: all in a1's list (297, same as base). A/B 20:44Z: the gc-freeze file alone fails the same 2 tests at head and at base
   (`/workspace/b0` = 72884c8a rebuilt from the head tree + `git diff --binary 4fb0eb2c 72884c8a`, 36 blobs checked == git ls-tree, 3
   head-only files absent). Logs: `logs/gate_b_final.{log,xml,env,rss}`, `logs/gate_b_final.fails.txt`.

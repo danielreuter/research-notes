@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T05:12Z
+updated: 2026-09-25T05:16Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -291,3 +291,7 @@ updated: 2026-09-25T05:12Z
   its evidence is for 299f42d5/d1f18fc8 until the runs at 8efb918e land.
 - NEXT: new pod vyv-rf-f1-cpu3 (register in machines.toml by hand, `--cwd source` on every launch): bootstrap; lints + touched; gate (b)
   head 8efb918e and main c1891d48 side by side; preserve; drain; READY.
+- 05:14Z (header re-read: coordinator 04:40Z asked for exactly this rebase, count "probably 1914" = mine; 05:01Z: pod deadline 09:00Z.
+  I missed the 04:40Z note until 05:13Z: it landed mid-run and I did not re-read the header before my 04:48Z edit.)
+  NEW POD **vyv-rf-f1-cpu3** (`9mxya70py7jxc6`, cpu3g 32 vCPU / 128 GB, EPYC 9655P host), registered by hand in machines.toml.
+  Bootstrap `r20260925-051324-cb17` at 8efb918e (`--cwd source`).  rf-f1-base worktree -> c1891d48 for main's gate (b).

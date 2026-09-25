@@ -14,6 +14,15 @@ gpu_idle() {  # wait up to ${1:-300} s for an empty GPU
   echo "GPU NOT IDLE: $(nvidia-smi --query-compute-apps=pid,process_name --format=csv,noheader | tr '\n' ' ')" | tee -a $LOG; return 1
 }
 
+# tests TREE PYTEST-ARGS...: pytest in the tree (GPU tests included), the last line to runs.txt
+tests() {
+  local tree=$1; shift
+  gpu_idle || return 1
+  ( cd $tree && PATH=/workspace/bin:$PATH PYTHONPATH="$tree/packages/verity/src:$tree/backends/numerical/python:$tree/tools/research/src:$tree" \
+    $PY -m pytest -q -x "$@" > $HC/tests.log 2>&1 )
+  echo "$(date -u +%H:%M:%SZ) tests tree=$tree rc=$? $(tail -1 $HC/tests.log) $*" | tee -a $LOG
+}
+
 # run TAG TREE REL BATCH DEPTH REPS [extra bench-vu args...]: the bench (zk interactive, 4096 VUs, 2^-128, --auth included-hash,
 # commitment built 1 + $CREPS times), then the pinned Rust batch verifier on the rep-1 dump, then one summary line
 run() {

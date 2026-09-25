@@ -1,16 +1,19 @@
 """agkr-bound negatives: a wrong operand word with the honest public words.
 
 usage (cwd <tree>/backends/gkr): python 03_negatives.py REL EXPORT_DIR OUT VERIFIER [N] [THREADS]
-  REL: vu-k1536 (the frozen BF16 tier, /workspace/bench-instances/v1) | bf16-hopper | fp8-ada | fp8-hopper | fp4-nvf4
+  REL: a pins.txt relation: bf16-ampere (the frozen vu-k1536 tier, /workspace/bench-instances/v1) | bf16-hopper | fp8-ada |
+       fp8-hopper | fp4-nvf4; the bound statements are claimed as REL+bound (verify --relation)
 
 One VU's x word at a position whose w word is +-0 has its lowest bit flipped (same exponent field, still finite), so the
 product stays 0 and the frozen public words stay honest: the device generator accepts the altered operands (bad == 0)
 and an honest proof of THEM exists.  Cases (each proved from the altered witness unless noted):
-  honest        bound statement, frozen x.bin, the frozen witness                          -> accept (both verifiers)
-  unbound_alt   no bind.txt (the old statement): the altered witness                       -> ACCEPT: the gap being closed
-  bound_alt     bound statement, frozen x.bin (pinned)                                      -> reject (both verifiers)
-  alt_xbin      bound statement whose x.bin IS the altered words (not the frozen set)       -> reject (pin);
-                the same with --allow-unpinned-instances                                    -> accept (the functional is consistent)
+  honest        bound statement, frozen x.bin, the frozen witness, --relation REL+bound    -> accept (both verifiers)
+  honest_as_REL the same claimed as --relation REL                                          -> reject (a bound statement is REL+bound)
+  unbound_alt   no bind.txt (the old statement): the altered witness, --relation REL       -> ACCEPT: the gap being closed
+                the same claimed as REL+bound                                               -> reject (not operands-bound)
+  bound_alt     bound statement, frozen x.bin (pinned), --relation REL+bound               -> reject (both verifiers)
+  alt_xbin      bound statement whose x.bin IS the altered words (not the frozen set)       -> reject (instance pin);
+                the same under --allow-any-circuit --allow-unpinned-instances               -> accept (the functional is consistent)
   mutate        verity-gkr-verify mutate --sample 2 on the honest bound proof (incl. a frozen x word changed) -> all rejected
 """
 from __future__ import annotations
@@ -64,11 +67,11 @@ else:
     from gpu.v2.fp8 import is_fp8, relation_params
     from gpu.v2.witness import Generator, Ops
 
-    if REL == "vu-k1536":
+    if REL == "bf16-ampere":
         from verity_numerical.checker import REAL
 
         x, W, y, _ = br.load_frozen(Path("/workspace/bench-instances/v1"), src / "fixtures" / "bench-instances" / "v1" / "manifest.json",
-                                    REL, 0, N)
+                                    br.TIER, 0, N)
         params = REAL
     else:
         x, W, y, rel = br.load_relation(REL, src, 0, N, NT)
@@ -100,7 +103,7 @@ def statement(name: str, xx, bound: bool):
         return sd, None
     (sd / "bind.txt").write_text(BD.spec_text(BD.derive(uc, man)))
     spec = BD.read_spec(sd / "bind.txt", uc)
-    BD.write_instances(sd, REL, 0, xx, W, np.asarray(public, dtype=np.int64), xdt, ydt)
+    BD.write_instances(sd, REL + BD.BOUND, 0, xx, W, np.asarray(public, dtype=np.int64), xdt, ydt)
     return sd, prover.Bind(spec.cols, BD.digests(sd), torch.from_numpy(BD.values(spec, xx, W, steps, P)).to(dev))
 
 
@@ -165,33 +168,36 @@ v, t, xalt, alt_rows = alt
 where = {"vu": v, "word": t, "x_frozen": int(X[v, t]), "x_altered": int(xalt[v, t]), "w": int(W[v, t])}
 
 ok = True
+RB = ("--relation", REL + BD.BOUND)
 sd, bd = statement("honest", X, True)
 data, py, clear = prove(honest_rows, bd)
 (sd / "proof.bin").write_bytes(data)
-got, err = rust(sd, sd / "proof.bin", "require_bound", "--require-bound")
+got, err = rust(sd, sd / "proof.bin", "bound", *RB)
 ok &= record("honest", True, got, err, py, True, clear)
+got, err = rust(sd, sd / "proof.bin", "as_unbound", "--relation", REL)
+ok &= record("honest_as_unbound_relation", False, got, err)
 honest_dir = sd
 
 sd, _ = statement("unbound_alt", X, False)
 data, py, _ = prove(alt_rows, None)
 (sd / "proof.bin").write_bytes(data)
-got, err = rust(sd, sd / "proof.bin", "plain")
+got, err = rust(sd, sd / "proof.bin", "plain", "--relation", REL)
 ok &= record("unbound_alt", True, got, err, py, True, **where)
-got, err = rust(sd, sd / "proof.bin", "require_bound", "--require-bound")
-ok &= record("unbound_alt_required", False, got, err)
+got, err = rust(sd, sd / "proof.bin", "bound", *RB)
+ok &= record("unbound_alt_claimed_bound", False, got, err)
 
 sd, bd = statement("bound_alt", X, True)
 data, py, clear = prove(alt_rows, bd)
 (sd / "proof.bin").write_bytes(data)
-got, err = rust(sd, sd / "proof.bin", "require_bound", "--require-bound")
+got, err = rust(sd, sd / "proof.bin", "bound", *RB)
 ok &= record("bound_alt", False, got, err, py, False, clear, **where)
 
 sd, bd = statement("alt_xbin", xalt, True)
 data, py, clear = prove(alt_rows, bd)
 (sd / "proof.bin").write_bytes(data)
-got, err = rust(sd, sd / "proof.bin", "require_bound", "--require-bound")
+got, err = rust(sd, sd / "proof.bin", "bound", *RB)
 ok &= record("alt_xbin", False, got, err, py, True, clear, **where)
-got, err = rust(sd, sd / "proof.bin", "unpinned", "--require-bound", "--allow-unpinned-instances")
+got, err = rust(sd, sd / "proof.bin", "unpinned", "--allow-any-circuit", "--require-bound", "--allow-unpinned-instances")
 ok &= record("alt_xbin_unpinned", True, got, err)
 
 r = subprocess.run([VB, "mutate", "--dir", str(honest_dir), "--proof", str(honest_dir / "proof.bin"), "--vus", str(N),

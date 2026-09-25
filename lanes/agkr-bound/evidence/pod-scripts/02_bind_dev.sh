@@ -29,7 +29,7 @@ cp $CARGO_TARGET_DIR/release/verity-gkr-verify $VB && sha256sum $VB
 
 if [ "${PINS:-1}" = 1 ]; then
   echo "== 1. pins ($(date -u +%H:%M:%S))"
-  $PY -m gpu.bind pin vu-k1536 --instances /workspace/bench-instances/v1 2>&1 | grep -v -i warn | tail -9
+  $PY -m gpu.bind pin bf16-ampere --instances /workspace/bench-instances/v1 2>&1 | grep -v -i warn | tail -9
   for r in bf16-hopper fp8-hopper fp8-ada fp4-nvf4; do
     $PY -m gpu.bind pin $r --procs $NT 2>&1 | grep -v -i warn | tail -9
   done
@@ -40,7 +40,7 @@ for c in $CELLS; do
   S=$H/$c/stmt; rm -rf $H/$c; mkdir -p $H/$c
   case $c in
     bf16-ampere) $PY -m gpu.v2.export circuits --model ampere_bf16_m16n8k16 --out $S > /dev/null
-                 ARGS="--instances /workspace/bench-instances/v1"; REL=vu-k1536;;
+                 ARGS="--instances /workspace/bench-instances/v1"; REL=$c;;
     bf16-hopper) $PY -m gpu.v2.export circuits --model hopper_bf16_m16n8k16 --out $S > /dev/null; ARGS="--relation $c"; REL=$c;;
     fp8-hopper)  $PY -m gpu.v2.export circuits --model hopper_e4m3_wgmma_k32 --out $S > /dev/null; ARGS="--relation $c"; REL=$c;;
     fp8-ada)     $PY -m gpu.v2.export circuits --model ada_e4m3_m16n8k32 --out $S > /dev/null; ARGS="--relation $c"; REL=$c;;
@@ -61,7 +61,7 @@ print("binding", json.dumps(fp.get("operand_binding")))
 print("soundness terms", d["validation"]["evidence"]["soundness"]["by_component_log2"])
 EOF
   if ! grep -q '^verify rep0: accept' $H/$c/bench.log; then
-    $VB verify --dir $H/$c/run/statement --proof $H/$c/run/proofs/rep0.bin --vus 4096 --threads $NT --require-bound \
+    $VB verify --dir $H/$c/run/statement --proof $H/$c/run/proofs/rep0.bin --vus 4096 --threads $NT --allow-any-circuit --require-bound \
         --allow-unpinned-instances --json $H/$c/unpinned.json | cut -c1-600
   fi
   echo "-- negatives $c ($(date -u +%H:%M:%S))"

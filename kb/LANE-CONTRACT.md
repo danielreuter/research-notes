@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 1.3 (2026-09-24T22:20Z: §1 verity-agents is a start folder only)
+version: 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -14,6 +14,9 @@ base, pod, budget, FINAL time, goal, and what to read. Everything below applies 
   branch and pod instead (the launch message names them; `research notes bind` records it).
 - You may START in the shared worker folder `~/projects/verity-agents`, but never edit there: all work happens in your
   lane's own worktree.
+- Push after every commit: `research notes push <you>` sends lane/<you> (or your bound branch) to origin. Never push main,
+  never --force; a rejected push means someone else pushed your branch: fetch, rebase or merge origin/<branch>, push again.
+  FINAL: `research notes checkpoint <you> final --require-pushed`.
 - Commit only there, after every meaningful step. The coordinator merges: never merge into `main`, never touch another
   worktree, never delete anyone's branch.
 - Never edit, checkout or restore files in `~/projects/verity-main-wt/main` (the merge target) or
@@ -74,6 +77,14 @@ yours, not another instance's.
 - Register results as they land (§8). Four lanes died with their results only on the pod.
 - Terminate the pod at FINAL unless the launch message says to keep it (`--keep-pod WHY`, §9).
 
+- Create pods with `research pods create --name vy-<you> ... --register --project verity`: the entry lands in the notes'
+  machines.d, and `research notes sync` publishes it. Never hand-edit a shared machines file.
+- Launch pod runs with `research run --on M --custody-r2 --custody-ttl <longer than the run, e.g. 8h> ...`. The launcher
+  mints the pod's short-lived key from the parent key: Cursor secrets in the cloud; on the laptop, source
+  ~/.config/verity/r2.env first. A run's custody is its attempt on R2; a copy on a VM's disk is not custody.
+- Credentials: cloud agents use the Cursor AWS_* secrets for R2 (no separate lane key). Pods never get them: a pod gets only a
+  short-lived read-only key minted per launch and deleted after use.
+
 ## 7. Laptop
 It is shared and nearly full. No torch, no dump trees, no CPU job over about a minute. If under 4 GB free:
 `research data evict --target-free-gb 8`. `cargo clean` in your worktree before FINAL.
@@ -112,11 +123,15 @@ artifacts: art:... art:...
 lane would look for it, with its source (`art:`, commit, report). Correct a stale fact instead of appending a contradiction.
 Lane reports stay each lane's own history.
 
-`~/.research/notes` is its own git repo (not the code repo). The coordinator's watcher commits a snapshot every pass, so
-editing in place never loses history. Never run git there yourself. It holds text only: proof dumps, binaries, archives and
-any file over 1 MB are not committed. Put those in the store (`research data put ... --preserve`) and cite the `art:` id instead.
+`~/.research/notes` is its own git repo (`github.com/danielreuter/research-notes`, not the code repo). After writing notes, run
+`research notes sync` (checkpoint/bind/relaunch do it themselves when RESEARCH_NOTES_SYNC=1, which cloud agents set). Exit 3 is a
+conflict: resolve the named file and sync again; nothing was lost. It holds text only: proof dumps, binaries, archives and any
+file over 1 MB are not committed. Put those in the store (`research data put ... --preserve`) and cite the `art:` id instead.
 
 ## C. Coordinator: relaunching a dead lane
+Merge lanes from origin (`git fetch origin lane/<x>`, merge origin/lane/<x>), never from local branches. Never edit a
+lane's STATE.md; write a handoff file into its lane directory instead.
+
 Save what the dead lane would lose, mark it superseded, and bind the successor to the same worktree, branch and pod:
 
 ~~~sh

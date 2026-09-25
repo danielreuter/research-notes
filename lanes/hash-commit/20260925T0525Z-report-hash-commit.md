@@ -5,9 +5,10 @@ created: 2026-09-25T05:25Z
 brief: coordinator launch message 2026-09-25 05:13Z (LANE-CONTRACT form); kb/TABLES.md "Commitment time counts"
 branch: lane/hash-commit (worktree ~/projects/verity-main-wt/hash-commit), base main@c1891d48
 final: 13:30Z hard; budget $20
-status: blocked
+status: open
 ---
 
+CHECKPOINT b862be30 (06:31Z) [open] commit-gpu (retarget 06:35Z): GPU committer for frame-v3 word / SHA-256-row / keyed-BLAKE3-row leaves + trees, then vllm-v1; target <=5 ms per 4096 instances, byte-identical to core; surveying hash_gpu + leaf/blake3 now
 CHECKPOINT b862be30 (06:19Z) [blocked] waiting for the SHA-256/BLAKE3 retarget (0546Z PAUSE). 4090 fp8-ada Poseidon2 committer 2.297->0.035s commit, e2e 2.583->0.321, byte-identical (ev 247e44ca, stmts 897697c9, Rust 25/25); 20 results+trees PRESERVED; pod terminated 06:09Z ~$0.61; handoff coordinator/0612Z
 CHECKPOINT b862be30 (05:56Z) [open] 4090 A/B x3 (CREPS5), ev+stmt sha identical all, rust 25/25: base commit 2.295-2.302s e2e 2.58; 5d14dafa (CUDA row_sponge) 0.254-0.258; 0b40ae8a (+SHA prefix) 0.219-0.236 e2e 0.505. rows 0.19 = list->int64; b862be30 passes drawn arrays, A/B now
 CHECKPOINT 5d14dafa (05:39Z) [open] 4090 fp8-ada l8192 p4 BEFORE (6e1cc576, no cache): commit 2.286s (trees 1.77 chain 0.33 rows 0.18) t.total 0.287 e2e 2.573, rust accepts, ev 247e44ca. tip 5d14dafa (CUDA row_sponge kernel, trees from chain digests) testing+bench now

@@ -269,3 +269,11 @@ If no configuration qualifies yet, Table 2 is published empty, with every old nu
 
 After these come new subcircuits, other K values first, each with its instance set and at least one backend's support.
 
+
+## Amendment (user decision 2026-09-24 11:36 PM PT): algebraic hashes are reported, flagged, not excluded
+- Results that use algebraic hashes (Poseidon2 commitments; SP1, which uses Poseidon2 internally) are reported in Table 2 like any
+  other result. Table 1 flags each configuration's algebraic hashes, and each such result carries the mark
+  "algebraic hash — not for highest-stakes use". They are NOT excluded by the published filter.
+- SHA-256 / BLAKE3 remain the preferred and target schemes; lane priorities are unchanged.
+- The renderer agent updates the renderer (bench.views, PR #16 follow-up) and this spec's text to match; until then this amendment wins
+  over any sentence above that excludes algebraic hashes.

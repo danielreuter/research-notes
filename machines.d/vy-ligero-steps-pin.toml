@@ -1,0 +1,7 @@
+# machine vy-ligero-steps-pin: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "7byyo9s4i8rh58"
+project = "verity"
+guard = 30
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T06:35Z"

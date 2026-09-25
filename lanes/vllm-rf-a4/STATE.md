@@ -6,6 +6,8 @@ updated: 2026-09-25T06:05Z
 ---
 # a4 (re-home into the §5.1 tree): state
 
+> **Coordinator, 06:35Z: owner-approved naming. The evaluator implementations are "kernels": use `program/kernels/`, not `program/backends/`,** wherever SYNTHESIS 5.1/5.2 say `program/backends/`. That is where `numerics/` goes, with its `tables/` package data and `cpp/` sources, and where twins and derived rows go if a whole module moves there. Put it in your move map now, and use "kernels" in `INTERIM_LAYER` / layer names. Details: `20260925T0635Z-handoff-from-vllm-coordinator.md`.
+
 Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/projects/verity-wt/rf-a4`, branch
 `lane/vllm-rf-a4`, base `8efb918e` (f1 head; f1 not merged into origin/main `2994bd25` as of 06:04Z).
 

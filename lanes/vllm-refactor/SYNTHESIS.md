@@ -636,3 +636,7 @@ The digest-changing defects (D2, D8, D9, D12) wait for Phase 3.
    - (a) Build engines only from a `RowSpec` (pinned model, revision and environment), through `open_engine(spec)`.
    - (b) Also wrap a user-built `vllm.LLM`.
    - **Recommendation: (a) first.** Pinning is what makes non-interference and identity meaningful. Revisit (b) once `engine/hooks.py` owns every patch (B4).
+
+**Decision log (owner, after the survey):**
+- 2026-09-25 (owner, relayed 06:32Z): evaluator implementations are "kernels". The directory §5.1 and §5.2 call `program/backends/` is named **`program/kernels/`** (`numerics/` with its tables and C++ sources, twins, derived rows). B1's "`program/backends/`" means `program/kernels/` too.
+- Decision 1 (commitment scheme) is on hold: the owner first chose (a), then asked to consider vLLM's existing framing as a named `verity.commitments` scheme. Assessment: Project store `internal/commitment-format-assessment.md`.

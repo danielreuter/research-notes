@@ -5,6 +5,7 @@ created: 2026-09-25T00:04Z
 status: open
 ---
 
+CHECKPOINT none (01:19Z) [open] H100 done: tests PASS, byte A/B all 6 trees IDENTICAL on fp8/bf16-hopper-v3x4 l4096 p8, +hash (fp8/bf16 l16384), FS; control differs; 9 arts preserved (art:6f099c8b ...); pod terminated 01:16Z (~$3.37). A100 up, run r20260925-011824-1c9a
 CHECKPOINT 4bd6c54c (00:55Z) [open] H100 (sm_90, vy-red-team-arith-h100 EUR-IS-3): tests_fused_test PASS, redteam 227 PASS + same 3 smem launch errors (robustness, old kernels OK); byte A/B h8/h16 running r20260925-004904-c8a2 (laptop->pod sync too slow: shipped a 3.6 MB git-archive subset)
 CHECKPOINT a4333dd0 (00:35Z) [open] 5090 (sm_120) done: tests_fused_test PASS; byte A/B all 6 trees IDENTICAL on fp4-nvf4 l8192 p8 bare, +hash, FS; seed control differs; art:34e47954 art:35fdf2ab art:75a715b5 art:4d2a8176 art:25e89894; H100 syncing
 CHECKPOINT none (00:04Z) [open] read diffs (lincomb2 staging, beta removal, intt_rows, quad_v4); wrote adversarial tests + det-urandom A/B runner (0be285a9); 5090 pod vy-red-team-arith up, bootstrap+tests+A/B running r20260925-000238-66aa
@@ -84,7 +85,7 @@ arith's 5 commits). Budget $6, FINAL 03:30Z. All pods created by this lane; noth
 - Artifacts (all preserved, `data preserved` rc=0 on the pod): evidence tree art:34e47954; dumps bare base art:35fdf2ab,
   tip art:75a715b5; +hash base art:4d2a8176, tip art:25e89894.
 
-## H100 (sm_90): vy-red-team-arith-h100 qhspsqmvfh7wva, SECURE EUR-IS-3, host Xeon 8468, 17-core quota, $3.49/h, from 00:18Z
+## H100 (sm_90): vy-red-team-arith-h100 qhspsqmvfh7wva, SECURE EUR-IS-3, host Xeon 8468, 17-core quota, $3.49/h, 00:18Z-01:16Z (~$3.37)
 - The laptop -> pod link ran at ~50-140 KB/s (`pods sync` of the full tree did not finish in 10 min; one attempt also picked
   up another lane's cwd and shipped the wrong tree, which was deleted before use). Shipped instead: `git archive HEAD` of
   the needed subset (3.6 MB: backends/direct, backends/ligero-verify without fixtures, packages/verity/src,
@@ -102,6 +103,16 @@ arith's 5 commits). Budget $6, FINAL 03:30Z. All pods created by this lane; noth
   | E4M3 fp8-hopper-v3x4 l=4096 p8 (13 sub-batches) | 1b0e649c | = | = | = | = | = | 13/13, 2^-128.33 |
   | BF16 bf16-hopper-v3x4 l=4096 p8 (25 sub-batches) | f1e0cac4 | = | = | = | = | = | 25/25, 2^-128.05 |
   | E4M3 + in-proof hash: fp8-hopper l=16384 p8 --auth included-hash | 21bce6af | = | = | = | = | = | 13/13, 2^-128.32 |
+  | BF16 + in-proof hash: bf16-hopper l=16384 p8 --auth included-hash | 7019296d | = | = | = | = | = | 25/25, 2^-128.05 |
+  | Fiat-Shamir: fp8-hopper-v3x4 l=4096 p8 --mode fiat-shamir | 73fa565d | . | . | . | . | = | 13/13, 2^-128.39 |
   | control: E4M3 tip, RTA_SEED=alt | | | | | | 22ed4a03 (differs) | 13/13 |
 - Kernels reached (tip, E4M3): lincomb2 27, _quad_v4 28, intt_scaled 56 (f550fdc6's kernel is exercised on sm_90);
   BF16 the same three (27 / 28 / 56).
+- Summaries: evidence/h100/{ab-summary.txt, redteam_arith_test.log, tests_fused_test.log}.
+- Artifacts (all preserved, `data preserved` rc=0 on the pod, 01:15Z): evidence tree art:6f099c8b; dumps (base / tip)
+  E4M3 art:dedd5070 / art:d975bd89, BF16 art:e24484d2 / art:55b40d49, E4M3+hash art:a7af1258 / art:700a7f76,
+  BF16+hash art:9e9421a7 / art:edb13e2d. Pod terminated 01:16Z.
+
+## A100 (sm_80): vy-red-team-arith-a100 lqicfeu8nsf6je, SECURE, host Xeon 8470, 24 vCPU, $1.59/h, from 01:16Z
+- Same shipped subset (a4333dd0). Config = arith's A100 cell: bf16-ampere-v3 l=16384 p8 on the frozen vu-k1536 set
+  (bootstrap BENCH_INSTANCES=1). Run r20260925-011824-1c9a (bootstrap, tests, A/B bare 6 trees, +hash base/tip, control, register).

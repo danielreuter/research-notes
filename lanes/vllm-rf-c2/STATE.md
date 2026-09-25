@@ -3,7 +3,7 @@ id: vllm-rf-c2/state
 lane: vllm-rf-c2
 kind: state
 agent: bc-568d82f4 (Cursor), coordinator bc-ba6cec03
-updated: 2026-09-25T11:21Z
+updated: 2026-09-25T11:50Z
 ---
 # c2 (Definition library, D8/D9, decision 3a): state
 
@@ -53,24 +53,27 @@ a4 base: 10996616
   the stored v1 encoding (`r20260925-111122-91e4`). Other rows' store trees have instances only (spec ids): closure run
   `r20260925-111909-09b4` re-specializes every top-level spec id through base and head and scans for AmpereBF16TcDot16_v1.
 
-## Running
-- `vyv-rf-c2-cpu` (RunPod `v34wij1rkanus8`, cpu3g 32 vCPU / 128 GB, EPYC 7702P, guard 90, from 08:51Z, $1.28/h):
-  `r20260925-103740-ee23` step-3 equality at `5e21eead`. Quick pass ALL-EQUAL (encodings, evaluators, dot); full pass
-  submitted 10:38Z, running.
-- `vyv-rf-c2-reg` (RunPod `ht2p5tooi75gev`, cpu3m 32 vCPU / 256 GB cgroup, EPYC 7713P, 200 GB, $1.76/h, from 10:32Z; no 64 vCPU
-  cpu3m/cpu5m in any DC, gate (a) pod is 256 GB not 512 GB): prefetch of every fixture row's artifacts into the pod-local
-  store done (26 artifacts, 0 failures; read-only key deleted 10:46:22Z). Gate (b) head vs base `r20260925-104202-1d10`
-  (~97% at 10:56Z); gate (a) T0+T1 `r20260925-105303-d711` (started 10:53Z, ~2 h).
-- `vyv-rf-c2-g1` (RunPod `xqv97uozks8cw1`, L40S, $1.09/h, from ~10:45Z): #101 Build head then base `r20260925-105133-d03f`
-  (bootstrap done 10:53Z).
-- Next on `vyv-rf-c2-reg`: #73/#74 stored-Program re-encode (head + base) and the AmpereBF16TcDot16_v1 scan of the
-  L40S rows' stored Programs (for the epoch list).
+- Step 3 equality full pass `r20260925-103740-ee23` (`evidence/step3/equality3.json`): ALL-EQUAL (2743.9 s).
+  `vyv-rf-c2-cpu` terminated (~$3.33).
+- Closure run `r20260925-111909-09b4` (`evidence/programs-5e21eead/`): all 12 programs-bearing rows, 16,141 distinct
+  top-level spec closures identical at base and head, 0 errors. AmpereBF16TcDot16_v1 in the closures of rows 11, 23, 39,
+  57, 60, 67, 68, 70, 75, 101; #73/#74 (Hopper) none. #4 is L40S by key, no stored Program -> 11 L40S rows = 10 + #4.
+- GPU #101 `r20260925-105133-d03f` (`evidence/row101/`): head == base == record (run root 7adcef49…, program ccc21347…,
+  manifest 90f81868…, commit_pass).
+
+## Epoch (step 4, worktree, uncommitted)
+- Programs cite core `AmpereBF16TcDot16_v2`; integration `_v1` stays registered, `conformance="superseded by …"`.
+  Call sites (targets, derived_rows, sampled_replay, examples, torch_frontend docstrings, vocab notes, tests) name `_v2`.
+- Epoch closure `r20260925-113628-aac6` (`evidence/epoch/`): exactly rows 11, 23, 39, 57, 60, 67, 68, 70, 75, 101 change
+  row_sha; every v1 spec now v2 (same count); #73/#74 unchanged; 0 errors.
+- Running: epoch tests (lints + full integration suite) `r20260925-113631-7de1` on reg (~97%, some F: pinned digests);
+  GPU #101 at epoch tree `r20260925-114645-150d` on g1 (new program/manifest/run root).
+- Gate (a) T0+T1 `r20260925-105303-d711` on reg (from 10:53Z, ~2 h).
+- Spend ~$6.7 at 11:47Z (cpu $3.33, reg $1.76/h from 10:28Z, g1 $1.09/h from 10:44Z).
 
 ## Next
-1. Step 3 equality run (`tools/equality3.py`) + lints + core ml tests + registry tests on `vyv-rf-c2-cpu`.
-2. Gates at the pre-epoch head: lints, gate (b) head vs base, gate (a) T0+T1 (cpu3m 512 GB), GPU Build #101 (L40S),
-   Hopper: CPU re-encode of #73/#74 stored Programs.
-3. Epoch commit (AmpereBF16TcDot16 v1 -> v2) at the tip, separate.
+1. Fix epoch-caused test failures (B0_DIGEST_V1 in test_nan_conversion.py, other pins), rerun, commit epoch at tip, push.
+2. Fetch gate (a), compare with a23b's base xml; READY.md; terminate pods.
 
 ## Open questions
 (none)

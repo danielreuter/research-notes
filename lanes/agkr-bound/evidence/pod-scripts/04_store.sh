@@ -2,6 +2,7 @@
 # agkr-bound (pod): the evidence store on R2 (credential /workspace/agkr-bound/r2.env, minted on the laptop, piped in over ssh).
 #   bash 04_store.sh push RUN_ID...                       preserve --tool run attempts, then the durability gate
 #   bash 04_store.sh put TREE META_JSON [--ref k=art ...]  a gate-log/v1 tree (evidence), preserved
+#   bash 04_store.sh reindex                               the remote index (the laptop's reindex is SIGKILLed)
 set -euo pipefail
 set -a; . /workspace/agkr-bound/r2.env; set +a
 C=/workspace/agkr-bound/store.pod.toml
@@ -23,5 +24,6 @@ case $cmd in
         timeout 600 python3 -m research data preserved "$@";;
   put)  T=$1 META=$2; shift 2
         timeout 900 python3 -m research data put --kind gate-log/v1 --tree "$T" --preserve --meta "$META" "$@";;
-  *) echo "push|put"; exit 2;;
+  reindex) timeout 900 python3 -m research data reindex --remote;;
+  *) echo "push|put|reindex"; exit 2;;
 esac

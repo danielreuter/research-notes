@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 5b28557b (11:49Z) [open] fp8-hopper-x4+sha256 cell PRESERVED 13/13 (art:4aa258ee + proofs art:61842848), verify-night-2 handoff 1150Z sent. bf16-hopper-x4+sha256 re-sweep 5a5f: plateau 8192 3062 VU/s, 49/49 Rust ACCEPT; custody in progress.
 CHECKPOINT 5e21eead (11:15Z) [open] e592 fp8-hopper-x4+sha256 plateau art:4aa258ee (bench-result) + art:61842848 (proofs) pushing to R2 (runner custody failed, retry via data push). bf16-hopper-x4+sha256 sweep 6976 plateau 8192 3165 VU/s but 16384 spoiled by my custody load: re-sweep after uploads.
 CHECKPOINT 824a9924 (10:54Z) [open] fp8-hopper-x4+sha256 cell: plateau 32768 VUs 6162 VU/s e2e (t.total 5.08+commit 0.24 s), 97/97 Rust pinned ACCEPT 2^-128.07; custody retry running. b009fdc8 PINS bf16-hopper-x4+sha256 (gate 13 honest+86 neg); its sweep r20260925-104636-6976 at 8192: 3165 VU/s.
 CHECKPOINT a6ba1e5b (10:34Z) [open] sweep e592 fp8-hopper-x4+sha256 l4096p4: 8192 5860, 16384 5768, 32768 6162, 65536 6112 (self-contended flag), 131072 running (last point). MALLOC default 98d878ca handed to coordinator. Next: preserve plateau, verify-night-2 handoff, bf16-hopper-x4 cell.

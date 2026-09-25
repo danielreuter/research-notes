@@ -1,0 +1,9 @@
+bootstrap OK 2026-09-25T10:58:22Z
+NVIDIA L40S, 580.159.03
+head: exit 0 2026-09-25T11:07:38Z
+base: exit 0 2026-09-25T11:17:24Z
+expected {'run_roots': ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5'], 'program': 'ccc213475e7c4eed', 'manifest': '90f8186879d5035a'}
+head run_roots ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5'] == record: True | commit_pass True | program ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b manifest 90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac | first_fail None
+base run_roots ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5'] == record: True | commit_pass True | program ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b manifest 90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac | first_fail None
+head == base: {'run_roots': True, 'commit_pass': True, 'program_digest': True, 'manifest_digest': True}
+done 2026-09-25T11:17:24Z

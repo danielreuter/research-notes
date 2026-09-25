@@ -300,7 +300,8 @@ for name, text in (("dup_cell", utext.replace(f"link.b{COLS[0]}.1\n", f"link.b{C
 def rust(sdc: Path):
     out = sdc / "rust.json"
     r = subprocess.run([VB, "verify", "--dir", str(sdc), "--proof", str(sdc / "proof.bin"), "--vus", str(N), "--threads", str(NT),
-                        "--allow-any-circuit", "--require-commitment", "--json", str(out)], capture_output=True, text=True)
+                        "--allow-any-circuit", "--require-commitment", "--json", str(out)]
+                       + (["--allow-unpinned-commitment"] if os.environ.get("UNPINNED") else []), capture_output=True, text=True)
     doc = json.loads(out.read_text()) if out.is_file() else {}
     got = "accept" if doc.get("accepted") and r.returncode == 0 else f"reject ({str(doc.get('error') or r.stderr[-200:])[:120]})"
     return got, doc

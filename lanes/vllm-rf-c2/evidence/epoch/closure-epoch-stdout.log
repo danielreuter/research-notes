@@ -1,0 +1,16 @@
+start 2026-09-25T11:36:31Z source /workspace/c2/epoch sides epoch=/workspace/c2/epoch
+closure epoch rc=0 11:37:36
+epoch row 11: specs=4619 errors=0 ampere_v1=0 ampere_v2=4612 row_sha=4080165fd7c2a847 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+epoch row 23: specs=1163 errors=0 ampere_v1=0 ampere_v2=1156 row_sha=b5257d5072d768a9 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+epoch row 39: specs=4620 errors=0 ampere_v1=0 ampere_v2=4612 row_sha=87bd7e912e1e2a17 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+epoch row 57: specs=1176 errors=0 ampere_v1=0 ampere_v2=1156 row_sha=99aade517b0c8246 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+epoch row 60: specs=1163 errors=0 ampere_v1=0 ampere_v2=1156 row_sha=db06ef84c8b333a2 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+epoch row 67: specs=1165 errors=0 ampere_v1=0 ampere_v2=1157 row_sha=8d6ec3fd73fff2fa moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+epoch row 68: specs=1165 errors=0 ampere_v1=0 ampere_v2=1157 row_sha=8d6ec3fd73fff2fa moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+epoch row 70: specs=1043 errors=0 ampere_v1=0 ampere_v2=1031 row_sha=3c74af5317f14745 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'I32Le_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+epoch row 73: specs=1164 errors=0 ampere_v1=0 ampere_v2=0 row_sha=5fa406e58beaf416 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'HopperBF16WgmmaDot16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+epoch row 74: specs=1167 errors=0 ampere_v1=0 ampere_v2=0 row_sha=8a86f61dc4522ebc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32Fabs_v1', 'F32Fmaxf_v1', 'F32Fminf_v1', 'F32ToE4m3Sat_v1', 'HopperBF16WgmmaDot16_v1', 'HopperE4m3QgmmaDot32_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+epoch row 75: specs=1170 errors=0 ampere_v1=0 ampere_v2=1157 row_sha=262b8aa762c84391 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'I32Le_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+epoch row 101: specs=333 errors=0 ampere_v1=0 ampere_v2=292 row_sha=185a9b9d49a2ec26 moved=['Bf16ToF32_v1', 'BitNot_v1', 'BitOr_v1', 'F2fpBf16_v1', 'F32Eq_v1', 'I32Add_v1', 'SelectF32_v1', 'SelectI32_v1']
+epoch done 59.1 s
+done 2026-09-25T11:37:36Z

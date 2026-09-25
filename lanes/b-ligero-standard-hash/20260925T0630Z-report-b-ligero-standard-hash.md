@@ -295,6 +295,35 @@ Pod scripts: `evidence/pod-scripts/`.
   - Rust: `leaf::BLAKE3_XOB` (the same schema, params and `blake3_leaf_bytes`) is in `SCHEMES`. No PINS row yet.
   - new tests in `blake3_xob_test.py`: xadd in all five generators against the numpy interpreter (CUDA), and the scheme's rows
     per column = pinned - (15139 - 11746).
+* 11:20Z r20260925-112012-8420 (64-xob.sh, tree 672b23ae):
+  - pytest `blake3_xob_test` + `witness_device_test` + `leaf_test`: **27 passed**.
+  - conformance `-k blake3`: **16 passed, 2 skipped**. The skips are the Rust fixture helper: `ligero_verify_binary` looks in
+    `backends/ligero-verify/target` and on PATH, and the pod's binary is `/workspace/bin`, which is on neither.
+  - Fixtures, with system digests from the pod's ligero-verify:
+
+    | fixture | sys | table | rows | hash rows |
+    |---|---|---|---|---|
+    | fp8-ada+blake3 (**pin 71f39e44… kept**, so the `_compress` refactor emits the same system) | 71f39e44… | bbacbe7a… | 35,370 | 30,798 |
+    | **fp8-ada+blake3-xob** | 3d6cc67b… | a655b6b8… | **28,584 (-19.2 %)** | **24,012 (-22.0 %)** |
+    | **fp8-ada-x4+blake3-xob** | f90e7b41… | 6ecf18da… | 65,612 | 47,822 |
+
+  - The x1 xob fixture took 6.5 min (x1 blake3: 17 s; x4 xob: 1.5 min), single-threaded on the CPU with the GPU idle. The
+    phase is not yet known; the gate / bench logs will time the compile.
+  - PINS rows for both are in 5b28557b.
+* 11:24-11:40Z (coordinator 1105Z / 1114Z, rule I for x4): **instance-equiv/v1 art:6fdeed7efc48da01c5c84b0e910c358bab725f01abdf2a79888d47ef25f47bc5**
+  (PRESERVED; the meta is the document).
+  - Derived by `instance_equiv --relation fp8-ada-x4 --vus 4096` at 672b23ae, and `--check` reproduces it. equal: x / W / y
+    are d64fec05… / f7cb2046… / 27cdcef1… on both sides.
+  - candidate = art:017a7069's ref (c86e51a1…).
+  - The 8192 prefix, `instances(x4, 8192)[:4096]`, equals the frozen arrays (`evidence/equiv/prefix-fp8-ada-x4-8192.json`).
+    The schema can't express that, so I sent it to the coordinator.
+  - Script 42-equiv.sh, run over ssh. The first launch piped the script over stdin, which `research pods ssh` does not
+    forward, so the file arrived empty; resent base64-encoded.
+  - Tool bug: REPO = parents[4], so the tool field is `@unknown`.
+  - Handoffs: verify-night-2 1142Z, coordinator 1142Z.
+* 11:43Z r20260925-114349-ea8d (65-xob-pin.sh): the Rust rebuild with the xob pins, cargo test, the pinned batch of the
+  11:39Z fixtures, then the gates of fp8-ada / fp8-ada-x4 under blake3-xob. The red-team class review was requested
+  (red-team-standard-hash 1150Z).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

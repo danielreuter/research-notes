@@ -7,3 +7,4 @@
 03:23Z REAP-BLOCKED verify-po vy-verify-po: art:585e4182: no verified remote replica recorded, 157 MB to read back -> research data preserved art:585e4182
 03:54Z REAPED red-team-lk vy-red-team-lk ar2ylwgfs6zbpj $0.74/h (final 117m ago)
 08:41Z REAP-BLOCKED verify-night-2 vy-verify-night-2: art:8f2112e2: no verified remote replica recorded, 94 MB to read back -> research data preserved art:8f2112e2
+11:22Z REAP-BLOCKED red-team-standard-hash vy-red-team-sh: art:0e8faae7: no verified remote replica recorded, 99 MB to read back -> research data preserved art:0e8faae7

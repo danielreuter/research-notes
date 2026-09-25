@@ -54,8 +54,15 @@ logup.multiplicities = lambda t, trows, vals: m_honest[t.name].clone()
 first = {}
 for q in uc.queries:
     first.setdefault(q.cols[1].konst, q)
-tags = {name: i for i, name in enumerate(sorted(["ALIGN4", "LEAD", "LEADNORM", "R5", "R7", "SHIFT", "SSHIFT_HI", "SSHIFT_LO",
-                                                  "TNORM", "T_OP"]), 1)}
+import tempfile
+from gpu.v2 import export as EX
+MODEL = {"fp8-ada": "ada_e4m3_m16n8k32", "fp8-hopper": "hopper_e4m3_wgmma_k32"}[REL]
+with tempfile.TemporaryDirectory() as td:
+    EX.circuits(Path(td), MODEL, merge=False)
+    names = sorted({q.table for q in load_circuit(Path(td) / "circuit.txt").queries})
+tags = {name: i for i, name in enumerate(names, 1)}
+rng = next(n for n in names if n.startswith("R"))
+print("tags", tags, flush=True)
 
 
 def out_col(q):
@@ -63,7 +70,7 @@ def out_col(q):
 
 
 cases = {"t_op_out": out_col(first[tags["T_OP"]]), "shift_out": out_col(first[tags["SHIFT"]]),
-         "tnorm_out": out_col(first[tags["TNORM"]]), "r5_key": first[tags["R5"]].cols[0].terms[0][0]}
+         "tnorm_out": out_col(first[tags["TNORM"]]), f"{rng.lower()}_key": first[tags[rng]].cols[0].terms[0][0]}
 U = 7 * man["steps"] + 3
 ok = True
 for name, col in cases.items():

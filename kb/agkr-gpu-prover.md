@@ -28,3 +28,19 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
 - `torch.tensor(list, device='cuda')` from pageable memory is a sync point; in per-round loops it costs a bubble each.
 - The 4090 (24 GB) needs `VERITY_GPU_OPEN_ROWS` row-blocked `open_w_qc_eval` (automatic below 40 GB) and
   `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`; FP64 is 1/64 rate there, so any float64 limb matmul path hurts.
+
+## One merged lookup table (statement change; agkr-nvf4 18ab232e for NVFP4, lane/agkr-fp8 d5d80e0b for E4M3)
+- The LogUp cost was ten trees' round latencies. `gpu/v2/export.py::merge_tables` rewrites circuit.txt: every table becomes one
+  row-listed `LK` with rows `(tag 2^20 + key, tag, outs.., 0..)`, and every query becomes `(key + tag 2^20, tag, outs.., 0..)`. That is
+  sound because the tag column pins the match, and the keys stay unique because every source key is below 2^20. The Rust verifier
+  needs no change. The soundness bound did not move (2^-130.19, encoding_opening dominant). FP8 ada: 261819 rows x 8 columns, 150
+  queries/unit, slots 2881 -> 727.
+- After the merge the lookup is bandwidth-bound, and the query-tuple work dominates: 29.5M x 8 int64 tuples = 1.8 GiB.
+  agkr-nvf4's `leaf_q` (one Triton pass for `z - Σ β^k v_k`) plus the gate_eval query values took 4090 t_lookup 0.187 -> 0.083 s.
+  Holding the tuples for the lookup pass when they fit in a tenth of the device took it to 0.060 s.
+- Row-listed tables used argsort + searchsorted multiplicities; a cached key -> row map (keys < 2^26) replaces them.
+- The standard negatives (public word +-1, sign, exponent) all fail at the epilogue assertions, so they never exercise the lookup.
+  For a lookup statement change, use `12_lookup_neg.sh`: tamper one unit column read by a query, patch in the honest
+  multiplicities, and run a prover copy whose "fractional sum is not zero" self-check is a no-op. Both verifiers must reject at
+  `LogUp LK level 0: final check`.
+- 4090 fp8-ada at 4096 VUs, t.total 1.130 -> 0.666 s (prover only, same bytes) -> 0.490 s (merged statement).

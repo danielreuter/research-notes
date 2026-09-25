@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT 79f00fd3 (00:58Z) [open] a4e2 PRESERVED 0.1604s (art:dfbc86c4, run-files 50f4fe91, 2^-130.19, new stmt BOOL_QUADRATIC+PAIRED; label held per coord 0050Z); verify-po + red-team-lk handoffs 0100Z; dev tip 79f00fd3 ~0.1507s; hill-climbing
 CHECKPOINT 57e9e4b (00:42Z) [open] b7cec878: circuit 226->166 queries/unit (bits as products, paired narrow ranges) -> LogUp 2^24; dev t.total 0.1578s, new sha ebe7c545, Rust 5/5, 2^-130.19. Negatives running on pod; then record + verify-po handoff.
 CHECKPOINT 95343488 (00:35Z) [open] dev 0.1689s (sha 091fecad unchanged): leaf buffers, keep qvals, fused leaf level, pad closed form, scatter/gate_eval grid order (L2 reuse), pinned t_ext. tip 024f1cfc+. Next: opening wq host (open_w_qc_eval 13ms), phase1 per-round.
 CHECKPOINT c3982dd5 (00:21Z) [open] dev 0.1828s (sha 091fecad same): e1bcf472 pinned H2D, 0b7dbb3a leaves into graph buffers, c3982dd5 keep query tuples on 32GB. ff98 0.1905s PRESERVED. Next: LogUp tree deinterleave/T4_big copies (tree 8.4ms).
@@ -98,5 +99,17 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
   - b7cec878 circuit: bits as b b = b product wires instead of R1 queries, R3/R5/R6/R7 pairs as one (x + 2^b y, x, y) query
     into PR<b>: 226 -> 166 queries per unit, LK 110613 rows, the LogUp tree 2^25 -> 2^24 leaves; 700 wires, depth 1.
     NEW BYTES: proof 9469288 B sha ebe7c545, 2^-130.19, Rust 5/5; t_lookup 40.5 -> 28.1 ms, t.total ~0.1578 s (dev).
+    Negatives on this circuit: python 115/115, Rust 56/56, mutate 148/148.
+- recorded r20260925-004238-a4e2 @ b7cec878 (5 reps, thread caps on): t.total 0.1604 s (0.164 / 0.162 / 0.160 / 0.160 /
+  0.157), Rust 5/5 (0.153 s), 2^-130.19, validation passed, no contract_problems; result art:dfbc86c4434000c6…, run-files
+  art:50f4fe91635eb721…, PRESERVED; proofs 9469288 B sha ebe7c545.  verify-po handoff
+  `lanes/verify-po/20260925T0100Z-handoff-from-agkr-nvf4.md`. This is a NEW statement (BOOL_QUADRATIC + PAIRED), so its label
+  is held until red-team-lk passes (coordinator 0050Z); rewrite details are in `lanes/red-team-lk/20260925T0100Z-handoff-from-agkr-nvf4.md`.
+  Table 2 keeps art:49757870 (0.1905 s, provisional) until then.
+- hill-climb after a4e2 (dev, same bytes sha ebe7c545):
+  - da4d2b44 opening w / qc serialized once from one D2H numpy array (Opening.raw reused by to_bytes and the transcript), the opened
+    columns D2H through pinned memory: t_open_cols 5.9 -> 2.4 ms, to_bytes 5.5 -> 3.8 ms, t.total ~0.152 s.
+  - 79f00fd3 phase 1 queues round i+1's challenge-independent operands behind round i's message D2H (event-synced):
+    t_arith ~50.4 -> ~49.1 ms, t.total ~0.1507 s.
 - stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.

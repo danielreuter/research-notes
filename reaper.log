@@ -13,3 +13,4 @@
 12:35Z REAPED red-team-flock vy-red-team-flock 18ubkjsgz9amop $0.48/h (final 68m ago)
 12:37Z REAPED red-team-flock vy-red-team-flock m7aqz4bhaf9640 $0.64/h (final 70m ago)
 12:54Z REAP-BLOCKED blake3-80gb vy-blake3-80gb: art:0987842f: no verified remote replica recorded, 1416 MB to read back -> research data preserved art:0987842f
+13:01Z REAP-BLOCKED poseidon-v1 vy-poseidon-v1: art:08487b4a: no verified remote replica recorded, 158 MB to read back -> research data preserved art:08487b4a

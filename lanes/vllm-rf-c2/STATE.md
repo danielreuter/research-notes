@@ -3,7 +3,7 @@ id: vllm-rf-c2/state
 lane: vllm-rf-c2
 kind: state
 agent: bc-568d82f4 (Cursor), coordinator bc-ba6cec03
-updated: 2026-09-25T10:40Z
+updated: 2026-09-25T10:57Z
 ---
 # c2 (Definition library, D8/D9, decision 3a): state
 
@@ -45,11 +45,17 @@ a4 base: 10996616
 - `ref_vocab_digest` changes at steps 2 and 3 (code-identity pin; record before/after).
 
 ## Running
-- `vyv-rf-c2-cpu` (RunPod `v34wij1rkanus8`, cpu3g 32 vCPU / 128 GB, EPYC 7702P, guard 90, from 08:51Z):
-  `r20260925-103740-ee23` step-3 equality (quick then full, ~40 min).
-- `vyv-rf-c2-reg` (RunPod `ht2p5tooi75gev`, cpu3m 32 vCPU / 256 GB, EPYC 7713P, 200 GB, ~$1.76/h, from 10:32Z; no 64 vCPU
-  cpu3m/cpu5m in any DC): base tree shipped, bootstrap running. For gate (a) T0+T1 (peak 115 GB/process fits), gate (b)
-  head vs base, #73/#74 re-encode.
+- `vyv-rf-c2-cpu` (RunPod `v34wij1rkanus8`, cpu3g 32 vCPU / 128 GB, EPYC 7702P, guard 90, from 08:51Z, $1.28/h):
+  `r20260925-103740-ee23` step-3 equality at `5e21eead`. Quick pass ALL-EQUAL (encodings, evaluators, dot); full pass
+  submitted 10:38Z, running.
+- `vyv-rf-c2-reg` (RunPod `ht2p5tooi75gev`, cpu3m 32 vCPU / 256 GB cgroup, EPYC 7713P, 200 GB, $1.76/h, from 10:32Z; no 64 vCPU
+  cpu3m/cpu5m in any DC, gate (a) pod is 256 GB not 512 GB): prefetch of every fixture row's artifacts into the pod-local
+  store done (26 artifacts, 0 failures; read-only key deleted 10:46:22Z). Gate (b) head vs base `r20260925-104202-1d10`
+  (~97% at 10:56Z); gate (a) T0+T1 `r20260925-105303-d711` (started 10:53Z, ~2 h).
+- `vyv-rf-c2-g1` (RunPod `xqv97uozks8cw1`, L40S, $1.09/h, from ~10:45Z): #101 Build head then base `r20260925-105133-d03f`
+  (bootstrap done 10:53Z).
+- Next on `vyv-rf-c2-reg`: #73/#74 stored-Program re-encode (head + base) and the AmpereBF16TcDot16_v1 scan of the
+  L40S rows' stored Programs (for the epoch list).
 
 ## Next
 1. Step 3 equality run (`tools/equality3.py`) + lints + core ml tests + registry tests on `vyv-rf-c2-cpu`.

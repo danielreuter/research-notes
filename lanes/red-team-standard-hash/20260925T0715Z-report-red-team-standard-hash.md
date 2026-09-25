@@ -5,7 +5,6 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
-CHECKPOINT 824a9924 (10:56Z) [open] 10:56Z proof_class COMPLETE_ZK_BACKEND labels (+finding) on d6328cf5, e9932b72, e7d59ab6, 5d20ad00, 017a7069 after checking vn2 accepted@3301c435 + bound; handoff 1056Z; next: label +sha256 / H100 +blake3 cells once vn2 accepts; polling
 CHECKPOINT a81f0800 (10:41Z) [open] 10:41Z main 767115db: +blake3 and +sha256 CLASS GRANTED WITH CONDITIONS carry over (statement code = da74b03e); H2 fp8-hopper-x4+sha256 PASS art:43b92cc7; queue: agkr hash layer / vllm-v1 variants not landed; polling
 CHECKPOINT 53314d1c (10:34Z) [open] 10:34Z +sha256 @da74b03e CLASS GRANTED WITH CONDITIONS (run>=da74b03e, reverify w/ 3301c435+sha256 scheme or 06, 04 BOUND) -> coordinator/vn2/b-ligero-sha256 1033Z; sha256 scan 0 free (8:2, 8:0.5), control 17, art:a3c5c339; blake3 class 1027Z art:70722cab
 CHECKPOINT a37cea8 (10:18Z) [open] 11:32Z PASS main 3301c435 +blake3 and da74b03e +sha256 (R1/R4 refused, H2, compress_one diff; art:cd2828c5); sp1 cell counts only via vn2 19-sp1c gate; gadget scans: blake3 x4 finishing, sha256 queued
@@ -197,3 +196,9 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
   rtsh-x4b (`x4_blake3_suite.sh`, main 3301c435 binary 7de397f2) on fp8-ada-x4+blake3: H2 12 accepted (system 1168788f), 24
   refused; R1 refused (layout_error); R4 refused, control 3/3. art:a3aaf44a. 10:53Z handoff to the coordinator and
   verify-night-2: "fp8-ada-x4+blake3 @3301c435: CLASS GRANTED WITH CONDITIONS" (the x4 BLAKE3 8:2 scan is in art:70722cab).
+* 10:54Z received `20260925T1105Z-handoff-from-coordinator.md` ("Please record your fp8-ada+blake3 grant as a proof_class label").
+  10:55Z labels proof_class=COMPLETE_ZK_BACKEND and finding, by red-team-standard-hash, written after checking verify-night-2's
+  `verified=accepted` at 3301c435 (596529d2 + 06) and a bound ≤ 2^-128: art:d6328cf5, art:e9932b72, art:e7d59ab6,
+  art:5d20ad00 (ref 1027Z) and art:017a7069 (x4, ref 1053Z). All are on both replicas. 10:56Z handoff to the coordinator.
+  10:59Z also art:6b6d4484 (x4 plateau 8192, 2^-128.05 at 3301c435, ref 1053Z). Not labelled: art:42b215ac (wave-4090-2
+  drill, verified only by ligero-verify@e918ac8 on 09-24, before 3301c435). Scanner: `evidence/label_scan.py`.

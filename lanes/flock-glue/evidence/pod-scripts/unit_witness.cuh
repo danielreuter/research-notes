@@ -46,7 +46,7 @@ struct UnitNetDev {
 
 struct UwSmem {
     uint32_t zs[UW_K];
-    uint16_t cols[UW_COLS_CAP + 4];
+    uint16_t cols[UW_COLS_CAP + 16];
     uint32_t desc[UW_DESC_CAP];
     uint32_t start[UW_DESC_CAP + 1];
     int seg_end[UW_MAX_SEGS];
@@ -54,16 +54,32 @@ struct UwSmem {
     uint32_t cbuf[32];
 };
 
-__device__ __forceinline__ uint32_t uw_xor_thread(const uint32_t* zs, const uint16_t* c, int s, int e) {
-    uint32_t x = 0;
-    for (int i = s; i < e; i++) x ^= zs[c[i]];
-    return x;
-}
-
-__device__ __forceinline__ uint32_t uw_xor_warp(const uint32_t* zs, const uint16_t* c, int s, int e, int lane) {
-    uint32_t x = 0;
-    for (int i = s + lane; i < e; i += 32) x ^= zs[c[i]];
-    return __reduce_xor_sync(0xffffffffu, x);
+// G lanes per gate (G a power of two, uniform over the segment) so a narrow level finishes in one round
+__device__ __forceinline__ void uw_eval_seg(uint32_t* zs, const UwSmem& S, uint32_t* scr_a, uint32_t* scr_b,
+                                            int e0, int e1, int tid) {
+    const int ng = e1 - e0;
+    int lg = 5;
+    while (lg > 0 && (ng << lg) > UW_THREADS) lg--;
+    const int G = 1 << lg, gl = tid & (G - 1), slots = UW_THREADS >> lg;
+    for (int i0 = e0; i0 < e1; i0 += slots) {
+        const int i = i0 + (tid >> lg);
+        uint32_t av = 0, bv = 0;
+        int r = 0;
+        if (i < e1) {
+            const uint32_t d = S.desc[i];
+            r = d & 0xffff;
+            const int st = S.start[i], mid = st + (d >> 16), en = S.start[i + 1];
+#pragma unroll 4
+            for (int j = st + gl; j < mid; j += G) av ^= zs[S.cols[j]];
+#pragma unroll 4
+            for (int j = mid + gl; j < en; j += G) bv ^= zs[S.cols[j]];
+        }
+        for (int o = G >> 1; o; o >>= 1) {
+            av ^= __shfl_xor_sync(0xffffffffu, av, o);
+            bv ^= __shfl_xor_sync(0xffffffffu, bv, o);
+        }
+        if (i < e1 && gl == 0) { zs[r] = av & bv; scr_a[r] = av; scr_b[r] = bv; }
+    }
 }
 
 __global__ void __launch_bounds__(UW_THREADS)
@@ -122,31 +138,17 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
         for (int bt = 0; bt < N.n_batches; bt++) {
             const int s_lo = S.batch_seg[bt], s_hi = S.batch_seg[bt + 1];
             const int g0 = s_lo ? S.seg_end[s_lo - 1] : 0, g1 = S.seg_end[s_hi - 1];
-            const uint32_t c0 = __ldg(N.gstart + g0) & ~1u, c1 = __ldg(N.gstart + g1);
-            const uint32_t* src32 = reinterpret_cast<const uint32_t*>(N.cols) + c0 / 2;
-            uint32_t* dst32 = reinterpret_cast<uint32_t*>(S.cols);
-            for (int i = tid; i < (int)((c1 - c0 + 1) / 2); i += UW_THREADS) dst32[i] = __ldg(src32 + i);
+            const uint32_t c0 = __ldg(N.gstart + g0) & ~7u, c1 = __ldg(N.gstart + g1);
+            const uint4* src16 = reinterpret_cast<const uint4*>(N.cols) + c0 / 8;
+            uint4* dst16 = reinterpret_cast<uint4*>(S.cols);
+            for (int i = tid; i < (int)((c1 - c0 + 7) / 8); i += UW_THREADS) dst16[i] = __ldg(src16 + i);
             for (int i = tid; i < g1 - g0; i += UW_THREADS) S.desc[i] = __ldg(N.gdesc + g0 + i);
             for (int i = tid; i <= g1 - g0; i += UW_THREADS) S.start[i] = __ldg(N.gstart + g0 + i) - c0;
             __syncthreads();
             UW_PROF(1);
             for (int sg = s_lo; sg < s_hi; sg++) {
                 const int e0 = (sg ? S.seg_end[sg - 1] : 0) - g0, e1 = S.seg_end[sg] - g0;
-                if (e1 - e0 >= UW_WIDE) {
-                    for (int i = e0 + tid; i < e1; i += UW_THREADS) {
-                        const uint32_t d = S.desc[i];
-                        const int r = d & 0xffff, st = S.start[i], mid = st + (d >> 16), en = S.start[i + 1];
-                        const uint32_t av = uw_xor_thread(zs, S.cols, st, mid), bv = uw_xor_thread(zs, S.cols, mid, en);
-                        zs[r] = av & bv; scr_a[r] = av; scr_b[r] = bv;
-                    }
-                } else {
-                    for (int i = e0 + warp; i < e1; i += UW_WARPS) {
-                        const uint32_t d = S.desc[i];
-                        const int r = d & 0xffff, st = S.start[i], mid = st + (d >> 16), en = S.start[i + 1];
-                        const uint32_t av = uw_xor_warp(zs, S.cols, st, mid, lane), bv = uw_xor_warp(zs, S.cols, mid, en, lane);
-                        if (lane == 0) { zs[r] = av & bv; scr_a[r] = av; scr_b[r] = bv; }
-                    }
-                }
+                uw_eval_seg(zs, S, scr_a, scr_b, e0, e1, tid);
                 __syncthreads();
                 if (prof) uw_prof[(e1 - e0 >= UW_WIDE) ? 6 : 5] += 1;
                 UW_PROF((e1 - e0 >= UW_WIDE) ? 3 : 2);

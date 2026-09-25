@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT none (10:57Z) [open] H100 re-measure (MALLOC set, Xeon 8470 pod) r20260925-104045-de31: h100m-bf16hopper n32768 P=10299 (EPYC unset run: 10191), rule not yet fired, n65536 running. 5090 laptop preserved 34/34. No new inbox.
 CHECKPOINT none (10:35Z) [open] Merged main 3301c435 (steps-pin R1/R2/R4 fix, verify-side only) -> 7ffb7095. vn2 accepted all 4 H100 results at 3301c435. Coordinator handoff 1035Z sent (5 cells). H100 re-measure with MALLOC vars on h94xn599m62w1t (Xeon 8470) bootstrapping; same-pod A/B planned.
 CHECKPOINT none (10:27Z) [open] 5090 DONE (MALLOC vars set): plateau n=131072 P=36637 (1.49e7x) commit 0.444s art:6740eb22, BYTEID ok, vn2 handoff 1030Z; A/B vs unset +0.0% at plateau. Coordinator handoff 1035Z lists all 5 cells. Next: H100 rows re-measured with MALLOC vars (new pod).
 CHECKPOINT none (10:09Z) [open] 5090 sweep r5090-fp4nvf4 hit its 131072 cap with the stop rule unfired (P 36636 >= 1.02 P(32768)); continuing to 262144+ (r20260925-100932-d810), then re-register (10:06Z ids superseded). Acked 0946Z disk rule: my laptop run dirs < 1 MB, no proofs pulled.

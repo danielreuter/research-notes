@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: complete
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T05:53Z
+updated: 2026-09-25T12:28Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -325,3 +325,6 @@ updated: 2026-09-25T05:53Z
 - 05:53Z main moved to **`2994bd25`** (A-GKR integration v2: 27 files, 24 `backends/gkr` + 3 `backends/numerical`; 0 under
   integrations/vllm, and no integrations/vllm file references verity_numerical).  `git merge-tree origin/main 8efb918e` clean.
   Stayed on `c1891d48` (integrations/vllm identical at both); noted in READY.md under Branch.  No rebase, no new runs.
+- 12:27Z **MERGED.** The coordinator sent the merge request for `8efb918e` at 06:05Z; main `7fcedf47` "Merge lane/vllm-rf-f1
+  (8efb918e)" landed at 06:39Z (COORDINATOR.md).  a4 is stacked on `8efb918e` and rebases onto main itself.  Nothing further for
+  this lane; no pods, no running pollers of this lane (the last one, #67 Commit(base) `r20260924-231650-a561`, ended 12:27Z).

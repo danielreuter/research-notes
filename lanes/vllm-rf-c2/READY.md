@@ -27,6 +27,11 @@ created: 2026-09-25T12:30Z
 Primitive encodings are id + params + ret, so moving a Definition under the same id is digest-neutral; every move was
 checked for equal evaluators before it landed (below).
 
+Outside c2's files (minimal hunks, no reformatting): the lint allowlists (entries deleted only) and P1's lint;
+`check/replay/sampled_replay.py` (b1's: 4 lines, epoch only, `_v2` names; line count unchanged at its P10 cap);
+`tests/query/test_query_fixtures.py` (2 callee strings, epoch only); `program/frontend/{examples,torch_frontend,rules/vocab}.py`
+(epoch only: `ops["AmpereBF16TcDot16_v2"]` and docstrings/notes); the registry and conformance tests.
+
 ## Inventory: what stays in the integration, and why
 Application-specific, stays (no flag): the model composites (Serve*, Attention*, AttnBlock*, RMSNorm*, RoPE*, SiluMul,
 Embedding, TokenSelect, BiasAdd, ResidualAdd, MoE*, Lifted/L* padding and liveness primitives, SplitsForSMS, LiveCount,

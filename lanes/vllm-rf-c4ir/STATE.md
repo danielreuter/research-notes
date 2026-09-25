@@ -4,7 +4,7 @@ lane: vllm-rf-c4ir
 kind: state
 status: running (phase 2 gates stacked on a4 at 7313e799)
 created: 2026-09-25T06:55Z
-updated: 2026-09-25T12:17Z
+updated: 2026-09-25T12:29Z
 ---
 # vllm-rf-c4ir: boundary, partition and liveness into core `verity.ir` (state)
 
@@ -92,16 +92,22 @@ updated: 2026-09-25T12:17Z
 
 - 12:05Z coordinator: resume phase 2 stacked on a4 `10996616` without waiting for its merge; deadline 15:30Z.
 
+- r20260925-121359-3a93 (cpu pod): lints head 45 passed, base 45 passed; core at head 662 tests / 0 fail / 1 skip
+  (phase 1's 664 / 3 skip minus the two deleted equivalence files, each one module-level skip).
+- r20260925-120631-fb6b (reg pod): bootstrap ok; prefetch 26 ok / 0 fail; key deleted 12:17:53Z before gate (a).
+
 ## Running
 - `vyv-rf-c4ir-reg` = RunPod oh3k08zb07i38u, cpu3m 32 vCPU / 256 GB cgroup, 250 GB disk, $1.76/h, guard 90. Run
-  r20260925-120631-fb6b at `7313e799`: bootstrap, fixture prefetch with my own read-only key (`/root/r2ro.env`,
-  deleted when the prefetch ends), then gate (a) T0+T1 (`tools/reg_gate_a.sh`).
-- `vyv-rf-c4ir-cpu` = RunPod qx6hqw41rl0d83, cpu3g 32 vCPU, 120 GB disk, guard 90. Run r20260925-121359-3a93 at
-  `7313e799`: lints head + base, core head, gate (b) head and base `10996616` concurrently on the same pod
-  (`tools/cpu_gate_b.sh`, base = head tree + `tools/to_base.patch`).
+  r20260925-120631-fb6b at `7313e799`: gate (a) T0+T1 since 12:17:53Z (`tools/reg_gate_a.sh`; a23b's took 6391 s).
+- `vyv-rf-c4ir-cpu` = RunPod qx6hqw41rl0d83, cpu3g 32 vCPU, 120 GB disk, $1.28/h, guard 90. Run r20260925-121359-3a93:
+  gate (b) head `7313e799` and base `10996616` concurrently on the same pod (`tools/cpu_gate_b.sh`, base = head tree +
+  `tools/to_base.patch`).
+- `vyv-rf-c4ir-g1` = RunPod msow6qj7bog9w3, 1x L40S, driver 580 / CUDA 13.0, 150 GB, $1.09/h, guard 90 (created with
+  `tools/create_cuda.py` 12.9,13.0, b2v's). GPU smoke #101 at `7313e799` (`tools/gpu_row101.sh`, a4's `row101.sh`
+  head only): launching 12:26Z (two earlier launches died with the laptop shell before reaching the pod).
 
 ## Next
-- GPU smoke #101 at `7313e799` on 1x L40S (a4's `row101.sh`); compare program/manifest digests and run root to record.
+- #101: compare program/manifest digests and run root to record.
 - Compare gate (b) with `baseline-jdiff.py`; gate (a) against a23b's base XML. Fetch, terminate, READY.md.
 - When a4 is in origin/main: `git rebase --onto origin/main 10996616`, drop phase 1 if merged, push `lane/vllm-rf-c4ir`.
 

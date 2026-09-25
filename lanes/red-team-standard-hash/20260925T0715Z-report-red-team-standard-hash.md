@@ -219,3 +219,8 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
 * 12:03Z received `20260925T1202Z-handoff-from-coordinator.md` ("main 2c92b9e3 pins bf16-hopper-x4+sha256 (b009fdc8). Please
   extend your +sha256 grant to it, or say what's missing"). Its column shape is 16:2 (not scanned). 12:17Z status handoff
   to the coordinator, b-ligero-standard-hash and b-ligero-sha256; suite `xob_bf16sha_suite.sh` queued behind the setup.
+* 12:19Z suite started (ligero-verify xob 4c927ca7, m2 9602aba7, fresh builds). xob results by 12:22Z: scan 8:0.5 and 8:2
+  0 free rows (control 16); twin relabel refused both ways (Python "malformed proof"; Rust with its own system: leaf
+  mismatch; with the twin's system: M mismatch); H2 x1 48/64 and x4 12/24; R1 and R4 refused. `by_schema` has no
+  non-test caller. art:6141f981. 12:26Z handoff "fp8-ada+blake3-xob / fp8-ada-x4+blake3-xob @5b28557b: CLASS GRANTED WITH
+  CONDITIONS" to the coordinator, b-ligero-standard-hash and verify-night-2.

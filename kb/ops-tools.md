@@ -115,6 +115,10 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   and `fetch` fall back to the remote (`lanes/verify-po/evidence/pod-scripts/03-reverify.sh`).
 * `reverify.py` on runner-attempt results reads `attempts/`. A `mint-credential` scoped to objects/manifests/labels fails with
   HTTP 403, so add `--prefix attempts/`.
+* Laptop render from a lane worktree whose `.venv` is empty: the shell's PYTHONPATH points at the `cli` worktree, so
+  `uv run ... bench.tables` fails with "No module named verity". Instead, run main's interpreter read-only from /tmp:
+  `env -u PYTHONPATH ~/projects/verity-main-wt/main/.venv/bin/python -m verity_numerical.bench.tables --format json`
+  (2 s; verify-po 2026-09-25).
 
 ## tools/research tests in a sparse worktree (steward, 2026-09-24)
 * In a worktree sparse on `tools/research` + `backends/numerical`, 12 tests of the tools/research suite fail already at base

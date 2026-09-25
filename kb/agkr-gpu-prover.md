@@ -78,3 +78,16 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   no single-cell forgery isolates the tag; `audit` lists each forgery's LK misses with and without the tag.
 - Gotcha: tree 3be6a35f (fp8) under Triton 3.4 (5090 image) raises a CompilationError in `packed/kernels_triton.py` until it
   gets b7cec878's 5-line constexpr-global fix.
+
+## Verifying a rewritten statement independently (verify-po, 2026-09-25; `lanes/verify-po/evidence/pod-scripts/`)
+- Regenerate on a CPU pod with the producer's commit and compare byte for byte. `gpu.v2.export circuits --model M` (fp8) merges
+  by default from 3be6a35f on, and `--no-merge` must reproduce the earlier verified unmerged statement exactly. For nvf4 use
+  `gpu.nvf4.circuit export`. A `git archive` of backends/{direct,gkr,numerical,shared} + packages/verity is ~36 MB.
+- Check the rewrite with main's `gpu/circuit.parse_circuit`, not the producer's code: `23-lk-merge-check.py` (merged vs
+  unmerged: queries = key + tag·2^20, bijective tag map, LK = tagged union as a multiset) and `27-nvf4-rewrite-check.py`
+  (BOOL_QUADRATIC / PAIRED vs the 2b25df7f circuit).
+  - Tags and shifts appear as coefficients on the constant-one column (col 0), so fold one-column terms into the constant.
+  - Product wire indices shift after a rewrite, so compare products by content.
+- nvf4 statements carry `public s t f` in chain.txt, which main's verifier (pre-679697a4) cannot parse. Build lane/agkr-nvf4
+  3c769c6d's verifier, which is main plus the optional public line.
+- Prover-only records reuse the same proof bytes, so cmp every proof and statement file against the verified tree as well.

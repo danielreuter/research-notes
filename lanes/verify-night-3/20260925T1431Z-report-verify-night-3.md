@@ -2,9 +2,10 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: final
+status: open
 ---
 
+CHECKPOINT 906255b2 (23:21Z) [open] reopened: H100 blake3-xob x4 fp8 955a52e0 / bf16 f15909f5 + equiv 72745743 / 04f24f73 (coordinator 23:21Z): NOT final
 CHECKPOINT 906255b2 (22:25Z) [final] route (a) re-registration art:77411c93 verified=accepted (vd eb1a010f; same 5 proofs and records as the G3 gate, envelope-only changes); no pod
 CHECKPOINT 906255b2 (22:23Z) [final] route (a) re-registration art:77411c93 verified=accepted (vd eb1a010f; same 5 proofs and records as the G3 gate, envelope-only changes); no pod
 CHECKPOINT 906255b2 (22:22Z) [open] reopened: relabel route (a) art:77411c93 (route-a-live 2225Z), no pod: NOT final

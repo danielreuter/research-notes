@@ -46,7 +46,7 @@ if MARK not in s:
         flock_glue_grind_calls += 1;
         flock_glue_grind_bits += bits;"""
     s = sub(s, old, new)
-    i = s.index("class FsChallenger")
+    i = s.index("struct FsChallenger {")
     s = (s[:i] + "#include <chrono>\n// flock-glue\ninline bool (*flock_glue_grind_hook)(const uint8_t* sd, uint32_t bits, uint64_t* nonce) = nullptr;\n"
          "inline double flock_glue_grind_secs = 0;\ninline long long flock_glue_grind_calls = 0, flock_glue_grind_bits = 0;\n\n" + s[i:])
     p.write_text(s)

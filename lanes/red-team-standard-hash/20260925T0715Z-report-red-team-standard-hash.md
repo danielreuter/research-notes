@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT a81f0800 (10:41Z) [open] 10:41Z main 767115db: +blake3 and +sha256 CLASS GRANTED WITH CONDITIONS carry over (statement code = da74b03e); H2 fp8-hopper-x4+sha256 PASS art:43b92cc7; queue: agkr hash layer / vllm-v1 variants not landed; polling
 CHECKPOINT 53314d1c (10:34Z) [open] 10:34Z +sha256 @da74b03e CLASS GRANTED WITH CONDITIONS (run>=da74b03e, reverify w/ 3301c435+sha256 scheme or 06, 04 BOUND) -> coordinator/vn2/b-ligero-sha256 1033Z; sha256 scan 0 free (8:2, 8:0.5), control 17, art:a3c5c339; blake3 class 1027Z art:70722cab
 CHECKPOINT a37cea8 (10:18Z) [open] 11:32Z PASS main 3301c435 +blake3 and da74b03e +sha256 (R1/R4 refused, H2, compress_one diff; art:cd2828c5); sp1 cell counts only via vn2 19-sp1c gate; gadget scans: blake3 x4 finishing, sha256 queued
 CHECKPOINT 5483d13b (10:04Z) [open] 10:58Z main 3301c435 fp8-ada+blake3: R1/R4 refused, H2 PASS (run rtsh-final-1050); da74b03e +sha256 suite + compress_one differential running; BLAKE3 scan 3/4 shapes 0 free; next sha256 gadget scan
@@ -185,3 +186,6 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
 * 10:35Z run rtsh-h2h (`h2_hopper_sha256.sh`, da74b03e binary e045e016): H2 on fp8-hopper-x4+sha256; steps 12 accepted
   (system 6cf20505 = PINS), 24 and 6 refused by Python and Rust. art:43b92cc7. 10:39Z amendment handoff (coordinator,
   verify-night-2, b-ligero-sha256).
+* 10:41Z main moved to 767115db (merge of b-ligero-sha256 98d878ca, on top of 5ac28010). Its statement code equals da74b03e's;
+  against 3301c435 the only blake3-relevant changes are 806a2f73's `leaf_bytes_many` and PINS rows, and relchain changes that
+  are prover/bench-only. Both class verdicts carry over. Handoff to the coordinator and verify-night-2.

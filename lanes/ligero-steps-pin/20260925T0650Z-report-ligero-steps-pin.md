@@ -102,3 +102,30 @@ The +shared gap is the steps-pin lane's own integration note (`give hooks_h_for 
   `[blake3]` (CPU), so I split it (regression_rest).
 * 08:17Z–09:20Z R1/R2 integrated, then the R4 fix; pod runs lsp-r12, lsp-rtsh, lsp-final.
 * 09:35Z ready handoff "steps pin + R1/R2 ready: c8a16e2b" sent to the coordinator.
+
+## FINAL
+
+tip: lane/ligero-steps-pin @ c8a16e2b (pushed; merges cleanly into origin/main 94b1c4d2)
+known-failures: live_test.py::test_shared_pair_every_coin_from_the_verifier[None] also fails on main (2^-99.86 < 2^-100); conformance [blake3] not run (CPU); reverify.py now fails +shared (v6) dumps and hashed dumps without a `set` block closed (by design)
+pod: vy-ligero-steps-pin (7byyo9s4i8rh58, cpu3c, $0.24/h), 06:35Z-10:15Z, terminated; about $0.88 (cap $8); no laptop build, so no cargo clean needed
+artifacts: art:61aedd2762f64fe16c5189c5378cab94dc86b221188922931a1fe85d307ad7b7 (all logs, JSON and pod scripts at c8a16e2b), art:e7b78840f270857bc54e82b53f659163a0df11e71e7c75a02a7884d89b60bea7 (regression list)
+
+Delivered: the handoff `coordinator/20260925T0935Z-handoff-from-ligero-steps-pin.md`, "steps pin + R1/R2 ready: c8a16e2b",
+with a 10:15Z addendum.
+* H2: steps are pinned per relation. Rust `Relation.steps` + `check_vu_shape` were already on main. This lane closed
+  the Python +shared (v6) gap: SharedHashedRunner hooks steps and the v6 K check.
+* R1: auth layout rule, cherry-picked from b-ligero-standard-hash 3af90e71.
+* R2: reverify recomputes the trees, cherry-picked from de2fa317.
+* R4: stem / manifest / batch-n checks, hashed decided from the pinned relation, unreadable statements refused, v6 fails
+  closed.
+
+Evidence:
+* `cargo test --release`: 33 + 7 + 27 passed.
+* pytest focus: 50 passed.
+* Regression list: 167 passed, 3 skipped, 1 known failure.
+* 9/9 dumps re-verified (Rust pinned + Python).
+* R2 recompute PASSES on the fp8-ada+poseidon2 T2 dump.
+* The red-team remap / orphan / steps harnesses behave as expected.
+
+Handoffs received, all acted on (see "Handoffs received" above): coordinator 0745Z, 0915Z and 0946Z (the disk notice:
+only 228 KB of logs were pulled, then deleted); b-ligero-standard-hash 0805Z and 0900Z; red-team-standard-hash 0835Z and 0920Z.

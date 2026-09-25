@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T05:24Z
+updated: 2026-09-25T05:37Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -294,3 +294,9 @@ updated: 2026-09-25T05:24Z
   gate (b) HEAD `r20260925-051835-4518` (8efb918e), lints + touched `r20260925-051846-aa6b` (8efb918e).
 - 05:23Z **LINTS GREEN at `8efb918e`** and touched + affected: 836 passed, 34 skipped, 4 failed = the same four in a1's list
   (`r20260925-051846-aa6b`, 53 s on this host).  f3's D3/D14 changes break nothing beside D1.  Gate (b) head + main running.
+- 05:36Z PRESERVED on s3://verity-dev (fetch --all, attempt publish, data push with `~/.config/verity/r2.env` sourced in a subshell;
+  6/6): bootstrap `r20260925-051324-cb17` (SUCCESS), lints + touched `r20260925-051846-aa6b` (rc 1 = the four touched failures; LINT
+  rc 0).  Beside this note: `head-lint-8efb918e.xml.gz` (44 tests, 0 F/E/S), `head-touched-8efb918e.xml.gz` (874: 836 P / 4 F / 34 S).
+  Gate (b) head 98% / main 99% at 05:33Z (18 min in; the tail at 299f42d5 was the two realhf derive files on one worker each).
+  Poll running.  Then: fetch both, jdiff head vs main and vs a1, preserve, drain cpu3, READY.md at 8efb918e.  Duplicate 04:48Z bullet
+  removed.

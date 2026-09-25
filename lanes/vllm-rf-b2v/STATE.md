@@ -2,7 +2,7 @@
 id: vllm-rf-b2v/state
 lane: vllm-rf-b2v
 kind: state
-updated: 2026-09-25T10:54Z
+updated: 2026-09-25T11:13Z
 ---
 # b2v (one verdict and `properties/` records): state
 
@@ -11,7 +11,7 @@ updated: 2026-09-25T10:54Z
 > **Coordinator, 08:32Z: the 08:24Z pause is CANCELLED.** A slot freed, so continue your lane normally; there is no PAUSE file any more.
 
 Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/projects/verity-wt/rf-b2v`, branch
-`lane/vllm-rf-b2v`. **a4 base: 10996616.** Budget $30 of pod spend. Spent so far (est., 10:37Z): ~$3.7
+`lane/vllm-rf-b2v`. **a4 base: 10996616.** Budget $30 of pod spend. Spent so far (est., 11:13Z): ~$5.6
 (l40s $1.09/h since 09:28Z, tp2 $2.18/h since 09:30Z).
 
 ## Design (settled)
@@ -39,33 +39,33 @@ Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/project
 - `c461f86d` check: the Match gates' word is `verdict.match_verdict` over CheckResults (`GateResult.result()`; equivalence
   test over 800 status combinations; gates.py stays at 1397; verdict.py cap 855 → 866).
 - `824a9924` properties: holdout reads `check.gates.HOLDOUT_GATES` (P4 allowlist −6 g-literal entries).
+- `fd9220c9` / `95515e42` / `8d847755`: lint fixes (by-name entries follow the families split; P8 claim wording; P10 import lines).
 
-## Running
-- `vyv-rf-b2v-l40s` (clgfo42ik8b60d, 1x L40S, cgroup 62 GB): first bootstrap `r20260925-093143-cafd` FAILED rc=3 (FA2 tap
-  build OOM-killed: `ninja -j 128`, exit 137; pod_bootstrap.sh defaults MAX_JOBS=nproc=128). Rerun MAX_JOBS=32
-  `r20260925-095828-2f7d` BOOTSTRAP-OK 10:04Z. #101 chain `r20260925-101202-5fdc` at 5483d13b (`evidence/chain101.sh`):
-  build PASS 10:14Z (manifest 90f8186879d5035a), match PASS 10:35Z; props rc=0 10:37Z: `<row>/properties/`
-  noninterference.json ok digest be83f678… (world 1, tokens equal, boundary hashes 1088/1088), census.json ok digest
-  33a41e9c…; **commit PASS 10:42:54Z** (295 s): program ccc213475e7c4eed…, manifest 90f8186879d5035a…, run root
-  7adcef49… (all = record); `verdict.json` cites census 33a41e9c… and noninterference be83f678… (both ok). Chain done.
-  Gates `r20260925-104642-9085` (`/workspace/b2v/l40s_gates.sh`: lints, unit, gate (b) head+base, jdiff) running since 10:47Z.
-  Trees `/workspace/{head,base}` built on the pod by `evidence/mktree.sh` (research src 5483d13b + `git diff --binary`
-  patch; every blob id checked against `git ls-tree`, 0 mismatched / 0 extra) — laptop upload was ~300 KB/s.
-- `vyv-rf-b2v-tp2` (qxi7kk83o1oxz4, 2x L40S, cgroup 377 GB): BOOTSTRAP-OK 09:56Z. #70 build,match `r20260925-095754-ee6c`
-  at 66eaaa50 (PAIRS=1): build PASS 10:20Z digest 64bee6d6e8264461, manifest 1bb40895671dd791 (both = record); match
-  capture+check pass 10:37Z; fold running (2 workers ~42 GB each). **World-2 record written 10:53Z** (head code):
-  `<row>/properties/noninterference.json` ok digest 442979b3… (8/8 requests equal, both arms tp=2); worlds 3, 4 refused.
-  Key minted 10:43Z (3 h, read-only) → `/root/r2ro.env`; `prefetch.sh /workspace/head` running (14/26 ok, 0 FAIL at 10:52Z).
-  Trees: `/workspace/head` (sync, 824a9924, blob-verified), `/workspace/base` (mktree from head + reverse patch, verified).
-  Gate (a) next: two processes (`-k replay_partition` / `-k "not replay_partition"`), nice, oom_score_adj 1000. Then noninterference.record(world 2) → `<row>/properties/`, commit at 66eaaa50, then
-  `check.verdict from-record` at the head (tp_stage.sh writes no vllm-verdict/v1).
-- No CPU pod available (10:25Z: cpu3m x64/x32, cpu5m x64/x32, cpu3g x16 all "no instances available"). Plan: lints, unit
-  tests and gate (b) head+base on the L40S pod after #101 (GPUs hidden, `evidence/l40s_gates.sh`); gate (a) T0,T1 and the
-  verdict byte A/B on the TP2 pod (GPUs hidden, nice), as f56 did. Trees `/workspace/{head,base}` syncing to both pods.
+## Running (11:13Z)
+- **Lints at 824a9924 FAILED (4 tests; caught on the pod, pytest is not allowed on the laptop):** by-name entries had not
+  followed the families split; P8 `FlashAttention` literal in the registry claim; P10 +1 line in `pipeline/commit.py` and
+  `pipeline/tp/commit.py` (import lines). Fixed in `fd9220c9`, `95515e42`, `8d847755` (no allowlist grows: 9 by-name
+  entries moved/re-pointed; P10 main cap 1914 → 1913). **Lints at 8d847755: 45 passed** (`lint_head2`, L40S, 11:01Z).
+- `vyv-rf-b2v-l40s`: #101 chain done (build PASS, match PASS, props records ok, **commit PASS** 10:42:54Z; program
+  ccc213475e7c4eed…, manifest 90f8186879d5035a…, run root 7adcef49… = record; verdict cites census 33a41e9c… and
+  noninterference be83f678…). Byte check: from_record at 8d847755 == at the run's tree 5483d13b (same inputs, sha
+  bdf5a75e…); base 10996616 differs only by the `properties` citations; the stored verdict.json differs from today's
+  rebuild only by `compat.stage_line`/`stage_outcome` (stages.txt got the commit line after the verdict was written).
+  Gate (b): `b_base` (10996616) running in `r20260925-104642-9085`; `b_head` (824a9924) killed by pid (stale);
+  `b_head2` (8d847755) `r20260925-110128-3b30` since 11:01Z. Trees built by `evidence/mktree.sh` (blob-verified).
+- `vyv-rf-b2v-tp2`: #70 build PASS (64bee6d6e8264461), manifest 1bb40895671dd791 (= record); match capture/check pass,
+  fold FAIL 10:49:59Z (rank-0 fold errors 4096, unresolved 3544; record: fold_binding False) → run state failed as
+  expected. World-2 record `<row>/properties/noninterference.json` ok 442979b3… (8/8 equal); worlds 3, 4 refused.
+  Commit at 66eaaa50 `r20260925-111138-272a` (worktree `/tmp/b2v-66e`, remove at end) since 11:11Z; then from-record at 8d847755.
+  Prefetch 26 ok / 0 FAIL, **key deleted 10:52:13Z** (no AWS_ vars in the gate env). Gate (a) T0,T1 at 824a9924 in
+  `r20260925-105008-bca1` (two processes, since 10:52Z). Verdict bytes: 10 rows with a Commit record, from_record under
+  10996616 == under 824a9924 == under 8d847755 (`diff -r` exit 0); 3 rows have no commit/verdict.json. Targeted gate (a)
+  `-k "verdict or commit_summary"` at 8d847755 `r20260925-110440-71eb`.
+- Spend (est., 11:13Z): ~$5.6.
 
 ## Next
-1. GPU chains (above); fetch; terminate.
-2. Gates (lints, b, a) as above; direct byte comparison of verdict JSON (`evidence/verdict_bytes.py`, base vs head); READY.md.
+1. #70 commit → from-record at 8d847755 (citation of 442979b3…) → compare legs with the record.
+2. Gate (b) jdiff b_base vs b_head2; gate (a) jdiff vs a23b; fetch; terminate; READY.md.
 
 ## Open questions
 - none

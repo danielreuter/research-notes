@@ -45,3 +45,37 @@ reproduce_shared.sh, tile_reverify.py).
     The verdict note says "as the NXxNW GEMM tile of the manifest's set.tile".
 - `f3cdfd5d` hashauth_test: the unshared R1 forgery now gets a second (correct) problem from the layout check.
 - `0c41ddf5` merge of origin/main 767115db (coordinator handoff 10:40Z; clean).
+
+## Tests (pod vy-reverify-tile, tip f3cdfd5d, run rvt-tests-2)
+
+- `cargo test --release` (backends/ligero-verify): every suite ok (relations 27, fixture incl. the new orphan-stmt test,
+  unit tests); 0 failed.
+- `pytest hashauth_test.py reverify_test.py steps_pin_test.py`: 62 passed, 0 skipped (LIGERO_VERIFY set, so the Rust
+  tile PASS and refusals ran).
+- New tile negatives (hashauth_test, all on a real `bench-vu --auth included-hash-shared --tile 2x3` dump):
+  - remapped tile VU (R1 forgery: VU0 carries VU4's y, proved): Python verify_vus / verify_files and Rust `verify` all
+    say the layout error; `commitment_problems` gives `tree y root differ` + the layout problem. Refused.
+  - wrong `set.tile` (swapped 3x2, wrong count, zero, other seed, other draw, other layout): each a `commitment:` FAIL.
+  - a consistent manifest of another tile (3x2 with its own digest): a/b binding/count/root and y binding/root differ on
+    both statements. Refused.
+  - a statement whose a-root is not the set's (one byte flipped): refused.
+  - no `set.tile` (and the pre-set.tile manifest with the unshared digest): fails closed with the v6 message.
+
+## Existing dumps (run rvt-old-dumps; read-only key minted on the laptop, deleted after the fetch)
+
+- art:fa2be398 (fp8-ada shared-local, pinned fp8-ada+hash, 13 v6 statements, `set.instances` = the unshared
+  instances_digest e66ff0f2...) and art:b460261f (bf16-hopper shared-local, 25 statements, 2a5babca...): both
+  `commitment: N row-sharing (v6) statement(s) and no manifest set.tile: the shared-row layout is not recomputed`.
+  Not re-verifiable, as intended; their manifests are not rewritten.
+
+## Existing cells that need a re-run to be re-verifiable
+
+No existing tile dump carries `set.tile` (the writer is new), so none re-verifies; each needs a re-run on a tip with
+d525c08d:
+- shared-live-2 / shared-live proof/v1: fp8-ada shared-local art:fa2be398, shared-live art:a9ffa038; C shared-local
+  art:222ce4f2, C shared-live art:c6c79ece; bf16-hopper shared-local art:b460261f, shared-live art:9685cf18.
+- live-session groups art:12cfe9d9, art:bfbd9da2, art:55fc2c33 and their re-verified sessions art:a62722e1,
+  art:08d14244, art:2ce9c590.
+- G3 tests art:eb30374b.
+- wave-h100-2 v5 `+hash` tile64x64 bench-results art:6718ab2d (bf16-hopper), art:4e9903b4 (fp8-hopper): no `set.tile`,
+  so the recomputation uses one row per VU and the binding digest differs (refused, not fail-open).

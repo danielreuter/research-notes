@@ -14,8 +14,10 @@ W=/workspace/flock-glue; F=$W/flock
 export LD_LIBRARY_PATH=/usr/local/cuda-13.3/lib64:${LD_LIBRARY_PATH:-}
 Q=$(awk '{ if ($1 != "max") printf "%d", $1 / $2; else print 16 }' /sys/fs/cgroup/cpu.max 2>/dev/null || echo 16)
 export RAYON_NUM_THREADS=${RAYON_NUM_THREADS:-$Q}
-BIN=$(ls -t $F/target/release/deps/gpu_glue-* | grep -v '\.d$' | head -1)
 OUT=${RESEARCH_RUN_DIR:-$W/out}/bench; mkdir -p $OUT
+BIN0=$(ls -t $F/target/release/deps/gpu_glue-* | grep -v '\.d$' | head -1)
+mkdir -p $W/bins && BIN=$W/bins/gpu_glue-$(date -u +%H%M%S)-$$ && cp $BIN0 $BIN && sha256sum $BIN | tee $OUT/bin.sha256
+(cd $F && git rev-parse HEAD && git status --short) > $OUT/flock-tree.txt 2>&1
 nvidia-smi --query-gpu=name,driver_version,clocks.max.sm,power.limit,memory.total --format=csv | tee $OUT/gpu.txt
 lscpu | grep 'Model name' | tee -a $OUT/gpu.txt; echo "rayon=$RAYON_NUM_THREADS" | tee -a $OUT/gpu.txt
 cd $F/crates/flock-cuda-ffi

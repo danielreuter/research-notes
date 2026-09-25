@@ -27,7 +27,7 @@ D7 probes. Rebasing onto `1d9c3198` brought in a1's lints. Passing them took one
 modules and moves, deletes or lowers allowlist entries (What changed, last bullet); it changes no output. At `a2e2843e` I reran
 gate (b), the lints, the gate (a) checks this code can reach, GM-01, and the verdict A/B. The rebase brought in no other change to
 code the regression reaches: under `integrations/vllm`, main changed only `check/fold_compare.py` (a laptop-path default removed,
-`e0c7bfe9`) and one test.
+`e0c7bfe9`), one test, and a1's `tests/lint/`.
 
 | pod | RunPod | used for |
 |---|---|---|

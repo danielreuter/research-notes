@@ -16,7 +16,24 @@ created: 2026-09-24T17:36Z
 >
 > **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** When your running gates finish, rebase onto `origin/main` (it's clean with your head) and push with `--force-with-lease`. Run `tests/lint` on your pod, fix the allowlists it prints (your D3, D4, D14 and D15 work likely makes P7 `environ` / `seed-default` entries stale), and record both heads plus the green lint run in READY.md. Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.
 
-## NOW (02:27Z): REBASED + PUSHED; lint pod bootstrapping
+## NOW (02:50Z): LINT GREEN at `4c4159c5` (pushed); gate (b) head -> main running on the lint pod
+- 02:28Z post-rebase checks at `bca6ab61` OK (all 3 `tables_dir()` under `program/numerics/tables/`, load + TABLE_SHA256 check OK with
+  the old env overrides unset and set to /nonexistent; `test_mufu_tables_pinned.py` 3 passed). venv == a1's baseline-freeze.txt
+  exactly (after pinning googleapis-common-protos 1.75.3; bootstrap had pulled 1.75.4).
+- 02:28Z lint: main `bbbe936c` 41 passed; head `bca6ab61` 37 passed / 4 failed (P7 17 stale; P9 1 new = native_collect ->
+  acquire.flush_points, D4's new module defaulting to layer `acquire`; P10 7 grown by 1-3 lines + 3 caps to lower).
+- Fix commit `4c4159c5` (AST-checked: formatting-only parts leave the AST unchanged; run_config.main string constants identical):
+  P7 17 entries deleted; `INTERIM_LAYER["verity_vllm.acquire.flush_points"] = "observe|commit"` (the tables lived in native_collect,
+  observe|commit, at main); P10 caps lowered (native_collect 1931, padding_steps 930, commit_delta.main 1916) and the 7 grown sizes
+  brought back to their caps (compaction of f3's own lines + 2 help rewraps, 1 triple blank line, 1 lone `}`; details in the commit).
+  No other open lane touches run_config / replay / capture_identities; f1 touches native_host (not near line 2062) and commit_delta.
+- 02:45Z lint at `4c4159c5`: **41 passed** (junit 41/0/0/0), post-rebase checks OK. Pushed 02:46Z (fast-forward), origin == `4c4159c5`.
+- 02:47Z targeted at `4c4159c5`: 596 passed, 48 skipped, 3 failed, all 3 in a1's baseline list with the same messages
+  (`test_gen_ov_easy` x2 serve_untied, `test_sampling_rows` nv_logf NaN sign).
+- 02:48Z gate (b) `gb_seq.sh`: head `4c4159c5` then main `bbbe936c`, -n 12 --dist loadfile, OMP 3 -> logs/gb_{head,main}.*; ~22 min each.
+- NEXT: judge gb_head vs gb_main (+ a1 list), copy evidence to `evidence/lint_pod/`, READY.md (both heads, lint, reruns), terminate pod.
+
+## (earlier) 02:27Z: REBASED + PUSHED; lint pod bootstrapping
 - **Rebase done:** pre-rebase head `4fb0eb2c` -> post-rebase head `bca6ab61` on origin/main `bbbe936c` (main moved once more after
   `4bd6c54c`; `bbbe936c` contains it; re-fetched 02:26Z, unchanged). D15 conflicts in the 3 files resolved per the 00:32Z note (rerere +
   review); `9bddf741` dropped by git as already upstream. `git push --force-with-lease` done: origin/lane/vllm-rf-f3 == `bca6ab61`.

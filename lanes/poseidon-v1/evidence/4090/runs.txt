@@ -1,0 +1,15 @@
+07:19:12Z SWEEP r4090-fp8ada tree=/workspace/src rel=fp8-ada l=8192 p=4 nmax=32768
+07:21:45Z r4090-fp8ada-n1024 rel=fp8-ada l=8192 p=4 n=1024 rc=0 rust=0 wall=152s n=1024 P=9326.0547 e2e=0.1098 t.total=0.0875 commit=0.0223 cold=0.1403 contended=False reps=5 ev=7c15f462f5b6d43b stmts=7:c956f803c952ced430e4a8 rust=7 val=passed 
+07:22:06Z r4090-fp8ada-n2048 rel=fp8-ada l=8192 p=4 n=2048 rc=0 rust=0 wall=19s n=2048 P=10776.0608 e2e=0.1901 t.total=0.1555 commit=0.0346 cold=0.1360 contended=False reps=5 ev=fa47a3d9154e7a34 stmts=13:ed0cd9c84c5fc6010fb99 rust=13 val=passed 
+07:22:35Z r4090-fp8ada-n4096 rel=fp8-ada l=8192 p=4 n=4096 rc=0 rust=0 wall=26s n=4096 P=11663.8729 e2e=0.3512 t.total=0.2932 commit=0.0579 cold=0.1620 contended=False reps=5 ev=247e44cad3e9d269 stmts=25:e0e53b61023623f895958 rust=25 val=passed 
+07:23:20Z r4090-fp8ada-n8192 rel=fp8-ada l=8192 p=4 n=8192 rc=0 rust=0 wall=41s n=8192 P=11758.7821 e2e=0.6967 t.total=0.5918 commit=0.1048 cold=0.2089 contended=False reps=5 ev=6813fd1febc15473 stmts=49:7b7c2e1268d986dd123fa rust=49 val=passed 
+07:24:40Z r4090-fp8ada-n16384 rel=fp8-ada l=8192 p=4 n=16384 rc=0 rust=0 wall=70s n=16384 P=12339.4345 e2e=1.3278 t.total=1.1265 commit=0.2013 cold=0.3122 contended=False reps=5 ev=ddd70e9275017175 stmts=97:e29b5de240614ea0eafc1 rust=97 val=passed 
+07:27:08Z r4090-fp8ada-n32768 rel=fp8-ada l=8192 p=4 n=32768 rc=0 rust=0 wall=131s n=32768 P=12588.9405 e2e=2.6029 t.total=2.2138 commit=0.3892 cold=0.5349 contended=False reps=5 ev=cf9c2bdc57666e72 stmts=193:b5157eaf10adb98b50da rust=193 val=passed 
+SWEEP_DONE /workspace/poseidon-v1/sweeps/r4090-fp8ada.jsonl points [(1024, 9326.1), (2048, 10776.1), (4096, 11663.9), (8192, 11758.8), (16384, 12339.4), (32768, 12588.9)] plateau 32768 12588.9
+07:27:49Z r4090-fp8ada-maincommitter-n4096 rel=fp8-ada l=8192 p=4 n=4096 rc=0 rust=0 wall=38s n=4096 P=462.0117 e2e=8.8656 t.total=0.3068 commit=8.5588 cold=8.7181 contended=False reps=2 ev=247e44cad3e9d269 stmts=25:e0e53b61023623f895958 rust=25 val=passed 
+BYTEID IDENTICAL tip ev=247e44cad3e9d269a94793e0e8a42f761fa0322bf794834b7b4da8ebb14d019b stmts=25:e0e53b61023623f8959585895a35f0436b50a27534fae31d4bfdc8fa893ee26a commit=0.0579s | main-committer ev=247e44cad3e9d269a94793e0e8a42f761fa0322bf794834b7b4da8ebb14d019b stmts=25:e0e53b61023623f8959585895a35f0436b50a27534fae31d4bfdc8fa893ee26a commit=8.5588s
+fp8-ada n=65536: 65536 VUs, 20.4s
+fp8-ada n=131072: 131072 VUs, 45.9s
+07:30:22Z SWEEP r4090-fp8ada tree=/workspace/src rel=fp8-ada l=8192 p=4 nmin=65536 nmax=131072
+07:35:13Z r4090-fp8ada-n65536 rel=fp8-ada l=8192 p=4 n=65536 rc=0 rust=0 wall=257s n=65536 P=12305.6180 e2e=5.3257 t.total=4.5444 commit=0.7813 cold=0.9089 contended=False reps=5 ev=d86a51f9c2e41d84 stmts=386:e709c5b1010e942b2113 rust=386 val=passed 
+SWEEP_DONE /workspace/poseidon-v1/sweeps/r4090-fp8ada.jsonl points [(1024, 9326.1), (2048, 10776.1), (4096, 11663.9), (8192, 11758.8), (16384, 12339.4), (32768, 12588.9), (65536, 12305.6)] plateau 32768 12588.9

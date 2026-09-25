@@ -45,6 +45,19 @@ columns, so no discarded compression (the x1 relations would waste half of every
 Per round (b): Sigma1 32 + Ch 32 + Sigma0 32 + Maj 32 carry rows + the two modular sums a' (7 addends) and e' (6) on 16-bit
 limbs, 19 + 19 bit rows each = 204.  Schedule: sigma0 32 + sigma1 32 + 4-addend sum 36 = 100 per W_t, 48 of them.
 
+**Survey gate (07:43Z, `docs/hash-proving-survey.md` landed):** §3.2 recommends for SHA-256 in B-Ligero exactly option (b),
+"bit-sliced, ~202 rows per round, ~18k rows": commit the parity of each Sigma (one row per bit), Maj one row, Ch = e(f-g), the
+new e / a with 32 bits + carries.  Its parity row `(s-o)(s-o-2)=0` is my `c=[s>=2]` row with `o=s-2c` (same one committed
+element per bit).  Byte LogUp: "not worth it" for SHA-256; GKR / Flock routes are other proof systems (4.2 step 2, blocked
+on Flock ZK).  **Adopted unchanged**: 18,128 rows per block (census below), survey projection ~5.9x bare for SHA-256.
+Lower bound check: Sigma0/Sigma1/sigma0/sigma1 outputs are cubic in the input bits (x+y+z-2(xy+yz+zx)+4xyz), so each output
+bit needs one committed element in a quadratic relation; Ch needs one product per bit; so ~96 bit rows + ~70 addition bits
+per round is the floor for a bit design with committed booleans.
+
+**Census (measured, `python -m backends.direct.ligero.leaf.sha256`, no torch):** rows / block = 64 x 204 + 48 x 100 + 8 x 34
+= 18,128 (BLAKE3 15,136).  Per column, `fp8-ada-x4+sha256`: 90,848 rows (bare x4 14,875; hash 73,122 incl. H-bits and copies),
+12 columns / VU = 1.09 M rows / VU.  `bf16-ampere-x4+sha256` 90,165 x 24.  x1 (half-block pairs): `fp8-ada+sha256` 41,918 x 48.
+
 ## Log
 * 07:00Z started; read LANE-CONTRACT v2.0, TABLES (+ amendments), decision doc, blake3-leaf-3 / red-team-leaf-3 /
   b-ligero-standard-hash / ligero-steps-pin reports, `leaf/blake3.py`, `leaf/base.py`, `hashchain.compose`, `rowleaf.py`,

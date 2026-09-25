@@ -20,6 +20,7 @@ cp $W/tables.md $R/$T-tables.md; cp $W/drill.md $R/$T-drilldown.md
   echo
   cat "$1"
   echo
+  $P ~/.research/notes/lanes/coordinator/evidence/marked-cells.py $W/tables.md
   cat $W/tables.md
   echo
   cat $W/drill.md

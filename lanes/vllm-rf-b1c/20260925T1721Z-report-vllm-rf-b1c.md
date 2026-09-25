@@ -5,6 +5,7 @@ created: 2026-09-25T17:21Z
 status: open
 ---
 
+CHECKPOINT dca6a867 (20:52Z) [open] #101 r20260925-203336-9e09 DONE: head dca6a867 = base 7da00370 = record (program ccc21347, manifest 90f81868, root 7adcef49, PASS; replay 1374/46558, seed 8853214064722388274, picks/strata/by_family digests equal); PRESERVED art:069259ff; vyv-rf-b1c-g2 terminated. gate(b) cf90 on cpu: check back 21:40Z
 CHECKPOINT dca6a867 (20:47Z) [open] the exit-143 #101 run r20260925-202723-eb11 was my own SIGTERM (pgid kill at 20:33Z to install verity_sampled_proofs into the pod venv); no reaper/OOM/guard (memory.events oom 0, guard busy). Its relaunch r20260925-203336-9e09 is live: head PASS, base in Commit; check back 20:55Z. gate(b) cf90 on cpu untouched, ~21:40Z
 CHECKPOINT dca6a867 (20:27Z) [open] relaunched after adding protocols/sampled_proofs to PYTHONPATH (pod venvs lack verity_sampled_proofs; main's Commit fails without it): gate r20260925-202716-cf90 (cpu, ~21:40Z), #101 r20260925-202723-eb11 (g2, ~20:50Z)
 CHECKPOINT dca6a867 (20:12Z) [open] head dca6a867 (layer-map fix after merge); gate r20260925-200850-e37c on vyv-rf-b1c-cpu (~21:25Z), #101 r20260925-201117-8d31 on vyv-rf-b1c-g2 (~21:00Z); asked coordinator to extend past 20:30Z

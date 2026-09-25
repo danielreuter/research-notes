@@ -2,9 +2,10 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT 906255b2 (20:53Z) [final] route (a) G3: art:3bfb2f58 verified=accepted (gate battery + offline Flock replay re-run from the store, statements regenerated and equal; runs r20260925-203452-5265 / -204110-326f); art:d5731679 note only ([0,1024) commitment unpinned; accepts with --allow-unpinned-commitment, r20260925-204749-26c6). Pod 7qkora4f5oy6t9 terminated 20:52Z ~$0.15
 CHECKPOINT dec08973 (20:41Z) [open] G3 run 1 r20260925-203452-5265: 4096 honest s1-s5 pass every check but non_producer (prime + Flock replay accept), negatives reject; 1024 prime verify rc 2 (public.bin not in store). Run 2: regenerate statements myself + battery again
 CHECKPOINT 906255b2 (20:34Z) [open] pod vy-verify-night-3 7qkora4f5oy6t9 (cpu3c 16 vCPU, $0.48/h) for route (a) G3: gate battery + offline Flock replay from the store @dec08973
 CHECKPOINT 906255b2 (20:28Z) [open] reopened for route (a) live-coin G3 (art:3bfb2f58 4096, envelope art:d5731679; PR #36 dec08973): NOT final
@@ -100,3 +101,16 @@ artifacts: art:73aa7efe art:7b44bcad art:cc5f72de art:99a5a9fd art:47cf9051 art:
 - Sent: `lanes/coordinator/20260925T2023Z-handoff-from-verify-night-3.md`.
 - Pod terminated 20:21Z, about $0.30.
 - Also received: `20260925T2011Z-handoff-from-b-ligero-vllm-v1.md` (art:6d6464d1 and art:f7aac95f): both answered above.
+
+## Reopen 3 (20:28Z): route (a) live-coin G3
+- Request: `lanes/coordinator/20260925T2030Z-handoff-from-route-a-live.md` (via the coordinator's launch message).
+- Also received: `20260925T2045Z-handoff-from-coordinator.md` (the H100 pure-Flock label), then `20260925T2050Z-handoff-from-coordinator.md`,
+  which CANCELLED it and moved it to verify-flock-pure. Not taken.
+- Pod vy-verify-night-3 7qkora4f5oy6t9. Scripts: `evidence/pod-scripts/50-g3-route-a.sh`, `51-g3-statements.sh`, `52-g3-1024-unpinned.sh`.
+  Evidence: `evidence/g3-route-a/`.
+- Runs: r20260925-203452-5265, r20260925-204110-326f and r20260925-204749-26c6, all PRESERVED.
+- **art:3bfb2f58: verified=accepted.** 5/5 sessions pass every gate check except non_producer, including the prime proof and the
+  Flock replay. Negatives are rejected.
+- **art:d5731679: note only.** The prime commitment at [0, 1024) isn't pinned. It accepts 5/5 with `--allow-unpinned-commitment`.
+- Sent: `lanes/coordinator/20260925T2055Z-handoff-from-verify-night-3.md`.
+- Pod terminated 20:52Z, about $0.15.

@@ -1,0 +1,15 @@
+s1 rc=0 True None 2651 2649 33fac15901c1 533563b6adf0 837bbeb4117f False
+s2 rc=0 True None 2651 2649 33fac15901c1 533563b6adf0 837bbeb4117f False
+s3 rc=0 True None 2651 2649 33fac15901c1 533563b6adf0 837bbeb4117f False
+s4 rc=0 True None 2651 2649 33fac15901c1 533563b6adf0 837bbeb4117f False
+s5 rc=0 True None 2651 2649 33fac15901c1 533563b6adf0 837bbeb4117f False
+scheme frame-v3
+leaf blake3
+relation bf16-ampere+blake3
+instances bench-instances/v1 vu-k1536 059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea
+lo 0
+vus 1024
+K 1536
+x 16
+w 16
+y u16 1

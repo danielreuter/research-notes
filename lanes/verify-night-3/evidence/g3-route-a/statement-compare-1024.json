@@ -1,0 +1,67 @@
+{
+ "vus": 1024,
+ "cell_json": {
+  "relation": [
+   "bf16-ampere+blake3",
+   "bf16-ampere+blake3",
+   true
+  ],
+  "prime_commitment": [
+   "7a9dc2ab3c2f0d08fb2b6e0035955342776b4963334b29d1fe0244bac0996606",
+   "7a9dc2ab3c2f0d08fb2b6e0035955342776b4963334b29d1fe0244bac0996606",
+   true
+  ],
+  "manifest_sha256": [
+   "059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea",
+   "059103cf9bd55ee83cbd4bb14ae6db2f60db2cb4ddf85cdc22b1cecee6e4eeea",
+   true
+  ],
+  "sigma": [
+   "0db5c2cf82f42a3097d306b8dbea189382835cbf99207ce1d3b5f4829eaf5c73",
+   "0db5c2cf82f42a3097d306b8dbea189382835cbf99207ce1d3b5f4829eaf5c73",
+   true
+  ]
+ },
+ "leaf_digests": [
+  "c7f869f2885b6afdf5e3f257348c24e29d65073e4455c0c97a95991acb53c7a1",
+  "c7f869f2885b6afdf5e3f257348c24e29d65073e4455c0c97a95991acb53c7a1",
+  true
+ ],
+ "statement_files": {
+  "chain.txt": [
+   "f09b30874ed5db322c063c674ca23673ec7245b619db93c9161bf25e9879c9d8",
+   "f09b30874ed5db322c063c674ca23673ec7245b619db93c9161bf25e9879c9d8",
+   null
+  ],
+  "circuit.txt": [
+   "c0a6809d777d274918fec6b174a07e2f3fe57c302f034af010243d7c8a14098b",
+   "c0a6809d777d274918fec6b174a07e2f3fe57c302f034af010243d7c8a14098b",
+   null
+  ],
+  "commitment.txt": [
+   "7a9dc2ab3c2f0d08fb2b6e0035955342776b4963334b29d1fe0244bac0996606",
+   "7a9dc2ab3c2f0d08fb2b6e0035955342776b4963334b29d1fe0244bac0996606",
+   null
+  ],
+  "epilogue.txt": [
+   "187b9395a3a8d273e2bf3031a511806c2d08cf27b4d6523dd114f9cf30dd5a78",
+   "187b9395a3a8d273e2bf3031a511806c2d08cf27b4d6523dd114f9cf30dd5a78",
+   null
+  ],
+  "manifest.json": [
+   "294ea2c15029fe9bfcb885dbcf92362a9b089cbedc53f4bb11943641c3a845d3",
+   "294ea2c15029fe9bfcb885dbcf92362a9b089cbedc53f4bb11943641c3a845d3",
+   null
+  ],
+  "public.bin": [
+   "f070c5de456218dd48dee5d636fbfb0939a128f8d67c088a30884f9af19e8730",
+   null,
+   null
+  ],
+  "sigma.txt": [
+   "0db5c2cf82f42a3097d306b8dbea189382835cbf99207ce1d3b5f4829eaf5c73",
+   "0db5c2cf82f42a3097d306b8dbea189382835cbf99207ce1d3b5f4829eaf5c73",
+   null
+  ]
+ }
+}

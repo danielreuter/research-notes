@@ -2,9 +2,11 @@
 id: vllm-rf-b4c/state
 lane: vllm-rf-b4c
 kind: state
-updated: 2026-09-25T18:09Z
+updated: 2026-09-25T18:57Z
 ---
 # b4c (engine and hooks: re-gate after c1): state
+
+**READY (18:55Z): `READY.md` beside this file. Head `9689a1ef`, base `lane/vllm-rf-a5c` `40b9e571`. Merge-ready handoff `../vllm-coordinator/20260925T1855Z-handoff-from-vllm-rf-b4c.md`. No pods left (b4b-cpu and b4b-g1 handed to b5vab; b4c-cpu terminated).**
 
 **b4c succeeds b4b** (bc-892f86c5; its session ended at the 16:03Z laptop restart). Agent bc-3b287dbf (cloud), coordinator
 bc-ecac3029. Start commit **`5c05ff6d`** (`lane/vllm-rf-b4b`, rebased onto main `8b3537d5` = c1). No b4c branch: no commits
@@ -38,15 +40,20 @@ needed so far. Brief: `$STORE/internal/lane-briefs/vllm-b4c.md`. Budget $8 of ne
   native_host 2572, rank_worker 1553, vllm_adapter 1913). Handoffs 18:08Z to b5vab and epoch.
 - 18:03Z new pod `vyv-rf-b4c-cpu` (o7ow729nl1v0kw, cpu3g 32 vCPU, registered guard 90), bootstrap (nohup) then gates.
 
+- 18:20Z #101 at `9689a1ef` (`r20260925-180228-0dda`) = record; its non-interference step used the old module entry,
+  which exits 0 silently after a5; re-run via `verity-vllm noninterference` (`r20260925-184105-e73e`): PASS 992/992.
+- 18:25Z gate (b) at `9689a1ef` vs `40b9e571` on vyv-rf-b4c-cpu: 0 new failures/skips/reasons, 17 new pass; lints 47 / 45.
+- 18:48Z vyv-rf-b4c-cpu terminated + unregistered (runs PRESERVED). 18:50Z g1 handed to b5vab. 18:55Z READY.md + merge-ready handoff.
+
+## Handoffs answered
+- `20260925T1655Z` (merge main 38a8d35d): `5494e29f`. `20260925T1705Z` (tell b5vab and epoch): handoffs 16:58Z / 17:10Z / 18:08Z.
+  `20260925T1720Z` (checkpoint and end turn while pods run): done. `20260925T1800Z` (merge a5c, re-gate): `9689a1ef`, READY.
+
 ## Running
-- `vyv-rf-b4c-cpu`: gate (b) + lints, base `40b9e571` `r20260925-180449-ed37`, head `9689a1ef` `r20260925-180555-f321`
-  (both wait for /workspace/b4c/BOOT-DONE). Check back about 18:45Z.
-- `vyv-rf-b4b-g1`: #101 + non-interference at `9689a1ef` via `verity-vllm row run` (`tools/g1_cli.sh`), `r20260925-180228-0dda`.
-  Check back about 18:30Z.
+- Nothing.
 
 ## Next
-1. jdiff head vs base; lints; #101 vs record.
-2. READY.md for `9689a1ef`, merge-ready handoff; g1 to b5vab; terminate vyv-rf-b4c-cpu (or hand on).
+- None: READY.
 
 ## Open questions
 - b4b's (READY.md, `../vllm-rf-b4b/`) carry over: `engine.hooks` / `engine.env` in the `core` P9 layer; import-time pins in three CLIs.

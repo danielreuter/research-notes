@@ -2,9 +2,10 @@
 lane: vllm-rf-b4c
 kind: report
 created: 2026-09-25T16:24Z
-status: open
+status: final
 ---
 
+CHECKPOINT 9689a1ef (18:49Z) [final] READY: lane/vllm-rf-b4c@9689a1ef (base a5c 40b9e571). lints 47, gate(b) 0 new fail/skip (r20260925-180555-f321 vs r20260925-180449-ed37), #101 = record + nonint 992/992 (r20260925-180228-0dda, r20260925-184105-e73e). Pods: b4b-cpu + b4b-g1 handed to b5vab; vyv-rf-b4c-cpu terminated. Spend ~$5 of $8
 CHECKPOINT 9689a1ef (18:09Z) [open] head 9689a1ef (merged a5c 40b9e571, pushed). #101 at 5494e29f = record, nonint 992/992. RUNNING: vyv-rf-b4c-cpu (new) gate(b) head r20260925-180555-f321 / base 40b9e571 r20260925-180449-ed37, check ~18:45Z; g1 #101 at 9689a1ef r20260925-180228-0dda, check ~18:30Z
 CHECKPOINT 5494e29f (17:30Z) [open] WAITING on g1 r20260925-172753-d0b2 (FA2 tap rebuild MAX_JOBS=12 after BOOTSTRAP_FAIL_FA2_TAP, then #101 + non-interference at 5494e29f); check back ~18:30Z. gate(b)+lints green; cpu handed to b5vab
 CHECKPOINT 5494e29f (17:18Z) [open] HANDOVER vyv-rf-b4b-cpu -> vllm-rf-b5vab (handoff 20260925T1720Z; b4c no longer uses it). g1 still b4c's: FA2 tap build, then #101

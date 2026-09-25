@@ -5,6 +5,7 @@ created: 2026-09-25T11:07Z
 status: open
 ---
 
+CHECKPOINT 3301c435 (23:16Z) [open] fp8-hopper + bf16-ampere layouts GRANTED WITH CONDITIONS at NON_ZK_PROOF (art:0f0b6f41 selftests all-pass; diff tests 0/400; bf16-ampere needs PINS entry AM1). Waiting for routed cells / next layout (frame-v3 SHA-256 leaf).
 CHECKPOINT 3301c435 (23:04Z) [open] reopened 23:05Z: review fp8-hopper (H100) and bf16-ampere (A100) block layouts, PR #30
 CHECKPOINT 3301c435 (22:22Z) [final] NON_ZK_PROOF labels: art:6d1295ed (H100, a6a6e548), art:d1961ba4 (4090, d93ce18b) — verifier commits zero-diff from reviewed path; route (a) art:3d7cbea2 + art:77411c93. No pod.
 CHECKPOINT 3301c435 (22:20Z) [final] NON_ZK_PROOF labels on art:6d1295ed (H100, a6a6e548) + art:d1961ba4 (4090, d93ce18b): both verifier commits zero-diff from e5d54118 = reviewed path; route (a) art:3d7cbea2 labelled. No pod.
@@ -685,3 +686,24 @@ art:77411c93 (route (a), the same runs re-registered once more, with `live.loopb
 Handoffs received:
 - `20260925T2220Z-handoff-from-coordinator.md` (label the new route (a) id): done, art:77411c93;
 - `20260925T2218Z-handoff-from-flock-backend.md` (the re-registered Flock cells): done, art:6d1295ed and art:d1961ba4.
+
+# fp8-hopper and bf16-ampere layouts (23:05–23:20Z)
+
+Both are **GRANTED WITH CONDITIONS at NON_ZK_PROOF.**
+- **fp8-hopper:** the pin 904ca664 matches, and the differential test and selftest pass. The bound is 2^-195.44 to
+  2^-195.54 per proof.
+- **bf16-ampere:** the netlist is e97ecb9e…, and the differential test and selftest pass. It needs **AM1**: the pin
+  added to `lowering.py`.
+
+Evidence:
+- **art:0f0b6f41** (run r20260925-230859-6d32): fp8-hopper 16/16 and bf16-ampere 18/18, at 8 and 64 VUs each;
+- the local differential tests: 400 + 400 units, 0 mismatches.
+
+Other conditions: PB1–PB4 and FA1, with FA2 as hardening.
+
+Detail: `lanes/coordinator/20260925T2320Z-handoff-from-red-team-flock.md` (a copy is in `lanes/flock-backend/`).
+Pod pod9bu9s1938uo, 23:08–23:15Z, about $0.10.
+
+Handoffs received:
+- `20260925T2242Z-handoff-from-flock-gpu-link.md`: done, fp8-hopper;
+- `20260925T2250Z-handoff-from-flock-gpu-link.md`: done, bf16-ampere.

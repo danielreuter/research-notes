@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T17:56Z
+updated: 2026-09-25T18:20Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -14,6 +14,11 @@ updated: 2026-09-25T17:56Z
 ## Epoch commits
 - `30427930` epoch: Programs cite core `AmpereBF16TcDot16_v2` (cherry-pick of c2b `dedf5313`; subject relabelled `epoch:`).
 - `a784d421` epoch: profile id drops `gpu.pod` (now in header notes); `profile-fallback/v1` path raises (C3 / D12 a+b).
+
+- `89cd9d1a` item 6 (digest-neutral, not `epoch:`): the host admission's lag = `global_program.workload_target(wl).lag()` via
+  `commit.admission_lag` (the `pipeline.workload` import missed; broad except removed) + test in `tests/pipeline/test_admission_commit.py`;
+  P10 `main` 1913 -> 1907. No regression check reads `commit/admission_*.json`, no launcher passes `--host-admit`. The declared lag is
+  1 under async scheduling (the default), so on the rows it equals the old fallback: it doesn't explain the 12 GiB #67 shortfall.
 
 ## Deferred (larger than S; say so in READY / handoff)
 - 2c `sm89-eager` label from probed capability: the κ profile id (`generic.profile_id(role, C, world)`) is fixed at CPU
@@ -28,8 +33,8 @@ updated: 2026-09-25T17:56Z
 ## Running (all registered, guard 90, driver 580, created 17:3x–17:49Z)
 | pod | RunPod | shape | $/h | bootstrap run | rows planned |
 |---|---|---|---|---|---|
-| vyv-rf-epoch-g1 | k9n58r873y9d0s | 1x L40S, 188 GB | 1.09 | r20260925-174831-74aa (B0,LLAMA32_1B,B1,GEMMA2_2B,MISTRAL7B) | #67 (+OLMOE) |
-| vyv-rf-epoch-g2 | qe443tt2vohzix | 1x L40S, 188 GB | 1.09 | (B0,B1,GEMMA2_2B,MISTRAL7B) | #68 (+OLMOE) |
+| ~~vyv-rf-epoch-g1~~ (terminated) | k9n58r873y9d0s | 1x L40S, 188 GB | 1.09 | r20260925-174831-74aa (B0,LLAMA32_1B,B1,GEMMA2_2B,MISTRAL7B) | #67 (+OLMOE) |
+| ~~vyv-rf-epoch-g2~~ (terminated) | qe443tt2vohzix | 1x L40S, 188 GB | 1.09 | (B0,B1,GEMMA2_2B,MISTRAL7B) | #68 (+OLMOE) |
 | vyv-rf-epoch-moe67 | mzp252g5m1qswn | 1x L40S, 125 GB | 1.09 | r20260925-173935-1a0c (B0,OLMOE) | #101 #4 #11 #23 (+LLAMA32_1B) |
 | vyv-rf-epoch-moe68 | 4ltk4vvdjnoq3o | 1x L40S, 125 GB | 1.09 | r20260925-174653-4b13 (B0,OLMOE) | #39 #57 #60 (+B1,GEMMA2_2B,MISTRAL7B) |
 | vyv-rf-epoch-tp70 | m635zk3ooaylcm | 2x L40S, 251 GB | 2.18 | r20260925-174653-5401 (B0,OLMOE) | #70 |
@@ -44,6 +49,16 @@ Row runs at `a784d421`, launched 17:54Z (each waits for its pod's bootstrap, add
 - 17:52Z runs `r20260925-175229-*` failed at once (unexpanded `$RESEARCH_RUN_DIR` in the launch line); nothing ran.
 Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit even on a Match FAIL, PAIRS=1, evidence
 `$RESEARCH_RUN_DIR/sweep/<row>/`.
+
+## 18:10Z changes (coordinator handoff 1810Z)
+- Memory limits (cgroup): g1/g2 188 GB (= 175 GiB, b1c's #67 OOM point), moe67 125 GB (cgroup **v1**, `memory.limit`, not
+  unbounded: the 1,007 GB is the host), moe68 125 GB, tp70 251 GB, tp75 204 GB, h100 251 GB.
+- #67 (g1) and #68 (g2) stopped in Build at 18:1xZ; g1 and g2 drained and terminated (bootstrap runs PRESERVED).
+- #67 -> tp70 GPU 0 after #70: run `r20260925-181422-250a` (`after.sh`, CUDA_VISIBLE_DEVICES=0), tree `89cd9d1a`.
+- #68 -> `vyv-rf-epoch-big` (1x L40S >= 256 GB, or 2x with 300 GB), retrying until 21:00Z (tmux `big68`, `/tmp/ep/big68.sh`,
+  log `/tmp/ep/big68.log`); on success bootstrap + #68 run automatically. No big pod yet (no capacity at 18:13Z).
+- moe67's live run is `r20260925-175229-a415` (not `...-2424`, which failed on quoting): #101 PASS (build 573313ed, manifest
+  ee65240e = c2b's epoch value), now #4.
 
 ## Next
 - Rows at `a784d421` once each bootstrap ends. Golden re-record (item 5, `/tmp/ep/golden.sh`) on a pod.

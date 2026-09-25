@@ -5,6 +5,9 @@ created: 2026-09-25T16:27Z
 status: open
 ---
 
+CHECKPOINT 4f090959 (18:17Z) [open] merged a5c 40b9e571 -> head 4f090959; t1 r20260925-181451-4e3d: gate (b) vs 40b9e571 then gate (a), end ~20:30Z (deadline extension asked); check back 18:50Z
+CHECKPOINT 4f090959 (18:15Z) [open] merged a5c 40b9e571 -> head 4f090959; t1 r20260925-181451-4e3d: gate (b) vs 40b9e571 then gate (a), end ~20:30Z (deadline extension asked); check back 18:50Z
+CHECKPOINT eb97ecb4 (18:12Z) [open] #101 SAME-OF-RECORD (r20260925-174116-cb42), g1 terminated; t1 r20260925-180950-f886 running: lints rc0, gate (b) head ~18:40Z then gate (a) ~20:25Z; check back 18:45Z
 CHECKPOINT eb97ecb4 (17:42Z) [open] g1 #101 smoke r20260925-174116-cb42 running (tree eb97ecb4, via run_row_v2.sh; first try r20260925-173947-17f4 rc2: a5's row CLI not on main); check back ~18:00Z; t1 expected ~17:52Z
 CHECKPOINT eb97ecb4 (17:20Z) [open] parking turn (no pod job running): head eb97ecb4 pushed, gates not started; wake me on a5c's g1 handoff (~17:30Z) and t1 handoff (~17:45Z)
 CHECKPOINT eb97ecb4 (17:14Z) [open] merged main f7de4620 -> head eb97ecb4 (clean); gate (b) base f7de4620; a5c ETA g1 17:30Z, t1 17:45Z

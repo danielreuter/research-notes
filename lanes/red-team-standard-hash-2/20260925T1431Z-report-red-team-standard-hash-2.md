@@ -2,9 +2,10 @@
 lane: red-team-standard-hash-2
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT 1874b18d (18:17Z) [final] 18:17Z FINAL (reopen 2): fp4-nvf4+poseidon2 CLASS GRANTED (COMPLETE_ZK_BACKEND, algebraic); labels on art:70f275ac art:6740eb22; scan art:3808e520 0 effective/199k; H2/R1/R4 refused; pod drained 18:15Z ~$0.05; tip 1874b18d
 CHECKPOINT 041ac181 (17:48Z) [open] 17:48Z fp4 scan (VM, torch-free) running: controls decode+sponge show effective free rows; random/zero-scales 0 effective. Creating pod vy-red-team-sh-2 for R1/R4/H2/ZK.
 CHECKPOINT 041ac181 (17:38Z) [open] 17:38Z reopened: class review fp4-nvf4+poseidon2 (5090 NVFP4 art:70f275ac/art:6740eb22) at main cd963fd4: NOT final
 CHECKPOINT 041ac181 (17:37Z) [final] 17:37Z FINAL (reopen), finish-check rerun after store I/O flake; content as 17:34Z
@@ -97,3 +98,16 @@ Inherited handoffs: all 20 were addressed to red-team-standard-hash and acted on
   art:70f275ac or art:6740eb22: fp4-nvf4+hash (Poseidon2) is outside my grants. Handoff coordinator/1733Z.
 * Received `coordinator/20260925T1715Z-handoff-from-ligero-hygiene.md`. Code review of cd71b615 and 7c655f86 at 46e0c494: no gap
   (reverify only refuses more; config_for is conservative). Handoff coordinator/1727Z. No pod.
+
+## Reopened 17:38Z: fp4-nvf4+poseidon2 class review (5090 NVFP4 art:70f275ac, art:6740eb22) at main cd963fd4
+
+* Scan `rtsh_fp4_free_rows.py` (commit 1874b18d, torch-free, on the VM). The composed system's sys_id is 8c6d260c, the Rust pin.
+  The scan runs a full pass and a decode/sponge-layer pass over 8 families: 199,072 mutations, 0 effective free rows. Both
+  controls are detected: `hash.prod3584` dropped makes `hash.prod1349` free, and `hash.a[3].n` dropped makes the pin `a[3].n` free. art:3808e520.
+* Pod vy-red-team-sh-2 (a53aqdgs4kru3s, cpu3c 8 vCPU) ran 18:03-18:15Z, about $0.05, drained. Setup run
+  r20260925-180655-879e; e2e run r20260925-180824-4a04 (`rtsh_fp4_e2e.py`). Results: H2 24 accepted, 48 and 12 refused; R1 and R4
+  refused; ZK: pins are is_end + 16 digest lanes, two ZK proofs are both accepted and disjoint, k > l + t.
+* Verdict: CLASS GRANTED WITH CONDITIONS, COMPLETE_ZK_BACKEND in the algebraic-hash class. Handoff coordinator/1818Z. Labels
+  proof_class + finding on art:70f275ac and art:6740eb22.
+* Branch lane/red-team-standard-hash-2 @ 1874b18d, pushed. Its base 041ac181 predates main's fp4 code: the harnesses import
+  it and run on main plus this overlay.

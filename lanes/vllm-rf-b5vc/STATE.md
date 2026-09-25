@@ -3,7 +3,7 @@ id: vllm-rf-b5vc/state
 lane: vllm-rf-b5vc
 kind: state
 created: 2026-09-25T16:47Z
-updated: 2026-09-25T17:43Z
+updated: 2026-09-25T18:17Z
 ---
 # vllm-rf-b5vc: split program/frontend/rules/vllm_bindings.py into a package (B5) (state)
 
@@ -51,15 +51,27 @@ base: 8a3aa083
   side calls a5's `verity-vllm row`, which main lacks; my tree is main-based, so the row runs through `ops/run_row_v2.sh`
   (ab_row.sh's `base` side).
 
+- 17:54Z #101 smoke `r20260925-174116-cb42` (g1, tree `eb97ecb4`, PRESERVED): **RESULT SAME-OF-RECORD**; program
+  `ccc21347…`, manifest `90f81868…`, run roots `7adcef49…`, correspondence digest all EQUAL; outcome PASS = PASS; checks 33/33,
+  0 outcome differences; commit PASS (7 checks). `evidence/r101-cmp.txt`. g1 terminated 18:12Z.
+- 17:55Z a5c handed over `vyv-rf-a5-t1`. My copies in `/workspace/b5vc/` (gate_a.sh, gate_b.sh log to `/workspace/b5vc/logs`;
+  jdiff.py sha256 363304c0…; chain.sh). Base gate (b) reused: a5c's `r20260925-173534-b495` at `f7de4620` on t1
+  (`/workspace/a5c/logs/base-f7de4620-{lints,gate_b}.xml`), = my gate (b) base.
+- 18:12Z lints at head on t1 (pytest): rc 0.
+
+- 18:14Z per the coordinator's 1800Z handoff ("a5 goes first"): `git merge origin/lane/vllm-rf-a5c` (`40b9e571`), clean ->
+  **head `4f090959`** (pushed); vllm_bindings.py unchanged there, importers the same, verify_split OK, static lints OK.
+  **Gate (b) base is now `40b9e571`** (a5c's same-pod head run: `/workspace/a5c/logs/head-40b9e571-{lints,gate_b}.xml`).
+  Stopped `r20260925-180950-f886` (eb97ecb4; lints rc 0 only) by pgid.
+
 ## Running
-- g1 `r20260925-174116-cb42` (`--custody-r2`, tree `eb97ecb4`, `--cwd source`): #101 row build/match/commit via
-  `run_row_v2.sh` into `/workspace/sweep-b5vc`, then `cmp_verdict.py` vs the record row `/workspace/sweep/<#101>`.
-  Started 17:41Z, about 15-20 min; check back about 18:00Z.
+- t1 `r20260925-181451-4e3d` (`--custody-r2`, `chain.sh 4f090959`): lints + gate (b) head (~18:45Z), jdiff vs 40b9e571,
+  then gate (a) T0+T1 head, jdiff vs a23b's same-pod base. Expected end ~20:30Z; asked the coordinator (handoff 1813Z) to
+  extend the deadline. Check back ~18:50Z and ~20:30Z. Logs `/workspace/b5vc/logs/`.
 
 ## Next
 - On handoff of `vyv-rf-a5-t1`: lints at head; gate (b) head `eb97ecb4` and base `f7de4620` (reuse a5c's base run on t1, `r20260925-170857-a861`, if its tree and pod match) on the pod, jdiff; gate (a)
   T0+T1 at head vs a23b's base XML. Code identities before/after.
-- On handoff of `vyv-rf-a5-g1`: #101 GPU Build smoke, program/manifest/run root vs the record.
 - READY.md, merge-ready handoff.
 
 ## Open questions

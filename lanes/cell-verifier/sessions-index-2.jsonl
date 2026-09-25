@@ -1,0 +1,5 @@
+{"aborted":null,"accepted":true,"link_mode":"exchange","link_sha256":"ee543fd514f42b841988462dd1b65f5c8d32db786ec24bba2fa5f9bd0eef8a9b","require_link":true,"rounds":1058,"session":"l0000-2797","verify_s":0.293981576,"why":""}
+{"aborted":null,"accepted":true,"link_mode":"exchange","link_sha256":"bfe30fede370b3348b42fdae5bee6175ec0aa09d3af95e05dd8c2577a359888e","require_link":true,"rounds":1058,"session":"l0001-2797","verify_s":0.077248134,"why":""}
+{"aborted":null,"accepted":true,"link_mode":"exchange","link_sha256":"864f9b2b0a0beb43f9b72bed4ea2a994ec1a390b1f644cd61a5bd9233903e6e9","require_link":true,"rounds":1058,"session":"l0002-2797","verify_s":0.076564206,"why":""}
+{"aborted":null,"accepted":true,"link_mode":"exchange","link_sha256":"66123dde4d7a0e1b130264d3289ef204c888df3cbf3dc89ff684f76d99c889ba","require_link":true,"rounds":1058,"session":"l0003-2797","verify_s":0.076825734,"why":""}
+{"aborted":null,"accepted":true,"link_mode":"exchange","link_sha256":"9fc39946292b2c7e87d7f6b8a7e3ff73dbde3f8c3438dd10818707493c839c77","require_link":true,"rounds":1058,"session":"l0004-2797","verify_s":0.075989541,"why":""}

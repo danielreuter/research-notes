@@ -2,14 +2,10 @@
 id: vllm-rf-c4irc/state
 lane: vllm-rf-c4irc
 kind: state
-status: running (head lane/vllm-rf-c4ir @ 793f14af; gate (a) tail run in progress)
+status: READY (lane/vllm-rf-c4irc @ 26964de2; all gates pass; merge-ready handoff sent)
 created: 2026-09-25T16:35Z
-updated: 2026-09-25T16:35Z
+updated: 2026-09-25T18:15Z
 ---
-
-> **Coordinator, 17:28Z: budget raised to $5 of new spend** (root-approved), to finish the gate (a) tail and the post-merge lints + gate (b). Your merge request is a 1 PM PT day-plan goal.
-
-> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-43d0276f-63b2-5829-88ad-4d6a68f9d6a1: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # vllm-rf-c4irc: boundary, partition and liveness into core `verity.ir` (state)
 
 > **c4irc succeeds c4irb** (Cursor agent bc-53dac16f; its session ended at the 16:03Z laptop restart). Lane agent
@@ -26,10 +22,18 @@ updated: 2026-09-25T16:35Z
   at `7313e799`, same env and store as `reg_gate_a.sh`, fresh scratch. a23b's base took 828 s for these; at this pod's
   2.7x, about 40 min. (r20260925-163051-7933 failed at once: wrong script path; nothing ran.)
 
+- 16:47Z main moved to `38a8d35d`; `793f14af` conflicts in p10_size.json. `lane/vllm-rf-c4irc` `26964de2` = merge of main
+  (keep all three deletions), pushed.
+- r20260925-163128-6c84's tail is VOID (my merge-gate run reused `/workspace/c4irc-head` at 16:47Z); its custody copy stands.
+- r20260925-170630-1889 gate (a) 131..158: 12 passed / 16 skipped, equal to base test by test.
+- r20260925-171611-f856 / -171615-d852: lints 45/45; gate (b) jdiff rc 0, 0 new failures/skips (READY.md).
+- 18:15Z READY.md, merge-ready handoff to the coordinator; reg free for routing.
+
 ## Running (c4irc)
-- `vyv-rf-c4ir-reg` (oh3k08zb07i38u, $1.76/h): r20260925-163128-6c84, started 16:31Z.
+- Nothing. `vyv-rf-c4ir-reg` idle since 17:52Z, left up for the coordinator to route.
 
 ## Next (c4irc)
+- (all done 18:15Z; items below kept for the record)
 - Tail done: compare `gate_a_tail.xml` test by test with base tests 131..158 (`baseline-jdiff.py`, base XML restricted).
 - `research data preserved r20260925-163128-6c84`; record its run_record `art:`.
 - READY.md (gate (a) row = positional 1..130 + JUnit 131..158), merge-ready handoff, hand reg to b5vab (or terminate).

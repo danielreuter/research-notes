@@ -1,0 +1,15 @@
+base 4023 {'error': 11, 'failed': 51, 'passed': 3668, 'skipped': 287, 'xfailed': 6}
+head 4017 {'error': 11, 'failed': 51, 'passed': 3661, 'skipped': 288, 'xfailed': 6}
+only in base (deleted or renamed): 6
+  - tests.program.test_lint::test_no_model_names[boundary.py] passed
+  - tests.program.test_lint::test_no_model_names[partition.py] passed
+  - tests.program.test_lint::test_no_startswith[boundary.py] passed
+  - tests.program.test_lint::test_no_startswith[partition.py] passed
+  - tests.program.test_lint::test_no_v1_membership_tables[boundary.py] passed
+  - tests.program.test_lint::test_no_v1_membership_tables[partition.py] passed
+only in head: 0 {}
+outcome changed: 1
+  ~ tests.observe.test_observer_encoding::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation: passed -> skipped  [allocator did not reuse the pointer]  (order-dependent at base; not counted)
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 62, head 62, fixed on head 0

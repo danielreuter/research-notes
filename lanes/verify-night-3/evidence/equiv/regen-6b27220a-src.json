@@ -1,0 +1,154 @@
+{
+ "compare": {
+  "producer_tags_dropped": [
+   "lane"
+  ],
+  "fields_compared": [
+   "arrays",
+   "candidate",
+   "canonical",
+   "equal",
+   "frozen",
+   "run_id",
+   "schema",
+   "target"
+  ],
+  "differ": [
+   "run_id"
+  ],
+  "equal_regen": true,
+  "arrays": {
+   "W": {
+    "doc": {
+     "candidate_sha256": "4de0e233da5ee2f89f324ebc5d517afb26b5b78c938941f33b845ea760c1b27b",
+     "dtype": "<u2",
+     "frozen_sha256": "4de0e233da5ee2f89f324ebc5d517afb26b5b78c938941f33b845ea760c1b27b",
+     "shape": [
+      16384,
+      1536
+     ]
+    },
+    "regen": {
+     "frozen_sha256": "4de0e233da5ee2f89f324ebc5d517afb26b5b78c938941f33b845ea760c1b27b",
+     "candidate_sha256": "4de0e233da5ee2f89f324ebc5d517afb26b5b78c938941f33b845ea760c1b27b",
+     "dtype": "<u2",
+     "shape": [
+      16384,
+      1536
+     ]
+    }
+   },
+   "x": {
+    "doc": {
+     "candidate_sha256": "b9b5807f72e06493c140ed7a591770b4516e74eda85624cb4eda38c136a48a25",
+     "dtype": "<u2",
+     "frozen_sha256": "b9b5807f72e06493c140ed7a591770b4516e74eda85624cb4eda38c136a48a25",
+     "shape": [
+      16384,
+      1536
+     ]
+    },
+    "regen": {
+     "frozen_sha256": "b9b5807f72e06493c140ed7a591770b4516e74eda85624cb4eda38c136a48a25",
+     "candidate_sha256": "b9b5807f72e06493c140ed7a591770b4516e74eda85624cb4eda38c136a48a25",
+     "dtype": "<u2",
+     "shape": [
+      16384,
+      1536
+     ]
+    }
+   },
+   "y": {
+    "doc": {
+     "candidate_sha256": "b350fafc11cb32d95e9123086df9599a5f1f8a5d19c625c8fb62205e867cb915",
+     "dtype": "<u4",
+     "frozen_sha256": "b350fafc11cb32d95e9123086df9599a5f1f8a5d19c625c8fb62205e867cb915",
+     "shape": [
+      16384
+     ]
+    },
+    "regen": {
+     "frozen_sha256": "b350fafc11cb32d95e9123086df9599a5f1f8a5d19c625c8fb62205e867cb915",
+     "candidate_sha256": "b350fafc11cb32d95e9123086df9599a5f1f8a5d19c625c8fb62205e867cb915",
+     "dtype": "<u4",
+     "shape": [
+      16384
+     ]
+    }
+   }
+  },
+  "arrays_match": true,
+  "tool_doc": "verity_numerical.bench.instance_equiv@9a78cd6834b10c6df9ef95714fffcf7ba12a5799",
+  "tool_regen": "verity_numerical.bench.instance_equiv@78b8935bff779c3ba35dd2abc1b1b6fb499ed7dd",
+  "result_instances": {
+   "dataset": "bench-instances-bf16-hopper/v1",
+   "manifest_sha256": "4e9147475f4f04205b250c3c2bdea22ef092ba3e32d9daa8d2dbca1588b38422",
+   "range": [
+    0,
+    16384
+   ],
+   "recipe": "bf16-hopper synthetic (random_finite_bf16: finite BF16 words incl. subnormals and exact zeros, model-recorded accumulators)",
+   "seed": 20260922,
+   "tier": "vu-k1536-bf16-hopper"
+  },
+  "candidate_equals_result_instances": true
+ },
+ "check": "/workspace/verify-night-3/regen-6b27220a-src/doc.json: bf16-hopper-x4 DIFFERS on run_id; equal=True; file by verity_numerical.bench.instance_equiv@9a78cd6834b10c6df9ef95714fffcf7ba12a5799, re-derived by verity_numerical.bench.instance_equiv@78b8935bff779c3ba35dd2abc1b1b6fb499ed7dd\n",
+ "regenerated": {
+  "schema": "instance-equiv/v1",
+  "target": "bf16-hopper-mma-draft/2026-09-22",
+  "frozen": {
+   "dataset": "bench-instances-bf16-hopper/v1",
+   "tier": "vu-k1536-bf16-hopper",
+   "range": [
+    0,
+    16384
+   ],
+   "manifest_sha256": "10bb7ec0720dff807eaf587b954c6561e0116776f64543f9229fa12ca67541f2",
+   "seed": 20260922,
+   "recipe": "bf16-hopper synthetic (random_finite_bf16: finite BF16 words incl. subnormals and exact zeros, model-recorded accumulators)"
+  },
+  "candidate": {
+   "dataset": "bench-instances-bf16-hopper/v1",
+   "tier": "vu-k1536-bf16-hopper",
+   "range": [
+    0,
+    16384
+   ],
+   "manifest_sha256": "4e9147475f4f04205b250c3c2bdea22ef092ba3e32d9daa8d2dbca1588b38422",
+   "seed": 20260922,
+   "recipe": "bf16-hopper synthetic (random_finite_bf16: finite BF16 words incl. subnormals and exact zeros, model-recorded accumulators)"
+  },
+  "canonical": "each side decoded by its own loader: frozen = relchain.instances('bf16-hopper', 16384) (the registered relation whose runner ref is the target's declared set over [0, 16384): FROZEN_INSTANCES[target], or its synthetic stream by generator, seed and n), candidate = relchain.instances('bf16-hopper-x4', 16384); x = the a operand words, W = the b operand words, as <u2 bit words of the datatype (HOPPER_BF16_M16N8K16), little-endian; y = the chain-end FP32 accumulator word (the final recorded accumulator of the VU; the public claim is the relation's y_public of it), <u4 little-endian; index order VU-major, then K",
+  "arrays": {
+   "x": {
+    "frozen_sha256": "b9b5807f72e06493c140ed7a591770b4516e74eda85624cb4eda38c136a48a25",
+    "candidate_sha256": "b9b5807f72e06493c140ed7a591770b4516e74eda85624cb4eda38c136a48a25",
+    "dtype": "<u2",
+    "shape": [
+     16384,
+     1536
+    ]
+   },
+   "W": {
+    "frozen_sha256": "4de0e233da5ee2f89f324ebc5d517afb26b5b78c938941f33b845ea760c1b27b",
+    "candidate_sha256": "4de0e233da5ee2f89f324ebc5d517afb26b5b78c938941f33b845ea760c1b27b",
+    "dtype": "<u2",
+    "shape": [
+     16384,
+     1536
+    ]
+   },
+   "y": {
+    "frozen_sha256": "b350fafc11cb32d95e9123086df9599a5f1f8a5d19c625c8fb62205e867cb915",
+    "candidate_sha256": "b350fafc11cb32d95e9123086df9599a5f1f8a5d19c625c8fb62205e867cb915",
+    "dtype": "<u4",
+    "shape": [
+     16384
+    ]
+   }
+  },
+  "equal": true,
+  "tool": "verity_numerical.bench.instance_equiv@78b8935bff779c3ba35dd2abc1b1b6fb499ed7dd"
+ }
+}

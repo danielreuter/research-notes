@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 5b28557b (11:44Z) [open] x4 instance-equiv/v1 art:6fdeed7e registered (equal, check reproduces) -> verify-night-2; 8192 prefix-equal evidence to coordinator. blake3-xob: tests 27+16 pass, 71f39e44 kept, xob pins x1 3d6cc67b (28584 rows vs 35370) x4 f90e7b41 in 5b28557b; rust+gates r..114349-ea8d; red-team review asked.
 CHECKPOINT 672b23ae (11:21Z) [open] x1 malloc sweep DONE: plateau 16384 e2e 13.821s (13.787+0.034) 1185 VU/s 9.07e7x 2^-128.40 art:c9f4a645 (32768 OOM rc-9: not converged); handed to verify-night-2. XOB (blake3-xob) tests+fixtures running r..112012-8420. 1040Z: done (lib.sh exports; merged).
 CHECKPOINT fb29b130 (10:54Z) [open] x1 malloc sweep r..103611-67e0 at p4 16384 (p0-p3 1073/1128/1150/1176 VU/s). XOB wired as new scheme blake3-xob (same schema blake3-keyed/row/v2 = same frame-v3 commitment, new circuit): xadd op in all witness generators, ce86046b+tests; pod tests/pins after the sweep.
 CHECKPOINT 806a2f73 (10:37Z) [open] malloc-env cells (MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12 set): x1 4096 frozen e2e 3.558s art:9b80f566; x4 4096 1.981s art:050ddede; x4 plateau 8192 2165 VU/s art:19be6afa -> verify-night-2 1037Z. x1 sweep running.

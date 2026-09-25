@@ -4,23 +4,25 @@ lane: vllm-rf-f1
 kind: ready
 status: complete
 repo: verity
-updated: 2026-09-25T05:09Z
+updated: 2026-09-25T05:53Z
 ---
 # f1 (opened-value replay, D1): READY
 
-> **05:12Z: main moved to `c1891d48` (f3 merged, then a GKR merge). The branch is now `8efb918e`, rebased onto it and
-> pushed; the only conflict was `commit_delta.main`'s P10 count (now 1914). Lints, touched tests and gate (b) at `8efb918e`
-> are running on a new pod. Until this note says otherwise, the evidence below is for `299f42d5` and `d1f18fc8`.**
-
 ## Branch
 
-`origin/lane/vllm-rf-f1` at **`299f42d5`**, on `main` **`baeefd21`** (f24 and f56 merged). Eight commits: the lane's
-seven (library, tests, fault hook and padding fixture, test fixes and names, the fault hook on windowed host copies and on
-inference tensors), then the lint commit, which moves code so the lints pass. 27 files, +1313 / -497: 10 library files (3
-new modules), 13 test files and 4 allowlists. No Markdown added.
+`origin/lane/vllm-rf-f1` at **`8efb918e`**, on `main` **`c1891d48`** (f24, f56 and f3 merged, then GKR #13, which touches
+nothing under `integrations/vllm`). Eight commits: the lane's seven (library, tests, fault hook and padding fixture, test
+fixes and names, the fault hook on windowed host copies and on inference tensors), then the lint commit, which moves code
+so the lints pass. 27 files, +1313 / -497: 10 library files (3 new modules), 13 test files and 4 allowlists. No Markdown
+added.
 
-Two heads carry the evidence:
+Three heads carry the evidence:
 
+- **`8efb918e`**: `299f42d5` rebased onto `c1891d48`, the rebase your 04:40Z note asked for. The only conflict was
+  `commit_delta.main`'s P10 count (main 1915, mine 1916). It is now 1914, the size at the merged tree, as your note
+  predicted. In `git range-diff`, commits 1-7 are identical, and the lint commit differs only in its message and that
+  count. At `8efb918e`, on a pod: the lints pass (44 of 44), the touched and affected test files fail only on a1's list,
+  and gate (b) is green against main `c1891d48` run on the same pod (Gate evidence).
 - **`d1f18fc8`**, on `main` `bbbe936c`: gates (a) and (b) ran here (Gate evidence).
 - **`299f42d5`**: `d1f18fc8` rebased onto `baeefd21`, with exactly the three conflicts named in the coordinator's 04:06Z note.
   Both import conflicts keep both sides: main's `replay_codes` import and mine in `check/sampled_replay.py`, and main's
@@ -37,8 +39,13 @@ interact with D1. A failed opening is a mismatch (`result False`, "opened value 
 so it needs no code. Where a failed opening does reach a not-evaluable path, `why_class` gives it a fault class, and a fault
 never counts toward a pass.
 
-`main` has since moved to `5e0c7ca7` (Merge #12, five files, all under `tools/research`). It merges cleanly with
-`299f42d5` (`git merge-tree`), and `integrations/vllm` is identical at both, so I stayed on `baeefd21` as the 04:06Z note says.
+f3's changes beside D1 break nothing at `8efb918e`: the layout became a declared argument, so padding steps take
+`com.layout` instead of an environment variable, and challenge seeds are now required. The touched tests and gate (b)
+there show it.
+
+`main` has since moved to `2994bd25` (the A-GKR integration: 27 files, all under `backends/gkr` and `backends/numerical`,
+which nothing under `integrations/vllm` imports). It merges cleanly with `8efb918e` (`git merge-tree`), and
+`integrations/vllm` is identical at both, so I stayed on `c1891d48`.
 
 ## What changed
 
@@ -84,8 +91,8 @@ Nothing compares the committer's retained memory directly any more.
 
 ## Rebase and lints
 
-The first rebase, onto `bbbe936c`, had no conflicts. (The second, onto `baeefd21`, is described under Branch, and its lint
-run is under Gate evidence.) At the head of the first rebase, `tests/lint` failed three rules, all from this lane's code:
+The first rebase, onto `bbbe936c`, had no conflicts. (The later ones, onto `baeefd21` and `c1891d48`, are described under
+Branch, and their lint runs are under Gate evidence.) At the head of the first rebase, `tests/lint` failed three rules, all from this lane's code:
 P07 (`VERITY_FAULT` read three times in `commit_delta.main`), P09 (`tp.partial_source` importing `check.oracle_compare`)
 and P10 (eight size caps over). `d1f18fc8` fixes them by moving code, never by raising a cap:
 
@@ -145,7 +152,48 @@ extension name. The head negative Commit right after warmed up in 1.56 s.
 
 ## Gate evidence
 
-### At the rebased head `299f42d5` (coordinator's 04:06Z list)
+### At the branch head `8efb918e` (coordinator's 04:40Z update)
+
+These ran on `vyv-rf-f1-cpu3` (RunPod cpu3g, 32 vCPU, 128 GB cgroup limit, AMD EPYC 9655P), set up with a1's recipe
+(bootstrap `r20260925-051324-cb17`, BOOTSTRAP-OK), through `research run --source <worktree> --cwd source`.
+
+- **Lints: 44 of 44 pass** (`r20260925-051846-aa6b`).
+- **Touched and affected test files** (the same list as at `299f42d5`, below): **836 passed, 34 skipped, 4 failed**. The
+  failures are the same four, all in a1's list.
+- **Gate (b): green.** `r20260925-051835-4518` at `8efb918e` and `r20260925-051805-afcd` at `main` `c1891d48` ran side by
+  side on the same pod, with the command used at `299f42d5`. They took 15 and 16 minutes.
+
+| commit | total | passed | failed | error | skipped | xfailed |
+|---|---|---|---|---|---|---|
+| base `72884c8a` (a1 xdist) | 3904 | 3536 | 54 | 11 | 297 | 6 |
+| main `c1891d48` (this pod) | 3927 | 3569 | 54 | 11 | 287 | 6 |
+| head `8efb918e` (this pod) | 3950 | 3592 | 54 | 11 | 287 | 6 |
+
+- Against main on the same pod, `baseline-jdiff.py` exits 0: no new failure, error, skip or skip reason, and no test
+  changes outcome. The 24 new tests pass, and one test is renamed (`…committed_reader_answers…` to
+  `…opened_reader_answers…`). Failures and errors are 65 at both.
+- Against a1's baseline: no new failure or skip, and failures and errors are 65 at both. Two base failures pass, here and
+  at main (`test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way`,
+  `test_norm_chain::test_mean_pins_match_installed_vllm`). The two gc-freeze tests of `test_admit_r19_host_working_set`
+  fail, as in a1's list. The one new skip reason is main's own `test_ship_roots` skip, which main shows on this pod too.
+- Failures and errors are 65 here and 60 at `299f42d5`, at the head and at main alike. The difference is five tests in
+  a1's list that pass on `vyv-rf-f1-cpu2` and fail here: `test_ref_prims::test_gelu_ref_vs_torch[none-bf16]` and
+  `[none-f32]`, `test_analytic::test_check_cos_sin_against_the_captured_b0_table`,
+  `test_gen_dense2::test_inv_freq_models_cuda_reciprocal_multiply_and_is_identity_for_power_of_two_D` and
+  `test_derive_realhf::test_realhf_case[gpt2-sdpa-bf16-tie1-greedy-gelu_pytorch_tanh]`. They follow the CPU: this host
+  (Zen 5) has AVX-512, and `vyv-rf-f1-cpu2`'s EPYC 7713 (Zen 3) does not. A probe at `8efb918e` on this pod
+  (`r20260925-054046-cc63`, the gate's environment) ran the five twice on the same tree. With the libraries' default
+  dispatch (ATen `AVX512`, numpy's AVX-512 kernels) all five fail. With `ATEN_CPU_CAPABILITY=avx2`,
+  `ONEDNN_MAX_CPU_ISA=AVX2`, `MKL_ENABLE_INSTRUCTIONS=AVX2` and numpy's AVX-512 features disabled
+  (`NPY_DISABLE_CPU_FEATURES`) all five pass.
+
+The JUnit files and diffs are beside this note: `head-gate_b-8efb918e-xdist.xml.gz`, `main-gate_b-c1891d48-xdist.xml.gz`,
+`head-gate_b-8efb918e-xdist.jdiff-main-c1891d48.txt`, `…jdiff-a1.txt`, `main-gate_b-c1891d48-xdist.jdiff-a1.txt`,
+`head-lint-8efb918e.xml.gz`, `head-touched-8efb918e.xml.gz`, and the probe's `isa-probe-8efb918e-default.xml.gz` and
+`isa-probe-8efb918e-avx2.xml.gz`. All five attempts on this pod are preserved on the store remote, and the pod is
+terminated.
+
+### At `299f42d5` (coordinator's 04:06Z list)
 
 These ran on `vyv-rf-f1-cpu2` (RunPod cpu3g, 32 vCPU, 128 GB cgroup limit, AMD EPYC 7713), set up with a1's recipe
 (bootstrap `r20260925-042905-a8bb`, BOOTSTRAP-OK). Every run went through `research run --source <worktree> --cwd source`
@@ -175,7 +223,8 @@ at a clean committed head.
   both. One outcome changes: `test_observer_encoding::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation`
   passes at main and is skipped here ("allocator did not reuse the pointer"). a1 lists that test as order-dependent.
 - Against a1's baseline: no new failure, and failures and errors drop from 65 to 60. The seven base failures that pass
-  here also pass at main on this pod. The two `test_admit_r19_host_working_set` gc-freeze tests fail, as they do in a1's
+  here also pass at main on this pod. Five of them pass because this host has no AVX-512 (see `8efb918e` above). The
+  two `test_admit_r19_host_working_set` gc-freeze tests fail, as they do in a1's
   list (this pod's interpreter also starts with `gc.get_freeze_count() == 375`). The one new skip reason is main's own
   `test_ship_roots` skip, which main shows on this pod too.
 
@@ -248,9 +297,9 @@ JUnit and both diffs are beside this note: `head-gate_b-d1f18fc8-xdist.xml.gz`, 
 ### (c) acceptance
 
 The regression Commit rows and the pod negative ran at `e2f85a82`, the lane's head before the first rebase (on
-`72884c8a`). The rebased `324654c1` carries the same lane changes onto `bbbe936c`, `d1f18fc8` only moves code, and
-`299f42d5` is `d1f18fc8` on `baeefd21`. No row has run at either rebased head: both GPU pods were drained at about
-01:40Z, before I read the rebase note (see Open questions).
+`72884c8a`). The rebased `324654c1` carries the same lane changes onto `bbbe936c`, and `d1f18fc8` only moves code.
+`299f42d5` and `8efb918e` are `d1f18fc8` on `baeefd21` and on `c1891d48`. No row has run at any rebased head: both GPU
+pods were drained at about 01:40Z, before I read the rebase note (see Open questions).
 
 - **Regression Commit rows, base `72884c8a` vs head `e2f85a82`, same Build and Match** (the row directory copied after
   Match, byte-identical), through `research run --tool vllm.commit`:
@@ -349,6 +398,10 @@ evidence of record for both.
   its local store reports "0 attempt(s) recorded" and is terminated without `--force`. Once the attempts were pushed,
   the default `--mode head` crashed in `store/preserved.py` (`index.set_replica`: "attempt to write a readonly
   database"); `--mode recorded` drained. (For the two CPU pods at 04:02Z and 04:12Z, `--mode head` worked.)
+- Gate (b)'s counts depend on the pod's CPU. Five tests in a1's list (four of its "numerics or host facts" group and
+  the `realhf` gpt2 GELU case) fail where torch and numpy dispatch AVX-512 kernels and pass on an AVX2-only host. So at
+  one commit, failures and errors are 60 on an EPYC 7713 pod and 65 on an EPYC 9655P pod. Comparing against main on the
+  same pod, as here, avoids this.
 - On a cpu3g pod, `free` reports the host's memory (755 GB), not the container's 32 GB cgroup limit
   (`/sys/fs/cgroup/memory.max`). Gate (a) with more than one manifest build at a time does not fit.
 - The lint scanners read every `*.py` file as UTF-8, so AppleDouble `._*.py` files, which macOS `tar` writes for
@@ -364,8 +417,9 @@ evidence of record for both.
 
 - No Commit row has run at a rebased head. The 22:13Z note asked me to ship the rebased head to g1b for you to copy to
   tp2, but I read that note only after both GPU pods were drained. The rows' evidence is at `e2f85a82`. The rebase onto
-  `bbbe936c` was clean, `d1f18fc8` only moves code, and the rebase onto `baeefd21` had only the three conflicts your
-  04:06Z note names, so by that note gate (a) and the GPU rows stay valid. If you want a row at the merged head, #101 is
+  `bbbe936c` was clean, and `d1f18fc8` only moves code. The rebase onto `baeefd21` had only the three conflicts your 04:06Z
+  note names, and the rebase onto `c1891d48` only the one count your 04:40Z note names. By those notes, gate (a) and the
+  GPU rows stay valid. If you want a row at the merged head, #101 is
   the cheapest (Commit about 6 min on one L40S after its Build and Match).
-- f3 merges next. When it lowers `commit_delta.main` again, its count and this branch's 1916 conflict in `p10_size.json`.
-  Take the count `tests/lint` prints at the merged tree.
+- The P10 counts in this branch's `p10_size.json` are the sizes at `c1891d48` plus this branch. If another lane merges
+  first and conflicts there, take the count `tests/lint` prints at the merged tree.

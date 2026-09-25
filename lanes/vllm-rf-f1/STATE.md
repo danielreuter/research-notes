@@ -2,9 +2,9 @@
 id: vllm-rf-f1/state
 lane: vllm-rf-f1
 kind: state
-status: active
+status: complete
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T05:47Z
+updated: 2026-09-25T05:53Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -318,4 +318,10 @@ updated: 2026-09-25T05:47Z
   (5/5 attempts preserved)**; machines.toml marked.  No pods of this lane are running.
 - Beside this note: `head-gate_b-8efb918e-xdist.xml.gz`, `main-gate_b-c1891d48-xdist.xml.gz`, `head-gate_b-8efb918e-xdist.jdiff-main-c1891d48.txt`,
   `head-gate_b-8efb918e-xdist.jdiff-a1.txt`, `main-gate_b-c1891d48-xdist.jdiff-a1.txt`, `isa-probe-8efb918e-{default,avx2}.xml.gz`.
-- NEXT: READY.md at 8efb918e (fill the gate (b) numbers, drop the 05:12Z banner), publish; status complete.
+- 05:51Z **READY.md published at `8efb918e`** (on main `c1891d48`): gate (b) numbers + table, the host-ISA explanation of 65 vs 60
+  (and a pointer from the 299f42d5 section), a "Found, not fixed" bullet that gate (b) counts depend on the pod CPU, the 05:12Z banner
+  and the obsolete `5e0c7ca7` paragraph removed (5e0c7ca7 is in c1891d48).  origin/main still `c1891d48` at 05:37Z; pushed head
+  = local head = `8efb918e`, worktree clean.  **LANE COMPLETE** pending the coordinator's merge; no pods running.
+- 05:53Z main moved to **`2994bd25`** (A-GKR integration v2: 27 files, 24 `backends/gkr` + 3 `backends/numerical`; 0 under
+  integrations/vllm, and no integrations/vllm file references verity_numerical).  `git merge-tree origin/main 8efb918e` clean.
+  Stayed on `c1891d48` (integrations/vllm identical at both); noted in READY.md under Branch.  No rebase, no new runs.

@@ -1,0 +1,35 @@
+01:22:38Z a16 22741456 commit=22741456 seed=default rc=0 wall=33s files=76 dumps_sha=42919dbd2199aa30 urandom_last_pass=[125 efa6c6a11148 kernels=_reduce:410,lincomb:328,quad_general:82]
+01:23:00Z a16 9d1a7f15 commit=9d1a7f15 seed=default rc=0 wall=22s files=76 dumps_sha=42919dbd2199aa30 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:395,lincomb:316,quad_general:79]
+01:23:21Z a16 0baefa9d commit=0baefa9d seed=default rc=0 wall=21s files=76 dumps_sha=42919dbd2199aa30 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+01:23:40Z a16 f550fdc6 commit=f550fdc6 seed=default rc=0 wall=19s files=76 dumps_sha=42919dbd2199aa30 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:31,_reduce:349,lincomb:237,lincomb2:30,quad_general:82]
+01:23:58Z a16 92ea2531 commit=92ea2531 seed=default rc=0 wall=18s files=76 dumps_sha=42919dbd2199aa30 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+01:24:20Z a16 tip commit=a4333dd0 seed=default rc=0 wall=22s files=76 dumps_sha=42919dbd2199aa30 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+  a16 22741456 vs 22741456: IDENTICAL
+  a16 9d1a7f15 vs 22741456: IDENTICAL
+  a16 0baefa9d vs 22741456: IDENTICAL
+  a16 f550fdc6 vs 22741456: IDENTICAL
+  a16 92ea2531 vs 22741456: IDENTICAL
+  a16 tip vs 22741456: IDENTICAL
+  a16 tip rust ligero-verify rc=0 25 / 25 accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128
+01:24:23Z a16h 22741456 commit=22741456 seed=default rc=1 wall=3s files= dumps_sha= urandom_last_pass=[0 4f53cda18c2b kernels=]
+        ctx, words, _ = _private_operands(rel, sys, _format(rel))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/workspace/red-team-arith/src-22741456/backends/direct/ligero/hashchain.py", line 131, in _private_operands
+        raise ValueError(f"{rel.name}: operand pins {sorted(set(pins) ^ want)} differ from the expected decode triples")
+    ValueError: bf16-ampere-v3: operand pins ['a[0]', 'a[0].e', 'a[0].m', 'a[0].s', 'a[10]', 'a[10].e', 'a[10].m', 'a[10].s', 'a[11]', 'a[11].e', 'a[11].m', 'a[11].s', 'a[12]', 'a[12].e', 'a[12].m', 'a[12].s', 'a[13]', 'a[13].e', 'a[13].m', 'a[13].s', 'a[14]', 'a[14].e', 'a[14].m', 'a[14].s', 'a[15]', 'a[15].e', 'a[15].m', 'a[15].s', 'a[1]', 'a[1].e', 'a[1].m', 'a[1].s', 'a[2]', 'a[2].e', 'a[2].m', 'a[2].s', 'a[3]', 'a[3].e', 'a[3].m', 'a[3].s', 'a[4]', 'a[4].e', 'a[4].m', 'a[4].s', 'a[5]', 'a[5].e', 'a[5].m', 'a[5].s', 'a[6]', 'a[6].e', 'a[6].m', 'a[6].s', 'a[7]', 'a[7].e', 'a[7].m', 'a[7].s', 'a[8]', 'a[8].e', 'a[8].m', 'a[8].s', 'a[9]', 'a[9].e', 'a[9].m', 'a[9].s', 'b[0]', 'b[0].e', 'b[0].m', 'b[0].s', 'b[10]', 'b[10].e', 'b[10].m', 'b[10].s', 'b[11]', 'b[11].e', 'b[11].m', 'b[11].s', 'b[12]', 'b[12].e', 'b[12].m', 'b[12].s', 'b[13]', 'b[13].e', 'b[13].m', 'b[13].s', 'b[14]', 'b[14].e', 'b[14].m', 'b[14].s', 'b[15]', 'b[15].e', 'b[15].m', 'b[15].s', 'b[1]', 'b[1].e', 'b[1].m', 'b[1].s', 'b[2]', 'b[2].e', 'b[2].m', 'b[2].s', 'b[3]', 'b[3].e', 'b[3].m', 'b[3].s', 'b[4]', 'b[4].e', 'b[4].m', 'b[4].s', 'b[5]', 'b[5].e', 'b[5].m', 'b[5].s', 'b[6]', 'b[6].e', 'b[6].m', 'b[6].s', 'b[7]', 'b[7].e', 'b[7].m', 'b[7].s', 'b[8]', 'b[8].e', 'b[8].m', 'b[8].s', 'b[9]', 'b[9].e', 'b[9].m', 'b[9].s'] differ from the expected decode triples
+01:24:25Z a16h tip commit=a4333dd0 seed=default rc=1 wall=2s files= dumps_sha= urandom_last_pass=[0 4f53cda18c2b kernels=]
+        ctx, words, _ = _private_operands(rel, sys, _format(rel))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/workspace/src/backends/direct/ligero/hashchain.py", line 131, in _private_operands
+        raise ValueError(f"{rel.name}: operand pins {sorted(set(pins) ^ want)} differ from the expected decode triples")
+    ValueError: bf16-ampere-v3: operand pins ['a[0]', 'a[0].e', 'a[0].m', 'a[0].s', 'a[10]', 'a[10].e', 'a[10].m', 'a[10].s', 'a[11]', 'a[11].e', 'a[11].m', 'a[11].s', 'a[12]', 'a[12].e', 'a[12].m', 'a[12].s', 'a[13]', 'a[13].e', 'a[13].m', 'a[13].s', 'a[14]', 'a[14].e', 'a[14].m', 'a[14].s', 'a[15]', 'a[15].e', 'a[15].m', 'a[15].s', 'a[1]', 'a[1].e', 'a[1].m', 'a[1].s', 'a[2]', 'a[2].e', 'a[2].m', 'a[2].s', 'a[3]', 'a[3].e', 'a[3].m', 'a[3].s', 'a[4]', 'a[4].e', 'a[4].m', 'a[4].s', 'a[5]', 'a[5].e', 'a[5].m', 'a[5].s', 'a[6]', 'a[6].e', 'a[6].m', 'a[6].s', 'a[7]', 'a[7].e', 'a[7].m', 'a[7].s', 'a[8]', 'a[8].e', 'a[8].m', 'a[8].s', 'a[9]', 'a[9].e', 'a[9].m', 'a[9].s', 'b[0]', 'b[0].e', 'b[0].m', 'b[0].s', 'b[10]', 'b[10].e', 'b[10].m', 'b[10].s', 'b[11]', 'b[11].e', 'b[11].m', 'b[11].s', 'b[12]', 'b[12].e', 'b[12].m', 'b[12].s', 'b[13]', 'b[13].e', 'b[13].m', 'b[13].s', 'b[14]', 'b[14].e', 'b[14].m', 'b[14].s', 'b[15]', 'b[15].e', 'b[15].m', 'b[15].s', 'b[1]', 'b[1].e', 'b[1].m', 'b[1].s', 'b[2]', 'b[2].e', 'b[2].m', 'b[2].s', 'b[3]', 'b[3].e', 'b[3].m', 'b[3].s', 'b[4]', 'b[4].e', 'b[4].m', 'b[4].s', 'b[5]', 'b[5].e', 'b[5].m', 'b[5].s', 'b[6]', 'b[6].e', 'b[6].m', 'b[6].s', 'b[7]', 'b[7].e', 'b[7].m', 'b[7].s', 'b[8]', 'b[8].e', 'b[8].m', 'b[8].s', 'b[9]', 'b[9].e', 'b[9].m', 'b[9].s'] differ from the expected decode triples
+  a16h 22741456 vs 22741456: DIFFERENT(0 files)
+  a16h tip vs 22741456: DIFFERENT(0 files)
+01:24:46Z a16seed tip commit=a4333dd0 seed=red-team-arith/control rc=0 wall=21s files=76 dumps_sha=e6d76b4ea7d67bd1 urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+  a16seed tip vs tip: IDENTICAL
+  a16seed tip rust ligero-verify rc=0 25 / 25 accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128
+01:26:53Z a16h2 22741456 commit=22741456 seed=default rc=0 wall=71s files=76 dumps_sha=ad428dbcb4438cfe urandom_last_pass=[125 efa6c6a11148 kernels=_reduce:410,lincomb:328,quad_general:82]
+01:27:30Z a16h2 tip commit=a4333dd0 seed=default rc=0 wall=37s files=76 dumps_sha=ad428dbcb4438cfe urandom_last_pass=[125 efa6c6a11148 kernels=_quad_v4:28,_reduce:340,lincomb:234,lincomb2:27,quad_general:79]
+  a16h2 22741456 vs 22741456: IDENTICAL
+  a16h2 tip vs 22741456: IDENTICAL
+  a16h2 tip rust ligero-verify rc=0 25 / 25 accept: all 25 sub-batches accepted; union bound 2^-128.05 <= 2^-128

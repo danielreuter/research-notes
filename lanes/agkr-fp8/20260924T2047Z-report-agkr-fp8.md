@@ -5,6 +5,7 @@ created: 2026-09-24T20:47Z
 status: open
 ---
 
+CHECKPOINT a97576b5 (01:31Z) [open] H100 merged fp8-hopper 0.328s recorded: art:3ae971dd (run-files art:0c23dfc9, r20260925-010941-b9eb @3be6a35f), Rust 3/3, 2^-130.19, negatives art:70bbba68; handoff 0132Z (held). 10 nvf4 picks -> a97576b5, bytes same (fp8 + bf16). Unmerged H100 dev @a97576b5 running.
 CHECKPOINT 3be6a35f (01:11Z) [open] H100 pod 28sqi5rstcudhk (00:50Z): fp8-hopper MERGED dev @3be6a35f t.total 0.330-0.335s (cell 0.482), Rust 2/2, negatives OK. Recorded run r20260925-010941-b9eb running; then push, lookup negatives, handoff.
 CHECKPOINT 3be6a35f (00:43Z) [open] 4090 fp8-ada on MERGED LK statement: 0.490s (art:45c5be4a, run-files art:979e37aa, r20260925-002240-8ed3 @3be6a35f), Rust 3/3, 2^-130.19, dev+lookup negatives art:f01f7196; handoff 0045Z. Next: drain 4090, H100 fp8-hopper merged re-record.
 CHECKPOINT f2363663 (00:05Z) [open] 4090 fp8-ada cell re-recorded 0.666s (was 1.130): art:ecd96143, run-files art:0667ed46, r20260924-234932-5828 @f2363663, proofs b5ef0238 unchanged, Rust 3/3, 2^-130.19; negatives art:9398f028; handoff 0006Z. Merged LK table dev pass r20260925-000446-6b38 running.
@@ -131,3 +132,20 @@ kernels is the only lever, transcript fixed), arith 0.115 (phase-1 per-round hos
   term), honest multiplicities, from a prover copy with the LogUp self-check turned off: Python and Rust reject all four at
   `LogUp LK level 0: final check`. The negatives tree (dev + lookup) is art:f01f7196.
 - Predicate: only `not independently verified`. Handoff lanes/coordinator/20260925T0045Z-handoff-from-agkr-fp8.md (supersedes 0006Z).
+- 4090 pod 5vnbd6rfwm3wmd drained + terminated 00:48Z (23:27-00:48, $0.74/h, ~$1.00). verify-po verified art:45c5be4a (verdict
+  art:df4d2c3c) and HELD the label per the coordinator's 0050Z rule (rewritten statements wait for red-team-lk). The unchanged-statement
+  4090 cell art:ecd96143 (0.666 s) has been in Table 2 since about 01:20Z. Note 0115Z to the coordinator.
+
+## H100 FP8 (fp8-hopper) on the merged statement, recorded 01:21Z @ 3be6a35f
+- New pod vy-agkr-fp8 = H100 80GB HBM3 28sqi5rstcudhk (reference part, Xeon 8480+, quota 23.8 cores, $3.49/h, created 00:50Z);
+  sync 157 s, bootstrap r20260925-005609-c18d (RELS=fp8-hopper,bf16-hopper) BOOTSTRAP_OK.
+- Dev r20260925-005858-6faf (H=/workspace/agkr-fp8/fp8-hopper-m): bench 0.335 / 0.330 s, Rust 2/2, NEGATIVES OK; slots 703.
+- Recorded r20260925-010941-b9eb (clean, thread caps 23, --threads 22): result art:3ae971dd, run-files art:0c23dfc9; PRESERVED;
+  reindex ok. t.total median 0.328 s (0.322 / 0.328 / 0.328), was 0.482; buckets witness 0.025, commit 0.010, lookup 0.073,
+  arithmetic 0.177, serialization 0.041. Proofs 0021aa91…, 17078296 B, Rust 3/3 (0.58 s at 22 threads), 2^-130.19. Overhead
+  ~5.2e7x (1.08e8x of the 0.688 s cell, scaled).
+- Lookup negatives r20260925-012601-e354: 4/4 rejected by both verifiers (T_OP out, SHIFT out, TNORM out, R6 key term). Negatives
+  tree art:70bbba68. Predicate: only `not independently verified`. Handoff 0132Z (the label is held for red-team-lk).
+- Cherry-picked agkr-nvf4's 10 same-bytes prover commits (e1bcf472 … 79f00fd3 -> 1ba…a97576b5; clean picks). 06_ab
+  r20260925-012247-e20f: fp8-hopper merged sha 0021aa91 unchanged, bf16-hopper sha 4a05ada6 unchanged. Median prove 0.235 s (bench
+  prove at 3be6a35f was 0.281): mults 23.5 -> 12.5 ms, open_acc 42 -> 28, arith 96 -> 88, open_cols 15 -> 4.

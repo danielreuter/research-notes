@@ -110,17 +110,18 @@ created: 2026-09-24T17:40Z
 - 00:47:40Z **gate (a) T0 at `ce41390d` (CPU pod) GREEN**: exit 0, 64 passed / 94 skipped / 33 deselected, 3465 s; jdiff vs my 9b07c19f T0 (`a_head2.xml`) and vs base 72884c8a T0 (`a_base.xml`): 0 differences of any kind; SKIPPED lines identical (paths normalised). Logs/XML on the laptop `/tmp/rff56/gate_final/`. CPU pod `hmb9fu3hu7rdm9` DRAINED 00:50Z (minted 1 h key): 0 attempts, TERMINATED.
 - 00:43Z tp2b: gate (a) T0,T1 at 46/158, 0 F, in row #39's replay since ~00:25Z (pytest ~102 GB, flat); #70 Commit pair 0 control 2.394 s, 129 steps, tokens_equal True; pod anon 161 GB of 377.
 - 00:56Z **#70 Commit pair 0 instrumented at `9b07c19f`: root `0b91229f06480ce4` = f1's base tp run root**; 4.724 s, 129 steps, tokens_equal True, leaves 144892030, openings 128/128 verified, rank 0 sampled replay partial 484 strata (= f1). Gate (a) T0,T1 on tp2b: 70/158, 0 F (#39 replay passed); pytest back to 24 GB. ETA both ~01:35Z.
+- 01:22:41Z **#70 COMMIT at `9b07c19f` = f1's base Commit of record, component by component** (f1's tpstats.py on my row dir): `commit FAIL rc=1 wall=5085s pass False pairs 3`; tokens equal x6; tp run root `0b91229f06480ce4047fa344ce1602c4fa38d493b8b7e568713db74ac1b31957` in all 3 pairs; replay False (partial 484 / 475); linkage True 434/434; xrank False (154 = 154; AllGather2 sites without a stratum); fold_binding False (same why); weights_pin True; per pair per rank match_oracle 14592/14592, attribution ok, openings 128/128; value_check per rank tap 24960/24960, reexec 22656/22656; t6_4 True. (No `verdict.json` in the TP row dir: only row_pod.sh (TP1) writes one; the TP verdict is commit/summary.json.) Attempt rc 12, validation failed (as the FAIL class).
+- 01:25-01:34Z Commit attempt pulled (105 s) + pushed 8/8 PRESERVED (verdict `art:bb5e1a27…`, result `art:d32bbbd2…`). ALL tp2b attempts preserved. 01:30Z gate (a) T0,T1 at 108/158, 0 F, 0 E (row #73 `manifest_digest` build-global); ETA ~02:00Z.
 - FA3 not rerun, reason recorded: AST comparison shows the D17 split is a pure move (every function/constant of 9b07c19f's module in exactly one of the two files, byte-identical except `_case_ok`/`_negative_ok` -> public, 4 call sites).
 - `origin/main` = `a47a45bd` (00:05Z): commits since `1d9c3198` touch nothing under integrations/vllm nor my files; `git merge-tree origin/main ce41390d` clean -> no second rebase (would void the ce41390d gates). `git range-diff`: dfd21f73 = 3262ebb4, 9b07c19f = 6c893a29.
 
 ## Running
-- `vyv-rf-f56-tp2b` ($2.18/h): #70 Commit `r20260924-235744-64de` (ETA ~01:40Z); gate (a) T0,T1 `a_final_t01`.
-- `vyv-rf-f56-cpu` ($0.64/h): gate (a) T0 `a_final_t0` (insurance; ~55 min). Gate (b) logs pulled to `/tmp/rff56/gate_final/`.
-- Pods die at 03:00Z (deadline daemon).
+- `vyv-rf-f56-tp2b` ($2.18/h): only gate (a) T0,T1 `a_final_t01` (log `/workspace/rff56/logs/a_final_t01.{log,xml}`); every attempt preserved.
+- Pods die at 03:00Z (deadline daemon). If gate (a) is not done by 02:40Z: SIGINT the pytest (junit is still written), pull, drain.
 
 ## Next
-1. Gate (a) T0,T1 result at the head; base T0,T1 only if a T1 check fails (then on tp2b after the Commit).
-2. #70 Commit vs f1's `r20260924-221949-8668` (pair checks, verdict components, tp.commit phase wall); FA3 not rerun (driver move is exercised by the FA2 record); pull + push every tp2b attempt (incl. the refused one), drain tp2b and the CPU pod.
+1. Gate (a) T0,T1 done -> pull log/xml, jdiff vs the T0 runs (T1 rows are new), drain tp2b (minted 1 h key).
+2. READY: fill GATE_A_T01, PODS, CREATED in `/tmp/rff56/READY.draft.md`; move to this directory as READY.md; summary <= 250 words.
 3. READY: both heads (`9b07c19f` pre-rebase, `ce41390d` final), lint run, the D17 move and why, D16c restructure, the tier gap; summary <= 250 words.
 
 ## Open questions

@@ -113,6 +113,36 @@ arith's 5 commits). Budget $6, FINAL 03:30Z. All pods created by this lane; noth
   E4M3 art:dedd5070 / art:d975bd89, BF16 art:e24484d2 / art:55b40d49, E4M3+hash art:a7af1258 / art:700a7f76,
   BF16+hash art:9e9421a7 / art:edb13e2d. Pod terminated 01:16Z.
 
-## A100 (sm_80): vy-red-team-arith-a100 lqicfeu8nsf6je, SECURE, host Xeon 8470, 24 vCPU, $1.59/h, from 01:16Z
+## A100 (sm_80): vy-red-team-arith-a100 lqicfeu8nsf6je, SECURE, host Xeon 8470, 24 vCPU, $1.59/h, 01:16Z-01:30Z (~$0.37)
 - Same shipped subset (a4333dd0). Config = arith's A100 cell: bf16-ampere-v3 l=16384 p8 on the frozen vu-k1536 set
-  (bootstrap BENCH_INSTANCES=1). Run r20260925-011824-1c9a (bootstrap, tests, A/B bare 6 trees, +hash base/tip, control, register).
+  (bootstrap BENCH_INSTANCES=1, torch per pod_bootstrap). Runs r20260925-011824-1c9a (bootstrap, tests, A/B, control,
+  register), r20260925-012537-0076 (+hash, register). Summaries: evidence/a100/{ab-summary.txt, redteam_arith_test.log, tests_fused_test.log}.
+- tests_fused_test.py: bit-exact PASS. redteam_arith_test.py: 227 PASS (intt_rows admitted up to n = 32768 with the
+  166912 B opt-in, `_intt_ginv` at 32768), the same 3 shared-memory launch ERRORs, replaced kernels OK on the same inputs.
+- Byte A/B (25 sub-batches, 76 files):
+  | config | 22741456 | 9d1a7f15 | 0baefa9d | f550fdc6 | 92ea2531 | 92dab0ad | Rust verify (tip) |
+  |---|---|---|---|---|---|---|---|
+  | BF16 bf16-ampere-v3 l=16384 p8 | 42919dbd | = | = | = | = | = | 25/25, 2^-128.05 |
+  | BF16 + in-proof hash: bf16-ampere l=16384 p8 --auth included-hash | ad428dbc | . | . | . | . | = | 25/25, 2^-128.05 |
+  | control: tip, RTA_SEED=red-team-arith/control | | | | | | e6d76b4e (differs) | 25/25 |
+  `--auth included-hash` on bf16-ampere-v3 itself raises in `hashchain._private_operands` ("operand pins ... differ from the
+  expected decode triples") on the base tree and the tip alike (a pre-existing relation limit, not arith's), so the hash
+  row uses the committed bf16-ampere relation, as the H100 hash rows use bf16-hopper.
+- Kernels reached (tip): lincomb2 27 (D 6, C1 (6, 1665) row stride 118791, X (1665, 16640) int32), _quad_v4 28
+  (rho (6, 881), X (1629, 65536)), intt_scaled 0 (n = 65536 > the sm_80 limit of 32768: f550fdc6 falls back on this row).
+- Artifacts (all preserved, `data preserved` rc=0 on the pod): evidence trees art:d30a7b45 (bare/control) and art:6f8e4c5c
+  (final, incl. +hash); dumps bare base art:3f4336b3, tip art:65003df1; +hash base art:d85ac42b, tip art:080e5498
+  (art:abe5e3e7 / art:a93406b1 hold only the logs of the failed bf16-ampere-v3 + hash attempt). Pod terminated 01:30Z.
+
+## Verdict (per commit x target; "PASS" = proof bytes identical to base 22741456 under fixed coins, Rust verifier accepts)
+| commit | RTX 5090 sm_120 (fp4-nvf4) | H100 sm_90 (E4M3, BF16) | A100 sm_80 (BF16) |
+|---|---|---|---|
+| 9d1a7f15 quad_v4 + reduce_partial | PASS | PASS | PASS |
+| 0baefa9d lincomb2_v4, beta dropped | PASS | PASS | PASS |
+| f550fdc6 intt_rows | PASS (kernel not reached, n=32768) | PASS (reached, 56 calls) | PASS (kernel not reached, n=65536) |
+| 92ea2531 / 92dab0ad scheduling + warm | PASS | PASS | PASS |
+Bare rows all 6 trees; +hash rows all 6 trees on 5090/H100, base vs tip on A100; FS base vs tip on 5090/H100.
+No counterexample to byte equality. Separate robustness finding (a crash, never a different byte): quad_v4 / lincomb2
+launch fail above 48 KiB of dynamic shared memory (D=6 Q>262144, D=7 Q>224768, lincomb2 D=7 chunk>877 rows), where the
+replaced kernels run; Table 2 shapes are 4-10x below those limits. 4090 (sm_89) not run: its opt-in limit and code
+paths are those of the 5090.

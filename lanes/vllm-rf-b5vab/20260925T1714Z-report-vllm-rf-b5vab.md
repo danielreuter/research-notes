@@ -5,6 +5,9 @@ created: 2026-09-25T17:14Z
 status: final
 ---
 
+CHECKPOINT 3201c3f4 (21:12Z) [final] READY lane/vllm-rf-b5vab@3201c3f4 (merge request 20260925T2106Z to vllm-coordinator): split verbatim, lints rc0, gate (b) 0 new, gate (a) 158 = base, #101 = record. Pods terminated: b5vab-reg 18:20Z, b4b-cpu 19:03Z, b4b-g1 20:17Z, c4ir-reg 21:05Z. Spend ~$9 of $16.
+CHECKPOINT 3201c3f4 (21:10Z) [final] READY lane/vllm-rf-b5vab@3201c3f4 (merge request 20260925T2106Z to vllm-coordinator): split verbatim, lints rc0, gate (b) 0 new, gate (a) 158 = base, #101 = record. Pods terminated: b5vab-reg 18:20Z, b4b-cpu 19:03Z, b4b-g1 20:17Z, c4ir-reg 21:05Z. Spend ~$9 of $16.
+CHECKPOINT 3201c3f4 (21:09Z) [final] READY lane/vllm-rf-b5vab@3201c3f4 (merge request 20260925T2106Z to vllm-coordinator): split verbatim, lints rc0, gate (b) 0 new, gate (a) 158 = base, #101 = record. Pods terminated: b5vab-reg 18:20Z, b4b-cpu 19:03Z, b4b-g1 20:17Z, c4ir-reg 21:05Z. Spend ~$9 of $16.
 CHECKPOINT 3201c3f4 (21:07Z) [final] READY lane/vllm-rf-b5vab@3201c3f4 (merge request 20260925T2106Z to vllm-coordinator): split verbatim, lints rc0, gate (b) 0 new, gate (a) 158 = base, #101 = record. Pods terminated: b5vab-reg 18:20Z, b4b-cpu 19:03Z, b4b-g1 20:17Z, c4ir-reg 21:05Z. Spend ~$9 of $16.
 CHECKPOINT 3201c3f4 (21:06Z) [final] READY lane/vllm-rf-b5vab@3201c3f4 (merge request 20260925T2106Z to vllm-coordinator): split verbatim, lints rc0, gate (b) 0 new, gate (a) 158 = base, #101 = record. Pods terminated: b5vab-reg 18:20Z, b4b-cpu 19:03Z, b4b-g1 20:17Z, c4ir-reg 21:05Z. Spend ~$9 of $16.
 CHECKPOINT 3201c3f4 (20:16Z) [open] #101 at 3201c3f4 = record (program ccc21347, manifest 90f81868, run root 7adcef49, commit PASS, nonint 992/992); b4b-g1 terminated. WAIT vyv-rf-c4ir-reg r20260925-181956-7c6e + r20260925-182011-fabf check-back 21:00Z agent bc-a4fbe8b2-3532-5d9a-9cfa-bf614fca043f

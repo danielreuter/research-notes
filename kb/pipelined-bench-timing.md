@@ -35,6 +35,16 @@ Facts measured by lane arith (2026-09-24, lanes/arith/20260924T1904Z-report-arit
 - Record the host CPU with every cell (the result's workload_fingerprint.hardware.cpu), and do not compare absolute
   numbers across host classes.
 
+## Fused prover kernels: byte equality and shared-memory limits (lane red-team-arith, 2026-09-25)
+- Under fixed coins (`backends/direct/ligero/redteam_arith_det.py` keys every os.urandom draw by sub-batch and draw
+  number, reset per prove_many pass) arith's 9d1a7f15..92dab0ad dumps are byte-identical to main 22741456 on 5090,
+  H100 and A100 (lanes/red-team-arith report; evidence art:34e47954, art:6f099c8b, art:6f8e4c5c).
+- `intt_scaled` (intt_rows) runs only when 4n <= the opt-in shared memory: n <= 16384 on sm_89/sm_120, 32768 on
+  sm_80 (166912 B), 32768 on sm_90. Only the H100 Table 2 rows reach it; the 5090 (n=32768) and A100 (n=65536) fall back.
+- quad_v4 / lincomb2 launch with >48 KiB of dynamic shared memory and no opt-in, and do not fall back: CUDA_ERROR_INVALID_VALUE
+  for D=6 with Q > 262144 general constraints per sub-batch, D=7 with Q > 224768, and lincomb2 at D=7 with a row chunk > 877
+  rows. Table 2 shapes (Q 212-881, D=6) are far below; larger relations or Fiat-Shamir at scale would hit it.
+
 ## Custody of pod-side puts
 - `research notes checkpoint LANE final` reads the laptop catalog, which never sees `data put --preserve` done on a pod.
 - To fix it, run a bounded laptop-side `research data preserved <ids>` in batches of about 7, with the store creds

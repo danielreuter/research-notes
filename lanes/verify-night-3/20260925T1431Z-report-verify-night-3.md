@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 977ad27b (14:51Z) [open] xob b47828e4 + bb69174b PASS (labels pending push); ecccca50 running. sha256 fcd6a623 ERROR (tree has proofs at root, no proofs/): reverify patched 977ad27b to read root layout, rerunning; 4aa258ee fetching
 CHECKPOINT a5d9b632 (14:45Z) [open] equiv art:d9b3724d (x4 8192) -> verdict art:73aa7efe, art:b6f2e1df (x4 32768) -> art:7b44bcad: both --check reproduce, equal=True, candidate == result instances; verified=accepted, preserved. Renderer _equiv_content @2c92b9e3 still wants frozen==[0,4096] (coord told). Running: reverify sha256 fcd6a623/4aa258ee, xob b47828e4/bb69174b/ecccca50
 CHECKPOINT a5d9b632 (14:38Z) [open] H100 +blake3 table rows (c8730574 7c6b4647 9c11326c 7a3965da) already verified=accepted by verify-night-2 -> item 3 done. Pod bootstrapping (frozen set + cargo). Queue: equiv d9b3724d/b6f2e1df, sha256 4aa258ee/fcd6a623, xob b47828e4/bb69174b/ecccca50
 CHECKPOINT a5d9b632 (14:35Z) [open] pod vy-verify-night-3 k2ww8qvkhxlvab (cpu3c 16vCPU, 150GB, guard 30) bootstrapping r20260925-143459-f66c; verifier tree lane/verify-night-3 a5d9b632 = main 2c92b9e3 + 5b28557b (xob pins); next: equiv d9b3724d/b6f2e1df, sha256 x4

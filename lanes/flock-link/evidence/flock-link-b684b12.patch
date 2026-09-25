@@ -1,0 +1,484 @@
+diff --git a/crates/flock-core/src/pcs.rs b/crates/flock-core/src/pcs.rs
+index c3362dc..c36ce18 100644
+--- a/crates/flock-core/src/pcs.rs
++++ b/crates/flock-core/src/pcs.rs
+@@ -2524,10 +2524,11 @@ pub fn verify_batch_merged<Ch: Challenger>(
+     grinding: OpeningGrinding,
+     challenger: &mut Ch,
+ ) -> Result<(), PcsOpenError> {
++    let skip_ws: Vec<Vec<F128>> = z_skips.iter().map(|z| z.weights(LOG_PACKING - 1)).collect();
+     verify_batch_merged_core(
+         commitment,
+         claims,
+-        z_skips,
++        &skip_ws,
+         x_outers,
+         packed_direct,
+         heights,
+@@ -2561,10 +2562,11 @@ pub fn verify_batch_merged_deferred<Ch: Challenger>(
+     challenger: &mut Ch,
+ ) -> Result<JaggedAssertion, PcsOpenError> {
+     let mut out = None;
++    let skip_ws: Vec<Vec<F128>> = z_skips.iter().map(|z| z.weights(LOG_PACKING - 1)).collect();
+     verify_batch_merged_core(
+         commitment,
+         claims,
+-        z_skips,
++        &skip_ws,
+         x_outers,
+         packed_direct,
+         heights,
+@@ -2578,11 +2580,35 @@ pub fn verify_batch_merged_deferred<Ch: Challenger>(
+     Ok(out.expect("the deferred core fills the export"))
+ }
+ 
++/// [`verify_batch_merged`] with every ring-switched claim's 64 skip weights
++/// given explicitly (e.g. an eq tensor for a fully multilinear claim) instead
++/// of derived from a [`SkipPoint`]. Transcript-identical for equal weights.
++#[allow(clippy::too_many_arguments)]
++pub fn verify_batch_merged_weighted<Ch: Challenger>(
++    commitment: &Commitment,
++    claims: &[F128],
++    skip_ws: &[Vec<F128>],
++    x_outers: &[&[F128]],
++    packed_direct: &[PackedDirectClaimRef<'_>],
++    heights: &[u64],
++    n_log: usize,
++    proof: &MergedOpenProof,
++    lig_config: &VerifierConfig,
++    grinding: OpeningGrinding,
++    challenger: &mut Ch,
++    defer: Option<&mut Option<JaggedAssertion>>,
++) -> Result<(), PcsOpenError> {
++    verify_batch_merged_core(
++        commitment, claims, skip_ws, x_outers, packed_direct, heights, n_log, proof, lig_config,
++        grinding, challenger, defer,
++    )
++}
++
+ #[allow(clippy::too_many_arguments)]
+ fn verify_batch_merged_core<Ch: Challenger>(
+     commitment: &Commitment,
+     claims: &[F128],
+-    z_skips: &[SkipPoint],
++    skip_ws: &[Vec<F128>],
+     x_outers: &[&[F128]],
+     packed_direct: &[PackedDirectClaimRef<'_>],
+     heights: &[u64],
+@@ -2595,7 +2621,7 @@ fn verify_batch_merged_core<Ch: Challenger>(
+ ) -> Result<(), PcsOpenError> {
+     let n_rs = claims.len();
+     let n_pd = packed_direct.len();
+-    assert_eq!(z_skips.len(), n_rs);
++    assert_eq!(skip_ws.len(), n_rs);
+     assert_eq!(x_outers.len(), n_rs);
+     if proof.ring_switches.len() != n_rs {
+         return Err(PcsOpenError::Assist);
+@@ -2621,10 +2647,10 @@ fn verify_batch_merged_core<Ch: Challenger>(
+     let t = Instant::now();
+     let mut rs_outputs = Vec::with_capacity(n_rs);
+     for i in 0..n_rs {
+-        let skip_w = z_skips[i].weights(LOG_PACKING - 1);
++        let skip_w = &skip_ws[i];
+         let out = verify_succinct_with_grinding(
+             claims[i],
+-            &skip_w,
++            skip_w,
+             x_outers[i],
+             &proof.ring_switches[i],
+             grinding.ring_switch_bits,
+diff --git a/crates/flock-core/src/proof.rs b/crates/flock-core/src/proof.rs
+index 1ba322d..3719295 100644
+--- a/crates/flock-core/src/proof.rs
++++ b/crates/flock-core/src/proof.rs
+@@ -147,6 +147,29 @@ pub struct UnionClassClaims {
+     pub element: Option<Claims>,
+ }
+ 
++/// A link claim (verity flock-link): `ẑ(point) = value` for the bit-MLE of the
++/// PADDED union witness at a fully multilinear point of `M` coordinates,
++/// LSB-first over the bit address. Opened as a ring-switched claim whose 64
++/// skip weights are the eq tensor of `point[0..6]` ([`eq_skip_weights`]), not
++/// a φ₈ Lagrange functional.
++#[derive(Clone, Debug, PartialEq, Eq)]
++pub struct LinkClaim {
++    pub point: Vec<F128>,
++    pub value: F128,
++}
++
++/// `eq(r, j)` for the `2^r.len()` Boolean `j` (bit `k` of `j` against `r[k]`).
++pub fn eq_skip_weights(r: &[F128]) -> Vec<F128> {
++    let mut w = vec![F128::ONE];
++    for &rk in r {
++        let mut next = Vec::with_capacity(2 * w.len());
++        next.extend(w.iter().map(|x| *x * (F128::ONE + rk)));
++        next.extend(w.iter().map(|x| *x * rk));
++        w = next;
++    }
++    w
++}
++
+ /// A claim of the form `ẑ(point) = value` for the witness `z`.
+ #[derive(Clone, Debug, PartialEq, Eq)]
+ pub struct ZClaim {
+diff --git a/crates/flock-core/src/verifier.rs b/crates/flock-core/src/verifier.rs
+index bfd1d70..db04e30 100644
+--- a/crates/flock-core/src/verifier.rs
++++ b/crates/flock-core/src/verifier.rs
+@@ -12,7 +12,8 @@ use lincheck::{
+ };
+ use pcs::{
+     BatchOpeningProofLigerito, LOG_PACKING, PackedDirectClaimRef, PcsError, verify_batch_merged,
+-    verify_batch_merged_deferred, verify_opening_batch_ligerito_mixed_with_grinding,
++    verify_batch_merged_deferred, verify_batch_merged_weighted,
++    verify_opening_batch_ligerito_mixed_with_grinding,
+ };
+ use rayon::{ThreadPool, ThreadPoolBuilder};
+ use zerocheck::{
+@@ -44,7 +45,7 @@ use crate::{
+         BooleanPiopProof, BooleanPiopProofAg, R1csClaim, R1csProofCircuitMerged,
+         R1csProofCircuitMergedAg, R1csProofLigerito, R1csProofLigeritoAg, R1csProofMergedLigerito,
+         R1csProofMergedLigeritoAg, R1csProofMixedClassMerged, UnionClassClaims, ZClaim,
+-        bind_statement,
++        LinkClaim, bind_statement, eq_skip_weights,
+     },
+     r1cs::BlockR1cs,
+     union::UnionInstance,
+@@ -264,7 +265,7 @@ pub fn verify_ligerito_union_ag<Ch: Challenger>(
+         &proof.pcs_open,
+         pcs_params,
+         challenger,
+-        None,
++        None, &[],
+     )?;
+     Ok(claims.boolean.expect("boolean-only registry checked above"))
+ }
+@@ -324,7 +325,62 @@ pub fn verify_ligerito_union_circuit<Ch: Challenger>(
+         &proof.pcs_open,
+         pcs_params,
+         challenger,
+-        None,
++        None, &[],
++    )
++}
++
++/// [`verify_ligerito_union_circuit`] plus link claims ([`LinkClaim`]) opened in
++/// the same merged opening (verity flock-link). The caller supplies the
++/// claims from the verifier's own record: the points it drew and the values
++/// the prover sent before any challenge of this proof.
++#[allow(clippy::too_many_arguments)]
++pub fn verify_ligerito_union_circuit_linked<Ch: Challenger>(
++    union: &UnionInstance<'_>,
++    circuit: &Circuit,
++    public: &[F128],
++    circuits: &[&dyn LincheckCircuit],
++    commitment: &Commitment,
++    proof: &R1csProofCircuitMerged,
++    pcs_params: &PcsParams,
++    challenger: &mut Ch,
++    link: &[LinkClaim],
++) -> Result<UnionClassClaims, FlockVerifyError> {
++    if !circuit.check_instance(union) || !circuit.check_public(public) {
++        return Err(FlockVerifyError::CircuitMismatch);
++    }
++    if proof.boolean.is_some() != (union.num_boolean() > 0)
++        || proof.element.is_some() != union.has_element()
++    {
++        return Err(FlockVerifyError::ClassMismatch);
++    }
++    let (claims, packed_direct_points, matrix, el_matrix, _sigma) = verify_union_piops(
++        union,
++        UnionVerifyBinding::Circuit { circuit, public },
++        circuits,
++        commitment,
++        proof.boolean.as_ref().map(BooleanPiopRef::Rs),
++        proof.element.as_ref(),
++        Some(&proof.wiring),
++        false,
++        pcs_params,
++        challenger,
++    )?;
++    if let Some(a) = matrix {
++        a.check(union, circuits)
++            .map_err(FlockVerifyError::Lincheck)?;
++    }
++    if let Some(a) = el_matrix {
++        a.check_reported(union).map_err(FlockVerifyError::Element)?;
++    }
++    verify_merged_opening(
++        union,
++        commitment,
++        &claims,
++        &packed_direct_points,
++        &proof.pcs_open,
++        pcs_params,
++        challenger,
++        None, link,
+     )
+ }
+ 
+@@ -388,7 +444,7 @@ pub fn verify_ligerito_union_circuit_deferred<Ch: Challenger>(
+         &proof.pcs_open,
+         pcs_params,
+         challenger,
+-        Some(&mut jagged),
++        Some(&mut jagged), &[],
+     )?;
+     Ok((
+         claims,
+@@ -450,7 +506,7 @@ pub fn verify_ligerito_union_circuit_ag<Ch: Challenger>(
+         &proof.pcs_open,
+         pcs_params,
+         challenger,
+-        None,
++        None, &[],
+     )
+ }
+ 
+@@ -497,7 +553,7 @@ pub fn verify_ligerito_union_circuit_ag_deferred<Ch: Challenger>(
+         &proof.pcs_open,
+         pcs_params,
+         challenger,
+-        Some(&mut jagged),
++        Some(&mut jagged), &[],
+     )?;
+     Ok((
+         claims,
+@@ -521,14 +577,16 @@ fn verify_merged_opening<Ch: Challenger>(
+     pcs_params: &PcsParams,
+     challenger: &mut Ch,
+     defer: Option<&mut Option<JaggedAssertion>>,
++    link: &[LinkClaim],
+ ) -> Result<UnionClassClaims, FlockVerifyError> {
+     let cl: Vec<ZClaim> = match &claims.boolean {
+         Some(c) => vec![c.ab.clone(), c.c.clone()],
+         None => Vec::new(),
+     };
+-    let values: Vec<F128> = cl.iter().map(|z| z.value).collect();
+-    let z_skips: Vec<SkipPoint> = cl.iter().map(|z| z.point.z_skip).collect();
+-    let x_fulls: Vec<Vec<F128>> = cl
++    let mut values: Vec<F128> = cl.iter().map(|z| z.value).collect();
++    let mut skip_ws: Vec<Vec<F128>> =
++        cl.iter().map(|z| z.point.z_skip.weights(LOG_PACKING - 1)).collect();
++    let mut x_fulls: Vec<Vec<F128>> = cl
+         .iter()
+         .map(|z| {
+             let mut v = z.point.x_inner_rest.clone();
+@@ -536,6 +594,14 @@ fn verify_merged_opening<Ch: Challenger>(
+             v
+         })
+         .collect();
++    for l in link {
++        if l.point.len() != union.m_total() {
++            return Err(FlockVerifyError::PcsOpen(PcsOpenError::Assist));
++        }
++        values.push(l.value);
++        skip_ws.push(eq_skip_weights(&l.point[..LOG_PACKING - 1]));
++        x_fulls.push(l.point[LOG_PACKING - 1..].to_vec());
++    }
+     let x_refs: Vec<&[F128]> = x_fulls.iter().map(|v| v.as_slice()).collect();
+     let pd: Vec<PackedDirectClaimRef<'_>> = packed_direct_points
+         .iter()
+@@ -548,11 +614,11 @@ fn verify_merged_opening<Ch: Challenger>(
+         .ligerito_verifier_config()
+         .expect("Ligerito default verifier config");
+     verifier_pool()
+-        .install(|| match defer {
+-            Some(out) => verify_batch_merged_deferred(
++        .install(|| {
++            verify_batch_merged_weighted(
+                 commitment,
+                 &values,
+-                &z_skips,
++                &skip_ws,
+                 &x_refs,
+                 &pd,
+                 &union.jagged_heights(),
+@@ -561,21 +627,8 @@ fn verify_merged_opening<Ch: Challenger>(
+                 &lig_v_config,
+                 pcs_params.opening_grinding(),
+                 challenger,
++                defer,
+             )
+-            .map(|a| *out = Some(a)),
+-            None => verify_batch_merged(
+-                commitment,
+-                &values,
+-                &z_skips,
+-                &x_refs,
+-                &pd,
+-                &union.jagged_heights(),
+-                union.n_log(),
+-                pcs_open,
+-                &lig_v_config,
+-                pcs_params.opening_grinding(),
+-                challenger,
+-            ),
+         })
+         .map_err(FlockVerifyError::PcsOpen)?;
+     Ok(claims.clone())
+diff --git a/crates/flock-prover/src/prover.rs b/crates/flock-prover/src/prover.rs
+index 5a99842..d9b38b7 100644
+--- a/crates/flock-prover/src/prover.rs
++++ b/crates/flock-prover/src/prover.rs
+@@ -41,7 +41,7 @@ use flock_core::{
+     pcs::{self, Commitment, PcsParams},
+     proof::{
+         BooleanPiopProof, R1csClaim, R1csProofCircuitMerged, R1csProofLigerito,
+-        R1csProofMergedLigerito, R1csProofMixedClassMerged, UnionClassClaims, ZClaim,
++        R1csProofMergedLigerito, R1csProofMixedClassMerged, UnionClassClaims, ZClaim, LinkClaim,
+         bind_statement,
+     },
+     r1cs::{BlockR1cs, WitnessLayout},
+@@ -598,6 +598,69 @@ pub fn prove_fast_ligerito_union_circuit<Ch: Challenger>(
+     )
+ }
+ 
++/// [`prove_fast_ligerito_union_circuit`] plus link claims: `link` runs right
++/// after the statement binding and returns claims opened in the same merged
++/// opening. Verify with
++/// [`flock_core::verifier::verify_ligerito_union_circuit_linked`].
++#[allow(clippy::too_many_arguments)]
++pub fn prove_fast_ligerito_union_circuit_linked<Ch: Challenger>(
++    union: &UnionInstance<'_>,
++    circuit: &Circuit,
++    public: &[F128],
++    pcs_params: &PcsParams,
++    slots: Vec<UnionSlotProverInput<'_>>,
++    element_slots: Vec<UnionElementSlotInput<'_>>,
++    link: LinkHook<'_>,
++    challenger: &mut Ch,
++) -> (R1csProofCircuitMerged, Commitment, UnionClassClaims) {
++    assert!(
++        circuit.check_instance(union),
++        "the circuit and the union instance must be the same statement \
++         (same registry, and the circuit's gate counts ARE the union's counts)"
++    );
++    assert!(
++        circuit.check_public(public),
++        "the public segment must have the circuit's declared length and fixed constants"
++    );
++    let (out, commitment) = prove_union_with_binding_zerocheck_link(
++        union,
++        UnionProveBinding::Circuit(CircuitProverInput { circuit, public }),
++        BooleanZcKind::Rs,
++        pcs_params,
++        slots,
++        element_slots,
++        Some(link),
++        challenger,
++    );
++    let UnionProveOutput {
++        boolean,
++        element,
++        wiring,
++        pcs_open,
++    } = out;
++    let (bool_proof, bool_claim) = match boolean {
++        Some((p, c)) => (Some(p.expect_rs()), Some(c)),
++        None => (None, None),
++    };
++    let (el_proof, el_claim) = match element {
++        Some((p, c)) => (Some(p), Some(c)),
++        None => (None, None),
++    };
++    (
++        R1csProofCircuitMerged {
++            boolean: bool_proof,
++            element: el_proof,
++            wiring: wiring.expect("the circuit binding runs the wiring argument"),
++            pcs_open,
++        },
++        commitment,
++        UnionClassClaims {
++            boolean: bool_claim,
++            element: el_claim,
++        },
++    )
++}
++
+ /// Proves a Boolean-only registry with the merged opening transport.
+ ///
+ /// This wraps [`prove_union_with_binding`] and packages the Boolean subproofs as
+@@ -850,6 +913,27 @@ fn prove_union_with_binding_zerocheck<Ch: Challenger>(
+     slots: Vec<UnionSlotProverInput<'_>>,
+     element_slots: Vec<UnionElementSlotInput<'_>>,
+     challenger: &mut Ch,
++) -> (UnionProveOutput, Commitment) {
++    prove_union_with_binding_zerocheck_link(
++        union, binding, bool_zc, pcs_params, slots, element_slots, None, challenger,
++    )
++}
++
++/// Called once per proof right after the statement binding (commitment root
++/// absorbed, no challenge drawn yet): returns the link claims to open in this
++/// proof's merged opening (verity flock-link).
++pub type LinkHook<'a> = &'a mut dyn FnMut(&Commitment) -> Vec<LinkClaim>;
++
++#[allow(clippy::too_many_arguments)]
++fn prove_union_with_binding_zerocheck_link<Ch: Challenger>(
++    union: &UnionInstance<'_>,
++    binding: UnionProveBinding,
++    bool_zc: BooleanZcKind,
++    pcs_params: &PcsParams,
++    slots: Vec<UnionSlotProverInput<'_>>,
++    element_slots: Vec<UnionElementSlotInput<'_>>,
++    link: Option<LinkHook<'_>>,
++    challenger: &mut Ch,
+ ) -> (UnionProveOutput, Commitment) {
+     // The commitment is to the DENSE stack q (M4): PcsParams.m is the dense
+     // variable count; the PIOP and the virtual-opening sumcheck keep the
+@@ -917,9 +1001,12 @@ fn prove_union_with_binding_zerocheck<Ch: Challenger>(
+     // Flavor-independent since the AG round 1 + fold went run-list-gated
+     // (Dead blocks skipped, Partial blocks cleansed — no declared-dead bit
+     // is read on either flavor).
++    // Link claims (flock-link) fold the padded buffer at points that are
++    // random over the dummy rows, so its padding must be honest zeros.
+     let padding_unread = !union.has_element()
+         && !union.compaction_is_identity()
+-        && union.m_total() - union.n_log() >= LOG_PACKING;
++        && union.m_total() - union.n_log() >= LOG_PACKING
++        && link.is_none();
+     let (z_packed, a_packed_f128, b_packed_f128, stripes, buf_mode) =
+         build_union_witness(union, sources, padding_unread);
+     // Where the witness buffers return: the dirty scratch pool for the pooled
+@@ -1008,6 +1095,13 @@ fn prove_union_with_binding_zerocheck<Ch: Challenger>(
+             union.bind_statement_circuit(challenger, &commitment, &ci.circuit.digest(), ci.public)
+         }
+     }
++    let link_claims: Vec<LinkClaim> = match link {
++        Some(f) => f(&commitment),
++        None => Vec::new(),
++    };
++    for l in &link_claims {
++        assert_eq!(l.point.len(), union.m_total(), "a link claim point has M coordinates");
++    }
+ 
+     if trace {
+         eprintln!(
+@@ -1379,7 +1473,7 @@ fn prove_union_with_binding_zerocheck<Ch: Challenger>(
+     let t_h = t.elapsed().as_secs_f64() * 1e3;
+     let t = std::time::Instant::now();
+     type Pre<'a> = Vec<Option<&'a [F128]>>;
+-    let (z_claims, pre, banks): (Vec<ZClaim>, Pre<'_>, Pre<'_>) = match &boolean {
++    let (z_claims, mut pre, mut banks): (Vec<ZClaim>, Pre<'_>, Pre<'_>) = match &boolean {
+         Some((_, claim, s_hat_v_ab, s_hat_v_c, banks)) => (
+             vec![claim.ab.clone(), claim.c.clone()],
+             vec![s_hat_v_ab.as_deref(), Some(s_hat_v_c.as_slice())],
+@@ -1411,10 +1505,15 @@ fn prove_union_with_binding_zerocheck<Ch: Challenger>(
+         );
+     }
+     let t = Instant::now();
+-    let x_fulls: Vec<Vec<F128>> = z_claims
++    let mut x_fulls: Vec<Vec<F128>> = z_claims
+         .iter()
+         .map(|cl| quirky_x_outer_full(&cl.point))
+         .collect();
++    for l in &link_claims {
++        x_fulls.push(l.point[LOG_PACKING - 1..].to_vec());
++        pre.push(None);
++        banks.push(None);
++    }
+     let x_refs: Vec<&[F128]> = x_fulls.iter().map(|v| v.as_slice()).collect();
+     // Under the alias, `z_packed` IS `q`: hand it over and let the open serve
+     // the padded witness from it. Otherwise the two are distinct buffers and

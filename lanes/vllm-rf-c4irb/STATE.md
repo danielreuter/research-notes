@@ -4,7 +4,7 @@ lane: vllm-rf-c4irb
 kind: state
 status: running (head 793f14af on main; gates (b), lints, core, #101 pass; gate (a) in progress)
 created: 2026-09-25T14:05Z
-updated: 2026-09-25T14:26Z
+updated: 2026-09-25T14:54Z
 ---
 # vllm-rf-c4irb: boundary, partition and liveness into core `verity.ir` (state)
 
@@ -15,7 +15,7 @@ updated: 2026-09-25T14:26Z
 > **c4irb succeeds c4ir** (Cursor agent bc-fbcf78e2, hung about 12:30Z when the host disconnected). Lane agent bc-53dac16f;
 > coordinator bc-ba6cec03. Start commit `7313e799` (`origin/lane/vllm-rf-c4ir-p2-on-a4`). Working branch
 > `lane/vllm-rf-c4irb`, worktree `/Users/danielreuter/projects/verity-wt/rf-c4irb`. a4 base: 10996616 (a4 not in main at 14:06Z).
-> Deadline 2026-09-25T17:00Z. Budget: what remains of c4ir's phase 2 $15.
+> Deadline 2026-09-25T18:30Z (coordinator banner above). Budget: what remains of c4ir's phase 2 $15.
 > Everything below "c4irb" is c4ir's STATE.md as of 12:29Z, kept verbatim.
 
 ## c4irb (from 14:05Z)
@@ -50,11 +50,12 @@ updated: 2026-09-25T14:26Z
 - `vyv-rf-c4ir-reg` (oh3k08zb07i38u, $1.76/h): gate (a) r20260925-120631-fb6b at `7313e799`. 14:21Z: on MoE row #67 (a23b's
   test 73 of 158, which a23b reached at 2779 s; here 7400 s, so 2.66x slower: single-threaded build-global at 100% CPU, host
   64% idle, no cgroup CPU cap; the per-core speed is lower). Projected finish about 17:00Z.
+- 14:53Z: 84 of 158 (MoE row #68 manifest, a23b's 3396 s; here 9291 s, 2.74x). Projected finish about 17:10Z, inside 18:30Z.
 
 ## Open questions (c4irb)
-- **14:22Z, for the coordinator: extend the deadline for `vyv-rf-c4ir-reg` to 18:00Z.** Gate (a) projects to finish at about
-  17:00Z, the current deadline (a23b took 6391 s; this host runs 2.66x slower). Restarting elsewhere costs more and ends
-  later. Spend at 14:21Z about $8.9 of phase 2's $15; reg to 17:30Z adds about $5.5.
+- (resolved: the coordinator re-armed to 18:30Z at 14:27Z) 14:22Z request to extend the deadline for `vyv-rf-c4ir-reg`
+  past 17:00Z.
+- None open.
 
 ## Next (c4irb)
 - Gate (a) done: compare `gate_a.xml` test by test with `gate_a-t0t1-base-72884c8a-samepod.xml.gz` on the pod; publish with a

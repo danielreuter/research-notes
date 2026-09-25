@@ -57,7 +57,8 @@ pub fn main() {
     let verify = guest::build_verifier_vu_batch(verifier_pp);
     for &n in &list("VU_NS", "1,4,16") {
         for &mode in &list("MODES", "0,1") {
-            let (rows, y) = gen(n, 0x5eed_0000 + n as u64);
+            let (words, y) = gen(n, 0x5eed_0000 + n as u64);
+            let rows = serde_bytes::ByteBuf::from(words.iter().flat_map(|w| w.to_le_bytes()).collect::<Vec<u8>>());
             let native = guest::vu_batch(rows.clone(), y.clone(), mode as u8);
             assert!(native.0, "native check failed");
             let summary = guest::analyze_vu_batch(rows.clone(), y.clone(), mode as u8);
@@ -67,11 +68,12 @@ pub fn main() {
                 let t = Instant::now();
                 let (output, proof, io) = prove(rows.clone(), y.clone(), mode as u8);
                 let tp = t.elapsed().as_secs_f64();
+                let padded = proof.trace_length;
                 let t = Instant::now();
                 let valid = verify(rows.clone(), y.clone(), mode as u8, output.clone(), io.panic, proof);
                 let tv = t.elapsed().as_secs_f64();
                 println!(
-                    "RESULT B={n} mode={mode} rep={rep} trace_len={tl} prove_s={tp:.3} verify_s={tv:.3} ok={} valid={valid}",
+                    "RESULT B={n} mode={mode} rep={rep} trace_len={tl} proof_trace_length={padded} prove_s={tp:.3} verify_s={tv:.3} ok={} valid={valid}",
                     output.0
                 );
             }

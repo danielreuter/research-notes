@@ -1,0 +1,1441 @@
+{
+ "vectors_sha256": "f63cd95d7581118d7c21a4cca61e85c1019456f6898230000138b0b7b665d109",
+ "copies": {
+  "A_native_tree.prod_so": {
+   "source": "integrations/vllm/verity_vllm/acquire/native_tree.cu",
+   "source_sha256": "ef7563272c7e2c4c8e0b1c973224bf5113d96bafc5dc493a07fcf4b2cd59b066",
+   "how": "production verity_native_collect extension /root/.cache/torch_extensions/py312_cu129/verity_native_collect/fcaf6ea769d6/verity_native_collect.so (ctypes on its extern C launchers)",
+   "checks": [
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[0] whole-step",
+     "want": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "got": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "equal": true,
+     "note": "chunk at index 0 of a 1-chunk stream"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[0] window",
+     "want": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "got": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "equal": true,
+     "note": "one-chunk window, ci_base 0"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[1] whole-step",
+     "want": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "got": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "equal": true,
+     "note": "chunk at index 17 of a 18-chunk stream"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[1] window",
+     "want": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "got": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "equal": true,
+     "note": "one-chunk window, ci_base 17"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[2] whole-step",
+     "want": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "got": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "equal": true,
+     "note": "chunk at index 3 of a 4-chunk stream"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[2] window",
+     "want": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "got": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "equal": true,
+     "note": "one-chunk window, ci_base 3"
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=1]",
+     "want": "ce6861b61e2aa42208a56531acaf57db92729033f8378fcabe4dcc6a77062ef1",
+     "got": "ce6861b61e2aa42208a56531acaf57db92729033f8378fcabe4dcc6a77062ef1",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=1]",
+     "equal": true,
+     "n_paths": 1
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=2]",
+     "want": "a2d4143d44340ad631dba439ee8591594003e77f92b3e3ff58156b0187f4edc9",
+     "got": "a2d4143d44340ad631dba439ee8591594003e77f92b3e3ff58156b0187f4edc9",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=2]",
+     "equal": true,
+     "n_paths": 2
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=3]",
+     "want": "2b9c033e5b521d7375b6c0d84010da0a173e4b487b07252746194acb68b7b861",
+     "got": "2b9c033e5b521d7375b6c0d84010da0a173e4b487b07252746194acb68b7b861",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=3]",
+     "equal": true,
+     "n_paths": 3
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=4]",
+     "want": "dddfe5491b5d8e5dccd1039b678de435093beb0db690b6b0c1984d4054d727fd",
+     "got": "dddfe5491b5d8e5dccd1039b678de435093beb0db690b6b0c1984d4054d727fd",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=4]",
+     "equal": true,
+     "n_paths": 4
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=5]",
+     "want": "a044fbedcadda5234607f8168dd7d5efe3e29163f8dd25e6de43644ee3a08b7f",
+     "got": "a044fbedcadda5234607f8168dd7d5efe3e29163f8dd25e6de43644ee3a08b7f",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=5]",
+     "equal": true,
+     "n_paths": 5
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=6]",
+     "want": "2c196c75d1a66d112e6346932024663c7cb03b59f2ea91952582af54f15ecbf9",
+     "got": "2c196c75d1a66d112e6346932024663c7cb03b59f2ea91952582af54f15ecbf9",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=6]",
+     "equal": true,
+     "n_paths": 6
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=7]",
+     "want": "5d87605eb7a6381ba9edcc2ea99d45839336cbedf121db407b2eafa51a2dc89a",
+     "got": "5d87605eb7a6381ba9edcc2ea99d45839336cbedf121db407b2eafa51a2dc89a",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=7]",
+     "equal": true,
+     "n_paths": 7
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=8]",
+     "want": "5245fe006d129df0d800651e1ac8bca4fc2e3d22f924f54b51dd6274f3f1ab01",
+     "got": "5245fe006d129df0d800651e1ac8bca4fc2e3d22f924f54b51dd6274f3f1ab01",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=8]",
+     "equal": true,
+     "n_paths": 8
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=9]",
+     "want": "f44094a508929d066d88258549ccb919a0e7a9f44fe62cb705ba1508351c129d",
+     "got": "f44094a508929d066d88258549ccb919a0e7a9f44fe62cb705ba1508351c129d",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=9]",
+     "equal": true,
+     "n_paths": 9
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=16]",
+     "want": "756ef8d43d692441f4620f7de4abf2e258996cc3a96db0c64b3578463a4cc44c",
+     "got": "756ef8d43d692441f4620f7de4abf2e258996cc3a96db0c64b3578463a4cc44c",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=16]",
+     "equal": true,
+     "n_paths": 16
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=17]",
+     "want": "72d50e1af549ed4437dd28bcb5b5b1c598f9a31970be4c87d66d7af848e6296b",
+     "got": "72d50e1af549ed4437dd28bcb5b5b1c598f9a31970be4c87d66d7af848e6296b",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=17]",
+     "equal": true,
+     "n_paths": 17
+    },
+    {
+     "kind": "node",
+     "vector": "hash[0] verity-vllm/node/v1",
+     "want": "43028e5782244ee64b304d6086d46b07a171327544a8a657c3fde058512730c0",
+     "got": "43028e5782244ee64b304d6086d46b07a171327544a8a657c3fde058512730c0",
+     "equal": true
+    },
+    {
+     "kind": "lift",
+     "vector": "hash[1] verity-vllm/lift/v1",
+     "want": "65606c873072e4abc61559d8605bd435fec06c3dfc75bdeb47256dace0d0d512",
+     "got": "65606c873072e4abc61559d8605bd435fec06c3dfc75bdeb47256dace0d0d512",
+     "equal": true
+    },
+    {
+     "kind": "run_root_fold",
+     "vector": "roots[4] run",
+     "want": "06e399f0155dfd0c98cc2ecefb8e606fa850ceabd4fd215f7fe3c02e6e994b88",
+     "got": "06e399f0155dfd0c98cc2ecefb8e606fa850ceabd4fd215f7fe3c02e6e994b88",
+     "equal": true,
+     "note": "device fold of the step roots; binding hashed on the host"
+    },
+    {
+     "kind": "run_root_fold",
+     "vector": "roots[5] run",
+     "want": "7749b6c71f50d5fc7cff1030528215f7ede543e73a4133c90ea94b89ea6d9d9f",
+     "got": "7749b6c71f50d5fc7cff1030528215f7ede543e73a4133c90ea94b89ea6d9d9f",
+     "equal": true,
+     "note": "device fold of the step roots; binding hashed on the host"
+    },
+    {
+     "kind": "weights_root_fold",
+     "vector": "roots[6] weights",
+     "want": "84733dbe27f3d8ca92f4c5abaed6e88ed444721da645c6666ac83380a5d2f36d",
+     "got": "84733dbe27f3d8ca92f4c5abaed6e88ed444721da645c6666ac83380a5d2f36d",
+     "equal": true,
+     "note": "device fold of the tensor roots; binding hashed on the host"
+    }
+   ],
+   "not_covered": [
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[3]",
+     "why": "header words 8/9 are hard-wired to 0 in this kernel; the vector's tile is (BN, D) = (64, 128)"
+    },
+    {
+     "kind": "tree",
+     "vector": "trees[N=0]",
+     "why": "no zero-leaf tree on the device; the empty root H(empty/v1) is computed on the host"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[2] verity-vllm/empty/v1",
+     "why": "tag not computed by this copy"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[3] verity-vllm/leaf/v1",
+     "why": "tag not computed by this copy"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[0] semantic",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[1] semantic",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[2] step",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[3] run",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[7] stream",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[8] thread",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    },
+    {
+     "kind": "thread_leaf",
+     "vector": "thread_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    },
+    {
+     "kind": "id_leaf",
+     "vector": "id_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    }
+   ],
+   "so": "/root/.cache/torch_extensions/py312_cu129/verity_native_collect/fcaf6ea769d6/verity_native_collect.so",
+   "so_sha256": "bee47f00d3ab607cb7ba85d7bf938c0ce0d22dac332e5523559c6e46ef0b1626"
+  },
+  "A_native_tree.nvcc": {
+   "source": "integrations/vllm/verity_vllm/acquire/native_tree.cu",
+   "source_sha256": "ef7563272c7e2c4c8e0b1c973224bf5113d96bafc5dc493a07fcf4b2cd59b066",
+   "how": "nvcc -O3 --use_fast_math -arch=sm_89 -shared (the collector's CUDA_CFLAGS)",
+   "checks": [
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[0] whole-step",
+     "want": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "got": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "equal": true,
+     "note": "chunk at index 0 of a 1-chunk stream"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[0] window",
+     "want": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "got": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "equal": true,
+     "note": "one-chunk window, ci_base 0"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[1] whole-step",
+     "want": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "got": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "equal": true,
+     "note": "chunk at index 17 of a 18-chunk stream"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[1] window",
+     "want": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "got": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "equal": true,
+     "note": "one-chunk window, ci_base 17"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[2] whole-step",
+     "want": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "got": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "equal": true,
+     "note": "chunk at index 3 of a 4-chunk stream"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[2] window",
+     "want": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "got": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "equal": true,
+     "note": "one-chunk window, ci_base 3"
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=1]",
+     "want": "ce6861b61e2aa42208a56531acaf57db92729033f8378fcabe4dcc6a77062ef1",
+     "got": "ce6861b61e2aa42208a56531acaf57db92729033f8378fcabe4dcc6a77062ef1",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=1]",
+     "equal": true,
+     "n_paths": 1
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=2]",
+     "want": "a2d4143d44340ad631dba439ee8591594003e77f92b3e3ff58156b0187f4edc9",
+     "got": "a2d4143d44340ad631dba439ee8591594003e77f92b3e3ff58156b0187f4edc9",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=2]",
+     "equal": true,
+     "n_paths": 2
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=3]",
+     "want": "2b9c033e5b521d7375b6c0d84010da0a173e4b487b07252746194acb68b7b861",
+     "got": "2b9c033e5b521d7375b6c0d84010da0a173e4b487b07252746194acb68b7b861",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=3]",
+     "equal": true,
+     "n_paths": 3
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=4]",
+     "want": "dddfe5491b5d8e5dccd1039b678de435093beb0db690b6b0c1984d4054d727fd",
+     "got": "dddfe5491b5d8e5dccd1039b678de435093beb0db690b6b0c1984d4054d727fd",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=4]",
+     "equal": true,
+     "n_paths": 4
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=5]",
+     "want": "a044fbedcadda5234607f8168dd7d5efe3e29163f8dd25e6de43644ee3a08b7f",
+     "got": "a044fbedcadda5234607f8168dd7d5efe3e29163f8dd25e6de43644ee3a08b7f",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=5]",
+     "equal": true,
+     "n_paths": 5
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=6]",
+     "want": "2c196c75d1a66d112e6346932024663c7cb03b59f2ea91952582af54f15ecbf9",
+     "got": "2c196c75d1a66d112e6346932024663c7cb03b59f2ea91952582af54f15ecbf9",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=6]",
+     "equal": true,
+     "n_paths": 6
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=7]",
+     "want": "5d87605eb7a6381ba9edcc2ea99d45839336cbedf121db407b2eafa51a2dc89a",
+     "got": "5d87605eb7a6381ba9edcc2ea99d45839336cbedf121db407b2eafa51a2dc89a",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=7]",
+     "equal": true,
+     "n_paths": 7
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=8]",
+     "want": "5245fe006d129df0d800651e1ac8bca4fc2e3d22f924f54b51dd6274f3f1ab01",
+     "got": "5245fe006d129df0d800651e1ac8bca4fc2e3d22f924f54b51dd6274f3f1ab01",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=8]",
+     "equal": true,
+     "n_paths": 8
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=9]",
+     "want": "f44094a508929d066d88258549ccb919a0e7a9f44fe62cb705ba1508351c129d",
+     "got": "f44094a508929d066d88258549ccb919a0e7a9f44fe62cb705ba1508351c129d",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=9]",
+     "equal": true,
+     "n_paths": 9
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=16]",
+     "want": "756ef8d43d692441f4620f7de4abf2e258996cc3a96db0c64b3578463a4cc44c",
+     "got": "756ef8d43d692441f4620f7de4abf2e258996cc3a96db0c64b3578463a4cc44c",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=16]",
+     "equal": true,
+     "n_paths": 16
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=17]",
+     "want": "72d50e1af549ed4437dd28bcb5b5b1c598f9a31970be4c87d66d7af848e6296b",
+     "got": "72d50e1af549ed4437dd28bcb5b5b1c598f9a31970be4c87d66d7af848e6296b",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=17]",
+     "equal": true,
+     "n_paths": 17
+    },
+    {
+     "kind": "node",
+     "vector": "hash[0] verity-vllm/node/v1",
+     "want": "43028e5782244ee64b304d6086d46b07a171327544a8a657c3fde058512730c0",
+     "got": "43028e5782244ee64b304d6086d46b07a171327544a8a657c3fde058512730c0",
+     "equal": true
+    },
+    {
+     "kind": "lift",
+     "vector": "hash[1] verity-vllm/lift/v1",
+     "want": "65606c873072e4abc61559d8605bd435fec06c3dfc75bdeb47256dace0d0d512",
+     "got": "65606c873072e4abc61559d8605bd435fec06c3dfc75bdeb47256dace0d0d512",
+     "equal": true
+    },
+    {
+     "kind": "run_root_fold",
+     "vector": "roots[4] run",
+     "want": "06e399f0155dfd0c98cc2ecefb8e606fa850ceabd4fd215f7fe3c02e6e994b88",
+     "got": "06e399f0155dfd0c98cc2ecefb8e606fa850ceabd4fd215f7fe3c02e6e994b88",
+     "equal": true,
+     "note": "device fold of the step roots; binding hashed on the host"
+    },
+    {
+     "kind": "run_root_fold",
+     "vector": "roots[5] run",
+     "want": "7749b6c71f50d5fc7cff1030528215f7ede543e73a4133c90ea94b89ea6d9d9f",
+     "got": "7749b6c71f50d5fc7cff1030528215f7ede543e73a4133c90ea94b89ea6d9d9f",
+     "equal": true,
+     "note": "device fold of the step roots; binding hashed on the host"
+    },
+    {
+     "kind": "weights_root_fold",
+     "vector": "roots[6] weights",
+     "want": "84733dbe27f3d8ca92f4c5abaed6e88ed444721da645c6666ac83380a5d2f36d",
+     "got": "84733dbe27f3d8ca92f4c5abaed6e88ed444721da645c6666ac83380a5d2f36d",
+     "equal": true,
+     "note": "device fold of the tensor roots; binding hashed on the host"
+    }
+   ],
+   "not_covered": [
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[3]",
+     "why": "header words 8/9 are hard-wired to 0 in this kernel; the vector's tile is (BN, D) = (64, 128)"
+    },
+    {
+     "kind": "tree",
+     "vector": "trees[N=0]",
+     "why": "no zero-leaf tree on the device; the empty root H(empty/v1) is computed on the host"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[2] verity-vllm/empty/v1",
+     "why": "tag not computed by this copy"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[3] verity-vllm/leaf/v1",
+     "why": "tag not computed by this copy"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[0] semantic",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[1] semantic",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[2] step",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[3] run",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[7] stream",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[8] thread",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    },
+    {
+     "kind": "thread_leaf",
+     "vector": "thread_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    },
+    {
+     "kind": "id_leaf",
+     "vector": "id_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    }
+   ]
+  },
+  "B_hidden_gpu_tree": {
+   "source": "integrations/vllm/verity_vllm/acquire/hidden_gpu_src/hidden_gpu_tree.cu",
+   "source_sha256": "0b73b422450d6a4aa94ec3fcbc4f7fa1ec934a1e5622dbec14a7303c80221689",
+   "how": "production hidden_gpu.ext() JIT extension /root/.cache/torch_extensions/py312_cu129/hidden_gpu_tree/hidden_gpu_tree.so",
+   "checks": [
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[0] whole-step",
+     "want": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "got": "4172e3e682343e6134f9badcd52a96aa2b747451633ce4ebd7854f36981a0099",
+     "equal": true,
+     "note": "chunk at index 0 of a 1-chunk stream"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[1] whole-step",
+     "want": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "got": "c048dcdebd833eddd1535e33b929eb58d5686ff30840885098279c0a0d910273",
+     "equal": true,
+     "note": "chunk at index 17 of a 18-chunk stream"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[2] whole-step",
+     "want": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "got": "5dd61949340231231e4008b857240f6bd43406a43c2c8a05f8bc573ce9ddde2b",
+     "equal": true,
+     "note": "chunk at index 3 of a 4-chunk stream"
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=1]",
+     "want": "ce6861b61e2aa42208a56531acaf57db92729033f8378fcabe4dcc6a77062ef1",
+     "got": "ce6861b61e2aa42208a56531acaf57db92729033f8378fcabe4dcc6a77062ef1",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=1]",
+     "equal": true,
+     "n_paths": 1
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=2]",
+     "want": "a2d4143d44340ad631dba439ee8591594003e77f92b3e3ff58156b0187f4edc9",
+     "got": "a2d4143d44340ad631dba439ee8591594003e77f92b3e3ff58156b0187f4edc9",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=2]",
+     "equal": true,
+     "n_paths": 2
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=3]",
+     "want": "2b9c033e5b521d7375b6c0d84010da0a173e4b487b07252746194acb68b7b861",
+     "got": "2b9c033e5b521d7375b6c0d84010da0a173e4b487b07252746194acb68b7b861",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=3]",
+     "equal": true,
+     "n_paths": 3
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=4]",
+     "want": "dddfe5491b5d8e5dccd1039b678de435093beb0db690b6b0c1984d4054d727fd",
+     "got": "dddfe5491b5d8e5dccd1039b678de435093beb0db690b6b0c1984d4054d727fd",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=4]",
+     "equal": true,
+     "n_paths": 4
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=5]",
+     "want": "a044fbedcadda5234607f8168dd7d5efe3e29163f8dd25e6de43644ee3a08b7f",
+     "got": "a044fbedcadda5234607f8168dd7d5efe3e29163f8dd25e6de43644ee3a08b7f",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=5]",
+     "equal": true,
+     "n_paths": 5
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=6]",
+     "want": "2c196c75d1a66d112e6346932024663c7cb03b59f2ea91952582af54f15ecbf9",
+     "got": "2c196c75d1a66d112e6346932024663c7cb03b59f2ea91952582af54f15ecbf9",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=6]",
+     "equal": true,
+     "n_paths": 6
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=7]",
+     "want": "5d87605eb7a6381ba9edcc2ea99d45839336cbedf121db407b2eafa51a2dc89a",
+     "got": "5d87605eb7a6381ba9edcc2ea99d45839336cbedf121db407b2eafa51a2dc89a",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=7]",
+     "equal": true,
+     "n_paths": 7
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=8]",
+     "want": "5245fe006d129df0d800651e1ac8bca4fc2e3d22f924f54b51dd6274f3f1ab01",
+     "got": "5245fe006d129df0d800651e1ac8bca4fc2e3d22f924f54b51dd6274f3f1ab01",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=8]",
+     "equal": true,
+     "n_paths": 8
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=9]",
+     "want": "f44094a508929d066d88258549ccb919a0e7a9f44fe62cb705ba1508351c129d",
+     "got": "f44094a508929d066d88258549ccb919a0e7a9f44fe62cb705ba1508351c129d",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=9]",
+     "equal": true,
+     "n_paths": 9
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=16]",
+     "want": "756ef8d43d692441f4620f7de4abf2e258996cc3a96db0c64b3578463a4cc44c",
+     "got": "756ef8d43d692441f4620f7de4abf2e258996cc3a96db0c64b3578463a4cc44c",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=16]",
+     "equal": true,
+     "n_paths": 16
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=17]",
+     "want": "72d50e1af549ed4437dd28bcb5b5b1c598f9a31970be4c87d66d7af848e6296b",
+     "got": "72d50e1af549ed4437dd28bcb5b5b1c598f9a31970be4c87d66d7af848e6296b",
+     "equal": true
+    },
+    {
+     "kind": "tree_paths",
+     "vector": "trees[N=17]",
+     "equal": true,
+     "n_paths": 17
+    },
+    {
+     "kind": "node",
+     "vector": "hash[0] verity-vllm/node/v1",
+     "want": "43028e5782244ee64b304d6086d46b07a171327544a8a657c3fde058512730c0",
+     "got": "43028e5782244ee64b304d6086d46b07a171327544a8a657c3fde058512730c0",
+     "equal": true
+    },
+    {
+     "kind": "lift",
+     "vector": "hash[1] verity-vllm/lift/v1",
+     "want": "65606c873072e4abc61559d8605bd435fec06c3dfc75bdeb47256dace0d0d512",
+     "got": "65606c873072e4abc61559d8605bd435fec06c3dfc75bdeb47256dace0d0d512",
+     "equal": true
+    },
+    {
+     "kind": "run_root_fold",
+     "vector": "roots[4] run",
+     "want": "06e399f0155dfd0c98cc2ecefb8e606fa850ceabd4fd215f7fe3c02e6e994b88",
+     "got": "06e399f0155dfd0c98cc2ecefb8e606fa850ceabd4fd215f7fe3c02e6e994b88",
+     "equal": true,
+     "note": "device fold of the step roots; binding hashed on the host"
+    },
+    {
+     "kind": "run_root_fold",
+     "vector": "roots[5] run",
+     "want": "7749b6c71f50d5fc7cff1030528215f7ede543e73a4133c90ea94b89ea6d9d9f",
+     "got": "7749b6c71f50d5fc7cff1030528215f7ede543e73a4133c90ea94b89ea6d9d9f",
+     "equal": true,
+     "note": "device fold of the step roots; binding hashed on the host"
+    },
+    {
+     "kind": "weights_root_fold",
+     "vector": "roots[6] weights",
+     "want": "84733dbe27f3d8ca92f4c5abaed6e88ed444721da645c6666ac83380a5d2f36d",
+     "got": "84733dbe27f3d8ca92f4c5abaed6e88ed444721da645c6666ac83380a5d2f36d",
+     "equal": true,
+     "note": "device fold of the tensor roots; binding hashed on the host"
+    }
+   ],
+   "not_covered": [
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[3]",
+     "why": "header words 8/9 are hard-wired to 0 in this kernel; the vector's tile is (BN, D) = (64, 128)"
+    },
+    {
+     "kind": "tree",
+     "vector": "trees[N=0]",
+     "why": "no zero-leaf tree on the device; the empty root H(empty/v1) is computed on the host"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[2] verity-vllm/empty/v1",
+     "why": "tag not computed by this copy"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[3] verity-vllm/leaf/v1",
+     "why": "tag not computed by this copy"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[0] semantic",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[1] semantic",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[2] step",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[3] run",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[7] stream",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[8] thread",
+     "why": "root bindings are host code; only the fold under a run/weights root with >= 1 child is on the device"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    },
+    {
+     "kind": "thread_leaf",
+     "vector": "thread_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    },
+    {
+     "kind": "id_leaf",
+     "vector": "id_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    }
+   ],
+   "so": "/root/.cache/torch_extensions/py312_cu129/hidden_gpu_tree/hidden_gpu_tree.so"
+  },
+  "C_native_leafhash": {
+   "source": "integrations/vllm/verity_vllm/acquire/native_leafhash.cu",
+   "source_sha256": "fa33db9d4bd4de2306d71e872c22cd9f26cd5cfb3d1b7c59984b4cf90f23c304",
+   "how": "production leafhash.ext() JIT extension /root/.cache/torch_extensions/py312_cu129/verity_leafhash/verity_leafhash.so",
+   "checks": [
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[1] len=1 single",
+     "want": "0e65d321e779b3d7c4312ac4778a9747f955a962437f774956eb022fbaa9a908",
+     "got": "0e65d321e779b3d7c4312ac4778a9747f955a962437f774956eb022fbaa9a908",
+     "equal": true,
+     "note": "one leaf, chunk 1"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[1] len=1 tail@256",
+     "want": "0e65d321e779b3d7c4312ac4778a9747f955a962437f774956eb022fbaa9a908",
+     "got": "0e65d321e779b3d7c4312ac4778a9747f955a962437f774956eb022fbaa9a908",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[1] len=1 tail@4096",
+     "want": "0e65d321e779b3d7c4312ac4778a9747f955a962437f774956eb022fbaa9a908",
+     "got": "0e65d321e779b3d7c4312ac4778a9747f955a962437f774956eb022fbaa9a908",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[2] len=31 single",
+     "want": "01344e3a7d9a4bab7f04cd39ada6dd0e30bf890eb5aae7855a8b820ae1995c33",
+     "got": "01344e3a7d9a4bab7f04cd39ada6dd0e30bf890eb5aae7855a8b820ae1995c33",
+     "equal": true,
+     "note": "one leaf, chunk 31"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[2] len=31 tail@256",
+     "want": "01344e3a7d9a4bab7f04cd39ada6dd0e30bf890eb5aae7855a8b820ae1995c33",
+     "got": "01344e3a7d9a4bab7f04cd39ada6dd0e30bf890eb5aae7855a8b820ae1995c33",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[2] len=31 tail@4096",
+     "want": "01344e3a7d9a4bab7f04cd39ada6dd0e30bf890eb5aae7855a8b820ae1995c33",
+     "got": "01344e3a7d9a4bab7f04cd39ada6dd0e30bf890eb5aae7855a8b820ae1995c33",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[3] len=32 single",
+     "want": "d3cc1ade0218e9faabd26f3ea2ffe4a4f2ac463e9d961cceaf08131d35cde9da",
+     "got": "d3cc1ade0218e9faabd26f3ea2ffe4a4f2ac463e9d961cceaf08131d35cde9da",
+     "equal": true,
+     "note": "one leaf, chunk 32"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[3] len=32 tail@256",
+     "want": "d3cc1ade0218e9faabd26f3ea2ffe4a4f2ac463e9d961cceaf08131d35cde9da",
+     "got": "d3cc1ade0218e9faabd26f3ea2ffe4a4f2ac463e9d961cceaf08131d35cde9da",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[3] len=32 tail@4096",
+     "want": "d3cc1ade0218e9faabd26f3ea2ffe4a4f2ac463e9d961cceaf08131d35cde9da",
+     "got": "d3cc1ade0218e9faabd26f3ea2ffe4a4f2ac463e9d961cceaf08131d35cde9da",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[4] len=37 single",
+     "want": "662cbe21ff450928f503f412e9c09c374248db745a3cc2b4217b4397e7b98732",
+     "got": "662cbe21ff450928f503f412e9c09c374248db745a3cc2b4217b4397e7b98732",
+     "equal": true,
+     "note": "one leaf, chunk 37"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[4] len=37 tail@256",
+     "want": "662cbe21ff450928f503f412e9c09c374248db745a3cc2b4217b4397e7b98732",
+     "got": "662cbe21ff450928f503f412e9c09c374248db745a3cc2b4217b4397e7b98732",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[4] len=37 tail@4096",
+     "want": "662cbe21ff450928f503f412e9c09c374248db745a3cc2b4217b4397e7b98732",
+     "got": "662cbe21ff450928f503f412e9c09c374248db745a3cc2b4217b4397e7b98732",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[5] len=38 single",
+     "want": "cfa2076e50e9388c7d4a952f117b06ad7b1bcb540f1721b67fbcc361ba9a357d",
+     "got": "cfa2076e50e9388c7d4a952f117b06ad7b1bcb540f1721b67fbcc361ba9a357d",
+     "equal": true,
+     "note": "one leaf, chunk 38"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[5] len=38 tail@256",
+     "want": "cfa2076e50e9388c7d4a952f117b06ad7b1bcb540f1721b67fbcc361ba9a357d",
+     "got": "cfa2076e50e9388c7d4a952f117b06ad7b1bcb540f1721b67fbcc361ba9a357d",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[5] len=38 tail@4096",
+     "want": "cfa2076e50e9388c7d4a952f117b06ad7b1bcb540f1721b67fbcc361ba9a357d",
+     "got": "cfa2076e50e9388c7d4a952f117b06ad7b1bcb540f1721b67fbcc361ba9a357d",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[6] len=55 single",
+     "want": "ffc487f376e143958db2e5508a27e4f3bc59732a656a48681fedb539c6d06ba1",
+     "got": "ffc487f376e143958db2e5508a27e4f3bc59732a656a48681fedb539c6d06ba1",
+     "equal": true,
+     "note": "one leaf, chunk 55"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[6] len=55 tail@256",
+     "want": "ffc487f376e143958db2e5508a27e4f3bc59732a656a48681fedb539c6d06ba1",
+     "got": "ffc487f376e143958db2e5508a27e4f3bc59732a656a48681fedb539c6d06ba1",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[6] len=55 tail@4096",
+     "want": "ffc487f376e143958db2e5508a27e4f3bc59732a656a48681fedb539c6d06ba1",
+     "got": "ffc487f376e143958db2e5508a27e4f3bc59732a656a48681fedb539c6d06ba1",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[7] len=56 single",
+     "want": "fb4438a5a265d36880b0d4728d0c58e76cfb4e11ea3c6bcc609e789fc7047891",
+     "got": "fb4438a5a265d36880b0d4728d0c58e76cfb4e11ea3c6bcc609e789fc7047891",
+     "equal": true,
+     "note": "one leaf, chunk 56"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[7] len=56 tail@256",
+     "want": "fb4438a5a265d36880b0d4728d0c58e76cfb4e11ea3c6bcc609e789fc7047891",
+     "got": "fb4438a5a265d36880b0d4728d0c58e76cfb4e11ea3c6bcc609e789fc7047891",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[7] len=56 tail@4096",
+     "want": "fb4438a5a265d36880b0d4728d0c58e76cfb4e11ea3c6bcc609e789fc7047891",
+     "got": "fb4438a5a265d36880b0d4728d0c58e76cfb4e11ea3c6bcc609e789fc7047891",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[8] len=64 single",
+     "want": "f7613cdb16020133b2c869ad447e4030c4cbfc3a9fe5758882e1bdb7b9d0aeb2",
+     "got": "f7613cdb16020133b2c869ad447e4030c4cbfc3a9fe5758882e1bdb7b9d0aeb2",
+     "equal": true,
+     "note": "one leaf, chunk 64"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[8] len=64 tail@256",
+     "want": "f7613cdb16020133b2c869ad447e4030c4cbfc3a9fe5758882e1bdb7b9d0aeb2",
+     "got": "f7613cdb16020133b2c869ad447e4030c4cbfc3a9fe5758882e1bdb7b9d0aeb2",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[8] len=64 tail@4096",
+     "want": "f7613cdb16020133b2c869ad447e4030c4cbfc3a9fe5758882e1bdb7b9d0aeb2",
+     "got": "f7613cdb16020133b2c869ad447e4030c4cbfc3a9fe5758882e1bdb7b9d0aeb2",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[9] len=119 single",
+     "want": "9715a202aa447a29cb3c0d27d4045f6f58480febb8f508d045e30c24279d87fd",
+     "got": "9715a202aa447a29cb3c0d27d4045f6f58480febb8f508d045e30c24279d87fd",
+     "equal": true,
+     "note": "one leaf, chunk 119"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[9] len=119 tail@256",
+     "want": "9715a202aa447a29cb3c0d27d4045f6f58480febb8f508d045e30c24279d87fd",
+     "got": "9715a202aa447a29cb3c0d27d4045f6f58480febb8f508d045e30c24279d87fd",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[9] len=119 tail@4096",
+     "want": "9715a202aa447a29cb3c0d27d4045f6f58480febb8f508d045e30c24279d87fd",
+     "got": "9715a202aa447a29cb3c0d27d4045f6f58480febb8f508d045e30c24279d87fd",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[10] len=256 single",
+     "want": "7e9b3a1c4fc0f5c401d16c6f752127d8f0fc44c9bbd72967850971aada0feaab",
+     "got": "7e9b3a1c4fc0f5c401d16c6f752127d8f0fc44c9bbd72967850971aada0feaab",
+     "equal": true,
+     "note": "one leaf, chunk 256"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[10] len=256 tail@256",
+     "want": "7e9b3a1c4fc0f5c401d16c6f752127d8f0fc44c9bbd72967850971aada0feaab",
+     "got": "7e9b3a1c4fc0f5c401d16c6f752127d8f0fc44c9bbd72967850971aada0feaab",
+     "equal": true,
+     "note": "tail leaf after one 256-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[10] len=256 tail@4096",
+     "want": "7e9b3a1c4fc0f5c401d16c6f752127d8f0fc44c9bbd72967850971aada0feaab",
+     "got": "7e9b3a1c4fc0f5c401d16c6f752127d8f0fc44c9bbd72967850971aada0feaab",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[11] len=4096 single",
+     "want": "b534d7a4a6c5c7c4dee92ce916d3318a264dc1ff380f94a94024a0833f87d2f8",
+     "got": "b534d7a4a6c5c7c4dee92ce916d3318a264dc1ff380f94a94024a0833f87d2f8",
+     "equal": true,
+     "note": "one leaf, chunk 4096"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[11] len=4096 tail@4096",
+     "want": "b534d7a4a6c5c7c4dee92ce916d3318a264dc1ff380f94a94024a0833f87d2f8",
+     "got": "b534d7a4a6c5c7c4dee92ce916d3318a264dc1ff380f94a94024a0833f87d2f8",
+     "equal": true,
+     "note": "tail leaf after one 4096-byte leaf"
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=1]",
+     "want": "ce6861b61e2aa42208a56531acaf57db92729033f8378fcabe4dcc6a77062ef1",
+     "got": "ce6861b61e2aa42208a56531acaf57db92729033f8378fcabe4dcc6a77062ef1",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=2]",
+     "want": "a2d4143d44340ad631dba439ee8591594003e77f92b3e3ff58156b0187f4edc9",
+     "got": "a2d4143d44340ad631dba439ee8591594003e77f92b3e3ff58156b0187f4edc9",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=3]",
+     "want": "2b9c033e5b521d7375b6c0d84010da0a173e4b487b07252746194acb68b7b861",
+     "got": "2b9c033e5b521d7375b6c0d84010da0a173e4b487b07252746194acb68b7b861",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=4]",
+     "want": "dddfe5491b5d8e5dccd1039b678de435093beb0db690b6b0c1984d4054d727fd",
+     "got": "dddfe5491b5d8e5dccd1039b678de435093beb0db690b6b0c1984d4054d727fd",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=5]",
+     "want": "a044fbedcadda5234607f8168dd7d5efe3e29163f8dd25e6de43644ee3a08b7f",
+     "got": "a044fbedcadda5234607f8168dd7d5efe3e29163f8dd25e6de43644ee3a08b7f",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=6]",
+     "want": "2c196c75d1a66d112e6346932024663c7cb03b59f2ea91952582af54f15ecbf9",
+     "got": "2c196c75d1a66d112e6346932024663c7cb03b59f2ea91952582af54f15ecbf9",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=7]",
+     "want": "5d87605eb7a6381ba9edcc2ea99d45839336cbedf121db407b2eafa51a2dc89a",
+     "got": "5d87605eb7a6381ba9edcc2ea99d45839336cbedf121db407b2eafa51a2dc89a",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=8]",
+     "want": "5245fe006d129df0d800651e1ac8bca4fc2e3d22f924f54b51dd6274f3f1ab01",
+     "got": "5245fe006d129df0d800651e1ac8bca4fc2e3d22f924f54b51dd6274f3f1ab01",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=9]",
+     "want": "f44094a508929d066d88258549ccb919a0e7a9f44fe62cb705ba1508351c129d",
+     "got": "f44094a508929d066d88258549ccb919a0e7a9f44fe62cb705ba1508351c129d",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=16]",
+     "want": "756ef8d43d692441f4620f7de4abf2e258996cc3a96db0c64b3578463a4cc44c",
+     "got": "756ef8d43d692441f4620f7de4abf2e258996cc3a96db0c64b3578463a4cc44c",
+     "equal": true
+    },
+    {
+     "kind": "tree_root",
+     "vector": "trees[N=17]",
+     "want": "72d50e1af549ed4437dd28bcb5b5b1c598f9a31970be4c87d66d7af848e6296b",
+     "got": "72d50e1af549ed4437dd28bcb5b5b1c598f9a31970be4c87d66d7af848e6296b",
+     "equal": true
+    },
+    {
+     "kind": "node",
+     "vector": "hash[0] verity-vllm/node/v1",
+     "want": "43028e5782244ee64b304d6086d46b07a171327544a8a657c3fde058512730c0",
+     "got": "43028e5782244ee64b304d6086d46b07a171327544a8a657c3fde058512730c0",
+     "equal": true
+    },
+    {
+     "kind": "weights_root_fold",
+     "vector": "roots[6] weights",
+     "want": "84733dbe27f3d8ca92f4c5abaed6e88ed444721da645c6666ac83380a5d2f36d",
+     "got": "84733dbe27f3d8ca92f4c5abaed6e88ed444721da645c6666ac83380a5d2f36d",
+     "equal": true,
+     "note": "device fold of the tensor roots; binding hashed on the host"
+    }
+   ],
+   "not_covered": [
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[0] len=0",
+     "why": "pos_leaves refuses an empty buffer (the host path skips numel()==0 tensors)"
+    },
+    {
+     "kind": "tree",
+     "vector": "trees[N=0]",
+     "why": "tree_root refuses zero leaves"
+    },
+    {
+     "kind": "lift",
+     "vector": "hash[1] verity-vllm/lift/v1",
+     "why": "tree_root exposes only the root; lift is exercised inside every odd-width tree vector (N = 3, 5, 6, 7, 9, 17)"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[2] verity-vllm/empty/v1",
+     "why": "tag not computed by this copy"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[3] verity-vllm/leaf/v1",
+     "why": "tag not computed by this copy"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[0] semantic",
+     "why": "not a weights root"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[1] semantic",
+     "why": "not a weights root"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[2] step",
+     "why": "not a weights root"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[3] run",
+     "why": "not a weights root"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[4] run",
+     "why": "not a weights root"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[5] run",
+     "why": "not a weights root"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[7] stream",
+     "why": "not a weights root"
+    },
+    {
+     "kind": "root",
+     "vector": "roots[8] thread",
+     "why": "not a weights root"
+    },
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    },
+    {
+     "kind": "thread_leaf",
+     "vector": "thread_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    },
+    {
+     "kind": "id_leaf",
+     "vector": "id_leaf[*]",
+     "why": "leaf rule not implemented by this copy"
+    }
+   ],
+   "so": "/root/.cache/torch_extensions/py312_cu129/verity_leafhash/verity_leafhash.so"
+  },
+  "D_fa2_tap_h1": {
+   "source": "integrations/vllm/verity_vllm/acquire/fa2_tap_src/verity_tap.h",
+   "source_sha256": "bece7d107f6133a777b9ad0903c0b0cb072f2d570529ab7e17983ac130892397",
+   "how": "harness kernel: Verity_sha_ctx(init, header, compress_m over the vector words, finish_store) at VERITY_TAP=4",
+   "checks": [
+    {
+     "kind": "thread_leaf",
+     "vector": "thread_leaf[0] src_mask=1 words=64",
+     "want": "49122998df004dace27ff30745d5a9335afb2f305e98ba7df14856f86d35fa2b",
+     "got": "49122998df004dace27ff30745d5a9335afb2f305e98ba7df14856f86d35fa2b",
+     "equal": true,
+     "note": "rc 0; kernel-derived row validity 3 vs vector 3"
+    },
+    {
+     "kind": "thread_leaf",
+     "vector": "thread_leaf[1] src_mask=27 words=176",
+     "want": "500cd229403ef0faa705df53dd2c41e13f682a57a6ed7351c39ca008e2580588",
+     "got": "500cd229403ef0faa705df53dd2c41e13f682a57a6ed7351c39ca008e2580588",
+     "equal": true,
+     "note": "rc 0; kernel-derived row validity 0 vs vector 1 (vector sets it; the header encodes whatever the kernel holds)"
+    },
+    {
+     "kind": "thread_leaf",
+     "vector": "thread_leaf[2] src_mask=16 words=32",
+     "want": "e4ea27b61f2308b1b835534d8987bc33c93727b4f3cad9c86324b1db74754869",
+     "got": "e4ea27b61f2308b1b835534d8987bc33c93727b4f3cad9c86324b1db74754869",
+     "equal": true,
+     "note": "rc 0; kernel-derived row validity 0 vs vector 0"
+    }
+   ],
+   "not_covered": [
+    {
+     "kind": "chunk_leaf",
+     "vector": "chunk_leaf[*]",
+     "why": "the tap hashes thread leaves only; its tree is built by B / A on the host side of the launch"
+    },
+    {
+     "kind": "pos_leaf",
+     "vector": "pos_leaf[*]",
+     "why": "the tap hashes thread leaves only; its tree is built by B / A on the host side of the launch"
+    },
+    {
+     "kind": "id_leaf",
+     "vector": "id_leaf[*]",
+     "why": "the tap hashes thread leaves only; its tree is built by B / A on the host side of the launch"
+    },
+    {
+     "kind": "tree",
+     "vector": "tree[*]",
+     "why": "the tap hashes thread leaves only; its tree is built by B / A on the host side of the launch"
+    },
+    {
+     "kind": "hash",
+     "vector": "hash[*]",
+     "why": "the tap hashes thread leaves only; its tree is built by B / A on the host side of the launch"
+    },
+    {
+     "kind": "roots",
+     "vector": "roots[*]",
+     "why": "the tap hashes thread leaves only; its tree is built by B / A on the host side of the launch"
+    }
+   ],
+   "fa_tree": "/workspace/cp/fa2/trees/tap8/csrc"
+  }
+ },
+ "env": {
+  "torch": "2.13.0+cu129",
+  "cuda": "12.9",
+  "device": "NVIDIA L40S",
+  "capability": [
+   8,
+   9
+  ],
+  "python": "3.12.14",
+  "vllm": "0.28.1rc1.dev472+gd9105ea80",
+  "nvcc": "Build cuda_12.4.r12.4/compiler.34097967_0"
+ },
+ "timing_a_s": 7.1,
+ "summary": {
+  "A_native_tree.prod_so": {
+   "checks": 33,
+   "equal": 33,
+   "not_covered": 13,
+   "error": null
+  },
+  "A_native_tree.nvcc": {
+   "checks": 33,
+   "equal": 33,
+   "not_covered": 13,
+   "error": null
+  },
+  "B_hidden_gpu_tree": {
+   "checks": 30,
+   "equal": 30,
+   "not_covered": 13,
+   "error": null
+  },
+  "C_native_leafhash": {
+   "checks": 45,
+   "equal": 45,
+   "not_covered": 16,
+   "error": null
+  },
+  "D_fa2_tap_h1": {
+   "checks": 3,
+   "equal": 3,
+   "not_covered": 6,
+   "error": null
+  }
+ },
+ "mismatches": []
+}

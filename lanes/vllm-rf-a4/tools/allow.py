@@ -98,7 +98,7 @@ def root_lists(src):
 def interim(repo):
     tree = ast.parse((repo / "integrations/vllm/tests/lint/_imports.py").read_text())
     for node in tree.body:
-        if isinstance(node, ast.Assign) and getattr(node.targets[0], "id", "") == "INTERIM_LAYER":
+        if isinstance(node, ast.Assign) and getattr(node.targets[0], "id", "") in ("INTERIM_LAYER", "LAYER"):
             return ast.literal_eval(node.value)
 
 
@@ -130,7 +130,11 @@ def main():
         new_entries = []
         for e in data["entries"]:
             e = dict(e)
-            e["file"] = maps.path(e["file"]) if e["file"].startswith("verity_vllm/") else e["file"]
+            if e["file"].startswith("verity_vllm/"):
+                e["file"] = maps.path(e["file"])
+                if not e["file"].startswith("verity_vllm/"):
+                    print(f"  {f.name}: drop {e['kind']} {e['detail']!r} ({e['file']} left the library)")
+                    continue
             if f.name == "p09_layering.json" and e["kind"] == "layer":
                 a, b = e["detail"].split(" -> ")
                 e["detail"] = f"{maps.short(a)} -> {maps.short(b)}"

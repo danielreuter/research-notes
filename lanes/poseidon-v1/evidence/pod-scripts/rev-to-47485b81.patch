@@ -1,0 +1,686 @@
+diff --git a/backends/direct/ligero/auth.py b/backends/direct/ligero/auth.py
+index c27e8384..134eedbc 100644
+--- a/backends/direct/ligero/auth.py
++++ b/backends/direct/ligero/auth.py
+@@ -33,7 +33,6 @@ only per call; the per-leaf framing is the Python-level cost) and cached on disk
+ """
+ from __future__ import annotations
+ 
+-import hashlib
+ import json
+ import os
+ from collections.abc import Iterable, Mapping, Sequence
+@@ -51,10 +50,8 @@ from verity.commitments import (
+     verify_multiproof,
+ )
+ from verity.commitments.merkle import (  # the pad-leaf frame has no public wrapper; pinned by tests
+-    _FRAME,
+-    _LEAF,
+-    _NODE,
+     _PAD,
++    _hash,
+     _uint,
+ )
+ from verity.errors import ResourceLimit
+@@ -121,61 +118,31 @@ def domain_for(binding: bytes, owner: int, count: int) -> CommitmentDomain:
+     return CommitmentDomain(bytes(binding), int(owner), RangeIndexedDomain(0, int(count)))
+ 
+ 
+-# Batch forms of CommitmentDomain.leaf / .node and the pad leaf (verity.commitments.merkle): the frame, tag and domain id
+-# are one hashed prefix copied per hash, the parts one update -- the same bytes into SHA-256 (pinned by hashchain_test.py).
+-_L32 = (32).to_bytes(8, "big")
+-
+-
+-def _part(b: bytes) -> bytes:
+-    return len(b).to_bytes(8, "big") + b
+-
+-
+-def _uint_part(v: int) -> bytes:
+-    return _part(_uint(v))
+-
+-
+-def _prefix(tag: bytes, domain_id: bytes):
+-    h = hashlib.sha256(_FRAME)
+-    h.update(len(tag).to_bytes(4, "big") + tag + _part(domain_id))
+-    return h
+-
+-
+-def leaf_hashes(domain_id: bytes, start: int, schema: str, values: Sequence[bytes]) -> bytes:
+-    """``domain.leaf(r, r, schema, values[r - start])`` for consecutive ranks from ``start``, concatenated."""
+-    h0, sp = _prefix(_LEAF, domain_id), _part(schema.encode("utf-8"))
+-    out = bytearray()
+-    for i, v in enumerate(values):
+-        r = _uint_part(start + i)
+-        h = h0.copy()
+-        h.update(r + r + sp + _part(v))
+-        out += h.digest()
+-    return bytes(out)
+-
+-
+ def _leaf_chunk(args) -> bytes:
+     domain, start, words = args
+-    return leaf_hashes(domain.domain_id, start, SCHEMA, [w.to_bytes(2, "big") for w in words.tolist()])
++    leaf = domain.leaf
++    out = bytearray()
++    for i, w in enumerate(words.tolist()):
++        r = start + i
++        out += leaf(r, r, SCHEMA, w.to_bytes(2, "big"))
++    return bytes(out)
+ 
+ 
+ def _pad_chunk(args) -> bytes:
+     domain_id, start, stop = args
+-    h0 = _prefix(_PAD, domain_id)
+     out = bytearray()
+     for r in range(start, stop):
+-        h = h0.copy()
+-        h.update(_uint_part(r))
+-        out += h.digest()
++        out += _hash(_PAD, domain_id, _uint(r))
+     return bytes(out)
+ 
+ 
+ def _node_chunk(args) -> bytes:
+     domain, level, start, pairs = args
+-    h0, lv, buf = _prefix(_NODE, domain.domain_id), _uint_part(level), np.ascontiguousarray(pairs).tobytes()
++    node = domain.node
+     out = bytearray()
+-    for i in range(len(buf) // 64):
+-        h = h0.copy()
+-        h.update(lv + _uint_part(start + i) + _L32 + buf[64 * i:64 * i + 32] + _L32 + buf[64 * i + 32:64 * i + 64])
+-        out += h.digest()
++    for i in range(pairs.shape[0]):
++        p = pairs[i]
++        out += node(level, start + i, p[:32].tobytes(), p[32:].tobytes())
+     return bytes(out)
+ 
+ 
+diff --git a/backends/direct/ligero/hashauth.py b/backends/direct/ligero/hashauth.py
+index 0e68f60a..7f4b3f94 100644
+--- a/backends/direct/ligero/hashauth.py
++++ b/backends/direct/ligero/hashauth.py
+@@ -27,8 +27,7 @@ from verity.commitments import identity_digest, verify_multiproof
+ from verity.commitments.rowleaf import SCHEMA_ROW
+ 
+ from . import poseidon2 as h2
+-from .auth import (LIMITS, OWNER, TREE_NAMES, TreeRef, WordTree, _chunks, _node_chunk, _pad_chunk, domain_for, leaf_hashes,
+-                   multiproof_siblings)
++from .auth import LIMITS, OWNER, TREE_NAMES, TreeRef, WordTree, _chunks, _node_chunk, _pad_chunk, domain_for, multiproof_siblings
+ from .auth import build_word_tree as _build_word_tree_u16
+ from .leaf import registry as leaf_registry
+ from verity.errors import ResourceLimit
+@@ -81,25 +80,21 @@ def _levels(domain, leaves: list[bytes], count: int) -> list[np.ndarray]:
+     return levels
+ 
+ 
+-def build_row_tree(name: str, binding: bytes, rows: np.ndarray, word_bits: int, role: int, leaf=None,
+-                   digests: np.ndarray | None = None) -> tuple[WordTree, np.ndarray]:
++def build_row_tree(name: str, binding: bytes, rows: np.ndarray, word_bits: int, role: int, leaf=None) -> tuple[WordTree, np.ndarray]:
+     """Commit ``rows`` (count, n_words) of ``word_bits``-bit words as row leaves of the scheme ``leaf`` (default: Poseidon2,
+     ``leaf/v2h``): the digest of each row (``role``: ``h2.ROLE_X`` / ``ROLE_W``, the scheme's domain tag), framed by
+     ``leaf.leaf_bytes`` under schema ``leaf.schema``, under the SHA-256 tree.  Returns the tree and the digests
+-    (count, digest_elems).  ``digests``: the rows' ``scheme.native`` digests already computed (the committer's device
+-    sponges, ``relchain.HashedRelationRunner.commit``) instead of hashing ``rows`` here."""
++    (count, digest_elems)."""
+     scheme = _leaf(leaf)
+-    count = int(np.shape(rows)[0])
++    rows = np.ascontiguousarray(rows, dtype=np.int64)
++    count = int(rows.shape[0])
+     LIMITS.enforce("max_positions", count)
+     domain = domain_for(binding, OWNER[name], count)
+-    if digests is None:
+-        digests = scheme.native(np.ascontiguousarray(rows, dtype=np.int64), word_bits=word_bits, role=role)
+-    digests = np.asarray(digests, dtype=np.int64)
++    digests = np.asarray(scheme.native(rows, word_bits=word_bits, role=role), dtype=np.int64)
+     if digests.shape != (count, scheme.digest_elems) or ((digests < 0) | (digests >= h2.P)).any():
+         raise ValueError(f"leaf {scheme.name}: native() must return (count, {scheme.digest_elems}) elements in [0, p)")
+-    many = getattr(scheme, "leaf_bytes_many", None)
+-    values = many(digests) if many is not None else [scheme.leaf_bytes(digests[r]) for r in range(count)]
+-    levels = _levels(domain, [leaf_hashes(domain.domain_id, 0, scheme.schema, values)], count)
++    leaves = [domain.leaf(r, r, scheme.schema, scheme.leaf_bytes(digests[r])) for r in range(count)]
++    levels = _levels(domain, leaves, count)
+     ref = TreeRef(name, bytes(binding), OWNER[name], count, levels[-1][0].tobytes())
+     return WordTree(ref, levels), digests
+ 
+@@ -112,20 +107,17 @@ def build_word_tree(name: str, binding: bytes, words: np.ndarray, y_bits: int) -
+     words = np.ascontiguousarray(words, dtype=np.int64).ravel()
+     count = int(words.shape[0])
+     domain = domain_for(binding, OWNER[name], count)
+-    values = [int(w).to_bytes(nbytes, "big") for w in words.tolist()]
+-    levels = _levels(domain, [leaf_hashes(domain.domain_id, 0, schema, values)], count)
++    leaves = [domain.leaf(r, r, schema, int(w).to_bytes(nbytes, "big")) for r, w in enumerate(words.tolist())]
++    levels = _levels(domain, leaves, count)
+     return WordTree(TreeRef(name, bytes(binding), OWNER[name], count, levels[-1][0].tobytes()), levels)
+ 
+ 
+ def build_trees(*, x_rows: np.ndarray, w_cols: np.ndarray, y_words: np.ndarray, word_bits: int, y_bits: int,
+-                bindings: Mapping[str, bytes], leaf=None, digests: Mapping[str, np.ndarray] | None = None
+-                ) -> tuple[dict[str, WordTree], dict[str, np.ndarray]]:
+-    """The three trees of a committed instance set; also the operand digests (what the honest prover will publish).
+-    ``digests``: ``{"a": x digests, "b": W digests}`` computed already (:func:`build_row_tree`)."""
++                bindings: Mapping[str, bytes], leaf=None) -> tuple[dict[str, WordTree], dict[str, np.ndarray]]:
++    """The three trees of a committed instance set; also the operand digests (what the honest prover will publish)."""
+     scheme = _leaf(leaf)
+-    digests = digests or {}
+-    ta, da = build_row_tree("a", bindings["a"], x_rows, word_bits, h2.ROLE_X, scheme, digests=digests.get("a"))
+-    tb, db = build_row_tree("b", bindings["b"], w_cols, word_bits, h2.ROLE_W, scheme, digests=digests.get("b"))
++    ta, da = build_row_tree("a", bindings["a"], x_rows, word_bits, h2.ROLE_X, scheme)
++    tb, db = build_row_tree("b", bindings["b"], w_cols, word_bits, h2.ROLE_W, scheme)
+     ty = build_word_tree("y", bindings["y"], y_words, y_bits)
+     return {"a": ta, "b": tb, "y": ty}, {"a": da, "b": db}
+ 
+diff --git a/backends/direct/ligero/hashchain.py b/backends/direct/ligero/hashchain.py
+index 84966b12..54bed35e 100644
+--- a/backends/direct/ligero/hashchain.py
++++ b/backends/direct/ligero/hashchain.py
+@@ -33,7 +33,6 @@ see the lane notes).
+ """
+ from __future__ import annotations
+ 
+-import os
+ from dataclasses import dataclass
+ 
+ import numpy as np
+@@ -58,11 +57,6 @@ __all__ = ["HASH_PIN_END", "N_DIGEST", "N_ROW_DIGEST", "PIN_ROLE", "ROLES", "ROW
+            "public_table", "row_chain", "row_hash_hints", "row_hash_public_vectors", "row_hash_system", "row_sponges",
+            "shared_hints", "shared_public_vectors", "shared_units", "sponge_states_roles"]
+ 
+-#: ``row_chain`` runs a scheme's ``row_sponges`` device kernel (Poseidon2: one thread per committed row) when it has one, and
+-#: the committer takes the tree leaves' digests from it instead of hashing the rows again on the host (``hashauth``).  Same
+-#: states, digests, leaves and roots; ``LIGERO_ROW_SPONGE_KERNEL=0`` keeps the torch sponge and the host digests.
+-ROW_SPONGE_KERNEL = os.environ.get("LIGERO_ROW_SPONGE_KERNEL", "1") != "0"
+-
+ HASH_PIN_END = "hash.is_end"
+ N_DIGEST = 2 * h2.OUT          # the default (Poseidon2) digest table width: x digest (8) then W digest (8)
+ ROLES = ((0, "a", h2.ROLE_X), (1, "b", h2.ROLE_W))
+@@ -582,18 +576,9 @@ def row_chain(hr: HashedRelation, rows, role: int, device) -> tuple:
+     committed set (``HashedRelationRunner.commit``) and gathers per sub-batch instead of re-running 2 x steps chains per
+     proof.  The third item is present only when the scheme's ``chain_witness`` returns extra hint rows."""
+     import torch
+-    if isinstance(rows, torch.Tensor):
+-        rows = rows.to(device=device, dtype=torch.int64)
+-    else:
+-        rows = torch.as_tensor(np.asarray(rows, dtype=np.int64), device=device)
++    rows = torch.as_tensor(np.asarray(rows, dtype=np.int64), device=device)
+     n, steps, k = rows.shape[0], hr.steps, hr.k
+     words = rows.reshape(n * steps, k)
+-    fast = getattr(hr.leaf, "row_sponges", None) if ROW_SPONGE_KERNEL else None
+-    if fast is not None:
+-        # one thread per row, the whole sponge in registers (leaf/poseidon2.py row_sponge): the same states and digests
+-        res = fast(words, word_bits=hr.word_bits, role=role, row_words=steps * k, n=n, steps=steps)
+-        if res is not None:
+-            return res
+     out = hr.leaf.chain_witness(words, word_bits=hr.word_bits, role=role, row_words=steps * k, n_vus=n, steps=steps, l=n * steps)
+     cap, dg = out[0], out[1]
+     res = (cap.T.reshape(n, steps, hr.leaf.carry_elems).contiguous(), dg)
+diff --git a/backends/direct/ligero/hashchain_test.py b/backends/direct/ligero/hashchain_test.py
+index 53806215..37284dd2 100644
+--- a/backends/direct/ligero/hashchain_test.py
++++ b/backends/direct/ligero/hashchain_test.py
+@@ -251,129 +251,6 @@ def test_sponge_kernel_source_is_the_permutation() -> None:
+         hashchain.sponge_kernel_source(8, 2, 212)
+ 
+ 
+-def test_row_sponge_kernel_permute_is_the_permutation() -> None:
+-    """The committer kernel's ``permute`` body, executed in Python, is Poseidon2 (KAT)."""
+-    import re
+-    from .leaf.poseidon2 import row_sponge_kernel_source
+-    src = row_sponge_kernel_source()
+-    body = src.split("permute(u64* s)\n{\n", 1)[1].split("\n}\n", 1)[0].splitlines()
+-    inp, exp = h2.KAT_24
+-    env = {f"s{i}": v for i, v in enumerate(inp)}
+-    out = {}
+-    tmp, fin = re.compile(r"\s*u64 (t\d+) = (.*);"), re.compile(r"\s*s\[(\d+)\] = (t\d+);")
+-    for line in body:
+-        m = tmp.match(line)
+-        if m:
+-            env[m.group(1)] = eval(re.sub(r"s\[(\d+)\]", r"s\1", m.group(2).replace("ULL", "")), {"P": P}, env)  # noqa: S307
+-            assert 0 <= env[m.group(1)] < 2**64
+-            continue
+-        m = fin.match(line)
+-        assert m, line
+-        out[int(m.group(1))] = env[m.group(2)]
+-    assert [out[i] for i in range(h2.WIDTH)] == list(exp)
+-
+-
+-def test_batch_merkle_framing_is_the_domain_framing() -> None:
+-    """``auth.leaf_hashes`` / ``_node_chunk`` / ``_pad_chunk`` (one hashed prefix per domain) hash the bytes
+-    ``CommitmentDomain.leaf`` / ``.node`` and the pad leaf do; ``leaf_bytes_many`` is ``row_leaf_value`` per row."""
+-    from verity.commitments.merkle import _PAD, _hash, _uint
+-    from verity.commitments.rowleaf import row_leaf_value
+-
+-    from . import auth
+-    from .leaf.poseidon2 import Poseidon2Leaf
+-    rng = np.random.default_rng(9)
+-    for count in (1, 5, 300):
+-        dom = auth.domain_for(bytes(range(32)), 1, count)
+-        vals = [rng.integers(0, 256, int(rng.integers(0, 40)), dtype=np.uint8).tobytes() for _ in range(count)]
+-        for start in (0, 255, 70000):
+-            want = b"".join(dom.leaf(start + i, start + i, "sch", v) for i, v in enumerate(vals))
+-            assert auth.leaf_hashes(dom.domain_id, start, "sch", vals) == want
+-        pairs = rng.integers(0, 256, (count, 64), dtype=np.uint8)
+-        for lv, start in ((0, 0), (3, 255), (11, 1 << 20)):
+-            want = b"".join(dom.node(lv, start + i, pairs[i, :32].tobytes(), pairs[i, 32:].tobytes()) for i in range(count))
+-            assert auth._node_chunk((dom, lv, start, pairs)) == want
+-        want = b"".join(_hash(_PAD, dom.domain_id, _uint(r)) for r in range(250, 260))
+-        assert auth._pad_chunk((dom.domain_id, 250, 260)) == want
+-    d = rng.integers(0, P, (7, 8))
+-    assert Poseidon2Leaf().leaf_bytes_many(d) == [row_leaf_value(r) for r in d]
+-    with pytest.raises(ValueError):
+-        Poseidon2Leaf().leaf_bytes_many(np.full((1, 8), P))
+-
+-
+-def test_synthetic_rows_are_the_vu_words(tmp_path) -> None:
+-    """``instances``' ``x_rows`` / ``w_cols`` (what ``commit_vus`` commits) are the VUs' own ``a`` / ``b`` words, drawn
+-    and from the npz cache; ``_instance`` is unchanged."""
+-    from .relchain import _instance, _word_rows
+-    rel = relation("fp8-ada")
+-    for data in (instances(rel, 4), instances(rel, 4, cache=tmp_path), instances(rel, 4, cache=tmp_path)):
+-        x, w = _word_rows(data.x_rows), _word_rows(data.w_cols)
+-        assert x.shape == w.shape == (4, len(data[0][0]))
+-        assert x.tolist() == [list(v[0]) for v in data] and w.tolist() == [list(v[1]) for v in data]
+-    assert _instance((rel.name, rel.instance_seed, 2)) == tuple(data[2])
+-
+-
+-def test_frozen_rows_are_the_vu_words() -> None:
+-    """``frozen_instances``' ``x_rows`` / ``w_cols`` are the VUs' own ``a`` / ``b`` words, past the tier's end too
+-    (recycled ``i mod n``)."""
+-    from verity_numerical.bench import instances as frozen
+-
+-    from .relchain import _word_rows, frozen_instances
+-    rel = relation("bf16-ampere")
+-    try:
+-        n_tier = frozen.load(rel.frozen_tier, frozen.DEFAULT_ROOT).n
+-    except FileNotFoundError:
+-        pytest.skip("frozen instances not built")
+-    data = frozen_instances(rel, n_tier + 2)
+-    x, w = _word_rows(data.x_rows), _word_rows(data.w_cols)
+-    assert x.shape == w.shape == (n_tier + 2, len(data[0][0]))
+-    for i in (0, 1, n_tier - 1, n_tier, n_tier + 1):
+-        assert x[i].tolist() == list(data[i][0]) and w[i].tolist() == list(data[i][1])
+-    small = frozen_instances(rel, 3)
+-    assert np.array_equal(small.x_rows, x[:3]) and np.array_equal(small.w_cols, w[:3])
+-
+-
+-def _fp4_rows(rng, n: int, steps: int) -> np.ndarray:
+-    from .fp4.hashed import FP4Format
+-    k = FP4Format().k
+-    codes = rng.integers(0, 16, (n * steps, k - 4))
+-    scales = rng.integers(0, 128, (n * steps, 4))
+-    return np.concatenate([codes, scales], 1).reshape(n, steps * k)
+-
+-
+-@pytest.mark.parametrize("fmt", ["w8", "w16", "fp4"])
+-def test_row_sponge_kernel_equals_chain_witness_and_native(fmt) -> None:
+-    """On CUDA: the committer's one-thread-per-row sponge gives the linked rows of :meth:`chain_witness` (reshaped per
+-    row) and the digests of :meth:`native` (the tree leaves), for plain 8- and 16-bit words and the fp4 lane format."""
+-    if not torch.cuda.is_available():
+-        pytest.skip("CUDA")
+-    from .leaf.poseidon2 import Poseidon2Leaf, row_sponge_kernel
+-    if row_sponge_kernel() is None:
+-        pytest.skip("cupy")
+-    rng = np.random.default_rng(5)
+-    n, steps = 37, 5
+-    if fmt == "fp4":
+-        from .fp4.hashed import FP4Format
+-        leaf, word_bits = Poseidon2Leaf().with_lanes(FP4Format()), 4
+-        k = FP4Format().k
+-        rows = _fp4_rows(rng, n, steps)
+-    else:
+-        leaf, word_bits = Poseidon2Leaf(), int(fmt[1:])
+-        k = h2.RATE * (16 // word_bits)
+-        rows = rng.integers(0, 2**word_bits, (n, steps * k))
+-    for role in (h2.ROLE_X, h2.ROLE_W):
+-        words = torch.as_tensor(rows.reshape(n * steps, k), dtype=torch.int64, device="cuda")
+-        got = leaf.row_sponges(words, word_bits=word_bits, role=role, row_words=steps * k, n=n, steps=steps)
+-        assert got is not None
+-        cap, dg = leaf.chain_witness(words, word_bits=word_bits, role=role, row_words=steps * k, n_vus=n, steps=steps,
+-                                     l=n * steps)[:2]
+-        assert torch.equal(got[0], cap.T.reshape(n, steps, h2.CAPACITY)) and torch.equal(got[1], dg)
+-        assert np.array_equal(got[1].cpu().numpy(), leaf.native(rows, word_bits=word_bits, role=role))
+-    bad = torch.as_tensor(rows.reshape(n * steps, k), dtype=torch.int64, device="cuda")
+-    bad[3, 0] = -1
+-    with pytest.raises(ValueError):
+-        leaf.row_sponges(bad, word_bits=word_bits, role=h2.ROLE_X, row_words=steps * k, n=n, steps=steps)
+-
+-
+ def test_precomputed_row_sponges_equal_the_per_proof_sponge(runner) -> None:
+     """``commit`` runs every committed row's sponge once; the gathered capacity rows / digests are what the per-proof
+     sponge computes on the same words, and a prover whose words differ from the claimed rows falls back to them."""
+diff --git a/backends/direct/ligero/leaf/poseidon2.py b/backends/direct/ligero/leaf/poseidon2.py
+index 3899da51..758d934b 100644
+--- a/backends/direct/ligero/leaf/poseidon2.py
++++ b/backends/direct/ligero/leaf/poseidon2.py
+@@ -167,96 +167,6 @@ poseidon2_rows(unsigned* __restrict__ W, int l, int n_sponges, const int* __rest
+ """
+ 
+ 
+-def row_sponge_kernel_source() -> str:
+-    """CUDA source of ``row_sponge``: one thread per committed row, the sponge along its ``steps`` rate blocks with the
+-    state in registers (the permutation as :func:`poseidon2_babybear.permute_ring`'s straight-line code, as
+-    :func:`sponge_kernel_source`), writing the linked rows ``cap - IV`` before every block and the digest after the last:
+-    :func:`sponge_lanes` / ``hash_rows_np`` for all rows at once."""
+-    em: list[str] = []
+-    state = [_Sym(em, f"s[{i}]", P - 1) for i in range(h2.WIDTH)]
+-
+-    def reduce(x):
+-        if isinstance(x, _Sym):
+-            return x if x.bound < P else x._new(f"{x.var} % P", P - 1)
+-        return int(x) % P
+-
+-    def sbox(x: _Sym) -> _Sym:
+-        x2 = x._new(f"({x.var} * {x.var}) % P", P - 1)
+-        x3 = x._new(f"({x2.var} * {x.var}) % P", P - 1)
+-        x4 = x._new(f"({x2.var} * {x2.var}) % P", P - 1)
+-        return x._new(f"({x4.var} * {x3.var}) % P", P - 1)
+-
+-    out = h2.permute_ring(state, sbox, reduce)
+-    em += [f"    s[{i}] = {o.var};" for i, o in enumerate(out)]
+-    body = "\n".join(em)
+-    return f"""
+-#define P {P}ULL
+-typedef unsigned long long u64;
+-
+-__device__ __forceinline__ void permute(u64* s)
+-{{
+-{body}
+-}}
+-
+-extern "C" __global__ void __launch_bounds__(32)
+-row_sponge(const long long* __restrict__ el, int n, int steps, const unsigned* __restrict__ iv, long long* __restrict__ cap,
+-           long long* __restrict__ dg)
+-{{
+-    const int r = blockIdx.x * blockDim.x + threadIdx.x;
+-    if (r >= n) return;
+-    u64 s[{h2.WIDTH}];
+-#pragma unroll
+-    for (int x = 0; x < {h2.CAPACITY}; ++x) s[{h2.RATE} + x] = iv[x];
+-    for (int st = 0; st < steps; ++st) {{
+-        const size_t base = (size_t)r * steps + st;
+-#pragma unroll
+-        for (int x = 0; x < {h2.CAPACITY}; ++x) cap[base * {h2.CAPACITY} + x] = (long long)((s[{h2.RATE} + x] + P - iv[x]) % P);
+-#pragma unroll
+-        for (int j = 0; j < {h2.RATE}; ++j) s[j] = (u64)el[base * {h2.RATE} + j] % P;
+-        permute(s);
+-    }}
+-#pragma unroll
+-    for (int x = 0; x < {h2.OUT}; ++x) dg[(size_t)r * {h2.OUT} + x] = (long long)s[x];
+-}}
+-"""
+-
+-
+-_ROW_SPONGE: dict = {}
+-
+-
+-def row_sponge_kernel():
+-    """The compiled ``row_sponge`` of the current device (cupy RawModule, once per process and device), or ``None`` without
+-    cupy.  Compiling is a function of the Poseidon2 constants alone: :meth:`Poseidon2Leaf.prepare` does it before any clock."""
+-    try:
+-        import cupy as cp
+-    except ImportError:
+-        return None
+-    dev = cp.cuda.Device().id
+-    fn = _ROW_SPONGE.get(dev)
+-    if fn is None:
+-        fn = _ROW_SPONGE[dev] = cp.RawModule(code=row_sponge_kernel_source(), options=("-std=c++17",)).get_function("row_sponge")
+-    return fn
+-
+-
+-def row_sponges_lanes(el, iv: list[int], n: int, steps: int):
+-    """``el`` (n * steps, 16) int64 CUDA torch rate lanes (row-major: row r's block s at r * steps + s) from the capacity
+-    ``iv`` -> ``(cap (n, steps, 8): cap - IV before every block, digests (n, 8))`` int64, by :func:`row_sponge_kernel`;
+-    ``None`` when it is unavailable.  Equal to :func:`sponge_lanes` (``cap.T.reshape(n, steps, 8)``, digests)."""
+-    import torch
+-    fn = row_sponge_kernel()
+-    if fn is None or not el.is_cuda:
+-        return None
+-    import cupy as cp
+-    el = el.to(torch.int64).contiguous()
+-    cap = torch.empty((n, steps, h2.CAPACITY), dtype=torch.int64, device=el.device)
+-    dg = torch.empty((n, h2.OUT), dtype=torch.int64, device=el.device)
+-    if n:
+-        with cp.cuda.ExternalStream(torch.cuda.current_stream(el.device).cuda_stream):
+-            ivc = cp.asarray(np.asarray([int(v) for v in iv[h2.RATE:]], dtype=np.uint32))
+-            fn((-(-n // 32),), (32,), (cp.asarray(el), np.int32(n), np.int32(steps), ivc, cp.asarray(cap), cp.asarray(dg)))
+-    return cap, dg
+-
+-
+ class Poseidon2Witness:
+     """The witness hook (witness_device.py ``sys.witness_hooks``) writing the sponges' S-box rows on the device.
+     ``sponges``: per sponge ``(bit_rows word-major, cap_rows, iv_capacity, sbox_rows [(x2, x3, x4, x7), ...])``.
+@@ -442,11 +352,6 @@ def _pack_elements_np(el: np.ndarray, lanes: LaneFormat) -> np.ndarray:
+     return out
+ 
+ 
+-def _arange_like(n: int, like):
+-    import torch
+-    return torch.arange(n, dtype=torch.int64, device=like.device)
+-
+-
+ def _pack_elements_torch(el, lanes: LaneFormat):
+     import torch
+     per, n_lanes = lane_geometry(lanes)
+@@ -514,14 +419,6 @@ class Poseidon2Leaf:
+     def leaf_bytes(self, digest_row) -> bytes:
+         return row_leaf_value(digest_row)
+ 
+-    def leaf_bytes_many(self, digests: np.ndarray) -> list[bytes]:
+-        """:meth:`leaf_bytes` of every row of ``digests`` (count, 8) in [0, p)."""
+-        d = np.asarray(digests, dtype=np.int64)
+-        if d.ndim != 2 or d.shape[1] != h2.OUT or ((d < 0) | (d >= h2.P)).any():
+-            raise ValueError("a row digest is 8 BabyBear lanes")
+-        b = d.astype(">u4").tobytes()
+-        return [b[32 * i:32 * i + 32] for i in range(d.shape[0])]
+-
+     # --- gadget --------------------------------------------------------------------------------------------------------
+     def gadget(self, ctx: LigeroCtx, words: Sequence[Expr], *, word_bits: int, role: int, row_words: int,
+                carry_in: Sequence[Expr], first: bool = False, last: bool = True) -> tuple[list[Expr], list[Expr]]:
+@@ -568,31 +465,6 @@ class Poseidon2Leaf:
+         el = _pack_elements_torch(self.lanes.elements_torch(words), self.lanes)
+         return sponge_lanes(el, h2.IV(role, self.lanes.elem_bits, self._row_elems(row_words)), n_vus, steps, l)
+ 
+-    def row_sponges(self, words, *, word_bits: int, role: int, row_words: int, n: int, steps: int):
+-        """The committer's sponges of ``n`` whole rows at once: ``words`` (n * steps, k) int64 CUDA torch, row-major ->
+-        ``(cap (n, steps, 8), digests (n, 8))`` = :meth:`chain_witness` reshaped per row, whose digests are :meth:`native`'s
+-        (the tree leaves); ``None`` off CUDA or without cupy (the caller falls back to :meth:`chain_witness`)."""
+-        if not words.is_cuda:
+-            return None
+-        if self.lanes is None:
+-            per = h2.LANE_BITS // word_bits
+-            if bool(((words < 0) | (words >= 2**word_bits)).any()):
+-                raise ValueError("word out of range")
+-            w = words.reshape(words.shape[0], h2.RATE, per)
+-            el = (w * (2 ** (word_bits * _arange_like(per, words)))[None, None, :]).sum(2)
+-            iv = h2.IV(role, word_bits, row_words)
+-        else:
+-            e = self.lanes.elements_torch(words)
+-            if bool(((e < 0) | (e >= 2**self.lanes.elem_bits)).any()):
+-                raise ValueError("lane element out of range")
+-            el = _pack_elements_torch(e, self.lanes)
+-            iv = h2.IV(role, self.lanes.elem_bits, self._row_elems(row_words))
+-        return row_sponges_lanes(el, iv, n, steps)
+-
+-    def prepare(self) -> None:
+-        """Compile the committer's device kernel (a function of the constants only; outside every clock)."""
+-        row_sponge_kernel()
+-
+     def census(self) -> dict:
+         out = {"permutations_per_unit": 2,
+                "sbox_rows_per_permutation": 4 * (h2.WIDTH * 2 * h2.HALF_FULL_ROUNDS + h2.PARTIAL_ROUNDS)}
+diff --git a/backends/direct/ligero/relchain.py b/backends/direct/ligero/relchain.py
+index e8944408..7f5acb50 100644
+--- a/backends/direct/ligero/relchain.py
++++ b/backends/direct/ligero/relchain.py
+@@ -47,21 +47,16 @@ __all__ = ["RelationChainRunner", "bench_vu_rel", "gate_vu_rel", "instances", "i
+ # ---------------------------------------------------------------------------------------------------------------------
+ 
+ def _instance(args) -> tuple[list, list, list, int]:
+-    return _instance_np(args)[2]
+-
+-
+-def _instance_np(args) -> tuple[np.ndarray, np.ndarray, tuple[list, list, list, int]]:
+-    """VU ``i``'s operands as drawn (arrays) and the VU ``(a, b, accs, y_final)`` of :func:`_instance`."""
+     name, seed, i = args
+     rel = relation(name)
+     rng = np.random.default_rng([seed, i])
+-    a_np, b_np = rel.operands(rng, (K_VU,)), rel.operands(rng, (K_VU,))
+-    a, b = a_np.tolist(), b_np.tolist()
++    a = rel.operands(rng, (K_VU,)).tolist()
++    b = rel.operands(rng, (K_VU,)).tolist()
+     k, accs, c = rel.k, [], 0
+     for s in range(rel.steps):
+         c = tc_dot(rel.model, c, a[k * s:k * s + k], b[k * s:k * s + k])
+         accs.append(c)
+-    return a_np, b_np, (a, b, accs, accs[-1])
++    return a, b, accs, accs[-1]
+ 
+ 
+ def _frozen_root(root) -> Path:
+@@ -89,44 +84,9 @@ def frozen_instances(rel: Relation, n: int, root=None):
+         if len(accs) != rel.steps or rel.y_public(int(accs[-1])) != y16:
+             raise ValueError(f"{rel.frozen_tier} instance {j}: {len(accs)} accumulators / final word does not cast to the expected y")
+         out.append((a, b, accs, int(accs[-1])))
+-    x = np.frombuffer(vu.x, dtype=np.uint16 if vu.x.itemsize == 2 else np.uint32).reshape(vu.n, vu.K)
+-    w = np.frombuffer(vu.w, dtype=np.uint16 if vu.w.itemsize == 2 else np.uint32).reshape(vu.n, vu.K)
+-    if n <= vu.n:
+-        return _with_rows(out, x[:n], w[:n])
+-    return _with_rows(out, [x[i % vu.n] for i in range(n)], [w[i % vu.n] for i in range(n)])
+-
+-
+-class VUs(list):
+-    """An instance list (:func:`instances`) carrying the committed operand rows in the form they were read or drawn in
+-    (``x_rows``, ``w_cols``: an (n, K) integer array or n integer arrays of K, the words of ``self[i][0]`` /
+-    ``self[i][1]``): what ``commit_vus`` commits instead of converting the per-VU lists back."""
+-    x_rows: np.ndarray | None = None
+-    w_cols: np.ndarray | None = None
+-
+-
+-def _with_rows(vus: list, x_rows, w_cols) -> VUs:
+-    out = VUs(vus)
+-    out.x_rows, out.w_cols = x_rows, w_cols
+     return out
+ 
+ 
+-def _word_rows(rows) -> np.ndarray:
+-    """Committed rows as a 2-D integer array: an integer ndarray as it is (its own dtype), a list of 1-D integer ndarrays
+-    stacked, anything else as int64."""
+-    if isinstance(rows, np.ndarray) and rows.ndim == 2 and rows.dtype.kind in "iu":
+-        return rows
+-    if isinstance(rows, list) and rows and all(isinstance(r, np.ndarray) and r.ndim == 1 and r.dtype.kind in "iu" for r in rows):
+-        return np.stack(rows)
+-    return np.asarray(rows, dtype=np.int64)
+-
+-
+-def _rows_to_device(rows: np.ndarray, device):
+-    """``rows`` as an int64 torch tensor on ``device``, copied in its narrow dtype and widened there."""
+-    if rows.dtype not in (np.uint8, np.int8, np.int16, np.int32, np.int64):
+-        rows = rows.astype(np.int32 if rows.dtype.itemsize <= 2 else np.int64)
+-    return torch.from_numpy(np.ascontiguousarray(rows)).to(device).to(torch.int64)
+-
+-
+ def instances(rel: Relation, n: int, seed: int | None = None, procs: int = 1, cache: str | Path | None = None, root=None):
+     """``n`` VUs: (a (1536,), b (1536,), accs (steps,), y_final) with the accumulators recorded from the model.
+     Deterministic in ``(seed, index)``; ``procs > 1`` records them in parallel; ``cache`` keeps the set as an npz.
+@@ -140,20 +100,19 @@ def instances(rel: Relation, n: int, seed: int | None = None, procs: int = 1, ca
+     if path is not None and path.exists():
+         with np.load(path) as z:  # materialise each array once (indexing the lazy NpzFile re-reads the member every time)
+             a, b, accs = z["a"], z["b"], z["accs"]
+-        return _with_rows([(a[i].tolist(), b[i].tolist(), accs[i].tolist(), int(accs[i][-1])) for i in range(n)], a, b)
++        return [(a[i].tolist(), b[i].tolist(), accs[i].tolist(), int(accs[i][-1])) for i in range(n)]
+     if path is not None and rel.fold > 1 and rel.folded_from and (Path(cache) / f"{rel.folded_from}-{seed}-{n}.npz").exists():
+         # the fold's VUs ARE the base's (same operands from the same (seed, i) streams, the same chain): every ``fold``-th
+         # recorded accumulator is a column's end, the others are the words the fold keeps private
+         with np.load(Path(cache) / f"{rel.folded_from}-{seed}-{n}.npz") as z:
+             a, b, accs = z["a"], z["b"], z["accs"][:, rel.fold - 1::rel.fold]
+-        return _with_rows([(a[i].tolist(), b[i].tolist(), accs[i].tolist(), int(accs[i][-1])) for i in range(n)], a, b)
++        return [(a[i].tolist(), b[i].tolist(), accs[i].tolist(), int(accs[i][-1])) for i in range(n)]
+     jobs = [(rel.name, seed, i) for i in range(n)]
+     if procs > 1 and n > 1:
+         with ProcessPoolExecutor(procs) as ex:
+-            drawn = list(ex.map(_instance_np, jobs, chunksize=max(1, n // (8 * procs))))
++            out = list(ex.map(_instance, jobs, chunksize=max(1, n // (8 * procs))))
+     else:
+-        drawn = [_instance_np(j) for j in jobs]
+-    out = _with_rows([d[2] for d in drawn], [d[0] for d in drawn], [d[1] for d in drawn])
++        out = [_instance(j) for j in jobs]
+     if path is not None:
+         path.parent.mkdir(parents=True, exist_ok=True)
+         np.savez(path, a=np.asarray([o[0] for o in out], dtype=np.int64), b=np.asarray([o[1] for o in out], dtype=np.int64),
+@@ -472,8 +431,6 @@ class HashedRelationRunner(RelationChainRunner):
+         self.leaf_name = leaf_registry.suffix_of(self.leaf)     # the relation suffix ("poseidon2", "blake3", "ajtai-n64")
+         self.sys = self.hr.sys
+         self.tb = tables(self.sys, self.device)
+-        if hashchain.ROW_SPONGE_KERNEL and str(device).startswith("cuda") and getattr(self.leaf, "prepare", None) is not None:
+-            self.leaf.prepare()
+         self.compile_seconds = time.perf_counter() - t0
+         self._cfg = {}
+         self._base_sys = dataclasses.replace(self.sys, hints=self.sys.hints[:self.hr.n_base_hints])
+@@ -501,28 +458,23 @@ class HashedRelationRunner(RelationChainRunner):
+         """Build (or load) the three trees of the committed set; ``tile = (nx, nw)`` records the sharing layout."""
+         from . import hashauth, hashchain
+         t0 = time.perf_counter()
+-        x_rows, w_cols = _word_rows(x_rows), _word_rows(w_cols)
+-        self.rows = {"a": x_rows, "b": w_cols}
+-        rows_d = {nm: _rows_to_device(r, self.device) for nm, r in self.rows.items()}
++        x_rows, w_cols = np.asarray(x_rows, dtype=np.int64), np.asarray(w_cols, dtype=np.int64)
+         t1 = time.perf_counter()
+-        self.tile = tile
+-        # the chain states of every committed row, once (the prover's cost of hashing; gathered per sub-batch in prove_vus);
+-        # with the device row sponges their digests ARE the tree leaves' (scheme.native), so the trees take them
+-        self.sponges = {nm: hashchain.row_chain(self.hr, rows_d[nm], role, self.device) for _, nm, role in hashchain.ROLES}
+-        if str(self.device).startswith("cuda"):
+-            torch.cuda.synchronize()
+-        t2 = time.perf_counter()
+-        self.sponge_seconds = t2 - t1
+-        chain_digests = None
+-        if hashchain.ROW_SPONGE_KERNEL and getattr(self.leaf, "row_sponges", None) is not None and str(self.device).startswith("cuda"):
+-            chain_digests = {nm: self.sponges[nm][1].cpu().numpy().astype(np.int64) for nm in self.sponges}
+         self.trees, self.digests, cached = hashauth.load_or_build_trees(
+             cache, x_rows=x_rows, w_cols=w_cols,
+             y_words=np.asarray(y_words, dtype=np.int64), word_bits=self.hr.word_bits, y_bits=self.rel.y_bits, bindings=bindings,
+-            leaf=self.leaf, digests=chain_digests)
++            leaf=self.leaf)
++        self.tile = tile
++        # the chain states of every committed row, once (the prover's cost of hashing; gathered per sub-batch in prove_vus)
++        t2 = time.perf_counter()
++        self.rows = {"a": x_rows, "b": w_cols}
++        self.sponges = {nm: hashchain.row_chain(self.hr, self.rows[nm], role, self.device) for _, nm, role in hashchain.ROLES}
++        if str(self.device).startswith("cuda"):
++            torch.cuda.synchronize()
+         t3 = time.perf_counter()
+-        self._committed_digests(rows_d)
+-        self.commit_timings = {"rows": t1 - t0, "chain": t2 - t1, "trees": t3 - t2, "host": time.perf_counter() - t3}
++        self.sponge_seconds = t3 - t2
++        self._committed_digests()
++        self.commit_timings = {"rows": t1 - t0, "trees": t2 - t1, "chain": t3 - t2, "host": time.perf_counter() - t3}
+         return cached
+ 
+     def commit_evidence(self) -> dict:
+@@ -537,12 +489,12 @@ class HashedRelationRunner(RelationChainRunner):
+         out["sha256"] = hashlib.sha256(json.dumps(out, sort_keys=True).encode()).hexdigest()
+         return out
+ 
+-    def _committed_digests(self, rows_d: dict | None = None):
++    def _committed_digests(self):
+         """Host copies of the committed rows' digests (public: the leaves of the x / W trees) for the statement tables
+         of the pipelined prover, and device copies of the committed rows (the hash side gathers its witness from them)."""
+         self._marshal_cache = {}
+         self.dg_host = {nm: self.sponges[nm][1].cpu().numpy().astype(np.int64) for nm in self.sponges}
+-        self.rows_d = rows_d if rows_d is not None else {nm: _rows_to_device(self.rows[nm], self.device) for nm in self.rows}
++        self.rows_d = {nm: torch.as_tensor(self.rows[nm], dtype=torch.int64).to(self.device) for nm in self.rows}
+ 
+     def marshal_hashed(self, vus: list, vu_ids, min_l: int = 256) -> dict:
+         """The sub-batch's statement (public table from the committed digests, leaf indices, authentication block, public
+@@ -661,10 +613,8 @@ class HashedRelationRunner(RelationChainRunner):
+         from . import hashauth
+         y = [self.rel.y_public(int(v[3])) for v in data]
+         if tile is None:
+-            x_rows, w_cols = getattr(data, "x_rows", None), getattr(data, "w_cols", None)
+-            if x_rows is None or w_cols is None:
+-                x_rows = [v[0] for v in data]
+-                w_cols = [v[1] for v in data]
++            x_rows = [v[0] for v in data]
++            w_cols = [v[1] for v in data]
+         ysch, _ = hashauth.word_schema(self.rel.y_bits)
+         bindings = {n: hashauth.binding_digest(dataset=dataset, tier=tier, manifest_sha256=manifest_sha256, lo=0, hi=len(data),
+                                                K=getattr(self.rel, "vu_words", K_VU), tree=n,

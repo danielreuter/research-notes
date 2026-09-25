@@ -1,7 +1,8 @@
 """verify-night-2: recompute the commitment roots a result's statements bind, from MY tree's instance set, with the core
 reference only (verity.commitments), and compare them with the dumped statements' auth block and the run's commit-evidence.
 
-For an `authentication = included-hash` result (Poseidon2 row leaves, leaf/v2h):
+For an `authentication = included-hash` result (row leaves chosen by the relation suffix: +blake3 -> core
+blake3_row_digest / blake3-keyed/row/v2, +sha256 -> sha256_row_digest / sha256/row/v1, else Poseidon2 leaf/v2h):
   x rows / W columns / y words: relchain.instances(rel, N) of my tree (what bench_vu_rel commits, untiled: VU i's own x row
   and W column); y word = rel.y_public(final accumulator).
   bindings: verity.commitments.identity_digest(hashauth.BINDING_TAG, {dataset, tier, manifest_sha256 = my tree's
@@ -36,39 +37,62 @@ BINDING_TAG = "verity/ligero-b/auth-binding/v2h"  # hashauth.BINDING_TAG (checke
 _cache = {}
 
 
+def _leaf_kind(rel_name: str) -> str:
+    """The row-leaf scheme a relation name selects: +blake3 / +sha256 (frame-v3 row leaves), else Poseidon2 (leaf/v2h)."""
+    suf = set(str(rel_name).split("+")[1:])
+    return "blake3" if "blake3" in suf else "sha256" if "sha256" in suf else "poseidon2"
+
+
 def _row_leaf(args):
-    words, word_bits, role = args
-    return row_leaf_value(p2.hash_row([int(w) for w in words], word_bits, role))
+    kind, words, word_bits, role = args
+    words = [int(w) for w in words]
+    if kind == "blake3":
+        from verity.commitments.rowleaf import blake3_row_digest
+        return blake3_row_digest(words, word_bits, role)
+    if kind == "sha256":
+        from verity.commitments.rowleaf import sha256_row_digest
+        return sha256_row_digest(words, word_bits, role)
+    return row_leaf_value(p2.hash_row(words, word_bits, role))
+
+
+def _row_schema(kind: str) -> str:
+    from verity.commitments import rowleaf
+    return {"blake3": rowleaf.SCHEMA_BLAKE3_ROW, "sha256": rowleaf.SCHEMA_SHA256_ROW}.get(kind, SCHEMA_ROW)
 
 
 def core_trees(rel_name: str):
     if rel_name in _cache:
         return _cache[rel_name]
     from backends.direct.ligero import hashauth, hashchain
+    from backends.direct.ligero.leaf import registry as leaf_registry
     assert hashauth.BINDING_TAG == BINDING_TAG, hashauth.BINDING_TAG
+    kind = _leaf_kind(rel_name)
+    row_schema = _row_schema(kind)
     base = rel_name.split("+")[0]
     rel = RELATIONS[base]
     data = relchain.instances(rel, N, procs=PROCS)
     msha = relchain.instances_digest(rel, N)
     K = getattr(rel, "vu_words", relchain.K_VU)
-    word_bits = hashchain.compose(rel, None).word_bits
+    backend_leaf = leaf_registry.get(None if kind == "poseidon2" else kind)
+    assert backend_leaf.schema == row_schema, (backend_leaf.schema, row_schema)
+    word_bits = hashchain.compose(rel, backend_leaf).word_bits
     ysch, ynb = hashauth.word_schema(rel.y_bits)
     x_rows = [np.asarray(v[0]).reshape(-1) for v in data]
     w_cols = [np.asarray(v[1]).reshape(-1) for v in data]
     y = [int(rel.y_public(int(v[3]))) for v in data]
-    info = {"relation": base, "dataset": rel.instances_dataset, "tier": rel.instances_tier, "manifest_sha256": msha, "K": K,
-            "word_bits": word_bits, "y_schema": ysch}
+    info = {"relation": base, "leaf": kind, "row_schema": row_schema, "dataset": rel.instances_dataset, "tier": rel.instances_tier,
+            "manifest_sha256": msha, "K": K, "word_bits": word_bits, "y_schema": ysch}
     out = {}
     with Pool(PROCS) as pool:
         for n, rows, role in (("a", x_rows, p2.ROLE_X), ("b", w_cols, p2.ROLE_W), ("y", None, None)):
-            schema = SCHEMA_ROW if n != "y" else ysch
+            schema = row_schema if n != "y" else ysch
             binding = bytes.fromhex(identity_digest(BINDING_TAG, {"dataset": rel.instances_dataset, "tier": rel.instances_tier,
                                                                   "manifest_sha256": msha, "lo": 0, "hi": N, "K": int(K),
                                                                   "tree": n, "schema": schema}))
             if n == "y":
                 values = [w.to_bytes(ynb, "big") for w in y]
             else:
-                values = pool.map(_row_leaf, [(r, word_bits, role) for r in rows], chunksize=16)
+                values = pool.map(_row_leaf, [(kind, r, word_bits, role) for r in rows], chunksize=16)
             dom = CommitmentDomain(binding, OWNER[n], RangeIndexedDomain(0, len(values)))
             t = MerkleTree(dom, dict(enumerate(values)), lambda _p, s=schema: s)
             out[n] = {"binding": binding.hex(), "owner": OWNER[n], "count": len(values), "root": t.commitment.root.hex()}

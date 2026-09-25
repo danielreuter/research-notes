@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 4f1dacb4 (07:18Z) [open] merged main 00ffe398 (core frame-v3 schemas; vectors from core, stand-in dropped); host committed-* cmds + py reference (7 vectors) at 4f1dacb4; pod build r20260925-071747-5eae running; vllm-v1 variant queued after frame-v3 per handoff
 CHECKPOINT 1efd4300 (07:04Z) [open] guest feature relation-committed (bare relation + sha256/row/v1 digests via SP1 precompile, frame-v3 tree check) at 1efd4300; pod vy-sp1-committed (4090) bootstrapping stock+committed builds; next host committed-* cmds, py reference
 CHECKPOINT 7fcedf47 (06:47Z) [open] started: read contract/TABLES/decision/sp1 kb+reports; PR #15 open, coding against its sha256/row/v1 framing; 4090 pod creating; next: committed guest + host tree check
 # sp1-committed report

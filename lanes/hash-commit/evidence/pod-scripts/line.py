@@ -19,5 +19,5 @@ if rb.exists():
     rust = f"{j.get('accepted')}/{j.get('n_accepted', j.get('accepted_count', '?'))}"
 f = lambda k: f"{m[k]:.4f}" if k in m else "-"  # noqa: E731
 print(f"t.total={f('t.total')} commit={f('commit.seconds')} cold={f('commit.cold_seconds')} e2e={f('e2e.seconds')} "
-      f"rows={f('commit.rows_seconds')} trees={f('commit.trees_seconds')} chain={f('commit.chain_seconds')} host={f('commit.host_seconds')} "
+      f"committer={f('commit.committer_seconds')} rows={f('commit.rows_seconds')} trees={f('commit.trees_seconds')} chain={f('commit.chain_seconds')} host={f('commit.host_seconds')} "
       f"ev={ev.get('sha256', '-')[:16]} stmts={len(stmts)}:{h.hexdigest()[:16]} rust={rust} val={r['validation']['status']}")

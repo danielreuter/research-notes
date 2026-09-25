@@ -52,7 +52,15 @@ Pod scripts: `evidence/pod-scripts/`.
   core `blake3-keyed/row/v2` schema is the leaf's (core_schema_test cross-checks it); no local stand-in existed. Order kept:
   frame-v3 first, vllm-v1 after (its SHA-256 leaves need the SHA-256 gadget = survey gate). ad4c3440 renames my measurements to
   the `commit.*` / `e2e.*` names `bench.views` reads.
-* 07:08Z r20260925-070830-b881 (`12-prof.sh`): cProfile of one fp8-ada+blake3 commit-per-rep bench.
+* 07:08Z r20260925-070830-b881 (`12-prof.sh`): cProfile of one fp8-ada+blake3 commit-per-rep bench. The commitment is the
+  **per-row `leaf_bytes`** in `hashauth.build_row_tree`: every row's chunk CVs folded to its BLAKE3 root on single-lane numpy
+  (32 939 calls, 80 s cumulative = ~21 s per commit + the Python verifier's per-VU calls); `native()` ~1.5 s per tree.
+* 07:14Z d5b299ff `leaf_bytes_many` (lockstep fold, byte-identical, row-by-row fallback on a malformed frame); build_row_tree
+  uses it. r20260925-072321-d0e6: blake3_test + core_schema_test **17 passed**; 1-rep bench: **commit 0.650 s** (was 18.0 s),
+  roots a=2f9ff265… b=0413c926… identical to eade, Python verifier ACCEPT; t.total 4.489 s, e2e 5.139 s, 1.349e8x native
+  peak. (The full leaf/auth suite r20260925-071530-178a was stopped after 7 min: too slow for what it covers.)
+* 07:26Z measured cell r20260925-072604-6238: fp8-ada+blake3 l=4096 p2 5 reps, `--commit-per-rep`, custody-r2 8h, Rust batch.
+* 07:27Z handoff to blake3-80gb (d5b299ff + `--commit-per-rep`; H100 lines are theirs).
 
 ## 1. `--commit-per-rep` (82453d30, names aligned with main's `bench.views` in ad4c3440)
 Every rep (the warm-up included) drops the committed state and runs `commit_vus` with no tree cache, then rebuilds the hashed

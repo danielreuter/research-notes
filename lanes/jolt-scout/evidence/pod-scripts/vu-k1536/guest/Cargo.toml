@@ -9,6 +9,8 @@ guest = []
 [dependencies]
 jolt = { package = "jolt-sdk", path = "../../../jolt-sdk", features = [] }
 jolt-inlines-sha2.workspace = true
+serde = { version = "1", default-features = false, features = ["alloc"] }
+serde_bytes = { version = "0.11", default-features = false, features = ["alloc"] }
 
 [lib]
 test = false

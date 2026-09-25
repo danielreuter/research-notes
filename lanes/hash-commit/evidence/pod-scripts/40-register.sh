@@ -21,25 +21,26 @@ EOT
 TOOL=$(ls -td /workspace/research/tool/*/ | head -1)
 export PYTHONPATH=$TOOL RESEARCH_STORE=/workspace/research/store RESEARCH_STORE_CONFIG="$C"
 POD="${POD_DESC:-vy-hash-commit}"
+LANE_LABEL="${LANE_LABEL:-hash-commit}"   # commit-gpu runs: LANE_LABEL="hash-commit commit-gpu"
 for arg in "$@"; do
   tag=${arg%%=*}; label=${arg#*=}; [ "$label" = "$arg" ] && label=$tag
-  d=$HC/runs/$tag
+  d=${RUNS:-$HC/runs}/$tag
   [ -f $d/result.json ] || { echo "$tag: no result.json"; continue; }
-  ( cd $d && find proofs -type f | sort | xargs sha256sum > proofs.sha256 )
+  [ -d $d/proofs ] && ( cd $d && find proofs -type f | sort | xargs sha256sum > proofs.sha256 )
   if [ -n "${SLIM:-}" ]; then   # SLIM=1: everything but the rep-1 .proof files (system.bin, statements, coins, Rust verdicts
     s=$HC/slim/$tag; rm -rf $s; mkdir -p $s   # stay; every dumped file's sha256 in proofs.sha256)
     cp -a $d/result.json $d/log $d/run_id $d/commit-evidence.json $d/proofs.sha256 $d/proofs $s/
     rm -f $s/proofs/rep1/*.proof
     d=$s
   fi
-  python3 - "$d/result.json" "$label" "$tag" "$POD" > $d.meta.json <<'PY'
+  python3 - "$d/result.json" "$label" "$tag" "$POD" "$LANE_LABEL" > $d.meta.json <<'PY'
 import json, sys
 r = json.load(open(sys.argv[1]))
-r.update(label=f"hash-commit {sys.argv[2]}", lane="hash-commit", tag=sys.argv[3], pod=sys.argv[4])
+r.update(label=f"{sys.argv[5]} {sys.argv[2]}", lane="hash-commit", tag=sys.argv[3], pod=sys.argv[4])
 print(json.dumps(r))
 PY
   tree=$(python3 -m research data put --kind run-files/v1 --tree $d --preserve \
-    --meta "{\"lane\": \"hash-commit\", \"tag\": \"$tag\", \"label\": \"hash-commit $label\"}" | grep -o 'art:[0-9a-f]*' | tail -1)
+    --meta "{\"lane\": \"hash-commit\", \"tag\": \"$tag\", \"label\": \"$LANE_LABEL $label\"}" | grep -o 'art:[0-9a-f]*' | tail -1)
   [ -n "$tree" ] || { echo "$tag tree put failed"; continue; }
   res=$(python3 -m research data put --kind bench-result/v1 --meta @$d.meta.json --ref run_files=$tree --preserve | grep -o 'art:[0-9a-f]*' | tail -1)
   echo "$(date -u +%H:%M:%SZ) $tag tree=$tree result=${res:-FAILED}" | tee -a $HC/registered.txt

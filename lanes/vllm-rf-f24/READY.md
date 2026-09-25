@@ -199,7 +199,7 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
 
 ## Found, not fixed
 
-- `commit_verdict.py:569` and `verdict.py:_replay_of` pick a `components.sampled_replay` by the substring "sampled-exact-replay"
+- `commit_verdict.py:590` and `verdict.py:_replay_of` pick a `components.sampled_replay` by the substring "sampled-exact-replay"
   in its method label (a label, not a message).
 - The recorded Builds can't validate a rebuild today. Re-deriving rows #73 and #74 with the base tree (and the head tree) gives
   Program digests different from the records', with the same number of root nodes (14,418 and 32,454 for #73's two wrappers).

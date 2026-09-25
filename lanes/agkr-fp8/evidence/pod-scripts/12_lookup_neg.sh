@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+# agkr-fp8: lookup negatives on a merged FP8 statement ($H/stmt, one LK table): one unit's column read by an LK query is
+# changed by +1 (a T_OP / SHIFT / TNORM output, an R5 key term) and the prover is handed the *honest* multiplicities
+# (logup.multiplicities patched), so the proof is what a cheating prover would send; Python and Rust must both reject.
+set -uo pipefail
+source /workspace/env.sh
+REL=${1:-fp8-ada}; N=${2:-4096}
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+cd /workspace/src/backends/gkr
+export PYTHONPATH=/workspace/src/backends/gkr:$PYTHONPATH
+REL=$REL N=$N H=${H:-/workspace/agkr-fp8/$REL} $PY - <<'EOF' 2>&1 | grep -v -i -E "warn|searchsorted"
+import json, os, subprocess
+from pathlib import Path
+
+import bench_result as br
+from gpu import logup, prover
+from gpu.circuit import P, layers, load_circuit
+from gpu.run import read_chain
+from gpu.v2.fp8 import relation_params
+from gpu.v2.witness import Generator, Ops
+
+REL, N, H = os.environ["REL"], int(os.environ["N"]), Path(os.environ["H"])
+d = H / "stmt"
+man = json.loads((d / "manifest.json").read_text())
+x, w, y, rel = br.load_relation(REL, Path("/workspace/src"), 0, N, 16)
+p, _ = relation_params(rel)
+ops = Ops("cuda")
+gen = Generator(ops, p)
+uc, ec = load_circuit(d / "circuit.txt"), load_circuit(d / "epilogue.txt")
+assert [t.name for t in uc.tables] == ["LK"], [t.name for t in uc.tables]
+ul, el = layers(uc), layers(ec)
+rows = gen.run(ops.asarray(x), ops.asarray(w), ops.asarray(y))
+chain = read_chain(d / "chain.txt", uc, ec, man["steps"], [int(v) for v in y])
+
+
+def inst_of(units):
+    return prover.Instance([prover.Segment("unit", uc, ul, units, uc.hash),
+                            prover.Segment("epilogue", ec, el, rows.epilogue, ec.hash)], chain)
+
+
+honest = inst_of(rows.units)
+dev = honest.device
+real_mults = logup.multiplicities
+m_honest = {t.name: real_mults(t, logup.table_rows(t, dev), [v for v in prover.seg_query_values(honest, t.name) if v is not None])
+            for t in honest.tables}
+logup.multiplicities = lambda t, trows, vals: m_honest[t.name].clone()
+
+first = {}
+for q in uc.queries:
+    first.setdefault(q.cols[1].konst, q)
+tags = {name: i for i, name in enumerate(sorted(["ALIGN4", "LEAD", "LEADNORM", "R5", "R7", "SHIFT", "SSHIFT_HI", "SSHIFT_LO",
+                                                  "TNORM", "T_OP"]), 1)}
+
+
+def out_col(q):
+    return next(l.terms[0][0] for l in reversed(q.cols[2:]) if l.terms)
+
+
+cases = {"t_op_out": out_col(first[tags["T_OP"]]), "shift_out": out_col(first[tags["SHIFT"]]),
+         "tnorm_out": out_col(first[tags["TNORM"]]), "r5_key": first[tags["R5"]].cols[0].terms[0][0]}
+U = 7 * man["steps"] + 3
+ok = True
+for name, col in cases.items():
+    units = rows.units.clone()
+    units[U, col] = (units[U, col] + 1) % P
+    inst = inst_of(units)
+    proof, _st = prover.prove(inst, True)
+    try:
+        prover.verify(inst, proof, True)
+        py = "accept"
+    except prover.VerifyError as e:
+        py = f"reject ({str(e)[:80]})"
+    sd = H / "lookup_neg" / name
+    br.write_statement(d, sd, y)
+    (sd / "proof.bin").write_bytes(proof.to_bytes())
+    out = sd / "verify.json"
+    r = subprocess.run(["/workspace/bin/verity-gkr-verify", "verify", "--dir", str(sd), "--proof", str(sd / "proof.bin"),
+                        "--vus", str(N), "--threads", "10", "--json", str(out)], capture_output=True, text=True)
+    doc = json.loads(out.read_text()) if out.is_file() else {}
+    rust = "accept" if (doc.get("accepted") and r.returncode == 0) else f"reject ({str(doc.get('error'))[:80]})"
+    print(f"{name:10s} unit={U} col={col} ({uc.col_names[col]}) python={py} rust={rust}", flush=True)
+    ok &= py != "accept" and rust != "accept"
+print("LOOKUP NEGATIVES OK" if ok else "LOOKUP NEGATIVES FAILED", flush=True)
+EOF

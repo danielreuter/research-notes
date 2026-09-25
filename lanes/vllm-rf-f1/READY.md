@@ -8,6 +8,10 @@ updated: 2026-09-25T05:09Z
 ---
 # f1 (opened-value replay, D1): READY
 
+> **05:12Z: main moved to `c1891d48` (f3 merged, then a GKR merge). The branch is now `8efb918e`, rebased onto it and
+> pushed; the only conflict was `commit_delta.main`'s P10 count (now 1914). Lints, touched tests and gate (b) at `8efb918e`
+> are running on a new pod. Until this note says otherwise, the evidence below is for `299f42d5` and `d1f18fc8`.**
+
 ## Branch
 
 `origin/lane/vllm-rf-f1` at **`299f42d5`**, on `main` **`baeefd21`** (f24 and f56 merged). Eight commits: the lane's

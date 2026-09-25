@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T04:48Z
+updated: 2026-09-25T05:12Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -273,3 +273,21 @@ updated: 2026-09-25T04:48Z
   Gate (b) head and main: all files done except test_derive_realhf / test_derive_hf5b_realhf (one worker each, ~50% through by the
   d1f18fc8 run's per-case times; this EPYC 7713 host is ~2x slower per core) -> ETA ~05:05Z.  READY draft updated for both heads
   (placeholders RESULTS_299 / GATEB_299 for the gate (b) numbers).
+
+## 05:12Z gate (b) at `299f42d5` GREEN; READY.md published; then main moved to `c1891d48` (f3): REBASED to `8efb918e`, pushed
+- 05:06Z **GATE (b) at `299f42d5`: GREEN.** HEAD `r20260925-043152-27f8` 3933: 3580 P / 49 F / 11 E / 287 S / 6 xf; MAIN `baeefd21`
+  `r20260925-043149-0159` 3910: 3558 P / 49 F / 11 E / 286 S / 6 xf (same pod, side by side, 33 min each).  jdiff head vs main rc 0 (24 new
+  pass, 1 rename, weakref test passed->skipped = a1's order-dependent list; F+E 60 = 60).  vs a1: new failures 0, F+E 65 -> 60, the one new
+  skip reason = main's test_ship_roots (at main too), gc-freeze pair (a1 list).  JUnit + jdiffs + lint/touched JUnit beside this note.
+- 05:08Z both preserved (6/6), **vyv-rf-f1-cpu2 drained and TERMINATED (8/8 attempts preserved)**; machines.toml marked.
+- 05:09Z **READY.md published** (both heads 299f42d5 / d1f18fc8; D13 analysis; two new tooling findings: `--cwd source` default and
+  `pods create --register` writing notes/machines.d while `run --on` reads machines.toml).
+- 05:10Z main moved to **`c1891d48`**: f3 (`cc7842a0`, via lane/vllm-rf-f3-integrated) + GKR #13.  Trial merge: only `p10_size.json`
+  conflicts (commit_delta.main: main 1915 / mine 1916), as the coordinator predicted.  f3 touched 34 integrations/vllm files beside mine
+  (D3 layout arg: padding_steps takes com.layout, no VERITY_LEAF_LAYOUT; D14 seeds required; D4; D15) -> semantic check = pod tests.
+- REBASE -> **`8efb918e`** pushed (`--force-with-lease=lane/vllm-rf-f1:299f42d5`): range-diff 1-7 identical, 8 = message + cap.
+  commit_delta.main set to **1914** by a standalone ast measure of P10's rule (`/tmp/rff1/p10_measure.py`, no pytest; it reports 0
+  mismatches on 299f42d5, where the pod lint was green).  pyflakes: no undefined names, nothing new.  READY.md has a 05:12Z banner saying
+  its evidence is for 299f42d5/d1f18fc8 until the runs at 8efb918e land.
+- NEXT: new pod vyv-rf-f1-cpu3 (register in machines.toml by hand, `--cwd source` on every launch): bootstrap; lints + touched; gate (b)
+  head 8efb918e and main c1891d48 side by side; preserve; drain; READY.

@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT d33cef9 (05:11Z) [open] 05:11Z sweep: disk 5.4 GiB (eviction deferred until parity pass 2 ends, to keep the store quiet); agkr-bound alive, merging main + pins; parity pass 2 at 1037/5303
 CHECKPOINT c1891d48 (05:08Z) [open] 05:12Z agkr integration a2edab4d held: needs main #13 merged in + E4M3/NVFP4 pins + cargo test (asked for v2); parity pass 2 relaunched 0507Z (first launch raced with cleanup)
 CHECKPOINT ff486b0b (05:07Z) [open] 05:07Z agkr-bound scope correction sent (commit x,W,y with a verity.commitments scheme, bind in proof, own relation name + pins; estimate first if over $15/12:00Z)
 CHECKPOINT 3b73895 (04:51Z) [open] 04:55Z PARITY PASS 1 exit 0 (PARITY OK) after reconcile; JSON internal/parity-pass1-20260925T0425Z.json; stall capture internal/parity-stall-20260925T0450Z.txt (one HEAD used 4x180s deadline, key unlogged); pass 2 started 0451Z

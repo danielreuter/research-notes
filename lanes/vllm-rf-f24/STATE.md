@@ -91,6 +91,8 @@
   match_decomp 2 timing fields; global_match.json timing + impl.source_sha256 + x09.pipeline.decomp_out. PASS.
 - 00:27Z READY.md rewritten for a2e2843e (only `a_final` PENDING); head4 evidence pulled into `evidence/` (gate_a, gate_b, gm/head4_1,
   d13, lint).
+- 00:45Z `a_final` 128/158 (row #74's last checks; then #75 all-skip, #101, the #57 refusal rebuild, decisions). Pod store has no
+  attempts (`/workspace/research/store/attempts` empty): terminate, no drain needed.
 - Next: when `a_final` exits (`/workspace/out/gates/a_final.status`): counts + jdiff of skip reasons vs a_head4 into READY.md, copy
   a_final xml/log to evidence, status final, terminate the pod (`research pods terminate vyv-rf-f24-veritor-campaign`).
 

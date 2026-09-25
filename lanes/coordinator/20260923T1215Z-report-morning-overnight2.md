@@ -6,6 +6,8 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 3be6a35f (00:45Z) [open] 00:52Z agkr-fp8 4090 0.490s on merged-LK statement -> verify-po; launched red-team-lk (A-GKR circuit rewrites in agkr-fp8 + agkr-nvf4 incl. T2 cell art:49757870; $5, FINAL 03:30Z; worktree fill-dc -> red-team-lk)
+CHECKPOINT f7e4709 (00:44Z) [open] 00:47Z notes seeded to github.com/danielreuter/research-notes (private): scan 0 key material / 4253 blobs; pushed main f7e4709 (404 commits, pack 13.5 MiB); sync stays off (no RESEARCH_NOTES_SYNC, watch uses --snapshot not --sync)
 CHECKPOINT 95343488 (00:35Z) [open] 00:37Z T2: A-GKR 5090 1.4e8x->2.5e7x (art:49757870 verified); B-Ligero A100 5.9e6x, H100 BF16 8.9e6x, H100 FP8 1.1e7x (arith, verified); scoreboard re-rendered 5:37 PM PT
 CHECKPOINT e1bcf472 (00:20Z) [open] 00:22Z sweep: disk 12 GiB; agkr-fp8 (4090 0.666s), agkr-nvf4 (5090 0.1905s), verify-po, red-team-arith (H100) alive; no idle pods; parity attempt 2 still running
 CHECKPOINT 5034767f (00:18Z) [open] 00:20Z merged vllm-rf-a23b 9be6e462 --no-ff -> 932a4886; D3 rule (prefer separate-host live records) 4bd6c54c on main, cli moved 5:18 PM PT; scoreboard re-rendered; arith FINAL 92dab0ad (merge after red-team-arith + verify-po; harness commits accepted); d3-h100 FINAL; parity attempt 2 running

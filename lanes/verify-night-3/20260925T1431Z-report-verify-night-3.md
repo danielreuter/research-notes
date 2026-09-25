@@ -2,12 +2,58 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT 906255b2 (15:04Z) [final] 7/7 accepted: equiv d9b3724d->73aa7efe, b6f2e1df->7b44bcad; xob b47828e4->cc5f72de, bb69174b->99a5a9fd, ecccca50->47cf9051; sha256 fcd6a623->192c1ed9, 4aa258ee->3b2b8e2f (reverify root-layout fix 977ad27b, merge-ready 906255b2). 5090 NVFP4 still fail-closed. Pod terminated 15:06Z, ~$0.30
 CHECKPOINT 977ad27b (14:59Z) [open] accepted: xob b47828e4 (vd cc5f72de), bb69174b (99a5a9fd), ecccca50 (47cf9051); sha256 fcd6a623 (192c1ed9, via reverify fix 977ad27b). Handoff red-team-standard-hash-2 1502Z. Running 4aa258ee r20260925-145803-dd7d
 CHECKPOINT 977ad27b (14:51Z) [open] xob b47828e4 + bb69174b PASS (labels pending push); ecccca50 running. sha256 fcd6a623 ERROR (tree has proofs at root, no proofs/): reverify patched 977ad27b to read root layout, rerunning; 4aa258ee fetching
 CHECKPOINT a5d9b632 (14:45Z) [open] equiv art:d9b3724d (x4 8192) -> verdict art:73aa7efe, art:b6f2e1df (x4 32768) -> art:7b44bcad: both --check reproduce, equal=True, candidate == result instances; verified=accepted, preserved. Renderer _equiv_content @2c92b9e3 still wants frozen==[0,4096] (coord told). Running: reverify sha256 fcd6a623/4aa258ee, xob b47828e4/bb69174b/ecccca50
 CHECKPOINT a5d9b632 (14:38Z) [open] H100 +blake3 table rows (c8730574 7c6b4647 9c11326c 7a3965da) already verified=accepted by verify-night-2 -> item 3 done. Pod bootstrapping (frozen set + cargo). Queue: equiv d9b3724d/b6f2e1df, sha256 4aa258ee/fcd6a623, xob b47828e4/bb69174b/ecccca50
 CHECKPOINT a5d9b632 (14:35Z) [open] pod vy-verify-night-3 k2ww8qvkhxlvab (cpu3c 16vCPU, 150GB, guard 30) bootstrapping r20260925-143459-f66c; verifier tree lane/verify-night-3 a5d9b632 = main 2c92b9e3 + 5b28557b (xob pins); next: equiv d9b3724d/b6f2e1df, sha256 x4
 CHECKPOINT 2c92b9e3 (14:31Z) [open] started 14:33Z (relaunch of verify-night-2); branch lane/verify-night-3 @2c92b9e3; reading inbox; queue: x4 equiv d9b3724d/b6f2e1df, +sha256 x4, H100 +blake3, xob
+# verify-night-3: non-producer verifier for Table 2 cells (relaunch of verify-night-2, cloud VM)
+
+Brief: `internal/lane-briefs/verify-night-3.md` + `relaunch-branches-0725.md` (branch lane/verify-night-3 cut from
+lane/verify-night-2 @ 2c92b9e3). Pod vy-verify-night-3 k2ww8qvkhxlvab (cpu3c 16 vCPU, 150 GB, $0.48/h), 14:32-15:06Z.
+
+## Method
+- Verifier tree: lane/verify-night-3 a5d9b632 = main 2c92b9e3 + merge of 5b28557b (blake3-xob scheme + pins); from 14:51Z
+  977ad27b (+ reverify reads a proof dir published at the tree root). ligero-verify built on the pod by pod_bootstrap.sh
+  (GPU stage fails on a CPU pod, as expected); frozen bench-instances built from the committed seeds.
+- `evidence/pod-scripts/`: lib.sh (run's minted custody key as the store remote), 10-equiv.sh (instance_equiv --check +
+  tables._equiv_content), 20-reverify.sh (main's reverify per result), 30-summary.py. All runs --custody-r2, all PRESERVED:
+  r20260925-143459-f66c (bootstrap), -143942-5ce1 (equiv, fetch error: doc is meta, not payload), -144140-d25e (equiv),
+  -143948-2223 (sha256, ERROR layout), -144149-2172 (xob x3), -145113-f083 (fcd6a623), -145803-dd7d (4aa258ee).
+
+## Verdicts
+| subject | what | verdict | verdict art |
+|---|---|---|---|
+| art:d9b3724d | instance-equiv fp8-ada-x4 8192 (for art:6b6d4484 / art:19be6afa) | accepted | art:73aa7efe |
+| art:b6f2e1df | instance-equiv fp8-ada-x4 32768 (for art:ecccca50) | accepted | art:7b44bcad |
+| art:b47828e4 | fp8-ada+blake3-xob frozen, 49/49, 2^-128.40, sys 3d6cc67b | accepted | art:cc5f72de |
+| art:bb69174b | fp8-ada-x4+blake3-xob 4096, 13/13, 2^-128.33, sys f90e7b41 | accepted | art:99a5a9fd |
+| art:ecccca50 | fp8-ada-x4+blake3-xob 32768 plateau, 97/97, 2^-128.07 | accepted | art:47cf9051 |
+| art:fcd6a623 | bf16-hopper-x4+sha256 8192, 49/49, 2^-128.40, sys a02f283d (977ad27b) | accepted | art:192c1ed9 |
+| art:4aa258ee | fp8-hopper-x4+sha256 32768, 97/97, 2^-128.07, sys 6cf20505 (977ad27b) | accepted | art:3b2b8e2f |
+
+- Equiv: --check reproduces every field once the producer tags lane/provenance are dropped; equal=True; candidate == result's
+  instances ref. Renderer gap: tables._equiv_content @2c92b9e3 still requires frozen == FROZEN_INSTANCES[target] ([0, 4096]).
+- Footnote for every cell verdict: file re-verification (runner's coins), not transferable. Verifier tag is
+  ligero-verify(sha256 ...) (synced tree has no .git); the note label names the commit.
+- Already done by verify-night-2 (no action): H100 +blake3 c8730574 7c6b4647 9c11326c 7a3965da (and the 75cbbac1 four).
+- Not done: 5090 NVFP4 art:70f275ac / art:6740eb22, fail-closed (reverify's commitment recompute has no fp4-nvf4; main change).
+
+## Handoffs
+- Received (own inbox): `20260925T1441Z-handoff-from-red-team-standard-hash-2.md`, `20260925T1450Z-handoff-from-red-team-standard-hash-2.md` (resend), `20260925T1453Z-handoff-from-red-team-standard-hash-2.md` (H100 +blake3 class; informational).
+- Inherited from verify-night-2 (read at start; the open ones are the queue above): `20260925T0745Z-handoff-from-coordinator.md` `20260925T0800Z-handoff-from-poseidon-v1.md` `20260925T0805Z-handoff-from-red-team-standard-hash.md` `20260925T0835Z-handoff-from-poseidon-v1.md` `20260925T0835Z-handoff-from-red-team-standard-hash.md` `20260925T0840Z-handoff-from-sp1-committed.md` `20260925T0844Z-handoff-from-blake3-80gb.md` `20260925T0850Z-handoff-from-coordinator.md` `20260925T0900Z-handoff-from-poseidon-v1.md` `20260925T0905Z-handoff-from-b-ligero-standard-hash.md` `20260925T0925Z-handoff-from-poseidon-v1.md` `20260925T0935Z-handoff-from-blake3-80gb.md` `20260925T0935Z-handoff-from-coordinator.md` `20260925T0946Z-handoff-from-coordinator.md` `20260925T0958Z-handoff-from-b-ligero-standard-hash.md` `20260925T1003Z-handoff-from-coordinator.md` `20260925T1008Z-handoff-from-b-ligero-standard-hash.md` `20260925T1017Z-handoff-from-coordinator.md` `20260925T1024Z-handoff-from-coordinator.md` `20260925T1027Z-handoff-from-red-team-standard-hash.md` `20260925T1030Z-handoff-from-poseidon-v1.md` `20260925T1033Z-handoff-from-red-team-standard-hash.md` `20260925T1037Z-handoff-from-b-ligero-standard-hash.md` `20260925T1039Z-handoff-from-red-team-standard-hash.md` `20260925T1040Z-handoff-from-coordinator.md` `20260925T1041Z-handoff-from-red-team-standard-hash.md` `20260925T1045Z-handoff-from-blake3-80gb.md` `20260925T1053Z-handoff-from-red-team-standard-hash.md` `20260925T1105Z-handoff-from-coordinator.md` `20260925T1114Z-handoff-from-coordinator.md` `20260925T1124Z-handoff-from-coordinator.md` `20260925T1125Z-handoff-from-b-ligero-standard-hash.md` `20260925T1125Z-handoff-from-coordinator.md` `20260925T1130Z-handoff-from-blake3-80gb.md` `20260925T1142Z-handoff-from-b-ligero-standard-hash.md` `20260925T1146Z-handoff-from-coordinator.md` `20260925T1150Z-handoff-from-b-ligero-sha256.md` `20260925T1150Z-handoff-from-poseidon-v1.md` `20260925T1202Z-handoff-from-b-ligero-sha256.md` `20260925T1202Z-handoff-from-coordinator.md` `20260925T1205Z-handoff-from-poseidon-v1.md` `20260925T1210Z-handoff-from-blake3-80gb.md` `20260925T1220Z-handoff-from-b-ligero-standard-hash.md` `20260925T1226Z-handoff-from-red-team-standard-hash.md` `20260925T1315Z-handoff-from-b-ligero-standard-hash.md`
+- Sent: `lanes/coordinator/20260925T1446Z-handoff-from-verify-night-3.md`, `lanes/coordinator/20260925T1507Z-handoff-from-verify-night-3.md` (merge-ready),
+  `lanes/red-team-standard-hash-2/20260925T1502Z-handoff-from-verify-night-3.md`, `lanes/red-team-standard-hash-2/20260925T1507Z-handoff-from-verify-night-3.md`.
+
+## FINAL
+~~~text
+tip: lane/verify-night-3 @ 906255b2 (base lane/verify-night-2@2c92b9e3)        merge-with: lane/b-ligero-standard-hash@5b28557b (merged in)
+known-failures: none                                                              pod: terminated 15:06Z; ~$0.30
+artifacts: art:73aa7efe art:7b44bcad art:cc5f72de art:99a5a9fd art:47cf9051 art:192c1ed9 art:3b2b8e2f
+~~~
+7/7 accepted. 977ad27b: reverify reads a proof tree published at its root (the +sha256 x4 trees need it); test 906255b2, reverify_test 10/10.

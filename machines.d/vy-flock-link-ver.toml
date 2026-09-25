@@ -1,0 +1,7 @@
+# machine vy-flock-link-ver: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "8zf8fw1di34n11"
+project = "verity"
+guard = 40
+registered_by = "cursor"
+registered_at = "2026-09-25T15:02Z"

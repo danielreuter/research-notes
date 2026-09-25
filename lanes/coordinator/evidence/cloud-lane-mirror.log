@@ -94,3 +94,8 @@ notes sync: committed beb062d (20 paths); pushed; skipped 11 over 1 MB (put them
 2026-09-25T15:04:03Z IN verify-night-3: 2 file(s) store -> notes
 2026-09-25T15:04:03Z IN red-team-standard-hash-2: 1 file(s) store -> notes
 2026-09-25T15:04:03Z IN machines.d: 1 entry file(s) store -> notes
+notes sync: committed 47eb767 (9 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
+2026-09-25T15:09:10Z IN coordinator: 1 cloud handoff(s) store -> notes
+2026-09-25T15:09:13Z IN verify-night-3: 1 file(s) store -> notes
+2026-09-25T15:09:13Z IN red-team-standard-hash-2: 1 file(s) store -> notes
+2026-09-25T15:09:13Z IN machines.d: 1 entry file(s) store -> notes

@@ -36,11 +36,23 @@ Budget: what remains of a5's $35 (a5 spent ~ $14 by 14:15Z, estimated from pod h
   asserts the base's argv (flags only); release_json test runs `verity-vllm release-json` as a child process (row_pod.sh
   and pod_release.sh, its file-as-script callers, are gone) and its docstring usage lines say so; dry-run resolve index 3 -> 4.
 
-## Running (14:30Z, all `--custody-r2`)
-- cpu `r20260925-142039-11a3`: gate 1 + gate (b) at `da9e4847` + jdiff vs `/workspace/a5/logs/base-10996616.xml`
-  (logs `/workspace/a5/logs/head-da9e4847*`, `jdiff-base-head-da9e4847.txt`).
-- t1 `r20260925-142613-7113`: prefetch (own 3 h read-only key minted 14:25Z into /root/r2ro.env; prefetch.sh deletes it)
-  then gate (a) T0+T1 serial at `da9e4847`, jdiff vs a23b's same-pod base XML (`/workspace/a5/logs/gate_a-head-da9e4847.*`).
+## Done
+- **Gate 1 + gate (b) at `da9e4847`** (cpu `r20260925-142039-11a3`, same pod as base `r20260925-114039-ede8`): lints 49/0,
+  tools 11 passed; base 4001 (56F/3642P/286S/6xF/11E) vs head 4024 (54F/3667P/286S/6xF/11E); jdiff: **0 new failures,
+  0 new skips, 0 new skip reasons**, 2 fixed (test_admit_r19_host_working_set x2), 40 only-in-base (deleted row_pod/ops
+  tests and renames), 63 only-in-head all pass. `evidence/gate_b/`.
+- **LLM example** (g1, `r20260925-142335-a597` head + `r20260925-142811-0998`): verity vs vllm-same (vllm.LLM with the
+  recorded engine kwargs + env flags) greedy and sampled **EQUAL** (6 requests each); vs vllm-plain (defaults, only
+  `VLLM_USE_FLASHINFER_SAMPLER=0` because the pod's nvcc 12.4 can't JIT FlashInfer's sampler) DIFFERENT (batch invariance
+  etc. off), informational. RESULT PASS.
+- Prefetch on t1: 26 ok / 0 FAIL, key deleted 14:35:58Z.
+
+## Running (14:45Z, all `--custody-r2`)
+- t1 `r20260925-142613-7113`: gate (a) T0+T1 serial at `da9e4847`, jdiff vs a23b's same-pod base XML
+  (`/workspace/a5/logs/gate_a-head-da9e4847.*`).
+- tp2d `vyv-rf-a5-tp2d` (7ttcomioru1z6o, 2x L40S driver 580, $2.18/h?, created 14:30Z): bootstrap `r20260925-143357-a45c`.
+  Then #70 `KEEP_GOING=1 ab_row.sh head /workspace/sweep <#70> ... --retain host --pairs 1` and b4's cmp70.py vs f1's base
+  Commit of record (`commit70-base-head.tgz`, staged in /workspace/a5).
 - g1 `r20260925-142335-a597` (head `da9e4847`): LLM verity vs vllm-same greedy+sampled EQUAL again (6 requests);
   vllm-plain failed: the pod's nvcc is 12.4, too old for FlashInfer's sampler JIT (`--compress-mode`).
 - g1 `r20260925-142811-0998` (base tree `10996616`, worktree `~/projects/verity-wt/rf-a5b-base`): vllm-plain with only

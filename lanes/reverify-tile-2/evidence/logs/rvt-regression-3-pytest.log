@@ -1,0 +1,108 @@
+................ssss.......................................s......F..... [ 36%]
+............................................................+++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+F+++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+F+++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+F
+=================================== FAILURES ===================================
+_____________ test_shared_pair_every_coin_from_the_verifier[None] ______________
+
+server = (<ligero.live.Server object at 0x763511a8e990>, 'tcp://127.0.0.1:54563', PosixPath('/tmp/pytest-of-root/pytest-0/live0'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x76352093afc0>
+negative = None
+
+>           assert v["accepted"], v["reason"]
+E           AssertionError: 1 sub-batch(es) rejected: sub_00: G: parameters give 2^-99.86 over 1 sub-batches (per proof 2^-100.86); requested 2^-100
+E           assert False
+
+backends/direct/ligero/live_test.py:242: AssertionError
+_______________ test_committed_operand_negatives_rejected[dummy] _______________
+
+name = 'dummy'
+runners = {'dummy': (<ligero.relchain.HashedRelationRunner object at 0x7635081e22d0>, [([182, 253, 229, 222, 228, 87, 147, 167, ...924864, 3350021120, 3339846656, 3359512576, 3359057920, 3361224704, 3361231872, 3364782080, 3364570112], 3364570112)])}
+
+>       negs = hashed_negatives(R, [data[0], data[2]])
+
+backends/direct/ligero/leaf/conformance_test.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backends/direct/ligero/relchain.py:1637: in hashed_negatives
+backends/direct/ligero/relchain.py:802: in prove_vus
+backends/direct/ligero/protocol.py:1372: in prove
+backends/direct/ligero/pipeline.py:315: in run_to_completion
+backends/direct/ligero/protocol.py:1660: in _prove_stages
+backends/direct/ligero/protocol.py:1143: in _tests_compute
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+sys = System(p=FP8Params(sig=4, exp=8, acc_sig=14, width=14, floor=-139, groups=(16, 16), acc_exp=8, op_nan_rule='ieee', op_...'y16': 2088960*r2171 + -2088960*r2198 + 2088960*r3762 + 2097152*r3765 + 2097152*r3766 + 8192*r3767 + 1*r3768}, wide={})
+layout = Layout(l=256, n_vus=2, steps=48)
+rc = tensor([[[1854802588,   61167021,  428986636,  ..., 1488364861,
+y16_pub = tensor([      0,       0,       0,       0,       0,       0,       0,       0,
+fp = None
+
+>           coef.index_add_(1, T["row"][t0:t1], (rm.index_select(1, T["fam"][t0:t1]) * T["kappa"][None, t0:t1, None]) % P)
+E           Failed: Timeout (>1800.0s) from pytest-timeout.
+
+backends/direct/ligero/chain.py:254: Failed
+_____________ test_committed_operand_negatives_rejected[poseidon2] _____________
+
+name = 'poseidon2'
+runners = {'dummy': (<ligero.relchain.HashedRelationRunner object at 0x7635081e22d0>, [([182, 253, 229, 222, 228, 87, 147, 167, ...924864, 3350021120, 3339846656, 3359512576, 3359057920, 3361224704, 3361231872, 3364782080, 3364570112], 3364570112)])}
+
+>       negs = hashed_negatives(R, [data[0], data[2]])
+
+backends/direct/ligero/leaf/conformance_test.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backends/direct/ligero/relchain.py:1637: in hashed_negatives
+backends/direct/ligero/relchain.py:783: in prove_vus
+backends/direct/ligero/hashchain.py:648: in hash_hints
+backends/direct/ligero/leaf/poseidon2.py:567: in chain_witness
+backends/direct/ligero/leaf/poseidon2.py:369: in sponge_states
+backends/direct/ligero/leaf/poseidon2.py:386: in sponge_lanes
+backends/direct/ligero/leaf/poseidon2.py:360: in permute_torch
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = tensor([[ 687069602, 1704463537],
+
+>       return torch.round(mext @ s.to(torch.float64)).to(torch.int64) % P
+E       Failed: Timeout (>1800.0s) from pytest-timeout.
+
+backends/direct/ligero/leaf/poseidon2.py:347: Failed
+______________ test_committed_operand_negatives_rejected[sha256] _______________
+
+name = 'sha256'
+runners = {'dummy': (<ligero.relchain.HashedRelationRunner object at 0x7635081e22d0>, [([182, 253, 229, 222, 228, 87, 147, 167, ...924864, 3350021120, 3339846656, 3359512576, 3359057920, 3361224704, 3361231872, 3364782080, 3364570112], 3364570112)])}
+
+>       negs = hashed_negatives(R, [data[0], data[2]])
+
+backends/direct/ligero/leaf/conformance_test.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backends/direct/ligero/relchain.py:1637: in hashed_negatives
+backends/direct/ligero/relchain.py:802: in prove_vus
+backends/direct/ligero/protocol.py:1372: in prove
+backends/direct/ligero/pipeline.py:315: in run_to_completion
+backends/direct/ligero/protocol.py:1660: in _prove_stages
+backends/direct/ligero/protocol.py:1132: in _tests_compute
+backends/direct/ligero/witness.py:258: in quad_p0
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = tensor([ 527688277, 1447289252, 1066496625,  ...,  662127279,  134190038,
+Ub = tensor([[1817084842,  835670911, 1006400818,  ...,   26770201, 1934980863,
+
+>       return ((c[:, None] * t) % P).sum(0) % P
+E       Failed: Timeout (>1800.0s) from pytest-timeout.
+
+backends/direct/ligero/witness.py:231: Failed
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/live_test.py::test_shared_pair_every_coin_from_the_verifier[None]
+FAILED backends/direct/ligero/leaf/conformance_test.py::test_committed_operand_negatives_rejected[dummy]
+FAILED backends/direct/ligero/leaf/conformance_test.py::test_committed_operand_negatives_rejected[poseidon2]
+FAILED backends/direct/ligero/leaf/conformance_test.py::test_committed_operand_negatives_rejected[sha256]
+SKIPPED [1] backends/direct/ligero/hashchain_test.py:325: frozen instances not built
+SKIPPED [3] backends/direct/ligero/hashchain_test.py:348: CUDA
+SKIPPED [1] backends/direct/ligero/chain_test.py:88: CUDA
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/workspace/research/src/f3cdfd5dae8a63f439122bd0b2fb099d303825ef/backends/direct/ligero/field.py:85: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+4 failed, 126 passed, 5 skipped, 9 deselected in 8930.43s (2:28:50)

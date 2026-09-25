@@ -6,8 +6,9 @@ source "$(dirname "$0")/lib.sh"
 E=$1; N=$2; shift 2
 O=$W/equiv-${E:4:8}; mkdir -p $O
 t0=$(date +%s)
-p=$(R data fetch $E) || { echo "ERROR fetch $E"; exit 2; }
-cp "$p" $O/doc.json
+# the document is the artifact's meta; the producer's `lane` / `provenance` tags are not tool fields, so --check compares without them
+R data show $E --json > $O/art.json || { echo "ERROR show $E"; exit 2; }
+$PY -c "import json,sys; m=json.load(open(sys.argv[1]))['manifest']['meta']; print('producer tags dropped:', sorted(k for k in ('lane','provenance') if k in m), file=sys.stderr); [m.pop(k,None) for k in ('lane','provenance')]; json.dump(m, open(sys.argv[2],'w'), indent=2)" $O/art.json $O/doc.json
 cd /workspace/src
 $PY -m verity_numerical.bench.instance_equiv --vus $N --check $O/doc.json 2>&1 | tee $O/check.txt; rc=${PIPESTATUS[0]}
 echo "check rc=$rc seconds=$(( $(date +%s) - t0 ))" | tee -a $O/check.txt

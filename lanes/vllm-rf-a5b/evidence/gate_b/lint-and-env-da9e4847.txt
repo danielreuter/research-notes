@@ -1,0 +1,13 @@
+11 passed in 2.37s
+HF_HOME=/workspace/hf
+OMP_NUM_THREADS=3
+PATH=/workspace/venv312/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PYTHONDONTWRITEBYTECODE=1
+PYTHONPATH=/workspace/research/src/da9e4847f57359e1cd79c6f4f4a78d86bf2e6d94/integrations/vllm:/workspace/research/src/da9e4847f57359e1cd79c6f4f4a78d86bf2e6d94/packages/verity/src:/workspace/research/src/da9e4847f57359e1cd79c6f4f4a78d86bf2e6d94/tools/research/src
+PYTHONPYCACHEPREFIX=/workspace/research/cache/pycache
+RESEARCH_RUN_DIR=/workspace/research/runs/r20260925-142039-11a3
+RESEARCH_RUN_ID=r20260925-142039-11a3
+RESEARCH_SOURCE_SHA=da9e4847f57359e1cd79c6f4f4a78d86bf2e6d94
+RESEARCH_STORE=/workspace/research/store
+RESEARCH_TOOL_SNAPSHOT=8c8197e4710d8b90
+lints (tests/lint + by-name + imports + dead modules) at da9e4847: tests=49 failures=0 errors=0 skipped=0 (junit); tools/research test_store_vllm_tools: 11 passed

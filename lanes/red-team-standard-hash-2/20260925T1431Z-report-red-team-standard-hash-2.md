@@ -2,9 +2,11 @@
 lane: red-team-standard-hash-2
 kind: report
 created: 2026-09-25T14:31Z
-status: final
+status: open
 ---
 
+CHECKPOINT 041ac181 (17:38Z) [open] 17:38Z reopened: class review fp4-nvf4+poseidon2 (5090 NVFP4 art:70f275ac/art:6740eb22) at main cd963fd4: NOT final
+CHECKPOINT 041ac181 (17:37Z) [final] 17:37Z FINAL (reopen), finish-check rerun after store I/O flake; content as 17:34Z
 CHECKPOINT 041ac181 (17:34Z) [final] 17:34Z FINAL (reopen): equiv art:9b5f1e24 + art:c2959a5c verified=accepted; proof_class on 6d067ed3 f4dc0501 4d43ab87 4d151f38; fp4 pair not granted; ligero-hygiene no gap (1727Z); pod drained 17:32Z ~$0.03. Re-shown 1502Z/1150Z inbox items were handled before (store I/O flake)
 CHECKPOINT 041ac181 (17:33Z) [final] 17:33Z FINAL (reopen): equiv art:9b5f1e24 + art:c2959a5c reproduce -> verified=accepted; proof_class on 4 H100 +blake3 (6d067ed3 f4dc0501 4d43ab87 4d151f38); fp4 pair not granted (Poseidon2 out of scope); ligero-hygiene review no gap (1727Z); pod drained 17:32Z ~$0.03
 CHECKPOINT 041ac181 (17:18Z) [open] 17:18Z pod vy-red-team-sh-2 created (cpu3c 4 vCPU) for instance_equiv --check at main 26848644; labels written on 4 H100 +blake3 (6d067ed3 f4dc0501 4d43ab87 4d151f38); fp4-nvf4 NOT in my grant scope

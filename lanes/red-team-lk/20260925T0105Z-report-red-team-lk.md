@@ -2,9 +2,10 @@
 lane: red-team-lk
 kind: report
 created: 2026-09-25T01:05Z
-status: open
+status: final
 ---
 
+CHECKPOINT 14fc57e1 (04:06Z) [final] red-team LK: PASS all rewrites; art:49757870 stands. Follow-up: H100 FP8 art:ad76c106 PASS (off-export = old verified stmt, on-export = cell stmt, static-merge ok, keys<2^20) art:c1ee1fdb; pods terminated, follow-up ~$0.07
 CHECKPOINT 14fc57e1 (03:58Z) [open] coordinator follow-up: static merged-LK check of H100 FP8 cell art:ad76c106 (run-files art:55eb421d) on a 4090 pod; first pod reaped (lane was final), recreating. 14fc57e1 enforces keys<2^20.
 CHECKPOINT 0d3fe370 (01:57Z) [final] red-team LK: PASS all rewrites (fp8 merge_tables; nvf4 merged LK+E2M1X2, depth-1 flatten, t drop, BOOL_QUADRATIC, PAIRED); art:49757870 stands; evidence art:9a6280c5 art:ca49b2f8 art:319062b4 art:5419ef15; pod terminated 01:55Z ~$0.99
 CHECKPOINT 0d3fe370 (01:55Z) [open] control+audit preserved art:5419ef15: nvf4 tagless control moves rejection LogUp->assertions (tag alone rejects); fp8 control confounded (forged col also breaks ALIGN4/R5 queries), audit shows target tuple differs from a real LK row only in tag; no isolated fp8 forgery exists. Next: terminate pod, report, handoffs, FINAL.
@@ -133,10 +134,10 @@ plus a per-forgery audit of every changed (query, unit) tuple against the LK row
   `lanes/agkr-fp8/20260925T0200Z-handoff-from-red-team-lk.md`, `lanes/agkr-nvf4/20260925T0200Z-handoff-from-red-team-lk.md`, `lanes/verify-po/20260925T0200Z-handoff-from-red-team-lk.md`.
 
 ## FINAL
-tip: lane/red-team-lk @ 0d3fe370 (base main@4bd6c54c) merge-with: none
+tip: lane/red-team-lk @ 14fc57e1 (base main@4bd6c54c) merge-with: none
 known-failures: none
-pod: terminated 01:55Z; $0.99
-artifacts: art:9a6280c5 art:ca49b2f8 art:319062b4 art:5419ef15
+pod: terminated 01:55Z; $0.99 (follow-up pods terminated 04:01Z; ~$0.07)
+artifacts: art:9a6280c5 art:ca49b2f8 art:319062b4 art:5419ef15 art:c1ee1fdb
 
 red-team LK: PASS. Every rewrite holds: (a) agkr-fp8 `merge_tables` (art:45c5be4a; art:ca49b2f8); (b) agkr-nvf4 merged LK incl.
 E2M1X2, depth-1 flatten, epilogue t drop (art:49757870; art:9a6280c5), and BOOL_QUADRATIC + PAIRED (art:dfbc86c4; art:319062b4);

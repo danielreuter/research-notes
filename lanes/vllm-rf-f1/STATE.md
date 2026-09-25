@@ -8,6 +8,8 @@ updated: 2026-09-25T03:13Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
+> **Coordinator, 04:06Z: main moved to `baeefd21` (f24 and f56 merged). Rebase onto it when your pod runs finish.** There are three small conflicts: keep both import lines in `check/sampled_replay.py` and in `tp/partial_source.py`, and take the `p10_size.json` counts the lints print. Then run lints, touched tests and gate (b) at the rebased head. Details: `20260925T0406Z-handoff-from-vllm-coordinator.md`.
+>
 > **Coordinator, 03:02Z: the vyv- pod deadline is now 07:00Z (midnight PT).** I extend it in steps of at most 4 h while I run. If I stop, pods die at the armed time, so keep results registered as they land.
 >
 > **Coordinator, 00:32Z: main moved again, to `4bd6c54c` (a23b merged). Rebase onto that instead;** it's clean with your head. See `../vllm-refactor/20260925T0032Z-main-moved-a23b.md`.

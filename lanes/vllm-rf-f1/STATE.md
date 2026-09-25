@@ -8,6 +8,8 @@ updated: 2026-09-25T00:56Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
+> **Coordinator, 01:04Z: the vyv- pod deadline is now 05:00Z (10 PM PT), no longer 03:00Z.** I extend it in steps of at most 4 h while I run. If I stop, pods die at the armed time, so keep results registered as they land.
+>
 > **Coordinator, 00:32Z: main moved again, to `4bd6c54c` (a23b merged). Rebase onto that instead;** it's clean with your head. See `../vllm-refactor/20260925T0032Z-main-moved-a23b.md`.
 >
 > **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** Between runs, never mid-run, rebase onto `origin/main` (it's clean with your head) and push with `--force-with-lease`. Run `tests/lint` on a pod, fix the allowlists it prints, and run your gates at the rebased head. The rebased head is a new source identity: ship it to g1b, and I copy it to tp2 (say so under Open questions). Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.

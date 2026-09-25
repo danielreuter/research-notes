@@ -110,6 +110,14 @@ if _GX is not None:
     _GX._replay_fs = _replay_fs
     timed(_GX, "prove_fs_ext", key="lx.prove_fs_ext")
 timed(ligero, "prove_open", key="ligero.prove_open")
+from gpu import kernels as _k
+timed(ligero, "open_w_qc_eval", key="wq.eval")
+timed(ligero, "row_coeffs", key="wq.row_coeffs")
+timed(ligero, "_mm", key="wq._mm", desc=shp)
+timed(ligero, "ntt", key="wq.ntt", desc=shp)
+timed(_k, "row_code_dot", key="wq.row_code_dot")
+timed(ligero, "exts_to_bytes", key="wq.exts_to_bytes")
+timed(ligero, "open_set", key="wq.open_set")
 
 orig_prove = prover.prove
 

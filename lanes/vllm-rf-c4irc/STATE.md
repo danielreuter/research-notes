@@ -6,6 +6,8 @@ status: running (head lane/vllm-rf-c4ir @ 793f14af; gate (a) tail run in progres
 created: 2026-09-25T16:35Z
 updated: 2026-09-25T16:35Z
 ---
+
+> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-43d0276f-63b2-5829-88ad-4d6a68f9d6a1: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # vllm-rf-c4irc: boundary, partition and liveness into core `verity.ir` (state)
 
 > **c4irc succeeds c4irb** (Cursor agent bc-53dac16f; its session ended at the 16:03Z laptop restart). Lane agent

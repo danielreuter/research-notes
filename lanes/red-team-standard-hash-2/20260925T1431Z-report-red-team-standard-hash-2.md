@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 041ac181 (17:18Z) [open] 17:18Z pod vy-red-team-sh-2 created (cpu3c 4 vCPU) for instance_equiv --check at main 26848644; labels written on 4 H100 +blake3 (6d067ed3 f4dc0501 4d43ab87 4d151f38); fp4-nvf4 NOT in my grant scope
 CHECKPOINT 041ac181 (17:11Z) [open] 17:11Z reopened (non-producer): instance_equiv --check art:9b5f1e24/art:c2959a5c + proof_class on reverify-fp4's 6 cells: NOT final
 CHECKPOINT 041ac181 (15:10Z) [final] 15:10Z FINAL: grants bf16-hopper-x4+sha256 (1441Z) + hopper +blake3 (1453Z); proof_class on 13 cells; tile review 1455Z (no finding, 2 nits); pod terminated 14:51Z ~$0.04; branch pushed at 041ac181 (no commits)
 CHECKPOINT 041ac181 (15:07Z) [final] 15:07Z FINAL: grants bf16-hopper-x4+sha256 (1441Z) + hopper +blake3 (1453Z); proof_class on 13 cells (8 hopper +blake3, 2 sha256 x4, 3 xob); tile review 1455Z (no finding, 2 nits); pod 0i9bg5qsvzcdpq terminated 14:51Z, ~$0.04; art:58d31cd3 art:c7e22b4b

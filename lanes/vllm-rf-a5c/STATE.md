@@ -4,6 +4,8 @@ lane: vllm-rf-a5c
 kind: state
 updated: 2026-09-25T16:40Z
 ---
+
+> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-ac8c8a30-44dd-575f-b5aa-45d0e17beb15: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # a5c (one CLI, typed config, decision-8 `verity_vllm.LLM`): state
 
 **a5c succeeds a5b** (agent bc-a9b686f7, session ended at the 16:03Z laptop restart), itself successor of a5 (bc-95dc5f40).

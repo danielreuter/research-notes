@@ -2,9 +2,10 @@
 lane: ligero-hygiene
 kind: report
 created: 2026-09-25T16:27Z
-status: open
+status: final
 ---
 
+CHECKPOINT 46e0c494 (17:16Z) [final] tip 46e0c494: items 1-4 done; BV-D1 fixed (config_for at k=l+1), live_test green, conformance negs 3/3 PASS (sha256 901 s, 47 proofs), 3 tile follow-ups + tests; pod terminated 17:11Z, <$0.10; merge-ready handoff to coordinator
 CHECKPOINT 46e0c494 (16:54Z) [open] item3 run r20260925-164906-1069 on vy-ligero-hygiene: dummy PASS, poseidon2 PASS (~2 min each), sha256 running. VM sweep of ligero/ (sans conformance negs): 418 pass, 10 fail all env (no bench-instances arrays; timing_guard fails on main too). git push auth failing since 16:45Z, retrying
 CHECKPOINT cd71b615 (16:45Z) [open] pod vy-ligero-hygiene = hb8gfpinlwovt7 (cpu3c 4 vCPU; 8 vCPU stock exhausted). bootstrapping for item3 (conformance committed-operand negatives, --exclusive)
 CHECKPOINT cd71b615 (16:39Z) [open] item2 fixed @7c655f86: BV-D1 (config_for sized t at k=l, calculator k=l+1); prover now sizes at k=l+1 (non-ZK small l only). item4 @cd71b615: float seed, sharing label, missing .hproof, 3 tests green. next: item3 pod
@@ -47,3 +48,15 @@ timing_guard_test fails the same way on 239c0e28 in this environment (KeyError '
 
 Pod: vy-ligero-hygiene (hb8gfpinlwovt7) created about 16:45Z, terminated 17:11Z, under $0.10. Merge-ready handoff:
 `lanes/coordinator/20260925T1715Z-handoff-from-ligero-hygiene.md`.
+
+## FINAL
+
+~~~text
+tip: lane/ligero-hygiene @ 46e0c494 (base main@239c0e28)        merge-with: none
+known-failures: timing_guard_test (KeyError 'contention', fails on 239c0e28 in this env); 9 privsel/pubsel tests need built bench-instances/v1 arrays
+pod: terminated 17:11Z; <$0.10
+artifacts: art:020560e11fdb6de173a1ce65b5cc72680bc2fbfae2fa00385112d3890b3ab912
+~~~
+
+Commits: 7c655f86 (config_for at k = l + 1, BV-D1 resolved), cd71b615 (reverify tile follow-ups + tests), 46e0c494
+(PROTOCOL.md section 6). reverify now accepts less, so the brief's red-team spot-check applies.

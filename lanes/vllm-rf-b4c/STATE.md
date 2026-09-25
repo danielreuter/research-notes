@@ -4,6 +4,8 @@ lane: vllm-rf-b4c
 kind: state
 updated: 2026-09-25T16:55Z
 ---
+
+> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-3b287dbf-335c-58fd-85a7-ff96535b11a2: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # b4c (engine and hooks: re-gate after c1): state
 
 **b4c succeeds b4b** (bc-892f86c5; its session ended at the 16:03Z laptop restart). Agent bc-3b287dbf (cloud), coordinator

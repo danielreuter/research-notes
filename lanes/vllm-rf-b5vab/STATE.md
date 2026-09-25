@@ -4,6 +4,8 @@ lane: vllm-rf-b5vab
 kind: state
 updated: 2026-09-25T17:05Z
 ---
+
+> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-a4fbe8b2-3532-5d9a-9cfa-bf614fca043f: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # b5vab (B5 split of `engine/vllm_adapter.py`): state
 
 > Successor of `vllm-rf-b5va` (agent bc-649f6a27; no commits, no pods; its session ended at the 16:03Z laptop restart).

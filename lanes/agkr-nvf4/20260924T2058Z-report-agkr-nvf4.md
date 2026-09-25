@@ -2,9 +2,10 @@
 lane: agkr-nvf4
 kind: report
 created: 2026-09-24T20:58Z
-status: open
+status: final
 ---
 
+CHECKPOINT c97d2ad2 (02:15Z) [final] tip c97d2ad2; cell A-GKR 5090 NVFP4 d098 t.total 0.1388s (~1.4e7x), 2^-130.19, result art:f277786d run-files art:1f0b0b60 PRESERVED; verify-po 0210Z (label held for red-team-lk); pod terminated 02:13Z ~$5.4
 CHECKPOINT 00145f51 (01:36Z) [open] dev tip 00145f51 ~0.1431s same bytes ebe7c545 (w via eq_rows_dot, radix4 encoder, fused lookup_mults); record 86d4 @90c21455 0.168s spoiled by host jitter (not preserved); negatives running, re-record next
 CHECKPOINT 6d13c3e4 (01:17Z) [open] a4e2 0.1604s preserved (art:dfbc86c4; label held for red-team-lk); handoffs to verify-po/red-team-lk/agkr-fp8 done; took fp8 5034767f+3be6a35f (neutral); open-wq: L2 chunking dropped (slower), testing eq_rows_dot for w
 CHECKPOINT 79f00fd3 (00:58Z) [open] a4e2 PRESERVED 0.1604s (art:dfbc86c4, run-files 50f4fe91, 2^-130.19, new stmt BOOL_QUADRATIC+PAIRED; label held per coord 0050Z); verify-po + red-team-lk handoffs 0100Z; dev tip 79f00fd3 ~0.1507s; hill-climbing
@@ -125,6 +126,51 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
   - tried and dropped: open_w_qc_eval in L2-sized row chunks (14_qcsweep.sh: 32 / 64 / 104 / 160 rows, all ≥ one pass; the
     encode is not DRAM-bound); int32 padded layer inputs (pad_rows): peak -0.26 GB, no time.
 - record r20260925-012509-86d4 @ 90c21455: t.total 0.168 s, but reps spread 0.155–0.175 s with t_arith 50–71 ms and Rust
-  0.20–0.24 s (pod host jitter). Not a valid best, not preserved, superseded.
+  0.20–0.24 s (pod host jitter). Not a valid best, superseded. Preserved later for pod custody: result art:8c3587e1…,
+  run-files art:1efb469a…. It was not yet in the laptop catalog at 02:10Z.
+- recorded r20260925-013757-9386 @ 00145f51 (5 reps): t.total 0.1462 s (0.146 / 0.146 / 0.146 / 0.147 / 0.147), Rust 5/5,
+  2^-130.19, passed; result art:53a64e8b…, run-files art:9d2f3ba8…, PRESERVED; sha ebe7c545.  Negatives at 00145f51: python
+  115/115 (59 at the prover through lookup_mults' miss path), Rust 56/56, mutate 148/148.  verify-po handoff 0150Z.
+  - c97d2ad2 _eval_wires via gate_eval CSRs (_wire_csr / _lin_csr) into the int32 wire matrix: t_witness_wires 9.4 -> 3.1 ms,
+    t.total ~0.1377 s (dev). Negatives at c97d2ad2: 115/115, Rust 56/56, mutate 148/148.
+- **recorded r20260925-015152-d098 @ c97d2ad2 (5 reps, final best)**: t.total 0.1388 s (0.143 / 0.139 / 0.139 / 0.138 / 0.137),
+  python 5/5, Rust 5/5 (0.152–0.156 s), 2^-130.19 target and achieved, validation passed, contract_problems none;
+  - result art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c, run-files
+    art:1f0b0b60645c02e158c1c8fda975ad04e76e3e18782ee92ee8c26a7247941cad, PRESERVED; proofs 9469288 B, sha ebe7c545.
+  - Buckets: witness 15.8 ms, encoding+commitment 4.7, arithmetic 81.3, lookup 32.1, zk 0, serialization 7.3.
+  - Overhead ≈ 1.4e7× (same proved FLOPs as art:49757870, whose 0.1905 s renders as 2.5e7×, against 1.283e15 FLOP/s).
+  - verify-po handoff `lanes/verify-po/20260925T0210Z-handoff-from-agkr-nvf4.md` (supersedes 0100Z and 0150Z); label held
+    for red-team-lk.
 - stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.
+
+## FINAL
+- **tip** lane/agkr-nvf4 @ c97d2ad2 (pushed, clean, `cargo clean` done; no build artifacts on the laptop).
+- **known failures**: none open. Rust 5/5 and python 5/5 on every recorded rep; negatives 115/115, Rust 56/56, mutate 148/148
+  at the final prover. The 86d4 record was spoiled by host jitter and superseded.
+- **pod** vy-agkr-nvf4 (runpod 2s8lyp0325xjqo, RTX 5090): TERMINATED 02:13Z by `research pods drain` (all 8 catalog
+  attempts preserved). It ran ~20:43Z–02:13Z, 5.5 h at $0.99/h ≈ $5.4 of the $10 budget.
+- **artifacts** (all PRESERVED; the final cell is marked ★):
+
+  | cell / record | attempt | t.total | result art | run-files art |
+  |---|---|---|---|---|
+  | ★ final cell | d098 | 0.1388 s | f277786d… | 1f0b0b60… |
+  | earlier records | 9386 | 0.1462 s | 53a64e8b… | 9d2f3ba8… |
+  | | a4e2 | 0.1604 s | dfbc86c4… | 50f4fe91… |
+  | | ff98 | 0.1905 s | 49757870… | 78b3aadf… |
+
+  - d098, 9386 and a4e2 share proof bytes (sha ebe7c545) on the BOOL_QUADRATIC + PAIRED statement.
+  - ff98 (sha 091fecad) is on the older statement. It is labelled in Table 2 now and marked provisional by the coordinator.
+- **The cell** (A-GKR × RTX 5090 NVFP4, K=1536, B=4096, frozen NVFP4 set, NON_ZK_PROOF_DIAGNOSTIC): t.total 0.1388 s,
+  ≈ 1.4e7×, soundness 2^-130.19 against a 2^-128 target (both met honestly, no relabel).
+  - Independent verification is handed off to verify-po (0210Z). Under the coordinator's 0050Z rule its `verified=accepted`
+    label is held until red-team-lk passes BOOL_QUADRATIC + PAIRED (handoff `lanes/red-team-lk/20260925T0100Z-handoff-from-agkr-nvf4.md`),
+    on top of the merged LK and the depth-1 flatten.
+  - If red-team-lk finds a hole in PAIRED or BOOL_QUADRATIC, the fallback is the provisional ff98 (0.1905 s, older statement).
+- **Coordinator decisions**:
+  1. Release the label for art:f277786d once verify-po and red-team-lk pass. It supersedes art:49757870 in Table 2.
+  2. Merge lane/agkr-nvf4 (shared files touched: gkr_packed, logup, logup_packed, kernels, field, ligero, prover,
+     sumcheck_packed, nvf4/circuit). agkr-fp8 has the list in its 0110Z and 0215Z handoffs; keep-rule conflicts are
+     resolved toward agkr-fp8's 3be6a35f.
+- **kb updated**: fp4-nvf4.md (A-GKR final, rewrites, the 2^24 leaf rule), agkr-gpu-prover.md (NVFP4 5090 section),
+  ops-tools.md (setsid nohup on the pod, `pods drain`).

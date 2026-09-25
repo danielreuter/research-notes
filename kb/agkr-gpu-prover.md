@@ -44,6 +44,30 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   multiplicities, and run a prover copy whose "fractional sum is not zero" self-check is a no-op. Both verifiers must reject at
   `LogUp LK level 0: final check`.
 - 4090 fp8-ada at 4096 VUs, t.total 1.130 -> 0.666 s (prover only, same bytes) -> 0.490 s (merged statement).
+
+## NVFP4 on the RTX 5090 after the merge (lane agkr-nvf4, 2026-09-25; recorded 0.1905 -> 0.1388 s)
+- Final dev buckets at 4096 VUs (0.138 s): arith 49 ms, open 32 ms (acc 17, wq 12.5), lookup 28 ms, witness 12.5 + wires 3.1
+  ms, commit 4.6 ms, mults 3.2 ms, to_bytes 4 ms. The two GKR layers' phase 1 (~30 ms) and the 2^24 LogUp tree (~26 ms, the
+  largest levels 5–8 ms each) are the floor for small changes.
+- Same-bytes changes that moved it, in ms:
+  - pinned non-blocking H2D for every per-round operand (`field._h2d`, `gkr_packed._inputs`): pageable `torch.tensor(...,
+    device=cuda)` waits for the stream.
+  - LogUp leaves built straight into the graph's static buffers, and the leaf level in one kernel: 49 -> 40.5.
+  - L2-friendly grid order (the dimension that shares data runs fastest): scatter_terms 21.7 -> 19.2, gate_eval 10 -> 7.2.
+    rank1_add got worse under the same change.
+  - opening `w` by `eq_rows_dot`: 17.1 -> 14.5.
+  - SIMT encoder radix4 with `min_blocks_per_sm=2`: the 70k-row open encode 5.1 -> 3.6.
+  - `row_code_dot` split 64: 4.5 -> 3.9.
+  - multiplicities in one Triton pass (`kernels.lookup_mults`): 5.7 -> 3.2.
+  - wires by gate_eval CSRs: 9.4 -> 3.1.
+  - opening w / qc serialized once from one D2H: 5.9 + 5.5 -> 2.4 + 3.8.
+- What did not help:
+  - L2-sized row chunks between the encoder and `row_code_dot`: slower at every size; the encode is not DRAM-bound.
+  - int32 padded layer inputs: memory only.
+  - logup_ext_ip BLOCK_K / num_warps: 128 / 4 is best, the others spill.
+  - vectorizing add_lookup_claim's term loop: it is 1.5 ms of Python.
+- The pod host jitters: a record at 90c21455 gave reps of 0.155–0.175 s, and the Rust verifier also slowed to 0.20–0.24 s.
+  When the verifier time rises with the prover time, rerun instead of reading the change into it.
 - Red-team (red-team-lk, 2026-09-25, art:ca49b2f8 art:9a6280c5 art:319062b4 art:5419ef15): the merge, the nvf4 depth-1 flatten, the
   epilogue t drop, BOOL_QUADRATIC and PAIRED all PASS. Soundness holds for any key: the tag is its own constant column and the shift
   is injective mod p. The 2^20 bound only matters to the prover's first-column multiplicity search. The harness is

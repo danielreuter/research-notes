@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (02:13Z) [open] H100 FP8 A-GKR art:b0c27291 labelled (verdict art:eca0995c; Table 2 6.4e7x, 0.409 s); art:ad76c106 verdict art:b86ca2a8, HELD (coordinator 0214Z). 50 accepted + 5 held, 0 rejected; cred removed; awaiting 'release'; polling
 CHECKPOINT ab9573fd (02:05Z) [open] red-team-lk 0200Z PASS noted; 4 held labels wait for coordinator 'release' (0050Z: coordinator sends it), release staged (31-release.sh). Verifying agkr-fp8 0203Z: H100 art:b0c27291 (unchanged stmt) + art:ad76c106 (merged, held) in r20260925-020532-8dac
 CHECKPOINT none (02:00Z) [open] 5090 NVFP4 A-GKR art:53a64e8b (same stmt+proofs as dfbc86c4) verified; verdict art:223c8efe PRESERVED, label HELD (coordinator 0200Z). Held x4: 45c5be4a 3ae971dd dfbc86c4 53a64e8b. 49 accepted + 4 held, 0 rejected; cred removed; polling
 CHECKPOINT none (01:41Z) [open] H100 FP8 A-GKR merged-LK art:3ae971dd 3/3 + stmt + LK-merge check OK; verdict art:e96f50ac PRESERVED, label HELD (coordinator 0142Z). Held: 45c5be4a 3ae971dd dfbc86c4. 49 accepted + 3 held, 0 rejected; cred removed; polling
@@ -261,6 +262,7 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | RTX 4090 FP8, B-Ligero | 2.4e6× (art:fb4934af) | 2.2e6× (0.0840 s) | art:bb75ba4f (arith step 5) |
 | RTX 5090 NVFP4, A-GKR | — | 1.4e8× (1.04 s); 4.2e7× (0.314 s) at 23:31Z; 3.3e7× (0.245 s) at 23:52Z; 2.5e7× (0.1905 s) at 00:21Z | art:fe57e68b; art:ad8f92b9; art:5adf62eb; art:49757870 |
 | A100 BF16, B-Ligero | 2.2e7× (art:794365d3) | 5.9e6× | art:5bcbf3fb (arith a16-tip-r1) |
+| H100 FP8, A-GKR | 1.08e8× (art:2e7baba7, 0.688 s) | 6.4e7× (0.409 s) at 02:13Z | art:b0c27291 |
 
 ## Log
 - 21:17Z pod created; 21:27Z synced (494 s); 21:30Z bootstrapped (only the GPU stage failed, as expected on a CPU pod).

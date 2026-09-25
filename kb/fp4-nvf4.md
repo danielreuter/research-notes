@@ -68,3 +68,14 @@ the fix need an instance-equiv file or a rerun.
 - Record scripts under `research run` must export the env.sh thread caps (see ops-tools.md): without them the same tree
   timed 0.314 s instead of 0.274 s.
 - The pod's host-bound phases jitter: back-to-back dev runs of one tree gave medians 0.232 and 0.265 s. Record with 5 reps.
+- Final (2026-09-25, lane/agkr-nvf4 @ c97d2ad2): r20260925-015152-d098, t.total 0.1388 s (~1.4e7× against the 1.283e15 FLOP/s
+  native peak), 2^-130.19, Rust 5/5. Result art:f277786d…, run-files art:1f0b0b60…; proof 9469288 B, sha ebe7c545.
+  - Statement: two more rewrites on top of the merged LK and the depth-1 flatten.
+    - BOOL_QUADRATIC: each 1-bit range check is a `b·b = b` product wire, not an R1 query.
+    - PAIRED: each pair of R3/R5/R6/R7 queries is one `(x + 2^b y, x, y)` query into a listed PR<b>.
+    - Result: 226 -> 166 queries per unit, LK 110613 rows, 700 wires, and the LogUp tree drops 2^25 -> 2^24 leaves
+      (t_lookup 40.5 -> 28 ms).
+  - The size of the tree is set by units × queries + table rows. At 98304 units the 2^24 boundary is 170 queries per unit,
+    so count queries before adding any.
+  - The coordinator holds the Table 2 label for statements with rewrites until red-team-lk passes (0050Z). Until then Table 2
+    shows the provisional art:49757870 (0.1905 s, 2.5e7×). Prover-side details are in agkr-gpu-prover.md.

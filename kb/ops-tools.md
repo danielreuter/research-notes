@@ -62,6 +62,9 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
 * `research run --on ... -- CMD` runs CMD as an argv, with no shell: `-- bash '$RESEARCH_RUN_DIR/inputs/x.sh'` fails with rc 127
   ("No such file or directory"). Without `--cwd` the run dir is the cwd, so use `-- bash inputs/x.sh`. With `--cwd`, use
   `-- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/x.sh"'` (merge-postwave, r20260924-170644-a490).
+* A pod job started as `ssh pod 'nohup cmd &'` can die with an empty log, for example when the same ssh call also had stdin
+  piped in. `ssh pod '(setsid nohup cmd > log 2>&1 < /dev/null &)'` survives the session. `research pods drain <pod>` is the
+  clean way to terminate at FINAL: it lists the attempts and refuses while any is unpreserved (agkr-nvf4, 2026-09-25).
 * The runpod CPU image (Ubuntu 22.04) has curl. Listing `curl` in `apt-get install` made apt upgrade it from a security-pool URL
   that returned 404, and the whole install failed with rc 100. Leave curl and ca-certificates out of the list (merge-postwave, 2026-09-24).
 

@@ -6,6 +6,8 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 39c5ee7a (04:05Z) [open] 04:08Z launched agkr-bound (local; integration of agkr-fp8+nvf4 then operand binding; $15, FINAL 12:00Z; worktree post-wave -> agkr-bound). TABLES.md: 'Same full relation' rule recorded. Circuit red-team waits for pin PR + A-GKR merge. Parity pass 2 running.
+CHECKPOINT 14fc57e1 (04:04Z) [open] 04:03Z f24+f56 already on main (baeefd21). HOLD lane/vllm-rf-f3-integrated 68e75c14 (--no-ff) until gate (b) r20260925-034304-3b78 green is confirmed
 CHECKPOINT none (04:02Z) [open] 04:05Z disk hit 3.1 GiB (swap files 16->20 GB + parity re-fetched blobs); evicted 78 R2-verified blobs 1.35 GiB -> 7.4 GiB; timers armed (sweep 30 min, digest 01:00Z); parity pass 2 started
 CHECKPOINT baeefd21 (03:59Z) [open] 04:02Z merged vllm-rf-f24 e818a5d4 -> 24e3b391, vllm-rf-f56 a4b823a3 -> baeefd21 (--no-ff, integrations/vllm only, lints 41/41 on merged tree); pushed; cli moved
 CHECKPOINT 3d48c00 (03:58Z) [open] 04:00Z standing rule: coordinator merges every PR (Daniel-commented PRs wait); #7 #8 #9 #10 already merged

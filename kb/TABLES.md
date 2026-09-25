@@ -72,3 +72,12 @@ TC_DOT only A100 (fastest verified 5.81 s art:174d7b4d).
   tables.py is frozen and has no marker; the flag is carried in the scoreboard's changed list and the digest. Pulled if red-team-lk FAILs.
 - H100 FP8 · A-GKR art:ad76c106 (merged LK): provisional pending red-team-lk's statement-level check (2026-09-25 03:55Z).
 - Rule kept for future statement rewrites: they enter Table 2 only after verify-po AND a red-team pass (verify-po holds the label).
+
+## Same full relation (user decision 2026-09-24 9:04 PM PT)
+- Table 2 requires every backend to prove the SAME full relation, including commitments binding the outputs to the real inputs
+  and weights. Results whose statement is weaker (A-GKR today and SP1's bare guest: they prove only that SOME operands give y;
+  A-GKR's verifier reads only the output words) stay as results, but leave the Table 2 view at one labelled switch in the renderer
+  (a named rule, not a hand edit). Until that switch lands: no footnote, and no cells pulled.
+- Approved: a lane that makes A-GKR prove the committed relation (operands bound), cap $15; its results need independent
+  verification and a red-team of the new statement. Then an A-GKR circuit red-team once the mechanical circuit-pin PR and the
+  A-GKR lane branches are merged.

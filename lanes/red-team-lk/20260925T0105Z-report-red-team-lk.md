@@ -143,3 +143,16 @@ E2M1X2, depth-1 flatten, epilogue t drop (art:49757870; art:9a6280c5), and BOOL_
 control/audit art:5419ef15. art:49757870 uses merge + flatten + t drop (not bool/paired) and STANDS: no downgrade. No accepted
 forgery among 12 adversarial witnesses, plus 4 tag-stripped control runs (cheating prover, our Rust verifiers). Limits: fp8 tag control is confounded (audit
 attributes it); art:3ae971dd's statement not checked by me; nvf4 verifier built from b7cec878 (main's cannot parse `public s t f`).
+
+## Follow-up (coordinator, 03:50Z): H100 FP8 cell art:ad76c106 (run-files art:55eb421d): PASS, evidence art:c1ee1fdb
+- Harness 14fc57e1: `static-merge` now also enforces source keys in [0, 2^20) and reports LK first-column uniqueness.
+- On pod vy-red-team-lk2, from `git archive 3be6a35f` plus the harness (export.py is identical at a97576b5). Script
+  `10_hopper.sh`, run r20260925-035948-0fdc.
+  - Export with merging off: byte-identical to the old verified fp8-hopper statement (art:2e7baba7 / art:b0c27291, run-files
+    art:438ada92 = art:25c57ccb); circuit 424e7256….
+  - Export with merging on: byte-identical to art:55eb421d's statement; circuit 07d15dc3….
+  - `static-merge` ok: 139 queries per unit, LK 261968×8, 10 injective tags, per-tag rows = source tables, max key 229375 < 2^20,
+    first column unique; the selftest caught every planted defect.
+- Pods: ar2ylwgfs6zbpj was REAPED at 03:54Z (the lane was final; now reopened). p0jlotqz4ualgr ran 03:58–04:01Z and is
+  terminated. About $0.07.
+- Handoff: `~/.research/notes/lanes/coordinator/20260925T0405Z-handoff-from-red-team-lk.md` "red-team LK H100 FP8: PASS".

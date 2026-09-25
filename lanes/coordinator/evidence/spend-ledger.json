@@ -24,17 +24,17 @@
   },
   "24p5jceya2gfbn": {
    "name": "vy-verify-night-2-veritor-campaign",
-   "usd": 2.7956,
+   "usd": 2.828,
    "rate": 0.48,
    "first_seen": 1790319111.3402529,
-   "last_seen": 1790340044.763503
+   "last_seen": 1790340287.639175
   },
   "whwiqx4qyy75am": {
    "name": "vy-b-ligero-sh-veritor-campaign",
-   "usd": 4.3129,
+   "usd": 4.3628,
    "rate": 0.74,
    "first_seen": 1790319111.3402529,
-   "last_seen": 1790340044.763503
+   "last_seen": 1790340287.639175
   },
   "7byyo9s4i8rh58": {
    "name": "vy-ligero-steps-pin-veritor-campaign",
@@ -192,10 +192,10 @@
   },
   "0std0gx3ah22o1": {
    "name": "vy-blake3-80gb-veritor-campaign",
-   "usd": 10.0964,
+   "usd": 10.3318,
    "rate": 3.49,
    "first_seen": 1790329750.744663,
-   "last_seen": 1790340044.763503
+   "last_seen": 1790340287.639175
   },
   "9bkz4idcq7fsg6": {
    "name": "vy-red-team-link-veritor-campaign",
@@ -220,10 +220,10 @@
   },
   "t32im4q69yffh6": {
    "name": "vy-reverify-tile-veritor-campaign",
-   "usd": 1.0809,
+   "usd": 1.1133,
    "rate": 0.48,
    "first_seen": 1790332051.089411,
-   "last_seen": 1790340044.763503
+   "last_seen": 1790340287.639175
   },
   "h94xn599m62w1t": {
    "name": "vy-poseidon-v1-veritor-campaign",
@@ -290,24 +290,24 @@
   },
   "0mfgq7x71zr8y0": {
    "name": "vy-reverify-tile-2-veritor-campaign",
-   "usd": 0.3549,
+   "usd": 0.3873,
    "rate": 0.48,
    "first_seen": 1790337501.2080379,
-   "last_seen": 1790340044.763503
+   "last_seen": 1790340287.639175
   },
   "0d2olfrqxg82q5": {
    "name": "vy-poseidon-v1-veritor-campaign",
-   "usd": 0.5227,
+   "usd": 0.5726,
    "rate": 0.74,
    "first_seen": 1790337622.818659,
-   "last_seen": 1790340044.763503
+   "last_seen": 1790340287.639175
   },
   "0i9bg5qsvzcdpq": {
    "name": "vy-red-team-sh-veritor-campaign",
-   "usd": 0.0562,
+   "usd": 0.0643,
    "rate": 0.12,
    "first_seen": 1790338470.875349,
-   "last_seen": 1790340044.763503
+   "last_seen": 1790340287.639175
   },
   "fzs8rjhcj9oxjq": {
    "name": "vy-red-team-flock-veritor-campaign",
@@ -329,9 +329,16 @@
    "rate": 0.64,
    "first_seen": 1790339803.084012,
    "last_seen": 1790339803.084012
+  },
+  "q59un0g9p7x5qz": {
+   "name": "vy-red-team-flock-veritor-campaign",
+   "usd": 0.0324,
+   "rate": 0.48,
+   "first_seen": 1790340165.984021,
+   "last_seen": 1790340287.639175
   }
  },
- "last_poll": 1790340044.763503,
- "total_usd": 87.549,
- "running_rate": 7.17
+ "last_poll": 1790340287.639175,
+ "total_usd": 88.022,
+ "running_rate": 7.01
 }

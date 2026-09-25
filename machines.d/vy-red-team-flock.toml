@@ -1,7 +1,7 @@
 # machine vy-red-team-flock: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "m7aqz4bhaf9640"
+pod_id = "q59un0g9p7x5qz"
 project = "verity"
 guard = 45
 registered_by = "cursor"
-registered_at = "2026-09-25T12:35Z"
+registered_at = "2026-09-25T12:43Z"

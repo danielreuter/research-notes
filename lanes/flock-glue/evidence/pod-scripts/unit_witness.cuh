@@ -21,10 +21,10 @@ typedef unsigned long long uw_u64;
 #define UW_K_LOG 13
 #define UW_K (1 << UW_K_LOG)
 #define UW_WORDS (UW_K / 64)
-#define UW_THREADS 256
+#define UW_THREADS 512
 #define UW_WARPS (UW_THREADS / 32)
-#define UW_WIDE 64            // segments at least this wide: one thread per row; narrower: one warp per row
-#define UW_COLS_CAP 12288     // u16 column terms per batch
+#define UW_WIDE 64            // profiling split only: segments at least this wide count as wide
+#define UW_COLS_CAP 12288     // u16 column terms per batch (host packs at most 12284; the copy is 16-byte aligned)
 #define UW_DESC_CAP 1024      // gates per batch
 #define UW_MAX_SEGS 1024
 #define UW_MAX_BATCHES 256

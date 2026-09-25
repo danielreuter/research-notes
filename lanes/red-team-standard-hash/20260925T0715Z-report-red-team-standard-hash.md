@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 824a9924 (10:56Z) [open] 10:56Z proof_class COMPLETE_ZK_BACKEND labels (+finding) on d6328cf5, e9932b72, e7d59ab6, 5d20ad00, 017a7069 after checking vn2 accepted@3301c435 + bound; handoff 1056Z; next: label +sha256 / H100 +blake3 cells once vn2 accepts; polling
 CHECKPOINT a81f0800 (10:41Z) [open] 10:41Z main 767115db: +blake3 and +sha256 CLASS GRANTED WITH CONDITIONS carry over (statement code = da74b03e); H2 fp8-hopper-x4+sha256 PASS art:43b92cc7; queue: agkr hash layer / vllm-v1 variants not landed; polling
 CHECKPOINT 53314d1c (10:34Z) [open] 10:34Z +sha256 @da74b03e CLASS GRANTED WITH CONDITIONS (run>=da74b03e, reverify w/ 3301c435+sha256 scheme or 06, 04 BOUND) -> coordinator/vn2/b-ligero-sha256 1033Z; sha256 scan 0 free (8:2, 8:0.5), control 17, art:a3c5c339; blake3 class 1027Z art:70722cab
 CHECKPOINT a37cea8 (10:18Z) [open] 11:32Z PASS main 3301c435 +blake3 and da74b03e +sha256 (R1/R4 refused, H2, compress_one diff; art:cd2828c5); sp1 cell counts only via vn2 19-sp1c gate; gadget scans: blake3 x4 finishing, sha256 queued

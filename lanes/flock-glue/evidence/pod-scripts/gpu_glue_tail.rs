@@ -120,7 +120,7 @@ fn setup_device(g: &Glue) -> usize {
     if *batch_seg.last().unwrap() != seg_end.len() as i32 {
         batch_seg.push(seg_end.len() as i32);
     }
-    cols.extend_from_slice(&[0, 0, 0, 0]);
+    cols.extend_from_slice(&[0u16; 16]);
     let n_gates = gdesc.len();
     let n_segs = seg_end.len();
     let n_batches = batch_seg.len() - 1;

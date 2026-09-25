@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 00ffe398 (06:58Z) [open] 071e3ef7: +blake3 pinned on bf16-ampere (5b762054) + fp8-hopper (433bdfc3): gates 49/86/0F + 25/86/0F, fixtures pinned ACCEPT, cargo test green; fp4-nvf4+blake3 needs NVFP4 row byte schema (core-schemes). Next: fp8-ada+blake3 --commit-per-rep dev run on 4090
 CHECKPOINT c21b8ccf (06:47Z) [open] started 06:30Z; 820aa6f+1cf9178 already in main (step 2 no-op); 82453d30 bench-vu --commit-per-rep (commitment bucket per rep); 4090 pod vy-b-ligero-sh bootstrapping; next: bf16-ampere/fp8-hopper +blake3 pins+gates, fp8-ada+blake3 cell dev run
 # b-ligero-standard-hash: B-Ligero frame-v3 keyed-BLAKE3 full-relation Table 2 cells
 
@@ -33,6 +34,15 @@ Pod scripts: `evidence/pod-scripts/`.
 * 06:40Z pod vy-b-ligero-sh (whwiqx4qyy75am, RTX 4090 24 GB, reference part, EPYC 7642, SECURE, $0.74/h) created, registered,
   guard 90; bootstrap r20260925-064433-58ac (RELS fp8-ada,bf16-hopper,fp8-hopper, BENCH_INSTANCES=1).
 * 06:50Z 82453d30 `bench-vu --commit-per-rep` (below).
+* 06:49-06:53Z r20260925-064848-b593 (`10-pins-gates.sh`, tree 25f0c1de): `+blake3` fixtures + gates.
+  **bf16-ampere+blake3**: m = 35 067 rows/unit, sys_id 5b762054…, table f67ab817…; gate `--vus 2048 --batch 4096 --zk
+  interactive` **49 honest sub-batches, 86 negatives, 0 failures**. **fp8-hopper+blake3**: m = 34 997, sys_id 433bdfc3…,
+  table a27af32f…; gate **25 honest, 86 negatives, 0 failures**. Rust `system-digest` == Python sys_id for both.
+* 06:55Z 071e3ef7 the two PINS rows; r20260925-065539-17cf (`15-rust.sh`): ligero-verify rebuilt at 071e3ef7 (sha256
+  e7f47a52…), `cargo test --release` 32 + 7 + 27 passed; both fixtures **pinned batch ACCEPT** (`system pinned
+  (bf16-ampere+blake3)` / `(fp8-hopper+blake3)`, 2^-128.05). fp4-nvf4+blake3 not attempted: see §0 (needs the NVFP4 row's byte
+  serialization under the keyed-BLAKE3 leaf schema, which core-schemes defines).
+* 06:57Z dev cell fp8-ada+blake3 l=4096 p2 2 reps with `--commit-per-rep` (validation of the harness).
 
 ## 1. `--commit-per-rep` (82453d30)
 Every rep (the warm-up included) drops the committed state and runs `commit_vus` with no tree cache, then rebuilds the hashed

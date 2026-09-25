@@ -6,6 +6,8 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT e903224 (06:55Z) [open] 06:56Z research budget $300 actual (window from 11:51 PM PT); spend ledger live (evidence/spend-ledger.py, 2-min poll): $0.05 spent, $3.68/h running across 6 pods; lane caps $362 as caps only; sweep timer re-armed as proof-opt-sweep-v3 with spend line
+CHECKPOINT e903224 (06:49Z) [open] 06:52Z launched poseidon-v1 ($30; 5 Poseidon2 per-row cells under v1 protocol); handoffs: vllm-v1 variants to agkr-bound, sp1-committed, b-ligero-standard-hash; commit-gpu -> commit_cost both schemes. Research caps now $362 (in $600 shared)
 CHECKPOINT 00ffe398 (06:47Z) [open] 06:48Z merged #18 6fdd261b (algebraic hashes admissible+flagged, F custody fix) and #15 00ffe398 (vllm-v1 + frame-v3 row-leaf schemas, commit_cost bench); 226 tests pass; pushed; cli + pod steward updated
 CHECKPOINT b862be30 (06:39Z) [open] 06:41Z merged f1 7fcedf47; #16 446f552b, #17 25f0c1de, #14 94faa96f; TABLES.md published + algebraic-hash amendment; launched ligero-steps-pin($5) b-ligero-standard-hash($120) verify-night-2($12) jolt-scout($5) sp1-committed($50); commit-gpu retarget ($40); agkr-bound unblocked ($100). Caps sum $332
 CHECKPOINT 8efb918e (06:22Z) [open] 06:22Z sweep: disk 5.6 GiB; steward on pod healthy; custody publish restarted (stdin bug); vyv-rf-a4-cpu pod = vLLM's

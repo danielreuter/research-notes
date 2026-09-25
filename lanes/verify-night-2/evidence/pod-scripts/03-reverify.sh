@@ -2,7 +2,7 @@
 # verify-night-2: non-producer reverify of stored B-Ligero results, labels --by verify-night-2.
 #   ROUND=<name> bash 03-reverify.sh ART...
 # Credential: /root/r2.env (read-write, objects/ manifests/ labels/ attempts/; minted on the laptop, short ttl).
-# Verifier: /workspace/bin/ligero-verify, cargo --release of backends/ligero-verify from /workspace/src (main ab9573fd via
+# Verifier: /workspace/bin/ligero-verify, cargo --release of backends/ligero-verify from /workspace/src (main 7fcedf47 via
 # research pods sync). Pass FULL art ids: the pod catalog is not rebuilt (reindex --remote fetches manifests one by one,
 # ~150/min); get_manifest / get_attempt / fetch fall back to the remote. REINDEX=1 rebuilds it first anyway.
 # Then statement binding (04-stmt-binding.py): the dumped statements' chain-end y words equal the frozen set drawn by my tree.

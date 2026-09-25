@@ -99,6 +99,21 @@ Since 19:25Z the research coordinator does every merge to `main`, so two agents 
   - **Decision 8 (06:47Z):** a wrapped `verity_vllm.LLM(...)` that mirrors `vllm.LLM`. The user passes model, revision and documented supported options; we build and pin internally; it returns vLLM's outputs plus our records; unsupported options fail loudly; no wrapping of a user-built engine. "RowSpec" leaves the public API and docs, and the internal pinned record gets a descriptive internal name. Applied in A5.
   - **Budget (06:47Z):** vLLM gets $300 of new spend tonight. CAP was raised 600 to 623 on vy-control-verity (logged; the daemon picked it up at 06:48Z). Up to 20 agents project-wide. All five decisions are settled, so run every unblocked lane.
   - C1 open items from the root: vLLM's four CUDA hashing copies against the vllm-v1 conformance vectors (PR #15) on a GPU pod, and the weights root against a live model, both byte for byte.
+- **Lanes running (06:55Z), all background subagents of this agent:**
+  - `a4`, bc-2caed690: re-home; budget $45.
+  - `c1`, bc-9eae5bc7: vllm-v1 scheme; budget $35.
+    - Phase 1 now: CUDA copies against the vectors, and the weights root live check (evidence only).
+    - Phase 2 after A4 and PR #15 (`fa9c4594`, `origin/cursor/vllm-commitment-scheme-f2e6`) are both in main: commit path over `verity.commitments.vllm_v1` plus per-scheme throughput instrumentation.
+  - `c4ir`, bc-fbcf78e2: boundary, partition and liveness into `verity.ir`; budget $15. Core side now, integration switch after A4.
+- **To launch when A4 merges**, in the a4 prompt style, at most about 6 running at once:
+  - A5 (one CLI and typed config, with the decision-8 API `verity_vllm.LLM(...)`), about $30;
+  - C2 (Definition library under the owner's principle), about $20;
+  - B1 (evaluator kernels and replay; `program/kernels/`), about $40;
+  - B4 (engine and hooks), about $25;
+  - B2's verdict part, about $25;
+  - then B5 splits as money allows (native_host only after C1).
+  - After A5: B3 and B2's heredoc part. After B4: C3. After C1 to C3: the re-baseline epoch (decision 4a).
+  - Money: $300 of new spend tonight (cap 623).
 - 06:35Z **Owner-approved naming:** `program/kernels/`, not `program/backends/`, for the evaluator implementations. Sent to a4 (STATE banner and handoff) before it moved anything, and recorded in SYNTHESIS's new decision log. The owner wants work to continue nonstop past 8:30 AM PT.
 - **Held for the owner (morning list):** decision 1 (commitment framing; assessment in the Project store `internal/commitment-format-assessment.md`); decision 3 (Definition ids: C2); decision 4 (re-baseline epoch); decision 5 (upstreaming: C4, including the IR analyses); decision 8 (API scope: blocks A5, and so B3 and B2's heredoc part). The owner first chose (a), frame-v3 in production, with vLLM keeping its CUDA and passing core conformance vectors. He then asked to consider standardizing on vLLM's existing framing as a named `verity.commitments` scheme, provided proof backends don't fork per format. No plan or code change until he confirms.
 

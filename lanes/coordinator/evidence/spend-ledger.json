@@ -1,0 +1,50 @@
+{
+ "window_start": "2026-09-25T06:51:00Z",
+ "pods": {
+  "g6sehoo9nur00q": {
+   "name": "vy-commit-gpu-veritor-campaign",
+   "usd": 0.0852,
+   "rate": 0.74,
+   "first_seen": 1790319111.3402529,
+   "last_seen": 1790319474.6672409
+  },
+  "6n0tv9llnhs142": {
+   "name": "vy-sp1-committed-veritor-campaign",
+   "usd": 0.0852,
+   "rate": 0.74,
+   "first_seen": 1790319111.3402529,
+   "last_seen": 1790319474.6672409
+  },
+  "jo0fva56p8tpx5": {
+   "name": "vy-jolt-scout-veritor-campaign",
+   "usd": 0.0852,
+   "rate": 0.74,
+   "first_seen": 1790319111.3402529,
+   "last_seen": 1790319474.6672409
+  },
+  "24p5jceya2gfbn": {
+   "name": "vy-verify-night-2-veritor-campaign",
+   "usd": 0.0552,
+   "rate": 0.48,
+   "first_seen": 1790319111.3402529,
+   "last_seen": 1790319474.6672409
+  },
+  "whwiqx4qyy75am": {
+   "name": "vy-b-ligero-sh-veritor-campaign",
+   "usd": 0.0852,
+   "rate": 0.74,
+   "first_seen": 1790319111.3402529,
+   "last_seen": 1790319474.6672409
+  },
+  "7byyo9s4i8rh58": {
+   "name": "vy-ligero-steps-pin-veritor-campaign",
+   "usd": 0.0277,
+   "rate": 0.24,
+   "first_seen": 1790319111.3402529,
+   "last_seen": 1790319474.6672409
+  }
+ },
+ "last_poll": 1790319474.6672409,
+ "total_usd": 0.424,
+ "running_rate": 3.68
+}

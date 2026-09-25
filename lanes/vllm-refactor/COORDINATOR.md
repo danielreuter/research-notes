@@ -70,6 +70,10 @@ Since 19:25Z the research coordinator does every merge to `main`, so two agents 
   - With main + f24 + f56 merged on a CPU pod: lints 41/41, and `test_no_by_name_rules` plus `test_imports_resolve` pass.
   - Gates reproduced with jdiff: gate (a) T0+T1 matches a23b's same-pod base, and gate (b) shows no new F/E or skips (the gc pair and sigint flake are order or timing dependent; one skip reason is main's own `test_ship_roots` wording).
   - Not ready yet: f3 (rebasing, `bca6ab61`, READY still names pre-rebase `4fb0eb2c`) and f1 (in progress).
+- 03:50Z **f3** is READY at `4c4159c5` (rebased onto `bbbe936c`; lints 41/41; gate (b) matches main on the same pod; gate (a) T0+T1 green at `4fb0eb2c` apart from one shared-cache race on `manifest_digest-r11`, which passes when rerun alone).
+  - f3's branch conflicts with f24 in `p10_size.json`. So the coordinator built **`lane/vllm-rf-f3-integrated` @ `68e75c14`** (pushed): f3 + f24 + f56 + main `b84f11ea`, with the p10 conflict resolved (f24's `verdict.py` caps, f3's `padding_steps.py` 930, `commit_delta.main` 1915 as measured). Lints, by-name and imports are 45/45 on a pod.
+  - Merge order: f24, f56, then f3-integrated (not `lane/vllm-rf-f3`).
+  - Combined gate (b) is running as research run `r20260925-034304-3b78` on `vyv-rf-coord-gb` (`qhycj9nzntk7wx`, guard 60). Fetch it with `research fetch r20260925-034304-3b78`, then jdiff against a1's xdist base. The f3 merge request is final once that's green.
 
 ## Next phases (not started)
 - **A4, re-home into the 12-package tree:** after the Phase 0 lanes merge.

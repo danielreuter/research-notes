@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: open
 ---
 
+CHECKPOINT cc41b6a0 (20:35Z) [open] H100 bf16-hopper Flock cell (flock-pure-block v2, same-DC verifier pod): sweep plateau ~3.24-3.29k VU/s (8192/proof; 32768 = 4 sub-batches), uncontended, r20260925-202748-e488 art:ca6029c1; re-running r20260925-203522-4cf9 with run_files refs; red-team request 2040Z to coordinator
 CHECKPOINT 00009b54 (20:19Z) [open] H100 cell sweep running: prover r20260925-201921-2024 (vy-flock-backend-h100, US-MO-1) vs verifier pod r20260925-201903-c1e2 (vy-flock-backend-ver, same DC, own instance files), flock-pure-gpu v2 (d3e96304 merged, 00009b54), points 1024..32768, 8192/proof, 5 timed
 CHECKPOINT ab5c1156 (19:17Z) [blocked] paused until flock-gpu-link's flock-pure-block handoff (~5 PM PT). Decisions recorded: red team reviews flock-pure-block only; non-producer replay of the CPU drill-down routed low-priority; GPU cell needs a same-DC verifier pod (reference network 1 ms, 100 Gb/s). agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT ab5c1156 (19:16Z) [blocked] on flock-gpu-link's flock-pure-block (the cell statement, picked (A) 1925Z). CPU union drill-down done: r20260925-190850-4184 plateau 2048 VUs 531 VU/s, 50/50 negs, art:827f594c art:904398d8; PR #34 @ ab5c1156; pod terminated 19:28Z ~$0.6; asks to coordinator 1928Z (non-producer replay, red-team timing). agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

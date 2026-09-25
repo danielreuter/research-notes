@@ -32,9 +32,9 @@ done
 fwd+=(--exclude='*')
 rev+=(--include=/kb/*** --include=/lanes/ --include=/lanes/*/ --include=/lanes/*/*.md --include=/machines.d/ --include=/machines.d/*.toml --exclude='*')
 
-opts=(-rcu --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
+opts=(-rcuW --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
 # reverse by size + mtime: checksumming every notes file over the store mount took minutes
-ropts=(-rtu --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
+ropts=(-rtuW --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
 out=$(rsync "${opts[@]}" "${fwd[@]}" "$S/" "$host:$N/" 2>&1); frc=$?
 ok $frc || { echo "$(stamp) FAIL forward rsync rc=$frc: ${out: -300}"; exit 1; }
 nf=$(grep -c '^<f' <<<"$out")

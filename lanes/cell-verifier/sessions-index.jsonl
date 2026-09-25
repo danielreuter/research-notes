@@ -1,0 +1,4 @@
+{"aborted":null,"accepted":null,"link_mode":"exchange","link_sha256":null,"require_link":true,"rounds":null,"session":"l0000-2920","verify_s":null,"why":null}
+{"aborted":null,"accepted":true,"link_mode":"exchange","link_sha256":"b4cd2eec68dfdf471dc3e2cb70db3a71b8f2dd0694725583c8c285ed81e3cb66","require_link":true,"rounds":1058,"session":"l0001-2920","verify_s":0.769058573,"why":""}
+{"aborted":null,"accepted":true,"link_mode":"exchange","link_sha256":"c02eb4536ae8029201ccd1f7c8c0ce15d1c8803380964485e5aab81796ebd6d6","require_link":true,"rounds":1058,"session":"l0002-2920","verify_s":0.195996284,"why":""}
+{"aborted":null,"accepted":true,"link_mode":"exchange","link_sha256":"bca1adaeca39759a42247c14a43dd21f362d142fc991348c703549793a33f968","require_link":true,"rounds":1058,"session":"l0003-2920","verify_s":0.148948157,"why":""}

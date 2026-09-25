@@ -2,9 +2,10 @@
 lane: red-team-standard-hash-2
 kind: report
 created: 2026-09-25T14:31Z
-status: final
+status: open
 ---
 
+CHECKPOINT 041ac181 (17:11Z) [open] 17:11Z reopened (non-producer): instance_equiv --check art:9b5f1e24/art:c2959a5c + proof_class on reverify-fp4's 6 cells: NOT final
 CHECKPOINT 041ac181 (15:10Z) [final] 15:10Z FINAL: grants bf16-hopper-x4+sha256 (1441Z) + hopper +blake3 (1453Z); proof_class on 13 cells; tile review 1455Z (no finding, 2 nits); pod terminated 14:51Z ~$0.04; branch pushed at 041ac181 (no commits)
 CHECKPOINT 041ac181 (15:07Z) [final] 15:07Z FINAL: grants bf16-hopper-x4+sha256 (1441Z) + hopper +blake3 (1453Z); proof_class on 13 cells (8 hopper +blake3, 2 sha256 x4, 3 xob); tile review 1455Z (no finding, 2 nits); pod 0i9bg5qsvzcdpq terminated 14:51Z, ~$0.04; art:58d31cd3 art:c7e22b4b
 CHECKPOINT 041ac181 (14:53Z) [open] 14:53Z H100 +blake3 GRANTED (16:0.5 scan 0 free/61k, control 18; H2/R1/R4 refused; art:c7e22b4b); proof_class labels on 8 hopper +blake3 cells (handoff 1453Z). tile review reply 1455Z to reverify-tile-2 (code read, 2 nits). pod 0i9bg5qsvzcdpq drained 14:51Z. Waiting on verify-night-3 for sha256/xob labels.

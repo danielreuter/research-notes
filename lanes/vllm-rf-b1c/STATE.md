@@ -2,7 +2,7 @@
 id: vllm-rf-b1c/state
 lane: vllm-rf-b1c
 kind: state
-updated: 2026-09-25T16:40Z
+updated: 2026-09-25T17:12Z
 ---
 # b1c (evaluator kernels and replay): state
 
@@ -22,11 +22,27 @@ as it stood at 16:09Z (verbatim).
 - 16:28Z #67 `r20260925-120629-a48a` on g2: Build PASS 15:21Z (9739 s), Match PASS 16:03Z (2510 s), row dir copied; **head Commit
   running since 16:03Z** (pid 33336, pgid 33335), then base Commit, then rowcmp vs record.
 - b2vb merge-tree (`ed8f6625`) vs this head: 5 conflicts, all import-line only (see Open questions).
+- 16:55Z coordinator: main is `38a8d35d` (b2vb, b5gmb, c2b merged). **`git merge origin/main` -> `8f94cb48`** (conflicts: import
+  blocks of admission.py and the 4 commit-verdict tests, p03/p10/p11 entries; resolved as union of both sides' moves; b1 never
+  edited `check/commit_verdict.py`, so nothing of b1's had to move into c2_rules/verdict). Static import scan of the merged tree:
+  0 dangling `verity_vllm` imports (besides the pre-existing one below). **`ec6219f5`**: P10 `pipeline/commit.py::main` cap
+  1913 -> 1912 (b1 and main each removed one line; lints at 8f94cb48 flagged it). Both pushed.
+- 17:00Z **re-gate `r20260925-170048-b4b9`** on `vyv-rf-b5pat-cpu` (handed over by b5patc 16:40Z): lints head ec6219f5 45/45 and
+  base 38a8d35d 45/45 pass; gate (b) head then base running (`/workspace/b1c/chain.sh`). (`r20260925-165541-b7a7`: first try at
+  8f94cb48, killed after the P10 lint failure.)
+- **#67 head Commit OOM-KILLED** at 16:47Z (rc 137, wall 2598 s, NOT_RUN) in sampled replay just after forking 32 workers
+  (`[replay] fork gc.freeze=on: 32 workers over 38748 VUs, 250,868,374 objects frozen`). Before that: C2 oracle compare pair 0
+  16120 = 16120 equal, 278,604 opened reads verified. cgroup limit 175 GiB: shmem 85.8 GiB (host retention, from 16:18Z) + anon
+  58 -> 81 GiB after the fork. The admission advisory predicted it at head and base alike ("commit=REFUSE 191021 MiB, short 11730
+  MiB" of 179290). The base arm then failed in 13 s (rc 1: vLLM saw 16.9/44.4 GiB free: the killed head's engine child still held
+  the GPU), and g2.sh ended 16:48:54Z. Run dir preserved: run-files/v1 `art:ef852ef3dde91db67bcda746dae9b96057f6bc4b6f6ddf921e28da293d29d566`.
+- 17:06Z **#67 base Commit `r20260925-170559-fe8e`** on g2 (source 10996616, `/workspace/b1/tools/g2base.sh` = g2.sh with
+  ARMS=base): does base survive the same fork? Same OOM => pod shape (f1's 188 GB g1b ran base #67 sampled replay 1 h 50 min
+  on 72884c8a without OOM); base survives => head memory regression in replay.
 
 ## b1c Next
-1. #67 head Commit -> rowcmp; base Commit only if it ends by ~19:45Z, else kill by pgid. Terminate g2.
-2. Re-gate the rebased head (lints + gate (b), head and base same pod) on `vyv-rf-b5pat-cpu` after b5patc's handoff (else cpu3g
-   `vyv-rf-b1c-cpu` at 17:30Z).
+1. #67: compare base's memory curve with head's (`/workspace/b1/tools/memdetail.py` on resources.jsonl). Terminate g2.
+2. Gate (b) jdiff base 38a8d35d -> head ec6219f5; terminate b5pat-cpu.
 3. READY.md (NEEDS / R67_SHORT / R70_SHORT), merge-ready handoff.
 
 ## b1c Open questions

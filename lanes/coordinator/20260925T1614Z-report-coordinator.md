@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT f7de4620 (17:12Z) [open] 17:12Z (10:12 AM PT) day plan 1 PM: vLLM b2vb/b5gmb/c2b DONE bd081fd7, b5patb DONE f7de4620 (c4ir waits gate a); xob pins DONE 38a8d35d; PR #27 DONE 2603dfcc, re-rendered; SHA-256 rows + 5090 NVFP4: reverify-fp4 running; ligero-hygiene running; 4 PM route (a): agkr-flock-cell 4096-VU loopback OK, evidence vs cell-verifier (non-producer) running; pods: preserving runs to R2 (b-ligero-sh 6 put, verify-night-2 r20260925-170817-2837), terminate after hash check; spend today ~$5 of $300 (ledger from 17:05Z, $3.2/h); mirror: pass timeout + FUSE fixes, cell-verifier added.
 CHECKPOINT 38a8d35d (16:48Z) [open] 16:48Z (9:48 AM PT) MERGED vLLM b2vb ed8f6625, b5gmb 03e7b182 (P09 cycle entry = rename, accepted), c2b 4d053f01 (--no-ff; test_ratchet + lints pass) -> bd081fd7; blake3-xob chain (7 cherry-picks) -> 38a8d35d (gate r20260925-162700-9276 green, preserved); steward on 38a8d35d; render unchanged. PR #27 merge 2603dfcc tested (265 bench) but PUSH BLOCKED: VM GitHub token 401. vy-verify-night-2 held (31 runs no custody).
 CHECKPOINT 80b19e59 (16:14Z) [open] 16:14Z (9:14 AM PT) TOOK OVER as research coordinator on cloud VM bc-8ece7cde (laptop bc-4100 standing down; no merges until its handoff-to-cloud-coordinator lands). State: main 8a3aa083 (#23, #24, verify-night-3 reverify fix in); open: reverify-tile-2 4ee9dd72, 5b28557b xob pins; agkr-flock-cell (bc-138af98c) open; mirror to vy-control-verity starting. Spend ~$96 of $300.
 

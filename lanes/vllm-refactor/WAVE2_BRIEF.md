@@ -7,6 +7,8 @@ created: 2026-09-25T08:20Z
 ---
 # Wave 2 lanes (after A4): shared rules
 
+> **Coordinator, 09:30Z: custody rule for the cloud switch-over.** Push your branch to origin after every commit, WIP included. If you have uncommitted work worth keeping, commit it now and push. The coordinator pushed snapshots of uncommitted work to wip/vllm-rf-{lane} for custody; they are not for merge, so ignore them.
+
 Read this, then `LANE_BRIEF.md` for the older hard rules (laptop, style, crash-only). Where the two differ, this file wins. Then read `SYNTHESIS.md`: sections 4 and 5, section 6 for your lane, and the decision log at the end, which records all five owner decisions (2026-09-25).
 
 ## Base and branch

@@ -1,0 +1,9 @@
+{
+ "branch": "lane/hash-commit",
+ "brief": "/Users/danielreuter/.research/notes/kb/TABLES.md",
+ "budget": "$40 total (about $3 spent)",
+ "final": "13:30Z",
+ "pod": "vy-commit-gpu",
+ "succeeds": "hash-commit",
+ "worktree": "/Users/danielreuter/projects/verity-main-wt/hash-commit"
+}

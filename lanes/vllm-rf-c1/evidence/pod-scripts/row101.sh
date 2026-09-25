@@ -3,12 +3,12 @@
 # record's --pairs 1), from the head tree then the base tree, VERITY_(LEAF_)LAYOUT unset (f3's row101.sh, paths moved).  Compares the
 # run root with #101's record (commit/verdict.json of art:a4ea1a18...: 7adcef49...) and the rebuilt Program / manifest digests head vs base
 # (the record's 079ee0a8... / 368283ad... predate the relayout: no from-scratch Build gives them, f3 and f24).
-#   usage: row101.sh      logs: /workspace/c1/logs/r101_{head,base}.log   rows: /workspace/cp/sweep-{head,base}/<row>/   summary: logs/row101.out
+#   usage: [PAIRS_TO_RUN="head:/workspace/head"] row101.sh      logs: /workspace/c1/logs/r101_{head,base}.log   rows: /workspace/cp/sweep-{head,base}/<row>/   summary: logs/row101.out
 ROW=llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager
 L=/workspace/c1/logs; mkdir -p $L
 grep -q '^BOOTSTRAP-OK' $L/bootstrap.log || { echo "bootstrap not OK: $(tail -2 $L/bootstrap.log)"; exit 3; }
 echo "bootstrap OK $(date -u +%FT%TZ)"
-for pair in head:/workspace/head base:/workspace/basetree; do
+for pair in ${PAIRS_TO_RUN:-head:/workspace/head base:/workspace/basetree}; do
   TAG=${pair%%:*}; T=${pair#*:}
   [ -d "$T/integrations/vllm" ] || { echo "$TAG: no tree at $T"; continue; }
   (

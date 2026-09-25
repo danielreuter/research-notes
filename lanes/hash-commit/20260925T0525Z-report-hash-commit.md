@@ -5,9 +5,10 @@ created: 2026-09-25T05:25Z
 brief: coordinator launch message 2026-09-25 05:13Z (LANE-CONTRACT form); kb/TABLES.md "Commitment time counts"
 branch: lane/hash-commit (worktree ~/projects/verity-main-wt/hash-commit), base main@c1891d48
 final: 13:30Z hard; budget $40 (commit-gpu retarget 06:35Z, incl. ~$1.3 spent)
-status: open
+status: superseded
 ---
 
+CHECKPOINT bcf75db7 (09:27Z) [superseded] by hash-commit-2 (relaunch): agent bc-cbc8d78b died 09:25Z (activity task timed out); worktree clean + pushed; pod job in flight
 CHECKPOINT a816a2b1 (09:00Z) [open] commit-gpu 09:01Z: @bcf75db7 tests 98 + neighbours 326 pass, merge-ready handoff sent; fp8 A/B r1-r2: GPU committer 3.9/4.0ms (rows 1.2 pinned, trees 2.7-2.9) vs host 11.9-12.3s, ev f62b873f identical, rust 25/25; bf16, commit_cost, flock sm_89 queued
 CHECKPOINT none (08:41Z) [open] commit-gpu 08:41Z: fp8 A/B @5f83bd96 3 rounds: GPU committer 4.3/4.4/5.1ms (rows 1.5-2.4ms pageable noise), host 11.8-12.3s, ev f62b873f identical, rust 25/25; now @bcf75db7 (pinned committed set, rows once) full rerun: tests, neighbours, fp8 x3, bf16 x2, commit_cost, flock sm_89
 CHECKPOINT caa144d (08:12Z) [open] commit-gpu 08:13Z: @5f83bd96 (pointer args, fused top levels, 1-kernel digests) 96 tests pass; profile row_tree 0.78ms, y tree 0.54ms (~3.4ms committer); first A/B pair at 0787f4a9 committer 5.0ms, ev identical, rust ok; full A/B+commit_cost rerun at 5f83bd96 running

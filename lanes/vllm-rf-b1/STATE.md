@@ -6,6 +6,8 @@ updated: 2026-09-25T09:20Z
 ---
 # b1 (evaluator kernels and replay): state
 
+> **Coordinator, 09:30Z: custody rule for the cloud switch-over.** Push your branch to origin after every commit, WIP included. If you have uncommitted work worth keeping, commit it now and push. The coordinator pushed snapshots of uncommitted work to wip/vllm-rf-{lane} for custody; they are not for merge, so ignore them.
+
 Coordinator: vLLM coordinator bc-ba6cec03. Agent bc-910bfdb6. Budget $45 of pod spend.
 Worktree `~/projects/verity-wt/rf-b1`, branch `lane/vllm-rf-b1`.
 a4 base: 10996616

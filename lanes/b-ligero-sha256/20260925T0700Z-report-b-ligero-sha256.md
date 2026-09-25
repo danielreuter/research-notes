@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 10996616 (09:20Z) [open] 09:20Z tip be1a3bcb (merged main 94b1c4d2 GPU committer; PINS fp8-hopper-x4/fp8-ada-x4 +sha256). Gates 2048VU 7 honest+86 neg 0 fail both (art:c1351b8a, art:5b0162d6); gadget-row negs 30/30 (art:bdfcc3b3); Rust pinned batch ACCEPT. H100 screen l8192/16384 running.
 CHECKPOINT 24ab6c7d (09:00Z) [open] 09:00Z H100 qmiq4rs1f0y4tr healthy (hostmem ok). r20260925-085824-e359: fp8-hopper-x4+sha256 fixture ok, gate honest 2048 VUs all True (0.31s/341VU); negatives running; fp8-ada-x4 next. Then PINS rows, Rust batch, screen, sweep cell.
 CHECKPOINT a816a2b1 (08:15Z) [open] fixture fp8-ada-x4+sha256 OK: 90,848 rows/col, sys_id d6b0cd8d, table b04a579c, Python ACCEPT. First gate spent 8 min single-threaded with GPU idle (cause unknown; killed). a816a2b1 lazy conformance fixture; r20260925-080759-dd48: x4 conformance 5 passed so far, gate rerun unbuffered
 CHECKPOINT 70cb6c59 (07:52Z) [open] 70cb6c59: survey landed 07:43Z, its SHA-256 rec (bit-sliced ~18k rows) = my design, adopted; merged peer dc2cae87 (sweep_vu); leaf_bytes_many + sha256_test; bench variant 'B-Ligero + SHA-256 in circuit' on frame-v3/sha256 line. pod run r20260925-075211-7893: conformance+fixtures+gate fp8-ada-x4
@@ -98,6 +99,24 @@ per round is the floor for a bit design with committed booleans.
   message's 80 GB part.  Line: **FP8 Hopper (`fp8-hopper-x4+sha256`)**: FP8 rows are 24 blocks against BF16's 48, and the x4
   fold carries 2 whole blocks per operand per column (no discarded compression), 89,356 rows/col x 12 = 1.07 M rows/VU
   (fp8-hopper+blake3 x1: 34,997 x 48 = 1.68 M; blake3-80gb measured it at 1,471.7 VU/s plateau on H100).
+* 08:53Z bootstrap r20260925-085339-4356 BOOTSTRAP_OK: host memory 0.107 / 0.100 s (220 MB numpy / pinned copy), encode
+  0.295 ms, matmul 665.9 TFLOP/s.
+* 09:05Z r20260925-085824-e359 (tree a816a2b1): fixtures + gates, both on the H100.
+  - fp8-hopper-x4+sha256: 89,356 rows/col (base 13,383, operand bits 2,816, hash 73,122, pins 35), L 3,734, Q 125,490,
+    sys_id 6cf20505b38e1425…, table_digest 76c1ce7f09b99fac….  Gate: **7 honest sub-batches (2048 VUs, l = 4096,
+    0.31 s/proof) + 86 negatives rejected, 0 failures** (art:c1351b8a5b8af38c…).
+  - fp8-ada-x4+sha256: same result (art:5b0162d6ff8f2807…).
+  - Caveat: the 86-battery's 60 row picks are one per 3-part name prefix and all land on the operand bit rows
+    (hash.a[i].b*), before the gadget.  The gadget is still bound by the digest / carry / multiproof negatives.
+* 09:13Z r20260925-091132-8c01 (`20-gadget-negs.py`, tree ee00bc4a): supplementary gadget-row negatives on
+  fp8-hopper-x4+sha256.  One random row per (digit-normalized name, kind) class of the 73,056 `sha256.*` rows: rounds'
+  Σ/σ XOR sels, Maj, Ch prods, a/e limb bits, schedule, feed-forward, h / hout.  **30 of 30 classes rejected, 0 failures**
+  (art:bdfcc3b35522ec6e…).
+* 09:10Z merged origin/main 94b1c4d2 (GPU committer of commit-gpu, SP1 committed variants) -> ee00bc4a.  Conflicts only in
+  the bench test lists (both sides' variants kept); bench + sha256 leaf tests 259 passed.  frame_gpu.ROW_SCHEMES is BLAKE3
+  only: SHA-256 row digests stay on the host (numpy compress_np), the word / y trees go to the GPU.
+* 09:14Z be1a3bcb: PINS rows fp8-hopper-x4+sha256, fp8-ada-x4+sha256.  09:18Z r20260925-091800-e60f: ligero-verify rebuilt
+  (cargo test 33 + 7 + 27 ok), pinned batch ACCEPT on both fixtures (system pinned, 2^-128.05).
 
 ## Discrepancies
 (none yet)

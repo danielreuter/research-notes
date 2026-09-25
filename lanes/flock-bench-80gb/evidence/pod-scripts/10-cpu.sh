@@ -21,7 +21,10 @@ UBIN=$(ls -t target/release/deps/unit_shape-* | grep -v '\.d$' | head -1)
 VBIN=$(ls -t target/release/deps/verity_shape-* | grep -v '\.d$' | head -1)
 [ -x "$UBIN" ] || exit 1
 lscpu | grep -E 'Model name|^CPU\(s\)|Thread' | tee $OUT/host.txt; nproc | tee -a $OUT/host.txt; cat /sys/fs/cgroup/cpu.max /sys/fs/cgroup/memory.max 2>/dev/null | tee -a $OUT/host.txt
-TH=${THREADS:-$(nproc)}
+QUOTA=$(awk '$1 != "max" {print int($1 / $2)}' /sys/fs/cgroup/cpu.max 2>/dev/null)
+TH=${THREADS:-${QUOTA:-$(nproc)}}
+[ "$TH" -gt "$(nproc)" ] && TH=$(nproc)
+echo "threads $TH (cgroup quota ${QUOTA:-none}, nproc $(nproc))" | tee -a $OUT/host.txt
 NS=${NS:-"64 1024 4096"}
 if [[ ${PARTS:-A B} == *A* ]]; then
   for net in ${NETS:-ampere_bf16 hopper_bf16 hopper_e4m3}; do

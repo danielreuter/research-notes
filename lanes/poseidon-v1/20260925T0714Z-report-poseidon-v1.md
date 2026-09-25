@@ -112,3 +112,34 @@ Handoff verify-night-2/20260925T0835Z-handoff-from-poseidon-v1.md.
   A100 repeats beyond 4096 (I). So the A100 cell candidate is n=4096: registered art:af0089920b38b6e8c7dd2d51c93da51ee2e93abd4ee479880b8027b9113ab1ad
   = the same run and tree as art:289841b1 with meta.sweep a100-bf16ampere-frozen4096 (points 1024/2048/4096, plateau 4096,
   rule: bounded by the set; the repeat points listed under also_measured). Handoff verify-night-2/20260925T0900Z.
+
+## H100 BF16 (bf16-hopper +hash, l=16384 p8), sweep h100-bf16hopper, committer main 58b113bc (b862be30 + commit-gpu), tree 82adc8a7
+Pod afx80tft4x2ejt (H100 80GB HBM3, EU-FR-1, EPYC 9554, quota 23.8), run r20260925-085254-6706 (sweeps + registration, rc 0).
+N = 989e12 / 3072 = 3.219e11 /s. Every point warm, 5 timed runs, contended false, Rust batch accept. Synthetic instances (no repeats).
+| n | P /s | e2e s | t.total s | commit s (cold) | N/P | result | tree |
+|---|---|---|---|---|---|---|---|
+| 1024 | 7057 | 0.1451 | 0.1145 | 0.0306 (0.141) | 4.56e7 | art:195b2b4c | art:c05a5cc3 slim |
+| 2048 | 8345 | 0.2454 | 0.2117 | 0.0337 (0.150) | 3.86e7 | art:c1f3cb5d | art:0b86bd44 slim |
+| 4096 | 9304 | 0.4403 | 0.3974 | 0.0429 (0.147) | 3.46e7 | art:f25486f6 | art:08487b4a full |
+| 8192 | 10057 | 0.8146 | 0.7549 | 0.0597 (0.162) | 3.20e7 | art:e79c1dd9 | art:786988ae slim |
+| 16384 | 10090 | 1.6238 | 1.4960 | 0.1278 (0.206) | 3.19e7 | art:1bb3dfb6 | art:92ff4ab3 slim |
+| **32768 plateau** | **10191** | 3.2153 | 3.0526 | 0.1627 (0.289) | **3.16e7** | **art:72e2b0ba** | art:7d835b9a full |
+Stop: P(32768) < 1.02 P(8192). Byte identity at 4096 vs main's pre-b862be30 committer: IDENTICAL (ev 55f3f247, stmts 248b4a6f;
+main's commit 7.15 s), tree art:67c3d209. Old cell art:271e0e3a: t.total 0.5428 s at 4096 (proving only).
+
+## H100 FP8 (fp8-hopper +hash, l=16384 p8), sweep h100-fp8hopper, same pod / run / tree / committer
+N = 1979e12 / 3072 = 6.442e11 /s. Every point warm, 5 timed runs, contended false, Rust batch accept.
+| n | P /s | e2e s | t.total s | commit s (cold) | N/P | result | tree |
+|---|---|---|---|---|---|---|---|
+| 1024 | 10701 | 0.0957 | 0.0782 | 0.0175 (0.210) | 6.02e7 | art:b92bcad3 | art:f32e4ffc slim |
+| 2048 | 13900 | 0.1473 | 0.1253 | 0.0220 (0.150) | 4.63e7 | art:32131c66 | art:5ae6b1e3 slim |
+| 4096 | 15498 | 0.2643 | 0.2328 | 0.0314 (0.157) | 4.16e7 | art:6c512437 | art:3e601d71 full |
+| 8192 | 17974 | 0.4558 | 0.4083 | 0.0475 (0.174) | 3.58e7 | art:1c271407 | art:0105c19d slim |
+| 16384 | 18443 | 0.8883 | 0.8052 | 0.0831 (0.194) | 3.49e7 | art:b6bab7be | art:fdb9da3b slim |
+| 32768 | 18468 | 1.7743 | 1.6222 | 0.1521 (0.270) | 3.49e7 | art:23a524e4 | art:ab3ebe71 slim |
+| **65536 plateau** | **18679** | 3.5085 | 3.1820 | 0.3264 (0.476) | **3.45e7** | **art:23528a63** | art:29a6bee7 full |
+Stop: P(65536) < 1.02 P(16384). Byte identity at 4096: IDENTICAL (ev 8bc47402, stmts 2c931ab4; main's commit 3.30 s), tree
+art:7e6a93cf. Old cell art:5387c1b5: t.total 0.2957 s at 4096. H100 pod 08:28-09:19Z, $3.49/h, ~$2.97. Evidence evidence/h100/.
+Handoff verify-night-2/20260925T0925Z-handoff-from-poseidon-v1.md (both plateaus + both n=4096).
+- 09:10Z verify-night-2 checkpoint: my 4 results (4090/A100 n=4096 + 32768) all checks PASS; relabeling incl. art:af008992.
+- 09:20Z RTX 5090 pod requested.

@@ -5,6 +5,7 @@ created: 2026-09-25T09:13Z
 status: open
 ---
 
+CHECKPOINT 15f74f3 (09:27Z) [open] H100 done: CPU16T unit+BLAKE3 union 4096VU BF16 1.32s FP8 0.74s art:8b4c35bf; Flock-CUDA sm_90 BLAKE3 m33 0.30s m32 0.098s; GPU unit (flock-bench port) m32 0.45s incl 0.28s H2D art:876ab350; xcheck+clmad run r20260925-092702-cc5a; A100 next
 CHECKPOINT 10996616 (09:13Z) [open] H100 pod up (17-CPU quota, driver 570 + cuda-compat-13-3); clmad sm_90 8.33 TCLMAD/s, GF128 690 GMul/s; unit-circuit Flock harness bit-exact, proves+verifies; H100 CPU sweep + Flock-CUDA sm_90 running r20260925-091229-073a
 
 # flock-bench-80gb: Flock (pure binary-field backend) on the H100 80GB and A100 80GB lines

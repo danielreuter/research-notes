@@ -4,9 +4,11 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T09:02Z
+updated: 2026-09-25T09:26Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
+
+> **Coordinator, 09:30Z: custody rule for the cloud switch-over.** Push your branch to origin after every commit, WIP included. If you have uncommitted work worth keeping, commit it now and push. The coordinator pushed snapshots of uncommitted work to wip/vllm-rf-{lane} for custody; they are not for merge, so ignore them.
 
 > **Coordinator, 09:18Z: NEW TASK, do it before phase 2.** Confirm or replace research lane agkr-bound's provisional `verity/gkr-commit/vllm-v1` operand-domain mapping (program, ctx, geo, layout) against vLLM's actual serving commitments. Then write the verdict to the research coordinator's inbox, `~/.research/notes/lanes/coordinator/{ts}-handoff-from-vllm-rf-c1.md`, and copy it to `lanes/agkr-bound/`. Details: `20260925T0918Z-handoff-from-vllm-coordinator.md` in this directory.
 
@@ -43,9 +45,24 @@ Deadline for vyv- pods: 2026-09-25T09:00Z (coordinator extends). Budget: $35 pod
     baseline differs only in googleapis-common-protos 1.75.3->1.75.4, uvicorn 0.53.0->0.54.0); gate (a) `r20260925-085456-de22`
     (`big_gate_a.sh`: prefetch.sh then gate_a.sh T0+T1 at head); lints + gate (b) `r20260925-085512-8c77` (`big_gate_b.sh`).
     **Lints: 45/45 pass at head and at base**; allowlists at head vs base: only p10_size caps shrink (2587->2579, 930->914).
-    Gate (b) xdist head + base started 08:56Z.
+    Gate (b) xdist head + base 08:56-09:11Z. jdiff head `472207c3` vs same-pod base: 1 new failure,
+    `tests/test_no_dead_modules.py::test_no_new_dead_modules`: `verity_vllm.commit.fasttree` and `.semantic_layout` became unreachable
+    (production took only fold / fold_levels / pos_leaf / semantic_root from them; now in scheme). The keep-list is shrink-only, so:
+    **commit 4 `7218ffbb`** moves both to `tests/commit/` (test-only; a23's precedent), drops their 4 P07/P11 entries, README /
+    PROTOCOL / kernel comments name scheme. Otherwise: 1 new skip = `tests.commit.test_scheme_cuda` (collection skip, no GPU; by
+    design); `test_roundtrip::test_transient_storage_is_released` failed -> passed.
+  - Re-runs at `7218ffbb` (rsync installed on both pods; delta sync 7-16 s): gate (b) + lints `r20260925-092213-b86c`
+    (`big_gate_b2.sh`), GPU `r20260925-092150-e650` (`g2b.sh`: CUDA tests + #101 head only vs the same-pod base row), gate (a)
+    `r20260925-092323-bdf1` (`big_gate_a2.sh`, from the prefetched store; no key). The gate (a) at `472207c3` was stopped at 09:22Z
+    (20 min in, 36 of 158 done) in favour of the head one.
+  - #101 at `472207c3` (run `r20260925-084508-e7c3`, fetched): head and base run root `7adcef49…1dec5` == record, commit_pass true,
+    every check PASS; Program `ccc21347…` / manifest `90f81868…` (7043) head == base (== f3's; the record's `079ee0a8…`/`368283ad…`
+    predate the relayout). ab_compare: 61 row files identical, 24 differ only in volatile facts (timings, RSS, tmp paths, request-id
+    suffixes, file shas of those) and hidden_gpu.py's source sha (`f273381f` head vs `78df1215` base = the two trees' files).
+    Throughput (head, `spans_throughput`, scheme `vllm-v1`): hashing 0.560 s, 907 708 156 B, 3 545 764 leaves -> 1.62 GB/s,
+    6.33 M leaves/s (leaves and bytes == the row's `leaves` / `bytes_bound`).
   - Fixture key: minted on the laptop 08:54:46Z (3 h, object-read-only), piped by ssh into `/root/r2ro.env` on vyv-rf-c1-big (786 B,
-    mode 600, never printed); prefetch.sh deletes it when the fetch ends (trap on exit too).
+    mode 600, never printed). prefetch.sh: 26 ok, 0 FAIL, **key deleted 09:02:43Z** (confirmed absent).
 - `vyv-rf-c1-g1` (runpod `zaazjzf44rc4wr`), 1x L40S, CUDA 12.9/13.0 allowed, guard 90. Created 07:07Z, TERMINATED 07:29Z
   after every run was fetched (`machines.toml` entry marked).
   - Runs: bootstrap `r20260925-070509-d288` (BOOTSTRAP-OK); `r20260925-071724-fd55` (failed: H1 harness bug); `r20260925-072312-94f5`

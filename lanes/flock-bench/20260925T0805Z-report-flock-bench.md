@@ -5,6 +5,7 @@ created: 2026-09-25T08:05Z
 status: open
 ---
 
+CHECKPOINT 15f74f3 (09:29Z) [open] 09:30Z one Flock union proof BLAKE3 leaves+unit (CPU 32T) art:025a0ed4: BF16 4096VU 2.59s/24ms/523KB/15GB RSS, FP8 1.26s/500KB; 5090 hopper units art:e4f684ac (m32 0.29s). 80gb inbox read (parallel harness). Next: zorch m31, report+handoffs
 CHECKPOINT 806a2f73 (09:12Z) [open] 09:13Z unit circuit on Flock CPU (EPYC9654 32vCPU) art:0bd23b01: BF16 4096VU m32 prove 1.32s (0.66 naive witness) verify 4ms 461KB 8.2GB; BLAKE3 same host m33 1.26s; per-slot-bit ~equal; tamper rejected. GPU unit via patched Flock-CUDA host-witness building (r20260925-091040-8ec8)
 CHECKPOINT none (09:03Z) [open] 09:03Z NEW PRIORITY (coord 0830Z handoff) taken: census unit exported to Flock block-R1CS (BF16 7687 rows/2^13, 235k nnz), smoke 64VU prove .085s verify ok; full unit+BLAKE3 sweep on 32vCPU Zen4 r20260925-090255-c8f0; zorch B still running
 CHECKPOINT none (08:44Z) [open] 08:44Z CPU Zen4 table done (thin LTO); link prims measured (eq 2ns/bit, count .5, fold 1.6 @16T); zorch part B running on 5090 (r20260925-082947-b255); Flock-CUDA reps next; CPU pods terminated

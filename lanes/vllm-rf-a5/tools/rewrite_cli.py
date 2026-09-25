@@ -313,7 +313,7 @@ def convert(root: Path, rel: str) -> str:
         out = ["@dataclass(frozen=True, kw_only=True)", f"class {name}:"]
         if doc:
             try:
-                val = ast.literal_eval(doc)
+                val = ast.literal_eval("(" + doc + ")")
             except (ValueError, SyntaxError):
                 raise Skip(f"non-literal description for {name}")
             val = " ".join(val.split()) if "\n" not in val.strip() else val.strip()

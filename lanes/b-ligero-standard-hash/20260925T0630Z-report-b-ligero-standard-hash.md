@@ -177,6 +177,10 @@ Pod scripts: `evidence/pod-scripts/`.
   | 4096 : 3 | CUDA OOM (tried 4.84 GiB with 21.2 GiB in use) | | | | |
 
   Against x1 on the same tree (1125 VU/s), x4 is **1.78× the throughput**, matching ~1.8× fewer rows per VU.
+* 09:20Z red team (inbox 0920Z), run rtsh-bls-806a2f73 on its own pod, ligero-verify built from 806a2f73 (sha256
+  61bc2281…), art:be211735b6d944ff9645f93a6ea82f3a3882ac0612f69b4740b87503b53e2a93: **R1 remap, R4 orphan (both variants)
+  and H2 steps 64 all refused; control PASS; gadget review of leaf/blake3.py + hashchain.py: no finding**. Agrees that a
+  shared / tile dump failing closed on `set.tile` is the safe direction.
 * 09:19Z **x4 sweep r20260925-091922-a390** (`30-sweep.sh`, REL = fp8-ada-x4+blake3, l = 4096, p2, 5 reps, custody-r2 8h).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its

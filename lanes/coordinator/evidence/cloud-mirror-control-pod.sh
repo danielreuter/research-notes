@@ -49,6 +49,14 @@ out2=$(timeout 240 rsync "${ropts[@]}" "${rev[@]}" "$host:$N/" "$S/" 2>&1); rrc=
 ok $rrc || { echo "$(stamp) FAIL reverse rsync rc=$rrc: ${out2: -300}"; exit 1; }
 nr=$(grep -c '^>f' <<<"$out2")
 
+# the docs site reads the newest daily entities render (steward: renders/daily/<stamp>-tables.json, PR #40) from the store
+j=$($sshcmd "$host" "ls -1 $N/renders/daily/*-tables.json 2>/dev/null | sort | tail -1" 2>/dev/null)
+if [ -n "$j" ]; then
+  mkdir -p "$S/tables-render" 2>/dev/null
+  $sshcmd "$host" "cat '$j'" > /tmp/tables-latest.json 2>/dev/null && python3 -c "import json,sys; json.load(open(sys.argv[1]))" /tmp/tables-latest.json 2>/dev/null \
+    && ! cmp -s /tmp/tables-latest.json "$S/tables-render/latest.json" 2>/dev/null && cp /tmp/tables-latest.json "$S/tables-render/latest.json" 2>/dev/null \
+    && echo "$(stamp) tables-render/latest.json <- $(basename "$j")"
+fi
 echo "$(stamp) pass: forward $nf (rc $frc), reverse-rc $rrc, reverse $nr, lanes [$(echo $lanes | tr ' ' ,)]; sync rc=$src: $(tr '\n' ' ' <<<"$sync")"
 [ "$nf" -gt 0 ] && grep '^<f' <<<"$out" | awk '{print "  > " $2}' | head -20
 [ "$nr" -gt 0 ] && grep '^>f' <<<"$out2" | awk '{print "  < " $2}' | head -20

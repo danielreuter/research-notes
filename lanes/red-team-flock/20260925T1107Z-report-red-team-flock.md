@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (23:04Z) [open] reopened 23:05Z: review fp8-hopper (H100) and bf16-ampere (A100) block layouts, PR #30
 CHECKPOINT 3301c435 (22:22Z) [final] NON_ZK_PROOF labels: art:6d1295ed (H100, a6a6e548), art:d1961ba4 (4090, d93ce18b) — verifier commits zero-diff from reviewed path; route (a) art:3d7cbea2 + art:77411c93. No pod.
 CHECKPOINT 3301c435 (22:20Z) [final] NON_ZK_PROOF labels on art:6d1295ed (H100, a6a6e548) + art:d1961ba4 (4090, d93ce18b): both verifier commits zero-diff from e5d54118 = reviewed path; route (a) art:3d7cbea2 labelled. No pod.
 CHECKPOINT 3301c435 (22:18Z) [open] reopened 22:19Z: verify verifier commits a6a6e548 / d93ce18b for re-registered art:6d1295ed / art:d1961ba4 (no pod)

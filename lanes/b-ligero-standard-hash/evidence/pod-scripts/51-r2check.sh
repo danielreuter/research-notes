@@ -28,7 +28,7 @@ print(f"verify_tree: {rep.status} {rep.why} pinned={rep.relation} hashed={rep.ha
       f"accepted={sum(x['accepted'] for x in rep.reps.values())}/{sum(x['n'] for x in rep.reps.values())} {time.time() - t0:.1f}s")
 if rep.status == "PASS":
     print(RV.detail(rep, v))
-neg = rd / "neg"
+neg = rd / "neg_r2"
 for r in reps:
     (neg / r).mkdir(parents=True)
     for f in (p / r).glob("*.stmt"):

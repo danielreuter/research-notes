@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 5c73abf (08:56Z) [open] c81ed1c8: agkr native tree check PASS (4 pins core-reproduced, art:8dee00aa); vn2 R4 fix confirmed; open: ligero-steps-pin fix handoff, sha256 pins, agkr hash layers, survey §3.8 link
 CHECKPOINT f4d797b (08:51Z) [open] c81ed1c8: agkr-bound pins recomputed core-only from frozen sets: fp8-hopper +blake3 and +vllm-v1 a/b/y MATCH; bf16-ampere pending (set rebuilt on pod); R4 handoffs out; inbox empty; no sha256 pins yet
 CHECKPOINT e10e1d6 (08:33Z) [open] 21393756: R4 BREAK: R2 coverage (de2fa317 reverify + vn2 06) counts stmts w/o proof, 1/3 VUs proven PASS art:c7683eb2; de2fa317 closes R1, H2 PASS art:9fa210e7; sp1 R3 art:b11bc6ee; survey adopted (review §3.8 link when sent)
 CHECKPOINT a33671b (08:07Z) [open] e1138866: vn2 06-core-roots closes R1/R2 (flags forgery, art:8f2112e2); sp1-committed PASS guest/tree, R3 prover-chosen roots art:b11bc6ee; handoffs sent; polling for ligero-steps-pin fix, sha256 pins
@@ -89,3 +90,9 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
   - the honest controls pass.
   art:c7683eb2. 08:35Z handoffs to the coordinator (amending 0805Z), verify-night-2, b-ligero-standard-hash and
   ligero-steps-pin.
+* 08:45-09:00Z `rtsh_agkr_pins.py` (c81ed1c8), runs rtsh-agkr-0905 and rtsh-agkr3-0927. The bf16 frozen set was rebuilt on
+  the pod (155 s); its arrays match manifest 059103cf, and I restored the manifest the build had rewritten. All 4 agkr pins
+  MATCH core-only. art:8dee00aa.
+* 08:50Z received `20260925T0850Z-handoff-from-verify-night-2.md` ("R4 fixed in verify-night-2's 06/16..."). Re-ran their
+  new 06 on my R4 dumps (rtsh-vn2b-0935): control ROOTS-MATCH, orphan-stmt and stmt-entry MISMATCH. Confirmed. 09:05Z
+  handoffs to the coordinator and agkr-bound.

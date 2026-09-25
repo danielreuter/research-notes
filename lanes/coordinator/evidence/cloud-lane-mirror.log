@@ -60,3 +60,8 @@ notes sync: committed 1cc3c45 (4 paths); pushed; skipped 11 over 1 MB (put them 
 2026-09-25T14:38:13Z IN reverify-tile-2: 2 file(s) store -> notes
 2026-09-25T14:38:13Z IN flock-link: 1 file(s) store -> notes
 2026-09-25T14:38:13Z IN machines.d: 1 entry file(s) store -> notes
+notes sync: committed ebe8d3f (18 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
+2026-09-25T14:39:32Z IN verify-night-3: 1 file(s) store -> notes
+2026-09-25T14:39:32Z IN red-team-standard-hash-2: 1 file(s) store -> notes
+2026-09-25T14:39:32Z IN flock-link: 1 file(s) store -> notes
+2026-09-25T14:39:32Z IN machines.d: 1 entry file(s) store -> notes

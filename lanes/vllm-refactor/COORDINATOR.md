@@ -10,6 +10,13 @@ updated: 2026-09-24T19:30Z
 
 **Owner's standing rule (22:17Z):** decide housekeeping yourself (disk cleanup, eviction, which files to keep), using the safe default. Never delete anything not verified in R2 by direct hash, keep custody receipts, and never touch live-lane files. Report only the outcome. Surface to the owner only three things: spending beyond agreed caps, changes to agreed semantics or acceptance criteria, and irreversible loss.
 
+**Morning list for the owner (current, 14:35Z; all five decisions are settled, so these are the only held items):**
+1. c4ir: phase 2 makes core `verity.ir.partition.family_tiling` and `CheckedTiling` public for `registry/lifted.py`. The default taken is public (reversible); the alternative is moving the structural n_out bound into core.
+2. c2's borderline Definitions under the "core owns silicon semantics" principle (full list in the 14:25Z c2b entry below and `vllm-rf-c2b/READY.md`), and the `AmpereBF16TcDot16` v2 epoch commit `dedf5313`, held for the re-baseline.
+3. The T1 `decomp_hashes` fixture gap.
+4. The host `chunk-leaf-v1` label fix, which changes `map_digest`: held for the epoch.
+5. The veritor-era `budget_cap.py` note is moot: the vyv- pods are under `research pods guard` since 09:34Z.
+
 **Coordinator since 19:20Z: Cursor agent bc-ba6cec03** (`../vllm-coordinator/20260924T1920Z-took-over.md`). It doesn't merge into `main`: the research coordinator is the single owner of `main` merges, and merge requests go to the owner through the Project coordinator. At 19:27Z a23 was superseded by **a23b** (agent bc-87224e5e-6d37-56de-a9ee-c75c627ef9c0, branch `lane/vllm-rf-a23b` from `c1cf11ef`, worktree `rf-a23b`, notes `vllm-rf-a23b`, pod `vyv-rf-a23`), with the `fixtures/W11*` move first so that f3 can do D15 on top of it. At 19:25Z the pods were a1, a23, f24 and f3 at $0.64/h each, plus f1-g1 and f1-tp2 (2x L40S each) at $2.18/h each: $6.92/h in total.
 
 ## Where things stand

@@ -7,6 +7,8 @@ created: 2026-09-25T08:20Z
 ---
 # Wave 2 lanes (after A4): shared rules
 
+> **Coordinator, 14:30Z: a4 is merged (main `33e4d8d1`).** A lane started from now on uses **`origin/main` `33e4d8d1`** as its base: `git -C ~/projects/verity-wt/rf-a1 worktree add ~/projects/verity-wt/rf-{lane} -b lane/vllm-rf-{lane} 33e4d8d1`, and gate (b)'s base side is `33e4d8d1`. The "Base and branch" section's a4-head and rebase steps apply only to lanes started before 14:20Z. The vyv- deadline is 2026-09-25T18:30Z and is extended in steps.
+
 > **Research coordinator, 14:09Z, for the root (disk safety; the vLLM coordinator bc-ba6cec03 is disconnected):** the laptop has no room for run outputs. STOP every `research fetch` (and `fetch --all`) to the laptop. Launch runs with `research run --on <pod> --project verity --custody-r2 ...`, and inspect on the pod (`research pods ssh`) or from R2 (`research data preserved <run>`, `research data fetch <art> --path <one small file>`). Same rule as the 12:26Z URGENT banner below. Nothing else about this lane's work, pods or merges changes.
 
 > **COORDINATOR, 12:26Z, URGENT (laptop disk at 1.5 GiB):** STOP `research fetch --all` and every other laptop-side fetch or copy of run outputs, now. Launch new runs with `research run --on ... --custody-r2`: the pod publishes the attempt and every run file to R2 itself, and the pod guard accepts that. Inspect results on the pod (ssh) or read them from R2; plain `research fetch {run}` is for status only. Keep XML and evidence in your notes under about 5 MB. Remove local copies you already fetched only once R2 has them.

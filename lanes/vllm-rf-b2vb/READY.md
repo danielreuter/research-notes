@@ -12,8 +12,11 @@ b2vb succeeds b2v (agent bc-7d05cc29, hung at the 12:30Z host disconnect) from i
 it finished #70 (world 2) and its Commit comparison, the verdict A/B on #70, custody of the TP2 pod's runs, and this file. Evidence
 added by b2vb is in `vllm-rf-b2vb/evidence/`; b2v's is in `vllm-rf-b2v/evidence/`.
 
-- **Branch:** `lane/vllm-rf-b2vb` (pushed; = `lane/vllm-rf-b2v`). **Head:** `8d847755`. **Base:** `10996616` (a4's head, not merged at 14:40Z).
-- 10 commits, 48 files (all under `integrations/vllm`), +1,889 / -1,400 against `10996616`. Nothing under `packages/verity`.
+- **Branch:** `lane/vllm-rf-b2vb` (pushed). **Head: `ed8f6625`**, rebased (14:36Z, no conflicts) with `git rebase --onto
+  origin/main 10996616` onto **main `33e4d8d1`** (a4 merged). Before the rebase the head was **`8d847755`** on `10996616`; the gate
+  evidence below was taken there. It carries over: `git diff 8d847755 ed8f6625 -- integrations/vllm packages/verity` is empty, and
+  main's `integrations/vllm` and `packages/verity` equal `10996616`'s (coordinator 14:20Z).
+- 10 commits, 48 files (all under `integrations/vllm`), +1,889 / -1,400 against main (and against `10996616`). Nothing under `packages/verity`.
 - Gates: lints 45/45 at `8d847755`; gate (b) head vs base on one pod: no new failure / skip / skip reason, 15 new tests pass;
   gate (a) T0,T1: 73 passed / 85 skipped of 158, test by test as a23b's (no outcome change; two skip texts renamed before the base).
 - Acceptance: the verdict JSON is byte-identical at base and head for the 10 regression rows with a Commit record, and for #101 and
@@ -244,8 +247,11 @@ directory moved and GPUs hidden), both trees on the L40S pod, overlapping in tim
 
 ## Rebase notes
 
-- Onto `origin/main` when a4 merges: `git rebase --onto origin/main 10996616 lane/vllm-rf-b2vb`, then `--force-with-lease`.
-- Conflict risk: `pipeline/commit.py` (476-477, 1315) and `pipeline/tp/commit.py` (199, 313-314) import lines, a5's files;
+- Done 14:36Z: `git rebase --onto origin/main 10996616 lane/vllm-rf-b2vb` (main `33e4d8d1`), clean; pushed with
+  `--force-with-lease` (`8d847755` -> `ed8f6625`). Commit map `8d847755..` -> `ed8f6625..`: d3f04b9d 1e5ad65a, 003e1506 d32be0a6,
+  6e33c657 8ffd2647, 66eaaa50 f151ed07, 5483d13b 8f165d86, c461f86d fed414b2, 824a9924 64502384, fd9220c9 3ff17abf,
+  95515e42 a01dd204, 8d847755 ed8f6625.
+- Conflict risk with other wave-2 lanes: `pipeline/commit.py` (476-477, 1315) and `pipeline/tp/commit.py` (199, 313-314) import lines, a5's files;
   `tests/lint/allowlists/*.json` and `tests/by_name_allowlist.json` (moved entries); `check/replay/*` docstrings still say
   `commit_verdict._x` (b1's).
 

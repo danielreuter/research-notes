@@ -5,6 +5,7 @@ created: 2026-09-24T20:47Z
 status: open
 ---
 
+CHECKPOINT 3be6a35f (00:43Z) [open] 4090 fp8-ada on MERGED LK statement: 0.490s (art:45c5be4a, run-files art:979e37aa, r20260925-002240-8ed3 @3be6a35f), Rust 3/3, 2^-130.19, dev+lookup negatives art:f01f7196; handoff 0045Z. Next: drain 4090, H100 fp8-hopper merged re-record.
 CHECKPOINT f2363663 (00:05Z) [open] 4090 fp8-ada cell re-recorded 0.666s (was 1.130): art:ecd96143, run-files art:0667ed46, r20260924-234932-5828 @f2363663, proofs b5ef0238 unchanged, Rust 3/3, 2^-130.19; negatives art:9398f028; handoff 0006Z. Merged LK table dev pass r20260925-000446-6b38 running.
 CHECKPOINT bb859220 (23:46Z) [open] 4090 dev @bb859220 fp8-ada: warm t.total 0.692s (cell was 1.130), proofs sha b5ef0238 unchanged, Rust 2/2, negatives OK. A/B int32 Acc running r20260924-234548-cd34; then recorded 4090 run. Considering merged tagged LogUp table for FP8 unit.
 CHECKPOINT bb859220 (23:35Z) [open] H100 cell re-recorded 0.482s (was 0.688; art:b1010ac8, proofs identical; handoff 2326Z). H100 terminated 23:26Z (~$7.2 total). 4090 pod 5vnbd6rfwm3wmd bootstrapped; fp8-ada dev pass running, then int32 Acc test and recorded run.
@@ -118,3 +119,14 @@ kernels is the only lever, transcript fixed), arith 0.115 (phase-1 per-round hos
   < 48 GB parts while they total at most a tenth of the device). 06_ab on the merged statement: every step gives the same sha c31c1cd8;
   median prove 0.447 s (leaf_q + gate_eval: t_lookup 0.187 -> 0.083 s), then 0.427 s (held tuples: t_lookup 0.060 s).
 - t_mults split (11_mults_prof.sh): query values 24 ms (gate_eval, 29.5M x 8 int64), multiplicities 14 ms.
+
+## RTX 4090 FP8 (fp8-ada) cell on the merged statement, recorded 00:38Z @ 3be6a35f
+- Dev pass on the final code r20260925-002010-55ea (H=/workspace/agkr-fp8/fp8-ada-m): bench 0.483 / 0.491 s, Rust 2/2, NEGATIVES OK.
+- Recorded r20260925-002240-8ed3 (clean, `/workspace/agkr-fp8/fp8-ada-m/stmt`, thread caps 10): result art:45c5be4a, run-files
+  art:979e37aa; PRESERVED; reindex ok. t.total median 0.490 s (0.490 / 0.482 / 0.495), was 0.666 s (00:06Z, old statement) and
+  1.130 s (21:21Z). Buckets: witness 0.038, commit 0.014, lookup 0.100, arithmetic 0.291, serialization 0.044. Proofs c31c1cd8…,
+  17966656 B, Rust 3/3 (1.34 s at 10 threads; slots 727, msgs 1790), 2^-130.19, status passed. Overhead ~1.29e7x (2.97e7x scaled).
+- Lookup negatives r20260925-004029-acbd (12_lookup_neg.sh): one unit column read by LK +1 (T_OP out, SHIFT out, TNORM out, R5 key
+  term), honest multiplicities, from a prover copy with the LogUp self-check turned off: Python and Rust reject all four at
+  `LogUp LK level 0: final check`. The negatives tree (dev + lookup) is art:f01f7196.
+- Predicate: only `not independently verified`. Handoff lanes/coordinator/20260925T0045Z-handoff-from-agkr-fp8.md (supersedes 0006Z).

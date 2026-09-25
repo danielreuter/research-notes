@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT 57e9e4b (00:42Z) [open] b7cec878: circuit 226->166 queries/unit (bits as products, paired narrow ranges) -> LogUp 2^24; dev t.total 0.1578s, new sha ebe7c545, Rust 5/5, 2^-130.19. Negatives running on pod; then record + verify-po handoff.
 CHECKPOINT 95343488 (00:35Z) [open] dev 0.1689s (sha 091fecad unchanged): leaf buffers, keep qvals, fused leaf level, pad closed form, scatter/gate_eval grid order (L2 reuse), pinned t_ext. tip 024f1cfc+. Next: opening wq host (open_w_qc_eval 13ms), phase1 per-round.
 CHECKPOINT c3982dd5 (00:21Z) [open] dev 0.1828s (sha 091fecad same): e1bcf472 pinned H2D, 0b7dbb3a leaves into graph buffers, c3982dd5 keep query tuples on 32GB. ff98 0.1905s PRESERVED. Next: LogUp tree deinterleave/T4_big copies (tree 8.4ms).
 CHECKPOINT 57038af (00:05Z) [open] ff98 @716ea008 recorded+PRESERVED: t.total 0.1905s, 2^-130.19, arts 49757870/78b3aadf, verify-po handoff 0005Z. e1bcf472 pinned H2D -> 0.1885 dev. Next: lookup pad closed form, phase-1 host work.
@@ -82,5 +83,20 @@ CHECKPOINT ab9573fd (20:58Z) [open] pod vy-agkr-nvf4 up (5090); bf16 smoke rc=0;
   sha 091fecad… (same bytes as 1b1d).  verify-po handoff `lanes/verify-po/20260925T0005Z-handoff-from-agkr-nvf4.md`.
   - e1bcf472 phase-1 round operands in one pinned non-blocking H2D copy (gkr_packed._inputs; sumcheck_packed.to_dev pinned):
     same sha, t_arith 54.5 -> 51.8 ms, t.total 0.1905 -> 0.1885 s (dev).
+- hill-climb after ff98 (dev, 5 reps, same bytes sha 091fecad unless stated):
+  - 0b7dbb3a LogUp leaves built straight into the ext-table graph's static buffers: t_lookup -1.3 ms.
+  - c3982dd5 keep the query tuples across the commitment on >= 30 GB parts when < 1/16 of free memory (driver-free +
+    allocator cache; 24 GB cards unchanged): t_lookup 49.0 -> 44.7 ms.
+  - c7bfa957 LogUp tree leaf level in one kernel (combine_level_kernel DEINT/T4OUT): t_lookup 44.7 -> 42.0 ms.
+  - 9c29e9de build_leaves initialises only the padding: t_lookup 42.0 -> 40.5 ms.
+  - 9a17b5b7 add_lookup_claim's pad term in closed form λ(1 - Σ_used eq): t_open_acc 22.5 -> 21.7 ms.
+  - 19bda30a scatter_terms grid columns-fastest (L2 reuse of a unit block's eq rows): t_open_acc 21.7 -> 19.2 ms.
+  - 024f1cfc gate_eval grid gates-fastest (L2 reuse of a copy block's rows): t_mults 10.0 -> 7.2 ms, t.total ~0.1704 s.
+  - 95343488 field.t_ext / t_exts / eq_table point via pinned non-blocking H2D: t.total ~0.1689 s.
+  - tried and dropped: rank1_add columns-fastest (open_acc +1.8 ms); logup_ext_ip BLOCK_K / num_warps sweep (128 / 4 is
+    the optimum; others spill: 11_lkern.py).
+  - b7cec878 circuit: bits as b b = b product wires instead of R1 queries, R3/R5/R6/R7 pairs as one (x + 2^b y, x, y) query
+    into PR<b>: 226 -> 166 queries per unit, LK 110613 rows, the LogUp tree 2^25 -> 2^24 leaves; 700 wires, depth 1.
+    NEW BYTES: proof 9469288 B sha ebe7c545, 2^-130.19, Rust 5/5; t_lookup 40.5 -> 28.1 ms, t.total ~0.1578 s (dev).
 - stray runs (not cells): 480e/dbe3/077c/4a1f killed during setup; d2f9 superseded.
 - BF16 hopper smoke at 4096 OOMs on the 32 GB part (7.3 GB cupy in the opening; agkr-fp8's 07a8edd6 addresses it); not needed here.

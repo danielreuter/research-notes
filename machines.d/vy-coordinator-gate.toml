@@ -1,0 +1,7 @@
+# machine vy-coordinator-gate: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "ub5e3ff3zqxz4o"
+project = "verity"
+guard = 60
+registered_by = "cursor"
+registered_at = "2026-09-25T22:31Z"

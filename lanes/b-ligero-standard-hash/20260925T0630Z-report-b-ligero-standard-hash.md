@@ -198,7 +198,18 @@ Pod scripts: `evidence/pod-scripts/`.
     art:f35d43aa392b154f2af73bc41920ce1dc17c96b58d9ccd5a608aed9ebf7a453f**
   - p4 16384: result art:82a3e0ba7b0b2b5c4c7be9032cc812d2b37f0ca3017e3e94fdce07864d5ae2dc (tree art:d628331e…)
 * 09:42Z r20260925-094242-269c (`20-cell.sh`, REL = fp8-ada+blake3, 4096 frozen, l = 4096, p2, 5 reps, custody-r2): the x1
-  cell re-measured on the GPU committer, with proofs kept.
+  cell re-measured on the GPU committer, with proofs kept. **fp8-ada+blake3 4096 frozen:** t.total 3.574 s + commit
+  0.011 s = e2e 3.585 s (1142 VU/s, 9.41e7×, 128.40 bits). Pod Rust batch ACCEPT 49/49, 2^-128.40, pinned 71f39e44….
+  Result art:e7d59ab6a7bad2140c776f1d160efa302f46439ea1ceda9edff68d228a6df022, tree
+  art:08225c8c209777cde883d544ed19b59704b2e9d3e8c60000137b5f2cdbfa1c4a.
+* 09:48Z r20260925-094821-b197 (`20-cell.sh`, REL = fp8-ada-x4+blake3, 4096). **x4 4096:** t.total 2.038 s + commit 0.009 s =
+  e2e 2.048 s (2000 VU/s, 5.38e7×, 128.33 bits). Rust batch ACCEPT 13/13, 2^-128.33, pinned 1168788f…. Result
+  art:017a706919fd4f694ab7bfa25f63e3123a1fbd2ddd7b0bb0aff800cb447c2ae4, tree
+  art:0a95eb1e36bf2003501911d5d7983eb2c39a9356635994007ac60eab78ebc240. The instances are the relation-named manifest
+  c86e51a1… (counts via instance-equiv).
+  Both registered 09:53Z. Handoff: lanes/verify-night-2/20260925T0958Z (the 2 cells + the x4 plateau).
+* 09:53Z r20260925-095340-c456 (`63-live.sh`): the x1 frozen cell against a same-pod live verifier (niced, 127.0.0.1:7000,
+  its own coins, pod ligero-verify), rep 1 dumped (coordinator 0915Z, decision 2).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

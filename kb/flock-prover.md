@@ -41,6 +41,16 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
   - Flock-CUDA BLAKE3 m33 0.291 s (1.35 M/s), device high-water 15.6 GB (art:9be695b0, art:3f5173a2).
   - flock-zorch BLAKE3 m31 36 ms (3.64 M/s), 2.7-3.9x Flock-CUDA (art:1e54492e).
   - `clmad` 1.00 T/s; GF(2^128) mul 143 G/s (art:85d4fb7a).
+- H100 80GB (sm_90; Xeon 8468 host, 16T) (flock-bench-80gb report):
+  - `clmad` 8.33-8.40 T/s; GF(2^128) mul 690-695 G/s (binius+clmad) (art:7b941558).
+  - Flock-CUDA builds for sm_90 with one sed on `flock-cuda-ffi/build.rs` (`compute_120,code=sm_120` -> 90, and the
+    cuda-13.3 lib path). BLAKE3 m32 0.098 s, m33 0.30 s: the same as the 5090 despite 8.4x its clmad rate. nsys kernel
+    time per prove is 0.047 s (m32) and 0.092 s (m33); the rest is cudaDeviceSynchronize/cudaMemcpy host glue
+    (art:876ab350, art:b6148b4a). Flock-CUDA is host-bound, not clmad-bound.
+  - Census unit on the GPU (the `flock_cuda_prove_host` port): hopper_bf16 m32 0.445 s, of which 0.25-0.29 s is the
+    pageable 2.15 GB H2D upload (kernels 0.045 s); hopper_e4m3 m31 0.232 s (0.126 s upload, kernels 0.024 s) (art:83f2d55d).
+  - CPU 16T, one union proof unit + BLAKE3: hopper_bf16 1.32 s, hopper_e4m3 0.74 s, 25.6 / 15.1 GB heap. The union is ~26%
+    cheaper than the separate tables on this host (art:8b4c35bf).
 - Proofs are 0.3-0.54 MB. Verify takes 4-24 ms (CPU) and 7-20 ms (GPU proofs).
 - GF(2^128) link primitives, Zen4 16T, per bit: eq expansion 1.98 ns, 128-way dense bit combination 0.53 ns, fold
   1.60 ns (art:1ef9ac52).
@@ -48,6 +58,6 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
 ## Gaps (as of 2026-09-25)
 - No ZK.
 - The strict 128-bit profile relies on proof-of-work credit.
-- No union prover on the GPU; CUDA only for sm_120.
+- No union prover on the GPU. Upstream build.rs targets only sm_120; sm_90 works with the sed above.
 - The census unit's witness builder (`verity_unit.rs`) is a naive bit-sliced evaluator, about half of the unit's CPU
   prove.

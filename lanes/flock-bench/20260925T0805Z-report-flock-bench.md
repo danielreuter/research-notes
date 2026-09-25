@@ -271,3 +271,41 @@ verifier is already around 1 s.
 | §3.9: needs CUDA 13.3 | toolkit 13.3 with driver 580 works | toolkit floor, not driver |
 | census: unit table at Flock's BLAKE3 rate per slot bit | GPU, witness outside prove: 0.2-1.7x BLAKE3 at the same m. CPU with my naive witness inside prove: 2x | holds for the prover; unit witness gen needs work |
 | census: 5090 BF16 relation + BLAKE3 about 0.25 s | 0.42-0.58 s on Flock-CUDA; about 0.21 s if both ran at zorch rate | 1.7-2.3x on today's GPU code |
+
+## FINAL
+
+~~~text
+tip: lane/flock-bench @ b9cd5368 (base main@b9cd5368)        merge-with: none
+known-failures: none    pod: terminated 09:52Z (gpu tsxroyl1ffz7px), 09:35Z (cpu4 mfe8808gesdhml), cpu/cpu2/cpu3 by 08:44Z; ~$4 est. (rate x uptime)
+artifacts: art:aa24c7eb art:59d7c080 art:85d4fb7a art:1ef9ac52 art:9be695b0 art:1e54492e art:0bd23b01 art:469d0d63 art:025a0ed4 art:7218310f art:e4f684ac art:3f5173a2
+~~~
+
+There are no repo commits; the harnesses stay in `evidence/pod-scripts/`, and the lane made no code change.
+
+**Done.**
+- Launch goal: Flock (CPU, 16- and 32-vCPU), Flock-CUDA and flock-zorch (RTX 5090) on our frame-v3 BLAKE3 and SHA-256
+  row-leaf batch at 64 / 1024 / 4096 VUs. Recorded: prove, verify, proof size, memory, `clmad`/f128, the link estimate
+  from measured primitives, and survey vs measured.
+- Coordinator 0830Z priority: census unit exported to Flock, proved alone and in one union proof with the BLAKE3 leaves
+  (CPU), and on Flock-CUDA through a host-witness patch (5090). Negative controls are rejected. Compared against
+  B-Ligero's Table 2 cells and the census.
+
+**Handoffs written.**
+- `lanes/coordinator/20260925T0945Z-handoff-from-flock-bench.md`: "flock-bench: binary backend numbers".
+- `lanes/coordinator/20260925T0946Z-handoff-from-flock-bench.md`: "flock-bench results". Copies are in
+  `lanes/agkr-bound/` and `lanes/b-ligero-standard-hash/`.
+- `lanes/hash-commit/20260925T0950Z-handoff-from-flock-bench.md`: the 5090 `clmad` numbers.
+- `lanes/flock-bench-80gb/20260925T0904Z-...` and `...0955Z-handoff-from-flock-bench.md`: harness and GPU-patch
+  pointers.
+- kb: `kb/flock-prover.md` (new; indexed in `kb/README.md`).
+
+**Left, in value order.**
+1. Unit + BLAKE3 in ONE GPU proof: Flock-CUDA has no union prover. Porting the union registry to `prove_ffi.cu` is the
+   largest remaining piece for the binary route.
+2. A real unit witness generator. Mine is naive and about half of CPU unit prove. On GPU, put it on device like the
+   BLAKE3 kernel, which also removes the 0.13 s upload.
+3. zorch at m33 and SHA-256: blocked by the single-threaded golden dump (m31 took 36 min). Dump on a CPU pod in parallel.
+4. The glue (unit input bits = leaf message bits) is unmodelled. It is an in-proof IO-slot claim, not the §3.8 link.
+5. B-Ligero bare on a 5090, so the comparison runs on one platform; today B-Ligero is on a 4090 and Flock on a 5090.
+6. A100/H100: flock-bench-80gb.
+7. Unexplained per-circuit spread on Flock-CUDA at the same m (up to 2.6x at m25-26).

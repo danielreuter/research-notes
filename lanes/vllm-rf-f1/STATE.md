@@ -193,3 +193,8 @@ updated: 2026-09-25T03:13Z
   key deleted both times (checked).  GATE (a) `r20260925-031034-be4b` since 03:10Z: T0,T1 as three serial pytest processes over disjoint
   rows, each on its own tree copy and scratch (A: r39 r68 r4 r70 + decisions; B: r74 r67 r60 r101 + negative_57; C: r73 r11 r57 r23 r75),
   balanced from e2f85a82's per-row times (131 min serial -> ~45 min each).  Then: jdiff both vs a1, READY.md, drain the pod by 05:00Z.
+- 03:14Z **GATE (b) at `d1f18fc8`: GREEN.** `r20260925-025346-73c9` (vyv-rf-f1-cpu, -n 12 loadfile, CUDA hidden, 16 min): 3897 tests,
+  3540 P / 54 F / 11 E / 286 S / 6 xf.  vs a23b's rebased main-level run `gate_b-xdist-rebased-9be6e462`: jdiff rc 0 (no new F/E/skip/skip
+  reason; 24 new tests all pass; 1 renamed; sigint + norm_chain fixed; F+E 67 -> 65).  vs a1 (72884c8a): new failures 0, F+E 65 = 65;
+  72 base-only = main's deleted tests + my rename; 65 head-only all pass (24 mine, 41 main's lints); gc-freeze pair fails (this pod's uv
+  3.12.14 also starts at freeze count 375; fails in a23b's run too); one skip reason = main's own `test_ship_roots`.  Files beside this note.

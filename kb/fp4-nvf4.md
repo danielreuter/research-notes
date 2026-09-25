@@ -54,3 +54,17 @@ the fix need an instance-equiv file or a rerun.
 - Live on a same-DC cpu3c 16-vCPU verifier (15 jobs): bare l8192 p8 t.total 0.0417-0.0441, t.total_live 0.043-0.045;
   l16384 p8 0.051 / 0.057-0.061. Committed l8192 p8 0.146-0.153. 75/75 fp4 sessions accepted.
   Candidates are in `lanes/verify-night/20260924T0725Z-handoff-from-fill-consumer.md`.
+
+## A-GKR (GKR + LogUp + Ligero, backends/gkr) on fp4-nvf4, RTX 5090 (lane agkr-nvf4, 2026-09-24)
+- Circuit: `backends/gkr/gpu/nvf4/circuit.py` compiles B-Ligero's `relation.compile_fp4_unit(chain=True)` onto `GkrCtx`. The
+  pins become in-circuit decode from committed operand codes. The statement is the chain endpoints only: c_0 = 0 through
+  `init 0` links, and the final FP32 word as three public columns (s, t, f) via the `public s t f` line in chain.txt. That
+  needs the multi-public verifier change (lane/agkr-nvf4, +30/-13 in main.rs/verify.rs); main's verifier rejects the line.
+- What moved t.total at 4096 VUs (1.04 s -> ~0.22 s): phase-2 `eq_rows_dot` (110 -> 2.5 ms per layer); ALL lookup/range
+  tables merged into one tagged row-listed table LK (key + tag·2^20; the LogUp cost is per-tree round latency, so 16 trees
+  -> 1 saved ~0.16 s, and even 2^24 + 2^23 -> one 2^25 saved 6 ms); products of depth > 1 commit their deep operand
+  (`_flatten`, 418 -> 485 columns, 4 GKR layers -> 2); `torch.compile` on the witness chain step (graphed witness
+  28.7 -> 12.1 ms; a cold compile adds ~200 s of untimed warm-up); agkr-fp8's shared prover commits (0.232 -> 0.216 s).
+- Record scripts under `research run` must export the env.sh thread caps (see ops-tools.md): without them the same tree
+  timed 0.314 s instead of 0.274 s.
+- The pod's host-bound phases jitter: back-to-back dev runs of one tree gave medians 0.232 and 0.265 s. Record with 5 reps.

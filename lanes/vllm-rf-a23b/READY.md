@@ -40,7 +40,10 @@ Trees:
 - Head was shipped with `research pods sync` (tree `1158eb69` plus the sync stamp files).
 - Base was built on the pod by reverse-applying `git diff -M --binary 748d71c5 72884c8a` (verified tree `7db3f3ba`,
   2,814 files; its stamp names `72884c8a`).
-- Neither tree has a `.git`, as in a1's baseline. Each run used its own copy.
+- The rebased tree was built on the pod from the untouched gate (a) copy of head: `git diff -M --binary 748d71c5
+  ea6625d3`, then `lint_fix.py`. Its `git write-tree` is `9cdc02c5` = `9be6e462^{tree}` (3,038 files), from an index
+  kept outside the tree.
+- None of the trees has a `.git`, as in a1's baseline. Each run used its own copy.
 
 ### Gate (b): `OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -ra -n 12 --dist loadfile`
 
@@ -108,8 +111,9 @@ XMLs are beside this note: `gate_a-t0t1-head-748d71c5.xml.gz` and `gate_a-t0t1-b
   instead of `row_pod_tp2.sh`, because part 1 deleted that shim and updated the live string in
   `checks/manifest_digest.py`.
 - **Head vs a1's T0 base:** 0 new failures and 0 new skips. Every check that passed there passes here. Nine
-  `T1-replay_partition` tests go from skip (tier) to pass. The skip reasons that are new relative to T0 are the T1
-  checks' own "does not apply" reasons, and all of them occur at the same-pod T0+T1 base too.
+  `T1-replay_partition` tests go from skip (tier) to pass. Nineteen skip reasons are new relative to T0. Seventeen are
+  the T1 checks' own "does not apply" reasons, and all of them occur at the same-pod T0+T1 base too. The other two are
+  the `tp_stage.sh` rewording above.
 
 Per check at head, identical at base (13 rows each):
 
@@ -214,7 +218,7 @@ package. `uv build --wheel integrations/vllm` at `748d71c5` on the pod gave `ver
 
 Part 2 alone (`c1cf11ef`..`748d71c5`): `verity_vllm/` 33 files +102/-81; `tests/` 8 files +12/-20.
 
-The rebase adds `3f794427` (`tp/worker.py` -1 line) and `9be6e462` (`tests/lint/`: 8 files, +7/-130). The library
+The rebase adds `3f794427` (`tp/worker.py` -1 line) and `9be6e462` (`tests/lint/`: 8 files, +7/-129). The library
 counts above therefore hold at `9be6e462`, less that one line.
 
 ### Path smoke (CPU, HF_HOME unset, cwd `/tmp`)
@@ -311,6 +315,24 @@ The coordinator's 22:13Z broadcast said main was at `1d9c3198`. By 23:15Z main w
   - Added `"verity_vllm.config": "config"`. `config.py` imports nothing from `verity_vllm`; the 9 new P9 layering hits
     were `-> config` imports.
 - Pushed with `--force-with-lease` (`748d71c5` -> `9be6e462`).
+
+This note cites the pre-rebase hashes. They map to the rebased commits as follows (from `git range-diff`):
+
+| pre-rebase | rebased | commit |
+|---|---|---|
+| `b9b23ebf` | `ab56cc0b` | tools/ deleted |
+| `84c691c9` | `7f73e571` | CMT-1 and engine_rs deleted |
+| `446fe8b6` | `5cc0506e` | dead check/correspondence/harness modules |
+| `c1cf11ef` | `725957f1` | moves to tests/ |
+| `96c12c0b` | **`a9abe0a0`** | W11 tables to package data (what f3 builds on) |
+| `928813d3` | `d6f30829` | dead sys.path inserts |
+| `ed31d31c` | `a882ebf2` | `verity_vllm.config` |
+| `dfb8cd8b` | `12f3a22b` | cos_sin and calibration to package data (the conflict) |
+| `24466fdd` | `c70b44e2` | HF_HOME default from checkpoints.json |
+| `6da1b430` | `e7271bed` | test_composition via `tables_dir()` |
+| `ed81ba7f` | `ecb1db87` | profile lookup messages |
+| `4e26d864` | `4329f8a3` | weights_of_record via config |
+| `748d71c5` | `ea6625d3` | test_source_identity stub |
 
 ## Found, not fixed
 

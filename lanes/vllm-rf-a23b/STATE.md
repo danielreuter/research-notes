@@ -2,7 +2,7 @@
 id: vllm-rf-a23b/state
 lane: vllm-rf-a23b
 kind: state
-status: active
+status: done
 created: 2026-09-24T19:30Z
 ---
 # vllm-rf-a23b: dead code, data and paths (state)
@@ -11,7 +11,7 @@ created: 2026-09-24T19:30Z
 
 > **a23b succeeds a23 from `c1cf11ef`** (a23's pushed head; a23 silent since 18:02Z). Coordinator: vLLM coordinator, Cursor agent bc-ba6cec03.
 > Branch `lane/vllm-rf-a23b`, worktree `/Users/danielreuter/projects/verity-wt/rf-a23b`, base for gates/diffs `72884c8a`.
-> **Now (23:30Z):** branch head **`9be6e462`** (rebased onto main `58e4c1aa`; pre-rebase gated head `748d71c5`). Pod **`vyv-rf-a23b-big` = RunPod `n2ei0ahhoeu80j`** (512 GB; ssh wrapper `ssh_big.sh` here); trees/scripts/logs under `/workspace/a23b/`. Running: base gate (a) `a_base_t01` (pid 6852), gate (b) at 9be6e462 `b_rb_x12` (pid 9050). Old pod `vyv-rf-a23` (qcky3qlmvh896c) is terminated.
+> **Now (00:02Z): DONE.** Branch head **`9be6e462`** (rebased onto main `58e4c1aa`; pre-rebase gated head `748d71c5`), pushed. READY.md complete. Both pods terminated (`vyv-rf-a23` qcky3qlmvh896c at 21:15Z, `vyv-rf-a23b-big` n2ei0ahhoeu80j at 00:01Z); nothing running.
 > Never touch `~/projects/verity-wt/rf-a23` or branch `lane/vllm-rf-a23`. Deadline: vyv- pods die 2026-09-25T03:00Z; start gate (a) by ~23:00Z.
 
 - **Brief:** `~/.research/notes/lanes/vllm-refactor/LANE_BRIEF.md`; plan `SYNTHESIS.md` §2, §5, §6 (lanes A2, A3); survey `survey-harness-ops-tests-data.md` DEAD, Map 3, Map 4.
@@ -81,7 +81,13 @@ created: 2026-09-24T19:30Z
 - **23:27:59Z gate (b) at the rebased head 9be6e462:** `cd /workspace/a23b && OMP_NUM_THREADS=3 setsid nohup ./gate_b.sh /workspace/rb-b b_rb_x12 -n 12 --dist loadfile` (rb-b = cp of rb) -> gate_b.sh pid 9050; logs `b_rb_x12.{log,xml,env,rss,run}`.
 - **23:41:38Z gate (b) at 9be6e462 done:** 3874 = 3515 pass / 56 F / 11 E / 286 skip / 6 xf (821 s). jdiff vs a1's base xdist: 0 new failures, 0 new skips; F/E = baseline.md's 65 + the gc-freeze pair (order-dependent, failed at the same-pod base too); +41 lint tests all pass; 1 skip reason new: `test_ship_roots.py:66` "this checkout has no record_v5/ship.sh or data/hf_configs" = main's rewrite of that test's guard (at base the same test skipped "not a git checkout (pod tree)"). XML `gate_b-xdist-rebased-9be6e462.xml.gz` here; head gate (a) XML `gate_a-t0t1-head-748d71c5.xml.gz` here.
 - 23:44Z base gate (a) at 130/158, no failure. Next: its jdiff vs head, READY.md gate (a) section, terminate the pod, final message.
+- **23:57:04Z same-pod base gate (a) T0+T1 at 72884c8a done: 73 passed, 85 skipped, 0 failed, exit 0 (6391 s).** jdiff base -> head: 0 new failures, 0 new skips, 0 outcome changes; only reason-text change = manifest_digest #70/#75 naming tp_stage.sh (part 1 deleted row_pod_tp2.sh). XML `gate_a-t0t1-base-72884c8a-samepod.xml.gz` here; logs/envs `gate-logs-a23b.tgz` here. Container memory.peak 163 GB (page cache incl.); single-process ~115 GB.
+- 00:00Z READY.md complete (status: complete). No key on the pod at the end (`/root/r2ro.env` absent, 0 AWS_* vars).
+- **00:01Z pod `vyv-rf-a23b-big` (n2ei0ahhoeu80j) terminated** (`research pods terminate`); `research pods list` shows no a23 pod.
 - Kill by pid only (never pkill -f over ssh).
+
+## DONE (00:02Z)
+Head `9be6e462` pushed. READY: `~/.research/notes/lanes/vllm-rf-a23b/READY.md`. Nothing running; no pod.
 
 ## Next (updated 20:20Z: 1 and 2 done; 3 running)
 1. (done) W11 move (own commit, pushed first): `integrations/vllm/fixtures/W11*` tables read by `fa2_relation.tables_dir()/tables()`, `rms_relation.tables()`, `program/registry/prims.py` MufuTanh -> package data via `importlib.resources`; env overrides and digests untouched (f3 owns them); bytes unchanged. Record `W11 move: <sha>` here.

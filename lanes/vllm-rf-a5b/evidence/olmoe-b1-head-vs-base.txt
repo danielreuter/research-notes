@@ -1,0 +1,59 @@
+outcome: EQUAL PASS
+program_digest: EQUAL 0e5d3609dbca3e836af83bf1353b8c1c5631a8bad0c9cb715048eff9988538b2
+manifest_digest: EQUAL 5567156c8e039c810d9d63642312974529bc681b0cb5e48344dc769ee6c05f14
+run_roots: EQUAL ['29c5230a578bd29e1d4e4c468cee0ca32514ffaaae6e8e626eaa0f08aac1f74f']
+query_id: EQUAL Q_module_body_v1
+correspondence_digest: EQUAL 1aecaaa86fa3105f2e6a0379ac5a8296f38ee914041d8759b36bfdb8cf35d403
+correspondence_digests: EQUAL {'request': '7116cd628d980ab77721fbbf2f7b59dd8446e1eaf722eba0fd90c23433a04283', 'step': '1aecaaa86fa
+checks: 33 base, 33 head, outcome differs on 0 
+other differing leaves: 12
+  
+     execution.cmd
+     /workspace/venv312/bin/python -m verity_vllm.pipeline.commit --case OLMOE --workload workloads/olmoe-1b-7b__bf16__l40s__
+     /workspace/venv312/bin/python -m verity_vllm.pipeline.cli commit --case OLMOE --workload workloads/olmoe-1b-7b__bf16__l4
+  
+     inputs.build_summary.json
+     f3248f593ce09dbfa18685b07281f5556d7f74915aa5b6b4caa20c32e4248ce5
+     ea44a1219af659817c87df13dae02403d55f60689b7da99ebfda5d768cf7bace
+  
+     inputs.commit.log
+     2ee1a0d7f950cd9817b9665ab714343453a3f36b9a2c88a8114de42d545281d1
+     05107a4783cd38dcc48f82ef20c80cabdc502cc5b8eb71f69c23c18230cd9a18
+  
+     inputs.commit/manifest_verify.json
+     884ad5fc9dc63b3e82466ddd61a69de742582b266f36539a7a4531bbeb03a0f4
+     a13985c21fffd3fb7c68183365cf73e8eac7be06215884cc72f588dd93383f8d
+  
+     inputs.commit/runs.jsonl
+     eea337fa69b8561eab79aa11d3f85d6235fcc0de696ea5808022f0f20daaaee7
+     b947b9d537cdca6f10484e92d6779b0dd8e9fe5968f99e26fe2986be42b359b2
+  
+     inputs.commit/sampled_replay_p0.json
+     2050ea1deaa77407d153252e1b949d84c33de049e7afe33ffd99e69d0dedc900
+     2121ea41f0e188ac32902a2bb3a89cc769bea2fd40c73181257845f097acdb78
+  
+     inputs.commit/sampled_replay_p1.json
+     cd06662b559ba34077f9c271a8e72396e8c1556c57f56af5eefba66ae0d362eb
+     8f294e7424119e142b8c4a326004ba5f27f174c80a845a16d63be6884d49b34f
+  
+     inputs.commit/sampled_replay_p2.json
+     cd06662b559ba34077f9c271a8e72396e8c1556c57f56af5eefba66ae0d362eb
+     8f294e7424119e142b8c4a326004ba5f27f174c80a845a16d63be6884d49b34f
+  
+     inputs.commit/summary.json
+     c795876dbc9d2c5a5b45abeca4ef3b51e4787e1fc3d6a6569d7fd6ae7642c701
+     188480a47aa68638801a78a46a35963564d5b3aafb547b073ed9b6c580ee87b5
+  
+     inputs.commit/verdict.json
+     5b3de7cf672c53bbe18e0dc5695f63adc59916c491dd15fca5b83f04b612c0bb
+     7b7e0528f623a29180654c731cadefe294f33689902bad1769cdc918f0c75541
+  
+     inputs.global_match.json
+     a5597bb9c74506cb96ea6a964f98010a723f3f9c75ce77dcc7baeacf0dd451b0
+     429fcca6eeda197bc3379ba1f3ca29ac8142e15cfbaf23f347a942cd7068ed0a
+  
+     inputs.match_summary.json
+     696f33c140bcc0fa0164163698e889de60d5e646e2fc3f2854bb26d5c683f940
+     a457410aa4b317aff3f1d9593403dd00588704b5c846638ba429c025b26a58f4
+RESULT SAME-OF-RECORD
+RC=0

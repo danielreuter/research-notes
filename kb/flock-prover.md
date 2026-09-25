@@ -95,3 +95,36 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
 - No union prover on the GPU. Upstream build.rs targets only sm_120; sm_90 works with the sed above.
 - The census unit's witness builder (`verity_unit.rs`) is a naive bit-sliced evaluator, about half of the unit's CPU
   prove.
+
+## Red-team verdict on flock-128-r2 (red-team-flock, 2026-09-25 4:30 AM PT, `lanes/red-team-flock/20260925T1107Z-report-red-team-flock.md`)
+- **NOT GRANTED.** Grantable, with conditions, after R1–R8 and a re-audit of the live challenger. Until then route (a) has
+  no 2^-128 Flock cell.
+- **Terms: HOLD.** 2^-195.5 reproduced. Fast100 queries give 2^-97.77 per run (m30: 2^-98.04), from the TOMLs. The
+  Johnson-regime MCA is proven (Haböck ePrint 2025/2110; BCHKS25). The stratified sampler is exactly (1−γ)^Q. The 7 fixed
+  inner zerocheck coordinates lose nothing on the x86/CUDA RS path. No grinding credit is taken.
+- **BREAK: the reps aren't bound to one commitment.** Each rep commits its own root, and the Mixed binding absorbs only the
+  registry, counts and root, with no public I/O. So rep 2 can prove another witness and the error stays at 2^-97.8.
+  Demo: art:8d04b53f (`lanes/red-team-flock/evidence/rtf_unlinked_reps.rs`, run r20260925-112210-2d3d).
+- **GAP: no live challenger.** Flock's verifier is Fiat–Shamir only (at most 2^-75.6 for r2).
+- **GAP: the AG r₁ path** (aarch64 only) gives the prover about 14 bits of nonce choice, even with live coins.
+- **Conditions:**
+  - R1: one commitment per table, reused by both reps, or `root_rep0 == root_rep1` before any rep-1 coin. The link binds
+    that root. The commit is deterministic, so this is free. If the link claims open in both reps, C1 squares to about
+    2^-244.
+  - R2: commit before coin, plus a final replay that checks every message against the coins issued.
+  - R3: `fork_from_seed` must be live. An FS child seeded from the fork seed, as in the merged opening's concurrent
+    multipoint/anchor child, costs about 2^-122 over two runs, which fails.
+  - R4: PoW and nonce sites return pure verifier coins.
+  - R5: Flock's coins go out only after root_F, the link points and y.
+  - R6: Flock-CUDA squeezes on the device (`zc_challenger_device.cuh`) and needs a live path, not yet costed.
+  - R7: the verifier pins Fast100, reps = 2 and the RS flavour from configuration, and rejects lone reps and AG proofs.
+  - R8: evidence is the live session record only.
+- **Implementation checks that hold:** profile downgrades are rejected (exact `commitment.params == expected`: the Fast
+  proof, relabelled params, and rep 0 replayed as rep 1 were all rejected). The padding contract is benign.
+- **Hashes:** red-team-flock reports BLAKE3 Merkle and transcript (32-byte, custom chained transcript) on the CPU path.
+  flock-128 found Flock-CUDA uses SHA-256 (`CUDA_HASH`). Table 1 names the hash per line.
+- **Composition with the fixes:**
+  - A-GKR route: 2^-130.2, set by A-GKR. If the accountant counts A-GKR's hash budget (2^-127.7), it misses 2^-128
+    whatever Flock does. C8 accounting question, open.
+  - B-Ligero: 2^-128.05 + 2^-195.5 still passes.
+- **Negatives to keep:** report §5 (10 items). The first: reps with different roots are rejected.

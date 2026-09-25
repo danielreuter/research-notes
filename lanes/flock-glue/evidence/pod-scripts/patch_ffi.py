@@ -200,10 +200,15 @@ int flock_glue_unit_witness_dump(int m, int k_log, F128* hz, F128* ha, F128* hb,
     CK(cudaMalloc(&df, len * 16)); CK(cudaMalloc(&da, len * 16)); CK(cudaMalloc(&db, len * 16)); CK(cudaMalloc(&dzl, len * 16));
     CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total, (uw_u64*)df, (uw_u64*)da, (uw_u64*)db, dzl));
     CK(cudaDeviceSynchronize());
+    { unsigned long long zero[8] = {0}; CK(cudaMemcpyToSymbol(uw_prof, zero, sizeof(zero))); }
     auto t0 = std::chrono::steady_clock::now();
     CK(launch_unit_witness(g_net, g_dx, g_dw, g_eb, g_nvu, g_upv, g_rowlen, n_total, (uw_u64*)df, (uw_u64*)da, (uw_u64*)db, dzl));
     CK(cudaDeviceSynchronize());
     *secs = std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count();
+    { unsigned long long pr[8]; CK(cudaMemcpyFromSymbol(pr, uw_prof, sizeof(pr)));
+      double U = g_upv;
+      printf("UWPROF cycles/unit (CTA 0): input %.0f copy %.0f narrow %.0f (%.0f segs) wide %.0f (%.0f segs) output %.0f\n",
+             pr[0] / U, pr[1] / U, pr[2] / U, pr[5] / U, pr[3] / U, pr[6] / U, pr[4] / U); }
     if (hz) { CK(cudaMemcpy(hz, df, len * 16, cudaMemcpyDeviceToHost)); CK(cudaMemcpy(ha, da, len * 16, cudaMemcpyDeviceToHost));
               CK(cudaMemcpy(hb, db, len * 16, cudaMemcpyDeviceToHost)); CK(cudaMemcpy(hzl, dzl, len * 16, cudaMemcpyDeviceToHost)); }
     CK(cudaFree(df)); CK(cudaFree(da)); CK(cudaFree(db)); CK(cudaFree(dzl));

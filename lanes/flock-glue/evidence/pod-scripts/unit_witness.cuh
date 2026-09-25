@@ -29,6 +29,9 @@ typedef unsigned long long uw_u64;
 #define UW_MAX_SEGS 1024
 #define UW_MAX_BATCHES 256
 
+__device__ unsigned long long uw_prof[8];   // cycles in CTA 0: input, copy, narrow, wide, output; [5] narrow segs, [6] wide segs
+#define UW_PROF(slot) do { if (prof) { long long _t = clock64(); uw_prof[slot] += _t - prof_t; prof_t = _t; } } while (0)
+
 struct UnitNetDev {
     int useful, const_pos, n_in, n_x, n_w, n_c;
     int k, bits;              // operand elements per unit (per side), bits per element
@@ -86,6 +89,8 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
     uint32_t* scr_a = scratch + (size_t)blockIdx.x * 2 * UW_K;
     uint32_t* scr_b = scr_a + UW_K;
     const int U = pad ? 1 : units_per_vu;
+    const bool prof = blockIdx.x == 0 && tid == 0;
+    long long prof_t = clock64();
     const int v = (int)blockIdx.x * 32 + lane;
     const bool vv = !pad && v < n_vu;
     for (int i = tid; i < UW_K; i += UW_THREADS) zs[i] = 0;
@@ -113,6 +118,7 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
         }
         if (tid == 0) zs[N.const_pos] = 0xffffffffu;
         __syncthreads();
+        UW_PROF(0);
         for (int bt = 0; bt < N.n_batches; bt++) {
             const int s_lo = S.batch_seg[bt], s_hi = S.batch_seg[bt + 1];
             const int g0 = s_lo ? S.seg_end[s_lo - 1] : 0, g1 = S.seg_end[s_hi - 1];
@@ -123,6 +129,7 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
             for (int i = tid; i < g1 - g0; i += UW_THREADS) S.desc[i] = __ldg(N.gdesc + g0 + i);
             for (int i = tid; i <= g1 - g0; i += UW_THREADS) S.start[i] = __ldg(N.gstart + g0 + i) - c0;
             __syncthreads();
+            UW_PROF(1);
             for (int sg = s_lo; sg < s_hi; sg++) {
                 const int e0 = (sg ? S.seg_end[sg - 1] : 0) - g0, e1 = S.seg_end[sg] - g0;
                 if (e1 - e0 >= UW_WIDE) {
@@ -141,6 +148,8 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
                     }
                 }
                 __syncthreads();
+                if (prof) uw_prof[(e1 - e0 >= UW_WIDE) ? 6 : 5] += 1;
+                UW_PROF((e1 - e0 >= UW_WIDE) ? 3 : 2);
             }
         }
         for (int c = warp; c < UW_WORDS; c += UW_WARPS) {
@@ -182,6 +191,8 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
                 }
             }
         }
+        __syncthreads();
+        UW_PROF(4);
         if (tid < 32) S.cbuf[tid] = zs[N.cout[tid]];
         __syncthreads();
     }

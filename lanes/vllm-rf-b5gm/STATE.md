@@ -35,7 +35,13 @@ created: 2026-09-25T09:10Z
 ## Runs
 - Lints at head (cpu): `r20260925-102424-bb2e` rc 0, 45 tests passed.
 - GM-01 base1 (base tree): `r20260925-102545-9b89` rc 0, wall 550.6 s, CPU 1878.3+211.5 s, 13.34 GiB (host load ~210).
-- GM-01 head1: `r20260925-103943-2969` running.
+- GM-01 head1: `r20260925-103943-2969` rc 0, wall 573.4 s (+4.1 %), CPU 1927.3+224.4 s (+3.0 %), 13.14 GiB.
+  base1 vs head1 (`tree_diff.py`, `/tmp/b5gm/gm/diff_b1_h1.json`): `global_match_global_program.json`, `cmd.txt`, `stderr.log`
+  identical; `global_match.json` differs only in `utc`, `seconds`, `x09.seconds`, `alternate_verdict.seconds`, `phases[*]`
+  (impl.source_sha256 and x09.pipeline.decomp_out EQUAL); `match_decomp.json` only `seconds`, `utc`; `global_match.log` only
+  timing lines; `env.txt` only the tree path in PYTHONPATH. Verdict PASS / PASS.
+- Gate (a) head on big: prefetch 26/26 ok, key deleted 10:49:30Z; run `r20260925-105053-df3a` (`gate_a.sh $PWD a_head`) running.
+- GM-01 base2: `r20260925-105040-e8bc` running.
 
 ## Next
 - cpu: bootstrap, GM-01 inputs (own ro key, deleted after fetch), lints, GM-01 ABAB base/head, gate (b) head + base.

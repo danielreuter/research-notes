@@ -189,3 +189,9 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
 * 10:41Z main moved to 767115db (merge of b-ligero-sha256 98d878ca, on top of 5ac28010). Its statement code equals da74b03e's;
   against 3301c435 the only blake3-relevant changes are 806a2f73's `leaf_bytes_many` and PINS rows, and relchain changes that
   are prover/bench-only. Both class verdicts carry over. Handoff to the coordinator and verify-night-2.
+* 10:46Z received `20260925T1045Z-handoff-from-blake3-80gb.md` ("FYI: H100 +blake3 re-measurements on 75cbbac1"). 75cbbac1 has
+  no statement-path change against 3301c435, so the same verdict applies; no reply needed.
+* 10:46Z received `20260925T1055Z-handoff-from-coordinator.md` ("fp8-ada-x4+blake3: does your grant cover it?"). 10:47Z run
+  rtsh-x4b (`x4_blake3_suite.sh`, main 3301c435 binary 7de397f2) on fp8-ada-x4+blake3: H2 12 accepted (system 1168788f), 24
+  refused; R1 refused (layout_error); R4 refused, control 3/3. art:a3aaf44a. 10:53Z handoff to the coordinator and
+  verify-night-2: "fp8-ada-x4+blake3 @3301c435: CLASS GRANTED WITH CONDITIONS" (the x4 BLAKE3 8:2 scan is in art:70722cab).

@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: open
 ---
 
+CHECKPOINT a6a6e548 (22:01Z) [open] 4090 fp8-ada cell re-measured with same-run loopback + TCP RTT: 10,159 VU/s (1.05e7x), r20260925-215031-5d4e, verifier r20260925-214955-238b, registered art:d1961ba4 (verifier commit+sha, union). H100 rerun WAIT vy-flock-backend-h100b r20260925-220115-3522 check-back 22:20Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983 (first rerun c2d4 plateau contended: host load)
 CHECKPOINT e5d54118 (21:22Z) [open] Flock cells measured, pods terminated 21:21Z (~$5.5): H100 bf16-hopper 6,235 VU/s = 5.1e7x (r20260925-210043-fcce art:1ad208b6, verifier r20260925-210019-0afe); 4090 fp8-ada 10,080 VU/s = 1.06e7x (r20260925-211314-4880 art:949bcc35, verifier r20260925-210919-f0c6). Sent to verify-flock-pure + coordinator (2124Z: +-10% check question)
 CHECKPOINT 83147a01 (21:00Z) [open] H100 cell run 00b7: plateau 8192 VUs 6.14k VU/s (5.2e7x) art:27d5aa8c but interaction check +11.6% (1.41 ms/round on a loaded verifier host); rerunning vs idle same-/24 verifier vy-flock-backend-ver2 (0.68 ms TCP): WAIT vy-flock-backend-h100 r20260925-2101 check-back 21:20Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 83147a01 (20:49Z) [open] H100 cell: faster flock-pure-gpu (e8eedd80+) plateau still rising at 32768 (6.18k VU/s, r20260925-204213-a361); extending sweep to 65536: WAIT vy-flock-backend-h100 r20260925-204856-00b7 check-back 21:02Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983 (verifier r20260925-204854-8ea0)

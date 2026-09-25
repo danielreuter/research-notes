@@ -5,6 +5,7 @@ created: 2026-09-25T16:27Z
 status: open
 ---
 
+CHECKPOINT 90300f52 (18:20Z) [open] head 90300f52 (main b989a321 merged; vllm tree == 4f090959). t1 r20260925-181451-4e3d running: gate (b) ~18:45Z, gate (a) ~20:30Z; check back 18:50Z then 20:30Z
 CHECKPOINT 4f090959 (18:17Z) [open] merged a5c 40b9e571 -> head 4f090959; t1 r20260925-181451-4e3d: gate (b) vs 40b9e571 then gate (a), end ~20:30Z (deadline extension asked); check back 18:50Z
 CHECKPOINT 4f090959 (18:15Z) [open] merged a5c 40b9e571 -> head 4f090959; t1 r20260925-181451-4e3d: gate (b) vs 40b9e571 then gate (a), end ~20:30Z (deadline extension asked); check back 18:50Z
 CHECKPOINT eb97ecb4 (18:12Z) [open] #101 SAME-OF-RECORD (r20260925-174116-cb42), g1 terminated; t1 r20260925-180950-f886 running: lints rc0, gate (b) head ~18:40Z then gate (a) ~20:25Z; check back 18:45Z

@@ -1,0 +1,65 @@
+outcome: EQUAL PASS
+program_digest: EQUAL ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b
+manifest_digest: EQUAL 90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac
+run_roots: EQUAL ['7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5']
+query_id: EQUAL Q_module_body_v1
+correspondence_digest: EQUAL 17575403839ff707591ccd732b56027f4f9e28c379b406ffb097aae039985951
+correspondence_digests: EQUAL {'request': '61ab046d10f976c48fd7e18928f28bbcc81a4f01ff57c341d4ee2c95dbe3a9da', 'step': '17575403839
+checks: 33 base, 33 head, outcome differs on 0 
+other differing leaves: 12
+  
+     execution.cmd
+     /workspace/venv312/bin/python -m verity_vllm.pipeline.cli commit --case LLAMA32_1B --workload workloads/llama32-1b__bf16
+     /workspace/venv312/bin/python -m verity_vllm.pipeline.commit --case LLAMA32_1B --workload workloads/llama32-1b__bf16__l4
+  
+     inputs.build_summary.json
+     3dc70a9ed24e12d8a661a0e400e99ecf11421aeb07e0b9c0ebb6cf794d03096f
+     4d07e39a7626cc182571723be12eb90fbaf08b9cc9de7745a5bd35debcc2a92e
+  
+     inputs.commit.log
+     037a259dffb65f268fb71c1c988899daa39772af09f67736104fe3077818e794
+     240f1cf6a50da04dd82055891e7a795b751414e11b1a1f0c1ad765d13240748b
+  
+     inputs.commit/manifest_verify.json
+     eceec2e44db934ec5290f486895b1d840b1787fb39e0cdd373d7fd738f80f15f
+     d096634489be987158283e870411994a58980f6b558a340dae5e3f2729d0efdb
+  
+     inputs.commit/runs.jsonl
+     d8066cc85c42d86d4bd2891d6ae76d9c137c0fd0794028e01994501bcffdcaae
+     f7911cb77d7be03d3aba9166b02766b3f8559730aaed280ae502c65ea160fa09
+  
+     inputs.commit/sampled_replay_p0.json
+     bd4b8a82c0fbf6e40e35b312b13bec69c60461a75ecebf0175c9199caa529b1f
+     e95c09f0e17b9cbc22a00a648de3030565cc45ce06b5d4d82d9a0eceadc6d160
+  
+     inputs.commit/sampled_replay_p1.json
+     3a2f31a5e0c0ee777d10044dd72a45a7334591f57b8974506328afde7b9d7d69
+     b62a2488916ee17872e650e5e570e2bd57db5afe0f35a4f668d7ab346821da3f
+  
+     inputs.commit/sampled_replay_p2.json
+     3a2f31a5e0c0ee777d10044dd72a45a7334591f57b8974506328afde7b9d7d69
+     b62a2488916ee17872e650e5e570e2bd57db5afe0f35a4f668d7ab346821da3f
+  
+     inputs.commit/summary.json
+     8e3f00655d96d50cd540dc7329098880067e0eb0fb4c82e4a3925db74b1bdf56
+     b5749b7504b11e2efc64e58ac3707098dc05395e195fcb6ffb1774d42515c315
+  
+     inputs.commit/verdict.json
+     c7ab27573a9409c02d344e07a16797ce71321d8982bef94e2b4a8fe70373496a
+     749929c8c17f0e695fa5e9da2b0360daaca9f45f25ec29638c9f48a709f0fa54
+  
+     inputs.global_match.json
+     052764af86008c58dcd1d0b6dd5664db6b972b4b4295722a2e599226844224f6
+     96936877ee5087f06f54095693678ae1a0b2b96e9ac0f6f86efef3a361a8b533
+  
+     inputs.match_summary.json
+     f2b37a14b21db2627d7cc7308ab19f786c8baf4d9de9b540a09e651cce54f72a
+     7f6f7822375687b79cd02f46e41f694ab2b8a661061deab5af2433fe00013e91
+RESULT SAME-OF-RECORD
+=== base build 2026-09-25T17:41:20Z
+=== base build rc=0 2026-09-25T17:43:52Z
+=== base match 2026-09-25T17:43:52Z
+=== base match rc=0 2026-09-25T17:47:35Z
+=== base commit 2026-09-25T17:47:35Z
+commit PASS 2026-09-25T17:54:31Z rc=0 wall=391s outcome=PASS runs 3 failed 0 checks runtime_match=PASS local_replay=PASS boundary_linkage=PASS checkpoint_binding=PASS execution_extent=PASS required_value_coverage=PASS program_source_identity=PASS manifest_verify=True
+=== base commit rc=0 2026-09-25T17:54:32Z

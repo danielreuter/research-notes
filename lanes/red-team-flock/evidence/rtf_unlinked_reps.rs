@@ -101,4 +101,40 @@ fn main() {
     out("fast100_proof_under_fast_verifier", format!(
         "\"accepted\":{}", verify(&a0, &pfast, &dom(0)).is_ok()));
     out("rep0_replayed_as_rep1", format!("\"accepted\":{}", verify(&a0, &p100, &dom(1)).is_ok()));
+
+    // Padding contract: rows [n_t, 2^nu) must be zero. Fill them with real dummy compressions (pin = 1) through the
+    // full-utilization driver, on a count that leaves padding rows.
+    let np = n - n / 4;
+    let unp = UnionInstance::new(&registry, vec![np]);
+    let wp = blocks(0xC, np);
+    let pp = {
+        let m = unp.dense_m();
+        let batch = embedded_initial_k_or_default(m, LigeritoProfile::Fast100);
+        PcsParams { m, log_inv_rate: 1, log_batch_size: batch, profile: LigeritoProfile::Fast100,
+                    num_lanes: unp.commit_lanes(batch), merkle_hash: Default::default() }
+    };
+    let honest_cap = {
+        let slots = vec![UnionSlotProverInput::in_place(|dst| generate_witness_batch_major_partial_into(&wp, nu, dst), circ)];
+        prove_fast_ligerito_union(&unp, &pp, slots, &mut FsChallenger::with_hash(&dom(0), HashKind::default())).1.cap
+    };
+    let dummy_cap = std::cell::RefCell::new(Vec::new());
+    let res = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        let slots = vec![UnionSlotProverInput::in_place(
+            |dst| flock_prover::r1cs_hashes::blake3::generate_witness_batch_major_into(&wp, nu, dst), circ)];
+        let (proof, commitment, _) =
+            prove_fast_ligerito_union(&unp, &pp, slots, &mut FsChallenger::with_hash(&dom(0), HashKind::default()));
+        *dummy_cap.borrow_mut() = commitment.cap.clone();
+        let b = R1csProofBundleLigerito::from_bytes(&R1csProofBundleLigerito { commitment, proof }.to_bytes()).unwrap();
+        verify_ligerito_union(&unp, &circs, &b.commitment, &b.proof, &pp, &mut FsChallenger::with_hash(&dom(0), HashKind::default()))
+            .map(|_| ())
+            .map_err(|e| format!("{e:?}"))
+    }));
+    let (acc, why) = match res {
+        Ok(Ok(())) => (true, String::new()),
+        Ok(Err(e)) => (false, e.chars().take(120).collect()),
+        Err(_) => (false, "prover or verifier panicked".into()),
+    };
+    println!("RTF\t{{\"case\":\"padding_rows_filled_with_dummy_invocations\",\"n\":{np},\"accepted\":{acc},\
+              \"root_equals_zero_padded_proof\":{},\"why\":\"{}\"}}",
+             *dummy_cap.borrow() == honest_cap, why.replace('"', "'"));
 }

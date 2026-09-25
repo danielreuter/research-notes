@@ -1,0 +1,14 @@
+RTF	{"case":"honest_pair_same_witness","n":4096,"dense_m":26,"r2_accepts":true,"same_root":true}
+RTF	{"case":"unlinked_pair_rep1_other_witness","n":4096,"dense_m":26,"r2_accepts":true,"same_root":false}
+RTF	{"case":"fast_proof_under_fast100_verifier","n":4096,"dense_m":26,"accepted":false,"why":"PcsOpen(Ligerito)"}
+RTF	{"case":"fast100_proof_relabelled_fast_params","n":4096,"dense_m":26,"accepted":false}
+RTF	{"case":"fast100_proof_under_fast_verifier","n":4096,"dense_m":26,"accepted":false}
+RTF	{"case":"rep0_replayed_as_rep1","n":4096,"dense_m":26,"accepted":false}
+RTF	{"case":"padding_rows_filled_with_dummy_invocations","n":3072,"accepted":true,"root_equals_zero_padded_proof":true,"why":""}
+RTF	{"case":"honest_pair_same_witness","n":16384,"dense_m":28,"r2_accepts":true,"same_root":true}
+RTF	{"case":"unlinked_pair_rep1_other_witness","n":16384,"dense_m":28,"r2_accepts":true,"same_root":false}
+RTF	{"case":"fast_proof_under_fast100_verifier","n":16384,"dense_m":28,"accepted":false,"why":"PcsOpen(Ligerito)"}
+RTF	{"case":"fast100_proof_relabelled_fast_params","n":16384,"dense_m":28,"accepted":false}
+RTF	{"case":"fast100_proof_under_fast_verifier","n":16384,"dense_m":28,"accepted":false}
+RTF	{"case":"rep0_replayed_as_rep1","n":16384,"dense_m":28,"accepted":false}
+RTF	{"case":"padding_rows_filled_with_dummy_invocations","n":12288,"accepted":true,"root_equals_zero_padded_proof":true,"why":""}

@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT f8419291 (18:14Z) [open] WAIT vy-b-ligero-vllm-v1-4090 r20260925-181325-17db check-back 18:45Z agent bc-00554250-ebd7-5ace-b76e-296ea0be65e9; also WAIT vy-b-ligero-vllm-v1-h100 r20260925-181345-da25 (after setup/gate r..181202-65f3); pinned Rust ACCEPT fp8-ada-x4+vllm-v1; 3 commits unpushed (verity token 401) -> evidence/patches
 CHECKPOINT f8419291 (18:12Z) [open] fp8-ada-x4+vllm-v1 gate 13 honest+86 neg 0 fail (r..180400-c457), Rust fixture ACCEPT; PINS f7f31613; 4090 pin-check+gadget negs+screen r20260925-181058-a012; H100 y5puhmozi3wh9r setup+gate r20260925-181202-65f3; code push blocked (verity token 401)
 CHECKPOINT 5f22dcde (18:02Z) [open] tip 5f22dcde: vllm-v1 pos-leaf gadget (3 compressions/col x4), port trees+step roots+domain digests (Py+Rust, core vectors), bench variant; 4090 fxm6q6vt6doyh4 fixture+gate r20260925-180031-cadb running
 CHECKPOINT cd963fd4 (17:35Z) [open] lane opened on cloud VM; branch lane/b-ligero-vllm-v1 from origin/main cd963fd4; reading contract, PROTOCOL.md s8-9, b-ligero sha256 gadget; agent bc-00554250-ebd7-5ace-b76e-296ea0be65e9

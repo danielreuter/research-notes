@@ -3,7 +3,8 @@
 #   bench-vu --relation REL --auth included-hash --commit-per-rep: every rep commits its batch (x / W / y trees + row digests,
 #   no cache) timed as commitment.seconds, then proves; rep 1 dumped; then the pod's ligero-verify (pinned) on the dump:
 #   system-digest + batch (a producer check, never the verification label).
-# research run --on POD --project verity --source . --cwd source --custody-r2 --custody-ttl 8h \
+# (research pods sync POD first: the tree at /workspace/src is the lane tip; its .research-source.json is the stamp)
+# research run --on POD --project verity --cwd /workspace/src --custody-r2 --custody-ttl 8h \
 #     --send lib.sh --send 20-cell.sh --env REL=fp8-ada+blake3 --env L=4096 --env P=2 --env REPS=5 \
 #     -- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/20-cell.sh"'
 IN=$(dirname "$0"); source "$IN/lib.sh"

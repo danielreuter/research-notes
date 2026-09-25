@@ -1,0 +1,1 @@
+fp8-ada: rel.steps=48 rel.k=32 K_VU=1536 K_VU/k=48; 25 statements carry (steps, K) = [(48, 1536)]

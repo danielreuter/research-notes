@@ -8,6 +8,7 @@ final: 16:00Z hard; budget $12
 status: open
 ---
 
+CHECKPOINT 7fcedf47 (07:14Z) [open] hash-commit 4090 fp8-ada+hash x5 accepted (art:71a37756 art:4be5c412 art:381bcee8 art:9fdb64e0 art:abb219fa; verdicts art:9b700f03..art:403784a7, bundle art:ad2bc9e1); 20-run byte identity holds; handoff coordinator 0715Z; polling
 CHECKPOINT 7fcedf47 (06:45Z) [open] started 06:40Z; pod vy-verify-night-2 (cpu3c 16 vCPU, no guard) created, syncing @ main 7fcedf47; next: bootstrap, then hash-commit 4090 fp8-ada P2 baselines art:71a37756 art:abb219fa + 20-run byte identity
 # verify-night-2: non-producer verifier for the Proof optimization workstream (night 2)
 

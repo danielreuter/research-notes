@@ -110,6 +110,9 @@ NEW_INITS = {
     "commit/committer/__init__.py": "The GPU committer: host, native collector, leaf hashing and the CUDA/C++ sources.",
 }
 
+# owner naming 2026-09-25: the evaluator implementations directory is program/kernels/
+KERNELS = [("program/backends", "program/kernels")]
+
 GROUPS = [("pipeline", PIPELINE), ("engine", ENGINE), ("program", PROGRAM), ("query", QUERY), ("observe", OBSERVE),
-          ("commit", COMMIT), ("acquire", ACQUIRE), ("check", CHECK), ("properties", PROPERTIES),
+          ("kernels", KERNELS), ("commit", COMMIT), ("acquire", ACQUIRE), ("check", CHECK), ("properties", PROPERTIES),
           ("collectives", COLLECTIVES)]

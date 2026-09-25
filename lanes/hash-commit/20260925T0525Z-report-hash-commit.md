@@ -4,16 +4,17 @@ kind: report
 created: 2026-09-25T05:25Z
 brief: coordinator launch message 2026-09-25 05:13Z (LANE-CONTRACT form); kb/TABLES.md "Commitment time counts"
 branch: lane/hash-commit (worktree ~/projects/verity-main-wt/hash-commit), base main@c1891d48
-final: 13:30Z hard; budget $20
+final: 13:30Z hard; budget $40 (commit-gpu retarget 06:35Z, incl. ~$1.3 spent)
 status: open
 ---
 
+CHECKPOINT fe9c7172 (07:01Z) [open] commit-gpu: fe9c7172 GPU frame-v3 committer (word/u16/u32 trees, keyed-BLAKE3 rows + chain witness, lazy device levels, commit.committer split) + byte-identity tests; 4090 pod vy-commit-gpu (g6sehoo9) up 06:50Z, syncing + bootstrap next
 CHECKPOINT b862be30 (06:31Z) [open] commit-gpu (retarget 06:35Z): GPU committer for frame-v3 word / SHA-256-row / keyed-BLAKE3-row leaves + trees, then vllm-v1; target <=5 ms per 4096 instances, byte-identical to core; surveying hash_gpu + leaf/blake3 now
 CHECKPOINT b862be30 (06:19Z) [blocked] waiting for the SHA-256/BLAKE3 retarget (0546Z PAUSE). 4090 fp8-ada Poseidon2 committer 2.297->0.035s commit, e2e 2.583->0.321, byte-identical (ev 247e44ca, stmts 897697c9, Rust 25/25); 20 results+trees PRESERVED; pod terminated 06:09Z ~$0.61; handoff coordinator/0612Z
 CHECKPOINT b862be30 (05:56Z) [open] 4090 A/B x3 (CREPS5), ev+stmt sha identical all, rust 25/25: base commit 2.295-2.302s e2e 2.58; 5d14dafa (CUDA row_sponge) 0.254-0.258; 0b40ae8a (+SHA prefix) 0.219-0.236 e2e 0.505. rows 0.19 = list->int64; b862be30 passes drawn arrays, A/B now
 CHECKPOINT 5d14dafa (05:39Z) [open] 4090 fp8-ada l8192 p4 BEFORE (6e1cc576, no cache): commit 2.286s (trees 1.77 chain 0.33 rows 0.18) t.total 0.287 e2e 2.573, rust accepts, ev 247e44ca. tip 5d14dafa (CUDA row_sponge kernel, trees from chain digests) testing+bench now
 CHECKPOINT c1891d48 (05:25Z) [open] 05:26Z started; 4090 vy-hash-commit up (Ryzen 7950X), bootstrap running; commit time = host numpy Poseidon2 digests + torch GPU sponge (same digests twice) + py SHA trees; next: commit-reps harness, then CUDA row-sponge committer
-# hash-commit: hill-climb the B-Ligero + in-proof hash committer (row digests + trees), 4090 first
+# hash-commit / commit-gpu: GPU committer for frame-v3 (word, keyed-BLAKE3-row, SHA-256-row leaves + trees); before 06:35Z the Poseidon2 committer hill-climb
 
 Inbox at startup: nothing new.
 
@@ -64,3 +65,17 @@ Inbox at startup: nothing new.
 | 3 0b40ae8a SHA prefix | 0.220 | 0.286 | 0.506 | 6 | art:9fdb64e0 (art:2cb60e01) |
 | 4 b862be30 drawn arrays | 0.035 | 0.286 | 0.321 | 3 | art:abb219fa (art:13e1c916) |
 Other rounds: evidence/registered-4090.txt (slim run-files); all lines: evidence/runs-4090.txt.
+
+## commit-gpu (retarget 06:35Z; decision doc commitment-scheme-decision.md §1, §3, §5, §6.3, §6.4)
+Scope: the committer (native hashing) for frame-v3 word leaves, keyed-BLAKE3 row leaves (`blake3-keyed/row/v2`, leaf/blake3.py
+framing, which core-schemes will promote) and the SHA-256 row leaves once core-schemes lands that schema (no spec of mine);
+vllm-v1 after core-schemes. Target: <= 5 ms per 4096 instances, all ports, byte-identical to core / today's roots.
+- a4a270bc `hash_gpu/frame_v3.py`: frame-v3 leaf / pad / node kernels (one thread per hash; frame + tag + domain id [+ level] as
+  a host midstate + tail), trees level by level into one device buffer, host copy eager <= 4 MiB else on first read; keyed
+  BLAKE3 rows (thread per chunk + per-row parent fold, optional per-block CVs); SHA-256(prefix || row) rows. Tests vs
+  verity.commitments / hashlib / blake3 package.
+- fe9c7172 ligero `frame_gpu.py`: auth.build_word_tree (u16), hashauth.build_word_tree (u16/u32), hashauth.build_row_tree
+  (blake3) on the device (`LIGERO_COMMIT_GPU=0` = host); WordTree.on_device (lazy levels); Blake3Leaf.row_sponges = the chain
+  witness from the same kernel's per-block CVs; relchain.commit keeps narrow (uint8 / int16) device rows, syncs around the
+  timers, commit_timings.committer = rows + trees (commit.committer_seconds). Tests frame_gpu_test.py vs the host builders.
+- Pod vy-commit-gpu g6sehoo9nur00q (4090, SECURE, guard 90) created 06:50Z.

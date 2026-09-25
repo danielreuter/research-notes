@@ -1,0 +1,201 @@
+{
+ "commit_evidence_file_sha256": [
+  "3df32610760b5cec034f8f02081a1db7c8770393cbdbd60c596c6a9b979b5fdc"
+ ],
+ "evidence_sha256": [
+  "247e44cad3e9d269a94793e0e8a42f761fa0322bf794834b7b4da8ebb14d019b"
+ ],
+ "rep1_stmt_cat_sha256": [
+  "897697c9e027b8dcc98fab62875304e61f8a0ac72a77ff4f898cb083a43e34a8"
+ ],
+ "system_sha256": [
+  "c540b7782d83821bae51ecdd41b83eda5b7f60371d4e234cbccd1a76cd124ef3"
+ ],
+ "roots": [
+  "{\"a\": \"c8c8746a6a85ecd9c0ca7c61f3d5ea0f3a2d5368ad57c2d6c0694f5adb6725f6\", \"b\": \"886cef1f1c67e3eee682be2e13b2b55f526c034a05d807385cc51c545893e151\", \"y\": \"49023558194d41deb66a6dc7e875267aaa78ec49192f99f1db70a7f6cf5cb791\"}"
+ ],
+ "runs": 20,
+ "any_sha_mismatch": false
+}
+[
+ {
+  "result": "art:71a37756c84368ef3dd82deb7164c3703a773d24162ffea419f932c17010d6ea",
+  "status": "ROOTS-MATCH",
+  "core": {
+   "a": {
+    "binding": "ffe74443d9411b1244823aa305ca0b9505aa26554693fe923893328f0ced89ae",
+    "owner": -1,
+    "count": 4096,
+    "root": "c8c8746a6a85ecd9c0ca7c61f3d5ea0f3a2d5368ad57c2d6c0694f5adb6725f6"
+   },
+   "b": {
+    "binding": "a51317606e23e9971f67d9eebbeaad1dac869526639be8de911c6270badab38c",
+    "owner": -2,
+    "count": 4096,
+    "root": "886cef1f1c67e3eee682be2e13b2b55f526c034a05d807385cc51c545893e151"
+   },
+   "y": {
+    "binding": "f58f668a52de7d89f34feb5e4c3c469e4aaf03bde6fd4eb8383d04c67df947e8",
+    "owner": -1,
+    "count": 4096,
+    "root": "49023558194d41deb66a6dc7e875267aaa78ec49192f99f1db70a7f6cf5cb791"
+   }
+  },
+  "info": {
+   "relation": "fp8-ada",
+   "dataset": "bench-instances-fp8-ada/v1",
+   "tier": "vu-k1536-fp8-ada",
+   "manifest_sha256": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d",
+   "K": 1536,
+   "word_bits": 8,
+   "y_schema": "u32"
+  },
+  "statements": 25,
+  "vus_covered": 4096,
+  "problems": []
+ },
+ {
+  "result": "art:4be5c412b945f8e17f6097154c52d094b2f4c8f061319af60fa258aa7e49c9c4",
+  "status": "ROOTS-MATCH",
+  "core": {
+   "a": {
+    "binding": "ffe74443d9411b1244823aa305ca0b9505aa26554693fe923893328f0ced89ae",
+    "owner": -1,
+    "count": 4096,
+    "root": "c8c8746a6a85ecd9c0ca7c61f3d5ea0f3a2d5368ad57c2d6c0694f5adb6725f6"
+   },
+   "b": {
+    "binding": "a51317606e23e9971f67d9eebbeaad1dac869526639be8de911c6270badab38c",
+    "owner": -2,
+    "count": 4096,
+    "root": "886cef1f1c67e3eee682be2e13b2b55f526c034a05d807385cc51c545893e151"
+   },
+   "y": {
+    "binding": "f58f668a52de7d89f34feb5e4c3c469e4aaf03bde6fd4eb8383d04c67df947e8",
+    "owner": -1,
+    "count": 4096,
+    "root": "49023558194d41deb66a6dc7e875267aaa78ec49192f99f1db70a7f6cf5cb791"
+   }
+  },
+  "info": {
+   "relation": "fp8-ada",
+   "dataset": "bench-instances-fp8-ada/v1",
+   "tier": "vu-k1536-fp8-ada",
+   "manifest_sha256": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d",
+   "K": 1536,
+   "word_bits": 8,
+   "y_schema": "u32"
+  },
+  "statements": 25,
+  "vus_covered": 4096,
+  "problems": []
+ },
+ {
+  "result": "art:381bcee832abc241b3e2cffe2d14efe2a3cd8f3aab8e9e9e1cb275f272e7d187",
+  "status": "ROOTS-MATCH",
+  "core": {
+   "a": {
+    "binding": "ffe74443d9411b1244823aa305ca0b9505aa26554693fe923893328f0ced89ae",
+    "owner": -1,
+    "count": 4096,
+    "root": "c8c8746a6a85ecd9c0ca7c61f3d5ea0f3a2d5368ad57c2d6c0694f5adb6725f6"
+   },
+   "b": {
+    "binding": "a51317606e23e9971f67d9eebbeaad1dac869526639be8de911c6270badab38c",
+    "owner": -2,
+    "count": 4096,
+    "root": "886cef1f1c67e3eee682be2e13b2b55f526c034a05d807385cc51c545893e151"
+   },
+   "y": {
+    "binding": "f58f668a52de7d89f34feb5e4c3c469e4aaf03bde6fd4eb8383d04c67df947e8",
+    "owner": -1,
+    "count": 4096,
+    "root": "49023558194d41deb66a6dc7e875267aaa78ec49192f99f1db70a7f6cf5cb791"
+   }
+  },
+  "info": {
+   "relation": "fp8-ada",
+   "dataset": "bench-instances-fp8-ada/v1",
+   "tier": "vu-k1536-fp8-ada",
+   "manifest_sha256": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d",
+   "K": 1536,
+   "word_bits": 8,
+   "y_schema": "u32"
+  },
+  "statements": 25,
+  "vus_covered": 4096,
+  "problems": []
+ },
+ {
+  "result": "art:9fdb64e0bd0015aacb098074a87d0dbbbf3bf06642cd772668fd120a4c2c423c",
+  "status": "ROOTS-MATCH",
+  "core": {
+   "a": {
+    "binding": "ffe74443d9411b1244823aa305ca0b9505aa26554693fe923893328f0ced89ae",
+    "owner": -1,
+    "count": 4096,
+    "root": "c8c8746a6a85ecd9c0ca7c61f3d5ea0f3a2d5368ad57c2d6c0694f5adb6725f6"
+   },
+   "b": {
+    "binding": "a51317606e23e9971f67d9eebbeaad1dac869526639be8de911c6270badab38c",
+    "owner": -2,
+    "count": 4096,
+    "root": "886cef1f1c67e3eee682be2e13b2b55f526c034a05d807385cc51c545893e151"
+   },
+   "y": {
+    "binding": "f58f668a52de7d89f34feb5e4c3c469e4aaf03bde6fd4eb8383d04c67df947e8",
+    "owner": -1,
+    "count": 4096,
+    "root": "49023558194d41deb66a6dc7e875267aaa78ec49192f99f1db70a7f6cf5cb791"
+   }
+  },
+  "info": {
+   "relation": "fp8-ada",
+   "dataset": "bench-instances-fp8-ada/v1",
+   "tier": "vu-k1536-fp8-ada",
+   "manifest_sha256": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d",
+   "K": 1536,
+   "word_bits": 8,
+   "y_schema": "u32"
+  },
+  "statements": 25,
+  "vus_covered": 4096,
+  "problems": []
+ },
+ {
+  "result": "art:abb219fadaa5b293718e815088c7e64151ddd50b21b78e4dda9dd1afac8fba24",
+  "status": "ROOTS-MATCH",
+  "core": {
+   "a": {
+    "binding": "ffe74443d9411b1244823aa305ca0b9505aa26554693fe923893328f0ced89ae",
+    "owner": -1,
+    "count": 4096,
+    "root": "c8c8746a6a85ecd9c0ca7c61f3d5ea0f3a2d5368ad57c2d6c0694f5adb6725f6"
+   },
+   "b": {
+    "binding": "a51317606e23e9971f67d9eebbeaad1dac869526639be8de911c6270badab38c",
+    "owner": -2,
+    "count": 4096,
+    "root": "886cef1f1c67e3eee682be2e13b2b55f526c034a05d807385cc51c545893e151"
+   },
+   "y": {
+    "binding": "f58f668a52de7d89f34feb5e4c3c469e4aaf03bde6fd4eb8383d04c67df947e8",
+    "owner": -1,
+    "count": 4096,
+    "root": "49023558194d41deb66a6dc7e875267aaa78ec49192f99f1db70a7f6cf5cb791"
+   }
+  },
+  "info": {
+   "relation": "fp8-ada",
+   "dataset": "bench-instances-fp8-ada/v1",
+   "tier": "vu-k1536-fp8-ada",
+   "manifest_sha256": "e66ff0f21c8e67d13b4b2d4cee2afa35b8345656b314da80e6b342ba051f078d",
+   "K": 1536,
+   "word_bits": 8,
+   "y_schema": "u32"
+  },
+  "statements": 25,
+  "vus_covered": 4096,
+  "problems": []
+ }
+]

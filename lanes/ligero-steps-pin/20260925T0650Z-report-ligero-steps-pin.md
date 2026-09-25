@@ -5,6 +5,7 @@ created: 2026-09-25T06:50Z
 status: open
 ---
 
+CHECKPOINT 1571143b (07:06Z) [open] cargo 32+7+27 ok on pod; steps_pin_test 33/34 (1 own-test bug fixed 1571143b); +shared forged steps32 / header steps32 / K768 refused Python+Rust; 9 R2 dumps fetched, reverify + regression pytest running
 CHECKPOINT 236020a6 (06:50Z) [open] fix already on main (steps-pin c5cf7f6d/3781590e); audit found Python +shared v6 gap (no steps in SharedHashedRunner hooks, no v6 K check) -> 236020a6 pushed; pod setup running; next cargo+pytest+R2 regression
 
 # ligero-steps-pin: red-team H2 (steps bound to nothing), shared code, Rust + Python

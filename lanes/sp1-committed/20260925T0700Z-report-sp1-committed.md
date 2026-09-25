@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 1efd4300 (07:04Z) [open] guest feature relation-committed (bare relation + sha256/row/v1 digests via SP1 precompile, frame-v3 tree check) at 1efd4300; pod vy-sp1-committed (4090) bootstrapping stock+committed builds; next host committed-* cmds, py reference
 CHECKPOINT 7fcedf47 (06:47Z) [open] started: read contract/TABLES/decision/sp1 kb+reports; PR #15 open, coding against its sha256/row/v1 framing; 4090 pod creating; next: committed guest + host tree check
 # sp1-committed report
 

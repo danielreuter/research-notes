@@ -1,0 +1,6 @@
+# machine vy-red-team-sh: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "04txgm7j3b0nob"
+project = "verity"
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T07:01Z"

@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT none (07:08Z) [open] Acted on coordinator 0650Z handoff: merged main 00ffe398 (4de530e5); names now commit.seconds/e2e.seconds per bench.views. +blake3 pins bf16-ampere/fp8-hopper (071e3ef7). Dev fp8-ada 4090: prove 4.4s, commit 18s/rep (host leaf_bytes loop?); profiling r..b881.
 CHECKPOINT 00ffe398 (06:58Z) [open] 071e3ef7: +blake3 pinned on bf16-ampere (5b762054) + fp8-hopper (433bdfc3): gates 49/86/0F + 25/86/0F, fixtures pinned ACCEPT, cargo test green; fp4-nvf4+blake3 needs NVFP4 row byte schema (core-schemes). Next: fp8-ada+blake3 --commit-per-rep dev run on 4090
 CHECKPOINT c21b8ccf (06:47Z) [open] started 06:30Z; 820aa6f+1cf9178 already in main (step 2 no-op); 82453d30 bench-vu --commit-per-rep (commitment bucket per rep); 4090 pod vy-b-ligero-sh bootstrapping; next: bf16-ampere/fp8-hopper +blake3 pins+gates, fp8-ada+blake3 cell dev run
 # b-ligero-standard-hash: B-Ligero frame-v3 keyed-BLAKE3 full-relation Table 2 cells
@@ -42,18 +43,30 @@ Pod scripts: `evidence/pod-scripts/`.
   e7f47a52…), `cargo test --release` 32 + 7 + 27 passed; both fixtures **pinned batch ACCEPT** (`system pinned
   (bf16-ampere+blake3)` / `(fp8-hopper+blake3)`, 2^-128.05). fp4-nvf4+blake3 not attempted: see §0 (needs the NVFP4 row's byte
   serialization under the keyed-BLAKE3 leaf schema, which core-schemes defines).
-* 06:57Z dev cell fp8-ada+blake3 l=4096 p2 2 reps with `--commit-per-rep` (validation of the harness).
+* 06:57Z dev cell fp8-ada+blake3 l=4096 p2 2 reps with `--commit-per-rep` (r20260925-065733-eade, tree 071e3ef7 + 82453d30;
+  harness validation, not a result): m = 35 370, 49 sub-batches, t = 203. Rep 1: prover 3.32 s + hints 1.10 s (t.total 4.42 s,
+  row chains 0.82 s + statements 0.16 s inside it); **commitment 18.0 s** (warm-up 18.03 s); e2e 22.4 s (rep 2: 22.36 s).
+  The committer dominates. (A second launch r20260925-070258-88d6 exited GPU NOT IDLE: `--source .` had launched eade
+  although I killed it locally; now `research pods sync` + `--cwd /workspace/src`.)
+* 06:50Z inbox: coordinator handoff "Core schemes landed (PR #15, main 00ffe398)". Merged origin/main at 4de530e5: the
+  core `blake3-keyed/row/v2` schema is the leaf's (core_schema_test cross-checks it); no local stand-in existed. Order kept:
+  frame-v3 first, vllm-v1 after (its SHA-256 leaves need the SHA-256 gadget = survey gate). ad4c3440 renames my measurements to
+  the `commit.*` / `e2e.*` names `bench.views` reads.
+* 07:08Z r20260925-070830-b881 (`12-prof.sh`): cProfile of one fp8-ada+blake3 commit-per-rep bench.
 
-## 1. `--commit-per-rep` (82453d30)
+## 1. `--commit-per-rep` (82453d30, names aligned with main's `bench.views` in ad4c3440)
 Every rep (the warm-up included) drops the committed state and runs `commit_vus` with no tree cache, then rebuilds the hashed
-statements, then proves (pipelined, p >= 2, CUDA, unshared `included-hash` only). Measured per rep:
-* `commitment.seconds`: the x / W / y trees and their row digests (frame-v3 over keyed-BLAKE3 row leaves) = the Table 3
-  serving-overhead bucket; excludes the prover's row chains;
-* `commitment.row_chain_seconds`: the prover's precomputed in-circuit chain states of every committed row -> in `t.witness`
+statements, then proves (pipelined, p >= 2, CUDA, unshared `included-hash` only). Measured, the hash-commit lane's convention
+that `bench.views` (main fb2f0420 / 6fdd261b) reads:
+* `commit.seconds`: median over the timed reps of the x / W / y trees and their row digests (frame-v3 over keyed-BLAKE3 row
+  leaves) = the Table 3 serving-overhead bucket; excludes the prover's row chains. `commit.cold_seconds` = the warm-up rep's,
+  `commit.reps` = how many;
+* `commit.row_chain_seconds`: the prover's precomputed in-circuit chain states of every committed row -> in `t.witness`
   (hints_host), so inside `t.total`;
-* `commitment.statement_seconds`: rebuilding the hashed statements from the new digests -> in `t.serialization`, inside `t.total`;
-* `end_to_end.seconds = commitment.seconds + t.total` (the Table 2 P divides this), `end_to_end.vu_per_second`,
-  `end_to_end.overhead_vs_native_peak`; the reported rep is the median END-TO-END rep. `fp.commitment` records the rule.
+* `commit.statement_seconds`: rebuilding the hashed statements from the new digests -> in `t.serialization`, inside `t.total`;
+* `e2e.seconds = commit.seconds + t.total` (`t.total` from `phases.median_rep`, unchanged; the Table 2 P divides e2e),
+  `e2e.vu_per_second`, `e2e.overhead_vs_native_peak`. `fp.commitment` records the rule. `bench.views` recomputes
+  end_to_end = t.total + commit.seconds itself, so the table does not depend on my e2e names.
 bench-result/v1's contract is unchanged: the new names sit outside its reserved prefixes. `R._committed_digests` now keeps the
 base (instance-word) marshal cached and drops only the hashed statements.
 

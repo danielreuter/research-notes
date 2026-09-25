@@ -1,0 +1,45 @@
+=== [07:08:32] steps vs canonical
+fp8-ada: rel.steps=48 rel.k=32 K_VU=1536 K_VU/k=48; 25 statements carry (steps, K) = [(48, 1536)]
+=== [07:08:33] reverify (verdict + labels --by verify-night-2)
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+research data label: local only (write-through off); pending: `research data push --pending` uploads it
+reverify rc=0
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+=== [07:08:59] evidence bundle
+0 art:ad2bc9e1c1cf7ce87e552762e2026eafd90eee15608fa59d90e4be7c71d6ec60
+ research data put: PRESERVED on s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com
+
+=== [07:09:01] labels-sync
+labels: 20 local, 11569 on s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com: 0 pushed, 0 pulled, 20 already on both
+=== [07:09:10] done

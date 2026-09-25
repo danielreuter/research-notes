@@ -1,0 +1,14 @@
+[package]
+name = "vu-k1536"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+jolt-sdk = { workspace = true, features = ["host"] }
+tracing-subscriber.workspace = true
+tracing.workspace = true
+jolt-inlines-sha2 = { workspace = true, features = ["host"] }
+guest = { package = "vu-k1536-guest", path = "./guest" }
+
+[package.metadata.cargo-machete]
+ignored = ["jolt-inlines-sha2"]

@@ -2,7 +2,7 @@
 id: vllm-rf-b4c/state
 lane: vllm-rf-b4c
 kind: state
-updated: 2026-09-25T17:31Z
+updated: 2026-09-25T18:09Z
 ---
 # b4c (engine and hooks: re-gate after c1): state
 
@@ -29,14 +29,24 @@ needed so far. Brief: `$STORE/internal/lane-briefs/vllm-b4c.md`. Budget $8 of ne
   build log overwritten by the retry, cause not seen; suspect memory from 128 parallel nvcc). Run `r20260925-172357-4478`
   stopped by pgid. Relaunched with MAX_JOBS=12: `r20260925-172753-d0b2` (`tools/g1.sh r101-head-j12`).
 
+- 17:44Z **#101 at `5494e29f`** (`r20260925-172753-d0b2`, FA2 tap built with MAX_JOBS=12 in 7 min): build / match / commit PASS,
+  program `ccc21347…`, manifest `90f81868…` (7043), run root `7adcef49…`, commit_pass True = record; non-interference PASS
+  992/992, tokens equal. So the tap bootstrap works on this pod at 12 jobs (128 failed).
+- 18:00Z coordinator: a5 merges first. Merged `lane/vllm-rf-a5c` `40b9e571` -> **`9689a1ef`** (pushed). Conflicts: build.py
+  imports (both), P7 ENV_OWNERS = engine/env.py + pipeline/cli.py with `pin_writes` exempting only engine/env.py (cli.py only
+  reads), P9 b4's runtime-patch removals + a5's `pipeline.manifest` edge, P10 caps at merged sizes (native_collect 1924,
+  native_host 2572, rank_worker 1553, vllm_adapter 1913). Handoffs 18:08Z to b5vab and epoch.
+- 18:03Z new pod `vyv-rf-b4c-cpu` (o7ow729nl1v0kw, cpu3g 32 vCPU, registered guard 90), bootstrap (nohup) then gates.
+
 ## Running
-- g1 `r20260925-172753-d0b2`: bootstrap (FA2 tap, MAX_JOBS=12), then #101 build,match,commit PAIRS=1 and non-interference at
-  `5494e29f`. Check back about 18:30Z. Output `/workspace/b4c/r101-head-j12/` (rc.txt, row.log, sweep/, nonint/).
+- `vyv-rf-b4c-cpu`: gate (b) + lints, base `40b9e571` `r20260925-180449-ed37`, head `9689a1ef` `r20260925-180555-f321`
+  (both wait for /workspace/b4c/BOOT-DONE). Check back about 18:45Z.
+- `vyv-rf-b4b-g1`: #101 + non-interference at `9689a1ef` via `verity-vllm row run` (`tools/g1_cli.sh`), `r20260925-180228-0dda`.
+  Check back about 18:30Z.
 
 ## Next
-1. If the FA2 tap fails again: replace g1 with a b2v `create_cuda.py`-style pod whose image has CUDA toolkit >= 12.9.
-2. #101 at head vs record (program ccc21347…, manifest 90f81868…, run root 7adcef49…, commit PASS; non-interference 992/992).
-3. READY.md for `5c05ff6d`, merge-ready handoff, pods handed to vllm-rf-b5vab.
+1. jdiff head vs base; lints; #101 vs record.
+2. READY.md for `9689a1ef`, merge-ready handoff; g1 to b5vab; terminate vyv-rf-b4c-cpu (or hand on).
 
 ## Open questions
 - b4b's (READY.md, `../vllm-rf-b4b/`) carry over: `engine.hooks` / `engine.env` in the `core` P9 layer; import-time pins in three CLIs.

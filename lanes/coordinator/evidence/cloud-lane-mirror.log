@@ -23,3 +23,4 @@ notes sync: committed 32b31f3 (5 paths); pushed; skipped 11 over 1 MB (put them 
 notes sync: committed 4ef9b05 (19 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
 2026-09-25T12:00:27Z IN flock-live: 8 file(s) store -> notes
 2026-09-25T12:00:27Z IN machines.d: 2 entry file(s) store -> notes
+notes sync: committed d1ad2b8 (46 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist

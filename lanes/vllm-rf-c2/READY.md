@@ -9,10 +9,10 @@ created: 2026-09-25T12:30Z
 
 ## Branch, head, base, what to merge
 - Branch `lane/vllm-rf-c2` (pushed). a4 base `10996616`.
-- Head `EPOCH_SHA` = the **re-baseline epoch commit** (decision 4), alone at the tip.
+- Head `11c3e500` = the **re-baseline epoch commit** (decision 4), alone at the tip.
 - **Merge up to `5e21eead` (the commit before the epoch).** Those four commits move no Program digest, manifest digest,
   commitment root, leaf id or regression verdict (evidence below). Nothing in them depends on the epoch commit.
-- Take `EPOCH_SHA` only with the re-baseline epoch. It moves the digests of every Program that binds the Ampere k16 step
+- Take `11c3e500` only with the re-baseline epoch. It moves the digests of every Program that binds the Ampere k16 step
   (list below). It also leaves one protected test red until the integrator re-records the golden corpus (see "Epoch").
 
 ## What changed
@@ -22,7 +22,7 @@ created: 2026-09-25T12:30Z
 | `e0fc636f` | P1 definition-id lint also reads `@composite(...)` ids (the GEMM `_v2` collision was invisible to it). Allowlist unchanged. |
 | `d838f4c4` | New `verity.ml.scalar`: 18 basic primitives move to core under the same ids, signatures and conformance: F32Fabs, F32Neg, F32Fmaxf, F32Fminf, F32Sat, F32BitsShl23, F32IsFinite, F32Eq, Bf16GtStrict, I32Le/Eq/Add, BitAnd/Not/Or, SelectF32/Bf16/I32. Comparisons, max/min and sat are rewritten as integer order on the encoding (no host FP state). The integration re-exports them under the old names. |
 | `5e21eead` | `verity.ml.prims`: `F32ToE4m3Sat_v1` (word function moved verbatim to `verity.ml.tc.cast.f32_to_e4m3_sat_word`) and `HopperE4m3QgmmaDot32_v1` (+ numpy kernel) move to core; the registry cites them. Allowlists: P8 -2, P11 -1. |
-| `EPOCH_SHA` | **Epoch.** Programs cite core `AmpereBF16TcDot16_v2`; the integration's `AmpereBF16TcDot16_v1` stays registered with `conformance="superseded by AmpereBF16TcDot16_v2 …"` (the `RMSNormFusedCuda_v1` precedent) so that recorded Programs decode, and its pre-R17 evidence is marked superseded on non-finite outcomes. Call sites and pinned test digests updated. |
+| `11c3e500` | **Epoch.** Programs cite core `AmpereBF16TcDot16_v2`; the integration's `AmpereBF16TcDot16_v1` stays registered with `conformance="superseded by AmpereBF16TcDot16_v2 …"` (the `RMSNormFusedCuda_v1` precedent) so that recorded Programs decode, and its pre-R17 evidence is marked superseded on non-finite outcomes. Call sites and pinned test digests updated. |
 
 Primitive encodings are id + params + ret, so moving a Definition under the same id is digest-neutral; every move was
 checked for equal evaluators before it landed (below).
@@ -102,7 +102,7 @@ Pre-epoch head `5e21eead` vs base `10996616`:
 - **Core tests**: `packages/verity/tests/ml` 132/132 at `5e21eead`. The 32 registry test files: 678 tests, 3 failing,
   and all 3 fail at base too (`evidence/step3-tests-5e21eead/`).
 
-## Epoch commit `EPOCH_SHA`
+## Epoch commit `11c3e500`
 - **Rows whose Program digest changes: the 11 L40S rows.** The scan of the stored Programs' closures
   (`r20260925-111909-09b4`) finds `AmpereBF16TcDot16_v1` in rows **11, 23, 39, 57, 60, 67, 68, 70, 75, 101**. #4 is
   L40S by its row key but has no stored Program. The Hopper rows #73/#74 cite no Ampere step and do not change.

@@ -37,3 +37,4 @@ notes sync: committed b4e2e25 (9 paths); pushed; skipped 11 over 1 MB (put them 
 2026-09-25T12:26:09Z IN flock-live: 2 file(s) store -> notes
 notes sync: committed 4349be7 (20 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
 2026-09-25T12:26:51Z IN red-team-flock: 1 file(s) store -> notes
+notes sync: committed 84c7b5c (18 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist

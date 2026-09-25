@@ -1,7 +1,7 @@
 # machine vy-verify-night-3: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "7qkora4f5oy6t9"
+pod_id = "i86pg3pvzc9vjm"
 project = "verity"
 guard = 30
 registered_by = "cursor"
-registered_at = "2026-09-25T20:33Z"
+registered_at = "2026-09-25T21:41Z"

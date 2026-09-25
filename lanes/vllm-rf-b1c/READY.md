@@ -4,14 +4,14 @@ lane: vllm-rf-b1c
 kind: ready
 status: READY
 created: 2026-09-25T18:10Z
-updated: 2026-09-25T19:45Z
+updated: 2026-09-25T21:45Z
 ---
 # vllm-rf-b1c READY: evaluator kernels and replay
 
 b1c succeeds b1b (bc-033f1f34, ended at the 16:03Z restart), which succeeded b1 (bc-910bfdb6). The code is b1's; b1c
 rebased it, merged main and a5c into it, and fixed the merge fallout. Agent bc-e079e6ee, coordinator bc-ecac3029.
 
-- **Branch:** `lane/vllm-rf-b1c`, head **`1fd7e9dc`**, pushed. History: b1's 12 commits rebased with
+- **Branch:** `lane/vllm-rf-b1c`, head **`dca6a867`**, pushed; base of this request main `7da00370` (main is now `78b8935b`, which merges cleanly). History: b1's 12 commits rebased with
   `git rebase --onto origin/main 10996616` onto main `239c0e28` (clean; head `0e954bf0`), then
   - `8f94cb48` merge `origin/main` `38a8d35d` (b2vb, b5gmb, c2b): import blocks of `properties/admission.py` and 4
     commit-verdict tests, p03/p10/p11 entries. b1 never edited `check/commit_verdict.py`, so nothing of b1's had to move
@@ -25,7 +25,21 @@ rebased it, merged main and a5c into it, and fixed the merge fallout. Agent bc-e
     `verity_vllm` module); p06 takes a5's list, P10 `commit.py::main` at the merged size 1776.
   A static scan of the merged tree (every `from verity_vllm…/tests… import` resolves, every `cli.COMMANDS` module
   exists) finds nothing but the pre-existing `workload_target` import below.
-- **Gates at `1fd7e9dc`:** lints 45/45 at head and base; gate (b) vs `40b9e571` meets the rule (0 new failures, errors, skips or skip reasons; failures + errors 62 -> 59). Gate (a) T0+T1 and #101 were run by b1b on
+- **Reopened for PR #29 (19:55Z):** `4f968954` merges main `7da00370`; `dca6a867` fixes the layer map.
+  - **One challenge module: `commit/challenge.py`** (PR #29's, on `verity.randomness`). b1's derivations move into it:
+    `root_seed`, `challenge_seed` (= `legacy_replay_seed`, the same sha256 formula), `kernel_check_seed`,
+    `reference_rows_seed`, `case_seed`, and the only generator constructors `stream` and `generator`. Values are unchanged:
+    `tests/check/test_challenge_seeds.py` pins and `tests/commit/challenge_legacy_vectors.json` both pass; the tests change
+    only in their import lines. `check/replay/challenge.py` is deleted; its 9 importers point at `commit.challenge`.
+    P03's `RNG_OWNERS` is `{commit/challenge.py}`. The layer map places `verity_vllm.commit.challenge` in `core`: it imports
+    nothing from `verity_vllm`, and `program/kernels/relations.py` (program layer) draws from it.
+  - **PR #29's `sampled_replay.py` hunks, ported into the split modules:** `sample.sample(..., key=)` draws through
+    `CH.stratum_picks` (legacy seed or key); `sample.challenge_seed` uses `CH.legacy_replay_seed`; `driver.sampled_replay`
+    takes `challenge_key` and passes it to `sample`. `tests/commit/test_challenge.py` imports `check.replay.sample as SR`
+    (the module that owns `sample` and `challenge_seed`) in place of the deleted `sampled_replay`.
+  - `_imports.py`: main's side plus the `commit.challenge` line (the merge had briefly re-added three layer entries main
+    removed; `dca6a867`).
+- **Gates at `dca6a867` vs main `7da00370`:** lints 47/47 at head and base; gate (b) meets the rule (0 new failures, errors, skips or skip reasons; failures + errors 56 -> 56); **#101 on L40S head = base = record** including the sampled-replay picks, strata and by_family digests. (At `1fd7e9dc` vs `40b9e571`, before the reopen: lints 45/45, gate (b) 62 -> 59.) Gate (a) T0+T1 and #101 were run by b1b on
   `8c0bec08` (the same lane code; nothing in the merges touches replay, kernels or the regression checks beyond import
   lines) and carry over.
 - **GPU rows:** #101 head = base = record; #70 (TP2) head = f1's base record on 32/32 fields; **#67 not reached on
@@ -96,6 +110,27 @@ Hunks in other lanes' files (import lines unless stated):
   (`SR.X` -> `IX.` / `POP.` / `SM.X` of the split modules; `sampled_replay as SR` -> `driver as SR`).
 
 ## Gate evidence
+
+**At the merge-request head `dca6a867` (base main `7da00370`):**
+- Lints + gate (b), `r20260925-202716-cf90` on `vyv-rf-b1c-cpu` (cpu3g 16 vCPU, new pod, `pod_bootstrap.sh --cpu` +
+  pytest-xdist 3.8.0; head and base on the same pod; `protocols/sampled_proofs` on PYTHONPATH, see Found, not fixed).
+  Lints 47/47 both. Base 4,072 tests: 3,723 passed, 45 failed, 11 errors, 287 skipped, 6 xfailed. Head 4,107: 3,758
+  passed, 45 failed, 11 errors, 287 skipped, 6 xfailed. `baseline-jdiff.py` rc 0: 0 new failures, 0 new skips, 0 new skip
+  reasons, 0 outcome changes; renamed 4 (as below), 39 head-only ids all pass. Challenge tests (`tests/commit/test_challenge*`,
+  `tests/check/test_challenge_seeds.py`): head 28 / base 25, all pass. Evidence `evidence/gate_b-dca6a867.tgz`,
+  `evidence/jdiff-base-head-dca6a867.txt`; R2 `art:2a9a75e7bd7542c7383d775c7968fca023d3d2dcb966acb296a1eed1065d6468`.
+- **#101** (`llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager`), `r20260925-203336-9e09` on
+  `vyv-rf-b1c-g2` (1x L40S, driver 580), `verity-vllm row run ... --stages build,match,commit`, PAIRS=1, head then base on
+  the same pod: both Commit PASS with program `ccc213475e7c…`, manifest `90f8186879d5…`, run root `7adcef4918452532…` (= the
+  record); every typed check the same; sampled replay 1,374 picked = evaluated = equal of 46,558 VUs, seed
+  8853214064722388274 (`run-root` form), picks `6ba7ab619d0086c4`, strata `78407131b1b0f2ea`, by_family `e91271a110561941`,
+  not_evaluable `44136fa355b3678a` at head and base (replay wall 95.1 s head / 85.1 s base). Build 87 / 90 s, Match 157 /
+  157 s. Evidence `evidence/r101_cmp-dca6a867.txt`; R2 run files `art:069259ff580e867cce6384f75818e50f68bf35e998c8bb3ba1df5a3fec04c271`.
+  (Earlier tries: `r20260925-195843-ae6d` on `vyv-rf-b1c-g1`, driver 550: torch saw no GPU, pod terminated;
+  `r20260925-201117-8d31` and `r20260925-202723-eb11`: the stoch value check / Commit could not import
+  `verity_sampled_proofs`; the second was stopped by me to install it.)
+
+**At `1fd7e9dc` (base a5c `40b9e571`), before the reopen:**
 
 **At the merge-request head `1fd7e9dc` (base `40b9e571`), run `r20260925-180315-713f` on `vyv-rf-b5pat-cpu`** (cpu3g 16
 vCPU; head shipped by `research run --source`, base by `research pods sync`; `/workspace/b1c/chain.sh`, head then base on the
@@ -221,6 +256,12 @@ tree was checked against git blob by blob before the final gate (b).
 
 ## Found, not fixed
 
+- **Pods since PR #29:** `pod_bootstrap.sh` does not install `verity_sampled_proofs` (`protocols/sampled_proofs`, a new
+  dependency of `commit/challenge.py`), so on a freshly bootstrapped pod main's #101 Commit fails in ~1 s
+  (`ModuleNotFoundError`, `commit.binding` imports the challenge module) and gate (b) needs it on PYTHONPATH. b1c
+  installed it editable into `/workspace/venv312` (`uv pip install --no-deps -e protocols/sampled_proofs`) and added it to
+  the gate's PYTHONPATH. The bootstrap is a5's/ops; not fixed here.
+
 - `pipeline/commit.py` (`from verity_vllm.pipeline.workload import workload_target`, on main since before `10996616`):
   the function lives in `pipeline/global_program.py`, so the ImportError is always swallowed and the admission bound's
   `lag` is always 1 (its comment calls that the sound side). Not fixed here: the epoch lane takes it over (coordinator 18:10Z).
@@ -259,4 +300,4 @@ tree was checked against git blob by blob before the final gate (b).
 ## Pods and cost
 
 b1c (from 16:20Z): `vyv-rf-b1-tp2` terminated 16:28Z (~$0.3); `vyv-rf-b1-g2` terminated 18:03Z (~$1.9); `vyv-rf-b5pat-cpu`
-(from b5patc, 16:40Z) terminated 19:43Z (~$2.0). b1c total ~$4.2 of its $10. b1 + b1b before: ~$32 of $45 (b1b's estimate).
+(from b5patc, 16:40Z) terminated 19:43Z (~$2.0). b1c total ~$4.2 of its $10 before the reopen. Reopen: `vyv-rf-b1c-cpu` (19:53-21:41Z, ~$1.2), `vyv-rf-b1c-g1` (~$0.2, driver 550), a duplicate community L40S terminated at once (~$0.05), `vyv-rf-b1c-g2` (20:09-20:52Z, ~$0.8): ~$2.2 of the $6 extension; b1c ~$6.4 in all. Every pod is terminated. b1 + b1b before: ~$32 of $45 (b1b's estimate).

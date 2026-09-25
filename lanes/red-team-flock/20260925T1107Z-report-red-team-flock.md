@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (21:40Z) [final] labels NON_ZK_PROOF on route (a) art:4b52879f + art:aa9223c2 (RA1 fail-fast verified at 504f75b6); 4090 art:949bcc35 meets PB2/PB4/FA1, PB3 pending, PB1 missing (commit unknown; source e5d54118 checked equivalent) -> label the re-registered id. No pod.
 CHECKPOINT 3301c435 (21:34Z) [open] reopened 21:35Z: check 4090 fp8-ada result art:949bcc35 against PB1-PB4/FA1 (no pod)
 CHECKPOINT 3301c435 (21:32Z) [final] decision 57 recorded on art:ca6029c1 + art:3bfb2f58; fp8-ada block layout (48045063) GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-195.54/proof; selftest fp8 16/16 + bf16 18/18 art:1f2fe1e9; FA1 separate-pod verifier, FA2 fp8 negatives). Pod terminated 21:31Z ~$0.10
 CHECKPOINT 3301c435 (21:21Z) [open] reopened 21:22Z: record decision 57 in findings; fp8-ada block layout review (PR #30 @ 48045063)
@@ -643,3 +644,20 @@ Conditions:
 No fp8 bench-result exists yet, so nothing is labelled.
 
 Pod: wi5bujxxm0stz9 (cpu3g), 21:23–21:31Z, about $0.10. Script: `evidence/pod-scripts/50-fp8-selftest.sh`.
+
+# Labels and the 4090 check (21:35–21:45Z)
+
+**Route (a):** `proof_class=NON_ZK_PROOF` and a `finding` written on art:4b52879f (4,096 VUs) and art:aa9223c2 (1,024
+VUs). Both re-derive the same runs. RA1 is fixed at 504f75b6: my local rebuild rejects the dropped-round record in
+0.6 s. RA2 is fixed: sequential depth 4,076.
+
+**RTX 4090 fp8-ada, art:949bcc35:** PB2, PB4 and FA1 are met, and PB3 is pending (verify-flock-pure). PB1 is missing in
+the record: it says `commit: "unknown"`. The runs' source e5d54118 has a verifier path equivalent to the reviewed
+48045063, so the gap is metadata only. I didn't label it; the re-registered id gets the label.
+
+Detail: `lanes/coordinator/20260925T2145Z-handoff-from-red-team-flock.md`.
+
+Handoffs received, all acted on above:
+- `20260925T2140Z-handoff-from-coordinator.md`
+- `20260925T2145Z-handoff-from-coordinator.md`
+- `20260925T2210Z-handoff-from-route-a-live.md`

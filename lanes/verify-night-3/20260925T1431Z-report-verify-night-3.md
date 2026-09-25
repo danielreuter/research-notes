@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 906255b2 (21:41Z) [open] route (a) art:4b52879f verified=accepted (vd art:317fe4b7; same 5 proofs as my G3 gate). Pod vy-verify-night-3 i86pg3pvzc9vjm (cpu3c 32 vCPU, $0.96/h) for H100 +blake3 x4 d88a9948/5ea60c40 + equiv a400cae2/6b27220a @main 78b8935b
 CHECKPOINT 906255b2 (21:38Z) [open] reopened (coordinator 2140Z): relabel route (a) art:4b52879f; verify H100 +blake3 x4 art:d88a9948 / art:5ea60c40 + equiv: NOT final
 CHECKPOINT 906255b2 (20:53Z) [final] route (a) G3: art:3bfb2f58 verified=accepted (gate battery + offline Flock replay re-run from the store, statements regenerated and equal; runs r20260925-203452-5265 / -204110-326f); art:d5731679 note only ([0,1024) commitment unpinned; accepts with --allow-unpinned-commitment, r20260925-204749-26c6). Pod 7qkora4f5oy6t9 terminated 20:52Z ~$0.15
 CHECKPOINT dec08973 (20:41Z) [open] G3 run 1 r20260925-203452-5265: 4096 honest s1-s5 pass every check but non_producer (prime + Flock replay accept), negatives reject; 1024 prime verify rc 2 (public.bin not in store). Run 2: regenerate statements myself + battery again

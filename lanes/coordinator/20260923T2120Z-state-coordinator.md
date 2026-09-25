@@ -28,6 +28,11 @@ status: open
      to the verified cells for fixed coins. Both branches on origin; red-team-lk PASS 02:00Z.
   7. arith kernels on main (b84f11ea): quad_v4 and lincomb2 request > 48 KiB shared memory without opt-in -> launch failure at D=6 Q>262144,
      D=7 Q>224768, lincomb2 D=7 >877 rows/chunk (red-team-arith; not reached by Table 2 shapes). Fix: cudaFuncSetAttribute opt-in or smaller tiles. (quad_v4/lincomb2 shared memory)
+  8. JOLT FEASIBILITY SCOUT ($2, cloud lane, AFTER switch-over AND the SHA-256/BLAKE3 design): targets (a) curve-based Jolt,
+     Dory over BN254, CUDA via ICICLE (`--features icicle`, a16z/jolt) = likely first target; (b) Lattice Jolt / Akita (native CUDA
+     kernels still draft, a16z/jolt PR #1618; Metal/CPU today); (c) LayerZero's CUDA Jolt prover "Zero" (check if open). Report per
+     target: CUDA build status on A100/H100/4090/5090, achieved security (BN254 ~100 bits), ZK status (Akita non-ZK), guest porting
+     (SP1 committed guest with SHA-256 Merkle openings), cost. Then a $10-15 lane only if a CUDA path is real.
   6. Test failures on clean main (known): test_no_tracked_blob_exceeds_limit, test_this_repository_resolves_every_workspace_package_
      inside_the_tree, test_evict_runs_only_preserved_terminal_quiet_runs..., test_d6_deferred_hash_records...
 - Disk: sweep every 30 min (timer); report < 5 GiB. R2 direct-hash check 20:40Z: evidence/20260924T2040Z-r2-hash-check.tsv.

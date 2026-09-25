@@ -9,7 +9,7 @@ declare -A TREE=([5d14dafa]=8c357d7220a5804cfa4d51b727317dc7ee37688a [515ed32a]=
 for c in 5d14dafa 515ed32a; do
   t=/workspace/src-$c; rm -rf $t; cp -a /workspace/src $t
   ( cd $t && patch -R -p1 -s < $S/rev-to-$c.patch ) || { echo "patch $c failed" | tee -a $LOG; exit 1; }
-  got=$(cd $t && GIT_DIR=$(mktemp -d) GIT_WORK_TREE=$t bash -c 'git init -q && git add -A . && git rm -q --cached .research-source.json && git write-tree')
+  got=$(cd $t && GIT_DIR=$(mktemp -d) GIT_WORK_TREE=$t bash -c 'git init -q && git add -A . && git add -f tools/research/tests/fixtures/run_v0.2/out/proof.bin tools/research/tests/fixtures/run_v0.2/out/verify.jsonl && git rm -q --cached .research-source.json .research-sync-files && git write-tree')
   echo "tree $c: got $got want ${TREE[$c]}" | tee -a $LOG
   [ "$got" = "${TREE[$c]}" ] || exit 1
   $PY -c "import json,sys;p=sys.argv[1]+'/.research-source.json';d=json.load(open(p));d.update(commit=sys.argv[2],tree=sys.argv[3],dirty=False);json.dump(d,open(p,'w'),indent=1)" $t ${FULL[$c]} ${TREE[$c]}

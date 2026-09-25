@@ -1,0 +1,24 @@
+09:54:41Z SWEEP r5090-fp4nvf4 tree=/workspace/src rel=fp4-nvf4 l=8192 p=8 nmin=1024 nmax=131072
+09:55:21Z r5090-fp4nvf4-n1024 rel=fp4-nvf4 l=8192 p=8 n=1024 rc=0 rust=0 wall=39s n=1024 P=24330.1206 e2e=0.0421 t.total=0.0356 commit=0.0065 cold=7.9412 contended=False reps=5 ev=90b66b7460f32ee3 stmts=4:4b778af6d52810246e9b4a rust=4 val=passed 
+09:55:33Z r5090-fp4nvf4-n2048 rel=fp4-nvf4 l=8192 p=8 n=2048 rc=0 rust=0 wall=12s n=2048 P=27793.2665 e2e=0.0737 t.total=0.0640 commit=0.0097 cold=0.0678 contended=False reps=5 ev=6ff2b9f4ba1c4ec1 stmts=7:6a5cbf5888c10b0851d92a rust=7 val=passed 
+09:55:51Z r5090-fp4nvf4-n4096 rel=fp4-nvf4 l=8192 p=8 n=4096 rc=0 rust=0 wall=17s n=4096 P=31433.4699 e2e=0.1303 t.total=0.1134 commit=0.0170 cold=0.0702 contended=False reps=5 ev=1829c793c28d3c76 stmts=13:15cd70b9c9b26f0877735 rust=13 val=passed 
+09:56:16Z r5090-fp4nvf4-n8192 rel=fp4-nvf4 l=8192 p=8 n=8192 rc=0 rust=0 wall=24s n=8192 P=33752.9609 e2e=0.2427 t.total=0.2126 commit=0.0301 cold=0.0720 contended=False reps=5 ev=7a74fc8c6c811c09 stmts=25:7883d12b7b36526ca87e3 rust=25 val=passed 
+09:56:56Z r5090-fp4nvf4-n16384 rel=fp4-nvf4 l=8192 p=8 n=16384 rc=0 rust=0 wall=38s n=16384 P=35236.8225 e2e=0.4650 t.total=0.4080 commit=0.0570 cold=0.0946 contended=False reps=5 ev=5c4da5f010637ac9 stmts=49:9eede713e0579e73079b5 rust=49 val=passed 
+09:58:07Z r5090-fp4nvf4-n32768 rel=fp4-nvf4 l=8192 p=8 n=32768 rc=0 rust=0 wall=68s n=32768 P=35479.3279 e2e=0.9236 t.total=0.7940 commit=0.1296 cold=0.1514 contended=False reps=5 ev=bd3e229022915807 stmts=97:9da823def9edf59a6844a rust=97 val=passed 
+10:00:17Z r5090-fp4nvf4-n65536 rel=fp4-nvf4 l=8192 p=8 n=65536 rc=0 rust=0 wall=123s n=65536 P=36462.2334 e2e=1.7974 t.total=1.5745 commit=0.2228 cold=0.2781 contended=False reps=5 ev=0a3588361bd31017 stmts=193:dd109f6c34ef21e01712 rust=193 val=passed 
+10:04:35Z r5090-fp4nvf4-n131072 rel=fp4-nvf4 l=8192 p=8 n=131072 rc=0 rust=0 wall=246s n=131072 P=36636.0347 e2e=3.5777 t.total=3.1333 commit=0.4443 cold=0.5247 contended=False reps=5 ev=b346064d32f0eb45 stmts=385:45d31ba277a817cab24d rust=385 val=passed 
+SWEEP_DONE /workspace/poseidon-v1/sweeps/r5090-fp4nvf4.jsonl points [(1024, 24330.1), (2048, 27793.3), (4096, 31433.5), (8192, 33753.0), (16384, 35236.8), (32768, 35479.3), (65536, 36462.2), (131072, 36636.0)] plateau 131072 36636.0
+10:04:52Z r5090-fp4nvf4-maincommitter-n4096 rel=fp4-nvf4 l=8192 p=8 n=4096 rc=0 rust=0 wall=17s n=4096 P=3334.2504 e2e=1.2285 t.total=0.1149 commit=1.1135 cold=1.2199 contended=False reps=2 ev=1829c793c28d3c76 stmts=13:15cd70b9c9b26f0877735 rust=13 val=passed 
+BYTEID IDENTICAL tip ev=1829c793c28d3c763a91a426fc8cf5dc18165509f0a0d08a2d16554d7013e094 stmts=13:15cd70b9c9b26f08777355ce4227827a49e8cfe0a1c24149456efd4b8460f857 commit=0.0170s | main-committer ev=1829c793c28d3c763a91a426fc8cf5dc18165509f0a0d08a2d16554d7013e094 stmts=13:15cd70b9c9b26f08777355ce4227827a49e8cfe0a1c24149456efd4b8460f857 commit=1.1135s
+ROW_DONE r5090-fp4nvf4
+10:04:56Z r5090-fp4nvf4-n1024 plateau=no tree=art:f8225faf65a0eab3fd30e683f3a3722726babcfce51bf740e1823dcffb36ff34 result=art:e2f12135a71a067ff7c54358d87d0963127da59c8ce0e82a8a281d9a5014ff48
+10:05:00Z r5090-fp4nvf4-n2048 plateau=no tree=art:fdba3884e26d5fd4bd31cc3e9e34c56a8272b5968c1d4f93d12a861234957a94 result=art:b201409963417d90dcf8453ac50f10f4dcf25d3ccb807d127e191d12e6ab8fa5
+10:05:08Z r5090-fp4nvf4-n4096 plateau=no tree=art:9343401066d5ebd021a7cd44b745d3fdae643c8651d82969ba0f6f1e9606f812 result=art:88b69c85286ce418f04459822ca0287a28d7e162a50eaaf716e03f41c3206e96
+10:05:13Z r5090-fp4nvf4-n8192 plateau=no tree=art:b354d01e26cd24d90cfc879ca6b38c3da04c656ab9385e89663c4dbfe84dd033 result=art:f1e071114c2002041ac8ea10f0bce4b4474391bf68802ed2da61c0ab553153e5
+10:05:19Z r5090-fp4nvf4-n16384 plateau=no tree=art:10e1892102b9b6ee7f3721814978739489347246a62bf1f81392bb5f2a74fcdf result=art:811ca75234484bee88a8fb6fb853d8331f7e8d7c887d25b9423c39c970aa4569
+10:05:32Z r5090-fp4nvf4-n32768 plateau=no tree=art:b41f4b229071e5b3d94c340879869784a06bc2c7f0811e06677a678ab3bb1c90 result=art:c22fe649877bc0bfb1aac4c5f91d2376a1e0663907672d057ef5589ddcfc2c55
+10:05:44Z r5090-fp4nvf4-n65536 plateau=no tree=art:a8a3b58ce7baa3f51ddc208a59dab929e22c036b788b6bedf4ee2913f82dee65 result=art:14ff3883f5043808b0565a0477753113eb5d1297566364616977b3fa56e9df91
+10:06:20Z r5090-fp4nvf4-n131072 plateau=yes tree=art:ea6e037891e7719d234afc11d768ab40d9cf95e6363f9764f31ab561dfe3812c result=art:e0da2caba9967ac9ec9c835564c626dcadba20c5bc8dcdb70dd08d570c798be7
+10:06:23Z r5090-fp4nvf4-maincommitter-n4096 byteid-evidence tree=art:4a60a940638c435264a1ef1baab6fbc58faf6c1f3c247a46e062e690a89b80b3
+REGISTER_DONE r5090-fp4nvf4
+R5090_DONE

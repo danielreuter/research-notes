@@ -16,13 +16,18 @@ created: 2026-09-25T09:10Z
 - Budget: $15 of pod spend, CPU pods only.
 
 ## Done
-- (none yet)
+- 10:00Z `55b9d1ff` (pushed): the split. `global_match.py` 416 lines, `_check` 119; new `match_run.py`, `record.py`,
+  `sampler_geometry.py`, `declaration.py`, `attribution.py`, `per_request.py`, `chronology.py`, `engine_steps.py`.
+  P10 entries `_check`, `_check.leg`, `<module>` deleted; P03/P04/P07/P09/P11/by_name entries moved (counts equal).
+  Tests: `test_global_match.py`, `test_compare_splits_binding.py`, `test_global_program_regress.py` import the moved names
+  from their new modules. Laptop: pyflakes clean, every lint test function passes (stdlib runner), by_name 0/0.
 
 ## Running
-- (nothing)
+- 10:10Z creating pods `vyv-rf-b5gm-cpu` (cpu3g 16 vCPU) and `vyv-rf-b5gm-big` (cpu3m 64 vCPU / 512 GB).
 
 ## Next
-- Implement the split (plan below), AST size check on the laptop, commit + push; then pods.
+- cpu: bootstrap, GM-01 inputs (own ro key, deleted after fetch), lints, GM-01 ABAB base/head, gate (b) head + base.
+- big: bootstrap, prefetch (own ro key, deleted), gate (a) T0+T1 at head; jdiff vs a23b's same-pod base XML.
 
 ## GM-01 inputs (row #23), as f24 (`/workspace/gm23/{build,matchrec}`, `evidence/gm_run.sh`)
 - Match record `art:33632a009b86fb07e24c8cf39ff7aabb31836ebbb4f58cda56943c3a5588d7d4` (fixture, 2.94 GB, source

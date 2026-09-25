@@ -62,7 +62,7 @@ res = {"relation": REL, "leaf": LEAF, "vus": N, "K": K, "k": k, "units": int(nu)
        "link_bits": int(nu * 2 * k * BITS), "message_bits": int(2 * N * K * BITS)}
 orders = {}
 if nu == N * U:
-    for name, idx in (("vu_major", lambda v, s: v * U + s), ("slice_major", lambda v, s: s * N + v)):
+    for name in ("vu_major", "slice_major"):
         v, s = np.divmod(np.arange(nu), U) if name == "vu_major" else np.divmod(np.arange(nu), N)[::-1]
         cols = s[:, None] * k + np.arange(k)[None, :]
         orders[name] = {"x": bool((ux == X[v[:, None], cols]).all()), "w": bool((uw == Wm[v[:, None], cols]).all())}
@@ -78,15 +78,14 @@ lay = {}
 for role, rn in ((ROLE_X, "x"), (ROLE_W, "w")):
     rl = RowLeaf(LEAF, role, BITS, K)
     L = rl.layout()
-    pre = getattr(L, "prefix", b"") or b""
-    lay[rn] = {"schema": rl.schema, "prefix_bytes": len(pre), "row_bytes": K * BITS // 8,
-               "layout": repr(L)[:300]}
+    lay[rn] = {"schema": rl.schema, "hash": L.hash, "prefix_bytes": len(L.prefix), "prefix_hex": L.prefix.hex(),
+               "value_bytes": K * BITS // 8, "layout": repr(L)[:400]}
 res["leaf_layout"] = lay
 if LEAF == "sha256":
-    rb = K * BITS // 8
-    res["sha256_message"] = {"prefix_blocks": 1, "data_blocks": rb // 64, "data_tail_bytes": rb % 64,
-                             "padding_blocks": 1 + (1 if rb % 64 > 55 else 0) if rb % 64 == 0 else None,
-                             "row_word_byte_order": "little-endian words; SHA-256 reads big-endian 32-bit schedule words",
-                             "row_bit_offset": 512}
+    rb, pb = K * BITS // 8, lay["x"]["prefix_bytes"]
+    tail = (pb + rb) % 64
+    res["sha256_message"] = {"prefix_bytes": pb, "value_offset_bits": 8 * pb, "value_block_aligned": pb % 64 == 0,
+                             "compressions": (pb + rb + 9 + 63) // 64, "tail_bytes_in_last_value_block": tail,
+                             "word_byte_order": "row words little-endian; SHA-256 schedule words big-endian 32-bit"}
 print(json.dumps(res, indent=1, default=str), flush=True)
 (OUT / "layout.json").write_text(json.dumps(res, indent=1, default=str))

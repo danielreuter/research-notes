@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT none (10:09Z) [open] 5090 sweep r5090-fp4nvf4 hit its 131072 cap with the stop rule unfired (P 36636 >= 1.02 P(32768)); continuing to 262144+ (r20260925-100932-d810), then re-register (10:06Z ids superseded). Acked 0946Z disk rule: my laptop run dirs < 1 MB, no proofs pulled.
 CHECKPOINT none (09:53Z) [open] 5090 pod i1k6ayj2vk65nu up (Ryzen 9950X; SECURE had no stock; 2 stray pods from a retry-loop bug terminated in ~3 min). Bootstrap 1 failed only at the instance-cache stage (fp4 is --relation fp4-nvf4 + included-hash); rerun r20260925-095252-cff3. H100 28/28 preserved.
 CHECKPOINT none (09:31Z) [open] H100 DONE (pod terminated 09:19Z): bf16-hopper plateau n=32768 P=10191 (3.16e7x) commit 0.163s art:72e2b0ba; fp8-hopper n=65536 P=18679 (3.45e7x) commit 0.326s art:23528a63; BYTEID ok; handoff vn2 0925Z. 5090: no SECURE stock, retrying COMMUNITY+SECURE.
 CHECKPOINT none (09:03Z) [open] 0847Z handoff acted on (main 94b1c4d2 merged, 82adc8a7). H100 bf16-hopper sweep done: plateau n=32768 P=10191/s e2e 3.215s commit 0.163s, N/P 3.16e7, BYTEID IDENTICAL; fp8-hopper sweeping (n4096 P=15498). Registration after both rows.

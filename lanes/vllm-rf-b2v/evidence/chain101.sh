@@ -17,6 +17,8 @@ if [[ ,$PHASE, == *,rowmatch,* ]]; then
 fi
 
 if [[ ,$PHASE, == *,props,* ]]; then
+  export PYTHONPATH=.:$(cd ../../packages/verity/src && pwd):$(cd ../../tools/research/src && pwd) HF_HOME=${HF_HOME:-/workspace/hf} HF_HUB_OFFLINE=1 \
+         VLLM_BATCH_INVARIANT=1 TOKENIZERS_PARALLELISM=false CUDA_HOME=${CUDA_HOME:-/usr/local/cuda} PATH=$(dirname "$PY"):/usr/local/cuda/bin:$PATH
   CK=$(sed -n 's/.* ckpt=\(.*\) stages=.*/\1/p' "$D/row.log" | tail -1)
   P=$D/props_run
   CMD=($PY -m verity_vllm.pipeline.match --case LLAMA32_1B --workload "workloads/$ROW.json" --out "$P" --checkpoint-dir "$CK" --phase all
@@ -25,7 +27,6 @@ if [[ ,$PHASE, == *,props,* ]]; then
   stamp "props dry run (ckpt=$CK)"
   "${CMD[@]}" --dry-run
   stamp "props run"
-  export PYTHONPATH=.:$(cd ../../packages/verity/src && pwd):$(cd ../../tools/research/src && pwd) HF_HOME=${HF_HOME:-/workspace/hf} HF_HUB_OFFLINE=1 VLLM_BATCH_INVARIANT=1
   "${CMD[@]}" > "$D/props_run.log" 2>&1; stamp "props rc=$?"
   tail -30 "$D/props_run.log"
   $PY - "$D" "$ROW" <<'EOF'

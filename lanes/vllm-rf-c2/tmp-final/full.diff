@@ -1,0 +1,822 @@
+diff --git a/integrations/vllm/tests/lint/allowlists/p08_facts.json b/integrations/vllm/tests/lint/allowlists/p08_facts.json
+index 30f8287b..173d629f 100644
+--- a/integrations/vllm/tests/lint/allowlists/p08_facts.json
++++ b/integrations/vllm/tests/lint/allowlists/p08_facts.json
+@@ -251,8 +251,6 @@
+     {"file": "verity_vllm/program/registry/dense.py", "kind": "sm-arch", "symbol": "AttentionSoftcap", "detail": "sm_89"},
+     {"file": "verity_vllm/program/registry/dense.py", "kind": "sm-arch", "symbol": "AttnBlockSoftcap", "detail": "sm_89"},
+     {"file": "verity_vllm/program/registry/fp8.py", "kind": "gpu", "symbol": "<module>", "detail": "h100", "count": 2},
+-    {"file": "verity_vllm/program/registry/fp8.py", "kind": "gpu", "symbol": "F32ToE4m3Sat", "detail": "h100"},
+-    {"file": "verity_vllm/program/registry/fp8.py", "kind": "gpu", "symbol": "HopperE4m3QgmmaDot32", "detail": "h100"},
+     {"file": "verity_vllm/program/registry/fp8.py", "kind": "model", "symbol": "<module>", "detail": "qwen"},
+     {"file": "verity_vllm/program/registry/gemm_targets.py", "kind": "gpu", "symbol": "<module>", "detail": "a100"},
+     {"file": "verity_vllm/program/registry/gemm_targets.py", "kind": "gpu", "symbol": "<module>", "detail": "h100"},
+diff --git a/integrations/vllm/tests/lint/allowlists/p11_names.json b/integrations/vllm/tests/lint/allowlists/p11_names.json
+index 34a9b2e8..87d3a276 100644
+--- a/integrations/vllm/tests/lint/allowlists/p11_names.json
++++ b/integrations/vllm/tests/lint/allowlists/p11_names.json
+@@ -526,7 +526,6 @@
+     {"file": "verity_vllm/program/registry/dense.py", "kind": "doc-round", "symbol": "<module>", "detail": "R1N"},
+     {"file": "verity_vllm/program/registry/derived_rows.py", "kind": "def-name", "symbol": "<module>", "detail": "rmsnorm_fused_v2_rows"},
+     {"file": "verity_vllm/program/registry/derived_rows.py", "kind": "doc-round", "symbol": "attention_rows", "detail": "R1N", "count": 2},
+-    {"file": "verity_vllm/program/registry/fp8.py", "kind": "doc-date", "symbol": "f32_to_e4m3_sat_bits", "detail": "date"},
+     {"file": "verity_vllm/program/registry/gemm_targets.py", "kind": "doc-round", "symbol": "<module>", "detail": "R1N", "count": 5},
+     {"file": "verity_vllm/program/registry/hopper.py", "kind": "doc-round", "symbol": "_hopper_total", "detail": "R1N"},
+     {"file": "verity_vllm/program/registry/lifted.py", "kind": "def-name", "symbol": "<module>", "detail": "_splits_for_v1"},
+diff --git a/integrations/vllm/tests/program/test_fp8.py b/integrations/vllm/tests/program/test_fp8.py
+index ce88e686..3d915911 100644
+--- a/integrations/vllm/tests/program/test_fp8.py
++++ b/integrations/vllm/tests/program/test_fp8.py
+@@ -79,14 +79,14 @@ def _evaluate_returns(program: Program, arrays: list[np.ndarray]) -> list[int]:
+     (7 * 2.0 ** -9, 0x07), (7.5 * 2.0 ** -9, 0x08), (6.5 * 2.0 ** -9, 0x06), (0.0, 0x00), (-0.0, 0x80),
+ ])
+ def test_f32_to_e4m3_sat_words(value: float, word: int) -> None:
+-    assert F.f32_to_e4m3_sat_bits(int(P.bits_of(np.float32(value)))) == word
++    assert F.F32ToE4m3Sat.evaluate(int(P.bits_of(np.float32(value)))) == word
+ 
+ 
+ def test_f32_to_e4m3_sat_nan_is_canonical_positive() -> None:
+     # measured on the H100 over all 2^32 words: every NaN input (either sign) -> 0x7F
+-    assert F.f32_to_e4m3_sat_bits(0x7FC00000) == 0x7F
+-    assert F.f32_to_e4m3_sat_bits(0xFFC00000) == 0x7F
+-    assert F.f32_to_e4m3_sat_bits(0x7F800001) == 0x7F
++    assert F.F32ToE4m3Sat.evaluate(0x7FC00000) == 0x7F
++    assert F.F32ToE4m3Sat.evaluate(0xFFC00000) == 0x7F
++    assert F.F32ToE4m3Sat.evaluate(0x7F800001) == 0x7F
+ 
+ 
+ def test_numpy_twin_matches_scalar_model() -> None:
+@@ -94,7 +94,7 @@ def test_numpy_twin_matches_scalar_model() -> None:
+     u = rng.integers(0, 1 << 32, 20000, dtype=np.uint64).astype(np.uint32)
+     u = np.concatenate([u, (np.arange(0, 1 << 16, 7, dtype=np.uint32) << 16)])  # a spread of bf16-representable words
+     got = F.np_f32_to_e4m3_sat(u.view(np.float32))
+-    want = np.array([F.f32_to_e4m3_sat_bits(int(w)) for w in u], dtype=np.uint8)
++    want = np.array([F.F32ToE4m3Sat.evaluate(int(w)) for w in u], dtype=np.uint8)
+     assert np.array_equal(got, want)
+ 
+ 
+diff --git a/integrations/vllm/tests/program/test_registry_one_process.py b/integrations/vllm/tests/program/test_registry_one_process.py
+index d1949ee1..98794e61 100644
+--- a/integrations/vllm/tests/program/test_registry_one_process.py
++++ b/integrations/vllm/tests/program/test_registry_one_process.py
+@@ -12,19 +12,25 @@ import pytest
+ 
+ import verity_vllm.program.registry as registry
+ 
+-CORE = ("verity.ml.prims", "verity.ml.gemm", "verity.ml.kernels")
++CORE = ("verity.ml.prims", "verity.ml.scalar", "verity.ml.gemm", "verity.ml.kernels")
+ 
+ CHECK = """
+ import importlib, sys
+ for m in sys.argv[1:]:
+     importlib.import_module(m)
+ from verity.ir.defs import REGISTRY
+-from verity.ml import gemm as G, prims as C
+-from verity_vllm.program.registry import b1, hopper as H, prims as P, targets as T
+-core = [C.Bf16ToF32, C.F32ToBf16Rn, C.F2fpBf16, C.HopperBF16WgmmaDot16, C.AmpereBF16TcDot16, C.ZERO32, G.DotBf16,
+-        G.GemmCoordinate, G.Gemm]
++from verity.ml import gemm as G, prims as C, scalar as S
++from verity_vllm.program.registry import b1, fp8, hopper as H, moe, pad_prims as PP, prims as P, sampling as SM, targets as T
++core = [C.Bf16ToF32, C.F32ToBf16Rn, C.F2fpBf16, C.HopperBF16WgmmaDot16, C.AmpereBF16TcDot16, C.F32ToE4m3Sat,
++        C.HopperE4m3QgmmaDot32, C.ZERO32, G.DotBf16, G.GemmCoordinate, G.Gemm]
++core += [getattr(S, n) for n in S.__all__ if n not in ("BIT", "BF16", "F32", "I32")]
+ assert all(REGISTRY[d.id] is d for d in core), [d.id for d in core if REGISTRY[d.id] is not d]
+ assert (P.Bf16ToF32, P.F32ToBf16Rn, P.F2fpBf16) == (C.Bf16ToF32, C.F32ToBf16Rn, C.F2fpBf16)
++assert (P.I32Le, P.I32Add, P.I32Eq, P.SelectF32, P.SelectBf16, P.SelectI32, P.Bf16GtStrict) == (
++    S.I32Le, S.I32Add, S.I32Eq, S.SelectF32, S.SelectBf16, S.SelectI32, S.Bf16GtStrict)
++assert fp8.FP8_PRIMITIVES == [S.F32Fabs, S.F32Fmaxf, S.F32Fminf, C.F32ToE4m3Sat, C.HopperE4m3QgmmaDot32]
++assert (moe.F32Sat, moe.F32Neg, moe.F32BitsShl23, moe.F32IsFinite) == (S.F32Sat, S.F32Neg, S.F32BitsShl23, S.F32IsFinite)
++assert PP.ALL_NEW == [S.BitAnd, S.BitNot] and (SM.F32Eq, SM.BitOr, SM.BitNot) == (S.F32Eq, S.BitOr, S.BitNot)
+ assert H.HopperBF16WgmmaDot16 is C.HopperBF16WgmmaDot16 is T.DOTS["HopperBF16WgmmaDot16"]
+ assert (b1.DotBf16V2, b1.GemmCoordinateV2, b1.GemmV2) == (G.DotBf16, G.GemmCoordinate, G.Gemm)
+ assert b1.const is C.const and b1.ZERO32 is C.ZERO32 and b1.const(16, 0) is C.const(16, 0)
+diff --git a/integrations/vllm/verity_vllm/program/registry/fp8.py b/integrations/vllm/verity_vllm/program/registry/fp8.py
+index 7ecdc8a7..5b1b0b23 100644
+--- a/integrations/vllm/verity_vllm/program/registry/fp8.py
++++ b/integrations/vllm/verity_vllm/program/registry/fp8.py
+@@ -30,7 +30,7 @@ words and cross-checked against a CPU re-quantisation of the checkpoint; fp8.md
+ and the e4m3 activations are **computed** by `Fp8ActQuant` from the norm output — never Inputs.
+ 
+ Registered functions (all `Name_v1`):
+-  primitives  F32Fabs, F32Fmaxf, F32Fminf, F32ToE4m3Sat, HopperE4m3QgmmaDot32
++  primitives  core's: F32Fabs, F32Fmaxf, F32Fminf (`verity.ml.scalar`), F32ToE4m3Sat, HopperE4m3QgmmaDot32 (`verity.ml.prims`)
+   composites  Fp8RowAbsMax{K}, Fp8RowScale, Fp8ActQuant{K}, DotE4m3{K}, ScaledMmFp8Coordinate{K,BIAS},
+               ScaledMmFp8{K,N,BIAS} (the cutlass GEMM over the quantised row), QuantLinearFp8{K,N,BIAS} (= Fp8ActQuant
+               + ScaledMmFp8, the linear as one function), LayerPreFp8{C,L0}, LayerPostFp8{C}, ServeFp8{C,LP,STEPS}
+@@ -41,17 +41,18 @@ AttentionFA3, SiluMul, Embedding, GemmHopper for lm_head, TokenSelect) are reuse
+ from __future__ import annotations
+ 
+ import types
+-from fractions import Fraction
+ 
+ import numpy as np
+ 
+-from verity.ir.defs import CompositeDefinition, PrimitiveDefinition, bind, composite, primitive
++from verity.ir.defs import CompositeDefinition, bind, composite
+ from verity.ir.refs import Coll as _Coll, concat, tuple_of
+ from verity.ir.types import Array, Record, Tuple, Value
++from verity.ml.prims import F32ToE4m3Sat, HopperE4m3QgmmaDot32
++from verity.ml.scalar import F32Fabs, F32Fmaxf, F32Fminf
+ from verity_vllm.program.registry import b1
+ from verity_vllm.program.registry import hopper as H
+ from verity_vllm.program.registry import prims as P
+-from verity_vllm.program.registry.prims import BF16, F32, I32, bits_of, f32_of, f32_is_nan
++from verity_vllm.program.registry.prims import BF16, F32, I32, bits_of, f32_of
+ 
+ # ---------------------------------------------------------------------------------------------------------
+ # types and constants
+@@ -62,7 +63,6 @@ A32_8 = Array(32, E4M3)  # one k32 wgmma operand slice
+ 
+ E4M3_MAX = 448.0
+ E4M3_NAN = 0x7F
+-FP32_CANONICAL_NAN = 0x7FFFFFFF
+ 
+ C448 = b1.f32c(448.0)        # quant_type_max_v<fp8_e4m3fn> as float
+ C_NEG448 = b1.f32c(-448.0)
+@@ -74,126 +74,6 @@ QUANT_THREADS = 256       # dynamic_per_token_scaled_fp8_quant: block(min(hidden
+ QUANT_VEC = 8             # vectorize_read_with_alignment<16> on bf16: 8 elements per vector
+ WARP = 32
+ 
+-
+-# ---------------------------------------------------------------------------------------------------------
+-# scalar primitives
+-# ---------------------------------------------------------------------------------------------------------
+-
+-
+-@primitive("F32Fabs", 1, [("x", F32)], F32, conformance="exact-model-tested")
+-def F32Fabs(x: int) -> int:
+-    """`fabsf`: clear the sign bit (NaN payloads kept)."""
+-    return x & 0x7FFFFFFF
+-
+-
+-def _fmaxmin(a: int, b: int, want_max: bool) -> int:
+-    """CUDA `fmaxf`/`fminf` (IEEE maxNum/minNum, PTX `max.f32`/`min.f32`): a NaN operand yields the other operand,
+-    two NaNs the canonical NaN; `+0` is treated as greater than `-0`."""
+-    na, nb = f32_is_nan(a), f32_is_nan(b)
+-    if na and nb:
+-        return FP32_CANONICAL_NAN
+-    if na:
+-        return b
+-    if nb:
+-        return a
+-    fa, fb = f32_of(a), f32_of(b)
+-    if fa == fb:  # equal values: only ±0 can differ in encoding
+-        if (a & 0x7FFFFFFF) == 0 and (b & 0x7FFFFFFF) == 0:
+-            pos = 0 if (a == 0 or b == 0) else 0x80000000
+-            neg = 0x80000000 if (a == 0x80000000 or b == 0x80000000) else 0
+-            return pos if want_max else neg
+-        return a
+-    if want_max:
+-        return a if fa > fb else b
+-    return a if fa < fb else b
+-
+-
+-@primitive("F32Fmaxf", 1, [("a", F32), ("b", F32)], F32, conformance="exact-model-tested")
+-def F32Fmaxf(a: int, b: int) -> int:
+-    """`fmaxf(a, b)` (PTX `max.f32`): the larger operand; NaN yields the other operand; `max(+0, -0) = +0`."""
+-    return _fmaxmin(a, b, True)
+-
+-
+-@primitive("F32Fminf", 1, [("a", F32), ("b", F32)], F32, conformance="exact-model-tested")
+-def F32Fminf(a: int, b: int) -> int:
+-    """`fminf(a, b)` (PTX `min.f32`): the smaller operand; NaN yields the other operand; `min(+0, -0) = -0`."""
+-    return _fmaxmin(a, b, False)
+-
+-
+-def f32_to_e4m3_sat_bits(u: int) -> int:
+-    """`cvt.rn.satfinite.e4m3x2.f32` (one lane; `__nv_cvt_float_to_fp8(x, __NV_SATFINITE, __NV_E4M3)`), the model
+-    pinned by the exhaustive sweep of every f32 word on the H100 (fp8.md §2, docs/data/tc-fp8-2026-09-08/cvt_e4m3):
+-    NaN -> 0x7F (positive canonical NaN, the sign dropped); ±inf and every |x| that would round beyond 448 ->
+-    ±0x7E (448, the sign kept); otherwise round-to-nearest-even onto the E4M3 grid (normal binades 2^-6..2^8 with
+-    three fraction bits, subnormals in multiples of 2^-9); |x| < 2^-10 and the 2^-10 tie round to a signed zero."""
+-    u &= 0xFFFFFFFF
+-    sign = 0x80 if u >> 31 else 0
+-    exp = (u >> 23) & 0xFF
+-    mant = u & 0x7FFFFF
+-    if exp == 0xFF:
+-        return E4M3_NAN if mant else (sign | 0x7E)
+-    if exp == 0 and mant == 0:
+-        return sign
+-    # exact magnitude as a Fraction
+-    if exp == 0:
+-        mag = Fraction(mant, 1 << 149)
+-    else:
+-        mag = Fraction((1 << 23) | mant, 1) / Fraction(1 << (150 - exp)) if exp < 150 else Fraction(((1 << 23) | mant) << (exp - 150))
+-    if mag >= Fraction(464):  # >= the 448|480 tie: 480 is not encodable -> saturate
+-        return sign | 0x7E
+-    # grid step: 2^(e-3) for 2^e <= mag < 2^(e+1), e >= -6; 2^-9 below 2^-6
+-    e = mag.numerator.bit_length() - mag.denominator.bit_length()
+-    if Fraction(2) ** e > mag:
+-        e -= 1
+-    step_exp = e - 3 if e >= -6 else -9
+-    q = mag / (Fraction(2) ** step_exp)
+-    n = q.numerator // q.denominator
+-    r = q - n
+-    if r > Fraction(1, 2) or (r == Fraction(1, 2) and n & 1):
+-        n += 1
+-    val = n * (Fraction(2) ** step_exp)
+-    if val == 0:
+-        return sign
+-    if val >= Fraction(464):
+-        return sign | 0x7E
+-    if val < Fraction(2) ** -6:  # subnormal: mantissa n in units of 2^-9 (n <= 7)
+-        return sign | int(val / (Fraction(2) ** -9))
+-    e2 = val.numerator.bit_length() - val.denominator.bit_length()
+-    if Fraction(2) ** e2 > val:
+-        e2 -= 1
+-    m3 = int((val / (Fraction(2) ** e2) - 1) * 8)
+-    return sign | ((e2 + 7) << 3) | m3
+-
+-
+-@primitive("F32ToE4m3Sat", 1, [("x", F32)], E4M3,
+-           conformance="exact-model-tested; every f32 word (2^32) through cvt.rn.satfinite.e4m3x2.f32 on the H100 (2026-09-08, gpu/tc-fp8/vllm_fp8_kernels_probe.py --cvt): 0 mismatches; NaN of either sign -> 0x7F")
+-def F32ToE4m3Sat(x: int) -> int:
+-    """`cvt.rn.satfinite.e4m3x2.f32` (SASS `F2FP.E4M3.F32.PACK_AB` with SATFINITE), one lane: see `f32_to_e4m3_sat_bits`."""
+-    return f32_to_e4m3_sat_bits(x)
+-
+-
+-def _fp8_total():
+-    # verity.ml.tc.total_fp8: veritor's core/silicon_total_fp8.py promoted verbatim (the same lineage as the BF16 total step)
+-    from verity.ml.tc.total_fp8 import HOPPER_E4M3_WGMMA_K32, tc_dot_total_e4m3
+-
+-    return HOPPER_E4M3_WGMMA_K32, tc_dot_total_e4m3
+-
+-
+-@primitive("HopperE4m3QgmmaDot32", 1, [("acc", F32), ("a", A32_8), ("b", A32_8)], F32,
+-           conformance="exact-model-tested; H100 80GB 2026-09-08 gpu/tc-fp8 campaign: 16 families, 35,289 tiles x3, "
+-                       "144,543,744 words, 0 mismatches (docs/data/tc-fp8-2026-09-08/)")
+-def HopperE4m3QgmmaDot32(acc: int, *ab: int) -> int:
+-    """One accumulator-coordinate transition of `wgmma.mma_async.sync.aligned.m64n64k32.f32.e4m3.e4m3` (SASS
+-    `QGMMA.64x64x32.F32.E4M3.E4M3`; 32 exact E4M3 products into `acc`): `veritor.tensor-core.hopper_e4m3_wgmma_k32@1`
+-    — one group of 32 + acc through a 14-bit truncating adder, exponent floor -139 (pinned: groups and width unique
+-    in the fit grid; the floor is only bounded to [-152, -126], every value in that range computes the same word on
+-    E4M3 operands), L6's total rules on every encoding (NaN -> 0x7FFFFFFF, sticky/saturating infinities, zero always
+-    +0).  NOTE: the accumulator itself passes through the 14-bit adder — `acc + 0 != acc` for most f32 words
+-    (measured: gpu/tc-fp8 `accid` family, 261,900 / 262,144 random finite accumulators changed)."""
+-    pipe, f = _fp8_total()
+-    return f(pipe, acc, list(ab[:32]), list(ab[32:64]))
+-
+-
+ FP8_PRIMITIVES = [F32Fabs, F32Fmaxf, F32Fminf, F32ToE4m3Sat, HopperE4m3QgmmaDot32]
+ 
+ # ---------------------------------------------------------------------------------------------------------
+@@ -529,7 +409,7 @@ CALL_NAMES: dict[str, str] = {**H.CALL_NAMES, "LayerPre": "LayerPreFp8", "LayerP
+ 
+ def set_conformance(status: dict[str, str]) -> None:
+     """Set conformance statuses from evidence (the port's expectations / conformance run / the tc-fp8 pin)."""
+-    by_name = {d.name: d for d in FP8_COMPOSITES + FP8_PRIMITIVES}
++    by_name = {d.name: d for d in FP8_COMPOSITES}  # the FP8 primitives' conformance is core's
+     for name, st in status.items():
+         by_name[name].conformance = st
+ 
+@@ -540,7 +420,7 @@ def set_conformance(status: dict[str, str]) -> None:
+ 
+ 
+ def np_f32_to_e4m3_sat(x: np.ndarray) -> np.ndarray:
+-    """Vectorised `f32_to_e4m3_sat_bits` over an f32 array (the same function, for whole tensors)."""
++    """Vectorised `F32ToE4m3Sat` over an f32 array (the same function, for whole tensors)."""
+     x = np.asarray(x, dtype=np.float32)
+     u = x.view(np.uint32)
+     sign = ((u >> 31) << 7).astype(np.uint8)
+diff --git a/integrations/vllm/verity_vllm/program/registry/moe.py b/integrations/vllm/verity_vllm/program/registry/moe.py
+index 47ed7888..a3e058f8 100644
+--- a/integrations/vllm/verity_vllm/program/registry/moe.py
++++ b/integrations/vllm/verity_vllm/program/registry/moe.py
+@@ -31,10 +31,11 @@ from fractions import Fraction
+ from verity.ir.defs import bind, composite, primitive
+ from verity.ir.refs import Coll, array_of, concat, strided_view, tuple_of
+ from verity.ir.types import Array, Tuple
++from verity.ml.scalar import F32BitsShl23, F32IsFinite, F32Neg, F32Sat
+ from verity_vllm.program.registry import b1
+ from verity_vllm.program.registry import prims as P
+ from verity_vllm.program.registry import ref_prims as R
+-from verity_vllm.program.registry.prims import BF16, BIT, F32, I32, _decode, f32_of, bits_of
++from verity_vllm.program.registry.prims import BF16, F32, I32, _decode, f32_of, bits_of
+ 
+ SEMANTIC_ID = "moe/FusedMoE@v1"   # (the quarantine module kept its ov-moe id)
+ 
+@@ -46,20 +47,6 @@ F32GtStrict = R.F32GtStrict   # a > b on f32 values (NaN false): greedy argmax,
+ F32Sub = R.F32Sub             # RN(a - b), no ftz
+ 
+ 
+-@primitive("F32Sat", 1, [("a", F32)], F32, conformance="exact-model-tested")
+-def F32Sat(a: int) -> int:
+-    """`cvt.sat.f32.f32`: clamp to [+0.0, 1.0]; NaN -> +0.0 (PTX ISA: "NaN results are flushed to positive zero");
+-    -0.0 -> +0.0 (the saturated range's lower bound is +0)."""
+-    c, v = _decode(a)
+-    if c == 2:
+-        return 0
+-    if c == 1:
+-        return 0x3F800000
+-    if c == -1 or v <= 0:
+-        return 0
+-    return 0x3F800000 if v >= 1 else a & 0xFFFFFFFF
+-
+-
+ def _round_f32_toward_neg_inf(x: Fraction) -> int:
+     """The largest f32 <= the exact rational x (RM / floor rounding); |x| beyond the f32 range -> -inf or +MAX."""
+     if x == 0:
+@@ -114,20 +101,6 @@ def F32FmaRm(a: int, b: int, c: int) -> int:
+     return P.F32_NAN
+ 
+ 
+-@primitive("F32Neg", 1, [("a", F32)], F32, conformance="exact-model-tested")
+-def F32Neg(a: int) -> int:
+-    """`neg.f32`: flip the sign bit (exact; -0 for +0, NaN stays NaN)."""
+-    return (a ^ 0x80000000) & 0xFFFFFFFF
+-
+-
+-@primitive("F32BitsShl23", 1, [("a", F32)], F32, conformance="exact-model-tested")
+-def F32BitsShl23(a: int) -> int:
+-    """`mov.b32 r, a; shl.b32 r, r, 23; mov.b32 f, r`: the encoding shifted left by 23 (mod 2^32) read back as f32.  For
+-    `a = 12582912 + n` (`0x4B400000 | n`, n in [1, 253]) this is the normal f32 `2^(n - 127)` — the CUDA `expf`
+-    exponent-scaling trick (the magic constant's own bits shift out)."""
+-    return ((a & 0xFFFFFFFF) << 23) & 0xFFFFFFFF
+-
+-
+ #: The constants of nvcc's `expf` (sm_89, CUDA 12.x math headers; PTX of `y = expf(x)` on the pod, 2026-09-17):
+ #:   fma.rn  t  = x * 0f3BBB989D + 0.5          (0x3BBB989D = log2(e) / 252)
+ #:   cvt.sat s  = clamp(t, 0, 1)                (NaN -> 0)
+@@ -176,12 +149,6 @@ def nv_expf_bits(x: int) -> int:
+     return P.F32Mul.evaluate(P.MufuEx2Ftz.evaluate(f), F32BitsShl23.evaluate(jb))
+ 
+ 
+-@primitive("F32IsFinite", 1, [("a", F32)], BIT, conformance="model-untested")
+-def F32IsFinite(a: int) -> int:
+-    """1 iff the f32 value is neither NaN nor +-Inf (the router's NaN/Inf -> 0 mask; wave-1 reading of the kernel)."""
+-    return 0 if (a & 0x7F800000) == 0x7F800000 else 1
+-
+-
+ ONE32 = b1.f32c(1.0)
+ NEG_10000 = b1.f32c(-10000.0)
+ 
+diff --git a/integrations/vllm/verity_vllm/program/registry/pad_prims.py b/integrations/vllm/verity_vllm/program/registry/pad_prims.py
+index c8fe8517..b8ea91ef 100644
+--- a/integrations/vllm/verity_vllm/program/registry/pad_prims.py
++++ b/integrations/vllm/verity_vllm/program/registry/pad_prims.py
+@@ -3,17 +3,17 @@
+ 
+ The padded circuit carries one live/finished bit per decode step and selects, at decode-step granularity,
+ between the step's computed outputs and the canonical pad values.  The gates this takes are boolean algebra
+-on `Value<1>` plus typed two-way selects; the scalar selects and the i32 equality already exist in
+-`prims.py` and are REUSED, not redefined (spec §9: "Existing, reused — not new, do not re-register"):
++on `Value<1>` plus typed two-way selects, all of them core's basic primitives (`verity.ml.scalar`), cited here,
++not redefined (spec §9: "Existing, reused — not new, do not re-register"):
+ 
+   spec name (§9)   registered id   where
+   --------------   -------------   -----
+-  I32Eq_v1         I32Eq_v1        prims.py (reused; 1 iff the two 32-bit words are equal)
+-  SelectI32_v1     SelectI32_v1    prims.py (reused; c ? a : b on encodings)
+-  SelectBf16_v1    SelectBf16_v1   prims.py (reused)
+-  SelectF32_v1     SelectF32_v1    prims.py (reused; unused by Serve@3 v1 itself, spec §15 Q5)
+-  BitAnd_v1        BitAnd_v1       NEW (this file)
+-  BitNot_v1        BitNot_v1       NEW (this file)
++  I32Eq_v1         I32Eq_v1        verity.ml.scalar (1 iff the two 32-bit words are equal)
++  SelectI32_v1     SelectI32_v1    verity.ml.scalar (c ? a : b on encodings)
++  SelectBf16_v1    SelectBf16_v1   verity.ml.scalar
++  SelectF32_v1     SelectF32_v1    verity.ml.scalar (unused by Serve@3 v1 itself, spec §15 Q5)
++  BitAnd_v1        BitAnd_v1       verity.ml.scalar (the spec's new gate)
++  BitNot_v1        BitNot_v1       verity.ml.scalar (the spec's new gate)
+ 
+ Bit-exact semantics (total on encodings; `Value<1>` has exactly the encodings {0, 1}):
+   * `BitAnd_v1(a, b) = (a & b) & 1` — absorbing for the finished chain: `BitAnd(0, x) = 0` for every `x`,
+@@ -37,27 +37,8 @@ are not modified anywhere.
+ 
+ from __future__ import annotations
+ 
+-from verity.ir.defs import primitive
++from verity.ml.scalar import BitAnd, BitNot
+ from verity_vllm.program.registry import prims as P
+-from verity_vllm.program.registry.prims import BIT
+-
+-# ---------------------------------------------------------------------------------------------------------
+-# boolean gates on Value<1> (the per-step live/finished flag algebra, spec §4/§9)
+-# ---------------------------------------------------------------------------------------------------------
+-
+-
+-@primitive("BitAnd", 1, [("a", BIT), ("b", BIT)], BIT, conformance="protocol-defined")
+-def BitAnd(a: int, b: int) -> int:
+-    """Logical and on 1-bit encodings: `(a & b) & 1` (spec §9).  Absorbing for the finished chain:
+-    `BitAnd(0, x) = 0` for every `x` — once a request's live bit falls, it never rises."""
+-    return a & b & 1
+-
+-
+-@primitive("BitNot", 1, [("a", BIT)], BIT, conformance="protocol-defined")
+-def BitNot(a: int) -> int:
+-    """Logical not on 1-bit encodings: `(a ^ 1) & 1` (spec §9)."""
+-    return (a ^ 1) & 1
+-
+ 
+ ALL_NEW = [BitAnd, BitNot]
+ REUSED = [P.I32Eq, P.SelectBf16, P.SelectF32, P.SelectI32]
+diff --git a/integrations/vllm/verity_vllm/program/registry/prims.py b/integrations/vllm/verity_vllm/program/registry/prims.py
+index 55c599e8..e35e2299 100644
+--- a/integrations/vllm/verity_vllm/program/registry/prims.py
++++ b/integrations/vllm/verity_vllm/program/registry/prims.py
+@@ -28,6 +28,7 @@ import numpy as np
+ from verity.ir.defs import PrimitiveDefinition, primitive
+ from verity.ir.types import Array, Value
+ from verity.ml.prims import Bf16ToF32, F2fpBf16, F32ToBf16Rn
++from verity.ml.scalar import Bf16GtStrict, I32Add, I32Eq, I32Le, SelectBf16, SelectF32, SelectI32
+ from verity.ml.tc.silicon import AMPERE_BF16_M16N8K16 as _AMPERE_BF16_M16N8K16
+ from verity.ml.tc.total import tc_dot_total as _tc_dot_total
+ 
+@@ -631,53 +632,6 @@ def MufuTanh(x: int) -> int:
+                              f"{[(s['lo'], s['hi']) for s in cov['shards']]} and the established regions {cov['rules']}")
+ 
+ 
+-# ---------------------------------------------------------------------------------------------------------
+-# integer / selection
+-# ---------------------------------------------------------------------------------------------------------
+-
+-
+-@primitive("I32Le", 1, [("a", I32), ("b", I32)], BIT, conformance="exact-model-tested")
+-def I32Le(a: int, b: int) -> int:
+-    """Signed 32-bit a <= b."""
+-    sa = a - (1 << 32) if a & 0x80000000 else a
+-    sb = b - (1 << 32) if b & 0x80000000 else b
+-    return 1 if sa <= sb else 0
+-
+-
+-@primitive("I32Add", 1, [("a", I32), ("b", I32)], I32, conformance="exact-model-tested")
+-def I32Add(a: int, b: int) -> int:
+-    """Wrapping 32-bit add."""
+-    return (a + b) & 0xFFFFFFFF
+-
+-
+-@primitive("I32Eq", 1, [("a", I32), ("b", I32)], BIT, conformance="exact-model-tested")
+-def I32Eq(a: int, b: int) -> int:
+-    return 1 if (a & 0xFFFFFFFF) == (b & 0xFFFFFFFF) else 0
+-
+-
+-@primitive("SelectF32", 1, [("c", BIT), ("a", F32), ("b", F32)], F32, conformance="exact-model-tested")
+-def SelectF32(c: int, a: int, b: int) -> int:
+-    """c ? a : b."""
+-    return a if c & 1 else b
+-
+-
+-@primitive("SelectBf16", 1, [("c", BIT), ("a", BF16), ("b", BF16)], BF16, conformance="exact-model-tested")
+-def SelectBf16(c: int, a: int, b: int) -> int:
+-    return a if c & 1 else b
+-
+-
+-@primitive("SelectI32", 1, [("c", BIT), ("a", I32), ("b", I32)], I32, conformance="exact-model-tested")
+-def SelectI32(c: int, a: int, b: int) -> int:
+-    return a if c & 1 else b
+-
+-
+-@primitive("Bf16GtStrict", 1, [("a", BF16), ("b", BF16)], BIT, conformance="exact-model-tested")
+-def Bf16GtStrict(a: int, b: int) -> int:
+-    """a > b on bf16 values (NaN compares false), used by greedy argmax (first index wins ties)."""
+-    fa, fb = f32_of(bf16_to_f32_bits(a)), f32_of(bf16_to_f32_bits(b))
+-    return 1 if fa > fb else 0
+-
+-
+ # ---------------------------------------------------------------------------------------------------------
+ # gather (wide fan-in: the whole vocabulary column is an operand collection)
+ # ---------------------------------------------------------------------------------------------------------
+diff --git a/integrations/vllm/verity_vllm/program/registry/sampling.py b/integrations/vllm/verity_vllm/program/registry/sampling.py
+index f241eca2..1d3e82bb 100644
+--- a/integrations/vllm/verity_vllm/program/registry/sampling.py
++++ b/integrations/vllm/verity_vllm/program/registry/sampling.py
+@@ -33,8 +33,9 @@ from __future__ import annotations
+ import math
+ import struct
+ 
+-from verity.ir.defs import PrimitiveDefinition, bind, composite, primitive
++from verity.ir.defs import PrimitiveDefinition, bind, composite
+ from verity.ir.refs import tuple_of
++from verity.ml.scalar import BitNot, BitOr, F32Eq
+ from verity_vllm.program.registry import prims as P
+ from verity_vllm.program.registry import ref_prims as RP
+ from verity_vllm.program.registry.b1 import const
+@@ -309,22 +310,6 @@ GumbelNoiseLane = PrimitiveDefinition(
+     conformance="exact-model-tested")
+ 
+ 
+-@primitive("F32Eq", 1, [("a", F32), ("b", F32)], BIT, conformance="exact-model-tested")
+-def F32Eq(a: int, b: int) -> int:
+-    """IEEE fp32 `a == b` (+0 == -0; NaN unequal to everything)."""
+-    return 1 if _f(a) == _f(b) else 0
+-
+-
+-@primitive("BitOr", 1, [("a", BIT), ("b", BIT)], BIT, conformance="exact-model-tested")
+-def BitOr(a: int, b: int) -> int:
+-    return (a | b) & 1
+-
+-
+-# `BitNot_v1` is the pad-serve protocol gate (`pad_prims.BitNot`, `(a ^ 1) & 1`): one registered definition, reused here — a
+-# second `BitNot_v1` would clash in the registry when both modules are imported (the frontend vocabulary imports pad_prims).
+-from verity_vllm.program.registry.pad_prims import BitNot  # noqa: E402
+-
+-
+ # ---------------------------------------------------------------------------------------------------------
+ # composites — operands, not statics, for seed / pos / temperature
+ # ---------------------------------------------------------------------------------------------------------
+diff --git a/packages/verity/src/verity/ml/__init__.py b/packages/verity/src/verity/ml/__init__.py
+index e2329324..d2d197d6 100644
+--- a/packages/verity/src/verity/ml/__init__.py
++++ b/packages/verity/src/verity/ml/__init__.py
+@@ -1,7 +1,9 @@
+ """verity.ml: exact, hardware-faithful semantics of ML primitives, and their registrations in the Verity IR.
+ 
+     verity.ml.tc      the tensor-core accumulator step (stdlib only; no IR dependency)
+-    verity.ml.prims   IR primitives: AmpereBF16TcDot16, HopperBF16WgmmaDot16, Bf16ToF32, F32ToBf16Rn, F2fpBf16, const
++    verity.ml.prims   IR primitives: AmpereBF16TcDot16, HopperBF16WgmmaDot16, HopperE4m3QgmmaDot32, Bf16ToF32, F32ToBf16Rn,
++                      F2fpBf16, F32ToE4m3Sat, const
++    verity.ml.scalar  IR primitives: integer, bit, select and comparison operations; FP32 abs / neg / max / min / cvt.sat
+     verity.ml.gemm    IR composites: DotBf16 / GemmCoordinate / Gemm parameterised by the step; GEMM_AMPERE, GEMM_HOPPER
+     verity.ml.kernels numpy batch forms of the steps and GEMM coordinates (BF16, FP8 E4M3, NVFP4 / MXFP4), registered with
+                       `verity.evaluation` and self-checked against `verity.ml.tc`
+diff --git a/packages/verity/src/verity/ml/kernels.py b/packages/verity/src/verity/ml/kernels.py
+index 8571bccc..3182936a 100644
+--- a/packages/verity/src/verity/ml/kernels.py
++++ b/packages/verity/src/verity/ml/kernels.py
+@@ -385,7 +385,7 @@ def _sample_block_scaled(model: BlockScaledAlignAdd):
+     return sample
+ 
+ 
+-# ---- FP8 and NVFP4 references (no core Definition yet) and their kernels -----------------------------------------------
++# ---- FP8 and NVFP4 references and their kernels (the FP8 step is also the Definition `prims.HopperE4m3QgmmaDot32`) -----
+ 
+ _E4M3, _E2M1, _SCALE = Value(8), Value(4), Value(8)
+ 
+diff --git a/packages/verity/src/verity/ml/prims.py b/packages/verity/src/verity/ml/prims.py
+index 1f0cfa1d..21191387 100644
+--- a/packages/verity/src/verity/ml/prims.py
++++ b/packages/verity/src/verity/ml/prims.py
+@@ -1,7 +1,8 @@
+-"""IR-registered primitives over the tensor-core semantics: the k16 accumulator steps and the BF16/FP32 casts.
++"""IR-registered primitives over the tensor-core semantics: the BF16 k16 and E4M3 k32 accumulator steps and the
++BF16/E4M3/FP32 casts.
+ 
+-Encodings: bf16 = `Value<16>`, f32 = `Value<32>`.  Every evaluator is total on encodings.  The evaluators are the
+-functions of `verity.ml.tc`; nothing is re-derived here.
++Encodings: bf16 = `Value<16>`, e4m3 = `Value<8>`, f32 = `Value<32>`.  Every evaluator is total on encodings.  The
++evaluators are the functions of `verity.ml.tc`; nothing is re-derived here.
+ 
+ Provenance.  `Bf16ToF32_v1`, `F32ToBf16Rn_v1`, `F2fpBf16_v1` are the definitions registered in veritor
+ `verity.ir/registry/prims.py` (same ids, same functions).  `HopperBF16WgmmaDot16_v1` is veritor's
+@@ -11,6 +12,8 @@ model but extended it to NaN/Inf encodings by a hand-written rule ("documented,
+ A100/RTX 4090 campaign on the NaN word (`0x7FC00000` vs the measured `0x7FFFFFFF`) and on a saturated group followed by
+ an opposite-sign infinity (rule R6).  `_v2` is `tc_dot_total(AMPERE_BF16_M16N8K16, ...)`, the measured total function;
+ equal to `_v1` on every finite input.  A registered id denotes one function, so the id changed.
++`F32ToE4m3Sat_v1` and `HopperE4m3QgmmaDot32_v1` are the definitions the vLLM integration registered for its FP8 linear
++(same ids, same functions).
+ """
+ from __future__ import annotations
+ 
+@@ -20,11 +23,14 @@ from verity.ir.types import Array, Value
+ from .tc import cast
+ from .tc.silicon import AMPERE_BF16_M16N8K16
+ from .tc.total import HOPPER_BF16_WGMMA_K16, tc_dot_total
++from .tc.total_fp8 import HOPPER_E4M3_WGMMA_K32, tc_dot_total_e4m3
+ 
+-BF16, F32 = Value(16), Value(32)
++BF16, F32, E4M3 = Value(16), Value(32), Value(8)
+ A16 = Array(16, BF16)
++A32_8 = Array(32, E4M3)
+ 
+-__all__ = ["A16", "BF16", "F32", "AmpereBF16TcDot16", "Bf16ToF32", "F2fpBf16", "F32ToBf16Rn", "HopperBF16WgmmaDot16", "const"]
++__all__ = ["A16", "A32_8", "BF16", "E4M3", "F32", "AmpereBF16TcDot16", "Bf16ToF32", "F2fpBf16", "F32ToBf16Rn", "F32ToE4m3Sat",
++           "HopperBF16WgmmaDot16", "HopperE4m3QgmmaDot32", "const"]
+ 
+ 
+ @primitive("Bf16ToF32", 1, [("a", BF16)], F32, conformance="exact-model-tested")
+@@ -68,6 +74,26 @@ def HopperBF16WgmmaDot16(acc: int, *ab: int) -> int:
+     return tc_dot_total(HOPPER_BF16_WGMMA_K16, acc, ab[:16], ab[16:32])
+ 
+ 
++@primitive("F32ToE4m3Sat", 1, [("x", F32)], E4M3,
++           conformance="exact-model-tested; every f32 word (2^32) through cvt.rn.satfinite.e4m3x2.f32 on the H100 (tc-fp8-2026-09-08 "
++                       "cvt_e4m3): 0 mismatches; NaN of either sign -> 0x7F")
++def F32ToE4m3Sat(x: int) -> int:
++    """`cvt.rn.satfinite.e4m3x2.f32` (SASS `F2FP.E4M3.F32.PACK_AB` with SATFINITE), one lane: `cast.f32_to_e4m3_sat_word`."""
++    return cast.f32_to_e4m3_sat_word(x)
++
++
++@primitive("HopperE4m3QgmmaDot32", 1, [("acc", F32), ("a", A32_8), ("b", A32_8)], F32,
++           conformance="exact-model-tested; H100 80GB QGMMA.64x64x32.F32.E4M3.E4M3 campaign (tc-fp8-2026-09-08): 16 families, "
++                       "35,289 tiles x3, 144,543,744 words, 0 mismatches")
++def HopperE4m3QgmmaDot32(acc: int, *ab: int) -> int:
++    """One accumulator-coordinate transition of `wgmma.mma_async.sync.aligned.m64n64k32.f32.e4m3.e4m3` (SASS
++    `QGMMA.64x64x32.F32.E4M3.E4M3`): one group of 32 exact E4M3 products plus `acc` through a 14-bit truncating adder,
++    exponent floor -139 (only bounded to [-152, -126] by the measurement; every floor in that range computes the same word
++    on E4M3 operands); total on every encoding (NaN -> 0x7FFFFFFF, sticky/saturating infinities, zero always +0).  The
++    accumulator itself passes through the 14-bit adder, so `acc + 0 != acc` for most f32 words."""
++    return tc_dot_total_e4m3(HOPPER_E4M3_WGMMA_K32, acc, list(ab[:32]), list(ab[32:64]))
++
++
+ # ---- constants: one primitive per (width, bits), materialised on demand and decodable by id -------------------------------------------
+ 
+ _CONSTS: dict[tuple[int, int], PrimitiveDefinition] = {}
+@@ -110,6 +136,8 @@ def _register_kernels() -> None:
+                     domain=every, sample=K.sample_tc)
+     register_kernel(HopperBF16WgmmaDot16, lambda acc, a, b: K.group_sum_total_batch(HOPPER_BF16_WGMMA_K16, acc, a, b),
+                     domain=every, sample=K.sample_tc)
++    register_kernel(HopperE4m3QgmmaDot32, lambda acc, a, b: K.group_sum_total_batch(HOPPER_E4M3_WGMMA_K32, acc, a, b),
++                    domain=every, sample=K.sample_tc)
+ 
+ 
+ _register_kernels()
+diff --git a/packages/verity/src/verity/ml/tc/cast.py b/packages/verity/src/verity/ml/tc/cast.py
+index c1701697..0dcc1466 100644
+--- a/packages/verity/src/verity/ml/tc/cast.py
++++ b/packages/verity/src/verity/ml/tc/cast.py
+@@ -1,16 +1,20 @@
+-"""Word casts between FP32 and BF16 encodings, as pure integer functions.
++"""Word casts between FP32, BF16 and E4M3 encodings, as pure integer (and exact rational) functions.
+ 
+ Promoted from ``veritor`` ``verity.ir/registry/prims.py`` (``bf16_to_f32_bits``, ``f32_to_bf16_rn_bits``, ``f32_is_nan``)
+-and ``src/veritor/core/tc.py`` (the word-level casts); the numpy array forms were left behind.
++and ``src/veritor/core/tc.py`` (the word-level casts); the numpy array forms were left behind.  The E4M3 cast is the
++vLLM integration's ``f32_to_e4m3_sat_bits``, moved verbatim.
+ """
+ from __future__ import annotations
+ 
++from fractions import Fraction
++
+ BF16_NAN_SOFTWARE = 0x7FC0   # c10::BFloat16::round_to_nearest_even, torch CPU: the software canonical NaN
+ BF16_NAN_HARDWARE = 0x7FFF   # SASS F2FP.BF16.F32.PACK_AB / cvt.rn.bf16.f32: measured on A100 and RTX 4090 (L6)
+ F32_NAN_CANONICAL = 0x7FC00000
++E4M3_NAN = 0x7F              # OCP E4M3 (float8_e4m3fn): NaN 0x7F / 0xFF, max finite 0x7E = 448, no infinities
+ 
+-__all__ = ["BF16_NAN_HARDWARE", "BF16_NAN_SOFTWARE", "F32_NAN_CANONICAL", "bf16_is_nan", "bf16_to_f32_word", "f32_is_nan",
+-           "f32_to_bf16_hw_word", "f32_to_bf16_rn_word", "f32_to_bf16_word"]
++__all__ = ["BF16_NAN_HARDWARE", "BF16_NAN_SOFTWARE", "E4M3_NAN", "F32_NAN_CANONICAL", "bf16_is_nan", "bf16_to_f32_word",
++           "f32_is_nan", "f32_to_bf16_hw_word", "f32_to_bf16_rn_word", "f32_to_bf16_word", "f32_to_e4m3_sat_word"]
+ 
+ 
+ def f32_is_nan(u: int) -> bool:
+@@ -44,3 +48,46 @@ def f32_to_bf16_word(u: int) -> int:
+ def f32_to_bf16_hw_word(u: int) -> int:
+     """``cvt.rn.bf16.f32`` as the A100 and RTX 4090 compute it: NaN -> ``0x7FFF`` (equal to ``total.cvt_rn_bf16_f32``)."""
+     return f32_to_bf16_rn_word(u, BF16_NAN_HARDWARE)
++
++
++def f32_to_e4m3_sat_word(u: int) -> int:
++    """``cvt.rn.satfinite.e4m3x2.f32``, one lane (``__nv_cvt_float_to_fp8(x, __NV_SATFINITE, __NV_E4M3)``), as an H100
++    computes it on every f32 word: NaN -> ``0x7F`` (the sign dropped); ±inf and every |x| that would round beyond 448 ->
++    ``±0x7E`` (448, the sign kept); otherwise round-to-nearest-even onto the E4M3 grid (normal binades 2^-6..2^8 with three
++    fraction bits, subnormals in multiples of 2^-9); |x| < 2^-10 and the 2^-10 tie round to a signed zero."""
++    u &= 0xFFFFFFFF
++    sign = 0x80 if u >> 31 else 0
++    exp = (u >> 23) & 0xFF
++    mant = u & 0x7FFFFF
++    if exp == 0xFF:
++        return E4M3_NAN if mant else (sign | 0x7E)
++    if exp == 0 and mant == 0:
++        return sign
++    if exp == 0:
++        mag = Fraction(mant, 1 << 149)
++    else:
++        mag = Fraction((1 << 23) | mant, 1) / Fraction(1 << (150 - exp)) if exp < 150 else Fraction(((1 << 23) | mant) << (exp - 150))
++    if mag >= Fraction(464):  # >= the 448|480 tie: 480 is not encodable -> saturate
++        return sign | 0x7E
++    # grid step: 2^(e-3) for 2^e <= mag < 2^(e+1), e >= -6; 2^-9 below 2^-6
++    e = mag.numerator.bit_length() - mag.denominator.bit_length()
++    if Fraction(2) ** e > mag:
++        e -= 1
++    step_exp = e - 3 if e >= -6 else -9
++    q = mag / (Fraction(2) ** step_exp)
++    n = q.numerator // q.denominator
++    r = q - n
++    if r > Fraction(1, 2) or (r == Fraction(1, 2) and n & 1):
++        n += 1
++    val = n * (Fraction(2) ** step_exp)
++    if val == 0:
++        return sign
++    if val >= Fraction(464):
++        return sign | 0x7E
++    if val < Fraction(2) ** -6:  # subnormal: mantissa n in units of 2^-9 (n <= 7)
++        return sign | int(val / (Fraction(2) ** -9))
++    e2 = val.numerator.bit_length() - val.denominator.bit_length()
++    if Fraction(2) ** e2 > val:
++        e2 -= 1
++    m3 = int((val / (Fraction(2) ** e2) - 1) * 8)
++    return sign | ((e2 + 7) << 3) | m3
+diff --git a/packages/verity/src/verity/ml/tc/total_fp8.py b/packages/verity/src/verity/ml/tc/total_fp8.py
+index 6fa1b030..9772dc95 100644
+--- a/packages/verity/src/verity/ml/tc/total_fp8.py
++++ b/packages/verity/src/verity/ml/tc/total_fp8.py
+@@ -26,7 +26,7 @@ the *pipeline parameters* (groups, adder width, exponent floor -- in particular
+ accumulator, which Hawkeye did not validate and which every k32 step after the first of a K=1536..8960 chain
+ exercises) are what the campaign under ``gpu/tc-fp8/`` measured on the device (record:
+ ``docs/data/tc-fp8-2026-09-08/``).  The registry primitive that wraps it
+-(``verity_vllm.program.registry.fp8.HopperE4m3QgmmaDot32``) carries the campaign's outcome in its conformance status.
++(``verity.ml.prims.HopperE4m3QgmmaDot32``) carries the campaign's outcome in its conformance status.
+ 
+ Promoted verbatim from ``veritor`` ``src/veritor/core/silicon_total_fp8.py`` (commit 0903f60d6, release
+ ``r18-int-3``); only the import paths changed.
+diff --git a/packages/verity/tests/ml/test_cast.py b/packages/verity/tests/ml/test_cast.py
+index 56c6c207..beaebad6 100644
+--- a/packages/verity/tests/ml/test_cast.py
++++ b/packages/verity/tests/ml/test_cast.py
+@@ -1,4 +1,5 @@
+-"""The word casts of `verity.ml.tc.cast` against the measured `cvt.rn.bf16.f32` campaign and an exhaustive NaN sweep.
++"""The word casts of `verity.ml.tc.cast` against the measured `cvt.rn.bf16.f32` campaign and an exhaustive NaN sweep, and
++the E4M3 cast on its grid and midpoints.
+ 
+ Ported from veritor ``tests/veritor/core/test_tc_nan.py`` (139-181) and ``verity.ir/tests/test_nan_conversion.py`` (41-64);
+ the numpy array forms were not carried over, so the sweeps are pure integer loops (the 2^32 sweep stays behind).
+@@ -7,6 +8,8 @@ from __future__ import annotations
+ 
+ import json
+ import random
++import struct
++from fractions import Fraction
+ from pathlib import Path
+ 
+ import pytest
+@@ -20,6 +23,7 @@ from verity.ml.tc.cast import (
+     f32_to_bf16_hw_word,
+     f32_to_bf16_rn_word,
+     f32_to_bf16_word,
++    f32_to_e4m3_sat_word,
+ )
+ from verity.ml.tc.total import cvt_rn_bf16_f32
+ 
+@@ -87,3 +91,39 @@ def test_every_nan_payload_of_one_sign_and_a_band_of_finite_words() -> None:
+     for band in (0x00000000, 0x3F800000, 0x7F700000, 0xBF800000):
+         for x in range(band, band + (1 << 16)):
+             assert f32_to_bf16_hw_word(x) == f32_to_bf16_word(x) == f32_to_bf16_rn_word(x, 0), hex(x)
++
++
++def _f32(value: float) -> int:
++    return struct.unpack("<I", struct.pack("<f", value))[0]
++
++
++def _e4m3_value(byte: int) -> Fraction:
++    e, m = (byte >> 3) & 0xF, byte & 0x7
++    mag = Fraction(m, 1 << 9) if e == 0 else Fraction(8 + m, 8) * Fraction(2) ** (e - 7)
++    return -mag if byte & 0x80 else mag
++
++
++@pytest.mark.parametrize("value,word", [
++    (448.0, 0x7E), (-448.0, 0xFE), (449.0, 0x7E), (1e9, 0x7E), (float("inf"), 0x7E), (float("-inf"), 0xFE),
++    (1.0, 0x38), (-1.0, 0xB8), (1.0625, 0x38), (1.0625001, 0x39), (1.1875, 0x3A),
++    (2.0 ** -6, 0x08), (2.0 ** -9, 0x01), (2.0 ** -10, 0x00), (2.0 ** -10 * 1.001, 0x01), (-(2.0 ** -11), 0x80),
++    (7 * 2.0 ** -9, 0x07), (7.5 * 2.0 ** -9, 0x08), (6.5 * 2.0 ** -9, 0x06), (0.0, 0x00), (-0.0, 0x80),
++])
++def test_f32_to_e4m3_sat_known_words(value: float, word: int) -> None:
++    assert f32_to_e4m3_sat_word(_f32(value)) == word
++
++
++def test_f32_to_e4m3_sat_on_the_e4m3_grid_and_its_midpoints() -> None:
++    """Every finite E4M3 value converts to itself; every midpoint between neighbours rounds to the even code; the
++    448|480 midpoint and everything above saturates; every NaN (either sign) is 0x7F."""
++    finite = list(range(0x7F))
++    for b in finite:
++        for sign in (0, 0x80):
++            assert f32_to_e4m3_sat_word(_f32(float(_e4m3_value(b))) | sign << 24) == (b | sign), hex(b | sign)
++    for lo, hi in zip(finite, finite[1:]):
++        mid = (_e4m3_value(lo) + _e4m3_value(hi)) / 2
++        even = lo if lo % 2 == 0 else hi
++        assert f32_to_e4m3_sat_word(_f32(float(mid))) == even, (hex(lo), hex(hi))
++    assert f32_to_e4m3_sat_word(_f32(464.0)) == 0x7E and f32_to_e4m3_sat_word(_f32(-464.0)) == 0xFE
++    for payload in (1, 0x400000, 0x7FFFFF):
++        assert f32_to_e4m3_sat_word(0x7F800000 | payload) == f32_to_e4m3_sat_word(0xFF800000 | payload) == 0x7F
+diff --git a/packages/verity/tests/ml/test_prims.py b/packages/verity/tests/ml/test_prims.py
+index 8c6b0567..44719799 100644
+--- a/packages/verity/tests/ml/test_prims.py
++++ b/packages/verity/tests/ml/test_prims.py
+@@ -7,9 +7,10 @@ import pytest
+ 
+ from verity.ir.defs import REGISTRY
+ from verity.ml import prims as P
+-from verity.ml.tc.cast import f32_to_bf16_hw_word, f32_to_bf16_word
++from verity.ml.tc.cast import f32_to_bf16_hw_word, f32_to_bf16_word, f32_to_e4m3_sat_word
+ from verity.ml.tc.silicon import AMPERE_BF16_M16N8K16, tc_dot
+ from verity.ml.tc.total import HOPPER_BF16_WGMMA_K16, tc_dot_total
++from verity.ml.tc.total_fp8 import HOPPER_E4M3_WGMMA_K32, tc_dot_total_e4m3
+ 
+ NAN32, PINF32, NINF32, ONE32 = 0x7FC00000, 0x7F800000, 0xFF800000, 0x3F800000
+ NAN16, PINF16, NINF16, ONE16, MAX16 = 0x7FC0, 0x7F80, 0xFF80, 0x3F80, 0x7F7F
+@@ -89,6 +90,27 @@ def test_ampere_v2_pins_the_measured_special_values_v1_got_wrong() -> None:
+     assert P.AmpereBF16TcDot16.evaluate(PINF32, *([NINF16] + [ONE16] * 15), *([ONE16] * 16)) == 0x7FFFFFFF  # +Inf + -Inf
+ 
+ 
++def test_fp8_primitives_are_the_tc_functions() -> None:
++    assert (P.F32ToE4m3Sat.id, P.HopperE4m3QgmmaDot32.id) == ("F32ToE4m3Sat_v1", "HopperE4m3QgmmaDot32_v1")
++    assert REGISTRY["F32ToE4m3Sat_v1"] is P.F32ToE4m3Sat and REGISTRY["HopperE4m3QgmmaDot32_v1"] is P.HopperE4m3QgmmaDot32
++    assert P.F32ToE4m3Sat.signature() == ((("x", P.F32),), P.E4M3)
++    assert P.HopperE4m3QgmmaDot32.signature() == ((("acc", P.F32), ("a", P.A32_8), ("b", P.A32_8)), P.F32)
++    rng = random.Random(5)
++    for x in [NAN32, 0xFFC00000, PINF32, NINF32, ONE32, 0, 0x80000000] + [rng.getrandbits(32) for _ in range(5000)]:
++        assert P.F32ToE4m3Sat.evaluate(x) == f32_to_e4m3_sat_word(x)
++    specials8 = [0x7F, 0xFF, 0x00, 0x80, 0x01, 0x7E, 0xFE, 0x38]
++    cases = [(rng.getrandbits(32), [rng.getrandbits(8) for _ in range(32)], [rng.getrandbits(8) for _ in range(32)])
++             for _ in range(300)]
++    for acc in (0, 0x80000000, ONE32, NAN32, PINF32, NINF32, 0x7F7FFFFF, 0x00000001):
++        for sa in specials8:
++            a, b = [0x38] * 32, [0x38] * 32
++            a[5], b[5] = sa, rng.choice(specials8)
++            cases.append((acc, a, b))
++    for acc, a, b in cases:
++        assert P.HopperE4m3QgmmaDot32.evaluate(acc, *a, *b) == tc_dot_total_e4m3(HOPPER_E4M3_WGMMA_K32, acc, a, b)
++    assert P.HopperE4m3QgmmaDot32.evaluate(0, *([0x38] * 64)) == 0x42000000  # 32 * (1 * 1)
++
++
+ def test_const_primitives_are_memoised_and_decodable() -> None:
+     from verity.ir.codec import _lookup_primitive
+ 

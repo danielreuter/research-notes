@@ -27,5 +27,5 @@ the stronger footnote ... on the 4096 frozen cell".
 - **Caveat for the footnote:** the verifier ran on the prover's pod. The coins and the process are the verifier's, the
   machine is not. There was no second pod for a hairpin test (kb/live-verifier.md).
 - A file re-verification of rep 1 with the fixed reverify (R1 + R2 + R4) applies as for the other cells.
-- **Malloc caveat:** this cell was were measured before the coordinator's 1003Z malloc-env note (MALLOC_MMAP_MAX_=0 ...).
+- **Malloc caveat:** this cell was measured before the coordinator's 1003Z malloc-env note (MALLOC_MMAP_MAX_=0 ...).
   Re-measurements with it will come as new results; this one stands as it is.

@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 5483d13b (10:07Z) [open] 10:07Z tip da74b03e (+main 3301c435 R1/R2/R4). Page-fault fix (MALLOC_MMAP_MAX_=0) -> fp8-hopper-x4+sha256 l4096 p4 sweep r20260925-095503-e592: 1024 4145, 2048 4739, 4096 5356, 8192 5860, 16384 5768 VU/s e2e; 32768 running. Handoff to coordinator on page faults.
 CHECKPOINT 10996616 (09:42Z) [open] 09:45Z tip 88b82757: SHA-256 row_sponges on GPU (commit 21s->0.2s, identical roots). Found: per-proof 2.3s in opened_from_pinned = first-touch page faults on this H100 host (91MB fresh alloc 5.6s; reused 8ms). Testing glibc MALLOC_MMAP_MAX_=0 fix, then screen.
 CHECKPOINT 10996616 (09:20Z) [open] 09:20Z tip be1a3bcb (merged main 94b1c4d2 GPU committer; PINS fp8-hopper-x4/fp8-ada-x4 +sha256). Gates 2048VU 7 honest+86 neg 0 fail both (art:c1351b8a, art:5b0162d6); gadget-row negs 30/30 (art:bdfcc3b3); Rust pinned batch ACCEPT. H100 screen l8192/16384 running.
 CHECKPOINT 24ab6c7d (09:00Z) [open] 09:00Z H100 qmiq4rs1f0y4tr healthy (hostmem ok). r20260925-085824-e359: fp8-hopper-x4+sha256 fixture ok, gate honest 2048 VUs all True (0.31s/341VU); negatives running; fp8-ada-x4 next. Then PINS rows, Rust batch, screen, sweep cell.

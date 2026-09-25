@@ -3,10 +3,8 @@ id: vllm-rf-b5vc/state
 lane: vllm-rf-b5vc
 kind: state
 created: 2026-09-25T16:47Z
-updated: 2026-09-25T17:14Z
+updated: 2026-09-25T17:43Z
 ---
-
-> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-2ddd7f1e-8f60-5cdf-b9e2-a95ab5634c72: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # vllm-rf-b5vc: split program/frontend/rules/vllm_bindings.py into a package (B5) (state)
 
 > **Successor of vllm-rf-b5vb** (agent bc-19e6c2c5; no commits, no pods; its session ended at the 16:03Z laptop restart).
@@ -48,8 +46,15 @@ base: 8a3aa083
   **Head `eb97ecb4`, gate (b) base `f7de4620`** (the base a5c's t1 re-gate runs).
 - 17:10Z a5c's ETA: g1 handover about 17:30Z, t1 about 17:45Z.
 
+- 17:40Z a5c handed over `vyv-rf-a5-g1` (handoff 1740Z). Scripts copied to `/workspace/b5vc/` (my `ab_row.sh` copy writes
+  verdict copies to `/workspace/b5vc/ab/` instead of a5's dir). `r20260925-173947-17f4` failed at once (rc 2): the `head`
+  side calls a5's `verity-vllm row`, which main lacks; my tree is main-based, so the row runs through `ops/run_row_v2.sh`
+  (ab_row.sh's `base` side).
+
 ## Running
-- (none; waiting for the a5c pod handoffs)
+- g1 `r20260925-174116-cb42` (`--custody-r2`, tree `eb97ecb4`, `--cwd source`): #101 row build/match/commit via
+  `run_row_v2.sh` into `/workspace/sweep-b5vc`, then `cmp_verdict.py` vs the record row `/workspace/sweep/<#101>`.
+  Started 17:41Z, about 15-20 min; check back about 18:00Z.
 
 ## Next
 - On handoff of `vyv-rf-a5-t1`: lints at head; gate (b) head `eb97ecb4` and base `f7de4620` (reuse a5c's base run on t1, `r20260925-170857-a861`, if its tree and pod match) on the pod, jdiff; gate (a)

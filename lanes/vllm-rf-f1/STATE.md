@@ -161,3 +161,13 @@ updated: 2026-09-25T01:57Z
 - `compiled_value_check.py`, `compiled_kernel_check.py`: still read the committer's memory (compiled-graph rows only; none of the 3 rows).
 - `tests/tp/test_tp2_xrank_collectives.py::test_flip_site_alters_the_collective_input_but_not_the_committed_partial`: its `TPPartialSource.__new__` stub has no `_occ` (added by R19 moe) -> AttributeError whenever CUDA is visible; skipped on CPU pods. Unrelated to D1.
 - GPU pods' interpreter (uv cpython-3.12.14, built 2026-09-01) starts with `gc.get_freeze_count() == 375`, so `test_admit_r19_host_working_set`'s two gc-freeze tests fail there at any commit (their precondition is 0).
+
+## 02:55Z lint at rebased head 324654c1 (pod vyv-rf-f1-cpu, npi7ii0b5bl3mg, cpu3g 8 vCPU, env /workspace/podenv.sh)
+- 3 lint FAILS, no stale entries: P07 commit_delta main VERITY_FAULT 3 found/1 allowed; P9 NEW tp.partial_source -> check.oracle_compare;
+  P10 8 caps (native_host mod 2743/2587, oracle_compare mod 1013/953 + fn 206/198, sampled_replay mod 3188/3149 + fn 267/257,
+  commit_delta mod 3039/3022 + main 1935/1918, tp/worker mod 1615/1579).  Rule: split, never raise caps; lower caps to new sizes.
+- Plan (in progress): commit/opened.py <- OpenedReader, OpeningNotVerified, OPENED_METHOD, meta_by_name, ORDINAL_SEP, UnverifiedUnlinked
+  (+ small read-count / filing helpers); oracle_compare re-exports (tp.worker may only reach it via check.oracle_compare, allowlisted).
+  commit/native_ranges.py <- RangeOpening + range-opening mixin + fault_retained_flip (no torch try/except: P07 optional-import).
+  tp/worker: move _t6_4_check body to tp/partial_source (591 lines, room).  P07: hoist ONE VERITY_FAULT read in main.
+- Then: lints + pyflakes + gate (b) + gate (a) on the cpu pod at the new head; pods drained by 05:00Z.

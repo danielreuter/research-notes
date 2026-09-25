@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T04:20Z
+updated: 2026-09-25T04:23Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -236,3 +236,8 @@ updated: 2026-09-25T04:20Z
 - NEXT (coordinator 04:06Z list), on a new CPU pod at `299f42d5`: lints; touched + affected tests (acquire/, tp/, check/test_sampled_replay*,
   opened values, oracle compare, padding consumer, retained_flip CPU negative); gate (b) xdist vs a1 and vs main on the same pod if
   time allows; READY.md with both heads (gate (a) and GPU rows stay valid: rebase clean apart from the three).
+- 04:22Z NEW POD **vyv-rf-f1-cpu2** (RunPod `mgh6qzbvfnmb50`, cpu3g 32 vCPU / 128 GB, 80 GB, US-CA-2; registered by `pods create
+  --register` into `notes/machines.d/vyv-rf-f1-cpu2.toml`).  Owned by the vyv- deadman (07:00Z).  Bootstrap at `299f42d5` launching
+  (`research run --source . --stage bootstrap`, pod_bootstrap.sh --cpu).  Plan: lints + touched tests at `299f42d5`, then gate (b)
+  at `299f42d5` and at main `baeefd21` side by side on this pod (same command as `r20260925-025346-73c9`), jdiff head vs main and vs
+  a1; preserve; drain.

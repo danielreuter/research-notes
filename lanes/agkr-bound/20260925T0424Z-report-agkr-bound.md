@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: blocked
 ---
 
+CHECKPOINT a7e88ab1 (06:17Z) [blocked] Waiting on coordinator decision on revised estimate v2 (0557Z: IRS/SHA-256 column commitment as a new core scheme; options a/b/c). No pod, ~$2.2 spent.
 CHECKPOINT a7e88ab1 (05:57Z) [blocked] Acted on 0546Z (non-algebraic hash): revised estimate v2 handoff 0557Z recommends a verifier-checked IRS/SHA-256 column commitment bound via my existing functional hook (+1-5% prover); needs core-scheme + scope decision. No pod.
 CHECKPOINT a7e88ab1 (05:44Z) [blocked] Still waiting on coordinator (revised estimate 0540Z + correction 0550Z: in-circuit Poseidon2 costs ~4-8x A-GKR t.total because layers span all wires; recommend b or c). No pod.
 CHECKPOINT a7e88ab1 (05:43Z) [blocked] Waiting on coordinator re 'agkr-bound revised estimate' (committed x/W/y variant: options a extend / b dev-only / c park). Integration v2 2994bd25 (art:3f562102) and public-input binding (art:559147e1) delivered. No pod running.

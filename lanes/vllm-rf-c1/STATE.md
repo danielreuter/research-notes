@@ -4,9 +4,26 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T09:26Z
+updated: 2026-09-25T09:48Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
+
+## 09:48Z summary
+- Branch `lane/vllm-rf-c1` **pushed** (custody rule), head `53314d1c` = commit 5 (p09 allowlist: drop the `commit <-> program`
+  package-cycle entry, gone once semantic_layout left the package; the lints at `7218ffbb` failed only on that stale entry).
+  Lints at `53314d1c`: 45/45 (`r20260925-093225-daa0`).
+- Gate (b) at `7218ffbb` vs same-pod base (`r20260925-092213-b86c`, `evidence/gates/jdiff_b_head2_vs_base.txt`): only new failure =
+  that p09 stale entry (fixed by `53314d1c`); dead-modules failure gone; 2 fixed (test_roundtrip, row_pod_cancel timeout); 1 new
+  skip (test_scheme_cuda, CPU). Gate (b) re-run at `53314d1c`: `r20260925-094310-c681` (started 09:43Z).
+- GPU at `7218ffbb` (`r20260925-092150-e650`): CUDA tests 163 passed; #101 run root `7adcef49…` == record, commit_pass, Program
+  `ccc21347…` / manifest `90f81868…` head == base; ab_compare volatile-only; snapshot diffs = 96 device pointers
+  (`block_table_ptrs`); throughput hashing 0.490 s, 1.85 GB/s, 7.24 M leaves/s. `vyv-rf-c1-g2` TERMINATED 09:44Z.
+- Gate (a) T0+T1 at `7218ffbb`: `r20260925-092323-bdf1` running (expected ~11:05Z; `53314d1c` differs by one allowlist line).
+- **agkr-bound mapping task: DONE 09:45Z.** Verdict "replace": production binds none of the four provisional digests and has no
+  per-port operand tree; relabel them backend-owned or use production's per-step StepDomain (program = committer's
+  root_program_digest, NOT the Program; ctx = sha256(run_id/step=s); geo = model json; layout = step tensor list; GPU-tree chunk
+  leaves on every serving committer). `lanes/coordinator/20260925T0945Z-handoff-from-vllm-rf-c1.md`, copied to `lanes/agkr-bound/`.
+- A4 still not in origin/main (09:34Z); main's new commits touch neither packages/verity nor integrations/vllm.
 
 > **Coordinator, 09:30Z: custody rule for the cloud switch-over.** Push your branch to origin after every commit, WIP included. If you have uncommitted work worth keeping, commit it now and push. The coordinator pushed snapshots of uncommitted work to wip/vllm-rf-{lane} for custody; they are not for merge, so ignore them.
 

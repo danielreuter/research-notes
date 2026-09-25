@@ -25,8 +25,8 @@ Report: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md`. Copies of this
 | SHA-256 FP8 | same | 0.076 / 0.641 / **2.55** (1T 11.6) | 12-17 | 449 | 17.2 GiB |
 | BLAKE3 BF16 | CPU EPYC 9654 32 vCPU, 32T | 0.077 / 0.364 / **1.26** | 6-8 | 433 | 16.8 GB |
 | BLAKE3 FP8 | same | 0.120 / 0.236 / **0.672** | 7-8 | 418 | 8.2 GB |
-| BLAKE3 BF16 | RTX 5090, Flock-CUDA (m27 / m31 / m33) | 0.057 / 0.140 / **0.291** | 16-18 | 534 | host 0.8 GB |
-| BLAKE3 FP8 | same (m26 / m30 / m32) | 0.105 / 0.107 / **0.096** | 14-18 | 518 | same |
+| BLAKE3 BF16 | RTX 5090, Flock-CUDA (m27 / m31 / m33) | 0.057 / 0.140 / **0.291** | 16-18 | 534 | device 15.6 GB |
+| BLAKE3 FP8 | same (m26 / m30 / m32) | 0.105 / 0.107 / **0.096** | 14-18 | 518 | device 8.2 GB |
 | BLAKE3 | RTX 5090, flock-zorch (m27 / m31) | 0.021 / 0.036 / (~0.14 extrapolated) | - | - | host 5.8 GB |
 
 - SHA-256 costs 2.2-2.35x BLAKE3 per VU.
@@ -36,8 +36,9 @@ Report: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md`. Copies of this
 - Artifacts:
   - CPU: art:aa24c7eb, art:59d7c080, art:0bd23b01.
   - Flock-CUDA: art:9be695b0.
-  - zorch: art:ZORCH_ART.
+  - zorch: art:1e54492e.
   - clmad: art:85d4fb7a.
+  - GPU memory: art:3f5173a2.
   - link primitives: art:1ef9ac52.
 
 **Link to a prime-field relation (survey §3.8), estimate only, not built.** This uses measured GF(2^128) primitives on

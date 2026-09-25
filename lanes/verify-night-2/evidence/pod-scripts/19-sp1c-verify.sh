@@ -19,8 +19,9 @@ echo "=== [$(date -u +%H:%M:%S)] fetch $TREE"
 [ -d $O/tree ] || $PY -m research data fetch $TREE --to $O/tree | tail -1
 find $O/tree -type f | sed "s|$O/tree/||" | sort | head -40
 ( cd $O/tree && find . -type f -exec sha256sum {} + | sort -k2 ) > $O/tree.sha256
-STMT=$(find $O/tree -name '*statement*.json' | head -1); PROOF=$(find $O/tree -name '*proof*rep0*' ! -name '*tamper*' | head -1)
-TAMP=$(find $O/tree -name '*tamper*' | head -1)
+STMT=$O/tree/proofs/statement.json; PROOF=$O/tree/proofs/proof-rep0.bin; TAMP=$O/tree/proofs-tampered/proof-rep0.bin
+[ -f $STMT ] && [ -f $PROOF ] && [ -f $TAMP ] || { echo "run-files layout not as expected"; exit 2; }
+cmp -s $STMT $O/tree/proofs-tampered/statement.json && echo "tampered dir statement == honest statement" || echo "tampered dir statement differs from the honest one"
 echo "statement: $STMT"; echo "proof: $PROOF"; echo "tampered: $TAMP"
 echo "=== [$(date -u +%H:%M:%S)] my statement (core, my tree's fp8-ada set)"
 $PY - "$STMT" "$O" <<'PYEOF'
@@ -101,7 +102,7 @@ v proof-byte --proof $O/proof.flip.bin --statement $O/statement.mine.json
 v other-range --proof $PROOF --statement $O/statement.short.json
 echo "=== [$(date -u +%H:%M:%S)] producer's --batch instance check (set $SET)"
 [ -f $O/set/fp8-ada.bin ] || { $PY -m research data fetch $SET --to $O/set | tail -1; }
-B=$(find $O/set -name '*.bin' | head -1); echo "set file: $B"
+ls $O/set; B=$(find $O/set -name 'fp8-ada*.bin' | head -1); echo "set file: $B"
 [ -n "$B" ] && v batch --proof $PROOF --statement $O/statement.mine.json --batch $B
 [ -n "$B" ] && [ -n "$TAMP" ] && v tampered-adopt-batch --proof $TAMP --statement $O/statement.mine.json --adopt-published-roots --batch $B
 echo "=== [$(date -u +%H:%M:%S)] gate"

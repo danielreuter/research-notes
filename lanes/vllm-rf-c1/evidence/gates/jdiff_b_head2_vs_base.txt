@@ -1,0 +1,18 @@
+base 4001 {'error': 11, 'failed': 58, 'passed': 3640, 'skipped': 286, 'xfailed': 6}
+head 4006 {'error': 11, 'failed': 57, 'passed': 3645, 'skipped': 287, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 5 {'skipped': 1, 'passed': 4}
+  + ::tests.commit.test_scheme_cuda skipped
+  + tests.commit.test_production_vectors::test_integer_like_fields_are_coerced passed
+  + tests.commit.test_production_vectors::test_names_digest_is_the_compact_json passed
+  + tests.pipeline.test_spans::test_snapshot_keeps_its_keys_and_adds_leaves_and_throughput passed
+  + tests.pipeline.test_spans::test_throughput_sums_each_stage_and_names_the_scheme passed
+outcome changed: 3
+  ~ tests.commit.test_roundtrip::test_transient_storage_is_released: failed -> passed  [AssertionError: (38952, 36, 577152, 184320) assert 38952 < (((400 * 36) + (400 * 18)) + (16 * 1024)) + where 18 = len({(0, 0): _TileGeom(head=0, qb=0, rows=[0, ]
+  ~ tests.lint.test_p09_layering::test_allowlist_has_no_stale_entries: passed -> failed  [AssertionError: P9 (dependency direction, one patch owner): 1 entr(y<path>) in allowlists<path> no longer match anything: the violation is gone, so delete the e]
+  ~ tests.ops.test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way: failed -> passed  [subprocess.TimeoutExpired: Command '['bash', '<path>']' timed out after 15 seconds]
+new failures on head: 1
+  ! tests.lint.test_p09_layering::test_allowlist_has_no_stale_entries: passed -> failed  [AssertionError: P9 (dependency direction, one patch owner): 1 entr(y<path>) in allowlists<path> no longer match anything: the violation is gone, so delete the e]
+new skips on head: 1; skip reasons new on head: 0
+  s ::tests.commit.test_scheme_cuda: absent -> skipped  [collection skipped]
+failures+errors: base 69, head 68, fixed on head 2

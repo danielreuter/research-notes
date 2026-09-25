@@ -35,8 +35,9 @@ Scaling at 64 / 1024 / 4096 VUs:
 - CPU one-proof union: BF16 0.126 / 0.80 / 2.59 s; FP8 0.113 / 0.40 / 1.26 s.
 - 5090 unit: ampere 0.028 / 0.127 / 0.257 s.
 - Linear above 1024; a fixed cost of about 0.1 s dominates at 64.
-- Memory: CPU BF16 4096 union 15.4 GB RSS. On the GPU the unit witness is 2.1 GB of host-to-device upload; device
-  memory was not sampled.
+- Memory: CPU BF16 4096 union 15.4 GB RSS. 5090 device high-water: unit m32 8.0 GB, BLAKE3 m33
+  15.6 GB (art:3f5173a2). Run one after the other, they fit a 24 GB card. The GPU unit witness is 2.1 GB of
+  host-to-device upload.
 
 **Caveats that change the reading:**
 - **Platform.** The B-Ligero cells were measured on a 4090 and ours on a 5090, which usually runs 1.3-1.7x faster. On

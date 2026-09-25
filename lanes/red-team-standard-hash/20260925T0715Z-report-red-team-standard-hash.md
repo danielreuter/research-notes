@@ -39,7 +39,7 @@ tree check (domain derivation, node/level/index, vllm-v1 path shape + root field
 | fp8-ada+blake3 (b-ligero-standard-hash, frame-v3 keyed-BLAKE3 rows, v5 included-hash) | FAIL (R1) at main; PASS on 24ab6c7d / 806a2f73. Cells count once the fix is on main and each dump is re-verified with it (or with 06) | art:2b51c5fd, art:8f2112e2, art:cd2c38ea, art:be211735 | coordinator 0735Z, 0805Z, 0920Z; b-ligero-standard-hash 0735Z, 0920Z; ligero-steps-pin 0920Z; verify-night-2 0805Z |
 | H2 steps pin (main c5cf7f6d, fp8-ada+blake3) | PASS: every forged steps value tried (incl. 64, 40) refused by both verifiers; honest 48 accepted pinned | art:efaa3a46 | in coordinator 0735Z |
 | blake3-80gb cells | FAIL inherited from R1 (same verifier); re-verifying the dumps with a fixed verifier or 06 is enough | art:2b51c5fd | blake3-80gb 0750Z |
-| b-ligero-sha256 `sha256/row/v1` (922120d2) | not ready (no pinned system); gadget review found nothing; R1/R2 apply as for +blake3 | code read | none yet |
+| b-ligero-sha256 `sha256/row/v1`, fp8-ada-x4+sha256 (be1a3bcb, pinned d6b0cd8d) | FAIL: an R1 remap forgery is accepted (Python, Rust pinned, reverify PASS), and R4 reproduces. Every +sha256 cell is pulled until the fix is merged. The gadget and H2 PASS; with c8a16e2b merged, R1 and R4 are refused | art:0e8faae7, art:57a22acb | coordinator 1030Z; b-ligero-sha256 1030Z |
 | sp1-committed relation-committed/v1 and -vllm/v1 (d12770c3, b54e42ed) | PASS on the guest and tree check. R3 FAIL (open): the `--instances` path and `committed-verify` without `--batch` still accept prover-chosen roots, so those cells are pulled | art:b11bc6ee | coordinator 0820Z, 0925Z; sp1-committed 0820Z, 0925Z |
 | agkr-bound row-digest (caacca10), frame-v3 + vllm-v1 | native tree check PASS: all 4 pins reproduced core-only from the frozen sets; in-proof hash layer not ready (no verdict) | art:8dee00aa | coordinator 0905Z; agkr-bound 0905Z |
 | verify-night-2 06 procedure (R1/R2/R4) | PASS after their 0850Z R4 fix (control ROOTS-MATCH, both R4 dumps MISMATCH) | art:8f2112e2, art:c7683eb2, art:8dee00aa | coordinator 0805Z, 0835Z, 0905Z; verify-night-2 0805Z, 0835Z |
@@ -123,3 +123,17 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
   prover-chosen-roots negative.
 * 09:20Z handoffs to ligero-steps-pin, the coordinator and b-ligero-standard-hash (PASS on R1, R2, R4 and H2). 09:25Z
   handoffs to sp1-committed and the coordinator (R3 open on `--instances`; those cells pulled).
+* 09:35-10:25Z the BLAKE3 gadget determinism scan `rtsh_blake3_free_rows.py` (5dfb1399, then 7d429908). The first version
+  tested single-row perturbations, and its dropped-decomposition control found 0 free rows: too weak, rejected. The second
+  version overrides each computed row, recomputes everything downstream and re-checks every constraint (run rtsh-free2-1000
+  at 806a2f73). The control finds 18 free rows. The shapes 8:0.5 (fp8-ada+blake3), 8:1 and 16:1 find 0 free rows in about
+  61k mutations each; 8:2 is running.
+* 09:45Z the A-GKR `sha256_flat.py` spike (agkr-bound 02927b7b), code read: the 16-bit-half adder check is sound (at most
+  7 terms, (t+1) 2^16 < p). It is not a statement yet.
+* 09:52Z run rtsh-sha-0952 at b-ligero-sha256 be1a3bcb, fp8-ada-x4+sha256: R1 REPRODUCED (forgery accepted by Python, Rust
+  pinned and reverify PASS), R4 REPRODUCED, H2 PASS. art:0e8faae7.
+* 10:15Z run rtsh-shafix-1015 at be1a3bcb + ligero-steps-pin c8a16e2b (local merge 1cfdb92f, not pushed): R1 and R4 refused,
+  H2 PASS. art:57a22acb. The first attempt reused be1a3bcb's binary: the trees share one CARGO_TARGET_DIR and rsync keeps
+  the older mtimes. The script now touches the sources and refuses a binary identical to be1a3bcb's. The earlier lsp and
+  bls builds were real rebuilds (distinct binaries). 10:30Z handoffs to b-ligero-sha256 and the coordinator (FAIL; cells
+  pulled).

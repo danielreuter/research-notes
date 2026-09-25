@@ -7,3 +7,4 @@ registered_by = "Daniels-MacBook-Pro.local"
 registered_at = "2026-09-25T08:39Z"
 # 1x L40S; created 2026-09-25 08:36Z by lane vllm-rf-c1 (vllm-v1 scheme): GPU Commit row #101 head + base, test_scheme_cuda.py.
 # Terminate once its logs are fetched.
+# TERMINATED 2026-09-25T09:44Z (runs r20260925-084508-e7c3, r20260925-092150-e650 fetched --all).

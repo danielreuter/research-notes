@@ -118,6 +118,27 @@ per round is the floor for a bit design with committed booleans.
   only: SHA-256 row digests stay on the host (numpy compress_np), the word / y trees go to the GPU.
 * 09:14Z be1a3bcb: PINS rows fp8-hopper-x4+sha256, fp8-ada-x4+sha256.  09:18Z r20260925-091800-e60f: ligero-verify rebuilt
   (cargo test 33 + 7 + 27 ok), pinned batch ACCEPT on both fixtures (system pinned, 2^-128.05).
+* 09:18Z screen r20260925-091800-e60f, l = 8192 p2, 8192 VUs (killed after rep 1: a host-bound timing):
+  - commit: 21 s cold, 7.9 s per rep.
+  - row chains: 12.3 s per rep, inside t.total.
+  - e2e 37.4 s.
+  - SHA-256 had no `row_sponges`, so the host numpy fold ran twice (chain witness, then `native` in the trees).
+* 09:25Z 88b82757 `Sha256Leaf.row_sponges`: cupy kernel, one thread per row, every block's CV (hash_gpu's compression);
+  carry and digests from it; test vs carry_values / native for 8/16-bit, whole and half blocks (9 passed on the pod).
+  r20260925-092757-6a32: commit 0.2 s cold, **identical evidence sha256 7561bfae…**, per rep commit 0.065 s, row chains
+  0.011 s.  Rep 2 (warm): prover 7.70 s per 8192 VUs, e2e 7.84 s.  Rep 1: 29 s (tests 26 s).
+* 09:35Z diagnostics:
+  - r20260925-093456-e16a: the fused witness runs in level mode (389 levels, 53k ops): W 19 ms at l = 8192.  The Python
+    verify takes 9.8 s per proof: 6.2 s numpy astype, 3.1 s per-VU leaf_bytes.
+  - r20260925-093705-64d3, cProfile of a steady proof: 2.29 of 2.49 s is `openings_device.opened_from_pinned`'s numpy
+    copy.
+  - r20260925-094418-65bd, `23-pinned-bench.py`: **first-touch page faults on this host run at ~20 MB/s**.  A fresh
+    91 MB numpy copy takes 4.0-7.0 s; a reused buffer 8 ms.  glibc unmaps its large blocks on free, so every proof
+    re-faults its opened columns (M x t).  With `MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12`: one 10 s fault-in, then
+    every copy 7-9 ms.  (The 4090's "degraded host memory" at 08:20Z was probably the same.)  Set in `lib.sh` for every
+    run from 09:49Z.
+  - da74b03e: `leaf_bytes` by a Python-int compression (0.09 ms vs 2.2 ms).
+* 09:40Z merged origin/main 3301c435 (steps pin + R1/R2/R4, ligero-steps-pin c8a16e2b) -> 329b3e1a, clean.
 
 ## Discrepancies
 (none yet)

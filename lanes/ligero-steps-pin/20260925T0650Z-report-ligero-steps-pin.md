@@ -5,6 +5,7 @@ created: 2026-09-25T06:50Z
 status: open
 ---
 
+CHECKPOINT c8a16e2b (09:48Z) [open] 09:48Z ready c8a16e2b sent. Disk notice ack: pulled only 228 KB of logs (art:61aedd27), deleted /tmp copy; nothing big. Regression r12 at ~163/171 (1 pre-existing live_test F). FINAL after it ends.
 CHECKPOINT c8a16e2b (09:31Z) [open] 09:38Z READY handoff sent: c8a16e2b (steps pin + R1/R2/R4), art:61aedd27. 806a2f73 superseded by c8a16e2b (explained). Final pytest 50 passed; 9/9 dumps; R2 T2 PASS. Waiting on regression r12 (92/171) before FINAL.
 CHECKPOINT 8e2f793c (09:03Z) [open] 09:07Z tip 8e2f793c. 9/9 dumps accepted w/ R1 (Rust pinned+Py). R2 recompute passes fp8-ada+poseidon2 T2 (4096 VUs); v6 shared fails closed. Red-team remap+orphan not reproduced, steps48 ok. R4 fix + reverify_test fix in. Regression running.
 CHECKPOINT 06176b41 (08:41Z) [open] 08:47Z tip 06176b41: +R1/R2 (b-l-s-h cherry-picks) +R4 fix (reverify stmt/proof stems, batch n). cargo 33+7+27 ok. Pod: lsp-r12 (pytest/dumps/R2/regression) + lsp-rtsh (red-team remap/orphan/steps harnesses) running.

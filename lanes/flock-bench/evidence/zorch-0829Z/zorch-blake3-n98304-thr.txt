@@ -1,0 +1,27 @@
+device cuda:0 | gpu: 542/32607 MiB, util 0%, no other compute proc
+witness form: packed F128 | best-of-3 within this process
+
+##bench-json## {"circuit": "blake3", "m": 31, "log_n": 24, "initial_k": 6, "recursive_ks": [3, 3, 3, 3, 3], "queries": [218, 106, 71, 53, 43, 36], "hashes": 131072, "hash_arm": "sha256", "wall_ms": 36.00216098129749, "mode": "throughput", "phases": null, "fold_pow_dropped": null}
+	Command being timed: ".venv/bin/python python/flock_zorch/testing/prove_phase_bench.py blake3 --throughput --runs 3 --golden blake3_ligerito_golden_n98304.bin --json"
+	User time (seconds): 191.00
+	System time (seconds): 18.18
+	Percent of CPU this job got: 111%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:07.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5782800
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3449754
+	Voluntary context switches: 262097
+	Involuntary context switches: 2163
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 68240
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

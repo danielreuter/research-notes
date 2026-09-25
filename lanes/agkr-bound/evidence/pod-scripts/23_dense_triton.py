@@ -90,12 +90,12 @@ def coef_ip(TB, U, BITS, ACC, n, p, BLOCK: tl.constexpr):
     c5 = tl.zeros([BLOCK], dtype=tl.int64)
     for k in tl.static_range(16):
         q = U + (k * 256 + tl.load(TB + i * 16 + k, mask=m, other=0).to(tl.int64)) * 6
-        c0 += tl.load(q, mask=m, other=0)
-        c1 += tl.load(q + 1, mask=m, other=0)
-        c2 += tl.load(q + 2, mask=m, other=0)
-        c3 += tl.load(q + 3, mask=m, other=0)
-        c4 += tl.load(q + 4, mask=m, other=0)
-        c5 += tl.load(q + 5, mask=m, other=0)
+        c0 += tl.load(q, mask=m, other=0).to(tl.int64)
+        c1 += tl.load(q + 1, mask=m, other=0).to(tl.int64)
+        c2 += tl.load(q + 2, mask=m, other=0).to(tl.int64)
+        c3 += tl.load(q + 3, mask=m, other=0).to(tl.int64)
+        c4 += tl.load(q + 4, mask=m, other=0).to(tl.int64)
+        c5 += tl.load(q + 5, mask=m, other=0).to(tl.int64)
     # c_e < 16 p < 2^35 and a block sums <= BLOCK of them: one reduction mod p per block, partials summed on the host
     o = ACC + tl.program_id(0).to(tl.int64) * 6
     tl.store(o + 0, tl.sum(c0 * bit, 0) % p)

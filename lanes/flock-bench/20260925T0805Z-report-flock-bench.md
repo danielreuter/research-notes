@@ -102,16 +102,15 @@ art:9be695b0 (run r20260925-091303-5375), 3 reps, spread about 1 %. Random BLAKE
 | 33 | 524,288 | BF16 N=4096 (393,216) | **0.291** | 18 | 538 |
 
 Not monotone in m: each m has its own hard-coded Ligerito config, and m26/m30/m31 have worse ones than m27/m32. At N=4096,
-BF16 is 1.35 M BLAKE3/s (8.0x the 16-vCPU Zen4 pod, 4.3x the 32-vCPU EPYC 9654). Host RSS 0.8 GB; device memory was not
-sampled. There is no config at m=29 (the test panics), which matters for the unit circuit below.
+BF16 is 1.35 M BLAKE3/s (8.0x the 16-vCPU Zen4 pod, 4.3x the 32-vCPU EPYC 9654). Host RSS 0.8 GB. Device memory high-water (nvidia-smi at 20 ms, art:3f5173a2): m32 8.2 GB, m33 15.6 GB. There is no config at m=29 (the test panics), which matters for the unit circuit below.
 
-flock-zorch (fractalyze, JAX/XLA + clmad, BLAKE3; art:ZORCH_ART, run r20260925-082947-b255). Throughput mode proves from
+flock-zorch (fractalyze, JAX/XLA + clmad, BLAKE3; art:1e54492e, run r20260925-082947-b255). Throughput mode proves from
 a packed witness, so the witness is excluded; seed mode generates it on device:
 
 | m | hashes (full slots) | throughput-mode prove ms | seed-mode ms | host RSS GB |
 | --- | --- | --- | --- | --- |
 | 27 | 8,192 | 21.0 | 20.1 | 2.4 |
-| 31 | 131,072 | **36.0** (3.64 M/s) | ZORCH_SEED31 | 5.8 |
+| 31 | 131,072 | **36.0** (3.64 M/s) | 37.7 | 5.8 |
 
 zorch is 2.7x faster than Flock-CUDA at m27 and 3.9x at m31. Its README floor (2.36 M/s at 2^17) is beaten at 3.64 M/s.
 Linear extrapolation at 59.6 G slot-bits/s puts m33 (BF16 N=4096) near 0.14 s; that point was not run. zorch needs a
@@ -195,6 +194,8 @@ art:e4f684ac (r20260925-091930-31a7, 2 reps).
   max row degree. Treat 0.17-0.30 s as the per-circuit range at N=4096.
 - The host witness build (0.28 s at m32, CPU) is outside prove; an on-device witness, like Flock-CUDA's own BLAKE3
   path, would also remove the 0.13 s upload. Device-only unit prove at m32 is therefore about 0.12-0.16 s.
+- Device memory high-water (art:3f5173a2): ampere m32 8.0 GB, ada m31 4.3 GB. Run one after the other, unit
+  and BLAKE3 peak at 15.6 GB, which fits a 24 GB 4090.
 - No union prover on GPU, so relation + leaves on the 5090 is two proofs (the CPU union costs the sum, so two proofs
   is a fair model).
 

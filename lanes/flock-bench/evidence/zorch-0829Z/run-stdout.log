@@ -1,0 +1,23 @@
+name, driver_version, clocks.max.sm [MHz], power.limit [W], memory.total [MiB]
+NVIDIA GeForce RTX 5090, 580.65.06, 3090 MHz, 500.00 W, 32607 MiB
+pid, process_name
+Build cuda_13.3.r13.3/compiler.38244171_0
+Build cuda_13.3.r13.3/compiler.38244171_0
+-rw-r--r-- 1 root root 151826556 Sep 25 08:32 /workspace/flock-bench/zorch-artifacts/blake3_ligerito_golden_n6144.bin
+rc=0 zorch blake3 n=6144
+##bench-json## {"circuit": "blake3", "m": 27, "log_n": 20, "initial_k": 6, "recursive_ks": [3, 3, 3], "queries": [218, 106, 71, 53], "hashes": 8192, "hash_arm": "sha256", "wall_ms": 20.982591900974512, "mode": "throughput", "phases": null, "fold_pow_dropped": null}
+	Maximum resident set size (kbytes): 2364668
+rc=0 zorch-seed n=6144
+device cuda:0 | gpu: 542/32607 MiB, util 0%, no other compute proc
+witness form: packed F128 | best-of-3 within this process
+
+##bench-json## {"circuit": "blake3", "m": 27, "log_n": 20, "initial_k": 6, "recursive_ks": [3, 3, 3], "queries": [218, 106, 71, 53], "hashes": 8192, "hash_arm": "sha256", "wall_ms": 20.07613400928676, "mode": "throughput", "phases": null, "fold_pow_dropped": null}
+-rw-r--r-- 1 root root 1158536932 Sep 25 09:24 /workspace/flock-bench/zorch-artifacts/blake3_ligerito_golden_n98304.bin
+rc=0 zorch blake3 n=98304
+##bench-json## {"circuit": "blake3", "m": 31, "log_n": 24, "initial_k": 6, "recursive_ks": [3, 3, 3, 3, 3], "queries": [218, 106, 71, 53, 43, 36], "hashes": 131072, "hash_arm": "sha256", "wall_ms": 36.00216098129749, "mode": "throughput", "phases": null, "fold_pow_dropped": null}
+	Maximum resident set size (kbytes): 5782800
+rc=0 zorch-seed n=98304
+device cuda:0 | gpu: 542/32607 MiB, util 0%, no other compute proc
+witness form: packed F128 | best-of-3 within this process
+
+##bench-json## {"circuit": "blake3", "m": 31, "log_n": 24, "initial_k": 6, "recursive_ks": [3, 3, 3, 3, 3], "queries": [218, 106, 71, 53, 43, 36], "hashes": 131072, "hash_arm": "sha256", "wall_ms": 37.66859997995198, "mode": "throughput", "phases": null, "fold_pow_dropped": null}

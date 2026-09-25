@@ -6,3 +6,4 @@
 2026-09-25T08:40:53Z REMOVED /Users/danielreuter/projects/verity-main-wt/verify-po (lane/verify-po @ ab9573fd, 244M; branch kept, on origin)
 2026-09-25T08:40:54Z REMOVED /Users/danielreuter/projects/verity-main-wt/wave-a100 (lane/wave-a100 @ 24f252b1, 222M; branch kept, on origin)
 2026-09-25T08:41:45Z REMOVED /Users/danielreuter/projects/verity-main-wt/jolt-scout (lane/jolt-scout @ 7fcedf47, 427M; clean, no commits beyond origin/main; branch kept locally)
+2026-09-25T09:47:26Z REMOVED ~/projects/verity-main-wt/main/backends/ligero-verify/target (regenerable cargo build output, gitignored; no merge/build running; ~36 MB freed; approved by root 2:47 AM PT)

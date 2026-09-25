@@ -1,0 +1,13 @@
+E0925 09:29:15.505458   25478 slow_operation_alarm.cc:73] 
+********************************
+[Compiling module jit_witness_blake3 for GPU] Very slow compile? If you want to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+********************************
+E0925 09:38:08.015947   25061 slow_operation_alarm.cc:140] The operation took 10m52.510591841s
+
+********************************
+[Compiling module jit_witness_blake3 for GPU] Very slow compile? If you want to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+********************************
+device cuda:0 | gpu: 542/32607 MiB, util 0%, no other compute proc
+witness form: packed F128 | best-of-3 within this process
+
+##bench-json## {"circuit": "blake3", "m": 31, "log_n": 24, "initial_k": 6, "recursive_ks": [3, 3, 3, 3, 3], "queries": [218, 106, 71, 53, 43, 36], "hashes": 131072, "hash_arm": "sha256", "wall_ms": 37.66859997995198, "mode": "throughput", "phases": null, "fold_pow_dropped": null}

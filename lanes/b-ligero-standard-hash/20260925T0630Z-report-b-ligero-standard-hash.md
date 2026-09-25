@@ -182,6 +182,23 @@ Pod scripts: `evidence/pod-scripts/`.
   and H2 steps 64 all refused; control PASS; gadget review of leaf/blake3.py + hashchain.py: no finding**. Agrees that a
   shared / tile dump failing closed on `set.tile` is the safe direction.
 * 09:19Z **x4 sweep r20260925-091922-a390** (`30-sweep.sh`, REL = fp8-ada-x4+blake3, l = 4096, p2, 5 reps, custody-r2 8h).
+* 09:40Z **x4 sweep DONE** (rc 0, 1209 s): 1559.1 / 1832.5 / 2006.9 / **2108.7** / 1875.5 VU/s at 1024 .. 16384. It stopped
+  on "< 2 % over two doublings" -> `sweep` {plateau: true, point 3, 8192 VUs}.
+  - **Plateau 8192:** t.total 3.870 s + commit 0.0148 s = e2e 3.885 s; overhead 5.10e7× vs native peak; 128.05 bits
+    (target 2^-128); peak 18.7 GB. That is 25 sub-batches of <= 341 VUs.
+  - The pod's ligero-verify (e1ed499c…) on rep 1: batch ACCEPT 25/25, union 2^-128.05, system-digest 1168788f… =
+    the fp8-ada-x4+blake3 pin.
+  - 4096 point: t.total 2.032 s + commit 0.0088 s = e2e 2.041 s (5.36e7×, 128.33 bits).
+
+  Registered 09:41Z (all PRESERVED; `40-register.sh` over `research pods ssh`):
+  - p0 1024: result art:0320e7a78e2aa91af8a3f977012285b693fe66746a842d2f3d21f89f9bc82f66 (tree art:83240748…)
+  - p1 2048: result art:e8af8d31bb9e052e71e89ad7c0260c0ce162f0822e256af6750c4edca758f167 (tree art:168856bc…)
+  - p2 4096: result art:b281a6602cea7308a62ca6c747a7f6740e9118955a4b18eafaa94c9c3a478af9 (tree art:2ec81a36…)
+  - **plateau 8192: result art:6b6d4484c7a3911946431ec8a7d3ef609137274157003e47654313d25be77631, tree (proofs, 1.6 GB)
+    art:f35d43aa392b154f2af73bc41920ce1dc17c96b58d9ccd5a608aed9ebf7a453f**
+  - p4 16384: result art:82a3e0ba7b0b2b5c4c7be9032cc812d2b37f0ca3017e3e94fdce07864d5ae2dc (tree art:d628331e…)
+* 09:42Z r20260925-094242-269c (`20-cell.sh`, REL = fp8-ada+blake3, 4096 frozen, l = 4096, p2, 5 reps, custody-r2): the x1
+  cell re-measured on the GPU committer, with proofs kept.
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

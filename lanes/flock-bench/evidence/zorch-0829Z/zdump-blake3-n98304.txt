@@ -1,0 +1,24 @@
+dumped blake3-ligerito n_comp=98304 m=31 log_n=24 | R=5 initial_k=6 | ring_switches=2 lig sumcheck_msgs=32 recursive_roots=5 -> /workspace/flock-bench/zorch-artifacts/blake3_ligerito_golden_n98304.bin
+	Command being timed: "target/release/examples/dump_blake3_ligerito 98304 /workspace/flock-bench/zorch-artifacts/blake3_ligerito_golden_n98304.bin"
+	User time (seconds): 2193.80
+	System time (seconds): 15.78
+	Percent of CPU this job got: 103%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 35:41.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 13635344
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4411729
+	Voluntary context switches: 2560
+	Involuntary context switches: 5353
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2262776
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

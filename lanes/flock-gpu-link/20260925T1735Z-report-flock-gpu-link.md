@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT 996013f0 (19:41Z) [open] WAIT vy-flock-gpu-link-h100 r20260925-193447-1f8e check-back 20:15Z agent bc-9209cb00-14e7-59ad-85aa-682c82ad797a; verifier r20260925-193409-4413 (vy-flock-gpu-link-ver). flock-pure-gpu CPU 17/17 PASS 8/64; GPU pure mode built (996013f0); handoff 1941Z to flock-backend
 CHECKPOINT d038df43 (19:27Z) [open] ring-switch sparse fusion done; flock-pure-block statement + flock-pure-gpu binary (flock-pure CLI) CPU selftest 17/17 PASS at 8/64 VUs on flock-backend's bf16-hopper instances+netlist (da1bbe2c). next: CUDA pure mode (unit witness kernel, 2-circuit fold), then H100 plateau
 CHECKPOINT none (19:13Z) [open] GPU selftest ALL PASS 8/64 (per-process); same-DC verifier (US-MO-1, TCP RTT 0.90 ms) 6x4096 accepted: prove 0.67-0.72 s, wait 0.26-0.33 s/252 RTs, verify 0.14-0.19 s; chain sweep plateau ~7.0k VU/s at 8192-16384 (component). art:fff0c041 art:44ead663 art:2a910602. pods terminated 19:13Z ~$4.6. next: ring-switch fusion + flock-pure-block GPU (handoff 1912Z)
 CHECKPOINT none (19:10Z) [open] coord 12:07 PT: pure Flock split with flock-backend; handoff 1912Z to lanes/flock-backend (proposes one block-R1CS statement flock-pure-block for CPU+GPU, or B); read their report 81f01ab8. s9 fixed (C8: route (a) 2^-130.19, gap = prime FS). WAIT r20260925-190459-8ed1 check-back 19:45Z agent bc-9209cb00-14e7-59ad-85aa-682c82ad797a

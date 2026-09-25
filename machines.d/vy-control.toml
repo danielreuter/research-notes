@@ -1,0 +1,7 @@
+# machine vy-control: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "9tnzjcc6iygyv0"
+project = "verity"
+root = "/workspace/research"
+python = "python3"
+registered_by = "import from machines.toml"

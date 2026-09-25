@@ -1,0 +1,19 @@
+# [families.*] VRAM references (pods check-part), imported from machines.toml
+
+[families.rtx4090]
+vram_mb = 24564
+
+[families.a100]
+vram_mb = 81920
+
+[families.h100]
+vram_mb = 81559
+
+[families.rtx5090]
+vram_mb = 32607
+
+[families.l40s]
+vram_mb = 46068
+
+[families.b200]
+vram_mb = 183359

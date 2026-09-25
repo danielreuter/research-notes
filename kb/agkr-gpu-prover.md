@@ -91,3 +91,24 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
 - nvf4 statements carry `public s t f` in chain.txt, which main's verifier (pre-679697a4) cannot parse. Build lane/agkr-nvf4
   3c769c6d's verifier, which is main plus the optional public line.
 - Prover-only records reuse the same proof bytes, so cmp every proof and statement file against the verified tree as well.
+
+## Operand binding and circuit shape (agkr-bound, 2026-09-25)
+- Every A-GKR unit circuit is product-depth 1. Nonlinearity comes from committed hint columns and LogUp.
+
+  | circuit | products | columns |
+  |---|---|---|
+  | bf16-ampere | 26 | 264 |
+  | fp8-hopper | 37 | 448 |
+  | fp4-nvf4 | 215 | 485 |
+
+  `depth_circuit` in a result counts GKR/LogUp layers, not product depth. An in-circuit hash therefore either commits its
+  S-box intermediates, or needs product depth > 1, which the fast CUDA prover has never proved.
+- Operands bound as public inputs (lane/agkr-bound, art:559147e1; PROTOCOL.md §16):
+  - `bind.txt`, `instances.txt`, `x.bin`, `w.bin`;
+  - relation name `R+bound`: circuit files pinned under R in `pins.txt`, instance digests pinned under `R+bound` in
+    `verifier/src/instances.rs`;
+  - plain `R` refuses a statement that has a `bind.txt`.
+  It costs about +0–15% t.total on A100. The user ruled it NOT the full relation: commit x, W and y and bind the commitments
+  in-proof (coordinator 0507Z).
+- `gpu/v2/export.merge_tables` is torch-free from 2994bd25, so the circuit-pin pytest can regenerate the merged-LK E4M3 lines.
+  To test torch-freeness, set `sys.modules['torch'] = None` before `runpy.run_module`.

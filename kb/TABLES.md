@@ -66,3 +66,8 @@ The steward renders both daily at 13:00Z into `campaigns/afternoon/render/` styl
 | SP1 | 0/5 | every row: all SP1 results so far are 100-bit; needs a 2^-128 configuration or an honest "cannot" in D1 |
 D3: all 12 current cells measured (verifier-cost, merged ab9573fd). D2: SP1 stock has all five targets at ~100-bit; SP1 precompile (TC_DOT) +
 TC_DOT only A100 (fastest verified 5.81 s art:174d7b4d).
+
+## Provisional cells (coordinator, user decision 2026-09-24 5:48 PM PT)
+- RTX 5090 NVFP4 · A-GKR art:49757870: provisional pending red-team-lk (statement rewrites: merged tagged LK, depth-1 flatten).
+  tables.py is frozen and has no marker; the flag is carried in the scoreboard's changed list and the digest. Pulled if red-team-lk FAILs.
+- Results on rewritten A-GKR statements enter Table 2 only after verify-po AND red-team-lk pass (verify-po holds the label).

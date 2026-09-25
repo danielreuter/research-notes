@@ -105,6 +105,9 @@ created: 2026-09-24T17:40Z
 - 00:09-00:12Z Build `r20260924-224322-888b` pulled (130 s) and pushed: 8/8 PRESERVED (191 s). All tp2b attempts but the running Commit are preserved.
 - 00:07:45Z #70 Commit manifest rc 0: complete, identities 357796, unbound 0, unmodelled {}, digest `1bb40895671dd791` (= f1 base); tp.commit since 00:07:47Z.
 - 00:20Z gate (a) T0,T1 on tp2b: result 23 `T1-replay_partition-r11` PASSED (~15 min, pytest RSS peak seen ~67 GB); 36/158 at 00:20Z. Remaining heavy T1 replay: row #39 (qwen25-1.5b B=1 i4096/o512); #101 B=1 is i256/o32; B>=2 rows' Programs are small -> ETA ~01:30Z. CPU pod T0: 45% (72/158) at 00:21Z.
+- 00:47:40Z **gate (a) T0 at `ce41390d` (CPU pod) GREEN**: exit 0, 64 passed / 94 skipped / 33 deselected, 3465 s; jdiff vs my 9b07c19f T0 (`a_head2.xml`) and vs base 72884c8a T0 (`a_base.xml`): 0 differences of any kind; SKIPPED lines identical (paths normalised). Logs/XML on the laptop `/tmp/rff56/gate_final/`. CPU pod `hmb9fu3hu7rdm9` DRAINED 00:50Z (minted 1 h key): 0 attempts, TERMINATED.
+- 00:43Z tp2b: gate (a) T0,T1 at 46/158, 0 F, in row #39's replay since ~00:25Z (pytest ~102 GB, flat); #70 Commit pair 0 control 2.394 s, 129 steps, tokens_equal True; pod anon 161 GB of 377.
+- FA3 not rerun, reason recorded: AST comparison shows the D17 split is a pure move (every function/constant of 9b07c19f's module in exactly one of the two files, byte-identical except `_case_ok`/`_negative_ok` -> public, 4 call sites).
 - `origin/main` = `a47a45bd` (00:05Z): commits since `1d9c3198` touch nothing under integrations/vllm nor my files; `git merge-tree origin/main ce41390d` clean -> no second rebase (would void the ce41390d gates). `git range-diff`: dfd21f73 = 3262ebb4, 9b07c19f = 6c893a29.
 
 ## Running

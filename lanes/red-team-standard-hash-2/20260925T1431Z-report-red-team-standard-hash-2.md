@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 1874b18d (19:56Z) [open] 19:56Z acting on inbox 1940Z (bf16-ampere-x4+sha256 grant; shape 16:2 = scanned at 1441Z, leaf code unchanged to 7da00370) -> pod for H2/R1/R4; 1945Z vllm-v1 review queued next. Still waiting on x4 hopper plateau verified labels
 CHECKPOINT 1874b18d (19:31Z) [open] 19:31Z x4 hopper +blake3 GRANTED WITH CONDITIONS (handoff 1932Z; art:a75b03a5, run r20260925-190844-a540); pods terminated (~$0.11). Waiting, no pod, for the plateau cells' verified= labels to write proof_class
 CHECKPOINT 1874b18d (19:09Z) [open] 19:09Z blake3 16:2 scan at 9a78cd68: 0 free / 122,596 (control 16); 8:2 running (VM). Pods: nj2awhejyzbrjs + 9ix05r9kmxvoi8 never reachable (host 194.68.245.218), terminated; a5zj4kpsx1l14c (EU-RO-1) runs H2/R1/R4 r20260925-190844-a540
 CHECKPOINT 1874b18d (18:24Z) [open] 18:24Z reopened: class review fp8-hopper-x4+blake3 / bf16-hopper-x4+blake3 at x4-hopper-blake3 9a78cd68 (shapes 8:2 / 16:2): NOT final; pod vy-red-team-sh-2 next

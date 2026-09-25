@@ -121,11 +121,18 @@ Pre-epoch head `5e21eead` vs base `10996616`:
   - MoE Stage 2 block: `43bb1ede072b2031` added to the accepted pins (test_moe_pad_route_a3);
   - the query fixtures' PV k-step callee `BF16TcDot16_v1` -> `_v2` (test_query_fixtures).
 - **Protected, not edited**: `verity_vllm/properties/golden/corpus.json` (gate G6: "integrator only … never a silent
-  edit"). `tests/properties/test_golden.py::test_corpus_check_passes` fails at the epoch: GOLDEN_RESULT. Integrator:
+  edit"). `tests/properties/test_golden.py::test_corpus_check_passes` fails at the epoch. Both entries report "digest
+  changed", with attribution_sha and instance counts unchanged (`evidence/epoch/golden-epoch.json`). `smollm2-135m-m1`
+  moves `d2b299f5…` -> `d72cd7ad71fbf73854c8fc9af5d8fa51fa71ec4a65bcad396fbcc5834fb0e8e1` and `qwen2.5-1.5b-m6` moves
+  `14a3ac66…` -> `074e6caba4f1e1884fa336c1bf8798f845b3f6e06224462d7aa313f5488dd89c`. Integrator:
   `python -m verity_vllm.properties.golden --record smollm2-135m-m1 --log data/logs/m1.jsonl.gz --profile vllm_d9105ea80_sm89_eager --decision <epoch>`
   (and `qwen2.5-1.5b-m6`, `data/logs/m6/log.jsonl.gz`, `vllm_d9105ea80_sm89_eager_qwen15`).
 - Epoch tests at the epoch tree (`r20260925-113631-7de1` full suite; `r20260925-121653-3c15` re-run of the changed
-  files; `evidence/epoch/`): EPOCH_TESTS_RESULT.
+  files; `evidence/epoch/`). Lints 45/45. The full run, against the pre-epoch head's gate (b) xml (baseline-jdiff), had
+  15 new failures, all epoch-moved pins: the four digests above, the 10 query-fixture PV tests, and golden. After the
+  pin updates, the re-run of those six files matches the pre-epoch head on every test except `test_golden` (above).
+  The one other failure in the re-run (`test_derive::test_s3_untied_lm_head_loses_sharing_and_is_refused_by_family`)
+  also fails at the pre-epoch head and at base. The committed tree is the one tested (last edit 12:10Z, sync 12:15Z).
 - Left as they are: the data/evidence JSON under `integrations/vllm/data/` and `docs/data/` (records under v1);
   `conformance.NAN_CANONICALISATION.program_digests_unchanged` (historical); `packages/verity/tests/ir/test_query_ast.py`
   (c4ir's file, where the v1 string is only a query pattern); the frontend `Ops` bare-name default `_v1` (see Found, not fixed).

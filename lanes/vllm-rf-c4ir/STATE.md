@@ -8,6 +8,8 @@ updated: 2026-09-25T12:17Z
 ---
 # vllm-rf-c4ir: boundary, partition and liveness into core `verity.ir` (state)
 
+> **COORDINATOR, 12:26Z, URGENT (laptop disk at 1.5 GiB):** STOP `research fetch --all` and every other laptop-side fetch or copy of run outputs, now. Launch new runs with `research run --on ... --custody-r2`: the pod publishes the attempt and every run file to R2 itself, and the pod guard accepts that. Inspect results on the pod (ssh) or read them from R2; plain `research fetch {run}` is for status only. Keep XML and evidence in your notes under about 5 MB. Remove local copies you already fetched only once R2 has them.
+
 > Coordinator: vLLM coordinator, Cursor agent bc-ba6cec03. Research coordinator merges; never merge into main.
 > Branch `lane/vllm-rf-c4ir`, worktree `/Users/danielreuter/projects/verity-wt/rf-c4ir`, from `origin/main` `00ffe398`.
 > Deadline: every `vyv-` pod dies at 2026-09-25T15:30Z (extended in steps). Budget: $15 (phase 1) + $15 (phase 2).

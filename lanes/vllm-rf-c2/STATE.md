@@ -3,9 +3,11 @@ id: vllm-rf-c2/state
 lane: vllm-rf-c2
 kind: state
 agent: bc-568d82f4 (Cursor), coordinator bc-ba6cec03
-updated: 2026-09-25T11:50Z
+updated: 2026-09-25T12:27Z
 ---
 # c2 (Definition library, D8/D9, decision 3a): state
+
+> **COORDINATOR, 12:26Z, URGENT (laptop disk at 1.5 GiB):** STOP `research fetch --all` and every other laptop-side fetch or copy of run outputs, now. Launch new runs with `research run --on ... --custody-r2`: the pod publishes the attempt and every run file to R2 itself, and the pod guard accepts that. Inspect results on the pod (ssh) or read them from R2; plain `research fetch {run}` is for status only. Keep XML and evidence in your notes under about 5 MB. Remove local copies you already fetched only once R2 has them.
 
 > **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT; updated 11:31Z)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
 
@@ -61,19 +63,29 @@ a4 base: 10996616
 - GPU #101 `r20260925-105133-d03f` (`evidence/row101/`): head == base == record (run root 7adcef49…, program ccc21347…,
   manifest 90f81868…, commit_pass).
 
-## Epoch (step 4, worktree, uncommitted)
+## Epoch commit `11c3e500` (pushed 12:24Z, alone at the tip; merge up to `5e21eead`)
+- Epoch tests: full suite at the epoch tree `r20260925-113631-7de1` (lints 45/45; vs pre-epoch head: 15 new failures, all
+  epoch pins); after the pin fixes, re-run of those files `r20260925-121653-3c15`: every outcome == pre-epoch head except
+  `test_golden::test_corpus_check_passes` (protected corpus: digest changed, attribution unchanged, m1 d2b299f5 -> d72cd7ad,
+  m6 14a3ac66 -> 074e6cab; integrator re-record needed). `evidence/epoch/`.
+- Pins at the epoch (`r20260925-120042-34a3`): registry_version e183ae76 -> c41e555d; PROFILE_B1_EAGER_V2 2145f8ec -> 4821740e;
+  rest unchanged.
+- `vyv-rf-c2-g1` terminated 12:02Z (runs fetched). Remaining: gate (a) on reg, then READY.md (draft written), terminate reg.
+
+## Epoch (step 4, details)
 - Programs cite core `AmpereBF16TcDot16_v2`; integration `_v1` stays registered, `conformance="superseded by …"`.
   Call sites (targets, derived_rows, sampled_replay, examples, torch_frontend docstrings, vocab notes, tests) name `_v2`.
 - Epoch closure `r20260925-113628-aac6` (`evidence/epoch/`): exactly rows 11, 23, 39, 57, 60, 67, 68, 70, 75, 101 change
   row_sha; every v1 spec now v2 (same count); #73/#74 unchanged; 0 errors.
-- Running: epoch tests (lints + full integration suite) `r20260925-113631-7de1` on reg (~97%, some F: pinned digests);
-  GPU #101 at epoch tree `r20260925-114645-150d` on g1 (new program/manifest/run root).
-- Gate (a) T0+T1 `r20260925-105303-d711` on reg (from 10:53Z, ~2 h).
-- Spend ~$6.7 at 11:47Z (cpu $3.33, reg $1.76/h from 10:28Z, g1 $1.09/h from 10:44Z).
+- GPU #101 at the epoch tree `r20260925-114645-150d`: commit_pass, run root unchanged 7adcef49…, program ccc21347 ->
+  dd206e6c, manifest 90f81868 -> ee65240e, descriptors cite only AmpereBF16TcDot16_v2.
+
+## Running
+- Gate (a) T0+T1 `r20260925-105303-d711` on reg (from 10:53Z; 60/158 at 12:20Z, 0 F).
+- Spend ~$8.8 at 12:27Z (cpu $3.33, g1 $1.42, reg $1.76/h from 10:28Z).
 
 ## Next
-1. Fix epoch-caused test failures (B0_DIGEST_V1 in test_nan_conversion.py, other pins), rerun, commit epoch at tip, push.
-2. Fetch gate (a), compare with a23b's base xml; READY.md; terminate pods.
+1. Fetch gate (a), compare with a23b's base xml test by test; finish READY.md; terminate reg; final message.
 
 ## Open questions
 (none)

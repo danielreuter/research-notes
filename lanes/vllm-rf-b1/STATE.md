@@ -2,9 +2,11 @@
 id: vllm-rf-b1/state
 lane: vllm-rf-b1
 kind: state
-updated: 2026-09-25T12:10Z
+updated: 2026-09-25T12:26Z
 ---
 # b1 (evaluator kernels and replay): state
+
+> **COORDINATOR, 12:26Z, URGENT (laptop disk at 1.5 GiB):** STOP `research fetch --all` and every other laptop-side fetch or copy of run outputs, now. Launch new runs with `research run --on ... --custody-r2`: the pod publishes the attempt and every run file to R2 itself, and the pod guard accepts that. Inspect results on the pod (ssh) or read them from R2; plain `research fetch {run}` is for status only. Keep XML and evidence in your notes under about 5 MB. Remove local copies you already fetched only once R2 has them.
 
 > **Coordinator, 10:01Z: the vyv- pod deadline is now 2026-09-25T15:30Z (8:30 AM PT; updated 11:31Z)**, extended in steps of at most 4 h while the coordinator runs; register results as they land.
 
@@ -49,7 +51,8 @@ a4 base: 10996616
 ## Running
 - `vyv-rf-b1-big` (61mmy8g18xcj0z, cpu3m 64 vCPU / 512 GB, $3.52/h, since 11:24Z): head 8c0bec08 + base synced, bootstrap OK 11:48Z; laptop-minted read-only key piped in 11:58Z. **Gate (a) `r20260925-115853-be37`** (`big_gate_a.sh`): prefetch done 12:07Z ok=26 fail=0 key_deleted=yes; head T0+T1 split 4-way from 12:07Z: R1 (r74 r67 r60 r70) 3 passed 1 skipped 1110 s, R3 (r39 r57 r101 r4 r23) 3 passed 2 skipped 1003 s; R2 and A running; then base replay_partition on the same pod for replay wall time.
 - `vyv-rf-b1-g2` (l2w6439556ueod, 1x L40S, 188 GB, driver 580, $1.09/h): created 11:18:44Z by the first retry loop, which died before registering it; found and registered (guard 90) at 11:49Z, so ~30 min of it idle. **#67 `r20260925-120629-a48a`** (12:06Z) = `g2.sh`: bootstrap OLMOE, Build+Match once at head, row dir copied, Commit PAIRS=1 at head then at base (f1's shared-Match pattern), rowcmp vs record (program fdd998d4, v2 manifest 47990631, commit_pass True).
-- #70 (2x L40S): still no capacity; the retry loop now tries tp2 only, until ~12:30Z.
+  #67 Build started 12:13Z (admission advisory: match 129.6 GB of a 179 GB limit).
+- #70 (2x L40S): still no capacity; the retry loop tries tp2 only, now until 13:30Z (a head-only #70 PAIRS=1 is ~1 h 50 min by b4's timings, so later than 13:30Z it would not end by 15:30Z). Script ready: /tmp/b1/tp2.sh (head, tp_stage.sh build/match/commit, then b4's cmp70.py vs f1's base Commit of record).
 
 ## Next
 - gate (a) merged xml vs a23b base (test by test) + replay_partition times head vs base; #67 stages vs record; #70 only if a 2x L40S appears; READY.md (draft /tmp/b1/READY.draft.md).

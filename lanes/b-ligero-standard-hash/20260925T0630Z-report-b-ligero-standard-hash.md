@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 806a2f73 (09:58Z) [open] GPU-committer cells registered: x1 4096 frozen e2e 3.585s art:e7d59ab6; x4 4096 e2e 2.048s art:017a7069; x4 plateau 8192 2109 VU/s art:6b6d4484 -> verify-night-2 (0958Z). Live same-pod verifier run r..095340 accepting 49/49/rep.
 CHECKPOINT 806a2f73 (09:20Z) [open] GPU committer smoke: device==host evidence, 4096 x1 e2e 3.64s (1125 VU/s). x4 fold probe l4096p2: e2e 2.05s @4096 (1999 VU/s, 1.78x x1; p3 OOM). x4 sweep r..091922-a390 running (custody). R2 negs on tip all caught.
 CHECKPOINT 806a2f73 (09:04Z) [open] tip 806a2f73: merged ligero-steps-pin R4 + main 94b1c4d2 (GPU committer); fixed R4 test regression; cells art:5d20ad00 (4096) + art:d6328cf5 (plateau) -> verify-night-2; handoffs red-team/coordinator/steps-pin; next GPU smoke + x4 fold
 CHECKPOINT f4d797b (08:50Z) [open] R4 not reproduced; merged ligero-steps-pin 06176b41 at fcf9a35b; tip check running; next handoffs + x4 fold

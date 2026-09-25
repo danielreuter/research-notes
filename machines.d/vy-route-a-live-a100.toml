@@ -1,0 +1,7 @@
+# machine vy-route-a-live-a100: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "4rm93o12qtg1go"
+project = "verity"
+guard = 30
+registered_by = "cursor"
+registered_at = "2026-09-25T19:17Z"

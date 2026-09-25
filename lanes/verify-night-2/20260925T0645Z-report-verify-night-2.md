@@ -8,6 +8,7 @@ final: 16:00Z hard; budget $12
 status: open
 ---
 
+CHECKPOINT e0fc636f (09:31Z) [open] 09:32Z verified BLAKE3 4090 cells art:5d20ad00 (vd 5c100a08) + plateau art:d6328cf5 (vd 41e8f1a0), handed off 0915Z/0930Z; poseidon-v1 4096 x3 labelled (66b0d958, 9a29580b, a4c00776); 32768 relabel + sp1c host build running
 CHECKPOINT 10996616 (09:10Z) [open] 09:11Z poseidon-v1 4 results all checks PASS (labels refused by over-broad self-label guard, fixed); running r20260925-090956-57e5: BLAKE3 cells art:5d20ad00 + art:d6328cf5 (priority), pv relabels incl art:af008992, then sp1-committed host build
 CHECKPOINT 1864945 (08:50Z) [open] 08:50Z red-team R4 fixed in 06/16 (proof-per-entry, stmt-on-disk==manifest, batch n==entries); 10 cleared re-PASS; RT dumps refused. Missed poseidon-v1 0800Z req, now running with 0835Z: 4 results (4090/A100, n=4096+32768) r20260925-084940-2e1f
 CHECKPOINT cafa9464 (08:17Z) [open] 08:17Z idle-polling; 10 verdicts preserved (hash-commit x5 + R1/R2 recheck x5), nit fixed; pod vy-verify-night-2 idle at main 00ffe398; awaiting BLAKE3 full-relation cell from b-ligero-standard-hash
@@ -42,8 +43,22 @@ committer baselines (`lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.
 
 | 2 | `20260925T0745Z-handoff-from-coordinator.md` (red-team SH R1/R2) | published +hash cells art:794365d3 [4] art:271e0e3a [8] art:5387c1b5 [12] art:1abdf12a [16] art:99867b4c [20]; re-check of #1 | A100 BF16 / H100 BF16 / H100 FP8 / 4090 FP8 / 5090 NVFP4, B-Ligero +hash | PASS x5 (+ #1 PASS x5) | art:488f12f0 art:1de26956 art:6844cc11 art:edb24a45 art:0ec89f16; #1: art:9909ec89 art:4c7497f2 art:eea752f6 art:0249a538 art:8460a8dd |
 | 3 | `20260925T0835Z-handoff-from-red-team-standard-hash.md` (R4) | the 10 of #1 and #2 | (as above) | R4 fixed; 10/10 re-PASS, no verdict changes | none (recheck only) |
-| 4 | `20260925T0800Z-handoff-from-poseidon-v1.md`, `20260925T0835Z-handoff-from-poseidon-v1.md` | art:d87b4895 (4090, n 4096) art:c8b52ee2 (4090, n 32768) art:289841b1 (A100, n 4096) art:b5a4454f (A100, n 32768) | RTX 4090 FP8 / A100 BF16, B-Ligero +hash (Poseidon2, alg.), TABLES.md sweep | in progress | |
+| 4 | `20260925T0800Z-handoff-from-poseidon-v1.md`, `20260925T0835Z-handoff-from-poseidon-v1.md` | art:d87b4895 (4090, n 4096) art:c8b52ee2 (4090, n 32768) art:289841b1 (A100, n 4096) art:b5a4454f (A100, n 32768) | RTX 4090 FP8 / A100 BF16, B-Ligero +hash (Poseidon2, alg.), TABLES.md sweep | accepted (4096 x2; 32768 pending relabel) | art:66b0d958 (d87b4895) art:a4c00776 (289841b1) |
 | 5 | `20260925T0850Z-handoff-from-coordinator.md` | sp1-committed art:49695f7c | RTX 4090 FP8, SP1 frame-v3 committed (2^-92.9, drill-down) | in progress | |
+| 6 | `20260925T0905Z-handoff-from-b-ligero-standard-hash.md` | art:5d20ad00 (4096 frozen) art:d6328cf5 (16384 plateau) | RTX 4090 FP8, B-Ligero +hash BLAKE3 (standard hash, full relation) | accepted x2 | art:5c100a08 art:41e8f1a0 |
+| 7 | `20260925T0900Z-handoff-from-poseidon-v1.md` | art:af008992 (same run as art:289841b1) | A100 BF16 +hash, sweep bounded by the frozen set | accepted | art:9a29580b |
+
+### 6. b-ligero-standard-hash BLAKE3 cells (run r20260925-090956-57e5; `21-batch.sh`, `20-cells.sh`)
+- The manifest's `relation.name` is `fp8-ada`, and the leaf is in `statement_relation` (`fp8-ada+blake3`). 06 now prefers
+  `statement_relation`; with `name` alone it would have recomputed Poseidon2 roots. It also records every statement's
+  (steps, K): (48, 1536), the canonical shape, which main's Rust `check_vu_shape` pins in pinned mode (v6 included).
+- 4096: reverify 49/49 at 2^-128.40 (custody 148/148); BOUND; ROOTS-MATCH a 2f9ff265 b 0413c926 y 49023558 (= my
+  core self-test at 07:37Z); R4 ok. Handoff 0915Z.
+- 16384: reverify 193/193 at 2^-128.40 (custody 580/580); BOUND against `relchain.instances(fp8-ada, 16384)` (digest
+  b8722924), whose first 4096 VUs equal the frozen set; ROOTS-MATCH a b25b4330 b 19f730ce y 72d46a23; R4 ok. Handoff 0930Z.
+- 05 negatives on both trees: base ACCEPT, the three tampers REJECT. 05 now uses hard-linked copies, unlinking a file
+  before rewriting it, so the 5.4 GB rep isn't copied four times.
+- I used main's verifier plus my R1/R2/R4 checks, not the producer's fixed reverify (06176b41 + 806a2f73).
 
 ### 3. red-team SH R4 (proof per stmt entry; runs r20260925-084402-ec1a, r20260925-084744-69ed)
 - 06 counts coverage only for entries with a `proof` and `proof_sha256` in the same rep dir. Each rep dir's `.stmt` files on

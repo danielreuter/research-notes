@@ -155,3 +155,37 @@ segment of the real BF16 A100 proof: 4,096 VUs, 1 warm-up and 3 reps, Python ver
   +0.04 s. The proof grows from 21.2 MB to 61.4 MB.
 - The Python verifier accepts. The Rust verifier rejects with "message count exceeds the statement's bound", as expected,
   because it doesn't know the segment.
+
+## Coordinator 0922Z and the route (a) prime-side costs (09:35Z)
+
+**Rulings (0922Z).**
+- Route (a) is confirmed and (b) is dropped. The link is benchmarks and scaffold only until the red team clears
+  `flock-link-protocol.md`, and no cell counts.
+- No AVX-512 pod. I had created vy-agkr-bound-cpu (Threadripper 7960X) at 09:12Z, before this reply. It was drained at
+  09:23Z unused, for about $0.15; take Flock's AVX-512 number from flock-bench-80gb's FINAL instead.
+- Keep B-Ligero's v2h tag. The vllm-v1 mapping stays PROVISIONAL (integration owns it). fp4 stays unpinned, a gap in the
+  drill-down.
+
+**Survey miss.** The in-field route was projected at 3–6× and measured at about 28× on CPU. The link's prime side adds
++55–71% t.total before the dense check and before Flock.
+
+**Link bits in the unit** (`tools/link_stub.extend_unit`, 86f86084; run r20260925-092253-7da8). The unit's 32 operand
+columns (the ones the GKR layers consume) get 16 bits each, with booleanity and recomposition. The unit grows from 264
+columns / 290 wires to 776 / 1,314, under the R+sha256 scaffold statement, on A100 with 4,096 VUs.
+- Median prove goes from 0.776 to 1.199 s (**+55%**; +71% as a separate segment). Committed elements go from 109M to
+  311M and the proof from 21 to 59 MB.
+- The Rust verifier accepts in 3.38 s (`--allow-any-circuit --require-commitment`).
+- `bit_flip`, `non_boolean` and `alt_honest_bits` (an altered operand, a valid unit, the frozen operand's bits) are
+  rejected by Rust and Python.
+- `alt_alt_bits` (an altered operand with its own bits) is ACCEPTED. That is the residual only the cross-field link
+  closes; it is the in-circuit half of the red team's "the published limbs are the digests of the rows the GKR layers
+  consume".
+
+**Dense check and u_t** (r20260925-092724-d4f8). N = 201,326,592 bits, m = 28, with random public-coin values:
+- A100, torch, unfused: 0.875 s (eq(r, i) 0.35, BabyBear^6 byte-table coefficients 0.51, inner product 0.02).
+- CPU EPYC 7742, C with PCLMUL: about 0.85 s at 13 threads and 9.2 s at 1 thread. The verifier pays this too.
+- u_t (128 × 29 bits) as its own second-round Ligero proof: 0.032 s, 471 KB.
+
+**Route (a) per BF16 batch on A100, before Flock.** About 0.78 s rises to about 2.1 s: in-unit bits +0.42 s, dense check
++0.88 s (an upper bound), u_t +0.03 s. Flock adds 3.3–7.5 s on Zen 2 CPU; the AVX-512 number comes from
+flock-bench-80gb. On the verifier side: Rust 2.0 s rises to 3.4 s, plus about 0.85 s for the dense check.

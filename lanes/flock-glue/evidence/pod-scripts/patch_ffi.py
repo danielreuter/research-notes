@@ -10,7 +10,7 @@ cuda-ghash/prove_ffi.cu:
     proof could not share a process);
   - FLOCK_GLUE_PHASES=1: cudaDeviceSynchronize + print at each protocol phase boundary (diagnostic only);
   - FLOCK_GLUE_GPU_GRIND=1: Fiat-Shamir proof-of-work searched on the GPU (upstream pow_grind.cuh kernel, same
-    minimal nonce as the host loop) when bits >= FLOCK_GLUE_GRIND_MIN (default 12);
+    minimal nonce as the host loop) when bits >= FLOCK_GLUE_GRIND_MIN (default 8; below it the host loop is cheaper than a GPU round trip);
   - extern "C" flock_glue_unit_setup / flock_glue_rows_upload / flock_glue_prove_unit / flock_glue_unit_witness_dump.
 Idempotent (skips a file that already carries the marker).
 """
@@ -74,7 +74,7 @@ static void glue_phase(const char* name) {
     g_ph_t = t; g_ph_g = flock_glue_grind_secs;
 }
 static bool glue_gpu_grind(const uint8_t* sd, uint32_t bits, uint64_t* nonce) {
-    static int min_bits = getenv("FLOCK_GLUE_GRIND_MIN") ? atoi(getenv("FLOCK_GLUE_GRIND_MIN")) : 12;
+    static int min_bits = getenv("FLOCK_GLUE_GRIND_MIN") ? atoi(getenv("FLOCK_GLUE_GRIND_MIN")) : 8;
     if ((int)bits < min_bits || bits > 64) return false;
     static uint8_t* d_sd = nullptr; static unsigned long long* d_best = nullptr;
     static uint8_t* h_sd = nullptr; static unsigned long long* h_best = nullptr;

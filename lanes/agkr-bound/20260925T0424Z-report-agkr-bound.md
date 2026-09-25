@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT 011a9f1 (11:39Z) [open] 11:40Z: link built+verified (78b1a62e): prove 1.20->1.53 s, PyV 1.25->1.56, Rust 3.41->4.68 s (+0.44 derive); 11/11 negs rejected Py+Rust incl vu_remap; art:bd3d8b2c+fc687ece; handoff 1140Z. MALLOC env set. Laptop reindex killed w/o output (retry later). Drill-down L.
 CHECKPOINT ac2a497 (11:20Z) [open] 11:21Z: link kernels optimized (fused y+sigma, TC plane sums, nibble eq): prove +0.385 s (1.20->1.59, 4a0823bd), final rerun at 78b1a62e running; Rust verify 3.42->4.63 s +0.44 derive; 10/10 negs rejected Py+Rust; PROTOCOL 17 bfd9d7e3. MALLOC env set. Drill-down L.
 CHECKPOINT 824a9924 (10:56Z) [open] 10:57Z: link built both sides (e366e14f+6d55db3f). 31_link_rust: prove 1.20->1.92 s, Py verify 1.25->1.80, Rust 3.38->5.23 s (+derive 1.77 at load, optimizing now); 10/10 negatives rejected Py+Rust. MALLOC_MMAP_MAX_=0/TRIM set explicitly (1040Z noted, env.sh not sourced). Drill-down L.
 CHECKPOINT 0f71b5b4 (10:39Z) [open] 10:40Z: sigma-form link (S1) in-repo at 136a714c (gpu/link.py, C1 GF(2^256) one point, verifier-derived bijective Λ, booleanity check). Launching 30_link_build (timing+prime-side negatives; MALLOC_MMAP_MAX_=0/TRIM set). Rust verifier side next. Drill-down (L) only.
@@ -354,3 +355,12 @@ r20260925-113047-d490 (same commit; prove 1.1994 -> 1.5286 s, Python verify 1.26
 art:400126e2, art:64220e14) and the addendum art:fc687ece; runs preserved.  Drill-down only (L).
 - BabyBear cap: the code enforces n_cells <= p - 1, i.e. at most 40,960 BF16 VUs at K = 1536 (p - 1 = 40,960 x
   49,152); the red team's figure is 40,959, one VU stricter.  Both are far above 4,096; I kept the derived bound.
+
+**red-team-flock 1130Z (read 11:41Z).** Flock NOT GRANTED (unbound reps, no live challenger), grantable with R1-R8.
+Two points touch this lane:
+- A-GKR sets the route's composed bound at 2^-130.2. If the accountant counts A-GKR's hash budget (2^-127.7), the
+  proof misses 2^-128 whatever Flock does. That is a C8 decision for the coordinator; the link adds only
+  m/2^256 + 255/p^6.
+- Their R5 (Flock's coins only after root_F, the link points and y) matches this build's order. Here y is absorbed
+  before the sigma messages, so the Flock side must take its coins after that absorb.
+No action on the prime side.

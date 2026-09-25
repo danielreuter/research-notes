@@ -2,7 +2,7 @@
 id: vllm-rf-b1/state
 lane: vllm-rf-b1
 kind: state
-updated: 2026-09-25T10:50Z
+updated: 2026-09-25T11:45Z
 ---
 # b1 (evaluator kernels and replay): state
 
@@ -26,7 +26,12 @@ a4 base: 10996616
 - ee2a319f test fix (MoE router / padded memo live in rows). head-touched2 at e86c93b3: 2 failed (these), 239 passed.
 - a6ba1e5b `check/replay/challenge.py`: every seed derivation of record + the only generator constructors; routed: SR.sample, SR.challenge_seed, replay tier_a/tier_chain, compiled_kernel_check, stoch_recompute reference rows, vu_query.production_sample, admission.produce (difftest), relations draw_sample/ensure_adjacent_pair, pipeline/commit.py main (3 one-line hunks + 1 import). RNG_OWNERS; 10 p03 entries deleted; P10 SR module 2614 -> 2611, commit.main 1914 -> 1913. Pinned-value tests in tests/check/test_challenge_seeds.py.
 - 31a0be62 `check/sampled_replay.py` deleted: split into `check/replay/{index,opening,compare,evaluate,population,coverage,sample,linkage,driver}.py` (acyclic; driver `__all__` re-exports the caller interface so pipeline/commit.py and engine/rank_worker.py change one import line each). Allowlist entries moved in place (p03/p04/p07/p09/p10/p11/by_name); p10 SR module entry deleted (all new modules < 800).
-- 7cde62a5 difftest `evaluate_spec` = core `verity.evaluation.evaluate` (drops the hand-built one-call Program and the observe.fold `_replayer` import). Unverified on pod yet for unregistered `DT.spec(...)`.
+- 7cde62a5 difftest `evaluate_spec` = core `verity.evaluation.evaluate` (drops the hand-built one-call Program and the observe.fold `_replayer` import). Verified on pod (head-touched3: test_sampled_replay_stoch, test_sampling_rows/operands, test_topp_splits_operand, test_gen_ln, properties/test_difftest pass, unregistered `DT.spec(...)` included).
+- head gate (b) at a6ba1e5b vs base (same pod): 4 new failures -> fixed: hopper `gemm_dot_prim` (31a0be62), test_compiled_replay_seed_source (b7a70aa8), test_no_dead_modules (19ca2453: crosscheck + beyond_gemm lost their only production importer, the twins' gate-word self-check; moved to tests/program, 9 lint entries deleted), test_roundtrip::test_transient_storage_is_released (c1's lane saw it flip too; recheck at the final gate).
+- b7a70aa8 compiled-check seed test reads `CH.kernel_check_seed(rc.run_root)` and pins its value. NOTE: `git mv` had staged the crosscheck/beyond_gemm renames, so they landed in this commit; their import lines are in 19ca2453 (b7a70aa8 alone does not import cleanly; no history rewrite).
+- 19ca2453 crosscheck + beyond_gemm -> tests/program (import lines, p03/p06/p07/p08 entries deleted, dead_code_keep fa3_model reason). **c2: `program/registry/crosscheck.py` left your directory** (it has no production importer since the twins use core self_check).
+- 8c0bec08 test_prescribed_input_linkage: the source-text assertion names `SR.arrivals_of_record` as commit.py writes it (split rewrite had changed it).
+- head-touched3 at 19ca2453 (37 files + lints + regression, -n 12): 529 passed, 4 failed = 3 base failures (admit_r19 gc-freeze pair, test_sampling_rows nv_logf) + the linkage string (fixed in 8c0bec08).
 
 ## Plan
 1. done (derived_rows move).
@@ -37,14 +42,17 @@ a4 base: 10996616
 6. Pods: gate (b) head vs base, gate (a) T0+T1 on cpu3m 512 GB, GPU #101, #67 PAIRS=1, #70 if rank path changes.
 
 ## Running
-- pod `vyv-rf-b1-cpu` (RunPod cei1t48zvrcnzu, cpu3g 32 vCPU / 128 GB cgroup, $1.28/h, created 08:47Z). Trees: /workspace/base (10996616), /workspace/head (a6ba1e5b). Logs /workspace/b1/logs.
-  - base gate (b) done 10:18Z: 52 failed, 3645 passed, 287 skipped, 6 xfailed, 11 errors (base-xdist.xml).
-  - head gate (b) at a6ba1e5b (intermediate), `-n 12 --dist loadfile`, started 10:24Z (head-a6ba-xdist).
+- `vyv-rf-b1-cpu` (cei1t48zvrcnzu, cpu3g 32 vCPU / 128 GB, $1.28/h, since 08:47Z): base gate (b) done 10:18Z (52 F, 3645 P, 287 S, 6 xf, 11 E; base-xdist.xml, nohup run). **Final head gate (b) at 8c0bec08: `r20260925-112532-d480`** (`gate_b.sh /workspace/head gate_b-head-8c0bec08 -n 12 --dist loadfile`, OMP 3; tree verified == git 8c0bec08 by blob hash, test-written ref-prims restored).
+- `vyv-rf-b1-g1` (nz7au6e51web6w, 1x L40S, driver 580.159.03, 125 GB cgroup, $1.09/h?, since 11:03Z): `r20260925-113151-99a2` = `/workspace/b1/tools/g1.sh`: bootstrap LLAMA32_1B (OK 11:37Z), #101 build,match,commit PAIRS=1 at head 8c0bec08 then at base 10996616, rowcmp vs record (program ccc21347, manifest 90f81868, run root 7adcef49).
+- `vyv-rf-b1-big` (61mmy8g18xcj0z, cpu3m 64 vCPU / 512 GB, since 11:24Z): head sync running; then bootstrap, laptop key -> prefetch -> key deleted, gate (a) head split 4-way + base replay_partition (same-pod replay wall time).
+- #67 (needs >= 180 GB RAM: Match 130 GB, Commit ~190-200 GB) and #70 (2x L40S): no RunPod capacity with CUDA 12.9/13.0 since 11:00Z; laptop retry loop every 60 s until ~12:04Z (/tmp/b1/retry_pods.log).
 
 ## Next
-- read head-a6ba-xdist vs base; ship 7cde62a5 to /workspace/head; touched tests; final head gate (b); gate (a) on a cpu3m 512 GB pod; GPU rows.
+- gate (b) jdiff head vs base; #101 compare; gate (a) merged xml vs a23b base; #70 (covers MoE + TP2 rank path; OLMoE) if a 2x L40S appears, #67 PAIRS=1 if a >= 180 GB L40S appears; READY.md.
 
 ## Open questions
+- GPU capacity: no 2x L40S or >= 180 GB 1x L40S with CUDA >= 12.9 on RunPod since 11:00Z. #70 is OLMoE, so it covers the MoE family and the TP2 rank path together; if it never comes up, the MoE/TP replay evidence is gate (a)'s T1 replay_partition on #67/#68/#73/#74 (CPU, recorded words).
+- difftest lives in properties/admission.py (b2v's `properties/`): hunks are the rng call, the evaluate call and import lines.
 - difftest lives in properties/admission.py (b2v's `properties/`): will keep hunks to the rng call + evaluate call + import lines.
 
 ## Found, not fixed

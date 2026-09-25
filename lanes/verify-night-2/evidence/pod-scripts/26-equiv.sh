@@ -12,8 +12,19 @@ C=$(python3 -c "import json;print(json.load(open('/workspace/src/.research-sourc
 for A in "$@"; do
   S=$(date +%s); D=$E/${A#art:}; D=${D:0:${#E}+17}
   echo "=== [$(date -u +%H:%M:%S)] $A"
-  F=$($PY -m research data fetch $A --to $D 2>/dev/null | tail -1)
-  [ -d "$F" ] && F=$(find "$F" -name '*.json' | head -1)
+  mkdir -p $D; $PY -m research data show $A --json > $D.man.json
+  F=$($PY - $D.man.json $D/meta-doc.json <<'EOF'
+import json, sys
+meta = json.load(open(sys.argv[1]))["manifest"].get("meta") or {}
+if meta.get("schema") == "instance-equiv/v1":
+    json.dump(meta, open(sys.argv[2], "w"), indent=1, sort_keys=True)
+    print(sys.argv[2])
+EOF
+)
+  if [ -n "$F" ]; then echo "document: the artifact's meta -> $F"; else
+    F=$($PY -m research data fetch $A --to $D 2>/dev/null | tail -1)
+    [ -d "$F" ] && F=$(find "$F" -name '*.json' ! -name meta-doc.json | head -1)
+  fi
   [ -f "$F" ] || { echo "FAIL $A: no file fetched"; continue; }
   $PY - "$F" <<'EOF' | tee $D.refs.txt
 import json, sys

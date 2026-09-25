@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 10996616 (11:40Z) [open] 11:40Z pod vy-red-team-sh drained/terminated (~$0.55); all 16 cited arts PRESERVED incl art:0e8faae7; remaining: label +sha256 / H100 +blake3 cells when vn2 accepts; recreate pod only for new statements
 CHECKPOINT 3ee25e12 (11:22Z) [open] 11:22Z tips b-ligero-standard-hash 672b23ae / b-ligero-sha256 b009fdc8: no statement-path change vs main 767115db, verdicts stand; 6 +blake3 cells labelled COMPLETE_ZK_BACKEND; waiting on vn2 acceptance of +sha256 cells to label; pod idle
 CHECKPOINT a81f0800 (10:41Z) [open] 10:41Z main 767115db: +blake3 and +sha256 CLASS GRANTED WITH CONDITIONS carry over (statement code = da74b03e); H2 fp8-hopper-x4+sha256 PASS art:43b92cc7; queue: agkr hash layer / vllm-v1 variants not landed; polling
 CHECKPOINT 53314d1c (10:34Z) [open] 10:34Z +sha256 @da74b03e CLASS GRANTED WITH CONDITIONS (run>=da74b03e, reverify w/ 3301c435+sha256 scheme or 06, 04 BOUND) -> coordinator/vn2/b-ligero-sha256 1033Z; sha256 scan 0 free (8:2, 8:0.5), control 17, art:a3c5c339; blake3 class 1027Z art:70722cab
@@ -203,3 +204,8 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
   art:5d20ad00 (ref 1027Z) and art:017a7069 (x4, ref 1053Z). All are on both replicas. 10:56Z handoff to the coordinator.
   10:59Z also art:6b6d4484 (x4 plateau 8192, 2^-128.05 at 3301c435, ref 1053Z). Not labelled: art:42b215ac (wave-4090-2
   drill, verified only by ligero-verify@e918ac8 on 09-24, before 3301c435). Scanner: `evidence/label_scan.py`.
+* 11:21Z tips b-ligero-standard-hash 672b23ae and b-ligero-sha256 b009fdc8: no statement-path change against main 767115db.
+* 11:31Z received `20260925T1131Z-handoff-from-coordinator.md` ("vy-red-team-sh has been idle 39 min: terminate it ...
+  blocked on art:0e8faae7"). art:0e8faae7 was already PRESERVED (sha256 readback at 09:47Z; only the laptop copy is partial,
+  41/42 blobs). All 16 cited arts checked PRESERVED. 11:38Z `research pods drain vy-red-team-sh`: terminated (pod
+  04txgm7j3b0nob, 07:00-11:38Z at $0.12/h, about $0.55). 11:40Z reply to the coordinator.

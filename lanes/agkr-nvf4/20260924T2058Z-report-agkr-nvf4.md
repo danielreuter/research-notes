@@ -5,6 +5,7 @@ created: 2026-09-24T20:58Z
 status: open
 ---
 
+CHECKPOINT 6d13c3e4 (01:17Z) [open] a4e2 0.1604s preserved (art:dfbc86c4; label held for red-team-lk); handoffs to verify-po/red-team-lk/agkr-fp8 done; took fp8 5034767f+3be6a35f (neutral); open-wq: L2 chunking dropped (slower), testing eq_rows_dot for w
 CHECKPOINT 79f00fd3 (00:58Z) [open] a4e2 PRESERVED 0.1604s (art:dfbc86c4, run-files 50f4fe91, 2^-130.19, new stmt BOOL_QUADRATIC+PAIRED; label held per coord 0050Z); verify-po + red-team-lk handoffs 0100Z; dev tip 79f00fd3 ~0.1507s; hill-climbing
 CHECKPOINT 57e9e4b (00:42Z) [open] b7cec878: circuit 226->166 queries/unit (bits as products, paired narrow ranges) -> LogUp 2^24; dev t.total 0.1578s, new sha ebe7c545, Rust 5/5, 2^-130.19. Negatives running on pod; then record + verify-po handoff.
 CHECKPOINT 95343488 (00:35Z) [open] dev 0.1689s (sha 091fecad unchanged): leaf buffers, keep qvals, fused leaf level, pad closed form, scatter/gate_eval grid order (L2 reuse), pinned t_ext. tip 024f1cfc+. Next: opening wq host (open_w_qc_eval 13ms), phase1 per-round.

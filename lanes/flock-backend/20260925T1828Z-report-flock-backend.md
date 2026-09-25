@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT 00009b54 (20:19Z) [open] H100 cell sweep running: prover r20260925-201921-2024 (vy-flock-backend-h100, US-MO-1) vs verifier pod r20260925-201903-c1e2 (vy-flock-backend-ver, same DC, own instance files), flock-pure-gpu v2 (d3e96304 merged, 00009b54), points 1024..32768, 8192/proof, 5 timed
 CHECKPOINT ab5c1156 (19:17Z) [blocked] paused until flock-gpu-link's flock-pure-block handoff (~5 PM PT). Decisions recorded: red team reviews flock-pure-block only; non-producer replay of the CPU drill-down routed low-priority; GPU cell needs a same-DC verifier pod (reference network 1 ms, 100 Gb/s). agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT ab5c1156 (19:16Z) [blocked] on flock-gpu-link's flock-pure-block (the cell statement, picked (A) 1925Z). CPU union drill-down done: r20260925-190850-4184 plateau 2048 VUs 531 VU/s, 50/50 negs, art:827f594c art:904398d8; PR #34 @ ab5c1156; pod terminated 19:28Z ~$0.6; asks to coordinator 1928Z (non-producer replay, red-team timing). agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 5d3385dd (19:09Z) [open] WAIT vy-flock-backend-cpu r20260925-190850-4184 check-back 19:35Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983 (first run died: pod python<3.12, fixed with uv venv). Coordinator 1836Z handoff: sweep to plateau + rounds/bytes/RTT/wait split — in bench.py. Interface handoff sent to flock-gpu-link (1912Z)

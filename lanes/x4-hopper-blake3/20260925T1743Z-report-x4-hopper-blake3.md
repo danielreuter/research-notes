@@ -5,6 +5,7 @@ created: 2026-09-25T17:43Z
 status: open
 ---
 
+CHECKPOINT 775786b7 (22:14Z) [open] POD NEEDED until ~23:00Z: xob run r20260925-211547-43ab has the fp8-hopper-x4+blake3-xob plateau (32768) done and bf16 xob at p4; its outputs publish only at run end. Then terminate + FINAL.
 CHECKPOINT 775786b7 (21:16Z) [open] cells art:d88a9948 fp8 1.50e8x @65536, art:5ea60c40 bf16 1.47e8x @16384 (+14 equiv docs) handed off 2112Z; xob PINS 775786b7; xob sweeps r20260925-211547-43ab running, polling in-turn
 CHECKPOINT 9a78cd68 (20:01Z) [open] fp8-hopper-x4+blake3 sweep done: plateau 65536 at 4271 VU/s (~1.5e8x vs 1978.9T; slower than sha256 x4's 6162), pinned Rust 193/193, equiv equal=True; bf16 sweep running (r20260925-182011-dcc4)
 CHECKPOINT 9a78cd68 (19:44Z) [open] fp8-hopper-x4+blake3 sweep at p7 131072 (e2e ~4.2-4.4k VU/s from 32768 on; in-process verifier ~400 s/rep dominates wall); bf16 sweep next; polling in-turn r20260925-182011-dcc4

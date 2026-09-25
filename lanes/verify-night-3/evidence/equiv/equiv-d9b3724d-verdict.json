@@ -1,0 +1,96 @@
+{
+ "check": "/workspace/verify-night-3/equiv-d9b3724d/doc.json: fp8-ada-x4 reproduces; equal=True; file by verity_numerical.bench.instance_equiv@5b28557b+bench@2c92b9e3, re-derived by verity_numerical.bench.instance_equiv@unknown\ncheck rc=0 seconds=13\n",
+ "content": {
+  "art:6b6d4484c7a3911946431ec8a7d3ef609137274157003e47654313d25be77631": {
+   "relation": null,
+   "instances": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "manifest_sha256": "5ca6851d01ae0335eea8d1d92d4598fe26955de59324133efab032d0c659f9af",
+    "range": [
+     0,
+     8192
+    ],
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)",
+    "seed": 20260922,
+    "tier": "vu-k1536-fp8-ada"
+   },
+   "equiv_content_problems": [
+    "frozen is not FROZEN_INSTANCES[target] (dataset, tier, range, manifest_sha256)"
+   ]
+  },
+  "art:19be6afa2cd2239cf15f7878af8eae0a3523be86dbec8e92f3acd9d6ee3ebbd1": {
+   "relation": null,
+   "instances": {
+    "dataset": "bench-instances-fp8-ada/v1",
+    "manifest_sha256": "5ca6851d01ae0335eea8d1d92d4598fe26955de59324133efab032d0c659f9af",
+    "range": [
+     0,
+     8192
+    ],
+    "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)",
+    "seed": 20260922,
+    "tier": "vu-k1536-fp8-ada"
+   },
+   "equiv_content_problems": [
+    "frozen is not FROZEN_INSTANCES[target] (dataset, tier, range, manifest_sha256)"
+   ]
+  }
+ },
+ "doc_checked": {
+  "arrays": {
+   "W": {
+    "candidate_sha256": "6930ef2797f712f71d54962353dc7ae1d2b8123502b26d09d1379cc27f3b6ade",
+    "dtype": "|u1",
+    "frozen_sha256": "6930ef2797f712f71d54962353dc7ae1d2b8123502b26d09d1379cc27f3b6ade",
+    "shape": [
+     8192,
+     1536
+    ]
+   },
+   "x": {
+    "candidate_sha256": "02f36a407bd4e753e95c46de39cf9fbedeaf57fac3c6c1c946eabbdb08093121",
+    "dtype": "|u1",
+    "frozen_sha256": "02f36a407bd4e753e95c46de39cf9fbedeaf57fac3c6c1c946eabbdb08093121",
+    "shape": [
+     8192,
+     1536
+    ]
+   },
+   "y": {
+    "candidate_sha256": "ad569a390bfa296b930cd2bdde99cc0352f94f44934cc400bc4f17f2fe96e4b9",
+    "dtype": "<u4",
+    "frozen_sha256": "ad569a390bfa296b930cd2bdde99cc0352f94f44934cc400bc4f17f2fe96e4b9",
+    "shape": [
+     8192
+    ]
+   }
+  },
+  "candidate": {
+   "dataset": "bench-instances-fp8-ada/v1",
+   "manifest_sha256": "5ca6851d01ae0335eea8d1d92d4598fe26955de59324133efab032d0c659f9af",
+   "range": [
+    0,
+    8192
+   ],
+   "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)",
+   "seed": 20260922,
+   "tier": "vu-k1536-fp8-ada"
+  },
+  "canonical": "each side decoded by its own loader: frozen = relchain.instances('fp8-ada', 8192) (the registered relation whose runner ref is the target's declared set over [0, 8192): FROZEN_INSTANCES[target], or its synthetic stream by generator, seed and n), candidate = relchain.instances('fp8-ada-x4', 8192); x = the a operand words, W = the b operand words, as |u1 bit words of the datatype (ADA_E4M3_M16N8K32), little-endian; y = the chain-end FP32 accumulator word (the final recorded accumulator of the VU; the public claim is the relation's y_public of it), <u4 little-endian; index order VU-major, then K",
+  "equal": true,
+  "frozen": {
+   "dataset": "bench-instances-fp8-ada/v1",
+   "manifest_sha256": "35a95ed5862932a986dbb91e6f1b1ae3cd770655a585c8901486035750ff0d5b",
+   "range": [
+    0,
+    8192
+   ],
+   "recipe": "fp8-ada synthetic (uniform finite E4M3 bytes, model-recorded accumulators)",
+   "seed": 20260922,
+   "tier": "vu-k1536-fp8-ada"
+  },
+  "schema": "instance-equiv/v1",
+  "target": "fp8-ada-mma-draft/2026-09-22",
+  "tool": "verity_numerical.bench.instance_equiv@5b28557b+bench@2c92b9e3"
+ }
+}

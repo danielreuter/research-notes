@@ -71,3 +71,8 @@ notes sync: committed e22b8ee (8 paths); pushed; skipped 11 over 1 MB (put them 
 2026-09-25T14:43:22Z IN verify-night-3: 2 file(s) store -> notes
 2026-09-25T14:43:22Z IN red-team-standard-hash-2: 2 file(s) store -> notes
 2026-09-25T14:43:22Z IN reverify-tile-2: 2 file(s) store -> notes
+notes sync: committed d424e49 (17 paths); pushed; skipped 11 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
+2026-09-25T14:48:31Z IN verify-night-3: 3 file(s) store -> notes
+2026-09-25T14:48:31Z IN red-team-standard-hash-2: 1 file(s) store -> notes
+2026-09-25T14:48:31Z IN reverify-tile-2: 1 file(s) store -> notes
+2026-09-25T14:48:31Z IN reaper-resume-guard: 2 file(s) store -> notes

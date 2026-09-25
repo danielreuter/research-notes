@@ -95,6 +95,16 @@
   d13, lint).
 - 00:45Z `a_final` 128/158 (row #74's last checks; then #75 all-skip, #101, the #57 refusal rebuild, decisions). Pod store has no
   attempts (`/workspace/research/store/attempts` empty): terminate, no drain needed.
+- 01:39:54Z `a_head4_t1` DONE at a2e2843e: 4 passed, 187 deselected (1244 s, exit 0). D11 scan rerun and saved
+  (`evidence/d11/scan.txt`: 48 digests, all 64-hex). Main pod `0zb24mk1w6nb4o` terminated 01:43:34Z (no attempts, no drain).
+- 01:45Z Found the coordinator's 00:32Z note (main moved to `4bd6c54c`, a23b merged: rebase when runs finish). Rebased onto
+  `origin/main` = `bbbe936c` (4bd6c54c + one tools/research commit): only conflict `p10_size.json` (twins 1050 + padding_steps 933
+  from main, verdict 159/1407 mine, commit_delta 3021 = wc -l of the merged file). New commit `47ba6e80`: construction_version's
+  default root = `config.ROOT` (a23b's; same directory, output-neutral). NOT PUSHED YET (push after lints are green).
+- New pod `vyv-rf-f24-rb` = `hpdi919qixzrw0` (cpu3g 16 vCPU / 64 GB), ssh `/tmp/rff24/ssh_rb.sh`. Trees: `/workspace/head5`
+  (47ba6e80, synced), `/workspace/main5` (= bbbe936c: head5 with `git apply -R` of the branch diff; 28 blobs verified).
+  Bootstrap `--cpu` running (`/workspace/logs/bootstrap.log`). Next: lints at head5; gate (b) at head5 then main5
+  (`OMP_NUM_THREADS=3 gate_b.sh TREE TAG -n 12 --dist loadfile`), jdiff; push `--force-with-lease`; READY.md (both heads); terminate.
 - 01:17:55Z `a_final` DONE: 71 passed, 85 skipped, 35 deselected, exit 0 (16068 s). T1 replay_partition passed on 7 rows;
   decomp_hashes skips on all 13. jdiff vs a_head4 (110 common): no outcome / skip-reason difference. Evidence pulled; READY.md filled.
 - 01:19:23Z `a_head4_t1` at a2e2843e (`/workspace/rff24/head4_t1.sh`, keyless): T1 replay_partition r101/r57/r60 + manifest_digest

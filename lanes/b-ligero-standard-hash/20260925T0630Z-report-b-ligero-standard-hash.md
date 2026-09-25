@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 5b28557b (13:10Z) [open] x4+blake3-xob sweep done: plateau 32768 5676 VU/s e2e 5.773s 1.89e7x ACCEPT 97/97 2^-128.07 art:ecccca50 (PROVISIONAL, not converged, 65536 OOM). x1 xob sweep r20260925-130720-ab7a running. Handoffs next, FINAL chores by 14:40Z.
 CHECKPOINT 5b28557b (12:17Z) [open] blake3-xob PROVISIONAL cells (5b28557b, gated, pinned, Rust ACCEPT): x1 frozen e2e 1.974s (1.963+0.010) 5.18e7x art:b47828e4; x4 0.799s (0.790+0.009) 2.10e7x art:bb69174b; same-tree +blake3 controls 3.539/1.977s. Sent to verify-night-2, coord; x4 xob sweep running r..121605-357f.
 CHECKPOINT 5b28557b (11:44Z) [open] x4 instance-equiv/v1 art:6fdeed7e registered (equal, check reproduces) -> verify-night-2; 8192 prefix-equal evidence to coordinator. blake3-xob: tests 27+16 pass, 71f39e44 kept, xob pins x1 3d6cc67b (28584 rows vs 35370) x4 f90e7b41 in 5b28557b; rust+gates r..114349-ea8d; red-team review asked.
 CHECKPOINT 672b23ae (11:21Z) [open] x1 malloc sweep DONE: plateau 16384 e2e 13.821s (13.787+0.034) 1185 VU/s 9.07e7x 2^-128.40 art:c9f4a645 (32768 OOM rc-9: not converged); handed to verify-night-2. XOB (blake3-xob) tests+fixtures running r..112012-8420. 1040Z: done (lib.sh exports; merged).
@@ -372,6 +373,20 @@ Pod scripts: `evidence/pod-scripts/`.
     | control +blake3 x1 4096 frozen at 5b28557b | art:448029fe222f48c2339978fa9eb44db9b4e82ef48d4e979acee6c8b1d0ea04db | art:118fc65941d0bd060d6bc4cb97a021d92e973767dd8163cc1f61622cddda0cef |
     | control +blake3 x4 4096 at 5b28557b | art:49b345a825225fa624a3ddb9238657326fff22f5e29e14161f1c78bc4c1b4e43 | art:7ab931c9c87459d347785bc26f3acb1700bd4bd40a64aa513e0abb1c4e2c3d5e |
 * 12:16Z r20260925-121605-357f: the x4+blake3-xob plateau sweep (30-sweep.sh, l = 4096, p2, malloc env, custody-r2).
+* 13:05Z x4+blake3-xob sweep done (PROVISIONAL, 5b28557b, sys f90e7b41 / table 6ecf18da): 1024..32768 VUs ->
+  4118.8 / 4737.2 / 5189.0 / 5506.4 / 5626.5 / 5676.1 VU/s; 65536 = CUDA OOM (rc 1). Plateau 32768: t.total 5.723 +
+  commit 0.050 = e2e 5.773 s, 1.89e7x, Rust ACCEPT 97/97 at 2^-128.07 (pinned, python 97/97), peak GPU 19.0 GB. NOT
+  converged (+0.9% over 16384, +3.1% over 8192); the ceiling is 24 GB VRAM. Registered (result / tree):
+    | point | result | tree |
+    |---|---|---|
+    | p0 1024 (SLIM) | art:63e59ddbc1ffad1a606925d92ef65be13e2bec0a06e945c270203967827765e1 | art:b04fc1b3e82721777eced4878f0764ea87f0090f39e77e90c8d3a196c4d945cd |
+    | p1 2048 (SLIM) | art:61abf20af35b46c9d70859c392acbae8cecbce37fb8ab74a89dc9080f05bc35c | art:d39724ce0e538af6014fc6ab6d789ddca995a224cfcfa366622210abd961c9ad |
+    | p2 4096 (SLIM) | art:dd89a954af15e9be4c22d26e314b61de4d61257c68f20a767d2235a96acd638d | art:43df4b2be9960c33b63646627a5bdda7b4e946cbb0c11e52c8a4915dd24b1793 |
+    | p3 8192 (SLIM) | art:c8a08e21205833bc2bb7a129bd2a3898384df60235ddcdb361ca3582a3e36596 | art:76a1047708b35a61153582555f2791ec31dafe4c08dd891f8b2ce1e35102d7ac |
+    | p4 16384 (SLIM) | art:d3e2f8a4b40724d79a8d9ca6e6d30787779b7acd3c0b9c87378309d9ec50bc3e | art:ef970fa6dcd3e9532808aa9a39956964f57e82f71c3f128439c3bc27d008d6c5 |
+    | plateau 32768 (proofs) | art:ecccca50500cecececefcd7dfb4aa97572a1e334332f1c191744489fbeccf82a | art:0785fd3dffe9bb80fcdc3cb3feae85bf32dd22c8b4b4fc06248d8f2e7e9bc5a6 |
+  x4 points above 4096 use instances beyond the frozen 4096 (prefix rule, coordinator decision pending).
+* 13:07Z r20260925-130720-ab7a: the x1+blake3-xob plateau sweep (same settings, MAX = 32768).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

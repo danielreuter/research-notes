@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 041ac181 (17:48Z) [open] 17:48Z fp4 scan (VM, torch-free) running: controls decode+sponge show effective free rows; random/zero-scales 0 effective. Creating pod vy-red-team-sh-2 for R1/R4/H2/ZK.
 CHECKPOINT 041ac181 (17:38Z) [open] 17:38Z reopened: class review fp4-nvf4+poseidon2 (5090 NVFP4 art:70f275ac/art:6740eb22) at main cd963fd4: NOT final
 CHECKPOINT 041ac181 (17:37Z) [final] 17:37Z FINAL (reopen), finish-check rerun after store I/O flake; content as 17:34Z
 CHECKPOINT 041ac181 (17:34Z) [final] 17:34Z FINAL (reopen): equiv art:9b5f1e24 + art:c2959a5c verified=accepted; proof_class on 6d067ed3 f4dc0501 4d43ab87 4d151f38; fp4 pair not granted; ligero-hygiene no gap (1727Z); pod drained 17:32Z ~$0.03. Re-shown 1502Z/1150Z inbox items were handled before (store I/O flake)

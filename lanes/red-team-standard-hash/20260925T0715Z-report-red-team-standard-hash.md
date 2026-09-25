@@ -39,11 +39,11 @@ tree check (domain derivation, node/level/index, vllm-v1 path shape + root field
 ## Verdicts
 | statement | verdict | evidence | handoffs |
 |---|---|---|---|
-| fp8-ada+blake3 (b-ligero-standard-hash, frame-v3 keyed-BLAKE3 rows, v5 included-hash) | FAIL (R1) at main; PASS on 24ab6c7d / 806a2f73. Cells count once the fix is on main and each dump is re-verified with it (or with 06) | art:2b51c5fd, art:8f2112e2, art:cd2c38ea, art:be211735 | coordinator 0735Z, 0805Z, 0920Z; b-ligero-standard-hash 0735Z, 0920Z; ligero-steps-pin 0920Z; verify-night-2 0805Z |
+| fp8-ada+blake3 (b-ligero-standard-hash, frame-v3 keyed-BLAKE3 rows, v5 included-hash) | **PASS on main 3301c435** (R1 and R4 refused, H2 PASS, gadget scan 0 free rows). FAIL (R1, R4) before 3301c435. A cell counts only if its dump passes main's reverify or 06 | art:2b51c5fd, art:8f2112e2, art:cd2c38ea, art:be211735, art:cd2828c5 | coordinator 0735Z, 0805Z, 0920Z, 1130Z; b-ligero-standard-hash 0735Z, 0920Z; ligero-steps-pin 0920Z; verify-night-2 0805Z |
 | H2 steps pin (main c5cf7f6d, fp8-ada+blake3) | PASS: every forged steps value tried (incl. 64, 40) refused by both verifiers; honest 48 accepted pinned | art:efaa3a46 | in coordinator 0735Z |
-| blake3-80gb cells | FAIL inherited from R1 (same verifier); re-verifying the dumps with a fixed verifier or 06 is enough | art:2b51c5fd | blake3-80gb 0750Z |
-| b-ligero-sha256 `sha256/row/v1`, fp8-ada-x4+sha256 (be1a3bcb, pinned d6b0cd8d) | FAIL: an R1 remap forgery is accepted (Python, Rust pinned, reverify PASS), and R4 reproduces. Every +sha256 cell is pulled until the fix is merged. The gadget and H2 PASS; with c8a16e2b merged, R1 and R4 are refused | art:0e8faae7, art:57a22acb | coordinator 1030Z; b-ligero-sha256 1030Z |
-| sp1-committed relation-committed/v1 and -vllm/v1 (d12770c3, b54e42ed) | PASS on the guest and tree check. R3 FAIL (open): the `--instances` path and `committed-verify` without `--batch` still accept prover-chosen roots, so those cells are pulled | art:b11bc6ee | coordinator 0820Z, 0925Z; sp1-committed 0820Z, 0925Z |
+| blake3-80gb cells (same v5 statement) | PASS on main 3301c435 (FAIL before), on the same condition: each dump passes main's reverify or 06 | art:2b51c5fd, art:be211735, art:cd2828c5 | blake3-80gb 0750Z, 1130Z |
+| b-ligero-sha256 `sha256/row/v1`, fp8-ada-x4+sha256 (pinned d6b0cd8d) | **PASS at da74b03e** (R1 and R4 refused, H2 PASS, `compress_one` = hashlib). FAIL at be1a3bcb (the R1 forgery is accepted and preserved; R4 passes), so a cell counts only on da74b03e's / main's reverify | art:0e8faae7, art:57a22acb, art:cd2828c5 | coordinator 1030Z, 1130Z; b-ligero-sha256 1030Z, 1130Z |
+| sp1-committed relation-committed/v1 and -vllm/v1 (d12770c3, b54e42ed) | PASS on the guest and tree check. R3 FAIL (open in code): `--instances` and no-`--batch` accept prover-chosen roots. Cell art:49695f7c counts only through verify-night-2's 19-sp1c gate (core-recomputed statement, `instance_roots` true on every rep); I reviewed the procedure: PASS | art:b11bc6ee | coordinator 0820Z, 0925Z; sp1-committed 0820Z, 0925Z |
 | agkr-bound row-digest (caacca10), frame-v3 + vllm-v1 | native tree check PASS: all 4 pins reproduced core-only from the frozen sets; in-proof hash layer not ready (no verdict) | art:8dee00aa | coordinator 0905Z; agkr-bound 0905Z |
 | verify-night-2 06 procedure (R1/R2/R4) | PASS after their 0850Z R4 fix (control ROOTS-MATCH, both R4 dumps MISMATCH) | art:8f2112e2, art:c7683eb2, art:8dee00aa | coordinator 0805Z, 0835Z, 0905Z; verify-night-2 0805Z, 0835Z |
 
@@ -140,3 +140,20 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
   the older mtimes. The script now touches the sources and refuses a binary identical to be1a3bcb's. The earlier lsp and
   bls builds were real rebuilds (distinct binaries). 10:30Z handoffs to b-ligero-sha256 and the coordinator (FAIL; cells
   pulled).
+* 09:46Z received `20260925T0946Z-handoff-from-coordinator.md` ("Laptop disk at 2.6 GiB: no laptop downloads, builds or new
+  worktrees"); read at 10:33Z. By then I had made two worktrees (09:45Z) and pulled evidence tars. 10:35Z I deleted my
+  /tmp copies (all preserved) and the 4 scratch worktrees, bringing free space from 2.7 to 4.6 GiB, and reported it in a
+  checkpoint. Since then everything is pod-only: pod trees come from `git diff` applies, and only evidence of a few hundred
+  KB comes back for `data put`.
+* 09:57Z received `20260925T1000Z-handoff-from-coordinator.md` ("The §3.8 bit-link review moved to a new lane,
+  red-team-link: drop it from your queue"). Dropped. I have no link notes; the A-GKR sha256_flat adder read is not link
+  work.
+* 10:35Z received blake3-80gb's `20260925T0935Z-handoff-from-blake3-80gb.md` ("FYI: A100 bf16-ampere+blake3 result on the
+  fixed tree (a80ebc31)"). Same statement; covered by the main verdict.
+* 10:50Z run rtsh-final-1050 on main 3301c435 (fp8-ada+blake3) and da74b03e (fp8-ada-x4+sha256). The pod trees are git diff
+  applies, with blob hashes equal to ls-tree (0 of 3112 / 3116 mismatched). R1 and R4 refused, and H2 PASS, on both.
+  `compress_one` vs `compress_np`: 20,000 cases, 0 mismatches; leaf_bytes(_many) vs hashlib: 256 rows, 0. art:cd2828c5.
+* 11:05Z sp1-committed follow-up. The lane is FINAL at b54e42ed with no reply to 0925Z, and the fail-open is still in the
+  code. I reviewed verify-night-2's `19-sp1c-verify.sh` for art:49695f7c: it closes R3 by construction (core-recomputed
+  statement, `vk_pinned` True, `instance_roots` True on every rep, adopt negative). Their result is not seen yet.
+* 11:30Z handoffs to the coordinator, b-ligero-sha256 and blake3-80gb (PASS on main / da74b03e).

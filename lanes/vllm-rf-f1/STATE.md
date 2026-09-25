@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T01:57Z
+updated: 2026-09-25T03:13Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -162,7 +162,7 @@ updated: 2026-09-25T01:57Z
 - `tests/tp/test_tp2_xrank_collectives.py::test_flip_site_alters_the_collective_input_but_not_the_committed_partial`: its `TPPartialSource.__new__` stub has no `_occ` (added by R19 moe) -> AttributeError whenever CUDA is visible; skipped on CPU pods. Unrelated to D1.
 - GPU pods' interpreter (uv cpython-3.12.14, built 2026-09-01) starts with `gc.get_freeze_count() == 375`, so `test_admit_r19_host_working_set`'s two gc-freeze tests fail there at any commit (their precondition is 0).
 
-## 02:55Z lint at rebased head 324654c1 (pod vyv-rf-f1-cpu, npi7ii0b5bl3mg, cpu3g 8 vCPU, env /workspace/podenv.sh)
+## 02:27Z lint at rebased head 324654c1 (pod vyv-rf-f1-cpu, npi7ii0b5bl3mg, cpu3g 8 vCPU, env /workspace/podenv.sh)
 - 3 lint FAILS, no stale entries: P07 commit_delta main VERITY_FAULT 3 found/1 allowed; P9 NEW tp.partial_source -> check.oracle_compare;
   P10 8 caps (native_host mod 2743/2587, oracle_compare mod 1013/953 + fn 206/198, sampled_replay mod 3188/3149 + fn 267/257,
   commit_delta mod 3039/3022 + main 1935/1918, tp/worker mod 1615/1579).  Rule: split, never raise caps; lower caps to new sizes.
@@ -171,3 +171,25 @@ updated: 2026-09-25T01:57Z
   commit/native_ranges.py <- RangeOpening + range-opening mixin + fault_retained_flip (no torch try/except: P07 optional-import).
   tp/worker: move _t6_4_check body to tp/partial_source (591 lines, room).  P07: hoist ONE VERITY_FAULT read in main.
 - Then: lints + pyflakes + gate (b) + gate (a) on the cpu pod at the new head; pods drained by 05:00Z.
+
+## 03:13Z lint GREEN at `d1f18fc8` (pushed); gates (a) and (b) running on vyv-rf-f1-cpu
+- COMMIT `d1f18fc8` (pushed; fast-forward on the rebased `324654c1`; main still `bbbe936c`): code moves, no behaviour change.
+  `commit/opened.py` (OpenedReader, OpeningNotVerified, OPENED_METHOD, meta_by_name, ORDINAL_SEP; opened_check, opened_in_children,
+  UnverifiedUnlinked, filed; oracle_compare re-exports), `commit/native_ranges.py` (RangeOpening + NativeRangeOpenings mixin: leaf_span,
+  open_range, verify_range, fault_retained_flip; `_run_root` = `padding_steps.run_root_of`, the same fold), `check/replay_dump.py`
+  (opt-in dumper), `check/value_check.run_value_check` (commit_delta's value-check block), `tp/partial_source.late_read_check` (worker keeps
+  a delegate), one VERITY_FAULT read in commit_delta, `sampled_replay._picks_by_request_step`.  Allowlists: P07 (dumper x3), P11 and
+  by-name (late_read_check) follow the code; P10 caps lowered: oracle_compare 932 / fn 196, sampled_replay 3131 / fn 247, commit_delta
+  main 1917, tp/worker 1564 (native_host 2587 and commit_delta 3022 exactly at cap).  None above main's.
+- LINTS 44/44 (tests/lint + test_no_by_name_rules) on vyv-rf-f1-cpu at the `d1f18fc8` tree.  pyflakes: nothing new (HEAD's own warnings).
+  Targeted CPU tests (acquire/, tp/, opened values, oracle compare, sampled replay, padding consumer): only the two a1-baseline failures
+  (test_native_jit_keying: pod_release.sh missing; test_compiled_source: CUDA driver).
+- Caught on the way: macOS tar wrote AppleDouble `._*.py` files beside the shipped ones (com.apple.provenance xattr) and every lint
+  scanner died on them (15 false failures).  Ship with `COPYFILE_DISABLE=1 tar --no-xattrs`.  One real regression caught by the targeted
+  run: the forked-evaluator reads had moved into `evaluator` (a test pins it) -> restored as HEAD's top-level `value_reads_in_children`.
+- vyv-rf-f1-cpu registered by hand in `~/.research/machines.toml` (research run refuses an unlisted machine).
+- GATE (b) `r20260925-025346-73c9` (pytest_job_order.sh, -n 12 loadfile, CUDA hidden) since 02:55Z.
+- GATE (a) fixtures: key minted on the laptop, piped in, 26/26 artifacts fetched (70 programs on a second key after a local rename race);
+  key deleted both times (checked).  GATE (a) `r20260925-031034-be4b` since 03:10Z: T0,T1 as three serial pytest processes over disjoint
+  rows, each on its own tree copy and scratch (A: r39 r68 r4 r70 + decisions; B: r74 r67 r60 r101 + negative_57; C: r73 r11 r57 r23 r75),
+  balanced from e2f85a82's per-row times (131 min serial -> ~45 min each).  Then: jdiff both vs a1, READY.md, drain the pod by 05:00Z.

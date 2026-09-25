@@ -18,6 +18,8 @@ History: the whole notes tree is its own git repo, separate from the code repo, 
 Size on 2026-09-24: 30 MB of tracked text, 10 MB packed history.
 
 - `LANE-CONTRACT.md`: how every lane works. Read it first.
+- `ligero-hash-auth.md`: B-Ligero `+<leaf>` (included-hash) cells: the R1 / R2 / R4 verifier rules, the pinned-relation
+  pitfall, BLAKE3 gadget row counts and the x1 half-block waste.
 - `bench-instances.md`: which instances ref a bench run carries and whether Table 2 counts it (frozen, instance-equiv, tile).
 - `jolt-prover.md`: Jolt (a16z): what GPU paths exist (draft PR #1618 CUDA only), security (~100-bit), building guests
   and PR #1618 on a pod, measured VU guest cycles and CPU/CUDA prove times.

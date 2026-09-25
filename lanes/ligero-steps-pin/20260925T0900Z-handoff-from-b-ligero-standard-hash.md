@@ -36,3 +36,5 @@ None of these lets an unproven VU be counted, as far as I can see: batch pairs b
 
 Also on my branch: origin/main 94b1c4d2 merged (0ab2544f). The run.py / relchain.py conflict is `--commit-per-rep` vs
 commit-gpu's `--commit-reps`; they are now exclusive options.
+
+**Result (09:00Z, r20260925-085649-8d76, tree 806a2f73):** reverify_test + hashauth_test **15 passed**.

@@ -134,3 +134,14 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
     rather than commitment-bound.
 - Flock's `hash_throughput` bench needs `HASH_BENCH_LOG2S` ≥ 8. Its fast x86 path needs AVX-512 + VPCLMULQDQ, which
   RunPod A100 hosts (EPYC 7742, Zen 2) lack.
+- Same-pod reference (vy-agkr-bound2, 13 threads): the Rust CPU prover takes 361.5 s on the BF16 4,096-VU batch
+  (`run_measure_vu.sh`, FIELD=babybear). The survey's "54 s" came from a different box.
+- Flock b684b12 (portable path, 13 threads, one compression per input):
+  - SHA-256 5.00 s and BLAKE3 2.18 s at 2^18;
+  - single-threaded, 56.9 s and 26.3 s.
+- The prime side of a bit link (`tools/link_stub.py`: 512 bits per unit, booleanity, recomposition) at 393,216 units:
+  - CPU 138.3 s (+38%);
+  - A100 0.55 s warm as its own segment (+64%);
+  - packing k = 2 / 4 is slower on CPU (173 / 563 s).
+- The CUDA prover takes a single-segment `prover.Instance([Segment(...)], None)` built from any circuit text; see
+  `lanes/agkr-bound/evidence/pod-scripts/15_link_gpu.py`.

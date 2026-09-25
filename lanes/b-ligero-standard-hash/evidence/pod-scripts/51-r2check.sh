@@ -3,7 +3,8 @@
 # statement's (`relation.statement_relation`, what `system-digest` pins), not the manifest's base name (that recomputed under
 # the Poseidon2 schema), and the dump is the one with rep dirs (the sweep keeps only the plateau's proofs).
 #   honest: commitment_problems on the plateau dump, then reverify.verify_tree end to end with /workspace/bin/ligero-verify;
-#   negatives on a copy of the statements: a wrong set digest, one tree root flipped, one statement removed (coverage).
+#   negatives on a copy of the statements (proofs symlinked, so R4's pairing holds): a wrong set digest, one tree root
+#   flipped, one statement removed with its proof and manifest entry (coverage).
 # research run --on POD --project verity --cwd /workspace/src --send lib.sh --send 51-r2check.sh \
 #     --env DUMP=/workspace/research/runs/r20260925-073210-f45c/sweep/p4-16384/proofs -- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/51-r2check.sh"'
 IN=$(dirname "$0"); source "$IN/lib.sh"
@@ -33,6 +34,8 @@ for r in reps:
     (neg / r).mkdir(parents=True)
     for f in (p / r).glob("*.stmt"):
         shutil.copy(f, neg / r / f.name)
+    for f in (p / r).glob("*.proof"):
+        (neg / r / f.name).symlink_to(f)
 bad = json.loads(json.dumps(man))
 bad["set"]["instances"] = "0" * 64
 print("neg wrong set digest:", RV.commitment_problems(neg, bad, pin, reps))
@@ -47,6 +50,9 @@ print("neg flipped a root:", RV.commitment_problems(neg, man, pin, reps))
 f.write_bytes(orig)
 print("control (restored):", RV.commitment_problems(neg, man, pin, reps))
 f.rename(f.with_suffix(".off"))
-print("neg removed statement:", RV.commitment_problems(neg, man, pin, reps))
+(neg / reps[0] / f"{f.stem}.proof").unlink()
+gap = json.loads(json.dumps(man))
+gap["files"] = [e for e in gap["files"] if (e.get("proof") or e.get("stmt")) not in (f"{reps[0]}/{f.stem}.proof", f"{reps[0]}/{f.stem}.stmt")]
+print("neg removed statement + its proof + its manifest entry (coverage gap):", RV.commitment_problems(neg, gap, pin, reps))
 EOF
 echo "r2check rc=$?"

@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT 74a016e (09:03Z) [open] Spike registered art:c35a50cd, scaffold+negatives art:f2f07e3c (NEGATIVES OK 4 cells incl vllm-v1). A-GKR BF16 CPU 361.5s; in-field SHA ~28x (not building); bit-link prime side +38% CPU/+64% GPU. Handoff 0858Z: route + 4 decisions.
 CHECKPOINT 58b113bc (08:47Z) [open] Link stub (512 op bits/unit, k=1) at 393k units: CPU 138s, A100 GPU 0.55s warm (vs BF16 cell 0.86s, +214M committed). k=2/4 slower. Flock portable SHA-256 393k ~7.5s CPU. In-field flat SHA ~1e4 s CPU, GPU infeasible. Running A-GKR BF16 CPU ref.
 CHECKPOINT e10e1d6 (08:29Z) [open] Spike: in-field flat SHA-256 (Rust CPU, 13 thr) B=64 3.26s, B=4096 106.7s (arith-bound, ~1e4 s/393k-compression batch). Flock portable (Zen2): SHA-256 52k/s, BLAKE3 120k/s. Link stub k=1 at 393k units 138s. Next: same-pod A-GKR BF16 CPU ref.
 CHECKPOINT 02927b7b (08:07Z) [open] vllm-v1 dev run done: bf16/fp8 +vllm-v1 roots match pins, rust tree rebuild OK, scaffold verdict as designed. Survey adopted: launching CPU hash spike (flat SHA-256 in BabyBear via Rust CPU prover B=64/4096 + Flock benches). Link protocol not built.
@@ -139,3 +140,9 @@ recomposition into the 32 words. The cross-field check itself is not built (red-
   GPU binary-field prover would be needed for a GPU row.
 - I am NOT building the in-field fallback (b) into A-GKR. It is about 28× on CPU and can't run on the GPU prover.
 - I am NOT building the link until the red team has reviewed it.
+
+**Registered.**
+- Scaffold: art:f2f07e3c (frame-v3 + vllm-v1 cells; negatives with pins, NEGATIVES OK on 4 cells, r20260925-085244-5d8e).
+- Hash spike: art:c35a50cd.
+- Both are gate-log/v1 and preserved. Runs are preserved through `04_store.sh push`, and `data reindex --remote` succeeded.
+- Handoff 0858Z asks five questions: the route, Flock on AVX-512, the binding tag, the vllm-v1 domain mapping, and fp4 pins.

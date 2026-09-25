@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT 10996616 (09:01Z) [open] 09:02Z re-testing ligero-steps-pin tip 24ab6c7d on pod (R1 remap, R4 orphan vus3 + vn2 06b, H2 48/64); sp1 R3 fix b54e42ed review note pending; sha256 PINS not landed
 CHECKPOINT 5c73abf (08:56Z) [open] c81ed1c8: agkr native tree check PASS (4 pins core-reproduced, art:8dee00aa); vn2 R4 fix confirmed; open: ligero-steps-pin fix handoff, sha256 pins, agkr hash layers, survey §3.8 link
 CHECKPOINT f4d797b (08:51Z) [open] c81ed1c8: agkr-bound pins recomputed core-only from frozen sets: fp8-hopper +blake3 and +vllm-v1 a/b/y MATCH; bf16-ampere pending (set rebuilt on pod); R4 handoffs out; inbox empty; no sha256 pins yet
 CHECKPOINT e10e1d6 (08:33Z) [open] 21393756: R4 BREAK: R2 coverage (de2fa317 reverify + vn2 06) counts stmts w/o proof, 1/3 VUs proven PASS art:c7683eb2; de2fa317 closes R1, H2 PASS art:9fa210e7; sp1 R3 art:b11bc6ee; survey adopted (review §3.8 link when sent)

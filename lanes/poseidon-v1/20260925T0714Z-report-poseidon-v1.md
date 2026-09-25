@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT none (09:03Z) [open] 0847Z handoff acted on (main 94b1c4d2 merged, 82adc8a7). H100 bf16-hopper sweep done: plateau n=32768 P=10191/s e2e 3.215s commit 0.163s, N/P 3.16e7, BYTEID IDENTICAL; fp8-hopper sweeping (n4096 P=15498). Registration after both rows.
 CHECKPOINT 10996616 (08:37Z) [open] A100 DONE: plateau n=32768 P=5729/s (1.77e7x), commit 0.53s, art:b5a4454f (+n4096 art:289841b1), byteid ok, to verify-night-2; pod terminated. H100 afx80tft4x2ejt syncing. R1/R2 fix: merge when steps-pin lands
 CHECKPOINT 756d04d2 (07:59Z) [open] 4090 DONE: plateau n=32768 P=12589/s (8.53e6x), commit 0.389s, art:c8b52ee2 (+n4096 art:d87b4895) preserved, handed to verify-night-2; pod terminated ~$0.56. A100 sweep running (r20260925-075843-60eb)
 CHECKPOINT 32f783c5 (07:14Z) [open] 07:15Z started; merged hash-commit 6e1cc576 harness (47485b81); 4090 pod n005v24vgiougo syncing+bootstrap; next: fp8-ada l8192 p4 sweep 1024..32768 w/ commit-reps 5

@@ -4,7 +4,7 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T08:48Z
+updated: 2026-09-25T09:02Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
 
@@ -34,7 +34,16 @@ Deadline for vyv- pods: 2026-09-25T09:00Z (coordinator extends). Budget: $35 pod
   - Trees: head `472207c3` -> `/workspace/head`, base `10996616` (worktree `rf-c1-p1`, detached) -> `/workspace/basetree` (g2) and
     `/workspace/base` (big), shipped with `research pods sync`.
   - g2 run `r20260925-084508-e7c3` (`evidence/pod-scripts/g2.sh`): bootstrap --gpu LLAMA32_1B, CUDA tests at head, #101 head then base,
-    ab_compare, throughput.
+    ab_compare, throughput. 08:51Z BOOTSTRAP-OK. CUDA tests at head (test_scheme_cuda + test_production_vectors + test_leafhash_device +
+    test_spans): **98 passed, 0 skipped** (FA2 tap tree present). #101 head: build PASS (step `03ace66f`, manifest `90f81868` 7043 = f3's),
+    match PASS; commit running 09:02Z.
+  - big runs: boot `r20260925-085137-18b5` (BOOTSTRAP-OK from the base tree, ops/ identical; xdist 3.8.0, xgrammar 0.2.7; freeze vs a1's
+    baseline differs only in googleapis-common-protos 1.75.3->1.75.4, uvicorn 0.53.0->0.54.0); gate (a) `r20260925-085456-de22`
+    (`big_gate_a.sh`: prefetch.sh then gate_a.sh T0+T1 at head); lints + gate (b) `r20260925-085512-8c77` (`big_gate_b.sh`).
+    **Lints: 45/45 pass at head and at base**; allowlists at head vs base: only p10_size caps shrink (2587->2579, 930->914).
+    Gate (b) xdist head + base started 08:56Z.
+  - Fixture key: minted on the laptop 08:54:46Z (3 h, object-read-only), piped by ssh into `/root/r2ro.env` on vyv-rf-c1-big (786 B,
+    mode 600, never printed); prefetch.sh deletes it when the fetch ends (trap on exit too).
 - `vyv-rf-c1-g1` (runpod `zaazjzf44rc4wr`), 1x L40S, CUDA 12.9/13.0 allowed, guard 90. Created 07:07Z, TERMINATED 07:29Z
   after every run was fetched (`machines.toml` entry marked).
   - Runs: bootstrap `r20260925-070509-d288` (BOOTSTRAP-OK); `r20260925-071724-fd55` (failed: H1 harness bug); `r20260925-072312-94f5`

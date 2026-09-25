@@ -15,7 +15,7 @@ for cfg in ${CFGS:-4096:2 2048:2 2048:3}; do
   $PY -c "
 import json,sys
 r=json.load(open('$RD/$tag.json'))
-f=lambda k: r.get(k)
-print('$tag', {k: f(k) for k in ('e2e.seconds','e2e.vu_per_second','commit.seconds','t.total','mem.peak_device_bytes','soundness.achieved_log2','rows_per_unit')})
-" 2>/dev/null
+m={x['name']: x['value'] for x in r.get('measurements', [])}
+print('$tag', {k: m.get(k) for k in ('e2e.seconds','e2e.vu_per_second','commit.seconds','t.total') + tuple(k for k in m if k.startswith(('mem.', 'soundness.', 'census.')))})
+" 2>&1 | tail -n 2
 done

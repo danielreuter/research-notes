@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 24ab6c7d (09:00Z) [open] 09:00Z H100 qmiq4rs1f0y4tr healthy (hostmem ok). r20260925-085824-e359: fp8-hopper-x4+sha256 fixture ok, gate honest 2048 VUs all True (0.31s/341VU); negatives running; fp8-ada-x4 next. Then PINS rows, Rust batch, screen, sweep cell.
 CHECKPOINT a816a2b1 (08:15Z) [open] fixture fp8-ada-x4+sha256 OK: 90,848 rows/col, sys_id d6b0cd8d, table b04a579c, Python ACCEPT. First gate spent 8 min single-threaded with GPU idle (cause unknown; killed). a816a2b1 lazy conformance fixture; r20260925-080759-dd48: x4 conformance 5 passed so far, gate rerun unbuffered
 CHECKPOINT 70cb6c59 (07:52Z) [open] 70cb6c59: survey landed 07:43Z, its SHA-256 rec (bit-sliced ~18k rows) = my design, adopted; merged peer dc2cae87 (sweep_vu); leaf_bytes_many + sha256_test; bench variant 'B-Ligero + SHA-256 in circuit' on frame-v3/sha256 line. pod run r20260925-075211-7893: conformance+fixtures+gate fp8-ada-x4
 CHECKPOINT 922120d2 (07:27Z) [open] 922120d2 pushed: leaf/sha256.py (sha256/row/v1, 18,128 rows/blk: 1-row sels XOR/Maj, 16b-limb adds; CV published, pad block native) + ligero-verify SHA256 scheme+vectors. census fp8-ada-x4+sha256 90,848 rows/col. next: pod fixtures/pins/gates.

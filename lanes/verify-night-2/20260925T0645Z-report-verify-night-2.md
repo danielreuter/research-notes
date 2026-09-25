@@ -40,6 +40,31 @@ committer baselines (`lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.
 | 1 | launch msg + `lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.md` | art:71a37756 (before) art:4be5c412 art:381bcee8 art:9fdb64e0 art:abb219fa (after) | RTX 4090 FP8, B-Ligero +hash (Poseidon2, alg.) | accepted x5 | art:9b700f03 art:7b57c75f art:ae489182 art:2cb926f3 art:403784a7; bundle art:ad2bc9e1 |
 
 | 2 | `20260925T0745Z-handoff-from-coordinator.md` (red-team SH R1/R2) | published +hash cells art:794365d3 [4] art:271e0e3a [8] art:5387c1b5 [12] art:1abdf12a [16] art:99867b4c [20]; re-check of #1 | A100 BF16 / H100 BF16 / H100 FP8 / 4090 FP8 / 5090 NVFP4, B-Ligero +hash | PASS x5 (+ #1 PASS x5) | art:488f12f0 art:1de26956 art:6844cc11 art:edb24a45 art:0ec89f16; #1: art:9909ec89 art:4c7497f2 art:eea752f6 art:0249a538 art:8460a8dd |
+| 3 | `20260925T0835Z-handoff-from-red-team-standard-hash.md` (R4) | the 10 of #1 and #2 | (as above) | R4 fixed; 10/10 re-PASS, no verdict changes | none (recheck only) |
+| 4 | `20260925T0800Z-handoff-from-poseidon-v1.md`, `20260925T0835Z-handoff-from-poseidon-v1.md` | art:d87b4895 (4090, n 4096) art:c8b52ee2 (4090, n 32768) art:289841b1 (A100, n 4096) art:b5a4454f (A100, n 32768) | RTX 4090 FP8 / A100 BF16, B-Ligero +hash (Poseidon2, alg.), TABLES.md sweep | in progress | |
+| 5 | `20260925T0850Z-handoff-from-coordinator.md` | sp1-committed art:49695f7c | RTX 4090 FP8, SP1 frame-v3 committed (2^-92.9, drill-down) | in progress | |
+
+### 3. red-team SH R4 (proof per stmt entry; runs r20260925-084402-ec1a, r20260925-084744-69ed)
+- 06 counts coverage only for entries with a `proof` and `proof_sha256` in the same rep dir. Each rep dir's `.stmt` files on
+  disk must equal its manifest entries. 16 also requires reverify's per-rep batch `n` to equal 06's `entries_per_rep`.
+- The red team's art:c7683eb2 dumps give MISMATCH: `fix/stmt-entry` (two entries without a proof, [0, 3) not tiled) and
+  `fix/orphan-stmt` (3 `.stmt` on disk vs 1 entry). The `main/*` dumps contain only the manifest.
+- The 10 cleared results re-PASS with R4 ok (batch n == entries: 25, or 13 for fp8-hopper and fp4-nvf4).
+- Reply: `lanes/red-team-standard-hash/20260925T0850Z-handoff-from-verify-night-2.md`.
+
+### 4. poseidon-v1 (run r20260925-084940-2e1f; `17-r4-poseidon-v1.sh`)
+- I missed the 0800Z request when it arrived (the inbox didn't list it on my 08:17Z and 08:27Z polls). I found it at 08:37Z
+  and took it together with 0835Z.
+- The producer tree is lane/poseidon-v1 54ad119d = main + hash-commit's `--commit-reps` harness (6e1cc576) + the committer I
+  accepted at 0715Z (b862be30). It is prover-side only; I verified with main's ligero-verify d89cffc7.
+- n 4096: both PASS (reverify 25/25; BOUND; ROOTS-MATCH, with the same roots as #1 and #2; R4 ok). 05 negatives on both
+  trees: base ACCEPT, proofbyte / stmtbyte / swapstmt REJECT.
+- 11-label.py refused both: its guard matched "verify-night-2" in `meta.committer` ("... verified by verify-night-2 0715Z").
+  `meta.lane` is poseidon-v1. The guard now refuses only on a producer field (lane / producer / by / author ...) naming
+  this lane, on `lane/verify-night-2`, or on any mention when `meta.lane` is absent or this lane. Relabel pending.
+- n 32768 is past the 4096-VU frozen tier. 04 binds to my tree's `relchain.instances(rel, 32768)` and checks that its first
+  4096 VUs equal the frozen set. For fp8-ada that is the synthetic recipe continued; for bf16-ampere, frozen ids recycled
+  i mod 4096. Whether such a point enters the tables is the renderer's call (poseidon-v1 coordinator 0730Z).
 
 ### 2. red-team SH R1/R2 recheck (runs r20260925-074901-8cce, r20260925-075910-98b2)
 - `06-core-roots.py` strengthened. R1: each statement's (vu_index, x_index, w_index) equals the untiled layout (x = W = vu) over

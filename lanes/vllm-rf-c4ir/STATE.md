@@ -2,9 +2,9 @@
 id: vllm-rf-c4ir/state
 lane: vllm-rf-c4ir
 kind: state
-status: active
+status: blocked (phase 1 done; phase 2 prepared and pre-checked; waits on a4 in origin/main)
 created: 2026-09-25T06:55Z
-updated: 2026-09-25T08:50Z
+updated: 2026-09-25T09:03Z
 ---
 # vllm-rf-c4ir: boundary, partition and liveness into core `verity.ir` (state)
 
@@ -81,16 +81,19 @@ updated: 2026-09-25T08:50Z
   running_example): 583 tests, 0 failures, 0 errors, 15 skips (all test_composition fixtures absent); the
   counterexample file's importorskip resolves core (no skips there).
 
+- r20260925-081543-0c3c integration `tests/query` + `tests/program` (-n 8) at `4a2ccf11`: SIGINT at 08:57Z before
+  the deadline (JUnit flushed): 1710 tests, 31 fail + 11 error, all 42 on a23b's gate (b) known-failure list, 0 new.
+  The base run (r20260925-083804-0840, `14b0cf9f`) was cut off with no summary (the interrupt also hit its wrapper).
+- 08:58Z pod hpbzk8p38jgf8s terminated and unregistered. Spend about $0.52 in total. JUnit evidence beside this note.
+- 09:02Z READY.md written.
+
 ## Running
-- r20260925-081543-0c3c: integration `tests/query` + `tests/program` (-n 8) at `4a2ccf11`, ~98% at 08:48Z.
-- r20260925-083804-0840: lints at `7313e799`; the same integration dirs at base `14b0cf9f` (built on the pod from the
-  shipped `4a2ccf11` tree + reverse patch) for a same-pod head/base comparison.
+- Nothing. No c4ir pods.
 
 ## Next
-- Phase 2 proper when a4 is in origin/main: rebase lane onto origin/main (cherry-pick `18e29d92`, `4a2ccf11`), then
-  lints, core, gate (b) head vs base same pod, gate (a) T0+T1 on cpu3m 512 GB, GPU smoke #101.
-- 08:05Z: origin/main = `b9cd5368`; a4 head `14b0cf9f` not merged. Gate (a) alone is ~2 h 40 min, so phase 2 gates
-  need the pod deadline (09:00Z) extended.
+- Phase 2 proper when a4 is in origin/main: rebase lane onto origin/main, cherry-pick `18e29d92` + `4a2ccf11`, then
+  lints, core, gate (b) head vs base same pod, gate (a) T0+T1 on cpu3m 512 GB, GPU smoke #101 (READY.md "Finishing
+  phase 2"). Blocked: a4 not in origin/main at 08:51Z (`94b1c4d2`), and pods died at the 09:00Z deadline.
 
 ## Found, not fixed
 - `intervals.strided_intervals` (the integration's liveness `_strided_targets`, moved unchanged): a zero-outer-stride,

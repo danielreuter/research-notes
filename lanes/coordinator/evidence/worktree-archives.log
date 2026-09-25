@@ -1,0 +1,44 @@
+2026-09-25T08:58:32Z START live-2b: lane/live-2b @ c72114a8, 1 dirty/untracked paths, 0 unpushed commits
+2026-09-25T08:58:40Z TAR live-2b: live-2b-worktree-20260925T0858Z.tar.gz 40886108 B, 1918 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T08:58:40Z FAIL live-2b: data put exit 1: research data put: invalid artifact manifest: kind must look like <name>/v<int>, got 'worktree-archive'
+2026-09-25T08:58:40Z DONE 0/1 archived+removed: 
+2026-09-25T08:58:55Z START live-2b: lane/live-2b @ c72114a8, 1 dirty/untracked paths, 0 unpushed commits
+2026-09-25T08:59:03Z TAR live-2b: live-2b-worktree-20260925T0858Z.tar.gz 40886108 B, 1918 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T08:59:03Z FAIL live-2b: data put exit 1: research data put: invalid artifact manifest: kind must look like <name>/v<int>, got 'worktree-archive'
+2026-09-25T08:59:03Z DONE 0/1 archived+removed: 
+2026-09-25T08:59:29Z START live-2b: lane/live-2b @ c72114a8, 1 dirty/untracked paths, 0 unpushed commits
+2026-09-25T08:59:36Z TAR live-2b: live-2b-worktree-20260925T0859Z.tar.gz 40886108 B, 1918 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T08:59:36Z FAIL live-2b: data put exit 1: research data put: invalid artifact manifest: kind must look like <name>/v<int>, got 'worktree-archive'
+2026-09-25T08:59:36Z DONE 0/1 archived+removed: 
+2026-09-25T08:59:58Z START live-2b: lane/live-2b @ c72114a8, 1 dirty/untracked paths, 0 unpushed commits
+2026-09-25T09:00:05Z TAR live-2b: live-2b-worktree-20260925T0859Z.tar.gz 40886108 B, 1918 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T09:00:28Z PUT live-2b: art:de25b19d3f117794d04920aae1721728fbd79bafd50475d7aa717b994c6800d3 (--preserve OK)
+2026-09-25T09:00:28Z VERIFIED live-2b: R2 objects/sha256 matches size 40886108 + ETag
+2026-09-25T09:00:28Z REMOVED live-2b: worktree /Users/danielreuter/projects/verity-main-wt/live-2b (branch lane/live-2b @ c72114a8 kept; restore: git worktree add /Users/danielreuter/projects/verity-main-wt/live-2b lane/live-2b && tar xzf $(research data fetch art:de25b19d3f117794d04920aae1721728fbd79bafd50475d7aa717b994c6800d3) -C /Users/danielreuter/projects/verity-main-wt)
+2026-09-25T09:00:28Z DONE 1/1 archived+removed: live-2b
+2026-09-25T09:00:51Z START ajtai-leaf: lane/ajtai-leaf @ d40399f9, 2 dirty/untracked paths, 0 unpushed commits
+2026-09-25T09:00:58Z TAR ajtai-leaf: ajtai-leaf-worktree-20260925T0900Z.tar.gz 40918433 B, 1929 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T09:01:23Z PUT ajtai-leaf: art:9da38eaeddcaedc3c45eaee4d97d6bed67ad6f5462f238a67cf226389ffca882 (--preserve OK)
+2026-09-25T09:01:23Z VERIFIED ajtai-leaf: R2 objects/sha256 matches size 40918433 + ETag
+2026-09-25T09:01:23Z REMOVED ajtai-leaf: worktree /Users/danielreuter/projects/verity-main-wt/ajtai-leaf (branch lane/ajtai-leaf @ d40399f9 kept; restore: git worktree add /Users/danielreuter/projects/verity-main-wt/ajtai-leaf lane/ajtai-leaf && tar xzf $(research data fetch art:9da38eaeddcaedc3c45eaee4d97d6bed67ad6f5462f238a67cf226389ffca882) -C /Users/danielreuter/projects/verity-main-wt)
+2026-09-25T09:01:24Z START ligerito-relation: lane/ligerito-relation @ fbc3eefb, 3 dirty/untracked paths, 0 unpushed commits
+2026-09-25T09:01:32Z TAR ligerito-relation: ligerito-relation-worktree-20260925T0901Z.tar.gz 41448974 B, 1989 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T09:01:56Z PUT ligerito-relation: art:f2c135ce3fd7b4388de04cb765da8db17c66f42e34d04337e3a82bd065a87f6a (--preserve OK)
+2026-09-25T09:01:56Z VERIFIED ligerito-relation: R2 objects/sha256 matches size 41448974 + ETag
+2026-09-25T09:01:57Z REMOVED ligerito-relation: worktree /Users/danielreuter/projects/verity-main-wt/ligerito-relation (branch lane/ligerito-relation @ fbc3eefb kept; restore: git worktree add /Users/danielreuter/projects/verity-main-wt/ligerito-relation lane/ligerito-relation && tar xzf $(research data fetch art:f2c135ce3fd7b4388de04cb765da8db17c66f42e34d04337e3a82bd065a87f6a) -C /Users/danielreuter/projects/verity-main-wt)
+2026-09-25T09:01:58Z START red-team-leaf-2: lane/red-team-leaf-2 @ 1054caf3, 18 dirty/untracked paths, 0 unpushed commits
+2026-09-25T09:02:05Z TAR red-team-leaf-2: red-team-leaf-2-worktree-20260925T0901Z.tar.gz 40938820 B, 1930 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T09:02:33Z PUT red-team-leaf-2: art:f7d08244ecb264cd0623a80742d8876e782d5453929fe4a2ca89fa331854d2c2 (--preserve OK)
+2026-09-25T09:02:33Z VERIFIED red-team-leaf-2: R2 objects/sha256 matches size 40938820 + ETag
+2026-09-25T09:02:33Z REMOVED red-team-leaf-2: worktree /Users/danielreuter/projects/verity-main-wt/red-team-leaf-2 (branch lane/red-team-leaf-2 @ 1054caf3 kept; restore: git worktree add /Users/danielreuter/projects/verity-main-wt/red-team-leaf-2 lane/red-team-leaf-2 && tar xzf $(research data fetch art:f7d08244ecb264cd0623a80742d8876e782d5453929fe4a2ca89fa331854d2c2) -C /Users/danielreuter/projects/verity-main-wt)
+2026-09-25T09:02:34Z START red-team-ligerito-2: lane/red-team-ligerito-2 @ 83d5d756, 1 dirty/untracked paths, 0 unpushed commits
+2026-09-25T09:02:42Z TAR red-team-ligerito-2: red-team-ligerito-2-worktree-20260925T0902Z.tar.gz 40950933 B, 1946 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T09:03:08Z PUT red-team-ligerito-2: art:29d54bb9d63ab8c6b2d19f431ed51bc424e5b02428448120addebd47e1bf84d0 (--preserve OK)
+2026-09-25T09:03:09Z VERIFIED red-team-ligerito-2: R2 objects/sha256 matches size 40950933 + ETag
+2026-09-25T09:03:09Z REMOVED red-team-ligerito-2: worktree /Users/danielreuter/projects/verity-main-wt/red-team-ligerito-2 (branch lane/red-team-ligerito-2 @ 83d5d756 kept; restore: git worktree add /Users/danielreuter/projects/verity-main-wt/red-team-ligerito-2 lane/red-team-ligerito-2 && tar xzf $(research data fetch art:29d54bb9d63ab8c6b2d19f431ed51bc424e5b02428448120addebd47e1bf84d0) -C /Users/danielreuter/projects/verity-main-wt)
+2026-09-25T09:03:10Z START share-logup-2: lane/share-logup-2 @ cfdcf657, 2 dirty/untracked paths, 0 unpushed commits
+2026-09-25T09:03:17Z TAR share-logup-2: share-logup-2-worktree-20260925T0903Z.tar.gz 40939398 B, 1927 entries, all tracked+modified+untracked paths present (excluded: target,.rt-target,__pycache__,.venv,.pytest_cache,.mypy_cache,node_modules,.ruff_cache)
+2026-09-25T09:03:44Z PUT share-logup-2: art:336ca5e299e3f2aba5abd76c9c8ff963dc5d921267d719973f64c6dcf2eb5b80 (--preserve OK)
+2026-09-25T09:03:44Z VERIFIED share-logup-2: R2 objects/sha256 matches size 40939398 + ETag
+2026-09-25T09:03:44Z REMOVED share-logup-2: worktree /Users/danielreuter/projects/verity-main-wt/share-logup-2 (branch lane/share-logup-2 @ cfdcf657 kept; restore: git worktree add /Users/danielreuter/projects/verity-main-wt/share-logup-2 lane/share-logup-2 && tar xzf $(research data fetch art:336ca5e299e3f2aba5abd76c9c8ff963dc5d921267d719973f64c6dcf2eb5b80) -C /Users/danielreuter/projects/verity-main-wt)
+2026-09-25T09:03:44Z DONE 5/5 archived+removed: ajtai-leaf ligerito-relation red-team-leaf-2 red-team-ligerito-2 share-logup-2

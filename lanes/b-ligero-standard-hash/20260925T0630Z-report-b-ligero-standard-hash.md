@@ -132,6 +132,21 @@ Pod scripts: `evidence/pod-scripts/`.
   control PASS; orphan-stmt and stmt-entry variants FAIL (layout); honest plateau (True, []); a proof removed from a
   symlinked copy -> "rep1: 193 statements, 192 proofs, 193 manifest proof entries (not the same files: ['sub_07'])".
   r20260925-084339-014c (`53-unit.sh`, 5c7c4488): reverify_test + hashauth_test 12 passed; R4 check re-run on the tip.
+* 08:45Z ligero-steps-pin (inbox 0845Z) had cherry-picked my R1 / R2 unchanged (71905f0f / 3e98dc55) and made its own R4
+  (06176b41). **Merged origin/lane/ligero-steps-pin at fcf9a35b, taking its reverify.py / hashauth_test.py** (mine superseded;
+  one R4 in the coordinator's merge). r20260925-084934-4816 on it: the R4 harness is not reproduced; honest (True, []);
+  proof removed -> refused; verify_tree PASS 193/193. But **3 reverify_test cases FAIL** ("truncated file": 06176b41 parses
+  every `.stmt`, including the test's stand-ins) -> 806a2f73 (unreadable statement = a problem of a hashed dump) ->
+  r20260925-085649-8d76: 15 passed. Handoff lanes/ligero-steps-pin/20260925T0900Z (cherry-pick 806a2f73).
+* 08:47Z coordinator (inbox 0847Z): merge origin/main (commit-gpu's GPU committer) before measured runs. **Merged main
+  94b1c4d2 at 0ab2544f**. Conflicts: hashauth.build_row_tree -> main's batched `leaf_hashes`; run.py / relchain.py: my
+  `--commit-per-rep` and commit-gpu's `--commit-reps` / `--commit-evidence` are kept as exclusive options; the first build's
+  evidence is kept under per-rep too, and every per-rep recommit must reproduce its tree refs. Note on accounting:
+  commit-gpu's commit.seconds includes the prover's chain states, while my per-rep commit.seconds puts them in t.witness;
+  e2e is the same sum.
+* 08:52Z the pod's /workspace/src was synced once from the wrong worktree (poseidon-v1: the shell's cwd had drifted),
+  with no run on it. Re-synced from this worktree; every run since stamps its commit. Now `cd` explicitly before `research pods sync`.
+* kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.
 

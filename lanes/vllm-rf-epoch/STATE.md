@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T20:40Z
+updated: 2026-09-25T21:40Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -80,6 +80,20 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
   #11/#39 are **not re-baselined** unless a >= 233 GB L40S slot frees early enough: none is free (big #68, tp70 #67, tp70b #70,
   tp75 #75).
 - #11 is kept off moe67: the `skip11` run `r20260925-202938-00c9` stops its row_pod.sh when it starts, so rows.sh moves on to #23.
+
+## 21:40Z check
+- #4 (moe67): Build PASS (6302 s; Program 262201f9…, manifest 990e2d1f…), Match PASS, **Commit crashed (NOT_RUN)** in
+  `native_host.verify` -> `scheme.chunk_header` -> core `vllm_v1.chunk_header`:
+  `InvalidArtifact: M must be an integer in [0, 4294967296), got 5036944512`. **Finding, not a re-baseline:** core's u32 check on
+  the fa2h header's M (c1's core-routed chunk_header) rejects a layout value that the integration passes above u32. Rows with
+  larger steps may hit it too. #4 stays on old expected unless explained.
+- #11: skipped on moe67 at 20:59:39Z (skip11). #23 has been running on moe67 since 20:59Z.
+- #57 (moe68): Build PASS (6321 s; 9020930a…, manifest 21a77237…), Match FAIL (no fold; #57 is a FAIL-class row); Commit running.
+- #73 (h100): Build PASS 10,713 s (345ebaf9…, manifest 69598f76…); Match running. #74 follows (Build ~3 h: borderline for 02:30Z).
+- #70 (tp70b, tp_stage): Build PASS 2179 s (r0 508c0f77…, r1 9c2554f1…); Match check pass, fold next.
+- #67 (tp70), #68 (big), #75 (tp75): Builds running.
+- Pre-PR-#29 recording trees: no `verity_sampled_proofs` workaround needed now. For the final rebaseline on a merged tree, set
+  PYTHONPATH+=$TREE/protocols/sampled_proofs on the pod (2055Z/2058Z handoffs).
 
 ## Next
 - Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the

@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (21:34Z) [open] reopened 21:35Z: check 4090 fp8-ada result art:949bcc35 against PB1-PB4/FA1 (no pod)
 CHECKPOINT 3301c435 (21:32Z) [final] decision 57 recorded on art:ca6029c1 + art:3bfb2f58; fp8-ada block layout (48045063) GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-195.54/proof; selftest fp8 16/16 + bf16 18/18 art:1f2fe1e9; FA1 separate-pod verifier, FA2 fp8 negatives). Pod terminated 21:31Z ~$0.10
 CHECKPOINT 3301c435 (21:21Z) [open] reopened 21:22Z: record decision 57 in findings; fp8-ada block layout review (PR #30 @ 48045063)
 CHECKPOINT 3301c435 (21:19Z) [final] flock-pure-block/v2 GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-195.44/proof, 2^-193.44 over 4 sub-batches; label art:ca6029c1); route (a) live coins GRANTED WITH CONDITIONS at NON_ZK_PROOF (2^-130.19; label art:3bfb2f58; RA1 verifier DoS). fp8-ada block review (2100Z) queued, not done. ~$0.15

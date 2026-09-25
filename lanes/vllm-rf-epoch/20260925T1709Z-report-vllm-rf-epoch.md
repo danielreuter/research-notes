@@ -5,6 +5,7 @@ created: 2026-09-25T17:09Z
 status: open
 ---
 
+CHECKPOINT 80b19e59 (21:36Z) [open] WAIT moe67 a415 (#23 then golden), moe68 4e8f (#57 Commit, #60), h100 08bb (#73 Match, #74), tp70 250a (#67 Build), tp70b cf81 (#70 Match), big ecb5 (#68 Build), tp75 6f0c (#75 Build) check-back 22:45Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: #4 Commit crash = FINDING (core chunk_header M=5036944512 > u32); no pod freed yet
 CHECKPOINT 80b19e59 (20:31Z) [open] WAIT big ecb5 (#68 after bootstrap), tp70b (#70 tp_stage), tp70 250a (#67), tp75 6f0c (#75), moe67 a415 (#4 then #23+golden; #11 skipped), moe68 4e8f (#57,#60), h100 08bb (#73,#74) check-back 21:30Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: item 7 = 73a9a90a (key-only); #11/#39 no fitting slot; status handoff due 01:30Z
 CHECKPOINT 80b19e59 (20:23Z) [open] WAIT moe67 a415 (#4 Match), moe68 4e8f (#57 Build; #39 OOM 125GB), tp70 250a (#67 Build), tp70b rows70 (#70 via tp_stage after bootstrap), tp75 6f0c (#75 relaunched via tp_stage: row_pod has no TP hook), h100 08bb (#73 Build) check-back 21:15Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: #68 still no >=256GB pod; DECISION asked (handoff 2025Z)
 CHECKPOINT 80b19e59 (20:22Z) [open] WAIT moe67 a415 (#4 Match), moe68 4e8f (#57 Build; #39 OOM 125GB), tp70 250a (#67 Build), tp70b rows70 (#70 via tp_stage after bootstrap), tp75 6f0c (#75 relaunched via tp_stage: row_pod has no TP hook), h100 08bb (#73 Build) check-back 21:15Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: #68 still no >=256GB pod; DECISION asked (handoff 2025Z)

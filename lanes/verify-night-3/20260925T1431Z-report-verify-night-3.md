@@ -2,9 +2,10 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: final
+status: open
 ---
 
+CHECKPOINT 906255b2 (21:38Z) [open] reopened (coordinator 2140Z): relabel route (a) art:4b52879f; verify H100 +blake3 x4 art:d88a9948 / art:5ea60c40 + equiv: NOT final
 CHECKPOINT 906255b2 (20:53Z) [final] route (a) G3: art:3bfb2f58 verified=accepted (gate battery + offline Flock replay re-run from the store, statements regenerated and equal; runs r20260925-203452-5265 / -204110-326f); art:d5731679 note only ([0,1024) commitment unpinned; accepts with --allow-unpinned-commitment, r20260925-204749-26c6). Pod 7qkora4f5oy6t9 terminated 20:52Z ~$0.15
 CHECKPOINT dec08973 (20:41Z) [open] G3 run 1 r20260925-203452-5265: 4096 honest s1-s5 pass every check but non_producer (prime + Flock replay accept), negatives reject; 1024 prime verify rc 2 (public.bin not in store). Run 2: regenerate statements myself + battery again
 CHECKPOINT 906255b2 (20:34Z) [open] pod vy-verify-night-3 7qkora4f5oy6t9 (cpu3c 16 vCPU, $0.48/h) for route (a) G3: gate battery + offline Flock replay from the store @dec08973

@@ -118,3 +118,18 @@ vllm-v1 after core-schemes. Target: <= 5 ms per 4096 instances, all ports, byte-
   runs via minor-version compatibility (AOT cubin, no PTX JIT). Run after the A/B (GPU idle).
 - 08:02Z A/B (batch 8192, pipeline 2) cg-host-fp8-ada_blake3-r1: rc 0, Rust 25 accept, ev f62b873f, stmts b09ff90f, committer
   12.296 s (rows 1.4 ms, trees 12.295 s).
+- 08:10Z 5f83bd96: pointer arguments instead of cupy views, the levels with <= max_threads_per_block nodes in one
+  single-block launch (fv3_top), the BLAKE3 key cached, the published digests in one kernel. Profile: row_tree 1.08 -> 0.78
+  ms, y tree 0.62 -> 0.54, keyed BLAKE3 0.14 -> 0.09. 96 tests pass.
+- 08:12-08:35Z fp8-ada+blake3 A/B at 5f83bd96 (batch 8192, pipeline 2, 3 commit reps): GPU committer 4.3 / 4.4 / 5.1 ms
+  (rows 1.5-2.4 ms: pageable h2d, host-staged, noisy), host 11.8-12.3 s; every run ev f62b873f, stmts b09ff90f, Rust 25/25
+  accept. Kept in runs-5f83bd96/ on the pod (not registered: superseded).
+- e6cb976d / bcf75db7: the committed rows made once with the instance set (the report line at 0787f4a9 said so, the code then
+  still made them per commit_vus call, inside commit.seconds but outside the committer); the set page-locked for a CUDA runner
+  (`narrow_rows(pin=True)`, a serving stack's staging buffer) and copied with non_blocking (DMA, no host staging). Both arms
+  get the same input. Test test_committed_rows_pinned_reach_the_device_intact.
+- 08:41Z tests at bcf75db7: 98 passed; neighbours 326 passed, 1 skipped. 08:45Z handoff to coordinator
+  "commit-gpu merge-ready: bcf75db7" (lanes/coordinator/20260925T0845Z-handoff-from-hash-commit.md).
+- 08:48Z cg-gpu-fp8-ada_blake3-r1 at bcf75db7: committer 3.9 ms (rows 1.2, trees 2.7), commit.seconds 10.3 ms (was 25),
+  ev f62b873f identical to the host arm, Rust 25/25. Note: the host arm's t.total varies 3.2-5.6 s run to run (prover code
+  identical in both arms; GPU arm 3.18-3.19 s): not a committer effect, flagged for whoever reads t.total from host-arm runs.

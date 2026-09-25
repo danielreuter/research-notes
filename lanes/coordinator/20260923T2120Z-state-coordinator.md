@@ -37,6 +37,8 @@ status: open
   9. JOLT: scout FINAL 08:07Z = NO-GO for Table 2 (curve Jolt ~100-bit / ~2^-110; ICICLE path dead; live CUDA only in draft
      a16z/jolt PR #1618, 5.7-8x CPU on a 4090; Lattice Jolt no CUDA; LayerZero closed). Optional drill-down lane (~$6, 6-8 h) once
      PR #1618 merges: lanes/coordinator/20260925T0810Z-handoff-from-jolt-scout.md. kb/jolt-prover.md added.
+  10. SP1 COMMITTED: lane FINAL b54e42ed (cell art:49695f7c, 51.04 s, 69 shards, 2^-92.9/proof; commit +117% vs relation-only, not +3-15%).
+      Views commits cherry-picked to main. Successor (later, low priority): run committed-verify --batch, the vllm-v1 variant, a same-pod bare baseline.
   6. Test failures on clean main (known): test_no_tracked_blob_exceeds_limit, test_this_repository_resolves_every_workspace_package_
      inside_the_tree, test_evict_runs_only_preserved_terminal_quiet_runs..., test_d6_deferred_hash_records...
 - Disk: sweep every 30 min (timer); report < 5 GiB. R2 direct-hash check 20:40Z: evidence/20260924T2040Z-r2-hash-check.tsv.

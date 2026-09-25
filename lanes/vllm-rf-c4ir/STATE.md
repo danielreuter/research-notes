@@ -4,7 +4,7 @@ lane: vllm-rf-c4ir
 kind: state
 status: active
 created: 2026-09-25T06:55Z
-updated: 2026-09-25T08:39Z
+updated: 2026-09-25T08:50Z
 ---
 # vllm-rf-c4ir: boundary, partition and liveness into core `verity.ir` (state)
 
@@ -74,8 +74,15 @@ updated: 2026-09-25T08:39Z
 - a4 moved to `10996616` (P11 entry drop + test file moves). Rebase of the prep onto it is clean (same tree as a merge);
   prep branch = merge `7313e799`, pushed fast-forward to `lane/vllm-rf-c4ir-p2-on-a4`.
 
+- r20260925-083804-0840 lints at `7313e799`: 45 passed (41 lint + 3 by-name + 1 imports), 0 failed; allowlists only
+  shrank (p07 -3, p10 -2, p11 -1; LAYER -3).
+- r20260925-084225-f233 targeted at `7313e799` (every test that touches the switched code: `tests/query`,
+  frontend_analyses/rulings, lifted_r17/tiny, padded_commit_tiny, b1/serve3_authored, composition, derive_negative,
+  running_example): 583 tests, 0 failures, 0 errors, 15 skips (all test_composition fixtures absent); the
+  counterexample file's importorskip resolves core (no skips there).
+
 ## Running
-- r20260925-081543-0c3c: integration `tests/query` + `tests/program` (-n 8) at `4a2ccf11`, ~97% at 08:35Z.
+- r20260925-081543-0c3c: integration `tests/query` + `tests/program` (-n 8) at `4a2ccf11`, ~98% at 08:48Z.
 - r20260925-083804-0840: lints at `7313e799`; the same integration dirs at base `14b0cf9f` (built on the pod from the
   shipped `4a2ccf11` tree + reverse patch) for a same-pod head/base comparison.
 

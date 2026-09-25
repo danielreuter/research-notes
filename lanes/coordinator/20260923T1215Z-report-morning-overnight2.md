@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 7b724ae2 (03:56Z) [open] 04:00Z merged #7 c67542be (pod registry, off on laptop) and #10 7b724ae2 (lease/liveness/service, opt-in); 106 tests pass incl rsync; cli+steward moved
 CHECKPOINT none (03:48Z) [open] 03:58Z lanes FINAL: arith, agkr-fp8, agkr-nvf4, red-team-arith, red-team-lk, verify-po (pods gone). H100 FP8 A-GKR art:ad76c106 marked provisional; red-team-lk resumed for its statement check. Backlog += arith shared-memory opt-in; A-GKR integration after switch-over.
 CHECKPOINT none (03:45Z) [open] 03:52Z verify-po released 6 labels; T2 A-GKR H100 FP8 4.4e7x, 4090 1.3e7x, 5090 1.8e7x; scoreboard re-rendered 8:52 PM PT
 CHECKPOINT none (03:43Z) [open] 03:47Z parity pass 1 (with #8): exit 1, PARITY FAILED 10 unexplained: 9 Sep-22 attempts differ (remote copies carry extra fields: telemetry.resources / load_end; laptop copies older) + render 43 lines (A-GKR cells: verify-po labels written locally during the run, write-through off). JSON: Project store internal/parity-20260925T0315Z.json + notes campaigns/remote-state/assets/parity/. Pass 2 not run (runbook stops).

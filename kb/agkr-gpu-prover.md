@@ -44,3 +44,13 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
   multiplicities, and run a prover copy whose "fractional sum is not zero" self-check is a no-op. Both verifiers must reject at
   `LogUp LK level 0: final check`.
 - 4090 fp8-ada at 4096 VUs, t.total 1.130 -> 0.666 s (prover only, same bytes) -> 0.490 s (merged statement).
+- Red-team (red-team-lk, 2026-09-25, art:ca49b2f8 art:9a6280c5 art:319062b4 art:5419ef15): the merge, the nvf4 depth-1 flatten, the
+  epilogue t drop, BOOL_QUADRATIC and PAIRED all PASS. Soundness holds for any key: the tag is its own constant column and the shift
+  is injective mod p. The 2^20 bound only matters to the prover's first-column multiplicity search. The harness is
+  `backends/gkr/tools/red_team_lk.py` (lane/red-team-lk), with subcommands `static-merge`, `static-nvf4`, `selftest`,
+  `forge [--control]` and `audit`. Its evidence kind is `redteam-findings/v1`.
+- Tag-collision forgeries need the cheating prover (no self-check, first-column multiplicities). On nvf4, a tag-stripped LK moves
+  the rejection from LogUp to assertions. On fp8, every range-checked column also feeds another query (ALIGN4, a second R5), so
+  no single-cell forgery isolates the tag; `audit` lists each forgery's LK misses with and without the tag.
+- Gotcha: tree 3be6a35f (fp8) under Triton 3.4 (5090 image) raises a CompilationError in `packed/kernels_triton.py` until it
+  gets b7cec878's 5-line constexpr-global fix.

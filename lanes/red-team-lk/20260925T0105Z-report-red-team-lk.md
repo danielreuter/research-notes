@@ -2,9 +2,10 @@
 lane: red-team-lk
 kind: report
 created: 2026-09-25T01:05Z
-status: open
+status: final
 ---
 
+CHECKPOINT 0d3fe370 (01:57Z) [final] red-team LK: PASS all rewrites (fp8 merge_tables; nvf4 merged LK+E2M1X2, depth-1 flatten, t drop, BOOL_QUADRATIC, PAIRED); art:49757870 stands; evidence art:9a6280c5 art:ca49b2f8 art:319062b4 art:5419ef15; pod terminated 01:55Z ~$0.99
 CHECKPOINT 0d3fe370 (01:55Z) [open] control+audit preserved art:5419ef15: nvf4 tagless control moves rejection LogUp->assertions (tag alone rejects); fp8 control confounded (forged col also breaks ALIGN4/R5 queries), audit shows target tuple differs from a real LK row only in tag; no isolated fp8 forgery exists. Next: terminate pod, report, handoffs, FINAL.
 CHECKPOINT 0d719a8 (01:25Z) [open] art:49757870 tree (716ea008) PASS: static merge/flatten equivalence, statement sha = cell's, forgeries tag x2 + flatten aux rejected by py+Rust; evidence art:9a6280c5 PRESERVED. b7cec878 + fp8 forges running (fp8 static PASS, stmt = art:979e37aa's).
 CHECKPOINT 48a2588c (01:16Z) [open] static equivalence PASS on 716ea008 (merge+flatten) and b7cec878 (merge+flatten+bool 46->46+paired); selftests catch all planted defects. Forgeries r20260925-011408-c1b3 running (nvf4 716ea008 first). Handoff 0100Z agkr-nvf4 (art:dfbc86c4) in scope.
@@ -129,3 +130,15 @@ plus a per-forgery audit of every changed (query, unit) tuple against the LK row
 ## Handoffs sent
 - `~/.research/notes/lanes/coordinator/20260925T0200Z-handoff-from-red-team-lk.md` "red-team LK: PASS ...", copies
   `lanes/agkr-fp8/20260925T0200Z-handoff-from-red-team-lk.md`, `lanes/agkr-nvf4/20260925T0200Z-handoff-from-red-team-lk.md`, `lanes/verify-po/20260925T0200Z-handoff-from-red-team-lk.md`.
+
+## FINAL
+tip: lane/red-team-lk @ 0d3fe370 (base main@4bd6c54c) merge-with: none
+known-failures: none
+pod: terminated 01:55Z; $0.99
+artifacts: art:9a6280c5 art:ca49b2f8 art:319062b4 art:5419ef15
+
+red-team LK: PASS. Every rewrite holds: (a) agkr-fp8 `merge_tables` (art:45c5be4a; art:ca49b2f8); (b) agkr-nvf4 merged LK incl.
+E2M1X2, depth-1 flatten, epilogue t drop (art:49757870; art:9a6280c5), and BOOL_QUADRATIC + PAIRED (art:dfbc86c4; art:319062b4);
+control/audit art:5419ef15. art:49757870 uses merge + flatten + t drop (not bool/paired) and STANDS: no downgrade. No accepted
+forgery among 12 adversarial witnesses, plus 4 tag-stripped control runs (cheating prover, our Rust verifiers). Limits: fp8 tag control is confounded (audit
+attributes it); art:3ae971dd's statement not checked by me; nvf4 verifier built from b7cec878 (main's cannot parse `public s t f`).

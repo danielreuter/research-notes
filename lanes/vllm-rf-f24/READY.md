@@ -2,18 +2,17 @@
 id: vllm-rf-f24/ready
 lane: vllm-rf-f24
 kind: ready
-status: ready
+status: draft (gate (b) at e818a5d4 and bbbe936c running)
 created: 2026-09-24T22:05Z
-updated: 2026-09-25T01:45Z
+updated: 2026-09-25T02:05Z
 ---
 # vllm-rf-f24 READY: identity and integrity (D5, D6, D7, D10, D11, D13)
 
 - **Branch:** `lane/vllm-rf-f24` (pushed).
-- **Head:** `a2e2843e`, on `1d9c3198` (main after a1's merge; rebased per `20260924T2213Z-main-moved-rebase.md`). `origin/main`
-  has since moved to `58e4c1aa`. Its 11 new commits touch only `backends/` and `benchmarks/`, so the branch merges cleanly. I
-  didn't rebase again because no coordinator note says main moved.
-- **Base for gates and diffs:** `72884c8a` (a1's baseline).
-- 7 commits, 34 files (all under `integrations/vllm`), +784 / -498 against `1d9c3198`. Nothing under `packages/verity` changed:
+- **Head:** `e818a5d4`, on `bbbe936c`: `origin/main` at 01:45Z, which is `4bd6c54c` (a23b merged; rebased per
+  `20260925T0032Z-main-moved-a23b.md`) plus one `tools/research` commit.
+- **Base for gates and diffs:** `72884c8a` (a1's baseline); `bbbe936c` for gate (b) at the final head.
+- 9 commits, 34 files (all under `integrations/vllm`), +784 / -498 against `bbbe936c`. Nothing under `packages/verity` changed:
   D10 needed no core change.
 
 ## Gate evidence
@@ -22,16 +21,26 @@ Environment on every pod (the venv of `integrations/vllm/verity_vllm/ops/pod_boo
 3.12.14, torch 2.13.0+cu129, vLLM 0.28.1rc1.dev472+gd9105ea80.cu129, triton 3.7.1, pytest 9.1.1, pytest-xdist 3.8.0. Each tree's
 commit is in its `.research-source.json` and printed in every gate `.status`.
 
-**Two heads.** Most of the evidence is at `be366f80`, the head before the rebase: the full gate (a), the Build A/B and the D6 /
-D7 probes. Rebasing onto `1d9c3198` brought in a1's lints. Passing them took one more commit, `a2e2843e`, which moves code between
-modules and moves, deletes or lowers allowlist entries (What changed, last bullet); it changes no output. At `a2e2843e` I reran
-gate (b), the lints, the gate (a) checks this code can reach, GM-01, and the verdict A/B. The rebase brought in no other change to
-code the regression reaches: under `integrations/vllm`, main changed only `check/fold_compare.py` (a laptop-path default removed,
-`e0c7bfe9`), one test, and a1's `tests/lint/`.
+**Three heads.** Most of the evidence is at `be366f80`, the head before the first rebase: the full gate (a), the Build A/B and
+the D6 / D7 probes. Rebasing onto `1d9c3198` brought in a1's lints. Passing them took one more commit, `a2e2843e`, which moves
+code between modules and moves, deletes or lowers allowlist entries (What changed, last bullet); it changes no output. At
+`a2e2843e` I reran gate (b), the lints, the gate (a) checks this code can reach, GM-01, and the verdict A/B. That rebase brought
+in no other change to code the regression reaches: under `integrations/vllm`, main changed only `check/fold_compare.py` (a
+laptop-path default removed, `e0c7bfe9`), one test, and a1's `tests/lint/`.
+
+The second rebase, onto `bbbe936c` (a23b merged), conflicted only in `p10_size.json`. Two commits follow it. `47ba6e80` takes
+`construction_version`'s default root from a23b's `config.ROOT`: the same directory as before, the path isn't hashed, and only
+the Build calls it. `e818a5d4` lowers two P10 caps where a23b's edits and this branch's add up. At `e818a5d4` I ran the lints
+and gate (b), and gate (b) at `bbbe936c` for a test-by-test comparison. Gate (a), GM-01 and the A/Bs stay at the earlier heads,
+as the coordinator's rebase rule allows when a rebase is clean apart from the allowlists. `47ba6e80` is the one code change,
+and no gate (a) check reaches it. The rebase kept each commit's change: `90389ae2`, `6e3eb719`, `c0654a88`, `4a146e95` and
+`038524d0` have the patch ids of `5d46172f`, `a27cb768`, `923f8a32`, `3056ea16` and `89d6208a`; `62c7b60c` changes the lines
+`2dfc3d33` changed, in moved context; `9f5cb565` differs from `a2e2843e` only in P10 counts.
 
 | pod | RunPod | used for |
 |---|---|---|
 | `vyv-rf-f24-veritor-campaign` (`0zb24mk1w6nb4o`) | cpu3g, 16 vCPU / 64 GB, terminated 01:43Z | gate (a) T0+T1, gate (b), GM-01, verdict A/B, D6/D7/D11 probes |
+| `vyv-rf-f24-rb-veritor-campaign` (`hpdi919qixzrw0`) | cpu3g, 16 vCPU / 64 GB | lints and gate (b) at `e818a5d4`, gate (b) at `bbbe936c` |
 | `vyv-rf-f24-big` | cpu3m, 64 vCPU / 512 GB, terminated | the two T1 `replay_partition` checks of the B=1 rows #11 and #39 |
 | `vyv-rf-f24-gpu` | RTX 4090, terminated | the Build A/B (a Build cannot run on a CPU pod, see Found, not fixed) |
 
@@ -154,31 +163,31 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
 
 ## What changed
 
-- **D5, one code identity** (`5d46172f`; moved by `a2e2843e`). `research_tools.CLOSURE` (the research Tools' closure) now also
+- **D5, one code identity** (`90389ae2`; moved by `9f5cb565`). `research_tools.CLOSURE` (the research Tools' closure) now also
   lists `packages/verity/src/verity/*.py` and `commitments/**`, so it covers every core file (a test walks the tree to check).
   `source_identity.code_identity(root)` is the canonical sha256 of the closure's manifest; it refuses a root that holds no
   integration or no core file. The hot worker's key (`hot_commit.code_identity`) and the TP Commit's tree
   (`tp/commit.tree_of_record`) both use it. `CODE_ROOTS`, `CODE_SKIP_DIRS`, `CODE_SKIP_SUFFIX` and the git-diff tree of record
   are gone.
-- **D6 + D7, Build stamps** (`a27cb768`). `construction_version` reads its 14 sources from the integration root (the one
-  `verity_vllm` is imported from; `root=` for tests) and raises `FileNotFoundError` naming a missing one. `model_pin.dtype` is
+- **D6 + D7, Build stamps** (`6e3eb719`, `47ba6e80`). `construction_version` reads its 14 sources from the integration root
+  (`config.ROOT`, the tree `verity_vllm` is imported from; `root=` for tests) and raises `FileNotFoundError` naming a missing one. `model_pin.dtype` is
   `engine_dtype(cfg.model_config)`: the quantization method when the checkpoint is quantized, else the model dtype.
-- **D10, no rebinding** (`923f8a32`, `a2e2843e`). `check/program_ops.Ops` carries the Program operations (load oracle / derived,
+- **D10, no rebinding** (`c0654a88`, `9f5cb565`). `check/program_ops.Ops` carries the Program operations (load oracle / derived,
   projection, compare_steps, dag_hashes, live_cone, legs). `batch_decomp.record_ops()` is the record path;
   `global_match_fast.ops()` is the fast path: `MemoProg` (a `Prog` whose `_node_functions` supply the memoised `_spec_id` and the
   fast `runs`), `_ProjectionFast`, and the memoised compare / hash / cone functions. `global_match.match_ops(fast)` picks one, and
   `_check` / `decompose` take it. The `program_compare.COMPACT_ARGS` global became a `compact=` parameter. `install()` /
   `uninstall()` and every module-attribute write are gone, and a test asserts the core functions keep their identity.
-- **D11, full digests** (`3056ea16`, `a2e2843e`). `weights_of_record.check` and `stamp_of_record_set` refuse a program digest
+- **D11, full digests** (`4a146e95`, `9f5cb565`). `weights_of_record.check` and `stamp_of_record_set` refuse a program digest
   that is not 64 hex characters (`FULL_DIGEST_RE`; the reason says "not full sha256") and compare by set equality. `_eq` and the
   prefix matches in `stamp_of_record_set` are gone.
-- **D13, structured reason codes** (`89d6208a`, `a2e2843e`). New `check/replay_codes.py` (dependency-free) holds the why
+- **D13, structured reason codes** (`038524d0`, `9f5cb565`). New `check/replay_codes.py` (dependency-free) holds the why
   classes, `NOT_YET`, the seed forms and the seed-source texts, plus decoders for records written before the codes.
   `sampled_replay` stamps `population.not_evaluable_codes` (class, family, domain, tags per reason); `commit_delta`, which chooses
   the seed, stamps `sample.seed_form`. `commit_verdict` reads the codes. `verdict.py`'s three "Match account leg(s) missing" text
   tests now read `executed_prefix_of_record.facts_of_record` of the faulted requests (`commit_verdict._faulted_prefix_facts`,
   `_scope_fail_account_missing`).
-- **Allowlists** (`2dfc3d33`, `a2e2843e`). `tests/by_name_allowlist.json`: the population-gap rule's entry follows its new
+- **Allowlists** (`62c7b60c`, `9f5cb565`, `e818a5d4`). `tests/by_name_allowlist.json`: the population-gap rule's entry follows its new
   expression, and the retired `CODE_SKIP_SUFFIX` entry is deleted. a1's lint allowlists: entries deleted where the violation is
   gone (P1: the four `core-patch` rebinds of `_spec_id` / `runs`; P7: two `broad-except` and the `cwd` of `tree_of_record`; P11:
   one `doc-board-id`; P12: the root lists of `hot_commit` and `tree_of_record`), entries moved with their code (P1 `core-private`,
@@ -200,10 +209,10 @@ OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -n 12 --dist loadfile
 
 ## Rebase notes
 
-- After a23b merges: `construction_version`'s default root should come from a23b's `config.ROOT`. It climbs from
-  `verity_vllm.__file__` today, where base climbed from `verity.ir.__file__`.
-- a23b deletes `harness/rebuild_digest_gate.py`. Nothing on this branch uses it; I only ran it on a pod for the Build A/B.
-- `harness/commit_delta.py` (also edited by f1 and a23b): this branch's hunks are one import line (the four `verity_vllm.check`
+- The branch is on `bbbe936c`, so a23b's changes are in. `construction_version`'s default root is now a23b's `config.ROOT`.
+- The Build A/B ran `harness/rebuild_digest_gate.py`, which a23b deleted. Nothing on this branch uses it; rerunning the A/B
+  needs it from `be366f80`.
+- `harness/commit_delta.py` (also edited by f1): this branch's hunks are one import line (the four `verity_vllm.check`
   imports merged, `replay_codes` added), the three seed lines that set `_seed_form`, and the `sr["sample"]["seed_form"]` line
   after the `SR.sampled_replay` call.
 

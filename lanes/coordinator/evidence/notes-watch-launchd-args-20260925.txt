@@ -1,0 +1,18 @@
+	arguments = {
+		/Users/danielreuter/.research/bin/research
+		notes
+		watch
+		--every
+		2
+		--pods
+		--snapshot
+		--stale-min
+		12
+		--since-hours
+		8
+		--exclude
+		vllm*
+		--idle-min
+		5
+		--reap
+	}

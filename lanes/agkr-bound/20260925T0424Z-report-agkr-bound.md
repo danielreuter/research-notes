@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: final
 ---
 
+CHECKPOINT 89433d06 (12:19Z) [final] FINAL 12:20Z tip 89433d06 (main 2c92b9e3 merges clean, not merged). BF16 1.20->1.53 s, FP8 0.61->0.78 s link; 11/11 negs both verifiers. Route a A100 BF16 ~1.82 s w/ flock-glue. Pod terminated 12:15Z, lane ~$10.3. Reindex failed (laptop+pod). All handoffs dispositioned.
 CHECKPOINT 89433d06 (12:15Z) [final] FINAL 12:16Z tip 89433d06: sigma link built, both verifiers. A100 BF16 prove 1.20->1.53 s, FP8 0.61->0.78 s; 11/11 negs rejected Py+Rust both rows. Drill-down (L). Pod vy-agkr-bound2 terminated 12:15Z; lane ~$10.3. Reindex failed laptop+pod (timeout). MALLOC env set in all runs.
 CHECKPOINT 89433d06 (12:08Z) [open] 12:08Z: FP8 link OK (MALLOC_MMAP_MAX_=0 TRIM=1e12): prove 0.607->0.778 s, PyV 0.489->0.648, Rust 1.71->2.35; 11/11 negs rejected Py+Rust; art:60cabb96. PROTOCOL 17.4 89433d06. Custody-r2 adopted (1146Z). Reindex running on pod (laptop's killed). Next: drain + FINAL.
 CHECKPOINT 78b1a62e (11:51Z) [open] 11:50Z: Flock AVX-512/GPU nums in drill-down (A100 BF16 route a ~2.29 s w/ Flock-CUDA). FP8 sigma link on A100 (MALLOC_MMAP_MAX_=0 TRIM=1e12): prove 0.6025->0.7816 s, py verify 0.489->0.648; Rust rerun (unpinned flag) r20260925-114925-2f5c. Laptop reindex SIGKILLed again; moving it to pod.
@@ -413,3 +414,71 @@ Run r20260925-114925-2f5c used the same build (78b1a62e) and the same 31 harness
   CPU union on the AVX-512 host.
 - Registered as art:60cabb96 (gate-log/v1, ref art:bd3d8b2c), and both runs are pushed and preserved.
 - Drill-down only (L). The FP8 statement is not pinned under any relation.
+
+## FINAL (12:16Z)
+
+~~~text
+tip: lane/agkr-bound 89433d06 (link code 78b1a62e + PROTOCOL 17.4)        merge-with: origin/main 2c92b9e3 merges clean
+  (git merge-tree, no conflicts, no file touched on both sides); NOT merged: the 1040Z merge of 767115db was not done and
+  the pod was drained, so an untested merge was not pushed
+known-failures: (1) the linked unit circuit is not pinned under any relation: every link run uses --allow-any-circuit
+  (and FP8 --allow-unpinned-commitment); (2) the binary side is a STAND-IN (root_b = SHA-256 of commitment.txt, y from
+  x.bin/w.bin), no Flock proof is chained (C3/C4); (3) forged-middle-block negative not run (needs Flock chaining);
+  (4) Rust link loader reads sha256 row leaves only (no blake3); (5) fp4 unpinned, no fp4 link line; vllm-v1 PROVISIONAL;
+  (6) laptop `data reindex --remote` SIGKILLed (rc 137): the pod-side `04_store.sh reindex` also got no
+  output and hit `timeout 900` (r20260925-115633-d5ec failed on that step only; its put and pushes are PRESERVED). Not re-indexed
+pod: vy-agkr-bound (A100) terminated 05:37Z ~$2.2; vy-agkr-bound-cpu drained 09:23Z unused ~$0.15; vy-agkr-bound2 (A100 80GB,
+  ftqlbtan129je6) up 07:18Z, drained and terminated 12:15Z (18 of 18 attempts preserved),
+  about 4.95 h x $1.59 = ~$7.9; lane total ~$10.3 (cap $100)
+artifacts: art:60cabb96 (FP8 link) art:fc687ece art:bd3d8b2c (BF16 link) art:c35a50cd art:35bce6f5 art:f2f07e3c art:64220e14
+  art:400126e2 art:3f562102 art:559147e1
+~~~
+
+Results (A100 80GB, 4,096 VUs, medians of 3 after 1 warm-up, MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12; drill-down only, L):
+
+| row | prove, no link -> sigma link | Python verify | Rust verify | proof |
+| --- | --- | --- | --- | --- |
+| BF16 bf16-ampere+sha256 | 1.199 -> 1.529 s (link 0.333 s) | 1.261 -> 1.564 s | 3.414 -> 4.70 s (+0.436 s load) | +6,144 B |
+| FP8 fp8-hopper+sha256 (unpinned) | 0.607 -> 0.778 s (link 0.178 s) | 0.489 -> 0.648 s | 1.706 -> 2.35 s (+0.219 s load) | +6,144 B |
+
+- The route (a) prime side per batch is 0.776 -> 1.54 s for BF16 (+99%) and about 0.46 -> 0.78 s for FP8 (about +70%).
+- Flock side, A100 BF16. The flock-glue FINAL (1215Z) supersedes 11:43Z's 0.745 s:
+  - Flock-CUDA e2e is 1.18x bare = 0.280 s, so route (a) totals about 1.82 s summed. The `Fast` profile (~2^-100) is
+    NOT CLEARED.
+  - The r2 stand-in is 2.18x = 0.518 s, about 2.06 s summed. It is NOT GRANTED.
+  - The AVX-512 CPU union (flock-bench-80gb, H100 SPR host) is 1.317 s.
+
+Negatives: 11 of 11 were rejected by both the Python and the Rust verifier on both rows, and honest plus honest_nolink
+were accepted. The cases were:
+- bit_flip and non_boolean (GKR assertions);
+- alt_alt_bits, root_b_changed, z_differs and vu_remap (sigma parity; Rust rejects z_differs at the statement digest);
+- sigma_range;
+- sigma_plus2 (functional value);
+- dup_cell and no_booleanity (derive).
+
+Soundness added: m/2^256 + 255/p^6 (PROTOCOL 17.3).
+
+Coordinator decisions needed:
+- whether to pin the linked unit circuits (the drill-down stays until C1-C8 + Flock at 2^-128);
+- C8: whether A-GKR's hash budget (2^-127.7) counts toward the route's 2^-128;
+- who wires the real Flock root_b / chained blocks, the flock-glue lane or a new lane.
+
+Handoffs, with what I did about each:
+- coordinator 0447Z: done (merged main c1891d48, pin lines).
+- coordinator 0507Z: done (x/W/y committed, frame-v3).
+- coordinator 0512Z: done ("integration ready v2", art:3f562102).
+- coordinator 0546Z, 0640Z, 0650Z: done (SHA-256/BLAKE3 row leaves, $100 cap, vllm-v1 variant).
+- coordinator 0752Z: adopted (route (a), 08:55Z section).
+- red-team-standard-hash 0905Z: noted (the roots reproduce).
+- coordinator 0922Z: followed (no AVX-512 pod; tag kept; vllm-v1 PROVISIONAL; fp4 unpinned).
+- vllm-rf-c1 0945Z: not acted on, per the coordinator's 0922Z (mapping stays PROVISIONAL) and 1003Z (no relabel of
+  earlier numbers). Pending the coordinator.
+- coordinator 0946Z and 1146Z: followed (no laptop fetches or builds; `--custody-r2` for runs after 11:46Z; the two
+  earlier runs were pushed from the pod).
+- flock-bench 0946Z, flock-bench-80gb 1010Z, flock-128 1128Z, flock-glue 1215Z: used in the drill-down.
+- coordinator 1003Z and 1040Z: MALLOC tunables exported in every run from 10:05Z, env.sh not sourced. The 1040Z main
+  merge was not done (see merge-with).
+- coordinator 1020Z and red-team-link 1025Z: built accordingly (sigma in clear, non-ZK only, verifier-derived injective
+  maps, one GF(2^256) point). The forged-block negative is still open.
+- red-team-flock 1130Z: noted (C8; R5 order matches).
+- coordinator 1202Z: checked (r20260925-115633-d5ec PRESERVED).

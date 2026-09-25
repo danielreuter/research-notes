@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T05:37Z
+updated: 2026-09-25T05:47Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -300,3 +300,22 @@ updated: 2026-09-25T05:37Z
   Gate (b) head 98% / main 99% at 05:33Z (18 min in; the tail at 299f42d5 was the two realhf derive files on one worker each).
   Poll running.  Then: fetch both, jdiff head vs main and vs a1, preserve, drain cpu3, READY.md at 8efb918e.  Duplicate 04:48Z bullet
   removed.
+
+## 05:47Z gate (b) at `8efb918e` GREEN; vyv-rf-f1-cpu3 drained; READY.md at 8efb918e next
+- 05:35Z **GATE (b) at `8efb918e`: GREEN.** HEAD `r20260925-051835-4518` 3950: 3592 P / 54 F / 11 E / 287 S / 6 xf (15 min 07 s);
+  MAIN `c1891d48` `r20260925-051805-afcd` 3927: 3569 P / 54 F / 11 E / 287 S / 6 xf (15 min 47 s); same pod, side by side.  jdiff
+  head vs main rc 0: 24 new tests pass, 1 rename, outcome changed 0, F+E 65 = 65.  vs a1: new failures 0, new skips 0, one new skip
+  reason = main's `test_ship_roots::test_ship_pack_carries_out_gen_hf_configs` (main shows it too); F+E 65 -> 65 (2 fixed:
+  `test_sigint_is_forwarded_the_same_way`, `test_mean_pins_match_installed_vllm`; gc-freeze pair fails = a1's order-dependent list).
+- F+E 60 at 299f42d5 (cpu2) -> 65 here: five a1-list tests pass on cpu2 and fail on cpu3, identically at head and main:
+  `test_gelu_ref_vs_torch[none-bf16]`, `[none-f32]`, `test_check_cos_sin_against_the_captured_b0_table`,
+  `test_inv_freq_models_cuda_reciprocal_multiply…`, `test_realhf_case[gpt2-…-gelu_pytorch_tanh]`.  Their test files and direct
+  imports did not change baeefd21..c1891d48 (packages/ unchanged).  **ISA PROBE `r20260925-054046-cc63`** (cpu3, 8efb918e, same env,
+  OMP_NUM_THREADS=3): default (ATen AVX512, numpy AVX512 dispatch) all 5 FAIL; with ATEN_CPU_CAPABILITY=avx2, ONEDNN/DNNL_MAX_CPU_ISA=AVX2,
+  MKL_ENABLE_INSTRUCTIONS=AVX2 and numpy's AVX512* features disabled, all 5 PASS.  So a1's host-numerics failures follow the CPU's
+  AVX-512 (cpu2 = EPYC 7713, Zen 3, no AVX-512; cpu3 = EPYC 9655P, Zen 5).  Not D1, not f3.  Gate (b) counts differ by pod CPU.
+- 05:44Z PRESERVED on s3://verity-dev: gate (b) head + main (6/6), ISA probe (3/3).  05:46Z **vyv-rf-f1-cpu3 drained and TERMINATED
+  (5/5 attempts preserved)**; machines.toml marked.  No pods of this lane are running.
+- Beside this note: `head-gate_b-8efb918e-xdist.xml.gz`, `main-gate_b-c1891d48-xdist.xml.gz`, `head-gate_b-8efb918e-xdist.jdiff-main-c1891d48.txt`,
+  `head-gate_b-8efb918e-xdist.jdiff-a1.txt`, `main-gate_b-c1891d48-xdist.jdiff-a1.txt`, `isa-probe-8efb918e-{default,avx2}.xml.gz`.
+- NEXT: READY.md at 8efb918e (fill the gate (b) numbers, drop the 05:12Z banner), publish; status complete.

@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT 2994bd25 (05:47Z) [open] 05:52Z PARITY PASS 2 exit 0 (OK) -> internal/parity-pass2-20260925T0507Z.json; merged A-GKR integration v2 2994bd25 (agkr-fp8+nvf4+E4M3/NVFP4 pins) ff; hash-commit paused (Poseidon dropped), agkr-bound blocked pending SHA-256/BLAKE3 design
 CHECKPOINT c1891d48 (05:14Z) [open] 05:15Z commitment-time + same-relation rules wait for the one labelled switch (tables-spec-draft renderer work); no separate renderer rule; hash-commit still reports the commit bucket
 CHECKPOINT 4c0c3418 (05:13Z) [open] 05:15Z launched hash-commit (B-Ligero in-proof-hash committer hill-climb; local, pods; $20, FINAL 13:30Z; worktree tables-fix -> hash-commit). TABLES.md: 'Commitment time counts' rule recorded; renderer change pending
 CHECKPOINT d33cef9 (05:11Z) [open] 05:11Z sweep: disk 5.4 GiB (eviction deferred until parity pass 2 ends, to keep the store quiet); agkr-bound alive, merging main + pins; parity pass 2 at 1037/5303

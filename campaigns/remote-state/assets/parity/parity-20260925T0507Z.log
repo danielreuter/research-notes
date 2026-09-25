@@ -1,0 +1,70 @@
+parity: build: the fresh store from the remote alone at 0s
+parity: build: manifests (5630) at 4s
+parity: build: manifests 3130/5630 (30s)
+parity: build: attempts (1180) at 59s
+parity: build: attempts 245/1180 (60s)
+parity: build: labels at 66s
+parity: build: labels running (90s)
+parity: build: labels running (120s)
+parity: compare: artifacts, attempts, labels at 121s
+parity: replicas: HEAD + ETag, nothing downloaded (5303) at 126s
+parity: replicas: HEAD + ETag, nothing downloaded 576/5303 (150s)
+parity: replicas: HEAD + ETag, nothing downloaded 1037/5303 (180s)
+parity: replicas: HEAD + ETag, nothing downloaded 1694/5303 (210s)
+parity: replicas: HEAD + ETag, nothing downloaded 2340/5303 (240s)
+parity: replicas: HEAD + ETag, nothing downloaded 2977/5303 (270s)
+parity: replicas: HEAD + ETag, nothing downloaded 3497/5303 (300s)
+parity: replicas: HEAD + ETag, nothing downloaded 3983/5303 (330s)
+parity: replicas: HEAD + ETag, nothing downloaded 4378/5303 (360s)
+parity: replicas: HEAD + ETag, nothing downloaded 4734/5303 (390s)
+parity: replicas: HEAD + ETag, nothing downloaded 5171/5303 (420s)
+parity: replicas: HEAD + ETag, nothing downloaded 5289/5303 (450s)
+parity: replicas: HEAD + ETag, nothing downloaded 5294/5303 (480s)
+parity: replicas: HEAD + ETag, nothing downloaded 5298/5303 (510s)
+parity: replicas: HEAD + ETag, nothing downloaded 5299/5303 (540s)
+parity: replicas: HEAD + ETag, nothing downloaded 5299/5303 (570s)
+parity: replicas: HEAD + ETag, nothing downloaded 5299/5303 (600s)
+parity: replicas: HEAD + ETag, nothing downloaded 5300/5303 (630s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (660s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (690s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (720s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (750s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (780s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (810s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (840s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (870s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (900s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (930s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (960s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (990s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1020s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1050s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1080s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1110s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1140s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1170s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1200s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1230s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1260s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1290s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1320s)
+parity: replicas: HEAD + ETag, nothing downloaded 5302/5303 (1350s)
+parity: render: the fresh store + the store under test's pending records (the real render command) at 1361s
+parity: render: the fresh store + the store under test's pending records (the real render command) running (1380s)
+parity: render: the fresh store + the store under test's pending records (the real render command) running (1410s)
+parity: render: the store under test's snapshot + the remote-only records at 1411s
+parity: render: the store under test's snapshot + the remote-only records running (1440s)
+parity: render: the store under test itself, as the daily render reads it at 1458s
+parity: render: the store under test's snapshot alone at 1463s
+parity: render: the store under test's snapshot alone running (1470s)
+parity: render: the store under test's snapshot alone running (1500s)
+parity: /Users/danielreuter/.research/store vs /private/tmp/parity-fresh-20260925T0507Z (built from s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com: +5630 manifests, +1180 attempts, +11549 labels; 1513.6s)
+artifacts  5629 on both, 0 mismatched, 5 pending here, 1 not pulled (remote only)
+attempts   1180 on both, 0 mismatched, 0 not pulled (remote only)
+labels     11549 on both, 0 mismatched, 0 not pulled (remote only)
+replicas   5303/5303 verified replica rows confirmed by HEAD on the remote (blobs: 65886 ETag == local MD5, 46603 remote-only, size-verified; nothing downloaded)
+render     identical over the same records (18358 common + 1 remote-only + 5 pending here); tables + drilldowns from /Users/danielreuter/projects/verity-main-wt/cli @ c1891d48 (/Users/danielreuter/.research/notes/steward.toml [[render]] source)
+           the snapshot view differs from the store under test's own render (200 lines): records written to the store under test during the run (concurrency, not compared): 3 manifests, 0 attempts, 0 labels
+during run written to the store under test while parity ran (concurrency; not compared): 3 manifests, 0 attempts, 0 labels
+PARITY OK: every difference is explained
+exit 0

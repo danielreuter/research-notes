@@ -1,0 +1,324 @@
+diff --git a/backends/direct/ligero/auth.py b/backends/direct/ligero/auth.py
+index 134eedbc..c27e8384 100644
+--- a/backends/direct/ligero/auth.py
++++ b/backends/direct/ligero/auth.py
+@@ -33,6 +33,7 @@ only per call; the per-leaf framing is the Python-level cost) and cached on disk
+ """
+ from __future__ import annotations
+ 
++import hashlib
+ import json
+ import os
+ from collections.abc import Iterable, Mapping, Sequence
+@@ -50,8 +51,10 @@ from verity.commitments import (
+     verify_multiproof,
+ )
+ from verity.commitments.merkle import (  # the pad-leaf frame has no public wrapper; pinned by tests
++    _FRAME,
++    _LEAF,
++    _NODE,
+     _PAD,
+-    _hash,
+     _uint,
+ )
+ from verity.errors import ResourceLimit
+@@ -118,31 +121,61 @@ def domain_for(binding: bytes, owner: int, count: int) -> CommitmentDomain:
+     return CommitmentDomain(bytes(binding), int(owner), RangeIndexedDomain(0, int(count)))
+ 
+ 
+-def _leaf_chunk(args) -> bytes:
+-    domain, start, words = args
+-    leaf = domain.leaf
++# Batch forms of CommitmentDomain.leaf / .node and the pad leaf (verity.commitments.merkle): the frame, tag and domain id
++# are one hashed prefix copied per hash, the parts one update -- the same bytes into SHA-256 (pinned by hashchain_test.py).
++_L32 = (32).to_bytes(8, "big")
++
++
++def _part(b: bytes) -> bytes:
++    return len(b).to_bytes(8, "big") + b
++
++
++def _uint_part(v: int) -> bytes:
++    return _part(_uint(v))
++
++
++def _prefix(tag: bytes, domain_id: bytes):
++    h = hashlib.sha256(_FRAME)
++    h.update(len(tag).to_bytes(4, "big") + tag + _part(domain_id))
++    return h
++
++
++def leaf_hashes(domain_id: bytes, start: int, schema: str, values: Sequence[bytes]) -> bytes:
++    """``domain.leaf(r, r, schema, values[r - start])`` for consecutive ranks from ``start``, concatenated."""
++    h0, sp = _prefix(_LEAF, domain_id), _part(schema.encode("utf-8"))
+     out = bytearray()
+-    for i, w in enumerate(words.tolist()):
+-        r = start + i
+-        out += leaf(r, r, SCHEMA, w.to_bytes(2, "big"))
++    for i, v in enumerate(values):
++        r = _uint_part(start + i)
++        h = h0.copy()
++        h.update(r + r + sp + _part(v))
++        out += h.digest()
+     return bytes(out)
+ 
+ 
++def _leaf_chunk(args) -> bytes:
++    domain, start, words = args
++    return leaf_hashes(domain.domain_id, start, SCHEMA, [w.to_bytes(2, "big") for w in words.tolist()])
++
++
+ def _pad_chunk(args) -> bytes:
+     domain_id, start, stop = args
++    h0 = _prefix(_PAD, domain_id)
+     out = bytearray()
+     for r in range(start, stop):
+-        out += _hash(_PAD, domain_id, _uint(r))
++        h = h0.copy()
++        h.update(_uint_part(r))
++        out += h.digest()
+     return bytes(out)
+ 
+ 
+ def _node_chunk(args) -> bytes:
+     domain, level, start, pairs = args
+-    node = domain.node
++    h0, lv, buf = _prefix(_NODE, domain.domain_id), _uint_part(level), np.ascontiguousarray(pairs).tobytes()
+     out = bytearray()
+-    for i in range(pairs.shape[0]):
+-        p = pairs[i]
+-        out += node(level, start + i, p[:32].tobytes(), p[32:].tobytes())
++    for i in range(len(buf) // 64):
++        h = h0.copy()
++        h.update(lv + _uint_part(start + i) + _L32 + buf[64 * i:64 * i + 32] + _L32 + buf[64 * i + 32:64 * i + 64])
++        out += h.digest()
+     return bytes(out)
+ 
+ 
+diff --git a/backends/direct/ligero/hashauth.py b/backends/direct/ligero/hashauth.py
+index b9feca1e..0e68f60a 100644
+--- a/backends/direct/ligero/hashauth.py
++++ b/backends/direct/ligero/hashauth.py
+@@ -27,7 +27,8 @@ from verity.commitments import identity_digest, verify_multiproof
+ from verity.commitments.rowleaf import SCHEMA_ROW
+ 
+ from . import poseidon2 as h2
+-from .auth import LIMITS, OWNER, TREE_NAMES, TreeRef, WordTree, _chunks, _node_chunk, _pad_chunk, domain_for, multiproof_siblings
++from .auth import (LIMITS, OWNER, TREE_NAMES, TreeRef, WordTree, _chunks, _node_chunk, _pad_chunk, domain_for, leaf_hashes,
++                   multiproof_siblings)
+ from .auth import build_word_tree as _build_word_tree_u16
+ from .leaf import registry as leaf_registry
+ from verity.errors import ResourceLimit
+@@ -96,8 +97,9 @@ def build_row_tree(name: str, binding: bytes, rows: np.ndarray, word_bits: int,
+     digests = np.asarray(digests, dtype=np.int64)
+     if digests.shape != (count, scheme.digest_elems) or ((digests < 0) | (digests >= h2.P)).any():
+         raise ValueError(f"leaf {scheme.name}: native() must return (count, {scheme.digest_elems}) elements in [0, p)")
+-    leaves = [domain.leaf(r, r, scheme.schema, scheme.leaf_bytes(digests[r])) for r in range(count)]
+-    levels = _levels(domain, leaves, count)
++    many = getattr(scheme, "leaf_bytes_many", None)
++    values = many(digests) if many is not None else [scheme.leaf_bytes(digests[r]) for r in range(count)]
++    levels = _levels(domain, [leaf_hashes(domain.domain_id, 0, scheme.schema, values)], count)
+     ref = TreeRef(name, bytes(binding), OWNER[name], count, levels[-1][0].tobytes())
+     return WordTree(ref, levels), digests
+ 
+@@ -110,8 +112,8 @@ def build_word_tree(name: str, binding: bytes, words: np.ndarray, y_bits: int) -
+     words = np.ascontiguousarray(words, dtype=np.int64).ravel()
+     count = int(words.shape[0])
+     domain = domain_for(binding, OWNER[name], count)
+-    leaves = [domain.leaf(r, r, schema, int(w).to_bytes(nbytes, "big")) for r, w in enumerate(words.tolist())]
+-    levels = _levels(domain, leaves, count)
++    values = [int(w).to_bytes(nbytes, "big") for w in words.tolist()]
++    levels = _levels(domain, [leaf_hashes(domain.domain_id, 0, schema, values)], count)
+     return WordTree(TreeRef(name, bytes(binding), OWNER[name], count, levels[-1][0].tobytes()), levels)
+ 
+ 
+diff --git a/backends/direct/ligero/hashchain.py b/backends/direct/ligero/hashchain.py
+index 42c32029..84966b12 100644
+--- a/backends/direct/ligero/hashchain.py
++++ b/backends/direct/ligero/hashchain.py
+@@ -582,7 +582,10 @@ def row_chain(hr: HashedRelation, rows, role: int, device) -> tuple:
+     committed set (``HashedRelationRunner.commit``) and gathers per sub-batch instead of re-running 2 x steps chains per
+     proof.  The third item is present only when the scheme's ``chain_witness`` returns extra hint rows."""
+     import torch
+-    rows = torch.as_tensor(np.asarray(rows, dtype=np.int64), device=device)
++    if isinstance(rows, torch.Tensor):
++        rows = rows.to(device=device, dtype=torch.int64)
++    else:
++        rows = torch.as_tensor(np.asarray(rows, dtype=np.int64), device=device)
+     n, steps, k = rows.shape[0], hr.steps, hr.k
+     words = rows.reshape(n * steps, k)
+     fast = getattr(hr.leaf, "row_sponges", None) if ROW_SPONGE_KERNEL else None
+diff --git a/backends/direct/ligero/hashchain_test.py b/backends/direct/ligero/hashchain_test.py
+index ba171448..ca766100 100644
+--- a/backends/direct/ligero/hashchain_test.py
++++ b/backends/direct/ligero/hashchain_test.py
+@@ -273,6 +273,54 @@ def test_row_sponge_kernel_permute_is_the_permutation() -> None:
+     assert [out[i] for i in range(h2.WIDTH)] == list(exp)
+ 
+ 
++def test_batch_merkle_framing_is_the_domain_framing() -> None:
++    """``auth.leaf_hashes`` / ``_node_chunk`` / ``_pad_chunk`` (one hashed prefix per domain) hash the bytes
++    ``CommitmentDomain.leaf`` / ``.node`` and the pad leaf do; ``leaf_bytes_many`` is ``row_leaf_value`` per row."""
++    from verity.commitments.merkle import _PAD, _hash, _uint
++    from verity.commitments.rowleaf import row_leaf_value
++
++    from . import auth
++    from .leaf.poseidon2 import Poseidon2Leaf
++    rng = np.random.default_rng(9)
++    for count in (1, 5, 300):
++        dom = auth.domain_for(bytes(range(32)), 1, count)
++        vals = [rng.integers(0, 256, int(rng.integers(0, 40)), dtype=np.uint8).tobytes() for _ in range(count)]
++        for start in (0, 255, 70000):
++            want = b"".join(dom.leaf(start + i, start + i, "sch", v) for i, v in enumerate(vals))
++            assert auth.leaf_hashes(dom.domain_id, start, "sch", vals) == want
++        pairs = rng.integers(0, 256, (count, 64), dtype=np.uint8)
++        for lv, start in ((0, 0), (3, 255), (11, 1 << 20)):
++            want = b"".join(dom.node(lv, start + i, pairs[i, :32].tobytes(), pairs[i, 32:].tobytes()) for i in range(count))
++            assert auth._node_chunk((dom, lv, start, pairs)) == want
++        want = b"".join(_hash(_PAD, dom.domain_id, _uint(r)) for r in range(250, 260))
++        assert auth._pad_chunk((dom.domain_id, 250, 260)) == want
++    d = rng.integers(0, P, (7, 8))
++    assert Poseidon2Leaf().leaf_bytes_many(d) == [row_leaf_value(r) for r in d]
++    with pytest.raises(ValueError):
++        Poseidon2Leaf().leaf_bytes_many(np.full((1, 8), P))
++
++
++def test_frozen_rows_are_the_vu_words() -> None:
++    """``frozen_instances``' ``x_rows`` / ``w_cols`` (what ``commit_vus`` commits) are the VUs' own ``a`` / ``b`` words,
++    past the tier's end too (recycled ``i mod n``)."""
++    from verity_numerical.bench import instances as frozen
++
++    from .relchain import frozen_instances
++    rel = relation("fp8-ada")
++    if not rel.frozen_tier:
++        pytest.skip("no frozen tier")
++    try:
++        n_tier = frozen.load(rel.frozen_tier, frozen.DEFAULT_ROOT).n
++    except FileNotFoundError:
++        pytest.skip("frozen instances not built")
++    data = frozen_instances(rel, n_tier + 2)
++    assert data.x_rows.shape == data.w_cols.shape == (n_tier + 2, len(data[0][0]))
++    for i in (0, 1, n_tier - 1, n_tier, n_tier + 1):
++        assert data.x_rows[i].tolist() == list(data[i][0]) and data.w_cols[i].tolist() == list(data[i][1])
++    small = frozen_instances(rel, 3)
++    assert np.array_equal(small.x_rows, data.x_rows[:3]) and np.array_equal(small.w_cols, data.w_cols[:3])
++
++
+ def _fp4_rows(rng, n: int, steps: int) -> np.ndarray:
+     from .fp4.hashed import FP4Format
+     k = FP4Format().k
+diff --git a/backends/direct/ligero/leaf/poseidon2.py b/backends/direct/ligero/leaf/poseidon2.py
+index b8645b5b..3899da51 100644
+--- a/backends/direct/ligero/leaf/poseidon2.py
++++ b/backends/direct/ligero/leaf/poseidon2.py
+@@ -514,6 +514,14 @@ class Poseidon2Leaf:
+     def leaf_bytes(self, digest_row) -> bytes:
+         return row_leaf_value(digest_row)
+ 
++    def leaf_bytes_many(self, digests: np.ndarray) -> list[bytes]:
++        """:meth:`leaf_bytes` of every row of ``digests`` (count, 8) in [0, p)."""
++        d = np.asarray(digests, dtype=np.int64)
++        if d.ndim != 2 or d.shape[1] != h2.OUT or ((d < 0) | (d >= h2.P)).any():
++            raise ValueError("a row digest is 8 BabyBear lanes")
++        b = d.astype(">u4").tobytes()
++        return [b[32 * i:32 * i + 32] for i in range(d.shape[0])]
++
+     # --- gadget --------------------------------------------------------------------------------------------------------
+     def gadget(self, ctx: LigeroCtx, words: Sequence[Expr], *, word_bits: int, role: int, row_words: int,
+                carry_in: Sequence[Expr], first: bool = False, last: bool = True) -> tuple[list[Expr], list[Expr]]:
+diff --git a/backends/direct/ligero/relchain.py b/backends/direct/ligero/relchain.py
+index 52f1ba82..5f5967d3 100644
+--- a/backends/direct/ligero/relchain.py
++++ b/backends/direct/ligero/relchain.py
+@@ -84,9 +84,36 @@ def frozen_instances(rel: Relation, n: int, root=None):
+         if len(accs) != rel.steps or rel.y_public(int(accs[-1])) != y16:
+             raise ValueError(f"{rel.frozen_tier} instance {j}: {len(accs)} accumulators / final word does not cast to the expected y")
+         out.append((a, b, accs, int(accs[-1])))
++    out = FrozenVUs(out)
++    x = np.frombuffer(vu.x, dtype=np.uint16 if vu.x.itemsize == 2 else np.uint32).reshape(vu.n, vu.K)
++    w = np.frombuffer(vu.w, dtype=np.uint16 if vu.w.itemsize == 2 else np.uint32).reshape(vu.n, vu.K)
++    ids = np.arange(n) % vu.n
++    out.x_rows, out.w_cols = (x[:n], w[:n]) if n <= vu.n else (x[ids], w[ids])
+     return out
+ 
+ 
++class FrozenVUs(list):
++    """:func:`frozen_instances`' VU list, carrying the committed operand rows as the tier's own arrays (``x_rows``,
++    ``w_cols`` (n, K), the words of ``self[i][0]`` / ``self[i][1]``): what ``commit_vus`` commits without re-reading
++    the per-VU lists."""
++    x_rows: np.ndarray | None = None
++    w_cols: np.ndarray | None = None
++
++
++def _word_rows(rows) -> np.ndarray:
++    """Committed rows as a 2-D integer array: an integer ndarray as it is (its own dtype), anything else as int64."""
++    if isinstance(rows, np.ndarray) and rows.ndim == 2 and rows.dtype.kind in "iu":
++        return rows
++    return np.asarray(rows, dtype=np.int64)
++
++
++def _rows_to_device(rows: np.ndarray, device):
++    """``rows`` as an int64 torch tensor on ``device``, copied in its narrow dtype and widened there."""
++    if rows.dtype not in (np.uint8, np.int8, np.int16, np.int32, np.int64):
++        rows = rows.astype(np.int32 if rows.dtype.itemsize <= 2 else np.int64)
++    return torch.from_numpy(np.ascontiguousarray(rows)).to(device).to(torch.int64)
++
++
+ def instances(rel: Relation, n: int, seed: int | None = None, procs: int = 1, cache: str | Path | None = None, root=None):
+     """``n`` VUs: (a (1536,), b (1536,), accs (steps,), y_final) with the accumulators recorded from the model.
+     Deterministic in ``(seed, index)``; ``procs > 1`` records them in parallel; ``cache`` keeps the set as an npz.
+@@ -460,13 +487,14 @@ class HashedRelationRunner(RelationChainRunner):
+         """Build (or load) the three trees of the committed set; ``tile = (nx, nw)`` records the sharing layout."""
+         from . import hashauth, hashchain
+         t0 = time.perf_counter()
+-        x_rows, w_cols = np.asarray(x_rows, dtype=np.int64), np.asarray(w_cols, dtype=np.int64)
++        x_rows, w_cols = _word_rows(x_rows), _word_rows(w_cols)
++        self.rows = {"a": x_rows, "b": w_cols}
++        rows_d = {nm: _rows_to_device(r, self.device) for nm, r in self.rows.items()}
+         t1 = time.perf_counter()
+         self.tile = tile
+-        self.rows = {"a": x_rows, "b": w_cols}
+         # the chain states of every committed row, once (the prover's cost of hashing; gathered per sub-batch in prove_vus);
+         # with the device row sponges their digests ARE the tree leaves' (scheme.native), so the trees take them
+-        self.sponges = {nm: hashchain.row_chain(self.hr, self.rows[nm], role, self.device) for _, nm, role in hashchain.ROLES}
++        self.sponges = {nm: hashchain.row_chain(self.hr, rows_d[nm], role, self.device) for _, nm, role in hashchain.ROLES}
+         if str(self.device).startswith("cuda"):
+             torch.cuda.synchronize()
+         t2 = time.perf_counter()
+@@ -479,7 +507,7 @@ class HashedRelationRunner(RelationChainRunner):
+             y_words=np.asarray(y_words, dtype=np.int64), word_bits=self.hr.word_bits, y_bits=self.rel.y_bits, bindings=bindings,
+             leaf=self.leaf, digests=chain_digests)
+         t3 = time.perf_counter()
+-        self._committed_digests()
++        self._committed_digests(rows_d)
+         self.commit_timings = {"rows": t1 - t0, "chain": t2 - t1, "trees": t3 - t2, "host": time.perf_counter() - t3}
+         return cached
+ 
+@@ -495,12 +523,12 @@ class HashedRelationRunner(RelationChainRunner):
+         out["sha256"] = hashlib.sha256(json.dumps(out, sort_keys=True).encode()).hexdigest()
+         return out
+ 
+-    def _committed_digests(self):
++    def _committed_digests(self, rows_d: dict | None = None):
+         """Host copies of the committed rows' digests (public: the leaves of the x / W trees) for the statement tables
+         of the pipelined prover, and device copies of the committed rows (the hash side gathers its witness from them)."""
+         self._marshal_cache = {}
+         self.dg_host = {nm: self.sponges[nm][1].cpu().numpy().astype(np.int64) for nm in self.sponges}
+-        self.rows_d = {nm: torch.as_tensor(self.rows[nm], dtype=torch.int64).to(self.device) for nm in self.rows}
++        self.rows_d = rows_d if rows_d is not None else {nm: _rows_to_device(self.rows[nm], self.device) for nm in self.rows}
+ 
+     def marshal_hashed(self, vus: list, vu_ids, min_l: int = 256) -> dict:
+         """The sub-batch's statement (public table from the committed digests, leaf indices, authentication block, public
+@@ -619,8 +647,10 @@ class HashedRelationRunner(RelationChainRunner):
+         from . import hashauth
+         y = [self.rel.y_public(int(v[3])) for v in data]
+         if tile is None:
+-            x_rows = [v[0] for v in data]
+-            w_cols = [v[1] for v in data]
++            x_rows, w_cols = getattr(data, "x_rows", None), getattr(data, "w_cols", None)
++            if x_rows is None or w_cols is None:
++                x_rows = [v[0] for v in data]
++                w_cols = [v[1] for v in data]
+         ysch, _ = hashauth.word_schema(self.rel.y_bits)
+         bindings = {n: hashauth.binding_digest(dataset=dataset, tier=tier, manifest_sha256=manifest_sha256, lo=0, hi=len(data),
+                                                K=getattr(self.rel, "vu_words", K_VU), tree=n,

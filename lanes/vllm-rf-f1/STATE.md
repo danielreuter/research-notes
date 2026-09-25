@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T05:16Z
+updated: 2026-09-25T05:19Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -295,3 +295,5 @@ updated: 2026-09-25T05:16Z
   I missed the 04:40Z note until 05:13Z: it landed mid-run and I did not re-read the header before my 04:48Z edit.)
   NEW POD **vyv-rf-f1-cpu3** (`9mxya70py7jxc6`, cpu3g 32 vCPU / 128 GB, EPYC 9655P host), registered by hand in machines.toml.
   Bootstrap `r20260925-051324-cb17` at 8efb918e (`--cwd source`).  rf-f1-base worktree -> c1891d48 for main's gate (b).
+- 05:19Z bootstrap BOOTSTRAP-OK 05:17Z.  RUNNING on vyv-rf-f1-cpu3 (`--cwd source`): gate (b) MAIN `r20260925-051805-afcd` (c1891d48),
+  gate (b) HEAD `r20260925-051835-4518` (8efb918e), lints + touched `r20260925-051846-aa6b` (8efb918e).

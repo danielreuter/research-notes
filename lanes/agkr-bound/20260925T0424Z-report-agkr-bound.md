@@ -5,6 +5,7 @@ created: 2026-09-25T04:24Z
 status: open
 ---
 
+CHECKPOINT 78b1a62e (11:51Z) [open] 11:50Z: Flock AVX-512/GPU nums in drill-down (A100 BF16 route a ~2.29 s w/ Flock-CUDA). FP8 sigma link on A100 (MALLOC_MMAP_MAX_=0 TRIM=1e12): prove 0.6025->0.7816 s, py verify 0.489->0.648; Rust rerun (unpinned flag) r20260925-114925-2f5c. Laptop reindex SIGKILLed again; moving it to pod.
 CHECKPOINT 011a9f1 (11:39Z) [open] 11:40Z: link built+verified (78b1a62e): prove 1.20->1.53 s, PyV 1.25->1.56, Rust 3.41->4.68 s (+0.44 derive); 11/11 negs rejected Py+Rust incl vu_remap; art:bd3d8b2c+fc687ece; handoff 1140Z. MALLOC env set. Laptop reindex killed w/o output (retry later). Drill-down L.
 CHECKPOINT ac2a497 (11:20Z) [open] 11:21Z: link kernels optimized (fused y+sigma, TC plane sums, nibble eq): prove +0.385 s (1.20->1.59, 4a0823bd), final rerun at 78b1a62e running; Rust verify 3.42->4.63 s +0.44 derive; 10/10 negs rejected Py+Rust; PROTOCOL 17 bfd9d7e3. MALLOC env set. Drill-down L.
 CHECKPOINT 824a9924 (10:56Z) [open] 10:57Z: link built both sides (e366e14f+6d55db3f). 31_link_rust: prove 1.20->1.92 s, Py verify 1.25->1.80, Rust 3.38->5.23 s (+derive 1.77 at load, optimizing now); 10/10 negatives rejected Py+Rust. MALLOC_MMAP_MAX_=0/TRIM set explicitly (1040Z noted, env.sh not sourced). Drill-down L.

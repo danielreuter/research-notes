@@ -8,6 +8,7 @@ final: 16:00Z hard; budget $12
 status: open
 ---
 
+CHECKPOINT e2dc354 (11:54Z) [open] 11:55Z equiv art:6fdeed7e accepted (x4 4096 rule I), 9b80f566 accepted. 27 running (c9f4a645, 050ddede, 19be6afa); 30 queued w/ --custody-r2 (first +sha256 x4 32768 4aa258ee, poseidon H100 malloc x4). Earlier runs: custody push from pod at FINAL. No laptop fetches.
 CHECKPOINT 672b23ae (11:39Z) [open] 11:40Z pod at main bfb0b928 (ligero-verify 8941c72d unchanged source). 27 running: b-ligero malloc re-runs 9b80f566, c9f4a645 (16384 not converged), 050ddede, 19be6afa. f70cf39f passes renderer check (payload-not-local issue). Missed 1037Z handoff in inbox, caught via ls.
 CHECKPOINT 7091cd8f (11:21Z) [open] 11:22Z waiting on b-ligero equiv artifacts (rule I; 26-equiv.sh now also runs the renderer's _equiv_content) and blake3-80gb re-registered trees (old 4 superseded). Pod idle at 767115db, verifier 8941c72d. No laptop pulls.
 CHECKPOINT 824a9924 (10:56Z) [open] 11:01Z all 4 fp8-ada+blake3 4090 + x4 4096/8192 accepted @3301c435; x4 equiv reproduces. Fail-closed: 5090 NVFP4 (reverify lacks fp4-nvf4), blake3-80gb 8 cells (no proofs/). Pod synced to main 767115db, rebuilding verifier for +sha256.

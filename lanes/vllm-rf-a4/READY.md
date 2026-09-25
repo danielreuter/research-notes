@@ -46,8 +46,19 @@ regression check or stage reads them.
     -> `test_layer_map_names_existing_modules`, together with the map it checks.
   - XML: `evidence/gate_b/gate_b-xdist-{base-00ffe398-samepod,head-10996616}.xml.gz`, plus the early head run at
     `14b0cf9f`, whose failures `756d04d2` and `10996616` fixed.
-- **Gate (a) T0+T1:**
-GATE_A_RESULT
+- **Gate (a) T0+T1** on `vyv-rf-a4-reg` at head, compared test by test with a23b's
+  `gate_a-t0t1-base-72884c8a-samepod.xml.gz` (`baseline-jdiff.py`, output in `evidence/gate_a/jdiff-gate_a.txt`):
+  - Both: 158 tests, 73 passed, 85 skipped (33 deselected), exit 0. No test only on one side, no outcome change, no
+    failure, no error, no new skip.
+  - The comparison flags two skip reasons as new: `manifest_digest` on the TP rows #70 and #75, where "merged by
+    row_pod_tp2.sh" became "merged by tp_stage.sh". That text is in `tests/regression/checks/manifest_digest.py:46` and
+    was changed on main by `5cc0506e` (deleting the `row_pod_tp2.sh` shim), which is already in this lane's base
+    `00ffe398`. This branch does not touch that line. It edits eight regression files, and those edits are only import
+    and path rewrites.
+  - Wall time was 3 h 14 min, against 1 h 47 min at a23b's base (a 13.6-CPU cgroup here). Memory peak was 130.8 GB of the
+    250 GB cgroup, with no OOM event (`evidence/gate_a/memory.txt`).
+  - XML and log: `evidence/gate_a/gate_a-t0t1-head-10996616-reg.xml.gz` and `a_head.log`. Fixture prefetch: 13 rows x
+    {records, programs}, 26 ok (`a_head-env-prefetch.txt`).
 - **GPU smoke, row #101** (`vyv-rf-a4-g1`, 1x L40S; `ops/row_pod.sh … build,match,commit`, PAIRS=1), head, then base on
   the same pod (`tools/row101.sh`). At head, the stages call the moved modules (`verity_vllm.pipeline.{build,cli,match,
   hot,commit,…}`, `verity_vllm.check.{match,replay,verdict,weights_of_record}`, `verity_vllm.target_family`). The

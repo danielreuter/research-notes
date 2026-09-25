@@ -135,3 +135,14 @@ research notes gc-worktrees [--apply]                # lists, then removes, clea
   319 passed, 1 skipped in a full tree. Cite them as known-failures.
 * A full temporary tree costs about 225 MB, so make one only with disk to spare and remove it right after. `git worktree add`
   copies the sparse-checkout config of the worktree it runs from, so run `git sparse-checkout disable` in the new tree.
+
+## Pod-side GPU work gotchas (flock-glue, 2026-09-25)
+* zsh does not word-split an unquoted `$S`, so `research run ... $S -- cmd` with `S="--send a --send b"` passes one bogus
+  argument, and the run sat at "submitted" (r20260925-103733-28ee). Build an array: `S=(); S+=(--send f); ... "${S[@]}"`.
+* `research pods ssh <pod> -- "pkill -f name"` also matches the remote `bash -c` that carries the command line, so it kills
+  its own session before later commands run. Find the pid with `ps -eo pid,lstart,cmd | grep '[n]ame'` and kill that pid.
+* Long `research pods ssh` calls can drop (no exit status) and a job tied to that session dies or loses its stdout.
+  Start anything over about a minute with `setsid nohup ... > log 2>&1 < /dev/null &` and poll the log.
+* RunPod H100/A100 pods deny GPU performance counters (`ncu`: ERR_NVGPUCTRPERM). Nsight Systems works (CUDA trace only).
+* `nsys stats -o X` keeps an existing `X_*.csv` unless `--force-overwrite true` is given, so a rerun silently parses stale
+  numbers. Delete the csv first or pass the flag.

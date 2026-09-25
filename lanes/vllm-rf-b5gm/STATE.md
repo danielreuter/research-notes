@@ -47,8 +47,16 @@ created: 2026-09-25T09:10Z
   (plus `env.txt` tree path between trees). `global_match_global_program.json` sha256 `e5c5afba...` in all four.
   Wall: pair 1 +4.1 %, pair 2 +3.0 %, mean +3.6 %; CPU (user+sys) pair 1 +3.0 %, pair 2 -2.7 %, mean -0.05 %.
   Evidence: `evidence/gm/{base1,base2,head1,head2,diff_*.json}`.
-- Gate (b) head: `r20260925-111421-2742` running (copy `/workspace/trees/b_head`); 11:25Z at 97 %, slow realhf tail.
+- Gate (b) head: `r20260925-111421-2742` exit 1 at 11:47:09Z, 1963 s: 4001 tests, 3647 passed, 51 failed, 11 errors,
+  286 skipped, 6 xfailed. (vs a1's 72884c8a XML: ids moved by 10996616's test file moves; same-pod base is the comparison.)
+- Gate (b) base: `r20260925-114938-c28f` running.
 - 11:27Z gate (a) head 36/158 (a T1 build of the qwen25-15b row running); `memory.peak` 83 GB so far.
+- 11:45Z gate (a) is ~2x slower than a23b's (test 46 at 48 min vs 23 min): ETA ~14:20Z, past the 14:00Z deadline. The
+  pytest process holds 104 GB anon RSS and one `smaps_rollup` read of it takes ~2.5 s; the research-run sampler reads PSS
+  every 5 s (a23b ran gate_a.sh under nohup, no sampler). Split: `a_tail` = `-k "r73 or r74 or r75 or r101 or
+  negative_57 or decisions_are_listed"` (50 of 158 tests), started 11:46:08Z under nohup (pid 7966) on its own tree copy
+  `/workspace/trees/a_tail` (research run refused: `a_head` holds `--exclusive`). When `a_head` reaches r73, SIGINT its
+  pytest by pid; its XML then covers r4..r70 (108 tests) and the two XMLs are merged for the comparison.
 - READY.md drafted (gate (a)/(b) sections TBD).
 
 ## Next

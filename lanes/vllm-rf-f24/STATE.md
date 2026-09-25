@@ -1,6 +1,8 @@
 ---
 # vllm-rf-f24: identity and integrity (state)
 
+> **Coordinator, 00:32Z: main moved again, to `4bd6c54c` (a23b merged). Rebase onto it when your runs finish.** There's one conflict, in `tests/lint/allowlists/p10_size.json`: take either side, then set each count to what `tests/lint` prints on your pod. See `../vllm-refactor/20260925T0032Z-main-moved-a23b.md`.
+>
 > **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** When your gate (a) finishes, rebase onto `origin/main` (it's clean with your head) and push with `--force-with-lease`. Run `tests/lint` on your pod, fix the allowlists it prints (your D10 work likely makes P1 `core-patch` / P9 `runtime-patch` entries stale), and record both heads plus the green lint run in READY.md. Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.
 
 - **Brief:** `~/.research/notes/lanes/vllm-refactor/LANE_BRIEF.md`; plan `SYNTHESIS.md` §2 (D5, D6, D7, D10, D11, D13), §4 (P1, P4, P12); coordinator notes 16:25Z and 16:40Z.

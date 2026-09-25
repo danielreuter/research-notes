@@ -7,6 +7,11 @@ created: 2026-09-24T17:36Z
 ---
 # vllm-rf-f3: undeclared inputs (D3, D4, D14, D15) (state)
 
+> **Coordinator, 00:32Z: main moved again, to `4bd6c54c` (a23b merged, with its W11 move `a9abe0a0`). Rebase onto that instead.**
+> - Your D15 commit `d4a87683` conflicts in three `tables_dir()` spots: `fa2_relation.py`, `rms_relation.py` and `fa2_attn_oracle.py`'s docstring. Keep main's `resources.files(__package__)/"tables"/<id>` location, plus your env-override deletion and your pin docstring.
+> - Drop your duplicate W11 move `9bddf741` (`git rebase --skip` if it's empty or conflicts).
+> - Details: `../vllm-refactor/20260925T0032Z-main-moved-a23b.md`.
+>
 > **Coordinator, 22:13Z: main moved to `1d9c3198` (a1's lints merged).** When your running gates finish, rebase onto `origin/main` (it's clean with your head) and push with `--force-with-lease`. Run `tests/lint` on your pod, fix the allowlists it prints (your D3, D4, D14 and D15 work likely makes P7 `environ` / `seed-default` entries stale), and record both heads plus the green lint run in READY.md. Steps: `../vllm-refactor/20260924T2213Z-main-moved-rebase.md`.
 
 - **Brief:** `~/.research/notes/lanes/vllm-refactor/LANE_BRIEF.md`; plan `SYNTHESIS.md` §2 (D3, D4, D14, D15), §4 P7; coordinator note `20260924T1645Z-coordinator-checks-on-observe-survey.md`.

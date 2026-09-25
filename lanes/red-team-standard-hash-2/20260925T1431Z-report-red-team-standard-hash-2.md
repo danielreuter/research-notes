@@ -2,9 +2,10 @@
 lane: red-team-standard-hash-2
 kind: report
 created: 2026-09-25T14:31Z
-status: final
+status: open
 ---
 
+CHECKPOINT 1874b18d (18:24Z) [open] 18:24Z reopened: class review fp8-hopper-x4+blake3 / bf16-hopper-x4+blake3 at x4-hopper-blake3 9a78cd68 (shapes 8:2 / 16:2): NOT final; pod vy-red-team-sh-2 next
 CHECKPOINT 1874b18d (18:17Z) [final] 18:17Z FINAL (reopen 2): fp4-nvf4+poseidon2 CLASS GRANTED (COMPLETE_ZK_BACKEND, algebraic); labels on art:70f275ac art:6740eb22; scan art:3808e520 0 effective/199k; H2/R1/R4 refused; pod drained 18:15Z ~$0.05; tip 1874b18d
 CHECKPOINT 041ac181 (17:48Z) [open] 17:48Z fp4 scan (VM, torch-free) running: controls decode+sponge show effective free rows; random/zero-scales 0 effective. Creating pod vy-red-team-sh-2 for R1/R4/H2/ZK.
 CHECKPOINT 041ac181 (17:38Z) [open] 17:38Z reopened: class review fp4-nvf4+poseidon2 (5090 NVFP4 art:70f275ac/art:6740eb22) at main cd963fd4: NOT final

@@ -2,10 +2,8 @@
 id: vllm-rf-b5vab/state
 lane: vllm-rf-b5vab
 kind: state
-updated: 2026-09-25T17:05Z
+updated: 2026-09-25T18:25Z
 ---
-
-> **Coordinator, 17:20Z: no waiting in a running turn** (Cursor's 8-agent cap). Start pod jobs detached with custody, checkpoint `WAIT <pod> <run id> check-back <HH:MMZ> agent bc-a4fbe8b2-3532-5d9a-9cfa-bf614fca043f: <what>`, and end your turn; the root wakes you when the sweep sees the run finish. Rule: `lane-briefs/vllm-cloud-common.md`, section Notes.
 # b5vab (B5 split of `engine/vllm_adapter.py`): state
 
 > Successor of `vllm-rf-b5va` (agent bc-649f6a27; no commits, no pods; its session ended at the 16:03Z laptop restart).
@@ -13,13 +11,19 @@ updated: 2026-09-25T17:05Z
 > Coordinator: vLLM coordinator bc-ecac3029. Brief: `$STORE/internal/lane-briefs/vllm-b5vab.md`. Budget $16 new spend.
 
 base: 5c05ff6d (b4b)
-branch: lane/vllm-rf-b5vab (pushed), head 42cf1781
+branch: lane/vllm-rf-b5vab (pushed), head 3201c3f4
 
 ## Scope
 Split `integrations/vllm/verity_vllm/engine/vllm_adapter.py` (1,913 lines at base) into cohesive `engine/` modules, verbatim
 moves proven by an AST/source script; `load_workload` and everything it calls stay in `vllm_adapter.py`.
 
 ## Done
+- 18:10Z `3201c3f4` = merge of b4c `9689a1ef` (+ a5c `40b9e571`): conflicts only in README, p08, p10 (kept both sides' moves,
+  dropped the vllm_adapter P10 entry). Lint scan 0 problems, split proof 56/56, every `va.X` in the tree is in the facade.
+- Mint log: 18:17:52Z mint (ttl 3h, read-only, manifests/ + objects/sha256/) lost in a failed ssh pipe, never stored;
+  18:18:43Z mint piped into `/root/r2ro.env` on vyv-rf-b5vab-reg (45jkskzz61srvd), deleted there ~18:19Z when c4ir-reg
+  (fixtures local) was handed over. That pod's run `r20260925-181454-8a8a` was killed by pid and the pod terminated 18:20Z
+  (up ~12 min, ~$0.35).
 - 16:41Z `d0e04cf8` the split (pushed). New modules (lines): `build` 318 (engine under κ + read-backs), `code_identity` 407
   (cubin sections, loaded code objects, generated kernels), `run_facts` 220 (profile manifest, model config subset,
   versions/host docs, ACCEPTED), `capture` 795 (ObserverConfig, _Step, Capture, make_header, SCHEMA + the observation
@@ -39,8 +43,13 @@ moves proven by an AST/source script; `load_workload` and everything it calls st
 - 16:57Z handoff to the coordinator: head final for gate (a); asked for a fixture-holding pod (c4ir-reg not coming soon).
 
 ## Running
-- nothing; no pods yet. b4c (16:58Z) is gating `5494e29f` on b4b-cpu (head XML will stay at
-  `/workspace/b4c/head/gate_b.xml` = my gate (b) base) and #101 on b4b-g1; a second handoff will hand both pods over.
+- `vyv-rf-b4b-cpu` (cjzaq3ploo8kok): lints + gate (b), head `3201c3f4` run `r20260925-181128-fbe5` and base b4c `9689a1ef`
+  run `r20260925-181148-2918` (both lints rc 0; suites running; check back ~18:45Z). Earlier head `42cf1781` vs b4c
+  `5494e29f` XML (run `r20260925-172259-170d`): 4040 tests both sides, 0 new failures/skips/skip reasons, 2 flaky gc-freeze
+  tests failed->passed (`evidence/jdiff-gate_b-head-42cf1781-vs-5494e29f.txt`).
+- `vyv-rf-c4ir-reg` (oh3k08zb07i38u, handed over 18:20Z, fixtures local, no key): gate (a) T0+T1 at `3201c3f4`, split in
+  two concurrent halves, timeout 8 h each: `-k replay_partition` run `r20260925-181956-7c6e`, `-k "not replay_partition"`
+  run `r20260925-182011-fabf`. Started 18:20Z; check back ~21:00Z. Merge the two JUnits, jdiff vs a23b base XML.
 
 ## Next
 1. On handoff: lints + gate (b) at `42cf1781` on vyv-rf-b4b-cpu (base = b4c's head XML at `5494e29f` on that pod).

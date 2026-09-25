@@ -2,7 +2,7 @@
 id: vllm-rf-b4/state
 lane: vllm-rf-b4
 kind: state
-updated: 2026-09-25T10:50Z
+updated: 2026-09-25T11:07Z
 ---
 # b4 (engine and hooks): state
 
@@ -46,8 +46,10 @@ Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/proje
 
 ## Running (pods registered, guard 90)
 - `vyv-rf-b4-g1` (17ez42q6mb3wo2, 1x L40S, 188 GB cgroup): gate (a) T0+T1 at `0f71b5b4` `r20260925-101742-278e`
-  (GPU hidden; 26/26 fixtures prefetched, key deleted 10:13:34Z). #101 from the base tree `r20260925-104202-d6d9`
-  (head vs base on the same pod; build at base already = head's digests).
+  (GPU hidden; 26/26 fixtures prefetched, key deleted 10:13:34Z). 46/158 tests at 11:00Z = 22.5% of a23b's per-test
+  time, about 1.9x slower than a23b's pod (one CPU-bound thread on a shared host), so **ETA about 13:30Z**, before the
+  14:00Z pod deadline. A second copy on a cpu3m/cpu5m pod was not possible (no stock at 64 or 32 vCPU, 11:05Z).
+- #101 base `r20260925-104202-d6d9` DONE: head == base == record (run root, commit_pass), Program / manifest head == base.
 - `vyv-rf-b4-h100` (ew9cx2468ey9gx, 1x H100 PCIe cc 9.0, $1.99/h): FA3 tap, `r20260925-104827-1825` = bootstrap (builds
   the FA3 matReq tap), then the Llama-3.2-1B B1 1024/128 H100 row build/match/commit at head and base. Time box: drop it if
   the FA3 tap is not built by ~11:50Z.

@@ -19,7 +19,8 @@ rng = np.random.default_rng(1)
 x = rng.integers(0, 1 << 16, (lay.vus, lay.K), dtype=np.uint16)
 w = rng.integers(0, 1 << 16, (lay.vus, lay.K), dtype=np.uint16)
 link = LK.Link(lay, b"\x01" * 32, x, w)
-b = torch.randint(0, 2, (lay.n_cells,), dtype=torch.int32, device=dev)
+cols = torch.zeros((lay.vus * lay.steps, lay.ncols), dtype=torch.int32, device=dev)
+cols[:, lay.col0:] = torch.randint(0, 2, (lay.vus * lay.steps, lay.per_unit), dtype=torch.int32, device=dev)
 acc_a = torch.zeros((lay.vus * lay.steps * lay.ncols, 6), dtype=torch.int32, device=dev)
 
 
@@ -41,12 +42,27 @@ for rep in range(REPS + 1):
     pts, t_pts = t(lambda: LK.points(tr, link))
     T, t_eq = t(lambda: LK.eq_table(pts, dev))
     z, t_z = t(lambda: LK.z_bits(link, dev))
-    sy, t_y = t(lambda: LK.plane_sums(T, lay, z, True))
+    (sy, sb), t_y = t(lambda: LK.plane_sums(T, lay, z, cols))
+    t_s = 0.0
+    if rep == 0:
+        # the fused pass against the unfused reference: z's sums with no b, b's through pos (torch, a 1/64 slice of cells)
+        assert LK.plane_sums(T, lay, z, None)[0] == sy
+        q = torch.arange(0, lay.n_cells, 64, device=dev)
+        u, jb = q // lay.per_unit, q % lay.per_unit
+        v, s_, j, i = u // lay.steps, u % lay.steps, jb // lay.bits, jb % lay.bits
+        pos = ((j // lay.k * lay.vus + v) * lay.K + lay.k * s_ + j % lay.k) * lay.bits + i
+        tw = T.view(torch.int32)[pos]
+        bb = cols[u, lay.col0 + jb].to(torch.int64)
+        ref = [int(((tw[:, t // 32].to(torch.int64) >> (t % 32)) & 1).mul(bb).sum()) for t in range(0, 256, 17)]
+        full = torch.zeros_like(cols); full[u, lay.col0 + jb] = cols[u, lay.col0 + jb]
+        got = LK.plane_sums(T, lay, z, full)[1]
+        assert [got[t] for t in range(0, 256, 17)] == ref, "fused sigma sums disagree with the reference"
+        print("fused sums match the reference", flush=True)
+        del full, tw, bb, pos, q, u, jb, v, s_, j, i
     del z
-    sb, t_s = t(lambda: LK.plane_sums(T, lay, b, False))
     claim = LK.Claim(T, (3, 1, 4, 1, 5, 9), sb)
     _, t_add = t(lambda: LK.add(Acc, claim, lay, 0))
     tot = t_pts + t_eq + t_z + t_y + t_s + t_add
-    print(f"rep {rep - 1}: points {t_pts:.4f} eq_table {t_eq:.4f} z_bits {t_z:.4f} y_sums {t_y:.4f} sigma_sums {t_s:.4f} "
+    print(f"rep {rep - 1}: points {t_pts:.4f} eq_table {t_eq:.4f} z_bits {t_z:.4f} y+sigma_sums {t_y:.4f} "
           f"add {t_add:.4f} total {tot:.4f} s; peak {torch.cuda.max_memory_allocated(dev) / 2**30:.1f} GiB", flush=True)
     del T, claim

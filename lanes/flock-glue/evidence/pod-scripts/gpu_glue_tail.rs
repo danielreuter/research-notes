@@ -132,7 +132,36 @@ fn setup_device(g: &Glue) -> usize {
             seg_end.as_ptr(), batch_seg.as_ptr(), cout.as_ptr())
     };
     assert_eq!(rc, 0, "flock_glue_unit_setup");
-    println!("VSETUP depth={depth} gates={n_gates} terms={} segments={n_segs} batches={n_batches}", cols.len() - 4);
+    println!("VSETUP depth={depth} gates={n_gates} terms={} segments={n_segs} batches={n_batches}", cols.len() - 16);
+    // critical-path proxy per segment: the slowest gate's serial term iterations at the device's lanes-per-gate
+    let (mut it_n, mut it_w, mut t_n, mut g_n) = (0usize, 0usize, 0usize, 0usize);
+    let mut heavy: Vec<usize> = Vec::new();
+    for s in 0..n_segs {
+        let (g0, g1) = (if s > 0 { seg_end[s - 1] as usize } else { 0 }, seg_end[s] as usize);
+        let ng = g1 - g0;
+        let mut lg = 5;
+        while lg > 0 && (ng << lg) > 512 {
+            lg -= 1;
+        }
+        let mut worst = 0usize;
+        for gi in g0..g1 {
+            let (st, en) = (gstart[gi] as usize, gstart[gi + 1] as usize);
+            let al = (gdesc[gi] >> 16) as usize;
+            worst = worst.max(al.max(en - st - al).div_ceil(1 << lg));
+            heavy.push(en - st);
+            if ng < 64 {
+                t_n += en - st;
+            }
+        }
+        if ng < 64 {
+            it_n += worst;
+            g_n += ng;
+        } else {
+            it_w += worst * ng.div_ceil(512 >> lg);
+        }
+    }
+    heavy.sort_unstable_by(|a, b| b.cmp(a));
+    println!("VSEGSTAT narrow: gates={g_n} terms={t_n} serial_iters={it_n}; wide serial_iters={it_w}; heaviest gates {:?}", &heavy[..8]);
     depth
 }
 
@@ -251,7 +280,7 @@ fn unit_r1cs(g: &Glue, nbl: usize) -> BlockR1cs {
 fn verify_art(art: &GpuArtifacts) -> Result<(), String> {
     let lc = SparseMatrixCircuit::new(&art.r1cs.a_0, &art.r1cs.b_0).with_const_pin(art.r1cs.const_pin);
     let mut ch = FsChallenger::with_hash(DOMAIN, CUDA_HASH);
-    verify_ligerito(&art.r1cs, &art.commitment, &art.proof, &lc, &art.pcs_params, &mut ch).map(|_| ()).map_err(|e| format!("{e:?}"))
+    verify_ligerito(art.r1cs, &art.commitment, &art.proof, &lc, &art.pcs_params, &mut ch).map(|_| ()).map_err(|e| format!("{e:?}"))
 }
 
 fn tamper_rejected(art: &GpuArtifacts) -> bool {
@@ -259,11 +288,11 @@ fn tamper_rejected(art: &GpuArtifacts) -> bool {
     let mut bad = art.proof.clone();
     bad.pcs_open.ligerito.final_proof.yr[0].lo ^= 1;
     let mut ch = FsChallenger::with_hash(DOMAIN, CUDA_HASH);
-    let r1 = verify_ligerito(&art.r1cs, &art.commitment, &bad, &lc, &art.pcs_params, &mut ch).is_err();
+    let r1 = verify_ligerito(art.r1cs, &art.commitment, &bad, &lc, &art.pcs_params, &mut ch).is_err();
     let mut bad = art.proof.clone();
     bad.zerocheck.multilinear_rounds[0].0.hi ^= 1;
     let mut ch = FsChallenger::with_hash(DOMAIN, CUDA_HASH);
-    let r2 = verify_ligerito(&art.r1cs, &art.commitment, &bad, &lc, &art.pcs_params, &mut ch).is_err();
+    let r2 = verify_ligerito(art.r1cs, &art.commitment, &bad, &lc, &art.pcs_params, &mut ch).is_err();
     r1 && r2
 }
 
@@ -298,14 +327,14 @@ fn glue_check() {
     let mzl = hzl.iter().zip(rzl.iter()).filter(|(a, b)| a != b).count();
     println!("VCHECK m={m} n_vu={n_vu} device_witness_s={secs:.5} host_ref_s={host_s:.2} mismatched_words z={mz} a={ma} b={mb} zl_bytes={mzl}");
     assert!(mz + ma + mb + mzl == 0, "device witness differs from the host reference");
-    let art = gpu_prove_with(unit_r1cs(&g, nbl), &UNIT_CSC, 2, None);
+    let art = gpu_prove_with(stmt((1, nbl), || unit_r1cs(&g, nbl)), &UNIT_CSC, 2, None);
     verify_art(&art).expect("device-witness proof must verify");
     println!("VCHECK proof verified m={m} prove_s={:.4}", art.prove_secs);
     assert!(tamper_rejected(&art), "proof tamper accepted");
     println!("VCHECK proof tampers rejected");
     let (x2, w2) = gen_rows(&g, n_vu, 20260925, true);
     upload_rows(&g, &x2, &w2, n_vu);
-    let art = gpu_prove_with(unit_r1cs(&g, nbl), &UNIT_CSC, 2, None);
+    let art = gpu_prove_with(stmt((1, nbl), || unit_r1cs(&g, nbl)), &UNIT_CSC, 2, None);
     match verify_art(&art) {
         Err(e) => println!("VNAN planted-NaN witness rejected: {e}"),
         Ok(()) => panic!("planted-NaN witness ACCEPTED"),
@@ -342,7 +371,7 @@ fn glue_bench() {
         println!("VWIT host_witness_s={:.4} (flock-bench tiled vectors)", t.elapsed().as_secs_f64());
         HOST_WIT.set(hw).ok();
     }
-    let unit = || gpu_prove_with(unit_r1cs(&g, nbl), &UNIT_CSC, mode, None);
+    let unit = || gpu_prove_with(stmt((1, nbl), || unit_r1cs(&g, nbl)), &UNIT_CSC, mode, None);
     let b3 = || gpu_prove(b3_nbl, None);
     // warm-up (arena, twiddles, matrices, zerocheck tables)
     let a = unit();
@@ -355,12 +384,19 @@ fn glue_bench() {
     }
     let mut e2e = Vec::new();
     let mut ffi = Vec::new();
+    let mut pw = Vec::new();
     for rep in 0..reps {
         let t0 = Instant::now();
         let ua = unit();
         let t_unit = t0.elapsed().as_secs_f64();
+        let hu = *LAST_HOST.lock().unwrap();
         let ba = if b3_nbl > 0 { Some(b3()) } else { None };
         let t_all = t0.elapsed().as_secs_f64();
+        let hb = if b3_nbl > 0 { *LAST_HOST.lock().unwrap() } else { (0.0, 0.0) };
+        // prover wall: from entering the unit call until the BLAKE3 proof bytes are back (host parse excluded)
+        let prover = t_all - hu.1 - hb.1;
+        println!("VHOST rep={rep} unit_pre={:.4} unit_parse={:.4} b3_pre={:.4} b3_parse={:.4} prover_wall={prover:.4}", hu.0, hu.1, hb.0, hb.1);
+        pw.push(prover);
         let uv = verify_art(&ua);
         let bv = ba.as_ref().map(verify_art);
         let f = ua.prove_secs + ba.as_ref().map_or(0.0, |b| b.prove_secs);
@@ -379,6 +415,7 @@ fn glue_bench() {
     }
     e2e.sort_by(|a, b| a.partial_cmp(b).unwrap());
     ffi.sort_by(|a, b| a.partial_cmp(b).unwrap());
-    println!("VSUMMARY pipe={} mode={mode} n_vu={n_vu} m={m} b3_nbl={b3_nbl} reps={reps} ffi_sum_median={:.4} ffi_sum_min={:.4} call_e2e_median={:.4}",
-        env_or("VU_NAME", "?"), ffi[reps / 2], ffi[0], e2e[reps / 2]);
+    pw.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    println!("VSUMMARY pipe={} mode={mode} n_vu={n_vu} m={m} b3_nbl={b3_nbl} reps={reps} ffi_sum_median={:.4} ffi_sum_min={:.4} prover_wall_median={:.4} call_e2e_median={:.4}",
+        env_or("VU_NAME", "?"), ffi[reps / 2], ffi[0], pw[reps / 2], e2e[reps / 2]);
 }

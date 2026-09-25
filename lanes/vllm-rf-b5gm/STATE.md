@@ -41,7 +41,8 @@ created: 2026-09-25T09:10Z
   (impl.source_sha256 and x09.pipeline.decomp_out EQUAL); `match_decomp.json` only `seconds`, `utc`; `global_match.log` only
   timing lines; `env.txt` only the tree path in PYTHONPATH. Verdict PASS / PASS.
 - Gate (a) head on big: prefetch 26/26 ok, key deleted 10:49:30Z; run `r20260925-105053-df3a` (`gate_a.sh $PWD a_head`) running.
-- GM-01 base2: `r20260925-105040-e8bc` running.
+- GM-01 base2: `r20260925-105040-e8bc` rc 0, wall 592.7 s, CPU 2116.2+237.7 s, 13.34 GiB; vs head1 the same diff classes as pair 1.
+- GM-01 head2: `r20260925-110305-f7fe` running (then gate (b) head, gate (b) base on this pod).
 
 ## Next
 - cpu: bootstrap, GM-01 inputs (own ro key, deleted after fetch), lints, GM-01 ABAB base/head, gate (b) head + base.

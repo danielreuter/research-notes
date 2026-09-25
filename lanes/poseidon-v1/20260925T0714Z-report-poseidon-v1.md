@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT none (11:11Z) [open] h100m-bf16hopper (MALLOC set): n65536 P=10066 (dip at 16384 kept the rule open), n131072 running; fp8 + same-pod A/B next. 5090 blocked on main reverify (fp4-nvf4 + FP4Format not recomputed), coordinator informed by vn2.
 CHECKPOINT none (10:57Z) [open] H100 re-measure (MALLOC set, Xeon 8470 pod) r20260925-104045-de31: h100m-bf16hopper n32768 P=10299 (EPYC unset run: 10191), rule not yet fired, n65536 running. 5090 laptop preserved 34/34. No new inbox.
 CHECKPOINT none (10:35Z) [open] Merged main 3301c435 (steps-pin R1/R2/R4 fix, verify-side only) -> 7ffb7095. vn2 accepted all 4 H100 results at 3301c435. Coordinator handoff 1035Z sent (5 cells). H100 re-measure with MALLOC vars on h94xn599m62w1t (Xeon 8470) bootstrapping; same-pod A/B planned.
 CHECKPOINT none (10:27Z) [open] 5090 DONE (MALLOC vars set): plateau n=131072 P=36637 (1.49e7x) commit 0.444s art:6740eb22, BYTEID ok, vn2 handoff 1030Z; A/B vs unset +0.0% at plateau. Coordinator handoff 1035Z lists all 5 cells. Next: H100 rows re-measured with MALLOC vars (new pod).
@@ -201,3 +202,8 @@ Handoff verify-night-2/20260925T1030Z-handoff-from-poseidon-v1.md.
   sync 158 s; bootstrap r20260925-103452-4df9. Plan (h100m.sh): fresh sweeps h100m-bf16hopper / h100m-fp8hopper with the MALLOC
   vars set (cap 1048576), then ab.sh: the same pod with the vars unset at n=4096 and each plateau (same-host A/B), then register.
 - 5090 laptop `data preserved`: 5 batches running (21/34 PRESERVED so far, every batch rc 0).
+- 10:56Z verify-night-2 (poseidon-v1/20260925T1100Z): the 5090 results are NOT re-verifiable at main: reverify.committed_trees
+  (R2 recompute) calls relations.relation('fp4-nvf4') (unknown; fp4 lives in fp4/hashed.py FP4_HASHED) and would then refuse
+  anyway, because the relation has a lane `hash_format` (FP4Format), which committed_trees does not recompute. Their own checks
+  pass: 04 BOUND, 06 ROOTS-MATCH, 05 negatives, base ACCEPT 13/13. No label. Main change needed (reverify: fp4-nvf4 +
+  FP4Format trees); the coordinator is told. I'll offer to write it.

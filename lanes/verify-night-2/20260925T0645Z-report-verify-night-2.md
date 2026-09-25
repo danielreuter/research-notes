@@ -53,7 +53,24 @@ committer baselines (`lanes/coordinator/20260925T0612Z-handoff-from-hash-commit.
 | 7 | `20260925T0900Z-handoff-from-poseidon-v1.md` | art:af008992 (same run as art:289841b1) | A100 BF16 +hash, sweep bounded by the frozen set | accepted | art:9a29580b |
 | 8 | `20260925T0925Z-handoff-from-poseidon-v1.md` | art:72e2b0ba (BF16 32768) art:23528a63 (FP8 65536) art:f25486f6 (BF16 4096) art:6c512437 (FP8 4096) | H100 BF16 / FP8, B-Ligero +hash (Poseidon2, alg.) @3301c435 | accepted x4 | art:31e5458f art:181ccbdb art:87ddb393 art:55208f00 |
 | 9 | `20260925T0844Z-` + `0935Z-handoff-from-blake3-80gb.md` | art:855cc597 (A100 4096) art:f32eec55 art:3b78cbda (H100 4096) art:4d1d6d6e (H100 32768) | A100 BF16 / H100 BF16 / FP8, B-Ligero +blake3 | not re-verifiable yet (fail-closed: run_files lack proofs/) | none; blake3-80gb asked to re-register |
-| 10 | `20260925T0958Z-` + `1008Z-handoff-from-b-ligero-standard-hash.md`, coordinator 1017Z | art:e9932b72 (live) art:e7d59ab6 (x1) art:017a7069 (x4 4096) art:6b6d4484 (x4 8192); #6 again @3301c435 | RTX 4090 FP8, B-Ligero +blake3 | running (r20260925-102219-11de) | |
+| 10 | `20260925T0958Z-` + `1008Z-handoff-from-b-ligero-standard-hash.md`, coordinator 1017Z / 1024Z | art:e9932b72 (live) art:e7d59ab6 (x1) art:5d20ad00 art:d6328cf5 (#6 again) art:017a7069 (x4 4096) art:6b6d4484 (x4 8192) | RTX 4090 FP8, B-Ligero +blake3 @3301c435 (class granted 1027Z, x4 1053Z) | accepted x6 | art:2cd1052b art:0a3efdaf art:2ba7f873 art:ddf49ecc art:953851f2 art:1914e46e |
+| 11 | `20260925T1030Z-handoff-from-poseidon-v1.md` | art:70f275ac (4096) art:6740eb22 (131072) | RTX 5090 NVFP4, B-Ligero +hash (Poseidon2, alg.) | not re-verifiable yet (fail-closed: main's reverify has no fp4-nvf4 relation) | none |
+| 12 | `20260925T1045Z-handoff-from-blake3-80gb.md` | art:6d067ed3 art:f4dc0501 art:4d43ab87 art:4d151f38 | H100 BF16 / FP8 +blake3 re-runs (75cbbac1) | not re-verifiable yet (fail-closed: no proofs/) | none |
+
+### 9. +blake3 at 3301c435, 5090 NVFP4, and the pod at 767115db (runs r20260925-102219-11de, r20260925-103509-76d9, r20260925-105556-10f6; `23`, `24`, `25`)
+- **#10:** every cell passes main 3301c435's reverify, and 04 / 06 / R4 / 05 all behave.
+  - fp8-ada+blake3 roots at 4096: a 2f9ff265, b 0413c926, y 49023558 (e9932b72, e7d59ab6 and 5d20ad00 alike).
+  - x4 4096 roots: a 5b6f7c44, b 65621cdd, y 5522d305, steps 12. x4 8192 roots: a 19b0779a, b ea406407, y 3a1f147d.
+  - The x4 instance-equiv file art:f70cf39f re-derives (`--check`: "reproduces; equal=True"). Its candidate is c86e51a1… (the
+    same as art:017a7069's ref), against frozen e66ff0f2….
+- **Findings:** SP1 art:49695f7c had `finding=UNDER RE-VERIFICATION`, and I added `finding=CLEARED` with ref my verdict
+  art:58978516. None of the +blake3 cells carried a finding.
+- **#11:** reverify's `committed_trees` calls `relations.relation('fp4-nvf4')`, which raises "unknown --relation". My checks on
+  art:70f275ac all pass: 04 BOUND; 06 ROOTS-MATCH a 84ce9030, b 3f2303f6, y 68c80a14; my verifier ACCEPTs 13/13 at 2^-128.11;
+  and the 3 tampers REJECT. I stopped the plateau before its reverify.
+- **#9 and #12:** eight blake3-80gb cells in total, handoffs 1030Z and 1100Z.
+- **Pod:** synced to main 767115db, and ligero-verify rebuilt to sha256 8941c72d (cargo tests 34 + 7 + 27 ok). A LABEL=0 smoke
+  test on e7d59ab6 passes. 596529d2 and d89cffc7 are kept. The credential was re-minted at 10:36Z with a 4 h TTL.
 
 ### 8. H100 poseidon-v1 cells and the 3301c435 verifier (run r20260925-093931-f022; `22-batch.sh`)
 - ligero-verify was rebuilt from main 3301c435 (ligero-steps-pin merged) to sha256 596529d2; the old binary is kept as

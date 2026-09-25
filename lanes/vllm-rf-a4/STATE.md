@@ -2,7 +2,7 @@
 id: vllm-rf-a4/state
 lane: vllm-rf-a4
 kind: state
-updated: 2026-09-25T10:47Z
+updated: 2026-09-25T11:06Z
 ---
 # a4 (re-home into the §5.1 tree): state
 
@@ -34,7 +34,7 @@ Coordinator: vLLM coordinator bc-ba6cec03. Worktree `/Users/danielreuter/project
 
 ## Running
 - `vyv-rf-a4-reg` (04fijzazbf1yj6, A100-SXM4 host, 250 GB cgroup, $1.59/h): gate (a) T0+T1 on head since 08:30Z
-  (fixtures prefetched with a laptop-minted RO key, deleted 08:30Z). At 10:42Z it was 108/158 (r73 and r74 left, ~39 base-minutes), about 1.9x
+  (fixtures prefetched with a laptop-minted RO key, deleted 08:30Z). At 11:02Z it was 118/158 (T1 r73 and r74 left, ~30 base-minutes), about 1.9x
   slower than a23b's base, so the ETA is about 12:00Z (deadline 13:00Z). Memory: pytest RSS 101.6 GB, cgroup peak 130.8 GB of 250 GB.
 - The twins failure at base is now reproduced on one pod with an empty build dir (base and head both 1 failed; both pass
   once built): `evidence/twins/`. READY.md is drafted apart from gate (a) and the reg pod's cost.

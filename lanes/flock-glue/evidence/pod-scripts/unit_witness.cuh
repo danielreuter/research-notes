@@ -30,7 +30,7 @@ typedef unsigned long long uw_u64;
 #define UW_MAX_BATCHES 256
 
 __device__ unsigned long long uw_prof[8];   // cycles in CTA 0: input, copy, narrow, wide, output; [5] narrow segs, [6] wide segs
-#define UW_PROF(slot) do { if (prof) { long long _t = clock64(); uw_prof[slot] += _t - prof_t; prof_t = _t; } } while (0)
+#define UW_PROF(slot) do { if (prof) { long long _t = clock64(); pacc[slot] += _t - prof_t; prof_t = _t; } } while (0)
 
 struct UnitNetDev {
     int useful, const_pos, n_in, n_x, n_w, n_c;
@@ -106,7 +106,7 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
     uint32_t* scr_b = scr_a + UW_K;
     const int U = pad ? 1 : units_per_vu;
     const bool prof = blockIdx.x == 0 && tid == 0;
-    long long prof_t = clock64();
+    long long prof_t = clock64(), pacc[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     const int v = (int)blockIdx.x * 32 + lane;
     const bool vv = !pad && v < n_vu;
     for (int i = tid; i < UW_K; i += UW_THREADS) zs[i] = 0;
@@ -150,7 +150,7 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
                 const int e0 = (sg ? S.seg_end[sg - 1] : 0) - g0, e1 = S.seg_end[sg] - g0;
                 uw_eval_seg(zs, S, scr_a, scr_b, e0, e1, tid);
                 __syncthreads();
-                if (prof) uw_prof[(e1 - e0 >= UW_WIDE) ? 6 : 5] += 1;
+                if (prof) pacc[(e1 - e0 >= UW_WIDE) ? 6 : 5] += 1;
                 UW_PROF((e1 - e0 >= UW_WIDE) ? 3 : 2);
             }
         }
@@ -198,6 +198,8 @@ unit_witness_chain(UnitNetDev N, const uint8_t* __restrict__ x_rows, const uint8
         if (tid < 32) S.cbuf[tid] = zs[N.cout[tid]];
         __syncthreads();
     }
+    if (prof)
+        for (int i = 0; i < 8; i++) uw_prof[i] += pacc[i];
 }
 
 // Lincheck stripe for k_log = 13: byte (group g, bit i) = bit i of blocks 8g..8g+7 (blake3_lincheck_transpose, K = 8192).

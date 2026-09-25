@@ -226,11 +226,11 @@ _ps = LK.plane_sums
 TAMPER = {"d": 0}
 
 
-def tampered(T, lay, bv, ident):
-    s = _ps(T, lay, bv, ident)
-    if not ident and TAMPER["d"]:
-        s = [s[0] + TAMPER["d"]] + s[1:]
-    return s
+def tampered(T, lay, z, cols):
+    sy, sb = _ps(T, lay, z, cols)
+    if sb is not None and TAMPER["d"]:
+        sb = [sb[0] + TAMPER["d"]] + sb[1:]
+    return sy, sb
 
 
 LK.plane_sums = tampered

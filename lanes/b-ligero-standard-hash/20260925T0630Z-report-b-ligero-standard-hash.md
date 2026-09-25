@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 672b23ae (11:21Z) [open] x1 malloc sweep DONE: plateau 16384 e2e 13.821s (13.787+0.034) 1185 VU/s 9.07e7x 2^-128.40 art:c9f4a645 (32768 OOM rc-9: not converged); handed to verify-night-2. XOB (blake3-xob) tests+fixtures running r..112012-8420. 1040Z: done (lib.sh exports; merged).
 CHECKPOINT fb29b130 (10:54Z) [open] x1 malloc sweep r..103611-67e0 at p4 16384 (p0-p3 1073/1128/1150/1176 VU/s). XOB wired as new scheme blake3-xob (same schema blake3-keyed/row/v2 = same frame-v3 commitment, new circuit): xadd op in all witness generators, ce86046b+tests; pod tests/pins after the sweep.
 CHECKPOINT 806a2f73 (10:37Z) [open] malloc-env cells (MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12 set): x1 4096 frozen e2e 3.558s art:9b80f566; x4 4096 1.981s art:050ddede; x4 plateau 8192 2165 VU/s art:19be6afa -> verify-night-2 1037Z. x1 sweep running.
 CHECKPOINT 806a2f73 (10:06Z) [open] Live same-pod verifier cell x1 4096 frozen: 5/5 sessions ACCEPT 49/49 own coins, e2e 3.596s, art:e9932b72 -> verify-night-2 (1008Z). Malloc env adopted from now (lib.sh + --env); x4 sweep re-run with it r..100526-b232.
@@ -256,7 +257,25 @@ Pod scripts: `evidence/pod-scripts/`.
     art:0c5840907e1c24fe8190d0af2b0e32763494ba413b939e0b8d8cf9195f569b4e.
   - x4: result art:050ddede1083ac67f417d2345d5b1f0a8d47314c94ee5a9988d7f1cdb8300650, tree
     art:ef264ad325e8207dae1b75b2d09b35d13cfbfe1b1c717bc40592afd69043df62.
-* 10:36Z r20260925-103611-67e0: the x1 (fp8-ada+blake3) sweep with the malloc env, on the GPU committer.
+* 10:36Z r20260925-103611-67e0: the x1 (fp8-ada+blake3) sweep with the malloc env, on the GPU committer (30-sweep.sh,
+  l = 4096, p2, custody-r2). DONE 11:06Z (sweep rc 0, 1789 s). Measured points: 1073.4 / 1128.2 / 1150.3 / 1175.9 /
+  **1185.5** VU/s at 1024 .. 16384.
+  - **The 32768 point was killed (rc -9, host OOM).** Likely cause: MALLOC_TRIM_THRESHOLD_ = 1e12 never gives freed heap
+    back, and the in-process verifier holds 386 proofs. So the sweep stopped on "a point failed", and the rule (two
+    doublings < 2 %) was NOT met: 16384 is +3.06 % over 4096, though only +0.81 % over 8192. The plateau is the highest
+    measured point, not a converged one.
+  - **Plateau 16384:** t.total 13.787 s + commit 0.0335 s = e2e 13.821 s (9.07e7×).
+  - Rust batch (pinned 71f39e44…) ACCEPT 193/193 against their own coins, 2^-128.40.
+  - 4096 point: e2e 3.561 s (1150 VU/s), matching the 22-cells 4096 cell (3.558 s).
+
+  Registered 11:17-11:19Z (PRESERVED; the points without proofs are SLIM):
+  - p0: art:998f341701303ed546a94df2d8fd997d823a468dcb35a9369ee8a01a62d09ec1
+  - p1: art:c3348ffe8250ae9b9b385f373a688c7a4e27a6f708d5ebcb8f0c88afef42d300
+  - p2: art:69065ce3cae387f29576b96f79a24a0f82086e8441423b29118cea59dec7e8f3
+  - p3: art:a149135673510096392ed08b038fb9170d3f235a2f5cb05621211cd69c25a31f
+  - **plateau with rep-1 proofs: art:c9f4a645c2271c64187a2d2e8d116a5c34b0f465c9fd4ddc333d4ce7887dec1d (tree
+    art:443b52fd8c9a4ace5e31d7d263a01d719eb44d67576f3168d31d0e5f067feb67)**. The SLIM copy
+    art:6cdb785a4f9121b84a8d80b10abff66608899078dc5955fcfaef9f0a8326c542 has no .proof files; use the one above.
 * 10:40-10:55Z XOB wired (coordinator 0915Z: after the first CLEARED cell, under a NEW scheme name). Lane tip e19bc365 /
   ce86046b / fb29b130:
   - the `xadd` program op (32 boolean rows = bits of `((lo + 2^16 hi) mod 2^32) ^ (olo + 2^16 ohi)`) in every witness

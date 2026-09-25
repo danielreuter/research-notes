@@ -27,6 +27,20 @@ EOF
   timeout 1800 $PY -m verity_numerical.bench.instance_equiv --check "$F" > $D.check.txt 2>&1; rc=$?
   tail -3 $D.check.txt
   ok=0; [ $rc = 0 ] && grep -q "reproduces; equal=True" $D.check.txt && grep -q "^schema instance-equiv/v1 equal True" $D.refs.txt && ok=1
+  for R in ${RESULTS:-}; do
+    $PY -m research data show $A --json > $D.man.json; $PY -m research data show $R --json > $D.res.json
+    $PY - "$F" $D.man.json $D.res.json $R <<'EOF' | tee -a $D.refs.txt
+import json, sys, types
+from verity_numerical.bench import tables as T
+f, man, res, rid = sys.argv[1:5]
+meta = json.load(open(man))["manifest"].get("meta") or {}
+body = meta if meta.get("schema") == T.INSTANCE_EQUIV_SCHEMA else json.load(open(f))
+inst = (json.load(open(res))["manifest"]["meta"].get("workload_fingerprint") or {}).get("instances")
+p = T._equiv_content(body, types.SimpleNamespace(name=body.get("target")), inst or {})
+print(f"renderer _equiv_content vs {rid[:12]}: {'OK' if not p else 'PROBLEMS ' + '; '.join(p)}")
+EOF
+    grep -q "renderer _equiv_content vs ${R:0:12}: OK" $D.refs.txt || ok=0
+  done
   T=$(( $(date +%s) - S ))
   echo "$([ $ok = 1 ] && echo PASS || echo FAIL) $A: --check rc=$rc, $(grep -o 'reproduces; equal=[A-Za-z]*' $D.check.txt | head -1)"
   if [ "${LABEL:-0}" = 1 ] && [ $ok = 1 ]; then

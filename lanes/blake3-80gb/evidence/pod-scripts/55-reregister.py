@@ -3,19 +3,23 @@
 reverify reads <tree>/proofs/manifest.json; verify-night-2 1030Z / 1100Z).  No re-proving: each old point dir (on this pod) is
 hard-linked into the new run dir, published as a run-files/v1 tree holding proofs/ + result.json + bench.log, and its
 result.json is re-published as a bench-result/v1 whose ref run_files is that tree.
-Usage: 55-reregister.py RUN_DIR LANE MAP.json   (MAP: [{"dir": abs point dir, "result": old art, "tree": old art}, ...])
+Usage: 55-reregister.py RUN_DIR LANE POINT_DIR...   (the old ids come from the pod store's attempt record of each point's run)
 """
 import json
 import subprocess
 import sys
 from pathlib import Path
 
-rd, lane, mp = Path(sys.argv[1]), sys.argv[2], json.loads(Path(sys.argv[3]).read_text())
+STORE = Path("/workspace/research/store/attempts")
+rd, lane = Path(sys.argv[1]), sys.argv[2]
 outs = []
-for e in mp:
-    src = Path(e["dir"])
+for arg in sys.argv[3:]:
+    src = Path(arg.rstrip("/"))
     assert (src / "proofs" / "manifest.json").is_file() and (src / "proofs" / "rep1").is_dir(), src
     run_id, tag, pdir = src.parts[-3], src.parts[-2], src.parts[-1]
+    old = json.loads((STORE / f"{run_id}.json").read_text())["outputs"]
+    key = f"{tag}-p{pdir.split('-')[0][1:]}"
+    e = {"result": old[key], "tree": old[key + "-proofs"]}
     dst = rd / "points" / run_id / tag / pdir
     dst.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(["cp", "-al", str(src), str(dst)], check=True)

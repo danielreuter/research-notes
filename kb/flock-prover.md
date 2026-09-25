@@ -194,3 +194,14 @@ Report: `lanes/flock-glue/20260925T1011Z-report-flock-glue.md`.
   - L4: chain glue and endpoints (C4).
 - **Composition** is unchanged: 2^-130.2 on the A-GKR route, bounded by A-GKR. The C8 hash-budget question is open, with
   Daniel.
+
+## Live prime coins in the route (a) cell (route-a-live, 2026-09-25 1:30 PM PT, `lanes/route-a-live/20260925T1850Z-report-route-a-live.md`)
+- The session also serves the A-GKR prime half's coins (`Prime{state, n}` rounds; PROTOCOL §17.6, PR #36). The record
+  keeps them and, for G2, root_F, root_B and the committed public words; `flock-link replay` re-verifies Flock offline.
+- A100 + same-DC verifier (US-MD-1, RTT 0.36 ms), 4,096 VUs: t.total 14.01 s, NON_ZK_PROOF 2^-130.19 (art:3bfb2f58).
+  Flock CPU compute (13.2 s) is now the cell; the prime half is 3,006 rounds, 3,004 before root_F (0.64 s at 0.36 ms,
+  ~6 min at 127 ms: co-locate the verifier).
+- GOTCHA: the prime prover OOMs on an 80 GB A100 above 4,096 VUs (51 GB peak at 4,096); the tiled 32,768 statement
+  fails at witness (`query tuple not in table T_OP`).
+- GOTCHA: `source /workspace/env.sh` cds into the bootstrap's source tree; capture `$(pwd)` before sourcing it in a
+  `research run --cwd source` command. `research run --tool` only takes registered tools.

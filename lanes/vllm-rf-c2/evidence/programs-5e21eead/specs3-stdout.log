@@ -1,0 +1,55 @@
+start 2026-09-25T11:19:11Z source /workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3 sides base=/workspace/base head=/workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3
+programs 11 art:db4499e73020f5d761b55a801bc4d926eaad36c15099d90f170ffe00928aaaf7 917 MB 1 instances
+programs 23 art:9556460da4f92484fc409d279753f26e7883853bd1b7ca9b33580d7ba9863947 448 MB 65 instances
+programs 39 art:37cd49bd1fd652447ac421ffc6967798f67fb9b1c2d9bd13aa0d3422d15cd905 1614 MB 1 instances
+programs 57 art:5e925a59d73127305b8f6065c2ee519097c22b45c1e9d3452db338a39b65122d 281 MB 9 instances
+programs 60 art:7d8d822f5f033d24cdc4a4e3c5d960db3fd93e00cfa5161a04b209f5d27f2580 318 MB 9 instances
+programs 67 art:a31f7b72eb62f9d66af6f4fc861b6b351f790ece9e730dd359c2a697898292b2 384 MB 33 instances
+programs 68 art:d3fa83361d58c702318733f7382fc41b47800ebe401c6d772e6caaad6ed72737 384 MB 33 instances
+programs 70 art:2cadc0fc95730a77ee7117cf39bc403a3b895ad6b05642e8b403769214daf841 336 MB 16 instances
+programs 73 art:f94391548214af4edbea90da0bd676d46e853989454e0693e39499f8239e1289 429 MB 9 instances
+programs 74 art:9d14bd1194738e46c0c4e56b16ecb44187e19b77389f93fd19d7cb3f5d629eda 475 MB 9 instances
+programs 75 art:fad11673693df8642202ec381552ebf62f2c1c34cd437c3ec3de53d9366a884b 310 MB 4 instances
+programs 101 art:a9be8f7c514fc61cabcf913946a17f9d349a00ef3386fd33093ee186790b1802 4 MB 1 instances
+row 11: 1 files, 747358 rows, 4619 distinct specs
+row 23: 65 files, 3042544 rows, 1163 distinct specs
+row 39: 1 files, 1429194 rows, 4620 distinct specs
+row 57: 9 files, 5622349 rows, 1176 distinct specs
+row 60: 9 files, 1581986 rows, 1163 distinct specs
+row 67: 33 files, 6410580 rows, 1165 distinct specs
+row 68: 33 files, 6496096 rows, 1165 distinct specs
+row 70: 16 files, 5379370 rows, 1043 distinct specs
+row 73: 9 files, 8739106 rows, 1164 distinct specs
+row 74: 9 files, 10093224 rows, 1167 distinct specs
+row 75: 4 files, 6026370 rows, 1170 distinct specs
+row 101: 1 files, 46654 rows, 333 distinct specs
+extract 85.7 s
+closure base rc=0 11:22:30
+closure head rc=0 11:22:30
+base row 11: specs=4619 errors=0 ampere_v1=4612 ampere_v2=0 row_sha=0b656d17d7fb8c39 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 23: specs=1163 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=00e8f7910ef89e05 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 39: specs=4620 errors=0 ampere_v1=4612 ampere_v2=0 row_sha=6c90dab6a8e9d3ad moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 57: specs=1176 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=caba8f654ed3c095 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 60: specs=1163 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=2d568d48ddd59716 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 67: specs=1165 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=702d3e1278e62ecc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+base row 68: specs=1165 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=702d3e1278e62ecc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+base row 70: specs=1043 errors=0 ampere_v1=1031 ampere_v2=0 row_sha=1114f2ee364ebf3e moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'I32Le_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+base row 73: specs=1164 errors=0 ampere_v1=0 ampere_v2=0 row_sha=5fa406e58beaf416 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'HopperBF16WgmmaDot16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 74: specs=1167 errors=0 ampere_v1=0 ampere_v2=0 row_sha=8a86f61dc4522ebc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32Fabs_v1', 'F32Fmaxf_v1', 'F32Fminf_v1', 'F32ToE4m3Sat_v1', 'HopperBF16WgmmaDot16_v1', 'HopperE4m3QgmmaDot32_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 75: specs=1170 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=e85cc7317563171e moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'I32Le_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+base row 101: specs=333 errors=0 ampere_v1=292 ampere_v2=0 row_sha=c0ffe5b6982b1e48 moved=['Bf16ToF32_v1', 'BitNot_v1', 'BitOr_v1', 'F2fpBf16_v1', 'F32Eq_v1', 'I32Add_v1', 'SelectF32_v1', 'SelectI32_v1']
+base done 97.7 s
+head row 11: specs=4619 errors=0 ampere_v1=4612 ampere_v2=0 row_sha=0b656d17d7fb8c39 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+head row 23: specs=1163 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=00e8f7910ef89e05 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+head row 39: specs=4620 errors=0 ampere_v1=4612 ampere_v2=0 row_sha=6c90dab6a8e9d3ad moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+head row 57: specs=1176 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=caba8f654ed3c095 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+head row 60: specs=1163 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=2d568d48ddd59716 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+head row 67: specs=1165 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=702d3e1278e62ecc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+head row 68: specs=1165 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=702d3e1278e62ecc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+head row 70: specs=1043 errors=0 ampere_v1=1031 ampere_v2=0 row_sha=1114f2ee364ebf3e moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'I32Le_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+head row 73: specs=1164 errors=0 ampere_v1=0 ampere_v2=0 row_sha=5fa406e58beaf416 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'HopperBF16WgmmaDot16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+head row 74: specs=1167 errors=0 ampere_v1=0 ampere_v2=0 row_sha=8a86f61dc4522ebc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32Fabs_v1', 'F32Fmaxf_v1', 'F32Fminf_v1', 'F32ToE4m3Sat_v1', 'HopperBF16WgmmaDot16_v1', 'HopperE4m3QgmmaDot32_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+head row 75: specs=1170 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=e85cc7317563171e moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'I32Le_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+head row 101: specs=333 errors=0 ampere_v1=292 ampere_v2=0 row_sha=c0ffe5b6982b1e48 moved=['Bf16ToF32_v1', 'BitNot_v1', 'BitOr_v1', 'F2fpBf16_v1', 'F32Eq_v1', 'I32Add_v1', 'SelectF32_v1', 'SelectI32_v1']
+head done 98.1 s
+done 2026-09-25T11:22:30Z

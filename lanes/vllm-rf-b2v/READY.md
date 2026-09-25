@@ -10,7 +10,7 @@ updated: 2026-09-25T11:30Z
 
 - **Branch:** `lane/vllm-rf-b2v` (pushed). **Head:** `8d847755`. **Base:** `10996616` (a4's head, not merged).
 - 10 commits, 48 files (all under `integrations/vllm`), +1,889 / -1,400 against `10996616`. Nothing under `packages/verity`.
-- Gates: lints 45/45 at `8d847755`; gate (b) head vs base on one pod: GATE_B_SUMMARY; gate (a) T0,T1: GATE_A_SUMMARY; GPU
+- Gates: lints 45/45 at `8d847755`; gate (b) head vs base on one pod: no new failure / skip / skip reason, 15 new tests pass; gate (a) T0,T1: GATE_A_SUMMARY; GPU
   rows #101 (world 1, L40S) and #70 (world 2, 2x L40S) reproduce the record's digests and cite their `properties/` records.
 
 ## Gate evidence
@@ -47,7 +47,21 @@ mismatched, 0 extra; the listings and patches are in `evidence/trees/`). Each tr
 `OMP_NUM_THREADS=3 python -m pytest integrations/vllm/tests -ra -n 12 --dist loadfile` (`evidence/gate_b.sh`, a1's with the log
 directory moved and GPUs hidden), both trees on the L40S pod, overlapping in time.
 
-GATE_B_DETAIL
+- **At `8d847755` (head): 31 failed, 3,662 passed, 306 skipped, 6 xfailed** (4,005 tests, 1,342 s; `b_head2`, 11:01-11:24Z,
+  run `r20260925-110128-3b30`).
+- **At `10996616` (base): 32 failed, 3,646 passed, 306 skipped, 6 xfailed** (3,990 tests, 1,475 s; `b_base`, 10:48-11:12Z, run
+  `r20260925-104642-9085`).
+- **Test by test** (`jdiff.py b_base.xml b_head2.xml`, `b_jdiff2.txt`, exit 0): **no new failure, no new skip, no new skip
+  reason; no test deleted or renamed**; 15 new tests, all pass (`test_gates_fixtures::test_verdict_is_the_match_verdict_over_check_results`,
+  `test_verdict::test_from_record_cites_property_records_by_digest`, `test_verdict::test_the_code_is_the_outcome`, 8 in
+  `properties/test_noninterference.py`, 4 in `properties/test_record.py`). One outcome change, failed -> passed:
+  `ops/test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way` (a signal-timing test with a 15 s timeout, in a file
+  this branch doesn't touch; f24's READY records the same flip).
+- The 31 failures common to both include the two that failed in the head-only unit run at `824a9924` (`unit_head.log`):
+  `check/test_gates_fixtures.py::test_card_json_roundtrip_and_schema` (no `out/gen/cards/SCHEMA.md` in a clean tree) and
+  `commit/test_native_jit_keying.py::test_pod_release_fails_closed_...` (no `sweep/pod_release.sh`).
+- A first head run at `824a9924` (`b_head`) was stopped by pid at 10:59Z once its lints had failed; its partial log is kept.
+  Peak memory of the two concurrent runs: 45 GB of the pod's 62 GB (`b_base.rss`); no OOM kill during the gates.
 
 ### (3) Gate (a), regression T0 + T1
 

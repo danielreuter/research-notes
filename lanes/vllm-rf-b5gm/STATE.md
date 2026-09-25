@@ -47,7 +47,9 @@ created: 2026-09-25T09:10Z
   (plus `env.txt` tree path between trees). `global_match_global_program.json` sha256 `e5c5afba...` in all four.
   Wall: pair 1 +4.1 %, pair 2 +3.0 %, mean +3.6 %; CPU (user+sys) pair 1 +3.0 %, pair 2 -2.7 %, mean -0.05 %.
   Evidence: `evidence/gm/{base1,base2,head1,head2,diff_*.json}`.
-- Gate (b) head: `r20260925-111421-2742` running (copy `/workspace/trees/b_head`).
+- Gate (b) head: `r20260925-111421-2742` running (copy `/workspace/trees/b_head`); 11:25Z at 97 %, slow realhf tail.
+- 11:27Z gate (a) head 36/158 (a T1 build of the qwen25-15b row running); `memory.peak` 83 GB so far.
+- READY.md drafted (gate (a)/(b) sections TBD).
 
 ## Next
 - cpu: bootstrap, GM-01 inputs (own ro key, deleted after fetch), lints, GM-01 ABAB base/head, gate (b) head + base.

@@ -1,0 +1,94 @@
+base 0/16141 1 s rss=0.1 GB
+base 200/16141 3 s rss=0.1 GB
+base 400/16141 3 s rss=0.1 GB
+base 600/16141 4 s rss=0.1 GB
+base 800/16141 5 s rss=0.1 GB
+base 1000/16141 6 s rss=0.1 GB
+base 1200/16141 8 s rss=0.1 GB
+base 1400/16141 11 s rss=0.1 GB
+base 1600/16141 12 s rss=0.1 GB
+base 1800/16141 13 s rss=0.1 GB
+base 2000/16141 14 s rss=0.1 GB
+base 2200/16141 15 s rss=0.1 GB
+base 2400/16141 17 s rss=0.1 GB
+base 2600/16141 18 s rss=0.2 GB
+base 2800/16141 19 s rss=0.2 GB
+base 3000/16141 21 s rss=0.2 GB
+base 3200/16141 21 s rss=0.2 GB
+base 3400/16141 23 s rss=0.2 GB
+base 3600/16141 23 s rss=0.2 GB
+base 3800/16141 24 s rss=0.2 GB
+base 4000/16141 25 s rss=0.2 GB
+base 4200/16141 26 s rss=0.2 GB
+base 4400/16141 27 s rss=0.2 GB
+base 4600/16141 28 s rss=0.2 GB
+base 4800/16141 29 s rss=0.2 GB
+base 5000/16141 30 s rss=0.2 GB
+base 5200/16141 31 s rss=0.2 GB
+base 5400/16141 32 s rss=0.2 GB
+base 5600/16141 33 s rss=0.2 GB
+base 5800/16141 35 s rss=0.3 GB
+base 6000/16141 36 s rss=0.3 GB
+base 6200/16141 37 s rss=0.3 GB
+base 6400/16141 38 s rss=0.3 GB
+base 6600/16141 39 s rss=0.3 GB
+base 6800/16141 40 s rss=0.3 GB
+base 7000/16141 42 s rss=0.3 GB
+base 7200/16141 43 s rss=0.3 GB
+base 7400/16141 44 s rss=0.3 GB
+base 7600/16141 45 s rss=0.3 GB
+base 7800/16141 46 s rss=0.3 GB
+base 8000/16141 48 s rss=0.3 GB
+base 8200/16141 49 s rss=0.3 GB
+base 8400/16141 51 s rss=0.3 GB
+base 8600/16141 52 s rss=0.4 GB
+base 8800/16141 53 s rss=0.4 GB
+base 9000/16141 55 s rss=0.4 GB
+base 9200/16141 56 s rss=0.4 GB
+base 9400/16141 57 s rss=0.4 GB
+base 9600/16141 59 s rss=0.4 GB
+base 9800/16141 60 s rss=0.4 GB
+base 10000/16141 63 s rss=0.4 GB
+base 10200/16141 64 s rss=0.4 GB
+base 10400/16141 65 s rss=0.4 GB
+base 10600/16141 67 s rss=0.4 GB
+base 10800/16141 68 s rss=0.5 GB
+base 11000/16141 70 s rss=0.5 GB
+base 11200/16141 71 s rss=0.5 GB
+base 11400/16141 73 s rss=0.5 GB
+base 11600/16141 76 s rss=0.5 GB
+base 11800/16141 77 s rss=0.5 GB
+base 12000/16141 78 s rss=0.5 GB
+base 12200/16141 80 s rss=0.5 GB
+base 12400/16141 82 s rss=0.5 GB
+base 12600/16141 82 s rss=0.5 GB
+base 12800/16141 83 s rss=0.6 GB
+base 13000/16141 83 s rss=0.6 GB
+base 13200/16141 84 s rss=0.6 GB
+base 13400/16141 84 s rss=0.6 GB
+base 13600/16141 85 s rss=0.6 GB
+base 13800/16141 85 s rss=0.6 GB
+base 14000/16141 86 s rss=0.6 GB
+base 14200/16141 86 s rss=0.6 GB
+base 14400/16141 87 s rss=0.6 GB
+base 14600/16141 88 s rss=0.6 GB
+base 14800/16141 88 s rss=0.6 GB
+base 15000/16141 89 s rss=0.6 GB
+base 15200/16141 89 s rss=0.6 GB
+base 15400/16141 90 s rss=0.6 GB
+base 15600/16141 90 s rss=0.6 GB
+base 15800/16141 91 s rss=0.6 GB
+base 16000/16141 92 s rss=0.6 GB
+base row 11: specs=4619 errors=0 ampere_v1=4612 ampere_v2=0 row_sha=0b656d17d7fb8c39 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 23: specs=1163 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=00e8f7910ef89e05 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 39: specs=4620 errors=0 ampere_v1=4612 ampere_v2=0 row_sha=6c90dab6a8e9d3ad moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 57: specs=1176 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=caba8f654ed3c095 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 60: specs=1163 errors=0 ampere_v1=1156 ampere_v2=0 row_sha=2d568d48ddd59716 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 67: specs=1165 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=702d3e1278e62ecc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+base row 68: specs=1165 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=702d3e1278e62ecc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+base row 70: specs=1043 errors=0 ampere_v1=1031 ampere_v2=0 row_sha=1114f2ee364ebf3e moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'I32Le_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+base row 73: specs=1164 errors=0 ampere_v1=0 ampere_v2=0 row_sha=5fa406e58beaf416 moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'HopperBF16WgmmaDot16_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 74: specs=1167 errors=0 ampere_v1=0 ampere_v2=0 row_sha=8a86f61dc4522ebc moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32Fabs_v1', 'F32Fmaxf_v1', 'F32Fminf_v1', 'F32ToE4m3Sat_v1', 'HopperBF16WgmmaDot16_v1', 'HopperE4m3QgmmaDot32_v1', 'I32Add_v1', 'SelectBf16_v1', 'SelectI32_v1']
+base row 75: specs=1170 errors=0 ampere_v1=1157 ampere_v2=0 row_sha=e85cc7317563171e moved=['Bf16GtStrict_v1', 'Bf16ToF32_v1', 'F2fpBf16_v1', 'F32BitsShl23_v1', 'F32IsFinite_v1', 'F32Neg_v1', 'F32Sat_v1', 'I32Add_v1', 'I32Eq_v1', 'I32Le_v1', 'SelectBf16_v1', 'SelectF32_v1', 'SelectI32_v1']
+base row 101: specs=333 errors=0 ampere_v1=292 ampere_v2=0 row_sha=c0ffe5b6982b1e48 moved=['Bf16ToF32_v1', 'BitNot_v1', 'BitOr_v1', 'F2fpBf16_v1', 'F32Eq_v1', 'I32Add_v1', 'SelectF32_v1', 'SelectI32_v1']
+base done 97.7 s

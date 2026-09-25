@@ -1,0 +1,44 @@
+start 2026-09-25T11:11:25Z head /workspace/research/src/5e21eead11a0cb6274e343d86c71475dbe489da3 base /workspace/base rows 101 11 39 60 57 73 74 75 70 68 67 23
+fetched 101 129 MB 3 descriptors
+fetched 11 15 MB 0 descriptors
+fetched 39 21 MB 0 descriptors
+fetched 60 23 MB 0 descriptors
+fetched 57 21 MB 0 descriptors
+fetched 73 33 MB 0 descriptors
+fetched 74 36 MB 0 descriptors
+fetched 75 46 MB 0 descriptors
+fetched 70 61 MB 0 descriptors
+fetched 68 102 MB 0 descriptors
+fetched 67 105 MB 0 descriptors
+fetched 23 144 MB 0 descriptors
+base 11 rc=0 11:11:32
+head 11 rc=0 11:11:32
+base 39 rc=0 11:11:33
+head 39 rc=0 11:11:33
+head 60 rc=0 11:11:33
+base 60 rc=0 11:11:33
+head 57 rc=0 11:11:34
+base 57 rc=0 11:11:34
+base 73 rc=0 11:11:35
+head 73 rc=0 11:11:35
+base 74 rc=0 11:11:36
+head 74 rc=0 11:11:36
+base 75 rc=0 11:11:37
+head 75 rc=0 11:11:37
+base 70 rc=0 11:11:37
+head 70 rc=0 11:11:37
+base 68 rc=0 11:11:38
+head 68 rc=0 11:11:38
+base 67 rc=0 11:11:39
+head 67 rc=0 11:11:39
+base 23 rc=0 11:11:39
+head 23 rc=0 11:11:40
+base 101 rc=0 11:11:55
+base build_request/descriptor.json.gz: stored_ok=True reencode_ok=True respec=727/differ=0/unreg=1/err=0 ampere=['AmpereBF16TcDot16_v1'] 10.9s rss=0.63GB
+base build_step/descriptor.json.gz: stored_ok=True reencode_ok=True respec=27/differ=0/unreg=1/err=0 ampere=['AmpereBF16TcDot16_v1'] 0.4s rss=0.63GB
+base build_workload/descriptor.json.gz: stored_ok=True reencode_ok=True respec=727/differ=0/unreg=2/err=0 ampere=['AmpereBF16TcDot16_v1'] 10.9s rss=0.65GB
+head 101 rc=0 11:11:56
+head build_request/descriptor.json.gz: stored_ok=True reencode_ok=True respec=727/differ=0/unreg=1/err=0 ampere=['AmpereBF16TcDot16_v1'] 11.2s rss=0.63GB
+head build_step/descriptor.json.gz: stored_ok=True reencode_ok=True respec=27/differ=0/unreg=1/err=0 ampere=['AmpereBF16TcDot16_v1'] 0.4s rss=0.63GB
+head build_workload/descriptor.json.gz: stored_ok=True reencode_ok=True respec=727/differ=0/unreg=2/err=0 ampere=['AmpereBF16TcDot16_v1'] 11.2s rss=0.64GB
+done 2026-09-25T11:11:56Z

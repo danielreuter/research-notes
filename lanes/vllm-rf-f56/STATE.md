@@ -2,7 +2,7 @@
 id: vllm-rf-f56/state
 lane: vllm-rf-f56
 kind: state
-status: active
+status: complete
 created: 2026-09-24T17:40Z
 ---
 # vllm-rf-f56: collectives guard and FA-tap exactness (D16, D17) (state)
@@ -118,13 +118,16 @@ created: 2026-09-24T17:40Z
 - 02:08:18Z **GATE (a) T0,T1 at `ce41390d` GREEN** (tp2b, `a_final_t01`): exit 0, 158 = 73 passed / 85 skipped (33 deselected), 7,969 s. jdiff vs my T0 at `ce41390d`: only the 26 T1 checks change: `replay_partition` skipped (tier) -> passed on #11 #39 #57 #60 #67 #68 #73 #74 #101; 17 new skip reasons, all T1 "does not apply" / "not resolvable" (`replay_partition` #4 #23 #70 #75: no sampled_replay record; `decomp_hashes` all 13: 6 "no match_decomp.json", 7 batched rows "match<path> not resolvable here"); 0 F / 0 E. **jdiff vs a23b's T0+T1 base at `72884c8a`** (`vllm-rf-a23b/gate_a-t0t1-base-72884c8a-samepod.xml.gz`, a23b's 512 GB pod): 73 / 85 both, 0 only-in, 0 outcome changes, 0 new skip reasons. Log/XML: laptop `/tmp/rff56/gate_final/a_final_t01.{log,xml}`.
 - 02:12Z coordinator banners read: deadline 05:00Z (was 03:00Z); **rebase onto main** (`20260925T0032Z-main-moved-a23b.md`: `4bd6c54c`, a23b merged, f56 clean). `origin/main` is now `bbbe936c` (= `4bd6c54c` + one tools/research commit); `git merge-tree origin/main ce41390d` clean; main since `1d9c3198` touches 5 of my files (by_name_allowlist, census_roots, p08, p10, tp/worker.py) without overlap.
 
+- 02:13Z **REBASED onto `origin/main` `bbbe936c`** (coordinator 00:32Z): no conflict, no allowlist edit; **final head `a4b823a3`** (`70a09d8d` D16, `4cf49dc8` D17, `a4b823a3` lints), pushed `--force-with-lease`. `git range-diff 1d9c3198..ce41390d origin/main..a4b823a3`: `3262ebb4 = 70a09d8d`, `ce41390d = a4b823a3`, `6c893a29 ! 4cf49dc8` only in one `tests/census_roots.txt` hunk's context (main deleted `verity_vllm.harness.rebuild_digest_gate` beside my root); added/removed lines of both diffs identical.
+- 02:15Z **at `a4b823a3` on tp2b** (tree = `head-final` + the 136 changed / 58 deleted files of `git diff --no-renames ce41390d a4b823a3`; 3,050 blobs == ls-tree, no extra file after deleting gate (a)'s `__pycache__` and `program/numerics/cpp/build`): **lints 41 passed**; affected tests 121 passed (my 6 touched files + the 5 untouched files naming what I changed: `acquire/test_fa2_tap_geometry.py` (main edited it), `correspondence/test_correspondence_source_query.py`, `correspondence/test_tp_collective_site.py`, `observe/test_observe_resolve.py`, `tp/test_tp_partial_source_mid_module.py`). Logs: laptop `/tmp/rff56/gate_final/tp2b_logs/logs/`.
+- 02:18Z **tp2b `9h1suziuk97uur` DRAINED** (minted 1 h key): 5/5 attempts preserved, TERMINATED. `research pods list`: no f56 pod.
+- 02:25Z **READY.md written** (this directory). Lane complete.
+
 ## Running
-- `vyv-rf-f56-tp2b` ($2.18/h): idle (gate (a) done, every attempt preserved). Kept for the post-rebase lint run.
+- nothing (no pod, no command).
 
 ## Next
-1. Rebase onto `origin/main` `bbbe936c`, push `--force-with-lease`; ship the tree to tp2b (patch over `head-final` + blob check); `tests/lint` + touched tests; fix allowlists until 41 passed.
-2. Drain tp2b (minted 1 h key).
-3. READY: fill GATE_A_T01, PODS, CREATED, the third head; move to this directory as READY.md; summary <= 250 words.
+- none: READY for the coordinator's merge check. If `main` moves again, rebase and rerun `tests/lint` on a pod.
 
 ## Open questions
 - none yet

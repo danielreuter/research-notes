@@ -2,9 +2,10 @@
 lane: red-team-arith
 kind: report
 created: 2026-09-25T00:04Z
-status: open
+status: final
 ---
 
+CHECKPOINT none (01:52Z) [final] red-team arith: PASS. 9d1a7f15 0baefa9d f550fdc6 92ea2531/92dab0ad leave proof bytes identical to main 22741456 under fixed coins on 5090, H100, A100 (bare, +hash, FS); robustness: quad_v4/lincomb2 >48KiB smem launch failure, not a byte change; pods terminated, ~$4.07
 CHECKPOINT none (01:19Z) [open] H100 done: tests PASS, byte A/B all 6 trees IDENTICAL on fp8/bf16-hopper-v3x4 l4096 p8, +hash (fp8/bf16 l16384), FS; control differs; 9 arts preserved (art:6f099c8b ...); pod terminated 01:16Z (~$3.37). A100 up, run r20260925-011824-1c9a
 CHECKPOINT 4bd6c54c (00:55Z) [open] H100 (sm_90, vy-red-team-arith-h100 EUR-IS-3): tests_fused_test PASS, redteam 227 PASS + same 3 smem launch errors (robustness, old kernels OK); byte A/B h8/h16 running r20260925-004904-c8a2 (laptop->pod sync too slow: shipped a 3.6 MB git-archive subset)
 CHECKPOINT a4333dd0 (00:35Z) [open] 5090 (sm_120) done: tests_fused_test PASS; byte A/B all 6 trees IDENTICAL on fp4-nvf4 l8192 p8 bare, +hash, FS; seed control differs; art:34e47954 art:35fdf2ab art:75a715b5 art:4d2a8176 art:25e89894; H100 syncing
@@ -146,3 +147,20 @@ No counterexample to byte equality. Separate robustness finding (a crash, never 
 launch fail above 48 KiB of dynamic shared memory (D=6 Q>262144, D=7 Q>224768, lincomb2 D=7 chunk>877 rows), where the
 replaced kernels run; Table 2 shapes are 4-10x below those limits. 4090 (sm_89) not run: its opt-in limit and code
 paths are those of the 5090.
+
+## FINAL
+~~~text
+tip: lane/red-team-arith @ a4333dd0 (base lane/arith@92dab0ad)        merge-with: none (test-only files; optional)
+known-failures: none (redteam_arith_test "FAIL" = the 3 smem launch ERRORs below)    pod: terminated 01:30Z; $4.07
+artifacts: art:34e47954 art:35fdf2ab art:75a715b5 art:4d2a8176 art:25e89894 art:6f099c8b art:dedd5070 art:d975bd89 art:e24484d2 art:55b40d49 art:a7af1258 art:700a7f76 art:9e9421a7 art:edb13e2d art:d30a7b45 art:6f8e4c5c art:3f4336b3 art:65003df1 art:d85ac42b art:080e5498 art:abe5e3e7 art:a93406b1
+~~~
+red-team arith: PASS. Every commit (9d1a7f15, 0baefa9d, f550fdc6, 92ea2531/92dab0ad) leaves the proof bytes identical to
+main 22741456 under fixed coins on RTX 5090 (sm_120), H100 (sm_90) and A100 (sm_80): bare, + in-proof hash, and FS (5090,
+H100); Rust verify accepts every tip dump at 2^-128; a changed seed changes the dump on each target. No counterexample.
+- Robustness finding for arith (a crash, never a different byte): quad_v4 / lincomb2 launch without the >48 KiB shared
+  memory opt-in (D=6 Q>262144, D=7 Q>224768, lincomb2 D=7 chunk>877 rows); fix by opting in or gating the fused path.
+- f550fdc6's intt_rows is reached only on the H100 row (n=32768); on the 5090 (n=32768) and A100 (n=65536) the Table 2
+  cells fall back, so there it is covered by micro-tests only (n <= 16384 / 32768).
+- Handoffs sent: lanes/coordinator/20260925T0135Z-handoff-from-red-team-arith.md, lanes/arith/20260925T0135Z-handoff-from-red-team-arith.md.
+  kb: pipelined-bench-timing.md "Fused prover kernels: byte equality and shared-memory limits".
+- Pods: vy-red-team-arith (5090) ~$0.33, vy-red-team-arith-h100 ~$3.37, vy-red-team-arith-a100 ~$0.37; all terminated.

@@ -1,0 +1,292 @@
+head 3858 {'skipped': 292, 'passed': 3501, 'failure': 54, 'error': 11}
+base 3841 {'skipped': 292, 'passed': 3482, 'failure': 56, 'error': 11}
+only in head: ['test_a_table_that_is_not_the_pinned_one_does_not_load', 'test_capture_identities_refuses_to_sample_coordinates_without_a_seed', 'test_default_tables_do_not_depend_on_torch', 'test_replay_refuses_a_sampled_tier_without_a_seed[a]', 'test_replay_refuses_a_sampled_tier_without_a_seed[chain]', 'test_the_arch_is_declared_never_read_from_the_environment', 'test_the_declared_layout_reaches_only_a_committer_that_implements_it', 'test_the_environment_selects_no_table', 'test_the_padding_leaf_rule_is_the_committers_not_the_environment', 'test_the_sampled_replay_stages_need_a_seed_and_the_others_do_not', 'test_the_seed_has_no_default[verity_vllm.check.compiled_kernel_check-CompiledKernelCheck]', 'test_the_seed_has_no_default[verity_vllm.check.relations-draw_sample]', 'test_the_seed_has_no_default[verity_vllm.check.relations-ensure_adjacent_pair]', 'test_the_seed_has_no_default[verity_vllm.check.replay-tier_a]', 'test_the_seed_has_no_default[verity_vllm.check.replay-tier_chain]', 'test_the_seed_has_no_default[verity_vllm.check.sampled_replay-sampled_replay]', 'test_the_seed_has_no_default[verity_vllm.correspondence.capture_identities-run]']
+only in base: []
+outcome changed base -> head (2):
+  test_fork_gc_freeze_opt_out_is_named_on_the_record: failure -> passed | head:  | base: assert False
+ +  where False = all(<generator object test_fork_gc_freeze_opt_out_is_named_on_the_record.<locals>.<genexpr> at 0x6ffc49936ce0>)
+  test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins: failure -> passed | head:  | base: assert 375 == 0
+ +  where 375 = <built-in function get_freeze_count>()
+ +    where <built-in function get_freeze_count> = gc.get_freeze_count
+same outcome, different skip/fail message (19):
+  test_gumbel_two_stage_sampler_is_one_token_select: head: AssertionError: assert ([Unsupported(event_id=2037, op='vllm.v1.worker.gpu.sample.gumbel._gumbel_sample_kernel', reason='sampler logits are no...x width is not the vocabulary', detail={'phase': 'sampl | base: AssertionError: assert ([Unsupported(event_id=2037, op='vllm.v1.worker.gpu.sample.gumbel._gumbel_sample_kernel', reason='sampler logits are no...x width is not the vocabulary', detail={'phase': 'sampl
+  test_hf5b_case[gpt2-sdpa-f32-tie1-greedy-gelu_pytorch_tanh]: head: AssertionError: ('gpt2-sdpa-f32-tie1-greedy-gelu_pytorch_tanh', 'df10ea4b096188d5a4710586f10d8ea4bd8384ef7484cd5749ad70a7466da503', '03925eb18841')
+assert False
+ +  where False = <built-in method star | base: AssertionError: ('gpt2-sdpa-f32-tie1-greedy-gelu_pytorch_tanh', 'df10ea4b096188d5a4710586f10d8ea4bd8384ef7484cd5749ad70a7466da503', '03925eb18841')
+assert False
+ +  where False = <built-in method star
+  test_hf5b_case[llama-sdpa-f32-tie1-greedy]: head: AssertionError: ('llama-sdpa-f32-tie1-greedy', 'b95d27f1f80a56445cdbadcfe3800df0f585dffa4e059e23826364c4ed019db7', '538319a3770a')
+assert False
+ +  where False = <built-in method startswith of str obj | base: AssertionError: ('llama-sdpa-f32-tie1-greedy', 'b95d27f1f80a56445cdbadcfe3800df0f585dffa4e059e23826364c4ed019db7', '538319a3770a')
+assert False
+ +  where False = <built-in method startswith of str obj
+  test_hf5b_case[qwen2-sdpa-f32-tie1-greedy]: head: AssertionError: ('qwen2-sdpa-f32-tie1-greedy', '38a35673ceb9347db3e73e29562fca98047ba86bc2126d3b955f41770c52c5ef', 'e9d32625a99b')
+assert False
+ +  where False = <built-in method startswith of str obj | base: AssertionError: ('qwen2-sdpa-f32-tie1-greedy', '38a35673ceb9347db3e73e29562fca98047ba86bc2126d3b955f41770c52c5ef', 'e9d32625a99b')
+assert False
+ +  where False = <built-in method startswith of str obj
+  test_hf5b_case[qwen3-sdpa-f32-tie1-greedy]: head: AssertionError: ('qwen3-sdpa-f32-tie1-greedy', '06fc85bb2911c167c12b5973ac7b9b3775557a4cf0b501570283e87da920457e', '46ed593f82a3')
+assert False
+ +  where False = <built-in method startswith of str obj | base: AssertionError: ('qwen3-sdpa-f32-tie1-greedy', '06fc85bb2911c167c12b5973ac7b9b3775557a4cf0b501570283e87da920457e', '46ed593f82a3')
+assert False
+ +  where False = <built-in method startswith of str obj
+  test_i_d_host_answering_another_capability_than_declared: head: AssertionError: host_says_90_profile_89: refusal does not name the field /capab|flash_attn_version|target profile mismatch/:    
+assert None
+ +  where None = <function search at 0x7e5f6f8e62a0>('capab | base: AssertionError: host_says_90_profile_89: refusal does not name the field /capab|flash_attn_version|target profile mismatch/:    
+assert None
+ +  where None = <function search at 0x7937b14622a0>('capab
+  test_ii_a_capability_9_0_declared_consistently: head: AssertionError: cap90_consistent: refusal does not name the field /flash_attn_version|capab/:    
+assert None
+ +  where None = <function search at 0x7e5f6f8e62a0>('flash_attn_version|capab', '   ', re | base: AssertionError: cap90_consistent: refusal does not name the field /flash_attn_version|capab/:    
+assert None
+ +  where None = <function search at 0x7937b14622a0>('flash_attn_version|capab', '   ', re
+  test_ii_b_target_8_0_with_108_sms_declared_consistently: head: AssertionError: []
+assert []
+ +  where [] = Build(name='cap80_sms108_consistent', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/cap80_sms108_con...cializedDefinition\nModuleNotFoundE | base: AssertionError: []
+assert []
+ +  where [] = Build(name='cap80_sms108_consistent', tree=PosixPath('/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/cap80_sms108_cons...cializedDefinition\nModuleNotFoundE
+  test_ii_c_num_sms_repinned_132_consistently: head: AssertionError: []
+assert []
+ +  where [] = Build(name='sms132_pin', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/sms132_pin/tree'), out=PosixP...cializedDefinition\nModuleNotFoundE | base: AssertionError: []
+assert []
+ +  where [] = Build(name='sms132_pin', tree=PosixPath('/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/sms132_pin/tree'), out=PosixPa...cializedDefinition\nModuleNotFoundE
+  test_iii_two_hosts_same_profile_same_identity: head: AssertionError: ('   ', '   ')
+assert (False)
+ +  where False = Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDefinit | base: AssertionError: ('   ', '   ')
+assert (False)
+ +  where False = Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/base/tree'), out=PosixPath('/tmp/pyt...cializedDefinit
+  test_inv_freq_models_cuda_reciprocal_multiply_and_is_identity_for_power_of_two_D: head: AssertionError: [0, 0, 0, 0, 0, -1, ...]
+assert (np.int64(15) == 14)
+ +  where np.int64(15) = <built-in method sum of numpy.ndarray object at 0x7ca13620da10>()
+ +    where <built-in method sum of nump | base: AssertionError: [0, 0, 0, 0, 0, -1, ...]
+assert (np.int64(15) == 14)
+ +  where np.int64(15) = <built-in method sum of numpy.ndarray object at 0x726744851110>()
+ +    where <built-in method sum of nump
+  test_iv_reuse_under_mismatched_profile_is_rejected: head: AssertionError: assert False
+ +  where False = Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDefinition\nModuleNotFou | base: AssertionError: assert False
+ +  where False = Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/base/tree'), out=PosixPath('/tmp/pyt...cializedDefinition\nModuleNotFou
+  test_iv_tampered_wrapper_is_rejected[<program digest>-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-requester1]: head: AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDe | base: AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/base/tree'), out=PosixPath('/tmp/pyt...cializedDe
+  test_iv_tampered_wrapper_is_rejected[applicability.vllm_flash_attn_version-value2-requester2]: head: AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDe | base: AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/base/tree'), out=PosixPath('/tmp/pyt...cializedDe
+  test_iv_tampered_wrapper_is_rejected[target_profile.compute_capability-value0-requester0]: head: AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDe | base: AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/base/tree'), out=PosixPath('/tmp/pyt...cializedDe
+  test_repo_root_resolution_prefers_export_json_then_git_then_markers: head: AssertionError: assert None == '/workspace/head-gb'
+ +  where None = <function repo_root_of at 0x7ca14bc82ca0>(PosixPath('/workspace/head-gb/integrations/vllm/verity_vllm/harness/source_identity.py')) | base: AssertionError: assert None == '/workspace/main-gb'
+ +  where None = <function repo_root_of at 0x7aff166925c0>(PosixPath('/workspace/main-gb/integrations/vllm/verity_vllm/harness/source_identity.py'))
+  test_s3_untied_lm_head_loses_sharing_and_is_refused_by_family: head: AssertionError: assert 7158595 > 7158595
+ +  where 7158595 = <verity.ir.program.Program object at 0x7bccd52af470>.input_gates
+ +    where <verity.ir.program.Program object at 0x7bccd52af470> = DeriveR | base: AssertionError: assert 7158595 > 7158595
+ +  where 7158595 = <verity.ir.program.Program object at 0x7fad3a706480>.input_gates
+ +    where <verity.ir.program.Program object at 0x7fad3a706480> = DeriveR
+  test_v_program_digest_unchanged_by_the_patch: head: AssertionError: base build refused/crashed (rc=1):    
+  
+  Traceback (most recent call last):
+    File "/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/driver.py", line 4, in <module>
+      runp | base: AssertionError: base build refused/crashed (rc=1):    
+  
+  Traceback (most recent call last):
+    File "/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/base/driver.py", line 4, in <module>
+      runpy
+  test_vi_dead_env_var_is_not_recorded_as_a_declared_fact: head: AssertionError: ('   ', None)
+assert (False)
+ +  where False = Build(name='attn_env_dead', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/attn_env_dead/tree'), out=...cializedDefiniti | base: AssertionError: ('   ', None)
+assert (False)
+ +  where False = Build(name='attn_env_dead', tree=PosixPath('/tmp/pytest-of-root/pytest-7/popen-gw6/cbtest0/attn_env_dead/tree'), out=P...cializedDefiniti
+head failures/errors (65):
+  test_card_json_roundtrip_and_schema: failure | FileNotFoundError: [Errno 2] No such file or directory: '/workspace/head-gb/integrations/vllm/out/gen/cards/SCHEMA.md' | base: failure
+  test_s3_untied_lm_head_loses_sharing_and_is_refused_by_family: failure | AssertionError: assert 7158595 > 7158595
+ +  where 7158595 = <verity.ir.program.Program object at 0x7bccd52af470>.input_gates
+ +    where <verity.ir.program.Program object at 0x7bccd52af470> = DeriveReport(program=<verity.ir.program.Program object at 0x7bccd52af470>, unsupported=None, provenance={'s | base: failure
+  test_gelu_ref_vs_torch[none-bf16]: failure | AssertionError: {'words': 65280, 'exact_words': 64620, 'exact_fraction': 0.9898897058823529, 'max_ulp': 128, ...}
+assert inf <= 1.0 | base: failure
+  test_gelu_ref_vs_torch[none-f32]: failure | AssertionError: {'words': 65552, 'exact_words': 44502, 'exact_fraction': 0.6788808884549671, 'max_ulp': 875646710, ...}
+assert nan <= 1.0 | base: failure
+  test_inv_freq_models_cuda_reciprocal_multiply_and_is_identity_for_power_of_two_D: failure | AssertionError: [0, 0, 0, 0, 0, -1, ...]
+assert (np.int64(15) == 14)
+ +  where np.int64(15) = <built-in method sum of numpy.ndarray object at 0x7ca13620da10>()
+ +    where <built-in method sum of numpy.ndarray object at 0x7ca13620da10> = array([ 0,  0,  0,  0,  0, -1,  0, -1,  0,  0, -1,  0,  0,  0, | base: failure
+  test_gumbel_two_stage_sampler_is_one_token_select: failure | AssertionError: assert ([Unsupported(event_id=2037, op='vllm.v1.worker.gpu.sample.gumbel._gumbel_sample_kernel', reason='sampler logits are no...x width is not the vocabulary', detail={'phase': 'sample', 'children': [], 'V': 48, 'vocab': 49152}, consumed=(2038,))] and True and 'greedy' in 'sampler l | base: failure
+  test_b1_workloads_load_to_the_intended_sampling: failure | NameError: name 'execution_of_workload' is not defined | base: failure
+  test_mixed_batch_per_request_variant: failure | NameError: name 'execution_of_workload' is not defined | base: failure
+  test_v_program_digest_unchanged_by_the_patch: failure | AssertionError: base build refused/crashed (rc=1):    
+  
+  Traceback (most recent call last):
+    File "/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/driver.py", line 4, in <module>
+      runpy.run_module(sys.argv[0], run_name='__main__')
+    File "<frozen runpy>", line 229, in run_module
+   | base: failure
+  test_i_a_base_manifest_declares_the_capability_the_shim_applied: failure | AssertionError: base manifest declared capabilities set() (expected exactly {'8.9'})
+assert set() == {'8.9'}
+  
+  Extra items in the right set:
+  '8.9'
+  Use -v to get more diff | base: failure
+  test_i_b_mutating_the_applied_capability_changes_the_manifest[verity_vllm/program/frontend/target_profile.py]: failure | AssertionError: mutation of verity_vllm/program/frontend/target_profile.py touched nothing: []
+assert []
+ +  where [] = Build(name='cap90_site__verity_vllm__program__frontend__target_profile.py', tree=PosixPath('/tmp/pytest-of-root/pytest...cializedDefinition\nModuleNotFoundError: No module named \' | base: failure
+  test_i_c_artifact_identity_distinguishes_targets_even_when_digests_are_equal: failure | AssertionError: base artefact carries NO artifact/cache identity (files: []; manifest keys: [])
+assert None is not None | base: failure
+  test_i_d_host_answering_another_capability_than_declared: failure | AssertionError: host_says_90_profile_89: refusal does not name the field /capab|flash_attn_version|target profile mismatch/:    
+assert None
+ +  where None = <function search at 0x7e5f6f8e62a0>('capab|flash_attn_version|target profile mismatch', '   ', re.IGNORECASE)
+ +    where <function search at  | base: failure
+  test_ii_a_capability_9_0_declared_consistently: failure | AssertionError: cap90_consistent: refusal does not name the field /flash_attn_version|capab/:    
+assert None
+ +  where None = <function search at 0x7e5f6f8e62a0>('flash_attn_version|capab', '   ', re.IGNORECASE)
+ +    where <function search at 0x7e5f6f8e62a0> = re.search
+ +    and   '   ' = Build(n | base: failure
+  test_ii_b_target_8_0_with_108_sms_declared_consistently: failure | AssertionError: []
+assert []
+ +  where [] = Build(name='cap80_sms108_consistent', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/cap80_sms108_con...cializedDefinition\nModuleNotFoundError: No module named \'verity\'\n', result={}, manifest={}, mutations=[], wall=0.1).mutations | base: failure
+  test_ii_c_num_sms_repinned_132_consistently: failure | AssertionError: []
+assert []
+ +  where [] = Build(name='sms132_pin', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/sms132_pin/tree'), out=PosixP...cializedDefinition\nModuleNotFoundError: No module named \'verity\'\n', result={}, manifest={}, mutations=[], wall=0.0).mutations | base: failure
+  test_iii_two_hosts_same_profile_same_identity: failure | AssertionError: ('   ', '   ')
+assert (False)
+ +  where False = Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDefinition\nModuleNotFoundError: No module named \'verity\'\n', result={}, manifest={}, mutations=[], wall= | base: failure
+  test_iii_identity_excludes_host_facts: failure | assert None is not None | base: failure
+  test_iv_reuse_under_mismatched_profile_is_rejected: failure | AssertionError: assert False
+ +  where False = Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDefinition\nModuleNotFoundError: No module named \'verity\'\n', result={}, manifest={}, mutations=[], wall=0.1).ok | base: failure
+  test_iv_reuse_under_mismatched_applicability_is_rejected: failure | AssertionError: untestable: no TargetProfile: ModuleNotFoundError("No module named 'verity'")
+assert None is not None | base: failure
+  test_iv_tampered_wrapper_is_rejected[target_profile.compute_capability-value0-requester0]: failure | AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDefinition\nModuleNotFoundError: No module named \'verity\'\n', result={}, manifest={}, mutations=[],  | base: failure
+  test_iv_tampered_wrapper_is_rejected[<program digest>-ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff-requester1]: failure | AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDefinition\nModuleNotFoundError: No module named \'verity\'\n', result={}, manifest={}, mutations=[],  | base: failure
+  test_iv_tampered_wrapper_is_rejected[applicability.vllm_flash_attn_version-value2-requester2]: failure | AssertionError: assert None is not None
+ +  where None = identity_of(Build(name='base', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/base/tree'), out=PosixPath('/tmp/py...cializedDefinition\nModuleNotFoundError: No module named \'verity\'\n', result={}, manifest={}, mutations=[],  | base: failure
+  test_iii_identity_is_recomputable_from_its_published_definition: failure | AssertionError: no wrapper with an 'identity' field in []
+assert [] | base: failure
+  test_iii_manifest_and_wrapper_agree_on_the_identity: failure | AssertionError: no identity value found in manifest or wrapper
+assert set() | base: failure
+  test_iv_reuse_under_the_matching_profile_is_accepted: failure | assert None is not None | base: failure
+  test_vi_dead_env_var_is_not_recorded_as_a_declared_fact: failure | AssertionError: ('   ', None)
+assert (False)
+ +  where False = Build(name='attn_env_dead', tree=PosixPath('/tmp/pytest-of-root/pytest-6/popen-gw11/cbtest0/attn_env_dead/tree'), out=...cializedDefinition\nModuleNotFoundError: No module named \'verity\'\n', result={}, manifest={}, mutations=[], wall=0 | base: failure
+  test_precheck_passes_with_matching_veritor_repo_and_sha[repo]: failure | assert None | base: failure
+  test_precheck_passes_with_matching_veritor_repo_and_sha[integration]: failure | assert None | base: failure
+  test_negative_requested_sha_mismatch_fails_by_name: failure | AssertionError: assert (0 == 3)
+ +  where 0 = CompletedProcess(args=['/workspace/venv312/bin/python', '-m', 'verity_vllm.harness.source_identity', '--sha', '0000000...K verity=000000000 verity_vllm=000000000 hidden_gpu=000000000 research=000000000 tree=/workspace/head-gb\n', stderr='').returncode | base: failure
+  test_repo_root_resolution_prefers_export_json_then_git_then_markers: failure | AssertionError: assert None == '/workspace/head-gb'
+ +  where None = <function repo_root_of at 0x7ca14bc82ca0>(PosixPath('/workspace/head-gb/integrations/vllm/verity_vllm/harness/source_identity.py'))
+ +    where <function repo_root_of at 0x7ca14bc82ca0> = gsid.repo_root_of
+ +    and   PosixPath('/w | base: failure
+  test_check_writes_the_evidence_schema: failure | AssertionError: assert {'fa2_model',...', 'tc_model'} == {'fa2_model',...', 'tc_model'}
+  
+  Extra items in the left set:
+  'openmp'
+  Use -v to get more diff | base: failure
+  test_mean_pins_match_installed_vllm: failure | AssertionError: ('src_sha256', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', '94b6a25ba19f2471ae2dc06c49edbcc3a0937ccbe47d1f716cf393155caf711e')
+assert 'e3b0c44298fc...5991b7852b855' == '94b6a25ba19f...393155caf711e'
+  
+  - 94b6a25ba19f2471ae2dc06c49edbcc3a0937ccbe47d1f716cf393 | base: failure
+  test_load_workload_honours_sampling_block_and_keeps_greedy_default: failure | NameError: name 'execution_of_workload' is not defined | base: failure
+  test_pod_release_sh_writes_through_the_module_and_checks: failure | FileNotFoundError: [Errno 2] No such file or directory: '/workspace/head-gb/integrations/vllm/verity_vllm/ops/pod_release.sh' | base: failure
+  test_pod_release_busy_pattern_names_the_stage_processes_launched_outside_row_pod: failure | FileNotFoundError: [Errno 2] No such file or directory: '/workspace/head-gb/integrations/vllm/verity_vllm/ops/pod_release.sh' | base: failure
+  test_serve_untied_is_not_registered_and_binds_from_the_profile_config: failure | AssertionError: assert ['embed', 'la...n', 'lm_head'] == ['embed', 'la...m', 'cos_sin']
+  
+  Left contains one more item: 'lm_head'
+  Use -v to get more diff | base: failure
+  test_serve_untied_differs_from_serve_v4_only_at_the_lm_head_operands: failure | AssertionError: []
+assert 0 == (2 + 1)
+ +  where 0 = len([]) | base: failure
+  test_program_digest_of_b0_8_4_unchanged_and_cross_host: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_i_same_digest_different_identity_manifest_reports_applied[cap80_108-cap0-108]: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_i_same_digest_different_identity_manifest_reports_applied[sms132-cap1-132]: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_i_b_capability_applied_only_around_the_export_is_refused: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_ii_consistently_changed_target_is_refused_verbatim[cap100-numerics_unregistered: no registered GEMM specialization for target cc 10.0 (tuned_gemm_arch_family='blackwell')-applied0]: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_ii_consistently_changed_target_is_refused_verbatim[triton_attn-numerics_unregistered: attention impl='vllm.v1.attention.backends.triton_attn.TritonAttentionImpl' (observed on layer 'model.layers.0.self_attn.attn') differs from the target's 'vllm.v1.attention.backends.flash_attn.FlashAttentionImpl'-applied1]: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_iv_hopper_target_binds_the_registered_hopper_definitions[cap90-3-Attention_v2{T,NH,KVH,D,BN=fa3_kblock_n(D,seqlen_q,NH/KVH),DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1}-bi-eager]: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_iv_hopper_target_binds_the_registered_hopper_definitions[cap90_fa2-2-Attention_v2{T,NH,KVH,D,BN=fa2_kblock_n(D),DOT=HopperBF16WgmmaDot16_v1,INV=Fa2InvSum_v1}-bi-eager-fa2]: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_iii_identity_is_host_independent: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_case_iv_reuse_under_mismatched_profile_is_rejected: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_dead_env_var_is_recorded_as_ignored_not_declared: error | failed on setup with "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-6/popen-gw7/cbfix0/base/result.json'" | base: error
+  test_check_cos_sin_against_the_captured_b0_table: failure | assert (29154 <= 2) | base: failure
+  test_pod_release_fails_closed_on_a_stale_so_and_records_the_digest: failure | FileNotFoundError: [Errno 2] No such file or directory: '/workspace/head-gb/integrations/vllm/tests/acquire/../sweep/pod_release.sh' | base: failure
+  test_nv_logf_and_nv_log1pf_are_word_equal_to_the_libdevice_transcriptions_on_every_non_nan_word: failure | AssertionError: ('nv_logf', '0xcfbec2f8', '0x7fc00000', '0xffc00000')
+assert 2143289344 == 4290772992 | base: failure
+  test_renumber_assigns_invocations_per_call_site: failure | torch.AcceleratorError: CUDA error: CUDA driver version is insufficient for CUDA runtime version
+Search for `cudaErrorInsufficientDriver' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+For more detailed error information, run with CUDA_LOG_FILE=stder | base: failure
+  test_sigint_is_forwarded_the_same_way: failure | subprocess.TimeoutExpired: Command '['bash', '/tmp/pytest-of-root/pytest-6/popen-gw10/test_sigint_is_forwarded_the_s0/harness.sh']' timed out after 15 seconds | base: failure
+  test_ship_roots_name_out_gen_hf_configs: failure | FileNotFoundError: [Errno 2] No such file or directory: '/workspace/head-gb/integrations/vllm/record_v5/ship.sh' | base: failure
+  test_r17_sparse_patterns_re_include_hf_configs: failure | FileNotFoundError: [Errno 2] No such file or directory: '/workspace/head-gb/integrations/vllm/out/gen/r17/sparse-patterns.txt' | base: failure
+  test_realhf_case[llama-sdpa-bf16-tie0-fwd]: failure | AssertionError: llama-sdpa-bf16-tie0-fwd: derived program disagrees with torch CPU: {'evaluated': True, 'words': 1024, 'exact_words': 294, 'bit_exact': False, 'eval_seconds': 9.7, 'gates_evaluated': 1521408, 'max_abs': 0.0625, 'max_rel': 5.296296296296297, 'want_max_abs': 4.34375, 'tolerance': 'bf16 | base: failure
+  test_t1_workloads_load_as_seeded_temperature_one_headers: failure | NameError: name 'execution_of_workload' is not defined | base: failure
+  test_realhf_case[qwen2-sdpa-bf16-tie0-fwd]: failure | AssertionError: qwen2-sdpa-bf16-tie0-fwd: derived program disagrees with torch CPU: {'evaluated': True, 'words': 1024, 'exact_words': 245, 'bit_exact': False, 'eval_seconds': 9.7, 'gates_evaluated': 1525760, 'max_abs': 0.056640625, 'max_rel': 5.065573770491803, 'want_max_abs': 4.21875, 'tolerance':  | base: failure
+  test_hf5b_case[llama-sdpa-f32-tie1-greedy]: failure | AssertionError: ('llama-sdpa-f32-tie1-greedy', 'b95d27f1f80a56445cdbadcfe3800df0f585dffa4e059e23826364c4ed019db7', '538319a3770a')
+assert False
+ +  where False = <built-in method startswith of str object at 0x7b555b13fec0>('538319a3770a')
+ +    where <built-in method startswith of str object at 0x7b | base: failure
+  test_hf5b_case[qwen2-sdpa-f32-tie1-greedy]: failure | AssertionError: ('qwen2-sdpa-f32-tie1-greedy', '38a35673ceb9347db3e73e29562fca98047ba86bc2126d3b955f41770c52c5ef', 'e9d32625a99b')
+assert False
+ +  where False = <built-in method startswith of str object at 0x7b555b491a70>('e9d32625a99b')
+ +    where <built-in method startswith of str object at 0x7b | base: failure
+  test_hf5b_case[gpt2-sdpa-f32-tie1-greedy-gelu_pytorch_tanh]: failure | AssertionError: ('gpt2-sdpa-f32-tie1-greedy-gelu_pytorch_tanh', 'df10ea4b096188d5a4710586f10d8ea4bd8384ef7484cd5749ad70a7466da503', '03925eb18841')
+assert False
+ +  where False = <built-in method startswith of str object at 0x7b555b4900a0>('03925eb18841')
+ +    where <built-in method startswith of s | base: failure
+  test_realhf_case[mistral-sdpa-bf16-tie0-fwd]: failure | AssertionError: mistral-sdpa-bf16-tie0-fwd: derived program disagrees with torch CPU: {'evaluated': True, 'words': 1024, 'exact_words': 294, 'bit_exact': False, 'eval_seconds': 9.6, 'gates_evaluated': 1521408, 'max_abs': 0.0625, 'max_rel': 5.296296296296297, 'want_max_abs': 4.34375, 'tolerance': 'bf | base: failure
+  test_hf5b_case[qwen3-sdpa-f32-tie1-greedy]: failure | AssertionError: ('qwen3-sdpa-f32-tie1-greedy', '06fc85bb2911c167c12b5973ac7b9b3775557a4cf0b501570283e87da920457e', '46ed593f82a3')
+assert False
+ +  where False = <built-in method startswith of str object at 0x7b5552cdd140>('46ed593f82a3')
+ +    where <built-in method startswith of str object at 0x7b | base: failure
+  test_realhf_case[gpt2-sdpa-bf16-tie1-greedy-gelu_pytorch_tanh]: failure | AssertionError: gpt2-sdpa-bf16-tie1-greedy-gelu_pytorch_tanh: derived program disagrees with torch CPU: {'evaluated': True, 'words': 5, 'exact_words': 2, 'bit_exact': False, 'eval_seconds': 55.8, 'gates_evaluated': 8265149, 'match': False, 'match_mode': 'exact tokens', 'got': [53, 123, 56, 56, 115], | base: failure
+head skip reasons:
+  157 x set VERITY_REGRESSION=<n> to run the R<n> reference regression
+  11 x needs a GPU and the JIT-built native_collect extension
+  10 x recorded evidence <path> not present in this tree
+  9 x R<n> fixture not present
+  9 x fixture record r<n>_<n>_b<n>_unitB not checked out
+  9 x row-of-record output code not present
+  8 x full-size build: set CAPTURE_BIG=<n> (DESIGN §<n>)
+  6 x CUDA device required
+  5 x W<n> attention fixtures not present: <path>
+  5 x GPU pod end-to-end only (needs vLLM + a workload)
+  4 x W<n>R stress fixtures not present: <path>
+  4 x CUDA needed: MeanTriton models the GPU mean_kernel's reduction order
+  4 x M<n> capture / fixture not present
+  3 x wave-<n> capture <path> not present
+  3 x CUDA needed to build the native collector extension
+  2 x collection skipped
+  2 x M<n> MoE fixtures not present: <path>
+  2 x CBTEST_GPU_HOST=<n> to run the GPU-visible host-mismatch build
+  2 x evidence dir absent: <path>
+  2 x needs CUDA (cudaHostRegister)
+  2 x literal Triton kernels need CUDA
+  2 x could not import 'veritor.core.pad_serve': No module named 'veritor'
+  1 x B<n> GEMM fixtures (RTX <n> eager) not present: <path>
+  1 x HP's tc-hopper archive not present: /root/veritor-artifacts/hp/tc-hopper/r<n>/precision.npz
+  1 x W<n>R RMSNorm fixtures not present: <path>
+  1 x B<n> divergence fixture not present: <path>
+  1 x run artefact not present
+  1 x sweep workloads not in this checkout
+  1 x probe artifacts not fetched
+  1 x reference manifests not in this checkout (sparse tree without out/gen)
+  1 x real Programs: set VERITY_DENSE_PROGRAM_DIRS / VERITY_MOE_PROGRAM_DIRS (':'-separated Program dirs)
+  1 x lane ov-moe's recorded topk_softmax cases not in this checkout
+  1 x out/gen/r<n> is not part of the Verity tree (materialised on the pod by pod_hidden_gpu.sh)
+  1 x CUDA needed
+  1 x HOLE-<n>: pattern-declared operand views are not cross-checked against the event's tensor arguments
+  1 x heavy audit probe; set XFER_HEAVY=<n>
+  1 x workload_cov_b<n>_b<n>_c<n>.json not generated in this checkout
+  1 x live constructions need the pod venv (vLLM); set HARDEN_LIVE=<n>
+  1 x HOLE-<n> (equal bytes): no byte-based check can react and the identity check does not see the declared view
+  1 x HOLE-<n>: partial tiling (un-tiled returns are never evaluated) does not fail tier a / G<n>
+  1 x HOLE-<n>: a Definition outside verity_vllm.program.registry that is not under *.quarantine.* is not a quarantine spec for G<n>
+  1 x HOLE-<n>: census.declared_kernels_of_step / reconcile do not distinguish Transparent from Compute claims of a compute kernel
+  1 x opt-in (FA<n>_COMMIT_ORIGINAL_LOADER=<n>): the original MufuTables.load peaks at <n> MB resident [M], <n> MiB under the laptop guardian's <n>-MiB kill line; the
+  1 x flip branch needs a CUDA tensor (exercised on the pod by neg_flip_partial)
+  1 x local m<n> capture absent
+  1 x <n>^<n>-word scan (~<n> s vectorised): VERITY_EXHAUSTIVE=<n>
+  1 x workload file not in this checkout
+  1 x got empty parameter set for (path)
+  1 x B<n> bundle not present: <path>
+  1 x CUDA required
+  1 x needs CUDA
+  1 x this checkout has no record_v<n>/ship.sh or data/hf_configs
+  1 x a fresh process without `verity_vllm.program.registry.hopper` cannot decode the Hopper descriptor: {'bare': (<n>, "KeyError: 'primitive GatherBf<n>x<n>_v<n> is 

@@ -1,0 +1,12 @@
+head 3891 {'skipped': 292, 'passed': 3534, 'failure': 54, 'error': 11}
+main 3874 {'skipped': 292, 'passed': 3515, 'failure': 56, 'error': 11}
+F/E at head, not at main: []
+F/E at main, not at head: ['tests.harness.test_admit_r19_host_working_set::test_fork_gc_freeze_opt_out_is_named_on_the_record', 'tests.harness.test_admit_r19_host_working_set::test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins']
+tests only at head (17): {'passed': 17}
+tests only at main: []
+outcome changes main -> head: [('tests.harness.test_admit_r19_host_working_set::test_fork_gc_freeze_opt_out_is_named_on_the_record', 'failure', 'passed'), ('tests.harness.test_admit_r19_host_working_set::test_forked_children_inherit_a_frozen_heap_and_the_parent_unfreezes_after_the_pool_joins', 'failure', 'passed')]
+skip reasons whose count differs head vs main: {}
+head: F/E outside a1's base F/E (xdist + serial): []; in a1's xdist list 65, only in its serial list 0
+   skips whose reason is in neither a1 run: [('tests.program.test_ship_roots::test_ship_pack_carries_out_gen_hf_configs', 'this checkout has no record_v5/ship.sh or data/hf_configs')]
+main: F/E outside a1's base F/E (xdist + serial): []; in a1's xdist list 65, only in its serial list 2
+   skips whose reason is in neither a1 run: [('tests.program.test_ship_roots::test_ship_pack_carries_out_gen_hf_configs', 'this checkout has no record_v5/ship.sh or data/hf_configs')]

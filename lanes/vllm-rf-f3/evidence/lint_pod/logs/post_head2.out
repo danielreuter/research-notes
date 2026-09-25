@@ -1,0 +1,15 @@
+start 2026-09-25T02:45:32Z tree /workspace/head-post_head2 sha 4c4159c5a5ad4321a0c269969143b4b3b8d27ed6
+== env overrides unset
+  fa2: /workspace/head-post_head2/integrations/vllm/verity_vllm/program/numerics/tables/W11-40f0cebeb670-20260907T1800Z | under program/numerics/tables/: True
+  rms triton: /workspace/head-post_head2/integrations/vllm/verity_vllm/program/numerics/tables/W11R-40f0cebeb670-20260907T1802Z | under program/numerics/tables/: True
+  rms cuda: /workspace/head-post_head2/integrations/vllm/verity_vllm/program/numerics/tables/W11C-40f0cebeb670-20260907T1900Z | under program/numerics/tables/: True
+  tables() load + TABLE_SHA256 check: ok
+  MUFU_TANH_TABLE_DIR: /workspace/head-post_head2/integrations/vllm/verity_vllm/program/registry/quarantine/dense/tables | isdir: True
+== env overrides set to /nonexistent, VERITY_ARCH=sm_90
+  fa2: /workspace/head-post_head2/integrations/vllm/verity_vllm/program/numerics/tables/W11-40f0cebeb670-20260907T1800Z | under program/numerics/tables/: True
+  rms triton: /workspace/head-post_head2/integrations/vllm/verity_vllm/program/numerics/tables/W11R-40f0cebeb670-20260907T1802Z | under program/numerics/tables/: True
+  rms cuda: /workspace/head-post_head2/integrations/vllm/verity_vllm/program/numerics/tables/W11C-40f0cebeb670-20260907T1900Z | under program/numerics/tables/: True
+  tables() load + TABLE_SHA256 check: ok
+  MUFU_TANH_TABLE_DIR: /workspace/head-post_head2/integrations/vllm/verity_vllm/program/registry/quarantine/dense/tables | isdir: True
+...                                                                      [100%]
+exit 0 2026-09-25T02:45:34Z

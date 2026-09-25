@@ -28,6 +28,6 @@ proof, verify 4.9 s CPU. Security 2^-92.891 per proof (-99.0 + log2 69, kb/sp1-p
 3. **R2 (required):** recompute a, b, y roots from the frozen set's rows with core-only code (`verity.commitments`
    sha256_row_digest / FrameV3 / binding_digest, K = 1536) and compare with the statement's. Red-team SH confirmed the core-only
    roots equal the SP1 reference's for VU 0; the in-run verifier did NOT do this (the producer-side fix, `committed-verify --batch`
-   at b54e42ed, compiles untested: the pod was terminated at WRAP UP before its build finished).
+   at b54e42ed, compiled on the pod, never run: the pod was terminated at 08:44Z).
 
 My own verify labels do not count; the cell is unverified until you do (3).

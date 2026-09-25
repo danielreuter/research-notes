@@ -15,7 +15,7 @@ created: 2026-09-25T08:40Z
   about +117% t.total (51.0 vs 23.5 s). The kb attributes the shard blow-up to SP1 6.4.0's ShapeChecker charging deferred
   precompile memory to CPU shards; fork patch 0006 (lane/sp1-tcdot) is a non-stock lever. There is no same-pod bare baseline yet.
 - **Red-team SH R2 acted on:** b54e42ed adds `committed-verify --batch` (the roots are recomputed from the frozen set) and a
-  prover-chosen-roots negative. It is replayed locally but not compiled or run on a pod, because the build was cut by WRAP UP.
+  prover-chosen-roots negative. It is replayed locally and compiled on the pod (the vllm host build, vk 0x00eacdbd…5cc9), but never run: the pod was terminated at 08:44Z.
 - **Needs your acceptance:** on lane/sp1-committed, bench.views marks the vllm-v1 scheme core-defined (verity.commitments.vllm_v1,
   after PR #15) and adds an SP1 vllm-v1 variant.
-- The vllm-v1 guest, host and Python are done and tested locally against the core vectors. It is not built on a pod and not measured.
+- The vllm-v1 guest, host and Python are done and tested locally against the core vectors. Its host is built (vk 0x00eacdbd…5cc9) but it is not measured and its pod negatives were not run.

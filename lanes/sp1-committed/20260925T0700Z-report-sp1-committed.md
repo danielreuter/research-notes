@@ -2,9 +2,11 @@
 lane: sp1-committed
 kind: report
 created: 2026-09-25T07:00Z
-status: open
+status: final
 ---
 
+CHECKPOINT none (08:45Z) [final] tip b54e42ed. frame-v3 SP1 committed cell art:49695f7c (run-files art:9e3c06bd): t.total 51.04s + commit.seconds 0.008s, 69 shards, 2^-92.9 (algebraic flag), handed to verify-night-2 w/ R2 root recompute. vllm-v1 host built (vk 0x00eacdbd), unmeasured. Pod gone 08:44Z.
+CHECKPOINT 10996616 (08:45Z) [final] tip b54e42ed. frame-v3 SP1 committed cell art:49695f7c (run-files art:9e3c06bd): t.total 51.04s + commit.seconds 0.008s, 69 shards, 2^-92.9 (algebraic flag), handed to verify-night-2 w/ R2 root recompute. vllm-v1 host built (vk 0x00eacdbd), unmeasured. Pod gone 08:44Z.
 CHECKPOINT b54e42ed (08:38Z) [open] frame-v3 cell: art:49695f7c (run-files art:9e3c06bd) t.total 51.04s+commit 8ms, 69 shards 2^-92.9, plateau. Red-team R2 acted on: b54e42ed committed-verify --batch (roots vs frozen set) + prover-chosen-roots negative. Build/retro check r20260925-083540-f37a running.
 CHECKPOINT cafa9464 (08:18Z) [open] frame-v3 measured r20260925-080516-d8ac: 9/9 negs rejected, 5 reps proved+verified (~4.9s verify), sweep B1024/2048 running. Next: register, build vllm-v1 (build_vllm.sh), vllm measured, same-pod bare baseline.
 CHECKPOINT b06a7ec3 (07:59Z) [open] measured fp8-ada frame-v3 run r20260925-073644-5901: 5 reps prove ~52.6s B=4096, 69 shards, 105MB, commit ~8ms, 5/5 pinned verify; sweep in progress. vllm-v1 variant coded+pushed (tip b06a7ec3, main 5631e667 merged); next: pod build+negatives, measured vllm run
@@ -62,9 +64,11 @@ leaves (`sha256/row/v1`, PR #15's schema), the host checking the trees natively;
   - the vllm-v1 variant (guest feature relation-committed-vllm, host, Python, fixtures/sp1-committed/committed-vllm-vectors.json,
     views/drilldown lines), tested locally against the core vllm_v1 vectors.
 - **Known failures and gaps:**
-  - b54e42ed (host `--batch` / `--adopt-published-roots`) is not compiled yet: build run r20260925-083540-f37a was cut by pod
-    termination;
-  - vllm-v1 is not built on a pod and not measured;
+  - b54e42ed's host compiled on the pod with `cuda,relation-committed-vllm`. Build run r20260925-083540-f37a installed the vllm
+    host (guest ELF 412641773dc9fd396e1c7ce8423cfad502f9403481c3ca413c1744f84634519a, vk
+    0x00eacdbd2f4b4a1f3b4001f79d3afff7ebb409ea4b8df322e322f26470ce5cc9). The pod was then terminated during the bare build, so the
+    frame-v3 rebuild and pin check, the retro `--batch` verifies and the vllm executor negatives never ran;
+  - vllm-v1 is not measured;
   - there is no same-pod bare baseline;
   - the in-run verifier of art:49695f7c did not check the roots against the instances (R2);
   - bench.views marks vllm-v1 core-defined on this branch, which needs the coordinator's acceptance.
@@ -77,5 +81,12 @@ leaves (`sha256/row/v1`, PR #15's schema), the host checking the trees natively;
      with `--custody-r2 --custody-ttl 8h --exclusive`, then register it with evidence/reg.sh.
   3. Run the same-pod `--backend sp1-bare` baseline.
   4. Optionally, fork patch 0006 to test the ShapeChecker explanation (non-stock).
-- **Pod:** vy-sp1-committed (6n0tv9llnhs142, 4090, $0.74/h), up about 2 h (roughly $1.5), terminated at WRAP UP.
+- **Pod:** vy-sp1-committed (6n0tv9llnhs142, 4090, $0.74/h), up about 2 h (roughly $1.5), gone (404) at 08:44Z, terminated during WRAP UP.
 - **Artifacts:** art:49695f7c (bench-result), art:9e3c06bd (run-files), fp8-ada set art:4a6f7602.
+- **Handoffs answered:**
+  - 20260925T0650Z-handoff-from-coordinator.md: core schemas and vectors adopted; frame-v3 first, then vllm-v1 (coded, host built, unmeasured).
+  - 20260925T0752Z-handoff-from-coordinator.md: survey §4.4 adopted (SHA-256 precompile row digests); the measured overhead is
+    above its projection (Results); no link protocol built.
+  - 20260925T0820Z-handoff-from-red-team-standard-hash.md: R2 acted on at b54e42ed (`--batch` instance-root check and the
+    prover-chosen-roots negative), and verify-night-2 was told to recompute the roots.
+  - 20260925T0823Z-handoff-from-coordinator.md: wrap-up done (registered, handed off, pod gone, FINAL).

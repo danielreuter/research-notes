@@ -117,6 +117,19 @@ Pod scripts: `evidence/pod-scripts/`.
   inputs (0.776x)**: 7 168 bit + 3 778 product + 800 sel rows. Per VU (fp8, 48 blocks): 563 808 hash rows vs 726 672. It
   needs a new witness op (`xadd`: bits of other ^ (lo + 2^16 hi mod 2^32)) in every generator (witness.py, the 4
   witness_device forms) and new pins -- not wired; see Decisions.
+* 08:33Z r20260925-083225-a0a4 (`51-r2check.sh`, tree de2fa317, the plateau dump): **R2 honest: `commitment_problems`
+  (True, []) in 49.9 s; `verify_tree` PASS 193/193 with hashed=True in 105.7 s**. Negatives on copied statements, each
+  FAIL: wrong `set` digest (a/b bindings differ), a flipped root, a removed statement (16 299 / 16 384 VUs covered);
+  restored control PASS. Pinned relation = the manifest's `statement_relation` (fp8-ada+blake3).
+* 08:35Z red team (inbox 0835Z): R1 closed (art:9fa210e7…); **R4** (art:c7683eb2…): coverage counted statements whose proof
+  is missing (Rust `batch --dir` verifies `*.proof` only). Fix 07e5cf98 + 5c7c4488: `per_rep` comes from the manifest's
+  entries that have a proof; a rep whose `*.stmt` stems, `*.proof` stems and proof entries differ, a stmt entry without a
+  proof, a proof paired with another stem's stmt, or an unreadable statement is a layout problem (FAIL); a hashed dump
+  requires the batch's `n` = the statements counted; `hashed` is decided from the pinned relation (`+`) or any hash_auth.
+  r20260925-083926-0584 (`52-r4check.sh`, 07e5cf98): **red team's rtsh_orphan_e2e.py (21393756) rc 1 "not reproduced"**:
+  control PASS; orphan-stmt and stmt-entry variants FAIL (layout); honest plateau (True, []); a proof removed from a
+  symlinked copy -> "rep1: 193 statements, 192 proofs, 193 manifest proof entries (not the same files: ['sub_07'])".
+  r20260925-084339-014c (`53-unit.sh`, 5c7c4488): reverify_test + hashauth_test 12 passed; R4 check re-run on the tip.
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.
 

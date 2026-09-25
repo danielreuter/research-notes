@@ -314,7 +314,7 @@ def _encodings(_=None) -> dict:
     from verity_vllm.program.registry import prims as P, ref_prims as R
     out["pins"]["registry_version"] = registry_version()["digest"]
     out["pins"]["ref_vocab_digest"] = R.ref_vocab_digest()
-    out["pins"]["vocabularies"] = {k: v.version() for k, v in sorted(vars(V).items()) if isinstance(v, V.Vocabulary)}
+    out["pins"]["vocabularies"] = {k: v.version for k, v in sorted(vars(V).items()) if isinstance(v, V.Vocabulary)}
     import platform
     out["host_nan"] = {"machine": platform.machine(), "numpy": np.__version__,
                        "F32Add(inf,-inf)": hex(P.F32Add.evaluate(0x7F800000, 0xFF800000)),

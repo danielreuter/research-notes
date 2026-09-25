@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT 806a2f73 (10:37Z) [open] malloc-env cells (MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12 set): x1 4096 frozen e2e 3.558s art:9b80f566; x4 4096 1.981s art:050ddede; x4 plateau 8192 2165 VU/s art:19be6afa -> verify-night-2 1037Z. x1 sweep running.
 CHECKPOINT 806a2f73 (10:06Z) [open] Live same-pod verifier cell x1 4096 frozen: 5/5 sessions ACCEPT 49/49 own coins, e2e 3.596s, art:e9932b72 -> verify-night-2 (1008Z). Malloc env adopted from now (lib.sh + --env); x4 sweep re-run with it r..100526-b232.
 CHECKPOINT 806a2f73 (09:58Z) [open] GPU-committer cells registered: x1 4096 frozen e2e 3.585s art:e7d59ab6; x4 4096 e2e 2.048s art:017a7069; x4 plateau 8192 2109 VU/s art:6b6d4484 -> verify-night-2 (0958Z). Live same-pod verifier run r..095340 accepting 49/49/rep.
 CHECKPOINT 806a2f73 (09:20Z) [open] GPU committer smoke: device==host evidence, 4096 x1 e2e 3.64s (1125 VU/s). x4 fold probe l4096p2: e2e 2.05s @4096 (1999 VU/s, 1.78x x1; p3 OOM). x4 sweep r..091922-a390 running (custody). R2 negs on tip all caught.
@@ -243,7 +244,18 @@ Pod scripts: `evidence/pod-scripts/`.
   - p4: art:763754456315ceb8e5376bad26eb4a100a0cc01210b9569e1e3882b67ea8895a
 
   (These labels carry the lane prefix twice: 40-register.sh adds it, and I passed it too. Cosmetic.)
-* 10:29Z r20260925-102900-4391 (`22-cells.sh`): the x1 + x4 4096 cells with the malloc env.
+* 10:29Z r20260925-102900-4391 (`22-cells.sh`): the x1 + x4 4096 cells with the malloc env. DONE; both registered 10:35Z.
+
+  | cell | t.total | commit | e2e | VU/s | overhead | bits | Rust batch (pinned) |
+  |---|---|---|---|---|---|---|---|
+  | **fp8-ada+blake3 4096 frozen** | 3.547 s | 0.0109 s | **3.558 s** | 1151 | 9.34e7× | 128.40 | ACCEPT 49/49 |
+  | **fp8-ada-x4+blake3 4096** | 1.973 s | 0.0088 s | **1.981 s** | 2067 | 5.20e7× | 128.33 | ACCEPT 13/13 |
+
+  - x1: result art:9b80f566838f4956ecc85df853c718ddfe07a5af8682dd69f29b3c7df75ae611, tree
+    art:0c5840907e1c24fe8190d0af2b0e32763494ba413b939e0b8d8cf9195f569b4e.
+  - x4: result art:050ddede1083ac67f417d2345d5b1f0a8d47314c94ee5a9988d7f1cdb8300650, tree
+    art:ef264ad325e8207dae1b75b2d09b35d13cfbfe1b1c717bc40592afd69043df62.
+* 10:36Z r20260925-103611-67e0: the x1 (fp8-ada+blake3) sweep with the malloc env, on the GPU committer.
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

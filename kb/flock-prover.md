@@ -153,3 +153,17 @@ Report: `lanes/flock-glue/20260925T1011Z-report-flock-glue.md`.
   BF16, H100 BF16, H100 FP8).
 - **Harness pitfall.** Building `BlockR1cs` for BLAKE3 per call costs about 1 s. Cache the statement and its digest once
   (the `stmt()` cache in `gen_test.py`).
+
+## Live coins (flock-live, 2026-09-25 5:22 AM PT, `lanes/coordinator/20260925T1222Z-handoff-from-flock-live.md`)
+- R1–R8 are implemented on `lane/flock-live` @ a43f6254, **not merged** and **not granted**: red-team-flock is re-auditing.
+  All negatives reject except link negatives 10 and 11, which need a `Commit(roots)` → `Coins(points)` → `Link(y)` exchange
+  before the first rep round.
+- Flock-CUDA's prove path draws challenges only from the host `FsChallenger`.
+- A live session is about 220 round trips per table (both reps), about 74 KB up and 30 KB down.
+- Live cost on the H100 pair at 4,096 VUs: BF16 0.982 s (1.24× FS), FP8 0.526 s (1.30× FS). Price the live verifier's RTT
+  into the prover time.
+- R5 is a gate: the server refuses coins until a `Link` message arrives (an opaque stub today). The C2 order is link points
+  as a verifier coin slot after root_F and root_B, then y, then Flock's coins, so root_B must be committed before Flock's
+  first round.
+- Flock's union prover commits and binds inside `prove_fast_ligerito_union`, so a session driver needs a commit-then-prove
+  split or the exchange above. Negative 15 (cross-session replay against both reps) passes.

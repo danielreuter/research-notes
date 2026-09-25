@@ -14,10 +14,12 @@ nvidia-smi --query-compute-apps=pid,name --format=csv | tee -a $OUT/gpu.txt
 PARTS=${PARTS:-"A B"}
 if [[ $PARTS == *A* ]]; then
   cd $W/flock
+  for rep in $(seq 1 ${CUDA_REPS:-1}); do
   for nbl in ${CUDA_NBLS:-12 13 16 17 18 19}; do
     /usr/bin/time -v cargo test -p flock-cuda-ffi --release --features gpu --test gpu_roundtrip -- --ignored --nocapture --exact gpu_roundtrip_vs$nbl \
-      > $OUT/flockcuda-nbl$nbl.txt 2>&1
-    echo "rc=$? nbl=$nbl"; grep -E "VSIZE|GPU proof verified|panicked|Maximum resident" $OUT/flockcuda-nbl$nbl.txt
+      > $OUT/flockcuda-nbl$nbl-r$rep.txt 2>&1
+    echo "rc=$? nbl=$nbl rep=$rep"; grep -E "VSIZE|GPU proof verified|panicked|Maximum resident" $OUT/flockcuda-nbl$nbl-r$rep.txt
+  done
   done
 fi
 if [[ $PARTS == *B* ]]; then
@@ -26,6 +28,16 @@ if [[ $PARTS == *B* ]]; then
   export FRX_PLATFORMS=cuda,cpu FRX_ENABLE_X64=1 XLA_PYTHON_CLIENT_PREALLOCATE=false
   unset JAX_PLATFORMS JAX_ENABLE_X64
   export PYTHONPATH="python:$W/zorch"
+  export CUDA_DIR=/usr/local/cuda-13.3 CUDA_ROOT=/usr/local/cuda-13.3 JAX_COMPILATION_CACHE_DIR=$W/jaxcache-cu133
+  # XLA resolves ptxas/nvlink from the pip nvidia-cuda-nvcc wheel (12.x, no clmad) ahead of PATH: point it at 13.3
+  PIPNV=$(ls -d .venv/lib/python3.11/site-packages/nvidia/cuda_nvcc/bin 2>/dev/null)
+  if [ -n "$PIPNV" ]; then
+    for t in ptxas nvlink; do
+      [ -e $PIPNV/$t ] && [ ! -L $PIPNV/$t ] && mv $PIPNV/$t $PIPNV/$t.cu12
+      ln -sf /usr/local/cuda-13.3/bin/$t $PIPNV/$t
+    done
+    $PIPNV/ptxas --version | tail -1
+  fi
   ptxas --version | tail -1
   for spec in ${ZSPECS:-"blake3:${ZB3:-3072 6144 49152 98304 196608 393216}" "sha2:${ZSHA:-3200 6272 51200 100352 204800 401408}"}; do
     circ=${spec%%:*}; counts=${spec#*:}
@@ -42,7 +54,7 @@ if [[ $PARTS == *B* ]]; then
           > $OUT/zorch-$circ-n$n-seed.txt 2>&1
         echo "rc=$? zorch-seed n=$n"; tail -4 $OUT/zorch-$circ-n$n-seed.txt
       fi
-      .venv/bin/python python/flock_zorch/testing/prove_phase_bench.py $circ --runs 2 --golden $g > $OUT/zorch-$circ-n$n-phases.txt 2>&1
+      [ "${ZPHASES:-0}" = 1 ] && .venv/bin/python python/flock_zorch/testing/prove_phase_bench.py $circ --runs 2 --golden $g > $OUT/zorch-$circ-n$n-phases.txt 2>&1
       [ $n -ge 196608 ] && rm -f $FLOCK_ZORCH_ARTIFACTS/$g
     done
   done

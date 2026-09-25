@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT e10e1d6 (08:29Z) [open] 08:31Z flock-bench re-prioritised to the binary-backend unit circuit + BLAKE3 table at 4096 VUs (CPU, 5090, A100/H100 clmad), cap $30, FINAL 15:00Z; flock-link-protocol queued for red-team-standard-hash (nothing builds on it before clearance). research spend since 11:51 PM PT: $16.86 of $300; running $16.41/h
 CHECKPOINT 59863be4 (08:25Z) [open] 08:26Z jolt-scout (FINAL 08:07Z, $1): curve Jolt did NOT run via ICICLE (that path only accelerated old HyperKZG MSMs, was removed in 2025, last rev doesn't compile); the live CUDA path is draft a16z/jolt PR #1618: ran on a 4090 at 5.7-8x the 16-vCPU CPU (max trace 2^25; 48 VUs SHA-256 committed 9.5 s GPU; 64 VUs BLAKE3 30.5 s CPU; 4096-VU projection ~3.3 min bare, 5-14 min committed vs SP1 bare 18.5 s on A100). Security ~100-bit (BN254/Dory), ~2^-110 with 125-bit challenges: below 2^-128 -> drill-down only. Recommends NO-GO for Table 2; optional ~$6 drill-down lane once PR #1618 merges. research spend since 11:51 PM PT: $15.93 of $300; running $12.92/h
 CHECKPOINT 65a3446 (08:22Z) [open] 08:24Z agent cap: research max 11 incl. coordinator; sp1-committed told to wrap up (lowest T2 value); next slot on the next FINAL. research spend since 11:51 PM PT: $15.49 of $300; running $12.92/h
 CHECKPOINT caa144d (08:12Z) [open] 08:14Z sweep: 11 lanes alive, none stale; disk 5.2 GiB (evicted 0.12; swap 17.9/19.5 GB is the drain; reserve: 6 clean finished worktrees ~1.1 GB); research spend since 11:51 PM PT: $13.33 of $300; running $13.32/h

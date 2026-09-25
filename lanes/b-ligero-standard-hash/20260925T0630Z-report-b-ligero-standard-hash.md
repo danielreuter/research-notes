@@ -89,6 +89,34 @@ Pod scripts: `evidence/pod-scripts/`.
   exactly once; a hashed dump with no `set` block, a tile, or a digest mismatch FAILs (fail closed). Pod check
   `50-fixcheck.sh` (cargo test, pytest, the red team's harness, R2 honest + 3 negatives) waits for the sweep: a run syncs
   /workspace/src, which later sweep points would import.
+* 08:07Z **sweep r20260925-073210-f45c DONE** (rc 0, custody-r2): 641.96 / 762.79 / 825.75 / 852.71 / **870.12** VU/s at 1024 ..
+  16384; 32768 was killed (rc -9) in rep 2 -> sweep_vu stops, `sweep` {plateau: true, point 4, 16384 VUs}. Plateau: 193
+  sub-batches of <= 85 VUs, e2e 18.5-19.8 s per rep, commitment ~2.2 s per rep. Pod's pinned ligero-verify (pre-fix
+  e7f47a52…) on the plateau's rep 1: batch ACCEPT 193/193, union 2^-128.40, `system pinned (fp8-ada+blake3)`, python 193/193
+  (producer check). Registered 08:22-08:24Z (all PRESERVED; `40-register.sh`):
+  - p0 1024: result art:5dfd3ae7e4a5b6b5b52b2f2eeb9434278115a651df3c13791f94c21821097885 (tree art:07ee42d4…)
+  - p1 2048: result art:7fed2ea586c24be28ee3d9c36d59fd6a59b4d09cc7024c464607a84602778fd3 (tree art:2b0677a2…)
+  - p2 4096: result art:294ad179d2f58bf77c20e26f1dfa9a206c61a5f64fbf97a15dd8555f6fe33df0 (tree art:cced69d5…)
+  - p3 8192: result art:642bb0d61111d328d7ef66b963f55c0884fc8b5e36dcbc4598886815be7ba95b (tree art:74992b10…)
+  - **plateau 16384: result art:d6328cf5ef00648038cb35a171f212ee39a9d5f341c1f049ce4a7eb1671f874e, tree (proofs, 5.4 GB)
+    art:0269046e49e47beda0cf6801812669f0628f8608236a1d5ce3d9234b6f065c77**
+  - standalone cell 6238 (4096, not a sweep point): result art:5d20ad00f5e7b251987cfc58998199e7c8ee8e35fd935d9a0c9dfb5ad1853a40
+    (tree art:3e64461f…)
+* 08:19Z r20260925-081917-0039 (`50-fixcheck.sh`, tree 8dace837): ligero-verify rebuilt (sha256 e1ed499c…), cargo test
+  33 + 7 + 27 passed; pytest hashauth_test + sweep_vu_test + blake3_test 20 passed. **Red team's rtsh_remap_e2e.py
+  (8ace1ada), plain and --set-binding: rc 1 "not reproduced"** -- the forgery (VU 0 on x row 1 / W column 1) is refused by
+  Python and Rust with "auth: a VU's x row / W column is not the one its index fixes in the committed layout"; the honest-
+  mapping control stays rejected (y root mismatch); reverify FAILs the harness's dump (no `set` block: fail closed). The R2
+  step of that script was wrong (it passed the manifest's base name `fp8-ada` as the pinned relation, so recomputed under
+  the Poseidon2 schema -- the statement's a binding dfac8627… IS the blake3-schema binding, checked by hand) and picked a
+  point whose proofs were dropped; redone as `51-r2check.sh` (r20260925-083225-a0a4).
+* 08:19Z r20260925-081954-2ebd (`55-xob.sh`): **XOR-output-bits BLAKE3 prototype** (`leaf/blake3_xob.py`, 8dace837; survey
+  §3.2 / §4.2 "prototype first: a CPU census"): numpy-interpreter tests 4 passed (compression == compress_np on random
+  cv / msg / counter / flags, limb-only cv[0..3] and constant-counter shapes; a flipped XOR-output bit / carry / square-pair
+  product breaks a constraint). **Census: 11 746 rows per 64-byte block against the pinned gadget's 15 139 on the same
+  inputs (0.776x)**: 7 168 bit + 3 778 product + 800 sel rows. Per VU (fp8, 48 blocks): 563 808 hash rows vs 726 672. It
+  needs a new witness op (`xadd`: bits of other ^ (lo + 2^16 hi mod 2^32)) in every generator (witness.py, the 4
+  witness_device forms) and new pins -- not wired; see Decisions.
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.
 

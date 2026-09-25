@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT e10e1d6 (08:33Z) [open] 21393756: R4 BREAK: R2 coverage (de2fa317 reverify + vn2 06) counts stmts w/o proof, 1/3 VUs proven PASS art:c7683eb2; de2fa317 closes R1, H2 PASS art:9fa210e7; sp1 R3 art:b11bc6ee; survey adopted (review §3.8 link when sent)
 CHECKPOINT a33671b (08:07Z) [open] e1138866: vn2 06-core-roots closes R1/R2 (flags forgery, art:8f2112e2); sp1-committed PASS guest/tree, R3 prover-chosen roots art:b11bc6ee; handoffs sent; polling for ligero-steps-pin fix, sha256 pins
 CHECKPOINT a2d67679 (07:46Z) [open] R1 remap BREAK fp8-ada+blake3 FAIL art:2b51c5fd; H2 steps pin PASS art:efaa3a46; blake3-80gb FAIL inherited (handoff sent); sha256/agkr not ready; now reviewing sp1-committed
 CHECKPOINT 7a8268cf (07:31Z) [open] fp8-ada+blake3 FAIL: R1 (vu,x,W) triple prover-chosen -> swapped y under honest x/W roots accepted pinned+python+reverify PASS; R2 reverify recomputes no roots/binding/coverage; handoffs sent; art:2b51c5fd. Next: H2 steps forge on +blake3
@@ -23,6 +24,8 @@ tree check (domain derivation, node/level/index, vllm-v1 path shape + root field
 | R1 | every v5 hashed statement (`+blake3`, `+poseidon2`, `+ajtai-*`), ligero-verify + Python | BREAK | e2e: forgery accepted pinned + Python + reverify PASS; again under production bindings | art:2b51c5fd, art:8f2112e2 |
 | R2 | B-Ligero independent re-verification (`reverify.py`) | BLOCKING | code read; closed for results checked by verify-night-2's `06-core-roots.py` (it flags the R1 forgery MISMATCH) | art:8f2112e2 |
 | R3 | SP1 relation-committed/v1 and -vllm/v1 `committed-verify` | BLOCKING (the R2 pattern) | e2e at tree-check level: prover-chosen roots under the frozen set's bindings and id accepted | art:b11bc6ee |
+| R4 | the R2 coverage checks: de2fa317 `reverify.commitment_problems`, verify-night-2 06 | BREAK of coverage (throughput claim; relation soundness unaffected) | e2e: 1 of 3 VUs proven, reverify PASS (de2fa317) and main reverify PASS + 06 ROOTS-MATCH (stmt-only manifest entries) | art:c7683eb2 |
+| fix re-test | b-ligero-standard-hash 3af90e71 + de2fa317 | R1 closed; H2 PASS; R4 open | e2e | art:9fa210e7, art:c7683eb2 |
 
 ## Verdicts
 | statement | verdict | evidence | handoffs |
@@ -71,3 +74,17 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
   tree check are sound and positional; the roots are prover-chosen (R3). A statement over the frozen fp8-ada set's [0, 1) with
   all-zero rows is accepted by `check`. Core-only roots over the true rows equal the SP1 reference's. art:b11bc6ee. 08:20Z
   handoffs to the coordinator and sp1-committed.
+* 07:49Z received `20260925T0752Z-handoff-from-coordinator.md` ("SURVEY LANDED: the gate is lifted..."). Adopted: nothing
+  changes in my queue; I will red-team the survey's §3.8 binary-to-prime-field link write-up when it is forwarded. The
+  survey's "XOR-output-bits BLAKE3 gadget" for b-ligero-standard-hash also goes in my queue, if it lands.
+* 08:10Z run rtsh-fix-0840 on b-ligero-standard-hash de2fa317 (synced to /workspace/src-fix from a detached worktree):
+  - R1 remap forgery refused (layout error) by Python and Rust;
+  - H2 steps 48 accepted pinned, 64 refused;
+  - first R4 attempt: my control used n_proofs = 1 with 2 proofs, so the batch refused it; the harness was fixed.
+  art:9fa210e7.
+* 08:25Z run rtsh-r4-0850 (harness 21393756, N = 3, only VU 0 proven):
+  - de2fa317 reverify PASS on both the orphan-.stmt and the stmt-only-entry variants;
+  - main reverify PASS plus 06 ROOTS-MATCH on stmt-only entries;
+  - the honest controls pass.
+  art:c7683eb2. 08:35Z handoffs to the coordinator (amending 0805Z), verify-night-2, b-ligero-standard-hash and
+  ligero-steps-pin.

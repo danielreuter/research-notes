@@ -78,4 +78,7 @@ Coordinator: vLLM coordinator bc-ba6cec03. Agent: bc-95aa165d. Worktree `~/proje
   construction sources). Before/after values go in READY.md; no Program/manifest/commitment digest change intended.
 
 ## Found, not fixed
-- none
+- `tests/program/test_twins.py::test_check_writes_the_evidence_schema` depends on xdist scheduling (`LIBRARIES["openmp"]`
+  appears only when the worker itself compiles tc_model). Failed at base, passed in head's rerun.
+- The H100 rows of record declare an H100 SXM (num_sms 132); an H100 PCIe pod (114 SMs) builds them and then
+  `build_engine` refuses the engine. Pick `NVIDIA H100 80GB HBM3` for them.

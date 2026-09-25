@@ -199,7 +199,27 @@ Evidence: `evidence/r101/nonint_{head,base}.log`, `evidence/r101/nonint-{head,ba
   is recorded only when the pytest process itself compiles `tc_model` (`_tc_lib` -> `_cxx_has_openmp`), so the test fails
   when its worker built the library and passes when another worker (or an earlier run on the pod) did. It failed at base
   and at `3bdcd0ad` (concurrent runs, fresh pod) and passed at head in the rerun. Not related to this lane.
-- FOUND_EXTRA
+- The H100 rows of record (for example `llama32-1b__bf16__h100__tp1__b1__i1024__o128__mixed__greedy__bi-eager`) declare an
+  H100 SXM (num_sms 132). On an `NVIDIA H100 PCIe` pod (114 SMs) the Build passes and then `build_engine` refuses the
+  engine ("engine does not realise the declared TargetProfile: num_sms declared 132, device 114"), after about 15 minutes
+  of Build. `research pods create --gpu "NVIDIA H100 80GB HBM3"` is the part for them. row_pod.sh's target-family
+  precheck only compares the compute capability, so it doesn't catch this before the Build.
+- `known_roots.json` has no cc 9.0 root for the Llama-3.2-1B B1 256/32 greedy canary row. Its FA3 root on an H100 PCIe
+  (head and base) is `f64a6611e49c2c7fe7a505cdf560e1364bcf9b1a7a73cbd14232d41648648747`, from one pair; it isn't pinned
+  there.
 
 ## Pods and spend
-PODS_SECTION
+All registered with guard 90, every run fetched (`research fetch --all`), then terminated and unregistered.
+
+| pod | part | up (Z) | $/h | spend | runs |
+|---|---|---|---|---|---|
+| `vyv-rf-b4-cpu` eroe8y957ahhjr | cpu3g 32 vCPU / 128 GB | 09:23-10:37 | 1.28 | 1.58 | gate (b) + lints: `r20260925-095236-2684`, `r20260925-095250-e4e8`, `r20260925-101530-aa45` |
+| `vyv-rf-b4-g1` 17ez42q6mb3wo2 | 1x L40S, 188 GB | 09:55-G1_END | 1.09 | G1_COST | `r20260925-100039-940f` (bootstrap, #101 head, non-interference), `r20260925-104202-d6d9` (#101 base), `r20260925-101742-278e` (gate (a)) |
+| `vyv-rf-b4-tp2` 19vmzfvh0x589w | 2x L40S, 377 GB | 10:05-12:15 | 2.18 | 4.72 | `r20260925-101142-d268` (#70) |
+| `vyv-rf-b4-h100` ew9cx2468ey9gx | 1x H100 PCIe | 10:45-11:57 | 1.99 | 2.39 | `r20260925-104827-1825`, `r20260925-113014-592b` (FA3) |
+
+Total about TOTAL_COST of the $25 budget. Fixture key: one 3 h read-only key minted on the laptop, piped into `vyv-rf-b4-g1`
+only, deleted by `tools/prefetch.sh` at 10:13:34Z after 26/26 artifacts, before gate (a) started.
+
+Scripts: `tools/` (boot, lints, gate_b, gate_a, prefetch, g1, r101_base, tp2, h100, h100c, cv.py, cmp70.py,
+create_cuda.py). Evidence: `evidence/{gate_b,gate_a,r101,r70,h100}/`.

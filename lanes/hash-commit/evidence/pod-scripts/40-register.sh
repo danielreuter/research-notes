@@ -25,6 +25,13 @@ for arg in "$@"; do
   tag=${arg%%=*}; label=${arg#*=}; [ "$label" = "$arg" ] && label=$tag
   d=$HC/runs/$tag
   [ -f $d/result.json ] || { echo "$tag: no result.json"; continue; }
+  ( cd $d && find proofs -type f | sort | xargs sha256sum > proofs.sha256 )
+  if [ -n "${SLIM:-}" ]; then   # SLIM=1: everything but the rep-1 .proof files (system.bin, statements, coins, Rust verdicts
+    s=$HC/slim/$tag; rm -rf $s; mkdir -p $s   # stay; every dumped file's sha256 in proofs.sha256)
+    cp -a $d/result.json $d/log $d/run_id $d/commit-evidence.json $d/proofs.sha256 $d/proofs $s/
+    rm -f $s/proofs/rep1/*.proof
+    d=$s
+  fi
   python3 - "$d/result.json" "$label" "$tag" "$POD" > $d.meta.json <<'PY'
 import json, sys
 r = json.load(open(sys.argv[1]))

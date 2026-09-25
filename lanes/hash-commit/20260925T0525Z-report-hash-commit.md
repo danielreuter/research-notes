@@ -8,6 +8,7 @@ final: 13:30Z hard; budget $20
 status: open
 ---
 
+CHECKPOINT b862be30 (05:56Z) [open] 4090 A/B x3 (CREPS5), ev+stmt sha identical all, rust 25/25: base commit 2.295-2.302s e2e 2.58; 5d14dafa (CUDA row_sponge) 0.254-0.258; 0b40ae8a (+SHA prefix) 0.219-0.236 e2e 0.505. rows 0.19 = list->int64; b862be30 passes drawn arrays, A/B now
 CHECKPOINT 5d14dafa (05:39Z) [open] 4090 fp8-ada l8192 p4 BEFORE (6e1cc576, no cache): commit 2.286s (trees 1.77 chain 0.33 rows 0.18) t.total 0.287 e2e 2.573, rust accepts, ev 247e44ca. tip 5d14dafa (CUDA row_sponge kernel, trees from chain digests) testing+bench now
 CHECKPOINT c1891d48 (05:25Z) [open] 05:26Z started; 4090 vy-hash-commit up (Ryzen 7950X), bootstrap running; commit time = host numpy Poseidon2 digests + torch GPU sponge (same digests twice) + py SHA trees; next: commit-reps harness, then CUDA row-sponge committer
 # hash-commit: hill-climb the B-Ligero + in-proof hash committer (row digests + trees), 4090 first

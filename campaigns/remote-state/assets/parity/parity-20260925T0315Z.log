@@ -1,0 +1,77 @@
+parity: build: the fresh store from the remote alone at 0s
+parity: build: manifests (5604) at 4s
+parity: build: manifests 4267/5604 (30s)
+parity: build: attempts (1168) at 43s
+parity: build: labels at 50s
+parity: build: labels running (60s)
+parity: build: labels running (90s)
+parity: compare: artifacts, attempts, labels at 108s
+parity: replicas: HEAD + ETag, nothing downloaded (5273) at 114s
+parity: replicas: HEAD + ETag, nothing downloaded 230/5273 (120s)
+parity: replicas: HEAD + ETag, nothing downloaded 732/5273 (150s)
+parity: replicas: HEAD + ETag, nothing downloaded 1215/5273 (180s)
+parity: replicas: HEAD + ETag, nothing downloaded 1810/5273 (210s)
+parity: replicas: HEAD + ETag, nothing downloaded 2376/5273 (240s)
+parity: replicas: HEAD + ETag, nothing downloaded 2917/5273 (270s)
+parity: replicas: HEAD + ETag, nothing downloaded 3384/5273 (300s)
+parity: replicas: HEAD + ETag, nothing downloaded 3808/5273 (330s)
+parity: replicas: HEAD + ETag, nothing downloaded 4229/5273 (360s)
+parity: replicas: HEAD + ETag, nothing downloaded 4582/5273 (390s)
+parity: replicas: HEAD + ETag, nothing downloaded 4891/5273 (420s)
+parity: replicas: HEAD + ETag, nothing downloaded 5247/5273 (450s)
+parity: replicas: HEAD + ETag, nothing downloaded 5260/5273 (480s)
+parity: replicas: HEAD + ETag, nothing downloaded 5264/5273 (510s)
+parity: replicas: HEAD + ETag, nothing downloaded 5266/5273 (540s)
+parity: replicas: HEAD + ETag, nothing downloaded 5268/5273 (570s)
+parity: replicas: HEAD + ETag, nothing downloaded 5269/5273 (600s)
+parity: replicas: HEAD + ETag, nothing downloaded 5269/5273 (630s)
+parity: replicas: HEAD + ETag, nothing downloaded 5269/5273 (660s)
+parity: replicas: HEAD + ETag, nothing downloaded 5269/5273 (690s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (720s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (750s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (780s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (810s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (840s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (870s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (900s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (930s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (960s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (990s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1020s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1050s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1080s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1110s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1140s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1170s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1200s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1230s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1260s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1290s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1320s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1350s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1380s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1410s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1440s)
+parity: replicas: HEAD + ETag, nothing downloaded 5272/5273 (1470s)
+parity: render: the fresh store (downloads the blobs the tables read, once) at 1499s
+parity: render: the fresh store (downloads the blobs the tables read, once) running (1500s)
+parity: render: the store under test, through a view (its records + the remote-only ones, the fresh blob cache) at 1502s
+parity: render: the store under test, through a view (its records + the remote-only ones, the fresh blob cache) running (1530s)
+parity: /Users/danielreuter/.research/store vs /private/tmp/parity-fresh-20260925T0315Z (built from s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com: +5604 manifests, +1168 attempts, +11519 labels; 1557.4s)
+artifacts  5604 on both, 0 mismatched, 5 pending here, 2 uploaded during the run, 0 not pulled (remote only)
+attempts   1168 on both, 9 mismatched, 1 uploaded during the run, 0 not pulled (remote only)
+labels     11519 on both, 0 mismatched, 0 not pulled (remote only)
+replicas   5273/5273 verified replica rows confirmed by HEAD on the remote (blobs: 65840 ETag == local MD5, 46354 remote-only, size-verified; nothing downloaded)
+render     DIFFERENT (43 lines) (the store under test + 0 remote-only records)
+  UNEXPLAINED attempts r20260922-053108-5a3c: content differs from the remote's
+  UNEXPLAINED attempts r20260922-055220-765b: content differs from the remote's
+  UNEXPLAINED attempts r20260922-060659-6f0f: content differs from the remote's
+  UNEXPLAINED attempts r20260922-061849-6634: content differs from the remote's
+  UNEXPLAINED attempts r20260922-083217-dfd4: content differs from the remote's
+  UNEXPLAINED attempts r20260922-104614-aaa7: content differs from the remote's
+  UNEXPLAINED attempts r20260922-175940-54ba: content differs from the remote's
+  UNEXPLAINED attempts r20260922-175944-db8c: content differs from the remote's
+  UNEXPLAINED attempts r20260922-180211-7e4a: content differs from the remote's
+  UNEXPLAINED render differs (43 lines)
+PARITY FAILED: 10 unexplained difference(s)
+exit 1

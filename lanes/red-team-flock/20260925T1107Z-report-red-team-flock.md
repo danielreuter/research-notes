@@ -5,6 +5,8 @@ created: 2026-09-25T11:07Z
 status: open
 ---
 
+CHECKPOINT 3301c435 (18:32Z) [open] fourth audit started 18:32Z (lane REOPENED): route (a) cell, agkr-flock-cell PR #28 @ c95dd13a, art:8f7ef58b. Paper/code review first.
+CHECKPOINT 3301c435 (15:58Z) [final] THIRD AUDIT: route (a) CPU GRANTED WITH CONDITIONS (flock-link@4b560b2b L1-L4,F2,F3 hold; art:20545959); composed 2^-130.2 (A-GKR-bound); no cell until E0 (ungated exchange accepted), E1 (evidence gate unenforced), P1-P3 (prime side). Pod terminated 15:57Z ~$0.05
 CHECKPOINT 3301c435 (15:40Z) [open] third audit started 15:41Z (lane REOPENED, not final): flock-link L1-L4/F2/F3 CPU, PR #25 lane/flock-link@4b560b2b. Pods only after 15:52Z.
 CHECKPOINT 3301c435 (12:50Z) [final] RE-AUDIT: GRANTED WITH CONDITIONS flock-128-r2 as implemented (flock-live@a43f6254): R1-R4,R6-R8 hold, 17 attacks rejected (art:1bd3368b art:12a6b845); R5 stub -> class for route (a) conditional on link L1-L4; F1-F3. Pods terminated 12:49Z ~$0.2
 CHECKPOINT 3301c435 (12:39Z) [open] re-audit in progress (lane reopened, NOT final): two vy-red-team-flock pods vanished ~2 min after launch (likely FINAL-POD reap from my 11:30Z final); retrying pod + local fallback build. Attack harness evidence/rtf_live_attacks_tail.rs
@@ -310,3 +312,126 @@ Runs r20260925-123224-2230 and r20260925-123625-6a37 were lost with their pods, 
 by r20260925-124333-1a03 and r20260925-124555-21d5 (the same script). Handoffs written:
 `lanes/coordinator/20260925T1255Z-handoff-from-red-team-flock.md` only. flock-live, flock-glue, agkr-bound and
 flock-128 are all final, so per contract §5 the coordinator's copy stands in for theirs.
+
+# Third audit (15:41–16:05Z): flock-link @ 4b560b2b, L1–L4, F2 and F3 on CPU (PR #25)
+
+**Grant for route (a) on CPU: GRANTED WITH CONDITIONS.** The Flock half of route (a) is granted, together with the link
+exchange (L1–L4, F2, F3 hold). Route (a) as a whole still has **no 2^-128 Table 2 cell**: the prime side isn't in the
+session yet (P1–P3 below), and the evidence gate isn't enforced in code (E1).
+
+**Composed whole-proof bound: 2^-130.2 on the A-GKR route (statistical terms, CPU, 4,096 BF16 VUs), set by A-GKR.**
+It's 2^-127.7 if the accountant counts A-GKR's hash budget (C8, still open). The table is below.
+
+Inputs:
+- flock-link's report (`lanes/flock-link/20260925T1430Z-report-flock-link.md`);
+- the code at `origin/lane/flock-link` 4b560b2b: the lib.rs diff, `flock-link.rs` and `flock-link-b684b12.patch`, all read;
+- F1 evidence art:00da1ce8: three session records, fetched and inspected.
+
+Handoffs received: none new.
+
+My run: r20260925-155333-c658, **art:20545959** (vus 8 and 64). Harness `evidence/rtf_link_attacks_tail.rs`; script
+`evidence/pod-scripts/30-link-attacks.sh`; results `evidence/rtf-link-attacks.tsv`. flock-link's own selftest
+reproduces there: 56 of 56 cases pass, including L3.
+
+## Attacks (vus 8 and 64; all at the same outcome on both)
+
+| attack | cond | result | stopped by |
+|---|---|---|---|
+| **y withheld until after every Flock coin, verifier configured `link: Some` with `require_link: false`** | L1/R5 | **ACCEPTED**; the record says `link_mode: "exchange"` | nothing. The library lets an exchange-mode session run without the R5 gate |
+| the same with `require_link: true` (the shipped default) | L1/R5 | rejected | R5 gate |
+| y1 and y2 swapped on the wire | L2 | rejected (both reps) | ring switch `ClaimMismatch` |
+| y from other operands (bits flipped in both y) | L2 | rejected | ring switch |
+| Commit with an extra table | L1/L3 | rejected | table-set check |
+| Commit before Hello | L1/R7 | rejected | R7 |
+| committed public chunk values of leaves 0 and 1 swapped | L4 | rejected | C4 native tree check at Commit |
+| rep 1 proves another witness | L1/R1 | rejected | R1 |
+| honest control | – | accepted | – |
+
+Why the first row is a real break when reachable: if y is chosen after Flock's opening coins, the prover can pick false
+(y1, y2) that cancel in the merged opening's random combination. That's red-team-link's trap 1, and the prime side
+would then prove b̂(r) = y for b ≠ z. The shipped `flock-link serve` never builds that configuration: it uses
+`flock_128_r2` defaults and has no `--no-link` flag. But nothing in the library or the evidence path refuses it, and
+the record's `link_mode` doesn't reveal it.
+
+## Verdicts
+- **L1: HOLDS in the shipped configuration.** The order is enforced: Hello, then Commit (root_F non-empty and every
+  root_B together), then points from the OS, then y (exact length), then Flock's coins. Each rep's binding round equals
+  the committed root_B and rep 0's root. Condition **E0**: the library must refuse `link: Some` with
+  `require_link: false`, or make the exchange imply the gate.
+- **L2: HOLDS.** The link claims are appended to each rep's merged opening from the verifier's record.
+  - The points and y are fixed before any Flock coin, so each rep's batched reduction draws fresh coins after y. Its
+    error is a round-by-round bound of about 2m/2^128, independent across reps: (66/2^128)^2 ≈ 2^-243.9 at m = 33.
+    Schwartz–Zippel over the two shared points is (28/2^128)^2 = 2^-246.4.
+  - `Chain::embed` checks out. It puts link bits 0–6 on the in-word bits, link bits 7–8 on columns 4 + u/128 (`M_BASE`
+    = 512: message words 4–7, exactly the compression's consumed inputs), row bits on ν, and fixes the column and slot
+    bits. It agrees with `link_eval`'s position order (row·512 + u = (l·K + k)·16 + i for LE 16-bit words in LE 32-bit
+    message words).
+  - **Honest-zero padding (flock-link's question): confirmed benign.** Claims are checked against the height-n_t dense
+    stack, and rows ≥ n_t are dropped from the commitment: in my first audit, a buffer with dirty padding gave the same
+    root as zero padding. Link positions ≥ N are zero on the prime side too.
+- **L3: HOLDS as tested** (one Σ, one Commit with every root, one y per table; flock-link's L3 negatives reproduce).
+  For CPU route (a) it isn't needed: the Flock side is a single chain table, and the census unit lives on the prime
+  side. The commit-only pass is prover-side only; the verifier checks the rep binding against the committed root.
+- **L4: HOLDS.**
+  - The chunk chain is wired: IV and params (counter = chunk index, block_len 64, START/0/END) are fixed publics, and
+    chunk CVs are public.
+  - The verifier checks the CVs natively through the BLAKE3 tree (`parent_cv` with PARENT/ROOT, left-balanced) against
+    the configured leaf digests, before drawing the points. The publics digest is bound in each rep.
+  - Leaves are at least two chunks, so no single-chunk ROOT case exists.
+  - A forged middle block, a wrong counter/flag/len, a forged public, and swapped leaves are all rejected.
+- **F2: HOLDS by reading** (plus flock-link's `selftest-f2`). The route (a) production verifier is `ChainVerifier`:
+  circuit digest, registry digest, counts, Fast100 params and publics digest are all pinned from the configuration.
+- **F3: HOLDS** (flock-live selftest cases).
+- **`link_mode: "exchange"` in evidence: NOT ENFORCED (E1).** The record carries `link_mode`, `require_link`, `link`
+  (Σ, roots, points, y) and `link_sha256`. No code, and no store check or label gate, refuses a stub or ungated
+  record. A stub record from `flock-live serve` has `require_link: true` and a non-null `link_sha256`, so my earlier F1
+  wording would have admitted it. F1 is corrected to E1:
+  - `link_mode == "exchange"`;
+  - `config.require_link == true`;
+  - Σ in `hello` equals the cell's Σ;
+  - the record's points and y are the ones the prime proof used (P1);
+  - the verifier is operated by a non-producer lane. art:00da1ce8 ran on flock-link's own second pod, so it is
+    cross-pod, not non-producer.
+  - The proofs themselves must be preserved beside the records. The verifier art holds only proof sha256s.
+
+  The three art:00da1ce8 records otherwise pass E1's field checks (exchange, gated, one Σ 07ac86d6…, 2 × 28-coordinate
+  points).
+
+## Open items (route (a) conditions; not Flock's)
+- **P1:** the prime proof must take its link points (and y) from this session's record, not from its own Fiat–Shamir
+  transcript. root_F must be the prime side's real first commitment (it's a stand-in hash today). Then the Flock
+  session and the prime proof are provably about the same (root_F, points, y).
+- **P2:** the prime side uses **two GF(2^128) points** (as this session draws), not agkr-bound §17's single
+  GF(2^256) point. Its σ form runs unchanged with 2 × 128 σ values. Either side can change, but they must match, and Σ
+  must name the choice.
+- **P3: leaf format mismatch.** The Flock side proves plain BLAKE3 row leaves (`flock-link/blake3-row/v1`), while
+  agkr-bound's operands-committed statement uses `sha256/row/v1` (prefix64 + SHA-256). A cell's commitment scheme
+  fixes the leaf hash, so one side must change:
+  - either a SHA-256 chunk-chain circuit on Flock, with the verifier-computed prefix midstate as a fixed public and
+    red-team-link F2's big-endian Λ;
+  - or the cell's scheme moves to the BLAKE3 row leaf.
+
+  Until then the two halves prove different statements.
+- **GPU:** no route (a) on Flock-CUDA (no wiring argument, no link opening). No GPU cell.
+
+## Composed bound (CPU, 4,096 BF16 VUs, with P1–P3 and E0/E1)
+
+| term | value |
+|---|---|
+| ε_F, A-GKR (BabyBear^6, interactive, t = 192) | 2^-130.2 (2^-127.7 with the hash budget) |
+| ε_B, Flock r2 (dense m = 33; queries 2^-97.77 per rep; wiring-GKR fingerprint about 2^22/2^128 = 2^-106 per rep, not in flock-128's ledger but inside the 2^-97.76 per-rep total) | about 2^-195.5 |
+| ε_red, link claims in both reps | about 2^-243.9 |
+| ε_SZ, two GF(2^128) points, m = 28 | 2^-246.4 (× the prime side's list factor, if any) |
+| ε_ρ, prime-side σ combination | ≤ 2^-177 |
+| **whole proof** | **2^-130.2** |
+
+## Third-audit FINAL
+
+~~~text
+tip: none (no repo commits; notes + evidence only)        merge-with: none
+known-failures: none    pod: vy-red-team-flock chh9hgfare2i1l (cpu3c 16 vCPU) 15:53–15:57Z, terminated; about $0.05
+artifacts: art:20545959 (and, read, art:00da1ce8)
+~~~
+
+Handoff: `lanes/coordinator/20260925T1600Z-handoff-from-red-team-flock.md`. flock-link and agkr-bound are final, so the
+coordinator's copy stands in for theirs.

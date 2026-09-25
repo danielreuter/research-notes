@@ -2,9 +2,10 @@
 lane: agkr-flock-cell
 kind: report
 created: 2026-09-25T17:38Z
-status: final
+status: open
 ---
 
+CHECKPOINT c95dd13a (18:34Z) [open] reopened: re-time route (a) cell with a same-DC verifier (1-2 ms RTT), 1 warm-up + 5 timed, time the serving commit; NOT final. Budget $6
 CHECKPOINT c95dd13a (18:28Z) [final] route (a) cell art:8f7ef58b: A100 BF16 4096 VUs, 143.3 s (3.55e9x), 2^-130.19 (C8: A-GKR hash SHA-512 2^-384, no change). PR #28 @ c95dd13a (main merged). 5/5 sessions accepted by cell-verifier. A100 terminated 18:19Z; ~$3.1
 CHECKPOINT a1664ac9 (18:25Z) [final] route (a) cell art:8f7ef58b: A100 BF16 4096 VUs, 143.3 s (3.55e9x), 2^-130.19 (C8: A-GKR hash term SHA-512 2^-384, no change). E0/E1/P1-P3 in PR #28 @ a1664ac9; 5/5 sessions accepted by cell-verifier. A100 terminated 18:19Z; ~$3.1. Handoff to coordinator for red-team re-audit
 CHECKPOINT a83d7de7 (17:38Z) [open] timed run r20260925-173611-8cb5 launched 17:36Z (1 local warm-up + 5 sessions vs cell-verifier 157.157.221.30:26732, verifier run r20260925-172927-6883; writes result.json). Check back ~17:45Z; then gate, handoff, FINAL. PR #28 open (draft)

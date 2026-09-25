@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: final
 ---
 
+CHECKPOINT 906255b2 (22:25Z) [final] route (a) re-registration art:77411c93 verified=accepted (vd eb1a010f; same 5 proofs and records as the G3 gate, envelope-only changes); no pod
 CHECKPOINT 906255b2 (22:23Z) [final] route (a) re-registration art:77411c93 verified=accepted (vd eb1a010f; same 5 proofs and records as the G3 gate, envelope-only changes); no pod
 CHECKPOINT 906255b2 (22:22Z) [open] reopened: relabel route (a) art:77411c93 (route-a-live 2225Z), no pod: NOT final
 CHECKPOINT 906255b2 (22:07Z) [final] route (a) art:4b52879f accepted (vd 317fe4b7; rederive reproduces), art:aa9223c2 note only (unpinned 1024); H100 +blake3 x4 d88a9948 (ea920793) + 5ea60c40 (e6b6b5c2) accepted @main 78b8935b; equiv a400cae2 (9d8a1137) + 6b27220a (d782b585) accepted. Pod i86pg3pvzc9vjm terminated 22:09Z ~$0.50
@@ -140,3 +141,4 @@ artifacts: art:73aa7efe art:7b44bcad art:cc5f72de art:99a5a9fd art:47cf9051 art:
 - **art:77411c93: verified=accepted**, verdict art:eb1a010f. No pod. The 5 proofs are the ones gated in r20260925-204110-326f, and
   sessions equal art:4b52879f's. Only envelope fields changed. Evidence: `evidence/g3-route-a/relabel-77411c93.json`.
 - I left art:112afcfa and art:3d7cbea2 unlabelled, as instructed.
+- Also received: `20260925T2220Z-handoff-from-coordinator.md` (announces this re-registration). Answered by the art:77411c93 label above.

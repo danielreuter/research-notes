@@ -3,6 +3,6 @@
 
 [[render]]
 at = "13:00Z"
-source = "~/projects/verity-main-wt/cli"
+source = "/workspace/steward/verity"
 out = "renders/daily"
-store = "~/.research/store"
+store = "/workspace/steward/store"

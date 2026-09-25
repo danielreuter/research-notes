@@ -177,3 +177,8 @@ B-Ligero. TABLES.md admissibility 6 requires "the statement's commitments and pu
 * 10:27Z class verdict handoff to the coordinator, copied to verify-night-2: "fp8-ada+blake3 @3301c435: CLASS GRANTED WITH
   CONDITIONS" (main reverify or 06; 04 BOUND ≥ 2^-128; nothing pre-3301c435 counts). Seen: verify-night-2 1030Z CLEARED the
   SP1 cell art:49695f7c through the 19-sp1c gate, and found that the y root is not backend-neutral (design claim).
+* 10:30Z sha256 scan done (run rtsh-freesha-1110 at da74b03e): 8:2 0 free rows in 150,208 mutations, 8:0.5 0 in 75,712,
+  control 17. art:a3c5c339. b-ligero-sha256 98d878ca differs from da74b03e only in bench allocator settings. Rust
+  `sha256_leaf_bytes` read: nothing found (equal-length headers with equal CV give the same leaf; metadata only).
+* 10:33Z +sha256 class verdict handoff to the coordinator, copied to verify-night-2 and b-ligero-sha256: "CLASS GRANTED WITH
+  CONDITIONS" (run ≥ da74b03e; reverify from a tree with 3301c435 + the sha256 scheme, or 06; 04 BOUND ≥ 2^-128).

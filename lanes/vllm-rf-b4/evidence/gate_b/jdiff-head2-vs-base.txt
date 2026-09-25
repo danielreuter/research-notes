@@ -1,0 +1,27 @@
+base 4001 {'error': 11, 'failed': 56, 'passed': 3642, 'skipped': 286, 'xfailed': 6}
+head 4018 {'error': 11, 'failed': 55, 'passed': 3659, 'skipped': 287, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 17 {'passed': 17}
+  + tests.engine.test_env::test_a_target_profile_replaces_the_pin passed
+  + tests.engine.test_env::test_apply_engine_pins_the_profile_and_the_checkpoint_store passed
+  + tests.engine.test_env::test_apply_engine_without_a_store_leaves_hf_home_alone passed
+  + tests.engine.test_env::test_pin_fills_what_is_unset_and_keeps_what_the_operator_exported passed
+  + tests.engine.test_env::test_the_engine_profile_reads_this_table passed
+  + tests.engine.test_hooks::test_appended_hook_leaves_the_list passed
+  + tests.engine.test_hooks::test_attribute_kept_outside_dict_is_set_back_by_value passed
+  + tests.engine.test_hooks::test_export_shims_restore_torch_and_vllm passed
+  + tests.engine.test_hooks::test_inherited_method_is_inherited_again passed
+  + tests.engine.test_hooks::test_missing_attribute_is_missing_again passed
+  + tests.engine.test_hooks::test_own_attribute_is_the_same_object_again passed
+  + tests.engine.test_hooks::test_patched_restores_on_error_and_live_lists_what_is_installed passed
+  + tests.engine.test_hooks::test_stacked_patches_unwind_to_the_original passed
+  + tests.engine.test_hooks::test_tp_group_override_restores_the_group passed
+  + tests.engine.test_hooks::test_triton_launch_restores_jitfunction_run passed
+  + tests.lint.test_p07_declared_inputs::test_only_engine_env_writes_vllm_pins passed
+  + tests.lint.test_p09_layering::test_leaf_modules_import_nothing passed
+outcome changed: 2
+  ~ tests.observe.test_observer_encoding::test_weakref_death_is_a_direct_free_and_reuse_bumps_generation: passed -> skipped  [allocator did not reuse the pointer]  (order-dependent at base; not counted)
+  ~ tests.program.test_twins::test_check_writes_the_evidence_schema: failed -> passed  [AssertionError: assert {'fa2_model',...', 'tc_model'} == {'fa2_model',...', 'tc_model'} Extra items in the left set: 'openmp' Use -v to get more diff]
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 67, head 66, fixed on head 1

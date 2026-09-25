@@ -8,6 +8,7 @@ final: 16:00Z hard; budget $12
 status: open
 ---
 
+CHECKPOINT 3301c435 (10:35Z) [open] 10:37Z @3301c435 accepted: SP1 49695f7c (5/5 instance_roots, finding CLEARED), H100 x4 poseidon, +blake3 e9932b72 live + e7d59ab6 (granted; coord told). blake3-80gb x4 fail-closed (no proofs/). 23 running, 24 (5090 NVFP4) queued. MALLOC vars set. Cred re-minted 4h.
 CHECKPOINT d6e36fb (10:12Z) [open] 10:13Z H100 BF16 32768 art:72e2b0ba accepted (3301c435). SP1 49695f7c rerun w/ full custody art:17f1205b: reps0-1 instance_roots true. 23 queued (8 +blake3 cells incl live e9932b72, x4 equiv f70cf39f; MALLOC vars set, verify-only). No laptop pulls.
 CHECKPOINT 10996616 (09:56Z) [open] 09:57Z coord 0935Z: H100 x4 + BLAKE3 xcheck on main 3301c435 verifier/reverify (r20260925-093931-f022); no CLEARED until red-team ok. SP1 art:49695f7c: host repro vk 0x0098..3a66, my core stmt==dump; all-5-rep --batch running. Laptop: nothing big pulled. Next: blake3-80gb A100
 CHECKPOINT e0fc636f (09:31Z) [open] 09:32Z verified BLAKE3 4090 cells art:5d20ad00 (vd 5c100a08) + plateau art:d6328cf5 (vd 41e8f1a0), handed off 0915Z/0930Z; poseidon-v1 4096 x3 labelled (66b0d958, 9a29580b, a4c00776); 32768 relabel + sp1c host build running

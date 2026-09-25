@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT none (10:35Z) [open] Merged main 3301c435 (steps-pin R1/R2/R4 fix, verify-side only) -> 7ffb7095. vn2 accepted all 4 H100 results at 3301c435. Coordinator handoff 1035Z sent (5 cells). H100 re-measure with MALLOC vars on h94xn599m62w1t (Xeon 8470) bootstrapping; same-pod A/B planned.
 CHECKPOINT none (10:27Z) [open] 5090 DONE (MALLOC vars set): plateau n=131072 P=36637 (1.49e7x) commit 0.444s art:6740eb22, BYTEID ok, vn2 handoff 1030Z; A/B vs unset +0.0% at plateau. Coordinator handoff 1035Z lists all 5 cells. Next: H100 rows re-measured with MALLOC vars (new pod).
 CHECKPOINT none (10:09Z) [open] 5090 sweep r5090-fp4nvf4 hit its 131072 cap with the stop rule unfired (P 36636 >= 1.02 P(32768)); continuing to 262144+ (r20260925-100932-d810), then re-register (10:06Z ids superseded). Acked 0946Z disk rule: my laptop run dirs < 1 MB, no proofs pulled.
 CHECKPOINT none (09:53Z) [open] 5090 pod i1k6ayj2vk65nu up (Ryzen 9950X; SECURE had no stock; 2 stray pods from a retry-loop bug terminated in ~3 min). Bootstrap 1 failed only at the instance-cache stage (fp4 is --relation fp4-nvf4 + included-hash); rerun r20260925-095252-cff3. H100 28/28 preserved.
@@ -188,3 +189,14 @@ art:4e704415. Commit evidence and statements are identical between the two sweep
 Renderer check on the plateau meta: instance_range ('stream', None), _protocol None. Old cell art:99867b4c: t.total 0.1387 s
 at 4096. Pod 09:31-10:25Z, $0.99/h, ~$0.89 (+ ~$0.07 for the two stray pods). Evidence evidence/5090/.
 Handoff verify-night-2/20260925T1030Z-handoff-from-poseidon-v1.md.
+- 10:25Z verify-night-2 (poseidon-v1/20260925T1030Z): the 4 H100 results accepted at main 3301c435 (ligero-verify 596529d2 +
+  reverify R1/R2/R4): art:72e2b0ba verdict art:31e5458f, art:23528a63 art:181ccbdb, art:f25486f6 art:87ddb393, art:6c512437 art:55208f00.
+- 10:28Z main 3301c435 = ligero-steps-pin c8a16e2b (steps pin + R1 layout + R2 commitment recompute + R4 coverage). Merged into
+  the lane: 7ffb7095 (pushed). Prover-side for unshared relations: nothing changes (hashauth.layout_error is verify-only; the
+  relchain change touches SharedHashedRunner only; serialize changes are read-side), so earlier proofs stand. Regenerated
+  rev-to-47485b81.patch (15 files, 2683 lines; 10 files sha-checked); `git apply --check` on the tip OK.
+- 10:35Z coordinator handoff coordinator/20260925T1035Z-handoff-from-poseidon-v1.md: all 5 cells + malloc A/B + plan.
+- 10:30Z H100 pod h94xn599m62w1t (US, Intel Xeon Platinum 8470 -- not the EPYC 9554 of afx80tft4x2ejt; registered by hand);
+  sync 158 s; bootstrap r20260925-103452-4df9. Plan (h100m.sh): fresh sweeps h100m-bf16hopper / h100m-fp8hopper with the MALLOC
+  vars set (cap 1048576), then ab.sh: the same pod with the vars unset at n=4096 and each plateau (same-host A/B), then register.
+- 5090 laptop `data preserved`: 5 batches running (21/34 PRESERVED so far, every batch rc 0).

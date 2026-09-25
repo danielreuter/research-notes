@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT a37c90d2 (23:05Z) [open] WAITING for flock-backend's fp8-hopper (H100) / bf16-ampere (A100) cell ids in lanes/verify-flock-pure/; no pod running; agent bc-fedbe934-96ea-5edf-a736-be24e2a83811; next: fetch verifier records, replay with 31-replay.sh on a fresh CPU pod, label
 CHECKPOINT a37c90d2 (23:04Z) [open] reopened for more Flock cells (fp8-hopper H100, bf16-ampere A100, ...): NOT final; waiting for ids in lanes/verify-flock-pure/; budget $8 total (~$1.9 spent)
 CHECKPOINT a37c90d2 (22:45Z) [final] FINAL: H100 art:6d1295ed + 4090 art:d1961ba4 verified=accepted (file re-verification, 108/108 + 102/102, r20260925-222222-a2cf); pod terminated 22:45Z ~$1.9; tip a37c90d2
 CHECKPOINT a37c90d2 (22:45Z) [final] H100 art:6d1295ed + 4090 art:d1961ba4 verified=accepted (file re-verification, 108/108 + 102/102, r20260925-222222-a2cf); pod terminated 22:45Z ~$1.9; tip a37c90d2

@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT d038df43 (19:27Z) [open] ring-switch sparse fusion done; flock-pure-block statement + flock-pure-gpu binary (flock-pure CLI) CPU selftest 17/17 PASS at 8/64 VUs on flock-backend's bf16-hopper instances+netlist (da1bbe2c). next: CUDA pure mode (unit witness kernel, 2-circuit fold), then H100 plateau
 CHECKPOINT none (19:13Z) [open] GPU selftest ALL PASS 8/64 (per-process); same-DC verifier (US-MO-1, TCP RTT 0.90 ms) 6x4096 accepted: prove 0.67-0.72 s, wait 0.26-0.33 s/252 RTs, verify 0.14-0.19 s; chain sweep plateau ~7.0k VU/s at 8192-16384 (component). art:fff0c041 art:44ead663 art:2a910602. pods terminated 19:13Z ~$4.6. next: ring-switch fusion + flock-pure-block GPU (handoff 1912Z)
 CHECKPOINT none (19:10Z) [open] coord 12:07 PT: pure Flock split with flock-backend; handoff 1912Z to lanes/flock-backend (proposes one block-R1CS statement flock-pure-block for CPU+GPU, or B); read their report 81f01ab8. s9 fixed (C8: route (a) 2^-130.19, gap = prime FS). WAIT r20260925-190459-8ed1 check-back 19:45Z agent bc-9209cb00-14e7-59ad-85aa-682c82ad797a
 CHECKPOINT none (19:06Z) [open] WAIT vy-flock-gpu-link-h100 r20260925-190459-8ed1 check-back 19:45Z agent bc-9209cb00-14e7-59ad-85aa-682c82ad797a. Done: H100 4096 linked GPU sessions ACCEPTED (prove 0.67 s both reps, 244 rounds, wait 0.22 s loopback, art:fff0c041); head-to-head in docs/flock-gpu-route.md s9 -> recommend pure Flock; handoffs 1816Z+1836Z acted on (sweep+RTT/bytes in run 8ed1)

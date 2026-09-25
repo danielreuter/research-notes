@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T04:32Z
+updated: 2026-09-25T04:40Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -258,3 +258,8 @@ updated: 2026-09-25T04:32Z
 - 04:32Z bootstrap `r20260925-042905-a8bb` BOOTSTRAP-OK 04:30Z (128 GB cgroup, 32 CPUs).  RUNNING (all `--cwd source`): gate (b) MAIN
   `r20260925-043149-0159` (baeefd21), gate (b) HEAD `r20260925-043152-27f8` (299f42d5), lints + touched `r20260925-043155-7013`
   (299f42d5).  Started clean (tree copies under /workspace/gate/, pytest up).  Then: jdiff head vs main (same pod) and vs a1; READY.
+- 04:40Z **LINTS GREEN on the pod at `299f42d5`: 44/44** (`r20260925-043155-7013`: tests/lint 41 + test_no_by_name_rules 3; 72 s).
+  **Touched + affected at `299f42d5`: 833 passed, 34 skipped, 4 failed, all four in a1's list** (gc-freeze pair of
+  test_admit_r19_host_working_set; test_native_jit_keying pod_release.sh; test_compiled_source CUDA driver) -- the same as the
+  03:13Z targeted run at d1f18fc8 plus the gc-freeze pair (added this time).  f24's reason-code + verdict tests and every
+  test_sampled_replay* pass beside D1.  Gate (b) head and main both at 97%.

@@ -11,10 +11,12 @@ has() { [[ " $PHASES " == *" $1 "* ]]; }
 if has A; then
   echo "=== [$(date -u +%H:%M:%S)] A: R4 negative on art:c7683eb2"
   rm -rf $W/r4neg; $PY -m research data fetch art:c7683eb24c6af461e5c7a57c6b251318d38555d0a4a88a4dce51338b8f60b393 --to $W/r4neg > $W/r4neg.fetch 2>&1 || cat $W/r4neg.fetch
-  for m in $(find $W/r4neg -name manifest.json \( -path '*/proofs/*' -o -path '*/dumps/*' \) | sort); do
-    d=$(dirname $(dirname $m)); n=$($PY -c "import json;m=json.load(open('$m'));print(max(f['vus'][1] for f in m['files'] if f.get('stmt')))")
+  for m in $(find $W/r4neg -name manifest.json | sort); do
+    d=$(dirname $m); n=$($PY -c "import json;m=json.load(open('$m'));print(max(f['vus'][1] for f in m['files'] if f.get('stmt')))")
     echo "--- ${d#$W/r4neg/} (N=$n; proofs $(find $(dirname $m) -name '*.proof' | wc -l), stmts $(find $(dirname $m) -name '*.stmt' | wc -l))"
     VN2_N=$n $PY $I/06-core-roots.py "dir:$d" 2>&1 >/dev/null | grep '^#'
+    (cd $d && /workspace/bin/ligero-verify batch --system system.bin --dir rep0 --jobs 4 --threads 1 --target-bits 128 --json $W/r4neg-batch.json >/dev/null 2>&1
+     $PY -c "import json;x=json.load(open('$W/r4neg-batch.json'));print('  my batch: n',x.get('n'),'accepted',x.get('accepted'),'batch_accepted',x.get('batch_accepted'))")
   done
 fi
 if has B; then

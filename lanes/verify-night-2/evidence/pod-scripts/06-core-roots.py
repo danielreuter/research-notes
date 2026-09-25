@@ -128,6 +128,8 @@ def check(st, art):
         d = Path(art[4:]) if tree is None else Path(st.fetch(tree, Path(td) / "t", paths=["*manifest.json", "*.stmt", "*commit-evidence.json"]))
         # exactly the manifest reverify verifies: proofs/manifest.json, else dumps/manifest.json
         pman = [d / n / "manifest.json" for n in ("proofs", "dumps") if (d / n / "manifest.json").is_file()]
+        if tree is None and not pman and (d / "manifest.json").is_file():
+            pman = [d / "manifest.json"]
         if not pman:
             raise FileNotFoundError(f"{tree}: no proofs/ or dumps/ manifest.json")
         man = json.loads(pman[0].read_text())

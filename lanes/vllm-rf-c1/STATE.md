@@ -4,11 +4,11 @@ lane: vllm-rf-c1
 kind: state
 agent: bc-9eae5bc7 (Cursor), coordinator bc-ba6cec03
 created: 2026-09-25T06:52Z
-updated: 2026-09-25T08:25Z
+updated: 2026-09-25T08:48Z
 ---
 # vllm-rf-c1: C1, commitment scheme vllm-v1 (named-scheme form)
 
-Deadline for vyv- pods: 2026-09-25T09:00Z (coordinator extends). Budget: $35 pod spend; spent about $0.40 so far.
+Deadline for vyv- pods: 2026-09-25T09:00Z (coordinator extends). Budget: $35 pod spend; spent about $0.40 before phase 2 pods (phase 2 pods: $4.61/h from 08:36Z).
 
 ## Status
 - Phase 1 (evidence only, no repo commits): DONE 07:29Z. No mismatch anywhere (both results below).
@@ -27,6 +27,14 @@ Deadline for vyv- pods: 2026-09-25T09:00Z (coordinator extends). Budget: $35 pod
   - Next: pod gates (lints; gate (b) head+base same pod; gate (a) T0+T1 cpu3m; GPU row #101 + throughput + test_scheme_cuda).
 
 ## Pods
+- Phase 2 (08:36Z): `vyv-rf-c1-big` = RunPod `rg1phl3ogbwgy2` (cpu3m 64 vCPU / 512 GB, 200 GB disk, $3.52/h) and `vyv-rf-c1-g2` =
+  RunPod `pbsu9tvac48iqr` (1x L40S, driver 580.178.04, CUDA 13.0, $1.09/h), both `research pods register ... --guard 90`
+  (`~/.research/notes/machines.d/vyv-rf-c1-{big,g2}.toml`). A first `pods create` pair whose shell died also created pods
+  (`p3nyo6vv74j7at` big, `49jvnr6ll3vu7u` L40S): both terminated at 08:39Z, a few minutes after creation, never used.
+  - Trees: head `472207c3` -> `/workspace/head`, base `10996616` (worktree `rf-c1-p1`, detached) -> `/workspace/basetree` (g2) and
+    `/workspace/base` (big), shipped with `research pods sync`.
+  - g2 run `r20260925-084508-e7c3` (`evidence/pod-scripts/g2.sh`): bootstrap --gpu LLAMA32_1B, CUDA tests at head, #101 head then base,
+    ab_compare, throughput.
 - `vyv-rf-c1-g1` (runpod `zaazjzf44rc4wr`), 1x L40S, CUDA 12.9/13.0 allowed, guard 90. Created 07:07Z, TERMINATED 07:29Z
   after every run was fetched (`machines.toml` entry marked).
   - Runs: bootstrap `r20260925-070509-d288` (BOOTSTRAP-OK); `r20260925-071724-fd55` (failed: H1 harness bug); `r20260925-072312-94f5`

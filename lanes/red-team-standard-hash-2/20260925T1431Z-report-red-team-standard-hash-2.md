@@ -2,9 +2,11 @@
 lane: red-team-standard-hash-2
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT c88bb683 (22:06Z) [final] 22:06Z FINAL: vllm-v1 GRANTED (2206Z), labels art:f7aac95f art:6d6464d1; x4 hopper +blake3 plateau labels art:d88a9948 art:5ea60c40 (1932Z grant); xob hopper not granted; no pod; tip c88bb683
+CHECKPOINT c88bb683 (22:05Z) [open] 22:05Z vllm-v1 GRANTED WITH CONDITIONS (2206Z); proof_class on art:f7aac95f + art:6d6464d1; art:fe52932e; no pod running; waiting only for x4-hopper-blake3 plateau ids
 CHECKPOINT c88bb683 (21:17Z) [open] 21:17Z vllm-v1 e2e done (r20260925-203921-01c9): lane tests pass; H2/R1/R4 refused on fp8-ada-x4 and fp8-hopper-x4; 6 port attacks as expected (ctx swaps caught by reverify only). Pod drained. 8:2 gadget scan (VM) control 19 free; honest pass running
 CHECKPOINT 540b3f70 (20:37Z) [open] 20:37Z vllm-v1 code read done (leaf, vllm_tree, hashauth, reverify, Rust vllm_v1.rs): no finding yet; 8:2 gadget scan running on VM; creating pod vy-red-team-sh-2 for tests + H2/R1/R4 + 6 port attacks
 CHECKPOINT 540b3f70 (20:32Z) [open] 20:32Z starting vllm-v1 statement review (PR #37 acd50fec; cells art:f7aac95f, art:6d6464d1): NOT final
@@ -136,3 +138,16 @@ Inherited handoffs: all 20 were addressed to red-team-standard-hash and acted on
   `20260925T2011Z-handoff-from-b-ligero-vllm-v1.md`. Not started: it is a full new-scheme review, so I asked the coordinator
   to confirm (2029Z).
 * The x4 hopper +blake3 plateau cells have no ids or verified labels yet (20:28Z).
+
+## 20:32Z: vllm-v1 statement review (PR #37 acd50fec; b-ligero-vllm-v1 1938Z / 2011Z)
+
+* Code read of the leaf, vllm_tree, the hashauth / relchain / reverify vllm branches and the Rust sources: no finding. One nit:
+  Python `_verify_vllm` raises on a non-field digest instead of rejecting (fail-closed).
+* 8:2 pos_leaf gadget scan on the VM: 0 free rows in 223,604 mutations; controls show 19 and 16. art:fe52932e.
+* Pod f2j22l0sij2aak ran r20260925-203921-01c9 from 20:38 to 21:11Z, about $0.13, drained. Lane tests pass; H2, R1 and R4 are
+  refused on both relations. Of the 6 port attacks, the ctx swaps are caught only by reverify.
+* Verdict: CLASS GRANTED WITH CONDITIONS (handoff coordinator/2206Z). Labels on art:f7aac95f and art:6d6464d1. Harnesses c88bb683.
+* 21:37Z received `20260925T2140Z-handoff-from-coordinator.md` ("After the vllm-v1 review: proof_class labels on the H100
+  keyed-BLAKE3 x4 cells"). Done at 22:10Z under the 1932Z grant: art:d88a9948 (fp8-hopper-x4+blake3, 65,536 VUs, 2^-128.40) and
+  art:5ea60c40 (bf16-hopper-x4+blake3, 16,384 VUs, 2^-128.07). verify-night-3 accepted both from main 78b8935b, which contains
+  9a78cd68. The blake3-xob hopper cells were not labelled: no grant covers them.

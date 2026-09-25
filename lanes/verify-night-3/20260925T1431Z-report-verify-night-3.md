@@ -2,9 +2,11 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT 906255b2 (22:07Z) [final] route (a) art:4b52879f accepted (vd 317fe4b7; rederive reproduces), art:aa9223c2 note only (unpinned 1024); H100 +blake3 x4 d88a9948 (ea920793) + 5ea60c40 (e6b6b5c2) accepted @main 78b8935b; equiv a400cae2 (9d8a1137) + 6b27220a (d782b585) accepted. Pod i86pg3pvzc9vjm terminated 22:09Z ~$0.50
+CHECKPOINT 906255b2 (22:06Z) [final] route (a) art:4b52879f accepted (vd 317fe4b7, same proofs as G3); H100 +blake3 x4 d88a9948 (ea920793) + 5ea60c40 (e6b6b5c2) accepted @main 78b8935b; equiv a400cae2 (9d8a1137) + 6b27220a (d782b585) accepted. Pod i86pg3pvzc9vjm terminated 22:09Z ~$0.50
 CHECKPOINT 906255b2 (21:41Z) [open] route (a) art:4b52879f verified=accepted (vd art:317fe4b7; same 5 proofs as my G3 gate). Pod vy-verify-night-3 i86pg3pvzc9vjm (cpu3c 32 vCPU, $0.96/h) for H100 +blake3 x4 d88a9948/5ea60c40 + equiv a400cae2/6b27220a @main 78b8935b
 CHECKPOINT 906255b2 (21:38Z) [open] reopened (coordinator 2140Z): relabel route (a) art:4b52879f; verify H100 +blake3 x4 art:d88a9948 / art:5ea60c40 + equiv: NOT final
 CHECKPOINT 906255b2 (20:53Z) [final] route (a) G3: art:3bfb2f58 verified=accepted (gate battery + offline Flock replay re-run from the store, statements regenerated and equal; runs r20260925-203452-5265 / -204110-326f); art:d5731679 note only ([0,1024) commitment unpinned; accepts with --allow-unpinned-commitment, r20260925-204749-26c6). Pod 7qkora4f5oy6t9 terminated 20:52Z ~$0.15
@@ -116,3 +118,17 @@ artifacts: art:73aa7efe art:7b44bcad art:cc5f72de art:99a5a9fd art:47cf9051 art:
 - **art:d5731679: note only.** The prime commitment at [0, 1024) isn't pinned. It accepts 5/5 with `--allow-unpinned-commitment`.
 - Sent: `lanes/coordinator/20260925T2055Z-handoff-from-verify-night-3.md`.
 - Pod terminated 20:52Z, about $0.15.
+
+## Reopen 4 (21:38Z): route (a) relabel + H100 keyed-BLAKE3 x4
+- Requests: `20260925T2140Z-handoff-from-coordinator.md` and `20260925T2145Z-handoff-from-coordinator.md` (producer:
+  `lanes/coordinator/20260925T2112Z-handoff-from-x4-hopper-blake3.md`).
+- **art:4b52879f: verified=accepted**, verdict art:317fe4b7. No pod: its 5 proofs are the ones gated in r20260925-204110-326f.
+  Evidence: `evidence/g3-route-a/relabel-4b52879f.json`.
+- Pod vy-verify-night-3 i86pg3pvzc9vjm (cpu3c 32 vCPU). Run r20260925-214214-f87d at main 78b8935b (`evidence/pod-scripts/60-round4.sh`).
+  - art:d88a9948: accepted, verdict art:ea920793.
+  - art:5ea60c40: accepted, verdict art:e6b6b5c2.
+  - Equivalence art:a400cae2: accepted, verdict art:9d8a1137.
+  - Equivalence art:6b27220a: accepted, verdict art:d782b585.
+- Sent: `lanes/coordinator/20260925T2210Z-handoff-from-verify-night-3.md`.
+- Pod terminated 22:09Z, about $0.50.
+- Also received: `20260925T2210Z-handoff-from-route-a-live.md` (relabel art:4b52879f and art:aa9223c2). The coordinator's 2145Z settled the tolerance question. art:4b52879f is accepted, and rederive reproduces it (a note addendum records this). art:aa9223c2 gets a note only (unpinned [0, 1024), as art:d5731679).

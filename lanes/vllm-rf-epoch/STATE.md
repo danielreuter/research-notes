@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T21:40Z
+updated: 2026-09-25T22:08Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -94,6 +94,15 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
 - #67 (tp70), #68 (big), #75 (tp75): Builds running.
 - Pre-PR-#29 recording trees: no `verity_sampled_proofs` workaround needed now. For the final rebaseline on a merged tree, set
   PYTHONPATH+=$TREE/protocols/sampled_proofs on the pod (2055Z/2058Z handoffs).
+
+## 22:08Z (handoff 2145Z: m32 fix coming; hold the Commits)
+- #57's Commit also hit the overflow (`M ... got 7953086784`, 563 s). Every B >= 8 row's prefill step is above 2^32 words, so
+  every Commit is held: a `holdcommit.sh` run on each pod stops any `row_pod.sh`/`tp_stage.sh ... commit` at start (log
+  `$RUN/hold.txt`; `touch /workspace/epoch-release-commits` ends it). Runs `r20260925-220648-{b74c moe67, f596 moe68, e8e7 tp70,
+  e634 tp70b, 8419 tp75, 0059 h100, 9104 big}`. Builds and Matches continue, and rows.sh moves to its next row.
+- When m32's sha arrives: cherry-pick it (non-epoch) onto lane/vllm-rf-epoch, then re-run Commit only, on each row's own pod, with
+  SWEEP_DIR = that row's recording run's sweep. Needed for #4, #57, and every row whose Build+Match PASSes or is a FAIL-class Match.
+- Row Commits done so far: #101 PASS (its M is under 2^32).
 
 ## Next
 - Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the

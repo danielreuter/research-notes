@@ -51,7 +51,8 @@ a4 base: 10996616
 - gate (b) jdiff head vs base; #101 compare; gate (a) merged xml vs a23b base; #70 (covers MoE + TP2 rank path; OLMoE) if a 2x L40S appears, #67 PAIRS=1 if a >= 180 GB L40S appears; READY.md.
 
 ## Open questions
-- GPU capacity: no 2x L40S or >= 180 GB 1x L40S with CUDA >= 12.9 on RunPod since 11:00Z. #70 is OLMoE, so it covers the MoE family and the TP2 rank path together; if it never comes up, the MoE/TP replay evidence is gate (a)'s T1 replay_partition on #67/#68/#73/#74 (CPU, recorded words).
+- **Ask (11:42Z):** RunPod has had no 2x L40S (any cloud, CUDA 12.8-13.0) since 11:00Z. If a lane's 2x L40S pod (b4-tp2, b2v-tp2, a5-tp2) is about to be terminated, could it be handed to b1 for #70 instead (about 2.5 h: bootstrap OLMOE, build, match, commit PAIRS=1 at head)? I'd use my own trees under /workspace/b1-* and never touch theirs.
+- GPU capacity: no 2x L40S or >= 180 GB 1x L40S with CUDA >= 12.8 on RunPod since 11:00Z. #70 is OLMoE, so it covers the MoE family and the TP2 rank path together; if it never comes up, the MoE/TP replay evidence is gate (a)'s T1 replay_partition on #67/#68/#73/#74 (CPU, recorded words).
 - difftest lives in properties/admission.py (b2v's `properties/`): hunks are the rng call, the evaluate call and import lines.
 - difftest lives in properties/admission.py (b2v's `properties/`): will keep hunks to the rng call + evaluate call + import lines.
 

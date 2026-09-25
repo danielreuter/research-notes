@@ -1,0 +1,29 @@
+.....F........................................................           [100%]
+=================================== FAILURES ===================================
+_______________ test_reverify_recomputes_the_trees_and_the_cover _______________
+
+remap = ({'honest': (PosixPath('/tmp/pytest-of-root/pytest-0/remap0/honest'), (True, '')), 'forgery': (PosixPath('/tmp/pytest-...iat-shamir', 'set': {'total_vus': 2, 'instances': 'a491e9736849f163b47de506d92c4b03945c2c4bf537d6dec65dcfb9fc0d82d0'}})
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_reverify_recomputes_the_t0')
+
+    def test_reverify_recomputes_the_trees_and_the_cover(remap, tmp_path) -> None:
+        from .reverify import commitment_problems
+        out, man = remap
+        hashed, bad = commitment_problems(out["forgery"][0], man, "fp8-ada+blake3", ["rep0"])
+>       assert hashed and bad == ["rep0/sub_00.stmt: tree y root differ from the instance set's"], bad
+E       AssertionError: ["rep0/sub_00.stmt: tree y root differ from the instance set's", "rep0/sub_00.stmt: auth: a VU's x row / W column is not the one its index fixes in the committed layout"]
+E       assert (True and ["rep0/sub_00...itted layout'] == ["rep0/sub_00...stance set's"]
+E         
+E         Left contains one more item: "rep0/sub_00.stmt: auth: a VU's x row / W column is not the one its index fixes in the committed layout"
+E         Use -v to get more diff)
+
+backends/direct/ligero/hashauth_test.py:122: AssertionError
+=============================== warnings summary ===============================
+backends/direct/ligero/hashauth_test.py::test_an_honest_tile_dump_is_recomputed
+backends/direct/ligero/hashauth_test.py::test_an_honest_tile_dump_is_recomputed
+  /root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=3937) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED backends/direct/ligero/hashauth_test.py::test_reverify_recomputes_the_trees_and_the_cover
+1 failed, 61 passed, 2 warnings in 164.23s (0:02:44)

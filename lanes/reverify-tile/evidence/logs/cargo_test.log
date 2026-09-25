@@ -1,0 +1,164 @@
+   Compiling verity-ligero-verify v0.1.0 (/workspace/src/backends/ligero-verify)
+warning: function `pad` is never used
+   --> src/auth.rs:103:8
+    |
+103 | pub fn pad(domain: &[u8; 32], rank: u64) -> [u8; 32] {
+    |        ^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `digests_h` is never read
+   --> src/format.rs:459:9
+    |
+450 | pub struct PairStatement {
+    |            ------------- field in this struct
+...
+459 |     pub digests_h: Vec<u32>,
+    |         ^^^^^^^^^
+    |
+    = note: `PairStatement` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: associated function `parse` is never used
+   --> src/format.rs:992:12
+    |
+989 | impl Proof {
+    | ---------- associated function in this implementation
+...
+992 |     pub fn parse(d: &[u8], st: &Statement, m: usize) -> Result<Proof> {
+    |            ^^^^^
+
+warning: function `soundness` is never used
+  --> src/verify.rs:84:8
+   |
+84 | pub fn soundness(st: &Statement) -> Result<Soundness, String> {
+   |        ^^^^^^^^^
+
+warning: `verity-ligero-verify` (bin "ligero-verify") generated 4 warnings
+warning: field `auth` is never read
+  --> tests/relations.rs:73:5
+   |
+66 | struct Stmt {
+   |        ---- field in this struct
+...
+73 |     auth: Option<Vec<u8>>,
+   |     ^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `digests_h` is never read
+   --> src/format.rs:459:9
+    |
+450 | pub struct PairStatement {
+    |            ------------- field in this struct
+...
+459 |     pub digests_h: Vec<u32>,
+    |         ^^^^^^^^^
+    |
+    = note: `PairStatement` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `verity-ligero-verify` (test "relations") generated 1 warning
+warning: `verity-ligero-verify` (bin "ligero-verify" test) generated 3 warnings (2 duplicates)
+    Finished `release` profile [optimized + debuginfo] target(s) in 10.85s
+     Running unittests src/main.rs (/workspace/cargo-target/release/deps/ligero_verify-52fda9e5a4d507f9)
+
+running 33 tests
+test auth::tests::digest_bytes_match_python ... ok
+test auth::tests::layout_fixes_x_and_w_from_the_vu_index ... ok
+test auth::tests::uint_is_minimal_big_endian ... ok
+test auth::tests::range_identity_and_domain_match_python ... ok
+test field::tests::coset_encode_is_evaluation_on_the_coset ... ok
+test field::tests::ntt_matches_naive_and_inverts ... ok
+test hash::tests::sha256_vectors ... ok
+test hash::tests::blake2b_256_empty ... ok
+test hash::tests::blake2b_256_multiblock_vs_hashlib ... ok
+test field::tests::barrett_matches_the_divide ... ok
+test hash::tests::blake3_empty_and_abc ... ok
+test relation::tests::e4m3_decode_matches_public_vectors_fp8 ... ok
+test hash::tests::shake256_multiblock_vs_hashlib ... ok
+test relation::tests::folded_privsel_pins_take_k_4k_and_refuse_the_base_k ... ok
+test leaf::tests::blake3_leaf_bytes_match_the_python_scheme ... ok
+test leaf::tests::every_scheme_has_a_32_byte_params_digest_and_a_unique_name ... ok
+test relation::tests::bf16_decode_matches_unit_public_vectors ... ok
+test hash::tests::shake256_empty ... ok
+test leaf::tests::poseidon2_leaf_bytes_are_big_endian_lanes ... ok
+test relation::tests::e2m1_and_ue4m3_decodes_match_fp4_relation_py ... ok
+test relation::tests::names_are_distinct_and_digests_unique ... ok
+test relation::tests::nvf4_unit_pins_match_public_vectors_fp4 ... ok
+test relation::tests::pubsel_unit_pins_match_public_pins_int ... ok
+test relation::tests::vu_shapes_are_the_python_registry_and_match_the_decodes ... ok
+test leaf::tests::split_and_name_round_trip ... ok
+test relation::tests::privsel_unit_pins_match_public_vectors_v3 ... ok
+test auth::tests::leaves_nodes_and_root_match_python ... ok
+test leaf::tests::ajtai_key_derivation_matches_the_python_digests_and_the_params_digest ... ok
+test auth::tests::check_positions_and_roots ... ok
+test auth::tests::hashed_fixture_block_folds_and_every_mutation_is_refused ... ok
+test leaf::tests::ajtai_chain_key_refuses_a_zero_key_chain_with_decoy_key_rows ... ok
+test leaf::tests::ajtai_chain_key_refuses_moved_bits_scaled_keys_and_rerouted_ties ... ok
+test leaf::tests::ajtai_chain_key_follows_the_digest_lanes_in_both_pinned_systems ... ok
+
+test result: ok. 33 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/fixture.rs (/workspace/cargo-target/release/deps/fixture-f4051bd5b31e7cbc)
+
+running 8 tests
+test a_flipped_public_word_is_rejected ... ok
+test honest_b1_zk_proof_is_accepted ... ok
+test every_region_of_the_proof_is_bound ... ok
+test interactive_mode_own_coins_are_checked ... ok
+test batch_verdict_and_statement_do_not_depend_on_jobs ... ok
+test a_statement_without_a_proof_rejects_the_batch ... ok
+test a_corrupted_sub_batch_rejects_the_batch_with_the_same_error_on_any_jobs ... ok
+test the_batch_union_bound_and_n_proofs_are_enforced ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.14s
+
+     Running tests/relations.rs (/workspace/cargo-target/release/deps/relations-a81932e937b32ed1)
+
+running 27 tests
+test ajtai_g1_decoy_fixture_is_refused ... ok
+test batch_reports_the_pin_and_reads_the_parent_manifest ... ok
+test fp4_nvf4_system_negatives_are_rejected ... ok
+test bf16_ampere_hashed_negatives_and_system_mismatches_are_rejected ... ok
+test fp4_nvf4_hashed_negatives_and_system_mismatches_are_rejected ... ok
+test fp8_ada_hashed_v6_statement_negatives_are_rejected ... ok
+test fp4_nvf4_proof_and_coins_negatives_are_rejected ... ok
+test a_statement_against_another_relations_system_is_rejected_unless_unpinned ... ok
+test fp4_nvf4_v4_honest_proof_is_accepted_against_its_pinned_system ... ok
+test fp4_nvf4_statement_negatives_are_rejected ... ok
+test ajtai_statement_negatives_are_rejected ... ok
+test fp8_ada_hashed_system_and_version_mismatches_are_rejected ... ok
+test steps_pin_forged_steps32_proofs_are_refused_pinned ... ok
+test fp8_ada_hashed_statement_negatives_are_rejected ... ok
+test system_digest_names_every_pinned_relation ... ok
+test fp8_ada_hashed_proof_mutations_are_rejected_by_the_chain_and_quadratic_tests ... ok
+test fp8_ada_hashed_v5_proof_is_accepted_and_the_hashed_system_is_pinned ... FAILED
+test fp8_ada_negatives_are_rejected ... ok
+test steps_pin_red_team_fixtures_are_refused ... ok
+test fp4_nvf4_hashed_v5_proof_is_accepted_and_the_hashed_system_is_pinned ... ok
+test bf16_ampere_hashed_v5_proof_is_accepted_and_the_hashed_system_is_pinned ... ok
+test fp8_ada_v4_honest_proof_is_accepted_against_its_pinned_system ... ok
+test fp8_ada_hashed_v6_statement_is_the_v5_statement_without_the_zero_y_words ... ok
+test v4_named_bf16_statement_is_the_v2_statement_and_the_hopper_name_is_pinned_apart ... ok
+test a_statement_whose_vu_shape_is_not_the_relations_is_refused_pinned ... ok
+test ajtai_system_mismatches_and_the_key_check_are_enforced ... ok
+test ajtai_v5_proofs_are_accepted_and_both_systems_are_pinned ... ok
+
+failures:
+
+---- fp8_ada_hashed_v5_proof_is_accepted_and_the_hashed_system_is_pinned stdout ----
+
+thread 'fp8_ada_hashed_v5_proof_is_accepted_and_the_hashed_system_is_pinned' (2862) panicked at tests/relations.rs:763:5:
+assertion `left == right` failed: {"dir":"fixtures/fp8-ada-hash","jobs":1,"available_parallelism":16,"threads":2,"reps":1,"target_bits":128,"system_pinned":true,"system":{"sys_id":"c4c4b403e07da47f7747b947ad76899ef231112bcc6d62dc0448a83ef8696618","table_digest":"c0e2f48119e2c83ca81cbc8eb1cbba51a676b67a600b8125d75bf438b770e05d","pinned_relation":"fp8-ada+hash"},"n":1,"accepted":1,"rejected":0,"own_coins":1,"batch_accepted":false,"batch_reason":"batch: 1 statement(s) without a proof (sub_00_v6.stmt)","batch_log2":-128.049099394,"batch_bits":128.049099394,"per_proof_bits":[128.049099394],"n_proofs_claimed":[1],"python_agree":0,"python_disagree":0,"verify_seconds_sum":0.2430,"shared_seconds":0.0029,"wall_seconds":0.2500,"items":[{"name":"sub_00.proof","accepted":true,"system_pinned":true,"reason":"accept (interactive: coins are this verifier's step-0 coins) (authentication: included-hash, 20 VUs, 20 x rows + 20 W columns + 20 y words under the a/b/y roots)","statement":{"l":1024,"n":4096,"D":6,"t":189,"zk":false,"mode":"interactive","n_proofs":1,"n_vus":20,"steps":48,"K":32,"format":"ligero-statement/v5","relation":"fp8-ada","digest":"52158f4b6909eb9d4ae3cc4a3b0897c7a0420434c701a9b1bdc6522a76f7804d"},"timing":{"shared":0.000053,"parse":0.003800,"soundness":0.000022,"statement_hash":0.000706,"challenge_hash":0.003107,"merkle":0.017144,"ntt":0.034457,"dfold":0.051627,"quadratic":0.107253,"chain":0.009196,"auth":0.014965,"total":0.243044},"reps":1,"soundness":{"per_proof_log2":-128.049,"union_log2":-128.049,"terms":{"irs_query":-128.049,"linear_query":-188.867,"quadratic_query":-188.734,"irs_field":-173.441,"linear_field":-185.441,"quadratic_field":-185.441,"coin_commitment_hiding":-191.000}}}]}
+
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    fp8_ada_hashed_v5_proof_is_accepted_and_the_hashed_system_is_pinned
+
+test result: FAILED. 26 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.90s
+
+error: test failed, to rerun pass `--test relations`

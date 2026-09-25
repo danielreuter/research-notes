@@ -364,3 +364,26 @@ Two points touch this lane:
 - Their R5 (Flock's coins only after root_F, the link points and y) matches this build's order. Here y is absorbed
   before the sigma messages, so the Flock side must take its coins after that absorb.
 No action on the prime side.
+
+## Drill-down: route (a) with Flock's measured side (11:43Z)
+
+Numbers from flock-bench-80gb's FINAL and flock-128's 1128Z handoff (not re-measured here). Per the 0922Z ruling, Flock's
+AVX-512 number comes from the H100 host (SPR Xeon 8468, AVX-512 + VPCLMULQDQ). The table uses the as-shipped `Fast`
+profile, at 4096 VUs, with prime-side costs from this lane:
+
+| BF16 batch, 4096 VUs | prime side (this lane) | Flock side | route (a) total |
+| --- | --- | --- | --- |
+| A100, Flock-CUDA pair as shipped | 1.54 s | 0.745 s | ~2.29 s |
+| A100 prime + Flock CPU union, AVX-512 host (H100 host, 16 thr) | 1.54 s | 1.317 s | ~2.86 s (sequential) |
+| A100 prime + Flock CPU union, Zen 2 host (A100 host) | 1.54 s | 5.370 s | ~6.9 s |
+
+Flock at 2^-128 (flock-128-r2, two `Fast100` runs with live coins; not granted, needs the red-team audit):
+- Flock-CUDA: 1.00x today's time on H100 BF16.
+- CPU union: 2.00x.
+- So the A100 GPU line stays at about 2.3 s if the 1.00x carries over from H100 (not measured on A100).
+
+Both Flock sides overlap with the prime side in time only if run concurrently. The totals above are sums. FP8 has no
+linked-circuit run in this lane, so only BF16 is given. Caveats:
+- fp4 is still unpinned, so there is no fp4 line.
+- The vllm-v1 mapping is PROVISIONAL.
+- Everything above is drill-down only (L).

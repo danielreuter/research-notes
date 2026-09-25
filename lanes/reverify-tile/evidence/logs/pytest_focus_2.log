@@ -1,0 +1,9 @@
+..............................................................           [100%]
+=============================== warnings summary ===============================
+backends/direct/ligero/hashauth_test.py::test_an_honest_tile_dump_is_recomputed
+backends/direct/ligero/hashauth_test.py::test_an_honest_tile_dump_is_recomputed
+  /root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=7638) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+62 passed, 2 warnings in 294.00s (0:04:53)

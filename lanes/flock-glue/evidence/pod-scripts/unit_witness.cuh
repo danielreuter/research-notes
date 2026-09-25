@@ -21,7 +21,15 @@ typedef unsigned long long uw_u64;
 #define UW_K_LOG 13
 #define UW_K (1 << UW_K_LOG)
 #define UW_WORDS (UW_K / 64)
+#ifndef UW_THREADS
 #define UW_THREADS 512
+#endif
+#ifndef UW_MAXLG
+#define UW_MAXLG 5            // log2 of the most lanes one gate's XOR is split over
+#endif
+#ifndef UW_FUSED
+#define UW_FUSED 0            // 1: one pass over a gate's A and B terms
+#endif
 #define UW_WARPS (UW_THREADS / 32)
 #define UW_WIDE 64            // profiling split only: segments at least this wide count as wide
 #define UW_COLS_CAP 12288     // u16 column terms per batch (host packs at most 12284; the copy is 16-byte aligned)
@@ -61,7 +69,7 @@ struct UwSmem {
 __device__ __forceinline__ void uw_eval_seg(uint32_t* zs, const UwSmem& S, uint32_t* scr_a, uint32_t* scr_b,
                                             int e0, int e1, int tid) {
     const int ng = e1 - e0;
-    int lg = 5;
+    int lg = UW_MAXLG;
     while (lg > 0 && (ng << lg) > UW_THREADS) lg--;
     const int G = 1 << lg, gl = tid & (G - 1), slots = UW_THREADS >> lg;
     for (int i0 = e0; i0 < e1; i0 += slots) {
@@ -72,10 +80,17 @@ __device__ __forceinline__ void uw_eval_seg(uint32_t* zs, const UwSmem& S, uint3
             const uint32_t d = S.desc[i];
             r = d & 0xffff;
             const int st = S.start[i], mid = st + (d >> 16), en = S.start[i + 1];
+#if UW_FUSED
+            for (int j = st + gl; j < en; j += G) {
+                const uint32_t x = zs[S.cols[j]];
+                if (j < mid) av ^= x; else bv ^= x;
+            }
+#else
 #pragma unroll 4
             for (int j = st + gl; j < mid; j += G) av ^= zs[S.cols[j]];
 #pragma unroll 4
             for (int j = mid + gl; j < en; j += G) bv ^= zs[S.cols[j]];
+#endif
         }
         for (int o = G >> 1; o; o >>= 1) {
             av ^= __shfl_xor_sync(0xffffffffu, av, o);

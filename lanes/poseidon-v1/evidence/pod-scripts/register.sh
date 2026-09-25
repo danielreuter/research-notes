@@ -41,7 +41,7 @@ for tag in $($PY -c "import json;[print(json.loads(l)['tag']) for l in open('$J'
     src=$s
   fi
   $PY - "$d/result.json" "$tag" "$pod" "$committer" "$J" "$plateau" > $PV/meta-$tag.json <<'PY'
-import json, sys
+import json, os, sys
 res, tag, pod, committer, jpath, plateau = sys.argv[1:7]
 r = json.load(open(res))
 pts = [json.loads(l) for l in open(jpath) if l.strip()]
@@ -64,7 +64,8 @@ r.update(lane="poseidon-v1", tag=tag, pod=pod, committer=committer,
          sweep={"id": sid, "axis": "total_vus (B), doubled from 1024 at fixed per-proof settings", "point": me["n"],
                 "plateau": tag == plateau, "plateau_point": next(p["n"] for p in pts if p.get("tag") == plateau),
                 "rule": "kb/TABLES.md Sweep: doubled until two successive doublings together raise the median P by < 2 % "
-                        "(P(n) < 1.02 P(n/4)) or memory runs out; plateau = the point with the highest median P",
+                        "(P(n) < 1.02 P(n/4)) or memory runs out; plateau = the point with the highest median P"
+                        + os.environ.get("RULE_EXTRA", ""),
                 "points": [{k: p.get(k) for k in ("n", "P", "e2e", "t_total", "commit", "contended", "failed", "why") if k in p}
                            for p in pts]})
 print(json.dumps(r))

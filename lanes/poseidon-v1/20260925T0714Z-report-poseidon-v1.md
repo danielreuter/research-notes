@@ -8,6 +8,7 @@ final: 14:30Z hard; budget $30
 status: open
 ---
 
+CHECKPOINT none (11:44Z) [open] H100 re-measured w/ MALLOC (Xeon pod, terminated 11:39Z): bf16 plateau n32768 P=10299 art:a250d4b7, fp8 n32768 P=18483 art:752dcde9; same-pod A/B +2.1%/+0.1% at plateau; vn2 handoff 1150Z. A100 re-measure w/ MALLOC on 25b8diy5t3f3tc bootstrapping; 4090 after.
 CHECKPOINT none (11:11Z) [open] h100m-bf16hopper (MALLOC set): n65536 P=10066 (dip at 16384 kept the rule open), n131072 running; fp8 + same-pod A/B next. 5090 blocked on main reverify (fp4-nvf4 + FP4Format not recomputed), coordinator informed by vn2.
 CHECKPOINT none (10:57Z) [open] H100 re-measure (MALLOC set, Xeon 8470 pod) r20260925-104045-de31: h100m-bf16hopper n32768 P=10299 (EPYC unset run: 10191), rule not yet fired, n65536 running. 5090 laptop preserved 34/34. No new inbox.
 CHECKPOINT none (10:35Z) [open] Merged main 3301c435 (steps-pin R1/R2/R4 fix, verify-side only) -> 7ffb7095. vn2 accepted all 4 H100 results at 3301c435. Coordinator handoff 1035Z sent (5 cells). H100 re-measure with MALLOC vars on h94xn599m62w1t (Xeon 8470) bootstrapping; same-pod A/B planned.
@@ -207,3 +208,32 @@ Handoff verify-night-2/20260925T1030Z-handoff-from-poseidon-v1.md.
   anyway, because the relation has a lane `hash_format` (FP4Format), which committed_trees does not recompute. Their own checks
   pass: 04 BOUND, 06 ROOTS-MATCH, 05 negatives, base ACCEPT 13/13. No label. Main change needed (reverify: fp4-nvf4 +
   FP4Format trees); the coordinator is told. I'll offer to write it.
+
+## H100 re-measured with MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12 (sweeps h100m-bf16hopper / h100m-fp8hopper)
+Pod h94xn599m62w1t (H100 80GB HBM3, US, Intel Xeon Platinum 8470), run r20260925-104045-de31, tree 7ffb7095 (main 3301c435),
+committer main (b862be30 + commit-gpu). Every point warm, 5 timed runs, contended false, Rust batch accept, malloc_env recorded.
+| sweep | n | P /s | e2e s | t.total s | commit s (cold) | N/P | result | tree |
+|---|---|---|---|---|---|---|---|---|
+| bf16 | 1024 | 6948 | 0.1474 | 0.1183 | 0.0290 (13.62, first CUDA build) | 4.63e7 | art:3ea21d9f | art:b26b95a5 slim |
+| bf16 | 2048 | 8282 | 0.2473 | 0.2140 | 0.0333 (0.131) | 3.89e7 | art:ce89df19 | art:86ba19c3 slim |
+| bf16 | 4096 | 9231 | 0.4437 | 0.4017 | 0.0420 (0.120) | 3.49e7 | art:a4499799 | art:0c45644d full |
+| bf16 | 8192 | 9762 | 0.8392 | 0.7808 | 0.0584 (0.115) | 3.30e7 | art:d249a75c | art:0442d841 slim |
+| bf16 | 16384 | 9700 | 1.6892 | 1.5958 | 0.0933 (0.173) | 3.32e7 | art:e2e30928 | art:f5da2278 slim |
+| bf16 | **32768 plateau** | **10299** | 3.1817 | 3.0228 | 0.1590 (0.216) | **3.13e7** | **art:a250d4b7** | art:5838a96f full |
+| bf16 | 65536 | 10066 | 6.5104 | 6.1830 | 0.3274 (0.390) | 3.20e7 | art:d291dbaa | art:b7a14b69 slim |
+| bf16 | 131072 | 9765 | 13.4227 | 12.7769 | 0.6458 (0.708) | 3.30e7 | art:a567e8f6 | art:1963cf92 slim |
+| fp8 | 1024 | 11092 | 0.0923 | 0.0748 | 0.0176 (0.171) | 5.81e7 | art:1dbfd2db | art:000607c8 slim |
+| fp8 | 2048 | 13422 | 0.1526 | 0.1309 | 0.0217 (0.108) | 4.80e7 | art:e159ef91 | art:2557708f slim |
+| fp8 | 4096 | 15617 | 0.2623 | 0.2322 | 0.0301 (0.101) | 4.13e7 | art:279b8685 | art:9a2f94e0 full |
+| fp8 | 8192 | 17112 | 0.4787 | 0.4314 | 0.0473 (0.102) | 3.76e7 | art:28226c47 | art:98d95ee2 slim |
+| fp8 | 16384 | 18046 | 0.9079 | 0.8281 | 0.0798 (0.136) | 3.57e7 | art:23705ef7 | art:0824d5b8 slim |
+| fp8 | **32768 plateau** | **18483** | 1.7729 | 1.6234 | 0.1495 (0.207) | **3.49e7** | **art:752dcde9** | art:6916a8dd full |
+| fp8 | 65536 | 18054 | 3.6299 | 3.3345 | 0.2954 (0.359) | 3.57e7 | art:e31589ce | art:0734e08b slim |
+Stops: bf16 P(131072) < 1.02 P(32768) (the n=16384 dip kept it open at 65536); fp8 P(65536) < 1.02 P(16384). BYTEID IDENTICAL on
+both (evidence trees art:a4a648a5, art:bf7f2e6c). Same-pod A/B (ab.sh, vars unset, one 5-rep run each): bf16 n=4096 9199
+(set +0.3 %), n=32768 10086 (set +2.1 %); fp8 n=4096 15541 (+0.5 %), n=32768 18457 (+0.1 %). Commit evidence and statements
+are identical set vs unset. Against the EPYC 9554 pod (unset): bf16 plateau +1.1 %, fp8 plateau -1.0 % (different hosts).
+Pod 10:30-11:39Z, $3.49/h, ~$4.01. Evidence evidence/h100m/. Handoff verify-night-2/20260925T1150Z-handoff-from-poseidon-v1.md.
+- Decision: the bf16 plateau moved by +2.1 % on the same pod, which meets my 2 % rule (noise is about 1-2 %), so the A100 and 4090 are
+  re-measured with the vars set too. A100 pod 25b8diy5t3f3tc (US, EPYC 7742 like the first A100 pod) created 11:41Z; a100m.sh
+  caps the sweep at the frozen set's 4096 (RULE_EXTRA names the bound in meta.sweep.rule).

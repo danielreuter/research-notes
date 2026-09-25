@@ -260,7 +260,7 @@ tree was checked against git blob by blob before the final gate (b).
   dependency of `commit/challenge.py`), so on a freshly bootstrapped pod main's #101 Commit fails in ~1 s
   (`ModuleNotFoundError`, `commit.binding` imports the challenge module) and gate (b) needs it on PYTHONPATH. b1c
   installed it editable into `/workspace/venv312` (`uv pip install --no-deps -e protocols/sampled_proofs`) and added it to
-  the gate's PYTHONPATH. The bootstrap is a5's/ops; not fixed here.
+  the gate's PYTHONPATH. Fixed on main at `fee32f05` (coordinator 20:58Z: the bootstrap adds it to PYTHONPATH); b1c's pods predate it.
 
 - `pipeline/commit.py` (`from verity_vllm.pipeline.workload import workload_target`, on main since before `10996616`):
   the function lives in `pipeline/global_program.py`, so the ImportError is always swallowed and the admission bound's

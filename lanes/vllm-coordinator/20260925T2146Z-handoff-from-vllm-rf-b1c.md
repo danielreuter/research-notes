@@ -27,8 +27,8 @@ Supersedes `20260925T1946Z-handoff-from-vllm-rf-b1c.md`.
   alike; the epoch lane re-records it).
 - **Behaviour changes:** as before (the `verity-vllm beyond-gemm` and `crosscheck` commands are removed; no production caller).
   None from the reopen: no seed, digest, root, leaf id or verdict moved.
-- **Found, not fixed (new):** `pod_bootstrap.sh` doesn't install `verity_sampled_proofs`, so since PR #29 main's #101 Commit
-  fails on a freshly bootstrapped pod (ModuleNotFoundError). I installed it by hand on my pods.
+- **Pods and PR #29:** my pods predate your `fee32f05` bootstrap fix, so I put `verity_sampled_proofs` on them by hand
+  (PYTHONPATH for gate (b), an editable install for #101). Without it, base #101's Commit failed with ModuleNotFoundError.
 - **Pods:** `vyv-rf-b1c-cpu`, `vyv-rf-b1c-g1` and `vyv-rf-b1c-g2` (plus a duplicate L40S) are all terminated. Reopen spend was
   ~$2.2 of the $6; b1c ~$6.4 in all.
 - READY: `lanes/vllm-rf-b1c/READY.md`.

@@ -5,6 +5,7 @@ created: 2026-09-25T07:00Z
 status: open
 ---
 
+CHECKPOINT 824a9924 (10:54Z) [open] fp8-hopper-x4+sha256 cell: plateau 32768 VUs 6162 VU/s e2e (t.total 5.08+commit 0.24 s), 97/97 Rust pinned ACCEPT 2^-128.07; custody retry running. b009fdc8 PINS bf16-hopper-x4+sha256 (gate 13 honest+86 neg); its sweep r20260925-104636-6976 at 8192: 3165 VU/s.
 CHECKPOINT a6ba1e5b (10:34Z) [open] sweep e592 fp8-hopper-x4+sha256 l4096p4: 8192 5860, 16384 5768, 32768 6162, 65536 6112 (self-contended flag), 131072 running (last point). MALLOC default 98d878ca handed to coordinator. Next: preserve plateau, verify-night-2 handoff, bf16-hopper-x4 cell.
 CHECKPOINT ee2a319f (10:14Z) [open] 98d878ca: MALLOC default in pod env.sh + software.allocator in every fingerprint (+2 tests), merge-ready handoff to coordinator. Screen fp8-hopper-x4+sha256 l4096p4 5837 VU/s e2e; sweep r20260925-095503-e592 running.
 CHECKPOINT 5483d13b (10:07Z) [open] 10:07Z tip da74b03e (+main 3301c435 R1/R2/R4). Page-fault fix (MALLOC_MMAP_MAX_=0) -> fp8-hopper-x4+sha256 l4096 p4 sweep r20260925-095503-e592: 1024 4145, 2048 4739, 4096 5356, 8192 5860, 16384 5768 VU/s e2e; 32768 running. Handoff to coordinator on page faults.
@@ -163,6 +164,26 @@ per round is the floor for a bit design with committed booleans.
 * 10:03Z coordinator asked for the malloc setting as a merge-ready default.  98d878ca: pod_bootstrap env.sh exports both
   variables; `contract.fingerprint` records `software.allocator` (value or "unset") for every bench; 2 tests (bench suite
   257 passed).  Cherry-picks cleanly onto main 3301c435.  Handoff: coordinator/20260925T1015Z.
+* 10:38Z sweep e592 done.
+  - Later points: 65536 = 6112 VU/s (flagged contended by its own child GPU processes), 131072 = 6151 VU/s.
+  - Stopped "< 2% over two doublings".  **Plateau 32768 VUs (uncontended): t.total 5.077 s + commitment 0.240 s = e2e
+    5.317 s, 6162 VU/s.**
+  - Also at the plateau: e2e overhead vs native peak 1.045e8, 97 sub-batches of 341 VUs, 2^-128.07, 39.9 GB device
+    memory, 7.1 GB transcript.
+  - Producer check (pod ligero-verify from da74b03e): 97/97 ACCEPT, system pinned 6cf20505, python agreement 97/97.
+  - Pod tree: da74b03e clean (source stamp tree f73afc05, synced 09:48Z); the fingerprint's `commit` is null because the
+    synced tree has no .git.
+  - `software.allocator` absent (run predates 98d878ca); lib.sh exported MALLOC_MMAP_MAX_=0 / TRIM 1e12.
+  - Runner custody push failed (RemoteDisconnected, 6.8 GB).  10:53Z retry on the pod: `60-custody-retry.sh`, with the
+    6976 run's minted key.
+* 10:41Z r20260925-104053-b438 (98d878ca), bf16-hopper-x4+sha256 fixture + gate.
+  - Rows per column: m = 88,381 = base 12,792 + operand bits 2,432 + hash 73,122 + pins 35 (6.9x the bare relation).
+  - L 2,844, Q 124,815.  sys a02f283d…, table 1b879d1a….
+  - Gate: 13 honest sub-batches + 86 negatives, 0 failures.
+  - b009fdc8 PINS row.
+* 10:46Z r20260925-104636-6976 (b009fdc8): Rust rebuild; cargo tests 34 + 7 + 27 pass; bf16 fixture pinned ACCEPT
+  2^-128.05.  Then sweep bf16-hopper-x4+sha256 l4096 p4: 2048 2803, 4096 3048, 8192 3165 VU/s, …
+* 10:55Z main 767115db merged 98d878ca (the sha256 scheme + MALLOC default).
 * vllm-v1 variant: design only, not built.
   - Position leaf = `SHA-256("verity/pos-leaf/v0" || u64be(len) || value)`, a 26-byte prefix.  The leaf's blocks start
     at byte offset 38 of a column, so they straddle column boundaries, and no block is a midstate the verifier can

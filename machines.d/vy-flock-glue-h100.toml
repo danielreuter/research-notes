@@ -1,0 +1,7 @@
+# machine vy-flock-glue-h100: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "oypxgunobip13f"
+project = "verity"
+guard = 40
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T10:54Z"

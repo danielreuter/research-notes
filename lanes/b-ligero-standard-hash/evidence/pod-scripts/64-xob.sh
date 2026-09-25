@@ -17,5 +17,5 @@ RESEARCH_RUN_DIR=$RD LEAF=blake3 RELS="fp8-ada" GATES=0 bash "$IN/10-pins-gates.
 RESEARCH_RUN_DIR=$RD LEAF=blake3-xob RELS="${XRELS:-fp8-ada fp8-ada-x4}" GATES=0 bash "$IN/10-pins-gates.sh"
 for d in $RD/fixtures/*; do
   echo "$(basename $d): $($V system-digest --system $d/system.bin 2>&1 | head -c 400)"
-  $PY -c "import json,sys,glob; m=json.load(open(glob.glob(sys.argv[1]+'/*manifest*.json')[0])); print(' pins_row', m.get('pins_row'), 'sys', m['system'].get('sys_id'), 'rows', m['system'].get('m'))" $d 2>&1 | tail -n 2
+  $PY -c "import json,sys; m=json.load(open(sys.argv[1]+'/manifest.json')); print(' pins_row', m.get('pins_row'), 'rows', m['system']['rows'], 'hash rows', m['system']['census'].get('rows_hash'))" $d 2>&1 | tail -n 2
 done

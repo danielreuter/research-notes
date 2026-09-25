@@ -5,6 +5,7 @@ created: 2026-09-25T06:30Z
 status: open
 ---
 
+CHECKPOINT fb29b130 (10:54Z) [open] x1 malloc sweep r..103611-67e0 at p4 16384 (p0-p3 1073/1128/1150/1176 VU/s). XOB wired as new scheme blake3-xob (same schema blake3-keyed/row/v2 = same frame-v3 commitment, new circuit): xadd op in all witness generators, ce86046b+tests; pod tests/pins after the sweep.
 CHECKPOINT 806a2f73 (10:37Z) [open] malloc-env cells (MALLOC_MMAP_MAX_=0 MALLOC_TRIM_THRESHOLD_=1e12 set): x1 4096 frozen e2e 3.558s art:9b80f566; x4 4096 1.981s art:050ddede; x4 plateau 8192 2165 VU/s art:19be6afa -> verify-night-2 1037Z. x1 sweep running.
 CHECKPOINT 806a2f73 (10:06Z) [open] Live same-pod verifier cell x1 4096 frozen: 5/5 sessions ACCEPT 49/49 own coins, e2e 3.596s, art:e9932b72 -> verify-night-2 (1008Z). Malloc env adopted from now (lib.sh + --env); x4 sweep re-run with it r..100526-b232.
 CHECKPOINT 806a2f73 (09:58Z) [open] GPU-committer cells registered: x1 4096 frozen e2e 3.585s art:e7d59ab6; x4 4096 e2e 2.048s art:017a7069; x4 plateau 8192 2109 VU/s art:6b6d4484 -> verify-night-2 (0958Z). Live same-pod verifier run r..095340 accepting 49/49/rep.
@@ -256,6 +257,24 @@ Pod scripts: `evidence/pod-scripts/`.
   - x4: result art:050ddede1083ac67f417d2345d5b1f0a8d47314c94ee5a9988d7f1cdb8300650, tree
     art:ef264ad325e8207dae1b75b2d09b35d13cfbfe1b1c717bc40592afd69043df62.
 * 10:36Z r20260925-103611-67e0: the x1 (fp8-ada+blake3) sweep with the malloc env, on the GPU committer.
+* 10:40-10:55Z XOB wired (coordinator 0915Z: after the first CLEARED cell, under a NEW scheme name). Lane tip e19bc365 /
+  ce86046b / fb29b130:
+  - the `xadd` program op (32 boolean rows = bits of `((lo + 2^16 hi) mod 2^32) ^ (olo + 2^16 ohi)`) in every witness
+    generator: the torch program (`witness._run_program`), the register and table CUDA codegens, and the sequential and
+    level-scheduled interpreter kernels (op kind 6, operands o[2..5], 32 rows written);
+  - leaf scheme **`blake3-xob`** (`leaf/blake3_xob.Blake3XobLeaf`, a `Blake3Leaf` subclass): its column compression is
+    `compress_xob` (204 rows per G instead of 268), and everything else is `Blake3Leaf`'s. That covers native, carry,
+    leaf_bytes, keys, framing, digest layout and the GPU committer (`frame_gpu.ROW_SCHEMES`). **Same schema
+    `blake3-keyed/row/v2`**: it is frame-v3's core keyed-BLAKE3 row schema, so a +blake3-xob commitment is byte-identical to a
+    +blake3 one. Only the circuit, and so the system pins, differ. `Blake3Leaf.gadget` now calls `self._compress`, which
+    emits the pinned finalisation rows in their old order (the 71f39e44 pin must survive; this is checked on the pod);
+  - conformance: "schema / params identify the scheme" becomes "identify the LEAF". Schemes sharing a schema must share
+    params, digest / carry layout and `leaf_bytes` / `native`. A statement relabelled to its twin's suffix parses, but its
+    proof must not verify against the twin's system (new negative). `by_schema` returns the first registered scheme
+    (blake3);
+  - Rust: `leaf::BLAKE3_XOB` (the same schema, params and `blake3_leaf_bytes`) is in `SCHEMES`. No PINS row yet.
+  - new tests in `blake3_xob_test.py`: xadd in all five generators against the numpy interpreter (CUDA), and the scheme's rows
+    per column = pinned - (15139 - 11746).
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

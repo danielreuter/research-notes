@@ -2,9 +2,10 @@
 lane: red-team-standard-hash-2
 kind: report
 created: 2026-09-25T14:31Z
-status: final
+status: open
 ---
 
+CHECKPOINT c88bb683 (22:09Z) [open] 22:09Z reopened: blake3-xob hopper class review (775786b7): NOT final
 CHECKPOINT c88bb683 (22:06Z) [final] 22:06Z FINAL: vllm-v1 GRANTED (2206Z), labels art:f7aac95f art:6d6464d1; x4 hopper +blake3 plateau labels art:d88a9948 art:5ea60c40 (1932Z grant); xob hopper not granted; no pod; tip c88bb683
 CHECKPOINT c88bb683 (22:05Z) [open] 22:05Z vllm-v1 GRANTED WITH CONDITIONS (2206Z); proof_class on art:f7aac95f + art:6d6464d1; art:fe52932e; no pod running; waiting only for x4-hopper-blake3 plateau ids
 CHECKPOINT c88bb683 (21:17Z) [open] 21:17Z vllm-v1 e2e done (r20260925-203921-01c9): lane tests pass; H2/R1/R4 refused on fp8-ada-x4 and fp8-hopper-x4; 6 port attacks as expected (ctx swaps caught by reverify only). Pod drained. 8:2 gadget scan (VM) control 19 free; honest pass running

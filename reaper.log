@@ -20,3 +20,4 @@
 14:12Z REAP-BLOCKED red-team-standard-hash vy-red-team-sh: art:5b08aeae: no verified remote replica recorded, 715 MB to read back -> research data preserved art:5b08aeae
 14:23Z REAP-BLOCKED verify-night-2 vy-verify-night-2: art:8f2112e2: no verified remote replica recorded, 94 MB to read back -> research data preserved art:8f2112e2
 15:14Z REAP-BLOCKED verify-night-3 vy-verify-night-2: its run dirs' custody is unknown: no guard state on the pod (no guard = N in its machines entry?)
+15:46Z REAP-BLOCKED verify-night-3 vy-verify-night-2: its run dirs' custody is unknown: no guard state on the pod (no guard = N in its machines entry?)

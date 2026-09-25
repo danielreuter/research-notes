@@ -2,9 +2,10 @@
 lane: shared-live
 kind: report
 created: 2026-09-23T23:15Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/shared-live pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT fe0c4f48 (23:27Z) [open] G3 fix fe0c4f48: +shared pair gets G AND H coins from the live verifier (H on wire idx i+2^30, F in G's TESTS, H slot1 gated on G's TESTS); first live ZK p4 session on 4090 hinjpqggt7riic: 13/13 pairs ACCEPTED by Rust w/ own coins both sides (batch 26 proofs 2^-128.66); running G3 negative + sequential live
 # shared-live — `+shared` (tile64 G/H pair) with a LIVE verifier supplying every coin, ZK, 4090 measurement
 

@@ -1,3 +1,4 @@
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/hash-relation pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # Lane hash-relation — `authentication = included-hash`: Poseidon2 rows inside the B relation (2026-09-23)
 
 CHECKPOINT d7141ec (10:52Z, FINAL) — MERGEABLE = 9cb1c3e + one `PROTOCOL.md` paragraph (8d: the Poseidon2 witness kernel as a prover implementation

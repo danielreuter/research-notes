@@ -1,3 +1,4 @@
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/b-merge-h100 pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # Lane b-merge-h100 -- follow-up: merge main into lane/b-merge-h100, D10 for every relation, validated
 
 Date: 2026-09-23 01:35Z .. 02:15Z. Worktree `~/projects/verity-main-wt/b-merge-h100`, branch `lane/b-merge-h100`.

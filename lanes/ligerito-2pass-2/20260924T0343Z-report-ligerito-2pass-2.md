@@ -2,9 +2,10 @@
 lane: ligerito-2pass-2
 kind: report
 created: 2026-09-24T03:43Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/ligerito-2pass pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT none (04:07Z) [open] bench fp8-ada 4096 @0f6cc311 all contract-ok: nonZK 0.404s, ZK 0.595s, live ZK t.total_live 0.608s (RTT 0.22ms) ACCEPTED, verify-session Py+Rust 2^-128.02 art:af97c8ab. Running live_session GPU tests
 CHECKPOINT 0132b66 (04:02Z) [open] gates 11/11 0 failures, Py+Rust agree art:5b03fb15. Bench: --zk 4096 OOMs on 4090 (fragmentation; expandable_segments fixes); --zk bench failed main's contract (t.zk_additional) -> fix 0f6cc311 (+t.total_live). Rerunning 3 arms
 CHECKPOINT 0132b66 (03:51Z) [open] item 2 done on the 4090 @e0c7acd2: ligerito-verify cargo test --release 98 passed/0 failed/1 ignored; cargo check backends/direct (+vendor p3-*) exit 0. item 5 done e0c7acd2 (no attack accepted). Running 11 gates (5 rel x nonZK/ZK + fp8-ada ZK default path); live_serve starting on vy-ligerito-2pass-verifier (EU-RO-1). Next: bench

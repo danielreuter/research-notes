@@ -3,12 +3,13 @@ id: r21-live-pipeline/live-pipeline/20260923T0919Z-report-live-pipeline
 campaign: r21-live-pipeline
 lane: live-pipeline
 kind: report (working; updated at every checkpoint)
-status: OPEN
+status: superseded
 repo: verity-main-wt/live-pipeline, branch lane/live-pipeline (forked from main cee1f76)
 machines: vy-live-pipe = RunPod 3r1nsk03cwbhlj (RTX 4090 SECURE reference part 24564 MiB, EU-RO-1, host AMD Ryzen 9 7950X, $0.74/h, created ~08:48Z)
     the shared verifier vy-live-verifier (tcp://213.173.105.69:30899, EU-RO-1) is used, not restarted.
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/live-pipeline pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT 620e7316 mergeable -- `backends/direct/ligero/{protocol.py, pipeline.py, live.py, relchain.py, live_test.py}` only,
 all off cee1f76 (5 files, `git diff --name-only cee1f76 HEAD`; 3 commits).  `--pipeline N --verifier tcp://...` work together:
 the per-sub-batch live coin exchange is non-blocking (the prover stage yields a Future the pipeline driver polls; the session

@@ -1,3 +1,4 @@
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/honing-code pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # Lane honing-code — report (2026-09-23)
 
 CHECKPOINT 77033bf  mergeable: ALL nine items (1-9).  `uv run pytest tools/research` 178 passed, 1 skipped; `uv run pytest backends/numerical/tests/bench` 155 passed, 5 skipped.  `git status --short` empty.  No store mutation (temp stores + FsRemote + in-process FakeS3 only; `~/.research/store` read through a /tmp copy of its metadata).

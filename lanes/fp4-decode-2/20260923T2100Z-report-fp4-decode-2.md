@@ -2,9 +2,10 @@
 lane: fp4-decode-2
 kind: report
 created: 2026-09-23T21:00Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/fp4-decode-2 pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT d86e014 (21:15Z) RECOVERED r20260923-182920-9002 (proof art:7c5453a3, log art:1857e291, pinned verdict art:671c7ec9 = 7/7 ACCEPT pinned fp4-nvf4+hash, bench-time any-system verdict art:16696f29; all remote=1). d86e014 = hashed relation through the pipelined prover (opt-in `pipeline_hashed`, per-slot device hint graphs, byte-identity test). 4090 checks at 98c95b1 (r20260923-210126-ffb5): gates 0 failures (hashed 4/4 + 92/92; bare 2048/2048 + 116/116 + 3015/3015), cargo test 48/48; pytest killed by me at ~93% with 1 F (to be named by the -v rerun). 4090 suite at d86e014 running (r20260923-211439-913b: pipeline test, gates, hashed+bare --pipeline 4 benches + pinned Rust, pytest -v). 5090 lx80c24sagdao0 (2nd attempt, cuda12.8 image) bootstrapping (r20260923-210932-e854); source relayed via R2 (laptop→5090 ssh ~20 KB/s).
 
 CHECKPOINT 98c95b1 (20:58Z) worktree ~/projects/verity-main-wt/fp4-decode-2 on lane/fp4-decode-2 @ 98c95b1 (predecessor tip, unchanged since 18:5xZ); warm 4090 pod k39j0s2bvhlljf alive (idle); GOT A 5090: vy-fp4-decode-2-5090 zv1i2iesh5g4qt (SECURE, reference part, host load 70/128 cores) — bootstrapping; recovering r20260923-182920-9002 + pushing the predecessor's 9 unpushed artifacts.

@@ -1,3 +1,4 @@
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/fp4-fast pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # Lane fp4-fast — NVFP4 (sm_120, RTX 5090) B-Ligero prover: hints on device, 5090 operating point, pipelined sub-batches (2026-09-23)
 
 CHECKPOINT a2089ac (10:45Z, final; 11:30Z addendum §0b = frozen-main 64c00bd rows on a second pod, numbers from stdout, artifacts

@@ -2,10 +2,11 @@
 lane: ligerito-sumcheck-3
 kind: report
 created: 2026-09-23T21:40Z
-status: open
+status: superseded
 worktree: ~/projects/verity-main-wt/ligerito-sumcheck-3 (branch lane/ligerito-sumcheck-3 from lane/ligerito-sumcheck-2 @ 1fbbe86)
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/ligerito-sumcheck-3 pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT 26ff6af (23:08Z) [open] 19b5830: LGSC0004 default 13 coins/batch (zc 3,2,3,3,3,6/vf 10/cmb 6,6,6/rb 6,6): fp8-ada 4096 0.206 s 181,680 B, bf16-hopper 2048 0.197 s, 15/15 negatives each; soundness 184/|F| = 2^-177.9; toy fixture 1895b072 (+ zksmall fd8a264b); 52/52 tests; handoffs updated; next: big-table arity-3 kernel (12 coins)
 CHECKPOINT ef49a7de (22:47Z) [open] ef49a7d: LGSC0004 coin-lean default 15 coins/batch (0.205 s, 164.8 KB at 4096 VUs fp8-ada 4090); zk-small 21 coins 0.154 s 15.8 KB; 51/51 tests; regenerating LGSC0004 fixture
 CHECKPOINT f0b9567 (22:30Z) [open] f0b9567: LGSC0004 4096-VU fp8-ada ZK batch 0.155 s on the 4090 (LGSC0003 0.137 s at the same tip), 21 coins, 14.45 GB, 15/15 negatives reject; LGSC0004 toy fixture sha256 8c89da93 in evidence/; LGSC0003 fixture byte-identical to sumcheck-2's; writing argument + format note + handoffs next

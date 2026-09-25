@@ -1,3 +1,4 @@
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/hp2-host pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # Lane hp2-host — B-Ligero prover: host-phase elimination round 2 + stream overlap (2026-09-23)
 
 POST-FREEZE COMMIT e689b72 (11:10Z, `lane/hp2-host`, one commit on top of 9268cc4; 3 files: `field.py`, `ntt_cuda.py`, `ntt_cuda_test.py`): **four-step CUDA NTT** replacing the 16-stage torch chain inside the prover's graphs. Bit-exact by construction and measured (bx13 187/187 + Rust ACCEPT ×8, `ntt_cuda_test` 26/26 cases), pytest 56 passed, 2 of 7 gates recorded before the pods were terminated (§2g). **H100 pod 2, like-for-like: bf16-hopper int-ZK 0.2525 → 0.2337 s (−7.4 %; 3.1–3.2× main)**; the fp8 row and the artifact were lost with the pod. For the post-Wave-2 merge, not the frozen decision.

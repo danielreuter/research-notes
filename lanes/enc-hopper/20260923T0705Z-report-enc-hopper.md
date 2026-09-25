@@ -1,3 +1,4 @@
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/enc-hopper pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # Lane enc-hopper — B-Ligero encode + Merkle on the H100 (protocol-identical)
 
 CHECKPOINT 0da4b1b (lane/enc-hopper, 6 commits on main 6babe27; 10:50Z) — mergeable: everything below plus **0da4b1b:

@@ -2,12 +2,13 @@
 lane: ligerito-relation-2
 kind: report
 created: 2026-09-23T21:40Z
-status: open
+status: superseded
 branch: lane/ligerito-relation-2 (worktree ~/projects/verity-main-wt/ligerito-relation-2, from lane/ligerito-relation @ fbc3eef)
 owns: backends/direct/ligerito/{prove.py, proof.py, run.py} (+ tests beside them)
 pods: vy-ligerito-relation-2 52tgms6kjphi6k (RTX 4090 reference part, $0.74/h, created 21:44Z)
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/ligerito-relation-2 pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT none (22:25Z) [open] V1 fixed (cf9a63a); F12 labels (32d3d42); 4090 one-batch fit via streamed commit (abd8f5e). Gates 6/6 relations 0 failures @32d3d42 (4+90 each), fixtures on R2. fp8-ada 4096 one batch: 4090 0.566 s / 16.0 GiB, H100 0.398 s; H100 bf16-hopper 0.688 s, fp8-hopper 0.393 s. Next: live R + session, verify-rs-3 handoff
 CHECKPOINT 9a3823a (22:00Z) [open] V1 fix committed cf9a63a (zero claims = Rust cover, cols from r_c; 5 must-reject forgeries); sumcheck-2 1fbbe86 merged 64d…; all-relation gates running on L40S; 4090 bootstrapping
 # ligerito-relation-2 — V1 fix, one-batch 4096-VU numbers on LGSC0003, live coins, honest labels

@@ -3,13 +3,14 @@ id: r21-live-verifier/live-verifier/20260923T0630Z-report-live-verifier
 campaign: r21-live-verifier
 lane: live-verifier
 kind: report (working; updated at every checkpoint)
-status: OPEN -- verifier SERVING at tcp://213.173.105.69:30899 (vy-live-verifier, EU-RO-1) since 06:24Z; identity **live-verifier@c595383b4cdb** since 08:40Z (the checkpoint sha)
+status: superseded
 repo: verity-main-wt/live-verifier, branch lane/live-verifier (forked from main 6babe27)
 machines: vy-live-verifier = RunPod d4maiikv32zn56 (CPU cpu3m 8 vCPU / 64 GB, 50 GB, $0.44/h, EU-RO-1, created 05:57Z; TCP 7000 -> public 213.173.105.69:30899; ssh -p 30898)
           vy-live-4090 = RunPod gh0vlgpq7st5s3 (RTX 4090 SECURE reference part, EUR-IS-2, $0.74/h, 06:25Z -> TERMINATED 08:29Z; the prover side of the tests)
 decision: a live, independent verifier on a separate machine is the verification story for the interactive (8c) Table 2 cells
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/live-verifier pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT c595383 -- mergeable, all of it: `backends/direct/ligero/live.py` (server, prover coin source, probe, negatives,
 record), `live_test.py` (5 tests; green on the CPU pod with the Rust core and with the Python core), the runner hooks
 (`vu.py`, `relchain.py`, `fp4/chain.py`, `run.py --verifier`), two one-line `vu.py bench-vu` fixes (`--out`/`--dump-dir` expand

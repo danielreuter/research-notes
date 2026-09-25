@@ -1,3 +1,4 @@
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/hostphase pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # Lane hostphase — B-Ligero prover: host-bound phases moved to the device (protocol-, format- and Rust-identical)
 
 Written 2026-09-23 03:55Z. Worktree `~/projects/verity-main-wt/hostphase`, branch `lane/hostphase`, based on main `5a8a744`;

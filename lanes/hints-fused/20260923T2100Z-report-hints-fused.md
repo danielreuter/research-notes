@@ -2,9 +2,10 @@
 lane: hints-fused
 kind: report
 created: 2026-09-23T21:00Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/hints-fused pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # hints-fused — a fused device hint kernel for the v2 / v3 families (unlock folding for the private-safe relations)
 
 CHECKPOINT ff52e47 (21:14Z) fused kernel `hints_fused.py` written + hooked into pubsel/privsel `hints_v2/v3` (LIGERO_FUSED_HINTS, default on); microbench fused vs torch graph 12-31x (fp8-ada-v3x4 l=16384 20.38 -> 1.42 ms); first full differential run: every compared output equal, 4 test errors = 3 CUDA OOM (graph pools accumulated across tests) + 1 stale torch graph replayed via id(sys) reuse (a latent hazard of the torch path's `_GRAPHS` key, test-process only) -> tests now clear the graph caches; rerun + A/B queue chained on the pod.

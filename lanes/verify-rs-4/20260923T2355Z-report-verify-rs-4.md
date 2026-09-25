@@ -2,10 +2,11 @@
 lane: verify-rs-4
 kind: report
 created: 2026-09-23T23:55Z
-status: open
+status: superseded
 branch: lane/verify-rs-3 (worktree ~/projects/verity-main-wt/verify-rs-3, taken over from verify-rs-3 @ 732e5d5f + uncommitted)
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/verify-rs-3 pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 # verify-rs-4: finish verify-rs-3's Ligerito Rust verifier (canon negative, LGSC0004 / ZK key, R3-7, relation-3 batch)
 
 ## Log

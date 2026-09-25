@@ -2,9 +2,10 @@
 lane: ajtai-leaf-2
 kind: report
 created: 2026-09-23T21:00Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/ajtai-leaf-2 pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT b67c019 (21:10Z) open — stage-4 run r20260923-185031-aee0 RECOVERED + pushed (art:c4046648…, remote): on d40399f cargo
 27+7+16 ok, both gates 0 failures, fixtures written, but 8 conformance failures (scheme `name` = "ajtai" and NO x/W role separation,
 which the conformance suite requires) -> its pins are superseded. Carried the predecessor's role idea but NOT its mechanism: a per-role

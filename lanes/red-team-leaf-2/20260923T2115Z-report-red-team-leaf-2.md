@@ -2,9 +2,10 @@
 lane: red-team-leaf-2
 kind: report
 created: 2026-09-23T21:15Z
-status: open
+status: superseded
 ---
 
+CHECKPOINT 0b40ae8a (05:54Z) [superseded] closed by coordinator 2026-09-25 05:55Z for the cloud switch-over: no sign of life >24 h; branch lane/red-team-leaf-2 pushed to origin; uncommitted work (if any) saved in evidence/uncommitted-0554Z*
 CHECKPOINT 1054caf (21:10Z) [open] G1 reproduced: Ajtai check_system_key (F6) is a pattern scan; B=0 chain + decoy key rows ACCEPTED by Rust --allow-any-system (all digests 0); pinned mode refuses (PINS empty). F5/F8 labels OK. Next: share-logup pair negatives on CPU
 CHECKPOINT 1054caf (21:00Z) [open] started; worktree on lane/red-team-leaf-2 @ 1054caf; reading share-logup/ajtai/blake3 landed code
 # red-team-leaf-2 — adversarial re-check of the landed leaf code (share-logup 1054caf, ajtai-leaf d40399f, blake3-leaf 30abee8, leaf-iface 720820d) and the `-2` successors

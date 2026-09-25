@@ -1,0 +1,79 @@
+diff --git a/backends/direct/ligero/chain.py b/backends/direct/ligero/chain.py
+index 435cedf7..626ddbff 100644
+--- a/backends/direct/ligero/chain.py
++++ b/backends/direct/ligero/chain.py
+@@ -180,6 +180,18 @@ def rho_powers(rho: torch.Tensor, steps: int) -> torch.Tensor:
+     return out.reshape(C, steps, FP_LANES)
+ 
+ 
++def mm_mod(A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
++    """``(A @ B) % P`` (batched, broadcasting like ``torch.matmul``) for residues ``A`` (..., m, k), ``B`` (..., k, n)
++    with ``k < 2^21``: four float64 GEMMs on 16-bit limbs -- every partial sum an integer < k 2^32 < 2^53, so exact
++    whatever the summation order (the device has no int64 GEMM; the elementwise form materialises all m k n products)."""
++    a0, a1 = (A & 0xFFFF).to(torch.float64), (A >> 16).to(torch.float64)
++    b0, b1 = (B & 0xFFFF).to(torch.float64), (B >> 16).to(torch.float64)
++    s00 = torch.matmul(a0, b0).to(torch.int64)
++    mid = (torch.matmul(a0, b1).to(torch.int64) + torch.matmul(a1, b0).to(torch.int64)) % P
++    s11 = torch.matmul(a1, b1).to(torch.int64) % P
++    return (s11 * (2**32 % P) + mid * 2**16 + s00) % P
++
++
+ def fp_values(lanes: torch.Tensor, rho: torch.Tensor, n_op: int, steps: int, l: int) -> torch.Tensor:
+     """The honest fingerprints: ``lanes`` (n_op * 16, l) lane rows of the witness -> F (l // steps, n_op, C) with
+     ``F[v][o][x] = sum_{s,i} rho_x^(16 s + i) lanes[o][i][steps v + s]``."""
+@@ -187,9 +199,8 @@ def fp_values(lanes: torch.Tensor, rho: torch.Tensor, n_op: int, steps: int, l:
+     C = rho.shape[0]
+     pw = rho_powers(rho, steps)                                                        # (C, steps, 16)
+     L = (lanes[:, :n_slots * steps] % P).reshape(n_op, FP_LANES, n_slots, steps)       # (o, i, v, s)
+-    # products < 2^62 reduced per term, then <= 768 terms of < 2^31: no overflow
+-    prod = (L[:, :, :, :, None] * pw.permute(2, 1, 0)[None, :, None, :, :]) % P        # (o, i, v, s, x)
+-    return (prod.sum((1, 3)) % P).permute(1, 0, 2).contiguous()                        # (v, o, x)
++    A = L.permute(0, 2, 3, 1).reshape(n_op, n_slots, steps * FP_LANES)                 # (o, v, (s, i))
++    return mm_mod(A, pw.reshape(C, steps * FP_LANES).T).permute(1, 0, 2).contiguous()  # (v, o, x)
+ 
+ 
+ def chain_coefs(sys: System, layout: Layout, rc: torch.Tensor, y16_pub: torch.Tensor, fp: FpArgs | None = None) -> ChainCoefs:
+@@ -246,9 +257,10 @@ def chain_coefs(sys: System, layout: Layout, rc: torch.Tensor, y16_pub: torch.Te
+         u = torch.stack([extra_coef(rc, e0 + e)[:, ends] for e in range(n_op * C)], 1)     # (D, n_op C, n_slots)
+         u = (u * real[None, None, :]).reshape(D, n_op, C, n_slots) % P
+         pw = rho_powers(fp.rho.to(device), steps)                                           # (C, steps, 16)
+-        # coef_lane[d, o, i, v, s] = sum_x u[d, o, x, v] pw[x, s, i]: C products of < 2^62 reduced per term, C terms summed
+-        prod = (u[:, :, :, :, None, None] * pw[None, None, :, None, :, :]) % P                # (D, o, x, v, s, i)
+-        lane_coef = (prod.sum(2) % P).permute(0, 1, 4, 2, 3).reshape(D, n_op * FP_LANES, n_slots * steps)
++        # coef_lane[d, o, i, v, s] = sum_x u[d, o, x, v] pw[x, s, i]
++        prod = mm_mod(u.permute(0, 1, 3, 2), pw.reshape(C, steps * FP_LANES))                 # (D, o, v, (s, i))
++        lane_coef = prod.reshape(D, n_op, n_slots, steps, FP_LANES).permute(0, 1, 4, 2, 3).reshape(
++            D, n_op * FP_LANES, n_slots * steps)
+         lane_pos = tabs["lane_pos"]
+         coef[:, lane_pos, :n_slots * steps] = (coef[:, lane_pos, :n_slots * steps] + lane_coef) % P
+         F = fp.F.to(device) % P
+diff --git a/backends/direct/ligero/chain_test.py b/backends/direct/ligero/chain_test.py
+index 80720c3e..d39e4998 100644
+--- a/backends/direct/ligero/chain_test.py
++++ b/backends/direct/ligero/chain_test.py
+@@ -83,3 +83,25 @@ def test_component_ends_fp4():
+     assert sys.chain.get("y16") is None and len(sys.chain["y_end"]) == 3
+     _check(sys, STEPS, 2, 64, 32)
+     _check(sys, STEPS, 5, 128, 32, seed=4)
++
++
++def test_mm_mod_and_fp_values_are_the_elementwise_sums() -> None:
++    """The limb-GEMM contraction equals the per-term reduced elementwise sum, at the extremes (P - 1) and at random, and
++    the fingerprints through it equal their definition."""
++    from .chain import FP_LANES, fp_values, mm_mod, rho_powers
++    g = torch.Generator().manual_seed(3)
++    for m, k, n in ((5, 8, 768), (7, 768, 10), (1, 1, 1)):
++        A = torch.randint(0, P, (2, m, k), generator=g, dtype=torch.int64)
++        B = torch.randint(0, P, (k, n), generator=g, dtype=torch.int64)
++        A[0, 0] = P - 1
++        B[:, 0] = P - 1
++        ref = ((A[:, :, :, None] * B[None, None, :, :]) % P).sum(2) % P
++        assert torch.equal(mm_mod(A, B), ref)
++    n_op, steps, C, n_slots = 2, 3, 4, 5
++    lanes = torch.randint(0, P, (n_op * FP_LANES, n_slots * steps + 2), generator=g, dtype=torch.int64)
++    rho = torch.randint(0, P, (C,), generator=g, dtype=torch.int64)
++    pw = rho_powers(rho, steps)
++    F = fp_values(lanes, rho, n_op, steps, n_slots * steps + 2)
++    for v, o, x in ((0, 0, 0), (4, 1, 3), (2, 1, 1)):
++        want = sum(int(pw[x, s, i]) * int(lanes[o * FP_LANES + i, steps * v + s]) for s in range(steps) for i in range(FP_LANES)) % P
++        assert int(F[v, o, x]) == want

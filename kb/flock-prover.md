@@ -72,9 +72,26 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
   range-check u as 2×16-bit limbs.
 - SHA-256 leaves need a big-endian Λ.
 
+## Soundness under TABLES accounting and the 2^-128 profile (flock-128, 2026-09-25, `lanes/flock-128/20260925T1018Z-report-flock-128.md`)
+- The ledger is built from the squeezes actually made. A `Challenger` wrapper logs every call site
+  (`lanes/flock-128/evidence/pod-scripts/site_census.rs`), and `evidence/accounting.py` assigns each site its degree.
+- With no grinding credit, `Fast` is 2^-110.0 per whole proof with live coins and 2^-50 under Fiat-Shamir (x2^60).
+  `Fast100` is 2^-97.8. The F128 PIOP union alone is 2^-118.4, so no single-run F128 profile reaches 2^-128.
+- **flock-128-r2** = 2 sequential `Fast100` runs, with a separate domain per rep and live verifier coins: 2^-195.5, and
+  about 2^-194.6 for the GPU pair. It needs no code change. It cannot reach 2^-128 under Fiat-Shamir: (2^60 eps)^2 = 2^-75.6.
+- Cost of r2 against Fast at 4096 VUs: CPU union 2.00x (BF16) and 1.94x (FP8); H100 Flock-CUDA pair 1.00x and 0.91x.
+  Proofs are 2.0x larger; verify takes 1.5-1.8x as long.
+- GOTCHA: Flock-CUDA's `Fast` grinding costs 0.11-0.18 s per GPU proof (BLAKE3 m33: fast 0.226 s, fast100 0.099 s).
+  That is about half of today's GPU wall time. On CPU the same grinding is only 2-8%.
+- The CUDA path takes any profile: set `profile` in `gpu_roundtrip.rs`'s `PcsParams`, and the FFI takes every
+  schedule from it (0 = grinding site absent). `Fast100` roundtrips verify on sm_90. Flock-CUDA uses SHA-256 for
+  its transcript and Merkle trees (`CUDA_HASH`); the CPU uses BLAKE3.
+- Patch and harness: `lanes/flock-128/evidence/pod-scripts/g128_patch.py` (GPU) and `unit_shape128.rs` (CPU).
+
 ## Gaps (as of 2026-09-25)
 - No ZK.
-- The strict 128-bit profile relies on proof-of-work credit.
+- The strict 128-bit profile relies on proof-of-work credit. Without that credit, 2^-128 needs flock-128-r2 (two
+  live-coin runs), as above.
 - No union prover on the GPU. Upstream build.rs targets only sm_120; sm_90 works with the sed above.
 - The census unit's witness builder (`verity_unit.rs`) is a naive bit-sliced evaluator, about half of the unit's CPU
   prove.

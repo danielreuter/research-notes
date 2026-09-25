@@ -6,3 +6,4 @@ notes sync: committed 2ee6181 (10 paths); pushed; skipped 10 over 1 MB (put them
 2026-09-25T11:19:22Z IN machines.d: 1 entry file(s) store -> notes
 notes sync: committed dc00f61 (75 paths); pushed; skipped 10 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist
 2026-09-25T11:24:31Z IN red-team-flock: 2 file(s) store -> notes
+notes sync: committed 9a589c3 (5 paths); pushed; skipped 10 over 1 MB (put them in the store): lanes/flock-bench-80gb/evidence/pod-scripts/unit-ampere_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_bf16.netlist, lanes/flock-bench-80gb/evidence/pod-scripts/unit-hopper_e4m3.netlist

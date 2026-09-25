@@ -4,7 +4,7 @@ lane: vllm-rf-f1
 kind: state
 status: active
 created: 2026-09-24T17:32Z
-updated: 2026-09-25T04:30Z
+updated: 2026-09-25T04:32Z
 ---
 # vllm-rf-f1: opened-value replay (D1) (state)
 
@@ -255,3 +255,6 @@ updated: 2026-09-25T04:30Z
   dir).  Cancelled with `research tele cancel-intent --actor manual --signal 15 --deliver` (evidence in each attempt dir): `-042642-c979`,
   `-042715-a96f`, `-042717-8109`, all rc 143.  Preserve all four as void.  Bootstrap relaunched with `--cwd source`: `r20260925-042905-a8bb`;
   the three test runs launch only after it reports BOOTSTRAP-OK (no wait loops).
+- 04:32Z bootstrap `r20260925-042905-a8bb` BOOTSTRAP-OK 04:30Z (128 GB cgroup, 32 CPUs).  RUNNING (all `--cwd source`): gate (b) MAIN
+  `r20260925-043149-0159` (baeefd21), gate (b) HEAD `r20260925-043152-27f8` (299f42d5), lints + touched `r20260925-043155-7013`
+  (299f42d5).  Started clean (tree copies under /workspace/gate/, pytest up).  Then: jdiff head vs main (same pod) and vs a1; READY.

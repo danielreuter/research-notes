@@ -70,7 +70,7 @@ TC_DOT only A100 (fastest verified 5.81 s art:174d7b4d).
 ## Provisional cells (coordinator, user decision 2026-09-24 5:48 PM PT)
 - RTX 5090 NVFP4 · A-GKR art:49757870: was provisional; red-team-lk PASSED all rewrites 2026-09-25 02:00Z (no downgrade).
   tables.py is frozen and has no marker; the flag is carried in the scoreboard's changed list and the digest. Pulled if red-team-lk FAILs.
-- H100 FP8 · A-GKR art:ad76c106 (merged LK): provisional pending red-team-lk's statement-level check (2026-09-25 03:55Z).
+- H100 FP8 · A-GKR art:ad76c106 (merged LK): was provisional; red-team-lk statement-level check PASSED 2026-09-25 04:05Z.
 - Rule kept for future statement rewrites: they enter Table 2 only after verify-po AND a red-team pass (verify-po holds the label).
 
 ## Same full relation (user decision 2026-09-24 9:04 PM PT)

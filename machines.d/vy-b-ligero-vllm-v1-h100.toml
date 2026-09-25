@@ -1,0 +1,7 @@
+# machine vy-b-ligero-vllm-v1-h100: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "y5puhmozi3wh9r"
+project = "verity"
+guard = 60
+registered_by = "cursor"
+registered_at = "2026-09-25T18:11Z"

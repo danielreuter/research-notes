@@ -46,3 +46,17 @@ for lg in (23, 22, 20, 17):
     gb = T4.numel() * 4 / 1e9
     print(f"m=2^{lg} K1={K1} K2={K2} split={split} T4 {gb:.2f} GB: ip {t_ip:.3f} ms ({gb / t_ip:.2f} TB/s)  zsum {t_sum:.3f}  "
           f"rc {t_rc:.3f}  fold {t_fold:.3f} ms ({1.5 * gb / t_fold:.2f} TB/s)  eq {t_eq:.3f}", flush=True)
+
+for lg in (23, 20):
+    m = 1 << lg
+    T4 = torch.randint(0, P, (4, 2 * m, 6), dtype=torch.int32, device=dev)
+    K1, K2 = k.split(m)
+    split = sp.Kernel.split_b1(K1, K2)
+    e_lo32 = tk.eq_limbs32(kg.eq_table_vars(torch.randint(0, P, (40, 6), dtype=torch.int32, device=dev), 1, K1.bit_length() - 1))
+    ref_z = tk.logup_ext_inner_product(T4, e_lo32, K1, K2, split)
+    for bk in (32, 64, 128):
+        for nw in (2, 4, 8):
+            z = tk.logup_ext_inner_product(T4, e_lo32, K1, K2, split, BLOCK_K=bk, num_warps=nw)
+            ok = bool(torch.equal(z.to(torch.int64).sum(0), ref_z.to(torch.int64).sum(0)))
+            t = bench(lambda: tk.logup_ext_inner_product(T4, e_lo32, K1, K2, split, BLOCK_K=bk, num_warps=nw))
+            print(f"sweep 2^{lg} BLOCK_K={bk} warps={nw}: {t:.3f} ms same={ok}", flush=True)

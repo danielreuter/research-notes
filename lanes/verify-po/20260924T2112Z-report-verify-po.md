@@ -8,6 +8,7 @@ final: 03:45Z hard; budget $6
 status: open
 ---
 
+CHECKPOINT ab9573fd (00:15Z) [open] d3-h100 LIVE x12 all PASS+BOUND, labelled (verdicts art:e13419b4..art:41e3a98b, coordinator 0017Z); Table 2 unchanged (also_valid, D3). 47 accepted, 0 rejected; idle-polling
 CHECKPOINT ab9573fd (23:53Z) [open] verified 5090: agkr-nvf4 art:5adf62eb (verdict art:4791cc89, A-GKR cell 3.3e7x) + arith B-Ligero x4 (art:0b229064 art:c6a8328b art:f538c335 art:20b47418; also_valid behind d5c9e1f3). 35 accepted, 0 rejected; idle-polling
 CHECKPOINT ab9573fd (23:45Z) [open] 2 new: agkr-nvf4 5090 art:5adf62eb (2b25df7f, supersedes ad8f92b9) + arith 5090 fp4-nvf4 B-Ligero x4 (art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a) verifying in r20260924-234455-6524
 CHECKPOINT ab9573fd (23:30Z) [open] verified agkr-nvf4 5090 art:ad8f92b9 (verdict art:37ed86f2) and arith A100 x4 (art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93; all PASS+BOUND). Table 2: 5090 A-GKR 4.2e7x, A100 B-Ligero 5.9e6x. 30 accepted, 0 rejected
@@ -57,6 +58,7 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
 | 9 | `20260924T2306Z-handoff-from-arith.md` (92dab0ad, A100) | a16-tip r1-r4: art:5bcbf3fb art:b83f1ff0 art:4e87bc8a art:228f07b1 | A100 BF16, B-Ligero | accepted x4 | art:50b44dad art:68fa7c52 art:ce07f815 art:38410b93 |
 | 10 | `20260924T2335Z-handoff-from-arith.md` (92dab0ad, 5090) | f4-tip r1-r4: art:97e0f3ba art:0e0e7ac5 art:c3d76d7b art:227aeb2a | RTX 5090 NVFP4, B-Ligero (also_valid; cell stays art:d5c9e1f3) | accepted x4 | art:0b229064 art:c6a8328b art:f538c335 art:20b47418 |
 | 11 | `20260924T2350Z-handoff-from-agkr-nvf4.md` (2b25df7f) | art:5adf62eb | RTX 5090 NVFP4, A-GKR (supersedes #4, #8) | accepted (same verifier merge as #4) | art:4791cc89 |
+| 12 | `20260924T2351Z-handoff-from-d3-h100.md` (main 1d9c3198, live) | b16b r1-3: art:c6e250c2 art:c1c05324 art:166551a5; f8b r1-3: art:971820ba art:7be63d37 art:c58d45c6; b16h r1-3: art:137b923a art:60d0622f art:d9d21d03; f8h r1-3: art:83c7d5a7 art:9aed3426 art:5b6d6d6d | H100 BF16/FP8 (+hash) B-Ligero LIVE, D3 (also_valid in Table 2) | accepted x12 | art:e13419b4 art:209fdd63 art:ed310632; art:d0aeef7f art:fe61cce4 art:f765ab6c; art:649e27ed art:0b754787 art:1e442d10; art:cc7fa7cd art:549ee1d3 art:41e3a98b |
 
 ### 1-2. arith 4090 FP8 B-Ligero (7 results)
 - reverify run r20260924-215206-fe12: all 7 PASS (custody 40/40, pinned fp8-ada-v3x4, 13/13 proofs, 2^-128.33, ligero-verify
@@ -156,6 +158,16 @@ Inbox at startup (21:13Z): nothing new. First request from the launch message: l
   (05) on art:09209e8a rep1: the base is accepted, proofbyte is rejected (merkle path 120), and stmtbyte and swapstmt are
   rejected (column challenge mismatch).
 - Custody: all 5 verdicts `data preserved` rc 0.
+
+### 12. d3-h100 H100 LIVE x12 (run r20260924-235403-7c78)
+- `git diff ab9573fd 1d9c3198` touches only tools/research, so my tree's verifier, relations and fixtures are main 1d9c3198's.
+- reverify: all 12 PASS (dumped rep 1 with the live verifier's coins). bf16 v3x4 and +hash: 76/76, 25/25, 2^-128.05.
+  fp8 v3x4: 40/40, 13/13, 2^-128.33. fp8 +hash: 40/40, 13/13, 2^-128.32.
+- Binding: all 12 BOUND, 0/4096 y. The v3x4 operands also match (0/4096). The +hash statements carry no operand words, since
+  the operands are hash-authenticated.
+- Negatives (05) on art:d0ada343 (f8b-r1) and art:585e4182 (b16h-r1): both bases are accepted and all changes are rejected.
+  On the hash tree, stmtbyte fails with "auth: y: multiproof rejected (root mismatch)".
+- Custody: all 12 verdicts `data preserved` rc 0. Table 2 (00:16Z) is unchanged: all 12 are also_valid.
 
 ### Table 2 after these labels (laptop render 22:12Z, after `reindex --remote`; A100 and 5090 rows re-rendered 23:31Z)
 | cell | before | now | art |

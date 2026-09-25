@@ -79,8 +79,14 @@
   key sweep matched its own pattern text, a false positive; head4_gate.sh's sweep needs a 20+ char secret-shaped value, self-tested).
   Why the subset suffices: the commits after be366f80 reach, among regression checks, only verdict (A/B'd), decomp_hashes
   (program_compare) and replay_partition (sampled_replay); manifest_digest's rebuild (query.cli) imports only batch_decomp.derived_shape.
-- Next: after gate (b), GM-01 #23 at head4 (`/workspace/gm_run.sh /workspace/head4 head4_1`), compare with base1/branch1
-  (byte-identical global program). After `a_final` + `a_head4`: READY.md (heads be366f80 -> a2e2843e), terminate the pod.
+- 23:56Z `a_head4` DONE: 53 passed, 57 skipped, 81 deselected, exit 0 (546 s). T1 on #4/#11/#23 all skip here (not applicable, or
+  match/program.json / descriptor.json.gz not in the fixtures), exactly as at be366f80: the T1 part of the keyless rerun is moot.
+- 00:13Z gate (b) at a2e2843e DONE: 55 failed, 11 errors, 296 skipped, 3592 passed, 6 xfailed (3960; 2240 s). jdiff vs a1 head run:
+  only `ops/test_row_pod_cancel_forwarding::test_sigint_is_forwarded_the_same_way` failed->passed (also failed at be366f80); 16 new
+  pass; 1 replaced. vs be366f80: +41 lint tests pass, same sigint flip. One reworded skip reason (test_ship_roots) is main's e0c7bfe9.
+- 00:14:46Z GM-01 #23 at head4 running (`/workspace/out/gm/head4_1`); `a_final` on row #74 (118/~156 at 00:14Z).
+- Next: compare GM-01 head4_1 with base1/branch1 (gm_diff.py / jdiff); after `a_final`: READY.md (heads be366f80 -> a2e2843e),
+  terminate the pod.
 
 ## Running (pod; scripts `/workspace/rff24/gate_{a,b}.sh` = a1's with logs in `/workspace/out/gates/`)
 - origin/main `22741456` changes nothing under integrations/vllm or packages/verity since 72884c8a; `git merge-tree` with HEAD is clean.

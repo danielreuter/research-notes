@@ -1,5 +1,5 @@
 #!/bin/bash
-# vyv-rf-c1-big (cpu3m 64 vCPU / 512 GB): pod_bootstrap.sh --cpu from the head tree, pytest-xdist 3.8.0, xgrammar pinned to 0.2.7
+# vyv-rf-c1-big (cpu3m 64 vCPU / 512 GB): pod_bootstrap.sh --cpu from the base tree (ops/ is identical at head), pytest-xdist 3.8.0, xgrammar pinned to 0.2.7
 # (a1's baseline environment), and the freeze diff against a1's baseline-freeze.txt.   logs: /workspace/c1/logs/ -> $RESEARCH_RUN_DIR/c1-logs/
 set -u
 L=/workspace/c1/logs; mkdir -p $L
@@ -8,7 +8,7 @@ cp $IN/*.sh $IN/*.py $IN/baseline-freeze.txt /workspace/c1/ 2>/dev/null
 finish() { mkdir -p $RESEARCH_RUN_DIR/c1-logs; cp -a $L/. $RESEARCH_RUN_DIR/c1-logs/; echo "BOOT-DONE $(date -u +%FT%TZ)"; }
 trap finish EXIT
 echo "bootstrap start $(date -u +%FT%TZ)"
-( cd /workspace/head/integrations/vllm && bash verity_vllm/ops/pod_bootstrap.sh --cpu --out /workspace/c1/bootstrap ) > $L/bootstrap.log 2>&1
+( cd /workspace/base/integrations/vllm && bash verity_vllm/ops/pod_bootstrap.sh --cpu --out /workspace/c1/bootstrap ) > $L/bootstrap.log 2>&1
 tail -3 $L/bootstrap.log
 grep -q '^BOOTSTRAP-OK' $L/bootstrap.log || { echo "BOOT-FAIL"; exit 3; }
 export PATH=$HOME/.local/bin:$PATH

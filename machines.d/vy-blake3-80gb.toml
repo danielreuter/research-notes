@@ -1,7 +1,7 @@
 # machine vy-blake3-80gb: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "cd62ere8truosp"
+pod_id = "nhdu3eiw255yv5"
 project = "verity"
 guard = 90
 registered_by = "Daniels-MacBook-Pro.local"
-registered_at = "2026-09-25T07:03Z"
+registered_at = "2026-09-25T08:50Z"

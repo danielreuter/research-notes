@@ -87,3 +87,55 @@ CHECKPOINT a2edab4d (04:24Z) [open] merged agkr-fp8+agkr-nvf4 as a2edab4d (pushe
   and its numbers are pessimistic.
 - The GPU prover can't take the flat-SHA circuit: `gpu/circuit.layers()` spans every wire per layer, with dense wiring.
   The Rust CPU prover is sparse.
+
+## Hash spike (survey §4.3), 08:55Z
+
+**Setup.** One RunPod A100-SXM4-80GB pod, vy-agkr-bound2. Its CPU is an EPYC 7742 (Zen 2) with a 13-thread cgroup cap
+and no AVX-512, so Flock runs its portable path. Runs: r20260925-080740-fb11, r20260925-081528-c188 and
+r20260925-084251-099a. Lane tip caacca10 (tools `sha256_flat.py`, `link_stub.py`); pod scripts 12–16.
+
+A 4,096-VU BF16 batch is 393,216 units and 393,216 SHA-256 compressions (96 per VU: the x row and the W column, 48
+blocks each).
+
+| per 4,096-VU BF16 batch | committed elements | CPU prover s | A100 prover s | rounds |
+|---|---|---|---|---|
+| A-GKR BF16 alone | 175M CPU v1 (444/unit); 109M GPU cell | 361.5 | 0.86 | 355 / 328 |
+| (b) in-field flat SHA-256 | 2.62e9 (6,657 per compression) | ≈10,240 (extrap.) | infeasible | 266 |
+| (a) Flock SHA-256 | binary field | ≈7.5 | CPU only | – |
+| (a) Flock BLAKE3 | binary field | ≈3.3 | CPU only | – |
+| (a) link, A-GKR side (stub, k = 1) | 214M (545/unit) | 138.3 | 0.55 | 84 |
+
+**(b) In-field flat SHA-256.** Longfellow flat layout ported to BabyBear.
+- Cost: B = 64 takes 3.26 s and B = 4,096 takes 106.7 s (arith 101.6 s, commit 4.4 s, 9.1 GB, verify 3.2 s, proof 5.5 MB).
+- The 10,240 s figure is linear from B = 4,096. The run is arithmetic-bound: 36,929 wires per compression against the
+  BF16 unit's 290.
+- Soundness checks: the honest witness is accepted, and the negative (one committed bit of new a flipped) is rejected by
+  check-witness.
+- On GPU it is infeasible: `gpu/circuit.layers()` gives each layer dense wiring over all 2^16 wires.
+- Against A-GKR alone that is about 28× on CPU. The survey projected about 3–6× bare, and that projection does not hold
+  for A-GKR.
+
+**(a) Flock b684b12 `hash_throughput`** (one compression per input, best of 3):
+- 13 threads: SHA-256 is 0.038 / 0.107 / 1.17 / 5.00 s at 2^8 / 2^12 / 2^16 / 2^18. BLAKE3 is 0.024 / 0.061 / 0.54 /
+  2.18 s at the same sizes.
+- 1 thread: SHA-256 takes 56.9 s at 2^18 and BLAKE3 26.3 s.
+- The bench rejects batches below 2^8, so B = 64 is reported as 2^8.
+- At B = 4,096 Flock is about 1,000× cheaper than route (b).
+
+**(a) Link, A-GKR side.** A stub of the survey's §3.8 prime side: 512 operand bits per unit, booleanity, and a
+recomposition into the 32 words. The cross-field check itself is not built (red-team gate).
+- CPU: 138.3 s at 393k units (+38% of A-GKR; verify 23.7 s; 32.6 GB).
+- A100: 0.55 s warm (+64% of the cell; proof 40.7 MB; 33 GB).
+- Packing makes it worse on CPU: k = 2 takes 173 s and k = 4 takes 563 s, because the range-check products replace
+  commitment work. The survey's link also needs single bits.
+- Not modelled: the dense linear check (N = 2.0e8 GF(2^128) eq terms and about 16 byte-table lookups per bit, on both
+  prover and verifier) and the u_t commitment (about 3.7k elements).
+- If the bits were merged into the unit circuit rather than proved as their own segment, the GPU cost would be higher:
+  layers span all wires, so the unit goes from 290 to about 1,314 wires (2^9 to 2^11).
+
+**Adoption.** I recommend route (a), Flock plus the bit link, as the only viable one for A-GKR.
+- On CPU its total is about 150 s against 361.5 s.
+- On GPU, Flock on the CPU (3.3–7.5 s, portable path) dominates the 0.86 s A-GKR cell. Flock on AVX-512 hardware or a
+  GPU binary-field prover would be needed for a GPU row.
+- I am NOT building the in-field fallback (b) into A-GKR. It is about 28× on CPU and can't run on the GPU prover.
+- I am NOT building the link until the red team has reviewed it.

@@ -1,0 +1,7 @@
+# machine vy-flock-80gb: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "gyw0w7e79jak4n"
+project = "verity"
+guard = 45
+registered_by = "Daniels-MacBook-Pro.local"
+registered_at = "2026-09-25T08:52Z"

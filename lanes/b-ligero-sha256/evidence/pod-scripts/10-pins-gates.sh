@@ -23,6 +23,6 @@ for rel in ${RELS:-fp8-ada-x4}; do
   echo "=== $(date -u +%H:%M:%SZ) gate $rel+sha256 --vus $GATE_VUS --batch ${GATE_BATCH:-4096}"
   t0=$(date +%s)
   $PY -u -m backends.direct.ligero.run --relation $rel+sha256 gate-vu --vus $GATE_VUS --batch ${GATE_BATCH:-4096} --zk --mode interactive \
-      --auth included-hash --target -128 --device cuda > $RD/gate-$rel.log 2>&1
+      --auth included-hash --target -128 --device cuda --instance-procs 16 --out $RD/gate-$rel.json > $RD/gate-$rel.log 2>&1
   echo "rc=$? wall=$(( $(date +%s) - t0 ))s"; tail -8 $RD/gate-$rel.log
 done

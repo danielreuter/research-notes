@@ -97,4 +97,17 @@ Old cell art:794365d3: t.total 0.8965 s at 4096 (host EPYC 7713). Runs: bootstra
 register r20260925-082255-9c25 (all .custody). Laptop `data preserved` batch 1 rc 0. Pod 07:50-08:28Z, $1.59/h, ~$1.01.
 Handoff verify-night-2/20260925T0835Z-handoff-from-poseidon-v1.md.
 - 08:30Z H100 pod afx80tft4x2ejt (EU-FR-1, EPYC 9554, quota 23.8; registered by hand again). First sync died at 41 MB (my
-  shell dropped it); re-running.
+  shell dropped it); re-run 424 s. Bootstrap r20260925-083905-f7cb OK (encode 0.285 ms, matmul 670.8 TFLOP/s).
+- Inbox 0745Z (coordinator): R1/R2 red-team SH FAIL affects every included-hash statement; keep measuring, merge
+  ligero-steps-pin's fix when it lands ("steps pin + R1/R2 ready"); results count only after fix + re-verify. The fix is
+  verifier-side (derive the triple from vu_index, recompute roots); honest unshared proofs are unchanged. Not landed by 09:00Z.
+- Inbox 0847Z (coordinator): merge origin/main 58b113bc (commit-gpu) before the next measured runs. The first H100 run
+  (r20260925-084727-933f, tree 54ad119d) had just started: killed after 2 points (not registered), merged origin/main 94b1c4d2
+  (82adc8a7, pushed; main includes b862be30, so the Poseidon2 committer is the same code path), regenerated
+  rev-to-47485b81.patch (backends/direct/ligero + backends/shared; 7 files sha-checked), re-synced (rsync 18 s). A relaunch
+  (r20260925-085219-9b19) shipped a stale h100.sh (committer label) and was killed within seconds; final H100 run
+  r20260925-085254-6706 (h100.sh: both rows, then register both). Commitment evidence at n=1024/2048 equals the killed run's.
+- main PR #19 (in 94b1c4d2): bench.views counts synthetic stream points above 4096 (answers my 0730Z question) but rejects the
+  A100 repeats beyond 4096 (I). So the A100 cell candidate is n=4096: registered art:af0089920b38b6e8c7dd2d51c93da51ee2e93abd4ee479880b8027b9113ab1ad
+  = the same run and tree as art:289841b1 with meta.sweep a100-bf16ampere-frozen4096 (points 1024/2048/4096, plateau 4096,
+  rule: bounded by the set; the repeat points listed under also_measured). Handoff verify-night-2/20260925T0900Z.

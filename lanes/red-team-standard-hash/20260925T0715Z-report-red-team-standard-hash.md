@@ -5,6 +5,7 @@ created: 2026-09-25T07:15Z
 status: open
 ---
 
+CHECKPOINT f4d797b (08:51Z) [open] c81ed1c8: agkr-bound pins recomputed core-only from frozen sets: fp8-hopper +blake3 and +vllm-v1 a/b/y MATCH; bf16-ampere pending (set rebuilt on pod); R4 handoffs out; inbox empty; no sha256 pins yet
 CHECKPOINT e10e1d6 (08:33Z) [open] 21393756: R4 BREAK: R2 coverage (de2fa317 reverify + vn2 06) counts stmts w/o proof, 1/3 VUs proven PASS art:c7683eb2; de2fa317 closes R1, H2 PASS art:9fa210e7; sp1 R3 art:b11bc6ee; survey adopted (review §3.8 link when sent)
 CHECKPOINT a33671b (08:07Z) [open] e1138866: vn2 06-core-roots closes R1/R2 (flags forgery, art:8f2112e2); sp1-committed PASS guest/tree, R3 prover-chosen roots art:b11bc6ee; handoffs sent; polling for ligero-steps-pin fix, sha256 pins
 CHECKPOINT a2d67679 (07:46Z) [open] R1 remap BREAK fp8-ada+blake3 FAIL art:2b51c5fd; H2 steps pin PASS art:efaa3a46; blake3-80gb FAIL inherited (handoff sent); sha256/agkr not ready; now reviewing sp1-committed

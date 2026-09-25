@@ -1,5 +1,5 @@
 diff --git a/backends/direct/ligero/auth.py b/backends/direct/ligero/auth.py
-index c27e8384..134eedbc 100644
+index 26bc6b87..134eedbc 100644
 --- a/backends/direct/ligero/auth.py
 +++ b/backends/direct/ligero/auth.py
 @@ -33,7 +33,6 @@ only per call; the per-leaf framing is the Python-level cost) and cached on disk
@@ -95,13 +95,372 @@ index c27e8384..134eedbc 100644
      return bytes(out)
  
  
+@@ -211,32 +178,15 @@ class WordTree:
+ 
+     def __init__(self, ref: TreeRef, levels: Sequence[np.ndarray]):
+         self.ref = ref
+-        self._dev = None
+-        self._levels = list(levels)
+-        if len(self._levels) != merkle_depth(ref.count) + 1 or self._levels[-1].shape[0] != 1:
++        self.levels = list(levels)
++        if len(self.levels) != merkle_depth(ref.count) + 1 or self.levels[-1].shape[0] != 1:
+             raise ValueError("levels do not form a tree of the declared count")
+         if self.root != ref.root:
+             raise ValueError("stored root does not match the reference")
+ 
+-    @classmethod
+-    def on_device(cls, ref: TreeRef, tree) -> WordTree:
+-        """A tree built on the device (``frame_gpu``: a ``hash_gpu.frame_v3.Tree``); its levels come to the host once,
+-        when first read (openings, saving), unless the tree was small enough to be copied at build time."""
+-        self = cls.__new__(cls)
+-        self.ref, self._dev, self._levels = ref, tree, None
+-        if tree.depth != merkle_depth(ref.count) or tree.root != ref.root:
+-            raise ValueError("device tree does not match the reference")
+-        return self
+-
+-    @property
+-    def levels(self) -> list[np.ndarray]:
+-        if self._levels is None:
+-            self._levels = self._dev.levels
+-        return self._levels
+-
+     @property
+     def root(self) -> bytes:
+-        return self._dev.root if self._levels is None else self._levels[-1][0].tobytes()
++        return self.levels[-1][0].tobytes()
+ 
+     @property
+     def count(self) -> int:
+@@ -258,11 +208,7 @@ class WordTree:
+ 
+ 
+ def build_word_tree(name: str, binding: bytes, words: np.ndarray, *, procs: int | None = None) -> WordTree:
+-    """Commit ``words`` (uint16, one per leaf, leaf rank == position == array index) in the tree's domain; on the GPU
+-    (``frame_gpu``) when it is available."""
+-    from . import frame_gpu
+-    if frame_gpu.available():
+-        return frame_gpu.word_tree(name, binding, words, nbytes=2, schema=SCHEMA)
++    """Commit ``words`` (uint16, one per leaf, leaf rank == position == array index) in the tree's domain."""
+     words = np.ascontiguousarray(words, dtype=np.uint16).ravel()
+     count = int(words.shape[0])
+     LIMITS.enforce("max_positions", count)
+diff --git a/backends/direct/ligero/frame_gpu.py b/backends/direct/ligero/frame_gpu.py
+deleted file mode 100644
+index 5fce313f..00000000
+--- a/backends/direct/ligero/frame_gpu.py
++++ /dev/null
+@@ -1,193 +0,0 @@
+-"""The committer's frame-v3 trees on the GPU: ``backends/shared/hash_gpu/frame_v3.py`` behind the tree builders of
+-``auth.py`` (word leaves) and ``hashauth.py`` (row leaves, output words), byte-identical to their host paths (the
+-``frame_gpu_test.py`` pins).  ``LIGERO_COMMIT_GPU=0`` keeps the host paths; ``LIGERO_GPU_STRICT=1`` makes a missing
+-GPU path on a cupy host an error rather than a silent host fallback.
+-
+-Row leaves: keyed BLAKE3 (``leaf/blake3.py``) -- the rows' bytes on the device, one thread per chunk, the root fold per
+-row -- whose 32-byte roots are the leaf values, and the scheme's published digests (header + chunk CV limbs) from the
+-same chunk CVs.  :func:`blake3_chain` is the prover's carried state of every column from the same kernel (the
+-``row_sponges`` fast path of ``hashchain.row_chain``).
+-"""
+-from __future__ import annotations
+-
+-import contextlib
+-import os
+-import sys
+-from pathlib import Path
+-
+-import numpy as np
+-
+-ENABLED = os.environ.get("LIGERO_COMMIT_GPU", "1") != "0"
+-ROW_SCHEMES = ("blake3",)              # leaf schemes whose row digests run here
+-
+-try:
+-    _shared = str(Path(__file__).resolve().parents[2] / "shared")
+-    if _shared not in sys.path:
+-        sys.path.insert(0, _shared)
+-    import cupy as cp
+-    from hash_gpu import frame_v3 as fv3
+-
+-    _ERR = None
+-except Exception as _e:  # noqa: BLE001 -- no cupy / no hash_gpu: the host paths stay
+-    cp = fv3 = None
+-    _ERR = _e
+-
+-
+-def available() -> bool:
+-    if not ENABLED:
+-        return False
+-    if fv3 is None:
+-        if os.environ.get("LIGERO_GPU_STRICT") and not isinstance(_ERR, ImportError):
+-            raise RuntimeError(f"frame_gpu: the GPU committer is unavailable ({_ERR})")
+-        return False
+-    try:
+-        return cp.cuda.runtime.getDeviceCount() > 0
+-    except Exception:  # noqa: BLE001
+-        return False
+-
+-
+-@contextlib.contextmanager
+-def _torch_stream():
+-    """cupy launches on torch's current stream (the rows come from torch)."""
+-    try:
+-        import torch
+-    except ImportError:
+-        torch = None
+-    if torch is not None and torch.cuda.is_available() and torch.cuda.is_initialized():
+-        with cp.cuda.ExternalStream(torch.cuda.current_stream().cuda_stream):
+-            yield
+-    else:
+-        yield
+-
+-
+-def _dev(x):
+-    """A device array (torch tensor or cupy) or a host array as a cupy array."""
+-    return cp.asarray(x)
+-
+-
+-def row_bytes(rows, word_bits: int):
+-    """(N, n_words) integer words (torch / cupy on the device, or numpy) -> (N, n_words * word_bits / 8) uint8 cupy: the
+-    row's little-endian words (``leaf/blake3.row_bytes``)."""
+-    r = _dev(rows)
+-    if word_bits == 8:
+-        if r.dtype in (cp.uint8, cp.int8):
+-            return cp.ascontiguousarray(r).view(cp.uint8)
+-        if bool(((r < 0) | (r >= 256)).any()):
+-            raise ValueError("word out of range")
+-        return r.astype(cp.uint8)
+-    if word_bits == 16:
+-        if r.dtype in (cp.uint16, cp.int16):
+-            return cp.ascontiguousarray(r).view(cp.uint8).reshape(r.shape[0], -1)
+-        if bool(((r < 0) | (r >= 1 << 16)).any()):
+-            raise ValueError("word out of range")
+-        return r.astype(cp.uint16).view(cp.uint8).reshape(r.shape[0], -1)
+-    raise ValueError(f"word_bits {word_bits}: rows are bytes or little-endian u16 words")
+-
+-
+-def word_tree(name: str, binding: bytes, words, *, nbytes: int, schema: str):
+-    """The ``auth.py`` / ``hashauth.py`` word tree (one ``nbytes``-byte big-endian word per leaf, rank = position = index)
+-    built on the device; ``words`` a host or device integer array."""
+-    from .auth import LIMITS, OWNER, TreeRef, WordTree, domain_for
+-    with _torch_stream():
+-        w = _dev(words).ravel()
+-        count = int(w.shape[0])
+-        LIMITS.enforce("max_positions", count)
+-        if nbytes == 2:
+-            w, vmode = (w.view(cp.uint16) if w.dtype == cp.int16 else w.astype(cp.uint16, copy=False)), fv3.VALUE_U16
+-        elif nbytes == 4:
+-            w, vmode = w.astype(cp.uint32, copy=False), fv3.VALUE_U32
+-        else:
+-            raise ValueError("word leaves are 2 or 4 bytes")
+-        domain = domain_for(binding, OWNER[name], count)
+-        t = fv3.build_tree(domain.domain_id, count, schema, cp.ascontiguousarray(w), vmode=vmode)
+-        return WordTree.on_device(TreeRef(name, bytes(binding), OWNER[name], count, t.root), t)
+-
+-
+-def _limbs(x):
+-    """(..., 8) u32 words -> (..., 16) 16-bit limbs, low first (``leaf/blake3.cvs_to_elems``)."""
+-    x = x.astype(cp.int64)
+-    return cp.stack([x & 0xFFFF, x >> 16], -1).reshape(*x.shape[:-1], 16)
+-
+-
+-def blake3_rows(rows, *, word_bits: int, role: int, block_out: bool = False):
+-    """Keyed BLAKE3 of every row on the device: ``(cvs, roots[, block_out])`` (``hash_gpu.frame_v3.blake3_keyed_rows``)
+-    and the row bytes."""
+-    from .leaf import blake3 as b3
+-    rb = row_bytes(rows, word_bits)
+-    return fv3.blake3_keyed_rows(rb, b3.key_for(role), block_out=block_out), rb
+-
+-
+-def blake3_digests(cvs, role: int):
+-    """(N, n_chunks, 8) chunk CVs -> (N, DIGEST_ELEMS) int64 cupy: the scheme's published digests (``cvs_to_elems``)."""
+-    from .leaf import blake3 as b3
+-    global _DIGESTS
+-    n, nch = int(cvs.shape[0]), int(cvs.shape[1])
+-    if nch > b3.N_CHUNKS_MAX:
+-        raise ValueError(f"{nch} chunks exceed the scheme's {b3.N_CHUNKS_MAX}")
+-    if _DIGESTS is None:
+-        _DIGESTS = cp.ElementwiseKernel(
+-            "raw uint32 cvs, int32 nch, int32 width, int64 header", "int64 out",
+-            "long long r = i / width; int e = (int)(i % width), k = e - 1;"
+-            "out = e == 0 ? header : (k / 16 >= nch ? 0ll"
+-            " : (long long)((cvs[(r * nch + k / 16) * 8 + (k % 16) / 2] >> (16 * (k & 1))) & 0xFFFFu));",
+-            "blake3_digest_elems")
+-    out = cp.empty((n, b3.DIGEST_ELEMS), dtype=cp.int64)
+-    _DIGESTS(cp.ascontiguousarray(cvs), np.int32(nch), np.int32(b3.DIGEST_ELEMS), np.int64(b3.header(nch, role)), out)
+-    return out
+-
+-
+-_DIGESTS = None
+-
+-
+-def row_tree(name: str, binding: bytes, rows, *, word_bits: int, role: int, scheme, expect=None):
+-    """The ``hashauth.build_row_tree`` of a keyed-BLAKE3 row scheme on the device: (tree, digests (count, DIGEST_ELEMS)
+-    int64 host) from ``rows`` (N, n_words) words (device or host).  ``expect``: digests (host or device) that must be
+-    these."""
+-    from .auth import LIMITS, OWNER, TreeRef, WordTree, domain_for
+-    if scheme.name != "blake3":
+-        raise ValueError(f"no GPU row digest for leaf scheme {scheme.name!r}")
+-    with _torch_stream():
+-        (cvs, roots), _ = blake3_rows(rows, word_bits=word_bits, role=role)
+-        count = int(cvs.shape[0])
+-        LIMITS.enforce("max_positions", count)
+-        domain = domain_for(binding, OWNER[name], count)
+-        t = fv3.build_tree(domain.domain_id, count, scheme.schema, roots.view(cp.uint8).reshape(count, 32), vlen=32)
+-        dg = blake3_digests(cvs, role)
+-        if expect is not None:
+-            e = _dev(expect)
+-            if e.shape != dg.shape or not bool((e.astype(cp.int64, copy=False) == dg).all()):
+-                raise ValueError(f"leaf {scheme.name}: the chain digests are not the committed rows' digests")
+-        dg = dg.get()
+-    return WordTree.on_device(TreeRef(name, bytes(binding), OWNER[name], count, t.root), t), dg
+-
+-
+-def blake3_chain(words, *, word_bits: int, role: int, row_words: int, n: int, steps: int):
+-    """``Blake3Leaf.row_sponges``: ``words`` (n * steps, k) int64 CUDA torch, row-major -> ``(carry (n, steps,
+-    CARRY_ELEMS), digests (n, DIGEST_ELEMS))`` int64 torch = ``carry_values`` / ``native`` of the rows."""
+-    import torch
+-    from .leaf import blake3 as b3
+-    dev = words.device
+-    rows = words.reshape(n, row_words)
+-    with _torch_stream():
+-        (cvs, _roots, bo), rb = blake3_rows(rows, word_bits=word_bits, role=role, block_out=True)
+-        nb = int(bo.shape[1])
+-        half = steps == 2 * nb
+-        if not half and nb % steps:
+-            raise ValueError("whole (or half) blocks per column")
+-        nblk = 1 if half else nb // steps
+-        car = cp.zeros((n, steps, b3.CARRY_ELEMS), dtype=cp.int64)
+-        cols = cp.arange(2 if half else 1, steps)
+-        j = cols // 2 - 1 if half else cols * nblk - 1          # the last block of the previous column
+-        if cols.size:
+-            car[:, cols, 0:16] = _limbs(bo[:, j, :])
+-        col_of = (lambda jj: 2 * jj + 1) if half else (lambda jj: jj // nblk)
+-        nch = int(cvs.shape[1])
+-        for c in range(nch - 1):
+-            end = col_of(min(16 * (c + 1), nb) - 1)             # the column that ends chunk c
+-            car[:, end + 1:, 16 * (c + 1):16 * (c + 2)] = _limbs(cvs[:, c, :])[:, None, :]
+-        if half:                                               # the msg hold: the previous column's 16 limbs
+-            prev = rb.reshape(n, steps, 16, 2).astype(cp.int64)
+-            car[:, 1:, b3.HOLD_MSG:b3.HOLD_MSG + 16] = prev[:, :-1, :, 0] | (prev[:, :-1, :, 1] << 8)
+-        car[:, :, b3.CARRY_ELEMS - 1] = cp.arange(steps)[None, :]
+-        dg = blake3_digests(cvs, role)
+-        return torch.as_tensor(car, device=dev), torch.as_tensor(dg, device=dev)
+diff --git a/backends/direct/ligero/frame_gpu_test.py b/backends/direct/ligero/frame_gpu_test.py
+deleted file mode 100644
+index 38132093..00000000
+--- a/backends/direct/ligero/frame_gpu_test.py
++++ /dev/null
+@@ -1,103 +0,0 @@
+-"""The GPU committer (``frame_gpu.py``) byte for byte against the host tree builders of ``auth.py`` / ``hashauth.py`` and
+-the keyed-BLAKE3 leaf's ``carry_values`` / ``native`` (skipped without a CUDA device)."""
+-from __future__ import annotations
+-
+-import numpy as np
+-import pytest
+-
+-from . import auth, frame_gpu, hashauth
+-from .leaf import blake3 as b3
+-from .leaf import registry
+-
+-pytestmark = pytest.mark.skipif(not frame_gpu.available(), reason="needs the GPU committer (cupy, a CUDA device)")
+-
+-BIND = {n: bytes([i + 1]) * 32 for i, n in enumerate(auth.TREE_NAMES)}
+-
+-
+-@pytest.fixture
+-def host(monkeypatch):
+-    """Run the host builders in the block (the GPU path off)."""
+-    class _Off:
+-        def __enter__(self):
+-            monkeypatch.setattr(frame_gpu, "ENABLED", False)
+-
+-        def __exit__(self, *a):
+-            monkeypatch.setattr(frame_gpu, "ENABLED", True)
+-    return _Off()
+-
+-
+-def _same(t_gpu, t_host):
+-    assert t_gpu.ref == t_host.ref
+-    assert len(t_gpu.levels) == len(t_host.levels)
+-    for a, b in zip(t_gpu.levels, t_host.levels):
+-        assert np.asarray(a).tobytes() == np.asarray(b).tobytes()
+-
+-
+-@pytest.mark.parametrize("count", [1, 3, 4096, 70001])
+-def test_u16_word_tree_is_the_host_tree(count, host):
+-    words = np.random.default_rng(count).integers(0, 1 << 16, count).astype(np.uint16)
+-    t = auth.build_word_tree("a", BIND["a"], words)
+-    with host:
+-        h = auth.build_word_tree("a", BIND["a"], words, procs=1)
+-    _same(t, h)
+-
+-
+-@pytest.mark.parametrize("y_bits", [16, 32])
+-def test_output_word_tree_is_the_host_tree(y_bits, host):
+-    words = np.random.default_rng(y_bits).integers(0, 1 << y_bits, 4096, dtype=np.int64)
+-    t = hashauth.build_word_tree("y", BIND["y"], words, y_bits)
+-    with host:
+-        h = hashauth.build_word_tree("y", BIND["y"], words, y_bits)
+-    _same(t, h)
+-
+-
+-@pytest.mark.parametrize("word_bits,dtype", [(8, np.uint8), (16, np.uint16), (16, np.int64)])
+-def test_blake3_row_tree_is_the_host_tree(word_bits, dtype, host):
+-    scheme = registry.get("blake3")
+-    rows = np.random.default_rng(word_bits).integers(0, 1 << word_bits, (300, b3.K_VU)).astype(dtype)
+-    for name, role in (("a", 1), ("b", 2)):
+-        t, dg = hashauth.build_row_tree(name, BIND[name], rows, word_bits, role, scheme)
+-        with host:
+-            h, dh = hashauth.build_row_tree(name, BIND[name], rows, word_bits, role, scheme)
+-        _same(t, h)
+-        assert np.array_equal(dg, dh)
+-        with pytest.raises(ValueError, match="chain digests"):
+-            bad = dh.copy()
+-            bad[5, 3] ^= 1
+-            hashauth.build_row_tree(name, BIND[name], rows, word_bits, role, scheme, digests=bad)
+-
+-
+-@pytest.mark.parametrize("word_bits,steps", [(8, 24), (8, 12), (8, 48), (16, 48), (16, 24), (16, 96)])
+-def test_blake3_chain_is_carry_values(word_bits, steps):
+-    import torch
+-    scheme = registry.get("blake3")
+-    n = 37
+-    rows = np.random.default_rng(steps * word_bits).integers(0, 1 << word_bits, (n, b3.K_VU))
+-    words = torch.as_tensor(rows, device="cuda").reshape(n * steps, b3.K_VU // steps)
+-    for role in (1, 2):
+-        car, dg = scheme.row_sponges(words, word_bits=word_bits, role=role, row_words=b3.K_VU, n=n, steps=steps)
+-        assert np.array_equal(car.cpu().numpy(), scheme.carry_values(rows, word_bits=word_bits, role=role, steps=steps))
+-        assert np.array_equal(dg.cpu().numpy(), scheme.native(rows, word_bits=word_bits, role=role))
+-
+-
+-def test_device_tree_levels_come_to_the_host_once():
+-    words = np.arange(1 << 18, dtype=np.uint16)
+-    t = auth.build_word_tree("b", BIND["b"], words)
+-    assert t._levels is None
+-    root = t.root
+-    sib = auth.multiproof_siblings(t, np.arange(100, 300))
+-    assert t._levels is not None and t.root == root and len(sib) > 0
+-
+-
+-@pytest.mark.parametrize("word_bits,dt", [(8, np.uint8), (16, np.uint16)])
+-def test_committed_rows_pinned_reach_the_device_intact(word_bits, dt):
+-    import torch
+-    from .relchain import _rows_to_device, narrow_rows
+-    rows = [np.random.default_rng(r).integers(0, 1 << word_bits, 96) for r in range(40)]
+-    host = narrow_rows(rows, word_bits, pin=True)
+-    assert host.dtype == dt and torch.from_numpy(host.view(np.uint8)).is_pinned()
+-    narrow: dict = {}
+-    wide = _rows_to_device(host, "cuda", narrow, "a")
+-    assert np.array_equal(wide.cpu().numpy(), np.stack(rows)) and "a" in narrow
+-    with pytest.raises(ValueError, match="out of range"):
+-        narrow_rows([np.array([0, 1 << word_bits])], word_bits)
 diff --git a/backends/direct/ligero/hashauth.py b/backends/direct/ligero/hashauth.py
-index 0e68f60a..7f4b3f94 100644
+index a07ad245..7f4b3f94 100644
 --- a/backends/direct/ligero/hashauth.py
 +++ b/backends/direct/ligero/hashauth.py
-@@ -27,8 +27,7 @@ from verity.commitments import identity_digest, verify_multiproof
+@@ -26,10 +26,8 @@ import numpy as np
+ from verity.commitments import identity_digest, verify_multiproof
  from verity.commitments.rowleaf import SCHEMA_ROW
  
+-from . import frame_gpu
  from . import poseidon2 as h2
 -from .auth import (LIMITS, OWNER, TREE_NAMES, TreeRef, WordTree, _chunks, _node_chunk, _pad_chunk, domain_for, leaf_hashes,
 -                   multiproof_siblings)
@@ -109,24 +468,29 @@ index 0e68f60a..7f4b3f94 100644
  from .auth import build_word_tree as _build_word_tree_u16
  from .leaf import registry as leaf_registry
  from verity.errors import ResourceLimit
-@@ -81,25 +80,21 @@ def _levels(domain, leaves: list[bytes], count: int) -> list[np.ndarray]:
+@@ -82,30 +80,21 @@ def _levels(domain, leaves: list[bytes], count: int) -> list[np.ndarray]:
      return levels
  
  
 -def build_row_tree(name: str, binding: bytes, rows: np.ndarray, word_bits: int, role: int, leaf=None,
--                   digests: np.ndarray | None = None) -> tuple[WordTree, np.ndarray]:
+-                   digests: np.ndarray | None = None, rows_dev=None) -> tuple[WordTree, np.ndarray]:
 +def build_row_tree(name: str, binding: bytes, rows: np.ndarray, word_bits: int, role: int, leaf=None) -> tuple[WordTree, np.ndarray]:
      """Commit ``rows`` (count, n_words) of ``word_bits``-bit words as row leaves of the scheme ``leaf`` (default: Poseidon2,
      ``leaf/v2h``): the digest of each row (``role``: ``h2.ROLE_X`` / ``ROLE_W``, the scheme's domain tag), framed by
      ``leaf.leaf_bytes`` under schema ``leaf.schema``, under the SHA-256 tree.  Returns the tree and the digests
 -    (count, digest_elems).  ``digests``: the rows' ``scheme.native`` digests already computed (the committer's device
--    sponges, ``relchain.HashedRelationRunner.commit``) instead of hashing ``rows`` here."""
+-    sponges, ``relchain.HashedRelationRunner.commit``) instead of hashing ``rows`` here.  A scheme with a GPU row digest
+-    (``frame_gpu.ROW_SCHEMES``) is committed on the device from ``rows_dev`` (the rows already there) or ``rows``, and
+-    ``digests`` (host or device) must then equal the device's."""
 +    (count, digest_elems)."""
      scheme = _leaf(leaf)
 -    count = int(np.shape(rows)[0])
 +    rows = np.ascontiguousarray(rows, dtype=np.int64)
 +    count = int(rows.shape[0])
      LIMITS.enforce("max_positions", count)
+-    if frame_gpu.available() and scheme.name in frame_gpu.ROW_SCHEMES:
+-        return frame_gpu.row_tree(name, binding, rows if rows_dev is None else rows_dev, word_bits=word_bits, role=role,
+-                                  scheme=scheme, expect=digests)
      domain = domain_for(binding, OWNER[name], count)
 -    if digests is None:
 -        digests = scheme.native(np.ascontiguousarray(rows, dtype=np.int64), word_bits=word_bits, role=role)
@@ -142,7 +506,14 @@ index 0e68f60a..7f4b3f94 100644
      ref = TreeRef(name, bytes(binding), OWNER[name], count, levels[-1][0].tobytes())
      return WordTree(ref, levels), digests
  
-@@ -112,20 +107,17 @@ def build_word_tree(name: str, binding: bytes, words: np.ndarray, y_bits: int) -
+@@ -113,30 +102,22 @@ def build_row_tree(name: str, binding: bytes, rows: np.ndarray, word_bits: int,
+ def build_word_tree(name: str, binding: bytes, words: np.ndarray, y_bits: int) -> WordTree:
+     """The output-word tree: one word per leaf, 2 or 4 big-endian bytes by ``y_bits`` (``auth.py``'s tree for 16 bits)."""
+     schema, nbytes = word_schema(y_bits)
+-    if frame_gpu.available():
+-        return frame_gpu.word_tree(name, binding, words, nbytes=nbytes, schema=schema)
+     if nbytes == 2:
+         return _build_word_tree_u16(name, binding, words, procs=1)
      words = np.ascontiguousarray(words, dtype=np.int64).ravel()
      count = int(words.shape[0])
      domain = domain_for(binding, OWNER[name], count)
@@ -154,16 +525,19 @@ index 0e68f60a..7f4b3f94 100644
  
  
  def build_trees(*, x_rows: np.ndarray, w_cols: np.ndarray, y_words: np.ndarray, word_bits: int, y_bits: int,
--                bindings: Mapping[str, bytes], leaf=None, digests: Mapping[str, np.ndarray] | None = None
--                ) -> tuple[dict[str, WordTree], dict[str, np.ndarray]]:
+-                bindings: Mapping[str, bytes], leaf=None, digests: Mapping[str, np.ndarray] | None = None,
+-                rows_dev: Mapping | None = None) -> tuple[dict[str, WordTree], dict[str, np.ndarray]]:
 -    """The three trees of a committed instance set; also the operand digests (what the honest prover will publish).
--    ``digests``: ``{"a": x digests, "b": W digests}`` computed already (:func:`build_row_tree`)."""
+-    ``digests``: ``{"a": x digests, "b": W digests}`` computed already (:func:`build_row_tree`); ``rows_dev``: ``{"a",
+-    "b"}`` the rows on the device."""
 +                bindings: Mapping[str, bytes], leaf=None) -> tuple[dict[str, WordTree], dict[str, np.ndarray]]:
 +    """The three trees of a committed instance set; also the operand digests (what the honest prover will publish)."""
      scheme = _leaf(leaf)
--    digests = digests or {}
--    ta, da = build_row_tree("a", bindings["a"], x_rows, word_bits, h2.ROLE_X, scheme, digests=digests.get("a"))
--    tb, db = build_row_tree("b", bindings["b"], w_cols, word_bits, h2.ROLE_W, scheme, digests=digests.get("b"))
+-    digests, rows_dev = digests or {}, rows_dev or {}
+-    ta, da = build_row_tree("a", bindings["a"], x_rows, word_bits, h2.ROLE_X, scheme, digests=digests.get("a"),
+-                            rows_dev=rows_dev.get("a"))
+-    tb, db = build_row_tree("b", bindings["b"], w_cols, word_bits, h2.ROLE_W, scheme, digests=digests.get("b"),
+-                            rows_dev=rows_dev.get("b"))
 +    ta, da = build_row_tree("a", bindings["a"], x_rows, word_bits, h2.ROLE_X, scheme)
 +    tb, db = build_row_tree("b", bindings["b"], w_cols, word_bits, h2.ROLE_W, scheme)
      ty = build_word_tree("y", bindings["y"], y_words, y_bits)
@@ -347,6 +721,27 @@ index 53806215..37284dd2 100644
  def test_precomputed_row_sponges_equal_the_per_proof_sponge(runner) -> None:
      """``commit`` runs every committed row's sponge once; the gathered capacity rows / digests are what the per-proof
      sponge computes on the same words, and a prover whose words differ from the claimed rows falls back to them."""
+diff --git a/backends/direct/ligero/leaf/blake3.py b/backends/direct/ligero/leaf/blake3.py
+index c04e6bcc..d1ea5b40 100644
+--- a/backends/direct/ligero/leaf/blake3.py
++++ b/backends/direct/ligero/leaf/blake3.py
+@@ -625,16 +625,6 @@ class Blake3Leaf:
+         car[:, :, CARRY_ELEMS - 1] = np.arange(steps)[None, :]
+         return car
+ 
+-    def row_sponges(self, words, *, word_bits: int, role: int, row_words: int, n: int, steps: int):
+-        """The committer's chains of ``n`` whole rows at once on the GPU (``frame_gpu.blake3_chain``): ``words`` (n * steps,
+-        k) int64 CUDA torch, row-major -> ``(carry (n, steps, CARRY_ELEMS), digests (n, DIGEST_ELEMS))`` =
+-        :meth:`carry_values` / :meth:`native`; ``None`` off CUDA or without the GPU committer (the caller falls back to
+-        :meth:`chain_witness`)."""
+-        from .. import frame_gpu
+-        if not words.is_cuda or not frame_gpu.available() or n_chunks(word_bits, row_words) < 2:
+-            return None
+-        return frame_gpu.blake3_chain(words, word_bits=word_bits, role=role, row_words=row_words, n=n, steps=steps)
+-
+     def chain_witness(self, words, *, word_bits: int, role: int, row_words: int, n_vus: int, steps: int, l: int):
+         """``words`` (l, k) int64 torch (VU v in columns [v steps, (v + 1) steps), pad columns 0) -> (carry (CARRY_ELEMS,
+         l) torch: the carried rows entering every column, digests (n_vus, DIGEST_ELEMS) torch)."""
 diff --git a/backends/direct/ligero/leaf/poseidon2.py b/backends/direct/ligero/leaf/poseidon2.py
 index 3899da51..758d934b 100644
 --- a/backends/direct/ligero/leaf/poseidon2.py
@@ -508,7 +903,7 @@ index 3899da51..758d934b 100644
          out = {"permutations_per_unit": 2,
                 "sbox_rows_per_permutation": 4 * (h2.WIDTH * 2 * h2.HALF_FULL_ROUNDS + h2.PARTIAL_ROUNDS)}
 diff --git a/backends/direct/ligero/relchain.py b/backends/direct/ligero/relchain.py
-index e8944408..7f5acb50 100644
+index 3fb42a38..7f5acb50 100644
 --- a/backends/direct/ligero/relchain.py
 +++ b/backends/direct/ligero/relchain.py
 @@ -47,21 +47,16 @@ __all__ = ["RelationChainRunner", "bench_vu_rel", "gate_vu_rel", "instances", "i
@@ -536,7 +931,7 @@ index e8944408..7f5acb50 100644
  
  
  def _frozen_root(root) -> Path:
-@@ -89,44 +84,9 @@ def frozen_instances(rel: Relation, n: int, root=None):
+@@ -89,76 +84,9 @@ def frozen_instances(rel: Relation, n: int, root=None):
          if len(accs) != rel.steps or rel.y_public(int(accs[-1])) != y16:
              raise ValueError(f"{rel.frozen_tier} instance {j}: {len(accs)} accumulators / final word does not cast to the expected y")
          out.append((a, b, accs, int(accs[-1])))
@@ -571,17 +966,49 @@ index e8944408..7f5acb50 100644
 -    return np.asarray(rows, dtype=np.int64)
 -
 -
--def _rows_to_device(rows: np.ndarray, device):
--    """``rows`` as an int64 torch tensor on ``device``, copied in its narrow dtype and widened there."""
+-def narrow_rows(rows, word_bits: int, pin: bool = False) -> np.ndarray:
+-    """Committed rows (:func:`_word_rows`) in their words' own dtype, as a committed set is stored: uint8 / uint16 for
+-    8- / 16-bit words (range-checked), any other width as it is.  ``pin``: in page-locked host memory (a serving stack's
+-    staging buffer; the copy to the device is then a DMA without host staging)."""
+-    r = _word_rows(rows)
+-    dt = {8: np.uint8, 16: np.uint16}.get(int(word_bits))
+-    if dt is not None and r.dtype != dt:
+-        if r.size and (int(r.min()) < 0 or int(r.max()) >= 1 << int(word_bits)):
+-            raise ValueError(f"committed words out of range for {word_bits} bits")
+-        r = r.astype(dt)
+-    if pin and torch.cuda.is_available():
+-        buf = torch.empty(r.nbytes, dtype=torch.uint8, pin_memory=True).numpy().view(r.dtype).reshape(r.shape)
+-        buf[...] = r
+-        return buf
+-    return np.ascontiguousarray(r)
+-
+-
+-def _h2d(a: np.ndarray, device) -> torch.Tensor:
+-    """``a`` on ``device``: from page-locked memory without blocking the host (the stream orders its readers)."""
+-    t = torch.from_numpy(a)
+-    return t.to(device, non_blocking=str(device).startswith("cuda") and t.is_pinned())
+-
+-
+-def _rows_to_device(rows: np.ndarray, device, narrow: dict | None = None, name: str | None = None):
+-    """``rows`` as an int64 torch tensor on ``device``, copied in its narrow dtype and widened there.  ``narrow``: records
+-    ``narrow[name]`` = the copied tensor when it holds the rows' bytes (uint8 words, or uint16 words as int16)."""
+-    if rows.dtype == np.uint16:
+-        t = _h2d(np.ascontiguousarray(rows).view(np.int16), device)
+-        if narrow is not None:
+-            narrow[name] = t
+-        return t.to(torch.int64) & 0xFFFF
 -    if rows.dtype not in (np.uint8, np.int8, np.int16, np.int32, np.int64):
 -        rows = rows.astype(np.int32 if rows.dtype.itemsize <= 2 else np.int64)
--    return torch.from_numpy(np.ascontiguousarray(rows)).to(device).to(torch.int64)
+-    t = _h2d(np.ascontiguousarray(rows), device)
+-    if narrow is not None and rows.dtype == np.uint8:
+-        narrow[name] = t
+-    return t.to(torch.int64)
 -
 -
  def instances(rel: Relation, n: int, seed: int | None = None, procs: int = 1, cache: str | Path | None = None, root=None):
      """``n`` VUs: (a (1536,), b (1536,), accs (steps,), y_final) with the accumulators recorded from the model.
      Deterministic in ``(seed, index)``; ``procs > 1`` records them in parallel; ``cache`` keeps the set as an npz.
-@@ -140,20 +100,19 @@ def instances(rel: Relation, n: int, seed: int | None = None, procs: int = 1, ca
+@@ -172,20 +100,19 @@ def instances(rel: Relation, n: int, seed: int | None = None, procs: int = 1, ca
      if path is not None and path.exists():
          with np.load(path) as z:  # materialise each array once (indexing the lazy NpzFile re-reads the member every time)
              a, b, accs = z["a"], z["b"], z["accs"]
@@ -606,7 +1033,7 @@ index e8944408..7f5acb50 100644
      if path is not None:
          path.parent.mkdir(parents=True, exist_ok=True)
          np.savez(path, a=np.asarray([o[0] for o in out], dtype=np.int64), b=np.asarray([o[1] for o in out], dtype=np.int64),
-@@ -472,8 +431,6 @@ class HashedRelationRunner(RelationChainRunner):
+@@ -504,8 +431,6 @@ class HashedRelationRunner(RelationChainRunner):
          self.leaf_name = leaf_registry.suffix_of(self.leaf)     # the relation suffix ("poseidon2", "blake3", "ajtai-n64")
          self.sys = self.hr.sys
          self.tb = tables(self.sys, self.device)
@@ -615,13 +1042,16 @@ index e8944408..7f5acb50 100644
          self.compile_seconds = time.perf_counter() - t0
          self._cfg = {}
          self._base_sys = dataclasses.replace(self.sys, hints=self.sys.hints[:self.hr.n_base_hints])
-@@ -501,28 +458,23 @@ class HashedRelationRunner(RelationChainRunner):
+@@ -533,39 +458,23 @@ class HashedRelationRunner(RelationChainRunner):
          """Build (or load) the three trees of the committed set; ``tile = (nx, nw)`` records the sharing layout."""
          from . import hashauth, hashchain
          t0 = time.perf_counter()
 -        x_rows, w_cols = _word_rows(x_rows), _word_rows(w_cols)
 -        self.rows = {"a": x_rows, "b": w_cols}
--        rows_d = {nm: _rows_to_device(r, self.device) for nm, r in self.rows.items()}
+-        narrow: dict = {}
+-        rows_d = {nm: _rows_to_device(r, self.device, narrow, nm) for nm, r in self.rows.items()}
+-        if str(self.device).startswith("cuda"):
+-            torch.cuda.synchronize()
 +        x_rows, w_cols = np.asarray(x_rows, dtype=np.int64), np.asarray(w_cols, dtype=np.int64)
          t1 = time.perf_counter()
 -        self.tile = tile
@@ -634,29 +1064,35 @@ index e8944408..7f5acb50 100644
 -        self.sponge_seconds = t2 - t1
 -        chain_digests = None
 -        if hashchain.ROW_SPONGE_KERNEL and getattr(self.leaf, "row_sponges", None) is not None and str(self.device).startswith("cuda"):
--            chain_digests = {nm: self.sponges[nm][1].cpu().numpy().astype(np.int64) for nm in self.sponges}
+-            from . import frame_gpu
+-            on_dev = frame_gpu.available() and self.leaf.name in frame_gpu.ROW_SCHEMES      # compared on the device
+-            chain_digests = {nm: self.sponges[nm][1] if on_dev else self.sponges[nm][1].cpu().numpy().astype(np.int64)
+-                             for nm in self.sponges}
          self.trees, self.digests, cached = hashauth.load_or_build_trees(
              cache, x_rows=x_rows, w_cols=w_cols,
              y_words=np.asarray(y_words, dtype=np.int64), word_bits=self.hr.word_bits, y_bits=self.rel.y_bits, bindings=bindings,
--            leaf=self.leaf, digests=chain_digests)
+-            leaf=self.leaf, digests=chain_digests, rows_dev={nm: narrow.get(nm, rows_d[nm]) for nm in rows_d})
 +            leaf=self.leaf)
 +        self.tile = tile
 +        # the chain states of every committed row, once (the prover's cost of hashing; gathered per sub-batch in prove_vus)
 +        t2 = time.perf_counter()
 +        self.rows = {"a": x_rows, "b": w_cols}
 +        self.sponges = {nm: hashchain.row_chain(self.hr, self.rows[nm], role, self.device) for _, nm, role in hashchain.ROLES}
-+        if str(self.device).startswith("cuda"):
-+            torch.cuda.synchronize()
+         if str(self.device).startswith("cuda"):
+             torch.cuda.synchronize()
          t3 = time.perf_counter()
 -        self._committed_digests(rows_d)
--        self.commit_timings = {"rows": t1 - t0, "chain": t2 - t1, "trees": t3 - t2, "host": time.perf_counter() - t3}
+-        # committer = what the commitment itself costs (rows to the device, row digests, framing, the trees, the y leaves);
+-        # chain = the prover's carried states of every committed row, precomputed here
+-        self.commit_timings = {"rows": t1 - t0, "chain": t2 - t1, "trees": t3 - t2, "host": time.perf_counter() - t3,
+-                               "committer": (t1 - t0) + (t3 - t2)}
 +        self.sponge_seconds = t3 - t2
 +        self._committed_digests()
 +        self.commit_timings = {"rows": t1 - t0, "trees": t2 - t1, "chain": t3 - t2, "host": time.perf_counter() - t3}
          return cached
  
      def commit_evidence(self) -> dict:
-@@ -537,12 +489,12 @@ class HashedRelationRunner(RelationChainRunner):
+@@ -580,12 +489,12 @@ class HashedRelationRunner(RelationChainRunner):
          out["sha256"] = hashlib.sha256(json.dumps(out, sort_keys=True).encode()).hexdigest()
          return out
  
@@ -671,16 +1107,974 @@ index e8944408..7f5acb50 100644
  
      def marshal_hashed(self, vus: list, vu_ids, min_l: int = 256) -> dict:
          """The sub-batch's statement (public table from the committed digests, leaf indices, authentication block, public
-@@ -661,10 +613,8 @@ class HashedRelationRunner(RelationChainRunner):
+@@ -697,23 +606,15 @@ class HashedRelationRunner(RelationChainRunner):
+         return [(coins_of[i], pf, (bd["table"], bd["idx"], bd["ypub"], bd["auth"], sibs[i]), bd["lay"])
+                 for i, (pf, bd) in enumerate(zip(proofs, bundles))], wall
+ 
+-    def committed_rows(self, data) -> tuple:
+-        """The worst-case committed set of an instance list (every VU its own x row and W column) as stored: ``(x_rows,
+-        w_cols)`` in the words' dtype, page-locked for a CUDA runner (:func:`narrow_rows`)."""
+-        x_rows, w_cols = getattr(data, "x_rows", None), getattr(data, "w_cols", None)
+-        if x_rows is None or w_cols is None:
+-            x_rows, w_cols = [v[0] for v in data], [v[1] for v in data]
+-        pin = str(self.device).startswith("cuda")
+-        return narrow_rows(x_rows, self.hr.word_bits, pin), narrow_rows(w_cols, self.hr.word_bits, pin)
+-
+     def commit_vus(self, data: list, dataset: str = "synthetic", tier: str = "dev", manifest_sha256: str = "", cache=None, tile=None,
+                    x_rows=None, w_cols=None):
+         """Commit an instance list: the worst case (every VU its own x row and W column: ``x_rows = a``, ``w_cols = b``) or a
+         tile (``x_rows`` / ``w_cols`` given, ``tile = (nx, nw)``)."""
          from . import hashauth
          y = [self.rel.y_public(int(v[3])) for v in data]
-         if tile is None:
--            x_rows, w_cols = getattr(data, "x_rows", None), getattr(data, "w_cols", None)
--            if x_rows is None or w_cols is None:
--                x_rows = [v[0] for v in data]
--                w_cols = [v[1] for v in data]
+-        if tile is None and (x_rows is None or w_cols is None):
+-            x_rows, w_cols = self.committed_rows(data)
++        if tile is None:
 +            x_rows = [v[0] for v in data]
 +            w_cols = [v[1] for v in data]
          ysch, _ = hashauth.word_schema(self.rel.y_bits)
          bindings = {n: hashauth.binding_digest(dataset=dataset, tier=tier, manifest_sha256=manifest_sha256, lo=0, hi=len(data),
                                                 K=getattr(self.rel, "vu_words", K_VU), tree=n,
+@@ -2049,8 +1950,7 @@ def bench_vu_rel(args, rel: Relation) -> int:
+     t0 = time.perf_counter()
+     if tile is None:
+         data = instances(rel, total_vus, procs=getattr(args, "instance_procs", 1), cache=getattr(args, "instances_cache", None), root=root)
+-        # the committed set as stored (the rows in their words' dtype): the committer's input, made once with the set
+-        x_rows, w_cols = R.committed_rows(data) if hashed else (None, None)
++        x_rows = w_cols = None
+     else:
+         # a frozen-tier relation (bf16-ampere): its frozen set has no tile layout, the tile is the synthetic draw
+         data, x_rows, w_cols = tile_instances(rel, *tile, procs=getattr(args, "instance_procs", 1), cache=getattr(args, "instances_cache", None))
+diff --git a/backends/shared/hash_gpu/frame_v3.py b/backends/shared/hash_gpu/frame_v3.py
+deleted file mode 100644
+index 33f32fa3..00000000
+--- a/backends/shared/hash_gpu/frame_v3.py
++++ /dev/null
+@@ -1,687 +0,0 @@
+-"""The ``veritor/protocol/merkle/frame/v3`` indexed trees of :mod:`verity.commitments` on the GPU (cupy ``RawKernel``),
+-byte-identical to ``CommitmentDomain.leaf`` / ``.node`` / the pad leaf, plus the row digests whose outputs are the
+-values of row leaves: keyed BLAKE3 (``blake3-keyed/row/v2``, ``leaf/blake3.py``) and prefixed SHA-256 of row bytes.
+-
+-Framing (``verity.commitments.merkle._hash``): ``SHA-256(FRAME || u32be(len tag) || tag || (u64be(len p) || p)*)``;
+-leaf parts ``domain_id, uint(rank), uint(position), schema, value``, node parts ``domain_id, uint(level), uint(index),
+-left, right``, pad parts ``domain_id, uint(rank)`` for the ranks ``[count, width)``; ``uint`` is the minimal big-endian
+-encoding (at least one byte).  One thread per hash.  The constant head of every message (frame, tag, domain id; the
+-level of a node launch) is hashed once per launch: its whole 64-byte blocks as a midstate (all of a tree's heads in one
+-upload and one ``sha_mids`` launch, :func:`heads`), the rest as a byte tail the kernel feeds before the per-thread parts.
+-
+-Trees are built level by level on the device into one buffer (``Tree.dev``, all levels, leaves first); the host copy
+-(``Tree.levels``) is made once, eagerly for small trees and on first use for large ones (openings index it).
+-"""
+-from __future__ import annotations
+-
+-import struct
+-
+-import numpy as np
+-
+-from . import blake3_cuda, sha256_cuda
+-
+-try:
+-    import cupy as cp
+-except ImportError:            # pragma: no cover - laptop
+-    cp = None
+-
+-FRAME = b"veritor/protocol/merkle/frame/v3\0"
+-LEAF, NODE, PAD = b"leaf", b"node", b"pad"
+-
+-# words of the values: raw bytes, u16 words (host / device little-endian) as 2 big-endian bytes, u32 words as 4
+-VALUE_BYTES, VALUE_U16, VALUE_U32 = 0, 1, 2
+-
+-_SRC = sha256_cuda.SRC.split('extern "C"')[0] + r"""
+-typedef unsigned char u8;
+-
+-struct Sha { u32 st[8]; u32 w[16]; int n; u64 done; };
+-
+-__device__ __forceinline__ void sha_init(Sha& s, const u32* mid, u64 done) {
+-    #pragma unroll
+-    for (int j = 0; j < 8; ++j) s.st[j] = mid[j];
+-    #pragma unroll
+-    for (int j = 0; j < 16; ++j) s.w[j] = 0u;
+-    s.n = 0; s.done = done;
+-}
+-
+-__device__ __forceinline__ void sha_put(Sha& s, u32 b) {
+-    s.w[s.n >> 2] |= (b & 0xffu) << (24 - 8 * (s.n & 3));
+-    if (++s.n == 64) {
+-        sha256_compress(s.st, s.w);
+-        #pragma unroll
+-        for (int j = 0; j < 16; ++j) s.w[j] = 0u;
+-        s.n = 0; s.done += 64;
+-    }
+-}
+-
+-__device__ __forceinline__ void sha_bytes(Sha& s, const u8* p, int n) { for (int i = 0; i < n; ++i) sha_put(s, p[i]); }
+-
+-__device__ __forceinline__ void sha_be(Sha& s, u64 v, int len) { for (int k = len - 1; k >= 0; --k) sha_put(s, (u32)(v >> (8 * k))); }
+-
+-__device__ __forceinline__ void sha_uint_part(Sha& s, u64 v) {           // u64be(len) || minimal big-endian v
+-    int len = 1;
+-    while (len < 8 && (v >> (8 * len))) ++len;
+-    sha_be(s, (u64)len, 8);
+-    sha_be(s, v, len);
+-}
+-
+-__device__ __forceinline__ void sha_final(Sha& s, u8* out) {
+-    u64 bits = (s.done + (u64)s.n) * 8ull;
+-    sha_put(s, 0x80u);
+-    while (s.n != 56) sha_put(s, 0u);
+-    sha_be(s, bits, 8);
+-    #pragma unroll
+-    for (int j = 0; j < 8; ++j) {
+-        u32 h = s.st[j];
+-        out[4*j] = (u8)(h >> 24); out[4*j+1] = (u8)(h >> 16); out[4*j+2] = (u8)(h >> 8); out[4*j+3] = (u8)h;
+-    }
+-}
+-
+-// head j: the SHA-256 state after the nblk[j] whole blocks at heads + j * stride
+-extern "C" __global__
+-void sha_mids(const u8* __restrict__ heads, const int* __restrict__ nblk, int stride, int n, u32* __restrict__ mids)
+-{
+-    int j = blockIdx.x * blockDim.x + threadIdx.x;
+-    if (j >= n) return;
+-    u32 st[8] = {0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19};
+-    const u8* p = heads + (long long)j * stride;
+-    for (int b = 0; b < nblk[j]; ++b, p += 64) {
+-        u32 w[16];
+-        #pragma unroll
+-        for (int q = 0; q < 16; ++q)
+-            w[q] = ((u32)p[4*q] << 24) | ((u32)p[4*q+1] << 16) | ((u32)p[4*q+2] << 8) | (u32)p[4*q+3];
+-        sha256_compress(st, w);
+-    }
+-    #pragma unroll
+-    for (int q = 0; q < 8; ++q) mids[8 * j + q] = st[q];
+-}
+-
+-// leaf i: head || uint_part(start + i) twice (rank == position) || suffix (schema part, u64be(len value)) || value i
+-extern "C" __global__
+-void fv3_leaf(const u32* __restrict__ mid, u64 done, const u8* __restrict__ tail, int tail_len,
+-              const u8* __restrict__ suffix, int suffix_len, const u8* __restrict__ values, int vmode, int vlen,
+-              long long start, long long n, u8* __restrict__ out)
+-{
+-    long long i = (long long)blockIdx.x * blockDim.x + threadIdx.x;
+-    if (i >= n) return;
+-    Sha s; sha_init(s, mid, done);
+-    sha_bytes(s, tail, tail_len);
+-    u64 r = (u64)(start + i);
+-    sha_uint_part(s, r);
+-    sha_uint_part(s, r);
+-    sha_bytes(s, suffix, suffix_len);
+-    if (vmode == 1) {
+-        sha_be(s, ((const unsigned short*)values)[i], 2);
+-    } else if (vmode == 2) {
+-        sha_be(s, ((const u32*)values)[i], 4);
+-    } else {
+-        sha_bytes(s, values + i * (long long)vlen, vlen);
+-    }
+-    sha_final(s, out + i * 32);
+-}
+-
+-// pad i: head || uint_part(start + i)
+-extern "C" __global__
+-void fv3_pad(const u32* __restrict__ mid, u64 done, const u8* __restrict__ tail, int tail_len, long long start, long long n,
+-             u8* __restrict__ out)
+-{
+-    long long i = (long long)blockIdx.x * blockDim.x + threadIdx.x;
+-    if (i >= n) return;
+-    Sha s; sha_init(s, mid, done);
+-    sha_bytes(s, tail, tail_len);
+-    sha_uint_part(s, (u64)(start + i));
+-    sha_final(s, out + i * 32);
+-}
+-
+-// node i of a level: head (with uint_part(level)) || uint_part(i) || u64be(32) || child 2i || u64be(32) || child 2i+1
+-__device__ __forceinline__ void node_hash(const u32* mid, u64 done, const u8* tail, int tail_len, const u8* in, long long i,
+-                                          u8* out)
+-{
+-    Sha s; sha_init(s, mid, done);
+-    sha_bytes(s, tail, tail_len);
+-    sha_uint_part(s, (u64)i);
+-    sha_be(s, 32ull, 8);
+-    sha_bytes(s, in + i * 64, 32);
+-    sha_be(s, 32ull, 8);
+-    sha_bytes(s, in + i * 64 + 32, 32);
+-    sha_final(s, out + i * 32);
+-}
+-
+-extern "C" __global__
+-void fv3_node(const u32* __restrict__ mid, u64 done, const u8* __restrict__ tail, int tail_len, const u8* __restrict__ in,
+-              long long n, u8* __restrict__ out)
+-{
+-    long long i = (long long)blockIdx.x * blockDim.x + threadIdx.x;
+-    if (i >= n) return;
+-    node_hash(mid, done, tail, tail_len, in, i, out);
+-}
+-
+-// the levels lv0 .. depth-1 of a tree in one block: level lv reads width >> lv nodes at dev + 32 off and writes its
+-// width >> (lv + 1) right after them; head h0 + lv (mids / tails / nblk / tlen of heads()) is level lv's
+-extern "C" __global__
+-void fv3_top(const u32* __restrict__ mids, const u8* __restrict__ tails, const int* __restrict__ nblk,
+-             const int* __restrict__ tlen, int h0, u8* dev, long long off, long long width, int lv0, int depth)
+-{
+-    for (int lv = lv0; lv < depth; ++lv) {
+-        long long n_in = width >> lv, n = n_in >> 1;
+-        int h = h0 + lv;
+-        const u8* in = dev + 32 * off;
+-        u8* out = dev + 32 * (off + n_in);
+-        for (long long i = threadIdx.x; i < n; i += blockDim.x)
+-            node_hash(mids + 8 * h, 64ull * (u64)nblk[h], tails + 64 * h, tlen[h], in, i, out);
+-        __syncthreads();
+-        off += n_in;
+-    }
+-}
+-
+-// vllm-v1 level (verity.commitments.leaves.levels): out i = H(node tag, in 2i, in 2i+1), or H(lift tag, in 2i) for an odd
+-// trailing child; H = SHA-256(u32be(len tag) || tag || (u64be(len p) || p)*), the heads carry u32be(len tag) || tag
+-extern "C" __global__
+-void vllm_level(const u32* __restrict__ nmid, u64 ndone, const u8* __restrict__ ntail, int ntail_len,
+-                const u32* __restrict__ lmid, u64 ldone, const u8* __restrict__ ltail, int ltail_len,
+-                const u8* __restrict__ in, long long n_in, u8* __restrict__ out)
+-{
+-    long long i = (long long)blockIdx.x * blockDim.x + threadIdx.x;
+-    if (i >= (n_in + 1) / 2) return;
+-    Sha s;
+-    if (2 * i + 1 < n_in) {
+-        sha_init(s, nmid, ndone);
+-        sha_bytes(s, ntail, ntail_len);
+-        sha_be(s, 32ull, 8);
+-        sha_bytes(s, in + i * 64, 32);
+-        sha_be(s, 32ull, 8);
+-        sha_bytes(s, in + i * 64 + 32, 32);
+-    } else {
+-        sha_init(s, lmid, ldone);
+-        sha_bytes(s, ltail, ltail_len);
+-        sha_be(s, 32ull, 8);
+-        sha_bytes(s, in + i * 64, 32);
+-    }
+-    sha_final(s, out + i * 32);
+-}
+-
+-// row i: SHA-256(prefix || row bytes); the head / tail carry the prefix, rows are nbytes each
+-extern "C" __global__
+-void sha256_rows(const u32* __restrict__ mid, u64 done, const u8* __restrict__ tail, int tail_len, const u8* __restrict__ rows,
+-                 long long nbytes, long long n, u8* __restrict__ out)
+-{
+-    long long i = (long long)blockIdx.x * blockDim.x + threadIdx.x;
+-    if (i >= n) return;
+-    Sha s; sha_init(s, mid, done);
+-    sha_bytes(s, tail, tail_len);
+-    const u8* p = rows + i * nbytes;
+-    long long k = 0;
+-    while (s.n != 0 && k < nbytes) sha_put(s, p[k++]);
+-    if ((((unsigned long long)(p + k)) & 3) == 0) {
+-        for (; k + 64 <= nbytes; k += 64) {                     // whole blocks straight into the schedule
+-            const u32* q = (const u32*)(p + k);
+-            #pragma unroll
+-            for (int j = 0; j < 16; ++j) s.w[j] = __byte_perm(q[j], 0, 0x0123);
+-            sha256_compress(s.st, s.w);
+-            #pragma unroll
+-            for (int j = 0; j < 16; ++j) s.w[j] = 0u;
+-            s.done += 64;
+-        }
+-    }
+-    for (; k < nbytes; ++k) sha_put(s, p[k]);
+-    sha_final(s, out + i * 32);
+-}
+-"""
+-
+-_B3_SRC = blake3_cuda.SRC.split('// thread (x, y)')[0] + r"""
+-#define KEYED_HASH 16u
+-
+-// thread (row r, chunk c): the keyed chunk chaining value of rows (N, nbytes) bytes; a one-chunk row is finished here
+-// (ROOT on its last block, the CV is the digest).  block_out (N, nb, 8) optional, nbytes a multiple of 64: the chaining
+-// value after every block (the chain witness of leaf/blake3.py)
+-extern "C" __global__
+-void b3k_chunks(const unsigned char* __restrict__ rows, long long nbytes, int nch, const u32* __restrict__ key, long long n,
+-                u32* __restrict__ cvs, u32* __restrict__ block_out)
+-{
+-    long long t = (long long)blockIdx.x * blockDim.x + threadIdx.x;
+-    if (t >= n * nch) return;
+-    long long r = t / nch; int c = (int)(t % nch);
+-    long long lo = (long long)c * 1024, len = nbytes - lo < 1024 ? nbytes - lo : 1024;
+-    int nblk = len > 0 ? (int)((len + 63) / 64) : 1;
+-    u32 cv[8];
+-    #pragma unroll
+-    for (int j = 0; j < 8; ++j) cv[j] = key[j];
+-    const unsigned char* base = rows + r * nbytes + lo;
+-    const uint4* p = (const uint4*)base;
+-    bool aligned = (((unsigned long long)base) & 15ull) == 0ull;
+-    long long nb = nbytes / 64;
+-    for (int b = 0; b < nblk; ++b) {
+-        long long rem = len - 64ll * b;
+-        u32 blen = rem >= 64 ? 64u : (rem > 0 ? (u32)rem : 0u);
+-        u32 m[16];
+-        if (blen == 64u && aligned) {
+-            #pragma unroll
+-            for (int q = 0; q < 4; ++q) { uint4 v = p[4 * b + q]; m[4*q] = v.x; m[4*q+1] = v.y; m[4*q+2] = v.z; m[4*q+3] = v.w; }
+-        } else {
+-            #pragma unroll
+-            for (int q = 0; q < 16; ++q) m[q] = 0u;
+-            for (u32 k = 0; k < blen; ++k) m[k >> 2] |= ((u32)base[64 * b + k]) << (8 * (k & 3));
+-        }
+-        u32 fl = KEYED_HASH | (b == 0 ? CHUNK_START : 0u) | (b == nblk - 1 ? CHUNK_END : 0u)
+-                 | (nch == 1 && b == nblk - 1 ? ROOT : 0u);
+-        compress(cv, m, (u64)c, blen, fl);
+-        if (block_out) {
+-            u32* o = block_out + (r * nb + (long long)c * 16 + b) * 8;
+-            #pragma unroll
+-            for (int j = 0; j < 8; ++j) o[j] = cv[j];
+-        }
+-    }
+-    u32* o = cvs + t * 8;
+-    #pragma unroll
+-    for (int j = 0; j < 8; ++j) o[j] = cv[j];
+-}
+-
+-// row r: the BLAKE3 root of its nch >= 2 chunk CVs (left-heavy parent fold, the key as the parents' CV, ROOT on top)
+-extern "C" __global__
+-void b3k_root(const u32* __restrict__ cvs, int nch, const u32* __restrict__ key, long long n, u32* __restrict__ root)
+-{
+-    long long r = (long long)blockIdx.x * blockDim.x + threadIdx.x;
+-    if (r >= n) return;
+-    if (nch == 1) {
+-        #pragma unroll
+-        for (int j = 0; j < 8; ++j) root[r * 8 + j] = cvs[r * 8 + j];
+-        return;
+-    }
+-    u32 st[8][8];                  // a stack of pending subtree CVs (BLAKE3's incremental fold), nch <= 2^7
+-    int sp = 0;
+-    for (int c = 0; c < nch; ++c) {
+-        u32 cur[8];
+-        #pragma unroll
+-        for (int j = 0; j < 8; ++j) cur[j] = cvs[(r * nch + c) * 8 + j];
+-        // merge completed subtrees: after chunk c (0-based), c+1 chunks; merge while the total has trailing zeros,
+-        // but never the last chunk's merges (they happen in the final fold, with ROOT on the top one)
+-        if (c < nch - 1) {
+-            unsigned long long total = (unsigned long long)c + 1;
+-            #pragma unroll
+-            for (int j = 0; j < 8; ++j) st[sp][j] = cur[j];
+-            ++sp;
+-            while ((total & 1ull) == 0ull) {
+-                u32 m[16], cv[8];
+-                #pragma unroll
+-                for (int j = 0; j < 8; ++j) { m[j] = st[sp-2][j]; m[8+j] = st[sp-1][j]; cv[j] = key[j]; }
+-                compress(cv, m, 0ull, 64u, KEYED_HASH | PARENT);
+-                sp -= 2;
+-                #pragma unroll
+-                for (int j = 0; j < 8; ++j) st[sp][j] = cv[j];
+-                ++sp;
+-                total >>= 1;
+-            }
+-        } else {
+-            while (sp > 0) {
+-                u32 m[16], cv[8];
+-                #pragma unroll
+-                for (int j = 0; j < 8; ++j) { m[j] = st[sp-1][j]; m[8+j] = cur[j]; cv[j] = key[j]; }
+-                --sp;
+-                compress(cv, m, 0ull, 64u, KEYED_HASH | PARENT | (sp == 0 ? ROOT : 0u));
+-                #pragma unroll
+-                for (int j = 0; j < 8; ++j) cur[j] = cv[j];
+-            }
+-            #pragma unroll
+-            for (int j = 0; j < 8; ++j) root[r * 8 + j] = cur[j];
+-        }
+-    }
+-}
+-"""
+-
+-_mods: dict[str, object] = {}
+-
+-
+-def _module(name: str):
+-    if name not in _mods:
+-        _mods[name] = cp.RawModule(code=_SRC if name == "sha" else _B3_SRC, options=("-std=c++17",))
+-    return _mods[name]
+-
+-
+-def _fn(mod: str, name: str):
+-    return _module(mod).get_function(name)
+-
+-
+-# ---------------------------------------------------------------------------------------------------------------------
+-# Host side of the framing: the constant head of a launch as (midstate, bytes hashed, tail)
+-# ---------------------------------------------------------------------------------------------------------------------
+-
+-_K = (
+-    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01,
+-    0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+-    0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147,
+-    0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+-    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08,
+-    0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+-    0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2)
+-_H0 = (0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19)
+-_M = 0xFFFFFFFF
+-
+-
+-def _rotr(x: int, n: int) -> int:
+-    return ((x >> n) | (x << (32 - n))) & _M
+-
+-
+-def _compress(st: tuple, block: bytes) -> tuple:
+-    w = list(struct.unpack(">16I", block))
+-    for i in range(16, 64):
+-        s0 = _rotr(w[i - 15], 7) ^ _rotr(w[i - 15], 18) ^ (w[i - 15] >> 3)
+-        s1 = _rotr(w[i - 2], 17) ^ _rotr(w[i - 2], 19) ^ (w[i - 2] >> 10)
+-        w.append((w[i - 16] + s0 + w[i - 7] + s1) & _M)
+-    a, b, c, d, e, f, g, h = st
+-    for i in range(64):
+-        t1 = (h + (_rotr(e, 6) ^ _rotr(e, 11) ^ _rotr(e, 25)) + ((e & f) ^ (~e & g)) + _K[i] + w[i]) & _M
+-        t2 = ((_rotr(a, 2) ^ _rotr(a, 13) ^ _rotr(a, 22)) + ((a & b) ^ (a & c) ^ (b & c))) & _M
+-        a, b, c, d, e, f, g, h = (t1 + t2) & _M, a, b, c, (d + t1) & _M, e, f, g
+-    return tuple((x + y) & _M for x, y in zip(st, (a, b, c, d, e, f, g, h)))
+-
+-
+-def midstate(head: bytes) -> tuple[np.ndarray, int, bytes]:
+-    """``head`` -> (the SHA-256 state after its whole 64-byte blocks (8,) uint32, the bytes they cover, the rest)."""
+-    st, k = _H0, 0
+-    while k + 64 <= len(head):
+-        st = _compress(st, head[k:k + 64])
+-        k += 64
+-    return np.asarray(st, dtype=np.uint32), k, head[k:]
+-
+-
+-def part(b: bytes) -> bytes:
+-    return len(b).to_bytes(8, "big") + b
+-
+-
+-def uint(v: int) -> bytes:
+-    return int(v).to_bytes(max(1, (int(v).bit_length() + 7) // 8), "big")
+-
+-
+-def head(tag: bytes, domain_id: bytes, *parts: bytes) -> bytes:
+-    """The constant head of a framed hash: frame, tag, then ``part`` of the domain id and of each of ``parts``."""
+-    return FRAME + len(tag).to_bytes(4, "big") + tag + part(domain_id) + b"".join(part(p) for p in parts)
+-
+-
+-VLLM_NODE_TAG, VLLM_LIFT_TAG = b"verity-vllm/node/v1", b"verity-vllm/lift/v1"
+-
+-
+-def vllm_head(tag: bytes) -> bytes:
+-    """``verity.commitments.leaves.H``'s head: ``u32be(len tag) || tag`` (no frame)."""
+-    return len(tag).to_bytes(4, "big") + tag
+-
+-
+-class _Head:
+-    """A launch's head on the device (pointers into its :class:`_Heads`): the midstate, the byte count it covers, the tail."""
+-
+-    __slots__ = ("mid", "done", "tail", "tail_len", "_keep")
+-    _cache: dict = {}
+-
+-    def __init__(self, mid: int, done: int, tail: int, tail_len: int, keep):
+-        self.mid, self.done, self.tail, self.tail_len, self._keep = (np.uint64(mid), np.uint64(done), np.uint64(tail),
+-                                                                     np.int32(tail_len), keep)
+-
+-    @classmethod
+-    def of(cls, data: bytes) -> "_Head":
+-        """A constant head (a tag, a row prefix), kept on the device."""
+-        h = cls._cache.get(data)
+-        if h is None:
+-            if len(cls._cache) > 4096:
+-                cls._cache.clear()
+-            h = cls._cache[data] = heads([data]).head(0)
+-        return h
+-
+-
+-class _Heads:
+-    """Heads on the device from one upload (their whole blocks, tails, block counts, tail lengths, then ``extra``) and
+-    one ``sha_mids`` launch; ``mids`` (n, 8) and the pointers ``tails`` (n x 64 B), ``nblk`` / ``tlen`` (n int32),
+-    ``extra``."""
+-
+-    def __init__(self, datas: list[bytes], extra: bytes = b""):
+-        n = self.n = len(datas)
+-        self._nblk = [len(d) // 64 for d in datas]
+-        self._tlen = [len(d) - 64 * k for d, k in zip(datas, self._nblk)]
+-        stride = 64 * max(1, max(self._nblk, default=1))
+-        t_off = n * stride
+-        b_off = t_off + 64 * n
+-        l_off = b_off + 4 * n
+-        e_off = l_off + 4 * n
+-        buf = np.zeros(e_off + max(1, len(extra)), dtype=np.uint8)
+-        for j, d in enumerate(datas):
+-            k = 64 * self._nblk[j]
+-            buf[j * stride:j * stride + k] = np.frombuffer(d[:k], dtype=np.uint8)
+-            buf[t_off + 64 * j:t_off + 64 * j + len(d) - k] = np.frombuffer(d[k:], dtype=np.uint8)
+-        buf[b_off:l_off] = np.asarray(self._nblk, dtype="<i4").view(np.uint8)
+-        buf[l_off:e_off] = np.asarray(self._tlen, dtype="<i4").view(np.uint8)
+-        buf[e_off:e_off + len(extra)] = np.frombuffer(extra, dtype=np.uint8)
+-        self.dev = cp.asarray(buf)
+-        self.mids = cp.empty((max(1, n), 8), dtype=cp.uint32)
+-        base = self.dev.data.ptr
+-        self.tails, self.nblk, self.tlen, self.extra, self.extra_len = base + t_off, base + b_off, base + l_off, base + e_off, len(extra)
+-        self._e_off = e_off
+-        if n:
+-            _fn("sha", "sha_mids")(_grid(n, 64), (64,), (self.dev, np.uint64(self.nblk), np.int32(stride), np.int32(n), self.mids))
+-
+-    def head(self, j: int) -> _Head:
+-        return _Head(self.mids.data.ptr + 32 * j, 64 * self._nblk[j], self.tails + 64 * j, self._tlen[j], self)
+-
+-    def host(self, j: int) -> tuple[np.ndarray, int, bytes]:
+-        """Head ``j`` as :func:`midstate` gives it (tests)."""
+-        t = cp.asnumpy(self.dev[self.tails - self.dev.data.ptr + 64 * j:][:self._tlen[j]]).tobytes()
+-        return cp.asnumpy(self.mids[j]), 64 * self._nblk[j], t
+-
+-    def extra_bytes(self) -> bytes:
+-        return cp.asnumpy(self.dev[self._e_off:self._e_off + self.extra_len]).tobytes()
+-
+-
+-def heads(datas: list[bytes], extra: bytes = b"") -> _Heads:
+-    return _Heads(datas, extra)
+-
+-
+-def _leaf_suffix(schema: str, vlen: int) -> bytes:
+-    return part(schema.encode("utf-8")) + int(vlen).to_bytes(8, "big")
+-
+-
+-def _grid(n: int, block: int) -> tuple[int]:
+-    return (max(1, (n + block - 1) // block),)
+-
+-
+-def _p(a, byte_off: int = 0) -> np.uint64:
+-    """A device pointer argument: ``a``'s data plus ``byte_off`` bytes."""
+-    return np.uint64(a.data.ptr + byte_off)
+-
+-
+-# ---------------------------------------------------------------------------------------------------------------------
+-# Trees
+-# ---------------------------------------------------------------------------------------------------------------------
+-
+-def depth_of(count: int) -> int:
+-    return max(0, (int(count) - 1).bit_length())
+-
+-
+-def _value_len(vmode: int, vlen: int | None) -> int:
+-    return 2 if vmode == VALUE_U16 else 4 if vmode == VALUE_U32 else int(vlen)
+-
+-
+-def leaves_into(out, domain_id: bytes, schema: str, values, *, vmode: int = VALUE_BYTES, vlen: int | None = None,
+-                start: int = 0, block: int = 256, _heads=None) -> None:
+-    """``out[i] = domain.leaf(start + i, start + i, schema, value_i)`` for the ``n = out.shape[0]`` values: ``values`` a
+-    device array of ``n`` rows of ``vlen`` bytes (``VALUE_BYTES``), or of ``n`` u16 / u32 words (``VALUE_U16`` /
+-    ``VALUE_U32``: the value is the word's 2 / 4 big-endian bytes).  ``_heads``: ``(heads, j)`` with the leaf head at
+-    ``j`` and the suffix as ``extra`` (:func:`_tree_heads`)."""
+-    n = int(out.shape[0])
+-    if n == 0:
+-        return
+-    vlen = _value_len(vmode, vlen)
+-    H, j = _heads if _heads is not None else (heads([head(LEAF, domain_id)], _leaf_suffix(schema, vlen)), 0)
+-    h = H.head(j)
+-    _fn("sha", "fv3_leaf")(_grid(n, block), (block,), (h.mid, h.done, h.tail, h.tail_len, np.uint64(H.extra),
+-                                                          np.int32(H.extra_len), values, np.int32(vmode), np.int32(vlen),
+-                                                          np.int64(start), np.int64(n), out))
+-
+-
+-def pads_into(out, domain_id: bytes, start: int, block: int = 256) -> None:
+-    n = int(out.shape[0])
+-    if n == 0:
+-        return
+-    h = heads([head(PAD, domain_id)]).head(0)
+-    _fn("sha", "fv3_pad")(_grid(n, block), (block,), (h.mid, h.done, h.tail, h.tail_len, np.int64(start), np.int64(n), out))
+-
+-
+-def nodes_into(out, domain_id: bytes, level: int, children, block: int = 256) -> None:
+-    n = int(out.shape[0])
+-    h = heads([head(NODE, domain_id, uint(level))]).head(0)
+-    _fn("sha", "fv3_node")(_grid(n, block), (block,), (h.mid, h.done, h.tail, h.tail_len, children, np.int64(n), out))
+-
+-
+-def _tree_heads(domain_id: bytes, depth: int, schema: str | None = None, vlen: int | None = None) -> _Heads:
+-    """A tree's heads in one upload: 0 the pad, 1 + lv node level lv (lv < depth), depth + 1 the leaf (``schema`` given;
+-    its suffix as ``extra``)."""
+-    datas = [head(PAD, domain_id)] + [head(NODE, domain_id, uint(lv)) for lv in range(depth)]
+-    if schema is None:
+-        return heads(datas)
+-    return heads(datas + [head(LEAF, domain_id)], _leaf_suffix(schema, vlen))
+-
+-
+-class Tree:
+-    """A tree on the device: ``dev`` (sum of ``sizes``, 32) uint8, level ``l`` (``sizes[l]`` nodes) at ``offsets[l]``,
+-    leaves first, the root last."""
+-
+-    EAGER_BYTES = 1 << 22          # copy to the host at build time up to this size (row / output trees), else on first use
+-
+-    def __init__(self, dev, sizes: list[int]):
+-        self.dev, self.sizes, self.depth = dev, list(sizes), len(sizes) - 1
+-        self.offsets = [0]
+-        for s in self.sizes[:-1]:
+-            self.offsets.append(self.offsets[-1] + s)
+-        self._host = None
+-        if dev.nbytes <= self.EAGER_BYTES:
+-            self.host()
+-
+-    @property
+-    def root(self) -> bytes:
+-        return (self._host[-1] if self._host is not None else cp.asnumpy(self.dev[-1])).tobytes()
+-
+-    def level_dev(self, lv: int):
+-        return self.dev[self.offsets[lv]:self.offsets[lv] + self.sizes[lv]]
+-
+-    def host(self) -> np.ndarray:
+-        if self._host is None:
+-            self._host = cp.asnumpy(self.dev)
+-        return self._host
+-
+-    @property
+-    def levels(self) -> list[np.ndarray]:
+-        h = self.host()
+-        return [h[o:o + s] for o, s in zip(self.offsets, self.sizes)]
+-
+-
+-def build_tree(domain_id: bytes, count: int, schema: str, values, *, vmode: int = VALUE_BYTES, vlen: int | None = None,
+-               block: int = 256) -> Tree:
+-    """The frame-v3 tree of ``count`` leaves (ranks ``0..count``, positions = ranks) with pads to ``2^depth`` and the
+-    nodes level by level, all on the device."""
+-    depth = depth_of(count)
+-    dev = cp.empty((2 * (1 << depth) - 1, 32), dtype=cp.uint8)
+-    H = _tree_heads(domain_id, depth, schema, _value_len(vmode, vlen))
+-    leaves_into(dev[:count], domain_id, schema, values, vmode=vmode, vlen=vlen, block=block, _heads=(H, depth + 1))
+-    return _frame_levels(dev, domain_id, count, block, H)
+-
+-
+-def frame_tree(domain_id: bytes, leaves, block: int = 256) -> Tree:
+-    """The frame-v3 tree over given leaf digests ``leaves`` (count, 32) uint8 on the device (rank order)."""
+-    count = int(leaves.shape[0])
+-    dev = cp.empty((2 * (1 << depth_of(count)) - 1, 32), dtype=cp.uint8)
+-    dev[:count] = leaves
+-    return _frame_levels(dev, domain_id, count, block)
+-
+-
+-def _top_threads() -> int:
+-    return min(1024, int(_fn("sha", "fv3_top").max_threads_per_block)) // 32 * 32
+-
+-
+-def _frame_levels(dev, domain_id: bytes, count: int, block: int, H: _Heads | None = None) -> Tree:
+-    """Pads and nodes: one launch per level while a level has more than :func:`_top_threads` nodes, the levels above in
+-    one single-block launch (``fv3_top``)."""
+-    depth = depth_of(count)
+-    width = 1 << depth
+-    H = H if H is not None else _tree_heads(domain_id, depth)
+-    if width > count:
+-        h = H.head(0)
+-        _fn("sha", "fv3_pad")(_grid(width - count, block), (block,), (h.mid, h.done, h.tail, h.tail_len, np.int64(count),
+-                                                                      np.int64(width - count), _p(dev, 32 * count)))
+-    top = _top_threads()
+-    off, lv = 0, 0
+-    while lv < depth and (width >> (lv + 1)) > top:
+-        n = width >> (lv + 1)
+-        h = H.head(1 + lv)
+-        _fn("sha", "fv3_node")(_grid(n, block), (block,), (h.mid, h.done, h.tail, h.tail_len, _p(dev, 32 * off), np.int64(n),
+-                                                           _p(dev, 32 * (off + (width >> lv)))))
+-        off += width >> lv
+-        lv += 1
+-    if lv < depth:
+-        _fn("sha", "fv3_top")((1,), (top,), (H.mids, np.uint64(H.tails), np.uint64(H.nblk), np.uint64(H.tlen), np.int32(1), dev,
+-                                             np.int64(off), np.int64(width), np.int32(lv), np.int32(depth)))
+-    return Tree(dev, [width >> lv for lv in range(depth + 1)])
+-
+-
+-def vllm_tree(leaves, block: int = 256) -> Tree:
+-    """The ``vllm-v1`` tree (``verity.commitments.leaves.levels``: pairs hashed with the node tag, an odd trailing child
+-    lifted, no padding) over ``leaves`` (n >= 1, 32) uint8 leaf digests on the device, level by level."""
+-    n = int(leaves.shape[0])
+-    if n == 0:
+-        raise ValueError("an empty vllm-v1 tree is its empty root, not a tree")
+-    sizes = [n]
+-    while sizes[-1] > 1:
+-        sizes.append((sizes[-1] + 1) // 2)
+-    dev = cp.empty((sum(sizes), 32), dtype=cp.uint8)
+-    dev[:n] = leaves
+-    hn, hl = _Head.of(vllm_head(VLLM_NODE_TAG)), _Head.of(vllm_head(VLLM_LIFT_TAG))
+-    off = 0
+-    for lv in range(len(sizes) - 1):
+-        m = sizes[lv + 1]
+-        _fn("sha", "vllm_level")(_grid(m, block), (block,), (hn.mid, hn.done, hn.tail, hn.tail_len, hl.mid, hl.done, hl.tail,
+-                                                             hl.tail_len, _p(dev, 32 * off), np.int64(sizes[lv]),
+-                                                             _p(dev, 32 * (off + sizes[lv]))))
+-        off += sizes[lv]
+-    return Tree(dev, sizes)
+-
+-
+-# ---------------------------------------------------------------------------------------------------------------------
+-# Row digests (the values of row leaves)
+-# ---------------------------------------------------------------------------------------------------------------------
+-
+-_KEYS: dict = {}
+-
+-
+-def blake3_keyed_rows(rows, key: bytes, *, block_out: bool = False, block: int = 128):
+-    """Keyed BLAKE3 of every row of ``rows`` (N, nbytes) uint8 on the device: ``(cvs (N, n_chunks, 8) uint32 chunk
+-    chaining values (one chunk: the digest), roots (N, 8) uint32 little-endian words = the 32-byte digest [, block_out
+-    (N, n_blocks, 8) the chaining value after every block, for rows of whole blocks])``."""
+-    rows = cp.ascontiguousarray(rows)
+-    if rows.dtype != cp.uint8:
+-        rows = rows.view(cp.uint8)
+-    n, nbytes = int(rows.shape[0]), int(rows.shape[1])
+-    if block_out and (nbytes % 64 or nbytes == 0):
+-        raise ValueError("per-block chaining values need rows of whole blocks")
+-    nch = max(1, -(-nbytes // 1024))
+-    if nch > 1 << 8:
+-        raise ValueError("rows of at most 256 chunks (the root fold's stack)")
+-    kw = _KEYS.get(key)
+-    if kw is None:
+-        kw = _KEYS[key] = cp.asarray(np.frombuffer(key, dtype="<u4").astype(np.uint32))
+-    cvs = cp.empty((n, nch, 8), dtype=cp.uint32)
+-    bo = cp.empty((n, nbytes // 64, 8), dtype=cp.uint32) if block_out else None
+-    roots = cp.empty((n, 8), dtype=cp.uint32)
+-    if n:
+-        _fn("b3", "b3k_chunks")(_grid(n * nch, block), (block,), (rows, np.int64(nbytes), np.int32(nch), kw, np.int64(n), cvs,
+-                                                                 bo if bo is not None else np.uint64(0)))
+-        _fn("b3", "b3k_root")(_grid(n, block), (block,), (cvs, np.int32(nch), kw, np.int64(n), roots))
+-    return (cvs, roots, bo) if block_out else (cvs, roots)
+-
+-
+-def sha256_rows(rows, prefix: bytes = b"", block: int = 128):
+-    """``SHA-256(prefix || row)`` of every row of ``rows`` (N, nbytes) uint8 on the device -> (N, 32) uint8."""
+-    rows = cp.ascontiguousarray(rows)
+-    if rows.dtype != cp.uint8:
+-        rows = rows.view(cp.uint8)
+-    n, nbytes = int(rows.shape[0]), int(rows.shape[1])
+-    out = cp.empty((n, 32), dtype=cp.uint8)
+-    if n:
+-        h = _Head.of(prefix)
+-        _fn("sha", "sha256_rows")(_grid(n, block), (block,), (h.mid, h.done, h.tail, h.tail_len, rows, np.int64(nbytes),
+-                                                              np.int64(n), out))
+-    return out
+diff --git a/backends/shared/hash_gpu/tests/test_frame_v3.py b/backends/shared/hash_gpu/tests/test_frame_v3.py
+deleted file mode 100644
+index aa80b224..00000000
+--- a/backends/shared/hash_gpu/tests/test_frame_v3.py
++++ /dev/null
+@@ -1,235 +0,0 @@
+-"""The GPU frame-v3 trees and row digests (``frame_v3.py``) byte for byte against :mod:`verity.commitments`, hashlib and
+-the ``blake3`` package (GPU parts skip on a laptop)."""
+-from __future__ import annotations
+-
+-import hashlib
+-import sys
+-from pathlib import Path
+-
+-import numpy as np
+-import pytest
+-
+-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))          # backends/shared
+-
+-from hash_gpu import frame_v3 as fv3
+-
+-try:
+-    import cupy as cp
+-
+-    GPU = cp.cuda.runtime.getDeviceCount() > 0
+-except Exception:  # noqa: BLE001
+-    cp, GPU = None, False
+-
+-try:
+-    import blake3
+-
+-    HAVE_BLAKE3 = True
+-except ImportError:
+-    HAVE_BLAKE3 = False
+-
+-gpu = pytest.mark.skipif(not GPU, reason="needs a CUDA device and cupy")
+-
+-
+-def _domain(count: int, owner: int = -1, binding: bytes = b"\x11" * 32):
+-    from verity.commitments import CommitmentDomain, RangeIndexedDomain
+-    return CommitmentDomain(binding, owner, RangeIndexedDomain(0, count))
+-
+-
+-def _reference_levels(domain, schema: str, values: list[bytes]) -> list[list[bytes]]:
+-    from verity.commitments.merkle import _PAD, _hash, _uint, merkle_depth
+-    level = [domain.leaf(r, r, schema, v) for r, v in enumerate(values)]
+-    level += [_hash(_PAD, domain.domain_id, _uint(r)) for r in range(len(values), 1 << merkle_depth(len(values)))]
+-    out = [level]
+-    lv = 0
+-    while len(level) > 1:
+-        level = [domain.node(lv, i // 2, level[i], level[i + 1]) for i in range(0, len(level), 2)]
+-        out.append(level)
+-        lv += 1
+-    return out
+-
+-
+-def test_midstate_is_sha256_prefix_state():
+-    for n in (0, 17, 63, 64, 65, 81, 128, 200):
+-        data = bytes(range(256))[:n] if n <= 256 else b""
+-        mid, done, tail = fv3.midstate(data)
+-        assert done == n - n % 64 and tail == data[done:]
+-        if done:
+-            # the midstate of whole blocks, finished with the standard padding, is SHA-256 of those blocks
+-            st = tuple(int(x) for x in mid)
+-            pad = b"\x80" + b"\0" * 55 + (done * 8).to_bytes(8, "big")
+-            assert b"".join(x.to_bytes(4, "big") for x in fv3._compress(st, pad)) == hashlib.sha256(data[:done]).digest()
+-
+-
+-@gpu
+-def test_device_heads_are_the_host_midstates():
+-    datas = [bytes((7 * i + n) % 256 for i in range(n)) for n in (0, 1, 63, 64, 65, 97, 128, 200, 300)]
+-    H = fv3.heads(datas, b"xyz")
+-    assert H.extra_bytes() == b"xyz"
+-    for j, d in enumerate(datas):
+-        mid, done, tail = fv3.midstate(d)
+-        m, dn, t = H.host(j)
+-        assert np.array_equal(m, mid) and dn == done and t == tail
+-        h = H.head(j)
+-        assert int(h.done) == done and int(h.tail_len) == len(tail)
+-
+-
+-def test_head_is_the_domain_framing():
+-    from verity.commitments.merkle import _FRAME, _NODE
+-    d = _domain(5)
+-    assert fv3.FRAME == _FRAME
+-    msg = fv3.head(_NODE, d.domain_id, fv3.uint(3)) + fv3.part(fv3.uint(7)) + fv3.part(b"L" * 32) + fv3.part(b"R" * 32)
+-    assert hashlib.sha256(msg).digest() == d.node(3, 7, b"L" * 32, b"R" * 32)
+-
+-
+-@gpu
+-@pytest.mark.parametrize("count", [1, 2, 3, 5, 64, 255, 256, 257, 1000, 4096])
+-def test_u16_word_tree_is_the_reference(count):
+-    rng = np.random.default_rng(count)
+-    words = rng.integers(0, 1 << 16, count, dtype=np.uint16)
+-    d = _domain(count)
+-    ref = _reference_levels(d, "u16", [int(w).to_bytes(2, "big") for w in words])
+-    t = fv3.build_tree(d.domain_id, count, "u16", cp.asarray(words), vmode=fv3.VALUE_U16)
+-    got = t.levels
+-    assert len(got) == len(ref)
+-    for lv, (g, r) in enumerate(zip(got, ref)):
+-        assert g.tobytes() == b"".join(r), f"level {lv}"
+-    assert t.root == ref[-1][0]
+-
+-
+-@gpu
+-@pytest.mark.parametrize("count", [1, 7, 300])
+-def test_u32_and_byte_value_trees_are_the_reference(count):
+-    rng = np.random.default_rng(100 + count)
+-    words = rng.integers(0, 1 << 32, count, dtype=np.uint32)
+-    d = _domain(count, owner=-2, binding=bytes(range(32)))
+-    ref = _reference_levels(d, "u32", [int(w).to_bytes(4, "big") for w in words])
+-    assert fv3.build_tree(d.domain_id, count, "u32", cp.asarray(words), vmode=fv3.VALUE_U32).root == ref[-1][0]
+-    vals = rng.integers(0, 256, (count, 32), dtype=np.uint8)
+-    schema = "blake3-keyed/row/v2"
+-    ref = _reference_levels(d, schema, [v.tobytes() for v in vals])
+-    t = fv3.build_tree(d.domain_id, count, schema, cp.asarray(vals), vlen=32)
+-    assert t.levels[0].tobytes() == b"".join(ref[0]) and t.root == ref[-1][0]
+-
+-
+-@gpu
+-def test_large_ranks_and_lazy_host_copy():
+-    count = (1 << 17) + 3                                     # ranks of 3 bytes, a tree past the eager-copy size
+-    rng = np.random.default_rng(7)
+-    words = rng.integers(0, 1 << 16, count, dtype=np.uint16)
+-    d = _domain(count)
+-    t = fv3.build_tree(d.domain_id, count, "u16", cp.asarray(words), vmode=fv3.VALUE_U16)
+-    assert t._host is None
+-    lv0 = t.levels[0]
+-    for r in (0, 255, 256, 65535, 65536, count - 1):
+-        assert lv0[r].tobytes() == d.leaf(r, r, "u16", int(words[r]).to_bytes(2, "big"))
+-    from verity.commitments.merkle import _PAD, _hash, _uint
+-    assert lv0[count].tobytes() == _hash(_PAD, d.domain_id, _uint(count))
+-    lv5 = t.levels[5]
+-    i = 1234
+-    assert lv5[i].tobytes() == d.node(4, i, t.levels[4][2 * i].tobytes(), t.levels[4][2 * i + 1].tobytes())
+-
+-
+-@gpu
+-@pytest.mark.parametrize("prefix_len", [0, 5, 60, 64, 81, 130])
+-@pytest.mark.parametrize("nbytes", [1, 37, 64, 1536, 3072])
+-def test_sha256_rows_is_hashlib(prefix_len, nbytes):
+-    rng = np.random.default_rng(prefix_len * 7919 + nbytes)
+-    rows = rng.integers(0, 256, (33, nbytes), dtype=np.uint8)
+-    prefix = bytes(rng.integers(0, 256, prefix_len, dtype=np.uint8))
+-    got = cp.asnumpy(fv3.sha256_rows(cp.asarray(rows), prefix))
+-    for r in range(rows.shape[0]):
+-        assert got[r].tobytes() == hashlib.sha256(prefix + rows[r].tobytes()).digest()
+-
+-
+-@gpu
+-@pytest.mark.skipif(not HAVE_BLAKE3, reason="needs the blake3 package")
+-@pytest.mark.parametrize("nbytes", [0, 1, 2, 63, 64, 65, 1000, 1024, 1025, 1536, 2048, 3072, 4096, 5120, 8192 + 64, 9000])
+-def test_keyed_blake3_rows_is_the_package(nbytes):
+-    rng = np.random.default_rng(nbytes)
+-    rows = rng.integers(0, 256, (41, nbytes), dtype=np.uint8)
+-    key = b"verity/blake3-leaf/v1/x".ljust(32, b"\0")
+-    whole = nbytes and nbytes % 64 == 0
+-    out = fv3.blake3_keyed_rows(cp.asarray(rows), key, block_out=bool(whole))
+-    cvs, roots = out[0], cp.asnumpy(out[1]).astype("<u4")
+-    assert cvs.shape == (41, max(1, -(-nbytes // 1024)), 8)
+-    if whole:
+-        assert out[2].shape == (41, nbytes // 64, 8)
+-    for r in range(rows.shape[0]):
+-        assert roots[r].tobytes() == blake3.blake3(rows[r].tobytes(), key=key).digest()
+-
+-
+-def _core_vectors(name: str) -> dict:
+-    import json
+-
+-    import verity.commitments as vc
+-    return json.loads((Path(vc.__file__).parent / name / "vectors.json").read_text())
+-
+-
+-@gpu
+-def test_frame_v3_row_leaf_vectors():
+-    for v in _core_vectors("frame_v3")["row_leaves"]:
+-        row = cp.asarray(np.frombuffer(bytes.fromhex(v["row_bytes"]), dtype=np.uint8)[None, :])
+-        if v["hash"] == "sha256":
+-            got = cp.asnumpy(fv3.sha256_rows(row, bytes.fromhex(v["prefix"])))[0].tobytes()
+-        else:
+-            got = cp.asnumpy(fv3.blake3_keyed_rows(row, bytes.fromhex(v["key"]))[1]).astype("<u4")[0].tobytes()
+-        assert got.hex() == v["digest"], v
+-
+-
+-@gpu
+-def test_frame_v3_blake3_vectors():
+-    for v in _core_vectors("frame_v3")["blake3"]:
+-        msg = bytes(i % 251 for i in range(v["len"]))
+-        row = cp.asarray(np.frombuffer(msg, dtype=np.uint8).reshape(1, -1))
+-        got = cp.asnumpy(fv3.blake3_keyed_rows(row, bytes.fromhex(v["key"]))[1]).astype("<u4")[0].tobytes()
+-        assert got.hex() == v["keyed_hash"], v["len"]
+-
+-
+-@gpu
+-def test_frame_v3_row_tree_and_word_leaf_vectors():
+-    d = _core_vectors("frame_v3")
+-    for v in d["row_trees"]:
+-        dom = bytes.fromhex(v["domain"]["domain_id"])
+-        rows = np.stack([np.frombuffer(bytes.fromhex(r), dtype=np.uint8) for r in v["rows"]])
+-        if v["hash"] == "sha256":
+-            from verity.commitments.rowleaf import sha256_row_prefix
+-            dg = fv3.sha256_rows(cp.asarray(rows), sha256_row_prefix(v["role"], v["word_bits"], v["n_words"]))
+-        else:
+-            from verity.commitments.rowleaf import blake3_row_key
+-            dg = fv3.blake3_keyed_rows(cp.asarray(rows), blake3_row_key(v["role"]))[1].view(cp.uint8).reshape(-1, 32)
+-        assert [bytes(x).hex() for x in cp.asnumpy(dg)] == v["digests"]
+-        t = fv3.build_tree(dom, len(v["rows"]), v["schema"], dg, vlen=32)
+-        assert [x.tobytes().hex() for x in t.levels[0][:len(v["rows"])]] == v["leaves"]
+-        assert t.root.hex() == v["root"]
+-    for v in d["word_leaves"]:
+-        out = cp.empty((1, 32), dtype=cp.uint8)
+-        val = bytes.fromhex(v["value"])
+-        fv3.leaves_into(out, bytes.fromhex(v["domain"]["domain_id"]), v["schema"],
+-                        cp.asarray(np.frombuffer(val, dtype=np.uint8).reshape(1, -1)), vlen=len(val), start=v["position"])
+-        assert cp.asnumpy(out)[0].tobytes().hex() == v["leaf"]
+-
+-
+-@gpu
+-@pytest.mark.parametrize("n", [1, 2, 3, 5, 7, 8, 9, 1000, 4097])
+-def test_vllm_tree_is_the_reference(n):
+-    from verity.commitments import leaves as L
+-    from verity.commitments import vllm_v1
+-    rng = np.random.default_rng(n)
+-    vals = rng.integers(0, 256, (n, 24), dtype=np.uint8)
+-    lay = vllm_v1.pos_leaf_layout(24)
+-    lv = cp.asnumpy(fv3.sha256_rows(cp.asarray(vals), lay.prefix))
+-    ref_leaves = [vllm_v1.pos_leaf(v.tobytes()) for v in vals]
+-    assert [x.tobytes() for x in lv] == ref_leaves
+-    t = fv3.vllm_tree(cp.asarray(lv))
+-    ref = L.levels(ref_leaves)
+-    assert [[x.tobytes() for x in g] for g in t.levels] == ref
+-    assert t.root == vllm_v1.fold(ref_leaves)
+-
+-
+-@gpu
+-def test_vllm_pos_leaf_vectors():
+-    from verity.commitments import vllm_v1
+-    for v in _core_vectors("vllm_v1")["pos_leaf"]:
+-        val = bytes.fromhex(v["value"])
+-        row = cp.asarray(np.frombuffer(val, dtype=np.uint8).reshape(1, -1))
+-        assert cp.asnumpy(fv3.sha256_rows(row, vllm_v1.pos_leaf_layout(len(val)).prefix))[0].tobytes().hex() == v["leaf"]

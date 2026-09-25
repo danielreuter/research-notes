@@ -38,8 +38,24 @@ def main():
     ap.add_argument("evidence", nargs="*")
     a = ap.parse_args()
     man = json.loads(run("data", "show", a.art, "--json"))["manifest"]
-    if BY in json.dumps(man):
-        raise SystemExit(f"{a.art}: manifest names {BY}; refusing")
+    # a producer field naming this lane refuses; free text that merely mentions it (meta.committer "verified by
+    # verify-night-2 0715Z") does not, as long as the result names another producing lane
+    prod = []
+
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k in ("lane", "producer", "by", "created_by", "author", "owner", "worker") and isinstance(v, str):
+                    prod.append(v)
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+    walk(man)
+    lane = ((man.get("meta") or {}).get("lane") or "")
+    if any(v == BY or f"lane/{BY}" in v or v.endswith(f"/{BY}") for v in prod) or f"lane/{BY}" in json.dumps(man) \
+            or (BY in json.dumps(man) and (not lane or lane == BY)):
+        raise SystemExit(f"{a.art}: manifest names {BY} as producer ({[v for v in prod if BY in v]}, meta.lane {lane!r}); refusing")
     if a.vid:
         label(a, a.vid)
         return

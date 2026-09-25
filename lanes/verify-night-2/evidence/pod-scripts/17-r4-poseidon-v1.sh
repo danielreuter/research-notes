@@ -26,6 +26,7 @@ fi
 pv() {  # tag N tree... -- arts...
   local tag=$1 n=$2; shift 2; local trees=(); while [ "$1" != "--" ]; do trees+=("$1"); shift; done; shift
   for t in "${trees[@]}"; do
+    [ "${NEG:-1}" = 1 ] || { echo "=== negatives $t: reusing $W/neg-$tag-${t:4:8}/summary.txt"; cat $W/neg-$tag-${t:4:8}/summary.txt; continue; }
     echo "=== [$(date -u +%H:%M:%S)] negatives $t"; bash $I/05-negatives.sh $t $tag-${t:4:8}; cat $W/neg-$tag-${t:4:8}/summary.txt
   done
   local negok=1

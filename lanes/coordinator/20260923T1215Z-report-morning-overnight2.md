@@ -6,6 +6,8 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT c1891d48 (05:14Z) [open] 05:15Z commitment-time + same-relation rules wait for the one labelled switch (tables-spec-draft renderer work); no separate renderer rule; hash-commit still reports the commit bucket
+CHECKPOINT 4c0c3418 (05:13Z) [open] 05:15Z launched hash-commit (B-Ligero in-proof-hash committer hill-climb; local, pods; $20, FINAL 13:30Z; worktree tables-fix -> hash-commit). TABLES.md: 'Commitment time counts' rule recorded; renderer change pending
 CHECKPOINT d33cef9 (05:11Z) [open] 05:11Z sweep: disk 5.4 GiB (eviction deferred until parity pass 2 ends, to keep the store quiet); agkr-bound alive, merging main + pins; parity pass 2 at 1037/5303
 CHECKPOINT c1891d48 (05:08Z) [open] 05:12Z agkr integration a2edab4d held: needs main #13 merged in + E4M3/NVFP4 pins + cargo test (asked for v2); parity pass 2 relaunched 0507Z (first launch raced with cleanup)
 CHECKPOINT ff486b0b (05:07Z) [open] 05:07Z agkr-bound scope correction sent (commit x,W,y with a verity.commitments scheme, bind in proof, own relation name + pins; estimate first if over $15/12:00Z)

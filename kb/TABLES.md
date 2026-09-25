@@ -81,3 +81,11 @@ TC_DOT only A100 (fastest verified 5.81 s art:174d7b4d).
 - Approved: a lane that makes A-GKR prove the committed relation (operands bound), cap $15; its results need independent
   verification and a red-team of the new statement. Then an A-GKR circuit red-team once the mechanical circuit-pin PR and the
   A-GKR lane branches are merged.
+
+## Commitment time counts (user decision 2026-09-24 10:12 PM PT)
+- Table 2 counts commitment time end to end: committing the batch's inputs, weights and outputs (row digests + trees) PLUS proving.
+  For B-Ligero + in-proof hash that is today 2.3-13 s of commitment building per 4096 instances vs 0.14-0.90 s of proving.
+  Published numbers change only at the ONE labelled switch: the renderer work implementing the full TABLES.md rewrite
+  (docs/tables-spec-draft.md in the Project store, pending the user's approval), together with the same-full-relation rule. Until
+  then the current tables stay as they are; no separate renderer rule. Lane hash-commit hill-climbs the committer; its results report the commitment-building bucket
+  separately and end to end.

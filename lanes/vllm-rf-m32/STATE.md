@@ -17,14 +17,22 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
     by sequence lengths and head counts, far below 2^32: unchanged.
   - No CPU reference of the kernel's header exists (the CUDA copies are pinned only on GPU pods by `test_scheme_cuda.py`).
 
+- Fix READY (`READY.md`): gate (b) run r20260925-214510-4478 PRESERVED, jdiff clean; vyv-rf-m32-cpu terminated 22:39Z;
+  merge-ready handoff to vllm-coordinator and sha handoff to vllm-rf-epoch sent 22:40Z.
+
+## Task 2: confirming gate (a) T0+T1 on main (coordinator handoff 20260925T2155Z)
+- Tree origin/main `5f8d8789` (b1 dca6a867 in; 271a0952 not yet merged). Worktree ~/wt/main-5f8d8789.
+- Mint 22:40:00Z on the VM: TTL 3h, object-read-only, prefixes manifests/ + objects/sha256/, piped to vyv-rf-m32-reg
+  /root/r2ro.env (0600). Deleted by the run's prefetch trap on exit; deletion time: see run stdout (`key_deleted=`).
+
 ## Running
-- vyv-rf-m32-cpu (3h2fodewmbc65u, cpu3g x16, guard 90), run r20260925-214510-4478 from 21:45Z: bootstrap, targeted tests
-  (tests/commit + packages/verity/tests/commitments at head, the new tests), lints + gate (b) base (head + to_base.patch) then
-  head, jdiff. Script `evidence/m32_gates.sh`.
+- vyv-rf-m32-reg (fjr66whubb8kn8, cpu3m 32 vCPU / 256 GB cgroup, 250 GB, guard 90), run r20260925-224008-395b from 22:40Z
+  (custody 6h): bootstrap ok 22:41Z, prefetch, then gate (a) T0+T1 serial (a23b's took 6391 s), jdiff vs a23b base xml.
+  Script `evidence/reg_gate_a.sh` (c4ir's, tree dir renamed, + jdiff).
 
 ## Next
-- On finish: read the run's stdout/jdiff, `research data preserved`, terminate the pod, READY.md, merge-ready handoff to
-  vllm-coordinator, sha handoff to vllm-rf-epoch, final checkpoint.
+- On finish: key-deletion time into a checkpoint, compare (expect only the #70/#75 skip rewordings), preserved, terminate,
+  "CONFIRM gate (a) on main 5f8d8789" handoff, final checkpoint.
 
 ## Open questions
 - none

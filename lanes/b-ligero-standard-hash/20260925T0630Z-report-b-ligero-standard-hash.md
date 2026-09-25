@@ -228,6 +228,22 @@ Pod scripts: `evidence/pod-scripts/`.
   for COMPLETE_ZK_BACKEND until Flock has ZK: it needs a two-tableau Ligero with a joint test, a third HM96 coin slot, and
   a larger t for ε_B. Not built here: the coordinator parked the binary / link routes (0752Z).
 * 10:05Z r20260925-100526-b232: the x4 sweep again, **with the malloc env** (30-sweep.sh, l = 4096, p2, custody-r2).
+  **DONE** 10:27Z (rc 0, 1184 s): 1636.1 / 1891.9 / 2067.8 / **2165.0** / 1943.0 VU/s at 1024 .. 16384, so the malloc env is
+  +2.7 % at the plateau. The plateau is again 8192 ("< 2 % over two doublings").
+  - **Plateau:** t.total 3.768 s + commit 0.0157 s = e2e 3.784 s (4.97e7×, 128.05 bits, peak 18.7 GB).
+  - Rust batch ACCEPT 25/25, 2^-128.05, pinned 1168788f….
+  - 4096 point: e2e 1.981 s (2068 VU/s).
+
+  Registered 10:28Z (PRESERVED):
+  - p0: art:29babef7db74c0846d2d2c3bc399bdaed177ed59e5476830c8f7a85839b26c63
+  - p1: art:71968345a826a7157e5c5713a045485dea126e97b3a2e1f0f0fd6aa39e8334a9
+  - p2: art:fdee8f4dcf5672fa63b697a1eb90b3898ddce995d5dc8cfec50e32ac5aa6c84d
+  - **plateau: art:19be6afa2cd2239cf15f7878af8eae0a3523be86dbec8e92f3acd9d6ee3ebbd1 (tree
+    art:a3d4b768d9808c55be90c98bd54fa10b5dd993faec8e2cb90a622bd912862e3a)**
+  - p4: art:763754456315ceb8e5376bad26eb4a100a0cc01210b9569e1e3882b67ea8895a
+
+  (These labels carry the lane prefix twice: 40-register.sh adds it, and I passed it too. Cosmetic.)
+* 10:29Z r20260925-102900-4391 (`22-cells.sh`): the x1 + x4 4096 cells with the malloc env.
 * kb: new `kb/ligero-hash-auth.md` (R1 / R2 / R4 rules, pinned-relation pitfall, gadget rows, x1 waste, plateau).
 * Seen: lane/hash-commit 86d7edb7 / fe9c7172 has a CUDA committer for frame-v3 keyed-BLAKE3 row trees (commit-gpu) with its
   own `--commit-reps` harness; not merged (overlaps hashauth / relchain); my committer is 0.65 s of 4.96 s.

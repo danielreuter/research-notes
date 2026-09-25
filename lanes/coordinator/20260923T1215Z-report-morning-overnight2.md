@@ -6,6 +6,7 @@ date: 2026-09-23T12:15Z
 status: open
 ---
 
+CHECKPOINT b84f11ea (03:19Z) [open] 03:20Z merged #8 6eb30ee8, #9 ca396d13 (conflict with #11 resolved: source_transport + custody private), lane/arith b84f11ea; cli 8:19 PM PT. red-team-arith + red-team-lk PASS -> verify-po told to release held labels; 5090 A-GKR no longer provisional. agkr-fp8 x agkr-nvf4 conflict in gpu/logup.py+prover.py (+nvf4 verifier Rust) -> integration lane after switch-over. Parity pass 1 running with #8.
 CHECKPOINT bbbe936c (01:31Z) [open] 01:35Z merged PR #11 (run custody on R2, behind --custody-r2) ff main -> bbbe936c, pushed; cli+steward moved; laptop tests incl. rsync (test_pods_connect) pass
 CHECKPOINT ab9573fd (01:06Z) [open] 01:10Z D4 parity on laptop FAILED TO COMPLETE: 2 attempts hung in R2 socket reads (17 min, 65 min; fresh store built 476 MB, then the compare/render phase stalled re-fetching evicted blobs); no JSON; /tmp cleaned. Sweep: disk 11 GiB, lanes alive
 CHECKPOINT 4bd6c54c (01:03Z) [open] 01:02Z 6 PM digest rendered (baseline render/0100Z-*); changed list reset

@@ -21,7 +21,12 @@ status: open
   3. Tool fixes: `research data preserved` no timeout + re-reads every blob (5 GB = hang on laptop; add HEAD/etag-only mode + timeout);
      finish check exit 3 when the laptop catalog misses pod-side puts (reindex --remote first); `research pods stage`; dump-completeness
      check at registration; `run --on` research copy first on PYTHONPATH (use env -u PYTHONPATH).
-  4. Decision pending (Daniel): H100 D3 rows used a loopback verifier; separate-host rerun ~$2.5.
+  4. DONE (d3-h100, 4bd6c54c): H100 D3 rows used a loopback verifier; separate-host rerun ~$2.5.
+  5. AFTER SWITCH-OVER: integration lane for lane/agkr-fp8 (a97576b5) + lane/agkr-nvf4 (c97d2ad2): they conflict in
+     backends/gkr/gpu/{logup,prover}.py; nvf4 changes backends/gkr/verifier (Rust, cargo test on a pod). Check proofs byte-identical
+     to the verified cells for fixed coins. Both branches on origin; red-team-lk PASS 02:00Z.
+  6. Test failures on clean main (known): test_no_tracked_blob_exceeds_limit, test_this_repository_resolves_every_workspace_package_
+     inside_the_tree, test_evict_runs_only_preserved_terminal_quiet_runs..., test_d6_deferred_hash_records...
 - Disk: sweep every 30 min (timer); report < 5 GiB. R2 direct-hash check 20:40Z: evidence/20260924T2040Z-r2-hash-check.tsv.
 
 # Coordinator state 2026-09-24 16:15Z (newest first; older state below)

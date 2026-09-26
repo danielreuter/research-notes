@@ -8,7 +8,7 @@ from pathlib import Path
 ap = argparse.ArgumentParser()
 ap.add_argument("cells", nargs="+"); ap.add_argument("--run", required=True); ap.add_argument("--commit", required=True)
 ap.add_argument("--sessions", type=Path, required=True); ap.add_argument("--sources", type=Path)
-ap.add_argument("--pins-run", default=None); ap.add_argument("--dry", action="store_true")
+ap.add_argument("--pins-run", default=None); ap.add_argument("--dry", action="store_true"); ap.add_argument("--extra", default="")
 ns = ap.parse_args()
 BY = "verify-bligero-real-k"
 cells_dir = Path.home() / ".research/runs" / ns.run / "cells"
@@ -34,7 +34,7 @@ for c in ns.cells:
             f"confirmed), a/b/y commitments recomputed from my staged set, every VU covered once, batch {reps['accepted']}/{reps['n']} at "
             f"2^-{reps['batch_bits']:.2f}. Live verifier records ({vrun}; {sids[0]}..{sids[-1]}): 5/5 sessions accepted "
             f"{reps['n']}/{reps['n']} with fresh verifier coins, system sha256 = my compile, rep-1 proofs/statements/coins = the dump. "
-            f"Recorded coins replayed: not transferable. Not judged here: the cell's interaction check.")
+            f"{ns.extra + ' ' if ns.extra else ''}Recorded coins replayed: not transferable. Not judged here: the cell's interaction check.")
     verifier = (f"{rv['verifier']['tag']} built on pod vy-verify-bligero-real-k from main {ns.commit[:8]} + backends.direct.ligero."
                 f"reverify (main) via lanes/{BY}/evidence/pod-scripts/cell_check.py")
     for key, val, extra in (("verified", "accepted", []), ("verifier", verifier, []), ("verifier_seconds", str(secs), ["--value-json"]),

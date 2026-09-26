@@ -94,5 +94,11 @@
   "pod": "vy-bligero-real-k-verifier-ga2b",
   "source": "store run record art:af3a99282687a6a76729542a40150d82e7a476c53cf9877662d2106d9906e5eb",
   "dir": "/tmp/vbrk/sessions2/rec-r20260926-073309-3956/sessions"
+ },
+ "4ff19d4f": {
+  "verifier_run": "r20260926-103731-fe03",
+  "pod": "vy-bligero-real-k-verifier-r4",
+  "source": "store run record art:f4567196b3344f4ad3e588be16fe7b629455b93878e28a787ec2b9c9a825f2bb",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-103731-fe03/sessions"
  }
 }

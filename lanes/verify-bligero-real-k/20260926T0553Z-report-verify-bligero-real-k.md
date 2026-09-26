@@ -216,3 +216,40 @@ tip: lane/verify-bligero-real-k @ 49cc39ef (base main@49cc39ef; no commits, not 
 known-failures: none    pod: terminated 09:08Z (t258al5w5tu80i cpu3c-16); ~$0.10 this round, lane total ~$0.75
 artifacts: labelled art:e8fb169d art:9260a985 (+ addendum notes on art:4b567c9c art:f1ac2db5 art:9fd5ec09 art:82587955, ref art:af3a9928); run r20260926-085735-35b1
 ~~~
+
+## Reopen 3 (11:25Z-11:50Z): art:4ff19d4f (the A100 K8192 xob re-run) and below_bar on art:b1d710da
+
+- **Request:** the coordinator's launch message. Received and acted on: `20260926T1030Z-handoff-from-coordinator.md` (write the
+  non-producer below_bar on b1d710da) and `20260926T1115Z-handoff-from-bligero-real-k.md` (the cell at 2^-128.265 over 32 sub-batches).
+- **Base:** main e48ec526, which contains e8ec5e19 and PR #71's d7656f9c. main's ligero-verify books `chain_field`.
+- **Pod:** vy-verify-bligero-real-k, a cpu3c with 16 vCPU, pod uxjdwpkx4di1bo, re-registered with `--replace`.
+  - No CPU pod was available on the first 10 tries; the retry after the session gather got one.
+  - $0.48/h, 11:31-11:44Z, about $0.10.
+- **Run r20260926-113155-ffa4 (PRESERVED):** pins 16/16 at e48ec526 (pod build 161b68db), then both cells.
+- **art:4ff19d4f: verified=accepted** (ref r20260926-113155-ffa4).
+  - Input set art:927a4c3a re-staged: IR-equal (1920/1920) and equal to the prover's copy.
+  - reverify PASS: custody 97/97, PINNED, commitments recomputed from my set, batch 32/32 at 2^-128.265.
+  - 5/5 sessions: verifier run r20260926-103731-fe03, read from its store record; the verifier's batch is also 2^-128.265.
+  - Bound, my own exact recomputation (Fractions) from the statement: n 16384, l 4096, t 202, D 6, t_pad 256.
+    - 549 linked chain rows, counted in my own compile of the system, give E = 1092, degree 183, and chain_field
+      (3·183/2^32)^6 = 2^-137.396.
+    - Per proof 2^-133.2655; whole proof over 32 sub-batches **2^-128.2655**; without chain_field 2^-128.350.
+    - This equals the Rust verifier's figure (single-proof `verify` on sub_00: per proof -133.265, union -128.265, terms
+      identical) and the producer's.
+- **art:b1d710da: below_bar=true** by verify-bligero-real-k (ref r20260926-113155-ffa4), with a note.
+  - Same checks at e48ec526: custody 181/181, PINNED, commitments recomputed, and 60/60 proofs accept individually.
+  - The batch at `--target-bits 128` REJECTS on the bound only: 2^-127.97 over 60 sub-batches. The single-proof `verify`
+    rejects with "parameters give 2^-127.97".
+  - My recomputation (t 203): per proof 2^-133.879, whole 2^-127.972, and 2^-128.104 without chain_field, which is the
+    figure my 08:17Z verified=accepted used. That label stands for the proofs; below_bar moves the cell out of Table 2.
+  - Label correction: my first note at 11:45Z misstated that label's time. A replacement note says so.
+- **Evidence:** `evidence/sessions-check-reopen3.json`, `evidence/session-sources.json`, `evidence/session-system-sha256.json`.
+- **Not judged:** the interaction note (38% under the model), and the plateau-point rule (Daniel's decision).
+
+## FINAL (reopen 3)
+
+~~~text
+tip: lane/verify-bligero-real-k @ e48ec526 (base main@e48ec526; no commits, not pushed)        merge-with: none
+known-failures: none    pod: terminated 11:44Z (uxjdwpkx4di1bo cpu3c-16); ~$0.10 this round, lane total ~$0.85
+artifacts: labelled art:4ff19d4f (verified=accepted), art:b1d710da (below_bar=true); run r20260926-113155-ffa4
+~~~

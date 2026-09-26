@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: blocked
 ---
 
+CHECKPOINT a9d13f68 (02:30Z) [blocked] root decision: real-K cells on the unshared statement (per-VU x rows); told flock-gpu-link 0250Z; stage() after PR #47 merges
 CHECKPOINT a9d13f68 (02:29Z) [blocked] register --lane 64914079; wgmma-bf16 lowering pinned 12c3c8d3 (a9d13f68); stage() waits for PR #47 merge
 CHECKPOINT 64914079 (02:28Z) [blocked] register --lane (64914079) done; spine stage() waits for PR #47 merge + flock-gpu-link's K=2048/8192 layouts (interface proposal 0235Z)
 CHECKPOINT c058c33f (01:04Z) [open] SHA-256 cells: H100 bf16 art:728d8724 (5,393), H100 fp8 art:df857ea6 (10,789), 4090 art:fd772057 (7,337), A100 art:324888c5 (3,123); all pass check; pods terminated 01:03Z (~$5.5). NVFP4 unit pinned fb52a87c; row format proposal to coordinator 0100Z (awaiting approval)

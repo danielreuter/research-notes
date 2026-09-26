@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (01:12Z) [open] SHA-256 cells: replay run r20260926-011150-e4e9 on vy-verify-flock-pure (pod 00e10u9jfgf327), verifier c058c33f(=bab181d6 verifier path)+replay 7b60287b; plateau proofs = recorded for all four
 CHECKPOINT 0f933bbf (01:06Z) [open] reopened for 4 SHA-256 Flock cells (728d8724, df857ea6, fd772057, 324888c5): NOT final
 CHECKPOINT 0f933bbf (00:35Z) [final] FINAL: 1589ffe1, c3e83404, 7afeecbe, 167e64a8, 56f792bd verified=accepted (file re-verification); pods terminated 00:36Z; ~$2.8; tips 0f933bbf + vllm f9ada8e7
 CHECKPOINT 0f933bbf (00:28Z) [open] art:167e64a8, art:7afeecbe, art:c3e83404 verified=accepted (18/18, 54/54, 66/66; r20260926-000935-dd35). vllm-v1 art:56f792bd replay r20260926-002803-d4e8 running on vy-verify-flock-pure

@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT c53d9148 (06:33Z) [open] WAITING r20260926-063305-3f36 (prover) + r20260926-063231-f0c1 (verifier) on vy-flock-ir-lowering-h100d/-ver2: rmsnorm-fused-cuda frame-v3 cell under verity/flock-ir-frame/v2 (c53d9148, runs of compressions, k_log 22), check after 06:45Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f; next: triton, rope v2, silu v2 cells, register each
 CHECKPOINT b4e05b48 (06:03Z) [open] RoPE art:9d899633 + SiLU art:3173830b frame-v3 cells registered (H100, own verifier, Ping RTT); IR4+IR5 fixed b4e05b48 (cut pinned in netlist; RMSNorm pins 47d75396/950d95a1), handoffs 0602Z red-team-flock-2, 0604Z coordinator (RMSNorm frame needs k_log>22 decision); pods terminated ~$5; next: cut words in the frame statement (CPU, small N); agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT d3bd9814 (05:40Z) [open] WAITING r20260926-053944-5195 (prover) + r20260926-053921-983f (verifier) on vy-flock-ir-lowering-h100c/-ver, RoPE frame-v3 cell re-run with open-connection Ping RTT (d3bd9814), check after 05:47Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f; next: cell check+register rope, then SiLU re-run (first SiLU run r20260926-052838-b3b3 passes check at 13.6 rows/s x 8192 elems)
 CHECKPOINT 45880426 (05:24Z) [open] WAITING r20260926-052245-de4a (verifier) r20260926-052323-3aea (prover) on vy-flock-ir-lowering-h100c/-ver (EUR-IS-3), check after 05:45Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f; next: register the rope cell, then the silu cell on the same pods

@@ -9,7 +9,9 @@ export PATH=/workspace/venv312/bin:$PATH HF_HOME=/workspace/hf
 export PYTHONPATH=$T/integrations/vllm:$T/packages/verity/src:$T/tools/research/src:$T/protocols/sampled_proofs
 cd integrations/vllm
 bash verity_vllm/ops/pod_bootstrap.sh --cases "$CASES" --out "/workspace/vux/bootstrap-$N" > "$OUT/bootstrap.log" 2>&1; echo "bootstrap rc $? $(date -u +%FT%TZ)"
-printf '{"row": %s, "row_key": "%s", "research_run": "%s"}\n' "$N" "$ROW" "${RESEARCH_RUN_ID:-}" > "$EXP/provenance.json"
+# the tree: research run ships `git archive` of a clean commit (dirty trees are refused), so dirty = false; BRANCH / EPOCH from the caller
+printf '{"row": %s, "row_key": "%s", "research_run": "%s", "source": {"commit": "%s", "dirty": false, "branch": "%s"}, "epoch": "%s"}\n' \
+  "$N" "$ROW" "${RESEARCH_RUN_ID:-}" "${RESEARCH_SOURCE_SHA:-unknown}" "${BRANCH:-unknown}" "${EPOCH:-unknown}" > "$EXP/provenance.json"
 [ -n "${LIMITS:-}" ] && printf '%s\n' "$LIMITS" > "$EXP/limits.json"
 export HIDDEN_SO=/workspace/cp/fa2/build/matReq/verity_fa2_matReq.so SWEEP_DIR=/workspace/vux/sweep-$N PAIRS=1 VERITY_VU_EXPORT_DIR=$EXP
 rm -rf "$SWEEP_DIR/$ROW"

@@ -5,6 +5,7 @@ created: 2026-09-26T08:04Z
 status: open
 ---
 
+CHECKPOINT 8f2f1624 (14:11Z) [open] 14:12Z BUSY: pod vyv-more-exports-moe2 (b83fk4drgx340u) run r20260926-141055-d540 = #67 Commit-only (+export, PR #80+#63 tree 8f2f1624) over the Build restored from art:8180df8f programs/ (VM->pod upload took 14 min); waits for bootstrap r20260926-134954-df82, then manifest ~15 min, Commit+replay ~100 min, export; check-back 14:40Z; stop at 16:45Z; ack vllm-vu-export 1344Z (#63 OK, #80); agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 8f2f1624 (13:54Z) [open] REOPENED BUSY 13:55Z: pod vyv-more-exports-moe2 (b83fk4drgx340u, 1x L40S community 251 GB $0.79/h) bootstrap r20260926-134954-df82; next: #67 Commit-only over the preserved Build (tree cursor/vllm-67-rerun-0df4 8f2f1624 = #63+#80), check-back 14:10Z; stop at $12 or 16:45Z; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (13:46Z) [open] REOPENED 13:45Z for one run: #67 re-run with PR #80 (export budget fix) + PR #63; ~$12 vLLM, stop at budget or 16:45Z guard; NOT final; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (13:24Z) [final] no captured sets: #74 Commit needs ~300 GiB (>251 GB H100; bounded/exclude finalize crashes), #67 export drew 0 VUs (vu_store budget includes >18 min population build); PR #63 (FP8 block + MoE expert coordinates) MR sent; pods terminated 12:29Z/13:20Z, ~$26.7 of $30

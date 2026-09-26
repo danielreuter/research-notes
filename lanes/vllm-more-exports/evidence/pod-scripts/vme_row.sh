@@ -10,9 +10,10 @@ export PATH=/workspace/venv312/bin:$PATH HF_HOME=/workspace/hf
 export PYTHONPATH=$T/integrations/vllm:$T/packages/verity/src:$T/tools/research/src:$T/protocols/sampled_proofs VUX_REPO=$T/integrations/vllm
 python -c "import verity_sampled_proofs; print('verity_sampled_proofs importable')"
 cd integrations/vllm
+while pgrep -f "pod_bootstrap.sh" > /dev/null; do sleep 15; done       # a bootstrap run already on the pod (its own research run)
 bash verity_vllm/ops/pod_bootstrap.sh --cases "$CASES" --out "/workspace/vme/bootstrap-$N" > "$OUT/bootstrap.log" 2>&1; echo "bootstrap rc $? $(date -u +%FT%TZ)"
-( cd "$T" && bash "$I/vme_tests.sh" > "$OUT/tests.log" 2>&1; echo "tests: $(grep -cE '^(FAILED|ERROR)' "$OUT/tests.log") failed/errors $(date -u +%FT%TZ)" >> "$OUT/tests.log" ) &
-TESTS=$!
+TESTS=""
+[ "${RUN_TESTS:-1}" = 1 ] && { ( cd "$T" && bash "$I/vme_tests.sh" > "$OUT/tests.log" 2>&1; echo "tests: $(grep -cE '^(FAILED|ERROR)' "$OUT/tests.log") failed/errors $(date -u +%FT%TZ)" >> "$OUT/tests.log" ) & TESTS=$!; }
 [ -f "$I/limits-$N.json" ] && cp "$I/limits-$N.json" "$E/limits.json" && echo "limits $(cat "$E/limits.json")"
 export SWEEP_DIR=/workspace/vme/sweep-$N PAIRS=1 BUILD_JOBS=${BUILD_JOBS:-auto}
 STAGES=${STAGES:-build,match,commit}
@@ -36,10 +37,10 @@ for f, c in s["by_family"].items(): print("family", f, json.dumps(c))
 for x in s["sets"]: print("set", x["set"], x["n"], x["bytes"], x["content_digest"][:16])
 r = V.verify(e); json.dump(r, open(ev + "/verify_sets.json", "w"), indent=1); print("VERIFY", "OK" if r["ok"] else "FAIL", [(x["set"], x.get("bad_n")) for x in r["sets"] if not x["ok"]])
 PY
-  python "$I/program_graphs.py" "$OUT/program-graphs" "$ROW" "$R" --record "$R/commit/sampled_replay_p0.json" --vus "$E/vus.jsonl" --store "$E/store" \
+  [ "${SKIP_GRAPH:-0}" = 1 ] || python "$I/program_graphs.py" "$OUT/program-graphs" "$ROW" "$R" --record "$R/commit/sampled_replay_p0.json" --vus "$E/vus.jsonl" --store "$E/store" \
     --run "${RESEARCH_RUN_ID:-}" --row "$N" --klass "PASS on run ${RESEARCH_RUN_ID:-}" < /dev/null; echo "program_graph rc $? $(date -u +%FT%TZ)"
 else
   echo "NO EXPORT (see row.log / commit logs)"
 fi
-wait "$TESTS"; tail -4 "$OUT/tests.log"
+[ -n "$TESTS" ] && { wait "$TESTS"; tail -4 "$OUT/tests.log"; }
 echo "VME-DONE $(date -u +%FT%TZ)"

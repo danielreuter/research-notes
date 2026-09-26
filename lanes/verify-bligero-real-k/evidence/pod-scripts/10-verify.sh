@@ -31,9 +31,11 @@ EOF
 research() { $PY -m research "$@"; }
 export -f research 2>/dev/null
 mkdir -p $W/bin; printf '#!/bin/sh\nexec %s -m research "$@"\n' "$PY" > $W/bin/research; chmod +x $W/bin/research; export PATH=$W/bin:$PATH
-echo "##### $(date -u +%H:%M:%SZ) system digests of the 16 real-K pins on this pod"
-VBRK_VERIFIER=$V $PY $I/pins_check.py $W/pins > $RESEARCH_RUN_DIR/pins.out 2>&1; echo "pins rc=$?"; tail -1 $RESEARCH_RUN_DIR/pins.out
-cp $W/pins/pins-check.json $RESEARCH_RUN_DIR/pins-check.json 2>/dev/null
+if [ "${PINS:-1}" = 1 ]; then
+  echo "##### $(date -u +%H:%M:%SZ) system digests of the 16 real-K pins on this pod"
+  VBRK_VERIFIER=$V $PY $I/pins_check.py $W/pins > $RESEARCH_RUN_DIR/pins.out 2>&1; echo "pins rc=$?"; tail -1 $RESEARCH_RUN_DIR/pins.out
+  cp $W/pins/pins-check.json $RESEARCH_RUN_DIR/pins-check.json 2>/dev/null
+fi
 for a in "$@"; do
   echo "##### $(date -u +%H:%M:%SZ) cell $a"
   $PY $I/cell_check.py $a --out $RESEARCH_RUN_DIR/cells/${a:4:8} --work $W/work --verifier $V --jobs ${JOBS:-${VY_CPU_THREADS:-16}} 2> $RESEARCH_RUN_DIR/cells-${a:4:8}.err

@@ -77,25 +77,38 @@ summary["input_set_check"] = {
                            "only_mine": sorted(set(mine) - set(rec_files)), "only_prover": sorted(set(rec_files) - set(mine))},
 }
 
-# 2. reverify from main with my staged set
-rv_work = ns.work / "rv"
+# 2. main's reverify checks (backends.direct.ligero.reverify.verify_tree, unchanged) on the cell's proof dir with my staged set.
+#    reverify's own entry point looks for proofs/ or dumps/ at the tree root only; a bench.cell tree nests it under the result's
+#    meta.artifacts[0] (sweep/<point>/proofs), so the dir is located here and handed to verify_tree as reverify would.
+from backends.direct.ligero import reverify as RV
+tree = ns.work / "rv" / cid[4:20]
 t = time.time()
-r = sh(sys.executable, "-m", "backends.direct.ligero.reverify", cid, "--dry-run", "--keep", "--json", "--verifier", ns.verifier,
-       "--work", str(rv_work), "--jobs", str(ns.jobs), "--instances-root", str(sdir), "--relation", meta["cell"]["relation"].split("+")[0])
-(ns.out / "reverify.json").write_text(r.stdout); (ns.out / "reverify.err").write_text(r.stderr)
-try:
-    rv = json.loads(r.stdout)[0]
-except Exception:  # noqa: BLE001
-    rv = {"status": "ERROR", "why": [r.stderr[-800:]]}
-summary["reverify"] = {"rc": r.returncode, "seconds": round(time.time() - t, 1),
-                       **{k: rv.get(k) for k in ("status", "why", "relation", "mode", "hashed", "custody", "run", "run_files")},
-                       "reps": {k: {q: v.get(q) for q in ("n", "accepted", "rejected", "batch_accepted", "batch_bits", "system_pinned",
+r = sh("research", "data", "fetch", man["refs"]["run_files"], "--to", str(tree))
+if r.returncode:
+    raise SystemExit(f"fetch run_files: {r.stderr[-400:]}")
+arts = meta.get("artifacts") or []
+pdir = tree / arts[0] if arts and (tree / arts[0] / "manifest.json").is_file() else None
+v = RV.load_verifier(Path(ns.verifier))
+rep = RV.Report(cid)
+rep.run_files, rep.run = man["refs"]["run_files"], meta["run_id"]
+if pdir is None:
+    rep.status, rep.why = "ERROR", [f"no proof dir at meta.artifacts {arts} in {rep.run_files}"]
+else:
+    pman = json.loads((pdir / "manifest.json").read_text())
+    params = att.get("params") or {}
+    rep.mode = pman.get("mode") or params.get("mode")
+    RV.verify_tree(pdir, pman, v, rep, jobs=ns.jobs, params=params, asserted=meta["cell"]["relation"].split("+")[0],
+                   out_dir=ns.out / "reps", instances_root=str(sdir), fingerprint=meta.get("workload_fingerprint"))
+det = RV.detail(rep, v) if rep.status == "PASS" else None
+summary["reverify"] = {"entry": "reverify.verify_tree (main)", "seconds": round(time.time() - t, 1), "proof_dir": str(pdir),
+                       "verifier": {"path": str(v.path), "sha256": v.sha256, "tag": v.tag}, "detail": det,
+                       **{k: getattr(rep, k) for k in ("status", "why", "relation", "mode", "hashed", "custody", "run", "run_files", "tile")},
+                       "reps": {k: {q: x.get(q) for q in ("n", "accepted", "rejected", "batch_accepted", "batch_bits", "system_pinned",
                                                           "python_disagree", "verify_seconds_sum", "wall_seconds", "batch_reason")}
-                                for k, v in (rv.get("reps") or {}).items()}}
+                                for k, x in rep.reps.items()}}
 
 # 3. the dumped files' digests
-tree = rv_work / cid[4:20]
-pdirs = [p.parent for p in tree.rglob("manifest.json") if (p.parent / "system.bin").is_file()]
+pdirs = [pdir] if pdir is not None else []
 files = {}
 for pdir in pdirs:
     files["system.bin"] = sha(pdir / "system.bin")

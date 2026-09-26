@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT e52eca82 (00:03Z) [blocked] waiting for flock-gpu-link's integrated flock-pure-gpu with the GPU SHA-256 witness (from flock-vllm-v1 PR #41); then the 3 SHA-256 cells (H100 BF16, H100 E4M3, A100 BF16), same setup, ~$8. No pods running. agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT e52eca82 (00:02Z) [open] RTT re-runs done, pods terminated 00:02Z (~$2.1): H100 bf16 art:1589ffe1 (6,285, -2.4%), H100 fp8 art:c3e83404 (13,598), 4090 art:7afeecbe (9,836), A100 art:167e64a8 (3,757); all pass +-10% at open-connection RTT; SHA switch+negatives at e52eca82, SHA cells not run
 CHECKPOINT 8854e8d3 (23:33Z) [open] 4 cells registered w/ corrected coin waits: H100 bf16 art:bb289d47, 4090 art:ed0047be, H100 fp8 art:37215309, A100 art:fb526e50; old ids PULLED; +-10% check fails 3/4 at TCP-connect RTT (needs established-connection RTT); all pods terminated 23:33Z; handoffs 2348Z
 CHECKPOINT a6a6e548 (22:17Z) [open] cells re-registered for 01:00Z: H100 art:6d1295ed (6,265 VU/s, 5.1e7x, r20260925-220115-3522 / verifier r20260925-220103-b7c0), 4090 art:d1961ba4 (10,159 VU/s, 1.05e7x, r20260925-215031-5d4e / r20260925-214955-238b); same-run loopback + TCP RTT + verifier commit/sha + union bound; old ids PULLED; all pods terminated 22:16Z; sent to verify-flock-pure, red-team-flock, coordinator (2218Z)

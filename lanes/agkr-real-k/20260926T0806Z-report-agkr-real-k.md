@@ -57,3 +57,20 @@ re-sweep, and A-fs on both sets.
 Handoffs sent: `lanes/coordinator/20260926T0930Z-handoff-from-agkr-real-k.md` (red-team request; red-team-flock is final) and
 `lanes/coordinator/20260926T0935Z-handoff-from-agkr-real-k.md` (merge-ready).
 Handoffs received: `20260926T0910Z-handoff-from-coordinator.md` (pause): acted on, pods drained, CPU work continued.
+
+## Blocker: the FP8 spine sets need a statement change, not just K
+A-GKR binds operands only through route (a), and route (a) can't prove an E4M3 statement today:
+1. **flock-link hashes 16-bit words.** `Chain::new(vus, k)` sets row bytes to 2k. Σ's preimage says `bits 16` and
+   `n = leaves·k·16`, and the operands file is LE u16. E4M3 rows are K bytes: 2 chunks at K = 2048 and 8 at K = 8192, both
+   admissible. So this needs a `bits` parameter (8 | 16) through the Chain, Σ, `leaf_digests`, `words` and the operands reader.
+   The prime side is already generic: `gpu/link.py` and `link.rs::derive` take bits 8 or 16, and `link.rs` checks Σ's `bits` line
+   against commitment.txt. It is a Flock-side statement change, so it needs a red team (the link audit covered 16-bit words).
+2. **The committed y word.** The FP8 spine sets record the FP32 accumulator as u32 (relchain 9ef1d11f). C-Flock checks
+   "the words the committed y opens (fp8: y << 10)". A-GKR's FP8 epilogue publishes the 22-bit packing. A committed FP8 statement
+   needs the epilogue's public word to be the committed one: a public column y32 = packing · 2^10 bound in the epilogue circuit.
+   That means new FP8 circuit files, new pins and a red team.
+3. **tools/cell.py.** REL, MODEL and BITS are Ampere BF16 constants, and the witness uses `Generator(ops, REAL)`. It would need a
+   per-relation (model, params, bits, y) table, like bench_result.py's `relation_params`.
+A-fs (A-GKR alone) can run the FP8 sets at real K after one change: `bench_result.py --input-set` must also convert an FP8 set's
+FP32 y to the packing (`rel.y_public`). The pins are one line per relation and K, the same files at steps K / 32. But A-fs proves
+the weaker private-operand relation (a drill-down), not the committed statement B-Ligero and C-Flock prove.

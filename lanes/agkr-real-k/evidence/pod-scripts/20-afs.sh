@@ -6,6 +6,7 @@
 #   SETS="<tarball under inputs/> <art id> ..." (pairs)  REPS=5  LANE=agkr-real-k
 set -uo pipefail
 REPO=$(pwd); RD=${RESEARCH_RUN_DIR:?}; W=/workspace; O=$RD/out; mkdir -p $O
+[ -f $W/env.sh ] || VERIFIER= SRC=$REPO HEALTH=0 bash backends/direct/ligero/pod_bootstrap.sh > $RD/bootstrap.log 2>&1
 source $W/env.sh; cd "$REPO"
 export PYTHONPATH="$PYTHONPATH:$REPO/backends/gkr" PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 read -r Q PER < /sys/fs/cgroup/cpu.max 2>/dev/null || { Q=max; PER=100000; }

@@ -1,0 +1,10 @@
+research: r20260926-103731-fe03 observed 2026-09-26T11:15:22.155Z: failed rc=143 class=UNKNOWN_SIGNAL result=absent  preserved=yes
+terminated 2pvzn7ttcbz9qb
+vy-bligero-real-k-verifier-r4 (pod 2pvzn7ttcbz9qb, host a115ce53a2f8): 0 attempt(s) recorded on it; 0 NOT preserved, 0 preserved  [mode head]
+  Attempts never published to the store (no `research data push` on the pod) are not visible here
+TERMINATED: nothing recorded on the machine
+terminated bcdr8bilscsrli
+vy-bligero-real-k-a100-r3 (pod bcdr8bilscsrli, host 01ac3f438bff): 1 attempt(s) recorded on it; 0 NOT preserved, 1 preserved  [mode head]
+  preserved      r20260926-104642-25da  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+TERMINATED: all 1 attempt(s) preserved
+DRAIN-DONE

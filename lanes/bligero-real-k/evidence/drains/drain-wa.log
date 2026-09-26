@@ -1,0 +1,9 @@
+terminated rphl9igpxkmu8t
+vy-bligero-real-k-verifier-r2 (pod rphl9igpxkmu8t, host afa3fb760406): 0 attempt(s) recorded on it; 0 NOT preserved, 0 preserved  [mode head]
+  Attempts never published to the store (no `research data push` on the pod) are not visible here
+TERMINATED: nothing recorded on the machine
+terminated 5ql9ppsc8mblq5
+vy-bligero-real-k-a100-r2 (pod 5ql9ppsc8mblq5, host e654710f543d): 0 attempt(s) recorded on it; 0 NOT preserved, 0 preserved  [mode head]
+  Attempts never published to the store (no `research data push` on the pod) are not visible here
+TERMINATED: nothing recorded on the machine
+DRAIN-DONE

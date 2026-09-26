@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: open
 ---
 
+CHECKPOINT a57628fc (05:18Z) [open] RMSNorm review @34d02ae3: rope/silu v2 rows byte-identical (2eaa652f/3b1ed294); fused units 0/7680 lanes vs IR on 240 adversarial rows (VM); tail_program == IR cut words; IR4 candidate (Rust tail not pinned; eps forgery built). Pod run next: tail prims, triton, loadchecks, tampers
 CHECKPOINT a57628fc (05:03Z) [open] woken 05:03Z: review RMSNorm (fused CUDA + Triton) + IR1/IR2 fix @34d02ae3 (PR #54); rope/silu v2 byte-identity; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (04:48Z) [open] PR54 rope/silu GRANTED W/ CONDITIONS (IR1 cut tail, IR2 own staging, IR3 no cell) art:f29e8ac5 art:07f51904; NV5 MET, NVFP4 NV1-5 all met art:562868e6 (handoff 0451Z to flock-backend); pod-create.sh fixed; pods terminated ~$0.5 lane total. Next: RMSNorm 0435Z review; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (04:38Z) [open] PR54 rope/silu @366befc4: fidelity 0/2.03M rope + 0/2.16M silu (my evaluator), statement negatives 10/10 refused (r20260926-043318-28bb); rope/silu identical at 76b7cbb2. Next: NV5 confirm @e4f631bd (NVFP4) + 76b7cbb2 regression on qlqy5nyrjkzjer. Inbox: RMSNorm request 0435Z queued

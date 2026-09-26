@@ -5,6 +5,8 @@ created: 2026-09-25T14:31Z
 status: final
 ---
 
+CHECKPOINT c88bb683 (23:47Z) [final] 23:47Z FINAL: xob hopper x4 labels art:955a52e0 art:f15909f5 (2252Z grant); inbox 2335Z/2342Z done; no pod; tip c88bb683
+CHECKPOINT c88bb683 (23:43Z) [final] 23:43Z FINAL: xob hopper x4 labels art:955a52e0 art:f15909f5 (2252Z grant); inbox 2335Z done; no pod; tip c88bb683
 CHECKPOINT c88bb683 (23:42Z) [final] 23:42Z FINAL: xob hopper x4 labels art:955a52e0 art:f15909f5 (2252Z grant) after verify-night-3 accepted; no pod; tip c88bb683
 CHECKPOINT c88bb683 (22:51Z) [open] 22:51Z xob hopper x4 GRANTED WITH CONDITIONS (2252Z; art:01d83252, run r20260925-221248-ab04); pod drained; waiting for cell ids (not before verify-night-3)
 CHECKPOINT c88bb683 (22:13Z) [open] 22:13Z xob hopper: scans 16:2 + 8:2 running on VM (leaf code = 5b28557b); pod dm92ozi7xllxg8 runs H2/R1/R4 + twin relabel
@@ -166,3 +168,5 @@ Inherited handoffs: all 20 were addressed to red-team-standard-hash and acted on
 * 23:43Z labelled proof_class + finding (ref 2252Z) on art:955a52e0 (fp8-hopper-x4+blake3-xob, 32,768 VUs, 2^-128.07) and
   art:f15909f5 (bf16-hopper-x4+blake3-xob, 32,768 VUs, 2^-128.40). verify-night-3 accepted both from main 6c3568dc, which
   contains 775786b7. No pod was used.
+* 23:31Z received `20260925T2335Z-handoff-from-coordinator.md` ("After verify-night-3: proof_class labels on the H100 blake3-xob x4 cells"). Done above, at 23:43Z.
+* 23:42Z received `20260925T2342Z-handoff-from-verify-night-3.md` ("H100 blake3-xob x4 cells verified=accepted", verdicts art:120b459a and art:f8b8836c, plus both plateau equivalence documents). This is what triggered the 23:43Z labels.

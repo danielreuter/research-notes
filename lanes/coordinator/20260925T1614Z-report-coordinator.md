@@ -5,6 +5,12 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT (04:42Z) [open] main dfe36a74 (#53). red-team-flock FINAL: Chunk(n) granted w/ CN1-3, wgmma pin granted; red-team-flock-2: NV1-3 met at 45fdab2d, NV5 new; flock-backend tip e4f631bd (NV5, CN2, CN3 admission, 04:23Z) merges clean onto main, MR awaited with gate on tip; verify-night-3 working SP1 verify (pod reaped 04:06 w/ custody); spend $93.6/$300; balance $122.
+
+CHECKPOINT (04:05Z) [open] no merge requests; verify-night-3 woke (SP1 verify); flock-backend active (new pod ver13, MR pending); 11 lane pods $14.7/h; balance $133.
+
+CHECKPOINT (03:50Z) [open] main 3d57f08b (#48 #47-tail #46); render 0320Z latest; red-team-flock: NV1 doesn't reach published cells, grants stand (NV1 before next publish); red-team-flock-2 granted NVFP4 w/ NV1-3; flock-backend gate r20260926-031200-e58d done (WAKE); verify-night-3 not yet woken (WAKE again); sp1-evaluator confirmed; new lanes started; spend $86.7/$300.
+
 CHECKPOINT (03:10Z) [open] main 7289e3ad (#45 #50 #47 #49 #52 #51 + custody-ttl guard, sp1 DISCREPANCIES S1); render 0240Z latest (C-Flock/D-SP1 labels); markdown retired (steward published=entities); waiting: flock-backend gate (check 03:15Z), red-team-flock-2 r20260926-025249-6192 (03:25Z), red-team-flock reopened (Chunk(n)+NVFP4); verify-night-3 SP1 verify queued; balance $139 runway 15.9h; spend $85/$300.
 
 CHECKPOINT (02:20Z) [open] main a57628fc (#44, #41, file-verified rounds fix, RTT-method enum, Flock vllm-v1 config); render 0207Z published (20 results, art:56f792bd 8.7e7x); kb/TABLES.md 09226aa; red-team-flock-2 brief READY (Chunk(n) x3 waiting); balance $149 runway 9.4h; spend $82.7/$300.

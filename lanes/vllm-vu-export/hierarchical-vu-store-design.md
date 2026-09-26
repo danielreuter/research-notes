@@ -63,3 +63,12 @@ For on-demand extraction of GEMM coordinates at arbitrary `n`, the weight row mu
 - **(c)** Materialise every weight row the sampled VUs touch. That's the model's linear weights: GBs per row, and no good.
 
 The proposal is (a) plus (b): the store holds (b), and (a) is the fallback when a checkpoint is present.
+
+## Status (2026-09-26 03:55Z)
+
+- Implemented in PR [#53](https://github.com/danielreuter/verity/pull/53) (`verity_vllm/pipeline/vu_store.py`), with Daniel's weight decision, option (a) + (b):
+  - a fixed, seeded row sample per GEMM, whose seed index and checkpoint of record are in `run.json`;
+  - the full weight referenced by field, range and sha256;
+  - a checkpoint fallback in `extract(weights=...)`.
+- `where` uses the IR query's Definition selector grammar. Evaluating GateSets over the descriptor Program is still open.
+- Program graphs (`program_graph.py`) are in the same PR.

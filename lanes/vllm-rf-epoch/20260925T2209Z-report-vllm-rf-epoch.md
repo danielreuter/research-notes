@@ -2,9 +2,11 @@
 lane: vllm-rf-epoch
 kind: report
 created: 2026-09-25T22:09Z
-status: final
+status: open
 ---
 
+CHECKPOINT 101e8917 (03:38Z) [open] reopened for the #23 GPU confirmation: NOT final. WAIT vyv-rf-epoch-bisect-23 (0hwhyqwzqmmeym, 2x L40S 251 GB, $2.18/h, cap $12) boot r20260926-033656-f536, rows r20260926-033729-b866 (#23 B+M+C at 101e8917, GPU 0, 5 h timeout) check-back 07:15Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f
+CHECKPOINT 101e8917 (03:33Z) [final] FINAL; handoffs answered (see READY.md/STATE.md): 20260925T1700Z-handoff-from-vllm-coordinator-fixture-key.md 20260925T1710Z-handoff-from-vllm-rf-b4c.md 20260925T1720Z-handoff-from-vllm-coordinator.md 20260925T1800Z-handoff-from-vllm-coordinator.md 20260925T1808Z-handoff-from-vllm-rf-b4c.md 20260925T1810Z-handoff-from-vllm-coordinator.md 20260925T1855Z-handoff-from-vllm-coordinator.md 20260925T2030Z-handoff-from-vllm-coordinator.md 20260925T2055Z-handoff-from-vllm-coordinator.md 20260925T2058Z-handoff-from-vllm-coordinator.md 20260925T2145Z-handoff-from-vllm-coordinator.md 20260925T2240Z-handoff-from-vllm-rf-m32.md 20260925T2255Z-handoff-from-vllm-coordinator.md 20260926T0315Z-handoff-from-vllm-coordinator.md
 CHECKPOINT 101e8917 (03:31Z) [final] FINAL evidence: art:5103231c76a3de3fd523415bc94f9b0f9e3570b27a1204d41445eaa4b5da84db (moe67 commit copy), art:6f1c13b04e45cf78143d622fd5bce22e5ec5eb2beeb532bb47cb4674d475248e (moe67 small copy), art:c916a53192373f064a24d4f52d9e776c503c7cee32179889071e1125cc0aa8fe (#4 v1 audit); runs listed in READY.md. Handoffs 20260925T1700Z..20260926T0315Z (coordinator, b4c) all acted on: fixture-key mints logged, b4c base 5494e29f used, a5/b1 absence recorded, items 6/7 landed, m32 cherry-picked, sampled_proofs noted for the merged-tree rerun, bisect done
 CHECKPOINT 101e8917 (03:29Z) [final] REVIEW (epoch, partial) lane/vllm-rf-epoch @ 101e8917 pushed: re-baselined #101 #67; recorded not written #4 #23 #57 #60 #70; not re-baselined #11 #39 #68 #73 #74 #75. BISECT #4/#23: no offending commit (#4 v1 audit-RED test expectation; #23 capture SIGKILL at 125GB cgroup). All pods terminated (tp70/tp70b 03:17Z), registry clean; spend ~$107/$130, bisect $0
 CHECKPOINT 101e8917 (03:27Z) [final] REVIEW (epoch, partial) lane/vllm-rf-epoch @ 101e8917 pushed: re-baselined #101 #67; recorded not written #4 #23 #57 #60 #70; not re-baselined #11 #39 #68 #73 #74 #75. BISECT #4/#23: no offending commit (#4 v1 audit-RED test expectation; #23 capture SIGKILL at 125GB cgroup). All pods terminated (tp70/tp70b 03:17Z), registry clean; spend ~$107/$130, bisect $0

@@ -2,9 +2,12 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: final
+status: open
 ---
 
+CHECKPOINT 7585828d (04:43Z) [open] BUSY (do not reap): pod vy-verify-night-3 jnp5k2d0vy9z2h (cpu3c 16 vCPU $0.48/h) runs r20260926-044301-0e46 @main 3d57f08b: SP1 CPU host build (~25 min) then 9 SP1 below-bar verifications. First launch r20260926-035411-44ce was reaped mid-build at 04:06Z (pod rd921ysua7g60b gone, no result). Check back ~05:25Z
+CHECKPOINT 7585828d (03:56Z) [open] WAITING: pod vy-verify-night-3 rd921ysua7g60b (cpu3c 32 vCPU, $0.96/h, guard 30); run r20260926-035411-44ce @main 3d57f08b: build CPU veritor-zk-host (APPROVED check), then per art (9 SP1 results): proof sha vs run record, prepare rebuild (object digest + statement sha), verify_object core+compressed, 3 negatives. Check ~04:25Z
+CHECKPOINT 7585828d (03:50Z) [open] reopened (cloud) for SP1 below-bar verification per 0305Z handoff: NOT final
 CHECKPOINT 906255b2 (23:49Z) [final] H100 blake3-xob x4: 955a52e0 (vd 120b459a) + f15909f5 (vd f8b8836c) accepted @main 6c3568dc; equiv 72745743 (c43ec491) + 04f24f73 (835ca8d9) accepted; handoffs to red-team-standard-hash-2 + coordinator. Pod o2gvkt3wwmn1le terminated 23:41Z ~$0.35
 CHECKPOINT 906255b2 (23:45Z) [final] H100 blake3-xob x4: 955a52e0 (vd 120b459a) + f15909f5 (vd f8b8836c) accepted @main 6c3568dc; equiv 72745743 (c43ec491) + 04f24f73 (835ca8d9) accepted; handoffs to red-team-standard-hash-2 + coordinator. Pod o2gvkt3wwmn1le terminated 23:41Z ~$0.35
 CHECKPOINT 906255b2 (23:44Z) [final] H100 blake3-xob x4: 955a52e0 (vd 120b459a) + f15909f5 (vd f8b8836c) accepted @main 6c3568dc; equiv 72745743 (c43ec491) + 04f24f73 (835ca8d9) accepted; handoffs to red-team-standard-hash-2 + coordinator. Pod o2gvkt3wwmn1le terminated 23:41Z ~$0.35

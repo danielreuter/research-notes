@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (14:40Z) [open] c3 art:4dd2069b [257,512] T=257..287 CLASS_CELL_CHECK PASS 31/31, SEPARATE, labelled NON_ZK_PROOF; c1 art:4fb2de9c labelled; polling for c2 re-run (T=129..256, 53ffcaca, ETA 15:15Z), FINAL by 15:30Z
 CHECKPOINT e5493f9f (14:33Z) [open] WAITING c3 (T=257..287, pair b, r20260926-140931-b414, ETA 14:40Z) + c2 re-run (T=129..256, pair a, 53ffcaca, ETA 15:15Z), check after 14:45Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; done: c1 art:4fb2de9c CLASS_CELL_CHECK PASS (128/128 sub-batches, manifest = mine byte for byte), placement SEPARATE (pxp3jjc5ozkz vs daejz5pkfg8j), labelled NON_ZK_PROOF; CP2 MET @11f24da6 (r20260926-143204-b20f); CP7 MET main PR #79; CP8 MET
 CHECKPOINT e5493f9f (13:32Z) [open] WAITING flock-ir-lowering's class cells (3 classes on vy-flock-ir-lowering-nc-l40s / nc-ver), check after 14:15Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: check_class_cells.sh + placement + label each class cell, then FINAL
 CHECKPOINT e5493f9f (13:31Z) [open] class pins @4eb3b991 GRANTED W/ CONDITIONS NON_ZK_PROOF: T+mask verifier-fixed, CP1/3/4/5 met (512 nets = reviewed generator), 14 load + 4 session negatives, selftest 24/24 under --class (r20260926-132829-2165; art:8be608c6); CP7 census matcher rejects class cells (needs key_counts crediting), CP8 register full-set point; handoffs 1340Z; next: label class cells as they land
@@ -302,6 +303,7 @@ review before the code is `…T1310Z…` (CP1–CP6).
 | cell | class | T in key_counts | heads | commit | pin | verifier run | check | placement | label |
 |---|---|---|---|---|---|---|---|---|---|
 | art:4fb2de9c (c1) | [1, 128] | 128 | 2,048 | 11f24da6 | 2f102216 | r20260926-132839-b5e6 | PASS | SEPARATE | NON_ZK_PROOF |
+| art:4dd2069b (c3) | [257, 512] | 31 (257..287) | 496 | 11f24da6 | 365f1b5d | r20260926-140928-d05d | PASS (31/31) | SEPARATE | NON_ZK_PROOF |
 
 **c1 in detail:**
 - The verifier's `class.json` is byte-identical to the manifest I generate.
@@ -313,6 +315,9 @@ review before the code is `…T1310Z…` (CP1–CP6).
   34vxo7onho9xig (machine daejz5pkfg8j, 103.196.86.42, boot id a84811c0). Both are L40S with EPYC 9354; the host memory,
   GPU UUID and driver also differ. The link is a routed 10.x address, and PR #74's `separation()` is clean.
 - The label is by `evidence/label_class_cells.sh`, ref r20260926-132829-2165.
+
+**c3** has the same checks: its `class.json` is byte-identical to mine, all 31 sub-batches pass, and `key_counts` = the
+verified T. It ran on pair b, the same pods and machines as c1. Main's `key_class_of` credits all 31 T (257..287).
 
 My checker needed one fix. The first c1 pass flagged all 128 sub-batches because `cell_check.py` expected a one-T input set.
 It now requires the heads in each file's own range to share T.

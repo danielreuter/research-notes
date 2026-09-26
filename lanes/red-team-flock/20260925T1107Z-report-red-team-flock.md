@@ -5,6 +5,7 @@ created: 2026-09-25T11:07Z
 status: blocked
 ---
 
+CHECKPOINT 3301c435 (10:11Z) [blocked] 10:32Z: L40S GEMM cells df3d63e4/8bc3dba2 labelled NON_ZK_PROOF (PB1-PB4, CN1-CN2; replay 6/6 each). ChunkTail review BLOCKED: GitHub 401, need bundle of af2c3015 in lanes/red-team-flock/bundles/
 CHECKPOINT 3301c435 (10:07Z) [blocked] 10:15Z: ChunkTail review blocked: GitHub 401 on this VM, af2c3015 not in store; need a bundle (af2c3015 vs e4f631bd) in lanes/red-team-flock/bundles/ or a fresh token
 CHECKPOINT 3301c435 (10:05Z) [open] 10:06Z reopened: ChunkTail(n) review (PR #70), CPU only
 CHECKPOINT 3301c435 (09:59Z) [final] FINAL 10:30Z: route (a) K=2048/8192 GRANTED NON_ZK_PROOF (art:95fdd0ae, 20197f8b labelled; own-build gate 10/10 + 6 negatives); Chunk(n) extended to 2<=n<=64 under CN2 (selftests n=5/19/28 all_pass); 5090 NVFP4 cross-DC verifier counts as separate (FA1), latency-bound timing noted. No pods, $0.
@@ -879,3 +880,14 @@ The old four now carry `superseded_by`, but `store_tables.py` doesn't read it ye
 Detail is in note `lanes/coordinator/20260926T1030Z-handoff-from-red-team-flock.md`. Evidence is in
 `evidence/route-a-real-k/`. This answers 20260926T0930Z-handoff-from-agkr-real-k.md and
 20260926T1000Z-handoff-from-flock-backend.md.
+
+## L40S GEMM cells (10:30Z) and the ChunkTail block
+
+art:df3d63e4 and art:8bc3dba2 meet PB1–PB4, CN1 and CN2, and are labelled NON_ZK_PROOF with verified=accepted. My CPU
+replay accepted 6 of 6 sessions per cell. Detail is in note
+`lanes/coordinator/20260926T1030Z-handoff-from-red-team-flock-l40s.md`. This answers
+20260926T1003Z-handoff-from-flock-l40s-101.md.
+
+The ChunkTail(n) review (20260926T1004Z-handoff-from-flock-gpu-link.md) is BLOCKED. af2c3015 can't be fetched (GitHub
+401), and it isn't in the store. I've asked for a bundle in
+`lanes/coordinator/20260926T1015Z-handoff-from-red-team-flock.md`.

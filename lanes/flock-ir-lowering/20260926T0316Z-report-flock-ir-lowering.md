@@ -2,9 +2,10 @@
 lane: flock-ir-lowering
 kind: report
 created: 2026-09-26T03:16Z
-status: final
+status: open
 ---
 
+CHECKPOINT 76b7cbb2 (04:38Z) [open] reopened for frame-v3 row binding + first real cells (coordinator 04:37Z): NOT final
 CHECKPOINT 76b7cbb2 (04:37Z) [final] FINAL: RoPE, SiLU·mul, RMSNorm fused + Triton lowered from their IR Definitions (fp piece library + ir_lower walker; units read off the IR, RMSNorm cut at warp aggregates with the row tail native) at 0 mismatches on captured #101 + synthetic sets; proved by verity/flock-ir-block/v1 (relation-only, public IO) on H100 r20260926-042206-7932 (CPU+GPU selftests all-pass; 256 RMSNorm rows m32 5.7/6.6 s e2e, 1024 RoPE heads 0.42 s, 32 SiLU rows 1.37 s); code on cursor/flock-ir-lowering-c78f @ 76b7cbb2 (pushed; PR #54; the lane/ branch is not used); handed to red-team-flock-2 + flock-backend; open: scheme binding for cells, device witness; pods vy-flock-ir-lowering-h100/-h100b terminated; spend ~$1.5 of $30
 CHECKPOINT 76b7cbb2 (04:36Z) [final] FINAL: RoPE, SiLU·mul, RMSNorm fused + Triton lowered from their IR Definitions (fp piece library + ir_lower walker; units read off the IR, RMSNorm cut at warp aggregates with the row tail native) at 0 mismatches on captured #101 + synthetic sets; proved by verity/flock-ir-block/v1 (relation-only, public IO) on H100 r20260926-042206-7932 (CPU+GPU selftests all-pass; 256 RMSNorm rows m32 5.7/6.6 s e2e, 1024 RoPE heads 0.42 s, 32 SiLU rows 1.37 s); PR #54 @ 76b7cbb2; handed to red-team-flock-2 + flock-backend; open: scheme binding for cells, device witness; pods vy-flock-ir-lowering-h100/-h100b terminated; spend ~$1.5 of $30
 CHECKPOINT 76b7cbb2 (04:23Z) [open] WAITING r20260926-042206-7932 on vy-flock-ir-lowering-h100b, check after 04:45Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f; next: RMSNorm GPU timing + handoffs. RMSNorm fused+Triton lowered (warp units via reduction_cut, native row tail), 0 mismatches captured+synthetic, CPU selftests all-pass (76b7cbb2)

@@ -78,3 +78,11 @@ slots and is the next step, with flock-gpu-link.
   sets: 0 mismatches, every intermediate word included.
 - Negatives: a flipped output bit leaves a row unsatisfied; a mutated netlist (dropped AND, wrong table entry, swapped
   arrangement) is caught by the IR comparison.
+
+## As built (04:40Z)
+
+- **Pieces:** f32 add, mul and fma, the bf16 casts, a constant power-of-two divide and `lookup` are built. f32 mul and fma trim constant-zero significand bits, so bf16 operands get narrow products. Other f32 divisors and the MUFU pieces are not built.
+- **Units:** they come from the live IR gates. An optional cut makes selected gates into unit ports; components that read no input leaf form a native tail. Both RMSNorms are cut at their reduction boundary (`reduction_cut`: the row scalar, plus each warp's aggregate). That gives identical warp units, and the verifier evaluates the row tail (the aggregate sum and the MUFU scalar ops) with the IR evaluator while writing its instance file.
+- **Why no MUFU in the circuit:** the statement has public IO, so the verifier already knows every input, and the RN + sparse-correction MUFU design is not needed yet. A committed-IO statement would need either that design or committed aggregates plus a native tail check.
+- **Netlists:** unit IO words are padded to aligned powers of two, which gives one input region and one output region per unit.
+- **Statement:** `verity/flock-ir-block/v1` (`live/src/ir_block.rs`). On the GPU it runs through Flock-CUDA's host-witness mode 1 with unit slots only (`gpu::prove_units`).

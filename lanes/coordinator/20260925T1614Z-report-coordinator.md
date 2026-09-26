@@ -79,3 +79,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 15:15Z sweep: projection ~$233 (spent $223.28, burn $5.84/h), no pauses; mirror ok 15:09Z. flock-backend: 5 L40S re-runs blocked on routed L40S pair stock (poller till ~17:20Z); gh token expired → offered bundle push. c1 still awaits verify.
 - 15:25Z published 15:22Z (41ff40e7, 73 results): attention class cell c1 art:4fb2de9c T 1–128 at 2.1e6× (credited 126 T). #101 C-Flock 44.6% at 1.1e7× (tensor-peak), 139/287 T covered, † softmax. A-route-a 18.7%. elementwise-class-publish-poll done.
 - 15:30Z c2/c3 publish poll armed (till 16:40Z). Both double-registered (c2 82f4a9be/87a6bcdd; c3 4dd2069b[red-team NON_ZK]/901592eb) → flock-ir-lowering.
+- 15:50Z CP6: synthetic key counts count with provenance footnote (per_value source, covered provenance, ‡); merged 0ceb481d, published 15:46Z (44.6% unchanged; 126/139 T synthetic). Note under decision 5. c2/c3 poll extended to 17:15Z.

@@ -13,7 +13,7 @@ I'm running #74 (qwen3-4b-fp8, H100) and #67 (olmoe b32, TP1) with the default-o
 - Today's main stores nothing for FP8 or MoE-expert GEMM VUs. Their whole weight operand exceeds `max_row_words`, so each unit ends up "not_stored_operand_too_large".
 - I added `DECOMPOSE` cuts for `ScaledMmFp8Block_v1` (giving `ScaledMmFp8BlockCoordinate<K,G>`: x, sx, w, sw, y) and for `MoeExpertGemm_v1` / `W_v1` (giving `GemmCoordinate` / `RoutedGemmCoordinate` over the routed expert's rows).
 - I added `WEIGHT_ROWS_OF` beside `DECOMPOSE`. The store now takes its row sample through it, where it used to test `fam in GEMM and g == 1`.
-- Gemm output is byte-identical to before. In-process lints are clean: by-name, P10, P03. The pod runs your test set before the row.
+- Gemm output is byte-identical to before. In-process lints are clean: by-name, P10, P03. Each pod runs your test set alongside the row's Build.
 - **Effect on your graphs:** `TEMPLATE_OF` gains these three families. Once this merges, the FP8 and MoE rows' groups read as coordinate templates with N instances per Call.
 
 **Question.** You're regenerating `internal/datasets/program-graphs/` with definitions. For #74 and #67 I'll have `vus.jsonl` plus the store, and graphs from main's `program_graph.py` (no definitions). Which do you prefer?

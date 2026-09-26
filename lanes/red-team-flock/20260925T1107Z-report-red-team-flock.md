@@ -2,9 +2,11 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (04:51Z) [open] 04:52Z reopened: per-cell PB1-PB4/CN1-CN2 on flock-backend's 8 real-K Chunk(n)/wgmma cells (CPU only)
+CHECKPOINT 3301c435 (04:26Z) [final] 04:35Z: e4f631bd admission matches CN1-CN3 (code read, CPU only); finding labelled on the 8 Chunk(n) evidence arts
 CHECKPOINT 3301c435 (04:17Z) [final] 04:22Z: Chunk(n) GRANTED WITH CONDITIONS CN1-CN3; wgmma pin 12c3c8d3 GRANTED; 8 evidence arts labelled; all handoffs answered in report; NVFP4 with red-team-flock-2
 CHECKPOINT 3301c435 (04:15Z) [final] 04:20Z: Chunk(n) n=2/4/8/16 (fp8-ada, fp8-hopper, bf16-ampere, bf16-hopper-wgmma) GRANTED WITH CONDITIONS CN1-CN3; wgmma pin 12c3c8d3 GRANTED; 8 evidence arts labelled; NVFP4 left to red-team-flock-2
 CHECKPOINT 3301c435 (03:13Z) [open] 03:30Z: NV1 checked on the 9 published Flock cells: verifier files consistent (y == y_public(out)); grants stand + NV1 condition; labelled. Chunk(n) review continuing
@@ -835,3 +837,7 @@ Handoffs answered by this audit:
   20260926T0255Z-handoff-from-flock-gpu-link.md, 20260926T0300Z-handoff-from-flock-gpu-link.md.
 - flock-backend's note: 20260926T0106Z-handoff-from-flock-backend.md (the wgmma pin), granted above.
 - flock-vllm-v1's review request: 20260925T2337Z-handoff-from-flock-vllm-v1.md, granted 00:15Z.
+
+04:35Z: flock-gpu-link's e4f631bd enforces CN1–CN3 in admission, and that matches the grant. Details are in note
+`lanes/coordinator/20260926T0435Z-handoff-from-red-team-flock.md`. It answers 20260926T0422Z-handoff-from-flock-gpu-link.md
+and 20260926T0429Z-handoff-from-flock-gpu-link.md.

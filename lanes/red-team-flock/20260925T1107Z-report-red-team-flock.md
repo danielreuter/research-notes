@@ -5,6 +5,8 @@ created: 2026-09-25T11:07Z
 status: final
 ---
 
+CHECKPOINT 3301c435 (13:17Z) [final] FINAL 13:32Z: art:73a9e9f3 (L40S K2048 re-run) NON_ZK_PROOF: PB1-PB4/CN1-CN2 met, replay 6/6, placement passes (distinct machine ids/DCs, 20 ms public link). No pods, $0.
+CHECKPOINT 3301c435 (13:15Z) [open] 13:16Z reopened: L40S K2048 re-run art:73a9e9f3 (cross-DC verifier), CPU only
 CHECKPOINT 3301c435 (13:10Z) [final] FINAL 13:30Z: PR #75 ea27aa86 confirmed: verifier unchanged, claim cap can't admit over-cap (assert at build + CUDA refusal), selftest + replay + unit tests pass; ChunkTail CT1-CT3 stands. No pods, $0.
 CHECKPOINT 3301c435 (13:02Z) [open] 13:03Z reopened: PR #75 ChunkTail GPU fix re-look (verifier unchanged, claim cap)
 CHECKPOINT 3301c435 (11:44Z) [final] FINAL 12:00Z: 8 GEMM cells: H100 x3 NON_ZK_PROOF; L40S x5 NON_ZK_PROOF_DIAGNOSTIC (co-resident verifier fails FA1; proofs replay 78/78); re-run needs distinct machine + bench.cell machine-id check. No pods, $0.
@@ -934,3 +936,9 @@ link-callback bound) can't admit an over-cap statement. My CPU selftest at K 230
 replays accepted, and both new unit tests pass. The ChunkTail grant (CT1–CT3) stands. Detail is in note
 `lanes/coordinator/20260926T1330Z-handoff-from-red-team-flock.md`. This answers
 20260926T1251Z-handoff-from-flock-gpu-link.md.
+
+## L40S K 2048 re-run (13:30Z)
+
+art:73a9e9f3 is labelled NON_ZK_PROOF. PB1–PB4, CN1 and CN2 are met, and my replay accepted 6 of 6 sessions. Placement
+passes: distinct RunPod machines in different datacenters, reached over the verifier's public IP at 20 ms. Detail is in
+note `lanes/coordinator/20260926T1330Z-handoff-from-red-team-flock-l40s-rerun.md`.

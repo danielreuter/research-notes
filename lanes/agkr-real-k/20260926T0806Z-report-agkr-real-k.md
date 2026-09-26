@@ -2,9 +2,10 @@
 lane: agkr-real-k
 kind: report
 created: 2026-09-26T08:06Z
-status: open
+status: final
 ---
 
+CHECKPOINT 9cbfdcf2 (10:35Z) [final] FINAL: route (a) real-K cells art:a0ca8ef6 (K=2048, 4096 VUs, 283 VU/s) + art:a979dfcb (K=8192, 1024 VUs, 63.5 VU/s), A-fs art:7ae6c190 art:0e1095f3; PR #69 @ 9cbfdcf2; pods terminated ~10:32Z; ~$5.0
 CHECKPOINT 9cbfdcf2 (10:33Z) [open] cell runs done (k2048 k8192 afs); pods drained and terminated
 CHECKPOINT 9cbfdcf2 (10:25Z) [open] WAITING A-fs r20260926-102535-c15b on vy-agkr-real-k-a100
 CHECKPOINT 9cbfdcf2 (10:13Z) [open] WAITING K=8192 cell: ver r20260926-101258-e284 on vy-agkr-real-k-ver, prover r20260926-101301-8697 on vy-agkr-real-k-a100
@@ -80,3 +81,41 @@ A-GKR binds operands only through route (a), and route (a) can't prove an E4M3 s
 A-fs (A-GKR alone) can run the FP8 sets at real K after one change: `bench_result.py --input-set` must also convert an FP8 set's
 FP32 y to the packing (`rel.y_public`). The pins are one line per relation and K, the same files at steps K / 32. But A-fs proves
 the weaker private-operand relation (a drill-down), not the committed statement B-Ligero and C-Flock prove.
+
+## Re-sweeps after the pause lifted (09:45–10:32Z, launch-cells.sh on tip 9cbfdcf2)
+The pod pair was new, again in US-MD-1: a prover A100 and the verifier on a second A100 (still no CPU stock). The first create made
+a pod whose registration failed on the stale registry entry, so I adopted and re-registered it. Both pods were drained and
+terminated with all attempts preserved; this round cost about $2.3.
+
+| cell | art | runs (verifier / prover) | sweep (VUs: VU/s) | plateau | t.total | proving overhead | RTT |
+|---|---|---|---|---|---:|---:|---:|
+| A100 BF16 K = 2048, #101 | **art:a0ca8ef6** | r20260926-095014-2234 / r20260926-095028-c0bd | 1024: 186, 2048: 234, 4096: 283, 6272: OOM | 4,096 | 14.48 s | 2.7e8× | 0.184 ms |
+| A100 BF16 K = 8192, #101 | **art:a979dfcb** | r20260926-101258-e284 / r20260926-101301-8697 | 256: 37.2, 512: 50.8, 1024: 63.5, 1920: OOM | 1,024 | 16.13 s | 3.0e8× | 0.213 ms |
+
+- Evidence: verifier records art:f9da2094 and art:984dcba5; prover run_files art:460e9938 and art:e55da95a; prover run records
+  art:76f1aeb5 and art:2f20e078.
+- They supersede art:95fdd0ae and art:20197f8b. verify-flock-pure verified those at 09:52Z (r20260926-093954-dfd7).
+- A-fs (drill-down: x, W private, Fiat-Shamir), run r20260926-102535-c15b, whole set per proof, 5 reps, pinned Rust 5/5:
+  - art:7ae6c190: K = 2048, 6,272 VUs, 1.16 s, 5,408 VU/s.
+  - art:0e1095f3: K = 8192, 1,920 VUs, 1.42 s, 1,353 VU/s.
+  - Proofs are in the run record art:e92cad62.
+- Handoffs sent: red-team-flock and verify-flock-pure (`20260926T1026Z-handoff-from-agkr-real-k.md`, the new ids);
+  `lanes/coordinator/20260926T1035Z-handoff-from-agkr-real-k.md` (the cells registered).
+- Handoffs received: `20260926T0935Z-handoff-from-coordinator.md` (pause lifted: acted on, ran the launcher) and
+  `20260926T1020Z-handoff-from-coordinator.md` (paused again: nothing was left in flight, pods drained and terminated, cells sent).
+
+## FINAL
+
+~~~text
+tip: cursor/agkr-real-k-f806 @ 9cbfdcf2 (base main@e3a2d81d; origin/main merged at a7500a4b)    merge-with: none (PR #69)
+known-failures: none of mine (test_every_registered_kernel_is_self_checked_here fails only if backends/numerical tests run before packages/verity's)
+pod: vy-agkr-real-k-a100 and vy-agkr-real-k-ver terminated about 10:32Z (first pair about 09:13Z / 09:18Z); about $5.0 in all
+artifacts: art:a0ca8ef6 art:a979dfcb art:7ae6c190 art:0e1095f3 art:95fdd0ae art:20197f8b art:e92cad62 art:f9da2094 art:984dcba5 art:460e9938 art:e55da95a art:8455c116 art:15e93b91
+~~~
+
+A-GKR reached vLLM's reduction lengths without a redesign: the circuit files are uniform in K, the new pins are steps-only, and
+flock-link takes `--k`. Route (a) cells at K = 2048 (283 VU/s) and K = 8192 (63.5 VU/s) are registered at their memory-cap
+plateaus. The first two are verified by verify-flock-pure; the re-sweeps await verification. red-team-flock is reviewing. The new
+cells supersede the first two once verified, and the coordinator is asked to see that `superseded_by` is written. Not reached: the
+FP8 spine sets (the blocker section above) and a standalone A-interactive (none exists; route (a) with live coins is A-GKR's
+interactive form).

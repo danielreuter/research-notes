@@ -6,7 +6,7 @@
 #   "grant" adds the cells whose Chunk(n) is outside red-team-flock's grant (n in {2,4,8,16}; CPU selftests pass):
 #   l40s: #57 K9216 Chunk(18), #60 K14336 Chunk(28), and the ChunkTail(n) cells #57 K2304 ChunkTail(4), #39 K8960 ChunkTail(17)
 #   (2 sub-batches of 1,024: CN2 caps it at 1,820); h100: #73/#74 K2560 Chunk(5), #73 K9728 Chunk(19).
-#   ONLY="k9728 ..." runs just those cells.
+#   ONLY="k9728 ..." runs just those cells; P_NAME / V_NAME / P_DC / V_ADDR / V_SSH override the pods and addresses.
 #
 # Run from the repo root on cursor/flock-backend-4983 (clean tree; research on PATH, lane env sourced). It creates the prover
 # and a same-datacenter verifier pod (at most one pod per name: pod1.sh compares the pod list before and after a create), then
@@ -32,7 +32,8 @@ esac
 [ "$MODE" = grant ] && CELLS="$CELLS
 $GRANT"
 VGPUS=("NVIDIA RTX 2000 Ada Generation" "NVIDIA RTX A4000" "NVIDIA L4" "NVIDIA RTX A5000" "NVIDIA A40" "NVIDIA L40S")
-P=vy-flock-backend-$GPU V=vy-flock-backend-ver$GPU DC=""
+P=${P_NAME:-vy-flock-backend-$GPU} V=${V_NAME:-vy-flock-backend-ver$GPU} DC=""
+[ -n "${P_DC:-}" ] && DCS=$P_DC
 for dc in $DCS; do
   out=$(bash "$HERE/pod1.sh" $P $dc "$PGPU" 100 | tail -1); echo "prover $dc: $out"
   case $out in POD*) DC=$dc; break;; esac
@@ -42,7 +43,7 @@ for g in "${VGPUS[@]}"; do out=$(bash "$HERE/pod1.sh" $V $DC "$g" 40 | tail -1);
 case $out in POD*) ;; *) echo "no same-DC verifier in $DC: terminate $P or retry"; exit 1;; esac
 sleep 60
 addr() { research pods list 2>/dev/null | awk -v n="$1-" 'index($2, n) == 1' | grep -oE "ip=[0-9.]+|'$2': [0-9]+" | sed -E "s/ip=//; s/'$2': //" | paste -sd:; }
-VADDR=$(addr $V 7400) VSSH=$(addr $V 22)
+VADDR=${V_ADDR:-$(addr $V 7400)} VSSH=${V_SSH:-$(addr $V 22)}   # V_ADDR / V_SSH: a private address when the pods share a host (the public one does not hairpin)
 echo "verifier $VADDR (sshd $VSSH)"
 state() { local l; l=$(research fetch $1 </dev/null 2>&1 | tail -1); case $l in *"Z: done "*) echo done;; *"Z: failed "*) echo failed;; *"Z: refused"*|*"Z: canceled"*|*"Z: cancelled"*) echo failed;; *) echo running;; esac; }
 while IFS=: read -r tag _ art per pts; do

@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT 8ef6d347 (16:22Z) [open] BUSY pair b: c2 r20260926-153234-eeb6 at 115+/128, ETA 16:32Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 8ef6d347 (16:05Z) [open] BUSY pair b: c2 r20260926-153234-eeb6 at 70+/128, ETA 16:30Z; c1/c3 labelled NON_ZK_PROOF by red-team-flock-3 (FINAL); agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 8ef6d347 (15:49Z) [open] BUSY pair b: c2 r20260926-153234-eeb6 proving, ETA 16:20Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 8ef6d347 (15:33Z) [open] BUSY pair b (b-l40s/b-ver): c2 (T=129..256) r20260926-153234-eeb6 / r20260926-153220-186b at 8ef6d347, ETA 16:20Z; both earlier c2 runs refused as contended by our own lingering GPU contexts (sampler fix 8ef6d347); pair a drained; registered: c1 art:4fb2de9c, c3 art:4dd2069b; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f

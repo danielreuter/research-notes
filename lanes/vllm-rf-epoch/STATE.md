@@ -3,7 +3,7 @@ id: vllm-rf-epoch/state
 lane: vllm-rf-epoch
 kind: state
 created: 2026-09-25T17:48Z
-updated: 2026-09-25T23:45Z
+updated: 2026-09-26T00:55Z
 ---
 # vllm-rf-epoch: C3 identities + the re-baseline epoch (state)
 
@@ -128,6 +128,26 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
 - The first commitonly runs never started: their wait matched the recording runs' `research run` supervisors, which were still
   uploading custody (tp70b: 38 GB since 22:06Z). Relaunched with anchored patterns as `r20260925-233854-{4602 tp70b #70,
   9e59 moe68 #57 #60, 42c8 tp70 #67, 8ece big #68, c7c4 moe67 #4 #23}`. #70 and #57 Commits started at 23:39Z.
+
+## 00:55Z
+- Commits: #57 FAIL (local_replay; a FAIL-class row). #60 refused by F-dA-15 (121,309 > 119,209 MiB), re-run with
+  VERITY_ADMIT_OVER_BOUND=1 (`r20260926-004846-55a8`). #4, #67, #70 running. #23: Build PASS 10,183 s, but **Match FAIL (NO FOLD)** on a
+  GREEN row: a finding. Its Commit runs after #4.
+- The old commitonly runs (221340-*) had survived the pgid kill (their bash lived in another process group). moe68's re-ran
+  #57/#60 after 9e59: sequential, same tree, #57's final outputs are cd7f's. All old ones were killed at 00:47Z.
+- #68 dropped (time); big terminated at 00:53Z. Golden recorded on moe67 (`r20260925-175229-a415/golden/`).
+- Rebase runs `r20260926-004934-{9d5e moe67 r4|r23|r101, ec89 moe68 r57|r60, d097 tp70 r67, 20d1 tp70b r70}` (78cb went with big).
+- Status handoff: `lanes/vllm-coordinator/20260926T0055Z-handoff-from-vllm-rf-epoch.md`.
+
+## 07:58Z: overnight goal 8 (dropped rows, evidence only, no write; ~$60)
+- #23 confirmation on `vyv-rf-epoch-bisect-23` (0hwhyqwzqmmeym, 251 GB): Build PASS 7605 s (2bdeb8e3, manifest e55e5407), Match
+  PASS (fold True). Commit running since 06:56Z; stop by 08:55Z ($12 cap). Then #11 starts on the same pod (`r20260926-075108-6123`, after.sh).
+- #39: `vyv-rf-epoch-dropped-39` (oqwbnrvq6or9gb, 2x L40S, 377 GB, $2.18/h), rows `r20260926-075241-f3e2` (GPU 0).
+- #75: `vyv-rf-epoch-dropped-75` (q50qthz4jqtsjs, 2x L40S, 377 GB), rows `r20260926-075240-af98` (tp_stage, BUILD_TIMEOUT 14400).
+- #68: `vyv-rf-epoch-dropped-68b` (se1yqv9bnshs0l, 2x L40S, 377 GB), rows `r20260926-075702-d929` (GPU 0, BOOT_CASES). The first pod
+  (dropped-68) came up with only 188 GB and was terminated at once.
+- #73: not started: an H100 with more than 251 GB won't fit the ~$60 (4 L40S pods at $8.72/h use it by ~15:00Z). A budget gap unless
+  a row ends early.
 
 ## Next
 - Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the

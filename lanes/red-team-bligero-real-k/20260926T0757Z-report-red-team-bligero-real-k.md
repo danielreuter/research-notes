@@ -2,9 +2,10 @@
 lane: red-team-bligero-real-k
 kind: report
 created: 2026-09-26T07:57Z
-status: final
+status: open
 ---
 
+CHECKPOINT 5e7e255d (11:27Z) [open] reopened for bligero-real-k 1115Z (art:4ff19d4f A100 K8192 xob, A1 booked in PR #71, 3/2^32 coin deviation): NOT final; CPU only, no pod
 CHECKPOINT 5e7e255d (09:21Z) [final] FINAL: real-K B-Ligero class GRANTED WITH CONDITIONS (COMPLETE_ZK_BACKEND; coordinator/0917Z); proof_class+finding on 16 new-sender cells; no break; A1 chain-test field term unbooked (<=2^-140.35/proof at K8192 BF16, no cell below 2^-128); evidence art:dc790613; tools cursor/red-team-bligero-real-k-0819@5e7e255d; no pod, $0
 CHECKPOINT 5e7e255d (09:21Z) [final] FINAL: real-K B-Ligero class GRANTED WITH CONDITIONS (COMPLETE_ZK_BACKEND; coordinator/0917Z); proof_class+finding on 16 new-sender cells; no break; A1 chain-test field term unbooked (<=2^-140.35/proof at K8192 BF16, no cell below 2^-128); evidence art:dc790613; tools 5e7e255d; no pod, $0
 CHECKPOINT 345a64f9 (08:42Z) [open] tools @345a64f9 (cursor/red-team-bligero-real-k-0819). live sender 15/15 refused/accepted as expected (head-only check defers body to Rust); sessions: 10/14 cells every rep = rep-1 statements (4 wait on H100 verifier r...3956 record); scans+cross-K e2e running on VM; finding: chain-extras field term unbooked (2^-140.35/proof at K8192 BF16), no cell below 2^-128

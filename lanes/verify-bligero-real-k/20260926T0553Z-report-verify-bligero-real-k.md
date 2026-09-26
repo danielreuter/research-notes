@@ -102,3 +102,74 @@ artifacts: art:948270a5 (session snapshot); labelled art:be42c41a art:c8cc8514 a
   - the cell re-runs that will supersede these four (the queue is held for the sender fix);
   - the reverify entry-point fix;
   - the interaction ruling.
+
+## Reopen 1 (07:41Z-08:35Z): bligero-real-k's 14 new-sender cells, all verified=accepted
+
+Request: the coordinator's launch message.
+- It listed b1d710da, 3bb4d03f, 11208bf7, c92a439a, 767b54db and c56a09a8, plus "whatever is registered when you finish".
+- Its handoff `20260926T0740Z` had not synced when I finished. It was never in my lane directory, so I relied on the ids in the message.
+- Received and acted on: `20260926T0705Z-handoff-from-bligero-real-k.md` (c56a09a8, 664f3142) and
+  `20260926T0758Z-handoff-from-bligero-real-k.md` (nine cells, every one covered below).
+- Sent: `lanes/coordinator/20260926T0745Z-handoff-from-verify-bligero-real-k.md` (REOPENED; the pod was created after the
+  15-minute window).
+
+Base: main 2bd8ce2f, which contains the reverify fix 9e42518a. `backends/ligero-verify` has not changed since 1b818427.
+The pins were re-checked at 2bd8ce2f on the pod: 16/16, pod build fb774954, run r20260926-075651-fc42.
+
+Pod: vy-verify-bligero-real-k, a cpu3c with 32 vCPU, pod lusnnk1ekkj0je.
+- US-MD-1 by IP (154.54.102.16), $0.96/h, 07:55-08:29Z, about $0.55. A CPU pod was available this time.
+- The machines.d entry still named the old pod, so I re-registered it with `pods register --replace`.
+
+Method: the same as round 1, with three differences.
+- `cell_check.py` now calls main's fixed `reverify.reverify` entry point (dry run, my staged set as the instances root)
+  instead of calling `verify_tree` directly.
+- The session records come from `evidence/gather_sessions.py`. Preserved verifier runs are read from their run records in
+  the store. Runs still serving are read over ssh with tar and sha256sum to stdout, so nothing is written on the pod.
+- `evidence/snapshot_vs_record.py` confirms that every live-read snapshot equals the verifier run's preserved record, file by file.
+  - This round: r20260926-070945-4ad5 (180 files) and r20260926-072253-ca25 (360 files).
+  - Round 1's snapshots also check out against their now-preserved records: r20260926-041624-7d7b (850 files) and
+    r20260926-051030-a6fe (100 files). The `.tmp` files from round 1's slip are not in the record.
+  - Still live-read only when I finished: r20260926-073309-3956 (4b567c9c, f1ac2db5, 9fd5ec09, 82587955). Its run was still
+    serving; re-running `snapshot_vs_record.py` once it is preserved closes this.
+
+| cell | relation | set (re-staged; IR-equal) | batch | run |
+|---|---|---|---|---|
+| art:c56a09a8 | bf16-hopper-x4-k2048+blake3-xob | art:4f27dc3d synthetic, 4096/4096 | 16/16, 2^-128.03 | r20260926-075651-fc42 |
+| art:664f3142 | fp8-ada-x4-k2048+blake3-xob | art:c063de3a synthetic, 6272/6272 | 16/16, 2^-128.03 | r20260926-075651-fc42 |
+| art:3bb4d03f | bf16-ampere-x4-k2048+blake3-xob | art:123dc234 captured, 6272/6272 | 32/32, 2^-128.35 | r20260926-075651-fc42 |
+| art:11208bf7 | bf16-hopper-x4-k8192+blake3-xob | art:ee183a74 synthetic, 4096/4096 | 32/32, 2^-128.35 | r20260926-075651-fc42 |
+| art:c92a439a | fp8-ada-x4-k2048+sha256 | art:c063de3a synthetic, 6272/6272 | 32/32, 2^-128.63 | r20260926-075651-fc42 |
+| art:b1d710da | bf16-ampere-x4-k8192+blake3-xob | art:927a4c3a captured, 1920/1920 | 60/60, 2^-128.10 | r20260926-075651-fc42 |
+| art:767b54db | fp8-ada-x4-k8192+blake3-xob | art:cdb0e90d synthetic, 1920/1920 | 60/60, 2^-128.36 | r20260926-075651-fc42 |
+| art:1dafbfd5 | bf16-ampere-x4-k2048+sha256 | art:123dc234 captured, 6272/6272 | 32/32, 2^-128.35 | r20260926-081703-0f0a |
+| art:f1ac2db5 | fp8-hopper-x4-k2048+blake3-xob | art:5f311851 synthetic, 6272/6272 | 16/16, 2^-128.03 | r20260926-081703-0f0a |
+| art:9fd5ec09 | fp8-hopper-x4-k8192+blake3-xob | art:d5578eff synthetic, 1920/1920 | 16/16, 2^-128.03 | r20260926-081703-0f0a |
+| art:f451dabc | fp8-ada-x4-k8192+sha256 | art:cdb0e90d synthetic, 1920/1920 | 60/60, 2^-128.36 | r20260926-081703-0f0a |
+| art:4b567c9c | bf16-hopper-x4-k2048+sha256 | art:4f27dc3d synthetic, 4096/4096 | 8/8, 2^-128.37 | r20260926-082424-5906 |
+| art:622c9737 | bf16-ampere-x4-k8192+sha256 | art:927a4c3a captured, 1920/1920 | 32/32, 2^-128.35 | r20260926-082424-5906 |
+| art:82587955 | fp8-hopper-x4-k2048+sha256 | art:5f311851 synthetic, 6272/6272 | 8/8, 2^-128.37 | r20260926-082424-5906 |
+
+What every cell passed:
+- **Input set:** my copy's files match its manifest, its content digest equals the cell's, every instance passes the IR
+  evaluator, and it is byte-identical to the prover's staged copy.
+- **reverify:** custody complete, system PINNED to my own compile, commitments recomputed from my set, every VU covered once, batch ≥ 2^-128.
+- **Sessions:** 5/5 accepted with fresh, distinct verifier coins. The system file on the verifier's disk and in `hello`
+  equals my compile, and the rep-1 proofs, statements and coins equal the dump.
+
+Evidence: `evidence/sessions-check-reopen-r{1,2,3}.json`, `evidence/session-sources.json` and `evidence/session-system-sha256.json`.
+
+Labels: each cell got verified=accepted, verifier, verifier_seconds, same_device=false and note, all by verify-bligero-real-k
+with ref to its run. All 70 are on both sides (local and R2). All three runs are PRESERVED.
+
+Not judged: the interaction under-model notes (Daniel's one-sided rule).
+
+Left: bligero-real-k's last 2 of 16 new-sender cells (H100 K8192 SHA-256, BF16 run r20260926-081620-1969, then FP8) were not
+registered at 08:29Z.
+
+## FINAL (reopen 1)
+
+~~~text
+tip: lane/verify-bligero-real-k @ 2bd8ce2f (base main@2bd8ce2f; no commits, not pushed)        merge-with: none
+known-failures: none    pod: terminated 08:29Z (lusnnk1ekkj0je cpu3c-32); ~$0.55 this round, lane total ~$0.65
+artifacts: labelled art:c56a09a8 art:664f3142 art:3bb4d03f art:11208bf7 art:c92a439a art:b1d710da art:767b54db art:1dafbfd5 art:f1ac2db5 art:9fd5ec09 art:f451dabc art:4b567c9c art:622c9737 art:82587955; runs r20260926-075651-fc42 r20260926-081703-0f0a r20260926-082424-5906
+~~~

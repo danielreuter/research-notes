@@ -2,9 +2,10 @@
 lane: red-team-flock-2
 kind: report
 created: 2026-09-26T02:33Z
-status: open
+status: final
 ---
 
+CHECKPOINT a57628fc (14:20Z) [final] FINAL red-team-flock-2 (bc-089339bc-4846-55b6-96c9-a15fd7a4a241), reopened review done. Served-workload elementwise pins at a8ce768a GRANTED (frame verifier = reviewed v3 0839742b): rope d128 4dfae6d2, silu i9728 frame x2 5b903f64, rmsnorm-triton n4096 99ee9589, rmsnorm-fused-cuda n4096 7b6a1621 (new rows), rmsnorm-triton n128 040a1838 (new rows). Units+tail = IR on all five; selftests 104/104; 123 of 128 load tampers refused, the 5 passes being the expected unpinned LEAVES edits (r20260926-133507-56fc). Cells labelled NON_ZK_PROOF, placement checked: #73 H100 art:ba046ee8, 6f8219df, d3be6792; #60 L40S art:a7a31593, 27a119c9, bd1b1770. Handoff 1425Z (coordinator, flock-l40s-101). silu i14336 not reviewed (no cell). Pod 2qmpx34ou36cu5 idle-terminated; about $0.20 this review. No verity commits (review-only).
 CHECKPOINT a57628fc (13:40Z) [open] reopened (NOT final): WAITING r20260926-133507-56fc on vy-red-team-flock-2 (2qmpx34ou36cu5, cpu5c-8), check after 14:15Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; elementwise pins: all 5 pins regenerate, units+tail = IR on all 5 lowerings (two passes), 37 cell files frame-checked, IR on every word of all 6 plateau files, placement holds on all 6; next: selftests/tampers result -> labels -> handoff -> FINAL
 CHECKPOINT a57628fc (13:35Z) [open] reopened (NOT final): pod 2qmpx34ou36cu5 (vy-red-team-flock-2, cpu5c-8) created 13:35Z after 15 min without a reply to REOPENED 1318Z; elementwise pins review: pins regenerate, IR = units+tail on all 5 lowerings, 37 cell files checked, placement holds; next: selftests + tampers at a8ce768a
 CHECKPOINT a57628fc (13:15Z) [open] reopened for flock-l40s-101's six new elementwise pins (1309Z request, branch cursor/flock-elementwise-workloads-a420 @ a8ce768a): NOT final; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
@@ -376,3 +377,24 @@ Detail: `lanes/coordinator/20260926T1055Z-handoff-from-red-team-flock-2.md`.
   Answered in `lanes/flock-l40s-101/20260926T1025Z-handoff-from-red-team-flock-2.md` and
   `20260926T1055Z-handoff-from-red-team-flock-2.md`.
 - No verity code commits: the lane is review-only (the non-producer rule), so there is no lane branch to push.
+
+# Reopened: the served workloads' elementwise pins at a8ce768a (13:15–14:25Z)
+
+Detail: `lanes/coordinator/20260926T1425Z-handoff-from-red-team-flock-2.md`, also in flock-l40s-101.
+
+- **Answered:** `20260926T1309Z-handoff-from-flock-l40s-101.md`. The five pins are GRANTED, and the six cells are
+  labelled NON_ZK_PROOF, placement checked:
+  - art:ba046ee8, 6f8219df and d3be6792 (#73 H100);
+  - art:a7a31593, 27a119c9 and bd1b1770 (#60 L40S).
+- **Code:** the frame verifier at a8ce768a is byte-identical to 0839742b.
+- **Pins and IR:** the pins regenerate, and units + tail equal the IR on all five lowerings (`evidence/ew_check.py`, two
+  passes).
+- **Cells:**
+  - 37 verifier files frame-checked (`frame_check.py` now reads v3 layouts);
+  - IR on every word of each plateau file (`evidence/cell_ir.py`);
+  - placement: machine id, pod id, public IP, boot id and hostname all differ, and each matches the run records.
+- **Pod run r20260926-133507-56fc (`pod-scripts/92-ew.sh`):** selftests 104/104, and 123 of 128 load tampers refused.
+  The 5 that pass are the expected unpinned LEAVES edits.
+- **Not reviewed:** silu-mul i14336 (pinned, no cell).
+- **Also received:** `20260926T1115Z-handoff-from-red-team-flock-3.md`, for the record only; no action needed.
+- **Pod:** 2qmpx34ou36cu5, idle-terminated at about 14:17Z; about $0.20.

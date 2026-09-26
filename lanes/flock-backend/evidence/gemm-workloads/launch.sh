@@ -15,14 +15,18 @@
 set -uo pipefail
 GPU=$1 MODE=${2:-ready}; HERE=$(cd "$(dirname "$0")" && pwd)
 case $GPU in
-  l40s) DCS="EUR-IS-2 US-TX-4 US-MO-1 US-KS-2 EU-RO-1 US-NE-1"; PGPU="NVIDIA L40S"; SM=89; SID=sm80-mma-bf16
+  l40s) DCS="US-MO-1 US-KS-2 US-NC-1 US-TX-3 US-TX-4 EU-NL-1 EU-RO-1 US-NE-1 OC-AU-1"; PGPU="NVIDIA L40S"; SM=89; SID=sm80-mma-bf16
+        # the 9-cell total queue (bf16-ampere-total; L40S at <= m34: K2048 <= 4,096 VUs per proof, K8192 <= 1,024)
         CELLS="k1536:art:dbaacc6f61b0f9f7285e56c09994b273904243d1983058bb37e69c1338420b54:2048:512 1024 2048
 k2048:art:69cb815c31b06425e7117ee6e4b43403c8cfb8d28f747f9bde79a18f63a0646e:2048:512 1024 2048
-k4096:art:bfed17304406e29217b10fbd944bce13ef8e4f023542b7e005a3bbfe4eccfa4f:1024:512 1024 2048"
-        GRANT="k9216:art:c6237f08127239fd9e545e8cc5c6193c9c6a2aa621013dc377ac96b7912d04cb:512:256 512 1024 2048
+k4096:art:bfed17304406e29217b10fbd944bce13ef8e4f023542b7e005a3bbfe4eccfa4f:1024:512 1024 2048
+k9216:art:c6237f08127239fd9e545e8cc5c6193c9c6a2aa621013dc377ac96b7912d04cb:512:256 512 1024 2048
 k14336:art:762f59238f7675e6d6b9a7d953fcea98d201cef83ed78856ac9401c74238738e:512:256 512 1024 2048
+k2048c:art:123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b:4096:1024 2048 4096 6272
+k8192c:art:927a4c3a1222380af806dadd5fa65c01c5fc88d0c81a101e1d488c08fe8ee512:1024:256 512 1024 1920
 k2304:art:4f60228c9fbcc9367cdcb8b052d5afd956f1e9a3ff90e5c31a1606cfb4723e0f:2048:512 1024 2048
-k8960:art:0552b63f5df366869c6aa188da2f4a008dc3088e3b79d1b73233c8a5b6b34973:1024:256 512 1024 2048" ;;
+k8960:art:0552b63f5df366869c6aa188da2f4a008dc3088e3b79d1b73233c8a5b6b34973:512:256 512 1024 2048"
+        GRANT="" ;;
   h100) DCS="US-MO-1 US-KS-2 US-NE-1"; PGPU="NVIDIA H100 80GB HBM3"; SM=90; SID=sm90-wgmma-bf16
         CELLS="k4096:art:cdc7b5ebad6a1da4ce35e811c0ee21d81ab4bbc956a24f399e206496b088509e:2048:512 1024 2048"
         GRANT="k2560:art:01326d5b13004ba3e06cf9177f390848fc9042c4e7386d9a3399e70132dd0098:2048:512 1024 2048
@@ -50,7 +54,7 @@ while IFS=: read -r tag _ art per pts; do
   [ -z "$tag" ] && continue
   [ -n "${ONLY:-}" ] && [[ " $ONLY " != *" $tag "* ]] && continue
   art="art:$art"
-  python -m verity_numerical.bench.cell plan --backend C-interactive --statement "gemm-coordinate/$tag/$SID+frame-v3/blake3-keyed" \
+  python -m verity_numerical.bench.cell plan --backend C-interactive --statement "gemm-coordinate/${tag%c}/$SID+frame-v3/blake3-keyed" \
     --input-set $art --prover $P --verifier $V --verifier-addr $VADDR --rtt-target $VSSH --campaign flock-backend --lane flock-backend \
     --points "$pts" --per-proof $per --backend-arg SM=$SM --out .bench-cell/$GPU-$tag.json </dev/null | tail -1 || continue
   read -r vid pid < <(python -m verity_numerical.bench.cell run --cell .bench-cell/$GPU-$tag.json </dev/null 2>&1 | python3 -c '

@@ -84,3 +84,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 16:12Z sweep: projection ~$228 (spent $226.75, burn $2.66/h), no pauses, no steward warnings, mirror ok 16:09Z, no new coordinator handoffs. c2 pending (~16:20Z).
 - 16:30Z c2: all three registrations (82f4a9be, 87a6bcdd[verified], a43e5cac) timing-contended → rejected M; asked flock-ir-lowering for an uncontended re-run. #101 stays 56.9%.
 - 16:42Z sweep: spent $228.10 at 16:40Z, burn $2.66/h → ~$228.3 at 16:45Z (under $300, no pauses). flock-backend: 5 L40S re-runs + 2 ChunkTail cells not run (no routed L40S pair 11:50–16:30Z); old five stay DIAGNOSTIC. c2 uncontended re-runs b61eafa9/ef10f5fb await verify. #101 C-Flock 56.9%.
+- 17:10Z new lane flock-netlist (M0 verity/flock-netlist/v1, ZK Boolean escape hatch approved by Daniel; GPU cap $40, counted in campaign tally; cells publish as NON_ZK_PROOF under a new C-Flock backend identity; serving row-leaf salting NOT approved).
+- 17:15Z sweep: spent $229.35, burn $2.66/h; window closed under cap. REAP-BLOCKED flock-ir-lowering b pair (art:82c591d1 custody) → handoff. c2 b61eafa9 awaits verify (~17:20Z). flock-netlist no pods yet.

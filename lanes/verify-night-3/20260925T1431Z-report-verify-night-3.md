@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 7585828d (09:59Z) [open] BUSY: GEMM proof checks in progress (cba6c36f ~chunk 20/30, fdbb9812 ~21/25); 18/73 accepted earlier; no failures so far
 CHECKPOINT 7585828d (09:39Z) [open] BUSY: 5 covers / 18 proofs accepted (r20260926-070912-42be, stopped after its rebuilds; slow path). GEMM covers: rebuilds done, checking 55 proofs with Host.verify against my statements in r20260926-092515-576b (cba6c36f) + r20260926-092813-6731 (fdbb9812)
 CHECKPOINT 7585828d (09:02Z) [open] BUSY: GEMM rebuilds 20/30 (cba6c36f) and 13/25 (fdbb9812); then verify_object over 55 proofs. Pod e9e6vqsg2f7rc1 busy
 CHECKPOINT 7585828d (08:42Z) [open] BUSY: 5 covers / 18 proofs accepted (r20260926-070912-42be); GEMM K=8192 cba6c36f rebuilding (12/30 chunks) in that run, GEMM K=2048 fdbb9812 in parallel run r20260926-082956-1ab1 (4/25). ~1.5 h left; polling in-turn

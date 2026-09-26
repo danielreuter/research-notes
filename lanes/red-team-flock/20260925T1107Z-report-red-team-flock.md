@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (09:59Z) [final] FINAL 10:30Z: route (a) K=2048/8192 GRANTED NON_ZK_PROOF (art:95fdd0ae, 20197f8b labelled; own-build gate 10/10 + 6 negatives); Chunk(n) extended to 2<=n<=64 under CN2 (selftests n=5/19/28 all_pass); 5090 NVFP4 cross-DC verifier counts as separate (FA1), latency-bound timing noted. No pods, $0.
 CHECKPOINT 3301c435 (09:34Z) [open] 09:35Z reopened: route (a) real-K review (agkr-real-k PR #69, art:95fdd0ae, 20197f8b), CPU only
 CHECKPOINT 3301c435 (06:39Z) [final] FINAL 06:40Z: FP8 spine cells 5d2a91a7/ab115376/66d2412c/1c520240 PB1-PB4+CN1-CN2 met, labelled NON_ZK_PROOF + verified (replay r20260926-061513-ad9c 48/48, negs 16/16); old four had SUPERSEDED only as finding text -> wrote superseded_by; store_tables does not yet honour it. Pods terminated.
 CHECKPOINT 3301c435 (06:23Z) [open] 06:25Z: 4 FP8 spine cells PB1/PB2/PB4/CN1/CN2 met from records; superseded_by written on old four; PB3 replay r20260926-061513-ad9c running (A4000 as CPU box, no CPU stock)
@@ -864,3 +865,15 @@ verified=accepted. My replay run is r20260926-061513-ad9c: 48 of 48 sessions acc
 The old four now carry `superseded_by`, but `store_tables.py` doesn't read it yet. Detail is in note
 `lanes/coordinator/20260926T0640Z-handoff-from-red-team-flock.md`. This answers
 20260926T0605Z-handoff-from-flock-backend.md.
+
+## Route (a) real-K, the Chunk(n) extension, and 5090 placement (10:30Z)
+
+- **Route (a) at K = 2048 / 8192:** GRANTED at NON_ZK_PROOF (2^-130.19). art:95fdd0ae and art:20197f8b are labelled.
+  My CPU gate re-run passed on 10 of 10 sessions, and the 6 negatives were rejected.
+- **Chunk(n):** extended to every n from 2 to 64 under CN2. My selftests at n = 5, 19 and 28 had all_pass.
+- **5090 NVFP4 placement:** the cross-datacenter verifier at 3.2 ms still counts as separate (FA1). The cost is
+  latency, not soundness.
+
+Detail is in note `lanes/coordinator/20260926T1030Z-handoff-from-red-team-flock.md`. Evidence is in
+`evidence/route-a-real-k/`. This answers 20260926T0930Z-handoff-from-agkr-real-k.md and
+20260926T1000Z-handoff-from-flock-backend.md.

@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 787ac154 (14:12Z) [open] reopened for attention class cells c1 art:4fb2de9c, c2, c3: NOT final
 CHECKPOINT 787ac154 (14:11Z) [final] FINAL: 16 attention cells + #101 GEMM 73a9e9f3 + 6 elementwise verified=accepted (file re-verification); pod terminated 14:11Z; ~$0.35; A-GKR L40S cells and class cells await a reopening
 CHECKPOINT 787ac154 (14:11Z) [final] FINAL: 16 attention cells + #101 GEMM 73a9e9f3 + 6 elementwise verified=accepted (file re-verification); pod terminated 14:11Z; ~$0.35; class cells c1-c3 await a reopening
 CHECKPOINT 787ac154 (13:45Z) [open] attention 16/16 + 73a9e9f3 labelled (handoff 1345Z). Elementwise rerun r20260926-134443-d51e (e1f47264; first run 3a8f failed in staging: Namespace lacked template, fixed); labels after red-team-flock-2

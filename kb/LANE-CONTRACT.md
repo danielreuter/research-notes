@@ -68,6 +68,12 @@ yours, not another instance's.
 - If the recipient is already final, write to the coordinator instead.
 - The coordinator's instructions to you arrive only as handoffs; brief appendices are broadcasts.
 
+## 5a. Words (Daniel, 2026-09-26)
+- Don't write "netlist" in prose, reports, handoffs, table labels or new identifiers. Say "circuit", or "expanded
+  circuit" for the gate-by-gate form.
+- Existing ids that contain it (the `flock-netlist` lane and campaign, `--netlist` flags, statement ids) stay as internal
+  keys, and are renamed when you touch them.
+
 ## 6. Pods
 - One pod unless the launch message says otherwise: `research pods create --name vy-<you> ...`, then
   `research pods sync <pod>` to ship your worktree and `research pods ssh <pod>` (`--print` gives a reusable ssh line).

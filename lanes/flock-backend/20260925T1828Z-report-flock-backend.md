@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: blocked
 ---
 
+CHECKPOINT a9d13f68 (02:29Z) [blocked] register --lane 64914079; wgmma-bf16 lowering pinned 12c3c8d3 (a9d13f68); stage() waits for PR #47 merge
 CHECKPOINT 64914079 (02:28Z) [blocked] register --lane (64914079) done; spine stage() waits for PR #47 merge + flock-gpu-link's K=2048/8192 layouts (interface proposal 0235Z)
 CHECKPOINT c058c33f (01:04Z) [open] SHA-256 cells: H100 bf16 art:728d8724 (5,393), H100 fp8 art:df857ea6 (10,789), 4090 art:fd772057 (7,337), A100 art:324888c5 (3,123); all pass check; pods terminated 01:03Z (~$5.5). NVFP4 unit pinned fb52a87c; row format proposal to coordinator 0100Z (awaiting approval)
 CHECKPOINT e52eca82 (00:03Z) [blocked] waiting for flock-gpu-link's integrated flock-pure-gpu with the GPU SHA-256 witness (from flock-vllm-v1 PR #41); then the 3 SHA-256 cells (H100 BF16, H100 E4M3, A100 BF16), same setup, ~$8. No pods running. agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

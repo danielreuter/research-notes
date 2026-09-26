@@ -1,6 +1,6 @@
 {
  "schema": "vllm-vu-site/index/v1",
- "row": 101,
+ "row": null,
  "serving": {
   "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
   "model": "unsloth/Llama-3.2-1B",
@@ -31,7 +31,7 @@
  "provenance": {
   "model": "unsloth/Llama-3.2-1B",
   "revision": "9535bd9b1d1dea6acafbdc4813b728796aeb28da",
-  "run": "r20260925-233347-8515",
+  "run": "r20260926-035624-a133",
   "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
   "program_digests": {
    "r0": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b"
@@ -39,9 +39,9 @@
   "manifest_digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac",
   "epoch": "pre-epoch",
   "source": {
-   "commit": "cd3ac0e4ae1f53f5249c09308a00ace2eaf6fa7e",
+   "commit": "11d453e0c9272d15adb30ec11b4c96a0f1ec2d49",
    "dirty": false,
-   "branch": "cursor/vllm-vu-export-289b"
+   "branch": "main"
   },
   "gpu": "l40s",
   "versions": {
@@ -58,7 +58,7 @@
    "weights_hash": "host"
   },
   "selection": "verity.randomness.derive(b'verity-vllm benchmark selection', 'verity/vllm-vu-export/select/v1', {run_root}); per family key.shard(('family', family)) through challenge.stratum_picks; sub-indices key.subset(k, n, ('row', request, i, evaluation))",
-  "export_artifact": "art:b5bb0ca9199c01289041f74c96577beaa045ff1b035796da7b264c378e54e5c4"
+  "export_artifact": "art:8fb6e7f3548d14f5a1925cc7a324f69b345f80d43cc72dd216fe62a327145efc"
  },
  "population": {
   "vus": 46558,
@@ -82,44 +82,51 @@
   "Attention_v3": {
    "drawn": 256,
    "replayed_equal": 256,
+   "stored": 256,
    "instances": 1024,
-   "seconds": 28.421
+   "seconds": 19.332
   },
   "Gemm_v1": {
    "drawn": 256,
    "replayed_equal": 256,
+   "stored": 256,
    "instances": 8192,
-   "seconds": 201.956
+   "seconds": 206.134
   },
   "GumbelTopPTokenSelect_v1": {
    "drawn": 32,
    "replayed_equal": 32,
+   "stored": 32,
    "instances": 32,
-   "seconds": 583.2
+   "seconds": 621.301
   },
   "RMSNormFusedCuda_v2": {
    "drawn": 256,
    "replayed_equal": 256,
+   "stored": 256,
    "instances": 256,
-   "seconds": 0.513
+   "seconds": 0.724
   },
   "RMSNormTriton_v1": {
    "drawn": 256,
    "replayed_equal": 256,
+   "stored": 256,
    "instances": 256,
-   "seconds": 1.458
+   "seconds": 1.776
   },
   "RoPE_v1": {
    "drawn": 256,
    "replayed_equal": 256,
+   "stored": 256,
    "instances": 1024,
-   "seconds": 0.251
+   "seconds": 0.261
   },
   "SiluMul_v1": {
    "drawn": 256,
    "replayed_equal": 256,
+   "stored": 256,
    "instances": 256,
-   "seconds": 0.496
+   "seconds": 1.926
   }
  },
  "templates": [
@@ -134,8 +141,8 @@
    "vus_in_run": 4592,
    "exported": 1024,
    "exported_vus": 256,
-   "bytes": 41328810,
-   "artifact": "art:6312cb50d48f24a50697068ec3b6c597bf5369d66fd37def0ab45b78a82b1a1a",
+   "bytes": 41329558,
+   "artifact": "art:edb0942b5885c3117264e262887f12adce3243824eb79f7697691e23bc4248cf",
    "file": "templates/attention-head-fa2-d64-bn128.json"
   },
   {
@@ -146,10 +153,10 @@
    },
    "input_count_in_run": 102850560,
    "vus_in_run": 13808,
-   "exported": 6272,
-   "exported_vus": 196,
-   "bytes": 51998103,
-   "artifact": "art:123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b",
+   "exported": 6208,
+   "exported_vus": 194,
+   "bytes": 51469280,
+   "artifact": "art:56dfc43385ada7d32ab99ddb16988ebafdc402d7751253edd08ef100954f4381",
    "file": "templates/gemm-coordinate-ampere-bf16-k2048.json"
   },
   {
@@ -160,10 +167,10 @@
    },
    "input_count_in_run": 9404416,
    "vus_in_run": 4592,
-   "exported": 1920,
-   "exported_vus": 60,
-   "bytes": 63095249,
-   "artifact": "art:927a4c3a1222380af806dadd5fa65c01c5fc88d0c81a101e1d488c08fe8ee512",
+   "exported": 1984,
+   "exported_vus": 62,
+   "bytes": 65199166,
+   "artifact": "art:0c177734444d65eb36b78bb58f01a3cb2d45ca3b9edb44d2a587ffc902a3916f",
    "file": "templates/gemm-coordinate-ampere-bf16-k8192.json"
   },
   {
@@ -176,8 +183,8 @@
    "vus_in_run": 32,
    "exported": 32,
    "exported_vus": 32,
-   "bytes": 8211523,
-   "artifact": "art:ea781b02fa315a0f1815a4cb3fb5258fba0860c51b9b13119c83530b9709c261",
+   "bytes": 8211507,
+   "artifact": "art:67ee6635b99b423f59b31a8c62730238587d3e334884a1b2e55bed03090f0c66",
    "file": "templates/gumbeltopptokenselect-v1-v128256.json"
   },
   {
@@ -191,8 +198,8 @@
    "vus_in_run": 9184,
    "exported": 256,
    "exported_vus": 256,
-   "bytes": 5263453,
-   "artifact": "art:a261c0c2b3ce6db5a5c87b3a617cda27b844e87fb85b30e47cacfd696a80d923",
+   "bytes": 5263533,
+   "artifact": "art:c9664f12798d0a3d5523b6de33dbf5118a22b04457ff1efde44a30e6741d581d",
    "file": "templates/rmsnormfusedcuda-v2-n2048-00e4e4aa.json"
   },
   {
@@ -206,8 +213,8 @@
    "vus_in_run": 287,
    "exported": 256,
    "exported_vus": 256,
-   "bytes": 3165802,
-   "artifact": "art:9582a7348ff4a14921cf0e5a0304ab291f9e21a309302ee117f3154499dd5c62",
+   "bytes": 3165826,
+   "artifact": "art:f332359b9fb036c24d0de94cb2e48a79b5e0febacb1788a44e48b9d70be8268d",
    "file": "templates/rmsnormtriton-v1-n2048-00e4e4aa.json"
   },
   {
@@ -220,8 +227,8 @@
    "vus_in_run": 9184,
    "exported": 1024,
    "exported_vus": 256,
-   "bytes": 497833,
-   "artifact": "art:16825154f08f5a8018e29420174b34406698d3db8f75bd68ad782892e0d6e8a0",
+   "bytes": 497129,
+   "artifact": "art:31aeb66116aee05963653d5daa7d046f1917928d43cd9eb163ff2bd063211eb2",
    "file": "templates/rope-head-d64.json"
   },
   {
@@ -234,8 +241,8 @@
    "vus_in_run": 4592,
    "exported": 256,
    "exported_vus": 256,
-   "bytes": 12601339,
-   "artifact": "art:d3e2d9b1f585049199725ac851d2347d379c4a8fa8d36b0b44876e880ddca067",
+   "bytes": 12601163,
+   "artifact": "art:7f04798d7c6d24740742f58829d345f7ec92ed33447175c88b56c8d1c7380e1c",
    "file": "templates/silumul-v1-i8192.json"
   }
  ],
@@ -243,7 +250,7 @@
   "Embedding_v1": "a commitment opening of the embedding table (spec), not a subcircuit"
  },
  "notes": [
-  "the draw took the first 256 strata of each family in name order (fixed after this export): on #4 every drawn GEMM VU is K=1536 (down_proj), so K=576 is not in this export; on #101 K=2048 and K=8192 are both present but not in proportion"
+  "redrawn with the keyed stratum order (PR #53); store art:7ce46f8593c5871f65a0f566f86935b11dca44467d75b1254658878264d387aa"
  ],
  "table2": "not admitted: captured realistic-distribution sets await Daniel's decision",
  "files": {

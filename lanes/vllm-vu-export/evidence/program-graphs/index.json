@@ -6,8 +6,8 @@
    "row": 4,
    "row_key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
    "file": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 305980,
-   "class": "PASS on run r20260926-000408-c3b4 (FAIL on the regression record)",
+   "bytes": 325148,
+   "class": "PASS on run r20260926-035624-a133",
    "model": "HuggingFaceTB/SmolLM2-135M",
    "tp_rank": null,
    "program_digests": [
@@ -36,16 +36,25 @@
    "layers": 30,
    "distinct_layer_structures": 2,
    "units_in_run": 1712158,
-   "units_from": "r20260926-000408-c3b4: commit/sampled_replay_p0.json",
+   "units_from": "r20260926-035624-a133: commit/sampled_replay_p0.json",
    "record_units": null,
    "units_reconcile": null,
-   "exported_vus": 1536
+   "exported_vus": 1792,
+   "definitions": {
+    "specializations": 2312,
+    "composite": 2276,
+    "primitive": 36,
+    "unresolved": 0,
+    "validated": 56,
+    "validated_composite": 21
+   },
+   "ops": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 11,
    "row_key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.program.json",
-   "bytes": 164645,
+   "bytes": 176141,
    "class": "GREEN",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -63,13 +72,22 @@
    "units_from": "tests/regression/expected/llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.json",
    "record_units": 747358,
    "units_reconcile": true,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 9398,
+    "composite": 9362,
+    "primitive": 36,
+    "unresolved": 0,
+    "validated": 55,
+    "validated_composite": 20
+   },
+   "ops": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 23,
    "row_key": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 175130,
+   "bytes": 186626,
    "class": "GREEN",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -150,13 +168,22 @@
    "units_from": "tests/regression/expected/llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.json",
    "record_units": null,
    "units_reconcile": null,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2324,
+    "composite": 2288,
+    "primitive": 36,
+    "unresolved": 0,
+    "validated": 55,
+    "validated_composite": 20
+   },
+   "ops": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 39,
    "row_key": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
    "file": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.program.json",
-   "bytes": 296759,
+   "bytes": 316649,
    "class": "GREEN",
    "model": "Qwen/Qwen2.5-1.5B",
    "tp_rank": null,
@@ -174,13 +201,22 @@
    "units_from": "tests/regression/expected/qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.json",
    "record_units": 1300198,
    "units_reconcile": true,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 9336,
+    "composite": 9299,
+    "primitive": 37,
+    "unresolved": 0,
+    "validated": 35,
+    "validated_composite": 3
+   },
+   "ops": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 57,
    "row_key": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 628742,
+   "bytes": 692213,
    "class": "FAIL",
    "model": "unsloth/gemma-2-2b",
    "tp_rank": null,
@@ -205,13 +241,22 @@
    "units_from": "tests/regression/expected/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.json",
    "record_units": 656132,
    "units_reconcile": true,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2220,
+    "composite": 2183,
+    "primitive": 37,
+    "unresolved": 0,
+    "validated": 30,
+    "validated_composite": 3
+   },
+   "ops": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 60,
    "row_key": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 326599,
+   "bytes": 347725,
    "class": "GREEN",
    "model": "unsloth/mistral-7b-v0.3",
    "tp_rank": null,
@@ -236,13 +281,22 @@
    "units_from": "tests/regression/expected/mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.json",
    "record_units": 1211108,
    "units_reconcile": true,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2340,
+    "composite": 2304,
+    "primitive": 36,
+    "unresolved": 0,
+    "validated": 34,
+    "validated_composite": 1
+   },
+   "ops": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 67,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 212279,
+   "bytes": 228861,
    "class": "GREEN",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": null,
@@ -291,13 +345,22 @@
    "units_from": "tests/regression/expected/olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.json",
    "record_units": 5745046,
    "units_reconcile": true,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2312,
+    "composite": 2196,
+    "primitive": 116,
+    "unresolved": 0,
+    "validated": 41,
+    "validated_composite": 5
+   },
+   "ops": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 68,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.program.json",
-   "bytes": 213366,
+   "bytes": 229948,
    "class": "GREEN",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": null,
@@ -346,13 +409,22 @@
    "units_from": "tests/regression/expected/olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.json",
    "record_units": 5830562,
    "units_reconcile": true,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2304,
+    "composite": 2188,
+    "primitive": 116,
+    "unresolved": 0,
+    "validated": 41,
+    "validated_composite": 5
+   },
+   "ops": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 70,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 4667396,
+   "bytes": 4861752,
    "class": "FAIL",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": "rank 0 of the TP row (one rank's shard)",
@@ -377,13 +449,22 @@
    "units_from": "tests/regression/expected/olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.json",
    "record_units": null,
    "units_reconcile": null,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2266,
+    "composite": 2147,
+    "primitive": 119,
+    "unresolved": 0,
+    "validated": 41,
+    "validated_composite": 5
+   },
+   "ops": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 73,
    "row_key": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 455830,
+   "bytes": 497011,
    "class": "GREEN",
    "model": "Qwen/Qwen3-4B-Instruct-2507",
    "tp_rank": null,
@@ -408,13 +489,22 @@
    "units_from": "tests/regression/expected/qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.json",
    "record_units": 6664748,
    "units_reconcile": true,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2268,
+    "composite": 2231,
+    "primitive": 37,
+    "unresolved": 0,
+    "validated": 31,
+    "validated_composite": 1
+   },
+   "ops": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 74,
    "row_key": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 515864,
+   "bytes": 561429,
    "class": "GREEN",
    "model": "Qwen/Qwen3-4B-Instruct-2507-FP8",
    "tp_rank": null,
@@ -439,13 +529,22 @@
    "units_from": "tests/regression/expected/qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.json",
    "record_units": 7272082,
    "units_reconcile": true,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2315,
+    "composite": 2270,
+    "primitive": 45,
+    "unresolved": 0,
+    "validated": 31,
+    "validated_composite": 1
+   },
+   "ops": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 75,
    "row_key": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 888612,
+   "bytes": 940795,
    "class": "FAIL",
    "model": "Qwen/Qwen3-30B-A3B",
    "tp_rank": "rank 0 of the TP row (one rank's shard)",
@@ -464,14 +563,23 @@
    "units_from": "tests/regression/expected/qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.json",
    "record_units": null,
    "units_reconcile": null,
-   "exported_vus": null
+   "exported_vus": null,
+   "definitions": {
+    "specializations": 2583,
+    "composite": 2399,
+    "primitive": 184,
+    "unresolved": 0,
+    "validated": 38,
+    "validated_composite": 3
+   },
+   "ops": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
   },
   {
    "row": 101,
    "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.program.json",
-   "bytes": 208419,
-   "class": "GREEN",
+   "bytes": 227713,
+   "class": "PASS on run r20260926-035624-a133",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
    "program_digests": [
@@ -485,16 +593,54 @@
    "layers": 16,
    "distinct_layer_structures": 2,
    "units_in_run": 46558,
-   "units_from": "tests/regression/expected/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.json",
+   "units_from": "r20260926-035624-a133: commit/sampled_replay_p0.json",
    "record_units": 46558,
    "units_reconcile": true,
-   "exported_vus": 1568
+   "exported_vus": 1568,
+   "definitions": {
+    "specializations": 805,
+    "composite": 727,
+    "primitive": 78,
+    "unresolved": 0,
+    "validated": 68,
+    "validated_composite": 25
+   },
+   "ops": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.ops.json"
   }
  ],
  "notes": [
   "TP rows are rank 0's shard; their collective Calls each carry their own module in the correspondence (AllGather2 per call), hence thousands of modules",
   "units come from each row's replay strata: the regression record's replay_partition, or (#4) its own run's sampled_replay_p0.json; FAIL rows without a partition have none",
-  "#101 and #4 carry exported VUs from their VU exports (r20260925-233347-8515, r20260926-000408-c3b4)",
-  "#4's exported VUs count 1,536 of its 1,792: its 256 TokenSelect VUs are addressed at the runner's sampler, and with 16 request Programs the graph does not place them by Call id"
- ]
+  "#101 and #4 are the redraw with the keyed stratum order (run r20260926-035624-a133); their exported VUs are all placed, #4's 256 TokenSelect VUs through the VU store's request -> Program map",
+  "program.json keeps its groups' representative definition ids in `definitions_index`; the bodies are in definitions/ (shared across rows by digest)"
+ ],
+ "start_here": {
+  "row": 101,
+  "file": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.program.json",
+  "groups": [
+   {
+    "group": "g2",
+    "module": "model.model.layers.0.self_attn.qkv_proj",
+    "definition": "Gemm_v1{K=2048,N=3072}",
+    "calls": 287,
+    "template": "GemmCoordinate"
+   },
+   {
+    "group": "g7",
+    "module": "model.model.layers.0.post_attention_layernorm",
+    "definition": "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+    "calls": 287,
+    "template": "RMSNormFusedCuda_v2"
+   }
+  ],
+  "drill_down": "Gemm_v1{K=2048,N=3072}: one batch node x3072 of GemmCoordinate_v1{K=2048} -> DotBf16_v1{K=2048} (129 nodes: Const32[0] + a chained fold of 128 AmpereBF16TcDot16_v1) -> F2fpBf16_v1; RMSNormFusedCuda_v2{N=2048}: 3,082 nodes (residual add, f32 cast, per-thread partials, block reduce, rsqrt, scale)"
+ },
+ "definitions": {
+  "index": "definitions/index.json ({id: {digest, form, rows}})",
+  "shards": "definitions/<digest[:2]>.json.gz ({digest: {id, definition}}): codec v0 node form + fold hints",
+  "distinct": 28860,
+  "ops": "<row>.ops.json[.gz]: every module op (group) -> its Definition keys (a varying group: every value of its range)",
+  "validation": "validation.json (48 recorded inputs re-evaluated, all equal) and coverage.json (rows x Definitions, validated digests)",
+  "missing": "validation only where inputs are on record: the #101 and #4 exports; other rows' Definitions are validated only where they share a digest with those"
+ }
 }

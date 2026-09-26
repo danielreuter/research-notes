@@ -8128,7 +8128,7 @@
   },
   "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager": {
    "row": 4,
-   "class": "PASS on run r20260926-000408-c3b4 (FAIL on the regression record: never committed pre-m32)",
+   "class": "PASS on run r20260926-035624-a133 (FAIL on the regression record: never committed pre-m32)",
    "serving": {
     "row_key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
     "model": "HuggingFaceTB/SmolLM2-135M",
@@ -8188,7 +8188,7 @@
    },
    "program_digest": "801635556bb6f3c9 (workload digest; see the run verdict)",
    "reference": {
-    "run": "r20260926-000408-c3b4",
+    "run": "r20260926-035624-a133",
     "source": "that run's commit/sampled_replay_p0.json"
    },
    "vus_by_family": {

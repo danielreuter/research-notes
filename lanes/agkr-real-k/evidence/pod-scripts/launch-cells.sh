@@ -60,11 +60,12 @@ wait_run() {  # $1 = run id: until the run's status is terminal
     sleep 60
   done
 }
-cell() {  # $1 = K, $2 = set art, $3 = sizes
-  local K=$1 art=$2 sizes=$3 plan=.bench-cell/$LANE-k$1-$(date -u +%H%M).json runs vr pr
+cell() {  # $1 = K, $2 = set art, $3 = sizes, $4 = prover backend args (e.g. GATE=0)
+  local K=$1 art=$2 sizes=$3 extra=${4:-} plan=.bench-cell/$LANE-k$1-$(date -u +%H%M).json runs vr pr a ba=()
+  for a in $extra; do ba+=(--backend-arg "$a"); done
   uv run python -m verity_numerical.bench.cell plan --backend A-route-a --statement gemm-coordinate/k$K/sm80-mma-bf16+frame-v3/blake3-keyed \
     --input-set $art --prover $P --verifier $V --verifier-addr $VIP:$VSES --rtt-target $VIP:$VSSH --campaign $LANE --lane $LANE \
-    --points "$sizes" --out $plan > /dev/null || { echo "plan K=$K failed"; return 1; }
+    --points "$sizes" "${ba[@]}" --out $plan > /dev/null || { echo "plan K=$K failed"; return 1; }
   runs=$(uv run python -m verity_numerical.bench.cell run --cell $plan | python3 -c "
 import json, sys
 t = sys.stdin.read(); d = json.loads(t[:t.rindex(']') + 1]); print(' '.join(r['run'] or '-' for r in d))")
@@ -83,7 +84,7 @@ sets() { $R data fetch $1 | tail -1; }
 for w in $WHAT; do
   case $w in
     k2048) cell 2048 art:123dc234 "1024 2048 4096 6272" ;;
-    k8192) cell 8192 art:927a4c3a "256 512 1024 1920" ;;
+    k8192) cell 8192 art:927a4c3a "256 512 1024 1920" "${K8192_ARGS-GATE=0}" ;;   # its gate passed at 08:58Z on this code path
     afs)
       T=(); for a in art:123dc234 art:927a4c3a; do
         d=$(sets $a); n=$(python3 -c "import json;print(json.load(open('$d/manifest.json'))['set'])")

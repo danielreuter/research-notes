@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (09:56Z) [open] NVFP4: replay r20260926-095555-fdcb on vy-verify-flock-pure (pod ydprtbj2vi34gy) from lane/verify-flock-pure-realk db908649 (+51743c71 NVFP4 write_set)
 CHECKPOINT 787ac154 (09:53Z) [open] reopened for NVFP4 cells 2753a371 (Fp4) db7f48de (ShaFp4): NOT final
 CHECKPOINT 787ac154 (09:52Z) [final] FINAL: agkr-real-k route (a) cells 95fdd0ae (K=2048) + 20197f8b (K=8192) verified=accepted, A-GKR prime + Flock replay, 20/20 sessions, 14/14 negatives (r20260926-093954-dfd7); pod terminated 09:52Z; ~$0.15. NVFP4 handoff 0945Z not in scope: awaits a reopening
 CHECKPOINT 787ac154 (09:52Z) [final] FINAL: agkr-real-k route (a) cells 95fdd0ae (K=2048) + 20197f8b (K=8192) verified=accepted, A-GKR prime + Flock replay, 20/20 sessions, 14/14 negatives (r20260926-093954-dfd7); pod terminated 09:52Z; ~$0.15

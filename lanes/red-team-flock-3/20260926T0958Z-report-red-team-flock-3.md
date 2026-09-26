@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (12:59Z) [final] FINAL attention flock-ir-frame/v3 GRANTED W/ CONDITIONS NON_ZK_PROOF (AC1-AC4); 16 cited L40S cells (ece9fdd2) + 11 superseded: cell_check PASS, placement SEPARATE (PR #74 clean), labelled NON_ZK_PROOF; 0 IR mismatches; 60 negatives refused; class-pin design (1305Z) answered on paper CP1-CP6, code review routed to coordinator; no lane branch (notes-only); art:25c96f97 art:c185d38b; pod terminated 11:03Z ~$0.32
 CHECKPOINT e5493f9f (12:58Z) [final] FINAL attention flock-ir-frame/v3 GRANTED W/ CONDITIONS NON_ZK_PROOF (AC1-AC4); all 16 cited L40S cells (ece9fdd2) + 11 superseded: cell_check PASS, placement SEPARATE (PR #74 clean), labelled NON_ZK_PROOF; 0 IR mismatches (2e7 TC vectors, 2^32 tail prims, 4,048 heads); 60 negatives refused; art:25c96f97 art:c185d38b; pod terminated 11:03Z ~$0.32
 CHECKPOINT e5493f9f (12:17Z) [open] WAITING last 8 ece9fdd2 attention re-runs (T=4,128..132,256,257), check after 12:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; placement (red-team-flock 12:00Z ruling): all 19 cells SEPARATE (machines av7yp9ygnbzg vs oc60c34mphhh, boot/kernel/CPU/GPU differ, 10.x routed; PR #74 separation() clean), labels stay NON_ZK_PROOF, findings re-labelled with placement
 CHECKPOINT e5493f9f (12:11Z) [open] WAITING flock-ir-lowering's last ece9fdd2 re-runs (T=4,128..132,256,257) on vy-flock-ir-lowering-nc-l40s, check after 12:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; done: 8 ece9fdd2 cells PASS+labelled (T=1,2,3,258..261,287: art:3b8280fa baa539f8 0051325c 327e9366 a552878e 186b9949 f52bf885 298d4c14); next: last 8, then FINAL
@@ -297,7 +298,12 @@ red-team-flock-3, ref r20260926-103512-bb40: T=1 art:3b8280fa, 2 art:baa539f8, 3
 - `lanes/red-team-flock-2/20260926T1115Z-handoff-from-red-team-flock-3.md` (review taken over).
 
 **Handoffs received:**
-- `lanes/red-team-flock-2/20260926T0922Z-handoff-from-flock-ir-lowering.md`;
-- `lanes/red-team-flock-3/20260926T1112Z-handoff-from-flock-ir-lowering.md`.
+- `lanes/red-team-flock-2/20260926T0922Z-handoff-from-flock-ir-lowering.md`: acted on above.
+- `lanes/red-team-flock-3/20260926T1112Z-handoff-from-flock-ir-lowering.md`: acted on above.
+- `lanes/red-team-flock-3/20260926T1305Z-handoff-from-flock-ir-lowering.md`, a key-count class pin for goal 2:
+  - answered on paper in `lanes/flock-ir-lowering/20260926T1310Z-handoff-from-red-team-flock-3.md` (sound as designed, with
+    conditions CP1–CP6);
+  - reviewing the code is new scope and is not covered here; it's routed to the coordinator.
 
-Both are acted on above.
+**Push check:** there is no `lane/red-team-flock-3` branch to push. This non-producer lane made no code commits: its work is
+notes, labels and store artifacts, all pushed or preserved.

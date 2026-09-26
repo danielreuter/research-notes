@@ -10,7 +10,7 @@ created: 2026-09-26T11:45Z
 1. **NVFP4 on bench-instances-nvfp4-sm120/v1 (answers 11:10Z).**
    - SECURE cloud has had no RTX 5090 since 09:20Z.
    - Two COMMUNITY 5090 pods (11:09Z and 11:26Z, both in the US) were rented but never got a runtime within 7–15
-     minutes, so I terminated both. The cost is small; RunPod bills little for an unstarted pod.
+     minutes, so I terminated both. Together they were rented for about 22 minutes at $0.69/h.
    - The queue is staged: Fp4 and ShaFp4 on the frozen set (`write_fp4`, dataset `bench-instances-nvfp4-sm120/v1`, tier
      `vu-k1536-nvfp4-sm120`), with points 1,024 / 2,048 / 4,096 (the set holds 4,096), one proof each.
      `evidence/gemm-workloads/q-5090-frozen.txt` runs through `drive.sh`.

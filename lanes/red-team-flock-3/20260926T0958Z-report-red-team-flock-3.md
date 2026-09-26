@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (13:32Z) [open] WAITING flock-ir-lowering's class cells (3 classes on vy-flock-ir-lowering-nc-l40s / nc-ver), check after 14:15Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: check_class_cells.sh + placement + label each class cell, then FINAL
 CHECKPOINT e5493f9f (13:31Z) [open] class pins @4eb3b991 GRANTED W/ CONDITIONS NON_ZK_PROOF: T+mask verifier-fixed, CP1/3/4/5 met (512 nets = reviewed generator), 14 load + 4 session negatives, selftest 24/24 under --class (r20260926-132829-2165; art:8be608c6); CP7 census matcher rejects class cells (needs key_counts crediting), CP8 register full-set point; handoffs 1340Z; next: label class cells as they land
 CHECKPOINT e5493f9f (13:16Z) [open] class-pin review prep while its code lands (branch still ece9fdd2 at 13:17Z): local CPU flock-ir-frame build OK (honest T=129 accepted); reviewed generator's nets for T=1..512 re-derived (512 distinct, one shared unit_rows fca8a6f6); e2e +648 adversarial heads at 18 new T up to 512, 0 mismatches (r20260926-130636-5ee4); census matcher reads ONE T per result (input_variables) -> class cells must register per-T results or census-json extends it
 CHECKPOINT e5493f9f (13:01Z) [open] reopened for the class-statement review (coordinator 13:00Z: next priority; flock-ir-lowering 1305Z request, paper answer CP1-CP6 at 1310Z): NOT final; the 16 ece9fdd2 attention cells are already checked, placement-verified and labelled NON_ZK_PROOF; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26

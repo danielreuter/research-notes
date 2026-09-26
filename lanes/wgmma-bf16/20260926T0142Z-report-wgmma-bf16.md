@@ -2,9 +2,10 @@
 lane: wgmma-bf16
 kind: report
 created: 2026-09-26T01:42Z
-status: open
+status: final
 ---
 
+CHECKPOINT a040aecd (02:43Z) [final] PR #49 (agent branch cursor/wgmma-bf16-db07 @ a040aecd, pushed) merge-ready. Follow-up answered: on the H100 mma.sync bf16 == wgmma bf16 word for word incl. non-finite (r20260926-023321-ecb5 on a 2nd H100: 25.8M + specials + veritor 44,046 wgmma records through mma.sync, 0 mismatches vs HOPPER_BF16_WGMMA_K16 total; specials identical to the wgmma runs); census note: gap is in the name only. Pods vy-wgmma-bf16-h100 and -h100b terminated; spend ~$1.40
 CHECKPOINT 1bc4af5e (02:32Z) [open] reopened for coordinator follow-up: is H100 wgmma BF16 bit-identical to mma BF16 incl. non-finite? NOT final; creating vy-wgmma-bf16-h100b for one mma.sync run with hopper_bf16_wgmma_k16 total semantics + veritor wgmma replay through mma
 CHECKPOINT c2d6c823 (02:30Z) [final] PR #49 on agent branch cursor/wgmma-bf16-db07 @ c2d6c823 (pushed; no lane/wgmma-bf16 branch) merge-ready: sm90.wgmma.m64n8k16.bf16 -> HOPPER_BF16_WGMMA_K16 PINNED (dossier art:50508ab7), census gemm-coordinate/k1536/sm90-wgmma-bf16; runs r20260926-020157-242a (SS) / -020210-aee8 (RS) 26.36M + 2.88M chained + 44,046 veritor replay, 0 mismatches; canary r20260926-021005-456c; pod vy-wgmma-bf16-h100 terminated 02:12Z, spend ~$1; handoffs to coordinator and flock-gpu-link 0229Z
 CHECKPOINT c2d6c823 (02:30Z) [final] PR #49 cursor/wgmma-bf16-db07 @ c2d6c823 merge-ready: sm90.wgmma.m64n8k16.bf16 -> HOPPER_BF16_WGMMA_K16 PINNED (dossier art:50508ab7), census gemm-coordinate/k1536/sm90-wgmma-bf16; runs r20260926-020157-242a (SS) / -020210-aee8 (RS) 26.36M + 2.88M chained + 44,046 veritor replay, 0 mismatches; canary r20260926-021005-456c; pod vy-wgmma-bf16-h100 terminated 02:12Z, spend ~$1; handoffs to coordinator and flock-gpu-link 0229Z

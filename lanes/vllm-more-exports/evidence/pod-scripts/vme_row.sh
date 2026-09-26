@@ -11,7 +11,7 @@ export PYTHONPATH=$T/integrations/vllm:$T/packages/verity/src:$T/tools/research/
 python -c "import verity_sampled_proofs; print('verity_sampled_proofs importable')"
 cd integrations/vllm
 bash verity_vllm/ops/pod_bootstrap.sh --cases "$CASES" --out "/workspace/vme/bootstrap-$N" > "$OUT/bootstrap.log" 2>&1; echo "bootstrap rc $? $(date -u +%FT%TZ)"
-( bash "$I/vme_tests.sh" > "$OUT/tests.log" 2>&1; echo "tests: $(grep -cE '^(FAILED|ERROR)' "$OUT/tests.log") failed/errors $(date -u +%FT%TZ)" >> "$OUT/tests.log" ) &
+( cd "$T" && bash "$I/vme_tests.sh" > "$OUT/tests.log" 2>&1; echo "tests: $(grep -cE '^(FAILED|ERROR)' "$OUT/tests.log") failed/errors $(date -u +%FT%TZ)" >> "$OUT/tests.log" ) &
 TESTS=$!
 [ -f "$I/limits-$N.json" ] && cp "$I/limits-$N.json" "$E/limits.json" && echo "limits $(cat "$E/limits.json")"
 export SWEEP_DIR=/workspace/vme/sweep-$N PAIRS=1 BUILD_JOBS=${BUILD_JOBS:-auto}

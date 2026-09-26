@@ -8,3 +8,27 @@ status: open
 CHECKPOINT 898c32ef (08:21Z) [open] 898c32ef (FP8 block + MoE expert coordinates; lints clean in-process). WAIT vyv-more-exports-h100 r20260926-081920-036d check-back 09:40Z agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4: #74 Build(6 jobs)->Match->Commit+export; WAIT vyv-more-exports-moe r20260926-082002-43e0 check-back 09:40Z agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4: #67 same (auto jobs); stop at $30 ~13:20Z
 CHECKPOINT e3a2d81d (08:11Z) [open] WAIT vyv-more-exports-h100 r20260926-080641-f752 check-back 08:40Z agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4: bootstrap (B0,QWEN3_4B_FP8); WAIT vyv-more-exports-moe r20260926-080751-376f check-back 08:40Z agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4: bootstrap (B0,OLMOE); next: #74/#67 rows; hard stop $30 ~13:20Z (handoff 0812Z ack)
 CHECKPOINT e25e3614 (08:04Z) [open] started (agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4): #74 FP8 H100 + #67 OLMoE TP1; exporter drops FP8/MoE-expert GEMM VUs today (weight > max_row_words) -> adding coordinate decompositions on cursor/vllm-more-exports-0df4; #57 skipped (FAIL-class, no evaluators); pods next; handoff vllm-coordinator 0806Z
+
+## Plan and state
+
+Goal 7 of the overnight plan: captured verification-unit input sets beyond #101 and #4. The priorities are an H100 FP8 row, then Gemma-2-2B, then one MoE row. The recipe is vllm-vu-export's (`vux_row.sh` / `vux_redraw.sh`, `register_export.py`), copied into `evidence/`; its files are untouched. The budget is $30 of the vLLM budget, a hard stop, which lands about 13:20Z at $5.67/h (handoff `20260926T0812Z-handoff-from-vllm-coordinator.md`: pods registered, WAIT checkpoints kept).
+
+- **#74 qwen3-4b-fp8 H100:** pod `vyv-more-exports-h100` (`b11jkfokvzu5yi`, H100 80GB SXM, 251 GB cgroup, $3.49/h, AP-IN-1). Bootstrap `r20260926-080641-f752`, row `r20260926-081920-036d` (BUILD_JOBS=6, limits `{"per_family_override": {"Gemm_v2": 24}, "max_seconds": 1200}`).
+- **#67 olmoe b32 TP1:** pod `vyv-more-exports-moe` (`axadsirn2n0kqq`, 2x L40S, run on GPU 0, 233 GB cgroup, $2.18/h, EUR-IS-2). No 1x L40S with 200 GB or more was in stock. Bootstrap `r20260926-080751-376f`, row `r20260926-082002-43e0` (BUILD_JOBS=auto, max_seconds 1200).
+- **Planner (PAIRS=1), build / match / commit:** #74 41 / 71 / 170 GiB; #67 15 / 127 / 187 GiB; #57 32 / 126 / 224 GiB.
+- **#57 Gemma is skipped.** It's FAIL-class (Match has no fold, Commit local_replay FAIL). Its distinct templates have no registered row evaluator: GeluTanhMul_v1, AttentionSoftcap_v1, NarrowF32ToBf16_v1 and Bf16MulScalar_v1. Its RMSNorm is interior structure with no identity. So the exporter can't capture what Gemma was chosen for; only Bf16MulScalarTensor_v1 would be new.
+
+## Found and fixed: the exporter dropped FP8 and MoE-expert GEMM VUs
+
+On main `e3a2d81d`, `vu_store._evaluation` samples weight rows only for `Gemm_v1` / `Gemm_v2`. Every other evaluation whose registered-weight operand exceeds `max_row_words` (4M words) returns None, and the unit is counted `not_stored_operand_too_large`. That hits every `ScaledMmFp8Block_v1` VU (weight N×K e4m3, for example 19456×2560) and every `MoeExpertGemm_v1` / `W_v1` VU (the whole [E, N, K] slab). So #74 would have exported no FP8 GEMM, and #67 no expert GEMM.
+
+The fix is branch `cursor/vllm-more-exports-0df4` @ `898c32ef`, [PR #63](https://github.com/danielreuter/verity/pull/63):
+- **New decompositions** (each re-evaluated like the existing ones):
+  - `ScaledMmFp8Block_v1` → `ScaledMmFp8BlockCoordinate<K,G>`. Ports: x e4m3[K], sx f32[K/G], w e4m3[K], sw f32[K/G] (the weight row's block scales), y bf16[1].
+  - `MoeExpertGemm_v1` → `GemmCoordinate<K>` over the routed expert's rows.
+  - `MoeExpertGemmW_v1` → `RoutedGemmCoordinate<K>` (x, w, g, y).
+- **Store:** `WEIGHT_ROWS_OF` gives the weight operand's [N, K] rows, and the store keeps a row sample of them. The checkpoint fallback reads the weight's own word type; it had been hard-coded to u16.
+- **Checks:** `fp8_block_coordinate` equals `scaled_mm_fp8_block_row` on all 256 coordinates of a 384×256 block GEMM. The new tests pass in-process. The by-name, P10 and argument-free lint ratchets are clean.
+- **Pod test run:** `r20260926-082552-2706`. The row runs' background tests failed to collect: my script started them after `cd integrations/vllm`, a PYTHONPATH mistake. It's fixed in `vme_row.sh`.
+
+**The FP8 statement mismatch matters to the FP8 lanes.** The served FP8 GEMM is block-scaled. Per 128-tile, `temp` = 4 wgmma e4m3 k32 steps from +0, then `acc = FFMA(temp, sx·sw, acc)`, then bf16. So no served FP8 coordinate is an unscaled K-long chain, which is what `gemm-coordinate/k<K>/sm90-wgmma-e4m3` states. The exact captured sets are `ScaledMmFp8BlockCoordinate`. `evidence/derive_fp8_chain_sets.py` writes the spine-format `input-set/v1` sets over the same captured x/w bytes, with y from the chain relation (source "captured inputs, model y"). It was tested on a synthetic block set, and `input_sets.verify` passes.

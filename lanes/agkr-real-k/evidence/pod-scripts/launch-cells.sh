@@ -3,11 +3,12 @@
 # Run from the verity checkout on branch cursor/agkr-real-k-f806 (committed and pushed: research run ships HEAD), in a
 # shell with the cloud-lane environment (RESEARCH_NOTES, RESEARCH_MACHINES_D, RESEARCH_WRITE_THROUGH=1).
 #
-#   bash $RESEARCH_NOTES/lanes/agkr-real-k/evidence/pod-scripts/launch-cells.sh [k2048] [k8192] [afs]      (default: k2048 afs)
+#   bash $RESEARCH_NOTES/lanes/agkr-real-k/evidence/pod-scripts/launch-cells.sh [k2048] [k8192] [afs]      (default: all three)
 #
 #   k2048  A-route-a on art:123dc234 (#101 captured, K = 2048), sizes 1024 2048 4096 6272 with the scatter_terms fix (b98d5feb):
 #          the 09:0xZ cell art:95fdd0ae stopped at 4,096 on that bug; the gate reruns with the K-aware Flock replay
-#   k8192  A-route-a on art:927a4c3a (K = 8192), sizes 256 512 1024 1920 (only if the 09:0xZ K = 8192 cell did not finish)
+#   k8192  A-route-a on art:927a4c3a (K = 8192), sizes 256 512 1024 1920: the 09:0xZ cell art:20197f8b stopped at 1,024 on a
+#          harness bug (the statement directory reused K = 2048's; fixed 14dfb66e), so 1,024 and 1,920 were never measured
 #   afs    A-fs (A-GKR alone, Fiat-Shamir, x and W private: a drill-down) on both sets, whole set per proof (20-afs.sh)
 #
 # Pods: an A100-SXM4-80GB prover (secure) and a verifier in the same datacenter (a CPU pod when one is in stock there, else a
@@ -17,7 +18,7 @@ cd "$(git rev-parse --show-toplevel)" || exit 2
 [ "$(git rev-parse --abbrev-ref HEAD)" = cursor/agkr-real-k-f806 ] || { echo "not on cursor/agkr-real-k-f806"; exit 2; }
 git diff --quiet HEAD -- backends || { echo "uncommitted changes under backends/: research run ships HEAD"; exit 2; }
 R="uv run research"; E=$(dirname "$0"); LANE=agkr-real-k; P=vy-$LANE-a100; V=vy-$LANE-ver
-WHAT=${*:-k2048 afs}
+WHAT=${*:-k2048 k8192 afs}
 say() { echo "##### $(date -u +%H:%M:%SZ) $*"; }
 ck() { $R notes checkpoint $LANE open "$*" | tail -1; }
 
@@ -60,16 +61,15 @@ wait_run() {  # $1 = run id: until the run's status is terminal
   done
 }
 cell() {  # $1 = K, $2 = set art, $3 = sizes
-  local plan=.bench-cell/$LANE-k$1-$(date -u +%H%M).json
-  $R env --source . > /dev/null 2>&1
-  uv run python -m verity_numerical.bench.cell plan --backend A-route-a --statement gemm-coordinate/k$1/sm80-mma-bf16+frame-v3/blake3-keyed \
-    --input-set $2 --prover $P --verifier $V --verifier-addr $VIP:$VSES --rtt-target $VIP:$VSSH --campaign $LANE --lane $LANE \
-    --points "$3" --out $plan > /dev/null || { echo "plan K=$1 failed"; return 1; }
-  local runs; runs=$(uv run python -m verity_numerical.bench.cell run --cell $plan | python3 -c "
+  local K=$1 art=$2 sizes=$3 plan=.bench-cell/$LANE-k$1-$(date -u +%H%M).json runs vr pr
+  uv run python -m verity_numerical.bench.cell plan --backend A-route-a --statement gemm-coordinate/k$K/sm80-mma-bf16+frame-v3/blake3-keyed \
+    --input-set $art --prover $P --verifier $V --verifier-addr $VIP:$VSES --rtt-target $VIP:$VSSH --campaign $LANE --lane $LANE \
+    --points "$sizes" --out $plan > /dev/null || { echo "plan K=$K failed"; return 1; }
+  runs=$(uv run python -m verity_numerical.bench.cell run --cell $plan | python3 -c "
 import json, sys
 t = sys.stdin.read(); d = json.loads(t[:t.rindex(']') + 1]); print(' '.join(r['run'] or '-' for r in d))")
-  set -- $runs; local vr=$1 pr=$2
-  ck "WAITING K=$1 cell: ver $vr on $V, prover $pr on $P"
+  read -r vr pr <<<"$runs"
+  ck "WAITING K=$K cell: ver $vr on $V, prover $pr on $P"
   say "prover $pr: $(wait_run $pr)"
   # the verifier serves its sizes in order; the ones the prover's sweep never reached end its run early (it then writes outputs.json)
   $R pods ssh $V -- "for p in \$(pgrep -f 'cell-serve --listen 0.0.0.0:7200'); do [ \"\$(cat /proc/\$p/comm)\" = flock-link-live ] && kill -TERM \$p; done" \

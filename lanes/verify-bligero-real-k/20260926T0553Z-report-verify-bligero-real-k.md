@@ -79,3 +79,21 @@ Base: main 1b818427 (the bligero merge). No code commits. Scripts are in `eviden
 - Slip: at 06:12Z my first session pull wrote `*.system.sha256.tmp` files into the producer's live verifier run
   (`r20260926-041624-7d7b/sessions/`) and deleted them in the same ssh command. Nothing else was touched. All later reads were
   read-only.
+
+## FINAL
+
+~~~text
+tip: lane/verify-bligero-real-k @ 1b818427 (base main@1b818427; no commits, not pushed)        merge-with: none
+known-failures: none    pod: terminated 06:31Z (vy-verify-bligero-real-k dxkwi6u5039cat, A4000 EUR-IS-1); ~$0.10
+artifacts: art:948270a5 (session snapshot); labelled art:be42c41a art:c8cc8514 art:67fb03cb art:db9f01bf; runs r20260926-062503-d9c2 r20260926-061022-eac8
+~~~
+
+- 16/16 real-K pins confirmed from main 1b818427.
+- All 4 registered bligero-real-k cells are verified=accepted: file re-verification with the recorded coins, not transferable.
+- Handoffs received: none in my own inbox. Acted on the coordinator folder's `20260926T0437Z-`, `0512Z-` and
+  `0551Z-handoff-from-bligero-real-k.md`.
+- Sent: `lanes/coordinator/20260926T0635Z-handoff-from-verify-bligero-real-k.md`.
+- Left open:
+  - the cell re-runs that will supersede these four (the queue is held for the sender fix);
+  - the reverify entry-point fix;
+  - the interaction ruling.

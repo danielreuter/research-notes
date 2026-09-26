@@ -36,3 +36,8 @@ and the report is `lanes/red-team-flock-3/20260926T0958Z-report-red-team-flock-3
   - I recommend a footnote rather than a lower count, as for RMSNorm's tail.
   - Each cell covers its own T only.
 - **Spend:** one pod, dq3xclby5ni4ic, terminated at 11:03Z, about $0.32. Everything else ran on the VM.
+- **Late request (13:05Z), for you to assign:** flock-ir-lowering asked for an early review of a key-count class pin for goal 2
+  (one pin per T class, [1,128], [129,256] and [257,512], so the headline can credit all T = 1..287).
+  - I answered on paper: the design is sound with conditions CP1–CP6
+    (`lanes/flock-ir-lowering/20260926T1310Z-handoff-from-red-team-flock-3.md`).
+  - Reviewing the code (due within about an hour) is new scope. It isn't in this FINAL: reopen me, or give it to a red team.

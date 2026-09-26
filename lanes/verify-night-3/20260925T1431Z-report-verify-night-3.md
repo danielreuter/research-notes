@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 7585828d (05:39Z) [open] BUSY (do not reap): pod vy-verify-night-3 heudtct27whkty (cpu5c 16 vCPU $0.56/h, guard 60) runs r20260926-053354-a19b: host built, APPROVED identity reproduced (ELF cef2b78a, vk 0x007d9347), verifying 9 SP1 results now (~30-45 min). Run 044301-0e46 failed my setup (libprotobuf-dev missing), not reaped. Check back ~06:20Z
 CHECKPOINT 7585828d (04:43Z) [open] BUSY (do not reap): pod vy-verify-night-3 jnp5k2d0vy9z2h (cpu3c 16 vCPU $0.48/h) runs r20260926-044301-0e46 @main 3d57f08b: SP1 CPU host build (~25 min) then 9 SP1 below-bar verifications. First launch r20260926-035411-44ce was reaped mid-build at 04:06Z (pod rd921ysua7g60b gone, no result). Check back ~05:25Z
 CHECKPOINT 7585828d (03:56Z) [open] WAITING: pod vy-verify-night-3 rd921ysua7g60b (cpu3c 32 vCPU, $0.96/h, guard 30); run r20260926-035411-44ce @main 3d57f08b: build CPU veritor-zk-host (APPROVED check), then per art (9 SP1 results): proof sha vs run record, prepare rebuild (object digest + statement sha), verify_object core+compressed, 3 negatives. Check ~04:25Z
 CHECKPOINT 7585828d (03:50Z) [open] reopened (cloud) for SP1 below-bar verification per 0305Z handoff: NOT final

@@ -1,0 +1,68 @@
+{
+ "b1d710da": {
+  "verifier_run": "r20260926-064431-4043",
+  "pod": "vy-bligero-real-k-verifier",
+  "source": "store run record art:fce161f884bf033221953a73747fc78a7940115bc2eef1e7731b34ec8c30d1c6",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-064431-4043/sessions"
+ },
+ "3bb4d03f": {
+  "verifier_run": "r20260926-072253-ca25",
+  "pod": "vy-bligero-real-k-verifier",
+  "source": "ssh read-only (run still serving)",
+  "dir": "/tmp/vbrk/sessions2/live-r20260926-072253-ca25"
+ },
+ "11208bf7": {
+  "verifier_run": "r20260926-065319-bf61",
+  "pod": "vy-bligero-real-k-verifier-ga2b",
+  "source": "store run record art:1dd0408978573a074f3fdbb4276993ade1479c6c28009318f60dad57b94113c0",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-065319-bf61/sessions"
+ },
+ "c56a09a8": {
+  "verifier_run": "r20260926-065319-bf61",
+  "pod": "vy-bligero-real-k-verifier-ga2b",
+  "source": "store run record art:1dd0408978573a074f3fdbb4276993ade1479c6c28009318f60dad57b94113c0",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-065319-bf61/sessions"
+ },
+ "664f3142": {
+  "verifier_run": "r20260926-064458-327b",
+  "pod": "vy-bligero-real-k-verifier-is1",
+  "source": "store run record art:7813735fe0d2db82c314e888d93c8c439d5b2f44a609a55d4e52edc9b4039924",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-064458-327b/sessions"
+ },
+ "767b54db": {
+  "verifier_run": "r20260926-064458-327b",
+  "pod": "vy-bligero-real-k-verifier-is1",
+  "source": "store run record art:7813735fe0d2db82c314e888d93c8c439d5b2f44a609a55d4e52edc9b4039924",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-064458-327b/sessions"
+ },
+ "c92a439a": {
+  "verifier_run": "r20260926-070945-4ad5",
+  "pod": "vy-bligero-real-k-verifier-is1",
+  "source": "ssh read-only (run still serving)",
+  "dir": "/tmp/vbrk/sessions2/live-r20260926-070945-4ad5"
+ },
+ "1dafbfd5": {
+  "verifier_run": "r20260926-072253-ca25",
+  "pod": "vy-bligero-real-k-verifier",
+  "source": "ssh read-only (run still serving)",
+  "dir": "/tmp/vbrk/sessions2/live-r20260926-072253-ca25"
+ },
+ "9fd5ec09": {
+  "verifier_run": "r20260926-073309-3956",
+  "pod": "vy-bligero-real-k-verifier-ga2b",
+  "source": "ssh read-only (run still serving)",
+  "dir": "/tmp/vbrk/sessions2/live-r20260926-073309-3956"
+ },
+ "f1ac2db5": {
+  "verifier_run": "r20260926-073309-3956",
+  "pod": "vy-bligero-real-k-verifier-ga2b",
+  "source": "ssh read-only (run still serving)",
+  "dir": "/tmp/vbrk/sessions2/live-r20260926-073309-3956"
+ },
+ "f451dabc": {
+  "verifier_run": "r20260926-070945-4ad5",
+  "pod": "vy-bligero-real-k-verifier-is1",
+  "source": "store run record art:50198b411754cfd9cf943437dcd4e917ed6f5bc09f3c1049bb3dc21fdb432b5b",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-070945-4ad5/sessions"
+ }
+}

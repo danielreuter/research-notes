@@ -35,3 +35,4 @@
 02:47Z REAP-BLOCKED red-team-flock vy-red-team-flock: art:15724f03: no verified remote replica recorded, 539 MB to read back -> research data preserved art:15724f03
 03:28Z REAP-BLOCKED red-team-flock vy-red-team-flock: art:15724f03: no verified remote replica recorded, 539 MB to read back -> research data preserved art:15724f03
 03:58Z REAP-BLOCKED red-team-flock vy-red-team-flock: art:15724f03: no verified remote replica recorded, 539 MB to read back -> research data preserved art:15724f03
+04:06Z REAPED verify-night-3 vy-verify-night-3 rd921ysua7g60b $0.96/h (final 12m ago); custody: 61 cited art(s) preserved; 17 attempt(s) preserved, 1 run dir(s) with custody (guard)

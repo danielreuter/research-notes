@@ -40,18 +40,26 @@ sleep 60
 addr() { research pods list 2>/dev/null | awk -v n="$1-" 'index($2, n) == 1' | grep -oE "ip=[0-9.]+|'$2': [0-9]+" | sed -E "s/ip=//; s/'$2': //" | paste -sd:; }
 VADDR=$(addr $V 7400) VSSH=$(addr $V 22)
 echo "verifier $VADDR (sshd $VSSH)"
-state() { research fetch $1 </dev/null 2>&1 | tail -1 | sed -E 's/.*Z: ([a-z]+) .*/\1/'; }
+state() { local l; l=$(research fetch $1 </dev/null 2>&1 | tail -1); case $l in *"Z: done "*) echo done;; *"Z: failed "*) echo failed;; *"Z: refused"*|*"Z: canceled"*|*"Z: cancelled"*) echo failed;; *) echo running;; esac; }
 while IFS=: read -r tag _ art per pts; do
   [ -z "$tag" ] && continue
   art="art:$art"
   python -m verity_numerical.bench.cell plan --backend C-interactive --statement "gemm-coordinate/$tag/$SID+frame-v3/blake3-keyed" \
     --input-set $art --prover $P --verifier $V --verifier-addr $VADDR --rtt-target $VSSH --campaign flock-backend --lane flock-backend \
     --points "$pts" --per-proof $per --backend-arg SM=$SM --out .bench-cell/$GPU-$tag.json </dev/null | tail -1 || continue
-  runs=$(python -m verity_numerical.bench.cell run --cell .bench-cell/$GPU-$tag.json </dev/null 2>&1 | grep -oE 'r[0-9]{8}-[0-9]{6}-[0-9a-f]{4}' | paste -sd' ')
-  set -- $runs; vid=${1:-} pid=${2:-}
+  read -r vid pid < <(python -m verity_numerical.bench.cell run --cell .bench-cell/$GPU-$tag.json </dev/null 2>&1 | python3 -c '
+import json, sys
+t = sys.stdin.read()
+try:
+    d = {r["role"]: r.get("run") or "-" for r in json.loads(t[t.index("["):t.rindex("]") + 1])}
+except ValueError:
+    d = {}
+print(d.get("verifier", "-"), d.get("prover", "-"))')
   echo "$(date -u +%H:%MZ) $GPU $tag verifier=$vid prover=$pid"
-  [ -z "$pid" ] && continue
-  while s=$(state $pid); [ "$s" = running ] || [ "$s" = submitted ]; do sleep 60; done
+  if [ "$pid" = - ] || [ "$vid" = - ] || [ "$pid" = "$vid" ]; then
+    research pods ssh $V -- 'pkill -f "[v]erity_flock.bench"; pkill -f "[f]lock-pure-gpu"' </dev/null >/dev/null 2>&1; continue
+  fi
+  sleep 60; while s=$(state $pid); [ "$s" = running ] || [ "$s" = submitted ] || [ "$s" = claimed ]; do sleep 60; done
   for i in $(seq 10); do s=$(state $vid); [ "$s" = running ] || [ "$s" = submitted ] || break; sleep 30; done
   research pods ssh $V -- 'pkill -f "[v]erity_flock.bench"; pkill -f "[f]lock-pure-gpu"' </dev/null >/dev/null 2>&1
   research fetch $pid --all </dev/null >/dev/null 2>&1; research fetch $vid --all </dev/null >/dev/null 2>&1

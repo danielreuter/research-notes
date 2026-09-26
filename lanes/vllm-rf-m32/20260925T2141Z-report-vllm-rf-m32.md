@@ -5,6 +5,7 @@ created: 2026-09-25T21:41Z
 status: open
 ---
 
+CHECKPOINT b7ff4737 (08:22Z) [open] task 4: PR #62 lane/vllm-rf-commit-mem b7ff4737 (admission pool+resident; workers PDEATHSIG). WAIT vyv-rf-m32-mem r20260926-082110-dc3a check-back 08:55Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: bootstrap + lints + targeted tests head/base
 CHECKPOINT 02b3be03 (08:09Z) [open] reopened for #23 findings (admission under-predicts 183 GB vs OOM at 251 GB; orphaned workers): NOT final; CPU-only from records
 CHECKPOINT 02b3be03 (05:15Z) [final] FINAL. admit: lane/vllm-rf-admit 02b3be03 merge-ready (gate b 0 changes vs 7289e3ad, +1 new test passed; lints = main's pre-existing by-name failure; runs r20260926-031830-2411/-031940-f369/-041141-1cd3 PRESERVED; handoff 0516Z; answers 20260926T0315Z-handoff-from-vllm-coordinator.md). Earlier: m32 fix 271a0952 merge-ready, gate (a) on main 5f8d8789 CONFIRMED. All pods terminated (vyv-rf-m32-admit 05:15Z). Spend ~$9
 CHECKPOINT 02b3be03 (05:01Z) [open] admit head2 02b3be03 lints = base (pre-existing by-name only). WAIT vyv-rf-m32-admit r20260926-041141-1cd3 check-back 05:10Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: gate (b) head2 (since 04:31Z, ~33 min)

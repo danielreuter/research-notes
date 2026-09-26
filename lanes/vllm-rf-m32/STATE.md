@@ -43,11 +43,22 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 - Admit MERGE-READY: `lane/vllm-rf-admit` 02b3be03; gate (b) base 7289e3ad vs head 0 changes (+1 new test passed); lints = main's
   pre-existing by-name failure only. Runs 2411 / f369 / 1cd3 PRESERVED. Handoff 20260926T0516Z.
 
+## Task 4: #23 Commit memory findings (root 08:08Z, $3)
+- Records: #23 Commit `r20260926-033729-b866` (resources.jsonl + commit/admission_*.json from `r20260926-080221-afaa`'s small-copy tgz);
+  #67 Commit `r20260925-233854-42c8`. #23: pool 167.7 GiB shmem + parent heap 51 GiB, 32 workers forked 07:51:50Z, died at the limit
+  (anon+shmem >= 226,996 MiB). F-dA-15 admitted 182,765 MiB (pool only); R17-29 planner (record only) said 318,329 would-REFUSE; row
+  planner 306,439 REFUSE. #67: peak 176,321 MiB, row planner 191,021.
+- Branch `lane/vllm-rf-commit-mem` (from origin/main 2ba5e62c): `96f6ec9d` admission = pool + resident (row planner commit stage minus
+  its pool; #23 305,510 refused, #67 191,020 admitted); `b7ff4737` fork_pool / die_with_parent (PDEATHSIG) in replay, VU draw, stoch
+  recompute, Match legs. PR #62 (draft).
+
 ## Running
-- nothing. vyv-rf-m32-admit terminated 05:15Z (all lane pods terminated).
+- vyv-rf-m32-mem (62aprwf8xf8c80, 1x L4 host $0.49/h, GPU hidden; every cpu shape and A4000/A5000/A4500 NO-STOCK): run
+  r20260926-082110-dc3a (`evidence/mem_gate.sh`): bootstrap, lints + targeted tests at head b7ff4737, targeted at base 2ba5e62c.
 
 ## Next
-- none (FINAL). Spend about $9 total (fix $0.35, gate (a) $8.1, admit $0.5).
+- Compare targeted head vs base, lints (main's known by-name failure is fixed on main by 125f9730), preserved, terminate, update PR #62,
+  handoff to vllm-coordinator, FINAL.
 
 ## Open questions
 - none

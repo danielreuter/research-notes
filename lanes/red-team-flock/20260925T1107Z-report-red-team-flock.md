@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (11:44Z) [final] FINAL 12:00Z: 8 GEMM cells: H100 x3 NON_ZK_PROOF; L40S x5 NON_ZK_PROOF_DIAGNOSTIC (co-resident verifier fails FA1; proofs replay 78/78); re-run needs distinct machine + bench.cell machine-id check. No pods, $0.
 CHECKPOINT 3301c435 (11:35Z) [open] 11:35Z reopened: 8 per-workload GEMM cells (H100 x3, L40S x5), PB/CN + same-machine placement ruling, CPU only
 CHECKPOINT 3301c435 (10:46Z) [final] FINAL 11:10Z: route (a) re-sweep a0ca8ef6/a979dfcb NON_ZK_PROOF (rebuild identical, gate 10/10, negs rejected); A-fs 7ae6c190/0e1095f3 NON_ZK_PROOF_DIAGNOSTIC (transcript binds steps/units/circuit/y; 10/10 reps; negs rejected). No pods, $0.
 CHECKPOINT 3301c435 (10:37Z) [open] 10:38Z reopened: route (a) re-sweep cells a0ca8ef6 / a979dfcb, CPU only
@@ -912,3 +913,14 @@ byte-identical: 5 recorded sessions replay accepted under af2c3015. Detail is in
   circuit and y; all 10 reps were accepted, and the relabel and tamper negatives were rejected.
 
 Detail is in note `lanes/coordinator/20260926T1110Z-handoff-from-red-team-flock.md`.
+
+## Per-workload GEMM cells (12:00Z)
+
+- **H100 (d9a40cd4, 8b5a0bf1, 2e5ea606):** labelled NON_ZK_PROOF.
+- **L40S (4e3f5048, aea553ae, 86780ca6, 4a319a65, 89dab836):** labelled NON_ZK_PROOF_DIAGNOSTIC. The verifier was
+  co-resident on the prover's physical machine, which fails FA1. The proofs replay fine: 78 of 78 sessions over all 8
+  cells.
+
+A re-run needs a verifier on a distinct machine, and bench.cell's host check should compare machine ids. Detail is in
+note `lanes/coordinator/20260926T1200Z-handoff-from-red-team-flock.md`. This answers
+20260926T1140Z-handoff-from-flock-backend.md.

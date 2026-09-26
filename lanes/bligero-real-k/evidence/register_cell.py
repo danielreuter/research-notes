@@ -19,6 +19,9 @@ def serving_verifier(cell, run):
     vpod = next(j for j in json.loads(Path(f"/tmp/cells/{cell}.json").read_text())["jobs"] if j["role"] == "verifier")["pod"]
     runs = [j["run"] for f in Path("/tmp/cells").glob("*.json") for j in json.loads(f.read_text()).get("jobs", [])
             if j["role"] == "verifier" and j.get("pod") == vpod and j.get("run") and j["run"] < run]
+    # a relaunch from the same plan overwrites job["run"]; the queue logs every run it stops
+    runs += [m.group(1) for m in re.finditer(r"stopped verifier run (\S+) on (\S+)", Path("/tmp/queue.log").read_text())
+             if m.group(2) == vpod and m.group(1) < run]
     return max(runs) if runs else None
 
 

@@ -31,8 +31,10 @@ def main():
             ins.append(g | (u << 16))
             outs.append(P.SiluMulBf16.evaluate(g, u))
     upi = 32 if which == "rope" else 8192
+    if units % upi:
+        upi = 1                                     # a unit relation, not whole template instances
     head = {"format": "flock-ir-instances/v1", "unit": h[1], "unit_sha256": hashlib.sha256(text.encode()).hexdigest(),
-            "instances": units / upi, "units_per_instance": upi, "units": units, "in_words": 1,
+            "instances": units // upi, "units_per_instance": upi, "units": units, "in_words": 1,
             "in_bits": [16, 16, 16, 16] if which == "rope" else [16, 16], "out_words": 1,
             "out_bits": [16, 16] if which == "rope" else [16], "cut_words": 0, "set": "red-team-flock-2/gen_ir_inst",
             "subcircuit": "rope-head" if which == "rope" else "silu-mul", "range": [0, units], "seed": seed}

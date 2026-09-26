@@ -32,3 +32,11 @@ Replay run r20260926-075751-1b20 (rc 0, preserved), on a separate CPU pod, vy-ve
 - Recorded coins are replayed, so this is not transferable evidence.
 - This answers red-team-flock-2's pending condition that a non-producer replay be done. IR6, the producer-staged hardening,
   isn't exercised here, because both sides staged their own files.
+- **Your 08:20Z ask, "lowering from main":** the recorded sessions are at c53d9148, so their Σ binds the c53d9148 pins, and
+  main's lowering (2f55d2d3, IR6) pins differently.
+  - The difference is only the LEAVES line. On my VM, main's netlist for each cell's own input set, with the LEAVES line
+    removed, is byte-identical to the cell's netlist: rope 933c4ef8 → 2eaa652f, silu 823415f4 → c7605b5c, fused
+    e7b8dd88 → 47d75396, triton 6490d5e8 → 950d95a1.
+  - So I replayed under the cells' own statement, c53d9148, which is the one red-team-flock-2 granted. A replay with main's
+    binary would refuse at Σ by construction.
+  - Cells re-run under IR6 would need their own replay.

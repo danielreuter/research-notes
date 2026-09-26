@@ -5,6 +5,7 @@ created: 2026-09-25T21:41Z
 status: open
 ---
 
+CHECKPOINT 02b3be03 (05:01Z) [open] admit head2 02b3be03 lints = base (pre-existing by-name only). WAIT vyv-rf-m32-admit r20260926-041141-1cd3 check-back 05:10Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: gate (b) head2 (since 04:31Z, ~33 min)
 CHECKPOINT 02b3be03 (04:13Z) [open] admit: head lints caught P7/P11 from the cherry-pick; fixed 02b3be03 (pushed). WAIT vyv-rf-m32-admit r20260926-041141-1cd3 check-back 05:00Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: lints + gate (b) head2 02b3be03 (after f369 finishes); base r20260926-031830-2411 done
 CHECKPOINT 7b9558b7 (03:22Z) [open] task 3 admit: lane/vllm-rf-admit 7b9558b7 pushed (p10 main cap 1770). WAIT vyv-rf-m32-admit r20260926-031830-2411 check-back 04:05Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: bootstrap + lints + gate (b) base 7289e3ad; WAIT vyv-rf-m32-admit r20260926-031940-f369 check-back 04:05Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: lints + gate (b) head 7b9558b7
 CHECKPOINT 271a0952 (03:15Z) [open] reopened for coordinator task 0315Z (admission fix 89cd9d1a -> lane/vllm-rf-admit): NOT final; will create one cpu pod vyv-rf-m32-admit

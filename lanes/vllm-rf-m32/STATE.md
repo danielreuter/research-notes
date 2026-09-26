@@ -41,8 +41,8 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
   (`[moe R17-1]` in admission_lag's docstring). Fixed in `02b3be03` (docstring tag dropped, P7 entry deleted; no allowlist grows).
 
 ## Running
-- vyv-rf-m32-admit: head r20260926-031940-f369 (7b9558b7) finishing gate (b) (evidence only); head2 r20260926-041141-1cd3
-  (02b3be03, WAIT_RUN=f369): lints + gate (b).
+- vyv-rf-m32-admit: head r20260926-031940-f369 (7b9558b7) done 04:30Z (32 failed = base 30 + the 2 lint tests). head2 r20260926-041141-1cd3
+  (02b3be03): lints done 04:31Z = base (only the pre-existing by-name failure); gate (b) since 04:31Z, ETA ~05:05Z.
 
 ## Next
 - jdiff base vs head2 (+ f369), test_admission_commit passes, lints = base's single pre-existing failure, preserved (3 runs),

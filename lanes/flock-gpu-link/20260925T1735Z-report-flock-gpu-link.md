@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT 28f55d9a (19:58Z) [open] total unit: option A (per-statement 2^14 unit slot, rows unchanged for Chunk/ChunkTail/Fp8/Fp4) in PR #77; measured 1.02-1.04x e2e on L40S (#101 K2048/K8192, PRESERVED); B2 does not fit (8,321 rows); handed to coordinator, flock-backend (lower+pin), red-team-flock (review before cells); no pods; ~$1.5
 CHECKPOINT ea27aa86 (13:01Z) [open] ChunkTail GPU fixed (claim cap 16->64; rayon OnceLock deadlock) in PR #75; L4 repro + fixed runs PRESERVED (K2304 512 VUs 1.5 s, K8960 256 VUs 2.6 s); handed to flock-backend, red-team-flock, coordinator; no pods; ~$0.5
 CHECKPOINT af2c3015 (10:04Z) [open] ChunkTail(n) (K=2304/8960 partial-chunk rows) in PR #70 to main; CPU selftests pass on bench-spine #39/#57 sets (r20260926-095950-b7ba); review requested from red-team-flock, flock-backend told; CPU only
 CHECKPOINT e4f631bd (04:24Z) [open] admission tip e4f631bd (NV5 + CN2 m<=35 + CN3 no Chunk(1)) fast-forward on flock-backend 20082dcb; negatives in selftest; handed to flock-backend (with CN2 batch limits), red-team-flock, red-team-flock-2; CPU only

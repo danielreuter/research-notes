@@ -1,0 +1,7 @@
+# machine vy-flock-ir-lowering-ver2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "xp8g10scxmlb4y"
+project = "verity"
+guard = 30
+registered_by = "cursor"
+registered_at = "2026-09-26T06:30Z"

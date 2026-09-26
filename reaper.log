@@ -32,3 +32,4 @@
 21:55Z REAP-BLOCKED verify-night-3 vy-verify-night-3: art:904398d8: no verified remote replica recorded, 72 MB to read back -> research data preserved art:904398d8
 23:34Z REAP-BLOCKED verify-night-3 vy-verify-night-3: art:904398d8: no verified remote replica recorded, 72 MB to read back -> research data preserved art:904398d8
 01:23Z REAP-BLOCKED verify-flock-pure vy-verify-flock-pure: 1 run dir(s) on it without custody (first r20260926-011150-e4e9: not fetched (no .fetched: run `research fetch --all`))
+02:47Z REAP-BLOCKED red-team-flock vy-red-team-flock: art:15724f03: no verified remote replica recorded, 539 MB to read back -> research data preserved art:15724f03

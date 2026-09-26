@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: final
 ---
 
+CHECKPOINT 787ac154 (09:52Z) [final] FINAL: agkr-real-k route (a) cells 95fdd0ae (K=2048) + 20197f8b (K=8192) verified=accepted, A-GKR prime + Flock replay, 20/20 sessions, 14/14 negatives (r20260926-093954-dfd7); pod terminated 09:52Z; ~$0.15. NVFP4 handoff 0945Z not in scope: awaits a reopening
 CHECKPOINT 787ac154 (09:52Z) [final] FINAL: agkr-real-k route (a) cells 95fdd0ae (K=2048) + 20197f8b (K=8192) verified=accepted, A-GKR prime + Flock replay, 20/20 sessions, 14/14 negatives (r20260926-093954-dfd7); pod terminated 09:52Z; ~$0.15
 CHECKPOINT 787ac154 (09:40Z) [open] agkr-real-k: replay r20260926-093954-dfd7 on vy-verify-flock-pure (pod 7l4nmzucy5407i, cpu3c-16), lane/verify-agkr-real-k 672dff53 (PR #69 a7500a4b + verify-cells.sh)
 CHECKPOINT 787ac154 (09:34Z) [open] reopened for agkr-real-k route (a) cells 95fdd0ae 20197f8b: NOT final
@@ -56,3 +57,4 @@ Reopened 05:05Z-06:40Z: real-K cells art:5d2a91a7, ab115376, 149cdaf9, 673c1835,
 Reopened 07:52Z-08:30Z: flock-ir-frame/v2 cells art:dd27fdab, 8a07b80f, 9563d2c8, 63553a6c verified=accepted (r20260926-075751-1b20; replay tool lane/verify-flock-ir 17baf43e); the brief handoff lanes/coordinator/20260926T0755Z-handoff-from-red-team-flock-2.md acted on; sent coordinator 20260926T0830Z. 20260926T0820Z-handoff-from-coordinator.md (same ask) answered in that handoff: replayed under the cells' c53d9148 statement; main's 2f55d2d3 lowering minus its LEAVES line is byte-identical to each cell's netlist. Pod ca9gpkk7znk58v terminated 08:28Z; lane total ~$4.2.
 
 Reopened 09:34Z-09:53Z: agkr-real-k route (a) cells art:95fdd0ae, art:20197f8b verified=accepted (r20260926-093954-dfd7; lane/verify-agkr-real-k 672dff53); sent coordinator 20260926T0953Z. Pod 7l4nmzucy5407i terminated 09:52Z; lane total ~$4.4.
+20260926T0945Z-handoff-from-flock-backend.md (NVFP4 cells art:2753a371, art:db7f48de, cross-DC verifier) arrived during the agkr-real-k reopening and is not in its assignment: not replayed; it needs a reopening from the coordinator (31-replay.sh on lane/verify-flock-pure-realk takes SET= as for the real-K cells; the placement question is the coordinator's).

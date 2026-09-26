@@ -6,3 +6,5 @@ at = "13:00Z"
 source = "/workspace/steward/verity"
 out = "renders/daily"
 store = "/workspace/steward/store"
+published = "views"
+

@@ -28,6 +28,8 @@ rev=(--exclude=/lanes/coordinator/*-report-coordinator.md --exclude=*-handoff-fr
 for l in $lanes; do
   fwd+=(--include="/lanes/$l/***" --include="/lanes/*/*-handoff-from-$l*.md")
   rev+=(--exclude="/lanes/$l/*-report-$l.md" --exclude="/lanes/$l/evidence/" --exclude="*-handoff-from-$l*.md")
+  # a cloud lane owns its folder in the store: only handoffs to it come back, never an older STATE.md / READY.md (process-robustness 6)
+  rev+=(--include="/lanes/$l/*-handoff-*.md" --exclude="/lanes/$l/*")
 done
 fwd+=(--exclude='*')
 rev+=(--include=/kb/*** --include=/lanes/ --include=/lanes/*/ --include=/lanes/*/*.md --include=/machines.d/ --include=/machines.d/*.toml --exclude='*')

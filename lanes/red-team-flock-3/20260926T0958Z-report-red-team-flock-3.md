@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (11:17Z) [open] WAITING r20260926-110548-5012 (flock-ir-lowering T=258 prover) on vy-flock-ir-lowering-nc-l40s, check after 12:05Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: cell_check + label the 16 ece9fdd2 re-run cells (harness-only, in grant), then FINAL
 CHECKPOINT e5493f9f (11:16Z) [open] attention flock-ir-frame/v3 GRANTED W/ CONDITIONS NON_ZK_PROOF (AC1-AC4); 11 L40S cells cell_check PASS + labelled; pod dq3xclby5ni4ic terminated 11:03Z after custody (~$0.32); runs r20260926-103512-bb40 (art:25c96f97), r20260926-103647-114d, -104127-079a, -103647-17e8; next: T=258..261/287 + T=1/4 re-runs
 CHECKPOINT e5493f9f (10:41Z) [open] run r20260926-103512-bb40 on vy-red-team-flock-3 (@22dc6320): producer selftest on my staged T=4/129/287 captured files, 18 adversarial honest sessions accepted; T=4 cell art:308df7ad verifier-staged file CELL_CHECK PASS (leaf maps, digests, roots, e2e vs IR); local tc/e2e diffs running
 CHECKPOINT e5493f9f (10:28Z) [open] local VM: independent netlist evaluator + e2e solver (units+IR tail from pinned LEAVES/CUT) 0 mismatches on 24 captured + 162 adversarial heads (T 1/4/129); tail prims + TC unit diffs clean at small N; pod vy-red-team-flock-3 dq3xclby5ni4ic (A6000 as CPU box, no CPU stock) for build+negatives
@@ -172,8 +173,9 @@ Per cell:
 - **AC1 (IR2, mandatory):** the verifier stages its own file from its own copy of the registered per-T set. Its pin is the
   sha256 of its own `lowering_for_set`, so T is the verifier's. The check reads the header's roots from that file and
   compares them with nothing external.
-- **AC2:** a cell counts only at a reviewed commit (22dc6320 or 0839742b, or a later one re-reviewed). Its pin must be the
-  reviewed per-T pin, and its verifier-staged file must pass `cell_check.py`.
+- **AC2:** a cell counts only at a reviewed commit (22dc6320, 0839742b, or ece9fdd2, which only sizes rayon from the cgroup
+  quota in `33-ir-cell.sh` / `34-ir-selftest.sh`; a later commit needs re-review). Its pin must be the reviewed per-T pin,
+  and its verifier-staged file must pass `cell_check.py`.
 - **AC3:** for the headline (F2, F3), attention is proven for its tensor-core steps and checked natively for the softmax.
   The render should footnote this, as for RMSNorm's tail and sampling's S1. Attention coverage may count a served head only
   through a cell at that head's T; any extrapolation to T values without a cell must be stated as one.

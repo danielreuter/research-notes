@@ -6,7 +6,7 @@
    "row": 4,
    "row_key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
    "file": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 325148,
+   "bytes": 850558,
    "class": "PASS on run r20260926-035624-a133",
    "model": "HuggingFaceTB/SmolLM2-135M",
    "tp_rank": null,
@@ -48,13 +48,22 @@
     "validated": 56,
     "validated_composite": 21
    },
-   "ops": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 3500379047,
+    "gates": 50193095402,
+    "committed_interior_words": 996635095,
+    "units_per_gate": 0.0697,
+    "violations": {}
+   },
+   "edge_words": false
   },
   {
    "row": 11,
    "row_key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.program.json",
-   "bytes": 176141,
+   "bytes": 993916,
    "class": "GREEN",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -81,13 +90,22 @@
     "validated": 55,
     "validated_composite": 20
    },
-   "ops": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 20203802079,
+    "gates": 375162411630,
+    "committed_interior_words": 10999074015,
+    "units_per_gate": 0.0539,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 23,
    "row_key": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 186626,
+   "bytes": 505095,
    "class": "GREEN",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -177,13 +195,22 @@
     "validated": 55,
     "validated_composite": 20
    },
-   "ops": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 21779583577,
+    "gates": 1177897622502,
+    "committed_interior_words": 5079091789,
+    "units_per_gate": 0.0185,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 39,
    "row_key": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
    "file": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.program.json",
-   "bytes": 316649,
+   "bytes": 1757414,
    "class": "GREEN",
    "model": "Qwen/Qwen2.5-1.5B",
    "tp_rank": null,
@@ -210,13 +237,22 @@
     "validated": 35,
     "validated_composite": 3
    },
-   "ops": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 17092778519,
+    "gates": 482475348830,
+    "committed_interior_words": 7301869023,
+    "units_per_gate": 0.0354,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 57,
    "row_key": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 692213,
+   "bytes": 1644760,
    "class": "FAIL",
    "model": "unsloth/gemma-2-2b",
    "tp_rank": null,
@@ -250,13 +286,22 @@
     "validated": 30,
     "validated_composite": 3
    },
-   "ops": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 11024715720,
+    "gates": 573676355970,
+    "committed_interior_words": 641801732,
+    "units_per_gate": 0.0192,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 60,
    "row_key": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 347725,
+   "bytes": 971814,
    "class": "GREEN",
    "model": "unsloth/mistral-7b-v0.3",
    "tp_rank": null,
@@ -290,13 +335,22 @@
     "validated": 34,
     "validated_composite": 1
    },
-   "ops": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 15763251250,
+    "gates": 1702131641760,
+    "committed_interior_words": 3147094830,
+    "units_per_gate": 0.0093,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 67,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 228861,
+   "bytes": 632303,
    "class": "GREEN",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": null,
@@ -354,13 +408,22 @@
     "validated": 41,
     "validated_composite": 5
    },
-   "ops": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 15234442475,
+    "gates": 8731214012218,
+    "committed_interior_words": 1784654143,
+    "units_per_gate": 0.0017,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 68,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.program.json",
-   "bytes": 229948,
+   "bytes": 634031,
    "class": "GREEN",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": null,
@@ -418,13 +481,22 @@
     "validated": 41,
     "validated_composite": 5
    },
-   "ops": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.ops.json.gz"
+   "ops": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 15426254193,
+    "gates": 8860791763260,
+    "committed_interior_words": 1789007203,
+    "units_per_gate": 0.0017,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 70,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 4861752,
+   "bytes": 7099057,
    "class": "FAIL",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": "rank 0 of the TP row (one rank's shard)",
@@ -458,13 +530,22 @@
     "validated": 41,
     "validated_composite": 5
    },
-   "ops": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 5056994907,
+    "gates": 1843571476727,
+    "committed_interior_words": 494491621,
+    "units_per_gate": 0.0027,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 73,
    "row_key": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 497011,
+   "bytes": 1283454,
    "class": "GREEN",
    "model": "Qwen/Qwen3-4B-Instruct-2507",
    "tp_rank": null,
@@ -498,13 +579,22 @@
     "validated": 31,
     "validated_composite": 1
    },
-   "ops": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 14910494622,
+    "gates": 913072606096,
+    "committed_interior_words": 3184903070,
+    "units_per_gate": 0.0163,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 74,
    "row_key": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 561429,
+   "bytes": 1546784,
    "class": "GREEN",
    "model": "Qwen/Qwen3-4B-Instruct-2507-FP8",
    "tp_rank": null,
@@ -538,13 +628,22 @@
     "validated": 31,
     "validated_composite": 1
    },
-   "ops": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 17797984453,
+    "gates": 904497553360,
+    "committed_interior_words": 3563139711,
+    "units_per_gate": 0.0197,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 75,
    "row_key": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 940795,
+   "bytes": 2239238,
    "class": "FAIL",
    "model": "Qwen/Qwen3-30B-A3B",
    "tp_rank": "rank 0 of the TP row (one rank's shard)",
@@ -572,13 +671,22 @@
     "validated": 38,
     "validated_composite": 3
    },
-   "ops": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
+   "ops": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 5015153631,
+    "gates": 1175738462395,
+    "committed_interior_words": 1165216089,
+    "units_per_gate": 0.0043,
+    "violations": {}
+   },
+   "edge_words": true
   },
   {
    "row": 101,
    "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.program.json",
-   "bytes": 227713,
+   "bytes": 463674,
    "class": "PASS on run r20260926-035624-a133",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -605,7 +713,16 @@
     "validated": 68,
     "validated_composite": 25
    },
-   "ops": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.ops.json"
+   "ops": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.ops.json",
+   "q_word_v1": {
+    "query": "Q_word_v1{X=16,W=32}",
+    "units": 294073119,
+    "gates": 18805632558,
+    "committed_interior_words": 42991359,
+    "units_per_gate": 0.0156,
+    "violations": {}
+   },
+   "edge_words": true
   }
  ],
  "notes": [
@@ -643,5 +760,5 @@
   "validation": "validation.json (48 recorded inputs re-evaluated, all equal) and coverage.json (rows x Definitions, validated digests)",
   "missing": "validation only where inputs are on record: the #101 and #4 exports; other rows' Definitions are validated only where they share a digest with those"
  },
- "artifact": "art:453fc5fea3b283a411eb708bc99d0aa38e93a7ebd26fc5ea2d8d9b36a12e9024"
+ "q_word_v1": "each program.json carries q_word_v1 per group and per row (verity_vllm.query.word, branch cursor/q-word-query-289b / PR #82): the partition of every Call into units with |out(S)| <= 16 b or one boundary gate <= 32 b; edges carry words, bits, words_per_read, ports (row 4: no words, its Programs were not preserved)"
 }

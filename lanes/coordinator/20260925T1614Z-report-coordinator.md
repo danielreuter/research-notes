@@ -52,3 +52,4 @@ CHECKPOINT 80b19e59 (16:14Z) [open] 16:14Z (9:14 AM PT) TOOK OVER as research co
 
 Successor to the laptop coordinator bc-4100fff0 (its report: `20260925T0925Z-report-switchover-status.md`).
 Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from this VM (tmux `cloud-mirror`).
+- 11:10Z sweep: spend $191.61, burn $12.02/h, projection ~$260 → lifted agkr-real-k pause. Published 11:04Z (dcac8f23): route (a) re-sweeps, L40S elementwise, sampling rows; #101 C-Flock 18.8–36% (sampling not counted). NVFP4 5090 cells labelled but rejected I (input set differs from frozen set) → asked flock-backend + bench-spine. Merged verify-flock l40s + sampling replay. IDLE-POD: flock-ir-lowering nc-l40s, flock-backend l40s, red-team-flock-3; REAP-BLOCKED flock-ir-lowering l40s (custody unknown).

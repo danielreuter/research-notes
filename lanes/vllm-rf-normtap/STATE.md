@@ -1,59 +1,49 @@
 # vllm-rf-normtap: STATE
 
-Lane: norm-scale taps (Daniel's approval Sep 26 19:33Z); brief `$STORE/internal/lane-briefs/vllm-normtap.md`. Agent bc-12c2f2d9 (cloud).
-Branch `cursor/vllm-rf-normtap-57d5` (the Cursor branch policy; common-rules fallback form), cut from origin/main `baa800c6`; PR #90 (draft).
-Head `14ea93c6`. Base for gate (b): `baa800c6`. origin/main is now `56c62af2` (2 commits, no file in common).
+Lane reopened 22:39Z for the guarded-max tap (handoff `internal/lanes/vllm-rf-normtap/20260926T2245Z-handoff-from-vllm-coordinator.md`;
+estimate approved 22:29Z, cap $12, vyv- guard deadline 02:30Z). Agent bc-12c2f2d9 (cloud). The norm-scale taps (PR #90) are merged
+(main 35e78c37); their record is below the line.
 
-## What is built (commits 9a9c7548..14ea93c6)
-- `query/norm_scales.py`: family `norm_scales` (not `norm_scale`: that name is by-name vocabulary in `FAMILIES`), member
-  `norm_scale`, one f32 per norm Call row. Kernel norms (RMSNormTriton_v1, RMSNormFusedCuda_v2): one identity per (step, module).
-  Gemma's ATen chain: RsqrtF32_v1{N=1} outputs protocol-required. `request_manifest(norm_scales=POLICY)`; off = byte-identical.
-- CUDA tap: `acquire/norm_tap_src/build_ext.py` (verity-vllm norm-tap-build) cuts the pinned generic kernel (sha-pinned) and adds
-  a `Tap` template parameter; `norm_tap.cu` launches it as the installed op does under batch invariance. `ops/pod_norm_tap.sh`.
-- Triton tap: `acquire/norm_tap_src/rms_norm_tap.py` = pinned `_rms_norm_kernel` + 2 lines.
-- Source: `acquire/sources/norm_scale_source.py` (engine.hooks patches, module-scoped). Flag: `CommitConfig.norm_tap` (NORM_TAP,
-  default 0) -> manifest --norm-scales, commit_delta --norm-tap-so, manifest-verify --norm-scales.
-- Q_word: `check_calls(acquired=TAP_WORDS)`; plan route `norm_tap`; replay mechanism entry; form (B) no-oracle by member.
-- Property: `properties/norm_tap_exactness.py` + GPU driver `tests/properties/norm_tap_exactness_gpu.py`.
-- 14ea93c6: `tests/census_roots.txt` declares `pod_norm_tap.sh` and `verity_vllm.properties.norm_tap_exactness` (gate (b) at 75a10410
-  failed `test_no_new_dead_modules` on the property module, as fa_tap_exactness would without its roots entry).
+## Guarded-max tap (branch cursor/vllm-rf-guarded-max-57d5, from main 35e78c37)
+- Head `efb2bd4a` (5425de64 kernels + builds, ef734866 host side + property, efb2bd4a property rule fix).
+- Kernel: FA2 `verity_tap.h` / FA3 `verity_tap_fa3.h` `rowstat`: under `VERITY_ROW_GUARD=1`, ROW word 3 = `row_max != -inf ? row_max : 0`
+  at step > 0 (every key block after the row's first in the kernel's visit order), 0 at step 0.  Default builds never write word 3.
+  `verity_tap_row3()` op (0 / 1).  `pod_fa2_tap.sh FA2_TAP_ROW_GUARD=1` -> `build/matReqG/verity_fa2_matReqG.so`;
+  `pod_fa3_tap.sh FA3_TAP_ROW_GUARD=1` -> `build/fa3_matReqG/verity_fa3_matReqG.so`.
+- Host: `query/guarded_max.py` (attention_words = NH x (ceil(T/BN) - 1) per attention Call; the policy is a query-header statement,
+  identities and manifest digest stay the record's), `manifest build --guarded-max`, manifest-verify compares the policy,
+  `hidden_source.require_row3` via `make_hidden_source(manifest=...)` (commit.py passes the required manifest), CommitConfig
+  `GUARDED_MAX_TAP` (default 0), RunEnv `hidden_so_fa2_guarded` / `hidden_so_fa3_guarded`, row_stages moves aside a manifest whose policy
+  differs from the flag.
+- Property: `fa_tap_exactness` (e): guarded build vs the default build's record (`--baseline`): masked stream digest, `check_row3`
+  (IR GuardNegInfZero_v1 of the entry's row_max at blocks after the first, 0 at the first; twin on all, IR reference on a sample incl.
+  specials), ROW word 3 in the closedness mask; edge cases with -inf / +inf / NaN rows (FA2 softcap too).
 
-## Running
-- Nothing. Pod vyv-rf-normtap-g1 (yqvagba5ef4ckg, 1x L40S, $1.09/h) created 20:28Z, terminated 22:17:54Z after all 7 runs were
-  PRESERVED. Spend about $2.00 (1.83 h); no CPU pod.
+## Pods
+- vyv-rf-normtap-h1 hzvx9w6liqxmc4 (H100 80GB HBM3, $3.49/h) ~22:52Z-23:27:44Z: setup 54e0, FA3 exactness db4a (rule bug) and e66f (OK). Terminated.
+- vyv-rf-normtap-g2 gbyqr7veo5qdlw and -g3 mx5580q5a2j5xe (L40S community, $0.79/h): driver 550.163 (CUDA 12.4), torch cu129 sees no CUDA.
+  Terminated after ~21 and ~2 min.
+- vyv-rf-normtap-g4 wqd4c5luh2x8ig (L40S secure, driver 580.126, $1.09/h) since 23:19Z, guard 90.
+
+## Running (L40S g4)
+- r20260926-232004-ee99: bootstrap + FA2 default/guarded builds + FA2 exactness at ef734866 (its single-block guarded cases hit the rule bug).
+- r20260926-232328-7713: #101 tap off (Build/Match/Commit = record?) and on (Commit, VERITY_DUMP_STEP=0 L0 ROW word 3 check). After ee99.
+- r20260926-232341-8c37: partition checker on a LOCAL trial merge a3d4ec46 (tree 678f436c) of no-recompute 194ac3f9 + ef734866. After 7713.
+- r20260926-232633-881f: gate (b) base 35e78c37 (gate_b3.sh XDIST_ONLY=1 NO_GPU=1). After ee99.
+- r20260926-232759-8412: FA2 exactness rerun at efb2bd4a. After 7713.
+- Next: gate (b) head at the final commit (same pod, same switches), jdiff; handoff; READY; PR; FINAL.
 
 ## Results
-- r20260926-203003-9768: bootstrap OK; tap build OK, NORM-TAP-OK sha256 e4a4924f.
-- r20260926-204311-f524: NORM-TAP-EXACTNESS OK, record digest abcd33208a41...d439: 62 kernel cases (32 CUDA, 30 Triton) + source check.
-  Every case: output == installed kernel, 0 unwritten rows, 0 scales != twin, 0 != IR model; CUDA == untapped build; Triton == vLLM's
-  launch, PTX arithmetic equal (73 ops; 57 without weight) + exactly 1 extra global store.
-- #101 tap off (Build/Match/Commit PASS): Program ccc213475e7c...00c6b, manifest 90f81868...eaac, run root 7adcef49...1dec5 = record.
-- #101 tap on (Commit PASS): manifest cfc7e16b...f572, 8,099 identities (+1,056 norm_scales), 9,471 words (fused 9,184 + Triton 287)
-  = plan's 9,471; run root 9c89049c...3b26 (never the record). Q_word_v1{16,32} strict: 9,471 acquired by a tap, passes.
-- Gate (b) base baa800c6 (r...78c0): 37 failed / 3,908 passed / 263 skipped. Head 75a10410 (r...3f50): 38 / 3,952 / 264; jdiff: 46 new
-  tests all pass; 1 new failure (test_no_new_dead_modules, fixed in 14ea93c6); the 1 new skip is the listed order-dependent test.
-- Gate (b) head 14ea93c6 (r20260926-214754-14b1): lints rc 0; 37 F / 3,954 P / 263 S / 6 xf; jdiff vs base rc 0 (46 new tests
-  pass, 0 outcome changes, 0 new failures, 0 new skips). `evidence/gate-b/`.
-- Partition checker (r20260926-220038-b8d6; the 20:48Z rule), on a LOCAL trial merge `23067146` (never pushed) of
-  cursor/no-recompute-partition-289b fd9f81e8 + 14ea93c6, Q_word_v1{X=16,W=32,R=no-recompute}: 19/19 norm specializations OK
-  (cut OK, width OK, 0 recomputed gates, 1 committed interior word per row = the tapped scale). #101 under the policy: norm groups
-  9,471 Calls, 38,214,911 units, 9,471 committed interior words, all acquired, 0 violations; whole #101: 46,558 Calls, 273,995,039
-  units, 64,169,215 committed interior words, one violation outside the norms (GumbelTopPTokenSelect_v1 gate-recomputed, 32 Calls,
-  same with the policy off). Merged-tree tests 177 passed, lints rc 0. `evidence/partition/`.
-- Custody: all 7 runs (9768, d287, f524, 78c0, 3f50, 14b1, b8d6) PRESERVED on R2.
-
-## Next
-- Done: merge-ready handoff `lanes/vllm-coordinator/20260926T2219Z-handoff-from-vllm-rf-normtap.md`, READY.md, PR #90 updated, FINAL.
-
-## Open questions
-- None blocking. The family is `norm_scales` (the brief said "for example `norm_scale`").
+- FA3 (H100, r20260926-232600-e66f, efb2bd4a): default record 635dcd3d OK (20 cases, 10 negatives); guarded record 5c83bcfe OK: 20/20 cases,
+  10/10 negatives, 40,122 guard words = GuardNegInfZero(row_max), first blocks 0, IR sample agrees, every other stream word = default's.
 
 ## Found, not fixed
-- No RunPod CPU stock at 20:52Z (cpu3g/3c/3m/5c/5g/5m at 8/16/32 vCPU): gate (b) runs on the L40S pod (base and head same pod).
-- Gemma (#57): Q_word's committed-boundary check partitions per Call, so the chain's interior Calls (square, mean, + eps) stay
-  `output-not-committed` with or without the scale; #57 has no passing Commit.
-- TP rows (rank workers) and H100 (FA3 rows) are not covered: the tap is attached by commit_delta only; exactness is on sm_89 only.
-- The partition checker (no-recompute rule) lives on cursor/no-recompute-partition-289b, not main; its `word.py` and this branch's
-  merge without conflict (this branch touches only `check_calls` / `check_query`).
-- Under the no-recompute rule the sampler `GumbelTopPTokenSelect_v1{V=128256}` recomputes a gate: a strict `--word-check 16/32` on #101
-  fails on it once that branch merges, tap on or off.
+- **max * scale is not in the stream.** The no-recompute cut commits `max_scaled = F32MulFtz(m_use, scale)` in every block (read by all the
+  block's exp2 units), and the plan's §3 and the no-recompute branch's `committed_today` map it to "ROW step", but ROW word 2 is the kernel's
+  visit index (`dst[2] = __int_as_float(vt_step)`).  So even with the guarded max the attention cut has one uncommitted value per
+  (head, block, row).  To confirm with the checker (8c37) and report to the coordinator.
+- The sampler (GumbelTopPTokenSelect_v1) recompute and Gemma's chain Calls (from the norm-scale lane) still stand.
+
+---
+## Norm-scale taps (PR #90, merged 35e78c37): FINAL 22:22Z; handoff 20260926T2219Z; exactness abcd3320; #101 off = record, on 9,471
+words; partition checker norms 19/19, 0 recomputed; gate (b) jdiff rc 0; pod yqvagba5ef4ckg terminated 22:17:54Z, ~$2.00.

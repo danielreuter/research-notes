@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: open
 ---
 
+CHECKPOINT a57628fc (10:08Z) [open] flock-ir-sampling/v1 GRANTED WITH CONDITIONS (S1 native check mandatory, IR2) at NON_ZK_PROOF; art:a330c568 + art:26b5f7d8 labelled; handoff lanes/flock-ir-sampling/20260926T1010Z (+coordinator copy). WAITING r20260926-100601-f937 (IR6 confirm at 2f55d2d3) on vy-red-team-flock-2, check after 10:20Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; next: NVFP4 5090 cells statement checks
 CHECKPOINT a57628fc (09:55Z) [open] WAITING r20260926-095238-19c8 on vy-red-team-flock-2 (x5f12wbrstpco1), check after 10:12Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; flock-ir-sampling: 32 captured rows clean word-for-word, lane netlist clean on 200k adversarial lanes; verdict drafted (GRANTED WITH CONDITIONS, S1 native check mandatory); next: pod negatives -> labels -> handoff. Queued: flock-backend 0945Z NVFP4 5090 cells, flock-ir-lowering 0922Z attention-head, 0832Z IR6 confirm
 CHECKPOINT a57628fc (09:50Z) [open] WAITING r20260926-094944-2a2a on vy-red-team-flock-2 (x5f12wbrstpco1, cpu3c-16), check after 10:15Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; flock-ir-sampling review: all 32 captured rows (both cells' verifier files, byte-identical) recomputed word-for-word from the IR primitives, clean; next: pod negatives, verdict, labels, handoff. Queued: flock-ir-lowering 0922Z attention-head, 0832Z IR6 confirm
 CHECKPOINT a57628fc (09:27Z) [open] woken 09:27Z: review GumbelTopPTokenSelect on C-Flock (ir_sampling.rs vs frame v2); cells L40S art:a330c568, H100 art:26b5f7d8; budget $2; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
@@ -292,3 +293,25 @@ NON_ZK_PROOF.** The detail is in `lanes/flock-ir-lowering/20260926T0755Z-handoff
 - **Pod:** sae80jd5y924p5, terminated; about $0.11.
 - **Handoffs received:** `20260926T0602Z-handoff-from-flock-ir-lowering.md` and `20260926T0640Z-handoff-from-flock-ir-lowering.md`,
   both acted on above.
+
+# flock-ir-sampling/v1 at PR #65 @ af0bd416 (09:30–10:10Z)
+
+**GRANTED WITH CONDITIONS at NON_ZK_PROOF.** Detail: `lanes/flock-ir-sampling/20260926T1010Z-handoff-from-red-team-flock-2.md`.
+
+- **Whole template or part:** a sound statement of the whole `GumbelTopPTokenSelect_v1{V}` only with S1, which makes the
+  verifier's native check (`check_native`) part of verification. Rust alone accepts forged keep bits, noise, seed or
+  splits: a forged keep bit moved the token 447 → 644 and was accepted.
+- **What the proof covers:** the lane arithmetic and the logits-row binding. The top-p pipeline and the Gumbel noise are
+  checked natively, not proven, and they are most of the template's arithmetic. The tempered row is public, so the
+  logits are revealed.
+- **Cells:** art:a330c568 (L40S) and art:26b5f7d8 (H100). Their verifier files are byte-identical. I recomputed all 32
+  captured rows word for word from the IR primitives, with 0 differences. Labels: `proof_class`, `finding` and `omitted`.
+- **Lane netlist against the IR composites:** 300,000 adversarial lanes, 0 mismatches.
+- **Chain:** pinned by the netlist, and read (not derived) by Rust. A chain-broken netlist was accepted under its own pin
+  and refused under the verifier's (hardening S2).
+- **Runs:** r20260926-095238-19c8 and r20260926-100146-0698 on x5f12wbrstpco1 (cpu3c-16).
+- **Scripts:** `evidence/samp_check.py`, `evidence/samp_tamper.py`, `evidence/pod-scripts/80-sampling.sh`.
+- **Handoff received:** `20260926T0922Z-handoff-from-flock-ir-sampling.md`, acted on.
+- **Queue:** the IR6 confirmation (2f55d2d3) is running as r20260926-100601-f937. After it come flock-backend's 09:45Z
+  NVFP4 5090 cells (statement checks; red-team-flock rules on the placement). The attention review moved to
+  red-team-flock-3.

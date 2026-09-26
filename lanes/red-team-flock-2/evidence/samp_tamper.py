@@ -168,10 +168,10 @@ def main():
         (out / "net-chain-broken.txt").write_text(ntext)
         h, pub, cuts = new()
         h["unit_sha256"] = hashlib.sha256(ntext.encode()).hexdigest()
-        t10 = rescan(cuts[I], V, {w: tok - 1})
+        toks = [(int(cuts0[k][base(V - 1) + 4]), rescan(cuts[k], V, {w: tok - 1})) for k in range(n)]   # the netlist is every instance's
         token_root(h, cuts, V)
-        cases["cut_chain_broken"] = (h, pub, cuts, f"lane {w} reads lane {tok - 1}'s carry (lane {tok} dropped): token {tok} -> {t10}; "
-                                                   f"netlist sha {h['unit_sha256'][:16]}")
+        cases["cut_chain_broken"] = (h, pub, cuts, f"lane {w} reads lane {tok - 1}'s carry in every instance (lane {tok} dropped): tokens "
+                                                   f"{toks}; netlist sha {h['unit_sha256'][:16]}")
     for name, (h, pub, cuts, what) in cases.items():
         path = out / f"t-{name}.bin"
         dump(path, h, logits, digests, pub, cuts)

@@ -35,11 +35,14 @@ print("TABLES", IL.write_tables(O + "/tables"))
 print("STAGED", p, S.public_sha256(p), S.check_native(p) or "check_native clean")
 EOF
 F=$D/st/frame-3.bin; NET=$D/st/net.txt; PIN=$(sha256sum $NET | cut -d' ' -f1)
-$PY $I/samp_check.py net $NET 1280 2>&1 | tee $O/check-net.txt
-$PY $I/samp_check.py file $F $NET 3 2>&1 | tee $O/check-file.txt
-$PY $I/samp_check.py lanes $NET 1280 100000 11 2>&1 | tee $O/check-lanes.txt
-$B selftest --tables $T --instances $F --netlist $NET > $O/selftest-cpu.txt 2>&1
-grep -h 'SELFTEST\|"pass":false\|REFUSED' $O/selftest-cpu.txt | cut -c1-400
+ONLY=${ONLY:-}   # one tamper case only (a rerun), no checks or selftest
+if [ -z "$ONLY" ]; then
+  $PY $I/samp_check.py net $NET 1280 2>&1 | tee $O/check-net.txt
+  $PY $I/samp_check.py file $F $NET 3 2>&1 | tee $O/check-file.txt
+  $PY $I/samp_check.py lanes $NET 1280 100000 11 2>&1 | tee $O/check-lanes.txt
+  $B selftest --tables $T --instances $F --netlist $NET > $O/selftest-cpu.txt 2>&1
+  grep -h 'SELFTEST\|"pass":false\|REFUSED' $O/selftest-cpu.txt | cut -c1-400
+fi
 $PY $I/samp_tamper.py $F $NET $D/t 2>&1 | tee $O/tamper.txt
 PORT=7410
 sv() {  # tag file netlist pin native_checked
@@ -57,9 +60,10 @@ sv() {  # tag file netlist pin native_checked
   echo "   prover: $(grep -h '^LIVE' $O/prove-$tag.txt | grep -o '"accepted":[a-z]*' | head -1) $(grep -h 'REFUSED\|refused\|panicked' $O/prove-$tag.txt | head -1 | cut -c1-200)"
   kill $sp 2>/dev/null; wait $sp 2>/dev/null
 }
-sv honest $F $NET $PIN $($PY -c "from verity_flock import ir_sampling as S; print(S.public_sha256('$F'))")
+[ -z "$ONLY" ] && sv honest $F $NET $PIN $($PY -c "from verity_flock import ir_sampling as S; print(S.public_sha256('$F'))")
 while IFS=$'\t' read -r tag name path sha what nat; do
   [ "$tag" = CASE ] || continue
+  [ -n "$ONLY" ] && [ "$name" != "$ONLY" ] && continue
   echo "-- $name: $what; $nat"
   if [ "$name" = cut_chain_broken ]; then
     NB=$D/t/net-chain-broken.txt
@@ -70,5 +74,5 @@ while IFS=$'\t' read -r tag name path sha what nat; do
   fi
 done < $O/tamper.txt
 K=$(awk -F'\t' '$2 == "kbit_forged" {print $4}' $O/tamper.txt)
-sv attest_names_another_file $F $NET $PIN $K
+[ -z "$ONLY" ] && sv attest_names_another_file $F $NET $PIN $K
 true

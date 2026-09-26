@@ -104,5 +104,5 @@ artifacts: none registered (no row reached a written export); runs preserved: r2
 No captured input sets came out of this lane.
 - **#57 Gemma** was skipped. It's FAIL-class, and its distinct templates have no evaluator.
 - **#74** needs an H100 host with at least 320 GB RAM running the unbounded Commit (and the Match at the 32 MiB cap), or the `--bounded-staging --retain-exclude` finalize fixed.
-- **#67** needs a re-run whose export budget starts after the population build. Otherwise raise `max_seconds` to about 2400 s through `limits.json`; that costs roughly another $3 of L40S time.
+- **#67** needs a re-run whose export budget starts after the population build, or `max_seconds` of about 2400 s through `limits.json`. Either way it's a whole row run: about 5 h on 2x L40S, roughly $11.
 - **Delivered:** the exporter support both rows need (PR #63: FP8 block and MoE expert coordinates, which main silently drops), the FP8 chain-set deriver (`evidence/derive_fp8_chain_sets.py`), and the memory and budget findings, all handed to their owners.

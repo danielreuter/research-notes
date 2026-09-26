@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (08:28Z) [final] FINAL: IR cells dd27fdab 8a07b80f 9563d2c8 63553a6c verified=accepted (file re-verification, r20260926-075751-1b20); pod terminated 08:28Z; ~$0.3 (lane ~$4.2); tip lane/verify-flock-ir 17baf43e
 CHECKPOINT 787ac154 (07:58Z) [open] IR cells: replay r20260926-075751-1b20 on vy-verify-flock-pure (pod ca9gpkk7znk58v) from lane/verify-flock-ir 17baf43e = c53d9148 + flock-ir-frame replay
 CHECKPOINT 787ac154 (07:52Z) [open] reopened for 4 elementwise flock-ir-frame/v2 cells (dd27fdab 8a07b80f 9563d2c8 63553a6c): NOT final
 CHECKPOINT 787ac154 (06:37Z) [final] FINAL: 8 real-K Flock cells verified=accepted (file re-verification; r20260926-051537-fde5, r20260926-061059-c818); 4 superseded fp8 cells accepted+noted; pod terminated 06:38Z; lane ~$3.9; tip lane/verify-flock-pure-realk 9bad7c7b
@@ -47,3 +48,5 @@ Reopened 23:04Z-00:37Z: labelled art:1589ffe1, art:c3e83404, art:7afeecbe, art:1
 Reopened 01:06Z-01:32Z: SHA-256 cells art:728d8724, art:df857ea6, art:fd772057, art:324888c5 verified=accepted (r20260926-011150-e4e9); handoff 20260926T0106Z-handoff-from-flock-backend.md acted on; sent coordinator 20260926T0132Z. Third pod 00e10u9jfgf327 terminated 01:31Z; lane total ~$3.2. Tip lane/verify-flock-pure 787ac154.
 
 Reopened 05:05Z-06:40Z: real-K cells art:5d2a91a7, ab115376, 149cdaf9, 673c1835, c767e092, bbb95342, 66d2412c, 1c520240 verified=accepted (superseded 43986c5d, c0999f7f, c200eef3, c4d03dd5 also accepted, noted); runs r20260926-051537-fde5, r20260926-061059-c818; handoff 20260926T0452Z-handoff-from-flock-backend.md acted on; sent coordinator 20260926T0640Z. Pod l64dreojqb1qpz terminated 06:38Z; lane total ~$3.9. Tip lane/verify-flock-pure-realk 9bad7c7b (lane/verify-flock-pure 787ac154 unchanged).
+
+Reopened 07:52Z-08:30Z: flock-ir-frame/v2 cells art:dd27fdab, 8a07b80f, 9563d2c8, 63553a6c verified=accepted (r20260926-075751-1b20; replay tool lane/verify-flock-ir 17baf43e); the brief handoff lanes/coordinator/20260926T0755Z-handoff-from-red-team-flock-2.md acted on; sent coordinator 20260926T0830Z. Pod ca9gpkk7znk58v terminated 08:28Z; lane total ~$4.2.

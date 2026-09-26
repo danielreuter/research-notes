@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT 93773ddc (03:20Z) [open] 10 layouts landed tonight (GEMM K2048/8192 on H100 fp8, H100 bf16 wgmma captured, 4090 fp8, A100 bf16 captured; fp4-nvf4 Fp4/ShaFp4 on 5090), all PRESERVED + handed off; branch merged with main (93773ddc), main gets it via flock-backend; no pods up; ~$9 of $40
 CHECKPOINT 0bb25e8a (02:58Z) [open] 8 layouts landed tonight: Chunk(n) GEMM K2048/8192 on H100 fp8, 4090 fp8, A100 bf16 (captured) + fp4-nvf4 Fp4 (5090 8192 VUs 0.31 s) and ShaFp4 (4096 VUs 0.32 s); all PRESERVED and handed off; next: H100 BF16 wgmma when wgmma-bf16 lands; no pods up; ~$6 of $40
 CHECKPOINT 758a8edf (02:25Z) [open] GEMM real K on C-Flock: 6 Chunk(n) layouts landed (fp8-ada K2048 4096 VUs 0.43 s, K8192 1024 0.43 s on 4090; bf16-ampere captured K2048 6272 2.8 s, K8192 1920 2.5 s on A100; fp8-hopper K2048 6272 0.64 s, K8192 1920 0.65 s on H100), all PRESERVED, handed off; next H100 BF16 wgmma when wgmma-bf16 lands; no pods up; ~$3.5 of $40
 CHECKPOINT 9ac6401f (00:41Z) [open] SHA-256 device witness landed: 4 frame-v3 SHA lines 0.8-2.5 s (H100 fp8 8192 0.8 s, bf16 1.48 s, A100 2.5 s, 4090 4096 0.75 s), custody PRESERVED; fp4-nvf4 unit circuit 7,681 rows, 0/172k mismatches, patch to flock-backend; 5090 layout waits on NVFP4 row format; no pods up

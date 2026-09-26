@@ -5,6 +5,7 @@ created: 2026-09-26T19:28Z
 status: open
 ---
 
+CHECKPOINT d51e4569 (22:03Z) [open] phase 2: tags/row-leaf/Merkle-scheme params (51a89fd8, 9605a77d, d51e4569 UNPUSHED: GitHub auth fails, bundle in evidence); tip 19c7269a vectors 25/25 agree art:81645236; SHA-512 + HM96 generic + retained round bytes; level-3 plan in a16z stages (draft note); next: lookups, forgeries, CI/fuzz, L3-F/L3-M
 CHECKPOINT 1e75394b (21:12Z) [open] phase 2 M1 DONE: Lean accepts honest circuit-statement session, rejects R-BREAK S13; 25/25 agree with upstream incl 23 re-digested mutants (art:f1f3c2aa); handoffs to flock-soundness (definitions) and flock-netlist (from_record fix); next: PR #83 tag rename, lookups, forgeries
 CHECKPOINT 1520c401 (20:55Z) [open] phase 2 M1: Lean verifier (commit 1520c401) accepts the honest circuit-statement session (RoPE, 8 inst, m=23) and rejects R-BREAK at S13; next: re-digested mutations for non-vacuity, upstream agreement, PR #83 rename
 CHECKPOINT 4f4a1aa7 (20:09Z) [open] phase 1 DONE, pushed: PR #85 tip 4f4a1aa7 (PROTOCOL.md, vectors.json, transcript_check.py; 50/50 art:430c513a; reader notes art:85c4b037); next: phase 2 Lean verifier on coordinator go

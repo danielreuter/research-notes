@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (10:46Z) [final] FINAL 11:10Z: route (a) re-sweep a0ca8ef6/a979dfcb NON_ZK_PROOF (rebuild identical, gate 10/10, negs rejected); A-fs 7ae6c190/0e1095f3 NON_ZK_PROOF_DIAGNOSTIC (transcript binds steps/units/circuit/y; 10/10 reps; negs rejected). No pods, $0.
 CHECKPOINT 3301c435 (10:37Z) [open] 10:38Z reopened: route (a) re-sweep cells a0ca8ef6 / a979dfcb, CPU only
 CHECKPOINT 3301c435 (10:22Z) [final] FINAL 11:00Z: ChunkTail(n) GRANTED WITH CONDITIONS (CT1-CT3; selftests K2304/K8960 bf16 + K2560 fp8 all_pass; older layouts byte-identical by replay). L40S cells labelled earlier. No pods, $0.
 CHECKPOINT 3301c435 (10:11Z) [blocked] 10:32Z: L40S GEMM cells df3d63e4/8bc3dba2 labelled NON_ZK_PROOF (PB1-PB4, CN1-CN2; replay 6/6 each). ChunkTail review BLOCKED: GitHub 401, need bundle of af2c3015 in lanes/red-team-flock/bundles/
@@ -901,3 +902,12 @@ PB1–PB4). My independent CPU selftests had all_pass at K 2304 and 8960 (bf16) 
 byte-identical: 5 recorded sessions replay accepted under af2c3015. Detail is in note
 `lanes/coordinator/20260926T1100Z-handoff-from-red-team-flock.md`. This answers
 20260926T1004Z-handoff-from-flock-gpu-link.md.
+
+## Route (a) re-sweep and A-fs at real K (11:10Z)
+
+- art:a0ca8ef6 and art:a979dfcb are labelled NON_ZK_PROOF. The statement rebuild is byte-identical, the gate passed on
+  10 of 10 sessions, and the negatives were rejected.
+- art:7ae6c190 and art:0e1095f3 (A-fs) are labelled NON_ZK_PROOF_DIAGNOSTIC. The transcript binds steps, units, the
+  circuit and y; all 10 reps were accepted, and the relabel and tamper negatives were rejected.
+
+Detail is in note `lanes/coordinator/20260926T1110Z-handoff-from-red-team-flock.md`.

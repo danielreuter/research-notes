@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (09:40Z) [open] agkr-real-k: replay r20260926-093954-dfd7 on vy-verify-flock-pure (pod 7l4nmzucy5407i, cpu3c-16), lane/verify-agkr-real-k 672dff53 (PR #69 a7500a4b + verify-cells.sh)
 CHECKPOINT 787ac154 (09:34Z) [open] reopened for agkr-real-k route (a) cells 95fdd0ae 20197f8b: NOT final
 CHECKPOINT 787ac154 (08:29Z) [final] FINAL: IR cells dd27fdab 8a07b80f 9563d2c8 63553a6c verified=accepted (file re-verification, r20260926-075751-1b20); pod terminated 08:28Z; ~$0.3 (lane ~$4.2); tip lane/verify-flock-ir 17baf43e
 CHECKPOINT 787ac154 (08:28Z) [final] FINAL: IR cells dd27fdab 8a07b80f 9563d2c8 63553a6c verified=accepted (file re-verification, r20260926-075751-1b20); pod terminated 08:28Z; ~$0.3 (lane ~$4.2); tip lane/verify-flock-ir 17baf43e

@@ -2,9 +2,10 @@
 lane: vllm-rf-m32
 kind: report
 created: 2026-09-25T21:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT d4200876 (14:09Z) [final] FINAL. PR #77 follow-up d4200876: a placeholder (empty run root) Commit verifies no opening (verify requires a 32-byte run root; _run_root total); test + local run (3 + 13 pass); handoff 1415Z. No pods; all terminated. Spend ~$9.7 total
 CHECKPOINT 7438b2a5 (14:07Z) [open] reopened for PR #77 follow-up test (empty run root never verifies): NOT final; CPU only, no pod
 CHECKPOINT 7438b2a5 (14:04Z) [final] FINAL. task 5: PR #77 lane/vllm-rf-bounded-finalize 7438b2a5 merge-ready (finalize skips the fold over learn-only placeholder roots, digest-neutral; bounded exclude pool counts levels; #74 admission: unbounded 282,367 refused, bounded 142,957 admitted; gates r20260926-133406-4d7c + r20260926-140124-74e1 PRESERVED; handoff 1405Z). All pods terminated (vyv-rf-m32-bf 14:03Z). Spend ~$9.7
 CHECKPOINT a61be4ba (13:35Z) [open] task 5: PR #77 lane/vllm-rf-bounded-finalize a61be4ba (finalize placeholder roots; bounded pool levels). WAIT vyv-rf-m32-bf r20260926-133406-4d7c check-back 14:05Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: lints + tests/commit + admission tests head/base

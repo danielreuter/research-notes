@@ -2,9 +2,10 @@
 lane: red-team-flock-3
 kind: report
 created: 2026-09-26T09:58Z
-status: open
+status: final
 ---
 
+CHECKPOINT e5493f9f (12:58Z) [final] FINAL attention flock-ir-frame/v3 GRANTED W/ CONDITIONS NON_ZK_PROOF (AC1-AC4); all 16 cited L40S cells (ece9fdd2) + 11 superseded: cell_check PASS, placement SEPARATE (PR #74 clean), labelled NON_ZK_PROOF; 0 IR mismatches (2e7 TC vectors, 2^32 tail prims, 4,048 heads); 60 negatives refused; art:25c96f97 art:c185d38b; pod terminated 11:03Z ~$0.32
 CHECKPOINT e5493f9f (12:17Z) [open] WAITING last 8 ece9fdd2 attention re-runs (T=4,128..132,256,257), check after 12:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; placement (red-team-flock 12:00Z ruling): all 19 cells SEPARATE (machines av7yp9ygnbzg vs oc60c34mphhh, boot/kernel/CPU/GPU differ, 10.x routed; PR #74 separation() clean), labels stay NON_ZK_PROOF, findings re-labelled with placement
 CHECKPOINT e5493f9f (12:11Z) [open] WAITING flock-ir-lowering's last ece9fdd2 re-runs (T=4,128..132,256,257) on vy-flock-ir-lowering-nc-l40s, check after 12:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; done: 8 ece9fdd2 cells PASS+labelled (T=1,2,3,258..261,287: art:3b8280fa baa539f8 0051325c 327e9366 a552878e 186b9949 f52bf885 298d4c14); next: last 8, then FINAL
 CHECKPOINT e5493f9f (11:17Z) [open] WAITING r20260926-110548-5012 (flock-ir-lowering T=258 prover) on vy-flock-ir-lowering-nc-l40s, check after 12:05Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: cell_check + label the 16 ece9fdd2 re-run cells (harness-only, in grant), then FINAL
@@ -153,13 +154,21 @@ Per cell:
   exchange and require_link is true.
 - The rows equal the registered per-T set, its key count is T only, and file outputs = IR = captured.
 
-### The ece9fdd2 re-runs (14 threads; the cells the producer cites), checked and labelled NON_ZK_PROOF at 12:11Z
+### The ece9fdd2 re-runs (14 threads; the cells the producer cites): all 16 checked and labelled NON_ZK_PROOF (12:11Z and 12:59Z)
 
 | cell | T | pin | B | verifier run | check |
 |---|---|---|---|---|---|
 | art:3b8280fa | 1 | fa983f8b | 64 | r20260926-115337-4e65 | PASS |
 | art:baa539f8 | 2 | 26e82ebc | 64 | r20260926-115635-65c6 | PASS |
 | art:0051325c | 3 | 40aae6da | 64 | r20260926-115949-4f4e | PASS |
+| art:08a853f6 | 4 | a5b162b3 | 64 | r20260926-120305-0ace | PASS |
+| art:73bd2c2b | 128 | ed0d3a85 | 16 | r20260926-120619-1835 | PASS |
+| art:d5b0ae9f | 129 | 1222f111 | 32 | r20260926-120949-1a04 | PASS |
+| art:3117572d | 130 | e9f338d4 | 16 | r20260926-121438-77ee | PASS |
+| art:645a8359 | 131 | 007ae342 | 16 | r20260926-121841-dbbe | PASS |
+| art:d18e0ae3 | 132 | 0c6ac6ef | 16 | r20260926-122243-6479 | PASS |
+| art:ccede46a | 256 | e75c379d | 8 | r20260926-122702-a807 | PASS |
+| art:73750ffa | 257 | 42a56905 | 8 | r20260926-123136-17aa | PASS |
 | art:327e9366 | 258 | 8cfef22b | 16 | r20260926-110539-ec03 | PASS |
 | art:a552878e | 259 | 572c4a2d | 8 | r20260926-113109-f951 | PASS |
 | art:186b9949 | 260 | 91e5e009 | 8 | r20260926-113647-48f1 | PASS |
@@ -169,13 +178,13 @@ Per cell:
 Every pin equals my reviewed per-T pin. The same checks as above apply: one sub-batch, 6 accepted verifier sessions plus the
 probe, link exchange and require_link. Labelled with `evidence/label_cells.sh`.
 
-### Placement: prover and verifier on separate machines (red-team-flock's 12:00Z ruling), all 19 cells, 12:16Z
+### Placement: prover and verifier on separate machines (red-team-flock's 12:00Z ruling), all 27 cells (19 at 12:16Z, 8 at 12:58Z)
 
 The ruling: a verifier on the prover's physical machine is not a separate verifier. `evidence/placement_check.py` reads each
 cell's two run records (`job.json` environment and `out/host.txt`) and the RunPod API for the pod each attempt recorded. It
 then runs PR #74's `separation()` (main, merged 12:04Z) on the merged identities.
 
-- **Every cell (all 19): SEPARATE.** PR #74's `separation()` gives no reason against any of them.
+- **Every cell (all 27): SEPARATE.** PR #74's `separation()` gives no reason against any of them.
 - **The prover and verifier differ on all seven recorded axes:**
 
   | axis | prover | verifier |
@@ -194,8 +203,9 @@ then runs PR #74's `separation()` (main, merged 12:04Z) on the merged identities
 - **Labels:** no cell is co-resident, so every label stays `NON_ZK_PROOF`. Each finding was re-labelled at 12:16Z with the
   placement evidence, by `evidence/label_cells.sh`, which now runs the placement check before labelling. A pair not shown
   separate would get `NON_ZK_PROOF_DIAGNOSTIC`.
-- **Outputs:** `evidence/placement-20260926T1216Z.jsonl`, `evidence/check-cells-20260926T1105Z.txt` and
-  `evidence/check-cells-20260926T1210Z.txt`.
+- **Outputs:** `evidence/placement-20260926T1216Z.jsonl`, `evidence/placement-20260926T1258Z.jsonl` and
+  `evidence/check-cells-20260926T{1105,1210,1255}Z.txt`. All of them, with the three local runs' logs, are preserved as
+  art:c185d38b.
 
 ## Findings (none reachable by a cheating prover)
 
@@ -239,3 +249,55 @@ Handoffs received:
     scripts. It is inside the grant (AC2).
   - All 16 T values are being re-run at ece9fdd2 through ~12:40Z. I check and label those as they land; the producer
     labels the first twelve superseded.
+
+## FINAL
+
+~~~text
+tip: none (red-team lane; notes only, no code commits; reviewed PR #54 @ 22dc6320 / 0839742b / ece9fdd2)   merge-with: none
+known-failures: none    pod: dq3xclby5ni4ic terminated 11:03Z (after custody); ~$0.32
+artifacts: art:25c96f97 art:c185d38b
+~~~
+
+**The verdict.** #101's attention head on C-Flock, `verity/flock-ir-frame/v3` (AttentionHead_v3{T, D=64, BN=128}, one
+statement per T), is **GRANTED WITH CONDITIONS at NON_ZK_PROOF**. It holds at 22dc6320, 0839742b and ece9fdd2, which
+differ only in a tag string and the pod scripts' thread count.
+- **The exactness bar is met.** Against the IR there are 0 mismatches:
+  - the tensor-core step netlist, on 2.0e7 adversarial vectors;
+  - the Rust tail, exhaustively over all 2^32 inputs of each unary primitive, and on 6.3 M binary and ternary cases;
+  - the whole head, on all 1,024 captured heads and 3,024 adversarial heads (NaN, inf, subnormal, extreme scores,
+    all-scores −inf rows, 21 T values).
+- **Every attack was refused:** 19 prover-side, 34 load, 4 consistent restatements and 3 T/set-confusion attacks.
+- **Conditions AC1–AC4:**
+  - the verifier stages its own file, with T from its own set;
+  - a cell counts only at a reviewed commit and pin with a `cell_check` PASS;
+  - the headline footnotes that the softmax is checked natively, not proven (4–11% of the head's scalar ops), and that
+    each cell covers its own T;
+  - the verifier sits on another physical machine, and a verify-* replay follows.
+
+**Cells.** All 16 L40S cells the producer cites (ece9fdd2) are labelled `proof_class NON_ZK_PROOF` with a `finding`, by
+red-team-flock-3, ref r20260926-103512-bb40: T=1 art:3b8280fa, 2 art:baa539f8, 3 art:0051325c, 4 art:08a853f6,
+128 art:73bd2c2b, 129 art:d5b0ae9f, 130 art:3117572d, 131 art:645a8359, 132 art:d18e0ae3, 256 art:ccede46a,
+257 art:73750ffa, 258 art:327e9366, 259 art:a552878e, 260 art:186b9949, 261 art:f52bf885, 287 art:298d4c14.
+- The 11 superseded 128-thread cells carry the same labels: art:97407c51 (T=1), a24437b6, 1e1c2a5f, 308df7ad, 7c3c5497,
+  d1963e64, 73a507ee, 349645c1, 11f80605, b0eaffa3 and 07f55572.
+- Every cell's verifier-staged statement passes `cell_check.py`.
+- Every cell's prover and verifier were on separate physical machines (red-team-flock's 12:00Z ruling). The machine ids,
+  public IPs, boot ids, kernels, CPUs and GPUs all differ, the link is routed, and PR #74's `separation()` is clean. So no
+  cell is `NON_ZK_PROOF_DIAGNOSTIC`, and no re-run is needed.
+
+**Evidence:**
+- pod run r20260926-103512-bb40 (art:25c96f97: selftests, attacks, tampers, sessions, the exhaustive tail);
+- local recorded runs r20260926-103647-114d, r20260926-104127-079a and r20260926-103647-17e8 (logs in art:c185d38b);
+- the scripts in `evidence/`.
+
+**Handoffs sent:**
+- `lanes/flock-ir-lowering/20260926T1115Z-handoff-from-red-team-flock-3.md` (the verdict) and `…T1300Z…` (all 16 cells,
+  placement);
+- copies in `lanes/coordinator/`;
+- `lanes/red-team-flock-2/20260926T1115Z-handoff-from-red-team-flock-3.md` (review taken over).
+
+**Handoffs received:**
+- `lanes/red-team-flock-2/20260926T0922Z-handoff-from-flock-ir-lowering.md`;
+- `lanes/red-team-flock-3/20260926T1112Z-handoff-from-flock-ir-lowering.md`.
+
+Both are acted on above.

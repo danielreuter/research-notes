@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: open
 ---
 
+CHECKPOINT a57628fc (05:41Z) [open] RMSNorm fused+Triton @34d02ae3 GRANTED W/ CONDITIONS (relation-only); IR1/IR2 MET; new IR4 (cut structure unpinned: eps forgery accepted) + IR5 (tail add/mul 2-NaN); rope/silu v2 byte-identical; art:3591d6ef; labels art:7342c52d/44d7c8d0/a4f38fc0; pods terminated; IDLE until woken; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (05:18Z) [open] RMSNorm review @34d02ae3: rope/silu v2 rows byte-identical (2eaa652f/3b1ed294); fused units 0/7680 lanes vs IR on 240 adversarial rows (VM); tail_program == IR cut words; IR4 candidate (Rust tail not pinned; eps forgery built). Pod run next: tail prims, triton, loadchecks, tampers
 CHECKPOINT a57628fc (05:03Z) [open] woken 05:03Z: review RMSNorm (fused CUDA + Triton) + IR1/IR2 fix @34d02ae3 (PR #54); rope/silu v2 byte-identity; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (04:48Z) [open] PR54 rope/silu GRANTED W/ CONDITIONS (IR1 cut tail, IR2 own staging, IR3 no cell) art:f29e8ac5 art:07f51904; NV5 MET, NVFP4 NV1-5 all met art:562868e6 (handoff 0451Z to flock-backend); pod-create.sh fixed; pods terminated ~$0.5 lane total. Next: RMSNorm 0435Z review; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241

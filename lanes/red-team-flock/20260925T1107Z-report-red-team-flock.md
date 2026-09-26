@@ -5,6 +5,8 @@ created: 2026-09-25T11:07Z
 status: open
 ---
 
+CHECKPOINT 3301c435 (03:13Z) [open] 03:30Z: NV1 checked on the 9 published Flock cells: verifier files consistent (y == y_public(out)); grants stand + NV1 condition; labelled. Chunk(n) review continuing
+CHECKPOINT 3301c435 (02:37Z) [open] 02:45Z: Chunk(n) code/instances/wgmma pin checked clean; CPU selftest pod (cpu3c-8) running
 CHECKPOINT 3301c435 (02:32Z) [open] reopened 02:33Z: Chunk(n) layouts (K=2048/8192) + bf16-hopper-wgmma pin 12c3c8d3
 CHECKPOINT 3301c435 (01:20Z) [final] labelled NON_ZK_PROOF: art:167e64a8, c3e83404, 7afeecbe (e52eca82 = a6a6e548 + Ping, separate pods, 6/6); flock-vllm-block/v1 already granted 00:15Z. No pods.
 CHECKPOINT 3301c435 (01:18Z) [final] art:167e64a8 labelled NON_ZK_PROOF (e52eca82 = a6a6e548 + Ping, separate pod, 6/6); flock-vllm-block/v1 already granted 00:15Z (art:56f792bd labelled). No pods.

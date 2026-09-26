@@ -1,0 +1,7 @@
+# machine vy-bligero-real-k-4090: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "c7dggmlena8z5d"
+project = "verity"
+guard = 60
+registered_by = "cursor"
+registered_at = "2026-09-26T05:41Z"

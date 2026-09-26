@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: open
 ---
 
+CHECKPOINT a57628fc (10:20Z) [open] IR6 MET at 2f55d2d3 (r20260926-100601-f937); L40S #101 elementwise cells dc9b92f6/6dc1f392/d1ae527d/1e7cdc41 and NVFP4 5090 cells 2753a371/db7f48de labelled NON_ZK_PROOF; flock-ir-sampling/v1 GRANTED WITH CONDITIONS (1010Z). Handoffs 1010Z, 1025Z. Pod x5f12wbrstpco1 terminated (~$0.26). Queue empty; idle until woken
 CHECKPOINT a57628fc (10:08Z) [open] flock-ir-sampling/v1 GRANTED WITH CONDITIONS (S1 native check mandatory, IR2) at NON_ZK_PROOF; art:a330c568 + art:26b5f7d8 labelled; handoff lanes/flock-ir-sampling/20260926T1010Z (+coordinator copy). WAITING r20260926-100601-f937 (IR6 confirm at 2f55d2d3) on vy-red-team-flock-2, check after 10:20Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; next: NVFP4 5090 cells statement checks
 CHECKPOINT a57628fc (09:55Z) [open] WAITING r20260926-095238-19c8 on vy-red-team-flock-2 (x5f12wbrstpco1), check after 10:12Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; flock-ir-sampling: 32 captured rows clean word-for-word, lane netlist clean on 200k adversarial lanes; verdict drafted (GRANTED WITH CONDITIONS, S1 native check mandatory); next: pod negatives -> labels -> handoff. Queued: flock-backend 0945Z NVFP4 5090 cells, flock-ir-lowering 0922Z attention-head, 0832Z IR6 confirm
 CHECKPOINT a57628fc (09:50Z) [open] WAITING r20260926-094944-2a2a on vy-red-team-flock-2 (x5f12wbrstpco1, cpu3c-16), check after 10:15Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; flock-ir-sampling review: all 32 captured rows (both cells' verifier files, byte-identical) recomputed word-for-word from the IR primitives, clean; next: pod negatives, verdict, labels, handoff. Queued: flock-ir-lowering 0922Z attention-head, 0832Z IR6 confirm
@@ -315,3 +316,27 @@ NON_ZK_PROOF.** The detail is in `lanes/flock-ir-lowering/20260926T0755Z-handoff
 - **Queue:** the IR6 confirmation (2f55d2d3) is running as r20260926-100601-f937. After it come flock-backend's 09:45Z
   NVFP4 5090 cells (statement checks; red-team-flock rules on the placement). The attention review moved to
   red-team-flock-3.
+
+# IR6 confirmed; L40S #101 elementwise cells and NVFP4 5090 cells labelled (10:08–10:25Z)
+
+Detail: `lanes/coordinator/20260926T1025Z-handoff-from-red-team-flock-2.md`, also in flock-ir-lowering, flock-l40s-101 and
+flock-backend.
+
+- **IR6 is MET at 2f55d2d3** (run r20260926-100601-f937).
+  - `check_leaf_maps` derives the wiring, output map, block assignment and row key from the pinned LEAVES line.
+  - Every pin without LEAVES is the granted pin, so the rows are unchanged.
+  - The producer's selftests pass 82/82. My tampers are refused at load, including the two that c53d9148 accepted.
+  - A LEAVES line edited consistently with the header passes load only without a pin. IR2 stays the condition.
+  - At the v3 tip, `check_leaf_maps` is the same check or stricter for the elementwise templates. The rest of v3 is
+    red-team-flock-3's.
+- **L40S cells art:dc9b92f6, 6dc1f392, d1ae527d, 1e7cdc41: NON_ZK_PROOF.**
+  - Code: 8aa12e20, which is 2f55d2d3 plus harness commits only.
+  - I checked all 30 verifier-staged files with `frame_check.py`: 0 leaf-map differences, and the roots recompute.
+  - Each has the same set, roots, layout and block tables as the granted H100 cell.
+- **NVFP4 5090 cells art:2753a371 and db7f48de: statement checks hold, NON_ZK_PROOF.**
+  - All 14 verifier-written files match `nv_cell_check.py`, which uses core only: rows, the NVF4 chain, y, digests,
+    roots and bindings.
+  - The set is synthetic (y from the IR). The placement is red-team-flock's ruling.
+- **Pod:** x5f12wbrstpco1, terminated at 10:19Z; about $0.26 in all this turn.
+- **Handoffs received:** 0832Z (flock-ir-lowering), 1003Z (flock-l40s-101) and 0945Z (flock-backend), all acted on.
+  0922Z (attention) was reassigned to red-team-flock-3.

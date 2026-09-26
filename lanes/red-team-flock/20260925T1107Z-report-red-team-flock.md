@@ -5,6 +5,7 @@ created: 2026-09-25T11:07Z
 status: open
 ---
 
+CHECKPOINT 3301c435 (05:04Z) [open] 05:05Z: 8 cells: PB1/PB2/PB4/CN1/CN2 met from records; wgmma y verified = Hopper model (1 and 3 words differ from A100 set); PB3 replay pod running (cpu3c-16)
 CHECKPOINT 3301c435 (04:51Z) [open] 04:52Z reopened: per-cell PB1-PB4/CN1-CN2 on flock-backend's 8 real-K Chunk(n)/wgmma cells (CPU only)
 CHECKPOINT 3301c435 (04:26Z) [final] 04:35Z: e4f631bd admission matches CN1-CN3 (code read, CPU only); finding labelled on the 8 Chunk(n) evidence arts
 CHECKPOINT 3301c435 (04:17Z) [final] 04:22Z: Chunk(n) GRANTED WITH CONDITIONS CN1-CN3; wgmma pin 12c3c8d3 GRANTED; 8 evidence arts labelled; all handoffs answered in report; NVFP4 with red-team-flock-2

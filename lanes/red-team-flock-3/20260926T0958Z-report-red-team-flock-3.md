@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (22:39Z) [open] PR #91 rulings: CONCUR (1) drop product_uuid under S1 (boot_id host-level on bare metal; U2 equal-uuid still refuses, U3 register checks drop uuid) (2) RTT connects to sshd :22 same .runpod.internal address (R1 all 30 must succeed); UL2 verified at 4f5704c0 (8449-row refused, finite vLLM digest 4127c00b unchanged) -> PR #87 no open conditions; total GEMM grant stands; 9 cells await PR #91 + #87 merge; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (22:04Z) [open] shared-NAT-IP placement (coordinator 22:02Z): CONCUR with S1-S5 (S1 new: bare metal on both pods, since VM product_uuid/boot_id are per-VM; S2 evaluate from probes at plan+register; S3 only <pod>.runpod.internal 10/8; S4 kernel TCP RTT on session route; S5 record); reply lanes/coordinator/20260926T2205Z, copy to bench-spine; total GEMM grant stands; 9 cells not yet run; GitHub token expired here ~21:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:49Z) [open] WAITING the 9 total GEMM cells (flock-backend go 20:55Z at d2292e3b); tools ready: evidence/gemm_cell_check.py (validated on art:73a9e9f3: 14/14 checks incl. replay + instance regen), label_gemm_cells.sh, placement_check.py (now GEMM + terminated pods via recorded placement); poller /tmp/rtf3/poll-gemm.sh; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:47Z) [open] GRANT covers d2292e3b (TG1 met: gate r20260926-202308-c367 8/8 selftests + 5/5 negs GPU; TG3 withdrawn by naming rule; TG4/TG5 fixed); PR #87 GRANTED (UL2 merge cond open); WAITING the 9 total cells to check+label with gemm_cell_check.py (validated on art:73a9e9f3); agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -545,6 +546,25 @@ The conditions:
 - **S5:** record all of it.
 
 Replies: `lanes/coordinator/20260926T2205Z-handoff-from-red-team-flock-3.md`, copied to bench-spine.
+
+**PR #91 (bench-spine, c27c991b), 22:40Z: both questions answered CONCUR.** I read the patch and `placement.py` from its
+bundles.
+
+1. **Drop `product_uuid` under S1** (it is 0400 and unreadable on RunPod, even as uid 0).
+   - With S1 shown, the uuid adds nothing: on bare metal, `boot_id` is the host kernel's id, so differing `boot_id`s mean
+     different machines, and the machine id corroborates.
+   - **U2:** a readable, equal uuid still refuses, and an unreadable one is recorded as such.
+   - **U3:** S2's register checks drop the uuid consistently.
+   - Tests to match.
+2. **RTT connects to sshd at `<pod>.runpod.internal:22`.** It's the same resolved address (`target_ip == peer_ip`), and
+   `connect()` completes in the kernel.
+   - **R1:** all 30 connects must succeed.
+   - **R2 (optional):** keep socket setup outside the timer.
+
+**UL2 verified at 4f5704c0.** The 8,449-row netlist is refused, the finite vLLM digest 4127c00b is unchanged, and the
+negative test passes. PR #87 has no open conditions.
+
+Reply: `lanes/coordinator/20260926T2240Z-handoff-from-red-team-flock-3.md`, copied to bench-spine and flock-gpu-link.
 
 ### Pre-grant checklist
 

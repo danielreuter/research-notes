@@ -5,6 +5,7 @@ created: 2026-09-26T08:06Z
 status: open
 ---
 
+CHECKPOINT 1a1bb6a2 (12:56Z) [open] WAITING K=8192 cell: ver r20260926-125631-da8a on vy-agkr-l40s-ver, prover r20260926-125635-ef93 on vy-agkr-l40s
 CHECKPOINT 1a1bb6a2 (12:54Z) [open] WAITING K=2048 cell: ver r20260926-125401-70f5 on vy-agkr-l40s-ver, prover r20260926-125412-a615 on vy-agkr-l40s
 CHECKPOINT 1a1bb6a2 (12:53Z) [open] pause lifted: pods vy-agkr-l40s + vy-agkr-l40s-ver in US-MD-1 (verifier 10.0.129.112:7200, sshd 7201); launching: k2048 k8192
 CHECKPOINT c1e7bded (12:50Z) [open] WAITING K=8192 cell: ver r20260926-125010-7e7f on vy-agkr-l40s-ver, prover r20260926-125013-271e on vy-agkr-l40s

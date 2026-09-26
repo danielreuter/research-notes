@@ -1,0 +1,7 @@
+# machine vy-bligero-real-k-verifier-is1: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "csw3b5axadzgwb"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-26T05:41Z"

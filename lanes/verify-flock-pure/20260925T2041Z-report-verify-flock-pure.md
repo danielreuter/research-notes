@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (13:45Z) [open] attention 16/16 + 73a9e9f3 labelled (handoff 1345Z). Elementwise rerun r20260926-134443-d51e (e1f47264; first run 3a8f failed in staging: Namespace lacked template, fixed); labels after red-team-flock-2
 CHECKPOINT 787ac154 (13:27Z) [open] attention 12/16 labelled; queued: g101 art:73a9e9f3 r20260926-132002-2736 (a8ce768a), then 6 elementwise r20260926-132617-3a8f (lane/verify-flock-a8ce 9623e555 = a8ce768a + replay), labels after red-team-flock-2
 CHECKPOINT 787ac154 (13:07Z) [open] attention: 3 of 16 labelled; run1 r20260926-125610-f2a9 (8 registered T), run2 r20260926-130557-516c queued behind it (T=4,128-132,256,257: 08a853f6 73bd2c2b d5b0ae9f 3117572d 645a8359 d18e0ae3 ccede46a 73750ffa); all 16 plateau proofs = recorded
 CHECKPOINT 787ac154 (12:57Z) [open] attention: replay r20260926-125610-f2a9 of the 8 registered T cells on vy-verify-flock-pure (pod 0esosgqno3wm2v) from lane/verify-flock-attn (ece9fdd2 + replay; local, push pending on GitHub auth); polling for the other 8

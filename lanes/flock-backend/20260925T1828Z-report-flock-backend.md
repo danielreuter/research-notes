@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT d2292e3b (21:52Z) [blocked] total unit granted (rtf3 2035Z), TG4/TG5 fixed @d2292e3b, TG1 gate on L40S prover r20260926-213915-70e3 OK; 9 cells refused by bench.cell placement (shared NAT public_ip 91.199.227.82, EU-NL-1 L40S+H100, distinct machine ids); hour limit hit -> options to coordinator 2200Z; no pods (~$2 today); agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT d4627b62 (20:16Z) [open] total unit wired @38dfd8c (unit_total, bf16-ampere-total pin fef256df, statement verity/flock-pure-block-total, domain total; CPU self-check/selftests/NaN-inf negatives pass); waiting on red-team-flock review (2045Z) of it + PR #87 before the 9-cell L40S queue; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 755a397e (18:21Z) [blocked] restart 1820Z: total tc_dot16 unit does not fit the 2^13 pure-block unit (compact total 7,520 ANDs vs 7,168 max; fp.tc_dot16 8,700); compact unit checked 0/12,800 vs tc_dot_total; options (A) UNIT_LOG 14 by flock-gpu-link, (B) cut census ANDs, (C) finite not allowed; handoff 1855Z; no pods, $0; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 755a397e (16:30Z) [final] FINAL: L40S re-runs (5) + ChunkTail cells (2) are a capacity gap (no routed L40S pair 11:50-16:30Z; handoff 1632Z); NVFP4 frozen-set re-run and captured-FP8 H100 re-run still open; branch 755a397e sent as bundle 1515Z (gh token expired); no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

@@ -41,7 +41,7 @@ and bench.cell.
   of `system_bytes(hashchain.compose(relation("<fold>-k<K>"), leaf).sys)`.
   - The torch-free compile takes about 5 s per system on a VM CPU.
   - Check each with `ligero-verify system-digest --system <file>`.
-- **Recipe:** notes `lanes/bligero-real-k/evidence/pins-vm-compile.json` (my values), and `/tmp/pins.py` inlined in the
+- **Recipe:** notes `lanes/bligero-real-k/evidence/pins-vm-compile.json` (my values), and `evidence/pins-recipe.py` in the
   lane report.
 - **Gadget gate:** r20260926-042639-c562 on an L40S. All 16 passed (8 honest sub-batches accepted, 86/86 negatives rejected),
   and each fixture verified pinned. Summary: notes `evidence/gates-r20260926-042639-c562.json`.

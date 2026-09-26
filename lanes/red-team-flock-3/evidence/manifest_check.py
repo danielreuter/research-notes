@@ -47,7 +47,7 @@ def main():
             problems.append(f"T={T} outside my reference table"); break
         if nets.get(T) != per[T]["net"]:
             problems.append(f"T={T}: nets {str(nets.get(T))[:16]} != reviewed generator {per[T]['net'][:16]}")
-    if m.get("unit_rows") not in (ref["unit_rows_sha256"], None):
+    if m.get("unit_rows") not in (ref["unit_rows_sha256"], ref.get("unit_rows_header_sha256")):
         problems.append(f"unit_rows {str(m.get('unit_rows'))[:16]} != the rows every T shares {ref['unit_rows_sha256'][:16]} (check the definition)")
     print("MANIFEST", json.dumps({k: (v if k != "nets" else f"{len(v)} entries") for k, v in m.items()}))
     print("MANIFEST_CHECK", "PASS" if not problems else "FAIL", json.dumps({"sha256": sha, "T": [lo, hi], "problems": problems[:10]}))

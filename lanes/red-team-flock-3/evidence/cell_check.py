@@ -108,11 +108,13 @@ def main():
         cap = np.stack([np.concatenate([cq[i], ck[i], cv[i]]).astype(np.uint64) for i in range(lo, hi)])
         res["rows_equal_input_set"] = bool((cap == flat).all())
         res["captured_out_vs_file_words"] = int((np.stack([np.asarray(co[i], dtype=np.uint64) for i in range(lo, hi)]) != fo).sum())
-        res["set_key_counts"] = sorted({len(x) // D for x in ck})
+        # the key count of the set's instances in this file's range (a per-T set has one T; a class set has one T per sub-batch)
+        res["range_key_counts"] = sorted({len(ck[i]) // D for i in range(lo, hi)})
+        res["set_key_counts"] = len({len(x) // D for x in ck})
     print("E2E", json.dumps(res))
     ok = same and not bad and seen_runs == want_runs and ok_d and ok_r and res["undetermined"] == 0 and res["sat"] and \
         res["cut_mismatch_words"] == 0 and res["out_mismatch_words_vs_file"] == 0 and res["ir_vs_file_out_words"] == 0 and \
-        res.get("rows_equal_input_set", True) and res.get("captured_out_vs_file_words", 0) == 0 and res.get("set_key_counts", [T]) == [T]
+        res.get("rows_equal_input_set", True) and res.get("captured_out_vs_file_words", 0) == 0 and res.get("range_key_counts", [T]) == [T]
     print("CELL_CHECK", "PASS" if ok else "FAIL", ipath)
 
 

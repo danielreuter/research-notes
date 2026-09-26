@@ -1,0 +1,18 @@
+research: r20260926-073309-3956 observed 2026-09-26T08:46:10.745Z: failed rc=143 class=UNKNOWN_SIGNAL result=absent  preserved=yes
+terminated 5xqlhcoxsjg96c
+vy-bligero-real-k-verifier-ga2b (pod 5xqlhcoxsjg96c, host 46f6d95a5374): 1 attempt(s) recorded on it; 0 NOT preserved, 1 preserved  [mode head]
+  preserved      r20260926-065319-bf61  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+TERMINATED: all 1 attempt(s) preserved
+research: HEAD objects/sha256/837528cc5215e1c3e5a6fe74aaa64f77af4f07f4a39cd4940b2dc06fe69f2581: no response within 30s (try 1 of 2); retrying
+terminated 0lgmmxbf3iycoq
+vy-bligero-real-k-h100-ga2 (pod 0lgmmxbf3iycoq, host cf40ea568d7b): 8 attempt(s) recorded on it; 0 NOT preserved, 8 preserved  [mode head]
+  preserved      r20260926-065344-8c18  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-070231-a993  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-073325-f56a  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-074057-2043  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-074816-11c0  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-075526-f055  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-081620-1969  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-083140-322b  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+TERMINATED: all 8 attempt(s) preserved
+DRAIN-DONE

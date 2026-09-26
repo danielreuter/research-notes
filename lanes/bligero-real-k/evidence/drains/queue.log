@@ -1,0 +1,33 @@
+05:20:45Z h100: r20260926-051056-ded6 done; launched h100-k8192-xob -> r20260926-052041-00e2 rc=0 
+05:27:09Z a100: r20260926-050018-6e45 done; launched a100-k2048-sha256 -> r20260926-052656-90ca rc=0 
+05:44:25Z a100: r20260926-052656-90ca done; launched a100-k8192-sha256 -> r20260926-054405-e8e3 rc=0 
+06:03:26Z h100: r20260926-052041-00e2 done; launched h100-fp8-k2048-xob -> r20260926-060310-dd76 rc=0 
+06:03:39Z 4090: r20260926-054754-e32d done; launched 4090-fp8-k8192-xob -> r20260926-060329-75aa rc=0 
+06:11:21Z h100: r20260926-060310-dd76 done; launched h100-fp8-k8192-xob -> r20260926-061116-60eb rc=0 
+06:12:23Z queue empty
+06:54:56Z 4090: r20260926-064526-48cb done; launched 4090-fp8-k8192-xob-v2 -> r20260926-065446-551f rc=0 
+07:00:19Z a100: r20260926-065120-7260 done; launched a100-k8192-xob-v2 -> r20260926-070015-c005 rc=0 
+07:02:35Z h100: r20260926-065344-8c18 done; launched h100-k8192-xob-v2 -> r20260926-070231-a993 rc=0 
+07:04:40Z queue empty
+07:09:20Z 4090: stopped verifier run r20260926-064458-327b on vy-bligero-real-k-verifier-is1 rc=0 bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+07:10:13Z 4090: restarted verifier on vy-bligero-real-k-verifier-is1 from 4090-fp8-k2048-sha256-v2: verifier r20260926-070945-4ad5 0 
+07:10:41Z 4090: r20260926-065446-551f done; launched 4090-fp8-k2048-sha256-v2 -> r20260926-071013-8db8 rc=0 
+07:22:28Z a100: stopped verifier run r20260926-064431-4043 on vy-bligero-real-k-verifier rc=0 bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+07:23:07Z a100: restarted verifier on vy-bligero-real-k-verifier from a100-k2048-xob-v2: verifier r20260926-072253-ca25 0 
+07:23:20Z a100: r20260926-070015-c005 done; launched a100-k2048-xob-v2 -> r20260926-072307-515a rc=0 
+07:24:37Z 4090: r20260926-071013-8db8 done; launched 4090-fp8-k8192-sha256-v2 -> r20260926-072427-b5a6 rc=0 
+07:27:46Z h100: stopped verifier run r20260926-065319-bf61 on vy-bligero-real-k-verifier-ga2b rc=0 bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+07:33:25Z h100: restarted verifier on vy-bligero-real-k-verifier-ga2b from h100-fp8-k2048-xob-v2: verifier r20260926-073309-3956 0 
+07:33:39Z h100: r20260926-070231-a993 done; launched h100-fp8-k2048-xob-v2 -> r20260926-073325-f56a rc=0 
+07:36:48Z a100: r20260926-072307-515a done; launched a100-k2048-sha256-v2 -> r20260926-073644-7e26 rc=0 
+07:41:01Z h100: r20260926-073325-f56a done; launched h100-fp8-k8192-xob-v2 -> r20260926-074057-2043 rc=0 
+07:48:20Z h100: r20260926-074057-2043 done; launched h100-k2048-sha256-v2 -> r20260926-074816-11c0 rc=0 
+07:51:29Z a100: r20260926-073644-7e26 done; launched a100-k8192-sha256-v2 -> r20260926-075125-a608 rc=0 
+07:55:30Z h100: r20260926-074816-11c0 done; launched h100-fp8-k2048-sha256-v2 -> r20260926-075526-f055 rc=0 
+07:56:30Z queue empty
+07:56:36Z 4090: stopped verifier run r20260926-070945-4ad5 on vy-bligero-real-k-verifier-is1 (queue empty; drain)
+08:16:24Z h100: r20260926-075526-f055 done; launched h100-k8192-sha256-v2 -> r20260926-081620-1969 rc=0 
+08:18:06Z a100: stopped verifier run r20260926-072253-ca25 on vy-bligero-real-k-verifier (queue empty; drain)
+08:31:44Z h100: r20260926-081620-1969 done; launched h100-fp8-k8192-sha256-v2 -> r20260926-083140-322b rc=0 
+08:32:44Z queue empty
+08:44:55Z h100: stopped verifier run r20260926-073309-3956 on vy-bligero-real-k-verifier-ga2b (queue empty; drain)

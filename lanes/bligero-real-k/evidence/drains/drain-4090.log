@@ -1,0 +1,7 @@
+terminated c7dggmlena8z5d
+vy-bligero-real-k-4090 (pod c7dggmlena8z5d, host 6558221c0d93): 4 attempt(s) recorded on it; 0 NOT preserved, 4 preserved  [mode head]
+  preserved      r20260926-064526-48cb  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-065446-551f  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-071013-8db8  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+  preserved      r20260926-072427-b5a6  (exec.machine, execution.machine, execution.remote.machine, cost.pod_id, hw.hostname)
+TERMINATED: all 4 attempt(s) preserved

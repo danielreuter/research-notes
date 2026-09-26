@@ -5,4 +5,5 @@ created: 2026-09-26T07:57Z
 status: open
 ---
 
+CHECKPOINT e3a2d81d (08:18Z) [open] code read done (relations._at_k, sized blake3 frame, sha256@K, Rust gate/steps/sized, live server head-only checks): no break yet; VM: real-K gadget scans running (xob + sha256, 4 shapes + controls), 8 small honest CPU dumps for cross-K attacks; no pod
 CHECKPOINT e25e3614 (07:57Z) [open] started (agent bc-cbd1f3e8-36d9-57ec-9a9b-feb10db40819): class review of B-Ligero real-K statements (k2048/k8192 x4, sized blake3-xob, sha256) + new streaming sender per bligero-real-k 0512Z request (unanswered: red-team-standard-hash-2 final); main code read first; $5

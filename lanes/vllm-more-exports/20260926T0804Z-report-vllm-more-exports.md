@@ -5,6 +5,7 @@ created: 2026-09-26T08:04Z
 status: open
 ---
 
+CHECKPOINT 898c32ef (12:57Z) [open] 12:59Z BUSY: pod vyv-more-exports-moe run r20260926-082002-43e0 (#67): replay workers done 12:50Z, parent finishing the replay record, export (600 s) next; will stop after the export verifies (skip on-pod program graph; vllm-vu-export rebuilds from preserved programs/), check-back 13:10Z; ~$26.5 of $30; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (12:50Z) [open] 12:51Z BUSY: pod vyv-more-exports-moe run r20260926-082002-43e0 (#67): sampled replay, 32 workers since 12:36Z, memory flat, export (600 s) next, check-back 13:05Z; ~$26.1 of $30 (pod alone lasts to ~14:35Z); agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (12:43Z) [open] 12:43Z BUSY: pod vyv-more-exports-moe run r20260926-082002-43e0 (#67): sampled replay forked 32 workers over 38748 VUs at 12:36Z, anon plateaued at 86 GiB (+86 GiB pinned, cap 217), export (600 s) follows, check-back 12:55Z; ~$25.8 of $30; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (12:32Z) [open] 12:36Z BUSY: report updated with the #74 memory findings; pod vyv-more-exports-moe run r20260926-082002-43e0 (#67) sampled replay, export next, check-back 12:45Z; ~$25.4 of $30; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4

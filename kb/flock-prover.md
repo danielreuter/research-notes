@@ -19,6 +19,14 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
   - Driver 550 can't run it even with `cuda-compat-13-3`: the CUDA prover fails with "unsupported display driver / cuda
     driver combination" (error 100). RunPod community-cloud L40S hosts can have 550.144 (flock-ir-sampling
     r20260926-083317-b873); a secure-cloud L40S had 580.178 and works. Check `nvidia-smi` before building.
+  - Building with an older toolkit is no way out: nvcc 12.4 (the pod image's) and 12.9 refuse `clmad.lo` / `clmad.hi`
+    ("Not a name of any known instruction"). The instruction is CUDA 13 PTX. On an R550 host, the 13.3 compat libcuda answers
+    `cuInit` with 803. To get a host whose driver is at least 570, create the pod with REST
+    `allowedCudaVersions: ["12.8", "12.9", "13.0"]`. An L40S in US-NC-1 on driver 570.124 with compat passes the GPU selftest.
+    (flock-l40s-101, `lanes/flock-l40s-101/`; pod scripts take `CUDA_TK` for a toolkit the driver runs natively.)
+  - L40S (46 GB): a flock-pure-block proof at m = 35 runs out of memory (`FFI CUDA error out of memory at prove_chunk.cuh:544`).
+    Chunk(n) batches fit up to n x VUs = 16,384 per proof (4,096 VUs at K2048, 1,024 at K8192). m = 35 fits on 80 GB.
+    Cells: art:df3d63e4 (K2048, 4,113 VU/s) and art:8bc3dba2 (K8192, 1,032 VU/s).
 - **Flock-CUDA (`flock-cuda-ffi`).**
   - It is a full on-device prover, but only for the BLAKE3 statement (witness kernel), and it hard-codes
     `n_blocks_log = m - 14`.

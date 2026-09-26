@@ -7,6 +7,16 @@ Container IPs (172.x) are separate networks. So a same-DC live verifier on a sec
 `timeout 4 bash -c '</dev/tcp/IP/PORT'` from the prover BEFORE launching live runs. (wave-h100-2, 2026-09-24 04:08Z; EU-RO-1
 pods did reach each other per live-2c.)
 
+## L40S + same-DC verifier: global networking works in US-NC-1 (flock-l40s-101, 2026-09-26 09:08-10:05Z)
+- **Does not work: EUR-IS-2 and EU-NL-1.** Pods there share one NAT address (EUR-IS-2 81.27.69.178, EU-NL-1 91.199.227.82). A pod cannot reach another pod's mapped port: the connection times out or is refused. The 172.x container networks do not route between hosts.
+- **Does not work: EUR-IS-2 to EUR-IS-1.** The RTT is 66 ms.
+- **Works: US-NC-1 with REST `globalNetworking: true` on both GPU pods.** The pair was an L40S prover and an RTX PRO 6000 used as the verifier's CPU box (the DC had no CPU pod). Connect to the verifier's `podnet1` address (10.x, `<pod id>.runpod.internal`) on its inner port, e.g. `VERIFIER=10.0.221.82:7400` and `RTT_TARGET=10.0.221.82:22`.
+  - TCP connect median 0.54 ms; Ping on the open session 0.11-0.14 ms.
+  - The first connect right after the verifier boots timed out, so retry once.
+  - `podnet1` has a `tbf rate 100Mbit` qdisc. Flock cells of 0.75-2.5 MB per session still pass the interaction check.
+  - flock-ir-lowering's attention pair works the same way (nc-l40s + nc-ver).
+- **Script:** `lanes/flock-l40s-101/evidence/pod-scripts/create-pod.py` wraps the REST fields `--global-net --cuda 12.8 --cuda 12.9 --cuda 13.0 --dc DC --port 7400` and refuses a duplicate name. `create-pod-gql.py` does the same through GraphQL, for GPU types the REST enum lacks (MIG slices). Register the pod afterwards with `research pods register`.
+
 ## H100 SXM (80GB HBM3) + separate-host same-DC verifier: US-MO-1 works, through GraphQL (d3-h100, 2026-09-24 22:40-23:31Z)
 - Find the DC: GraphQL `{ dataCenters { id gpuAvailability { gpuTypeId stockStatus } } }` (H100 stock) and
   `{ cpuFlavors { id specifics(input:{dataCenterId:"DC"}) { stockStatus } } }` (CPU stock). At 22:40Z H100 was in AP-IN-1/2,

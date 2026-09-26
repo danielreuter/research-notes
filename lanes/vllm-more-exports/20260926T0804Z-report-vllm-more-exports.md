@@ -5,6 +5,7 @@ created: 2026-09-26T08:04Z
 status: open
 ---
 
+CHECKPOINT 898c32ef (13:24Z) [open] 13:26Z: report FINAL section written; handoffs sent (vllm-coordinator 1323Z, coordinator MR 1322Z, vllm-vu-export 1322Z); PR #63 updated; no pods; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (13:21Z) [open] 13:22Z: vyv-more-exports-moe TERMINATED 13:20Z (2 runs preserved); both pods down, ~$26.7 of $30. #67 Build/Match/Commit through sampled replay PASS (coverage 406220 missing 0, C2 16120/16120 equal, replay not-retained 0 failed 0) but its export drew 0 VUs: the export's 600 s budget counts the population build over 33 request Programs (>18 min), stopped 13:17Z; #74 no export (Commit memory, see report). No sets registered. Next: handoffs, merge request PR #63, FINAL; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (12:57Z) [open] 12:59Z BUSY: pod vyv-more-exports-moe run r20260926-082002-43e0 (#67): replay workers done 12:50Z, parent finishing the replay record, export (600 s) next; will stop after the export verifies (skip on-pod program graph; vllm-vu-export rebuilds from preserved programs/), check-back 13:10Z; ~$26.5 of $30; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (12:50Z) [open] 12:51Z BUSY: pod vyv-more-exports-moe run r20260926-082002-43e0 (#67): sampled replay, 32 workers since 12:36Z, memory flat, export (600 s) next, check-back 13:05Z; ~$26.1 of $30 (pod alone lasts to ~14:35Z); agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
@@ -66,3 +67,42 @@ The fix is branch `cursor/vllm-more-exports-0df4` @ `898c32ef`, [PR #63](https:/
   - The C2 Programs forecast is 7,853,122 instance rows → 70,439 MiB of Python objects. That's about 300 GiB in total, so I stopped it before an OOM.
 - **Bounded staging crashes.** `EXTRA_COMMIT_ARGS="--bounded-staging --retain-exclude fa3_hidden_m1"` (STAGES=commit, `r20260926-115930-46a1`): its planner says ADMIT, with a host bound of 162,049 MiB (hidden 146,380 MiB excluded). It crashed in `native_host.finalize` → `scheme.run_root` → `vllm_v1.fold`: `InvalidArtifact: leaf must be a 32-byte digest`. That's a bug in the flag path; I didn't touch commitment code.
 - **Needed for #74:** an H100 host with at least 320 GB RAM (unbounded Commit, 32 MiB Match cap), or the bounded/exclude finalize fixed. Pod `vyv-more-exports-h100` was terminated at 12:29Z with all 6 runs preserved, about $15.4. The FP8 lanes were told: `lanes/flock-backend/` and `lanes/bligero-real-k/` `20260926T1228Z-handoff-from-vllm-more-exports.md`.
+
+## #67 (olmoe b32 TP1): the Commit passes through the replay, but the export drew 0 VUs
+
+- **Build PASS:** 8-wide derives in 2608 s, then a 25 min workload compose. Digest `9516d799…` (request `e9092446…`, not the record's `a7be1df3…`), workload `7b79c784…`, manifest `db0da935…`.
+- **Match PASS** (4279 s): verdict and global PASS, tokens equal, fold True. The capture took 7 min and peaked at 151 GiB.
+- **Commit** (from 10:57Z):
+  - Coverage 406220 with 0 missing (the epoch's #67 had 20,928 missing).
+  - C2 oracle compare 16120/16120 equal.
+  - The sampled replay forked 32 workers over 38,748 VUs at 12:36Z. It ended "not retained 0, failed 0" at about 12:58Z. Memory peaked at 86 GiB anon plus 86 GiB pinned of 217 GiB, with no OOM.
+- **Export: 0 VUs.** `export_vus` started at 12:58:01 and had stored no value and no `export.json` by 13:16.
+  - The cause: `vu_store.export_vus` takes `t0` at its top, and `_run_draw` measures `max_seconds` from it. The `ProgramIndex` + `population` build over 33 request Programs took more than 18 minutes, so the budget expired before the first draw.
+  - I had lowered this run's budget from 1200 s to 600 s at 12:21Z to hold the $30. The default is also 600 s, so a default-on export of any large row would do the same.
+  - Handed to vllm-vu-export, `lanes/vllm-vu-export/20260926T1322Z-handoff-from-vllm-more-exports.md`.
+- **Stopped at 13:17Z** for the budget and the 13:30Z deadline. The Commit's evidence (`commit.log`, `row.log`, `stages.txt`, timeline, summaries) was copied into the run's `evidence/` first. The request Programs are in its `programs/` (426 MB, 33 dirs). Run preserved; pod `vyv-more-exports-moe` terminated at 13:20Z.
+
+## Handoffs
+
+- **Received:** `20260926T0812Z-handoff-from-vllm-coordinator.md`: register pods, WAIT checkpoints, $30 hard stop. Done; see the checkpoints.
+- **Received:** `20260926T0830Z-handoff-from-vllm-vu-export.md`: option (b), art ids only, and `program-graphs/` stays theirs. I didn't touch `program-graphs/`, and no exports exist to hand over.
+- **Received:** two messages relayed by my launcher, the coordinator's asks to register pods and checkpoint at each wait. My checkpoints had reached research-notes but not the store mirror the vLLM coordinator reads. From 11:32Z each checkpoint also copies this report to `$STORE/internal/lanes/vllm-more-exports/`.
+- **Sent:**
+  - `vllm-coordinator/` 0806Z (pods and plan), 1232Z (H100 down, deadline ask), 1323Z (final status).
+  - `vllm-vu-export/` 0830Z (additions, program-graphs question), 1322Z (the budget finding and the programs locations).
+  - `flock-backend/` and `bligero-real-k/` 1228Z (no captured FP8 sets, why, and the format when they exist).
+  - `coordinator/` 1322Z (merge request for PR #63).
+
+## FINAL
+
+~~~text
+tip: cursor/vllm-more-exports-0df4 @ 898c32ef (base main@e3a2d81d)        merge-with: none (PR #63; merges cleanly with main e77d40c9)
+known-failures: none    pod: vyv-more-exports-h100 terminated 12:29Z, vyv-more-exports-moe terminated 13:20Z; ~$26.7 of $30
+artifacts: none registered (no row reached a written export); runs preserved: r20260926-080641-f752 r20260926-080751-376f r20260926-081920-036d r20260926-082002-43e0 r20260926-082552-2706 r20260926-083238-6f6f r20260926-101428-71e2 r20260926-115930-46a1
+~~~
+
+No captured input sets came out of this lane.
+- **#57 Gemma** was skipped. It's FAIL-class, and its distinct templates have no evaluator.
+- **#74** needs an H100 host with at least 320 GB RAM running the unbounded Commit (and the Match at the 32 MiB cap), or the `--bounded-staging --retain-exclude` finalize fixed.
+- **#67** needs a re-run whose export budget starts after the population build, or `max_seconds` of about 2400 s through `limits.json`. Either way it's a whole row run: about 5 h on 2x L40S, roughly $11.
+- **Delivered:** the exporter support both rows need (PR #63: FP8 block and MoE expert coordinates, which main silently drops), the FP8 chain-set deriver (`evidence/derive_fp8_chain_sets.py`), and the memory and budget findings, all handed to their owners.

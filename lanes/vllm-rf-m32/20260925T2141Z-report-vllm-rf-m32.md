@@ -5,6 +5,7 @@ created: 2026-09-25T21:41Z
 status: open
 ---
 
+CHECKPOINT 3317d9a4 (14:34Z) [open] verify_range fix 3317d9a4 pushed (PR #77). WAIT vyv-rf-m32-vr2 r20260926-143306-9d9f check-back 14:50Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: lints + tests/commit + tests/check head/base (polling in turn)
 CHECKPOINT d4200876 (14:13Z) [open] reopened: verify_range guard on #77 (coordinator 1425Z): NOT final; one cpu pod planned
 CHECKPOINT d4200876 (14:09Z) [final] FINAL. PR #77 follow-up d4200876: a placeholder (empty run root) Commit verifies no opening (verify requires a 32-byte run root; _run_root total); test + local run (3 + 13 pass); handoff 1415Z. No pods; all terminated. Spend ~$9.7 total
 CHECKPOINT 7438b2a5 (14:07Z) [open] reopened for PR #77 follow-up test (empty run root never verifies): NOT final; CPU only, no pod

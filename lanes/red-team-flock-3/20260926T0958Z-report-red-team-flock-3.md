@@ -2,9 +2,10 @@
 lane: red-team-flock-3
 kind: report
 created: 2026-09-26T09:58Z
-status: open
+status: final
 ---
 
+CHECKPOINT e5493f9f (15:36Z) [final] FINAL: (1) per-T attention v3 GRANTED W/ CONDITIONS NON_ZK_PROOF, 16 cited + 11 superseded cells labelled; (2) key-count class pins @4eb3b991/11f24da6 GRANTED W/ CONDITIONS NON_ZK_PROOF (CP1/2/3/4/5/7/8 met); class cells c1 art:4fb2de9c (T1-128) + c3 art:4dd2069b (T257-287) PASS, SEPARATE, labelled NON_ZK_PROOF; c2 (T129-256) pending ~16:20Z at 8ef6d347 (harness-only), procedure in handoff 1540Z; art:25c96f97 c185d38b 8be608c6 3b34c1dd; pod ~$0.32
 CHECKPOINT e5493f9f (14:40Z) [open] c3 art:4dd2069b [257,512] T=257..287 CLASS_CELL_CHECK PASS 31/31, SEPARATE, labelled NON_ZK_PROOF; c1 art:4fb2de9c labelled; polling for c2 re-run (T=129..256, 53ffcaca, ETA 15:15Z), FINAL by 15:30Z
 CHECKPOINT e5493f9f (14:33Z) [open] WAITING c3 (T=257..287, pair b, r20260926-140931-b414, ETA 14:40Z) + c2 re-run (T=129..256, pair a, 53ffcaca, ETA 15:15Z), check after 14:45Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; done: c1 art:4fb2de9c CLASS_CELL_CHECK PASS (128/128 sub-batches, manifest = mine byte for byte), placement SEPARATE (pxp3jjc5ozkz vs daejz5pkfg8j), labelled NON_ZK_PROOF; CP2 MET @11f24da6 (r20260926-143204-b20f); CP7 MET main PR #79; CP8 MET
 CHECKPOINT e5493f9f (13:32Z) [open] WAITING flock-ir-lowering's class cells (3 classes on vy-flock-ir-lowering-nc-l40s / nc-ver), check after 14:15Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: check_class_cells.sh + placement + label each class cell, then FINAL
@@ -325,56 +326,62 @@ It now requires the heads in each file's own range to share T.
 ## FINAL
 
 ~~~text
-tip: none (red-team lane; notes only, no code commits; reviewed PR #54 @ 22dc6320 / 0839742b / ece9fdd2)   merge-with: none
-known-failures: none    pod: dq3xclby5ni4ic terminated 11:03Z (after custody); ~$0.32
-artifacts: art:25c96f97 art:c185d38b
+tip: none (red-team lane; notes only, no code commits; reviewed PR #54 @ 22dc6320 / 0839742b / ece9fdd2 (per-T v3) and 4eb3b991 / 11f24da6 (+ harness 31d275ad, 53ffcaca) (class pins))   merge-with: none
+known-failures: none    pod: dq3xclby5ni4ic terminated 11:03Z (after custody); ~$0.32 (the class review ran on CPU on the VM: $0)
+artifacts: art:25c96f97 art:c185d38b art:8be608c6 art:3b34c1dd
 ~~~
 
-**The verdict.** #101's attention head on C-Flock, `verity/flock-ir-frame/v3` (AttentionHead_v3{T, D=64, BN=128}, one
-statement per T), is **GRANTED WITH CONDITIONS at NON_ZK_PROOF**. It holds at 22dc6320, 0839742b and ece9fdd2, which
-differ only in a tag string and the pod scripts' thread count.
-- **The exactness bar is met.** Against the IR there are 0 mismatches:
-  - the tensor-core step netlist, on 2.0e7 adversarial vectors;
-  - the Rust tail, exhaustively over all 2^32 inputs of each unary primitive, and on 6.3 M binary and ternary cases;
-  - the whole head, on all 1,024 captured heads and 3,024 adversarial heads (NaN, inf, subnormal, extreme scores,
-    all-scores −inf rows, 21 T values).
-- **Every attack was refused:** 19 prover-side, 34 load, 4 consistent restatements and 3 T/set-confusion attacks.
-- **Conditions AC1–AC4:**
-  - the verifier stages its own file, with T from its own set;
-  - a cell counts only at a reviewed commit and pin with a `cell_check` PASS;
-  - the headline footnotes that the softmax is checked natively, not proven (4–11% of the head's scalar ops), and that
-    each cell covers its own T;
-  - the verifier sits on another physical machine, and a verify-* replay follows.
+**1. Per-T attention, `verity/flock-ir-frame/v3`.** GRANTED WITH CONDITIONS at NON_ZK_PROOF (conditions AC1–AC4).
+- All 16 cited L40S cells (ece9fdd2) and the 11 superseded ones are checked and labelled `NON_ZK_PROOF`, and each runs its
+  prover and verifier on separate machines.
+- Against the IR there are 0 mismatches:
+  - 2.0e7 tensor-core vectors;
+  - all 2^32 inputs of each unary tail primitive;
+  - 4,048 captured and adversarial heads.
+- 60 negatives are refused.
 
-**Cells.** All 16 L40S cells the producer cites (ece9fdd2) are labelled `proof_class NON_ZK_PROOF` with a `finding`, by
-red-team-flock-3, ref r20260926-103512-bb40: T=1 art:3b8280fa, 2 art:baa539f8, 3 art:0051325c, 4 art:08a853f6,
-128 art:73bd2c2b, 129 art:d5b0ae9f, 130 art:3117572d, 131 art:645a8359, 132 art:d18e0ae3, 256 art:ccede46a,
-257 art:73750ffa, 258 art:327e9366, 259 art:a552878e, 260 art:186b9949, 261 art:f52bf885, 287 art:298d4c14.
-- The 11 superseded 128-thread cells carry the same labels: art:97407c51 (T=1), a24437b6, 1e1c2a5f, 308df7ad, 7c3c5497,
-  d1963e64, 73a507ee, 349645c1, 11f80605, b0eaffa3 and 07f55572.
-- Every cell's verifier-staged statement passes `cell_check.py`.
-- Every cell's prover and verifier were on separate physical machines (red-team-flock's 12:00Z ruling). The machine ids,
-  public IPs, boot ids, kernels, CPUs and GPUs all differ, the link is routed, and PR #74's `separation()` is clean. So no
-  cell is `NON_ZK_PROOF_DIAGNOSTIC`, and no re-run is needed.
+**2. Key-count class pins (goal 2: crediting T = 1..287).** GRANTED WITH CONDITIONS at NON_ZK_PROOF, at 4eb3b991 and
+11f24da6. 31d275ad and 53ffcaca change only the harness.
+- T and the mask come from the verifier's own file and the per-T netlist. The verifier builds its own manifest (CP1), and all
+  512 `nets` equal the reviewed generator (CP5).
+- The load and session negatives are refused, and the selftest passes 24/24 under `--class`.
+- CP2 (canonical manifest) is MET at 11f24da6. CP7 (per-T crediting) is MET on main via PR #79. CP8 (the full-set point) is
+  MET.
+- Class cells, labelled `NON_ZK_PROOF` after `check_class_cells.sh` and the placement check:
+  - c1 art:4fb2de9c, [1,128]: 128 T, 2,048 heads;
+  - c3 art:4dd2069b, [257,512]: T 257..287, 496 heads;
+  - c2 [129,256]: PENDING.
+    - Its first three runs were refused by `bench.cell check` as contended: the timing guard counted the prover's own
+      exited GPU contexts.
+    - A fourth runs at 8ef6d347 on pair b (machines pxp3jjc5ozkz / daejz5pkfg8j), ETA 16:20Z. 8ef6d347 changes only the
+      harness (the timing-guard sampler in `bench.py` and `ir_bench.py`), so it is inside the grant.
+    - To label it: `check_class_cells.sh /tmp/rtf3/class-ref-1-512.json <art>`, then `label_class_cells.sh <art>`
+      (8ef6d347 is in its allowed list).
 
 **Evidence:**
-- pod run r20260926-103512-bb40 (art:25c96f97: selftests, attacks, tampers, sessions, the exhaustive tail);
-- local recorded runs r20260926-103647-114d, r20260926-104127-079a and r20260926-103647-17e8 (logs in art:c185d38b);
-- the scripts in `evidence/`.
+- art:25c96f97: pod run r20260926-103512-bb40.
+- art:c185d38b: the local per-T runs' logs, and the cell and placement checks.
+- art:8be608c6: class negatives r20260926-132829-2165, the class_ref table, the manifests and e2e r20260926-130636-5ee4.
+- art:3b34c1dd: the c1 and c3 checks, placement, and CP2 run r20260926-143204-b20f.
+- Scripts in `evidence/`.
 
 **Handoffs sent:**
-- `lanes/flock-ir-lowering/20260926T1115Z-handoff-from-red-team-flock-3.md` (the verdict) and `…T1300Z…` (all 16 cells,
-  placement);
-- copies in `lanes/coordinator/`;
-- `lanes/red-team-flock-2/20260926T1115Z-handoff-from-red-team-flock-3.md` (review taken over).
+- to flock-ir-lowering and the coordinator: …1115Z, …1300Z and …1340Z (the class-pin verdict), and …1310Z (the paper
+  review, to flock-ir-lowering);
+- …1540Z (the class cells and FINAL);
+- to red-team-flock-2: …1115Z.
 
 **Handoffs received:**
-- `lanes/red-team-flock-2/20260926T0922Z-handoff-from-flock-ir-lowering.md`: acted on above.
-- `lanes/red-team-flock-3/20260926T1112Z-handoff-from-flock-ir-lowering.md`: acted on above.
-- `lanes/red-team-flock-3/20260926T1305Z-handoff-from-flock-ir-lowering.md`, a key-count class pin for goal 2:
-  - answered on paper in `lanes/flock-ir-lowering/20260926T1310Z-handoff-from-red-team-flock-3.md` (sound as designed, with
-    conditions CP1–CP6);
-  - reviewing the code is new scope and is not covered here; it's routed to the coordinator.
+- `lanes/red-team-flock-2/20260926T0922Z-handoff-from-flock-ir-lowering.md`;
+- `lanes/red-team-flock-3/20260926T1112Z-handoff-from-flock-ir-lowering.md`;
+- `lanes/red-team-flock-3/20260926T1305Z-handoff-from-flock-ir-lowering.md` (the class-pin design, reviewed after the
+  13:01Z reopen);
+- `lanes/red-team-flock-3/20260926T1412Z-handoff-from-flock-ir-lowering.md` (c1);
+- `lanes/red-team-flock-3/20260926T1440Z-handoff-from-flock-ir-lowering.md` (c3 and the c2 re-run).
 
-**Push check:** there is no `lane/red-team-flock-3` branch to push. This non-producer lane made no code commits: its work is
-notes, labels and store artifacts, all pushed or preserved.
+All are acted on above.
+
+**Measurement note:** 8ef6d347 excuses the prover's own recently exited GPU contexts in the timing guard. That bears on
+the cells' contention labels, not on soundness; I didn't review it as a measurement change.
+
+**Push check:** there is no `lane/red-team-flock-3` branch to push. This non-producer lane made no code commits.

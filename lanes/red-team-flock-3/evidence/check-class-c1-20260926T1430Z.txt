@@ -1,0 +1,5 @@
+== art:4fb2de9c class [1, 128] B=2048 pin=2f102216412480ea verifier_run=r20260926-132839-b5e6 record=art:5cc987d017c86f99fd2973d23a130d0878ab6eb97558399333f9e037b327e8eb point=p0-2048
+MANIFEST_CHECK FAIL {"sha256": "2f102216412480ea16ea6c11c13a98c98fd09419155ca7cb85acb8eb1f2568cc", "T": [1, 128], "problems": ["unit_rows db271b38e3ff7fd8 != the rows every T shares fca8a6f61f27a451 (check the definition)"]}
+KEY_COUNTS match (128 T values; 2048 heads; per_key_count 128)
+SUBBATCHES 128: 128 PASS, 0 FAIL
+CLASS_CELL_CHECK PASS art:4fb2de9c

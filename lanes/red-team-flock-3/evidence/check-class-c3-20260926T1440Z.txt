@@ -1,0 +1,5 @@
+== art:4dd2069b class [257, 512] B=496 pin=365f1b5d93f0ae0d verifier_run=r20260926-140928-d05d record=art:3def2412c1e67078f99f4128a68b29a5103c5f16e76d358a55a380828910aff2 point=p0-496
+MANIFEST_CHECK PASS {"sha256": "365f1b5d93f0ae0d017a771dcd903f670949ea17127776dc90f2bd6b031dc822", "T": [257, 512], "problems": []}
+KEY_COUNTS match (31 T values; 496 heads; per_key_count 31)
+SUBBATCHES 31: 31 PASS, 0 FAIL
+CLASS_CELL_CHECK PASS art:4dd2069b

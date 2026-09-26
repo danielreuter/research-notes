@@ -1,0 +1,55 @@
+{
+ "kind": "cell-gate/v1",
+ "admitted": false,
+ "session": "/tmp/ra/k2048v/sessions-2048/l0003-8830",
+ "sigma": "30f60324f33b4410c28bf0c7c3b676dee69da24a782fab08e002b2674f6d5244",
+ "record_sha256": "8a26c37b346e22ebb2aafd45de6500d7e32bcb54808396aab77fd079d376aff6",
+ "checks": {
+  "exchange": {
+   "ok": true,
+   "detail": "link_mode 'exchange'"
+  },
+  "gated": {
+   "ok": true,
+   "detail": "require_link True"
+  },
+  "sigma": {
+   "ok": true,
+   "detail": "hello \u03a3 30f60324f33b4410c28bf0c7c3b676dee69da24a782fab08e002b2674f6d5244, link \u03a3 30f60324f33b4410c28bf0c7c3b676dee69da24a782fab08e002b2674f6d5244, cell \u03a3 30f60324f33b4410c28bf0c7c3b676dee69da24a782fab08e002b2674f6d5244"
+  },
+  "accepted": {
+   "ok": true,
+   "detail": "accepted True, aborted None, reps [True, True]"
+  },
+  "context": {
+   "ok": true,
+   "detail": "2 points of [27, 27], 2 y, m 27"
+  },
+  "preserved": {
+   "ok": true,
+   "detail": "proofs kept {'chain/rep0': True, 'chain/rep1': True}, want ['chain/rep0', 'chain/rep1']"
+  },
+  "prime_live": {
+   "ok": true,
+   "detail": "prime_live True, hello 'live-coins/v1', 2963 rounds, before_commit 2961, well formed True"
+  },
+  "replayable": {
+   "ok": true,
+   "detail": "root_f, root_b ['chain'], publics [524288] bytes"
+  },
+  "non_producer": {
+   "ok": false,
+   "detail": "operator 'agkr-real-k' pod ''; producers ['agkr-real-k'] pods ['vy-agkr-real-k-a100']"
+  },
+  "prime": {
+   "ok": true,
+   "detail": "rc 0, accepted True, circuit pinned True, commitment pinned True, error None, 4.672815 s",
+   "proof_sha256": "5ed6b92923b04e62fa26c41a27d05866bc9e018221caca5a6ab1a29700dff00b"
+  },
+  "flock_replay": {
+   "ok": true,
+   "detail": "rc 0, accepted True, why '', 0.428455906 s",
+   "digests_sha256": "83def8497fad1b12fe1da43c0da517a0b09df07365449e4a3fb3c630c43b0fac"
+  }
+ }
+}

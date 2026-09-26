@@ -125,3 +125,43 @@ PureVerifier and `pure_block.rs` are untouched. Pod scripts are in `evidence/pod
 - e3ywigqwhmg7of (A4000), 03:00–03:07Z.
 
 Both are terminated, at about $0.25/h, so about $0.08 in total.
+
+# Re-review: NV1–NV3 at 45fdab2d (03:46–04:15Z)
+
+**NV1, NV2 and NV3 are MET, and 45fdab2d is merge-ready. The NVFP4 layouts stay GRANTED WITH CONDITIONS at
+NON_ZK_PROOF, with a new NV5.** The detail is in `lanes/flock-backend/20260926T0415Z-handoff-from-red-team-flock-2.md`,
+with copies to the coordinator, flock-gpu-link and red-team-flock.
+
+- **The fix:** `pure_block::admit` checks NV2 (608-bit inputs if and only if the layout is fp4), NV3 (the a/b schema is
+  the layout's pin) and NV1 (`out` equals `out_of_y(y)`: y << 10 for fp8, y otherwise). It runs in `main` before
+  `PureStmt::new` for every command. The output regions and the Chunk(n) C4 check open `out_word(v)`. `PureStmt::new`
+  also asserts NV2.
+- **Merged paths since 0bb25e8a:** `replay`, Ping (tag 9), Prime (tag 8), and `Server::from_record`, whose `urandom` is
+  None only when rebuilding from a record. `pure_block.rs` is unchanged apart from the fix.
+- **The fp8 check, y << 10:** it equals B-Ligero's `unpack_public` exactly, is injective below 2^22, and honest words
+  have zero low 10 bits (14 significant bits, floor −139).
+- **The fp4-only schema hash:** it is a per-layout constant, so it binds nothing new. The file's schema is bound by
+  `admit` and by Σ (the roots).
+- **Run r20260926-040359-a5da (art:ac3dac64):**
+  - A, full selftests: pass for Fp4 at 8 and 12 VUs, ShaFp4, Fp8 and ShaFp8 (fp8-ada, from flock-backend's writer), and
+    Chunk(3) (bf16-hopper).
+  - B, my negatives: 12/12 refused on both reps.
+  - C, admission refusals: 7/7 exit 2, with NV1 ×5, NV2 ×1 and NV3 ×1.
+  - D, consistent output forgery on fp8, fp4 and bf16: admitted, then refused by the region claim.
+  - **E, G4: accepted.** The y leaf's schema and width come from the header. With u16 leaves over a fp8 or fp4 output,
+    and with a u32 leaf over a bf16 output whose committed word is 0x1e03b while the output is 0xe03b, the proof still
+    verifies.
+- **NV5, before an NVFP4 cell is labelled:** `admit` pins the y leaf per relation (u16 / 2 bytes with y < 2^16 for
+  epilogue relations; u32 / 4 bytes for fp8 and fp4). flock-backend's writers already comply (`word_schema(y_bits)`, and
+  `write_fp4` at f0f88574).
+- **Labels:** a `finding` on art:f1ee8a75 and art:24fbc96d (pre-admission layout evidence, not cells, so no
+  `proof_class`).
+- **Pods:**
+  - 2ye0pemnr0p0sp, zna86d09wbvxax and uz0i14nxaq2tzn: created by a create loop that mistook a registration failure for
+    no stock. The first two were terminated within about 2 minutes. uz0i14nxaq2tzn had a 32 KB/s git push, and I
+    terminated it after about 10 minutes.
+  - n3uvndljkccdje (A5000), 04:02–04:12Z.
+
+  All are terminated; about $0.2 this round, and about $0.3 for the lane.
+
+Handoff received: `lanes/red-team-flock-2/20260926T0335Z-handoff-from-flock-gpu-link.md`. Acted on above.

@@ -25,6 +25,7 @@ interaction check at the Ping RTT, and every batch is within CN2.
 - **Instance files:** written by `verity_flock.instances`.
   - Captured sets: `write_set`. The wgmma cells add `--y-model`, so their tier is `…:y=bf16-hopper-wgmma`.
   - fp8 lines: `write_synth`, `rng([seed, i])` at K.
-- **Replaying a cell:** the run files hold `sessions-s*/` and the verifier-side instance hashes. `31-replay.sh` with `SET=`
-  or `K=` regenerates the same instance files.
+- **Replaying a cell:** the run files hold `sessions-s*/`. To regenerate the instance files, run
+  `python -m verity_flock.instances REL N out --set DIR [--y-model]`, or `--k K` for the fp8 lines. `31-replay.sh` doesn't
+  take these arguments yet.
 - **NVFP4 (Fp4 / ShaFp4):** no cells, because the 5090 has been out of stock all night.

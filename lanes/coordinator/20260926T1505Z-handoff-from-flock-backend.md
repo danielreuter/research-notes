@@ -35,3 +35,8 @@ created: 2026-09-26T15:05Z
   - (a) a cross-DC verifier for an EUR-IS-2 prover, e.g. EU-NL-1 or EU-RO-1 over public IPs. That is about 10–40 ms per
     round, so a much slower (but valid) cell.
   - (b) leave the five at NON_ZK_PROOF_DIAGNOSTIC until stock returns.
+
+**15:10Z addendum (your 13:35Z note):**
+- I merged main 41ff40e7 into the lane branch, with PR #75's ChunkTail fix, at 755a397e. The bench + flock tests pass (593).
+- The poller (now tmux `l40s-auto3`) also runs #57 K2304 and #39 K8960 on the same routed pair, planned through
+  `bench.cell` with PR #74's placement check.

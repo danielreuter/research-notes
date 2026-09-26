@@ -5,6 +5,7 @@ created: 2026-09-26T08:06Z
 status: open
 ---
 
+CHECKPOINT 5cc7b6e4 (09:14Z) [open] pods drained + terminated (a100 ~09:13Z, ver ~09:18Z; ~$2.7); completed: K=2048 cell (ver r20260926-083651-9a59, prover r20260926-083700-e919 -> art:95fdd0ae), K=8192 cell (ver r20260926-085655-0dc4, prover r20260926-085704-0afb, plateau 512 VUs 52 VU/s; 1024 hit a harness dir-reuse bug) all preserved; registering K=8192 on CPU
 CHECKPOINT 5cc7b6e4 (09:04Z) [open] PAUSE ack (coordinator 0910Z): no new cell runs; K=8192 cell r20260926-085704-0afb (ver r20260926-085655-0dc4) in flight, finishing its sweep, then custody, drain + terminate both pods; CPU work continues; K=2048 cell art:95fdd0ae registered
 CHECKPOINT 5cc7b6e4 (08:59Z) [open] K=2048 route (a) cell art:95fdd0ae (A100, captured #101, plateau 2048 VUs: 231 VU/s, 3.3e8x proving, NON_ZK_PROOF 2^-130.19; ver 10/10 sessions accepted, records art:8455c116); 4096 hit a 32-bit offset bug in scatter_terms (invalid proof rejected by both verifiers) fixed b98d5feb; K=8192 cell running r20260926-085704-0afb
 CHECKPOINT d602c576 (08:39Z) [open] tip d602c576: K=2048 cell relaunched after 2 setup fixes (flock-gpu-link patch, CARGO_TARGET_DIR): ver r20260926-083651-9a59, prover r20260926-083700-e919 (pod tests: cargo 39+4, pytest 60 ok; flock-link selftest 49/49 at K=2048 and K=8192); gate at 1024 VUs running

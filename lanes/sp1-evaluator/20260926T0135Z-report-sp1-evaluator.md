@@ -5,6 +5,7 @@ created: 2026-09-26T01:35Z
 status: final
 ---
 
+CHECKPOINT 0a652c36 (07:03Z) [final] FINAL (follow-up), handoffs answered: coordinator 20260926T0350Z-handoff-from-coordinator.md (go-ahead for the pod) was acted on — pods created, cover done, merge request PR #58 sent in 20260926T0705Z-handoff-from-sp1-evaluator.md. Cover snapshot art:33c34aa2; no pods running; spend ~$2.40 of $25
 CHECKPOINT 0a652c36 (07:03Z) [final] FINAL (follow-up). elem-bf16@1 promoted (13405f08); SiLU·mul #101 set 256/256 proved (r..8524, r..6ac5). Sampled #101 cover sized to the protocol draw, snapshot art:33c34aa2 (7 cover + 7 prepare results, all preserved, labelled): fused 256/256 VUs, Triton 8/8, SiLU 128/128, RoPE 1,024/5,120 heads, GEMM K=2048 6,272/3.65M coords, K=8192 1,920/262k; attention + sampling excluded. Work-weighted 3.2e8x covering 3.2% of the draw (GEMM tensor-peak basis) / 5.6e7x covering 0.35% (all memory-bound). relation-bare not applicable (K=1536 compiled). PR #58 (0a652c36) merge request + verify request in lanes/coordinator/20260926T0705Z-handoff-from-sp1-evaluator.md. Pods am0dh7td6pwiv8 (reaped 05:44Z) and pai4lo7hpqo7ug (drained) terminated; spend ~$2.40 of $25
 CHECKPOINT 0a652c36 (06:35Z) [open] cover: silu[128,256) r20260926-060409-6ac5 passed (SiLU set 256/256 done); fused d892 + gemm8192 ffa5 labelled; gemm2048 r20260926-061318-2f7f 12/25 chunks accepted, done ~07:00Z; in-turn this time
 CHECKPOINT 0a652c36 (05:59Z) [open] pod vy-sp1-evaluator = pai4lo7hpqo7ug (4090) created 05:59Z; bootstrapping

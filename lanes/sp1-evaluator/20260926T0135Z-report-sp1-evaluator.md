@@ -5,6 +5,7 @@ created: 2026-09-26T01:35Z
 status: open
 ---
 
+CHECKPOINT 0a652c36 (06:35Z) [open] cover: silu[128,256) r20260926-060409-6ac5 passed (SiLU set 256/256 done); fused d892 + gemm8192 ffa5 labelled; gemm2048 r20260926-061318-2f7f 12/25 chunks accepted, done ~07:00Z; in-turn this time
 CHECKPOINT 0a652c36 (05:59Z) [open] pod vy-sp1-evaluator = pai4lo7hpqo7ug (4090) created 05:59Z; bootstrapping
 CHECKPOINT 0a652c36 (05:58Z) [open] WAKE 05:56Z: pod am0dh7td6pwiv8 reaped 05:44Z (queue on the agent VM stalled while the turn was ended); gemm8192 cover r20260926-040909-ffa5 PASSED (30/30, preserved). Coordinator 0350Z confirm read. Creating a new 4090 pod vy-sp1-evaluator for gemm2048 + silu[128,256)
 CHECKPOINT 0a652c36 (04:05Z) [open] WAITING r20260926-034955-d892 on vy-sp1-evaluator (then gemm8192, gemm2048, silu-rest queued by tmux cover-queue/cover-queue-2 on the agent VM), check after 05:50Z; agent bc-231b1a72-2c21-58bc-b207-c9ee2ac71772; next: label cover runs, cover summary snapshot, handoff for non-producer verify

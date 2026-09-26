@@ -14,7 +14,7 @@ instead of stopping on a bug. NON_ZK_PROOF is claimed at 2^-130.19.
 | cell | art | plateau | VU/s | proving overhead | verifier run (records) | prover run (proofs, statements) |
 |---|---|---|---:|---:|---|---|
 | K = 2048, #101 art:123dc234 | art:a0ca8ef6 | 4,096 VUs (6,272: CUDA OOM) | 283 | 2.7e8× | r20260926-095014-2234 (art:f9da2094) | r20260926-095028-c0bd (run_files art:460e9938, record art:76f1aeb5) |
-| K = 8192, #101 art:927a4c3a | art:a979dfcb | 1,024 VUs (1,920: CUDA OOM) | 63.5 | 2.9e8× | r20260926-101258-e284 (art:984dcba5) | r20260926-101301-8697 (run_files art:e55da95a, record art:2f20e078) |
+| K = 8192, #101 art:927a4c3a | art:a979dfcb | 1,024 VUs (1,920: CUDA OOM) | 63.5 | 3.0e8× | r20260926-101258-e284 (art:984dcba5) | r20260926-101301-8697 (run_files art:e55da95a, record art:2f20e078) |
 
 - **Code:** tree 9cbfdcf2. It differs from the a7500a4b you verified only in `backends/gkr/cell.sh` (the verifier builds each size's
   statement just before serving it). The verifier, pins, commitment pins, `tools/cell.py`, `tools/cell_gate.py` and the prover

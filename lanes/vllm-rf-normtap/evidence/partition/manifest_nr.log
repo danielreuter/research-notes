@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/workspace/venv312/bin/verity-vllm", line 4, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/workspace/gc2/nrmerge/integrations/vllm/verity_vllm/pipeline/cli.py", line 212, in main
+    return mod.main(opts)
+           ^^^^^^^^^^^^^^
+  File "/workspace/gc2/nrmerge/integrations/vllm/verity_vllm/pipeline/manifest.py", line 272, in main
+    man = build(a.program, workload=wl, request_id=a.request_id, rank=a.rank, ranks=a.ranks, profile=a.profile, return_slots=not a.no_return_slots,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gc2/nrmerge/integrations/vllm/verity_vllm/pipeline/manifest.py", line 74, in build
+    word_check(P, corr, r.required, word, acquired=dict(NS.TAP_WORDS) if norm_scales else None, log=log)
+  File "/workspace/gc2/nrmerge/integrations/vllm/verity_vllm/pipeline/manifest.py", line 56, in word_check
+    r = word_query.check_query(P, _Committed(required, literal_calls(P), corr.module_of), X, W, extras, strict=strict, acquired=acquired)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gc2/nrmerge/integrations/vllm/verity_vllm/query/word.py", line 586, in check_query
+    return check_calls(call_groups(P, Q), X, W, extras, strict=strict, acquired=acquired)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gc2/nrmerge/integrations/vllm/verity_vllm/query/word.py", line 549, in check_calls
+    raise QueryRuleViolation(f"{query_id(X, W, extras)}: {len(viol)} violation(s): " + "; ".join(_name(x) for x in viol[:12])
+verity_vllm.query.word.QueryRuleViolation: Q_word_v1{X=16,W=32,R=no-recompute}: 1 violation(s): GumbelTopPTokenSelect_v1{V=128256}: cut, 32 Call(s) under 

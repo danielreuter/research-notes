@@ -1,0 +1,814 @@
+{
+ "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+ "ok": true,
+ "definitions": [
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 64
+   },
+   "calls_in_101": 0,
+   "gates": 516,
+   "structure_gates": 130,
+   "units": 129,
+   "by_kind": {
+    "output": 128,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=64,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 192,
+    "computed_gates": 386,
+    "certified": 386,
+    "structure_gates": 130,
+    "total_gates": 708,
+    "committed": 321,
+    "cross_unit_reads": 384,
+    "computing_units": 129
+   },
+   "violations": [],
+   "seconds": 0.04
+  },
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 128
+   },
+   "calls_in_101": 0,
+   "gates": 1028,
+   "structure_gates": 258,
+   "units": 257,
+   "by_kind": {
+    "output": 256,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=128,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 384,
+    "computed_gates": 770,
+    "certified": 770,
+    "structure_gates": 258,
+    "total_gates": 1412,
+    "committed": 641,
+    "cross_unit_reads": 768,
+    "computing_units": 257
+   },
+   "violations": [],
+   "seconds": 0.02
+  },
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 256
+   },
+   "calls_in_101": 0,
+   "gates": 2052,
+   "structure_gates": 514,
+   "units": 513,
+   "by_kind": {
+    "output": 512,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=256,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 768,
+    "computed_gates": 1538,
+    "certified": 1538,
+    "structure_gates": 514,
+    "total_gates": 2820,
+    "committed": 1281,
+    "cross_unit_reads": 1536,
+    "computing_units": 513
+   },
+   "violations": [],
+   "seconds": 0.04
+  },
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 576
+   },
+   "calls_in_101": 0,
+   "gates": 4612,
+   "structure_gates": 1154,
+   "units": 1153,
+   "by_kind": {
+    "output": 1152,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=576,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 1728,
+    "computed_gates": 3458,
+    "certified": 3458,
+    "structure_gates": 1154,
+    "total_gates": 6340,
+    "committed": 2881,
+    "cross_unit_reads": 3456,
+    "computing_units": 1153
+   },
+   "violations": [],
+   "seconds": 0.09
+  },
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 1536
+   },
+   "calls_in_101": 0,
+   "gates": 11780,
+   "structure_gates": 3074,
+   "units": 3073,
+   "by_kind": {
+    "output": 3072,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=1536,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 4608,
+    "computed_gates": 8706,
+    "certified": 8706,
+    "structure_gates": 3074,
+    "total_gates": 16388,
+    "committed": 7681,
+    "cross_unit_reads": 9216,
+    "computing_units": 3073
+   },
+   "violations": [],
+   "seconds": 0.23
+  },
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 2048
+   },
+   "calls_in_101": 9184,
+   "gates": 15364,
+   "structure_gates": 4098,
+   "units": 4097,
+   "by_kind": {
+    "output": 4096,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=2048,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 6144,
+    "computed_gates": 11266,
+    "certified": 11266,
+    "structure_gates": 4098,
+    "total_gates": 21508,
+    "committed": 10241,
+    "cross_unit_reads": 12288,
+    "computing_units": 4097
+   },
+   "violations": [],
+   "seconds": 0.3
+  },
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 2304
+   },
+   "calls_in_101": 0,
+   "gates": 17156,
+   "structure_gates": 4610,
+   "units": 4609,
+   "by_kind": {
+    "output": 4608,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=2304,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 6912,
+    "computed_gates": 12546,
+    "certified": 12546,
+    "structure_gates": 4610,
+    "total_gates": 24068,
+    "committed": 11521,
+    "cross_unit_reads": 13824,
+    "computing_units": 4609
+   },
+   "violations": [],
+   "seconds": 0.33
+  },
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 2560
+   },
+   "calls_in_101": 0,
+   "gates": 18948,
+   "structure_gates": 5122,
+   "units": 5121,
+   "by_kind": {
+    "output": 5120,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=2560,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 7680,
+    "computed_gates": 13826,
+    "certified": 13826,
+    "structure_gates": 5122,
+    "total_gates": 26628,
+    "committed": 12801,
+    "cross_unit_reads": 15360,
+    "computing_units": 5121
+   },
+   "violations": [],
+   "seconds": 0.38
+  },
+  {
+   "family": "RMSNormFusedCuda_v2",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 4096
+   },
+   "calls_in_101": 0,
+   "gates": 29700,
+   "structure_gates": 8194,
+   "units": 8193,
+   "by_kind": {
+    "output": 8192,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormFusedCuda_v2{N=4096,EPS=1e-05}",
+     "head": "RsqrtApprox_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 12288,
+    "computed_gates": 21506,
+    "certified": 21506,
+    "structure_gates": 8194,
+    "total_gates": 41988,
+    "committed": 20481,
+    "cross_unit_reads": 24576,
+    "computing_units": 8193
+   },
+   "violations": [],
+   "seconds": 0.57
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 64
+   },
+   "calls_in_101": 0,
+   "gates": 1158,
+   "structure_gates": 750,
+   "units": 65,
+   "by_kind": {
+    "output": 64,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=64,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 128,
+    "computed_gates": 408,
+    "certified": 408,
+    "structure_gates": 750,
+    "total_gates": 1286,
+    "committed": 193,
+    "cross_unit_reads": 256,
+    "computing_units": 65
+   },
+   "violations": [],
+   "seconds": 0.02
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 128
+   },
+   "calls_in_101": 0,
+   "gates": 1534,
+   "structure_gates": 854,
+   "units": 129,
+   "by_kind": {
+    "output": 128,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=128,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 256,
+    "computed_gates": 680,
+    "certified": 680,
+    "structure_gates": 854,
+    "total_gates": 1790,
+    "committed": 385,
+    "cross_unit_reads": 512,
+    "computing_units": 129
+   },
+   "violations": [],
+   "seconds": 0.03
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 256
+   },
+   "calls_in_101": 0,
+   "gates": 2286,
+   "structure_gates": 1094,
+   "units": 257,
+   "by_kind": {
+    "output": 256,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=256,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 512,
+    "computed_gates": 1192,
+    "certified": 1192,
+    "structure_gates": 1094,
+    "total_gates": 2798,
+    "committed": 769,
+    "cross_unit_reads": 1024,
+    "computing_units": 257
+   },
+   "violations": [],
+   "seconds": 0.06
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 576
+   },
+   "calls_in_101": 0,
+   "gates": 4166,
+   "structure_gates": 1389,
+   "units": 577,
+   "by_kind": {
+    "output": 576,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=576,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 1152,
+    "computed_gates": 2777,
+    "certified": 2777,
+    "structure_gates": 1389,
+    "total_gates": 5318,
+    "committed": 1729,
+    "cross_unit_reads": 2304,
+    "computing_units": 577
+   },
+   "violations": [],
+   "seconds": 0.08
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 1536
+   },
+   "calls_in_101": 0,
+   "gates": 10578,
+   "structure_gates": 3461,
+   "units": 1537,
+   "by_kind": {
+    "output": 1536,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=1536,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 3072,
+    "computed_gates": 7117,
+    "certified": 7117,
+    "structure_gates": 3461,
+    "total_gates": 13650,
+    "committed": 4609,
+    "cross_unit_reads": 6144,
+    "computing_units": 1537
+   },
+   "violations": [],
+   "seconds": 0.21
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 2048
+   },
+   "calls_in_101": 287,
+   "gates": 13586,
+   "structure_gates": 4101,
+   "units": 2049,
+   "by_kind": {
+    "output": 2048,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=2048,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 4096,
+    "computed_gates": 9485,
+    "certified": 9485,
+    "structure_gates": 4101,
+    "total_gates": 17682,
+    "committed": 6145,
+    "cross_unit_reads": 8192,
+    "computing_units": 2049
+   },
+   "violations": [],
+   "seconds": 0.24
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 2304
+   },
+   "calls_in_101": 0,
+   "gates": 15862,
+   "structure_gates": 5190,
+   "units": 2305,
+   "by_kind": {
+    "output": 2304,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=2304,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 4608,
+    "computed_gates": 10672,
+    "certified": 10672,
+    "structure_gates": 5190,
+    "total_gates": 20470,
+    "committed": 6913,
+    "cross_unit_reads": 9216,
+    "computing_units": 2305
+   },
+   "violations": [],
+   "seconds": 0.3
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 2560
+   },
+   "calls_in_101": 0,
+   "gates": 17366,
+   "structure_gates": 5509,
+   "units": 2561,
+   "by_kind": {
+    "output": 2560,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=2560,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 5120,
+    "computed_gates": 11857,
+    "certified": 11857,
+    "structure_gates": 5509,
+    "total_gates": 22486,
+    "committed": 7681,
+    "cross_unit_reads": 10240,
+    "computing_units": 2561
+   },
+   "violations": [],
+   "seconds": 0.34
+  },
+  {
+   "family": "RMSNormTriton_v1",
+   "statics": {
+    "EPS": 1e-05,
+    "N": 4096
+   },
+   "calls_in_101": 0,
+   "gates": 27162,
+   "structure_gates": 8197,
+   "units": 4097,
+   "by_kind": {
+    "output": 4096,
+    "committed": 1
+   },
+   "committed_interior_words": 1,
+   "committed_interior": [
+    {
+     "scope": "RMSNormTriton_v1{N=4096,EPS=1e-05}",
+     "head": "F32Mul_v1",
+     "words": 1,
+     "bits": 32
+    }
+   ],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 8192,
+    "computed_gates": 18965,
+    "certified": 18965,
+    "structure_gates": 8197,
+    "total_gates": 35354,
+    "committed": 12289,
+    "cross_unit_reads": 16384,
+    "computing_units": 4097
+   },
+   "violations": [],
+   "seconds": 0.52
+  },
+  {
+   "family": "RsqrtF32_v1",
+   "statics": {
+    "N": 1
+   },
+   "calls_in_101": 0,
+   "gates": 1,
+   "structure_gates": 0,
+   "units": 1,
+   "by_kind": {
+    "output": 1
+   },
+   "committed_interior_words": 0,
+   "committed_interior": [],
+   "max_out_bits": 32,
+   "width_ok": true,
+   "strict_partition": true,
+   "committed_boundaries_only": true,
+   "recomputed_gates": 0,
+   "cut_ok": true,
+   "cut_codes": [],
+   "cut_detail": {
+    "input_gates": 1,
+    "computed_gates": 1,
+    "certified": 1,
+    "structure_gates": 0,
+    "total_gates": 2,
+    "committed": 2,
+    "cross_unit_reads": 1,
+    "computing_units": 1
+   },
+   "violations": [],
+   "seconds": 0.0
+  }
+ ]
+}

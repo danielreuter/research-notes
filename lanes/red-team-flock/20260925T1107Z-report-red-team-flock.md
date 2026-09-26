@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: blocked
+status: final
 ---
 
+CHECKPOINT 3301c435 (10:22Z) [final] FINAL 11:00Z: ChunkTail(n) GRANTED WITH CONDITIONS (CT1-CT3; selftests K2304/K8960 bf16 + K2560 fp8 all_pass; older layouts byte-identical by replay). L40S cells labelled earlier. No pods, $0.
 CHECKPOINT 3301c435 (10:11Z) [blocked] 10:32Z: L40S GEMM cells df3d63e4/8bc3dba2 labelled NON_ZK_PROOF (PB1-PB4, CN1-CN2; replay 6/6 each). ChunkTail review BLOCKED: GitHub 401, need bundle of af2c3015 in lanes/red-team-flock/bundles/
 CHECKPOINT 3301c435 (10:07Z) [blocked] 10:15Z: ChunkTail review blocked: GitHub 401 on this VM, af2c3015 not in store; need a bundle (af2c3015 vs e4f631bd) in lanes/red-team-flock/bundles/ or a fresh token
 CHECKPOINT 3301c435 (10:05Z) [open] 10:06Z reopened: ChunkTail(n) review (PR #70), CPU only
@@ -891,3 +892,11 @@ replay accepted 6 of 6 sessions per cell. Detail is in note
 The ChunkTail(n) review (20260926T1004Z-handoff-from-flock-gpu-link.md) is BLOCKED. af2c3015 can't be fetched (GitHub
 401), and it isn't in the store. I've asked for a bundle in
 `lanes/coordinator/20260926T1015Z-handoff-from-red-team-flock.md`.
+
+## ChunkTail(n) (11:00Z)
+
+GRANTED WITH CONDITIONS (CT1 scope, CT2 CN2 at n + 1 blocks per VU, CT3 host-built inputs only, plus CN1, CN3 and
+PB1–PB4). My independent CPU selftests had all_pass at K 2304 and 8960 (bf16) and at K 2560 (fp8). Older layouts are
+byte-identical: 5 recorded sessions replay accepted under af2c3015. Detail is in note
+`lanes/coordinator/20260926T1100Z-handoff-from-red-team-flock.md`. This answers
+20260926T1004Z-handoff-from-flock-gpu-link.md.

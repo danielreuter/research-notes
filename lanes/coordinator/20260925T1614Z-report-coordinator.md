@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT (10:50Z) [open] main e8ec5e19 (PR #71 A1 booking merged); agkr-real-k PAUSED again 10:20Z (projection $299 -> ~$279); #101 L40S GEMM cells published, strict headline 13.9-26.6% C-Flock; b1d710da still at recorded 2^-128.10 (A1 booking gives 2^-127.97; needs lane relabel); decision-previews updated.
+
 CHECKPOINT (10:32Z) [open] main 89ba3a65: PR #69 + lane/verify-agkr-real-k merged; route (a) real-K cells published (1.4e9x, 1.5e9x); 5090 RTT-dominance footnote; attention rows crash-guarded (16 cells X, T decision pending); headline lists below-bar proofs; 16 below-bar results published; render 10:30Z.
 
 CHECKPOINT (09:50Z) [open] merged PR #62 (vLLM APPROVE), flock-ir-lowering f4cd5d4e, PR #65 flock-ir-sampling; agkr-real-k pause LIFTED 09:35Z; steward hung 09:08-09:32Z in a network poll (restarted); projection ~$245 (burn $10.5/h); B-Ligero 4 published, 12 preview.

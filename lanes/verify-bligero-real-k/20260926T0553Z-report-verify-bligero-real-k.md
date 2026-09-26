@@ -2,9 +2,10 @@
 lane: verify-bligero-real-k
 kind: report
 created: 2026-09-26T05:53Z
-status: open
+status: final
 ---
 
+CHECKPOINT 49cc39ef (09:09Z) [final] FINAL (reopen 2): e8fb169d + 9260a985 verified=accepted (ref r20260926-085735-35b1, main 49cc39ef, pins 16/16); all 16 real-K new-sender cells verified; snapshot r20260926-073309-3956 = preserved record (320/320); pod terminated 09:08Z ~$0.10
 CHECKPOINT 49cc39ef (08:59Z) [open] snapshot_vs_record r20260926-073309-3956: 320/320 files = preserved record art:af3a9928; sessions for e8fb169d 9260a985 from that record; pod cpu3c-16 t258al5w5tu80i ($0.48/h); run launched (pins + 2 cells at main 49cc39ef). Handoff 0845Z acted on
 CHECKPOINT 2bd8ce2f (08:54Z) [open] reopened for last 2 B-Ligero cells e8fb169d (H100 BF16 K8192 sha256) + 9260a985 (FP8) and snapshot_vs_record r20260926-073309-3956: NOT final; agent bc-30d7a020-fc45-5944-9ceb-1ac513232a9e; $2
 CHECKPOINT 2bd8ce2f (08:30Z) [final] FINAL (reopen 1): 14 new-sender cells verified=accepted (runs r20260926-075651-fc42, -081703-0f0a, -082424-5906 at main 2bd8ce2f; pins 16/16; sets re-staged; sessions 70/70); last 2 H100 K8192 SHA-256 cells not yet registered; pod terminated 08:29Z ~$0.55

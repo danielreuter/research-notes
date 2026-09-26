@@ -264,3 +264,27 @@ NON_ZK_PROOF, relation-only.** rope and silu under v2 have byte-identical rows (
 
 Handoffs received: `20260926T0502Z-handoff-from-flock-ir-lowering.md` (acted on above; it replaces 0435Z), and
 `20260926T0452Z-handoff-from-flock-backend.md` (routed to the coordinator: Chunk(n), not this lane's scope).
+
+# IR4 / IR5 confirmed, and flock-ir-frame/v2 (IR3) at c53d9148 (07:23–07:55Z)
+
+**IR4 and IR5 are MET. verity/flock-ir-frame/v2 is GRANTED WITH CONDITIONS at NON_ZK_PROOF, and the four cells are labelled
+NON_ZK_PROOF.** The detail is in `lanes/flock-ir-lowering/20260926T0755Z-handoff-from-red-team-flock-2.md`, with a copy in
+`lanes/coordinator/`.
+
+- **Run r20260926-073804-d4d2 (art:572efe9e):**
+  - the tail primitives show 0 mismatches everywhere;
+  - 5 IR4 tampers are refused;
+  - the producer's selftests pass 19/19/14/14 on my staged files;
+  - 10 of my RT2 frame attacks are refused;
+  - 7 of 9 load tampers are refused. The other two, wiring_swap and key_changed, pass load: IR6.
+- **VM:**
+  - `frame_check.py` on the four cells' verifier-staged files: netlists as reviewed, wiring and out_leaf equal the IR's leaf
+    maps (0 differences), roots recomputed;
+  - `silu_x2_check.py`: 531,072 units, 0 mismatches;
+  - the RMSNorm pins are the granted rows plus the CUT line.
+- **Conditions:** IR2 is mandatory; IR6 hardening (pin the leaf maps and the key, assert u16 output ports); a non-producer
+  replay is pending.
+- **Labels:** `proof_class=NON_ZK_PROOF` and a `finding` on art:dd27fdab, 8a07b80f, 9563d2c8 and 63553a6c.
+- **Pod:** sae80jd5y924p5, terminated; about $0.11.
+- **Handoffs received:** `20260926T0602Z-handoff-from-flock-ir-lowering.md` and `20260926T0640Z-handoff-from-flock-ir-lowering.md`,
+  both acted on above.

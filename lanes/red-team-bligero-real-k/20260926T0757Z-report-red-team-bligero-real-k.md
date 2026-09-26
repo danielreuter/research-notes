@@ -5,6 +5,7 @@ created: 2026-09-26T07:57Z
 status: final
 ---
 
+CHECKPOINT 5e7e255d (09:21Z) [final] FINAL: real-K B-Ligero class GRANTED WITH CONDITIONS (COMPLETE_ZK_BACKEND; coordinator/0917Z); proof_class+finding on 16 new-sender cells; no break; A1 chain-test field term unbooked (<=2^-140.35/proof at K8192 BF16, no cell below 2^-128); evidence art:dc790613; tools cursor/red-team-bligero-real-k-0819@5e7e255d; no pod, $0
 CHECKPOINT 5e7e255d (09:21Z) [final] FINAL: real-K B-Ligero class GRANTED WITH CONDITIONS (COMPLETE_ZK_BACKEND; coordinator/0917Z); proof_class+finding on 16 new-sender cells; no break; A1 chain-test field term unbooked (<=2^-140.35/proof at K8192 BF16, no cell below 2^-128); evidence art:dc790613; tools 5e7e255d; no pod, $0
 CHECKPOINT 345a64f9 (08:42Z) [open] tools @345a64f9 (cursor/red-team-bligero-real-k-0819). live sender 15/15 refused/accepted as expected (head-only check defers body to Rust); sessions: 10/14 cells every rep = rep-1 statements (4 wait on H100 verifier r...3956 record); scans+cross-K e2e running on VM; finding: chain-extras field term unbooked (2^-140.35/proof at K8192 BF16), no cell below 2^-128
 CHECKPOINT e3a2d81d (08:18Z) [open] code read done (relations._at_k, sized blake3 frame, sha256@K, Rust gate/steps/sized, live server head-only checks): no break yet; VM: real-K gadget scans running (xob + sha256, 4 shapes + controls), 8 small honest CPU dumps for cross-K attacks; no pod

@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: open
 ---
 
+CHECKPOINT a57628fc (03:46Z) [open] woken 03:46Z: re-review NV1-NV3 at 45fdab2d (flock-gpu-link 0335Z request); focus fp8 y<<10 check + NVFP4-only schema in statement digest; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (03:08Z) [open] NVFP4 Fp4/ShaFp4 @0bb25e8a GRANTED WITH CONDITIONS NV1-NV3 (+PB1-4, FA1) at NON_ZK_PROOF, handoff 0310Z (art:cf130873, art:206b74f5); wgmma pin 12c3c8d3 pre-checked. Pods terminated, ~$0.08. IDLE: waiting for NV1-NV3 + 5090 cells to label, row-sharing statement, flock-backend statements; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (03:04Z) [open] NVFP4 Fp4/ShaFp4 @7b3ba797 (=0bb25e8a verifier): producer selftest 15/15 + 13/13 at 8/64 on my gen_fp4 files, 12/12 rtf2 negatives refused (art:cf130873); gaps G1 relabel, G2 fp4-netlist-under-Fp8, G3 out!=y ACCEPTED. Now r20260926-030235-8637 (dummy blocks, 12/40 VUs); wgmma pin 12c3c8d3 0/129,571
 CHECKPOINT a57628fc (02:54Z) [open] WAITING r20260926-025249-6192 on vy-red-team-flock-2 (pkkkgds4e8unxt, A4000 as CPU box: no CPU stock), check after 03:25Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; next: NVFP4 Fp4/ShaFp4 @7b3ba797 selftests on my gen_fp4 files + 12 rtf2 negatives + 3 gap demos (out!=y, schema relabel, fp4 netlist under Fp8)

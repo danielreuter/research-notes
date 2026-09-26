@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (10:16Z) [open] L40S #101: replay r20260926-101538-4dd1 on vy-verify-flock-pure (pod ghupdbwdq8jzoy) from lane/verify-flock-l40s b4eb302d = 2f55d2d3 + flock-ir-frame replay (local commit: GitHub token expired, push pending); sampling next (granted 1010Z)
 CHECKPOINT 787ac154 (10:08Z) [open] reopened for 6 L40S #101 cells (df3d63e4 8bc3dba2 dc9b92f6 6dc1f392 d1ae527d 1e7cdc41) then sampling a330c568 26b5f7d8 if granted: NOT final
 CHECKPOINT 787ac154 (10:07Z) [final] FINAL: NVFP4 cells 2753a371 (Fp4, 30/30) + db7f48de (ShaFp4, 54/54) verified=accepted (file re-verification, r20260926-095555-fdcb); pod terminated 10:07Z; ~$0.12. L40S-101 handoff 1003Z awaits a reopening
 CHECKPOINT 787ac154 (10:07Z) [final] FINAL: NVFP4 cells 2753a371 (Fp4, 30/30) + db7f48de (ShaFp4, 54/54) verified=accepted (file re-verification, r20260926-095555-fdcb); pod terminated 10:07Z; ~$0.12; tip lane/verify-flock-pure-realk db908649

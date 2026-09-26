@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (01:31Z) [final] FINAL: SHA-256 cells 728d8724, df857ea6, fd772057, 324888c5 verified=accepted (file re-verification, r20260926-011150-e4e9); pod terminated 01:31Z; lane ~$3.2; tip 787ac154
 CHECKPOINT 787ac154 (01:12Z) [open] SHA-256 cells: replay run r20260926-011150-e4e9 on vy-verify-flock-pure (pod 00e10u9jfgf327), verifier c058c33f(=bab181d6 verifier path)+replay 7b60287b; plateau proofs = recorded for all four
 CHECKPOINT 0f933bbf (01:06Z) [open] reopened for 4 SHA-256 Flock cells (728d8724, df857ea6, fd772057, 324888c5): NOT final
 CHECKPOINT 0f933bbf (00:35Z) [final] FINAL: 1589ffe1, c3e83404, 7afeecbe, 167e64a8, 56f792bd verified=accepted (file re-verification); pods terminated 00:36Z; ~$2.8; tips 0f933bbf + vllm f9ada8e7
@@ -35,3 +36,5 @@ own instance files, pinned lowering, own Σ/publics/link_sha256; 12/12 negatives
 (all acted on). Sent: coordinator 20260925T2210Z and 20260925T2246Z.
 
 Reopened 23:04Z-00:37Z: labelled art:1589ffe1, art:c3e83404, art:7afeecbe, art:167e64a8, art:56f792bd (and pulled bb289d47, ed0047be, fb526e50, 37215309) verified=accepted; handoffs 20260925T2337Z-handoff-from-flock-vllm-v1.md, 20260925T2348Z-handoff-from-flock-backend.md, 20260925T2352Z-handoff-from-flock-backend.md, 20260926T0003Z-handoff-from-flock-backend.md acted on; sent coordinator 20260926T0010Z, 20260926T0037Z. Second pod uva3p2e0o8ki3p terminated 00:36Z; lane total ~$2.8. Tips: lane/verify-flock-pure 0f933bbf, lane/verify-flock-pure-vllm f9ada8e7.
+
+Reopened 01:06Z-01:32Z: SHA-256 cells art:728d8724, art:df857ea6, art:fd772057, art:324888c5 verified=accepted (r20260926-011150-e4e9); handoff 20260926T0106Z-handoff-from-flock-backend.md acted on; sent coordinator 20260926T0132Z. Third pod 00e10u9jfgf327 terminated 01:31Z; lane total ~$3.2. Tip lane/verify-flock-pure 787ac154.

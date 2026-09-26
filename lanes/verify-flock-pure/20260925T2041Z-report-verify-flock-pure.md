@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 0f933bbf (00:35Z) [final] FINAL: 1589ffe1, c3e83404, 7afeecbe, 167e64a8, 56f792bd verified=accepted (file re-verification); pods terminated 00:36Z; ~$2.8; tips 0f933bbf + vllm f9ada8e7
 CHECKPOINT 0f933bbf (00:28Z) [open] art:167e64a8, art:7afeecbe, art:c3e83404 verified=accepted (18/18, 54/54, 66/66; r20260926-000935-dd35). vllm-v1 art:56f792bd replay r20260926-002803-d4e8 running on vy-verify-flock-pure
 CHECKPOINT 0f933bbf (00:09Z) [open] H100 BF16 art:1589ffe1 verified=accepted (60/60, r20260925-235824-1a5c). Also labelled (now pulled) art:fb526e50, art:37215309, art:bb289d47, art:ed0047be. Next: art:c3e83404, art:7afeecbe, art:167e64a8, vllm art:56f792bd
 CHECKPOINT 6a6b5109 (23:47Z) [open] relabelled art:bb289d47 + art:ed0047be verified=accepted (same runs/proofs as 6d1295ed/d1961ba4, no pod). Running r20260925-234414-571e (A100 art:fb526e50, H100 fp8 art:37215309) on vy-verify-flock-pure (pod uva3p2e0o8ki3p); vllm-v1 art:56f792bd replay tool ready (lane/verify-flock-pure-vllm f9ada8e7)
@@ -30,3 +31,5 @@ own instance files, pinned lowering, own Σ/publics/link_sha256; 12/12 negatives
 (60/60). Handoffs received: 20260925T2100Z-handoff-from-coordinator.md, 20260925T2123Z-handoff-from-flock-backend.md,
 20260925T2135Z-handoff-from-coordinator.md, 20260925T2150Z-handoff-from-coordinator.md, 20260925T2218Z-handoff-from-flock-backend.md
 (all acted on). Sent: coordinator 20260925T2210Z and 20260925T2246Z.
+
+Reopened 23:04Z-00:37Z: labelled art:1589ffe1, art:c3e83404, art:7afeecbe, art:167e64a8, art:56f792bd (and pulled bb289d47, ed0047be, fb526e50, 37215309) verified=accepted; handoffs 20260925T2337Z-handoff-from-flock-vllm-v1.md, 20260925T2348Z-handoff-from-flock-backend.md, 20260925T2352Z-handoff-from-flock-backend.md, 20260926T0003Z-handoff-from-flock-backend.md acted on; sent coordinator 20260926T0010Z, 20260926T0037Z. Second pod uva3p2e0o8ki3p terminated 00:36Z; lane total ~$2.8. Tips: lane/verify-flock-pure 0f933bbf, lane/verify-flock-pure-vllm f9ada8e7.

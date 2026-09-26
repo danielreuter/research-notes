@@ -70,6 +70,10 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 - PR #77 follow-up d4200876: verify on an empty run root returns False (it raised InvalidArtifact); native_ranges._run_root total;
   test_a_run_without_a_run_root_verifies_no_opening. Run locally (3 placeholder + 13 security tests pass). Handoff 20260926T1415Z.
 
+- PR #77 3317d9a4: verify_range guard (coordinator 1425Z): _run_root None over a placeholder step + 32-byte run-root check; range test
+  (fails on d4200876). Gate r20260926-143306-9d9f: lints rc 0; tests/commit+check head 949 vs base 945, 0 failed. PRESERVED. Handoff 1440Z.
+  vyv-rf-m32-vr (broken sshd) and vyv-rf-m32-vr2 terminated.
+
 ## Running
 - nothing. vyv-rf-m32-bf terminated 14:03Z (all lane pods terminated).
 

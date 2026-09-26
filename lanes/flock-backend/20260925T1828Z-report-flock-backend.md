@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: open
 ---
 
+CHECKPOINT e09c19a5 (10:16Z) [open] WAIT workload GEMM cells @e09c19a5 (PR #70 ChunkTail merged): H100 k4096 art:d9a40cd4 + k2560 art:8b5a0bf1 registered, k9728 running; L40S (EUR-IS-2, L4 verifier) k1536/2048/4096/9216/14336/2304/8960 queued (tmux cells-l40s); earlier 0946-1000Z runs void (launcher bugs); check-back 10:45Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 581c3084 (09:52Z) [open] WAIT workload GEMM cells: H100 (US-MO-1, verifier A40 same DC) k4096 then grant k2560/k9728; L40S (EUR-IS-2, verifier L4 same DC) k1536/k2048/k4096 then grant k9216/k14336; tmux cells-h100/cells-l40s run launch.sh (bench.cell plan/run/register); check-back 10:15Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 75207d9d (09:43Z) [open] NVFP4 cells done (art:2753a371 Fp4 7,374 VU/s, art:db7f48de ShaFp4 3,614; verifier EU-SE-1 3.2 ms, not same DC); pods terminated; per-workload GEMMs staged on CPU (75207d9d; plans + launch.sh in evidence/gemm-workloads; 5 ready, 5 need grant, 2 need Chunk(n,tail)); handoffs 0945Z/1000Z; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 51743c71 (09:21Z) [open] NVFP4 cells running (pause lifted 0920Z): 5090 community pod b7aqnrs491oi6p (SE) + verifier A5000 EU-SE-1 3gtn7nvr561ybq (TCP connect 3.3 ms: not same DC, no same-DC stock), set art:160a53a0, Fp4 then ShaFp4 via tmux drive-5090 @51743c71; check-back 09:45Z; then CPU staging of per-workload GEMMs; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

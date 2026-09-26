@@ -4,7 +4,9 @@
 #   bash launch.sh l40s [grant]     sm80 BF16 cells on an L40S prover   (#39 K1536, #57/#67 K2048, #60 K4096)
 #   bash launch.sh h100 [grant]     sm90 wgmma BF16 cells on an H100    (#73 K4096)
 #   "grant" adds the cells whose Chunk(n) is outside red-team-flock's grant (n in {2,4,8,16}; CPU selftests pass):
-#   l40s: #57 K9216 Chunk(18), #60 K14336 Chunk(28); h100: #73/#74 K2560 Chunk(5), #73 K9728 Chunk(19).
+#   l40s: #57 K9216 Chunk(18), #60 K14336 Chunk(28), and the ChunkTail(n) cells #57 K2304 ChunkTail(4), #39 K8960 ChunkTail(17)
+#   (2 sub-batches of 1,024: CN2 caps it at 1,820); h100: #73/#74 K2560 Chunk(5), #73 K9728 Chunk(19).
+#   ONLY="k9728 ..." runs just those cells.
 #
 # Run from the repo root on cursor/flock-backend-4983 (clean tree; research on PATH, lane env sourced). It creates the prover
 # and a same-datacenter verifier pod (at most one pod per name: pod1.sh compares the pod list before and after a create), then
@@ -18,7 +20,9 @@ case $GPU in
 k2048:art:69cb815c31b06425e7117ee6e4b43403c8cfb8d28f747f9bde79a18f63a0646e:2048:512 1024 2048
 k4096:art:bfed17304406e29217b10fbd944bce13ef8e4f023542b7e005a3bbfe4eccfa4f:1024:512 1024 2048"
         GRANT="k9216:art:c6237f08127239fd9e545e8cc5c6193c9c6a2aa621013dc377ac96b7912d04cb:512:256 512 1024 2048
-k14336:art:762f59238f7675e6d6b9a7d953fcea98d201cef83ed78856ac9401c74238738e:512:256 512 1024 2048" ;;
+k14336:art:762f59238f7675e6d6b9a7d953fcea98d201cef83ed78856ac9401c74238738e:512:256 512 1024 2048
+k2304:art:4f60228c9fbcc9367cdcb8b052d5afd956f1e9a3ff90e5c31a1606cfb4723e0f:2048:512 1024 2048
+k8960:art:0552b63f5df366869c6aa188da2f4a008dc3088e3b79d1b73233c8a5b6b34973:1024:256 512 1024 2048" ;;
   h100) DCS="US-MO-1 US-KS-2 US-NE-1"; PGPU="NVIDIA H100 80GB HBM3"; SM=90; SID=sm90-wgmma-bf16
         CELLS="k4096:art:cdc7b5ebad6a1da4ce35e811c0ee21d81ab4bbc956a24f399e206496b088509e:2048:512 1024 2048"
         GRANT="k2560:art:01326d5b13004ba3e06cf9177f390848fc9042c4e7386d9a3399e70132dd0098:2048:512 1024 2048
@@ -43,6 +47,7 @@ echo "verifier $VADDR (sshd $VSSH)"
 state() { local l; l=$(research fetch $1 </dev/null 2>&1 | tail -1); case $l in *"Z: done "*) echo done;; *"Z: failed "*) echo failed;; *"Z: refused"*|*"Z: canceled"*|*"Z: cancelled"*) echo failed;; *) echo running;; esac; }
 while IFS=: read -r tag _ art per pts; do
   [ -z "$tag" ] && continue
+  [ -n "${ONLY:-}" ] && [[ " $ONLY " != *" $tag "* ]] && continue
   art="art:$art"
   python -m verity_numerical.bench.cell plan --backend C-interactive --statement "gemm-coordinate/$tag/$SID+frame-v3/blake3-keyed" \
     --input-set $art --prover $P --verifier $V --verifier-addr $VADDR --rtt-target $VSSH --campaign flock-backend --lane flock-backend \

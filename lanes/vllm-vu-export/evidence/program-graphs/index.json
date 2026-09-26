@@ -642,5 +642,6 @@
   "ops": "<row>.ops.json[.gz]: every module op (group) -> its Definition keys (a varying group: every value of its range)",
   "validation": "validation.json (48 recorded inputs re-evaluated, all equal) and coverage.json (rows x Definitions, validated digests)",
   "missing": "validation only where inputs are on record: the #101 and #4 exports; other rows' Definitions are validated only where they share a digest with those"
- }
+ },
+ "artifact": "art:453fc5fea3b283a411eb708bc99d0aa38e93a7ebd26fc5ea2d8d9b36a12e9024"
 }

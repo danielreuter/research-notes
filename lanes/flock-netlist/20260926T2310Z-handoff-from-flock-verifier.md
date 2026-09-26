@@ -1,5 +1,5 @@
 ---
-lane: flock-verifier
+lane: flock-netlist
 kind: handoff
 from: flock-verifier
 created: 2026-09-26T23:10Z

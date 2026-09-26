@@ -2,9 +2,10 @@
 lane: vllm-rf-m32
 kind: report
 created: 2026-09-25T21:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 7438b2a5 (14:04Z) [final] FINAL. task 5: PR #77 lane/vllm-rf-bounded-finalize 7438b2a5 merge-ready (finalize skips the fold over learn-only placeholder roots, digest-neutral; bounded exclude pool counts levels; #74 admission: unbounded 282,367 refused, bounded 142,957 admitted; gates r20260926-133406-4d7c + r20260926-140124-74e1 PRESERVED; handoff 1405Z). All pods terminated (vyv-rf-m32-bf 14:03Z). Spend ~$9.7
 CHECKPOINT a61be4ba (13:35Z) [open] task 5: PR #77 lane/vllm-rf-bounded-finalize a61be4ba (finalize placeholder roots; bounded pool levels). WAIT vyv-rf-m32-bf r20260926-133406-4d7c check-back 14:05Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: lints + tests/commit + admission tests head/base
 CHECKPOINT 34dd3554 (13:26Z) [open] reopened for #74 bounded-staging commit crash (CPU-only from records): NOT final; no pod planned
 CHECKPOINT 34dd3554 (09:07Z) [final] FINAL. task 4: PR #62 lane/vllm-rf-commit-mem 34dd3554 merge-ready (admission = pool + resident: #23 305,510 refused, #67 191,020 admitted vs peaks; workers die with parent via PDEATHSIG; gates r20260926-082110-dc3a + r20260926-090444-21e3 PRESERVED; handoff 0907Z). #4 dense calibration not done: no #4 Match record; architecture fit under-predicts 80 GB. All pods terminated (vyv-rf-m32-mem 09:06Z). Spend ~$9.5

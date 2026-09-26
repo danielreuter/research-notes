@@ -5,6 +5,7 @@
 #  3. samp_tamper.py's files through the real verifier path: serve (--pin, --native-checked <the file's public sha256>) and a
 #     loopback prove on the same file; plus the chain-broken netlist under the honest pin and under its own
 set -uxo pipefail
+[ -d backends/flock ] || cd /workspace/research/src/${RESEARCH_SOURCE_SHA:-af0bd4169ba19a60a6d4bb41e6e8a9e1becb32b6} || exit 1
 I=$RESEARCH_RUN_DIR/inputs; O=$RESEARCH_RUN_DIR/out; mkdir -p $O; SRC=$(pwd)
 sha256sum $I/* | tee $O/inputs.sha256
 MODE=build GPU=0 bash backends/flock/pod/20-gpu-link.sh > $O/build-base.txt 2>&1 || { tail -60 $O/build-base.txt; exit 1; }

@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: open
 ---
 
+CHECKPOINT 3d019e65 (03:14Z) [open] WAIT vy-flock-backend-gate r20260926-031200-e58d (GPU gate + replay of art:1589ffe1 on 3d019e65 = main + my tip + flock-gpu-link 93773ddc; ChunkParams resolutions agree) check-back 03:40Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983; CPU selftests pass locally; NV1-NV3 after the merge request
 CHECKPOINT 4b7fb19d (02:44Z) [open] WAIT vy-flock-backend-gate r20260926-024251-c9d0 (gate: CPU+GPU selftests blake3/sha256/vllm-v1) + r20260926-024346-9cf3 (31-replay of art:1589ffe1 sessions) check-back 03:15Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983. Branch 4b7fb19d = main c79005af + flock-gpu-link 758a8edf merged; register uses views.interaction_problem; all 8 published Flock cells pass the renderer's check (6d1295ed's old connect-RTT runs don't: superseded)
 CHECKPOINT a9d13f68 (02:30Z) [blocked] root decision: real-K cells on the unshared statement (per-VU x rows); told flock-gpu-link 0250Z; stage() after PR #47 merges
 CHECKPOINT a9d13f68 (02:29Z) [blocked] register --lane 64914079; wgmma-bf16 lowering pinned 12c3c8d3 (a9d13f68); stage() waits for PR #47 merge

@@ -2,9 +2,10 @@
 lane: bligero-real-k
 kind: report
 created: 2026-09-26T03:24Z
-status: open
+status: final
 ---
 
+CHECKPOINT 281e5e17 (09:19Z) [final] DONE: 16 new-sender real-K cells ({bf16-ampere,bf16-hopper,fp8-ada,fp8-hopper} x K{2048,8192} x {xob,sha256}): art:3bb4d03f art:1dafbfd5 art:b1d710da art:622c9737 art:c56a09a8 art:4b567c9c art:11208bf7 art:e8fb169d art:664f3142 art:c92a439a art:767b54db art:f451dabc art:f1ac2db5 art:82587955 art:9fd5ec09 art:9260a985; old be42c41a c8cc8514 67fb03cb db9f01bf superseded_by; 4 pass, 12 under-model only (note labels; one-sided rule = Daniel); sender merged in PR #55; handoffs verify 0705Z/0758Z/0845Z, coordinator 0855Z; all lane pods terminated after drain (every attempt preserved); spend ~$46 of $52
 CHECKPOINT 281e5e17 (08:18Z) [open] 14 of 16 new-sender cells registered (all 4 old cells superseded; handoff lanes/verify-bligero-real-k/20260926T0758Z + 3 more: art:622c9737 A100 k8192 sha256, art:4b567c9c H100 k2048 sha256, art:82587955 H100 fp8 k2048 sha256); 4090 pair terminated; A100 pair draining (tmux bligero-drain); H100 k8192 sha256 bf16 r20260926-081620-1969 then fp8 queued to close the matrix; PR #55 merged 07:35Z with the sender; ~$39 of $52
 CHECKPOINT 281e5e17 (07:38Z) [open] v2 registered: art:b1d710da (A100 k8192 xob, pass; supersedes c8cc8514), art:11208bf7 (H100 k8192 xob, pass), art:c92a439a (4090 fp8 k2048 sha256, -41% under-model note), + c56a09a8 664f3142 767b54db; handoff lanes/verify-bligero-real-k/20260926T0740Z; running a100 r20260926-072307-515a (k2048 xob, redo be42c41a), 4090 r20260926-072427-b5a6 (fp8 k8192 sha256), h100 verifier relaunch r20260926-073309-3956 then fp8 xob k2048; ~$32 of $52
 CHECKPOINT 281e5e17 (07:14Z) [open] queue (tmux bligero-queue, verifier restarts now by status.json pgid) running v2 cells: a100 r20260926-070015-c005 (k8192 xob, supersedes c8cc8514), h100 r20260926-070231-a993 (k8192 xob), 4090 r20260926-071013-8db8 (fp8 k2048 sha256); registered v2 art:c56a09a8 (h100 k2048 xob, pass; 67fb03cb superseded), art:664f3142 + art:767b54db (4090 fp8 k2048/k8192 xob, under-model note; live verifier 327b accepted 20/20 + 10/10); registrations now carry --verifier-run; ~$28 of $52

@@ -5,6 +5,7 @@ created: 2026-09-25T23:13Z
 status: open
 ---
 
+CHECKPOINT 308b376b (20:53Z) [open] WAIT vyv-vu-export-g4: r20260926-203434-d173 (gate b base 56c62af2), r20260926-205221-c29b (gate b head 2c2df5fc = ordered router on 56c62af2, after base), r20260926-205254-afc2 (live topk_softmax vs MoeRouterTopKOrdered) check-back 21:40Z agent bc-eab8c043; expected end ~22:40Z (< 23:30Z). PR #86 construction replaced (rounds recomputed): ordered router, #67 261.0M->20.7M, #70 109.8M->8.7M; coordinator re-review asked
 CHECKPOINT 4ad624e0 (20:34Z) [open] WAIT vyv-vu-export-g4 r20260926-203417-97c3 (gate b head=#86 merged on 56c62af2) + r20260926-203434-d173 (gate b base 56c62af2) + r20260926-203444-7f58 (live topk_softmax) check-back 21:20Z agent bc-eab8c043; expected end ~22:00Z (< 23:30Z)
 CHECKPOINT adc5ca31 (20:22Z) [open] WAIT vyv-vu-export-g4 r20260926-202133-cc2d check-back 20:55Z agent bc-eab8c043 (live topk_softmax vs router Definitions, ~30 min, <$1; ends well before 23:30Z)
 CHECKPOINT adc5ca31 (20:18Z) [open] MoE router rounds DONE: PR #86 (adc5ca31) merge request to vllm-coordinator (handoff 20260926T2025Z); MoeRouterTopKRounds[Norm]_v1 bit-equal on 4,080 rows + edges, 0 committed interior words (#67 170.7M->0, #70 71.8M->0); opt-in moe_construction=indexed-read-rounds; no pods, $0; agent bc-eab8c043

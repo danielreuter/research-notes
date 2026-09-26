@@ -19,7 +19,7 @@ _DEFS = None
 def _defs(E, TOPK, VPT, renorm):
     from verity.ir.defs import bind
     from verity_vllm.program.registry import moe
-    old, new = (moe.MoeRouterTopKNorm, moe.MoeRouterTopKRoundsNorm) if renorm else (moe.MoeRouterTopK, moe.MoeRouterTopKRounds)
+    old, new = (moe.MoeRouterTopKNorm, moe.MoeRouterTopKOrderedNorm) if renorm else (moe.MoeRouterTopK, moe.MoeRouterTopKOrdered)
     return bind(old, E=E, TOPK=TOPK, VPT=VPT), bind(new, E=E, TOPK=TOPK, VPT=VPT)
 
 
@@ -31,7 +31,7 @@ def _eval(job):
 
 
 def kernel(rows, TOPK, renorm):
-    import vllm._moe_C  # noqa: F401  (registers torch.ops._moe_C)
+    import vllm._custom_ops  # noqa: F401  (registers torch.ops._moe_C)
     x = torch.from_numpy(np.array(rows, dtype=np.uint16).view(np.int16)).view(torch.bfloat16).cuda()
     M = x.shape[0]
     w = torch.empty(M, TOPK, dtype=torch.float32, device="cuda")
@@ -68,12 +68,12 @@ def main():
                 bad_old = [names[i] for i in range(len(rows)) if ev[i][1] != k[i]]
                 first = next((i for i in range(len(rows)) if ev[i][0] != k[i]), None)
                 key = f"E={E},TOPK={TOPK},VPT={VPT},renormalize={renorm}"
-                report["cases"][key] = {"rows": len(rows), "rounds_unequal_to_kernel": len(bad_new), "kernel_order_unequal_to_kernel": len(bad_old),
-                                        "rounds_unequal_names": bad_new[:20], "kernel_order_unequal_names": bad_old[:20],
+                report["cases"][key] = {"rows": len(rows), "ordered_unequal_to_kernel": len(bad_new), "kernel_order_unequal_to_kernel": len(bad_old),
+                                        "ordered_unequal_names": bad_new[:20], "kernel_order_unequal_names": bad_old[:20],
                                         "first": None if first is None else {"case": names[first], "row": rows[first], "kernel": k[first],
-                                                                             "rounds": ev[first][0], "kernel_order": ev[first][1]},
+                                                                             "ordered": ev[first][0], "kernel_order": ev[first][1]},
                                         "seconds": round(time.time() - t, 1)}
-                print(key, len(rows), "rows; rounds != kernel:", len(bad_new), "; kernel-order != kernel:", len(bad_old), bad_new[:6], flush=True)
+                print(key, len(rows), "rows; ordered != kernel:", len(bad_new), "; kernel-order != kernel:", len(bad_old), bad_new[:6], flush=True)
     json.dump(report, open(OUT, "w"), indent=1)
 
 

@@ -1,10 +1,10 @@
 # vllm-rf-normtap: STATE
 
 Lane: norm-scale taps (Daniel's approval Sep 26 19:33Z); brief `$STORE/internal/lane-briefs/vllm-normtap.md`. Agent bc-12c2f2d9 (cloud).
-Branch `cursor/vllm-rf-normtap-57d5` (the Cursor branch policy; common-rules fallback form), cut from origin/main `baa800c6`.
-Head `75a10410`. Base for gate (b): `baa800c6`.
+Branch `cursor/vllm-rf-normtap-57d5` (the Cursor branch policy; common-rules fallback form), cut from origin/main `baa800c6`; PR #90 (draft).
+Head `14ea93c6`. Base for gate (b): `baa800c6`. origin/main is now `56c62af2` (2 commits, no file in common).
 
-## What is built (commits 9a9c7548..75a10410)
+## What is built (commits 9a9c7548..14ea93c6)
 - `query/norm_scales.py`: family `norm_scales` (not `norm_scale`: that name is by-name vocabulary in `FAMILIES`), member
   `norm_scale`, one f32 per norm Call row. Kernel norms (RMSNormTriton_v1, RMSNormFusedCuda_v2): one identity per (step, module).
   Gemma's ATen chain: RsqrtF32_v1{N=1} outputs protocol-required. `request_manifest(norm_scales=POLICY)`; off = byte-identical.
@@ -15,22 +15,29 @@ Head `75a10410`. Base for gate (b): `baa800c6`.
   default 0) -> manifest --norm-scales, commit_delta --norm-tap-so, manifest-verify --norm-scales.
 - Q_word: `check_calls(acquired=TAP_WORDS)`; plan route `norm_tap`; replay mechanism entry; form (B) no-oracle by member.
 - Property: `properties/norm_tap_exactness.py` + GPU driver `tests/properties/norm_tap_exactness_gpu.py`.
+- 14ea93c6: `tests/census_roots.txt` declares `pod_norm_tap.sh` and `verity_vllm.properties.norm_tap_exactness` (gate (b) at 75a10410
+  failed `test_no_new_dead_modules` on the property module, as fa_tap_exactness would without its roots entry).
 
 ## Running (pod vyv-rf-normtap-g1 = yqvagba5ef4ckg, 1x L40S, $1.09/h, created 20:28Z, guard 90)
-- r20260926-204311-f524: exactness rerun (OK, digest abcd3320) + #101 tap off (Build/Match PASS) -> Commit; then tap on; Q_word.
-- r20260926-205346-78c0: gate (b) base baa800c6 (waits for f524; CPU bootstrap pins).
-- r20260926-205426-3f50: gate (b) head 75a10410 (waits for base).
+- r20260926-214754-14b1: gate (b) at 14ea93c6 (label head2; lints rc 0 at 21:48Z). Compare with base XML /workspace/gc2/gate_b-base.xml.
+- r20260926-220038-b8d6: the no-recompute partition checker, in a LOCAL trial merge `23067146` (never pushed) of
+  cursor/no-recompute-partition-289b fd9f81e8 + this branch 14ea93c6 (merges clean): norm Definitions, #101 under the policy, tests.
 
-## Results so far
+## Results
 - r20260926-203003-9768: bootstrap OK; tap build OK, NORM-TAP-OK sha256 e4a4924f.
-- r20260926-204005-d287: 61/61 kernel cases OK; source check harness bug (custom ops off) fixed in 846a3eb3.
-- r20260926-204311-f524: NORM-TAP-EXACTNESS OK (61 cases + source check).
-- #101 off: Build manifest 90f81868 (= record, 7,043 identities), Match PASS.
+- r20260926-204311-f524: NORM-TAP-EXACTNESS OK, record digest abcd33208a41...d439: 62 kernel cases (32 CUDA, 30 Triton) + source check.
+  Every case: output == installed kernel, 0 unwritten rows, 0 scales != twin, 0 != IR model; CUDA == untapped build; Triton == vLLM's
+  launch, PTX arithmetic equal (73 ops; 57 without weight) + exactly 1 extra global store.
+- #101 tap off (Build/Match/Commit PASS): Program ccc213475e7c...00c6b, manifest 90f81868...eaac, run root 7adcef49...1dec5 = record.
+- #101 tap on (Commit PASS): manifest cfc7e16b...f572, 8,099 identities (+1,056 norm_scales), 9,471 words (fused 9,184 + Triton 287)
+  = plan's 9,471; run root 9c89049c...3b26 (never the record). Q_word_v1{16,32} strict: 9,471 acquired by a tap, passes.
+- Gate (b) base baa800c6 (r...78c0): 37 failed / 3,908 passed / 263 skipped. Head 75a10410 (r...3f50): 38 / 3,952 / 264; jdiff: 46 new
+  tests all pass; 1 new failure (test_no_new_dead_modules, fixed in 14ea93c6); the 1 new skip is the listed order-dependent test.
+- Custody: 9768, d287, f524, 78c0, 3f50 PRESERVED on R2.
 
 ## Next
-- #101: off root == record 7adcef49?; on: PASS?, norm_scales words vs 9,471; Q_word with acquired.
-- gate (b) jdiff base vs head; lints at head.
-- handoff to vllm-coordinator, READY.md, terminate pod, FINAL.
+- Read 14b1 (jdiff base vs head2) and b8d6 (partition checker output: units, committed words, recomputed gates).
+- Custody of 14b1 and b8d6; terminate the pod; merge-ready handoff (with the checker output, the rule of 20:48Z); READY.md; PR #90; FINAL.
 
 ## Open questions
 - None blocking. The family is `norm_scales` (the brief said "for example `norm_scale`").
@@ -40,3 +47,5 @@ Head `75a10410`. Base for gate (b): `baa800c6`.
 - Gemma (#57): Q_word's committed-boundary check partitions per Call, so the chain's interior Calls (square, mean, + eps) stay
   `output-not-committed` with or without the scale; #57 has no passing Commit.
 - TP rows (rank workers) and H100 (FA3 rows) are not covered: the tap is attached by commit_delta only; exactness is on sm_89 only.
+- The partition checker (no-recompute rule) lives on cursor/no-recompute-partition-289b, not main; its `word.py` and this branch's
+  merge without conflict (this branch touches only `check_calls` / `check_query`).

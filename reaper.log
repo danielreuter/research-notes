@@ -38,3 +38,4 @@
 04:06Z REAPED verify-night-3 vy-verify-night-3 rd921ysua7g60b $0.96/h (final 12m ago); custody: 61 cited art(s) preserved; 17 attempt(s) preserved, 1 run dir(s) with custody (guard)
 05:17Z REAPED verify-night-3 vy-verify-night-3 jnp5k2d0vy9z2h $0.48/h (STALE 15m, idle 32m); custody: 61 cited art(s) preserved; 1 attempt(s) preserved, 1 run dir(s) with custody (guard)
 05:44Z REAPED sp1-evaluator vy-sp1-evaluator am0dh7td6pwiv8 $0.74/h (STALE 31m, idle 31m); custody: 1 cited art(s) preserved; 20 attempt(s) preserved, 6 run dir(s) with custody (guard)
+06:30Z REAP-BLOCKED verify-night-3 vy-verify-night-3: its run dirs' custody is unknown: PodError: GET /pods/heudtct27whkty -> HTTP 404: not found (terminated, or never existed)

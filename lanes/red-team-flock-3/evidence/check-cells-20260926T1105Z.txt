@@ -1,0 +1,99 @@
+== art:07f555721b7edd0ea0ebed6259b385f2beeec5bf1ffb530232fc2adcb153b8a3 t257 B=16 commit=0839742b pin=42a56905519aa9b6 verifier_run=r20260926-102532-68be record=art:0dff77ea000865bf6e0029fed54805f00e854ad3d9dd4358a7b0782e51075d88 point=p1-16
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=257 42a56905519aa9b6 == reviewed lowering of AttentionHead_v3{T=257}: True; header unit_sha256 matches: True
+LAYOUT 272 blocks, 33856 of 33856 units, 8224 runs == every K/V run once: True, q runs: 0, holes: 960; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [257]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/0dff77ea000865bf6e0029fed54805f00e854ad3d9dd4358a7b0782e51075d88/out/verifier/p1-16/instances-s0.bin
+== art:11f80605f30b9f09504786544f5ea2f5767556571cf8b2ea6eafff51475f6018 t132 B=64 commit=0839742b pin=0c6ac6ef8740fbee verifier_run=r20260926-101243-420c record=art:db78553fa4751bb1920ae50b91ff7b332df1d29a1a3da018de431f8828df963e point=p3-64
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=132 0c6ac6ef8740fbee == reviewed lowering of AttentionHead_v3{T=132}: True; header unit_sha256 matches: True
+LAYOUT 576 blocks, 70656 of 70656 units, 16896 runs == every K/V run once: True, q runs: 0, holes: 3072; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [132]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/db78553fa4751bb1920ae50b91ff7b332df1d29a1a3da018de431f8828df963e/out/verifier/p3-64/instances-s0.bin
+== art:1e1c2a5f1a6cb42b53ee512a9d2962a15107a69e35a287f92c92faac0264aa46 t3 B=32 commit=0839742b pin=40aae6dadf1fabcc verifier_run=r20260926-094659-e16a record=art:d3708a4f64eda83a749d3e7906ba1f72f3c252792d73c9fb037395a10b7d3954 point=p2-32
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=3 40aae6dadf1fabcc == reviewed lowering of AttentionHead_v3{T=3}: True; header unit_sha256 matches: True
+LAYOUT 32 blocks, 2432 of 2432 units, 192 runs == every K/V run once: True, q runs: 0, holes: 1664; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [3]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/d3708a4f64eda83a749d3e7906ba1f72f3c252792d73c9fb037395a10b7d3954/out/verifier/p2-32/instances-s0.bin
+== art:308df7ad2ac254619ad1fe3907583b6c8bba42f6353d61a64216885b865513b1 t4 B=16 commit=22dc6320 pin=a5b162b32bc52d0e verifier_run=r20260926-093249-b09f record=art:247ff6cae9bf56ab0efea749fbe9d8a705d2a547f2c67cef4cdd10ce627ec66e point=p1-16
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=4 a5b162b32bc52d0e == reviewed lowering of AttentionHead_v3{T=4}: True; header unit_sha256 matches: True
+LAYOUT 16 blocks, 1280 of 1280 units, 128 runs == every K/V run once: True, q runs: 0, holes: 768; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [4]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/247ff6cae9bf56ab0efea749fbe9d8a705d2a547f2c67cef4cdd10ce627ec66e/out/verifier/p1-16/instances-s0.bin
+== art:349645c151f85792c5ddddc80d9632f5ab971f3c5fa034220f923fe92185e270 t131 B=64 commit=0839742b pin=007ae342cfb6e0fe verifier_run=r20260926-100649-40ea record=art:906e094dfd38f8585630be03a8d704a3e5f474899bda6bb4acb6ff9343e11c98 point=p3-64
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=131 007ae342cfb6e0fe == reviewed lowering of AttentionHead_v3{T=131}: True; header unit_sha256 matches: True
+LAYOUT 576 blocks, 70400 of 70400 units, 16768 runs == every K/V run once: True, q runs: 0, holes: 3328; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [131]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/906e094dfd38f8585630be03a8d704a3e5f474899bda6bb4acb6ff9343e11c98/out/verifier/p3-64/instances-s0.bin
+== art:73a507ee2f21ab358f7030915d0ca943549b903c2d8d9b3fc4ad5c413a3cf17c t130 B=64 commit=0839742b pin=e9f338d46ec0a107 verifier_run=r20260926-100056-fa37 record=art:c7603cebedbb2718c35abe849d999b421e8b5809a88d66ebac87c2fc19de88c5 point=p3-64
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=130 e9f338d46ec0a107 == reviewed lowering of AttentionHead_v3{T=130}: True; header unit_sha256 matches: True
+LAYOUT 576 blocks, 70144 of 70144 units, 16640 runs == every K/V run once: True, q runs: 0, holes: 3584; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [130]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/c7603cebedbb2718c35abe849d999b421e8b5809a88d66ebac87c2fc19de88c5/out/verifier/p3-64/instances-s0.bin
+== art:7c3c5497c54b2da97df6f7f90997a6941b49d594e5d95489d075ed9c165a0837 t128 B=64 commit=0839742b pin=ed0d3a8522e7ff88 verifier_run=r20260926-094956-4e33 record=art:8ea21c2c8fa85565f1eb2369cb3b0cc0d52c0a9e28fff40974ea088eff11a887 point=p3-64
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=128 ed0d3a8522e7ff88 == reviewed lowering of AttentionHead_v3{T=128}: True; header unit_sha256 matches: True
+LAYOUT 512 blocks, 65536 of 65536 units, 16384 runs == every K/V run once: True, q runs: 0, holes: 0; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [128]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/8ea21c2c8fa85565f1eb2369cb3b0cc0d52c0a9e28fff40974ea088eff11a887/out/verifier/p3-64/instances-s0.bin
+== art:97407c512c4652d29047d0051c1daeb0593376d939bb5627496927d2bbd07e84 t1 B=32 commit=22dc6320 pin=fa983f8bf220f555 verifier_run=r20260926-094050-05c3 record=art:76c54794ad803ac546fd384bbc3b9d36761290394234eba5989578dd6a6c72c2 point=p2-32
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=1 fa983f8bf220f555 == reviewed lowering of AttentionHead_v3{T=1}: True; header unit_sha256 matches: True
+LAYOUT 32 blocks, 2176 of 2176 units, 64 runs == every K/V run once: True, q runs: 0, holes: 1920; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [1]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/76c54794ad803ac546fd384bbc3b9d36761290394234eba5989578dd6a6c72c2/out/verifier/p2-32/instances-s0.bin
+== art:a24437b6a79e0a8566a4a64aaceb01b470e22cdb655473ffa553e7fa3bb5487d t2 B=32 commit=0839742b pin=26e82ebc1b0727f9 verifier_run=r20260926-094348-3425 record=art:c1be6c520e122ae8cef626aeaa44496e26cea9d2305529a94a34964c127457e1 point=p2-32
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=2 26e82ebc1b0727f9 == reviewed lowering of AttentionHead_v3{T=2}: True; header unit_sha256 matches: True
+LAYOUT 32 blocks, 2304 of 2304 units, 128 runs == every K/V run once: True, q runs: 0, holes: 1792; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [2]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/c1be6c520e122ae8cef626aeaa44496e26cea9d2305529a94a34964c127457e1/out/verifier/p2-32/instances-s0.bin
+== art:b0eaffa32f190ea5a3c396e42d1cb3a086b35552e7f0f5c68ad8e165d356ea38 t256 B=64 commit=0839742b pin=e75c379da1352df6 verifier_run=r20260926-101906-bcc2 record=art:9f4d9bdcaf0b1a8af17fc25e2bc2df9fb1cbe2053035c7de3ec4a1ff13debdd3 point=p3-64
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=256 e75c379da1352df6 == reviewed lowering of AttentionHead_v3{T=256}: True; header unit_sha256 matches: True
+LAYOUT 1024 blocks, 131072 of 131072 units, 32768 runs == every K/V run once: True, q runs: 0, holes: 0; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [256]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/9f4d9bdcaf0b1a8af17fc25e2bc2df9fb1cbe2053035c7de3ec4a1ff13debdd3/out/verifier/p3-64/instances-s0.bin
+== art:d1963e640c3bcb8c8829ce7d1e1f1080d94884157c271ba6e5da34a8b9565885 t129 B=64 commit=0839742b pin=1222f111a74dea8d verifier_run=r20260926-095430-ce96 record=art:4349789f6d521dd0c3c055a6f09b2bf3c61aed0aa2488795da5ef7a7fde020df point=p3-64
+subbatches: 1
+verifier netlist = the cell's pin
+verifier sessions: 7 accepted: 6 link_mode: ['exchange'] require_link: [True]
+NETLIST T=129 1222f111a74dea8d == reviewed lowering of AttentionHead_v3{T=129}: True; header unit_sha256 matches: True
+LAYOUT 576 blocks, 69888 of 69888 units, 16512 runs == every K/V run once: True, q runs: 0, holes: 3840; wiring differences from the pinned leaf maps: 0 []
+COMMIT key = blake3_row_key(ROLE_X) and every digest (q from its row and its public words) keyed BLAKE3: True; frame-v3 roots = header's: True
+E2E {"undetermined": 0, "sat": true, "cut_mismatch_words": 0, "out_mismatch_words_vs_file": 0, "ir_vs_file_out_words": 0, "rows_equal_input_set": true, "captured_out_vs_file_words": 0, "set_key_counts": [129]}
+CELL_CHECK PASS /home/ubuntu/.research/store/trees/4349789f6d521dd0c3c055a6f09b2bf3c61aed0aa2488795da5ef7a7fde020df/out/verifier/p3-64/instances-s0.bin

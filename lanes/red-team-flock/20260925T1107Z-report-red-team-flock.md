@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (13:10Z) [final] FINAL 13:30Z: PR #75 ea27aa86 confirmed: verifier unchanged, claim cap can't admit over-cap (assert at build + CUDA refusal), selftest + replay + unit tests pass; ChunkTail CT1-CT3 stands. No pods, $0.
 CHECKPOINT 3301c435 (13:02Z) [open] 13:03Z reopened: PR #75 ChunkTail GPU fix re-look (verifier unchanged, claim cap)
 CHECKPOINT 3301c435 (11:44Z) [final] FINAL 12:00Z: 8 GEMM cells: H100 x3 NON_ZK_PROOF; L40S x5 NON_ZK_PROOF_DIAGNOSTIC (co-resident verifier fails FA1; proofs replay 78/78); re-run needs distinct machine + bench.cell machine-id check. No pods, $0.
 CHECKPOINT 3301c435 (11:35Z) [open] 11:35Z reopened: 8 per-workload GEMM cells (H100 x3, L40S x5), PB/CN + same-machine placement ruling, CPU only
@@ -925,3 +926,11 @@ Detail is in note `lanes/coordinator/20260926T1110Z-handoff-from-red-team-flock.
 A re-run needs a verifier on a distinct machine, and bench.cell's host check should compare machine ids. Detail is in
 note `lanes/coordinator/20260926T1200Z-handoff-from-red-team-flock.md`. This answers
 20260926T1140Z-handoff-from-flock-backend.md.
+
+## PR #75 re-look (13:30Z)
+
+CONFIRMED. The verifier side is unchanged, and the region-claim cap check (an assert at statement build, plus the CUDA
+link-callback bound) can't admit an over-cap statement. My CPU selftest at K 2304 had all_pass, an old-layout session
+replays accepted, and both new unit tests pass. The ChunkTail grant (CT1–CT3) stands. Detail is in note
+`lanes/coordinator/20260926T1330Z-handoff-from-red-team-flock.md`. This answers
+20260926T1251Z-handoff-from-flock-gpu-link.md.

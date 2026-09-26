@@ -12,7 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from site_bundle import REPO, serving  # noqa: E402
 
-from verity_vllm.pipeline.program_graph import program_graph  # noqa: E402
+from verity_vllm.pipeline.program_graph import program_graph, request_programs_of  # noqa: E402
 
 
 def request_programs(root: str) -> list[str]:
@@ -33,6 +33,7 @@ def main() -> None:
     ap.add_argument("programs_dir")
     ap.add_argument("--record", default="expected")
     ap.add_argument("--vus", default=None)
+    ap.add_argument("--store", default=None)
     ap.add_argument("--run", default=None)
     ap.add_argument("--row", type=int, default=None)
     ap.add_argument("--klass", default=None)
@@ -51,7 +52,7 @@ def main() -> None:
     row = {"row": row_no, "class": klass, "serving": serving(a.row_key), "run": a.run, "units_from": rec_src,
            "tp_rank": ("rank 0 of the TP row (one rank's shard)" if any("/rank" in p for p in paths) else None),
            "programs_artifact": a.programs_art, "exported_from": a.vus}
-    g = program_graph(paths, row=row, strata=strata, vus_jsonl=a.vus)
+    g = program_graph(paths, row=row, strata=strata, vus_jsonl=a.vus, request_programs=request_programs_of(a.store) if a.store else None)
     out = Path(a.out_dir) / f"{a.row_key}.program.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(g, separators=(",", ":"), default=str) + "\n")

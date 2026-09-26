@@ -2,9 +2,10 @@
 lane: bench-spine
 kind: report
 created: 2026-09-26T01:44Z
-status: open
+status: final
 ---
 
+CHECKPOINT b1d82f13 (09:11Z) [final] FINAL (overnight generators): PR #68 (cursor/bench-spine-all-templates-5777 @ b1d82f13, stacked on #67; no lane/bench-spine branch by the cloud branch policy) sent in lanes/coordinator/20260926T0920Z-handoff-from-bench-spine.md. NVFP4 art:160a53a0 art:49e2d902 sent to flock-backend (answers 20260926T0752Z-handoff-from-flock-backend.md). 46 workload sets registered, e.g. art:ca51b9f8 art:07c51295 art:b5985d5f art:2279cf0b art:0d66ff53; all verify. CPU only, no pods, no spend
 CHECKPOINT fac7e546 (09:05Z) [open] NVFP4 set for flock-backend registered: art:160a53a0 (16,384) and art:49e2d902 (8,192 prefix); sent in lanes/flock-backend/20260926T0910Z-handoff-from-bench-spine.md (answers 20260926T0752Z-handoff-from-flock-backend.md); PR #68 carries all-template generators + workload sets (46 registered); CPU only
 CHECKPOINT 7aead8e5 (05:34Z) [final] FINAL: answered 20260926T0525Z-handoff-from-flock-backend.md in lanes/flock-backend/20260926T0545Z-handoff-from-bench-spine.md (bytes not equal: re-run the four FP8 cells on the spine sets). PR #57 is on cursor/bench-spine-fp8-5777 @ 7aead8e5; no lane/bench-spine branch exists by the cloud branch policy. CPU only, no pods, no spend
 CHECKPOINT 7aead8e5 (05:34Z) [final] FINAL (FP8 reopen, supersedes the line above): answered flock-backend's 0525Z (bytes not equal; re-run on the spine sets; spine y is the FP32 word, not out >> 10) in lanes/flock-backend/20260926T0545Z-handoff-from-bench-spine.md. PR #57 (cursor/bench-spine-fp8-5777 @ 7aead8e5, not lane/bench-spine: cloud branch policy) sent to the coordinator. FP8 input sets: art:c063de3a art:c0999789 art:cdb0e90d art:6ffda100 art:5f311851 art:31d0727a art:d5578eff art:9d85bd96. CPU only, no pods, no spend

@@ -12,6 +12,9 @@ env = {"PYTHONPATH": "packages/verity/src:backends/numerical/python:tools/resear
 import os
 from pathlib import Path
 env = {**os.environ, **env}
+REPO = os.environ.get("REPO", "/workspace")
+if REPO != "/workspace":
+    env["PYTHONPATH"] = ":".join(f"{REPO}/{x}" for x in ("packages/verity/src", "backends/numerical/python", "tools/research/src", "."))
 
 
 def serving_verifier(cell, run):
@@ -28,11 +31,11 @@ def serving_verifier(cell, run):
 vrun = serving_verifier(cell, run)
 vargs = []
 if vrun:
-    f = subprocess.run(["uv", "run", "--frozen", "research", "fetch", vrun, "--all"], capture_output=True, text=True, cwd="/workspace")
+    f = subprocess.run(["uv", "run", "--frozen", "research", "fetch", vrun, "--all"], capture_output=True, text=True, cwd=REPO)
     print(f"verifier run {vrun}: fetch --all rc={f.returncode}")
     vargs = ["--verifier-run", vrun]
 r = subprocess.run(["uv", "run", "--frozen", "python", "-m", "verity_numerical.bench.cell", "register", "--cell", f"/tmp/cells/{cell}.json",
-                    "--prover-run", run, *vargs, "--force"], capture_output=True, text=True, cwd="/workspace", env=env)
+                    "--prover-run", run, *vargs, "--force"], capture_output=True, text=True, cwd=REPO, env=env)
 out = r.stdout
 m = re.search(r'"art": "(art:[0-9a-f]+)"', out)
 art = m.group(1) if m else None
@@ -47,7 +50,7 @@ def label(target, key, value, ref=None):
     argv = ["uv", "run", "--frozen", "research", "data", "label", target, key, value, "--by", "bligero-real-k"]
     if ref:
         argv += ["--ref", ref]
-    p = subprocess.run(argv, capture_output=True, text=True, cwd="/workspace")
+    p = subprocess.run(argv, capture_output=True, text=True, cwd=REPO)
     print(f"label {target[:14]} {key}: rc={p.returncode} {(p.stdout + p.stderr).strip()[-160:]}")
 
 

@@ -1,0 +1,49 @@
+---
+pid: 120376
+cwd: "/workspace"
+command: "cd /workspace && uv run --frozen python /tmp/l40s_poll.py"
+status: succeeded
+started_at: 2026-09-26T12:00:11.894Z
+running_for_ms: 1520265  
+---
+12:00:12Z poll start (deadline 14:25Z)
+12:01:44Z community L40S in TW (known: no verifier there); deleting dj3yxjxnwcdzv7
+12:03:16Z L40S in US-NC-1 (others ['H200'], cpu False)
+12:03:16Z L40S in US-NC-1: no other verifier type; trying a second L40S (one try per DC)
+12:03:16Z L40S in US-NC-1: verifier not created (POST /pods -> HTTP 500: {"error":"create pod: There are no instances currently available","status":500}
+)
+12:10:49Z L40S in US-MO-1 (others ['H100 80GB HBM3', 'A100-SXM4-80GB'], cpu True)
+12:10:52Z L40S in US-MO-1: verifier not created ([{"message": "There are no longer any instances available with the requested specifications. Please refresh and try again.", "path": ["deployCpuPod"], "extensio)
+12:10:52Z L40S in US-TX-4 (others [], cpu False)
+12:10:52Z L40S in US-TX-4: no other verifier type; trying a second L40S (one try per DC)
+12:10:54Z L40S in US-TX-4: verifier mf9lnib989pq4t (NVIDIA L40S) up but the L40S is gone (POST /pods -> HTTP 500: {"error":"create pod: There are no instances currently available","status":500}
+); deleting the verifier
+12:13:56Z L40S in US-MO-1 (others ['H100 80GB HBM3', 'A100-SXM4-80GB'], cpu True)
+12:13:58Z L40S in US-MO-1: verifier not created ([{"message": "There are no longer any instances available with the requested specifications. Please refresh and try again.", "path": ["deployCpuPod"], "extensio)
+12:15:29Z L40S in US-MO-1 (others ['H100 80GB HBM3'], cpu True)
+12:15:31Z L40S in US-MO-1: verifier not created ([{"message": "There are no longer any instances available with the requested specifications. Please refresh and try again.", "path": ["deployCpuPod"], "extensio)
+12:18:33Z L40S in US-MO-1 (others ['H100 80GB HBM3'], cpu True)
+12:18:35Z L40S in US-MO-1: verifier not created ([{"message": "There are no longer any instances available with the requested specifications. Please refresh and try again.", "path": ["deployCpuPod"], "extensio)
+12:18:35Z L40S in US-TX-4 (others [], cpu False)
+12:18:35Z L40S in US-TX-4: no other verifier type; trying a second L40S (one try per DC)
+12:18:37Z L40S in US-TX-4: verifier n4qsbju9yqf0ay (NVIDIA L40S) up but the L40S is gone (POST /pods -> HTTP 500: {"error":"create pod: There are no instances currently available","status":500}
+); deleting the verifier
+12:20:08Z L40S in US-TX-4 (others [], cpu False)
+12:20:08Z L40S in US-TX-4: no other verifier type; trying a second L40S (one try per DC)
+12:20:10Z L40S in US-TX-4: verifier 40hxudfitx0qsg (NVIDIA L40S) up but the L40S is gone (POST /pods -> HTTP 500: {"error":"create pod: There are no instances currently available","status":500}
+); deleting the verifier
+12:21:41Z L40S in US-TX-4 (others [], cpu False)
+12:21:41Z L40S in US-TX-4: no other verifier type; trying a second L40S (one try per DC)
+12:21:43Z L40S in US-TX-4: verifier 9oh75ulyofdowz (NVIDIA L40S) up but the L40S is gone (POST /pods -> HTTP 500: {"error":"create pod: There are no instances currently available","status":500}
+); deleting the verifier
+12:21:45Z community L40S in TW (known: no verifier there); deleting mvkypxj8ymgm9y
+12:24:47Z L40S in US-MO-1 (others ['H100 80GB HBM3', 'A100 80GB PCIe'], cpu False)
+12:24:47Z L40S in US-MO-1: no other verifier type; trying a second L40S (one try per DC)
+12:25:32Z US-MO-1: PAIR-OK: prover 64.247.206.218 (NVIDIA L40S) verifier 64.247.206.229 ports {'22': 14589, '7000': 14590} boot c878c736/1ae4223a connect 0.3349781036376953 ms
+12:25:32Z SUCCESS dc=US-MO-1 prover=8loxygl068ukkc verifier=vdel26rpc47d2g (NVIDIA L40S)
+
+---
+exit_code: 0
+elapsed_ms: 1520265
+ended_at: 2026-09-26T12:25:32.159Z
+---

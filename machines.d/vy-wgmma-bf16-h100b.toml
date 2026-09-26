@@ -1,0 +1,7 @@
+# machine vy-wgmma-bf16-h100b: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "flfqkj2qzeftgi"
+project = "verity"
+guard = 30
+registered_by = "cursor"
+registered_at = "2026-09-26T02:33Z"

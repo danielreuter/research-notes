@@ -1,24 +1,24 @@
 {
  "backend": "B-interactive",
  "family": "B-Ligero",
- "statement": "gemm-coordinate/k2048/sm80-mma-bf16+frame-v3/blake3-keyed",
- "subcircuit": "gemm-coordinate/k2048/sm80-mma-bf16",
+ "statement": "gemm-coordinate/k2048/sm90-wgmma-bf16+frame-v3/blake3-keyed",
+ "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-bf16",
  "scheme": "frame-v3/blake3-keyed",
  "input_set": {
   "kind": "set",
-  "id": "gemm-coordinate-ampere-bf16-k2048",
-  "subcircuit": "gemm-coordinate/k2048/sm80-mma-bf16",
-  "path": "/home/ubuntu/.research/store/trees/123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b",
-  "art": "art:123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b",
-  "n": 6272,
-  "content_digest": "49d7658f823ab777347ec1ca160821828d1e8ced70e6c3d6673edd0200458a70",
-  "manifest_sha256": "b2911acffe4dc63321cd7d2a05eef1aa2234648b2cb76a1d66d0d458ee352dff",
-  "source": "captured"
+  "id": "gemm-coordinate-hopper-bf16-wgmma-k2048",
+  "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-bf16",
+  "path": "/home/ubuntu/.research/store/trees/4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018",
+  "art": "art:4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018",
+  "n": 4096,
+  "content_digest": "29ccc7de4d3132c27f4d5cee9884741fe1bf560e5d1bb61c9ce506bd348b6223",
+  "manifest_sha256": "b4d57de0bf68c2556ebefa210268cca72bc0d3429cbb9beee4deb6a9376d7edc",
+  "source": "synthetic"
  },
- "relation": "bf16-ampere-x4-k2048+blake3-xob",
- "prover": "vy-bligero-real-k-a100",
- "verifier": "vy-bligero-real-k-verifier",
- "verifier_addr": "216.81.151.3:12153",
+ "relation": "bf16-hopper-x4-k2048+blake3-xob",
+ "prover": "vy-bligero-real-k-h100",
+ "verifier": "vy-bligero-real-k-verifier-in1",
+ "verifier_addr": "103.207.149.138:12693",
  "rtt_target": null,
  "campaign": "bligero-real-k",
  "lane": "bligero-real-k",
@@ -32,7 +32,7 @@
  "jobs": [
   {
    "role": "verifier",
-   "pod": "vy-bligero-real-k-verifier",
+   "pod": "vy-bligero-real-k-verifier-in1",
    "stage": "bligero.cell.verifier",
    "ttl": "12h",
    "command": [
@@ -45,7 +45,7 @@
     "research",
     "run",
     "--on",
-    "vy-bligero-real-k-verifier",
+    "vy-bligero-real-k-verifier-in1",
     "--project",
     "verity",
     "--source",
@@ -69,32 +69,32 @@
   },
   {
    "role": "prover",
-   "pod": "vy-bligero-real-k-a100",
+   "pod": "vy-bligero-real-k-h100",
    "stage": "bligero.cell.prover",
    "ttl": "12h",
    "command": [
     "bash",
     "backends/direct/ligero/cell.sh",
     "ROLE=prover",
-    "REL=bf16-ampere-x4-k2048+blake3-xob",
-    "VERIFIER=216.81.151.3:12153",
+    "REL=bf16-hopper-x4-k2048+blake3-xob",
+    "VERIFIER=103.207.149.138:12693",
     "START=1024",
     "RUNS=5",
     "LOOPBACK=1",
     "OPERATOR=bligero-real-k",
     "L=4096",
     "PP=4",
-    "SET=gemm-coordinate-ampere-bf16-k2048-49d7658f823a.tar",
-    "SET_ART=art:123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b"
+    "SET=gemm-coordinate-hopper-bf16-wgmma-k2048-29ccc7de4d31.tar",
+    "SET_ART=art:4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018"
    ],
    "send": [
-    ".bench-cell/sets/gemm-coordinate-ampere-bf16-k2048-49d7658f823a.tar"
+    ".bench-cell/sets/gemm-coordinate-hopper-bf16-wgmma-k2048-29ccc7de4d31.tar"
    ],
    "argv": [
     "research",
     "run",
     "--on",
-    "vy-bligero-real-k-a100",
+    "vy-bligero-real-k-h100",
     "--project",
     "verity",
     "--source",
@@ -110,21 +110,21 @@
     "--campaign",
     "bligero-real-k",
     "--send",
-    ".bench-cell/sets/gemm-coordinate-ampere-bf16-k2048-49d7658f823a.tar",
+    ".bench-cell/sets/gemm-coordinate-hopper-bf16-wgmma-k2048-29ccc7de4d31.tar",
     "--",
     "bash",
     "backends/direct/ligero/cell.sh",
     "ROLE=prover",
-    "REL=bf16-ampere-x4-k2048+blake3-xob",
-    "VERIFIER=216.81.151.3:12153",
+    "REL=bf16-hopper-x4-k2048+blake3-xob",
+    "VERIFIER=103.207.149.138:12693",
     "START=1024",
     "RUNS=5",
     "LOOPBACK=1",
     "OPERATOR=bligero-real-k",
     "L=4096",
     "PP=4",
-    "SET=gemm-coordinate-ampere-bf16-k2048-49d7658f823a.tar",
-    "SET_ART=art:123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b"
+    "SET=gemm-coordinate-hopper-bf16-wgmma-k2048-29ccc7de4d31.tar",
+    "SET_ART=art:4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018"
    ]
   }
  ]

@@ -32,4 +32,4 @@ for M < 2^32; the #101 path is untouched (small M). No GPU row run (the epoch la
   at base and head).
 
 ## Pods / spend
-vyv-rf-m32-cpu terminated 22:39Z. Spend about $0.35.
+vyv-rf-m32-cpu terminated 22:39Z. Fix spend about $0.35; lane total about $8.5 with the confirming gate (a) (vyv-rf-m32-reg, terminated 03:14Z).

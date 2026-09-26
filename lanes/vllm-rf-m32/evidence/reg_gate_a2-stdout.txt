@@ -1,0 +1,15 @@
+start 2026-09-25T22:47:49Z src /workspace/research/src/5f8d87898163c5bc1a3983b2ecff0a520809b434
+import verity_sampled_proofs OK /workspace/m32-main2/protocols/sampled_proofs/verity_sampled_proofs/__init__.py
+collect rc=0 
+gate_a start 2026-09-25T22:47:52Z
+gate_a rc=0 2026-09-26T03:06:52Z 73 passed, 85 skipped, 33 deselected in 15535.75s (4:18:55)
+jdiff vs a23b base rc=1
+only in base (deleted or renamed): 0
+only in head: 0 {}
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 2
+  1 x manifest_digest does not apply to #70: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+  1 x manifest_digest does not apply to #75: TP row: rank Programs (build<path>*/) are merged by tp_stage.sh, not by build<path>
+failures+errors: base 0, head 0, fixed on head 0
+done 2026-09-26T03:06:52Z

@@ -25,21 +25,18 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 - Mint 22:40:00Z on the VM: TTL 3h, object-read-only, prefixes manifests/ + objects/sha256/, piped to vyv-rf-m32-reg
   /root/r2ro.env (0600). Prefetch 26 ok / 0 fail; key deleted 22:47:08Z (prefetch trap).
 
+- Gate (a) on main 5f8d8789 CONFIRMED: r20260925-224745-e739 rc 0, 73 passed / 85 skipped (158), = a23b's base; only the #70/#75
+  skip rewordings. PRESERVED (both runs). CONFIRM handoff 20260926T0315Z sent.
+
 ## Running
-- vyv-rf-m32-reg (fjr66whubb8kn8, cpu3m 32 vCPU / 256 GB cgroup, 250 GB, guard 90). r20260925-224008-395b: bootstrap + prefetch
-  ok, gate (a) died at collection (no protocols/sampled_proofs on PYTHONPATH; test_check_lifts). Restart r20260925-224745-e739
-  (`evidence/reg_gate_a2.sh`: path added, import check printed OK, no key on pod, 158 collected) from 22:47:52Z.
-  01:05Z: 82/158 (~48% of a23b's time), host load ~570, ~2.7x slow; ETA ~03:40Z, past the 03:00Z pod deadline
-  (DEADLINE handoff 20260926T0110Z asks a guard extension to 04:30Z).
-- Coordinator 2255Z checks: gate (b) had sampled_proofs on PYTHONPATH (4072/4080 collected, test_sampled_replay present, 11
-  errors); gate (a) restart has it (addendum handoff 20260925T2252Z).
+- nothing. vyv-rf-m32-cpu terminated 22:39Z, vyv-rf-m32-reg terminated 03:14Z.
 
 ## Next
-- On finish: key-deletion time into a checkpoint, compare (expect only the #70/#75 skip rewordings), preserved, terminate,
-  "CONFIRM gate (a) on main 5f8d8789" handoff, final checkpoint.
+- none (FINAL). Spend about $8.5 total.
 
 ## Open questions
 - none
 
 ## Found-not-fixed
-- none
+- `test_native_jit_keying::test_pod_release_fails_closed_...` needs `tests/sweep/pod_release.sh`, which is absent (fails at base and head).
+- Gate scripts that set their own PYTHONPATH miss `protocols/sampled_proofs` on post-#29 trees (gate (a) fails at collection).

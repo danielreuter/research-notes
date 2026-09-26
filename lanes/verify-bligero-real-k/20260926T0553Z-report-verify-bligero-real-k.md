@@ -2,9 +2,10 @@
 lane: verify-bligero-real-k
 kind: report
 created: 2026-09-26T05:53Z
-status: open
+status: final
 ---
 
+CHECKPOINT e77d40c9 (13:39Z) [final] FINAL (reopen 4): #101 L40S art:dd6b0cac (2^-128.03) + art:c64377df (2^-128.265) verified=accepted, bounds recomputed w/ chain_field; prover/verifier on different machines (boot ids, hosts, GPU UUIDs, public IPs from harness records); ref r20260926-133012-30ab; pod terminated 13:38Z ~$0.09
 CHECKPOINT e77d40c9 (13:31Z) [open] no CPU pod (~20 tries); pod = RTX 3090 rk1g146smgnjwk (32 vCPU, $0.50/h, CPU use only); run launched at main e77d40c9 (pins + dd6b0cac + c64377df). Separation from harness job.json/launch.json + verifier session peer: distinct boot ids, hosts, GPU UUIDs, public IPs. Handoff 1316Z acted on
 CHECKPOINT e48ec526 (13:23Z) [open] reopened for #101 L40S B-Ligero cells art:dd6b0cac (K2048, 2^-128.03) + art:c64377df (K8192, 2^-128.265) incl. chain-term bound and prover/verifier machine separation: NOT final; agent bc-30d7a020-fc45-5944-9ceb-1ac513232a9e; $1
 CHECKPOINT e48ec526 (11:46Z) [final] FINAL (reopen 3): art:4ff19d4f verified=accepted at 2^-128.265 w/ chain_field (independently recomputed; ref r20260926-113155-ffa4, main e48ec526, pins 16/16); below_bar=true on art:b1d710da (2^-127.97, proofs verify); pod terminated 11:44Z ~$0.10

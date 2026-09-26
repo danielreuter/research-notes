@@ -35,13 +35,18 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 - vyv-rf-m32-reg was already terminated; every cpu3g/cpu3m/cpu3c/cpu5* shape returned "no instances available", so the gate pod is
   vyv-rf-m32-admit = RunPod lq6wt0cak7uhxx, 1x RTX A4000 host ($0.25/h, 128 cpus, 503 GB), GPU hidden (CUDA_VISIBLE_DEVICES=-1).
 
+- Base r20260926-031830-2411 (7289e3ad) done: lints rc 1 (pre-existing on main: test_no_by_name_rules, vu_export.py:478/481
+  path predicates), gate (b) 30 failed / 3801 passed / 286 skipped / 6 xfailed in 1981 s. sampled_proofs importable.
+- Head 7b9558b7 lints added 2 failures from the cherry-pick: P7 stale broad-except entry (commit.py main) and P11 doc-round
+  (`[moe R17-1]` in admission_lag's docstring). Fixed in `02b3be03` (docstring tag dropped, P7 entry deleted; no allowlist grows).
+
 ## Running
-- vyv-rf-m32-admit: base r20260926-031830-2411 (gate_b2.sh base, BOOTSTRAP=1, tree 7289e3ad), then head r20260926-031940-f369
-  (gate_b2.sh head, WAIT_RUN=base, tree 7b9558b7). Both in git clones with sampled_proofs on PYTHONPATH.
+- vyv-rf-m32-admit: head r20260926-031940-f369 (7b9558b7) finishing gate (b) (evidence only); head2 r20260926-041141-1cd3
+  (02b3be03, WAIT_RUN=f369): lints + gate (b).
 
 ## Next
-- jdiff base vs head, check test_admission_commit::test_the_commit_admission_counts_the_declared_lag passes, preserved, terminate,
-  merge-ready handoff, FINAL.
+- jdiff base vs head2 (+ f369), test_admission_commit passes, lints = base's single pre-existing failure, preserved (3 runs),
+  terminate, merge-ready handoff, FINAL.
 
 ## Open questions
 - none

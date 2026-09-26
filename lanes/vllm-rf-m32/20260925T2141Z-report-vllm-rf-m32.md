@@ -5,6 +5,7 @@ created: 2026-09-25T21:41Z
 status: open
 ---
 
+CHECKPOINT 02b3be03 (04:13Z) [open] admit: head lints caught P7/P11 from the cherry-pick; fixed 02b3be03 (pushed). WAIT vyv-rf-m32-admit r20260926-041141-1cd3 check-back 05:00Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: lints + gate (b) head2 02b3be03 (after f369 finishes); base r20260926-031830-2411 done
 CHECKPOINT 7b9558b7 (03:22Z) [open] task 3 admit: lane/vllm-rf-admit 7b9558b7 pushed (p10 main cap 1770). WAIT vyv-rf-m32-admit r20260926-031830-2411 check-back 04:05Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: bootstrap + lints + gate (b) base 7289e3ad; WAIT vyv-rf-m32-admit r20260926-031940-f369 check-back 04:05Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: lints + gate (b) head 7b9558b7
 CHECKPOINT 271a0952 (03:15Z) [open] reopened for coordinator task 0315Z (admission fix 89cd9d1a -> lane/vllm-rf-admit): NOT final; will create one cpu pod vyv-rf-m32-admit
 CHECKPOINT 271a0952 (03:15Z) [final] FINAL. Fix lane/vllm-rf-m32 271a0952 merge-ready (gate b clean, r20260925-214510-4478). Confirming gate (a) on main 5f8d8789 PASS, 73 passed / 85 skipped = a23b base (r20260925-224745-e739, PRESERVED; CONFIRM handoff 0315Z). Handoffs answered: 20260925T2155Z-handoff-from-vllm-coordinator.md (task 2, done), 20260925T2255Z-handoff-from-vllm-coordinator.md (sampled_proofs checks, answered in 2252Z), 20260926T0110Z-handoff-from-vllm-coordinator.md (stale, withdrawn), 20260926T0112Z-handoff-from-vllm-coordinator.md (withdrawal, noted). Pods vyv-rf-m32-cpu + vyv-rf-m32-reg terminated; spend ~$8.5

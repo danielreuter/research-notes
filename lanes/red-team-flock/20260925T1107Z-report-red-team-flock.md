@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (10:37Z) [open] 10:38Z reopened: route (a) re-sweep cells a0ca8ef6 / a979dfcb, CPU only
 CHECKPOINT 3301c435 (10:22Z) [final] FINAL 11:00Z: ChunkTail(n) GRANTED WITH CONDITIONS (CT1-CT3; selftests K2304/K8960 bf16 + K2560 fp8 all_pass; older layouts byte-identical by replay). L40S cells labelled earlier. No pods, $0.
 CHECKPOINT 3301c435 (10:11Z) [blocked] 10:32Z: L40S GEMM cells df3d63e4/8bc3dba2 labelled NON_ZK_PROOF (PB1-PB4, CN1-CN2; replay 6/6 each). ChunkTail review BLOCKED: GitHub 401, need bundle of af2c3015 in lanes/red-team-flock/bundles/
 CHECKPOINT 3301c435 (10:07Z) [blocked] 10:15Z: ChunkTail review blocked: GitHub 401 on this VM, af2c3015 not in store; need a bundle (af2c3015 vs e4f631bd) in lanes/red-team-flock/bundles/ or a fresh token

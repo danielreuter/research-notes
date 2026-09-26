@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT (10:40Z) [open] projection ~$266 (spent $185.3, burn $13.2/h); agkr-real-k FINAL: route (a) re-sweeps a0ca8ef6 (2.7e8x) / a979dfcb (3.0e8x) supersede 95fdd0ae / 20197f8b once verified + labelled (superseded_by on the old two then); L40S elementwise 1/4 verified; bligero A100 K8192 re-run running.
+
 CHECKPOINT (10:50Z) [open] main e8ec5e19 (PR #71 A1 booking merged); agkr-real-k PAUSED again 10:20Z (projection $299 -> ~$279); #101 L40S GEMM cells published, strict headline 13.9-26.6% C-Flock; b1d710da still at recorded 2^-128.10 (A1 booking gives 2^-127.97; needs lane relabel); decision-previews updated.
 
 CHECKPOINT (10:32Z) [open] main 89ba3a65: PR #69 + lane/verify-agkr-real-k merged; route (a) real-K cells published (1.4e9x, 1.5e9x); 5090 RTT-dominance footnote; attention rows crash-guarded (16 cells X, T decision pending); headline lists below-bar proofs; 16 below-bar results published; render 10:30Z.

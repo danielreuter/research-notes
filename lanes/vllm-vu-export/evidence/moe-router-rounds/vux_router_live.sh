@@ -5,6 +5,6 @@ T=$PWD; I=$RESEARCH_RUN_DIR/inputs; OUT=$RESEARCH_RUN_DIR; mkdir -p "$OUT/eviden
 export PATH=/workspace/venv312/bin:$PATH HF_HOME=/workspace/hf
 export PYTHONPATH=$T/integrations/vllm:$T/packages/verity/src:$T/tools/research/src:$T/protocols/sampled_proofs
 cd integrations/vllm
-bash verity_vllm/ops/pod_bootstrap.sh --cases B0 --out /workspace/vux/bootstrap-router > "$OUT/bootstrap.log" 2>&1; echo "bootstrap rc $? $(date -u +%FT%TZ)"
+python -c "import vllm._moe_C" 2>/dev/null || { bash verity_vllm/ops/pod_bootstrap.sh --cases B0 --out /workspace/vux/bootstrap-router > "$OUT/bootstrap.log" 2>&1; echo "bootstrap rc $? $(date -u +%FT%TZ)"; }
 cp "$I/router_eq.py" "$I/router_live.py" /tmp/
 python /tmp/router_live.py "${1:-300}" "$OUT/evidence/router_live.json" 2>&1 | grep -v Warning; echo "router_live rc ${PIPESTATUS[0]} $(date -u +%FT%TZ)"

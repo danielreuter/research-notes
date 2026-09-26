@@ -31,7 +31,7 @@ def _eval(job):
 
 
 def kernel(rows, TOPK, renorm):
-    import vllm  # noqa: F401  (registers torch.ops._moe_C)
+    import vllm._moe_C  # noqa: F401  (registers torch.ops._moe_C)
     x = torch.from_numpy(np.array(rows, dtype=np.uint16).view(np.int16)).view(torch.bfloat16).cuda()
     M = x.shape[0]
     w = torch.empty(M, TOPK, dtype=torch.float32, device="cuda")

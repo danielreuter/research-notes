@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (20:29Z) [open] GRANTED: PR #87 @28f55d9a (UL2 merge cond) + verity/flock-pure-block-total (bf16-ampere-total pin fef256df) @d4627b62 W/ CONDITIONS NON_ZK_PROOF (TG1 GPU gate before first cell; TG3 /v1 name; TG4/TG5 planner/grant msg); pinned unit = IR on 10.5M vectors (r20260926-201903-d07c), my 8 special-value forgeries refused (r20260926-202615-f0cc); WAITING the 9 cells to label (TG6); agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:15Z) [open] PR #87 @28f55d9a GRANTED (merge cond UL2: vllm_block guard vs >2^13 netlists, F5 latent); 48/48 digests identical; ul14 selftests all_pass + 8 flips refused (r20260926-200915-e38d); total_proto 884b7f9b = IR total on 10.5M vectors (r20260926-201330-c204); WAITING flock-backend's pin of verity/flock-pure-block-total/v1 (T1-T5), then the 9 cells; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:00Z) [open] reopened (coordinator 19:59Z): review PR #87 (flock-gpu-link: per-statement unit slot 2^13/2^14, admission check UL1) then flock-backend's total GEMM unit+statement (domain total, NaN/inf); grant or block before the 9 GEMM re-run cells: NOT final; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (16:47Z) [final] FINAL: attention class pins GRANTED W/ CONDITIONS NON_ZK_PROOF; all three class cells checked, placement-separate, labelled NON_ZK_PROOF: c1 art:4fb2de9c (T1-128), c2 art:b61eafa9 (T129-256; duplicate ef10f5fb not labelled), c3 art:4dd2069b (T257-287); CP6 ruled (synthetic sets counted, provenance footnoted; note for Daniel); per-T v3 cells labelled earlier; art:25c96f97 c185d38b 8be608c6 3b34c1dd f5935b64; pod ~$0.32
@@ -422,9 +423,89 @@ every pinned vLLM netlist has at most 2^13 rows. A total unit adopted there woul
 - **UL4:** a `ul` = 14 statement still names itself `verity/flock-pure-block/v2`. Its digest differs, but cells must record
   the unit pin and `domain`: flock-backend's `verity/flock-pure-block-total/v1` (next item).
 
-### The total GEMM unit and statement (flock-backend): pending its pin
+### The total GEMM statement (flock-backend @ d4627b62): GRANTED WITH CONDITIONS, NON_ZK_PROOF
 
-What I will check on the pinned unit and statement:
+The code is `cursor/flock-backend-4983`: 70dd1b65 plus the pod gate script d4627b62, merging PR #87 @ 28f55d9a.
+
+- **Unit and relation:** `bf16-ampere-total`, pin fef256df, 8,449 rows, 0 assertion rows (`unit_total.py`).
+- **Statement:** `verity/flock-pure-block-total`. `statement_name(net.relation)` replaces `TAG` in the digest.
+- **Template:** sm80 BF16 lowers to it.
+
+| check | result |
+|---|---|
+| T1: pinned netlist vs the IR | 10,485,760 vectors, 0 c_out and 0 y16 mismatches, 0 unsatisfied lanes (`r20260926-201903-d07c`) |
+| pins | all 7 regenerate from d4627b62; the 6 finite ones are unchanged |
+| statement digests | the finite ones are identical to main (48 of 48); the total unit gets its own |
+| T2: the writer and admission | `_chain_rows` steps `tc_dot_total`; y is `f32_to_bf16_hw_word` (F2fpBf16); NV1 admits NaN outputs |
+| T3: their probe selftests | all_pass: 27/27 at K 1536 (Chunk(3)) and 2048 (Chunk(4)), 8 and 64 VUs |
+| T3: their negatives | all refused on both provers; honest control accepted (`r20260926-202246-6d2f`) |
+| T3: my negatives | 8 of 8 refused on both provers; honest control accepted (`r20260926-202615-f0cc`) |
+| T4: statement identity | `main` asserts the instances name the netlist's relation, so the reported name is the digest's |
+| T5: cells | when they land |
+
+On T1:
+
+- The pinned rows differ from `total_proto`'s in 7,467 places, so this is a separate check, not inherited from the
+  prototype.
+- The results include about 2.8M NaN, 3.3M infinite, 476k subnormal and 73k zero outputs.
+- Every non-input row reads only earlier rows, so the output is a function of the inputs.
+
+My negatives use my own 16-VU probe (`evidence/rtf3_total_negs.py`, Chunk(4)). Its outputs are checked against the IR prims
+before anything runs:
+
+- +0, from zero operands;
+- a subnormal (2^-127, y 0x0040);
+- NaN from ±inf in one group, and NaN from inf·0;
+- +inf from a saturated group, and −inf;
+- a NaN carried across three block boundaries;
+- finite VUs.
+
+The eight forgeries, each moving out and y together on its own VU:
+
+- +0 → −0;
+- subnormal → 0;
+- mixed-inf NaN → +inf;
+- overflow +inf → max-finite;
+- inf·0 NaN → 0;
+- −inf → NaN;
+- carried NaN → 0x7FC0, a NaN word F2fpBf16 never produces;
+- finite → next ulp.
+
+Each is refused for the honest prover (R7) and for the cheating prover holding the forged file
+(`PcsAb(RingSwitch(ClaimMismatch))`).
+
+**flock-backend's two questions:**
+
+- **Naming by suffix: acceptable.**
+  - The relation comes from the header of the verifier's pinned netlist.
+  - `main` refuses instances that name another relation.
+  - The digest hashes the name.
+  - So the prover can't pick it, and a finite unit can't take the name without a new, reviewed pin.
+- **Probe coverage: enough for what the probe is for.** The netlist's exactness comes from T1; the probe shows the plumbing
+  works end to end: the writer's chain, NV1, NaN and inf accumulators crossing block boundaries, and the epilogue. My file
+  adds zero, subnormal, mixed-inf and overflow VUs, and all of them prove.
+
+**Conditions:**
+
+- **TG1 (before the first cell):** `51-total-gate.sh` passes on the prover pod: all selftest runs and cases pass on CPU and
+  with `--gpu`, and the negatives pass with the GPU prover. It is recorded, and the cells cite it. The pinned netlist has
+  never been through the GPU prover; flock-gpu-link's GPU runs used 884b7f9b. This is completeness; the verifier is CPU.
+- **TG2:** PR #87's merge condition UL2 (flock-gpu-link).
+- **TG3 (before the first cell, recommended):** version the name, as `verity/flock-pure-block-total/v1`. It enters every
+  digest and record, and every other statement id is versioned.
+- **TG4:** `supports()` should refuse sm80 BF16 at K = 1536 with SHA-256 rows: ShaBf16 can't hold 2^14-row units, and UL1
+  would refuse the cell at admission. None of the 9 cells is affected.
+- **TG5:** `granted()` and its test still say ChunkTail(n) has no red-team grant. red-team-flock granted it with CT1–CT3
+  (10:22Z; PR #75 confirmed 13:10Z). Update both, or the K 2304 and K 8960 cells will record a missing grant.
+- **TG6 (per cell, my labels):**
+  - relation `bf16-ampere-total`, pin fef256df, the total statement name, `domain: total`;
+  - the verifier's sessions accepted;
+  - placement separate (PR #74), `contended: false`;
+  - the old cell `superseded_by` the new one.
+
+### Pre-grant checklist
+
+What I checked on the pinned unit and statement:
 
 - **T1:** the pinned netlist equals the IR on every encoding. c_out = `AmpereBF16TcDot16_v1`, which is `tc_dot_total` on
   AMPERE_BF16_M16N8K16, and y16 = `F2fpBf16_v1`. My tool is `evidence/gemm_total_diff.py` (my own reader and evaluator, with

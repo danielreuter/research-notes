@@ -68,3 +68,27 @@ cells:
 - 4090: 664f3142, c92a439a, 767b54db, f451dabc
 
 All 16 were already verified=accepted by verify-bligero-real-k. The superseded old-sender cells got no label.
+
+## FINAL
+
+~~~text
+tip: cursor/red-team-bligero-real-k-0819 @ 5e7e255d (base main@e3a2d81d)        merge-with: none (red-team tools only; optional)
+known-failures: none    pod: none (all on the cloud VM); $0
+artifacts: art:dc790613 (supersedes art:43876953)
+~~~
+
+- The class is granted with conditions (COMPLETE_ZK_BACKEND) for all 16 real-K statements, the streaming sender included. I found
+  no break.
+- `proof_class` and `finding` labels are on all 16 new-sender cells.
+- One accounting finding (A1: the chain test's field term is not booked). It does not flip any cell. Two nits.
+- Handoffs sent:
+  - `lanes/coordinator/20260926T0917Z-handoff-from-red-team-bligero-real-k.md` (the grant);
+  - `lanes/bligero-real-k/20260926T0917Z-handoff-from-red-team-bligero-real-k.md` (A1's margin for K8192 BF16 cells).
+- Handoffs received: none in my own inbox. I acted on `lanes/red-team-standard-hash-2/20260926T0512Z-handoff-from-bligero-real-k.md`,
+  the request I was launched on.
+- kb: `ligero-hash-auth.md` gains the section "Real K": the class, the cross-rep session check `--drop-files` needs, and A1's
+  terms.
+- Left for others:
+  - the A1 fix: book `linear_field = D (log2 deg - log2 p)` from the system's linked-row count, in `protocol.soundness` and in Rust
+    `soundness()`;
+  - the `_data_loop` RuntimeError nit.

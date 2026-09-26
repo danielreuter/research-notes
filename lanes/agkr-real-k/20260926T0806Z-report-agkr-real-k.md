@@ -2,9 +2,10 @@
 lane: agkr-real-k
 kind: report
 created: 2026-09-26T08:06Z
-status: open
+status: final
 ---
 
+CHECKPOINT 508e6e74 (13:35Z) [final] FINAL: L40S route (a) cells for #101 registered on the L40S line: art:e1a2dfc3 (K=2048, 2048 VUs, 326 VU/s, US-NC-1 L40S + H200 verifier) and art:7a0d186b (K=8192, 512 VUs, 74.7 VU/s, US-TX-4 two L40S machines); pods terminated ~13:31Z; ~$3.5 of $6; branch cursor/agkr-l40s-101-f806 @ 508e6e74 NOT on origin (GitHub refuses the token): evidence/agkr-l40s-101-f806-508e6e74.bundle; handoffs 1335Z to red-team-flock, verify-flock-pure, coordinator (merge from the bundle)
 CHECKPOINT 508e6e74 (13:30Z) [open] cell runs done (k2048); pods drained and terminated
 CHECKPOINT 47dcd5a4 (13:11Z) [open] WAITING K=2048 cell: ver r20260926-131059-cac0 on vy-agkr-l40s-ver, prover r20260926-131112-09d3 on vy-agkr-l40s
 CHECKPOINT 47dcd5a4 (13:10Z) [open] pause lifted: pods vy-agkr-l40s + vy-agkr-l40s-ver in US-NC-1 (verifier 10.0.224.208:7200, sshd 7201); launching: k2048
@@ -121,18 +122,59 @@ terminated with all attempts preserved; this round cost about $2.3.
 - Handoffs received: `20260926T0935Z-handoff-from-coordinator.md` (pause lifted: acted on, ran the launcher) and
   `20260926T1020Z-handoff-from-coordinator.md` (paused again: nothing was left in flight, pods drained and terminated, cells sent).
 
+## L40S route (a) cells for #101 (coordinator 11:44Z goal, $6; 12:03–13:31Z)
+PR #69 was merged, so this goal started a new branch, `cursor/agkr-l40s-101-f806`, from main 961d0667 (which includes PR #74's
+placement check). The prover is an L40S, the GPU #101 was served on. The statements and pins are the A100 cells'. Each pod pair
+was planned through `bench.cell plan`, which reads RunPod machine ids and public IPs, and each cell passed `check`, which compares
+the runs' boot ids. Both cells render on the L40S line (`views.L40S_BF16`, 362.05 TFLOPS), waiting only on a non-producer
+verification.
+
+| cell | art | runs (verifier / prover) | sweep (VUs: VU/s) | plateau | t.total | overhead (L40S) | RTT probe / in session | pods |
+|---|---|---|---|---|---:|---:|---:|---|
+| L40S BF16 K = 2048, #101 | **art:e1a2dfc3** | r20260926-131059-cac0 / r20260926-131112-09d3 | 1024: 246, 2048: 326, 4096: OOM | 2,048 | 6.28 s | 2.7e8× | 0.131 / 0.220 ms | US-NC-1: L40S av7yp9ygnbzg, H200 verifier hl5m5gd6160a |
+| L40S BF16 K = 8192, #101 | **art:7a0d186b** | r20260926-125631-da8a / r20260926-125635-ef93 | 256: 48.3, 512: 74.7, 1024: OOM | 512 | 6.85 s | 3.0e8× | 0.214 / 0.349 ms | US-TX-4: L40S h1ovgmmrd3dh, L40S verifier bmf6gxxmufbv |
+
+- **Evidence:** verifier records art:d2572bbb and art:c9deda88; prover run_files art:7d5e1e22 and art:83a49c5c; prover run
+  records art:059e93c9 and art:d280f1f1.
+- **What it took:**
+  1. US-NC-1 had no L40S from 12:03 to 12:22Z, so the first pair went to US-TX-4. Its first verifier landed on the prover's
+     machine and was terminated. The second landed on another machine.
+  2. That pair's first K = 2048 run (r20260926-123236-c272) passed its gate on the L40S, but `bench.cell` refused its
+     interaction check. The RTT probe had timed TCP connects, which cost 1.08 ms over global networking, while a round inside a
+     session costs about 0.14 ms. Fix 1a1bb6a2: the verifier serves an echo on 7201, and the prover times ping-pongs on one open
+     connection.
+  3. The rerun (r20260926-125412-a615) failed its probe: the verifier was still building when the prover got there, and the
+     probe gave up after 3 s. Fix 47dcd5a4: the probe waits up to RTT_WAIT (1800 s) for the echo, which starts once the
+     verifier's setup is done.
+  4. The K = 8192 cell ran on the same pair. The launcher then drained both pods, so K = 2048 ran on a new US-NC-1 pair: the DC's
+     last L40S, and an H200 verifier, because the DC had no other GPU and no CPU pods ($4.59/h).
+  5. The first K = 8192 registration (art:4f7b26a5, 13:02Z) had no run_files, because the pod hadn't yet published its attempt.
+     I re-registered it as art:7a0d186b and labeled art:4f7b26a5 `superseded_by`. Fix 508e6e74: `bench.cell register` waits up
+     to 600 s for the run files and refuses without them.
+- **Prover host:** the US-NC-1 prover's machine also hosted another lane's L40S pod (`vy-flock-ir-lowering-a-l40s`). The timing
+  guard saw no other GPU process in the container and a host load of at most 18.6 of 128.
+- **Cost and pods:** about $3.5, of which the H200 verifier was about $1.6. The pods were terminated at about 13:03Z (US-TX-4) and
+  13:31Z (US-NC-1), with every attempt preserved.
+- **Not on GitHub:** the token is refused for push. The branch is `evidence/agkr-l40s-101-f806-508e6e74.bundle`, on top of main
+  961d0667.
+- **Handoffs sent:** `20260926T1335Z-handoff-from-agkr-real-k.md` to red-team-flock (a review of the L40S line), verify-flock-pure
+  (the replays) and the coordinator (the merge request, from the bundle).
+
 ## FINAL
 
 ~~~text
-tip: cursor/agkr-real-k-f806 @ 9cbfdcf2 (base main@e3a2d81d; origin/main merged at a7500a4b)    merge-with: none (PR #69)
+tip: cursor/agkr-l40s-101-f806 @ 508e6e74 (base main@961d0667; NOT on origin: GitHub refuses the token; evidence/agkr-l40s-101-f806-508e6e74.bundle)    merge-with: none
 known-failures: none of mine (test_every_registered_kernel_is_self_checked_here fails only if backends/numerical tests run before packages/verity's)
-pod: vy-agkr-real-k-a100 and vy-agkr-real-k-ver terminated about 10:32Z (first pair about 09:13Z / 09:18Z); about $5.0 in all
-artifacts: art:a0ca8ef6 art:a979dfcb art:7ae6c190 art:0e1095f3 art:95fdd0ae art:20197f8b art:e92cad62 art:f9da2094 art:984dcba5 art:460e9938 art:e55da95a art:8455c116 art:15e93b91
+pod: vy-agkr-l40s and vy-agkr-l40s-ver terminated about 13:03Z (US-TX-4 pair) and 13:31Z (US-NC-1 pair); about $3.5 for the L40S goal, about $8.5 in all
+artifacts: art:e1a2dfc3 art:7a0d186b art:4f7b26a5 art:7d5e1e22 art:83a49c5c art:d2572bbb art:c9deda88 art:059e93c9 art:d280f1f1 art:a0ca8ef6 art:a979dfcb art:7ae6c190 art:0e1095f3 art:95fdd0ae art:20197f8b art:e92cad62 art:f9da2094 art:984dcba5 art:460e9938 art:e55da95a art:8455c116 art:15e93b91
 ~~~
 
 A-GKR reached vLLM's reduction lengths without a redesign: the circuit files are uniform in K, the new pins are steps-only, and
-flock-link takes `--k`. Route (a) cells at K = 2048 (283 VU/s) and K = 8192 (63.5 VU/s) are registered at their memory-cap
-plateaus. The first two are verified by verify-flock-pure; the re-sweeps await verification. red-team-flock is reviewing. The new
-cells supersede the first two once verified, and the coordinator is asked to see that `superseded_by` is written. Not reached: the
-FP8 spine sets (the blocker section above) and a standalone A-interactive (none exists; route (a) with live coins is A-GKR's
-interactive form).
+flock-link takes `--k`. Route (a) cells are registered at their memory-cap plateaus:
+- A100: K = 2048 at 283 VU/s and K = 8192 at 63.5 VU/s.
+- L40S, the GPU #101 was served on: K = 2048 at 326 VU/s (art:e1a2dfc3) and K = 8192 at 74.7 VU/s (art:7a0d186b).
+
+verify-flock-pure verified the first two A100 cells. The A100 re-sweeps and the L40S cells await its verification, and
+red-team-flock has the L40S line's review request. The coordinator is asked to write `superseded_by` on the first two cells once
+the re-sweeps are verified (13:35Z handoff). Not reached: the FP8 spine sets (the blocker section above), and a standalone
+A-interactive (none exists; route (a) with live coins is A-GKR's interactive form).

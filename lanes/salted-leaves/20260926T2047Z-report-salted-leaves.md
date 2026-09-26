@@ -5,6 +5,7 @@ created: 2026-09-26T20:47Z
 status: final
 ---
 
+CHECKPOINT 6338450b (23:04Z) [final] PR #93 red-team conditions fixed @ 6338450b (C1 honest Hashes lines; SHA-512 domain digests/positions identity; root width; claims; hm96 row schemas; instance salt size); merge #88 @ a53900df first; remaining SHA-256: IR identity digests + frame binding, for the re-baseline
 CHECKPOINT cd00f704 (22:34Z) [final] PR #88 C1/C2 fixed @ a53900df (merge first as hm96-sha256/v1); E4 PR #93 @ cd00f704: hm96-sha512/v1 + frame-v3-sha512 + vllm-v1-sha512 opt-in, costs art:b9bb217f (per row) art:a7a8ccce (trees); handoffs to coordinator and flock-netlist
 CHECKPOINT cd00f704 (22:33Z) [final] PR #88 C1/C2 fixed @ a53900df (merge first as hm96-sha256/v1); E4 PR #93 @ cd00f704: hm96-sha512/v1 + frame-v3-sha512 + vllm-v1-sha512 opt-in, costs art:b9bb217f (per row) art:a7a8ccce (trees); handoffs to coordinator and flock-netlist
 CHECKPOINT a53900df (21:56Z) [open] PR #88 C1/C2 fixed @ a53900df (merge-ready handoff sent); starting E4 follow-up: hm96-sha512/v1 + SHA-512 frame-v3/vllm-v1 tree framings (stacked PR)
@@ -159,10 +160,26 @@ vector passes.
   - SHA-512 identity digests;
   - capture-v1.
 
+## PR #93 red-team conditions (reopened 22:53Z)
+
+red-team-hm96 granted PR #93 with conditions (`lanes/coordinator/20260926T2256Z-handoff-from-red-team-hm96.md`, `art:29dc2ccb`). All
+are fixed at `6338450b`:
+- **C1:** honest Hashes lines. Everything the scheme computes rests on `cr/sha-512`; the SHA-256 IR identity digests and `binding` are
+  named, so Table 1 cites `cr/sha-256` beside `cr/sha-512` until the re-baseline.
+- **Findings 1 and 5, and the root's ask:**
+  - `identity_digest_sha512` for vllm-v1's `domain_digest`, frame-v3's positions identity and hm96-sha512's scheme digest;
+  - the leaf rule takes the instance's salt size.
+- **Finding 2:** the root-width check in `validate_commitment`.
+- **Finding 3:** the claims wording.
+- **Finding 4:** the schemas `hm96-{sha256,sha512}/row/v1`.
+
+The remaining SHA-256 dependency, for the re-baseline, is the IR identity digests (program, ctx, geo, layout, template, names) and
+frame-v3's `binding`, moved to 64-byte SHA-512 all at once. Core: 1,119 passed. Only the SHA-512 vector files changed.
+
 ## FINAL
 
 ~~~text
-tip: cursor/hm96-sha256-leaves-18a8 @ a53900df (base main@2431e3c1; red-team C1/C2 fixed); E4 follow-up cursor/sha512-commitments-18a8 @ cd00f704 (base a53900df)        merge-with: #88 first, then #93
+tip: cursor/hm96-sha256-leaves-18a8 @ a53900df (base main@2431e3c1; red-team C1/C2 fixed); E4 follow-up cursor/sha512-commitments-18a8 @ 6338450b (base a53900df; red-team conditions fixed)        merge-with: #88 first, then #93
 known-failures: vLLM integration, 10 pre-existing on 2431e3c1 + 2 order-dependent + 20 torch-less errors (list above) | core none
 pod: none (CPU only); $0
 artifacts: art:b3a08e21b4388350bada8c417d79bc419a9b857dbab14a6c455e27aee279e8f7 art:1e2b59f46b14402bae65aef4c9f10b230569ad1d37042a1467dfee00deac7f54 art:b9bb217f74d4dbe95ca6d6594b1330c005063e0c45d8f2cfb0aecde0ae8673c6 art:8750691de6491b68d1c7f2e47011fc1ab6aee0c84c63053cf6638dc308c17622 art:a7a8ccce9ed178c0636d9644296b152fc3144f97204198a1d9a215ccc5fc99f3 art:c05bbf25a8af87949e10f4aa49eca92255111f9bbc7ca7a993e20a54b0819bae
@@ -180,6 +197,7 @@ artifacts: art:b3a08e21b4388350bada8c417d79bc419a9b857dbab14a6c455e27aee279e8f7 
   - `lanes/coordinator/20260926T2050Z-handoff-from-salted-leaves.md` (merge-ready #88 @ f1df809f, superseded by the next);
   - `lanes/coordinator/20260926T2158Z-handoff-from-salted-leaves.md` (C1/C2 fixed, #88 @ a53900df);
   - `lanes/coordinator/20260926T2225Z-handoff-from-salted-leaves.md` (E4, #93);
-  - `lanes/flock-netlist/20260926T2225Z-handoff-from-salted-leaves.md` (SHA-512 sizes; the key is never a witness).
+  - `lanes/flock-netlist/20260926T2225Z-handoff-from-salted-leaves.md` (SHA-512 sizes; the key is never a witness);
+  - `lanes/coordinator/20260926T2320Z-handoff-from-salted-leaves.md` (#93's conditions fixed @ 6338450b).
 - **Handoffs received:** none in my inbox. red-team-hm96's findings reached me through the root:
   `lanes/coordinator/20260926T2140Z-handoff-from-red-team-hm96.md`.

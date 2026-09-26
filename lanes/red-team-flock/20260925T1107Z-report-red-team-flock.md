@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (02:32Z) [open] reopened 02:33Z: Chunk(n) layouts (K=2048/8192) + bf16-hopper-wgmma pin 12c3c8d3
 CHECKPOINT 3301c435 (01:20Z) [final] labelled NON_ZK_PROOF: art:167e64a8, c3e83404, 7afeecbe (e52eca82 = a6a6e548 + Ping, separate pods, 6/6); flock-vllm-block/v1 already granted 00:15Z. No pods.
 CHECKPOINT 3301c435 (01:18Z) [final] art:167e64a8 labelled NON_ZK_PROOF (e52eca82 = a6a6e548 + Ping, separate pod, 6/6); flock-vllm-block/v1 already granted 00:15Z (art:56f792bd labelled). No pods.
 CHECKPOINT 3301c435 (01:17Z) [open] reopened 01:17Z: label art:167e64a8 (A100 bf16-ampere keyed-BLAKE3)

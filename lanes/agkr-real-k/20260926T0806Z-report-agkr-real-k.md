@@ -5,6 +5,7 @@ created: 2026-09-26T08:06Z
 status: final
 ---
 
+CHECKPOINT 9cbfdcf2 (10:36Z) [final] FINAL: route (a) real-K cells art:a0ca8ef6 (K=2048, 4096 VUs, 283 VU/s) + art:a979dfcb (K=8192, 1024 VUs, 63.5 VU/s), A-fs art:7ae6c190 art:0e1095f3; PR #69 @ 9cbfdcf2 (branch cursor/agkr-real-k-f806); pods terminated ~10:32Z; ~$5.0
 CHECKPOINT 9cbfdcf2 (10:35Z) [final] FINAL: route (a) real-K cells art:a0ca8ef6 (K=2048, 4096 VUs, 283 VU/s) + art:a979dfcb (K=8192, 1024 VUs, 63.5 VU/s), A-fs art:7ae6c190 art:0e1095f3; PR #69 @ 9cbfdcf2; pods terminated ~10:32Z; ~$5.0
 CHECKPOINT 9cbfdcf2 (10:33Z) [open] cell runs done (k2048 k8192 afs); pods drained and terminated
 CHECKPOINT 9cbfdcf2 (10:25Z) [open] WAITING A-fs r20260926-102535-c15b on vy-agkr-real-k-a100

@@ -288,6 +288,35 @@ review before the code is `…T1310Z…` (CP1–CP6).
   - CP8: ir_bench registers the plateau point, a T-prefix of the class set. Register the full-set point.
 - **Evidence:** art:8be608c6: the negatives run, the class_ref table, the manifests and the e2e log.
 
+### Class cells, and the conditions since the verdict (14:15Z onward)
+
+- **CP2: MET at 11f24da6.** The class manifest's bytes must be its own canonical serialization. My whitespace and
+  duplicate-key manifests are refused as "not its canonical serialization"; missing and extra T are still refused; the
+  honest manifest loads. Run r20260926-143204-b20f (`evidence/cp2_check.sh`), on a local build of 31d275ad.
+- **Commits after 11f24da6 are harness only:** 31d275ad (the replay script and a `getattr` in ir_bench) and 53ffcaca
+  (ir_bench waits for NVML to release exited GPU contexts). The verifier is the same.
+- **CP7: MET on main.** census-json's PR #79 adds `key_class_of`. I ran main's code on c1's registered document: it credits
+  all 128 listed T, each at P_T = heads / e2e_s from `per_key_count` (88.7 heads/s at T=1, 23.6 at T=128).
+- **CP8: MET.** c1 registered its full 2,048-head point.
+
+| cell | class | T in key_counts | heads | commit | pin | verifier run | check | placement | label |
+|---|---|---|---|---|---|---|---|---|---|
+| art:4fb2de9c (c1) | [1, 128] | 128 | 2,048 | 11f24da6 | 2f102216 | r20260926-132839-b5e6 | PASS | SEPARATE | NON_ZK_PROOF |
+
+**c1 in detail:**
+- The verifier's `class.json` is byte-identical to the manifest I generate.
+- All 128 sub-batches pass `cell_check.py`. Each T's netlist is regenerated here and pinned by the file's `unit_sha256`. The
+  leaf maps show 0 differences, the digests and roots recompute, units plus tail = IR = the set's outputs, and each
+  sub-batch's heads are all at its T.
+- Every sub-batch has 6 accepted verifier sessions, and `key_counts` = the verified sub-batches' T.
+- Placement: prover pod epczpcyja4oqsh (machine pxp3jjc5ozkz, 103.196.86.17, boot id f2edc502) against verifier pod
+  34vxo7onho9xig (machine daejz5pkfg8j, 103.196.86.42, boot id a84811c0). Both are L40S with EPYC 9354; the host memory,
+  GPU UUID and driver also differ. The link is a routed 10.x address, and PR #74's `separation()` is clean.
+- The label is by `evidence/label_class_cells.sh`, ref r20260926-132829-2165.
+
+My checker needed one fix. The first c1 pass flagged all 128 sub-batches because `cell_check.py` expected a one-T input set.
+It now requires the heads in each file's own range to share T.
+
 ## FINAL
 
 ~~~text

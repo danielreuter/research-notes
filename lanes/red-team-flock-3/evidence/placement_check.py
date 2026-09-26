@@ -76,10 +76,11 @@ def main():
     for a in sys.argv[1:]:
         meta = next(json.loads(l.split(None, 1)[1]) for l in sh("data", "show", a).splitlines() if l.startswith("meta"))
         wf = meta["workload_fingerprint"]
-        T = wf["software"]["backend"]["unit"].split("/")[-1]
+        T = (wf["software"]["backend"].get("unit") or f"K{wf.get('K')}").split("/")[-1]
         pr, vr = meta["derived_from"]["prover_run"], meta["derived_from"]["verifier_run"]
         p, v = host(pr), host(vr)
-        addr = (wf.get("verifier") or {}).get("placement", "")
+        addr = ((wf.get("verifier") or {}).get("placement", "")
+                or ((((meta.get("cell") or {}).get("placement") or {}).get("link") or {}).get("peer", "")))
         ip = addr.rsplit(":", 1)[0]
         try:
             bridge = ipaddress.ip_address(ip) in ipaddress.ip_network("172.16.0.0/12")

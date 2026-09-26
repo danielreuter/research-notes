@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (20:47Z) [open] GRANT covers d2292e3b (TG1 met: gate r20260926-202308-c367 8/8 selftests + 5/5 negs GPU; TG3 withdrawn by naming rule; TG4/TG5 fixed); PR #87 GRANTED (UL2 merge cond open); WAITING the 9 total cells to check+label with gemm_cell_check.py (validated on art:73a9e9f3); agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:29Z) [open] GRANTED: PR #87 @28f55d9a (UL2 merge cond) + verity/flock-pure-block-total (bf16-ampere-total pin fef256df) @d4627b62 W/ CONDITIONS NON_ZK_PROOF (TG1 GPU gate before first cell; TG3 /v1 name; TG4/TG5 planner/grant msg); pinned unit = IR on 10.5M vectors (r20260926-201903-d07c), my 8 special-value forgeries refused (r20260926-202615-f0cc); WAITING the 9 cells to label (TG6); agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:15Z) [open] PR #87 @28f55d9a GRANTED (merge cond UL2: vllm_block guard vs >2^13 netlists, F5 latent); 48/48 digests identical; ul14 selftests all_pass + 8 flips refused (r20260926-200915-e38d); total_proto 884b7f9b = IR total on 10.5M vectors (r20260926-201330-c204); WAITING flock-backend's pin of verity/flock-pure-block-total/v1 (T1-T5), then the 9 cells; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:00Z) [open] reopened (coordinator 19:59Z): review PR #87 (flock-gpu-link: per-statement unit slot 2^13/2^14, admission check UL1) then flock-backend's total GEMM unit+statement (domain total, NaN/inf); grant or block before the 9 GEMM re-run cells: NOT final; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -423,7 +424,21 @@ every pinned vLLM netlist has at most 2^13 rows. A total unit adopted there woul
 - **UL4:** a `ul` = 14 statement still names itself `verity/flock-pure-block/v2`. Its digest differs, but cells must record
   the unit pin and `domain`: flock-backend's `verity/flock-pure-block-total/v1` (next item).
 
-### The total GEMM statement (flock-backend @ d4627b62): GRANTED WITH CONDITIONS, NON_ZK_PROOF
+### The total GEMM statement (flock-backend @ d4627b62, extended to d2292e3b): GRANTED WITH CONDITIONS, NON_ZK_PROOF
+
+**Update, 20:55Z.** The grant covers **d2292e3b**. Since d4627b62 only the probe (inf·0 VUs), the negatives (inf·0 claimed
+finite, NaN payload changed), the template and a test changed; there is no verifier or lowering change.
+
+- **TG1 met.** Gate run `r20260926-202308-c367` (art:ce45548f, source 29812b90, RTX 4090):
+  - 8 of 8 selftest runs at 27 of 27, CPU and `--gpu`, K 1536 and 2048, 8 and 64 VUs;
+  - 5 of 5 negatives refused for both provers, with the prover on the GPU;
+  - the honest control accepted.
+- **TG3 withdrawn.** The coordinator's rule is no version suffix on names.
+- **TG4 and TG5 done** at d2292e3b.
+- **Open:** UL2 (PR #87 merge) and TG6 (per cell, `evidence/gemm_cell_check.py`).
+
+The checker was validated on the old K 2048 cell art:73a9e9f3: 12 of 12 sessions replayed and accepted, and both negatives
+rejected.
 
 The code is `cursor/flock-backend-4983`: 70dd1b65 plus the pod gate script d4627b62, merging PR #87 @ 28f55d9a.
 

@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT ad027ea7 (05:13Z) [open] IR3 statement verity/flock-ir-frame/v1 CPU selftest 13/13 rope+silu @ ad027ea7; next: cell harness (ir_bench sweep, driver dispatch, contract for non-GEMM) then H100 cells
 CHECKPOINT 34d02ae3 (05:02Z) [open] IR1+IR2 fixed @ 34d02ae3: Rust verifier evaluates the native tail (ir_tail, pinned MUFU tables) and refuses unaccounted cuts; check_staged; 4 new negatives all pass (evidence 20260926T0510Z-ir1-ir2-selftests.txt); RMSNorm review request sent to red-team-flock-2 (20260926T0502Z); next: IR3 frame-v3 binding (verity/flock-ir-frame/v1, draft ir_frame.py uncommitted) then cells; no pods up
 CHECKPOINT 76b7cbb2 (04:38Z) [open] reopened for frame-v3 row binding + first real cells (coordinator 04:37Z): NOT final
 CHECKPOINT 76b7cbb2 (04:37Z) [final] FINAL: RoPE, SiLU·mul, RMSNorm fused + Triton lowered from their IR Definitions (fp piece library + ir_lower walker; units read off the IR, RMSNorm cut at warp aggregates with the row tail native) at 0 mismatches on captured #101 + synthetic sets; proved by verity/flock-ir-block/v1 (relation-only, public IO) on H100 r20260926-042206-7932 (CPU+GPU selftests all-pass; 256 RMSNorm rows m32 5.7/6.6 s e2e, 1024 RoPE heads 0.42 s, 32 SiLU rows 1.37 s); code on cursor/flock-ir-lowering-c78f @ 76b7cbb2 (pushed; PR #54; the lane/ branch is not used); handed to red-team-flock-2 + flock-backend; open: scheme binding for cells, device witness; pods vy-flock-ir-lowering-h100/-h100b terminated; spend ~$1.5 of $30

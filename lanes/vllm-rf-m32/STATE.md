@@ -64,12 +64,14 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
   both modes (unbounded 282,367 refused vs >= 229,877 held; bounded 142,957 admitted, pool 50,911 vs 59,246 primed).
 - Branch lane/vllm-rf-bounded-finalize (base c20bab70), PR #77 (draft).
 
+- Task 5 MERGE-READY: PR #77 7438b2a5. Gates r20260926-133406-4d7c (head 389/0 vs base 386/0) + r20260926-140124-74e1 (lints rc 0 after
+  the P10 one-line fix; tests rc 0). Both PRESERVED. Handoff 20260926T1405Z.
+
 ## Running
-- vyv-rf-m32-bf (osg7sa0wz5dinu, A5000 host $0.27/h, GPU hidden; all cpu shapes and L4/A4000 NO-STOCK): gate run r20260926-133406-4d7c
-  (`evidence/bf_gate.sh`: lints head, tests/commit + admission tests head a61be4ba vs base c20bab70).
+- nothing. vyv-rf-m32-bf terminated 14:03Z (all lane pods terminated).
 
 ## Next
-- compare, preserved, terminate, update PR #77, handoff, FINAL.
+- none (FINAL). Spend about $9.7 total.
 
 ## Open questions
 - none

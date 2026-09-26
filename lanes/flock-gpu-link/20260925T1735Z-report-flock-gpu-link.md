@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT 758a8edf (02:25Z) [open] GEMM real K on C-Flock: 6 Chunk(n) layouts landed (fp8-ada K2048 4096 VUs 0.43 s, K8192 1024 0.43 s on 4090; bf16-ampere captured K2048 6272 2.8 s, K8192 1920 2.5 s on A100; fp8-hopper K2048 6272 0.64 s, K8192 1920 0.65 s on H100), all PRESERVED, handed off; next H100 BF16 wgmma when wgmma-bf16 lands; no pods up; ~$3.5 of $40
 CHECKPOINT 9ac6401f (00:41Z) [open] SHA-256 device witness landed: 4 frame-v3 SHA lines 0.8-2.5 s (H100 fp8 8192 0.8 s, bf16 1.48 s, A100 2.5 s, 4090 4096 0.75 s), custody PRESERVED; fp4-nvf4 unit circuit 7,681 rows, 0/172k mismatches, patch to flock-backend; 5090 layout waits on NVFP4 row format; no pods up
 CHECKPOINT ad0aa41d (23:31Z) [open] Table 2 stretch: 6 new pure-Flock lines landed (B3 fp8-hopper, B3 bf16-ampere, SHA fp8-ada/fp8-hopper/bf16-hopper/bf16-ampere), all CPU+GPU selftest pass, handed off; 5090 nvfp4 blocked (no unit), vllm-v1 deferred (leaf spec), Poseidon2 n/a; no pods up; ~$3.5 tonight
 CHECKPOINT 5b41d4af (23:04Z) [open] SHA-256 row-leaf layouts (ShaBf16/ShaFp8) CPU all-pass 8/64 (5b41d4af); GPU runs: H100 bf16-hopper-sha r20260925-230109-4f67, A100 bf16-ampere-sha r20260925-230228-82ee, 4090 fp8-ada-sha r20260925-230253-5f62; fp8-hopper-sha next on H100

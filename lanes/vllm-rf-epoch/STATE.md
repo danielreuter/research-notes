@@ -149,6 +149,16 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
 - #73: not started: an H100 with more than 251 GB won't fit the ~$60 (4 L40S pods at $8.72/h use it by ~15:00Z). A budget gap unless
   a row ends early.
 
+## 08:10Z
+- #23 Commit OOM (rc 137) at 251 GB after 3435 s (F-dA-15 predicted 183 GB). Two orphaned commit workers (54 GB RSS each) killed by
+  hand. Small-file copy `r20260926-080221-afaa` (split < 4000 MB parts); bisect-23 terminates when that's PRESERVED (tmux `term-b23`).
+- #11 cancelled (its Build had started on bisect-23): capacity, needs >= 512 GB per the coordinator's rule, and bisect-23's 251 GB
+  already OOM'd #23. #39 cancelled: capacity, needs >= 512 GB; the planner puts the Build at 486 GiB. Pod dropped-39 terminated
+  (it came up with 377 GB).
+- #73: `vyv-rf-epoch-g8-73` (0zvmraejq7gkcr, 2x H100 SXM, 503 GB, $6.98/h), boot `r20260926-080013-d364`, rows `r20260926-080149-61e3`
+  (GPU 0).
+- Burn now: dropped-75 + dropped-68b $4.36 + g8-73 $6.98 = $11.34/h. #73 ~13:00Z, #75 ~14:00Z, #68 ~15:00Z: about $60.
+
 ## Next
 - Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the
   recording trees (`a784d421`, `89cd9d1a` for #67/#68) lack a5 and b1 (digest-neutral by their gates). READY: flag `a784d421`'s

@@ -5,6 +5,7 @@ created: 2026-09-25T22:09Z
 status: open
 ---
 
+CHECKPOINT 101e8917 (08:06Z) [open] WAIT goal 8: g8-73 61e3 (#73, 2x H100 503 GB), dropped-75 af98 (#75 tp_stage, 377 GB), dropped-68b d929 (#68, 377 GB); bisect-23 terminates on afaa PRESERVED; #11/#39 capacity gaps (>= 512 GB) check-back 10:30Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: #23 Commit OOM at 251 GB
 CHECKPOINT 101e8917 (07:57Z) [open] WAIT goal 8: bisect-23 (#23 Commit, stop by 08:55Z; then #11 6123), dropped-39 f3e2 (#39), dropped-75 af98 (#75), dropped-68b d929 (#68); #73 budget gap check-back 08:50Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f
 CHECKPOINT 101e8917 (07:19Z) [open] WAIT vyv-rf-epoch-bisect-23 r20260926-033729-b866 check-back 08:15Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: #23 Build PASS (7605 s, 2bdeb8e3, manifest e55e5407), Match PASS (fold True, GM-01 PASS); Commit running since 06:56Z; spend ~$8.1, hard stop 08:55Z ($12 cap)
 CHECKPOINT 101e8917 (03:38Z) [open] reopened for the #23 GPU confirmation: NOT final. WAIT vyv-rf-epoch-bisect-23 (0hwhyqwzqmmeym, 2x L40S 251 GB, $2.18/h, cap $12) boot r20260926-033656-f536, rows r20260926-033729-b866 (#23 B+M+C at 101e8917, GPU 0, 5 h timeout) check-back 07:15Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f

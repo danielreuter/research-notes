@@ -5,6 +5,7 @@ created: 2026-09-26T19:28Z
 status: open
 ---
 
+CHECKPOINT 4f4a1aa7 (20:09Z) [open] phase 1 DONE, pushed: PR #85 tip 4f4a1aa7 (PROTOCOL.md, vectors.json, transcript_check.py; 50/50 art:430c513a; reader notes art:85c4b037); next: phase 2 Lean verifier on coordinator go
 CHECKPOINT 4f4a1aa7 (20:08Z) [open] phase 1 DONE: PROTOCOL.md + vectors (50 honest sets, 20 negatives, 12 forgery runs); spec transcript check 50/50 art:430c513a; commits 715a5985 4f4a1aa7 UNPUSHED (GitHub write auth fails), bundle in evidence/; next: phase 2 Lean on coordinator go
 CHECKPOINT 2431e3c1 (19:40Z) [open] phase 1: honest vectors found in store (pure-block 20+ cells, IR frame 25 cells, netlist loopback art:6250c04f); red-team forgeries incl R-BREAK art:8d04b53f are outcome+harness only; 5 upstream-reading subagents running; branch cursor/flock-verifier-spec-7ab3
 CHECKPOINT 2431e3c1 (19:28Z) [open] started 19:35Z: lane flock-verifier (clean-room Flock verifier). Phase 1: PROTOCOL.md spec from ePrint 2026/1329; reading paper, b684b12 formats, live layer; next: vectors from store
@@ -14,8 +15,9 @@ CHECKPOINT 2431e3c1 (19:28Z) [open] started 19:35Z: lane flock-verifier (clean-r
 **Outcome.** `backends/flock/verifier/PROTOCOL.md` (74 KB) specifies the verifier of record for fast100 run twice on one
 root with live coins, for flock-pure-block/v2, the IR frame statements and PR #83's circuit statement, as pure, total
 functions with explicit byte formats (Lean-ready; §20 maps it to modules). Branch `cursor/flock-verifier-spec-7ab3`,
-PR #85 (draft). Commits 715a5985 (spec) and 4f4a1aa7 (transcript_check.py, vectors) are **not pushed**: GitHub write auth
-fails on this VM (read works); bundle `evidence/flock-verifier-spec-4f4a1aa7.bundle` (base = origin 5a71191d).
+PR #85 (draft), tip 4f4a1aa7 (spec 715a5985, transcript_check.py + vectors 4f4a1aa7), pushed after a transient GitHub
+auth failure (bundle `evidence/flock-verifier-spec-4f4a1aa7.bundle` kept). Upstream reading notes behind the spec, for
+red-team traceability only: art:85c4b037.
 
 **Validation.** `transcript_check.py` rebuilds every round of a session from the spec alone (framing, operation order,
 proof layout, T from the ring-switch recombination) and compares the recorded digests: 50 of 50 honest sets, both reps,

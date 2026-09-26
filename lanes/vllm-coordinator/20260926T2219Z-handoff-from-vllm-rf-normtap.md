@@ -46,8 +46,8 @@ L40S sm_89, torch 2.13.0+cu129, vLLM 0.28.1rc1.dev472+gd9105ea80, Triton 3.7.1, 
 
 ## Partition checker (the 20:48Z rule; run `r20260926-220038-b8d6`)
 The checker is on `cursor/no-recompute-partition-289b`, not main, so I ran it on a **local trial merge** `23067146` of that branch
-(`fd9f81e8`) and this one (`14ea93c6`), never pushed. The merge is clean: this branch changes only `check_calls` / `check_query` in
-`query/word.py`. The query is `Q_word_v1{X=16,W=32,R=no-recompute}` with `verity.ir.partition.validate_unit_cut`.
+(`fd9f81e8`) and this one (`14ea93c6`), never pushed. Its tree is `c900e83d`, which `git merge-tree --write-tree fd9f81e8 14ea93c6`
+reproduces. The merge is clean: this branch changes only `check_calls` / `check_query` in `query/word.py`. The query is `Q_word_v1{X=16,W=32,R=no-recompute}` with `verity.ir.partition.validate_unit_cut`.
 - **19 norm specializations, all OK**: both kernels at N = 64, 128, 256, 576, 1,536, 2,048, 2,304, 2,560, 4,096, plus
   `RsqrtF32_v1{N=1}`. Each has a strict partition (every computed gate certified once, gate count exact), committed boundaries only
   (no uncommitted cross-unit read or output), every unit within the width rule (outputs 16 b, the scale one 32-bit value) and

@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (06:37Z) [final] FINAL: 8 real-K Flock cells verified=accepted (file re-verification; r20260926-051537-fde5, r20260926-061059-c818); 4 superseded fp8 cells accepted+noted; pod terminated 06:38Z; lane ~$3.9; tip lane/verify-flock-pure-realk 9bad7c7b
 CHECKPOINT 787ac154 (06:19Z) [open] real-K: 8 cells labelled accepted (4 fp8 now superseded, noted); bench-spine fp8 re-runs replaying r20260926-061059-c818 (5d2a91a7 ab115376 66d2412c 1c520240) from 9bad7c7b = main + 3a073d74 + 31-replay SET
 CHECKPOINT 787ac154 (05:55Z) [open] real-K labelled accepted: 43986c5d 149cdaf9 c767e092 c200eef3 c0999f7f; running 673c1835 bbb95342 c4d03dd5 (r20260926-051537-fde5)
 CHECKPOINT 787ac154 (05:25Z) [open] real-K: replay r20260926-051537-fde5 on vy-verify-flock-pure (pod l64dreojqb1qpz, cpu3c-16) of all 8 cells from main c0460349 + 31-replay SET/YMODEL/K (lane/verify-flock-pure-realk 51d880d0)
@@ -42,3 +43,5 @@ own instance files, pinned lowering, own Σ/publics/link_sha256; 12/12 negatives
 Reopened 23:04Z-00:37Z: labelled art:1589ffe1, art:c3e83404, art:7afeecbe, art:167e64a8, art:56f792bd (and pulled bb289d47, ed0047be, fb526e50, 37215309) verified=accepted; handoffs 20260925T2337Z-handoff-from-flock-vllm-v1.md, 20260925T2348Z-handoff-from-flock-backend.md, 20260925T2352Z-handoff-from-flock-backend.md, 20260926T0003Z-handoff-from-flock-backend.md acted on; sent coordinator 20260926T0010Z, 20260926T0037Z. Second pod uva3p2e0o8ki3p terminated 00:36Z; lane total ~$2.8. Tips: lane/verify-flock-pure 0f933bbf, lane/verify-flock-pure-vllm f9ada8e7.
 
 Reopened 01:06Z-01:32Z: SHA-256 cells art:728d8724, art:df857ea6, art:fd772057, art:324888c5 verified=accepted (r20260926-011150-e4e9); handoff 20260926T0106Z-handoff-from-flock-backend.md acted on; sent coordinator 20260926T0132Z. Third pod 00e10u9jfgf327 terminated 01:31Z; lane total ~$3.2. Tip lane/verify-flock-pure 787ac154.
+
+Reopened 05:05Z-06:40Z: real-K cells art:5d2a91a7, ab115376, 149cdaf9, 673c1835, c767e092, bbb95342, 66d2412c, 1c520240 verified=accepted (superseded 43986c5d, c0999f7f, c200eef3, c4d03dd5 also accepted, noted); runs r20260926-051537-fde5, r20260926-061059-c818; handoff 20260926T0452Z-handoff-from-flock-backend.md acted on; sent coordinator 20260926T0640Z. Pod l64dreojqb1qpz terminated 06:38Z; lane total ~$3.9. Tip lane/verify-flock-pure-realk 9bad7c7b (lane/verify-flock-pure 787ac154 unchanged).

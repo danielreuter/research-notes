@@ -1,0 +1,7 @@
+# machine vy-bench-spine: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "y8l50t1b7qhbe6"
+project = "verity"
+guard = 30
+registered_by = "cursor"
+registered_at = "2026-09-26T02:09Z"

@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT (02:20Z) [open] main a57628fc (#44, #41, file-verified rounds fix, RTT-method enum, Flock vllm-v1 config); render 0207Z published (20 results, art:56f792bd 8.7e7x); kb/TABLES.md 09226aa; red-team-flock-2 brief READY (Chunk(n) x3 waiting); balance $149 runway 9.4h; spend $82.7/$300.
+
 CHECKPOINT 22985ba9 (23:05Z) [open] 23:05Z (4:05 PM PT) main 22985ba9 (gc2, bootstrap .pth, x4-hopper-blake3 xob PINS under red-team SH-2 2252Z grant). 01:00Z inputs ready: route (a) art:77411c93, H100 x4 keyed-BLAKE3, vllm-v1 x2, Flock H100 art:6d1295ed + 4090 art:d1961ba4 (verify-flock-pure 2246Z). Flock chain gate: builds + gpu-link selftests pass; pure/link selftests failed on stale pod scripts -> fixed 6661704b, re-run r20260925-230009-04a5. flock-gpu-link layouts fp8-hopper H100 + bf16-ampere A100 handed to flock-backend + red-team-flock. Balance $213. Research ~$62 of $300.
 CHECKPOINT 78b8935b (21:42Z) [open] 21:42Z (2:42 PM PT) main 78b8935b (live tolerance at run's own RTT bf024564; PR #36 route-a-live 78b8935b). Route (a) art:4b52879f valid (-3.0%), publishes 16.67 s; needs verify-night-3 re-label + red-team-flock class label (both FINAL -> WAKE). red-team-flock granted fp8-ada layout. x4-hopper-blake3 cells art:d88a9948 (1.50e8x) / art:5ea60c40 (1.47e8x) -> verify-night-3 + red-team SH-2. Balance $247.82. Research ~$54 of $300.
 CHECKPOINT fee32f05 (21:02Z) [open] 21:02Z sweep: mirror ok, balance $262.71; flock-backend H100 faster binary still rising at 32,768 (6.18k VU/s), sweeping 65,536; verify-flock-pure WAITING to 21:20Z; red-team-flock on pure-block v2 (route (a) re-audit paused); red-team SH-2 vllm-v1 scan running. No wakes. Research ~$49 of $300.

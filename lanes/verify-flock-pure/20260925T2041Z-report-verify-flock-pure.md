@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 787ac154 (05:05Z) [open] reopened for 8 real-K Flock cells (43986c5d c0999f7f 149cdaf9 673c1835 c767e092 bbb95342 c200eef3 c4d03dd5), verify from main c0460349: NOT final
 CHECKPOINT 787ac154 (01:31Z) [final] FINAL: SHA-256 cells 728d8724, df857ea6, fd772057, 324888c5 verified=accepted (file re-verification, r20260926-011150-e4e9); pod terminated 01:31Z; lane ~$3.2; tip 787ac154
 CHECKPOINT 787ac154 (01:12Z) [open] SHA-256 cells: replay run r20260926-011150-e4e9 on vy-verify-flock-pure (pod 00e10u9jfgf327), verifier c058c33f(=bab181d6 verifier path)+replay 7b60287b; plateau proofs = recorded for all four
 CHECKPOINT 0f933bbf (01:06Z) [open] reopened for 4 SHA-256 Flock cells (728d8724, df857ea6, fd772057, 324888c5): NOT final

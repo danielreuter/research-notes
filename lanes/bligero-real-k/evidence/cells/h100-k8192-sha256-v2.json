@@ -1,21 +1,21 @@
 {
  "backend": "B-interactive",
  "family": "B-Ligero",
- "statement": "gemm-coordinate/k2048/sm90-wgmma-e4m3+frame-v3/sha-256",
- "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-e4m3",
+ "statement": "gemm-coordinate/k8192/sm90-wgmma-bf16+frame-v3/sha-256",
+ "subcircuit": "gemm-coordinate/k8192/sm90-wgmma-bf16",
  "scheme": "frame-v3/sha-256",
  "input_set": {
   "kind": "set",
-  "id": "gemm-coordinate-hopper-e4m3-wgmma-k2048",
-  "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-e4m3",
-  "path": "/home/ubuntu/.research/store/trees/5f31185101bcf9da91f64a2653cf69569a876cc08c468c576cc20e5596741b45",
-  "art": "art:5f31185101bcf9da91f64a2653cf69569a876cc08c468c576cc20e5596741b45",
-  "n": 6272,
-  "content_digest": "6b7a15a294387821967afa57115d725fc59e26b309fe923f8eb6852d2a1ffc17",
-  "manifest_sha256": "ac8e028fbcc4dbcd475440a7400f9e611e33d775f3cfd24a90ace0c4b48a22aa",
+  "id": "gemm-coordinate-hopper-bf16-wgmma-k8192",
+  "subcircuit": "gemm-coordinate/k8192/sm90-wgmma-bf16",
+  "path": "/home/ubuntu/.research/store/trees/ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2",
+  "art": "art:ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2",
+  "n": 4096,
+  "content_digest": "a600e6ca57f313f05b0a5a92e2092392d19cb494902182b8f76491372b6d39c0",
+  "manifest_sha256": "1f239be631c8e672623d7f9cf725e51ec1177af917ae4776bd29f267d7e15ba8",
   "source": "synthetic"
  },
- "relation": "fp8-hopper-x4-k2048+sha256",
+ "relation": "bf16-hopper-x4-k8192+sha256",
  "prover": "vy-bligero-real-k-h100-ga2",
  "verifier": "vy-bligero-real-k-verifier-ga2b",
  "verifier_addr": "205.196.17.106:9403",
@@ -76,7 +76,7 @@
     "bash",
     "backends/direct/ligero/cell.sh",
     "ROLE=prover",
-    "REL=fp8-hopper-x4-k2048+sha256",
+    "REL=bf16-hopper-x4-k8192+sha256",
     "VERIFIER=205.196.17.106:9403",
     "START=1024",
     "RUNS=5",
@@ -84,11 +84,11 @@
     "OPERATOR=bligero-real-k",
     "L=4096",
     "PP=4",
-    "SET=gemm-coordinate-hopper-e4m3-wgmma-k2048-6b7a15a29438.tar.xz",
-    "SET_ART=art:5f31185101bcf9da91f64a2653cf69569a876cc08c468c576cc20e5596741b45"
+    "SET=gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz",
+    "SET_ART=art:ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2"
    ],
    "send": [
-    ".bench-cell/sets/gemm-coordinate-hopper-e4m3-wgmma-k2048-6b7a15a29438.tar.xz"
+    ".bench-cell/sets/gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz"
    ],
    "argv": [
     "research",
@@ -110,12 +110,12 @@
     "--campaign",
     "bligero-real-k",
     "--send",
-    ".bench-cell/sets/gemm-coordinate-hopper-e4m3-wgmma-k2048-6b7a15a29438.tar.xz",
+    ".bench-cell/sets/gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz",
     "--",
     "bash",
     "backends/direct/ligero/cell.sh",
     "ROLE=prover",
-    "REL=fp8-hopper-x4-k2048+sha256",
+    "REL=bf16-hopper-x4-k8192+sha256",
     "VERIFIER=205.196.17.106:9403",
     "START=1024",
     "RUNS=5",
@@ -123,8 +123,8 @@
     "OPERATOR=bligero-real-k",
     "L=4096",
     "PP=4",
-    "SET=gemm-coordinate-hopper-e4m3-wgmma-k2048-6b7a15a29438.tar.xz",
-    "SET_ART=art:5f31185101bcf9da91f64a2653cf69569a876cc08c468c576cc20e5596741b45"
+    "SET=gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz",
+    "SET_ART=art:ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2"
    ],
    "argv_launched": [
     "research",
@@ -149,7 +149,7 @@
     "bash",
     "backends/direct/ligero/cell.sh",
     "ROLE=prover",
-    "REL=fp8-hopper-x4-k2048+sha256",
+    "REL=bf16-hopper-x4-k8192+sha256",
     "VERIFIER=205.196.17.106:9403",
     "START=1024",
     "RUNS=5",
@@ -157,8 +157,8 @@
     "OPERATOR=bligero-real-k",
     "L=4096",
     "PP=4",
-    "SET=/workspace/sets/gemm-coordinate-hopper-e4m3-wgmma-k2048-6b7a15a29438.tar.xz",
-    "SET_ART=art:5f31185101bcf9da91f64a2653cf69569a876cc08c468c576cc20e5596741b45"
+    "SET=/workspace/sets/gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz",
+    "SET_ART=art:ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2"
    ]
   }
  ]

@@ -91,7 +91,7 @@
     "ROLE=verifier",
     "OPERATOR=bligero-real-k"
    ],
-   "run": "r20260926-064431-4043"
+   "run": "r20260926-072253-ca25"
   },
   {
    "role": "prover",

@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (17:47Z) [final] FINAL: c2 re-run b61eafa9 verified=accepted (file re-verification, r20260926-165159-6043); attention classes c1 c2 c3 all labelled; pod terminated 17:48Z; ~$0.6
 CHECKPOINT 787ac154 (16:54Z) [open] c2 re-run art:b61eafa9: replay r20260926-165159-6043 on vy-verify-flock-pure (pod vx2lueuuhjvxeb, cpu3c-16) from lane/verify-flock-class 4d8217ef; verifier run r20260926-153220-186b (8ef6d347)
 CHECKPOINT 787ac154 (16:34Z) [open] reopened for c2 re-run art:b61eafa9: NOT final
 CHECKPOINT 787ac154 (16:26Z) [final] FINAL: attention class cells c1 4fb2de9c, c2 87a6bcdd, c3 4dd2069b verified=accepted (file re-verification, class pin = verifier manifest sha256); pod terminated 16:27Z; ~$0.9
@@ -95,3 +96,4 @@ Reopened 12:49Z-14:13Z: 16 L40S attention cells (r20260926-125610-f2a9, r2026092
 Handoffs in this round: 20260926T1309Z-handoff-from-flock-l40s-101.md (the six elementwise cells) acted on (labelled above); 20260926T1325Z-handoff-from-coordinator.md (port replay to v3) done: the replay subcommand is on the v3 binary in lane/verify-flock-attn (ece9fdd2) and lane/verify-flock-a8ce (a8ce768a), and flock-ir-lowering's PR #76 carries its own port (1b2f0025); 20260926T1335Z-handoff-from-agkr-real-k.md (A-GKR L40S cells e1a2dfc3, 7a0d186b) and 20260926T1412Z-handoff-from-flock-ir-lowering.md (class cell c1 art:4fb2de9c) not in this assignment: await a reopening (A-GKR: backends/gkr/verify-cells.sh on lane/verify-agkr-real-k; class cells: their 34-ir-replay.sh at 31d275ad).
 Reopened 14:12Z-16:28Z: attention class cells c1 art:4fb2de9c (r20260926-143754-8c05), c3 art:4dd2069b (r20260926-144334-736c), c2 art:87a6bcdd (r20260926-154133-dd32) verified=accepted; lane/verify-flock-class 4d8217ef; handoffs 20260926T1412Z/1440Z-handoff-from-flock-ir-lowering.md acted on; sent coordinator 20260926T1520Z, 1540Z, 1628Z. Pod gw398cmms74yzr terminated 16:27Z; lane total ~$6.6.
 Handoff 20260926T1440Z-handoff-from-flock-ir-lowering.md (c3 art:4dd2069b) acted on: labelled.
+Reopened 16:34Z-17:49Z: c2 uncontended re-run art:b61eafa9 verified=accepted (r20260926-165159-6043); sent coordinator 20260926T1749Z. 20260926T1632Z-handoff-from-flock-backend.md (capacity gap, FYI: the L40S re-runs and ChunkTail cells did not run) needs no action from this lane. Pod vx2lueuuhjvxeb terminated 17:48Z; lane total ~$7.2.

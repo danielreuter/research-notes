@@ -100,5 +100,17 @@
   "pod": "vy-bligero-real-k-verifier-r4",
   "source": "store run record art:f4567196b3344f4ad3e588be16fe7b629455b93878e28a787ec2b9c9a825f2bb",
   "dir": "/tmp/vbrk/sessions2/rec-r20260926-103731-fe03/sessions"
+ },
+ "dd6b0cac": {
+  "verifier_run": "r20260926-122717-c116",
+  "pod": "vy-bligero-l40s-101-ver",
+  "source": "store run record art:012d0166594a6bd01ce7bac80ed36b97276bcdd21da6423c45950baecdd32aa6",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-122717-c116/sessions"
+ },
+ "c64377df": {
+  "verifier_run": "r20260926-122717-c116",
+  "pod": "vy-bligero-l40s-101-ver",
+  "source": "store run record art:012d0166594a6bd01ce7bac80ed36b97276bcdd21da6423c45950baecdd32aa6",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-122717-c116/sessions"
  }
 }

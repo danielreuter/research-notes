@@ -256,3 +256,47 @@ tip: lane/verify-bligero-real-k @ e48ec526 (base main@e48ec526; no commits, not 
 known-failures: none    pod: terminated 11:44Z (uxjdwpkx4di1bo cpu3c-16); ~$0.10 this round, lane total ~$0.85
 artifacts: labelled art:4ff19d4f (verified=accepted), art:b1d710da (below_bar=true); run r20260926-113155-ffa4
 ~~~
+
+## Reopen 4 (13:22Z-13:45Z): #101 B-Ligero cells on the L40S, art:dd6b0cac (K2048) and art:c64377df (K8192)
+
+- **Request:** the coordinator's launch message. Received and acted on: `20260926T1316Z-handoff-from-bligero-real-k.md`.
+- **Base:** main e77d40c9. The verifier, reverify and chain-term code is unchanged since e48ec526.
+- **Pod:** no CPU pod in about 20 tries over 5 minutes, so an RTX 3090 used for its 32 vCPUs only: rk1g146smgnjwk, $0.50/h,
+  13:28-13:38Z, about $0.09.
+- **Run r20260926-133012-30ab (PRESERVED):** pins 16/16 at e77d40c9 (pod build 64975433), then both cells.
+
+| cell | relation | set (re-staged; IR-equal) | batch | bound (my recomputation) | sessions |
+|---|---|---|---|---|---|
+| art:dd6b0cac | bf16-ampere-x4-k2048+blake3-xob | art:123dc234 captured, 6272/6272 | 16/16 | 2^-132.03/proof, **2^-128.03** (165 chain rows, chain_field 2^-147.802) | 5/5 |
+| art:c64377df | bf16-ampere-x4-k8192+blake3-xob | art:927a4c3a captured, 1920/1920 | 32/32 | 2^-133.2655/proof, **2^-128.2655** (549 rows, chain_field 2^-137.396; 2^-128.350 without) | 5/5 |
+
+- **Both verified=accepted** (ref r20260926-133012-30ab).
+  - reverify PASS: custody, PINNED, commitments recomputed from my set.
+  - Sessions: verifier run r20260926-122717-c116, read from its store record art:012d0166. They match the dump and my compiled
+    system, and the coins are distinct.
+  - Bounds: my exact Fractions recomputation from each statement, with the chain rows counted in my own compile, equals the
+    Rust verifier's figure.
+- **Machine separation**, from records the research harness writes itself, not the cell script (`evidence/separation-l40s-101.json`):
+
+| | prover (r20260926-122746-a284, r20260926-130128-a83c) | verifier (r20260926-122717-c116) |
+|---|---|---|
+| kernel boot id (job.json) | c878c736-6098-4887-84cd-e456f033aa4b | 1ae4223a-b967-47ed-ba09-360af7348bf0 |
+| hostname (job.json, launch.json) | 13837d713f4a | 4d9fbee72571 |
+| GPU UUID (job.json) | GPU-129a3a88-… | GPU-0c4713c5-… |
+| host memory (job.json) | 1081799454720 B | 1081799475200 B |
+| pod / ssh host (launcher, launch.json) | 8loxygl068ukkc / 64.247.206.218 | vdel26rpc47d2g / 64.247.206.229 |
+
+  - Every session's TCP peer, as the verifier saw it, is 64.247.206.218, the prover's address.
+  - Containers on one host share the host kernel's boot id, so different boot ids mean different machines.
+  - RunPod machine ids 9sng1e8op7yw and mszbaoah5eb7 are only in the producer's plan record, captured from the RunPod API at plan
+    time. Both pods are terminated, and RunPod's pod query now returns null.
+- **Evidence:** `evidence/sessions-check-reopen4.json`, `evidence/separation-l40s-101.json`.
+- **Not judged:** the interaction notes (45% / 41% under the model).
+
+## FINAL (reopen 4)
+
+~~~text
+tip: lane/verify-bligero-real-k @ e77d40c9 (base main@e77d40c9; no commits, not pushed)        merge-with: none
+known-failures: none    pod: terminated 13:38Z (rk1g146smgnjwk RTX 3090, CPU use only); ~$0.09 this round, lane total ~$0.95
+artifacts: labelled art:dd6b0cac art:c64377df (verified=accepted); run r20260926-133012-30ab
+~~~

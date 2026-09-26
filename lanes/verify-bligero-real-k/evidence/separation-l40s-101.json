@@ -1,0 +1,113 @@
+{
+ "verifier": {
+  "run": "r20260926-122717-c116",
+  "run_record": "art:012d0166",
+  "job.json (harness)": {
+   "hostname": "4d9fbee72571",
+   "boot_id": "1ae4223a-b967-47ed-ba09-360af7348bf0",
+   "gpu_uuid": [
+    "GPU-0c4713c5-f63a-e1d1-33d6-2c5b27b22b7c"
+   ],
+   "host_memory_total_bytes": 1081799475200
+  },
+  "launch.json (launcher)": {
+   "pod_id": "vdel26rpc47d2g",
+   "ssh_host": "64.247.206.229",
+   "machine": "vy-bligero-l40s-101-ver",
+   "launcher_hostname": "4d9fbee72571"
+  }
+ },
+ "prover_k2048": {
+  "run": "r20260926-122746-a284",
+  "run_record": "art:2e6ec075",
+  "job.json (harness)": {
+   "hostname": "13837d713f4a",
+   "boot_id": "c878c736-6098-4887-84cd-e456f033aa4b",
+   "gpu_uuid": [
+    "GPU-129a3a88-5ff4-519f-191b-5a8fa2f0488f"
+   ],
+   "host_memory_total_bytes": 1081799454720
+  },
+  "launch.json (launcher)": {
+   "pod_id": "8loxygl068ukkc",
+   "ssh_host": "64.247.206.218",
+   "machine": "vy-bligero-l40s-101",
+   "launcher_hostname": "13837d713f4a"
+  }
+ },
+ "prover_k8192": {
+  "run": "r20260926-130128-a83c",
+  "run_record": "art:4cf03737",
+  "job.json (harness)": {
+   "hostname": "13837d713f4a",
+   "boot_id": "c878c736-6098-4887-84cd-e456f033aa4b",
+   "gpu_uuid": [
+    "GPU-129a3a88-5ff4-519f-191b-5a8fa2f0488f"
+   ],
+   "host_memory_total_bytes": 1081799454720
+  },
+  "launch.json (launcher)": {
+   "pod_id": "8loxygl068ukkc",
+   "ssh_host": "64.247.206.218",
+   "machine": "vy-bligero-l40s-101",
+   "launcher_hostname": "13837d713f4a"
+  }
+ },
+ "sessions": {
+  "s20260926T123053Z-565c": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T123101Z-6968": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T123108Z-3d9f": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T123116Z-6ef0": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T123122Z-c0bc": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T130238Z-eebc": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T130308Z-1a2f": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T130336Z-76eb": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T130403Z-d951": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  },
+  "s20260926T130430Z-2a7b": {
+   "peer_seen_by_verifier": "64.247.206.218",
+   "verifier_host": "4d9fbee72571",
+   "prover_host_in_hello": "13837d713f4a"
+  }
+ },
+ "plan_machine_ids_producer_recorded": {
+  "prover": "9sng1e8op7yw",
+  "verifier": "mszbaoah5eb7",
+  "note": "from cell.placement.plan (bench.cell plan via the RunPod API at plan time); the pods are terminated and RunPod's pod query now returns null, so not re-queried"
+ }
+}

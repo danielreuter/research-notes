@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # agkr-real-k: the cell runs left after the 09:10Z spend pause, ready to launch the moment the coordinator lifts it.
-# Run from the verity checkout on branch cursor/agkr-real-k-f806 (committed and pushed: research run ships HEAD), in a
+# Run from the verity checkout with HEAD committed and pushed (research run ships HEAD), in a
 # shell with the cloud-lane environment (RESEARCH_NOTES, RESEARCH_MACHINES_D, RESEARCH_WRITE_THROUGH=1).
 #
 #   bash $RESEARCH_NOTES/lanes/agkr-real-k/evidence/pod-scripts/launch-cells.sh [k2048] [k8192] [afs]      (default: all three)
@@ -15,9 +15,10 @@
 # second A100: US-MD-1 had no CPU stock at 08:25Z), both registered with the idle guard; drained and terminated at the end.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)" || exit 2
-[ "$(git rev-parse --abbrev-ref HEAD)" = cursor/agkr-real-k-f806 ] || { echo "not on cursor/agkr-real-k-f806"; exit 2; }
+BR=$(git rev-parse --abbrev-ref HEAD); git fetch -q origin "$BR" 2>/dev/null
+[ "$(git rev-parse HEAD)" = "$(git rev-parse "origin/$BR" 2>/dev/null)" ] || { echo "HEAD is not pushed to origin/$BR"; exit 2; }
 git diff --quiet HEAD -- backends || { echo "uncommitted changes under backends/: research run ships HEAD"; exit 2; }
-R="uv run research"; E=$(dirname "$0"); LANE=agkr-real-k; P=vy-$LANE-a100; V=vy-$LANE-ver
+R="uv run research"; E=$(dirname "$0"); LANE=agkr-real-k; P=${P:-vy-$LANE-a100}; V=${V:-vy-$LANE-ver}
 WHAT=${*:-k2048 k8192 afs}
 say() { echo "##### $(date -u +%H:%M:%SZ) $*"; }
 ck() { $R notes checkpoint $LANE open "$*" | tail -1; }
@@ -45,12 +46,15 @@ live $V || for spec in "cpu3c 16" "cpu5c 16" "cpu3c 8" "cpu3g 16" "cpu5g 16" "gp
   tail -1 /tmp/$LANE-create-v.log
 done
 grep -q REGISTERED /tmp/$LANE-create-v.log || { echo "no verifier pod in $DC"; $R pods terminate $P; exit 5; }
+# VADDR / VRTT (HOST:PORT) override the public mapping, e.g. the verifier's global-networking address 10.x:7200 and 10.x:22
+if [ -n "${VADDR:-}" ]; then VIP=${VADDR%:*}; VSES=${VADDR##*:}; VSSH=${VRTT##*:}; else
 read -r VIP VSSH VSES < <($R pods list | python3 -c "
 import ast, re, sys
 for line in sys.stdin:
     if '$V-' in line or line.split()[1:2] == ['$V']:
         ip = re.search(r'ip=(\S+)', line).group(1); ports = ast.literal_eval(re.search(r'ports=(\{.*\})', line).group(1))
         print(ip, ports['22'], ports['7200'])")
+fi
 [ -n "${VSES:-}" ] || { echo "no public mapping for $V's session port"; exit 5; }
 ck "pause lifted: pods $P + $V in $DC (verifier $VIP:$VSES, sshd $VSSH); launching: $WHAT"
 
@@ -67,7 +71,7 @@ cell() {  # $1 = K, $2 = set art, $3 = sizes, $4 = prover backend args (e.g. GAT
   local K=$1 art=$2 sizes=$3 extra=${4:-} plan=.bench-cell/$LANE-k$1-$(date -u +%H%M).json runs vr pr a ba=()
   for a in $extra; do ba+=(--backend-arg "$a"); done
   uv run python -m verity_numerical.bench.cell plan --backend A-route-a --statement gemm-coordinate/k$K/sm80-mma-bf16+frame-v3/blake3-keyed \
-    --input-set $art --prover $P --verifier $V --verifier-addr $VIP:$VSES --rtt-target $VIP:$VSSH --campaign $LANE --lane $LANE \
+    --input-set $art --prover $P --verifier $V --verifier-addr $VIP:$VSES --rtt-target ${VRTT:-$VIP:$VSSH} --campaign $LANE --lane $LANE \
     --points "$sizes" "${ba[@]}" --out $plan > /dev/null || { echo "plan K=$K failed"; return 1; }
   runs=$(uv run python -m verity_numerical.bench.cell run --cell $plan | python3 -c "
 import json, sys
@@ -86,8 +90,8 @@ t = sys.stdin.read(); d = json.loads(t[:t.rindex(']') + 1]); print(' '.join(r['r
 sets() { $R data fetch $1 | tail -1; }
 for w in $WHAT; do
   case $w in
-    k2048) cell 2048 art:123dc234 "1024 2048 4096 6272" ;;
-    k8192) cell 8192 art:927a4c3a "256 512 1024 1920" "${K8192_ARGS-GATE=0}" ;;   # its gate passed at 08:58Z on this code path
+    k2048) cell 2048 art:123dc234 "${K2048_POINTS:-1024 2048 4096 6272}" "${K2048_ARGS-}" ;;
+    k8192) cell 8192 art:927a4c3a "${K8192_POINTS:-256 512 1024 1920}" "${K8192_ARGS-GATE=0}" ;;   # its gate passed at 08:58Z on this code path
     afs)
       T=(); for a in art:123dc234 art:927a4c3a; do
         d=$(sets $a); n=$(python3 -c "import json;print(json.load(open('$d/manifest.json'))['set'])")

@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 787ac154 (07:52Z) [open] reopened for 4 elementwise flock-ir-frame/v2 cells (dd27fdab 8a07b80f 9563d2c8 63553a6c): NOT final
 CHECKPOINT 787ac154 (06:37Z) [final] FINAL: 8 real-K Flock cells verified=accepted (file re-verification; r20260926-051537-fde5, r20260926-061059-c818); 4 superseded fp8 cells accepted+noted; pod terminated 06:38Z; lane ~$3.9; tip lane/verify-flock-pure-realk 9bad7c7b
 CHECKPOINT 787ac154 (06:19Z) [open] real-K: 8 cells labelled accepted (4 fp8 now superseded, noted); bench-spine fp8 re-runs replaying r20260926-061059-c818 (5d2a91a7 ab115376 66d2412c 1c520240) from 9bad7c7b = main + 3a073d74 + 31-replay SET
 CHECKPOINT 787ac154 (05:55Z) [open] real-K labelled accepted: 43986c5d 149cdaf9 c767e092 c200eef3 c0999f7f; running 673c1835 bbb95342 c4d03dd5 (r20260926-051537-fde5)

@@ -9,6 +9,7 @@ origin: cursor/flock-netlist-m0-4d6a
 branch: cursor/flock-netlist-m0-4d6a
 ---
 
+CHECKPOINT fd02e847 (21:46Z) [open] red-team-hm96 F6: the hm96 key is a statement constant (DEFAULT_KEY pinned by SHA-256, derived in Rust and checked against core), negative leaf_key_witness_refused, fd02e847; format final there (verifier lane told); cells recording at fd02e847
 CHECKPOINT 4f8316ce (21:21Z) [open] from_record replays circuit records (verifier lane's fix, a2a7e7f4; selftest record_replays_offline); tags/domains/Σ final, format final for the NON_ZK unsalted-leaf statement at 4f8316ce (handoff to flock-verifier); circuit_bench merge fix (rmsf/rmst results had KeyError); all four cells re-running at 4f8316ce
 CHECKPOINT 99e2f750 (20:59Z) [open] internal leaf slot aligned with hm96-sha256/v1 (OS salts 128 B/leaf, one key per proof; verifier checks the whole pinned scheme; negative leaf_scheme_seeded_salts_refused); coordinator 19:55Z rename handoff already done (backend identity flock-circuit / C-interactive/flock-circuit); GPU selftest r20260926-200726-8dce all-pass incl determinism; SiLU cell art:76750e45 superseded by a timing fix (wait inside e2e window), cells re-running at the final commit; handoff to coordinator: frame-v3 hm96 row schema needs an owner
 CHECKPOINT 0615b284 (20:12Z) [open] renamed to verity/flock-circuit; coin record replayable (global index g); prover deterministic with explicit seed; every commitment hash SHA-256 and pinned in the identity (HM96 Merkle leaf + serving row leaf left); L40S GPU selftest r20260926-200726-8dce running, then cells SiLU/RoPE/RMSNorm x2
@@ -68,7 +69,7 @@ lookup slots (~40k ANDs each). Sampling carries become private Δ glue between c
    2^-118.4 per run (flock-128), so a single run needs F256 challenges or a doubled PIOP on the same opening (M1/M2 item).
 3. **Leaf commitments of the proof's Merkle trees:** a named, pinned, swappable scheme in META and the backend identity.
    Pinned today: `flock-leaf/sha256-unsalted` (Flock's own leaf) because the hiding leaf is NOT implemented yet. Its target is
-   core's `hm96-sha256/v1` (PR #88): 128 B salt per leaf from the OS generator, one 160 B key per proof (section "Internal
+   core's `hm96-sha256/v1` (PR #88): 128 B salt per leaf from the OS generator, hm96's pinned key as a statement constant (section "Internal
    leaf slot aligned" below).
 4. **Live coins from a seed committed at step 0** (`coin_seed.rs`, SessionConfig.coin_seed): the verifier draws seed + nonce
    from the OS, answers Hello with `SHA-256(tag‖nonce‖seed)` (scheme `coin-commit/sha256`, HM96 the target), derives every
@@ -147,7 +148,7 @@ Cost (estimates from the layout; nothing lowered or measured yet):
   prefixes are constant midstates). A level-0 leaf is a 1 KiB column (17 compressions plus about 2 per tree node), so level-0
   hashing grows about 26%, more on the recursive levels' 256 B leaves; encoding and commitment are 24 ms of about 300 ms per
   rep (SiLU, 128 rows), so about +2–3% of prover time. The proof grows 128 B per opened leaf: 527 openings per rep at m = 33
-  (218 + 106 + 71 + 53 + 43 + 36), 1,054 per proof, about +135 KB (+12% of 1.12 MB), plus one 160 B key per proof. The work
+  (218 + 106 + 71 + 53 + 43 + 36), 1,054 per proof, about +135 KB (+12% of 1.12 MB); the key is a constant, never sent. The work
   is a Flock CPU leaf function, the CUDA Merkle kernel patch, and the opened salts in the proof format.
 
 ## Internal leaf slot aligned with `hm96-sha256/v1` (core PR #88; handoff note:20260926T2034Z-handoff-from-salted-leaves, 20:50Z)
@@ -163,10 +164,17 @@ parse; negative `leaf_scheme_seeded_salts_refused`) is still `flock-leaf/sha256-
   and it overlaps the device witness. No reason to prefer ChaCha20. `STREAM_SALT` is gone from `ProverRng`. The salts will be
   a second explicit prover input beside `ProverSeed` (injectable only under `seed-injection`), so the prover stays a
   deterministic function of its inputs and the byte-for-byte comparison with a Lean prover still works;
-- **key: one per proof, not per leaf** (160 B, `hm96.KEY_BYTES`), drawn from the OS and sent in the hello before the root,
-  so no pinned-key (Markov) step: hiding is N·2^-256 directly (hm96 section 3). The per-leaf key reservation is dropped;
-- a test checks the target's name and sizes against `verity.commitments.hm96` (skips until PR #88 is on main; passes
-  against its branch).
+- **key: hm96's `DEFAULT_KEY`, one constant of the statement for every tree and for the serving-row gadget** (red-team-hm96
+  F6, 21:45Z, commit fd02e847; this replaces my 20:55Z per-proof OS key). META pins it by SHA-256 `57b257a0…3df6e0`; the Rust
+  side derives the key from hm96's label and checks the digest; the verifier refuses any other key specification at parse.
+  Never a witness: with the key in the prover's hands after commitment, M_k'·y = b ⊕ x' is 256 linear equations in 1,279
+  unknowns, so a committed `b ‖ c` opens to any x' (red-team-hm96's demo). Negative `leaf_key_witness_refused`: a circuit whose
+  META declares the key a prover witness, or pins another key, is refused at load. Hiding with the pinned key is N·2^-192
+  outside a 2^-64 fraction of keys (the common-reference-string step of hm96 section 3, red-team F2), about 2^-170 at our
+  ~2^22 leaves per proof; the formal ZK proof carries that setup step. A per-proof public key bound before the root would
+  remove it and still satisfy F6, if wanted in M1;
+- a test checks the target's name, salt size and key digest against `verity.commitments.hm96` (skips until PR #88 is on
+  main; passes against its branch).
 
 **Serving rows.** What the circuit proves per row, once switched: the inner `sha256/row/v1` digest (constant-midstate prefix),
 3 compressions for c, the XOR network `b = x ⊕ M·y` (135,803 XORs for the pinned key, no AND); public `b ‖ c`, 64 B per row
@@ -179,7 +187,7 @@ table). One key per tree for the rows too.
 Production serving commits vllm-v1 position leaves (salted-leaves' correction), so binding vllm-v1 trees in this statement is
 an M1/M2 item.
 
-**For the formal ZK plan.** With salts and key from the OS, the leaf hiding needs no PRG assumption. The masks, Reed–Solomon
+**For the formal ZK plan.** With salts from the OS, the leaf hiding needs no PRG assumption (only the pinned key's setup step). The masks, Reed–Solomon
 padding and sumcheck masks are small (a 2^14-bit mask slot per block, t_pad rows per level): drawing them from the OS too
 would make the whole simulator argument statistical, with no ChaCha20 step, at negligible cost. Worth deciding with
 flock-soundness before M1 fixes the tape.
@@ -188,8 +196,8 @@ flock-soundness before M1 fixes the tape.
 
 What M0 exposes for a formalizable M1 masking spec:
 - **Randomness tape.** Masks and padding come from `ProverRng` = ChaCha20 keyed by the 256-bit `ProverSeed`, independent streams
-  `(purpose, index)` (`STREAM_MASK` 1, `STREAM_PAD` 2; word position 8·index). Leaf salts (128 B each) and the leaf key
-  (160 B) come straight from the OS. A simulator's tape is these streams plus the salts and key.
+  `(purpose, index)` (`STREAM_MASK` 1, `STREAM_PAD` 2; word position 8·index). Leaf salts (128 B each) come straight from
+  the OS; the leaf key is the statement's constant. A simulator's tape is these streams plus the salts.
 - **Mask placement.** Per block, one 2^14-bit region of free cells (A = B = I) at a pinned position, apart from forced-zero padding;
   the zerocheck/lincheck claim points are fully random (reach every cell); the public region claims fix Boolean coordinates outside
   the mask region (they reveal only public data).

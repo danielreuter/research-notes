@@ -5,6 +5,11 @@ created: 2026-09-25T11:07Z
 status: final
 ---
 
+CHECKPOINT 3301c435 (00:05Z) [final] art:1589ffe1 labelled NON_ZK_PROOF (Ping stateless; tag-8 clash with Prime flagged); flock-vllm-block/v1 GRANTED WITH CONDITIONS, art:56f792bd labelled (selftest 21/21, art:c30bb647; VL1 hardening, PB3 pending). Pods terminated.
+CHECKPOINT 3301c435 (23:54Z) [open] reopened 23:55Z: resume flock-vllm-block/v1 review from bundle
+CHECKPOINT 3301c435 (23:49Z) [final] flock-vllm-block/v1 review BLOCKED on source (GitHub auth 401 on VM; need token refresh or a git bundle of ff1c1e3f). Bound confirmed 2^-195.44/proof (2^-193.44 x4), evidence consistent; code review + selftest pending. Handoff 2355Z. No pods, $0.
+CHECKPOINT 3301c435 (23:46Z) [blocked] flock-vllm-block/v1 review BLOCKED: GitHub auth 401 on VM (cannot fetch ff1c1e3f). Bound confirmed 2^-195.44/proof (2^-193.44 x4), evidence consistent; code review + selftest pending source. Handoff 2355Z.
+CHECKPOINT 3301c435 (23:40Z) [open] reopened 23:41Z: review Flock over vllm-v1 (PR #41 @ ff1c1e3f), cell art:56f792bd
 CHECKPOINT 3301c435 (23:31Z) [final] layouts fp8-hopper, bf16-ampere (AM1 pin pending), sha256/row/v1 ShaFp8/ShaBf16 and combos GRANTED WITH CONDITIONS at NON_ZK_PROOF (art:0f0b6f41, art:08295fa2); no cells routed yet; reopen to label cells / review next layouts. Pods terminated, ~$0.30.
 CHECKPOINT 3301c435 (23:31Z) [open] all new Flock layouts reviewed: fp8-hopper, bf16-ampere (AM1 pin pending), ShaFp8/ShaBf16 + combos: GRANTED WITH CONDITIONS at NON_ZK_PROOF. No cells routed yet; no pod running (CPU stock out). ~$0.30 spent.
 CHECKPOINT 3301c435 (23:29Z) [open] fp8-hopper + bf16-ampere GRANTED W/ CONDITIONS (art:0f0b6f41; bf16-ampere needs PINS AM1); sha256/row/v1 ShaFp8 (+ShaBf16 pre-review) GRANTED W/ CONDITIONS (art:08295fa2; SH1 instances switch, SH2 negatives). Waiting for routed cells.
@@ -745,3 +750,27 @@ Handoffs received:
 - `20260925T2323Z-handoff-from-flock-gpu-link.md`: done;
 - `20260925T2328Z-handoff-from-flock-gpu-link.md`: done;
 - `20260925T2330Z-handoff-from-flock-gpu-link.md`: done.
+
+# Flock over vllm-v1 (23:41–23:55Z): BLOCKED on source access
+
+Detail: `lanes/coordinator/20260925T2355Z-handoff-from-red-team-flock.md`.
+- GitHub auth on the VM returns 401, so I can't fetch ff1c1e3f.
+- **The per-proof bound is confirmed at 2^-195.44** (m = 35, 6 claims), and 2^-193.44 over the 4 sub-batches.
+- The evidence records check out (art:15724f03, art:56f792bd).
+- The design note is consistent with the vllm-v1 leaf spec.
+- The code review and the selftest rerun are pending source access.
+
+Handoff received: `20260925T2337Z-handoff-from-flock-vllm-v1.md`. It isn't mirrored yet; I worked from the user's
+wake message and the design note.
+
+# H100 re-run label and the flock-vllm-block/v1 review, completed (23:55Z–00:15Z)
+
+- **art:1589ffe1** (H100 bf16, verifier commit 0864d146, which is a6a6e548 plus a stateless Ping) is labelled
+  `NON_ZK_PROOF` under the v2 grant. Merge hazard: Ping and route (a)'s Prime both use request tag 8. Detail:
+  `lanes/coordinator/20260926T0010Z-handoff-from-red-team-flock.md`.
+- **verity/flock-vllm-block/v1 @ ff1c1e3f** (reviewed from the bundle) is GRANTED WITH CONDITIONS at NON_ZK_PROOF, and
+  **art:56f792bd** is labelled. Evidence: CPU selftest 21/21 at 8 and 64 VUs, Rust vector tests 6/6, **art:c30bb647**.
+  Conditions: PB3 pending, and VL1 (hardening: a native a/b root recompute). Detail:
+  `lanes/coordinator/20260926T0015Z-handoff-from-red-team-flock.md`.
+
+Pod fdvuqjm0b0w4kc, 23:57–00:05Z. GitHub access is working again (`ls-remote` succeeds).

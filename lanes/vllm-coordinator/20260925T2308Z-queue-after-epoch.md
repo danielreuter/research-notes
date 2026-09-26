@@ -6,6 +6,12 @@ cursor:
 # Queue after the epoch (low priority), 23:08Z
 
 ## PENDING DANIEL'S BUDGET DECISION (top of queue; root 15:52Z)
+- **Partition rule locked (Daniel, 20:20Z; `docs/project-context.md`): no recompute.** Every gate is in exactly one unit, and every value
+  crossing a unit boundary is committed; wiring and constants are free. The 2-gate and 64-AND thresholds are retired.
+- **Next coordinator action:** when vllm-vu-export's per-row tap list lands (at least the FA2/FA3/softcap attention exponentials, the
+  guarded max and the norm scale, each with its kernel and bytes per token), plan the tap lanes and send the root a spend estimate.
+  normtap continues as is.
+
 - **Switch the query of record to `Q_word_v1{X}`** (`docs/fine-query-plan.md` beyond steps 1–3). Not approved.
 - **The re-baseline epoch** that switch implies: about $150–250, beyond the $770 vLLM cap ($716.74 spent). Not approved. Fold in
   what's still open from this epoch: the whole-epoch re-record at right-sized pods (`docs/vllm-epoch-review.md`), deferred items 2c/3/4,

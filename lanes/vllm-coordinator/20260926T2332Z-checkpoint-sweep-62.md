@@ -1,0 +1,1 @@
+23:32Z sweep-62: lanes active (normtap-g4 $1.09/h, moetap-g2 $2.18/h; earlier pods gone); gate92 base at ~98% (lints rc=0), head queued; spend $725.73/770 @ $4.31/h (~$739 by 02:30Z); guard untripped; no WAKE.

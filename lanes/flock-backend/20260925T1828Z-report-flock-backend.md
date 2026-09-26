@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT 08a28a1b (05:23Z) [blocked] wgmma source correction done (labels on art:c767e092/art:bbb95342, write_set --y-model source 'captured inputs, model y' @08a28a1b); FP8 re-runs of art:43986c5d/c0999f7f/c200eef3/c4d03dd5 wait for bench-spine FP8 K2048/K8192 sets (recipe sent 0525Z for byte-identity check); no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT e4f631bd (04:45Z) [open] MR sent (coordinator 0446Z): cursor/flock-backend-4983 @ e4f631bd covers #34+#30, gate r20260926-042613-2d5a 24/0; 7 new-layout cells registered (see MR); A100 bf16-ampere K8192 running via tmux drive-a100; H100/4090 pods terminated; 5090 no stock; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 20082dcb (04:23Z) [open] WAIT new-layout cells via tmux drivers (fixed duplicate-launch interference, round-1 runs void): H100 queue wgmma K2048/K8192 (y from the Hopper chain; set is Ampere-captured, 1/6272 differ) + fp8-hopper K2048/K8192 synth, A100 bf16-ampere K2048/K8192 captured, 4090 fp8-ada K8192 synth; 4090 fp8-ada K2048 registered art:43986c5d (9,280 VU/s, check +8.8%); 5090 no stock; MR waits on red-team-flock-2 NV re-review; check-back 04:50Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT f0f88574 (04:03Z) [open] WAIT new-layout cells round 1 (f0f88574: write_set/write_fp4/write_synth, all 10 layouts admit at 45fdab2d CPU selftest): H100 wgmma K2048 r20260926-040119-3404 (ver r20260926-040055-129a), A100 bf16-ampere K2048 r20260926-040149-3a3d (ver r20260926-040132-9d31), 4090 fp8-ada K2048 synth r20260926-040246-04c2 (ver r20260926-040206-0d35); no 5090 stock; MR waits on red-team-flock-2 NV re-review; check-back 04:30Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

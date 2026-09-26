@@ -60,11 +60,13 @@ carry both. Attributing them field by field to epoch items is the owner's review
 - #75: Build PASS 5530 s (BUILD_TIMEOUT 14400; ranks 8f72fe88…/cddba988…). Match: collective PASS (12,544 collectives, 0 mismatches),
   per-rank fold FAIL (FAIL-class). Commit FAIL, CUDA OOM at COMMIT_GPU_UTIL 0.80 after 5204 s. Run `r20260926-075240-af98`, copy
   `r20260926-120140-813e`.
-- #68: Build PASS 9437 s (4ca0a9ef…, manifest 95888c8d…), Match PASS (fold True). Commit: see below. Run `r20260926-075702-d929`.
+- #68: Build PASS 9437 s (4ca0a9ef…, manifest 95888c8d…), Match PASS (fold True), **Commit PASS** 3076 s (every group PASS). Run
+  `r20260926-075702-d929`, copy `r20260926-133159-0e73`.
 - #73: partial; stopped in Build (7 of 8 shapes) at 10:32Z so as to end by 12:30Z. Copy `r20260926-103153-80dd`.
 - #23 GPU confirmation: Build PASS (2bdeb8e3, e55e5407), Match PASS (fold True), Commit OOM at 251 GB after 3435 s (the F-dA-15
   bound predicted 183 GB). Copy `r20260926-080221-afaa`.
 - #11, #39: capacity gap (need >= 512 GB). #74: skipped.
+- Goal 8 spend: about $44 (#73 H100 $18, #75 $12.4, #68 $13.1, stray pods $0.5); the #23 confirmation was separately about $9.9.
 
 ## Findings (not fixed)
 - M >= 2^32 header: c1's core `chunk_header` validation rejected the kernels' u32 M (fixed by m32, `ad8050e9`).

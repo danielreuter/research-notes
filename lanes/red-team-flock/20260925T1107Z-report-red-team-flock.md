@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (13:39Z) [open] 13:40Z reopened: route (a) L40S cells e1a2dfc3 / 7a0d186b, CPU only
 CHECKPOINT 3301c435 (13:17Z) [final] FINAL 13:32Z: art:73a9e9f3 (L40S K2048 re-run) NON_ZK_PROOF: PB1-PB4/CN1-CN2 met, replay 6/6, placement passes (distinct machine ids/DCs, 20 ms public link). No pods, $0.
 CHECKPOINT 3301c435 (13:15Z) [open] 13:16Z reopened: L40S K2048 re-run art:73a9e9f3 (cross-DC verifier), CPU only
 CHECKPOINT 3301c435 (13:10Z) [final] FINAL 13:30Z: PR #75 ea27aa86 confirmed: verifier unchanged, claim cap can't admit over-cap (assert at build + CUDA refusal), selftest + replay + unit tests pass; ChunkTail CT1-CT3 stands. No pods, $0.

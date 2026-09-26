@@ -2,9 +2,10 @@
 lane: red-team-bligero-real-k
 kind: report
 created: 2026-09-26T07:57Z
-status: open
+status: final
 ---
 
+CHECKPOINT 5e7e255d (13:27Z) [final] FINAL (reopen 2): #101 L40S cells art:dd6b0cac (2^-128.030/16) + art:c64377df (2^-128.265/32) proof_class+finding HOLDS: bounds recomputed + Rust re-verified at main, PR #74 placement separate machines, sessions = rep-1; condition 2 = verify lane; evidence art:e7a9c552; no pod, $0
 CHECKPOINT 5e7e255d (13:23Z) [open] reopened for bligero-real-k 1316Z (L40S #101 cells art:dd6b0cac K2048, art:c64377df K8192: bounds + PR #74 placement): NOT final; CPU only, no pod
 CHECKPOINT 5e7e255d (11:36Z) [final] FINAL (reopen 1): A1 booked by PR #71 checked, 3/2^32 deviation correct (my 1/p table 2.95 bits low: b1d710da fails at 2^-127.971, HOLDS withdrawn; 15 others re-labelled HOLDS); art:4ff19d4f proof_class+finding HOLDS at 2^-128.265 (booked, Rust re-verified at main); condition 2 = verify lane; evidence art:01af8ab7; no pod, $0
 CHECKPOINT 5e7e255d (11:27Z) [open] reopened for bligero-real-k 1115Z (art:4ff19d4f A100 K8192 xob, A1 booked in PR #71, 3/2^32 coin deviation): NOT final; CPU only, no pod
@@ -130,4 +131,38 @@ Request: `lanes/red-team-bligero-real-k/20260926T1115Z-handoff-from-bligero-real
 tip: cursor/red-team-bligero-real-k-0819 @ 5e7e255d (base main@e3a2d81d)        merge-with: none (red-team tools only; optional)
 known-failures: none    pod: none (all on the cloud VM); $0
 artifacts: art:01af8ab7 art:dc790613 (supersedes art:43876953)
+~~~
+
+## Reopen 2 (13:23Z): #101 L40S cells art:dd6b0cac (K2048) and art:c64377df (K8192)
+
+Request: `lanes/red-team-bligero-real-k/20260926T1316Z-handoff-from-bligero-real-k.md`. CPU only on the VM. Evidence art:e7a9c552.
+
+- **Bounds (condition 4, A1 booked):**
+
+| cell | pin | sub-batches | t | chain term | bound |
+|---|---|---:|---:|---:|---:|
+| dd6b0cac | b5ee1ee0 | 16 | 200 | 2^-147.80 | **2^-128.030** |
+| c64377df | 467774bd | 32 | 202 | 2^-137.40 | **2^-128.265** |
+
+  - My recomputation equals the prover's record, the live `batch_bits` (5 of 5 sessions each, verifier at 961d0667) and my Rust
+    re-verification at main.
+  - The re-verification covered sub_00 plus the last sub-batch of each rep-1 dump: accepted, pinned, on their own coins.
+- **Placement (PR #74):** `separation()` is empty for the stamp and the plan.
+  - Machines 9sng1e8op7yw / mszbaoah5eb7, IPs 64.247.206.218 / .229, boot ids c878c736 / 1ae4223a; a public route to the
+    verifier.
+  - Both runs' own probes carry the distinct boot ids.
+  - Cosmetic: the prover probe records source_ip 172.20.0.2, the stamp 172.30.0.2.
+- **Sessions (condition 3):** 5 of 5 per cell prove the rep-1 statements, which equal the dump (verifier run
+  r20260926-122717-c116). Inputs are the captured #101 sets of the statements' K (condition 5).
+- **Condition 2** is verify-bligero-real-k's; it reopened at 13:23Z.
+- **Labels:** `proof_class COMPLETE_ZK_BACKEND` and a `finding HOLDS` on both cells.
+- **Handoffs:**
+  - received: 1316Z from bligero-real-k;
+  - sent: `lanes/coordinator/20260926T1326Z-handoff-from-red-team-bligero-real-k.md` and
+    `lanes/bligero-real-k/20260926T1326Z-handoff-from-red-team-bligero-real-k.md`.
+
+~~~text
+tip: cursor/red-team-bligero-real-k-0819 @ 5e7e255d (base main@e3a2d81d)        merge-with: none (red-team tools only; optional)
+known-failures: none    pod: none (all on the cloud VM); $0
+artifacts: art:e7a9c552 art:01af8ab7 art:dc790613 (supersedes art:43876953)
 ~~~

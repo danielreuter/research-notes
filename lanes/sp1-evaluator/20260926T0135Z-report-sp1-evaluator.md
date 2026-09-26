@@ -5,6 +5,7 @@ created: 2026-09-26T01:35Z
 status: open
 ---
 
+CHECKPOINT 0a652c36 (04:04Z) [open] cover in progress on vy-sp1-evaluator: triton r..f9db, silu[0,128) r..8524, rope r..3955 passed+labelled; fused r..4955-d892 running; gemm8192/gemm2048 queued (prepare r..df49, r..2152); elem-bf16@1 promoted (13405f08)
 CHECKPOINT 0a652c36 (03:29Z) [open] pod vy-sp1-evaluator (4090) created for the #101 sampled cover (REOPENED handoff 0314Z, no objection); prepare runs in progress
 CHECKPOINT ff8bbbd8 (03:13Z) [open] reopened for follow-up (SiLU·mul family + sampled #101 cover): NOT final; agent bc-231b1a72
 CHECKPOINT ff8bbbd8 (02:51Z) [final] FINAL. First non-GEMM proofs: approved SP1 guest unchanged re-runs IR gate lists from #101 export art:b5bb0ca9; RMSNormFusedCuda_v2 N=2048 B=1 r20260926-020127-276d core 5.73s/12MB/verify 0.46s/2^-97, B=32 r..8318 1.37s/row; RMSNormTriton B=32 r..0528 1.10s/row; RoPE B=1024 r..c2c3 28ms/head; GEMM K=2048 B=64 r..49aa 0.197s/coord, K=8192 B=16 r..fa0c 0.788s/coord; compressed 1.27MB 0.05-0.07s 2^-100; negatives rejected; all runs preserved + labelled. #101 exhaustive est ~7.7k 4090-h (GEMM 99.4%), 3.3e9x work-weighted; sampled ~$170. Handoff lanes/coordinator/20260926T0250Z-handoff-from-sp1-evaluator.md; PR #52 lane/sp1-evaluator ff8bbbd8. Pod vy-sp1-evaluator terminated; spend ~$0.80

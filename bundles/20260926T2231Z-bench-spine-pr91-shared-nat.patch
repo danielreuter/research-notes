@@ -1,0 +1,1102 @@
+From c0ce61d363a05d06735dadcbdb38c2b9e4631857 Mon Sep 17 00:00:00 2001
+From: Cursor Agent <cursoragent@cursor.com>
+Date: Sat, 26 Sep 2026 22:01:54 +0000
+Subject: [PATCH 1/2] bench.placement: a shared public IP (a datacenter's
+ egress NAT) is separate machines only with machine id, DMI product_uuid and
+ boot_id all recorded and all different, a measured RTT >= RTT_FLOOR_MS (0.1
+ ms; co-residence measured 0.03) and no host bridge (loopback, link-local,
+ docker 172.16/12 always refused; a routed 10.x network is fine between
+ distinct machine ids); plan requires differing machine ids and records the
+ rest as pending; register records cell.placement.shared_public_ip with the
+ three ids and the RTT (coordinator 22:00Z); tests: the NAT pair accepted, the
+ co-resident pair and every missing proof refused
+
+Co-authored-by: danielreuter <danielreuter@users.noreply.github.com>
+---
+ backends/numerical/CHANGELOG.md               | 14 +++
+ .../python/verity_numerical/bench/cell.py     | 26 ++++--
+ .../verity_numerical/bench/placement.py       | 86 +++++++++++++++----
+ .../numerical/tests/bench/test_placement.py   | 63 +++++++++++++-
+ 4 files changed, 162 insertions(+), 27 deletions(-)
+
+diff --git a/backends/numerical/CHANGELOG.md b/backends/numerical/CHANGELOG.md
+index bbdf0c1b..fce1dcae 100644
+--- a/backends/numerical/CHANGELOG.md
++++ b/backends/numerical/CHANGELOG.md
+@@ -1,5 +1,19 @@
+ # Changelog: `verity_numerical` (the bench renderers and their rules)
+ 
++## 2026-09-26: bench.cell accepts a shared datacenter NAT IP, given full machine-identity proof
++
++- `bench.placement.assess` treats a public IP shared by the prover and verifier (a datacenter's egress NAT) as separate machines only
++  when all three conditions hold:
++  - the RunPod machine id, DMI `product_uuid` and `boot_id` are all recorded on both pods and all differ;
++  - the session's measured RTT (`net.rtt_ms`) is at least `RTT_FLOOR_MS` = 0.1 ms, where the co-resident pair measured about 0.03 ms;
++  - the link is not a host bridge.
++- **Host bridges:** loopback, link-local and the docker pool 172.16/12 are now always refused. A datacenter's routed private network
++  (RunPod's 10.x) is accepted between distinct machine ids.
++- **`plan`:** only machine ids are known at plan time, so it requires those to differ and records the rest as pending
++  (`cell.placement.separation.pending`). `check` and `register` apply the full rule.
++- **Recording:** `register` writes `cell.placement.shared_public_ip` and, when it is true, `separation`: the three ids of both pods,
++  the shared IP, the measured RTT and the floor.
++
+ ## 2026-09-26: class-pin attention cells credited per listed key count
+ 
+ - **Class cells:** flock-ir-lowering's class-pin statement proves a batch spanning several key counts under one pin per
+diff --git a/backends/numerical/python/verity_numerical/bench/cell.py b/backends/numerical/python/verity_numerical/bench/cell.py
+index ae3782ee..33562693 100644
+--- a/backends/numerical/python/verity_numerical/bench/cell.py
++++ b/backends/numerical/python/verity_numerical/bench/cell.py
+@@ -144,9 +144,12 @@ def plan(backend: str, statement: str, input_set: str, prover: str, **kw: Any) -
+     if drv.INTERACTIVE:
+         if not cell.placement:
+             cell.placement = resolve_placement(cell)
+-        why = PL.separation(cell.placement.get("prover") or {}, cell.placement.get("verifier") or {}, cell.placement.get("link"))
+-        if why:
+-            raise NotSupported("; ".join(why))
++        a = PL.assess(cell.placement.get("prover") or {}, cell.placement.get("verifier") or {}, cell.placement.get("link"), final=False)
++        if a["problems"]:
++            raise NotSupported("; ".join(a["problems"]))
++        cell.placement["shared_public_ip"] = a["shared_public_ip"]
++        if a["shared_public_ip"]:
++            cell.placement["separation"] = a["evidence"]
+     why = getattr(drv, "unmet", lambda _c: None)(cell)
+     if why:
+         raise NotSupported(why)
+@@ -218,13 +221,18 @@ def run_placement(cell: Cell, prover_run: Path | None, verifier_run: Path | None
+     return {"prover": p, "verifier": v, "link": PL.merge(plan.get("link"), p.pop("link", None)), "verifier_link": v.pop("link", None)}
+ 
+ 
+-def placement_problems(cell: Cell, prover_run: Path | None, verifier_run: Path | None) -> list[str]:
++def run_assessment(cell: Cell, prover_run: Path | None, verifier_run: Path | None, rtt_ms: float | None) -> dict[str, Any]:
++    """``placement.assess`` on both runs' identities with the session's measured RTT (``net.rtt_ms``)."""
++    pl = run_placement(cell, prover_run, verifier_run)
++    return PL.assess(pl["prover"], pl["verifier"], pl["link"], rtt_ms=rtt_ms)
++
++
++def placement_problems(cell: Cell, prover_run: Path | None, verifier_run: Path | None, rtt_ms: float | None = None) -> list[str]:
+     """Why the prover and verifier are not shown to be separate machines on a routed link, and whether each run ran on the pod
+     the cell planned (a run whose pod id differs from the plan's)."""
+     if not (cell.placement or prover_run or verifier_run):
+         return []
+-    pl = run_placement(cell, prover_run, verifier_run)
+-    out = PL.separation(pl["prover"], pl["verifier"], pl["link"])
++    out = list(run_assessment(cell, prover_run, verifier_run, rtt_ms)["problems"])
+     for role, run in (("prover", prover_run), ("verifier", verifier_run)):
+         planned, ran = (cell.placement.get(role) or {}).get("pod_id"), (PL.from_job(run) if run else {}).get("pod_id")
+         if planned and ran and planned != ran:
+@@ -252,7 +260,7 @@ def check(cell: Cell, doc: Mapping[str, Any], prover_run: Path | None = None, ve
+         placement = (fp.get("verifier") or {}).get("placement") if isinstance(fp.get("verifier"), Mapping) else None
+         if placement in (None, "loopback") or str(placement).startswith("127."):
+             out.append(f"verifier placement {placement!r}: the protocol's verifier runs on a separate pod")
+-        out += placement_problems(cell, prover_run, verifier_run)
++        out += placement_problems(cell, prover_run, verifier_run, m.get("net.rtt_ms"))
+         if not isinstance(m.get("live.loopback_round_seconds"), (int, float)) or not inter.get("loopback_method"):
+             out.append("no loopback probe (live.loopback_round_seconds with interaction.loopback_method)")
+         if not isinstance(m.get("net.rtt_ms"), (int, float)) or not inter.get("rtt_method"):
+@@ -313,7 +321,9 @@ def stamp(cell: Cell, doc: dict[str, Any], prover_run: Path | None = None, verif
+                    "input_set": {k: cell.input_set.get(k) for k in ("kind", "id", "art", "n", "content_digest", "manifest_sha256", "source")},
+                    "prover_pod": cell.prover, "verifier_pod": cell.verifier, "entry": "verity_numerical.bench.cell"}
+     if cell.placement or prover_run or verifier_run:
+-        doc["cell"]["placement"] = dict(run_placement(cell, prover_run, verifier_run), plan=cell.placement)
++        a = run_assessment(cell, prover_run, verifier_run, _meas(doc).get("net.rtt_ms"))
++        doc["cell"]["placement"] = dict(run_placement(cell, prover_run, verifier_run), plan=cell.placement,
++                                        shared_public_ip=a["shared_public_ip"], **({"separation": a["evidence"]} if a["shared_public_ip"] else {}))
+     if cell.lane:
+         doc["cell"]["script_lane"] = {k: doc.get(k) for k in ("lane", "registered_by")}
+         doc["lane"] = doc["registered_by"] = cell.lane      # the producer is the lane that ran the cell, not the script's author
+diff --git a/backends/numerical/python/verity_numerical/bench/placement.py b/backends/numerical/python/verity_numerical/bench/placement.py
+index 239e7193..62c51ab1 100644
+--- a/backends/numerical/python/verity_numerical/bench/placement.py
++++ b/backends/numerical/python/verity_numerical/bench/placement.py
+@@ -11,10 +11,12 @@ co-resident verifier is not a separate verifier).  An identity is a dict with an
+     cpu_model      the host CPU model (``/proc/cpuinfo``)
+     pod_id, hostname
+ 
+-and a link ``{peer, peer_ip, source_ip}`` is how the prover reached the verifier.  :func:`separation` says why a pair is not
+-shown to be on separate machines: a shared machine id, product uuid, boot id or public IP; a link to a loopback, link-local or
+-private address (a host bridge) unless the machine ids are known and differ; or too little identity to tell (neither a
+-machine id or DMI uuid on both sides, nor a public IP and CPU model on both).
++and a link ``{peer, peer_ip, source_ip}`` is how the prover reached the verifier.  :func:`assess` says why a pair is not shown
++to be on separate machines: a shared machine id, product uuid or boot id; a link to a host bridge (loopback, link-local, the
++docker pool 172.16/12), or to another private address unless the machine ids are known and differ; too little identity to tell
++(neither a machine id or DMI uuid on both sides, nor a public IP and CPU model on both); or a shared public IP without the proof
++a datacenter NAT needs (machine id, DMI uuid and boot id all recorded and all different, and a measured RTT of at least
++:data:`RTT_FLOOR_MS`).  A shared public IP that has that proof is accepted and reported (``shared_public_ip``).
+ 
+     python3 placement.py probe [--peer HOST:PORT] [--out FILE]     stdlib only: runs on a pod before a cell's job
+ """
+@@ -30,6 +32,10 @@ from pathlib import Path
+ from typing import Any, Mapping
+ 
+ SHARED_KEYS = ("machine_id", "product_uuid", "boot_id", "public_ip")
++#: What a pair sharing a public IP (a datacenter's egress NAT) must record, on both pods and all different.
++NAT_IDS = ("machine_id", "product_uuid", "boot_id")
++#: The measured prover-verifier round trip a shared-IP pair must reach: well above the 0.03 ms of two containers on one host.
++RTT_FLOOR_MS = 0.1
+ PROBE = "backends/numerical/python/verity_numerical/bench/placement.py"
+ 
+ 
+@@ -49,6 +55,8 @@ def _cpu_model() -> str | None:
+ 
+ #: Address space a path to which need not leave the host: RFC 1918, shared (100.64/10), IPv6 unique-local.
+ HOST_LOCAL_NETS = tuple(ipaddress.ip_network(n) for n in ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "100.64.0.0/10", "fc00::/7"))
++#: Docker's bridge pool: a container-to-container path on one host (RunPod's routed private network is 10.x).
++HOST_BRIDGE_NET = ipaddress.ip_network("172.16.0.0/12")
+ 
+ 
+ def is_host_private(ip: str | None) -> bool:
+@@ -119,24 +127,66 @@ def merge(*idents: Mapping[str, Any] | None) -> dict[str, Any]:
+     return out
+ 
+ 
+-def separation(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping[str, Any] | None = None) -> list[str]:
+-    """Why ``prover`` and ``verifier`` are not shown to be separate machines on a routed link (empty: they are)."""
+-    out = []
+-    for k in SHARED_KEYS:
++def is_host_bridge(ip: str | None) -> bool:
++    """Loopback, link-local or the docker bridge pool (172.16/12, e.g. the 172.24.0.x co-resident path): never a routed link."""
++    if not ip:
++        return False
++    try:
++        a = ipaddress.ip_address(ip)
++    except ValueError:
++        return False
++    return a.is_loopback or a.is_link_local or (a.version == 4 and a in HOST_BRIDGE_NET)
++
++
++def assess(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping[str, Any] | None = None, rtt_ms: float | None = None,
++           final: bool = True) -> dict[str, Any]:
++    """Whether ``prover`` and ``verifier`` are shown to be separate machines on a routed link: ``{"problems": [...],
++    "shared_public_ip": bool, "evidence": {...}}`` (no problems: they are).
++
++    A shared public IP (a datacenter's egress NAT) is one machine unless every one of :data:`NAT_IDS` is recorded on both pods and
++    differs, the measured prover-verifier RTT is at least :data:`RTT_FLOOR_MS` and the link is no host bridge (coordinator
++    2026-09-26 22:00Z, red-team-flock's 12:00Z item 1 made explicit).  With ``final=False`` (a plan: only the RunPod API's machine
++    ids are known) the machine ids must differ and the DMI uuid, boot id and RTT are left to the runs (``evidence.pending``)."""
++    out: list[str] = []
++    for k in ("machine_id", "product_uuid", "boot_id"):
+         if prover.get(k) and prover.get(k) == verifier.get(k):
+             out.append(f"prover and verifier share {k} {prover[k]} (one machine)")
+-    ids_differ = any(prover.get(k) and verifier.get(k) and prover[k] != verifier[k] for k in ("machine_id", "product_uuid"))
+-    ip_cpu = all(x.get(k) for x in (prover, verifier) for k in ("public_ip", "cpu_model")) and prover["public_ip"] != verifier["public_ip"]
+-    if not out and not (ids_differ or ip_cpu):
+-        out.append("machine identity not recorded: neither a machine id / DMI product uuid on both pods, nor a public IP and CPU model "
+-                   "on both, so the verifier is not shown to be on another machine")
+     peer = (link or {}).get("peer_ip")
+-    if peer and is_host_private(peer) and not (prover.get("machine_id") and verifier.get("machine_id")
+-                                               and prover["machine_id"] != verifier["machine_id"]):
+-        out.append(f"the prover reaches the verifier at {peer}, a host-private address (a bridge on one machine, not a routed path)")
+-    if peer and prover.get("public_ip") and peer == prover["public_ip"]:
++    shared = bool(prover.get("public_ip")) and prover.get("public_ip") == verifier.get("public_ip")
++    evidence: dict[str, Any] = {}
++    if shared:
++        evidence = {k: [prover.get(k), verifier.get(k)] for k in NAT_IDS} | {"public_ip": prover["public_ip"], "rtt_ms": rtt_ms,
++                                                                             "rtt_floor_ms": RTT_FLOOR_MS}
++        needed = NAT_IDS if final else ("machine_id",)
++        missing = [k for k in needed if not (prover.get(k) and verifier.get(k))]
++        if missing:
++            out.append(f"prover and verifier share public_ip {prover['public_ip']}: a shared (NAT) IP needs {', '.join(NAT_IDS)} recorded on "
++                       f"both pods and all different; missing: {', '.join(missing)}")
++        if final and not (isinstance(rtt_ms, (int, float)) and rtt_ms >= RTT_FLOOR_MS):
++            out.append(f"prover and verifier share public_ip {prover['public_ip']}: the measured RTT {rtt_ms!r} ms is not at least "
++                       f"{RTT_FLOOR_MS} ms (a co-resident pair measured about 0.03 ms)")
++        if not final:
++            evidence["pending"] = [k for k in ("product_uuid", "boot_id") if not (prover.get(k) and verifier.get(k))] + ["rtt_ms"]
++    else:
++        ids_differ = any(prover.get(k) and verifier.get(k) and prover[k] != verifier[k] for k in ("machine_id", "product_uuid"))
++        ip_cpu = all(x.get(k) for x in (prover, verifier) for k in ("public_ip", "cpu_model"))
++        if not out and not (ids_differ or ip_cpu):
++            out.append("machine identity not recorded: neither a machine id / DMI product uuid on both pods, nor a public IP and CPU model "
++                       "on both, so the verifier is not shown to be on another machine")
++    machines_differ = bool(prover.get("machine_id") and verifier.get("machine_id") and prover["machine_id"] != verifier["machine_id"])
++    if peer and is_host_bridge(peer):
++        out.append(f"the prover reaches the verifier at {peer}, a host bridge or loopback address (one machine, not a routed path)")
++    elif peer and is_host_private(peer) and not machines_differ:
++        out.append(f"the prover reaches the verifier at {peer}, a private address, and the machine ids are not known to differ")
++    if peer and prover.get("public_ip") and peer == prover["public_ip"] and not shared:
+         out.append(f"the prover reaches the verifier at its own public IP {peer} (hairpin on one machine)")
+-    return out
++    return {"problems": out, "shared_public_ip": shared, "evidence": evidence}
++
++
++def separation(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping[str, Any] | None = None, rtt_ms: float | None = None,
++               final: bool = True) -> list[str]:
++    """Why ``prover`` and ``verifier`` are not shown to be separate machines on a routed link (empty: they are; :func:`assess`)."""
++    return assess(prover, verifier, link, rtt_ms, final)["problems"]
+ 
+ 
+ def main(argv: list[str] | None = None) -> int:
+diff --git a/backends/numerical/tests/bench/test_placement.py b/backends/numerical/tests/bench/test_placement.py
+index dabce216..38768e05 100644
+--- a/backends/numerical/tests/bench/test_placement.py
++++ b/backends/numerical/tests/bench/test_placement.py
+@@ -35,7 +35,7 @@ def _with(**changes) -> dict:
+     (_with(prover__boot_id="k1", verifier__boot_id="k1"), "share boot_id k1"),
+     (_with(prover__product_uuid="U", verifier__product_uuid="U"), "share product_uuid U"),
+     ({**_with(prover__machine_id=None, verifier__machine_id=None), "link": {"peer": "172.24.0.3:7400", "peer_ip": "172.24.0.3"}},
+-     "host-private address"),
++     "host bridge"),
+     ({"prover": {"hostname": "a"}, "verifier": {"hostname": "b"}, "link": {}}, "machine identity not recorded"),
+     ({**SEPARATE, "link": {"peer": "203.0.113.10:7400", "peer_ip": "203.0.113.10"}}, "its own public IP"),
+ ])
+@@ -99,3 +99,64 @@ def test_registration_records_both_machines_and_refuses_a_shared_one(tmp_path):
+ 
+ def test_the_real_cells_still_pass_on_documents():
+     assert C.check(_cell(), _doc("6d1295ed")) == []
++
++
++# --- a datacenter's shared NAT IP (coordinator 2026-09-26 22:00Z; flock-backend's EU-NL-1 pair) ----------------------------------
++
++#: An L40S prover and an H100 verifier in EU-NL-1: two machines behind one egress NAT, linked by RunPod's routed 10.x network.
++NAT = {"prover": {"pod_id": "pod-p", "machine_id": "fpuyltj3q41d", "public_ip": "91.199.227.82", "cpu_model": "AMD EPYC 9354"},
++       "verifier": {"pod_id": "pod-v", "machine_id": "go1zlmhqhfmq", "public_ip": "91.199.227.82", "cpu_model": "Intel Xeon 8470"},
++       "link": {"peer": "w3joukypegsto7.runpod.internal:7400", "peer_ip": "10.65.0.12"}}
++
++
++def _nat_runs(tmp_path, prover_extra=None, verifier_extra=None, rtt=None):
++    p, v = _real_runs(tmp_path, (lambda d: [m.update(value=rtt) for m in d["measurements"] if m["name"] == "net.rtt_ms"]) if rtt else None)
++    (p / "placement.json").write_text(json.dumps({"pod_id": "pod-p", "public_ip": "91.199.227.82", "product_uuid": "uuid-p", "boot_id": "boot-p",
++                                                  "link": NAT["link"], **(prover_extra or {})}))
++    (v / "placement.json").write_text(json.dumps({"pod_id": "pod-v", "public_ip": "91.199.227.82", "product_uuid": "uuid-v", "boot_id": "boot-v",
++                                                  **(verifier_extra or {})}))
++    return p, v
++
++
++def test_a_shared_nat_ip_plans_with_the_rest_pending():
++    cell = _cell(placement=copy.deepcopy(NAT))
++    assert cell.placement["shared_public_ip"] is True
++    assert cell.placement["separation"]["machine_id"] == ["fpuyltj3q41d", "go1zlmhqhfmq"]
++    assert cell.placement["separation"]["pending"] == ["product_uuid", "boot_id", "rtt_ms"]
++    assert C.check(_cell(), _doc("6d1295ed")) == []                      # a plan with distinct IPs records no NAT share
++    with pytest.raises(C.NotSupported, match="missing: machine_id"):
++        _cell(placement={**copy.deepcopy(NAT), "prover": {**NAT["prover"], "machine_id": None}})
++
++
++def test_a_shared_nat_ip_registers_with_all_three_ids_and_the_rtt(tmp_path):
++    p, v = _nat_runs(tmp_path)
++    res = C.register(_cell(placement=copy.deepcopy(NAT)), str(p), str(v), tmp_path / "work", dry_run=True)
++    assert res["problems"] == [] and "refused" not in res
++    pl = json.loads(Path(res["meta"]).read_text())["cell"]["placement"]
++    assert pl["shared_public_ip"] is True
++    sep = pl["separation"]
++    assert (sep["machine_id"], sep["product_uuid"]) == (["fpuyltj3q41d", "go1zlmhqhfmq"], ["uuid-p", "uuid-v"])
++    assert sep["boot_id"] == ["boot-p", "boot-v"] and sep["rtt_ms"] > PL.RTT_FLOOR_MS == 0.1 and sep["public_ip"] == "91.199.227.82"
++
++
++@pytest.mark.parametrize("prover_extra,verifier_extra,rtt,why", [
++    ({}, {"boot_id": "boot-p"}, None, "share boot_id boot-p"),                            # two containers of one kernel
++    ({}, {"product_uuid": "uuid-p"}, None, "share product_uuid uuid-p"),
++    ({}, {}, 0.03, "is not at least 0.1 ms"),                                            # the co-residence RTT
++    ({}, {"product_uuid": None}, None, "missing: product_uuid"),
++    ({"link": {"peer": "172.24.0.3:7400", "peer_ip": "172.24.0.3"}}, {}, None, "host bridge"),
++])
++def test_a_shared_nat_ip_without_the_proof_is_refused(tmp_path, prover_extra, verifier_extra, rtt, why):
++    p, v = _nat_runs(tmp_path, prover_extra, verifier_extra, rtt)          # a null in placement.json is not recorded
++    res = C.register(_cell(placement=copy.deepcopy(NAT)), str(p), str(v), tmp_path / "work", dry_run=True)
++    assert res.get("refused") and any(why in x for x in res["problems"]), res["problems"]
++
++
++def test_the_co_resident_pair_is_still_refused():
++    """Same machine id, CPU and public IP, a docker-bridge link (the five L40S cells): refused at plan and at check."""
++    with pytest.raises(C.NotSupported, match="share machine_id m-tx4"):
++        _cell(placement=CORESIDENT)
++    a = PL.assess(CORESIDENT["prover"], CORESIDENT["verifier"], CORESIDENT["link"], rtt_ms=0.03)
++    assert a["shared_public_ip"] is True and any("host bridge" in x for x in a["problems"])
++    assert any("not at least 0.1 ms" in x for x in a["problems"]) and any("missing: product_uuid" in x for x in a["problems"])
++    assert PL.is_host_bridge("172.24.0.3") and PL.is_host_bridge("127.0.0.1") and not PL.is_host_bridge("10.65.0.12")
+-- 
+2.43.0
+
+
+From c27c991bda1ed6ce5ab47cc8c0fe9bac13b00967 Mon Sep 17 00:00:00 2001
+From: Cursor Agent <cursoragent@cursor.com>
+Date: Sat, 26 Sep 2026 22:31:06 +0000
+Subject: [PATCH 2/2] bench.placement: red-team-flock-3's conditions S1-S5 on
+ the shared-NAT exception: both pods bare metal (no hypervisor CPU flag, a
+ non-hypervisor DMI sys_vendor); the link <verifier pod>.runpod.internal
+ resolving into 10/8, bridges, loopback and the shared IP still refused; the
+ RTT from 30 TCP connects on that route (tcp_rtt, to the verifier's sshd on
+ the same name, not the session port), net.rtt_ms no longer counts; plan
+ probes both pods over ssh when the API shows a shared IP; register re-checks
+ on the runs' own placement.json and refuses any missing value or a DMI
+ uuid/boot id unlike the plan's; separation records the bare-metal facts, link
+ and RTT; tests for S1-S4
+
+Co-authored-by: danielreuter <danielreuter@users.noreply.github.com>
+---
+ backends/numerical/CHANGELOG.md               |  26 +-
+ .../python/verity_numerical/bench/cell.py     |  66 ++++-
+ .../verity_numerical/bench/placement.py       | 185 +++++++++---
+ backends/numerical/tests/bench/test_cell.py   |   3 +-
+ .../numerical/tests/bench/test_placement.py   | 270 +++++++++++++++---
+ 5 files changed, 447 insertions(+), 103 deletions(-)
+
+diff --git a/backends/numerical/CHANGELOG.md b/backends/numerical/CHANGELOG.md
+index fce1dcae..c075c91d 100644
+--- a/backends/numerical/CHANGELOG.md
++++ b/backends/numerical/CHANGELOG.md
+@@ -3,16 +3,24 @@
+ ## 2026-09-26: bench.cell accepts a shared datacenter NAT IP, given full machine-identity proof
+ 
+ - `bench.placement.assess` treats a public IP shared by the prover and verifier (a datacenter's egress NAT) as separate machines only
+-  when all three conditions hold:
++  when every condition holds (coordinator 22:00Z, with red-team-flock-3's conditions S1-S5):
+   - the RunPod machine id, DMI `product_uuid` and `boot_id` are all recorded on both pods and all differ;
+-  - the session's measured RTT (`net.rtt_ms`) is at least `RTT_FLOOR_MS` = 0.1 ms, where the co-resident pair measured about 0.03 ms;
+-  - the link is not a host bridge.
+-- **Host bridges:** loopback, link-local and the docker pool 172.16/12 are now always refused. A datacenter's routed private network
+-  (RunPod's 10.x) is accepted between distinct machine ids.
+-- **`plan`:** only machine ids are known at plan time, so it requires those to differ and records the rest as pending
+-  (`cell.placement.separation.pending`). `check` and `register` apply the full rule.
+-- **Recording:** `register` writes `cell.placement.shared_public_ip` and, when it is true, `separation`: the three ids of both pods,
+-  the shared IP, the measured RTT and the floor.
++  - both pods are bare metal (S1): no `hypervisor` CPU flag, and a DMI `sys_vendor` that is not a hypervisor's
++    (`HYPERVISOR_VENDORS`); a missing flag or vendor refuses;
++  - the link is RunPod's global network (S3): `<verifier pod id>.runpod.internal` resolving into 10/8;
++  - a TCP-connect RTT on that route is at least `RTT_FLOOR_MS` = 0.1 ms (S4), where the co-resident pair measured about 0.03 ms.
++    `placement.tcp_rtt` gives the median of 30 kernel-level connects, to the verifier pod's sshd on the same name and address
++    (`rtt_target`); it does not use the session port, because the verifiers count every connection on it as a session. The
++    session's `net.rtt_ms` and a round trip timed via the public IP do not count.
++- **Host bridges and hairpins:** loopback, link-local and the docker pool 172.16/12 are always refused, as is dialling the prover's
++  own public IP. A datacenter's routed private network (RunPod's 10.x) is accepted between distinct machine ids.
++- **`plan`:** when the API shows a shared IP, it probes both pods over ssh (`placement.remote_probe`; the prover's probe includes
++  its link and RTT) and applies the full rule. If the pods cannot be probed, the plan is refused.
++- **`register` (S2):** re-checks the rule on the runs' own `placement.json` records and refuses when either run lacks any value
++  (pod id, DMI uuid, boot id, hypervisor flag, sys_vendor, and for the prover the link and its RTT), or when a run's DMI uuid or boot
++  id differs from what the plan probed on that pod.
++- **Recording (S5):** `cell.placement.shared_public_ip` and, when it is true, `separation`: the three ids of both pods, the shared
++  IP, both pods' bare-metal facts, the link's name and address, the RTT measurement and the floor.
+ 
+ ## 2026-09-26: class-pin attention cells credited per listed key count
+ 
+diff --git a/backends/numerical/python/verity_numerical/bench/cell.py b/backends/numerical/python/verity_numerical/bench/cell.py
+index 33562693..f30e564d 100644
+--- a/backends/numerical/python/verity_numerical/bench/cell.py
++++ b/backends/numerical/python/verity_numerical/bench/cell.py
+@@ -144,7 +144,13 @@ def plan(backend: str, statement: str, input_set: str, prover: str, **kw: Any) -
+     if drv.INTERACTIVE:
+         if not cell.placement:
+             cell.placement = resolve_placement(cell)
+-        a = PL.assess(cell.placement.get("prover") or {}, cell.placement.get("verifier") or {}, cell.placement.get("link"), final=False)
++        a = PL.assess(cell.placement.get("prover") or {}, cell.placement.get("verifier") or {}, cell.placement.get("link"))
++        if a["shared_public_ip"] and not cell.placement.get("probed"):
++            try:
++                cell.placement = probe_pods(cell)
++            except NotSupported as e:
++                raise NotSupported("; ".join([*a["problems"], str(e)])) from e
++            a = PL.assess(cell.placement["prover"], cell.placement["verifier"], cell.placement["link"])
+         if a["problems"]:
+             raise NotSupported("; ".join(a["problems"]))
+         cell.placement["shared_public_ip"] = a["shared_public_ip"]
+@@ -167,8 +173,22 @@ def resolve_placement(cell: Cell) -> dict[str, Any]:
+ 
+ 
+ #: Before a cell's job, each pod records its identity (and the prover the route to its verifier) in the run's placement.json.
+-PROBE_WRAP = (f'python3 {PL.PROBE} probe --peer "$1" --out "${{RESEARCH_RUN_DIR:-.}}/placement.json" >/dev/null '
+-              '|| echo "placement probe failed" >&2; shift; exec "$@"')
++PROBE_WRAP = (f'python3 {PL.PROBE} probe --peer "$1" --rtt "$2" --out "${{RESEARCH_RUN_DIR:-.}}/placement.json" >/dev/null '
++              '|| echo "placement probe failed" >&2; shift 2; exec "$@"')
++
++
++def probe_pods(cell: Cell) -> dict[str, Any]:
++    """A shared-IP pair's full identity before any job: both pods probed over ssh (the prover with its link and TCP-connect RTT to
++    the verifier), merged over the API's (red-team-flock-3 S2)."""
++    try:
++        p = PL.remote_probe(cell.prover, cell.verifier_addr)
++        v = PL.remote_probe(cell.verifier or "")
++    except Exception as e:  # noqa: BLE001  (no ssh, no pod: the exception cannot be shown)
++        raise NotSupported(f"the pods share a public IP and could not be probed ({type(e).__name__}: {e})") from e
++    plan = cell.placement
++    return {"prover": PL.merge(plan.get("prover"), {k: x for k, x in p.items() if k != "link"}),
++            "verifier": PL.merge(plan.get("verifier"), {k: x for k, x in v.items() if k != "link"}),
++            "link": PL.merge(plan.get("link"), p.get("link")), "probed": True}
+ 
+ 
+ def research_run(cell: Cell, job: Mapping[str, Any]) -> dict[str, Any]:
+@@ -188,7 +208,9 @@ def research_run(cell: Cell, job: Mapping[str, Any]) -> dict[str, Any]:
+         argv += ["--send", f]
+     command = list(job["command"])
+     if cell.placement:
+-        command = ["bash", "-c", PROBE_WRAP, "cell-job", (cell.verifier_addr or "") if job.get("role") == "prover" else "", *command]
++        prover = job.get("role") == "prover"
++        command = ["bash", "-c", PROBE_WRAP, "cell-job", (cell.verifier_addr or "") if prover else "",
++                   (PL.rtt_target(cell.verifier_addr) or "") if prover else "", *command]
+     return dict(job, argv=argv + ["--", *command])
+ 
+ 
+@@ -221,18 +243,38 @@ def run_placement(cell: Cell, prover_run: Path | None, verifier_run: Path | None
+     return {"prover": p, "verifier": v, "link": PL.merge(plan.get("link"), p.pop("link", None)), "verifier_link": v.pop("link", None)}
+ 
+ 
+-def run_assessment(cell: Cell, prover_run: Path | None, verifier_run: Path | None, rtt_ms: float | None) -> dict[str, Any]:
+-    """``placement.assess`` on both runs' identities with the session's measured RTT (``net.rtt_ms``)."""
++def run_assessment(cell: Cell, prover_run: Path | None, verifier_run: Path | None) -> dict[str, Any]:
++    """``placement.assess`` on both runs' identities (the plan's merged with the runs' records)."""
+     pl = run_placement(cell, prover_run, verifier_run)
+-    return PL.assess(pl["prover"], pl["verifier"], pl["link"], rtt_ms=rtt_ms)
++    return PL.assess(pl["prover"], pl["verifier"], pl["link"])
++
++
++RUN_NAT_KEYS = ("pod_id", "product_uuid", "boot_id", "hypervisor", "sys_vendor")
+ 
+ 
+-def placement_problems(cell: Cell, prover_run: Path | None, verifier_run: Path | None, rtt_ms: float | None = None) -> list[str]:
++def placement_problems(cell: Cell, prover_run: Path | None, verifier_run: Path | None) -> list[str]:
+     """Why the prover and verifier are not shown to be separate machines on a routed link, and whether each run ran on the pod
+-    the cell planned (a run whose pod id differs from the plan's)."""
++    the cell planned (a run whose pod id differs from the plan's).  Under the NAT exception every value is the runs' own
++    (red-team-flock-3 S2): each run records all of :data:`RUN_NAT_KEYS` (the prover its link and RTT too), and the DMI uuid and
++    boot id the plan probed on that pod, since the machine id is the plan's."""
+     if not (cell.placement or prover_run or verifier_run):
+         return []
+-    out = list(run_assessment(cell, prover_run, verifier_run, rtt_ms)["problems"])
++    a = run_assessment(cell, prover_run, verifier_run)
++    out = list(a["problems"])
++    if a["shared_public_ip"]:
++        for role, run in (("prover", prover_run), ("verifier", verifier_run)):
++            if run is None:
++                continue
++            rec, planned = PL.from_job(run), cell.placement.get(role) or {}
++            keys = [k for k in RUN_NAT_KEYS if rec.get(k) is None or rec.get(k) == ""]
++            if role == "prover":
++                link = rec.get("link") or {}
++                keys += [f"link.{k}" for k in ("peer", "peer_ip", "rtt") if not link.get(k)]
++            if keys:
++                out.append(f"the {role} run did not record {', '.join(keys)}: the NAT exception is re-checked on the runs' own records")
++            for k in ("product_uuid", "boot_id"):
++                if planned.get(k) and rec.get(k) and planned[k] != rec[k]:
++                    out.append(f"the {role} run's {k} {rec[k]} is not the {planned[k]} the plan probed on pod {planned.get('pod_id')}")
+     for role, run in (("prover", prover_run), ("verifier", verifier_run)):
+         planned, ran = (cell.placement.get(role) or {}).get("pod_id"), (PL.from_job(run) if run else {}).get("pod_id")
+         if planned and ran and planned != ran:
+@@ -260,7 +302,7 @@ def check(cell: Cell, doc: Mapping[str, Any], prover_run: Path | None = None, ve
+         placement = (fp.get("verifier") or {}).get("placement") if isinstance(fp.get("verifier"), Mapping) else None
+         if placement in (None, "loopback") or str(placement).startswith("127."):
+             out.append(f"verifier placement {placement!r}: the protocol's verifier runs on a separate pod")
+-        out += placement_problems(cell, prover_run, verifier_run, m.get("net.rtt_ms"))
++        out += placement_problems(cell, prover_run, verifier_run)
+         if not isinstance(m.get("live.loopback_round_seconds"), (int, float)) or not inter.get("loopback_method"):
+             out.append("no loopback probe (live.loopback_round_seconds with interaction.loopback_method)")
+         if not isinstance(m.get("net.rtt_ms"), (int, float)) or not inter.get("rtt_method"):
+@@ -321,7 +363,7 @@ def stamp(cell: Cell, doc: dict[str, Any], prover_run: Path | None = None, verif
+                    "input_set": {k: cell.input_set.get(k) for k in ("kind", "id", "art", "n", "content_digest", "manifest_sha256", "source")},
+                    "prover_pod": cell.prover, "verifier_pod": cell.verifier, "entry": "verity_numerical.bench.cell"}
+     if cell.placement or prover_run or verifier_run:
+-        a = run_assessment(cell, prover_run, verifier_run, _meas(doc).get("net.rtt_ms"))
++        a = run_assessment(cell, prover_run, verifier_run)
+         doc["cell"]["placement"] = dict(run_placement(cell, prover_run, verifier_run), plan=cell.placement,
+                                         shared_public_ip=a["shared_public_ip"], **({"separation": a["evidence"]} if a["shared_public_ip"] else {}))
+     if cell.lane:
+diff --git a/backends/numerical/python/verity_numerical/bench/placement.py b/backends/numerical/python/verity_numerical/bench/placement.py
+index 62c51ab1..4ab8ebfe 100644
+--- a/backends/numerical/python/verity_numerical/bench/placement.py
++++ b/backends/numerical/python/verity_numerical/bench/placement.py
+@@ -9,16 +9,20 @@ co-resident verifier is not a separate verifier).  An identity is a dict with an
+     product_uuid   ``/sys/class/dmi/id/product_uuid``
+     boot_id        ``/proc/sys/kernel/random/boot_id``: containers of one host share its kernel's
+     cpu_model      the host CPU model (``/proc/cpuinfo``)
++    hypervisor     whether the CPU flags carry ``hypervisor`` (a virtual machine's guest)
++    sys_vendor, product_name   ``/sys/class/dmi/id/``
+     pod_id, hostname
+ 
+-and a link ``{peer, peer_ip, source_ip}`` is how the prover reached the verifier.  :func:`assess` says why a pair is not shown
+-to be on separate machines: a shared machine id, product uuid or boot id; a link to a host bridge (loopback, link-local, the
+-docker pool 172.16/12), or to another private address unless the machine ids are known and differ; too little identity to tell
+-(neither a machine id or DMI uuid on both sides, nor a public IP and CPU model on both); or a shared public IP without the proof
+-a datacenter NAT needs (machine id, DMI uuid and boot id all recorded and all different, and a measured RTT of at least
+-:data:`RTT_FLOOR_MS`).  A shared public IP that has that proof is accepted and reported (``shared_public_ip``).
++and a link ``{peer, peer_ip, source_ip, rtt}`` is how the prover reached the verifier, ``rtt`` its TCP-connect round trip
++(:func:`tcp_rtt`).  :func:`assess` says why a pair is not shown to be on separate machines: a shared machine id, product uuid or
++boot id; a link to a host bridge (loopback, link-local, the docker pool 172.16/12), to the prover's own public IP, or to another
++private address unless the machine ids are known and differ; too little identity to tell (neither a machine id or DMI uuid on
++both sides, nor a public IP and CPU model on both); or a shared public IP without the proof a datacenter NAT needs
++(:func:`_nat_exception`: the three ids recorded and different, both pods bare metal, the link RunPod's global network, and a
++TCP-connect RTT on it of at least :data:`RTT_FLOOR_MS`).  A shared public IP that has that proof is accepted and reported
++(``shared_public_ip`` and its evidence).
+ 
+-    python3 placement.py probe [--peer HOST:PORT] [--out FILE]     stdlib only: runs on a pod before a cell's job
++    python3 placement.py probe [--peer HOST:PORT] [--rtt HOST:PORT] [--out FILE]     stdlib only: runs on a pod before a cell's job
+ """
+ from __future__ import annotations
+ 
+@@ -36,6 +40,14 @@ SHARED_KEYS = ("machine_id", "product_uuid", "boot_id", "public_ip")
+ NAT_IDS = ("machine_id", "product_uuid", "boot_id")
+ #: The measured prover-verifier round trip a shared-IP pair must reach: well above the 0.03 ms of two containers on one host.
+ RTT_FLOOR_MS = 0.1
++RTT_CONNECTS = 30
++RTT_METHOD = "tcp-connect: median and minimum of 30 kernel-level TCP connects on the session's route (no payload)"
++#: RunPod's global network: a shared-IP pair's only accepted link is ``<verifier pod id>.runpod.internal`` resolving into 10/8.
++RUNPOD_INTERNAL = ".runpod.internal"
++GLOBAL_NET = ipaddress.ip_network("10.0.0.0/8")
++#: ``/sys/class/dmi/id/sys_vendor`` prefixes of hypervisors' guests (red-team-flock-3 S1): a VM's DMI uuid and boot id are its own.
++HYPERVISOR_VENDORS = ("QEMU", "KVM", "Xen", "VMware", "Microsoft Corporation", "innotek", "Parallels", "Red Hat", "OpenStack",
++                      "Amazon EC2", "Google")
+ PROBE = "backends/numerical/python/verity_numerical/bench/placement.py"
+ 
+ 
+@@ -84,13 +96,54 @@ def link_to(peer: str) -> dict[str, Any]:
+     return out
+ 
+ 
+-def probe(peer: str | None = None) -> dict[str, Any]:
+-    """This machine's identity as seen from inside its container (and the link to ``peer``)."""
++def _hypervisor_flag() -> bool | None:
++    """Whether the CPU flags carry ``hypervisor`` (set by every hypervisor for its guests); ``None`` without /proc/cpuinfo flags."""
++    for line in (_read("/proc/cpuinfo") or "").splitlines():
++        if line.lower().startswith("flags"):
++            return "hypervisor" in line.split(":", 1)[1].split()
++    return None
++
++
++def tcp_rtt(target: str, n: int = RTT_CONNECTS, timeout: float = 5.0) -> dict[str, Any]:
++    """Round trips of ``n`` kernel-level TCP connects to ``target`` (HOST:PORT): ``connect()`` to the SYN-ACK, no payload, each socket
++    closed at once.  Median and minimum in ms, the address connected to, and how many failed."""
++    import statistics
++    import time
++
++    host, _, port = target.rpartition(":")
++    out: dict[str, Any] = {"target": target, "target_ip": None, "n": 0, "failed": 0, "median_ms": None, "min_ms": None,
++                           "method": RTT_METHOD}
++    try:
++        out["target_ip"] = socket.getaddrinfo(host, int(port), proto=socket.IPPROTO_TCP)[0][4][0]
++    except (OSError, ValueError) as e:
++        out["error"] = f"{type(e).__name__}: {e}"
++        return out
++    ts = []
++    for _ in range(n):
++        t = time.perf_counter()
++        try:
++            socket.create_connection((out["target_ip"], int(port)), timeout=timeout).close()
++        except OSError:
++            out["failed"] += 1
++            continue
++        ts.append((time.perf_counter() - t) * 1e3)
++    if ts:
++        out.update(n=len(ts), median_ms=statistics.median(ts), min_ms=min(ts))
++    return out
++
++
++def probe(peer: str | None = None, rtt: str | None = None) -> dict[str, Any]:
++    """This machine's identity as seen from inside its container, the link to ``peer`` and, with ``rtt`` (HOST:PORT on the peer's
++    route), the TCP-connect round trip to it."""
+     ident = {"pod_id": os.environ.get("RUNPOD_POD_ID"), "public_ip": os.environ.get("RUNPOD_PUBLIC_IP"),
+              "product_uuid": _read("/sys/class/dmi/id/product_uuid"), "boot_id": _read("/proc/sys/kernel/random/boot_id"),
+-             "cpu_model": _cpu_model(), "hostname": socket.gethostname(), "datacenter": os.environ.get("RUNPOD_DC_ID")}
++             "cpu_model": _cpu_model(), "hypervisor": _hypervisor_flag(), "sys_vendor": _read("/sys/class/dmi/id/sys_vendor"),
++             "product_name": _read("/sys/class/dmi/id/product_name"), "hostname": socket.gethostname(),
++             "datacenter": os.environ.get("RUNPOD_DC_ID")}
+     if peer:
+         ident["link"] = link_to(peer)
++        if rtt:
++            ident["link"]["rtt"] = tcp_rtt(rtt)
+     return ident
+ 
+ 
+@@ -103,7 +156,7 @@ def from_job(run_dir: Path) -> dict[str, Any]:
+         ident.update({k: env.get(k) for k in ("boot_id", "hostname", "pod_id") if env.get(k)})
+     pl = run_dir / "placement.json"
+     if pl.is_file():
+-        ident.update({k: v for k, v in json.loads(pl.read_text()).items() if v})
++        ident = merge(ident, json.loads(pl.read_text()))
+     return ident
+ 
+ 
+@@ -120,10 +173,30 @@ def from_runpod(machine: str) -> dict[str, Any]:
+     return {"pod_id": pod.get("id"), "machine_id": pod.get("machineId") or None, "public_ip": pod.get("publicIp") or None}
+ 
+ 
++def rtt_target(peer: str | None) -> str | None:
++    """Where the prover times its TCP connects for a global-network peer: the verifier pod's sshd on the same name and route.  Not
++    the session port: the verifiers count every connection on it as a session."""
++    host = (peer or "").rpartition(":")[0]
++    return f"{host}:22" if host.endswith(RUNPOD_INTERNAL) else None
++
++
++def remote_probe(machine: str, peer: str | None = None) -> dict[str, Any]:
++    """:func:`probe` run on a pod over ``research pods ssh`` (this file on stdin), so a plan can see its DMI identity and RTT."""
++    import subprocess
++
++    args = ["probe", *(["--peer", peer] if peer else []), *(["--rtt", rtt_target(peer)] if rtt_target(peer) else [])]
++    r = subprocess.run(["research", "pods", "ssh", machine, "--", "python3", "-", *args], input=Path(__file__).read_text(),
++                       capture_output=True, text=True, timeout=300)
++    if r.returncode:
++        raise RuntimeError(f"probe on {machine}: rc {r.returncode}: {r.stderr.strip()[-300:]}")
++    return json.loads(r.stdout[r.stdout.index("{"):])
++
++
+ def merge(*idents: Mapping[str, Any] | None) -> dict[str, Any]:
++    """Later identities override earlier ones; a value not recorded (``None``, empty) never overrides (``False`` is recorded)."""
+     out: dict[str, Any] = {}
+     for i in idents:
+-        out.update({k: v for k, v in (i or {}).items() if v})
++        out.update({k: v for k, v in (i or {}).items() if v is not None and v != "" and v != {}})
+     return out
+ 
+ 
+@@ -138,35 +211,67 @@ def is_host_bridge(ip: str | None) -> bool:
+     return a.is_loopback or a.is_link_local or (a.version == 4 and a in HOST_BRIDGE_NET)
+ 
+ 
+-def assess(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping[str, Any] | None = None, rtt_ms: float | None = None,
+-           final: bool = True) -> dict[str, Any]:
++def is_hypervisor_vendor(vendor: str | None) -> bool:
++    return bool(vendor) and any(str(vendor).strip().lower().startswith(v.lower()) for v in HYPERVISOR_VENDORS)
++
++
++def _nat_exception(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping[str, Any]) -> tuple[list[str], dict[str, Any]]:
++    """Why a pair sharing a public IP does not earn the NAT exception (coordinator 22:00Z; red-team-flock-3 S1-S5, 22:05Z), and its
++    evidence: all three :data:`NAT_IDS` recorded and different; both pods bare metal (no ``hypervisor`` CPU flag, a DMI
++    ``sys_vendor`` that is no hypervisor's); the link ``<verifier pod id>.runpod.internal`` resolving into 10/8; the TCP-connect RTT
++    on that route (median) at least :data:`RTT_FLOOR_MS`."""
++    ip, out = prover["public_ip"], []
++    pre = f"prover and verifier share public_ip {ip}"
++    missing = [k for k in NAT_IDS if not (prover.get(k) and verifier.get(k))]
++    if missing:
++        out.append(f"{pre}: the NAT exception needs {', '.join(NAT_IDS)} recorded on both pods and all different; missing: {', '.join(missing)}")
++    for role, x in (("prover", prover), ("verifier", verifier)):
++        if x.get("hypervisor") is None or not x.get("sys_vendor"):
++            out.append(f"{pre}: the {role} pod's hypervisor flag and DMI sys_vendor are not recorded (a VM's uuid and boot id are its own)")
++        elif x["hypervisor"] is True or is_hypervisor_vendor(x["sys_vendor"]):
++            out.append(f"{pre}: the {role} pod is a virtual machine (hypervisor flag {x['hypervisor']}, sys_vendor {x['sys_vendor']!r}): "
++                       "two VMs of one host would pass the id checks")
++    host = (link.get("peer") or "").rpartition(":")[0]
++    want = f"{verifier.get('pod_id')}{RUNPOD_INTERNAL}" if verifier.get("pod_id") else None
++    peer_ip = link.get("peer_ip")
++    try:
++        in_global = peer_ip is not None and ipaddress.ip_address(peer_ip) in GLOBAL_NET
++    except ValueError:
++        in_global = False
++    if not (want and host == want and in_global):
++        out.append(f"{pre}: the link must be RunPod's global network, {want or '<verifier pod id>' + RUNPOD_INTERNAL} resolving into "
++                   f"{GLOBAL_NET}; it is {host or '?'} at {peer_ip}")
++    rtt = link.get("rtt") or {}
++    ok_rtt = (str(rtt.get("method", "")).startswith("tcp-connect") and isinstance(rtt.get("median_ms"), (int, float))
++              and rtt.get("target_ip") == peer_ip and rtt["median_ms"] >= RTT_FLOOR_MS)
++    if not ok_rtt:
++        out.append(f"{pre}: no TCP-connect RTT of at least {RTT_FLOOR_MS} ms measured on the link's own route (median "
++                   f"{rtt.get('median_ms')!r} ms to {rtt.get('target_ip')!r}, method {rtt.get('method')!r}); a co-resident pair measured "
++                   "about 0.03 ms")
++    evidence = {k: [prover.get(k), verifier.get(k)] for k in NAT_IDS}
++    evidence.update({"public_ip": ip, "bare_metal": {role: {k: x.get(k) for k in ("hypervisor", "sys_vendor", "product_name", "cpu_model")}
++                                                     for role, x in (("prover", prover), ("verifier", verifier))},
++                     "link": {"name": host or None, "address": peer_ip}, "rtt": {k: rtt.get(k) for k in ("method", "median_ms", "min_ms", "n",
++                                                                                                     "failed", "target", "target_ip")},
++                     "rtt_floor_ms": RTT_FLOOR_MS})
++    return out, evidence
++
++
++def assess(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping[str, Any] | None = None) -> dict[str, Any]:
+     """Whether ``prover`` and ``verifier`` are shown to be separate machines on a routed link: ``{"problems": [...],
+-    "shared_public_ip": bool, "evidence": {...}}`` (no problems: they are).
+-
+-    A shared public IP (a datacenter's egress NAT) is one machine unless every one of :data:`NAT_IDS` is recorded on both pods and
+-    differs, the measured prover-verifier RTT is at least :data:`RTT_FLOOR_MS` and the link is no host bridge (coordinator
+-    2026-09-26 22:00Z, red-team-flock's 12:00Z item 1 made explicit).  With ``final=False`` (a plan: only the RunPod API's machine
+-    ids are known) the machine ids must differ and the DMI uuid, boot id and RTT are left to the runs (``evidence.pending``)."""
++    "shared_public_ip": bool, "evidence": {...}}`` (no problems: they are).  A shared public IP (a datacenter's egress NAT) is one
++    machine unless the pair earns the NAT exception (:func:`_nat_exception`); ``evidence`` is what it rests on."""
++    link = link or {}
+     out: list[str] = []
+-    for k in ("machine_id", "product_uuid", "boot_id"):
++    for k in NAT_IDS:
+         if prover.get(k) and prover.get(k) == verifier.get(k):
+             out.append(f"prover and verifier share {k} {prover[k]} (one machine)")
+-    peer = (link or {}).get("peer_ip")
++    peer = link.get("peer_ip")
+     shared = bool(prover.get("public_ip")) and prover.get("public_ip") == verifier.get("public_ip")
+     evidence: dict[str, Any] = {}
+     if shared:
+-        evidence = {k: [prover.get(k), verifier.get(k)] for k in NAT_IDS} | {"public_ip": prover["public_ip"], "rtt_ms": rtt_ms,
+-                                                                             "rtt_floor_ms": RTT_FLOOR_MS}
+-        needed = NAT_IDS if final else ("machine_id",)
+-        missing = [k for k in needed if not (prover.get(k) and verifier.get(k))]
+-        if missing:
+-            out.append(f"prover and verifier share public_ip {prover['public_ip']}: a shared (NAT) IP needs {', '.join(NAT_IDS)} recorded on "
+-                       f"both pods and all different; missing: {', '.join(missing)}")
+-        if final and not (isinstance(rtt_ms, (int, float)) and rtt_ms >= RTT_FLOOR_MS):
+-            out.append(f"prover and verifier share public_ip {prover['public_ip']}: the measured RTT {rtt_ms!r} ms is not at least "
+-                       f"{RTT_FLOOR_MS} ms (a co-resident pair measured about 0.03 ms)")
+-        if not final:
+-            evidence["pending"] = [k for k in ("product_uuid", "boot_id") if not (prover.get(k) and verifier.get(k))] + ["rtt_ms"]
++        why, evidence = _nat_exception(prover, verifier, link)
++        out += why
+     else:
+         ids_differ = any(prover.get(k) and verifier.get(k) and prover[k] != verifier[k] for k in ("machine_id", "product_uuid"))
+         ip_cpu = all(x.get(k) for x in (prover, verifier) for k in ("public_ip", "cpu_model"))
+@@ -178,15 +283,14 @@ def assess(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping
+         out.append(f"the prover reaches the verifier at {peer}, a host bridge or loopback address (one machine, not a routed path)")
+     elif peer and is_host_private(peer) and not machines_differ:
+         out.append(f"the prover reaches the verifier at {peer}, a private address, and the machine ids are not known to differ")
+-    if peer and prover.get("public_ip") and peer == prover["public_ip"] and not shared:
+-        out.append(f"the prover reaches the verifier at its own public IP {peer} (hairpin on one machine)")
++    if peer and prover.get("public_ip") and peer == prover["public_ip"]:
++        out.append(f"the prover reaches the verifier at its own public IP {peer} (a hairpin, never a separate machine's route)")
+     return {"problems": out, "shared_public_ip": shared, "evidence": evidence}
+ 
+ 
+-def separation(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping[str, Any] | None = None, rtt_ms: float | None = None,
+-               final: bool = True) -> list[str]:
++def separation(prover: Mapping[str, Any], verifier: Mapping[str, Any], link: Mapping[str, Any] | None = None) -> list[str]:
+     """Why ``prover`` and ``verifier`` are not shown to be separate machines on a routed link (empty: they are; :func:`assess`)."""
+-    return assess(prover, verifier, link, rtt_ms, final)["problems"]
++    return assess(prover, verifier, link)["problems"]
+ 
+ 
+ def main(argv: list[str] | None = None) -> int:
+@@ -194,9 +298,10 @@ def main(argv: list[str] | None = None) -> int:
+     sp = ap.add_subparsers(dest="cmd", required=True)
+     p = sp.add_parser("probe")
+     p.add_argument("--peer", default=None)
++    p.add_argument("--rtt", default=None, help="HOST:PORT on the peer's route: the TCP-connect RTT target")
+     p.add_argument("--out", default=None)
+     a = ap.parse_args(argv)
+-    doc = probe(a.peer or None)
++    doc = probe(a.peer or None, a.rtt or None)
+     text = json.dumps(doc, indent=1) + "\n"
+     if a.out:
+         Path(a.out).write_text(text)
+diff --git a/backends/numerical/tests/bench/test_cell.py b/backends/numerical/tests/bench/test_cell.py
+index 0c6e9d82..008311a1 100644
+--- a/backends/numerical/tests/bench/test_cell.py
++++ b/backends/numerical/tests/bench/test_cell.py
+@@ -45,7 +45,8 @@ def test_plan_wraps_the_flock_cell_script():
+         assert argv[:4] == ["research", "run", "--on", j["pod"]] and "--custody-r2" in argv and argv[argv.index("--cwd") + 1] == "source"
+         cmd = argv[argv.index("--") + 1:]
+         assert cmd[:4] == ["bash", "-c", C.PROBE_WRAP, "cell-job"] and cmd[4] == ("10.0.0.2:7400" if j["role"] == "prover" else "")
+-        cmd = cmd[5:]
++        assert cmd[5] == ""                                  # a 10.x address, not a .runpod.internal name: no RTT target
++        cmd = cmd[6:]
+         assert cmd == j["command"] and cmd[:2] == ["bash", "backends/flock/pod/30-cell.sh"] and "REL=bf16-hopper" in cmd and "RUNS=5" in cmd
+         assert f"POINTS={C.DEFAULT_POINTS}" in cmd
+     assert "ROLE=verifier" in v["command"]
+diff --git a/backends/numerical/tests/bench/test_placement.py b/backends/numerical/tests/bench/test_placement.py
+index 38768e05..490b22e9 100644
+--- a/backends/numerical/tests/bench/test_placement.py
++++ b/backends/numerical/tests/bench/test_placement.py
+@@ -5,6 +5,7 @@ from __future__ import annotations
+ import copy
+ import json
+ import os
++import socket
+ import subprocess
+ from pathlib import Path
+ 
+@@ -15,6 +16,24 @@ from verity_numerical.bench import placement as PL
+ 
+ from test_cell import BF16, FLOCK, SEPARATE, _cell, _doc, _real_runs  # noqa: E402
+ 
++REMOTE_PROBE = PL.remote_probe
++
++
++@pytest.fixture(autouse=True)
++def _no_ssh(monkeypatch):
++    """No test reaches a pod: a plan that would probe over ssh sees it fail unless the test supplies the probes."""
++    monkeypatch.setattr(PL, "remote_probe", lambda m, peer=None: (_ for _ in ()).throw(RuntimeError("no ssh in tests")))
++
++
++@pytest.fixture
++def listener():
++    """A local TCP server that completes handshakes (the kernel's backlog; nothing is accepted): an RTT target."""
++    s = socket.socket()
++    s.bind(("127.0.0.1", 0))
++    s.listen(128)
++    yield f"127.0.0.1:{s.getsockname()[1]}"
++    s.close()
++
+ #: The five L40S cells' pair: two containers of one US-TX-4 host (one machine id, CPU and public IP; a 172.24.0.x bridge).
+ CORESIDENT = {"prover": {"pod_id": "pod-l40s-a", "machine_id": "m-tx4", "public_ip": "192.0.2.44", "cpu_model": "AMD EPYC 9354"},
+               "verifier": {"pod_id": "pod-l40s-b", "machine_id": "m-tx4", "public_ip": "192.0.2.44", "cpu_model": "AMD EPYC 9354"},
+@@ -67,16 +86,21 @@ def test_without_the_api_a_plan_is_refused(monkeypatch):
+     assert cell.placement["prover"]["machine_id"] == "m-h100" and cell.placement["link"]["peer_ip"] == "10.0.0.2"
+ 
+ 
+-def test_the_probe_runs_before_the_job_and_records_the_machine(tmp_path):
+-    """The wrapper each job runs: placement.json in the run dir, then the job itself with its own arguments."""
++def test_the_probe_runs_before_the_job_and_records_the_machine(tmp_path, listener):
++    """The wrapper each job runs: placement.json in the run dir (identity, bare-metal facts, the link and its TCP-connect RTT), then
++    the job itself with its own arguments."""
+     env = dict(os.environ, RESEARCH_RUN_DIR=str(tmp_path), RUNPOD_POD_ID="pod-x", RUNPOD_PUBLIC_IP="203.0.113.7")
+-    r = subprocess.run(["bash", "-c", C.PROBE_WRAP, "cell-job", "127.0.0.1:9", "echo", "job", "ran"], cwd=C.LW.REPO, env=env,
++    r = subprocess.run(["bash", "-c", C.PROBE_WRAP, "cell-job", "127.0.0.1:9", listener, "echo", "job", "ran"], cwd=C.LW.REPO, env=env,
+                        capture_output=True, text=True)
+     assert r.returncode == 0 and r.stdout.strip() == "job ran", r.stderr
+     rec = json.loads((tmp_path / "placement.json").read_text())
+     assert (rec["pod_id"], rec["public_ip"]) == ("pod-x", "203.0.113.7") and rec["boot_id"] and rec["link"]["peer_ip"] == "127.0.0.1"
++    assert rec["hypervisor"] in (True, False, None) and "sys_vendor" in rec and "product_name" in rec
++    assert rec["link"]["rtt"]["n"] == PL.RTT_CONNECTS and rec["link"]["rtt"]["method"] == PL.RTT_METHOD
+     ident = PL.from_job(tmp_path)
+     assert ident["pod_id"] == "pod-x" and ident["link"]["peer_ip"] == "127.0.0.1"
++    r = subprocess.run(["bash", "-c", C.PROBE_WRAP, "cell-job", "", "", "true"], cwd=C.LW.REPO, env=env, capture_output=True, text=True)
++    assert r.returncode == 0 and "link" not in json.loads((tmp_path / "placement.json").read_text())   # the verifier's job
+ 
+ 
+ def test_registration_records_both_machines_and_refuses_a_shared_one(tmp_path):
+@@ -101,62 +125,226 @@ def test_the_real_cells_still_pass_on_documents():
+     assert C.check(_cell(), _doc("6d1295ed")) == []
+ 
+ 
+-# --- a datacenter's shared NAT IP (coordinator 2026-09-26 22:00Z; flock-backend's EU-NL-1 pair) ----------------------------------
++# --- a datacenter's shared NAT IP (coordinator 2026-09-26 22:00Z; red-team-flock-3's conditions S1-S5, 22:05Z) ------------------
++
++IP = "91.199.227.82"
++#: An L40S prover and an H100 verifier in EU-NL-1 as the RunPod API shows them: two machine ids behind one egress NAT, the
++#: verifier reached by its global-network name.
++NAT = {"prover": {"pod_id": "pod-p", "machine_id": "fpuyltj3q41d", "public_ip": IP},
++       "verifier": {"pod_id": "pod-v", "machine_id": "go1zlmhqhfmq", "public_ip": IP},
++       "link": {"peer": "pod-v.runpod.internal:7400", "peer_ip": "10.65.0.12"}}
++RTT = {"method": PL.RTT_METHOD, "median_ms": 0.31, "min_ms": 0.27, "n": 30, "failed": 0, "target": "pod-v.runpod.internal:22",
++       "target_ip": "10.65.0.12"}
++#: What each pod's probe records (the plan's over ssh, and each run's placement.json): bare metal, and the prover's link and RTT.
++PROBES = {"vy-flock-h100": {"pod_id": "pod-p", "public_ip": IP, "product_uuid": "uuid-p", "boot_id": "boot-p", "cpu_model": "AMD EPYC 9354",
++                            "hypervisor": False, "sys_vendor": "Supermicro", "product_name": "AS -4125GS-TNRT",
++                            "link": {**NAT["link"], "source_ip": "10.65.0.9", "rtt": RTT}},
++          "vy-flock-verifier": {"pod_id": "pod-v", "public_ip": IP, "product_uuid": "uuid-v", "boot_id": "boot-v",
++                                "cpu_model": "Intel Xeon 8470", "hypervisor": False, "sys_vendor": "Supermicro",
++                                "product_name": "SYS-821GE-TNHR"}}
++
++
++def _pair(**over):
++    """The probed pair as ``assess`` takes it, with ``side__key`` overrides (sides prover, verifier, link, rtt; None drops the key)."""
++    p = PL.merge(NAT["prover"], {k: x for k, x in PROBES["vy-flock-h100"].items() if k != "link"})
++    v = PL.merge(NAT["verifier"], PROBES["vy-flock-verifier"])
++    link = copy.deepcopy(PROBES["vy-flock-h100"]["link"])
++    sides = {"prover": p, "verifier": v, "link": link, "rtt": link["rtt"]}
++    for path, x in over.items():
++        side, key = path.split("__")
++        if x is None:
++            sides[side].pop(key, None)
++        else:
++            sides[side][key] = x
++    return p, v, link
++
++
++@pytest.fixture
++def probes(monkeypatch):
++    """Both pods' ssh probes as PROBES records them; the calls made."""
++    calls = []
++
++    def probe(machine, peer=None):
++        calls.append((machine, peer))
++        return copy.deepcopy(PROBES[machine])
++
++    monkeypatch.setattr(PL, "remote_probe", probe)
++    return calls
++
+ 
+-#: An L40S prover and an H100 verifier in EU-NL-1: two machines behind one egress NAT, linked by RunPod's routed 10.x network.
+-NAT = {"prover": {"pod_id": "pod-p", "machine_id": "fpuyltj3q41d", "public_ip": "91.199.227.82", "cpu_model": "AMD EPYC 9354"},
+-       "verifier": {"pod_id": "pod-v", "machine_id": "go1zlmhqhfmq", "public_ip": "91.199.227.82", "cpu_model": "Intel Xeon 8470"},
+-       "link": {"peer": "w3joukypegsto7.runpod.internal:7400", "peer_ip": "10.65.0.12"}}
++def _nat_cell():
++    return _cell(placement=copy.deepcopy(NAT), verifier_addr=NAT["link"]["peer"])
+ 
+ 
+-def _nat_runs(tmp_path, prover_extra=None, verifier_extra=None, rtt=None):
+-    p, v = _real_runs(tmp_path, (lambda d: [m.update(value=rtt) for m in d["measurements"] if m["name"] == "net.rtt_ms"]) if rtt else None)
+-    (p / "placement.json").write_text(json.dumps({"pod_id": "pod-p", "public_ip": "91.199.227.82", "product_uuid": "uuid-p", "boot_id": "boot-p",
+-                                                  "link": NAT["link"], **(prover_extra or {})}))
+-    (v / "placement.json").write_text(json.dumps({"pod_id": "pod-v", "public_ip": "91.199.227.82", "product_uuid": "uuid-v", "boot_id": "boot-v",
+-                                                  **(verifier_extra or {})}))
++def _nat_runs(tmp_path, prover=None, verifier=None, mutate=None):
++    """The real runs with each pod's placement.json as its probe recorded it; ``prover``/``verifier`` override keys (None drops)."""
++    p, v = _real_runs(tmp_path, mutate)
++    for run, machine, over in ((p, "vy-flock-h100", prover), (v, "vy-flock-verifier", verifier)):
++        rec = {**copy.deepcopy(PROBES[machine]), **(over or {})}
++        (run / "placement.json").write_text(json.dumps({k: x for k, x in rec.items() if x is not None}))
+     return p, v
+ 
+ 
+-def test_a_shared_nat_ip_plans_with_the_rest_pending():
+-    cell = _cell(placement=copy.deepcopy(NAT))
+-    assert cell.placement["shared_public_ip"] is True
+-    assert cell.placement["separation"]["machine_id"] == ["fpuyltj3q41d", "go1zlmhqhfmq"]
+-    assert cell.placement["separation"]["pending"] == ["product_uuid", "boot_id", "rtt_ms"]
+-    assert C.check(_cell(), _doc("6d1295ed")) == []                      # a plan with distinct IPs records no NAT share
+-    with pytest.raises(C.NotSupported, match="missing: machine_id"):
+-        _cell(placement={**copy.deepcopy(NAT), "prover": {**NAT["prover"], "machine_id": None}})
++def test_a_shared_nat_ip_plan_probes_both_pods_and_records_the_evidence(probes):
++    cell = _nat_cell()
++    assert probes == [("vy-flock-h100", "pod-v.runpod.internal:7400"), ("vy-flock-verifier", None)]
++    pl = cell.placement
++    assert pl["probed"] is True and pl["shared_public_ip"] is True
++    sep = pl["separation"]
++    assert (sep["machine_id"], sep["product_uuid"], sep["boot_id"]) == (["fpuyltj3q41d", "go1zlmhqhfmq"], ["uuid-p", "uuid-v"],
++                                                                        ["boot-p", "boot-v"])
++    assert sep["bare_metal"]["verifier"] == {"hypervisor": False, "sys_vendor": "Supermicro", "product_name": "SYS-821GE-TNHR",
++                                             "cpu_model": "Intel Xeon 8470"}
++    assert sep["link"] == {"name": "pod-v.runpod.internal", "address": "10.65.0.12"} and sep["public_ip"] == IP
++    assert (sep["rtt"]["method"], sep["rtt"]["median_ms"], sep["rtt"]["target_ip"], sep["rtt_floor_ms"]) == (PL.RTT_METHOD, 0.31,
++                                                                                                             "10.65.0.12", 0.1)
++    argv = cell.jobs[1]["argv"]
++    assert argv[argv.index("--") + 5:][:2] == ["pod-v.runpod.internal:7400", "pod-v.runpod.internal:22"]   # the prover's probe
++    assert C.Cell(**json.loads(cell.to_json())) == cell
++
++
++def test_a_shared_nat_ip_that_cannot_be_probed_is_refused():
++    with pytest.raises(C.NotSupported, match="could not be probed"):
++        _nat_cell()
+ 
+ 
+-def test_a_shared_nat_ip_registers_with_all_three_ids_and_the_rtt(tmp_path):
++def test_a_shared_nat_ip_registers_on_the_runs_own_records(tmp_path, probes):
+     p, v = _nat_runs(tmp_path)
+-    res = C.register(_cell(placement=copy.deepcopy(NAT)), str(p), str(v), tmp_path / "work", dry_run=True)
++    res = C.register(_nat_cell(), str(p), str(v), tmp_path / "work", dry_run=True)
+     assert res["problems"] == [] and "refused" not in res
+     pl = json.loads(Path(res["meta"]).read_text())["cell"]["placement"]
+-    assert pl["shared_public_ip"] is True
++    assert pl["shared_public_ip"] is True and pl["plan"]["probed"] is True
+     sep = pl["separation"]
+-    assert (sep["machine_id"], sep["product_uuid"]) == (["fpuyltj3q41d", "go1zlmhqhfmq"], ["uuid-p", "uuid-v"])
+-    assert sep["boot_id"] == ["boot-p", "boot-v"] and sep["rtt_ms"] > PL.RTT_FLOOR_MS == 0.1 and sep["public_ip"] == "91.199.227.82"
++    assert sep["boot_id"] == ["boot-p", "boot-v"] and sep["bare_metal"]["prover"]["hypervisor"] is False
++    assert sep["rtt"]["median_ms"] == 0.31 and sep["link"]["name"] == "pod-v.runpod.internal"
++
++
++@pytest.mark.parametrize("prover,verifier,why", [
++    ({}, {"boot_id": "boot-p"}, "share boot_id boot-p"),                                   # two containers of one kernel
++    ({}, {"product_uuid": "uuid-p"}, "share product_uuid uuid-p"),
++    ({}, {"hypervisor": True}, "the verifier pod is a virtual machine"),                    # S1
++    ({"sys_vendor": "QEMU"}, {}, "the prover pod is a virtual machine"),
++    ({}, {"sys_vendor": None}, "the verifier run did not record sys_vendor"),              # S2: the plan's probe does not stand in
++    ({"hypervisor": None}, {}, "the prover run did not record hypervisor"),
++    ({}, {"product_uuid": None}, "the verifier run did not record product_uuid"),
++    ({"pod_id": None}, {}, "the prover run did not record pod_id"),
++    ({"link": NAT["link"]}, {}, "the prover run did not record link.rtt"),
++    ({}, {"product_uuid": "uuid-w"}, "product_uuid uuid-w is not the uuid-v the plan probed on pod pod-v"),
++    ({"link": {**PROBES["vy-flock-h100"]["link"], "rtt": {**RTT, "median_ms": 0.03}}}, {}, "no TCP-connect RTT of at least 0.1 ms"),
++    ({"link": {"peer": "pod-v.runpod.internal:7400", "peer_ip": "172.24.0.3", "rtt": {**RTT, "target_ip": "172.24.0.3"}}}, {},
++     "host bridge"),                                                                        # S3
++])
++def test_a_shared_nat_ip_without_the_proof_is_refused_at_registration(tmp_path, probes, prover, verifier, why):
++    p, v = _nat_runs(tmp_path, prover, verifier)
++    res = C.register(_nat_cell(), str(p), str(v), tmp_path / "work", dry_run=True)
++    assert res.get("refused") and any(why in x for x in res["problems"]), res["problems"]
+ 
+ 
+-@pytest.mark.parametrize("prover_extra,verifier_extra,rtt,why", [
+-    ({}, {"boot_id": "boot-p"}, None, "share boot_id boot-p"),                            # two containers of one kernel
+-    ({}, {"product_uuid": "uuid-p"}, None, "share product_uuid uuid-p"),
+-    ({}, {}, 0.03, "is not at least 0.1 ms"),                                            # the co-residence RTT
+-    ({}, {"product_uuid": None}, None, "missing: product_uuid"),
+-    ({"link": {"peer": "172.24.0.3:7400", "peer_ip": "172.24.0.3"}}, {}, None, "host bridge"),
++@pytest.mark.parametrize("over,why", [
++    ({"prover__hypervisor": True}, "the prover pod is a virtual machine"),
++    ({"verifier__sys_vendor": "QEMU"}, "the verifier pod is a virtual machine"),
++    ({"verifier__sys_vendor": "Microsoft Corporation"}, "the verifier pod is a virtual machine"),      # Hyper-V
++    ({"prover__sys_vendor": "Amazon EC2"}, "the prover pod is a virtual machine"),
++    ({"prover__hypervisor": None}, "the prover pod's hypervisor flag and DMI sys_vendor are not recorded"),
++    ({"verifier__sys_vendor": None}, "the verifier pod's hypervisor flag and DMI sys_vendor are not recorded"),
+ ])
+-def test_a_shared_nat_ip_without_the_proof_is_refused(tmp_path, prover_extra, verifier_extra, rtt, why):
+-    p, v = _nat_runs(tmp_path, prover_extra, verifier_extra, rtt)          # a null in placement.json is not recorded
+-    res = C.register(_cell(placement=copy.deepcopy(NAT)), str(p), str(v), tmp_path / "work", dry_run=True)
+-    assert res.get("refused") and any(why in x for x in res["problems"]), res["problems"]
++def test_s1_a_shared_ip_needs_both_pods_bare_metal(over, why):
++    a = PL.assess(*_pair(**over))
++    assert a["shared_public_ip"] and any(why in x for x in a["problems"]), a["problems"]
++    assert PL.assess(*_pair())["problems"] == []
++    assert PL.is_hypervisor_vendor("VMware, Inc.") and PL.is_hypervisor_vendor("Xen") and not PL.is_hypervisor_vendor("Supermicro")
++    assert not PL.is_hypervisor_vendor(None) and not PL.is_hypervisor_vendor("")
++
++
++def test_s1_a_plan_whose_probe_shows_a_vm_is_refused(monkeypatch):
++    vm = {**PROBES["vy-flock-verifier"], "hypervisor": True, "sys_vendor": "QEMU"}
++    monkeypatch.setattr(PL, "remote_probe", lambda m, peer=None: copy.deepcopy(vm if m == "vy-flock-verifier" else PROBES[m]))
++    with pytest.raises(C.NotSupported, match="the verifier pod is a virtual machine"):
++        _nat_cell()
++
++
++def test_s1_the_probe_reads_the_hypervisor_flag(monkeypatch):
++    cpuinfo = {"guest": "flags\t\t: fpu vme hypervisor lahf_lm\n", "metal": "flags\t\t: fpu vme lahf_lm\n", "none": "processor : 0\n"}
++    for kind, want in (("guest", True), ("metal", False), ("none", None)):
++        monkeypatch.setattr(PL, "_read", lambda path, text=cpuinfo[kind]: text if path == "/proc/cpuinfo" else None)
++        assert PL._hypervisor_flag() is want
++
++
++@pytest.mark.parametrize("over,why", [
++    ({"link__peer": "pod-w.runpod.internal:7400"}, "the link must be RunPod's global network"),      # another pod's name
++    ({"link__peer": "10.65.0.12:7400"}, "the link must be RunPod's global network"),                 # an address, not the name
++    ({"link__peer_ip": "100.64.0.3", "rtt__target_ip": "100.64.0.3"}, "resolving into 10.0.0.0/8"),
++    ({"link__peer_ip": "172.24.0.3", "rtt__target_ip": "172.24.0.3"}, "host bridge"),
++    ({"link__peer_ip": "127.0.0.1", "rtt__target_ip": "127.0.0.1"}, "host bridge"),
++    ({"link__peer": f"{IP}:7400", "link__peer_ip": IP, "rtt__target_ip": IP}, f"its own public IP {IP}"),   # dialling the shared IP
++])
++def test_s3_a_shared_ip_links_only_by_the_verifiers_global_name(over, why):
++    a = PL.assess(*_pair(**over))
++    assert any(why in x for x in a["problems"]), a["problems"]
++
++
++@pytest.mark.parametrize("over", [
++    {"rtt__median_ms": 0.03},                                  # the co-residence round trip
++    {"link__rtt": None},                                       # not measured
++    {"rtt__median_ms": None, "rtt__n": 0, "rtt__failed": 30},  # every connect failed
++    {"rtt__method": "hello-ping: the session's Hello/Ping round trip"},
++    {"rtt__target_ip": IP, "rtt__median_ms": 4.2},             # timed via the public IP, not the link's route
++])
++def test_s4_a_shared_ip_needs_a_tcp_connect_rtt_on_the_links_route(over):
++    a = PL.assess(*_pair(**over))
++    assert any("no TCP-connect RTT of at least 0.1 ms measured on the link's own route" in x for x in a["problems"]), a["problems"]
++
++
++def test_s4_the_sessions_rtt_does_not_stand_in_for_the_tcp_connects(tmp_path, probes):
++    slow_session = lambda d: [m.update(value=5.0) for m in d["measurements"] if m["name"] == "net.rtt_ms"]
++    fast = {"link": {**PROBES["vy-flock-h100"]["link"], "rtt": {**RTT, "median_ms": 0.03, "min_ms": 0.02}}}
++    p, v = _nat_runs(tmp_path, fast, mutate=slow_session)
++    res = C.register(_nat_cell(), str(p), str(v), tmp_path / "work", dry_run=True)
++    assert res.get("refused") and any("no TCP-connect RTT of at least 0.1 ms" in x for x in res["problems"]), res["problems"]
++
++
++def test_s4_tcp_rtt_times_kernel_connects_to_the_target(listener):
++    r = PL.tcp_rtt(listener, n=10)
++    assert (r["target"], r["target_ip"], r["n"], r["failed"], r["method"]) == (listener, "127.0.0.1", 10, 0, PL.RTT_METHOD)
++    assert 0 < r["min_ms"] <= r["median_ms"]
++    s = socket.socket()
++    s.bind(("127.0.0.1", 0))
++    closed = f"127.0.0.1:{s.getsockname()[1]}"
++    s.close()
++    r = PL.tcp_rtt(closed, n=3)
++    assert (r["n"], r["failed"], r["median_ms"]) == (0, 3, None)
++    p, v, link = _pair()
++    assert PL.separation(p, v, {**link, "rtt": r})                                       # no connect, no exception
++
++
++def test_s4_the_rtt_target_is_the_verifier_pods_sshd_on_its_global_name(monkeypatch):
++    """Not the session port (the verifiers count every connection on it as a session): sshd on the same name, so the same route."""
++    assert PL.rtt_target("pod-v.runpod.internal:7400") == "pod-v.runpod.internal:22"
++    assert PL.rtt_target("10.0.0.2:7400") is None and PL.rtt_target(None) is None
++    seen = {}
++
++    def run(argv, **kw):
++        seen.update(argv=argv, input=kw["input"])
++        return subprocess.CompletedProcess(argv, 0, stdout="motd\n" + json.dumps(PROBES["vy-flock-h100"]), stderr="")
++
++    monkeypatch.setattr(subprocess, "run", run)
++    assert REMOTE_PROBE("vy-flock-h100", "pod-v.runpod.internal:7400") == PROBES["vy-flock-h100"]
++    assert seen["argv"] == ["research", "pods", "ssh", "vy-flock-h100", "--", "python3", "-", "probe", "--peer",
++                            "pod-v.runpod.internal:7400", "--rtt", "pod-v.runpod.internal:22"]
++    assert seen["input"] == Path(PL.__file__).read_text()
+ 
+ 
+ def test_the_co_resident_pair_is_still_refused():
+-    """Same machine id, CPU and public IP, a docker-bridge link (the five L40S cells): refused at plan and at check."""
++    """Same machine id, CPU and public IP, a docker-bridge link at 0.03 ms (the five L40S cells): refused at plan and on any record."""
+     with pytest.raises(C.NotSupported, match="share machine_id m-tx4"):
+         _cell(placement=CORESIDENT)
+-    a = PL.assess(CORESIDENT["prover"], CORESIDENT["verifier"], CORESIDENT["link"], rtt_ms=0.03)
+-    assert a["shared_public_ip"] is True and any("host bridge" in x for x in a["problems"])
+-    assert any("not at least 0.1 ms" in x for x in a["problems"]) and any("missing: product_uuid" in x for x in a["problems"])
++    bridge = {**CORESIDENT["link"], "rtt": {**RTT, "median_ms": 0.03, "target_ip": "172.24.0.3"}}
++    a = PL.assess(CORESIDENT["prover"], CORESIDENT["verifier"], bridge)
++    assert a["shared_public_ip"] is True
++    for why in ("share machine_id m-tx4", "host bridge", "missing: product_uuid, boot_id", "hypervisor flag and DMI sys_vendor are not recorded",
++                "global network", "no TCP-connect RTT of at least 0.1 ms"):
++        assert any(why in x for x in a["problems"]), (why, a["problems"])
++    metal = {"product_uuid": "u", "boot_id": "k", "hypervisor": False, "sys_vendor": "Supermicro"}   # every probe fact, one kernel
++    a = PL.assess({**CORESIDENT["prover"], **metal, "machine_id": "m-a"}, {**CORESIDENT["verifier"], **metal, "machine_id": "m-b"}, bridge)
++    assert any("share boot_id k" in x for x in a["problems"]) and any("host bridge" in x for x in a["problems"])
+     assert PL.is_host_bridge("172.24.0.3") and PL.is_host_bridge("127.0.0.1") and not PL.is_host_bridge("10.65.0.12")
+-- 
+2.43.0
+

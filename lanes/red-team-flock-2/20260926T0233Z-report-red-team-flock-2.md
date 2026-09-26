@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: final
 ---
 
+CHECKPOINT a57628fc (10:55Z) [final] FINAL red-team-flock-2 (bc-089339bc-4846-55b6-96c9-a15fd7a4a241). (1) IR6 MET at 2f55d2d3 and f4cd5d4e: leaf maps, row key and 16-bit words pinned with the netlist and checked at load (runs r20260926-100601-f937, r20260926-102516-ea1e, r20260926-104438-71ff; selftests 82/82; all tampers refused, including [n,32] ports and a widened returned port; LEAVES meaning rests on IR2's pin). (2) L40S #101 elementwise cells art:dc9b92f6 (RoPE), 6dc1f392 (SiLU mul), d1ae527d (RMSNorm fused), 1e7cdc41 (RMSNorm Triton) labelled NON_ZK_PROOF (30 verifier files checked). (3) NVFP4 5090 cells art:2753a371 (Fp4) and db7f48de (ShaFp4): proof_class NON_ZK_PROOF, final (14 files recomputed from the set with core only; red-team-flock placement ruling and verify-flock-pure replay cited). Earlier today: flock-ir-sampling/v1 GRANTED WITH CONDITIONS (S1, IR2), art:a330c568 and 26b5f7d8 labelled. Handoffs 1010Z, 1025Z, 1055Z. No verity commits (review-only). Pods x5f12wbrstpco1 and l5aqabzzjo9g9k terminated; spend about $0.40 today ($0.12 this turn).
 CHECKPOINT a57628fc (10:54Z) [final] FINAL red-team-flock-2 (bc-089339bc-4846-55b6-96c9-a15fd7a4a241). (1) IR6 MET at 2f55d2d3 and f4cd5d4e: leaf maps, row key and 16-bit words pinned with the netlist and checked at load (runs r20260926-100601-f937, r20260926-102516-ea1e, r20260926-104438-71ff; selftests 82/82; all tampers refused, including [n,32] ports and a widened returned port; LEAVES meaning rests on IR2's pin). (2) L40S #101 elementwise cells art:dc9b92f6 (RoPE), 6dc1f392 (SiLU mul), d1ae527d (RMSNorm fused), 1e7cdc41 (RMSNorm Triton) labelled NON_ZK_PROOF (30 verifier files checked). (3) NVFP4 5090 cells art:2753a371 (Fp4) and db7f48de (ShaFp4): proof_class NON_ZK_PROOF, final (14 files recomputed from the set with core only; red-team-flock placement ruling and verify-flock-pure replay cited). Earlier today: flock-ir-sampling/v1 GRANTED WITH CONDITIONS (S1, IR2), art:a330c568 and 26b5f7d8 labelled. Handoffs 1010Z, 1025Z, 1055Z. Pods x5f12wbrstpco1 and l5aqabzzjo9g9k terminated; spend about $0.40 today ($0.12 this turn).
 CHECKPOINT a57628fc (10:26Z) [open] WAITING r20260926-102516-ea1e on vy-red-team-flock-2 (l5aqabzzjo9g9k, cpu3c-8), check after 10:45Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; IR6 at f4cd5d4e + explicit 16-bit tampers; then the same tampers at 2f55d2d3 (SKIP_SELFTEST), addendum handoff, FINAL. L40S cells and NVFP4 5090 cells already labelled NON_ZK_PROOF (NVFP4 finding updated with red-team-flock's placement ruling and verify-flock-pure's replay)
 CHECKPOINT a57628fc (10:20Z) [open] IR6 MET at 2f55d2d3 (r20260926-100601-f937); L40S #101 elementwise cells dc9b92f6/6dc1f392/d1ae527d/1e7cdc41 and NVFP4 5090 cells 2753a371/db7f48de labelled NON_ZK_PROOF; flock-ir-sampling/v1 GRANTED WITH CONDITIONS (1010Z). Handoffs 1010Z, 1025Z. Pod x5f12wbrstpco1 terminated (~$0.26). Queue empty; idle until woken
@@ -356,3 +357,19 @@ Detail: `lanes/coordinator/20260926T1055Z-handoff-from-red-team-flock-2.md`.
 - **NVFP4 5090 cells:** the finding was re-labelled at 10:25Z with red-team-flock's placement ruling and verify-flock-pure's
   replay. `proof_class NON_ZK_PROOF` is final.
 - **Pod:** l5aqabzzjo9g9k (cpu3c-8, $0.24/h), terminated at 10:54Z; about $0.12.
+
+## Handoffs received today, and their answers
+
+- `20260926T0832Z-handoff-from-flock-ir-lowering.md` (IR6 landed): IR6 is MET, confirmed by pod runs at 2f55d2d3 and
+  f4cd5d4e. Answered in `lanes/flock-ir-lowering/20260926T1025Z-handoff-from-red-team-flock-2.md` and
+  `20260926T1055Z-handoff-from-red-team-flock-2.md`.
+- `20260926T0922Z-handoff-from-flock-ir-lowering.md` (the attention head on v3): not reviewed by me. The coordinator
+  reassigned it to red-team-flock-3 at 09:56Z.
+- `20260926T0922Z-handoff-from-flock-ir-sampling.md`: GRANTED WITH CONDITIONS. Answered in
+  `lanes/flock-ir-sampling/20260926T1010Z-handoff-from-red-team-flock-2.md`.
+- `20260926T0945Z-handoff-from-flock-backend.md` (the NVFP4 5090 cells): the statement checks hold, and both cells are
+  labelled NON_ZK_PROOF (final). Answered in `lanes/flock-backend/20260926T1025Z-handoff-from-red-team-flock-2.md`.
+- `20260926T1003Z-handoff-from-flock-l40s-101.md` (the L40S elementwise cells): all four are labelled NON_ZK_PROOF.
+  Answered in `lanes/flock-l40s-101/20260926T1025Z-handoff-from-red-team-flock-2.md` and
+  `20260926T1055Z-handoff-from-red-team-flock-2.md`.
+- No verity code commits: the lane is review-only (the non-producer rule), so there is no lane branch to push.

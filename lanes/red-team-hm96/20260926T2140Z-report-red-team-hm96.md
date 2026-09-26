@@ -5,6 +5,8 @@ cursor:
 
 lane: red-team-hm96 · kind: report · status: final · created: 2026-09-26T21:40Z · repo: danielreuter/verity · origin: PR #88 @ f1df809f
 
+CHECKPOINT (22:56Z) [final] PR #93 @ cd00f704: GRANT WITH CONDITIONS. C1: the Hashes lines of frame-v3 §6 and vllm-v1 §10 must
+name the SHA-256 identity and domain digests (F1). C2: Daniel decides whether E4 extends to them. #88's C1 holds. art:29dc2ccb.
 CHECKPOINT (21:40Z) [final] PR #88 @ f1df809f: GRANT WITH CONDITIONS. C1: hm96 must fail closed off the host path (F1, medium).
 C2: doc fixes (F2, F3). art:6f13f90a; `finding` labels on r20260926-204634-0958 and art:b3a08e21.
 
@@ -47,3 +49,27 @@ artifacts: art:6f13f90a1df4df8f587b98851b957414bfccd275de6ef0896b22b9321856f43d
   - `finding` by red-team-hm96 on `r20260926-204634-0958`, with ref `art:6f13f90a`;
   - the same on `art:b3a08e21`;
   - both written through to R2.
+
+## Follow-up: PR #93 (E4, SHA-512 commitments) @ cd00f704
+
+The verdict and findings are in `lanes/coordinator/20260926T2256Z-handoff-from-red-team-hm96.md`.
+
+- **Checkouts:** throwaway worktrees at `/tmp/rt93` (cd00f704) and `/tmp/rt93-base` (a53900df, main with #88's C1 and C2). CPU
+  torch went into head only, for `failclosed.py` and gkr.
+- **New scripts in `evidence/`:**
+  - `recompute_sha512.py` recomputes the three `*_sha512.json` files with no verity import;
+  - `negatives_sha512.py` attacks the reference verifiers and the vLLM gate;
+  - `failclosed.py` re-runs #88's fail-open probe.
+
+  #88's `recompute_hm96.py` and `vllm_hm96_attacks.py` were re-run for the SHA-256 regression.
+- **Handoffs received:** `lanes/red-team-hm96/20260926T2255Z-handoff-from-coordinator.md`, the #93 brief, acted on in full.
+- **Handoffs sent:** `lanes/coordinator/20260926T2256Z-handoff-from-red-team-hm96.md`.
+
+~~~text
+tip: none, review only (target cursor/sha512-commitments-18a8 @ cd00f704, base main@a53900df)        merge-with: none
+known-failures: backends/gkr/tests collection error on head and base without torch (passes on head with CPU torch)    pod: none; $0
+artifacts: art:29dc2ccbbe75c4e9bc43caa720e1636795e2ed34f81b0d1915e2572be4f7cf95
+~~~
+
+**Labels:** `finding` by red-team-hm96 on `r20260926-221723-71aa`, `r20260926-221754-0cce`, `art:b9bb217f` and `art:a7a8ccce`, all
+with ref `art:29dc2ccb` and written through to R2.

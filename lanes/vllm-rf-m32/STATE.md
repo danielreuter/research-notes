@@ -52,18 +52,23 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
   its pool; #23 305,510 refused, #67 191,020 admitted); `b7ff4737` fork_pool / die_with_parent (PDEATHSIG) in replay, VU draw, stoch
   recompute, Match legs. PR #62 (draft).
 
+- Task 4 MERGE-READY: PR #62 `lane/vllm-rf-commit-mem` 34dd3554 (+ test fix). Gates r20260926-082110-dc3a (lints rc 0; targeted head
+  246/8 vs base 240/7, the 7 pre-existing, the 8th my control test fixed) + r20260926-090444-21e3 (18 passed). Both PRESERVED.
+  Handoff 20260926T0907Z. Calibration follow-up (#4 smollm2 dense Match) not done: no #4 Match record in the store; architecture-true
+  entry predicts 64,673 MiB < the 80 GB reported, so unsound without #4's breakdown.
+
 ## Running
-- vyv-rf-m32-mem (62aprwf8xf8c80, 1x L4 host $0.49/h, GPU hidden; every cpu shape and A4000/A5000/A4500 NO-STOCK): run
-  r20260926-082110-dc3a (`evidence/mem_gate.sh`): bootstrap, lints + targeted tests at head b7ff4737, targeted at base 2ba5e62c.
+- nothing. vyv-rf-m32-mem terminated 09:06Z (all lane pods terminated).
 
 ## Next
-- Compare targeted head vs base, lints (main's known by-name failure is fixed on main by 125f9730), preserved, terminate, update PR #62,
-  handoff to vllm-coordinator, FINAL.
+- none (FINAL). Spend about $9.5 total.
 
 ## Open questions
 - none
 
 ## Found-not-fixed
+- `test_artifact_applicability_independent` (7 tests) fails on main 2ba5e62c on a CPU host.
+- planner has no smollm2-135m entry (phi3 fallback over-predicts #4's Match); #4's Match record needed to calibrate.
 - main fails `test_no_by_name_rules::test_every_by_name_rule_is_allowlisted` (vu_export.py:478/481 verify_set path predicates not allowlisted).
 - `test_native_jit_keying::test_pod_release_fails_closed_...` needs `tests/sweep/pod_release.sh`, which is absent (fails at base and head).
 - Gate scripts that set their own PYTHONPATH miss `protocols/sampled_proofs` on post-#29 trees (gate (a) fails at collection).

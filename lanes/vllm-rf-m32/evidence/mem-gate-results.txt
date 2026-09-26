@@ -1,0 +1,30 @@
+bootstrap rc=0 2026-09-26T08:22:35Z BOOTSTRAP-OK
+pins rc=0
+head clone vs shipped: 0 differing
+head @ b7ff4737: verity_sampled_proofs importable
+lints head rc=0 ...............................................                          [100%]
+targeted head rc=1 8 failed, 246 passed, 15 skipped in 105.18s (0:01:45)
+base @ 2ba5e62c: verity_sampled_proofs importable
+targeted base rc=1 7 failed, 240 passed, 15 skipped in 93.10s (0:01:33)
+done 2026-09-26T08:26:35Z
+# FAILED head
+FAILED integrations/vllm/tests/check/test_fork_pool.py::test_a_plain_fork_pool_orphans_its_workers
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_v_program_digest_unchanged_by_the_patch
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_i_b_mutating_the_applied_capability_changes_the_manifest[verity_vllm/program/frontend/target_profile.py]
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_i_c_artifact_identity_distinguishes_targets_even_when_digests_are_equal
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_a_capability_9_0_declared_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_b_target_8_0_with_108_sms_declared_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_c_num_sms_repinned_132_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iii_two_hosts_same_profile_same_identity
+# FAILED base
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_v_program_digest_unchanged_by_the_patch
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_i_b_mutating_the_applied_capability_changes_the_manifest[verity_vllm/program/frontend/target_profile.py]
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_i_c_artifact_identity_distinguishes_targets_even_when_digests_are_equal
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_a_capability_9_0_declared_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_b_target_8_0_with_108_sms_declared_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_ii_c_num_sms_repinned_132_consistently
+FAILED integrations/vllm/tests/program/test_artifact_applicability_independent.py::test_iii_two_hosts_same_profile_same_identity
+# rerun r20260926-090444-21e3 at 34dd3554
+clone vs shipped: 0 differing
+34dd3554: verity_sampled_proofs importable
+tests rc=0 ============================= 18 passed in 14.78s ==============================

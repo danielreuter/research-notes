@@ -5,6 +5,7 @@ created: 2026-09-26T08:06Z
 status: final
 ---
 
+CHECKPOINT 508e6e74 (13:36Z) [final] FINAL: L40S route (a) cells for #101 registered on the L40S line: art:e1a2dfc3 (K=2048, 2048 VUs, 326 VU/s, US-NC-1 L40S + H200 verifier) and art:7a0d186b (K=8192, 512 VUs, 74.7 VU/s, US-TX-4 two L40S machines); pods terminated ~13:31Z; ~$3.5 of $6; branch cursor/agkr-l40s-101-f806 @ 508e6e74 NOT on origin (GitHub refuses the token): evidence/agkr-l40s-101-f806-508e6e74.bundle; handoffs 1335Z to red-team-flock, verify-flock-pure, coordinator (merge from the bundle)
 CHECKPOINT 508e6e74 (13:35Z) [final] FINAL: L40S route (a) cells for #101 registered on the L40S line: art:e1a2dfc3 (K=2048, 2048 VUs, 326 VU/s, US-NC-1 L40S + H200 verifier) and art:7a0d186b (K=8192, 512 VUs, 74.7 VU/s, US-TX-4 two L40S machines); pods terminated ~13:31Z; ~$3.5 of $6; branch cursor/agkr-l40s-101-f806 @ 508e6e74 NOT on origin (GitHub refuses the token): evidence/agkr-l40s-101-f806-508e6e74.bundle; handoffs 1335Z to red-team-flock, verify-flock-pure, coordinator (merge from the bundle)
 CHECKPOINT 508e6e74 (13:30Z) [open] cell runs done (k2048); pods drained and terminated
 CHECKPOINT 47dcd5a4 (13:11Z) [open] WAITING K=2048 cell: ver r20260926-131059-cac0 on vy-agkr-l40s-ver, prover r20260926-131112-09d3 on vy-agkr-l40s
@@ -159,6 +160,9 @@ verification.
   961d0667.
 - **Handoffs sent:** `20260926T1335Z-handoff-from-agkr-real-k.md` to red-team-flock (a review of the L40S line), verify-flock-pure
   (the replays) and the coordinator (the merge request, from the bundle).
+- **Handoffs received:** `20260926T1110Z-handoff-from-coordinator.md` (the pause lifted; keep each run within its budget and
+  terminate pods as each run finishes). Followed: the L40S goal cost about $3.5 of its $6, and each pair was drained and
+  terminated when its sweep ended.
 
 ## FINAL
 

@@ -4,7 +4,7 @@ an R550 host refuses the 13.3 compat libcuda) and a verifier next to it. Refuses
 it afterwards with `research pods register NAME --pod-id ID --project verity --guard N`.
 
     python create-pod.py NAME --gpu "NVIDIA L40S" [--gpu ...] [--cloud COMMUNITY|SECURE] [--country SE] [--dc US-MO-1]
-                         [--cuda 12.8 --cuda 12.9 --cuda 13.0] [--port 7400] [--min-vcpu 8]"""
+                         [--cuda 12.8 --cuda 12.9 --cuda 13.0] [--port 7400] [--min-vcpu 8] [--global-net]"""
 import argparse
 import json
 import sys
@@ -21,6 +21,7 @@ ap.add_argument("--cuda", action="append", default=[])
 ap.add_argument("--port", action="append", type=int, default=[])
 ap.add_argument("--min-vcpu", type=int, default=8)
 ap.add_argument("--disk", type=int, default=100)
+ap.add_argument("--global-net", action="store_true", help="RunPod global networking (<pod id>.runpod.internal between pods)")
 a = ap.parse_args()
 full = f"{a.name}-veritor-campaign"
 live = [p for p in runpod._request("GET", "/pods") or [] if p.get("name") == full and p.get("desiredStatus") != "TERMINATED"]
@@ -35,8 +36,10 @@ if a.dc:
     body["dataCenterIds"] = a.dc
 if a.cuda:
     body["allowedCudaVersions"] = a.cuda
+if a.global_net:
+    body["globalNetworking"] = True
 try:
     pod = runpod._request("POST", "/pods", body)
 except runpod.PodError as e:
     sys.exit(f"create failed: {e}")
-print(json.dumps({k: pod.get(k) for k in ("id", "name", "costPerHr", "publicIp", "vcpuCount", "machine")}))
+print(json.dumps({k: pod.get(k) for k in ("id", "name", "costPerHr", "publicIp", "vcpuCount", "machine", "globalNetworking")}))

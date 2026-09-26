@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT d3bd9814 (05:40Z) [open] WAITING r20260926-053944-5195 (prover) + r20260926-053921-983f (verifier) on vy-flock-ir-lowering-h100c/-ver, RoPE frame-v3 cell re-run with open-connection Ping RTT (d3bd9814), check after 05:47Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f; next: cell check+register rope, then SiLU re-run (first SiLU run r20260926-052838-b3b3 passes check at 13.6 rows/s x 8192 elems)
 CHECKPOINT 45880426 (05:24Z) [open] WAITING r20260926-052245-de4a (verifier) r20260926-052323-3aea (prover) on vy-flock-ir-lowering-h100c/-ver (EUR-IS-3), check after 05:45Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f; next: register the rope cell, then the silu cell on the same pods
 CHECKPOINT ad027ea7 (05:13Z) [open] IR3 statement verity/flock-ir-frame/v1 CPU selftest 13/13 rope+silu @ ad027ea7; next: cell harness (ir_bench sweep, driver dispatch, contract for non-GEMM) then H100 cells
 CHECKPOINT 34d02ae3 (05:02Z) [open] IR1+IR2 fixed @ 34d02ae3: Rust verifier evaluates the native tail (ir_tail, pinned MUFU tables) and refuses unaccounted cuts; check_staged; 4 new negatives all pass (evidence 20260926T0510Z-ir1-ir2-selftests.txt); RMSNorm review request sent to red-team-flock-2 (20260926T0502Z); next: IR3 frame-v3 binding (verity/flock-ir-frame/v1, draft ir_frame.py uncommitted) then cells; no pods up

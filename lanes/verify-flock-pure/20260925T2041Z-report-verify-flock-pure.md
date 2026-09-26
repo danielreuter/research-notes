@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (14:11Z) [final] FINAL: 16 attention cells + #101 GEMM 73a9e9f3 + 6 elementwise verified=accepted (file re-verification); pod terminated 14:11Z; ~$0.35; class cells c1-c3 await a reopening
 CHECKPOINT 787ac154 (13:45Z) [open] attention 16/16 + 73a9e9f3 labelled (handoff 1345Z). Elementwise rerun r20260926-134443-d51e (e1f47264; first run 3a8f failed in staging: Namespace lacked template, fixed); labels after red-team-flock-2
 CHECKPOINT 787ac154 (13:27Z) [open] attention 12/16 labelled; queued: g101 art:73a9e9f3 r20260926-132002-2736 (a8ce768a), then 6 elementwise r20260926-132617-3a8f (lane/verify-flock-a8ce 9623e555 = a8ce768a + replay), labels after red-team-flock-2
 CHECKPOINT 787ac154 (13:07Z) [open] attention: 3 of 16 labelled; run1 r20260926-125610-f2a9 (8 registered T), run2 r20260926-130557-516c queued behind it (T=4,128-132,256,257: 08a853f6 73bd2c2b d5b0ae9f 3117572d 645a8359 d18e0ae3 ccede46a 73750ffa); all 16 plateau proofs = recorded
@@ -82,3 +83,4 @@ Reopened 10:08Z-10:52Z: L40S #101 cells df3d63e4 8bc3dba2 dc9b92f6 6dc1f392 d1ae
 20260926T1026Z-handoff-from-agkr-real-k.md (re-sweep cells a0ca8ef6/a979dfcb + A-fs 7ae6c190/0e1095f3 for replay): dropped per coordinator 10:48Z (red-team-flock rebuilt and gated the re-sweeps; A-fs are diagnostics).
 
 Reopened 11:34Z-12:32Z (20260926T1140Z-handoff-from-flock-backend.md): per-workload GEMM cells d9a40cd4 8b5a0bf1 2e5ea606 4e3f5048 aea553ae 86780ca6 4a319a65 89dab836 verified=accepted (r20260926-114049-edf0, r20260926-122145-c586); sent coordinator 20260926T1232Z. Pod 5nin7m601u6fdc terminated 12:31Z; lane total ~$5.3.
+Reopened 12:49Z-14:13Z: 16 L40S attention cells (r20260926-125610-f2a9, r20260926-130557-516c; lane/verify-flock-attn 4bdee726), #101 GEMM art:73a9e9f3 (r20260926-132002-2736, a8ce768a), 6 elementwise ba046ee8 6f8219df d3be6792 a7a31593 27a119c9 bd1b1770 (r20260926-134443-d51e; lane/verify-flock-a8ce e1f47264) verified=accepted; sent coordinator 20260926T1345Z, 20260926T1413Z. 20260926T1233Z-handoff-from-flock-l40s-101.md (art:73a9e9f3) acted on; 20260926T1340Z-handoff-from-flock-ir-lowering.md (class cells c1-c3) not in this assignment: awaits a reopening. Pod 0esosgqno3wm2v terminated 14:11Z; lane total ~$5.7.

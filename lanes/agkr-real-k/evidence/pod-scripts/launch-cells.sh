@@ -23,8 +23,10 @@ say() { echo "##### $(date -u +%H:%M:%SZ) $*"; }
 ck() { $R notes checkpoint $LANE open "$*" | tail -1; }
 
 # ---- pods ---------------------------------------------------------------------------------------------------------------------
+live() { $R pods list 2>/dev/null | grep -q " $1-"; }     # a live pod of that name (research names pods <name>-<campaign>)
 DC=""
-for dc in ${DCS:-US-MD-1 US-KS-2 US-TX-3 CA-MTL-1 EU-RO-1 EUR-IS-1}; do
+if live $P; then DC=${DC_ADOPT:-US-MD-1}; say "adopting the live $P (DC $DC; register it first if the registry lost it)"; fi
+[ -n "$DC" ] || for dc in ${DCS:-US-MD-1 US-KS-2 US-TX-3 CA-MTL-1 EU-RO-1 EUR-IS-1}; do
   say "prover A100 in $dc"
   $R pods create --name $P --gpu "NVIDIA A100-SXM4-80GB" --cloud SECURE --data-center $dc --disk 150 --register --project verity \
     --guard 45 > /tmp/$LANE-create-p.log 2>&1
@@ -32,7 +34,8 @@ for dc in ${DCS:-US-MD-1 US-KS-2 US-TX-3 CA-MTL-1 EU-RO-1 EUR-IS-1}; do
   tail -1 /tmp/$LANE-create-p.log
 done
 [ -n "$DC" ] || { echo "no A100-SXM4-80GB in ${DCS:-the list}"; exit 5; }
-for spec in "cpu3c 16" "cpu5c 16" "cpu3c 8" "cpu3g 16" "cpu5g 16" "gpu NVIDIA A100-SXM4-80GB"; do
+live $V && echo "REGISTERED (adopted live $V)" > /tmp/$LANE-create-v.log
+live $V || for spec in "cpu3c 16" "cpu5c 16" "cpu3c 8" "cpu3g 16" "cpu5g 16" "gpu NVIDIA A100-SXM4-80GB"; do
   set -- $spec
   if [ $1 = gpu ]; then shift; A=(--gpu "$*" --cloud SECURE); else A=(--cpu $1 --vcpu $2); fi
   say "verifier ${A[*]} in $DC"

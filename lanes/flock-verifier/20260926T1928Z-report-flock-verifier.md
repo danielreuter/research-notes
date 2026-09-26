@@ -78,3 +78,45 @@ vectors at the tip. (2) from_record fails on every circuit-statement record (pub
 (lanes/flock-soundness/20260926T2111Z-handoff-from-flock-verifier.md).
 
 Cost: $0 (no pod; this VM, 4 CPUs). Setup 21 s once, honest session 32 s.
+
+# flock-verifier: phase 2 continued (23:25Z)
+
+**Parameters.** The statement's byte tags (`Flock.Tags`) cover PR #83's `9294e161`, `19c7269a` and the final format
+`fd02e847`, where META `leaf_scheme` is a pinned object. The in-circuit row leaf (`Flock.RowLeaf`: keyed BLAKE3 today) is a
+parameter, and so is the proof's Merkle scheme (`Flock.MerkleScheme`: SHA-256, or SHA-512 with 64-byte siblings).
+Halevi–Micali leaves are generic over the hash (`Flock.Hm96`; checked on PR #88's `hm96-sha256/v1` vectors). SHA-512 is
+FIPS 180-4, tested on 263 lengths. Retained round bytes (`rounds[k].msg`) are compared exactly at replay. The Lean
+toolchain moved to v4.34.0, the flock-soundness package's Mathlib/ArkLib pin.
+
+**Lookup slots.** `Flock.Lookup` builds them from the pinned MUFU tables. The product rows' B side (about 130M entries
+per slot) is folded from the table. RMSNorm Triton n128 (rcp and sqrt lookups, 3 tail stages, wires) is accepted, and its
+R-BREAK rejected.
+
+**Agreement with upstream (Lean vs PR #83's binary):**
+
+| set | result | evidence |
+|---|---|---|
+| RoPE at `19c7269a` | 25/25 | art:81645236 |
+| RoPE at `fd02e847` (with retained bytes) | 27/27 | art:78ef0a6e |
+| RMSNorm at `fd02e847` | 27/27 | art:f1fd1488 |
+| selftest forgeries, RoPE | 14/14 | art:d306dfbd |
+| selftest forgeries, RMSNorm | 15/15 | art:7a526bff |
+| first fuzz run (seed 20260926, 40 cases) | 43/43 | art:c2662de3 |
+
+The fuzz run found intended divergence D3: upstream's `from_record` ignores `link.sigma`, and the Lean verifier rejects a
+flipped one at S4. D4 is the retained bytes. Both are in PROTOCOL.md §17.1. `ci.py` is the agreement job over every
+replayable set; `fuzz.py` and `redigest.py --retain` feed it.
+
+**Level 3.** The plan follows a16z's stages (`note:20260926T2215Z-draft-level3-plan`, PROTOCOL.md §17.4). Proved in
+`lean/FlockProofs`, on the standard axioms only, enforced by a test:
+- `merkle_binding`, for any Merkle scheme;
+- `squeeze_answers` and `squeeze_retained`, for session binding.
+
+The flock-soundness lane's package (`lean/soundness`, ArkLib) models the verifier through an `Arith` seam. Stage 2 is my
+refinement of it; I proposed this in a handoff.
+
+**Open.**
+- The target statement's SHA-512 tags, `HashKind` and the HM96 leaf layout wait on PR #83; handoff sent.
+- L3-F (field, with Mathlib in the soundness package), L3-A, and L3-L (lowering checkers).
+- The legacy module.
+- A recorded `research run` of `ci.py`.

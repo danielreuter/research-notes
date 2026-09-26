@@ -25,21 +25,32 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 - Mint 22:40:00Z on the VM: TTL 3h, object-read-only, prefixes manifests/ + objects/sha256/, piped to vyv-rf-m32-reg
   /root/r2ro.env (0600). Prefetch 26 ok / 0 fail; key deleted 22:47:08Z (prefetch trap).
 
+- Gate (a) on main 5f8d8789 CONFIRMED: r20260925-224745-e739 rc 0, 73 passed / 85 skipped (158), = a23b's base; only the #70/#75
+  skip rewordings. PRESERVED (both runs). CONFIRM handoff 20260926T0315Z sent.
+
+## Task 3: admission fix 89cd9d1a -> main (coordinator handoff 20260926T0315Z, $3, deadline 08:00Z)
+- Branch `lane/vllm-rf-admit` = origin/main `7289e3ad` + `git cherry-pick -x 89cd9d1a` -> `7b9558b7` (pushed). Conflict only in
+  p10_size.json: commit.py `main` cap set to the merged size 1770 (main had 1776; the fix shrinks main by 6); module stays 2939.
+  The cherry-picked message still says "1913 -> 1907" (epoch-branch numbers; no amend).
+- vyv-rf-m32-reg was already terminated; every cpu3g/cpu3m/cpu3c/cpu5* shape returned "no instances available", so the gate pod is
+  vyv-rf-m32-admit = RunPod lq6wt0cak7uhxx, 1x RTX A4000 host ($0.25/h, 128 cpus, 503 GB), GPU hidden (CUDA_VISIBLE_DEVICES=-1).
+
+- Base r20260926-031830-2411 (7289e3ad) done: lints rc 1 (pre-existing on main: test_no_by_name_rules, vu_export.py:478/481
+  path predicates), gate (b) 30 failed / 3801 passed / 286 skipped / 6 xfailed in 1981 s. sampled_proofs importable.
+- Head 7b9558b7 lints added 2 failures from the cherry-pick: P7 stale broad-except entry (commit.py main) and P11 doc-round
+  (`[moe R17-1]` in admission_lag's docstring). Fixed in `02b3be03` (docstring tag dropped, P7 entry deleted; no allowlist grows).
+
 ## Running
-- vyv-rf-m32-reg (fjr66whubb8kn8, cpu3m 32 vCPU / 256 GB cgroup, 250 GB, guard 90). r20260925-224008-395b: bootstrap + prefetch
-  ok, gate (a) died at collection (no protocols/sampled_proofs on PYTHONPATH; test_check_lifts). Restart r20260925-224745-e739
-  (`evidence/reg_gate_a2.sh`: path added, import check printed OK, no key on pod, 158 collected) from 22:47:52Z.
-  01:05Z: 82/158 (~48% of a23b's time), host load ~570, ~2.7x slow; ETA ~03:40Z, past the 03:00Z pod deadline
-  (DEADLINE handoff 20260926T0110Z asks a guard extension to 04:30Z).
-- Coordinator 2255Z checks: gate (b) had sampled_proofs on PYTHONPATH (4072/4080 collected, test_sampled_replay present, 11
-  errors); gate (a) restart has it (addendum handoff 20260925T2252Z).
+- vyv-rf-m32-admit: head r20260926-031940-f369 (7b9558b7) done 04:30Z (32 failed = base 30 + the 2 lint tests). head2 r20260926-041141-1cd3
+  (02b3be03): lints done 04:31Z = base (only the pre-existing by-name failure); gate (b) since 04:31Z, ETA ~05:05Z.
 
 ## Next
-- On finish: key-deletion time into a checkpoint, compare (expect only the #70/#75 skip rewordings), preserved, terminate,
-  "CONFIRM gate (a) on main 5f8d8789" handoff, final checkpoint.
+- jdiff base vs head2 (+ f369), test_admission_commit passes, lints = base's single pre-existing failure, preserved (3 runs),
+  terminate, merge-ready handoff, FINAL.
 
 ## Open questions
 - none
 
 ## Found-not-fixed
-- none
+- `test_native_jit_keying::test_pod_release_fails_closed_...` needs `tests/sweep/pod_release.sh`, which is absent (fails at base and head).
+- Gate scripts that set their own PYTHONPATH miss `protocols/sampled_proofs` on post-#29 trees (gate (a) fails at collection).

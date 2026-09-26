@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT df14f53b (17:12Z) [open] goal 2 done: attention T=1..287 on L40S in class cells c1 art:4fb2de9c (T1-128), c2 art:b61eafa9 (T129-256), c3 art:4dd2069b (T257-287); c1/c3 NON_ZK_PROOF (red-team-flock-3), c2 review+replay going on; duplicate registration fixed at source (df14f53b: run result.json is bench-point/v1) and all 34 runner copies labelled superseded_by their cells; all pods terminated (pair b by API after verifying all 8 attempts preserved: drain/unpreserved hung >10 min in custody refresh); PR #76; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 8ef6d347 (16:22Z) [open] BUSY pair b: c2 r20260926-153234-eeb6 at 115+/128, ETA 16:32Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 8ef6d347 (16:05Z) [open] BUSY pair b: c2 r20260926-153234-eeb6 at 70+/128, ETA 16:30Z; c1/c3 labelled NON_ZK_PROOF by red-team-flock-3 (FINAL); agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 8ef6d347 (15:49Z) [open] BUSY pair b: c2 r20260926-153234-eeb6 proving, ETA 16:20Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f

@@ -5,6 +5,7 @@ created: 2026-09-26T08:06Z
 status: open
 ---
 
+CHECKPOINT 9cbfdcf2 (10:13Z) [open] WAITING K=8192 cell: ver r20260926-101258-e284 on vy-agkr-real-k-ver, prover r20260926-101301-8697 on vy-agkr-real-k-a100
 CHECKPOINT 9cbfdcf2 (09:50Z) [open] WAITING K=2048 cell: ver r20260926-095014-2234 on vy-agkr-real-k-ver, prover r20260926-095028-c0bd on vy-agkr-real-k-a100
 CHECKPOINT 9cbfdcf2 (09:50Z) [open] pause lifted: pods vy-agkr-real-k-a100 + vy-agkr-real-k-ver in US-MD-1 (verifier 154.54.102.48:18847, sshd 18846); launching: k2048 k8192 afs
 CHECKPOINT 40f6ad69 (09:45Z) [open] pause lifted (coordinator 0935Z): launching launch-cells.sh (k2048 re-sweep with the scatter_terms fix, k8192 re-sweep GATE=0, A-fs both sets) on tip 40f6ad69; budget ~$5

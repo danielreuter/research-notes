@@ -1,0 +1,21 @@
+{
+ "what": "NVFP4 GEMM coordinate input sets for flock-backend's 5090 cells (generate --suite nvfp4 --seed 20260926); verify 0 mismatches; prefix-identical; y == models.BLACKWELL_SM120_NVF4.chain on 392 checked",
+ "sets": [
+  {
+   "set": "gemm-coordinate-sm120-nvf4-k1536",
+   "subcircuit": "gemm-coordinate/k1536/sm120-mma-e2m1-nvf4",
+   "n": 8192,
+   "art": "art:49e2d902cdd993773ac7a4b47ba827147f78d4a0ccc206ffd6845bf03bb45acc",
+   "content_digest": "467d93c5186ccf4602e7feec3a07c21abb40da4cbf08f93fed75a28bc724d2ad",
+   "bytes": 27372091
+  },
+  {
+   "set": "gemm-coordinate-sm120-nvf4-k1536",
+   "subcircuit": "gemm-coordinate/k1536/sm120-mma-e2m1-nvf4",
+   "n": 16384,
+   "art": "art:160a53a0b7e77aca33a6575bc88d37d7d9c7fe78df49abccb5f5ef7bf251164e",
+   "content_digest": "83f825b580f200fb21269b906f697caece61ab7c1f69bdfd2afcb7278b147c39",
+   "bytes": 54762523
+  }
+ ]
+}

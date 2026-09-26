@@ -1,0 +1,468 @@
+{
+ "what": "one synthetic input set per census-bound subcircuit of vLLM rows #39, #57, #60, #67, #73, #74 (generate --suite workloads --seed 20260926), plus the renormalising router; input-set/v1, preserved; generated on the lane VM",
+ "code": "cursor/bench-spine-all-templates-5777 @ 7df9d05c",
+ "versions": {
+  "git_head": "d5e3c7bec3c23a920920650bcb5fc41cd494df74",
+  "python": "3.12.3",
+  "numpy": "2.5.3"
+ },
+ "sets": [
+  {
+   "set": "attention-head-hopper-bf16-wgmma-fa3invsum_v1-d128-bn128",
+   "subcircuit": "attention-head/d128-bn128/sm90-fa3-bf16",
+   "n": 128,
+   "art": "art:ca51b9f81d3adbffe37b9da3f095d5cdadd98a06e1aefe14aa16fac1a117a45a",
+   "content_digest": "6600d9f498f2ebef104e38a7b053015ad9b9ee789b33e7d01beddba1bb441ed8",
+   "bytes": 38845298,
+   "draws": 128,
+   "rejected": 0
+  },
+  {
+   "set": "attention-head-fa2-d128-bn64",
+   "subcircuit": "attention-head/d128-bn64/sm80-fa2-bf16",
+   "n": 128,
+   "art": "art:fcc962920d12f3867edc23e32de52e3c0bac9429e30f8535a34e101beab51d75",
+   "content_digest": "b550a573c75ed7df0d26676e8678da6bbda5faab226e9c42c8cdcdc0e9f93c18",
+   "bytes": 152669111,
+   "draws": 128,
+   "rejected": 0
+  },
+  {
+   "set": "bf16mulscalartensor-v1-n2304",
+   "subcircuit": "bf16-mul-scalar/n2304/bf16",
+   "n": 1024,
+   "art": "art:47959874a5b2df6aa5323d27eef03d4fa031ce0efcc52ddd4009d53eacda36d8",
+   "content_digest": "5382962740906b3e1d47eafed72d111a376a39b845ceb9194ed1fdb46826fbf9",
+   "bytes": 9508341,
+   "draws": 1024,
+   "rejected": 0
+  },
+  {
+   "set": "biasadd-v1-n2048",
+   "subcircuit": "bias-add/n2048/bf16",
+   "n": 1024,
+   "art": "art:682d1522ea5dd617f65d7047282902703dd65adb2824babf7fa9514211b683ac",
+   "content_digest": "7effa26137363f6b6a584e1c045a1967737de64771e2dbb5892e71e7cf9298ed",
+   "bytes": 12652046,
+   "draws": 1024,
+   "rejected": 0
+  },
+  {
+   "set": "embedding-v1-h1536-v151936",
+   "subcircuit": "embedding-row/v151936-h1536/bf16",
+   "n": 16,
+   "art": "art:ec91a8ac0c59ef787f77545e9fdccb945ee6017b4cee96cab08b85be94ccadc2",
+   "content_digest": "778dff34a723ac7609819ee44422b578997341d3444434c7f27a59fd7b1cf022",
+   "bytes": 99549,
+   "draws": 16,
+   "rejected": 0
+  },
+  {
+   "set": "embedding-v1-h2560-v151936",
+   "subcircuit": "embedding-row/v151936-h2560/bf16",
+   "n": 16,
+   "art": "art:4c47c55ba770ae233b35bfee2d4a34b402dec3ce2d06d7d5591ecbcb195a7b31",
+   "content_digest": "db41400907738c6ef29e739e43670d9d5d998d3aa659172b06b6850837b378ea",
+   "bytes": 165085,
+   "draws": 16,
+   "rejected": 0
+  },
+  {
+   "set": "embedding-v1-h2304-v256000",
+   "subcircuit": "embedding-row/v256000-h2304/bf16",
+   "n": 16,
+   "art": "art:b5985d5fb08aec7f90cf5ec1114f5c85ae9412c0f25c79460a8fb4d3f8f07f4f",
+   "content_digest": "5c6efdbe4611cfe4b956951f6f06887cd946d2974dcbe1f8dc7977aeeb124238",
+   "bytes": 148701,
+   "draws": 16,
+   "rejected": 0
+  },
+  {
+   "set": "embedding-v1-h4096-v32768",
+   "subcircuit": "embedding-row/v32768-h4096/bf16",
+   "n": 16,
+   "art": "art:3a8eae434327cce4f898d9c975a9de4bae6986b0229dfb43e0225908f02e7545",
+   "content_digest": "62182e01e2456889b0ccdea7de62b67044d8e80be0aed1405217af5f85d5df50",
+   "bytes": 263388,
+   "draws": 16,
+   "rejected": 0
+  },
+  {
+   "set": "embedding-v1-h2048-v50304",
+   "subcircuit": "embedding-row/v50304-h2048/bf16",
+   "n": 16,
+   "art": "art:f583f7d372e2a3b2c2e1bd992f376aa960fed0c36192591418c819a2e1c7bb7e",
+   "content_digest": "03fabee82c4549101f4e544d6001d19ee8dc2eae158fc82e2a2785ee66bfc132",
+   "bytes": 132316,
+   "draws": 16,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k14336",
+   "subcircuit": "gemm-coordinate/k14336/sm80-mma-bf16",
+   "n": 2048,
+   "art": "art:762f59238f7675e6d6b9a7d953fcea98d201cef83ed78856ac9401c74238738e",
+   "content_digest": "89c6a11c07a1d752ebc1b944d56c07c6a69095c4c1196e25ab8d35fb02b30f43",
+   "bytes": 117623120,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k1536",
+   "subcircuit": "gemm-coordinate/k1536/sm80-mma-bf16",
+   "n": 2048,
+   "art": "art:dbaacc6f61b0f9f7285e56c09994b273904243d1983058bb37e69c1338420b54",
+   "content_digest": "729e88570ba01effe2038674717111a220147f4e6eb0efa06ae59c8a7fa79ac7",
+   "bytes": 12765696,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k2048",
+   "subcircuit": "gemm-coordinate/k2048/sm80-mma-bf16",
+   "n": 2048,
+   "art": "art:69cb815c31b06425e7117ee6e4b43403c8cfb8d28f747f9bde79a18f63a0646e",
+   "content_digest": "ac9ca4f882675090d2e651223e6904c14a8131ed6411f97a3eea69c28ee74eb3",
+   "bytes": 16959973,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k2304",
+   "subcircuit": "gemm-coordinate/k2304/sm80-mma-bf16",
+   "n": 2048,
+   "art": "art:4f60228c9fbcc9367cdcb8b052d5afd956f1e9a3ff90e5c31a1606cfb4723e0f",
+   "content_digest": "416661f34fdc0a7c1887686b8149e66153baff0682863d4bad85aafaf56b09c9",
+   "bytes": 19057186,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-bf16-wgmma-k2560",
+   "subcircuit": "gemm-coordinate/k2560/sm90-wgmma-bf16",
+   "n": 2048,
+   "art": "art:01326d5b13004ba3e06cf9177f390848fc9042c4e7386d9a3399e70132dd0098",
+   "content_digest": "6f8c27823f5abd7fc3fa3b65316f24b81275aa713a1b8d38a2c1f498f75fad3b",
+   "bytes": 21154023,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k4096",
+   "subcircuit": "gemm-coordinate/k4096/sm80-mma-bf16",
+   "n": 2048,
+   "art": "art:bfed17304406e29217b10fbd944bce13ef8e4f023542b7e005a3bbfe4eccfa4f",
+   "content_digest": "50d31e1c817df7fb78f2d359a764cf9838c05a1fb487fb69fa4a5dcf920c7438",
+   "bytes": 33737132,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-bf16-wgmma-k4096",
+   "subcircuit": "gemm-coordinate/k4096/sm90-wgmma-bf16",
+   "n": 2048,
+   "art": "art:cdc7b5ebad6a1da4ce35e811c0ee21d81ab4bbc956a24f399e206496b088509e",
+   "content_digest": "c2fffd6a89dda8275d40756a111e37c7ec283bf4a19d4cba96ce6178e82ff3a0",
+   "bytes": 33737328,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k8960",
+   "subcircuit": "gemm-coordinate/k8960/sm80-mma-bf16",
+   "n": 2048,
+   "art": "art:0552b63f5df366869c6aa188da2f4a008dc3088e3b79d1b73233c8a5b6b34973",
+   "content_digest": "4fb851e8c64d7a88bfc623d13b21dd9f1d210bd07f86b55baa83f2a0aac5aca4",
+   "bytes": 73582935,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k9216",
+   "subcircuit": "gemm-coordinate/k9216/sm80-mma-bf16",
+   "n": 2048,
+   "art": "art:c6237f08127239fd9e545e8cc5c6193c9c6a2aa621013dc377ac96b7912d04cb",
+   "content_digest": "aa5c03452e45aa2fea70f65bc0206b83a8179490bba038f18f61d124228bbd7d",
+   "bytes": 75680167,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-bf16-wgmma-k9728",
+   "subcircuit": "gemm-coordinate/k9728/sm90-wgmma-bf16",
+   "n": 2048,
+   "art": "art:8ab7c2da71562146f36112930fd1b71684da7ad791bf61c5c519ca13a12bf59a",
+   "content_digest": "ab90de0f31315cd4b208d030911ab9a962758b55c3b874420bb955ecc4f1585d",
+   "bytes": 79874311,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "moe-expert-coordinate-weighted-e64-k1024",
+   "subcircuit": "moe-expert-coordinate-weighted/e64-k1024/bf16",
+   "n": 2048,
+   "art": "art:f5a640ca202e930727936321ba084629e78650f6b6014fd39776e9fd2bde5ba4",
+   "content_digest": "ad17e45ffe1d88f1646a2c5fed8cf67da9f02c8d5990aaa66262e6451318e5be",
+   "bytes": 8587589,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "moe-expert-coordinate-e64-k2048",
+   "subcircuit": "moe-expert-coordinate/e64-k2048/bf16",
+   "n": 2048,
+   "art": "art:2279cf0b28a62ec566f7771d1ded6f1c1963fe979fc57d05914e3f7146074a82",
+   "content_digest": "8cf1400f38938e043600a354fe97e13ac77bb0c2c07d7458b113fb7fc21e09bc",
+   "bytes": 16968031,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "moeroutertopk-v1-e64-topk8-vpt8",
+   "subcircuit": "moe-router-topk/e64-topk8-vpt8/bf16",
+   "n": 4096,
+   "art": "art:d40522497dfe69854b948dbf1cc31ac48dd34f9f19014ac9cdd67eb4a2d06477",
+   "content_digest": "c3a91a39e1843cd9fdeed3d90dbe45d459fcd0e0348acbc1fa4b5e64a001cf86",
+   "bytes": 1067002,
+   "draws": 4096,
+   "rejected": 0
+  },
+  {
+   "set": "moesum-v1-h2048-topk8",
+   "subcircuit": "moe-sum/topk8-h2048/bf16",
+   "n": 1024,
+   "art": "art:640f58ad37705ff6a07c99c3ca831a03fcc152d7dfbc91d16e5d05692a9b9354",
+   "content_digest": "9122d12dcfcc2f9325c63bc5f997da949ddf92ead9de8f38aa2821b58f47300c",
+   "bytes": 37817328,
+   "draws": 1024,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n1536-af033300",
+   "subcircuit": "rmsnorm-fused-cuda/n1536-eps1e-06/bf16",
+   "n": 256,
+   "art": "art:a44830e642fff7d5564fb5f367638ddeaee5aa6d7480c3164b80065120ed313e",
+   "content_digest": "dd08e1cb68eb9b6cd85b0f3b485a4ef858c34375e760cfcf7646aa6979d7a7a6",
+   "bytes": 3949389,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n2048-00e4e4aa",
+   "subcircuit": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16",
+   "n": 256,
+   "art": "art:be9bb50a59939f3523c92a22ce6bb09bd6d137879bd8dac3fc61f5ca9ccaff33",
+   "content_digest": "c850dc68e4d7fa33e9a9778b7fb7394ab0b7a6a3faa38f4e793956bf183b771f",
+   "bytes": 5260096,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n2560-af033300",
+   "subcircuit": "rmsnorm-fused-cuda/n2560-eps1e-06/bf16",
+   "n": 256,
+   "art": "art:02c9c68ff835591bdaa5cffb8ec4c0c5bb5a6f24ce72e7034f0b9a98a7d0cb99",
+   "content_digest": "4dccc6a4277bf2cb77e24b69905b068ae6df115b015141f42abdeabb85faa230",
+   "bytes": 6570829,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n4096-00e4e4aa",
+   "subcircuit": "rmsnorm-fused-cuda/n4096-eps1e-05/bf16",
+   "n": 256,
+   "art": "art:7092d6b2612df598f3afe50aa91695d6369bad3315cbca95df2fa8fe74107786",
+   "content_digest": "97a2a6aed7bc34e7445daf89c49c2af04ee2c842779d9613a1cca29e1f41cd42",
+   "bytes": 10502985,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormtriton-v1-n128-af033300",
+   "subcircuit": "rmsnorm-triton/n128-eps1e-06/bf16",
+   "n": 256,
+   "art": "art:a5c7bd858c376c9eeefa4bceecbc817bc6a44e868d64f10d1cc2f5c8f2a70125",
+   "content_digest": "9ae46a065fd3179ceee1f01d5af80860e66e995d497a557e090b98f250a1a282",
+   "bytes": 213844,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormtriton-v1-n1536-af033300",
+   "subcircuit": "rmsnorm-triton/n1536-eps1e-06/bf16",
+   "n": 256,
+   "art": "art:8c9589fecbc9ad051e3ac4d161907efe3741a8824f0efa5b407ca081da0f9689",
+   "content_digest": "0cdd8b3a6f83b5a9bda9df8ffe7aeefd73c283dfe93c877a72fafe7de9abd4bd",
+   "bytes": 2376532,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormtriton-v1-n2048-00e4e4aa",
+   "subcircuit": "rmsnorm-triton/n2048-eps1e-05/bf16",
+   "n": 256,
+   "art": "art:ad6533073d924a846ce3d4f0e28ab374eafc344111295a85de4df21bd116b9b5",
+   "content_digest": "725f5190842f435466e786cf51d2d5b9d6ef1cfe781f150d9ae35ca1e2a9a3a9",
+   "bytes": 3162961,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormtriton-v1-n2560-af033300",
+   "subcircuit": "rmsnorm-triton/n2560-eps1e-06/bf16",
+   "n": 256,
+   "art": "art:e7a2de6bdf0e25fc6274c9958883ce56adee4fcd3a8d305588e4340fc86c4a36",
+   "content_digest": "b382e05c46b6ab134bcd7358dfcdff3a96ae98f9e4816b9766f12ecce10c3e58",
+   "bytes": 3949397,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormtriton-v1-n4096-00e4e4aa",
+   "subcircuit": "rmsnorm-triton/n4096-eps1e-05/bf16",
+   "n": 256,
+   "art": "art:d14afda2f946eb8a0d2762fbea11f031f9bbfdeac033c19686ff703dddb92edb",
+   "content_digest": "41fb776271032f571750f1ccdf62137296381c7a535a63b6db069dcd51d2d95a",
+   "bytes": 6308680,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rope-head-d128",
+   "subcircuit": "rope-head/d128/neox-bf16",
+   "n": 1024,
+   "art": "art:8ac2449fc02d46c56ffd54544b566383d2b4cc0e43d8f6c363f8829038367faa",
+   "content_digest": "95b3cfecd5ca81c875779ba759be1756932873241bea5d27c98b1d3c128b27e4",
+   "bytes": 855538,
+   "draws": 1024,
+   "rejected": 0
+  },
+  {
+   "set": "rope-head-d256",
+   "subcircuit": "rope-head/d256/neox-bf16",
+   "n": 1024,
+   "art": "art:6416f2f2bc7a180225db306092969999700a607659e4f69157188318ef5cef91",
+   "content_digest": "921ba2a27a67582bbbae2d74ed25e7df482ad7b4e1d8eb0a823482cfe8e3fd43",
+   "bytes": 1641923,
+   "draws": 1024,
+   "rejected": 0
+  },
+  {
+   "set": "scaled-mm-fp8-block-coordinate-k2560-g128",
+   "subcircuit": "scaled-mm-fp8-block-coordinate/k2560-g128/sm90-wgmma-e4m3",
+   "n": 2048,
+   "art": "art:07c512955ab6645337b10ff2dadb6ad73b78e4dc3793a40d16ea8af9ba9bb0a4",
+   "content_digest": "fe148e129ca0142f5743e27bd73812ac705c87f31c276ecafbee8594e3236ab6",
+   "bytes": 10964676,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "scaled-mm-fp8-block-coordinate-k4096-g128",
+   "subcircuit": "scaled-mm-fp8-block-coordinate/k4096-g128/sm90-wgmma-e4m3",
+   "n": 2048,
+   "art": "art:9a657d1e581f097a0c4e197d1226112bfda90812c378b160a9ad1feda06a4783",
+   "content_digest": "e2a0b219558039e37d9811c45a05bcd472c5a87282201ee54ca99b00e8cfc750",
+   "bytes": 17452740,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "scaled-mm-fp8-block-coordinate-k9728-g128",
+   "subcircuit": "scaled-mm-fp8-block-coordinate/k9728-g128/sm90-wgmma-e4m3",
+   "n": 2048,
+   "art": "art:6596236e4b6d4573276bf1628e4b683d800a18353c90c6679be693e495caf462",
+   "content_digest": "c48efcbebf3e15dfee3420e04f895b26ab5a99e41f0785ea3f0d76a1b54efb73",
+   "bytes": 41242308,
+   "draws": 2048,
+   "rejected": 0
+  },
+  {
+   "set": "silumul-v1-i1024",
+   "subcircuit": "silu-mul/i1024/bf16",
+   "n": 256,
+   "art": "art:4072b5300d18ff5440052481795c3a763c751b5a174d949f8631d33793f9d2d3",
+   "content_digest": "5b9e4d5a808ee685a62b67f9045a01fca87dd555dbbc1bea88440b3854e32c7c",
+   "bytes": 1589947,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "silumul-v1-i14336",
+   "subcircuit": "silu-mul/i14336/bf16",
+   "n": 256,
+   "art": "art:1a98fa49aac00195a0f9c5ad8522d25be074866020943ca253cec40594011a46",
+   "content_digest": "7dc35cd32d21aba9eefae9fdc3d6bc85f6bab6a592f941c07f8b177f3648d000",
+   "bytes": 22037180,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "silumul-v1-i8960",
+   "subcircuit": "silu-mul/i8960/bf16",
+   "n": 256,
+   "art": "art:f94528a05313770a3e8f4fc7bc60369fd27a1c73565df39a8a6128c82c84c075",
+   "content_digest": "45d10b9d373f89a8f8a7a2a80c84b7e4a0f79be6c0bcec53821b78887ba6699a",
+   "bytes": 13779643,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "silumul-v1-i9728",
+   "subcircuit": "silu-mul/i9728/bf16",
+   "n": 256,
+   "art": "art:049bedba5b608a4da9885296f869f0ad8559a5a92152e9574a82047ea976d1e0",
+   "content_digest": "ad20711a2ee847d7c98356cc7ab96b39efd1547b793ce285fefa76b2a2a85546",
+   "bytes": 14959291,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "tokenselect-v1-v151936",
+   "subcircuit": "token-select-greedy/v151936/bf16",
+   "n": 64,
+   "art": "art:041bea3a007427eed67bfe7320164aa452a010d8badc3afc047f6ed21627ee24",
+   "content_digest": "a8286494b89850e310d798bb5aac00260b4c499f44577c97fab667f80acf9e8e",
+   "bytes": 19452647,
+   "draws": 64,
+   "rejected": 0
+  },
+  {
+   "set": "tokenselect-v1-v256000",
+   "subcircuit": "token-select-greedy/v256000/bf16",
+   "n": 64,
+   "art": "art:418460b447d831fd6832ab7673fcdbedf3293e7b70e97d51eedf72565bf61a25",
+   "content_digest": "be4ddbaa745059964c2a7355c7f73f6810b0ba17e5951fefbf735836e28e0e15",
+   "bytes": 32772839,
+   "draws": 64,
+   "rejected": 0
+  },
+  {
+   "set": "tokenselect-v1-v32768",
+   "subcircuit": "token-select-greedy/v32768/bf16",
+   "n": 64,
+   "art": "art:a1bbf04a7bcc6ba712d0e3e42b5f99d9f0264e50c348ff65e0e21c5f4a3eff9f",
+   "content_digest": "541d7397bd459f7f1444cfb48ee3153eeaf7b5160486b866c64400e7cd1289e1",
+   "bytes": 4199140,
+   "draws": 64,
+   "rejected": 0
+  },
+  {
+   "set": "tokenselect-v1-v50304",
+   "subcircuit": "token-select-greedy/v50304/bf16",
+   "n": 64,
+   "art": "art:7be6c2151c3dede65e329c0597f96aa62b5b2849d33d07760a52e50d270858c3",
+   "content_digest": "32f0a56252a4dab7e355ef54a6e415bf23518f248944af669442b83b7689224a",
+   "bytes": 6443750,
+   "draws": 64,
+   "rejected": 0
+  },
+  {
+   "set": "moeroutertopknorm-v1-e64-topk8-vpt8",
+   "subcircuit": "moe-router-topk-norm/e64-topk8-vpt8/bf16",
+   "n": 4096,
+   "art": "art:0d66ff53668cd47804f8afb5a044b0f349d0cfc0518d9150866ed4bd528f79af",
+   "note": "not bound by any workload; the renormalising router at OLMoE's shape"
+  }
+ ]
+}

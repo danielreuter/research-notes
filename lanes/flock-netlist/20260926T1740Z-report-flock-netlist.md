@@ -120,6 +120,31 @@ record replay 175 and 271 requests).
 No message byte depends on scheduling: every parallel reduction is a GF(2^128) sum (XOR, order-free), device kernels are
 deterministic, M0 draws no prover randomness into any message.
 
+## SHA-512 on every commitment path (Daniel, 21:53Z; supersedes the SHA-256 section below where they differ)
+
+Commits 4bceebef (contained part) and 23b5ee05 (Merkle trees). What the statement pins now (backend identity `hashes`):
+
+| path | hash | how |
+|---|---|---|
+| Ligerito Merkle trees, every level, leaves and nodes | **SHA-512**, 64-byte digests | `leaf = SHA-512(column bytes)`, `node = SHA-512(left ‖ right)`, no domain separation (Flock's SHA-256 format, widened); caps and paths carry 64-byte nodes; the transcript observes the cap's 64-byte nodes |
+| round digests | SHA-256, framing only | the coin server retains every round's bytes (`SessionConfig.retain_rounds`, bound in the hello as `"rounds": "bytes retained"`); the record carries them (`msg`), `from_record` rechecks them, and the replay compares the proof's messages with the kept bytes byte for byte; the digest is compared only where no bytes are kept |
+| step-0 coin commitment | **SHA-512** (`coin-commit/sha512`) | `SHA-512("verity/flock-circuit/coin-commit\0" ‖ nonce ‖ seed)`, sent at Hello as four GF(2^128) words |
+| internal leaf target | HM96 on SHA-512 | 192-byte OS salts, a 2047-bit key that is a statement constant (red-team-hm96 F6); core has no SHA-512 hm96 scheme yet |
+| coin derivation, statement digest, Σ | SHA-256 | not commitments (`verity.randomness`, identifiers) |
+| frame-v3 tree, serving row leaf | SHA-256, keyed BLAKE3 | the serving side's formats (core, salted-leaves), not this statement's to choose |
+
+**How it is built.** Flock hard-codes a 32-byte `Digest`, so the Merkle change is a Flock patch applied only to the circuit
+build (60-circuit.sh), selected by flock-live's feature `sha512`:
+- `backends/flock/flock-sha512-b684b12.patch` (Rust): `Digest = [[u8; 32]; 2]` (64 bytes; the two halves keep serde's array
+  support and turned every byte-level assumption into a compile error, about 25 sites fixed), `HashKind::Sha512`,
+  `Sha512MerkleHash`; the 32-byte Merkle kinds panic in this build rather than misalign a tree; Fiat–Shamir and PoW keep
+  their own hashes (live coins use neither).
+- `backends/flock/cuda_sha512_patch.py` + `cuda/sha512.cuh` (device): a warp-staged SHA-512 leaf kernel (each 128-byte chunk
+  staged with coalesced loads is one SHA-512 block), a byte kernel for other leaf sizes, a node kernel, and 64-byte nodes in
+  the gathers, cap copies, tree allocations, cap observations and the proof writer (every edit asserted by count).
+- flock-live reads and writes digests at whatever width the linked Flock has (`merkle_digest_bytes`, `merkle_digest_read`),
+  so the other statements' 32-byte builds are unchanged.
+
 ## SHA-256 for every commitment hash (Daniel, 20:00Z)
 
 Audit of the statement's hash paths (commit 448092ae pins each in the backend identity, so the statement digest binds them):

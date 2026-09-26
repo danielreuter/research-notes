@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT (09:22Z) [open] PR #68 merged (7029cca8, parity ok, 1012 tests); NVFP4 pause LIFTED 09:20Z (flock-backend: 2 x 5090 cells ~$3); agkr-real-k still paused (pods gone); asked bligero-real-k to terminate leftover h100-ga2; projection $297 now -> ~$274 incl NVFP4 once that pod is gone; spent $166.8.
+
 CHECKPOINT (09:05Z) [open] main 49cc39ef; 4 elementwise cells published (09:00Z render, 35 results); vLLM verdict: #66 OK post-merge, #62 pending m32 gates; bligero-real-k 16 new-sender cells (many under-model, one-sided decision); NVFP4 blocked on input set (bench-spine FINAL) -> WAKE; research $161/$300 at $21/h (projects ~$320 by 16:45Z).
 
 CHECKPOINT (08:25Z) [open] main after 33cb0133: PR #54 merged; red-team-flock-2 granted the 4 elementwise cells -> verify-flock-pure handoff 0820Z + WAKE; previews in renders/previews (internal/acceptance-decision-previews.md); verify-bligero-real-k on 7 new-sender cells; research spend $148.9/$300 at $12.8/h.

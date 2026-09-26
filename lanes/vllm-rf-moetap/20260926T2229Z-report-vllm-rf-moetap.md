@@ -5,6 +5,7 @@ created: 2026-09-26T22:29Z
 status: open
 ---
 
+CHECKPOINT af073204 (23:45Z) [open] g2: first setup killed 23:37Z (vLLM wheel host ~160 KB/s/conn; fetched in 16 ranges, sha ok). Relaunched on af073204: setup r20260926-234303-0db7 -> router r20260926-234338-9343 -> vocab (TP2, tiny Llama) ; partition r20260926-234359-2b8d; gate(b) base r20260926-234437-b4d4
 CHECKPOINT cd1cd8ae (23:30Z) [open] pushed cursor/vllm-rf-moetap-82dc @ cd1cd8ae (4 commits; CPU tests+lints pass locally via plain-python harness). g1 terminated 23:25Z (vLLM wheel at 60 KB/s; ~$0.8). g2 xquw828jd4gds3 2xL40S up 23:25Z: setup r20260926-232812-41b5, gate(b) base queued. Live router check -> tiny random-weight OLMoE/Qwen3-MoE archs (no 14 GB download)
 CHECKPOINT 5b0835d4 (23:04Z) [open] router tap op+build, policies router_softmax/vocab_range, both sources, plumbing (manifest/verify/commit/tp/rank_worker/plan) written, uncommitted. FOUND: #86's MoeRouterProbs max is F32Max (fast-math >-select), kernel is fmaxf; NaN words 0x7FC00000 vs GPU 0x7FFFFFFF -> fixed in the ordered construction only (record untouched). Next: exactness drivers, tests, push
 CHECKPOINT 5b0835d4 (22:44Z) [open] handoff 2231Z (approval) read. g1 sy95m1sk4mmtm9 L40S up 22:41Z; runs r20260926-224241-1030 (bootstrap) + r20260926-224413-f336 (gate b base 5b0835d4) running; writing router tap kernel/op now

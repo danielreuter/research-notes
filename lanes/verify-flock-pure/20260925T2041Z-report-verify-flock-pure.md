@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 0f933bbf (00:09Z) [open] H100 BF16 art:1589ffe1 verified=accepted (60/60, r20260925-235824-1a5c). Also labelled (now pulled) art:fb526e50, art:37215309, art:bb289d47, art:ed0047be. Next: art:c3e83404, art:7afeecbe, art:167e64a8, vllm art:56f792bd
 CHECKPOINT 6a6b5109 (23:47Z) [open] relabelled art:bb289d47 + art:ed0047be verified=accepted (same runs/proofs as 6d1295ed/d1961ba4, no pod). Running r20260925-234414-571e (A100 art:fb526e50, H100 fp8 art:37215309) on vy-verify-flock-pure (pod uva3p2e0o8ki3p); vllm-v1 art:56f792bd replay tool ready (lane/verify-flock-pure-vllm f9ada8e7)
 CHECKPOINT a37c90d2 (23:05Z) [open] WAITING for flock-backend's fp8-hopper (H100) / bf16-ampere (A100) cell ids in lanes/verify-flock-pure/; no pod running; agent bc-fedbe934-96ea-5edf-a736-be24e2a83811; next: fetch verifier records, replay with 31-replay.sh on a fresh CPU pod, label
 CHECKPOINT a37c90d2 (23:04Z) [open] reopened for more Flock cells (fp8-hopper H100, bf16-ampere A100, ...): NOT final; waiting for ids in lanes/verify-flock-pure/; budget $8 total (~$1.9 spent)

@@ -1,0 +1,2 @@
+fp4-frozen-blake3|-|REL=fp4-nvf4 LEAF=blake3 PER=4096 "POINTS=1024 2048 4096"
+fp4-frozen-sha256|-|REL=fp4-nvf4 LEAF=sha256 PER=4096 "POINTS=1024 2048 4096"

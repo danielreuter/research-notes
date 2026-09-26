@@ -2,9 +2,10 @@
 lane: red-team-bligero-real-k
 kind: report
 created: 2026-09-26T07:57Z
-status: final
+status: open
 ---
 
+CHECKPOINT 5e7e255d (13:23Z) [open] reopened for bligero-real-k 1316Z (L40S #101 cells art:dd6b0cac K2048, art:c64377df K8192: bounds + PR #74 placement): NOT final; CPU only, no pod
 CHECKPOINT 5e7e255d (11:36Z) [final] FINAL (reopen 1): A1 booked by PR #71 checked, 3/2^32 deviation correct (my 1/p table 2.95 bits low: b1d710da fails at 2^-127.971, HOLDS withdrawn; 15 others re-labelled HOLDS); art:4ff19d4f proof_class+finding HOLDS at 2^-128.265 (booked, Rust re-verified at main); condition 2 = verify lane; evidence art:01af8ab7; no pod, $0
 CHECKPOINT 5e7e255d (11:27Z) [open] reopened for bligero-real-k 1115Z (art:4ff19d4f A100 K8192 xob, A1 booked in PR #71, 3/2^32 coin deviation): NOT final; CPU only, no pod
 CHECKPOINT 5e7e255d (09:21Z) [final] FINAL: real-K B-Ligero class GRANTED WITH CONDITIONS (COMPLETE_ZK_BACKEND; coordinator/0917Z); proof_class+finding on 16 new-sender cells; no break; A1 chain-test field term unbooked (<=2^-140.35/proof at K8192 BF16, no cell below 2^-128); evidence art:dc790613; tools cursor/red-team-bligero-real-k-0819@5e7e255d; no pod, $0

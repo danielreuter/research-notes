@@ -11,7 +11,7 @@ created: 2026-09-26T14:40Z
   - Prover run r20260926-140931-b414 on vy-flock-ir-lowering-b-l40s (machine pxp3jjc5ozkz).
   - Verifier run r20260926-140928-d05d on b-ver (machine daejz5pkfg8j).
   - Set `art:74de7df5`: 16 heads per T for T 257..287, source synthetic. Pin 365f1b5d.
-  - It is the full-set point (CP8): `key_counts` lists all 31 T values, 16 heads each, and `per_key_count` has 31 entries (2.6 s at T=257 to 2.9 s at T=287 per 16-head sub-batch). 7.0 heads/s; it passed validation and is uncontended.
+  - It is the full-set point (CP8): `key_counts` lists all 31 T values, 16 heads each, and `per_key_count` has 31 entries (2.31 s at T=257 to 2.35 s at T=287 per 16-head sub-batch). 7.0 heads/s; it passed validation and is uncontended.
 - **c2 (T 129..256):** the first run, r20260926-132849-6ee6 / r20260926-132838-47c3 at 11f24da6, was refused by `bench.cell check` as contended. There is no art.
   - The timing guard counted "1 other GPU compute process". Those were our own prover contexts, which NVML still listed more than 2 s after the prover exited. A 128-sub-batch cell gives that race 128 chances; it hit twice.
   - 53ffcaca: `ir_bench` now waits, between sub-batches and outside the timed sessions, until NVML lists no compute process (at most 20 s). The statement code is unchanged since 11f24da6.

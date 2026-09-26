@@ -1,0 +1,112 @@
+"""verify-bligero-real-k: non-producer check of one B-interactive cell on a CPU pod, from the shipped source (main).
+
+  python cell_check.py CELL_ART --out DIR --work DIR --verifier BIN [--jobs N]
+
+1. re-stage the cell's input set from the store myself (`research data fetch`), check every file against its manifest and the
+   content digest the cell names, re-evaluate every instance with the IR evaluator (`input_sets.verify`), and compare each file's
+   sha256 with the copy the prover staged (its run record's `set/` entries);
+2. main's reverify on the cell (dry run: labels are written from the VM with --ref this run): custody, system PINNED, hash
+   commitments recomputed from MY staged set (--instances-root), coverage, `ligero-verify batch --target-bits 128` on every rep;
+3. sha256 of every dumped .proof / .stmt / .coins, for the comparison with the live verifier's session records (done on the VM).
+"""
+import argparse, hashlib, json, os, subprocess, sys, time
+from pathlib import Path
+
+
+def sh(*a, **kw):
+    return subprocess.run(list(a), capture_output=True, text=True, **kw)
+
+
+def show(ref):
+    r = sh("research", "data", "show", ref, "--json")
+    if r.returncode:
+        raise SystemExit(f"research data show {ref}: {r.stderr[-400:]}")
+    return json.loads(r.stdout)
+
+
+def sha(p):
+    h = hashlib.sha256()
+    with open(p, "rb") as f:
+        for c in iter(lambda: f.read(1 << 20), b""):
+            h.update(c)
+    return h.hexdigest()
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("cell"); ap.add_argument("--out", type=Path, required=True); ap.add_argument("--work", type=Path, required=True)
+ap.add_argument("--verifier", required=True); ap.add_argument("--jobs", type=int, default=os.cpu_count())
+ns = ap.parse_args()
+ns.out.mkdir(parents=True, exist_ok=True); ns.work.mkdir(parents=True, exist_ok=True)
+summary = {"cell": ns.cell, "t0": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+
+cell = show(ns.cell)
+man, meta = cell["manifest"], cell["manifest"]["meta"]
+cid = cell["id"]
+summary |= {"cell": cid, "run": meta["run_id"], "relation": meta["cell"]["relation"], "input_set": man["refs"]["input_set"],
+            "run_files": man["refs"]["run_files"]}
+
+# 1. the input set, re-staged by me
+from verity_numerical.bench import input_sets as IS
+set_art = man["refs"]["input_set"]
+want_cd = meta["cell"]["input_set"]["content_digest"]
+sdir_root = ns.work / "sets" / set_art[4:16]
+r = sh("research", "data", "fetch", set_art, "--to", str(sdir_root))
+if r.returncode:
+    raise SystemExit(f"fetch {set_art}: {r.stderr[-400:]}")
+fetched = Path(r.stdout.strip().splitlines()[-1])
+cands = [fetched] + [p.parent for p in fetched.rglob("manifest.json")]
+sdir = next(c for c in cands if (c / "manifest.json").is_file() and "ports" in json.loads((c / "manifest.json").read_text()))
+s = IS.InputSet.open(sdir)
+bad_files = s.check_files()
+t = time.time()
+ver = IS.verify(sdir)
+mine = {f: sha(sdir / f) for f in s.manifest["files"]} | {"manifest.json": s.manifest_sha256()}
+att = show(meta["run_id"])
+rec = show(att["outputs"]["run_record"]) if "outputs" in att else None
+if rec is None:
+    rec_files = {}
+else:
+    rec_files = {f["path"].split("/", 2)[2]: f["sha256"] for f in rec["manifest"]["payload"]["files"] if f["path"].startswith("set/")}
+summary["input_set_check"] = {
+    "dir": str(sdir), "set": s.name, "schema": s.manifest["schema"], "n": s.n, "source": s.source,
+    "content_digest": s.content_digest, "content_digest_eq_cell": s.content_digest == want_cd, "files_vs_manifest": bad_files or "all match",
+    "ir_verify": {k: ver[k] for k in ("ok", "checked", "bad_n", "bad", "subcircuit") if k in ver}, "ir_verify_seconds": round(time.time() - t, 1),
+    "manifest_sha256": s.manifest_sha256(),
+    "prover_staged_copy": {"record": (rec or {}).get("id"), "files_compared": sorted(set(mine) & set(rec_files)),
+                           "equal": bool(rec_files) and all(mine[f] == rec_files[f] for f in set(mine) & set(rec_files)),
+                           "only_mine": sorted(set(mine) - set(rec_files)), "only_prover": sorted(set(rec_files) - set(mine))},
+}
+
+# 2. reverify from main with my staged set
+rv_work = ns.work / "rv"
+t = time.time()
+r = sh(sys.executable, "-m", "backends.direct.ligero.reverify", cid, "--dry-run", "--keep", "--json", "--verifier", ns.verifier,
+       "--work", str(rv_work), "--jobs", str(ns.jobs), "--instances-root", str(sdir), "--relation", meta["cell"]["relation"].split("+")[0])
+(ns.out / "reverify.json").write_text(r.stdout); (ns.out / "reverify.err").write_text(r.stderr)
+try:
+    rv = json.loads(r.stdout)[0]
+except Exception:  # noqa: BLE001
+    rv = {"status": "ERROR", "why": [r.stderr[-800:]]}
+summary["reverify"] = {"rc": r.returncode, "seconds": round(time.time() - t, 1),
+                       **{k: rv.get(k) for k in ("status", "why", "relation", "mode", "hashed", "custody", "run", "run_files")},
+                       "reps": {k: {q: v.get(q) for q in ("n", "accepted", "rejected", "batch_accepted", "batch_bits", "system_pinned",
+                                                          "python_disagree", "verify_seconds_sum", "wall_seconds", "batch_reason")}
+                                for k, v in (rv.get("reps") or {}).items()}}
+
+# 3. the dumped files' digests
+tree = rv_work / cid[4:20]
+pdirs = [p.parent for p in tree.rglob("manifest.json") if (p.parent / "system.bin").is_file()]
+files = {}
+for pdir in pdirs:
+    files["system.bin"] = sha(pdir / "system.bin")
+    for rep in sorted(q for q in pdir.iterdir() if q.is_dir() and q.name.startswith("rep")):
+        for f in sorted(rep.iterdir()):
+            if f.suffix in (".proof", ".stmt", ".coins", ".hproof"):
+                files[f"{rep.name}/{f.name}"] = sha(f)
+(ns.out / "files.json").write_text(json.dumps(files, indent=0))
+summary["files_hashed"] = len(files)
+summary["t1"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+(ns.out / "summary.json").write_text(json.dumps(summary, indent=1, default=str))
+print(json.dumps({k: summary[k] for k in ("cell", "relation", "files_hashed")} | {"set_ok": summary["input_set_check"]["ir_verify"].get("ok"),
+      "set_cd": summary["input_set_check"]["content_digest_eq_cell"], "staged_eq": summary["input_set_check"]["prover_staged_copy"]["equal"],
+      "reverify": summary["reverify"]["status"], "why": summary["reverify"]["why"]}), flush=True)

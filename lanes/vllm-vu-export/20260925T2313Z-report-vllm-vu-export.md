@@ -5,6 +5,7 @@ created: 2026-09-25T23:13Z
 status: open
 ---
 
+CHECKPOINT adc5ca31 (20:22Z) [open] WAIT vyv-vu-export-g4 r20260926-202133-cc2d check-back 20:55Z agent bc-eab8c043 (live topk_softmax vs router Definitions, ~30 min, <$1; ends well before 23:30Z)
 CHECKPOINT adc5ca31 (20:18Z) [open] MoE router rounds DONE: PR #86 (adc5ca31) merge request to vllm-coordinator (handoff 20260926T2025Z); MoeRouterTopKRounds[Norm]_v1 bit-equal on 4,080 rows + edges, 0 committed interior words (#67 170.7M->0, #70 71.8M->0); opt-in moe_construction=indexed-read-rounds; no pods, $0; agent bc-eab8c043
 CHECKPOINT f037f68e (18:52Z) [open] Q_word_v1 steps 1-3 DONE: PR #82 (f037f68e) merge request to vllm-coordinator (handoff 20260926T1905Z); #101 run root == record; 13 rows 163.1G units / 40.2G committed interior words, no width violations; graphs in store + art:7f09fbf3; plan doc updated (norm-scale tap, MoE router, guarded max for Daniel); no pods; agent bc-eab8c043
 CHECKPOINT 30921976 (18:22Z) [open] #101 L40S Q_word_v1 check DONE r20260926-173050-5a18: PASS, program ccc21347 / manifest 90f81868 / run root 7adcef49 == record, word check ok (294.1M units, 43.0M committed interior words, no violations); tests r20260926-180827-f206 (vllm rc 0); pod vyv-vu-export-g3 TERMINATED 18:22Z (~$1), custody verified x4. Next: 13-row totals, program graphs to the store, plan doc, handoff; agent bc-eab8c043

@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (09:34Z) [open] 09:35Z reopened: route (a) real-K review (agkr-real-k PR #69, art:95fdd0ae, 20197f8b), CPU only
 CHECKPOINT 3301c435 (06:39Z) [final] FINAL 06:40Z: FP8 spine cells 5d2a91a7/ab115376/66d2412c/1c520240 PB1-PB4+CN1-CN2 met, labelled NON_ZK_PROOF + verified (replay r20260926-061513-ad9c 48/48, negs 16/16); old four had SUPERSEDED only as finding text -> wrote superseded_by; store_tables does not yet honour it. Pods terminated.
 CHECKPOINT 3301c435 (06:23Z) [open] 06:25Z: 4 FP8 spine cells PB1/PB2/PB4/CN1/CN2 met from records; superseded_by written on old four; PB3 replay r20260926-061513-ad9c running (A4000 as CPU box, no CPU stock)
 CHECKPOINT 3301c435 (06:05Z) [open] 06:05Z reopened: 4 FP8 real-K cells on bench-spine sets (5d2a91a7 ab115376 66d2412c 1c520240), PB1-PB4/CN1-CN2, CPU only

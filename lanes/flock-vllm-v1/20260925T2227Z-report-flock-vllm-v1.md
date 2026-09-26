@@ -5,6 +5,7 @@ created: 2026-09-25T22:27Z
 status: open
 ---
 
+CHECKPOINT 1563347f (01:41Z) [open] VL1 closed (af6aae19: verifier recomputes a/b/y roots from its file's values; negative verifier_instance_file_root_tampered; replay too); merged verify-flock-pure-vllm f9ada8e7 + origin/main 541d31d3; tip 1563347f; merge request -> coordinator 0137Z; no pod, $0
 CHECKPOINT cfc6c8c5 (23:37Z) [open] cell art:56f792bd (device SHA-256 witness, ff1c1e3f): H100 fp8-hopper vllm-v1 plateau 65536 VUs 7650 VU/s = 8.4e7x, same-DC verifier r20260925-232101-016f, loopback same run; provisional -> verify-flock-pure, red-team-flock, coordinator (2337Z); flock-gpu-link told kernel exists (2333Z); pods terminated 23:36Z ~$6
 CHECKPOINT ff1c1e3f (23:16Z) [open] cell v1 (host witness) done: H100 fp8-hopper plateau 8192 VUs 1070 VU/s (6.0e8x), same-DC verifier US-MO-1 RTT 0.81 ms, loopback probe same run; r20260925-225837-3a94 / verifier r20260925-225822-649f. PR #41. WAITING device-witness cell r20260925-231324-903c (ver r20260925-231313-fddc) check after 23:45Z; agent bc-9713144f
 CHECKPOINT 2f3849f2 (22:59Z) [open] tip 2f3849f2: GPU selftest 21/21 at 8 VUs on H100 (r20260925-225318-3959, EU-FR-1; no hairpin there, verifier pod terminated). Cell running US-MO-1: prover r20260925-225837-3a94 (vy-flock-vllm-v1-mo) vs verifier r20260925-225822-649f (vy-flock-vllm-v1-ver cpu3c-32)

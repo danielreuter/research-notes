@@ -2,9 +2,10 @@
 lane: red-team-flock-3
 kind: report
 created: 2026-09-26T09:58Z
-status: open
+status: final
 ---
 
+CHECKPOINT e5493f9f (16:47Z) [final] FINAL: attention class pins GRANTED W/ CONDITIONS NON_ZK_PROOF; all three class cells checked, placement-separate, labelled NON_ZK_PROOF: c1 art:4fb2de9c (T1-128), c2 art:b61eafa9 (T129-256; duplicate ef10f5fb not labelled), c3 art:4dd2069b (T257-287); CP6 ruled (synthetic sets counted, provenance footnoted; note for Daniel); per-T v3 cells labelled earlier; art:25c96f97 c185d38b 8be608c6 3b34c1dd f5935b64; pod ~$0.32
 CHECKPOINT e5493f9f (16:07Z) [open] WAITING c2 (T=129..256) r20260926-153234-eeb6 on vy-flock-ir-lowering-b-l40s at 70+/128 sub-batches, ETA 16:30Z; my poller exits on its registration (deadline 17:00Z), backstop wake 16:58Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: check_class_cells.sh + label_class_cells.sh on c2, then FINAL; c1/c3 re-labelled with the CP6 ruling
 CHECKPOINT e5493f9f (15:37Z) [open] reopened (coordinator 15:37Z): label class cell c2 (T=129..256, 8ef6d347, due ~16:20Z) with check_class_cells.sh + label_class_cells.sh, polling until 17:00Z; CP6 ruled: synthetic class sets count in #101's headline with provenance footnoted (note for Daniel, not a blocker): NOT final; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (15:36Z) [final] FINAL: (1) per-T attention v3 GRANTED W/ CONDITIONS NON_ZK_PROOF, 16 cited + 11 superseded cells labelled; (2) key-count class pins @4eb3b991/11f24da6 GRANTED W/ CONDITIONS NON_ZK_PROOF (CP1/2/3/4/5/7/8 met); class cells c1 art:4fb2de9c (T1-128) + c3 art:4dd2069b (T257-287) PASS, SEPARATE, labelled NON_ZK_PROOF; c2 (T129-256) pending ~16:20Z at 8ef6d347 (harness-only), procedure in handoff 1540Z; art:25c96f97 c185d38b 8be608c6 3b34c1dd; pod ~$0.32
@@ -311,6 +312,7 @@ review before the code is `…T1310Z…` (CP1–CP6).
 |---|---|---|---|---|---|---|---|---|---|
 | art:4fb2de9c (c1) | [1, 128] | 128 | 2,048 | 11f24da6 | 2f102216 | r20260926-132839-b5e6 | PASS | SEPARATE | NON_ZK_PROOF |
 | art:4dd2069b (c3) | [257, 512] | 31 (257..287) | 496 | 11f24da6 | 365f1b5d | r20260926-140928-d05d | PASS (31/31) | SEPARATE | NON_ZK_PROOF |
+| art:b61eafa9 (c2) | [129, 256] | 128 (129..256) | 2,048 | 8ef6d347 | fc9dceb5 | r20260926-153220-186b | PASS (128/128) | SEPARATE | NON_ZK_PROOF |
 
 **c1 in detail:**
 - The verifier's `class.json` is byte-identical to the manifest I generate.
@@ -326,6 +328,12 @@ review before the code is `…T1310Z…` (CP1–CP6).
 **c3** has the same checks: its `class.json` is byte-identical to mine, all 31 sub-batches pass, and `key_counts` = the
 verified T. It ran on pair b, the same pods and machines as c1. Main's `key_class_of` credits all 31 T (257..287).
 
+**c2** (16:46Z) has the same checks, done in a reopen at the coordinator's request (15:37Z). The clean re-run at 8ef6d347
+(harness only) is art:b61eafa9: its `class.json` is byte-identical to mine, all 128 sub-batches pass, `key_counts` =
+the verified T (129..256, 2,048 heads), placement is on pair b as c1, and main's `key_class_of` credits all 128 T.
+The duplicate registration art:ef10f5fb was not labelled, on the coordinator's instruction (16:34Z); verify-flock-pure
+replays b61eafa9. The evidence is art:f5935b64.
+
 My checker needed one fix. The first c1 pass flagged all 128 sub-batches because `cell_check.py` expected a one-T input set.
 It now requires the heads in each file's own range to share T.
 
@@ -334,7 +342,7 @@ It now requires the heads in each file's own range to share T.
 ~~~text
 tip: none (red-team lane; notes only, no code commits; reviewed PR #54 @ 22dc6320 / 0839742b / ece9fdd2 (per-T v3) and 4eb3b991 / 11f24da6 (+ harness 31d275ad, 53ffcaca) (class pins))   merge-with: none
 known-failures: none    pod: dq3xclby5ni4ic terminated 11:03Z (after custody); ~$0.32 (the class review ran on CPU on the VM: $0)
-artifacts: art:25c96f97 art:c185d38b art:8be608c6 art:3b34c1dd
+artifacts: art:25c96f97 art:c185d38b art:8be608c6 art:3b34c1dd art:f5935b64
 ~~~
 
 **1. Per-T attention, `verity/flock-ir-frame/v3`.** GRANTED WITH CONDITIONS at NON_ZK_PROOF (conditions AC1–AC4).
@@ -351,30 +359,28 @@ artifacts: art:25c96f97 art:c185d38b art:8be608c6 art:3b34c1dd
 - T and the mask come from the verifier's own file and the per-T netlist. The verifier builds its own manifest (CP1), and all
   512 `nets` equal the reviewed generator (CP5).
 - The load and session negatives are refused, and the selftest passes 24/24 under `--class`.
+- CP6 (synthetic class sets): RULED by the coordinator at 15:37Z. They count in #101's headline, as the FP8 cells' spine
+  sets do, with the provenance footnoted. It's a note for Daniel, not a blocker, and all three class findings carry it.
 - CP2 (canonical manifest) is MET at 11f24da6. CP7 (per-T crediting) is MET on main via PR #79. CP8 (the full-set point) is
   MET.
 - Class cells, labelled `NON_ZK_PROOF` after `check_class_cells.sh` and the placement check:
   - c1 art:4fb2de9c, [1,128]: 128 T, 2,048 heads;
   - c3 art:4dd2069b, [257,512]: T 257..287, 496 heads;
-  - c2 [129,256]: PENDING.
-    - Its first three runs were refused by `bench.cell check` as contended: the timing guard counted the prover's own
-      exited GPU contexts.
-    - A fourth runs at 8ef6d347 on pair b (machines pxp3jjc5ozkz / daejz5pkfg8j), ETA 16:20Z. 8ef6d347 changes only the
-      harness (the timing-guard sampler in `bench.py` and `ir_bench.py`), so it is inside the grant.
-    - To label it: `check_class_cells.sh /tmp/rtf3/class-ref-1-512.json <art>`, then `label_class_cells.sh <art>`
-      (8ef6d347 is in its allowed list).
+  - c2 art:b61eafa9, [129,256]: 128 T, 2,048 heads, at 8ef6d347 (harness only), labelled at 16:46Z. The duplicate
+    art:ef10f5fb was not labelled (coordinator 16:34Z).
 
 **Evidence:**
 - art:25c96f97: pod run r20260926-103512-bb40.
 - art:c185d38b: the local per-T runs' logs, and the cell and placement checks.
 - art:8be608c6: class negatives r20260926-132829-2165, the class_ref table, the manifests and e2e r20260926-130636-5ee4.
 - art:3b34c1dd: the c1 and c3 checks, placement, and CP2 run r20260926-143204-b20f.
+- art:f5935b64: the c2 check and placement.
 - Scripts in `evidence/`.
 
 **Handoffs sent:**
 - to flock-ir-lowering and the coordinator: …1115Z, …1300Z and …1340Z (the class-pin verdict), and …1310Z (the paper
   review, to flock-ir-lowering);
-- …1540Z (the class cells and FINAL);
+- …1540Z (the class cells), …1650Z (c2, CP6, FINAL);
 - to red-team-flock-2: …1115Z.
 
 **Handoffs received:**

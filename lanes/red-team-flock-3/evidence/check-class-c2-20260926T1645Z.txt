@@ -1,0 +1,5 @@
+== art:b61eafa9 class [129, 256] B=2048 pin=fc9dceb565380554 verifier_run=r20260926-153220-186b record=art:47593dcfa853387751dcfb9df46df3eeeddc0fa5399e21c82ba8df8ae8a6f5f9 point=p0-2048
+MANIFEST_CHECK PASS {"sha256": "fc9dceb56538055441422779ca63a9434f0929fe6cbc5bfbb5922c5f28241fa2", "T": [129, 256], "problems": []}
+KEY_COUNTS match (128 T values; 2048 heads; per_key_count 128)
+SUBBATCHES 128: 128 PASS, 0 FAIL
+CLASS_CELL_CHECK PASS art:b61eafa9

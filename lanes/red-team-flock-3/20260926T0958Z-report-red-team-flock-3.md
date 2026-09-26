@@ -301,6 +301,10 @@ review before the code is `…T1310Z…` (CP1–CP6).
 - **CP7: MET on main.** census-json's PR #79 adds `key_class_of`. I ran main's code on c1's registered document: it credits
   all 128 listed T, each at P_T = heads / e2e_s from `per_key_count` (88.7 heads/s at T=1, 23.6 at T=128).
 - **CP8: MET.** c1 registered its full 2,048-head point.
+- **CP6: RULED** by the coordinator at 15:37Z. Synthetic class sets (the spine generator's draws for T outside the 16
+  captured values) count in #101's headline, as the FP8 cells' synthetic spine sets do, with the input provenance
+  footnoted. It's a note for Daniel's decision list, not a blocker. c1's and c3's findings were re-labelled with it at
+  15:40Z.
 
 | cell | class | T in key_counts | heads | commit | pin | verifier run | check | placement | label |
 |---|---|---|---|---|---|---|---|---|---|

@@ -167,7 +167,7 @@ verification.
 ## FINAL
 
 ~~~text
-tip: cursor/agkr-l40s-101-f806 @ 508e6e74 (base main@961d0667; NOT on origin: GitHub refuses the token; evidence/agkr-l40s-101-f806-508e6e74.bundle)    merge-with: none
+tip: cursor/agkr-l40s-101-f806 @ 508e6e74 (base main@961d0667; origin has only 369d741c: GitHub refuses the token; evidence/agkr-l40s-101-f806-508e6e74.bundle)    merge-with: none (draft PR #78)
 known-failures: none of mine (test_every_registered_kernel_is_self_checked_here fails only if backends/numerical tests run before packages/verity's)
 pod: vy-agkr-l40s and vy-agkr-l40s-ver terminated about 13:03Z (US-TX-4 pair) and 13:31Z (US-NC-1 pair); about $3.5 for the L40S goal, about $8.5 in all
 artifacts: art:e1a2dfc3 art:7a0d186b art:4f7b26a5 art:7d5e1e22 art:83a49c5c art:d2572bbb art:c9deda88 art:059e93c9 art:d280f1f1 art:a0ca8ef6 art:a979dfcb art:7ae6c190 art:0e1095f3 art:95fdd0ae art:20197f8b art:e92cad62 art:f9da2094 art:984dcba5 art:460e9938 art:e55da95a art:8455c116 art:15e93b91

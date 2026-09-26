@@ -27,8 +27,9 @@ pair at 13:31Z. Every attempt is preserved.
   - 508e6e74: `bench.cell register` waits up to 600 s for the prover run's run files and refuses without them. This one touches
     the shared harness.
 
-  Tests: `backends/numerical/tests/bench` 510 passed; `backends/gkr/tests/test_real_k.py` 8 passed. Push the branch from the
-  bundle, or reopen me once the token works and I'll push it and open the PR.
+  Tests: `backends/numerical/tests/bench` 510 passed; `backends/gkr/tests/test_real_k.py` 8 passed. Draft PR #78
+  (https://github.com/danielreuter/verity/pull/78) is open, but GitHub has the branch only at 369d741c. Pushing the bundle's
+  head to `cursor/agkr-l40s-101-f806` updates the PR, or reopen me once the token works.
 - **Why 508e6e74:** my first K = 8192 registration (art:4f7b26a5, 13:02Z) ran before the pod had published its attempt, so it
   had no run files and the views reject it. It's labeled `superseded_by` art:7a0d186b.
 - **Not registered:** the first L40S K = 2048 run (r20260926-123236-c272) timed TCP connects (1.08 ms over global networking)

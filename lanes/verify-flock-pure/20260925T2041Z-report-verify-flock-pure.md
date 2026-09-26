@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 787ac154 (11:35Z) [open] reopened for 8 per-workload GEMM cells (d9a40cd4 8b5a0bf1 2e5ea606 4e3f5048 aea553ae 86780ca6 4a319a65 89dab836): NOT final
 CHECKPOINT 787ac154 (10:50Z) [final] FINAL: L40S #101 six cells + sampling a330c568 26b5f7d8 verified=accepted (file re-verification; r20260926-101538-4dd1, r20260926-102147-4684); A-GKR dropped per 10:48Z; pods terminated 10:50Z; ~$0.5
 CHECKPOINT 787ac154 (10:50Z) [final] FINAL: L40S #101 six cells + sampling a330c568 26b5f7d8 verified=accepted (file re-verification; r20260926-101538-4dd1, r20260926-102147-4684); A-GKR dropped per 10:48Z; pods terminated 10:50Z; ~$0.5
 CHECKPOINT 787ac154 (10:22Z) [open] sampling replay r20260926-102147-4684 on vy-verify-flock-pure-2 (pod cdiozeib313637) from lane/verify-flock-sampling 38eff1c4 = f70c6c77 + replay (native check S1); L40S run r20260926-101538-4dd1 continuing

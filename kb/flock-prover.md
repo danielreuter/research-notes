@@ -16,6 +16,9 @@ Sources: `lanes/flock-bench/20260925T0805Z-report-flock-bench.md` (harnesses in 
     H100 needs `cuda-compat-13-3` plus `LD_LIBRARY_PATH=/usr/local/cuda-13.3/compat`.
   - Tools that JIT through XLA (flock-zorch) use the pip ptxas, so make sure it is 13.3 or later too, or clmad silently
     falls back to software.
+  - Driver 550 can't run it even with `cuda-compat-13-3`: the CUDA prover fails with "unsupported display driver / cuda
+    driver combination" (error 100). RunPod community-cloud L40S hosts can have 550.144 (flock-ir-sampling
+    r20260926-083317-b873); a secure-cloud L40S had 580.178 and works. Check `nvidia-smi` before building.
 - **Flock-CUDA (`flock-cuda-ffi`).**
   - It is a full on-device prover, but only for the BLAKE3 statement (witness kernel), and it hard-codes
     `n_blocks_log = m - 14`.

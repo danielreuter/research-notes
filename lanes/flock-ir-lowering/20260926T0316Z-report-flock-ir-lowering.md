@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT ece9fdd2 (12:53Z) [open] BUSY holding vy-flock-ir-lowering-nc-l40s + nc-ver (US-NC-1, podnet) for goal 2 (attention coverage T=1..287): 16 per-T L40S cells done and labelled (current table in note to follow); drains stopped at 12:53Z to keep the only networked L40S pair; next runs within ~60 min; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT ece9fdd2 (12:04Z) [open] BUSY nc-l40s + nc-ver: re-runs at 14 threads, T=1..3 done, T=4 running (12:03Z), then 128..132, 256, 257; ETA 12:45Z; current cells so far: T=258 art:327e9366, 259, 260 art:186b9949, 261 art:f52bf885, 287 art:298d4c14; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT ece9fdd2 (11:32Z) [open] BUSY vy-flock-ir-lowering-nc-l40s + vy-flock-ir-lowering-nc-ver: T=259 r20260926-113112-9333 (prover) / r20260926-113109-f951 (verifier) now, then T=260 261 287 and re-runs of T=1 2 3 4 128..132 256 257 at 14 threads, ETA 12:50Z (queue restarted 11:31Z: the keys queued at 11:09Z were swallowed, pods idle 11:11-11:31); then register, label superseded, drain both; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT ece9fdd2 (11:10Z) [open] inbox read

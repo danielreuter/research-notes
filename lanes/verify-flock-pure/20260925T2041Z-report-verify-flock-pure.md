@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (16:54Z) [open] c2 re-run art:b61eafa9: replay r20260926-165159-6043 on vy-verify-flock-pure (pod vx2lueuuhjvxeb, cpu3c-16) from lane/verify-flock-class 4d8217ef; verifier run r20260926-153220-186b (8ef6d347)
 CHECKPOINT 787ac154 (16:34Z) [open] reopened for c2 re-run art:b61eafa9: NOT final
 CHECKPOINT 787ac154 (16:26Z) [final] FINAL: attention class cells c1 4fb2de9c, c2 87a6bcdd, c3 4dd2069b verified=accepted (file re-verification, class pin = verifier manifest sha256); pod terminated 16:27Z; ~$0.9
 CHECKPOINT 787ac154 (16:26Z) [final] FINAL: attention class cells c1 4fb2de9c, c2 87a6bcdd, c3 4dd2069b verified=accepted (file re-verification, class pin = verifier manifest sha256); pod terminated 16:27Z; ~$0.9

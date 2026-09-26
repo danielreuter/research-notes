@@ -143,16 +143,21 @@ def main():
         setdir = next((m.parent for m in sd.glob("**/manifest.json")), None)
         per = wf["batching"]["per_proof"]
         leaf = "sha256" if "sha-256" in str(wf.get("scheme")) else "blake3"
-        ns = Namespace(relation=a.relation, procs=a.procs, cache=None, scheme="frame-v3", leaf=leaf, set=str(setdir) if setdir else None,
-                       y_model=False, k=wf["K"])
+        ns = Namespace(relation=wf.get("relation"), procs=a.procs, cache=None, scheme="frame-v3", leaf=leaf,
+                       set=str(setdir) if setdir else None, y_model=False, k=wf["K"])
         ok = True
-        for pdir in points:
-            total = int(pdir.name.split("-")[1])
-            for jj, (lo, hi) in enumerate(bench.subbatches(total, per)):
-                f = Path(f"/tmp/rtf3/regen-{a.art[4:12]}/{pdir.name}/instances-s{jj}.bin")
-                f.parent.mkdir(parents=True, exist_ok=True)
-                bench.write_instances(ns, f, total, lo, hi)
-                ok &= sha(f) == sha(pdir / f"instances-s{jj}.bin")
+        try:
+            for pdir in points:
+                total = int(pdir.name.split("-")[1])
+                for jj, (lo, hi) in enumerate(bench.subbatches(total, per)):
+                    f = Path(f"/tmp/rtf3/regen-{a.art[4:12]}/{pdir.name}/instances-s{jj}.bin")
+                    f.parent.mkdir(parents=True, exist_ok=True)
+                    bench.write_instances(ns, f, total, lo, hi)
+                    ok &= sha(f) == sha(pdir / f"instances-s{jj}.bin")
+        except Exception as x:  # noqa: BLE001
+            ok = False
+            c["instances_regen_error"] = False
+            print(f"regen: {type(x).__name__}: {x}", file=sys.stderr)
         c["instances_regenerated_equal"] = ok
     res = {"cell": a.art[:12], "verifier_run": meta["derived_from"]["verifier_run"], "prover_run": meta["derived_from"]["prover_run"],
            "commit": be.get("commit", "")[:8], "binary": be.get("binary_sha256", "")[:8], "relation": wf.get("relation"), "K": wf.get("K"),

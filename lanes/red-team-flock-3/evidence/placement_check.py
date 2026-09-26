@@ -46,11 +46,30 @@ def pod_of(run):
 
 
 def runpod_ident(pod_id):
+    """The RunPod API's machine id and public IP of a live pod; {} once it is terminated (HTTP 404)."""
     if pod_id and pod_id not in _PODS:
         from research.pods import runpod
-        p = runpod.get(pod_id)
-        _PODS[pod_id] = {"machine_id": p.get("machineId") or None, "public_ip": p.get("publicIp") or None}
+        try:
+            p = runpod.get(pod_id)
+            _PODS[pod_id] = {"machine_id": p.get("machineId") or None, "public_ip": p.get("publicIp") or None}
+        except runpod.PodError:
+            _PODS[pod_id] = {}
     return _PODS.get(pod_id, {})
+
+
+def merge_recorded(h, rec):
+    """Fill gaps from the cell's own placement record (bench.cell's PR #74 probe on each pod at run time), and note any field
+    where the two sources disagree."""
+    for k_rec, k in (("machine_id", "machine_id"), ("public_ip", "public_ip"), ("boot_id", "boot_id"), ("cpu_model", "cpu"),
+                     ("hostname", "hostname"), ("pod_id", "pod_id")):
+        x = (rec or {}).get(k_rec)
+        if x is None:
+            continue
+        if h.get(k) is None:
+            h[k] = x
+        elif h[k] != x:
+            h.setdefault("record_disagrees", []).append(k)
+    return h
 
 
 def host(run):
@@ -78,7 +97,8 @@ def main():
         wf = meta["workload_fingerprint"]
         T = (wf["software"]["backend"].get("unit") or f"K{wf.get('K')}").split("/")[-1]
         pr, vr = meta["derived_from"]["prover_run"], meta["derived_from"]["verifier_run"]
-        p, v = host(pr), host(vr)
+        cp = (meta.get("cell") or {}).get("placement") or {}
+        p, v = merge_recorded(host(pr), cp.get("prover")), merge_recorded(host(vr), cp.get("verifier"))
         addr = ((wf.get("verifier") or {}).get("placement", "")
                 or ((((meta.get("cell") or {}).get("placement") or {}).get("link") or {}).get("peer", "")))
         ip = addr.rsplit(":", 1)[0]

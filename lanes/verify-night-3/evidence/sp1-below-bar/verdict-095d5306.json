@@ -1,0 +1,76 @@
+{
+ "art": "art:095d5306",
+ "checks": {
+  "proofs_hash_to_run_record": {
+   "ok": true,
+   "detail": {
+    "proof-compressed.bin": true,
+    "proof-core.bin": true
+   }
+  },
+  "statement_rebuilt": {
+   "ok": true,
+   "detail": {
+    "mine": {
+     "object_digest": "46311aacc7cfc8916d934c443b52d1155a32778c977ee88760728b230fbb9b69",
+     "statement_sha256": "c3269059b422e7325da5a27b092daaac4d8ea765a7e426bf89f1b06f8a1d0c6f"
+    },
+    "recorded": {
+     "object_digest": "46311aacc7cfc8916d934c443b52d1155a32778c977ee88760728b230fbb9b69",
+     "statement_sha256": "c3269059b422e7325da5a27b092daaac4d8ea765a7e426bf89f1b06f8a1d0c6f"
+    }
+   }
+  },
+  "proofs_verify_approved_key_bound_to_my_statement": {
+   "ok": true,
+   "detail": {
+    "proof-compressed.bin": {
+     "accepted": true,
+     "reasons": [],
+     "approved_key": true,
+     "binding_ok": true,
+     "negative_objects_accepted": {
+      "wrong-first-output-word": false,
+      "wrong-last-output-word": false
+     }
+    },
+    "proof-core.bin": {
+     "accepted": true,
+     "reasons": [],
+     "approved_key": true,
+     "binding_ok": true,
+     "negative_objects_accepted": {
+      "wrong-first-output-word": false,
+      "wrong-last-output-word": false
+     }
+    }
+   },
+   "public_values_mine": "46311aacc7cfc8916d934c443b52d1155a32778c977ee88760728b230fbb9b69c3269059b422e7325da5a27b092daaac4d8ea765a7e426bf89f1b06f8a1d0c6f01"
+  },
+  "negative_objects_refused": {
+   "ok": true
+  },
+  "negatives_rejected_by_guest": {
+   "ok": true,
+   "detail": {
+    "wrong-first-output-word": {
+     "verdict": false,
+     "pv_tail": "00"
+    },
+    "wrong-last-output-word": {
+     "verdict": false,
+     "pv_tail": "00"
+    },
+    "tampered-output-leaf": {
+     "verdict": false,
+     "pv_tail": "00"
+    }
+   }
+  }
+ },
+ "run": "r20260926-022415-0528",
+ "soundness_log2": -94.046,
+ "subcircuit": "RMSNormTriton_v1",
+ "B": 32,
+ "accepted": true
+}

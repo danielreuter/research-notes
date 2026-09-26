@@ -59,7 +59,11 @@ carry both. Attributing them field by field to epoch items is the owner's review
 ## Findings (not fixed)
 - M >= 2^32 header: c1's core `chunk_header` validation rejected the kernels' u32 M (fixed by m32, `ad8050e9`).
 - `ops/row_pod.sh` has no TP hook, so the TP rows must call `tp_stage.sh` (my first #70/#75 runs were invalid, and were redone).
-- #23 GREEN row: Match NO FOLD. #4 FAIL-class row: Commit PASS. #67: coverage missing 20,928.
+- Bisect (`lanes/vllm-coordinator/20260926T0335Z-handoff-from-vllm-rf-epoch.md`), no offending commit for either:
+  - #4: the v1 FAIL class was a record-audit RED (descriptor.json.gz missing from the archived record); v1 never ran a Commit.
+    Test expectation, so a class re-baseline is the owner's decision.
+  - #23: the capture was SIGKILLed (-9) at moe67's 125 GB cgroup (planner: Match 148,303 MiB). Environment, not a regression.
+- #67: coverage missing 20,928 (not bisected).
 - The planner's dense coefficients (phi3's) overestimate (#4 Match: 122 GiB predicted, 80 GB peak). The F-dA-15 admission
   refused #60 by 2.1 GB, and the override then OOM'd.
 - Prose/labels: gate (a)'s skip reasons still name `tp_stage.sh`, not the b1 layout.
@@ -78,4 +82,4 @@ carry both. Attributing them field by field to epoch items is the owner's review
   (01:57:06Z), tp70b 01:55Z (01:56:56Z), moe68 01:57Z (01:58:07Z; the 01:55Z mint for moe68 never reached the pod).
 
 ## Spend
-About $105 of $130. Pods: all terminated by the time of FINAL (see the final checkpoint).
+About $105 of $130. All pods terminated (last: tp70 and tp70b at 03:17Z), and every `vyv-rf-epoch-*` registry entry removed. The bisect cost $0.

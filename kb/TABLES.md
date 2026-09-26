@@ -1,7 +1,7 @@
 ---
 kind: kb
 topic: the tables the user wants
-updated: 2026-09-25T22:25Z (coordinator: self-throttling is not contention, criterion 7); before that 2026-09-25T19:50Z (lane tables-switch: Flock family, the switch's commands; before that 2026-09-25T06:30Z: rewrite with the user's decisions of 2026-09-24 evening, published from the Project store's docs/tables-spec-draft.md; replaces the 2026-09-24T20:20Z spec, kept as kb/TABLES-v1-20260924.md)
+updated: 2026-09-26T02:10Z (coordinator: input sets generated or captured with provenance; Table 2 rows keyed by the ontology's statements; Daniel, 2026-09-26 01:01Z); before that 2026-09-25T22:25Z (coordinator: self-throttling is not contention, criterion 7); before that 2026-09-25T19:50Z (lane tables-switch: Flock family, the switch's commands; before that 2026-09-25T06:30Z: rewrite with the user's decisions of 2026-09-24 evening, published from the Project store's docs/tables-spec-draft.md; replaces the 2026-09-24T20:20Z spec, kept as kb/TABLES-v1-20260924.md)
 ---
 
 # The tables the user wants (standing spec; do not redesign without the user)
@@ -53,6 +53,11 @@ One line per subcircuit, hardware class and commitment scheme, a native column, 
 - A scheme here is a `verity.commitments` scheme together with the hash of its leaves. Today there are three: frame-v3 with SHA-256, frame-v3 with keyed-BLAKE3 row digests, and `vllm-v1` (SHA-256).
 - The lines of one subcircuit and hardware class sit together, so each family's column compares the schemes.
 - A scheme's lines appear once some configuration declares that scheme.
+- **Rows are keyed by the ontology's statements** (Daniel, 2026-09-26 01:01Z; terms as in the Project store's `docs/ontology.md`).
+  - A row's key is its statement id: the subcircuit id (the subcircuit template id plus its bound parameters, such as K, datatype
+    and semantics) plus the scheme id. The prover hardware id, a Census id, is its own axis.
+  - A new subcircuit template or a new shape, such as another K, appears as a new row.
+  - New prover hardware, such as an L40S, is a new value on the hardware axis, not a new row or column.
 
 ```text
 N(S, H)     native throughput: instances of S per second on H, a compute-bound estimate
@@ -213,6 +218,11 @@ A result counts in any proving view (Tables 2 and 3, and a ✓ in D2) only if al
 
 ## Inputs
 
+- **Generated or captured** (Daniel, 2026-09-26 01:01Z). An input set, the ontology's term for an instance set, may be generated
+  or captured from real vLLM runs. Either way it records its provenance:
+  - generated: the recipe and seed;
+  - captured: the row, model and run it was captured from, plus its source tree or epoch.
+  Rule I and admissibility criterion 3 compare sets by id and range either way.
 - **Generated from the IR.** Each subcircuit has one instance set generated from its Definition: uniform over its domain plus its edge families, in the shape serving uses (for GEMM coordinates, tiles that share rows), and exhaustive for unary 16-bit operations.
   - Expected outputs come from the reference evaluator.
   - Seeding uses a label-keyed SHA-256 counter, so instance i is computable directly in any language.
@@ -222,7 +232,7 @@ A result counts in any proving view (Tables 2 and 3, and a ✓ in D2) only if al
 - **The five frozen sets stay exactly as they are:**
   - the A100 set (`bench-instances/v1` `vu-k1536`, manifest `059103cf…`, with its 24 captured coordinates and real weight rows);
   - the FP8 Ada, BF16 Hopper, FP8 Hopper and NVFP4 sm_120 sets, pinned by their recipe digests in `contract.py`.
-- **New subcircuits** use the generator.
+- **New subcircuits** use the generator, or a captured set that records its provenance as above.
 - **Backends never generate benchmark inputs;** they read sets by id.
 
 ## Standing decisions

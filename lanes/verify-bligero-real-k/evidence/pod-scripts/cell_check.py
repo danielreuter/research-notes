@@ -6,7 +6,7 @@
    content digest the cell names, re-evaluate every instance with the IR evaluator (`input_sets.verify`), and compare each file's
    sha256 with the copy the prover staged (its run record's `set/` entries);
 2. main's reverify on the cell (dry run: labels are written from the VM with --ref this run): custody, system PINNED, hash
-   commitments recomputed from MY staged set (--instances-root), coverage, `ligero-verify batch --target-bits 128` on every rep;
+   commitments recomputed from MY staged set (instances_root), coverage, `ligero-verify batch --target-bits 128` on every rep;
 3. sha256 of every dumped .proof / .stmt / .coins, for the comparison with the live verifier's session records (done on the VM).
 """
 import argparse, hashlib, json, os, subprocess, sys, time
@@ -77,30 +77,18 @@ summary["input_set_check"] = {
                            "only_mine": sorted(set(mine) - set(rec_files)), "only_prover": sorted(set(rec_files) - set(mine))},
 }
 
-# 2. main's reverify checks (backends.direct.ligero.reverify.verify_tree, unchanged) on the cell's proof dir with my staged set.
-#    reverify's own entry point looks for proofs/ or dumps/ at the tree root only; a bench.cell tree nests it under the result's
-#    meta.artifacts[0] (sweep/<point>/proofs), so the dir is located here and handed to verify_tree as reverify would.
+# 2. main's reverify (entry point, fixed at 9e42518a to read meta.artifacts[0]) as a dry run on MY staged set
 from backends.direct.ligero import reverify as RV
-tree = ns.work / "rv" / cid[4:20]
+from research.store.local import LocalStore
 t = time.time()
-r = sh("research", "data", "fetch", man["refs"]["run_files"], "--to", str(tree))
-if r.returncode:
-    raise SystemExit(f"fetch run_files: {r.stderr[-400:]}")
+v = RV.load_verifier(Path(ns.verifier))
+rep = RV.reverify(LocalStore(None), cid, v, by=None, jobs=ns.jobs, work=ns.work / "rv", asserted=meta["cell"]["relation"].split("+")[0],
+                  dry_run=True, keep=True, instances_root=str(sdir))
+tree = ns.work / "rv" / cid[4:20]
 arts = meta.get("artifacts") or []
 pdir = tree / arts[0] if arts and (tree / arts[0] / "manifest.json").is_file() else None
-v = RV.load_verifier(Path(ns.verifier))
-rep = RV.Report(cid)
-rep.run_files, rep.run = man["refs"]["run_files"], meta["run_id"]
-if pdir is None:
-    rep.status, rep.why = "ERROR", [f"no proof dir at meta.artifacts {arts} in {rep.run_files}"]
-else:
-    pman = json.loads((pdir / "manifest.json").read_text())
-    params = att.get("params") or {}
-    rep.mode = pman.get("mode") or params.get("mode")
-    RV.verify_tree(pdir, pman, v, rep, jobs=ns.jobs, params=params, asserted=meta["cell"]["relation"].split("+")[0],
-                   out_dir=ns.out / "reps", instances_root=str(sdir), fingerprint=meta.get("workload_fingerprint"))
 det = RV.detail(rep, v) if rep.status == "PASS" else None
-summary["reverify"] = {"entry": "reverify.verify_tree (main)", "seconds": round(time.time() - t, 1), "proof_dir": str(pdir),
+summary["reverify"] = {"entry": "reverify.reverify (main, dry run)", "seconds": round(time.time() - t, 1), "proof_dir": str(pdir),
                        "verifier": {"path": str(v.path), "sha256": v.sha256, "tag": v.tag}, "detail": det,
                        **{k: getattr(rep, k) for k in ("status", "why", "relation", "mode", "hashed", "custody", "run", "run_files", "tile")},
                        "reps": {k: {q: x.get(q) for q in ("n", "accepted", "rejected", "batch_accepted", "batch_bits", "system_pinned",

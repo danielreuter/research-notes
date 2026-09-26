@@ -5,6 +5,7 @@ created: 2026-09-26T05:53Z
 status: open
 ---
 
+CHECKPOINT 2bd8ce2f (07:51Z) [open] reopen: 7 cells (b1d710da 3bb4d03f 11208bf7 c92a439a 767b54db c56a09a8 664f3142); 35/35 session records gathered (5 runs from store records, 2 live via ssh read-only); c56a09a8 PASS locally w/ fixed reverify entry (main 2bd8ce2f) + 5/5 sessions; next: pod run for all 7. Handoff 0705Z acted on
 CHECKPOINT 1b818427 (07:41Z) [open] reopened for bligero-real-k new-sender cells (b1d710da 3bb4d03f 11208bf7 c92a439a 767b54db c56a09a8): NOT final; agent bc-30d7a020-fc45-5944-9ceb-1ac513232a9e; $5
 CHECKPOINT 1b818427 (06:32Z) [final] FINAL: 16/16 real-K pins confirmed (main 1b818427, VM + pod build); art:be42c41a c8cc8514 67fb03cb db9f01bf verified=accepted (ref r20260926-062503-d9c2; sets re-staged, sessions 20/20, negatives 7/7); reverify entry-point gap handed to coordinator; pod terminated 06:31Z ~$0.10
 CHECKPOINT 1b818427 (06:25Z) [open] pins 16/16 also on pod (run r20260926-061022-eac8, pod-built verifier). Input sets re-staged: 3/3 match manifests+cell digests, IR-verified, = prover's staged copies. main reverify can't find nested sweep/*/proofs (ERROR) -> run r20260926-062503-d9c2 calls reverify.verify_tree directly; H100 67fb03cb PASS locally + 5/5 sessions match

@@ -13,7 +13,8 @@ from pathlib import Path
 sroots = [Path(p) for p in sys.argv[1].split(",")]
 cells = {x["id"]: x for x in json.loads(Path(sys.argv[2]).read_text()) if "cell" in x["manifest"]["meta"]}
 run_out, pins = Path(sys.argv[3]), Path(sys.argv[4])
-want = sys.argv[5].split(",") if len(sys.argv) > 5 else list(cells)
+want = sys.argv[5].split(",") if len(sys.argv) > 5 and sys.argv[5] else list(cells)
+disk = json.loads(Path(sys.argv[6]).read_text()) if len(sys.argv) > 6 else {}   # {sid: sha256 of the verifier's system.bin}
 
 
 def sdir(sid):
@@ -45,6 +46,7 @@ for cid in want:
             "hello_n_proofs": hello["n_proofs"] == fp["N_subbatches"],
             "hello_zk_interactive": hello["zk"] is True and hello["mode"] == "interactive" and hello["target_bits"] >= 128,
             "system_sha256_eq_my_compile": hello["system_sha256"] == my_sys,
+            "verifier_system_file_eq_my_compile": (disk.get(sid) == my_sys) if disk else True,
             "verdict_accepted": verdict["accepted"] is True and verdict["reason"] == "accepted",
             "all_received_accepted": verdict["proofs_received"] == verdict["n_proofs"] == verdict["accepted_subbatches"] == fp["N_subbatches"],
             "no_live_rejections_or_errors": not verdict["live_rejections"] and not verdict["errors"],

@@ -1,0 +1,269 @@
+{
+ "run": "r20260926-042206-7932",
+ "pod": "vy-flock-ir-lowering-h100b (1r0uypbqe3j5bw, H100 80GB HBM3)",
+ "statement": "verity/flock-ir-block/v1",
+ "code": "cursor/flock-ir-lowering-c78f @ 76b7cbb2",
+ "verifier": "loopback (same pod); relation-only diagnostic, public unit words (RMSNorm: cut words from the verifier's IR evaluation)",
+ "pins": {
+  "rope": "25d8e464",
+  "silu": "5bb4a943",
+  "rmsnorm-fused": "a1baf2ba",
+  "rmsnorm-triton": "d9d484ba"
+ },
+ "selftests": [
+  {
+   "file": "selftest-cpu-rmsf-2.txt",
+   "all_pass": true,
+   "gpu": false,
+   "m": 25
+  },
+  {
+   "file": "selftest-cpu-rmst-1.txt",
+   "all_pass": true,
+   "gpu": false,
+   "m": 24
+  },
+  {
+   "file": "selftest-cpu-rope-32.txt",
+   "all_pass": true,
+   "gpu": false,
+   "m": 23
+  },
+  {
+   "file": "selftest-cpu-silu-2.txt",
+   "all_pass": true,
+   "gpu": false,
+   "m": 26
+  },
+  {
+   "file": "selftest-gpu-rmsf-2.txt",
+   "all_pass": true,
+   "gpu": true,
+   "m": 25
+  },
+  {
+   "file": "selftest-gpu-rmst-1.txt",
+   "all_pass": true,
+   "gpu": true,
+   "m": 24
+  },
+  {
+   "file": "selftest-gpu-rope-32.txt",
+   "all_pass": true,
+   "gpu": true,
+   "m": 23
+  },
+  {
+   "file": "selftest-gpu-silu-2.txt",
+   "all_pass": true,
+   "gpu": true,
+   "m": 26
+  }
+ ],
+ "points": [
+  {
+   "file": "prove-loop-rmsf-256.txt",
+   "subcircuit": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16",
+   "instances": 256,
+   "units": 8192,
+   "dense_m": 32,
+   "accepted": true,
+   "runs": 3,
+   "e2e_s": [
+    5.5315,
+    5.6691,
+    5.7269
+   ],
+   "gpu_prove_both_reps_s": [
+    0.4937,
+    0.5021,
+    0.4943
+   ],
+   "host_witness_both_reps_s": [
+    4.8781,
+    5.0027,
+    5.0823
+   ],
+   "wait_s": [
+    0.5243,
+    0.572,
+    0.5865
+   ],
+   "calls": 246,
+   "proof_bytes": [
+    527417,
+    527417
+   ]
+  },
+  {
+   "file": "prove-loop-rmsf-32.txt",
+   "subcircuit": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16",
+   "instances": 32,
+   "units": 1024,
+   "dense_m": 29,
+   "accepted": true,
+   "runs": 3,
+   "e2e_s": [
+    0.9245,
+    0.923,
+    0.9171
+   ],
+   "gpu_prove_both_reps_s": [
+    0.0948,
+    0.0896,
+    0.0891
+   ],
+   "host_witness_both_reps_s": [
+    0.8015,
+    0.805,
+    0.8002
+   ],
+   "wait_s": [
+    0.5232,
+    0.5528,
+    0.5661
+   ],
+   "calls": 216,
+   "proof_bytes": [
+    367897,
+    367897
+   ]
+  },
+  {
+   "file": "prove-loop-rmst-256.txt",
+   "subcircuit": "rmsnorm-triton/n2048-eps1e-05/bf16",
+   "instances": 256,
+   "units": 2048,
+   "dense_m": 32,
+   "accepted": true,
+   "runs": 3,
+   "e2e_s": [
+    6.6625,
+    6.3842,
+    6.594
+   ],
+   "gpu_prove_both_reps_s": [
+    0.4812,
+    0.487,
+    0.4815
+   ],
+   "host_witness_both_reps_s": [
+    6.0171,
+    5.7089,
+    5.9091
+   ],
+   "wait_s": [
+    1.6178,
+    1.6639,
+    1.6927
+   ],
+   "calls": 248,
+   "proof_bytes": [
+    527449,
+    527449
+   ]
+  },
+  {
+   "file": "prove-loop-rmst-32.txt",
+   "subcircuit": "rmsnorm-triton/n2048-eps1e-05/bf16",
+   "instances": 32,
+   "units": 256,
+   "dense_m": 29,
+   "accepted": true,
+   "runs": 3,
+   "e2e_s": [
+    2.2688,
+    2.0526,
+    1.9935
+   ],
+   "gpu_prove_both_reps_s": [
+    0.0917,
+    0.093,
+    0.0912
+   ],
+   "host_witness_both_reps_s": [
+    2.1401,
+    1.9268,
+    1.8705
+   ],
+   "wait_s": [
+    1.7858,
+    1.6048,
+    1.6223
+   ],
+   "calls": 218,
+   "proof_bytes": [
+    367929,
+    367929
+   ]
+  },
+  {
+   "file": "prove-loop-rope-1024.txt",
+   "subcircuit": "rope-head/d64/neox-bf16",
+   "instances": 1024,
+   "units": 32768,
+   "dense_m": 28,
+   "accepted": true,
+   "runs": 3,
+   "e2e_s": [
+    0.4396,
+    0.4116,
+    0.4229
+   ],
+   "gpu_prove_both_reps_s": [
+    0.059,
+    0.0607,
+    0.056
+   ],
+   "host_witness_both_reps_s": [
+    0.3529,
+    0.3295,
+    0.3481
+   ],
+   "wait_s": [
+    0.1086,
+    0.1142,
+    0.1145
+   ],
+   "calls": 212,
+   "proof_bytes": [
+    311993,
+    311993
+   ]
+  },
+  {
+   "file": "prove-loop-silu-32.txt",
+   "subcircuit": "silu-mul/i8192/bf16",
+   "instances": 32,
+   "units": 262144,
+   "dense_m": 30,
+   "accepted": true,
+   "runs": 3,
+   "e2e_s": [
+    1.3622,
+    1.3795,
+    1.3737
+   ],
+   "gpu_prove_both_reps_s": [
+    0.1601,
+    0.1487,
+    0.1533
+   ],
+   "host_witness_both_reps_s": [
+    1.1375,
+    1.1765,
+    1.1647
+   ],
+   "wait_s": [
+    0.1865,
+    0.2013,
+    0.1885
+   ],
+   "calls": 220,
+   "proof_bytes": [
+    479609,
+    479609
+   ]
+  }
+ ]
+}

@@ -217,13 +217,13 @@ Report: `lanes/flock-glue/20260925T1011Z-report-flock-glue.md`.
 - GOTCHA: `source /workspace/env.sh` cds into the bootstrap's source tree; capture `$(pwd)` before sourcing it in a
   `research run --cwd source` command. `research run --tool` only takes registered tools.
 
-## verity/flock-netlist/v1 (flock-netlist, 2026-09-26; PR #83, `lanes/flock-netlist/`)
+## verity/flock-circuit (2026-09-26; PR #83, `lanes/flock-netlist/`)
 - **Private-by-default statement for any `flock-ir-unit/v2` template:** whole VUs per block, all glue Δ; public = frame-v3 roots,
   row digests, outputs. Multi-chunk rows get an in-circuit BLAKE3 parent tree (SiLU: 32 chunks + 31 parents per row).
-- **Flock-CUDA blocks up to 2^26 bits** (`cuda/prove_netlist.cuh`, generated from `prove_chunk.cuh` by `cuda_netlist_patch.py`):
+- **Flock-CUDA blocks up to 2^26 bits** (`cuda/prove_circuit.cuh`, generated from `prove_chunk.cuh` by `cuda_circuit_patch.py`):
   the chunk prover's `k_log` 20..22 / 256-slot limits were the FFI's shape check and its ratio arrays, not Flock's; the lincheck
   K-vectors cost ~12·2^k_log·16 B (12.9 GB at k_log 26; fine on a 46 GB L40S at m ≤ 33).
-- **Device witness for any netlist:** 32 units per CTA bit-sliced (a row = one u32 over 32 units), rows in level order, 1-8
+- **Device witness for any circuit:** 32 units per CTA bit-sliced (a row = one u32 over 32 units), rows in level order, 1-8
   warps per level, 32x32 shuffle transpose into the slots. L40S, SiLU 128 rows (524k units of 5.8k rows): units 55 ms, BLAKE3
   compressions 15 ms per rep. Cut templates run two passes around a host callback (tail stages + MUFU lookups).
 - **SiLU 128 rows on L40S loopback: 0.61 s e2e both reps (m=33, 2.83 G ANDs) = 4.6 G AND/s** (r20260926-181746-69fe).

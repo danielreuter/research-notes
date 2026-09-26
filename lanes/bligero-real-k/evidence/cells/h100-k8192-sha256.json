@@ -1,21 +1,21 @@
 {
  "backend": "B-interactive",
  "family": "B-Ligero",
- "statement": "gemm-coordinate/k2048/sm90-wgmma-bf16+frame-v3/blake3-keyed",
- "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-bf16",
- "scheme": "frame-v3/blake3-keyed",
+ "statement": "gemm-coordinate/k8192/sm90-wgmma-bf16+frame-v3/sha-256",
+ "subcircuit": "gemm-coordinate/k8192/sm90-wgmma-bf16",
+ "scheme": "frame-v3/sha-256",
  "input_set": {
   "kind": "set",
-  "id": "gemm-coordinate-hopper-bf16-wgmma-k2048",
-  "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-bf16",
-  "path": "/home/ubuntu/.research/store/trees/4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018",
-  "art": "art:4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018",
+  "id": "gemm-coordinate-hopper-bf16-wgmma-k8192",
+  "subcircuit": "gemm-coordinate/k8192/sm90-wgmma-bf16",
+  "path": "/home/ubuntu/.research/store/trees/ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2",
+  "art": "art:ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2",
   "n": 4096,
-  "content_digest": "29ccc7de4d3132c27f4d5cee9884741fe1bf560e5d1bb61c9ce506bd348b6223",
-  "manifest_sha256": "b4d57de0bf68c2556ebefa210268cca72bc0d3429cbb9beee4deb6a9376d7edc",
+  "content_digest": "a600e6ca57f313f05b0a5a92e2092392d19cb494902182b8f76491372b6d39c0",
+  "manifest_sha256": "1f239be631c8e672623d7f9cf725e51ec1177af917ae4776bd29f267d7e15ba8",
   "source": "synthetic"
  },
- "relation": "bf16-hopper-x4-k2048+blake3-xob",
+ "relation": "bf16-hopper-x4-k8192+sha256",
  "prover": "vy-bligero-real-k-h100-us",
  "verifier": "vy-bligero-real-k-verifier-ga2",
  "verifier_addr": "205.196.17.106:9450",
@@ -76,7 +76,7 @@
     "bash",
     "backends/direct/ligero/cell.sh",
     "ROLE=prover",
-    "REL=bf16-hopper-x4-k2048+blake3-xob",
+    "REL=bf16-hopper-x4-k8192+sha256",
     "VERIFIER=205.196.17.106:9450",
     "START=1024",
     "RUNS=5",
@@ -84,11 +84,11 @@
     "OPERATOR=bligero-real-k",
     "L=4096",
     "PP=4",
-    "SET=gemm-coordinate-hopper-bf16-wgmma-k2048-29ccc7de4d31.tar.xz",
-    "SET_ART=art:4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018"
+    "SET=gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz",
+    "SET_ART=art:ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2"
    ],
    "send": [
-    ".bench-cell/sets/gemm-coordinate-hopper-bf16-wgmma-k2048-29ccc7de4d31.tar.xz"
+    ".bench-cell/sets/gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz"
    ],
    "argv": [
     "research",
@@ -110,12 +110,12 @@
     "--campaign",
     "bligero-real-k",
     "--send",
-    ".bench-cell/sets/gemm-coordinate-hopper-bf16-wgmma-k2048-29ccc7de4d31.tar.xz",
+    ".bench-cell/sets/gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz",
     "--",
     "bash",
     "backends/direct/ligero/cell.sh",
     "ROLE=prover",
-    "REL=bf16-hopper-x4-k2048+blake3-xob",
+    "REL=bf16-hopper-x4-k8192+sha256",
     "VERIFIER=205.196.17.106:9450",
     "START=1024",
     "RUNS=5",
@@ -123,8 +123,8 @@
     "OPERATOR=bligero-real-k",
     "L=4096",
     "PP=4",
-    "SET=gemm-coordinate-hopper-bf16-wgmma-k2048-29ccc7de4d31.tar.xz",
-    "SET_ART=art:4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018"
+    "SET=gemm-coordinate-hopper-bf16-wgmma-k8192-a600e6ca57f3.tar.xz",
+    "SET_ART=art:ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2"
    ]
   }
  ]

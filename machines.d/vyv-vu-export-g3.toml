@@ -1,0 +1,7 @@
+# machine vyv-vu-export-g3: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "0tux4mcwshmyou"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-26T17:30Z"

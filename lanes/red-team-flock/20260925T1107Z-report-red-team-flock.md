@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (11:35Z) [open] 11:35Z reopened: 8 per-workload GEMM cells (H100 x3, L40S x5), PB/CN + same-machine placement ruling, CPU only
 CHECKPOINT 3301c435 (10:46Z) [final] FINAL 11:10Z: route (a) re-sweep a0ca8ef6/a979dfcb NON_ZK_PROOF (rebuild identical, gate 10/10, negs rejected); A-fs 7ae6c190/0e1095f3 NON_ZK_PROOF_DIAGNOSTIC (transcript binds steps/units/circuit/y; 10/10 reps; negs rejected). No pods, $0.
 CHECKPOINT 3301c435 (10:37Z) [open] 10:38Z reopened: route (a) re-sweep cells a0ca8ef6 / a979dfcb, CPU only
 CHECKPOINT 3301c435 (10:22Z) [final] FINAL 11:00Z: ChunkTail(n) GRANTED WITH CONDITIONS (CT1-CT3; selftests K2304/K8960 bf16 + K2560 fp8 all_pass; older layouts byte-identical by replay). L40S cells labelled earlier. No pods, $0.

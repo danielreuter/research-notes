@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (12:57Z) [open] attention: replay r20260926-125610-f2a9 of the 8 registered T cells on vy-verify-flock-pure (pod 0esosgqno3wm2v) from lane/verify-flock-attn (ece9fdd2 + replay; local, push pending on GitHub auth); polling for the other 8
 CHECKPOINT 787ac154 (12:49Z) [open] reopened for 16 L40S attention cells (flock-ir-frame v3 @ ece9fdd2): NOT final
 CHECKPOINT 787ac154 (12:31Z) [final] FINAL: 8 per-workload GEMM cells verified=accepted (file re-verification; r20260926-114049-edf0, r20260926-122145-c586); pod terminated 12:31Z; ~$0.25; ready for the attention cells
 CHECKPOINT 787ac154 (12:00Z) [open] workload GEMM: 2e5ea606 4e3f5048 aea553ae labelled; 86780ca6 4a319a65 89dab836 running (r20260926-114049-edf0); d9a40cd4 8b5a0bf1 need a 581c3084 staging rerun (header content_digest differs), queued on lane/verify-flock-workload-581 2266e096

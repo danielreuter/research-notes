@@ -5,6 +5,7 @@ created: 2026-09-26T08:06Z
 status: open
 ---
 
+CHECKPOINT c1e7bded (12:32Z) [open] pause lifted: pods vy-agkr-l40s + vy-agkr-l40s-ver in US-MD-1 (verifier 10.0.129.112:7200, sshd 22); launching: k2048 k8192
 CHECKPOINT c1e7bded (12:32Z) [open] L40S pods: vy-agkr-l40s oa0m0tx3c6vxrm (machine h1ovgmmrd3dh) + vy-agkr-l40s-ver nqkz63dauxz4ql (machine bmf6gxxmufbv) in US-TX-4, global net 10.0.129.112; launching K2048 + K8192
 CHECKPOINT c1e7bded (12:23Z) [open] L40S prover vy-agkr-l40s oa0m0tx3c6vxrm created in US-TX-4 (secure, $1.09/h; US-NC-1/SE/OC-AU-1 had no L40S stock 12:03-12:22Z); verifier next, must be another machine
 CHECKPOINT c1e7bded (12:07Z) [open] L40S cells: branch cursor/agkr-l40s-101-f806 @ c1e7bded (main 961d0667 merged, PR #74 placement; cgroup-v1 threads + RTT retry 369d741c pushed; c1e7bded push blocked: GitHub token invalid, bundle in evidence/); no L40S stock in US-NC-1/SE/OC-AU-1 at 12:05Z; polling US-NC-1 secure + global net once a minute; plan through bench.cell placement once both pods exist

@@ -28,11 +28,20 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 - Gate (a) on main 5f8d8789 CONFIRMED: r20260925-224745-e739 rc 0, 73 passed / 85 skipped (158), = a23b's base; only the #70/#75
   skip rewordings. PRESERVED (both runs). CONFIRM handoff 20260926T0315Z sent.
 
+## Task 3: admission fix 89cd9d1a -> main (coordinator handoff 20260926T0315Z, $3, deadline 08:00Z)
+- Branch `lane/vllm-rf-admit` = origin/main `7289e3ad` + `git cherry-pick -x 89cd9d1a` -> `7b9558b7` (pushed). Conflict only in
+  p10_size.json: commit.py `main` cap set to the merged size 1770 (main had 1776; the fix shrinks main by 6); module stays 2939.
+  The cherry-picked message still says "1913 -> 1907" (epoch-branch numbers; no amend).
+- vyv-rf-m32-reg was already terminated; every cpu3g/cpu3m/cpu3c/cpu5* shape returned "no instances available", so the gate pod is
+  vyv-rf-m32-admit = RunPod lq6wt0cak7uhxx, 1x RTX A4000 host ($0.25/h, 128 cpus, 503 GB), GPU hidden (CUDA_VISIBLE_DEVICES=-1).
+
 ## Running
-- nothing. vyv-rf-m32-cpu terminated 22:39Z, vyv-rf-m32-reg terminated 03:14Z.
+- vyv-rf-m32-admit: base r20260926-031830-2411 (gate_b2.sh base, BOOTSTRAP=1, tree 7289e3ad), then head r20260926-031940-f369
+  (gate_b2.sh head, WAIT_RUN=base, tree 7b9558b7). Both in git clones with sampled_proofs on PYTHONPATH.
 
 ## Next
-- none (FINAL). Spend about $8.5 total.
+- jdiff base vs head, check test_admission_commit::test_the_commit_admission_counts_the_declared_lag passes, preserved, terminate,
+  merge-ready handoff, FINAL.
 
 ## Open questions
 - none

@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (10:07Z) [final] FINAL: NVFP4 cells 2753a371 (Fp4, 30/30) + db7f48de (ShaFp4, 54/54) verified=accepted (file re-verification, r20260926-095555-fdcb); pod terminated 10:07Z; ~$0.12; tip lane/verify-flock-pure-realk db908649
 CHECKPOINT 787ac154 (09:56Z) [open] NVFP4: replay r20260926-095555-fdcb on vy-verify-flock-pure (pod ydprtbj2vi34gy) from lane/verify-flock-pure-realk db908649 (+51743c71 NVFP4 write_set)
 CHECKPOINT 787ac154 (09:53Z) [open] reopened for NVFP4 cells 2753a371 (Fp4) db7f48de (ShaFp4): NOT final
 CHECKPOINT 787ac154 (09:52Z) [final] FINAL: agkr-real-k route (a) cells 95fdd0ae (K=2048) + 20197f8b (K=8192) verified=accepted, A-GKR prime + Flock replay, 20/20 sessions, 14/14 negatives (r20260926-093954-dfd7); pod terminated 09:52Z; ~$0.15. NVFP4 handoff 0945Z not in scope: awaits a reopening
@@ -60,3 +61,4 @@ Reopened 07:52Z-08:30Z: flock-ir-frame/v2 cells art:dd27fdab, 8a07b80f, 9563d2c8
 
 Reopened 09:34Z-09:53Z: agkr-real-k route (a) cells art:95fdd0ae, art:20197f8b verified=accepted (r20260926-093954-dfd7; lane/verify-agkr-real-k 672dff53); sent coordinator 20260926T0953Z. Pod 7l4nmzucy5407i terminated 09:52Z; lane total ~$4.4.
 20260926T0945Z-handoff-from-flock-backend.md (NVFP4 cells art:2753a371, art:db7f48de, cross-DC verifier) arrived during the agkr-real-k reopening and is not in its assignment: not replayed; it needs a reopening from the coordinator (31-replay.sh on lane/verify-flock-pure-realk takes SET= as for the real-K cells; the placement question is the coordinator's).
+Reopened 09:53Z-10:08Z (the 0945Z NVFP4 handoff): art:2753a371, art:db7f48de verified=accepted (r20260926-095555-fdcb); sent coordinator 20260926T1008Z. Pod ydprtbj2vi34gy terminated 10:07Z; lane total ~$4.5.

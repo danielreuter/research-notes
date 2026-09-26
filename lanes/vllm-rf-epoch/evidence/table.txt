@@ -1,0 +1,278 @@
+row                                                                                 manifest_digest   program_digest    step_segmentatio  global_match_che  stoch_value       executed_prefix   coverage          commit_summary    verdict           decomp_hashes     replay_partition
+#4 smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager         -                 -                 -                 -                 -                 -                 -                 -                 FAIL              -                 -               
+#23 llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager          FAIL              FAIL              FAIL              PASS/expected     -                 PASS/expected     PASS/expected     PASS/expected     FAIL              -                 -               
+#57 gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager            FAIL              FAIL              FAIL              PASS/expected     -                 PASS/expected     FAIL              FAIL              FAIL              -                 PASS/decision   
+#60 mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager           FAIL              FAIL              FAIL              FAIL              -                 PASS/expected     PASS/expected     PASS/expected     FAIL              FAIL              PASS/expected   
+#67 olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager         FAIL              FAIL              FAIL              FAIL              -                 PASS/expected     FAIL              FAIL              PASS/expected     FAIL              PASS/decision   
+#70 olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager          -                 FAIL              -                 -                 -                 -                 -                 -                 -                 -                 -               
+#101 llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager  FAIL              FAIL              FAIL              FAIL              PASS/expected     PASS/expected     PASS/expected     FAIL              PASS/expected     -                 PASS/expected   
+
+FAIL:
+  smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager verdict:
+    $.pass: expected false != actual true
+  llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager manifest_digest:
+    $.manifest_digest: expected "5fddeee604ff0bd89347cfa9cf5c9f9c006a41cca0a3a3b9806240344bb041ba" != actual "e55e54078c11d6a28d7d64ad22649a38165e6088edb1c24e9279bf920a3c4524"
+    $.program_digest: expected "4bc2937c31fb22a511fce7a827788bf16b6478f2f48b5a2327b8503c72b3e313" != actual "ac1a9fca7e12006096cdda14ad109f97cfe6b4ff20cba3ad55cd0f8902d0250a"
+  llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager program_digest:
+    $.build_summary.request: expected "5ab257e37ec7175ef280026b484db03eacc24c1e95b7435b0c6faee6fdef2516" != actual "fab099839767a7924c1ed0d8a4d4fc38c8b9a909ba31f89f89a63e97bac404e8"
+    $.build_summary.shapes.build_request_LP1024_T46: expected "c149ff3e6121fd02bb540c70a7e04dd6ecb2461edc7fa5fb1a723845b1e13e73" != actual "92b62a87754a72d512a60d1937c3bad2253e3f95affec989f9adf64b4abff576"
+    $.build_summary.shapes.build_request_LP105_T20: expected "3de6473c16157a159822d4e6d2fca495173cb4ca9e4a74a02f21211843a49fd4" != actual "d9ed538d938aa558cde2b29572e2edc04dad9a9c3b7161d73bd7fe2f19b2d8c2"
+    $.build_summary.shapes.build_request_LP111_T118: expected "5dcc44a7c24cdbe4bcca16355808e581a4c79c878346744080d003666ce44502" != actual "8bf22ea0c85bed06ddae3394fb78320a2f4a7c3d833a2d7b7cfde6d22c019904"
+    $.build_summary.shapes.build_request_LP11_T24: expected "00efdb532fd6126cfe32f0af9fb4bf0b272d76b5e3cbd4920f629d35617ece2c" != actual "d42cdaac68496e062d162e65c433f69464c8d0517b74917c688ff707f04e1653"
+    $.build_summary.shapes.build_request_LP11_T36: expected "d261dfd3c37febaf9777df4e03a4f9b2d8c6ff2693f4a86056806ad9dcd46ca6" != actual "fff9ee74cf5c1f13de757a26c12277963c2de41fb42bb5729f9c390f6b3d0724"
+    $.build_summary.shapes.build_request_LP123_T48: expected "9ffbe9350c60206273f6ec2e63c354a8eaa26f98826ba8fea700bf5371ab11f1" != actual "dac5c81d4bd17b43a76118a803ff51c40f9fdd96d8f5ea52e15be721c9e09822"
+    $.build_summary.shapes.build_request_LP135_T2: expected "dda498354354fc37b3d6783693d43692ff48e1c128e945060952dc76e596cfd7" != actual "eeae1f85fc335a311270c7d5f5c16abb5ec83ac0dc8a6a6055d216ec9f6d9aa2"
+    $.build_summary.shapes.build_request_LP137_T30: expected "7f2b846704fae848a0bb6c7693ca59fbe418c88cfee05d074645ee4d75526937" != actual "0dbf930c097da229cd7eed4021704c2a4e35f2b6b8b07384a2b0e97578c70f14"
+    $.build_summary.shapes.build_request_LP13_T36: expected "10573ceb1a1e76ec091fef2120cd966af35e3ad1ac1d8c4045fc8c8227b1958d" != actual "f5f96e74d9325524573b43193e471b1918e598265fcf39eac1946156b5696bb5"
+    $.build_summary.shapes.build_request_LP15_T2: expected "c39d12436ef52fbd934fb0c1c3fb41259005d8e624ea623fcaa5e21e04b1d655" != actual "bd7c3507dd0bfa9aa9b1bd2f4dd9b60a6e27ddad48cbeb15cf30272f2583494b"
+    $.build_summary.shapes.build_request_LP163_T98: expected "f46a24719d9c16f8bf3a05700c99b6369a95bf34064b8313a4b1ebe9313462e2" != actual "a8d89ade252a5e88aabc7172fd80930b0a8fa6671ec1d7da7fc190dceaa4f5c8"
+    $.build_summary.shapes.build_request_LP165_T4: expected "90358b2a86416b9f0c354dd402d3389e517a6de556bc5efd890609c099b487d1" != actual "92fedb0548def2030d07e9154e4dd7791be93a1871828e9c053d0dfa987bbd65"
+    $.build_summary.shapes.build_request_LP17_T14: expected "9b32cba4b823ec24f35d8c49f0fcae063df59ff5c97ccf8f1ea5ccd0e386e4d2" != actual "1993cb09f32d1d39600cfc458c2dcf60dcb94ff2767328918f3ec098aeaac578"
+    $.build_summary.shapes.build_request_LP183_T18: expected "2ae477666e6885967847532aa6943649c11b58b02dcc0685bfd812983e51b3d9" != actual "eaa12846750c75118580aba0507600664794468e0c735aa66e57e2702983f1ae"
+    $.build_summary.shapes.build_request_LP197_T18: expected "bbf0a243db0e007848558d5ceaf094e4ddfe09f69f2ce6d077d1cb890db350ae" != actual "f590ac688fe6313a2410b25c95a4698da1a87dc8a446aee2baa9504a0602e103"
+    $.build_summary.shapes.build_request_LP19_T88: expected "b54316b71a9228ea50fd02e72f54047bb59a921d6a8c79197cbdcd548cf06f29" != actual "8b45e915a18aee10263ccde6c2a9e99bd35e75092b5c3850f51340de778aff2e"
+    $.build_summary.shapes.build_request_LP21_T4: expected "9f3bdd7520c10d689d2ac91b17629e9257cb6643007a490bcf95282a545438bf" != actual "aab1ef633922eec26598adb9e1bf54146c8164d9494e5b58a92c54102e020130"
+    $.build_summary.shapes.build_request_LP225_T24: expected "0a3f5b2da2907d7798a1e2e8ce155a431a54490f96acf805b7798d0689923910" != actual "6f650edde7331888a9c354450dfa724fba32a2be8606e4ffef2d17a427466a3b"
+    $.build_summary.shapes.build_request_LP239_T50: expected "9883cb50d7ce57610994ad01a74e7e09c776c36fa83b5daaa5ee20179b4b4c38" != actual "66f5c8f044020cb88f2e6c7238f97cb88ba215d948524758056aa9b6fd0cbf68"
+  llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager step_segmentation:
+    $.requests.r0.program_digest: expected "4871ea1f6fe1c66388c83c7aafc7f98213da88a246e73a794b9501a8de9b13b3" != actual "8d973725f212f788dd27899ac058a25a54145679158355a40a0b0c9ba6347696"
+    $.requests.r1.program_digest: expected "d6aa6f69ea907b11ccbd1a437c56cad7210b40d3dc718e88ba2014c02a611129" != actual "a9fd599a1bf6fe88e9d405cc8ca0a305b5f9801739cdbcdbc502d7560dd416d3"
+    $.requests.r2.program_digest: expected "bde6306581ea938c581faa9f8a94ad28dcaa6eb2678a7be0dd65f022fbbfbaab" != actual "61f648d3c810297279a73beeb550f5746d8e017ae3b04c2b40fd675309ae007b"
+    $.requests.r3.program_digest: expected "f25b268d743a2cc69c86a97b2f480cd821a3047a15c7f177322079b490bfae8e" != actual "429ae2de8dc7c89834f406311edb9b28232ef3f782cb9593c1d66486be1d3cd7"
+    $.requests.r4.program_digest: expected "3de6473c16157a159822d4e6d2fca495173cb4ca9e4a74a02f21211843a49fd4" != actual "d9ed538d938aa558cde2b29572e2edc04dad9a9c3b7161d73bd7fe2f19b2d8c2"
+    $.requests.r5.program_digest: expected "5dcc44a7c24cdbe4bcca16355808e581a4c79c878346744080d003666ce44502" != actual "8bf22ea0c85bed06ddae3394fb78320a2f4a7c3d833a2d7b7cfde6d22c019904"
+    $.requests.r6.program_digest: expected "d21b5fa399d6f7b1e5a0f1b74133f1d688c422b889fc6811d992d46f4a1c51ed" != actual "5a90329193b823d8e26c1fdd33d59448ac4da0d2b0ee52b9a4db512f4e9f3b24"
+    $.requests.r7.program_digest: expected "2ae477666e6885967847532aa6943649c11b58b02dcc0685bfd812983e51b3d9" != actual "eaa12846750c75118580aba0507600664794468e0c735aa66e57e2702983f1ae"
+    $.requests.r8.program_digest: expected "78bd7206afe892907c9aec0aca4f5a79ac662c737ca62410302d921467c4b551" != actual "669114043c27cc5541d9546c179473336812c9708cd9c4ecc90ab6d6ed527107"
+    $.requests.r9.program_digest: expected "9ffbe9350c60206273f6ec2e63c354a8eaa26f98826ba8fea700bf5371ab11f1" != actual "dac5c81d4bd17b43a76118a803ff51c40f9fdd96d8f5ea52e15be721c9e09822"
+    $.requests.r10.program_digest: expected "0c0711ab2ac6331d96c9db05336b540bb2a0af2f926112f283e56b78167b0100" != actual "f6897cddce9b29be1795888537d0685300e5928dd7a1d3081aa05e8fad52a4e0"
+    $.requests.r11.program_digest: expected "9b32cba4b823ec24f35d8c49f0fcae063df59ff5c97ccf8f1ea5ccd0e386e4d2" != actual "1993cb09f32d1d39600cfc458c2dcf60dcb94ff2767328918f3ec098aeaac578"
+    $.requests.r12.program_digest: expected "7eb91924fae43c9be56a683e1d68e48a6cd5f3c04ecdeddad39f11e9c1f9218d" != actual "04afa3a97f8d723192b28e061e3b7af110cde92b916128d316b85f453b5d204b"
+    $.requests.r13.program_digest: expected "020a318b0a9c22a95020a571179949fe85fe462ae17592703a51b459566bd8f4" != actual "1596043a16d78acfee98da540d1d579842a7bb95e5bc95cf66d3609e1779e933"
+    $.requests.r14.program_digest: expected "cea1f864fc85a8f262e5dc94ef836578c2d93a8812516556ad2986177e84251a" != actual "c1fb4db42fdc0552c7f59e1c99a4ed5cb69584b1fac1e08b267dc9240022bde9"
+    $.requests.r15.program_digest: expected "753cc1863136f0224c6f78322d0e8fa385c2cb48af518dfce6ec90c03bfbc07f" != actual "33cd846cc9782920823a0a94d23f85b8c4df74dc2d0c4881fa179ece4d583368"
+    $.requests.r16.program_digest: expected "bbf0a243db0e007848558d5ceaf094e4ddfe09f69f2ce6d077d1cb890db350ae" != actual "f590ac688fe6313a2410b25c95a4698da1a87dc8a446aee2baa9504a0602e103"
+    $.requests.r17.program_digest: expected "ad08f461a3bb26236ff79c1438ecfdfb662eab3935a36dd0bb77b5f800dfd550" != actual "0683bf97028f47cf3532d61a5c144aa0b07b8b72e3f52c71dd8d19b721814079"
+    $.requests.r18.program_digest: expected "f46a24719d9c16f8bf3a05700c99b6369a95bf34064b8313a4b1ebe9313462e2" != actual "a8d89ade252a5e88aabc7172fd80930b0a8fa6671ec1d7da7fc190dceaa4f5c8"
+    $.requests.r19.program_digest: expected "225f58b16954bd4e4fbc51755e709c6a0746d75de1c62d5bf35a6eb07b59b72a" != actual "83211b15774ad5ab172d5c76f998fd2e305b19e1ea72e04b2b08c512600723e2"
+  llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager verdict:
+    $.commit_pass: expected true != actual null
+    $.groups.boundary_linkage: expected "PASS" != actual "NOT_RUN"
+    $.groups.checkpoint_binding: expected "PASS" != actual "NOT_RUN"
+    $.groups.execution_extent: expected "PASS" != actual "NOT_RUN"
+    $.groups.local_replay: expected "PASS" != actual "NOT_RUN"
+    $.groups.program_source_identity: expected "PASS" != actual "NOT_RUN"
+    $.groups.required_value_coverage: expected "PASS" != actual "NOT_RUN"
+    $.groups.runtime_match: expected "PASS" != actual "NOT_RUN"
+    $.pass: expected true != actual false
+  gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager commit_summary:
+    $.collector.variant: expected "native_collect_v2_auto_nw+hidden_m1" != actual "native_collect_v2_auto_nw+hidden_m1+plan"
+    $.commit_verdict.first_fail_reason: expected "identity coverage: manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads across a module boundary != actual "C2 of record not established (COORD M-0721 (1)): 867782 VUs not evaluable by name (no-evaluator) have committed members the complete sampled replay did not che
+    $.commit_verdict.required_classes_source: expected "program/query manifest 5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0 (R14 MAN-01; classes kept as a secondary check)" != actual "program/query manifest 21a77237c59916cb3aafdcafb8a3a816bcd85a9da84e21833042c3c9b0d51bf0 (R14 MAN-01; classes kept as a secondary check)"
+    $.commit_verdict.required_manifest.coverage: expected [{"checked":163052,"checked_by_family":{},"committed_extras_n":0,"committed_unmatched":[],"committed_unmatched_n":0,"duplicate_names_n":0,"engine_step_basis":"e != actual [{"checked":163168,"checked_by_family":{"fa2_hidden_m1_stream":3328,"input_token_ids":432,"instance_outputs":158976,"sampled_token_ids":432},"committed_extras_n
+    $.commit_verdict.required_manifest.manifest_digest: expected "5c985ad47c74368f81f8e16584ec5e01c44b0c2f7fec43614657d62c694bb3f0" != actual "21a77237c59916cb3aafdcafb8a3a816bcd85a9da84e21833042c3c9b0d51bf0"
+    $.commit_verdict.required_manifest.path: expected "/workspace/cp/sweep/r19-int-10/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json" != actual "/workspace/research/runs/r20260925-175445-4e8f/sweep/gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager/manifest.json"
+    $.commit_verdict.required_manifest.populations.by_family.instance_outputs: expected 158544 != actual 158976
+    $.commit_verdict.required_manifest.populations.identities: expected 163052 != actual 163484
+    $.commit_verdict.required_manifest.program_digest: expected "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53" != actual "4b668b3051db7f5e9d27d60818a6c54716e6e81af71a5ab15b72cfa9d6fcef0f"
+    $.commit_verdict.required_manifest.query.boundary: expected "module" != actual "module-body"
+    $.commit_verdict.required_manifest.query.family_selector: missing in actual (expected {"digest":"dd6729b72e9a69e9a0ceb429708efca969a13034609887bce93132f8b8c46004","module":"verity_capture.vu_canonical","que)
+    $.commit_verdict.required_manifest.query.implemented_query: missing in actual (expected "Q_module_v1")
+    $.commit_verdict.required_manifest.query.query: missing in actual (expected "verity_capture.vu_canonical")
+    $.commit_verdict.required_manifest.query.query_digest: missing in actual (expected "dd6729b72e9a69e9a0ceb429708efca969a13034609887bce93132f8b8c46004")
+    $.commit_verdict.required_manifest.query.query_id: expected "Q_module_v1" != actual "Q_module_body_v1"
+    $.commit_verdict.required_manifest.query.query_id_digest: expected "0d868cf076d7fe9521bca1ed325fb018981a9cecff6520759edbfc38cf4d4e4e" != actual "7cbadc8a04a7f2d7e1c1e7bdaeefd08d69c47a9cb281e3bdf283007c82ba868e"
+    $.commit_verdict.required_manifest.query.query_version: missing in actual (expected "2026-09-17.1")
+    $.commit_verdict.required_manifest.query.unit: missing in actual (expected "Program row = module-boundary VU under Q_module_v1: identities are the module output members per (request, step, module)
+    $.commit_verdict.required_manifest.query.why: missing in actual (expected {"fa2_hidden_m1_stream":"the attention override refines AttentionHead into AttnBlock interiors (s[c] dots, PV k-step cha)
+    $.commit_verdict.runs_failed: expected 3 != actual 1
+  gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager coverage:
+    v1: $.checked: expected 163052 != actual 163168
+    v1: $.error: missing in actual (expected "manifest incomplete: unmodelled Program families Bf16MulScalarTensor_v1: 1042 row(s) whose output the Program reads acr)
+    v1: $.missing_n: expected 163052 != actual 432
+    decision MAN-02 (#57) (since lane/vllm-v2, accepted): $.checked: expected 163052 != actual 163168
+    decision MAN-02 (#57) (since lane/vllm-v2, accepted): $.missing_n: expected 163052 != actual 432
+  gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager manifest_digest:
+    v1: $.identity_rows_sha256: expected "a0bbb858cc45970438e4ed7a52ca9147e4ba229f1681556d8e70dba035969185" != actual "6bb6cc39c2d0ae81eae904a513bc615ba27b4c626d2366531228a07db206a4e4"
+    v1: $.manifest_digest: expected "d54d8efe9c2f90e7ff108a7c79a958a06392576db965b7d67ac45f7318ac34f3" != actual "21a77237c59916cb3aafdcafb8a3a816bcd85a9da84e21833042c3c9b0d51bf0"
+    v1: $.only_new: expected 432 != actual null
+    v1: $.program_digest: expected "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53" != actual "4b668b3051db7f5e9d27d60818a6c54716e6e81af71a5ab15b72cfa9d6fcef0f"
+    v1: $.promoted_member: expected "model/out" != actual ["fa2.m1/L0/g16x1x9x64x256","fa2.m1/L0/g24x1x13x64x256","fa2.m1/L0/g32x1x12x64x256","fa2.m1/L0/g32x1x13x64x256","fa2.m1/L0/g40x1x12x64x256","fa2.m1/L0/g48x1x17x
+    decision F-r19-int-20 (since r19-int-22, accepted): $.only_new: expected 432 != actual null
+    decision F-r19-int-20 (since r19-int-22, accepted): $.promoted_member: expected "model/out" != actual ["fa2.m1/L0/g16x1x9x64x256","fa2.m1/L0/g24x1x13x64x256","fa2.m1/L0/g32x1x12x64x256","fa2.m1/L0/g32x1x13x64x256","fa2.m1/L0/g40x1x12x64x256","fa2.m1/L0/g48x1x17x
+  gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager program_digest:
+    $.build_summary.request: expected "a00764e554c96ce06b8c2eee2cfb119fe268dfdcf78501946b17a325fadc3545" != actual "123f8e161c855a502bc91e8fce2cdc45aaec1ff2870df8bf9178bb93c7ae5847"
+    $.build_summary.shapes.build_request_LP1024_T18: expected "a82b353da6dd857ac8dd65a3969a295ed7d5345931ea0d63c8d40f44d776216a" != actual "5f0589f554ab45180efe9611f93fe0bc517d2af250a43c482c7eaadd26619b0d"
+    $.build_summary.shapes.build_request_LP10_T127: expected "2090db1e551755b5172dc7e0a1c8cd83dcfcb94a82efcbdeec9c6fadd1460c6f" != actual "3f74ccdf387465e933305076653e4e8049ddccee88bf7ec7edfe3bff3a5057e2"
+    $.build_summary.shapes.build_request_LP179_T30: expected "0bfe596bd6083224318e5b542bbe45d7dbe32db03cc6e4e1748f9c16b28b6321" != actual "9c4158abebbed87bfc9c14603fcb5e9ee499ef5c2cd6e240e75fe75717510b7e"
+    $.build_summary.shapes.build_request_LP31_T52: expected "7e9f7c81ac27bc18e3c65b20efaf9b2b78885c7c675a5f06d47f56062a78d08c" != actual "dfe2a7f699016d20dfda84b60b349318224512e5e24327a268d8a5b422c65f3c"
+    $.build_summary.shapes.build_request_LP453_T106: expected "bb9ea7fd206b23488c233610c195509fc5752ba02f2c7e0b7f7a63c2fe23cee8" != actual "bcd9da2ff24fb0f3d2a926bd5bc94d58f1a69ed6debbef72359e3c9394396154"
+    $.build_summary.shapes.build_request_LP531_T10: expected "ee674e57d0e24cb61b07983feaeb7919f578a264fdf4266af8f8f5e5bc1b8dd3" != actual "d4069ff7fbc36ba6091496a52c933f937fc09f9c409f1ae5867bb6b39caa7753"
+    $.build_summary.shapes.build_request_LP719_T80: expected "db4288cb88435015ba626094541823295158e2e2a6e7d132010f7a6a1b488a77" != actual "1c2656531248b639e189e063aa33f18d468260f144dea4b0bd16ef740888afcd"
+    $.build_summary.shapes.build_request_LP779_T1: expected "34d90c724f992d0ad3e8e9b0fc307018908777b0c9a3cbaa030d5cbb19e33b87" != actual "c1296a803840e718988326b107b352be984c4698fe3c4a3c2c96a26bca4aeda5"
+    $.build_summary.step: expected "30d7b1acac4b3cff9b3bdfe2f3af81468dc9be00023fcbf331e229d4046c7134" != actual "9020930abca2d4fcc52268705e41a709fc38137d9204137a5968082df3b44c4f"
+    $.build_summary.workload: expected "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53" != actual "4b668b3051db7f5e9d27d60818a6c54716e6e81af71a5ab15b72cfa9d6fcef0f"
+    $.program_digest_of_record: expected "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53" != actual "4b668b3051db7f5e9d27d60818a6c54716e6e81af71a5ab15b72cfa9d6fcef0f"
+    $.workload_program_digest: expected "44801d07a45e925cd80ab5e8c2fed7a78461c3ac309d9406dd009288af7fad53" != actual "4b668b3051db7f5e9d27d60818a6c54716e6e81af71a5ab15b72cfa9d6fcef0f"
+  gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager step_segmentation:
+    $.requests.r0.program_digest: expected "db4288cb88435015ba626094541823295158e2e2a6e7d132010f7a6a1b488a77" != actual "1c2656531248b639e189e063aa33f18d468260f144dea4b0bd16ef740888afcd"
+    $.requests.r1.program_digest: expected "bb9ea7fd206b23488c233610c195509fc5752ba02f2c7e0b7f7a63c2fe23cee8" != actual "bcd9da2ff24fb0f3d2a926bd5bc94d58f1a69ed6debbef72359e3c9394396154"
+    $.requests.r2.program_digest: expected "a82b353da6dd857ac8dd65a3969a295ed7d5345931ea0d63c8d40f44d776216a" != actual "5f0589f554ab45180efe9611f93fe0bc517d2af250a43c482c7eaadd26619b0d"
+    $.requests.r3.program_digest: expected "0bfe596bd6083224318e5b542bbe45d7dbe32db03cc6e4e1748f9c16b28b6321" != actual "9c4158abebbed87bfc9c14603fcb5e9ee499ef5c2cd6e240e75fe75717510b7e"
+    $.requests.r4.program_digest: expected "7e9f7c81ac27bc18e3c65b20efaf9b2b78885c7c675a5f06d47f56062a78d08c" != actual "dfe2a7f699016d20dfda84b60b349318224512e5e24327a268d8a5b422c65f3c"
+    $.requests.r5.program_digest: expected "ee674e57d0e24cb61b07983feaeb7919f578a264fdf4266af8f8f5e5bc1b8dd3" != actual "d4069ff7fbc36ba6091496a52c933f937fc09f9c409f1ae5867bb6b39caa7753"
+    $.requests.r6.program_digest: expected "34d90c724f992d0ad3e8e9b0fc307018908777b0c9a3cbaa030d5cbb19e33b87" != actual "c1296a803840e718988326b107b352be984c4698fe3c4a3c2c96a26bca4aeda5"
+    $.requests.r7.program_digest: expected "2090db1e551755b5172dc7e0a1c8cd83dcfcb94a82efcbdeec9c6fadd1460c6f" != actual "3f74ccdf387465e933305076653e4e8049ddccee88bf7ec7edfe3bff3a5057e2"
+  gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager verdict:
+    $.groups.execution_extent: expected "PASS" != actual "INSUFFICIENT_EVIDENCE"
+    $.groups.program_source_identity: expected "FAIL" != actual "PASS"
+    $.groups.required_value_coverage: expected "FAIL" != actual "PASS"
+    $.identity_layout_differences: expected ["fa2_layers_bad"] != actual []
+  mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager decomp_hashes:
+    $.fold_record_pins.instances_sha256: expected "f114c21de8add86097c52b3136f22753547a4bdaf3aab1dd7126d1c6cbf7be0d" != actual "9166677811530d4ae86ae3fb406fee7c2c6ca584d8aa917b2d289fbdd72abade"
+    $.fold_record_pins.program_sha256: expected "32571773f603a8171796c6a2a54f9e88184e2e04ed63a5f0656a89650deea4bb" != actual "c3c21b609f8eaa7467b937521ac5ecb70076448104e9e0ae100d660075a7b8e1"
+    $.oracle.digest: expected "2e1de7d027dc9c54c789404304c1a5b423624639aa60bb899464196e06889924" != actual "46be1b49b699f700035025cce3e7f41d6b51377e789bf16515df97089c6b60f6"
+    $.requests.5bd4e517-3179-5fa9-815a-69b729dbe373.derived_digest: expected "6f0fba468282cfb2be3944f733c93e197f66738f65b03fcbdb8c62e947ad578f" != actual "e9b065424ad46708e1d0b30aa1b1035a85d0998291e24e5acd2f8090dfbf43cc"
+    $.requests.b08530bd-431b-5c03-acab-13e85923e3c9.derived_digest: expected "7345062d88dcbf988a6336f3e54b7325de0828f37a0e19f2a014b5ddba9e794d" != actual "dc3b87db3877a6473ad571791ccad1eedeed14fa9f65ff4320f344580270892b"
+    $.requests.c7bb3961-6582-505f-b48d-4c6758ee48b8.derived_digest: expected "4cd648f7cd4c6863ffbadb9e924aafbdd4839ebdbec32658da715a0c90ea55f2" != actual "1cc0f19ea219f7cdf60338d05793fb9d8d4ea451f7b5244dcd4f8eb220994804"
+    $.requests.d49e555c-28d9-5435-b889-881b9d142d1f.derived_digest: expected "7d2d67694d22f71b6b70f7a4af9925f2d483861f3a98f85760217b5342b8e340" != actual "c7490324c33f22d6f1c8352a20a462a5ca9bb69afe987e707ccf18d3d5f2de02"
+    $.requests.da43cb9e-74c0-528a-85b3-dceab459f39f.derived_digest: expected "eb7ebe729576d89c6c987aabea4e3687d695a168c838af3be1b27f9c2d9bbc28" != actual "9927aeb8476457e91d648793fac8fe50792ff3350a0719d26c5591bc58f04151"
+    $.requests.e07f1181-ae62-51f8-8da1-5dea5f72d5ca.derived_digest: expected "ec4b6aa0db8e3267d538fd04c3782afe879599410e167e4048b3ccf05b2579ae" != actual "068d7ca2f84491c994f69c1ecc142f17fb526db242c205b3b4e4a19790ff77bc"
+    $.requests.ec872afc-0f2d-59e6-b30b-0802eb07a695.derived_digest: expected "ee4ca7add9e0f29c2738efa94f60bf9b893917f8d166791ae878ab77afd99f09" != actual "14f0550b2ee251eb0938ed5e2db62f95a30508a6a84789f4f886e96b0d2df774"
+    $.requests.fdf29708-4bd4-5577-b16e-6738d7288b53.derived_digest: expected "30652b2f8a8f60c5f5a196d19620b4453bce5099258c39c983e45cf68479373b" != actual "3375a43c5bd48206ba5cdf7b432b0f725c8166152b61f22ff064124961dcacb4"
+  mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager global_match_checks:
+    $.fold_record_pins.instances_sha256: expected "f114c21de8add86097c52b3136f22753547a4bdaf3aab1dd7126d1c6cbf7be0d" != actual "9166677811530d4ae86ae3fb406fee7c2c6ca584d8aa917b2d289fbdd72abade"
+    $.fold_record_pins.program_sha256: expected "32571773f603a8171796c6a2a54f9e88184e2e04ed63a5f0656a89650deea4bb" != actual "c3c21b609f8eaa7467b937521ac5ecb70076448104e9e0ae100d660075a7b8e1"
+  mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager manifest_digest:
+    $.manifest_digest: expected "085985ae7eeb75f06e469cf2ce50215e4daac1dafd66de190f4e5536511cc729" != actual "c470c607638b0f07483874410ac4e33ff2e86c78e8ef5635175fa2756155be04"
+    $.program_digest: expected "fc91194139375ddaae2f8b42ffd44d388ded000c8b3eec5eee51c7303eb53501" != actual "c87297e9b9324c0790426af154ccfbf36ab618f18959425e09091646dcb95783"
+  mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager program_digest:
+    $.build_summary.request: expected "adc4647250c78635ba2eed99696237f93872a6cb17fa0bb56dd6fb8fe12bb38b" != actual "5e6c3afbe3f8994399e553ef890b463786ed98f7ff538322a6cedcf3a43b9419"
+    $.build_summary.shapes.build_request_LP1024_T86: expected "7345062d88dcbf988a6336f3e54b7325de0828f37a0e19f2a014b5ddba9e794d" != actual "dc3b87db3877a6473ad571791ccad1eedeed14fa9f65ff4320f344580270892b"
+    $.build_summary.shapes.build_request_LP211_T6: expected "30652b2f8a8f60c5f5a196d19620b4453bce5099258c39c983e45cf68479373b" != actual "3375a43c5bd48206ba5cdf7b432b0f725c8166152b61f22ff064124961dcacb4"
+    $.build_summary.shapes.build_request_LP21_T127: expected "7d2d67694d22f71b6b70f7a4af9925f2d483861f3a98f85760217b5342b8e340" != actual "c7490324c33f22d6f1c8352a20a462a5ca9bb69afe987e707ccf18d3d5f2de02"
+    $.build_summary.shapes.build_request_LP395_T1: expected "6f0fba468282cfb2be3944f733c93e197f66738f65b03fcbdb8c62e947ad578f" != actual "e9b065424ad46708e1d0b30aa1b1035a85d0998291e24e5acd2f8090dfbf43cc"
+    $.build_summary.shapes.build_request_LP561_T122: expected "4cd648f7cd4c6863ffbadb9e924aafbdd4839ebdbec32658da715a0c90ea55f2" != actual "1cc0f19ea219f7cdf60338d05793fb9d8d4ea451f7b5244dcd4f8eb220994804"
+    $.build_summary.shapes.build_request_LP8_T60: expected "ec4b6aa0db8e3267d538fd04c3782afe879599410e167e4048b3ccf05b2579ae" != actual "068d7ca2f84491c994f69c1ecc142f17fb526db242c205b3b4e4a19790ff77bc"
+    $.build_summary.shapes.build_request_LP937_T90: expected "ee4ca7add9e0f29c2738efa94f60bf9b893917f8d166791ae878ab77afd99f09" != actual "14f0550b2ee251eb0938ed5e2db62f95a30508a6a84789f4f886e96b0d2df774"
+    $.build_summary.shapes.build_request_LP93_T16: expected "eb7ebe729576d89c6c987aabea4e3687d695a168c838af3be1b27f9c2d9bbc28" != actual "9927aeb8476457e91d648793fac8fe50792ff3350a0719d26c5591bc58f04151"
+    $.build_summary.step: expected "ad161a6b310292af8359a464f92c85b00cd93cbf46713dcbf90f448c312c51ea" != actual "b9ef8d2e1b1c9a337624a80446025fd1b5fb88fc6062c1eb7926558f0efa4dbd"
+    $.build_summary.workload: expected "fc91194139375ddaae2f8b42ffd44d388ded000c8b3eec5eee51c7303eb53501" != actual "c87297e9b9324c0790426af154ccfbf36ab618f18959425e09091646dcb95783"
+    $.program_digest_of_record: expected "fc91194139375ddaae2f8b42ffd44d388ded000c8b3eec5eee51c7303eb53501" != actual "c87297e9b9324c0790426af154ccfbf36ab618f18959425e09091646dcb95783"
+    $.workload_program_digest: expected "fc91194139375ddaae2f8b42ffd44d388ded000c8b3eec5eee51c7303eb53501" != actual "c87297e9b9324c0790426af154ccfbf36ab618f18959425e09091646dcb95783"
+  mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager step_segmentation:
+    $.requests.r0.program_digest: expected "6f0fba468282cfb2be3944f733c93e197f66738f65b03fcbdb8c62e947ad578f" != actual "e9b065424ad46708e1d0b30aa1b1035a85d0998291e24e5acd2f8090dfbf43cc"
+    $.requests.r1.program_digest: expected "30652b2f8a8f60c5f5a196d19620b4453bce5099258c39c983e45cf68479373b" != actual "3375a43c5bd48206ba5cdf7b432b0f725c8166152b61f22ff064124961dcacb4"
+    $.requests.r2.program_digest: expected "7345062d88dcbf988a6336f3e54b7325de0828f37a0e19f2a014b5ddba9e794d" != actual "dc3b87db3877a6473ad571791ccad1eedeed14fa9f65ff4320f344580270892b"
+    $.requests.r3.program_digest: expected "7d2d67694d22f71b6b70f7a4af9925f2d483861f3a98f85760217b5342b8e340" != actual "c7490324c33f22d6f1c8352a20a462a5ca9bb69afe987e707ccf18d3d5f2de02"
+    $.requests.r4.program_digest: expected "ee4ca7add9e0f29c2738efa94f60bf9b893917f8d166791ae878ab77afd99f09" != actual "14f0550b2ee251eb0938ed5e2db62f95a30508a6a84789f4f886e96b0d2df774"
+    $.requests.r5.program_digest: expected "ec4b6aa0db8e3267d538fd04c3782afe879599410e167e4048b3ccf05b2579ae" != actual "068d7ca2f84491c994f69c1ecc142f17fb526db242c205b3b4e4a19790ff77bc"
+    $.requests.r6.program_digest: expected "4cd648f7cd4c6863ffbadb9e924aafbdd4839ebdbec32658da715a0c90ea55f2" != actual "1cc0f19ea219f7cdf60338d05793fb9d8d4ea451f7b5244dcd4f8eb220994804"
+    $.requests.r7.program_digest: expected "eb7ebe729576d89c6c987aabea4e3687d695a168c838af3be1b27f9c2d9bbc28" != actual "9927aeb8476457e91d648793fac8fe50792ff3350a0719d26c5591bc58f04151"
+  mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager verdict:
+    $.commit_pass: expected true != actual null
+    $.groups.boundary_linkage: expected "PASS" != actual "NOT_RUN"
+    $.groups.checkpoint_binding: expected "PASS" != actual "NOT_RUN"
+    $.groups.execution_extent: expected "PASS" != actual "NOT_RUN"
+    $.groups.local_replay: expected "PASS" != actual "NOT_RUN"
+    $.groups.program_source_identity: expected "PASS" != actual "NOT_RUN"
+    $.groups.required_value_coverage: expected "PASS" != actual "NOT_RUN"
+    $.groups.runtime_match: expected "PASS" != actual "NOT_RUN"
+    $.pass: expected true != actual false
+  olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager commit_summary:
+    $.collector.variant: expected "native_collect_v2_auto_nw+hidden_m1+moe" != actual "native_collect_v2_auto_nw+hidden_m1+moe+plan"
+    $.commit_verdict.required_classes_source: expected "program/query manifest 9b75a54d4af6a5ca61f5117e29008957d38b7a79e5f69d352685dbf4c8a6891e (R14 MAN-01; classes kept as a secondary check)" != actual "program/query manifest 16ca07110d9a7976ad93731da230e48e4b887ff526dcb1773eb25e7e79eb6f40 (R14 MAN-01; classes kept as a secondary check)"
+    $.commit_verdict.required_manifest.coverage: expected [{"checked":385292,"checked_by_family":{"fa2_hidden_m1_stream":2048,"input_token_ids":1308,"instance_outputs":255060,"moe_block_stream":125568,"sampled_token_id != actual [{"checked":406220,"checked_by_family":{"fa2_hidden_m1_stream":2048,"input_token_ids":1308,"instance_outputs":275988,"moe_block_stream":125568,"sampled_token_id
+    $.commit_verdict.required_manifest.manifest_digest: expected "9b75a54d4af6a5ca61f5117e29008957d38b7a79e5f69d352685dbf4c8a6891e" != actual "16ca07110d9a7976ad93731da230e48e4b887ff526dcb1773eb25e7e79eb6f40"
+    $.commit_verdict.required_manifest.path: expected "/workspace/cp/sweep/r19-int-3/olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager/manifest.json" != actual "/workspace/research/runs/r20260925-181422-250a/sweep/olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager/manifest.json"
+    $.commit_verdict.required_manifest.populations.by_family.instance_outputs: expected 255060 != actual 275988
+    $.commit_verdict.required_manifest.populations.identities: expected 385504 != actual 406432
+    $.commit_verdict.required_manifest.program_digest: expected "fdd998d46fac4b37f55acd28b0f83d71a15fc412950e741d4ba7a7078e975a72" != actual "b1e1ea62afe7e95dc58cd594e17d46401ad2228790732e6a2abd48d0cbf73c9e"
+    $.commit_verdict.required_manifest.query.boundary: expected "module" != actual "module-body"
+    $.commit_verdict.required_manifest.query.family_selector: missing in actual (expected {"digest":"dd6729b72e9a69e9a0ceb429708efca969a13034609887bce93132f8b8c46004","module":"verity_capture.vu_canonical","que)
+    $.commit_verdict.required_manifest.query.implemented_query: missing in actual (expected "Q_module_v1")
+    $.commit_verdict.required_manifest.query.query: missing in actual (expected "verity_capture.vu_canonical")
+    $.commit_verdict.required_manifest.query.query_digest: missing in actual (expected "dd6729b72e9a69e9a0ceb429708efca969a13034609887bce93132f8b8c46004")
+    $.commit_verdict.required_manifest.query.query_id: expected "Q_module_v1" != actual "Q_module_body_v1"
+    $.commit_verdict.required_manifest.query.query_id_digest: expected "0d868cf076d7fe9521bca1ed325fb018981a9cecff6520759edbfc38cf4d4e4e" != actual "7cbadc8a04a7f2d7e1c1e7bdaeefd08d69c47a9cb281e3bdf283007c82ba868e"
+    $.commit_verdict.required_manifest.query.query_version: missing in actual (expected "2026-09-17.1")
+    $.commit_verdict.required_manifest.query.unit: missing in actual (expected "Program row = module-boundary VU under Q_module_v1: identities are the module output members per (request, step, module)
+    $.commit_verdict.required_manifest.query.why: missing in actual (expected {"fa2_hidden_m1_stream":"the attention override refines AttentionHead into AttnBlock interiors (s[c] dots, PV k-step cha)
+    $.commit_verdict.runs_instrumented: expected 3 != actual 1
+    $.coverage: expected [null,null,null] != actual [null]
+  olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager coverage:
+    $.missing_n: expected 0 != actual 20928
+    $.ok: expected true != actual false
+  olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager decomp_hashes:
+    $.fold_record_pins.instances_sha256: expected "13ec20ddb1938c9d231d4754f5036dc1bf60e87e787f71d367ed921352894531" != actual "79d4b483ec6bbe09b03b3cd03b583d25e2705214b09361fe71c8523fe5f81e5c"
+    $.fold_record_pins.program_sha256: expected "ae84fcec20536d13b007b3b59f9d9245d5592aa1a7ca16482a14757aecc671db" != actual "d232ca3db7664529c45b7919c6eeca31debdd037d4994b63aa0acdc335db56f7"
+    $.oracle.digest: expected "2750c4707277645f946ddb890f78f81a9d9a2898efb8c8ae39478f3b353b48ef" != actual "7829405c5cbf31e9f0e1661516b589c991e0f2a0531c68c129591df362d783aa"
+    $.requests.02073ac7-2289-58a6-9f36-cbe1764bdd4b.derived_digest: expected "bf10a9e6319976fd054bf39eb1b20a50cfb2efcca6df9e182f7055d3949a0554" != actual "d358f555fcff90046e34690289626b395d91ba37d7a0bdecd54e4fdc14df459f"
+    $.requests.07d035cb-4852-595d-aeef-1fa95203a327.derived_digest: expected "cea8ffab6e858671a0ae9603e80c2bfcc28b029cc86fe2a52c648cd2bc9a9409" != actual "923ae09c59d560324e1ba65f2764421d10087ad51b1519885f40703504e26076"
+    $.requests.084a2df6-8fc9-5496-9cf8-a114f920506f.derived_digest: expected "622c2d5841d8952e295e2da081a5299bd649511e9e20f6dcaaeb862bad71d46d" != actual "9a5ed5eb185dc8d00895d4740a28db0cc8c1ffca595360da915a17decd3865d3"
+    $.requests.1252dcc5-3b5c-5ce5-8db4-811789c2023d.derived_digest: expected "bc1c3a729a1b51f5b8bef67a753937ac0dd4604006fc6818e814348b4157419e" != actual "67a904fd55f0c8ef8978e4923335e7d6ec25625db1573c4c31688cddb9cb0c04"
+    $.requests.1e60eee9-50fb-57ec-bb97-19e7bd4eb8d3.derived_digest: expected "fab7581c0858a2ba51fa0a0f48f3e846cefd483b6ce392457c68fd5f51d361cc" != actual "5a67f5590ffbe968a5aa6d71e36533eabf76ff1083b181601d4e0432e9b466b2"
+    $.requests.228c2e62-01d1-5e40-9b30-6f6c853849a1.derived_digest: expected "4d8ac279c492869f4dde233136b9d7bfb2b7d413f199491c841e6102d8688a39" != actual "3aea3de7acc1b4be5bf28e3ae86ba478b22911d8e7c0a81a54c7ed3fcc42774d"
+    $.requests.25d8138e-7886-5644-967f-4c24db3b5e0d.derived_digest: expected "00095d395e11ca94c971de93e23f64a9bbf2429e08ef8d7a77511b0b11d3602e" != actual "883fc2577ace5623a58c875f454d1193d5d29232a667ef323bbc7d66119d41ce"
+    $.requests.4b190667-5b84-5f63-9e69-51dfc551053d.derived_digest: expected "dc4d56b5d46b9cee0b9582063d23ca7ceb1cc57bac62734f095a992d7cd2f414" != actual "6357197af3b7dffbb29347a3de195de6993efbb92639a7236d876cfd499d6241"
+    $.requests.4f0a453e-58a9-5f1d-8b7f-690f74dd2af3.derived_digest: expected "a5e9460768b1a91e04f956c38d248734be3216dc4d148322c6803c291d8ec7f8" != actual "0abc53f1571bc0510ce4bc26c306fae7e057d2a30bf9cde299f935b4ad364001"
+    $.requests.52a75f32-9aa3-5a05-b7ca-1d0896f4136e.derived_digest: expected "e6a628d71bd2134a2865ac1a1e3163fb5153e38a3978bc26b5c79350cabdb8ad" != actual "aef9b7cca250bbea972f320281d71f8684a6e04107c3e56822817983a6766a4c"
+    $.requests.5563a69d-5be9-543a-8499-a04711db454a.derived_digest: expected "e0da0ce22aa17ca4b95e1770343b47719cb8b0a90a7d84528cc5c7033316b21d" != actual "f89c8703ca435d976b3daa1f132e7b4f298e8600ba4d910196f86ffee107f0e6"
+    $.requests.5fa1a081-5bb0-5036-ab31-6156f76b1435.derived_digest: expected "1c8c63aa501bf40beeef3b6f35772837d7c3fcbddafe75b61eb60737f8de2281" != actual "43a004e202f81a3cbf59bff211ce6c6f2c24ad5a4c3338859cf105d5ca0e6d7e"
+    $.requests.6b625033-4a48-5d68-9fe3-ddd0d2eee048.derived_digest: expected "79b64217a04ba5cb890707443ecd4459b724f4931b47d4db0418d3277027c01a" != actual "51b839078942f802237104b7ad47390af1093941c85401d5a11354892c5786b9"
+    $.requests.708f74e7-ac6e-5d73-a06c-6a3db4210739.derived_digest: expected "cda74ba9cdb5422d3ef69d5ee58b0558bf3e362b41b228d826434f6757e93bbb" != actual "de98aaa12a9dddd245cdbd2ad08f95ed21eeebb687fb4af64614d66e4f81d31a"
+    $.requests.79cd8730-fbfe-5c95-92be-bf8b3c4730ad.derived_digest: expected "43849382b98bd9ba8ed0cfcf9318642bc79aa2d38c0e6e520d2774948bdac6de" != actual "35b98373d2a0d73b428869b6165fcc7884d3111d6cd172fe38951e883af3593d"
+    $.requests.7b505c9d-aa6a-5b96-a0b6-8cb22d7008f9.derived_digest: expected "eb9ec18db6a262f4a254259ed2cf662011a0c164a5062a079eb40cdfc6f53ee1" != actual "371410e27d06b6241ffb8993e8578bc7f4bfb15875b1988d582b45de95d763a5"
+    $.requests.81260634-9a46-5279-8ba1-63f165af634f.derived_digest: expected "a8b744dc063e341f891e5f2ad587cbfaa752ce83f389f464f3e0ce002756ab7c" != actual "d26facced2313ebb3d3aaf0ca071ef69f28c8762d941e576aee4d1e84fe58c13"
+  olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager global_match_checks:
+    $.fold_record_pins.instances_sha256: expected "13ec20ddb1938c9d231d4754f5036dc1bf60e87e787f71d367ed921352894531" != actual "79d4b483ec6bbe09b03b3cd03b583d25e2705214b09361fe71c8523fe5f81e5c"
+    $.fold_record_pins.program_sha256: expected "ae84fcec20536d13b007b3b59f9d9245d5592aa1a7ca16482a14757aecc671db" != actual "d232ca3db7664529c45b7919c6eeca31debdd037d4994b63aa0acdc335db56f7"
+  olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager manifest_digest:
+    v1: $.manifest_digest: expected "4799063127e655ff711416ebff8524cbe717eb75abbec9486a65895d11ad2cb8" != actual "16ca07110d9a7976ad93731da230e48e4b887ff526dcb1773eb25e7e79eb6f40"
+    v1: $.only_new: expected 20928 != actual null
+    v1: $.program_digest: expected "fdd998d46fac4b37f55acd28b0f83d71a15fc412950e741d4ba7a7078e975a72" != actual "b1e1ea62afe7e95dc58cd594e17d46401ad2228790732e6a2abd48d0cbf73c9e"
+    v1: $.promoted_member_class: expected "model.layers.<k>.mlp.experts/out" != actual ["fa2.m1/L0/g112x1x15x64x128","fa2.m1/L0/g128x1x15x64x128","fa2.m1/L0/g144x1x15x64x128","fa2.m1/L0/g160x1x15x64x128","fa2.m1/L0/g16x1x3x64x128","fa2.m1/L0/g176x
+    decision F-r19-int-24 (since lane/vllm-v2-query, accepted): $.only_new: expected 20928 != actual null
+    decision F-r19-int-24 (since lane/vllm-v2-query, accepted): $.promoted_member_class: expected "model.layers.<k>.mlp.experts/out" != actual ["fa2.m1/L0/g112x1x15x64x128","fa2.m1/L0/g128x1x15x64x128","fa2.m1/L0/g144x1x15x64x128","fa2.m1/L0/g160x1x15x64x128","fa2.m1/L0/g16x1x3x64x128","fa2.m1/L0/g176x
+  olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager program_digest:
+    $.build_summary.request: expected "a7be1df3194a497ce134d14cc3321e7d70a29af3546b383b388b1e4d52264ec7" != actual "1a8b7edac7f9637c8c214dd9c062382c00d8ce98e5d1377414e400f9564d09a9"
+    $.build_summary.shapes.build_request_LP1024_T28: expected "43849382b98bd9ba8ed0cfcf9318642bc79aa2d38c0e6e520d2774948bdac6de" != actual "35b98373d2a0d73b428869b6165fcc7884d3111d6cd172fe38951e883af3593d"
+    $.build_summary.shapes.build_request_LP105_T14: expected "e0da0ce22aa17ca4b95e1770343b47719cb8b0a90a7d84528cc5c7033316b21d" != actual "f89c8703ca435d976b3daa1f132e7b4f298e8600ba4d910196f86ffee107f0e6"
+    $.build_summary.shapes.build_request_LP115_T116: expected "4d8ac279c492869f4dde233136b9d7bfb2b7d413f199491c841e6102d8688a39" != actual "3aea3de7acc1b4be5bf28e3ae86ba478b22911d8e7c0a81a54c7ed3fcc42774d"
+    $.build_summary.shapes.build_request_LP11_T24: expected "a5e9460768b1a91e04f956c38d248734be3216dc4d148322c6803c291d8ec7f8" != actual "0abc53f1571bc0510ce4bc26c306fae7e057d2a30bf9cde299f935b4ad364001"
+    $.build_summary.shapes.build_request_LP131_T102: expected "dc4d56b5d46b9cee0b9582063d23ca7ceb1cc57bac62734f095a992d7cd2f414" != actual "6357197af3b7dffbb29347a3de195de6993efbb92639a7236d876cfd499d6241"
+    $.build_summary.shapes.build_request_LP13_T4: expected "1c8c63aa501bf40beeef3b6f35772837d7c3fcbddafe75b61eb60737f8de2281" != actual "43a004e202f81a3cbf59bff211ce6c6f2c24ad5a4c3338859cf105d5ca0e6d7e"
+    $.build_summary.shapes.build_request_LP15_T34: expected "fe442efb342bd65a33945d927ecdf7cc39fd74a8111cdbd17efd4624cd8a0004" != actual "e15cf18682cafb5de0d99c377318f69471694f216e93caaafd85ef805dd12a36"
+    $.build_summary.shapes.build_request_LP177_T44: expected "a39afc99134ad9f48344c761f9ff562086fbd641c0ef962c3ee50e45fa2632b1" != actual "4616810744c31d39b6810bba39af0f47d4c53e71ef0a5de6cf8bfbfcd391f14f"
+    $.build_summary.shapes.build_request_LP17_T127: expected "79b64217a04ba5cb890707443ecd4459b724f4931b47d4db0418d3277027c01a" != actual "51b839078942f802237104b7ad47390af1093941c85401d5a11354892c5786b9"
+    $.build_summary.shapes.build_request_LP19_T122: expected "1615cf957b576ffa510dc412a092606c797e341a1fe6f87314cf40c41cb3f723" != actual "b223aac45ad3a236b590fa5820a095fc255d2e6919bb8b029e7683714f0c5046"
+    $.build_summary.shapes.build_request_LP213_T12: expected "bf10a9e6319976fd054bf39eb1b20a50cfb2efcca6df9e182f7055d3949a0554" != actual "d358f555fcff90046e34690289626b395d91ba37d7a0bdecd54e4fdc14df459f"
+    $.build_summary.shapes.build_request_LP23_T14: expected "6a54ee05e99d6111e945f3f95dcea5a6c306be4f83060f2f47f2896bec341e8b" != actual "0ed44e07ef5685414048b7b978fdd951056c0c07e3aa928ae9d6ab746d366391"
+    $.build_summary.shapes.build_request_LP269_T48: expected "622c2d5841d8952e295e2da081a5299bd649511e9e20f6dcaaeb862bad71d46d" != actual "9a5ed5eb185dc8d00895d4740a28db0cc8c1ffca595360da915a17decd3865d3"
+    $.build_summary.shapes.build_request_LP295_T68: expected "79638058c4dadd80a446d46aafe5cf849e5d47338fe75eeffdb7f6936a81f1b5" != actual "19285bc95fdd556d18632d2c60a954389410b247428efab4725dd753a531260e"
+    $.build_summary.shapes.build_request_LP29_T40: expected "4cd6f9fbdeb46eb0457e13dd6184b0d08d0ebb5ff9824dc172c3f1c0ac9eac90" != actual "3c2044e30458f3f0e3aee4a51158f825fcdb19ca52a0e32348bd0bd04a7aacd5"
+    $.build_summary.shapes.build_request_LP33_T66: expected "cea8ffab6e858671a0ae9603e80c2bfcc28b029cc86fe2a52c648cd2bc9a9409" != actual "923ae09c59d560324e1ba65f2764421d10087ad51b1519885f40703504e26076"
+    $.build_summary.shapes.build_request_LP37_T26: expected "3fa853451aaf71d03c2f1a68c363d59364dc648cc4a799c5a0f986413439f9c7" != actual "e352008c2068872ffbd2def9ba66335443d101fc008af47dec8bf278148a648a"
+    $.build_summary.shapes.build_request_LP397_T30: expected "ad64fe178200c971728dd505a74ede1b4c133132a74f2a42174f6b1ace1ea1ee" != actual "7e623c88266268107bdd624fef81fac3d08356f50f0fd59bdd7209f519a5e3fe"
+    $.build_summary.shapes.build_request_LP409_T18: expected "e6a628d71bd2134a2865ac1a1e3163fb5153e38a3978bc26b5c79350cabdb8ad" != actual "aef9b7cca250bbea972f320281d71f8684a6e04107c3e56822817983a6766a4c"
+  olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager step_segmentation:
+    $.requests.r0.program_digest: expected "fab7581c0858a2ba51fa0a0f48f3e846cefd483b6ce392457c68fd5f51d361cc" != actual "5a67f5590ffbe968a5aa6d71e36533eabf76ff1083b181601d4e0432e9b466b2"
+    $.requests.r1.program_digest: expected "fe442efb342bd65a33945d927ecdf7cc39fd74a8111cdbd17efd4624cd8a0004" != actual "e15cf18682cafb5de0d99c377318f69471694f216e93caaafd85ef805dd12a36"
+    $.requests.r2.program_digest: expected "1615cf957b576ffa510dc412a092606c797e341a1fe6f87314cf40c41cb3f723" != actual "b223aac45ad3a236b590fa5820a095fc255d2e6919bb8b029e7683714f0c5046"
+    $.requests.r3.program_digest: expected "efefc53ae4fd5ead129dd978702f82a68c6bc88d643e0cd9cf373581b8598dd7" != actual "5067648c690e622668fe5386b0d8f5f086fbc74f93234fdcb846d148a00c0fdc"
+    $.requests.r4.program_digest: expected "1c8c63aa501bf40beeef3b6f35772837d7c3fcbddafe75b61eb60737f8de2281" != actual "43a004e202f81a3cbf59bff211ce6c6f2c24ad5a4c3338859cf105d5ca0e6d7e"
+    $.requests.r5.program_digest: expected "622c2d5841d8952e295e2da081a5299bd649511e9e20f6dcaaeb862bad71d46d" != actual "9a5ed5eb185dc8d00895d4740a28db0cc8c1ffca595360da915a17decd3865d3"
+    $.requests.r6.program_digest: expected "4d8ac279c492869f4dde233136b9d7bfb2b7d413f199491c841e6102d8688a39" != actual "3aea3de7acc1b4be5bf28e3ae86ba478b22911d8e7c0a81a54c7ed3fcc42774d"
+    $.requests.r7.program_digest: expected "36715ed7159ac1043014c270fe8383e21314fca209fdb7a358fd073a0b1a17b5" != actual "47473d0bc1716fd15328b05f2e2263c419ce33f9e49f8058bb5795d782064ba4"
+    $.requests.r8.program_digest: expected "a39afc99134ad9f48344c761f9ff562086fbd641c0ef962c3ee50e45fa2632b1" != actual "4616810744c31d39b6810bba39af0f47d4c53e71ef0a5de6cf8bfbfcd391f14f"
+    $.requests.r9.program_digest: expected "4cd6f9fbdeb46eb0457e13dd6184b0d08d0ebb5ff9824dc172c3f1c0ac9eac90" != actual "3c2044e30458f3f0e3aee4a51158f825fcdb19ca52a0e32348bd0bd04a7aacd5"
+    $.requests.r10.program_digest: expected "79b64217a04ba5cb890707443ecd4459b724f4931b47d4db0418d3277027c01a" != actual "51b839078942f802237104b7ad47390af1093941c85401d5a11354892c5786b9"
+    $.requests.r11.program_digest: expected "e6a628d71bd2134a2865ac1a1e3163fb5153e38a3978bc26b5c79350cabdb8ad" != actual "aef9b7cca250bbea972f320281d71f8684a6e04107c3e56822817983a6766a4c"
+    $.requests.r12.program_digest: expected "cda74ba9cdb5422d3ef69d5ee58b0558bf3e362b41b228d826434f6757e93bbb" != actual "de98aaa12a9dddd245cdbd2ad08f95ed21eeebb687fb4af64614d66e4f81d31a"
+    $.requests.r13.program_digest: expected "99eded7b13b3ff115edd730ad8deebb04e79acf9d8dba3c15e7a1c14c7c86e01" != actual "182e54e2bd0a07f393bcdfefcb39ca8588291619c142b4f45743b2ac5ed56159"
+    $.requests.r14.program_digest: expected "a5e9460768b1a91e04f956c38d248734be3216dc4d148322c6803c291d8ec7f8" != actual "0abc53f1571bc0510ce4bc26c306fae7e057d2a30bf9cde299f935b4ad364001"
+    $.requests.r15.program_digest: expected "bc1c3a729a1b51f5b8bef67a753937ac0dd4604006fc6818e814348b4157419e" != actual "67a904fd55f0c8ef8978e4923335e7d6ec25625db1573c4c31688cddb9cb0c04"
+    $.requests.r16.program_digest: expected "eb9ec18db6a262f4a254259ed2cf662011a0c164a5062a079eb40cdfc6f53ee1" != actual "371410e27d06b6241ffb8993e8578bc7f4bfb15875b1988d582b45de95d763a5"
+    $.requests.r17.program_digest: expected "e0da0ce22aa17ca4b95e1770343b47719cb8b0a90a7d84528cc5c7033316b21d" != actual "f89c8703ca435d976b3daa1f132e7b4f298e8600ba4d910196f86ffee107f0e6"
+    $.requests.r18.program_digest: expected "cea8ffab6e858671a0ae9603e80c2bfcc28b029cc86fe2a52c648cd2bc9a9409" != actual "923ae09c59d560324e1ba65f2764421d10087ad51b1519885f40703504e26076"
+    $.requests.r19.program_digest: expected "00095d395e11ca94c971de93e23f64a9bbf2429e08ef8d7a77511b0b11d3602e" != actual "883fc2577ace5623a58c875f454d1193d5d29232a667ef323bbc7d66119d41ce"

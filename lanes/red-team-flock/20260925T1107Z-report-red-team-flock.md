@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (13:02Z) [open] 13:03Z reopened: PR #75 ChunkTail GPU fix re-look (verifier unchanged, claim cap)
 CHECKPOINT 3301c435 (11:44Z) [final] FINAL 12:00Z: 8 GEMM cells: H100 x3 NON_ZK_PROOF; L40S x5 NON_ZK_PROOF_DIAGNOSTIC (co-resident verifier fails FA1; proofs replay 78/78); re-run needs distinct machine + bench.cell machine-id check. No pods, $0.
 CHECKPOINT 3301c435 (11:35Z) [open] 11:35Z reopened: 8 per-workload GEMM cells (H100 x3, L40S x5), PB/CN + same-machine placement ruling, CPU only
 CHECKPOINT 3301c435 (10:46Z) [final] FINAL 11:10Z: route (a) re-sweep a0ca8ef6/a979dfcb NON_ZK_PROOF (rebuild identical, gate 10/10, negs rejected); A-fs 7ae6c190/0e1095f3 NON_ZK_PROOF_DIAGNOSTIC (transcript binds steps/units/circuit/y; 10/10 reps; negs rejected). No pods, $0.

@@ -5,6 +5,7 @@ created: 2026-09-26T19:37Z
 status: open
 ---
 
+CHECKPOINT 14ea93c6 (21:50Z) [open] WAIT vyv-rf-normtap-g1 r20260926-214754-14b1 check-back 22:15Z agent bc-12c2f2d9: gate (b) at 14ea93c6 (census_roots fix for the one new failure at 75a10410, test_no_new_dead_modules). #101: tap off = record (Program ccc21347, manifest 90f81868, root 7adcef49); tap on PASS, 9,471 norm_scales words = plan; Q_word strict passes. Exactness abcd3320: 62/62 cases + source OK.
 CHECKPOINT 75a10410 (20:56Z) [open] PR #90 draft @75a10410. WAIT vyv-rf-normtap-g1 r20260926-204311-f524 check-back 21:40Z agent bc-12c2f2d9: #101 tap off (Commit) + tap on + Q_word; WAIT vyv-rf-normtap-g1 r20260926-205346-78c0 check-back 22:20Z agent bc-12c2f2d9: gate (b) base baa800c6; WAIT vyv-rf-normtap-g1 r20260926-205426-3f50 check-back 22:55Z agent bc-12c2f2d9: gate (b) head. No CPU stock: gate on the L40S.
 CHECKPOINT 846a3eb3 (20:43Z) [open] exactness r20260926-204005-d287: all 61 kernel cases OK (CUDA+Triton bit-identical, scales==IR incl. specials, PTX arith equal +1 store); source check harness fix 846a3eb3. WAIT vyv-rf-normtap-g1 r20260926-204311-f524 check-back 21:55Z agent bc-12c2f2d9: exactness rerun + #101 tap off/on + Q_word.
 CHECKPOINT 0a096613 (20:31Z) [open] handoff 1937Z read (GPU approved; cap: GPU $10 + CPU $5 per the user, coordinator lists $10 lane): pod vyv-rf-normtap-g1 (yqvagba5ef4ckg, 1x L40S ref part, guard 90) created 20:28Z; setup run r20260926-203003-9768 (bootstrap + pod_norm_tap.sh at 0a096613) running; writing GPU exactness driver + CPU tests meanwhile.

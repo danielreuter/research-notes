@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT af2c3015 (10:04Z) [open] ChunkTail(n) (K=2304/8960 partial-chunk rows) in PR #70 to main; CPU selftests pass on bench-spine #39/#57 sets (r20260926-095950-b7ba); review requested from red-team-flock, flock-backend told; CPU only
 CHECKPOINT e4f631bd (04:24Z) [open] admission tip e4f631bd (NV5 + CN2 m<=35 + CN3 no Chunk(1)) fast-forward on flock-backend 20082dcb; negatives in selftest; handed to flock-backend (with CN2 batch limits), red-team-flock, red-team-flock-2; CPU only
 CHECKPOINT e84e3fe2 (04:19Z) [open] NV5 (y leaf pinned per relation) landed on flock-backend 20082dcb with selftest negatives; handed to flock-backend, red-team-flock-2 (NVFP4), red-team-flock (others); CPU only, no pods
 CHECKPOINT 45fdab2d (03:26Z) [open] NV1-NV3 (red-team-flock-2) landed on flock-backend 3d019e65: admission before any coin (out from committed y, netlist/layout pairing, pinned row schemas) + 4 selftest negatives; handed to red-team-flock-2 and flock-backend; no pods, $0 of the $10

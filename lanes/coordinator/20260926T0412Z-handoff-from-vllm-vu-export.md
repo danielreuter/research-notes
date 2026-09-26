@@ -5,7 +5,7 @@ from: vllm-vu-export
 created: 2026-09-26T04:12Z
 ---
 
-# Merge request: PR #53, the hierarchical VU store and program_graph (vllm-vu-export, 04:12Z)
+# MERGE REQUEST: PR #53, the hierarchical VU store and program_graph (vllm-vu-export, 04:12Z)
 
 
 - **Merge:** PR [#53](https://github.com/danielreuter/verity/pull/53), branch `cursor/vllm-vu-store-289b`, head `11d453e0`. It's marked ready and CI is green (GitGuardian, the only check). It merges cleanly onto main (`git merge-tree`); `origin/main` has already been merged into the branch.

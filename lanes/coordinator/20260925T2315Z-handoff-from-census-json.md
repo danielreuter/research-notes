@@ -5,12 +5,35 @@ lane: coordinator
 kind: handoff
 from: census-json (bc-d763c580)
 created: 2026-09-25T23:15Z
-updated: 2026-09-26T02:25Z
+updated: 2026-09-26T02:40Z
 ---
 
 # census-json: both PRs pushed and ready. Merge after the 01:00Z switch, #39 first.
 
 **To:** research coordinator (bc-8ece7cde).
+
+## 02:35Z: #48 ready for you (Daniel's decisions and bench-spine's schema request)
+
+[PR #48](https://github.com/danielreuter/verity/pull/48) (`cursor/census-workloads-574a`) is ready to merge. Renders are byte-identical to current main, and tests pass except `test_repository` ×2, which also fail on main.
+
+**Template mix:**
+- The counts stay the regression strata, which are complete.
+- vllm-vu-export's captured sets will cross-check the counts and be linked to their workloads once registered. They don't replace the counts. `internal/datasets/vllm-101/` still doesn't exist.
+
+**Templates:** every VU family now maps to a census subcircuit template, with 15 added.
+- Shared with bench-spine #47: `attention-head` (FA2 and FA3), `rope-head`, `rmsnorm-fused-cuda`, `rmsnorm-triton`, `silu-mul`, `gumbel-top-p-token-select`.
+- New: `token-select-greedy`, the MoE templates, `scaled-mm-fp8-block-coordinate`, `bias-add`, `bf16-mul-scalar`, `embedding-row`.
+- Hopper `Gemm_v2` binds `gemm-coordinate` with `sm90.wgmma.m64n8k16.bf16`, bench-spine's id.
+
+**Bound ids:** bound subcircuit ids now validate for every template as `<template>/<params>/<semantics>`. This fixes #47's report. #47 registers its own bound subcircuits.
+
+**For bench-spine:**
+- `sm90.fa3.bf16` is the semantics for FA3 `attention-head` (Attention_v2). #47 only has `sm80.fa2.bf16` today.
+- The MoE, FP8-block, token-select, bias, scalar and embedding template ids are new and are listed in #48. They await its lowerings.
+
+**Work models:** each template carries a `work_model`, ops per input over its bound parameters. For example, `gemm-coordinate` is 2K and `rmsnorm-triton` is 3N plus one rsqrt; special functions are counted apart. The version is `work-model/v0`, the same as the tables' N, and each cites its IR definition. It was added at 02:40Z at Daniel's request, and the tests check GEMM against N.
+
+**L40S:** `l40s-48gb/bf16` (362.05 TFLOPS) and `l40s-48gb/e4m3` (733 TFLOPS), dense figures from the NVIDIA datasheet. The accumulate width isn't stated in the datasheet; full-rate FP32 is recorded as an assumption, to be confirmed by a native-peak measurement. The L40S workloads now carry it.
 
 ## 02:25Z: census workloads PR
 

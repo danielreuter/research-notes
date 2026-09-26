@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 0f933bbf (01:06Z) [open] reopened for 4 SHA-256 Flock cells (728d8724, df857ea6, fd772057, 324888c5): NOT final
 CHECKPOINT 0f933bbf (00:35Z) [final] FINAL: 1589ffe1, c3e83404, 7afeecbe, 167e64a8, 56f792bd verified=accepted (file re-verification); pods terminated 00:36Z; ~$2.8; tips 0f933bbf + vllm f9ada8e7
 CHECKPOINT 0f933bbf (00:28Z) [open] art:167e64a8, art:7afeecbe, art:c3e83404 verified=accepted (18/18, 54/54, 66/66; r20260926-000935-dd35). vllm-v1 art:56f792bd replay r20260926-002803-d4e8 running on vy-verify-flock-pure
 CHECKPOINT 0f933bbf (00:09Z) [open] H100 BF16 art:1589ffe1 verified=accepted (60/60, r20260925-235824-1a5c). Also labelled (now pulled) art:fb526e50, art:37215309, art:bb289d47, art:ed0047be. Next: art:c3e83404, art:7afeecbe, art:167e64a8, vllm art:56f792bd

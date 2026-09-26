@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (12:31Z) [final] FINAL: 8 per-workload GEMM cells verified=accepted (file re-verification; r20260926-114049-edf0, r20260926-122145-c586); pod terminated 12:31Z; ~$0.25; ready for the attention cells
 CHECKPOINT 787ac154 (12:00Z) [open] workload GEMM: 2e5ea606 4e3f5048 aea553ae labelled; 86780ca6 4a319a65 89dab836 running (r20260926-114049-edf0); d9a40cd4 8b5a0bf1 need a 581c3084 staging rerun (header content_digest differs), queued on lane/verify-flock-workload-581 2266e096
 CHECKPOINT 787ac154 (11:41Z) [open] workload GEMM: replay r20260926-114049-edf0 on vy-verify-flock-pure (pod 5nin7m601u6fdc, cpu3c-8) from lane/verify-flock-workload = flock-backend e09c19a5 (its own replay + 31-replay.sh SET)
 CHECKPOINT 787ac154 (11:35Z) [open] reopened for 8 per-workload GEMM cells (d9a40cd4 8b5a0bf1 2e5ea606 4e3f5048 aea553ae 86780ca6 4a319a65 89dab836): NOT final
@@ -74,3 +75,5 @@ Reopened 09:53Z-10:08Z (the 0945Z NVFP4 handoff): art:2753a371, art:db7f48de ver
 20260926T1003Z-handoff-from-flock-l40s-101.md (six L40S #101 cells: GEMM art:df3d63e4, art:8bc3dba2 at flock-pure-block/v2; frame art:dc9b92f6, 6dc1f392, d1ae527d, 1e7cdc41 at the IR6 pins, needing a 2f55d2d3+ tree) arrived during the NVFP4 reopening and is not in its assignment: not replayed; awaits a reopening (GEMM: 31-replay.sh SET= on lane/verify-flock-pure-realk; frame: 34-ir-replay.sh + the flock-ir-frame replay subcommand of lane/verify-flock-ir, rebased onto 2f55d2d3).
 Reopened 10:08Z-10:52Z: L40S #101 cells df3d63e4 8bc3dba2 dc9b92f6 6dc1f392 d1ae527d 1e7cdc41 (r20260926-101538-4dd1; lane/verify-flock-l40s b4eb302d) and sampling a330c568 26b5f7d8 (r20260926-102147-4684; lane/verify-flock-sampling 38eff1c4) verified=accepted; the 1003Z flock-l40s-101 handoff acted on; A-GKR re-sweep/A-fs dropped per coordinator 10:48Z (run r20260926-104635-3ee0 stopped, rc 143); sent coordinator 20260926T1052Z. Pods ghupdbwdq8jzoy, cdiozeib313637 terminated; lane total ~$5.0.
 20260926T1026Z-handoff-from-agkr-real-k.md (re-sweep cells a0ca8ef6/a979dfcb + A-fs 7ae6c190/0e1095f3 for replay): dropped per coordinator 10:48Z (red-team-flock rebuilt and gated the re-sweeps; A-fs are diagnostics).
+
+Reopened 11:34Z-12:32Z (20260926T1140Z-handoff-from-flock-backend.md): per-workload GEMM cells d9a40cd4 8b5a0bf1 2e5ea606 4e3f5048 aea553ae 86780ca6 4a319a65 89dab836 verified=accepted (r20260926-114049-edf0, r20260926-122145-c586); sent coordinator 20260926T1232Z. Pod 5nin7m601u6fdc terminated 12:31Z; lane total ~$5.3.

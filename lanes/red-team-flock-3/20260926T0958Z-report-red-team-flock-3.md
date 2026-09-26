@@ -2,9 +2,10 @@
 lane: red-team-flock-3
 kind: report
 created: 2026-09-26T09:58Z
-status: final
+status: open
 ---
 
+CHECKPOINT e5493f9f (20:00Z) [open] reopened (coordinator 19:59Z): review PR #87 (flock-gpu-link: per-statement unit slot 2^13/2^14, admission check UL1) then flock-backend's total GEMM unit+statement (domain total, NaN/inf); grant or block before the 9 GEMM re-run cells: NOT final; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (16:47Z) [final] FINAL: attention class pins GRANTED W/ CONDITIONS NON_ZK_PROOF; all three class cells checked, placement-separate, labelled NON_ZK_PROOF: c1 art:4fb2de9c (T1-128), c2 art:b61eafa9 (T129-256; duplicate ef10f5fb not labelled), c3 art:4dd2069b (T257-287); CP6 ruled (synthetic sets counted, provenance footnoted; note for Daniel); per-T v3 cells labelled earlier; art:25c96f97 c185d38b 8be608c6 3b34c1dd f5935b64; pod ~$0.32
 CHECKPOINT e5493f9f (16:07Z) [open] WAITING c2 (T=129..256) r20260926-153234-eeb6 on vy-flock-ir-lowering-b-l40s at 70+/128 sub-batches, ETA 16:30Z; my poller exits on its registration (deadline 17:00Z), backstop wake 16:58Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: check_class_cells.sh + label_class_cells.sh on c2, then FINAL; c1/c3 re-labelled with the CP6 ruling
 CHECKPOINT e5493f9f (15:37Z) [open] reopened (coordinator 15:37Z): label class cell c2 (T=129..256, 8ef6d347, due ~16:20Z) with check_class_cells.sh + label_class_cells.sh, polling until 17:00Z; CP6 ruled: synthetic class sets count in #101's headline with provenance footnoted (note for Daniel, not a blocker): NOT final; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26

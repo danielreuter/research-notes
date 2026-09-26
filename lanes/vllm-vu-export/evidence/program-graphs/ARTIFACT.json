@@ -1,7 +1,7 @@
 {
- "artifact": "art:7f09fbf3e3d76c1e3072b9dbe5c8f1d207cd8c2c8ad306e0070460879a59d24b",
+ "artifact": "art:9362857fcbe558e83e177a269b460a2b9d7bc3c3473afa130df90455c62b40b6",
  "kind": "vllm-program-graphs/v1",
- "fetch": "research data fetch art:7f09fbf3e3d76c1e3072b9dbe5c8f1d207cd8c2c8ad306e0070460879a59d24b [--path ...]",
+ "fetch": "research data fetch art:9362857fcbe558e83e177a269b460a2b9d7bc3c3473afa130df90455c62b40b6 [--path ...]",
  "why": "research-notes ignores *.gz and refuses files over 1 MB; the gzipped files and the program.json over 1 MB (Q_word_v1 rules and edge words added) are in the artifact and in the Project store internal/datasets/program-graphs/",
  "only_in_artifact": [
   "definitions/00.json.gz",
@@ -281,5 +281,5 @@
   "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
   "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.ops.json.gz"
  ],
- "supersedes": "art:453fc5fea3b283a411eb708bc99d0aa38e93a7ebd26fc5ea2d8d9b36a12e9024"
+ "supersedes": "art:7f09fbf3e3d76c1e3072b9dbe5c8f1d207cd8c2c8ad306e0070460879a59d24b"
 }

@@ -6,7 +6,7 @@
    "row": 4,
    "row_key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
    "file": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 850558,
+   "bytes": 845812,
    "class": "PASS on run r20260926-035624-a133",
    "model": "HuggingFaceTB/SmolLM2-135M",
    "tp_rank": null,
@@ -50,20 +50,44 @@
    },
    "ops": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 3500379047,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 3292132547,
     "gates": 50193095402,
-    "committed_interior_words": 996635095,
-    "units_per_gate": 0.0697,
+    "free_gates": 1979520099,
+    "committed_interior_words": 1490927275,
+    "units_per_gate": 0.0656,
     "violations": {}
    },
-   "edge_words": false
+   "edge_words": false,
+   "new_taps": [
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 3118770,
+     "bytes": 12475080,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 339900,
+     "bytes": 1359600,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 5665,
+     "bytes": 22660,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    }
+   ]
   },
   {
    "row": 11,
    "row_key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.program.json",
-   "bytes": 993916,
+   "bytes": 992457,
    "class": "GREEN",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -92,20 +116,44 @@
    },
    "ops": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 20203802079,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 19841791967,
     "gates": 375162411630,
-    "committed_interior_words": 10999074015,
-    "units_per_gate": 0.0539,
+    "free_gates": 8194788795,
+    "committed_interior_words": 16473826783,
+    "units_per_gate": 0.0529,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 41269760,
+     "bytes": 165079040,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 147424,
+     "bytes": 589696,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 4607,
+     "bytes": 18428,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    }
+   ]
   },
   {
    "row": 23,
    "row_key": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 505095,
+   "bytes": 503416,
    "class": "GREEN",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -197,20 +245,44 @@
    },
    "ops": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 21779583577,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 20539064409,
     "gates": 1177897622502,
-    "committed_interior_words": 5079091789,
-    "units_per_gate": 0.0185,
+    "free_gates": 13138273681,
+    "committed_interior_words": 7597709917,
+    "units_per_gate": 0.0174,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 15401984,
+     "bytes": 61607936,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 563104,
+     "bytes": 2252416,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 17597,
+     "bytes": 70388,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    }
+   ]
   },
   {
    "row": 39,
    "row_key": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
    "file": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.program.json",
-   "bytes": 1757414,
+   "bytes": 1754181,
    "class": "GREEN",
    "model": "Qwen/Qwen2.5-1.5B",
    "tp_rank": null,
@@ -239,20 +311,44 @@
    },
    "ops": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 17092778519,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 16628366183,
     "gates": 482475348830,
-    "committed_interior_words": 7301869023,
-    "units_per_gate": 0.0354,
+    "free_gates": 7841779371,
+    "committed_interior_words": 10922515815,
+    "units_per_gate": 0.0345,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 54940368,
+     "bytes": 219761472,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 257992,
+     "bytes": 1031968,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 4607,
+     "bytes": 18428,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    }
+   ]
   },
   {
    "row": 57,
    "row_key": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 1644760,
+   "bytes": 1645767,
    "class": "FAIL",
    "model": "unsloth/gemma-2-2b",
    "tp_rank": null,
@@ -288,20 +384,30 @@
    },
    "ops": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 11024715720,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 11011473570,
     "gates": 573676355970,
-    "committed_interior_words": 641801732,
+    "free_gates": 6598279862,
+    "committed_interior_words": 959058048,
     "units_per_gate": 0.0192,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "AttnBlockSoftcap_v1",
+     "value": "GuardNegInfZero_v1",
+     "words": 4465344,
+     "bytes": 17861376,
+     "new_tap_in": "FA2 tap build (softcap instantiation)"
+    }
+   ]
   },
   {
    "row": 60,
    "row_key": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 971814,
+   "bytes": 967231,
    "class": "GREEN",
    "model": "unsloth/mistral-7b-v0.3",
    "tp_rank": null,
@@ -337,20 +443,44 @@
    },
    "ops": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 15763251250,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 14725423154,
     "gates": 1702131641760,
-    "committed_interior_words": 3147094830,
-    "units_per_gate": 0.0093,
+    "free_gates": 9294019174,
+    "committed_interior_words": 4703215150,
+    "units_per_gate": 0.0087,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 22085632,
+     "bytes": 88342528,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 240512,
+     "bytes": 962048,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 3758,
+     "bytes": 15032,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    }
+   ]
   },
   {
    "row": 67,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 632303,
+   "bytes": 626374,
    "class": "GREEN",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": null,
@@ -410,20 +540,93 @@
    },
    "ops": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 15234442475,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 13870121995,
     "gates": 8731214012218,
-    "committed_interior_words": 1784654143,
-    "units_per_gate": 0.0017,
+    "free_gates": 13696148043,
+    "committed_interior_words": 2672036335,
+    "units_per_gate": 0.0016,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "SelectF32_v1",
+     "words": 81387520,
+     "bytes": 325550080,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "RouterArgmaxStep_v1",
+     "value": "F32GtStrict_v1",
+     "words": 80115840,
+     "bytes": 10014480,
+     "new_tap_in": "the RouterArgmaxStep kernel"
+    },
+    {
+     "activation": "RouterArgmaxStep_v1",
+     "value": "SelectF32_v1",
+     "words": 78844160,
+     "bytes": 315376640,
+     "new_tap_in": "the RouterArgmaxStep kernel"
+    },
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 11049984,
+     "bytes": 44199936,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "I32Eq_v1",
+     "words": 10173440,
+     "bytes": 1271680,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "NvExpf_v1",
+     "value": "F32Mul_v1",
+     "words": 10173440,
+     "bytes": 40693760,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax: expf)"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 327855,
+     "bytes": 1311420,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 317920,
+     "bytes": 1271680,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "F32Max_v1",
+     "words": 158960,
+     "bytes": 635840,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "F32Div_v1",
+     "words": 158960,
+     "bytes": 635840,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    }
+   ]
   },
   {
    "row": 68,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.program.json",
-   "bytes": 634031,
+   "bytes": 628102,
    "class": "GREEN",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": null,
@@ -483,20 +686,93 @@
    },
    "ops": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 15426254193,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 14041781009,
     "gates": 8860791763260,
-    "committed_interior_words": 1789007203,
-    "units_per_gate": 0.0017,
+    "free_gates": 13884083503,
+    "committed_interior_words": 2678563843,
+    "units_per_gate": 0.0016,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "SelectF32_v1",
+     "words": 82599936,
+     "bytes": 330399744,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "RouterArgmaxStep_v1",
+     "value": "F32GtStrict_v1",
+     "words": 81309312,
+     "bytes": 10163664,
+     "new_tap_in": "the RouterArgmaxStep kernel"
+    },
+    {
+     "activation": "RouterArgmaxStep_v1",
+     "value": "SelectF32_v1",
+     "words": 80018688,
+     "bytes": 320074752,
+     "new_tap_in": "the RouterArgmaxStep kernel"
+    },
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 11042304,
+     "bytes": 44169216,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "I32Eq_v1",
+     "words": 10324992,
+     "bytes": 1290624,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "NvExpf_v1",
+     "value": "F32Mul_v1",
+     "words": 10324992,
+     "bytes": 41299968,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax: expf)"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 332739,
+     "bytes": 1330956,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 322656,
+     "bytes": 1290624,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "F32Max_v1",
+     "words": 161328,
+     "bytes": 645312,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "F32Div_v1",
+     "words": 161328,
+     "bytes": 645312,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    }
+   ]
   },
   {
    "row": 70,
    "row_key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 7099057,
+   "bytes": 7216769,
    "class": "FAIL",
    "model": "allenai/OLMoE-1B-7B-0924",
    "tp_rank": "rank 0 of the TP row (one rank's shard)",
@@ -532,20 +808,107 @@
    },
    "ops": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 5056994907,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 4486649574,
     "gates": 1843571476727,
-    "committed_interior_words": 494491621,
-    "units_per_gate": 0.0027,
+    "free_gates": 4783803645,
+    "committed_interior_words": 741330868,
+    "units_per_gate": 0.0024,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "SelectF32_v1",
+     "words": 34250752,
+     "bytes": 137003008,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "RouterArgmaxStep_v1",
+     "value": "F32GtStrict_v1",
+     "words": 33715584,
+     "bytes": 4214448,
+     "new_tap_in": "the RouterArgmaxStep kernel"
+    },
+    {
+     "activation": "RouterArgmaxStep_v1",
+     "value": "SelectF32_v1",
+     "words": 33180416,
+     "bytes": 132721664,
+     "new_tap_in": "the RouterArgmaxStep kernel"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "I32Eq_v1",
+     "words": 4281344,
+     "bytes": 535168,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "NvExpf_v1",
+     "value": "F32Mul_v1",
+     "words": 4281344,
+     "bytes": 17125376,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax: expf)"
+    },
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 2954112,
+     "bytes": 11816448,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 137973,
+     "bytes": 551892,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 133792,
+     "bytes": 535168,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "F32Max_v1",
+     "words": 66896,
+     "bytes": 267584,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "F32Div_v1",
+     "words": 66896,
+     "bytes": 267584,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "EmbeddingShard_v1",
+     "value": "I32Le_v1",
+     "words": 8362,
+     "bytes": 1045,
+     "new_tap_in": "vLLM VocabParallelEmbedding (the rank's vocabulary-range mask)"
+    },
+    {
+     "activation": "EmbeddingShard_v1",
+     "value": "I32Add_v1",
+     "words": 4181,
+     "bytes": 16724,
+     "new_tap_in": "vLLM VocabParallelEmbedding (the rank's vocabulary-range mask)"
+    }
+   ]
   },
   {
    "row": 73,
    "row_key": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 1283454,
+   "bytes": 1261155,
    "class": "GREEN",
    "model": "Qwen/Qwen3-4B-Instruct-2507",
    "tp_rank": null,
@@ -581,20 +944,44 @@
    },
    "ops": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 14910494622,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 13510670878,
     "gates": 913072606096,
-    "committed_interior_words": 3184903070,
-    "units_per_gate": 0.0163,
+    "free_gates": 12384813542,
+    "committed_interior_words": 4762900034,
+    "units_per_gate": 0.0148,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "AttnBlock_v2",
+     "value": "GuardNegInfZero_v1",
+     "words": 10188288,
+     "bytes": 40753152,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 5328818,
+     "bytes": 21315272,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 266256,
+     "bytes": 1065024,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    }
+   ]
   },
   {
    "row": 74,
    "row_key": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 1546784,
+   "bytes": 1459662,
    "class": "GREEN",
    "model": "Qwen/Qwen3-4B-Instruct-2507-FP8",
    "tp_rank": null,
@@ -630,20 +1017,44 @@
    },
    "ops": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 17797984453,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 16269049573,
     "gates": 904497553360,
-    "committed_interior_words": 3563139711,
-    "units_per_gate": 0.0197,
+    "free_gates": 136385382339,
+    "committed_interior_words": 5328722811,
+    "units_per_gate": 0.018,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "AttnBlock_v2",
+     "value": "GuardNegInfZero_v1",
+     "words": 11490048,
+     "bytes": 45960192,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 5814435,
+     "bytes": 23257740,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 290520,
+     "bytes": 1162080,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    }
+   ]
   },
   {
    "row": 75,
    "row_key": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager",
    "file": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.program.json",
-   "bytes": 2239238,
+   "bytes": 2224346,
    "class": "FAIL",
    "model": "Qwen/Qwen3-30B-A3B",
    "tp_rank": "rank 0 of the TP row (one rank's shard)",
@@ -673,20 +1084,114 @@
    },
    "ops": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.ops.json.gz",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 5015153631,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 4630704630,
     "gates": 1175738462395,
-    "committed_interior_words": 1165216089,
-    "units_per_gate": 0.0043,
+    "free_gates": 4735219297,
+    "committed_interior_words": 1745263860,
+    "units_per_gate": 0.0039,
     "violations": {}
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "SelectF32_v1",
+     "words": 57065472,
+     "bytes": 228261888,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "RouterArgmaxStep_v1",
+     "value": "SelectF32_v1",
+     "words": 56619648,
+     "bytes": 226478592,
+     "new_tap_in": "the RouterArgmaxStep kernel"
+    },
+    {
+     "activation": "RouterArgmaxStep_v1",
+     "value": "F32GtStrict_v1",
+     "words": 56619648,
+     "bytes": 7077456,
+     "new_tap_in": "the RouterArgmaxStep kernel"
+    },
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 7507200,
+     "bytes": 30028800,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "I32Eq_v1",
+     "words": 7133184,
+     "bytes": 891648,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "NvExpf_v1",
+     "value": "F32Mul_v1",
+     "words": 7133184,
+     "bytes": 28532736,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax: expf)"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 1004265,
+     "bytes": 4017060,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 111456,
+     "bytes": 445824,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "MoeRouterTopKNorm_v1",
+     "value": "F32Div_v1",
+     "words": 55728,
+     "bytes": 222912,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "F32Max_v1",
+     "words": 55728,
+     "bytes": 222912,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "MoeRouterTopK_v1",
+     "value": "F32Div_v1",
+     "words": 55728,
+     "bytes": 222912,
+     "new_tap_in": "vLLM _moe_C.topk_softmax (topkGatingSoftmax)"
+    },
+    {
+     "activation": "EmbeddingShard_v1",
+     "value": "I32Le_v1",
+     "words": 2322,
+     "bytes": 290,
+     "new_tap_in": "vLLM VocabParallelEmbedding (the rank's vocabulary-range mask)"
+    },
+    {
+     "activation": "EmbeddingShard_v1",
+     "value": "I32Add_v1",
+     "words": 1161,
+     "bytes": 4644,
+     "new_tap_in": "vLLM VocabParallelEmbedding (the rank's vocabulary-range mask)"
+    }
+   ]
   },
   {
    "row": 101,
    "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.program.json",
-   "bytes": 463674,
+   "bytes": 464877,
    "class": "PASS on run r20260926-035624-a133",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -715,14 +1220,40 @@
    },
    "ops": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.ops.json",
    "q_word_v1": {
-    "query": "Q_word_v1{X=16,W=32}",
-    "units": 294073119,
+    "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+    "units": 273995039,
     "gates": 18805632558,
-    "committed_interior_words": 42991359,
-    "units_per_gate": 0.0156,
-    "violations": {}
+    "free_gates": 206960187,
+    "committed_interior_words": 64169215,
+    "units_per_gate": 0.0146,
+    "violations": {
+     "cut": 32
+    }
    },
-   "edge_words": true
+   "edge_words": true,
+   "new_taps": [
+    {
+     "activation": "AttnBlock_v3",
+     "value": "GuardNegInfZero_v1",
+     "words": 97280,
+     "bytes": 389120,
+     "new_tap_in": "FA2 / FA3 tap build (flash_fwd_kernel / hopper mainloop)"
+    },
+    {
+     "activation": "RMSNormFusedCuda_v2",
+     "value": "RsqrtApprox_v1",
+     "words": 9184,
+     "bytes": 36736,
+     "new_tap_in": "vLLM CUDA fused_add_rms_norm_kernel<bf16, 0, true>"
+    },
+    {
+     "activation": "RMSNormTriton_v1",
+     "value": "F32Mul_v1",
+     "words": 287,
+     "bytes": 1148,
+     "new_tap_in": "vLLM batch-invariant Triton _rms_norm_kernel"
+    }
+   ]
   }
  ],
  "notes": [
@@ -760,5 +1291,5 @@
   "validation": "validation.json (48 recorded inputs re-evaluated, all equal) and coverage.json (rows x Definitions, validated digests)",
   "missing": "validation only where inputs are on record: the #101 and #4 exports; other rows' Definitions are validated only where they share a digest with those"
  },
- "q_word_v1": "each program.json carries q_word_v1 per group and per row (verity_vllm.query.word, branch cursor/q-word-query-289b / PR #82): the partition of every Call into units with |out(S)| <= 16 b or one boundary gate <= 32 b; edges carry words, bits, words_per_read, ports (row 4: no words, its Programs were not preserved)"
+ "q_word_v1": "each program.json carries q_word_v1 under the no-recompute invariant (Q_word_v1{X=16,W=32,R=no-recompute}; verity_vllm.query.word, PRs #86 / no-recompute): no recompute classes; per group units, gates, structure (free) gates, committed interior words; per row taps: every committed interior value class with where serving commits it today or the kernel a new tap goes in. Edges carry words per read."
 }

@@ -2,13 +2,11 @@
 lane: vllm-more-exports
 kind: report
 created: 2026-09-26T08:04Z
-status: final
+status: open
 ---
 
-<<<<<<< HEAD
-=======
+CHECKPOINT 898c32ef (13:46Z) [open] REOPENED 13:45Z for one run: #67 re-run with PR #80 (export budget fix) + PR #63; ~$12 vLLM, stop at budget or 16:45Z guard; NOT final; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (13:24Z) [final] no captured sets: #74 Commit needs ~300 GiB (>251 GB H100; bounded/exclude finalize crashes), #67 export drew 0 VUs (vu_store budget includes >18 min population build); PR #63 (FP8 block + MoE expert coordinates) MR sent; pods terminated 12:29Z/13:20Z, ~$26.7 of $30
->>>>>>> 2f9788aae7adf5be10fb226c04bb827e7427d81f
 CHECKPOINT 898c32ef (13:24Z) [open] 13:26Z: report FINAL section written; handoffs sent (vllm-coordinator 1323Z, coordinator MR 1322Z, vllm-vu-export 1322Z); PR #63 updated; no pods; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (13:21Z) [open] 13:22Z: vyv-more-exports-moe TERMINATED 13:20Z (2 runs preserved); both pods down, ~$26.7 of $30. #67 Build/Match/Commit through sampled replay PASS (coverage 406220 missing 0, C2 16120/16120 equal, replay not-retained 0 failed 0) but its export drew 0 VUs: the export's 600 s budget counts the population build over 33 request Programs (>18 min), stopped 13:17Z; #74 no export (Commit memory, see report). No sets registered. Next: handoffs, merge request PR #63, FINAL; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 898c32ef (12:57Z) [open] 12:59Z BUSY: pod vyv-more-exports-moe run r20260926-082002-43e0 (#67): replay workers done 12:50Z, parent finishing the replay record, export (600 s) next; will stop after the export verifies (skip on-pod program graph; vllm-vu-export rebuilds from preserved programs/), check-back 13:10Z; ~$26.5 of $30; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
@@ -102,11 +100,6 @@ The fix is branch `cursor/vllm-more-exports-0df4` @ `898c32ef`, [PR #63](https:/
 ~~~text
 tip: cursor/vllm-more-exports-0df4 @ 898c32ef (base main@e3a2d81d)        merge-with: none (PR #63; merges cleanly with main e77d40c9)
 known-failures: none    pod: vyv-more-exports-h100 terminated 12:29Z, vyv-more-exports-moe terminated 13:20Z; ~$26.7 of $30
-<<<<<<< HEAD
-artifacts: none registered (no row reached a written export); runs preserved: r20260926-080641-f752 r20260926-080751-376f r20260926-081920-036d r20260926-082002-43e0 r20260926-082552-2706 r20260926-083238-6f6f r20260926-101428-71e2 r20260926-115930-46a1
-~~~
-
-=======
 artifacts: no input sets (no row reached a written export); run records: art:9d0ba26d art:5eeec31f art:1db9d8db art:8180df8f art:ee5b4ac0 art:7eb9063c art:4ba50829 art:238aab21
 ~~~
 
@@ -116,7 +109,6 @@ Run records, all preserved:
 - Bootstraps: art:ee5b4ac0 (H100), art:7eb9063c (L40S).
 - Pod tests at `898c32ef`: art:4ba50829 (148 pass, 1 skip), art:238aab21 (22 pass).
 
->>>>>>> 2f9788aae7adf5be10fb226c04bb827e7427d81f
 No captured input sets came out of this lane.
 - **#57 Gemma** was skipped. It's FAIL-class, and its distinct templates have no evaluator.
 - **#74** needs an H100 host with at least 320 GB RAM running the unbounded Commit (and the Match at the 32 MiB cap), or the `--bounded-staging --retain-exclude` finalize fixed.

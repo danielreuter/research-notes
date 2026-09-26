@@ -42,8 +42,8 @@ nf=$(grep -c '^<f' <<<"$out")
 # machines.d: the later registration wins on both sides (registered_at), then the pod copy is committed by the sync below
 md=/tmp/cloud-mirror-machines.d; rm -rf "$md"; mkdir -p "$md"
 if rsync -rt -e "$sshcmd" "$host:$N/machines.d/" "$md/" 2>/dev/null; then
-  mm=$(python3 "$(dirname "$0")/machines_merge.py" "$S/machines.d" "$md" 2>&1)
-  [ -n "$mm" ] && rsync -rc -e "$sshcmd" "$md/" "$host:$N/machines.d/" && echo "$(stamp) machines.d: $(tr '\n' ' ' <<<"$mm")"
+  mm=$(python3 "$(dirname "$0")/machines_merge.py" "$S/machines.d" "$md" "$HOME/cloud-mirror/machines-synced.txt" 2>&1)
+  [ -n "$mm" ] && rsync -rc --delete -e "$sshcmd" "$md/" "$host:$N/machines.d/" && echo "$(stamp) machines.d: $(tr '\n' ' ' <<<"$mm")"
 fi
 sync=$(timeout 240 $sshcmd "$host" "cd /workspace/steward/verity && PY=\$(/root/.local/bin/uv python find 3.12) && \
   PYTHONPATH=tools/research/src \$PY -m research notes sync --root $N -m 'cloud mirror $(date -u +%Y-%m-%dT%H:%MZ): $nf files' 2>&1 | tail -3")

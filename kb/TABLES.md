@@ -1,7 +1,7 @@
 ---
 kind: kb
 topic: the tables the user wants
-updated: 2026-09-26T02:10Z (coordinator: input sets generated or captured with provenance; Table 2 rows keyed by the ontology's statements; Daniel, 2026-09-26 01:01Z); before that 2026-09-25T22:25Z (coordinator: self-throttling is not contention, criterion 7); before that 2026-09-25T19:50Z (lane tables-switch: Flock family, the switch's commands; before that 2026-09-25T06:30Z: rewrite with the user's decisions of 2026-09-24 evening, published from the Project store's docs/tables-spec-draft.md; replaces the 2026-09-24T20:20Z spec, kept as kb/TABLES-v1-20260924.md)
+updated: 2026-09-26T02:30Z (coordinator: markdown render and digests retired, the website reads the entities JSON; Daniel, 2026-09-26); before that 2026-09-26T02:10Z (coordinator: input sets generated or captured with provenance; Table 2 rows keyed by the ontology's statements; Daniel, 2026-09-26 01:01Z); before that 2026-09-25T22:25Z (coordinator: self-throttling is not contention, criterion 7); before that 2026-09-25T19:50Z (lane tables-switch: Flock family, the switch's commands; before that 2026-09-25T06:30Z: rewrite with the user's decisions of 2026-09-24 evening, published from the Project store's docs/tables-spec-draft.md; replaces the 2026-09-24T20:20Z spec, kept as kb/TABLES-v1-20260924.md)
 ---
 
 # The tables the user wants (standing spec; do not redesign without the user)
@@ -246,19 +246,20 @@ A result counts in any proving view (Tables 2 and 3, and a ✓ in D2) only if al
 
 ## Render
 
-Until the switch, the published tables are today's, rendered as before:
+**The website is the reading surface (Daniel, 2026-09-26).** The docs site's comparison page (`/docs/backends/comparison`:
+Security, Performance, definitions) replaces the markdown Tables 1–3 and the table digests. Neither is published any more.
 
-```sh
-S=~/projects/verity-main-wt/cli   # sparse worktree at main
-PYTHONPATH=$S/backends/numerical/python:$S/tools/research/src:$S \
-  ~/projects/verity-main-wt/main/.venv/bin/python -m verity_numerical.bench.tables    --root ~/.research/store --format md
-PYTHONPATH=... python -m verity_numerical.bench.drilldown --root ~/.research/store --format md
-```
-
-- The steward renders both daily at 13:00Z into `renders/daily/` (`steward.toml`).
-- The tables are re-rendered on every verified result and for the user's 6:00 PM PT digest. Big changes are reported right away: a new backend, a gap filled, a headline record broken.
-- The new views render beside today's tables as a labelled preview, which is never shown as the published numbers.
-- After the switch, the new views' command replaces the two above: `python -m verity_numerical.bench.views --root <store> --published` is published as `<stamp>-tables.md`, and the frozen tables render unchanged as the drill-down `<stamp>-tables-frozen.md` (a `[[render]]` entry with `published = "views"` in `steward.toml`). The drill-downs D1–D3 are unchanged.
+- **The product is the entities JSON** (`verity/tables-entities/v1`):
+  `python -m verity_numerical.bench.views --root <store> --format entities --published`.
+- **The steward** renders it daily at 13:00Z as `renders/daily/<stamp>-tables.json`. Its `[[render]]` entry in `steward.toml`
+  has `published = "entities"`.
+- **The cloud mirror** copies the newest render to the Project store's `internal/tables-render/latest.json`, which the site
+  reads.
+- **Parity** (`views --parity`) still runs in the same entry as an internal correctness gate. It publishes nothing and gates
+  nothing; a difference shows up as a `RENDER-FAILED` line.
+- **The markdown renderers stay as developer tools:** `views` (md), `tables`, `drilldown` and `switch`.
+- **When a result is verified and labelled,** the coordinator re-renders the JSON and updates `latest.json`. Big changes
+  are reported to the user: a new backend, a gap filled, a headline record broken.
 
 ## The switch
 

@@ -6,5 +6,5 @@ at = "13:00Z"
 source = "/workspace/steward/verity"
 out = "renders/daily"
 store = "/workspace/steward/store"
-published = "views"
+published = "entities"   # the site's JSON + the internal parity gate; markdown retired (Daniel 2026-09-26)
 

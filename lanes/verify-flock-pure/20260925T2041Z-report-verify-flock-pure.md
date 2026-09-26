@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (05:55Z) [open] real-K labelled accepted: 43986c5d 149cdaf9 c767e092 c200eef3 c0999f7f; running 673c1835 bbb95342 c4d03dd5 (r20260926-051537-fde5)
 CHECKPOINT 787ac154 (05:25Z) [open] real-K: replay r20260926-051537-fde5 on vy-verify-flock-pure (pod l64dreojqb1qpz, cpu3c-16) of all 8 cells from main c0460349 + 31-replay SET/YMODEL/K (lane/verify-flock-pure-realk 51d880d0)
 CHECKPOINT 787ac154 (05:05Z) [open] reopened for 8 real-K Flock cells (43986c5d c0999f7f 149cdaf9 673c1835 c767e092 bbb95342 c200eef3 c4d03dd5), verify from main c0460349: NOT final
 CHECKPOINT 787ac154 (01:31Z) [final] FINAL: SHA-256 cells 728d8724, df857ea6, fd772057, 324888c5 verified=accepted (file re-verification, r20260926-011150-e4e9); pod terminated 01:31Z; lane ~$3.2; tip 787ac154

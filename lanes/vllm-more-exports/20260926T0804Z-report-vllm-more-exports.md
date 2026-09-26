@@ -2,9 +2,10 @@
 lane: vllm-more-exports
 kind: report
 created: 2026-09-26T08:04Z
-status: open
+status: final
 ---
 
+CHECKPOINT 898c32ef (14:25Z) [final] reopen: #67 export re-run not run -- no working L40S (secure stock none; 2 community L40S with broken CUDA, terminated 14:16Z/14:23Z, ~$0.3); tree cursor/vllm-67-rerun-0df4 8f2f1624 (#63+#80) and a Commit-only restore recipe (~2.7 h on a secure >=233 GB L40S) ready for a later window
 CHECKPOINT 898c32ef (14:24Z) [open] 14:26Z: reopen stopped: no working L40S (secure stock none; 2 community L40S with broken CUDA, terminated); handoffs vllm-coordinator + vllm-vu-export 1424Z; no pods; FINAL next; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 8f2f1624 (14:17Z) [open] 14:22Z BUSY: vyv-more-exports-moe2 (community L40S) TERMINATED: driver 550/CUDA 12.4 can't run the cu129 stack (BOOTSTRAP_FAIL_CUDA); no L40S/L40/RTX6000Ada stock now (RunPod stock=None) for a >=240 GB replacement; polling until ~14:45Z (after that #67 can't end even by 17:45Z); asked vllm-coordinator 1417Z for a 17:45Z guard on the replacement; ~$0.5 spent; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 8f2f1624 (14:11Z) [open] 14:12Z BUSY: pod vyv-more-exports-moe2 (b83fk4drgx340u) run r20260926-141055-d540 = #67 Commit-only (+export, PR #80+#63 tree 8f2f1624) over the Build restored from art:8180df8f programs/ (VM->pod upload took 14 min); waits for bootstrap r20260926-134954-df82, then manifest ~15 min, Commit+replay ~100 min, export; check-back 14:40Z; stop at 16:45Z; ack vllm-vu-export 1344Z (#63 OK, #80); agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4

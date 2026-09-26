@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT 53ffcaca (15:00Z) [open] BUSY pairs a/b: c2 re-run and backup at 75+/128 and 45+/128 sub-batches, ETA 15:20Z / 15:30Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 53ffcaca (14:43Z) [open] BUSY pair a c2 re-run r20260926-142744-14e6, pair b c2 backup r20260926-143648-ba5a (both 53ffcaca), ETA 15:20Z; registered: c1 art:4fb2de9c (T1-128), c3 art:4dd2069b (T257-287); agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 53ffcaca (14:28Z) [open] BUSY pair a: c2 re-run r20260926-142744-14e6 / r20260926-142734-f7e5 at 53ffcaca (the first c2, r20260926-132849-6ee6, refused by check: the guard counted our own lingering GPU contexts as another process; ir_bench now waits for NVML to release them), ETA 15:15Z; pair b: c3 r20260926-140931-b414 / r20260926-140928-d05d at 11f24da6, ETA 14:40Z; c1 registered art:4fb2de9c (sent to red-team-flock-3, verify-flock-pure); agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT 11f24da6 (13:52Z) [open] BUSY pair a c2 (T=129..256) r20260926-132849-6ee6 at 40+/128 sub-batches, pair b c1 (T=1..128) r20260926-132856-68b3 at 80+/128, then c3 on pair b; ETA 14:35Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f

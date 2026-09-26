@@ -2,9 +2,10 @@
 lane: salted-leaves
 kind: report
 created: 2026-09-26T20:47Z
-status: open
+status: final
 ---
 
+CHECKPOINT f1df809f (20:49Z) [final] hm96-sha256/v1 in core + opt-in vLLM host committer, PR #88 @ f1df809f; per-row cost art:b3a08e21 (hm96 ANDs 2.13-2.44x keyed-BLAKE3 row at 1.5-8 KB, +128 B/row); handoffs to flock-netlist and coordinator
 CHECKPOINT f1df809f (20:47Z) [open] hm96-sha256/v1 in core + opt-in vLLM host committer on cursor/hm96-sha256-leaves-18a8 @ f1df809f (PR #88); per-row cost run r20260926-204634-0958 art:b3a08e21; handoff to flock-netlist written
 
 # salted-leaves: `hm96-sha256/v1` hiding leaves
@@ -93,3 +94,21 @@ Handoff `lanes/flock-netlist/20260926T2034Z-handoff-from-salted-leaves.md`. It c
   - 18 collection errors and 2 `test_llm` errors come from torch, which this VM lacks.
 - **Lints P1–P10 and the dead-code census:** pass.
 - One failed attempt, `r20260926-204552-c862`, was an invocation error (a relative script path without `--cwd`), rerun as above.
+
+## FINAL
+
+~~~text
+tip: cursor/hm96-sha256-leaves-18a8 @ f1df809f (base main@2431e3c1)        merge-with: none
+known-failures: vLLM integration, 10 pre-existing on 2431e3c1 + 2 order-dependent + 20 torch-less errors (list above) | core none
+pod: none (CPU only); $0
+artifacts: art:b3a08e21b4388350bada8c417d79bc419a9b857dbab14a6c455e27aee279e8f7 art:1e2b59f46b14402bae65aef4c9f10b230569ad1d37042a1467dfee00deac7f54
+~~~
+
+- **Recommendation:** hm96-sha256/v1 for every serving row leaf and for Flock's internal leaves (Daniel's decision), with the
+  pinned key as the circuit constant. The 2% test is moot: hiding costs +128 bytes stored per row (3.1% at 4 KB rows, 50% at
+  256-byte chunks), 5 native SHA-256 compressions and 3 in-circuit compressions per row. Choosing SHA-256 is what costs the
+  circuit 2.1–2.4× today's keyed-BLAKE3 row ANDs.
+- **Handoffs sent:**
+  - `lanes/flock-netlist/20260926T2034Z-handoff-from-salted-leaves.md`;
+  - `lanes/coordinator/20260926T2050Z-handoff-from-salted-leaves.md` (merge-ready).
+- **Handoffs received:** none.

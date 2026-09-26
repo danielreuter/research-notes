@@ -1,0 +1,10 @@
+flock-ir-sampling selftests (verity/flock-ir-sampling/v1), V=1280 synthetic set staged on the pod (2 instances, last chunk 8 blocks)
+- CPU, VM, af0bd416-equivalent build (flock-ir-sampling): 20/20 (17 v2-derived cases + ir6_leaf_wiring_swapped, ir6_row_key_changed,
+  ir6_lanes_moved_between_unit_slots), 20260926T0820Z-cpu-selftest-v1280.txt has the 17-case run at bcac98c4
+- L40S (Kansas City, driver 580.178), b7cbb4d5, flock-ir-frame: CPU all_pass, GPU all_pass; loopback captured #101 1 row 1.63 s (m31),
+  4 rows 6.6 s (m33): r20260926-084023-82c0
+- L40S, af0bd416 (merged tree, flock-ir-sampling binary sha256 3afb9c31...): CPU all_pass, GPU all_pass: r20260926-091906-6381
+- L40S (Sweden, community, driver 550.144): CPU all_pass, GPU fails "unsupported display driver / cuda driver combination"
+  (CUDA 13.3 needs driver >= 580 here): r20260926-083317-b873
+- statement digest 9c4688f8..., sigma eb5a1b59... for the V=1280 file: identical under the f70c6c77 flock-ir-frame, the split
+  flock-ir-sampling, and the merged build

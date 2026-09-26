@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT 3a073d74 (09:03Z) [blocked] spend guard (coordinator 0910Z): NVFP4 poller stopped, no 5090 pods; waiting for bench-spine's NVFP4 input set, then stage instance files + run script, launch when the pause lifts; captured FP8 H100 re-run still pending vllm-more-exports; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 3a073d74 (07:54Z) [open] goal 5: polling RTX 5090 stock (RunPod dataCenters.gpuAvailability, read-only; 20 min) + NVFP4 spine sets + captured FP8 H100 set (tmux nvfp4-poll, /tmp/fp/poll.log); no NVFP4 input set exists -> asked bench-spine 0752Z; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 3a073d74 (06:04Z) [open] FP8 cells re-run on spine sets (3a073d74): art:5d2a91a7 art:ab115376 art:66d2412c art:1c520240, old four labelled SUPERSEDED, art:cd3c8706 PULLED; handoffs 0605Z to red-team-flock + coordinator; pods terminated (~$3); agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 3a073d74 (05:46Z) [open] FP8 re-runs on spine sets (3a073d74: write_set 8-bit, gemm_coordinate any whole-chunk K + stage): H100 fp8-hopper K2048/K8192 (5f311851/d5578eff) vs ver14, 4090 fp8-ada K2048/K8192 (c0999789/6ffda100 prefixes, CN2 + m33) vs ver4090f; tmux drivers; check-back 06:10Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

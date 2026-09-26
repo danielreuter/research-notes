@@ -5,6 +5,7 @@ created: 2026-09-26T08:04Z
 status: open
 ---
 
+CHECKPOINT 898c32ef (14:24Z) [open] 14:26Z: reopen stopped: no working L40S (secure stock none; 2 community L40S with broken CUDA, terminated); handoffs vllm-coordinator + vllm-vu-export 1424Z; no pods; FINAL next; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 8f2f1624 (14:17Z) [open] 14:22Z BUSY: vyv-more-exports-moe2 (community L40S) TERMINATED: driver 550/CUDA 12.4 can't run the cu129 stack (BOOTSTRAP_FAIL_CUDA); no L40S/L40/RTX6000Ada stock now (RunPod stock=None) for a >=240 GB replacement; polling until ~14:45Z (after that #67 can't end even by 17:45Z); asked vllm-coordinator 1417Z for a 17:45Z guard on the replacement; ~$0.5 spent; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 8f2f1624 (14:11Z) [open] 14:12Z BUSY: pod vyv-more-exports-moe2 (b83fk4drgx340u) run r20260926-141055-d540 = #67 Commit-only (+export, PR #80+#63 tree 8f2f1624) over the Build restored from art:8180df8f programs/ (VM->pod upload took 14 min); waits for bootstrap r20260926-134954-df82, then manifest ~15 min, Commit+replay ~100 min, export; check-back 14:40Z; stop at 16:45Z; ack vllm-vu-export 1344Z (#63 OK, #80); agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
 CHECKPOINT 8f2f1624 (13:54Z) [open] REOPENED BUSY 13:55Z: pod vyv-more-exports-moe2 (b83fk4drgx340u, 1x L40S community 251 GB $0.79/h) bootstrap r20260926-134954-df82; next: #67 Commit-only over the preserved Build (tree cursor/vllm-67-rerun-0df4 8f2f1624 = #63+#80), check-back 14:10Z; stop at $12 or 16:45Z; agent bc-8ed3d15c-dd08-54c3-b30b-a6cbf5f20df4
@@ -117,3 +118,22 @@ No captured input sets came out of this lane.
 - **#74** needs an H100 host with at least 320 GB RAM running the unbounded Commit (and the Match at the 32 MiB cap), or the `--bounded-staging --retain-exclude` finalize fixed.
 - **#67** needs a re-run whose export budget starts after the population build, or `max_seconds` of about 2400 s through `limits.json`. Either way it's a whole row run: about 5 h on 2x L40S, roughly $11.
 - **Delivered:** the exporter support both rows need (PR #63: FP8 block and MoE expert coordinates, which main silently drops), the FP8 chain-set deriver (`evidence/derive_fp8_chain_sets.py`), and the memory and budget findings, all handed to their owners.
+
+## Reopened 13:45Z: #67 export re-run with PR #80 + PR #63. Blocked on L40S capacity, stopped 14:25Z
+
+- **Tree:** `cursor/vllm-67-rerun-0df4` @ `8f2f1624`, which is #63 (`898c32ef`) merged with #80 (`30c7a28a`), pushed. vllm-vu-export reviewed #63 as OK and ran 76 tests on it (`r20260926-133827-b804`; its handoff `20260926T1344Z-handoff-from-vllm-vu-export.md`). Neither PR is merged yet.
+- **Plan: Commit only over #67's restored Build**, skipping Build and Match (about 2.5 h). The Build dir is rebuilt on the pod from the preserved run art:8180df8f:
+  - `programs/`, the 33 request dirs;
+  - `evidence/build_summary.json`;
+  - a restored `build_workload/workload_program.json` carrying workload digest `7b79c784…`.
+  - Then `STAGES=commit PROGRAM_DIGEST=7b79c784… verity-vllm row run`. The row driver builds the manifest of record and the weights of record itself. With no Match dir the live oracle compare isn't armed, which is a logged warning; the export doesn't need it.
+  - Expected wall time on a pod of 233 GB or more: bootstrap about 12 min, manifest about 15 min, Commit and sampled replay about 100 min, export about 30 min, so about 2.7 h.
+- **What happened:**
+  - Secure L40S / L40 / RTX 6000 Ada with 200 GB or more: no stock (RunPod `stock=None`).
+  - Two community L40S pods (251 GB, $0.79/h) were created: `vyv-more-exports-moe2` (`b83fk4drgx340u`) and `vyv-more-exports-moe3` (`xox1xhelqizkw8`). On both, CUDA can't initialise: the image's own torch cu124 fails with "CUDA unknown error", nvidia-smi reports "Addressing Mode: Unknown Error", driver 550.163.
+  - The cuda-compat-12-9 forward-compat libraries didn't help. Bootstraps `r20260926-134954-df82` and `r20260926-142055-a825` fail with `BOOTSTRAP_FAIL_CUDA`.
+  - Uploading the restored Build over ssh took 14 min (about 0.5 MB/s) to the community host. Next time, fetch it from R2 on the pod with a minted read-only key instead.
+- **Stopped at 14:25Z.** A working L40S would still need about 3 h, which lands past the 16:45Z guard; the 17:45Z extension I asked for (1417Z) wasn't answered. Both pods were terminated with nothing on them to preserve. The reopen cost about $0.3 ($0.79/h × about 0.4 h).
+- **To finish #67 later:** a secure L40S with 233 GB or more (1x with at least 240 GB, or 2x at 120 GB each), the tree above, the restore recipe above, and about 2.7 h. Then register with `evidence/register_export.py <run> pre-epoch cursor/vllm-67-rerun-0df4 <row key> 67` and send the export and store art ids to vllm-vu-export.
+
+**FINAL (reopen, 14:25Z):** no new artifacts. The ready-made tree is `cursor/vllm-67-rerun-0df4` @ `8f2f1624` (#63 + #80), pushed, with no PR of its own; the two PRs carry the changes. Pods `vyv-more-exports-moe2` and `-moe3` were terminated at 14:16Z and 14:23Z, about $0.3. The lane total is about $27.0 across both windows.

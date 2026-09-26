@@ -67,6 +67,9 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 - Task 5 MERGE-READY: PR #77 7438b2a5. Gates r20260926-133406-4d7c (head 389/0 vs base 386/0) + r20260926-140124-74e1 (lints rc 0 after
   the P10 one-line fix; tests rc 0). Both PRESERVED. Handoff 20260926T1405Z.
 
+- PR #77 follow-up d4200876: verify on an empty run root returns False (it raised InvalidArtifact); native_ranges._run_root total;
+  test_a_run_without_a_run_root_verifies_no_opening. Run locally (3 placeholder + 13 security tests pass). Handoff 20260926T1415Z.
+
 ## Running
 - nothing. vyv-rf-m32-bf terminated 14:03Z (all lane pods terminated).
 

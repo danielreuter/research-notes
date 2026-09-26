@@ -5,6 +5,9 @@ created: 2026-09-25T11:07Z
 status: final
 ---
 
+CHECKPOINT 3301c435 (01:20Z) [final] labelled NON_ZK_PROOF: art:167e64a8, c3e83404, 7afeecbe (e52eca82 = a6a6e548 + Ping, separate pods, 6/6); flock-vllm-block/v1 already granted 00:15Z. No pods.
+CHECKPOINT 3301c435 (01:18Z) [final] art:167e64a8 labelled NON_ZK_PROOF (e52eca82 = a6a6e548 + Ping, separate pod, 6/6); flock-vllm-block/v1 already granted 00:15Z (art:56f792bd labelled). No pods.
+CHECKPOINT 3301c435 (01:17Z) [open] reopened 01:17Z: label art:167e64a8 (A100 bf16-ampere keyed-BLAKE3)
 CHECKPOINT 3301c435 (01:15Z) [final] 4 SHA-256 Flock cells labelled NON_ZK_PROOF (verifier c058c33f/bab181d6 equiv, union, separate pods); fp4-nvf4 unit (fb52a87c) GRANTED WITH CONDITIONS (1,800 diff units 0 mismatches; FP1 pin, FP2 layout review). No pods.
 CHECKPOINT 3301c435 (01:06Z) [open] reopened 01:06Z: label 4 SHA-256 Flock cells; review NVFP4 unit circuit (pin fb52a87c)
 CHECKPOINT 3301c435 (00:07Z) [final] art:1589ffe1 labelled NON_ZK_PROOF (Ping stateless; tag-8 clash with Prime flagged); flock-vllm-block/v1 GRANTED WITH CONDITIONS, art:56f792bd labelled (selftest 21/21, art:c30bb647; VL1 hardening, PB3 pending). Pods terminated.
@@ -797,3 +800,15 @@ Handoffs received:
 - `20260926T0033Z-handoff-from-flock-gpu-link.md` (NVFP4): done;
 - `20260926T0043Z-handoff-from-flock-gpu-link.md` (SHA device witness, prover-only): noted, and the verifier is
   unchanged in the labelled cells.
+
+art:167e64a8 (A100 bf16-ampere, keyed-BLAKE3) is labelled `NON_ZK_PROOF`. Its verifier commit is e52eca82 = a6a6e548 +
+Ping, on a separate pod (ver9), with 6/6 sessions. Detail: `lanes/coordinator/20260926T0120Z-handoff-from-red-team-flock.md`.
+
+Also labelled `NON_ZK_PROOF`: art:c3e83404 (H100 fp8-hopper) and art:7afeecbe (RTX 4090 fp8-ada), both with verifier
+e52eca82 on a separate pod and 6/6 sessions.
+
+Handoffs received:
+- `20260925T2348Z-handoff-from-flock-backend.md`: its cells are superseded, so none are labelled;
+- `20260925T2352Z-handoff-from-flock-backend.md`: art:1589ffe1 labelled at 00:04Z;
+- `20260926T0003Z-handoff-from-flock-backend.md`: art:167e64a8, c3e83404 and 7afeecbe labelled;
+- `20260926T0106Z-handoff-from-flock-backend.md`: the four SHA-256 cells labelled at 01:15Z.

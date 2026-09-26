@@ -254,6 +254,38 @@ Handoffs received:
   - All 16 T values are being re-run at ece9fdd2 through ~12:40Z. I check and label those as they land; the producer
     labels the first twelve superseded.
 
+# Reopened 13:01Z: the key-count class pin (goal 2), PR #54 @ 4eb3b991
+
+**GRANTED WITH CONDITIONS at NON_ZK_PROOF.** The verdict and conditions are in
+`lanes/flock-ir-lowering/20260926T1340Z-handoff-from-red-team-flock-3.md`, with a copy in `lanes/coordinator/`. The paper
+review before the code is `…T1310Z…` (CP1–CP6).
+
+- **The code:**
+  - `check_class` (Rust) checks the pin against the manifest's sha256, that every T of [lo, hi] is listed once, that the
+    file's own key count is inside the class, that the netlist is `nets[T]`, and the shared `unit_rows`. Σ binds the class
+    pin, and the v3 load checks then run unchanged.
+  - The harness `KeyClass` takes each head's T from the verifier's own set and builds the manifest itself. It puts one T in
+    each sub-batch and records `key_counts`, `key_class` and `per_key_count`.
+  - `ir_frame.rs`, `ir_tail.rs` and `ir_block.rs` are unchanged since ece9fdd2. The main merge adds `replay`.
+- **Checks:**
+  - CP5: all 512 `nets[T]` (T = 1..512) equal the reviewed generator's per-T netlists (`evidence/class_ref.py`,
+    `evidence/manifest_check.py`). The rows are identical for every T, and `unit_rows` db271b38 recomputes independently.
+  - The three class pins recompute: 2f102216, fc9dceb5, 365f1b5d.
+- **Negatives, run r20260926-132829-2165 (local CPU build, recorded; `evidence/class_neg.sh`):**
+  - 14 load cases: the honest one accepted and 11 refused. The two I expected to pass (a forged manifest under its own pin,
+    a duplicate key) were also refused: the staged file's `unit_sha256`, and serde keeping the last key.
+  - A non-canonical manifest is accepted under its own pin (CP2, hardening).
+  - Selftest under `--class`: 24/24.
+  - Sessions: the honest one accepted; no-class and re-formatted manifests refused at Hello (R7); another class refused by
+    the prover itself.
+- **e2e, run r20260926-130636-5ee4:** 648 adversarial heads at 18 more T values up to 512, 0 mismatches. That makes 39 T
+  values across the three classes in all.
+- **Crediting:**
+  - CP7: `views.input_variables` rejects a class cell ("the result records none"), and the headline credits one T per
+    result. census-json must credit each T in `key_counts`, with per-T throughput from `per_key_count`.
+  - CP8: ir_bench registers the plateau point, a T-prefix of the class set. Register the full-set point.
+- **Evidence:** art:8be608c6: the negatives run, the class_ref table, the manifests and the e2e log.
+
 ## FINAL
 
 ~~~text

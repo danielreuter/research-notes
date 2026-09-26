@@ -57,11 +57,19 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
   Handoff 20260926T0907Z. Calibration follow-up (#4 smollm2 dense Match) not done: no #4 Match record in the store; architecture-true
   entry predicts 64,673 MiB < the 80 GB reported, so unsound without #4's breakdown.
 
+## Task 5: #74 bounded-staging finalize crash (root 13:26Z)
+- Cause: the learn-only warm-up commits placeholder roots b"" (native_collect learned-only steps); finalize folded them through core
+  (32-byte check since c1) -> InvalidArtifact. Fix a15bddd7 (fold only when all roots are 32 B, else run root b""; line-neutral) + test
+  (reproduces the crash without the fix). a61be4ba: bounded retain-exclude pool = kept + raw x 0.25 (levels over every leaf); #74 test
+  both modes (unbounded 282,367 refused vs >= 229,877 held; bounded 142,957 admitted, pool 50,911 vs 59,246 primed).
+- Branch lane/vllm-rf-bounded-finalize (base c20bab70), PR #77 (draft).
+
 ## Running
-- nothing. vyv-rf-m32-mem terminated 09:06Z (all lane pods terminated).
+- vyv-rf-m32-bf (osg7sa0wz5dinu, A5000 host $0.27/h, GPU hidden; all cpu shapes and L4/A4000 NO-STOCK): gate run r20260926-133406-4d7c
+  (`evidence/bf_gate.sh`: lints head, tests/commit + admission tests head a61be4ba vs base c20bab70).
 
 ## Next
-- none (FINAL). Spend about $9.5 total.
+- compare, preserved, terminate, update PR #77, handoff, FINAL.
 
 ## Open questions
 - none

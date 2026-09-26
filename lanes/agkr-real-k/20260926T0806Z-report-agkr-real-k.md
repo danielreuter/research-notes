@@ -2,9 +2,10 @@
 lane: agkr-real-k
 kind: report
 created: 2026-09-26T08:06Z
-status: final
+status: open
 ---
 
+CHECKPOINT 9cbfdcf2 (11:47Z) [open] reopened for #101 route (a) cells on an L40S prover (K=2048, K=8192; coordinator 11:44Z, $6): NOT final; pods in US-NC-1 with global networking, verifier on a separate physical host
 CHECKPOINT 9cbfdcf2 (10:36Z) [final] FINAL: route (a) real-K cells art:a0ca8ef6 (K=2048, 4096 VUs, 283 VU/s) + art:a979dfcb (K=8192, 1024 VUs, 63.5 VU/s), A-fs art:7ae6c190 art:0e1095f3; PR #69 @ 9cbfdcf2 (branch cursor/agkr-real-k-f806); pods terminated ~10:32Z; ~$5.0
 CHECKPOINT 9cbfdcf2 (10:35Z) [final] FINAL: route (a) real-K cells art:a0ca8ef6 (K=2048, 4096 VUs, 283 VU/s) + art:a979dfcb (K=8192, 1024 VUs, 63.5 VU/s), A-fs art:7ae6c190 art:0e1095f3; PR #69 @ 9cbfdcf2; pods terminated ~10:32Z; ~$5.0
 CHECKPOINT 9cbfdcf2 (10:33Z) [open] cell runs done (k2048 k8192 afs); pods drained and terminated

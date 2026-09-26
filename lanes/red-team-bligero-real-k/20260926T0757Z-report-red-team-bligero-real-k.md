@@ -2,9 +2,10 @@
 lane: red-team-bligero-real-k
 kind: report
 created: 2026-09-26T07:57Z
-status: open
+status: final
 ---
 
+CHECKPOINT 5e7e255d (11:36Z) [final] FINAL (reopen 1): A1 booked by PR #71 checked, 3/2^32 deviation correct (my 1/p table 2.95 bits low: b1d710da fails at 2^-127.971, HOLDS withdrawn; 15 others re-labelled HOLDS); art:4ff19d4f proof_class+finding HOLDS at 2^-128.265 (booked, Rust re-verified at main); condition 2 = verify lane; evidence art:01af8ab7; no pod, $0
 CHECKPOINT 5e7e255d (11:27Z) [open] reopened for bligero-real-k 1115Z (art:4ff19d4f A100 K8192 xob, A1 booked in PR #71, 3/2^32 coin deviation): NOT final; CPU only, no pod
 CHECKPOINT 5e7e255d (09:21Z) [final] FINAL: real-K B-Ligero class GRANTED WITH CONDITIONS (COMPLETE_ZK_BACKEND; coordinator/0917Z); proof_class+finding on 16 new-sender cells; no break; A1 chain-test field term unbooked (<=2^-140.35/proof at K8192 BF16, no cell below 2^-128); evidence art:dc790613; tools cursor/red-team-bligero-real-k-0819@5e7e255d; no pod, $0
 CHECKPOINT 5e7e255d (09:21Z) [final] FINAL: real-K B-Ligero class GRANTED WITH CONDITIONS (COMPLETE_ZK_BACKEND; coordinator/0917Z); proof_class+finding on 16 new-sender cells; no break; A1 chain-test field term unbooked (<=2^-140.35/proof at K8192 BF16, no cell below 2^-128); evidence art:dc790613; tools 5e7e255d; no pod, $0
@@ -93,3 +94,39 @@ artifacts: art:dc790613 (supersedes art:43876953)
   - the A1 fix: book `linear_field = D (log2 deg - log2 p)` from the system's linked-row count, in `protocol.soundness` and in Rust
     `soundness()`;
   - the `_data_loop` RuntimeError nit.
+
+## Reopen 1 (11:27Z): A1 as booked by PR #71, and art:4ff19d4f
+
+Request: `lanes/red-team-bligero-real-k/20260926T1115Z-handoff-from-bligero-real-k.md`. CPU only on the VM. Evidence art:01af8ab7.
+
+- **The 3/2^32 deviation is right.**
+  - `protocol._expand` and Rust `expand` reduce uint32 words mod p without rejection. Residues below 2^32 - 2p = 268,435,454
+    have 3 preimages, so the maximum probability is 3/2^32 = 2^-30.415, against 1/p = 2^-30.907.
+  - Schwartz-Zippel with that maximum mass per independent coin gives deg x 3/2^32 per coordinate, so the booked term is
+    (3 deg/2^32)^6.
+  - My 0917Z table used 1/p and was 2.95 bits too small. **That makes my 0917Z claim "no cell falls below 2^-128" wrong for
+    art:b1d710da, which is 2^-127.971.** I withdrew its HOLDS with a `finding DOWNGRADE`; the producer's `below_bar` and
+    `superseded_by` are also on it.
+  - The other 15 cells clear with the booked term (worst 9fd5ec09 at 2^-128.029; largest move 11208bf7, from 2^-128.350 to
+    2^-128.265), and each got a corrected `finding HOLDS`.
+- **PR #71 (e8ec5e19)** books `chain_field` in Python and in Rust (Rust takes nl from the pinned system), sizes `t` with it,
+  and refuses bounds above 2^-128 at `cell register`. `chain_term_test.py` (9 passed) and the Rust `chain_field` test pass.
+- **art:4ff19d4f** holds conditions 1, 3, 4 and 5:
+  - pinned 467774bd;
+  - my Rust re-verification of `sub_00` and `sub_31` at main: accepted, with chain_field 2^-137.396 and per proof 2^-133.265,
+    giving **2^-128.265** over 32. That equals my recomputation, the prover's record and the live `batch_bits` (5 of 5
+    sessions at e8ec5e19);
+  - all 5 sessions prove the rep-1 statements, which equal the dump.
+  - Condition 2 is verify-bligero-real-k's (run launched 11:32Z).
+  - Labels: `proof_class COMPLETE_ZK_BACKEND` and a `finding HOLDS`.
+- Handoffs:
+  - received: 1115Z from bligero-real-k;
+  - sent: `lanes/coordinator/20260926T1133Z-handoff-from-red-team-bligero-real-k.md` and
+    `lanes/bligero-real-k/20260926T1133Z-handoff-from-red-team-bligero-real-k.md`.
+- kb `ligero-hash-auth.md`: the chain-term bullet was corrected in place to the booked figures.
+
+~~~text
+tip: cursor/red-team-bligero-real-k-0819 @ 5e7e255d (base main@e3a2d81d)        merge-with: none (red-team tools only; optional)
+known-failures: none    pod: none (all on the cloud VM); $0
+artifacts: art:01af8ab7 art:dc790613 (supersedes art:43876953)
+~~~

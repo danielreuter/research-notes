@@ -1,0 +1,7 @@
+# machine vy-flock-ir-sampling-ver2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "ml5y7wmll9jeoc"
+project = "verity"
+guard = 40
+registered_by = "cursor"
+registered_at = "2026-09-26T08:39Z"

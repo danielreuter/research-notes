@@ -118,10 +118,16 @@ every binding then "mismatches" (b-ligero-standard-hash report, 08:19Z).
   verifier nor Rust `batch` checks coverage: `batch` accepts a rep that holds sub_00 twice.
   - So check that every session's per-sub-batch `stmt_sha256` equals rep 1's, and that the proofs differ.
   - Script: `lanes/red-team-bligero-real-k/evidence/sessions_xrep.py`.
-- **The chain test's field term is not booked.**
-  - With nl > 3 linked rows, the extra constraints' coefficients are monomials (`chain.extra_coef`). A violated constraint survives
-    a challenge coordinate with probability deg / p, where deg = (2 (nl - 3) - 1) div 6 + 2, so the term is (deg / p)^D.
-  - `protocol.soundness` and Rust `soundness()` book `linear_field = 1 / p^D`.
-  - Per proof at D = 6: SHA-256 (nl 69) 2^-158.3; blake3-xob 3-slot (nl 133) 2^-152.5; BF16 K2048 (nl 165) 2^-150.75; FP8 K8192
-    (nl 293) 2^-145.75; BF16 K8192 (nl 549) 2^-140.35.
-  - Re-bound a cell's union before calling it at or below 2^-128. The tightest cell, b1d710da, is 2^-128.086 with the term.
+- **The chain test's field term is booked since PR #71 (e8ec5e19).**
+  - With nl > 3 linked rows, the extra constraints' coefficients are monomials (`chain.extra_coef`), of degree
+    deg = 1 + ceil(E / 6), where E = 2 (nl - 3).
+  - The coins are uint32 words reduced mod p with no rejection (`protocol._expand`, Rust `expand`), so a value has
+    probability up to 3 / 2^32, not 1 / p. The term is therefore (3 deg / 2^32)^D, booked as `chain_field` in
+    `protocol.soundness` and Rust `soundness()` (`chain_term.py`), and `config_for` sizes `t` with it.
+  - Per proof at D = 6: SHA-256 (nl 69) 2^-155.35; blake3-xob 3-slot (nl 133) 2^-149.54; BF16 K2048 (nl 165) 2^-147.80;
+    FP8 K8192 (nl 293) 2^-142.80; BF16 K8192 (nl 549) 2^-137.40.
+  - A cell registered before e8ec5e19 reports its bound without the term: re-bound it before calling it at or below
+    2^-128. art:b1d710da fell to 2^-127.971 and was superseded by art:4ff19d4f (2^-128.265, booked).
+  - The same coin distribution makes the uniform field terms (`linear_field`, `quadratic_field`, `irs_field`) about 2.95
+    bits optimistic at D = 6. That is immaterial next to 2^-133, since they stay below 2^-168. `_expand`'s docstring says
+    "bias 2^-31 relative"; the maximum mass is really 1.41 / p.

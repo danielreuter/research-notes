@@ -2,9 +2,10 @@
 lane: red-team-flock-2
 kind: report
 created: 2026-09-26T02:33Z
-status: open
+status: final
 ---
 
+CHECKPOINT a57628fc (10:54Z) [final] FINAL red-team-flock-2 (bc-089339bc-4846-55b6-96c9-a15fd7a4a241). (1) IR6 MET at 2f55d2d3 and f4cd5d4e: leaf maps, row key and 16-bit words pinned with the netlist and checked at load (runs r20260926-100601-f937, r20260926-102516-ea1e, r20260926-104438-71ff; selftests 82/82; all tampers refused, including [n,32] ports and a widened returned port; LEAVES meaning rests on IR2's pin). (2) L40S #101 elementwise cells art:dc9b92f6 (RoPE), 6dc1f392 (SiLU mul), d1ae527d (RMSNorm fused), 1e7cdc41 (RMSNorm Triton) labelled NON_ZK_PROOF (30 verifier files checked). (3) NVFP4 5090 cells art:2753a371 (Fp4) and db7f48de (ShaFp4): proof_class NON_ZK_PROOF, final (14 files recomputed from the set with core only; red-team-flock placement ruling and verify-flock-pure replay cited). Earlier today: flock-ir-sampling/v1 GRANTED WITH CONDITIONS (S1, IR2), art:a330c568 and 26b5f7d8 labelled. Handoffs 1010Z, 1025Z, 1055Z. Pods x5f12wbrstpco1 and l5aqabzzjo9g9k terminated; spend about $0.40 today ($0.12 this turn).
 CHECKPOINT a57628fc (10:26Z) [open] WAITING r20260926-102516-ea1e on vy-red-team-flock-2 (l5aqabzzjo9g9k, cpu3c-8), check after 10:45Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; IR6 at f4cd5d4e + explicit 16-bit tampers; then the same tampers at 2f55d2d3 (SKIP_SELFTEST), addendum handoff, FINAL. L40S cells and NVFP4 5090 cells already labelled NON_ZK_PROOF (NVFP4 finding updated with red-team-flock's placement ruling and verify-flock-pure's replay)
 CHECKPOINT a57628fc (10:20Z) [open] IR6 MET at 2f55d2d3 (r20260926-100601-f937); L40S #101 elementwise cells dc9b92f6/6dc1f392/d1ae527d/1e7cdc41 and NVFP4 5090 cells 2753a371/db7f48de labelled NON_ZK_PROOF; flock-ir-sampling/v1 GRANTED WITH CONDITIONS (1010Z). Handoffs 1010Z, 1025Z. Pod x5f12wbrstpco1 terminated (~$0.26). Queue empty; idle until woken
 CHECKPOINT a57628fc (10:08Z) [open] flock-ir-sampling/v1 GRANTED WITH CONDITIONS (S1 native check mandatory, IR2) at NON_ZK_PROOF; art:a330c568 + art:26b5f7d8 labelled; handoff lanes/flock-ir-sampling/20260926T1010Z (+coordinator copy). WAITING r20260926-100601-f937 (IR6 confirm at 2f55d2d3) on vy-red-team-flock-2, check after 10:20Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; next: NVFP4 5090 cells statement checks
@@ -341,3 +342,17 @@ flock-backend.
 - **Pod:** x5f12wbrstpco1, terminated at 10:19Z; about $0.26 in all this turn.
 - **Handoffs received:** 0832Z (flock-ir-lowering), 1003Z (flock-l40s-101) and 0945Z (flock-backend), all acted on.
   0922Z (attention) was reassigned to red-team-flock-3.
+
+# IR6 at f4cd5d4e and the 16-bit assertions (10:22–10:55Z)
+
+Detail: `lanes/coordinator/20260926T1055Z-handoff-from-red-team-flock-2.md`.
+
+- **f4cd5d4e (v3), run r20260926-102516-ea1e:** the producer's selftests pass 82/82, and 99 of 103 load tampers are refused.
+- **2f55d2d3, run r20260926-104438-71ff (tampers only):** 91 refused.
+- **The passes on both runs** are only the expected LEAVES-consistent-unpinned case. IR2 stays the condition.
+- **New 16-bit tampers** (`evidence/ir6_tamper.py`): `[n, 32]` ports, and a widened or merged returned port. They are refused
+  as "ports are not all [leaves, 16]" and "returned outputs are not the netlist's 16-bit ports", and as a pin mismatch
+  under the pin.
+- **NVFP4 5090 cells:** the finding was re-labelled at 10:25Z with red-team-flock's placement ruling and verify-flock-pure's
+  replay. `proof_class NON_ZK_PROOF` is final.
+- **Pod:** l5aqabzzjo9g9k (cpu3c-8, $0.24/h), terminated at 10:54Z; about $0.12.

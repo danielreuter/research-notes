@@ -5,6 +5,7 @@ created: 2026-09-25T23:13Z
 status: open
 ---
 
+CHECKPOINT cbbed14b (23:12Z) [open] PR #92 194ac3f9 (base main): recompute = a value in two units; #101 sampler's temp==0 duplicate is 1 same-unit redundant gate; strict --word-check 16/32 on #101 rc 0 at record digest 368283ad (policy off) and with --norm-scales; 13 rows 0 violations/0 cross-unit recomputes; dataset art:f0c33059; handoff 20260926T2310Z for re-review; $0 spent
 CHECKPOINT fbefac80 (22:22Z) [open] PR #86 fc5c5c3d gate (b) failure set = base (37), lints rc 0, live topk_softmax 1280/1280 equal, sweep 4080/0; startswith lint fixed; handoff 20260926T2225Z to vllm-coordinator for re-review; PR #92 b21ce332 checker + taps; vyv-vu-export-g4 terminated 22:21Z
 CHECKPOINT fd9f81e8 (21:54Z) [open] WAIT vyv-vu-export-g4 r(gate b head a3f2bf36, full) check-back 22:25Z agent bc-eab8c043; recheck a3f2bf36: lints + targeted pass, the 5 head-only failures resolved (4 fixed, test_roundtrip flaky: 3/3 alone on head and base); ends ~22:25Z (< 23:30Z)
 CHECKPOINT 2ba8efae (21:41Z) [open] WAIT vyv-vu-export-g4 r20260926-205221-c29b (gate b head 2c2df5fc; base done 37 failed / 3908 passed) check-back 22:00Z agent bc-eab8c043; live topk_softmax done: 1280 rows, ordered == kernel-order == hardware; ordered router sweep 4080/0 unequal; 13-row tap list running (8/13)

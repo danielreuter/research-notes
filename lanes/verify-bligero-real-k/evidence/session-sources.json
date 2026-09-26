@@ -82,5 +82,17 @@
   "pod": "vy-bligero-real-k-verifier-ga2b",
   "source": "ssh read-only (run still serving)",
   "dir": "/tmp/vbrk/sessions2/live-r20260926-073309-3956"
+ },
+ "e8fb169d": {
+  "verifier_run": "r20260926-073309-3956",
+  "pod": "vy-bligero-real-k-verifier-ga2b",
+  "source": "store run record art:af3a99282687a6a76729542a40150d82e7a476c53cf9877662d2106d9906e5eb",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-073309-3956/sessions"
+ },
+ "9260a985": {
+  "verifier_run": "r20260926-073309-3956",
+  "pod": "vy-bligero-real-k-verifier-ga2b",
+  "source": "store run record art:af3a99282687a6a76729542a40150d82e7a476c53cf9877662d2106d9906e5eb",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-073309-3956/sessions"
  }
 }

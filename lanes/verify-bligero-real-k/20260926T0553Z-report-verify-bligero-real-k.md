@@ -176,3 +176,40 @@ tip: lane/verify-bligero-real-k @ 2bd8ce2f (base main@2bd8ce2f; no commits, not 
 known-failures: none    pod: terminated 08:29Z (lusnnk1ekkj0je cpu3c-32); ~$0.55 this round, lane total ~$0.65
 artifacts: labelled art:c56a09a8 art:664f3142 art:3bb4d03f art:11208bf7 art:c92a439a art:b1d710da art:767b54db art:1dafbfd5 art:f1ac2db5 art:9fd5ec09 art:f451dabc art:4b567c9c art:622c9737 art:82587955; runs r20260926-075651-fc42 r20260926-081703-0f0a r20260926-082424-5906
 ~~~
+
+## Reopen 2 (08:53Z-09:12Z): the last 2 cells; the 16-cell real-K matrix is verified
+
+Request: the coordinator's launch message.
+- Received and acted on: `20260926T0845Z-handoff-from-bligero-real-k.md`. It lists the final five cells, three of which I
+  had already verified in Reopen 1.
+- Base: main 49cc39ef. The verifier, reverify, relchain, relations, hashchain, serialize, leaf and input_sets code is
+  unchanged since 2bd8ce2f.
+- Pod: vy-verify-bligero-real-k, a cpu3c with 16 vCPU, pod t258al5w5tu80i. Re-registered with `--replace`. $0.48/h,
+  08:56-09:08Z, about $0.10. There were no 32-vCPU CPU pods.
+- Run r20260926-085735-35b1 (PRESERVED): pins 16/16 at 49cc39ef (pod build 6fd31a3d), then both cells.
+- **snapshot_vs_record, r20260926-073309-3956:** the session files I read live over ssh equal its preserved record art:af3a9928:
+  320/320 files plus system.bin (`evidence/snapshot-vs-record-3956.json`).
+  - This closes Reopen 1's open item. Addendum `note` labels on art:4b567c9c, art:f1ac2db5, art:9fd5ec09 and art:82587955
+    record it (ref art:af3a9928).
+  - Every verifier run whose sessions I read live now matches its preserved record: 7d7b, a6fe, 4ad5, ca25 and 3956.
+
+| cell | relation | set (re-staged; IR-equal) | batch | sessions |
+|---|---|---|---|---|
+| art:e8fb169d | bf16-hopper-x4-k8192+sha256 | art:ee183a74 synthetic, 4096/4096 | 32/32, 2^-128.35 | 5/5 (US-GA-2, store record) |
+| art:9260a985 | fp8-hopper-x4-k8192+sha256 | art:d5578eff synthetic, 1920/1920 | 16/16, 2^-128.03 | 5/5 (US-GA-2, store record) |
+
+- Both cells are verified=accepted, labels by verify-bligero-real-k with ref r20260926-085735-35b1. All labels are on both sides.
+  Evidence: `evidence/sessions-check-reopen2.json`.
+- **Matrix:** all 16 new-sender cells (4 folds × K ∈ {2048, 8192} × {blake3-xob, sha256}) are now verified=accepted:
+  - c56a09a8, 664f3142, 3bb4d03f, 11208bf7, c92a439a, b1d710da, 767b54db, 1dafbfd5
+  - f1ac2db5, 9fd5ec09, f451dabc, 4b567c9c, 622c9737, 82587955, e8fb169d, 9260a985
+  - Round 1's four cells, since superseded, are also verified=accepted.
+- Not judged: the interaction notes.
+
+## FINAL (reopen 2)
+
+~~~text
+tip: lane/verify-bligero-real-k @ 49cc39ef (base main@49cc39ef; no commits, not pushed)        merge-with: none
+known-failures: none    pod: terminated 09:08Z (t258al5w5tu80i cpu3c-16); ~$0.10 this round, lane total ~$0.75
+artifacts: labelled art:e8fb169d art:9260a985 (+ addendum notes on art:4b567c9c art:f1ac2db5 art:9fd5ec09 art:82587955, ref art:af3a9928); run r20260926-085735-35b1
+~~~

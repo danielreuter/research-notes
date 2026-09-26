@@ -2,9 +2,10 @@
 lane: bligero-real-k
 kind: report
 created: 2026-09-26T03:24Z
-status: open
+status: final
 ---
 
+CHECKPOINT 0f4dc9ab (11:24Z) [final] RE-RUN DONE: art:4ff19d4f (A100-SXM4-80GB, bf16-ampere-x4-k8192+blake3-xob, captured art:927a4c3a) supersedes art:b1d710da (superseded_by written): plateau 1024 VUs / 32 sub-batches, t=202, 2^-128.265 with chain_field booked by the prover on main e8ec5e19 (the 1920-VU point, t=204, was slower on this host: 344 vs 371 VU/s), 370.6 VU/s, verifier r20260926-103731-fe03 10/10; interaction -38% note. Handoffs verify 1115Z + red team 1115Z. All pods drained and terminated (prover 1/1 preserved). Re-run spend ~$4.0 (est. $1.9: US-WA-1 pair without hairpin, a same-host verifier retired, H100 PCIe verifier). Selection rule untouched.
 CHECKPOINT 0f4dc9ab (10:48Z) [open] RE-RUN of art:b1d710da (go-ahead 10:27Z): plan a100-k8192-xob-v2-rerun (v2 settings, new pods) at main e8ec5e19; prover r20260926-104642-25da on vy-bligero-real-k-a100-r3 (A100-SXM4-80GB, US-KS-2), verifier r20260926-103731-fe03 on vy-bligero-real-k-verifier-r4 (H100 PCIe, other host: A100/L40S unavailable, the A100 verifier landed on the prover's host). US-WA-1 pair terminated (no hairpin). Expected t=204, 2^-128.561. Spend est ~$4 (over the ~$1.9 estimate: WA misplacement + H100 verifier), within the guard line
 CHECKPOINT 0f4dc9ab (10:27Z) [final] PR #71 merged (e8ec5e19): A1 chain term booked (3/2^32) in Python + Rust, t sized with it, register refuses > 2^-128, live post-close fix. art:b1d710da 2^-127.972 labelled finding + below_bar (key to confirm, handoff 1026Z); 15 other cells clear. A100 K8192 options A (no spend, 1024-VU point 2^-128.265, needs ruling) / B (re-run t=204 -> 2^-128.561, ~$1.9) await go-ahead. No pods.
 CHECKPOINT 0f4dc9ab (10:26Z) [final] PR #71 merged (e8ec5e19): chain term A1 booked at 3/2^32 in Python + Rust, config_for sizes t with it, cell register refuses > 2^-128, live post-close frame fixed. art:b1d710da recomputes to 2^-127.972: labelled finding DOWNGRADE + below_bar true (off Table 2; key to be confirmed by coordinator, handoff 1026Z); other 15 cells clear (11208bf7 -128.265, rest < 0.01 bit). A100 K8192 back: option A no-spend (same run's 1024-VU point, 2^-128.265, needs plateau-rule ruling) or B re-run on main t=204 -> 2^-128.561 (~$1.9), awaiting go-ahead. No pods running.

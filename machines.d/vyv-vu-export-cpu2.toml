@@ -1,0 +1,7 @@
+# machine vyv-vu-export-cpu2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "k26533pcm0pmxf"
+project = "verity"
+guard = 60
+registered_by = "cursor"
+registered_at = "2026-09-26T13:29Z"

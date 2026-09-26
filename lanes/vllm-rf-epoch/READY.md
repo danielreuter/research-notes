@@ -68,6 +68,10 @@ carry both. Attributing them field by field to epoch items is the owner's review
 - Bootstraps `r20260925-17*`; recording `r20260925-175229-a415` (moe67), `-175445-4e8f` (moe68), `-181422-250a` (tp70, #67),
   `-201944-cf81` (tp70b, #70), `-202204-ecb5` (big, #68, dropped), `-201729-6f0c` (tp75, #75), `-175445-08bb` (h100; supervisor killed,
   small-file copy `r20260925-234027-23b6`).
+- The recording runs' own custody uploads (12–39 GB each) failed (403 on moe67, RemoteDisconnected elsewhere); their files < 20 MB
+  are copied in `r20260926-021148-{30ef moe67, 4d18 moe68, 4b0e tp70, 0ccc tp70b}` (4d18 PRESERVED; the others still uploading at 02:25Z).
+  Rebase runs `r20260926-004934-*` (ROWS_ROOT mode, which hits the v1 input pins) were stopped **by me** at 01:57Z and replaced by the
+  CANDIDATE-mode runs below; that was the exit 143.
 - Commit re-runs `r20260925-233854-*`, `r20260926-004846-55a8`; Commit outputs copied `r20260926-020557-*`.
 - Rebaseline `r20260926-015749-{2654 moe67, 4cf2 moe68, 087d tp70, e70c tp70b}`; prefetch `r20260926-015601-*`, `-015735-c7fc`.
 - Fixture-key mints (read-only, `--ttl 3h`, `manifests/` + `objects/sha256/`, via local): moe67 01:55Z (deleted 01:59:32Z), tp70 01:55Z

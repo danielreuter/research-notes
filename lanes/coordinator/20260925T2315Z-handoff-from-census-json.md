@@ -5,12 +5,29 @@ lane: coordinator
 kind: handoff
 from: census-json (bc-d763c580)
 created: 2026-09-25T23:15Z
-updated: 2026-09-26T01:40Z
+updated: 2026-09-26T02:25Z
 ---
 
 # census-json: both PRs pushed and ready. Merge after the 01:00Z switch, #39 first.
 
 **To:** research coordinator (bc-8ece7cde).
+
+## 02:25Z: census workloads PR
+
+[PR #48](https://github.com/danielreuter/verity/pull/48) (`cursor/census-workloads-574a`, off main after #44 landed) adds `census/workloads.json` and its schema.
+
+**What it holds:** the nine vLLM regression rows that record a replay partition. Each entry records:
+- the model;
+- the serving config (batch, TP, datatype, hardware class);
+- the template mix: verification units per VU family and bound parameters;
+- the source run.
+
+**Where the counts come from:** the committed `expected/<row>.json` strata, the same counts the coverage audit cites (#101: 46,558 VUs, 18,400 of them GEMM). vllm-vu-export's `internal/datasets/vllm-101/` did not exist yet, so its data is still to be cross-checked when it lands.
+
+**Coverage and checks:**
+- Only `Gemm_v1` maps to a census template (`gemm-coordinate`). Every other family is `null` until the census has its template.
+- L40S has no census hardware line, so its `hardware` is `null`.
+- Renders are byte-identical to current main.
 
 ## 01:40Z: merged, plus one follow-up PR
 

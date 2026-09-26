@@ -5,6 +5,7 @@ created: 2026-09-26T05:53Z
 status: open
 ---
 
+CHECKPOINT e48ec526 (11:32Z) [open] pod cpu3c-16 uxjdwpkx4di1bo; run launched at main e48ec526 (>= e8ec5e19): pins + 4ff19d4f + b1d710da re-check under chain_field booking; sessions for 4ff19d4f from store record art:f4567196. Handoffs 1030Z + 1115Z acted on
 CHECKPOINT 49cc39ef (11:26Z) [open] reopened for art:4ff19d4f (A100 K8192 xob re-run, supersedes b1d710da; A1 chain term bound 2^-128.265) + non-producer below_bar label on b1d710da: NOT final; agent bc-30d7a020-fc45-5944-9ceb-1ac513232a9e; $1
 CHECKPOINT 49cc39ef (09:09Z) [final] FINAL (reopen 2): e8fb169d + 9260a985 verified=accepted (ref r20260926-085735-35b1, main 49cc39ef, pins 16/16); all 16 real-K new-sender cells verified; snapshot r20260926-073309-3956 = preserved record (320/320); pod terminated 09:08Z ~$0.10
 CHECKPOINT 49cc39ef (08:59Z) [open] snapshot_vs_record r20260926-073309-3956: 320/320 files = preserved record art:af3a9928; sessions for e8fb169d 9260a985 from that record; pod cpu3c-16 t258al5w5tu80i ($0.48/h); run launched (pins + 2 cells at main 49cc39ef). Handoff 0845Z acted on

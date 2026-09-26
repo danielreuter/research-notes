@@ -108,3 +108,20 @@ every binding then "mismatches" (b-ligero-standard-hash report, 08:19Z).
   Examples: x4 8192 art:d9b3724d, x4 32768 art:b6f2e1df. If the pod tree is older and busy, overlaying main's
   `bench/{instance_equiv,tables,views}.py` on a copy of verity_numerical first on PYTHONPATH works; the loaders
   (relchain) are unchanged (b-ligero-standard-hash 43-equiv-8192.sh).
+## Real K (x4 folds at K = 2048 / 8192, lane bligero-real-k; red-team-bligero-real-k 2026-09-26)
+
+- **Class:** `<fold>-k<K>+blake3-xob` / `+sha256` are COMPLETE_ZK_BACKEND, granted with conditions
+  (`lanes/coordinator/20260926T0917Z-handoff-from-red-team-bligero-real-k.md`, evidence art:dc790613).
+  - K is enforced three ways: the per-K hashed pins, the pinned `steps`, and the binding's K.
+  - A BF16 bare real-K system carries its fold's K1536 sys_id, so `system-digest` names it as the fold.
+- **The live verifier's `--drop-files` loses the timed reps' files.** Only rep 1 is dumped and re-verified, and neither the live
+  verifier nor Rust `batch` checks coverage: `batch` accepts a rep that holds sub_00 twice.
+  - So check that every session's per-sub-batch `stmt_sha256` equals rep 1's, and that the proofs differ.
+  - Script: `lanes/red-team-bligero-real-k/evidence/sessions_xrep.py`.
+- **The chain test's field term is not booked.**
+  - With nl > 3 linked rows, the extra constraints' coefficients are monomials (`chain.extra_coef`). A violated constraint survives
+    a challenge coordinate with probability deg / p, where deg = (2 (nl - 3) - 1) div 6 + 2, so the term is (deg / p)^D.
+  - `protocol.soundness` and Rust `soundness()` book `linear_field = 1 / p^D`.
+  - Per proof at D = 6: SHA-256 (nl 69) 2^-158.3; blake3-xob 3-slot (nl 133) 2^-152.5; BF16 K2048 (nl 165) 2^-150.75; FP8 K8192
+    (nl 293) 2^-145.75; BF16 K8192 (nl 549) 2^-140.35.
+  - Re-bound a cell's union before calling it at or below 2^-128. The tightest cell, b1d710da, is 2^-128.086 with the term.

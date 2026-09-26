@@ -16,7 +16,7 @@
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)" || exit 2
 BR=$(git rev-parse --abbrev-ref HEAD); git fetch -q origin "$BR" 2>/dev/null
-[ "$(git rev-parse HEAD)" = "$(git rev-parse "origin/$BR" 2>/dev/null)" ] || { echo "HEAD is not pushed to origin/$BR"; exit 2; }
+[ "$(git rev-parse HEAD)" = "$(git rev-parse "origin/$BR" 2>/dev/null)" ] || [ -n "${ALLOW_UNPUSHED:-}" ] || { echo "HEAD is not pushed to origin/$BR (ALLOW_UNPUSHED=1 with a bundle of it in evidence/)"; exit 2; }
 git diff --quiet HEAD -- backends || { echo "uncommitted changes under backends/: research run ships HEAD"; exit 2; }
 R="uv run research"; E=$(dirname "$0"); LANE=agkr-real-k; P=${P:-vy-$LANE-a100}; V=${V:-vy-$LANE-ver}
 WHAT=${*:-k2048 k8192 afs}

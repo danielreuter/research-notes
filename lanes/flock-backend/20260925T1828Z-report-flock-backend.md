@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT 51743c71 (09:21Z) [open] NVFP4 cells running (pause lifted 0920Z): 5090 community pod b7aqnrs491oi6p (SE) + verifier A5000 EU-SE-1 3gtn7nvr561ybq (TCP connect 3.3 ms: not same DC, no same-DC stock), set art:160a53a0, Fp4 then ShaFp4 via tmux drive-5090 @51743c71; check-back 09:45Z; then CPU staging of per-workload GEMMs; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 3a073d74 (09:03Z) [blocked] spend guard (coordinator 0910Z): NVFP4 poller stopped, no 5090 pods; waiting for bench-spine's NVFP4 input set, then stage instance files + run script, launch when the pause lifts; captured FP8 H100 re-run still pending vllm-more-exports; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 3a073d74 (07:54Z) [open] goal 5: polling RTX 5090 stock (RunPod dataCenters.gpuAvailability, read-only; 20 min) + NVFP4 spine sets + captured FP8 H100 set (tmux nvfp4-poll, /tmp/fp/poll.log); no NVFP4 input set exists -> asked bench-spine 0752Z; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 3a073d74 (06:04Z) [open] FP8 cells re-run on spine sets (3a073d74): art:5d2a91a7 art:ab115376 art:66d2412c art:1c520240, old four labelled SUPERSEDED, art:cd3c8706 PULLED; handoffs 0605Z to red-team-flock + coordinator; pods terminated (~$3); agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

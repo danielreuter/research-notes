@@ -5,6 +5,7 @@ created: 2026-09-26T19:28Z
 status: open
 ---
 
+CHECKPOINT 1520c401 (20:55Z) [open] phase 2 M1: Lean verifier (commit 1520c401) accepts the honest circuit-statement session (RoPE, 8 inst, m=23) and rejects R-BREAK at S13; next: re-digested mutations for non-vacuity, upstream agreement, PR #83 rename
 CHECKPOINT 4f4a1aa7 (20:09Z) [open] phase 1 DONE, pushed: PR #85 tip 4f4a1aa7 (PROTOCOL.md, vectors.json, transcript_check.py; 50/50 art:430c513a; reader notes art:85c4b037); next: phase 2 Lean verifier on coordinator go
 CHECKPOINT 4f4a1aa7 (20:08Z) [open] phase 1 DONE: PROTOCOL.md + vectors (50 honest sets, 20 negatives, 12 forgery runs); spec transcript check 50/50 art:430c513a; commits 715a5985 4f4a1aa7 UNPUSHED (GitHub write auth fails), bundle in evidence/; next: phase 2 Lean on coordinator go
 CHECKPOINT 2431e3c1 (19:40Z) [open] phase 1: honest vectors found in store (pure-block 20+ cells, IR frame 25 cells, netlist loopback art:6250c04f); red-team forgeries incl R-BREAK art:8d04b53f are outcome+harness only; 5 upstream-reading subagents running; branch cursor/flock-verifier-spec-7ab3

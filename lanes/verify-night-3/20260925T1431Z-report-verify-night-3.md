@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 7585828d (07:09Z) [open] BUSY (do not reap): pod vy-verify-night-3 e9e6vqsg2f7rc1 (cpu3c 16 vCPU) runs r20260926-070912-42be @lane/sp1-evaluator 0a652c36 (PR #58; sp1_cover.py not on main): build host, then 7 covers / 73 proofs. Polling inside my turn
 CHECKPOINT 0a652c36 (07:06Z) [open] BUSY (do not reap): reopened for the #101 sampled SP1 cover (snapshot art:33c34aa2, 7 covers, 73 proofs; handoff sp1-evaluator 0705Z); creating CPU pod vy-verify-night-3 now, run stays inside my turn. NOT final
 CHECKPOINT 7585828d (06:33Z) [final] 9/9 sp1-evaluator SP1 proofs verified=accepted + below_bar=true + note (run r20260926-053354-a19b @main 3d57f08b: APPROVED key reproduced, statements rebuilt equal, core+compressed verify_object, 3 negatives refused). Pod heudtct27whkty terminated 06:31Z; ~$0.9. Handoff 0635Z to coordinator
 CHECKPOINT 7585828d (05:39Z) [open] BUSY (do not reap): pod vy-verify-night-3 heudtct27whkty (cpu5c 16 vCPU $0.56/h, guard 60) runs r20260926-053354-a19b: host built, APPROVED identity reproduced (ELF cef2b78a, vk 0x007d9347), verifying 9 SP1 results now (~30-45 min). Run 044301-0e46 failed my setup (libprotobuf-dev missing), not reaped. Check back ~06:20Z

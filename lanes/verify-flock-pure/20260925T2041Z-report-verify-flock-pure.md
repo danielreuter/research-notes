@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 787ac154 (09:34Z) [open] reopened for agkr-real-k route (a) cells 95fdd0ae 20197f8b: NOT final
 CHECKPOINT 787ac154 (08:29Z) [final] FINAL: IR cells dd27fdab 8a07b80f 9563d2c8 63553a6c verified=accepted (file re-verification, r20260926-075751-1b20); pod terminated 08:28Z; ~$0.3 (lane ~$4.2); tip lane/verify-flock-ir 17baf43e
 CHECKPOINT 787ac154 (08:28Z) [final] FINAL: IR cells dd27fdab 8a07b80f 9563d2c8 63553a6c verified=accepted (file re-verification, r20260926-075751-1b20); pod terminated 08:28Z; ~$0.3 (lane ~$4.2); tip lane/verify-flock-ir 17baf43e
 CHECKPOINT 787ac154 (07:58Z) [open] IR cells: replay r20260926-075751-1b20 on vy-verify-flock-pure (pod ca9gpkk7znk58v) from lane/verify-flock-ir 17baf43e = c53d9148 + flock-ir-frame replay

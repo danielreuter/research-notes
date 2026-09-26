@@ -1191,7 +1191,7 @@
    "row": 101,
    "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
    "file": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.program.json",
-   "bytes": 464877,
+   "bytes": 475449,
    "class": "PASS on run r20260926-035624-a133",
    "model": "unsloth/Llama-3.2-1B",
    "tp_rank": null,
@@ -1224,11 +1224,10 @@
     "units": 273995039,
     "gates": 18805632558,
     "free_gates": 206960187,
+    "redundant_gates": 32,
     "committed_interior_words": 64169215,
     "units_per_gate": 0.0146,
-    "violations": {
-     "cut": 32
-    }
+    "violations": {}
    },
    "edge_words": true,
    "new_taps": [
@@ -1291,5 +1290,5 @@
   "validation": "validation.json (48 recorded inputs re-evaluated, all equal) and coverage.json (rows x Definitions, validated digests)",
   "missing": "validation only where inputs are on record: the #101 and #4 exports; other rows' Definitions are validated only where they share a digest with those"
  },
- "q_word_v1": "each program.json carries q_word_v1 under the no-recompute invariant (Q_word_v1{X=16,W=32,R=no-recompute}; verity_vllm.query.word, PRs #86 / no-recompute): no recompute classes; per group units, gates, structure (free) gates, committed interior words; per row taps: every committed interior value class with where serving commits it today or the kernel a new tap goes in. Edges carry words per read."
+ "q_word_v1": "each program.json carries q_word_v1 under the no-recompute invariant (Q_word_v1{X=16,W=32,R=no-recompute}; verity_vllm.query.word, PRs #86 / no-recompute): no recompute classes (a value computed twice inside its own unit is counted as redundant_gates, not a recompute); per group units, gates, structure (free) gates, committed interior words; per row taps: every committed interior value class with where serving commits it today or the kernel a new tap goes in. Edges carry words per read."
 }

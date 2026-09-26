@@ -15,9 +15,10 @@ bash verity_vllm/ops/pod_bootstrap.sh --cases "$CASES" --out "/workspace/vme/boo
 TESTS=$!
 [ -f "$I/limits-$N.json" ] && cp "$I/limits-$N.json" "$E/limits.json" && echo "limits $(cat "$E/limits.json")"
 export SWEEP_DIR=/workspace/vme/sweep-$N PAIRS=1 BUILD_JOBS=${BUILD_JOBS:-auto}
-rm -rf "$SWEEP_DIR/$ROW"
-echo "row start BUILD_JOBS=$BUILD_JOBS $(date -u +%FT%TZ)"
-verity-vllm row run "$ROW" "$ROLE" "$REPO" "$REV" --stages build,match,commit < /dev/null > "$OUT/row.log" 2>&1; echo "row rc $? $(date -u +%FT%TZ)"
+STAGES=${STAGES:-build,match,commit}
+case ",$STAGES," in *,build,*) rm -rf "$SWEEP_DIR/$ROW";; *) echo "resuming over the Build in $SWEEP_DIR/$ROW";; esac
+echo "row start STAGES=$STAGES BUILD_JOBS=$BUILD_JOBS MATCH_SNAP_MAX_BYTES=${MATCH_SNAP_MAX_BYTES:-derived} $(date -u +%FT%TZ)"
+verity-vllm row run "$ROW" "$ROLE" "$REPO" "$REV" --stages "$STAGES" < /dev/null > "$OUT/row.log" 2>&1; echo "row rc $? $(date -u +%FT%TZ)"
 R=$SWEEP_DIR/$ROW
 cp "$R/stages.txt" "$R/verdict.json" "$R/row.log" "$R/admission.json" "$R/timeline.jsonl" "$R/build_summary.json" "$OUT/evidence/" 2>/dev/null
 cp "$R/commit/sampled_replay_p0.json" "$OUT/evidence/" 2>/dev/null

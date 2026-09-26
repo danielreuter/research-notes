@@ -1,0 +1,7 @@
+# machine vyv-more-exports-moe: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "axadsirn2n0kqq"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-26T08:06Z"

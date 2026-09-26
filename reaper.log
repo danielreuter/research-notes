@@ -41,3 +41,4 @@
 06:30Z REAP-BLOCKED verify-night-3 vy-verify-night-3: its run dirs' custody is unknown: PodError: GET /pods/heudtct27whkty -> HTTP 404: not found (terminated, or never existed)
 11:01Z REAP-BLOCKED flock-ir-lowering vy-flock-ir-lowering-l40s: its run dirs' custody is unknown: no guard state on the pod (no guard = N in its machines entry?)
 17:05Z REAP-BLOCKED flock-ir-lowering vy-flock-ir-lowering-b-ver: art:82c591d1: no verified remote replica recorded, 97 MB to read back -> research data preserved art:82c591d1
+17:07Z REAP-BLOCKED flock-ir-lowering vy-flock-ir-lowering-b-l40s: art:82c591d1: no verified remote replica recorded, 97 MB to read back -> research data preserved art:82c591d1

@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (22:04Z) [open] shared-NAT-IP placement (coordinator 22:02Z): CONCUR with S1-S5 (S1 new: bare metal on both pods, since VM product_uuid/boot_id are per-VM; S2 evaluate from probes at plan+register; S3 only <pod>.runpod.internal 10/8; S4 kernel TCP RTT on session route; S5 record); reply lanes/coordinator/20260926T2205Z, copy to bench-spine; total GEMM grant stands; 9 cells not yet run; GitHub token expired here ~21:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:49Z) [open] WAITING the 9 total GEMM cells (flock-backend go 20:55Z at d2292e3b); tools ready: evidence/gemm_cell_check.py (validated on art:73a9e9f3: 14/14 checks incl. replay + instance regen), label_gemm_cells.sh, placement_check.py (now GEMM + terminated pods via recorded placement); poller /tmp/rtf3/poll-gemm.sh; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:47Z) [open] GRANT covers d2292e3b (TG1 met: gate r20260926-202308-c367 8/8 selftests + 5/5 negs GPU; TG3 withdrawn by naming rule; TG4/TG5 fixed); PR #87 GRANTED (UL2 merge cond open); WAITING the 9 total cells to check+label with gemm_cell_check.py (validated on art:73a9e9f3); agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:29Z) [open] GRANTED: PR #87 @28f55d9a (UL2 merge cond) + verity/flock-pure-block-total (bf16-ampere-total pin fef256df) @d4627b62 W/ CONDITIONS NON_ZK_PROOF (TG1 GPU gate before first cell; TG3 /v1 name; TG4/TG5 planner/grant msg); pinned unit = IR on 10.5M vectors (r20260926-201903-d07c), my 8 special-value forgeries refused (r20260926-202615-f0cc); WAITING the 9 cells to label (TG6); agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -518,6 +519,32 @@ Each is refused for the honest prover (R7) and for the cheating prover holding t
   - the verifier's sessions accepted;
   - placement separate (PR #74), `contended: false`;
   - the old cell `superseded_by` the new one.
+
+### Placement: a shared NAT public IP (coordinator 22:02Z): CONCUR with S1–S5 (22:05Z)
+
+The proposal: `bench.cell` accepts a shared public IP when all of these hold:
+
+- the machine id, DMI `product_uuid` and `boot_id` all differ, and all are recorded;
+- the RTT is at least 0.1 ms;
+- the route is not a host bridge;
+- `shared_public_ip: true` is recorded.
+
+It doesn't reopen the co-residence we saw. For containers on one host, each of the three ids is equal on both pods (the
+RunPod host id, the host's SMBIOS UUID, the host kernel's boot id).
+
+It would admit VM-isolated pods on one host, though. There `product_uuid` and `boot_id` are per VM, and a per-VM machine id
+is possible. Neither the RTT floor nor the route test catches that.
+
+The conditions:
+
+- **S1:** bare metal on both pods: no `hypervisor` CPUID flag, and a DMI `sys_vendor` that isn't a hypervisor's. Otherwise
+  no exception.
+- **S2:** evaluate from the probes, at plan and at registration.
+- **S3:** under the exception, accept only `<verifier pod>.runpod.internal` in 10/8, not "not host-private" read literally.
+- **S4:** the RTT is measured with kernel-level TCP connects on the session's route.
+- **S5:** record all of it.
+
+Replies: `lanes/coordinator/20260926T2205Z-handoff-from-red-team-flock-3.md`, copied to bench-spine.
 
 ### Pre-grant checklist
 

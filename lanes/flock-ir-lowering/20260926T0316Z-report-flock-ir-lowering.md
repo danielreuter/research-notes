@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT ece9fdd2 (12:04Z) [open] BUSY nc-l40s + nc-ver: re-runs at 14 threads, T=1..3 done, T=4 running (12:03Z), then 128..132, 256, 257; ETA 12:45Z; current cells so far: T=258 art:327e9366, 259, 260 art:186b9949, 261 art:f52bf885, 287 art:298d4c14; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT ece9fdd2 (11:32Z) [open] BUSY vy-flock-ir-lowering-nc-l40s + vy-flock-ir-lowering-nc-ver: T=259 r20260926-113112-9333 (prover) / r20260926-113109-f951 (verifier) now, then T=260 261 287 and re-runs of T=1 2 3 4 128..132 256 257 at 14 threads, ETA 12:50Z (queue restarted 11:31Z: the keys queued at 11:09Z were swallowed, pods idle 11:11-11:31); then register, label superseded, drain both; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT ece9fdd2 (11:10Z) [open] inbox read
 CHECKPOINT ece9fdd2 (11:09Z) [open] BUSY vy-flock-ir-lowering-nc-l40s (L40S prover, US-NC-1) + vy-flock-ir-lowering-nc-ver (verifier, same DC, podnet): attention cells running back to back through ~12:40Z, driver in tmux attn-cells: r20260926-110548-5012 (prover) / r20260926-110539-ec03 (verifier) = T=258 now, then T=259 260 261 287, then re-runs of the 11 cells that ran at 128 threads on a 13.6-core cgroup (throttled; fixed ece9fdd2: 5.3 vs 4.0 heads/s at T=258). Stray hunter pods vy-flock-ir-lowering-l40s (1q2slo984p0zs4) and -gn-prover (p91xbvb9i62w3b) never ran anything: drained and terminated 11:09Z. 12 L40S cells registered since 09:36Z (first: T=4 art:308df7ad); agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f

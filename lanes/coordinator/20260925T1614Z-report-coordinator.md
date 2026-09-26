@@ -87,3 +87,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 17:10Z new lane flock-netlist (M0 verity/flock-netlist/v1, ZK Boolean escape hatch approved by Daniel; GPU cap $40, counted in campaign tally; cells publish as NON_ZK_PROOF under a new C-Flock backend identity; serving row-leaf salting NOT approved).
 - 17:15Z sweep: spent $229.35, burn $2.66/h; window closed under cap. REAP-BLOCKED flock-ir-lowering b pair (art:82c591d1 custody) → handoff. c2 b61eafa9 awaits verify (~17:20Z). flock-netlist no pods yet.
 - 17:35Z merged guard reset (c7976140) and PR #76 (df14f53b) as 2d598464 (flock-ir-frame.rs: PR's v3+class superset of 0839742b); suites 1231 passed.
+- 17:35Z sweep: spent $229.61, burn $0.48/h (verify-flock-pure only); flock-ir-lowering b pair gone (reap block cleared). c2 b61eafa9 awaiting verify-flock-pure (replay running, late vs 17:20Z); poll to 18:15Z. No new coordinator handoffs.

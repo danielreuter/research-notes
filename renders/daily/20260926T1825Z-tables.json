@@ -1,17 +1,17 @@
 {
   "schema": "verity/tables-entities/v1",
   "provenance": {
-    "rendered_at": "2026-09-26T18:25:58Z",
+    "rendered_at": "2026-09-26T18:25:51Z",
     "verity_commit": "2431e3c1665565c612e6a929ca754db02985b49b",
     "rules": {
-      "name": "spec+preview-cached-weights",
+      "name": "spec",
       "security_log2": -128,
       "standard_hashes": false,
       "legacy": false,
       "include_archived": false,
       "interaction_validated": true,
       "interaction_one_sided": false,
-      "native_cached": true,
+      "native_cached": false,
       "headline_any_hardware": false,
       "headline_count_omitted": false,
       "headline_strict_verifier": false
@@ -14142,12 +14142,12 @@
       "input_set_provenance": null,
       "fidelity_notes": [],
       "native": {
-        "value": 204467773.4375,
+        "value": 163574218.75,
         "unit": "instances/s",
-        "display": "2.0e8/s \u00b7 memory, 3.35 TB/s",
+        "display": "1.6e8/s \u00b7 memory, 3.35 TB/s",
         "peak_flop_per_second": 989400000000000.0,
         "ops_per_instance": 8192,
-        "work_model": "work-model/v0: memory-bandwidth bound, 8*N bytes per input over the line's memory bandwidth"
+        "work_model": "work-model/v0: memory-bandwidth bound, 10*N bytes per input over the line's memory bandwidth"
       }
     },
     {
@@ -14177,12 +14177,12 @@
       "input_set_provenance": null,
       "fidelity_notes": [],
       "native": {
-        "value": 6542968750.0,
+        "value": 4361979166.666667,
         "unit": "instances/s",
-        "display": "6.5e9/s \u00b7 memory, 3.35 TB/s",
+        "display": "4.4e9/s \u00b7 memory, 3.35 TB/s",
         "peak_flop_per_second": 989400000000000.0,
         "ops_per_instance": 384,
-        "work_model": "work-model/v0: memory-bandwidth bound, 4*N bytes per input over the line's memory bandwidth"
+        "work_model": "work-model/v0: memory-bandwidth bound, 6*N bytes per input over the line's memory bandwidth"
       }
     },
     {
@@ -14212,12 +14212,12 @@
       "input_set_provenance": null,
       "fidelity_notes": [],
       "native": {
-        "value": 408935546.875,
+        "value": 272623697.9166667,
         "unit": "instances/s",
-        "display": "4.1e8/s \u00b7 memory, 3.35 TB/s",
+        "display": "2.7e8/s \u00b7 memory, 3.35 TB/s",
         "peak_flop_per_second": 989400000000000.0,
         "ops_per_instance": 6144,
-        "work_model": "work-model/v0: memory-bandwidth bound, 4*N bytes per input over the line's memory bandwidth"
+        "work_model": "work-model/v0: memory-bandwidth bound, 6*N bytes per input over the line's memory bandwidth"
       }
     },
     {
@@ -14246,12 +14246,12 @@
       "input_set_provenance": null,
       "fidelity_notes": [],
       "native": {
-        "value": 6542968750.0,
+        "value": 4361979166.666667,
         "unit": "instances/s",
-        "display": "6.5e9/s \u00b7 memory, 3.35 TB/s",
+        "display": "4.4e9/s \u00b7 memory, 3.35 TB/s",
         "peak_flop_per_second": 989400000000000.0,
         "ops_per_instance": 384,
-        "work_model": "work-model/v0: memory-bandwidth bound, 4*D bytes per input over the line's memory bandwidth"
+        "work_model": "work-model/v0: memory-bandwidth bound, 6*D bytes per input over the line's memory bandwidth"
       }
     },
     {
@@ -14280,12 +14280,12 @@
       "input_set_provenance": null,
       "fidelity_notes": [],
       "native": {
-        "value": 13085937500.0,
+        "value": 8723958333.333334,
         "unit": "instances/s",
-        "display": "1.3e10/s \u00b7 memory, 3.35 TB/s",
+        "display": "8.7e9/s \u00b7 memory, 3.35 TB/s",
         "peak_flop_per_second": 989400000000000.0,
         "ops_per_instance": 192,
-        "work_model": "work-model/v0: memory-bandwidth bound, 4*D bytes per input over the line's memory bandwidth"
+        "work_model": "work-model/v0: memory-bandwidth bound, 6*D bytes per input over the line's memory bandwidth"
       }
     },
     {
@@ -14671,12 +14671,12 @@
       "input_set_provenance": null,
       "fidelity_notes": [],
       "native": {
-        "value": 26367187.5,
+        "value": 21093750.0,
         "unit": "instances/s",
-        "display": "2.6e7/s \u00b7 memory, 0.864 TB/s",
+        "display": "2.1e7/s \u00b7 memory, 0.864 TB/s",
         "peak_flop_per_second": 362050000000000.0,
         "ops_per_instance": 16384,
-        "work_model": "work-model/v0: memory-bandwidth bound, 8*N bytes per input over the line's memory bandwidth"
+        "work_model": "work-model/v0: memory-bandwidth bound, 10*N bytes per input over the line's memory bandwidth"
       }
     },
     {
@@ -14706,12 +14706,12 @@
       "input_set_provenance": null,
       "fidelity_notes": [],
       "native": {
-        "value": 52734375.0,
+        "value": 35156250.0,
         "unit": "instances/s",
-        "display": "5.3e7/s \u00b7 memory, 0.864 TB/s",
+        "display": "3.5e7/s \u00b7 memory, 0.864 TB/s",
         "peak_flop_per_second": 362050000000000.0,
         "ops_per_instance": 12288,
-        "work_model": "work-model/v0: memory-bandwidth bound, 4*N bytes per input over the line's memory bandwidth"
+        "work_model": "work-model/v0: memory-bandwidth bound, 6*N bytes per input over the line's memory bandwidth"
       }
     }
   ],
@@ -17948,7 +17948,7 @@
       },
       "best": true,
       "artifact": "art:675a03a34359589d675557592554665f570e7785736303ce69d7110bc8a706fe",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 59655917.08765661,
@@ -18158,7 +18158,7 @@
       },
       "best": true,
       "artifact": "art:77411c934df40460f2c2a737d8363d62934d9aaa40912a111960e97b2a4d152d",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1397085708.3742468,
@@ -18370,7 +18370,7 @@
       },
       "best": true,
       "artifact": "art:167e64a8360a80b0f110e62d020cd1ed4c215211ccdb5980699adcb8bf778abb",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 33094825.332794193,
@@ -18572,7 +18572,7 @@
       },
       "best": true,
       "artifact": "art:ba387d41cb12945914624f0cbdabb4b3a8ffc2675779e1f7f17cc6dea8840f07",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 19176319.40892583,
@@ -18787,7 +18787,7 @@
       },
       "best": true,
       "artifact": "art:fcd6a623afad79183167c6019876da71614db8a8b820f9eb102ea28a6ed87af4",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 117863082.23949437,
@@ -19000,7 +19000,7 @@
       },
       "best": true,
       "artifact": "art:f15909f52579ba696ec0ec47d11b01e9203b630d3d48fd8670e82211d2e5c9d3",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 79637557.76158439,
@@ -19208,7 +19208,7 @@
       },
       "best": true,
       "artifact": "art:1589ffe19b000469fa8c7c2f4e8058a0231a7b042415733754d54320eaee838c",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 60366365.60800218,
@@ -19412,7 +19412,7 @@
       },
       "best": true,
       "artifact": "art:a250d4b79a061a1143b6549512850a756c011b014d438a2ac0caf00a942fc9f6",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 33026539.546361726,
@@ -19629,7 +19629,7 @@
       },
       "best": true,
       "artifact": "art:4aa258eeba99ce7da2e2c43b9068530cab43c8f3e8907ebc59610e71db9cad84",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 117237647.74083175,
@@ -19842,7 +19842,7 @@
       },
       "best": true,
       "artifact": "art:955a52e0fb2b8031bd52dbaddfd0b00bccc19110d36eadacd761a9ae2b2edc58",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 81326444.63634056,
@@ -20050,7 +20050,7 @@
       },
       "best": true,
       "artifact": "art:c3e83404ec4170d9c4a6dfb9a6005a043f47c4a222beb37b5f7ee052baef5fef",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 55495349.435586855,
@@ -20252,7 +20252,7 @@
       },
       "best": true,
       "artifact": "art:6d6464d1b0c801d102b3f70c687f8125b880262b77d7a6996f6a14327c85e538",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 171228908.99512175,
@@ -20459,7 +20459,7 @@
       },
       "best": true,
       "artifact": "art:56f792bd360fb2ae8af0429e6fdca963dffd3fb579f4e02270abed42b9ea7ed0",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 87213189.45697725,
@@ -20663,7 +20663,7 @@
       },
       "best": true,
       "artifact": "art:23528a63b8129a46becc23d82ec9191690bf4ae372ba4e38770365a7e639a482",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 36266316.06299467,
@@ -20880,7 +20880,7 @@
       },
       "best": true,
       "artifact": "art:ac1f532cbaf6a172098582249194d6fefb1adb7a9810628fd577f0adc14c7457",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 36159999.08533509,
@@ -21093,7 +21093,7 @@
       },
       "best": true,
       "artifact": "art:ecccca50500cecececefcd7dfb4aa97572a1e334332f1c191744489fbeccf82a",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 20807884.891788576,
@@ -21301,7 +21301,7 @@
       },
       "best": true,
       "artifact": "art:7afeecbec8bc95857c1813283888dbb1256690315a262b8ee77091df7c3d2b59",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 16188704.630041122,
@@ -21503,7 +21503,7 @@
       },
       "best": true,
       "artifact": "art:f7aac95f5750d26638c68e38c2464259affe08ac5ec767b46de3ac1e415be7be",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 53775927.82299123,
@@ -21717,7 +21717,7 @@
       },
       "best": true,
       "artifact": "art:c8b52ee221d292132655a3b9000660e4ea6151da376be6ef2f248f830c8ecd54",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 9337203.500387846,
@@ -21936,7 +21936,7 @@
       },
       "best": true,
       "artifact": "art:6740eb223e1442f94794860282ae04e8b9579163c262c7348fa2334fee5bd23a",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 16120385.600449948,
@@ -22158,7 +22158,7 @@
       },
       "best": true,
       "artifact": "art:a0ca8ef6d126f9cc1b4e7cc440b802d8030407d6f26e8c8187a4bc5a2626075d",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1297401041.549887,
@@ -22380,7 +22380,7 @@
       },
       "best": true,
       "artifact": "art:149cdaf918bbcca06305033ceff67392afa199355f29f10e94e6e9d7103b1bf0",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 24697310.919570927,
@@ -22588,7 +22588,7 @@
       },
       "best": true,
       "artifact": "art:a979dfcbd8014d8620320e228b66aba6d054f572c6e0fc3831b55de3cd94e32c",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1327658448.6192913,
@@ -22810,7 +22810,7 @@
       },
       "best": true,
       "artifact": "art:673c183508bb6b9f54bacb92f59bcf4be2296d31f2e76c1abbe57f6dc45e1308",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 24663143.500614166,
@@ -23014,7 +23014,7 @@
       },
       "best": true,
       "artifact": "art:c56a09a859fe61b795b4223ae7c51057384bc51595a8e2c8d7a4d29c0e36c4bc",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 124993534.50190747,
@@ -23236,7 +23236,7 @@
       },
       "best": true,
       "artifact": "art:c767e0920a4bf9095982ac8040fa79b0c72b8676e24d74c7e2d16e5ec5b832c7",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 55904981.257069595,
@@ -23439,7 +23439,7 @@
       },
       "best": true,
       "artifact": "art:8b5a0bf12f0e7df46ff7919e15a8e3e162aa43cf9f352d1a80893f5476cc13bf",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 88001971.80742492,
@@ -23639,7 +23639,7 @@
       },
       "best": true,
       "artifact": "art:d9a40cd41641ae70741ffad38abf6834e8cbb6b925e6a35a0a588d77abe56299",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 55943965.66753149,
@@ -23844,7 +23844,7 @@
       },
       "best": true,
       "artifact": "art:11208bf7fc3b0d4b85187db2ddfd46ee14d26179f4f1cad9bce5663aa2c27ddf",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 181327954.72266108,
@@ -24066,7 +24066,7 @@
       },
       "best": true,
       "artifact": "art:bbb95342d698ea174237e396f2277497ae71a272ab13bed4ad3c8cd71b091353",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 47774072.34881974,
@@ -24269,7 +24269,7 @@
       },
       "best": true,
       "artifact": "art:2e5ea606d733cf786ba181d09a3204ec9c1072c5c30d8dfc2daa083433efa0cf",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 74869474.39082396,
@@ -24474,7 +24474,7 @@
       },
       "best": true,
       "artifact": "art:26b5f7d8be9bdf7f2abe2a538880d3941dda07db226b1bb84610a766c152a04a",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 24697824.572999008,
@@ -24680,14 +24680,14 @@
       },
       "best": true,
       "artifact": "art:9563d2c8022c4f009c77abec2088eb917b6abe653282e5bfcc2aaeb6c961ccfc",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 8955201.81284714,
-        "display": "9.0e6\u00d7"
+        "value": 7164161.450277711,
+        "display": "7.2e6\u00d7"
       },
       "N": {
-        "value": 204467773.4375,
+        "value": 163574218.75,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "h100-sxm5-80gb/bf16"
@@ -24701,57 +24701,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 4882.220792770386,
+          "value": 3905.7766342163086,
           "share": 0.0005451826653159673,
-          "display": "4.9e3\u00d7 (0%)"
+          "display": "3.9e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 674348.890502931,
-          "share": 0.07530247833560931,
-          "display": "6.7e5\u00d7 (8%)"
+          "value": 539479.1124023448,
+          "share": 0.07530247833560932,
+          "display": "5.4e5\u00d7 (8%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 7568641.940259933,
-          "share": 0.8451670993502294,
-          "display": "7.6e6\u00d7 (85%)"
+          "value": 6054913.552207947,
+          "share": 0.8451670993502295,
+          "display": "6.1e6\u00d7 (85%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 19389.078330993652,
+          "value": 15511.262664794922,
           "share": 0.002165119082316835,
-          "display": "1.9e4\u00d7 (0%)"
+          "display": "1.6e4\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 389679.54511642456,
+          "value": 311743.63609313965,
           "share": 0.04351432310072454,
-          "display": "3.9e5\u00d7 (4%)"
+          "display": "3.1e5\u00d7 (4%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 298260.1378440854,
+          "value": 238608.11027526832,
           "share": 0.03330579746580375,
-          "display": "3.0e5\u00d7 (3%)",
-          "raw": 298260.1378440854,
+          "display": "2.4e5\u00d7 (3%)",
+          "raw": 238608.11027526832,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 298260.1378440854,
-      "serving_overhead": 4882.220792770386,
-      "proving_overhead": 8275970.701551436,
+      "other_raw": 238608.11027526832,
+      "serving_overhead": 3905.7766342163086,
+      "proving_overhead": 6620776.561241149,
       "setup": {
         "seconds": 9.758289813995361,
-        "amortized_overhead": 31175871.73164793,
+        "amortized_overhead": 24940697.385318346,
         "instances": 64,
-        "display": "9.76 s \u00b7 3.1e7\u00d7 over 64"
+        "display": "9.76 s \u00b7 2.5e7\u00d7 over 64"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -24830,10 +24830,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 8955201.812847137,
-        "rtt-20ms-100gbps": 24980363.5560112,
-        "rtt-100ms-100gbps": 92454728.79038621,
-        "dc-1ms-10gbps": 8958303.500537874
+        "dc-1ms-100gbps": 7164161.45027771,
+        "rtt-20ms-100gbps": 19984290.84480896,
+        "rtt-100ms-100gbps": 73963783.03230897,
+        "dc-1ms-10gbps": 7166642.800430299
       }
     },
     {
@@ -24881,14 +24881,14 @@
       },
       "best": true,
       "artifact": "art:d3be6792b2345946987340ac8f165a07e9f9ccd00d228af71f2d7168eb9123cf",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 28929248.93624878,
-        "display": "2.9e7\u00d7"
+        "value": 19286165.957499187,
+        "display": "1.9e7\u00d7"
       },
       "N": {
-        "value": 6542968750.0,
+        "value": 4361979166.666667,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "h100-sxm5-80gb/bf16"
@@ -24902,57 +24902,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 16185.566711425781,
+          "value": 10790.377807617188,
           "share": 0.0005594879682875218,
-          "display": "1.6e4\u00d7 (0%)"
+          "display": "1.1e4\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 2758754.7326812707,
+          "value": 1839169.821787514,
           "share": 0.09536212774692916,
-          "display": "2.8e6\u00d7 (10%)"
+          "display": "1.8e6\u00d7 (10%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 19545350.11100769,
+          "value": 13030233.40733846,
           "share": 0.6756259090610913,
-          "display": "2.0e7\u00d7 (68%)"
+          "display": "1.3e7\u00d7 (68%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 51126.374435424805,
+          "value": 34084.24962361654,
           "share": 0.0017672900719991626,
-          "display": "5.1e4\u00d7 (0%)"
+          "display": "3.4e4\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 4703430.13343811,
+          "value": 3135620.0889587402,
           "share": 0.16258390059842315,
-          "display": "4.7e6\u00d7 (16%)"
+          "display": "3.1e6\u00d7 (16%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 1854402.017974855,
+          "value": 1236268.0119832368,
           "share": 0.0641012845532696,
-          "display": "1.9e6\u00d7 (6%)",
-          "raw": 1854402.017974855,
+          "display": "1.2e6\u00d7 (6%)",
+          "raw": 1236268.0119832368,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 1854402.017974855,
-      "serving_overhead": 16185.566711425781,
-      "proving_overhead": 26154308.636856083,
+      "other_raw": 1236268.0119832368,
+      "serving_overhead": 10790.377807617188,
+      "proving_overhead": 17436205.757904056,
       "setup": {
         "seconds": 4.499187231063843,
-        "amortized_overhead": 114992349.42675684,
+        "amortized_overhead": 76661566.28450456,
         "instances": 256,
-        "display": "4.5 s \u00b7 1.1e8\u00d7 over 256"
+        "display": "4.5 s \u00b7 7.7e7\u00d7 over 256"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -25031,10 +25031,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 28929248.93624878,
-        "rtt-20ms-100gbps": 142562214.0241394,
-        "rtt-100ms-100gbps": 621016803.8678894,
-        "dc-1ms-10gbps": 28946608.17047119
+        "dc-1ms-100gbps": 19286165.957499187,
+        "rtt-20ms-100gbps": 95041476.01609294,
+        "rtt-100ms-100gbps": 414011202.57859296,
+        "dc-1ms-10gbps": 19297738.78031413
       }
     },
     {
@@ -25087,14 +25087,14 @@
       },
       "best": true,
       "artifact": "art:63553a6c1ab0f06570a2781fb001f878eee6575e4192cded9dcbdcc00c380b8b",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 15768213.924639704,
-        "display": "1.6e7\u00d7"
+        "value": 10512142.61642647,
+        "display": "1.1e7\u00d7"
       },
       "N": {
-        "value": 408935546.875,
+        "value": 272623697.9166667,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "h100-sxm5-80gb/bf16"
@@ -25108,57 +25108,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 4645.215487480164,
+          "value": 3096.810324986776,
           "share": 0.00029459363690021123,
-          "display": "4.6e3\u00d7 (0%)"
+          "display": "3.1e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 342036.7187433255,
-          "share": 0.021691532115051572,
-          "display": "3.4e5\u00d7 (2%)"
+          "value": 228024.479162217,
+          "share": 0.02169153211505157,
+          "display": "2.3e5\u00d7 (2%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 14106361.476969719,
-          "share": 0.8946074390154523,
-          "display": "1.4e7\u00d7 (89%)"
+          "value": 9404240.98464648,
+          "share": 0.8946074390154524,
+          "display": "9.4e6\u00d7 (89%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 37890.4757976532,
+          "value": 25260.317198435467,
           "share": 0.0024029656103564676,
-          "display": "3.8e4\u00d7 (0%)"
+          "display": "2.5e4\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 361293.48380565643,
+          "value": 240862.3225371043,
           "share": 0.022912771575295064,
-          "display": "3.6e5\u00d7 (2%)"
+          "display": "2.4e5\u00d7 (2%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 915986.5538358693,
+          "value": 610657.7025572462,
           "share": 0.05809069804694441,
-          "display": "9.2e5\u00d7 (6%)",
-          "raw": 915986.5538358693,
+          "display": "6.1e5\u00d7 (6%)",
+          "raw": 610657.7025572462,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 915986.5538358693,
-      "serving_overhead": 4645.215487480164,
-      "proving_overhead": 15421531.990408897,
+      "other_raw": 610657.7025572462,
+      "serving_overhead": 3096.810324986776,
+      "proving_overhead": 10281021.326939266,
       "setup": {
         "seconds": 31.701595544815063,
-        "amortized_overhead": 50640270.745816454,
+        "amortized_overhead": 33760180.49721097,
         "instances": 256,
-        "display": "31.7 s \u00b7 5.1e7\u00d7 over 256"
+        "display": "31.7 s \u00b7 3.4e7\u00d7 over 256"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -25237,10 +25237,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 15768213.924639702,
-        "rtt-20ms-100gbps": 23902197.53670025,
-        "rtt-100ms-100gbps": 58150549.58748149,
-        "dc-1ms-10gbps": 15769849.356036188
+        "dc-1ms-100gbps": 10512142.61642647,
+        "rtt-20ms-100gbps": 15934798.357800167,
+        "rtt-100ms-100gbps": 38767033.058321,
+        "dc-1ms-10gbps": 10513232.904024126
       }
     },
     {
@@ -25288,14 +25288,14 @@
       },
       "best": true,
       "artifact": "art:ba046ee88bfb102e5146cd923147f3f90bf63c460021e291bbde7da73f118ca8",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 10672360.835453033,
-        "display": "1.1e7\u00d7"
+        "value": 7114907.223635356,
+        "display": "7.1e6\u00d7"
       },
       "N": {
-        "value": 6542968750.0,
+        "value": 4361979166.666667,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "h100-sxm5-80gb/bf16"
@@ -25309,57 +25309,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 14105.85470199585,
+          "value": 9403.9031346639,
           "share": 0.0013217183076435091,
-          "display": "1.4e4\u00d7 (0%)"
+          "display": "9.4e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 659958.2610092158,
-          "share": 0.06183807605313236,
-          "display": "6.6e5\u00d7 (6%)"
+          "value": 439972.174006144,
+          "share": 0.061838076053132365,
+          "display": "4.4e5\u00d7 (6%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 8056971.042442323,
+          "value": 5371314.028294882,
           "share": 0.7549380279270056,
-          "display": "8.1e6\u00d7 (75%)"
+          "display": "5.4e6\u00d7 (75%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 20389.724445343018,
+          "value": 13593.14963022868,
           "share": 0.0019105167787814485,
-          "display": "2.0e4\u00d7 (0%)"
+          "display": "1.4e4\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 1134113.0732536316,
-          "share": 0.1062663726179653,
-          "display": "1.1e6\u00d7 (11%)"
+          "value": 756075.3821690878,
+          "share": 0.10626637261796532,
+          "display": "7.6e5\u00d7 (11%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 786822.8796005248,
-          "share": 0.07372528831547184,
-          "display": "7.9e5\u00d7 (7%)",
-          "raw": 786822.8796005248,
+          "value": 524548.5864003499,
+          "share": 0.07372528831547183,
+          "display": "5.2e5\u00d7 (7%)",
+          "raw": 524548.5864003499,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 786822.8796005248,
-      "serving_overhead": 14105.85470199585,
-      "proving_overhead": 9998296.719741821,
+      "other_raw": 524548.5864003499,
+      "serving_overhead": 9403.9031346639,
+      "proving_overhead": 6665531.146494548,
       "setup": {
         "seconds": 0.6809380054473877,
-        "amortized_overhead": 4350933.681962488,
+        "amortized_overhead": 2900622.454641659,
         "instances": 1024,
-        "display": "0.681 s \u00b7 4.4e6\u00d7 over 1024"
+        "display": "0.681 s \u00b7 2.9e6\u00d7 over 1024"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -25438,10 +25438,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 10672360.835453033,
-        "rtt-20ms-100gbps": 38352185.6645546,
-        "rtt-100ms-100gbps": 154898816.5239296,
-        "dc-1ms-10gbps": 10677796.291217804
+        "dc-1ms-100gbps": 7114907.223635356,
+        "rtt-20ms-100gbps": 25568123.776369736,
+        "rtt-100ms-100gbps": 103265877.68261975,
+        "dc-1ms-10gbps": 7118530.860811871
       }
     },
     {
@@ -25494,14 +25494,14 @@
       },
       "best": true,
       "artifact": "art:dd27fdab70f279e6879bffff62e2fc785ded717d49106de455aeebeba16dc46c",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 11238713.055870056,
-        "display": "1.1e7\u00d7"
+        "value": 7492475.370580038,
+        "display": "7.5e6\u00d7"
       },
       "N": {
-        "value": 13085937500.0,
+        "value": 8723958333.333334,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "h100-sxm5-80gb/bf16"
@@ -25515,57 +25515,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 13520.329284667969,
+          "value": 9013.552856445312,
           "share": 0.0012030140121431616,
-          "display": "1.4e4\u00d7 (0%)"
+          "display": "9.0e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 2322799.861404418,
+          "value": 1548533.2409362788,
           "share": 0.20667845596353257,
-          "display": "2.3e6\u00d7 (21%)"
+          "display": "1.5e6\u00d7 (21%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 7282698.790931701,
+          "value": 4855132.527287801,
           "share": 0.6480011327567348,
-          "display": "7.3e6\u00d7 (65%)"
+          "display": "4.9e6\u00d7 (65%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 25977.490043640137,
+          "value": 17318.326695760094,
           "share": 0.002311429245902129,
-          "display": "2.6e4\u00d7 (0%)"
+          "display": "1.7e4\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 991074.7350692749,
+          "value": 660716.4900461833,
           "share": 0.08818400560121338,
-          "display": "9.9e5\u00d7 (9%)"
+          "display": "6.6e5\u00d7 (9%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 602641.849136353,
-          "share": 0.05362196242047385,
-          "display": "6.0e5\u00d7 (5%)",
-          "raw": 602641.849136353,
+          "value": 401761.23275756865,
+          "share": 0.053621962420473845,
+          "display": "4.0e5\u00d7 (5%)",
+          "raw": 401761.23275756865,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 602641.849136353,
-      "serving_overhead": 13520.329284667969,
-      "proving_overhead": 8902392.86518097,
+      "other_raw": 401761.23275756865,
+      "serving_overhead": 9013.552856445312,
+      "proving_overhead": 5934928.576787313,
       "setup": {
         "seconds": 0.3658943176269531,
-        "amortized_overhead": 4675849.777413532,
+        "amortized_overhead": 3117233.184942355,
         "instances": 1024,
-        "display": "0.366 s \u00b7 4.7e6\u00d7 over 1024"
+        "display": "0.366 s \u00b7 3.1e6\u00d7 over 1024"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -25644,10 +25644,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 11238713.055870056,
-        "rtt-20ms-100gbps": 65627140.79024506,
-        "rtt-100ms-100gbps": 294631047.04024506,
-        "dc-1ms-10gbps": 11247521.690101622
+        "dc-1ms-100gbps": 7492475.370580038,
+        "rtt-20ms-100gbps": 43751427.19349671,
+        "rtt-100ms-100gbps": 196420698.02683005,
+        "dc-1ms-10gbps": 7498347.793401082
       }
     },
     {
@@ -25700,7 +25700,7 @@
       },
       "best": true,
       "artifact": "art:8a07b80fa7eed101cb1edc76a6141416f214a31ad3f182ce9b759adcc6c96cfd",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 5631158.55194632,
@@ -25901,7 +25901,7 @@
       },
       "best": true,
       "artifact": "art:6f8219df72fed4a732d98bacdee119a1c75238ca7adf1e57f1a29e2397a56236",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 9244763.794011705,
@@ -26102,7 +26102,7 @@
       },
       "best": true,
       "artifact": "art:66d2412cab169bce1eca245f04308b657ad0b35365537785c29e436f6feafb07",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 72347728.14767958,
@@ -26305,7 +26305,7 @@
       },
       "best": true,
       "artifact": "art:9260a98560864515b05c1add7ddf89eee0ac9a3d1e3725fb77766fe48ba5e8d1",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 172690071.4793447,
@@ -26522,7 +26522,7 @@
       },
       "best": true,
       "artifact": "art:1c52024077ee450d0a1ec896574647104b601d729b9087d5e5abbd82962c529d",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 58289633.24227537,
@@ -26721,7 +26721,7 @@
       },
       "best": true,
       "artifact": "art:5d2a91a7cc4c4ece2dc8df9a6c05eedf1e402ed8d6abc5aee900985d8c7288d4",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 13024116.917658806,
@@ -26920,7 +26920,7 @@
       },
       "best": true,
       "artifact": "art:ab115376c239f7314994b5093b77dbd981a2730e3e96dc8fe9325667660f10a7",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 12981892.605049253,
@@ -27128,7 +27128,7 @@
       },
       "best": true,
       "artifact": "art:e1a2dfc3272ee283af2cf737edc03e907dce78fa5af9a337789accb2ff852d53",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1387662088.3303668,
@@ -27350,7 +27350,7 @@
       },
       "best": true,
       "artifact": "art:73a9e9f33a0e57ea9e80ccfe14fd81727a957ceb6a2a29459b55f33c39b6155f",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 24619879.37677288,
@@ -27559,7 +27559,7 @@
       },
       "best": true,
       "artifact": "art:7a0d186b9b445aa9638bc7ef60a9dbf5ffc57c0fe92aa83e75ece7e8b3d0e099",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1413266025.601305,
@@ -27781,7 +27781,7 @@
       },
       "best": true,
       "artifact": "art:8bc3dba2b956cc4b8fc60a7f024bc5f35ccd8e0aaf7c7bfb66aaf86fff9b9fd0",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 25010100.880523566,
@@ -27984,7 +27984,7 @@
       },
       "best": true,
       "artifact": "art:3b8280fa5a55208ad0fea3728233d697ed57b767e9accd81c8caad771415decb",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 19067362.75582031,
@@ -28188,7 +28188,7 @@
       },
       "best": true,
       "artifact": "art:baa539f8a38160c2916bcaf4b40743fd2c3568ec3e37883e56d07265852a4144",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 12573947.593828127,
@@ -28392,7 +28392,7 @@
       },
       "best": true,
       "artifact": "art:0051325c739f365b6a694e0c7752fdaf1a08606f43105de44b29a6861d58cf66",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 9680373.894023437,
@@ -28596,7 +28596,7 @@
       },
       "best": true,
       "artifact": "art:08a853f631f10958af0521f16abffb2ee3749b22606649df7cb0642c4d22897f",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 7709989.413656247,
@@ -28800,7 +28800,7 @@
       },
       "best": true,
       "artifact": "art:73bd2c2bba019a6bec0287d7432e5770c237f72f240315192ebe66e3ee1b7055",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1921402.5910901166,
@@ -29004,7 +29004,7 @@
       },
       "best": true,
       "artifact": "art:d5b0ae9f91dbe8b6dda4084a9d23b50bb048f5d9350271aa739cc9fe7bef049c",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 2738619.7980793267,
@@ -29208,7 +29208,7 @@
       },
       "best": true,
       "artifact": "art:3117572d684ea8d535025a0728f9f1a892375ab013f338b869c6b86cd1f19f1b",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 3012945.861469466,
@@ -29412,7 +29412,7 @@
       },
       "best": true,
       "artifact": "art:645a8359e776dc87cff8e01a578dd2c74b76ef243d46c1886f5a7605475a983e",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 2865516.816541193,
@@ -29616,7 +29616,7 @@
       },
       "best": true,
       "artifact": "art:d18e0ae3bb3cb3d3a4363ff8abc72a3402e1ee6d1df773863e5d8f102da21034",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 2824323.3762969933,
@@ -29820,7 +29820,7 @@
       },
       "best": true,
       "artifact": "art:ccede46a5e244bbfff9df7876e53867937ccd3b45ee7066ef89e633f31312a39",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1917198.0300291828,
@@ -30024,7 +30024,7 @@
       },
       "best": true,
       "artifact": "art:73750ffada65714f96f76d5a1d4f86856e45f1c1e8beb307b667208c510b51a6",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 2851121.812827035,
@@ -30228,7 +30228,7 @@
       },
       "best": true,
       "artifact": "art:327e9366dcb3259c25b8c153e4bf6ddb8c6749b2e88cb186889f1abc3aa0584f",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 2615007.5059278468,
@@ -30432,7 +30432,7 @@
       },
       "best": true,
       "artifact": "art:a552878e7f75389325f1e0c836fa796d8dbff8911f6df4357360b12255659f1f",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 3027338.8245432694,
@@ -30636,7 +30636,7 @@
       },
       "best": true,
       "artifact": "art:186b9949938c17d617cfc1f21985e198fb388b4711bbf0c924f9d019e6a48d04",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 3018684.7163793105,
@@ -30840,7 +30840,7 @@
       },
       "best": true,
       "artifact": "art:f52bf885fd8a3f1e509d74be0c0e9dc4709711033cc3a19201af0339e9d6294c",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 2781226.75420563,
@@ -31044,7 +31044,7 @@
       },
       "best": true,
       "artifact": "art:298d4c14da8ffc881ba30698f9f2777bd2f6f54875e0b6c91bc71024dcd72c3e",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 2990069.959804687,
@@ -31386,7 +31386,7 @@
       },
       "best": true,
       "artifact": "art:4fb2de9c24a72b19afb05f1139d635625cc5d901ea5a2d8fbed11c87fd16f0cf",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 2106427.8493041843,
@@ -31728,7 +31728,7 @@
       },
       "best": true,
       "artifact": "art:b61eafa930f2f77a68b7d0db3b2e31d9fed6fed14a57179438df2c9ce9e5364e",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1517173.1688250592,
@@ -31973,7 +31973,7 @@
       },
       "best": true,
       "artifact": "art:4dd2069b9c797223093b2e23461aad1dc54c62ade344187f02f50a7d457d6b56",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1903405.9753992378,
@@ -32179,7 +32179,7 @@
       },
       "best": true,
       "artifact": "art:a330c56812ce5a8667a7015556b1ecb0a7aa3e884ba9e1d1381c39b2322f3108",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 5496849.425604565,
@@ -32385,14 +32385,14 @@
       },
       "best": true,
       "artifact": "art:d1ae527dc7800e676b528e6a8eaabbac84af404ee635a993a774c5cdc827262b",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 2790956.0801953124,
-        "display": "2.8e6\u00d7"
+        "value": 2232764.86415625,
+        "display": "2.2e6\u00d7"
       },
       "N": {
-        "value": 52734375.0,
+        "value": 42187500.0,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "l40s-48gb/bf16"
@@ -32406,57 +32406,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 3729.4821166992188,
+          "value": 2983.585693359375,
           "share": 0.001336274025651535,
-          "display": "3.7e3\u00d7 (0%)"
+          "display": "3.0e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 79098.90305603022,
+          "value": 63279.12244482418,
           "share": 0.02834114933492427,
-          "display": "7.9e4\u00d7 (3%)"
+          "display": "6.3e4\u00d7 (3%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 2394025.6076202393,
+          "value": 1915220.4860961915,
           "share": 0.8577797496020447,
-          "display": "2.4e6\u00d7 (86%)"
+          "display": "1.9e6\u00d7 (86%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 10180.162628173828,
-          "share": 0.003647553861707998,
-          "display": "1.0e4\u00d7 (0%)"
+          "value": 8144.130102539062,
+          "share": 0.0036475538617079975,
+          "display": "8.1e3\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 76355.18920898438,
+          "value": 61084.1513671875,
           "share": 0.02735807623444974,
-          "display": "7.6e4\u00d7 (3%)"
+          "display": "6.1e4\u00d7 (3%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 227566.73556518558,
+          "value": 182053.38845214847,
           "share": 0.08153719694122179,
-          "display": "2.3e5\u00d7 (8%)",
-          "raw": 227566.73556518558,
+          "display": "1.8e5\u00d7 (8%)",
+          "raw": 182053.38845214847,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 227566.73556518558,
-      "serving_overhead": 3729.4821166992188,
-      "proving_overhead": 2708127.695022583,
+      "other_raw": 182053.38845214847,
+      "serving_overhead": 2983.585693359375,
+      "proving_overhead": 2166502.1560180667,
       "setup": {
         "seconds": 22.705875873565674,
-        "amortized_overhead": 9354532.601719256,
+        "amortized_overhead": 7483626.081375405,
         "instances": 128,
-        "display": "22.7 s \u00b7 9.4e6\u00d7 over 128"
+        "display": "22.7 s \u00b7 7.5e6\u00d7 over 128"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -32535,10 +32535,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 2790956.0801953124,
-        "rtt-20ms-100gbps": 4873139.918085938,
-        "rtt-100ms-100gbps": 13640229.761835938,
-        "dc-1ms-10gbps": 2791405.616253662
+        "dc-1ms-100gbps": 2232764.86415625,
+        "rtt-20ms-100gbps": 3898511.9344687504,
+        "rtt-100ms-100gbps": 10912183.809468752,
+        "dc-1ms-10gbps": 2233124.4930029297
       }
     },
     {
@@ -32586,14 +32586,14 @@
       },
       "best": true,
       "artifact": "art:27a119c9a790bc816b24e4e695c1425285f8ad280691d87c13e06265909b8663",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 3605561.058735352,
-        "display": "3.6e6\u00d7"
+        "value": 2884448.8469882817,
+        "display": "2.9e6\u00d7"
       },
       "N": {
-        "value": 26367187.5,
+        "value": 21093750.0,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "l40s-48gb/bf16"
@@ -32607,57 +32607,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 3528.24609375,
-          "share": 0.00097855674505968,
-          "display": "3.5e3\u00d7 (0%)"
+          "value": 2822.596875,
+          "share": 0.0009785567450596802,
+          "display": "2.8e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 135730.5567517091,
+          "value": 108584.4454013673,
           "share": 0.03764478108694587,
-          "display": "1.4e5\u00d7 (4%)"
+          "display": "1.1e5\u00d7 (4%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 3080381.8757629395,
+          "value": 2464305.5006103516,
           "share": 0.8543418973033232,
-          "display": "3.1e6\u00d7 (85%)"
+          "display": "2.5e6\u00d7 (85%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 10505.632598876953,
-          "share": 0.0029137303259431685,
-          "display": "1.1e4\u00d7 (0%)"
+          "value": 8404.506079101564,
+          "share": 0.002913730325943169,
+          "display": "8.4e3\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 124888.60217285155,
+          "value": 99910.88173828124,
           "share": 0.03463777207995921,
-          "display": "1.2e5\u00d7 (3%)"
+          "display": "1.0e5\u00d7 (3%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 250526.14535522438,
-          "share": 0.0694832624587687,
-          "display": "2.5e5\u00d7 (7%)",
-          "raw": 250526.14535522438,
+          "value": 200420.9162841795,
+          "share": 0.06948326245876868,
+          "display": "2.0e5\u00d7 (7%)",
+          "raw": 200420.9162841795,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 250526.14535522438,
-      "serving_overhead": 3528.24609375,
-      "proving_overhead": 3466302.2558898926,
+      "other_raw": 200420.9162841795,
+      "serving_overhead": 2822.596875,
+      "proving_overhead": 2773041.804711914,
       "setup": {
         "seconds": 14.44404911994934,
-        "amortized_overhead": 11901529.73140357,
+        "amortized_overhead": 9521223.785122856,
         "instances": 32,
-        "display": "14.4 s \u00b7 1.2e7\u00d7 over 32"
+        "display": "14.4 s \u00b7 9.5e6\u00d7 over 32"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -32736,10 +32736,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 3605561.058735352,
-        "rtt-20ms-100gbps": 7738617.699360353,
-        "rtt-100ms-100gbps": 25140961.449360352,
-        "dc-1ms-10gbps": 3606438.776989746
+        "dc-1ms-100gbps": 2884448.8469882817,
+        "rtt-20ms-100gbps": 6190894.159488282,
+        "rtt-100ms-100gbps": 20112769.159488283,
+        "dc-1ms-10gbps": 2885151.021591797
       }
     },
     {
@@ -32792,14 +32792,14 @@
       },
       "best": true,
       "artifact": "art:1e7cdc41385802460b993f6068077fe193368cf0643758cfc619e6e09c41859f",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 5697963.1790057365,
-        "display": "5.7e6\u00d7"
+        "value": 3798642.119337158,
+        "display": "3.8e6\u00d7"
       },
       "N": {
-        "value": 105468750.0,
+        "value": 70312500.0,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "l40s-48gb/bf16"
@@ -32813,57 +32813,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 2287.9265899658203,
-          "share": 0.00040153411282047827,
-          "display": "2.3e3\u00d7 (0%)"
+          "value": 1525.2843933105469,
+          "share": 0.0004015341128204782,
+          "display": "1.5e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 78838.25900756865,
+          "value": 52558.8393383791,
           "share": 0.013836217702853863,
-          "display": "7.9e4\u00d7 (1%)"
+          "display": "5.3e4\u00d7 (1%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 4938169.043243408,
+          "value": 3292112.6954956055,
           "share": 0.8666551341430556,
-          "display": "4.9e6\u00d7 (87%)"
+          "display": "3.3e6\u00d7 (87%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 19899.813674926758,
+          "value": 13266.542449951172,
           "share": 0.0034924433608570925,
-          "display": "2.0e4\u00d7 (0%)"
+          "display": "1.3e4\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 126402.2933807373,
+          "value": 84268.1955871582,
           "share": 0.02218376802547078,
-          "display": "1.3e5\u00d7 (2%)"
+          "display": "8.4e4\u00d7 (2%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 532365.8431091303,
+          "value": 354910.5620727535,
           "share": 0.09343090265494225,
-          "display": "5.3e5\u00d7 (9%)",
-          "raw": 532365.8431091303,
+          "display": "3.5e5\u00d7 (9%)",
+          "raw": 354910.5620727535,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 532365.8431091303,
-      "serving_overhead": 2287.9265899658203,
-      "proving_overhead": 5616836.993408203,
+      "other_raw": 354910.5620727535,
+      "serving_overhead": 1525.2843933105469,
+      "proving_overhead": 3744557.9956054688,
       "setup": {
         "seconds": 42.4815936088562,
-        "amortized_overhead": 17501877.249742392,
+        "amortized_overhead": 11667918.166494928,
         "instances": 256,
-        "display": "42.5 s \u00b7 1.8e7\u00d7 over 256"
+        "display": "42.5 s \u00b7 1.2e7\u00d7 over 256"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -32942,10 +32942,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 5697963.179005737,
-        "rtt-20ms-100gbps": 7795802.534474487,
-        "rtt-100ms-100gbps": 16628810.346974488,
-        "dc-1ms-10gbps": 5698384.9738494875
+        "dc-1ms-100gbps": 3798642.1193371583,
+        "rtt-20ms-100gbps": 5197201.689649658,
+        "rtt-100ms-100gbps": 11085873.564649658,
+        "dc-1ms-10gbps": 3798923.3158996585
       }
     },
     {
@@ -32993,14 +32993,14 @@
       },
       "best": true,
       "artifact": "art:bd1b1770596668198a2c67381559262db7bfe3e86f03ec346eca6d6fb08ca27e",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 6391304.145109863,
-        "display": "6.4e6\u00d7"
+        "value": 4260869.430073242,
+        "display": "4.3e6\u00d7"
       },
       "N": {
-        "value": 52734375.0,
+        "value": 35156250.0,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "l40s-48gb/bf16"
@@ -33014,57 +33014,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 1834.0916748046875,
+          "value": 1222.727783203125,
           "share": 0.0002869667337311735,
-          "display": "1.8e3\u00d7 (0%)"
+          "display": "1.2e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 289084.5509326169,
+          "value": 192723.03395507796,
           "share": 0.04523091756692604,
-          "display": "2.9e5\u00d7 (5%)"
+          "display": "1.9e5\u00d7 (5%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 5373542.115966796,
-          "share": 0.8407583169200639,
-          "display": "5.4e6\u00d7 (84%)"
+          "value": 3582361.410644531,
+          "share": 0.840758316920064,
+          "display": "3.6e6\u00d7 (84%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 20945.877868652344,
-          "share": 0.003277246301082155,
-          "display": "2.1e4\u00d7 (0%)"
+          "value": 13963.918579101562,
+          "share": 0.0032772463010821555,
+          "display": "1.4e4\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 237820.07867431644,
+          "value": 158546.71911621097,
           "share": 0.037209945462582654,
-          "display": "2.4e5\u00d7 (4%)"
+          "display": "1.6e5\u00d7 (4%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 468077.429992676,
+          "value": 312051.61999511736,
           "share": 0.07323660701561403,
-          "display": "4.7e5\u00d7 (7%)",
-          "raw": 468077.429992676,
+          "display": "3.1e5\u00d7 (7%)",
+          "raw": 312051.61999511736,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 468077.429992676,
-      "serving_overhead": 1834.0916748046875,
-      "proving_overhead": 6100385.502502441,
+      "other_raw": 312051.61999511736,
+      "serving_overhead": 1222.727783203125,
+      "proving_overhead": 4066923.668334961,
       "setup": {
         "seconds": 15.473588466644287,
-        "amortized_overhead": 25499688.024865463,
+        "amortized_overhead": 16999792.016576976,
         "instances": 32,
-        "display": "15.5 s \u00b7 2.5e7\u00d7 over 32"
+        "display": "15.5 s \u00b7 1.7e7\u00d7 over 32"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -33143,10 +33143,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 6391304.145109863,
-        "rtt-20ms-100gbps": 14657417.426359866,
-        "rtt-100ms-100gbps": 49462104.92635987,
-        "dc-1ms-10gbps": 6392787.421618652
+        "dc-1ms-100gbps": 4260869.430073242,
+        "rtt-20ms-100gbps": 9771611.617573243,
+        "rtt-100ms-100gbps": 32974736.617573243,
+        "dc-1ms-10gbps": 4261858.281079101
       }
     },
     {
@@ -33194,14 +33194,14 @@
       },
       "best": true,
       "artifact": "art:a7a3159313e2650ef740e53504efd96a5e750c38f3fbd3566d0685a851ca7563",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 3438806.6088281246,
-        "display": "3.4e6\u00d7"
+        "value": 2292537.73921875,
+        "display": "2.3e6\u00d7"
       },
       "N": {
-        "value": 1687500000.0,
+        "value": 1125000000.0,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "l40s-48gb/bf16"
@@ -33215,57 +33215,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 3093.873046875,
-          "share": 0.0008996938178879821,
-          "display": "3.1e3\u00d7 (0%)"
+          "value": 2062.58203125,
+          "share": 0.000899693817887982,
+          "display": "2.1e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 501667.6391015627,
-          "share": 0.1458842255954954,
-          "display": "5.0e5\u00d7 (15%)"
+          "value": 334445.0927343751,
+          "share": 0.14588422559549538,
+          "display": "3.3e5\u00d7 (15%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 2397630.5892333984,
-          "share": 0.6972275158126622,
-          "display": "2.4e6\u00d7 (70%)"
+          "value": 1598420.3928222656,
+          "share": 0.6972275158126621,
+          "display": "1.6e6\u00d7 (70%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 11613.028930664064,
-          "share": 0.0033770520566207556,
-          "display": "1.2e4\u00d7 (0%)"
+          "value": 7742.019287109376,
+          "share": 0.003377052056620755,
+          "display": "7.7e3\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 295716.9990234375,
-          "share": 0.08599407662654569,
-          "display": "3.0e5\u00d7 (9%)"
+          "value": 197144.666015625,
+          "share": 0.08599407662654568,
+          "display": "2.0e5\u00d7 (9%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 229084.47949218747,
+          "value": 152722.986328125,
           "share": 0.06661743609078814,
-          "display": "2.3e5\u00d7 (7%)",
-          "raw": 229084.47949218747,
+          "display": "1.5e5\u00d7 (7%)",
+          "raw": 152722.986328125,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 229084.47949218747,
-      "serving_overhead": 3093.873046875,
-      "proving_overhead": 2934045.0966796875,
+      "other_raw": 152722.986328125,
+      "serving_overhead": 2062.58203125,
+      "proving_overhead": 1956030.064453125,
       "setup": {
         "seconds": 0.45090460777282715,
-        "amortized_overhead": 1486135.7922200114,
+        "amortized_overhead": 990757.1948133409,
         "instances": 512,
-        "display": "0.451 s \u00b7 1.5e6\u00d7 over 512"
+        "display": "0.451 s \u00b7 9.9e5\u00d7 over 512"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -33344,10 +33344,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 3438806.608828125,
-        "rtt-20ms-100gbps": 17466150.358828127,
-        "rtt-100ms-100gbps": 76528650.35882813,
-        "dc-1ms-10gbps": 3441000.6615234376
+        "dc-1ms-100gbps": 2292537.73921875,
+        "rtt-20ms-100gbps": 11644100.239218753,
+        "rtt-100ms-100gbps": 51019100.23921876,
+        "dc-1ms-10gbps": 2294000.4410156254
       }
     },
     {
@@ -33400,14 +33400,14 @@
       },
       "best": true,
       "artifact": "art:dc9b92f6b25d80d0b48b3d20c649e0829568982c35e1554b526e9a575993ad8f",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
-        "value": 3558398.881245117,
-        "display": "3.6e6\u00d7"
+        "value": 2372265.9208300784,
+        "display": "2.4e6\u00d7"
       },
       "N": {
-        "value": 3375000000.0,
+        "value": 2250000000.0,
         "unit": "instances/s",
         "work_model": "work-model/v0",
         "peak": "l40s-48gb/bf16"
@@ -33421,57 +33421,57 @@
         {
           "id": "commitment",
           "kind": "stage",
-          "value": 3353.1943359375005,
-          "share": 0.0009423323376170201,
-          "display": "3.4e3\u00d7 (0%)"
+          "value": 2235.462890625,
+          "share": 0.0009423323376170199,
+          "display": "2.2e3\u00d7 (0%)"
         },
         {
           "id": "interaction",
           "kind": "stage",
-          "value": 582842.5370068357,
-          "share": 0.1637934802865309,
-          "display": "5.8e5\u00d7 (16%)"
+          "value": 388561.69133789046,
+          "share": 0.16379348028653087,
+          "display": "3.9e5\u00d7 (16%)"
         },
         {
           "id": "witness",
           "kind": "stage",
-          "value": 2490790.5527343745,
-          "share": 0.6999750831370607,
-          "display": "2.5e6\u00d7 (70%)"
+          "value": 1660527.0351562498,
+          "share": 0.6999750831370606,
+          "display": "1.7e6\u00d7 (70%)"
         },
         {
           "id": "encoding_commitment",
           "kind": "stage",
-          "value": 11644.48828125,
-          "share": 0.0032723954424062444,
-          "display": "1.2e4\u00d7 (0%)"
+          "value": 7762.9921875,
+          "share": 0.003272395442406244,
+          "display": "7.8e3\u00d7 (0%)"
         },
         {
           "id": "arithmetic",
           "kind": "stage",
-          "value": 241608.49475097656,
+          "value": 161072.32983398438,
           "share": 0.0678980920392026,
-          "display": "2.4e5\u00d7 (7%)"
+          "display": "1.6e5\u00d7 (7%)"
         },
         {
           "id": "other",
           "kind": "stage",
-          "value": 228159.6141357426,
-          "share": 0.06411861675718249,
-          "display": "2.3e5\u00d7 (6%)",
-          "raw": 228159.6141357426,
+          "value": 152106.4094238284,
+          "share": 0.06411861675718247,
+          "display": "1.5e5\u00d7 (6%)",
+          "raw": 152106.4094238284,
           "clamped": false,
           "flagged": false
         }
       ],
-      "other_raw": 228159.6141357426,
-      "serving_overhead": 3353.1943359375005,
-      "proving_overhead": 2972203.1499023438,
+      "other_raw": 152106.4094238284,
+      "serving_overhead": 2235.462890625,
+      "proving_overhead": 1981468.7666015625,
       "setup": {
         "seconds": 0.4822077751159668,
-        "amortized_overhead": 1589307.8525550663,
+        "amortized_overhead": 1059538.5683700442,
         "instances": 1024,
-        "display": "0.482 s \u00b7 1.6e6\u00d7 over 1024"
+        "display": "0.482 s \u00b7 1.1e6\u00d7 over 1024"
       },
       "soundness": {
         "cell_log2": -195.44,
@@ -33550,10 +33550,10 @@
         "formula": "overhead = N * (commit_s + prover_compute_s + verifier_compute_s + rounds * rtt_s + (bytes_up + bytes_down) * 8 / bandwidth_bps) / inputs"
       },
       "overhead_at": {
-        "dc-1ms-100gbps": 3558398.881245117,
-        "rtt-20ms-100gbps": 17585742.631245118,
-        "rtt-100ms-100gbps": 76648242.63124512,
-        "dc-1ms-10gbps": 3560670.720043945
+        "dc-1ms-100gbps": 2372265.920830078,
+        "rtt-20ms-100gbps": 11723828.420830078,
+        "rtt-100ms-100gbps": 51098828.420830086,
+        "dc-1ms-10gbps": 2373780.4800292966
       }
     },
     {
@@ -33606,7 +33606,7 @@
       },
       "best": true,
       "artifact": "art:6dc1f392cdd5be4b30ea19c15a8e4101c9089ad32b86708df507aa6397e06a66",
-      "rendered_at": "2026-09-26T18:25:58Z",
+      "rendered_at": "2026-09-26T18:25:51Z",
       "network": "dc-1ms-100gbps",
       "overhead": {
         "value": 1826518.326789551,
@@ -34096,8 +34096,8 @@
       "statement": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16+frame-v3/blake3-keyed",
       "scheme": "frame-v3/blake3-keyed",
       "overhead": {
-        "value": 2790956.0801953124,
-        "display": "2.8e6\u00d7"
+        "value": 2232764.86415625,
+        "display": "2.2e6\u00d7"
       }
     },
     {
@@ -34108,8 +34108,8 @@
       "statement": "rmsnorm-fused-cuda/n4096-eps1e-05/bf16+frame-v3/blake3-keyed",
       "scheme": "frame-v3/blake3-keyed",
       "overhead": {
-        "value": 3605561.058735352,
-        "display": "3.6e6\u00d7"
+        "value": 2884448.8469882817,
+        "display": "2.9e6\u00d7"
       }
     },
     {
@@ -34120,8 +34120,8 @@
       "statement": "rmsnorm-triton/n128-eps1e-06/bf16+frame-v3/blake3-keyed",
       "scheme": "frame-v3/blake3-keyed",
       "overhead": {
-        "value": 28929248.93624878,
-        "display": "2.9e7\u00d7"
+        "value": 19286165.957499187,
+        "display": "1.9e7\u00d7"
       }
     },
     {
@@ -34132,8 +34132,8 @@
       "statement": "rmsnorm-triton/n2048-eps1e-05/bf16+frame-v3/blake3-keyed",
       "scheme": "frame-v3/blake3-keyed",
       "overhead": {
-        "value": 5697963.1790057365,
-        "display": "5.7e6\u00d7"
+        "value": 3798642.119337158,
+        "display": "3.8e6\u00d7"
       }
     },
     {
@@ -34144,8 +34144,8 @@
       "statement": "rmsnorm-triton/n4096-eps1e-05/bf16+frame-v3/blake3-keyed",
       "scheme": "frame-v3/blake3-keyed",
       "overhead": {
-        "value": 6391304.145109863,
-        "display": "6.4e6\u00d7"
+        "value": 4260869.430073242,
+        "display": "4.3e6\u00d7"
       }
     },
     {
@@ -34156,8 +34156,8 @@
       "statement": "rope-head/d128/neox-bf16+frame-v3/blake3-keyed",
       "scheme": "frame-v3/blake3-keyed",
       "overhead": {
-        "value": 3438806.6088281246,
-        "display": "3.4e6\u00d7"
+        "value": 2292537.73921875,
+        "display": "2.3e6\u00d7"
       }
     },
     {
@@ -34168,8 +34168,8 @@
       "statement": "rope-head/d64/neox-bf16+frame-v3/blake3-keyed",
       "scheme": "frame-v3/blake3-keyed",
       "overhead": {
-        "value": 3558398.881245117,
-        "display": "3.6e6\u00d7"
+        "value": 2372265.9208300784,
+        "display": "2.4e6\u00d7"
       }
     },
     {
@@ -36381,8 +36381,8 @@
           },
           "label": "NVIDIA H100 SXM5 80GB \u00b7 BF16 \u00b7 RMSNormFusedCuda_v2<2048> \u00b7 eps 1e-05 \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "2.0e8/s \u00b7 memory, 3.35 TB/s",
-            "value": 204467773.4375,
+            "display": "1.6e8/s \u00b7 memory, 3.35 TB/s",
+            "value": 163574218.75,
             "footnote": 161,
             "work_model": "work-model/v0",
             "peak": "h100-sxm5-80gb/bf16"
@@ -36416,8 +36416,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "9.0e6\u00d7",
-              "value": 8955201.81284714,
+              "display": "7.2e6\u00d7",
+              "value": 7164161.450277711,
               "marks": [],
               "state": "cell",
               "footnote": 165,
@@ -36444,8 +36444,8 @@
           },
           "label": "NVIDIA H100 SXM5 80GB \u00b7 BF16 \u00b7 RMSNormTriton_v1<128> \u00b7 eps 1e-06 \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "6.5e9/s \u00b7 memory, 3.35 TB/s",
-            "value": 6542968750.0,
+            "display": "4.4e9/s \u00b7 memory, 3.35 TB/s",
+            "value": 4361979166.666667,
             "footnote": 166,
             "work_model": "work-model/v0",
             "peak": "h100-sxm5-80gb/bf16"
@@ -36479,8 +36479,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "2.9e7\u00d7",
-              "value": 28929248.93624878,
+              "display": "1.9e7\u00d7",
+              "value": 19286165.957499187,
               "marks": [],
               "state": "cell",
               "footnote": 170,
@@ -36507,8 +36507,8 @@
           },
           "label": "NVIDIA H100 SXM5 80GB \u00b7 BF16 \u00b7 RMSNormTriton_v1<2048> \u00b7 eps 1e-05 \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "4.1e8/s \u00b7 memory, 3.35 TB/s",
-            "value": 408935546.875,
+            "display": "2.7e8/s \u00b7 memory, 3.35 TB/s",
+            "value": 272623697.9166667,
             "footnote": 171,
             "work_model": "work-model/v0",
             "peak": "h100-sxm5-80gb/bf16"
@@ -36542,8 +36542,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "1.6e7\u00d7",
-              "value": 15768213.924639704,
+              "display": "1.1e7\u00d7",
+              "value": 10512142.61642647,
               "marks": [],
               "state": "cell",
               "footnote": 175,
@@ -36569,8 +36569,8 @@
           },
           "label": "NVIDIA H100 SXM5 80GB \u00b7 BF16 \u00b7 RoPEHead<128> \u00b7 NeoX \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "6.5e9/s \u00b7 memory, 3.35 TB/s",
-            "value": 6542968750.0,
+            "display": "4.4e9/s \u00b7 memory, 3.35 TB/s",
+            "value": 4361979166.666667,
             "footnote": 176,
             "work_model": "work-model/v0",
             "peak": "h100-sxm5-80gb/bf16"
@@ -36604,8 +36604,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "1.1e7\u00d7",
-              "value": 10672360.835453033,
+              "display": "7.1e6\u00d7",
+              "value": 7114907.223635356,
               "marks": [],
               "state": "cell",
               "footnote": 180,
@@ -36631,8 +36631,8 @@
           },
           "label": "NVIDIA H100 SXM5 80GB \u00b7 BF16 \u00b7 RoPEHead<64> \u00b7 NeoX \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "1.3e10/s \u00b7 memory, 3.35 TB/s",
-            "value": 13085937500.0,
+            "display": "8.7e9/s \u00b7 memory, 3.35 TB/s",
+            "value": 8723958333.333334,
             "footnote": 181,
             "work_model": "work-model/v0",
             "peak": "h100-sxm5-80gb/bf16"
@@ -36666,8 +36666,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "1.1e7\u00d7",
-              "value": 11238713.055870056,
+              "display": "7.5e6\u00d7",
+              "value": 7492475.370580038,
               "marks": [],
               "state": "cell",
               "footnote": 185,
@@ -38992,8 +38992,8 @@
           },
           "label": "NVIDIA L40S 48GB \u00b7 BF16 \u00b7 RMSNormFusedCuda_v2<2048> \u00b7 eps 1e-05 \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "5.3e7/s \u00b7 memory, 0.864 TB/s",
-            "value": 52734375.0,
+            "display": "4.2e7/s \u00b7 memory, 0.864 TB/s",
+            "value": 42187500.0,
             "footnote": 366,
             "work_model": "work-model/v0",
             "peak": "l40s-48gb/bf16"
@@ -39027,8 +39027,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "2.8e6\u00d7",
-              "value": 2790956.0801953124,
+              "display": "2.2e6\u00d7",
+              "value": 2232764.86415625,
               "marks": [],
               "state": "cell",
               "footnote": 370,
@@ -39055,8 +39055,8 @@
           },
           "label": "NVIDIA L40S 48GB \u00b7 BF16 \u00b7 RMSNormFusedCuda_v2<4096> \u00b7 eps 1e-05 \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "2.6e7/s \u00b7 memory, 0.864 TB/s",
-            "value": 26367187.5,
+            "display": "2.1e7/s \u00b7 memory, 0.864 TB/s",
+            "value": 21093750.0,
             "footnote": 371,
             "work_model": "work-model/v0",
             "peak": "l40s-48gb/bf16"
@@ -39090,8 +39090,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "3.6e6\u00d7",
-              "value": 3605561.058735352,
+              "display": "2.9e6\u00d7",
+              "value": 2884448.8469882817,
               "marks": [],
               "state": "cell",
               "footnote": 375,
@@ -39118,8 +39118,8 @@
           },
           "label": "NVIDIA L40S 48GB \u00b7 BF16 \u00b7 RMSNormTriton_v1<2048> \u00b7 eps 1e-05 \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "1.1e8/s \u00b7 memory, 0.864 TB/s",
-            "value": 105468750.0,
+            "display": "7.0e7/s \u00b7 memory, 0.864 TB/s",
+            "value": 70312500.0,
             "footnote": 376,
             "work_model": "work-model/v0",
             "peak": "l40s-48gb/bf16"
@@ -39153,8 +39153,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "5.7e6\u00d7",
-              "value": 5697963.1790057365,
+              "display": "3.8e6\u00d7",
+              "value": 3798642.119337158,
               "marks": [],
               "state": "cell",
               "footnote": 380,
@@ -39181,8 +39181,8 @@
           },
           "label": "NVIDIA L40S 48GB \u00b7 BF16 \u00b7 RMSNormTriton_v1<4096> \u00b7 eps 1e-05 \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "5.3e7/s \u00b7 memory, 0.864 TB/s",
-            "value": 52734375.0,
+            "display": "3.5e7/s \u00b7 memory, 0.864 TB/s",
+            "value": 35156250.0,
             "footnote": 381,
             "work_model": "work-model/v0",
             "peak": "l40s-48gb/bf16"
@@ -39216,8 +39216,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "6.4e6\u00d7",
-              "value": 6391304.145109863,
+              "display": "4.3e6\u00d7",
+              "value": 4260869.430073242,
               "marks": [],
               "state": "cell",
               "footnote": 385,
@@ -39243,8 +39243,8 @@
           },
           "label": "NVIDIA L40S 48GB \u00b7 BF16 \u00b7 RoPEHead<128> \u00b7 NeoX \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "1.7e9/s \u00b7 memory, 0.864 TB/s",
-            "value": 1687500000.0,
+            "display": "1.1e9/s \u00b7 memory, 0.864 TB/s",
+            "value": 1125000000.0,
             "footnote": 386,
             "work_model": "work-model/v0",
             "peak": "l40s-48gb/bf16"
@@ -39278,8 +39278,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "3.4e6\u00d7",
-              "value": 3438806.6088281246,
+              "display": "2.3e6\u00d7",
+              "value": 2292537.73921875,
               "marks": [],
               "state": "cell",
               "footnote": 390,
@@ -39305,8 +39305,8 @@
           },
           "label": "NVIDIA L40S 48GB \u00b7 BF16 \u00b7 RoPEHead<64> \u00b7 NeoX \u00b7 BF16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows",
           "native": {
-            "display": "3.4e9/s \u00b7 memory, 0.864 TB/s",
-            "value": 3375000000.0,
+            "display": "2.2e9/s \u00b7 memory, 0.864 TB/s",
+            "value": 2250000000.0,
             "footnote": 391,
             "work_model": "work-model/v0",
             "peak": "l40s-48gb/bf16"
@@ -39340,8 +39340,8 @@
               "backend": null
             },
             "C-Flock": {
-              "display": "3.6e6\u00d7",
-              "value": 3558398.881245117,
+              "display": "2.4e6\u00d7",
+              "value": 2372265.9208300784,
               "marks": [],
               "state": "cell",
               "footnote": 395,
@@ -40056,7 +40056,7 @@
         },
         {
           "number": 161,
-          "text": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 16384 bytes per input (8*N: x, res, out.0 and out.1 only (4 rows of N bf16 words): the weight row w is served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-fused-cuda in0, in1, in2 -> out.0, out.1) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 8192 per input (4*N) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
+          "text": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 20480 bytes per input (10*N: reads x, res and w (3 rows of N bf16 words), writes out.0 and out.1 (2 rows): 5N bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-fused-cuda in0, in1, in2 -> out.0, out.1) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 8192 per input (4*N) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
         },
         {
           "number": 162,
@@ -40076,7 +40076,7 @@
         },
         {
           "number": 166,
-          "text": "rmsnorm-triton/n128-eps1e-06/bf16: work-model/v0 memory-bandwidth work model: 512 bytes per input (4*N: x and out only (2 rows of N bf16 words): the weight row w is served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-triton in0, in1 -> out.out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 384 per input (3*N) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
+          "text": "rmsnorm-triton/n128-eps1e-06/bf16: work-model/v0 memory-bandwidth work model: 768 bytes per input (6*N: reads x and w (2 rows of N bf16 words), writes out (1 row): 3N bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-triton in0, in1 -> out.out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 384 per input (3*N) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
         },
         {
           "number": 167,
@@ -40096,7 +40096,7 @@
         },
         {
           "number": 171,
-          "text": "rmsnorm-triton/n2048-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 8192 bytes per input (4*N: x and out only (2 rows of N bf16 words): the weight row w is served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-triton in0, in1 -> out.out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 6144 per input (3*N) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
+          "text": "rmsnorm-triton/n2048-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 12288 bytes per input (6*N: reads x and w (2 rows of N bf16 words), writes out (1 row): 3N bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-triton in0, in1 -> out.out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 6144 per input (3*N) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
         },
         {
           "number": 172,
@@ -40116,7 +40116,7 @@
         },
         {
           "number": 176,
-          "text": "rope-head/d128/neox-bf16: work-model/v0 memory-bandwidth work model: 512 bytes per input (4*D: x and out only (2 rows of D bf16 words): the cos/sin row is a per-position table served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rope-head x, cs -> out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 384 per input (3*D) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
+          "text": "rope-head/d128/neox-bf16: work-model/v0 memory-bandwidth work model: 768 bytes per input (6*D: reads x[D] and the cos/sin row cs[D], writes out[D]: 3 rows of D bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rope-head x, cs -> out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 384 per input (3*D) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
         },
         {
           "number": 177,
@@ -40136,7 +40136,7 @@
         },
         {
           "number": 181,
-          "text": "rope-head/d64/neox-bf16: work-model/v0 memory-bandwidth work model: 256 bytes per input (4*D: x and out only (2 rows of D bf16 words): the cos/sin row is a per-position table served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rope-head x, cs -> out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 192 per input (3*D) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
+          "text": "rope-head/d64/neox-bf16: work-model/v0 memory-bandwidth work model: 384 bytes per input (6*D: reads x[D] and the cos/sin row cs[D], writes out[D]: 3 rows of D bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rope-head x, cs -> out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 192 per input (3*D) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
         },
         {
           "number": 182,
@@ -40156,7 +40156,7 @@
         },
         {
           "number": 186,
-          "text": "silu-mul/i8192/bf16: work-model/v0 memory-bandwidth work model: 49152 bytes per input (6*I: unchanged: silu-mul has no weight row, every byte is an activation (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): silu-mul in0 -> out.out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 24576 per input (3*I) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
+          "text": "silu-mul/i8192/bf16: work-model/v0 memory-bandwidth work model: 49152 bytes per input (6*I: reads the gate|up row in0[2I], writes out[I]: 3I bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): silu-mul in0 -> out.out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 24576 per input (3*I) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
         },
         {
           "number": 187,
@@ -40176,7 +40176,7 @@
         },
         {
           "number": 191,
-          "text": "silu-mul/i9728/bf16: work-model/v0 memory-bandwidth work model: 58368 bytes per input (6*I: unchanged: silu-mul has no weight row, every byte is an activation (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): silu-mul in0 -> out.out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 29184 per input (3*I) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
+          "text": "silu-mul/i9728/bf16: work-model/v0 memory-bandwidth work model: 58368 bytes per input (6*I: reads the gate|up row in0[2I], writes out[I]: 3I bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): silu-mul in0 -> out.out) over 3.35 TB/s (h100-sxm5-80gb/bf16); ops 29184 per input (3*I) are not binding; NVIDIA H100 Tensor Core GPU datasheet: H100 SXM GPU memory bandwidth 3.35 TB/s (HBM3, 80 GB)"
         },
         {
           "number": 192,
@@ -40876,7 +40876,7 @@
         },
         {
           "number": 366,
-          "text": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 16384 bytes per input (8*N: x, res, out.0 and out.1 only (4 rows of N bf16 words): the weight row w is served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-fused-cuda in0, in1, in2 -> out.0, out.1) over 0.864 TB/s (l40s-48gb/bf16); ops 8192 per input (4*N) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
+          "text": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 20480 bytes per input (10*N: reads x, res and w (3 rows of N bf16 words), writes out.0 and out.1 (2 rows): 5N bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-fused-cuda in0, in1, in2 -> out.0, out.1) over 0.864 TB/s (l40s-48gb/bf16); ops 8192 per input (4*N) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
         },
         {
           "number": 367,
@@ -40896,7 +40896,7 @@
         },
         {
           "number": 371,
-          "text": "rmsnorm-fused-cuda/n4096-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 32768 bytes per input (8*N: x, res, out.0 and out.1 only (4 rows of N bf16 words): the weight row w is served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-fused-cuda in0, in1, in2 -> out.0, out.1) over 0.864 TB/s (l40s-48gb/bf16); ops 16384 per input (4*N) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
+          "text": "rmsnorm-fused-cuda/n4096-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 40960 bytes per input (10*N: reads x, res and w (3 rows of N bf16 words), writes out.0 and out.1 (2 rows): 5N bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-fused-cuda in0, in1, in2 -> out.0, out.1) over 0.864 TB/s (l40s-48gb/bf16); ops 16384 per input (4*N) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
         },
         {
           "number": 372,
@@ -40916,7 +40916,7 @@
         },
         {
           "number": 376,
-          "text": "rmsnorm-triton/n2048-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 8192 bytes per input (4*N: x and out only (2 rows of N bf16 words): the weight row w is served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-triton in0, in1 -> out.out) over 0.864 TB/s (l40s-48gb/bf16); ops 6144 per input (3*N) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
+          "text": "rmsnorm-triton/n2048-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 12288 bytes per input (6*N: reads x and w (2 rows of N bf16 words), writes out (1 row): 3N bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-triton in0, in1 -> out.out) over 0.864 TB/s (l40s-48gb/bf16); ops 6144 per input (3*N) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
         },
         {
           "number": 377,
@@ -40936,7 +40936,7 @@
         },
         {
           "number": 381,
-          "text": "rmsnorm-triton/n4096-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 16384 bytes per input (4*N: x and out only (2 rows of N bf16 words): the weight row w is served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-triton in0, in1 -> out.out) over 0.864 TB/s (l40s-48gb/bf16); ops 12288 per input (3*N) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
+          "text": "rmsnorm-triton/n4096-eps1e-05/bf16: work-model/v0 memory-bandwidth work model: 24576 bytes per input (6*N: reads x and w (2 rows of N bf16 words), writes out (1 row): 3N bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rmsnorm-triton in0, in1 -> out.out) over 0.864 TB/s (l40s-48gb/bf16); ops 12288 per input (3*N) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
         },
         {
           "number": 382,
@@ -40956,7 +40956,7 @@
         },
         {
           "number": 386,
-          "text": "rope-head/d128/neox-bf16: work-model/v0 memory-bandwidth work model: 512 bytes per input (4*D: x and out only (2 rows of D bf16 words): the cos/sin row is a per-position table served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rope-head x, cs -> out) over 0.864 TB/s (l40s-48gb/bf16); ops 384 per input (3*D) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
+          "text": "rope-head/d128/neox-bf16: work-model/v0 memory-bandwidth work model: 768 bytes per input (6*D: reads x[D] and the cos/sin row cs[D], writes out[D]: 3 rows of D bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rope-head x, cs -> out) over 0.864 TB/s (l40s-48gb/bf16); ops 384 per input (3*D) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
         },
         {
           "number": 387,
@@ -40976,7 +40976,7 @@
         },
         {
           "number": 391,
-          "text": "rope-head/d64/neox-bf16: work-model/v0 memory-bandwidth work model: 256 bytes per input (4*D: x and out only (2 rows of D bf16 words): the cos/sin row is a per-position table served from cache (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): rope-head x, cs -> out) over 0.864 TB/s (l40s-48gb/bf16); ops 192 per input (3*D) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
+          "text": "rope-head/d64/neox-bf16: work-model/v0 memory-bandwidth work model: 384 bytes per input (6*D: reads x[D] and the cos/sin row cs[D], writes out[D]: 3 rows of D bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): rope-head x, cs -> out) over 0.864 TB/s (l40s-48gb/bf16); ops 192 per input (3*D) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
         },
         {
           "number": 392,
@@ -40996,7 +40996,7 @@
         },
         {
           "number": 396,
-          "text": "silu-mul/i8192/bf16: work-model/v0 memory-bandwidth work model: 49152 bytes per input (6*I: unchanged: silu-mul has no weight row, every byte is an activation (a PREVIEW basis: Daniel decides cached vs uncached; the published N uses bytes_per_input); bench-spine's port definitions (verity_numerical.bench.templates): silu-mul in0 -> out.out) over 0.864 TB/s (l40s-48gb/bf16); ops 24576 per input (3*I) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
+          "text": "silu-mul/i8192/bf16: work-model/v0 memory-bandwidth work model: 49152 bytes per input (6*I: reads the gate|up row in0[2I], writes out[I]: 3I bf16 words; every row counted once per input, none assumed cached (the conservative, memory-bound reading); bench-spine's port definitions (verity_numerical.bench.templates): silu-mul in0 -> out.out) over 0.864 TB/s (l40s-48gb/bf16); ops 24576 per input (3*I) are not binding; NVIDIA L40S GPU datasheet: GPU memory bandwidth 864 GB/s (48 GB GDDR6 with ECC)"
         },
         {
           "number": 397,
@@ -42049,17 +42049,17 @@
           "backend": "C-interactive",
           "label": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "4.9e3\u00d7 (0%)",
-            "interaction": "6.7e5\u00d7 (8%)",
-            "witness": "7.6e6\u00d7 (85%)",
-            "encoding_commitment": "1.9e4\u00d7 (0%)",
-            "arithmetic": "3.9e5\u00d7 (4%)",
+            "commitment": "3.9e3\u00d7 (0%)",
+            "interaction": "5.4e5\u00d7 (8%)",
+            "witness": "6.1e6\u00d7 (85%)",
+            "encoding_commitment": "1.6e4\u00d7 (0%)",
+            "arithmetic": "3.1e5\u00d7 (4%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "3.0e5\u00d7 (3%)",
-            "total": "9.0e6\u00d7 (100%)",
-            "setup": "9.76 s \u00b7 3.1e7\u00d7 over 64"
+            "other": "2.4e5\u00d7 (3%)",
+            "total": "7.2e6\u00d7 (100%)",
+            "setup": "9.76 s \u00b7 2.5e7\u00d7 over 64"
           }
         },
         {
@@ -42079,17 +42079,17 @@
           "backend": "C-interactive",
           "label": "rmsnorm-triton/n128-eps1e-06/bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "1.6e4\u00d7 (0%)",
-            "interaction": "2.8e6\u00d7 (10%)",
-            "witness": "2.0e7\u00d7 (68%)",
-            "encoding_commitment": "5.1e4\u00d7 (0%)",
-            "arithmetic": "4.7e6\u00d7 (16%)",
+            "commitment": "1.1e4\u00d7 (0%)",
+            "interaction": "1.8e6\u00d7 (10%)",
+            "witness": "1.3e7\u00d7 (68%)",
+            "encoding_commitment": "3.4e4\u00d7 (0%)",
+            "arithmetic": "3.1e6\u00d7 (16%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "1.9e6\u00d7 (6%)",
-            "total": "2.9e7\u00d7 (100%)",
-            "setup": "4.5 s \u00b7 1.1e8\u00d7 over 256"
+            "other": "1.2e6\u00d7 (6%)",
+            "total": "1.9e7\u00d7 (100%)",
+            "setup": "4.5 s \u00b7 7.7e7\u00d7 over 256"
           }
         },
         {
@@ -42109,17 +42109,17 @@
           "backend": "C-interactive",
           "label": "rmsnorm-triton/n2048-eps1e-05/bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "4.6e3\u00d7 (0%)",
-            "interaction": "3.4e5\u00d7 (2%)",
-            "witness": "1.4e7\u00d7 (89%)",
-            "encoding_commitment": "3.8e4\u00d7 (0%)",
-            "arithmetic": "3.6e5\u00d7 (2%)",
+            "commitment": "3.1e3\u00d7 (0%)",
+            "interaction": "2.3e5\u00d7 (2%)",
+            "witness": "9.4e6\u00d7 (89%)",
+            "encoding_commitment": "2.5e4\u00d7 (0%)",
+            "arithmetic": "2.4e5\u00d7 (2%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "9.2e5\u00d7 (6%)",
-            "total": "1.6e7\u00d7 (100%)",
-            "setup": "31.7 s \u00b7 5.1e7\u00d7 over 256"
+            "other": "6.1e5\u00d7 (6%)",
+            "total": "1.1e7\u00d7 (100%)",
+            "setup": "31.7 s \u00b7 3.4e7\u00d7 over 256"
           }
         },
         {
@@ -42138,17 +42138,17 @@
           "backend": "C-interactive",
           "label": "rope-head/d128/neox-bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "1.4e4\u00d7 (0%)",
-            "interaction": "6.6e5\u00d7 (6%)",
-            "witness": "8.1e6\u00d7 (75%)",
-            "encoding_commitment": "2.0e4\u00d7 (0%)",
-            "arithmetic": "1.1e6\u00d7 (11%)",
+            "commitment": "9.4e3\u00d7 (0%)",
+            "interaction": "4.4e5\u00d7 (6%)",
+            "witness": "5.4e6\u00d7 (75%)",
+            "encoding_commitment": "1.4e4\u00d7 (0%)",
+            "arithmetic": "7.6e5\u00d7 (11%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "7.9e5\u00d7 (7%)",
-            "total": "1.1e7\u00d7 (100%)",
-            "setup": "0.681 s \u00b7 4.4e6\u00d7 over 1024"
+            "other": "5.2e5\u00d7 (7%)",
+            "total": "7.1e6\u00d7 (100%)",
+            "setup": "0.681 s \u00b7 2.9e6\u00d7 over 1024"
           }
         },
         {
@@ -42167,17 +42167,17 @@
           "backend": "C-interactive",
           "label": "rope-head/d64/neox-bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "1.4e4\u00d7 (0%)",
-            "interaction": "2.3e6\u00d7 (21%)",
-            "witness": "7.3e6\u00d7 (65%)",
-            "encoding_commitment": "2.6e4\u00d7 (0%)",
-            "arithmetic": "9.9e5\u00d7 (9%)",
+            "commitment": "9.0e3\u00d7 (0%)",
+            "interaction": "1.5e6\u00d7 (21%)",
+            "witness": "4.9e6\u00d7 (65%)",
+            "encoding_commitment": "1.7e4\u00d7 (0%)",
+            "arithmetic": "6.6e5\u00d7 (9%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "6.0e5\u00d7 (5%)",
-            "total": "1.1e7\u00d7 (100%)",
-            "setup": "0.366 s \u00b7 4.7e6\u00d7 over 1024"
+            "other": "4.0e5\u00d7 (5%)",
+            "total": "7.5e6\u00d7 (100%)",
+            "setup": "0.366 s \u00b7 3.1e6\u00d7 over 1024"
           }
         },
         {
@@ -43152,17 +43152,17 @@
           "backend": "C-interactive",
           "label": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "3.7e3\u00d7 (0%)",
-            "interaction": "7.9e4\u00d7 (3%)",
-            "witness": "2.4e6\u00d7 (86%)",
-            "encoding_commitment": "1.0e4\u00d7 (0%)",
-            "arithmetic": "7.6e4\u00d7 (3%)",
+            "commitment": "3.0e3\u00d7 (0%)",
+            "interaction": "6.3e4\u00d7 (3%)",
+            "witness": "1.9e6\u00d7 (86%)",
+            "encoding_commitment": "8.1e3\u00d7 (0%)",
+            "arithmetic": "6.1e4\u00d7 (3%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "2.3e5\u00d7 (8%)",
-            "total": "2.8e6\u00d7 (100%)",
-            "setup": "22.7 s \u00b7 9.4e6\u00d7 over 128"
+            "other": "1.8e5\u00d7 (8%)",
+            "total": "2.2e6\u00d7 (100%)",
+            "setup": "22.7 s \u00b7 7.5e6\u00d7 over 128"
           }
         },
         {
@@ -43182,17 +43182,17 @@
           "backend": "C-interactive",
           "label": "rmsnorm-fused-cuda/n4096-eps1e-05/bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "3.5e3\u00d7 (0%)",
-            "interaction": "1.4e5\u00d7 (4%)",
-            "witness": "3.1e6\u00d7 (85%)",
-            "encoding_commitment": "1.1e4\u00d7 (0%)",
-            "arithmetic": "1.2e5\u00d7 (3%)",
+            "commitment": "2.8e3\u00d7 (0%)",
+            "interaction": "1.1e5\u00d7 (4%)",
+            "witness": "2.5e6\u00d7 (85%)",
+            "encoding_commitment": "8.4e3\u00d7 (0%)",
+            "arithmetic": "1.0e5\u00d7 (3%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "2.5e5\u00d7 (7%)",
-            "total": "3.6e6\u00d7 (100%)",
-            "setup": "14.4 s \u00b7 1.2e7\u00d7 over 32"
+            "other": "2.0e5\u00d7 (7%)",
+            "total": "2.9e6\u00d7 (100%)",
+            "setup": "14.4 s \u00b7 9.5e6\u00d7 over 32"
           }
         },
         {
@@ -43212,17 +43212,17 @@
           "backend": "C-interactive",
           "label": "rmsnorm-triton/n2048-eps1e-05/bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "2.3e3\u00d7 (0%)",
-            "interaction": "7.9e4\u00d7 (1%)",
-            "witness": "4.9e6\u00d7 (87%)",
-            "encoding_commitment": "2.0e4\u00d7 (0%)",
-            "arithmetic": "1.3e5\u00d7 (2%)",
+            "commitment": "1.5e3\u00d7 (0%)",
+            "interaction": "5.3e4\u00d7 (1%)",
+            "witness": "3.3e6\u00d7 (87%)",
+            "encoding_commitment": "1.3e4\u00d7 (0%)",
+            "arithmetic": "8.4e4\u00d7 (2%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "5.3e5\u00d7 (9%)",
-            "total": "5.7e6\u00d7 (100%)",
-            "setup": "42.5 s \u00b7 1.8e7\u00d7 over 256"
+            "other": "3.5e5\u00d7 (9%)",
+            "total": "3.8e6\u00d7 (100%)",
+            "setup": "42.5 s \u00b7 1.2e7\u00d7 over 256"
           }
         },
         {
@@ -43242,17 +43242,17 @@
           "backend": "C-interactive",
           "label": "rmsnorm-triton/n4096-eps1e-05/bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "1.8e3\u00d7 (0%)",
-            "interaction": "2.9e5\u00d7 (5%)",
-            "witness": "5.4e6\u00d7 (84%)",
-            "encoding_commitment": "2.1e4\u00d7 (0%)",
-            "arithmetic": "2.4e5\u00d7 (4%)",
+            "commitment": "1.2e3\u00d7 (0%)",
+            "interaction": "1.9e5\u00d7 (5%)",
+            "witness": "3.6e6\u00d7 (84%)",
+            "encoding_commitment": "1.4e4\u00d7 (0%)",
+            "arithmetic": "1.6e5\u00d7 (4%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "4.7e5\u00d7 (7%)",
-            "total": "6.4e6\u00d7 (100%)",
-            "setup": "15.5 s \u00b7 2.5e7\u00d7 over 32"
+            "other": "3.1e5\u00d7 (7%)",
+            "total": "4.3e6\u00d7 (100%)",
+            "setup": "15.5 s \u00b7 1.7e7\u00d7 over 32"
           }
         },
         {
@@ -43271,17 +43271,17 @@
           "backend": "C-interactive",
           "label": "rope-head/d128/neox-bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "3.1e3\u00d7 (0%)",
-            "interaction": "5.0e5\u00d7 (15%)",
-            "witness": "2.4e6\u00d7 (70%)",
-            "encoding_commitment": "1.2e4\u00d7 (0%)",
-            "arithmetic": "3.0e5\u00d7 (9%)",
+            "commitment": "2.1e3\u00d7 (0%)",
+            "interaction": "3.3e5\u00d7 (15%)",
+            "witness": "1.6e6\u00d7 (70%)",
+            "encoding_commitment": "7.7e3\u00d7 (0%)",
+            "arithmetic": "2.0e5\u00d7 (9%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "2.3e5\u00d7 (7%)",
-            "total": "3.4e6\u00d7 (100%)",
-            "setup": "0.451 s \u00b7 1.5e6\u00d7 over 512"
+            "other": "1.5e5\u00d7 (7%)",
+            "total": "2.3e6\u00d7 (100%)",
+            "setup": "0.451 s \u00b7 9.9e5\u00d7 over 512"
           }
         },
         {
@@ -43300,17 +43300,17 @@
           "backend": "C-interactive",
           "label": "rope-head/d64/neox-bf16 \u00b7 frame-v3 \u00b7 keyed-BLAKE3 rows \u00b7 C-Flock",
           "cells": {
-            "commitment": "3.4e3\u00d7 (0%)",
-            "interaction": "5.8e5\u00d7 (16%)",
-            "witness": "2.5e6\u00d7 (70%)",
-            "encoding_commitment": "1.2e4\u00d7 (0%)",
-            "arithmetic": "2.4e5\u00d7 (7%)",
+            "commitment": "2.2e3\u00d7 (0%)",
+            "interaction": "3.9e5\u00d7 (16%)",
+            "witness": "1.7e6\u00d7 (70%)",
+            "encoding_commitment": "7.8e3\u00d7 (0%)",
+            "arithmetic": "1.6e5\u00d7 (7%)",
             "lookup": "\u2014",
             "zk_additional": "\u2014",
             "serialization": "\u2014",
-            "other": "2.3e5\u00d7 (6%)",
-            "total": "3.6e6\u00d7 (100%)",
-            "setup": "0.482 s \u00b7 1.6e6\u00d7 over 1024"
+            "other": "1.5e5\u00d7 (6%)",
+            "total": "2.4e6\u00d7 (100%)",
+            "setup": "0.482 s \u00b7 1.1e6\u00d7 over 1024"
           }
         },
         {

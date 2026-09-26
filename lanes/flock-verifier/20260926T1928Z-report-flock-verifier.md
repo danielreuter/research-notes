@@ -5,6 +5,7 @@ created: 2026-09-26T19:28Z
 status: open
 ---
 
+CHECKPOINT 1e75394b (21:12Z) [open] phase 2 M1 DONE: Lean accepts honest circuit-statement session, rejects R-BREAK S13; 25/25 agree with upstream incl 23 re-digested mutants (art:f1f3c2aa); handoffs to flock-soundness (definitions) and flock-netlist (from_record fix); next: PR #83 tag rename, lookups, forgeries
 CHECKPOINT 1520c401 (20:55Z) [open] phase 2 M1: Lean verifier (commit 1520c401) accepts the honest circuit-statement session (RoPE, 8 inst, m=23) and rejects R-BREAK at S13; next: re-digested mutations for non-vacuity, upstream agreement, PR #83 rename
 CHECKPOINT 4f4a1aa7 (20:09Z) [open] phase 1 DONE, pushed: PR #85 tip 4f4a1aa7 (PROTOCOL.md, vectors.json, transcript_check.py; 50/50 art:430c513a; reader notes art:85c4b037); next: phase 2 Lean verifier on coordinator go
 CHECKPOINT 4f4a1aa7 (20:08Z) [open] phase 1 DONE: PROTOCOL.md + vectors (50 honest sets, 20 negatives, 12 forgery runs); spec transcript check 50/50 art:430c513a; commits 715a5985 4f4a1aa7 UNPUSHED (GitHub write auth fails), bundle in evidence/; next: phase 2 Lean on coordinator go
@@ -49,3 +50,30 @@ change: upstream Rust is a CI cross-validation oracle; then only the Lean verifi
 trusted component mitigated by the agreement tests. SHA-256-on-all-paths target noted (§2.5, §16.7).
 
 Handoffs received: none in the inbox. Sent: red-team-flock FYI above.
+
+# flock-verifier: phase 2, milestone 1 (21:10Z)
+
+**Outcome.** The Lean verifier (`backends/flock/verifier/lean`, PR #85, commits 1520c401, 3bfcb1ee, 1e75394b) accepts
+an honest session of the circuit statement (PR #83 at 9294e161: RoPE, 8 instances, k_log 20, m 23, 7 regions, seed
+coins). It rejects R-BREAK at S13/R1, the same reason as upstream's offline replay; each rep alone is accepted
+upstream. Toolchain v4.34.1 pinned, no dependencies; `test_lean_verifier.py` forbids native_decide, implemented_by,
+extern and unsafe. The pinned BLAKE3 compression circuit's D_b3 is recomputed from its rows and equals 3f96431c…
+
+**Non-vacuity.** `redigest.py` writes 23 proof mutants. It edits one value, then rebuilds the rep's round digests and
+proof_sha256 with the spec transcript, keeping the coins. So each mutant reaches only the check it breaks: zerocheck ×5,
+lincheck ×2, ring-switch claims ×3 (incl. a region claim), a region-claim edit orthogonal to its weights (caught only by
+Ligerito's final check), a ring-switch nonce, Ligerito yr/ood/message, Merkle rows and siblings at levels 0/1/final,
+rep 1 ×2, and two nonce-only edits that both verifiers accept. Lean, upstream and the expected verdict agree on 25/25
+sessions (art:f1f3c2aa: agreement.tsv, both verdict logs, commands).
+
+**Inputs preserved.** comp.rows art:04259cdd; RoPE stage art:799dab88; vectors honest + r-break art:ef080b64. Generator
+`netlist-vectors.patch` (vectors / export-comp / replay subcommands on PR #83 9294e161, plus a from_record fix).
+
+**Open.** (1) PR #83 renamed its byte tags at 19c7269a (verity/flock-circuit, flock-circuit/fast100x2/rep, sigma tag,
+flock-circuit-inputs, leaf scheme, identity with a hashes object): make them statement parameters and regenerate the
+vectors at the tip. (2) from_record fails on every circuit-statement record (publics {}): handed to flock-netlist.
+(3) Lookup slots (the stored SiLU cell art:6250c04f needs them). (4) The other red-team forgeries as replayable records.
+(5) CI agreement job and fuzzing. (6) Legacy module. (7) Level 3 proofs. Definitions handed to flock-soundness
+(lanes/flock-soundness/20260926T2111Z-handoff-from-flock-verifier.md).
+
+Cost: $0 (no pod; this VM, 4 CPUs). Setup 21 s once, honest session 32 s.

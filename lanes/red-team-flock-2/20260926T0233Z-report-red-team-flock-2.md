@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: open
 ---
 
+CHECKPOINT a57628fc (04:38Z) [open] PR54 rope/silu @366befc4: fidelity 0/2.03M rope + 0/2.16M silu (my evaluator), statement negatives 10/10 refused (r20260926-043318-28bb); rope/silu identical at 76b7cbb2. Next: NV5 confirm @e4f631bd (NVFP4) + 76b7cbb2 regression on qlqy5nyrjkzjer. Inbox: RMSNorm request 0435Z queued
 CHECKPOINT a57628fc (04:15Z) [open] started flock-ir-lowering 0407Z review (PR #54 RoPE rope-head + SiLU-mul templates @366befc4); also fixing my pod-create helper (registration failure vs no stock); agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (04:14Z) [open] inbox: flock-ir-lowering 0407Z review request (RoPE rope-head + SiLU-mul C-Flock templates) queued as next item-3 review, not started this turn (turn was the NV re-review); start on wake; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (04:14Z) [open] NV1-NV3 MET @45fdab2d, merge-ready; NVFP4 still GRANTED W/ CONDITIONS + new NV5 (pin y-leaf schema/width; G4 accepted in r20260926-040359-a5da art:ac3dac64); fp8 y<<10 HOLDS; fp4-only schema hash harmless. finding labels art:f1ee8a75 art:24fbc96d. Handoff 0415Z to flock-backend. Pods terminated ~$0.3 total. IDLE

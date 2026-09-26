@@ -49,7 +49,17 @@ sleep 60
 addr() { research pods list 2>/dev/null | awk -v n="$1-" 'index($2, n) == 1' | grep -oE "ip=[0-9.]+|'$2': [0-9]+" | sed -E "s/ip=//; s/'$2': //" | paste -sd:; }
 VADDR=${V_ADDR:-$(addr $V 7400)} VSSH=${V_SSH:-$(addr $V 22)}   # V_ADDR / V_SSH: a private address when the pods share a host (the public one does not hairpin)
 echo "verifier $VADDR (sshd $VSSH)"
+gate_ok() { grep -q "GATE_SUMMARY.* 0 failing cases; NEGATIVES.*\"all_pass\": true" ~/.research/runs/$1/out/gate.tsv 2>/dev/null; }
 state() { local l; l=$(research fetch $1 </dev/null 2>&1 | tail -1); case $l in *"Z: done "*) echo done;; *"Z: failed "*) echo failed;; *"Z: refused"*|*"Z: canceled"*|*"Z: cancelled"*) echo failed;; *) echo running;; esac; }
+if [ -n "${GATE:-}" ]; then   # the total unit's GPU gate on this prover pod before any cell (red-team-flock-3 TG1)
+  gid=$(research run --on $P --project verity --source . --cwd source --custody-r2 --custody-ttl 8h --campaign flock-backend \
+        -- bash backends/flock/pod/51-total-gate.sh SM=$SM </dev/null 2>&1 | grep -oE 'r[0-9]{8}-[0-9]{6}-[0-9a-f]{4}' | head -1)
+  echo "$(date -u +%H:%MZ) gate $gid on $P"
+  sleep 60; while s=$(state $gid); [ "$s" = running ]; do sleep 60; done
+  research fetch $gid --all </dev/null >/dev/null 2>&1
+  gate_ok $gid || { echo "GATE FAILED ($gid): no cell runs"; tail -3 ~/.research/runs/$gid/out/gate.tsv; exit 1; }
+  echo "GATE OK $gid"
+fi
 while IFS=: read -r tag _ art per pts; do
   [ -z "$tag" ] && continue
   [ -n "${ONLY:-}" ] && [[ " $ONLY " != *" $tag "* ]] && continue

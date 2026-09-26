@@ -15,3 +15,6 @@ cursor:
 4. **Dense planner calibration** (from PR #62; for the next epoch): the row planner'"'"'s dense coefficients overestimate (#4 Match: 122 GiB predicted, 80 GB
    used), so the new admission (`pool + committer_resident`) may refuse dense rows falsely. Capture #4'"'"'s per-term Match record
    (`footprint.jsonl` / the verdict'"'"'s predicted-vs-measured lines) on its next run, then recalibrate `telemetry.admission` coefficients.
+5. **VU export out of the pre-verdict window** (from PR #81): read the drawn units' committed words during the window (O(MB)),
+   then evaluate, decompose and write them after `verdict.json`. Also arm `driver.keep_population` only when `--vu-export-dir` is set
+   (it's set at `vu_store` import today, so it's on in every Commit).

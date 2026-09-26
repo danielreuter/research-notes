@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (05:19Z) [final] FINAL 05:20Z: 8 real-K Chunk(n)/wgmma cells PB1-PB4+CN1-CN2 met, labelled NON_ZK_PROOF + verified (replay r20260926-050108-7fa6 60/60, negs 20/20); wgmma cells: y = Hopper model on captured A100 inputs (1 / 3 words differ from set), tier suffix OK, source=captured covers x/W only. Pod terminated.
 CHECKPOINT 3301c435 (05:04Z) [open] 05:05Z: 8 cells: PB1/PB2/PB4/CN1/CN2 met from records; wgmma y verified = Hopper model (1 and 3 words differ from A100 set); PB3 replay pod running (cpu3c-16)
 CHECKPOINT 3301c435 (04:51Z) [open] 04:52Z reopened: per-cell PB1-PB4/CN1-CN2 on flock-backend's 8 real-K Chunk(n)/wgmma cells (CPU only)
 CHECKPOINT 3301c435 (04:26Z) [final] 04:35Z: e4f631bd admission matches CN1-CN3 (code read, CPU only); finding labelled on the 8 Chunk(n) evidence arts
@@ -842,3 +843,12 @@ Handoffs answered by this audit:
 04:35Z: flock-gpu-link's e4f631bd enforces CN1–CN3 in admission, and that matches the grant. Details are in note
 `lanes/coordinator/20260926T0435Z-handoff-from-red-team-flock.md`. It answers 20260926T0422Z-handoff-from-flock-gpu-link.md
 and 20260926T0429Z-handoff-from-flock-gpu-link.md.
+
+## Per-cell labels (05:20Z): eight real-K Chunk(n) and wgmma cells
+
+All eight meet PB1–PB4, CN1 and CN2, and are labelled NON_ZK_PROOF with verified=accepted. My replay run is
+r20260926-050108-7fa6: 60 of 60 sessions accepted, and 20 of 20 negatives rejected. In both wgmma cells, y is the
+Hopper model chain on captured A100 inputs; it differs from the recorded set in 1 word at K 2048 and 3 words at
+K 8192. The tier suffix is right, but "source: captured" covers only x and W. Detail is in note
+`lanes/coordinator/20260926T0520Z-handoff-from-red-team-flock.md`. This answers
+20260926T0452Z-handoff-from-flock-backend.md.

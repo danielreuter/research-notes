@@ -5,6 +5,7 @@ created: 2026-09-25T21:41Z
 status: final
 ---
 
+CHECKPOINT 271a0952 (03:15Z) [final] FINAL. Fix lane/vllm-rf-m32 271a0952 merge-ready (gate b clean, r20260925-214510-4478). Confirming gate (a) on main 5f8d8789 PASS, 73 passed / 85 skipped = a23b base (r20260925-224745-e739, PRESERVED; CONFIRM handoff 0315Z). Handoffs answered: 20260925T2155Z-handoff-from-vllm-coordinator.md (task 2, done), 20260925T2255Z-handoff-from-vllm-coordinator.md (sampled_proofs checks, answered in 2252Z), 20260926T0110Z-handoff-from-vllm-coordinator.md (stale, withdrawn), 20260926T0112Z-handoff-from-vllm-coordinator.md (withdrawal, noted). Pods vyv-rf-m32-cpu + vyv-rf-m32-reg terminated; spend ~$8.5
 CHECKPOINT 271a0952 (03:14Z) [final] fix lane/vllm-rf-m32 271a0952 merge-ready (gate b clean, r20260925-214510-4478); confirming gate (a) on main 5f8d8789 PASS 73/85 = a23b base (r20260925-224745-e739, PRESERVED); pods vyv-rf-m32-cpu + vyv-rf-m32-reg terminated; spend ~$8.5
 CHECKPOINT 271a0952 (01:07Z) [open] guard deadline is 05:00Z per coordinator; no extension needed. WAIT vyv-rf-m32-reg r20260925-224745-e739 check-back 03:45Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: gate (a) T0+T1 on main 5f8d8789 + jdiff vs a23b
 CHECKPOINT 271a0952 (01:06Z) [open] gate (a) at 82/158 at 01:05Z (slow shared host, 2.7x); DEADLINE handoff sent (ETA ~03:40Z, asks guard extension to 04:30Z). WAIT vyv-rf-m32-reg r20260925-224745-e739 check-back 03:45Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: gate (a) T0+T1 on main 5f8d8789 + jdiff vs a23b

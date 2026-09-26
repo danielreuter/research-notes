@@ -1,0 +1,250 @@
+{
+ "schema": "vllm-vu-site/index/v1",
+ "row": 101,
+ "serving": {
+  "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+  "model": "unsloth/Llama-3.2-1B",
+  "dtype": "bf16",
+  "gpu": "l40s",
+  "tp": "tp1",
+  "batch": "b1",
+  "context_class": "I256-O32",
+  "serving_profile": "sweep-B1",
+  "sampling": {
+   "variant": "stoch-t0.8-p0.95",
+   "temperature": 0.8,
+   "top_p": 0.95,
+   "top_k": 0
+  },
+  "execution": "bi-eager",
+  "prompt_lengths": [
+   256
+  ],
+  "max_tokens": [
+   32
+  ],
+  "engine_args_required": {
+   "max_num_batched_tokens": 2048,
+   "max_model_len": 288
+  }
+ },
+ "provenance": {
+  "model": "unsloth/Llama-3.2-1B",
+  "revision": "9535bd9b1d1dea6acafbdc4813b728796aeb28da",
+  "run": "r20260925-233347-8515",
+  "run_root": "7adcef49184525329814d62364be7cb2b2c45003cad96dbca1434b11f5b1dec5",
+  "program_digests": {
+   "r0": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b"
+  },
+  "manifest_digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac",
+  "epoch": "pre-epoch",
+  "source": {
+   "commit": "cd3ac0e4ae1f53f5249c09308a00ace2eaf6fa7e",
+   "dirty": false,
+   "branch": "cursor/vllm-vu-export-289b"
+  },
+  "gpu": "l40s",
+  "versions": {
+   "torch": "2.13.0+cu129",
+   "cuda": "12.9",
+   "triton": "3.7.1",
+   "vllm": "0.28.1rc1.dev472+gd9105ea80",
+   "python": "3.12.14",
+   "numpy": "2.3.5",
+   "flashinfer": "0.6.18",
+   "transformers": "5.17.0",
+   "declared_execution": "bi-eager",
+   "enforce_eager": true,
+   "weights_hash": "host"
+  },
+  "selection": "verity.randomness.derive(b'verity-vllm benchmark selection', 'verity/vllm-vu-export/select/v1', {run_root}); per family key.shard(('family', family)) through challenge.stratum_picks; sub-indices key.subset(k, n, ('row', request, i, evaluation))",
+  "export_artifact": "art:b5bb0ca9199c01289041f74c96577beaa045ff1b035796da7b264c378e54e5c4"
+ },
+ "population": {
+  "vus": 46558,
+  "pool": 46558,
+  "not_executed": 0,
+  "pool_by_family": {
+   "Embedding_v1": 287,
+   "RMSNormTriton_v1": 287,
+   "Gemm_v1": 18400,
+   "RoPE_v1": 9184,
+   "Attention_v3": 4592,
+   "RMSNormFusedCuda_v2": 9184,
+   "SiluMul_v1": 4592,
+   "GumbelTopPTokenSelect_v1": 32
+  },
+  "not_exported_families": {
+   "Embedding_v1": "a commitment opening of the embedding table (spec), not a subcircuit"
+  }
+ },
+ "by_family": {
+  "Attention_v3": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 1024,
+   "seconds": 28.421
+  },
+  "Gemm_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 8192,
+   "seconds": 201.956
+  },
+  "GumbelTopPTokenSelect_v1": {
+   "drawn": 32,
+   "replayed_equal": 32,
+   "instances": 32,
+   "seconds": 583.2
+  },
+  "RMSNormFusedCuda_v2": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 256,
+   "seconds": 0.513
+  },
+  "RMSNormTriton_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 256,
+   "seconds": 1.458
+  },
+  "RoPE_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 1024,
+   "seconds": 0.251
+  },
+  "SiluMul_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 256,
+   "seconds": 0.496
+  }
+ },
+ "templates": [
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "template": "AttentionHead<T,64>",
+   "bound_params": {
+    "BN": 128,
+    "D": 64
+   },
+   "input_count_in_run": 146944,
+   "vus_in_run": 4592,
+   "exported": 1024,
+   "exported_vus": 256,
+   "bytes": 41328810,
+   "artifact": "art:6312cb50d48f24a50697068ec3b6c597bf5369d66fd37def0ab45b78a82b1a1a",
+   "file": "templates/attention-head-fa2-d64-bn128.json"
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k2048",
+   "template": "GemmCoordinate<2048>",
+   "bound_params": {
+    "K": 2048
+   },
+   "input_count_in_run": 102850560,
+   "vus_in_run": 13808,
+   "exported": 6272,
+   "exported_vus": 196,
+   "bytes": 51998103,
+   "artifact": "art:123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b",
+   "file": "templates/gemm-coordinate-ampere-bf16-k2048.json"
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k8192",
+   "template": "GemmCoordinate<8192>",
+   "bound_params": {
+    "K": 8192
+   },
+   "input_count_in_run": 9404416,
+   "vus_in_run": 4592,
+   "exported": 1920,
+   "exported_vus": 60,
+   "bytes": 63095249,
+   "artifact": "art:927a4c3a1222380af806dadd5fa65c01c5fc88d0c81a101e1d488c08fe8ee512",
+   "file": "templates/gemm-coordinate-ampere-bf16-k8192.json"
+  },
+  {
+   "set": "gumbeltopptokenselect-v1-v128256",
+   "template": "GumbelTopPTokenSelect_v1",
+   "bound_params": {
+    "V": 128256
+   },
+   "input_count_in_run": 32,
+   "vus_in_run": 32,
+   "exported": 32,
+   "exported_vus": 32,
+   "bytes": 8211523,
+   "artifact": "art:ea781b02fa315a0f1815a4cb3fb5258fba0860c51b9b13119c83530b9709c261",
+   "file": "templates/gumbeltopptokenselect-v1-v128256.json"
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n2048-00e4e4aa",
+   "template": "RMSNormFusedCuda_v2",
+   "bound_params": {
+    "EPS": "{\"f64\":\"0x1.4f8b588e368f1p-17\"}",
+    "N": 2048
+   },
+   "input_count_in_run": 9184,
+   "vus_in_run": 9184,
+   "exported": 256,
+   "exported_vus": 256,
+   "bytes": 5263453,
+   "artifact": "art:a261c0c2b3ce6db5a5c87b3a617cda27b844e87fb85b30e47cacfd696a80d923",
+   "file": "templates/rmsnormfusedcuda-v2-n2048-00e4e4aa.json"
+  },
+  {
+   "set": "rmsnormtriton-v1-n2048-00e4e4aa",
+   "template": "RMSNormTriton_v1",
+   "bound_params": {
+    "EPS": "{\"f64\":\"0x1.4f8b588e368f1p-17\"}",
+    "N": 2048
+   },
+   "input_count_in_run": 287,
+   "vus_in_run": 287,
+   "exported": 256,
+   "exported_vus": 256,
+   "bytes": 3165802,
+   "artifact": "art:9582a7348ff4a14921cf0e5a0304ab291f9e21a309302ee117f3154499dd5c62",
+   "file": "templates/rmsnormtriton-v1-n2048-00e4e4aa.json"
+  },
+  {
+   "set": "rope-head-d64",
+   "template": "RoPEHead<64>",
+   "bound_params": {
+    "D": 64
+   },
+   "input_count_in_run": 183680,
+   "vus_in_run": 9184,
+   "exported": 1024,
+   "exported_vus": 256,
+   "bytes": 497833,
+   "artifact": "art:16825154f08f5a8018e29420174b34406698d3db8f75bd68ad782892e0d6e8a0",
+   "file": "templates/rope-head-d64.json"
+  },
+  {
+   "set": "silumul-v1-i8192",
+   "template": "SiluMul_v1",
+   "bound_params": {
+    "I": 8192
+   },
+   "input_count_in_run": 4592,
+   "vus_in_run": 4592,
+   "exported": 256,
+   "exported_vus": 256,
+   "bytes": 12601339,
+   "artifact": "art:d3e2d9b1f585049199725ac851d2347d379c4a8fa8d36b0b44876e880ddca067",
+   "file": "templates/silumul-v1-i8192.json"
+  }
+ ],
+ "not_exported": {
+  "Embedding_v1": "a commitment opening of the embedding table (spec), not a subcircuit"
+ },
+ "table2": "not admitted: captured realistic-distribution sets await Daniel's decision",
+ "files": {
+  "templates": "templates/<set>.json",
+  "rows": "rows.json"
+ }
+}

@@ -5,6 +5,7 @@ created: 2026-09-26T03:16Z
 status: open
 ---
 
+CHECKPOINT 2f55d2d3 (08:05Z) [open] IR6 landed 2f55d2d3 (leaf maps + row key pinned in netlist LEAVES line, 16-bit outputs, 4 negatives, 119/119 selftests); red-team 0832Z confirm request; PR #54 merge request to coordinator 0834Z (IR3 v2 granted, 4 cells NON_ZK_PROOF); next: goal 1 attention lowering (no pods yet); agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT c53d9148 (07:19Z) [open] verity/flock-ir-frame/v2 c53d9148 (option B, RMSNorm under 2^22); frame-v3 cells registered on H100 with own verifier: rope art:dd27fdab, silu art:8a07b80f, rmsnorm-fused art:9563d2c8, rmsnorm-triton art:63553a6c; IR3 review request 0640Z to red-team-flock-2, coordinator 0720Z; pods terminated ~$11/15; waiting on red-team IR4/IR3; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f
 CHECKPOINT c53d9148 (06:43Z) [open] rmsnorm-fused-cuda frame-v3 cell under flock-ir-frame/v2 registered art:9563d2c8 (H100, 64 rows plateau, 24.7 rows/s, e2e 2.59s, own verifier); WAITING r20260926-064142-81e7 (prover) + r20260926-064134-3bf2 (verifier) triton, check after 06:52Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f; next: rope v2, silu v2
 CHECKPOINT c53d9148 (06:33Z) [open] WAITING r20260926-063305-3f36 (prover) + r20260926-063231-f0c1 (verifier) on vy-flock-ir-lowering-h100d/-ver2: rmsnorm-fused-cuda frame-v3 cell under verity/flock-ir-frame/v2 (c53d9148, runs of compressions, k_log 22), check after 06:45Z; agent bc-9916bbb1-de98-5d21-a511-aafa5255c78f; next: triton, rope v2, silu v2 cells, register each

@@ -5,6 +5,7 @@ created: 2026-09-26T20:47Z
 status: open
 ---
 
+CHECKPOINT a53900df (21:56Z) [open] PR #88 C1/C2 fixed @ a53900df (merge-ready handoff sent); starting E4 follow-up: hm96-sha512/v1 + SHA-512 frame-v3/vllm-v1 tree framings (stacked PR)
 CHECKPOINT a53900df (21:53Z) [open] reopened for red-team-hm96 conditions C1/C2/F4: NOT final; fixes pushed at a53900df
 CHECKPOINT f1df809f (20:49Z) [final] hm96-sha256/v1 in core + opt-in vLLM host committer, PR #88 @ f1df809f (branch bound: cursor/hm96-sha256-leaves-18a8); per-row cost art:b3a08e21; handoffs to flock-netlist and coordinator
 CHECKPOINT f1df809f (20:49Z) [final] hm96-sha256/v1 in core + opt-in vLLM host committer, PR #88 @ f1df809f; per-row cost art:b3a08e21 (hm96 ANDs 2.13-2.44x keyed-BLAKE3 row at 1.5-8 KB, +128 B/row); handoffs to flock-netlist and coordinator
@@ -97,10 +98,34 @@ Handoff `lanes/flock-netlist/20260926T2034Z-handoff-from-salted-leaves.md`. It c
 - **Lints P1–P10 and the dead-code census:** pass.
 - One failed attempt, `r20260926-204552-c862`, was an invocation error (a relative script path without `--cwd`), rerun as above.
 
+## Red-team conditions (reopened 21:53Z)
+
+red-team-hm96 granted PR #88 with conditions (`lanes/coordinator/20260926T2140Z-handoff-from-red-team-hm96.md`, `art:6f13f90a`).
+Both conditions are fixed on the same branch at `a53900df`.
+
+- **C1, finding 1 (b8132bdf): hm96 fails closed on the leaf path taken.**
+  - The context digest binds hm96 only for a step whose leaves were salted, and every step root goes through it (host path,
+    `commit_block_offline`, the native collector).
+  - A committer whose step path is overridden, or that uses the GPU tree, is refused at construction; that covers
+    `NativeCollectCommitter` with `native_worker` on or off.
+  - `verify` and `verify_range` reject a step without one salt per leaf, and `finalize` refuses such a run.
+  - There are 5 new negatives, all failing on f1df809f.
+- **C2, findings 2–4 (a53900df):**
+  - the pinned-key bound, with its condition, in hm96 §8, the docstrings and the README;
+  - `verity.claims` entries `statistical-hiding` (guarantee) and `common-reference-string` (model);
+  - the `/leaf=` suffix and its injectivity condition in vllm-v1 §4, with a test;
+  - the hm96 leaf rule in vllm-v1 §5 and §9;
+  - "statistical given uniform salts" wherever salts are discussed;
+  - finding 6 as a spec rule: the key is never a witness.
+- **Tests:**
+  - core, protocols, repository, bench views and vLLM lints: 1,209 passed;
+  - vLLM commit and acquire tests with CPU torch: all pass except `test_compiled_source::test_renumber_…`, which also fails on
+    f1df809f and depends on the torch version.
+
 ## FINAL
 
 ~~~text
-tip: cursor/hm96-sha256-leaves-18a8 @ f1df809f (base main@2431e3c1)        merge-with: none
+tip: cursor/hm96-sha256-leaves-18a8 @ a53900df (base main@2431e3c1; red-team C1/C2 fixed)        merge-with: none
 known-failures: vLLM integration, 10 pre-existing on 2431e3c1 + 2 order-dependent + 20 torch-less errors (list above) | core none
 pod: none (CPU only); $0
 artifacts: art:b3a08e21b4388350bada8c417d79bc419a9b857dbab14a6c455e27aee279e8f7 art:1e2b59f46b14402bae65aef4c9f10b230569ad1d37042a1467dfee00deac7f54

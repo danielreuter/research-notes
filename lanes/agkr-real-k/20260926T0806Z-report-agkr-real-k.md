@@ -5,6 +5,7 @@ created: 2026-09-26T08:06Z
 status: open
 ---
 
+CHECKPOINT 508e6e74 (13:30Z) [open] cell runs done (k2048); pods drained and terminated
 CHECKPOINT 47dcd5a4 (13:11Z) [open] WAITING K=2048 cell: ver r20260926-131059-cac0 on vy-agkr-l40s-ver, prover r20260926-131112-09d3 on vy-agkr-l40s
 CHECKPOINT 47dcd5a4 (13:10Z) [open] pause lifted: pods vy-agkr-l40s + vy-agkr-l40s-ver in US-NC-1 (verifier 10.0.224.208:7200, sshd 7201); launching: k2048
 CHECKPOINT 47dcd5a4 (13:10Z) [open] L40S pods: vy-agkr-l40s bdm1su2c4x7my1 (machine av7yp9ygnbzg) + vy-agkr-l40s-ver qz4cc7wzj5nke2 (machine hl5m5gd6160a) in US-NC-1, global net 10.0.224.208; launching k2048

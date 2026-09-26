@@ -7,10 +7,7 @@ import sys
 import time
 from pathlib import Path
 
-QUEUES = {
-    "a100": {"after": "r20260926-050018-6e45", "cells": ["a100-k2048-sha256", "a100-k8192-sha256"]},
-    "h100": {"after": "r20260926-051056-ded6", "cells": ["h100-k8192-xob", "h100-k2048-sha256", "h100-k8192-sha256"]},
-}
+QFILE = Path("/tmp/queue.json")      # {pod: {"after": run, "cells": [cell, ...]}}, re-read every pass (edit it to reorder)
 RUN_ID = re.compile(r"\br\d{8}-\d{6}-[0-9a-f]{4}\b")
 LOG = Path("/tmp/queue.log")
 RUNS = Path("/tmp/queue-runs.json")
@@ -45,7 +42,10 @@ def launch(cell):
 
 def main():
     runs = json.loads(RUNS.read_text()) if RUNS.is_file() else {}
-    while any(q["cells"] for q in QUEUES.values()):
+    while True:
+        QUEUES = json.loads(QFILE.read_text())
+        if not any(q["cells"] for q in QUEUES.values()):
+            break
         for pod, q in QUEUES.items():
             if not q["cells"]:
                 continue
@@ -60,6 +60,9 @@ def main():
                     q["after"] = rid
                 else:
                     q["cells"].insert(0, cell)
+                cur = json.loads(QFILE.read_text())          # merge: only this pod's entry changed here
+                cur[pod] = q
+                QFILE.write_text(json.dumps(cur, indent=1))
         time.sleep(60)
     log("queue empty")
 

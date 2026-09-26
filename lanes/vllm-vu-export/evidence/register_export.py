@@ -32,12 +32,13 @@ def put(kind: str, meta: dict, refs: dict[str, str], *, tree: Path | None = None
     return next(x for x in reversed(out) if x.startswith("art:"))
 
 
-def main(run: str, epoch: str, branch: str) -> None:
+def main(run: str, epoch: str, branch: str, sub: str = "") -> None:
     att = json.loads(research("data", "show", run, "--json"))
     rr = att["outputs"]["run_record"]
     src = att.get("source") or {}
-    root = Path(research("data", "fetch", rr, "--path", "vu-export/*").strip().splitlines()[-1])
-    exp = root / "vu-export"
+    pre = f"vu-export/{sub}" if sub else "vu-export"
+    root = Path(research("data", "fetch", rr, "--path", f"{pre}/*").strip().splitlines()[-1])
+    exp = root / pre
     summary = json.loads((exp / "export.json").read_text())
     prov = summary["provenance"]
     base = {"row": prov.get("row"), "row_key": prov.get("row_key"), "model": prov.get("model"), "revision": prov.get("revision"),
@@ -57,9 +58,13 @@ def main(run: str, epoch: str, branch: str) -> None:
     meta = dict(base, sets={k: v for k, v in sets.items()}, by_family=summary["by_family"], population=summary["population"],
                 limits=summary["limits"], wall_s=summary["wall_s"])
     refs = {"run_record": rr, "sets": ",".join(sets.values())}
+    if (exp / "store").is_dir():
+        store = put("vllm-vu-store/v1", dict(base, store=summary.get("store")), {"run_record": rr}, tree=exp / "store")
+        refs["store"] = store
+        print(json.dumps({"store": store}), flush=True)
     art = put("vllm-vu-export/v1", meta, refs, file=exp / "export.json")
     print(json.dumps({"export": art, "run": run, "sets": len(sets)}), flush=True)
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    main(*sys.argv[1:5])

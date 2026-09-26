@@ -5,6 +5,14 @@ cursor:
 
 # Queue after the epoch (low priority), 23:08Z
 
+## PENDING DANIEL'S BUDGET DECISION (top of queue; root 15:52Z)
+- **Switch the query of record to `Q_word_v1{X}`** (`docs/fine-query-plan.md` beyond steps 1–3). Not approved.
+- **The re-baseline epoch** that switch implies: about $150–250, beyond the $770 vLLM cap ($716.74 spent). Not approved. Fold in
+  what's still open from this epoch: the whole-epoch re-record at right-sized pods (`docs/vllm-epoch-review.md`), deferred items 2c/3/4,
+  and #4's reclassification.
+- Approved and running now: steps 1–3 (build `Q_word_v1{X}` + `query/word.py` width check; diff manifests on 13 rows; one #101 L40S
+  run, about $5), by vllm-vu-export.
+
 1. **R10 guards G1a–G4b** (10 skips in `tests/program/test_harden_guards.py`): retire them in a small test-only follow-up (gc's successor or a tiny lane, about $1), unless their evidence files are small and recoverable **without veritor**. veritor is retired, and the repo must not depend on it. Record per guard which it was.
 2. **G5** (`HARDEN_LIVE=1`): run at the next GPU pod opportunity, on a lane that already has an L40S up. Note the result in that lane's READY.md.
 3. **`VERITY_REGRESSION_ROWS_ROOT` guard** (from `docs/process-robustness.md`, root 02:53Z): the name reads as "new rows", but it's

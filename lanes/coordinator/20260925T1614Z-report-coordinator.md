@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT (03:10Z) [open] main 7289e3ad (#45 #50 #47 #49 #52 #51 + custody-ttl guard, sp1 DISCREPANCIES S1); render 0240Z latest (C-Flock/D-SP1 labels); markdown retired (steward published=entities); waiting: flock-backend gate (check 03:15Z), red-team-flock-2 r20260926-025249-6192 (03:25Z), red-team-flock reopened (Chunk(n)+NVFP4); verify-night-3 SP1 verify queued; balance $139 runway 15.9h; spend $85/$300.
+
 CHECKPOINT (02:20Z) [open] main a57628fc (#44, #41, file-verified rounds fix, RTT-method enum, Flock vllm-v1 config); render 0207Z published (20 results, art:56f792bd 8.7e7x); kb/TABLES.md 09226aa; red-team-flock-2 brief READY (Chunk(n) x3 waiting); balance $149 runway 9.4h; spend $82.7/$300.
 
 CHECKPOINT 22985ba9 (23:05Z) [open] 23:05Z (4:05 PM PT) main 22985ba9 (gc2, bootstrap .pth, x4-hopper-blake3 xob PINS under red-team SH-2 2252Z grant). 01:00Z inputs ready: route (a) art:77411c93, H100 x4 keyed-BLAKE3, vllm-v1 x2, Flock H100 art:6d1295ed + 4090 art:d1961ba4 (verify-flock-pure 2246Z). Flock chain gate: builds + gpu-link selftests pass; pure/link selftests failed on stale pod scripts -> fixed 6661704b, re-run r20260925-230009-04a5. flock-gpu-link layouts fp8-hopper H100 + bf16-ampere A100 handed to flock-backend + red-team-flock. Balance $213. Research ~$62 of $300.

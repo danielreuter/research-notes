@@ -5,6 +5,7 @@ created: 2026-09-25T23:13Z
 status: open
 ---
 
+CHECKPOINT f037f68e (18:52Z) [open] Q_word_v1 steps 1-3 DONE: PR #82 (f037f68e) merge request to vllm-coordinator (handoff 20260926T1905Z); #101 run root == record; 13 rows 163.1G units / 40.2G committed interior words, no width violations; graphs in store + art:7f09fbf3; plan doc updated (norm-scale tap, MoE router, guarded max for Daniel); no pods; agent bc-eab8c043
 CHECKPOINT 30921976 (18:22Z) [open] #101 L40S Q_word_v1 check DONE r20260926-173050-5a18: PASS, program ccc21347 / manifest 90f81868 / run root 7adcef49 == record, word check ok (294.1M units, 43.0M committed interior words, no violations); tests r20260926-180827-f206 (vllm rc 0); pod vyv-vu-export-g3 TERMINATED 18:22Z (~$1), custody verified x4. Next: 13-row totals, program graphs to the store, plan doc, handoff; agent bc-eab8c043
 CHECKPOINT 18d8cc0d (17:32Z) [open] WAITING r20260926-173050-5a18 on vyv-vu-export-g3 (1x L40S, 0tux4mcwshmyou, guard 90, cap $5): #101 Build->Match->Commit as of record + Q_word_v1{16,32} check on its Build; expected done ~18:35Z, before the 18:45Z deadline; branch cursor/q-word-query-289b; agent bc-eab8c043
 CHECKPOINT be79f70f (13:58Z) [open] PR #81 (export reuses the replay's population; 900 s build stopgap; after-verdict split = follow-up) -> vllm-coordinator 20260926T1358Z; cpu3 terminated; lane ~$8.6

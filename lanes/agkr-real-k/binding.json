@@ -1,5 +1,6 @@
 {
- "branch": "cursor/agkr-real-k-f806",
- "pod": "vy-agkr-real-k-a100",
+ "branch": "cursor/agkr-l40s-101-f806",
+ "budget": "$6",
+ "pod": "vy-agkr-l40s",
  "worktree": "/workspace"
 }

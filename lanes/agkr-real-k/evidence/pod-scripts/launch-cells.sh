@@ -56,7 +56,7 @@ for line in sys.stdin:
         print(ip, ports['22'], ports['7200'])")
 fi
 [ -n "${VSES:-}" ] || { echo "no public mapping for $V's session port"; exit 5; }
-ck "pause lifted: pods $P + $V in $DC (verifier $VIP:$VSES, sshd $VSSH); launching: $WHAT"
+ck "pods $P + $V in $DC (verifier $VIP:$VSES, RTT target ${VRTT:-$VIP:$VSSH}); launching: $WHAT"
 
 # ---- one A-route-a cell: plan, verifier first, prover, wait, stop the verifier's unserved sizes, register ------------------
 wait_run() {  # $1 = run id: until the run's status is terminal

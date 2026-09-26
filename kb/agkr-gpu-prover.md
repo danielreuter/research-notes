@@ -196,3 +196,27 @@ bf16-hopper), which is the check to run for any prover-only speedup: `06_ab.sh` 
 - `research data reindex --remote` did not complete for lane agkr-bound (2026-09-25). On the laptop it is SIGKILLed
   (rc 137, no output). On the A100 pod with the store credential (`04_store.sh reindex`) it ran 15 min, network-bound
   (29 s CPU at 8 min), with no output, until `timeout 900`. Puts and pushes preserve fine without it.
+
+## Route (a) at vLLM's reduction lengths (agkr-real-k, 2026-09-26; branch cursor/agkr-real-k-f806)
+- The circuit files are uniform in K: `gpu.v2.export circuits --k K` and `tools.cell circuits --k K` write the same three files at
+  every K, and only the manifest's `steps` (K / 16) changes. Real K is therefore a pins.txt line with the same digests under a relation
+  that names K (`bf16-ampere-k2048+blake3` at steps 128, `-k8192` at 512). The verifier refuses one K's statement claimed as
+  another's by the steps pin. flock-link is K-generic too: pass `--k K` to every subcommand, including `replay`.
+- An input set's operands are committed with B-Ligero's identity for a set: dataset `<schema>:<set>`, tier `<set>`, the set
+  manifest's SHA-256, `[0, n)`. At 6,272 VUs of the #101 K = 2048 set the roots equal B-Ligero's cell art:be42c41a byte for byte
+  (`python -m gpu.commit pin R --leaf blake3 --input-set DIR --vus N` prints a commitments.rs pin).
+- A100-SXM4-80GB prover, verifier on a second pod in US-MD-1 (0.21 ms RTT), 5 timed live sessions per size. K = 2048: 1,024 VUs
+  185 VU/s, 2,048 VUs 231 VU/s (art:95fdd0ae). K = 8192: 256 VUs 38.6 VU/s, 512 VUs 52.3 VU/s (art:20197f8b). The Flock CPU prover
+  is the long pole: about 6 s per 131k compressions on the pod's 13.6 cores, against a prime prover of 3.5–5 s. The CPU reference
+  committer adds 12.4 s at 1,024 VUs and 25.3 s at 2,048 (K = 2048) outside t.total. A prime proof is about 40.9 MB at 2,048 VUs,
+  K = 2048.
+- **`gpu/kernels.py scatter_terms` had 32-bit offsets (fixed b98d5feb):** `(u * ncols + idx) * 6` into `v (units, ncols, 6)` wraps
+  past 2^31, which is about 358M unit cells. At K = 2048 and 4,096 VUs (524k units × 776 columns) the functional came out wrong, both
+  verifiers rejected the proof ("ligero: linear functional value mismatch"), and the next kernel hit CUDA_ERROR_ILLEGAL_ADDRESS.
+  K = 1536 at 4,096 VUs (305M cells) stayed below the limit. Check any kernel that indexes a (units × columns × 6) buffer for the same
+  pattern: `rank1_add` already cast to int64.
+- A fresh pod's cold Triton cache makes the first live session take about 7 minutes (about 170 kernels at about 3 s each). The gate's
+  first session absorbs it; don't time a first session.
+- The live crate on main builds only with both Flock patches (`flock-link-b684b12.patch`, then `flock-gpu-link-b684b12.patch`, as
+  backends/flock/pod/20-pure.sh does). On a pod whose env.sh sets CARGO_TARGET_DIR the binary lands there, not in flock's target/.
+- US-MD-1 had A100-SXM4-80GB stock but no CPU pods and no other GPU type at 08:25Z, so a same-DC verifier there is a second A100.

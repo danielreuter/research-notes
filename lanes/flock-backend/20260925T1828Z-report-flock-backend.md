@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: blocked
+status: final
 ---
 
+CHECKPOINT 755a397e (16:30Z) [final] FINAL: L40S re-runs (5) + ChunkTail cells (2) are a capacity gap (no routed L40S pair 11:50-16:30Z; handoff 1632Z); NVFP4 frozen-set re-run and captured-FP8 H100 re-run still open; branch 755a397e sent as bundle 1515Z (gh token expired); no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT de337c08 (15:04Z) [blocked] L40S re-runs (red-team-flock 1200Z) blocked on stock: no routed L40S pair since 11:50Z (EUR-IS-2 no hairpin / global net dead; OC-AU-1 no verifier); unattended poller tmux l40s-auto2 runs them if a pair appears (until ~17:20Z), labels+handoffs after AUTO DONE; main 961d0667 merged locally @de337c08 but gh token expired, push pending; handoff 1505Z; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT e09c19a5 (12:46Z) [open] L40S re-runs on a provably different verifier machine: no L40S stock anywhere since 11:55Z (EUR-IS-2 pair tried: global net no route, public no hairpin; OC-AU-1 had no verifier); tmux l40s-auto polls every 7 min, then creates L40S + different-model verifier same DC (global net), checks the route, runs the 5 cells, terminates; H100 cells granted; no pods now; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT e09c19a5 (11:33Z) [open] workload GEMM cells registered (8; handoff 1140Z), ChunkTail GPU failure sent to flock-gpu-link 1135Z; NVFP4 frozen-set re-run pending: no SECURE 5090, two COMMUNITY 5090 pods never started (terminated); queue staged (evidence/gemm-workloads/q-5090-frozen.txt: frozen bench-instances-nvfp4-sm120/v1, 4,096 max); all pods terminated; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

@@ -2,9 +2,10 @@
 lane: vllm-rf-m32
 kind: report
 created: 2026-09-25T21:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 34dd3554 (09:07Z) [final] FINAL. task 4: PR #62 lane/vllm-rf-commit-mem 34dd3554 merge-ready (admission = pool + resident: #23 305,510 refused, #67 191,020 admitted vs peaks; workers die with parent via PDEATHSIG; gates r20260926-082110-dc3a + r20260926-090444-21e3 PRESERVED; handoff 0907Z). #4 dense calibration not done: no #4 Match record; architecture fit under-predicts 80 GB. All pods terminated (vyv-rf-m32-mem 09:06Z). Spend ~$9.5
 CHECKPOINT b7ff4737 (08:22Z) [open] task 4: PR #62 lane/vllm-rf-commit-mem b7ff4737 (admission pool+resident; workers PDEATHSIG). WAIT vyv-rf-m32-mem r20260926-082110-dc3a check-back 08:55Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: bootstrap + lints + targeted tests head/base
 CHECKPOINT 02b3be03 (08:09Z) [open] reopened for #23 findings (admission under-predicts 183 GB vs OOM at 251 GB; orphaned workers): NOT final; CPU-only from records
 CHECKPOINT 02b3be03 (05:15Z) [final] FINAL. admit: lane/vllm-rf-admit 02b3be03 merge-ready (gate b 0 changes vs 7289e3ad, +1 new test passed; lints = main's pre-existing by-name failure; runs r20260926-031830-2411/-031940-f369/-041141-1cd3 PRESERVED; handoff 0516Z; answers 20260926T0315Z-handoff-from-vllm-coordinator.md). Earlier: m32 fix 271a0952 merge-ready, gate (a) on main 5f8d8789 CONFIRMED. All pods terminated (vyv-rf-m32-admit 05:15Z). Spend ~$9

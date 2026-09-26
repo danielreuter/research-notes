@@ -1,0 +1,88 @@
+{
+ "what": "every instance of the eight captured #101 input sets (PR #42 export art:b5bb0ca9, run r20260925-233347-8515) re-evaluated by verity_numerical.bench.input_sets.verify (files against the manifest, then verity.evaluation on each set's IR target); lane VM, not a recorded run",
+ "code": "cursor/bench-spine-5777 @ d551034d",
+ "sets": [
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "art": "art:6312cb50d48f24a50697068ec3b6c597bf5369d66fd37def0ab45b78a82b1a1a",
+   "subcircuit": "attention-head/d64-bn128/sm80-fa2-bf16",
+   "checked": 1024,
+   "bad_n": 0,
+   "ok": true,
+   "content_digest": "1e641e70b0bf6b71c66fe580d1540166d92a110f84d1be219c6d9c12c36db252",
+   "seconds": 98.0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k2048",
+   "art": "art:123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b",
+   "subcircuit": "gemm-coordinate/k2048/sm80-mma-bf16",
+   "checked": 6272,
+   "bad_n": 0,
+   "ok": true,
+   "content_digest": "49d7658f823ab777347ec1ca160821828d1e8ced70e6c3d6673edd0200458a70",
+   "seconds": 1.1
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k8192",
+   "art": "art:927a4c3a1222380af806dadd5fa65c01c5fc88d0c81a101e1d488c08fe8ee512",
+   "subcircuit": "gemm-coordinate/k8192/sm80-mma-bf16",
+   "checked": 1920,
+   "bad_n": 0,
+   "ok": true,
+   "content_digest": "282e42457833e1a1288b728515e76da46df3a3236f2d0d397b15d5939cde4cd9",
+   "seconds": 1.4
+  },
+  {
+   "set": "gumbeltopptokenselect-v1-v128256",
+   "art": "art:ea781b02fa315a0f1815a4cb3fb5258fba0860c51b9b13119c83530b9709c261",
+   "subcircuit": "gumbel-top-p-token-select/v128256/fp32",
+   "checked": 32,
+   "bad_n": 0,
+   "ok": true,
+   "content_digest": "1fdb58eeda3c44fc1239a5695f628311a5215132b248ad87855cadcea0ce9eb5",
+   "seconds": 607.8
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n2048-00e4e4aa",
+   "art": "art:a261c0c2b3ce6db5a5c87b3a617cda27b844e87fb85b30e47cacfd696a80d923",
+   "subcircuit": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16",
+   "checked": 256,
+   "bad_n": 0,
+   "ok": true,
+   "content_digest": "81249fcb722057a7347d89d68e524eb427579fdcc948a95362dfca857fba0acb",
+   "seconds": 0.3
+  },
+  {
+   "set": "rmsnormtriton-v1-n2048-00e4e4aa",
+   "art": "art:9582a7348ff4a14921cf0e5a0304ab291f9e21a309302ee117f3154499dd5c62",
+   "subcircuit": "rmsnorm-triton/n2048-eps1e-05/bf16",
+   "checked": 256,
+   "bad_n": 0,
+   "ok": true,
+   "content_digest": "3555cf645d180c601d8ba48d61bd94e025317ccc0646ed1a06515fc2f38e5aa9",
+   "seconds": 0.9
+  },
+  {
+   "set": "rope-head-d64",
+   "art": "art:16825154f08f5a8018e29420174b34406698d3db8f75bd68ad782892e0d6e8a0",
+   "subcircuit": "rope-head/d64/neox-bf16",
+   "checked": 1024,
+   "bad_n": 0,
+   "ok": true,
+   "content_digest": "2b20801e002c90ce2c5dc7bfa39fddac73bea25d563ae7edcf7d88ca9dcff2ba",
+   "seconds": 0.1
+  },
+  {
+   "set": "silumul-v1-i8192",
+   "art": "art:d3e2d9b1f585049199725ac851d2347d379c4a8fa8d36b0b44876e880ddca067",
+   "subcircuit": "silu-mul/i8192/bf16",
+   "checked": 256,
+   "bad_n": 0,
+   "ok": true,
+   "content_digest": "1fd915b53dad80988eac6dd676f76502c7453275770c9da7e1b97ac001f46e77",
+   "seconds": 0.2
+  }
+ ],
+ "total_checked": 11040,
+ "total_bad": 0
+}

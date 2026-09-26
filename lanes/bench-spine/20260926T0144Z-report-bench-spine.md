@@ -5,6 +5,7 @@ created: 2026-09-26T01:44Z
 status: open
 ---
 
+CHECKPOINT 1122497c (22:58Z) [open] PR #91 merged at e93da678; flock-backend told (lanes/flock-backend/20260926T2300Z)
 CHECKPOINT 1122497c (22:45Z) [open] PR #91 ready to merge at 1122497c: uuid ruling + red-team-flock-3 U2/U3/R1/R2; coordinator told (lanes/coordinator/20260926T2250Z); tell flock-backend on merge
 CHECKPOINT c27c991b (22:34Z) [open] PR #91 at c27c991b carries red-team-flock-3's S1-S5 (bare metal, runs' own records, runpod.internal in 10/8, TCP-connect RTT on the route, full evidence); bundle in bundles/20260926T2231Z-bench-spine-pr91-*; blocked on a coordinator ruling: RunPod containers cannot read DMI product_uuid, so the NAT exception never fires as specified
 CHECKPOINT c0ce61d3 (22:02Z) [open] PR #91 (shared NAT IP accepted with machine id + DMI uuid + boot_id all differing, RTT >= 0.1 ms, no host bridge) ready to merge: lanes/coordinator/20260926T2215Z-handoff-from-bench-spine.md (answers the coordinator's 20260926T2200Z-handoff-from-coordinator.md in the Project store); flock-backend's 20260926T2200Z-handoff-from-flock-backend.md answered in lanes/flock-backend/20260926T2215Z-handoff-from-bench-spine.md; waiting on red-team-flock concurrence and the merge; CPU only

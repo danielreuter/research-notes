@@ -5,6 +5,7 @@ created: 2026-09-25T23:13Z
 status: open
 ---
 
+CHECKPOINT fbefac80 (22:22Z) [open] PR #86 fc5c5c3d gate (b) failure set = base (37), lints rc 0, live topk_softmax 1280/1280 equal, sweep 4080/0; startswith lint fixed; handoff 20260926T2225Z to vllm-coordinator for re-review; PR #92 b21ce332 checker + taps; vyv-vu-export-g4 terminated 22:21Z
 CHECKPOINT fd9f81e8 (21:54Z) [open] WAIT vyv-vu-export-g4 r(gate b head a3f2bf36, full) check-back 22:25Z agent bc-eab8c043; recheck a3f2bf36: lints + targeted pass, the 5 head-only failures resolved (4 fixed, test_roundtrip flaky: 3/3 alone on head and base); ends ~22:25Z (< 23:30Z)
 CHECKPOINT 2ba8efae (21:41Z) [open] WAIT vyv-vu-export-g4 r20260926-205221-c29b (gate b head 2c2df5fc; base done 37 failed / 3908 passed) check-back 22:00Z agent bc-eab8c043; live topk_softmax done: 1280 rows, ordered == kernel-order == hardware; ordered router sweep 4080/0 unequal; 13-row tap list running (8/13)
 CHECKPOINT 308b376b (20:53Z) [open] WAIT vyv-vu-export-g4: r20260926-203434-d173 (gate b base 56c62af2), r20260926-205221-c29b (gate b head 2c2df5fc = ordered router on 56c62af2, after base), r20260926-205254-afc2 (live topk_softmax vs MoeRouterTopKOrdered) check-back 21:40Z agent bc-eab8c043; expected end ~22:40Z (< 23:30Z). PR #86 construction replaced (rounds recomputed): ordered router, #67 261.0M->20.7M, #70 109.8M->8.7M; coordinator re-review asked

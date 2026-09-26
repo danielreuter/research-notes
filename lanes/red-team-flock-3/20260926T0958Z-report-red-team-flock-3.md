@@ -2,9 +2,10 @@
 lane: red-team-flock-3
 kind: report
 created: 2026-09-26T09:58Z
-status: final
+status: open
 ---
 
+CHECKPOINT e5493f9f (13:01Z) [open] reopened for the class-statement review (coordinator 13:00Z: next priority; flock-ir-lowering 1305Z request, paper answer CP1-CP6 at 1310Z): NOT final; the 16 ece9fdd2 attention cells are already checked, placement-verified and labelled NON_ZK_PROOF; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (12:59Z) [final] FINAL attention flock-ir-frame/v3 GRANTED W/ CONDITIONS NON_ZK_PROOF (AC1-AC4); 16 cited L40S cells (ece9fdd2) + 11 superseded: cell_check PASS, placement SEPARATE (PR #74 clean), labelled NON_ZK_PROOF; 0 IR mismatches; 60 negatives refused; class-pin design (1305Z) answered on paper CP1-CP6, code review routed to coordinator; no lane branch (notes-only); art:25c96f97 art:c185d38b; pod terminated 11:03Z ~$0.32
 CHECKPOINT e5493f9f (12:58Z) [final] FINAL attention flock-ir-frame/v3 GRANTED W/ CONDITIONS NON_ZK_PROOF (AC1-AC4); all 16 cited L40S cells (ece9fdd2) + 11 superseded: cell_check PASS, placement SEPARATE (PR #74 clean), labelled NON_ZK_PROOF; 0 IR mismatches (2e7 TC vectors, 2^32 tail prims, 4,048 heads); 60 negatives refused; art:25c96f97 art:c185d38b; pod terminated 11:03Z ~$0.32
 CHECKPOINT e5493f9f (12:17Z) [open] WAITING last 8 ece9fdd2 attention re-runs (T=4,128..132,256,257), check after 12:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; placement (red-team-flock 12:00Z ruling): all 19 cells SEPARATE (machines av7yp9ygnbzg vs oc60c34mphhh, boot/kernel/CPU/GPU differ, 10.x routed; PR #74 separation() clean), labels stay NON_ZK_PROOF, findings re-labelled with placement

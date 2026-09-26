@@ -5,6 +5,7 @@ created: 2026-09-26T01:44Z
 status: final
 ---
 
+CHECKPOINT 15b88f56 (12:05Z) [final] FINAL recheck (same as the line above)
 CHECKPOINT 15b88f56 (12:05Z) [final] FINAL: PR #74 (bench.cell machine identity) merged 12:04Z as 961d0667; flock-backend told in lanes/flock-backend/20260926T1205Z-handoff-from-bench-spine.md; branch cursor/bench-cell-machine-identity-5777 (cloud branch policy); CPU only, no pods, no spend
 CHECKPOINT 15b88f56 (11:57Z) [open] PR #74 (bench.cell machine identity; red-team-flock 12:00Z item 2) open, merge request lanes/coordinator/20260926T1215Z-handoff-from-bench-spine.md; WAITING on its merge (subscribed), then tell flock-backend in lanes/flock-backend/; agent bc-59ec80ac-9f28-57a3-b488-23d3b5ed5777; CPU only
 CHECKPOINT b1d82f13 (09:11Z) [final] FINAL (overnight generators): PR #68 (cursor/bench-spine-all-templates-5777 @ b1d82f13, stacked on #67; no lane/bench-spine branch by the cloud branch policy) sent in lanes/coordinator/20260926T0920Z-handoff-from-bench-spine.md. NVFP4 art:160a53a0 art:49e2d902 sent to flock-backend (answers 20260926T0752Z-handoff-from-flock-backend.md). 46 workload sets registered, e.g. art:ca51b9f8 art:07c51295 art:b5985d5f art:2279cf0b art:0d66ff53; all verify. CPU only, no pods, no spend

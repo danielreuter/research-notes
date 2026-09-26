@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (16:26Z) [final] FINAL: attention class cells c1 4fb2de9c, c2 87a6bcdd, c3 4dd2069b verified=accepted (file re-verification, class pin = verifier manifest sha256); pod terminated 16:27Z; ~$0.9
 CHECKPOINT 787ac154 (15:43Z) [open] class cells: c1 4fb2de9c + c3 4dd2069b labelled; c2 copy 87a6bcdd (verifier r20260926-142734-f7e5) replaying r20260926-154133-dd32, labelled once red-team-flock-3 picks it (82f4a9be is the other copy)
 CHECKPOINT 787ac154 (14:39Z) [open] class cells: c1 art:4fb2de9c replay r20260926-143754-8c05 on vy-verify-flock-pure (pod gw398cmms74yzr) from lane/verify-flock-class 4d8217ef = 31d275ad + class-pin/one-T checks; polling for c2 c3
 CHECKPOINT 787ac154 (14:12Z) [open] reopened for attention class cells c1 art:4fb2de9c, c2, c3: NOT final
@@ -89,3 +90,4 @@ Reopened 10:08Z-10:52Z: L40S #101 cells df3d63e4 8bc3dba2 dc9b92f6 6dc1f392 d1ae
 Reopened 11:34Z-12:32Z (20260926T1140Z-handoff-from-flock-backend.md): per-workload GEMM cells d9a40cd4 8b5a0bf1 2e5ea606 4e3f5048 aea553ae 86780ca6 4a319a65 89dab836 verified=accepted (r20260926-114049-edf0, r20260926-122145-c586); sent coordinator 20260926T1232Z. Pod 5nin7m601u6fdc terminated 12:31Z; lane total ~$5.3.
 Reopened 12:49Z-14:13Z: 16 L40S attention cells (r20260926-125610-f2a9, r20260926-130557-516c; lane/verify-flock-attn 4bdee726), #101 GEMM art:73a9e9f3 (r20260926-132002-2736, a8ce768a), 6 elementwise ba046ee8 6f8219df d3be6792 a7a31593 27a119c9 bd1b1770 (r20260926-134443-d51e; lane/verify-flock-a8ce e1f47264) verified=accepted; sent coordinator 20260926T1345Z, 20260926T1413Z. 20260926T1233Z-handoff-from-flock-l40s-101.md (art:73a9e9f3) acted on; 20260926T1340Z-handoff-from-flock-ir-lowering.md (class cells c1-c3) not in this assignment: awaits a reopening. Pod 0esosgqno3wm2v terminated 14:11Z; lane total ~$5.7.
 Handoffs in this round: 20260926T1309Z-handoff-from-flock-l40s-101.md (the six elementwise cells) acted on (labelled above); 20260926T1325Z-handoff-from-coordinator.md (port replay to v3) done: the replay subcommand is on the v3 binary in lane/verify-flock-attn (ece9fdd2) and lane/verify-flock-a8ce (a8ce768a), and flock-ir-lowering's PR #76 carries its own port (1b2f0025); 20260926T1335Z-handoff-from-agkr-real-k.md (A-GKR L40S cells e1a2dfc3, 7a0d186b) and 20260926T1412Z-handoff-from-flock-ir-lowering.md (class cell c1 art:4fb2de9c) not in this assignment: await a reopening (A-GKR: backends/gkr/verify-cells.sh on lane/verify-agkr-real-k; class cells: their 34-ir-replay.sh at 31d275ad).
+Reopened 14:12Z-16:28Z: attention class cells c1 art:4fb2de9c (r20260926-143754-8c05), c3 art:4dd2069b (r20260926-144334-736c), c2 art:87a6bcdd (r20260926-154133-dd32) verified=accepted; lane/verify-flock-class 4d8217ef; handoffs 20260926T1412Z/1440Z-handoff-from-flock-ir-lowering.md acted on; sent coordinator 20260926T1520Z, 1540Z, 1628Z. Pod gw398cmms74yzr terminated 16:27Z; lane total ~$6.6.

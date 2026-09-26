@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (14:39Z) [open] class cells: c1 art:4fb2de9c replay r20260926-143754-8c05 on vy-verify-flock-pure (pod gw398cmms74yzr) from lane/verify-flock-class 4d8217ef = 31d275ad + class-pin/one-T checks; polling for c2 c3
 CHECKPOINT 787ac154 (14:12Z) [open] reopened for attention class cells c1 art:4fb2de9c, c2, c3: NOT final
 CHECKPOINT 787ac154 (14:11Z) [final] FINAL: 16 attention cells + #101 GEMM 73a9e9f3 + 6 elementwise verified=accepted (file re-verification); pod terminated 14:11Z; ~$0.35; A-GKR L40S cells and class cells await a reopening
 CHECKPOINT 787ac154 (14:11Z) [final] FINAL: 16 attention cells + #101 GEMM 73a9e9f3 + 6 elementwise verified=accepted (file re-verification); pod terminated 14:11Z; ~$0.35; class cells c1-c3 await a reopening

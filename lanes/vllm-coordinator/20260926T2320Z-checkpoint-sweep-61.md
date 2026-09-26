@@ -1,0 +1,1 @@
+23:20Z sweep-61: pods normtap-g2 $0.79/h, normtap-h1 $3.49/h, moetap-g1 $1.09/h ($5.37/h); spend $722.81/770, about $742 at 02:30Z; guard untripped, deadline 02:30Z; lanes not yet posting (pods <45 min old); PR #93 APPROVE sent (coordinator/20260926T2320Z).

@@ -5,6 +5,7 @@ created: 2026-09-25T14:31Z
 status: open
 ---
 
+CHECKPOINT 7585828d (08:14Z) [open] BUSY: r20260926-070912-42be: 4 covers / 14 proofs accepted so far (RoPE, SiluMul 60fb1d0d, RMSNormFused 7946731a, Triton 9db5ba4b); SiluMul a8306205 then the two GEMM covers (55 proofs) left
 CHECKPOINT 7585828d (07:50Z) [open] BUSY: r20260926-070912-42be: RoPE 1797cc4e (1 proof) + SiluMul 60fb1d0d (4) accepted; RMSNormFused 7946731a in progress (verify_object re-lowers each object in Python: slow). 5 covers left
 CHECKPOINT 7585828d (07:09Z) [open] BUSY (do not reap): pod vy-verify-night-3 e9e6vqsg2f7rc1 (cpu3c 16 vCPU) runs r20260926-070912-42be @lane/sp1-evaluator 0a652c36 (PR #58; sp1_cover.py not on main): build host, then 7 covers / 73 proofs. Polling inside my turn
 CHECKPOINT 0a652c36 (07:06Z) [open] BUSY (do not reap): reopened for the #101 sampled SP1 cover (snapshot art:33c34aa2, 7 covers, 73 proofs; handoff sp1-evaluator 0705Z); creating CPU pod vy-verify-night-3 now, run stays inside my turn. NOT final

@@ -1,0 +1,80 @@
+{
+ "cell": "art:db9f01bf847486b830774c14454be5c5625c1a1f94ff4ac4a8aa78b6955fb943",
+ "t0": "2026-09-26T06:26:58Z",
+ "run": "r20260926-052656-90ca",
+ "relation": "bf16-ampere-x4-k2048+sha256",
+ "input_set": "art:123dc2340ad3836203f405daa13875504577b46478a001b101ced984d016481b",
+ "run_files": "art:287eac1b07e1f41ee749324afb75c9ff6a0f873e0c79c2362b7241938eb6a039",
+ "input_set_check": {
+  "dir": "/workspace/verify-bligero-real-k/work/sets/123dc2340ad3",
+  "set": "gemm-coordinate-ampere-bf16-k2048",
+  "schema": "vllm-vu-set/v1",
+  "n": 6272,
+  "source": "captured",
+  "content_digest": "49d7658f823ab777347ec1ca160821828d1e8ced70e6c3d6673edd0200458a70",
+  "content_digest_eq_cell": true,
+  "files_vs_manifest": "all match",
+  "ir_verify": {
+   "ok": true,
+   "checked": 6272,
+   "bad_n": 0,
+   "bad": [],
+   "subcircuit": "gemm-coordinate/k2048/sm80-mma-bf16"
+  },
+  "ir_verify_seconds": 2.5,
+  "manifest_sha256": "b2911acffe4dc63321cd7d2a05eef1aa2234648b2cb76a1d66d0d458ee352dff",
+  "prover_staged_copy": {
+   "record": "art:4f64d74709fb26800e1cc7e2ff07d2ee70c617b3f7a31c086b60f79957c68f87",
+   "files_compared": [
+    "index.json",
+    "manifest.json",
+    "w.u16",
+    "x.u16",
+    "y.u16"
+   ],
+   "equal": true,
+   "only_mine": [],
+   "only_prover": []
+  }
+ },
+ "reverify": {
+  "entry": "reverify.verify_tree (main)",
+  "seconds": 52.1,
+  "proof_dir": "/workspace/verify-bligero-real-k/work/rv/db9f01bf847486b8/sweep/p3-6272/proofs",
+  "verifier": {
+   "path": "/workspace/cargo-target/release/ligero-verify",
+   "sha256": "8d5563a631a65d0b02e683fda3b1b1fc7c613a90195c8c353d083537aa0233e8",
+   "tag": "ligero-verify(sha256 8d5563a631a65d0b)"
+  },
+  "detail": "ligero-verify(sha256 8d5563a631a65d0b) (sha256 8d5563a631a65d0b) batch --target-bits 128 on every rep of the run-files tree art:287eac1b07e1f41ee749324afb75c9ff6a0f873e0c79c2362b7241938eb6a039 (custody: 148/148 files match proofs/manifest.json): 49/49 accepted over 1 rep(s), every batch ACCEPT, min union bound 2^-128.40, system PINNED (bf16-ampere-x4-k2048+sha256), Rust/Python verdict agreement 49/49; host 4a3aac74f14d, 1 thread per proof; mode=interactive; hash commitments recomputed from the instance set (a/b/y bindings + roots equal, every VU covered once per rep) -- each sub-batch verified against its recorded step-0 coins (the live verifier's session coins): consistency with that session, not transferable evidence (D7)",
+  "status": "PASS",
+  "why": [],
+  "relation": "bf16-ampere-x4-k2048+sha256",
+  "mode": "interactive",
+  "hashed": true,
+  "custody": {
+   "files": 148,
+   "mismatched": 0,
+   "missing": 0
+  },
+  "run": "r20260926-052656-90ca",
+  "run_files": "art:287eac1b07e1f41ee749324afb75c9ff6a0f873e0c79c2362b7241938eb6a039",
+  "tile": null,
+  "reps": {
+   "rep1": {
+    "n": 49,
+    "accepted": 49,
+    "rejected": 0,
+    "batch_accepted": true,
+    "batch_bits": 128.39573957,
+    "system_pinned": true,
+    "python_disagree": 0,
+    "verify_seconds_sum": 232.7223,
+    "wall_seconds": 19.8338,
+    "batch_reason": "accept: all 49 sub-batches accepted; union bound 2^-128.40 <= 2^-128"
+   }
+  }
+ },
+ "files_hashed": 148,
+ "t1": "2026-09-26T06:27:55Z"
+}

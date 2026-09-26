@@ -1,0 +1,242 @@
+{
+ "art:67fb03cb9e9cb8b0a88ae0fedc265f7307a81c0abf35f7470a8389e3844fb1e0": {
+  "relation": "bf16-hopper-x4-k2048+blake3-xob",
+  "run": "r20260926-051056-ded6",
+  "sessions": [
+   {
+    "session": "s20260926T051432Z-20bf",
+    "rep": 1,
+    "verifier_host": "32374292e130",
+    "verifier_dc": "US-GA-2",
+    "ligero_verify_sha256": "df91f86356ecc6aa763951cace7d3eba642154ceeed8aea4d251791dc2cc9a1f",
+    "bytes_in": 829701766,
+    "batch_bits": 128.029999423,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T051449Z-64b7",
+    "rep": 2,
+    "verifier_host": "32374292e130",
+    "verifier_dc": "US-GA-2",
+    "ligero_verify_sha256": "df91f86356ecc6aa763951cace7d3eba642154ceeed8aea4d251791dc2cc9a1f",
+    "bytes_in": 829701758,
+    "batch_bits": 128.029999423,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T051506Z-4a00",
+    "rep": 3,
+    "verifier_host": "32374292e130",
+    "verifier_dc": "US-GA-2",
+    "ligero_verify_sha256": "df91f86356ecc6aa763951cace7d3eba642154ceeed8aea4d251791dc2cc9a1f",
+    "bytes_in": 829701771,
+    "batch_bits": 128.029999423,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T051519Z-e145",
+    "rep": 4,
+    "verifier_host": "32374292e130",
+    "verifier_dc": "US-GA-2",
+    "ligero_verify_sha256": "df91f86356ecc6aa763951cace7d3eba642154ceeed8aea4d251791dc2cc9a1f",
+    "bytes_in": 829701763,
+    "batch_bits": 128.029999423,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T051533Z-6c16",
+    "rep": 5,
+    "verifier_host": "32374292e130",
+    "verifier_dc": "US-GA-2",
+    "ligero_verify_sha256": "df91f86356ecc6aa763951cace7d3eba642154ceeed8aea4d251791dc2cc9a1f",
+    "bytes_in": 829701765,
+    "batch_bits": 128.029999423,
+    "checks_failed": []
+   }
+  ],
+  "coins_distinct": true,
+  "n_sessions": 5,
+  "ok": true,
+  "problems": []
+ },
+ "art:be42c41a9b82ef49412e54df1764f7488292ba2b4bc686d642d34d41ffab8594": {
+  "relation": "bf16-ampere-x4-k2048+blake3-xob",
+  "run": "r20260926-043140-0ebf",
+  "sessions": [
+   {
+    "session": "s20260926T043959Z-da9b",
+    "rep": 1,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 2649248421,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T044049Z-29d4",
+    "rep": 2,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 2649248423,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T044138Z-5479",
+    "rep": 3,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 2649248418,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T044224Z-2b5a",
+    "rep": 4,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 2649248411,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T044314Z-bb4d",
+    "rep": 5,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 2649248420,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   }
+  ],
+  "coins_distinct": true,
+  "n_sessions": 5,
+  "ok": true,
+  "problems": []
+ },
+ "art:c8cc85149b30dff6523ca72ab99779c4875d0cb180f5883a281e02b64856d6a4": {
+  "relation": "bf16-ampere-x4-k8192+blake3-xob",
+  "run": "r20260926-050018-6e45",
+  "sessions": [
+   {
+    "session": "s20260926T051125Z-dcfd",
+    "rep": 1,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3305043231,
+    "batch_bits": 128.103558819,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T051327Z-2eb9",
+    "rep": 2,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3305043225,
+    "batch_bits": 128.103558819,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T051524Z-ab80",
+    "rep": 3,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3305043221,
+    "batch_bits": 128.103558819,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T051720Z-11c2",
+    "rep": 4,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3305043230,
+    "batch_bits": 128.103558819,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T051921Z-917e",
+    "rep": 5,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3305043234,
+    "batch_bits": 128.103558819,
+    "checks_failed": []
+   }
+  ],
+  "coins_distinct": true,
+  "n_sessions": 5,
+  "ok": true,
+  "problems": []
+ },
+ "art:db9f01bf847486b830774c14454be5c5625c1a1f94ff4ac4a8aa78b6955fb943": {
+  "relation": "bf16-ampere-x4-k2048+sha256",
+  "run": "r20260926-052656-90ca",
+  "sessions": [
+   {
+    "session": "s20260926T053626Z-5bad",
+    "rep": 1,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3645597834,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T053726Z-4f74",
+    "rep": 2,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3645597834,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T053825Z-1f92",
+    "rep": 3,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3645597833,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T053923Z-50e1",
+    "rep": 4,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3645597836,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   },
+   {
+    "session": "s20260926T054022Z-9890",
+    "rep": 5,
+    "verifier_host": "94193347e050",
+    "verifier_dc": "US-KS-2",
+    "ligero_verify_sha256": "b471f8cf9396ee1e7f2c623a3737cb314007737ac43c0c38546aa7f3bee904d8",
+    "bytes_in": 3645597840,
+    "batch_bits": 128.39573957,
+    "checks_failed": []
+   }
+  ],
+  "coins_distinct": true,
+  "n_sessions": 5,
+  "ok": true,
+  "problems": []
+ }
+}

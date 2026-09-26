@@ -5,6 +5,7 @@ created: 2026-09-26T05:53Z
 status: open
 ---
 
+CHECKPOINT 2bd8ce2f (08:25Z) [open] 11 cells verified=accepted: +1dafbfd5 f1ac2db5 9fd5ec09 f451dabc (ref r20260926-081703-0f0a). Run r20260926-082424-5906 on 4b567c9c 622c9737 82587955. Live-read session snapshots = preserved verifier records (7d7b a6fe 4ad5 ca25)
 CHECKPOINT 2bd8ce2f (08:17Z) [open] 7 cells verified=accepted (ref r20260926-075651-fc42, pins 16/16 at main 2bd8ce2f): c56a09a8 664f3142 3bb4d03f 11208bf7 c92a439a b1d710da 767b54db. Run r20260926-081703-0f0a on 1dafbfd5 f1ac2db5 9fd5ec09 f451dabc
 CHECKPOINT 2bd8ce2f (07:57Z) [open] pod vy-verify-bligero-real-k = cpu3c-32 lusnnk1ekkj0je ($0.96/h, re-registered); run r20260926-075651-fc42 (bootstrap + pins at main 2bd8ce2f + 7 cells via fixed reverify entry, dry run); labels after
 CHECKPOINT 2bd8ce2f (07:51Z) [open] reopen: 7 cells (b1d710da 3bb4d03f 11208bf7 c92a439a 767b54db c56a09a8 664f3142); 35/35 session records gathered (5 runs from store records, 2 live via ssh read-only); c56a09a8 PASS locally w/ fixed reverify entry (main 2bd8ce2f) + 5/5 sessions; next: pod run for all 7. Handoff 0705Z acted on

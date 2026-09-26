@@ -8,7 +8,7 @@
  "3bb4d03f": {
   "verifier_run": "r20260926-072253-ca25",
   "pod": "vy-bligero-real-k-verifier",
-  "source": "ssh read-only (run still serving)",
+  "source": "ssh read-only while serving; all files = the preserved record art:e11570b6",
   "dir": "/tmp/vbrk/sessions2/live-r20260926-072253-ca25"
  },
  "11208bf7": {
@@ -38,13 +38,13 @@
  "c92a439a": {
   "verifier_run": "r20260926-070945-4ad5",
   "pod": "vy-bligero-real-k-verifier-is1",
-  "source": "ssh read-only (run still serving)",
+  "source": "ssh read-only while serving; all files = the preserved record art:50198b41",
   "dir": "/tmp/vbrk/sessions2/live-r20260926-070945-4ad5"
  },
  "1dafbfd5": {
   "verifier_run": "r20260926-072253-ca25",
   "pod": "vy-bligero-real-k-verifier",
-  "source": "ssh read-only (run still serving)",
+  "source": "ssh read-only while serving; all files = the preserved record art:e11570b6",
   "dir": "/tmp/vbrk/sessions2/live-r20260926-072253-ca25"
  },
  "9fd5ec09": {
@@ -64,5 +64,23 @@
   "pod": "vy-bligero-real-k-verifier-is1",
   "source": "store run record art:50198b411754cfd9cf943437dcd4e917ed6f5bc09f3c1049bb3dc21fdb432b5b",
   "dir": "/tmp/vbrk/sessions2/rec-r20260926-070945-4ad5/sessions"
+ },
+ "622c9737": {
+  "verifier_run": "r20260926-072253-ca25",
+  "pod": "vy-bligero-real-k-verifier",
+  "source": "store run record art:e11570b65198f233726007c3e06470a0b6314ba3c03e0b325e705c955ee9d7e4",
+  "dir": "/tmp/vbrk/sessions2/rec-r20260926-072253-ca25/sessions"
+ },
+ "4b567c9c": {
+  "verifier_run": "r20260926-073309-3956",
+  "pod": "vy-bligero-real-k-verifier-ga2b",
+  "source": "ssh read-only (run still serving)",
+  "dir": "/tmp/vbrk/sessions2/live-r20260926-073309-3956"
+ },
+ "82587955": {
+  "verifier_run": "r20260926-073309-3956",
+  "pod": "vy-bligero-real-k-verifier-ga2b",
+  "source": "ssh read-only (run still serving)",
+  "dir": "/tmp/vbrk/sessions2/live-r20260926-073309-3956"
  }
 }

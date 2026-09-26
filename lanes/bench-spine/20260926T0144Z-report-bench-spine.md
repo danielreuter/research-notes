@@ -5,6 +5,7 @@ created: 2026-09-26T01:44Z
 status: open
 ---
 
+CHECKPOINT c27c991b (22:34Z) [open] PR #91 at c27c991b carries red-team-flock-3's S1-S5 (bare metal, runs' own records, runpod.internal in 10/8, TCP-connect RTT on the route, full evidence); bundle in bundles/20260926T2231Z-bench-spine-pr91-*; blocked on a coordinator ruling: RunPod containers cannot read DMI product_uuid, so the NAT exception never fires as specified
 CHECKPOINT c0ce61d3 (22:02Z) [open] PR #91 (shared NAT IP accepted with machine id + DMI uuid + boot_id all differing, RTT >= 0.1 ms, no host bridge) ready to merge: lanes/coordinator/20260926T2215Z-handoff-from-bench-spine.md (answers the coordinator's 20260926T2200Z-handoff-from-coordinator.md in the Project store); flock-backend's 20260926T2200Z-handoff-from-flock-backend.md answered in lanes/flock-backend/20260926T2215Z-handoff-from-bench-spine.md; waiting on red-team-flock concurrence and the merge; CPU only
 CHECKPOINT 15b88f56 (12:06Z) [final] FINAL: answered 20260926T1110Z-handoff-from-coordinator.md in lanes/coordinator/20260926T1210Z-handoff-from-bench-spine.md (option 2: re-run the NVFP4 5090 cells on the frozen bench-instances-nvfp4-sm120/v1). PR #74 merged (961d0667); flock-backend told (20260926T1205Z). Branch policy: cursor/*, no lane/bench-spine. CPU only, no pods, no spend
 CHECKPOINT 15b88f56 (12:05Z) [final] FINAL recheck (same as the line above)

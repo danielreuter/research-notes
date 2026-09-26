@@ -8,7 +8,7 @@ IR, independently of the Rust verifier's structural checks:
 - the row digests are keyed BLAKE3 (x-row key) of the rows, and the frame-v3 roots (my own frame-v3 hashing) of the digests
   and of the units' output words are the header's.
 
-  frame_check.py TEMPLATE INSTANCE_FILE NETLIST
+  frame_check.py TEMPLATE INSTANCE_FILE NETLIST [PARAMS_JSON]
 """
 import hashlib, json, sys
 
@@ -47,17 +47,17 @@ def main():
     from verity_numerical.bench import templates as TM
     import importlib
     mod = importlib.import_module("verity_flock.templates." + tpl.replace("-", "_"))
-    low = mod.frame_lowering(TM.subcircuit(tpl, **PARAMS[tpl]))
+    low = mod.frame_lowering(TM.subcircuit(tpl, **(json.loads(sys.argv[4]) if len(sys.argv) > 4 else PARAMS[tpl])))
     text = open(npath).read()
     sha = hashlib.sha256(text.encode()).hexdigest()
     print("NETLIST", tpl, sha[:16], "== reviewed frame lowering:", text == low.text)
     b = open(ipath, "rb").read(); nl = b.index(b"\n"); h = json.loads(b[:nl])
     assert h["unit_sha256"] == sha
     L, U = h["layout"], low.units
-    n, upi, nb, chunk_nb = h["instances"], h["units_per_instance"], L["nb"], L["chunk_nb"]
+    n, upi, nb, chunk_nb = h["instances"], h["units_per_instance"], L["nb"], L.get("chunk_nb")   # v3: no chunk_nb (a short last chunk)
     widths = [w for _, w in h["in_ports"]]
     starts = [sum(widths[:p]) for p in range(len(widths))]
-    runs = chunk_nb // nb
+    runs = lambda w, c: (chunk_nb if chunk_nb else min(16, (2 * w - 1024 * c) // 64)) // nb
     nleaf = len(L["leaf_cols"])
     bad, seen_runs, seen_units = [], set(), set()
     for bi, (chunks, units) in enumerate(h["blocks"]):
@@ -78,7 +78,7 @@ def main():
                     bad.append((bi, u, g, j, (ci, p, c, r, off), want))
             if [p for k, p in U.out_src[lu] if k == "ret"] != L["out_leaf"][lu]:
                 bad.append((bi, u, g, "out_leaf"))
-    want_runs = {(i, p, c, r) for i in range(n) for p in range(len(widths)) for c in range((2 * widths[p] + 1023) // 1024) for r in range(runs)}
+    want_runs = {(i, p, c, r) for i in range(n) for p in range(len(widths)) for c in range((2 * widths[p] + 1023) // 1024) for r in range(runs(widths[p], c))}
     print(f"LAYOUT {tpl}: {len(h['blocks'])} blocks, {len(seen_units)} of {h['units']} units, {len(seen_runs)} of {len(want_runs)} runs "
           f"(equal: {seen_runs == want_runs}); wiring / out_leaf differences from the IR's leaf map: {len(bad)} {bad[:3]}")
     assert all(len(w) == nleaf for w in L["wiring"])

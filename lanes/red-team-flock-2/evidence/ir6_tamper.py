@@ -58,13 +58,35 @@ def main():
     i = next(k for k, l in enumerate(lines) if l.startswith("LEAVES "))
     lv = json.loads(lines[i][7:])
     if all(len(x) >= 2 for x in lv["in"]):
-        for x in lv["in"]:
+        lv2 = copy.deepcopy(lv)
+        for x in lv2["in"]:
             x[0], x[1] = x[1], x[0]
-        lines2 = list(lines); lines2[i] = "LEAVES " + json.dumps(lv, sort_keys=True, separators=(",", ":"))
+        lines2 = list(lines); lines2[i] = "LEAVES " + json.dumps(lv2, sort_keys=True, separators=(",", ":"))
         t = copy.deepcopy(h)
         for w in t["layout"]["wiring"]:
             w[0], w[1] = w[1], w[0]
         save("leaves_consistent", t, net="\n".join(lines2) + "\n")
+    # the 16-bit assertions: a pinned port that is not [n, 16], and a returned-output port that is not 16 bits
+    for side in ("out_ports", "in_ports"):
+        lv2 = copy.deepcopy(lv); lv2[side][0][1] = 32
+        lines2 = list(lines); lines2[i] = "LEAVES " + json.dumps(lv2, sort_keys=True, separators=(",", ":"))
+        save(f"leaves_{side[:-1]}_32", copy.deepcopy(h), net="\n".join(lines2) + "\n")
+    tok = lines[0].split()
+    at = 4
+    for _ in range(int(tok[at])):                  # skip the input groups
+        at += 3 + int(tok[at + 3])
+    at += 1                                         # the output group count; group 0 is the returned outputs
+    col, words, nports = int(tok[at + 1]), int(tok[at + 2]), int(tok[at + 3])
+    bits = [int(x) for x in tok[at + 4:at + 4 + nports]]
+    if sum(bits) + 16 <= 128 * words:               # room in the group: its first port widened to 32 bits
+        tok[at + 4] = str(bits[0] + 16)
+    elif nports >= 2:                                # a full group: its first two ports merged into one 32-bit port
+        tok = tok[:at + 3] + [str(nports - 1), str(bits[0] + bits[1])] + tok[at + 6:]
+    save("ret_port_32", copy.deepcopy(h), net="\n".join([" ".join(tok)] + lines[1:]) + "\n")
+    t = copy.deepcopy(h)
+    if len(t["layout"]["ret_cols"]) >= 2:
+        t["layout"]["ret_cols"][0], t["layout"]["ret_cols"][1] = t["layout"]["ret_cols"][1], t["layout"]["ret_cols"][0]
+        save("ret_cols_swapped", t)
 
 
 if __name__ == "__main__":

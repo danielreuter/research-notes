@@ -6,7 +6,8 @@
 #  3. my 07:55Z tampers (frame_tamper.py) at load, and the two c53d9148 accepted (wiring_swap, key_changed) as sessions
 #  4. my IR6 tampers (ir6_tamper.py) at load under the verifier's pin; the tampered netlists also unpinned
 set -uxo pipefail
-[ -d backends/flock ] || cd /workspace/research/src/${RESEARCH_SOURCE_SHA:-2f55d2d3afb55675bbb8c94ba44bf1688e9a6e44} || exit 1
+# env: SRCSHA (the shipped source, default 2f55d2d3), SKIP_SELFTEST=1 (tampers only)
+[ -d backends/flock ] || cd /workspace/research/src/${RESEARCH_SOURCE_SHA:-${SRCSHA:-2f55d2d3afb55675bbb8c94ba44bf1688e9a6e44}} || exit 1
 I=$RESEARCH_RUN_DIR/inputs; O=$RESEARCH_RUN_DIR/out; mkdir -p $O; SRC=$(pwd)
 sha256sum $I/* | tee $O/inputs.sha256
 MODE=build GPU=0 bash backends/flock/pod/20-gpu-link.sh > $O/build-base.txt 2>&1 || { tail -60 $O/build-base.txt; exit 1; }
@@ -29,6 +30,7 @@ from verity_numerical.bench.generate import generate
 from verity_numerical.bench.input_sets import InputSet
 import verity_flock.ir_lower as IL
 from verity_flock import ir_frame
+print('SOURCE', os.getcwd())
 O = os.environ["RESEARCH_RUN_DIR"] + "/out"; D = O + "/files"
 print("TABLES", IL.write_tables(O + "/tables"))
 P = {"rope-head": ({"D": 64}, 16), "silu-mul": ({"I": 8192}, 2), "rmsnorm-fused-cuda": ({"N": 2048, "EPS": 1e-5}, 3), "rmsnorm-triton": ({"N": 2048, "EPS": 1e-5}, 3)}
@@ -51,7 +53,7 @@ fr() {  # template file tag [args]: CMD (selftest | loadcheck), NET (default the
 }
 for t in rope-head silu-mul rmsnorm-fused-cuda rmsnorm-triton; do
   F=$(ls $D/fr-$t/frame-*.bin | head -1)
-  fr $t $F S-$t
+  [ "${SKIP_SELFTEST:-0}" = 1 ] || fr $t $F S-$t
   grep -h '"case":"\(wiring_swapped\|output_mapping_swapped\|units_swapped_between_slots\|row_key_changed\)"' $O/S-$t.txt | cut -c1-300
   FT=$D/ft-$t; mkdir -p $FT
   $PY $I/frame_tamper.py $F $FT > $O/frame-tamper-$t.txt 2>&1
@@ -65,6 +67,6 @@ for t in rope-head silu-mul rmsnorm-fused-cuda rmsnorm-triton; do
       CMD=loadcheck fr $t $f L-$t-$c
     fi
   done
-  for c in wiring_swap key_changed; do fr $t $FT/f-$c.bin H-$t-$c --only honest; grep -h '^NEG' $O/H-$t-$c.txt | grep -o '"accepted":[a-z]*' | head -1; done
+  [ "${SKIP_SELFTEST:-0}" = 1 ] || for c in wiring_swap key_changed; do fr $t $FT/f-$c.bin H-$t-$c --only honest; grep -h '^NEG' $O/H-$t-$c.txt | grep -o '"accepted":[a-z]*' | head -1; done
 done
 true

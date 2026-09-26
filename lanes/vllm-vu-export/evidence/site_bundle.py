@@ -21,7 +21,7 @@ from pathlib import Path
 
 import numpy as np
 
-REPO = Path("/workspace/integrations/vllm")
+REPO = Path(__import__("os").environ.get("VUX_REPO", "/workspace/integrations/vllm"))
 WORD = {"u8": np.uint8, "u16": np.uint16, "u32": np.uint32, "u64": np.uint64}
 SAMPLES = 3
 MAX_SAMPLE_WORDS = 200_000
@@ -92,11 +92,18 @@ def enc(a: np.ndarray, dtype: str) -> dict:
     return out
 
 
-def rows_mix() -> dict:
+def rows_mix(extra: dict[str, dict] | None = None) -> dict:
+    """`extra`: row key -> {"row", "class", "sampled_replay": path, "run"} for rows whose record of choice is a run's own replay."""
     out = {}
     for f in sorted(glob.glob(str(REPO / "tests/regression/expected/*.json"))):
         d = json.loads(Path(f).read_text())
         key = Path(f).stem
+        if key in (extra or {}):
+            x = extra[key]
+            sr = json.loads(Path(x["sampled_replay"]).read_text())["sampled_replay"]
+            d = {"row": x["row"], "class": x["class"], "reference": {"run": x["run"], "source": "that run's commit/sampled_replay_p0.json"},
+                 "program_digest": {"program_digest_of_record": x.get("program_digest")},
+                 "replay_partition": {"strata": sr["strata"], "population": sr["population"]}}
         strata = (d.get("replay_partition") or {}).get("strata") or {}
         entry = {"row": d.get("row"), "class": d.get("class"), "serving": serving(key),
                  "program_digest": d.get("program_digest", {}).get("program_digest_of_record") if isinstance(d.get("program_digest"), dict) else None,
@@ -135,13 +142,15 @@ def main() -> None:
     ap.add_argument("--epoch", default="pre-epoch")
     ap.add_argument("--branch", default=None)
     ap.add_argument("--commit", default=None)
+    ap.add_argument("--note", action="append", default=[])
+    ap.add_argument("--extra-row", action="append", default=[], metavar="JSON", help='{"key", "row", "class", "run", "sampled_replay", "program_digest"}')
     a = ap.parse_args()
     exp, out = Path(a.export_dir), Path(a.out_dir)
     (out / "templates").mkdir(parents=True, exist_ok=True)
     summary = json.loads((exp / "export.json").read_text())
     prov = summary["provenance"]
     arts = json.loads(a.set_arts)
-    mix = rows_mix()
+    mix = rows_mix({x["key"]: x for x in map(json.loads, a.extra_row)})
     row_key = prov["row_key"]
     run_specs = mix.get(row_key, {}).get("vus_by_spec") or {}
     templates = []
@@ -194,6 +203,7 @@ def main() -> None:
                             "selection": prov.get("selection"), "export_artifact": a.export_art},
              "population": summary["population"], "by_family": summary["by_family"], "templates": templates,
              "not_exported": summary["population"].get("not_exported_families"),
+             "notes": a.note,
              "table2": "not admitted: captured realistic-distribution sets await Daniel's decision",
              "files": {"templates": "templates/<set>.json", "rows": "rows.json"}}
     (out / "index.json").write_text(json.dumps(index, indent=1) + "\n")

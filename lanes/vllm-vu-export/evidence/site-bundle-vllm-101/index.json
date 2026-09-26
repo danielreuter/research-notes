@@ -242,6 +242,9 @@
  "not_exported": {
   "Embedding_v1": "a commitment opening of the embedding table (spec), not a subcircuit"
  },
+ "notes": [
+  "the draw took the first 256 strata of each family in name order (fixed after this export): on #4 every drawn GEMM VU is K=1536 (down_proj), so K=576 is not in this export; on #101 K=2048 and K=8192 are both present but not in proportion"
+ ],
  "table2": "not admitted: captured realistic-distribution sets await Daniel's decision",
  "files": {
   "templates": "templates/<set>.json",

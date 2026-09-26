@@ -1,0 +1,284 @@
+{
+ "schema": "vllm-vu-site/index/v1",
+ "row": 4,
+ "serving": {
+  "row_key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+  "model": "HuggingFaceTB/SmolLM2-135M",
+  "dtype": "bf16",
+  "gpu": "l40s",
+  "tp": "tp1",
+  "batch": "b16",
+  "context_class": "I1024-O128",
+  "serving_profile": "sweep-B16",
+  "sampling": {
+   "variant": "greedy",
+   "temperature": 0.0,
+   "top_p": 1.0,
+   "top_k": 0
+  },
+  "execution": "bi-eager",
+  "prompt_lengths": [
+   11,
+   15,
+   17,
+   29,
+   35,
+   65,
+   79,
+   139,
+   205,
+   345,
+   411,
+   425,
+   671,
+   771,
+   775,
+   1024
+  ],
+  "max_tokens": [
+   2,
+   3,
+   5,
+   7,
+   11,
+   13,
+   15,
+   23,
+   33,
+   39,
+   41,
+   63,
+   75,
+   95,
+   111,
+   128
+  ],
+  "engine_args_required": {
+   "max_num_batched_tokens": 5033,
+   "max_model_len": 1152
+  }
+ },
+ "provenance": {
+  "model": "HuggingFaceTB/SmolLM2-135M",
+  "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+  "run": "r20260926-000408-c3b4",
+  "run_root": "0a077fd4c7ec14901e744f0c5bb0c4da71d3ead02d1b7fa768940b74329158c6",
+  "program_digests": {
+   "r0": "1434f2c0863fd86679a187f3f1bcfdd8c3fd9f6bcac8fc8c2ac6cf6d2334fc24",
+   "r1": "ab992c456670fcbb3e1561d415e1f45182739d87f3db8e307886e87f490f4977",
+   "r2": "86343a4754928606be821c108422d2e3eaa098920684e48940ff74dbcc285bfd",
+   "r3": "be70dd3398d510c5017e0ea2ca82ee3bd5d3590eb56c2e853ba4dfa5a7a8cf0f",
+   "r4": "71f4df885f96ea993671e9b317d88470bf1b17892007c83b777a9ddeed56d024",
+   "r5": "019a36d5c9ab771c51e933cee342d992cd286763b271cad427603770eca60aad",
+   "r6": "8c91bfbb8e24f24fed570e9c02b64ca1c24385b843307207e49d9c8e88e580dc",
+   "r7": "3103a668c4f91db70d452c989ddf0fd0174f80c5a64f472aac95e729115e17e6",
+   "r8": "414ab20439630db753308cd6aca2f6402c93475ba73858885231fdb8c9a29877",
+   "r9": "c437a9a2bcac47a4505a491c644012859905b361ad1dead2838ba5b297cd756d",
+   "r10": "e40cfbe6bc6c97b830104bd033dd7e7230b2abc3ccdbdf52c5bdc11ac58cc1a6",
+   "r11": "5fc4194a7445e7c1076e0eee5225a10ad4db741582b6a6dd742b14ae3e7991b4",
+   "r12": "95e28966105e785e1a8481553ec33aaa0f259f399755fce52333218058ec7181",
+   "r13": "0fb1c83063a8a13012454d68d44f4e6825cb426b17a69ca16a9fe6decc8bc241",
+   "r14": "967e1fb343b07b493ee78d6e910625d25d1b6dae6cfe645f6ccfaaaeda208b03",
+   "r15": "41ee8eec9c0180034494cf4d4e431995f40b650de248312b427506a1127e2bf3"
+  },
+  "manifest_digest": "3bbd860fc2d376ddcd44236fb2d53902b8f5217a22ae80e803b17a8e24672d78",
+  "epoch": "pre-epoch",
+  "source": {
+   "commit": "91b8cdd17aff36355a9a84e1d5602a960b046cde",
+   "dirty": false,
+   "branch": "cursor/vllm-vu-export-289b"
+  },
+  "gpu": "l40s",
+  "versions": {
+   "torch": "2.13.0+cu129",
+   "cuda": "12.9",
+   "triton": "3.7.1",
+   "vllm": "0.28.1rc1.dev472+gd9105ea80",
+   "python": "3.12.14",
+   "numpy": "2.3.5",
+   "flashinfer": "0.6.18",
+   "transformers": "5.17.0",
+   "declared_execution": "bi-eager",
+   "enforce_eager": true,
+   "weights_hash": "host"
+  },
+  "selection": "verity.randomness.derive(b'verity-vllm benchmark selection', 'verity/vllm-vu-export/select/v1', {run_root}); per family key.shard(('family', family)) through challenge.stratum_picks; sub-indices key.subset(k, n, ('row', request, i, evaluation))",
+  "export_artifact": "art:886e659d64733bc913480787ab90f66015d1e46f8efbcc847f8004aaed9e564d"
+ },
+ "population": {
+  "vus": 1712158,
+  "pool": 1712158,
+  "not_executed": 0,
+  "pool_by_family": {
+   "Embedding_v1": 5665,
+   "RMSNormTriton_v1": 5665,
+   "Gemm_v1": 680464,
+   "RoPE_v1": 339900,
+   "Attention_v3": 169950,
+   "RMSNormFusedCuda_v2": 339900,
+   "SiluMul_v1": 169950,
+   "TokenSelect_v1": 664
+  },
+  "not_exported_families": {
+   "Embedding_v1": "a commitment opening of the embedding table (spec), not a subcircuit"
+  }
+ },
+ "by_family": {
+  "Attention_v3": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 1024,
+   "seconds": 28.263
+  },
+  "Gemm_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 8192,
+   "seconds": 20.689
+  },
+  "RMSNormFusedCuda_v2": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 256,
+   "seconds": 0.722
+  },
+  "RMSNormTriton_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 256,
+   "seconds": 0.975
+  },
+  "RoPE_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 768,
+   "seconds": 0.394
+  },
+  "SiluMul_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 256,
+   "seconds": 1.836
+  },
+  "TokenSelect_v1": {
+   "drawn": 256,
+   "replayed_equal": 256,
+   "instances": 256,
+   "seconds": 0.811
+  }
+ },
+ "templates": [
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "template": "AttentionHead<T,64>",
+   "bound_params": {
+    "BN": 128,
+    "D": 64
+   },
+   "input_count_in_run": 1529550,
+   "vus_in_run": 169950,
+   "exported": 1024,
+   "exported_vus": 256,
+   "bytes": 33941035,
+   "artifact": "art:4b39008adb5657dad161cc4326e9a9d5e5720f5b054a0a6f1cf4af6787413300",
+   "file": "templates/attention-head-fa2-d64-bn128.json"
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k1536",
+   "template": "GemmCoordinate<1536>",
+   "bound_params": {
+    "K": 1536
+   },
+   "input_count_in_run": 97891200,
+   "vus_in_run": 169950,
+   "exported": 8192,
+   "exported_vus": 256,
+   "bytes": 51105563,
+   "artifact": "art:b788ab5b501cccd0b99c8c03106ee154aa459f2576900dae1e394649d4c11144",
+   "file": "templates/gemm-coordinate-ampere-bf16-k1536.json"
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n576-00e4e4aa",
+   "template": "RMSNormFusedCuda_v2",
+   "bound_params": {
+    "EPS": "{\"f64\":\"0x1.4f8b588e368f1p-17\"}",
+    "N": 576
+   },
+   "input_count_in_run": 339900,
+   "vus_in_run": 339900,
+   "exported": 256,
+   "exported_vus": 256,
+   "bytes": 1495711,
+   "artifact": "art:d24e1e945e7166af0802f13affa1765ede84cc93de01b134ea583899260d46c4",
+   "file": "templates/rmsnormfusedcuda-v2-n576-00e4e4aa.json"
+  },
+  {
+   "set": "rmsnormtriton-v1-n576-00e4e4aa",
+   "template": "RMSNormTriton_v1",
+   "bound_params": {
+    "EPS": "{\"f64\":\"0x1.4f8b588e368f1p-17\"}",
+    "N": 576
+   },
+   "input_count_in_run": 5665,
+   "vus_in_run": 5665,
+   "exported": 256,
+   "exported_vus": 256,
+   "bytes": 904365,
+   "artifact": "art:ecf07d0eb73a7e65fb9ee68b31d36b8fd5bf579b30a71cb26e183ea95aea4900",
+   "file": "templates/rmsnormtriton-v1-n576-00e4e4aa.json"
+  },
+  {
+   "set": "rope-head-d64",
+   "template": "RoPEHead<64>",
+   "bound_params": {
+    "D": 64
+   },
+   "input_count_in_run": 2039400,
+   "vus_in_run": 339900,
+   "exported": 768,
+   "exported_vus": 256,
+   "bytes": 373897,
+   "artifact": "art:3b44311633e6ca3e7fce8f6dd1a37e85654ed86610c50c31a96ed21a9e89e07b",
+   "file": "templates/rope-head-d64.json"
+  },
+  {
+   "set": "silumul-v1-i1536",
+   "template": "SiluMul_v1",
+   "bound_params": {
+    "I": 1536
+   },
+   "input_count_in_run": 169950,
+   "vus_in_run": 169950,
+   "exported": 256,
+   "exported_vus": 256,
+   "bytes": 2378228,
+   "artifact": "art:fd9a6604a674844aec8b916c1992ee38cf59bed2edce44e08a022a9cd9b64fd4",
+   "file": "templates/silumul-v1-i1536.json"
+  },
+  {
+   "set": "tokenselect-v1-v49152",
+   "template": "TokenSelect_v1",
+   "bound_params": {
+    "V": 49152
+   },
+   "input_count_in_run": 664,
+   "vus_in_run": 664,
+   "exported": 256,
+   "exported_vus": 256,
+   "bytes": 25183044,
+   "artifact": "art:e49b67c4dce86b8fba84a9bf317b5540ff44352b6788e5a1cb7d86cb11c5eac4",
+   "file": "templates/tokenselect-v1-v49152.json"
+  }
+ ],
+ "not_exported": {
+  "Embedding_v1": "a commitment opening of the embedding table (spec), not a subcircuit"
+ },
+ "notes": [
+  "the draw took the first 256 strata of each family in name order (fixed after this export): on #4 every drawn GEMM VU is K=1536 (down_proj), so K=576 is not in this export; on #101 K=2048 and K=8192 are both present but not in proportion"
+ ],
+ "table2": "not admitted: captured realistic-distribution sets await Daniel's decision",
+ "files": {
+  "templates": "templates/<set>.json",
+  "rows": "rows.json"
+ }
+}

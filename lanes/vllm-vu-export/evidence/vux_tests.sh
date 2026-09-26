@@ -5,5 +5,5 @@ T=$PWD
 export PATH=/workspace/venv312/bin:$PATH HF_HOME=/workspace/hf
 export PYTHONPATH=$T/integrations/vllm:$T/packages/verity/src:$T/tools/research/src:$T/protocols/sampled_proofs
 cd integrations/vllm
-python -m pytest -q -p no:cacheprovider tests/pipeline/test_vu_export.py tests/lint tests/check/test_sampled_replay.py \
+python -m pytest -q -p no:cacheprovider tests/pipeline/test_vu_export.py tests/pipeline/test_program_graph.py tests/lint tests/check/test_sampled_replay.py \
   tests/check/test_sampled_replay_aliased_module.py tests/pipeline/test_cli.py tests/pipeline/test_row*.py -rfE 2>&1 | tail -40

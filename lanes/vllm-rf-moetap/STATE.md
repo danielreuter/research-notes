@@ -5,7 +5,9 @@ Brief: `$STORE/internal/lane-briefs/vllm-moetap.md`. Two opt-in taps for the no-
 
 - Branch `cursor/vllm-rf-moetap-82dc` (Cursor's branch rule; the common page's fallback form), cut at `5b0835d4` = PR #92 `b21ce332`
   (contains PR #86 `fc5c5c3d`) merged with PR #90 `14ea93c6`. Merge order: #86, #90, #92, then this.
-- Pods: vyv-rf-moetap-g1 (sy95m1sk4mmtm9, 1x L40S reference part, guard 90), created 22:41Z.
+- PR #96 (draft), head af073204.
+- Pods: vyv-rf-moetap-g1 (sy95m1sk4mmtm9, 1x L40S) created 22:41Z, TERMINATED 23:25Z (vLLM wheel at 60-180 KB/s; ~$0.8).
+  vyv-rf-moetap-g2 (xquw828jd4gds3, 2x L40S reference part, guard 90, $2.18/h) created 23:25Z; wheel fetched in 16 ranges (sha ok).
 
 ## Found on the base (checker of PR #92, Q_word_v1{X=16,W=32,R=no-recompute})
 - `MoeRouterTopKOrdered_v1{E=64,TOPK=8,VPT=8}`: cut OK, 0 recomputes, 130 committed interior words, in canonical gate order
@@ -15,16 +17,25 @@ Brief: `$STORE/internal/lane-briefs/vllm-moetap.md`. Two opt-in taps for the no-
   (I32Le, 1 b), le = tok <= START+VS-1 (I32Le, 1 b). The brief's "three 1-bit values" is one 32-bit word plus two bits (34 b/token).
 - At the pin, TP>1 CUDA runs the fused `_C.vocab_parallel_embedding` kernel, not PyTorch ops.
 
-## Running
-- r20260926-224241-1030 on g1: GPU bootstrap (B0, OLMOE) + gate (b) pins.
-- r20260926-224413-f336 on g1: gate (b) base 5b0835d4 (waits for the setup run).
+## Running (g2)
+- r20260926-234303-0db7: setup (bootstrap B0 + gate pins) on af073204.
+- r20260926-234338-9343: router tap build + exactness (GPU 0; configs E64/E128 x renorm, source, live tiny OLMoE/Qwen3-MoE).
+- r20260926-234519-b0c0: vocab-range exactness TP2 (tiny Llama, B0 tokenizer) after the router run.
+- r20260926-234359-2b8d: partition report (served shapes). r20260926-234437-b4d4: gate (b) base 5b0835d4.
+- Dead: g1 r20260926-224241-1030 / -224413-f336 (pod terminated); g2 r20260926-232812-41b5, -233012-56b4, -233357-0514, -233458-2820,
+  -233510-1e9f (killed 23:37Z to replace the wheel download).
 
 ## Next
 - Router tap: pinned topkGating + Tap, op verity_router_tap, policy router_softmax, source, ROUTER_TAP flag, exactness property.
 - Vocab range: policy vocab_range, hook on _C.vocab_parallel_embedding (no kernel change), VOCAB_TAP flag, TP2 exactness.
 
+## Found (changes #86's opt-in construction; surfaced in the handoff)
+- #86's MoeRouterProbs max was P.F32Max (FA2 fast-math >-select with ftz); topkGating (no fast math) uses fmaxf. NaN results: registry
+  F32Add/Mul/Div give x86 encodings (0x7FC00000 / 0xFFC00000), the GPU 0x7FFFFFFF. Outputs never differ (probabilities are clamped) but
+  the committed max / exponentials / reciprocal would. Fixed in MoeRouterProbs only (F32Fmaxf + canonical NaN); record untouched.
+
 ## Open questions
-- none yet
+- none
 
 ## Found-not-fixed
 - none yet

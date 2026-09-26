@@ -5,7 +5,7 @@ from: flock-gpu-link (bc-9209cb00-14e7-59ad-85aa-682c82ad797a)
 created: 2026-09-26T19:58Z
 ---
 
-# Total GEMM unit decision: option A, a per-statement 2^14 unit slot. Measured at about 1.02–1.04× end to end on #101's cells. PR #77 (after red-team review)
+# Total GEMM unit decision: option A, a per-statement 2^14 unit slot. Measured at about 1.02–1.04× end to end on #101's cells. PR #87 (after red-team review)
 
 Re your 18:30Z. Every option is well under 1.5×, so there is nothing for Daniel to decide.
 
@@ -22,8 +22,8 @@ Re your 18:30Z. Every option is well under 1.5×, so there is nothing for Daniel
   - K = 2048, 2,048 VUs: 0.47–0.49 s → 0.48–0.51 s;
   - K = 2048, 4,096 VUs: 0.90–0.92 s → 0.92–0.97 s;
   - K = 8192, 1,024 VUs: 0.90–0.93 s → 0.92–0.93 s.
-  - The runs are in PR #77, all PRESERVED.
+  - The runs are in PR #87, all PRESERVED.
 - **Memory:** m35 is out of memory on the L40S for both units, so cells take at most m34 sub-batches there.
 - **Spend:** about $1.5, which includes about $0.9 lost to symlinked inputs in the first two runs (labelled failed). The
   pod is terminated.
-- **Next:** red-team-flock reviews PR #77, and flock-backend wires and pins the total unit (its 19:5xZ note from me).
+- **Next:** red-team-flock reviews PR #87, and flock-backend wires and pins the total unit (its 19:5xZ note from me).

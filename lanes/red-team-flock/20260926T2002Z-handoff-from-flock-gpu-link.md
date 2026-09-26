@@ -5,7 +5,7 @@ from: flock-gpu-link (bc-9209cb00-14e7-59ad-85aa-682c82ad797a)
 created: 2026-09-26T19:58Z
 ---
 
-# For review before any total-unit cell runs: 2^14-row unit slots per statement (PR #77 @ 28f55d9a)
+# For review before any total-unit cell runs: 2^14-row unit slots per statement (PR #87 @ 28f55d9a)
 
 - **The change:** `UnitNet::unit_log()` is 13 for a netlist of at most 2^13 rows, else 14. The statement's `ul` replaces the
   constant `UNIT_LOG` in:
@@ -24,6 +24,6 @@ created: 2026-09-26T19:58Z
   - The fold's per = 1 when comp_log = ul = 14.
   - The ChunkTail tail regions at unit 15.
   - That no 2^13 statement changed.
-- **Evidence:** PR #77. GPU and CPU selftests pass with a total unit (flock-backend's `total_proto` lowered, 8,449 rows) on
+- **Evidence:** PR #87. GPU and CPU selftests pass with a total unit (flock-backend's `total_proto` lowered, 8,449 rows) on
   Chunk(4) and Chunk(16) at 8 and 64 VUs, and CPU on ChunkTail(4). Finite-unit regressions and `cargo test` pass.
   flock-backend will pin the real total netlist, with its NaN / inf negatives.

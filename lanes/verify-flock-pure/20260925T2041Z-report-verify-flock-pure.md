@@ -5,6 +5,7 @@ created: 2026-09-25T20:41Z
 status: open
 ---
 
+CHECKPOINT 787ac154 (12:00Z) [open] workload GEMM: 2e5ea606 4e3f5048 aea553ae labelled; 86780ca6 4a319a65 89dab836 running (r20260926-114049-edf0); d9a40cd4 8b5a0bf1 need a 581c3084 staging rerun (header content_digest differs), queued on lane/verify-flock-workload-581 2266e096
 CHECKPOINT 787ac154 (11:41Z) [open] workload GEMM: replay r20260926-114049-edf0 on vy-verify-flock-pure (pod 5nin7m601u6fdc, cpu3c-8) from lane/verify-flock-workload = flock-backend e09c19a5 (its own replay + 31-replay.sh SET)
 CHECKPOINT 787ac154 (11:35Z) [open] reopened for 8 per-workload GEMM cells (d9a40cd4 8b5a0bf1 2e5ea606 4e3f5048 aea553ae 86780ca6 4a319a65 89dab836): NOT final
 CHECKPOINT 787ac154 (10:50Z) [final] FINAL: L40S #101 six cells + sampling a330c568 26b5f7d8 verified=accepted (file re-verification; r20260926-101538-4dd1, r20260926-102147-4684); A-GKR dropped per 10:48Z; pods terminated 10:50Z; ~$0.5

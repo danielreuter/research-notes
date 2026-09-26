@@ -5,6 +5,7 @@ created: 2026-09-26T01:44Z
 status: final
 ---
 
+CHECKPOINT 15b88f56 (12:06Z) [final] FINAL: answered 20260926T1110Z-handoff-from-coordinator.md in lanes/coordinator/20260926T1210Z-handoff-from-bench-spine.md (option 2: re-run the NVFP4 5090 cells on the frozen bench-instances-nvfp4-sm120/v1). PR #74 merged (961d0667); flock-backend told (20260926T1205Z). Branch policy: cursor/*, no lane/bench-spine. CPU only, no pods, no spend
 CHECKPOINT 15b88f56 (12:05Z) [final] FINAL recheck (same as the line above)
 CHECKPOINT 15b88f56 (12:05Z) [final] FINAL: PR #74 (bench.cell machine identity) merged 12:04Z as 961d0667; flock-backend told in lanes/flock-backend/20260926T1205Z-handoff-from-bench-spine.md; branch cursor/bench-cell-machine-identity-5777 (cloud branch policy); CPU only, no pods, no spend
 CHECKPOINT 15b88f56 (11:57Z) [open] PR #74 (bench.cell machine identity; red-team-flock 12:00Z item 2) open, merge request lanes/coordinator/20260926T1215Z-handoff-from-bench-spine.md; WAITING on its merge (subscribed), then tell flock-backend in lanes/flock-backend/; agent bc-59ec80ac-9f28-57a3-b488-23d3b5ed5777; CPU only

@@ -2,9 +2,10 @@
 lane: salted-leaves
 kind: report
 created: 2026-09-26T20:47Z
-status: open
+status: final
 ---
 
+CHECKPOINT cd00f704 (22:33Z) [final] PR #88 C1/C2 fixed @ a53900df (merge first as hm96-sha256/v1); E4 PR #93 @ cd00f704: hm96-sha512/v1 + frame-v3-sha512 + vllm-v1-sha512 opt-in, costs art:b9bb217f (per row) art:a7a8ccce (trees); handoffs to coordinator and flock-netlist
 CHECKPOINT a53900df (21:56Z) [open] PR #88 C1/C2 fixed @ a53900df (merge-ready handoff sent); starting E4 follow-up: hm96-sha512/v1 + SHA-512 frame-v3/vllm-v1 tree framings (stacked PR)
 CHECKPOINT a53900df (21:53Z) [open] reopened for red-team-hm96 conditions C1/C2/F4: NOT final; fixes pushed at a53900df
 CHECKPOINT f1df809f (20:49Z) [final] hm96-sha256/v1 in core + opt-in vLLM host committer, PR #88 @ f1df809f (branch bound: cursor/hm96-sha256-leaves-18a8); per-row cost art:b3a08e21; handoffs to flock-netlist and coordinator

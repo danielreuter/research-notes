@@ -1,0 +1,9 @@
+base 4123 {'failed': 30, 'passed': 3801, 'skipped': 286, 'xfailed': 6}
+head 4124 {'failed': 30, 'passed': 3802, 'skipped': 286, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 1 {'passed': 1}
+  + tests.pipeline.test_admission_commit::test_the_commit_admission_counts_the_declared_lag passed
+outcome changed: 0
+new failures on head: 0
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 30, head 30, fixed on head 0

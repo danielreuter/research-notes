@@ -1,0 +1,15 @@
+# lints base 7289e3ad (r20260926-031830-2411)
+E       AssertionError: 2 by-name rule(s) not in by_name_allowlist.json (Draft 3.1 §12.4: decide from the Program / query / runtime correspondence, not from a name; if this is an existing rule that moved, update its entry):
+E           verity_vllm/pipeline/vu_export.py:478 [path-predicate] verify_set: fam in ("Gemm_v1", "Gemm_v2")
+E           verity_vllm/pipeline/vu_export.py:481 [path-predicate] verify_set: fam in ("Attention_v3", "Attention_v2")
+E       assert not [Offender(file='verity_vllm/pipeline/vu_export.py', kind='path-predicate', line=478, symbol='verify_set', detail='fam ...vu_export.py', kind='path-predicate', line=481, symbol='verify_set', detail='fam in ("Attention_v3", "Attention_v2")')]
+FAILED integrations/vllm/tests/test_no_by_name_rules.py::test_every_by_name_rule_is_allowlisted
+FAILED integrations/vllm/tests/test_no_by_name_rules.py::test_every_by_name_rule_is_allowlisted
+# lints head 02b3be03 (r20260926-041141-1cd3)
+E       AssertionError: 2 by-name rule(s) not in by_name_allowlist.json (Draft 3.1 §12.4: decide from the Program / query / runtime correspondence, not from a name; if this is an existing rule that moved, update its entry):
+E           verity_vllm/pipeline/vu_export.py:478 [path-predicate] verify_set: fam in ("Gemm_v1", "Gemm_v2")
+E           verity_vllm/pipeline/vu_export.py:481 [path-predicate] verify_set: fam in ("Attention_v3", "Attention_v2")
+E       assert not [Offender(file='verity_vllm/pipeline/vu_export.py', kind='path-predicate', line=478, symbol='verify_set', detail='fam ...vu_export.py', kind='path-predicate', line=481, symbol='verify_set', detail='fam in ("Attention_v3", "Attention_v2")')]
+FAILED integrations/vllm/tests/test_no_by_name_rules.py::test_every_by_name_rule_is_allowlisted
+FAILED integrations/vllm/tests/test_no_by_name_rules.py::test_every_by_name_rule_is_allowlisted
+IDENTICAL E-lines base vs head

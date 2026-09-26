@@ -40,17 +40,19 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 - Head 7b9558b7 lints added 2 failures from the cherry-pick: P7 stale broad-except entry (commit.py main) and P11 doc-round
   (`[moe R17-1]` in admission_lag's docstring). Fixed in `02b3be03` (docstring tag dropped, P7 entry deleted; no allowlist grows).
 
+- Admit MERGE-READY: `lane/vllm-rf-admit` 02b3be03; gate (b) base 7289e3ad vs head 0 changes (+1 new test passed); lints = main's
+  pre-existing by-name failure only. Runs 2411 / f369 / 1cd3 PRESERVED. Handoff 20260926T0516Z.
+
 ## Running
-- vyv-rf-m32-admit: head r20260926-031940-f369 (7b9558b7) done 04:30Z (32 failed = base 30 + the 2 lint tests). head2 r20260926-041141-1cd3
-  (02b3be03): lints done 04:31Z = base (only the pre-existing by-name failure); gate (b) since 04:31Z, ETA ~05:05Z.
+- nothing. vyv-rf-m32-admit terminated 05:15Z (all lane pods terminated).
 
 ## Next
-- jdiff base vs head2 (+ f369), test_admission_commit passes, lints = base's single pre-existing failure, preserved (3 runs),
-  terminate, merge-ready handoff, FINAL.
+- none (FINAL). Spend about $9 total (fix $0.35, gate (a) $8.1, admit $0.5).
 
 ## Open questions
 - none
 
 ## Found-not-fixed
+- main fails `test_no_by_name_rules::test_every_by_name_rule_is_allowlisted` (vu_export.py:478/481 verify_set path predicates not allowlisted).
 - `test_native_jit_keying::test_pod_release_fails_closed_...` needs `tests/sweep/pod_release.sh`, which is absent (fails at base and head).
 - Gate scripts that set their own PYTHONPATH miss `protocols/sampled_proofs` on post-#29 trees (gate (a) fails at collection).

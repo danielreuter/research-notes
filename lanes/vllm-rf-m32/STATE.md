@@ -32,7 +32,7 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
   01:05Z: 82/158 (~48% of a23b's time), host load ~570, ~2.7x slow; ETA ~03:40Z, past the 03:00Z pod deadline
   (DEADLINE handoff 20260926T0110Z asks a guard extension to 04:30Z).
 - Coordinator 2255Z checks: gate (b) had sampled_proofs on PYTHONPATH (4072/4080 collected, test_sampled_replay present, 11
-  errors); gate (a) restart has it (addendum handoff 20250925T2252Z).
+  errors); gate (a) restart has it (addendum handoff 20260925T2252Z).
 
 ## Next
 - On finish: key-deletion time into a checkpoint, compare (expect only the #70/#75 skip rewordings), preserved, terminate,

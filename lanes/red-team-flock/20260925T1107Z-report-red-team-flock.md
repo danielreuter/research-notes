@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: open
 ---
 
+CHECKPOINT 3301c435 (06:05Z) [open] 06:05Z reopened: 4 FP8 real-K cells on bench-spine sets (5d2a91a7 ab115376 66d2412c 1c520240), PB1-PB4/CN1-CN2, CPU only
 CHECKPOINT 3301c435 (05:19Z) [final] FINAL 05:20Z: 8 real-K Chunk(n)/wgmma cells PB1-PB4+CN1-CN2 met, labelled NON_ZK_PROOF + verified (replay r20260926-050108-7fa6 60/60, negs 20/20); wgmma cells: y = Hopper model on captured A100 inputs (1 / 3 words differ from set), tier suffix OK, source=captured covers x/W only. Pod terminated.
 CHECKPOINT 3301c435 (05:04Z) [open] 05:05Z: 8 cells: PB1/PB2/PB4/CN1/CN2 met from records; wgmma y verified = Hopper model (1 and 3 words differ from A100 set); PB3 replay pod running (cpu3c-16)
 CHECKPOINT 3301c435 (04:51Z) [open] 04:52Z reopened: per-cell PB1-PB4/CN1-CN2 on flock-backend's 8 real-K Chunk(n)/wgmma cells (CPU only)

@@ -32,6 +32,6 @@ for spec in "$@"; do
   if [ $rc -ne 0 ] && grep -qE 'no instances currently available|no longer any instances available' "$log"; then
     echo "no stock: $spec" >&2; continue
   fi
-  echo "NOPOD create failed on $spec (rc=$rc): $(tail -1 "$log" | cut -c1-200)"; exit 2
+  echo "NOPOD create failed on $spec (rc=$rc): $(grep -v "^[[:space:]]*$" "$log" | tail -1 | cut -c1-200)"; exit 2
 done
 echo "NOPOD no stock on any spec"; exit 1

@@ -230,3 +230,34 @@ moves on to the next spec. Registration is a separate step with `--replace`; if 
 
 Pods this round: qlqy5nyrjkzjer, 04:26–04:48Z. Its first launch stalled while shipping (run r20260926-042746-ee82,
 abandoned); the relaunch went through. Terminated; about $0.18. The lane total is about $0.5.
+
+# RMSNorm (fused CUDA, Triton) and the IR1/IR2 fix at PR #54 @ 34d02ae3 (05:03–05:40Z)
+
+**IR1 and IR2 are MET. rmsnorm-fused-cuda (9dbeb747) and rmsnorm-triton (b2155f3f) are GRANTED WITH CONDITIONS at
+NON_ZK_PROOF, relation-only.** rope and silu under v2 have byte-identical rows (2eaa652f / 3b1ed294). The detail is in
+`lanes/flock-ir-lowering/20260926T0540Z-handoff-from-red-team-flock-2.md`, with a copy in `lanes/coordinator/`.
+
+- **Tail primitives (`evidence/tail_diff.py` plus the `rtf2_tail.rs` harness):**
+  - rsq, sqrt and rcp: 525,824 cases each, 0 mismatches;
+  - div, fma and scale: 61,440 each, 0 mismatches;
+  - add and mul: differ only when both operands are NaN (S1), which is unobservable in the pinned tails.
+- **End to end:** the Rust `check_cuts` passes on 630 adversarial rows. `tail_program` (evaluated with the IR primitives)
+  equals the IR's cut words on every row.
+- **Units (`evidence/rms_check.py`):** fused 7,680 lanes and Triton 1,040 lanes, 0 mismatches. The structure is clean
+  and the groups tile.
+- **Tampers (`evidence/cut_tamper.py`):** 9 of 10 are refused; the extra cut word is benign. **The eps forgery is
+  accepted (IR4).**
+- **Selftests:** 13/13 for fused and Triton, 11/11 for rope and silu.
+- **Conditions:** IR4 (pin the cut structure), IR5 (the tail's NaN selection), IR3 (still open). IR2 is procedurally met.
+- **Labels:** a `finding` on art:7342c52d, art:44d7c8d0 and art:a4f38fc0 (no `proof_class`: relation-only).
+- **Runs:**
+  - r20260926-052455-c086 (art:3591d6ef);
+  - r20260926-051928-5f2d, superseded (the pod's Python 3.11).
+- **Pod:** vko4u1d4zbjhd3, terminated; about $0.19.
+- **pod-create.sh:** it now prints the last non-empty line of an unknown create failure. Its stop-on-unknown-failure
+  behaviour held: one transient failure, no duplicate pod.
+- **Not labelled:** flock-backend's 04:52Z eight Chunk(n) cells. They fall under red-team-flock's grants, and I've
+  routed them to the coordinator.
+
+Handoffs received: `20260926T0502Z-handoff-from-flock-ir-lowering.md` (acted on above; it replaces 0435Z), and
+`20260926T0452Z-handoff-from-flock-backend.md` (routed to the coordinator: Chunk(n), not this lane's scope).

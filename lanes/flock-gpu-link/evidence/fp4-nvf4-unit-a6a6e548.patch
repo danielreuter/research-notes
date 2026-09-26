@@ -1,0 +1,403 @@
+diff --git a/backends/flock/python/verity_flock/lowering.py b/backends/flock/python/verity_flock/lowering.py
+index 803d9ea6..32594e53 100644
+--- a/backends/flock/python/verity_flock/lowering.py
++++ b/backends/flock/python/verity_flock/lowering.py
+@@ -6,7 +6,8 @@ row i is ``(A_i . z)(B_i . z) = z_i``. Column layout (``flock-unit-io/v1``):
+ ~~~text
+ [0, 256)      x operand bytes of the unit (k words of `bits` bits, word j at bits [j*bits, (j+1)*bits), LSB first)
+ [256, 512)    W operand bytes, the same way
+-[512, 544)    accumulator in (FP32 word, LSB first); [544, 640) forced zero
++[512, 544)    accumulator in (FP32 word, LSB first)
++[544, 608)    fp4-nvf4 only: the x then W UE4M3 scale bytes (4 each, LSB first); the rest of [544, 640) forced zero
+ [640, ...)    live ANDs in creation order, then one row per assertion (L + z_j) * 1 = z_j
+ pad to 128    forced-zero rows
+ c_out word    32 copy rows of the output FP32 word, then 96 forced-zero rows
+@@ -28,6 +29,7 @@ import random
+ from dataclasses import dataclass
+ 
+ from . import unit as U
++from . import unit_fp4
+ 
+ FORMAT = "flock-unit-io/v1"
+ K_LOG = 13
+@@ -57,6 +59,8 @@ PIPES = {
+     "bf16-hopper": Pipe("bf16-hopper", U.BF16, (16,), 26, -133, True, "HOPPER_BF16_M16N8K16"),
+     "fp8-ada": Pipe("fp8-ada", U.E4M3, (16, 16), 14, -139, False, "ADA_E4M3_M16N8K32"),
+     "fp8-hopper": Pipe("fp8-hopper", U.E4M3, (32,), 14, -139, False, "HOPPER_E4M3_K32"),
++    # BlockScaledAlignAdd (unit_fp4): groups, width and floor are the model's own (frac_bits 27, acc_window 36).
++    "fp4-nvf4": Pipe("fp4-nvf4", U.E2M1, (16, 16, 16, 16), 27, -174, False, "BLACKWELL_SM120_NVF4"),
+ }
+ 
+ #: sha256 of :func:`netlist` per relation: the lowering version the verifier re-derives and compares.
+@@ -68,15 +72,15 @@ PINS = {
+ 
+ 
+ def _layout(pipe: Pipe):
+-    C = U.unit(pipe.fmt, pipe.groups, pipe.width, pipe.floor, epilogue=pipe.epilogue)
++    C = unit_fp4.unit() if pipe.fmt is U.E2M1 else U.unit(pipe.fmt, pipe.groups, pipe.width, pipe.floor, epilogue=pipe.epilogue)
+     live = C.live()
+-    ins = [w for nm in ("x", "w", "c") for w in C.inputs[nm]]
+-    assert len(ins) == 544, len(ins)
++    ins = [w for nm in ("x", "w", "c", "sx", "sw") if nm in C.inputs for w in C.inputs[nm]]
++    assert len(ins) in (544, 608), len(ins)
+     col = {}
+     for w in ins:
+         col[next(iter(w.s))] = len(col)
+-    rows_a: list[list] = [[i] for i in range(544)]
+-    rows_b: list[list] = [[i] for i in range(544)]
++    rows_a: list[list] = [[i] for i in range(len(ins))]
++    rows_b: list[list] = [[i] for i in range(len(ins))]
+     zero = lambda: (rows_a.append([]), rows_b.append([]))  # noqa: E731
+     while len(rows_a) < 640:
+         zero()
+@@ -135,7 +139,7 @@ def netlist(relation: str) -> str:
+     """The lowered unit of ``relation`` as ``flock-unit-io/v1`` text."""
+     pipe = PIPES[relation]
+     _, ra, rb, const, outs = _layout(pipe)
+-    head = [FORMAT, relation, len(ra), const, 544, len(IN_COLS), *IN_COLS, len(outs), *outs]
++    head = [FORMAT, relation, len(ra), const, 608 if pipe.fmt is U.E2M1 else 544, len(IN_COLS), *IN_COLS, len(outs), *outs]
+     lines = [" ".join(map(str, head))]
+     for a, b in zip(ra, rb):
+         lines.append(" ".join(map(str, [len(a), *a, len(b), *b])))
+@@ -146,7 +150,7 @@ def digest(relation: str) -> str:
+     return hashlib.sha256(netlist(relation).encode()).hexdigest()
+ 
+ 
+-def evaluate(relation: str, x: list[int], w: list[int], c: int) -> tuple[int, int | None, bool]:
++def evaluate(relation: str, x: list[int], w: list[int], c: int, sx: list[int] = (), sw: list[int] = ()) -> tuple[int, int | None, bool]:
+     """Run the lowered rows on one unit: ``(c_out, y16 or None, every row satisfied)`` (a failed assertion leaves a row
+     unsatisfiable, so it shows as False)."""
+     pipe = PIPES[relation]
+@@ -156,8 +160,11 @@ def evaluate(relation: str, x: list[int], w: list[int], c: int) -> tuple[int, in
+         for v in arr:
+             bits += [(v >> i) & 1 for i in range(pipe.word_bits)]
+     bits += [(c >> i) & 1 for i in range(32)]
++    for arr in (sx, sw):
++        for v in arr:
++            bits += [(v >> i) & 1 for i in range(8)]
+     z = [0] * len(ra)
+-    z[:544] = bits
++    z[:len(bits)] = bits
+     z[const] = 1
+ 
+     def ev(r):
+@@ -187,6 +194,13 @@ def self_check(relation: str, n: int = 200, seed: int = 20260925) -> int:
+     pipe = PIPES[relation]
+     model = getattr(models, pipe.model)
+     rng = random.Random(seed)
++    if pipe.fmt is U.E2M1:
++        from .unit_fp4_check import cases
++        bad = 0
++        for c, x, w, sx, sw in cases(rng, n):
++            got, _, ok = evaluate(relation, x, w, c, sx, sw)
++            bad += not ok or got != model.step_scaled(c, x, w, sx, sw)
++        return bad
+     bits = pipe.word_bits
+     finite = (lambda w: (w >> 7) & 0xFF != 0xFF) if bits == 16 else (lambda w: w & 0x7F != 0x7F)
+     bad = 0
+diff --git a/backends/flock/python/verity_flock/unit.py b/backends/flock/python/verity_flock/unit.py
+index 52c4b433..e7653433 100644
+--- a/backends/flock/python/verity_flock/unit.py
++++ b/backends/flock/python/verity_flock/unit.py
+@@ -30,6 +30,7 @@ class Fmt:
+ 
+ BF16 = Fmt("bf16", 8, 7, "ieee")
+ E4M3 = Fmt("e4m3", 4, 3, "e4m3")
++E2M1 = Fmt("e2m1", 2, 1, "none")  # word_bits only; the NVFP4 unit is unit_fp4
+ 
+ 
+ def decode_operand(C, fmt, word):
+diff --git a/backends/flock/python/verity_flock/unit_fp4.py b/backends/flock/python/verity_flock/unit_fp4.py
+new file mode 100644
+index 00000000..384e3dfd
+--- /dev/null
++++ b/backends/flock/python/verity_flock/unit_fp4.py
+@@ -0,0 +1,159 @@
++"""Exact GF(2) circuit of one NVFP4 transition unit (verity.ml.tc BLACKWELL_SM120_NVF4, ``BlockScaledAlignAdd.step_scaled``:
++one ``mma.sync kind::mxf4nvf4`` firing, 64 E2M1 codes and 4 UE4M3 scale bytes per operand, FP32 accumulator in and out)
++in Flock's model.
++
++The model, literally (``models.BlockScaledAlignAdd._transducer`` with ``frac_bits`` 27, ``acc_window`` 36, ``grid_floor``
++-174):
++
++1. each group of 16 has the exact dot ``gd = sum na nb`` of signed E2M1 numerators (halves), scaled losslessly by the two
++   UE4M3 mantissas: ``mant = gd ma mb`` at unit weight ``2^X``, ``X = -2 + ea + eb``; the group participates when one
++   product and both scale mantissas are nonzero (a cancelling dot still participates);
++2. ``lsb`` is the max of the participating groups' ``X - 27`` and, for a nonzero accumulator, ``E_acc - 35`` (``E_acc``
++   the exponent field, subnormals -126). Every NVFP4 candidate is at least -161, so the -174 floor never binds, and with
++   no candidate every addend is zero, so the result is +0 either way;
++3. every addend is truncated toward zero onto ``2^lsb``, summed exactly and normalised RZ to binary32; zero is +0.
++
++Exponents are carried in "U-units" (value + 256). Each addend is written pre-shifted onto its own candidate's grid
++(``mant << 27`` on ``X - 27``, the 24-bit significand ``<< 12`` on ``tp - 162``), so its alignment is a right shift by
++``lsb - candidate >= 0``. The normalisation takes bits [40, 64) of ``|T| << u``, ``u = min(lz, lsb_u - 67)``: ``lz`` for a
++normal result, the FP32 subnormal grid otherwise, and the field is ``lsb_u - u - 67 + q[23]``.
++"""
++from __future__ import annotations
++
++from .gf2 import (ONE, ZERO, Circuit, NOT, OR, add, and_reduce, compress_columns, const_bits, lzc, multiply, mux,
++                  or_reduce, shl_window, shr, sub)
++
++K, GROUP, GROUPS = 64, 16, 4
++EW = 10                      # U-unit exponent width (values up to 348)
++
++
++def _max(C, a, b):
++    _, a_lt_b = sub(C, a, b, EW)
++    return mux(C, a_lt_b, b, a)
++
++
++def decode_code(C, code):
++    """E2M1 ``m e0 e1 s``: the magnitude in halves (4 bits, NUMERATOR[code & 7]), the sign, and ``mag != 0``."""
++    m, e0, e1, s = code
++    ne0, ne1 = NOT(e0), NOT(e1)
++    e0_ne1 = C.AND(e0, ne1)
++    e1_ne0 = C.AND(e1, ne0)
++    e01 = C.AND(e0, e1)
++    mag = [C.AND(m, ne1), e0_ne1 ^ C.AND(m, e1_ne0), e1_ne0 ^ C.AND(m, e01), e01]
++    nz = OR(C, m, OR(C, e0, e1))
++    return mag, s, nz
++
++
++def decode_scale(C, byte):
++    """UE4M3 scale: the 4-bit mantissa (``m + 8 [e != 0]``), ``e or 1`` (4 bits), ``mant != 0``; bit 7 and 0x7F rejected."""
++    m, e = byte[:3], byte[3:7]
++    C.assert_zero("ue4m3 scale padding bit", byte[7])
++    C.assert_zero("ue4m3 scale NaN", and_reduce(C, byte[:7]))
++    h = or_reduce(C, e)
++    e_eff = [e[0] ^ C.AND(NOT(e[0]), NOT(h))] + e[1:]
++    return m + [h], e_eff, OR(C, h, or_reduce(C, m))
++
++
++def unit():
++    C = Circuit()
++    x = C.input("x", 4 * K)
++    w = C.input("w", 4 * K)
++    c = C.input("c", 32)
++    sx = C.input("sx", 8 * GROUPS)
++    sw = C.input("sw", 8 * GROUPS)
++
++    terms, cands = [], []
++    for g in range(GROUPS):
++        C.phase = "scale decode"
++        ma, ea, nza = decode_scale(C, sx[8 * g:8 * g + 8])
++        mb, eb, nzb = decode_scale(C, sw[8 * g:8 * g + 8])
++        C.phase = "E2M1 products"
++        prods, any_p = [], ZERO
++        for i in range(GROUP * g, GROUP * (g + 1)):
++            a, sa, na = decode_code(C, x[4 * i:4 * i + 4])
++            b, sb, nb = decode_code(C, w[4 * i:4 * i + 4])
++            prods.append((sa ^ sb, multiply(C, a, b)))
++            any_p = OR(C, any_p, C.AND(na, nb))
++        C.phase = "group dot (CSA) + abs"
++        n, TW = 8, 13                                      # |product| <= 144; |gd| <= 2304 < 2^12
++        cols = [[] for _ in range(TW + 2)]
++        for s, p in prods:
++            for j in range(n):
++                cols[j].append(p[j] ^ s)
++            cols[0].append(s)
++            cols[n].append(NOT(s))
++        neg = (-(GROUP << n)) % (1 << TW)
++        for j in range(TW):
++            if neg >> j & 1:
++                cols[j].append(ONE)
++        gd = compress_columns(C, cols)[:TW]
++        gsign = gd[TW - 1]
++        gabs = add(C, [bb ^ gsign for bb in gd[:12]], [gsign], width=12)
++        C.phase = "scale multiply"
++        sm = multiply(C, ma, mb)
++        mant = multiply(C, gabs, sm)[:19]
++        part = C.AND(any_p, C.AND(nza, nzb))
++        C.phase = "anchors"
++        # cand_u = X - 27 + 256 = ea_eff + eb_eff + 207
++        cu = add(C, add(C, ea, eb, width=5, carry_out=False), const_bits(207, EW), width=EW)
++        cands.append([C.AND(part, bb) for bb in cu])
++        terms.append((gsign, [ZERO] * 27 + mant, cu))      # 46 bits on the X - 27 grid
++
++    C.phase = "accumulator decode"
++    cm, cf, cs = c[:23], c[23:31], c[31]
++    C.assert_zero("accumulator not finite", and_reduce(C, cf))
++    hc = or_reduce(C, cf)
++    nzc = OR(C, hc, or_reduce(C, cm))
++    tp = [cf[0] ^ C.AND(NOT(cf[0]), NOT(hc))] + cf[1:]      # max(e_field, 1)
++    ca = add(C, tp, const_bits(94, EW), width=EW)          # tp - 162 + 256
++    cands.append([C.AND(nzc, bb) for bb in ca])
++    terms.append((cs, [ZERO] * 12 + cm + [hc], ca))         # 36 bits on the tp - 162 grid
++
++    C.phase = "lsb (max of candidates)"
++    lsb = cands[0]
++    for cnd in cands[1:]:
++        lsb = _max(C, lsb, cnd)
++
++    C.phase = "align (5 shifters)"
++    aligned = []
++    for s, mag, cu in terms:
++        d, _ = sub(C, lsb, cu, EW)
++        big = or_reduce(C, d[6:])
++        aligned.append((s, shr(C, mag, d[:6], big)))
++
++    C.phase = "signed sum (CSA) + abs"
++    n = 46
++    TB = 49                                                # |T| < 4 * 2^46 + 2^36
++    TW = TB + 1
++    cols = [[] for _ in range(TW + 2)]
++    for s, a in aligned:
++        a = a + [ZERO] * (n - len(a))
++        for j in range(n):
++            cols[j].append(a[j] ^ s)
++        cols[0].append(s)
++        cols[n].append(NOT(s))
++    neg = (-(len(aligned) << n)) % (1 << TW)
++    for j in range(TW):
++        if neg >> j & 1:
++            cols[j].append(ONE)
++    t = compress_columns(C, cols)[:TW]
++    tsign = t[TW - 1]
++    absv = add(C, [bb ^ tsign for bb in t[:TB]], [tsign], width=TB)
++
++    C.phase = "normalise RZ"
++    padded = absv + [ZERO] * (64 - TB)
++    allz, lz = lzc(C, padded)
++    nz = NOT(allz)
++    A = lz + [ZERO] * (EW - len(lz))
++    B, _ = sub(C, lsb, const_bits(67, EW), EW)
++    _, a_lt_b = sub(C, A, B, EW)
++    u = mux(C, a_lt_b, A, B)[:6]
++    q = shl_window(C, padded, u, 40, 64)
++    f1, _ = sub(C, lsb, u, EW)
++    f2, _ = sub(C, f1, const_bits(67, EW), EW)
++    field = add(C, f2, [q[23]], width=EW)
++    field_n = [C.AND(nz, bb) for bb in field]
++    C.assert_zero("sum leaves binary32", OR(C, field_n[8], OR(C, field_n[9], and_reduce(C, field_n[:8]))))
++    word = [C.AND(nz, bb) for bb in q[:23]] + field_n[:8] + [C.AND(nz, tsign)]
++    C.output("c_out", word)
++    return C
+diff --git a/backends/flock/python/verity_flock/unit_fp4_check.py b/backends/flock/python/verity_flock/unit_fp4_check.py
+new file mode 100644
+index 00000000..8151edb7
+--- /dev/null
++++ b/backends/flock/python/verity_flock/unit_fp4_check.py
+@@ -0,0 +1,123 @@
++"""unit_fp4 against verity.ml.tc BLACKWELL_SM120_NVF4.step_scaled on random and directed units (bit-sliced)."""
++from __future__ import annotations
++
++import random
++import sys
++
++from verity.ml.tc.models import BLACKWELL_SM120_NVF4 as M
++
++from . import unit_fp4
++
++
++def cases(rng, n):
++    out = []
++    for t in range(n):
++        fam = t % 14
++        if fam >= 8:
++            out.append(directed(rng, fam))
++            continue
++        def scale():
++            r = rng.random()
++            if r < 0.1:
++                return 0
++            if r < 0.25:
++                return rng.randint(1, 7)                      # subnormal field
++            if r < 0.35:
++                return rng.choice([0x78, 0x79, 0x7E, 0x70])  # top exponent field
++            return rng.choice([b for b in (rng.randint(0, 0x7E),) if b != 0x7F])
++        def code():
++            if fam == 1 and rng.random() < 0.8:
++                return rng.choice([0, 8])
++            return rng.randint(0, 15)
++        a = [code() for _ in range(64)]
++        b = [code() for _ in range(64)]
++        if fam == 2:
++            b = [bb ^ 8 if i % 2 else bb for i, bb in enumerate(a)]   # cancelling pairs
++            a = [aa for aa in a]
++        sa = [scale() for _ in range(4)]
++        sb = [scale() for _ in range(4)]
++        if fam == 3:
++            c = rng.choice([0, 0x8000_0000])
++        elif fam == 4:
++            c = (rng.getrandbits(1) << 31) | rng.getrandbits(23)          # subnormal
++        elif fam == 5:
++            c = (rng.getrandbits(1) << 31) | (rng.randint(200, 254) << 23) | rng.getrandbits(23)
++        elif fam == 6:
++            c = (rng.getrandbits(1) << 31) | (rng.randint(90, 140) << 23) | rng.getrandbits(23)
++        else:
++            c = (rng.getrandbits(1) << 31) | (rng.randint(0, 254) << 23) | rng.getrandbits(23)
++        out.append((c, a, b, sa, sb))
++    return out
++
++
++def directed(rng, fam):
++    """8: no products, any accumulator (passes through, +0 for +-0); 9: no products, subnormal accumulator; 10: exactly
++    cancelling pairs in every group, zero accumulator (+0 from participating groups); 11: cancelling pairs with a random
++    accumulator (the groups still anchor lsb); 12: zero scale mantissas (products but no participation); 13: subnormal
++    scales (unit weight 2^-20) against a subnormal / tiny accumulator."""
++    acc = lambda: (rng.getrandbits(1) << 31) | (rng.randint(0, 254) << 23) | rng.getrandbits(23)  # noqa: E731
++    sub = lambda: (rng.getrandbits(1) << 31) | rng.getrandbits(23)  # noqa: E731
++    sc = lambda: rng.choice([b for b in (rng.randint(1, 0x7E),) if b != 0x7F] or [8])  # noqa: E731
++    if fam in (8, 9):
++        a = [rng.choice([0, 8]) if rng.random() < 0.5 else rng.randint(0, 15) for _ in range(64)]
++        b = [0 if rng.random() < 0.5 else 8 for _ in range(64)]
++        sa, sb = [sc() for _ in range(4)], [sc() for _ in range(4)]
++        c = sub() if fam == 9 else rng.choice([acc(), 0, 0x8000_0000, sub()])
++        return c, a, b, sa, sb
++    if fam in (10, 11):
++        a, b = [], []
++        for _ in range(32):
++            x, y = rng.randint(1, 15), rng.randint(1, 15)
++            a += [x, x]
++            b += [y, y ^ 8]
++        sa, sb = [sc() for _ in range(4)], [sc() for _ in range(4)]
++        c = rng.choice([0, 0x8000_0000]) if fam == 10 else acc()
++        return c, a, b, sa, sb
++    if fam == 12:
++        a = [rng.randint(0, 15) for _ in range(64)]
++        b = [rng.randint(0, 15) for _ in range(64)]
++        sa = [rng.choice([0, 0x08, 0x40]) if g % 2 else 0 for g in range(4)]
++        sb = [0 if g % 2 else rng.choice([0x38, 0x50]) for g in range(4)]
++        return rng.choice([acc(), sub(), 0]), a, b, sa, sb
++    a = [rng.randint(0, 15) for _ in range(64)]
++    b = [rng.randint(0, 15) for _ in range(64)]
++    sa = [rng.randint(1, 7) for _ in range(4)]
++    sb = [rng.randint(1, 7) for _ in range(4)]
++    c = rng.choice([sub(), (rng.getrandbits(1) << 31) | (rng.randint(1, 110) << 23) | rng.getrandbits(23)])
++    return c, a, b, sa, sb
++
++
++def run(n=4000, seed=20260926):
++    C = unit_fp4.unit()
++    cs = cases(random.Random(seed), n)
++    T = len(cs)
++    vals = {nm: [0] * len(bits) for nm, bits in C.inputs.items()}
++    def put(nm, i, t, v, width):
++        for j in range(width):
++            if v >> j & 1:
++                vals[nm][i * width + j] |= 1 << t
++    for t, (c, a, b, sa, sb) in enumerate(cs):
++        for i in range(64):
++            put("x", i, t, a[i], 4)
++            put("w", i, t, b[i], 4)
++        for g in range(4):
++            put("sx", g, t, sa[g], 8)
++            put("sw", g, t, sb[g], 8)
++        put("c", 0, t, c, 32)
++    outs, fail = C.evaluate(vals, T)
++    bad = 0
++    for t, (c, a, b, sa, sb) in enumerate(cs):
++        want = M.step_scaled(c, a, b, sa, sb)
++        got = sum(((outs["c_out"][j] >> t) & 1) << j for j in range(32))
++        if got != want or (fail >> t) & 1:
++            if bad < 5:
++                print(f"case {t}: c={c:#010x} got {got:#010x} want {want:#010x} fail={(fail >> t) & 1}")
++            bad += 1
++    cnt = C.counts()
++    print(f"units {T}, mismatches {bad}; counts {cnt}")
++    print("phases", C.phase_counts())
++    return bad
++
++
++if __name__ == "__main__":
++    sys.exit(1 if run(int(sys.argv[1]) if len(sys.argv) > 1 else 4000) else 0)

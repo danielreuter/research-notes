@@ -1,0 +1,118 @@
+{
+ "67": {
+  "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+  "router": "MoeRouterTopKRounds_v1{E=64,TOPK=8,VPT=8}",
+  "router_calls": 158960,
+  "router_committed_interior": [
+   170723040,
+   0
+  ],
+  "router_units": [
+   294393920,
+   2543360
+  ],
+  "router_gates": [
+   825956160,
+   5319596400
+  ],
+  "row_committed_interior": [
+   1784654143,
+   1613931103
+  ],
+  "row_units": [
+   15234442475,
+   14942591915
+  ],
+  "row_gates": [
+   8731214012218,
+   8735707652458
+  ]
+ },
+ "68": {
+  "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager",
+  "router": "MoeRouterTopKRounds_v1{E=64,TOPK=8,VPT=8}",
+  "router_calls": 161328,
+  "router_committed_interior": [
+   173266272,
+   0
+  ],
+  "router_units": [
+   298779456,
+   2581248
+  ],
+  "router_gates": [
+   838260288,
+   5398841520
+  ],
+  "row_committed_interior": [
+   1789007203,
+   1615740931
+  ],
+  "row_units": [
+   15426254193,
+   15130055985
+  ],
+  "row_gates": [
+   8860791763260,
+   8865352344492
+  ]
+ },
+ "70": {
+  "row_key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+  "router": "MoeRouterTopKRounds_v1{E=64,TOPK=8,VPT=8}",
+  "router_calls": 66896,
+  "router_committed_interior": [
+   71846304,
+   0
+  ],
+  "router_units": [
+   123891392,
+   1070336
+  ],
+  "router_gates": [
+   347591616,
+   2238674640
+  ],
+  "row_committed_interior": [
+   494491621,
+   422645317
+  ],
+  "row_units": [
+   5056994907,
+   4934173851
+  ],
+  "row_gates": [
+   1843571476727,
+   1845462559751
+  ]
+ },
+ "75": {
+  "row_key": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager",
+  "router": "MoeRouterTopKRoundsNorm_v1{E=128,TOPK=8,VPT=8}",
+  "router_calls": 55728,
+  "router_committed_interior": [
+   120985488,
+   0
+  ],
+  "router_units": [
+   207140976,
+   891648
+  ],
+  "router_gates": [
+   584140896,
+   4954497840
+  ],
+  "row_committed_interior": [
+   1165216089,
+   1044230601
+  ],
+  "row_units": [
+   5015153631,
+   4808904303
+  ],
+  "row_gates": [
+   1175738462395,
+   1180108819339
+  ]
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "what": "FP8 GEMM coordinate input sets (input-set/v1, preserved), generate --suite fp8 --seed 20260926 on the lane VM; every instance re-evaluated through verity.evaluation (0 mismatches); each smaller set is the larger one's prefix",
+ "code": "cursor/bench-spine-fp8-5777 @ 6951c8fe",
+ "versions": {
+  "git_head": "6951c8fef24a89a679d969d8aea5b3aab8b3b8b5",
+  "python": "3.12.3",
+  "numpy": "2.5.3"
+ },
+ "sets": [
+  {
+   "set": "gemm-coordinate-ada-e4m3-k2048",
+   "subcircuit": "gemm-coordinate/k2048/sm89-mma-e4m3",
+   "n": 6272,
+   "art": "art:c063de3a01c78eb151e926fc69bcc13a1b168eae8b3d4b0aa37cce7305e6d241",
+   "content_digest": "99cb9a1ced802f07f42b5d43c57839d5d4c98fa9b55822d0d145bd9a30585769",
+   "bytes": 26173753,
+   "draws": 6272,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ada-e4m3-k2048",
+   "subcircuit": "gemm-coordinate/k2048/sm89-mma-e4m3",
+   "n": 16384,
+   "art": "art:c099978955f25857e2c74a236ab5c48a2cf00f35f617a0b2b9d5030c53632494",
+   "content_digest": "3f07fb3faf5244b73f9800fffe16483624d07ad4b0e1f29080898450b8a7749a",
+   "bytes": 68394009,
+   "draws": 16384,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ada-e4m3-k8192",
+   "subcircuit": "gemm-coordinate/k8192/sm89-mma-e4m3",
+   "n": 1920,
+   "art": "art:cdb0e90d74a4e3365759d302a4a16d89dc56de1b027ee40a7a6ce88978255980",
+   "content_digest": "767e995bd227ce8b0538c19c44e86da2b361b7e4bc0067e6ac93519cd67bcb67",
+   "bytes": 31602745,
+   "draws": 1920,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ada-e4m3-k8192",
+   "subcircuit": "gemm-coordinate/k8192/sm89-mma-e4m3",
+   "n": 8192,
+   "art": "art:6ffda1000f3f9f9fc401e9c90865b760dde477010b12ee285ed8e585b87a248e",
+   "content_digest": "3567c945c624d9f567e436f90edb9e3d447fee53f1482c9bef48bd72423a9158",
+   "bytes": 134851129,
+   "draws": 8192,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-e4m3-wgmma-k2048",
+   "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-e4m3",
+   "n": 6272,
+   "art": "art:5f31185101bcf9da91f64a2653cf69569a876cc08c468c576cc20e5596741b45",
+   "content_digest": "6b7a15a294387821967afa57115d725fc59e26b309fe923f8eb6852d2a1ffc17",
+   "bytes": 26173762,
+   "draws": 6272,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-e4m3-wgmma-k2048",
+   "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-e4m3",
+   "n": 16384,
+   "art": "art:31d0727a65a6477d9878ce6e9b2ccbcfe076f95060953ee4231c19f36dd4f8bb",
+   "content_digest": "59e1b793fec1d8b9da1231f7a7909bbc1ca65f74d977f4b5b36e2693f003acc7",
+   "bytes": 68394018,
+   "draws": 16384,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-e4m3-wgmma-k8192",
+   "subcircuit": "gemm-coordinate/k8192/sm90-wgmma-e4m3",
+   "n": 1920,
+   "art": "art:d5578efff23b53472234bd601f8caa68d737fc13efc24bf066467156d9626a28",
+   "content_digest": "8153310359c552f5de5dd6719cacefc499517f6809ad7c49d47a74b8da45151e",
+   "bytes": 31602754,
+   "draws": 1920,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-e4m3-wgmma-k8192",
+   "subcircuit": "gemm-coordinate/k8192/sm90-wgmma-e4m3",
+   "n": 8192,
+   "art": "art:9d85bd96cf909f8671659becc3ecbe937ad9ccc1e5034ddce1d8dd4819359513",
+   "content_digest": "c7ec2de3abf7ed691aaf2f3d576093c8b0cf0e9f03e1b24ece0c66c25a43b02e",
+   "bytes": 134851138,
+   "draws": 8192,
+   "rejected": 0
+  }
+ ]
+}

@@ -1,0 +1,306 @@
+{
+ "art": "art:fdbb98125bdef40e6b72fd20af923d3622597f330f0e5c7a85aa629f0eb7a643",
+ "run": "r20260926-061318-2f7f",
+ "subcircuit": "Gemm_v1",
+ "B": 6272,
+ "soundness_log2": -88.431,
+ "proofs": 25,
+ "checks": {
+  "prepare_rebuilt": {
+   "ok": true,
+   "detail": {
+    "chunks": 25,
+    "equal": 25,
+    "negatives": {
+     "tampered-output-leaf": true,
+     "wrong-first-output-word": true,
+     "wrong-last-output-word": true
+    }
+   }
+  },
+  "proofs_hash_to_run_record": {
+   "ok": true
+  },
+  "every_chunk_accepted": {
+   "ok": true,
+   "detail": {
+    "chunk000": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true,
+     "negative_statements_accepted": {
+      "wrong-first-output-word": false,
+      "wrong-last-output-word": false
+     }
+    },
+    "chunk001": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk002": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk003": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk004": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk005": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk006": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk007": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk008": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk009": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk010": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk011": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk012": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk013": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk014": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk015": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk016": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk017": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk018": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk019": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk020": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk021": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk022": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk023": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    },
+    "chunk024": {
+     "accepted": true,
+     "hash_ok": true,
+     "ok": true,
+     "vk": "0x007d9347080c44a23742498ce3b1fb7ca0df111119f60ac2e094c5cd9c2438ab",
+     "unsound": false,
+     "statement_match": true,
+     "public_values_are_mine": true,
+     "own_object": true
+    }
+   }
+  },
+  "negative_statements_refused": {
+   "ok": true
+  },
+  "negatives_rejected_by_guest": {
+   "ok": true,
+   "detail": {
+    "wrong-first-output-word": {
+     "verdict": false,
+     "pv_tail": "00"
+    },
+    "wrong-last-output-word": {
+     "verdict": false,
+     "pv_tail": "00"
+    },
+    "tampered-output-leaf": {
+     "verdict": false,
+     "pv_tail": "00"
+    }
+   }
+  }
+ },
+ "accepted": true,
+ "method": "85-sp1-cover-fast (Host.verify on my statement, my public values)"
+}

@@ -155,7 +155,11 @@ def main() -> int:
         (preps if fp.get("workload") == "sp1-ir-call-cover.prepare" else covers)[fp.get("bundle_sha256")] = {"art": art, "m": m}
     print(json.dumps({"covers": len(covers), "prepares": len(preps)}), flush=True)
     res = []
+    only = [x for x in os.environ.get("ONLY", "").split(",") if x]
+    skip = [x for x in os.environ.get("SKIP", "").split(",") if x]
     for b, cv in sorted(covers.items(), key=lambda kv: kv[1]["art"]):
+        if (only and not any(cv["art"].startswith("art:" + x) for x in only)) or any(cv["art"].startswith("art:" + x) for x in skip):
+            continue
         try:
             if b not in preps:
                 raise RuntimeError(f"no prepare result with bundle_sha256 {b}")

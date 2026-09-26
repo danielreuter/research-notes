@@ -2,9 +2,11 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: final
+status: blocked
 ---
 
+CHECKPOINT 3301c435 (10:07Z) [blocked] 10:15Z: ChunkTail review blocked: GitHub 401 on this VM, af2c3015 not in store; need a bundle (af2c3015 vs e4f631bd) in lanes/red-team-flock/bundles/ or a fresh token
+CHECKPOINT 3301c435 (10:05Z) [open] 10:06Z reopened: ChunkTail(n) review (PR #70), CPU only
 CHECKPOINT 3301c435 (09:59Z) [final] FINAL 10:30Z: route (a) K=2048/8192 GRANTED NON_ZK_PROOF (art:95fdd0ae, 20197f8b labelled; own-build gate 10/10 + 6 negatives); Chunk(n) extended to 2<=n<=64 under CN2 (selftests n=5/19/28 all_pass); 5090 NVFP4 cross-DC verifier counts as separate (FA1), latency-bound timing noted. No pods, $0.
 CHECKPOINT 3301c435 (09:34Z) [open] 09:35Z reopened: route (a) real-K review (agkr-real-k PR #69, art:95fdd0ae, 20197f8b), CPU only
 CHECKPOINT 3301c435 (06:39Z) [final] FINAL 06:40Z: FP8 spine cells 5d2a91a7/ab115376/66d2412c/1c520240 PB1-PB4+CN1-CN2 met, labelled NON_ZK_PROOF + verified (replay r20260926-061513-ad9c 48/48, negs 16/16); old four had SUPERSEDED only as finding text -> wrote superseded_by; store_tables does not yet honour it. Pods terminated.

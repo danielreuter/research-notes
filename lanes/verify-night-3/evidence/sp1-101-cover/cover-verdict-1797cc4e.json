@@ -1,0 +1,59 @@
+{
+ "art": "art:1797cc4eeab1069b8c5657c1e722afc07753160085c2121025232fcfa3b22300",
+ "run": "r20260926-034726-3955",
+ "subcircuit": "RoPE_v1",
+ "B": 1024,
+ "soundness_log2": -93.508,
+ "prepare_art": "art:9cfd053a288f7ea72655968cfdffc5d18d12dc9fba883cc6da348b20bf615d05",
+ "prepare_run": "r20260926-032809-5920",
+ "checks": {
+  "prepare_rebuilt": {
+   "ok": true,
+   "detail": {
+    "chunks": 1,
+    "equal": 1,
+    "negatives": {
+     "tampered-output-leaf": true,
+     "wrong-first-output-word": true,
+     "wrong-last-output-word": true
+    }
+   }
+  },
+  "proofs_hash_to_run_record": {
+   "ok": true
+  },
+  "every_chunk_verify_object_accepted": {
+   "ok": true,
+   "detail": {
+    "chunk000": {
+     "accepted": true,
+     "binding_ok": true,
+     "approved_key": true,
+     "reasons": []
+    }
+   }
+  },
+  "negative_objects_refused": {
+   "ok": true
+  },
+  "negatives_rejected_by_guest": {
+   "ok": true,
+   "detail": {
+    "wrong-first-output-word": {
+     "verdict": false,
+     "pv_tail": "00"
+    },
+    "wrong-last-output-word": {
+     "verdict": false,
+     "pv_tail": "00"
+    },
+    "tampered-output-leaf": {
+     "verdict": false,
+     "pv_tail": "00"
+    }
+   }
+  }
+ },
+ "proofs": 1,
+ "accepted": true
+}

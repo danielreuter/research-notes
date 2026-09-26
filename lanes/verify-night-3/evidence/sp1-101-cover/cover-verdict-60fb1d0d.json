@@ -1,0 +1,77 @@
+{
+ "art": "art:60fb1d0dccdc5b81fc8b06cdeba7d202e25c04eedcd8aa77abfe5fe65a77ee43",
+ "run": "r20260926-060409-6ac5",
+ "subcircuit": "SiluMul_v1",
+ "B": 128,
+ "soundness_log2": -91.093,
+ "prepare_art": "art:8b8cea35731fb25c49c3275b9cc090c12881b8391ff5499360c682656d3da90e",
+ "prepare_run": "r20260926-035254-c31a",
+ "checks": {
+  "prepare_rebuilt": {
+   "ok": true,
+   "detail": {
+    "chunks": 4,
+    "equal": 4,
+    "negatives": {
+     "tampered-output-leaf": true,
+     "wrong-first-output-word": true,
+     "wrong-last-output-word": true
+    }
+   }
+  },
+  "proofs_hash_to_run_record": {
+   "ok": true
+  },
+  "every_chunk_verify_object_accepted": {
+   "ok": true,
+   "detail": {
+    "chunk000": {
+     "accepted": true,
+     "binding_ok": true,
+     "approved_key": true,
+     "reasons": []
+    },
+    "chunk001": {
+     "accepted": true,
+     "binding_ok": true,
+     "approved_key": true,
+     "reasons": []
+    },
+    "chunk002": {
+     "accepted": true,
+     "binding_ok": true,
+     "approved_key": true,
+     "reasons": []
+    },
+    "chunk003": {
+     "accepted": true,
+     "binding_ok": true,
+     "approved_key": true,
+     "reasons": []
+    }
+   }
+  },
+  "negative_objects_refused": {
+   "ok": true
+  },
+  "negatives_rejected_by_guest": {
+   "ok": true,
+   "detail": {
+    "wrong-first-output-word": {
+     "verdict": false,
+     "pv_tail": "00"
+    },
+    "wrong-last-output-word": {
+     "verdict": false,
+     "pv_tail": "00"
+    },
+    "tampered-output-leaf": {
+     "verdict": false,
+     "pv_tail": "00"
+    }
+   }
+  }
+ },
+ "proofs": 4,
+ "accepted": true
+}

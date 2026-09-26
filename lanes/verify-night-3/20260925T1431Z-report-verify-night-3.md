@@ -2,9 +2,10 @@
 lane: verify-night-3
 kind: report
 created: 2026-09-25T14:31Z
-status: open
+status: final
 ---
 
+CHECKPOINT 7585828d (10:10Z) [final] #101 SP1 sampled cover: 73/73 proofs (7 covers, snapshot art:33c34aa2) verified=accepted + below_bar=true (2^-88.2..2^-94.7); own prepare rebuild equal, APPROVED key, negatives refused; runs 070912-42be / 092515-576b / 092813-6731 @0a652c36 (PR #58). Pod terminated 10:08Z, ~$1.45. Handoff 1012Z
 CHECKPOINT 7585828d (09:59Z) [open] BUSY: GEMM proof checks in progress (cba6c36f ~chunk 20/30, fdbb9812 ~21/25); 18/73 accepted earlier; no failures so far
 CHECKPOINT 7585828d (09:39Z) [open] BUSY: 5 covers / 18 proofs accepted (r20260926-070912-42be, stopped after its rebuilds; slow path). GEMM covers: rebuilds done, checking 55 proofs with Host.verify against my statements in r20260926-092515-576b (cba6c36f) + r20260926-092813-6731 (fdbb9812)
 CHECKPOINT 7585828d (09:02Z) [open] BUSY: GEMM rebuilds 20/30 (cba6c36f) and 13/25 (fdbb9812); then verify_object over 55 proofs. Pod e9e6vqsg2f7rc1 busy
@@ -185,4 +186,21 @@ Handoffs received: `20260926T0305Z-handoff-from-coordinator.md`: done, and answe
 tip: none (no repo commits; verification from main 3d57f08b)        merge-with: none
 known-failures: none    pod: vy-verify-night-3 heudtct27whkty terminated 06:31Z (earlier rd921ysua7g60b reaped 04:06Z, jnp5k2d0vy9z2h gone after a failed setup); ~$0.9
 artifacts: art:f1d4da61 art:dc494b62 art:47a673f7 art:19a4fdb3 art:095d5306 art:56fa0faf art:34bb8329 art:fd92bd86 art:a38566af
+~~~
+
+## #101 sampled SP1 cover (reopened 07:05Z, FINAL 10:14Z)
+
+73 of 73 proofs (7 cover results of snapshot art:33c34aa2) are `verified=accepted` and `below_bar=true`, with a note.
+The runs are r20260926-070912-42be (5 covers, `verify_object`), r20260926-092515-576b (GEMM K=8192) and
+r20260926-092813-6731 (GEMM K=2048), all from lane/sp1-evaluator 0a652c36 (PR #58). The method and the table are in
+`lanes/coordinator/20260926T1012Z-handoff-from-verify-night-3.md`; the verdicts are in `evidence/sp1-101-cover/` and
+the scripts in `evidence/pod-scripts/83-86*`.
+
+Handoffs received: the verify request came as the user's launch message, citing
+`lanes/coordinator/20260926T0705Z-handoff-from-sp1-evaluator.md`: done.
+
+~~~text
+tip: none (no repo commits; verified from lane/sp1-evaluator 0a652c36 = PR #58)        merge-with: none
+known-failures: none    pod: vy-verify-night-3 e9e6vqsg2f7rc1 terminated 10:08Z; ~$1.45 this round
+artifacts: art:1797cc4e art:60fb1d0d art:7946731a art:9db5ba4b art:a8306205 art:cba6c36f art:fdbb9812
 ~~~

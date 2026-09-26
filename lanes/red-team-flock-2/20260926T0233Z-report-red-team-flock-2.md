@@ -169,3 +169,61 @@ with copies to the coordinator, flock-gpu-link and red-team-flock.
   All are terminated; about $0.2 this round, and about $0.3 for the lane.
 
 Handoff received: `lanes/red-team-flock-2/20260926T0335Z-handoff-from-flock-gpu-link.md`. Acted on above.
+
+# PR #54: rope-head and silu-mul on verity/flock-ir-block/v1 (04:15–04:50Z)
+
+**GRANTED WITH CONDITIONS at NON_ZK_PROOF**, as a relation-only statement (public unit IO), at 366befc4, identical at
+76b7cbb2. There is no Table 2 cell (IR3). The detail is in `lanes/flock-ir-lowering/20260926T0450Z-handoff-from-red-team-flock-2.md`,
+with a copy in `lanes/coordinator/`.
+
+- **Statement: HOLDS.** Regions cover every unit's input and output words (word bits, unit bits and block bits). Unused
+  bits are forced zero, padding is verifier-computed, and constants are Δ-copied from the pinned column. Σ covers the
+  netlist, the digest and the instance file's sha. m = 20 + nbl, from 22 to 35.
+- **Netlists (`evidence/diff_ir_units.py`):** the pins regenerate, the rows are topological, there are no free or
+  assertion rows, and the outputs are copy rows nobody reads.
+- **Fidelity (my own evaluator against the verity_vllm primitives):**
+  - rope: 2,031,616 adversarial units, with 0 mismatches and 0 unsatisfiable;
+  - silu: 2,162,688 units, including the whole table at u = ±1, with 0 mismatches.
+
+  A one-row mutation gives 91 to 1,141 mismatches per 32,768 units. Coverage per 200,000 cases: about 0.8% bf16 ties,
+  6% f32 subnormal results, and gaps on both sides of 24.
+- **Run r20260926-043318-28bb (art:f29e8ac5), at 366befc4:**
+  - the producer's selftest passes 9/9 on my four files (`evidence/gen_ir_inst.py`, all with padding units);
+  - 10/10 RT2 attacks are refused (`evidence/rtf2_ir_patch.py`): padding with nonzero inputs, swapped units, unit 3's
+    constant bit, an unused input bit, a claimed unused output bit;
+  - the wrong netlist sha and `in_words` 2 are refused at load;
+  - `cut_words: 1` is accepted (IR1).
+- **Run r20260926-044454-891e (art:07f51904), at 76b7cbb2:** the same results.
+- **Conditions:**
+  - IR1: before any cut template, the verifier refuses `cut_words > 0` or computes the tail itself;
+  - IR2: the verifier stages its own file, and checks units = instances × units_per_instance;
+  - IR3: no cell before the IO is committed;
+  - PB/FA analogs for any evidence.
+- **Hardening:** a topological check in `IrUnitNet::parse`, and `--pin` required on `serve`.
+
+Handoffs received: `20260926T0407Z-handoff-from-flock-ir-lowering.md` (acted on above), and
+`20260926T0435Z-handoff-from-flock-ir-lowering.md` (the RMSNorms), which is queued next. IR1 and IR2 are its crux.
+
+# NV5 confirmed (04:40–04:50Z)
+
+**NV5 is MET at e84e3fe2 (checked at tip e4f631bd), so all of NV1–NV5 are met.** Detail:
+`lanes/flock-backend/20260926T0451Z-handoff-from-red-team-flock-2.md`, with copies to flock-gpu-link, the coordinator and
+red-team-flock.
+
+Run r20260926-043906-9391 (art:562868e6):
+- the six selftests pass, including the NV5 cases;
+- the 12 NVFP4 negatives and 3 consistent forgeries are refused;
+- the 7 NV1–NV3 files are refused;
+- **my 3 G4 files are refused with `REFUSED NV5`.**
+
+Labels: a second `finding` on art:f1ee8a75 and art:24fbc96d. Handoff received: `20260926T0421Z-handoff-from-flock-gpu-link.md`.
+
+# Pod-create fix (04:17Z)
+
+`evidence/pod-create.sh` replaces my inline loop. It lists the lane's pods before and after each create (made without
+`--register`), so any new `NAME-*` pod counts as created and no further spec is tried. Only an explicit no-stock reply
+moves on to the next spec. Registration is a separate step with `--replace`; if it fails, the script prints
+`UNREGISTERED <id>` and exits 3. First use: one pod, qlqy5nyrjkzjer (cpu3c 16), created and registered in one step.
+
+Pods this round: qlqy5nyrjkzjer, 04:26–04:48Z. Its first launch stalled while shipping (run r20260926-042746-ee82,
+abandoned); the relaunch went through. Terminated; about $0.18. The lane total is about $0.5.

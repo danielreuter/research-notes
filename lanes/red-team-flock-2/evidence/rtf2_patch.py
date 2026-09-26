@@ -22,6 +22,8 @@ EDITS = [
             let p = c[12];
             c[13].0 = flock_hash::blake3_compress(&p.0, &p.1, p.2, p.3, p.4)[..8].try_into().unwrap();
         }
+        (Comps::B3(c), "fp4_dummy_block_forged") => { let j = st.blocks_real * st.lay.comp_slots() + 3; c[j].1[0] ^= 1; }
+        (Comps::Sha(c), "sha_fp4_dummy_block_forged") => { let j = st.blocks_real * st.lay.comp_slots() + 3; c[j].1[0] ^= 1; }
         (Comps::Sha(c), "sha_fp4_pad_marker_dropped") => { let j = st.lay.per_role() - 1; c[j].1[8] ^= 0x8000_0000; }
         (Comps::Sha(c), "sha_fp4_last_block_data_forged") => { let j = st.lay.per_role() - 1; c[j].1[3] ^= 1; }
         (Comps::Sha(c), "sha_fp4_scale_block_forged") => {
@@ -81,6 +83,8 @@ const RT2_CASES: &[(&str, bool, bool)] = &[
     ("fp4_x_scale_operand_free_u5", false, true),
     ("fp4_x_scale_operand_free_u20", false, true),
     ("fp4_w_scale_operand_free_u7", false, true),
+    ("fp4_dummy_block_forged", false, true),
+    ("sha_fp4_dummy_block_forged", false, true),
     ("sha_fp4_pad_marker_dropped", false, true),
     ("sha_fp4_last_block_data_forged", false, true),
     ("sha_fp4_scale_block_forged", false, true),

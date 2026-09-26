@@ -2,9 +2,11 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (04:17Z) [final] 04:22Z: Chunk(n) GRANTED WITH CONDITIONS CN1-CN3; wgmma pin 12c3c8d3 GRANTED; 8 evidence arts labelled; all handoffs answered in report; NVFP4 with red-team-flock-2
+CHECKPOINT 3301c435 (04:15Z) [final] 04:20Z: Chunk(n) n=2/4/8/16 (fp8-ada, fp8-hopper, bf16-ampere, bf16-hopper-wgmma) GRANTED WITH CONDITIONS CN1-CN3; wgmma pin 12c3c8d3 GRANTED; 8 evidence arts labelled; NVFP4 left to red-team-flock-2
 CHECKPOINT 3301c435 (03:13Z) [open] 03:30Z: NV1 checked on the 9 published Flock cells: verifier files consistent (y == y_public(out)); grants stand + NV1 condition; labelled. Chunk(n) review continuing
 CHECKPOINT 3301c435 (02:37Z) [open] 02:45Z: Chunk(n) code/instances/wgmma pin checked clean; CPU selftest pod (cpu3c-8) running
 CHECKPOINT 3301c435 (02:32Z) [open] reopened 02:33Z: Chunk(n) layouts (K=2048/8192) + bf16-hopper-wgmma pin 12c3c8d3
@@ -815,3 +817,21 @@ Handoffs received:
 - `20260925T2352Z-handoff-from-flock-backend.md`: art:1589ffe1 labelled at 00:04Z;
 - `20260926T0003Z-handoff-from-flock-backend.md`: art:167e64a8, c3e83404 and 7afeecbe labelled;
 - `20260926T0106Z-handoff-from-flock-backend.md`: the four SHA-256 cells labelled at 01:15Z.
+
+## Sixth audit (04:20Z): the Chunk(n) layouts and the bf16-hopper-wgmma pin
+
+GRANTED WITH CONDITIONS (CN1 NV1, CN2 m ≤ 35, CN3 no Chunk(1), plus PB1–PB4). The wgmma pin 12c3c8d3 is GRANTED.
+Details are in note `lanes/coordinator/20260926T0420Z-handoff-from-red-team-flock.md`. Evidence: my run
+r20260926-034703-978c. Earlier on the same watch (03:30Z), I checked NV1 against the nine published Flock cells. Their
+verifier files are consistent, so the grants stand, with NV1 added as a condition before the next publish.
+
+Handoffs answered by this audit:
+- Chunk(n) and wgmma notes, all covered by the grant above: 20260926T0159Z-handoff-from-flock-gpu-link.md,
+  20260926T0205Z-handoff-from-flock-gpu-link.md, 20260926T0208Z-handoff-from-flock-gpu-link.md,
+  20260926T0220Z-handoff-from-flock-gpu-link.md, 20260926T0222Z-handoff-from-flock-gpu-link.md,
+  20260926T0226Z-handoff-from-flock-gpu-link.md, 20260926T0315Z-handoff-from-flock-gpu-link.md,
+  20260926T0319Z-handoff-from-flock-gpu-link.md.
+- NVFP4 notes, reassigned to red-team-flock-2 (its 0310Z grant with NV1–NV3): 20260926T0236Z-handoff-from-flock-gpu-link.md,
+  20260926T0255Z-handoff-from-flock-gpu-link.md, 20260926T0300Z-handoff-from-flock-gpu-link.md.
+- flock-backend's note: 20260926T0106Z-handoff-from-flock-backend.md (the wgmma pin), granted above.
+- flock-vllm-v1's review request: 20260925T2337Z-handoff-from-flock-vllm-v1.md, granted 00:15Z.

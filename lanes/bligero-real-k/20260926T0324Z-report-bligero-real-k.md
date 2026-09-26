@@ -2,9 +2,10 @@
 lane: bligero-real-k
 kind: report
 created: 2026-09-26T03:24Z
-status: final
+status: open
 ---
 
+CHECKPOINT 0f4dc9ab (10:48Z) [open] RE-RUN of art:b1d710da (go-ahead 10:27Z): plan a100-k8192-xob-v2-rerun (v2 settings, new pods) at main e8ec5e19; prover r20260926-104642-25da on vy-bligero-real-k-a100-r3 (A100-SXM4-80GB, US-KS-2), verifier r20260926-103731-fe03 on vy-bligero-real-k-verifier-r4 (H100 PCIe, other host: A100/L40S unavailable, the A100 verifier landed on the prover's host). US-WA-1 pair terminated (no hairpin). Expected t=204, 2^-128.561. Spend est ~$4 (over the ~$1.9 estimate: WA misplacement + H100 verifier), within the guard line
 CHECKPOINT 0f4dc9ab (10:27Z) [final] PR #71 merged (e8ec5e19): A1 chain term booked (3/2^32) in Python + Rust, t sized with it, register refuses > 2^-128, live post-close fix. art:b1d710da 2^-127.972 labelled finding + below_bar (key to confirm, handoff 1026Z); 15 other cells clear. A100 K8192 options A (no spend, 1024-VU point 2^-128.265, needs ruling) / B (re-run t=204 -> 2^-128.561, ~$1.9) await go-ahead. No pods.
 CHECKPOINT 0f4dc9ab (10:26Z) [final] PR #71 merged (e8ec5e19): chain term A1 booked at 3/2^32 in Python + Rust, config_for sizes t with it, cell register refuses > 2^-128, live post-close frame fixed. art:b1d710da recomputes to 2^-127.972: labelled finding DOWNGRADE + below_bar true (off Table 2; key to be confirmed by coordinator, handoff 1026Z); other 15 cells clear (11208bf7 -128.265, rest < 0.01 bit). A100 K8192 back: option A no-spend (same run's 1024-VU point, 2^-128.265, needs plateau-rule ruling) or B re-run on main t=204 -> 2^-128.561 (~$1.9), awaiting go-ahead. No pods running.
 CHECKPOINT 281e5e17 (09:20Z) [final] DONE: 16 new-sender real-K cells (art:3bb4d03f art:1dafbfd5 art:b1d710da art:622c9737 art:c56a09a8 art:4b567c9c art:11208bf7 art:e8fb169d art:664f3142 art:c92a439a art:767b54db art:f451dabc art:f1ac2db5 art:82587955 art:9fd5ec09 art:9260a985); be42c41a c8cc8514 67fb03cb db9f01bf superseded_by; 4 pass, 12 under-model only (note labels; one-sided rule = Daniel); sender merged (PR #55); handoffs verify 0705Z/0758Z/0845Z, coordinator 0855Z, bench-spine 0545Z answered; all lane pods terminated after drain, every attempt preserved (h100-ga2 8/8 at 09:19Z); spend ~$46 of $52

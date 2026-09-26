@@ -2,9 +2,10 @@
 lane: verify-bligero-real-k
 kind: report
 created: 2026-09-26T05:53Z
-status: final
+status: open
 ---
 
+CHECKPOINT 2bd8ce2f (08:54Z) [open] reopened for last 2 B-Ligero cells e8fb169d (H100 BF16 K8192 sha256) + 9260a985 (FP8) and snapshot_vs_record r20260926-073309-3956: NOT final; agent bc-30d7a020-fc45-5944-9ceb-1ac513232a9e; $2
 CHECKPOINT 2bd8ce2f (08:30Z) [final] FINAL (reopen 1): 14 new-sender cells verified=accepted (runs r20260926-075651-fc42, -081703-0f0a, -082424-5906 at main 2bd8ce2f; pins 16/16; sets re-staged; sessions 70/70); last 2 H100 K8192 SHA-256 cells not yet registered; pod terminated 08:29Z ~$0.55
 CHECKPOINT 2bd8ce2f (08:25Z) [open] 11 cells verified=accepted: +1dafbfd5 f1ac2db5 9fd5ec09 f451dabc (ref r20260926-081703-0f0a). Run r20260926-082424-5906 on 4b567c9c 622c9737 82587955. Live-read session snapshots = preserved verifier records (7d7b a6fe 4ad5 ca25)
 CHECKPOINT 2bd8ce2f (08:17Z) [open] 7 cells verified=accepted (ref r20260926-075651-fc42, pins 16/16 at main 2bd8ce2f): c56a09a8 664f3142 3bb4d03f 11208bf7 c92a439a b1d710da 767b54db. Run r20260926-081703-0f0a on 1dafbfd5 f1ac2db5 9fd5ec09 f451dabc

@@ -12,3 +12,6 @@ cursor:
    regression session start (conftest or resolver, test-only): if the rows under that root don't match the v1 pins, stop with a
    message saying new records belong in `VERITY_REGRESSION_CANDIDATE`. Include a test for both directions. Small; it can share the lane
    with item 1.
+4. **Dense planner calibration** (from PR #62; for the next epoch): the row planner'"'"'s dense coefficients overestimate (#4 Match: 122 GiB predicted, 80 GB
+   used), so the new admission (`pool + committer_resident`) may refuse dense rows falsely. Capture #4'"'"'s per-term Match record
+   (`footprint.jsonl` / the verdict'"'"'s predicted-vs-measured lines) on its next run, then recalibrate `telemetry.admission` coefficients.

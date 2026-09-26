@@ -2,9 +2,10 @@
 lane: red-team-flock
 kind: report
 created: 2026-09-25T11:07Z
-status: open
+status: final
 ---
 
+CHECKPOINT 3301c435 (13:43Z) [final] FINAL 14:00Z: route (a) L40S e1a2dfc3 / 7a0d186b NON_ZK_PROOF (rebuild identical, gate 10/10, negs rejected; placement distinct machine+boot ids, routed pod network). Bundle 508e6e74 not needed for the verdict. No pods, $0.
 CHECKPOINT 3301c435 (13:39Z) [open] 13:40Z reopened: route (a) L40S cells e1a2dfc3 / 7a0d186b, CPU only
 CHECKPOINT 3301c435 (13:17Z) [final] FINAL 13:32Z: art:73a9e9f3 (L40S K2048 re-run) NON_ZK_PROOF: PB1-PB4/CN1-CN2 met, replay 6/6, placement passes (distinct machine ids/DCs, 20 ms public link). No pods, $0.
 CHECKPOINT 3301c435 (13:15Z) [open] 13:16Z reopened: L40S K2048 re-run art:73a9e9f3 (cross-DC verifier), CPU only
@@ -943,3 +944,10 @@ replays accepted, and both new unit tests pass. The ChunkTail grant (CT1–CT3) 
 art:73a9e9f3 is labelled NON_ZK_PROOF. PB1–PB4, CN1 and CN2 are met, and my replay accepted 6 of 6 sessions. Placement
 passes: distinct RunPod machines in different datacenters, reached over the verifier's public IP at 20 ms. Detail is in
 note `lanes/coordinator/20260926T1330Z-handoff-from-red-team-flock-l40s-rerun.md`.
+
+## Route (a) on the L40S (14:00Z)
+
+art:e1a2dfc3 and art:7a0d186b are labelled NON_ZK_PROOF. The statement rebuild is identical, the gate passed on 10 of 10
+sessions, and the negatives were rejected. Placement passes: 7a0d186b's two L40S pods have distinct machine ids and boot
+ids, and the link is RunPod's routed network. Detail is in note
+`lanes/coordinator/20260926T1400Z-handoff-from-red-team-flock.md`.

@@ -5,6 +5,7 @@ created: 2026-09-26T08:06Z
 status: open
 ---
 
+CHECKPOINT 47dcd5a4 (13:10Z) [open] pause lifted: pods vy-agkr-l40s + vy-agkr-l40s-ver in US-NC-1 (verifier 10.0.224.208:7200, sshd 7201); launching: k2048
 CHECKPOINT 47dcd5a4 (13:10Z) [open] L40S pods: vy-agkr-l40s bdm1su2c4x7my1 (machine av7yp9ygnbzg) + vy-agkr-l40s-ver qz4cc7wzj5nke2 (machine hl5m5gd6160a) in US-NC-1, global net 10.0.224.208; launching k2048
 CHECKPOINT 47dcd5a4 (13:10Z) [open] L40S K=8192 cell registered art:4f7b26a5 (US-TX-4 pair, machines h1ovgmmrd3dh / bmf6gxxmufbv; the launcher's 'US-MD-1' label was its A100-era default); K=2048 rerun on a fresh US-NC-1 L40S prover bdm1su2c4x7my1 + an H200 verifier (the DC's only stock)
 CHECKPOINT 47dcd5a4 (13:04Z) [open] cell runs done (k2048 k8192); pods drained and terminated

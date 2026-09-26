@@ -69,3 +69,17 @@ PR [#47](https://github.com/danielreuter/verity/pull/47) is a draft, on branch `
 - **The change:** `drivers/c_interactive.register()` now passes `--lane <cell lane>` to `verity_flock.register` whenever the installed script takes it. #34 (a9d13f68) makes the flag required, and `main`'s script rejects it, so either merge order works. A C-interactive cell also needs a lane at plan time now.
 - **Tests:** the registration tests now run on `art:6d1295ed`'s real prover and verifier runs (fixture `tests/bench/data/flock-runs`). They pass with `main`'s `register.py` and with #34's swapped in: 30/30 each way.
 - **For flock-backend:** re-registering those same runs with #34's script recomputes the coin waits and leaves the result 13% off the interaction model at its own 0.91 ms RTT (1.3 s measured, 1.5 s modelled), outside the ±10% tolerance. `cell register` refuses it, and the renderer would mark it M. With `main`'s script, the runs check clean.
+
+## Update 02:53Z: second-machine regeneration is byte-identical; fixture on art:1589ffe1's runs; pod terminated
+
+- **New tip:** `13b828e9` (merges `origin/main` e0dfe46f).
+- **Regeneration:** run `r20260926-021036-5fc3` on `vy-bench-spine` (rc 0, preserved) regenerated the #101 suite. All 10 sets are byte-identical to the registered ones: content digest, the sha256 of every file (arrays and `index.json`) and the draw counts.
+  - The two machines differ in CPU and in Python (3.14.7 on the pod, 3.12.3 on the VM; numpy 2.5.3 on both).
+  - The pod ran the code from before the pool-chunking fix, so this also shows that fix leaves the output unchanged.
+  - Evidence: `lanes/bench-spine/evidence/20260926T0252Z-suite101-regen-compare.json`.
+- **Fixture swap:** on your note, the `art:6d1295ed` runs are superseded. The registration tests now use the runs behind `art:1589ffe1` (H100 BF16, the open-connection re-run: `r20260925-233831-a064` and `r20260925-233818-a37e`).
+  - `check` is clean, and the tests pass (30/30) with `main`'s `register.py`, #34 at a9d13f68 and #34's head 4b7fb19d. The head runs `views.interaction`, which `main` has since e0dfe46f.
+  - The runs' `out/` files are force-tracked, because the root `.gitignore` ignores `out/`. A fresh clone passes the tests.
+- **Merge fix:** `main` renamed the census `INSTANCE_SETS` to `INPUT_SETS` (and `instance_sets.schema.json` to `input_sets.schema.json`); `bench.cell` follows it. The whole bench test directory passes: 404, with 6 skipped.
+- **Provenance gap:** a synthetic set generated on a pod records `versions.git_head = null`, because `RESEARCH_SOURCE_COMMIT` isn't set there. Its `source_sha256` still pins the code.
+- **Pod:** `vy-bench-spine` (y8l50t1b7qhbe6) was terminated at 02:51Z, after about 42 minutes at $0.27/h. The lane's total spend is about $0.19. Its `machines.d/vy-bench-spine.toml` entry is still there, because there's no deregister command.

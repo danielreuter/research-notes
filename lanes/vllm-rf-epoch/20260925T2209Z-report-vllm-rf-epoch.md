@@ -5,6 +5,8 @@ created: 2026-09-25T22:09Z
 status: open
 ---
 
+CHECKPOINT 101e8917 (10:32Z) [open] WAIT dropped-75 af98 (#75 Commit), dropped-68b d929 (#68 Build) check-back 11:45Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: #73 stopped 10:32Z as partial (Build 7/8 shapes; couldn't end by 12:30Z), copy 80dd, g8-73 terminates on PRESERVED; spend ~$30, projected ~$40
+CHECKPOINT 101e8917 (10:31Z) [open] WAIT g8-73 61e3 (#73 Build since 08:15Z), dropped-75 af98 (#75 Build PASS 5530 s, Match FAIL fold_match per rank: FAIL-class row; Commit running since ~10:00Z), dropped-68b d929 (#68 Build since 08:03Z) check-back 11:45Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: bisect-23 terminated 08:09Z; spend ~$29 of $60, projected ~$53
 CHECKPOINT 101e8917 (08:06Z) [open] WAIT goal 8: g8-73 61e3 (#73, 2x H100 503 GB), dropped-75 af98 (#75 tp_stage, 377 GB), dropped-68b d929 (#68, 377 GB); bisect-23 terminates on afaa PRESERVED; #11/#39 capacity gaps (>= 512 GB) check-back 10:30Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: #23 Commit OOM at 251 GB
 CHECKPOINT 101e8917 (07:57Z) [open] WAIT goal 8: bisect-23 (#23 Commit, stop by 08:55Z; then #11 6123), dropped-39 f3e2 (#39), dropped-75 af98 (#75), dropped-68b d929 (#68); #73 budget gap check-back 08:50Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f
 CHECKPOINT 101e8917 (07:19Z) [open] WAIT vyv-rf-epoch-bisect-23 r20260926-033729-b866 check-back 08:15Z agent bc-e66a058f-2557-506e-93e3-3889bb86af5f: #23 Build PASS (7605 s, 2bdeb8e3, manifest e55e5407), Match PASS (fold True, GM-01 PASS); Commit running since 06:56Z; spend ~$8.1, hard stop 08:55Z ($12 cap)

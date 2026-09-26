@@ -159,6 +159,14 @@ Row driver: `/tmp/ep/rows.sh` (sent with `--send`): Build+Match, then Commit eve
   (GPU 0).
 - Burn now: dropped-75 + dropped-68b $4.36 + g8-73 $6.98 = $11.34/h. #73 ~13:00Z, #75 ~14:00Z, #68 ~15:00Z: about $60.
 
+## 10:35Z
+- #73 stopped at 10:32Z (partial): its Build was at 7 of 8 request shapes after 2 h 17 min (the previous full Build took 10,713 s).
+  Build + Match (51 min) + Commit (> 38 min) would end ~13:00Z, past the 12:30Z line. Small-file copy `r20260926-103153-80dd`;
+  g8-73 terminates when it's PRESERVED (tmux `term-73`). #73's cost: about $17.
+- #75: Build PASS (5530 s; ranks 8f72fe88…/cddba988…, workloads 7507e1c0…/68c44d03…), Match FAIL (collective match pass,
+  12,544 collectives, 0 mismatches, tokens True; `fold_match` rc 1 per rank: a FAIL-class row, as the reference). Commit running.
+- #68: Build running since 08:03Z.
+
 ## Next
 - Before the final `write`: merge b4c `9689a1ef` (b4c + a5c; a5 removes `ops/row_pod.sh`) / main; record in READY that the
   recording trees (`a784d421`, `89cd9d1a` for #67/#68) lack a5 and b1 (digest-neutral by their gates). READY: flag `a784d421`'s

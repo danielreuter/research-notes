@@ -5,6 +5,7 @@ created: 2026-09-25T17:35Z
 status: open
 ---
 
+CHECKPOINT e84e3fe2 (04:19Z) [open] NV5 (y leaf pinned per relation) landed on flock-backend 20082dcb with selftest negatives; handed to flock-backend, red-team-flock-2 (NVFP4), red-team-flock (others); CPU only, no pods
 CHECKPOINT 45fdab2d (03:26Z) [open] NV1-NV3 (red-team-flock-2) landed on flock-backend 3d019e65: admission before any coin (out from committed y, netlist/layout pairing, pinned row schemas) + 4 selftest negatives; handed to red-team-flock-2 and flock-backend; no pods, $0 of the $10
 CHECKPOINT 93773ddc (03:20Z) [open] 10 layouts landed tonight (GEMM K2048/8192 on H100 fp8, H100 bf16 wgmma captured, 4090 fp8, A100 bf16 captured; fp4-nvf4 Fp4/ShaFp4 on 5090), all PRESERVED + handed off; branch merged with main (93773ddc), main gets it via flock-backend; no pods up; ~$9 of $40
 CHECKPOINT 0bb25e8a (02:58Z) [open] 8 layouts landed tonight: Chunk(n) GEMM K2048/8192 on H100 fp8, 4090 fp8, A100 bf16 (captured) + fp4-nvf4 Fp4 (5090 8192 VUs 0.31 s) and ShaFp4 (4096 VUs 0.32 s); all PRESERVED and handed off; next: H100 BF16 wgmma when wgmma-bf16 lands; no pods up; ~$6 of $40

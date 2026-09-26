@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (12:11Z) [open] WAITING flock-ir-lowering's last ece9fdd2 re-runs (T=4,128..132,256,257) on vy-flock-ir-lowering-nc-l40s, check after 12:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; done: 8 ece9fdd2 cells PASS+labelled (T=1,2,3,258..261,287: art:3b8280fa baa539f8 0051325c 327e9366 a552878e 186b9949 f52bf885 298d4c14); next: last 8, then FINAL
 CHECKPOINT e5493f9f (11:17Z) [open] WAITING r20260926-110548-5012 (flock-ir-lowering T=258 prover) on vy-flock-ir-lowering-nc-l40s, check after 12:05Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: cell_check + label the 16 ece9fdd2 re-run cells (harness-only, in grant), then FINAL
 CHECKPOINT e5493f9f (11:16Z) [open] attention flock-ir-frame/v3 GRANTED W/ CONDITIONS NON_ZK_PROOF (AC1-AC4); 11 L40S cells cell_check PASS + labelled; pod dq3xclby5ni4ic terminated 11:03Z after custody (~$0.32); runs r20260926-103512-bb40 (art:25c96f97), r20260926-103647-114d, -104127-079a, -103647-17e8; next: T=258..261/287 + T=1/4 re-runs
 CHECKPOINT e5493f9f (10:41Z) [open] run r20260926-103512-bb40 on vy-red-team-flock-3 (@22dc6320): producer selftest on my staged T=4/129/287 captured files, 18 adversarial honest sessions accepted; T=4 cell art:308df7ad verifier-staged file CELL_CHECK PASS (leaf maps, digests, roots, e2e vs IR); local tc/e2e diffs running
@@ -151,6 +152,22 @@ Per cell:
   exchange and require_link is true.
 - The rows equal the registered per-T set, its key count is T only, and file outputs = IR = captured.
 
+### The ece9fdd2 re-runs (14 threads; the cells the producer cites), checked and labelled NON_ZK_PROOF at 12:11Z
+
+| cell | T | pin | B | verifier run | check |
+|---|---|---|---|---|---|
+| art:3b8280fa | 1 | fa983f8b | 64 | r20260926-115337-4e65 | PASS |
+| art:baa539f8 | 2 | 26e82ebc | 64 | r20260926-115635-65c6 | PASS |
+| art:0051325c | 3 | 40aae6da | 64 | r20260926-115949-4f4e | PASS |
+| art:327e9366 | 258 | 8cfef22b | 16 | r20260926-110539-ec03 | PASS |
+| art:a552878e | 259 | 572c4a2d | 8 | r20260926-113109-f951 | PASS |
+| art:186b9949 | 260 | 91e5e009 | 8 | r20260926-113647-48f1 | PASS |
+| art:f52bf885 | 261 | 52bb1734 | 8 | r20260926-114224-b5ce | PASS |
+| art:298d4c14 | 287 | 5969034c | 8 | r20260926-114800-e0b2 | PASS |
+
+Every pin equals my reviewed per-T pin. The same checks as above apply: one sub-batch, 6 accepted verifier sessions plus the
+probe, link exchange and require_link. Labelled with `evidence/label_cells.sh`.
+
 ## Findings (none reachable by a cheating prover)
 
 - **F1 (hygiene):**
@@ -182,5 +199,13 @@ Per cell:
 - **AC4:** the PB/FA analogs as before: a separate verifier pod, a non-producer replay by a verify-* lane (pending), and
   link_mode, require_link and Σ in the record.
 
-Handoff received: `lanes/red-team-flock-2/20260926T0922Z-handoff-from-flock-ir-lowering.md` (the review request). Acted on
-above.
+Handoffs received:
+- `lanes/red-team-flock-2/20260926T0922Z-handoff-from-flock-ir-lowering.md` (the review request): acted on above.
+  Verdict: `lanes/flock-ir-lowering/20260926T1115Z-handoff-from-red-team-flock-3.md`, copied to `lanes/coordinator/`, and a
+  note in `lanes/red-team-flock-2/`.
+- `lanes/red-team-flock-3/20260926T1112Z-handoff-from-flock-ir-lowering.md`:
+  - 0839742b is the TAG fix (F1).
+  - ece9fdd2 is harness only: the thread count, checked with `git diff 0839742b ece9fdd2`, which touches only the two pod
+    scripts. It is inside the grant (AC2).
+  - All 16 T values are being re-run at ece9fdd2 through ~12:40Z. I check and label those as they land; the producer
+    labels the first twelve superseded.

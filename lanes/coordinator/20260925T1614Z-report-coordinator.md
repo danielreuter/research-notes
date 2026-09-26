@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT (06:55Z) [open] main after ea59e584: below_bar vocab+drill-down (9 SP1 published, render 0700Z), superseded_by rejects, pods create at-most-one, reverify meta.artifacts[0]; real-K Flock 8 verified+granted but renderer has no real-K rows (blocker, asked root); bligero-real-k 4 cells verified by verify-bligero-real-k, interaction decision pending; spend $128.6/$300.
+
 CHECKPOINT (06:12Z) [open] main 1aa11b61 (#57, flock-backend 3a073d74, SUPERSEDED rejects); auto top-up fired ($290.88); verify-flock-pure 5/8 accepted, red-team-flock on the 4 re-runs; two decisions to root: bligero-real-k interaction check with transfer tail, flock-ir-lowering RMSNorm frame binding A/B; PR #54 waits IR4; spend $121.8/$300.
 
 CHECKPOINT (04:42Z) [open] main dfe36a74 (#53). red-team-flock FINAL: Chunk(n) granted w/ CN1-3, wgmma pin granted; red-team-flock-2: NV1-3 met at 45fdab2d, NV5 new; flock-backend tip e4f631bd (NV5, CN2, CN3 admission, 04:23Z) merges clean onto main, MR awaited with gate on tip; verify-night-3 working SP1 verify (pod reaped 04:06 w/ custody); spend $93.6/$300; balance $122.

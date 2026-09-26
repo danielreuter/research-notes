@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 787ac154 (12:49Z) [open] reopened for 16 L40S attention cells (flock-ir-frame v3 @ ece9fdd2): NOT final
 CHECKPOINT 787ac154 (12:31Z) [final] FINAL: 8 per-workload GEMM cells verified=accepted (file re-verification; r20260926-114049-edf0, r20260926-122145-c586); pod terminated 12:31Z; ~$0.25; ready for the attention cells
 CHECKPOINT 787ac154 (12:00Z) [open] workload GEMM: 2e5ea606 4e3f5048 aea553ae labelled; 86780ca6 4a319a65 89dab836 running (r20260926-114049-edf0); d9a40cd4 8b5a0bf1 need a 581c3084 staging rerun (header content_digest differs), queued on lane/verify-flock-workload-581 2266e096
 CHECKPOINT 787ac154 (11:41Z) [open] workload GEMM: replay r20260926-114049-edf0 on vy-verify-flock-pure (pod 5nin7m601u6fdc, cpu3c-8) from lane/verify-flock-workload = flock-backend e09c19a5 (its own replay + 31-replay.sh SET)

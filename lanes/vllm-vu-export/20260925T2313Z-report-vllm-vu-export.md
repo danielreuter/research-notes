@@ -5,6 +5,7 @@ created: 2026-09-25T23:13Z
 status: open
 ---
 
+CHECKPOINT 18d8cc0d (17:32Z) [open] WAITING r20260926-173050-5a18 on vyv-vu-export-g3 (1x L40S, 0tux4mcwshmyou, guard 90, cap $5): #101 Build->Match->Commit as of record + Q_word_v1{16,32} check on its Build; expected done ~18:35Z, before the 18:45Z deadline; branch cursor/q-word-query-289b; agent bc-eab8c043
 CHECKPOINT be79f70f (13:58Z) [open] PR #81 (export reuses the replay's population; 900 s build stopgap; after-verdict split = follow-up) -> vllm-coordinator 20260926T1358Z; cpu3 terminated; lane ~$8.6
 CHECKPOINT 0a2b5ee8 (13:44Z) [open] PR #80 (export budget after population build) + PR #63 review OK -> vllm-coordinator 20260926T1344Z for the research coordinator; #67/#74 have no exports yet (catalog unchanged); cpu2 pod terminated; lane ~$8.5
 CHECKPOINT f64418ce (08:30Z) [open] program graphs + definitions for all 13 rows (28,860 specializations, 48/48 validated inputs) at internal/datasets/program-graphs (art:453fc5fe); PR #66 merge request sent; bundles vllm-101/vllm-4 regenerated; pods g2 + cpu TERMINATED (lane ~$8.4); handoffs sent 20260926T0829Z

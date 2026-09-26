@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: open
 ---
 
+CHECKPOINT a57628fc (07:36Z) [open] IR4/IR5 + frame/v2 review: cells' verifier-staged statements check out (wiring/out_leaf = IR leaf maps, 0 diffs; roots recomputed); silu x2 unit 0/1.06M; RMSNorm pins = granted rows + CUT. Pod run next (IR5 tail, IR4 tampers, frame negatives)
 CHECKPOINT a57628fc (07:24Z) [open] woken 07:23Z: IR4/IR5 @b4e05b48 + IR3 flock-ir-frame/v2 @c53d9148 (frame-v3 keyed-BLAKE3 binding; cells dd27fdab 8a07b80f 9563d2c8 63553a6c); agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (05:41Z) [open] RMSNorm fused+Triton @34d02ae3 GRANTED W/ CONDITIONS (relation-only); IR1/IR2 MET; new IR4 (cut structure unpinned: eps forgery accepted) + IR5 (tail add/mul 2-NaN); rope/silu v2 byte-identical; art:3591d6ef; labels art:7342c52d/44d7c8d0/a4f38fc0; pods terminated; IDLE until woken; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (05:18Z) [open] RMSNorm review @34d02ae3: rope/silu v2 rows byte-identical (2eaa652f/3b1ed294); fused units 0/7680 lanes vs IR on 240 adversarial rows (VM); tail_program == IR cut words; IR4 candidate (Rust tail not pinned; eps forgery built). Pod run next: tail prims, triton, loadchecks, tampers

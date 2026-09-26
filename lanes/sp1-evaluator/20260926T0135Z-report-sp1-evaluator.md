@@ -5,6 +5,7 @@ created: 2026-09-26T01:35Z
 status: open
 ---
 
+CHECKPOINT 0a652c36 (04:05Z) [open] WAITING r20260926-034955-d892 on vy-sp1-evaluator (then gemm8192, gemm2048, silu-rest queued by tmux cover-queue/cover-queue-2 on the agent VM), check after 05:50Z; agent bc-231b1a72-2c21-58bc-b207-c9ee2ac71772; next: label cover runs, cover summary snapshot, handoff for non-producer verify
 CHECKPOINT 0a652c36 (04:04Z) [open] cover in progress on vy-sp1-evaluator: triton r..f9db, silu[0,128) r..8524, rope r..3955 passed+labelled; fused r..4955-d892 running; gemm8192/gemm2048 queued (prepare r..df49, r..2152); elem-bf16@1 promoted (13405f08)
 CHECKPOINT 0a652c36 (03:29Z) [open] pod vy-sp1-evaluator (4090) created for the #101 sampled cover (REOPENED handoff 0314Z, no objection); prepare runs in progress
 CHECKPOINT ff8bbbd8 (03:13Z) [open] reopened for follow-up (SiLU·mul family + sampled #101 cover): NOT final; agent bc-231b1a72

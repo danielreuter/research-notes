@@ -122,20 +122,62 @@ Both conditions are fixed on the same branch at `a53900df`.
   - vLLM commit and acquire tests with CPU torch: all pass except `test_compiled_source::test_renumber_…`, which also fails on
     f1df809f and depends on the torch version.
 
+## E4: SHA-512 data commitments (follow-up PR #93, stacked on #88)
+
+Daniel decided on SHA-512 on every commitment path, and the root assigned me the frame roots too.
+[PR #93](https://github.com/danielreuter/verity/pull/93) is branch `cursor/sha512-commitments-18a8` @ cd00f704, based on #88's
+a53900df; retarget it to main after #88 merges. Everything is opt-in, and the SHA-256 defaults are byte-identical: every existing
+vector passes.
+
+- **`frame-v3-sha512` and `vllm-v1-sha512`.** Each is the framing through SHA-512.
+  - Scheme-computed digests are 64 bytes; identity digests stay 32 bytes.
+  - `sha512/row/v1` has a 128-byte constant prefix block.
+  - Specs: frame-v3 §6 and vllm-v1 §10.
+  - `vectors_sha512.json` sits beside each.
+- **`hm96-sha512/v1`.** A 1,536-bit salt, a 512 × 1,536 Hankel matrix and a fixed, public 2,047-bit key.
+  - The bound is the same as hm96-sha256's.
+  - The setup claim is spec §2a, and `verity.claims` gains `hash-derived-key`.
+- **Per-row cost** (run `r20260926-221723-71aa`, `art:b9bb217f74d4dbe95ca6d6594b1330c005063e0c45d8f2cfb0aecde0ae8673c6`), ANDs over the
+  keyed-BLAKE3 row:
+
+  | row bytes | ANDs, hm96-sha512 | ÷ keyed-BLAKE3 row | ÷ hm96-sha256 | stored |
+  |---:|---:|---:|---:|---:|
+  | 1,536 | 871,800 | 3.35× | 1.37× | +192 B |
+  | 3,072 | 1,569,240 | 3.01× | 1.33× | +192 B |
+  | 8,192 | 3,894,040 | 2.77× | 1.30× | +192 B |
+
+  Hiding itself costs 116,240 ANDs plus 400,193 XORs per row. On the host, hm96-sha512 adds ~3.8 µs per row, against 2.4 µs for
+  hm96-sha256.
+- **Tree cost** (run `r20260926-221754-0cce`, `art:a7a8ccce9ed178c0636d9644296b152fc3144f97204198a1d9a215ccc5fc99f3`): the
+  SHA-512 framings commit 1.31–1.39× slower through the Python references on this SHA-NI CPU. Per message the compressions are about
+  equal.
+- **Tests:** core, benchmarks, Ligero auth, vLLM production vectors, hiding and lints: 1,353 passed.
+- **Not in #93:**
+  - the integration's SHA-512 committers (Python and CUDA), listed in vllm-v1 §10, which land at the re-baseline;
+  - SHA-512 identity digests;
+  - capture-v1.
+
 ## FINAL
 
 ~~~text
-tip: cursor/hm96-sha256-leaves-18a8 @ a53900df (base main@2431e3c1; red-team C1/C2 fixed)        merge-with: none
+tip: cursor/hm96-sha256-leaves-18a8 @ a53900df (base main@2431e3c1; red-team C1/C2 fixed); E4 follow-up cursor/sha512-commitments-18a8 @ cd00f704 (base a53900df)        merge-with: #88 first, then #93
 known-failures: vLLM integration, 10 pre-existing on 2431e3c1 + 2 order-dependent + 20 torch-less errors (list above) | core none
 pod: none (CPU only); $0
-artifacts: art:b3a08e21b4388350bada8c417d79bc419a9b857dbab14a6c455e27aee279e8f7 art:1e2b59f46b14402bae65aef4c9f10b230569ad1d37042a1467dfee00deac7f54
+artifacts: art:b3a08e21b4388350bada8c417d79bc419a9b857dbab14a6c455e27aee279e8f7 art:1e2b59f46b14402bae65aef4c9f10b230569ad1d37042a1467dfee00deac7f54 art:b9bb217f74d4dbe95ca6d6594b1330c005063e0c45d8f2cfb0aecde0ae8673c6 art:8750691de6491b68d1c7f2e47011fc1ab6aee0c84c63053cf6638dc308c17622 art:a7a8ccce9ed178c0636d9644296b152fc3144f97204198a1d9a215ccc5fc99f3 art:c05bbf25a8af87949e10f4aa49eca92255111f9bbc7ca7a993e20a54b0819bae
 ~~~
 
-- **Recommendation:** hm96-sha256/v1 for every serving row leaf and for Flock's internal leaves (Daniel's decision), with the
-  pinned key as the circuit constant. The 2% test is moot: hiding costs +128 bytes stored per row (3.1% at 4 KB rows, 50% at
-  256-byte chunks), 5 native SHA-256 compressions and 3 in-circuit compressions per row. Choosing SHA-256 is what costs the
-  circuit 2.1–2.4× today's keyed-BLAKE3 row ANDs.
+- **Recommendation for the re-baseline:**
+  - Use `hm96-sha512/v1` leaves over `sha512/row/v1` rows of 1.5 KB or more, inside `vllm-v1-sha512` trees, with the pinned key as
+    the circuit constant.
+  - The cost: +192 bytes stored per row (4.7% at 4 KB), 4 native SHA-512 compressions, and 2 in-circuit compressions (116,240 ANDs)
+    per row.
+  - Choosing SHA-512 is what costs the circuit 2.8–3.4× today's keyed-BLAKE3 row ANDs at 1.5–8 KB, and 1.30–1.37× hm96-sha256.
+  - `hm96-sha256/v1` (PR #88) stays for SHA-256 roots.
 - **Handoffs sent:**
   - `lanes/flock-netlist/20260926T2034Z-handoff-from-salted-leaves.md`;
-  - `lanes/coordinator/20260926T2050Z-handoff-from-salted-leaves.md` (merge-ready).
-- **Handoffs received:** none.
+  - `lanes/coordinator/20260926T2050Z-handoff-from-salted-leaves.md` (merge-ready #88 @ f1df809f, superseded by the next);
+  - `lanes/coordinator/20260926T2158Z-handoff-from-salted-leaves.md` (C1/C2 fixed, #88 @ a53900df);
+  - `lanes/coordinator/20260926T2225Z-handoff-from-salted-leaves.md` (E4, #93);
+  - `lanes/flock-netlist/20260926T2225Z-handoff-from-salted-leaves.md` (SHA-512 sizes; the key is never a witness).
+- **Handoffs received:** none in my inbox. red-team-hm96's findings reached me through the root:
+  `lanes/coordinator/20260926T2140Z-handoff-from-red-team-hm96.md`.

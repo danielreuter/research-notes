@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: open
 ---
 
+CHECKPOINT e5493f9f (20:15Z) [open] PR #87 @28f55d9a GRANTED (merge cond UL2: vllm_block guard vs >2^13 netlists, F5 latent); 48/48 digests identical; ul14 selftests all_pass + 8 flips refused (r20260926-200915-e38d); total_proto 884b7f9b = IR total on 10.5M vectors (r20260926-201330-c204); WAITING flock-backend's pin of verity/flock-pure-block-total/v1 (T1-T5), then the 9 cells; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (20:00Z) [open] reopened (coordinator 19:59Z): review PR #87 (flock-gpu-link: per-statement unit slot 2^13/2^14, admission check UL1) then flock-backend's total GEMM unit+statement (domain total, NaN/inf); grant or block before the 9 GEMM re-run cells: NOT final; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (16:47Z) [final] FINAL: attention class pins GRANTED W/ CONDITIONS NON_ZK_PROOF; all three class cells checked, placement-separate, labelled NON_ZK_PROOF: c1 art:4fb2de9c (T1-128), c2 art:b61eafa9 (T129-256; duplicate ef10f5fb not labelled), c3 art:4dd2069b (T257-287); CP6 ruled (synthetic sets counted, provenance footnoted; note for Daniel); per-T v3 cells labelled earlier; art:25c96f97 c185d38b 8be608c6 3b34c1dd f5935b64; pod ~$0.32
 CHECKPOINT e5493f9f (16:07Z) [open] WAITING c2 (T=129..256) r20260926-153234-eeb6 on vy-flock-ir-lowering-b-l40s at 70+/128 sub-batches, ETA 16:30Z; my poller exits on its registration (deadline 17:00Z), backstop wake 16:58Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26; next: check_class_cells.sh + label_class_cells.sh on c2, then FINAL; c1/c3 re-labelled with the CP6 ruling
@@ -337,6 +338,108 @@ replays b61eafa9. The evidence is art:f5935b64.
 
 My checker needed one fix. The first c1 pass flagged all 128 sub-batches because `cell_check.py` expected a one-T input set.
 It now requires the heads in each file's own range to share T.
+
+## Total units (20:00Z onward): PR #87's 2^14-row unit slots, then the total GEMM statement
+
+Daniel's rule is that circuits are total by default. The total `tc_dot16` unit needs 8,449 rows (flock-backend's compact
+`total_proto`) or 9,601 (`fp.tc_dot16`), which is past the 2^13-row pure-block unit slot. The 9 bf16-ampere GEMM re-run cells
+wait for two grants:
+
+- PR #87, which lets a statement's unit slot be 2^14 rows;
+- the total unit and statement that flock-backend will pin on top of it.
+
+### PR #87 (flock-gpu-link @ 28f55d9a): GRANTED, with merge condition UL2
+
+`UnitNet::unit_log()` is 13 for a netlist of at most 2^13 rows, else 14. It replaces `UNIT_LOG` everywhere in
+`pure_block.rs`: unit placement, the Δ copies and chains, region shapes, the fold, the witness and the digest.
+
+**On paper.** The prover can't choose `ul`:
+
+- it is a function of the netlist, which is pinned on the verifier's side;
+- the statement digest hashes both `ul` and the netlist's sha256.
+
+No shift can underflow: `comp_log` is 14 for the BLAKE3 layouts and 15 for SHA, so `ul ≤ comp_log` for every layout. At `ul`
+= 14 the geometry is (slots of 2^14 bits):
+
+| layout | compressions | units | block slots | UL1 |
+|---|---|---|---:|---|
+| Chunk(n), ChunkTail(n) | 0..32 | 32..64 | 64 | fits exactly (units end at 2^20) |
+| Fp8 | 0..48 | 48..96 | 128 | fits |
+| Fp4 | 0..28 | 28..52 | 64 | fits |
+| ShaFp4 | 0..56 | 56..80 | 128 | fits |
+| ShaFp8 | 0..100 | 100..148 | 128 | refused |
+| ShaBf16 | 0..196 | 196..292 | 256 | refused |
+
+- **The fold at `per` = 1** (`comp_log` = `ul` = 14): each compression slot is one chunk with offset 0. Units are scaled by
+  `eq[(p << ul) | c0] / eq[c0]`, the same tensor-ratio argument as at 13.
+- **Region bits:** `out_cols[i]·128 + 32 ≤ useful ≤ 2^ul`, so a region's column bits never reach its slot bits.
+- **Padding rows** (`useful` to 2^ul) have empty A and B rows, so C = I forces them to zero.
+- **The witness** places unit u of a block at `(p0 + u)·2^(ul−7)` words, the same place as the Δ.
+- **The GPU side** (`PURE_UW` 256 → 512 words) is prover-only: completeness, not soundness.
+
+**Byte-identity.** All 48 statement digests are identical at main (2431e3c1) and PR #87: 12 layouts × the bf16-ampere
+(e97ecb9e) and fp8-ada (e66262a0) netlists × 8 and 64 VUs, with the fp4 layouts on fp4-nvf4 (fb52a87c). My harness is
+`evidence/rtf3_pure_digest.rs`, which only calls `PureStmt::new`.
+
+**Proofs at `ul` = 14 (CPU, run `r20260926-200915-e38d`).** The unit is the 8,449-row total unit (sha 884b7f9b:
+flock-gpu-link's `lower_total.py` of flock-backend's `total_proto`). Instance files come from flock-backend's `write_set` on
+the spine sets art:69cb815c, art:4f60228c and art:b36f2c6c, 8 VUs each.
+
+| test | result |
+|---|---|
+| producer's selftest, Chunk(4) (m 25) | all_pass, 27/27 |
+| producer's selftest, ChunkTail(4) (m 26) | all_pass, 31/31, with the tail cases |
+| producer's selftest, Chunk(16) (m 27) | all_pass, 27/27 |
+| finite 2^13 regression, Chunk(4) | 27/27 at PR #87, 27/27 at main |
+| my 8 flips (`evidence/rtf3_pure_patch.py`, prover-side) | all refused on both reps (zerocheck) |
+| UL1: the total unit on a ShaBf16 file | refused at admission (exit 2) |
+| UL1: the finite unit on the same file | admitted, and proves |
+
+My flips hit rows that only exist at 14:
+
+- padding rows 9000, 12000 and 16383, including the last bit of the last slot;
+- constant row 8448;
+- row 8200, past 2^13;
+- an internal row of the last unit;
+- ChunkTail's unit 15.
+
+**F5 (latent; not reachable today).** PR #87 raised `UnitNet::parse`'s cap from 2^13 rows to 2^14. That cap was the only guard
+for `vllm_block` (`verity/flock-vllm-block/v1`), which still assumes 2^13:
+
+- its `pad` calls `rows.resize(2^13)`, which truncates a longer netlist, including its c_out and y16 rows and its constant row;
+- its Δ targets and its `Out` region's bits overflow into the next unit slot (y16's column 65 × 128 = 8320 sets bit 13).
+
+`evidence/rtf3-vllm-big.rs` shows `VllmStmt::new` building a statement (digest 35dade18…) from the 8,449-row netlist; at main
+the load refuses it. It isn't reachable by a prover, because that statement's netlist is pinned on the verifier's side and
+every pinned vLLM netlist has at most 2^13 rows. A total unit adopted there would silently give a malformed statement.
+
+**Conditions:**
+
+- **UL2 (before merge):** `VllmStmt::new` refuses `useful > 2^UNIT_LOG` (one assert), or vllm_block takes `ul` as
+  pure_block does, with its own review.
+- **UL3:** `ul` = 14 is exercised only on Chunk(n) and ChunkTail(n). Fp8, Fp4 and ShaFp4 pass UL1 at 14, but no total fp8 or
+  fp4 unit exists yet. Their first `ul` = 14 statement needs the same selftest before a cell runs.
+- **UL4:** a `ul` = 14 statement still names itself `verity/flock-pure-block/v2`. Its digest differs, but cells must record
+  the unit pin and `domain`: flock-backend's `verity/flock-pure-block-total/v1` (next item).
+
+### The total GEMM unit and statement (flock-backend): pending its pin
+
+What I will check on the pinned unit and statement:
+
+- **T1:** the pinned netlist equals the IR on every encoding. c_out = `AmpereBF16TcDot16_v1`, which is `tc_dot_total` on
+  AMPERE_BF16_M16N8K16, and y16 = `F2fpBf16_v1`. My tool is `evidence/gemm_total_diff.py` (my own reader and evaluator, with
+  `tc_diff.py`'s ten families).
+- **T2:** the instance chain uses `tc_dot_total`, and the verifier's admission accepts special encodings. Nothing finite-only
+  remains: no NaN or inf refusal, and the epilogue is F2fpBf16, not `f32_to_bf16`.
+- **T3:** NaN, inf and subnormal selftests prove. Forged outputs on special inputs are refused: a different NaN payload, the
+  sign of an infinity, inf·0 forged to a number, a finite output on a NaN instance.
+- **T4:** the statement records its id and `domain: total`, and the netlist pin is the verifier's.
+- **T5:** each cell has a separate prover and verifier placement (PR #74) and `contended: false`.
+
+Pre-check on the likely basis, `total_proto` 884b7f9b: 327,680 vectors across the ten families (NaN, inf, subnormal,
+overflow, cancellation), with 0 c_out mismatches, 0 y16 mismatches and 0 unsatisfied lanes. As a control, the finite census
+unit e97ecb9e on the same vectors gives 99,486 mismatches and 116,418 unsatisfied lanes. The full run
+(`r20260926-201330-c204`) is 10,485,760 vectors, with 0 c_out mismatches, 0 y16 mismatches and 0 unsatisfied lanes.
 
 ## FINAL
 

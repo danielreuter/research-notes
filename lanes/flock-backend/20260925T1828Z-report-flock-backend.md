@@ -5,6 +5,7 @@ created: 2026-09-25T18:28Z
 status: open
 ---
 
+CHECKPOINT 581c3084 (09:52Z) [open] WAIT workload GEMM cells: H100 (US-MO-1, verifier A40 same DC) k4096 then grant k2560/k9728; L40S (EUR-IS-2, verifier L4 same DC) k1536/k2048/k4096 then grant k9216/k14336; tmux cells-h100/cells-l40s run launch.sh (bench.cell plan/run/register); check-back 10:15Z agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 75207d9d (09:43Z) [open] NVFP4 cells done (art:2753a371 Fp4 7,374 VU/s, art:db7f48de ShaFp4 3,614; verifier EU-SE-1 3.2 ms, not same DC); pods terminated; per-workload GEMMs staged on CPU (75207d9d; plans + launch.sh in evidence/gemm-workloads; 5 ready, 5 need grant, 2 need Chunk(n,tail)); handoffs 0945Z/1000Z; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 51743c71 (09:21Z) [open] NVFP4 cells running (pause lifted 0920Z): 5090 community pod b7aqnrs491oi6p (SE) + verifier A5000 EU-SE-1 3gtn7nvr561ybq (TCP connect 3.3 ms: not same DC, no same-DC stock), set art:160a53a0, Fp4 then ShaFp4 via tmux drive-5090 @51743c71; check-back 09:45Z; then CPU staging of per-workload GEMMs; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 3a073d74 (09:03Z) [blocked] spend guard (coordinator 0910Z): NVFP4 poller stopped, no 5090 pods; waiting for bench-spine's NVFP4 input set, then stage instance files + run script, launch when the pause lifts; captured FP8 H100 re-run still pending vllm-more-exports; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

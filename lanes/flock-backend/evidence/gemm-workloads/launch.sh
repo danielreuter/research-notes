@@ -13,7 +13,7 @@
 set -uo pipefail
 GPU=$1 MODE=${2:-ready}; HERE=$(cd "$(dirname "$0")" && pwd)
 case $GPU in
-  l40s) DCS="US-MO-1 US-KS-2 EU-RO-1 US-NE-1"; PGPU="NVIDIA L40S"; SM=89; SID=sm80-mma-bf16
+  l40s) DCS="EUR-IS-2 US-TX-4 US-MO-1 US-KS-2 EU-RO-1 US-NE-1"; PGPU="NVIDIA L40S"; SM=89; SID=sm80-mma-bf16
         CELLS="k1536:art:dbaacc6f61b0f9f7285e56c09994b273904243d1983058bb37e69c1338420b54:2048:512 1024 2048
 k2048:art:69cb815c31b06425e7117ee6e4b43403c8cfb8d28f747f9bde79a18f63a0646e:2048:512 1024 2048
 k4096:art:bfed17304406e29217b10fbd944bce13ef8e4f023542b7e005a3bbfe4eccfa4f:1024:512 1024 2048"
@@ -40,21 +40,21 @@ sleep 60
 addr() { research pods list 2>/dev/null | awk -v n="$1-" 'index($2, n) == 1' | grep -oE "ip=[0-9.]+|'$2': [0-9]+" | sed -E "s/ip=//; s/'$2': //" | paste -sd:; }
 VADDR=$(addr $V 7400) VSSH=$(addr $V 22)
 echo "verifier $VADDR (sshd $VSSH)"
-state() { research fetch $1 2>&1 | tail -1 | sed -E 's/.*Z: ([a-z]+) .*/\1/'; }
+state() { research fetch $1 </dev/null 2>&1 | tail -1 | sed -E 's/.*Z: ([a-z]+) .*/\1/'; }
 while IFS=: read -r tag _ art per pts; do
   [ -z "$tag" ] && continue
   art="art:$art"
   python -m verity_numerical.bench.cell plan --backend C-interactive --statement "gemm-coordinate/$tag/$SID+frame-v3/blake3-keyed" \
     --input-set $art --prover $P --verifier $V --verifier-addr $VADDR --rtt-target $VSSH --campaign flock-backend --lane flock-backend \
-    --points "$pts" --per-proof $per --backend-arg SM=$SM --out .bench-cell/$GPU-$tag.json | tail -1 || continue
-  runs=$(python -m verity_numerical.bench.cell launch --cell .bench-cell/$GPU-$tag.json 2>&1 | grep -oE 'r[0-9]{8}-[0-9]{6}-[0-9a-f]{4}' | paste -sd' ')
+    --points "$pts" --per-proof $per --backend-arg SM=$SM --out .bench-cell/$GPU-$tag.json </dev/null | tail -1 || continue
+  runs=$(python -m verity_numerical.bench.cell run --cell .bench-cell/$GPU-$tag.json </dev/null 2>&1 | grep -oE 'r[0-9]{8}-[0-9]{6}-[0-9a-f]{4}' | paste -sd' ')
   set -- $runs; vid=${1:-} pid=${2:-}
   echo "$(date -u +%H:%MZ) $GPU $tag verifier=$vid prover=$pid"
   [ -z "$pid" ] && continue
   while s=$(state $pid); [ "$s" = running ] || [ "$s" = submitted ]; do sleep 60; done
   for i in $(seq 10); do s=$(state $vid); [ "$s" = running ] || [ "$s" = submitted ] || break; sleep 30; done
-  research pods ssh $V -- 'pkill -f "[v]erity_flock.bench"; pkill -f "[f]lock-pure-gpu"' >/dev/null 2>&1
-  research fetch $pid --all >/dev/null 2>&1; research fetch $vid --all >/dev/null 2>&1
-  python -m verity_numerical.bench.cell register --cell .bench-cell/$GPU-$tag.json --prover-run $pid --verifier-run $vid | tail -3
+  research pods ssh $V -- 'pkill -f "[v]erity_flock.bench"; pkill -f "[f]lock-pure-gpu"' </dev/null >/dev/null 2>&1
+  research fetch $pid --all </dev/null >/dev/null 2>&1; research fetch $vid --all </dev/null >/dev/null 2>&1
+  python -m verity_numerical.bench.cell register --cell .bench-cell/$GPU-$tag.json --prover-run $pid --verifier-run $vid </dev/null | tail -3
 done <<< "$CELLS"
 echo "done: terminate $P and $V once the runs are fetched (research pods terminate <id>)"

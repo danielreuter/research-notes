@@ -9,3 +9,116 @@ CHECKPOINT a57628fc (03:04Z) [open] NVFP4 Fp4/ShaFp4 @7b3ba797 (=0bb25e8a verifi
 CHECKPOINT a57628fc (02:54Z) [open] WAITING r20260926-025249-6192 on vy-red-team-flock-2 (pkkkgds4e8unxt, A4000 as CPU box: no CPU stock), check after 03:25Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; next: NVFP4 Fp4/ShaFp4 @7b3ba797 selftests on my gen_fp4 files + 12 rtf2 negatives + 3 gap demos (out!=y, schema relabel, fp4 netlist under Fp8)
 CHECKPOINT a57628fc (02:37Z) [open] NVFP4 layout landed unhanded at flock-gpu-link 7b3ba797 (Fp4 blake3-keyed/row-nvfp4/v1 + ShaFp4 sha256/row-nvfp4/v1); starting paper review of diff vs 758a8edf. Also queued: flock-backend bf16-hopper-wgmma pin 12c3c8d3 (a9d13f68) pre-check. No pods.
 CHECKPOINT a57628fc (02:33Z) [open] started; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; scope: NVFP4 row-nvfp4 layout from flock-gpu-link + new flock-backend statements (incl. future row-sharing); red-team-flock keeps Chunk(n) item 1; reading contract + red-team-flock baseline; inbox: nothing new
+
+# NVFP4 block layouts, Fp4 and ShaFp4 (02:35–03:10Z)
+
+**GRANTED WITH CONDITIONS at NON_ZK_PROOF** for `verity/flock-pure-block/v2` layouts `Fp4` (`blake3-keyed/row-nvfp4/v1`) and
+`ShaFp4` (`sha256/row-nvfp4/v1`) at `cursor/flock-gpu-link-797a` @ 0bb25e8a. 0bb25e8a is 7b3ba797 plus a one-line GPU
+prover fix in `gpu.rs`, so the verifier and statement are the ones I attacked at 7b3ba797. This closes red-team-flock's FP2.
+FP1 is met: PINS["fp4-nvf4"] = fb52a87c on flock-backend c058c33f, and I regenerated the netlist to the pin.
+
+Handoffs acted on: flock-gpu-link's 02:35Z, 02:53Z and 02:58Z notes to `lanes/red-team-flock/` (NVFP4 is this lane's queue
+item 2). Verdict: `lanes/coordinator/20260926T0310Z-handoff-from-red-team-flock-2.md`, copied to `lanes/flock-gpu-link/`,
+`lanes/flock-backend/` and `lanes/red-team-flock/`.
+
+## Paper review (`pure_block.rs`, `flock-pure-gpu.rs` diff 758a8edf..7b3ba797): HOLDS
+
+- **Fp4 BLAKE3 chain.** Per role, slots 0–13: block 0 takes the role key as a Δ constant; blocks j ≥ 1 copy `out_lo` of
+  j − 1; counter 0 and T_HI 0 are constants. Block 13 has block_len 32 and flags KEYED_HASH | CHUNK_END | ROOT, and message
+  words 8–15 are constant 0. That is the single-chunk keyed BLAKE3 of 864 bytes, and `out_lo` (column 256 = `OUT_LO_BASE`)
+  of slots 13 and 27 is the digest itself. `chunk::tree` returns a lone chaining value unchanged, so ROOT has to be in the
+  circuit, and it is.
+- **ShaFp4 chain.** H_in(0) is the midstate after `sha_prefix_nvfp4(role, 1536)` = `rowleaf.sha256_row_nvfp4_prefix`.
+  Blocks 0–12 are row bytes. In block 13, words 0–7 are row bytes 832–863 (witness), and words 8–15 are constants
+  0x80000000, zeros, and 7,424 = 928 × 8.
+- **Units.** Unit u at 2^13 position 56 + u (Fp4) or 112 + u (ShaFp4), with no overlap with the compressions. Its code
+  operands copy message half-block u % 2 of block u / 2. Its scales (x at bits 544–575, W at 576–607, matching the
+  lowering's x, w, c, sx, sw order) copy message word u % 16 of block 12 + u / 16, which is row bytes 768 + 4u to 771 + 4u:
+  little-endian bits for BLAKE3 (`M_BASE` + 32w + b) and big-endian for SHA-256. c_in(0) is forced to +0. AccOut is unit
+  23's c_out (word 59), opened against `inst.out[v]`.
+- **Publics and regions.** `n_cv` = 0; the regions are Digest(x), Digest(y) and AccOut, each at the verifier's own values.
+  The two words per block the prover still sends (y16, acc) feed no region.
+- **Dummy blocks.** Zero rows under the key, a zero-input unit chain (scale 0x00 makes no group participate, so +0), and
+  digests equal to the keyed hash or SHA-256 of 864 zero bytes. Both the witness and `dummy_cv` use the same per-slot
+  constants.
+- **Statement digest.** It adds an fp4 layout tag, and Δ includes the 64 scale copies per unit. Every other layout's Δ is
+  byte-identical to 758a8edf: `blen`/`flags` reduce to the old constants, `last_data_words` is 16 (no-op) for BLAKE3 and 0
+  for SHA, and the tail handling in `sha_state` / `sha_compressions` is empty for whole-block rows. **red-team-flock's
+  Chunk(n) reviews at 758a8edf carry over to 7b3ba797 / 0bb25e8a unchanged.**
+- **Bound.** Fast100 schedules are embedded for m = 22 to 35, and `prover_config_for` is strict. So Fp4 covers up to 32,768
+  VUs per proof (m = 20 + nbl) and ShaFp4 up to 16,384 (21 + nbl). The 5090 line (Fp4 at 8,192 VUs, ShaFp4 at 4,096) is
+  m = 33: 2^-97.77 per rep, **2^-195.54 per proof** (red-team-flock's per-m reproduction), and the region claims add about
+  2^-243. Batches over one proof are a union.
+
+## Evidence
+
+My own instance writer, `evidence/gen_fp4.py`, uses `verity.commitments` (rowleaf NVFP4, merkle) and
+`BLACKWELL_SM120_NVF4.step_scaled`, and nothing from the producers' writers. Scales vary per 16-code group, 3% of them
+are zero, and VU 0 has three zero-code groups with scale 0x38. My harness, `evidence/rtf2_patch.py`, is prover-side only:
+PureVerifier and `pure_block.rs` are untouched. Pod scripts are in `evidence/pod-scripts/10-fp4-layout.sh` and
+`20-fp4-dummies.sh`.
+
+- **Run r20260926-025249-6192 (art:cf130873), source 7b3ba797, CPU build:**
+  - **The producer's selftest on my files:** Fp4 15/15 at 8 VUs (m 23) and 64 VUs (m 26); ShaFp4 13/13 at 8 (m 24) and 64
+    (m 27). The honest proofs verify against roots computed by the reference, not by the Rust code. So the Rust NVFP4
+    prefix, digests and trees match the reference, and the wiring matches the model on inputs where a permuted scale
+    would change the output.
+  - **My 12 negatives: all refused, both reps.**
+
+| case | layout | refused by |
+|---|---|---|
+| `fp4_root_flag_dropped` (block 13 without ROOT) | Fp4 | lincheck |
+| `fp4_tail_word_nonzero` (block 13 word 8 = 1) | Fp4 | lincheck |
+| `fp4_scale_block_forged_digest_only` (block 12 scale bit flipped, chain recomputed, unit reads it; output unchanged) | Fp4 | Digest region claim (`RingSwitch(ClaimMismatch)`) |
+| `fp4_x_scale_operand_free_u5` / `_u20` / `fp4_w_scale_operand_free_u7` (a scale operand flipped without the row; the unit's c_out is unchanged, checked) | Fp4 | lincheck (the Δ scale copy) |
+| the same three | ShaFp4 | lincheck |
+| `sha_fp4_pad_marker_dropped` (block 13 word 8 without 0x80) | ShaFp4 | lincheck |
+| `sha_fp4_last_block_data_forged` (block 13 word 3, unit 19's scales) | ShaFp4 | lincheck |
+| `sha_fp4_scale_block_forged` (block 12 scale byte, chain recomputed) | ShaFp4 | lincheck |
+
+- **Run r20260926-030235-8637 (art:206b74f5), source 0bb25e8a:** at 12 VUs (16 blocks, 4 of them dummy) and 40 VUs (64 blocks, 24 dummy), Fp4 passes 15/15 (m 24, 26) and ShaFp4 13/13 (m 25, 27). A forged dummy-block message is refused on both reps in both layouts (`fp4_dummy_block_forged`, `sha_fp4_dummy_block_forged`, both by lincheck).
+- **bf16-hopper-wgmma (flock-backend a9d13f68, pre-review, not yet handed to me):** the netlist regenerates to
+  12c3c8d3, and its rows are byte-identical to bf16-hopper's da1bbe2c; only the relation name in the header differs. My
+  `evidence/diff_wgmma.py` found 129,571 finite units with 0 mismatches between tc_dot_total(HOPPER_BF16_WGMMA_K16) and
+  HOPPER_BF16_M16N8K16. Separately, 1.2 M finite f32 words showed 0 mismatches between F2fpBf16 and f32_to_bf16. So an H100
+  wgmma Chunk(n) statement inherits the bf16-hopper unit's grant.
+
+## Gaps (each demonstrated by an accepted proof; none can be reached by a cheating prover against an honest verifier file)
+
+- **G3: `out` is not tied to the y root (all flock-pure-block layouts, not only NVFP4).** The AccOut and Y regions open
+  `inst.out[v]`, while `commit()` builds the y root from `inst.y[v]`, and nothing compares the two. With y[0] ^= 1 and the
+  y root recomputed, an honest proof is **accepted** on Fp4 and on ShaFp4. So the committed output isn't the verified one.
+  red-team-flock's grants checked the output against `inst.out` only (flock-vllm-v1's verifier does check its y root).
+- **G2: an fp4 netlist under a non-fp4 layout leaves the scales free.** `Layout::of` looks only at (row_bytes, units), and
+  nothing ties `net.n_in == 608` to `Layout::is_fp4()`. A file with relation fp4-nvf4, 1536-byte rows and 48 units builds
+  Layout::Fp8. Unit rows 544–607 stay unconstrained input rows. I built two files with identical a and b roots and outputs
+  434fc000 and 444fc000 (scales 0x38 and 0x40, which appear in no commitment). **Both are accepted.** The zero-scale
+  honest prover is rejected, which confirms that the scales are what decide the output.
+- **G1: the layout doesn't pin its scheme.** The schema strings come from the header, and SHA is chosen by the prefix
+  `sha256/`. blake3-keyed/row-nvfp4/v1 and blake3-keyed/row/v2 have the same digest, and only the leaf's schema string
+  separates them. So an Fp4 file relabelled `blake3-keyed/row/v2`, with its roots recomputed, is **accepted**.
+
+## Conditions (before any NVFP4 cell is labelled)
+
+- **NV1 (G3), for flock-gpu-link and all flock-pure-block layouts:** the verifier opens the output regions at the words
+  the y root commits. Either derive the y leaves from `inst.out` or refuse a file where `y[v] != out[v]`. The negative is
+  my `inst-fp4-{b3,sha}-ytamper-8.bin`, which must be refused.
+- **NV2 (G2):** `PureStmt::new` (or `main`) refuses a 608-input netlist unless the layout is `Fp4` / `ShaFp4`, and an
+  fp4 layout with a 544-input netlist. The negative is my `inst-fp8shape-38383838-8.bin`, which must be refused before
+  any coin.
+- **NV3 (G1):** the verifier pins the schemas per layout: `Fp4` means a and b are `blake3-keyed/row-nvfp4/v1`, `ShaFp4`
+  means `sha256/row-nvfp4/v1`, and y is `u32`. flock-backend's NVFP4 instance writer uses those schemas (today its
+  `SCHEMES` has only row/v2 and sha256/row/v1), and the registered scheme id equals the verified one. The negative is my
+  `inst-fp4-b3-relabel-8.bin`, which must be refused.
+- **PB1–PB4 and FA1, as for the other layouts:** the verifier commit and binary are named, the union over sub-batches is
+  reported, there is a non-producer replay, the evidence record carries link_mode, require_link and Σ, and the verifier
+  runs on a separate pod.
+- **NV4 (hardening):** the producer's selftest gains NVFP4 negatives: ROOT dropped, a scale-operand flip with the output
+  unchanged, SHA partial-block padding, and a dummy-block forgery (my RT2 cases, or its own).
+
+## Pods and spend
+
+- pkkkgds4e8unxt (RTX A4000, used as a CPU box because every CPU flavour was out of stock), 02:51–03:03Z;
+- e3ywigqwhmg7of (A4000), 03:00–03:07Z.
+
+Both are terminated, at about $0.25/h, so about $0.08 in total.

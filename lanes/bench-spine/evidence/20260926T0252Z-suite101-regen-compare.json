@@ -1,0 +1,139 @@
+{
+ "what": "the #101 synthetic suite (generate --suite 101 --seed 20260926) regenerated on a second machine and compared with the lane VM's registered sets: content digest and the sha256 of every file (arrays and index.json)",
+ "second_machine": {
+  "run": "r20260926-021036-5fc3",
+  "pod": "vy-bench-spine (y8l50t1b7qhbe6, RTX A5000 host, Xeon Gold 6342, used as a CPU box)",
+  "python": "3.14.7",
+  "numpy": "2.5.3",
+  "code": "d2483f8b^ (before the pool chunking fix, which leaves draws and outputs unchanged)"
+ },
+ "first_machine": {
+  "host": "the lane's cloud VM",
+  "python": "3.12.3",
+  "numpy": "2.5.3",
+  "code": "d2483f8b756942e0121c2a7683a091aa64d79506"
+ },
+ "all_equal": true,
+ "sets": [
+  {
+   "set": "gemm-coordinate-ampere-bf16-k2048",
+   "subcircuit": "gemm-coordinate/k2048/sm80-mma-bf16",
+   "n": 4096,
+   "art": "art:b88f5818482546d6084b3ee7808fcc9668b8575d2cb19397233a3f121054783a",
+   "content_digest": "344db0897d191654c803f9b4f772e970ed5e677bf86949507545a8c86565074e",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 4,
+   "draws": 4096,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k8192",
+   "subcircuit": "gemm-coordinate/k8192/sm80-mma-bf16",
+   "n": 4096,
+   "art": "art:b36f2c6c160e292c0a7b2daada2a8e2aa5af1be0681c18d29e5375f98aacfbdf",
+   "content_digest": "35c639f021fca2dfd8ae9d79869fafa1af95f1610cb296b5cf4b2d6f12f206b7",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 4,
+   "draws": 4096,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-bf16-wgmma-k2048",
+   "subcircuit": "gemm-coordinate/k2048/sm90-wgmma-bf16",
+   "n": 4096,
+   "art": "art:4f27dc3ddf3f97ea95efafe162aa5e635ebfe96be4a35d13c3fa99e752ede018",
+   "content_digest": "29ccc7de4d3132c27f4d5cee9884741fe1bf560e5d1bb61c9ce506bd348b6223",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 4,
+   "draws": 4096,
+   "rejected": 0
+  },
+  {
+   "set": "gemm-coordinate-hopper-bf16-wgmma-k8192",
+   "subcircuit": "gemm-coordinate/k8192/sm90-wgmma-bf16",
+   "n": 4096,
+   "art": "art:ee183a7484e2fcad7934797937c9ba7825e20b8708b033cdfa4226fe7771eba2",
+   "content_digest": "a600e6ca57f313f05b0a5a92e2092392d19cb494902182b8f76491372b6d39c0",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 4,
+   "draws": 4096,
+   "rejected": 0
+  },
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "subcircuit": "attention-head/d64-bn128/sm80-fa2-bf16",
+   "n": 1024,
+   "art": "art:02e8accedbd1260a3a5ff4c023e92cce58f706532c8fad094549dedb9d6b6281",
+   "content_digest": "3406b922621028563f4aac8366139fa7db557cac16beba2eeb6772d7875b410a",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 7,
+   "draws": 1024,
+   "rejected": 0
+  },
+  {
+   "set": "rope-head-d64",
+   "subcircuit": "rope-head/d64/neox-bf16",
+   "n": 1024,
+   "art": "art:02a7e4df63dcbdccdbbc7559fdb1f69002329587c065c89c0159f449e1cf13d1",
+   "content_digest": "6b49e56480a527c0bed9a08ae4e742892b363b9e21e1059f13b8c1fd73ac6537",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 4,
+   "draws": 1024,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n2048-00e4e4aa",
+   "subcircuit": "rmsnorm-fused-cuda/n2048-eps1e-05/bf16",
+   "n": 256,
+   "art": "art:09372073f2bc391a3bc04a04a7b2d3fc0098b76de3bb1e2113a7bafad2f05ba5",
+   "content_digest": "c850dc68e4d7fa33e9a9778b7fb7394ab0b7a6a3faa38f4e793956bf183b771f",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 6,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "rmsnormtriton-v1-n2048-00e4e4aa",
+   "subcircuit": "rmsnorm-triton/n2048-eps1e-05/bf16",
+   "n": 256,
+   "art": "art:d8e58c811e0da4cb60813ed4f66997af7ce8c559f27902f2088886363a17bf70",
+   "content_digest": "725f5190842f435466e786cf51d2d5b9d6ef1cfe781f150d9ae35ca1e2a9a3a9",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 4,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "silumul-v1-i8192",
+   "subcircuit": "silu-mul/i8192/bf16",
+   "n": 256,
+   "art": "art:13e5b33b45a303423c3690c61c803168eef65dfcfc48291b2b863bcc0885ff41",
+   "content_digest": "1a29c6d14ea88d4b511fc32a3f6e2820c0141008881e4cca3f8dec98f9a3314f",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 3,
+   "draws": 256,
+   "rejected": 0
+  },
+  {
+   "set": "gumbeltopptokenselect-v1-v128256",
+   "subcircuit": "gumbel-top-p-token-select/v128256/fp32",
+   "n": 32,
+   "art": "art:ccc8afbaca4e54b3629b60620ca893aea4d9feae3791b8f335194cb7cfbdf760",
+   "content_digest": "a850ab5cf05b7df8bf4bbb02fe808e839ba05d18d2c781d2caa8641d55b0f171",
+   "content_digest_equal": true,
+   "file_sha256_equal": true,
+   "files": 8,
+   "draws": 32,
+   "rejected": 0
+  }
+ ]
+}

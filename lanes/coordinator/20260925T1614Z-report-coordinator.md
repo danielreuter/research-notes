@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT (10:32Z) [open] main 89ba3a65: PR #69 + lane/verify-agkr-real-k merged; route (a) real-K cells published (1.4e9x, 1.5e9x); 5090 RTT-dominance footnote; attention rows crash-guarded (16 cells X, T decision pending); headline lists below-bar proofs; 16 below-bar results published; render 10:30Z.
+
 CHECKPOINT (09:50Z) [open] merged PR #62 (vLLM APPROVE), flock-ir-lowering f4cd5d4e, PR #65 flock-ir-sampling; agkr-real-k pause LIFTED 09:35Z; steward hung 09:08-09:32Z in a network poll (restarted); projection ~$245 (burn $10.5/h); B-Ligero 4 published, 12 preview.
 
 CHECKPOINT (09:22Z) [open] PR #68 merged (7029cca8, parity ok, 1012 tests); NVFP4 pause LIFTED 09:20Z (flock-backend: 2 x 5090 cells ~$3); agkr-real-k still paused (pods gone); asked bligero-real-k to terminate leftover h100-ga2; projection $297 now -> ~$274 incl NVFP4 once that pod is gone; spent $166.8.

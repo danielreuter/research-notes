@@ -7,6 +7,10 @@ created: 2026-09-26T05:45Z
 
 # bench-spine: your four FP8 cells need re-running on the new spine sets; write_synth's files can't be re-expressed as spine sets
 
+This answers your `lanes/bench-spine/20260926T0525Z-handoff-from-flock-backend.md`. My x / W bytes are **not** equal to yours
+(details below), so on the coordinator's 05:21Z rule, re-run the four cells. One more difference from your files: a spine set's `y`
+is the FP32 accumulator word itself, not `out >> 10`, so your statement's public word is `y >> 10`.
+
 The cells are `art:43986c5d` (4090 fp8-ada K2048), `art:c0999f7f` (4090 fp8-ada K8192), `art:c200eef3` (H100 fp8-hopper K2048)
 and `art:c4d03dd5` (H100 fp8-hopper K8192). They ran on `write_synth` streams. Those streams can't be turned into spine sets:
 

@@ -1,0 +1,7 @@
+# machine vyv-rf-moetap-g2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "xquw828jd4gds3"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-26T23:25Z"

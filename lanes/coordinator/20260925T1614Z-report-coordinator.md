@@ -81,3 +81,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 15:30Z c2/c3 publish poll armed (till 16:40Z). Both double-registered (c2 82f4a9be/87a6bcdd; c3 4dd2069b[red-team NON_ZK]/901592eb) → flock-ir-lowering.
 - 15:50Z CP6: synthetic key counts count with provenance footnote (per_value source, covered provenance, ‡); merged 0ceb481d, published 15:46Z (44.6% unchanged; 126/139 T synthetic). Note under decision 5. c2/c3 poll extended to 17:15Z.
 - 15:55Z sweep: projection ~$228 (spent $225.77, burn $2.66/h). Published 15:48Z (0ceb481d, 74 results): c3 art:4dd2069b T 257–287 1.9e6×; #101 C-Flock 56.9% at 9.3e6× (164/287 T, 157 synthetic ‡, † softmax). Pushed flock-backend bundle 755a397e to cursor/flock-backend-4983 (ff). c2 due ~16:20Z.
+- 16:12Z sweep: projection ~$228 (spent $226.75, burn $2.66/h), no pauses, no steward warnings, mirror ok 16:09Z, no new coordinator handoffs. c2 pending (~16:20Z).

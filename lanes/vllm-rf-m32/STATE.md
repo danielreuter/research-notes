@@ -23,12 +23,16 @@ New lane (no predecessor). Agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428, branch
 ## Task 2: confirming gate (a) T0+T1 on main (coordinator handoff 20260925T2155Z)
 - Tree origin/main `5f8d8789` (b1 dca6a867 in; 271a0952 not yet merged). Worktree ~/wt/main-5f8d8789.
 - Mint 22:40:00Z on the VM: TTL 3h, object-read-only, prefixes manifests/ + objects/sha256/, piped to vyv-rf-m32-reg
-  /root/r2ro.env (0600). Deleted by the run's prefetch trap on exit; deletion time: see run stdout (`key_deleted=`).
+  /root/r2ro.env (0600). Prefetch 26 ok / 0 fail; key deleted 22:47:08Z (prefetch trap).
 
 ## Running
-- vyv-rf-m32-reg (fjr66whubb8kn8, cpu3m 32 vCPU / 256 GB cgroup, 250 GB, guard 90), run r20260925-224008-395b from 22:40Z
-  (custody 6h): bootstrap ok 22:41Z, prefetch, then gate (a) T0+T1 serial (a23b's took 6391 s), jdiff vs a23b base xml.
-  Script `evidence/reg_gate_a.sh` (c4ir's, tree dir renamed, + jdiff).
+- vyv-rf-m32-reg (fjr66whubb8kn8, cpu3m 32 vCPU / 256 GB cgroup, 250 GB, guard 90). r20260925-224008-395b: bootstrap + prefetch
+  ok, gate (a) died at collection (no protocols/sampled_proofs on PYTHONPATH; test_check_lifts). Restart r20260925-224745-e739
+  (`evidence/reg_gate_a2.sh`: path added, import check printed OK, no key on pod, 158 collected) from 22:47:52Z.
+  01:05Z: 82/158 (~48% of a23b's time), host load ~570, ~2.7x slow; ETA ~03:40Z, past the 03:00Z pod deadline
+  (DEADLINE handoff 20260926T0110Z asks a guard extension to 04:30Z).
+- Coordinator 2255Z checks: gate (b) had sampled_proofs on PYTHONPATH (4072/4080 collected, test_sampled_replay present, 11
+  errors); gate (a) restart has it (addendum handoff 20250925T2252Z).
 
 ## Next
 - On finish: key-deletion time into a checkpoint, compare (expect only the #70/#75 skip rewordings), preserved, terminate,

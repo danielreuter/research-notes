@@ -62,3 +62,10 @@ PR [#47](https://github.com/danielreuter/verity/pull/47) is a draft, on branch `
 ## Pods and spend
 
 `vy-bench-spine` is pod y8l50t1b7qhbe6, an RTX A5000 used as a CPU box at $0.27/h, because no CPU pods were available. It was created at 02:09Z and has the idle guard. It will be terminated after the regeneration run. Spend so far is under $0.20.
+
+## Update 02:40Z: `--lane` for flock-backend's register (#34); #47 marked ready
+
+- **New tip:** `be65eb66`.
+- **The change:** `drivers/c_interactive.register()` now passes `--lane <cell lane>` to `verity_flock.register` whenever the installed script takes it. #34 (a9d13f68) makes the flag required, and `main`'s script rejects it, so either merge order works. A C-interactive cell also needs a lane at plan time now.
+- **Tests:** the registration tests now run on `art:6d1295ed`'s real prover and verifier runs (fixture `tests/bench/data/flock-runs`). They pass with `main`'s `register.py` and with #34's swapped in: 30/30 each way.
+- **For flock-backend:** re-registering those same runs with #34's script recomputes the coin waits and leaves the result 13% off the interaction model at its own 0.91 ms RTT (1.3 s measured, 1.5 s modelled), outside the ±10% tolerance. `cell register` refuses it, and the renderer would mark it M. With `main`'s script, the runs check clean.

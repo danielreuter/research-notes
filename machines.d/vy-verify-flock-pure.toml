@@ -1,7 +1,7 @@
 # machine vy-verify-flock-pure: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "ca9gpkk7znk58v"
+pod_id = "7l4nmzucy5407i"
 project = "verity"
 guard = 30
 registered_by = "cursor"
-registered_at = "2026-09-26T07:57Z"
+registered_at = "2026-09-26T09:39Z"

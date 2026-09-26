@@ -5,6 +5,7 @@ created: 2026-09-26T02:33Z
 status: open
 ---
 
+CHECKPOINT a57628fc (09:50Z) [open] WAITING r20260926-094944-2a2a on vy-red-team-flock-2 (x5f12wbrstpco1, cpu3c-16), check after 10:15Z; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241; flock-ir-sampling review: all 32 captured rows (both cells' verifier files, byte-identical) recomputed word-for-word from the IR primitives, clean; next: pod negatives, verdict, labels, handoff. Queued: flock-ir-lowering 0922Z attention-head, 0832Z IR6 confirm
 CHECKPOINT a57628fc (09:27Z) [open] woken 09:27Z: review GumbelTopPTokenSelect on C-Flock (ir_sampling.rs vs frame v2); cells L40S art:a330c568, H100 art:26b5f7d8; budget $2; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (07:51Z) [open] IR4/IR5 MET; flock-ir-frame/v2 @c53d9148 GRANTED W/ CONDITIONS (IR2 mandatory, IR6 hardening); cells art:dd27fdab 8a07b80f 9563d2c8 63553a6c labelled NON_ZK_PROOF; art:572efe9e; pods terminated; IDLE until woken; agent bc-089339bc-4846-55b6-96c9-a15fd7a4a241
 CHECKPOINT a57628fc (07:36Z) [open] IR4/IR5 + frame/v2 review: cells' verifier-staged statements check out (wiring/out_leaf = IR leaf maps, 0 diffs; roots recomputed); silu x2 unit 0/1.06M; RMSNorm pins = granted rows + CUT. Pod run next (IR5 tail, IR4 tampers, frame negatives)

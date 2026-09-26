@@ -2,9 +2,10 @@
 lane: vllm-rf-m32
 kind: report
 created: 2026-09-25T21:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 02b3be03 (08:09Z) [open] reopened for #23 findings (admission under-predicts 183 GB vs OOM at 251 GB; orphaned workers): NOT final; CPU-only from records
 CHECKPOINT 02b3be03 (05:15Z) [final] FINAL. admit: lane/vllm-rf-admit 02b3be03 merge-ready (gate b 0 changes vs 7289e3ad, +1 new test passed; lints = main's pre-existing by-name failure; runs r20260926-031830-2411/-031940-f369/-041141-1cd3 PRESERVED; handoff 0516Z; answers 20260926T0315Z-handoff-from-vllm-coordinator.md). Earlier: m32 fix 271a0952 merge-ready, gate (a) on main 5f8d8789 CONFIRMED. All pods terminated (vyv-rf-m32-admit 05:15Z). Spend ~$9
 CHECKPOINT 02b3be03 (05:01Z) [open] admit head2 02b3be03 lints = base (pre-existing by-name only). WAIT vyv-rf-m32-admit r20260926-041141-1cd3 check-back 05:10Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: gate (b) head2 (since 04:31Z, ~33 min)
 CHECKPOINT 02b3be03 (04:13Z) [open] admit: head lints caught P7/P11 from the cherry-pick; fixed 02b3be03 (pushed). WAIT vyv-rf-m32-admit r20260926-041141-1cd3 check-back 05:00Z agent bc-7039be6c-2a9f-5501-af51-ee96bf96b428: lints + gate (b) head2 02b3be03 (after f369 finishes); base r20260926-031830-2411 done

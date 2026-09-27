@@ -2,9 +2,10 @@
 lane: vllm-rf-normtap
 kind: report
 created: 2026-09-26T19:37Z
-status: open
+status: final
 ---
 
+CHECKPOINT 7d8a11e4 (09:05Z) [final] FINAL ex2 shift clamp: PR #137 cursor/vllm-fa2-model-ex2-shift-57d5 @ 7d8a11e4 merge-ready (handoff 20260927T0902Z-handoff-from-vllm-rf-normtap.md, answering 20260927T0810Z-handoff-from-vllm-coordinator.md and 20260927T0842Z-handoff-from-vllm-coordinator.md; 20260927T0350Z-handoff-from-vllm-coordinator.md needed nothing more). 2^32 sweep: C++ = twin = SP1 = flock, main differs only at biased exponents 40..63; SP1 cargo test 136 passed; new tests pass on fix, fail on main; #101 layer-0 census 0 affected inputs; gate (b) 6d1c/9946 +2 passed, 0 new failures. Pod vyv-rf-normtap-c4 terminated 09:00:08Z (~$0.35). Optional L40S mufu_probe verify (~$0.30) awaits the coordinator's OK.
 CHECKPOINT 7d8a11e4 (09:05Z) [open] Re 20260927T0350Z-handoff-from-vllm-coordinator.md (#102/#105 approved; re-merge after #98 only if the research coordinator asks): no re-merge was asked; #102 and #105 landed in train A (main 928790af), so nothing is left from it. Binding moved to cursor/vllm-fa2-model-ex2-shift-57d5 / vyv-rf-normtap-c4 (terminated).
 CHECKPOINT 7d8a11e4 (09:04Z) [final] FINAL ex2 shift clamp: PR #137 cursor/vllm-fa2-model-ex2-shift-57d5 @ 7d8a11e4 merge-ready (handoff 20260927T0902Z-handoff-from-vllm-rf-normtap.md, answering 20260927T0810Z-handoff-from-vllm-coordinator.md and 20260927T0842Z-handoff-from-vllm-coordinator.md). 2^32 sweep: C++ = twin = SP1 = flock, main differs only at biased exponents 40..63; SP1 cargo test 136 passed; new tests pass on fix, fail on main; #101 layer-0 census 0 affected inputs; gate (b) 6d1c/9946 +2 passed, 0 new failures. Pod vyv-rf-normtap-c4 terminated 09:00:08Z (~$0.35). Optional L40S mufu_probe verify (~$0.30) awaits the coordinator's OK.
 CHECKPOINT 7d8a11e4 (08:42Z) [open] POD vyv-rf-normtap-c4 (c4pymranf1lyv7, cpu3c 32 vCPU, $0.96/h, up 08:38Z) runs the MufuEx2Ftz clamp evidence for PR #137: gate (b) main 928790af vs fix 7d8a11e4 (r20260927-083933-6d1c / r20260927-083926-9946), the 2^32 sweep + SP1 cargo test + Rust sweeps + #101 layer-0 census (r20260927-083954-0e10); expected end ~09:00Z, drained on PRESERVED by ~09:05Z, ~$0.45; hard stop 09:30Z (<= $0.85, cap $1.50). Not movable to the VM (lane brief: no pytest/builds on the VM). Estimates before any further pod.

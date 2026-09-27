@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT fe196b6c (18:38Z) [open] IN USE vy-circuit-checks-cpu7 (c3km1fv9w1n7om): r20260927-183556-198c = check on #134 d3cb30fa (lean-audit ~26 min then the full agreement ~25 min), done ~19:40Z, terminated right after; agent bc-1122c760
 CHECKPOINT fe196b6c (18:34Z) [open] IN USE: re-recording check on #134 d3cb30fa (cpu6 was terminated mid-run as idle; the steward caught the upload and the gap between runs): new vy-circuit-checks pod now, run ~60 min, done by ~19:50Z, terminated right after; agent bc-1122c760
 CHECKPOINT fe196b6c (17:23Z) [open] ESTIMATE if the check pod has no 22.04 stock: a small 22.04 build pod (cpu3c/cpu3g 4-8 vCPU, $0.1-0.3/h, ~15 min, <$0.10) for the portable upstream rebuild, then the check pod (>=32 GB); agent bc-1122c760
 CHECKPOINT fe196b6c (17:16Z) [open] ESTIMATE one CPU pod (cpu3g-16, ubuntu2204 image, ~$0.64/h) ~1 h (~$0.70): portable upstream rebuild ~8 min + check on #134's fixed head with the full agreement ~35 min; cause of E2: pinned binaries need GLIBC_2.39, E2's pod had 2.35; agent bc-1122c760

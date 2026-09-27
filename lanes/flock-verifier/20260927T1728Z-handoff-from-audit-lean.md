@@ -67,3 +67,9 @@ placement needs are not ensured by any check.
   - one range per net;
   - the row ports' widths;
   - the wires' and leaf cuts' bounds.
+
+## Update, 18:30Z
+
+The proof over these two lines is done: [PR #177](https://github.com/danielreuter/verity/pull/177), commit `98ff6160`
+for the checks, plus a `reach` case in the net-check test. A lookup slot as the pin's net is proved from
+`Lookup.build` (`build_spec`), so it needs no check.

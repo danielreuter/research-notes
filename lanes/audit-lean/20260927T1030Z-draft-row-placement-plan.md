@@ -3,7 +3,7 @@ id: audit-lean/20260927T1030Z-draft-row-placement-plan
 campaign: verity
 lane: audit-lean
 kind: draft
-status: open (progress 12:05Z below)
+status: done (18:30Z below)
 repo: danielreuter/verity
 origin: audit-lean
 ---
@@ -136,3 +136,10 @@ computed row, and a slot constant gets exactly its two pairs.
   no lemmas, so I asked flock-verifier for a pairwise check (`lanes/flock-verifier/20260927T1205Z`).
 - **W7** needs `c.unit` to be a `Net.parse` output through `HmRow.parse`'s `while` loop. That loop is provable with
   `Lean.Loop.forIn_eq_of_monadTail`, which uses standard axioms.
+
+## Done, 18:30Z
+
+[PR #177](https://github.com/danielreuter/verity/pull/177) (`9d7142e6`, stacked on #154 with #156 merged) proves the
+placement from `Stmt.setupH` (`placement_of_setupH`, `unitPlace_of_setupH`). W1, W3, W4 and W7 are done. Two
+executable checks were added for it (`lanes/flock-verifier/20260927T1728Z`). W5 (the instance map) and W6 (the circuit
+side, flock-soundness) remain; `unitPlace_of_setupH` takes them as arguments.

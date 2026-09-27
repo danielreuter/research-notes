@@ -9,6 +9,7 @@ origin: cursor/flock-netlist-m0-4d6a
 branch: cursor/flock-netlist-m0-4d6a
 ---
 
+CHECKPOINT 6cdf8a4c (10:23Z) [open] attention re-recorded art:02cb7df9 at e226a920 (EX2 clamp + device witness): 2.92 s e2e, 51.6M unit-AND/s (was art:47f7ec19 35M); A4 writer mode + descriptor-id keys e226a920 (to serving/e2e); multi-table + private glue CPU 6cdf8a4c (to private-recursion); GEMM cell re-recording r20260927-102153-676b; pods US-MO-1 terminate after
 CHECKPOINT b84d2606 (09:30Z) [open] shared rows landed 967b8d06 (A4 layout agreed with one-stage-e2e); EX2 clamp 855fe81f; device witness for tail templates b84d2606 in GPU selftest r20260927-092950-de2e on vy-flock-netlist-gpu (US-MO-1 L40S) + verifier prebuild r20260927-093044-3033 (cpu3c-16); next: attention cell re-record (est ~$1.5, max $2.5), then multi-table
 CHECKPOINT b32e1a7b (03:07Z) [open] hm96 salts now ChaCha20 under a fresh OS key per proof (b32e1a7b): GPU selftests all pass on L40S r20260927-022832-8b16; cost +3% (0.611->0.630 s SiLU 128 rows, same L40S); red-team note and private-recursion descriptor format sent; pod drained; next: serving row leaf
 CHECKPOINT cf4e4830 (02:10Z) [open] hm96-sha512/v1 leaves built and GPU-verified; measured +96% prover time at m=33 from OS salts (670 MB/proof) -> asked coordinator to allow device ChaCha20 salts from a per-proof OS seed; verifier lane told the hm96 proof layout; pod terminated; next: serving row leaf (SHA-512 compression slots + hm96 row unit)

@@ -1,7 +1,7 @@
 # machine vy-flock-netlist-ver: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "a272r7wjujeee4"
+pod_id = "jqyaxfzp3yamm2"
 project = "verity"
 guard = true
 registered_by = "cursor"
-registered_at = "2026-09-27T04:53Z"
+registered_at = "2026-09-27T05:36Z"

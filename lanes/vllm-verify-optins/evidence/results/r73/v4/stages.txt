@@ -1,0 +1,3 @@
+release UNRELEASED 2026-09-27T07:03:54Z commit=unknown tree=/workspace/research/src/b7a4092a9ba30f357e2e311a43163182038e903e/integrations/vllm branch=None dirty= (no /workspace/research/src/b7a4092a9ba30f357e2e311a43163182038e903e/integrations/vllm/RELEASE.json; no /workspace/cp/RELEASE.json; not installed here by pod_release.sh)
+precheck PASS 2026-09-27T07:03:54Z source identity == /workspace/research/src/b7a4092a9ba30f357e2e311a43163182038e903e/integrations/vllm (verity verity_vllm hidden_gpu research)
+build PASS 2026-09-27T09:15:47Z rc=0/0 wall=5443s digest=e186e90e254c4045 workload_digest=c05b549f3e5112d0 manifest=899a2715f6f11c18 247327

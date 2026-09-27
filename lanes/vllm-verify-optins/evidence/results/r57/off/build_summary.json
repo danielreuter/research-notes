@@ -1,0 +1,237 @@
+{
+ "step": {
+  "ok": true,
+  "unsupported": null,
+  "exception": null,
+  "message": "",
+  "program_digest": "7bdaffd17c95ac74e3c50632783659fac321894654fc3e5b8780998d167a2788",
+  "identity": "ad04388a819881a670826715a213d4a1386673cb29776df1208c94aa4dc6742e",
+  "correspondence_digest": "6a5b38e7b3d10c5513358dab46655e8ae95f445e7f5f717161af5749036f8979",
+  "target": {
+   "attention_backend": null,
+   "batch_invariant": true,
+   "compute_capability": [
+    8,
+    9
+   ],
+   "flash_attn_version": null,
+   "num_sms": 142,
+   "numerics_profile": "b1-eager-v3",
+   "vllm_revision": "d9105ea80"
+  },
+  "applicability": {
+   "attention_backend": [
+    "FLASH_ATTN"
+   ],
+   "attention_impl": [
+    "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl"
+   ],
+   "execution": "bi-eager",
+   "flash_attn_version_applied": 2,
+   "flash_attn_version_declared": null,
+   "fused_add_rms_norm_dispatch": "absent",
+   "gemm_kernel_src_sha256": "4a7e9290c5dbee5e98e04eced96a469438b7514665cdfc1659ed554e293a7287",
+   "gemm_target": "ada",
+   "gemm_target_dot": "AmpereBF16TcDot16",
+   "gemm_target_refusal": null,
+   "num_sms": 142,
+   "numerics_profile": "b1-eager-v3",
+   "rms_kernel_src_sha256": "aa15c9b0f34d3f78b63bc21b5373d1edca7a063b17ecc45ee1468e7b803f2524",
+   "sampler": {
+    "kind": "greedy"
+   },
+   "target_bindings": {
+    "attention_kind": "Attention_v3{T,NH,KVH,D,BN=fa2_kblock_n(D)}",
+    "dot": "AmpereBF16TcDot16_v1",
+    "flash_attn_version_effective": 2,
+    "gemm_kind": "Gemm_v1{K,N}",
+    "tensor_core_family": "ampere",
+    "tuned_gemm_arch_family": "ada"
+   },
+   "token_select": "ArgmaxTokenSelect_v1 (aten.argmax over the bf16 logits row -> TokenSelect_v1{V})",
+   "torch_version": "2.13.0+cu129",
+   "triton_version": "3.7.1",
+   "tuned_gemm_arch_family": "ada",
+   "tuned_gemm_table_sha256": "79ef167629af489f6d4855c4373c6189bcbdecf6ed9455c75b9ce42bcee2df8f",
+   "vllm_flash_attn_version": [
+    "2"
+   ],
+   "vllm_version": "0.28.1rc1.dev472+gd9105ea80"
+  }
+ },
+ "request": {
+  "ok": true,
+  "unsupported": null,
+  "exception": null,
+  "message": "",
+  "program_digest": "d5561eaae65adaf3bbdb452e3db8ee330f4cc0a3c7297c4de1d6186a624e1800",
+  "identity": "7fe10fdfa1bd314a162e12145af8f76badd92b20e1fda573c1768091572bfeaf",
+  "correspondence_digest": "d1fcc7b5bb8fa6ad05bea9cf59bb4fa08a189c9edf0519fd2805461b28e51469",
+  "target": {
+   "attention_backend": null,
+   "batch_invariant": true,
+   "compute_capability": [
+    8,
+    9
+   ],
+   "flash_attn_version": null,
+   "num_sms": 142,
+   "numerics_profile": "b1-eager-v3",
+   "vllm_revision": "d9105ea80"
+  },
+  "applicability": {
+   "attention_backend": [
+    "FLASH_ATTN"
+   ],
+   "attention_impl": [
+    "vllm.v1.attention.backends.flash_attn.FlashAttentionImpl"
+   ],
+   "execution": "bi-eager",
+   "flash_attn_version_applied": 2,
+   "flash_attn_version_declared": null,
+   "fused_add_rms_norm_dispatch": "absent",
+   "gemm_kernel_src_sha256": "4a7e9290c5dbee5e98e04eced96a469438b7514665cdfc1659ed554e293a7287",
+   "gemm_target": "ada",
+   "gemm_target_dot": "AmpereBF16TcDot16",
+   "gemm_target_refusal": null,
+   "num_sms": 142,
+   "numerics_profile": "b1-eager-v3",
+   "rms_kernel_src_sha256": "aa15c9b0f34d3f78b63bc21b5373d1edca7a063b17ecc45ee1468e7b803f2524",
+   "sampler": {
+    "kind": "greedy"
+   },
+   "target_bindings": {
+    "attention_kind": "Attention_v3{T,NH,KVH,D,BN=fa2_kblock_n(D)}",
+    "dot": "AmpereBF16TcDot16_v1",
+    "flash_attn_version_effective": 2,
+    "gemm_kind": "Gemm_v1{K,N}",
+    "tensor_core_family": "ampere",
+    "tuned_gemm_arch_family": "ada"
+   },
+   "token_select": "ArgmaxTokenSelect_v1 (aten.argmax over the bf16 logits row -> TokenSelect_v1{V})",
+   "torch_version": "2.13.0+cu129",
+   "triton_version": "3.7.1",
+   "tuned_gemm_arch_family": "ada",
+   "tuned_gemm_table_sha256": "79ef167629af489f6d4855c4373c6189bcbdecf6ed9455c75b9ce42bcee2df8f",
+   "vllm_flash_attn_version": [
+    "2"
+   ],
+   "vllm_version": "0.28.1rc1.dev472+gd9105ea80"
+  }
+ },
+ "build_request_LP1024_T18": {
+  "ok": true,
+  "unsupported": null,
+  "message": "",
+  "program_digest": "0a0844253c8952cff15a9443afe716d818154646226253515e26ea9a94557de5",
+  "correspondence_digest": "178fef30c9f9fd61ae07644ded5d05d3ffc0c207acfd38364df32718da5c5741"
+ },
+ "build_request_LP10_T127": {
+  "ok": true,
+  "unsupported": null,
+  "message": "",
+  "program_digest": "4100905c434b40a4ea808bd5bb31bb9d88a2a3efab2ded178bc9dfb26f6bd8a2",
+  "correspondence_digest": "54335def55f4a17716be3ab29efc4d8d30cb0edc184356a6f9e1f039f22fac52"
+ },
+ "build_request_LP179_T30": {
+  "ok": true,
+  "unsupported": null,
+  "message": "",
+  "program_digest": "1160e8ee16edaa05b93fea6fe87c6cf2bcfbf04c70a04ff25f01c23691102951",
+  "correspondence_digest": "c0d43c2cadad508922af951cbfafd0317f2b2e27b65e82639fb9b5a8bb0d5be5"
+ },
+ "build_request_LP31_T52": {
+  "ok": true,
+  "unsupported": null,
+  "message": "",
+  "program_digest": "b342ff309d4bbd6a79d062cf7920c1f753e2f587fd92caa9bbf6b061ec4c18bc",
+  "correspondence_digest": "5f6a8aded3874a8b2317f3ea03c63daf2bcf5ffdafce4837600c094ea51c68c1"
+ },
+ "build_request_LP453_T106": {
+  "ok": true,
+  "unsupported": null,
+  "message": "",
+  "program_digest": "bfc01d3f5b3d81715802094a24c94ed3bdc73db1630e6befe35cfe64f246da84",
+  "correspondence_digest": "717c9b947c138a9c7c72a9686edf73162e03a76e0b380b276915d0d0a5374b0b"
+ },
+ "build_request_LP531_T10": {
+  "ok": true,
+  "unsupported": null,
+  "message": "",
+  "program_digest": "44c1451015c484e38e91567a88939a8437334d5a0d3c3f6e39e00786f877bf79",
+  "correspondence_digest": "0e3f2ada955d2061b01eb92db37da2a8057e0e71bf19ddaa4beb48aa6f766443"
+ },
+ "build_request_LP719_T80": {
+  "ok": true,
+  "unsupported": null,
+  "message": "",
+  "program_digest": "9f9a5171d3d1c3c1e63f41579c2a59881f66955d5f2da854493724cc818b7034",
+  "correspondence_digest": "ec4fc413da1f14357569a3e293f938a477c22762c859767cf299b77aa5bfd651"
+ },
+ "build_request_LP779_T1": {
+  "ok": true,
+  "unsupported": null,
+  "message": "",
+  "program_digest": "33301ea46d8334c7edbd37fafd4218e68f773e6680488e3c6f98f071681a1bbb",
+  "correspondence_digest": "7f62b66496582c2e2825d1dc7cdf4568c7ca463e68128790ca2a2fd0618b9621"
+ },
+ "workload": {
+  "ok": true,
+  "workload_digest": "ded1afedffe415693ff6589b1404c0ed3f9a4cd59249071eda49b0f09ce2dd07",
+  "mechanism": "GP-01 cb_a.global_program",
+  "artifact": "build_workload/workload_program.json",
+  "reason": null,
+  "message": null,
+  "applicability": {
+   "schema": "verity/workload-program/v1/applicability",
+   "execution": "bi-eager",
+   "row_execution": "bi-eager",
+   "engine": {
+    "enforce_eager": true,
+    "enable_prefix_caching": false,
+    "enable_chunked_prefill": "modelled (a request's prefill rows may span engine steps)",
+    "async_scheduling": true
+   },
+   "components": {
+    "execution": "bi-eager",
+    "numerics_profile": "b1-eager-v3",
+    "gemm_target": "ada",
+    "tuned_gemm_arch_family": "ada",
+    "tuned_gemm_table_sha256": "79ef167629af489f6d4855c4373c6189bcbdecf6ed9455c75b9ce42bcee2df8f",
+    "attention_backend": [
+     "FLASH_ATTN"
+    ],
+    "flash_attn_version_applied": 2,
+    "sampler": {
+     "kind": "greedy"
+    },
+    "num_sms": 142,
+    "vllm_version": "0.28.1rc1.dev472+gd9105ea80",
+    "torch_version": "2.13.0+cu129",
+    "triton_version": "3.7.1",
+    "engine": null
+   },
+   "components_disagree": null,
+   "refusal": null
+  },
+  "stop_rule": {
+   "schema": "verity/workload-program/v1/stop-rule",
+   "eos_token_ids": [
+    1
+   ],
+   "source": {
+    "generation_config.json": [
+     1
+    ],
+    "config.json": [
+     1
+    ]
+   },
+   "checkpoint_dir": "/workspace/hf/hub/models--unsloth--gemma-2-2b/snapshots/25319945f7fd83b8b903e12081777b7eef2ba993",
+   "rule": "a request may stop before max_tokens only when its last served token is one of eos_token_ids (finish_reason stop/None); stop strings, aborts and drops are not modelled and FAIL G6",
+   "eos_lag_rows": 1,
+   "lag": 1,
+   "eos_lag_source": "Workload_v1 static `lag` = TargetProfile.lag() of the row's declared target (TargetProfile.effective_async_scheduling(): not declared in the target; the pinned resolver's value for an admitted profile (vllm/config/vllm.py:1273-1322 (VllmConfig.__post_init__), vLLM d9105ea80)); applicability.engine.async_scheduling carries the resolved value the record must attest (G1/G6)"
+  }
+ }
+}

@@ -54,7 +54,7 @@ res["circuit"] = {"pin": C.digest(text), "pin_agreed": C.digest(text) == PIN, "c
 
 # serving's own M0 files
 t = time.perf_counter()
-mine = SR.m0_files(wd, text, out / "serving", s.subcircuit.id)
+mine = SR.flock_input_files(wd, text, out / "serving", s.subcircuit.id)
 res["m0_files_s"] = round(time.perf_counter() - t, 3)
 
 # 2. M0's write() over the served rows with serving's salts and domains

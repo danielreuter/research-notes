@@ -24,7 +24,7 @@ t = time.perf_counter()
 c = SR.commit(win, rows, outw, salt_key=None, workers=8)
 t_serv = time.perf_counter() - t
 SR.write(c, Path(out) / "window", {"row": 101, "run": run}, SR.index_doc([], run))
-mine = SR.m0_files(Path(out) / "window", text, Path(out) / "serving", s.subcircuit.id)
+mine = SR.flock_input_files(Path(out) / "window", text, Path(out) / "serving", s.subcircuit.id)
 
 salts = {p: [c.salts[p][i * 192:(i + 1) * 192] for i in range(n)] for p in SR.IN_PORTS}
 orig = ID.identity_digest

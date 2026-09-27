@@ -9,6 +9,7 @@ origin: cursor/flock-netlist-m0-4d6a
 branch: cursor/flock-netlist-m0-4d6a
 ---
 
+CHECKPOINT cf4e4830 (02:10Z) [open] hm96-sha512/v1 leaves built and GPU-verified; measured +96% prover time at m=33 from OS salts (670 MB/proof) -> asked coordinator to allow device ChaCha20 salts from a per-proof OS seed; verifier lane told the hm96 proof layout; pod terminated; next: serving row leaf (SHA-512 compression slots + hm96 row unit)
 CHECKPOINT 2908d078 (01:53Z) [open] hm96-sha512/v1 Merkle leaves built (2908d078), GPU selftests all pass r20260927-012544-d134 (A6000); estimate for the multi-table glue statement sent to coordinator (about $8-12, after attention); next: hm96 cost A/B on the A6000, then the serving row leaf
 CHECKPOINT 631567f7 (01:05Z) [open] SHA-512 statement published to flock-verifier (tags, merkle_hash=2, flock-leaf/sha512-unsalted, hm96-sha512/v1 target, msg; records art:1100e385); both pods terminated via drain (all attempts preserved); next: HM96-on-SHA-512 Merkle leaves and attention in the circuit (M0 left)
 CHECKPOINT 631567f7 (00:23Z) [open] SHA-512 Merkle trees built (Flock Rust patch + CUDA patch, feature sha512), GPU selftests all pass r20260926-223809-45ce; final cells: RoPE art:36146f53 2.88G, SiLU art:a689c740 3.27G, RMSNorm fused art:293ac579 2.30G, Triton art:786a7e1e 1.55G AND/s ref-profile; SHA-512 cost none measurable in time, proofs +36-39%; batched-sessions design noted for M1/M2; record run r20260927-001758-21e8 for the verifier lane
@@ -247,6 +248,33 @@ an M1/M2 item.
 padding and sumcheck masks are small (a 2^14-bit mask slot per block, t_pad rows per level): drawing them from the OS too
 would make the whole simulator argument statistical, with no ChaCha20 step, at negligible cost. Worth deciding with
 flock-soundness before M1 fixes the tape.
+
+## hm96-sha512/v1 Merkle leaves (M0 item; 2908d078, cf4e4830)
+
+- **Built:** `flock_merkle::hm96`, core's leaf checked against `vectors_sha512.json`. `HashKind::Hm96Sha512` sets
+  `merkle_hash` = 3. Every opening carries `opened_salts` (192 B per opened row, after the paths).
+- **Salts:** `zk_hooks::SaltTape` draws from getrandom, or from an injected seed's ChaCha20 stream in a test harness only. The
+  level-0 salts are drawn once per session for both reps.
+- **Device:** `hm96_finish_leaves`, the per-tree salts from the host callback, the opened salts in the proof writer.
+- **Checked:** negative `opened_salt_altered`. GPU selftests pass every case on fused RMSNorm, RoPE and SiLU
+  (r20260927-012544-d134, RTX A6000; no L40S in stock).
+- **Cost:** on the same A6000, SiLU at 128 rows goes from 1.19 s to 2.33 s end to end (+96%). Proofs grow 13% per rep
+  (778,521 → 879,753 B). Runs r20260927-020146-d89a (b3baabd8) and r20260927-015700-5b99 (cf4e4830).
+  - About 670 MB of OS salts per proof at m = 33 dominate: drawing, copying and uploading them.
+  - Asked the coordinator (`note:20260927T0215Z-handoff-from-flock-netlist`) whether to expand the salts on the device
+    from a per-proof OS seed. OS salts stay until then.
+
+## Backlog (queued)
+
+- **Serving row leaf on frame-v3-sha512 + hm96 (next).** SHA-512 compression slots in place of BLAKE3, an hm96 finishing
+  unit, per-row salts in the prover's file, `b ‖ c` public, native frame-v3-sha512 leaves and roots.
+  - The statement format change also carries the program digest, the partition digest and the unit indices
+    (`internal/commitments-decisions-routing.md` §1). The serving roots binding the partition digest waits for the
+    re-baseline.
+- **In-circuit attention (M0 acceptance).**
+- **Multi-table statements with private glue** (private-recursion's spec): estimate sent
+  (`note:20260927T0155Z-handoff-from-flock-netlist`); after attention.
+- **Hidden-message mode** (`note:20260927T0020Z-handoff-from-private-recursion`): at its pace.
 
 ## Batched, serialized sessions (Daniel, locked 2026-09-27; DESIGN.md §11.1 on PR #89): what M1/M2 changes in the coin plumbing
 

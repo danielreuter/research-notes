@@ -1,0 +1,7 @@
+# machine vyv-rf-normtap-g7: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "0tddzjvfzpeq2s"
+project = "verity"
+guard = 20
+registered_by = "cursor"
+registered_at = "2026-09-27T09:17Z"

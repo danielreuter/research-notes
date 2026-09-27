@@ -1,7 +1,7 @@
 # machine vy-coord-check: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "nzdahyukrlfm9m"
+pod_id = "lbx7w8k2ctjo3m"
 project = "verity"
 guard = true
 registered_by = "f76f5394c78b"
-registered_at = "2026-09-27T04:59Z"
+registered_at = "2026-09-27T15:06Z"

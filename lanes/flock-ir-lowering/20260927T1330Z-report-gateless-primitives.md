@@ -3,18 +3,20 @@ cursor:
   subagentId: "bc-9916bbb1-de98-5d21-a511-aafa5255c78f"
 ---
 
-lane: flock-ir-lowering · kind: report · created: 2026-09-27T13:30Z · for: coordinator, docs site (bc-41cff24f)
+lane: flock-ir-lowering · kind: report · created: 2026-09-27T13:30Z, updated 21:10Z · for: coordinator, docs site (bc-41cff24f)
 
 # The gateless primitives left across the 13 rows, and their lowering
 
 ## Summary
 - **Before (the 08:00Z export):** 22 primitive families had no gates, on 12 of the 13 rows.
-- **Now:** every one of them has a circuit, bit-exact against its IR primitive, except the MoE expert gathers `GatherBf16x64` / `GatherBf16x128` (rows #67, #68, #70, #75). Those are commitment openings, by the coordinator's 13:25Z decision (§4, for Daniel to confirm).
-- **Exact headlines:** all 13 rows have an exact headline once the export regenerated at 13:43Z is published. Nine rows were already exact at 13:00Z (table 2).
+- **Now (21:07Z):** every primitive of every row is gates. The embedding and MoE gathers are multiplexers, and the table reads are plain gate circuits (§4). No opening or lookup kind is left.
+- **Sizes:** they follow the ground-truth audit's corrections.
+  - The MoE rows and #74 were 400× to 4,400× too large (a per-Call count times per-coordinate instances). They're right now, and a per-template cross-check in the export refuses that class of error.
+  - Attention is weighted by the actual T histogram.
 - **Where it lives:**
-  - [PR #125](https://github.com/danielreuter/verity/pull/125): the keep word;
+  - [PR #125](https://github.com/danielreuter/verity/pull/125): the keep word, following #169;
   - [PR #140](https://github.com/danielreuter/verity/pull/140), stacked on #125: the rest;
-  - the export in the agent store, `internal/datasets/boolean-circuits/`, regenerated from #140's head.
+  - the export in the agent store, `internal/datasets/boolean-circuits/`.
 
 ## 1. Every gateless primitive, with the rows it affects
 Instances are word gates executed per row. "Share" is the primitive's ANDs over the row's headline, which now includes them.
@@ -46,21 +48,7 @@ Instances are word gates executed per row. "Share" is the primitive's ANDs over 
 
 ## 2. The headlines
 
-| row | headline at 08:00Z (≥: a lower bound) | headline now (ANDs) | gaps now |
-| --- | --- | --- | --- |
-| #4 smollm2-135m | ≥4.16e+14 | 4.16e+14 | none |
-| #11 llama32-1b | ≥3.01e+15 | 3.01e+15 | none |
-| #23 llama32-1b | ≥9.756e+15 | 9.756e+15 | none |
-| #39 qwen25-15b | ≥3.846e+15 | 3.846e+15 | none |
-| #57 gemma2-2b | ≥4.626e+15 | 4.704e+15 | none |
-| #60 mistral-7b | ≥1.399e+16 | 1.399e+16 | none |
-| #67 olmoe-1b-7b | ≥2.837e+18 | ≥2.837e+18 | GatherBf16x64_v1 |
-| #68 olmoe-1b-7b | ≥2.88e+18 | ≥2.88e+18 | GatherBf16x64_v1 |
-| #70 olmoe-1b-7b | ≥5.999e+17 | ≥5.999e+17 | GatherBf16x64_v1 |
-| #73 qwen3-4b | ≥7.11e+15 | 7.11e+15 | none |
-| #74 qwen3-4b-fp8 | ≥3.849e+18 | 1.907e+19 | none |
-| #75 qwen3-30b-a3b | ≥3.761e+17 | ≥3.761e+17 | GatherBf16x128_v1 |
-| #101 llama32-1b | ≥1.522e+14 | 1.568e+14 | none |
+See §4 for the corrected, gates-only headlines. The 08:00Z–13:00Z values were per-Call counts times per-coordinate instances on the MoE rows and #74.
 
 ## 3. Order and batches
 The order follows how much of the headlines each primitive covers.
@@ -83,44 +71,68 @@ The order follows how much of the headlines each primitive covers.
   - Each is checked on 6,000 vectors with exact bits.
 - **The top-p keep word** (#101, PR #125): 1.45 × 10¹¹ ANDs, 32 calls, 3% of #101's headline. It is checked against `sampling.topp_keep` on 480 rows at V = 1,025 to 9,000 and on 12 rows at V = 128,256 (the three captured Llama rows at all six split counts).
 
-## 4. The MoE expert gathers: commitment openings (decided 13:25Z, for Daniel to confirm)
-`MoeExpertRow_v1` computes `wrow[k] = slab[e][k]`: it selects the routed expert's weight row from the whole expert weight bank, one `GatherBf16x{E}` per weight element. The expert index `e` comes from the router, and `slab` is a committed weight. The registry calls it "the `Embedding_v1` construction with the expert axis in the vocabulary's role". The coordinator decided to follow the embedding's precedent: each gather is checked by opening the committed expert weights at the computed index, not as a circuit.
+## 4. Gates only (Daniel's direction, 15:08Z), and the ground-truth audit's corrections (19:00Z)
 
-- **In the export (regenerated from PR #140 at `e92c1212`, 13:43Z)**, the opening is marked on the primitive, inside the MoE template's Definition tree:
-  - each gather is a child of `MoeExpertRow_v1`:
+The export now has only gates, and its sizes follow the ground-truth audit (`docs/vllm-circuit-ground-truth.md` §6.2). It was republished from PR #140 at `c37bb04d` on `main` `e40fa730` with #169.
 
-    ~~~json
-    {"commitment_opening": "GatherBf16x64_v1", "kind": "opening", "opens": {"table": "slab", "index": "e", "committed": "weights"}, "count": 2048, "reason": "..."}
-    ~~~
+- **Gathers from committed weights are multiplexers.** This covers the embedding's row gather and the MoE expert gathers, the gate_up experts' included.
+  - A gather is `tail_pieces.gather_bf16`: V − 1 candidate-pair muxes by the index's low bits, then the range select. That is 1,049 ANDs at V = 64, 2,072 at V = 128, and 16(V − 1) + about 40 for a vocabulary.
+  - The commitment-opening sizing stays in code (`--gathers opening`), unpublished.
+- **Constant-table reads are plain gate subcircuits of kind `table`.** These are the MUFU ex2 / rcp / rsq / sqrt tables and Gemma's tanh and GELU tables.
+  - They use M0's construction and sizes: 41,308 and 49,576 ANDs per MUFU read, 131,816 per 2²⁷-word tanh read, 2,232 for GELU.
+  - No `lookup-slot` or `commitment-opening` kind is left in the data.
+- **The granularity bug is fixed (audit fix 1).** A group whose Calls are batches of one Definition now has that member as its template: a GEMM's output coordinates, a MoE expert GEMM's, a block-scaled FP8 GEMM's.
+  - The cache key and template id include the member, so N no longer collides.
+  - The MoE gate_up coordinates get `MoeExpertCoordinate_v1` with its expert gathers, not the dense coordinate (fix 2).
+- **Attention is weighted by the program graph's T histogram** (`instances_by_T`, fix 3).
+- **A per-template cross-check** (`index.json` `crosscheck`, fix 4) holds each template's node ANDs against its Calls' units under the no-recompute cut.
+  - Within 2% is `agree`; within ×4 is `differs`, the counting-convention gap of fix 6 (RMSNorm's hash-consed warp units about 0.5×, `TokenSelect` 1.22×); beyond that the export fails.
+  - GEMM, MoE, FP8, attention, embedding, RoPE and SiLU·mul agree on every row.
+- **The keep word follows #169** (fix 8): each lane takes its own warp half's stop.
+  - Checked on #169's constructed divergent rows, and on 80 more random rows.
+  - `MufuEx2Ftz` clamps its shift as the IR's model does since `main` `7d8a11e4`: 686 → 688 ANDs.
+- **circuit-check sees the gather and the keep word** (fix 7).
+  - `GatherBf16x{V}` is an `ir_lower` piece family.
+  - `TopPMaskWordx{V}` has its own realization, `c-flock:topp_word`, which evaluates every piece instance on the correspondence vectors (64 vectors at V = 16, 0 mismatches).
 
-    Here `opens` names the Definition's parameters holding the committed table and the index;
-  - each Definition above it counts its openings in `commitment_openings`, and they enter no AND or not-yet-lowered total;
-  - in `commitments.json` the gathers' pieces are `{"commitment_opening": <primitive>}`, as the embedding's are;
-  - `index.json` `commitment_openings` lists `MoeExpertRow_v1 (its Gather primitives)` beside the embedding templates;
-  - the Call-level committed tensor is the row node's `weights` input (`inputs[]`, role `weights`) that the MoE Call reads.
-- **The circuit alternative, recorded:** an E-way mux tree per weight element, 1,008 ANDs at E = 64 and 2,032 at E = 128. As circuits the gathers would add to the headlines:
+**Headlines (ANDs, republished 21:07Z; every row exact):**
 
-  | row | gathers | ANDs as circuits | added to the headline |
-  | --- | --- | --- | --- |
-  | #67 OLMoE-1B-7B | 5.46 × 10¹⁵ x64 | 5.5 × 10¹⁸ | +194% (66% of the sum) |
-  | #68 OLMoE-1B-7B | 5.54 × 10¹⁵ x64 | 5.6 × 10¹⁸ | +194% (66% of the sum) |
-  | #70 OLMoE-1B-7B, TP2 | 1.15 × 10¹⁵ x64 | 1.2 × 10¹⁸ | +193% (66% of the sum) |
-  | #75 Qwen3-30B-A3B, TP2 | 7.18 × 10¹⁴ x128 | 1.46 × 10¹⁸ | +388% (80% of the sum) |
+| row | ANDs now | published at 13:00Z |
+| --- | --- | --- |
+| #101 Llama-3.2-1B b1 top-p | 1.580 × 10¹⁴ | 1.568 × 10¹⁴ |
+| #4 SmolLM2-135M b16 | 3.817 × 10¹⁴ | 4.160 × 10¹⁴ |
+| #11 Llama-3.2-1B b1 | 3.030 × 10¹⁵ | 3.010 × 10¹⁵ |
+| #23 Llama-3.2-1B b64 | 9.565 × 10¹⁵ | 9.756 × 10¹⁵ |
+| #39 Qwen2.5-1.5B b1 | 3.863 × 10¹⁵ | 3.846 × 10¹⁵ |
+| #57 Gemma-2-2B b8 | 4.680 × 10¹⁵ | 4.704 × 10¹⁵ |
+| #60 Mistral-7B b8 | 1.388 × 10¹⁶ | 1.399 × 10¹⁶ |
+| #67 OLMoE-1B-7B b32 | 1.416 × 10¹⁶ | ≥2.837 × 10¹⁸ |
+| #68 OLMoE-1B-7B b32 arrivals | 1.437 × 10¹⁶ | ≥2.880 × 10¹⁸ |
+| #70 OLMoE-1B-7B TP2 b8 | 2.991 × 10¹⁵ | ≥5.999 × 10¹⁷ |
+| #73 Qwen3-4B H100 b8 | 7.019 × 10¹⁵ | 7.110 × 10¹⁵ |
+| #74 Qwen3-4B-FP8 H100 b8 | 4.363 × 10¹⁵ | 1.907 × 10¹⁹ |
+| #75 Qwen3-30B-A3B TP2 b2 | 3.116 × 10¹⁵ | ≥3.761 × 10¹⁷ |
 
-  The "66–80%" quoted earlier is the gathers' share of the headline including them. Relative to the headline without them (which becomes exact now), they would multiply these rows' sizes by about 2.9 to 4.9.
+
+**Still queued:**
+- **Fix 5,** a constant-index `BitAt` as wiring (0.34% of #101). The walker has to see a scan's per-iteration counter as a constant.
+- **Fix 6,** one counting convention for headlines.
+- **Fix 9,** anchoring `splits`. The proposal is in `internal/lanes/vllm-cross-call-check/20260927T1935Z-handoff-from-flock-ir-lowering-splits-anchor.md`: a per-step constant on the single-request rows, and `SplitsForSMS(n_live)` on a workload program. It is a statement change.
+- **Fix 10,** a lowering digest.
 
 ## 5. Also
-- **A finding for the vLLM coordinator:** the reference `topp_split.mask_kernel` is partial on rows where its two warp halves diverge. Details are in the store's `private/` (a pointer is in the coordinator note); nothing sensitive is here.
+- **A finding for the vLLM coordinator,** now resolved by #169: the reference `topp_split.mask_kernel` was partial on rows where its two warp halves diverge (details in the store's `private/`).
 - **An identity fix:** the export's structural hash does not include which input feeds which part. The keep word's Python `max` and `min` pieces therefore shared one subcircuit type in the 10:30Z export (1 wiring instance differed). They are traced as named functions now, and the export regenerated since has 0 differing.
 - **circuit-check's pins** (`tools/circuit_check/src/circuit_check/pins.json`, `known.py`) were `main`'s lowering counts. Each PR now carries its own:
   - #104 drops the `F32Add` / `F32Mul` known failures (fixed) and repins the hash-consed counts;
   - #125 pins its 25 new pieces;
   - #140 pins its 19.
   - `circuit-check --all` on each head: 808 targets, 0 new failures, the 2 known `ScaledMmFp8Block` recomputations.
-- **PR heads:** #104 `f5531113`, #125 `a3c1d675` and #140 `6d168e5a`, all pushed. The export ran from `b778d521`; later commits change only the pins and merges.
-- **The export (13:00Z):**
-  - 86,828 subcircuit types;
-  - 3,126 gate lists verified, 0 differ;
-  - 59,817 wiring instances compared, 0 differ;
+- **PR heads (21:10Z):** #104 `a96febbf`, #125 `cfc7efc4` (#169's branch merged in) and #140 `a8695c7e`, all with `main` `e40fa730` and all pushed. The export ran from `c37bb04d`; the later commits are circuit-check's view of the gathers and the keep word, and pins.
+- **The export (21:07Z):**
+  - 86,825 subcircuit types;
+  - 3,139 gate lists verified, 0 differ;
+  - 59,690 wiring instances compared, 0 differ;
   - 9,009 commitment cuts agree with the program graphs' `q_word_v1`, 0 differ;
-  - the integrity check finds 0 problems.
+  - the cross-check: 119 agree, 37 differ by convention, 0 fail;
+  - the integrity check finds 0 problems and no opening, lookup or unlowered primitive.

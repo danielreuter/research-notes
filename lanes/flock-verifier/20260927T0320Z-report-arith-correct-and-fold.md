@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: flock-verifier
 ---
 
+CHECKPOINT 6f9df45a (20:09Z) [open] pod vy-flock-verifier-core-gemm (cpu3m x32, guard cap $3) in use: core check_cut on #101's three largest Gemms for #176; do not reap
 CHECKPOINT 6f9df45a (20:00Z) [open] core check_cut on #101's three largest Gemms: one cpu3m/48-vCPU pod (vy-flock-verifier-core-gemm), budget guard cap $3, for #176
 # Every `Arith.Correct` field is proved; the fold's first lemmas
 

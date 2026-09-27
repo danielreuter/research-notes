@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (10:42Z) [final] FINAL: PR #146 @d4cb0b75 REFUSE as submitted (node clause still makes Collision trivially true; Lean counterexample); PR #116 @66ab031b GRANT WITH CONDITIONS C1 enforce served==Lean draw, C2 require verifier of record, C3 core worst_case (A3b record verified unaffected); findings in the store private/red-team-reviews/ (private); pointers lanes/coordinator/1035Z, 1045Z; 0905Z/0915Z/0920Z rules followed; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (10:41Z) [final] FINAL: PR #146 @d4cb0b75 REFUSE as submitted (node clause still makes Collision trivially true for every scheme; Lean counterexample; leaf fix + hm96 reduction right; soundness defs genuine); PR #116 @66ab031b GRANT WITH CONDITIONS C1 enforce served==Lean draw, C2 require verifier of record, C3 core worst_case (A3b record verified unaffected); findings in the store private/red-team-reviews/ (private); pointers lanes/coordinator/1035Z, 1045Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (08:58Z) [final] FINAL: PR #135 @9ac046fd P1 met -> GRANTED; #121 @1ed789d5 GRANTED; the mirror copies all of internal/ (4611baea), so the full reviews are now private in the evidence store (art:b1d7314f #121, art:d3ade404 #135) and the store and notes keep verdict-only stubs; my scripts and outputs removed from notes (608c19f9); coordinator told (0900Z); run r20260927-085234-0a01 labelled; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (08:55Z) [final] FINAL: PR #135 @9ac046fd P1 met -> GRANTED (never below the exact optimum: 0/2000 grid, 0/7500 stress, <=1.9e-9 above; composes with #121 @1ed789d5: TOY + mixed class certified, 750-pt grid holds); #121 @1ed789d5 GRANTED earlier; findings in the store internal/red-team-reviews/ (private); run r20260927-085234-0a01 labelled; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -652,6 +653,12 @@ the pure-block path, plus UL2 and the probe fix.
 - **PR #116 @ 66ab031b** (the one-stage driver): GRANT WITH CONDITIONS C1–C3. Finding in the private store:
   `private/red-team-reviews/pr116-one-stage-driver/review.md`. Reply:
   `lanes/coordinator/20260927T1045Z-handoff-from-red-team-flock-3.md`.
+- **Handoffs answered:** `20260927T0905Z-`, `20260927T0915Z-` and `20260927T0920Z-handoff-from-coordinator.md`, where sensitive
+  material goes, the last superseding the first two. Followed:
+  - the #146 and #116 reviews are in the store's `private/`;
+  - the #121 and #135 reviews are in the evidence store (`art:b1d7314f`, `art:d3ade404`), and the coordinator was told at
+    0900Z;
+  - only verdict stubs remain under `internal/`.
 
 ### Pre-grant checklist
 

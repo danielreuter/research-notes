@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT fe196b6c (17:23Z) [open] ESTIMATE if the check pod has no 22.04 stock: a small 22.04 build pod (cpu3c/cpu3g 4-8 vCPU, $0.1-0.3/h, ~15 min, <$0.10) for the portable upstream rebuild, then the check pod (>=32 GB); agent bc-1122c760
 CHECKPOINT fe196b6c (17:16Z) [open] ESTIMATE one CPU pod (cpu3g-16, ubuntu2204 image, ~$0.64/h) ~1 h (~$0.70): portable upstream rebuild ~8 min + check on #134's fixed head with the full agreement ~35 min; cause of E2: pinned binaries need GLIBC_2.39, E2's pod had 2.35; agent bc-1122c760
 CHECKPOINT fe196b6c (11:59Z) [open] READY #134 head 3dfb06b5 (main 407663fb) check r20260927-111939-cc0b passed; upstream re-pinned art:fd494a07; #130 combined branch cursor/fast-check-on-130-4d78 420aaf20; agent bc-1122c760
 CHECKPOINT fe196b6c (09:50Z) [open] ESTIMATE before pod: 1x cpu3g-16 (~$0.64/h) for ~35-45 min (~$0.45): upstream rebuild for 7 #83 versions ~9 min, cold check on #134's merged head with the 14-set parallel agreement ~12 min, warm re-check ~1 min; agent bc-1122c760

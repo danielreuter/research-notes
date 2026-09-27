@@ -1,0 +1,23 @@
+{
+ "partition": {
+  "format": "verity/partition/v1",
+  "program": "aad113f38bfb77d89fdf2fe6b906c7a470af2cb4f0169f581739e4c9d75a7a1a90f442a941b6c5e2eedbe3c95c8451c819e569f7ba2b50bd69412eb57ed41e89",
+  "query": {
+   "name": "Q_template_instances",
+   "version": 0,
+   "params": {
+    "templates": [
+     "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+     "RoPEHead_v1{D=64}",
+     "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+     "SiluMul_v1{I=8192}"
+    ]
+   }
+  }
+ },
+ "partition_digest": "46f80472fdd25c284af5a8ccac303743f60c022031c071cc6372bd07ce698587eb3d04a5fed816d01a8759102dfef37802b5e4c6134297bd044a3268edb59fd0",
+ "population": 12341,
+ "scope": {
+  "op_path_prefix": "model.layers.0."
+ }
+}

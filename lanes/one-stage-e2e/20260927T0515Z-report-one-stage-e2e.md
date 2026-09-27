@@ -5,6 +5,7 @@ created: 2026-09-27T05:15Z
 status: open
 ---
 
+CHECKPOINT 9515b4d4 (12:11Z) [open] A4 P6 attempt 2 r20260927-112223-cc25: M0 prove OOM-killed at 64 GB on GEMM K=2048 (6.17M instances; RSS 49.9 GB climbing); other members + 9/9 negatives fine; told M0 (flock-netlist/1200Z). Attempt 3 r20260927-120715-3086 on vy-one-stage-e2e-m2 (cpu5m 32 vCPU, 256 GB, $2.08/h). A3b delta r20260927-115041-1b5d on vy-one-stage-e2e.
 CHECKPOINT 9515b4d4 (11:24Z) [open] #116 red-team C1-C3 + N1 + negatives a-e at 120adc37 (+608e7130 pod.sh served-dir fix); A1 delta r20260927-110313-402a accepted, 21/21 negatives; delta check asked (red-team-flock-3/20260927T1120Z). #143 merged up (9515b4d4). A4 P6 served running r20260927-112223-cc25 (first attempt r20260927-110739-dd76 failed on a stale served dir). A3b delta after P6.
 CHECKPOINT 108e2e54 (10:51Z) [open] A4 P4 served ACCEPTED, complete: r20260927-101433-97d7 (12/12 verdicts, <=158 of 12,341 at 2^-20, 4/4 negatives; draws 21/951/23/29 vs 23.8/952.6/23.8/23.8). P6 inputs staged, waiting on serving's P6 bundle (cutoff ~11:30Z).
 CHECKPOINT 108e2e54 (10:18Z) [open] #116 frozen at 66ab031b for review (handoff coordinator/20260927T1020Z); A4 moved to #143. P6 class encoding: keep per-instance units.classes (M0 e226a920 landed; told M0/serving/Lean 1005Z). A4 P4 served audit running r20260927-101433-97d7 on vy-one-stage-e2e (new pod s8la1a18qk0gtg, 64 GB).

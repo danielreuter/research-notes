@@ -714,6 +714,16 @@ the pure-block path, plus UL2 and the probe fix.
 - **Review:** `private/red-team-reviews/m0-statement/review.md`, in the private store.
 - **Pointer, with the recommended rows:** `lanes/coordinator/20260927T1340Z-handoff-from-red-team-flock-3.md`.
 
+### PR #130's pin refresh (27 Sep, 15:33–15:40Z; named statement reviewer)
+
+- **PR #130 @ b7cd6de8:** GRANTED.
+  - Every changed or new pin is #146's granted statement at 7406212d, and none is weaker.
+  - Keep the three `*_inputs` pins.
+  - `render` in the read set is benign.
+- **Request:** `lanes/coordinator/20260927T1501Z-handoff-from-lean-organization.md`.
+- **Review:** `private/red-team-reviews/pr130-pin-refresh.md`, in the private store.
+- **Reply:** `lanes/coordinator/20260927T1540Z-handoff-from-red-team-flock-3.md`.
+
 ### Pre-grant checklist
 
 What I checked on the pinned unit and statement:

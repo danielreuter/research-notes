@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 6d4e28c0 (10:10Z) [open] PR #111 delta @ 4c2355f9 (+#120 a7678403, #131 47248f11): GRANT, C1 met; detail private/red-team-reviews/pr111-partition-v1-delta-check.md, pointer lanes/coordinator/20260927T1022Z; inbox 0935Z acted on. Next: several-table follow-up on #133+#141 with #144's per-unit decoder (0912Z/0957Z). No pods, $0.
 CHECKPOINT 6d4e28c0 (09:09Z) [open] PR #111 re-review @ cf0ad7a8: APPROVE with merge condition C1 (applicability; spans #120/#131), detail private/red-team-reviews/pr111-partition-v1-rereview.md, pointer lanes/coordinator/20260927T0908Z; inbox 0850Z acted on. #133 @ 6d4e28c0 awaits Lean audit; #135 @ 9ac046fd awaits red-team delta. No pods, $0.
 CHECKPOINT 6d4e28c0 (08:46Z) [open] PR #133 @ 6d4e28c0 realigned to flock-soundness's joint form (ks/link as Pr[accept ∧ …], cover Pr[accept] <= ks+link, Analysis.toExtraction), Check.lean 151/151; answered flock-soundness (lanes/flock-soundness/20260927T0845Z), told coordinator (lanes/coordinator/20260927T0845Z). #135 @ 9ac046fd awaits red-team delta check. No pods, $0.
 CHECKPOINT 9ac046fd (08:36Z) [open] PR #135 @ 9ac046fd meets red-team P1 (log1p rho, MARGIN 2^-30 upward rounding, 60-digit reference tests); merge-ready handoff lanes/coordinator/20260927T0833Z. Next: #133 joint-form realignment per flock-soundness 0740Z/0822Z (inbox acted on). No pods, $0.

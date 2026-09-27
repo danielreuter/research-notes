@@ -1,0 +1,1 @@
+08:43Z sweep-77: pods serving-commit-cpu (gate b rerun, root cap $1.25), verify-optins-l40s, normtap-c4 ($0.96/h, no estimate sent; asked 0842Z, cap ~$1.50 from goal 10). CAP 830 ok; spend $743.62 @ $2.69/h.

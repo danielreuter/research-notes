@@ -31,9 +31,10 @@ ropts=(-rtuW --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$ss
 # pull what lanes pushed to the notes remote first, so a handoff they pushed is already on the pod when fwdh compares
 pre=$(timeout 240 $sshcmd "$host" "cd /workspace/steward/verity && PY=\$(/root/.local/bin/uv python find 3.12) && \
   PYTHONPATH=tools/research/src \$PY -m research notes sync --root $N 2>&1 | tail -1")
-out=$(rsync "${opts[@]}" "${fwd[@]}" "$S/" "$host:$N/" 2>&1); frc=$?
+ex=/tmp/cloud-mirror-sensitive.rules; sensitive_rules "$S" > "$ex"
+out=$(rsync "${opts[@]}" --filter="merge $ex" "${fwd[@]}" "$S/" "$host:$N/" 2>&1); frc=$?
 ok $frc || { echo "$(stamp) FAIL forward rsync rc=$frc: ${out: -300}"; exit 1; }
-outh=$(rsync "${opts[@]}" --ignore-existing "${fwdh[@]}" "$S/" "$host:$N/" 2>&1); hrc=$?
+outh=$(rsync "${opts[@]}" --ignore-existing --filter="merge $ex" "${fwdh[@]}" "$S/" "$host:$N/" 2>&1); hrc=$?
 ok $hrc || { echo "$(stamp) FAIL forward (handoffs) rsync rc=$hrc: ${outh: -300}"; exit 1; }
 out="$out
 $outh"

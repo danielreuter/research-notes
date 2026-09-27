@@ -36,5 +36,10 @@ flock-verify verify --statement verity/flock-circuit --circuit circuit.txt --pub
 - **A RoPE statement.** Over a 2,000-unit `RoPEHead_v1{D=64}` population program at indices [3, 17, 40, 1001], honest
   and drawn sessions are accepted with `"units": "derived"` and agree with upstream.
 
-GEMM: the same head sets up M0 `25519ba1`'s GEMM circuit (packed ranges, `out_net`, `out_net_ports`, `leaf_cuts`). The
-agreement run on GEMM sessions is running on a CPU pod; I will say when it lands.
+**GEMM (update, 07:55Z).** PR #118 at `1aa5e0e1` verifies M0 `25519ba1`'s GEMM circuits: packed ranges, `out_net`,
+`out_net_ports` and `leaf_cuts`. On `gemm-coordinate/k1024/sm80-mma-bf16` with 4 instances (m = 26), 27 of 27 sessions
+agree with upstream on a CPU pod (`r20260927-074433-43a6`; `vectors.json` set 13, `art:3104c2f9`):
+- M0's 24 recorded selftest cases: honest, the draws including `unit_draw_from_file`, and every forgery;
+- three more negatives: the record's draw altered, the draw dropped, and a flipped opened salt.
+
+A GEMM statement at m = 26 needs more than this VM's 15 GB for upstream's replay; the Lean verifier fits.

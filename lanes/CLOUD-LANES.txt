@@ -54,3 +54,4 @@ vllm-rf-recompute
 vllm-serving-view
 vllm-serving-commit
 verity-root
+vllm-verify-optins

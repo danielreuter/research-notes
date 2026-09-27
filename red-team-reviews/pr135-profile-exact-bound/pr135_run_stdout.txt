@@ -1,0 +1,16 @@
+script 02255aff43f56430 head b4c9a489 base 928790af merged 41d6e04b (1ed789d5 + b4c9a489)
+TESTS #135 head   540 passed, 1 skipped in 9.73s
+TESTS #135 base   525 passed in 7.11s
+TESTS merged      557 passed, 1 skipped in 8.78s
+WORST_CASE	{"profiles": 400, "cases": 2000, "new_vs_old_min_rel": -8.811077421642092e-12, "new_vs_old_max_rel": 5.993561661360628e-11, "new_below_old_by_more_than_1e-12": 6, "new_vs_exact_min_rel": -8.720493307259827e-12, "new_below_exact_count": 329, "old_vs_exact_min_rel": -2.8822778399291405e-13, "old_below_exact_count": 195, "zero_pattern_mismatches": 0}
+RHO	{"values": 17378, "inf_agree": true, "new_max_over_rel": 3.570713722591456e-11, "new_over_count": 9480, "new_min_rel": -5.964753766062037e-11, "old_max_over_rel": 3.3398854917847894e-13, "old_over_count": 6879}
+NONMONOTONE	{"cases": [["m", 1477.511719257, 1477.511719257], ["one", 107.033058044, 107.033058044], ["m2", 39892.816419952, 39892.816419952], ["sqrt", 302.735204616, 302.735204616], ["step", 107.033058044, 107.033058044]], "all_equal_1e-9": true}
+UNDERFLOW	{"n=4000,k=256,p=1,members=1": {"new": 204.05082016382516, "old": "ValueError", "exact": 204.05082016382397, "new_minus_exact_rel": 5.8500710515085725e-15}, "n=20000,k=256,p=1,members=1": {"new": 1047.5045070884773, "old": "ValueError", "exact": 1047.5045070884714, "new_minus_exact_rel": 5.643618257983051e-15}, "n=183680,k=256,p=1,members=1": {"new": 9675.419457199421, "old": "ValueError", "exact": 9675.419457199405, "new_minus_exact_rel": 1.6920098094280807e-15}, "n=4000,k=256,p=1/2,members=50": {"new": 79726.27427728994, "old": 79726.2742772967, "exact": 79726.2742772967, "new_minus_exact_rel": -8.487340770064671e-14}}
+COMPOSE	{"toy_wrong_RUs": 16.007845559302197, "toy_work_VUs": 64.03138223720879, "toy_attack": [16, 64], "mixed_n_v": [400], "mixed_rate": "1/8", "mixed_wrong_RUs": 34.48754705148166, "mixed_attack": 34}
+TOY	{"new_wrong_RUs": 16.007845559302197, "new_work_VUs": 64.03138223720879, "old_incorrect_VUs": 26.575424759098897, "attack_RUs": 16, "attack_work_VUs": 64}
+GRID	{"points": 750, "new_below_attack": [], "n_new_below_attack": 0, "new_looser_than_1RU": [], "n_new_loose": 0, "old_below_attack_work": 375}
+BOUNDARY	{"q": "1/2", "delta": 0.0009765625, "attack": 10, "certified": 10.0}
+BOUNDARY	{"q": "1/4", "delta": 0.010022595757618546, "attack": 16, "certified": 16.000000000000007}
+BOUNDARY	{"q": "1/2", "delta": 9.094947017729282e-13, "attack": 40, "certified": 40.0}
+MIXED	{"profile_n_v4_RUs": 16.007845559302197, "profile_n_v8_RUs": 34.48754705148166, "attack_on_8VU_RUs": 34, "attack_on_4VU_RUs": 16}
+EDGES	{"k=0": ["0", 100.0], "p=0": ["0", 100.0], "p=1,k>=n_v": ["1", 0.0], "p=1,k=None": ["1", 0.0], "n_r=0": 0.0}

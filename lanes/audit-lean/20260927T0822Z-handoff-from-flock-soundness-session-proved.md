@@ -9,6 +9,11 @@ follows `20260927T0740Z-handoff-from-flock-soundness-compiled-shapes` · branch 
 
 # The session theorem is proved: its exact form
 
+*Update 08:33Z: this is [PR #136](https://github.com/danielreuter/verity/pull/136), head `9fb0d4c2`.
+`table_knowledge_sound_joint` keeps #124's statement, so #133's `ksBound` and `joint_le` build unchanged; I trial-merged
+#133 at `bbeba8a6`. The factor-1 form is `table_knowledge_sound_joint_tight` (`ε_c⁻ + K·Adv₀ + N₀/(eK)`). Switch
+`ksBound` to it whenever you like: that halves `ε_c⁻`'s coefficient.*
+
 `FlockSoundness/Session.lean`, no `sorry`. `Check.lean` shows only `propext`, `Classical.choice` and `Quot.sound`
 (145 of 145).
 

@@ -1,0 +1,25 @@
+script 75c5acdfb840dd7f PR 23c048c3 main 18783baf
+TESTS PR   490 passed, 1 skipped in 3.04s
+TESTS main 489 passed, 1 skipped in 3.03s
+TESTS PR test_law.py on main's law.py: 4 failed, 7 passed in 0.43s
+base121	DRAWS	stratum_picks(key)	689c6a60ad2275af
+base121	DRAWS	stratum_picks(legacy seed)	0a8171c4aba53b3d
+base121	DRAWS	select_replay/verification_units	10f8b81e05cfcadd
+base121	DRAWS	check_probability	41679e107edff282
+base121	DRAWS	challenge_positions/identity_picker	a6a542db3ea609ce
+base121	DRAWS	domains	['verity/sampled-proofs/ru-sample/v1', 'verity/sampled-proofs/vu-sample/v1']
+pr121	DRAWS	stratum_picks(key)	689c6a60ad2275af
+pr121	DRAWS	stratum_picks(legacy seed)	0a8171c4aba53b3d
+pr121	DRAWS	select_replay/verification_units	10f8b81e05cfcadd
+pr121	DRAWS	check_probability	41679e107edff282
+pr121	DRAWS	challenge_positions/identity_picker	a6a542db3ea609ce
+pr121	DRAWS	domains	['verity/sampled-proofs/ru-sample/v1', 'verity/sampled-proofs/vu-sample/v1']
+ATTACK	{"trials": 40000, "accept_16_skipped": 0.0098, "expected_0.75^16": 0.010022595757618546, "sigma": 0.0004980497799391622, "single_ru_escape": 0.75265, "expected_single": 0.75}
+TOY	{"new_wrong_RUs": 16.00784555930219, "new_work_VUs": 64.03138223720876, "old_incorrect_VUs": 26.5754247590989, "attack_RUs": 16, "attack_work_VUs": 64}
+GRID	{"points": 750, "new_below_attack": [], "n_new_below_attack": 0, "new_looser_than_1RU": [], "n_new_loose": 0, "old_below_attack_work": 375}
+BOUNDARY	{"q": "1/2", "delta": 0.0009765625, "attack": 10, "certified": 10.0}
+BOUNDARY	{"q": "1/4", "delta": 0.010022595757618546, "attack": 16, "certified": 16.0}
+BOUNDARY	{"q": "1/2", "delta": 9.094947017729282e-13, "attack": 40, "certified": 40.0}
+MIXED	{"profile_n_v4_RUs": 16.00784555930219, "profile_n_v8_RUs": 34.487547051481634, "attack_on_8VU_RUs": 34, "attack_on_4VU_RUs": 16}
+FLOATP	{"rate": "10808639105689191/252201579132747776", "sampler_p_times_k_over_n": "10808639105689191/252201579132747776", "equal": true, "check_probability": "10808639105689191/252201579132747776"}
+EDGES	{"k=0": ["0", 100.0], "p=0": ["0", 100.0], "p=1,k>=n_v": ["1", 0.0], "p=1,k=None": ["1", 0.0], "n_r=0": 0.0}

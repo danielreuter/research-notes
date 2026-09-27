@@ -2,9 +2,10 @@
 lane: audit-lean
 kind: report
 created: 2026-09-27T06:10Z
-status: open
+status: final
 ---
 
+CHECKPOINT 5f0baa2d (07:17Z) [final] PR #122 @ 5f0baa2d on cursor/audit-lean-f568, merge-ready handoff 20260927T0717Z-handoff-from-audit-lean: audit-protocols §4.2-4.4 proved in Lean (one-stage profile/count/drawn/cone/covered/audits_seq with eps_ks+delta_link named; (a),(b1),(b2) relations; minimax; product bound; tightness; dilution and late-interior counterexamples) + §4.5 at the oracle layer (flock_session_sound 2^-195.4 given LoweringSound; Flock count/drawn/cone/(b1)); Check.lean 131/131 standard axioms; no pods, $0. Reopen for: lean-organization moves, compiled layer after table_knowledge_sound + link theorem, review fixes
 CHECKPOINT 9d720995 (07:01Z) [open] (b2) thinned PROVED (9d720995): effEscape_bernoulli = one-stage Bernoulli(p k2/nv); audits_seq proved; all of audit-protocols §4.2-4.4 now proved except the compiled/Flock instantiation (§4.5, waits on KS + lowering); Check.lean 113/113; next: line count, final review of statements vs spec, handoff
 CHECKPOINT 1e6b530e (06:55Z) [open] tightness + both counterexamples PROVED (1e6b530e, PR #122): two_stage_b_tight (any L1), naive_two_level_unsound, late_interior_insecure; subset_minimax proved; full build OK, Check.lean 108/108 standard axioms; next: (b2) Bernoulli closed form, audits_seq, Flock SessionSound projection
 CHECKPOINT d48dfb61 (06:37Z) [open] two-stage PROVED (d48dfb61, PR #122): twoStage_profile (b) over coarse partition with effEscape, eps_ks/delta_link at fine level; effEscape_full ((b1) = one-stage over coarse); two_stage_a_coarse; full lake build FlockSoundness OK, Check.lean 100/100 standard axioms; next: minimax (uniform optimal), (b2) Bernoulli/thinned formula, tightness + two counterexamples, then DESIGN/ASSUMPTIONS docs

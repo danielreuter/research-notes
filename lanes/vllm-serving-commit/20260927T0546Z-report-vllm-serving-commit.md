@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT 5581920f (08:39Z) [open] gate (b): base 928790af DONE (34 failed/4052 passed/286 skipped/11 errors, 42 min); head 5581920f lints rc 0, suite since 08:33Z. WAIT gckublhmo7yzhh r20260927-081242-9c58 check-back 09:06Z agent bc-819f6247; terminate at once when done (cap $1.25 ~09:13Z).
 CHECKPOINT 5581920f (08:14Z) [open] gate (b) pod cap raised to $1.25 (coordinator 08:14Z); terminate as soon as head r20260927-081242-9c58 finishes. Timer ~08:39Z.
 CHECKPOINT 5581920f (08:13Z) [open] gate (b) head 993ea8ff failed lints P7/P9/P10/P11 -> fixed 5581920f (pipeline/serving_rows.py split, one --serving-rows request, commit.py main -1 line, no allowlist growth; lints + unit tests pass on VM). WAIT gckublhmo7yzhh base r20260927-074901-3cb9 (928790af) then head r20260927-081242-9c58 (5581920f), check-back 08:38Z agent bc-819f6247; pod end ~09:00Z ~$1.12 (flagged to coordinator 0814Z).
 CHECKPOINT 993ea8ff (07:55Z) [open] RE-SERVE DONE: r20260927-073101-9c1c (art:fa1b749f) PRESERVED; 7adcef49 unchanged, 183,680 heads under partition 17478e85, byte-match OK (pin 517b72e7), hook 15.1 s; registration v1 R.check ok (7b7a1ca3), bundle art:9ab217a1; e2e handoff lanes/one-stage-e2e/20260927T0756Z-handoff-from-vllm-serving-commit.md. g2 TERMINATED 07:54Z (~23 min, ~$0.42). Gate (b) base r20260927-074901-3cb9 / head r20260927-074914-a1f5 running on cpu pod.

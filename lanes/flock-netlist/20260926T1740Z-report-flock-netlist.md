@@ -9,6 +9,7 @@ origin: cursor/flock-netlist-m0-4d6a
 branch: cursor/flock-netlist-m0-4d6a
 ---
 
+CHECKPOINT b84d2606 (09:30Z) [open] shared rows landed 967b8d06 (A4 layout agreed with one-stage-e2e); EX2 clamp 855fe81f; device witness for tail templates b84d2606 in GPU selftest r20260927-092950-de2e on vy-flock-netlist-gpu (US-MO-1 L40S) + verifier prebuild r20260927-093044-3033 (cpu3c-16); next: attention cell re-record (est ~$1.5, max $2.5), then multi-table
 CHECKPOINT b32e1a7b (03:07Z) [open] hm96 salts now ChaCha20 under a fresh OS key per proof (b32e1a7b): GPU selftests all pass on L40S r20260927-022832-8b16; cost +3% (0.611->0.630 s SiLU 128 rows, same L40S); red-team note and private-recursion descriptor format sent; pod drained; next: serving row leaf
 CHECKPOINT cf4e4830 (02:10Z) [open] hm96-sha512/v1 leaves built and GPU-verified; measured +96% prover time at m=33 from OS salts (670 MB/proof) -> asked coordinator to allow device ChaCha20 salts from a per-proof OS seed; verifier lane told the hm96 proof layout; pod terminated; next: serving row leaf (SHA-512 compression slots + hm96 row unit)
 CHECKPOINT 2908d078 (01:53Z) [open] hm96-sha512/v1 Merkle leaves built (2908d078), GPU selftests all pass r20260927-012544-d134 (A6000); estimate for the multi-table glue statement sent to coordinator (about $8-12, after attention); next: hm96 cost A/B on the A6000, then the serving row leaf

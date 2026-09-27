@@ -1,0 +1,29 @@
+session	lean	upstream	vb	agree_lean	vb_why
+honest	A	A	A	yes	
+r-break	R	R	R	yes	S18/R1: the reps' caps differ x3957
+lc-round	R	R	R	yes	lincheck: ConsistencyFailed (sumcheck-final) x1
+lc-z-partial	R	R	R	yes	lincheck: ConsistencyFailed (sumcheck-final) x1; opening: ring-switch claim mismatch x1
+lig-claim-nonce	A	A	A	yes	
+lig-message	R	R	R	yes	ligerito: final check failed x2
+lig-ood	R	R	R	yes	ligerito: final check failed x2
+lig-query-nonce	A	A	A	yes	
+lig-row-final	R	R	R	yes	merkle: a level-2 query does not open to its cap x123; ligerito: final check failed x2
+lig-row-l0	R	R	R	yes	merkle: a level-0 query does not open to its cap x118; ligerito: final check failed x2
+lig-row-l1	R	R	R	yes	merkle: a level-1 query does not open to its cap x117; ligerito: final check failed x2
+lig-sibling-l0	R	R	R	yes	merkle: a level-0 query does not open to its cap x121
+lig-yr	R	R	R	yes	ligerito: final check failed x2
+rep1-lig-yr	R	R	R	yes	ligerito: final check failed x2
+rep1-zc-final-a	R	R	R	yes	zerocheck: SumcheckFinalFailed x1; lincheck: ConsistencyFailed (sumcheck-final) x1
+rs-ab-claim	R	R	R	yes	opening: ring-switch claim mismatch x1; ligerito: final check failed x2
+rs-c-claim	R	R	R	yes	opening: ring-switch claim mismatch x1; ligerito: final check failed x2
+rs-nonce	R	R	R	yes	refused: D-rs: ring switch grinding_nonce ≠ 0 (a proof-format constant; no counterpart in V[B])
+rs-region-claim	R	R	R	yes	opening: ring-switch claim mismatch x1; ligerito: final check failed x2
+rs-region-orthogonal	R	R	R	yes	ligerito: final check failed x2
+zc-final-a	R	R	R	yes	zerocheck: SumcheckFinalFailed x1; lincheck: ConsistencyFailed (sumcheck-final) x1
+zc-final-c	R	R	R	yes	refused: D-fc: rep 0: final_c_eval is not P_c(z) (a proof field V[B] computes, never reads)
+zc-residual-round	R	R	R	yes	zerocheck: SumcheckFinalFailed x1
+zc-round1-ab	R	R	R	yes	zerocheck: SumcheckFinalFailed x1
+zc-round1-c	R	R	R	yes	refused: D-fc: rep 0: final_c_eval is not P_c(z) (a proof field V[B] computes, never reads)
+retained	A	A	A	yes	
+retained-edited	R	R	R	yes	R2: a message does not open its commitment x64
+retained-not-digest	R	A	R	yes	R2: a message does not open its commitment x64

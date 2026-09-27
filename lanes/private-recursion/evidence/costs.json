@@ -1,0 +1,75 @@
+{
+ "vb_digest": "a901d8ca43ca3aeb68c01d766e5e489b801b25ac7fd85a1aa4d093d706d92119",
+ "ands": 4520206986,
+ "ops": 1963,
+ "io_bits": {
+  "public": 16221018,
+  "witness": 122503789
+ },
+ "gadgets": {
+  "sha256": 22573,
+  "sha512": 57947,
+  "gf128_mul": 2187
+ },
+ "costs_depth1": {
+  "inner": 4021090451,
+  "commit-open": 400761452,
+  "data": 82427697,
+  "phi": 15927386
+ },
+ "costs_depth2": {
+  "inner/lincheck": 3585219781,
+  "inner/ligerito": 416961868,
+  "commit-open/circuit": 300802877,
+  "commit-open/rounds": 99958575,
+  "data/binding": 71308107,
+  "inner/ring-switch": 17915904,
+  "phi": 15927386,
+  "data/regions": 11119590,
+  "inner/zerocheck": 992898
+ },
+ "costs_depth3": {
+  "inner/lincheck/fold": 3584528689,
+  "inner/ligerito/merkle": 341855914,
+  "commit-open/circuit": 300802877,
+  "commit-open/rounds": 99958575,
+  "inner/ligerito": 75105954,
+  "data/binding": 71308107,
+  "inner/ring-switch": 17915904,
+  "phi": 15927386,
+  "data/regions": 10485760,
+  "inner/zerocheck": 992898,
+  "inner/lincheck": 691092,
+  "data/regions/lookup-out": 633830
+ },
+ "C": {
+  "a": 58761,
+  "b": 99080,
+  "useful": 6273
+ },
+ "bounds": {
+  "k_log": 20,
+  "nbl": 3,
+  "n": 8,
+  "g": 2,
+  "upv": 32,
+  "unit_log": 13,
+  "unit_pos0": 0,
+  "leaf_rows": 64,
+  "in_rows": 128,
+  "out_col": 48,
+  "leaves_per_unit_in": 4,
+  "leaves_per_unit_out": 2,
+  "n_in_words": 128,
+  "n_out_words": 64,
+  "qa_max": 65536,
+  "qb_max": 131072,
+  "hash_len": 32
+ },
+ "inner": {
+  "m": 23,
+  "rounds_per_rep": 87,
+  "round_bytes_per_rep": 56720,
+  "commitments": 175
+ }
+}

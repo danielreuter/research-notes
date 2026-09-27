@@ -1,0 +1,28 @@
+{"session": "honest", "vb": "A", "why": "", "s": 28.1}
+{"session": "r-break", "vb": "R", "why": "S18/R1: the reps' caps differ x3957", "s": 25.1}
+{"session": "lc-round", "vb": "R", "why": "lincheck: ConsistencyFailed (sumcheck-final) x1", "s": 24.8}
+{"session": "lc-z-partial", "vb": "R", "why": "lincheck: ConsistencyFailed (sumcheck-final) x1; opening: ring-switch claim mismatch x1", "s": 24.9}
+{"session": "lig-claim-nonce", "vb": "A", "why": "", "s": 25.8}
+{"session": "lig-message", "vb": "R", "why": "ligerito: final check failed x2", "s": 25.3}
+{"session": "lig-ood", "vb": "R", "why": "ligerito: final check failed x2", "s": 24.9}
+{"session": "lig-query-nonce", "vb": "A", "why": "", "s": 24.8}
+{"session": "lig-row-final", "vb": "R", "why": "merkle: a level-2 query does not open to its cap x123; ligerito: final check failed x2", "s": 25.1}
+{"session": "lig-row-l0", "vb": "R", "why": "merkle: a level-0 query does not open to its cap x118; ligerito: final check failed x2", "s": 25.3}
+{"session": "lig-row-l1", "vb": "R", "why": "merkle: a level-1 query does not open to its cap x117; ligerito: final check failed x2", "s": 25.2}
+{"session": "lig-sibling-l0", "vb": "R", "why": "merkle: a level-0 query does not open to its cap x121", "s": 25.1}
+{"session": "lig-yr", "vb": "R", "why": "ligerito: final check failed x2", "s": 24.7}
+{"session": "rep1-lig-yr", "vb": "R", "why": "ligerito: final check failed x2", "s": 25.4}
+{"session": "rep1-zc-final-a", "vb": "R", "why": "zerocheck: SumcheckFinalFailed x1; lincheck: ConsistencyFailed (sumcheck-final) x1", "s": 25.1}
+{"session": "rs-ab-claim", "vb": "R", "why": "opening: ring-switch claim mismatch x1; ligerito: final check failed x2", "s": 25.2}
+{"session": "rs-c-claim", "vb": "R", "why": "opening: ring-switch claim mismatch x1; ligerito: final check failed x2", "s": 25.3}
+{"session": "rs-nonce", "vb": "R", "why": "refused: D-rs: ring switch grinding_nonce \u2260 0 (a proof-format constant; no counterpart in V[B])", "s": 16.2}
+{"session": "rs-region-claim", "vb": "R", "why": "opening: ring-switch claim mismatch x1; ligerito: final check failed x2", "s": 25.7}
+{"session": "rs-region-orthogonal", "vb": "R", "why": "ligerito: final check failed x2", "s": 25.1}
+{"session": "zc-final-a", "vb": "R", "why": "zerocheck: SumcheckFinalFailed x1; lincheck: ConsistencyFailed (sumcheck-final) x1", "s": 25.0}
+{"session": "zc-final-c", "vb": "R", "why": "refused: D-fc: rep 0: final_c_eval is not P_c(z) (a proof field V[B] computes, never reads)", "s": 16.1}
+{"session": "zc-residual-round", "vb": "R", "why": "zerocheck: SumcheckFinalFailed x1", "s": 25.0}
+{"session": "zc-round1-ab", "vb": "R", "why": "zerocheck: SumcheckFinalFailed x1", "s": 25.1}
+{"session": "zc-round1-c", "vb": "R", "why": "refused: D-fc: rep 0: final_c_eval is not P_c(z) (a proof field V[B] computes, never reads)", "s": 16.2}
+{"session": "retained", "vb": "A", "why": "", "s": 25.0}
+{"session": "retained-edited", "vb": "R", "why": "R2: a message does not open its commitment x64", "s": 25.6}
+{"session": "retained-not-digest", "vb": "R", "why": "R2: a message does not open its commitment x64", "s": 25.2}

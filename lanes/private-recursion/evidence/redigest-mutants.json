@@ -1,0 +1,186 @@
+[
+ {
+  "name": "zc-final-a",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "zerocheck: SumcheckFinalFailed"
+  }
+ },
+ {
+  "name": "zc-final-c",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "zerocheck: CEvalMismatch"
+  }
+ },
+ {
+  "name": "zc-round1-c",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "zerocheck: CEvalMismatch"
+  }
+ },
+ {
+  "name": "zc-round1-ab",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "zerocheck: SumcheckFinalFailed"
+  }
+ },
+ {
+  "name": "zc-residual-round",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "zerocheck: SumcheckFinalFailed"
+  }
+ },
+ {
+  "name": "lc-round",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "lincheck: ConsistencyFailed"
+  }
+ },
+ {
+  "name": "lc-z-partial",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "lincheck: ConsistencyFailed"
+  }
+ },
+ {
+  "name": "rs-ab-claim",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "opening: ring-switch claim 0 mismatch"
+  }
+ },
+ {
+  "name": "rs-c-claim",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "opening: ring-switch claim 1 mismatch"
+  }
+ },
+ {
+  "name": "rs-region-claim",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "opening: ring-switch claim 2 mismatch"
+  }
+ },
+ {
+  "name": "rs-region-orthogonal",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "ligerito: final check failed"
+  }
+ },
+ {
+  "name": "rs-nonce",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "ring switch grinding_nonce"
+  }
+ },
+ {
+  "name": "lig-yr",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "ligerito: final check failed"
+  }
+ },
+ {
+  "name": "lig-ood",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "ligerito: final check failed"
+  }
+ },
+ {
+  "name": "lig-message",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "ligerito: final check failed"
+  }
+ },
+ {
+  "name": "lig-row-l0",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "merkle:"
+  }
+ },
+ {
+  "name": "lig-sibling-l0",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "merkle:"
+  }
+ },
+ {
+  "name": "lig-row-l1",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "merkle:"
+  }
+ },
+ {
+  "name": "lig-row-final",
+  "rep": 0,
+  "expect": {
+   "accepted": false,
+   "why": "merkle:"
+  }
+ },
+ {
+  "name": "lig-query-nonce",
+  "rep": 0,
+  "expect": {
+   "accepted": true,
+   "why": ""
+  }
+ },
+ {
+  "name": "lig-claim-nonce",
+  "rep": 0,
+  "expect": {
+   "accepted": true,
+   "why": ""
+  }
+ },
+ {
+  "name": "rep1-zc-final-a",
+  "rep": 1,
+  "expect": {
+   "accepted": false,
+   "why": "zerocheck: SumcheckFinalFailed"
+  }
+ },
+ {
+  "name": "rep1-lig-yr",
+  "rep": 1,
+  "expect": {
+   "accepted": false,
+   "why": "ligerito: final check failed"
+  }
+ }
+]

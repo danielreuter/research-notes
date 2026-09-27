@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 467e7450 (21:58Z) [open] Lowering stack queued: #104@2ead023e #125@ffe92dec #140@aa5762b4 (no Lean; #169 already on main). PLAN after J: K = #104 #125 #140 #179 #181 #178 (+#185 if its audit passes), then #134 alone (>=24 GB check pod; agreement required under backends/flock), then #149. Needs vy-coord- deadline past 23:00Z (K's check alone ~1 h). VM GitHub token 401 again; control pod read key works.
 CHECKPOINT 467e7450 (21:36Z) [open] #185 (lookup-rows lemma): new level3 pin FlockLevel3.build_computes GRANTED by red-team-flock-3 (2135Z) -> audit.py audit (needs a Lean pod) + train after J.
 CHECKPOINT 467e7450 (21:34Z) [open] TRAIN J check r20260927-210213-8c30 FAILED: 4 test_repository tests saw .lake/ Mathlib/ArkLib files -- I had kept 88527b9c's source tree on the pod for the lake cache, and a shipped tree has no .git so the tests walk the disk. Launcher now deletes ALL trees (fresh ship each time). Relaunched r20260927-213130-dcde (~22:30Z, before the 23:00Z deadline); timer train-j-merge-poll-2. Spend $297.55/$320.
 CHECKPOINT 467e7450 (21:08Z) [open] ROOT 21:03Z: vy-coord- deadline -> 23:00Z, cap $20 (pid 556279, $11.90 spent); research ledger line $320 to 23:00Z. Merge train J the moment r20260927-210213-8c30 passes and tell root (Daniel waiting); timer train-j-merge-poll ~22:02Z. /tmp/run-train-check.sh now deletes every other source tree on vy-coord-check before launching.

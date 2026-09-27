@@ -289,6 +289,8 @@ flock-soundness before M1 fixes the tape.
 - **In-circuit attention (M0 acceptance).**
 - **Multi-table statements with private glue** (private-recursion's spec): estimate sent
   (`note:20260927T0155Z-handoff-from-flock-netlist`); after attention.
+  - Private-recursion's answers (`note:20260927T0310Z-handoff-from-private-recursion`): bit-permutation maps suffice (no shift),
+    no explicit pairs in v1, about 2,500–7,000 relations.
 - **Hidden-message mode** (`note:20260927T0020Z-handoff-from-private-recursion`): at its pace.
 
 ## Batched, serialized sessions (Daniel, locked 2026-09-27; DESIGN.md §11.1 on PR #89): what M1/M2 changes in the coin plumbing

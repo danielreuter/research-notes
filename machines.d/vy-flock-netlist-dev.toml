@@ -1,7 +1,0 @@
-# machine vy-flock-netlist-dev: written by `research pods register`; one file per machine (research.pods.registry)
-provider = "runpod"
-pod_id = "olm31xuqding1t"
-project = "verity"
-guard = 30
-registered_by = "cursor"
-registered_at = "2026-09-26T17:51Z"

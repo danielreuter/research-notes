@@ -16,7 +16,9 @@ per-iteration Check_inf (PR #105) merged in train A (main 928790af).  The MufuEx
   - #101 layer-0 census: 0 affected inputs.
   - Gate (b): +2 tests, 0 new failures.
 - **Pods:** `vyv-rf-normtap-c4` `c4pymranf1lyv7` (CPU, $0.96/h), 08:38Z–09:00:08Z, about $0.35.
-- **Open:** the optional L40S `mufu_probe verify`, about $0.30, waiting for the coordinator's OK.
+- **L40S (approved):** `r20260927-091756-2451`, `mufu_probe verify` 0 / 0 mismatches over 2^32 inputs (fix and main builds), L40S
+  tables = pinned. Pods `vyv-rf-normtap-g6` `l2a814o1cnjeqs` 09:10:52Z–09:16:15Z (failed: nvcc not on PATH) and `g7`
+  `0tddzjvfzpeq2s` 09:17:10Z–09:21:57Z, about $0.19 together. Nothing open.
 
 ## FA3 Check_inf per iteration (PR #105, branch cursor/vllm-rf-fa3-checkinf-57d5 @ b0a12771): DONE, merge-ready
 - The fix: a new FA3 block Definition with a per-iteration `CHECK` static (true on the first block and on the causal-masked iterations,

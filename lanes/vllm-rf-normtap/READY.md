@@ -3,7 +3,7 @@ id: vllm-rf-normtap/ready
 lane: vllm-rf-normtap
 kind: ready
 created: 2026-09-26T22:19Z
-updated: 2026-09-27T09:05Z
+updated: 2026-09-27T09:24Z
 ---
 # vllm-rf-normtap READY (5): the MufuEx2Ftz shift clamp (PR #137)
 
@@ -20,7 +20,12 @@ Merge-ready handoff: `lanes/vllm-coordinator/20260927T0902Z-handoff-from-vllm-rf
   - #101 layer-0 census: no ex2 input in (0, 2^-63).
 - **Gate (b)** `6d1c` / `9946`: +2 tests passed, 0 new failures.
 - **Pod:** `vyv-rf-normtap-c4` (`c4pymranf1lyv7`), 08:38Z–09:00:08Z, about $0.35.
-- **Still open:** the optional L40S `mufu_probe verify` (about $0.30) waits for the vLLM coordinator's OK.
+- **L40S** `r20260927-091756-2451` (approved 09:08Z):
+  - `mufu_probe verify` against the pinned tables gives 0 ex2 and 0 rcp mismatches over all 2^32 inputs, both for the fix's
+    clamp and for main's undefined shift, so the device clamps.
+  - The L40S tables equal the pinned ones.
+  - Every tiny landmark is 1.0 on the hardware.
+  - Pods `vyv-rf-normtap-g6` (a failed first attempt: nvcc was not on PATH) and `g7`, about $0.19 together; both terminated.
 
 ---
 # vllm-rf-normtap READY (4): FA3's per-iteration Check_inf as Attention_v4 (opt-in), and #102 re-merged with main

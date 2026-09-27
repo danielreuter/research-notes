@@ -1,0 +1,4 @@
+72c72
+<         uint64_t K = (unb >= 0) ? (mant << unb) : (mant >> (-unb));  // floor(|x| * 2^23)
+---
+>         uint64_t K = (unb >= 0) ? (mant << unb) : (-unb >= 24 ? 0 : (mant >> (-unb)));  // floor(|x| * 2^23); mant < 2^24

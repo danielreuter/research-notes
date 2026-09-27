@@ -7,7 +7,8 @@ cursor:
 lane: vllm-coordinator · kind: handoff · from: vllm-rf-normtap (bc-12c2f2d9) · created: 2026-09-27T09:02Z
 
 This answers `20260927T0810Z-handoff-from-vllm-coordinator.md` and `20260927T0842Z-handoff-from-vllm-coordinator.md`.
-[PR #137](https://github.com/danielreuter/verity/pull/137) is a draft. The pod ran from 08:38Z to 09:00:08Z (about $0.35) and is terminated.
+[PR #137](https://github.com/danielreuter/verity/pull/137) is a draft. All pods are terminated (about $0.54 in all). The L40S
+hardware check was added at 09:22Z, as item 3.
 
 ## The fix
 
@@ -26,6 +27,7 @@ T[0] = 1.0 at n = 0, for either sign.
   move in #137.
 - **Why the clamp is the verified rule.** The exhaustive sm_89 verification ran `model_ex2` on the device against the hardware.
   The device clamps the shift, so the 0-mismatch result pinned the clamped rule, not the host's mod-64 wrap.
+  Confirmed on the L40S (item 3): main's undefined-shift build also verifies with 0 mismatches.
 - **Other constraints.**
   - `derived_rows.py` stays at its P10 cap of 944 lines.
   - The id stays `MufuEx2Ftz_v1`, because the prim is defined as the measured instruction. If you want a `_v2`, that is a
@@ -48,10 +50,20 @@ T[0] = 1.0 at n = 0, for either sign.
      reference equals the q = 0 instance.
    - Both new tests fail on main's code. The attention output there is 15940 against 15938 in the first word.
    - `packages/verity/tests/evaluation`: 36 passed.
-3. **Optional L40S check: waiting for your OK.** The run would build `mufu_probe.cu` `verify` (FRAC_MODE 4, now with the explicit
-   clamp) and check all 2^32 inputs against `ex2.approx.ftz.f32` on sm_89, which takes seconds. Estimate: one L40S
-   (`vyv-rf-normtap-g6`, $0.86–1.09/h) for about 15 minutes including create, nvcc, fetch and drain, so about **$0.30**.
-   I will not create it without your OK.
+3. **L40S hardware check (approved 09:08Z): the hardware equals the fixed rule on all 2^32 inputs.** Run `r20260927-091756-2451`
+   on an L40S (sm_89, driver 580.126.09, nvcc 12.4).
+   - `mufu_probe.cu` `verify` (FRAC_MODE 4) against the **pinned** tables gives 0 ex2 and 0 rcp mismatches over all
+     4,294,967,296 inputs. That holds for #137's device model, with the explicit clamp, and for main's, with the undefined shift.
+   - So the device does clamp the shift, which is why September's verification passed, and the fixed host rule now matches the
+     hardware.
+   - The L40S's own measured ex2 and rcp tables equal the pinned ones: 0 differing entries, u32 sha256 `b2a42c4a…` and `c4083814…`.
+   - `probe` landmarks, hardware = model:
+     - 1.0 for 6.5e-22, ±2^-64, ±2^-87 (biased exponent 40), ±(2−2^-23)·2^-64, biased exponents 39 and 64, and ±2^-24. The old
+       host rule gave 1.0083, 2.0 and 0.5, and 0x3f800001.
+     - 2^-23 gives 0x3f800001 and −2^-23 gives 0x3f7ffffe.
+   - The first attempt, `r20260927-091119-53cc` on `vyv-rf-normtap-g6`, proved nothing: nvcc was not on the run's PATH. The
+     script now finds `CUDA_HOME` as `pod_fa2_tap.sh` does.
+   - Evidence: `lanes/vllm-rf-normtap/evidence/ex2-shift/l40s/`.
 4. **No recorded replay changes.**
    - **What changes.** Main and the fix differ on exactly 402,653,184 words: every word with biased exponent 40..63, both signs, so
      2^-87 ≤ |x| < 2^-63. For exponents 1..39 the wrapped count was still 24 or more.
@@ -85,7 +97,11 @@ T[0] = 1.0 at n = 0, for either sign.
 - **Evidence:** `lanes/vllm-rf-normtap/evidence/ex2-shift/` (`summary.json`, `sweep.json`, `census.json`, the new-test logs on the
   fix and on main, the SP1 test log, `jdiff-928790af-vs-7d8a11e4.txt`, `test-diff-928790af-7d8a11e4.patch`).
 - **Pod scripts:** `evidence/pod-scripts/ex2_fix.sh`, `ex2_sweep.py`, `ex2_census.py`.
-- **Spend:** about $0.35 on the CPU pod `vyv-rf-normtap-c4` (`c4pymranf1lyv7`). Estimates come to you before any further pod.
+- **Spend:** about $0.54, every pod terminated:
+  - CPU `vyv-rf-normtap-c4` (`c4pymranf1lyv7`), 08:38Z–09:00:08Z, about $0.35;
+  - L40S `vyv-rf-normtap-g6` (`l2a814o1cnjeqs`), 09:10:52Z–09:16:15Z, about $0.10;
+  - L40S `vyv-rf-normtap-g7` (`0tddzjvfzpeq2s`), 09:17:10Z–09:21:57Z, about $0.09.
+  The L40S total, about $0.19, is inside the approved $0.30 (cap $0.60). Estimates come to you before any further pod.
 
 ## Appendix: the test diff (`git diff 928790af 7d8a11e4 -- integrations/vllm/tests backends/sp1/common/src/ftz.rs`)
 

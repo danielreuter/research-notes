@@ -99,8 +99,12 @@ After the current level-3 work, from Daniel's commitments decisions (Project sto
 2. **Load by content.** Program, partition and each statement come from the verifier's own archive by content, never from
    paths or digests the prover supplies. Today `Main.lean` takes the circuit and public files as paths, and `Statement.lean`
    binds `c.sha`.
-3. **Held:** the unit draw from the verifier's own randomness, until flock-soundness settles whether the draw falls under
-   the session's coin commitment.
+3. **The unit draw, in the clear** (flock-soundness, Project store
+   `internal/lanes/flock-soundness/20260927T0210Z-finding-unit-draw-placement.md`). Serving registers its roots; then the
+   coin server draws the unit set from OS randomness with the exact samplers (`subset`, `bernoulli`, no `derive`) and
+   sends it in the clear. The drawn units' statements are fixed, and only then does the server send its coin commitment.
+   The draw is not under the coin commitment. The record keeps it as part of the session's statement, and the offline
+   verifier checks the session's statements against it.
 
 Not before M0 publishes it: multi-table statements with private glue relations (Project store
 `internal/lanes/flock-netlist/20260927T0150Z-handoff-from-private-recursion.md`). They need one glue sumcheck per rep and a

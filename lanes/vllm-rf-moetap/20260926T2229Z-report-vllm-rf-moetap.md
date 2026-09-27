@@ -5,6 +5,7 @@ created: 2026-09-26T22:29Z
 status: open
 ---
 
+CHECKPOINT 3146bc31 (01:12Z) [open] router exactness on GPU: 4 configs x 1024 rows tap==IR, ==installed, all written (r20260927-005659-23d0, r20260927-010857-0a73); live failed on FlashInfer JIT (fixed: env pins) then on vLLM's is_padding (source now passes it through). Rerun on 3146bc31 now; gate(b) head r20260927-011128-606f, base r20260927-005731-9c35 running
 CHECKPOINT 267e5a72 (00:55Z) [open] RESTARTING the PR #96 GPU record (not idle): the 8 runs were mine, killed 00:24Z because setup's uv sat on download.pytorch.org at 0.35 MB/s. Since: torch cu129 fetched in 32 ranges, nvidia pins from PyPI, pre-install finishing (cublas left). Next ~01:00Z: setup, then router exactness + partition + gate(b) base/head concurrently, TP2 after. Est. end ~01:50Z, total ~$6.5
 CHECKPOINT 267e5a72 (00:54Z) [open] 00:58Z resumed after the billing outage. Handoff 0015Z (coordinator's approval bar) read, acting on it: docstring fixed (267e5a72, local: GitHub token expired, push pending). g2: torch cu129 + nvidia pins pre-installing from local/PyPI (6 MB/s); then relaunch setup/router/partition/gate(b) base+head/vocab. Spend ~$4.0
 CHECKPOINT af073204 (00:26Z) [open] 00:31Z g2 setup stuck in uv (torch/nvidia wheels from download.pytorch.org at ~0.35 MB/s, retries); killed all 5 runs again. Fetching torch 2.13.0+cu129 in 32 ranges (~2 MB/s), nvidia pins next from PyPI, pre-install, then relaunch setup/router/vocab/partition/gate(b). Spend ~$3.1

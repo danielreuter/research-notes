@@ -17,13 +17,12 @@ Brief: `$STORE/internal/lane-briefs/vllm-moetap.md`. Two opt-in taps for the no-
   (I32Le, 1 b), le = tok <= START+VS-1 (I32Le, 1 b). The brief's "three 1-bit values" is one 32-bit word plus two bits (34 b/token).
 - At the pin, TP>1 CUDA runs the fused `_C.vocab_parallel_embedding` kernel, not PyTorch ops.
 
-## Running (g2)
-- r20260926-234303-0db7: setup (bootstrap B0 + gate pins) on af073204.
-- r20260926-234338-9343: router tap build + exactness (GPU 0; configs E64/E128 x renorm, source, live tiny OLMoE/Qwen3-MoE).
-- r20260926-234519-b0c0: vocab-range exactness TP2 (tiny Llama, B0 tokenizer) after the router run.
-- r20260926-234359-2b8d: partition report (served shapes). r20260926-234437-b4d4: gate (b) base 5b0835d4.
-- Dead: g1 r20260926-224241-1030 / -224413-f336 (pod terminated); g2 r20260926-232812-41b5, -233012-56b4, -233357-0514, -233458-2820,
-  -233510-1e9f (killed 23:37Z to replace the wheel download).
+## Running (g2, relaunched 00:56Z on 267e5a72 after torch/nvidia wheels were pre-installed from local ranged downloads + PyPI)
+- r20260927-005612-9e5d setup; r20260927-005659-23d0 router tap build + exactness (GPU 0); r20260927-005826-6fbf TP2 vocab (after router)
+- r20260927-005720-ee97 partition report; r20260927-005731-9c35 gate (b) base 5b0835d4; r20260927-005757-fa4e gate (b) head 267e5a72
+- Killed by me (setup stuck on download.pytorch.org at 0.35 MB/s), 00:24Z: r20260926-234303-0db7, -234338-9343, -234359-2b8d, -234437-b4d4,
+  -234519-b0c0; and earlier g1 / g2 runs listed in the report.
+- 267e5a72 is local only: GitHub token in the VM's git config expired at the ~00:35Z outage; push pending.
 
 ## Next
 - Router tap: pinned topkGating + Tap, op verity_router_tap, policy router_softmax, source, ROUTER_TAP flag, exactness property.

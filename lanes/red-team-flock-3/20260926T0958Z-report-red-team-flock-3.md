@@ -2,9 +2,10 @@
 lane: red-team-flock-3
 kind: report
 created: 2026-09-26T09:58Z
-status: final
+status: open
 ---
 
+CHECKPOINT 03ba8ce4 (18:28Z) [open] OPEN (waiting): the eta retune folded into PR #173 (level-0 radius 1-sqrt(rho)-1/200); subscribed to #173, will review when its head moves past 16785b18. Done: A2 (#127/#163/#170/#171) GRANTED, #173 @16785b18 GRANTED; review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointer lanes/coordinator/1830Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT fc6d5b9d (15:38Z) [final] FINAL: PR #130 @b7cd6de8 pin refresh GRANTED (statement review: 9 pins = #146's granted statements at 7406212d, none weaker; read set covers the FlockProofs definitions; keep the three *_inputs pins; render matcher benign); review in the store private/red-team-reviews/pr130-pin-refresh.md (private); pointer lanes/coordinator/1540Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT 003e331b (13:36Z) [final] FINAL: M0 verity/flock-circuit statement review: supports a NON_ZK_PROOF Table 1 row if it says one attention instance = one query over T=129 keys, tensor-core-step ANDs only, prover e2e excluding verification, no privacy (benchmark salts public), units as stated (provisional cover), no draw; IR agrees on all proved instances (16/16, 1024/1024); review in the store private/red-team-reviews/m0-statement/ (private); pointer + rows lanes/coordinator/1340Z; also #146 @7406212d GRANTED, #116 @120adc37 GRANTED, re-registered cells NON_ZK_PROOF; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT 82dd5a0b (13:07Z) [final] FINAL: PR #146 @7406212d GRANTED (C1 met: computable extractor; conclusion needs its hypotheses); PR #116 @120adc37 GRANTED, covers 608e7130; M0 headline cells re-registered art:e352f2ad + art:a83371c2: only placement changed, now the pods that ran (u7fkacoin4t4m1, sqyp6rxnqftcio), proof_class NON_ZK_PROOF on both (ref art:a2c8eb39); findings in the store private/red-team-reviews/ (private); pointers lanes/coordinator/1308Z 1318Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26

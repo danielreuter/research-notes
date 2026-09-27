@@ -5,6 +5,7 @@ created: 2026-09-27T02:41Z
 status: open
 ---
 
+CHECKPOINT fe196b6c (05:44Z) [open] RECORDED #100 tip fe196b6c: check passed r20260927-050901-72c2, gate ok vs main 8515c79e; coordinator told; next: fast-check follow-up after #100 lands; agent bc-1122c760
 CHECKPOINT fe196b6c (05:09Z) [open] WAITING r20260927-050901-72c2 on vy-circuit-checks-cpu4 (check on fe196b6c incl. main 8515c79e with #85: lean-build/unit-cut now on), check after 05:45Z; agent bc-1122c760; decision asked: upstream cross-check needs the ci bundle
 CHECKPOINT 999eb9e2 (04:30Z) [open] WAITING r20260927-042926-b9e3 on vy-circuit-checks-cpu4 (check on 999eb9e2), check after 04:55Z; agent bc-1122c760; 6b92 failed only test_z3_modular_findings_reproduce (10 s z3 timeout on a load-360 host; timeouts raised); cpu3 pod terminated
 CHECKPOINT 4644cd3c (04:08Z) [open] WAITING r20260927-040738-6b92 on vy-circuit-checks-cpu3 (check on 4644cd3c), check after 04:45Z; agent bc-1122c760; b228 failed 4 pod-only tests, fixed

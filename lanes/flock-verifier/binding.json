@@ -1,5 +1,5 @@
 {
  "branch": "cursor/flock-verifier-cut-check-7ab3",
- "pod": "vy-flock-verifier-core-gemm",
+ "pod": "vy-fv-core-gemm",
  "worktree": "/workspace"
 }

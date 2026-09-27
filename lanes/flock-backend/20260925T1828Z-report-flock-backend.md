@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT 852816d6 (04:42Z) [open] 9 total cells REGISTERED (EU-NL-1 L40S+H100, gate r20260927-031817-cf7d; art:199bccee c6b96f7e c3a3d2c7 3e1bf074 5bdcd1d1 216143fd 3367e633 b1e5fed5 062f4951), old cells superseded_by; handoff 0445Z to verify-flock-pure/red-team-flock-3/coordinator; ~$17 of $25; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 852816d6 (03:11Z) [blocked] 9 total cells on EU-NL-1 L40S+H100: gate r20260927-020416-a981 OK, 8 measured (K14336 launch failed), 0 registered: register refused (runs' placement.json lack pod_id; boot ids match plan); probe fix @852816d6; options force/re-run to coordinator 0320Z; ~$11 spent; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 8e0d0adb (02:01Z) [blocked] 2 h same-DC attempt over (00:17-02:00Z): no pair routed (CPU pods lack global net; no cheap GPU beside L40S); 9 total cells not run; options (H100 verifier in EU-NL-1, or daytime US) to coordinator 0205Z; ~$6 spent; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 8e0d0adb (00:18Z) [open] option (a): same-DC L40S pairs (GPU verifier, CPU fallback), 15 min route wait per pair, 2 h total (until ~02:20Z), tmux total-dc; gate first then 9 total cells; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

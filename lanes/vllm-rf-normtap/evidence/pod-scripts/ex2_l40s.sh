@@ -12,12 +12,16 @@ git clone -q --no-checkout $ROOT/git/verity.git $T && git -C $T checkout -q --de
 d=$(diff -rq -x .git -x __pycache__ -x READY.json $S $T | grep -v "^Only in $S" | wc -l); echo "tree $T @ $(git -C $T rev-parse HEAD) vs shipped: $d differing entries"
 [ "$d" = 0 ] || exit 4
 K=integrations/vllm/verity_vllm/program/kernels
+if [ -z "${CUDA_HOME:-}" ]; then for c in /usr/local/cuda-12.9 /usr/local/cuda; do [ -x "$c/bin/nvcc" ] && { CUDA_HOME=$c; break; }; done; fi
+export CUDA_HOME=${CUDA_HOME:-/usr/local/cuda}; export PATH=$CUDA_HOME/bin:$PATH
+command -v nvcc >/dev/null || { echo "NVCC-MISSING (CUDA_HOME=$CUDA_HOME): $(ls -d /usr/local/cuda* 2>&1 | tr '\n' ' ')"; exit 5; }
 nvidia-smi --query-gpu=name,driver_version,compute_cap --format=csv,noheader | tee $EV/gpu.txt
 nvcc --version | tail -2 | tee $EV/nvcc.txt
 cp $T/$K/cuda/mufu_probe.cu $W/probe_fix.cu
 git -C $T show "${MAIN_SHA:?}:$K/cuda/mufu_probe.cu" > $W/probe_main.cu
 diff $W/probe_main.cu $W/probe_fix.cu > $EV/probe_main_vs_fix.diff; echo "probe main vs fix: $(grep -c '^[<>]' $EV/probe_main_vs_fix.diff) changed lines"
 for v in fix main; do nvcc -O2 -arch=sm_89 -DFRAC_MODE=4 -o $W/probe_$v $W/probe_$v.cu > $EV/nvcc_$v.log 2>&1; echo "nvcc $v rc=$?"; done
+[ -x $W/probe_fix ] && [ -x $W/probe_main ] || { echo "BUILD-FAIL"; tail -5 $EV/nvcc_*.log; exit 6; }
 python3 - $T/$K/tables/W11-40f0cebeb670-20260907T1800Z $W/table_pinned.bin <<'PY' | tee $EV/table_pinned.txt
 import hashlib, lzma, sys
 import numpy as np

@@ -5,6 +5,7 @@ created: 2026-09-26T19:37Z
 status: open
 ---
 
+CHECKPOINT 2ab35650 (01:50Z) [open] FA2 exactness OK (955c: default 668baecb, guarded 338c7caa, 547,438 MS words = IR, softcap 28/28); FA3 34ba guarded NOT ok only on edge_rows -inf-max rows in unmasked blocks (IR finding, handoff lanes/vllm-coordinator/20260927T0152Z-handoff-from-vllm-rf-normtap.md); H100 h2 terminated 01:46:13Z; L40S -g5: #101 0f64 running (build/match PASS, manifest 90f81868), gate b base 1737 running, head relaunched 014916-0f14 (shipped-tree out/ check fixed), partition relaunched 014905-df29; L40S end ~03:15Z; check-back 02:05Z agent bc-12c2f2d9
 CHECKPOINT ed920753 (01:36Z) [open] ack 0135Z spend handoff: H100 vyv-rf-normtap-h2 runs only FA3 exactness r20260927-012825-34ba (bootstrap FA2-TAP-OK 01:34Z, FA3 builds next); terminate right after its fetch, target <=02:45Z; L40S -g5 chain to ~03:50Z, total ~$7; check-back 01:45Z agent bc-12c2f2d9
 CHECKPOINT 34dbdd75 (01:32Z) [open] WAIT vyv-rf-normtap-h2 r20260927-012825-34ba (FA3 builds+exactness, pod end ~02:40Z) + vyv-rf-normtap-g5 r20260927-012901-955c (FA2 builds+exactness) -> 013003-0f64 (#101 off/on) + 013014-f082/013032-1737 (gate b head/base) -> 013141-29df (partition); L40S end ~03:50Z (guard 04:15Z); check-back 01:45Z agent bc-12c2f2d9: MS plane PR #102 head 06485b76
 CHECKPOINT d0a8757e (01:19Z) [open] MS plane: kernels (FA2+FA3 patchers, dry-run OK), native glue, host sizing, manifest with_ms, property check_ms + CPU tests written; committing, then pods; agent bc-12c2f2d9

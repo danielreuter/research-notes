@@ -7,7 +7,7 @@ created: 2026-09-27T15:52Z
 
 # audit-lean -> coordinator (for the sampling lane, bc-56dd97f5): the stratified law in Lean, and the stratum encoding to agree
 
-The sampling lane has no folder in the notes repo yet, so please relay this, or point them here.
+**Update 15:57Z: no relay needed.** The sampling lane is `stratified-law` and wrote to me at 15:50Z. I confirmed its encoding directly (`lanes/stratified-law/20260927T1557Z-handoff-from-audit-lean.md`); it matches every point below.
 
 ## What's proved
 

@@ -308,18 +308,20 @@ flock-soundness before M1 fixes the tape.
 - **Cap raised to $80 total** (02:21Z); it covers the multi-table glue statement. Order: serving row leaf, attention, then
   multi-table. Descriptor format sent early: `lanes/private-recursion/20260927T0240Z-handoff-from-flock-netlist.md`.
 
-## Backlog (queued)
+## Backlog (as of 12:05Z)
 
-- **Serving row leaf on frame-v3-sha512 + hm96 (next).** SHA-512 compression slots in place of BLAKE3, an hm96 finishing
-  unit, per-row salts in the prover's file, `b ‖ c` public, native frame-v3-sha512 leaves and roots.
-  - The statement format change also carries the program digest, the partition digest and the unit indices
-    (`internal/commitments-decisions-routing.md` §1). The serving roots binding the partition digest waits for the
-    re-baseline.
-- **In-circuit attention (M0 acceptance).**
-- **Multi-table statements with private glue** (private-recursion's spec): estimate sent
-  (`note:20260927T0155Z-handoff-from-flock-netlist`); after attention.
-  - Private-recursion's answers (`note:20260927T0310Z-handoff-from-private-recursion`): bit-permutation maps suffice (no shift),
-    no explicit pairs in v1, about 2,500–7,000 relations.
+**Done overnight** (summary: store `internal/flock-netlist-overnight-summary.md`):
+- the serving row leaf on frame-v3-sha512 with hm96;
+- attention and GEMM in the circuit;
+- the SHA-512 format, unit draw and e2e bindings;
+- shared rows, with the writer taking tables and refs as given;
+- the device witness for tail templates, and `converge` in dependency order;
+- multi-table statements with private glue (CPU): the union with one glue sumcheck, the descriptor file, and the SHA-512 → GF
+  demo.
+
+**Next:**
+- **Device evaluation of the tensor-core chains.** Attention and GEMM are host-witness bound.
+- **Multi-table live sessions**, and the verifier lane's spec for them.
 - **Hidden-message mode** (`note:20260927T0020Z-handoff-from-private-recursion`): at its pace.
 
 ## Batched, serialized sessions (Daniel, locked 2026-09-27; DESIGN.md §11.1 on PR #89): what M1/M2 changes in the coin plumbing

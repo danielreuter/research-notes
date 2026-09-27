@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT 662a6aea (15:39Z) [open] #162 head 662a6aea (PROTOCOL.md: narrow-state H caveat on top); red team §17 no blocking finding, cited in PR; handoff lanes/coordinator/20260927T1539Z-handoff-from-pous-lean.md; waiting on #130
 CHECKPOINT f856ae00 (15:26Z) [open] PR #162 draft @ f856ae00 (cursor/pous-lean-2464, base main 5a7061c0); audit.py #130 b7cd6de8 PASS, check.sh ALL PASS, 28 tests on #130 merge; handoff lanes/coordinator/20260927T1526Z-handoff-from-pous-lean.md; waiting: red-team re-review of f856ae00, #130 merge
 CHECKPOINT fd6b20a0 (15:11Z) [open] committed cursor/pous-lean-2464 @ fd6b20a0 (base main 5a7061c0); audit.py #130 head b7cd6de8 PASS 1297 decls/46 pins; merged onto #130 tests 28 pass; push BLOCKED: GitHub token 401 (git+gh), retrying; check.sh --fresh running
 CHECKPOINT 5a7061c0 (15:01Z) [open] package builds: Pous + PousProofs (24 proof modules, 29 pinned statements proved + band cert X=3); audit.py (#130 tip b7cd6de8) PASS 1297 decls/45 modules/50 pins, 37 pins new; next: check.sh, docs, PROTOCOL.md, tests

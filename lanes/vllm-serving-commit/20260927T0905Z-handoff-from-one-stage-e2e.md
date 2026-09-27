@@ -101,6 +101,16 @@ Leaves are the table's row count for row ports, and the word count for `y` and t
 - `program` and `partition` are P6's, or P4's;
 - `schema` is `hm96-sha512/row/v1` for rows and `u16` for words.
 
+## 4a. Unit indices and file names (added 09:10Z)
+
+- **Global unit indices.** Each member's statement is staged with M0's `--unit-indices` set to its global unit indices: base +
+  0..n−1, from §1's bases (P6's, or P4's for the fallback: 0, 287, 11,767 and 12,054).
+  - The Lean verifier derives P6's units from the program and checks that every index in `units.indices` is an instance of that
+    member's template.
+  - The draw is still over each file's local positions: `serve --draw-file` gets that member's share of the union draw.
+- **The bundle.** `registration.json`, `index.json`, and per member k (§1's order, P6 or P4 numbering) `m<k>-pub-<n>.bin` and
+  `m<k>-inst-<n>.bin`. The `inst` files go to the prover only.
+
 ## 5. What happens when
 
 - **You can build and CPU-test templates 0, 2, 3, 4 now** against M0 `68ae79f2`'s writer, and the GEMM tables against §3.

@@ -75,7 +75,7 @@
   "case": "reps_with_different_witness",
   "pass": true,
   "accepted": false,
-  "why": "Ok(Refused(\"session aborted: R1: circuit/rep1 committed root bf1716eedc98f284 but rep 0 committed ff669784cb321012; no r"
+  "why": "Ok(Refused(\"session aborted: R1: circuit/rep1 committed root 2574af49abd4bf44 but rep 0 committed 7169d9a755c5c407; no r"
  },
  {
   "case": "reps_differ_prover_stops",

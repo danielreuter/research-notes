@@ -5,6 +5,7 @@ created: 2026-09-27T02:56Z
 status: open
 ---
 
+CHECKPOINT 7aeffc5d (03:54Z) [open] WAIT vyv-rf-recompute-cpu r20260927-035144-299a check-back 04:35Z agent bc-06147ba0-d1ae-5ddc-84d6-00cb2d93cbba: gate (b) base 3040ac1f (bootstrap ok 03:54Z, tree 0 diffs); WAIT vyv-rf-recompute-cpu r20260927-035231-167a check-back 05:15Z: gate (b) FP8 df13126f (queued behind base); WAIT vyv-rf-recompute-cpu r20260927-035257-150f check-back 05:55Z: gate (b) Gemma 7aeffc5d (queued behind FP8)
 CHECKPOINT 7aeffc5d (03:51Z) [open] approved 03:49Z (CPU pod cap $2.50; L40S deferred). pod vyv-rf-recompute-cpu = RunPod qlirspls2cbwyr (cpu3g 16 vCPU/64 GB, 80 GB, EU-RO-1, ~$0.64/h) created 03:50Z, guard 90; next: gate (b) base 3040ac1f (bootstrap) -> FP8 df13126f -> Gemma 7aeffc5d
 CHECKPOINT 7aeffc5d (03:48Z) [open] WAIT approval of pod estimate (internal/lanes/vllm-coordinator/20260927T0335Z-handoff-from-vllm-rf-recompute.md), check-back 04:15Z agent bc-06147ba0-d1ae-5ddc-84d6-00cb2d93cbba; PRs #106 (FP8, df13126f) and #109 (Gemma, 7aeffc5d) drafts; token OK again; next: CPU pod gate (b) base/FP8/Gemma
 CHECKPOINT 7aeffc5d (03:47Z) [open] Gemma pushed 7aeffc5d (token back 03:44Z). #57 all 8 request Programs cross_call: recorded 44,520 dup AddScalarBf16 Calls / 102,574,080 gates -> once-rewrite 0 (evidence/cross_r57_recorded_vs_once.jsonl); #74 word A/B evidence/word_row74.jsonl; awaiting pod approval

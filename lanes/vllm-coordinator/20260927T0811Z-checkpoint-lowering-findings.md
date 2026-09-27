@@ -1,0 +1,1 @@
+08:11Z: lowering findings: (2) TopPMask already total via #103 (on main 928790af) -> told flock-ir-lowering; (1) fa2_model.cpp mufu_ex2_bits shift UB |x|<2^-63 -> normtap, low priority, CPU exactness (optional L40S spot ~$0.30 from goal 10).

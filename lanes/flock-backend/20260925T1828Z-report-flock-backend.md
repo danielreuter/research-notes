@@ -2,9 +2,10 @@
 lane: flock-backend
 kind: report
 created: 2026-09-25T18:28Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT 8e0d0adb (00:18Z) [open] option (a): same-DC L40S pairs (GPU verifier, CPU fallback), 15 min route wait per pair, 2 h total (until ~02:20Z), tmux total-dc; gate first then 9 total cells; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 8e0d0adb (00:16Z) [blocked] 9 total cells not registered: cross-DC pair ran gate r20260926-224635-973c + k1536 art:04688422 (19 ms RTT, diagnostic) then stopped for PR #91; two EU-NL-1 same-DC pairs had no global-net route; hour limit -> options to coordinator 0012Z; ~$3 spent; no pods; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT 786cfbfa (22:45Z) [open] 9 total cells: main 35e78c37 merged @786cfbfa (601 passed); searching an L40S + distinct-public-IP verifier pair (tmux total-auto2, gives up after 1 h -> wait for PR #91), gate first; agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983
 CHECKPOINT d2292e3b (21:52Z) [blocked] total unit granted (rtf3 2035Z), TG4/TG5 fixed @d2292e3b, TG1 gate on L40S prover r20260926-213915-70e3 OK; 9 cells refused by bench.cell placement (shared NAT public_ip 91.199.227.82, EU-NL-1 L40S+H100, distinct machine ids); hour limit hit -> options to coordinator 2200Z; no pods (~$2 today); agent bc-d3ca695f-63a7-5208-96b4-084f3e5f4983

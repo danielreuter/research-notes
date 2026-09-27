@@ -5,6 +5,7 @@ created: 2026-09-26T19:37Z
 status: open
 ---
 
+CHECKPOINT 7d8a11e4 (08:37Z) [open] ex2 shift fix committed 7d8a11e4 on cursor/vllm-fa2-model-ex2-shift-57d5 (fa2_model.cpp + numpy twin + SP1 ftz.rs + flock ir_tail.rs + mufu_probe.cu, 2 new tests); next: CPU pod vyv-rf-normtap-c4 for gate (b) base/head, 2^32 sweep, SP1 cargo test, #101 layer-0 census
 CHECKPOINT 928790af (08:14Z) [open] START fa2_model mufu_ex2_bits shift clamp (handoff 20260927T0810Z-handoff-from-vllm-coordinator.md): branch cursor/vllm-fa2-model-ex2-shift-57d5 off main 928790af; CPU only
 CHECKPOINT b0a12771 (03:19Z) [final] FINAL: #102 (MS class) merge-ready @ 64a4c3d3 (40ec2e13 + main 3040ac1f), handoffs 20260927T0228Z / 20260927T0318Z-handoff-from-vllm-rf-normtap.md; #105 (FA3 Check_inf, Attention_v4 opt-in) merge-ready @ b0a12771, handoff 20260927T0322Z-handoff-from-vllm-rf-normtap.md; all pods terminated; spend ~$3.8/$10; agent bc-12c2f2d9
 CHECKPOINT b0a12771 (03:19Z) [open] answered: 20260927T0135Z-handoff-from-vllm-coordinator.md (H100 terminated after FA3 exactness, 01:46:13Z), 20260927T0200Z-handoff-from-vllm-coordinator.md (FA3 Check_inf option 1 -> PR #105, handoff 20260927T0322Z-handoff-from-vllm-rf-normtap.md), 20260927T0310Z-handoff-from-vllm-coordinator.md (#102 re-merged with main -> 64a4c3d3, handoff 20260927T0318Z-handoff-from-vllm-rf-normtap.md; H100 run done 18e5)

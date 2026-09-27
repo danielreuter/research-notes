@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (11:59Z) [final] FINAL: M0 GEMM 4a80e8cb + attention 02cb7df9 verified=accepted (file re-verification, timings match; r20260927-114642-b2fa on the VM CPU, $0)
 CHECKPOINT 787ac154 (11:36Z) [open] reopened for M0 flock-netlist cells 4a80e8cb (GEMM) 02cb7df9 (attention): NOT final
 CHECKPOINT 787ac154 (05:15Z) [final] FINAL: 9 total-unit L40S cells verified=accepted (file re-verification, r20260927-045439-2525 on the VM CPU, no pod, $0)
 CHECKPOINT 787ac154 (04:44Z) [open] reopened for 9 total-unit L40S cells (flock-backend 0445Z): NOT final
@@ -104,3 +105,4 @@ Reopened 16:34Z-17:49Z: c2 uncontended re-run art:b61eafa9 verified=accepted (r2
 Handoff 20260926T1650Z-handoff-from-flock-ir-lowering.md (c2 art:b61eafa9) acted on: labelled. It marks 87a6bcdd superseded_by b61eafa9; my accepted label on 87a6bcdd stays as a record of that replay.
 
 Reopened 2026-09-27 04:43Z-05:20Z (20260927T0445Z-handoff-from-flock-backend.md): 9 total-unit L40S cells 199bccee c6b96f7e c3a3d2c7 3e1bf074 5bdcd1d1 216143fd 3367e633 b1e5fed5 062f4951 verified=accepted (r20260927-045439-2525, local VM CPU, no pod, $0; lane/verify-flock-total 4e38e9f1); sent coordinator 20260927T0520Z. Lane total ~$7.2.
+Reopened 11:35Z-12:15Z: M0 flock-circuit cells art:4a80e8cb (GEMM) and art:02cb7df9 (attention) verified=accepted with timing checks (r20260927-114642-b2fa, VM CPU, no pod; lane/verify-flock-circuit c9324a77); sent coordinator 20260927T1215Z. 20260927T0905Z-handoff-from-coordinator.md (contract 2.1 §5b) noted: no red-team material in this lane.

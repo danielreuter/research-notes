@@ -1,0 +1,1 @@
+10:41Z sweep-79: pods verify-optins-h100 (#73 Match, root GO cap $7.5), verify-optins-l40s (#74 build), serving-commit-g4 (A4 P6, root line $3); $5.67/h; spend $748.48, ~$757 projected when these finish; CAP 830 ok; no WAKE.

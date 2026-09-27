@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
+version: 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -81,6 +81,12 @@ yours, not another instance's.
 - The mirror reads only `internal/`, forwards only `internal/lanes/`, and refuses anything below a lane's top level, top-level
   scripts, data and logs, notes named as a review, attack or exploit, and red-team notes that record a finding label. That is a
   backstop, not a licence.
+- **Code moves only through verity branches** (2026-09-27). Never put git data of any repository in notes or anywhere under
+  the store's `internal/`: no `.bundle`, pack, pack index or `.git` directory, and no copied source trees. When your VM can't push,
+  write the bundle to the Project store's top-level `artifacts/` (not mirrored) and name it in a handoff to the coordinator, who
+  pushes it to the verity branch. Why: 14 bundles of the private verity repo reached the public notes repo, enough to rebuild
+  154 verity files byte for byte. The notes repo's `.gitignore`, a pre-push hook on the steward's clone and the mirror all refuse
+  git data now; those are backstops.
 - If something sensitive is already in notes, tell the coordinator in `lanes/coordinator/` with a pointer, not a copy.
 
 - **A change to a pinned statement or definition needs a named statement reviewer** (2026-09-27). If your PR changes the

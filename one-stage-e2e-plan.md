@@ -21,6 +21,54 @@ Integration lane `one-stage-e2e`, 2026-09-27 05:26Z. Step 1 (CPU only, $0). Code
   - Run A commits the served bytes again under M0's scheme, and its link to vLLM's live root is provenance only.
   - The draw picks whole RoPE heads, which breaks the 32-bit unit width rule.
 
+## Overnight status (08:15Z)
+
+Wrong-unit bounds are read as the floor of the relaxation's value: the largest K with $\binom{n-K}{k}/\binom{n}{k} \ge \delta$ (audit-lean's note). So A0 ≤ 254, A1 ≤ 46, A3 ≤ 28 and A2 ≤ 9,675, which corrects the ≤ 47 I wrote earlier for A1.
+
+| Run | Source | What | Result |
+|---|---|---|---|
+| **A2 `r20260927-074743-5461`** | **served** (vllm-serving-commit run `r20260927-061338-8809`: #101's 183,680 RoPE heads committed at serving time; registration `2f1b6dab…`) | registration checked as received, against the pre-canonical partition object it binds (`f6e07626…`); session on the verifier's re-headered copies for M0 `e51e2b86`'s unbound statement (leaf layer byte for byte serving's); k = 256 | **accepted, `complete: true`**: M0 verifier, Lean U1–U3, Lean #118 `636dc78f` `verify` (628 s, most of it recomputing the served roots); ≤ 9,675 wrong of 183,680 at δ = 2⁻²⁰; 4/4 negatives refused |
+| **A1 bound `r20260927-075018-180a`** | stand-in | the M0 `e51e2b86` statement binds the canonical partition (`ba90a294…`), `program_sha512` and the unit indices; Lean `636dc78f` with `--partition` | **accepted, `complete: true`**; ≤ 46 wrong of 1,024 at 2⁻²⁰; 16/16 negatives refused, incl. a statement bound to another partition |
+| **A2 bound `r20260927-080759-2c1e`** | **served** (re-served under the canonical partition `17478e85…`, run `r20260927-073101-9c1c`, registration `7b7a1ca3…`) | the statement binds the canonical partition, the program and the unit indices; Lean #118 `1aa5e0e1` with `--partition` and `--program` | **accepted, `complete: true`**. Lean: "units derived: `Q_template_instance` v0 over the verifier's program (183,680 units); the statement's 256 units are instances of `RoPEHead_v1{D=64}`". ≤ 9,675 wrong of 183,680 at 2⁻²⁰; 4/4 negatives refused; preserved |
+| A3b `r20260927-081249-3764` | stand-in | layer 0 with GEMM: RMSNorm Triton 256, GEMM K = 2048 384 (qkv, o_proj, gate_up), RoPE 64, RMSNorm fused 8, SiLU·mul 16, GEMM K = 8192 128 (down_proj); N = 856, k = 256; M0 `25519ba1`; each template served its share of the verifier's Lean draw (`--draw-file`) | running |
+
+**Notes from these runs:**
+- **Core's `IntegrityProfile.worst_case` couldn't serve N = 183,680.** It enumerates pairs, and its float `accept(m)` underflows.
+  - `verity_one_stage.audit.wrong_units_bound` computes it directly (`6ccb9b7b`).
+  - audit-lean's [#135](https://github.com/danielreuter/verity/pull/135) fixes core, with the same numbers to the last digit. Switch back once it merges.
+- **The first A2 attempts** were refused by Lean only for format reasons, both fixed:
+  - an `eb90718f`-format unbound copy, where Lean at `a464d547`+ reads `verity/flock-circuit` as `e51e2b86`'s format;
+  - absolute symlinks in the run dir, which break `research fetch --all`.
+
+## Overnight status (07:20Z)
+
+All runs are **stand-in** (fresh commitments to #101's captured values) unless marked served. Code is on `cursor/one-stage-e2e-6014` ([PR #116](https://github.com/danielreuter/verity/pull/116)).
+
+| Run | What | Result |
+|---|---|---|
+| A1 `r20260927-061630-0645` | RoPE d64, 1,024 heads; M0 `eb90718f`; Lean #118 `verify`; k = 256 | **accepted, `complete: true`**; wrong heads ≤ 47 of 1,024 at δ = 2⁻²⁰; 15/15 negatives refused |
+| A3 `r20260927-064317-9536` | layer 0 of #101: RMSNorm Triton 256, RoPE 64, RMSNorm fused 8, SiLU·mul 16 (N = 344); k = 128 over the union; one registration, one draw, one profile | **accepted, `complete: true`**, all 12 verdicts (M0, Lean U1–U3, Lean `verify` per template); wrong units ≤ 28 of 344 at δ = 2⁻²⁰; 5/5 negatives refused |
+| A2 | served roots from vllm-serving-commit (N = 183,680 RoPE heads) | waiting on their files (~07:45Z); driver rehearsed; `--unbind` fallback ready |
+
+**Timings on a 16 vCPU CPU pod, per template session in A3:**
+
+| Template | Drawn | Prove | Lean `verify` |
+|---|---|---|---|
+| RMSNorm Triton | 96 | 8.5 s | 175 s |
+| RoPE | 23 | 0.7 s | 26 s |
+| RMSNorm fused | 3 | 2.7 s | 142 s |
+| SiLU·mul | 6 | 4.8 s | 235 s |
+
+**What A3 doesn't cover:** GEMM coordinates (M0's `compose` refuses tensor-core output tails) and attention (not in M0's statement yet).
+
+**Blocker for bound statements: the partition object's form.**
+- Lean #118 at `a464d547` checks `--partition` as exactly `{format, program, query: {name, version, params}}`, with the query `Q_word` v1.
+- My object, per the ruling as relayed, is `{program, query}` with `Q_template_instance` v0. Serving already bound its digest into A2's domains.
+- With Lean's form check relaxed locally, Lean accepts the bound A1 session. So the object's form is the only gap.
+- It needs one canonical form (cross-call-check's #111 rework?), and a Lean verifier that doesn't hard-code `Q_word`.
+
+**Side PR:** [#121](https://github.com/danielreuter/verity/pull/121), the `TwoStageLaw.profile` coarse fix. red-team C1 is met at `8312474c`, and it's ready.
+
 ## Run A0 result (05:52Z)
 
 **Accepted, and all 12 negatives refused.** Glue is on `cursor/one-stage-e2e-6014` @ `d27e6941`, [PR #116](https://github.com/danielreuter/verity/pull/116).

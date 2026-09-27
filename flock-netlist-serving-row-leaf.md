@@ -72,6 +72,79 @@ refreshed; push fails with "Authentication failed".
 - **The second attempt was refused.** The prover's own thread pool throttled the cgroup, and the guard read contention.
   `61-circuit-cell.sh` now uses one core under the quota's floor.
 
+### Cells registered at the new format (L40S, same-datacenter verifier)
+
+| template | art | unit-AND/s | VUs | end to end |
+|---|---|---|---|---|
+| RoPE | `art:62b66c41` | 216 M | 4,096 | 3.64 s |
+| SiLU | `art:47b1b9b0` | 1.39 G | 64 | 1.02 s |
+| RMSNorm fused | `art:e07c9cea` | 1.59 G | 256 | 1.63 s |
+| RMSNorm Triton | running | | | |
+
+## Overnight plan (06:00–15:00Z, cap $150)
+
+The coordinator's order:
+1. Keep the e2e bindings stable, and tell bc-c520c11b about any change.
+2. The serving spec for vllm-serving-commit: done at 06:00Z.
+3. Attention with the softmax in the circuit, with L40S cells under IX2 (median of three, per
+   `lanes/bench-spine/20260927T0545Z-handoff-from-coordinator.md`).
+4. Multi-table, if time allows.
+5. A summary for the morning report by 14:30Z.
+
+### Attention in the circuit: the design
+
+- **Tail.** `tail.lower_tail` must output each cut word a unit reads from the stage that computes it, not only from the
+  last stage: `p` and the rescaled accumulator feed the PV steps. It must also output `tail_rets`, the head's outputs, from
+  the stages.
+- **Outputs.** META gains the output source: a stage's output ports instead of the unit's `out_groups[0]`. The Rust `Out`
+  region and `leaves_out` must follow it. The padding instance's outputs come from the all-zero instance through the tail.
+- **Query.** It becomes a committed row like k and v. Today's frame statement takes it as a public port.
+- **Witness.** FA2 interleaves units and tail per key block, so the device's two-pass witness can't follow it. Attention
+  starts on the host witness (`converge`), which is correct but slower; device passes per round come later.
+- **Scope.** One T class. The pin is per T, or per class through `class_manifest` in `templates/attention_head.py`.
+
+What the captured T = 129 slice (`attention-head-fa2-d64-bn128`) shows:
+- **Units.** 1,092 per head: 4 × 129 QK steps and 64 × 9 PV steps. The unit is 9,857 rows (a 2^14 slot).
+- **Cut words.** 1,543. Cut words 0–63 are the public query: q's 64 words, which must copy the q row's message bits in the
+  low 16 bits and be zero above. That needs a leaf-to-cut wiring (META `leaf_cuts`), with Rust wiring it like the leaf
+  inputs.
+- **Tail.** 1,046 operations, none of them in `tail.MUFU` or `tail.OPS` yet: `MufuEx2Ftz_v1` × 130 (the ex2 table),
+  `F32Max_v1` × 128, `F32FmaSubFtz_v1` × 129, `F32MulFtz_v1` × 131, `F32AddFtz_v1` × 127, `F32FmaFtz_v1` × 4, and
+  `F2fpBf16_v1` × 193. Each needs a gf2 piece exact against `verity_vllm.program.registry.prims.<P>.evaluate`.
+- **Staging.** With 130 EX2 lookups, one stage per MUFU operation is not viable (130 slot types). Stages must be levels of
+  MUFU depth, each holding every lookup at its depth: about three stages, and about 130 ex2 lookup slots per VU, each about
+  2^16 bits.
+- **Block budget.** About 51M bits per VU, which fits 2^26 with one VU per block: units 17.9M, lookups about 8.6M, 259
+  compressions 22.8M, hm96 1M.
+
+### Attention and GEMM in the statement (07:20Z)
+
+- **Attention: the softmax in the circuit** (`9c03bcfb`…`adfae8c0`).
+  - **Tail pieces.** Every piece is exact against the IR: EX2 through the ex2 table, `Fa2InvSum` through rcp, the FTZ family,
+    `F32Max`, `F2fpBf16` and `GuardNegInfZero`.
+  - **Staging.** Stages are levels of MUFU depth: three for attention, plus an output stage whose only ports are the outputs
+    (the Out region). Cut words leave at the reading unit's width.
+  - **Wiring.** Leaf cuts carry the query words. Ranges no region reads are packed.
+  - **Witness.** Convergence is slot by slot. The host builds the witness: the units and the tail interleave round by
+    round.
+  - **Result.** The T = 129 slice is one VU per 2^26 block, and the GPU selftest passes 33 of 34. The one failure was an
+    artifact of a one-instance draw test, since fixed.
+- **GEMM: the total unit, as a template** (`15260468`).
+  - `gemm-coordinate` Ampere bf16 lowers through `tc_units`: each k-step is a 2^14 unit, x comes in as leaf cuts, and the
+    tail is the zero accumulator and the bf16 cast.
+  - The step equals core's `AmpereBF16TcDot16_v2` on 3,000 inputs.
+  - Selftests: CPU at K = 1024 passes all 32 applicable cases; the GPU selftest passes 31, with only the same draw-test
+    artifact failing.
+- **`serve --draw-file`** (`3183eaaf`): the verifier's own draw, served at `Register`.
+- **The `write()` fix** from vllm-serving-commit: one concatenation instead of one per instance, the same bytes (`25519ba1`).
+- **Handoffs to the lanes:**
+  - `lanes/one-stage-e2e/20260927T0710Z-handoff-from-flock-netlist.md`;
+  - `lanes/flock-verifier/20260927T0710Z-handoff-from-flock-netlist.md`.
+- **Cells running (chain, IX2):**
+  - RMSNorm Triton at the new tail staging;
+  - GEMM on `art:123dc234` (K = 2048), at 256 and 1,024 coordinates;
+  - attention at T = 129 on `art:9551ba66`: 16 heads, a subset of #101's c2 set `art:82c591d1`.
+
 ## Next
 
 1. **Device witness for the row slots.** Today GPU proofs upload the host witness, which is correct but slow.

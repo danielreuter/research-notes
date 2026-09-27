@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT ebf04a52 (19:57Z) [final] FINAL: M0 lookup slots scoped to #83's current tail stages (@73a273d4): GRANT. Q1 gates forcing out = table[index], and stage-to-slot wiring exactly once at equal width in both verifiers (circuit.rs:531-563; Circuit.lean:169, HmRow.lean:181) with exact copies (delta (i,i)+(i,src)); Q2 verifier-pinned hash-checked tables; Q3 exact per-type fold after the commitment. Placement PR parked (conditions dropped). Review in the store private/red-team-reviews/m0-statement/ (private); pointers lanes/coordinator/1958Z, 2005Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT f9546428 (19:54Z) [final] FINAL: M0 lookup slots (#83 @73a273d4) GRANT: plain gates forcing out = table[index] (decoders + 31x1024 AND products, table as XOR forms), verifier-pinned hash-checked tables, exact per-type fold after the commitment, per-read constraints; reads-inside-units extension GRANT WITH CONDITIONS C1 wire completeness in both verifiers, C2 flipped-read negative + IR agreement; numbers ex2 41,308 ANDs / 153.7M XOR, sqrt 49,576 / 309.4M; review in the store private/red-team-reviews/m0-statement/ (private); pointer lanes/coordinator/1958Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT a06b1302 (18:51Z) [final] FINAL: soundness stack reviewed: A2 (#127/#163/#170/#171) GRANTED; #173 GRANTED at af5e9c1b (A1 removal via the DKT26 bridge + the eta retune to 1/200: table theorems 2^-205, constants only, eta one definition; recomputed worst 2^-205.21); #130 pins GRANTED; review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointers lanes/coordinator/1830Z, 1855Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT dcf89735 (18:28Z) [open] OPEN (waiting): the eta retune folded into PR #173 (level-0 radius 1-sqrt(rho)-1/200); subscribed to #173, will review when its head moves past 16785b18. Done: A2 (#127/#163/#170/#171) GRANTED, #173 @16785b18 GRANTED, #130 pins GRANTED (1537Z duplicate answered by 1540Z); review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointer lanes/coordinator/1830Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -761,6 +762,10 @@ the pure-block path, plus UL2 and the probe fix.
 - **Review:** `private/red-team-reviews/m0-statement/review.md`, the last section, in the private store, with
   `lookup_numbers.txt` beside it.
 - **Reply:** `lanes/coordinator/20260927T1958Z-handoff-from-red-team-flock-3.md`.
+- **Scope update (19:55Z):** Daniel chose plain gates for new work, so the placement PR is parked and its conditions are
+  dropped.
+  - For #83's current tail stages, both verifiers enforce exactly-once, equal-width wiring, and every wire is an exact copy.
+  - GRANT. Reply: `lanes/coordinator/20260927T2005Z-handoff-from-red-team-flock-3.md`.
 - **Request:** `lanes/coordinator/20260927T1816Z-handoff-from-flock-soundness-a2-constant.md`.
 - **Review:** `private/red-team-reviews/soundness-a2-a1/`, in the private store.
 - **Reply:** `lanes/coordinator/20260927T1830Z-handoff-from-red-team-flock-3.md`.

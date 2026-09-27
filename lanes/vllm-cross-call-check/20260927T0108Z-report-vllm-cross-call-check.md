@@ -5,6 +5,7 @@ created: 2026-09-27T01:08Z
 status: open
 ---
 
+CHECKPOINT 91ceb79e (02:43Z) [open] #98 d7f76916 (cross-call + unit_rule members: #74 FP8 581k Calls; #57 Gemma w+1 102.6M gates), #99 13c294d6, #103 cbe3db97, #101 merged; graphs art:c74deac4, cross art:e8b4aada; handoffs sent
 CHECKPOINT 91ceb79e (01:08Z) [open] PR #98 cross-call check (Gemma #57: 5,460 duplicate AddScalarBf16 Calls); #99 max_scaled label; #101 sampler SharedGreedy; 13 graphs rebuilt (11 w/ param_inputs), finish+cross running
 
 ## Work (01:08Z-02:10Z)
@@ -21,3 +22,14 @@ CHECKPOINT 91ceb79e (01:08Z) [open] PR #98 cross-call check (Gemma #57: 5,460 du
 - **PR #101** sampler `Gumbel*TokenSelectSharedGreedy_v1` (opt-in, same circuit with the flag merged, 0 redundant gates).
 - **PR #103** `TopPMaskWordx{V}` total over every splits word (keep word 0 outside the six; digests unchanged).
 - Evidence scripts: `evidence/regen13.py`, `cross13.py`, `members13.py`, `label13.py`, `index13.py`.
+
+## Results (03:00Z)
+
+- **Cross-Call** (`art:e8b4aada`): #57 `AddScalarBf16_v1{C=1}` T x 105 copies per request Program, 102.6 M gates over 8 Programs; 0 on #11 #23 #39 #60 #67 #68 #70 #73 #74 #75
+  and #101 (r19-reference Build `art:a9be8f7c`). #4's request Programs and #101's record Build are not in the store.
+- **Member check** (word.unit_rule, PR #98): #74 `ScaledMmFp8Block_v1` 4 Definitions, 144 groups, 581,040 Calls, 113.6 G gates; all other rows 0.
+- **Program graphs** `art:c74deac4` (supersedes `art:f0c33059`; `art:d583032e` is an intermediate put, ignore): main fa662029 + #98 d7f76916 + #99 13c294d6;
+  structure, units, gates, committed identical to the old; max_scaled words = the plan table; param_inputs on 11 rows (#4, #101 kept).
+- **PRs:** #98 @ d7f76916, #99 @ 13c294d6, #101 merged (c822ca7a), #103 @ cbe3db97. Handoffs in the Project store `internal/lanes/vllm-coordinator/2026092702*..0300Z-*`.
+- **Gotcha:** `verity.ir.refs.runs` on a batch member's Strided column view (Embedding's table column) expands to one run per row: 590 M runs for
+  Gemma's Embedding; hold such operands by descriptor (cross_call `_view`).

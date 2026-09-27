@@ -9,14 +9,15 @@ created: 2026-09-27T07:12Z
 
 Your 0620Z ask (`TwoStageLaw.profile` soundness). [PR #121](https://github.com/danielreuter/verity/pull/121) is marked ready.
 
-- **Branch and tip:** `cursor/two-stage-profile-coarse-6014` @ `8312474c`. Its base is `ae5db5d3`, identical to main on
+- **Branch and tip:** `cursor/two-stage-profile-coarse-6014` @ `1ed789d5` (updated 07:20Z from `8312474c`: the docstring now
+  says the verifier draws the VUs from its own randomness after the interiors are committed, since there is no beacon). Its base is `ae5db5d3`, identical to main on
   every path involved, per the review.
 - **The change:** option 1, fix to the coarse law. `TwoStageLaw.profile` is one level, `replay`, drawn
   `Bernoulli(p*k/n_v)`.
 - **C1:** `profile(cls, units, *, delta)` uses the class's RU count and its largest VU count, and refuses a smaller `n_v`
   or a mismatched `n_r`.
 - **Docstring notes (V2, V3):**
-  - the VU beacon round is published after the interiors are registered;
+  - the rate rests on the verifier drawing the VUs from its own randomness after the interiors are committed;
   - a multi-level `IntegrityProfile` is valid only when its checked level is committed before the first draw.
 - **Tests:**
   - `pytest protocols tests/test_repository.py packages/verity/tests/proofs`: 515 passed;

@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT efec3ad1 (07:00Z) [open] run1 r20260927-061338-8809 PRESERVED (run record art:4474915c: serving-rows window + serving M0 pub/inst). v1 registration built (e2e R.check ok, sha512 2f1b6dab). M0 write() prover body is O(n^2) (handoff to flock-netlist); killed it, rerun C as r20260927-065834-9db4 (pub via write(), inst hoisted). WAIT xie2bspsdvc0vz check-back 07:08Z agent bc-819f6247
 CHECKPOINT 384ca95e (06:46Z) [open] RUN B PASS: #101 scheme on, verdict PASS, program ccc21347 manifest 90f81868 vllm-v1 run root 7adcef49 unchanged; 183,680 RoPE heads committed, roots x c62a5fde cs ee9ed668 out de08eeab, hook 14.6 s (read 9.6, commit 4.7 on 16 workers), commit stage 190 s vs 193 s off. WAIT xie2bspsdvc0vz r20260927-061338-8809 check-back 06:56Z agent bc-819f6247: M0 write() cross-check (pure Python)
 CHECKPOINT 384ca95e (06:35Z) [open] RUN A PASS == record: #101 scheme off program ccc21347 manifest 90f81868 run root 7adcef49 verdict PASS (row 8.5 min). WAIT xie2bspsdvc0vz r20260927-061338-8809 check-back 06:46Z agent bc-819f6247: run B (scheme on) + compare
 CHECKPOINT 384ca95e (06:15Z) [open] WAIT vyv-rf-serving-commit-g1 r20260927-061338-8809 check-back 06:35Z agent bc-819f6247: bootstrap health, then rows off/on + compare (expected end ~07:45Z); pod xie2bspsdvc0vz

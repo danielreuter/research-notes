@@ -69,8 +69,17 @@ ID.identity_digest = lambda tag, doc: bind[doc["port"]] if tag == "verity/flock-
 C.stage_salts = lambda input_set, lo, hi, ports, key: salts
 (out / "m0").mkdir(exist_ok=True)
 t = time.perf_counter()
-C.write(text, Served(), 0, n, out / "m0" / f"inst-{n}.bin", out / "m0" / f"pub-{n}.bin")
+# M0's write() builds the prover body with np.concatenate inside its per-instance loop (quadratic in n: about an hour at
+# 183,680).  Its public file comes from write() itself (path=None skips that loop); the prover file is write()'s header
+# (its return value) and write()'s body expression with the concatenation hoisted, byte for byte the same.
+head = C.write(text, Served(), 0, n, None, out / "m0" / f"pub-{n}.bin")
+ports = [C.Port(nm, w) for nm, w, _ in json.loads(text.split("\n", 2)[1][5:])["ports"]]
+cat = np.concatenate([served[p.name] for p in ports], axis=1).astype("<u2")
+private = b"".join(cat[i].tobytes() for i in range(n)) + b"".join(salts[p.name][i] for i in range(n) for p in ports)
+m0_pub_body = (out / "m0" / f"pub-{n}.bin").read_bytes().split(b"\n", 1)[1]
+(out / "m0" / f"inst-{n}.bin").write_bytes(json.dumps(head, sort_keys=True).encode() + b"\n" + private + m0_pub_body)
 res["m0_write_s"] = round(time.perf_counter() - t, 3)
+res["m0_inst_note"] = "M0's write() prover body is quadratic in n; built here from write()'s header and its body expression, concatenation hoisted"
 ID.identity_digest = orig
 for kind in ("pub", "inst"):
     a = (out / "serving" / f"{kind}-{n}.bin").read_bytes(); b = (out / "m0" / f"{kind}-{n}.bin").read_bytes()

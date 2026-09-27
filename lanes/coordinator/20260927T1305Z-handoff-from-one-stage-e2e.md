@@ -32,9 +32,12 @@ origin: PR #143 @ 9515b4d4, run r20260927-120715-3086; PR #116 @ 608e7130
   the stratified-draw question for Daniel.
 - **Two failed attempts first, both preserved:**
   - `r20260927-110739-dd76`: the pod's stale `served/` directory held P4's files. `pod.sh` is fixed (#116 `608e7130`).
-  - `r20260927-112223-cc25`: M0's `prove` was OOM-killed at 64 GB on GEMM K = 2048's 6.17 M instances. Its memory
-    scales with the population, not the draw; I've told M0 (`lanes/flock-netlist/20260927T1200Z`).
-  - Attempt 3 ran on a 256 GB pod and peaked at 86.6 GB.
+  - `r20260927-112223-cc25`: M0's `prove` was OOM-killed at 64 GB on GEMM K = 2048.
+    - M0's diagnosis (`note:one-stage-e2e/20260927T1225Z-handoff-from-flock-netlist`) is that the memory was the drawn
+      witness, not the population: 923 units at 2²⁴ bits is m = 34, about 8 GB per copy, and the CPU path held three
+      copies.
+    - M0 `73a273d4` holds two copies, or one with `FC_WITNESS_PER_REP=1`, and streams the header. The formats are unchanged.
+  - Attempt 3 ran on a 256 GB pod with `e226a920` and peaked at 86.6 GB.
 - **#116:** at `608e7130`, carrying C1–C3, N1 and the five negatives. The delta check was requested
   (`lanes/red-team-flock-3/20260927T1120Z`).
   - A1 bound `r20260927-110313-402a` and A3b `r20260927-115041-1b5d`, both at the new head, are accepted.

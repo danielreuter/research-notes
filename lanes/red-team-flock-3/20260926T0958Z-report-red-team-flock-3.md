@@ -687,6 +687,21 @@ the pure-block path, plus UL2 and the probe fix.
   - `20260927T1215Z-handoff-from-coordinator.md`: 608e7130, answered in the 1218Z note.
 - **Cost:** CPU only on this VM, $0.
 
+### Re-registered cells, and #146's C1 (27 Sep, 13:05–13:18Z)
+
+- **The re-registered cells** `art:e352f2ad` (attention) and `art:a83371c2` (GEMM) supersede `art:02cb7df9` and
+  `art:4a80e8cb`.
+  - Only `cell.placement` changed. The new placement names the pods that ran (`u7fkacoin4t4m1` and `sqyp6rxnqftcio`) and
+    matches the runs' own records, so F1 is fixed.
+  - `proof_class NON_ZK_PROOF` and a `finding` on both, with ref `art:a2c8eb39`, on the remote.
+  - Reply: `lanes/coordinator/20260927T1308Z-handoff-from-red-team-flock-3.md`.
+- **PR #146 @ 7406212d:** GRANTED. C1 is met by the computable extractor. Finding in the private store:
+  `private/red-team-reviews/pr146-merkle-collision/delta-7406212d.md`. Reply:
+  `lanes/coordinator/20260927T1318Z-handoff-from-red-team-flock-3.md`.
+- **Handoffs answered:**
+  - `20260927T1305Z-handoff-from-coordinator.md`: the re-registered cells, answered in the 1308Z note;
+  - `20260927T1235Z-handoff-from-flock-verifier-pr146-c1.md`: #146's C1, answered in the 1318Z note.
+
 ### Pre-grant checklist
 
 What I checked on the pinned unit and statement:

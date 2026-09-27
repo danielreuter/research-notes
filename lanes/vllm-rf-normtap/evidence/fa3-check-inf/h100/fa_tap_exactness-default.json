@@ -1,0 +1,1104 @@
+{
+ "schema": "verity-vllm/fa-tap-exactness/v1",
+ "backend": "fa3",
+ "utc": "2026-09-27T03:11:11Z",
+ "argv": [
+  "tests/properties/fa_tap_exactness_gpu.py",
+  "--so",
+  "/workspace/cp/fa2/build/fa3_matReq/verity_fa3_matReq.so",
+  "--out",
+  "/workspace/research/runs/r20260927-025855-18e5/evidence/default"
+ ],
+ "environment": {
+  "python": "3.12.14",
+  "torch": "2.13.0+cu129",
+  "cuda": "12.9",
+  "device": "NVIDIA H100 80GB HBM3",
+  "capability": "9.0",
+  "vllm": "0.28.1rc1.dev472+gd9105ea80",
+  "triton": "3.7.1"
+ },
+ "tap": {
+  "so": "/workspace/cp/fa2/build/fa3_matReq/verity_fa3_matReq.so",
+  "sha256": "17f92e838b6b04bccbd4359f06a8bd053e97a0c012d2432851561603fae04660",
+  "ns": "verity_fa3_matReq",
+  "mode": 3,
+  "src": 59,
+  "layout": 9,
+  "hdims": [
+   64,
+   128
+  ]
+ },
+ "installed": {
+  "op": "_vllm_fa3_C.fwd",
+  "so": "/workspace/venv312/lib/python3.12/site-packages/vllm/vllm_flash_attn/_vllm_fa3_C.abi3.so",
+  "sha256": "0d757ff21295b789c39bbac6e342da923f8bffb8ff11c0930747d8a015ca1d3a"
+ },
+ "cases": [
+  {
+   "case": "prefill_short",
+   "D": 64,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    1,
+    17,
+    63,
+    64,
+    65
+   ],
+   "seqlens_k": [
+    1,
+    17,
+    63,
+    64,
+    65
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 10,
+   "M": 130,
+   "NB": 1,
+   "BN": 128,
+   "kBM": 192,
+   "swapped": false,
+   "words": 514800,
+   "expected_written": 278040,
+   "written": 278040,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "48358a00032ad8ce21f546aeeb261d3413df56279b02a85db4e735291316c822",
+   "ok": true
+  },
+  {
+   "case": "prefill_mid",
+   "D": 64,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    127,
+    128,
+    129,
+    255
+   ],
+   "seqlens_k": [
+    127,
+    128,
+    129,
+    255
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 8,
+   "M": 510,
+   "NB": 2,
+   "BN": 128,
+   "kBM": 192,
+   "swapped": false,
+   "words": 3215040,
+   "expected_written": 1097172,
+   "written": 1097172,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "0d1720dc972755d867025a4b9aead060ce0725d6ff69f1a171108e299c01dea4",
+   "ok": true
+  },
+  {
+   "case": "prefill_256",
+   "D": 64,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    256,
+    257,
+    5
+   ],
+   "seqlens_k": [
+    256,
+    257,
+    5
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 6,
+   "M": 514,
+   "NB": 3,
+   "BN": 128,
+   "kBM": 192,
+   "swapped": false,
+   "words": 3639120,
+   "expected_written": 1190720,
+   "written": 1190720,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "0abbf5c3f06930d6fbafe3ed6b2a3609b4d30c889ca6fc90229ed36931919a63",
+   "ok": true
+  },
+  {
+   "case": "prefill_long",
+   "D": 64,
+   "H": 2,
+   "Hk": 2,
+   "seqlens_q": [
+    1000,
+    1031
+   ],
+   "seqlens_k": [
+    1000,
+    1031
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 4,
+   "M": 1031,
+   "NB": 9,
+   "BN": 128,
+   "kBM": 192,
+   "swapped": false,
+   "words": 14565968,
+   "expected_written": 6670698,
+   "written": 6670698,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "c97107e05f1b8d33935bd73300f813b0de703d1a8e8a4a336ba00788032ad2dc",
+   "ok": true
+  },
+  {
+   "case": "chunked",
+   "D": 64,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    17,
+    64,
+    1
+   ],
+   "seqlens_k": [
+    300,
+    1000,
+    129
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 6,
+   "M": 128,
+   "NB": 8,
+   "BN": 128,
+   "kBM": 192,
+   "swapped": false,
+   "words": 2411520,
+   "expected_written": 740332,
+   "written": 740332,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "e158e76f53f15b8d338bb80087a783add2c5fa8a94cde39b05a950e17be3898f",
+   "ok": true
+  },
+  {
+   "case": "decode_gqa",
+   "D": 64,
+   "H": 8,
+   "Hk": 2,
+   "seqlens_q": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "seqlens_k": [
+    1,
+    17,
+    64,
+    65,
+    128,
+    129,
+    1000,
+    1031,
+    2047
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 18,
+   "M": 4,
+   "NB": 11,
+   "BN": 192,
+   "kBM": 64,
+   "swapped": false,
+   "words": 437472,
+   "expected_written": 105848,
+   "written": 105848,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "e6224a28467727c1d8ac589787201a4375f42dca51785cb712c38119ef917c8e",
+   "ok": true
+  },
+  {
+   "case": "decode_mha",
+   "D": 64,
+   "H": 2,
+   "Hk": 2,
+   "seqlens_q": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "seqlens_k": [
+    1,
+    17,
+    64,
+    65,
+    128,
+    129,
+    1000,
+    1031,
+    2047
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 18,
+   "M": 1,
+   "NB": 11,
+   "BN": 192,
+   "kBM": 64,
+   "swapped": false,
+   "words": 109368,
+   "expected_written": 26462,
+   "written": 26462,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "3207cd0e3ef51674352a8a8842f1eb7e4ac3cf3a84cddd63204d438b27d19d94",
+   "ok": true
+  },
+  {
+   "case": "edge_rows",
+   "D": 64,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    130,
+    1,
+    1,
+    1
+   ],
+   "seqlens_k": [
+    130,
+    257,
+    300,
+    1
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "special": {
+    "-inf": [
+     0,
+     64,
+     129,
+     130
+    ],
+    "+inf": [
+     70
+    ],
+    "nan": [
+     128,
+     131
+    ]
+   },
+   "HB": 8,
+   "M": 260,
+   "NB": 3,
+   "BN": 128,
+   "kBM": 192,
+   "swapped": false,
+   "words": 2454400,
+   "expected_written": 225796,
+   "written": 225796,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "cc59a0ea5985144b7fe17a9f4e33707efaed62bd3083c057fbddd00f48615fe5",
+   "ok": true
+  },
+  {
+   "case": "smallq_onewg",
+   "D": 64,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    3,
+    5,
+    8,
+    1
+   ],
+   "seqlens_k": [
+    3,
+    700,
+    8,
+    129
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 8,
+   "M": 16,
+   "NB": 4,
+   "BN": 192,
+   "kBM": 64,
+   "swapped": false,
+   "words": 283136,
+   "expected_written": 58512,
+   "written": 58512,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "66e22d5a3d63ee66ffd423cff03f5ca1b4fb9aa28d7642594b08763aea241db2",
+   "ok": true
+  },
+  {
+   "case": "chunked_tail",
+   "D": 64,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    64,
+    40
+   ],
+   "seqlens_k": [
+    164,
+    290
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 4,
+   "M": 128,
+   "NB": 3,
+   "BN": 128,
+   "kBM": 192,
+   "swapped": false,
+   "words": 604160,
+   "expected_written": 326048,
+   "written": 326048,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "f1d3fd42b4d932177445391cc1ace082b25653c977375e9ebac1e06a20173574",
+   "ok": true
+  },
+  {
+   "case": "prefill_short",
+   "D": 128,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    1,
+    17,
+    63,
+    64,
+    65
+   ],
+   "seqlens_k": [
+    1,
+    17,
+    63,
+    64,
+    65
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 10,
+   "M": 130,
+   "NB": 1,
+   "BN": 128,
+   "kBM": 128,
+   "swapped": false,
+   "words": 598000,
+   "expected_written": 331800,
+   "written": 331800,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "2c371240077ae565aa8caafe6e130a83ea875227daff4c8fc9bbaede142430b4",
+   "ok": true
+  },
+  {
+   "case": "prefill_mid",
+   "D": 128,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    127,
+    128,
+    129,
+    255
+   ],
+   "seqlens_k": [
+    127,
+    128,
+    129,
+    255
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 8,
+   "M": 510,
+   "NB": 2,
+   "BN": 128,
+   "kBM": 128,
+   "swapped": false,
+   "words": 3737280,
+   "expected_written": 1209812,
+   "written": 1209812,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "097067a79e4429ea467790ec9070f02a50bca0a5e81d8e8e5d0896550dab8e34",
+   "ok": true
+  },
+  {
+   "case": "prefill_256",
+   "D": 128,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    256,
+    257,
+    5
+   ],
+   "seqlens_k": [
+    256,
+    257,
+    5
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 6,
+   "M": 514,
+   "NB": 3,
+   "BN": 128,
+   "kBM": 128,
+   "swapped": false,
+   "words": 4231248,
+   "expected_written": 1221952,
+   "written": 1221952,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "0b6a479ab37b0fab4ccfc6a1e61c2c66bf6869a77d0a39ea2117be1001c80a9d",
+   "ok": true
+  },
+  {
+   "case": "prefill_long",
+   "D": 128,
+   "H": 2,
+   "Hk": 2,
+   "seqlens_q": [
+    1000,
+    1031
+   ],
+   "seqlens_k": [
+    1000,
+    1031
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 4,
+   "M": 1031,
+   "NB": 9,
+   "BN": 128,
+   "kBM": 128,
+   "swapped": false,
+   "words": 16941392,
+   "expected_written": 7122282,
+   "written": 7122282,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "8fe4c7bc1eb78a11f2bb6f3a46fd9baf9154e43091ef85708e122497e1d45c19",
+   "ok": true
+  },
+  {
+   "case": "chunked",
+   "D": 128,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    17,
+    64,
+    1
+   ],
+   "seqlens_k": [
+    300,
+    1000,
+    129
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 6,
+   "M": 128,
+   "NB": 8,
+   "BN": 128,
+   "kBM": 128,
+   "swapped": false,
+   "words": 2804736,
+   "expected_written": 884972,
+   "written": 884972,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "0e2cbed3962101f899601b02b6c19b7eb71e1c5d40d4be0769d3079e80b577df",
+   "ok": true
+  },
+  {
+   "case": "decode_gqa",
+   "D": 128,
+   "H": 8,
+   "Hk": 2,
+   "seqlens_q": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "seqlens_k": [
+    1,
+    17,
+    64,
+    65,
+    128,
+    129,
+    1000,
+    1031,
+    2047
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 18,
+   "M": 4,
+   "NB": 16,
+   "BN": 128,
+   "kBM": 64,
+   "swapped": false,
+   "words": 525600,
+   "expected_written": 125408,
+   "written": 125408,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "c434fd6f36611651c00756e94ad96c00aa92519729ce33f80b07e0fbd2dcf706",
+   "ok": true
+  },
+  {
+   "case": "decode_mha",
+   "D": 128,
+   "H": 2,
+   "Hk": 2,
+   "seqlens_q": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "seqlens_k": [
+    1,
+    17,
+    64,
+    65,
+    128,
+    129,
+    1000,
+    1031,
+    2047
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 18,
+   "M": 1,
+   "NB": 16,
+   "BN": 128,
+   "kBM": 64,
+   "swapped": false,
+   "words": 131400,
+   "expected_written": 31352,
+   "written": 31352,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "88af080fb476341a5ac301c6bfc1efbdc0ba24f73a5c010fe155bf0fd351a83a",
+   "ok": true
+  },
+  {
+   "case": "edge_rows",
+   "D": 128,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    130,
+    1,
+    1,
+    1
+   ],
+   "seqlens_k": [
+    130,
+    257,
+    300,
+    1
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "special": {
+    "-inf": [
+     0,
+     64,
+     129,
+     130
+    ],
+    "+inf": [
+     70
+    ],
+    "nan": [
+     128,
+     131
+    ]
+   },
+   "HB": 8,
+   "M": 260,
+   "NB": 3,
+   "BN": 128,
+   "kBM": 128,
+   "swapped": false,
+   "words": 2853760,
+   "expected_written": 219524,
+   "written": 219524,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "d0ce046776e20b1e79b7e7fa90a9b41582226f96002221a7930ec5fc1ec68be9",
+   "ok": true
+  },
+  {
+   "case": "smallq_onewg",
+   "D": 128,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    3,
+    5,
+    8,
+    1
+   ],
+   "seqlens_k": [
+    3,
+    700,
+    8,
+    129
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 8,
+   "M": 16,
+   "NB": 6,
+   "BN": 128,
+   "kBM": 64,
+   "swapped": false,
+   "words": 350720,
+   "expected_written": 67524,
+   "written": 67524,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "39cf4f30c1db5f5623cfb4f16d84a0e9a927d259db84ca4f75d228824141488e",
+   "ok": true
+  },
+  {
+   "case": "chunked_tail",
+   "D": 128,
+   "H": 4,
+   "Hk": 2,
+   "seqlens_q": [
+    64,
+    40
+   ],
+   "seqlens_k": [
+    164,
+    290
+   ],
+   "softcap": 0.0,
+   "window": [
+    -1,
+    -1
+   ],
+   "HB": 4,
+   "M": 128,
+   "NB": 3,
+   "BN": 128,
+   "kBM": 128,
+   "swapped": false,
+   "words": 702464,
+   "expected_written": 389536,
+   "written": 389536,
+   "spill_outside_layout": 0,
+   "expected_but_unwritten": 0,
+   "skipped": 0,
+   "out_lse_eq_installed": true,
+   "out_lse_eq_untapped": true,
+   "stream_sha256_masked": "b76b8d38f437ecd5379e1d6d6e4fe48cecc976c69192fb408fe5e103e77db0e3",
+   "ok": true
+  }
+ ],
+ "negatives": [
+  {
+   "case": "prefill_short",
+   "D": 64,
+   "why": "wrong head_dim",
+   "declared": {
+    "HB": 10,
+    "M": 130,
+    "NB": 1,
+    "BN": 128,
+    "D": 128
+   },
+   "kernel": {
+    "HB": 10,
+    "M": 130,
+    "NB": 1,
+    "BN": 128,
+    "D": 64
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "prefill_short",
+   "D": 64,
+   "why": "wrong kBlockN",
+   "declared": {
+    "HB": 10,
+    "M": 130,
+    "NB": 1,
+    "BN": 192,
+    "D": 64
+   },
+   "kernel": {
+    "HB": 10,
+    "M": 130,
+    "NB": 1,
+    "BN": 128,
+    "D": 64
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "decode_gqa",
+   "D": 64,
+   "why": "wrong head_dim",
+   "declared": {
+    "HB": 18,
+    "M": 4,
+    "NB": 11,
+    "BN": 192,
+    "D": 128
+   },
+   "kernel": {
+    "HB": 18,
+    "M": 4,
+    "NB": 11,
+    "BN": 192,
+    "D": 64
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "decode_gqa",
+   "D": 64,
+   "why": "wrong kBlockN",
+   "declared": {
+    "HB": 18,
+    "M": 4,
+    "NB": 11,
+    "BN": 128,
+    "D": 64
+   },
+   "kernel": {
+    "HB": 18,
+    "M": 4,
+    "NB": 11,
+    "BN": 192,
+    "D": 64
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "decode_gqa",
+   "D": 64,
+   "why": "M cap below the packed rows",
+   "declared": {
+    "HB": 18,
+    "M": 3,
+    "NB": 11,
+    "BN": 192,
+    "D": 64
+   },
+   "kernel": {
+    "HB": 18,
+    "M": 4,
+    "NB": 11,
+    "BN": 192,
+    "D": 64
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "prefill_short",
+   "D": 128,
+   "why": "wrong head_dim",
+   "declared": {
+    "HB": 10,
+    "M": 130,
+    "NB": 1,
+    "BN": 128,
+    "D": 64
+   },
+   "kernel": {
+    "HB": 10,
+    "M": 130,
+    "NB": 1,
+    "BN": 128,
+    "D": 128
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "prefill_short",
+   "D": 128,
+   "why": "wrong kBlockN",
+   "declared": {
+    "HB": 10,
+    "M": 130,
+    "NB": 1,
+    "BN": 192,
+    "D": 128
+   },
+   "kernel": {
+    "HB": 10,
+    "M": 130,
+    "NB": 1,
+    "BN": 128,
+    "D": 128
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "decode_gqa",
+   "D": 128,
+   "why": "wrong head_dim",
+   "declared": {
+    "HB": 18,
+    "M": 4,
+    "NB": 16,
+    "BN": 128,
+    "D": 64
+   },
+   "kernel": {
+    "HB": 18,
+    "M": 4,
+    "NB": 16,
+    "BN": 128,
+    "D": 128
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "decode_gqa",
+   "D": 128,
+   "why": "wrong kBlockN",
+   "declared": {
+    "HB": 18,
+    "M": 4,
+    "NB": 16,
+    "BN": 192,
+    "D": 128
+   },
+   "kernel": {
+    "HB": 18,
+    "M": 4,
+    "NB": 16,
+    "BN": 128,
+    "D": 128
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  },
+  {
+   "case": "decode_gqa",
+   "D": 128,
+   "why": "M cap below the packed rows",
+   "declared": {
+    "HB": 18,
+    "M": 3,
+    "NB": 16,
+    "BN": 128,
+    "D": 128
+   },
+   "kernel": {
+    "HB": 18,
+    "M": 4,
+    "NB": 16,
+    "BN": 128,
+    "D": 128
+   },
+   "skipped": 1,
+   "buffer_untouched": true,
+   "out_eq_installed": true,
+   "ok": true
+  }
+ ],
+ "ok": true,
+ "digest": "cddc93cfd1b8482ce0e6331af80d431d32f1c95852ad45e6428b5d0591364941"
+}

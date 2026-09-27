@@ -5,6 +5,7 @@ created: 2026-09-27T02:56Z
 status: open
 ---
 
+CHECKPOINT 7aeffc5d (03:31Z) [open] Gemma #57 committed 7aeffc5d on cursor/vllm-rf-recompute-gemma-cbba; push FAILED (GitHub App token on the VM invalid: fetch+gh 401), bundle lanes/vllm-rf-recompute/evidence/gemma-7aeffc5d.bundle; asking once for a token refresh. #57 LP31_T52 cross_call: recorded 5,460 Calls / 12,579,840 gates -> once-rewrite 0; all 8 running
 CHECKPOINT df13126f (03:24Z) [open] FP8 PR #106 (draft) cursor/vllm-rf-recompute-fp8-cbba @ df13126f; def-digest A/B main vs branch: 229 Definitions of #74/#57 Programs identical. Now Gemma #57: TargetProfile selector + norm-chain rule emits the weight-only + 1 once per norm; fold = re-baseline switch point
 CHECKPOINT df13126f (03:17Z) [open] FP8 #74: cursor/vllm-rf-recompute-fp8-cbba @ df13126f pushed (ScaledMmFp8BlockSharedScale_v1 + SHARED_SCALE, tests). VM checks: same circuit, bit-equal 96 edge vectors, row #74 Q_word A/B recorded 4 viol / 113.6 G recomputed -> selector on 0 / 0, +894.8 M committed words; cross_call 0 both. next: digest A/B, Gemma #57
 CHECKPOINT 3040ac1f (03:04Z) [open] plan: FP8 #74 = new ScaledMmFp8BlockSharedScale_v1 (products once per (weight block,kb) in a tile node, committed; same signature), Gemma #57 = Build emits AddScalarBf16 once per norm weight (selector), both default-off; checker reproduces #74 on VM (508 gates at K=N=256); branches cursor/vllm-rf-recompute-{fp8,gemma}-cbba off main 3040ac1f

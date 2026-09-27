@@ -2,9 +2,10 @@
 lane: vllm-rf-moetap
 kind: report
 created: 2026-09-26T22:29Z
-status: open
+status: final
 ---
 
+CHECKPOINT c574c4a5 (01:51Z) [final] PR #96 cursor/vllm-rf-moetap-82dc @ c574c4a5 merge-ready (handoff vllm-coordinator/20260927T0136Z). Records: router-tap r20260927-011454-7498 ok; TP2 vocab r20260927-011644-9037 ok; partition r20260927-005720-ee97 OK; gate(b) jdiff rc 0 (base r20260927-005731-9c35, head r20260927-011128-606f), recheck r20260927-013459-f5f0 rc 0. Handoffs read: 2231Z, 0015Z, 0135Z. Pods: g1 terminated 23:25Z, g2 01:49Z. Spend ~$6.06 of $8
 CHECKPOINT 3146bc31 (01:12Z) [open] router exactness on GPU: 4 configs x 1024 rows tap==IR, ==installed, all written (r20260927-005659-23d0, r20260927-010857-0a73); live failed on FlashInfer JIT (fixed: env pins) then on vLLM's is_padding (source now passes it through). Rerun on 3146bc31 now; gate(b) head r20260927-011128-606f, base r20260927-005731-9c35 running
 CHECKPOINT 267e5a72 (00:55Z) [open] RESTARTING the PR #96 GPU record (not idle): the 8 runs were mine, killed 00:24Z because setup's uv sat on download.pytorch.org at 0.35 MB/s. Since: torch cu129 fetched in 32 ranges, nvidia pins from PyPI, pre-install finishing (cublas left). Next ~01:00Z: setup, then router exactness + partition + gate(b) base/head concurrently, TP2 after. Est. end ~01:50Z, total ~$6.5
 CHECKPOINT 267e5a72 (00:54Z) [open] 00:58Z resumed after the billing outage. Handoff 0015Z (coordinator's approval bar) read, acting on it: docstring fixed (267e5a72, local: GitHub token expired, push pending). g2: torch cu129 + nvidia pins pre-installing from local/PyPI (6 MB/s); then relaunch setup/router/partition/gate(b) base+head/vocab. Spend ~$4.0

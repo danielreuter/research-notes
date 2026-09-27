@@ -17,16 +17,16 @@ Brief: `$STORE/internal/lane-briefs/vllm-moetap.md`. Two opt-in taps for the no-
   (I32Le, 1 b), le = tok <= START+VS-1 (I32Le, 1 b). The brief's "three 1-bit values" is one 32-bit word plus two bits (34 b/token).
 - At the pin, TP>1 CUDA runs the fused `_C.vocab_parallel_embedding` kernel, not PyTorch ops.
 
-## Running (g2, relaunched 00:56Z on 267e5a72 after torch/nvidia wheels were pre-installed from local ranged downloads + PyPI)
-- r20260927-005612-9e5d setup; r20260927-005659-23d0 router tap build + exactness (GPU 0); r20260927-005826-6fbf TP2 vocab (after router)
-- r20260927-005720-ee97 partition report; r20260927-005731-9c35 gate (b) base 5b0835d4; r20260927-005757-fa4e gate (b) head 267e5a72
-- Killed by me (setup stuck on download.pytorch.org at 0.35 MB/s), 00:24Z: r20260926-234303-0db7, -234338-9343, -234359-2b8d, -234437-b4d4,
-  -234519-b0c0; and earlier g1 / g2 runs listed in the report.
-- 267e5a72 is local only: GitHub token in the VM's git config expired at the ~00:35Z outage; push pending.
+## Running
+- nothing. g2 terminated 01:49Z (drained; 24/25 attempts preserved, forced over the empty waiting run r20260926-233458-2820).
+
+## Results (head c574c4a5)
+- router-tap exactness r20260927-011454-7498 ok (verify intact); TP2 vocab r20260927-011644-9037 ok; partition r20260927-005720-ee97 OK;
+  gate (b) base r20260927-005731-9c35 / head r20260927-011128-606f jdiff rc 0; recheck r20260927-013459-f5f0 rc 0.
+- Merge-ready handoff lanes/vllm-coordinator/20260927T0136Z-handoff-from-vllm-rf-moetap.md; vu-export told (20260927T0102Z).
 
 ## Next
-- Router tap: pinned topkGating + Tap, op verity_router_tap, policy router_softmax, source, ROUTER_TAP flag, exactness property.
-- Vocab range: policy vocab_range, hook on _C.vocab_parallel_embedding (no kernel change), VOCAB_TAP flag, TP2 exactness.
+- coordinator review of PR #96; FINAL written.
 
 ## Found (changes #86's opt-in construction; surfaced in the handoff)
 - #86's MoeRouterProbs max was P.F32Max (FA2 fast-math >-select with ftz); topkGating (no fast math) uses fmaxf. NaN results: registry
@@ -37,4 +37,7 @@ Brief: `$STORE/internal/lane-briefs/vllm-moetap.md`. Two opt-in taps for the no-
 - none
 
 ## Found-not-fixed
-- none yet
+- wheels.vllm.ai / download.pytorch.org at 0.06-0.35 MB/s per connection on these pod hosts; ranged downloads worked.
+- research run shares /workspace/research/src/<sha> across runs of one commit: setup / IR-evaluating runs pollute gate (b)'s tree check.
+- vLLM passes is_padding to topk_softmax live (handled); TP2 needs NCCL_P2P_DISABLE=1 on these pods (NCCL hung without it).
+- Full-model live checks (#67/#68/#70/#75) not run by design.

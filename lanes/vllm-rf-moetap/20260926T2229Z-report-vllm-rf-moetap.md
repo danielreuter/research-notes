@@ -5,6 +5,7 @@ created: 2026-09-26T22:29Z
 status: open
 ---
 
+CHECKPOINT 267e5a72 (00:54Z) [open] 00:58Z resumed after the billing outage. Handoff 0015Z (coordinator's approval bar) read, acting on it: docstring fixed (267e5a72, local: GitHub token expired, push pending). g2: torch cu129 + nvidia pins pre-installing from local/PyPI (6 MB/s); then relaunch setup/router/partition/gate(b) base+head/vocab. Spend ~$4.0
 CHECKPOINT af073204 (00:26Z) [open] 00:31Z g2 setup stuck in uv (torch/nvidia wheels from download.pytorch.org at ~0.35 MB/s, retries); killed all 5 runs again. Fetching torch 2.13.0+cu129 in 32 ranges (~2 MB/s), nvidia pins next from PyPI, pre-install, then relaunch setup/router/vocab/partition/gate(b). Spend ~$3.1
 CHECKPOINT af073204 (23:47Z) [open] WAIT vyv-rf-moetap-g2 r20260926-234338-9343 check-back 00:22Z agent bc-2c25902d-4c5d-57c4-a778-e30cf29382dc: router tap build+exactness; WAIT vyv-rf-moetap-g2 r20260926-234519-b0c0 check-back 00:30Z: TP2 vocab exactness; also r20260926-234359-2b8d partition, r20260926-234437-b4d4 gate(b) base. PR #96 draft
 CHECKPOINT af073204 (23:45Z) [open] g2: first setup killed 23:37Z (vLLM wheel host ~160 KB/s/conn; fetched in 16 ranges, sha ok). Relaunched on af073204: setup r20260926-234303-0db7 -> router r20260926-234338-9343 -> vocab (TP2, tiny Llama) ; partition r20260926-234359-2b8d; gate(b) base r20260926-234437-b4d4

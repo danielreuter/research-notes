@@ -624,8 +624,9 @@ the pure-block path, plus UL2 and the probe fix.
 
 ### PR #121 (`TwoStageLaw.profile`), 27 Sep, 07:05Z: GRANT WITH CONDITIONS
 
-- **Finding in the store:** the private evidence-store artifact `art:b1d7314f` (the store's the private evidence-store artifact `art:b1d7314f` keeps only the verdict) (private). The request is in the
-  store's lane folder (`20260927T0650Z-handoff-from-coordinator.md`).
+- **Finding in the store:** the private evidence-store artifact `art:b1d7314f` (the store's
+  `internal/red-team-reviews/pr121-two-stage-profile/` keeps only the verdict). The request is in the store's lane folder
+  (`20260927T0650Z-handoff-from-coordinator.md`).
 - **Verdict:** GRANT WITH CONDITIONS, one condition (C1), recorded as a label on run `r20260927-070022-8cdd`. The reply is
   `lanes/coordinator/20260927T0705Z-handoff-from-red-team-flock-3.md`.
 
@@ -635,8 +636,8 @@ the pure-block path, plus UL2 and the probe fix.
   the private evidence-store artifact `art:d3ade404` (the store's `internal/red-team-reviews/pr135-profile-exact-bound/` keeps only the verdict). Run `r20260927-081834-33a0`.
 - **PR #135 @ 9ac046fd (08:55Z):** P1 met, so GRANTED. Finding in the store: same file, the re-check section. Run
   `r20260927-085234-0a01`. Reply: `lanes/coordinator/20260927T0855Z-handoff-from-red-team-flock-3.md`.
-- **PR #121 @ 1ed789d5:** C1 met, so GRANTED. Finding in the store:
-  the private evidence-store artifact `art:b1d7314f` (the store's the private evidence-store artifact `art:b1d7314f` keeps only the verdict). Run `r20260927-081942-7959`.
+- **PR #121 @ 1ed789d5:** C1 met, so GRANTED. Finding in the store: the private evidence-store artifact `art:b1d7314f`
+  (the store's `internal/red-team-reviews/pr121-two-stage-profile/` keeps only the verdict). Run `r20260927-081942-7959`.
 - **Reply:** `lanes/coordinator/20260927T0825Z-handoff-from-red-team-flock-3.md`.
 - **Containment (08:15Z):** my first #121 review had been mirrored from the store's `internal/lanes/` to these notes. I
   removed it at head and told the coordinator, with pointers (`lanes/coordinator/20260927T0815Z-handoff-from-red-team-flock-3.md`).
@@ -645,7 +646,7 @@ the pure-block path, plus UL2 and the probe fix.
     the private evidence store (`art:b1d7314f`, `art:d3ade404`), notes carry pointers, and the earlier exposure is reported in the 0815Z note.
   - `20260927T0810Z-handoff-from-coordinator.md` (#135, and C1 on #121): answered in the 0825Z note.
 
-### PR #146 and PR #116 (27 Sep, 10:35–10:45Z)
+### PR #146 and PR #116 (27 Sep, 10:35–10:55Z)
 
 - **PR #146 @ d4cb0b75** (`MerkleScheme.Collision`): REFUSE as submitted. Finding in the private store:
   `private/red-team-reviews/pr146-merkle-collision/review.md`. Reply:
@@ -653,12 +654,17 @@ the pure-block path, plus UL2 and the probe fix.
 - **PR #116 @ 66ab031b** (the one-stage driver): GRANT WITH CONDITIONS C1–C3. Finding in the private store:
   `private/red-team-reviews/pr116-one-stage-driver/review.md`. Reply:
   `lanes/coordinator/20260927T1045Z-handoff-from-red-team-flock-3.md`.
-- **Handoffs answered:** `20260927T0905Z-`, `20260927T0915Z-` and `20260927T0920Z-handoff-from-coordinator.md`, where sensitive
-  material goes, the last superseding the first two. Followed:
+- **Handoffs answered:** `20260927T0905Z-handoff-from-coordinator.md`, `20260927T0915Z-handoff-from-coordinator.md` and
+  `20260927T0920Z-handoff-from-coordinator.md`, on where sensitive material goes; the last supersedes the first two.
+  Followed:
   - the #146 and #116 reviews are in the store's `private/`;
   - the #121 and #135 reviews are in the evidence store (`art:b1d7314f`, `art:d3ade404`), and the coordinator was told at
     0900Z;
-  - only verdict stubs remain under `internal/`.
+  - only verdict stubs remain under `internal/`. My lane's `internal/lanes/` folder holds only the incoming requests and
+    the report's first stub.
+- **Also sent (10:55Z):** private-repo material is readable in the public notes. It isn't this lane's. The details are in the
+  store's `private/red-team-reviews/notes-exposure-20260927/`, and the pointer is
+  `lanes/coordinator/20260927T1055Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

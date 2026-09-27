@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT 5581920f (08:48Z) [open] A4 estimate sent (internal/lanes/vllm-coordinator/20260927T0850Z-handoff-from-vllm-serving-commit-a4-estimate.md): layer 0 = 6.77M units; per-instance GEMM rows ~70 GB (infeasible), shared rows ~175 MB, hook ~10-15 s; pod 1 L40S ~25 min ~$0.45, est $1 cap $2; no pod before ack. Asked e2e for layouts + shared-row GEMM (0852Z). Gate (b) head running (check 09:06Z).
 CHECKPOINT 5581920f (08:39Z) [open] gate (b): base 928790af DONE (34 failed/4052 passed/286 skipped/11 errors, 42 min); head 5581920f lints rc 0, suite since 08:33Z. WAIT gckublhmo7yzhh r20260927-081242-9c58 check-back 09:06Z agent bc-819f6247; terminate at once when done (cap $1.25 ~09:13Z).
 CHECKPOINT 5581920f (08:14Z) [open] gate (b) pod cap raised to $1.25 (coordinator 08:14Z); terminate as soon as head r20260927-081242-9c58 finishes. Timer ~08:39Z.
 CHECKPOINT 5581920f (08:13Z) [open] gate (b) head 993ea8ff failed lints P7/P9/P10/P11 -> fixed 5581920f (pipeline/serving_rows.py split, one --serving-rows request, commit.py main -1 line, no allowlist growth; lints + unit tests pass on VM). WAIT gckublhmo7yzhh base r20260927-074901-3cb9 (928790af) then head r20260927-081242-9c58 (5581920f), check-back 08:38Z agent bc-819f6247; pod end ~09:00Z ~$1.12 (flagged to coordinator 0814Z).

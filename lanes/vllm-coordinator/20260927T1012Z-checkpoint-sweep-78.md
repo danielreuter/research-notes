@@ -1,0 +1,1 @@
+10:12Z sweep-78: verify-optins l40s active (RUN57 done 08:39, RUN74V 09:16, RUN73 09:49; #74 build running since 08:39; ~$3.4/$8); no report in store, handoffs pending. serving-commit A4 P4 served (copy of e2e p4 handoff 0955Z), g3 terminated. CAP 830; spend $746.56 @ $1.09/h; no WAKE.

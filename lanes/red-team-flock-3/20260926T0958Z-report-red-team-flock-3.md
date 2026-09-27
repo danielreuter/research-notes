@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (08:55Z) [final] FINAL: PR #135 @9ac046fd P1 met -> GRANTED (never below the exact optimum: 0/2000 grid, 0/7500 stress, <=1.9e-9 above; composes with #121 @1ed789d5: TOY + mixed class certified, 750-pt grid holds); #121 @1ed789d5 GRANTED earlier; findings in the store internal/red-team-reviews/ (private); run r20260927-085234-0a01 labelled; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (08:23Z) [final] FINAL: PR #135 @b4c9a489 GRANT WITH CONDITIONS (P1: direct the bound's rounding; checks 1 and 4 pass); PR #121 @1ed789d5 C1 met -> GRANTED (nit N1: stale beacon wording); findings in the store internal/red-team-reviews/ (private); runs r20260927-081834-33a0, r20260927-081942-7959 labelled; mirrored #121 review removed from notes head (7955949b), coordinator told; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (08:22Z) [final] FINAL: PR #135 @b4c9a489 GRANT WITH CONDITIONS (P1: direct the bound's rounding; checks 1 and 4 pass); PR #121 @1ed789d5 C1 met -> GRANTED (nit N1: stale beacon wording); findings in the store internal/red-team-reviews/ (private); runs r20260927-081834-33a0, r20260927-081942-7959 labelled; mirrored #121 review removed from notes head (7955949b), coordinator told; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (07:02Z) [final] FINAL: PR #121 (TwoStageLaw.profile @23c048c3) GRANT WITH CONDITIONS (C1: profile n_v = the class's largest RU); law holds vs adaptive prover, rate exact, bound conservative+tight (750-pt grid), vLLM LEGACY draws byte-identical, core change docstring-only; label on r20260927-070022-8cdd; details in the agent store internal/lanes/red-team-flock-3/pr121-two-stage-profile/; reply lanes/coordinator/20260927T0705Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -629,6 +630,8 @@ the pure-block path, plus UL2 and the probe fix.
 
 - **PR #135 @ b4c9a489:** GRANT WITH CONDITIONS (P1, before merge). Finding in the store:
   `internal/red-team-reviews/pr135-profile-exact-bound/review.md`. Run `r20260927-081834-33a0`.
+- **PR #135 @ 9ac046fd (08:55Z):** P1 met, so GRANTED. Finding in the store: same file, the re-check section. Run
+  `r20260927-085234-0a01`. Reply: `lanes/coordinator/20260927T0855Z-handoff-from-red-team-flock-3.md`.
 - **PR #121 @ 1ed789d5:** C1 met, so GRANTED. Finding in the store:
   `internal/red-team-reviews/pr121-two-stage-profile/review.md`. Run `r20260927-081942-7959`.
 - **Reply:** `lanes/coordinator/20260927T0825Z-handoff-from-red-team-flock-3.md`.

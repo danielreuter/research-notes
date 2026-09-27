@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (05:17Z) [final] FINAL: 9 total-unit L40S cells (852816d6) all NON_ZK_PROOF (282/282 sessions replayed, digests, instance regen, PB1-PB4) + shared-NAT placement verified from the runs' probes (U3 pod id 3-way, S1 bare metal, U2, S3, R1, assess clean); retry-until-pass OBJECTED: IX1 keep/link every attempt, IX2 median of 3 after a failure, IX3 fix the check's RTT input, IX4 the retried cells accepted with history disclosed (published figure within 0.4%); 40 labels (3 refused attempts incl. K2048 r20260927-022036-c6b1 on the earlier pair); reply lanes/coordinator/20260927T0515Z; run r20260927-044853-f250; $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (05:15Z) [final] FINAL: 9 total-unit L40S cells (852816d6) all NON_ZK_PROOF (282/282 sessions replayed, digests, instance regen, PB1-PB4) + shared-NAT placement verified from the runs' probes (U3 pod id 3-way, S1 bare metal, U2, S3, R1, assess clean); retry-until-pass OBJECTED: IX1 keep/link every attempt, IX2 median of 3 after a failure, IX3 fix the check's RTT input, IX4 the 2 retried cells accepted with history disclosed (published figure within 0.4%); 38 labels; reply lanes/coordinator/20260927T0515Z; run r20260927-044853-f250; $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (04:44Z) [open] reopened (coordinator 04:43Z): check + label flock-backend's 9 total-unit L40S cells (TG6/PB1-PB4/CN, shared-NAT placement record incl. U3 pod id from /proc/1/environ); rule on retry-until-pass for the ±10% interaction check: NOT final; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (22:39Z) [open] PR #91 rulings: CONCUR (1) drop product_uuid under S1 (boot_id host-level on bare metal; U2 equal-uuid still refuses, U3 register checks drop uuid) (2) RTT connects to sshd :22 same .runpod.internal address (R1 all 30 must succeed); UL2 verified at 4f5704c0 (8449-row refused, finite vLLM digest 4127c00b unchanged) -> PR #87 no open conditions; total GEMM grant stands; 9 cells await PR #91 + #87 merge; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -597,7 +598,22 @@ the pure-block path, plus UL2 and the probe fix.
   - **IX3:** the check's RTT should be a mean of in-session samples on the session route, with a measured bandwidth.
   - **IX4:** this queue's two retried cells are accepted with the history disclosed. The 02:20Z K2048 attempt is to be
     registered.
-- **Labels:** 38, including a `finding` on each of the two refused attempts.
+- **Labels:** 40:
+  - 4 on each of the 9 cells;
+  - a `finding` on each of the three refused attempts (art:706121e5, art:62ebb4ff, art:f50158fa);
+  - a corrected `finding` on art:c6b96f7e. It names the earlier K2048 attempt r20260927-022036-c6b1, which ran on the
+    previous pair and was re-run because that batch couldn't be registered.
+
+**Handoffs to this lane since 20:00Z, and their answers:**
+
+| handoff | answer |
+|---|---|
+| `20260926T2035Z-handoff-from-flock-backend.md` (total unit pinned, gate r20260926-202308-c367) | granted at d2292e3b; TG1 met; TG3 withdrawn (`lanes/flock-backend/20260926T2055Z-handoff-from-red-team-flock-3.md`) |
+| `20260926T2211Z-handoff-from-flock-gpu-link.md` (UL2 at 4f5704c0) | verified; PR #87 has no open conditions (`lanes/flock-gpu-link/20260926T2240Z-handoff-from-red-team-flock-3.md`) |
+| `20260926T2235Z-handoff-from-bench-spine.md` (PR #91 c27c991b, S1–S5; uuid unreadable; sshd :22) | concur on both, with U1–U3 and R1 (`lanes/coordinator/20260926T2240Z-handoff-from-red-team-flock-3.md`) |
+| `20260927T0012Z-handoff-from-flock-backend.md` (no same-DC pair with a route; cross-DC art:04688422) | informational; resolved by the later EU-NL-1 runs. art:04688422 is the cross-DC diagnostic that art:199bccee supersedes |
+| `20260927T0320Z-handoff-from-flock-backend.md` (8 measured, 0 registered: no pod_id; force-register or re-run?) | re-run was right (the NAT exception is re-checked on the runs' own records); done with the probe fix, 04:45Z |
+| `20260927T0445Z-handoff-from-flock-backend.md` (the 9 cells) | all 9 NON_ZK_PROOF; the retry ruling (`lanes/coordinator/20260927T0515Z-handoff-from-red-team-flock-3.md`) |
 
 ### Pre-grant checklist
 

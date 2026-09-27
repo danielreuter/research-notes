@@ -2,9 +2,10 @@
 lane: vllm-verify-optins
 kind: report
 created: 2026-09-27T06:14Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT 8515c79e (06:58Z) [open] GO fallback (coordinator 06:57Z, $8 cap). POD START 06:57Z vyv-rf-verify-optins-l40s = RunPod 69t3tqnpjam7kc, secure L40S $1.09/h, 16 vCPU / 188 GB, GPU hidden (CUDA_VISIBLE_DEVICES=""), guard 90, registered; expected end ~12:00Z. Setup+smoke run launched
 CHECKPOINT 8515c79e (06:55Z) [blocked] WAIT coordinator GO on the fallback (vllm-coordinator/20260927T0655Z-handoff-from-vllm-verify-optins.md: secure L40S, GPU hidden, ~$5.5 cap $8). Pod scripts ready in evidence/ (vo_setup, vo_build, vo_row_build, vo_run73, vo_run57, vo_run74, vo_calls, vo_word, vo_digests, vo_fp8_values). Running on the VM (tmux vo-fp8-test): #74 value check, LP73_T1 whole (layer 0 every coordinate) then LP11_T94 first 12 steps; layer-0 test: 292 FP8 Calls, 57,559,040 coordinates, 0 mismatches. check-back 07:20Z agent bc-a80fa085
 CHECKPOINT 8515c79e (06:53Z) [blocked] CPU POD STOPPED per coordinator rule: smoke Build r20260927-064517-eb5b failed (vLLM UnspecifiedPlatform without a driver; vllm._C / flash-attn C extensions don't load, and the export needs them). Pod l32zhicuc7ce1b terminated 06:51:40Z + unregistered, ~$0.19. FALLBACK ESTIMATE sent: vllm-coordinator/20260927T0655Z-handoff-from-vllm-verify-optins.md (secure L40S, GPU hidden, ~5 h ~$5.5, cap $8). #74 on the VM: 6/9 stored Programs, cross_call 0 both ways; FP8 member check 293,760 violations / 57.45 G -> 0 / 0; layer-0 values: host products = F32Mul_v1 at 35.96 M coordinates; edge pairs: 40/784 differ, all two-NaN payload only (numpy array path returns the first NaN, the IR the second; w_s*x_s order matches all 784). Running: LP73_T1 + LP11_T94 value checks on the VM
 CHECKPOINT 8515c79e (06:41Z) [open] GO (coordinator 0640Z, cap $10). POD START 06:41Z vyv-rf-verify-optins-cpu = RunPod l32zhicuc7ce1b, cpu5m 16 vCPU/128 GB (~$1.04/h; the 32-vCPU shapes had no stock), guard 90, registered; expected end ~12:30Z. Handoff renamed 0640Z -> vllm-coordinator/20260927T0626Z-handoff-from-vllm-verify-optins.md. #74 on the VM so far: cross_call 0 recomputes on 5/9 stored Programs both ways; FP8 member check recorded 186,480 violations / 36.47 G recomputed gates -> SHARED_SCALE 0 / 0 (+287.2 M committed words). Next: bootstrap + smoke Build

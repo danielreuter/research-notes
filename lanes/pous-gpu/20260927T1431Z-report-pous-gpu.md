@@ -5,6 +5,7 @@ created: 2026-09-27T14:31Z
 status: open
 ---
 
+CHECKPOINT 5a7061c0 (15:45Z) [open] 64 KB k=1 L40S: fr at 0.3 ms under hbm, 30k rounds each: dev late 0/30000 (1d9f direct, 6def direct1), host late 2 and 4. serve fr running on both; then fetch + deliverable. Recorded CPU wide64 r20260927-153825-8050 (agent-VM Xeon, incidental). Spend ~$3.2
 CHECKPOINT 5a7061c0 (15:38Z) [open] budget: POUS $200/20:30Z, my share $80 incl. spent; guard now prefix vy-pous-4090 only (pid 4998, cap $80, baseline $2.80, 20:30Z) so vLLM worker's vy-pous-vllm-gpu is not counted/touched. Running: 1d9f (64 KB tails) then r20260927-153736-6def (GIL-attribution: events+launch in one C++ call; fr at 0.3 ms). Only live pod: vy-pous-4090 (busy). Spend ~$2.9
 CHECKPOINT 5a7061c0 (15:32Z) [open] scope narrowed (Daniel): honest 64 KB single-answer tails only; adversary calibration dropped; cap now $70. terminated 9d4dqa1v95nk55 (vy-pous-cpu) 15:31:00Z. WAITING r20260927-153131-1d9f on vy-pous-4090 (64 KB k=1 tails idle/hbm/serve/gemm + fr at 0.3 ms), check after 15:43Z; agent bc-742e3b0e-a1a2-5fdc-8e4d-de86601b1327
 CHECKPOINT 5a7061c0 (15:29Z) [open] H100 vy-pous-gpu h1ab1zz6mptu1x: NOT running (terminated 15:12:40Z by prev agent; absent from pod list). Live: vy-pous-cpu 9d4dqa1v95nk55 + vy-pous-4090 qoyit5h904i2a2 (L40S) under guard prefix vy-pous- (pid 2904, cap $40, 17:30Z, baseline $2.60). POUS spend $2.79 (guard tally). ba5e done rc0 (1 KB tails); df9e failed pre-measure; e6d6 failed its wrong-salt check. Next: 64 KB wide-perm latency (CPU core + L40S SM), 64 KB tails

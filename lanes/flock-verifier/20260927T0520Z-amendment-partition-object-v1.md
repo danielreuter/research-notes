@@ -3,32 +3,65 @@ cursor:
   subagentId: "bc-f7aadce6-d64c-5681-a2c7-47a635ef666c"
 ---
 
-lane: flock-verifier · kind: handoff · from: vllm-cross-call-check (partition checker owner) · created: 2026-09-27T05:20Z
+lane: flock-verifier · kind: handoff · from: vllm-cross-call-check (partition checker owner) · updated: 2026-09-27T06:05Z
 
-# Amended §2 of `20260927T0445Z-draft-partition-checks-spec.md`: `verity/partition/v1` as implemented in PR #111
+# Amended §2 of `20260927T0445Z-draft-partition-checks-spec.md`: `verity/partition/v1` names a query, P = Q(C) (PR #111)
 
-This amends §2 of that note. The note itself is unedited, since it is another agent's. It replaces the §2 object (root, 04:51Z and 05:00Z).
+This amends §2 of that note; the note itself is unedited, since it is another agent's. Daniel decided at 05:28Z that the partition is a named query on the program, which the verifier evaluates itself. This replaces the 05:20Z "cuts table" text.
 
 ~~~text
 {"format": "verity/partition/v1",
  "program": "<SHA-512 of the program>",
- "cuts": {"<SHA-512(canon(cut))>": {"owner":   [<unit within the Call, per computing gate in canonical order>],
-                                    "classes": [<SHA-512 of the unit's circuit, per owner value>]}, …},
- "calls": [{"call": <the Call activation's index in the canonical layout>, "cut": "<key into cuts>"}, …]}
+ "query": {"name": "Q_word", "version": 1, "params": {"X": 16, "W": 32}}}
 ~~~
 
-- **Digest (unchanged).** `SHA-512("verity/partition/v1\0" ‖ canon(object))`, where canon is `verity.ir.codec.canonical_json` (keys sorted, no whitespace, ASCII).
-- **Program.** `SHA-512` over the canonical descriptor that `codec.program_digest` hashes with SHA-256 (annotations excluded): `partition_object.program_sha512`.
-- **Cuts are shared by content.** A cut's key is `SHA-512(canon(cut))` (`cut_key`), so every activation of one Definition specialization names one cut. The object grows with the distinct cuts plus the Calls, not with the Program's gates.
-- **No `units` list.** A unit's global index is derived: Calls in canonical order, then owner value, with the input unit excluded, as a prefix sum of each Call's unit count, `len(classes)`. Its class is its cut's `classes[owner value]`.
-  - `partition_object.Units(obj)` gives `population` and `locate(i) -> (position in calls, Call index, owner value, class)` by bisection, O(log Calls).
-  - The draw's population (§3.3 item 2) is `Units(obj).population`.
-- **No `committed`.** The committed set is derived: a value is committed exactly when a unit other than its producer's reads it, or the Call returns it (`cut.derived_committed`).
-  - §3.1's P1 runs on the owners and the derived set.
-  - `committed-unread`, `read-uncommitted` and `output-uncommitted` now compare **what serving commits** against the derived set: `verify(obj, program, served={call: gates})`.
-- **Rejected by `validate`:** any key beyond `format`, `program`, `cuts`, `calls`; any cut key beyond `owner`, `classes`; a cut whose key isn't its own `SHA-512`; owner values not exactly 0..U−1; `len(classes) ≠ U`; Calls out of order; a Call naming a missing cut; a cut no Call names.
-- **Core references** (stdlib only):
-  - `verity.ir.partition_object`: `build`, `canonical`, `digest`, `cut_key`, `validate`, `verify`, `Units`, `program_sha512`.
-  - `verity.ir.cut`: `CallGraph` (§3.1's graph), `fits` (§3.2: bits ≤ X+E, or one value ≤ W+E), `boundary_widths`, `derived_committed`, `check_cut`.
-- **Pinned vector** (`packages/verity/tests/ir/test_partition_object.py::test_a_pinned_digest_vector`). The cut `{"owner": [0,0,1], "classes": ["a"×128, "b"×128]}` has key `83cbe858…ce786db`. The object with Calls 0 and 3 naming it and program `"0"×128` has digest `7273d670…d3f41b4b`, and 4 units.
-- **Classes.** A backend (M0) passes each unit circuit file's SHA-512 (`build(classes=...)`). Without one, `unit_class` is a provisional SHA-512(Definition id, owner value).
+- **Digest:** `SHA-512("verity/partition/v1\0" ‖ canon(object))`, where canon is `verity.ir.codec.canonical_json`. The object is 236 bytes. No owners, cuts or units are stored.
+- **Program:** SHA-512 over the canonical descriptor (`codec.canonical_json(codec.encode_program(program))` with `annotations` removed; schema `verity-ir/descriptor/v1`). These bytes are the evaluator's input.
+- **The evaluator:** `verity.ir.partition_object.evaluate(program, query)`, with the algorithm written out in `verity.ir.cut`'s module docstring. In short:
+  1. **Calls** are the root body's non-Input nodes, in order. Each Call is its Definition's activation in a one-Call Program whose parameters are inputs.
+  2. **Evaluate(fn):**
+     - a primitive is one unit, or none when it is structure (no parameters, or its id is in `WIRING`);
+     - a separable body is its members' cuts, in node then member order;
+     - any other body is `cut_word(CallGraph(fn), X)`.
+  3. **`CallGraph`:**
+     - removes structure (constants, values computed from constants, `WIRING`) and re-points reads through it;
+     - treats gates with more than `WIDE_FAN_IN` operands as wide;
+     - detects recomputes with **exact interned structural ids** (no hashes);
+     - records outputs and returned inputs.
+  4. **`cut_word`:** returned gates are packed into output units of at most X bits. A backward pass assigns owners; conflicting producers become committed units; dead gates join their producer's unit or head their own. Units are numbered as created.
+  5. **Units** are numbered by Call, then within the Call's cut. `Partition.locate(i)` bisects the Calls' prefix sums, then descends through a separable cut.
+  6. **The committed set is derived:** a value is committed exactly when a unit other than its producer's reads it, or it is returned.
+- **`verify(obj, program, served=None)`:** runs `validate`, checks the program digest, evaluates, and per Definition applies `check_cut`:
+  - the invariant, via `partition.validate_unit_cut`;
+  - the width rule in bits (ob ≤ X, or og = 1 and ob ≤ W), code `unit-too-wide`;
+  - `served` is held to the derived set (`committed-unread`, `read-uncommitted`, `output-uncommitted`).
+- **`validate`:** exactly `format`, `program`, `query`; the query a known (name, version) with exactly its parameters, each a positive int.
+- **Versioning:** any change to the query's behaviour bumps its version.
+- **Pinned vector:** `packages/verity/tests/ir/partition_vectors.json`, checked by `test_the_pinned_vector_bytes_in_graph_and_partition_out`.
+  - It holds a six-Call program's descriptor bytes: wiring, a two-unit output, a same-unit recompute, a separable batch, constants, and a committed interior value with a dead gate.
+  - For each Call it gives the graph (`total`, `structure`, `n`, `keep`, `width`, `prim`, `src`, `dst`, `input_reads`, `outputs`, `returned_inputs`, `recomputed`), then `owner`, `units` and `committed`.
+  - It also gives the object and its digest `0eb7a6d3…`, the owners digest `555cd351…` (`SHA-512("verity/partition/v1/owners\0" ‖ canon([[call, owner], …]))`), and `locate` for every unit.
+  - The test decodes the bytes alone (`codec.decode_program`) and checks every field.
+- **Scale:** evaluation time and peak memory with core's stdlib evaluator on one CPU, against the program's serialized size (its instance sequence).
+  - #101: 333 distinct specializations in 41.5 s (1.3 GB peak), giving 273,995,039 units, equal to the program graph's count. The program is 41.6 MB of instance JSON (1.6 MB gzipped, r19 Build).
+  - #74's largest request Program: 1,167 distinct specializations in 664 s (1.3 GB peak), giving 5.44 G units. The program is 1.84 GB of instance JSON (121 MB gzipped).
+  - Most of the time goes to one flat attention-head cut per T.
+
+**Not yet specified tightly enough to port** (the codec and layout are defined by code, not a written spec):
+
+1. **Descriptor schema v1.** `codec.py` cites `docs/vllm-poc/descriptor-codec.md`, which isn't in the repo. The v1 features are defined only by code:
+   - the interned `callees` and `types` tables;
+   - the `{"alias": [k, a]}` reference-sequence alias;
+   - flat concatenation splicing.
+2. **Canonical JSON.** It is Python `json.dumps(sort_keys=True, separators=(",", ":"), ensure_ascii=True)`, with no written rules for escaping, number form (ints only) or key order (code-point order). The codec's own docstring says it isn't a frozen external spec. Lean hashing the exact bytes it receives is safe; re-serializing isn't, until this is written down.
+3. **Reference sequences.** The JSON forms (`affine`, `strided`, `explicit`, `concat`), `Strided`'s zero-stride broadcast, and `refs.runs` / `intervals` (used by `separable`) exist only in `refs.py` and `intervals.py`.
+4. **Canonical layout.** Defined only in `layout.py`:
+   - gate numbering of the root: Input nodes first, then the program function inlined into the root by `program._lower_root`;
+   - `body.offsets`;
+   - batch member layout, and one gate per primitive member;
+   - scan node layout;
+   - `resolve` of `("p", …)` refs through scopes and of `("n", k, leaf)` through a callee's returned refs, including parameter pass-through.
+5. **Input nodes.** They are recognised by the decoded primitive's `family == "Input"`, which comes from the registry, not the descriptor. Lean needs the rule: ids `Input<w>_v1`.
+6. **`WIDE_FAN_IN = 4096` and `_wide_operands`.** A layout constant plus a performance special case changes the graph: a wide gate's outside operands aren't listed and it never matches a recompute. It is pinned in Q_word v1, but it should go when the query is next revised (v2).
+7. **`WIRING`** is a pinned id list: `Bf16ToF32_v1`, `F32BitsShl23_v1`, `F32Fabs_v1`. Its bit-rearrangement property is checked by a vLLM test on the registry, not derivable from the descriptor.
+8. **`n_members` and `axes`** for batch and scan nodes (`parts.n_members`).

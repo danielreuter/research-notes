@@ -5,6 +5,7 @@ created: 2026-09-27T01:08Z
 status: open
 ---
 
+CHECKPOINT 91ceb79e (05:56Z) [open] #111 @ 034ca061 partition/v1 = Q_word v1 query (236 B object), core evaluator + vector; #101 41.5 s, #74 largest 664 s
 CHECKPOINT 91ceb79e (05:17Z) [open] #111 @ 7ddb7cca partition/v1 amended (cuts by content, no units/committed); sizes #101 858 MB, #74 up to 12.4 GB/Program (attention per-T cuts)
 CHECKPOINT 91ceb79e (04:50Z) [open] PR #111 partition object v1 + verity.ir.cut (stacked on #98), nothing moves; handoff 05:20Z
 CHECKPOINT 91ceb79e (02:43Z) [open] #98 d7f76916 (cross-call + unit_rule members: #74 FP8 581k Calls; #57 Gemma w+1 102.6M gates), #99 13c294d6, #103 cbe3db97, #101 merged; graphs art:c74deac4, cross art:e8b4aada; handoffs sent
@@ -49,3 +50,12 @@ CHECKPOINT 91ceb79e (01:08Z) [open] PR #98 cross-call check (Gemma #57: 5,460 du
 - Sizes (evidence/po_size.py, po_size_rows.py; within 0.6% of exact): #101 858 MB (indexed classes 244 MB); #74 per request Program
   317 MB-12.4 GB, all 8 LP Programs 30.8 GB (9.4 GB indexed). Driver: attention's one cut per T (quadratic in context); classes 131 B/unit.
 - Spec amendment: internal/lanes/flock-verifier/20260927T0520Z-amendment-partition-object-v1.md (the verifier's note left unedited).
+
+## partition/v1 = named query (06:10Z; Daniel 05:28Z)
+
+- #111 @ 034ca061: object {format, program, query: Q_word v1 {X, W}} (236 B); core evaluator verity.ir.cut (CallGraph with interned ids,
+  cut_word, separable shortcut, evaluate_definition; algorithm in its docstring); partition_object.evaluate / Partition.locate / verify
+  (served); word.partition delegates to core; with_word_rules byte-identical on #101 #74 #73. Vector: tests/ir/partition_vectors.json
+  (descriptor bytes -> graphs + owners; object digest 0eb7a6d3..., owners digest 555cd351...).
+- Eval (evidence/eval_time.py): #101 333 specs 41.5 s, 274.0 M units (= graph); #74 largest Program 1,167 specs 664 s, 5.44 G units,
+  program 1.84 GB JSON / 121 MB gz. Portability gaps listed in the flock-verifier amendment note.

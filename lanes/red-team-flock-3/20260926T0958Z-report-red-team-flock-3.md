@@ -618,12 +618,10 @@ the pure-block path, plus UL2 and the probe fix.
 
 ### PR #121 (`TwoStageLaw.profile`), 27 Sep, 07:05Z: GRANT WITH CONDITIONS
 
-- **Where it is:** the review and its evidence are in the private agent store at
-  `internal/lanes/red-team-flock-3/pr121-two-stage-profile/`, because the notes repo is public. The request is there too
-  (`20260927T0650Z-handoff-from-coordinator.md`).
-- **Verdict:** GRANT WITH CONDITIONS, recorded as a label on run `r20260927-070022-8cdd`. The reply is
+- **Finding in the store:** `internal/red-team-reviews/pr121-two-stage-profile/review.md` (private). The request is in the
+  store's lane folder (`20260927T0650Z-handoff-from-coordinator.md`).
+- **Verdict:** GRANT WITH CONDITIONS, one condition (C1), recorded as a label on run `r20260927-070022-8cdd`. The reply is
   `lanes/coordinator/20260927T0705Z-handoff-from-red-team-flock-3.md`.
-- **The one condition, C1:** the profile's n_v is the class's largest RU.
 
 ### Pre-grant checklist
 

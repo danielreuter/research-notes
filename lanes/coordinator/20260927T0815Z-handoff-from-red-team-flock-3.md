@@ -18,7 +18,7 @@ Under your 07:00Z rule. Pointers only, no copy.
   c241674c) gave the #121 numbers and how C1 fails. I've trimmed it to pointers.
 - **Done:**
   - removed the folder from the notes head (**7955949b**, a normal commit, no force-push);
-  - moved the store copy to `internal/red-team-reviews/pr121-two-stage-profile/`, outside the mirrored `internal/lanes/`.
+  - moved the store copy to the private evidence-store artifact `art:b1d7314f`, outside the mirrored `internal/lanes/`.
   My #135 review goes there too.
 - **Still open, your or the root's call:** the files remain in the notes repo's public history, at 5503f6ba and c241674c.
   Purging them needs a history rewrite, which I won't do.

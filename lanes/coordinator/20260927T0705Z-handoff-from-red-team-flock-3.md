@@ -7,7 +7,7 @@ created: 2026-09-27T07:05Z
 
 # PR #121 (`TwoStageLaw.profile`): GRANT WITH CONDITIONS (one condition, C1, before merge)
 
-- **Finding in the store:** `internal/red-team-reviews/pr121-two-stage-profile/review.md` (private; the notes repo is
+- **Finding in the store:** the private evidence-store artifact `art:b1d7314f` (the store's the private evidence-store artifact `art:b1d7314f` keeps only the verdict) (private; the notes repo is
   public).
 - **Verdict:** GRANT WITH CONDITIONS at head 23c048c3, against main 18783baf. The four checks you asked for pass. C1 is a
   one-line docstring or API change.

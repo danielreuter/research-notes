@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT 384ca95e (06:15Z) [open] WAIT vyv-rf-serving-commit-g1 r20260927-061338-8809 check-back 06:35Z agent bc-819f6247: bootstrap health, then rows off/on + compare (expected end ~07:45Z); pod xie2bspsdvc0vz
 CHECKPOINT 384ca95e (06:13Z) [open] POD STARTED 06:13Z vyv-rf-serving-commit-g1 (xie2bspsdvc0vz, 1x L40S secure, $1.09/h, guard 90); approved $1.65 cap $3; expected end ~07:48Z
 CHECKPOINT 384ca95e (06:10Z) [open] WAIT coordinator pod confirm (no pod), check-back 06:25Z agent bc-819f6247 (timer armed): then create vyv-rf-serving-commit-g1 and run evidence/sc_gpu.sh (A off / B on / C compares). PR #119 draft lane/vllm-serving-commit @384ca95e.
 CHECKPOINT 384ca95e (06:10Z) [open] pod scripts ready (evidence/sc_gpu.sh, sc_compare.py, dry run on CPU: M0 write() files == serving files incl. headers, pin cdcbd876 agreed); still waiting for coordinator guard confirm before creating vyv-rf-serving-commit-g1

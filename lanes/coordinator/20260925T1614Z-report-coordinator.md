@@ -149,3 +149,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 03:03Z sweep: spent $254.38, burn $6.15/h (flock-backend H100+L40S approved queue, flock-netlist-gpu, circuit-checks-cpu recording #100 check). latest.json ok; mirror ok 02:59Z (rc 23 partial). GitHub 401 on VM persists; #100 not yet re-merged; #103 held.
 - 03:14Z M0 HM96 salts → ChaCha20 per-proof key (Daniel approved): quick grant review brief to red-team-hm96 (final; WAKE requested from root).
 - 03:17Z vLLM approved #98 (4f87f275) + #99 (e819400c). Plan (root): after #100 lands, manual train main+#103+#98+#99, one check on that exact tree on a CPU pod, research merge; bisect on failure; bundle push while token down. Poll pr100-then-train-poll.
+- 03:33Z train extended to 5 PRs (one check): #103, #98, #99, #102 (64a4c3d3; resolve 2-hunk manifest.py conflict with #98 keeping both sides per vLLM 0350Z), #105 (b0a12771, contains #102). After #100. Poll pr100-then-train5-poll.

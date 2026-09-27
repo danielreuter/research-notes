@@ -5,6 +5,8 @@ cursor:
 
 lane: red-team-hm96 · kind: report · status: final · created: 2026-09-26T21:40Z · repo: danielreuter/verity · origin: PR #88 @ f1df809f
 
+CHECKPOINT (03:29Z) [final] PR #83 @ b32e1a7b (M0's ChaCha20 hm96 salts): GRANT WITH CONDITIONS. C1 before M1's masks: the prover
+checks both reps' level-0 roots before any proof leaves (F1). art:145996e9; `finding` label on r20260927-022832-8b16.
 CHECKPOINT (22:56Z) [final] PR #93 @ cd00f704: GRANT WITH CONDITIONS. C1: the Hashes lines of frame-v3 §6 and vllm-v1 §10 must
 name the SHA-256 identity and domain digests (F1). C2: Daniel decides whether E4 extends to them. #88's C1 holds. art:29dc2ccb.
 CHECKPOINT (21:40Z) [final] PR #88 @ f1df809f: GRANT WITH CONDITIONS. C1: hm96 must fail closed off the host path (F1, medium).
@@ -73,3 +75,29 @@ artifacts: art:29dc2ccbbe75c4e9bc43caa720e1636795e2ed34f81b0d1915e2572be4f7cf95
 
 **Labels:** `finding` by red-team-hm96 on `r20260926-221723-71aa`, `r20260926-221754-0cce`, `art:b9bb217f` and `art:a7a8ccce`, all
 with ref `art:29dc2ccb` and written through to R2.
+
+## Follow-up: PR #83 @ b32e1a7b (M0's hm96-sha512 salts from ChaCha20 under a fresh per-proof OS key)
+
+The verdict and findings are in `lanes/coordinator/20260927T0329Z-handoff-from-red-team-hm96.md`.
+
+- **How it ran:**
+  - a code read of the single commit `b32e1a7b`, in a throwaway worktree at `/tmp/rt83`;
+  - M0's note, which is only on the notes remote, read from a shallow sparse clone;
+  - `evidence/chacha_salts_check.py`, which compares M0's Rust and device ChaCha20 (extracted verbatim, built with rustc and
+    g++), an RFC 7539 implementation and OpenSSL;
+  - M0's L40S selftest results, read from run `r20260927-022832-8b16`.
+- **Handoffs received:**
+  - `lanes/red-team-hm96/20260927T0312Z-handoff-from-coordinator.md`, the brief;
+  - `lanes/red-team-hm96/20260927T0235Z-handoff-from-flock-netlist.md`, M0's note, on the notes remote.
+
+  Both were acted on in full.
+- **Handoffs sent:** `lanes/coordinator/20260927T0329Z-handoff-from-red-team-hm96.md`. It asks the coordinator to forward C1 to
+  flock-netlist.
+
+~~~text
+tip: none, review only (target cursor/flock-netlist-m0-4d6a @ b32e1a7b)        merge-with: none
+known-failures: none    pod: none (CPU only); $0
+artifacts: art:145996e9c209ca518420a7c98f46094750bf652887116fa4152cd5382176786c
+~~~
+
+**Label:** `finding` by red-team-hm96 on `r20260927-022832-8b16`, with ref `art:145996e9`, written through to R2.

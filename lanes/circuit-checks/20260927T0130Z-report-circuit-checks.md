@@ -1,8 +1,10 @@
 ---
 cursor:
   subagentId: "bc-1122c760-f885-5784-9390-5ce3f09d4d78"
+status: open
 ---
 
+CHECKPOINT fe196b6c (07:46Z) [open] READY draft #134 (fast check, stacked on #100): parallel + exact-input caches + trains + lean-agreement required for backends/flock/ on stored upstream build art:5a3f8e47; cold 21.8 min, warm 0.9 s / 2.7 min, train of 3 5.6 min; next: retarget after #100, re-pin for #118; agent bc-1122c760
 # circuit-checks: report
 
 Lane `circuit-checks`, cloud agent bc-1122c760. The code is in [PR #100](https://github.com/danielreuter/verity/pull/100), branch `cursor/circuit-checks-4d78` at `baab3120`. That branch has `main` at `84801045` merged in, plus PR #84 (`verity_flock.boolean_export`). No pods, $0.

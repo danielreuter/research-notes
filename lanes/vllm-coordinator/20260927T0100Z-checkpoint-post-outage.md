@@ -1,0 +1,1 @@
+01:00Z: outage check: timer vllm-sweep-cloud-2 alive (00:36Z delivery lost in outage), guard pid 346052 deadline 04:15Z untripped, spend $730.28. #95 APPROVE sent (coordinator/20260927T0100Z). moetap-g2: all runs SIGTERM'd 00:24Z, pod idle since at $2.18/h -> WAKE moetap. cross-call-check: + guard label addendum.

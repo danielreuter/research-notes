@@ -8,9 +8,9 @@ Program's own inputs only: the request's prompt ids (WORKLOAD) and the weights c
 activation, `x_s` included, is the Program's.  The first S engine steps are evaluated (default: all).
 
 At every `ScaledMmFp8Block_v1` Call:
-  products    the host-computed products `P[nb, kb] = x_s[kb] * w_s[nb, kb]` in numpy float32 (how the serving committer would compute the
-              committed words) against the old construction's `F32Mul_v1(sx[kb], sw[n // G][kb])` at EVERY output coordinate n and kb:
-              the plain-integer reference (`F32Mul_v1.evaluate`) on each coordinate's operand pair
+  products    the host-computed products `P = fp8.scale_products(x_s, w_s)` (the committer's words, through the IR's F32Mul_v1) against
+              the old construction's `F32Mul_v1(sx[kb], sw[n // G][kb])` at EVERY output coordinate n and kb: the plain-integer reference
+              (`F32Mul_v1.evaluate`) on each coordinate's operand pair; a bare numpy float32 multiply is counted beside it for information
   coordinates C sampled output coordinates per Call (every coordinate on the Calls of the layers in --all-coords-layers, first
               step): the old coordinate `ScaledMmFp8BlockCoordinate_v1{K,G}` evaluated gate by gate (`evaluate_call` with its
               transcript), whose own F32Mul gate values must equal P[n // G], whose output must equal the row kernel's; and the new
@@ -204,12 +204,15 @@ def main():
         xq, sx = (np.concatenate(inputs[0]), np.concatenate(inputs[1]))
         w, ws = wsl[2].reshape(N, K), wsl[3].reshape(N // G, K // G)
         y = outs[i][0]
-        host = (sx.view(np.float32)[None, :] * ws.view(np.float32)).view(np.uint32)            # [N/G, K/G], numpy float32
+        host = F8.scale_products(sx, ws)                                                        # [N/G, K/G]: the committer's words
         pairs = {(int(a), int(b)) for a, b in zip(np.broadcast_to(sx[None, :], ws.shape).reshape(-1), ws.reshape(-1))}
         ref = {ab: f32mul_ref(*ab) for ab in pairs}
         ref_blk = np.vectorize(lambda a, b: ref[(int(a), int(b))], otypes=[np.uint32])(np.broadcast_to(sx[None, :], ws.shape), ws)
         blk_mismatch = int((ref_blk != host).sum())
         coords_eq = int((ref_blk == host).sum()) * G                                            # every coordinate n of block nb reads row nb
+        with np.errstate(all="ignore"):
+            npmul = (sx.view(np.float32)[None, :] * ws.view(np.float32)).view(np.uint32)
+        tot["numpy_array_multiply_differs"] += int((npmul != host).sum())                       # informational: the bare numpy path
         layer = int(LAYER.search(r["name"]).group(1)) if LAYER.search(r["name"]) else -1
         lin = r["name"].rsplit("/", 1)[0].rsplit(".", 1)[-1]
         full = layer in ALL_LAYERS and step == 0 and (layer, lin) not in first_step_layers_done

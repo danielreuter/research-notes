@@ -5,6 +5,7 @@ created: 2026-09-27T02:56Z
 status: open
 ---
 
+CHECKPOINT 7aeffc5d (03:47Z) [open] Gemma pushed 7aeffc5d (token back 03:44Z). #57 all 8 request Programs cross_call: recorded 44,520 dup AddScalarBf16 Calls / 102,574,080 gates -> once-rewrite 0 (evidence/cross_r57_recorded_vs_once.jsonl); #74 word A/B evidence/word_row74.jsonl; awaiting pod approval
 CHECKPOINT 7aeffc5d (03:33Z) [open] estimate sent (ls ok): internal/lanes/vllm-coordinator/20260927T0335Z-handoff-from-vllm-rf-recompute.md (CPU pod gate (b) 3 sides ~2.5h cap $2.50; optional L40S #57 Build A/B cap $1.50); GitHub token refresh asked; no pod until approved
 CHECKPOINT 7aeffc5d (03:31Z) [open] Gemma #57 committed 7aeffc5d on cursor/vllm-rf-recompute-gemma-cbba; push FAILED (GitHub App token on the VM invalid: fetch+gh 401), bundle lanes/vllm-rf-recompute/evidence/gemma-7aeffc5d.bundle; asking once for a token refresh. #57 LP31_T52 cross_call: recorded 5,460 Calls / 12,579,840 gates -> once-rewrite 0; all 8 running
 CHECKPOINT df13126f (03:24Z) [open] FP8 PR #106 (draft) cursor/vllm-rf-recompute-fp8-cbba @ df13126f; def-digest A/B main vs branch: 229 Definitions of #74/#57 Programs identical. Now Gemma #57: TargetProfile selector + norm-chain rule emits the weight-only + 1 once per norm; fold = re-baseline switch point

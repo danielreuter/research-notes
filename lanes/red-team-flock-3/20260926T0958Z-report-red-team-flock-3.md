@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (08:23Z) [final] FINAL: PR #135 @b4c9a489 GRANT WITH CONDITIONS (P1: direct the bound's rounding; checks 1 and 4 pass); PR #121 @1ed789d5 C1 met -> GRANTED (nit N1: stale beacon wording); findings in the store internal/red-team-reviews/ (private); runs r20260927-081834-33a0, r20260927-081942-7959 labelled; mirrored #121 review removed from notes head (7955949b), coordinator told; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (08:22Z) [final] FINAL: PR #135 @b4c9a489 GRANT WITH CONDITIONS (P1: direct the bound's rounding; checks 1 and 4 pass); PR #121 @1ed789d5 C1 met -> GRANTED (nit N1: stale beacon wording); findings in the store internal/red-team-reviews/ (private); runs r20260927-081834-33a0, r20260927-081942-7959 labelled; mirrored #121 review removed from notes head (7955949b), coordinator told; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (07:02Z) [final] FINAL: PR #121 (TwoStageLaw.profile @23c048c3) GRANT WITH CONDITIONS (C1: profile n_v = the class's largest RU); law holds vs adaptive prover, rate exact, bound conservative+tight (750-pt grid), vLLM LEGACY draws byte-identical, core change docstring-only; label on r20260927-070022-8cdd; details in the agent store internal/lanes/red-team-flock-3/pr121-two-stage-profile/; reply lanes/coordinator/20260927T0705Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (05:17Z) [final] FINAL: 9 total-unit L40S cells (852816d6) all NON_ZK_PROOF (282/282 sessions replayed, digests, instance regen, PB1-PB4) + shared-NAT placement verified from the runs' probes (U3 pod id 3-way, S1 bare metal, U2, S3, R1, assess clean); retry-until-pass OBJECTED: IX1 keep/link every attempt, IX2 median of 3 after a failure, IX3 fix the check's RTT input, IX4 the retried cells accepted with history disclosed (published figure within 0.4%); 40 labels (3 refused attempts incl. K2048 r20260927-022036-c6b1 on the earlier pair); reply lanes/coordinator/20260927T0515Z; run r20260927-044853-f250; $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -633,6 +634,10 @@ the pure-block path, plus UL2 and the probe fix.
 - **Reply:** `lanes/coordinator/20260927T0825Z-handoff-from-red-team-flock-3.md`.
 - **Containment (08:15Z):** my first #121 review had been mirrored from the store's `internal/lanes/` to these notes. I
   removed it at head and told the coordinator, with pointers (`lanes/coordinator/20260927T0815Z-handoff-from-red-team-flock-3.md`).
+- **Handoffs answered:**
+  - `20260927T0700Z-handoff-from-coordinator.md` (the notes repo is public): followed. Sensitive findings now live in
+    `internal/red-team-reviews/`, notes carry pointers, and the earlier exposure is reported in the 0815Z note.
+  - `20260927T0810Z-handoff-from-coordinator.md` (#135, and C1 on #121): answered in the 0825Z note.
 
 ### Pre-grant checklist
 

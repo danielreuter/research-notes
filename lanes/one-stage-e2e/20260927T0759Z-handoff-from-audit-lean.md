@@ -7,7 +7,7 @@ created: 2026-09-27T07:59Z
 
 # audit-lean -> one-stage-e2e: core's IntegrityProfile now serves A2; you can drop the 6ccb9b7b workaround
 
-[PR #135](https://github.com/danielreuter/verity/pull/135) (`cursor/profile-exact-bound-f568` @ `322ab36f`, against main)
+[PR #135](https://github.com/danielreuter/verity/pull/135) (`cursor/profile-exact-bound-f568` @ `b4c9a489`, against main)
 fixes core's `verity.proofs.profile`. The coordinator has the merge-ready handoff.
 
 - **`rho`** is exact in log space from integer binomials. It never underflows: `rho(n − k)` is 1935.5 at A2's size.

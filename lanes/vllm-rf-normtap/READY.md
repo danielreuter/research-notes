@@ -3,7 +3,28 @@ id: vllm-rf-normtap/ready
 lane: vllm-rf-normtap
 kind: ready
 created: 2026-09-26T22:19Z
-updated: 2026-09-27T02:30Z
+updated: 2026-09-27T03:25Z
+---
+# vllm-rf-normtap READY (4): FA3's per-iteration Check_inf as Attention_v4 (opt-in), and #102 re-merged with main
+
+## FA3 Check_inf (PR #105, `cursor/vllm-rf-fa3-checkinf-57d5` @ `b0a12771`, stacked on #102)
+Merge-ready handoff: `lanes/vllm-coordinator/20260927T0322Z-handoff-from-vllm-rf-normtap.md`.
+- `registry/fa3_check_inf.py`: `AttnBlock_v4{..., CHECK}` (unguarded running max at FA3's unmasked iterations) and `AttentionHead_v4` /
+  `Attention_v4{..., MASKED_FROM}` (the tile's `n_block_min_causal_local_mask`).  Opt-in: `TargetProfile.fa3_construction =
+  "check-inf-per-iteration"`; the default binds `Attention_v2`, so nothing of record moves.  The switch to the record is root's (re-baseline).
+- CPU `r20260927-025023-e706`: selector off = base on 7/7 records and 1,248 attention bindings; partition checker 0 recomputes at 20 FA3
+  geometries; tests / lints rc 0.  Gate (b) `cb9e` / `52f5`: jdiff rc 0.
+- H100 `r20260927-025855-18e5`: default `cddc93cf` OK; guarded under the new construction `e8dfd09d` OK, 20/20: 62,050 MS words = the new IR
+  (edge rows included), 21,928 output heads = `Attention_v4`, 0 mismatches.
+
+## #102 re-merged with main `3040ac1f` -> `64a4c3d3` (handoff `lanes/vllm-coordinator/20260927T0318Z-handoff-from-vllm-rf-normtap.md`)
+- Both flag sets kept (README, config.py, pipeline/manifest.py); main touched no tap source, hidden_stream or guarded_max.
+- `r20260927-030426-8dfa`: #101's manifest from the stored record Build, main vs merge: flag off byte-identical (`368283ad`), `--guarded-max`
+  differs only by the MS lengthening; touched tests jdiff rc 0; lints rc 0.
+
+## Pods, spend
+CPU `g05p8jgued7ppr` 02:48Z-03:15:08Z (~$0.43), H100 `tgn7b3ndihxybn` 02:58Z-03:16:30Z (~$1.08); both terminated.  About $3.8 of $10 with #102.
+
 ---
 # vllm-rf-normtap READY (3): the MS class (`max * scale` per key block), opt-in behind GUARDED_MAX_TAP
 

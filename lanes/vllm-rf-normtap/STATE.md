@@ -1,18 +1,19 @@
 # vllm-rf-normtap: STATE
 
-Agent bc-12c2f2d9 (cloud).  Norm-scale taps (PR #90) and the guarded max (PR #95) are merged (main 84801045).  The MS class (PR #102) is
-merge-ready.  Next: FA3 `Check_inf` per iteration in the IR (handoff `internal/lanes/vllm-rf-normtap/20260927T0200Z-handoff-from-vllm-coordinator.md`),
-CPU first; an estimate before any H100 (root approves).
+Agent bc-12c2f2d9 (cloud).  Norm-scale taps (PR #90) and the guarded max (PR #95) are merged.  The MS class (PR #102, re-merged with main
+3040ac1f at 64a4c3d3) and FA3's per-iteration Check_inf (PR #105 at b0a12771, stacked on #102) are merge-ready.  No pods.
 
-## FA3 Check_inf per iteration (follow-up to #102): STARTING (CPU)
+## FA3 Check_inf per iteration (PR #105, branch cursor/vllm-rf-fa3-checkinf-57d5 @ b0a12771): DONE, merge-ready
 - The fix: a new FA3 block Definition with a per-iteration `CHECK` static (true on the first block and on the causal-masked iterations,
   false on the unmasked ones) that mirrors `max_get_scale` / `fwd_step` for both the max it uses and the rescale; the head derives each
   block's class from the launch geometry (the kernel's `n_block_min_causal_local_mask`).  Opt-in construction selector, default the
   current `AttnBlock_v2` chain; with it off no digest moves.  The re-baseline switch is root's.
-- Acceptance: CPU tests; partition checker 0 recomputes, units <= 32 bits; FA3 exactness: every MS word and output = the new IR,
-  edge rows included (H100 ~30 min, ~$2, after root approves the estimate).
+- Acceptance met: CPU e706 (selector off = base, 7/7 records + 1,248 bindings; partition 0 recomputes at 20 geometries; tests / lints rc 0),
+  gate (b) cb9e / 52f5 jdiff rc 0, H100 18e5 guarded `e8dfd09d` OK (62,050 MS words and 21,928 output heads = the new IR, edge rows incl.).
+- Handoffs: merge-ready 20260927T0322Z; the #102 re-merge 20260927T0318Z.  Coordinator: 0200Z (the task), 0310Z (re-merge, pre-approval).
+- Pods: vyv-rf-normtap-c1 g05p8jgued7ppr (CPU, $0.96/h) 02:48Z-03:15:08Z; vyv-rf-normtap-h3 tgn7b3ndihxybn (H100, $3.49/h) 02:58Z-03:16:30Z.
 
-## MS class (branch cursor/vllm-rf-ms-plane-57d5, from main 84801045): DONE, merge-ready (PR #102, draft)
+## MS class (branch cursor/vllm-rf-ms-plane-57d5 @ 64a4c3d3 = 40ec2e13 + main 3040ac1f): DONE, merge-ready (PR #102, draft)
 - Head `40ec2e13` (67516cfa kernels + builds, 06485b76 host + property + tests, 40ec2e13 the X-03 policy record with the flag off).
 - Handoffs: finding 20260927T0152Z (FA3 IR Check_inf), merge-ready 20260927T0228Z.  READY.md (3).
 - Coordinator handoffs for this task: 0015Z (superseded by 0030Z), 0020Z (GO, $10, guard 04:15Z), 0030Z (the MS design), 0135Z (terminate the

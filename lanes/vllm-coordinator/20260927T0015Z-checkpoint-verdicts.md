@@ -1,0 +1,1 @@
+00:15Z: #92 APPROVE (gate b done, pod gate92 terminated), #94 APPROVE, #96 HOLD pending moetap GPU record (conditions in vllm-rf-moetap/20260927T0015Z), #86 claims audited; normtap max_scaled -> option (a) under flag (vllm-rf-normtap/20260927T0015Z). Spend $728.08/770 @ $3.27/h (normtap-g4, moetap-g2); guard untripped, deadline 02:30Z.

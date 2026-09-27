@@ -1,0 +1,38 @@
+start 2026-09-27T03:05:38Z source 11d453e0c9272d15adb30ec11b4c96a0f1ec2d49
+bootstrap rc 0 2026-09-27T03:12:14Z
+BOOTSTRAP-OK
+verity_sampled_proofs ok
+row 101 build rc 0 2026-09-27T03:14:28Z
+precheck PASS 2026-09-27T03:12:14Z source identity == /workspace/research/src/11d453e0c9272d15adb30ec11b4c96a0f1ec2d49/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-27T03:12:16Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+build PASS 2026-09-27T03:14:27Z rc=0/0 wall=109s digest=03ace66f1c80b04a workload_digest=a2b43bde001d335a manifest=90f8186879d5035a 7043
+17M	/workspace/research/runs/r20260927-030516-24a5/builds/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager
+build_request ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b
+OK #101 == ccc21347
+graph 101 rc 1 2026-09-27T03:14:28Z
+row 4 build rc 0 2026-09-27T04:41:25Z
+precheck PASS 2026-09-27T03:14:28Z source identity == /workspace/research/src/11d453e0c9272d15adb30ec11b4c96a0f1ec2d49/integrations/vllm (verity verity_vllm hidden_gpu research)
+precheck-target PASS 2026-09-27T03:14:30Z TARGET-FAMILY-OK row=l40s(8.9) declared=? device=8.9 built=?
+build PASS 2026-09-27T04:41:25Z rc=0/0 wall=4476s digest=476536f3d6f22256 workload_digest=801635556bb6f3c9 manifest=3bbd860fc2d376dd 246503
+803M	/workspace/research/runs/r20260927-030516-24a5/builds/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager
+build_request aadcc2386c7949a0db92aa8ff94bab4abb56aa8ed45591e630be5d8078844a9a
+build_request_LP1024_T40 95e28966105e785e1a8481553ec33aaa0f259f399755fce52333218058ec7181
+build_request_LP11_T6 019a36d5c9ab771c51e933cee342d992cd286763b271cad427603770eca60aad
+build_request_LP139_T10 c437a9a2bcac47a4505a491c644012859905b361ad1dead2838ba5b297cd756d
+build_request_LP15_T32 71f4df885f96ea993671e9b317d88470bf1b17892007c83b777a9ddeed56d024
+build_request_LP17_T127 e40cfbe6bc6c97b830104bd033dd7e7230b2abc3ccdbdf52c5bdc11ac58cc1a6
+build_request_LP205_T94 414ab20439630db753308cd6aca2f6402c93475ba73858885231fdb8c9a29877
+build_request_LP29_T14 ab992c456670fcbb3e1561d415e1f45182739d87f3db8e307886e87f490f4977
+build_request_LP345_T62 3103a668c4f91db70d452c989ddf0fd0174f80c5a64f472aac95e729115e17e6
+build_request_LP35_T110 86343a4754928606be821c108422d2e3eaa098920684e48940ff74dbcc285bfd
+build_request_LP411_T1 be70dd3398d510c5017e0ea2ca82ee3bd5d3590eb56c2e853ba4dfa5a7a8cf0f
+build_request_LP425_T74 5fc4194a7445e7c1076e0eee5225a10ad4db741582b6a6dd742b14ae3e7991b4
+build_request_LP65_T4 0fb1c83063a8a13012454d68d44f4e6825cb426b17a69ca16a9fe6decc8bc241
+build_request_LP671_T38 967e1fb343b07b493ee78d6e910625d25d1b6dae6cfe645f6ccfaaaeda208b03
+build_request_LP771_T12 8c91bfbb8e24f24fed570e9c02b64ca1c24385b843307207e49d9c8e88e580dc
+build_request_LP775_T22 1434f2c0863fd86679a187f3f1bcfdd8c3fd9f6bcac8fc8c2ac6cf6d2334fc24
+build_request_LP79_T2 41ee8eec9c0180034494cf4d4e431995f40b650de248312b427506a1127e2bf3
+#4 request Programs: 17 built, 16 recorded, 16 match, missing []
+{"out": "/workspace/research/runs/r20260927-030516-24a5/program-graphs/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.program.json", "bytes": 1391334, "programs": 16, "modules": 367, "groups": 304, "edges": 424, "largest_fold": 60}
+graph 4 rc 0 2026-09-27T04:44:33Z
+SV-BUILD-DONE 2026-09-27T04:44:33Z

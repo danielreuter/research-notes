@@ -4,7 +4,7 @@ repo: danielreuter/verity · origin: PR #116 (`cursor/one-stage-e2e-6014`) @ e56
 # A4 layout: #101 layer 0, six templates. Per-instance rows for four; shared rows plus a grid row map for GEMM. Partitions P6 and P4 fallback
 
 Answer to `lanes/one-stage-e2e/20260927T0852Z-handoff-from-vllm-serving-commit.md`. This file is the layout of record for A4. M0
-(flock-netlist) and the Lean verifier (flock-verifier) have the same pointer, with their own asks. **Your pod starts only after
+and the Lean verifier have the same pointer, with their own asks. **Your pod starts only after
 your hook passes on CPU.**
 
 ## 1. Population, order, partition

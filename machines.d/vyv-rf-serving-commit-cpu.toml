@@ -1,0 +1,7 @@
+# machine vyv-rf-serving-commit-cpu: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "gckublhmo7yzhh"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-27T07:16Z"

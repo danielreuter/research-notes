@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: flock-verifier
 ---
 
+CHECKPOINT 6f9df45a (20:32Z) [open] pod vy-fv-core-gemm in use under the coordinator's vy-fv- fleet guard ($3, 21:45Z) and my own ($2.94): Gemm K=8192 and N=16384 agree in core; the LM-head is running (29 GB at 20:31Z); I terminate on finish
 CHECKPOINT 6f9df45a (20:24Z) [open] pod vy-fv-core-gemm in use ($0.27 of $2.94): core agrees with Lean on Gemm K=8192 and N=16384; the LM-head Gemm is running (about 216 GB, done about 20:53Z)
 CHECKPOINT 6f9df45a (20:14Z) [open] pod vy-fv-core-gemm (cpu3m x32, own guard cap $2.94 of the approved $3) in use for #176's core Gemm check; the vy-flock-verifier guard on vy-control tripped at its 15:00Z deadline and reaps that prefix
 CHECKPOINT 6f9df45a (20:09Z) [open] pod vy-flock-verifier-core-gemm (cpu3m x32, guard cap $3) in use: core check_cut on #101's three largest Gemms for #176; do not reap

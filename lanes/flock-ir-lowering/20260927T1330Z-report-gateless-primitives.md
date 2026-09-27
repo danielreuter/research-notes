@@ -9,9 +9,8 @@ lane: flock-ir-lowering · kind: report · created: 2026-09-27T13:30Z · for: co
 
 ## Summary
 - **Before (the 08:00Z export):** 22 primitive families had no gates, on 12 of the 13 rows.
-- **Now:** every one of them is lowered except the MoE expert gathers `GatherBf16x64` / `GatherBf16x128` (rows #67, #68, #70, #75). Each circuit is bit-exact against its IR primitive.
-- **Exact headlines:** nine rows have no gateless primitive left, so their headline sizes are exact instead of lower bounds (table 2).
-- **Open question:** are the gathers a commitment opening of the committed expert weight bank, like the embedding's row gather? Or are they a circuit? As circuits they would be about two thirds to four fifths of those four headlines.
+- **Now:** every one of them has a circuit, bit-exact against its IR primitive, except the MoE expert gathers `GatherBf16x64` / `GatherBf16x128` (rows #67, #68, #70, #75). Those are commitment openings, by the coordinator's 13:25Z decision (§4, for Daniel to confirm).
+- **Exact headlines:** all 13 rows have an exact headline once the export regenerated at 13:43Z is published. Nine rows were already exact at 13:00Z (table 2).
 - **Where it lives:**
   - [PR #125](https://github.com/danielreuter/verity/pull/125): the keep word;
   - [PR #140](https://github.com/danielreuter/verity/pull/140), stacked on #125: the rest;
@@ -35,8 +34,8 @@ Instances are word gates executed per row. "Share" is the primitive's ANDs over 
 | `F32Sub_v1` | #67 1.02e+07, #68 1.03e+07, #70 4.28e+06, #75 7.13e+06 | 781 | #67 <0.01%, #68 <0.01%, #70 <0.01%, #75 <0.01% | lowered, PR #140 |
 | `F32ToE4m3Sat_v1` | #74 2.75e+09 | 231 | #74 <0.01% | lowered, PR #140 |
 | `Fa3InvSum_v1` | #73 4.26e+06, #74 4.65e+06 | 41,542 | #73 <0.01%, #74 <0.01% | lowered, PR #140 |
-| `GatherBf16x128_v1` | #75 7.18e+14 | 2,032 (est.) | #75 79.51% | not yet lowered (open question, §4) |
-| `GatherBf16x64_v1` | #67 5.46e+15, #68 5.54e+15, #70 1.15e+15 | 1,008 (est.) | #67 65.99%, #68 65.99%, #70 65.88% | not yet lowered (open question, §4) |
+| `GatherBf16x128_v1` | #75 7.18e+14 | 2,032 (est.) | #75 79.51% | commitment opening (§4) |
+| `GatherBf16x64_v1` | #67 5.46e+15, #68 5.54e+15, #70 1.15e+15 | 1,008 (est.) | #67 65.99%, #68 65.99%, #70 65.88% | commitment opening (§4) |
 | `GeluTanhMulBf16_v1` | #57 9.94e+08 | 3,260 | #57 0.07% | lowered, PR #140 |
 | `HopperE4m3QgmmaDot32_v1` | #74 2.24e+15 | 6,799 | #74 79.82% | lowered, PR #140 |
 | `I32Eq_v1` | #67 8.14e+07, #68 8.26e+07, #70 3.43e+07, #75 5.71e+07 | 31 | #67 <0.01%, #68 <0.01%, #70 <0.01%, #75 <0.01% | lowered, PR #140 |
@@ -84,10 +83,31 @@ The order follows how much of the headlines each primitive covers.
   - Each is checked on 6,000 vectors with exact bits.
 - **The top-p keep word** (#101, PR #125): 1.45 × 10¹¹ ANDs, 32 calls, 3% of #101's headline. It is checked against `sampling.topp_keep` on 480 rows at V = 1,025 to 9,000 and on 12 rows at V = 128,256 (the three captured Llama rows at all six split counts).
 
-## 4. The open question: the MoE expert gathers
-`MoeExpertRow_v1` selects the routed expert's weight row out of the whole expert weight bank, one `GatherBf16x{E}` per weight element. The expert index comes from the router; the bank is a committed weight. The embedding's row gather has the same shape, and the export (with `census/subcircuits.json`) treats that one as a commitment opening, not a circuit. There are two options:
-- **An opening:** mark the gathers `commitment_opening`, as for the embedding. The four rows' headlines become exact at their current values.
-- **A circuit:** a 6- or 7-level mux tree, about 1,008 ANDs per x64 gather and 2,032 per x128. That adds about 66% (the OLMoE rows) and 80% (#75) to those headlines.
+## 4. The MoE expert gathers: commitment openings (decided 13:25Z, for Daniel to confirm)
+`MoeExpertRow_v1` computes `wrow[k] = slab[e][k]`: it selects the routed expert's weight row from the whole expert weight bank, one `GatherBf16x{E}` per weight element. The expert index `e` comes from the router, and `slab` is a committed weight. The registry calls it "the `Embedding_v1` construction with the expert axis in the vocabulary's role". The coordinator decided to follow the embedding's precedent: each gather is checked by opening the committed expert weights at the computed index, not as a circuit.
+
+- **In the export (regenerated from PR #140 at `e92c1212`, 13:43Z)**, the opening is marked on the primitive, inside the MoE template's Definition tree:
+  - each gather is a child of `MoeExpertRow_v1`:
+
+    ~~~json
+    {"commitment_opening": "GatherBf16x64_v1", "kind": "opening", "opens": {"table": "slab", "index": "e", "committed": "weights"}, "count": 2048, "reason": "..."}
+    ~~~
+
+    Here `opens` names the Definition's parameters holding the committed table and the index;
+  - each Definition above it counts its openings in `commitment_openings`, and they enter no AND or not-yet-lowered total;
+  - in `commitments.json` the gathers' pieces are `{"commitment_opening": <primitive>}`, as the embedding's are;
+  - `index.json` `commitment_openings` lists `MoeExpertRow_v1 (its Gather primitives)` beside the embedding templates;
+  - the Call-level committed tensor is the row node's `weights` input (`inputs[]`, role `weights`) that the MoE Call reads.
+- **The circuit alternative, recorded:** an E-way mux tree per weight element, 1,008 ANDs at E = 64 and 2,032 at E = 128. As circuits the gathers would add to the headlines:
+
+  | row | gathers | ANDs as circuits | added to the headline |
+  | --- | --- | --- | --- |
+  | #67 OLMoE-1B-7B | 5.46 × 10¹⁵ x64 | 5.5 × 10¹⁸ | +194% (66% of the sum) |
+  | #68 OLMoE-1B-7B | 5.54 × 10¹⁵ x64 | 5.6 × 10¹⁸ | +194% (66% of the sum) |
+  | #70 OLMoE-1B-7B, TP2 | 1.15 × 10¹⁵ x64 | 1.2 × 10¹⁸ | +193% (66% of the sum) |
+  | #75 Qwen3-30B-A3B, TP2 | 7.18 × 10¹⁴ x128 | 1.46 × 10¹⁸ | +388% (80% of the sum) |
+
+  The "66–80%" quoted earlier is the gathers' share of the headline including them. Relative to the headline without them (which becomes exact now), they would multiply these rows' sizes by about 2.9 to 4.9.
 
 ## 5. Also
 - **A finding for the vLLM coordinator:** the reference `topp_split.mask_kernel` is partial on rows where its two warp halves diverge. Details are in the store's `private/` (a pointer is in the coordinator note); nothing sensitive is here.

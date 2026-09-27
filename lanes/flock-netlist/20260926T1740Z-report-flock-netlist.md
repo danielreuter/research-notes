@@ -9,6 +9,7 @@ origin: cursor/flock-netlist-m0-4d6a
 branch: cursor/flock-netlist-m0-4d6a
 ---
 
+CHECKPOINT b32e1a7b (03:07Z) [open] hm96 salts now ChaCha20 under a fresh OS key per proof (b32e1a7b): GPU selftests all pass on L40S r20260927-022832-8b16; cost +3% (0.611->0.630 s SiLU 128 rows, same L40S); red-team note and private-recursion descriptor format sent; pod drained; next: serving row leaf
 CHECKPOINT cf4e4830 (02:10Z) [open] hm96-sha512/v1 leaves built and GPU-verified; measured +96% prover time at m=33 from OS salts (670 MB/proof) -> asked coordinator to allow device ChaCha20 salts from a per-proof OS seed; verifier lane told the hm96 proof layout; pod terminated; next: serving row leaf (SHA-512 compression slots + hm96 row unit)
 CHECKPOINT 2908d078 (01:53Z) [open] hm96-sha512/v1 Merkle leaves built (2908d078), GPU selftests all pass r20260927-012544-d134 (A6000); estimate for the multi-table glue statement sent to coordinator (about $8-12, after attention); next: hm96 cost A/B on the A6000, then the serving row leaf
 CHECKPOINT 631567f7 (01:05Z) [open] SHA-512 statement published to flock-verifier (tags, merkle_hash=2, flock-leaf/sha512-unsalted, hm96-sha512/v1 target, msg; records art:1100e385); both pods terminated via drain (all attempts preserved); next: HM96-on-SHA-512 Merkle leaves and attention in the circuit (M0 left)
@@ -269,7 +270,11 @@ flock-soundness before M1 fixes the tape.
   - The key is never reused, never written anywhere, and zeroed on drop: Rust `LeafSalts`, the FFI copy, and the C++ guard.
   - The device expands the salts inside `hm96_finish_leaves`, so none cross PCIe. The host recomputes only the opened ones.
   - The pinned `salt_source` records it, and the proof format is unchanged.
-  - Checks: `chacha20_block` matches RFC 7539; CPU selftest 26/26.
+  - Checks: `chacha20_block` matches RFC 7539; CPU selftest 26/26. GPU selftests pass every case on fused RMSNorm, RoPE and
+    SiLU on an L40S (r20260927-022832-8b16).
+  - **Cost, same L40S, SiLU at 128 rows, loopback median of 5:** 0.611 s SHA-512 unsalted (b3baabd8, r20260927-025841-1776)
+    against 0.630 s with hm96 and ChaCha20 salts (b32e1a7b, r20260927-025028-e5f0): **+3%**. Encoding and commitment go
+    from 24.0 to 31.6 ms per rep. Proofs grow 13% per rep (the opened salts).
   - Red-team note: `lanes/red-team-hm96/20260927T0235Z-handoff-from-flock-netlist.md`.
 - **Cap raised to $80 total** (02:21Z); it covers the multi-table glue statement. Order: serving row leaf, attention, then
   multi-table. Descriptor format sent early: `lanes/private-recursion/20260927T0240Z-handoff-from-flock-netlist.md`.

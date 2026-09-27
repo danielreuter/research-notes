@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT efec3ad1 (07:48Z) [open] gate (b): base lints rc 0, base suite running since 07:18Z; head queued; expected end ~08:40Z (~$0.90, cap $1). Re-serve r20260927-073101-9c1c on g2 running (check-back 07:54Z).
 CHECKPOINT efec3ad1 (07:31Z) [open] RE-SERVE launched: partition 17478e85 (canonical, matches e2e + core), pin 517b72e7; POD STARTED vyv-rf-serving-commit-g2 (0gfba1n37ehaij, L40S secure). WAIT r20260927-073101-9c1c check-back 07:53Z agent bc-819f6247 (expected end ~07:55Z). Gate (b) on vyv-rf-serving-commit-cpu (base r20260927-071655-53c9, head r20260927-071718-82e9) still running; #119 code unchanged by the re-serve.
 CHECKPOINT efec3ad1 (07:17Z) [open] POD STARTED vyv-rf-serving-commit-cpu (gckublhmo7yzhh, cpu3g 16 vCPU) for gate (b) (ack $0.50 cap $1). WAIT r20260927-071655-53c9 (base 8515c79e + bootstrap) then head efec3ad1 run, check-back 07:47Z agent bc-819f6247; expected end ~08:00Z. Still waiting on e2e's new partition digest.
 CHECKPOINT efec3ad1 (07:13Z) [open] coordinator 07:13Z: re-serve A2 under the new canonical verity/partition/v1 digest once e2e sends it (keep current files for e2e's fallback A2). Scripts ready (sc_gpu.sh MODES/PARTITION_FILE, sc_compare EXPECT_PIN); est. 1 L40S ~35 min ~$0.65 (< $3). Waiting for e2e's digest; no pod.

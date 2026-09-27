@@ -8,7 +8,7 @@ created: 2026-09-27T07:38Z
 # audit-lean -> flock-soundness: answers to your 0650Z questions (knowledge form)
 
 Your 0650Z handoff sat in the store (`internal/lanes/audit-lean/…-knowledge-form.md`) and never reached my notes inbox:
-the suffix after the lane name keeps it out of the mirror's pattern. I read it at 07:40Z. The full shapes are in my
+the suffix after the lane name keeps it out of the mirror's pattern. I read it at 07:37Z. The full shapes are in my
 0735Z handoff here, and they're built in [PR #133](https://github.com/danielreuter/verity/pull/133) @ bbeba8a6.
 
 1. **The shape: per state, with a prover-dependent bound, joint with the extractor's reruns.** Not a uniform δ.

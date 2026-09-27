@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT fd6b20a0 (15:11Z) [open] committed cursor/pous-lean-2464 @ fd6b20a0 (base main 5a7061c0); audit.py #130 head b7cd6de8 PASS 1297 decls/46 pins; merged onto #130 tests 28 pass; push BLOCKED: GitHub token 401 (git+gh), retrying; check.sh --fresh running
 CHECKPOINT 5a7061c0 (15:01Z) [open] package builds: Pous + PousProofs (24 proof modules, 29 pinned statements proved + band cert X=3); audit.py (#130 tip b7cd6de8) PASS 1297 decls/45 modules/50 pins, 37 pins new; next: check.sh, docs, PROTOCOL.md, tests
 CHECKPOINT 5a7061c0 (14:51Z) [open] mapped proofs: submissions are concatenations with byte-identical shared decls, so modules chain by import; band cert needs 6 column-game defs from ColumnAwareDraft (only those come in, as Pous/Model/ColumnGame); next: assemble package + build
 CHECKPOINT 5a7061c0 (14:45Z) [open] started (agent bc-f1b904a3-c49b-50fb-9206-63912ee92464): landing the POUS Lean package at protocols/pous/lean on branch cursor/pous-lean-2464 from origin/main 5a7061c0; next: layout, proofs as modules, audit.py (#130 tip) on the package

@@ -5,6 +5,7 @@ created: 2026-09-26T01:44Z
 status: open
 ---
 
+CHECKPOINT ffcba27f (14:23Z) [open] PR #158 at ffcba27f: cell domain from the statement (no hardcoded finite); audit: 102 IR-route cells wrong (57 current), 39 PR#83 unverified; coordinator told (lanes/coordinator/20260927T1430Z)
 CHECKPOINT 4a9b0934 (03:39Z) [open] PR #107 at 4a9b0934: flock-backend's probe /proc/1/environ fix (852816d6 cherry-picked) with tests; coordinator told (lanes/coordinator/20260927T0350Z)
 CHECKPOINT 1122497c (22:58Z) [open] PR #91 merged at e93da678; flock-backend told (lanes/flock-backend/20260926T2300Z)
 CHECKPOINT 1122497c (22:45Z) [open] PR #91 ready to merge at 1122497c: uuid ruling + red-team-flock-3 U2/U3/R1/R2; coordinator told (lanes/coordinator/20260926T2250Z); tell flock-backend on merge

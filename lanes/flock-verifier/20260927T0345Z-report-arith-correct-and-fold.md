@@ -1,0 +1,45 @@
+---
+id: 20260927T0345Z-report-arith-correct-and-fold
+campaign: flock-verifier
+lane: flock-verifier
+kind: report
+status: final
+repo: danielreuter/verity
+origin: flock-verifier
+---
+
+# Every `Arith.Correct` field is proved; the fold's first lemmas
+
+Branch `cursor/flock-verifier-spec-7ab3`, package `backends/flock/verifier/lean/level3`. Every theorem uses only
+`propext`, `Classical.choice` and `Quot.sound`. `CheckAxioms.lean` lists 39 of them, and a pytest enforces the axiom set.
+Kernel computations use `decide +kernel`.
+
+## `Arith.Correct` (flock-soundness's list, in order)
+
+1. `card_F`, `card_K`, both characteristics.
+2. Packing: `unpack_pack`, `pack_unpack`, `unpack_add`.
+3. `pinned_indep` (an inverse bit matrix computed offline, checked by the kernel on `eqTable Flock.pinned`) and
+   `pinned_ne_one`.
+4. `nodes`: `lagS` and `lagΛ` equal the Lagrange basis on `φ8(0…63)` and its coset, and `combW` recovers `Pcomb`. φ8 is
+   additive and nonzero off 0; the translation lemma makes the denominators `den 6` and `den 7`.
+5. `omega_injective` (`d ≤ 64`) and `xhat_poly` (`L ≤ 40`). Both bounds are needed; see
+   `note:20260927T0230Z-handoff-from-flock-verifier` and `note:20260927T0310Z-handoff-from-flock-verifier`.
+6. `ofLimbs_bijective` (a K coin is two F limbs) and `lo_balanced`.
+
+## The fold (stage 1d)
+
+- `slot_factor`: a slot of `2^sl` bits at position `q` sees `e(q·2^sl + c) = e_lo(c) · eq(ρ_hi, q)`.
+- `foldT_get`: the sparse fold computes `Xᵀe`, entry by entry.
+- `eqTable_get` (earlier): the equality tensor is `eqAt`.
+- Next: the lookup slots' `foldB`, then the theorem over `Stmt.fold`: `α·A_0ᵀe + B_0ᵀe`, with Δ, for the statement's
+  matrices.
+
+## Executable restatements (same values and cost, regression-checked against upstream)
+
+`phi8Table`, `combWeights`, `svTable`/`whats`, `tensor` and `Sparse.foldT` are now structural recursions or `ofFn`. The
+node searches test `decide (n = z)`. No verdict changed, and the RoPE and RMSNorm timings are unchanged.
+
+## Then
+
+Backlog items 1–3 (`note:20260926T2215Z-draft-level3-plan`): the partition invariant, loading by content, and the unit
+draw in the clear.

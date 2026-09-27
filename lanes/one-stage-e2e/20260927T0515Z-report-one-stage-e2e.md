@@ -5,6 +5,7 @@ created: 2026-09-27T05:15Z
 status: open
 ---
 
+CHECKPOINT 60f7e28c (18:14Z) [open] A4 P6 stratified re-audit ACCEPTED, complete: r20260927-170424-8360 (art:39e89a007c9e). Draws 1/933/2/1/1/89 = 1,027 (both RMSNorms), 19/19 verdicts, bound 91,063 (286 per small template), 13/13 negatives. Pod terminated; ~$8.7 of $40.
 CHECKPOINT 60f7e28c (17:06Z) [open] P6 stratified re-audit running: r20260927-170424-8360 on vy-one-stage-e2e-m6 (A100-SXM4 pod 2tc5g7otn5v2j9, 333 GB, $1.59/h; CPU shapes were out of stock). #168 @ 60f7e28c, LAW=stratified:1024 REAUDIT=stratified-floor-1, M0 e226a920, Lean #167 ebc94ac5.
 CHECKPOINT 60f7e28c (16:48Z) [blocked] P6 stratified re-audit: driver #168 @ 60f7e28c ready; local pre-flight passed (draws 1/933/2/1/1/89 = 1,027, both RMSNorms drawn; Lean draw-test ok; 12/12 negatives; bound 91,063). Pod blocked: every new RunPod CPU pod is deleted within seconds-minutes of creation since ~16:36Z (8 pods, all flavors/DCs/clouds). Retrying every 15 min.
 CHECKPOINT 9515b4d4 (14:05Z) [open] Morning summary: internal/one-stage-e2e-morning-summary.md. Headline: A4 P6 served, 6,771,765 units, accepted, <=91,051 at 2^-20. #116 red-team GRANTED at 120adc37 (covers 608e7130), ready. ~$7.3 of $40; all pods terminated.

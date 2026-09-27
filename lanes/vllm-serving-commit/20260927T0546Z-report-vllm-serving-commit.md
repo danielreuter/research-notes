@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT dabffea5 (10:59Z) [open] #119 head dabffea5 (merged main 792704d7, clean; lints/unit tests pass; default path 90f81868 == main). Gate (b) estimate sent (1105Z): (a) lints + tests/commit + tests/pipeline ~$0.50 cap $0.75 or (b) full ~$0.95 cap $1.25; no pod until ack. Lane spend ~$3.9.
 CHECKPOINT b08eda03 (10:57Z) [open] P6 DONE: r20260927-102240-f954 (art:d2e35dd9) 7adcef49 unchanged; 6,771,765 units; SC-MEMBERS OK (captured in-scope equal for all 6, incl. GEMM 384/128; all 6 members == M0 e226a920 write()); registration v1 R.check ok (0d1f8f84); bundle art:df875b6a; e2e handoff 1100Z. Pod g4 TERMINATED 10:56Z (~$0.62). A4 total ~$1.09. Next: gate (b) at b08eda03 (estimate to coordinator).
 CHECKPOINT b08eda03 (10:46Z) [open] P6 row PASS: #101 verdict PASS, 7adcef49 unchanged; 6,771,765 units committed (GEMM shared rows), hook 17.3 s (read 10.0, hash 6.6), bodies ~84 MB public / ~158 MB private. Byte-match running (member 0 OK). WAIT dwtd00zrlrcucj r20260927-102240-f954 check-back 10:54Z agent bc-819f6247.
 CHECKPOINT b08eda03 (10:23Z) [open] P6 LAUNCHED: POD vyv-rf-serving-commit-g4 (dwtd00zrlrcucj, L40S secure) run r20260927-102240-f954 at b08eda03, M0 e226a920 tables-as-given; expected end ~11:00Z ~$0.65. WAIT check-back 10:45Z agent bc-819f6247. CPU: all 6 members == e226a920 writer; default path 90f81868 byte-identical. Coordinator copied (1024Z). P4 handoff count fixed (fused 8, not 16).

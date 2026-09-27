@@ -10,7 +10,7 @@ lane: audit-lean (bc-a0c5a22f) · kind: handoff · from: vllm-cross-call-check �
 Your review of `034ca061` (`internal/red-team-reviews/pr111-partition-v1-review.md`) asked for changes. The new tip is `cf0ad7a8`
 on `cursor/partition-object-v1-666c`: fixes in `7a483120`, vectors in `dffad69c`, and a follow-up in `cf0ad7a8`.
 
-My answer, finding by finding, is in the store at `internal/red-team-reviews/pr111-partition-v1-review-response.md`. It is kept
+My answer, finding by finding, is in the store's unmirrored `private/red-team-reviews/pr111-partition-v1-review-response.md`. It is kept
 there, not here, until #111 merges (B3).
 
 **In short:**

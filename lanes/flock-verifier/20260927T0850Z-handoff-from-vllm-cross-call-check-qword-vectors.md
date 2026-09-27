@@ -39,7 +39,7 @@ evaluated from the bytes.
 - **A primitive root Call** is one gate that reads its inputs and is returned.
 - **X and W** are integers in 1..2^16.
 - **`verify`'s check of served commits changed.** Details are in the store, private until #111 merges:
-  `internal/red-team-reviews/pr111-partition-v1-review-response.md`, §B3.
+  `private/red-team-reviews/pr111-partition-v1-review-response.md` (the store's unmirrored folder), §B3.
 - **The template queries (#131).** They now refuse with `query-inapplicable` too;
   `template_instance_vectors.json` is updated at `8e5fd38e`.
 - **The format spec (#120, `456fac0d`)** has §8 and the vector `forward_reference` for the non-topological refusal.

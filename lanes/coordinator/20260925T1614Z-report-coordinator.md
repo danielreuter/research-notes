@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 216d7b66 (22:50Z) [open] TRAIN J MERGED 22:48Z + PUSHED (VM token ok): main 216d7b66 = #127 #163 #170 #171 #173 #175 + trim (check r20260927-213130-dcde). TRAIN K = e1811f2b (216d7b66 + #104@2ead023e #125@ffe92dec #140@aa5762b4 #179@5980c87e #181@b712a328 #178@6054f205 #185@b7eb6a7e; clean) -> check launched. Next: Table 1 notes 2^-195.5 -> 2^-205 PR; #134 alone on >=24 GB pod; #149.
 CHECKPOINT 467e7450 (22:35Z) [open] #185 AUDIT PASS r20260927-215909-a52a (train-j+#185 = 13c2ca2b; level3 999 decls/16 mods/50 pins; exec 2553/11; soundness 4638/9) -> joins train K. lean11 TERMINATED, wtlean21 removed (3.7 GB free). Train J check r20260927-213130-dcde in its lean-audit step (exec + level3 PASS); timer train-j-merge-poll-3 at 22:45Z.
 CHECKPOINT 467e7450 (22:02Z) [open] SWEEP: train J check r20260927-213130-dcde running (~30 min in; timer ~22:32Z); #185 audit r20260927-215909-a52a running. Spend $297.79/$320 at $1.12/h. Control pod disk 2.5 GB free. No POUS->root files; mirror ok.
 CHECKPOINT 467e7450 (22:01Z) [open] ROOT 21:54Z: order J -> K (#104 #125 #140 #179 #181 #178 +#185 if audited) -> #134 alone (>=24 GB pod) -> #149. vy-coord- deadline 01:00Z Sep 28 (pid 559984, $12.10/$20); ledger line $320 to 01:00Z. If VM push refused, bundle to artifacts/ and tell root. #185 audit r20260927-215909-a52a on vy-coord-lean11 (6jwz06al68nti6, cpu3m 16 vCPU) on train-j + #185 (13c2ca2b). Control pod disk had filled (99%): removed /tmp/wtlean11-20 worktrees (2.5 GB free now); clean them after each audit.

@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 216d7b66 (23:32Z) [open] SWEEP: train K check r20260927-224947-774a running (~41 min); timer ~23:48Z. Spend $298.27/$320 at $0.24/h. POUS pod vy-pous-opt-g1 (POUS budget). No POUS->root files; mirror ok.
 CHECKPOINT 216d7b66 (23:05Z) [open] ROOT 23:03Z: L = #180 + #186 after K, then #134 alone, then #149. Start L tonight ONLY if its check finishes before 01:00Z (checks 58-74 min -> must start by ~23:45Z); else leave L/#134/#149 for tomorrow and let pods go at the 01:00Z deadline. NO further extension tonight. Timer train-k-merge-poll ~23:48Z.
 CHECKPOINT 216d7b66 (23:08Z) [open] PR #186 (c6836da4): Table 1 Flock notes 2^-195.5 -> 2^-205 (views FLOCK_CONFIG, FLOCK_VLLM_CONFIG union 2^-203, route (a) in views+drilldown); identities untouched; 166 tests pass. #180@3fcf1932 (ASSUMPTIONS.md split, docs only) ready -> small train L = #186 + #180 after K, then #134, #149. Train K check r20260927-224947-774a running. Spend $298.17/$320.
 CHECKPOINT 216d7b66 (22:50Z) [open] TRAIN J MERGED 22:48Z + PUSHED (VM token ok): main 216d7b66 = #127 #163 #170 #171 #173 #175 + trim (check r20260927-213130-dcde). TRAIN K = e1811f2b (216d7b66 + #104@2ead023e #125@ffe92dec #140@aa5762b4 #179@5980c87e #181@b712a328 #178@6054f205 #185@b7eb6a7e; clean) -> check launched. Next: Table 1 notes 2^-195.5 -> 2^-205 PR; #134 alone on >=24 GB pod; #149.

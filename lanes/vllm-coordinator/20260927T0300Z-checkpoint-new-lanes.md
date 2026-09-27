@@ -1,0 +1,1 @@
+03:00Z: launched vllm-rf-recompute bc-06147ba0, vllm-serving-view bc-340e9d74 (added to CLOUD-LANES, lane dirs created, sweep timer -> vllm-sweep-cloud-3). serving-view pod approved (cap $4), guard step on its checkpoint. cross-call-check told serving view moved.

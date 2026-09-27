@@ -2,9 +2,10 @@
 lane: vllm-rf-normtap
 kind: report
 created: 2026-09-26T19:37Z
-status: open
+status: final
 ---
 
+CHECKPOINT b0a12771 (03:19Z) [final] FINAL: #102 (MS class) merge-ready @ 64a4c3d3 (= 40ec2e13 + main 3040ac1f; #101 stored-Build manifest flag-off byte-identical 368283ad), handoffs lanes/vllm-coordinator/20260927T0228Z + 0318Z (finding 0152Z); #105 (FA3 Check_inf, Attention_v4 opt-in) merge-ready @ b0a12771, handoff 0322Z: selector off = base, 0 recomputes, H100 18e5 e8dfd09d OK 20/20 (MS + outputs = new IR); pods h2/g5/c1/h3 terminated; spend ~$3.8/$10. Coordinator handoffs read: 20260926T1937Z, 20260926T2231Z, 20260926T2245Z, 20260927T0015Z, 20260927T0020Z, 20260927T0030Z, 20260927T0135Z, 20260927T0200Z, 20260927T0310Z. Runs (preserved): 955c 34ba 0f64 2c04 1737 9dbf 23b6 8dfa e706 8d51 cb9e 52f5 18e5. agent bc-12c2f2d9
 CHECKPOINT 61fed64d (03:08Z) [open] GitHub token works again (03:08Z): pushed cursor/vllm-rf-ms-plane-57d5 64a4c3d3 (#102 + main 3040ac1f) and cursor/vllm-rf-fa3-checkinf-57d5 b0a12771 myself (bundles redundant); FA3 CPU check e706 + bootstrap 8d51 preserved; H100 r20260927-025855-18e5 building FA3 taps (end ~03:35Z); merge check r20260927-030426-8dfa waits for FA3 gate b on c1; agent bc-12c2f2d9
 CHECKPOINT 1c55b120 (03:06Z) [open] #102 merged with main 3040ac1f -> 64a4c3d3 (conflicts README/config.py/manifest.py resolved keeping both flag sets; main touched no tap source/hidden_stream/guarded_max); FA3 branch merged -> b0a12771; bundles artifacts/normtap-ms-64a4c3d3.bundle + normtap-fa3-b0a12771.bundle (verified onto origin refs); merge check r20260927-030426-8dfa on c1 (stored #101 Build manifests main vs merge, tests, lints); H100 r20260927-025855-18e5 running, end ~03:35Z; agent bc-12c2f2d9
 CHECKPOINT 41116829 (02:59Z) [open] FA3 CPU checks PASS (r20260927-025023-e706: selector off 7/7 records + 1,248 attention bindings = base; partition v4 20 rows + 3 cuts ok, 0 recomputes; tests/lints rc 0) -> H100 pre-approved run started: vyv-rf-normtap-h3 tgn7b3ndihxybn r20260927-025855-18e5, expected end ~03:35Z (< 04:05Z, no extension needed); PR #105 open; gate b FA3 on c1 until ~03:15Z; #102 re-merge of main 3040ac1f waits for a main bundle (GitHub token dead); agent bc-12c2f2d9

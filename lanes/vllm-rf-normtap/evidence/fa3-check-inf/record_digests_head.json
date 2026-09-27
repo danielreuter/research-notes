@@ -1,0 +1,168 @@
+{
+ "registry_version": "e183ae76b405d45a51129c4a9879f968c607c043f7b9c70d4e10564e5c909aae",
+ "vocabulary_b1_eager_v3": "1579367103a2e8bd",
+ "profiles": {
+  "h100-fa3": "61ad95da212e8d86bf83955b6ad767f8bfc416b619efa6ccab809d936c82aa71",
+  "h100-default": "a669aa04956c1d9e5dfaf76bd3ede4e74551489b32f92624e8b37108a7ac27f2",
+  "h100-fa2": "1551851f962b5e615ffa6d88e4865b7ca8731c885fcedc5f420ed56b03dc26a2",
+  "l40s": "84a2d01b2771cdab10094868da04d4444b149ca957d979a3e67e0de88883314f"
+ },
+ "profile_json": {
+  "h100-fa3": {
+   "compute_capability": [
+    9,
+    0
+   ],
+   "num_sms": 132,
+   "batch_invariant": true,
+   "attention_backend": null,
+   "vllm_revision": "d9105ea80",
+   "numerics_profile": "b1-eager-v3",
+   "flash_attn_version": 3
+  },
+  "h100-default": {
+   "compute_capability": [
+    9,
+    0
+   ],
+   "num_sms": 132,
+   "batch_invariant": true,
+   "attention_backend": null,
+   "vllm_revision": "d9105ea80",
+   "numerics_profile": "b1-eager-v3",
+   "flash_attn_version": null
+  },
+  "h100-fa2": {
+   "compute_capability": [
+    9,
+    0
+   ],
+   "num_sms": 132,
+   "batch_invariant": true,
+   "attention_backend": null,
+   "vllm_revision": "d9105ea80",
+   "numerics_profile": "b1-eager-v3",
+   "flash_attn_version": 2
+  },
+  "l40s": {
+   "compute_capability": [
+    8,
+    9
+   ],
+   "num_sms": 142,
+   "batch_invariant": true,
+   "attention_backend": null,
+   "vllm_revision": "d9105ea80",
+   "numerics_profile": "b1-eager-v3",
+   "flash_attn_version": null
+  }
+ },
+ "describe": {
+  "h100-fa3": {
+   "tensor_core_family": "hopper",
+   "dot": "HopperBF16WgmmaDot16_v1",
+   "instruction": "wgmma.mma_async.sync.aligned.m64nNk16.f32.bf16.bf16 (Triton tl.dot on sm_90) / mma.sync.m16n8k16 (FA2 CUTLASS JIT to sm_90)",
+   "pipeline": "veritor.core.silicon_total.HOPPER_BF16_WGMMA_K16 (one group of 16, width 26, floor -133; lane HP 2026-09-07) = silicon.HOPPER_BF16_M16N8K16 (Hawkeye H100)",
+   "flash_attn_version_effective": 3,
+   "flash_attn_registered": true,
+   "gemm_target": "hopper",
+   "tuned_gemm_arch_family": "hopper",
+   "tuned_gemm_keys": [
+    "12288,2048",
+    "151936,2048",
+    "2048,2048",
+    "2048,6144",
+    "4096,2048"
+   ],
+   "gemm_kind": "Gemm_v2{K,N,DOT=HopperBF16WgmmaDot16_v1}",
+   "attention_kind": "Attention_v2{T,NH,KVH,D,BN=fa3_kblock_n(D,seqlen_q,NH/KVH),DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1}",
+   "evidence": {
+    "gemm": [
+     "lane HP CONF-b1-hopper (Qwen2.5-1.5B on an H100: GemmHopper = Gemm with DOT=HopperBF16WgmmaDot16 exact on every GEMM leaf); R13 lane hopper: verity_vllm/program/kernels/gemm_target_correspondence.py on cp-h100a (cc 9.0, 132 SMs, family 'hopper': the (2048,2048) tuned rows BLOCK_SIZE_M 16 / BLOCK_SIZE_K 128 at M<=16 and the default tiling elsewhere, Triton PTX sm_90 wgmma) \u2014 out/gen/sweep/evidence/hopper/gemm_target_h100.json; row llama32-1b__bf16__h100__\u2026__bi-eager-fa2 Match replay (o_proj M=1 tuned row + the default-tiled GEMMs bit-exact against Gemm_v2{K,N,DOT=Hopper})"
+    ],
+    "attention_fa2": "R13 hopper: forced-FA2 row `\u2026__h100__\u2026__bi-eager-fa2` Match replay (D=64, BN=128, DOT=Hopper, INV=Fa2InvSum)",
+    "attention_fa3": "lane HP CONF-b1-hopper (D=128, BN=128, 39 leaves exact, positions 0..526); R13 hopper: D=64 (BN 128 prefill / 192 decode) \u2014 the native FA3 row's Match replay"
+   }
+  },
+  "h100-default": {
+   "tensor_core_family": "hopper",
+   "dot": "HopperBF16WgmmaDot16_v1",
+   "instruction": "wgmma.mma_async.sync.aligned.m64nNk16.f32.bf16.bf16 (Triton tl.dot on sm_90) / mma.sync.m16n8k16 (FA2 CUTLASS JIT to sm_90)",
+   "pipeline": "veritor.core.silicon_total.HOPPER_BF16_WGMMA_K16 (one group of 16, width 26, floor -133; lane HP 2026-09-07) = silicon.HOPPER_BF16_M16N8K16 (Hawkeye H100)",
+   "flash_attn_version_effective": 3,
+   "flash_attn_registered": true,
+   "gemm_target": "hopper",
+   "tuned_gemm_arch_family": "hopper",
+   "tuned_gemm_keys": [
+    "12288,2048",
+    "151936,2048",
+    "2048,2048",
+    "2048,6144",
+    "4096,2048"
+   ],
+   "gemm_kind": "Gemm_v2{K,N,DOT=HopperBF16WgmmaDot16_v1}",
+   "attention_kind": "Attention_v2{T,NH,KVH,D,BN=fa3_kblock_n(D,seqlen_q,NH/KVH),DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1}",
+   "evidence": {
+    "gemm": [
+     "lane HP CONF-b1-hopper (Qwen2.5-1.5B on an H100: GemmHopper = Gemm with DOT=HopperBF16WgmmaDot16 exact on every GEMM leaf); R13 lane hopper: verity_vllm/program/kernels/gemm_target_correspondence.py on cp-h100a (cc 9.0, 132 SMs, family 'hopper': the (2048,2048) tuned rows BLOCK_SIZE_M 16 / BLOCK_SIZE_K 128 at M<=16 and the default tiling elsewhere, Triton PTX sm_90 wgmma) \u2014 out/gen/sweep/evidence/hopper/gemm_target_h100.json; row llama32-1b__bf16__h100__\u2026__bi-eager-fa2 Match replay (o_proj M=1 tuned row + the default-tiled GEMMs bit-exact against Gemm_v2{K,N,DOT=Hopper})"
+    ],
+    "attention_fa2": "R13 hopper: forced-FA2 row `\u2026__h100__\u2026__bi-eager-fa2` Match replay (D=64, BN=128, DOT=Hopper, INV=Fa2InvSum)",
+    "attention_fa3": "lane HP CONF-b1-hopper (D=128, BN=128, 39 leaves exact, positions 0..526); R13 hopper: D=64 (BN 128 prefill / 192 decode) \u2014 the native FA3 row's Match replay"
+   }
+  },
+  "h100-fa2": {
+   "tensor_core_family": "hopper",
+   "dot": "HopperBF16WgmmaDot16_v1",
+   "instruction": "wgmma.mma_async.sync.aligned.m64nNk16.f32.bf16.bf16 (Triton tl.dot on sm_90) / mma.sync.m16n8k16 (FA2 CUTLASS JIT to sm_90)",
+   "pipeline": "veritor.core.silicon_total.HOPPER_BF16_WGMMA_K16 (one group of 16, width 26, floor -133; lane HP 2026-09-07) = silicon.HOPPER_BF16_M16N8K16 (Hawkeye H100)",
+   "flash_attn_version_effective": 2,
+   "flash_attn_registered": true,
+   "gemm_target": "hopper",
+   "tuned_gemm_arch_family": "hopper",
+   "tuned_gemm_keys": [
+    "12288,2048",
+    "151936,2048",
+    "2048,2048",
+    "2048,6144",
+    "4096,2048"
+   ],
+   "gemm_kind": "Gemm_v2{K,N,DOT=HopperBF16WgmmaDot16_v1}",
+   "attention_kind": "Attention_v2{T,NH,KVH,D,BN=fa2_kblock_n(D),DOT=HopperBF16WgmmaDot16_v1,INV=Fa2InvSum_v1}",
+   "evidence": {
+    "gemm": [
+     "lane HP CONF-b1-hopper (Qwen2.5-1.5B on an H100: GemmHopper = Gemm with DOT=HopperBF16WgmmaDot16 exact on every GEMM leaf); R13 lane hopper: verity_vllm/program/kernels/gemm_target_correspondence.py on cp-h100a (cc 9.0, 132 SMs, family 'hopper': the (2048,2048) tuned rows BLOCK_SIZE_M 16 / BLOCK_SIZE_K 128 at M<=16 and the default tiling elsewhere, Triton PTX sm_90 wgmma) \u2014 out/gen/sweep/evidence/hopper/gemm_target_h100.json; row llama32-1b__bf16__h100__\u2026__bi-eager-fa2 Match replay (o_proj M=1 tuned row + the default-tiled GEMMs bit-exact against Gemm_v2{K,N,DOT=Hopper})"
+    ],
+    "attention_fa2": "R13 hopper: forced-FA2 row `\u2026__h100__\u2026__bi-eager-fa2` Match replay (D=64, BN=128, DOT=Hopper, INV=Fa2InvSum)",
+    "attention_fa3": "lane HP CONF-b1-hopper (D=128, BN=128, 39 leaves exact, positions 0..526); R13 hopper: D=64 (BN 128 prefill / 192 decode) \u2014 the native FA3 row's Match replay"
+   }
+  },
+  "l40s": {
+   "tensor_core_family": "ampere",
+   "dot": "AmpereBF16TcDot16_v1",
+   "instruction": "mma.sync.aligned.m16n8k16.row.col.f32.bf16.bf16.f32 (Triton tl.dot on sm_80/sm_89; FA2 CUTLASS)",
+   "pipeline": "veritor.core.silicon_total.AMPERE_BF16_DOT16_TOTAL (groups 8+8, width 25, floor -132; A100 + RTX 4090 conform)",
+   "flash_attn_version_effective": 2,
+   "flash_attn_registered": true,
+   "gemm_target": "ada",
+   "tuned_gemm_arch_family": "ada",
+   "tuned_gemm_keys": [
+    "12288,2048",
+    "151936,2048",
+    "2048,2048",
+    "2048,6144",
+    "4096,2048"
+   ],
+   "gemm_kind": "Gemm_v1{K,N}",
+   "attention_kind": "Attention_v3{T,NH,KVH,D,BN=fa2_kblock_n(D)}",
+   "evidence": {
+    "gemm": [
+     "R10/R11 Tier A: LLAMA32_1B / SMOLLM2 / QWEN05 eager captures on the RTX 4090 and L40S (sm_89), every GEMM launch (default tiling and the (2048,2048) table buckets M<=1 / M<=32) bit-exact against Gemm_v1{K,N} \u2014 tests/observe/test_gen_llama.py, docs/vllm-poc/numerics.md (mma.AMPERE_BF16: Ada's bf16 mma.sync is parameter-identical to Ampere's, docs/hardware-semantics.md)",
+     "R15 lane moe: verity_vllm/program/kernels/gemm_target_correspondence.py --model ada-tuned-table on cp-moe3 (L40S, cc 8.9, 142 SMs, vLLM d9105ea80 family 'ada'): ALL five tuned (N,K) rows x M in {1,2,4,5,8,9,16,17,32,33,64,65,256,257,512,513,1024,1033,2048,2049} (+ stress families at M 1/17/257 on (2048,6144)/(4096,2048)) = 124 cases, 30 distinct launch configs (every tabled bm 16/32/64/128 bucket incl. (151936,2048) M<=4 bm16 and the block_k-128 row (2048,6144)), 152,105,216 coordinates bit-exact against Gemm_v1{K,N}, GPU re-run deterministic \u2014 out/gen/sweep/evidence/ada/gemm_target_l40s_ada_table.json"
+    ],
+    "attention_fa2": "W11 (D=128, BN=64), E7 D54/D57 (D=64, BN=128); R12 canaries; R13 ampere A100 row Match replay"
+   }
+  }
+ },
+ "attention_specs": 1248,
+ "attention_specs_sha256": "a4ee0ae0bd777272532e9e2228042d0734936d4e69d9f01b5c0af6efc4735302"
+}

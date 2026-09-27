@@ -1,0 +1,19 @@
+waited for /workspace/research/runs/r20260927-025051-52f5 2026-09-27T03:09:42Z
+cb25df6f894e8c6203c47cf6e1e3e02819ccc5b972a3cb0d8e2b5f4fd78937f0  artifact.json
+8a0ce573a3d5aeb4177c41b24670e50403c9dc71c82ceed8836f08973a4e60ff  instances.json.gz
+ec2c47e502a09e0fc66dd5936475b9b53438dbedbb437b7c3d6dbc2ab87edb35  result.json
+tree /workspace/gc2/mergehead @ 64a4c3d3a25fbae55d95d91db3b7b088e878b14a vs shipped: 0 differing entries
+main /workspace/gc2/main @ 3040ac1fdf404c6d52510f1853cc4edaf9cdad87; merge parents 40ec2e13d401e7479f1f4e0aa276eca5df62a25e 3040ac1fdf404c6d52510f1853cc4edaf9cdad87
+manifest off main rc 0 {"identities": 7043, "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2", "complete": true, "out": "/workspace/research/runs/r
+manifest guarded-max main rc 0 {"identities": 7043, "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2", "complete": true, "out": "/workspace/research/runs/r
+manifest off merge rc 0 {"identities": 7043, "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2", "complete": true, "out": "/workspace/research/runs/r
+manifest guarded-max merge rc 0 {"identities": 7043, "manifest_digest": "2cb9c8a2c17cf160675d086cad8398a6a39a79982f4592c78e3355fdc8e24414", "complete": true, "out": "/workspace/research/runs/r
+cba8771d302483ceb6d67756ee8390d03a1710f759a80f7d67ec7f13e2754c14  manifest_gm_main.json
+bc02d6896bc35969e0393ed320c514003138571ee43ceeda2ca64dd1810708cf  manifest_off_main.json
+c00ec4b069d6dc91b35dbf296af8b311dd0c61deaf9c378db0356d7a44013bb9  manifest_gm_merge.json
+bc02d6896bc35969e0393ed320c514003138571ee43ceeda2ca64dd1810708cf  manifest_off_merge.json
+[merge-manifests] {"off_byte_identical": true, "off_manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2", "off_identities": 7043, "gm_identities": [7043, 7043], "gm_stream_identities_lengthened": 512, "gm_ms_words": 309760, "gm_identity_mismatches_after_undoing_ms": [], "gm_query_equal_but_policy_text_and_max_scaled": true, "gm_max_scaled": {"stream_class": "MS", "src_bit": 64, "words": 242688, "words_by_family": {"Attention_v3": 242688}}, "gm_rest_equal": true, "gm_manifest_digests": ["368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2", "2cb9c8a2c17cf160675d086cad8398a6a39a79982f4592c78e3355fdc8e24414"], "gm_main_guard_words": 97280, "gm_merge_guard_words": 97280, "gm_differs_only_by_ms": true}
+tests main rc=1 FAILED integrations/vllm/tests/acquire/test_compiled_source.py::test_renumber_assigns_invocations_per_call_site
+tests merge rc=1 FAILED integrations/vllm/tests/pipeline/test_research_tools.py::test_closure_covers_every_core_file
+lints rc=0 ...................................................                      [100%]
+MS-MERGE-CHECK-DONE 2026-09-27T03:11:53Z

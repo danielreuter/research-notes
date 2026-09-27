@@ -1,0 +1,29 @@
+{
+ "off_byte_identical": true,
+ "off_manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+ "off_identities": 7043,
+ "gm_identities": [
+  7043,
+  7043
+ ],
+ "gm_stream_identities_lengthened": 512,
+ "gm_ms_words": 309760,
+ "gm_identity_mismatches_after_undoing_ms": [],
+ "gm_query_equal_but_policy_text_and_max_scaled": true,
+ "gm_max_scaled": {
+  "stream_class": "MS",
+  "src_bit": 64,
+  "words": 242688,
+  "words_by_family": {
+   "Attention_v3": 242688
+  }
+ },
+ "gm_rest_equal": true,
+ "gm_manifest_digests": [
+  "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2",
+  "2cb9c8a2c17cf160675d086cad8398a6a39a79982f4592c78e3355fdc8e24414"
+ ],
+ "gm_main_guard_words": 97280,
+ "gm_merge_guard_words": 97280,
+ "gm_differs_only_by_ms": true
+}

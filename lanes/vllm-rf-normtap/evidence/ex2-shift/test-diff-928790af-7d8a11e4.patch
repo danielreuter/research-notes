@@ -1,0 +1,165 @@
+diff --git a/backends/sp1/common/src/ftz.rs b/backends/sp1/common/src/ftz.rs
+index 7c0dfcb3..79d73762 100644
+--- a/backends/sp1/common/src/ftz.rs
++++ b/backends/sp1/common/src/ftz.rs
+@@ -182,11 +182,11 @@ fn table_word(row: u64, expected_index: u64) -> Option<u64> {
+ /// `(n, j)` with `ex2(x) = T[j] * 2^n`.  `None` for the words the C rule answers before
+ /// touching the table (`e == 0xFF`, `e == 0`, `unb >= 30`).
+ ///
+-/// `mant >> (-unb)` in the C model is a variable 64-bit shift; both x86-64 and AArch64
+-/// take the amount mod 64, and the exhaustive sm_89 verification (all 2^32 inputs, 0
+-/// mismatches, attention-model.md §3.1) pinned exactly the compiled behaviour, so the
+-/// mod-64 shift *is* the registered semantics (`derived_rows.mufu_ex2_ftz` replicates
+-/// it, `wrapping_shr` here).
++/// `K = floor(|x| 2^23)` exactly: `mant < 2^24`, so every right shift of 24 or more is
++/// `0` and each `|x| < 2^-23` reads row 0 at `n = 0` (`ex2 = 1.0`, either sign).  The C
++/// model clamps the shift (a count >= 64 is undefined there), `checked_shr` here: the
++/// exhaustive sm_89 verification (all 2^32 inputs, 0 mismatches, attention-model.md §3.1)
++/// ran the model on the device, where the shift clamps.
+ fn ex2_reduce(x: u64) -> Option<(i64, u64)> {
+     let ax = x & 0x7FFF_FFFF;
+     let e = (ax >> 23) as i64;
+@@ -201,7 +201,7 @@ fn ex2_reduce(x: u64) -> Option<(i64, u64)> {
+     let k: u64 = if unb >= 0 {
+         mant << unb
+     } else {
+-        mant.wrapping_shr((-unb) as u32)
++        mant.checked_shr((-unb) as u32).unwrap_or(0)
+     };
+     let fixed: i64 = if x & SIGN == 0 {
+         k as i64
+@@ -381,9 +381,21 @@ mod tests {
+         assert_eq!(ex2_reduce(f(-1.0)), Some((-1, 0)));
+         // x = -0.5: K = 0x400000, fixed = -K - 1 -> n = -1, j = 2^23 - 1 - 0x400000
+         assert_eq!(ex2_reduce(f(-0.5)), Some((-1, 0x3F_FFFF)));
+-        // x = 2^-64: shift 64 mod 64 = 0 -> K = mant -> n = 1, j = 0 (the pinned compiled behaviour)
+-        assert_eq!(ex2_reduce(f(2f32.powi(-64))), Some((1, 0)));
++        // x = +-2^-64 (a shift by 64) and every other |x| < 2^-23 (biased exponent 1..=103): K = 0 -> n = 0,
++        // j = 0, so ex2 = T[0] = 1.0 for either sign
++        assert_eq!(ex2_reduce(f(2f32.powi(-64))), Some((0, 0)));
+         assert_eq!(ex2_reduce(f(2f32.powi(-63))), Some((0, 0)));
++        for e in 1u64..=103 {
++            for m in [0, 1, 0x40_0000, MANT] {
++                for s in [0, SIGN] {
++                    let x = s | e << 23 | m;
++                    assert_eq!(ex2_reduce(x), Some((0, 0)), "{x:#010x}");
++                    assert_eq!(mufu_ex2_tab(x, F32_ONE), Some(F32_ONE), "{x:#010x}");
++                }
++            }
++        }
++        assert_eq!(ex2_reduce(f(2f32.powi(-23))), Some((0, 1)));
++        assert_eq!(ex2_reduce(f(-(2f32.powi(-23)))), Some((-1, MANT - 1)));
+         assert_eq!(ex2_reduce(0), None);
+         assert_eq!(ex2_reduce(EXP), None);
+         assert_eq!(ex2_reduce(f(2f32.powi(30))), None);
+diff --git a/integrations/vllm/tests/program/test_derived_rows.py b/integrations/vllm/tests/program/test_derived_rows.py
+index d10d6db2..c7e1b299 100644
+--- a/integrations/vllm/tests/program/test_derived_rows.py
++++ b/integrations/vllm/tests/program/test_derived_rows.py
+@@ -8,7 +8,9 @@ tables load from the committed sweep artifacts); skipped when unavailable."""
+ 
+ from __future__ import annotations
+ 
++import math
+ import sys
++from fractions import Fraction
+ from pathlib import Path
+ 
+ import numpy as np
+@@ -88,6 +90,54 @@ def test_unary_kernels_match_prims(fn_np, prim):
+     assert not bad, (prim, len(bad), bad[:5])
+ 
+ 
++def _ex2_exact(w: int, T: np.ndarray) -> int:
++    """`ex2.approx.ftz.f32` of the word `w` from the rule's statement, in exact arithmetic on the input's value:
++    K = floor(|x| 2^23), q = K div 2^23, r = K mod 2^23; x >= 0 reads T[r] * 2^q, x < 0 the ones' complement of the
++    fraction, T[2^23-1-r] * 2^-(q+1), carried to T[0] * 2^-q when r = 0; +inf from 2^128, +0 below 2^-126."""
++    x = float(np.uint32(w).view(np.float32))
++    if x != x:
++        return 0x7FFFFFFF
++    if w & 0x7F800000 == 0:                                        # ftz: +-0 and every subnormal read as 0
++        return 0x3F800000
++    if math.isinf(x):
++        return 0 if x < 0 else 0x7F800000
++    q, r = divmod(math.floor(abs(Fraction(x)) * 2 ** 23), 2 ** 23)
++    n, j = (q, r) if x > 0 else ((-q, 0) if r == 0 else (-q - 1, 2 ** 23 - 1 - r))
++    if abs(n) > 300:
++        return 0x7F800000 if n > 0 else 0
++    v = Fraction(float(np.uint32(T[j]).view(np.float32))) * Fraction(2) ** n
++    if v >= 2 ** 128:
++        return 0x7F800000
++    if v < Fraction(2) ** -126:
++        return 0
++    return int(np.float32(float(v)).view(np.uint32))
++
++
++def test_ex2_every_exponent_class_equals_the_exact_rule():
++    """`MufuEx2Ftz` on every exponent class of both signs (edge and seeded mantissas; NaN and inf at 255): the compiled rule
++    (`fa2_model.mufu_ex2`), the IR reference (`verity.evaluation.evaluate`) and the numpy twin equal the rule evaluated
++    exactly, and every 0 < |x| < 2^-23 gives T[0] = 1.0.  That includes |x| < 2^-63, where the C shift count reached 64 or
++    more (undefined; x86-64 took it mod 64: ex2(6.5e-22) was 1.0083, ex2(2^-64) 2.0 and ex2(-2^-64) 0.5)."""
++    D = _derived()
++    from verity.evaluation import evaluate
++    from verity_vllm.program.kernels import fa2_model as FA
++    from verity_vllm.program.registry import prims as P
++    tabs = D._fa2_tables()
++    mants = np.concatenate([[0, 1, 2, 0x3FFFFF, 0x400000, 0x400001, 0x7FFFFE, 0x7FFFFF],
++                            np.random.default_rng(64).integers(0, 1 << 23, 8)]).astype(np.uint32)
++    e = np.arange(256, dtype=np.uint32)
++    xs = ((np.arange(2, dtype=np.uint32)[:, None, None] << 31) | (e[None, :, None] << 23) | mants[None, None, :]).reshape(-1)
++    want = np.array([_ex2_exact(int(w), tabs.ex2) for w in xs], dtype=np.uint32)
++    assert np.array_equal(FA.mufu_ex2(xs.view(np.float32), tabs).view(np.uint32), want)
++    assert np.array_equal(D.mufu_ex2_ftz(xs), want)
++    assert [evaluate(P.MufuEx2Ftz, int(w))[0] for w in xs] == want.tolist()
++    ex = (xs >> 23) & 0xFF
++    tiny = (ex >= 1) & (ex <= 103)
++    assert int(tiny.sum()) == 2 * 103 * mants.size and (want[tiny] == 0x3F800000).all()
++    words = np.array([np.float32(6.5e-22).view(np.uint32), 0x1F800000, 0x9F800000], dtype=np.uint32)  # 6.5e-22, +-2^-64
++    assert D.mufu_ex2_ftz(words).tolist() == [0x3F800000] * 3
++
++
+ def test_binary_kernels_match_prims():
+     """NaN-operand pairs are excluded from the plain add/sub/mul comparisons: the registered prims
+     evaluate those through host scalar arithmetic, whose NaN *payload propagation* is host-defined
+diff --git a/integrations/vllm/tests/program/test_kernel_self_check.py b/integrations/vllm/tests/program/test_kernel_self_check.py
+index 5378b6c0..da854ff6 100644
+--- a/integrations/vllm/tests/program/test_kernel_self_check.py
++++ b/integrations/vllm/tests/program/test_kernel_self_check.py
+@@ -33,3 +33,37 @@ def test_kernel_matches_the_reference(key, kernel):
+         sc = self_check(t, kernel=kernel, n=N, seed=0)
+         assert sc.ok, str(sc)
+         assert sc.declined < sc.n, f"{t.id}: {kernel} declined all {sc.n} instances"
++
++
++def test_attention_kernels_on_scores_below_two_to_the_minus_63(monkeypatch):
++    """Edge vectors for the attention kernels' self-check: scores near +-2^-66 put the P and rescale ex2 inputs at
++    2^-87 <= |x| < 2^-63, where the C rule's shift count reached 64 (undefined; the host took it mod 64) and MUFU.EX2 reads
++    T[0] = 1.0.  The twin and the row kernel equal the reference there, and the reference equals the same instance with
++    q = 0, whose every ex2 input is 0."""
++    from verity.evaluation import evaluate
++    from verity.ir.defs import bind
++    from verity_vllm.program.kernels import derived_rows as DR
++    from verity_vllm.program.registry import b1
++
++    statics = {"T": 20, "NH": 2, "KVH": 1, "D": 16, "BN": 16}
++    target = bind(b1.AttentionV3, **statics)
++    bf16 = lambda a: (np.asarray(a, dtype=np.float32).view(np.uint32) >> 16).astype(np.uint16).reshape(-1)  # noqa: E731
++    k, q = np.zeros((20, 16)), np.zeros((2, 16))
++    k[:, 0] = 2.0 ** -33 * (1 + np.arange(19, -1, -1) / 64)   # head 0's max is in block 0, visited last: a tiny rescale input
++    q[:, 0] = [2.0 ** -33, -(2.0 ** -33)]
++    v = np.random.default_rng(3).standard_normal((20, 16))
++    tiny, zero = [bf16(q), bf16(k), bf16(v)], [bf16(0 * q), bf16(k), bf16(v)]
++
++    seen: list[np.ndarray] = []
++    ex2 = DR.mufu_ex2_ftz
++    monkeypatch.setattr(DR, "mufu_ex2_ftz", lambda x, table=None: seen.append(np.asarray(x).reshape(-1)) or ex2(x, table))
++    got = rows.ROWS["Attention_v3"].fn(statics, tiny)["out"]
++    monkeypatch.undo()
++    xe = (np.concatenate(seen) >> 23) & 0xFF
++    assert np.count_nonzero((xe >= 40) & (xe <= 63)) > 0 and not np.any((xe >= 104) & (xe < 255))
++
++    ref = [evaluate(target, *(a.tolist() for a in inst)) for inst in (tiny, zero)]
++    assert ref[0] == ref[1] and got.tolist() == list(ref[0])
++    for kernel in (twins.KERNEL, rows.KERNEL):
++        sc = self_check(target, kernel=kernel, inputs=[np.stack(pair) for pair in zip(tiny, zero)])
++        assert sc.ok and sc.declined == 0, str(sc)

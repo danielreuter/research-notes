@@ -1,0 +1,284 @@
+    Updating git repository `https://github.com/sp1-patches/RustCrypto-hashes`
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded itoa v1.0.18
+  Downloaded cpufeatures v0.2.17
+  Downloaded version_check v0.9.5
+  Downloaded crypto-common v0.1.6
+  Downloaded cfg-if v1.0.4
+  Downloaded block-buffer v0.10.4
+  Downloaded digest v0.10.7
+  Downloaded quote v1.0.47
+  Downloaded memchr v2.8.3
+  Downloaded zmij v1.0.23
+  Downloaded generic-array v0.14.9
+  Downloaded serde_core v1.0.229
+  Downloaded unicode-ident v1.0.24
+  Downloaded proc-macro2 v1.0.107
+  Downloaded serde_derive v1.0.229
+  Downloaded serde v1.0.229
+  Downloaded serde_json v1.0.151
+  Downloaded typenum v1.20.1
+  Downloaded syn v3.0.4
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling generic-array v0.14.9
+   Compiling cfg-if v1.0.4
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling serde_json v1.0.151
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling veritor-check-model v0.1.0 (/workspace/gc3/fix/backends/sp1/check-model)
+   Compiling syn v3.0.4
+   Compiling crypto-common v0.1.6
+   Compiling block-buffer v0.10.4
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9 (https://github.com/sp1-patches/RustCrypto-hashes?tag=patch-sha2-0.10.9-sp1-6.2.0#e48b656e)
+   Compiling veritor-zk-common v0.1.0 (/workspace/gc3/fix/backends/sp1/common)
+   Compiling serde_derive v1.0.229
+warning: variable does not need to be mutable
+   --> common/src/reduce.rs:750:13
+    |
+750 |         let mut word = |raw: u64| -> u64 {
+    |             ----^^^^
+    |             |
+    |             help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: `veritor-zk-common` (lib test) generated 1 warning (run `cargo fix --lib -p veritor-zk-common --tests` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 20.96s
+     Running unittests src/lib.rs (target/release/deps/veritor_zk_common-23673076b5fd8a91)
+
+running 87 tests
+test bare::tests::an_all_zero_vu_is_plus_zero_in_every_format ... ok
+test elem::tests::exhaustive_gate_digests_match_the_python_evaluators ... ignored, 4.3e9 evaluations per gate; run explicitly in release
+test binding::tests::layouts_and_codes ... ok
+test bare::tests::header_statement_and_public_values_round_trip ... ok
+test elem::tests::silu_table_spot_values ... ok
+test bare::tests::frozen_set_matches_the_reference_and_the_committed_words ... ok
+test bare::tests::every_negative_is_rejected_and_matches_the_reference ... ok
+test elem::tests::add_zero_signs_follow_ieee_rn ... ok
+test frame::tests::uint_is_minimal_and_at_least_one_byte ... ok
+test embed::tests::gather_forces_the_embedded_index ... ok
+test frame::tests::depth_matches_python ... ok
+test elem::tests::gate_outputs_canonicalise_nan ... ok
+test bare::tests::short_rows_are_not_a_vu ... ok
+test ftz::tests::add_sub_ties_and_zeros ... ok
+test ftz::tests::ex2_reduction_matches_the_c_rule_on_landmarks ... ok
+test ftz::tests::ftz_flushes_only_subnormals_and_keeps_the_sign ... ok
+test ftz::tests::fma_variants ... ok
+test ftz::tests::inv_sum_rule ... ok
+test ftz::tests::max_and_guard ... ok
+test ftz::tests::mul_flushes_a_subnormal_product_and_operands ... ok
+test frame::tests::multiproofs_reconstruct_the_root_and_reject_any_other_shape ... ok
+test gateset::tests::elem_bf16_manifest_and_digest_match_the_python_family ... ok
+test gateset::tests::elem_f32_manifest_and_digest_match_the_python_family ... ok
+test embed::tests::index_arithmetic_wraps_like_u32 ... ok
+test gateset::tests::embed_gather_manifest_matches_the_python_family ... ok
+test gateset::tests::embed_gather_gates_evaluate_and_reject ... ok
+test gateset::tests::ftz_f32_manifest_and_digest_match_e4s_family_pin ... ok
+test gateset::tests::int8_q7_manifest_declares_mixed_widths_only_where_they_differ ... ok
+test gateset::tests::pad_serve_manifest_matches_the_python_family ... ok
+test gateset::tests::semantics_are_modular ... ok
+test gateset::tests::tc_ampere_bf16_hw_is_the_same_manifest_at_version_2_with_its_own_digest ... ok
+test gateset::tests::tensor_core_manifest_and_digest_match_the_pinned_family ... ok
+test reduce::tests::differential_native_floats ... ignored
+test gateset::tests::tc_ampere_bf16_manifest_matches_the_python_family ... ok
+test gateset::tests::tensor_core_gates_evaluate_and_reject_non_finite_words ... ok
+test gateset::tests::int8_q7_semantics_floor_and_saturate ... ok
+test gateset::tests::manifest_matches_the_python_layout ... ok
+test gateset::tests::pad_inactive_manifest_and_digest_match_the_python_family ... ok
+test gateset::tests::pad_serve_gates_evaluate_and_reject_out_of_width_words ... ok
+test reduce::tests::mufu_specials_never_use_the_word ... ok
+test elem::tests::add_matches_native_f32_on_widened_bf16_samples ... ok
+test gateset::tests::values_decode_by_their_leaf_schema ... ok
+test groupsum::tests::fp32_round_trip ... ok
+test reduce::tests::add_mul_matches_native_on_finite_words ... ok
+test reduce::tests::bf16_gt_matches_float_compare ... ok
+test elem::tests::mul_matches_native_f32_on_widened_bf16_samples ... ok
+test reduce::tests::fma_is_single_rounding ... ok
+test nvfp4::tests::exact_small_firings ... ok
+test groupsum::tests::bit_length_below_2_32 ... ok
+test packed::tests::fold_agrees_with_tree_builder ... ok
+test packed::tests::hashing_matches_python_reference ... ok
+test packed::tests::word_extraction ... ok
+test pad::tests::eq_i32_is_word_equality ... ok
+test pad::tests::select_copies_the_named_operand ... ok
+test reduce::tests::family_digest_matches_the_python_mirror ... ok
+test reduce::tests::table_gates_reject_the_wrong_row ... ok
+test nvfp4::tests::scales ... ok
+test nvfp4::tests::the_accumulator_window_truncates_toward_zero ... ok
+test reduce::tests::nan_rules_are_sse ... ok
+test relation_only::tests::malformed_inputs_and_rejecting_chains_commit_the_reject_byte ... ok
+test tc_fp8::tests::exact_small_steps ... ok
+test relation_only::tests::k16_vector_matches_the_gate_set_evaluation ... ok
+test tc::tests::casts ... ok
+test nvfp4::tests::vu_shapes ... ok
+test tc::tests::exact_small_cases_match_the_python_model ... ok
+test packed::tests::schema_grammar ... ok
+test tc::tests::hardware_cast_matches_the_measured_nan_word_and_the_old_cast_elsewhere ... ok
+test pad::tests::boolean_algebra_truth_tables_and_absorption ... ok
+test tc::tests::non_finite_operands_are_rejected_and_overflow_is_sticky ... ok
+test tc_fp8::tests::vu_shapes ... ok
+test reduce::tests::div_full_scaling_thresholds ... ok
+test tc_total::tests::finite_cases ... ok
+test tc_hopper_bf16::tests::product_matches_the_ampere_port ... ok
+test tc_fp8::tests::products ... ok
+test tc_hopper_bf16::tests::exact_small_steps ... ok
+test tc_hopper_bf16::tests::vu_casts_to_bf16 ... ok
+test tc_total::tests::evaluate_shapes ... ok
+test tc_total::tests::special_cases_measured_on_a100_and_rtx4090 ... ok
+test relation_only::tests::k1536_vector_matches_the_gate_set_evaluation ... ok
+test groupsum::tests::group_sum_agrees_with_the_ampere_port_at_every_width ... ok
+test tc_hopper_bf16::tests::kernel_matches_the_reference ... ok
+test bare::tests::adversarial_rows_match_the_reference ... ok
+test nvfp4::tests::kernel_matches_the_reference ... ok
+test tc_hopper_bf16::tests::group_matches_step ... ok
+test tc_fp8::tests::kernels_match_the_reference ... ok
+test tc_fp8::tests::group_matches_step ... ok
+test tc::tests::the_two_casts_differ_only_on_nan ... ok
+
+test result: ok. 85 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 2.32s
+
+     Running tests/embed_vectors.rs (target/release/deps/embed_vectors-b9eaeeed7297ec2f)
+
+running 1 test
+test python_vectors_evaluate_identically ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/format3_equivalence.rs (target/release/deps/format3_equivalence-827065048db2c369)
+
+running 4 tests
+test this_build_is_sound ... ok
+test every_parse_reject_vector_is_refused_by_the_parser ... ok
+test every_multiproof_vector_is_decided_identically_by_the_shared_planned_and_per_opening_paths ... ok
+test every_packed_vector_is_decided_identically_by_the_ranged_and_the_expanded_paths ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/kernel_boundary.rs (target/release/deps/kernel_boundary-f9e705c61d27c616)
+
+running 7 tests
+test bytes_that_do_not_parse_reject_over_their_own_digest ... ok
+test the_object_digest_is_carried_through_exactly_or_refused ... ok
+test every_committed_rejected_witness_rejects_at_the_boundary ... ok
+test the_planned_path_decides_identically_and_only_with_a_multiproof_witness ... ok
+test the_typed_pipeline_is_only_entered_through_validation ... ok
+test an_unused_malformed_program_rejects_in_every_build ... ok
+test the_committed_batches_decide_exactly_as_committed ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/lean_vectors.rs (target/release/deps/lean_vectors-130a9c1b3547eb49)
+
+running 5 tests
+test mul8_table_matches_the_reference ... ok
+test well_formed_programs_parse ... ok
+test evaluations_match_the_reference ... ok
+test batches_match_the_reference ... ok
+test claims_match_the_reference ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests/model.rs (target/release/deps/model-b357de32eac3f28d)
+
+running 5 tests
+test plan_tests::a_plan_needs_the_statement_shape ... ok
+test the_model_agrees_with_production_on_honest_plans_and_the_relation_pass ... ok
+test plan_tests::tampered_plans_are_rejected ... ok
+test plan_tests::the_honest_plan_validates_and_agrees_with_the_reference ... ok
+test the_model_rejects_the_tampered_plans_with_productions_first_error ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/packed.rs (target/release/deps/packed-fd93d68224815641)
+
+running 5 tests
+test a_shifted_index_changes_the_supplied_word_and_fails_the_relation ... ok
+test the_pin_is_compared_with_the_extracted_word_in_big_endian ... ok
+test the_leaf_check_rejects_before_any_word_is_read ... ok
+test three_words_of_one_leaf_authenticate_once_and_the_relation_holds ... ok
+test positions_of_one_leaf_must_agree_on_the_descriptor ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/plan.rs (target/release/deps/plan-1ccd3e5ff70e932c)
+
+running 3 tests
+test a_plan_needs_the_statement_shape ... ok
+test tampered_plans_are_rejected ... ok
+test the_honest_plan_validates_and_agrees_with_the_reference ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/plan_vectors.rs (target/release/deps/plan_vectors-c2c469c3dd71cf1c)
+
+running 1 test
+test validate_plan_agrees_with_the_plan_vectors ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/ranges.rs (target/release/deps/ranges-a6bfc00f736af04d)
+
+running 6 tests
+test a_pinned_word_is_a_single_beside_the_range ... ok
+test a_tampered_leaf_is_refused_before_any_word_is_read ... ok
+test a_format_3_statement_takes_a_packed_witness_only ... ok
+test a_range_reads_the_words_its_expansion_names ... ok
+test a_shifted_range_changes_the_supplied_words_and_fails_the_relation ... ok
+test ill_formed_ranges_are_refused_by_the_parser ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/reduce_vectors.rs (target/release/deps/reduce_vectors-04c2f34cddcff566)
+
+running 1 test
+test python_vectors_evaluate_identically ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running tests/tc_total_vectors.rs (target/release/deps/tc_total_vectors-8b851e742d7c5cb2)
+
+running 2 tests
+test the_total_family_agrees_with_the_python_model ... ok
+test the_total_family_agrees_with_the_a100_and_rtx4090_measurements ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/typed_obligation_v0.rs (target/release/deps/typed_obligation_v0-926aa50425a1634f)
+
+running 2 tests
+test canonical_string_escaping_matches_python ... ok
+test every_vector_agrees ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s
+
+     Running tests/vectors.rs (target/release/deps/vectors-e60680a25f38ecd7)
+
+running 9 tests
+test gate_sets_match_core_gates_py ... ok
+test tampered_witnesses_are_rejected ... ok
+test the_verdict_byte_tells_a_diagnostic_build_apart ... ok
+test real_batches_parse_and_check ... ok
+test framing_matches_merkle_py ... ok
+test uint_matches_merkle_py ... ok
+test domains_leaves_and_nodes_match_commitment_domain ... ok
+test tagged_sha256_matches_identity_py ... ok
+test statement_bytes_are_canonical_for_the_parser ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+   Doc-tests veritor_zk_common
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

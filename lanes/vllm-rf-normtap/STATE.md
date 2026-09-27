@@ -1,7 +1,22 @@
 # vllm-rf-normtap: STATE
 
-Agent bc-12c2f2d9 (cloud).  Norm-scale taps (PR #90) and the guarded max (PR #95) are merged.  The MS class (PR #102, re-merged with main
-3040ac1f at 64a4c3d3) and FA3's per-iteration Check_inf (PR #105 at b0a12771, stacked on #102) are merge-ready.  No pods.
+Agent bc-12c2f2d9 (cloud).  Norm-scale taps (PR #90) and the guarded max (PR #95) are merged.  The MS class (PR #102) and FA3's
+per-iteration Check_inf (PR #105) merged in train A (main 928790af).  The MufuEx2Ftz shift clamp (PR #137 at 7d8a11e4) is merge-ready.  No pods.
+
+## MufuEx2Ftz shift clamp (PR #137, branch cursor/vllm-fa2-model-ex2-shift-57d5 @ 7d8a11e4): DONE, merge-ready
+- **Task.** Coordinator handoffs 0810Z (the task, from flock-ir-lowering's finding) and 0842Z (the pod checkpoint: cap $1.50, estimates
+  before any pod).
+- **Merge-ready handoff:** 20260927T0902Z.
+- **The fix.** A right shift of 24 or more is 0 in `mufu_ex2_bits`, in the numpy twin, in SP1 `ftz.rs` and flock `ir_tail.rs` (both
+  had copied the wrap), and in `mufu_probe.cu`'s device model.
+- **Results.**
+  - Over all 2^32 words: C++ = twin = SP1 = flock, and main differs only at biased exponents 40..63.
+  - SP1 `cargo test`: 136 passed.
+  - The new tests pass on the fix and fail on main.
+  - #101 layer-0 census: 0 affected inputs.
+  - Gate (b): +2 tests, 0 new failures.
+- **Pods:** `vyv-rf-normtap-c4` `c4pymranf1lyv7` (CPU, $0.96/h), 08:38Z–09:00:08Z, about $0.35.
+- **Open:** the optional L40S `mufu_probe verify`, about $0.30, waiting for the coordinator's OK.
 
 ## FA3 Check_inf per iteration (PR #105, branch cursor/vllm-rf-fa3-checkinf-57d5 @ b0a12771): DONE, merge-ready
 - The fix: a new FA3 block Definition with a per-iteration `CHECK` static (true on the first block and on the causal-masked iterations,

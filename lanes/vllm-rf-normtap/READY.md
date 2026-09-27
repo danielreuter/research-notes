@@ -3,7 +3,25 @@ id: vllm-rf-normtap/ready
 lane: vllm-rf-normtap
 kind: ready
 created: 2026-09-26T22:19Z
-updated: 2026-09-27T03:25Z
+updated: 2026-09-27T09:05Z
+---
+# vllm-rf-normtap READY (5): the MufuEx2Ftz shift clamp (PR #137)
+
+## MufuEx2Ftz shift clamp (PR #137, `cursor/vllm-fa2-model-ex2-shift-57d5` @ `7d8a11e4`, base main `928790af`)
+Merge-ready handoff: `lanes/vllm-coordinator/20260927T0902Z-handoff-from-vllm-rf-normtap.md`, which includes the test diff.
+- **The fix.** `fa2_model.cpp` `mufu_ex2_bits` treats a right shift of 24 or more as 0; before, a count of 64 or more was
+  undefined and wrapped mod 64 on x86, for |x| < 2^-63. Every 0 < |x| < 2^-23 now reads T[0] = 1.0. The copies of the wrap follow:
+  the numpy twin, SP1 `ftz.rs`, flock `ir_tail.rs` and `mufu_probe.cu`'s device model.
+- **CPU run `r20260927-083954-0e10`.**
+  - Over all 2^32 words, the C++ equals the twin, and SP1 and flock are digest-equal to it.
+  - Main and the fix differ on exactly the 402,653,184 words with biased exponent 40..63.
+  - `cargo test -p veritor-zk-common`: 136 passed.
+  - Both new tests pass on the fix and fail on main.
+  - #101 layer-0 census: no ex2 input in (0, 2^-63).
+- **Gate (b)** `6d1c` / `9946`: +2 tests passed, 0 new failures.
+- **Pod:** `vyv-rf-normtap-c4` (`c4pymranf1lyv7`), 08:38Z–09:00:08Z, about $0.35.
+- **Still open:** the optional L40S `mufu_probe verify` (about $0.30) waits for the vLLM coordinator's OK.
+
 ---
 # vllm-rf-normtap READY (4): FA3's per-iteration Check_inf as Attention_v4 (opt-in), and #102 re-merged with main
 

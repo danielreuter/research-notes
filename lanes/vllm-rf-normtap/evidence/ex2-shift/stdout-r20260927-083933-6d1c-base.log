@@ -1,0 +1,7 @@
+waited for /workspace/research/runs/r20260927-083834-49ba 2026-09-27T08:40:54Z
+tree /workspace/gc2/base @ 928790afb04716392c38a9c7131e42837dded306 vs shipped: 0 differing entries
+start 2026-09-27T08:40:55Z src /workspace/research/src/928790afb04716392c38a9c7131e42837dded306 tree /workspace/gc2/base
+verity_sampled_proofs importable
+lints base rc=0 2026-09-27T08:41:28Z ...............................................                          [100%]
+gate_b base rc=1 2026-09-27T08:56:53Z 39 failed, 4047 passed, 286 skipped, 6 xfailed, 41 warnings, 11 errors in 923.14s (0:15:23)
+done 2026-09-27T08:56:53Z

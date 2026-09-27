@@ -1,0 +1,195 @@
+waited for /workspace/research/runs/r20260927-083834-49ba 2026-09-27T08:40:33Z
+tree /workspace/gc3/fix @ 7d8a11e444c3b14eb1f83ed1d19fb95a4fa76163 vs shipped: 0 differing entries
+main 928790afb04716392c38a9c7131e42837dded306; fix parents 928790afb04716392c38a9c7131e42837dded306; fix vs main:  7 files changed, 114 insertions(+), 16 deletions(-)
+new tests on fix rc=0 PASSED integrations/vllm/tests/program/test_kernel_self_check.py::test_attention_kernels_on_scores_below_two_to_the_minus_63
+new tests on main_newtests rc=1 FAILED integrations/vllm/tests/program/test_kernel_self_check.py::test_attention_kernels_on_scores_below_two_to_the_minus_63
+packages/verity/tests/evaluation on fix rc=0 36 passed in 6.97s
+libs /workspace/gc3/fix/integrations/vllm/verity_vllm/program/kernels/cpp/build/libfa2_model.so /workspace/gc3/main/integrations/vllm/verity_vllm/program/kernels/cpp/build/libfa2_model.so
+sweep rc=0 2026-09-27T08:41:34Z
+cargo cargo 1.98.1 (797e8a9bc 2026-08-05)
+sp1 cargo test rc=0 136 passed, 0 failed
+test ftz::tests::ex2_reduction_matches_the_c_rule_on_landmarks ... ok
+test ftz::tests::inv_sum_rule ... ok
+ex2sweep build rc=0
+rust sweep sp1 rc=0 lines 256 12s
+rust sweep flock rc=0 lines 256 7s
+{"rust_equals_compiled_rule_over_2^32": {"sp1": true, "flock": true}}
+census rc=0 2026-09-27T08:42:34Z
+{
+ "sweep": {
+  "inputs": 4294967296,
+  "table_sha256": "b2a42c4a626469c986e33e43f16f41bde9d84de94347cd9ceaa1bd68d36bcdf0",
+  "twin_mismatch": 0,
+  "tiny_words": 1728053248,
+  "tiny_not_one": 0,
+  "main_vs_fix_differ": 402653184,
+  "main_vs_fix_by_sign_exponent": {
+   "+e40": 8388608,
+   "+e41": 8388608,
+   "+e42": 8388608,
+   "+e43": 8388608,
+   "+e44": 8388608,
+   "+e45": 8388608,
+   "+e46": 8388608,
+   "+e47": 8388608,
+   "+e48": 8388608,
+   "+e49": 8388608,
+   "+e50": 8388608,
+   "+e51": 8388608,
+   "+e52": 8388608,
+   "+e53": 8388608,
+   "+e54": 8388608,
+   "+e55": 8388608,
+   "+e56": 8388608,
+   "+e57": 8388608,
+   "+e58": 8388608,
+   "+e59": 8388608,
+   "+e60": 8388608,
+   "+e61": 8388608,
+   "+e62": 8388608,
+   "+e63": 8388608,
+   "-e40": 8388608,
+   "-e41": 8388608,
+   "-e42": 8388608,
+   "-e43": 8388608,
+   "-e44": 8388608,
+   "-e45": 8388608,
+   "-e46": 8388608,
+   "-e47": 8388608,
+   "-e48": 8388608,
+   "-e49": 8388608,
+   "-e50": 8388608,
+   "-e51": 8388608,
+   "-e52": 8388608,
+   "-e53": 8388608,
+   "-e54": 8388608,
+   "-e55": 8388608,
+   "-e56": 8388608,
+   "-e57": 8388608,
+   "-e58": 8388608,
+   "-e59": 8388608,
+   "-e60": 8388608,
+   "-e61": 8388608,
+   "-e62": 8388608,
+   "-e63": 8388608
+  },
+  "changed_biased_exponents": [
+   40,
+   63
+  ],
+  "examples_x_main_fix": [
+   [
+    "0x14000000",
+    "0x3f800001",
+    "0x3f800000"
+   ],
+   [
+    "0x14555555",
+    "0x3f800001",
+    "0x3f800000"
+   ],
+   [
+    "0x14aaaaaa",
+    "0x3f800002",
+    "0x3f800000"
+   ],
+   [
+    "0x15000000",
+    "0x3f800003",
+    "0x3f800000"
+   ],
+   [
+    "0x15555555",
+    "0x3f800005",
+    "0x3f800000"
+   ],
+   [
+    "0x15aaaaaa",
+    "0x3f800007",
+    "0x3f800000"
+   ],
+   [
+    "0x16000000",
+    "0x3f80000c",
+    "0x3f800000"
+   ],
+   [
+    "0x16555555",
+    "0x3f800012",
+    "0x3f800000"
+   ],
+   [
+    "0x16aaaaaa",
+    "0x3f80001e",
+    "0x3f800000"
+   ],
+   [
+    "0x17000000",
+    "0x3f80002d",
+    "0x3f800000"
+   ],
+   [
+    "0x17555555",
+    "0x3f80004a",
+    "0x3f800000"
+   ],
+   [
+    "0x17aaaaaa",
+    "0x3f800076",
+    "0x3f800000"
+   ]
+  ],
+  "seconds": 45.0
+ },
+ "rust_equals_compiled_rule_over_2^32": {
+  "sp1": true,
+  "flock": true
+ },
+ "census_101_layer0": {
+  "step0": {
+   "geometry": [
+    32,
+    256,
+    2,
+    128,
+    64
+   ],
+   "visited_blocks": 12288,
+   "scale_log2": 0.1803368777036667,
+   "ms_is_the_irs_max_scaled": true,
+   "row_max_nonfinite": 0,
+   "row_max_zero": 0,
+   "min_abs_row_max": 0.43310070037841797,
+   "min_abs_max_scaled": 0.07810402661561966,
+   "max_scaled_below_2^-15": 0,
+   "rescale_inputs": 4096,
+   "rescale_zero": 3640,
+   "rescale_biased_exponent_1_to_63": 0,
+   "rescale_min_abs_nonzero": 0.0005255789728835225,
+   "p_inputs_in_(0,2^-63)_possible": false
+  },
+  "step1": {
+   "geometry": [
+    8,
+    4,
+    3,
+    128,
+    64
+   ],
+   "visited_blocks": 96,
+   "scale_log2": 0.1803368777036667,
+   "ms_is_the_irs_max_scaled": true,
+   "row_max_nonfinite": 0,
+   "row_max_zero": 0,
+   "min_abs_row_max": 1.7345914840698242,
+   "min_abs_max_scaled": 0.3128108084201813,
+   "max_scaled_below_2^-15": 0,
+   "rescale_inputs": 64,
+   "rescale_zero": 41,
+   "rescale_biased_exponent_1_to_63": 0,
+   "rescale_min_abs_nonzero": 0.053077973425388336,
+   "p_inputs_in_(0,2^-63)_possible": false
+  }
+ }
+}
+EX2-FIX-DONE 2026-09-27T08:42:34Z

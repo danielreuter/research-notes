@@ -1,0 +1,75 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____________ test_ex2_every_exponent_class_equals_the_exact_rule ______________
+
+    def test_ex2_every_exponent_class_equals_the_exact_rule():
+        """`MufuEx2Ftz` on every exponent class of both signs (edge and seeded mantissas; NaN and inf at 255): the compiled rule
+        (`fa2_model.mufu_ex2`), the IR reference (`verity.evaluation.evaluate`) and the numpy twin equal the rule evaluated
+        exactly, and every 0 < |x| < 2^-23 gives T[0] = 1.0.  That includes |x| < 2^-63, where the C shift count reached 64 or
+        more (undefined; x86-64 took it mod 64: ex2(6.5e-22) was 1.0083, ex2(2^-64) 2.0 and ex2(-2^-64) 0.5)."""
+        D = _derived()
+        from verity.evaluation import evaluate
+        from verity_vllm.program.kernels import fa2_model as FA
+        from verity_vllm.program.registry import prims as P
+        tabs = D._fa2_tables()
+        mants = np.concatenate([[0, 1, 2, 0x3FFFFF, 0x400000, 0x400001, 0x7FFFFE, 0x7FFFFF],
+                                np.random.default_rng(64).integers(0, 1 << 23, 8)]).astype(np.uint32)
+        e = np.arange(256, dtype=np.uint32)
+        xs = ((np.arange(2, dtype=np.uint32)[:, None, None] << 31) | (e[None, :, None] << 23) | mants[None, None, :]).reshape(-1)
+        want = np.array([_ex2_exact(int(w), tabs.ex2) for w in xs], dtype=np.uint32)
+>       assert np.array_equal(FA.mufu_ex2(xs.view(np.float32), tabs).view(np.uint32), want)
+E       AssertionError: assert False
+E        +  where False = <function array_equal at 0x704286cd8130>(array([1065353216, 1065353216, 1065353216, ..., 2147483647, 2147483647,\n       2147483647], shape=(8192,), dtype=uint32), array([1065353216, 1065353216, 1065353216, ..., 2147483647, 2147483647,\n       2147483647], shape=(8192,), dtype=uint32))
+E        +    where <function array_equal at 0x704286cd8130> = np.array_equal
+E        +    and   array([1065353216, 1065353216, 1065353216, ..., 2147483647, 2147483647,\n       2147483647], shape=(8192,), dtype=uint32) = <built-in method view of numpy.ndarray object at 0x7042873ef930>(<class 'numpy.uint32'>)
+E        +      where <built-in method view of numpy.ndarray object at 0x7042873ef930> = array([ 1.,  1.,  1., ..., nan, nan, nan], shape=(8192,), dtype=float32).view
+E        +        where array([ 1.,  1.,  1., ..., nan, nan, nan], shape=(8192,), dtype=float32) = <function mufu_ex2 at 0x70428717fec0>(array([0.e+00, 1.e-45, 3.e-45, ...,    nan,    nan,    nan],\n      shape=(8192,), dtype=float32), MufuTables(ex2=array([1065353216, 1065353217, 1065353218, ..., 1073741820, 1073741822,\n       1073741823], shape=(8388...ufu_rcp_delta_int8.xz', 'sha256': '291d1c9cc1beed5152e3805c279aa0b34d9d15cbe7ece084c6237ca5d44e7ebc', 'bytes': 76712}}))
+E        +          where <function mufu_ex2 at 0x70428717fec0> = <module 'verity_vllm.program.kernels.fa2_model' from '/workspace/gc3/main_newtests/integrations/vllm/verity_vllm/program/kernels/fa2_model.py'>.mufu_ex2
+E        +          and   array([0.e+00, 1.e-45, 3.e-45, ...,    nan,    nan,    nan],\n      shape=(8192,), dtype=float32) = <built-in method view of numpy.ndarray object at 0x7042873ef6f0>(<class 'numpy.float32'>)
+E        +            where <built-in method view of numpy.ndarray object at 0x7042873ef6f0> = array([         0,          1,          2, ..., 4287129911, 4286867077,\n       4289250952], shape=(8192,), dtype=uint32).view
+E        +            and   <class 'numpy.float32'> = np.float32
+E        +      and   <class 'numpy.uint32'> = np.uint32
+
+integrations/vllm/tests/program/test_derived_rows.py:131: AssertionError
+__________ test_attention_kernels_on_scores_below_two_to_the_minus_63 __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x704287080410>
+
+    def test_attention_kernels_on_scores_below_two_to_the_minus_63(monkeypatch):
+        """Edge vectors for the attention kernels' self-check: scores near +-2^-66 put the P and rescale ex2 inputs at
+        2^-87 <= |x| < 2^-63, where the C rule's shift count reached 64 (undefined; the host took it mod 64) and MUFU.EX2 reads
+        T[0] = 1.0.  The twin and the row kernel equal the reference there, and the reference equals the same instance with
+        q = 0, whose every ex2 input is 0."""
+        from verity.evaluation import evaluate
+        from verity.ir.defs import bind
+        from verity_vllm.program.kernels import derived_rows as DR
+        from verity_vllm.program.registry import b1
+    
+        statics = {"T": 20, "NH": 2, "KVH": 1, "D": 16, "BN": 16}
+        target = bind(b1.AttentionV3, **statics)
+        bf16 = lambda a: (np.asarray(a, dtype=np.float32).view(np.uint32) >> 16).astype(np.uint16).reshape(-1)  # noqa: E731
+        k, q = np.zeros((20, 16)), np.zeros((2, 16))
+        k[:, 0] = 2.0 ** -33 * (1 + np.arange(19, -1, -1) / 64)   # head 0's max is in block 0, visited last: a tiny rescale input
+        q[:, 0] = [2.0 ** -33, -(2.0 ** -33)]
+        v = np.random.default_rng(3).standard_normal((20, 16))
+        tiny, zero = [bf16(q), bf16(k), bf16(v)], [bf16(0 * q), bf16(k), bf16(v)]
+    
+        seen: list[np.ndarray] = []
+        ex2 = DR.mufu_ex2_ftz
+        monkeypatch.setattr(DR, "mufu_ex2_ftz", lambda x, table=None: seen.append(np.asarray(x).reshape(-1)) or ex2(x, table))
+        got = rows.ROWS["Attention_v3"].fn(statics, tiny)["out"]
+        monkeypatch.undo()
+        xe = (np.concatenate(seen) >> 23) & 0xFF
+        assert np.count_nonzero((xe >= 40) & (xe <= 63)) > 0 and not np.any((xe >= 104) & (xe < 255))
+    
+        ref = [evaluate(target, *(a.tolist() for a in inst)) for inst in (tiny, zero)]
+>       assert ref[0] == ref[1] and got.tolist() == list(ref[0])
+E       assert ((15940, 48724...9, 16065, ...) == (15938, 48724...7, 16065, ...)
+E         
+E         At index 0 diff: 15940 != 15938
+E         Use -v to get more diff)
+
+integrations/vllm/tests/program/test_kernel_self_check.py:66: AssertionError
+=========================== short test summary info ============================
+FAILED integrations/vllm/tests/program/test_derived_rows.py::test_ex2_every_exponent_class_equals_the_exact_rule
+FAILED integrations/vllm/tests/program/test_kernel_self_check.py::test_attention_kernels_on_scores_below_two_to_the_minus_63

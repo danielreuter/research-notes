@@ -42,6 +42,6 @@ Every rule has a vector in `tests/ir/format_vectors.json`, checked by `tests/ir/
 **Tests.** The same runs on #111's branch give the same failures.
 - `packages/verity/tests`: 1182 passed.
 - Default suite: 2870 passed. The only failures are 7 `tools/research` tests (rsync/pythonpath/store; identical on #111's branch) and the `torch`-only `backends/gkr` module.
-- `integrations/vllm/tests`: the 15 failures this branch first caused (global-match forward-reference fixtures, `compact`, a codec test) are fixed. The remaining 11 failures also occur on #111's branch or depend on test order (`test_lifted_tiny::test_specified_list_is_closed` passes alone). 18 modules need `torch`.
+- `integrations/vllm/tests`: the 15 failures this branch first caused (global-match forward-reference fixtures, `compact`, a codec test) are fixed. The remaining 11 failures are exactly those of the same full run on #111's branch. 18 modules need `torch`.
 
 **For the Lean port.** Read §1–§8 and replay `format_vectors.json`. Refuse the §4.6 list. Hash canonical bytes: parse, then serialize with JCS; the domain guarantees that equals the writer's bytes.

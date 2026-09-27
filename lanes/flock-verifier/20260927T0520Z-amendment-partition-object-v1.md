@@ -3,7 +3,7 @@ cursor:
   subagentId: "bc-f7aadce6-d64c-5681-a2c7-47a635ef666c"
 ---
 
-lane: flock-verifier · kind: handoff · from: vllm-cross-call-check (partition checker owner) · updated: 2026-09-27T06:05Z
+lane: flock-verifier · kind: handoff · from: vllm-cross-call-check (partition checker owner) · updated: 2026-09-27T06:40Z
 
 # Amended §2 of `20260927T0445Z-draft-partition-checks-spec.md`: `verity/partition/v1` names a query, P = Q(C) (PR #111)
 
@@ -47,21 +47,23 @@ This amends §2 of that note; the note itself is unedited, since it is another a
   - #74's largest request Program: 1,167 distinct specializations in 664 s (1.3 GB peak), giving 5.44 G units. The program is 1.84 GB of instance JSON (121 MB gzipped).
   - Most of the time goes to one flat attention-head cut per T.
 
-**Not yet specified tightly enough to port** (the codec and layout are defined by code, not a written spec):
+**The program format is now specified: `packages/verity/src/verity/ir/PROTOCOL.md`** ([PR #120](https://github.com/danielreuter/verity/pull/120), stacked on #111). Every rule has a vector in `tests/ir/format_vectors.json`, checked by `tests/ir/test_format_spec.py`. No digest moves. The earlier gaps, each with where it is now specified:
 
-1. **Descriptor schema v1.** `codec.py` cites `docs/vllm-poc/descriptor-codec.md`, which isn't in the repo. The v1 features are defined only by code:
-   - the interned `callees` and `types` tables;
-   - the `{"alias": [k, a]}` reference-sequence alias;
-   - flat concatenation splicing.
-2. **Canonical JSON.** It is Python `json.dumps(sort_keys=True, separators=(",", ":"), ensure_ascii=True)`, with no written rules for escaping, number form (ints only) or key order (code-point order). The codec's own docstring says it isn't a frozen external spec. Lean hashing the exact bytes it receives is safe; re-serializing isn't, until this is written down.
-3. **Reference sequences.** The JSON forms (`affine`, `strided`, `explicit`, `concat`), `Strided`'s zero-stride broadcast, and `refs.runs` / `intervals` (used by `separable`) exist only in `refs.py` and `intervals.py`.
-4. **Canonical layout.** Defined only in `layout.py`:
-   - gate numbering of the root: Input nodes first, then the program function inlined into the root by `program._lower_root`;
-   - `body.offsets`;
-   - batch member layout, and one gate per primitive member;
-   - scan node layout;
-   - `resolve` of `("p", …)` refs through scopes and of `("n", k, leaf)` through a callee's returned refs, including parameter pass-through.
-5. **Input nodes.** They are recognised by the decoded primitive's `family == "Input"`, which comes from the registry, not the descriptor. Lean needs the rule: ids `Input<w>_v1`.
-6. **`WIDE_FAN_IN = 4096` and `_wide_operands`.** A layout constant plus a performance special case changes the graph: a wide gate's outside operands aren't listed and it never matches a recompute. It is pinned in Q_word v1, but it should go when the query is next revised (v2).
-7. **`WIRING`** is a pinned id list: `Bf16ToF32_v1`, `F32BitsShl23_v1`, `F32Fabs_v1`. Its bit-rearrangement property is checked by a vLLM test on the registry, not derivable from the descriptor.
-8. **`n_members` and `axes`** for batch and scan nodes (`parts.n_members`).
+1. **Descriptor schema v1** (§4): the interned `callees`/`types` tables and their first-seen order, ids and binding records, node forms, the alias and flat concatenation (reader and writer rules), and what `decode_program` refuses.
+2. **Canonical JSON** (§1): RFC 8785 (JCS) is adopted. The current bytes conform on the descriptor domain: strings of ASCII without DEL, integers of magnitude at most 2^53 − 1, no floats. This is checked on the vectors and on three real build-step descriptors, whose JCS bytes equal `canonical_json`. `encode_program` and `decode_program` now refuse a descriptor outside the domain, so Lean may re-serialize with JCS. Stored `descriptor.json.gz` files are not canonical; the digest is over the canonical form.
+3. **Reference sequences** (§3): the four forms, strided broadcast, and batch members along each axis. `refs.runs` and `intervals` need no spec: `separable` depends only on which leaves are referenced.
+4. **Canonical layout** (§6) and **scope resolution** (§7): offsets, member counts, locating a gate, operands, and every resolution case (a vector each).
+5. **Input nodes** (§5): the root lowering, and recognition by id `^Input([1-9][0-9]*)_v1$` (`program.INPUT_ID`). `partition_object.calls` now uses the id, not the registry's `family`.
+6. **Wide gates** (§8): pinned as Q_word v1 behaviour, with a vector showing the graph with and without the special case.
+7. **`WIRING`** (§8): the pinned id list.
+8. **`n_members` and `axes`** (§4.4, §6).
+
+Also new in #120: the decoder now refuses descriptors the format does not define, several of which previously made a reference resolve to another node's gate. These are:
+- keys unlike their id and binding record;
+- negative table indices;
+- references past their collection, or to a later node;
+- nodes that don't type-check or misdeclare `out`;
+- booleans as integers;
+- a root with parameters.
+
+A Lean reader should refuse the same list (§4.6, vector `decoder_rejects`).

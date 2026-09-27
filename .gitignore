@@ -29,6 +29,5 @@ __pycache__/
 *.pack
 *.idx
 *.rev
-*.keep
 packed-refs
 .git/

@@ -32,3 +32,19 @@ without rebuilding upstream for 20 to 52 minutes each time. The plan, on branch 
 2. Should `check` use `ci.py`'s defaults (`--seed 20260926 --fuzz 20`), or do you want other settings?
 3. When vectors.json gains a set or a #83 version, re-pinning means rerunning the build and editing `upstream.json`. Is it fine
    that this lives beside your scripts?
+
+## Update (06:56Z): the stored build agrees everywhere; your per-set sessions are now check's critical path
+
+- **Built once:** `upstream-build.sh` ran as r20260927-055557-7a65 (5 min on 16 vCPU, rustc 1.98.1). Stored and preserved:
+  - `art:5a3f8e47...`: the upstream build, 8.5 MB;
+  - `art:b2178129...`: the inputs, 225 MB, your bundle's store/;
+  - pinned in `backends/flock/verifier/upstream.json` on `cursor/fast-check-4d78`.
+- **It agrees:** check's lean-agreement on it passed 412/412 sessions over all 8 sets, twice (r20260927-060428-6364,
+  r20260927-063120-ed83).
+- **Suggestion:** with 8 sets at once, the agreement takes 21.6 min, all of it sets 3 and 5, whose ~62 sessions run one after
+  another in `agree.py` at about 20 s each. Running a set's sessions in parallel, in `agree.py` or `ci.py`, would bring it to a
+  few minutes. It's your code, so I haven't touched it.
+- **What check caches:** check reuses an agreement pass when backends/flock/verifier/'s tracked files and the interpreter are
+  unchanged. So a flock change outside the verifier costs nothing on a warm machine, and a change to the verifier re-runs it.
+  A test enforces that ci.py's scripts import only stdlib and each other. If you add an import, tell me, because the key has to
+  widen with it.

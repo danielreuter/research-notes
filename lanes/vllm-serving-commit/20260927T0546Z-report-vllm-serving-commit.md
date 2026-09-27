@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT b08eda03 (09:46Z) [open] P12 fixed at 6c... (unused GRID constant dropped; lints incl. P12, dead-modules, unit tests pass on VM); #119 head moves; merge-ready after P6 + gate (b) at the final head. P4 r20260927-092505-bee3 check pending.
 CHECKPOINT 26217b18 (09:32Z) [open] P6 code ready on CPU (26217b18): GEMM shared-row members (grid tables/refs); P6 partition 631d88f8 rebuilt == e2e layout (bases, tables 861/21504 + 287/2048, grid groups); CPU format check: both GEMM K classes' m<k>-pub/inst == M0 967b8d06 write(share_rows=True) byte for byte. P6 waits for M0's no-dedupe tables+refs mode (0937Z ask; #101 qkv x rows repeat). P4 r20260927-092505-bee3 running on g3.
 CHECKPOINT 7d4f4b7e (09:27Z) [open] P6 blocker found: M0 share() dedupes rows by value (qkv x rows repeat: #101 prompt 256 tokens, 156 distinct) vs e2e's value-independent grid rule (and dedupe leaks token equality). Asked M0 for a no-dedupe tables+refs mode, e2e to confirm the grid rule (0937Z handoffs). P4 r20260927-092505-bee3 running.
 CHECKPOINT 7d4f4b7e (09:26Z) [open] P4 LAUNCHED: POD vyv-rf-serving-commit-g3 (mz0r7yvldlz5bt, L40S secure) run r20260927-092505-bee3 at 7d4f4b7e, expected end ~09:55Z, ~$0.45. WAIT check-back 09:50Z agent bc-819f6247. Coordinator copied (0927Z). #119 tip moved to 7d4f4b7e: gate (b) rerun after P6.

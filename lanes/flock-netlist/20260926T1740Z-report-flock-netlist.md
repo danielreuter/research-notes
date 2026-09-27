@@ -28,17 +28,43 @@ CHECKPOINT 9fd167e1 (17:40Z) [open] started M0: verity/flock-circuit CPU stateme
 
 Spec: Project store `docs/boolean-prover-scoping.md` (M0 row, M0 acceptance, section 4). Agent bc-ff572e70-b0e7-5094-85be-13ff9ddc4d6a.
 
-## Design (as built)
+## Design (as built, 2026-09-27 12:05Z, PR #83 @ e9ee9db0)
 
-- One or more whole VUs per block; every glue inside a block is a copy constraint (Δ); no prover-supplied value, no glue claim.
-- Slot types per block: BLAKE3 compressions (chunk runs per port; for a multi-chunk port its parent tree, root first), the
-  template's units, a reserved mask slot (free cells, A = B = I), forced-zero padding apart from it.
-- Public: frame-v3 roots, the row digests (serving leaves; unsalted until Daniel's call), declared outputs, the pinned layout.
-  Chaining values, chunk values, every word between slots: private.
-- The pinned composite circuit (`flock-circuit`, sha256 = pin) is the meaning: META (ports, ranges, compression roles, leaf
-  and output maps, pinned padding-instance values, leaf-commitment scheme) + each slot type's `flock-ir-unit/v2` expanded circuits. The
-  verifier derives Δ, regions and values from it and its own public file (no rows).
-- Code: `backends/flock/python/verity_flock/circuit.py`, `backends/flock/live/src/{circuit,zk_hooks}.rs`, `bin/flock-circuit.rs`.
+**Blocks and glue.**
+- A block holds one or more whole VUs.
+- Every glue inside a block is a copy constraint (Δ); there are no prover-supplied values.
+
+**Slot types per block:**
+- `sha512x3` (three SHA-512 compressions of a row per slot);
+- `hm96` (one per input port: the padding compression, then `b‖c` from the row's salt);
+- the template's units, and its tail's stages and lookups (MUFU tables);
+- a reserved mask slot (free cells, A = B = I).
+
+Everything else is forced-zero padding.
+
+**Public:**
+- the frame-v3-sha512 roots;
+- each row's `hm96-sha512/row/v1` `b‖c`;
+- the declared outputs;
+- the pinned layout.
+
+Rows, salts, chaining values and every word between slots are private.
+
+**The pinned composite circuit is the meaning.** It is the `flock-circuit` file; its SHA-512 is the pin.
+- **META** carries:
+  - ports and ranges;
+  - leaf and output maps, and the pinned padding-instance values;
+  - the leaf-commitment scheme;
+  - the bindings (`partition`, `program_sha512`, and `program_digests` keyed by descriptor id).
+- **Sections:** each slot type's `flock-ir-unit/v2` circuit.
+- **The class** is the file without its bindings.
+- **The verifier** derives Δ, the regions and their values from it and its own public file. The public file has no rows; a
+  shared-row file has tables and refs.
+
+**Code:**
+- `backends/flock/python/verity_flock/{circuit,tail,sha512_circuit}.py`;
+- `backends/flock/live/src/{circuit,gpu_circuit,zk_hooks}.rs` and `bin/flock-circuit.rs`;
+- multi-table statements in `backends/flock/live/src/{tables,glue}.rs` and `verity_flock/tables.py`.
 
 ## Standing rule (Daniel, 18:01Z): the verifier evaluates no part of the computation
 

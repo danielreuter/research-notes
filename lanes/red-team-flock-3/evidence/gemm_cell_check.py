@@ -32,7 +32,11 @@ def meta_of(art):
 
 def record_of(run):
     rows = [l.split() for l in sh("research", "data", "select", "--attempt", run, "--kind", "run-record/v1").splitlines() if l.startswith("art:")]
-    a = rows[0][0]
+    if rows:
+        a = rows[0][0]
+    else:
+        out = next(l.split(None, 1)[1] for l in sh("research", "data", "show", run).splitlines() if l.startswith("outputs"))
+        a = json.loads(out)["run_record"]
     sh("research", "data", "fetch", a)
     return next(TREES.glob(a[4:] + "*"))
 

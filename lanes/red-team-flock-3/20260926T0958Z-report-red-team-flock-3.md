@@ -2,9 +2,10 @@
 lane: red-team-flock-3
 kind: report
 created: 2026-09-26T09:58Z
-status: open
+status: final
 ---
 
+CHECKPOINT e5493f9f (05:15Z) [final] FINAL: 9 total-unit L40S cells (852816d6) all NON_ZK_PROOF (282/282 sessions replayed, digests, instance regen, PB1-PB4) + shared-NAT placement verified from the runs' probes (U3 pod id 3-way, S1 bare metal, U2, S3, R1, assess clean); retry-until-pass OBJECTED: IX1 keep/link every attempt, IX2 median of 3 after a failure, IX3 fix the check's RTT input, IX4 the 2 retried cells accepted with history disclosed (published figure within 0.4%); 38 labels; reply lanes/coordinator/20260927T0515Z; run r20260927-044853-f250; $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (04:44Z) [open] reopened (coordinator 04:43Z): check + label flock-backend's 9 total-unit L40S cells (TG6/PB1-PB4/CN, shared-NAT placement record incl. U3 pod id from /proc/1/environ); rule on retry-until-pass for the ±10% interaction check: NOT final; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (22:39Z) [open] PR #91 rulings: CONCUR (1) drop product_uuid under S1 (boot_id host-level on bare metal; U2 equal-uuid still refuses, U3 register checks drop uuid) (2) RTT connects to sshd :22 same .runpod.internal address (R1 all 30 must succeed); UL2 verified at 4f5704c0 (8449-row refused, finite vLLM digest 4127c00b unchanged) -> PR #87 no open conditions; total GEMM grant stands; 9 cells await PR #91 + #87 merge; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (22:04Z) [open] shared-NAT-IP placement (coordinator 22:02Z): CONCUR with S1-S5 (S1 new: bare metal on both pods, since VM product_uuid/boot_id are per-VM; S2 evaluate from probes at plan+register; S3 only <pod>.runpod.internal 10/8; S4 kernel TCP RTT on session route; S5 record); reply lanes/coordinator/20260926T2205Z, copy to bench-spine; total GEMM grant stands; 9 cells not yet run; GitHub token expired here ~21:50Z; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -566,6 +567,37 @@ bundles.
 negative test passes. PR #87 has no open conditions.
 
 Reply: `lanes/coordinator/20260926T2240Z-handoff-from-red-team-flock-3.md`, copied to bench-spine and flock-gpu-link.
+
+### The 9 total-unit L40S cells (27 Sep, 05:15Z): all NON_ZK_PROOF; retry-until-pass OBJECTED
+
+flock-backend's `20260927T0445Z` handoff lists the cells, all at commit 852816d6. That commit equals the granted d2292e3b on
+the pure-block path, plus UL2 and the probe fix.
+
+- **Cells** (run `r20260927-044853-f250`):
+  - art:199bccee, art:c6b96f7e, art:c3a3d2c7, art:3e1bf074, art:5bdcd1d1, art:216143fd, art:3367e633, art:b1e5fed5 and
+    art:062f4951;
+  - 282 of 282 sessions replayed and accepted, and the negatives rejected;
+  - digests equal to the bound ones, and instance files byte-identical on regeneration.
+- **NAT placement** (`evidence/nat_check.py`), for all 9:
+  - pod ids agree three ways: the probe via `/proc/1/environ`, the runner and the plan;
+  - machine ids and boot ids differ;
+  - bare metal (ASUSTeK ESC8000A-E11 / ESC N8-E11, no hypervisor flag);
+  - the uuid unreadable on both pods;
+  - the link on the global network (10.0.131.43 from 10.0.159.5);
+  - 30 of 30 connects, medians 0.23–1.73 ms;
+  - `assess()` clean.
+- **Interaction check.** The model's per-round cost is the Ping RTT estimate, which swings from 0.29 to 0.76 ms on this
+  pair. The measured wait per round is steady at 0.50–0.63 ms, and the verifier's handling is 0.01–0.017 ms.
+  - 10 of 11 attempts are over the model, at +4.6% to +11.5%.
+  - #39's refused attempt and its retry have the same compute and wait. Only the RTT estimate moved.
+  - The published figures agree within 0.4%.
+- **The rule I proposed:**
+  - **IX1:** keep and link every attempt.
+  - **IX2:** one attempt, then exactly two more if it fails, and the median of three.
+  - **IX3:** the check's RTT should be a mean of in-session samples on the session route, with a measured bandwidth.
+  - **IX4:** this queue's two retried cells are accepted with the history disclosed. The 02:20Z K2048 attempt is to be
+    registered.
+- **Labels:** 38, including a `finding` on each of the two refused attempts.
 
 ### Pre-grant checklist
 

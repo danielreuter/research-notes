@@ -5,6 +5,7 @@ created: 2026-09-26T19:37Z
 status: open
 ---
 
+CHECKPOINT 7d8a11e4 (08:42Z) [open] POD vyv-rf-normtap-c4 (c4pymranf1lyv7, cpu3c 32 vCPU, $0.96/h, up 08:38Z) runs the MufuEx2Ftz clamp evidence for PR #137: gate (b) main 928790af vs fix 7d8a11e4 (r20260927-083933-6d1c / r20260927-083926-9946), the 2^32 sweep + SP1 cargo test + Rust sweeps + #101 layer-0 census (r20260927-083954-0e10); expected end ~09:00Z, drained on PRESERVED by ~09:05Z, ~$0.45; hard stop 09:30Z (<= $0.85, cap $1.50). Not movable to the VM (lane brief: no pytest/builds on the VM). Estimates before any further pod.
 CHECKPOINT 7d8a11e4 (08:41Z) [open] WAIT ex2 fix PR #137 (7d8a11e4): pod vyv-rf-normtap-c4 runs r20260927-083926-9946 (gate b head), r20260927-083933-6d1c (gate b base 928790af), r20260927-083954-0e10 (2^32 sweep, SP1 cargo test, Rust sweeps, #101 layer-0 census); expected done ~09:00Z; timer armed
 CHECKPOINT 7d8a11e4 (08:37Z) [open] ex2 shift fix committed 7d8a11e4 on cursor/vllm-fa2-model-ex2-shift-57d5 (fa2_model.cpp + numpy twin + SP1 ftz.rs + flock ir_tail.rs + mufu_probe.cu, 2 new tests); next: CPU pod vyv-rf-normtap-c4 for gate (b) base/head, 2^32 sweep, SP1 cargo test, #101 layer-0 census
 CHECKPOINT 928790af (08:14Z) [open] START fa2_model mufu_ex2_bits shift clamp (handoff 20260927T0810Z-handoff-from-vllm-coordinator.md): branch cursor/vllm-fa2-model-ex2-shift-57d5 off main 928790af; CPU only

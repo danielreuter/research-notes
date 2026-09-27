@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 787ac154 (04:44Z) [open] reopened for 9 total-unit L40S cells (flock-backend 0445Z): NOT final
 CHECKPOINT 787ac154 (17:48Z) [final] FINAL: c2 re-run b61eafa9 verified=accepted (file re-verification, r20260926-165159-6043); attention classes c1 c2 c3 all labelled; pod terminated 17:48Z; ~$0.6
 CHECKPOINT 787ac154 (17:47Z) [final] FINAL: c2 re-run b61eafa9 verified=accepted (file re-verification, r20260926-165159-6043); attention classes c1 c2 c3 all labelled; pod terminated 17:48Z; ~$0.6
 CHECKPOINT 787ac154 (16:54Z) [open] c2 re-run art:b61eafa9: replay r20260926-165159-6043 on vy-verify-flock-pure (pod vx2lueuuhjvxeb, cpu3c-16) from lane/verify-flock-class 4d8217ef; verifier run r20260926-153220-186b (8ef6d347)

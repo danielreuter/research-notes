@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT fe196b6c (09:50Z) [open] ESTIMATE before pod: 1x cpu3g-16 (~$0.64/h) for ~35-45 min (~$0.45): upstream rebuild for 7 #83 versions ~9 min, cold check on #134's merged head with the 14-set parallel agreement ~12 min, warm re-check ~1 min; agent bc-1122c760
 CHECKPOINT fe196b6c (07:46Z) [open] READY draft #134 (fast check, stacked on #100): parallel + exact-input caches + trains + lean-agreement required for backends/flock/ on stored upstream build art:5a3f8e47; cold 21.8 min, warm 0.9 s / 2.7 min, train of 3 5.6 min; next: retarget after #100, re-pin for #118; agent bc-1122c760
 # circuit-checks: report
 

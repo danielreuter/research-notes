@@ -139,10 +139,24 @@ leaves are `u16` words under SHA-512 domains. The padding instance has zero rows
 
 ## 6. The partition field
 
-META `partition = {"rule": "flock-circuit/unit-cover/v0", "digest": hex(64)}`, with digest `SHA-512(rule ‖ 0x00 ‖
-canon(unit cover))`. This is `verity/partition/v1`'s shape: when cross-call-check lands it in core, the rule becomes
-`verity/partition/v1` and the object becomes §2's. The header's `units.indices` are global unit indices in §2's order.
+META `partition = {"rule": "flock-circuit/unit-cover/v0", "query": …, "version": 0, "digest": hex(64)}`. The digest is
+`SHA-512(rule ‖ 0x00 ‖ canon({program, query, version, params}))`, the named-query shape (P = Q(C), Daniel 2026-09-27;
+`8f1c…` onward).
+- Until core's `verity/partition/v1` lands (#111), the provisional query is this lowering's unit cover:
+  `flock-circuit/unit-cover:<unit>`, whose params are the unit circuit, the leaf and output maps and the wires.
+- When it lands, the tag becomes `verity/partition/v1` and the query becomes e.g. `Q_word` v1 `{X: 16, W: 32}`. The field
+  stays a 64-byte SHA-512.
+- The header's `units.indices` will be the evaluated partition's canonical order. Today they are the set's instance ids.
 META `program_digests` is still core's `program_digest` (SHA-256), because core defines that digest.
+
+**Update, `e51e2b86`: the e2e bindings for the one-stage audit.**
+- META `partition = {"rule": "verity/partition/v1", "digest": hex(64)}` when the caller supplies the digest. Without one it is
+  the provisional unit cover above. Any other rule, or a digest that isn't 64 bytes, is refused at parse.
+- META `program_sha512`: hex(64), required.
+- The header's `units` gains `classes` (one hex(64) per instance). Every entry is the circuit's class: SHA-512 of the circuit
+  file with META's `partition`, `program_sha512` and `program_digests` removed, META re-serialized compact with sorted
+  keys, and the other lines byte for byte.
+- `units.indices` may be any ascending global indices the caller supplies.
 
 ## Not changed
 

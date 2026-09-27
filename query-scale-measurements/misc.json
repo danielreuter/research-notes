@@ -1,0 +1,28 @@
+{
+ "col_major_gate_us": {
+  "256": 456.6,
+  "2048": 3645.6,
+  "16384": 29850.4
+ },
+ "whole_entry_by_index_ms": {
+  "10000": 5.61,
+  "100000": 88.53,
+  "1000000": 1445.31
+ },
+ "float_gap_sampler": {
+  "N": "1e25",
+  "p": 1e-19,
+  "draws": 200000,
+  "distinct_residues_mod_4096": 4096,
+  "gaps_divisible_by_4096": 72903
+ },
+ "exact_uniform_draw_us": 0.28,
+ "sha256_64B_us": 0.34,
+ "materialized_sample_2e6_ms": 0.74,
+ "verify_opening_us": {
+  "20": 34.2,
+  "64": 109.3,
+  "87": 145.4,
+  "100": 170.4
+ }
+}

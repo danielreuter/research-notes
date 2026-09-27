@@ -1,0 +1,44 @@
+{
+ "build_s": 0.001071774000138248,
+ "gates": 193321009152000000005368709120,
+ "gates_log10": 29.286279053526645,
+ "input_gates_log10": 23.46969244439905,
+ "gate_lookup_us": 13.792227999942952,
+ "sample_gate": {
+  "prim": "QMac_v1",
+  "depth": 9,
+  "operands": [
+   "202086506717..",
+   "202086506717..",
+   "294912000000.."
+  ]
+ },
+ "plan_dot_s": 0.0001280779999888182,
+ "dot_count_log10": 25.372782431390988,
+ "dot_by_index_us": 6.81804750001902,
+ "dot_index_of_us": 7.88029799969081,
+ "dot_intervals_us": 2.2935819997655926,
+ "default32": "MemoryError in member_width -> Type.leaf_widths()",
+ "default32_s": 0.001982160999887128,
+ "partition_query_plan_s": 0.0001468840000597993,
+ "partition_query_sets_log10": 25.676518320430894,
+ "partition_query_by_index_us": 5.241248000061205,
+ "partition_query_classes_s": 6.0128000086479005e-05,
+ "partition_query_classes": 4,
+ "validate_partition_s": 0.0003573260000848677,
+ "validate_partition": {
+  "status": "exact",
+  "path": "tiling"
+ },
+ "readiness_s": 2.0304000145188184e-05,
+ "validate_width": {
+  "status": "ok",
+  "path": "tiling"
+ },
+ "validate_width_s": 0.0741622410000673,
+ "encode_s": 0.0005374639999899955,
+ "descriptor_bytes": 6417,
+ "digest_s": 0.00013568399981522816,
+ "region_out": "explicit enumeration over 193321009152000000005368709120 gates exceeds explicit_limit=5000000",
+ "rss_mb": 22.65625
+}

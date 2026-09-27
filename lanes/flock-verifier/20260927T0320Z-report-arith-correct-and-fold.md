@@ -3,11 +3,12 @@ id: 20260927T0320Z-report-arith-correct-and-fold
 campaign: flock-verifier
 lane: flock-verifier
 kind: report
-status: final
+status: open
 repo: danielreuter/verity
 origin: flock-verifier
 ---
 
+CHECKPOINT 6f9df45a (20:00Z) [open] core check_cut on #101's three largest Gemms: one cpu3m/48-vCPU pod (vy-flock-verifier-core-gemm), budget guard cap $3, for #176
 # Every `Arith.Correct` field is proved; the fold's first lemmas
 
 Branch `cursor/flock-verifier-spec-7ab3`, package `backends/flock/verifier/lean/level3`. Every theorem uses only

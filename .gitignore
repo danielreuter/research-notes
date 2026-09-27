@@ -23,3 +23,12 @@
 .inbox-seen
 .DS_Store
 __pycache__/
+# git data of any repository never goes in notes: code moves only through verity branches; a bundle a VM cannot push goes in
+# the Verity Project store's top-level artifacts/ (not mirrored). 14 bundles of the private verity repo were found here, 2026-09-27.
+*.bundle
+*.pack
+*.idx
+*.rev
+*.keep
+packed-refs
+.git/

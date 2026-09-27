@@ -1,7 +1,7 @@
 # machine vy-flock-netlist-gpu: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "fs6i4mc5mph6jf"
+pod_id = "hzvppy5dyb526m"
 project = "verity"
-guard = 30
+guard = true
 registered_by = "cursor"
-registered_at = "2026-09-27T02:28Z"
+registered_at = "2026-09-27T04:12Z"

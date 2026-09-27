@@ -24,7 +24,7 @@ This is the core fix for A2's crashed audit record.
 - **Tests:** `pytest packages/verity/tests/proofs protocols/sampled_proofs/tests protocols/tests tests/test_repository.py
   packages/verity/tests/test_boundaries.py backends/flock/tests/test_audit_profile.py`: 509 passed, 2 skipped.
 - **Negatives:**
-  - \`test_the_float_pairwise_version_crashed_where_the_profile_now_serves\`: the old arithmetic raises (float
+  - `test_the_float_pairwise_version_crashed_where_the_profile_now_serves`: the old arithmetic raises (float
     underflow) at n = 4,000, k = 256, and the fixed profile returns the Lean-curve bound there.
   - The brute-force admitted-strategy test still holds.
 - **Behaviour change:** `worst_case`'s floats differ from the pairwise version by at most 6.6·10^-15 relative (the old

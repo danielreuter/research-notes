@@ -9,6 +9,7 @@ origin: cursor/flock-netlist-m0-4d6a
 branch: cursor/flock-netlist-m0-4d6a
 ---
 
+CHECKPOINT 631567f7 (00:23Z) [open] SHA-512 Merkle trees built (Flock Rust patch + CUDA patch, feature sha512), GPU selftests all pass r20260926-223809-45ce; final cells: RoPE art:36146f53 2.88G, SiLU art:a689c740 3.27G, RMSNorm fused art:293ac579 2.30G, Triton art:786a7e1e 1.55G AND/s ref-profile; SHA-512 cost none measurable in time, proofs +36-39%; batched-sessions design noted for M1/M2; record run r20260927-001758-21e8 for the verifier lane
 CHECKPOINT fd02e847 (21:46Z) [open] red-team-hm96 F6: the hm96 key is a statement constant (DEFAULT_KEY pinned by SHA-256, derived in Rust and checked against core), negative leaf_key_witness_refused, fd02e847; format final there (verifier lane told); cells recording at fd02e847
 CHECKPOINT 4f8316ce (21:21Z) [open] from_record replays circuit records (verifier lane's fix, a2a7e7f4; selftest record_replays_offline); tags/domains/Σ final, format final for the NON_ZK unsalted-leaf statement at 4f8316ce (handoff to flock-verifier); circuit_bench merge fix (rmsf/rmst results had KeyError); all four cells re-running at 4f8316ce
 CHECKPOINT 99e2f750 (20:59Z) [open] internal leaf slot aligned with hm96-sha256/v1 (OS salts 128 B/leaf, one key per proof; verifier checks the whole pinned scheme; negative leaf_scheme_seeded_salts_refused); coordinator 19:55Z rename handoff already done (backend identity flock-circuit / C-interactive/flock-circuit); GPU selftest r20260926-200726-8dce all-pass incl determinism; SiLU cell art:76750e45 superseded by a timing fix (wait inside e2e window), cells re-running at the final commit; handoff to coordinator: frame-v3 hm96 row schema needs an owner
@@ -83,11 +84,23 @@ lookup slots (~40k ANDs each). Sampling carries become private Δ glue between c
 6. **The circuit pin is the meaning.** The composite circuit's sha256 is `--pin`; the verifier derives Δ, regions and values from
    it alone (`relabelled_circuit` / `relabelled_circuit_refused_at_load` negatives).
 
-## Cells so far
+## Cells (final statement: SHA-512 Merkle trees; commits b3baabd8, bb9a2a90, 631567f7 differ only in the selftest harness)
 
-| template | cell | points | loopback e2e @ plateau | AND/s loopback | AND/s ref. profile |
-|---|---|---|---|---|---|
-| SiLU·mul i8192 (L40S US-TX-4, verifier RTX 4090 EU-RO-1, RTT 149 ms) | r20260926-181746-69fe / -181724-1f6a (check: no problems; NOT registered: stale leaf label, pre step-0; re-run pending) | 32 64 128 | 0.61 s @ 128 rows (2.83 G ANDs, m=33) | 4.6 G | 3.3 G |
+Prover L40S (RunPod US-TX-4), verifier RTX 4090 (EU-RO-1, a separate machine, RTT about 143 ms), relation `circuit:<template>`,
+backend `flock-circuit` (configuration `C-interactive/flock-circuit`), every cell checked (no problems) and registered.
+End to end = loopback median of 5 timed sessions at the plateau; reference profile = prover compute + rounds × 1 ms +
+bytes / 100 Gb/s (the renderer's formula).
+
+| template (input set) | rows | prover / verifier run | art | ANDs | e2e loopback | AND/s loopback | AND/s ref. profile | proof |
+|---|---|---|---|---|---|---|---|---|
+| RoPE d64 neox (art:20ad905f, synthetic) | 8,192 | r20260926-230930-2f43 / -230921-b27b | art:36146f53 | 1.57 G | 0.295 s | 5.32 G | 2.88 G | 1.50 MB |
+| SiLU·mul i8192 (art:d3e2d9b1, captured) | 128 | r20260926-232211-9164 / -232201-690b | art:a689c740 | 2.83 G | 0.607 s | 4.66 G | 3.27 G | 1.56 MB |
+| RMSNorm fused n2048 (art:a261c0c2, tails in the circuit) | 256 | r20260926-233800-cd53 / -233735-ea80 | art:293ac579 | 2.60 G | 0.836 s | 3.11 G | 2.30 G | 1.64 MB |
+| RMSNorm Triton n2048 (art:9582a734, tails in the circuit) | 256 | r20260926-235738-e628 / -235714-1f30 | art:786a7e1e | 2.32 G | 1.22 s | 1.90 G | 1.55 G | 1.60 MB |
+
+All four clear the 1 G AND/s target end to end under the reference profile. SHA-256 predecessors (superseded, kept for the
+cost comparison above): SiLU art:e3e349b5 (4f8316ce), RoPE art:7d23d5d9 (fd02e847); SiLU art:76750e45 is labelled
+`superseded_by` (its prover-compute field was wrong).
 
 ## Naming (Daniel, 19:47Z)
 
@@ -144,6 +157,22 @@ build (60-circuit.sh), selected by flock-live's feature `sha512`:
   the gathers, cap copies, tree allocations, cap observations and the proof writer (every edit asserted by count).
 - flock-live reads and writes digests at whatever width the linked Flock has (`merkle_digest_bytes`, `merkle_digest_read`),
   so the other statements' 32-byte builds are unchanged.
+
+**Checked.** GPU selftests on the L40S, all cases pass for fused RMSNorm (k_log 25), RoPE (k_log 20) and SiLU (k_log 26):
+r20260926-223809-45ce (23b5ee05). CPU selftest on Triton RMSNorm n128 on the RTX 4090 pod: r20260926-225845-40aa (27/27).
+Locally, the CPU SHA-512 build passes RoPE 25/25 at b3baabd8. The proof's `PcsParams.merkle_hash` is bincode variant 2
+(`HashKind`: Sha256 0, Blake3 1, Sha512 2), read back from a proof's bytes.
+
+**Cost, measured** (same sets, L40S, loopback median of 5 timed sessions; SHA-256 cells from earlier the same day):
+
+| template | SHA-256 e2e | SHA-512 e2e | change | proof bytes SHA-256 → SHA-512 |
+|---|---|---|---|---|
+| RoPE d64, 8,192 heads (m = 23) | 0.296 s (art:7d23d5d9) | 0.295 s (art:36146f53) | none measurable | 1,096,114 → 1,496,370 (+36.5%) |
+| SiLU·mul i8192, 128 rows (m = 33) | 0.602 s (art:e3e349b5) | 0.607 s (art:a689c740) | +0.8% | 1,123,058 → 1,557,042 (+38.6%) |
+
+The encoding-and-commitment bucket is unchanged (RoPE 12.2 against 12.3 ms per rep): the staged SHA-512 leaf kernel keeps
+the Merkle work in the noise. Proofs grow by the hash share, as ASSUMPTIONS.md §4.2a expected (about 36%). Reference-profile
+throughput is unchanged: RoPE 2.88 G AND/s, SiLU 3.27 G AND/s.
 
 ## SHA-256 for every commitment hash (Daniel, 20:00Z)
 
@@ -216,6 +245,26 @@ an M1/M2 item.
 padding and sumcheck masks are small (a 2^14-bit mask slot per block, t_pad rows per level): drawing them from the OS too
 would make the whole simulator argument statistical, with no ChaCha20 step, at negligible cost. Worth deciding with
 flock-soundness before M1 fixes the tape.
+
+## Batched, serialized sessions (Daniel, locked 2026-09-27; DESIGN.md §11.1 on PR #89): what M1/M2 changes in the coin plumbing
+
+No M0 change. Against today's session layer:
+- **Many tables per session:** `SessionConfig.tables`, one `Commit` carrying every table's root before the link points, and
+  a per-table replay already exist; the circuit statement uses one table today.
+- **Per-table coin streams:** M0 derives every coin from one session-wide request counter (`coin_seed::coins(key, g, n)`,
+  `g` recorded per round). That counter serializes requests through one server. M1: derive per (table, rep, stream,
+  round) from the one step-0 seed, domain-separated, so co-located coin-server instances on different machines need no
+  shared counter, and replay needs no `g`. The reps' independent coins (2^-97.8 squared) come from the rep in the index.
+- **Each coin checked before answering:** M0 reveals the seed only in the verdict, and the prover checks afterwards. The
+  single-rewind simulator needs every prover machine to check each revealed coin against the step-0 commitment before
+  sending its next message. So the commitment has to be to the schedule with per-round openings that hide unopened rounds:
+  a per-stream key would reveal that stream's future coins. Candidate: a SHA-512 tree over hiding per-round leaves (HM96,
+  or salted SHA-512), with each coin response carrying its leaf opening. To be specified with flock-soundness.
+- **Statement fixed before the first coin:** the hello (every table's Σ) and the one `Commit` (every root) precede any coin.
+  The rule that no coin is released before its round's bytes are recorded becomes per stream (retained bytes, M0), not a
+  cross-machine barrier.
+- **Co-located coin servers:** server state is already per stream; a coin-server instance per datacenter opens its tables'
+  streams from the one committed schedule, and the verdict joins the per-table records.
 
 ## For the formal ZK plan (flock-soundness; M1/M2 spec, no M0 scope change)
 

@@ -68,25 +68,31 @@ All ports: rows are `hm96-sha512/row/v1`, role 1, 16-bit words, `words` as below
   in A2.
 - The weight row an RMSNorm reads is committed per instance, as M0's format does today. That's 287 × 4 KB, which is small.
 
-## 3. GEMM (templates 1 and 5): shared row tables plus the grid row map (M0 to implement)
+## 3. GEMM (templates 1 and 5): M0's shared-row files, with row references fixed by the grid rule (amended 09:20Z)
 
-**Row tables, committed once.** Rows are `hm96-sha512/row/v1`, role 1, 16-bit words, K words each, with a fresh salt per row.
+**File format:** M0's shared-row layout (`lanes/one-stage-e2e/20260927T0905Z-handoff-from-*` from M0; writer by about 10:30Z).
+- The header gains `shared_rows: {"x": R_x, "w": R_w}`.
+- Each input port's frame-v3-sha512 tree is its row table.
+- The body is: rows, then salts (prover only); every table row's `b ‖ c`; `refs` (u32 LE, instance-major, `x` then `w`); then
+  the `y` words.
+- The circuit, its pin and class, and the bindings are unchanged. One statement per K class.
+
+**Tables.** Rows are `hm96-sha512/row/v1`, role 1, 16-bit words, K words each, with a fresh salt per row.
 
 | table | template 1 (K = 2048) | template 5 (K = 8192) |
 |---|---|---|
-| `x` (activation rows) | 861 rows: `qkv_proj`'s input rows t = 0..286, then `o_proj`'s, then `gate_up_proj`'s | 287 rows: `down_proj`'s input rows |
-| `w` (weight rows, row c = `W[c, :]` in the `x @ W.T` sense) | 21,504 rows: `qkv_proj` 3,072 (q 0..2047, k, v in vLLM's fused order), then `o_proj` 2,048, then `gate_up_proj` 16,384 (gate, then up, in vLLM's merged order) | 2,048 rows |
-| `y` (output words, one per instance) | 6,171,648 `u16` words | 587,776 `u16` words |
+| `x`, `R_x` rows | 861: `qkv_proj`'s input rows t = 0..286, then `o_proj`'s, then `gate_up_proj`'s | 287: `down_proj`'s input rows |
+| `w`, `R_w` rows (row c = `W[c, :]` in the `x @ W.T` sense) | 21,504: `qkv_proj` 3,072 (q 0..2047, k, v in vLLM's fused order), then `o_proj` 2,048, then `gate_up_proj` 16,384 (gate, then up) | 2,048 |
+| `y`, one `u16` word per instance | 6,171,648 | 587,776 |
 
-**Grid row map, rule `verity/one-stage/gemm-grid/v0`.** Groups in order, each `{name, tokens, columns, x_base, w_base}`:
+**The references must be exactly the grid rule `verity/one-stage/gemm-grid/v0`.** Groups in order, each `{name, tokens,
+columns, x_base, w_base}`:
 - template 1: `qkv_proj {287, 3072, 0, 0}`, `o_proj {287, 2048, 287, 3072}`, `gate_up_proj {287, 16384, 574, 5120}`;
 - template 5: `down_proj {287, 2048, 0, 0}`.
 
-For local instance i, with group g the one containing i and j = i − base_g:
-- t = j div columns_g, and c = j mod columns_g;
-- the instance reads `x` row `x_base_g + t` and `w` row `w_base_g + c`, and `y[i]` is output element (t, c) of that GEMM.
-
-The rule is public and part of the statement, and the verifier holds its own copy (these numbers). The row map is never a list.
+For instance i in group g, with j = i − base_g: `refs[i] = (x_base_g + j div columns_g, w_base_g + j mod columns_g)`, and
+`y[i]` is that GEMM's output element (t, c). The verifier recomputes every reference from its own copy of the rule and refuses a
+file that differs (`benchmarks/one_stage/a4.py`, `a4_layout.json` at `13706d9e`).
 
 ## 4. Roots, domains, the registration
 

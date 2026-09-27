@@ -82,17 +82,18 @@ for k, (mem, s) in enumerate(zip(win["members"], sets, strict=True)):
     mr = {"k": k, "template": mem["template"], "n": n}
     if mode == "served":                                       # the served rows at the captured instances equal the capture
         rows_idx = idx["members"][k]["rows"]
-        key = {(e[2], int(e[3]), e[5], int(e[7])): (int(e[0]) - int(mem["base"]), int(e[1]) - int(e[0])) for e in rows_idx}
+        # (request, engine step, op_path, token row, instances in the row): a RoPE layer's q and k rows share the first four
+        key = {(e[2], int(e[3]), e[5], int(e[7]), int(e[1]) - int(e[0])): int(e[0]) - int(mem["base"]) for e in rows_idx}
         cidx = json.loads((Path(s.path) / "index.json").read_text())
         col = {c: i for i, c in enumerate(cidx["columns"])}
         units, cap_i, outside = [], [], 0
         for i, r in enumerate(cidx["rows"]):
-            kk = (r[col["request"]], int(r[col["engine_step"]]), r[col["op_path"]], int(r[col["row"]]))
+            sub = r[col["sub"]] or {}
+            kk = (r[col["request"]], int(r[col["engine_step"]]), r[col["op_path"]], int(r[col["row"]]), int(sub.get("NHEADS", 1)))
             if kk not in key:
                 outside += 1
                 continue
-            lo, nh = key[kk]
-            units.append(lo + int((r[col["sub"]] or {}).get("head", 0)) if nh > 1 else lo)
+            units.append(key[kk] + int(sub.get("head", 0)))
             cap_i.append(i)
         cap = cols(s, list(served))
         eq = {p: bool(np.array_equal(served[p][units], cap[p][cap_i])) for p in served} if units else {}

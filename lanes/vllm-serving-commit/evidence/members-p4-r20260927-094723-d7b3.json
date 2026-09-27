@@ -1,0 +1,128 @@
+{
+ "mode": "served",
+ "partition": "46f80472fdd25c284af5a8ccac303743f60c022031c071cc6372bd07ce698587eb3d04a5fed816d01a8759102dfef37802b5e4c6134297bd044a3268edb59fd0",
+ "members": [
+  {
+   "k": 0,
+   "template": "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "n": 287,
+   "captured": {
+    "in_population": 256,
+    "outside_scope": 0,
+    "equal": {
+     "in0": true,
+     "in1": true,
+     "out.out": true
+    },
+    "ok": true
+   },
+   "pin": "5c47d95a271afc6ca4891b0c9f7f934a26aad7994be43b39e5b96f3d71f778c67b115288a4a34ceeece4bb434b212f147e934610735d57ab11eeacb3e839cb5c",
+   "class": "ba344d66ff4d62eb97707cd7c4882f2a0ececcfdbce878a9f5f15652be7fdbe72c3273b5e33bbf19b21a3fb99a6cf1496c639f4be847fe581ce60f218507d658",
+   "m0_write_s": 5.352,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "6c83fd00ffd0799c771665500f9c389e7dd421eb669d74570493b5359981a59ce2f1d9825d4941747268258d606fe2c287879016a0150f8b188c26e77a4d6b70",
+    "bytes": 1292185
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "4666d03629d4a7d590fa1edf93c61830fa97606f3eb71154eb8a9b638ad85ab433426bc81bf07cebab06783c6e8c58b0e981b5d7fa2d2c5bf287bcd1430fe8db",
+    "bytes": 3753496
+   }
+  },
+  {
+   "k": 1,
+   "template": "RoPEHead_v1{D=64}",
+   "n": 11480,
+   "captured": {
+    "in_population": 64,
+    "outside_scope": 960,
+    "equal": {
+     "x": true,
+     "cs": true,
+     "out": true
+    },
+    "ok": true
+   },
+   "pin": "a8a4c2d379fbbe1c8cb3185cbb37b62cda3590afd8fb6e6058c505c18a7baf196b6f918e064df5ca6858f0a0684a1fed1585d8e41d9f244d33f05e935c44537f",
+   "class": "3927f513e45c2bfaa22012a0845258b8b1525109a3a33916934e7af42d8f73725a5867a99195049858c8ecd481b2f9b200f8c3b39daee09b42f00eedaf2efda6",
+   "m0_write_s": 5.074,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "b193f84a4ddb239d489dfe1149002bfbb219449b4ace58126cb21389274121da56083b462765aa8c5f1fe72953aa902f2b3b978340faf516e54efacfbe025c48",
+    "bytes": 6077047
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "ef62f5908989be524997889e95a9d45e737eb7f8d52f885a9b5d37b86b271d37f3d4e77bf207c0f1e0f293d9105a8d105fc31471a0e3774acaab8de95b1c170e",
+    "bytes": 13424246
+   }
+  },
+  {
+   "k": 2,
+   "template": "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "n": 287,
+   "captured": {
+    "in_population": 8,
+    "outside_scope": 248,
+    "equal": {
+     "in0": true,
+     "in1": true,
+     "in2": true,
+     "out.0": true,
+     "out.1": true
+    },
+    "ok": true
+   },
+   "pin": "6c48d1751289e2cce6aeaa4d9aba80b8675ee4d6f017ec2932dce27c1fa5ede4b5a9f60d40b7a0c1e591d6c498f37429009d52679b6eda007c837bcb49623724",
+   "class": "91c61b115e4976dea55d301e55ab64c1331e0cbf60777061e7341f02b30589307e331450d6aafc85d51de7a80dd8f5b079eb84e9462f8b8d881210407a5d35a0",
+   "m0_write_s": 8.537,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "ec339f9ac4ee86e89d2de526b721235e9d06f47d51f186aaf54d34159e4cb3cb88df33d3dbfba36c7ec743dae1a5b6921c15c5fb1fe71e97ce0f311e8f83d204",
+    "bytes": 2506595
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "e1ca0364c243746994166debd95d66272762e0b077a520a9799cc647cdb9d683ee2b1bf2ffc115c731e16f962a22037dbc60a921ad88b0467b10bada6ae6bb04",
+    "bytes": 6198562
+   }
+  },
+  {
+   "k": 3,
+   "template": "SiluMul_v1{I=8192}",
+   "n": 287,
+   "captured": {
+    "in_population": 16,
+    "outside_scope": 240,
+    "equal": {
+     "in0": true,
+     "out.out": true
+    },
+    "ok": true
+   },
+   "pin": "9d14bc8225783a642d252301fb8f59e15bdea556e1d433395dafaf40a8235dc16919199929899dca74a39c5c6f73f8388124e6828cec2186b68c53226aa7d42d",
+   "class": "a99204bbc353072159c125e9bf06cb1aa8a9ead7464e77b3da522047c481111e78c4c772ad0d50e4ba051e1c4e95af0c3a2db62414008374f8498e40d8ffe6e9",
+   "m0_write_s": 16.575,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "a73f477e831f403836f6802eeb915ecb7d6c25a6282613f02da7b4114d1dad8369409e2d6d4dc02d250ed92f1e5ab5793ae39b60665008658a5b639e5da20800",
+    "bytes": 4783079
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "c826e808c0fe0ba8cfaaaa64a83996158eeb5cf77a21fd3c923b61ce473b51aba7c2b884b2d85a7b61d123e1faaabe666b8db3740959a45128f8b660e1fe5820",
+    "bytes": 14242598
+   }
+  }
+ ],
+ "ok": true
+}

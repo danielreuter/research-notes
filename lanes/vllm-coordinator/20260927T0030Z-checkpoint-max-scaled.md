@@ -1,0 +1,1 @@
+00:30Z: max_scaled tap planned (20260927T0030Z-plan-max-scaled-tap.md): MS stream class appended after FIN under the opt-in flag; normtap follow-up after #95, CPU until root approves ~$8 exp / $10 cap; vu-export asked to fix the doc tap list + #92 _STREAM mapping (CPU).

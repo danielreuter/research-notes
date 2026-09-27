@@ -127,3 +127,5 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 23:42Z E5 split: (a) sampler restatement (temp==0 once, bit-equal, opt-in) → vllm-cross-call-check bc-f7aadce6; (b) general CSE pass TBD.
 - 23:52Z PR #94 (program graph input->parameter roles, flock-ir-lowering/Boolean export): vLLM verdict requested; after merge send root WAKE for export lane bc-9916bbb1 to regenerate graphs + rerun export.
 - 00:03Z sweep: spent $243.92, burn $2.47/h (flock-netlist ×2, flock-verifier-ci). flock-backend l40sd/verl40sd pods idle 23:47Z then gone (queue status unknown; no handoff yet). latest.json ok; mirror ok 23:57Z. PR #94 ready (6cf88ac5), awaiting vLLM verdict.
+- 00:20Z MERGED PR #92 (194ac3f9) + PR #94 (6cf88ac5) as b1aa9bdb (vLLM APPROVE both; lints+tests+repo 113 passed). #96 HOLD (moetap GPU record). WAKE flock-ir-lowering (export lane) sent to root.
+- 00:22Z flock-backend option (a) chosen by root: retry same-DC L40S pairs, up to 15 min for internal route, CPU verifier OK, ~2 h of attempts within $25 cap. art:04688422 (#39 K1536 cross-DC, 19 ms RTT) stays diagnostic, supersedes nothing.

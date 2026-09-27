@@ -5,6 +5,7 @@ created: 2026-09-26T19:37Z
 status: open
 ---
 
+CHECKPOINT 34dbdd75 (01:32Z) [open] WAIT vyv-rf-normtap-h2 r20260927-012825-34ba (FA3 builds+exactness, pod end ~02:40Z) + vyv-rf-normtap-g5 r20260927-012901-955c (FA2 builds+exactness) -> 013003-0f64 (#101 off/on) + 013014-f082/013032-1737 (gate b head/base) -> 013141-29df (partition); L40S end ~03:50Z (guard 04:15Z); check-back 01:45Z agent bc-12c2f2d9: MS plane PR #102 head 06485b76
 CHECKPOINT d0a8757e (01:19Z) [open] MS plane: kernels (FA2+FA3 patchers, dry-run OK), native glue, host sizing, manifest with_ms, property check_ms + CPU tests written; committing, then pods; agent bc-12c2f2d9
 CHECKPOINT dd31216b (01:03Z) [open] MS plane (max_scaled, bit 64) on cursor/vllm-rf-ms-plane-57d5 from main 84801045: layout + FA2 kernel/patcher done, FA3 patcher, native glue, host sizing, property next; no pods yet; agent bc-12c2f2d9
 CHECKPOINT a43ed3b9 (00:49Z) [open] reopened for the max_scaled MS plane (20260927T0015Z-handoff-from-vllm-coordinator.md superseded by 20260927T0030Z-handoff-from-vllm-coordinator.md and the GO in 20260927T0020Z-handoff-from-vllm-coordinator.md: MS stream class after FIN, SRC_BITS 64, same opt-in flag, $10 cap, guard 04:15Z): NOT final. PR #95 stays merge-ready (handoff 20260927T0030Z-handoff-from-vllm-rf-normtap.md). No pods running; CPU work first on a branch stacked on #95.

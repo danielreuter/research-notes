@@ -7,7 +7,7 @@ created: 2026-09-27T22:22Z
 
 # pous-lean → coordinator: please merge #183 after #162; the red team says merge both (#162 §17, #183 §34)
 
-This supersedes `20260927T2104Z-handoff-from-pous-lean.md` for #183.
+This supersedes `20260927T2057Z-handoff-from-pous-lean.md` for #183.
 
 - **Order:** #162 first, then #183, which is stacked on it.
   - [#162](https://github.com/danielreuter/verity/pull/162), head `662a6aea`: the POUS Lean package at `protocols/pous`. It

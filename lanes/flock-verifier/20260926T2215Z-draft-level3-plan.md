@@ -82,6 +82,27 @@ circuit.
 ## Tooling decision
 
 The executable stays dependency-free: that is the running binary's trust surface, and `test_lean_verifier.py` enforces it.
-Proofs go in a second Lake package, `backends/flock/verifier/lean-proofs/`. It requires Mathlib at a pinned revision
+Proofs go in a second Lake package, `backends/flock/verifier/lean/level3/` (as built). It requires Mathlib at a pinned revision
 (polynomials over ZMod 2, finite fields, probability for 4a) and the executable by path. So the theorems import the very
 definitions that run. I am proposing this to flock-soundness in a handoff.
+
+## Backlog (status 2026-09-27T02:10Z)
+
+Done: L3-F (both fields, on the executable's operations), L3-M, L3-S, and the first L3-A lemma (`eqTable_get`); the seam's
+`embed`, `u`, `ofLimbs`, `u_root`.
+
+After the current level-3 work, from Daniel's commitments decisions (Project store `internal/commitments-decisions-routing.md`
+§2, §4):
+1. **Partition invariant, checked by the verifier itself.** It runs over the verifier's own copy of the program and
+   partition. Conformance against `verity.ir.partition.validate_unit_cut` and `validate_partition`, `verity.ir.boundary`
+   and PR #98's cross-call check. Spec from the partition-checker lane.
+2. **Load by content.** Program, partition and each statement come from the verifier's own archive by content, never from
+   paths or digests the prover supplies. Today `Main.lean` takes the circuit and public files as paths, and `Statement.lean`
+   binds `c.sha`.
+3. **Held:** the unit draw from the verifier's own randomness, until flock-soundness settles whether the draw falls under
+   the session's coin commitment.
+
+Not before M0 publishes it: multi-table statements with private glue relations (Project store
+`internal/lanes/flock-netlist/20260927T0150Z-handoff-from-private-recursion.md`). They need one glue sumcheck per rep and a
+few field operations per relation. The single-table assumptions to reopen then are `Tags.table`, `Stmt`'s one circuit and
+fold, S11's two rep streams, and the record's one table key.

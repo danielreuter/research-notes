@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: final
+status: open
 ---
 
+CHECKPOINT 787ac154 (13:02Z) [open] reopened: carry-over labels for M0 re-registrations e352f2ad (attn) a83371c2 (GEMM): NOT final
 CHECKPOINT 787ac154 (11:59Z) [final] FINAL: M0 GEMM 4a80e8cb + attention 02cb7df9 verified=accepted (file re-verification, timings match; r20260927-114642-b2fa on the VM CPU, $0)
 CHECKPOINT 787ac154 (11:59Z) [final] FINAL: M0 GEMM 4a80e8cb + attention 02cb7df9 verified=accepted (file re-verification, timings match; r20260927-114642-b2fa on the VM CPU, $0)
 CHECKPOINT 787ac154 (11:59Z) [final] FINAL: M0 GEMM 4a80e8cb + attention 02cb7df9 verified=accepted (file re-verification, timings match; r20260927-114642-b2fa on the VM CPU, $0)

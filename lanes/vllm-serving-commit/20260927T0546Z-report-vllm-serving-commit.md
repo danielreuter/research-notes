@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT 384ca95e (06:35Z) [open] RUN A PASS == record: #101 scheme off program ccc21347 manifest 90f81868 run root 7adcef49 verdict PASS (row 8.5 min). WAIT xie2bspsdvc0vz r20260927-061338-8809 check-back 06:46Z agent bc-819f6247: run B (scheme on) + compare
 CHECKPOINT 384ca95e (06:15Z) [open] WAIT vyv-rf-serving-commit-g1 r20260927-061338-8809 check-back 06:35Z agent bc-819f6247: bootstrap health, then rows off/on + compare (expected end ~07:45Z); pod xie2bspsdvc0vz
 CHECKPOINT 384ca95e (06:13Z) [open] POD STARTED 06:13Z vyv-rf-serving-commit-g1 (xie2bspsdvc0vz, 1x L40S secure, $1.09/h, guard 90); approved $1.65 cap $3; expected end ~07:48Z
 CHECKPOINT 384ca95e (06:10Z) [open] WAIT coordinator pod confirm (no pod), check-back 06:25Z agent bc-819f6247 (timer armed): then create vyv-rf-serving-commit-g1 and run evidence/sc_gpu.sh (A off / B on / C compares). PR #119 draft lane/vllm-serving-commit @384ca95e.

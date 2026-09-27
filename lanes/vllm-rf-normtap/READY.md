@@ -3,7 +3,38 @@ id: vllm-rf-normtap/ready
 lane: vllm-rf-normtap
 kind: ready
 created: 2026-09-26T22:19Z
-updated: 2026-09-27T00:34Z
+updated: 2026-09-27T02:30Z
+---
+# vllm-rf-normtap READY (3): the MS class (`max * scale` per key block), opt-in behind GUARDED_MAX_TAP
+
+Branch `cursor/vllm-rf-ms-plane-57d5` @ `40ec2e13`, base main `84801045` (#95 merged), [PR #102](https://github.com/danielreuter/verity/pull/102)
+(draft).  Merge-ready handoff: `lanes/vllm-coordinator/20260927T0228Z-handoff-from-vllm-rf-normtap.md`.  Finding, sent first:
+`lanes/vllm-coordinator/20260927T0152Z-handoff-from-vllm-rf-normtap.md` (FA3's unmasked iterations skip the -inf guard the IR applies).
+
+## Change
+- The guarded FA2 / FA3 builds (now `VERITY_MAT_SRC=123`) append the MS class after FIN: per (slab, row, key block) the `max_scaled`
+  register the block's exp2 FMAs read, at every visited block.  Default builds (59) are unchanged.
+- Host: `StreamLayout(ms=True)`, sizing (Python and native tap buffers, a seventh compacted plane, the arena bound, X-03), the policy's
+  `max_scaled_words` in the query header, and `with_ms`, which lengthens the stream identities (the flag-on manifest digest moves).  The
+  Commit refuses a build whose MS class is not the manifest's.
+- Property (f): every visited MS word = IR `F32MulFtz(GuardNegInfZero(row_max), scale_log2)`; the masked digest compares the six classes.
+
+## Results (all runs PRESERVED on R2)
+| check | run | result |
+|---|---|---|
+| FA2 exactness, L40S (softcap incl.) | `r20260927-012901-955c` | default `668baecb` OK; guarded `338c7caa` OK: 64/64, 12/12, 547,438 MS words = IR |
+| FA3 exactness, H100 | `r20260927-012825-34ba` | default `b9d61818` OK; guarded `d8c5c7e2` `ok: false` from 40 MS words with row_max -inf only (accepted 0200Z) |
+| #101 off | `r20260927-013003-0f64` | PASS; root `7adcef49` = record; manifest `90f81868` = base main's |
+| #101 on | `r20260927-013003-0f64` | Commit PASS x2, root `fa38d70b`; 512 stream identities +MS; 242,688 `max_scaled` words; committed MS = IR |
+| partition + strict word check | `r20260927-015707-2c04` | 0 violations, 0 recomputes; 242,688 = checker = policy = word check |
+| gate (b) base `84801045` / head `40ec2e13` | `1737` / `9dbf` | lints rc 0; 32 / 32 F; jdiff rc 0, +9 tests pass |
+
+## Pods, spend
+The H100 `rl550thlwam3ui` ran 01:26Z-01:46:13Z and the L40S `kt6i7m2zu3jy61` 01:26Z-02:25:59Z; both terminated.  About $2.27 of $10.
+
+## Next
+FA3 `Check_inf` per iteration in the IR (0200Z): a new FA3 block Definition, opt-in, CPU first, an estimate before any H100.
+
 ---
 # vllm-rf-normtap READY (2): the guarded-max tap, opt-in behind GUARDED_MAX_TAP
 

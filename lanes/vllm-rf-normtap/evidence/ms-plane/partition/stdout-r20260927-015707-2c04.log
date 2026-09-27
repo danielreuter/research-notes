@@ -1,0 +1,37 @@
+waited for /workspace/research/runs/r20260927-013003-0f64 2026-09-27T01:57:18Z
+tree /workspace/gc2/mshead @ 06485b764baac23a9bdd27a23e64d0e622c95a70 vs shipped: 0 differing entries
+base /workspace/gc2/msbase @ 84801045813f80be611467dcdfaa7c1df2cab25d
+[partition] #101 attention: 4592 Calls, 287 specializations, violations 0, recompute violations 0
+[partition]   MufuEx2Ftz_v1                21,257,216  P (f32 probabilities) / ROW rescale
+[partition]   F2fpBf16_v1                  21,159,936  RP (bf16 probabilities)
+[partition]   AmpereBF16TcDot16_v1         21,159,424  S (scores)
+[partition]   F32MulFtz_v1                    242,688  MS class (the max_scaled tap)
+[partition]   Fa2InvSum_v1                    146,944  FIN inv_sum
+[partition]   GuardNegInfZero_v1               97,280  ROW word 3 (the guarded-max tap)
+[partition]   F32Max_v1                        96,256  ROW row_max
+[partition]   max_scaled: checker 242,688 policy 242,688 equal True; guarded max: checker 97,280 policy 97,280 equal True
+[partition] softcap T=5: {"T": 5, "units": 2184, "violations": 0, "recompute_violations": 0, "max_scaled_words": 8, "max_scaled_formula": 8, "guard_words": 0, "guard_words_formula": 0, "max_out_bits": 32}
+[partition] softcap T=129: {"T": 129, "units": 5208, "violations": 0, "recompute_violations": 0, "max_scaled_words": 16, "max_scaled_formula": 16, "guard_words": 16, "guard_words_formula": 16, "max_out_bits": 32}
+[partition] softcap T=130: {"T": 130, "units": 5248, "violations": 0, "recompute_violations": 0, "max_scaled_words": 24, "max_scaled_formula": 24, "guard_words": 16, "guard_words_formula": 16, "max_out_bits": 32}
+[partition] softcap T=287: {"T": 287, "units": 9080, "violations": 0, "recompute_violations": 0, "max_scaled_words": 40, "max_scaled_formula": 40, "guard_words": 32, "guard_words_formula": 32, "max_out_bits": 32}
+[partition] fa3_hd64 T=5: {"T": 5, "units": 2592, "violations": 0, "recompute_violations": 0, "max_scaled_words": 32, "max_scaled_formula": 32, "guard_words": 0, "guard_words_formula": 0, "max_out_bits": 32}
+[partition] fa3_hd64 T=129: {"T": 129, "units": 14560, "violations": 0, "recompute_violations": 0, "max_scaled_words": 32, "max_scaled_formula": 32, "guard_words": 32, "guard_words_formula": 32, "max_out_bits": 32}
+[partition] fa3_hd64 T=130: {"T": 130, "units": 14720, "violations": 0, "recompute_violations": 0, "max_scaled_words": 64, "max_scaled_formula": 64, "guard_words": 32, "guard_words_formula": 32, "max_out_bits": 32}
+[partition] fa3_hd64 T=287: {"T": 287, "units": 29920, "violations": 0, "recompute_violations": 0, "max_scaled_words": 96, "max_scaled_formula": 96, "guard_words": 64, "guard_words_formula": 64, "max_out_bits": 32}
+[partition] fa3_hd128 T=5: {"T": 5, "units": 4640, "violations": 0, "recompute_violations": 0, "max_scaled_words": 32, "max_scaled_formula": 32, "guard_words": 0, "guard_words_formula": 0, "max_out_bits": 32}
+[partition] fa3_hd128 T=129: {"T": 129, "units": 16608, "violations": 0, "recompute_violations": 0, "max_scaled_words": 32, "max_scaled_formula": 32, "guard_words": 32, "guard_words_formula": 32, "max_out_bits": 32}
+[partition] fa3_hd128 T=130: {"T": 130, "units": 16768, "violations": 0, "recompute_violations": 0, "max_scaled_words": 64, "max_scaled_formula": 64, "guard_words": 32, "guard_words_formula": 32, "max_out_bits": 32}
+[partition] fa3_hd128 T=287: {"T": 287, "units": 31968, "violations": 0, "recompute_violations": 0, "max_scaled_words": 96, "max_scaled_formula": 96, "guard_words": 64, "guard_words_formula": 64, "max_out_bits": 32}
+[partition] head cut {"family": "AttentionHead_v3", "statics": {"T": 287, "D": 64, "BN": 128}, "cut_ok": true, "codes": [], "recomputed_gates": 0, "width_ok": true, "detail": {"input_gates": 36800, "computed_gates": 4002, "certified": 4002, "structure_gates": 357, "total_gates": 41159, "committed": 37735, "cross_unit_reads": 75117, "computing_units": 935, "redundant_gates": 0}}
+[partition] head cut {"family": "AttentionHead_v3", "statics": {"T": 129, "D": 64, "BN": 128}, "cut_ok": true, "codes": [], "recomputed_gates": 0, "width_ok": true, "detail": {"input_gates": 16576, "computed_gates": 1938, "certified": 1938, "structure_gates": 201, "total_gates": 18715, "committed": 17031, "cross_unit_reads": 33804, "computing_units": 455, "redundant_gates": 0}}
+[partition] head cut {"family": "AttentionHeadSoftcap_v1", "statics": {"T": 130, "D": 256, "BN": 64, "CAP": 50.0}, "cut_ok": true, "codes": [], "recomputed_gates": 0, "width_ok": true, "detail": {"input_gates": 66816, "computed_gates": 6332, "certified": 6332, "structure_gates": 398, "total_gates": 73546, "committed": 67472, "cross_unit_reads": 134556, "computing_units": 656, "redundant_gates": 0}}
+[partition] head cut {"family": "AttentionHead_v2", "statics": {"T": 287, "D": 128, "BN": 128, "DOT": {"fn": "HopperBF16WgmmaDot16_v1"}, "INV": {"fn": "Fa3InvSum_v1"}}, "cut_ok": true, "codes": [], "recomputed_gates": 0, "width_ok": true, "detail": {"input_gates": 73600, "computed_gates": 6558, "certified": 6558, "structure_gates": 421, "total_gates": 80579, "committed": 74599, "cross_unit_reads": 148781, "computing_units": 999, "redundant_gates": 0}}
+PARTITION-ATTENTION-DONE
+partition attention rc 0
+[word-101] {"query": "Q_word_v1{X=16,W=32,R=no-recompute}", "strict": true, "ok": true, "calls": 46558, "units": 273995039, "gates": 18805632462, "committed_interior_words": 64169215, "violations": 0, "max_scaled_words_word_check": 242688, "max_scaled_words_policy": 242688, "max_scaled_equal": true, "on_manifest": {"digest": "2c6a1ccec6207a2d9615ebce26bfb5de5cdb933fc19df09bb9914601bb698766", "identities": 7043, "max_scaled": 242688}, "off_manifest": {"digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac", "identities": 7043}}
+word 101 rc 0
+base manifest rc 0
+[base] flag-off manifest base 90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac (7043 identities) head 90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac equal True
+tests rc=1 1 failed, 208 passed in 4.22s
+lints rc=0 ...................................................                      [100%]
+MS-PARTITION-DONE 2026-09-27T02:02:13Z

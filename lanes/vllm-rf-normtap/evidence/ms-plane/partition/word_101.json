@@ -1,0 +1,22 @@
+{
+ "query": "Q_word_v1{X=16,W=32,R=no-recompute}",
+ "strict": true,
+ "ok": true,
+ "calls": 46558,
+ "units": 273995039,
+ "gates": 18805632462,
+ "committed_interior_words": 64169215,
+ "violations": 0,
+ "max_scaled_words_word_check": 242688,
+ "max_scaled_words_policy": 242688,
+ "max_scaled_equal": true,
+ "on_manifest": {
+  "digest": "2c6a1ccec6207a2d9615ebce26bfb5de5cdb933fc19df09bb9914601bb698766",
+  "identities": 7043,
+  "max_scaled": 242688
+ },
+ "off_manifest": {
+  "digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac",
+  "identities": 7043
+ }
+}

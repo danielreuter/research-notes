@@ -1,0 +1,31 @@
+........................................................................ [ 34%]
+F....................................................................... [ 68%]
+.................................................................        [100%]
+=================================== FAILURES ===================================
+_ test_committer_derives_the_per_layer_expectation_when_declarations_are_handed_over _
+
+    def test_committer_derives_the_per_layer_expectation_when_declarations_are_handed_over():
+        decls = two_class(4)
+        com = _com(4)
+        for s, n in enumerate((8, 7, 3, 1)):
+            com._layouts[s] = _layout(_step(decls, n), n_seq=n, tokens=n)
+        r0 = com.identity_check()                                             # no declarations: the R13 rule fails the two-class steps, as today
+        assert r0["ok"] is False and r0["violations_n"] == 3 and r0["fa2_rule"]["steps"] == {"uniform": 4}
+        assert r0["violations"][0]["fa2_layers_bad"] == {0: 48, 2: 48}
+        com.attention_layer_decls = decls
+        r1 = com.identity_check()
+        assert r1["ok"] is True, r1["violations"]
+        assert r1["fa2_rule"]["steps"] == {"per-layer": 4} and r1["fa2_rule"]["attention_decls"] == 4
+        assert r1["fa2_rule"]["classes_declared"] == [("global-gqa", 2), ("windowed-gqa", 2)]
+>       assert r1["fa2_rule"]["policy"] == {"backend": "fa2", "compact": True}
+E       AssertionError: assert {'backend': '..., 'ms': False} == {'backend': '...ompact': True}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Left contains 1 more item:
+E         {'ms': False}
+E         Use -v to get more diff
+
+integrations/vllm/tests/acquire/test_x03_plane_classes.py:355: AssertionError
+=========================== short test summary info ============================
+FAILED integrations/vllm/tests/acquire/test_x03_plane_classes.py::test_committer_derives_the_per_layer_expectation_when_declarations_are_handed_over
+1 failed, 208 passed in 4.22s

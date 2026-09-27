@@ -1,10 +1,29 @@
 # vllm-rf-normtap: STATE
 
-Lane reopened 22:39Z for the guarded-max tap (handoff `internal/lanes/vllm-rf-normtap/20260926T2245Z-handoff-from-vllm-coordinator.md`;
-estimate approved 22:29Z, cap $12, vyv- guard deadline 02:30Z). Agent bc-12c2f2d9 (cloud). The norm-scale taps (PR #90) are merged
-(main 35e78c37); their record is below the line.
+Agent bc-12c2f2d9 (cloud).  Norm-scale taps (PR #90) and the guarded max (PR #95) are merged (main 84801045).  The MS class (PR #102) is
+merge-ready.  Next: FA3 `Check_inf` per iteration in the IR (handoff `internal/lanes/vllm-rf-normtap/20260927T0200Z-handoff-from-vllm-coordinator.md`),
+CPU first; an estimate before any H100 (root approves).
 
-## Guarded-max tap (branch cursor/vllm-rf-guarded-max-57d5, from main 35e78c37): DONE, merge-ready (PR #95, draft)
+## FA3 Check_inf per iteration (follow-up to #102): STARTING (CPU)
+- The fix: a new FA3 block Definition with a per-iteration `CHECK` static (true on the first block and on the causal-masked iterations,
+  false on the unmasked ones) that mirrors `max_get_scale` / `fwd_step` for both the max it uses and the rescale; the head derives each
+  block's class from the launch geometry (the kernel's `n_block_min_causal_local_mask`).  Opt-in construction selector, default the
+  current `AttnBlock_v2` chain; with it off no digest moves.  The re-baseline switch is root's.
+- Acceptance: CPU tests; partition checker 0 recomputes, units <= 32 bits; FA3 exactness: every MS word and output = the new IR,
+  edge rows included (H100 ~30 min, ~$2, after root approves the estimate).
+
+## MS class (branch cursor/vllm-rf-ms-plane-57d5, from main 84801045): DONE, merge-ready (PR #102, draft)
+- Head `40ec2e13` (67516cfa kernels + builds, 06485b76 host + property + tests, 40ec2e13 the X-03 policy record with the flag off).
+- Handoffs: finding 20260927T0152Z (FA3 IR Check_inf), merge-ready 20260927T0228Z.  READY.md (3).
+- Coordinator handoffs for this task: 0015Z (superseded by 0030Z), 0020Z (GO, $10, guard 04:15Z), 0030Z (the MS design), 0135Z (terminate the
+  H100 after FA3 exactness), 0200Z (FA3 record accepted on ms_mismatch_neg_inf_max; the follow-up).
+- Results: FA2 955c OK (547,438 MS words = IR); FA3 34ba default OK, guarded ok:false from 40 MS words with row_max -inf only; #101 0f64 off =
+  record (root 7adcef49, manifest 90f81868 = base main's), on root fa38d70b, 242,688 max_scaled words, committed MS = IR; partition 2c04
+  0 violations / 0 recomputes, checker = policy = strict word check; gate (b) 1737 / 9dbf jdiff rc 0.
+- Pods: vyv-rf-normtap-h2 rl550thlwam3ui (H100, $3.49/h) 01:26Z-01:46:13Z; vyv-rf-normtap-g5 kt6i7m2zu3jy61 (L40S secure, $1.09/h)
+  01:26Z-02:25:59Z.  Both terminated, every run preserved.  Spend about $2.27 of $10.
+
+## Guarded-max tap (branch cursor/vllm-rf-guarded-max-57d5, from main 35e78c37): MERGED (PR #95, main 84801045)
 - Head `a43ed3b9` (5425de64 kernels + builds, ef734866 host side + property, efb2bd4a property rule fix, a43ed3b9 the Commit's dump fix).
 - Handoffs: finding 20260926T2329Z (max * scale not carried), merge-ready 20260927T0030Z.  READY.md updated.
 - Kernel: FA2 `verity_tap.h` / FA3 `verity_tap_fa3.h` `rowstat`: under `VERITY_ROW_GUARD=1`, ROW word 3 = `row_max != -inf ? row_max : 0`

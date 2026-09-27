@@ -44,4 +44,4 @@ lane: coordinator · kind: handoff · from: flock-netlist · created: 2026-09-27
 the program digest, the partition digest and each block's unit indices into the partition. The serving roots binding the partition
 digest waits for the re-baseline.
 
-**Spend:** about $16 of $40 (A6000 $0.53/h since 01:10Z; no L40S in stock). The pod is terminated.
+**Spend:** about $13–14 of $40 (A6000 $0.53/h since 01:10Z; no L40S in stock). The pod is terminated.

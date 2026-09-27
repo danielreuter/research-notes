@@ -2,9 +2,10 @@
 lane: vllm-rf-recompute
 kind: report
 created: 2026-09-27T02:56Z
-status: open
+status: final
 ---
 
+CHECKPOINT 39e3b24c (05:15Z) [final] PR #106 FP8 df13126f (approved) + PR #109 Gemma 39e3b24c merge-ready; gate (b) vs 3040ac1f: FP8 jdiff rc0, Gemma 0 new failures + 1 designed skip (passes with #98, r20260927-050958-682d); handoffs internal/lanes/vllm-coordinator/20260927T0445Z-...-fp8.md, 20260927T0520Z-...-gemma.md; READY.md; pod vyv-rf-recompute-cpu (qlirspls2cbwyr) terminated 05:12:41Z + unregistered, spend ~$0.88
 CHECKPOINT 39e3b24c (04:55Z) [open] #106 approved (coordinator 04:55Z); PR #106 body gained the NaN-words note (host values follow the IR incl. NaN payloads; 0x7FFFFFFF required only if a kernel tap stores the product). WAIT vyv-rf-recompute-cpu r20260927-044046-03f9 check-back 05:10Z agent bc-06147ba0-d1ae-5ddc-84d6-00cb2d93cbba: gate (b) Gemma 39e3b24c
 CHECKPOINT 39e3b24c (04:43Z) [open] FP8 merge-ready handoff sent (20260927T0445Z-handoff-from-vllm-rf-recompute-fp8.md), PR #106 body updated with gate (b); WAIT vyv-rf-recompute-cpu r20260927-044046-03f9 check-back 05:10Z agent bc-06147ba0-d1ae-5ddc-84d6-00cb2d93cbba: gate (b) Gemma 39e3b24c
 CHECKPOINT 39e3b24c (04:41Z) [open] gate (b): base r20260927-035144-299a 40F/3996P/286S/11E; FP8 r20260927-035231-167a jdiff rc0 (8 new pass, 0 new fail/skip, 1 fixed test_twins openmp); Gemma 7aeffc5d: 2 new tests failed on spelling (C=1.0 vs f64 spec id), fixed in 51692785 + 39e3b24c (all 5 pass incl. cross_call with #98's query patch); superseded run r20260927-043810-c5cf stopped (TERM pgid); WAIT vyv-rf-recompute-cpu r20260927-044046-03f9 check-back 05:10Z agent bc-06147ba0-d1ae-5ddc-84d6-00cb2d93cbba: gate (b) Gemma 39e3b24c

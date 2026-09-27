@@ -24,17 +24,17 @@ Brief: `$STORE/internal/lane-briefs/vllm-recompute.md`. Findings from `internal/
     (`evidence/cross_r57_recorded_vs_once.jsonl`); committed `+ 1` output words 104,509,440 -> 1,935,360.
 
 ## Running
-- Pod `vyv-rf-recompute-cpu` (RunPod `qlirspls2cbwyr`, cpu3g 16 vCPU, since 03:50Z, about $0.64/h). Gate (b):
-  - base `r20260927-035144-299a`: done;
-  - FP8 `r20260927-035231-167a`: done, jdiff rc 0;
-  - Gemma `7aeffc5d` `r20260927-035257-150f`: superseded;
-  - `r20260927-043810-c5cf`: stopped (TERM to its process group);
-  - Gemma `39e3b24c` `r20260927-044046-03f9`: queued, check-back 05:10Z.
-- FP8 merge-ready handoff sent: `internal/lanes/vllm-coordinator/20260927T0445Z-handoff-from-vllm-rf-recompute-fp8.md`.
+- Nothing. Pod `vyv-rf-recompute-cpu` (RunPod `qlirspls2cbwyr`) was terminated at 05:12:41Z after every run was preserved, and it is unregistered (about $0.88).
+
+## Done (gate (b), base `3040ac1f` `r20260927-035144-299a`)
+- FP8 `df13126f` (`r20260927-035231-167a`): jdiff rc 0, 8 new tests pass. PR #106 approved (04:55Z); its body has the NaN-words note.
+- Gemma `39e3b24c` (`r20260927-044046-03f9`): 0 new failures, 4 new tests pass, 1 designed skip (`cross_call`, #98). With #98's query
+  modules all 5 pass (`r20260927-050958-682d`).
+- Merge-ready handoffs: `internal/lanes/vllm-coordinator/20260927T0445Z-handoff-from-vllm-rf-recompute-fp8.md` and `…0520Z-…-gemma.md`.
+  READY.md is beside this file.
 
 ## Next
-- Gemma gate (b) jdiff, fetch, `data preserved`, terminate the pod, Gemma handoff, READY.md, FINAL.
-- Merge-ready handoffs per PR, after gate (b).
+- None. FINAL.
 
 ## Open questions
 - None. The L40S Build A/B is deferred to the re-baseline (coordinator, 03:49Z).

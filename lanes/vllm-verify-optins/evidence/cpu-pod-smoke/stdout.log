@@ -1,0 +1,8 @@
+bootstrap rc=0 2026-09-27T06:47:01Z BOOTSTRAP-OK
+WARNING 09-27 06:47:03 [interface.py:1167] Current platform  does not have 'device_name' attribute.
+platform UnspecifiedPlatform None vllm 0.28.1rc1.dev472+gd9105ea80 torch 2.13.0+cu129 cuda False
+smoke r73-step rc=2 2026-09-27T06:47:11Z
+{"label": "r73-step", "ok": false, "program_digest": null, "record_step_digest": "72b2fabb4c89d17770b32f1a1faac36a37492cff3d3ae20b4ef7cea081fbd047", "attention_impls": [], "attention_backends": [], "flash_attn_versions": [], "platform": null, "platform_class": null, "cuda_available": null, "unsupported": null, "exception": "RuntimeError", "wall_secs_total": null, "max_rss_mb": null, "digest_equal": false, "flash_attention": false}
+smoke r57-step rc=2 2026-09-27T06:47:16Z
+{"label": "r57-step", "ok": false, "program_digest": null, "record_step_digest": "30d7b1acac4b3cff9b3bdfe2f3af81468dc9be00023fcbf331e229d4046c7134", "attention_impls": [], "attention_backends": [], "flash_attn_versions": [], "platform": null, "platform_class": null, "cuda_available": null, "unsupported": null, "exception": "RuntimeError", "wall_secs_total": null, "max_rss_mb": null, "digest_equal": false, "flash_attention": false}
+SMOKE-FAIL 2026-09-27T06:47:16Z

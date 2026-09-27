@@ -1,0 +1,23 @@
+[derive_step] CRASH RuntimeError: Device string must not be empty
+Traceback (most recent call last):
+  File "/workspace/research/src/b7a4092a9ba30f357e2e311a43163182038e903e/integrations/vllm/verity_vllm/pipeline/build.py", line 728, in main
+    res = run(a.out, a.M, a.pos0, a.profile, a.backend, wrapper=a.wrapper, LP=a.LP, T=a.T, eos=a.eos, model_id=a.model, revision=a.revision,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/research/src/b7a4092a9ba30f357e2e311a43163182038e903e/integrations/vllm/verity_vllm/pipeline/build.py", line 361, in run
+    _construct(out, res, target, M, pos0, profile, backend, intercept, wrapper, LP, T, eos, model_id, revision, max_model_len, t_start, sampling,
+  File "/workspace/research/src/b7a4092a9ba30f357e2e311a43163182038e903e/integrations/vllm/verity_vllm/pipeline/build.py", line 392, in _construct
+    cfg = vm.make_vllm_config(model=model_id or vm.PIN["model"], revision=revision or vm.PIN["revision"], max_model_len=max_model_len,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/research/src/b7a4092a9ba30f357e2e311a43163182038e903e/integrations/vllm/verity_vllm/program/frontend/vllm_meta.py", line 53, in make_vllm_config
+    return args.create_engine_config()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv312/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 2001, in create_engine_config
+    device_config = DeviceConfig(device=cast(Device, current_platform.device_type))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venv312/lib/python3.12/site-packages/pydantic/_internal/_dataclasses.py", line 121, in __init__
+    s.__pydantic_validator__.validate_python(ArgsKwargs(args, kwargs), self_instance=s)
+  File "/workspace/venv312/lib/python3.12/site-packages/vllm/config/device.py", line 78, in __post_init__
+    self.device = torch.device(self.device_type)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Device string must not be empty
+

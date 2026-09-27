@@ -34,6 +34,7 @@ from verity.ir.evaluate import evaluate_call
 from verity_vllm.check import weights_of_record as WR
 from verity_vllm.check.replay.evaluate import evaluate as row_eval
 from verity_vllm.check.replay.index import ProgramIndex
+from verity_vllm.program import model as analytic
 from verity_vllm.program.kernels.rows import ROWS
 from verity_vllm.program.registry import fp8 as F8
 from verity_vllm.program.registry import prims as P
@@ -51,6 +52,7 @@ def opt(name, default, cast=str):
 STEPS = opt("--steps", None, int)
 MAX_ROWS = opt("--max-rows", None, int)
 COORDS = opt("--coords", 64, int)
+COORD_EVERY = opt("--coord-every", 1, int)
 ALL_LAYERS = {int(x) for x in opt("--all-coords-layers", "", str).split(",") if x}
 JOBS = opt("--jobs", 8, int)
 TOKENS = opt("--tokens", None)
@@ -84,8 +86,34 @@ def coord_check(args):
     return n, [prods[kb] for kb in range(K // G)], int(old_out), int(new_out)
 
 
+EDGE_WORDS = [0x00000000, 0x80000000, 0x00000001, 0x80000001, 0x007FFFFF, 0x807FFFFF, 0x00800000, 0x80800000, 0x3F800000, 0xBF800000,
+              0x7F7FFFFF, 0xFF7FFFFF, 0x7F800000, 0xFF800000, 0x7FC00000, 0xFFC00000, 0x7FC00001, 0x7FFFFFFF, 0xFFFFFFFF, 0x7F800001,
+              0x7FA00000, 0x2C700000, 0x1F800000, 0x0C800000, 0x5F800000, 0x3A83126F, 0x33D6BF95, 0x3F7FFFFF]
+
+
+def edge_pairs() -> dict:
+    """numpy float32 multiply of arrays (the host path) against the IR's F32Mul_v1 on every ordered pair of edge words: signed zeros,
+    subnormals, the smallest normal, +-1, +-max, +-inf, quiet / signalling NaNs with payloads, products that underflow to subnormal or
+    zero and that overflow."""
+    a = np.repeat(np.asarray(EDGE_WORDS, dtype=np.uint32), len(EDGE_WORDS))
+    b = np.tile(np.asarray(EDGE_WORDS, dtype=np.uint32), len(EDGE_WORDS))
+    with np.errstate(all="ignore"):
+        host = (a.view(np.float32) * b.view(np.float32)).view(np.uint32)
+        swapped = (b.view(np.float32) * a.view(np.float32)).view(np.uint32)
+    ref = np.asarray([f32mul_ref(x, y) for x, y in zip(a, b)], dtype=np.uint32)
+    diff = np.flatnonzero(host != ref)
+    both_nan = [int(i) for i in diff if (host[i] & 0x7FFFFFFF) > 0x7F800000 and (ref[i] & 0x7FFFFFFF) > 0x7F800000]
+    a_nan, b_nan = (a & 0x7FFFFFFF) > 0x7F800000, (b & 0x7FFFFFFF) > 0x7F800000
+    return {"pairs": int(a.size), "mismatches": int(diff.size), "nan_payload_only": len(both_nan),
+            "mismatch_pairs_have_two_nan_operands": bool(np.all(a_nan[diff] & b_nan[diff])),
+            "swapped_order_array_mismatches": int((swapped != ref).sum()),
+            "examples": [{"a": hex(int(a[i])), "b": hex(int(b[i])), "host": hex(int(host[i])), "ir": hex(int(ref[i]))} for i in diff[:6]]}
+
+
 def main():
     t0 = time.time()
+    edges = edge_pairs()
+    print(f"[fp8-values] edge pairs numpy vs F32Mul_v1: {json.dumps(edges)[:600]}", flush=True)
     inst = json.load(gzip.open(f"{prog_dir}/instances.json.gz"))
     pi = ProgramIndex(inst)
     pnames = [n for n, _t in inst["params"]]
@@ -103,6 +131,15 @@ def main():
         a = cache.get(name)
         if a is None:
             shape, bits = fields[name]
+            if WR.ENGINE_ROTARY_RE.search(name):
+                # no checkpoint tensor: the analytic table (the served words are CUDA libm's, within gate I9's bound of this one)
+                a = cache.get("cos_sin")
+                if a is None:
+                    C, _prov = analytic.config_of(ck.config)
+                    a = cache["cos_sin"] = np.ascontiguousarray(analytic.cos_sin_table(C)).reshape(-1).astype(np.uint16)
+                    assert a.size == int(np.prod(shape)), (name, shape, a.size)
+                cache[name] = a
+                return a
             raw, _note = WR.compose(WR.strip_prefix(name, prefix), shape, bits, ck)
             a = cache[name] = np.ascontiguousarray(raw).reshape(-1).view({8: np.uint8, 16: np.uint16, 32: np.uint32}[bits])
         return a
@@ -178,7 +215,25 @@ def main():
         full = layer in ALL_LAYERS and step == 0 and (layer, lin) not in first_step_layers_done
         if full:
             first_step_layers_done.add((layer, lin))
-        ns = np.arange(N) if full else np.unique(np.concatenate([[0, N - 1, G - 1, G], rng.integers(0, N, COORDS)]))[:COORDS + 4]
+        if full:
+            ns = np.arange(N)
+        elif tot["fp8_calls"] % COORD_EVERY == 0:
+            ns = np.unique(np.concatenate([[0, N - 1, G - 1, G], rng.integers(0, N, COORDS)]))[:COORDS + 4]
+        else:
+            ns = np.arange(0)
+        xs_f, ws_f = sx.view(np.float32), ws.view(np.float32)
+        for nm, arr in (("xs", sx), ("ws", ws), ("prod", host)):
+            e, m = arr & 0x7F800000, arr & 0x007FFFFF
+            tot[f"{nm}_words"] += int(arr.size)
+            tot[f"{nm}_zero"] += int(((e == 0) & (m == 0)).sum())
+            tot[f"{nm}_subnormal"] += int(((e == 0) & (m != 0)).sum())
+            tot[f"{nm}_inf"] += int(((e == 0x7F800000) & (m == 0)).sum())
+            tot[f"{nm}_nan"] += int(((e == 0x7F800000) & (m != 0)).sum())
+        fin = np.isfinite(xs_f).all() and np.isfinite(ws_f).all()
+        if fin:
+            lo_, hi_ = float(np.abs(host.view(np.float32)).min()), float(np.abs(host.view(np.float32)).max())
+            tot["prod_min_abs"] = lo_ if "prod_min_abs" not in tot else min(tot["prod_min_abs"], lo_)
+            tot["prod_max_abs"] = max(tot.get("prod_max_abs", 0.0), hi_)
         jobs = [(K, G, int(n), xq, sx, w[n], ws[n // G], host[n // G]) for n in ns]
         c_old_prod = c_old_out = c_new_out = 0
         for n, prods, old_out, new_out in pool.map(coord_check, jobs, chunksize=max(1, len(jobs) // (JOBS * 4))):
@@ -198,8 +253,8 @@ def main():
         tot["host_vs_reference_product_mismatches"] += rec["host_vs_reference_product_mismatches"]
         tot["sampled_coordinates"] += rec["sampled_coordinates"]
         tot["all_coordinate_calls"] += int(full)
-        for k in ("old_coordinate_products_differ", "old_coordinate_out_vs_row_kernel", "new_coordinate_out_vs_row_kernel", "nan_products",
-                  "subnormal_products"):
+        tot["coordinate_checked_calls"] += int(len(ns) > 0)
+        for k in ("old_coordinate_products_differ", "old_coordinate_out_vs_row_kernel", "new_coordinate_out_vs_row_kernel"):
             tot[k] += rec[k]
         if tot["fp8_calls"] % 200 == 0:
             print(f"[fp8-values] {tot['fp8_calls']} FP8 Calls, step {step} layer {layer}; {round(time.time() - t0)} s; {dict(tot)}", flush=True)
@@ -212,7 +267,7 @@ def main():
     summary = {"program": prog_dir, "request": {"index": req.get("index"), "prompt_len": LP, "request_id": req.get("request_id")},
                "steps_evaluated": len(steps_of), "calls_evaluated": sum(steps_of.values()), "token_selects": sel,
                "tokens_record": None if tokens_rec is None else list(tokens_rec[:len(got)]), "tokens_equal_record": tokens_equal,
-               "totals": dict(tot), "ok": ok, "seconds": round(time.time() - t0)}
+               "totals": dict(tot), "edge_pairs": edges, "ok": ok, "seconds": round(time.time() - t0)}
     json.dump(summary, open(f"{out_dir}/summary.json", "w"), indent=1)
     print(f"FP8-VALUES {os.path.basename(prog_dir)}: ok={ok} {json.dumps(dict(tot))} tokens={got[:6]} = record {tokens_equal} "
           f"({summary['seconds']} s)", flush=True)

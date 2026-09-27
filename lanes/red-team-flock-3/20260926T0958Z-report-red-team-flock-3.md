@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (10:41Z) [final] FINAL: PR #146 @d4cb0b75 REFUSE as submitted (node clause still makes Collision trivially true for every scheme; Lean counterexample; leaf fix + hm96 reduction right; soundness defs genuine); PR #116 @66ab031b GRANT WITH CONDITIONS C1 enforce served==Lean draw, C2 require verifier of record, C3 core worst_case (A3b record verified unaffected); findings in the store private/red-team-reviews/ (private); pointers lanes/coordinator/1035Z, 1045Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (08:58Z) [final] FINAL: PR #135 @9ac046fd P1 met -> GRANTED; #121 @1ed789d5 GRANTED; the mirror copies all of internal/ (4611baea), so the full reviews are now private in the evidence store (art:b1d7314f #121, art:d3ade404 #135) and the store and notes keep verdict-only stubs; my scripts and outputs removed from notes (608c19f9); coordinator told (0900Z); run r20260927-085234-0a01 labelled; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (08:55Z) [final] FINAL: PR #135 @9ac046fd P1 met -> GRANTED (never below the exact optimum: 0/2000 grid, 0/7500 stress, <=1.9e-9 above; composes with #121 @1ed789d5: TOY + mixed class certified, 750-pt grid holds); #121 @1ed789d5 GRANTED earlier; findings in the store internal/red-team-reviews/ (private); run r20260927-085234-0a01 labelled; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT e5493f9f (08:23Z) [final] FINAL: PR #135 @b4c9a489 GRANT WITH CONDITIONS (P1: direct the bound's rounding; checks 1 and 4 pass); PR #121 @1ed789d5 C1 met -> GRANTED (nit N1: stale beacon wording); findings in the store internal/red-team-reviews/ (private); runs r20260927-081834-33a0, r20260927-081942-7959 labelled; mirrored #121 review removed from notes head (7955949b), coordinator told; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -642,6 +643,15 @@ the pure-block path, plus UL2 and the probe fix.
   - `20260927T0700Z-handoff-from-coordinator.md` (the notes repo is public): followed. Sensitive findings now live in
     the private evidence store (`art:b1d7314f`, `art:d3ade404`), notes carry pointers, and the earlier exposure is reported in the 0815Z note.
   - `20260927T0810Z-handoff-from-coordinator.md` (#135, and C1 on #121): answered in the 0825Z note.
+
+### PR #146 and PR #116 (27 Sep, 10:35–10:45Z)
+
+- **PR #146 @ d4cb0b75** (`MerkleScheme.Collision`): REFUSE as submitted. Finding in the private store:
+  `private/red-team-reviews/pr146-merkle-collision/review.md`. Reply:
+  `lanes/coordinator/20260927T1035Z-handoff-from-red-team-flock-3.md`.
+- **PR #116 @ 66ab031b** (the one-stage driver): GRANT WITH CONDITIONS C1–C3. Finding in the private store:
+  `private/red-team-reviews/pr116-one-stage-driver/review.md`. Reply:
+  `lanes/coordinator/20260927T1045Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

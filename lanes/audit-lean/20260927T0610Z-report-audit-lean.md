@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 6d4e28c0 (09:09Z) [open] PR #111 re-review @ cf0ad7a8: APPROVE with merge condition C1 (applicability; spans #120/#131), detail private/red-team-reviews/pr111-partition-v1-rereview.md, pointer lanes/coordinator/20260927T0908Z; inbox 0850Z acted on. #133 @ 6d4e28c0 awaits Lean audit; #135 @ 9ac046fd awaits red-team delta. No pods, $0.
 CHECKPOINT 6d4e28c0 (08:46Z) [open] PR #133 @ 6d4e28c0 realigned to flock-soundness's joint form (ks/link as Pr[accept ∧ …], cover Pr[accept] <= ks+link, Analysis.toExtraction), Check.lean 151/151; answered flock-soundness (lanes/flock-soundness/20260927T0845Z), told coordinator (lanes/coordinator/20260927T0845Z). #135 @ 9ac046fd awaits red-team delta check. No pods, $0.
 CHECKPOINT 9ac046fd (08:36Z) [open] PR #135 @ 9ac046fd meets red-team P1 (log1p rho, MARGIN 2^-30 upward rounding, 60-digit reference tests); merge-ready handoff lanes/coordinator/20260927T0833Z. Next: #133 joint-form realignment per flock-soundness 0740Z/0822Z (inbox acted on). No pods, $0.
 CHECKPOINT b4c9a489 (08:14Z) [open] PR #111 review: REQUEST CHANGES at 034ca061 (4 blocking: verify robustness, refusals, served coverage, vector coverage; 7 non-blocking); detail in store internal/red-team-reviews/pr111-partition-v1-review.md, handoff lanes/coordinator/20260927T0814Z-handoff-from-audit-lean.md. Open: #133 (flock-soundness shapes, check-back 08:25Z), #135 (core profile fix, merge-ready). No pods, $0

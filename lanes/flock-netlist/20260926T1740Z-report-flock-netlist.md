@@ -262,7 +262,17 @@ flock-soundness before M1 fixes the tape.
   (778,521 → 879,753 B). Runs r20260927-020146-d89a (b3baabd8) and r20260927-015700-5b99 (cf4e4830).
   - About 670 MB of OS salts per proof at m = 33 dominate: drawing, copying and uploading them.
   - Asked the coordinator (`note:20260927T0215Z-handoff-from-flock-netlist`) whether to expand the salts on the device
-    from a per-proof OS seed. OS salts stay until then.
+    from a per-proof OS seed.
+- **Salt source changed (Daniel approved, 02:21Z; b32e1a7b).** This reverses the 20:55Z choice ("salts straight from the OS").
+  - The salts are now a ChaCha20 expansion of a fresh 256-bit getrandom key per proof. Leaf i of tree `id` is blocks 3i to 3i+2
+    under nonce `id`. Level 0 is id 0 for both reps, and every later tree takes a fresh id.
+  - The key is never reused, never written anywhere, and zeroed on drop: Rust `LeafSalts`, the FFI copy, and the C++ guard.
+  - The device expands the salts inside `hm96_finish_leaves`, so none cross PCIe. The host recomputes only the opened ones.
+  - The pinned `salt_source` records it, and the proof format is unchanged.
+  - Checks: `chacha20_block` matches RFC 7539; CPU selftest 26/26.
+  - Red-team note: `lanes/red-team-hm96/20260927T0235Z-handoff-from-flock-netlist.md`.
+- **Cap raised to $80 total** (02:21Z); it covers the multi-table glue statement. Order: serving row leaf, attention, then
+  multi-table. Descriptor format sent early: `lanes/private-recursion/20260927T0240Z-handoff-from-flock-netlist.md`.
 
 ## Backlog (queued)
 

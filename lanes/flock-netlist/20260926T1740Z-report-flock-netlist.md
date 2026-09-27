@@ -9,6 +9,7 @@ origin: cursor/flock-netlist-m0-4d6a
 branch: cursor/flock-netlist-m0-4d6a
 ---
 
+CHECKPOINT 631567f7 (01:05Z) [open] SHA-512 statement published to flock-verifier (tags, merkle_hash=2, flock-leaf/sha512-unsalted, hm96-sha512/v1 target, msg; records art:1100e385); both pods terminated via drain (all attempts preserved); next: HM96-on-SHA-512 Merkle leaves and attention in the circuit (M0 left)
 CHECKPOINT 631567f7 (00:23Z) [open] SHA-512 Merkle trees built (Flock Rust patch + CUDA patch, feature sha512), GPU selftests all pass r20260926-223809-45ce; final cells: RoPE art:36146f53 2.88G, SiLU art:a689c740 3.27G, RMSNorm fused art:293ac579 2.30G, Triton art:786a7e1e 1.55G AND/s ref-profile; SHA-512 cost none measurable in time, proofs +36-39%; batched-sessions design noted for M1/M2; record run r20260927-001758-21e8 for the verifier lane
 CHECKPOINT fd02e847 (21:46Z) [open] red-team-hm96 F6: the hm96 key is a statement constant (DEFAULT_KEY pinned by SHA-256, derived in Rust and checked against core), negative leaf_key_witness_refused, fd02e847; format final there (verifier lane told); cells recording at fd02e847
 CHECKPOINT 4f8316ce (21:21Z) [open] from_record replays circuit records (verifier lane's fix, a2a7e7f4; selftest record_replays_offline); tags/domains/Σ final, format final for the NON_ZK unsalted-leaf statement at 4f8316ce (handoff to flock-verifier); circuit_bench merge fix (rmsf/rmst results had KeyError); all four cells re-running at 4f8316ce

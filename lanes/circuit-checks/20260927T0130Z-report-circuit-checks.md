@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT fe196b6c (19:26Z) [open] READY #134 d3cb30fa (main d69ce770 with #130) check r20260927-183556-198c passed (559/559 agree); E2 cause glibc 2.39 build vs 22.04 pod, rebuilt on 22.04 art:5e8c9749; no pods running; agent bc-1122c760
 CHECKPOINT fe196b6c (19:02Z) [open] IN USE vy-circuit-checks-cpu7: r20260927-183556-198c (check on #134 d3cb30fa) in lean-agreement since ~19:00Z, all other steps passed; done ~19:25Z, then terminated; agent bc-1122c760
 CHECKPOINT fe196b6c (18:38Z) [open] IN USE vy-circuit-checks-cpu7 (c3km1fv9w1n7om): r20260927-183556-198c = check on #134 d3cb30fa (lean-audit ~26 min then the full agreement ~25 min), done ~19:40Z, terminated right after; agent bc-1122c760
 CHECKPOINT fe196b6c (18:34Z) [open] IN USE: re-recording check on #134 d3cb30fa (cpu6 was terminated mid-run as idle; the steward caught the upload and the gap between runs): new vy-circuit-checks pod now, run ~60 min, done by ~19:50Z, terminated right after; agent bc-1122c760

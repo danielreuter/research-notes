@@ -2,9 +2,10 @@
 lane: red-team-flock-3
 kind: report
 created: 2026-09-26T09:58Z
-status: open
+status: final
 ---
 
+CHECKPOINT a06b1302 (18:51Z) [final] FINAL: soundness stack reviewed: A2 (#127/#163/#170/#171) GRANTED; #173 GRANTED at af5e9c1b (A1 removal via the DKT26 bridge + the eta retune to 1/200: table theorems 2^-205, constants only, eta one definition; recomputed worst 2^-205.21); #130 pins GRANTED; review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointers lanes/coordinator/1830Z, 1855Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT dcf89735 (18:28Z) [open] OPEN (waiting): the eta retune folded into PR #173 (level-0 radius 1-sqrt(rho)-1/200); subscribed to #173, will review when its head moves past 16785b18. Done: A2 (#127/#163/#170/#171) GRANTED, #173 @16785b18 GRANTED, #130 pins GRANTED (1537Z duplicate answered by 1540Z); review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointer lanes/coordinator/1830Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT 03ba8ce4 (18:28Z) [open] OPEN (waiting): the eta retune folded into PR #173 (level-0 radius 1-sqrt(rho)-1/200); subscribed to #173, will review when its head moves past 16785b18. Done: A2 (#127/#163/#170/#171) GRANTED, #173 @16785b18 GRANTED; review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointer lanes/coordinator/1830Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT fc6d5b9d (15:38Z) [final] FINAL: PR #130 @b7cd6de8 pin refresh GRANTED (statement review: 9 pins = #146's granted statements at 7406212d, none weaker; read set covers the FlockProofs definitions; keep the three *_inputs pins; render matcher benign); review in the store private/red-team-reviews/pr130-pin-refresh.md (private); pointer lanes/coordinator/1540Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -739,7 +740,11 @@ the pure-block path, plus UL2 and the probe fix.
   - The DKT26 bridge proves A1's conclusion on `Fin n` domains, with fewer hypotheses.
   - The only other signature change is `prCoin_mca_le`, whose callers are `Fin`-indexed. So the table theorems are strictly
     stronger.
-- **The η retune:** PENDING, since #173's head hasn't moved. I'm subscribed to #173 and will review it when it lands.
+- **The η retune, #173 @ af5e9c1b (18:47Z):** GRANTED.
+  - η goes to 1/200 at unchanged `fast100`. It's one definition used by every level's radius.
+  - 21 signatures change, constants only, so the table and audit theorems go to `2^-205` with identical hypotheses.
+  - My recomputation gives a worst case of `2^-205.21`, and reproduces `2^-195.44` at 1/50.
+  - Reply: `lanes/coordinator/20260927T1855Z-handoff-from-red-team-flock-3.md`.
 - **Request:** `lanes/coordinator/20260927T1816Z-handoff-from-flock-soundness-a2-constant.md`.
 - **Review:** `private/red-team-reviews/soundness-a2-a1/`, in the private store.
 - **Reply:** `lanes/coordinator/20260927T1830Z-handoff-from-red-team-flock-3.md`.

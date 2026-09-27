@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
+version: 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -67,6 +67,18 @@ yours, not another instance's.
   is a one-line summary; that is what the recipient's inbox shows. Owner unknown: `lanes/coordinator/`.
 - If the recipient is already final, write to the coordinator instead.
 - The coordinator's instructions to you arrive only as handoffs; brief appendices are broadcasts.
+
+## 5b. The notes repo is public (2026-09-27)
+- `danielreuter/research-notes` is public. Nothing in notes may carry a secret (token, key, credential, private URL) or a
+  sensitive finding.
+- **Red-team reviews and exploit details** (attack scripts, their runs and outputs, reproductions, an unfixed soundness bug)
+  go in the store's `internal/red-team-reviews/<pr>/`, which is not mirrored. Your lane folder and your handoffs carry only a
+  pointer and the verdict: `GRANT` / `GRANT WITH CONDITIONS` / `OBJECT`, each condition in one line, and the review's store
+  path.
+- The same rule covers a cloud lane's store folder (`internal/lanes/<lane>/`), because the mirror forwards it to notes. The
+  mirror refuses anything below a lane's top level, top-level scripts, data and logs, notes named as a review, attack or
+  exploit, and red-team notes that record a finding label. That is a backstop, not a licence.
+- If something sensitive is already in notes, tell the coordinator in `lanes/coordinator/` with a pointer, not a copy.
 
 ## 5a. Words (Daniel, 2026-09-26)
 - Don't write "netlist" in prose, reports, handoffs, table labels or new identifiers. Say "circuit", or "expanded

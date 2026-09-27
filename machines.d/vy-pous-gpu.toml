@@ -1,0 +1,7 @@
+# machine vy-pous-gpu: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "h1ab1zz6mptu1x"
+project = "verity"
+guard = 45
+registered_by = "cursor"
+registered_at = "2026-09-27T14:32Z"

@@ -1,0 +1,7 @@
+# machine vy-flock-verifier-core-gemm: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "wqyzxs0u21gt79"
+project = "verity"
+guard = 60
+registered_by = "cursor"
+registered_at = "2026-09-27T20:05Z"

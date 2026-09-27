@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (13:04Z) [final] FINAL: carried verified=accepted to M0 re-registrations e352f2ad + a83371c2 (placement-only diff, placement matches the runs)
 CHECKPOINT 787ac154 (13:02Z) [open] reopened: carry-over labels for M0 re-registrations e352f2ad (attn) a83371c2 (GEMM): NOT final
 CHECKPOINT 787ac154 (11:59Z) [final] FINAL: M0 GEMM 4a80e8cb + attention 02cb7df9 verified=accepted (file re-verification, timings match; r20260927-114642-b2fa on the VM CPU, $0)
 CHECKPOINT 787ac154 (11:59Z) [final] FINAL: M0 GEMM 4a80e8cb + attention 02cb7df9 verified=accepted (file re-verification, timings match; r20260927-114642-b2fa on the VM CPU, $0)
@@ -111,3 +112,4 @@ Reopened 2026-09-27 04:43Z-05:20Z (20260927T0445Z-handoff-from-flock-backend.md)
 Reopened 11:35Z-12:15Z: M0 flock-circuit cells art:4a80e8cb (GEMM) and art:02cb7df9 (attention) verified=accepted with timing checks (r20260927-114642-b2fa, VM CPU, no pod; lane/verify-flock-circuit c9324a77); sent coordinator 20260927T1215Z. 20260927T0905Z-handoff-from-coordinator.md (contract 2.1 §5b) noted: no red-team material in this lane.
 Handoffs 20260927T0700Z-, 20260927T0915Z-, 20260927T0920Z-handoff-from-coordinator.md (public notes; sensitive material only under the store's private/) noted: this lane's notes and handoffs carry verdicts only; nothing sensitive written anywhere.
 Named in full: 20260927T0700Z-handoff-from-coordinator.md, 20260927T0915Z-handoff-from-coordinator.md, 20260927T0920Z-handoff-from-coordinator.md.
+Reopened 13:02Z-13:15Z (internal/lanes/verify-flock-pure/20260927T1305Z-handoff-from-coordinator.md): carry-over labels on art:e352f2ad, art:a83371c2 after checking placement-only diff and placement against the runs; sent coordinator 20260927T1315Z.

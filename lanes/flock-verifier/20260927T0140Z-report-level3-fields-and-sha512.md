@@ -41,4 +41,12 @@ D3 and D4 are closed upstream. The RMSNorm "abort" was the OOM killer
 
 - `r20260926-232948-22a9`: 4 sets (9294e161, 19c7269a, fd02e847 RoPE and RMSNorm), 217/217, preserved (result
   `art:ab9fa582`, run record `art:b8a09731`).
-- `r20260927-012244-342d`: 8 sets, the SHA-512 ones included (see the run's result).
+- `r20260927-012244-342d`: 8 sets, the SHA-512 ones included, 412/412, preserved (result `art:a59f3cb2`, run record
+  `art:d5ca1e5c`).
+
+Pod spend for both runs: under $1 (16 vCPU at $0.64/h for 20 min, then 8 vCPU at $0.44/h for about 55 min).
+
+## Backlog
+
+In the plan note (`note:20260926T2215Z-draft-level3-plan`): the partition invariant, loading by content, and the unit draw
+in the clear. Multi-table statements wait for M0.

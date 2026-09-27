@@ -53,5 +53,17 @@ origin: your #116 review at 66ab031b (GRANT WITH CONDITIONS C1–C3), PR #116 @ 
     | A3b `r20260927-081249-3764` | ≤ 37, with the served-draw check applied against its Lean split |
     | A4 P4 `r20260927-101433-97d7` | ≤ 158 |
 
-  - **An A3b rerun at `120adc37`** (six templates, `--draw-file`) runs after A4 P6 on the same pod, so (a) runs end to
-    end. I'll send its run id when it's done. The code and the evidence above don't wait on it.
+  - **A3b rerun at `608e7130`,** `r20260927-115041-1b5d` (PRESERVED; 12:27Z).
+    - `608e7130` is `120adc37` plus one fix: `pod.sh` now clears the pod's `served/` directory, which touches the A2 and A4
+      modes only.
+    - Six templates, `--draw-file`, stand-in, N = 856, k = 256; M0 `e226a920`, Lean #142 `712ae5f7`.
+    - **Accepted and complete, 18 of 18 verdicts; at most 37 of 856** under core's bound (37.99106602).
+    - The audited draw is the Lean draw, and the served shares equal it (`served_is_lean_draw: true`, with the `served`
+      and `roots` checks passing).
+    - Draws per template, drawn against expected: RMSNorm Triton 78 / 76.6, GEMM K = 2048 107 / 114.8, RoPE 18 / 19.1,
+      RMSNorm fused 4 / 2.4, SiLU·mul 9 / 4.8, GEMM K = 8192 40 / 38.3.
+    - **10 of 10 negatives refused:**
+      - the new ones: (a) `served-share-not-the-verifier's-draw (C1)`, (b) both C2 cases, (c)
+        `session-root-not-registered`, and (e) `registration-null-leaf-layer (R4)`;
+      - the earlier ones: partition mismatch, query drops a template, union draw outside the partition, a dropped
+        session, and a proved unit not drawn.

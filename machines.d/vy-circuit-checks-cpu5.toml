@@ -1,7 +1,7 @@
 # machine vy-circuit-checks-cpu5: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "f4e5dh4tvgg8wc"
+pod_id = "cs4gnxd8g7jmu7"
 project = "verity"
 guard = 90
 registered_by = "cursor"
-registered_at = "2026-09-27T09:58Z"
+registered_at = "2026-09-27T10:03Z"

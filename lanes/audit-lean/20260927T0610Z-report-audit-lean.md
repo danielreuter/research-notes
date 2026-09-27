@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT e497e343 (11:53Z) [open] Row placement W2 + W4 core done: PR #154 @ e497e343 (Rows.ofNet with topo from #147's parser check, Sparse read-back, Rows.stack, placement_stack), Check.lean 195/195 standard; W1 waits on flock-verifier's placedA, W3 (Delta) next; inbox 1045Z/1126Z acted on. No pods, $0.
 CHECKPOINT 07e63e39 (10:31Z) [open] Row placement from the executable: scoped plan lanes/audit-lean/20260927T1030Z-draft-row-placement-plan.md (too large for tonight at the no-sorry bar: needs L3-A's level-0 matrices, loop invariants over HmRow.delta and Net.parse, an instance's stacked Rows); asked flock-verifier (1032Z, 6 questions) and flock-soundness (1033Z, Rows shape). #145 @ 07e63e39 awaits audit. No pods, $0.
 CHECKPOINT 07e63e39 (10:21Z) [open] PR #145 @ 07e63e39 (several tables per session on #133 + #144/#141; tight ksBound; Game.batch; decoder per drawn unit; C = pinned rows, L1 named): Check.lean 178/178; handoffs lanes/flock-soundness/1024Z, lanes/coordinator/1024Z. #111 delta GRANT (1022Z). Inbox 0912Z/0957Z acted on. No pods, $0.
 CHECKPOINT 6d4e28c0 (10:10Z) [open] PR #111 delta @ 4c2355f9 (+#120 a7678403, #131 47248f11): GRANT, C1 met; detail private/red-team-reviews/pr111-partition-v1-delta-check.md, pointer lanes/coordinator/20260927T1022Z; inbox 0935Z acted on. Next: several-table follow-up on #133+#141 with #144's per-unit decoder (0912Z/0957Z). No pods, $0.

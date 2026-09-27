@@ -1,0 +1,51 @@
+{
+ "digests_all_equal": false,
+ "cross_call": {
+  "recorded": {
+   "calls": 10108794,
+   "recomputed_gates": 0,
+   "plus_one_calls": 0,
+   "recomputed_calls": 0,
+   "programs_not_ok": 0
+  },
+  "shared-scale": {
+   "calls": 10108794,
+   "recomputed_gates": 0,
+   "plus_one_calls": 0,
+   "recomputed_calls": 0,
+   "programs_not_ok": 0
+  }
+ },
+ "word": {
+  "recorded": {
+   "specializations": 1167,
+   "errors": 0,
+   "totals": {
+    "calls": 10108794,
+    "gates": 1169864803915,
+    "units": 21725996917,
+    "committed_interior_words": 7645689946,
+    "redundant_gates": 0,
+    "violations": 747936,
+    "recomputed_gates": 146281322880
+   },
+   "violations_by_class": {
+    "cut:gate-recomputed": 747936
+   }
+  },
+  "shared-scale": {
+   "specializations": 1167,
+   "errors": 0,
+   "totals": {
+    "calls": 10108794,
+    "gates": 1023583481035,
+    "units": 22877818357,
+    "committed_interior_words": 8797511386,
+    "redundant_gates": 0,
+    "violations": 0,
+    "recomputed_gates": 0
+   },
+   "violations_by_class": {}
+  }
+ }
+}

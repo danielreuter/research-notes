@@ -1,0 +1,25 @@
+{
+ "partition": {
+  "format": "verity/partition/v1",
+  "program": "9733931f9eb41935ae2343490d71b272d752588321f632ab5aa620a75780a5dfcf36994beb09c574f8e56427ac36caef736f37a8c7ac90638ba2b5bec36bd1e3",
+  "query": {
+   "name": "Q_template_instances",
+   "version": 0,
+   "params": {
+    "templates": [
+     "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+     "GemmCoordinate_v2{K=2048,DOT={\"fn\":\"AmpereBF16TcDot16_v2\"}}",
+     "RoPEHead_v1{D=64}",
+     "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+     "SiluMul_v1{I=8192}",
+     "GemmCoordinate_v2{K=8192,DOT={\"fn\":\"AmpereBF16TcDot16_v2\"}}"
+    ]
+   }
+  }
+ },
+ "partition_digest": "631d88f80fe161a1398d0874d09005006b49f767a6f423a3076f19596a49502997ac56a0e6013274979c946b17c2407f380735d2df715166b39b6eaa60fb958b",
+ "population": 6771765,
+ "scope": {
+  "op_path_prefix": "model.layers.0."
+ }
+}

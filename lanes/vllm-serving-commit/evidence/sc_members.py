@@ -36,9 +36,13 @@ if mode == "captured":
         ins, outs = [(p.name, int(p.words)) for p in s.subcircuit.inputs], [(p.name, int(p.words)) for p in s.subcircuit.outputs]
         d = {"rows": cols(s, [p for p, _ in ins]), "outs": cols(s, [p for p, _ in outs])}
         tables = ()
-        if t.startswith("GemmCoordinate"):                 # the captured coordinates as M0's share() tables them
-            tb, rf = C.share(d["rows"])
-            d = {"rows": tb, "outs": d["outs"], "refs": np.stack([rf[p] for p, _ in ins], axis=1)}
+        if t.startswith("GemmCoordinate"):
+            if os.environ.get("M0_TABLES"):               # tables as given: every instance's rows, repeats kept, identity refs
+                tb = {p: d["rows"][p] for p, _ in ins}
+                d = {"rows": tb, "outs": d["outs"], "refs": np.stack([np.arange(s.n)] * len(ins), axis=1)}
+            else:                                          # the captured coordinates as M0's share() tables them
+                tb, rf = C.share(d["rows"])
+                d = {"rows": tb, "outs": d["outs"], "refs": np.stack([rf[p] for p, _ in ins], axis=1)}
             tables = tuple((p, len(tb[p])) for p, _ in ins)
         ms.append(SR.Member(t, tuple(ins), tuple(outs), s.n, base, tables=tables))
         datas.append(d)
@@ -67,8 +71,7 @@ for k, (mem, s) in enumerate(zip(win["members"], sets, strict=True)):
         o = sum(int(shared[p]) for p, _ in rports) * SR.BC_BYTES
         refs = pub[o:o + n * len(rports) * 4].view("<u4").reshape(n, len(rports))
         outs_all = pub[o + n * len(rports) * 4:].view("<u2").reshape(n, -1)
-        for j, (p, _) in enumerate(rports):
-            served[p] = tables[p][refs[:, j]]               # the instances' rows, for the capture comparison and M0's input
+        # the instances' rows are never expanded (6.17 M x K words for GEMM K = 2048): gathered by ref only where compared
     else:
         rw = sum(w for _, w in rports)
         rows_all = priv[:n * rw * 2].view("<u2").reshape(n, rw)
@@ -89,14 +92,19 @@ for k, (mem, s) in enumerate(zip(win["members"], sets, strict=True)):
         units, cap_i, outside = [], [], 0
         for i, r in enumerate(cidx["rows"]):
             sub = r[col["sub"]] or {}
-            kk = (r[col["request"]], int(r[col["engine_step"]]), r[col["op_path"]], int(r[col["row"]]), int(sub.get("NHEADS", 1)))
+            per_row = int(sub.get("NHEADS") or sub.get("N") or 1)         # RoPE heads, GEMM columns, else the row itself
+            kk = (r[col["request"]], int(r[col["engine_step"]]), r[col["op_path"]], int(r[col["row"]]), per_row)
             if kk not in key:
                 outside += 1
                 continue
-            units.append(key[kk] + int(sub.get("head", 0)))
+            units.append(key[kk] + int(sub.get("head", sub.get("n", 0))))
             cap_i.append(i)
-        cap = cols(s, list(served))
-        eq = {p: bool(np.array_equal(served[p][units], cap[p][cap_i])) for p in served} if units else {}
+        names = [p for p, _ in rports] + [p for p, _ in oports]
+        cap = cols(s, names)
+        u = np.asarray(units, dtype=np.int64)
+        got = {p: (tables[p][refs[u, j]] if shared else served[p][u]) for j, (p, _) in enumerate(rports)}
+        got.update({p: served[p][u] for p, _ in oports})
+        eq = {p: bool(np.array_equal(got[p], cap[p][cap_i])) for p in names} if units else {}
         mr["captured"] = {"in_population": len(units), "outside_scope": outside, "equal": eq, "ok": bool(units) and all(eq.values())}
         ok &= mr["captured"]["ok"]
     low = C.lowering_for_set(s)
@@ -107,6 +115,8 @@ for k, (mem, s) in enumerate(zip(win["members"], sets, strict=True)):
     class Served:
         name, content_digest, subcircuit, n = f"served/{rec['commitment']['source']['run']}/m{k}", win["index_sha512"], s.subcircuit, n
         def port(self, p, lo, hi):
+            if p in tables:
+                return tables[p][refs[lo:hi, [q for q, _ in rports].index(p)]]
             return served[p][lo:hi]
     bind = mem["frame_v3"]["bindings"]
     orig = ID.identity_digest
@@ -119,9 +129,11 @@ for k, (mem, s) in enumerate(zip(win["members"], sets, strict=True)):
     t = time.perf_counter()
     kw = {"indices": list(range(int(mem["base"]), int(mem["base"]) + n))}
     if shared:
-        kw.update(share_rows=True, rows={p: served[p] for p, _ in rports}, outs={p: served[p] for p, _ in oports})
-        if os.environ.get("M0_TABLES"):                     # M0's no-dedupe mode: the tables and refs as served
-            kw.update(tables=tables, refs={p: refs[:, j] for j, (p, _) in enumerate(rports)})
+        if os.environ.get("M0_TABLES"):                     # M0's tables-as-given mode (e226a920): serving's tables, refs and salts
+            kw.update(share_rows=True, tables=tables, refs={p: refs[:, j] for j, (p, _) in enumerate(rports)},
+                      outs={p: served[p] for p, _ in oports}, salts=tsalts)
+        else:
+            kw.update(share_rows=True, rows={p: served[p] for p, _ in rports}, outs={p: served[p] for p, _ in oports})
     C.write(text, Served(), 0, n, out / "m0" / f"m{k}-inst-{n}.bin", out / "m0" / f"m{k}-pub-{n}.bin", **kw)
     mr["m0_write_s"] = round(time.perf_counter() - t, 3)
     ID.identity_digest = orig

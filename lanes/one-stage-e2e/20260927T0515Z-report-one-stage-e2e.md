@@ -5,6 +5,7 @@ created: 2026-09-27T05:15Z
 status: open
 ---
 
+CHECKPOINT 9515b4d4 (14:05Z) [open] Morning summary: internal/one-stage-e2e-morning-summary.md. Headline: A4 P6 served, 6,771,765 units, accepted, <=91,051 at 2^-20. #116 red-team GRANTED at 120adc37 (covers 608e7130), ready. ~$7.3 of $40; all pods terminated.
 CHECKPOINT 9515b4d4 (13:01Z) [open] A4 P6 served ACCEPTED, complete: r20260927-120715-3086 (6,771,765 units, 12/12 verdicts, <=91,051 at 2^-20, 9/9 negatives; 256 GB pod, peak 86.6 GB). A3b delta r20260927-115041-1b5d accepted (10/10 negatives). All pods terminated; ~$7.3 spent. Morning summary next.
 CHECKPOINT 9515b4d4 (12:11Z) [open] A4 P6 attempt 2 r20260927-112223-cc25: M0 prove OOM-killed at 64 GB on GEMM K=2048 (6.17M instances; RSS 49.9 GB climbing); other members + 9/9 negatives fine; told M0 (flock-netlist/1200Z). Attempt 3 r20260927-120715-3086 on vy-one-stage-e2e-m2 (cpu5m 32 vCPU, 256 GB, $2.08/h). A3b delta r20260927-115041-1b5d on vy-one-stage-e2e.
 CHECKPOINT 9515b4d4 (11:24Z) [open] #116 red-team C1-C3 + N1 + negatives a-e at 120adc37 (+608e7130 pod.sh served-dir fix); A1 delta r20260927-110313-402a accepted, 21/21 negatives; delta check asked (red-team-flock-3/20260927T1120Z). #143 merged up (9515b4d4). A4 P6 served running r20260927-112223-cc25 (first attempt r20260927-110739-dd76 failed on a stale served dir). A3b delta after P6.

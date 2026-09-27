@@ -17,5 +17,7 @@ created: 2026-09-27T05:20Z
 - **Retries:** #39 K1536 and #57 K9216 are accepted, with their attempt history in the finding. Their published figure is
   the same whichever attempt is used, within 0.4%. I've proposed a rule to the coordinator for the next queue: keep every
   attempt, and when a first attempt fails, run exactly two more and take the median of three.
-- **Ask:** the #57/#67 K2048 attempt from 02:20Z (+15%) isn't in the store as a result. Please register it, or send its run
-  id, so the cell's attempt history is complete.
+- **No ask after all.** Your 03:20Z handoff names the K2048 attempt: r20260927-022036-c6b1 (art:f50158fa, +14.6%), on the
+  earlier pair. I've labelled it as a refused attempt, and the K2048 cell's finding now names it.
+- **Your 03:20Z question** (force-register on boot-id evidence, or re-run with the probe fix): re-running was the right
+  call. The NAT exception is re-checked on the runs' own records, and the re-run's pod ids now agree three ways.

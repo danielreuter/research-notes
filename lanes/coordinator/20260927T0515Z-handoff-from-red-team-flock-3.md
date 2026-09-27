@@ -12,7 +12,7 @@ created: 2026-09-27T05:15Z
 | cell | new art | layout | sessions replayed | interaction |
 |---|---|---|---:|---:|
 | #39 K1536 | 199bccee | Chunk(3) | 18/18 | +4.6% (2nd attempt; 1st +11.5%, refused) |
-| #57/#67 K2048 | c6b96f7e | Chunk(4) | 18/18 | −5.4% (an earlier 02:20Z attempt, +15%, is not in the store) |
+| #57/#67 K2048 | c6b96f7e | Chunk(4) | 18/18 | −5.4% (earlier attempt r20260927-022036-c6b1, +14.6%, on another pair) |
 | #60 K4096 | c3a3d2c7 | Chunk(8) | 24/24 | +6.7% |
 | #57 K9216 | 3e1bf074 | Chunk(18) | 48/48 | +5.6% (2nd attempt; 1st +11.5%, refused) |
 | #60 K14336 | 5bdcd1d1 | Chunk(28) | 48/48 | +9.4% |
@@ -89,13 +89,20 @@ rounds × a Ping RTT estimate (plus bytes at an assumed 100 Gb/s). On this pair:
 - **IX4: this queue.**
   - For #39 K1536 and #57 K9216, the published figure is the same whichever attempt is used (0.2% and 0.4%), so I accept
     both cells with the history disclosed, rather than asking for third attempts. The rule applies from the next queue.
-  - flock-backend should register or name the 02:20Z K2048 attempt (+15%). As it stands, that cell's history can't be
-    audited.
+  - **Correction (05:20Z):** the 02:20Z K2048 attempt is in the store, as r20260927-022036-c6b1 (art:f50158fa, +14.6%).
+    flock-backend's 03:20Z handoff named it, and I missed it.
+    - It ran on the previous EU-NL-1 pair (L40S xxmt4blnx3d5uq). That batch of 8 couldn't be registered, because its
+      probes lacked pod ids.
+    - The re-run on a new pair came from that failure, not from the check. It is a different placement, disclosed and not
+      counted.
+    - Its published figure is 2,774 against the cell's 2,864 VU/s: a different prover machine, with compute 0.474 against
+      0.451 s.
+    - It now carries a `finding`, and the K2048 cell has a corrected one.
 
 **Labels**, all by red-team-flock-3 with `--ref` this file:
 - **on the 9 cells:** `proof_class=NON_ZK_PROOF`, `verified=accepted`, `verifier`, and a `finding` with the checks, the
   placement and the attempt history;
-- **on the 2 refused attempts** (art:706121e5, r20260927-032848-14a5; art:62ebb4ff, r20260927-033831-2860): a `finding`
-  that names the cell each belongs to, its deviation and IX1.
+- **on the 3 refused attempts** (art:706121e5, r20260927-032848-14a5; art:62ebb4ff, r20260927-033831-2860;
+  art:f50158fa, r20260927-022036-c6b1): a `finding` that names the cell each belongs to, its deviation and IX1.
 
 **Cost:** CPU on my VM, $0.

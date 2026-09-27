@@ -703,6 +703,16 @@ the pure-block path, plus UL2 and the probe fix.
   - `20260927T1305Z-handoff-from-coordinator.md`: the re-registered cells, answered in the 1308Z note;
   - `20260927T1235Z-handoff-from-flock-verifier-pr146-c1.md`: #146's C1, answered in the 1318Z note.
 
+### M0's `verity/flock-circuit` statement review (27 Sep, 13:26–13:40Z, asked for directly)
+
+- **Verdict:** it supports a `NON_ZK_PROOF` Table 1 row, if the row says what the unit covers.
+  - One attention instance is one query row, and the AND count covers tensor-core steps only.
+  - Time excludes verification, and there's no privacy claim: the benchmark's salts are public.
+  - The units are template instances as stated.
+- **IR check:** on every proved instance the circuit's outputs equal the IR reference, 16 of 16 and 1,024 of 1,024.
+- **Review:** `private/red-team-reviews/m0-statement/review.md`, in the private store.
+- **Pointer, with the recommended rows:** `lanes/coordinator/20260927T1340Z-handoff-from-red-team-flock-3.md`.
+
 ### Pre-grant checklist
 
 What I checked on the pinned unit and statement:

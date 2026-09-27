@@ -5,7 +5,7 @@
 3. the circuit M0 composes over the agreed partition has the pin the e2e lane named;
 4. serving's overhead: the hook's seconds beside the Commit stage's wall.
 usage: sc_compare.py WINDOW_DIR SET_DIR PARTITION_JSON OUT_DIR STAGES_TXT"""
-import hashlib, json, sys, time
+import hashlib, json, os, sys, time
 from pathlib import Path
 
 import numpy as np
@@ -14,7 +14,7 @@ from verity_numerical.bench.input_sets import InputSet
 from verity_flock import circuit as C
 from verity_vllm.commit import serving_rows as SR
 
-PIN = "cdcbd876d413897b9c9388750113305d6f492362c93a564f8e48baff9e96b4826c946e512cf34717ab5bc155e99cdb66fee93442e2fc2a1bfb609770a1be0de2"
+PIN = os.environ.get("EXPECT_PIN") or "cdcbd876d413897b9c9388750113305d6f492362c93a564f8e48baff9e96b4826c946e512cf34717ab5bc155e99cdb66fee93442e2fc2a1bfb609770a1be0de2"
 wd, set_dir, part_file, out, stages = (Path(a) for a in sys.argv[1:6])
 out.mkdir(parents=True, exist_ok=True)
 res: dict = {}

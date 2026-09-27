@@ -20,10 +20,10 @@ v = json.load(open(sys.argv[1]))
 print("verdict", v.get("outcome"), "program", v.get("program_digest", ""), "manifest", v.get("manifest_digest", ""), "roots", v.get("run_roots"))
 PY
 }
-for MODE in off on; do
+for MODE in ${MODES:-off on}; do
   export SWEEP_DIR=/workspace/sc/sweep-$MODE
   rm -rf "$SWEEP_DIR/$ROW"
-  if [ $MODE = on ]; then export SERVING_ROWS=$IN/partition-183680.json; else unset SERVING_ROWS; fi
+  if [ $MODE = on ]; then export SERVING_ROWS=$IN/${PARTITION_FILE:-partition-183680.json}; else unset SERVING_ROWS; fi
   echo "row $MODE start $(date -u +%FT%TZ)"
   verity-vllm row run "$ROW" LLAMA32_1B unsloth/Llama-3.2-1B 9535bd9b1d1dea6acafbdc4813b728796aeb28da --stages build,match,commit \
     < /dev/null > "$OUT/row-$MODE.log" 2>&1; echo "row $MODE rc $? $(date -u +%FT%TZ)"
@@ -37,5 +37,5 @@ mkdir -p /workspace/sc/m0 && tar xzf "$IN/m0-e51e2b86-py.tgz" -C /workspace/sc/m
 WD=$OUT/serving-rows/$ROW
 ls -la "$WD" 2>&1; cat "$WD/error.txt" 2>/dev/null
 PYTHONPATH=$PYTHONPATH:/workspace/sc/m0/backends/numerical/python:/workspace/sc/m0/backends/flock/python \
-  python "$IN/sc_compare.py" "$WD" /workspace/sc/ropeset "$IN/partition-183680.json" "$OUT/m0-files" "$OUT/evidence/on/stages.txt"
+  python "$IN/sc_compare.py" "$WD" /workspace/sc/ropeset "$IN/${PARTITION_FILE:-partition-183680.json}" "$OUT/m0-files" "$OUT/evidence/on/stages.txt"
 echo "SC-DONE $(date -u +%FT%TZ)"

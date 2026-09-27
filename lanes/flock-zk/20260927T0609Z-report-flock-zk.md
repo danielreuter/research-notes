@@ -2,9 +2,10 @@
 lane: flock-zk
 kind: report
 created: 2026-09-27T06:09Z
-status: open
+status: final
 ---
 
+CHECKPOINT fc6cfe99 (08:06Z) [final] M1 on CPU for RoPE at fc6cfe99 (cursor/flock-zk-m1-5659, draft PR #123 on #83): every transcript byte masked/committed/public (zkaudit complete), whole simulated proofs accepted 128/128, zkstat N=64 indistinguishable on 11 classes (min p 0.013/55), control distinguished; selftest M0 30/30, --zk 28/28; overhead per rep m=25 +12-24%, m=27 +20% (0.38->0.46 s), proofs +32-36%. Layout: backends/flock/live/PROTOCOL.md. Open items: in the store (internal/flock-zk-m1-report.md). No pods created or terminated; $0 spent.
 CHECKPOINT 56159cd7 (07:53Z) [open] 56159cd7: M1 complete on CPU for RoPE: every transcript byte masked/committed/public (zkaudit complete:true), simulator's whole proofs accepted 128/128, zkstat N=64 11 classes indist (min p 0.013/55), control distinguished; selftest M0 30/30, --zk 28/28; overhead per rep m=25 0.25->0.41 s, m=27 0.37->0.57 s (upstream under masking +2-8%, fixed 0.15 s replay+pads). Open: level-0 query recount (soundness), red team. Evidence lanes/flock-zk/evidence/20260927T075*. $0
 CHECKPOINT 74a197d9 (07:33Z) [open] 74a197d9: Ligerito level 0 now hidden (VEIL Figs 8-9): per-lane (W_n+c)mu padding (X_L alone vanishes on half the codeword: binary-field finding), 2 uniform extra lanes folded before the code switch, lane phase masked + constraints in the inner proof. RoPE CPU selftest M0 30/30, --zk 28/28 (4 new L0 negatives). Next: audit/stats for Ligerito, re-measure overhead, update PROTOCOL.md. CPU only $0
 CHECKPOINT f57138fe (07:03Z) [open] f57138fe: PROTOCOL.md (exact M1 layout for Lean + Ligerito design + M2 list) and test_zk_stats. Overhead (4-core VM, per rep): m=25 0.25->0.40 s, m=27 0.36->0.52 s; masking ~0, pads commit 18 ms, fixed 0.13 s = prover re-running the lincheck fold (removable). Next: decide Ligerito implementation attempt vs handoff; PR update. CPU only $0

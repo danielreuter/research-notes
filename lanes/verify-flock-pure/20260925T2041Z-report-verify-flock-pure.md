@@ -2,9 +2,10 @@
 lane: verify-flock-pure
 kind: report
 created: 2026-09-25T20:41Z
-status: open
+status: final
 ---
 
+CHECKPOINT 787ac154 (05:15Z) [final] FINAL: 9 total-unit L40S cells verified=accepted (file re-verification, r20260927-045439-2525 on the VM CPU, no pod, $0)
 CHECKPOINT 787ac154 (04:44Z) [open] reopened for 9 total-unit L40S cells (flock-backend 0445Z): NOT final
 CHECKPOINT 787ac154 (17:48Z) [final] FINAL: c2 re-run b61eafa9 verified=accepted (file re-verification, r20260926-165159-6043); attention classes c1 c2 c3 all labelled; pod terminated 17:48Z; ~$0.6
 CHECKPOINT 787ac154 (17:47Z) [final] FINAL: c2 re-run b61eafa9 verified=accepted (file re-verification, r20260926-165159-6043); attention classes c1 c2 c3 all labelled; pod terminated 17:48Z; ~$0.6
@@ -100,3 +101,5 @@ Reopened 14:12Z-16:28Z: attention class cells c1 art:4fb2de9c (r20260926-143754-
 Handoff 20260926T1440Z-handoff-from-flock-ir-lowering.md (c3 art:4dd2069b) acted on: labelled.
 Reopened 16:34Z-17:49Z: c2 uncontended re-run art:b61eafa9 verified=accepted (r20260926-165159-6043); sent coordinator 20260926T1749Z. 20260926T1632Z-handoff-from-flock-backend.md (capacity gap, FYI: the L40S re-runs and ChunkTail cells did not run) needs no action from this lane. Pod vx2lueuuhjvxeb terminated 17:48Z; lane total ~$7.2.
 Handoff 20260926T1650Z-handoff-from-flock-ir-lowering.md (c2 art:b61eafa9) acted on: labelled. It marks 87a6bcdd superseded_by b61eafa9; my accepted label on 87a6bcdd stays as a record of that replay.
+
+Reopened 2026-09-27 04:43Z-05:20Z (20260927T0445Z-handoff-from-flock-backend.md): 9 total-unit L40S cells 199bccee c6b96f7e c3a3d2c7 3e1bf074 5bdcd1d1 216143fd 3367e633 b1e5fed5 062f4951 verified=accepted (r20260927-045439-2525, local VM CPU, no pod, $0; lane/verify-flock-total 4e38e9f1); sent coordinator 20260927T0520Z. Lane total ~$7.2.

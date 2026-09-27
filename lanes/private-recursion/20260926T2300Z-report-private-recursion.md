@@ -189,3 +189,18 @@ The first milestone of the private-circuit prototype is reached: an inner sessio
 negatives rejected. PR #97 is a draft. Handoff sent: `note:20260927T0020Z-handoff-from-private-recursion` to flock-netlist
 (the live hidden-message mode and a SHA-512 session). Handoffs received: none. The lane stops here, as its brief asks;
 resuming means the outer proof and the items under "Next".
+
+## Desk costing, 2026-09-27 01:30Z: the wiring evaluation inside V[B] ($0, no code)
+
+Written as Project store `docs/circuit-privacy.md` I.11. Cost model: `evidence/scripts/costmodel.py`, which reproduces the
+prototype's measured Ligerito and fold costs. All figures cover both reps.
+
+| option | V[B] cost |
+|---|---|
+| (a) in-circuit fold, at $S$ ($Z = 2^{18}$) | 2.6–3.5 G per sampled wiring, best variant, binding included; linear in min(k, n): 112 G at k = 32, 3.6 T at k = 1024 |
+| (b) holography: c commits to Enc(C)'s bit columns | 0.8–2.2 G, nearly flat in k: one sumcheck of degree 2 log R + 2, then one salted Ligerito opening of c inside V[B] |
+
+SPARK would cost 2–4.6 G and needs per-run O(Z) commitments. Keeping the outer verifier small needs V[B] laid out as
+repeated gadget tables with structured glue, which comes to a few million field operations per proof.
+
+Recommendation: (b), moved into R3/R4, with the glued multi-table outer statement first.

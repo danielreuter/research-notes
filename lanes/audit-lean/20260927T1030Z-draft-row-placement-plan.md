@@ -3,7 +3,7 @@ id: audit-lean/20260927T1030Z-draft-row-placement-plan
 campaign: verity
 lane: audit-lean
 kind: draft
-status: open
+status: open (progress 12:05Z below)
 repo: danielreuter/verity
 origin: audit-lean
 ---
@@ -111,3 +111,28 @@ Each step keeps the bar: no `sorry`, standard axioms in `Check.lean`, and the th
   placement covers the unit net's slots only. Their correctness is the link and the row leaf's binding.
 - **Reasoning about imperative loops is laborious.** `level3` has the pattern (`placeSlot_get`), but `HmRow.delta` is
   bigger.
+
+## Progress, 12:05Z
+
+[PR #154](https://github.com/danielreuter/verity/pull/154) is at `20584fba`, stacked on #145 with #147 merged in. There is
+no `sorry`, and all 197 axiom checks use only standard axioms.
+
+**W2 is done:**
+- `parse_rowOrder`: an accepted `Net.parse` passed #147's `Net.checkOrder` on the rows it stored;
+- `ofRows_row`: `Sparse.ofRows` reads back its rows;
+- `Rows.ofNet`: the audit's `Rows` for a parsed net, with `topo` proved;
+- `Rows.stack`: an instance's rows, in the shape flock-soundness confirmed. The one refinement is that each copy's
+  constant row comes first and the copy's rows read it.
+
+**W4's core is done.** `placement_stack` reduces `Placement` to three facts about the level-0 matrices at the instance's
+slots.
+
+**W3 has started.** `delta_rows` gives every Δ row one of six forms. Next, from the layout checks: no form is a unit slot's
+computed row, and a slot constant gets exactly its two pairs.
+
+**Blocked, or needing more work:**
+- **W1** waits on flock-verifier's `placedA`/`placedB`.
+- **W3's layout step** needs pairwise disjoint ranges. `checkLayout` checks overlap after `Array.qsort`, and `qsort` has
+  no lemmas, so I asked flock-verifier for a pairwise check (`lanes/flock-verifier/20260927T1205Z`).
+- **W7** needs `c.unit` to be a `Net.parse` output through `HmRow.parse`'s `while` loop. That loop is provable with
+  `Lean.Loop.forIn_eq_of_monadTail`, which uses standard axioms.

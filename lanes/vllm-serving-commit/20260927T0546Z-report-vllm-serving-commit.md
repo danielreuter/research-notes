@@ -5,6 +5,7 @@ created: 2026-09-27T05:46Z
 status: open
 ---
 
+CHECKPOINT b08eda03 (10:46Z) [open] P6 row PASS: #101 verdict PASS, 7adcef49 unchanged; 6,771,765 units committed (GEMM shared rows), hook 17.3 s (read 10.0, hash 6.6), bodies ~84 MB public / ~158 MB private. Byte-match running (member 0 OK). WAIT dwtd00zrlrcucj r20260927-102240-f954 check-back 10:54Z agent bc-819f6247.
 CHECKPOINT b08eda03 (10:23Z) [open] P6 LAUNCHED: POD vyv-rf-serving-commit-g4 (dwtd00zrlrcucj, L40S secure) run r20260927-102240-f954 at b08eda03, M0 e226a920 tables-as-given; expected end ~11:00Z ~$0.65. WAIT check-back 10:45Z agent bc-819f6247. CPU: all 6 members == e226a920 writer; default path 90f81868 byte-identical. Coordinator copied (1024Z). P4 handoff count fixed (fused 8, not 16).
 CHECKPOINT b08eda03 (09:52Z) [open] P4 DONE: r20260927-092505-bee3 (art:760da39e) 7adcef49 unchanged, 12,341 units, hook 9.2 s; byte-match r20260927-094723-d7b3 (art:85b19a48) SC-MEMBERS OK (all captured in-scope equal; all 4 members == M0 68ae79f2 write()); registration v1 R.check ok (c2b8ec64); bundle art:6719029d; e2e handoff 0955Z. Pod g3 TERMINATED 09:50Z (~$0.47). P12 fix is b08eda03 (earlier checkpoint said 6c...). P6 waits for M0 tables-as-given mode. Lane spend ~$3.2.
 CHECKPOINT b08eda03 (09:46Z) [open] P12 fixed at 6c... (unused GRID constant dropped; lints incl. P12, dead-modules, unit tests pass on VM); #119 head moves; merge-ready after P6 + gate (b) at the final head. P4 r20260927-092505-bee3 check pending.

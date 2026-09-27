@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT f9546428 (19:54Z) [final] FINAL: M0 lookup slots (#83 @73a273d4) GRANT: plain gates forcing out = table[index] (decoders + 31x1024 AND products, table as XOR forms), verifier-pinned hash-checked tables, exact per-type fold after the commitment, per-read constraints; reads-inside-units extension GRANT WITH CONDITIONS C1 wire completeness in both verifiers, C2 flipped-read negative + IR agreement; numbers ex2 41,308 ANDs / 153.7M XOR, sqrt 49,576 / 309.4M; review in the store private/red-team-reviews/m0-statement/ (private); pointer lanes/coordinator/1958Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT a06b1302 (18:51Z) [final] FINAL: soundness stack reviewed: A2 (#127/#163/#170/#171) GRANTED; #173 GRANTED at af5e9c1b (A1 removal via the DKT26 bridge + the eta retune to 1/200: table theorems 2^-205, constants only, eta one definition; recomputed worst 2^-205.21); #130 pins GRANTED; review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointers lanes/coordinator/1830Z, 1855Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT dcf89735 (18:28Z) [open] OPEN (waiting): the eta retune folded into PR #173 (level-0 radius 1-sqrt(rho)-1/200); subscribed to #173, will review when its head moves past 16785b18. Done: A2 (#127/#163/#170/#171) GRANTED, #173 @16785b18 GRANTED, #130 pins GRANTED (1537Z duplicate answered by 1540Z); review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointer lanes/coordinator/1830Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT 03ba8ce4 (18:28Z) [open] OPEN (waiting): the eta retune folded into PR #173 (level-0 radius 1-sqrt(rho)-1/200); subscribed to #173, will review when its head moves past 16785b18. Done: A2 (#127/#163/#170/#171) GRANTED, #173 @16785b18 GRANTED; review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointer lanes/coordinator/1830Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -745,6 +746,21 @@ the pure-block path, plus UL2 and the probe fix.
   - 21 signatures change, constants only, so the table and audit theorems go to `2^-205` with identical hypotheses.
   - My recomputation gives a worst case of `2^-205.21`, and reproduces `2^-195.44` at 1/50.
   - Reply: `lanes/coordinator/20260927T1855Z-handoff-from-red-team-flock-3.md`.
+
+### M0's lookup slots (27 Sep, 19:44–19:58Z; asked for directly, Daniel suspicious)
+
+- **#83 @ 73a273d4:** GRANT.
+  - The lookup slot is plain gates, forcing exactly `out = table[index]`.
+  - Only the verifier's pinned, hash-checked MUFU tables are accepted.
+  - The per-type fold is exact and comes after the commitment, and constraints hold per read.
+  - It's covered generically by the soundness stack. The Lean verifier builds lookup slots, and level 3 proves its fold. The
+    lemma "rows ⇒ `table[index]`" is unproved.
+- **Reads inside units (the planned stacked PR):** GRANT WITH CONDITIONS.
+  - C1: both verifiers enforce wire completeness.
+  - C2: a flipped-read negative test, plus IR agreement.
+- **Review:** `private/red-team-reviews/m0-statement/review.md`, the last section, in the private store, with
+  `lookup_numbers.txt` beside it.
+- **Reply:** `lanes/coordinator/20260927T1958Z-handoff-from-red-team-flock-3.md`.
 - **Request:** `lanes/coordinator/20260927T1816Z-handoff-from-flock-soundness-a2-constant.md`.
 - **Review:** `private/red-team-reviews/soundness-a2-a1/`, in the private store.
 - **Reply:** `lanes/coordinator/20260927T1830Z-handoff-from-red-team-flock-3.md`.

@@ -5,8 +5,7 @@ Brief: `$STORE/internal/lane-briefs/vllm-recompute.md`. Findings from `internal/
 
 ## Branches
 - #74 FP8: `cursor/vllm-rf-recompute-fp8-cbba` @ `df13126f`, PR #106 (draft). Pushed.
-- #57 Gemma: `cursor/vllm-rf-recompute-gemma-cbba` @ `7aeffc5d`. NOT pushed: the VM's GitHub App token is invalid since about 03:30Z.
-  Bundle: `evidence/gemma-7aeffc5d.bundle`.
+- #57 Gemma: `cursor/vllm-rf-recompute-gemma-cbba` @ `7aeffc5d`, PR #109 (draft). Pushed at 03:45Z, after the token came back.
 
 ## Done (CPU, lane VM; scripts in `$HOME/ev/` on the VM)
 - FP8: `ScaledMmFp8BlockSharedScale_v1` + `SHARED_SCALE` (opt-in). Checks:
@@ -20,17 +19,16 @@ Brief: `$STORE/internal/lane-briefs/vllm-recompute.md`. Findings from `internal/
   weight leaves. Checks:
   - default `TargetProfile` digest unchanged (`86c255b3…` on both);
   - lints pass;
-  - the recorded #57 request Programs rewritten as `once` builds them: `cross_call` LP31_T52 5,460 Calls / 12,579,840 gates -> 0;
-    LP1024_T18 1,890 / 4,354,560 -> 0 (the others running).
+  - the 8 recorded #57 request Programs rewritten as `once` builds them: `cross_call` 44,520 duplicate Calls / 102,574,080 gates -> 0
+    (`evidence/cross_r57_recorded_vs_once.jsonl`); committed `+ 1` output words 104,509,440 -> 1,935,360.
 
 ## Running
-- VM tmux `r57-cross`: `cross_call` on all 8 #57 request Programs, recorded vs `once` rewrite (`$HOME/ev/r57_all.log`).
+- Nothing.
 
 ## Next
 - On approval (estimate `internal/lanes/vllm-coordinator/20260927T0335Z-handoff-from-vllm-rf-recompute.md`): CPU pod `vyv-rf-recompute-cpu`,
   gate (b) base `3040ac1f` / FP8 `df13126f` / Gemma `7aeffc5d` (the Gemma torch tests run there first).
-- Push the Gemma branch once the token is refreshed; open its PR.
-- Merge-ready handoffs per PR.
+- Merge-ready handoffs per PR, after gate (b).
 
 ## Open questions
 - Whether the Gemma Build A/B on an L40S (one #57 request shape, selector off = recorded digest) is wanted.

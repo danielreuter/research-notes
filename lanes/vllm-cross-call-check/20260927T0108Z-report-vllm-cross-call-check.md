@@ -5,6 +5,7 @@ created: 2026-09-27T01:08Z
 status: open
 ---
 
+CHECKPOINT 91ceb79e (04:50Z) [open] PR #111 partition object v1 + verity.ir.cut (stacked on #98), nothing moves; handoff 05:20Z
 CHECKPOINT 91ceb79e (02:43Z) [open] #98 d7f76916 (cross-call + unit_rule members: #74 FP8 581k Calls; #57 Gemma w+1 102.6M gates), #99 13c294d6, #103 cbe3db97, #101 merged; graphs art:c74deac4, cross art:e8b4aada; handoffs sent
 CHECKPOINT 91ceb79e (01:08Z) [open] PR #98 cross-call check (Gemma #57: 5,460 duplicate AddScalarBf16 Calls); #99 max_scaled label; #101 sampler SharedGreedy; 13 graphs rebuilt (11 w/ param_inputs), finish+cross running
 
@@ -33,3 +34,9 @@ CHECKPOINT 91ceb79e (01:08Z) [open] PR #98 cross-call check (Gemma #57: 5,460 du
 - **PRs:** #98 @ d7f76916, #99 @ 13c294d6, #101 merged (c822ca7a), #103 @ cbe3db97. Handoffs in the Project store `internal/lanes/vllm-coordinator/2026092702*..0300Z-*`.
 - **Gotcha:** `verity.ir.refs.runs` on a batch member's Strided column view (Embedding's table column) expands to one run per row: 590 M runs for
   Gemma's Embedding; hold such operands by descriptor (cross_call `_view`).
+
+## Partition checker owner (05:20Z)
+
+- **PR #111** (stacked on #98): `verity/partition/v1` in core (`verity.ir.partition_object`: build, canonical, SHA-512 digest, validate,
+  verify) and the references in `verity.ir.cut` (CallGraph = word.Graph off numpy, fits = the width rule in bits, check_cut =
+  validate_unit_cut + unit-too-wide). word.Graph is CallGraph + numpy views; with_word_rules byte-identical on #101 #74 #73.

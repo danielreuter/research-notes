@@ -1,0 +1,112 @@
+{
+ "n": {
+  "real": 128,
+  "control": 128,
+  "sim": 128
+ },
+ "alpha": 0.001,
+ "classes": {
+  "exposed": {
+   "values_per_transcript": 265,
+   "bytes_real_vs_sim": 0.7641622506621655,
+   "bits_real": 0.8564373440024431,
+   "xor_real": 0.7613127468910874,
+   "constant_real": 0.0,
+   "bits_sim": 0.9792394389686551,
+   "xor_sim": 0.026464254698819713,
+   "constant_sim": 0.0,
+   "bits_control": 0.0,
+   "xor_control": 0.0,
+   "constant_control": 1.0,
+   "real_indistinguishable_from_sim": true,
+   "control_distinguished": true
+  },
+  "s_ab": {
+   "values_per_transcript": 128,
+   "bytes_real_vs_sim": 0.7191608848759435,
+   "bits_real": 0.5129836285948708,
+   "xor_real": 0.6476262365302821,
+   "constant_real": 0.0,
+   "bits_sim": 0.3290439102200044,
+   "xor_sim": 0.7892455383618809,
+   "constant_sim": 0.0,
+   "bits_control": 0.0,
+   "xor_control": 0.0,
+   "constant_control": 1.0,
+   "real_indistinguishable_from_sim": true,
+   "control_distinguished": true
+  },
+  "s_c": {
+   "values_per_transcript": 128,
+   "bytes_real_vs_sim": 0.036898402918469866,
+   "bits_real": 0.5235821744400012,
+   "xor_real": 0.1336608120985722,
+   "constant_real": 0.0,
+   "bits_sim": 0.8270589059584555,
+   "xor_sim": 0.7772808047491171,
+   "constant_sim": 0.0,
+   "bits_control": 0.0,
+   "xor_control": 0.0,
+   "constant_control": 1.0,
+   "real_indistinguishable_from_sim": true,
+   "control_distinguished": true
+  },
+  "inner_scalars": {
+   "values_per_transcript": 3,
+   "bytes_real_vs_sim": 0.4789425425547774,
+   "bits_real": 0.707447188155715,
+   "xor_real": 0.2426886962496964,
+   "constant_real": 0.0,
+   "bits_sim": 0.8844243335903582,
+   "xor_sim": 0.5244669687209381,
+   "constant_sim": 0.0,
+   "bits_control": 0.0,
+   "xor_control": 0.0,
+   "constant_control": 0.6666666666666666,
+   "real_indistinguishable_from_sim": true
+  },
+  "inner_y": {
+   "values_per_transcript": 461,
+   "bytes_real_vs_sim": 0.8287350703060627,
+   "bits_real": 0.3453821083490854,
+   "xor_real": 0.4614487478714081,
+   "constant_real": 0.0,
+   "bits_sim": 0.2913840508729039,
+   "xor_sim": 0.5761792065721301,
+   "constant_sim": 0.0,
+   "bits_control": 0.8090425808099381,
+   "xor_control": 0.0469234975883916,
+   "constant_control": 0.0,
+   "real_indistinguishable_from_sim": true
+  },
+  "inner_open_h": {
+   "values_per_transcript": 168,
+   "bytes_real_vs_sim": 0.2294395634943141,
+   "bits_real": 0.9844759850322664,
+   "xor_real": 0.17217999620378072,
+   "constant_real": 0.0,
+   "bits_sim": 0.020439713940651496,
+   "xor_sim": 0.07665622509735008,
+   "constant_sim": 0.0,
+   "bits_control": 0.4657136001027716,
+   "xor_control": 0.7094517446305684,
+   "constant_control": 0.0,
+   "real_indistinguishable_from_sim": true
+  },
+  "inner_open_mu": {
+   "values_per_transcript": 168,
+   "bytes_real_vs_sim": 0.09097484450907926,
+   "bits_real": 0.2543345141504381,
+   "xor_real": 0.2943614728439834,
+   "constant_real": 0.0,
+   "bits_sim": 0.8721577393598383,
+   "xor_sim": 0.0703825061492188,
+   "constant_sim": 0.0,
+   "bits_control": 0.29706250064705014,
+   "xor_control": 0.12533149576488248,
+   "constant_control": 0.0,
+   "real_indistinguishable_from_sim": true
+  }
+ },
+ "pass": true
+}

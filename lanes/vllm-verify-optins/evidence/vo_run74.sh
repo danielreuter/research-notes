@@ -5,7 +5,8 @@
 # query.cross_call, and the partition checker (Q_word_v1{16,32,no-recompute} with #98's member check) on every distinct specialization.
 set -u
 L=$RESEARCH_RUN_DIR; T=$PWD; I=$L/inputs
-if [ -n "${WAIT_RUN:-}" ]; then while grep -q '"state": "running"' "$WAIT_RUN/status.json" 2>/dev/null; do sleep 30; done; echo "waited for $WAIT_RUN $(date -u +%FT%TZ)"; fi
+if [ -n "${WAIT_RUN:-}" ]; then while grep -q '^ "state": "running"' "$WAIT_RUN/status.json" 2>/dev/null; do sleep 30; done; echo "waited for $WAIT_RUN $(date -u +%FT%TZ)"; fi
+[ -z "${SETUP_RUN:-}" ] || grep -rqs --include='*.log' SMOKE-OK "$SETUP_RUN" || { echo "setup run has no SMOKE-OK: stop"; exit 3; }
 ROW=qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager; ROLE=QWEN3_4B_FP8; REPO=Qwen/Qwen3-4B-Instruct-2507-FP8
 REV=8591804019c8b22094c3b5b4454e0edc05dffc98
 bash "$I/vo_build.sh" r74-off "$ROW" "$ROLE" "$REPO" "$REV" '{"compute_capability": [9, 0], "fp8_block_gemm": "cutlass", "num_sms": 132}' "${JOBS:-6}"

@@ -5,7 +5,8 @@
 # weight-only Call counts per Program.
 set -u
 L=$RESEARCH_RUN_DIR; T=$PWD; I=$L/inputs
-if [ -n "${WAIT_RUN:-}" ]; then while grep -q '"state": "running"' "$WAIT_RUN/status.json" 2>/dev/null; do sleep 30; done; echo "waited for $WAIT_RUN $(date -u +%FT%TZ)"; fi
+if [ -n "${WAIT_RUN:-}" ]; then while grep -q '^ "state": "running"' "$WAIT_RUN/status.json" 2>/dev/null; do sleep 30; done; echo "waited for $WAIT_RUN $(date -u +%FT%TZ)"; fi
+[ -z "${SETUP_RUN:-}" ] || grep -rqs --include='*.log' SMOKE-OK "$SETUP_RUN" || { echo "setup run has no SMOKE-OK: stop"; exit 3; }
 ROW=gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager; ROLE=GEMMA2_2B; REPO=unsloth/gemma-2-2b
 REV=25319945f7fd83b8b903e12081777b7eef2ba993
 bash "$I/vo_build.sh" r57-off "$ROW" "$ROLE" "$REPO" "$REV" '{"compute_capability": [8, 9], "num_sms": 142}' "${JOBS:-4}" &

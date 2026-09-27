@@ -5,8 +5,8 @@
 # partition checker (Q_word_v1{16,32,no-recompute} with #98's member check) on every distinct specialization, each cut exactly.
 set -u
 L=$RESEARCH_RUN_DIR; T=$PWD; I=$L/inputs
-if [ -n "${WAIT_RUN:-}" ]; then while grep -q '"state": "running"' "$WAIT_RUN/status.json" 2>/dev/null; do sleep 30; done; echo "waited for $WAIT_RUN $(date -u +%FT%TZ)"; fi
-[ -z "${WAIT_RUN:-}" ] || grep -rqs --include='*.log' --include='*.txt' SMOKE-OK "$WAIT_RUN" || { echo "setup run has no SMOKE-OK: stop"; exit 3; }
+if [ -n "${WAIT_RUN:-}" ]; then while grep -q '^ "state": "running"' "$WAIT_RUN/status.json" 2>/dev/null; do sleep 30; done; echo "waited for $WAIT_RUN $(date -u +%FT%TZ)"; fi
+[ -z "${SETUP_RUN:-}" ] || grep -rqs --include='*.log' SMOKE-OK "$SETUP_RUN" || { echo "setup run has no SMOKE-OK: stop"; exit 3; }
 ROW=qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager; ROLE=QWEN3_4B; REPO=Qwen/Qwen3-4B-Instruct-2507
 REV=cdbee75f17c01a7cc42f958dc650907174af0554
 bash "$I/vo_build.sh" r73-off "$ROW" "$ROLE" "$REPO" "$REV" '{"compute_capability": [9, 0], "num_sms": 132}' "${JOBS:-4}" &

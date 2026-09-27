@@ -28,7 +28,7 @@ created: 2026-09-27T08:45Z
   - `pytest tests/test_repository.py backends/flock/tests/test_lean_verifier.py`: 11 passed, 2 skipped.
   - CPU only, $0.
 - **Agreed with flock-soundness:** `lanes/flock-soundness/20260927T0845Z-handoff-from-audit-lean.md`.
-  - Several tables per session come in a follow-up PR once `cursor/flock-session-8569` (`session_knowledge_sound`)
+  - Several tables per session come in a follow-up PR once [PR #136](https://github.com/danielreuter/verity/pull/136) (`session_knowledge_sound`)
     merges.
   - That PR also takes their `Game.batch` in place of `Audit.batch`, and their protocol-shaped oracle session.
 - **Unchanged:** [PR #135](https://github.com/danielreuter/verity/pull/135) @ `9ac046fd` still awaits the red team's

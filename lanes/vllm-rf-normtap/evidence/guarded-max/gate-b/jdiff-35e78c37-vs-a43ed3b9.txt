@@ -1,0 +1,23 @@
+base 4236 {'failed': 31, 'passed': 3913, 'skipped': 286, 'xfailed': 6}
+head 4249 {'failed': 32, 'passed': 3925, 'skipped': 286, 'xfailed': 6}
+only in base (deleted or renamed): 0
+only in head: 13 {'passed': 13}
+  + tests.program.test_lint::test_no_model_names[guarded_max.py] passed
+  + tests.program.test_lint::test_no_startswith[guarded_max.py] passed
+  + tests.program.test_lint::test_no_v1_membership_tables[guarded_max.py] passed
+  + tests.properties.test_fa_tap_exactness::test_a_guarded_record_needs_its_baseline_and_word_3_checked_in_every_case passed
+  + tests.properties.test_fa_tap_exactness::test_check_row3_is_the_guard_after_the_first_block_and_names_a_wrong_word passed
+  + tests.properties.test_fa_tap_exactness::test_the_edge_cases_name_query_tokens_of_their_own_launch passed
+  + tests.properties.test_fa_tap_exactness::test_the_guarded_build_writes_word_3_at_every_visited_block_and_the_masked_digest_ignores_only_it passed
+  + tests.query.test_guarded_max::test_101_counts_the_tap_lists_97_280 passed
+  + tests.query.test_guarded_max::test_attention_words_count_the_blocks_after_each_rows_first passed
+  + tests.query.test_guarded_max::test_manifest_verify_tells_the_policies_apart_and_records_them_only_when_one_side_has_it passed
+  + tests.query.test_guarded_max::test_tensor_parallel_attention_is_refused_by_name passed
+  + tests.query.test_guarded_max::test_the_header_states_the_policy_and_a_global_header_sums_its_components passed
+  + tests.query.test_guarded_max::test_the_source_refuses_a_build_whose_word_3_is_not_the_manifests passed
+outcome changed: 1
+  ~ tests.check.test_fork_pool::test_fork_pool_workers_die_with_a_sigkilled_parent: passed -> failed  [ProcessLookupError: [Errno 3] No such process]
+new failures on head: 1
+  ! tests.check.test_fork_pool::test_fork_pool_workers_die_with_a_sigkilled_parent: passed -> failed  [ProcessLookupError: [Errno 3] No such process]
+new skips on head: 0; skip reasons new on head: 0
+failures+errors: base 31, head 32, fixed on head 0

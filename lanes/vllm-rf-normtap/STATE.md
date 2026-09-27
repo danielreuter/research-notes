@@ -4,8 +4,9 @@ Lane reopened 22:39Z for the guarded-max tap (handoff `internal/lanes/vllm-rf-no
 estimate approved 22:29Z, cap $12, vyv- guard deadline 02:30Z). Agent bc-12c2f2d9 (cloud). The norm-scale taps (PR #90) are merged
 (main 35e78c37); their record is below the line.
 
-## Guarded-max tap (branch cursor/vllm-rf-guarded-max-57d5, from main 35e78c37)
-- Head `efb2bd4a` (5425de64 kernels + builds, ef734866 host side + property, efb2bd4a property rule fix).
+## Guarded-max tap (branch cursor/vllm-rf-guarded-max-57d5, from main 35e78c37): DONE, merge-ready (PR #95, draft)
+- Head `a43ed3b9` (5425de64 kernels + builds, ef734866 host side + property, efb2bd4a property rule fix, a43ed3b9 the Commit's dump fix).
+- Handoffs: finding 20260926T2329Z (max * scale not carried), merge-ready 20260927T0030Z.  READY.md updated.
 - Kernel: FA2 `verity_tap.h` / FA3 `verity_tap_fa3.h` `rowstat`: under `VERITY_ROW_GUARD=1`, ROW word 3 = `row_max != -inf ? row_max : 0`
   at step > 0 (every key block after the row's first in the kernel's visit order), 0 at step 0.  Default builds never write word 3.
   `verity_tap_row3()` op (0 / 1).  `pod_fa2_tap.sh FA2_TAP_ROW_GUARD=1` -> `build/matReqG/verity_fa2_matReqG.so`;
@@ -23,25 +24,31 @@ estimate approved 22:29Z, cap $12, vyv- guard deadline 02:30Z). Agent bc-12c2f2d
 - vyv-rf-normtap-h1 hzvx9w6liqxmc4 (H100 80GB HBM3, $3.49/h) ~22:52Z-23:27:44Z: setup 54e0, FA3 exactness db4a (rule bug) and e66f (OK). Terminated.
 - vyv-rf-normtap-g2 gbyqr7veo5qdlw and -g3 mx5580q5a2j5xe (L40S community, $0.79/h): driver 550.163 (CUDA 12.4), torch cu129 sees no CUDA.
   Terminated after ~21 and ~2 min.
-- vyv-rf-normtap-g4 wqd4c5luh2x8ig (L40S secure, driver 580.126, $1.09/h) since 23:19Z, guard 90.
+- vyv-rf-normtap-g4 wqd4c5luh2x8ig (L40S secure, driver 580.126, $1.09/h) 23:18Z-00:32:08Z.  Terminated after every run was preserved.
+- Spend about $3.73 of $12 (H100 $2.07, community L40S $0.31, L40S $1.35).
 
-## Running (L40S g4)
-- r20260926-232004-ee99: bootstrap + FA2 default/guarded builds + FA2 exactness at ef734866 (its single-block guarded cases hit the rule bug).
-- r20260926-232328-7713: #101 tap off (Build/Match/Commit = record?) and on (Commit, VERITY_DUMP_STEP=0 L0 ROW word 3 check). After ee99.
-- r20260926-232341-8c37: partition checker on a LOCAL trial merge a3d4ec46 (tree 678f436c) of no-recompute 194ac3f9 + ef734866. After 7713.
-- r20260926-232633-881f: gate (b) base 35e78c37 (gate_b3.sh XDIST_ONLY=1 NO_GPU=1). After ee99.
-- r20260926-232759-8412: FA2 exactness rerun at efb2bd4a. After 7713.
-- Next: gate (b) head at the final commit (same pod, same switches), jdiff; handoff; READY; PR; FINAL.
+## Running
+- Nothing.  All runs PRESERVED (incl. r20260926-225442-c5cb, the community pod's setup, preserved by the pod before it was terminated).
 
 ## Results
 - FA3 (H100, r20260926-232600-e66f, efb2bd4a): default record 635dcd3d OK (20 cases, 10 negatives); guarded record 5c83bcfe OK: 20/20 cases,
   10/10 negatives, 40,122 guard words = GuardNegInfZero(row_max), first blocks 0, IR sample agrees, every other stream word = default's.
+- FA2 (L40S, r20260926-232759-8412, efb2bd4a): default 1d5484b9 OK (64 cases, 12 negatives); guarded d18f3f62 OK: 64/64, 12/12, 423,438 guard
+  words (28 softcap cases, 8 edge cases with 2,808 guard words).
+- #101 (r20260926-232328-7713): off: Build/Match/Commit PASS, Program ccc21347, manifest 90f81868, root 7adcef49 = record.  On: Commit PASS,
+  root ae21ed2e, manifest identities = record, header guarded_max.words 97,280; manifest_verify OK with the policy on both sides.
+- #101 committed bytes (r20260927-000857-9e96, --tensor-digests + VERITY_DUMP_STEP 0 / 1): root ae21ed2e reproduced twice; L0 step 0 4,096 guard
+  words, step 1 64, 0 mismatches, first blocks 0, IR sample agrees; ROW word 2 = the visit index.
+- Partition checker (r20260926-232341-8c37, trial merge a3d4ec46 / tree 678f436c): #101 attention 4,592 Calls, 287 specializations, 0 violations,
+  0 recomputes; GuardNegInfZero 97,280 -> ROW word 3 (= policy), F32MulFtz 242,688 not carried; softcap / FA3 Definitions and head cuts clean;
+  #101 whole Program ok (0 violations); merged-tree tests 165 passed, lints rc 0.
+- Gate (b): base 35e78c37 (881f) 31 F / 3,913 P / 286 S; head a43ed3b9 (f468) 32 F / 3,925 P / 286 S; jdiff: +13 pass, 1 new failure
+  test_fork_pool (ProcessLookupError race in the test's /proc read), 5/5 pass on base and head in r20260927-002905-32fe.
 
 ## Found, not fixed
-- **max * scale is not in the stream.** The no-recompute cut commits `max_scaled = F32MulFtz(m_use, scale)` in every block (read by all the
-  block's exp2 units), and the plan's §3 and the no-recompute branch's `committed_today` map it to "ROW step", but ROW word 2 is the kernel's
-  visit index (`dst[2] = __int_as_float(vt_step)`).  So even with the guarded max the attention cut has one uncommitted value per
-  (head, block, row).  To confirm with the checker (8c37) and report to the coordinator.
+- **max * scale is not in the stream** (confirmed: 242,688 committed words on #101, checker 8c37; ROW word 2 = visit index in the committed
+  bytes, 9e96).  The no-recompute cut commits `max_scaled = F32MulFtz(m_use, scale)` in every block with more than one visible key; the
+  plan's §3 and the no-recompute branch's `committed_today` map it to "ROW step".  Reported (20260926T2329Z); the coordinator decides.
 - The sampler (GumbelTopPTokenSelect_v1) recompute and Gemma's chain Calls (from the norm-scale lane) still stand.
 
 ---

@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
+version: 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -82,6 +82,13 @@ yours, not another instance's.
   scripts, data and logs, notes named as a review, attack or exploit, and red-team notes that record a finding label. That is a
   backstop, not a licence.
 - If something sensitive is already in notes, tell the coordinator in `lanes/coordinator/` with a pointer, not a copy.
+
+- **A change to a pinned statement or definition needs a named statement reviewer** (2026-09-27). If your PR changes the
+  statement of a pinned theorem, or a definition a pinned statement reads (anything `tools/lean/audit.py`'s pins would flag,
+  or anything in a check file's list), its merge handoff names the reviewer who read the new statement, and their verdict.
+  Without one, the coordinator doesn't take it into a train. Why: #118 made `merkle_binding` vacuous for the unsalted schemes
+  by redefining `MerkleScheme.Collision`. That is a definitional weakening with no new axiom, so the axiom audit passed it; only
+  pins and a statement review catch it.
 
 ## 5a. Words (Daniel, 2026-09-26)
 - Don't write "netlist" in prose, reports, handoffs, table labels or new identifiers. Say "circuit", or "expanded

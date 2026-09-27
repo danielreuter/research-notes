@@ -5,6 +5,7 @@ created: 2026-09-27T06:09Z
 status: open
 ---
 
+CHECKPOINT 2798c21a (13:42Z) [open] M1 #123 fe35d67d, M2 #138 2798c21a, GEMM #150 b27551b5; red-team conditions fixed, delta checks requested (private); soundness e_i answered; morning summary in lanes/coordinator; CPU only, no pods
 CHECKPOINT 762ee6d1 (12:13Z) [open] M1 #123 fe35d67d, M2 #138 762ee6d1, GEMM #150 cbb6f22d; red-team conditions fixed, delta checks requested (private); soundness e_i answered; GPU estimate written (no pod); stats reruns running on CPU
 CHECKPOINT 608c8570 (09:46Z) [open] M1 revised at 8d621454 (#123), re-review requested privately; M2 merged onto it at 608c8570 (#138): coin commitment + GK simulator, 4 verifier strategies real vs simulated all pass; CPU only, no pods, $0
 CHECKPOINT 8d621454 (09:28Z) [open] M1 revised at 8d621454 (#123) after the red team's review; re-review requested through the private store; resuming M2 on top of it; CPU only, no pods

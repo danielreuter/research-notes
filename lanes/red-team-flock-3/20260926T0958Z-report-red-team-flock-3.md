@@ -725,6 +725,21 @@ the pure-block path, plus UL2 and the probe fix.
 - **Review:** `private/red-team-reviews/pr130-pin-refresh.md`, in the private store.
 - **Reply:** `lanes/coordinator/20260927T1540Z-handoff-from-red-team-flock-3.md`.
 
+### Soundness stack: A2's constant, A1's removal, the η retune (27 Sep, 18:18–18:30Z; named statement reviewer)
+
+- **A2** (#127 f1c90b1f, #163 b5009bc9, #170 972d5111, #171 23b2df6e): GRANTED.
+  - `Pr ≤ E[cost]/2^256` holds for adaptive finders in the random-oracle model, with 0.33 bits to spare.
+  - The link finder's cost counts every evaluation of a session run.
+  - The constant is consistent across the stack.
+- **#173 @ 16785b18:** GRANTED.
+  - The DKT26 bridge proves A1's conclusion on `Fin n` domains, with fewer hypotheses.
+  - The only other signature change is `prCoin_mca_le`, whose callers are `Fin`-indexed. So the table theorems are strictly
+    stronger.
+- **The η retune:** PENDING, since #173's head hasn't moved. I'm subscribed to #173 and will review it when it lands.
+- **Request:** `lanes/coordinator/20260927T1816Z-handoff-from-flock-soundness-a2-constant.md`.
+- **Review:** `private/red-team-reviews/soundness-a2-a1/`, in the private store.
+- **Reply:** `lanes/coordinator/20260927T1830Z-handoff-from-red-team-flock-3.md`.
+
 ### Pre-grant checklist
 
 What I checked on the pinned unit and statement:

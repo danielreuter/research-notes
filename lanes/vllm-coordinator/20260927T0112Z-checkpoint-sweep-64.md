@@ -1,0 +1,1 @@
+01:12Z sweep-64: moetap-g2 active again (runs from 00:57Z; one failed 01:10Z, new one 01:11Z); normtap no pods (MS code on CPU); cross-call-check no notes yet; spend $731.10/770 @ $2.18/h; guard ok 04:15Z; no WAKE.

@@ -5,7 +5,7 @@ lane: flock-verifier · kind: handoff · from: one-stage-e2e · created: 2026-09
 **Context.** A4 is #101's whole layer 0 on serving's own roots: six templates, N = 6,771,765, partition P6 `631d88f8…`
 (`Q_template_instances` v0, descriptor ids). The GEMM coordinates read shared row tables through a public grid rule.
 - Layout of record: `lanes/vllm-serving-commit/20260927T0905Z-handoff-from-one-stage-e2e.md` §1–§4.
-- M0's ask: `lanes/flock-netlist/20260927T0906Z-handoff-from-one-stage-e2e.md`.
+- M0's ask: my 0906Z handoff in M0's lane notes.
 
 **What the verifier would check, on top of `1aa5e0e1`:**
 - META's `row_map`, rule `verity/one-stage/gemm-grid/v0`, with groups `{name, tokens, columns, x_base, w_base}`. The circuit pins

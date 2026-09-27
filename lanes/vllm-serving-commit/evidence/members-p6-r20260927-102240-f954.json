@@ -1,0 +1,188 @@
+{
+ "mode": "served",
+ "partition": "631d88f80fe161a1398d0874d09005006b49f767a6f423a3076f19596a49502997ac56a0e6013274979c946b17c2407f380735d2df715166b39b6eaa60fb958b",
+ "members": [
+  {
+   "k": 0,
+   "template": "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "n": 287,
+   "captured": {
+    "in_population": 256,
+    "outside_scope": 0,
+    "equal": {
+     "in0": true,
+     "in1": true,
+     "out.out": true
+    },
+    "ok": true
+   },
+   "pin": "2e8a8594d58114e1ddab58e4bedb67e1fefeb8e95498da24a3de584a3842475fb7b9ccb437b83b57fea43b44727df7eaf5ae13bd6e185fbb5c3323063664bc22",
+   "class": "ba344d66ff4d62eb97707cd7c4882f2a0ececcfdbce878a9f5f15652be7fdbe72c3273b5e33bbf19b21a3fb99a6cf1496c639f4be847fe581ce60f218507d658",
+   "m0_write_s": 7.646,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "97d8eb809cacfc7923187ea4203aaf0195358b630c51cb3ae6899d45749504b2f636df1ef2e042216b55a1b87516d4f1b8fd91197230d16debe3322da185baa1",
+    "bytes": 1292185
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "842972c8c74b91141c6b62d293c57237504d308d0899c224df6d9318d34417ea31ccd32f406a15ffbaaeca555fdd6c9b1f17038428e906846381e02fb4ef9cab",
+    "bytes": 3753496
+   }
+  },
+  {
+   "k": 1,
+   "template": "GemmCoordinate_v2{K=2048,DOT={\"fn\":\"AmpereBF16TcDot16_v2\"}}",
+   "n": 6171648,
+   "captured": {
+    "in_population": 384,
+    "outside_scope": 5888,
+    "equal": {
+     "x": true,
+     "w": true,
+     "y": true
+    },
+    "ok": true
+   },
+   "pin": "0aab664f23a18f991a4686a84da2f0b27acfbee04eac6a9d1b65d56e1abc656a6b70fe39a64dbf2f93e42f12a8dc5d5498073ca23f14c42b658cb84557386a35",
+   "class": "01a5723856718d70019198ba5bc8d1a553c2f48bbc605a6523cfa506bf2a134beecfd43acdea4990c7231582f4befa65b0e47a5a9c848f00139d9ad61e02857d",
+   "m0_write_s": 72.013,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "1fcd722c0a582afbeeab7ccbfb1caf47015a3ee31f2abdb4b758fb58c7446024d6cc30ab8a8b365c79f2ed61b18cd8839e728fd864fea60312d82b3d91b63f39",
+    "bytes": 1000452055
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "703796eaa6ded9db3fcfa5a16d80b9516523889c62ae00e93f13cf0d65801ad7f1e3f7f54329ac985f649b503205ce031c3e35868f05e80a90e6f2463f3569ae",
+    "bytes": 1096353174
+   }
+  },
+  {
+   "k": 2,
+   "template": "RoPEHead_v1{D=64}",
+   "n": 11480,
+   "captured": {
+    "in_population": 64,
+    "outside_scope": 960,
+    "equal": {
+     "x": true,
+     "cs": true,
+     "out": true
+    },
+    "ok": true
+   },
+   "pin": "01d13cfeee4bb563dc0b1842faaa92a6b6d028a41e41585d28ffc08fa7903b28a0d520083fbfa269145d7f97d45673701d684bd1d10cfe73d7a057463428033d",
+   "class": "3927f513e45c2bfaa22012a0845258b8b1525109a3a33916934e7af42d8f73725a5867a99195049858c8ecd481b2f9b200f8c3b39daee09b42f00eedaf2efda6",
+   "m0_write_s": 7.583,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "7bc4a940a4f77610e23c755a4f212784885db27b7ff40df4c59103de9211062974c33e79c60e4f06e5bad5f11baca0b1d9933f392d95cf503e0ac6b63d1d9d8a",
+    "bytes": 6143819
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "35b966a81349f5b5766cc2f426b4f93e5442ea3751ad954e00fe589adba2f2b94f4ef4b15c3e2802045ec2e614e430b8751db516a6cc51c9687eeb5b4be0cf31",
+    "bytes": 13491018
+   }
+  },
+  {
+   "k": 3,
+   "template": "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "n": 287,
+   "captured": {
+    "in_population": 8,
+    "outside_scope": 248,
+    "equal": {
+     "in0": true,
+     "in1": true,
+     "in2": true,
+     "out.0": true,
+     "out.1": true
+    },
+    "ok": true
+   },
+   "pin": "a7de94d80eef5fdebfd1a5056e55c4544c5db46b05da7596cf7eb82414ccb07337946a27613fd1f64bb788b62cfc67c0ff4408812283a2f295a2aa0372f4f79e",
+   "class": "91c61b115e4976dea55d301e55ab64c1331e0cbf60777061e7341f02b30589307e331450d6aafc85d51de7a80dd8f5b079eb84e9462f8b8d881210407a5d35a0",
+   "m0_write_s": 12.99,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "e3984763115d0fe901ef6ad14f86e50961577fbabeda33a3d44fb7bf28a21acfe2bef2640031cf651bce92efb40a5e550f1070a3fa8d0aa9cacd6ca5dfbf6265",
+    "bytes": 2507743
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "f66aa844a13fb5027e68add111357978b08858d2e51579fcd3a9814271b97b81c5faed6c3431420e1ad1816676e545f90ba905115bef37fc059ef9eb8e4289b6",
+    "bytes": 6199710
+   }
+  },
+  {
+   "k": 4,
+   "template": "SiluMul_v1{I=8192}",
+   "n": 287,
+   "captured": {
+    "in_population": 16,
+    "outside_scope": 240,
+    "equal": {
+     "in0": true,
+     "out.out": true
+    },
+    "ok": true
+   },
+   "pin": "a71f3183644aa6e48889f74212570a4a139fca2d5204dc877363e55ebf324a149b2d6b72440e07ca54259b20fc5db89a5980104cb5f823841fe13e880eabce64",
+   "class": "a99204bbc353072159c125e9bf06cb1aa8a9ead7464e77b3da522047c481111e78c4c772ad0d50e4ba051e1c4e95af0c3a2db62414008374f8498e40d8ffe6e9",
+   "m0_write_s": 24.169,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "e4d063212f1b06d8e51a61154085b2f05e4d60e2d8f0da5f2150b782fdf962b669bbaae9eddb1bbda6cab04770d3fdadc16802e3beb837aea6388ff78a7d3d28",
+    "bytes": 4784227
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "fb36ae576f91522289d4c9503b9790e46f6794de3b9628b7ee810e537d30b6a53f49e8178fd929ca514f5725fdc2179413218155602a8caaa8bd640d9b84bf91",
+    "bytes": 14243746
+   }
+  },
+  {
+   "k": 5,
+   "template": "GemmCoordinate_v2{K=8192,DOT={\"fn\":\"AmpereBF16TcDot16_v2\"}}",
+   "n": 587776,
+   "captured": {
+    "in_population": 128,
+    "outside_scope": 1792,
+    "equal": {
+     "x": true,
+     "w": true,
+     "y": true
+    },
+    "ok": true
+   },
+   "pin": "0b9d8d65e820406ad1fdc937b527b895f2abafdb4cffab8da78befe59e75ee526d3c4ba2e673aa1dafc4fe9a72a46d7a8e351a62d19b4aa7d2f548fc37c8ed21",
+   "class": "36be41311b11cb238b3c4f506111644fde8a4ea1d2ebde6c5bcaaa3ff5be447291c066f28ea0cf843f470c03b171ac03b73b13837518a1a64c12a1fcfb8b022e",
+   "m0_write_s": 8.467,
+   "pub": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "8691d1638e497524ba191c5f06da192138c70ff09693a9e0ced5bc664b63d66f80cb5ce61acb7f09419594098b7393b716dd59b27f724f9fc6ecb27196e87d39",
+    "bytes": 95520652
+   },
+   "inst": {
+    "file_equal": true,
+    "header_fields_differing": [],
+    "file_sha512": "14dfb89ddd98860bdc8e1c50c400a12afb5db5bcc760bd6b46ee2b656e5abd7fc40a956c38a9aadf777f3426f4101d0b7d890223f89c5189bd11f934cf254eed",
+    "bytes": 134225611
+   }
+  }
+ ],
+ "ok": true
+}

@@ -48,7 +48,7 @@ It's laid out as your `a4.py --served` reads it, with P4's member numbering:
 - **Served rows = the capture,** for every captured instance in layer 0:
   - RMSNorm Triton: 256 of 256;
   - RoPE: 64 (the other 960 are other layers);
-  - RMSNorm fused: 16;
+  - RMSNorm fused: 8;
   - SiLU·mul: 16;
   - all ports byte-equal.
 - **Served files = M0's writer:** each member's `m<k>-pub/inst` is byte-identical to M0 `68ae79f2`'s own `write()`, fed the served

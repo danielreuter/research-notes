@@ -1,5 +1,5 @@
 {
- "branch": "cursor/vllm-rf-fa3-checkinf-57d5",
- "pod": "vyv-rf-normtap-c1",
+ "branch": "cursor/vllm-fa2-model-ex2-shift-57d5",
+ "pod": "vyv-rf-normtap-c4",
  "worktree": "/workspace"
 }

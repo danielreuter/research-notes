@@ -1,7 +1,7 @@
 # machine vy-one-stage-e2e-b: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "5rptjd06ckaaih"
+pod_id = "v2gaoc2dq6vo7t"
 project = "verity"
 guard = 30
 registered_by = "cursor"
-registered_at = "2026-09-27T07:49Z"
+registered_at = "2026-09-27T08:12Z"

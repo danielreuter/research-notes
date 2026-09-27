@@ -25,7 +25,7 @@ ok() { [ "$1" = 0 ] || [ "$1" = 23 ] || [ "$1" = 24 ]; }
 . "$(dirname "$0")/filters.sh"
 mirror_filters $lanes
 
-opts=(-rcuW --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
+opts=(-rcuW --min-size=1 --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
 # reverse by size + mtime: checksumming every notes file over the store mount took minutes
 ropts=(-rtuW --max-size=1m --omit-dir-times --no-perms --itemize-changes -e "$sshcmd")
 # pull what lanes pushed to the notes remote first, so a handoff they pushed is already on the pod when fwdh compares

@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 8515c79e (05:14Z) [open] main 8515c79e = #85@aaf68b8f + #89 (lean audit r20260927-042257-7cee PASS). Train #100+#103+#98+#99+#102+#105+#107 = 91d911ad (cand. branch cursor/train-100-107-f628), check r20260927-050632-909a on vy-coord-check; #100 alone passed b9e3. Next train: #106, #108 (vLLM APPROVE). flock-netlist eb90718f pushed. 9 total-unit cells: 6 verified, 0 red-team. Spend $263.56 + $2.41/h -> ~$291.5 at 16:45Z. PR #112 lean scripts.
 CHECKPOINT (10:40Z) [open] projection ~$266 (spent $185.3, burn $13.2/h); agkr-real-k FINAL: route (a) re-sweeps a0ca8ef6 (2.7e8x) / a979dfcb (3.0e8x) supersede 95fdd0ae / 20197f8b once verified + labelled (superseded_by on the old two then); L40S elementwise 1/4 verified; bligero A100 K8192 re-run running.
 
 CHECKPOINT (10:50Z) [open] main e8ec5e19 (PR #71 A1 booking merged); agkr-real-k PAUSED again 10:20Z (projection $299 -> ~$279); #101 L40S GEMM cells published, strict headline 13.9-26.6% C-Flock; b1d710da still at recorded 2^-128.10 (A1 booking gives 2^-127.97; needs lane relabel); decision-previews updated.

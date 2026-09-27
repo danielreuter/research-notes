@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT b489b7df (21:33Z) [final] FINAL: FlockLevel3.build_computes (cursor/flock-verifier-lookup-rows-7ab3 @b7eb6a7e) GRANTED: the verifier's own lookup rows (net.a/net.b, tableB as foldB folds it) with constant 1 force out bit j = bit j of table[index], every table, any char-2 field; hK useful <= KONST (2^48) excludes nothing; one new pin, none changed; independently: lake build PASS, standard axioms, level3 audit PASS (999 decls, 50 pins); review in the store private/red-team-reviews/m0-statement/ (private); pointer lanes/coordinator/2135Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT ebf04a52 (19:57Z) [final] FINAL: M0 lookup slots scoped to #83's current tail stages (@73a273d4): GRANT. Q1 gates forcing out = table[index], and stage-to-slot wiring exactly once at equal width in both verifiers (circuit.rs:531-563; Circuit.lean:169, HmRow.lean:181) with exact copies (delta (i,i)+(i,src)); Q2 verifier-pinned hash-checked tables; Q3 exact per-type fold after the commitment. Placement PR parked (conditions dropped). Review in the store private/red-team-reviews/m0-statement/ (private); pointers lanes/coordinator/1958Z, 2005Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT f9546428 (19:54Z) [final] FINAL: M0 lookup slots (#83 @73a273d4) GRANT: plain gates forcing out = table[index] (decoders + 31x1024 AND products, table as XOR forms), verifier-pinned hash-checked tables, exact per-type fold after the commitment, per-read constraints; reads-inside-units extension GRANT WITH CONDITIONS C1 wire completeness in both verifiers, C2 flipped-read negative + IR agreement; numbers ex2 41,308 ANDs / 153.7M XOR, sqrt 49,576 / 309.4M; review in the store private/red-team-reviews/m0-statement/ (private); pointer lanes/coordinator/1958Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT a06b1302 (18:51Z) [final] FINAL: soundness stack reviewed: A2 (#127/#163/#170/#171) GRANTED; #173 GRANTED at af5e9c1b (A1 removal via the DKT26 bridge + the eta retune to 1/200: table theorems 2^-205, constants only, eta one definition; recomputed worst 2^-205.21); #130 pins GRANTED; review in the store private/red-team-reviews/soundness-a2-a1/ (private); pointers lanes/coordinator/1830Z, 1855Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -766,6 +767,13 @@ the pure-block path, plus UL2 and the probe fix.
   dropped.
   - For #83's current tail stages, both verifiers enforce exactly-once, equal-width wiring, and every wire is an exact copy.
   - GRANT. Reply: `lanes/coordinator/20260927T2005Z-handoff-from-red-team-flock-3.md`.
+- **The recommended lemma, `FlockLevel3.build_computes` (b7eb6a7e):** GRANTED.
+  - It's stated over the verifier's own lookup rows and the proved fold's B side, for every table, over any
+    characteristic-2 field.
+  - Nothing is weakened: `useful ≤ KONST`, with `KONST = 2^48 − 1`.
+  - One new pin, and no existing pin changed.
+  - Independently here: build passes, standard axioms, and the level-3 audit passes (999 declarations, 50 pins).
+  - Reply: `lanes/coordinator/20260927T2135Z-handoff-from-red-team-flock-3.md`.
 - **Request:** `lanes/coordinator/20260927T1816Z-handoff-from-flock-soundness-a2-constant.md`.
 - **Review:** `private/red-team-reviews/soundness-a2-a1/`, in the private store.
 - **Reply:** `lanes/coordinator/20260927T1830Z-handoff-from-red-team-flock-3.md`.

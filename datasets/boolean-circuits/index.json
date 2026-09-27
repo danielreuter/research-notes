@@ -1,0 +1,459 @@
+{
+ "schema": "verity-boolean-circuit/v1/index",
+ "generator": "verity_flock.boolean_export (lane flock-ir-lowering)",
+ "source": "internal/datasets/program-graphs/<row>.program.json (its groups' templates)",
+ "rows": [
+  {
+   "row": 101,
+   "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "file": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.boolean.json",
+   "bytes": 213838,
+   "nodes": 260,
+   "templates": 43,
+   "seconds": 144.3
+  },
+  {
+   "row": 4,
+   "row_key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "file": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 232384,
+   "nodes": 304,
+   "templates": 9,
+   "seconds": 20.6
+  },
+  {
+   "row": 11,
+   "row_key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
+   "file": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 158922,
+   "nodes": 164,
+   "templates": 9,
+   "seconds": 27.5
+  },
+  {
+   "row": 23,
+   "row_key": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager",
+   "file": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 158005,
+   "nodes": 164,
+   "templates": 9,
+   "seconds": 9.6
+  },
+  {
+   "row": 39,
+   "row_key": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
+   "file": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 300199,
+   "nodes": 312,
+   "templates": 10,
+   "seconds": 50.3
+  },
+  {
+   "row": 57,
+   "row_key": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+   "file": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 895379,
+   "nodes": 1107,
+   "templates": 23,
+   "seconds": 45.3
+  },
+  {
+   "row": 60,
+   "row_key": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+   "file": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 312207,
+   "nodes": 324,
+   "templates": 9,
+   "seconds": 139.3
+  },
+  {
+   "row": 67,
+   "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+   "file": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 220820,
+   "nodes": 228,
+   "templates": 12,
+   "seconds": 70.4
+  },
+  {
+   "row": 68,
+   "row_key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager",
+   "file": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager.boolean.json",
+   "bytes": 221405,
+   "nodes": 228,
+   "templates": 12,
+   "seconds": 60.3
+  },
+  {
+   "row": 70,
+   "row_key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+   "file": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 4157214,
+   "nodes": 4358,
+   "templates": 16,
+   "seconds": 37.2
+  },
+  {
+   "row": 73,
+   "row_key": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+   "file": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 421969,
+   "nodes": 436,
+   "templates": 11,
+   "seconds": 31.6
+  },
+  {
+   "row": 74,
+   "row_key": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+   "file": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 567349,
+   "nodes": 580,
+   "templates": 16,
+   "seconds": 27.4
+  },
+  {
+   "row": 75,
+   "row_key": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager",
+   "file": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager.boolean.json",
+   "bytes": 1371486,
+   "nodes": 822,
+   "templates": 15,
+   "seconds": 397.6
+  }
+ ],
+ "files": {
+  "row": "<row_key>.boolean.json",
+  "templates": "templates.json",
+  "subcircuits": "subcircuits.json",
+  "gates": "gates/<circuit root id>.json.gz: {lists: {subcircuit id: gate list}}"
+ },
+ "gate_list_rule": "wires 0..inputs-1 are the inputs; each gate appends one wire; -1 = 0, -2 = 1; gates = flat [op, a, b], op 0 AND, 1 XOR, 2 NOT (b = -1); tags[g] indexes tag_scopes = [subcircuit id, parent scope, part index] (preorder, scope 0 = the list's subcircuit)",
+ "wiring_rule": "parts[i] indexes children (the i-th child call, in order); wiring = [src_part, src_port, dst_part, dst_port, width]: bits src_port+i -> dst_port+i; part -1 = the subcircuit's inputs (as source) / outputs (as destination), -2 = a constant (port = its value; -1 = its value differs between instances), -3 = the subcircuit's own gates (port -1, unnumbered)",
+ "gate_limit": 20000,
+ "gate_lists_also": "the tensor-core k-step units and their k-step subcircuit, whatever their size",
+ "subcircuits": 49564,
+ "gate_lists": 2077,
+ "gate_list_bundles": 27,
+ "gate_lists_bytes": 28976174,
+ "verification": "every gate list evaluated against its circuit (gf2 bit-sliced, 64 random vectors): 2077 checked, 0 differ",
+ "wiring_verification": "every instance's wiring computed and compared with its type's: 38213 further instances compared, 0 differ beyond the value of a constant input; 5 types have a constant input whose value differs between instances (port -1)",
+ "tag_scopes": 207263,
+ "tag_scopes_whose_tagged_ands_differ_from_the_tree": 2,
+ "not_yet_lowered": {
+  "Embedding_v1": {
+   "what": "template",
+   "reason": "a row gather by token id (data movement from the committed table); no Boolean lowering yet"
+  },
+  "MufuSqrtFtz_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "RMSNormTriton_v1"
+   ]
+  },
+  "DivFullScaleA_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "RMSNormTriton_v1",
+    "MeanTriton_v1"
+   ]
+  },
+  "DivFullRcp_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "RMSNormTriton_v1"
+   ]
+  },
+  "RsqrtApprox_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "RMSNormFusedCuda_v2",
+    "RsqrtF32_v1"
+   ]
+  },
+  "GumbelTopPTokenSelect_v1": {
+   "what": "template",
+   "reason": "Gumbel noise, the top-p word and the sampling carries; no Boolean lowering yet"
+  },
+  "F32Div_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "f32 division by 0x44100000: only by a normal power of two whose reciprocal is normal",
+   "in": [
+    "RMSNormFusedCuda_v2",
+    "MoeRouterTopK_v1",
+    "Fp8GroupQuant_v1",
+    "Fp8GroupScale_v1",
+    "MoeRouterTopKNorm_v1"
+   ]
+  },
+  "EmbeddingShard_v1": {
+   "what": "template",
+   "reason": "a row gather by token id from a tensor-parallel shard of the table; no Boolean lowering yet"
+  },
+  "F32AddFtz_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttentionHead_v3",
+    "AttnBlock_v3",
+    "AttentionHeadSoftcap_v1",
+    "AttnBlockSoftcap_v1",
+    "AttentionHead_v2",
+    "AttnBlock_v2"
+   ]
+  },
+  "Fa2InvSum_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttentionHead_v3",
+    "AttentionHeadSoftcap_v1"
+   ]
+  },
+  "F32MulFtz_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttentionHead_v3",
+    "AttnBlock_v3",
+    "AttentionHeadSoftcap_v1",
+    "AttnBlockSoftcap_v1",
+    "AttentionHead_v2",
+    "AttnBlock_v2"
+   ]
+  },
+  "GuardNegInfZero_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttnBlock_v3",
+    "AttnBlockSoftcap_v1",
+    "AttnBlock_v2"
+   ]
+  },
+  "F32FmaSubFtz_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttnBlock_v3",
+    "AttnBlockSoftcap_v1",
+    "AttnBlock_v2"
+   ]
+  },
+  "MufuEx2Ftz_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttnBlock_v3",
+    "AttnBlockSoftcap_v1",
+    "NvExpf_v1",
+    "AttnBlock_v2"
+   ]
+  },
+  "F32Max_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttnBlock_v3",
+    "AttnBlockSoftcap_v1",
+    "MoeRouterTopK_v1",
+    "AttnBlock_v2"
+   ]
+  },
+  "F32SubFtz_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttnBlock_v3",
+    "AttnBlockSoftcap_v1",
+    "AttnBlock_v2"
+   ]
+  },
+  "F32FmaFtz_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttnBlock_v3",
+    "AttnBlockSoftcap_v1",
+    "AttnBlock_v2"
+   ]
+  },
+  "Bf16GtStrict_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "ArgmaxStep_v1"
+   ]
+  },
+  "SelectBf16_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "ArgmaxStep_v1"
+   ]
+  },
+  "SelectI32_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "ArgmaxStep_v1",
+    "RouterArgmaxStep_v1"
+   ]
+  },
+  "I32Add_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "ArgmaxStep_v1",
+    "RouterArgmaxStep_v1"
+   ]
+  },
+  "MufuTanh_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttnBlockSoftcap_v1"
+   ]
+  },
+  "GeluTanhMulBf16_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "GeluTanhMul_v1"
+   ]
+  },
+  "TanhF32Rn_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "Bf16Tanh_v1"
+   ]
+  },
+  "F32Sub_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "MoeRouterTopK_v1"
+   ]
+  },
+  "F32IsFinite_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "MoeRouterTopK_v1"
+   ]
+  },
+  "SelectF32_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "MoeRouterTopK_v1",
+    "RouterArgmaxStep_v1",
+    "MoeRouterTopKNorm_v1"
+   ]
+  },
+  "I32Eq_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "MoeRouterTopK_v1"
+   ]
+  },
+  "F32Sat_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "NvExpf_v1"
+   ]
+  },
+  "F32FmaRm_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "NvExpf_v1"
+   ]
+  },
+  "F32Neg_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "NvExpf_v1"
+   ]
+  },
+  "F32BitsShl23_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "NvExpf_v1"
+   ]
+  },
+  "F32GtStrict_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "RouterArgmaxStep_v1",
+    "MoeRouterTopKNorm_v1"
+   ]
+  },
+  "GatherBf16x64_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "primitive not in the registries this export reads",
+   "in": [
+    "MoeExpertRow_v1"
+   ]
+  },
+  "Fa3InvSum_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "AttentionHead_v2"
+   ]
+  },
+  "F32Fmaxf_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "Fp8GroupQuant_v1",
+    "Fp8GroupScale_v1"
+   ]
+  },
+  "F32Fminf_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "Fp8GroupQuant_v1"
+   ]
+  },
+  "F32ToE4m3Sat_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "Fp8GroupQuant_v1"
+   ]
+  },
+  "F32Fabs_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "Fp8GroupScale_v1"
+   ]
+  },
+  "HopperE4m3QgmmaDot32_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "ir_lower has no piece for this primitive yet",
+   "in": [
+    "ScaledMmFp8BlockCoordinate_v1"
+   ]
+  },
+  "GatherBf16x128_v1": {
+   "what": "primitive (outside the units)",
+   "reason": "primitive not in the registries this export reads",
+   "in": [
+    "MoeExpertRow_v1"
+   ]
+  }
+ }
+}

@@ -1,0 +1,139 @@
+# parity replica-check stall, laptop, 2026-09-24 21:50 PDT (20260925T0450Z)
+subagentId: bc-4100fff0-95e2-5fbf-a7dd-2bcabac71388 (research coordinator)
+
+## Summary
+- Run: research data parity --store ~/.research/store --fresh /tmp/parity-fresh-20260925T0425Z --render (CLI at main cc7842a0/c1891d48, incl. #8 + #12), started 04:25Z.
+- The replicas phase sat at 5286/5287 from <=720 s to 1440 s (12.0 min = 4 x REQUEST_DEADLINE_S 180 s, i.e. RETRIES=3 + 1),
+  then moved on to the render phase at 1456 s. So #8's deadline DID bound it: one HEAD hit the deadline on all 4 tries.
+- Same pattern in the two earlier runs tonight: 5284/5285 stuck >8 min (run 0402Z, stopped by me) and 5272/5273 ~6-12 min (0315Z).
+- Not identified: WHICH key. Neither the progress line nor any log names the key being retried, the deadline hits, or the
+  final outcome of that check (the run was not yet stuck when this capture was taken; py-spy is not installed here).
+  Suggested fixes: log each deadline expiry/retry with the key; report a check that exhausts retries by key in the JSON;
+  consider a per-check cap (e.g. 1 retry for HEAD) since 12 min per unlucky key is a long tail.
+
+## Progress log (replicas/render lines)
+9:parity: replicas: HEAD + ETag, nothing downloaded (5287) at 116s
+10:parity: replicas: HEAD + ETag, nothing downloaded 202/5287 (120s)
+11:parity: replicas: HEAD + ETag, nothing downloaded 695/5287 (150s)
+12:parity: replicas: HEAD + ETag, nothing downloaded 1127/5287 (180s)
+33:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (810s)
+34:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (840s)
+35:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (870s)
+36:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (900s)
+37:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (930s)
+38:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (960s)
+39:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (990s)
+40:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1020s)
+41:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1050s)
+42:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1080s)
+43:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1110s)
+44:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1140s)
+45:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1170s)
+46:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1200s)
+47:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1230s)
+48:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1260s)
+49:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1290s)
+50:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1320s)
+51:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1350s)
+52:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1380s)
+53:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1410s)
+54:parity: replicas: HEAD + ETag, nothing downloaded 5286/5287 (1440s)
+55:parity: render: the fresh store + the store under test's pending records (the real render command) at 1456s
+56:parity: render: the fresh store + the store under test's pending records (the real render command) running (1470s)
+57:parity: render: the fresh store + the store under test's pending records (the real render command) running (1500s)
+58:parity: render: the store under test's snapshot + the remote-only records at 1509s
+59:parity: render: the store under test's snapshot + the remote-only records running (1530s)
+
+## ps at capture
+  PID  PPID ELAPSED      TIME STAT    RSS COMMAND
+62791 62777   25:39   3:02.56 UN   566464 /Users/danielreuter/projects/verity-main-wt/main/.venv/bin/python -m research data parity --store /Users/danielreuter/.research/store --fresh /tmp/parity-fresh-20260925T0425Z --render --json-out /tmp/parity-20260925T0425Z.json
+
+## lsof network sockets at capture
+COMMAND     PID         USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+python3.1 62791 danielreuter    7u  IPv6 0xa84e2c77f0257ee6      0t0  TCP [2601:646:4100:5370:3d94:d8c7:b406:a871]:56918->[2606:4700:113::1]:https (ESTABLISHED)
+
+## native stack sample (macOS sample, 2 s) at capture (render phase, not the stall)
+
+Analysis of sampling python (pid 62791) every 1 millisecond
+Process:         python3.13 [62791]
+Path:            /Users/USER/*/python3.13
+Load Address:    0x100720000
+Identifier:      python3.13
+Version:         ???
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  zsh [62777]
+Target Type:     live task
+
+Date/Time:       2026-09-24 21:50:48.804 -0700
+Launch Time:     2026-09-24 21:25:09.824 -0700
+OS Version:      macOS 26.5.1 (25F80)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         613.3M
+Physical footprint (peak):  737.2M
+Idle exit:                  untracked
+----
+
+Call graph:
+    1700 Thread_8445858   DispatchQueue_1: com.apple.main-thread  (serial)
+    + 1700 start  (in dyld) + 6992  [0x18e63be00]
+    +   1700 Py_BytesMain  (in libpython3.13.dylib) + 36  [0x101ea4314]
+    +     1700 pymain_main  (in libpython3.13.dylib) + 468  [0x101ea44f4]
+    +       1700 Py_RunMain  (in libpython3.13.dylib) + 220  [0x101ead00c]
+    +         1700 pymain_run_module  (in libpython3.13.dylib) + 232  [0x101f15010]
+    +           1700 _PyEval_EvalFrameDefault  (in libpython3.13.dylib) + 40400  [0x101d3c314]
+    +             1700 cfunction_vectorcall_FASTCALL_KEYWORDS.llvm.4975675396101423879  (in libpython3.13.dylib) + 88  [0x101fc6a1c]
+    +               1700 builtin_exec  (in libpython3.13.dylib) + 436  [0x101ff6b18]
+    +                 1700 PyEval_EvalCode  (in libpython3.13.dylib) + 132  [0x101e196a4]
+    +                   788 _PyEval_EvalFrameDefault  (in libpython3.13.dylib) + 71936  [0x101d43e44]
+    +                   ! 721 pysqlite_connection_executemany  (in libpython3.13.dylib) + 80  [0x102022054]
+    +                   ! : 717 _pysqlite_query_execute  (in libpython3.13.dylib) + 2868  [0x101db3aa0]
+    +                   ! : | 716 sqlite3_step  (in libpython3.13.dylib) + 104  [0x101db4b84]
+    +                   ! : | + 715 sqlite3Step  (in libpython3.13.dylib) + 484  [0x1022b95bc]
+    +                   ! : | + ! 672 sqlite3VdbeExec  (in libpython3.13.dylib) + 27624  [0x1022f5d34]
+    +                   ! : | + ! : 237 sqlite3BtreeInsert  (in libpython3.13.dylib) + 624  [0x1022fd56c]
+    +                   ! : | + ! : | 196 sqlite3BtreeIndexMoveto  (in libpython3.13.dylib) + 1612  [0x1022fccb8]
+    +                   ! : | + ! : | + 195 getAndInitPage  (in libpython3.13.dylib) + 112  [0x1023046a8]
+    +                   ! : | + ! : | + ! 195 sqlite3PagerGet  (in libpython3.13.dylib) + 56  [0x1022b5bec]
+    +                   ! : | + ! : | + !   146 getPageNormal  (in libpython3.13.dylib) + 592  [0x1022db26c]
+    +                   ! : | + ! : | + !   : 146 readDbPage  (in libpython3.13.dylib) + 232  [0x1022db9a0]
+    +                   ! : | + ! : | + !   :   146 sqlite3OsRead  (in libpython3.13.dylib) + 60  [0x1022d9e28]
+    +                   ! : | + ! : | + !   :     146 unixRead  (in libpython3.13.dylib) + 260  [0x1022c90b4]
+    +                   ! : | + ! : | + !   :       146 seekAndRead  (in libpython3.13.dylib) + 72  [0x1022cb0e0]
+    +                   ! : | + ! : | + !   :         146 pread  (in libsystem_kernel.dylib) + 8  [0x18e9b7650]
+    +                   ! : | + ! : | + !   47 getPageNormal  (in libpython3.13.dylib) + 120  [0x1022db094]
+    +                   ! : | + ! : | + !   : 47 sqlite3PcacheFetchStress  (in libpython3.13.dylib) + 364  [0x1022db82c]
+    +                   ! : | + ! : | + !   :   24 pagerStress  (in libpython3.13.dylib) + 292  [0x1022d49cc]
+    +                   ! : | + ! : | + !   :   | 24 pager_write_pagelist  (in libpython3.13.dylib) + 436  [0x1022d5568]
+    +                   ! : | + ! : | + !   :   |   24 sqlite3OsWrite  (in libpython3.13.dylib) + 60  [0x1022b6ce8]
+    +                   ! : | + ! : | + !   :   |     24 unixWrite  (in libpython3.13.dylib) + 64  [0x1022c91cc]
+    +                   ! : | + ! : | + !   :   |       24 seekAndWrite  (in libpython3.13.dylib) + 60  [0x1022cb230]
+    +                   ! : | + ! : | + !   :   |         24 seekAndWriteFd  (in libpython3.13.dylib) + 84  [0x1022cb290]
+    +                   ! : | + ! : | + !   :   |           24 pwrite  (in libsystem_kernel.dylib) + 8  [0x18e9b9430]
+    +                   ! : | + ! : | + !   :   23 pagerStress  (in libpython3.13.dylib) + 260  [0x1022d49ac]
+    +                   ! : | + ! : | + !   :     21 syncJournal  (in libpython3.13.dylib) + 396  [0x1022d5230]
+    +                   ! : | + ! : | + !   :     + 21 sqlite3OsSync  (in libpython3.13.dylib) + 56  [0x1022d7990]
+    +                   ! : | + ! : | + !   :     +   19 unixSync  (in libpython3.13.dylib) + 80  [0x1022c9400]
+    +                   ! : | + ! : | + !   :     +   ! 19 full_fsync  (in libpython3.13.dylib) + 108  [0x1022cb3f0]
+    +                   ! : | + ! : | + !   :     +   !   19 fsync  (in libsystem_kernel.dylib) + 8  [0x18e9b9804]
+    +                   ! : | + ! : | + !   :     +   2 unixSync  (in libpython3.13.dylib) + 204  [0x1022c947c]
+    +                   ! : | + ! : | + !   :     +     2 openDirectory  (in libpython3.13.dylib) + 276  [0x1022d0574]
+    +                   ! : | + ! : | + !   :     +       2 robust_open  (in libpython3.13.dylib) + 104  [0x1022cdaa4]
+    +                   ! : | + ! : | + !   :     +         2 posixOpen  (in libpython3.13.dylib) + 48  [0x1022d0454]
+    +                   ! : | + ! : | + !   :     +           2 open  (in libsystem_kernel.dylib) + 64  [0x18e9c18f0]
+    +                   ! : | + ! : | + !   :     +             2 __open  (in libsystem_kernel.dylib) + 8  [0x18e9b6694]
+    +                   ! : | + ! : | + !   :     1 syncJournal  (in libpython3.13.dylib) + 456  [0x1022d526c]
+    +                   ! : | + ! : | + !   :     + 1 sqlite3OsWrite  (in libpython3.13.dylib) + 60  [0x1022b6ce8]
+    +                   ! : | + ! : | + !   :     +   1 unixWrite  (in libpython3.13.dylib) + 64  [0x1022c91cc]
+    +                   ! : | + ! : | + !   :     +     1 seekAndWrite  (in libpython3.13.dylib) + 60  [0x1022cb230]
+    +                   ! : | + ! : | + !   :     +       1 seekAndWriteFd  (in libpython3.13.dylib) + 84  [0x1022cb290]
+    +                   ! : | + ! : | + !   :     +         1 pwrite  (in libsystem_kernel.dylib) + 8  [0x18e9b9430]
+    +                   ! : | + ! : | + !   :     1 syncJournal  (in libpython3.13.dylib) + 548  [0x1022d52c8]
+    +                   ! : | + ! : | + !   :       1 sqlite3OsSync  (in libpython3.13.dylib) + 56  [0x1022d7990]
+    +                   ! : | + ! : | + !   :         1 unixSync  (in libpython3.13.dylib) + 80  [0x1022c9400]
+
+## Outcome (appended after the run finished)
+- exit 0, PARITY OK. replicas: {"blobs_etag_verified": 65870, "blobs_remote_only_size_verified": 46603, "confirmed": 5287, "not_confirmed": {}, "rows": 5287}
+- The slow replica check passed in the end; the JSON's replicas section does not name it (no per-key timing), so the key stays unidentified.

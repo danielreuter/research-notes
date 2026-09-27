@@ -1,0 +1,301 @@
+{
+ "schema": "vllm-serving-view/v1/index",
+ "generator": {
+  "module": "verity_vllm.pipeline.serving_view",
+  "commit": "17e9df25c919874854ea42269a103394997c775e",
+  "branch": "cursor/vllm-serving-view-320c",
+  "tests_run": "r20260927-033638-e4e7"
+ },
+ "provenance": {
+  "101": {
+   "build_artifact": "art:9cb3a4df0eb3e23b98783651eed56c087df1cf9d84ff8d7c630e20ef8695a4d0",
+   "build_run": "r20260927-030516-24a5 (vyv-rf-serving-view-g1, 1x L40S, source 11d453e0, Build stage only)",
+   "reproduces": {
+    "run": "r20260926-035624-a133",
+    "program_digest": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b",
+    "manifest_digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac"
+   },
+   "program_graph": "built on CPU from the same Build (vu-export's program_graphs.py --record expected, then with_word_rules) for the group-id and Q_word cross-check"
+  },
+  "70": {
+   "programs_artifact": "art:2cadc0fc95730a77ee7117cf39bc403a3b895ad6b05642e8b403769214daf841",
+   "subset": [
+    "build_request_LP85_T4",
+    "build_request_LP11_T30"
+   ],
+   "ranks": [
+    0,
+    1
+   ],
+   "record": false
+  }
+ },
+ "dry_run": {
+  "build": "r19-reference #101 (art:a9be8f7c / art:a4ea1a18, Program 079ee0a8, not the record)",
+  "result": "every check passed (46,654 Calls, gates == address map, Q_word and 260 group ids == its program graph); superseded by the record Build, not kept"
+ },
+ "rows": [
+  {
+   "row": 101,
+   "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "kind": "record",
+   "row_block": {
+    "generator_commit": "17e9df25c919",
+    "row": 101,
+    "row_key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+    "record": true,
+    "record_run": "r20260926-035624-a133",
+    "record_program_digest": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b",
+    "record_manifest_digest": "90f8186879d5035af027259151b4ac465bf6c3dcf08c1e6d62dab9b680bfeaac",
+    "build_artifact": "art:9cb3a4df0eb3e23b98783651eed56c087df1cf9d84ff8d7c630e20ef8695a4d0",
+    "build_run": "r20260927-030516-24a5",
+    "build_source": "11d453e0c9272d15adb30ec11b4c96a0f1ec2d49"
+   },
+   "files": {
+    "view": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.serving-view.json",
+    "site": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.site.json"
+   },
+   "sha256": {
+    "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.serving-view.json": "b1a57902b8833975fc56c4d8e99e88a3ad0f1e4adbc369ca232a0cb7d05f5fca",
+    "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.site.json": "d1c3b1a1bd84b18dea231bcb0c85f5dcec30b3745f8643620c3605eec91df945"
+   },
+   "bytes": {
+    "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.serving-view.json": 4547132,
+    "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager.site.json": 33511
+   },
+   "request_programs": [
+    {
+     "label": "build_request",
+     "rank": 0,
+     "program_digest": "ccc213475e7c4eed04b3b0d3717e2144012be65f41d900a018dbd09d1e400c6b",
+     "calls": 46654,
+     "gates": 18805632558,
+     "sampler_rule": "return"
+    }
+   ],
+   "engine_steps": 32,
+   "nodes": 11233,
+   "edges": 22143,
+   "checks": {
+    "ok": true,
+    "partition": {
+     "ok": true,
+     "leaves": 4736,
+     "calls": 46654
+    },
+    "gates": {
+     "r0": {
+      "address_map_span": 18805632558,
+      "calls_gates": 18805632558,
+      "ok": true
+     }
+    },
+    "chronology_ranges": {
+     "agree": 32,
+     "differ": [],
+     "not_recorded": 0,
+     "ok": true
+    },
+    "members": {
+     "r0": {
+      "steps": 32,
+      "samplers": 32,
+      "sampler_rule": "return",
+      "calls": 46654,
+      "program_calls": 46654,
+      "ok": true,
+      "needed_by_a_sampler": 44614,
+      "needed_by_none": 2040,
+      "equal_forward_rule": 46561,
+      "later_than_forward_rule": 93,
+      "equal_body_order_segments": 46654,
+      "splits_readers_are_the_samplers": true
+     }
+    },
+    "edges": {
+     "backward_reads": 0,
+     "collective_word_mismatch": 0,
+     "by_kind": {
+      "flow": {
+       "edges": 6240,
+       "reads": 1109119,
+       "words": 744077312
+      },
+      "token": {
+       "edges": 31,
+       "reads": 31,
+       "words": 31
+      },
+      "state": {
+       "edges": 15872,
+       "reads": 268832,
+       "words": 137641984
+      },
+      "backward": {
+       "edges": 0,
+       "reads": 0,
+       "words": 0
+      },
+      "collective": {
+       "edges": 0,
+       "reads": 0,
+       "words": 0
+      }
+     },
+     "ok": true
+    },
+    "graph": {
+     "groups": 260,
+     "graph_groups": 260,
+     "differ": [],
+     "differ_n": 0,
+     "q_word_units": {
+      "view": 273995039,
+      "graph": 273995039
+     },
+     "q_word_committed_interior_words": {
+      "view": 64169215,
+      "graph": 64169215
+     }
+    }
+   }
+  },
+  {
+   "row": 70,
+   "row_key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+   "kind": "tp-exercise",
+   "row_block": {
+    "generator_commit": "17e9df25c919",
+    "row": 70,
+    "row_key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+    "record": false,
+    "note": "TP-rank exercise: 2 of the row's 8 request Programs (build_request_LP85_T4, build_request_LP11_T30), both ranks, from the r19-reference programs artifact art:2cadc0fc95730a77ee7117cf39bc403a3b895ad6b05642e8b403769214daf841; no chronology, address map or descriptor in that artifact: steps are request steps, samplers by the sampling-event rule, no gate ranges"
+   },
+   "files": {
+    "view": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.tp-exercise.serving-view.json",
+    "site": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.tp-exercise.site.json"
+   },
+   "sha256": {
+    "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.tp-exercise.serving-view.json": "e2f180bac20cef52441c471aeee3c9b67b4dae216dbd198c9a099689ca7fb89d",
+    "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.tp-exercise.site.json": "f1d50eba45c5d591b78f4c973ed8dd78c15b0d20f99948e63da9098d7d3d4e06"
+   },
+   "bytes": {
+    "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.tp-exercise.serving-view.json": 9468689,
+    "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager.tp-exercise.site.json": 72764
+   },
+   "request_programs": [
+    {
+     "label": "build_request_LP11_T30",
+     "rank": 0,
+     "program_digest": "6ba9edddaa534db40830e6d24eaa06fca4a033e94f7d3dfabe4aab1a4888e4a2",
+     "calls": 26456,
+     "gates": 18126839460,
+     "sampler_rule": "sampling-event"
+    },
+    {
+     "label": "build_request_LP85_T4",
+     "rank": 0,
+     "program_digest": "00271d794880b11fd89f81d1704aa0e1c4cef17f0641965a8f47b54639333dbd",
+     "calls": 57242,
+     "gates": 39135560610,
+     "sampler_rule": "sampling-event"
+    },
+    {
+     "label": "build_request_LP11_T30",
+     "rank": 1,
+     "program_digest": "d1f75e371b09b7f0ce435c52c1367c5818778f44c0be05c630b7c5904bf00aae",
+     "calls": 26456,
+     "gates": 18126839460,
+     "sampler_rule": "sampling-event"
+    },
+    {
+     "label": "build_request_LP85_T4",
+     "rank": 1,
+     "program_digest": "5d76a9b247a8a7086b95452f50431a313c9f003fa42ba6d6b86864898242b76e",
+     "calls": 57242,
+     "gates": 39135560610,
+     "sampler_rule": "sampling-event"
+    }
+   ],
+   "engine_steps": 31,
+   "nodes": 23180,
+   "edges": 55020,
+   "checks": {
+    "ok": true,
+    "partition": {
+     "ok": true,
+     "leaves": 14112,
+     "calls": 167396
+    },
+    "gates": {},
+    "chronology_ranges": {
+     "agree": 0,
+     "differ": [],
+     "not_recorded": 36,
+     "ok": true
+    },
+    "members": {
+     "build_request_LP11_T30": {
+      "steps": 31,
+      "samplers": 31,
+      "sampler_rule": "sampling-event",
+      "calls": 52912,
+      "program_calls": 52912,
+      "ok": true,
+      "needed_by_a_sampler": 26096,
+      "needed_by_none": 360,
+      "equal_forward_rule": 26456,
+      "later_than_forward_rule": 0,
+      "equal_body_order_segments": 26456
+     },
+     "build_request_LP85_T4": {
+      "steps": 5,
+      "samplers": 5,
+      "sampler_rule": "sampling-event",
+      "calls": 114484,
+      "program_calls": 114484,
+      "ok": true,
+      "needed_by_a_sampler": 54218,
+      "needed_by_none": 3024,
+      "equal_forward_rule": 57242,
+      "later_than_forward_rule": 0,
+      "equal_body_order_segments": 57242
+     }
+    },
+    "edges": {
+     "backward_reads": 0,
+     "collective_word_mismatch": 0,
+     "by_kind": {
+      "flow": {
+       "edges": 19800,
+       "reads": 336404,
+       "words": 412529664
+      },
+      "token": {
+       "edges": 68,
+       "reads": 68,
+       "words": 68
+      },
+      "state": {
+       "edges": 30400,
+       "reads": 71104,
+       "words": 72810496
+      },
+      "backward": {
+       "edges": 0,
+       "reads": 0,
+       "words": 0
+      },
+      "collective": {
+       "edges": 4752,
+       "reads": 16972,
+       "words": 27902464
+      }
+     },
+     "ok": true
+    },
+    "graph": null
+   }
+  }
+ ]
+}

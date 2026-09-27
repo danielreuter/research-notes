@@ -1,0 +1,552 @@
+{
+ "schema": "vllm-program-graph/validation/v1",
+ "rule": "verity.evaluation.evaluate(registered Definition, recorded input words) == the recorded output words",
+ "results": [
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 4,
+   "definition": "Attention_v3{T=1,NH=1,KVH=1,D=64,BN=128}",
+   "digest": "2ed74a93f8adbf4ee4c6e2778a39ddc9b0c92e3c960bb2a6703ea58f82db4b34",
+   "subcircuit_definitions": {
+    "AttentionHead_v3{T=1,D=64,BN=128}": "7d42c73794460d788d023e58f5e6bc390e70c6cef1a4fa8793473edf9cce400c"
+   },
+   "ok": true,
+   "seconds": 0.24
+  },
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 848,
+   "definition": "Attention_v3{T=132,NH=1,KVH=1,D=64,BN=128}",
+   "digest": "93395d4ad986bf735be174b5cf65699cab284a23184e29222edab28a6e423310",
+   "subcircuit_definitions": {
+    "AttentionHead_v3{T=132,D=64,BN=128}": "72fd1aeff50d8b20ce96f32c8f11e08b8ee82f0c37210667a0de43aaca5f1e46"
+   },
+   "ok": true,
+   "seconds": 0.09
+  },
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 427,
+   "definition": "Attention_v3{T=287,NH=1,KVH=1,D=64,BN=128}",
+   "digest": "d3f0676eca04e3cc839f2306c5721f2c620d52d38c4749b9967b594873d4536b",
+   "subcircuit_definitions": {
+    "AttentionHead_v3{T=287,D=64,BN=128}": "2b05990e7b55566ed36edbb3bf52588996567b8235cb883942cb4e328973551e"
+   },
+   "ok": true,
+   "seconds": 0.18
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k2048",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 0,
+   "definition": "Gemm_v1{K=2048,N=1}",
+   "digest": "28ebe2525b9e62a7bc32ce27f0ba2a78a14cc79e946967170cadd099269f27ff",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=2048}": "07efba78b16b7a624f801f567115f9bdccb5a45f240cb703b2f2a40fb1684bde"
+   },
+   "ok": true,
+   "seconds": 0.03
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k2048",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 1,
+   "definition": "Gemm_v1{K=2048,N=1}",
+   "digest": "28ebe2525b9e62a7bc32ce27f0ba2a78a14cc79e946967170cadd099269f27ff",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=2048}": "07efba78b16b7a624f801f567115f9bdccb5a45f240cb703b2f2a40fb1684bde"
+   },
+   "ok": true,
+   "seconds": 0.01
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k2048",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 2,
+   "definition": "Gemm_v1{K=2048,N=1}",
+   "digest": "28ebe2525b9e62a7bc32ce27f0ba2a78a14cc79e946967170cadd099269f27ff",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=2048}": "07efba78b16b7a624f801f567115f9bdccb5a45f240cb703b2f2a40fb1684bde"
+   },
+   "ok": true,
+   "seconds": 0.01
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k8192",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 0,
+   "definition": "Gemm_v1{K=8192,N=1}",
+   "digest": "8bb81c93d721f64796353b8a6adaed1819f0c9b4c3daea410617e3c9622ebb28",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=8192}": "0ddfa868199275cf8f49e6277837174e669cd0c3495e684a6ad4a522e0d3d127"
+   },
+   "ok": true,
+   "seconds": 0.04
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k8192",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 1,
+   "definition": "Gemm_v1{K=8192,N=1}",
+   "digest": "8bb81c93d721f64796353b8a6adaed1819f0c9b4c3daea410617e3c9622ebb28",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=8192}": "0ddfa868199275cf8f49e6277837174e669cd0c3495e684a6ad4a522e0d3d127"
+   },
+   "ok": true,
+   "seconds": 0.04
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k8192",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 2,
+   "definition": "Gemm_v1{K=8192,N=1}",
+   "digest": "8bb81c93d721f64796353b8a6adaed1819f0c9b4c3daea410617e3c9622ebb28",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=8192}": "0ddfa868199275cf8f49e6277837174e669cd0c3495e684a6ad4a522e0d3d127"
+   },
+   "ok": true,
+   "seconds": 0.04
+  },
+  {
+   "set": "gumbeltopptokenselect-v1-v128256",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 0,
+   "definition": "GumbelTopPTokenSelect_v1{V=128256}",
+   "digest": "a04b5029f49569ee9f2b2b3587c11e973d86c16c11a8b2e0f0280bddaba23bc5",
+   "subcircuit_definitions": {
+    "GumbelSelectF32_v1{V=128256}": "92a26b786c14ab82f484097b16b78e7f64341201bcc6f18e45f29c34221df6e1",
+    "TemperatureScale_v1{V=128256}": "e23764fa6314c92fc5295a32d52168932616b4870860d4e7a78dabe591404b5a",
+    "TopPMask_v1{V=128256}": "7a907a1fc93f641a5e031b54709b62f0178f490d52c941cf6ead9f3965955073"
+   },
+   "ok": true,
+   "seconds": 19.5
+  },
+  {
+   "set": "gumbeltopptokenselect-v1-v128256",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 1,
+   "definition": "GumbelTopPTokenSelect_v1{V=128256}",
+   "digest": "a04b5029f49569ee9f2b2b3587c11e973d86c16c11a8b2e0f0280bddaba23bc5",
+   "subcircuit_definitions": {
+    "GumbelSelectF32_v1{V=128256}": "92a26b786c14ab82f484097b16b78e7f64341201bcc6f18e45f29c34221df6e1",
+    "TemperatureScale_v1{V=128256}": "e23764fa6314c92fc5295a32d52168932616b4870860d4e7a78dabe591404b5a",
+    "TopPMask_v1{V=128256}": "7a907a1fc93f641a5e031b54709b62f0178f490d52c941cf6ead9f3965955073"
+   },
+   "ok": true,
+   "seconds": 18.9
+  },
+  {
+   "set": "gumbeltopptokenselect-v1-v128256",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 2,
+   "definition": "GumbelTopPTokenSelect_v1{V=128256}",
+   "digest": "a04b5029f49569ee9f2b2b3587c11e973d86c16c11a8b2e0f0280bddaba23bc5",
+   "subcircuit_definitions": {
+    "GumbelSelectF32_v1{V=128256}": "92a26b786c14ab82f484097b16b78e7f64341201bcc6f18e45f29c34221df6e1",
+    "TemperatureScale_v1{V=128256}": "e23764fa6314c92fc5295a32d52168932616b4870860d4e7a78dabe591404b5a",
+    "TopPMask_v1{V=128256}": "7a907a1fc93f641a5e031b54709b62f0178f490d52c941cf6ead9f3965955073"
+   },
+   "ok": true,
+   "seconds": 18.68
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n2048-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 0,
+   "definition": "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "9a3fba3a8bb91bb63d016b9d5dda12ca6ea5c19e248425b359808583a72680c5",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.15
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n2048-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 1,
+   "definition": "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "9a3fba3a8bb91bb63d016b9d5dda12ca6ea5c19e248425b359808583a72680c5",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.11
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n2048-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 2,
+   "definition": "RMSNormFusedCuda_v2{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "9a3fba3a8bb91bb63d016b9d5dda12ca6ea5c19e248425b359808583a72680c5",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.11
+  },
+  {
+   "set": "rmsnormtriton-v1-n2048-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 0,
+   "definition": "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "c5b6d34f2cf52392886b726d928be807521c09a8750a1834adcb6f6b75b97912",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.15
+  },
+  {
+   "set": "rmsnormtriton-v1-n2048-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 1,
+   "definition": "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "c5b6d34f2cf52392886b726d928be807521c09a8750a1834adcb6f6b75b97912",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.12
+  },
+  {
+   "set": "rmsnormtriton-v1-n2048-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 2,
+   "definition": "RMSNormTriton_v1{N=2048,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "c5b6d34f2cf52392886b726d928be807521c09a8750a1834adcb6f6b75b97912",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.1
+  },
+  {
+   "set": "rope-head-d64",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 0,
+   "definition": "RoPE_v1{NHEADS=1,D=64}",
+   "digest": "04d02a35a95e2585f9ee628c2a137355278fcbaa81dc6a25c28e506a4b260488",
+   "subcircuit_definitions": {
+    "RoPEHead_v1{D=64}": "c1c512f56aa5f0bf0f14d2d01f498a0d5bc5d337b594bee98ff9b2d6a6a4e7a6"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "rope-head-d64",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 1,
+   "definition": "RoPE_v1{NHEADS=1,D=64}",
+   "digest": "04d02a35a95e2585f9ee628c2a137355278fcbaa81dc6a25c28e506a4b260488",
+   "subcircuit_definitions": {
+    "RoPEHead_v1{D=64}": "c1c512f56aa5f0bf0f14d2d01f498a0d5bc5d337b594bee98ff9b2d6a6a4e7a6"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "rope-head-d64",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 2,
+   "definition": "RoPE_v1{NHEADS=1,D=64}",
+   "digest": "04d02a35a95e2585f9ee628c2a137355278fcbaa81dc6a25c28e506a4b260488",
+   "subcircuit_definitions": {
+    "RoPEHead_v1{D=64}": "c1c512f56aa5f0bf0f14d2d01f498a0d5bc5d337b594bee98ff9b2d6a6a4e7a6"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "silumul-v1-i8192",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 0,
+   "definition": "SiluMul_v1{I=8192}",
+   "digest": "453c5f9994b9e88b90af784fff3d1ce15fff7777f927531887a6778b6da0e71b",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.1
+  },
+  {
+   "set": "silumul-v1-i8192",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 1,
+   "definition": "SiluMul_v1{I=8192}",
+   "digest": "453c5f9994b9e88b90af784fff3d1ce15fff7777f927531887a6778b6da0e71b",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.09
+  },
+  {
+   "set": "silumul-v1-i8192",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "instance": 2,
+   "definition": "SiluMul_v1{I=8192}",
+   "digest": "453c5f9994b9e88b90af784fff3d1ce15fff7777f927531887a6778b6da0e71b",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.09
+  },
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 88,
+   "definition": "Attention_v3{T=1,NH=1,KVH=1,D=64,BN=128}",
+   "digest": "2ed74a93f8adbf4ee4c6e2778a39ddc9b0c92e3c960bb2a6703ea58f82db4b34",
+   "subcircuit_definitions": {
+    "AttentionHead_v3{T=1,D=64,BN=128}": "7d42c73794460d788d023e58f5e6bc390e70c6cef1a4fa8793473edf9cce400c"
+   },
+   "ok": true,
+   "seconds": 0.01
+  },
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 16,
+   "definition": "Attention_v3{T=257,NH=1,KVH=1,D=64,BN=128}",
+   "digest": "f5337225eba0222bd86f9c6e75bc118382294069c75a45185597b039113a3e91",
+   "subcircuit_definitions": {
+    "AttentionHead_v3{T=257,D=64,BN=128}": "712aedb47973f440dbaec5eee247c67f98680d8ff2f697d342f313dee16cbfc4"
+   },
+   "ok": true,
+   "seconds": 0.16
+  },
+  {
+   "set": "attention-head-fa2-d64-bn128",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 735,
+   "definition": "Attention_v3{T=1026,NH=1,KVH=1,D=64,BN=128}",
+   "digest": "04b147e180f24e693213ca30d9806956c8a2c9dfd8f176f0a5a491710f6f1def",
+   "subcircuit_definitions": {
+    "AttentionHead_v3{T=1026,D=64,BN=128}": "80f4179c3df0c74b9636a32f245149a932dcfb899dae6d191a75d8f850b6440c"
+   },
+   "ok": true,
+   "seconds": 0.62
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k1536",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 0,
+   "definition": "Gemm_v1{K=1536,N=1}",
+   "digest": "b253e58200a38b19bf9212d21dc9ff4574fb393a4a619f2626afd64464189bac",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=1536}": "dbc759d124dce18c774f7c8e11f744649b9c2bfa8a9676581138c519e75f2be0"
+   },
+   "ok": true,
+   "seconds": 0.01
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k1536",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 1,
+   "definition": "Gemm_v1{K=1536,N=1}",
+   "digest": "b253e58200a38b19bf9212d21dc9ff4574fb393a4a619f2626afd64464189bac",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=1536}": "dbc759d124dce18c774f7c8e11f744649b9c2bfa8a9676581138c519e75f2be0"
+   },
+   "ok": true,
+   "seconds": 0.01
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k1536",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 2,
+   "definition": "Gemm_v1{K=1536,N=1}",
+   "digest": "b253e58200a38b19bf9212d21dc9ff4574fb393a4a619f2626afd64464189bac",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=1536}": "dbc759d124dce18c774f7c8e11f744649b9c2bfa8a9676581138c519e75f2be0"
+   },
+   "ok": true,
+   "seconds": 0.01
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k576",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 0,
+   "definition": "Gemm_v1{K=576,N=1}",
+   "digest": "d0f8f29461f1b64688c50d58d2a789f740b16d546e5a1f7b0711becbdd0f460a",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=576}": "ef936b8e108591fda4a1eb61466a5b08ae3dccae4904b904edb7b8d3d87ebe13"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k576",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 1,
+   "definition": "Gemm_v1{K=576,N=1}",
+   "digest": "d0f8f29461f1b64688c50d58d2a789f740b16d546e5a1f7b0711becbdd0f460a",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=576}": "ef936b8e108591fda4a1eb61466a5b08ae3dccae4904b904edb7b8d3d87ebe13"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "gemm-coordinate-ampere-bf16-k576",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 2,
+   "definition": "Gemm_v1{K=576,N=1}",
+   "digest": "d0f8f29461f1b64688c50d58d2a789f740b16d546e5a1f7b0711becbdd0f460a",
+   "subcircuit_definitions": {
+    "GemmCoordinate_v1{K=576}": "ef936b8e108591fda4a1eb61466a5b08ae3dccae4904b904edb7b8d3d87ebe13"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n576-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 0,
+   "definition": "RMSNormFusedCuda_v2{N=576,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "f4051c68ca04a79b709ece2ae60d0e10ad597ec375f89e54f699573c749d9094",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.07
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n576-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 1,
+   "definition": "RMSNormFusedCuda_v2{N=576,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "f4051c68ca04a79b709ece2ae60d0e10ad597ec375f89e54f699573c749d9094",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.03
+  },
+  {
+   "set": "rmsnormfusedcuda-v2-n576-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 2,
+   "definition": "RMSNormFusedCuda_v2{N=576,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "f4051c68ca04a79b709ece2ae60d0e10ad597ec375f89e54f699573c749d9094",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.03
+  },
+  {
+   "set": "rmsnormtriton-v1-n576-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 0,
+   "definition": "RMSNormTriton_v1{N=576,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "c3c71d689a3f0f21624c9a8a5a8ab1c845786fb8849058010e83872d71df6923",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.04
+  },
+  {
+   "set": "rmsnormtriton-v1-n576-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 1,
+   "definition": "RMSNormTriton_v1{N=576,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "c3c71d689a3f0f21624c9a8a5a8ab1c845786fb8849058010e83872d71df6923",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.03
+  },
+  {
+   "set": "rmsnormtriton-v1-n576-00e4e4aa",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 2,
+   "definition": "RMSNormTriton_v1{N=576,EPS={\"f64\":\"0x1.4f8b588e368f1p-17\"}}",
+   "digest": "c3c71d689a3f0f21624c9a8a5a8ab1c845786fb8849058010e83872d71df6923",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.06
+  },
+  {
+   "set": "rope-head-d64",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 0,
+   "definition": "RoPE_v1{NHEADS=1,D=64}",
+   "digest": "04d02a35a95e2585f9ee628c2a137355278fcbaa81dc6a25c28e506a4b260488",
+   "subcircuit_definitions": {
+    "RoPEHead_v1{D=64}": "c1c512f56aa5f0bf0f14d2d01f498a0d5bc5d337b594bee98ff9b2d6a6a4e7a6"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "rope-head-d64",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 1,
+   "definition": "RoPE_v1{NHEADS=1,D=64}",
+   "digest": "04d02a35a95e2585f9ee628c2a137355278fcbaa81dc6a25c28e506a4b260488",
+   "subcircuit_definitions": {
+    "RoPEHead_v1{D=64}": "c1c512f56aa5f0bf0f14d2d01f498a0d5bc5d337b594bee98ff9b2d6a6a4e7a6"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "rope-head-d64",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 2,
+   "definition": "RoPE_v1{NHEADS=1,D=64}",
+   "digest": "04d02a35a95e2585f9ee628c2a137355278fcbaa81dc6a25c28e506a4b260488",
+   "subcircuit_definitions": {
+    "RoPEHead_v1{D=64}": "c1c512f56aa5f0bf0f14d2d01f498a0d5bc5d337b594bee98ff9b2d6a6a4e7a6"
+   },
+   "ok": true,
+   "seconds": 0.0
+  },
+  {
+   "set": "silumul-v1-i1536",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 0,
+   "definition": "SiluMul_v1{I=1536}",
+   "digest": "1772d36e6f0d16c6630180193a05e163cc0d96e31708bfc3a5901adf3a0cb6d4",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.02
+  },
+  {
+   "set": "silumul-v1-i1536",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 1,
+   "definition": "SiluMul_v1{I=1536}",
+   "digest": "1772d36e6f0d16c6630180193a05e163cc0d96e31708bfc3a5901adf3a0cb6d4",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.02
+  },
+  {
+   "set": "silumul-v1-i1536",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 2,
+   "definition": "SiluMul_v1{I=1536}",
+   "digest": "1772d36e6f0d16c6630180193a05e163cc0d96e31708bfc3a5901adf3a0cb6d4",
+   "subcircuit_definitions": {},
+   "ok": true,
+   "seconds": 0.02
+  },
+  {
+   "set": "tokenselect-v1-v49152",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 0,
+   "definition": "TokenSelect_v1{V=49152}",
+   "digest": "6a4c903042e7a69b2cf4ce097985dd185a8fe209bc3dbcc926df47865cd7c868",
+   "subcircuit_definitions": {
+    "ArgmaxStep_v1": "ee4e2c27caf19215c02eedbfa55dfcc3de65d00969a8481bccf4d1f00ae600f3"
+   },
+   "ok": true,
+   "seconds": 1.2
+  },
+  {
+   "set": "tokenselect-v1-v49152",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 1,
+   "definition": "TokenSelect_v1{V=49152}",
+   "digest": "6a4c903042e7a69b2cf4ce097985dd185a8fe209bc3dbcc926df47865cd7c868",
+   "subcircuit_definitions": {
+    "ArgmaxStep_v1": "ee4e2c27caf19215c02eedbfa55dfcc3de65d00969a8481bccf4d1f00ae600f3"
+   },
+   "ok": true,
+   "seconds": 1.22
+  },
+  {
+   "set": "tokenselect-v1-v49152",
+   "export": "/home/ubuntu/.research/store/trees/a0db9824078e9c07613afd2537d5f17ebf72c8c5b79974d13798203e4df47b5c/vu-export/smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "instance": 2,
+   "definition": "TokenSelect_v1{V=49152}",
+   "digest": "6a4c903042e7a69b2cf4ce097985dd185a8fe209bc3dbcc926df47865cd7c868",
+   "subcircuit_definitions": {
+    "ArgmaxStep_v1": "ee4e2c27caf19215c02eedbfa55dfcc3de65d00969a8481bccf4d1f00ae600f3"
+   },
+   "ok": true,
+   "seconds": 1.21
+  }
+ ]
+}

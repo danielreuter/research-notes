@@ -1,0 +1,238 @@
+[
+ {
+  "row": 4,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 4633470,
+  "plan_words": 4630000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 5718,
+  "param_inputs_groups": 0
+ },
+ {
+  "row": 11,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 43610112,
+  "plan_words": 43610000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 73828,
+  "param_inputs_groups": 131
+ },
+ {
+  "row": 23,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 24324096,
+  "plan_words": 24320000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 9162,
+  "param_inputs_groups": 131
+ },
+ {
+  "row": 39,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 56464128,
+  "plan_words": 56460000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 96954,
+  "param_inputs_groups": 255
+ },
+ {
+  "row": 57,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 5313984,
+  "plan_words": 5310000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 9426,
+  "param_inputs_groups": 264
+ },
+ {
+  "row": 60,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 25868288,
+  "plan_words": 25870000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 51302,
+  "param_inputs_groups": 259
+ },
+ {
+  "row": 67,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 13549568,
+  "plan_words": 13550000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 80036,
+  "param_inputs_groups": 163
+ },
+ {
+  "row": 68,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 13579520,
+  "plan_words": 13580000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 79900,
+  "param_inputs_groups": 163
+ },
+ {
+  "row": 70,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 3480320,
+  "plan_words": 3480000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 76292,
+  "param_inputs_groups": 4293
+ },
+ {
+  "row": 73,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 14408064,
+  "plan_words": 14410000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 32657,
+  "param_inputs_groups": 363
+ },
+ {
+  "row": 74,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {
+   "cut": 581040
+  },
+  "redundant_gates": 0,
+  "max_scaled_words": 16098048,
+  "plan_words": 16100000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 33401,
+  "param_inputs_groups": 363
+ },
+ {
+  "row": 75,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 0,
+  "max_scaled_words": 8384256,
+  "plan_words": 8380000,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 482295,
+  "param_inputs_groups": 629
+ },
+ {
+  "row": 101,
+  "structure_equal": {
+   "calls": true,
+   "modules": true,
+   "groups": true,
+   "edges": true
+  },
+  "violations": {},
+  "redundant_gates": 32,
+  "max_scaled_words": 242688,
+  "plan_words": 242688,
+  "max_scaled_new_tap_in": [
+   "FA2 / FA3 tap build (MS plane, `max_scaled`)"
+  ],
+  "new_tap_bytes_per_token": 4870,
+  "param_inputs_groups": 0
+ }
+]

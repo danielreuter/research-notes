@@ -1,0 +1,761 @@
+From f283adeaaeeb01b379e789d63b607e47b136071d Mon Sep 17 00:00:00 2001
+From: Cursor Agent <cursoragent@cursor.com>
+Date: Fri, 25 Sep 2026 18:47:43 +0000
+Subject: [PATCH] PoUS: certified fraction falls with response latency instead
+ of a pass/fail deadline
+
+The bandwidth-audit bound tau(W) = (b_alt + b_rec) W / X, with W the measured response time, replaces
+the 2 us yield requirement and the deadline. Defaults are the H100 figures of the PoUS research
+(X = 4 GB, 3.1 TB/s, 55 GB/s over PCIe tiers). The toy engine reports the planned certificate at its
+yield latency next to the one it earned; sweep.py tabulates the curve for several hardware profiles
+and stress-runs the engine at 1.92 us, 16.4 us and 1 ms.
+
+Co-authored-by: danielreuter <danielreuter@users.noreply.github.com>
+---
+ protocols/README.md                     |  10 +-
+ protocols/examples/toy_engine/demo.py   |  51 +++++-----
+ protocols/examples/toy_engine/engine.py |  11 ++-
+ protocols/examples/toy_engine/sweep.py  |  99 +++++++++++++++++++
+ protocols/examples/toy_engine/wiring.py |   2 +-
+ protocols/pous/tests/test_pous.py       |  83 ++++++++++------
+ protocols/pous/verity_pous/__init__.py  | 125 +++++++++++++++---------
+ protocols/tests/test_toy_engine.py      |  40 +++++---
+ 8 files changed, 292 insertions(+), 129 deletions(-)
+ create mode 100644 protocols/examples/toy_engine/sweep.py
+
+diff --git a/protocols/README.md b/protocols/README.md
+index c5f0ddf1..ca7f20f3 100644
+--- a/protocols/README.md
++++ b/protocols/README.md
+@@ -7,17 +7,19 @@ Three minimal protocols, and a toy CPU inference engine that composes them, to l
+   exhaustively and sampled units by replay, and emits an `IntegrityProfile`.
+ - `pouw/` (`verity_pouw`): device-bound seeds issued at admission, per-step noise, tickets collected at step end, and
+   a work claim that reads the profile.
+-- `pous/` (`verity_pous`): design C with auditor-secret filler, timed linear-MAC audits that interrupt serving, a KV
+-  write tap, and a KV-usefulness claim that reads the profile.
++- `pous/` (`verity_pous`): design C with auditor-secret filler, linear-MAC audits that interrupt serving and are
++  timed (no deadline: the certified fraction falls with response time), a KV write tap, and a KV-usefulness claim
++  that reads the profile.
+ - `examples/toy_engine/`: the application. `engine.py` is a request queue, batched decode steps (one small IR Program
+   per batch size), weights and a KV pool in memory regions, a simulated clock, and hook points (admit, alloc,
+   step_start, commit, step_end, idle). `wiring.py` hooks the protocols in three ways; `demo.py` runs setup, serving
+-  and audit.
++  and audit; `sweep.py` tabulates PoUS's certified fraction against the engine's yield latency.
+ 
+ Protocols import only the core (`tests/test_protocol_boundaries.py`).
+ 
+ ~~~text
+-uv run python protocols/examples/toy_engine/demo.py            # --sample audit, --retention hbm, --no-preempt [--force], --wiring phases, --k 10
++uv run python protocols/examples/toy_engine/demo.py            # --sample audit, --retention hbm, --no-preempt, --launch 1e-3, --wiring phases, --k 10
++uv run python protocols/examples/toy_engine/sweep.py [--plot out.png]
+ uv run pytest protocols
+ ~~~
+ 
+diff --git a/protocols/examples/toy_engine/demo.py b/protocols/examples/toy_engine/demo.py
+index 3f78eb79..dcb2c465 100644
+--- a/protocols/examples/toy_engine/demo.py
++++ b/protocols/examples/toy_engine/demo.py
+@@ -1,12 +1,12 @@
+ """One epoch of the toy engine with sampled proofs, PoUW and PoUS, in three phases.
+ 
+-    uv run python protocols/examples/toy_engine/demo.py [--sample audit] [--retention hbm] [--no-preempt] [--wiring phases]
++    uv run python protocols/examples/toy_engine/demo.py [--sample audit] [--retention hbm] [--no-preempt] [--launch S]
+ 
+     setup    memory map (weights, KV pool, PoUS filler, a small unaudited workspace), the challenger's tags and filler,
+-             device keys, the log and beacon; engine properties checked against what protocols require; hooks wired
++             device keys, the log and beacon; PoUS's planned certificate at the engine's yield latency; hooks wired
+     serving  requests arrive, batched steps run on the simulated clock; PoUW seeds each request and collects tickets,
+              sampled proofs commits every step (and samples as rounds publish, in "serving" mode), PoUS audits
+-             interrupt at secret times and wait for the engine to yield
++             interrupt at secret times, wait for the engine to yield, and are timed
+     audit    sampled proofs closes and verifies, producing the integrity profile; PoUW and PoUS read what they need
+              off it; the application unions failure events
+ """
+@@ -41,14 +41,14 @@ DEVICE = "gpu0"
+ class Config:
+     n_requests: int = 48
+     mean_gap: float = 3e-6  # mean request inter-arrival, s
+-    epoch: float = 1e-3  # s of serving
+-    audit_rate: float = 1e4  # PoUS audits per simulated second
++    epoch: float = 1.0  # s of serving; the engine idles once the requests are done
++    audit_rate: float = 5.0  # PoUS audits per simulated second (the research recommends 3.8-5/s)
+     p: Fraction = Fraction(1, 2)  # sampled proofs' law: RU rate, and VUs checked per selected RU
+     k: int = 3
+     sample: str = "serving"  # sampled proofs: "serving" or "audit"
+     retention: str = "host"  # tier for sampled proofs' retained interiors
+     preemptible: bool = True
+-    enforce: bool = True  # refuse a composition whose requirements the engine does not meet
++    launch: float = 1e-6  # non-preemptible per-step overhead, s
+     wiring: str = "registry"
+     hbm_sectors: int = 256
+     kv_pages: int = 32
+@@ -100,15 +100,16 @@ class World:
+     pouw: PoUW
+     pous: DesignC
+     challenger: Challenger
+-    conflicts: list[str]
+     tickets: list = field(default_factory=list)
+-    audits: list = field(default_factory=list)  # (outcome, waited, exclusive s, KV pages owned, end)
++    audits: list = field(default_factory=list)  # (outcome, waited, response s, KV pages owned, end)
+ 
+ 
+ def setup(cfg: Config = Config()) -> World:
+     rng = np.random.default_rng(cfg.seed)
+-    pous = DesignC(rate=cfg.audit_rate, sectors=16)
+-    memory = Memory(pous.sector_words, {"hbm": cfg.hbm_sectors, "host": 1 << 20}, {"hbm": pous.b_hbm, "host": pous.b_alt})
++    pous = DesignC(rate=cfg.audit_rate)
++    sector_bytes = int(pous.audit_bytes // (pous.sectors * 3))  # weights, kv, filler
++    memory = Memory(pous.sector_words, {"hbm": cfg.hbm_sectors, "host": 1 << 20}, {"hbm": pous.b_hbm, "host": pous.b_alt},
++                    sector_bytes)
+     weights = rng.integers(0, 1 << 16, size=(K, K), dtype=np.uint16)
+     memory.allocate("weights", "hbm", 1, "engine", np.pad(weights.ravel(), (0, pous.sector_words - K * K))[None])
+     memory.allocate("kv", "hbm", cfg.kv_pages, "engine")
+@@ -119,13 +120,7 @@ def setup(cfg: Config = Config()) -> World:
+     memory.allocate("filler", "hbm", filler, "pous", challenger.filler.copy())
+ 
+     clock, hooks = Clock(), Hooks()
+-    engine_cfg = EngineConfig(K=K, preemptible=cfg.preemptible)
+-    engine = Engine(engine_cfg, memory, clock, hooks)
+-    conflicts = [f"clock: pous requires {k} <= {v * 1e6:.2f} us, the engine guarantees "
+-                 f"{engine_cfg.properties[k] * 1e6:.2f} us" for k, v in pous.requires.items()
+-                 if engine_cfg.properties[k] > v]
+-    if conflicts and cfg.enforce:
+-        raise Conflict(conflicts[0])
++    engine = Engine(EngineConfig(K=K, preemptible=cfg.preemptible, launch=cfg.launch), memory, clock, hooks)
+ 
+     arrivals = np.cumsum(rng.exponential(cfg.mean_gap, cfg.n_requests))
+     requests = []
+@@ -138,7 +133,7 @@ def setup(cfg: Config = Config()) -> World:
+                        delta=0.01, sample=cfg.sample)
+     world = World(cfg, DEVICE, memory, clock, engine, weights, requests, log, beacon, sp,
+                   Prover(sp, beacon=beacon, register=log.register), PoUW({DEVICE: key}, K, Fraction(1, 4), 0.01),
+-                  pous, challenger, conflicts)
++                  pous, challenger)
+     if cfg.cheat:
+         cfg.cheat(world)
+     SHAPES[cfg.wiring](world)
+@@ -186,8 +181,8 @@ def audit(world: World) -> dict:
+     counts = pouw.verify(world.tickets, requests, programs, placements, SampledProofs.reader(evidence))
+     tiles = {world.device: sum(len(pouw.tiles(programs[s], span)) for s, p in placements.items() for span in p.values())}
+     work = pouw.claim(counts, tiles, profile, tiles_per_vu=1)
+-    spaces = world.challenger.fold([a[0] for a in world.audits])
+-    page_bytes = 2 * world.memory.sector_words
++    spaces = world.challenger.fold([(a[0], a[2]) for a in world.audits])
++    page_bytes = world.memory.sector_bytes
+     owned = [a[3] for a in world.audits] or [0]
+     kv = useful_kv(spaces["kv"], int(sum(owned) / len(owned) * page_bytes), page_bytes, profile)  # mean over instants
+ 
+@@ -199,13 +194,14 @@ def audit(world: World) -> dict:
+         "policy": {"tokens": served, "incorrect_tokens_max": profile.touched_units()},
+         "steps": len(eng.steps), "duration": world.clock.now, "busy": eng.busy,
+         "audits": world.audits, "retention_peak_sectors": world.memory.peak.get("sp/retained", 0),
+-        "conflicts": world.conflicts,
++        "yield_latency": eng.cfg.yield_latency,
++        "planned": world.pous.certified("filler", eng.cfg.yield_latency, len(world.audits)),
+     }
+ 
+ 
+ def show(report: dict) -> None:
+     p, audits = report["profile"], report["audits"]
+-    audit_time = sum(a[2] for a in audits)
++    audit_time = sum(a[2] - a[1] for a in audits)
+     print(f"serving: {report['steps']} steps over {report['duration'] * 1e3:.1f} ms simulated; engine busy "
+           f"{report['busy'] * 1e3:.2f} ms, PoUS audits held the clock {audit_time * 1e3:.2f} ms "
+           f"({len(audits)} audits: {', '.join(f'{o} {n}' for o, n in Counter(a[0] for a in audits).items())}; "
+@@ -218,13 +214,14 @@ def show(report: dict) -> None:
+     for w in report["work"]:
+         print(f"pouw {w.device}: {w.tickets} tickets, {w.forgeable} forgeable -> >= {w.macs} MACs "
+               f"(declared-count bound {w.declared_macs})")
++    print(f"pous: engine yields within {report['yield_latency'] * 1e6:.2f} us -> planned certified filler fraction "
++          f"{report['planned']:.4f}; slowest response {max((a[2] for a in audits), default=0) * 1e3:.3f} ms")
+     for s in [*report["space"].values(), report["kv"]]:
+-        print(f"pous {s.device}/{s.region}: {s.accounted}/{s.declared} bytes, deficit {s.deficit:.4f}")
++        print(f"pous {s.device}/{s.region}: {s.accounted / 1e9:.2f}/{s.declared / 1e9:.2f} GB certified "
++              f"({1 - s.deficit:.4f})")
+     pol = report["policy"]
+     print(f"output policy: at most {pol['incorrect_tokens_max']:.1f} of {pol['tokens']} served tokens may be wrong")
+     print(f"failure <= {report['failure']:.4f} over events {sorted(report['events'])}")
+-    for c in report["conflicts"]:
+-        print(f"conflict (not enforced): {c}")
+ 
+ 
+ def main(argv=None) -> None:
+@@ -232,11 +229,11 @@ def main(argv=None) -> None:
+     ap.add_argument("--sample", default="serving", choices=("serving", "audit"))
+     ap.add_argument("--retention", default="host", choices=("host", "hbm"))
+     ap.add_argument("--no-preempt", action="store_true")
+-    ap.add_argument("--force", action="store_true", help="run even if requirements conflict")
++    ap.add_argument("--launch", type=float, default=1e-6, help="non-preemptible per-step overhead, s")
+     ap.add_argument("--wiring", default="registry", choices=sorted(SHAPES))
+     ap.add_argument("--k", type=int, default=3, help="VUs replayed per selected RU (10 = all)")
+     a = ap.parse_args(argv)
+-    cfg = Config(sample=a.sample, retention=a.retention, preemptible=not a.no_preempt, enforce=not a.force,
++    cfg = Config(sample=a.sample, retention=a.retention, preemptible=not a.no_preempt, launch=a.launch,
+                  wiring=a.wiring, k=a.k)
+     try:
+         world = setup(cfg)
+diff --git a/protocols/examples/toy_engine/engine.py b/protocols/examples/toy_engine/engine.py
+index 41a324a9..c2d7f458 100644
+--- a/protocols/examples/toy_engine/engine.py
++++ b/protocols/examples/toy_engine/engine.py
+@@ -75,8 +75,9 @@ class Memory:
+     """Memory regions in tiers ("hbm", "host").  `offloaded` sectors are really held in host memory (they read at the
+     host rate); `dropped` sectors are gone (they read as zeros).  Both model a cheating deployment."""
+ 
+-    def __init__(self, sector_words: int, capacity: dict[str, int], rates: dict[str, float]) -> None:
++    def __init__(self, sector_words: int, capacity: dict[str, int], rates: dict[str, float], sector_bytes: int) -> None:
+         self.sector_words, self.capacity, self.rates = sector_words, capacity, rates
++        self.sector_bytes = sector_bytes  # real bytes a toy sector stands for, for timing
+         self.regions: dict[str, Region] = {}
+         self.offloaded: set[tuple[str, int]] = set()
+         self.dropped: set[tuple[str, int]] = set()
+@@ -101,7 +102,7 @@ class Memory:
+         r = self.regions[region]
+         words = np.zeros_like(r.words[sector]) if (region, sector) in self.dropped else r.words[sector]
+         tier = "host" if (region, sector) in self.offloaded else r.tier
+-        return words, words.nbytes / self.rates[tier]
++        return words, self.sector_bytes / self.rates[tier]
+ 
+ 
+ class Clock:
+@@ -208,9 +209,9 @@ class EngineConfig:
+         return 3 * self.K * self.K / self.compute_rate  # noised product plus correction, per request
+ 
+     @property
+-    def properties(self) -> dict[str, float]:
+-        worst = max(self.launch, self.chunk) if self.preemptible else self.launch + self.batch * self.chunk
+-        return {"max_nonpreemptible_s": worst}
++    def yield_latency(self) -> float:
++        """The longest a timer can wait for this engine: its longest non-preemptible stretch."""
++        return max(self.launch, self.chunk) if self.preemptible else self.launch + self.batch * self.chunk
+ 
+ 
+ class Engine:
+diff --git a/protocols/examples/toy_engine/sweep.py b/protocols/examples/toy_engine/sweep.py
+new file mode 100644
+index 00000000..27ba476d
+--- /dev/null
++++ b/protocols/examples/toy_engine/sweep.py
+@@ -0,0 +1,99 @@
++"""PoUS's certified fraction as a function of the engine's yield latency.
++
++    uv run python protocols/examples/toy_engine/sweep.py [--plot out.png]
++
++Part 1 evaluates `DesignC.certified` (the timing term only, 1 - tau) for a few hardware profiles.  Part 2 runs the toy
++engine at three yield latencies under a stress audit rate, so that audits land inside steps, and reports what the
++challenger observed and certified (sampling term included).
++"""
++
++from __future__ import annotations
++
++import argparse
++import sys
++from dataclasses import replace
++from pathlib import Path
++
++if __package__ in (None, ""):
++    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
++
++from toy_engine import demo  # noqa: E402
++from verity_pous import DesignC  # noqa: E402
++
++LATENCIES = (1e-6, 1.92e-6, 16.36e-6, 1e-4, 3.4e-4, 1e-3, 2.5e-3)
++PROFILES = {
++    # H100 figures measured in the PoUS research (challenger2): 3.1 TB/s random sectors, 55 GB/s over PCIe tiers.
++    "H100, X = 4 GB": DesignC(),
++    "H100, X = 1.6 GB": DesignC(audit_bytes=1.6e9),
++    # an NVLink peer (450 GB/s published) that is not challenged at the same instant
++    "H100, X = 4 GB, unchallenged NVLink peer": DesignC(b_alt=55e9 + 450e9),
++    # published, unmeasured: B200 HBM3e 8 TB/s, NVLink-C2C 450-550 GB/s (500 used), X = 5% of 186 GB
++    "GB200, C2C, X = 9.3 GB": DesignC(b_hbm=8e12, b_alt=500e9, audit_bytes=9.3e9),
++}
++REBUILD = {"H100, X = 4 GB, weights rebuilt at 100 GB/s": DesignC(b_rec={"weights": 100e9})}
++
++
++def zero_at(cfg: DesignC, region: str = "filler") -> float:
++    """The yield latency at which nothing is certified."""
++    return cfg.audit_bytes / (cfg.b_alt + cfg.b_rec.get(region, 0.0)) - cfg.audit_bytes / cfg.b_hbm - cfg.jitter
++
++
++def table() -> list[str]:
++    head = "| profile | " + " | ".join(f"{l * 1e6:g} us" for l in LATENCIES) + " | zero at |"
++    rows = [head, "| --- " * (len(LATENCIES) + 2) + "|"]
++    for name, cfg in {**PROFILES, **REBUILD}.items():
++        region = "weights" if cfg.b_rec else "filler"
++        cells = " | ".join(f"{cfg.certified(region, l):.3f}" for l in LATENCIES)
++        rows.append(f"| {name} | {cells} | {zero_at(cfg, region) * 1e3:.1f} ms |")
++    return rows
++
++
++def stress() -> list[str]:
++    rows = ["| engine | yield latency | audits (in steps) | slowest wait | planned (timing) | certified filler |",
++            "| --- | --- | --- | --- | --- | --- |"]
++    base = demo.Config(epoch=0.05, audit_rate=400.0, mean_gap=5e-5)
++    for label, cfg in (("preemptible per request", base), ("non-preemptible step", replace(base, preemptible=False)),
++                       ("1 ms kernel per step", replace(base, launch=1e-3))):
++        world = demo.setup(cfg)
++        demo.serve(world)
++        spaces = world.challenger.fold([(a[0], a[2]) for a in world.audits])
++        L = world.engine.cfg.yield_latency
++        in_steps = sum(a[1] > 0 for a in world.audits)
++        rows.append(f"| {label} | {L * 1e6:.2f} us | {len(world.audits)} ({in_steps}) | "
++                    f"{max(a[1] for a in world.audits) * 1e6:.2f} us | {world.pous.certified('filler', L):.4f} | "
++                    f"{1 - spaces['filler'].deficit:.4f} |")
++    return rows
++
++
++def plot(path: str) -> None:
++    import matplotlib.pyplot as plt
++    import numpy as np
++
++    ls = np.logspace(-6, -2, 300)
++    fig, ax = plt.subplots(figsize=(7, 4))
++    for name, cfg in {**PROFILES, **REBUILD}.items():
++        region = "weights" if cfg.b_rec else "filler"
++        ax.plot(ls * 1e6, [cfg.certified(region, l) for l in ls], label=name)
++    for l, text in ((1.92e-6, "toy, preemptible"), (16.36e-6, "toy step loop"), (1e-3, "1 ms")):
++        ax.axvline(l * 1e6, color="grey", lw=0.6, ls=":")
++        ax.text(l * 1e6 * 1.08, 0.45, text, rotation=90, fontsize=7, color="grey")
++    ax.set(xscale="log", xlabel="engine yield latency (us)", ylabel="certified fraction (timing term)",
++           ylim=(0, 1.02), title="PoUS design C: certified fraction vs yield latency")
++    ax.legend(fontsize=7, loc="lower left")
++    fig.tight_layout()
++    fig.savefig(path, dpi=150)
++
++
++def main(argv=None) -> None:
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--plot")
++    a = ap.parse_args(argv)
++    print("\n".join(table()))
++    print()
++    print("\n".join(stress()))
++    if a.plot:
++        plot(a.plot)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/protocols/examples/toy_engine/wiring.py b/protocols/examples/toy_engine/wiring.py
+index 81b67e95..1d2e1ab3 100644
+--- a/protocols/examples/toy_engine/wiring.py
++++ b/protocols/examples/toy_engine/wiring.py
+@@ -35,7 +35,7 @@ def _audit(world, index: int):
+         r = respond(world.pous, world.memory.read, c, waited)
+         clock.advance(r.elapsed - waited)
+         owned = len(world.memory.regions["kv"].words) - len(world.engine.free_pages)
+-        world.audits.append((ch.check(c, r), waited, r.elapsed - waited, owned, clock.now))
++        world.audits.append((ch.check(c, r), waited, r.elapsed, owned, clock.now))
+     return handler
+ 
+ 
+diff --git a/protocols/pous/tests/test_pous.py b/protocols/pous/tests/test_pous.py
+index e780f247..c70b2d88 100644
+--- a/protocols/pous/tests/test_pous.py
++++ b/protocols/pous/tests/test_pous.py
+@@ -1,4 +1,4 @@
+-"""PoUS design C alone: the CPU reference challenger against simulated reads."""
++"""PoUS design C alone: the certified-fraction curve and the CPU reference challenger against simulated reads."""
+ 
+ from fractions import Fraction
+ from math import log
+@@ -14,66 +14,93 @@ W = CFG.sector_words
+ REGIONS = {"weights": np.arange(2 * W, dtype=np.uint16).reshape(2, W), "kv": np.zeros((8, W), np.uint16)}
+ 
+ 
+-def device(regions, offloaded=(), dropped=()):
+-    def read(region, s):
+-        words = np.zeros(W, np.uint16) if (region, s) in dropped else regions[region][s]
+-        return words, words.nbytes / (CFG.b_alt if (region, s) in offloaded else CFG.b_hbm)
+-    return read
+-
+-
+ @pytest.fixture
+ def ch():
+     return Challenger(CFG, b"key" * 11, "gpu0", regions={k: v.copy() for k, v in REGIONS.items()}, filler_sectors=32)
+ 
+ 
++def device(ch, regions, offloaded=(), dropped=()):
++    def read(region, s):
++        words = np.zeros(W, np.uint16) if (region, s) in dropped else regions[region][s]
++        return words, ch.sector_bytes / (CFG.b_alt if (region, s) in offloaded else CFG.b_hbm)
++    return read
++
++
+ def memory(ch):
+     return {**{k: v.copy() for k, v in REGIONS.items()}, "filler": ch.filler}
+ 
+ 
+ def run(ch, read, n=20, waited=0.0):
+-    return [ch.check(c, respond(CFG, read, c, waited)) for c in (ch.challenge(i, 0.0) for i in range(n))]
++    out = []
++    for i in range(n):
++        c = ch.challenge(i, 0.0)
++        r = respond(CFG, read, c, waited)
++        out.append((ch.check(c, r), r.elapsed))
++    return out
++
++
++def test_the_curve_reproduces_the_research_figure_and_falls_smoothly():
++    cfg = DesignC()
++    assert cfg.tau("filler", cfg.audit_bytes / cfg.b_hbm + 5e-4) == pytest.approx(0.0246, abs=5e-4)  # 2.5% at 0.5 ms slack
++    curve = [cfg.certified("filler", L) for L in (1e-6, 16.4e-6, 1e-4, 1e-3, 1e-2, 1e-1)]
++    assert all(a > b for a, b in zip(curve, curve[1:])) and curve[3] > 0.96 and curve[-1] == 0
++    assert cfg.certified("filler", 1e-3) - cfg.certified("filler", 2e-3) == pytest.approx(cfg.b_alt * 1e-3 / cfg.audit_bytes)
++
++
++def test_rebuild_bandwidth_is_charged_per_region():
++    cfg = DesignC(b_rec={"weights": 100e9})
++    assert cfg.certified("weights", 1e-4) < cfg.certified("filler", 1e-4) == DesignC().certified("filler", 1e-4)
+ 
+ 
+-def test_honest_device_passes_and_folds_to_design_c_deficit(ch):
+-    outcomes = run(ch, device(memory(ch)))
+-    assert set(outcomes) == {"accepted"}
+-    eps = log(1 / CFG.delta) / (20 * CFG.sectors) + CFG.tau(ch.audit_bytes)
+-    assert all(abs(s.deficit - eps) < 1e-12 for s in ch.fold(outcomes).values())
++def test_honest_device_folds_to_sampling_plus_timing(ch):
++    records = run(ch, device(ch, memory(ch)))
++    assert {o for o, _ in records} == {"accepted"}
++    window = max(w for _, w in records)
++    assert window == pytest.approx(CFG.audit_bytes / CFG.b_hbm)
++    expected = log(1 / CFG.delta) / (20 * CFG.sectors) + CFG.tau("filler", window)
++    assert all(s.deficit == pytest.approx(expected) and s.window == window for s in ch.fold(records).values())
+ 
+ 
+-def test_the_engine_may_take_preempt_bound_to_yield_and_no_longer(ch):
+-    assert set(run(ch, device(memory(ch)), waited=CFG.preempt_bound)) == {"accepted"}
+-    assert set(run(ch, device(memory(ch)), waited=CFG.deadline(ch.audit_bytes))) == {"late"}
+-    assert CFG.tau(ch.audit_bytes) > DesignC(sectors=16, preempt_bound=0).tau(ch.audit_bytes)
++def test_a_slow_engine_costs_certified_fraction_instead_of_failing(ch):
++    prompt = ch.fold(run(ch, device(ch, memory(ch))))["filler"]
++    slow = ch.fold(run(ch, device(ch, memory(ch)), waited=1e-3))["filler"]
++    assert 0 < slow.accounted < prompt.accounted
++    assert prompt.deficit - slow.deficit == pytest.approx(-CFG.b_alt * 1e-3 / CFG.audit_bytes)
++
++
++def test_offloading_shows_up_as_a_slower_response_and_a_smaller_certificate(ch):
++    honest = ch.fold(run(ch, device(ch, memory(ch))))["filler"]
++    offloaded = ch.fold(run(ch, device(ch, memory(ch), offloaded={("filler", s) for s in range(32)})))["filler"]
++    assert offloaded.window > 10 * honest.window and offloaded.accounted < honest.accounted
+ 
+ 
+ def test_kv_writes_must_reach_the_challenger_through_the_tap(ch):
+     mem = memory(ch)
+     mem["kv"][3] = 7
+-    assert "rejected" in run(ch, device(mem))
++    assert "rejected" in {o for o, _ in run(ch, device(ch, mem))}
+     ch.tap("kv", 3, mem["kv"][3])
+-    assert set(run(ch, device(mem))) == {"accepted"}
++    assert {o for o, _ in run(ch, device(ch, mem))} == {"accepted"}
+ 
+ 
+-def test_dropped_sectors_fail_the_mac_and_offloaded_ones_miss_the_deadline(ch):
+-    assert "rejected" in run(ch, device(memory(ch), dropped={("filler", s) for s in range(16)}))
+-    assert set(run(ch, device(memory(ch), offloaded={("weights", 0), ("weights", 1)}))) == {"late"}
+-    assert all(s.accounted == 0 for s in ch.fold(["accepted", "late"]).values())
++def test_dropped_sectors_fail_the_mac_and_leave_nothing_certified(ch):
++    records = run(ch, device(ch, memory(ch), dropped={("filler", s) for s in range(16)}))
++    assert "rejected" in {o for o, _ in records}
++    assert all(s.accounted == 0 for s in ch.fold(records).values())
+ 
+ 
+ def test_a_wrong_aggregate_is_rejected(ch):
+     c = ch.challenge(0, 0.0)
+-    good = respond(CFG, device(memory(ch)), c)
++    good = respond(CFG, device(ch, memory(ch)), c)
+     bad = Response({k: (v[0] ^ 1, *v[1:]) for k, v in good.mu.items()}, good.elapsed)
+     assert ch.check(c, good) == "accepted" and ch.check(c, bad) == "rejected"
+ 
+ 
+ def test_useful_kv_reads_linkage_and_touched_units_off_the_profile(ch):
+-    kv = ch.fold(run(ch, device(memory(ch))))["kv"]
+-    page = 2 * W
++    kv = ch.fold(run(ch, device(ch, memory(ch))))["kv"]
++    page = ch.sector_bytes
+     full = IntegrityProfile((), frozenset(), True, 100, 4, Fraction(1), 4, 0.01, (0, 0))
+     loose = IntegrityProfile((), frozenset(), True, 100, 4, Fraction(1, 2), 1, 0.01, (0, 0))
++    unlinked = IntegrityProfile((), frozenset(), False, 100, 4, Fraction(1), 4, 0.01, (0, 0))
+     assert useful_kv(kv, 6 * page, page, full).accounted == 6 * page
+     assert useful_kv(kv, 6 * page, page, loose).accounted == 0
+-    unlinked = IntegrityProfile((), frozenset(), False, 100, 4, Fraction(1), 4, 0.01, (0, 0))
+     assert useful_kv(kv, 6 * page, page, unlinked).accounted == 0
+diff --git a/protocols/pous/verity_pous/__init__.py b/protocols/pous/verity_pous/__init__.py
+index 4359847d..424470cc 100644
+--- a/protocols/pous/verity_pous/__init__.py
++++ b/protocols/pous/verity_pous/__init__.py
+@@ -1,22 +1,36 @@
+ """Proof of useful space, design C, across a serving epoch (prototype).
+ 
+-    setup    Challenger(cfg, key, device, regions=..., filler_sectors=...) tags the declared regions and generates
+-             filler from a key only it holds; `requires` states what it needs of the engine
+-    serving  times(duration)       secret Poisson audit times, for the application to schedule on its clock
+-             challenge / respond / check   one timed linear-MAC audit; `waited` is how long the engine took to yield
+-             tap(region, sector, words)    the KV write stream: re-tag a sector as it is written
+-    audit    fold(outcomes) -> Space per region;  useful_kv(space, ..., profile) reads the integrity profile
+-
+-Tags are t_s = <alpha, sector_s> + prf(s) mod P with alpha secret, so answering needs the sampled sectors.  An honest
+-read of X bytes takes X / b_hbm; the deadline allows (1 + slack) of it plus `preempt_bound`, the longest the engine
+-may take to yield to an audit.  A fraction tau(X) = (slack X / b_hbm + preempt_bound) / (X / b_alt - X / b_hbm) of the
+-challenged bytes may therefore come over a slower link: the engine's preemption latency is paid in deficit.
++    setup     Challenger(cfg, key, device, regions=..., filler_sectors=...) tags the declared regions and generates
++              filler from a key only it holds
++    serving   times(duration)               secret Poisson audit times, for the application to schedule
++              challenge / respond / check   one linear-MAC audit; the application records how long the response took
++              tap(region, sector, words)    the KV write stream: re-tag a sector as it is written
++    audit     fold(records) -> Space per region;  useful_kv(space, ..., profile) reads the integrity profile
++    planning  DesignC.certified(region, latency), before anything runs
++
++There is no deadline.  An audit reads X bytes of random sectors.  A response that arrives W seconds after the
++challenge gave a cheating prover W seconds to fetch what it does not hold over the off-HBM paths (at most b_alt) or to
++rebuild it from a smaller representation (at most b_rec for that region), so at most
++
++    tau(W) = (b_alt + b_rec) * W / X
++
++of the challenged bytes can be missing from HBM, and the certified fraction falls smoothly as responses slow down.  An
++honest response takes W = X / b_hbm + jitter + L, where L is how long the engine takes to yield to the audit.  This is
++the bandwidth-audit bound of the useful-space proposal, tau <~ B_alt / B_HBM + B_alt * J / X, with the engine's yield
++latency counted in the slack J.  Assumptions:
++  - b_alt bounds every path to bytes outside this GPU's HBM (host DRAM, NVMe, NIC, and NVLink peers unless the whole
++    NVLink domain is challenged at once); fetching and rebuilding run in parallel with the HBM reads and each other;
++  - b_rec bounds rebuilding bytes that are not stored: 0 for filler (its seed never leaves the challenger), an open
++    measurement for plaintext weights and KV (compressibility, the useful-space proposal's open risk 1);
++  - sectors and coefficients are unknown until the challenge (no prefetch), and audits never overlap;
++  - slow memory is passive (no compute beside it), and the challenger's clock is trusted;
++  - b_hbm and jitter are calibrations: they decide how good an honest certificate is, never soundness.
+ """
+ 
+ from __future__ import annotations
+ 
+ from collections.abc import Callable, Mapping, Sequence
+-from dataclasses import dataclass
++from dataclasses import dataclass, field
+ from math import log
+ 
+ import numpy as np
+@@ -29,25 +43,36 @@ P = (1 << 31) - 1
+ 
+ @dataclass(frozen=True)
+ class DesignC:
+-    sector_words: int = 512  # u16 words per sector
++    """Defaults are the H100 figures of the PoUS research (POUS_STATE, challenger2): X = 4 GB per audit, honest
++    random-sector reads at 3.1 TB/s, every PCIe-attached tier together at 55 GB/s (NVLink peers neutralised by
++    challenging the whole NVLink domain at once), idle kernel jitter about 0.1 ms, 5 audits per second."""
++
++    sector_words: int = 512  # toy storage per sector; a sector stands for audit_bytes / sampled sectors real bytes
+     sectors: int = 64  # sampled per region per audit
+-    rate: float = 300.0  # audits per second
+-    b_hbm: float = 1e9  # honest HBM read rate, bytes/s: a calibration, so it sets completeness only
+-    b_alt: float = 1e8  # bound on every off-HBM path, bytes/s: a capacity bound, so it sets soundness
+-    slack: float = 0.1
+-    latency: float = 1e-6
+-    preempt_bound: float = 2e-6  # longest the engine may run before servicing an audit, s
++    audit_bytes: float = 4e9  # X
++    rate: float = 5.0
++    b_hbm: float = 3.1e12
++    b_alt: float = 55e9
++    b_rec: dict[str, float] = field(default_factory=dict, hash=False)  # per region; absent means 0
++    jitter: float = 1e-4
+     delta: float = 0.01
+ 
+-    @property
+-    def requires(self) -> dict[str, float]:
+-        return {"max_nonpreemptible_s": self.preempt_bound}
++    def window(self, latency: float) -> float:
++        """How long an honest response takes when the engine needs `latency` seconds to yield."""
++        return self.audit_bytes / self.b_hbm + self.jitter + latency
+ 
+-    def deadline(self, nbytes: int) -> float:
+-        return self.latency + self.preempt_bound + (1 + self.slack) * nbytes / self.b_hbm
++    def tau(self, region: str, window: float) -> float:
++        return min(1.0, (self.b_alt + self.b_rec.get(region, 0.0)) * window / self.audit_bytes)
+ 
+-    def tau(self, nbytes: int) -> float:
+-        return (self.slack * nbytes / self.b_hbm + self.preempt_bound) / (nbytes / self.b_alt - nbytes / self.b_hbm)
++    def epsilon(self, audits: int) -> float:
++        """Sampling: a region missing a fraction eps passes n audits of s uniform sectors w.p. <= (1 - eps)^(n s)."""
++        return min(1.0, log(1 / self.delta) / (audits * self.sectors)) if audits else 1.0
++
++    def certified(self, region: str, latency: float, audits: int | None = None) -> float:
++        """Planning: the certified fraction of `region` for an engine that yields within `latency`, including the
++        sampling term when `audits` is given."""
++        eps = self.epsilon(audits) if audits is not None else 0.0
++        return max(0.0, 1 - eps - self.tau(region, self.window(latency)))
+ 
+ 
+ @dataclass(frozen=True)
+@@ -60,7 +85,7 @@ class Challenge:
+ @dataclass(frozen=True)
+ class Response:
+     mu: Mapping[str, tuple[int, ...]]
+-    elapsed: float  # from the scheduled instant: the wait for the engine to yield, plus the reads
++    elapsed: float  # from the challenge: the wait for the engine to yield, plus the reads
+ 
+ 
+ @dataclass(frozen=True)
+@@ -72,17 +97,18 @@ class Space:
+     declared: int
+     accounted: int
+     deficit: float
++    window: float  # the slowest accepted response, s: what the deficit was paid for
+     events: Mapping[str, float]
+-    assumptions: tuple[str, ...] = ("b_alt bounds every off-HBM path",
++    assumptions: tuple[str, ...] = ("b_alt bounds every path to bytes outside this GPU's HBM",
++                                    "b_rec bounds rebuilding bytes that are not stored (0 for filler)",
+                                     "the challenger key is secret and the challenger tamper-resistant",
+-                                    "no smaller representation answers within the slack (compressibility kappa)",
+                                     "the workspace is declared and capped, not audited")
+ 
+ 
+ def respond(cfg: DesignC, read: Callable[[str, int], tuple[np.ndarray, float]], ch: Challenge,
+             waited: float = 0.0) -> Response:
+     """The device-side audit kernel.  `read(region, sector)` returns the words and the simulated seconds taken."""
+-    elapsed, mu = waited + cfg.latency, {}
++    elapsed, mu = waited, {}
+     for region, (secs, coeffs) in ch.picks.items():
+         acc = np.zeros(cfg.sector_words, dtype=np.int64)
+         for s, c in zip(secs, coeffs):
+@@ -109,16 +135,17 @@ class Challenger:
+         self._alpha = np.array([mac.below(P, j) for j in range(cfg.sector_words)], dtype=np.int64)
+         self._tags = {name: [self._tag(name, s, row) for s, row in enumerate(r)] for name, r in regions.items()}
+ 
++    @property
++    def sector_bytes(self) -> int:
++        """Real bytes one toy sector stands for, so that an audit reads `audit_bytes`."""
++        return int(self.cfg.audit_bytes // (self.cfg.sectors * len(self.sizes)))
++
+     def _prf(self, region: str, s: int) -> int:
+         return derive(self.key, "verity/pous/tag/v1", {"device": self.device, "region": region}).below(P, s)
+ 
+     def _tag(self, region: str, s: int, words: np.ndarray) -> int:
+         return (int(words.astype(np.int64) @ self._alpha) + self._prf(region, s)) % P
+ 
+-    @property
+-    def audit_bytes(self) -> int:
+-        return 2 * self.cfg.sector_words * self.cfg.sectors * len(self.sizes)
+-
+     def tap(self, region: str, sector: int, words: np.ndarray) -> None:
+         self._tags[region][sector] = self._tag(region, sector, words)
+ 
+@@ -137,8 +164,7 @@ class Challenger:
+             for name, n in self.sizes.items()})
+ 
+     def check(self, ch: Challenge, resp: Response) -> str:
+-        if resp.elapsed > self.cfg.deadline(self.audit_bytes):
+-            return "late"
++        """The MAC only.  Timing is not pass/fail: `fold` charges the slowest response against the certificate."""
+         for name, (secs, coeffs) in ch.picks.items():
+             mu = resp.mu.get(name, ())
+             if len(mu) != self.cfg.sector_words:
+@@ -148,17 +174,20 @@ class Challenger:
+                 return "rejected"
+         return "accepted"
+ 
+-    def fold(self, outcomes: Sequence[str]) -> dict[str, Space]:
+-        """Design C's security function: after n accepted audits of s uniform sectors per region, a region missing a
+-        fraction eps passes all of them with probability at most (1 - eps)^(n s); tau(X) is added for the link and
+-        preemption slack.  Any late or rejected audit leaves the device's regions unaccounted."""
+-        cfg, n = self.cfg, len(outcomes)
+-        ok = n > 0 and all(o == "accepted" for o in outcomes)
+-        deficit = min(1.0, log(1 / cfg.delta) / (n * cfg.sectors) + cfg.tau(self.audit_bytes)) if ok else 1.0
++    def fold(self, records: Sequence[tuple[str, float]]) -> dict[str, Space]:
++        """`records` are (outcome, elapsed seconds) per audit.  Deficit per region = epsilon(n) + tau(slowest
++        response): at every challenge instant the prover had at most that long.  A rejected MAC leaves every region
++        unaccounted."""
++        cfg, n = self.cfg, len(records)
++        ok = n > 0 and all(o == "accepted" for o, _ in records)
++        window = max((w for _, w in records), default=0.0)
+         events = {f"pous/audits/{self.device}": cfg.delta + n / P}
+-        return {name: Space(self.device, name, 2 * cfg.sector_words * size,
+-                            int(2 * cfg.sector_words * size * (1 - deficit)), deficit, events)
+-                for name, size in self.sizes.items()}
++        out = {}
++        for name, size in self.sizes.items():
++            deficit = min(1.0, cfg.epsilon(n) + cfg.tau(name, window)) if ok else 1.0
++            declared = self.sector_bytes * size
++            out[name] = Space(self.device, name, declared, int(declared * (1 - deficit)), deficit, window, events)
++        return out
+ 
+ 
+ def useful_kv(kv: Space, live_bytes: int, page_bytes: int, profile: IntegrityProfile) -> Space:
+@@ -166,10 +195,10 @@ def useful_kv(kv: Space, live_bytes: int, page_bytes: int, profile: IntegrityPro
+     that steps are linked (else a page need not be what any verified step wrote) and the touched-unit worst case,
+     since one incorrect unit can make its request's whole page covert."""
+     if not profile.linked:
+-        return Space(kv.device, "kv/useful", kv.declared, 0, 1.0, kv.events)
++        return Space(kv.device, "kv/useful", kv.declared, 0, 1.0, kv.window, kv.events)
+     laundered = min(live_bytes, int(profile.touched_units()) * page_bytes)
+     accounted = max(0, min(kv.accounted, live_bytes) - laundered)
+-    return Space(kv.device, "kv/useful", kv.declared, accounted, 1 - accounted / kv.declared,
++    return Space(kv.device, "kv/useful", kv.declared, accounted, 1 - accounted / kv.declared, kv.window,
+                  {**kv.events, "integrity": profile.delta})
+ 
+ 
+diff --git a/protocols/tests/test_toy_engine.py b/protocols/tests/test_toy_engine.py
+index 562a2ced..f60211d1 100644
+--- a/protocols/tests/test_toy_engine.py
++++ b/protocols/tests/test_toy_engine.py
+@@ -35,8 +35,9 @@ def test_honest_epoch_runs_all_three_phases(honest):
+     p = report["profile"]
+     assert p.linked and p.prescribed == {"prompt", "kv-init", "weights", "noise"}
+     assert p.n_r == sum(len(s.requests) for s in world.engine.steps) == report["policy"]["tokens"]
+-    assert {a[0] for a in world.audits} == {"accepted"} and any(a[1] > 0 for a in world.audits)  # audits hit steps
+-    assert all(s.accounted > 0.9 * s.declared for s in report["space"].values())
++    assert {a[0] for a in world.audits} == {"accepted"}
++    assert all(s.accounted > 0.95 * s.declared for s in report["space"].values())
++    assert report["planned"] == world.pous.certified("filler", world.engine.cfg.yield_latency, len(world.audits))
+     assert all(w.macs > 0 for w in report["work"])
+     assert set(report["events"]) == {"integrity", "pous/audits/gpu0", "pouw/tickets/gpu0"}  # integrity once
+ 
+@@ -53,27 +54,34 @@ def test_sampling_at_audit_retains_every_step_and_does_not_fit_the_workspace(hon
+     world, _ = honest
+     audit_mode = epoch(replace(CFG, sample="audit"))
+     assert demo.audit(audit_mode)["profile"].n_r == demo.audit(world)["profile"].n_r
+-    assert audit_mode.memory.peak["sp/retained"] > 4 * world.memory.peak["sp/retained"]
++    assert audit_mode.memory.peak["sp/retained"] > 3 * world.memory.peak["sp/retained"]
+     epoch(replace(CFG, retention="hbm"))  # serving-mode retention fits the unaudited workspace
+     with pytest.raises(Conflict, match="sp/retained.*filler \\(pous\\)"):
+         epoch(replace(CFG, sample="audit", retention="hbm"))
+ 
+ 
+-def test_a_non_preemptible_step_loop_conflicts_with_pous():
+-    with pytest.raises(Conflict, match="max_nonpreemptible_s"):
+-        demo.setup(replace(CFG, preemptible=False))
+-    forced = epoch(replace(CFG, preemptible=False, enforce=False))
+-    report = demo.audit(forced)
+-    assert "late" in {a[0] for a in forced.audits} and report["conflicts"]
+-    assert all(s.accounted == 0 for s in report["space"].values())
+-    assert all(w.macs > 0 for w in report["work"])  # the other protocols are unaffected
++STRESS = replace(CFG, epoch=0.05, audit_rate=400.0, mean_gap=5e-5)  # audits land inside steps
+ 
+ 
+-def test_offloaded_filler_is_late_and_only_pous_loses():
+-    world = epoch(after_wiring=lambda w: w.memory.offloaded.update(("filler", s) for s in range(200)))
+-    report = demo.audit(world)
+-    assert "late" in {a[0] for a in world.audits}
+-    assert all(s.accounted == 0 for s in report["space"].values()) and all(w.macs > 0 for w in report["work"])
++def test_yield_latency_costs_certified_fraction_instead_of_failing_audits():
++    reports = {}
++    for launch in (1e-6, 1e-3):
++        world = epoch(replace(STRESS, launch=launch))
++        assert {a[0] for a in world.audits} == {"accepted"}
++        assert max(a[1] for a in world.audits) <= world.engine.cfg.yield_latency  # never waits past the declared latency
++        reports[launch] = demo.audit(world)
++    fast, slow = (reports[k]["space"]["filler"] for k in (1e-6, 1e-3))
++    assert 0 < slow.accounted < fast.accounted and slow.window > fast.window + 5e-4
++    assert reports[1e-3]["work"][0].macs > 0  # the other protocols are unaffected
++
++
++def test_offloaded_filler_answers_slowly_and_only_pous_loses(honest):
++    _, report = honest
++    world = epoch(after_wiring=lambda w: w.memory.offloaded.update(("filler", s) for s in range(64)))
++    cheat = demo.audit(world)
++    assert {a[0] for a in world.audits} == {"accepted"}
++    assert cheat["space"]["filler"].accounted < report["space"]["filler"].accounted
++    assert cheat["work"] == report["work"]
+ 
+ 
+ def test_fabricated_noised_outputs_are_caught_by_sampled_proofs():
+-- 
+2.43.0
+

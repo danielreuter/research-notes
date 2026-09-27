@@ -1,0 +1,125 @@
+{
+ "artifacts": {
+  "both": 5604,
+  "mismatched": [],
+  "not_pulled": [],
+  "only_here": {
+   "28573b868685e6c135372b6e418d1c4188997af9d4ad00a5b35c1d3be070fc43": "pending here",
+   "2d848d33872847463d405577d1767512d2ef810cc7522bd42c4e10ca8f775700": "pending here",
+   "3fce86db4c51b716b2ef1c23dc0f38deba5edcd2d207f0991ad8e7cc74646137": "uploaded during the run",
+   "536b4f8d5bd51e0cee5e453ba4e65cd5ca402339f3982fc6f0769cc32568f1ac": "pending here",
+   "5f6edcc478686f5feac37501bd394e1bfc9d9b903694cd2e144af368a02c818c": "pending here",
+   "753e9b0684b67a78ebf7583bc74084dc1d9ab31711a96a1c835d89fd6d9b09f8": "pending here",
+   "aa91d578ce8a289d7833fd6ef0ee82a32d23b94280571d46fbb9ee9191257fce": "uploaded during the run"
+  }
+ },
+ "attempts": {
+  "both": 1168,
+  "mismatched": [
+   "r20260922-053108-5a3c",
+   "r20260922-055220-765b",
+   "r20260922-060659-6f0f",
+   "r20260922-061849-6634",
+   "r20260922-083217-dfd4",
+   "r20260922-104614-aaa7",
+   "r20260922-175940-54ba",
+   "r20260922-175944-db8c",
+   "r20260922-180211-7e4a"
+  ],
+  "not_pulled": [],
+  "only_here": {
+   "r20260925-025346-73c9": "uploaded during the run"
+  }
+ },
+ "build": {
+  "attempts": 1168,
+  "errors": [],
+  "labels": 11519,
+  "manifests": 5604,
+  "remote": "s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com",
+  "seconds": 107.9
+ },
+ "fresh": "/private/tmp/parity-fresh-20260925T0315Z",
+ "labels": {
+  "both": 11519,
+  "mismatched": [],
+  "not_pulled": [],
+  "only_here": {}
+ },
+ "ok": false,
+ "remote": "s3://verity-dev @ https://1d4dfa0a7dc0639e19f5d0125f14a634.r2.cloudflarestorage.com",
+ "render": {
+  "bytes": [
+   204577,
+   204595
+  ],
+  "diff": [
+   "- | NVIDIA H100 SXM5 80GB | E4M3 sm90.wgmma.m64n8k32.e4m3 \u00b7 fp8-hopper-wgmma-draft/2026-09-22 | 1979 T | 1125 T (0.57) [9] | 4.4e7\u00d7 [10] | 2.1e7\u00d7 [11] | \u2014 | 4.6e7\u00d7 [12] |",
+   "- | NVIDIA GeForce RTX 4090 | E4M3 sm89.mma.m16n8k32.e4m3 \u00b7 fp8-ada-mma-draft/2026-09-22 | 330 T | 306 T (0.93) [13] | 1.3e7\u00d7 [14] | 4.7e6\u00d7 [15] | \u2014 | 9.1e6\u00d7 [16] |",
+   "- | NVIDIA GeForce RTX 5090 | E2M1 sm120.mma.m16n8k64.e2m1.nvf4 \u00b7 nvfp4-sm120-mma-draft/2026-09-22 | 1676 T | 1283 T (0.77) [17] | 1.8e7\u00d7 [18] | 4.5e6\u00d7 [19] | \u2014 | 1.8e7\u00d7 [20] |",
+   "- | NVIDIA H100 SXM5 80GB / fp8-hopper-wgmma-draft/2026-09-22 | A-GKR | 0.28 s | 0.0268 s (10%) | 0.0102 s (4%) | 0.154 s (55%) | 0.0648 s (23%) | 0 s (0%) | 0.0226 s (8%) | 0.00167 s (1%) |",
+   "- | NVIDIA GeForce RTX 4090 / fp8-ada-mma-draft/2026-09-22 | A-GKR | 0.49 s | 0.0377 s (8%) | 0.0135 s (3%) | 0.291 s (59%) | 0.1 s (20%) | 0 s (0%) | 0.0437 s (9%) | 0.00407 s (1%) |",
+   "- | NVIDIA GeForce RTX 5090 / nvfp4-sm120-mma-draft/2026-09-22 | A-GKR | 0.139 s | 0.0158 s (11%) | 0.00465 s (3%) | 0.0796 s (57%) | 0.0316 s (23%) | 0 s (0%) | 0.00671 s (5%) | 0.00047 s (0%) |",
+   "- [10] art:ad76c1062a287b985b6974f30bfb64e785173366da27d0f36370a2379affba3e \u2014 A-GKR NON_ZK_PROOF_DIAGNOSTIC on NVIDIA H100 80GB HBM3 (host Intel(R) Xeon(R) Platinum 8480+ x224); attempt r20260925-014451-54f2; t.total 0.2803 s; R_proved 4.489e+07 FLOP/s; verified by verify-po against the runner's step-0 coins (interactive transcript: not transferable evidence per D7; the Fiat\u2013Shamir variant is)",
+   "- [14] art:45c5be4aeef2c558bc7f8c230a2a6e6a6d0744b2a2253057a9525bf3452bdc42 \u2014 A-GKR NON_ZK_PROOF_DIAGNOSTIC on NVIDIA GeForce RTX 4090 (host AMD EPYC 7532 32-Core Processor x64); attempt r20260925-002240-8ed3; t.total 0.4901 s; R_proved 2.567e+07 FLOP/s; verified by verify-po against the runner's step-0 coins (interactive transcript: not transferable evidence per D7; the Fiat\u2013Shamir variant is)",
+   "- [18] art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c \u2014 A-GKR NON_ZK_PROOF_DIAGNOSTIC on NVIDIA GeForce RTX 5090 (host AMD Ryzen 9 9950X 16-Core Processor x32); attempt r20260925-015152-d098; t.total 0.1388 s; R_proved 9.066e+07 FLOP/s; verified by verify-po against the runner's step-0 coins (interactive transcript: not transferable evidence per D7; the Fiat\u2013Shamir variant is)",
+   "- Rejected (715 candidate results; artifact \u2192 first reason):",
+   "- - art:536b4f8d5bd51e0cee5e453ba4e65cd5ca402339f3982fc6f0769cc32568f1ac (B-Ligero / first-campaign-target/2026-09-21) \u2192 not independently verified: no label independently_verified=True|true or verified=accepted by a non-producer (producers: fill-dc)",
+   "- - art:3ae971dd97799d842007bae866a735cd1324b50aba8e0af408b36b278172213b (A-GKR / fp8-hopper-wgmma-draft/2026-09-22) t.total 0.3278 s \u2192 art:ad76c1062a287b985b6974f30bfb64e785173366da27d0f36370a2379affba3e",
+   "- - art:b0c27291de3ed71c08219d428c7bca4678c0506842c959fcccb26ed70c3b1d71 (A-GKR / fp8-hopper-wgmma-draft/2026-09-22) t.total 0.409 s \u2192 art:ad76c1062a287b985b6974f30bfb64e785173366da27d0f36370a2379affba3e",
+   "- - art:2e7baba76e89f789646de954bf63e21b6fa28df8065d45b34cf3836148997780 (A-GKR / fp8-hopper-wgmma-draft/2026-09-22) t.total 0.6875 s \u2192 art:ad76c1062a287b985b6974f30bfb64e785173366da27d0f36370a2379affba3e",
+   "- - art:ecd961433c94c2b49b06d722b0d349a73d8bb89fb1858ce1b167e18836576d61 (A-GKR / fp8-ada-mma-draft/2026-09-22) t.total 0.6656 s \u2192 art:45c5be4aeef2c558bc7f8c230a2a6e6a6d0744b2a2253057a9525bf3452bdc42",
+   "- - art:1b4fd4a17e9023258e502169b2ec156dc084393cddf284616a0642a3e645d6e2 (A-GKR / fp8-ada-mma-draft/2026-09-22) t.total 1.13 s \u2192 art:45c5be4aeef2c558bc7f8c230a2a6e6a6d0744b2a2253057a9525bf3452bdc42",
+   "- - art:53a64e8b78ae17df79feada8b52a950dbb2d8f86d7e58b5b7c16df2889a24fb6 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 0.1462 s \u2192 art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c",
+   "- - art:dfbc86c4434000c61d3d6b991148c8e8e8e914dbbd6ef27093d0d4f47fcd6fe7 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 0.1604 s \u2192 art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c",
+   "- - art:49757870c9720787072c8593cf8a448b59d0d35e34e0e1a2021a4020ab2c4f15 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 0.1905 s \u2192 art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c",
+   "- - art:5adf62eb53700c38b7338b83065d8d7985fa48543be4ee78cb38b073c3f08f31 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 0.2454 s \u2192 art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c",
+   "- - art:ad8f92b9e1badc22fda51b004e8f1458d0d4aca6d89e1630ace2df5a68e105f2 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 0.3138 s \u2192 art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c",
+   "- - art:fe57e68ba4c8f5a75eb9b83eb9cb1bde4a7ce8a5ac6b8ab364518758d45019a8 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 1.044 s \u2192 art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c",
+   "+ | NVIDIA H100 SXM5 80GB | E4M3 sm90.wgmma.m64n8k32.e4m3 \u00b7 fp8-hopper-wgmma-draft/2026-09-22 | 1979 T | 1125 T (0.57) [9] | 6.4e7\u00d7 [10] | 2.1e7\u00d7 [11] | \u2014 | 4.6e7\u00d7 [12] |",
+   "+ | NVIDIA GeForce RTX 4090 | E4M3 sm89.mma.m16n8k32.e4m3 \u00b7 fp8-ada-mma-draft/2026-09-22 | 330 T | 306 T (0.93) [13] | 1.7e7\u00d7 [14] | 4.7e6\u00d7 [15] | \u2014 | 9.1e6\u00d7 [16] |",
+   "+ | NVIDIA GeForce RTX 5090 | E2M1 sm120.mma.m16n8k64.e2m1.nvf4 \u00b7 nvfp4-sm120-mma-draft/2026-09-22 | 1676 T | 1283 T (0.77) [17] | 2.5e7\u00d7 [18] | 4.5e6\u00d7 [19] | \u2014 | 1.8e7\u00d7 [20] |",
+   "+ | NVIDIA H100 SXM5 80GB / fp8-hopper-wgmma-draft/2026-09-22 | A-GKR | 0.409 s | 0.0256 s (6%) | 0.0102 s (2%) | 0.169 s (41%) | 0.179 s (44%) | 0 s (0%) | 0.0248 s (6%) | 0.000723 s (0%) |",
+   "+ | NVIDIA GeForce RTX 4090 / fp8-ada-mma-draft/2026-09-22 | A-GKR | 0.666 s | 0.0379 s (6%) | 0.0136 s (2%) | 0.309 s (46%) | 0.249 s (37%) | 0 s (0%) | 0.0554 s (8%) | 0.000827 s (0%) |",
+   "+ | NVIDIA GeForce RTX 5090 / nvfp4-sm120-mma-draft/2026-09-22 | A-GKR | 0.19 s | 0.0195 s (10%) | 0.00484 s (3%) | 0.0954 s (50%) | 0.0599 s (31%) | 0 s (0%) | 0.0104 s (5%) | 0.000479 s (0%) |",
+   "+ [10] art:b0c27291de3ed71c08219d428c7bca4678c0506842c959fcccb26ed70c3b1d71 \u2014 A-GKR NON_ZK_PROOF_DIAGNOSTIC on NVIDIA H100 80GB HBM3 (host Intel(R) Xeon(R) Platinum 8480+ x224); attempt r20260925-013353-ea44; t.total 0.409 s; R_proved 3.077e+07 FLOP/s; verified by verify-po against the runner's step-0 coins (interactive transcript: not transferable evidence per D7; the Fiat\u2013Shamir variant is)",
+   "+ [14] art:ecd961433c94c2b49b06d722b0d349a73d8bb89fb1858ce1b167e18836576d61 \u2014 A-GKR NON_ZK_PROOF_DIAGNOSTIC on NVIDIA GeForce RTX 4090 (host AMD EPYC 7532 32-Core Processor x64); attempt r20260924-234932-5828; t.total 0.6656 s; R_proved 1.891e+07 FLOP/s; verified by verify-po against the runner's step-0 coins (interactive transcript: not transferable evidence per D7; the Fiat\u2013Shamir variant is)",
+   "+ [18] art:49757870c9720787072c8593cf8a448b59d0d35e34e0e1a2021a4020ab2c4f15 \u2014 A-GKR NON_ZK_PROOF_DIAGNOSTIC on NVIDIA GeForce RTX 5090 (host AMD Ryzen 9 9950X 16-Core Processor x32); attempt r20260924-235457-ff98; t.total 0.1905 s; R_proved 6.606e+07 FLOP/s; verified by verify-po against the runner's step-0 coins (interactive transcript: not transferable evidence per D7; the Fiat\u2013Shamir variant is)",
+   "+ Rejected (720 candidate results; artifact \u2192 first reason):",
+   "+ - art:3ae971dd97799d842007bae866a735cd1324b50aba8e0af408b36b278172213b (A-GKR / fp8-hopper-wgmma-draft/2026-09-22) \u2192 not independently verified: no label independently_verified=True|true or verified=accepted by a non-producer (producers: unknown)",
+   "+ - art:45c5be4aeef2c558bc7f8c230a2a6e6a6d0744b2a2253057a9525bf3452bdc42 (A-GKR / fp8-ada-mma-draft/2026-09-22) \u2192 not independently verified: no label independently_verified=True|true or verified=accepted by a non-producer (producers: unknown)",
+   "+ - art:53a64e8b78ae17df79feada8b52a950dbb2d8f86d7e58b5b7c16df2889a24fb6 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) \u2192 not independently verified: no label independently_verified=True|true or verified=accepted by a non-producer (producers: unknown)",
+   "+ - art:ad76c1062a287b985b6974f30bfb64e785173366da27d0f36370a2379affba3e (A-GKR / fp8-hopper-wgmma-draft/2026-09-22) \u2192 not independently verified: no label independently_verified=True|true or verified=accepted by a non-producer (producers: unknown)",
+   "+ - art:dfbc86c4434000c61d3d6b991148c8e8e8e914dbbd6ef27093d0d4f47fcd6fe7 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) \u2192 not independently verified: no label independently_verified=True|true or verified=accepted by a non-producer (producers: unknown)",
+   "+ - art:f277786dadaebbffc3fe01f02e0d49452a7dfc5fceed359cb746588b79eac63c (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) \u2192 not independently verified: no label independently_verified=True|true or verified=accepted by a non-producer (producers: unknown)",
+   "+ - art:2e7baba76e89f789646de954bf63e21b6fa28df8065d45b34cf3836148997780 (A-GKR / fp8-hopper-wgmma-draft/2026-09-22) t.total 0.6875 s \u2192 art:b0c27291de3ed71c08219d428c7bca4678c0506842c959fcccb26ed70c3b1d71",
+   "+ - art:1b4fd4a17e9023258e502169b2ec156dc084393cddf284616a0642a3e645d6e2 (A-GKR / fp8-ada-mma-draft/2026-09-22) t.total 1.13 s \u2192 art:ecd961433c94c2b49b06d722b0d349a73d8bb89fb1858ce1b167e18836576d61",
+   "+ - art:5adf62eb53700c38b7338b83065d8d7985fa48543be4ee78cb38b073c3f08f31 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 0.2454 s \u2192 art:49757870c9720787072c8593cf8a448b59d0d35e34e0e1a2021a4020ab2c4f15",
+   "+ - art:ad8f92b9e1badc22fda51b004e8f1458d0d4aca6d89e1630ace2df5a68e105f2 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 0.3138 s \u2192 art:49757870c9720787072c8593cf8a448b59d0d35e34e0e1a2021a4020ab2c4f15",
+   "+ - art:fe57e68ba4c8f5a75eb9b83eb9cb1bde4a7ce8a5ac6b8ab364518758d45019a8 (A-GKR / nvfp4-sm120-mma-draft/2026-09-22) t.total 1.044 s \u2192 art:49757870c9720787072c8593cf8a448b59d0d35e34e0e1a2021a4020ab2c4f15"
+  ],
+  "identical": false
+ },
+ "render_view_remote_records": 0,
+ "replicas": {
+  "blobs_etag_verified": 65840,
+  "blobs_remote_only_size_verified": 46354,
+  "confirmed": 5273,
+  "not_confirmed": {},
+  "rows": 5273
+ },
+ "seconds": 1557.4,
+ "store": "/Users/danielreuter/.research/store",
+ "unexplained": [
+  "attempts r20260922-053108-5a3c: content differs from the remote's",
+  "attempts r20260922-055220-765b: content differs from the remote's",
+  "attempts r20260922-060659-6f0f: content differs from the remote's",
+  "attempts r20260922-061849-6634: content differs from the remote's",
+  "attempts r20260922-083217-dfd4: content differs from the remote's",
+  "attempts r20260922-104614-aaa7: content differs from the remote's",
+  "attempts r20260922-175940-54ba: content differs from the remote's",
+  "attempts r20260922-175944-db8c: content differs from the remote's",
+  "attempts r20260922-180211-7e4a: content differs from the remote's",
+  "render differs (43 lines)"
+ ]
+}

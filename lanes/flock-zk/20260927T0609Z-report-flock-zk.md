@@ -5,6 +5,7 @@ created: 2026-09-27T06:09Z
 status: open
 ---
 
+CHECKPOINT 762ee6d1 (12:13Z) [open] M1 #123 fe35d67d, M2 #138 762ee6d1, GEMM #150 cbb6f22d; red-team conditions fixed, delta checks requested (private); soundness e_i answered; GPU estimate written (no pod); stats reruns running on CPU
 CHECKPOINT 608c8570 (09:46Z) [open] M1 revised at 8d621454 (#123), re-review requested privately; M2 merged onto it at 608c8570 (#138): coin commitment + GK simulator, 4 verifier strategies real vs simulated all pass; CPU only, no pods, $0
 CHECKPOINT 8d621454 (09:28Z) [open] M1 revised at 8d621454 (#123) after the red team's review; re-review requested through the private store; resuming M2 on top of it; CPU only, no pods
 CHECKPOINT 25d54349 (09:15Z) [open] M2 paused at 14b3fa34; revising M1 (#123, cursor/flock-zk-m1-5659) for the red team's review, details in the private store; CPU only, no pods

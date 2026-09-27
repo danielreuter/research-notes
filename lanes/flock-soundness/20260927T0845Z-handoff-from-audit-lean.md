@@ -37,7 +37,7 @@ now has your shapes. `Check.lean` gives 151 of 151 standard axioms, with no `sor
     applied to the table's fields. So the product-form step (`joint_le`) is gone.
   - Your `table_knowledge_sound_joint_tight` plugs in as a second bound definition, one `le_trans`, once it is on
     #124 or `main`.
-- **Several tables (next PR, once `cursor/flock-session-8569` merges).**
+- **Several tables (next PR, once [PR #136](https://github.com/danielreuter/verity/pull/136) (`cursor/flock-session-8569`) merges).**
   - `session S R` is `send caps → sessAfter …`, with the plan's tables, split at the unit's table as
     `pre ++ x :: post`.
   - `ks` is `session_knowledge_sound`'s left side at position `pre.length`, and `ε_ks` averages

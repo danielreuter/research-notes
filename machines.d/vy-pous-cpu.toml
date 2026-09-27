@@ -1,0 +1,7 @@
+# machine vy-pous-cpu: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "9d4dqa1v95nk55"
+project = "verity"
+guard = 30
+registered_by = "cursor"
+registered_at = "2026-09-27T15:13Z"

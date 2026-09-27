@@ -1,0 +1,7 @@
+# machine vy-coord-lean3: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "1kc2emano8ye5r"
+project = "verity"
+guard = true
+registered_by = "f76f5394c78b"
+registered_at = "2026-09-27T05:55Z"

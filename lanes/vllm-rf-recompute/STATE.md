@@ -5,7 +5,8 @@ Brief: `$STORE/internal/lane-briefs/vllm-recompute.md`. Findings from `internal/
 
 ## Branches
 - #74 FP8: `cursor/vllm-rf-recompute-fp8-cbba` @ `df13126f`, PR #106 (draft). Pushed.
-- #57 Gemma: `cursor/vllm-rf-recompute-gemma-cbba` @ `7aeffc5d`, PR #109 (draft). Pushed at 03:45Z, after the token came back.
+- #57 Gemma: `cursor/vllm-rf-recompute-gemma-cbba` @ `39e3b24c`, PR #109 (draft). `51692785` and `39e3b24c` fix two test spellings
+  (the construction is unchanged since `7aeffc5d`).
 
 ## Done (CPU, lane VM; scripts in `$HOME/ev/` on the VM)
 - FP8: `ScaledMmFp8BlockSharedScale_v1` + `SHARED_SCALE` (opt-in). Checks:
@@ -23,15 +24,20 @@ Brief: `$STORE/internal/lane-briefs/vllm-recompute.md`. Findings from `internal/
     (`evidence/cross_r57_recorded_vs_once.jsonl`); committed `+ 1` output words 104,509,440 -> 1,935,360.
 
 ## Running
-- Nothing.
+- Pod `vyv-rf-recompute-cpu` (RunPod `qlirspls2cbwyr`, cpu3g 16 vCPU, since 03:50Z, about $0.64/h). Gate (b):
+  - base `r20260927-035144-299a`: done;
+  - FP8 `r20260927-035231-167a`: done, jdiff rc 0;
+  - Gemma `7aeffc5d` `r20260927-035257-150f`: superseded;
+  - `r20260927-043810-c5cf`: stopped (TERM to its process group);
+  - Gemma `39e3b24c` `r20260927-044046-03f9`: queued, check-back 05:10Z.
+- FP8 merge-ready handoff sent: `internal/lanes/vllm-coordinator/20260927T0445Z-handoff-from-vllm-rf-recompute-fp8.md`.
 
 ## Next
-- On approval (estimate `internal/lanes/vllm-coordinator/20260927T0335Z-handoff-from-vllm-rf-recompute.md`): CPU pod `vyv-rf-recompute-cpu`,
-  gate (b) base `3040ac1f` / FP8 `df13126f` / Gemma `7aeffc5d` (the Gemma torch tests run there first).
+- Gemma gate (b) jdiff, fetch, `data preserved`, terminate the pod, Gemma handoff, READY.md, FINAL.
 - Merge-ready handoffs per PR, after gate (b).
 
 ## Open questions
-- Whether the Gemma Build A/B on an L40S (one #57 request shape, selector off = recorded digest) is wanted.
+- None. The L40S Build A/B is deferred to the re-baseline (coordinator, 03:49Z).
 
 ## Found, not fixed
 - A workload Program composes the row's request Programs, and each of them issues its own weight + 1 per norm even under `once`: 8 copies per

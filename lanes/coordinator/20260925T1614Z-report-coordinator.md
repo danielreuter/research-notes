@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT d69ce770 (18:12Z) [open] TRAIN H MERGED 18:05Z + pushed: main d69ce770 = #130 (check r20260927-163410-78cd). TRAIN I = 3d0441d5 (d69ce770 + #161@5412c9cb #164@d7ab2767 #165@eb729725 [conflict resolved: keep both import/print blocks] #167@62a342b4 [moved HmRow.stratifiedLaw, 19 lines, for #157] #169@0fcbcd21 #174@81b3305e); check r20260927-180744-41e2 running. Train-I tree audit (/tmp/wtlean17, /tmp/run-lean-audit19.sh) BLOCKED: NO-STOCK cpu3m/cpu5m 16/32 vCPU secure+community -> retry next sweep; no merge before it passes. Spend $292.25/$320 at $2.20/h. circuit-checks cpu6 pod flagged IDLE by steward 17:45Z (lane's pod).
 CHECKPOINT e40fa730 (17:44Z) [open] TRAIN I = #161, #164, #165, #167, #169, #174@81b3305e (root 17:43Z) after H.
 CHECKPOINT e40fa730 (17:45Z) [open] HOLD (root 17:41Z): #127/#163/#170/#171 OUT of every train (A2 constant beaten by birthday attack: P=1 at E[cost] 2^256.33 vs A2 cap 0.886; handoff flock-soundness/20260927T1735Z-...-a2.md). On new heads: delta re-audit + red-team-flock-3 statement review (A2 statement changes). #159's ecr comment restated the constant -> PR #174 (81b3305e, comment only) queued for train I.
 CHECKPOINT e40fa730 (17:36Z) [open] ROOT SPEND RULE 17:33Z (interim, until Daniel's day budget): per-guard caps are the limit; research ledger line $320 through 20:00Z (~$29 headroom from $291.18); anything crossing it -> root first; terminate idle pods promptly. spend-ledger.py report line now reads $320. Train I = #161, #164, #165, #167, #169 after H.

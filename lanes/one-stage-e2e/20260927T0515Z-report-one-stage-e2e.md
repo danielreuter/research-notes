@@ -5,6 +5,7 @@ created: 2026-09-27T05:15Z
 status: open
 ---
 
+CHECKPOINT 3040ac1f (05:28Z) [open] plan cross-checked by 3 read-only surveys (store internal/one-stage-audit-serving-inventory.md, flock-circuit-m0-e2e-status.md, one-stage-e2e-flock-verifier-readout.md); no change to headline; awaiting coordinator go; no pods, $0
 CHECKPOINT 3040ac1f (05:27Z) [open] STEP 1 DONE: plan at store internal/one-stage-e2e-plan.md. Headline: all stages have code except 3 bindings + profile; critical path = Lean verifier parsing M0 eb90718f format; smallest real run = RoPE d64 over 1,024 heads captured from served #101 (art:16825154, M0 staging passed on CPU in 26 s); ~$1-2 on one 16 vCPU pod; awaiting coordinator go before building; no pods, $0 spent
 CHECKPOINT 3040ac1f (05:19Z) [open] surveying: #111 partition object + IntegrityProfile read; 3 read-only explorers on vLLM commit/registration, M0 #83 statement, Lean verify/draw #113; plan doc next; no pods, $0
 CHECKPOINT 3040ac1f (05:15Z) [open] opened: integration lane for one-stage audit e2e; step 1 (CPU, $0) inventory+gap list -> store internal/one-stage-e2e-plan.md; agent bc-c520c11b-172b-5758-a4c3-07b2e7956014; no pods

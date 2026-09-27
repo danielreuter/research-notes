@@ -1,0 +1,1 @@
+01:36Z: spend $732.36 @ $6.76/h (normtap h2+g5 from 01:26Z, moetap g2); worst case all to 04:15Z = $750.6 < 760. normtap MS: H100 off by ~02:45Z or it overruns $10 (handoff 0135Z); moetap $5.48/8, cap ~02:44Z (handoff 0135Z); cross-call-check priority: unit_rule gap first (0135Z-priority).

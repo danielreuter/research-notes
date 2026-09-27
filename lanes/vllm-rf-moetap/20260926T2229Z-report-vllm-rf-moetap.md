@@ -2,9 +2,10 @@
 lane: vllm-rf-moetap
 kind: report
 created: 2026-09-26T22:29Z
-status: open
+status: final
 ---
 
+CHECKPOINT e213a324 (02:26Z) [final] merge done per 20260927T0200Z-handoff-from-vllm-coordinator.md: e213a324 pushed (main fa662029 merged). Guarded max as #95 left it; #101 default and --guarded-max manifests byte-identical to main (stored Build, 368283ad; 90f81868 needs the newer GPU Build). VM tests vs main: 0 new failures. Handoff vllm-coordinator/20260927T0225Z-handoff-from-vllm-rf-moetap.md. No pods, $0. Branch cursor/vllm-rf-moetap-82dc (not lane/*)
 CHECKPOINT e213a324 (02:20Z) [open] reopened for handoff 0200Z (merge main into #96, CPU only): merge e213a324 (parents c574c4a5 + fa662029) resolves config/manifest/row_stages/verify/README keeping guarded_max its own param. #101 default manifest + --guarded-max byte-identical main vs merged (stored Build 079ee0a8: 368283ad, strict word-check ok). Lints/tests running on VM (head, then main for jdiff); not pushed yet
 CHECKPOINT c574c4a5 (01:52Z) [final] handoffs answered: 20260926T2231Z-handoff-from-vllm-coordinator.md (estimate approved: pods created under the cap), 20260927T0015Z-handoff-from-vllm-coordinator.md (approval conditions 1-6: all met, see vllm-coordinator/20260927T0136Z-handoff-from-vllm-rf-moetap.md), 20260927T0135Z-handoff-from-vllm-coordinator.md (spend: g2 terminated 01:49Z, ~$6.06). art:dc5084b6291520c4 art:3703d73903f16622 art:a3dac3325e143687 art:f4d676a80d0b4223. Branch is cursor/vllm-rf-moetap-82dc (cloud fallback, pushed @ c574c4a5), not lane/*
 CHECKPOINT c574c4a5 (01:51Z) [final] PR #96 cursor/vllm-rf-moetap-82dc @ c574c4a5 merge-ready (handoff vllm-coordinator/20260927T0136Z). Records: router-tap r20260927-011454-7498 ok; TP2 vocab r20260927-011644-9037 ok; partition r20260927-005720-ee97 OK; gate(b) jdiff rc 0 (base r20260927-005731-9c35, head r20260927-011128-606f), recheck r20260927-013459-f5f0 rc 0. Handoffs read: 2231Z, 0015Z, 0135Z. Pods: g1 terminated 23:25Z, g2 01:49Z. Spend ~$6.06 of $8

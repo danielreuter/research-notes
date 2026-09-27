@@ -1,0 +1,779 @@
+{
+ "fold_attention": {},
+ "match_summary.json": {
+  "pass": true
+ },
+ "global_match.json": {
+  "verdict": "PASS",
+  "checks": [
+   {
+    "id": "G1",
+    "what": "requests_declared: manifest == global Program == record header; none omitted/duplicated; prompts as declared; record engine conditions inside the Program's declared applicability",
+    "status": "PASS",
+    "problems": [],
+    "n_problems": 0,
+    "workload_sha256": "4fb2088c41bd69658e2059fc92b93ae671ec61a18cb887760478aafcbe92051e",
+    "header_workload_sha256": "24799f08a81bdc100434a5d22cd2b30390f9b782fde0d95a3345689978a4af2d",
+    "workload_doc_sha256": "24799f08a81bdc100434a5d22cd2b30390f9b782fde0d95a3345689978a4af2d",
+    "sampling": {
+     "manifest": {
+      "variant": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": 0,
+      "sources": {
+       "temperature": [
+        "label",
+        "sweep.sampling_params",
+        "variants_table"
+       ],
+       "top_p": [
+        "sweep.sampling_params",
+        "variants_table"
+       ],
+       "top_k": [
+        "sweep.sampling_params",
+        "variants_table"
+       ]
+      }
+     },
+     "header": {
+      "variant": "greedy",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": 0
+     }
+    },
+    "n_declared": 8,
+    "n_record": 8,
+    "record_ids_unknown": {}
+   },
+   {
+    "id": "G2",
+    "what": "requests_observed: every declared request has rows + output events + instances; 0 unattributed; no undeclared request",
+    "status": "PASS",
+    "problems": [],
+    "n_problems": 0,
+    "n_instances": 6664748,
+    "attributed": 6664748,
+    "unattributed": 0,
+    "engine_steps": 128,
+    "weight_only_shared": 0,
+    "weight_only_specs": {}
+   },
+   {
+    "id": "G3",
+    "what": "subcircuits_x09: each request's projection canonical-equal to its component over the executed steps (eos-truncated labelled)",
+    "status": "PASS",
+    "problems": [],
+    "n_problems": 0
+   },
+   {
+    "id": "G4",
+    "what": "identity_map: (request, local step, local index) <-> global node is a bijection over the attributed fold",
+    "status": "PASS",
+    "problems": [],
+    "n_problems": 0,
+    "mapped": 6664748,
+    "attributed": 6664748,
+    "distinct": 6664748,
+    "weight_only_shared": 0,
+    "weight_only_local_identities": 0
+   },
+   {
+    "id": "G5",
+    "what": "shared_state: one weights input for all requests (no overlapping fields); node operands same-request, producer step <= consumer step",
+    "status": "PASS",
+    "problems": [],
+    "n_problems": 0,
+    "weights_param": 8,
+    "weights_input_nodes": {
+     "n": 1,
+     "first": 8,
+     "last": 8
+    },
+    "weight_fields": 291,
+    "cross_step_producer_classes": {
+     "Attention_v4": 13797000,
+     "Embedding_v1": 468
+    }
+   },
+   {
+    "id": "G6",
+    "what": "chronology: declared == realized == observed arrival; contiguous rows; output events = TokenSelects, k-th = k-th token, feed the next row; bounded",
+    "status": "PASS",
+    "problems": [],
+    "n_problems": 0,
+    "stop_rule": {
+     "eos_token_ids": [
+      151643,
+      151645
+     ],
+     "source": {
+      "generation_config.json": [
+       151643,
+       151645
+      ],
+      "config.json": [
+       151645
+      ]
+     },
+     "rule": "an early stop must end in a declared EOS id; else FAIL (F-pm-24)",
+     "eos_lag_rows": 1,
+     "eos_lag_source": "Program lag 1 (TargetProfile.effective_async_scheduling(): not declared in the target; the pinned resolver's value for an admitted profile (vllm/config/vllm.py:1273-1322 (VllmConfig.__post_init__), vLLM d9105ea80)); record attests async_scheduling=True (RunHeader.profile.engine_kwargs, capture/versions.json engine_kwargs)",
+     "eos_lag_rows_declared": 1,
+     "lag_rule": "R17-1: after an EOS stop exactly LAG (the Program's declared static) more row(s) run, each fed the preceding sample, its sample fed nowhere and absent from generated_token_ids (executed_prefix_len = a_r + LAG, served_output_len = a_r); the record must attest the same async_scheduling; undeclared -> refuse by name",
+     "evidence": "the recorder's SampleEnd token, cross-checked against the driver's tokens.json (output association); the fold TokenSelect VALUE is Commit territory (C3 openings of the sampled ids), not Match's"
+    },
+    "lag": {
+     "declared": 1,
+     "declared_source": "TargetProfile.effective_async_scheduling(): not declared in the target; the pinned resolver's value for an admitted profile (vllm/config/vllm.py:1273-1322 (VllmConfig.__post_init__), vLLM d9105ea80)",
+     "record_attests": 1,
+     "record_source": "async_scheduling=True (RunHeader.profile.engine_kwargs, capture/versions.json engine_kwargs)",
+     "agree": true,
+     "exercised": false,
+     "eos_stop_requests": [],
+     "lag_rows_observed": {},
+     "variable_lag": false,
+     "lengths": {
+      "served_output_len": "a_r = output events up to and including the first declared EOS id (eos_token_ids), else cap",
+      "executed_prefix_len": "a_r + 1 after an EOS stop before the cap (LAG step(s): active internal computation, sampled token NOT served); a_r on a length stop (a_r == cap; an EOS sampled at the cap is a length stop, no post-EOS row)",
+      "cap_exhaustion": "a_r == cap (length stop): specified separately from the EOS stop; never widened by the lag",
+      "eos_set": "stop_rule.eos_token_ids, NOT widened by the post-EOS row's discarded sample",
+      "inactivity": "positions >= a_r + 1 of an EOS-stopped request are programmed-but-unexecuted (bot in the lifted baseline)",
+      "capacity_covers_lag": "cap events per request; a_r <= cap - 1 on an EOS stop, so a_r + LAG <= cap for LAG in {0, 1}",
+      "rule": "R17-1 / DP-pad-02 (b); one definition for Build (this Program), GM-01 G6 and the finalizer"
+     },
+     "tokens_json_lag": 1
+    },
+    "arrivals_by_idle_rule": 0,
+    "step_links": 468,
+    "tokens_json": true,
+    "achieved_concurrency": {
+     "programmed_max": 8,
+     "observed_max": 8,
+     "declared_requests": 8,
+     "observed_steps_at_max": 2,
+     "observed_histogram": {
+      "1": 5,
+      "2": 36,
+      "3": 20,
+      "4": 24,
+      "5": 26,
+      "6": 8,
+      "7": 7,
+      "8": 2
+     },
+     "programmed_histogram": {
+      "1": 5,
+      "2": 36,
+      "3": 20,
+      "4": 24,
+      "5": 26,
+      "6": 8,
+      "7": 7,
+      "8": 2
+     },
+     "engine_steps_observed": 128,
+     "engine_steps_programmed": 128,
+     "steps_short_of_programmed": 0,
+     "verified_eos_steps": []
+    },
+    "generated_lengths": {
+     "r0": 67,
+     "r1": 87,
+     "r2": 128,
+     "r3": 17,
+     "r4": 9,
+     "r5": 43,
+     "r6": 2,
+     "r7": 123
+    },
+    "sampler_geometry": {
+     "relation": "S_t = SplitsFor_v1(|live(t)|, num_SMs): registry/topp_split.splits_for (vLLM _apply_topp_split doubling loop), |live(t)| = requests with a logits row at engine step t (declared chronology and verified EOS), num_SMs declared",
+     "top_p_token_selects": 0,
+     "checked_steps": 0,
+     "live_source": "scheduled workload state (G6: declared arrivals, served lengths = cap or verified EOS, declared lag rows, prefill chunks) -- the record's logits rows and SampleEnd batch must equal it",
+     "note": "no top-p TokenSelect in the fold: nothing to check",
+     "transitions": [
+      {
+       "step": 0,
+       "live_from": 0,
+       "live_to": 8,
+       "arrivals": [
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+       ],
+       "departures": []
+      },
+      {
+       "step": 2,
+       "live_from": 8,
+       "live_to": 7,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r6",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 2,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 9,
+       "live_from": 7,
+       "live_to": 6,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r4",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 9,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 17,
+       "live_from": 6,
+       "live_to": 5,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r3",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 17,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 43,
+       "live_from": 5,
+       "live_to": 4,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r5",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 43,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 67,
+       "live_from": 4,
+       "live_to": 3,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r0",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 67,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 87,
+       "live_from": 3,
+       "live_to": 2,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r1",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 87,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 123,
+       "live_from": 2,
+       "live_to": 1,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r7",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 123,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 128,
+       "live_from": 1,
+       "live_to": 0,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r2",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 128,
+         "prefill_chunks": 1
+        }
+       ]
+      }
+     ]
+    },
+    "scheduled_live": {
+     "max_live": 8,
+     "transitions": [
+      {
+       "step": 0,
+       "live_from": 0,
+       "live_to": 8,
+       "arrivals": [
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7"
+       ],
+       "departures": []
+      },
+      {
+       "step": 2,
+       "live_from": 8,
+       "live_to": 7,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r6",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 2,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 9,
+       "live_from": 7,
+       "live_to": 6,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r4",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 9,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 17,
+       "live_from": 6,
+       "live_to": 5,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r3",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 17,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 43,
+       "live_from": 5,
+       "live_to": 4,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r5",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 43,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 67,
+       "live_from": 4,
+       "live_to": 3,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r0",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 67,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 87,
+       "live_from": 3,
+       "live_to": 2,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r1",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 87,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 123,
+       "live_from": 2,
+       "live_to": 1,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r7",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 123,
+         "prefill_chunks": 1
+        }
+       ]
+      },
+      {
+       "step": 128,
+       "live_from": 1,
+       "live_to": 0,
+       "arrivals": [],
+       "departures": [
+        {
+         "request": "r2",
+         "finish": "length",
+         "lag_rows": 0,
+         "answer_events": 128,
+         "prefill_chunks": 1
+        }
+       ]
+      }
+     ],
+     "unestablished_steps": 0,
+     "requests": {
+      "r0": {
+       "established": true,
+       "first_step": 0,
+       "last_step": 66,
+       "prefill_chunks": 1,
+       "answer_events": 67,
+       "lag_rows": 0,
+       "finish": "length"
+      },
+      "r1": {
+       "established": true,
+       "first_step": 0,
+       "last_step": 86,
+       "prefill_chunks": 1,
+       "answer_events": 87,
+       "lag_rows": 0,
+       "finish": "length"
+      },
+      "r2": {
+       "established": true,
+       "first_step": 0,
+       "last_step": 127,
+       "prefill_chunks": 1,
+       "answer_events": 128,
+       "lag_rows": 0,
+       "finish": "length"
+      },
+      "r3": {
+       "established": true,
+       "first_step": 0,
+       "last_step": 16,
+       "prefill_chunks": 1,
+       "answer_events": 17,
+       "lag_rows": 0,
+       "finish": "length"
+      },
+      "r4": {
+       "established": true,
+       "first_step": 0,
+       "last_step": 8,
+       "prefill_chunks": 1,
+       "answer_events": 9,
+       "lag_rows": 0,
+       "finish": "length"
+      },
+      "r5": {
+       "established": true,
+       "first_step": 0,
+       "last_step": 42,
+       "prefill_chunks": 1,
+       "answer_events": 43,
+       "lag_rows": 0,
+       "finish": "length"
+      },
+      "r6": {
+       "established": true,
+       "first_step": 0,
+       "last_step": 1,
+       "prefill_chunks": 1,
+       "answer_events": 2,
+       "lag_rows": 0,
+       "finish": "length"
+      },
+      "r7": {
+       "established": true,
+       "first_step": 0,
+       "last_step": 122,
+       "prefill_chunks": 1,
+       "answer_events": 123,
+       "lag_rows": 0,
+       "finish": "length"
+      }
+     }
+    },
+    "lengths_by_request": {
+     "r0": {
+      "served_output_len": 67,
+      "executed_prefix_len": 67,
+      "cap": 67,
+      "cap_exhausted": true
+     },
+     "r1": {
+      "served_output_len": 87,
+      "executed_prefix_len": 87,
+      "cap": 87,
+      "cap_exhausted": true
+     },
+     "r2": {
+      "served_output_len": 128,
+      "executed_prefix_len": 128,
+      "cap": 128,
+      "cap_exhausted": true
+     },
+     "r3": {
+      "served_output_len": 17,
+      "executed_prefix_len": 17,
+      "cap": 17,
+      "cap_exhausted": true
+     },
+     "r4": {
+      "served_output_len": 9,
+      "executed_prefix_len": 9,
+      "cap": 9,
+      "cap_exhausted": true
+     },
+     "r5": {
+      "served_output_len": 43,
+      "executed_prefix_len": 43,
+      "cap": 43,
+      "cap_exhausted": true
+     },
+     "r6": {
+      "served_output_len": 2,
+      "executed_prefix_len": 2,
+      "cap": 2,
+      "cap_exhausted": true
+     },
+     "r7": {
+      "served_output_len": 123,
+      "executed_prefix_len": 123,
+      "cap": 123,
+      "cap_exhausted": true
+     }
+    }
+   },
+   {
+    "id": "G7",
+    "what": "vu_population: global query population (components over executed steps) == attributed fold; boundary probes resolve",
+    "status": "PASS",
+    "problems": [],
+    "n_problems": 0,
+    "population_query": 6664748,
+    "population_fold": 6664748,
+    "unexercised_declared": 0,
+    "boundary_probes": 628698,
+    "boundary_probe_failures": 0
+   },
+   {
+    "id": "G8",
+    "what": "within_step_order: emission order inside an engine step recorded as batch layout (canonical addresses are structural, DECISION M-0021); dependency order is G3's (a consumer before its producer is DAG-unequal)",
+    "status": "PASS",
+    "problems": [],
+    "n_problems": 0,
+    "segmentation": {
+     "rule": "request-local steps = the request's instances segmented at its TokenSelects (compare.Prog._segment); cross-checked against the engine step the fold rows record for every instance",
+     "disagreements": []
+    },
+    "dependency_order_violations": 0,
+    "shared_steps": 123,
+    "batch_layout": [
+     {
+      "engine_step": 0,
+      "batch_rows_order": [
+       "r4",
+       "r7",
+       "r5",
+       "r2",
+       "r6",
+       "r1",
+       "r0",
+       "r3"
+      ],
+      "emission_first_seen": [
+       "r4",
+       "r7",
+       "r5",
+       "r2",
+       "r6",
+       "r1",
+       "r0",
+       "r3"
+      ],
+      "phase": "uniform"
+     },
+     {
+      "engine_step": 1,
+      "batch_rows_order": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r6",
+       "r7"
+      ],
+      "emission_first_seen": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r6",
+       "r7"
+      ],
+      "phase": "uniform"
+     },
+     {
+      "engine_step": 2,
+      "batch_rows_order": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r7"
+      ],
+      "emission_first_seen": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r7"
+      ],
+      "phase": "uniform"
+     },
+     {
+      "engine_step": 3,
+      "batch_rows_order": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r7"
+      ],
+      "emission_first_seen": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r7"
+      ],
+      "phase": "uniform"
+     },
+     {
+      "engine_step": 4,
+      "batch_rows_order": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r7"
+      ],
+      "emission_first_seen": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r7"
+      ],
+      "phase": "uniform"
+     },
+     {
+      "engine_step": 5,
+      "batch_rows_order": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r7"
+      ],
+      "emission_first_seen": [
+       "r0",
+       "r1",
+       "r2",
+       "r3",
+       "r4",
+       "r5",
+       "r7"
+      ],
+      "phase": "uniform"
+     },
+     {
+      "...": 117
+     }
+    ],
+    "steps_with_emission_out_of_canonical_order": 0,
+    "order_source": "request-local canonical order: the component Program; cross-request row interleaving and (under dag) the emission order: runtime batch layout / fold encoding (StepStart.rows), recorded not prescribed",
+    "permutations": []
+   }
+  ]
+ },
+ "stages_tail": [
+  "precheck-target PASS 2026-09-27T11:05:46Z TARGET-FAMILY-OK row=h100(9.0) declared=9.0 device=9.0 built=?",
+  "match PASS 2026-09-27T11:57:01Z rc=0/0/0 wall=3073s verdict PASS global PASS  dag concurrency 8 tokens_equal True fold True"
+ ]
+}

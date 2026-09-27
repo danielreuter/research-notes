@@ -1,0 +1,155 @@
+{
+ "schema": "verity-sweep/admission/v1",
+ "advisory": true,
+ "t_utc": "2026-09-27T11:05:46Z",
+ "model": "qwen3-4b",
+ "hf_model": "Qwen/Qwen3-4B-Instruct-2507",
+ "host_limit_bytes": 250999996416,
+ "config": {
+  "requests": 8,
+  "prompt_tokens": 3230,
+  "decode_rows": 476,
+  "steps": 128,
+  "max_context": 1152,
+  "pairs": 3,
+  "replay_workers": 32,
+  "prefill_rows": 3238,
+  "snapshot_steps": "0,1",
+  "snapshot_max_bytes": null,
+  "largest_vu_in_parent": false,
+  "n_instances_est": 1197779,
+  "largest_tensor_bytes_est": 4432000000,
+  "fork_gc_freeze": true,
+  "retain": "host",
+  "bounded_staging": false,
+  "retain_exclude": []
+ },
+ "notes": [
+  "no calibration for model 'qwen3-4b': dense default coefficients (phi3's, the largest measured dense set) -- every term is an estimate"
+ ],
+ "stages": {
+  "match": {
+   "reserved_bytes": 88364638052,
+   "reserved_mib": 84271,
+   "peak_point": "capture",
+   "verdict": "ADMIT",
+   "decision": {
+    "admit": true,
+    "verdict": "ADMIT",
+    "spare_bytes": 162635358364,
+    "live_at_peak_mib": {
+     "match.capture.hidden_values": 48011,
+     "match.capture.token_values": 14561,
+     "match.capture.instance_records": 14050,
+     "process.python_base": 3000
+    },
+    "margin_mib": 4648
+   },
+   "lower_bound_terms": [],
+   "live_at_peak_mib": {
+    "match.capture.hidden_values": 48011,
+    "match.capture.token_values": 14561,
+    "match.capture.instance_records": 14050,
+    "process.python_base": 3000
+   },
+   "margin_mib": {
+    "margin.pod_cotenants": 2600,
+    "margin.kernel_unreclaimable": 2048
+   },
+   "device_bytes": 0,
+   "terms": [
+    {
+     "name": "process.python_base",
+     "bytes": 3145728000,
+     "mib": 3000,
+     "live": [
+      "capture",
+      "global_match"
+     ],
+     "basis": "a CPU-side Verity process (build derive / match fold / capture observer) before its own objects: interpreter + torch + program imports",
+     "kind": "base"
+    },
+    {
+     "name": "match.capture.instance_records",
+     "bytes": 14732681700,
+     "mib": 14050,
+     "live": [
+      "capture",
+      "capture"
+     ],
+     "basis": "12.3 KB x 1197779 instances",
+     "kind": "host"
+    },
+    {
+     "name": "match.capture.token_values",
+     "bytes": 15268720000,
+     "mib": 14561,
+     "live": [
+      "capture",
+      "capture"
+     ],
+     "basis": "1.03 x token_bytes 14137 MiB",
+     "kind": "host"
+    },
+    {
+     "name": "match.capture.hidden_values",
+     "bytes": 50343727104,
+     "mib": 48011,
+     "live": [
+      "capture",
+      "capture"
+     ],
+     "basis": "0.67 x hidden_bytes 71658 MiB",
+     "kind": "host"
+    },
+    {
+     "name": "match.fold.instance_state",
+     "bytes": 31142254000,
+     "mib": 29699,
+     "live": [
+      "fold",
+      "fold"
+     ],
+     "basis": "26000 B x 1197779 instances",
+     "kind": "host"
+    },
+    {
+     "name": "match.fold.attention_operands",
+     "bytes": 16043212800,
+     "mib": 15300,
+     "live": [
+      "fold",
+      "fold"
+     ],
+     "basis": "3.4 KB x steps 128 x ctx 1152 x layers 32",
+     "kind": "host"
+    },
+    {
+     "name": "margin.pod_cotenants",
+     "bytes": 2726297600,
+     "mib": 2600,
+     "live": [
+      "",
+      ""
+     ],
+     "basis": "row_pod.sh, hot_commit client, the resource sampler, sshd: pod-resident processes outside the row's stage process",
+     "kind": "margin"
+    },
+    {
+     "name": "margin.kernel_unreclaimable",
+     "bytes": 2147483648,
+     "mib": 2048,
+     "live": [
+      "",
+      ""
+     ],
+     "basis": "kernel memory charged to the cgroup that the OOM path could not reclaim (slab, page tables of a 250 GB heap, dirty pages)",
+     "kind": "margin"
+    }
+   ]
+  }
+ },
+ "would_refuse": [],
+ "lower_bound": [],
+ "line": "ADMISSION advisory qwen3-4b limit 239372 MiB: match=ADMIT 84271MiB [no calibration for model 'qwen3-4b': dense default coefficients (phi3's, the largest measured dense set) -- every term is an estimate]"
+}

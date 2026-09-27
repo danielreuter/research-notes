@@ -1,0 +1,302 @@
+{
+ "schema": "verity-gen/gates/v1",
+ "utc": "2026-09-27T11:42:19Z",
+ "run_dir": "/workspace/vo/sweep-m73/qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager/match",
+ "verdict": "INCOMPLETE",
+ "order": [
+  "G1",
+  "G2",
+  "G3",
+  "G4",
+  "G5",
+  "G6",
+  "G7",
+  "G8",
+  "R1"
+ ],
+ "frozen": [
+  "G1",
+  "G2",
+  "G3",
+  "G4",
+  "G5",
+  "G6",
+  "G7"
+ ],
+ "gates": {
+  "G1": {
+   "id": "G1",
+   "name": "observation fidelity",
+   "status": "skipped",
+   "evidence": [
+    "nonint/noninterference.json"
+   ],
+   "detail": {},
+   "reason": "nonint/noninterference.json missing; stage nonint_compare skipped: --skip"
+  },
+  "G2": {
+   "id": "G2",
+   "name": "semantic closure",
+   "status": "skipped",
+   "evidence": [
+    "resolution.json",
+    "fold_summary.json"
+   ],
+   "detail": {
+    "unsupported": 0,
+    "fold_unresolved": 0
+   },
+   "reason": "no ambiguity count: the resolver report has no ambiguity field and census_reconcile.json is missing"
+  },
+  "G3": {
+   "id": "G3",
+   "name": "root closure",
+   "status": "skipped",
+   "evidence": [
+    "root_policy.json"
+   ],
+   "detail": {},
+   "reason": "root_policy.json missing; stage root_policy skipped: --skip"
+  },
+  "G4": {
+   "id": "G4",
+   "name": "primitive exactness",
+   "status": "skipped",
+   "evidence": [
+    "replay_a.json"
+   ],
+   "detail": {},
+   "reason": "replay_a.json missing; stage replay_a skipped: --skip"
+  },
+  "G5": {
+   "id": "G5",
+   "name": "composition exactness",
+   "status": "skipped",
+   "evidence": [
+    "wiring.json"
+   ],
+   "detail": {},
+   "reason": "wiring.json missing"
+  },
+  "G6": {
+   "id": "G6",
+   "name": "canonicality + regression",
+   "status": "skipped",
+   "evidence": [
+    "fold_summary_2.json"
+   ],
+   "detail": {},
+   "reason": "fold_summary_2.json missing; stage fold_2 skipped: --skip"
+  },
+  "G7": {
+   "id": "G7",
+   "name": "holdout generalization",
+   "status": "skipped",
+   "evidence": [
+    "holdouts.json"
+   ],
+   "detail": {},
+   "reason": "holdouts.json missing (the orchestrator has not run the holdout workloads)"
+  },
+  "G8": {
+   "id": "G8",
+   "name": "VU partition",
+   "status": "skipped",
+   "evidence": [
+    "query_use.json"
+   ],
+   "detail": {},
+   "reason": "no query-use document"
+  },
+  "R1": {
+   "id": "R1",
+   "name": "reference integrity (fail-closed)",
+   "status": "pass",
+   "evidence": [
+    "fold_summary.json",
+    "resolution.json"
+   ],
+   "detail": {
+    "rule": {
+     "id": "R1",
+     "version": "2026-09-18",
+     "statement": "fold/construction errors > 0 => the Program is ineligible as an accepted reference; missing or inconsistent error evidence => unverified (never zero)",
+     "evidence": [
+      "fold_summary.json: errors, unresolved, unsupported (+ error_classes / per_step consistency)",
+      "fold_summary_2.json (when present): the same",
+      "resolution.json (when present): totals.errors, totals.unsupported"
+     ],
+     "authorised_by": "R9 window brief \u00a73 'Reference integrity' + DANIEL-BRIEF \u00a76 (REF lane)"
+    },
+    "fold_summary": {
+     "errors": 0,
+     "unresolved": 0,
+     "unsupported": 0,
+     "error_classes": {},
+     "digest": "9f2cc87e61744ec040072bcb2b8bfaa8619c6f2f18e63bd1337b112596da0bb2",
+     "with_program": true,
+     "n_instances": 6664748
+    },
+    "fold_summary_2": null,
+    "resolution": {
+     "errors": 0,
+     "unsupported": 0
+    },
+    "unverified": []
+   },
+   "reason": null
+  }
+ },
+ "constants": {
+  "TIER_A_K": 3,
+  "MIN_DECODE_TOKEN_STEPS": 2,
+  "CHAIN_MIN_SLICES": 1,
+  "REGIMES": [
+   "prefill",
+   "decode"
+  ],
+  "COS_SIN_MAX_ULP": 1,
+  "DIAG_MAX_LINEAR_RESIDUAL": 0.5,
+  "REF_INTEGRITY_RULE": "R1/2026-09-18"
+ },
+ "diagnostics": {
+  "structure": {
+   "status": "ok",
+   "steps": 128,
+   "prefill_steps": 1,
+   "decode_steps": 127,
+   "prefill_instances": [
+    5820476
+   ],
+   "decode_instances": [
+    1804,
+    3608,
+    5412,
+    7216,
+    9020,
+    10824,
+    12628,
+    14432
+   ],
+   "histograms_equal_mod_T": false,
+   "histogram_diffs": [
+    {
+     "step": 2,
+     "differs": {
+      "Embedding_v1{V=151936,H=2560}": [
+       8,
+       7
+      ],
+      "SiluMul_v1{I=9728}": [
+       288,
+       252
+      ],
+      "RoPE_v1{NHEADS=8,D=128}": [
+       288,
+       252
+      ],
+      "Gemm_v2{K=2560,N=6144,DOT=HopperBF16WgmmaDot16_v1}": [
+       288,
+       252
+      ],
+      "RMSNormTriton_v1{N=128,EPS=1e-06}": [
+       11520,
+       10080
+      ],
+      "RMSNormFusedCuda_v2{N=2560,EPS=1e-06}": [
+       576,
+       504
+      ]
+     }
+    },
+    {
+     "step": 3,
+     "differs": {
+      "Embedding_v1{V=151936,H=2560}": [
+       8,
+       7
+      ],
+      "SiluMul_v1{I=9728}": [
+       288,
+       252
+      ],
+      "RoPE_v1{NHEADS=8,D=128}": [
+       288,
+       252
+      ],
+      "Gemm_v2{K=2560,N=6144,DOT=HopperBF16WgmmaDot16_v1}": [
+       288,
+       252
+      ],
+      "RMSNormTriton_v1{N=128,EPS=1e-06}": [
+       11520,
+       10080
+      ],
+      "RMSNormFusedCuda_v2{N=2560,EPS=1e-06}": [
+       576,
+       504
+      ]
+     }
+    },
+    {
+     "step": 4,
+     "differs": {
+      "Embedding_v1{V=151936,H=2560}": [
+       8,
+       7
+      ],
+      "SiluMul_v1{I=9728}": [
+       288,
+       252
+      ],
+      "RoPE_v1{NHEADS=8,D=128}": [
+       288,
+       252
+      ],
+      "Gemm_v2{K=2560,N=6144,DOT=HopperBF16WgmmaDot16_v1}": [
+       288,
+       252
+      ],
+      "RMSNormTriton_v1{N=128,EPS=1e-06}": [
+       11520,
+       10080
+      ],
+      "RMSNormFusedCuda_v2{N=2560,EPS=1e-06}": [
+       576,
+       504
+      ]
+     }
+    }
+   ],
+   "count_constant": false,
+   "linear_residual": 108974.6506,
+   "linear": false,
+   "decode_multiset_mod_T": {
+    "Attention_v4{NH=32,KVH=8,D=128,BN=128,DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1,MASKED_FROM=0}": 108,
+    "Attention_v4{NH=32,KVH=8,D=128,BN=128,DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1,MASKED_FROM=2}": 72,
+    "Attention_v4{NH=32,KVH=8,D=128,BN=128,DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1,MASKED_FROM=5}": 36,
+    "Attention_v4{NH=32,KVH=8,D=128,BN=128,DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1,MASKED_FROM=6}": 36,
+    "Attention_v4{NH=32,KVH=8,D=128,BN=128,DOT=HopperBF16WgmmaDot16_v1,INV=Fa3InvSum_v1,MASKED_FROM=8}": 36,
+    "Embedding_v1{V=151936,H=2560}": 8,
+    "Gemm_v2{K=2560,N=151936,DOT=HopperBF16WgmmaDot16_v1}": 8,
+    "Gemm_v2{K=2560,N=19456,DOT=HopperBF16WgmmaDot16_v1}": 288,
+    "Gemm_v2{K=2560,N=6144,DOT=HopperBF16WgmmaDot16_v1}": 288,
+    "Gemm_v2{K=4096,N=2560,DOT=HopperBF16WgmmaDot16_v1}": 288,
+    "Gemm_v2{K=9728,N=2560,DOT=HopperBF16WgmmaDot16_v1}": 288,
+    "RMSNormFusedCuda_v2{N=2560,EPS=1e-06}": 576,
+    "RMSNormTriton_v1{N=128,EPS=1e-06}": 11520,
+    "RMSNormTriton_v1{N=2560,EPS=1e-06}": 8,
+    "RoPE_v1{NHEADS=32,D=128}": 288,
+    "RoPE_v1{NHEADS=8,D=128}": 288,
+    "SiluMul_v1{I=9728}": 288,
+    "TokenSelect_v1{V=151936}": 8
+   }
+  },
+  "family_match": {
+   "status": "unavailable"
+  },
+  "overhead": {
+   "status": "unavailable"
+  }
+ }
+}

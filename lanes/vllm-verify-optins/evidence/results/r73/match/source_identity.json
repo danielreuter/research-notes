@@ -1,0 +1,80 @@
+{
+ "schema": "research-infra/source-identity/v1",
+ "requested_root": "/workspace/vo/tree73m",
+ "requested": {
+  "git_sha": "b7a4092a9ba30f357e2e311a43163182038e903e",
+  "git_sha_source": "RESEARCH_SOURCE_SHA",
+  "dirty_patch_sha256": null,
+  "branch": null
+ },
+ "sys_path0": "/workspace/vo/tree73m/integrations/vllm",
+ "sys_executable": "/workspace/venv312/bin/python",
+ "cwd": "/workspace/vo/tree73m/integrations/vllm",
+ "packages": {
+  "verity": {
+   "package": "verity",
+   "resolved_path": "/workspace/vo/tree73m/packages/verity/src/verity/__init__.py",
+   "repo_root": "/workspace/vo/tree73m",
+   "loaded": false,
+   "reason": null,
+   "git_sha": "b7a4092a9ba30f357e2e311a43163182038e903e",
+   "git_sha_source": "RESEARCH_SOURCE_SHA",
+   "dirty_patch_sha256": null,
+   "branch": null,
+   "import_name": "verity",
+   "expected_sys_path_entry": "/workspace/vo/tree73m/packages/verity/src",
+   "sys_path_entry": "/workspace/vo/tree73m/packages/verity/src"
+  },
+  "verity_vllm": {
+   "package": "verity_vllm",
+   "resolved_path": "/workspace/vo/tree73m/integrations/vllm/verity_vllm/__init__.py",
+   "repo_root": "/workspace/vo/tree73m",
+   "loaded": true,
+   "reason": null,
+   "git_sha": "b7a4092a9ba30f357e2e311a43163182038e903e",
+   "git_sha_source": "RESEARCH_SOURCE_SHA",
+   "dirty_patch_sha256": null,
+   "branch": null,
+   "import_name": "verity_vllm",
+   "expected_sys_path_entry": "/workspace/vo/tree73m/integrations/vllm",
+   "sys_path_entry": "/workspace/vo/tree73m/integrations/vllm"
+  },
+  "hidden_gpu": {
+   "package": "hidden_gpu",
+   "resolved_path": "/workspace/vo/tree73m/integrations/vllm/verity_vllm/commit/committer/hidden_gpu_src/hidden_gpu.py",
+   "repo_root": "/workspace/vo/tree73m",
+   "loaded": false,
+   "reason": null,
+   "candidates": [
+    "/workspace/vo/tree73m/integrations/vllm/out/gen/r9/cmt-hidden/src/hidden_gpu.py",
+    "/workspace/vo/tree73m/integrations/vllm/verity_vllm/commit/committer/hidden_gpu_src/hidden_gpu.py"
+   ],
+   "git_sha": "b7a4092a9ba30f357e2e311a43163182038e903e",
+   "git_sha_source": "RESEARCH_SOURCE_SHA",
+   "dirty_patch_sha256": null,
+   "branch": null,
+   "file_sha256": "f1862e81334ac55b28effdd1a9d461e3000db3847f72b4793017ce3f95839161"
+  },
+  "research": {
+   "package": "research",
+   "resolved_path": "/workspace/vo/tree73m/tools/research/src/research/__init__.py",
+   "repo_root": "/workspace/vo/tree73m",
+   "loaded": true,
+   "reason": null,
+   "git_sha": "b7a4092a9ba30f357e2e311a43163182038e903e",
+   "git_sha_source": "RESEARCH_SOURCE_SHA",
+   "dirty_patch_sha256": null,
+   "branch": null,
+   "import_name": "research",
+   "expected_sys_path_entry": "/workspace/vo/tree73m/tools/research/src",
+   "sys_path_entry": "/workspace/vo/tree73m/tools/research/src"
+  }
+ },
+ "ok": true,
+ "fail_class": null,
+ "mismatches": [],
+ "VERITOR_REPO": "/workspace/vo/tree73m/integrations/vllm",
+ "PYTHONPATH": ".:/workspace/vo/tree73m/packages/verity/src:/workspace/vo/tree73m/tools/research/src",
+ "RESEARCH_SOURCE_SHA": "b7a4092a9ba30f357e2e311a43163182038e903e",
+ "stage": "precheck"
+}

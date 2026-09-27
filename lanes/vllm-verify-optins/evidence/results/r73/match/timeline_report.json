@@ -1,0 +1,236 @@
+{
+ "schema": "verity-sweep/timeline/v1/report",
+ "events": 35,
+ "spans": 17,
+ "unclosed": [],
+ "attempt": "last",
+ "attempts_in_file": 1,
+ "t_first_utc": "2026-09-27T07:03:54Z",
+ "t_last_utc": "2026-09-27T09:15:47Z",
+ "elapsed_s": 7912.983,
+ "envelope": [
+  {
+   "stage": "stage.build",
+   "s": 7910.806,
+   "proc": "row_pod"
+  },
+  {
+   "stage": "row",
+   "s": 7910.874,
+   "proc": "row_pod"
+  }
+ ],
+ "categories": {
+  "validation": {
+   "spans": 13,
+   "sum_s": 15070.056,
+   "union_s": 7908.58,
+   "stages": {
+    "build.derive_step": 29.016,
+    "build.derive_request_LP10_T8": 89.528,
+    "build.derive_request_LP95_T42": 429.467,
+    "build.derive_request_LP45_T122": 935.955,
+    "build.derive_request_LP321_T1": 420.711,
+    "build.derive_request_LP259_T127": 1222.153,
+    "build.derive_request_LP643_T86": 1691.026,
+    "build.derive_request": 3311.024,
+    "build.derive_request_LP833_T66": 2109.307,
+    "build.derive_request_LP1024_T16": 2365.728,
+    "build.summary": 0.026,
+    "build.global_program": 1433.103,
+    "build.required_manifest": 1033.012
+   }
+  },
+  "other": {
+   "spans": 2,
+   "sum_s": 0.182,
+   "union_s": 0.182,
+   "stages": {
+    "precheck": 0.087,
+    "admission": 0.095
+   }
+  }
+ },
+ "engine": {
+  "starts": 0,
+  "reuses": 0,
+  "restart_reasons": {},
+  "build_s": [],
+  "hot_values": [
+   false
+  ],
+  "processes": 1
+ },
+ "spans_detail": [
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "precheck",
+   "s": 0.087,
+   "category": "other",
+   "t0_utc": "07:03:54",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "admission",
+   "s": 0.095,
+   "category": "other",
+   "t0_utc": "07:03:56",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_step",
+   "s": 29.016,
+   "category": "validation",
+   "t0_utc": "07:03:56",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request_LP10_T8",
+   "s": 89.528,
+   "category": "validation",
+   "t0_utc": "07:03:56",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request",
+   "s": 3311.024,
+   "category": "validation",
+   "t0_utc": "07:03:56",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "stage.build",
+   "s": 7910.806,
+   "category": "other",
+   "t0_utc": "07:03:56",
+   "hot": false,
+   "ok": "PASS"
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "row",
+   "s": 7910.874,
+   "category": "other",
+   "t0_utc": "07:03:56",
+   "hot": false,
+   "ok": true
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request_LP45_T122",
+   "s": 935.955,
+   "category": "validation",
+   "t0_utc": "07:04:25",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request_LP95_T42",
+   "s": 429.467,
+   "category": "validation",
+   "t0_utc": "07:05:26",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request_LP259_T127",
+   "s": 1222.153,
+   "category": "validation",
+   "t0_utc": "07:12:35",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request_LP321_T1",
+   "s": 420.711,
+   "category": "validation",
+   "t0_utc": "07:20:01",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request_LP643_T86",
+   "s": 1691.026,
+   "category": "validation",
+   "t0_utc": "07:27:02",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request_LP833_T66",
+   "s": 2109.307,
+   "category": "validation",
+   "t0_utc": "07:32:58",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.derive_request_LP1024_T16",
+   "s": 2365.728,
+   "category": "validation",
+   "t0_utc": "07:55:13",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.summary",
+   "s": 0.026,
+   "category": "validation",
+   "t0_utc": "08:34:39",
+   "hot": false,
+   "ok": "PASS"
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.global_program",
+   "s": 1433.103,
+   "category": "validation",
+   "t0_utc": "08:34:39",
+   "hot": false,
+   "rc": 0
+  },
+  {
+   "proc": "row_pod",
+   "pid": 2261,
+   "stage": "build.required_manifest",
+   "s": 1033.012,
+   "category": "validation",
+   "t0_utc": "08:58:32",
+   "hot": false,
+   "rc": 0
+  }
+ ]
+}

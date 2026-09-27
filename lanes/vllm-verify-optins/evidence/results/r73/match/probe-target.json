@@ -1,0 +1,8 @@
+{
+ "found": [
+  {
+   "file": "log.jsonl.gz",
+   "context": "r the run)\"},\"target\":{\"compute_capability\":[9,0],\"num_sms\":132,\"batch_invariant\":true,\"attention_backend\":null,\"vllm_revision\":\"d9105ea80\",\"numerics_profile\":\"b1-eager-v3\",\"flash_attn_version\":null,\"fa3_construction\":\"check-inf-per-iteration\"}},\"model\":{\"repo\":\"Qwen/Qwen3-4B-Ins"
+  }
+ ]
+}

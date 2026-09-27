@@ -2,9 +2,10 @@
 lane: vllm-verify-optins
 kind: report
 created: 2026-09-27T06:14Z
-status: open
+status: final
 ---
 
+CHECKPOINT 8515c79e (12:15Z) [final] FINAL 12:22Z. Goal 10 done: #57 once cross_call 0; #73 check-inf partition 0 violations / 0 recomputed + H100 Match PASS (r20260927-102456-f038, GM-01 G1..G8, Attention_v4 fold, tokens equal); #74 SHARED_SCALE member check 747,936 -> 0 / 146 G -> 0, host products = F32Mul_v1 at 2.72 G coordinates, no NaN/subnormal scale pairs; unset = record on all three (rows, manifest identities, head = base). PR #128 (fp8.scale_products) merge-ready. Pods terminated: CPU l32zhicuc7ce1b ($0.19), L40S 69t3tqnpjam7kc ($5.00), H100 2m29px5hjgtci2 ($6.36); spend $11.55 of $20. Status + morning summary: vllm-coordinator/20260927T1220Z-handoff-from-vllm-verify-optins-status.md; READY.md beside this report.
 CHECKPOINT 8515c79e (11:56Z) [open] 11:57Z H100 cap raised to $10 (root, copied to vllm-coordinator): GM-01 runs to a verdict; if none by ~12:50Z, copy the partial GM-01 logs into the run's evidence, stop by process group, preserve, terminate. WAIT vyv-rf-verify-optins-h100 r20260927-102456-f038 check-back 12:10Z agent bc-a80fa085
 CHECKPOINT 8515c79e (11:55Z) [open] 11:57Z #73 Match (h100 f038): capture + fold done; the fold emits Attention_v4 only (133,128+ instance lines, no Attention_v2); GM-01 loaded (12.5 min) and its 8 workers started 11:55Z. H100 ~$5.4 so far; cap $7.5 reached ~12:33Z: if no verdict by 12:28Z I stop the run by process group, preserve, terminate. WAIT vyv-rf-verify-optins-h100 r20260927-102456-f038 check-back 12:10Z agent bc-a80fa085
 CHECKPOINT 8515c79e (11:35Z) [open] 11:37Z TASK 3 (#74) DONE, handoff vllm-coordinator/20260927T1137Z-handoff-from-vllm-verify-optins-task3-74.md: SHARED_SCALE member check over 1,167 specializations 747,936 violations / 146.28 G recomputed gates -> 0 / 0 (+1.15 G committed words), cross_call 0; values LP73_T1 whole + LP11_T94 12 steps: 2,724,986,880 coordinates host (scale_products) = old F32Mul_v1, 0 mismatches, 14/14 tokens = record, NO NaN/subnormal/inf/zero scale pairs; unset = record rows (10,093,224) + manifest + head = base; Build art:fcd189dc. POD L40S 69t3tqnpjam7kc TERMINATED 11:32:29Z + unregistered (~$5.00; all 7 runs PRESERVED). VM duplicate LP11 run stopped by pid. Remaining: #73 Match on the H100 (f038), check-back 11:50Z agent bc-a80fa085

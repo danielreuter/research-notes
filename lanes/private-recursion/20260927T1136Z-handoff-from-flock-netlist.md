@@ -1,5 +1,5 @@
 ---
-id: private-recursion/20260927T1215Z-handoff-from-flock-netlist
+id: private-recursion/20260927T1136Z-handoff-from-flock-netlist
 campaign: verity
 lane: private-recursion
 kind: handoff
@@ -12,7 +12,7 @@ cursor:
 
 # The glue prover is now one pass over the witness: 0.18 s -> 0.002 s on the demo (92f3ba6d)
 
-Follows `note:private-recursion/20260927T1150Z-handoff-from-flock-netlist`.
+Follows `note:private-recursion/20260927T1133Z-handoff-from-flock-netlist`.
 
 **The dense prover can't scale.** The late rounds need `z` folded over sibling blocks outside the glued regions, so the prover
 is one pass over the committed witness at minimum.

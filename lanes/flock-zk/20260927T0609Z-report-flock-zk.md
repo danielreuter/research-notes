@@ -5,6 +5,7 @@ created: 2026-09-27T06:09Z
 status: open
 ---
 
+CHECKPOINT 14b3fa34 (08:50Z) [open] M2: level-0 recount folded in (277 queries at m=25), verifier coin commitment + tau commitment, GK simulator with 4 V* strategies committed (14b3fa34 on cursor/flock-zk-m2-5659); zk selftest all pass; running real-vs-sim zkrewind n=40 on CPU; no pods
 CHECKPOINT fc6cfe99 (08:24Z) [open] reopened for M2 (verifier coin commitment + single-rewind simulator), branch cursor/flock-zk-m2-5659 stacked on #123; CPU only, no pods: NOT final
 CHECKPOINT fc6cfe99 (08:06Z) [final] M1 on CPU for RoPE, pushed at fc6cfe99 on cursor/flock-zk-m1-5659 (draft PR #123 on #83): every transcript byte masked/committed/public (zkaudit complete), whole simulated proofs accepted 128/128, zkstat N=64 indistinguishable on 11 classes (min p 0.013/55), control distinguished; selftest M0 30/30, --zk 28/28; overhead per rep m=25 +12-24%, m=27 +20% (0.38->0.46 s), proofs +32-36%. Layout: backends/flock/live/PROTOCOL.md. Open items: in the store (internal/flock-zk-m1-report.md). No pods created or terminated; $0 spent.
 CHECKPOINT fc6cfe99 (08:06Z) [open] Handoff 20260927T0700Z-handoff-from-coordinator.md (research-notes is public): read and followed: soundness-relevant details are only in the store (internal/flock-zk-m1-report.md) and the private verity repo; notes carry outcomes and pointers. Code branch is the agent's own (cursor/flock-zk-m1-5659, named in the first checkpoint), pushed at fc6cfe99.

@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
+version: 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -68,16 +68,19 @@ yours, not another instance's.
 - If the recipient is already final, write to the coordinator instead.
 - The coordinator's instructions to you arrive only as handoffs; brief appendices are broadcasts.
 
-## 5b. The notes repo is public (2026-09-27)
+## 5b. The notes repo is public (2026-09-27; corrected 09:15Z)
 - `danielreuter/research-notes` is public. Nothing in notes may carry a secret (token, key, credential, private URL) or a
   sensitive finding.
-- **Red-team reviews and exploit details** (attack scripts, their runs and outputs, reproductions, an unfixed soundness bug)
-  go in the store's `internal/red-team-reviews/<pr>/`, which is not mirrored. Your lane folder and your handoffs carry only a
-  pointer and the verdict: `GRANT` / `GRANT WITH CONDITIONS` / `OBJECT`, each condition in one line, and the review's store
-  path.
-- The same rule covers a cloud lane's store folder (`internal/lanes/<lane>/`), because the mirror forwards it to notes. The
-  mirror refuses anything below a lane's top level, top-level scripts, data and logs, notes named as a review, attack or
-  exploit, and red-team notes that record a finding label. That is a backstop, not a licence.
+- **Private material** (red-team reviews with exploits against unmerged code, attack scripts and their runs, reproductions,
+  private soundness details, an unfixed bug) goes in the store's top-level `private/` (for example
+  `private/red-team-reviews/<pr>/`) or in the evidence store (`research data put`, labels). **Nothing sensitive goes anywhere
+  under the store's `internal/`**: a mirror pass at 08:44Z copied top-level `internal/` files to notes, and a rule you can't see
+  enforced is not protection.
+- Your lane folder and your handoffs carry only the verdict (`GRANT` / `GRANT WITH CONDITIONS` / `OBJECT` or `REFUSE`, each
+  condition in one line) and a pointer to the private path.
+- The mirror reads only `internal/`, forwards only `internal/lanes/`, and refuses anything below a lane's top level, top-level
+  scripts, data and logs, notes named as a review, attack or exploit, and red-team notes that record a finding label. That is a
+  backstop, not a licence.
 - If something sensitive is already in notes, tell the coordinator in `lanes/coordinator/` with a pointer, not a copy.
 
 ## 5a. Words (Daniel, 2026-09-26)

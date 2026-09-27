@@ -6,6 +6,7 @@
 #            [--env BOOTSTRAP=1] [--env WAIT_RUN=<run dir>] -- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/gate_b2.sh" <label>'
 # The shipped tree ($PWD) has no .git; the tree under test is a clone of $RESEARCH_SOURCE_SHA from the pod's bare repo
 # (<root>/git/verity.git, fed by research run's git transport), checked to hold the same files as the shipped tree (less the READY.json research adds).
+# Files only in the shipped tree are not compared: a row run from the same shipped tree writes its outputs and JIT builds there.
 S=$PWD; L=$RESEARCH_RUN_DIR; W=/workspace/gc2; TAG=${1:?label}; ROOT=/workspace/research
 mkdir -p $W
 if [ -n "$WAIT_RUN" ]; then while grep -q '^ "state": "running"' "$WAIT_RUN/status.json" 2>/dev/null; do sleep 30; done; echo "waited for $WAIT_RUN $(date -u +%FT%TZ)"; fi
@@ -24,8 +25,8 @@ fi
 uv pip freeze --python /workspace/venv312/bin/python > $L/freeze.txt 2>&1
 T=$W/$TAG; rm -rf $T
 git clone -q --no-checkout $ROOT/git/verity.git $T && git -C $T checkout -q --detach "$RESEARCH_SOURCE_SHA" || { echo "CLONE-FAIL $RESEARCH_SOURCE_SHA"; exit 3; }
-d=$(diff -rq -x .git -x __pycache__ -x READY.json $S $T | wc -l); echo "tree $T @ $(git -C $T rev-parse HEAD) vs shipped: $d differing entries"
-[ "$d" = 0 ] || { diff -rq -x .git -x __pycache__ -x READY.json $S $T | head -20; exit 4; }
+d=$(diff -rq -x .git -x __pycache__ -x READY.json $S $T | grep -v "^Only in $S" | wc -l); echo "tree $T @ $(git -C $T rev-parse HEAD) vs shipped: $d differing entries"
+[ "$d" = 0 ] || { diff -rq -x .git -x __pycache__ -x READY.json $S $T | grep -v "^Only in $S" | head -20; exit 4; }
 echo "start $(date -u +%FT%TZ) src $S tree $T"
 export PATH=/workspace/venv312/bin:$PATH HF_HOME=/workspace/hf PYTHONDONTWRITEBYTECODE=1
 unset VERITY_REGRESSION VERITY_REGRESSION_TIERS VERITY_REGRESSION_CANDIDATE VERITY_REGRESSION_ROWS_ROOT VERITOR_REPO

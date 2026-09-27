@@ -11,7 +11,7 @@ export PATH=/workspace/venv312/bin:$PATH HF_HOME=/workspace/hf PYTHONDONTWRITEBY
 unset VERITY_REGRESSION VERITY_REGRESSION_TIERS VERITY_REGRESSION_CANDIDATE VERITY_REGRESSION_ROWS_ROOT VERITOR_REPO
 mkdir -p /workspace/gc2; rm -rf $T $TB
 git clone -q --no-checkout $ROOT/git/verity.git $T && git -C $T checkout -q --detach "$RESEARCH_SOURCE_SHA" || { echo "CLONE-FAIL $RESEARCH_SOURCE_SHA"; exit 3; }
-d=$(diff -rq -x .git -x __pycache__ -x READY.json $S $T | wc -l); echo "tree $T @ $(git -C $T rev-parse HEAD) vs shipped: $d differing entries"
+d=$(diff -rq -x .git -x __pycache__ -x READY.json $S $T | grep -v "^Only in $S" | wc -l); echo "tree $T @ $(git -C $T rev-parse HEAD) vs shipped: $d differing entries"
 [ "$d" = 0 ] || exit 4
 git clone -q --no-checkout $ROOT/git/verity.git $TB && git -C $TB checkout -q --detach "${BASE_SHA:?}" || { echo "CLONE-FAIL base $BASE_SHA"; exit 3; }
 echo "base $TB @ $(git -C $TB rev-parse HEAD)"

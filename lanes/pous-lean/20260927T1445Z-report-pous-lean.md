@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT f8181a51 (20:57Z) [open] #183 draft @ f8181a51 (stacked on #162): DenseReCert 99709a42 as module, 50 pins; audit.py main PASS 1330 decls, check.sh ALL PASS, 28 tests on main+branch; §30 cited; tag additions need review; handoff 20260927T2057Z
 CHECKPOINT b6a570c5 (19:56Z) [open] PR #183 draft @ b6a570c5 (stacked on #162): dense_meets_64 + seg_meets_14 as modules, 48 pins; audit.py main 467e7450 PASS 1321 decls; 28 tests on main+branch; check.sh --fresh running; waiting: red-team §30
 CHECKPOINT 662a6aea (19:51Z) [open] reopened for the dense secure-first PR (stacked on #162, branch cursor/pous-lean-dense-2464): DenseReCert (dense_meets_64, seg_meets_14, k=106, RO model) as modules + pins; #130 merged 18:06Z at b7cd6de8
 CHECKPOINT 662a6aea (15:39Z) [open] #162 head 662a6aea (PROTOCOL.md: narrow-state H caveat on top); red team §17 no blocking finding, cited in PR; handoff lanes/coordinator/20260927T1539Z-handoff-from-pous-lean.md; waiting on #130

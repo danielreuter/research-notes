@@ -5,6 +5,7 @@ created: 2026-09-27T06:09Z
 status: open
 ---
 
+CHECKPOINT 8d621454 (09:28Z) [open] M1 revised at 8d621454 (#123) after the red team's review; re-review requested through the private store; resuming M2 on top of it; CPU only, no pods
 CHECKPOINT 25d54349 (09:15Z) [open] M2 paused at 14b3fa34; revising M1 (#123, cursor/flock-zk-m1-5659) for the red team's review, details in the private store; CPU only, no pods
 CHECKPOINT 14b3fa34 (08:50Z) [open] M2: level-0 recount folded in (277 queries at m=25), verifier coin commitment + tau commitment, GK simulator with 4 V* strategies committed (14b3fa34 on cursor/flock-zk-m2-5659); zk selftest all pass; running real-vs-sim zkrewind n=40 on CPU; no pods
 CHECKPOINT fc6cfe99 (08:24Z) [open] reopened for M2 (verifier coin commitment + single-rewind simulator), branch cursor/flock-zk-m2-5659 stacked on #123; CPU only, no pods: NOT final

@@ -135,3 +135,4 @@ Notes mirror: `evidence/cloud-mirror-control-pod.sh`, looped every 5 min from th
 - 01:03Z sweep: spent $248.10, burn $2.98/h; flock-backend now CPU verifier ($0.06/h) + L40S; flock-netlist ver2 terminated, l40s remains (idle 00:39Z). latest.json ok; mirror ok 00:56Z. website-steering-backlog (0037Z) noted.
 - 01:45Z PR #100 HELD (root: no GitHub Actions; circuit-checks adding a check command + merge gate requiring a passing check record for the exact commit; review as new merge procedure). PR #84 (055d083e) gated alone: flock+repo 112 passed; GitHub 401 on VM → MERGE line to root.
 - 01:47Z token recovered: MERGED PR #84 (055d083e) as fa662029 directly.
+- 01:50Z decision-previews.md PARKED until re-baseline (Daniel): one-sided, cached weights, other-GPU headline, sweep point, CP6, vLLM #4 reclass, PR #36 — no action. At re-baseline: fresh Flock-focused list from current evidence (noted in prerequisites note).

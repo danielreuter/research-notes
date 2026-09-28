@@ -1,0 +1,1 @@
+2026-09-28T21:43Z sweep: #74 deferred (call-boundary stop, stale since S1b; the Commit couldn't have fit anyway); #70 manifest incomplete like #75, so Match then stop; running #67 $8.88, #68 $7.01, #70 $3.29; balance $100.71; guard untripped; steward's 16:05Z mirror commit ff118f01 deleted machines.d/vyv-rf-epoch-74.toml (flag to root).

@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (20:52Z) [open] 20:53Z: #74 now runs its Match too (vLLM coordinator 2048Z; ~$44.5 of $49 by ~22:25Z; balance test $39.25 left; run timeout 22:58Z). #74/#67/#68 watchers (stop_after.sh match): Build side-store, Match, stop before the Commit (deadlines 22:40Z / 22:55Z), then terminate + defer. #70 Build (manifest check ~21:11Z). #325 not on main yet. agent bc-75fd4007.
 CHECKPOINT 6746f408 (20:38Z) [open] 20:37Z: #75 deferred NOT_RUN (Build manifest incomplete: 12480 unbound TP peer bindings), terminated 20:36Z ($9.78); records art:bef9f84c + capture tar art:bf21420f. #73 coverage with #325 04d1204c: ok, 315912 checked, 0 missing (note 2037Z); backfill waits for #325 on main. #75 lines note 2034Z. Live: #70 #101 #74 #67 #68 (Build). agent bc-75fd4007.
 CHECKPOINT 6746f408 (20:12Z) [open] 20:13Z: #73 PASS, terminated 20:11Z ($55.05), expected/ write HELD for the coordinator (handoff 2012Z: harness coverage misses norm_scales; GM fold pins moved); regression reference fix side_record.sh (finding 2008Z). #75 Commit NOT_RUN at 20:00Z: Commit-time required manifest incomplete (12480 unbound TP peer bindings, MoE two-producer sites; #298's rebuild) -> deferred once its records store ends. #101 try 5 in Build; #74 #67 #68 Build; #70 polling to 20:20Z. agent bc-75fd4007.
 CHECKPOINT 6746f408 (19:44Z) [open] 19:44Z: #73 Commit manifest-verify (END ~20:15Z; records via side run, key expires 20:18Z); #75 Commit; #74 #67 #68 Build; #70 polling to 20:20Z, no stock. No notes pending. agent bc-75fd4007.

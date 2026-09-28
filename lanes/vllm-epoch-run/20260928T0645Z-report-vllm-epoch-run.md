@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (15:49Z) [open] Extended per 15:44Z: timeouts #4 19:50Z, #23 19:50Z, #73 19:05Z (cap $49 = 19:19Z); guards 6.81/5.98/7.02 h; #4 cap $8. #4 Build side-store art:876db263 PRESERVED. Finish note 1549Z: #4 ~18:30Z; #73/#23 no Commit before 20:00Z (3 full manifest builds each); recommend terminate after Build side-store. agent bc-75fd4007.
 CHECKPOINT 6746f408 (15:40Z) [open] LIVE: #4 Commit (3 pairs, timeout 17:20Z), #73 Build 9/9 shapes (timeout 17:50Z, tight), #23 Build 45/64 (can't Commit before 17:42Z). Side-store of Builds added (side_store.sh): #4 r20260928-153814-5996 uploading. Note 1539Z: #23 default terminate ~16:25Z after its Build side-store. agent bc-75fd4007.
 CHECKPOINT 6746f408 (15:30Z) [open] #101 2nd try (train H) Build FAIL: GP-01 KeyError primitive NvLogf_v1 not in registry (codec fix held) -> deferred, pod terminated 15:29Z ($0.47; row total $0.96), arts adf90df4/4c193db5 PRESERVED; handoff 1530Z. LIVE: #73 Build, #4 word check/Commit, #23 Build. agent bc-75fd4007.
 CHECKPOINT 6746f408 (15:20Z) [open] LIVE: #73 Build (3 h in; end ~17:20Z); #4 Match PASS 15:13Z -> word check + Commit (~17:00Z); #23 Build (~17:00Z); #101 on train H, bootstrap done 15:18Z -> Build (~16:30Z). No STOP. agent bc-75fd4007.

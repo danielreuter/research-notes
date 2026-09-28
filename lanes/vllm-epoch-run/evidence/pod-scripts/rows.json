@@ -38,11 +38,11 @@
    "min_ram": 188,
    "disk": 200,
    "rate": 1.09,
-   "cap": 5,
+   "cap": 8,
    "est_h": 3.0,
    "status": "ok",
    "env": {},
-   "note": "GO 12:15Z: 1x L40S secure >= 188 GB (the sweep's released pod), 3 pairs; cap $5 as the brief (the GO's $3.3 is 3.0 h at $1.09/h, short of the 3-pair 3.8 h + store); a Commit PASS on this FAIL-class row is deferred with the evidence",
+   "note": "cap $8 (coordinator 15:44Z) so its 3-pair Commit can finish; GO 12:15Z: 1x L40S secure >= 188 GB (the sweep's released pod), 3 pairs; cap $5 as the brief (the GO's $3.3 is 3.0 h at $1.09/h, short of the 3-pair 3.8 h + store); a Commit PASS on this FAIL-class row is deferred with the evidence",
    "est3_h": 3.8,
    "record_sha": "269829d84da4a0e4385c561776ba8105398f62e2",
    "launch_sha": "dd3dde4d70e88ebc85b0d6e6baecbcb96545dd00"

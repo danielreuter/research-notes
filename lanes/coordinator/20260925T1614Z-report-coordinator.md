@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 64f94732 (11:13Z) [open] ROOT 11:11Z: root VM (since 08:11Z) + epoch-run lane VM (since ~10:30Z) have GitHub 401; mine works. ON S-STACK MERGE: git bundle of main at that SHA -> store artifacts/epoch-go-<sha8>.bundle, git bundle verify, path + SHA in merge note for vLLM coordinator. EACH SWEEP: check artifacts/ for epoch-run expected/ bundles; push their branches to origin, delete each bundle once on origin.
 CHECKPOINT 64f94732 (11:04Z) [open] ROOT 11:02Z: HOLD LIFTED for approved budgets only: epoch wave 1 (~$147 caps + canary), GPU sweep inside $250, research inside $380. Nothing beyond; epoch wave 2 waits on more money or wave-1 underspend (vLLM coordinator tracks). Keep flagging if RunPod balance nears $60.
 CHECKPOINT 64f94732 (11:03Z) [open] TOP-UP LANDED: RunPod balance $297.13 (was $100.70 at 10:45Z; ~+$200, below the ~$450 asked) at $8.32/h. Root's hold was 'no new pod spend beyond existing caps until the top-up lands' -> ask root whether it lifts (epoch was held for it). S-stack gate check r20260928-103703-0346 + content run r20260928-101515-ef9e both running (~11:37Z / ~11:15Z). Research $312.90/$380. No new POUS->root files; mirror ok.
 CHECKPOINT 64f94732 (10:45Z) [open] SWEEP: coordinator-notes backfill complete (dry-run shows 0 left; a few mkstemp EAGAINs retried by later passes). S-stack gate check r20260928-103703-0346 running. RunPod $100.70 at $8.32/h (~4.9 h to $60). Research $312.77/$380. No new POUS->root files; mirror ok.

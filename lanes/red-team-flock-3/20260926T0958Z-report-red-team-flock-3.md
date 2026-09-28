@@ -915,6 +915,16 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: the user, directly (after #207, #247, #249, coin-tree v2, #245 and #252).
   - Review: appended to `private/red-team-reviews/zk-proofs/private-circuit.md`.
   - Reply: `lanes/coordinator/20260928T0745Z-handoff-from-red-team-flock-3.md`.
+- **#258 @ `1053c0c9` (coin-tree v2 implemented): GRANTED.** It matches the spec and my clarification, and the simulator
+  restarts after one `Hello`. `flock-live`'s tests pass 50 of 50 here.
+  - Request: `internal/lanes/red-team-flock-3/20260928T0818Z-handoff-from-flock-zk-coin-tree-v2-impl.md`, in the store.
+  - Review: `private/red-team-reviews/zk-proofs/pr258-coin-tree-v2-impl.md`.
+- **#207 @ `89b15f38`: GRANTED** on re-review. `RowsL1` is conditioned on the constant and `hOne` is named.
+  - Review: appended to `private/red-team-reviews/pr207-e2e-skeleton.md`.
+- **Reply for both:** `lanes/coordinator/20260928T0830Z-handoff-from-red-team-flock-3.md`. It also records the move of
+  the coin-tree v2 evidence into `zk-proofs/`.
+- **Queued:** #256 (audit-lean, `Rows.compose_eval_unit`), for
+  `internal/lanes/red-team-flock-3/20260928T0756Z-handoff-from-audit-lean-256-pin-review.md`.
 
 ### Pre-grant checklist
 

@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (03:01Z) [final] #197 grant stands at 67e7f669 (wording amended: X-09 chunked fallback refuses all stochastic top-p rows, fails closed); #200 re-review at 56936c35 pending: GitHub auth for danielreuter/verity failing since 02:40Z; reply lanes/coordinator/20260928T0301Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (02:31Z) [final] M0 split #192/#193/#195 GRANTED; a1e58e33 NON_ZK_PROOF carried; #194 GRANTED; #200 REFUSED as pinned (reachOk fan-out, read table shape); #197 GRANTED; replies lanes/coordinator/20260928T0211Z and 20260928T0231Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (00:43Z) [final] #187 Rope.rope_sound (L1 for RoPE) @ 3ac26fd9 GRANTED; review private/red-team-reviews/pr187-rope-l1/review.md; reply lanes/coordinator/20260928T0042Z-handoff-from-red-team-flock-3.md
 CHECKPOINT b489b7df (21:33Z) [final] FINAL: FlockLevel3.build_computes (cursor/flock-verifier-lookup-rows-7ab3 @b7eb6a7e) GRANTED: the verifier's own lookup rows (net.a/net.b, tableB as foldB folds it) with constant 1 force out bit j = bit j of table[index], every table, any char-2 field; hK useful <= KONST (2^48) excludes nothing; one new pin, none changed; independently: lake build PASS, standard axioms, level3 audit PASS (999 decls, 50 pins); review in the store private/red-team-reviews/m0-statement/ (private); pointer lanes/coordinator/2135Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -820,6 +821,14 @@ the pure-block path, plus UL2 and the probe fix.
 - **Replies:**
   - `lanes/coordinator/20260928T0211Z-handoff-from-red-team-flock-3.md` (#192, #193, #195, `a1e58e33`);
   - `lanes/coordinator/20260928T0231Z-handoff-from-red-team-flock-3.md` (#194, #200, #197).
+- **02:40–03:01Z follow-ups:**
+  - **#197 @ 67e7f669: grant unchanged.** Its wording is amended: X-09's chunked fallback refuses every stochastic top-p
+    request, which is older than #197 and fails closed. Request:
+    `internal/lanes/coordinator/20260928T0240Z-handoff-from-vllm-cross-call-check-197-new-head.md`, in the store.
+  - **#200 @ 56936c35: re-review pending.** The request is
+    `internal/lanes/coordinator/20260928T0305Z-note-to-red-team-constant-api-200-re-review.md`, in the store. It's blocked:
+    GitHub auth for the verity repo has failed here since 02:40Z, and the repo is private.
+  - **Reply:** `lanes/coordinator/20260928T0301Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

@@ -1037,6 +1037,15 @@ Verdicts only. The findings are in the store's `private/`.
   - Reviews: `private/red-team-reviews/m0-statement/pr282-pr268-refusals.md`, and the update in
     `typed-statement-review.md`.
   - Reply: `lanes/coordinator/20260928T1313Z-handoff-from-red-team-flock-3.md`.
+- **The private-circuit ZK proof's 14:45Z delta (R8/D16's 512-bit salt seed, and §5's post-quantum status): the grant
+  stands.** Taken at the coordinator's 14:45Z word, low priority.
+  - The fixes are wording only: the scope goes into Theorem 1, the PRG row gets its quantum form, and the PRG step covers
+    both generators.
+  - Request: the coordinator, directly (`docs/zk-proof-private.md`).
+  - Review: appended to `private/red-team-reviews/zk-proofs/private-circuit.md`.
+  - Reply: `lanes/coordinator/20260928T1449Z-handoff-from-red-team-flock-3.md`.
+- **Refinement R9c (#291): in review,** taken at 14:50Z. Request, in the store:
+  `internal/lanes/red-team-flock-3/20260928T1446Z-handoff-from-refinement-291-pin-review.md`.
 
 ### Pre-grant checklist
 

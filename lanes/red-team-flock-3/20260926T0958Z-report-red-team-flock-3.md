@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT c26418ff (11:50Z) [final] #256 over ofBlock words GRANTED, soundness train 04cd8414 as granted; R9a #275 @2642e908 and R9b #278 @c5a1180a GRANTED (stmtOf determinacy proved in Lean; free-bit Nodup should be a verifier check); #270 13fda652 nothing more
 CHECKPOINT 412d8318 (10:35Z) [final] #263 @6eb38c48, #267 @3023daaa, #271 @c7b06dd1 GRANTED (three notes for 1e on #263); correction to 0845Z: Lean setup already refused k_log > 26, so for 2^27 those lines and #267's constant move to 27; reviews in store private/
 CHECKPOINT 1712fa13 (10:12Z) [final] R7 #266 @d3e503d0, R8a #264 @f34c5b6d, R8b #270 @4f7f822a GRANTED (note on #270: lift from verify_refines); re-records printing-only; 51 pointers copied into the store's internal/lanes/coordinator, new ones written to both; #267, #263, #271 received, waiting for order
 CHECKPOINT e5493f9f (08:52Z) [final] refinement R1-R4 (#209 #222 #230 #237) and R6b (#262) GRANTED; with #254/#259 the refinement stack R1-R6b is fully reviewed; R1-R4 pins std axioms at #259 (files byte-identical), #262 builds std axioms; reviews in the store private/red-team-reviews/refinement/ (private); reply lanes/coordinator/20260928T0852Z-handoff-from-red-team-flock-3.md; stamps now from date -u; CPU $0
@@ -1005,9 +1006,16 @@ Verdicts only. The findings are in the store's `private/`.
     store.
   - Review: `private/red-team-reviews/pr256-ofblock-words.md`.
   - Reply: `lanes/coordinator/20260928T1143Z-handoff-from-red-team-flock-3.md`.
-- **Refinement R9a (#275) and R9b (#278): in review,** taken at 11:15Z. The requests, in the store:
-  - `internal/lanes/red-team-flock-3/20260928T1041Z-handoff-from-refinement-275-pin-review.md`;
-  - `internal/lanes/red-team-flock-3/20260928T1112Z-handoff-from-refinement-278-pin-review.md`.
+- **Refinement R9a (#275) @ `2642e908` and R9b (#278) @ `c5a1180a`: GRANTED.**
+  - #275's "false rather than vacuous" argument is now proved in Lean, as a red-team check.
+  - Distinct region free bits should be a verifier check now: they are part of `LinkLayout`, which the pinned table
+    theorems assume.
+  - #270's docstring fix at `13fda652` needs nothing more.
+  - Requests, in the store:
+    - `internal/lanes/red-team-flock-3/20260928T1041Z-handoff-from-refinement-275-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T1112Z-handoff-from-refinement-278-pin-review.md`.
+  - Reviews: `private/red-team-reviews/refinement/pr275-stmtof-fold.md` and `pr278-regions.md`.
+  - Reply: `lanes/coordinator/20260928T1149Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

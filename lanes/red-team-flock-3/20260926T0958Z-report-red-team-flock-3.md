@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 412d8318 (10:35Z) [final] #263 @6eb38c48, #267 @3023daaa, #271 @c7b06dd1 GRANTED (three notes for 1e on #263); correction to 0845Z: Lean setup already refused k_log > 26, so for 2^27 those lines and #267's constant move to 27; reviews in store private/
 CHECKPOINT 1712fa13 (10:12Z) [final] R7 #266 @d3e503d0, R8a #264 @f34c5b6d, R8b #270 @4f7f822a GRANTED (note on #270: lift from verify_refines); re-records printing-only; 51 pointers copied into the store's internal/lanes/coordinator, new ones written to both; #267, #263, #271 received, waiting for order
 CHECKPOINT e5493f9f (08:52Z) [final] refinement R1-R4 (#209 #222 #230 #237) and R6b (#262) GRANTED; with #254/#259 the refinement stack R1-R6b is fully reviewed; R1-R4 pins std axioms at #259 (files byte-identical), #262 builds std axioms; reviews in the store private/red-team-reviews/refinement/ (private); reply lanes/coordinator/20260928T0852Z-handoff-from-red-team-flock-3.md; stamps now from date -u; CPU $0
 CHECKPOINT e5493f9f (08:44Z) [final] refinement #254 (R5) + #259 (R6) GRANTED (base R1-R4 #209/#222/#230/#237 and R6b #262 still unreviewed); M0 block limit 2^27: not as one constant (pinned table_sound_fast100* take InRange kLog<=26; spec + GPU guard say 26; extend InRange, numbers move ~0.0002 bits); #257 + #260 GRANTED; new folder private/red-team-reviews/refinement/; reviews in the store private/red-team-reviews/ (private); replies lanes/coordinator/20260928T0840Z, 0845Z, 0850Z-handoff-from-red-team-flock-3.md; CPU $0

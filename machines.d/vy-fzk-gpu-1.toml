@@ -1,0 +1,6 @@
+# machine vy-fzk-gpu-1: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "87wzfo4iyqgyxn"
+project = "verity"
+registered_by = "cursor"
+registered_at = "2026-09-28T05:16Z"

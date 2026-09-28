@@ -1016,6 +1016,15 @@ Verdicts only. The findings are in the store's `private/`.
     - `internal/lanes/red-team-flock-3/20260928T1112Z-handoff-from-refinement-278-pin-review.md`.
   - Reviews: `private/red-team-reviews/refinement/pr275-stmtof-fold.md` and `pr278-regions.md`.
   - Reply: `lanes/coordinator/20260928T1149Z-handoff-from-red-team-flock-3.md`.
+- **`verity/flock-circuit/types` (#272 @ `5c0de806`, #273 @ `0db3717e`): GRANTED WITH CONDITIONS,** taken at the
+  coordinator's 11:50Z word.
+  - The export rule is sound, and the parse refusals hold.
+  - **C1:** the digest `TAG` must be the statement id, or Rust and the Lean `Tags` disagree.
+  - **C2:** no cell until the Lean verifier reads the id and #268 is on the typed path.
+  - Request: `internal/lanes/coordinator/20260928T1050Z-note-to-red-team-constant-api-typed-statement-review.md`, in the
+    store's coordinator folder.
+  - Review: `private/red-team-reviews/m0-statement/typed-statement-review.md`.
+  - Reply: `lanes/coordinator/20260928T1207Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

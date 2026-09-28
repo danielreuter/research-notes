@@ -2,9 +2,10 @@
 lane: gemm-hash
 kind: report
 created: 2026-09-28T20:09Z
-status: open
+status: final
 ---
 
+CHECKPOINT f639cd66 (21:11Z) [final] #328 (draft, stacked on #289) @ f639cd66: native SHA-512 witness CPU reference matches eval64 on every row of sha512x3 and hm96 (pinned + carries-every-16) and on staged RoPE / K=256 GEMM; kernel, GPU hour, host bucket are M0's; $0
 CHECKPOINT f639cd66 (21:10Z) [open] #328 f639cd66: native SHA-512 witness CPU reference matches eval64 on every row, streamed in row order (4-word ring), rows labelled + pinned per M0's 2042Z handoff (answered 2110Z); CUDA/GPU/host bucket are M0's
 CHECKPOINT 0542811c (21:01Z) [open] native SHA-512 witness CPU reference matches eval64 on every row (sha512x3, hm96, carries-every-16; selftest on RoPE + K=256 GEMM): draft #328 stacked on #289; handoff to flock-netlist 2100Z; CUDA/GPU/host bucket are M0's
 CHECKPOINT 788bf662 (20:54Z) [open] native SHA-512 witness reference drafted (backends/flock/live/src/sha512_native.rs + selftest case native_sha_matches_eval64) on cursor/native-sha512-witness-1575 off 788bf662; building/testing on CPU
@@ -73,3 +74,14 @@ based on #289's head, as a draft PR. M0 takes the CUDA kernel, the GPU byte-iden
   - matching by kind as well as values (a folded carry row had taken a commit's place, value-identical);
   - the circuits' and plans' SHA-256 pinned.
 - **Sent:** `lanes/flock-netlist/20260928T2110Z-handoff-from-gemm-hash.md`, mapping each ask to #328.
+
+## FINAL (reopened work, 21:15Z)
+
+~~~text
+tip: cursor/native-sha512-witness-1575 @ f639cd66 (base cursor/flock-gemm-witness-4d6a@788bf662)   merge-with: #289 (it stacks on it) | PR #328 (draft)
+known-failures: none                                             pod: none; $0
+artifacts: none new
+~~~
+
+The CPU reference matches `eval64` on every row. The CUDA kernel, the GPU byte-identity hour and the host bucket are M0's, per their
+20:42Z handoff. Open offer to M0: the plan precomputed into META, or as run-length segments, on #328 if they want it.

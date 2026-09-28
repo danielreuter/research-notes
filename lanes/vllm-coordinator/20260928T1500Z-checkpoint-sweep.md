@@ -1,0 +1,1 @@
+2026-09-28T15:00Z sweep: running #73 ($18.89), #4 ($2.00), #23 ($1.72), #101 (relaunched 14:58Z on train H, 1x RTX 6000 Ada, ends ~16:30Z, expected/ write held for my tree verdict); main 269829d8 (H due ~15:35Z); balance $244.20; guard untripped.

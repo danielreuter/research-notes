@@ -148,7 +148,7 @@
    "min_ram": 128,
    "disk": 300,
    "rate": 4.36,
-   "cap": 32,
+   "cap": 35,
    "est_h": 6.0,
    "status": "ok",
    "env": {
@@ -222,7 +222,7 @@
    "min_ram": 250,
    "disk": 250,
    "rate": 6.98,
-   "cap": 42,
+   "cap": 49,
    "est_h": 5.0,
    "status": "wave2",
    "needs": [
@@ -231,7 +231,7 @@
    "env": {
     "VU_EXPORT": "0"
    },
-   "note": "wave 2 (separate GO); last in the window; deferred if S1b is not on main by ~12:30Z; at 3 pairs its est (6.2 h) passes its $42 cap (6.0 h): ask at the wave-2 GO",
+   "note": "wave 2 (separate GO, after S1b's per-request fix); cap $49 at 3 pairs (coordinator 07:57Z)",
    "est3_h": 6.2
   }
  },
@@ -252,5 +252,6 @@
   "est_h": 1.0,
   "when": "after the last wave-1 row is written",
   "out": "re-pin ops/known_roots.json (and canary.sh if it names roots) at the GO sha, own commit"
- }
+ },
+ "budget_rule": "a row starts only if committed spend + its cap <= $250; if wave-2 headroom runs short, defer #39 first, then #74 (old records stay); pairs are never reduced to fit money (coordinator 07:57Z)"
 }

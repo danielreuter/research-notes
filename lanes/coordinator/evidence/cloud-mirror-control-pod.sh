@@ -55,6 +55,11 @@ out2=$(timeout 240 rsync "${ropts[@]}" "${rev[@]}" "$host:$N/" "$S/" 2>&1); rrc=
 [ $rrc = 124 ] && { echo "$(stamp) reverse cut at 240 s (continues next pass)"; exit 0; }
 ok $rrc || { echo "$(stamp) FAIL reverse rsync rc=$rrc: ${out2: -300}"; exit 1; }
 nr=$(grep -c '^>f' <<<"$out2")
+# notes addressed to the coordinator that pod-side lanes wrote straight into the notes repo: the rev filter skips
+# *-handoff-from-<cloud lane>* as store-owned, so add the ones the store lacks, never replacing a store file
+out3=$(timeout 120 rsync "${ropts[@]}" --ignore-existing --include='/lanes/' --include='/lanes/coordinator/' \
+  --include='/lanes/coordinator/*-from-*.md' --exclude='*' "$host:$N/" "$S/" 2>&1)
+nr=$((nr + $(grep -c '^>f' <<<"$out3")))
 
 # the docs site reads the newest daily entities render (steward: renders/daily/<stamp>-tables.json, PR #40) from the store
 j=$($sshcmd "$host" "ls -1 $N/renders/daily/*-tables.json 2>/dev/null | sort | tail -1" 2>/dev/null)

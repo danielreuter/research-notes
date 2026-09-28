@@ -1053,6 +1053,16 @@ Verdicts only. The findings are in the store's `private/`.
   - Request, in the store: `internal/lanes/red-team-flock-3/20260928T1446Z-handoff-from-refinement-291-pin-review.md`.
   - Review: `private/red-team-reviews/refinement/pr291-setup-wf.md`.
   - Reply: `lanes/coordinator/20260928T1501Z-handoff-from-red-team-flock-3.md`.
+- **#287 (S4c) `UProg.rowsL1` @ `decbc673`: GRANTED,** fetched at 15:31Z.
+  - `46ff28db` isn't on GitHub, so I computed the pin's record locally (type hash `000000005e4ddc68`). An audit compare
+    against it covers `46ff28db` once that's pushed.
+  - Recommendation, not a condition: drop `UnitSpec.nodup`, which follows from `hd` through `orderChecked` (four lines in
+    Lean). No verifier check is needed.
+  - N1, for S4d/1e: the verifier's wiring must meet the source restrictions, or the verifier must refuse wirings that
+    don't. The restrictions are no source read twice within a unit, and no unit input reading the constant.
+  - Request, in the store: `internal/lanes/red-team-flock-3/20260928T1515Z-handoff-from-flock-soundness-287-rowsl1-pin-review.md`.
+  - Review: `private/red-team-reviews/pr287-uprog-rowsl1.md`.
+  - Reply: `lanes/coordinator/20260928T1555Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

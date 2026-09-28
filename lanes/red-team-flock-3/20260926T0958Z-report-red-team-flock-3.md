@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (07:00Z) [final] #207 e2e skeleton @78bc1d86 REFUSED as pinned (RowsL1 undischargeable as stated: derive's (form)*1 copy rows need the constant at 1; Lean counterexample; fix: condition RowsL1 on the constant + name Xplur's constant); train head 2c86df73 builds, std axioms, audit consistent; #194/#199/#205 can land via b9dea1f7; review in the store private/red-team-reviews/pr207-e2e-skeleton.md (private); reply lanes/coordinator/20260928T0700Z-handoff-from-red-team-flock-3.md; next #247, coin-tree v2 + #245, private ZK draft 4; CPU $0
 CHECKPOINT e5493f9f (05:56Z) [final] ZK proofs: public Theorem Z GRANT WITH CONDITIONS (3); #227 @e1947d5b GRANTED (11 pins); #239 @92ce596e GRANTED (T6); private Theorem 1 GRANT WITH CONDITIONS (6); reviews in the store private/red-team-reviews/zk-proofs/ (private); reply lanes/coordinator/20260928T0555Z-handoff-from-red-team-flock-3.md; CPU $0
 CHECKPOINT e5493f9f (04:02Z) [final] #205 S2 GRANTED at 50e7b5a2; #202 table/v2 GRANTED at 10d8e46b; replies lanes/coordinator/20260928T0350Z and 20260928T0401Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (03:18Z) [final] #200 GRANTED at 56936c35; #187 delta GRANTED at 87a0e3b7 (main pin 9cbdef19); c176e9c8 NON_ZK_PROOF carried; replies lanes/coordinator/20260928T0318Z-handoff-from-red-team-flock-3.md
@@ -869,6 +870,22 @@ Verdicts only. The findings are in the store's `private/`.
 - **`docs/zk-proof-private.md`, draft 2 (Theorem 1): GRANT WITH CONDITIONS,** with six conditions.
 - **Reviews:** `private/red-team-reviews/zk-proofs/public-circuit.md` and `private-circuit.md`, with `evidence/`.
 - **Reply:** `lanes/coordinator/20260928T0555Z-handoff-from-red-team-flock-3.md`.
+
+### The end-to-end skeleton, S3c, the keyed coin tree, and private ZK draft 4 (28 Sep, 06:40Z onward; named statement reviewer)
+
+Verdicts only. The findings are in the store's `private/`.
+- **#207 @ `78bc1d86` (train head `2c86df73`): REFUSED as pinned.** `RowsL1` can't be discharged as stated, and the gap
+  it depends on isn't named. The fix is small. Both pins build with standard axioms, and the audit record is consistent.
+  #194, #199 and #205 don't depend on #207.
+  - Requests, both in the store:
+    - `internal/lanes/red-team-flock-3/20260928T0641Z-handoff-from-flock-soundness-207-pin-review-pointer.md`;
+    - `internal/lanes/coordinator/20260928T0430Z-note-to-red-team-from-flock-soundness-e2e-skeleton.md`.
+  - Review: `private/red-team-reviews/pr207-e2e-skeleton.md`.
+  - Reply: `lanes/coordinator/20260928T0700Z-handoff-from-red-team-flock-3.md`.
+- **Queued, in order:**
+  - #247 (S3c), for `internal/lanes/red-team-flock-3/20260928T0640Z-handoff-from-flock-soundness-247-pin-review.md`;
+  - coin-tree v2 and #245, for `internal/lanes/red-team-flock-3/20260928T0636Z-handoff-from-zk-public-coin-tree-v2-statement-review.md`;
+  - the private ZK proof's draft 4.
 
 ### Pre-grant checklist
 

@@ -888,9 +888,14 @@ Verdicts only. The findings are in the store's `private/`.
     store.
   - Review: `private/red-team-reviews/pr247-s3c-dag.md`.
   - Reply: `lanes/coordinator/20260928T0710Z-handoff-from-red-team-flock-3.md`.
+- **#249 @ `ec52ce38`: GRANTED.** `Rows.compose_eval` and `placement_of_realizes` read `derive`'s rows as the audit's
+  `Rows` and place them. Three notes, none blocking; one is shared with #207, the constant at 1.
+  - Request: `internal/lanes/red-team-flock-3/20260928T0700Z-handoff-from-audit-lean-249-pin-review.md`, in the store.
+  - Review: `private/red-team-reviews/pr249-compose.md`.
+  - Reply: `lanes/coordinator/20260928T0712Z-handoff-from-red-team-flock-3.md`.
 - **Queued, in order:**
-  - #249 (audit-lean), for `internal/lanes/red-team-flock-3/20260928T0700Z-handoff-from-audit-lean-249-pin-review.md`;
   - coin-tree v2 and #245, for `internal/lanes/red-team-flock-3/20260928T0636Z-handoff-from-zk-public-coin-tree-v2-statement-review.md`;
+  - #252 (the region-word check), for `internal/lanes/red-team-flock-3/20260928T0712Z-handoff-from-flock-zk-region-word-check.md`;
   - the private ZK proof's draft 4.
 
 ### Pre-grant checklist

@@ -11,6 +11,11 @@ H=$(cd "$(dirname "$0")" && pwd)
 LANE=$RESEARCH_NOTES/lanes/vllm-epoch-run
 R="env PYTHONPATH=/workspace/tools/research/src python3 -m research"
 BR=/workspace-wt/epoch-run
+push() {  # push the branch; when GitHub refuses, the contract's §5b route: a bundle in the Project store's artifacts/ for the coordinator
+  git push -q -u origin HEAD 2>/dev/null && { echo "pushed $(git rev-parse --short HEAD)"; return 0; }
+  local b="$STORE/artifacts/vllm-epoch-run-expected-$(git rev-parse --short HEAD).bundle"
+  git bundle create "$b" "$(git rev-parse --abbrev-ref HEAD)" > /dev/null 2>&1 && echo "PUSH FAILED: bundle $b (hand it to the coordinator)"
+}
 EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha")
 IFS='|' read -r POD PODID RUN START RATE CAP PAIRS CLOUD DRIVER GPUS VCPUS < <(awk -F'\t' -v n="$N" '$1==n && $8=="live" {print $2"|"$3"|"$4"|"$5"|"$7"|"$9"|"$10"|"$11"|"$12"|"$13"|"$14}' "$LANE/evidence/spend.tsv" | tail -n 1)
 [ -n "${RUN:-}" ] || { echo "#$N: no live row in spend.tsv"; exit 2; }
@@ -55,7 +60,7 @@ export PYTHONPATH=.:../../packages/verity/src:../../tools/research/src
 if [ "$N" = canary ]; then   # the re-pin of ops/known_roots.json (cc 8.9), its own commit
   python3 "$H/repin_roots.py" "$EVD/evidence" verity_vllm/ops/known_roots.json "$RUN" "$EPOCH_SHA" --write || exit 7
   git add verity_vllm/ops/known_roots.json
-  git commit -q -m "epoch: re-pin the canary roots (cc 8.9) under Q_word v1 at ${EPOCH_SHA:0:8} (canary run $RUN, reproduced)" && git push -q -u origin HEAD
+  git commit -q -m "epoch: re-pin the canary roots (cc 8.9) under Q_word v1 at ${EPOCH_SHA:0:8} (canary run $RUN, reproduced)" && push
   git log --oneline -n 1; exit 0
 fi
 decision=$(python3 "$H/gate_write.py" "$EVD/evidence" "$KEY"); gate=$?
@@ -66,7 +71,7 @@ if [ "$gate" = 0 ]; then
     --release rebaseline-epoch-q-word --run-id "$RUN" --force > "$EVD/write.txt" 2>&1 || { cat "$EVD/write.txt"; exit 5; }
   cat "$EVD/write.txt"
   git add "tests/regression/expected/$KEY.json"
-  git commit -q -m "epoch: re-baseline #$N under Q_word v1 at ${EPOCH_SHA:0:8} (run $RUN; forced: ${decision#WRITE forced=})" && git push -q -u origin HEAD
+  git commit -q -m "epoch: re-baseline #$N under Q_word v1 at ${EPOCH_SHA:0:8} (run $RUN; forced: ${decision#WRITE forced=})" && push
   git log --oneline -n 1
 fi
 python3 "$H/digest_line.py" "$N" "$EVD/evidence" "$RUN" "$EPOCH_SHA" "$SPENT" "$decision" "${PAIRS:-3}" "${CLOUD:-?}" "${DRIVER:-?}" "$LANE/evidence/attempts-$N.txt" "${GPUS:-?}" "${VCPUS:-?}"

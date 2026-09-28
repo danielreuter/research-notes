@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (11:09Z) [open] WAIT for GO: P2 merged (main 64f94732), top-up in ($297.95); GO waits on S-stack ~11:45Z. BLOCKERS sent (handoff 1109Z): verity GitHub 401 on this VM since ~10:30Z (asked refresh or a GO-sha bundle in store artifacts/); no L40S/L40 stock anywhere at 11:08Z. finish_row bundles on push failure. check-back 11:45Z agent bc-75fd4007. No pods.
 CHECKPOINT 6746f408 (10:33Z) [open] WAIT for GO (S-stack ~11:45Z + top-up). Applied 10:02Z (2x L40S for #23/#60/#39, vCPU-sized estimate, cap hours from the pod's own rate) and 10:26Z (#11 deferred, wave 1 = 9 rows). BLOCKER at GO if it persists: this VM's verity GitHub token is invalid since ~10:30Z (gh + git 401); notes push fine. check-back 11:05Z agent bc-75fd4007. No pods.
 CHECKPOINT 6746f408 (09:59Z) [open] WAIT for GO (P2 ~09:55Z, S-stack b38d26d5 behind; top-up pending). Wired community sm_89 (offer loop, create-time driver/RAM check, 15-min fail-fast failfast_bootstrap.sh, watch_pods.sh); 4x rows may take 2x L40S same RAM floor (handoff 0959Z). Stock: no 4x anywhere. check-back 10:30Z agent bc-75fd4007. No pods.
 CHECKPOINT 6746f408 (09:11Z) [open] WAIT for GO: P2 (#231) due ~09:55Z, S-stack re-stacking on P2; top-up pending (balance $114.58). Stock 09:10Z: no L40S/L40 at 1/2/4 (secure). #11 now 1-pair window (latest 11:30Z). check-back 09:50Z agent bc-75fd4007. No pods.

@@ -1,52 +1,256 @@
 {
-  "schema": "vllm-epoch-run/rows/v1",
-  "note": "One pod per row (brief lane-briefs/vllm-epoch-run.md). min_ram is per GPU (RunPod minRAMPerGPU): host floor / count. rate = secure-cloud $/h for the pod. max_h = cap / rate (the per-row guard's --pod-max-hours). est_h includes bootstrap. status: ok = starts at GO; wave2 = needs `needs` on main as well; ask = waits for the coordinator. env = per-row knobs passed to epoch_row.sh (never an epoch default switched off).",
-  "deadline_utc": "2026-09-28T18:00Z",
-  "last_end_utc": "2026-09-28T17:30Z",
-  "lane_cap_usd": 250,
-  "rows": {
-    "101": {"key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA L40S", "count": 1, "min_ram": 94, "disk": 150, "rate": 1.09, "cap": 5, "est_h": 1.5, "status": "ok",
-            "alt": {"count": 2, "min_ram": 47, "rate": 2.18},
-            "env": {"PAIRS": "1", "VERITY_QWORD_MAX_GATES": "GumbelTopPTokenSelect_v2=110000000"},
-            "note": "#231's sampler Call (102 M gates) cut with --word-max-gates GumbelTopPTokenSelect_v2=110000000 (coordinator 07:35Z; >= 60 GB RAM)"},
-    "4":   {"key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager", "class": "FAIL",
-            "gpu": "NVIDIA L40S", "count": 1, "min_ram": 94, "disk": 200, "rate": 1.09, "cap": 5, "est_h": 3.0, "status": "ok", "env": {},
-            "note": "last epoch: Commit PASSes on this FAIL-class row (v1 class was a record-audit RED); a PASS is reported, not written"},
-    "57":  {"key": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager", "class": "FAIL",
-            "gpu": "NVIDIA L40S", "count": 2, "min_ram": 94, "disk": 200, "rate": 2.18, "cap": 10, "est_h": 3.5, "status": "wave2",
-            "needs": ["S1b #253"], "env": {}, "note": "wave 2 (separate GO); last in the window; deferred if S1b is not on main by ~12:30Z"},
-    "67":  {"key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA L40S", "count": 2, "min_ram": 120, "disk": 250, "rate": 2.18, "cap": 11, "est_h": 4.0, "status": "ok",
-            "env": {"VU_EXPORT": "0"}, "note": "Commit ~193 GiB planned; 233 GB cgroup worked last epoch"},
-    "68":  {"key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA L40S", "count": 2, "min_ram": 120, "disk": 250, "rate": 2.18, "cap": 11, "est_h": 4.0, "status": "ok",
-            "env": {"VU_EXPORT": "0"}},
-    "70":  {"key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager", "class": "FAIL",
-            "gpu": "NVIDIA L40S", "count": 2, "min_ram": 120, "disk": 250, "rate": 2.18, "cap": 9, "est_h": 3.0, "status": "ok",
-            "env": {}, "note": "TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)"},
-    "23":  {"key": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA L40S", "count": 4, "min_ram": 100, "disk": 250, "rate": 4.36, "cap": 16, "est_h": 3.0, "status": "ok",
-            "env": {}, "note": "Commit OOM at 251 GB last epoch: host > 251 GB"},
-    "60":  {"key": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA L40S", "count": 4, "min_ram": 100, "disk": 250, "rate": 4.36, "cap": 21, "est_h": 4.0, "status": "ok",
-            "env": {"VU_EXPORT": "0"}},
-    "11":  {"key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA L40S", "count": 4, "min_ram": 128, "disk": 300, "rate": 4.36, "cap": 32, "est_h": 6.0, "status": "ok",
-            "env": {"VU_EXPORT": "0"}, "note": "deferred first if the start slips past ~12:00Z (root 06:43Z)"},
-    "39":  {"key": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA L40S", "count": 4, "min_ram": 128, "disk": 300, "rate": 4.36, "cap": 32, "est_h": 6.0, "status": "wave2",
-            "needs": ["#244", "S1b #253"], "env": {"VU_EXPORT": "0"}, "note": "check the fold binds GemmBias_v1 at the Match (evidence: gemmbias.txt)"},
-    "75":  {"key": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager", "class": "FAIL",
-            "gpu": "NVIDIA H100 80GB HBM3", "count": 2, "min_ram": 125, "disk": 300, "rate": 6.98, "cap": 34, "est_h": 4.0, "status": "ask",
-            "alt": {"gpu": "NVIDIA L40S", "count": 2, "min_ram": 188, "rate": 2.18, "cap": 12, "env": {"COMMIT_GPU_UTIL": "0.70", "GPU_UTIL": "0.92"}},
-            "env": {"BUILD_TIMEOUT": "14400"},
-            "note": "an __l40s__ row on an H100 fails precheck-target (device 9.0 != 8.9; rows of record carry no waiver): coordinator decides H100 vs alt"},
-    "73":  {"key": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA H100 80GB HBM3", "count": 2, "min_ram": 250, "disk": 250, "rate": 6.98, "cap": 42, "est_h": 5.0, "status": "ok",
-            "env": {"VU_EXPORT": "0"}, "note": "FA3 v4; Commit OOM at 251 GB last epoch"},
-    "74":  {"key": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager", "class": "GREEN",
-            "gpu": "NVIDIA H100 80GB HBM3", "count": 2, "min_ram": 250, "disk": 250, "rate": 6.98, "cap": 42, "est_h": 5.0, "status": "wave2",
-            "needs": ["S1b #253"], "env": {"VU_EXPORT": "0"}, "note": "wave 2 (separate GO); last in the window; deferred if S1b is not on main by ~12:30Z"}
+ "schema": "vllm-epoch-run/rows/v1",
+ "note": "One pod per row (brief lane-briefs/vllm-epoch-run.md). min_ram is per GPU (RunPod minRAMPerGPU): host floor / count. rate = secure-cloud $/h for the pod. max_h = cap / rate (the per-row guard's --pod-max-hours). est_h includes bootstrap. status: ok = starts at GO; wave2 = needs `needs` on main as well; ask = waits for the coordinator. env = per-row knobs passed to epoch_row.sh (never an epoch default switched off).",
+ "deadline_utc": "2026-09-28T18:00Z",
+ "last_end_utc": "2026-09-28T17:30Z",
+ "lane_cap_usd": 250,
+ "rows": {
+  "101": {
+   "key": "llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA L40S",
+   "count": 1,
+   "min_ram": 94,
+   "disk": 150,
+   "rate": 1.09,
+   "cap": 5,
+   "est_h": 1.5,
+   "status": "ok",
+   "alt": {
+    "count": 2,
+    "min_ram": 47,
+    "rate": 2.18
+   },
+   "env": {
+    "PAIRS": "1",
+    "VERITY_QWORD_MAX_GATES": "GumbelTopPTokenSelect_v2=110000000"
+   },
+   "note": "#231's sampler Call (102 M gates) cut with --word-max-gates GumbelTopPTokenSelect_v2=110000000 (coordinator 07:35Z; >= 60 GB RAM)",
+   "est3_h": null
+  },
+  "4": {
+   "key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
+   "class": "FAIL",
+   "gpu": "NVIDIA L40S",
+   "count": 1,
+   "min_ram": 94,
+   "disk": 200,
+   "rate": 1.09,
+   "cap": 5,
+   "est_h": 3.0,
+   "status": "ok",
+   "env": {},
+   "note": "a Commit PASS on this FAIL-class row is deferred with the evidence; old record stays (coordinator 07:20Z)",
+   "est3_h": 3.8
+  },
+  "57": {
+   "key": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+   "class": "FAIL",
+   "gpu": "NVIDIA L40S",
+   "count": 2,
+   "min_ram": 94,
+   "disk": 200,
+   "rate": 2.18,
+   "cap": 10,
+   "est_h": 3.5,
+   "status": "wave2",
+   "needs": [
+    "S1b #253"
+   ],
+   "env": {},
+   "note": "wave 2 (separate GO); last in the window; deferred if S1b is not on main by ~12:30Z",
+   "est3_h": 4.2
+  },
+  "67": {
+   "key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA L40S",
+   "count": 2,
+   "min_ram": 120,
+   "disk": 250,
+   "rate": 2.18,
+   "cap": 13,
+   "est_h": 4.0,
+   "status": "ok",
+   "env": {
+    "VU_EXPORT": "0"
+   },
+   "note": "Commit ~193 GiB planned; 233 GB cgroup worked last epoch",
+   "est3_h": 5.5
+  },
+  "68": {
+   "key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA L40S",
+   "count": 2,
+   "min_ram": 120,
+   "disk": 250,
+   "rate": 2.18,
+   "cap": 13,
+   "est_h": 4.0,
+   "status": "ok",
+   "env": {
+    "VU_EXPORT": "0"
+   },
+   "est3_h": 5.4
+  },
+  "70": {
+   "key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
+   "class": "FAIL",
+   "gpu": "NVIDIA L40S",
+   "count": 2,
+   "min_ram": 120,
+   "disk": 250,
+   "rate": 2.18,
+   "cap": 9,
+   "est_h": 3.0,
+   "status": "ok",
+   "env": {},
+   "note": "TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)",
+   "est3_h": 3.5
+  },
+  "23": {
+   "key": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA L40S",
+   "count": 4,
+   "min_ram": 100,
+   "disk": 250,
+   "rate": 4.36,
+   "cap": 18,
+   "est_h": 3.0,
+   "status": "ok",
+   "env": {},
+   "note": "Commit OOM at 251 GB last epoch: host > 251 GB",
+   "est3_h": 3.7
+  },
+  "60": {
+   "key": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA L40S",
+   "count": 4,
+   "min_ram": 100,
+   "disk": 250,
+   "rate": 4.36,
+   "cap": 24,
+   "est_h": 4.0,
+   "status": "ok",
+   "env": {
+    "VU_EXPORT": "0"
+   },
+   "est3_h": 5.0
+  },
+  "11": {
+   "key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA L40S",
+   "count": 4,
+   "min_ram": 128,
+   "disk": 300,
+   "rate": 4.36,
+   "cap": 32,
+   "est_h": 6.0,
+   "status": "ok",
+   "env": {
+    "VU_EXPORT": "0"
+   },
+   "note": "deferred first if the start slips past ~12:00Z (root 06:43Z)",
+   "est3_h": 7.0
+  },
+  "39": {
+   "key": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA L40S",
+   "count": 4,
+   "min_ram": 128,
+   "disk": 300,
+   "rate": 4.36,
+   "cap": 32,
+   "est_h": 6.0,
+   "status": "wave2",
+   "needs": [
+    "#244",
+    "S1b #253"
+   ],
+   "env": {
+    "VU_EXPORT": "0"
+   },
+   "note": "check the fold binds GemmBias_v1 at the Match (evidence: gemmbias.txt)",
+   "est3_h": 7.0
+  },
+  "75": {
+   "key": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager",
+   "class": "FAIL",
+   "gpu": "NVIDIA L40S",
+   "count": 2,
+   "min_ram": 188,
+   "disk": 300,
+   "rate": 2.18,
+   "cap": 12,
+   "est_h": 4.0,
+   "status": "ok",
+   "env": {
+    "BUILD_TIMEOUT": "14400",
+    "COMMIT_GPU_UTIL": "0.70",
+    "GPU_UTIL": "0.92"
+   },
+   "note": "coordinator 07:20Z option (a): 2x L40S >= 377 GB host, COMMIT_GPU_UTIL=0.70, cap $12; no such shape by 13:30Z -> defer, old record stays",
+   "est3_h": 4.5
+  },
+  "73": {
+   "key": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA H100 80GB HBM3",
+   "count": 2,
+   "min_ram": 250,
+   "disk": 250,
+   "rate": 6.98,
+   "cap": 49,
+   "est_h": 5.0,
+   "status": "ok",
+   "env": {
+    "VU_EXPORT": "0"
+   },
+   "note": "FA3 v4; Commit OOM at 251 GB last epoch",
+   "est3_h": 6.2
+  },
+  "74": {
+   "key": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
+   "class": "GREEN",
+   "gpu": "NVIDIA H100 80GB HBM3",
+   "count": 2,
+   "min_ram": 250,
+   "disk": 250,
+   "rate": 6.98,
+   "cap": 42,
+   "est_h": 5.0,
+   "status": "wave2",
+   "needs": [
+    "S1b #253"
+   ],
+   "env": {
+    "VU_EXPORT": "0"
+   },
+   "note": "wave 2 (separate GO); last in the window; deferred if S1b is not on main by ~12:30Z; at 3 pairs its est (6.2 h) passes its $42 cap (6.0 h): ask at the wave-2 GO",
+   "est3_h": 6.2
   }
+ },
+ "pairs_rule": "3 pairs (the records' n_runs 6) except #101 (1, as its record). A row whose 3-pair estimate (est3_h) can't end by 17:30Z at launch runs PAIRS=1 (est_h) and its line says n_runs 6 -> 2; if even est_h can't, it is deferred (coordinator 07:20Z)",
+ "substitutes": {
+  "NVIDIA L40S": [
+   "NVIDIA L40"
+  ],
+  "rule": "secure cloud only; an sm_89 shape at the same or a lower rate; anything else asks"
+ },
+ "canary": {
+  "gpu": "NVIDIA L40S",
+  "count": 1,
+  "min_ram": 60,
+  "disk": 150,
+  "rate": 1.09,
+  "cap": 2,
+  "est_h": 1.0,
+  "when": "after the last wave-1 row is written",
+  "out": "re-pin ops/known_roots.json (and canary.sh if it names roots) at the GO sha, own commit"
+ }
 }

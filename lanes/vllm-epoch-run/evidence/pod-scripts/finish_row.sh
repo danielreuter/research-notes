@@ -4,7 +4,7 @@
 #   3 custody: the run and both stored trees PRESERVED (`research data preserved`), else the pod stays up (FORCE=1 overrides, logged)
 #   4 the pod terminated, its cap guard stopped, its registry entry removed; spend.tsv gets the end and the spend
 #   5 gate_write.py: WRITE -> `rebaseline write --force` into the branch worktree, one commit, pushed; HOLD -> nothing written
-#   6 the row's line in the digest table (digest_line.py)
+#   6 the row's line in the digest table (digest_line.py).  N=canary: repin_roots.py --write and its own commit instead of 5-6
 set -u
 N=${1:?row number}
 H=$(cd "$(dirname "$0")" && pwd)
@@ -12,9 +12,9 @@ LANE=$RESEARCH_NOTES/lanes/vllm-epoch-run
 R="env PYTHONPATH=/workspace/tools/research/src python3 -m research"
 BR=/workspace-wt/epoch-run
 EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha")
-IFS=$'\t' read -r _ POD PODID RUN START _ RATE _ CAP < <(awk -F'\t' -v n="$N" '$1==n && $8=="live"' "$LANE/evidence/spend.tsv" | tail -n 1)
+IFS='|' read -r POD PODID RUN START RATE CAP PAIRS < <(awk -F'\t' -v n="$N" '$1==n && $8=="live" {print $2"|"$3"|"$4"|"$5"|"$7"|"$9"|"$10}' "$LANE/evidence/spend.tsv" | tail -n 1)
 [ -n "${RUN:-}" ] || { echo "#$N: no live row in spend.tsv"; exit 2; }
-KEY=$(python3 -c "import json;print(json.load(open('$H/rows.json'))['rows']['$N']['key'])")
+KEY=-; [ "$N" = canary ] || KEY=$(python3 -c "import json;print(json.load(open('$H/rows.json'))['rows']['$N']['key'])")
 EVD=/workspace/epoch-evidence/$N; mkdir -p "$EVD"
 
 st=$($R pods ssh "$POD" -- "python3 -c 'import json;t=json.load(open(\"/workspace/research/runs/$RUN/status.json\"))[\"transitions\"][-1];print(t.get(\"state\"), t.get(\"exit_code\", t.get(\"rc\", \"\")))'" 2>/dev/null | tail -n 1)
@@ -52,6 +52,12 @@ echo "#$N terminated $END, spent \$$SPENT (cap \$$CAP)"
 
 cd "$BR/integrations/vllm" || exit 4
 export PYTHONPATH=.:../../packages/verity/src:../../tools/research/src
+if [ "$N" = canary ]; then   # the re-pin of ops/known_roots.json (cc 8.9), its own commit
+  python3 "$H/repin_roots.py" "$EVD/evidence" verity_vllm/ops/known_roots.json "$RUN" "$EPOCH_SHA" --write || exit 7
+  git add verity_vllm/ops/known_roots.json
+  git commit -q -m "epoch: re-pin the canary roots (cc 8.9) under Q_word v1 at ${EPOCH_SHA:0:8} (canary run $RUN, reproduced)" && git push -q -u origin HEAD
+  git log --oneline -n 1; exit 0
+fi
 decision=$(python3 "$H/gate_write.py" "$EVD/evidence" "$KEY"); gate=$?
 echo "gate: $decision"
 if [ "$gate" = 0 ]; then
@@ -63,4 +69,4 @@ if [ "$gate" = 0 ]; then
   git commit -q -m "epoch: re-baseline #$N under Q_word v1 at ${EPOCH_SHA:0:8} (run $RUN; forced: ${decision#WRITE forced=})" && git push -q -u origin HEAD
   git log --oneline -n 1
 fi
-python3 "$H/digest_line.py" "$N" "$EVD/evidence" "$RUN" "$EPOCH_SHA" "$SPENT" "$decision"
+python3 "$H/digest_line.py" "$N" "$EVD/evidence" "$RUN" "$EPOCH_SHA" "$SPENT" "$decision" "${PAIRS:-3}"

@@ -27,6 +27,7 @@ while [ "$(date +%s)" -lt "$stop_at" ]; do
     while IFS='|' read -r N POD PODID RUN START RATE; do
       [ -n "$N" ] || continue
       [ -z "$ROWS" ] || [[ " $ROWS " == *" $N "* ]] || continue
+      [ -z "${STOP_ROWS:-}" ] || [[ " $STOP_ROWS " == *" $N "* ]] || continue   # only the rows a GO's STOP rule covers
       mkdir -p "/workspace/epoch-evidence/$N"
       timeout 120 $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$RUN evidence" > "/workspace/epoch-evidence/$N/stop-$(date -u +%H%MZ).tgz" 2>/dev/null < /dev/null
       $R pods terminate "$PODID" > /dev/null 2>&1 < /dev/null; $R pods guard stop --prefix "$POD-" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1

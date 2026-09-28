@@ -25,11 +25,11 @@
     "PAIRS": "1",
     "VERITY_QWORD_MAX_GATES": "GumbelTopPTokenSelect_v2=110000000"
    },
-   "note": "GO 15:59Z third try on edac1cf6 (#297 NvLogf registry fix); 1 pair (its record)",
+   "note": "GO 17:52Z fourth try on train V fe7931d5 (#309 registry catalogue); 1 pair; STOP (V's gate fails) discards",
    "est3_h": null,
-   "launch_sha": "edac1cf6f65b84e7da209bf19dd93cfe65de6663",
-   "hold_write": "GO 15:59Z: edac1cf6 (tree 9e41acb1, main 432edb3b + #297); expected/ held for the coordinator's verdict after #297 lands",
-   "go_sha": "edac1cf6f65b84e7da209bf19dd93cfe65de6663"
+   "launch_sha": "fe7931d5996e66424c531a15e91afce2563a812a",
+   "hold_write": "GO 17:52Z: fe7931d5 (tree d4c65ae7, main ac412eb8 + #309); expected/ held until the landed main's tree is confirmed d4c65ae7",
+   "go_sha": "fe7931d5996e66424c531a15e91afce2563a812a"
   },
   "4": {
    "key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",

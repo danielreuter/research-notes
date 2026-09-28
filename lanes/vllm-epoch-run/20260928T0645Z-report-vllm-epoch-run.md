@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (17:56Z) [open] #101 try 4 on train V fe7931d5 (tree d4c65ae7): vyv-rf-epoch-101 r20260928-175437-cfe5 launched 17:54Z (1xL40S, 1 pair, write held; STOP armed for #101 only). LIVE: #73 Commit, #23 Match, #74 #75 #67 Build. agent bc-75fd4007.
 CHECKPOINT 6746f408 (17:39Z) [open] #23 Build PASS 17:36Z (M 27.3 min) -> runs on, Commit ~20:25-21:00Z; side-store r20260928-173842-6371. #73 Match PASS, fast word check PASS 17:23Z, Commit (rebuild) -> ~19:45Z. #60 balance OK now, polling for shape. Note 1740Z. agent bc-75fd4007.
 CHECKPOINT 6746f408 (17:37Z) [open] #4 deferred for audit, terminated 17:36Z ($4.84), arts 84ec56f4/876db263/013671cf/b604b4df PRESERVED; interim handoff 1737Z. rebaseline -k fixed (r<N>); running rows get side_finish.sh. LIVE: #73 Match, #23 Build, #74 #75 #67 Build. Spend ~$66. agent bc-75fd4007.
 CHECKPOINT 6746f408 (16:36Z) [open] #101 3rd try (edac1cf6) Build FAIL in manifest step: GumbelTopPTokenSelect_v2 not registered (program_view) -> deferred, terminated 16:34Z, arts 2d65d5d7/14775bd0 PRESERVED; handoff 1635Z. #4 Commit PASS 16:27Z (FAIL-class -> defer). #73 Build PASS 16:31Z, side-store art:1b29fa7f PRESERVED. LIVE: #73 #4 #23 #74 #75 #67. agent bc-75fd4007.

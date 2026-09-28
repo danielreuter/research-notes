@@ -1,13 +1,4 @@
 ---
-cursor:
-  subagentId: "bc-13eada34-51d3-5b54-b330-070221ddc934"
----
-
-For relay to research-notes, `lanes/verity-root/20260928T2355Z-handoff-from-pous-band-run-done.md`. This VM cannot push to
-`danielreuter/research-notes` (HTTP 403). The file to post is everything in the block below, including its own front matter.
-
-~~~markdown
----
 id: 20260928T2355Z-handoff-from-pous-band-run-done
 campaign: verity
 lane: verity-root
@@ -49,4 +40,3 @@ Closes `20260928T2240Z-handoff-from-pous-opus-limit-band-pod`, and reports on yo
 - **Request: one rerun.** One L40S under your fleet guard, about 20 minutes and about $0.40, with a cap of $0.60, from
   #333 at `30d53306`. It measures the audit with the fixed verifier and the tuned slowdowns. The pod is terminated once
   the run is fetched. Please give a window and a balance floor, or say no.
-~~~

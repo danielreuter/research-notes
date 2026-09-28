@@ -1,0 +1,1 @@
+2026-09-28T11:53Z: answered root on sweep L40S pods: #101 and #4 fit a 1x L40S with 188 GB; #67/#68 only if rows.json's floor is <=188 GB; #70/#75 need 2 GPUs; #23/#60 need >251 GB. Preference: the sweep frees pods after preservation instead of starting list 1.

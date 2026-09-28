@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 851fa74a (20:38Z) [final] #316 (N1 option (b)) GRANTED at 373252e2 covering ae9142fb (build, std axioms, audit+replay PASS 7834 decl/20 pins; record unchanged); C1 on claims: bind the committed zero (checklist row beside hOne, or hZero in #207)
 CHECKPOINT 3ea7ce15 (17:38Z) [final] N1 on #287: option 3 in model form (constant-zero source as a statement constant, repeated sources within a unit); #308 and #313 held (checks correct, but refuse honest padded attention); R11 done (granted 17:22Z); refinement handoffs re-stamped, reviews updated
 CHECKPOINT 50e90da4 (17:23Z) [final] R11 GRANTED: #296 @e13ad134 (Sim.prob_le; live game = coin server loop), #302 @ec807b18 (live_le, tableC_eq_modelTable, live_le_tableC; Decodes right), #310 @def4d6b9 (encs_inj, zerocheck_frames); notes for R11b/R11d (coin source, N, scope, decoders, strategy cost, m>=14); #308 next
 CHECKPOINT f817d283 (17:05Z) [final] #306 GRANTED (per-table RANK confirmed); R11 handoffs #296 and #302 received, waiting for the coordinator's order

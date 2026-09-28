@@ -882,8 +882,14 @@ Verdicts only. The findings are in the store's `private/`.
     - `internal/lanes/coordinator/20260928T0430Z-note-to-red-team-from-flock-soundness-e2e-skeleton.md`.
   - Review: `private/red-team-reviews/pr207-e2e-skeleton.md`.
   - Reply: `lanes/coordinator/20260928T0700Z-handoff-from-red-team-flock-3.md`.
+- **#247 (S3c) @ `b274db3f`: GRANTED.** `unit_sound` and `layout_sound` state L1 over the type DAG from
+  `deriveChecked`. Four notes, none blocking; the main one is that 1e must consume `deriveChecked`'s output.
+  - Request: `internal/lanes/red-team-flock-3/20260928T0640Z-handoff-from-flock-soundness-247-pin-review.md`, in the
+    store.
+  - Review: `private/red-team-reviews/pr247-s3c-dag.md`.
+  - Reply: `lanes/coordinator/20260928T0710Z-handoff-from-red-team-flock-3.md`.
 - **Queued, in order:**
-  - #247 (S3c), for `internal/lanes/red-team-flock-3/20260928T0640Z-handoff-from-flock-soundness-247-pin-review.md`;
+  - #249 (audit-lean), for `internal/lanes/red-team-flock-3/20260928T0700Z-handoff-from-audit-lean-249-pin-review.md`;
   - coin-tree v2 and #245, for `internal/lanes/red-team-flock-3/20260928T0636Z-handoff-from-zk-public-coin-tree-v2-statement-review.md`;
   - the private ZK proof's draft 4.
 

@@ -110,12 +110,14 @@
    "min_ram": 120,
    "disk": 250,
    "rate": 2.18,
-   "cap": 6.5,
+   "cap": 8,
    "est_h": 3.0,
    "status": "ok",
-   "env": {},
-   "note": "GO 15:59Z on main 432edb3b, cap $6.5; TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)",
-   "est3_h": 3.5,
+   "env": {
+    "PAIRS": "1"
+   },
+   "note": "GO 15:59Z on main 432edb3b, cap $6.5; TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp); coordinator 19:08Z: 1 pair (n_runs 6 -> 2), cap $8, same terms and shapes as #60 (2x L40S / L40 / RTX 6000 Ada, secure first), latest start 20:20Z, balance test at launch, $25 floor kept",
+   "est3_h": null,
    "go_sha": "432edb3b044fdbf3c86879a5c7d71ebb5ad4c79c"
   },
   "23": {

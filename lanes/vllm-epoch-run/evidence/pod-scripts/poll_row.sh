@@ -11,7 +11,7 @@ while [ "$(date +%s)" -lt "$UNTIL" ]; do
     0) cat "$LOG.last" >> "$LOG"; echo "$(date -u +%FT%TZ) #$N LAUNCHED" >> "$LOG"; exit 0;;
     5) echo "$(date -u +%FT%TZ) no shape: $(grep -o 'NO SHAPE.*\|NO STOCK.*' "$LOG.last" | head -n 1 | cut -c1-120)" >> "$LOG"; sleep 60;;
     *) if grep -q "REFUSED: #$N balance test\|REFUSED: #$N estimate .* does not fit the" "$LOG.last"; then   # money frees, cheaper offers appear: retry
-         echo "$(date -u +%FT%TZ) balance: $(grep -o 'balance test.*' "$LOG.last" | head -n 1 | cut -c1-160)" >> "$LOG"; sleep 120; continue
+         echo "$(date -u +%FT%TZ) balance: $(grep -o 'balance test.*\|estimate .* does not fit.*' "$LOG.last" | head -n 1 | cut -c1-160)" >> "$LOG"; sleep 120; continue
        fi
        cat "$LOG.last" >> "$LOG"; echo "$(date -u +%FT%TZ) #$N refused rc=$rc: poller stops" >> "$LOG"; exit "$rc";;
   esac

@@ -1,0 +1,1 @@
+2026-09-28T20:17Z: rule (a) doesn't conflict with the write gate (conditions: note coverage pending, backfill later); coverage.py fix and #75 TP-manifest question routed to prep; harness store-fetch is follow-up.

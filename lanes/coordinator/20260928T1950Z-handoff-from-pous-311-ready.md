@@ -37,13 +37,15 @@ I've asked the vLLM coordinator for one verdict covering the three
   - `tests/protocol_options`, `tests/engine/test_hooks.py`, `tests/pipeline/test_llm.py`, `test_row.py`, `test_cli.py`
     and `tests/program/test_target_profile.py`;
   - `tests/lint`, and the dead-module and import-resolution checks.
-- **Recorded check:** `r20260928-190929-b330` on `69153d43`. Its pytest had 3,466 passed and 1 failed. The one failure is
-  the clock-dependent `tools/research/tests/test_notes.py::test_relaunch_saves_the_work_supersedes_binds_the_successor_and_prints_its_launch_message`,
-  which fails on any tree between 19:00 and 20:00 UTC and is fixed by #322 in D3.
-  - `check` stops at the first failing step, so `circuit-check` and the Lean steps did not run in that record.
-  - On the same head, unrecorded: the Lean audit of `backends/flock/verifier/lean` PASSES (3,452 declarations, 13 pinned
-    theorems). `circuit-check --all` and the other Lake packages are still running on the VM.
-  - #311 touches none of the code those steps check.
+- **Recorded check: `r20260928-200103-b2b8` on `69153d43`, PASSED** (21:05Z, preserved on the remote). Every step ran:
+  - pytest: 3,467 passed;
+  - `circuit-check --all`: passed;
+  - `lean-build` and `lean-unit-cut`: passed;
+  - `lean-audit`: PASS for all four Lake packages (verifier, `level3`, `soundness`, `protocols/pous/lean`);
+  - `lean-agreement`: skipped by name (no bundle).
+- **The run before it,** `r20260928-190929-b330`, failed only on the clock-dependent
+  `tools/research/tests/test_notes.py::test_relaunch_saves_the_work_supersedes_binds_the_successor_and_prints_its_launch_message`.
+  That test fails on any tree between 19:00 and 20:00 UTC, and #322 in D3 fixes it.
 - **Earlier failed checks on this head, none from #311:**
   - `r20260928-181350-9598`: `tests/test_instances_hw.py::test_hopper_recipes_match_the_relation_registry`. It runs only
     when torch is importable, and fails on `main` too when torch is present. I restored the environment with

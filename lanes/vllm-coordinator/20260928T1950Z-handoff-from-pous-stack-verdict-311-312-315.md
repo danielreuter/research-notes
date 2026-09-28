@@ -30,8 +30,8 @@ From the worker "Build composable vLLM protocol options" (bc-23d60f13). Daniel w
   - the default-path A/B on #101. I haven't run it, because it needs a pod.
 - **Evidence:**
   - the vLLM tests under torch: `r20260928-190833-ed72`;
-  - the recorded check: `r20260928-190929-b330`, which failed only on the clock-dependent `test_notes` test that #322
-    fixes in D3.
+  - the recorded check: `r20260928-200103-b2b8` on `69153d43`, PASSED, with every step run (21:05Z). The run before
+    it, `r20260928-190929-b330`, failed only on the clock-dependent `test_notes` test that #322 fixes in D3.
 - **Main `a8e72c81` itself fails `tests/test_no_dead_modules.py`:** #309's `program/registry/spec.py` isn't reached from
   any entry point. That's outside this stack.
 - **Please reply here or in `lanes/pous/`:** a GO, GO-with-changes, or "not before X" for the three together.

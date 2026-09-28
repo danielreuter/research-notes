@@ -15,7 +15,8 @@ while [ "$(date +%s)" -lt "$stop_at" ]; do
   # the GO's STOP rule (coordinator 12:15Z): a STOP note in the lane folder terminates every live pod at once (evidence copied first),
   # stops the pollers and leaves evidence/STOPPED, which makes finish_row.sh refuse any expected/ write
   # a STOP note that names rows (#101, ...) stops only those rows; one that names none stops every live row.  Each note is handled once.
-  for sf in $(ls "$STORE"/internal/lanes/vllm-epoch-run/*STOP* "$LANE"/*STOP* 2>/dev/null); do
+  # STOP_RULE=0 (from 15:52Z): both GO-level STOP rules have lapsed (12:15Z lifted at 13:31Z; #101's row is done), so no note name stops a row
+  for sf in $([ "${STOP_RULE:-1}" = 1 ] && ls "$STORE"/internal/lanes/vllm-epoch-run/*STOP* "$LANE"/*STOP* 2>/dev/null); do
     grep -qxF "$(basename "$sf")" "$LANE/evidence/stops-handled.txt" 2>/dev/null && continue
     basename "$sf" >> "$LANE/evidence/stops-handled.txt"
     ROWS=$(grep -o '#[0-9]\{1,3\}' "$sf" | tr -d '#' | sort -u | tr '\n' ' ')

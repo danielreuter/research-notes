@@ -122,7 +122,7 @@
    "min_ram": 100,
    "disk": 250,
    "rate": 4.36,
-   "cap": 18,
+   "cap": 25,
    "est_h": 3.0,
    "status": "ok",
    "env": {},
@@ -235,7 +235,7 @@
    "min_ram": 250,
    "disk": 250,
    "rate": 6.98,
-   "cap": 49,
+   "cap": 75,
    "est_h": 5.0,
    "status": "ok",
    "env": {

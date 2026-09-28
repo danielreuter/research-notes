@@ -1,8 +1,8 @@
 {
  "schema": "vllm-epoch-run/rows/v1",
  "note": "One pod per row (brief lane-briefs/vllm-epoch-run.md). min_ram is per GPU (RunPod minRAMPerGPU): host floor / count. rate = secure-cloud $/h for the pod. max_h = cap / rate (the per-row guard's --pod-max-hours). est_h includes bootstrap. status: ok = starts at GO; wave2 = needs `needs` on main as well; ask = waits for the coordinator. env = per-row knobs passed to epoch_row.sh (never an epoch default switched off). alt_shapes: the same host-RAM floor on fewer L40S (single-GPU rows), tried after the primary shape's offers.",
- "deadline_utc": "2026-09-28T18:00Z",
- "last_end_utc": "2026-09-28T17:30Z",
+ "deadline_utc": "2026-09-28T23:30Z",
+ "last_end_utc": "2026-09-28T23:20Z",
  "lane_cap_usd": 250,
  "rows": {
   "101": {
@@ -25,10 +25,11 @@
     "PAIRS": "1",
     "VERITY_QWORD_MAX_GATES": "GumbelTopPTokenSelect_v2=110000000"
    },
-   "note": "GO 14:44Z (train H be354ab0, tree 31b6cdf8, #288 codec fix); 1 pair (its record); retry after the 13:44Z Build FAIL",
+   "note": "GO 15:59Z third try on edac1cf6 (#297 NvLogf registry fix); 1 pair (its record)",
    "est3_h": null,
-   "launch_sha": "be354ab084850f302659155fbf9b923ee0604e79",
-   "hold_write": "GO 14:44Z: ran train H be354ab0 (tree 31b6cdf8) before its merge; expected/ waits for the coordinator's verdict after H lands (record against the merged main sha, launch be354ab0)"
+   "launch_sha": "edac1cf6f65b84e7da209bf19dd93cfe65de6663",
+   "hold_write": "GO 15:59Z: edac1cf6 (tree 9e41acb1, main 432edb3b + #297); expected/ held for the coordinator's verdict after #297 lands",
+   "go_sha": "edac1cf6f65b84e7da209bf19dd93cfe65de6663"
   },
   "4": {
    "key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
@@ -79,8 +80,9 @@
    "env": {
     "VU_EXPORT": "0"
    },
-   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); Commit ~193 GiB planned; 233 GB cgroup worked last epoch",
-   "est3_h": 5.5
+   "note": "GO 15:59Z on main 432edb3b, cap $13; Commit ~193 GiB planned; 233 GB cgroup worked last epoch",
+   "est3_h": 5.5,
+   "go_sha": "432edb3b044fdbf3c86879a5c7d71ebb5ad4c79c"
   },
   "68": {
    "key": "olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager",
@@ -97,7 +99,8 @@
     "VU_EXPORT": "0"
    },
    "est3_h": 5.4,
-   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); "
+   "note": "GO 15:59Z on main 432edb3b, cap $13; ",
+   "go_sha": "432edb3b044fdbf3c86879a5c7d71ebb5ad4c79c"
   },
   "70": {
    "key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
@@ -107,12 +110,13 @@
    "min_ram": 120,
    "disk": 250,
    "rate": 2.18,
-   "cap": 9,
+   "cap": 6.5,
    "est_h": 3.0,
    "status": "ok",
    "env": {},
-   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)",
-   "est3_h": 3.5
+   "note": "GO 15:59Z on main 432edb3b, cap $6.5; TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)",
+   "est3_h": 3.5,
+   "go_sha": "432edb3b044fdbf3c86879a5c7d71ebb5ad4c79c"
   },
   "23": {
    "key": "llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager",
@@ -156,7 +160,8 @@
      "min_ram": 188
     }
    ],
-   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); "
+   "note": "GO 15:59Z on main 432edb3b, cap $24; ",
+   "go_sha": "432edb3b044fdbf3c86879a5c7d71ebb5ad4c79c"
   },
   "11": {
    "key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
@@ -224,8 +229,9 @@
     "COMMIT_GPU_UTIL": "0.70",
     "GPU_UTIL": "0.92"
    },
-   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); coordinator 07:20Z option (a): 2x L40S >= 377 GB host, COMMIT_GPU_UTIL=0.70, cap $12; no such shape by 13:30Z -> defer, old record stays",
-   "est3_h": 4.5
+   "note": "GO 15:59Z on main 432edb3b, cap $12; coordinator 07:20Z option (a): 2x L40S >= 377 GB host, COMMIT_GPU_UTIL=0.70, cap $12; no such shape by 13:30Z -> defer, old record stays",
+   "est3_h": 4.5,
+   "go_sha": "432edb3b044fdbf3c86879a5c7d71ebb5ad4c79c"
   },
   "73": {
    "key": "qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
@@ -256,16 +262,14 @@
    "rate": 6.98,
    "cap": 49,
    "est_h": 5.42,
-   "status": "wave2",
-   "needs": [
-    "S1b #253"
-   ],
+   "status": "ok",
    "env": {
     "VU_EXPORT": "0",
     "PAIRS": "1"
    },
-   "note": "wave 2: its own GO after S1b (#253) is on main; 1 pair (n_runs 6 -> 2 on its line), est 5.0 h + 0.42 h S1b; deferred unless it ends by 17:30Z (coordinator 11:40Z); run eager",
-   "est3_h": 6.2
+   "note": "GO 15:59Z on main 432edb3b (S1b): 1 pair, n_runs 6 -> 2, eager, 2x H100 secure; latest start ~17:40Z",
+   "est3_h": 6.2,
+   "go_sha": "432edb3b044fdbf3c86879a5c7d71ebb5ad4c79c"
   }
  },
  "pairs_rule": "3 pairs (the records' n_runs 6) except #101 (1, as its record). A row whose 3-pair estimate (est3_h) can't end by 17:30Z at launch runs PAIRS=1 (est_h) and its line says n_runs 6 -> 2; if even est_h can't, it is deferred (coordinator 07:20Z)",
@@ -310,5 +314,13 @@
    "75",
    "101"
   ]
+ },
+ "hard_end_utc": "2026-09-28T23:20Z",
+ "balance_test": {
+  "sweep_usd_h": 7.55,
+  "sweep_end_utc": "2026-09-28T17:20Z",
+  "pous_usd": 15,
+  "floor_usd": 25,
+  "rule": "balance - running rows' remaining caps - sweep reserve - POUS - floor >= the new row's cap (coordinator 15:59Z; sweep ends 17:20Z)"
  }
 }

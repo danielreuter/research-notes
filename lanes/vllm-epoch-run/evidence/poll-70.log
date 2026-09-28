@@ -53,3 +53,12 @@
 2026-09-28T14:28:00Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
 2026-09-28T14:29:04Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
 2026-09-28T14:30:04Z #70 latest start 2026-09-28T14:30Z passed with no shape: deferred, old record kept
+2026-09-28T16:03:06Z polling #70 until 2026-09-28T20:20Z
+2026-09-28T16:03:10Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+REFUSED: #70 estimate 3.5 h at 3 pair(s) does not fit the $6.5 cap (2.98 h): ask the coordinator
+2026-09-28T16:04:12Z #70 refused rc=3: poller stops
+2026-09-28T16:07:18Z polling #70 until 2026-09-28T20:20Z
+REFUSED: #70 estimate 3.5 h at 3 pair(s) does not fit the $6.5 cap (2.98 h): ask the coordinator
+2026-09-28T16:07:20Z #70 refused rc=3: poller stops
+2026-09-28T16:07:58Z polling #70 until 2026-09-28T20:20Z
+2026-09-28T16:08:03Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its

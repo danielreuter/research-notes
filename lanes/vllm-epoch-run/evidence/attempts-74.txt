@@ -1,0 +1,1 @@
+2026-09-28T16:02:46Z 2 x NVIDIA H100 80GB HBM3 SECURE: accepted pod 6h1sp3r74nch3f NVIDIA H100 80GB HBM3 driver 580.126.09 (CUDA 13.0) host 502 GB, 208 vCPU, est 5.42 h at 1 pair(s)

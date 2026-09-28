@@ -17,7 +17,8 @@ H=$(cd "$(dirname "$0")" && pwd)
 LANE=$RESEARCH_NOTES/lanes/vllm-epoch-run
 R="env PYTHONPATH=/workspace/tools/research/src python3 -m research"
 compgen -G "$STORE/internal/lanes/vllm-epoch-run/*GO*" > /dev/null || compgen -G "$LANE/*GO*" > /dev/null || { echo "REFUSED: no GO in lanes/vllm-epoch-run/"; exit 2; }
-EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha" 2>/dev/null) || { echo "REFUSED: evidence/epoch_sha not recorded"; exit 2; }
+EPOCH_SHA=$(python3 -c "import json;print(json.load(open('$H/rows.json'))['rows'].get('$N', {}).get('go_sha', ''))" 2>/dev/null)
+[ -n "$EPOCH_SHA" ] || EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha" 2>/dev/null) || { echo "REFUSED: no GO sha for #$N"; exit 2; }   # the row's own GO sha
 WT=/workspace-wt/epoch-${EPOCH_SHA:0:8}
 [ "$(git -C "$WT" rev-parse HEAD 2>/dev/null)" = "$EPOCH_SHA" ] && [ -z "$(git -C "$WT" status --porcelain)" ] \
   || { echo "REFUSED: $WT is not a clean checkout of $EPOCH_SHA"; exit 2; }
@@ -60,7 +61,7 @@ for i, (cnt, ram) in enumerate(shapes):
             offers.append((gpu, cloud, cnt, ram))
 now = time.time()
 end = calendar.timegm(time.strptime(cfg["last_end_utc"], "%Y-%m-%dT%H:%MZ"))
-hard = calendar.timegm(time.strptime("2026-09-28T17:50Z", "%Y-%m-%dT%H:%MZ"))
+hard = calendar.timegm(time.strptime(cfg["hard_end_utc"], "%Y-%m-%dT%H:%MZ"))
 env = dict(r["env"])
 pairs, note, est = env.get("PAIRS", "3"), "", r["est_h"]
 if pairs == "3":
@@ -77,24 +78,30 @@ if os.path.exists(ledger):
         f = ln.rstrip("\n").split("\t")
         if len(f) >= 9 and f[0] != "row":
             committed += float(f[8]) if f[7] in ("", "live") else float(f[7])     # a live row counts its cap, a finished one its spend
-live_caps = 0.0
+remaining = 0.0
 if os.path.exists(ledger):
     for ln in open(ledger):
         f = ln.rstrip("\n").split("\t")
         if len(f) >= 9 and f[0] != "row" and f[7] == "live":
-            live_caps += float(f[8])
+            used = float(f[6]) * max(0.0, now - calendar.timegm(time.strptime(f[4], "%Y-%m-%dT%H:%M:%SZ"))) / 3600
+            remaining += max(0.0, float(f[8]) - used)
 try:
     sys.path.insert(0, "/workspace/tools/research/src")
     from research.pods import runpod as _rp
     bal = float(_rp._graphql("{ myself { clientBalance } }")["data"]["myself"]["clientBalance"])
 except Exception as e:
-    die(f"RunPod balance not readable ({type(e).__name__}): the floor rule can't be checked")
-left = bal - live_caps - r["cap"] - 7.55 * max(0.0, (calendar.timegm(time.strptime("2026-09-28T18:00Z", "%Y-%m-%dT%H:%MZ")) - time.time()) / 3600)
-if left < 25:
-    die(f"balance ${bal:.2f} - live caps ${live_caps:.2f} - cap ${r['cap']} - the sweep's reserve leaves ${left:.2f}, under the $25 floor")
+    die(f"RunPod balance not readable ({type(e).__name__}): the balance test can't be checked")
+B = cfg["balance_test"]
+sweep = B["sweep_usd_h"] * max(0.0, (calendar.timegm(time.strptime(B["sweep_end_utc"], "%Y-%m-%dT%H:%MZ")) - now) / 3600)
+left = bal - remaining - sweep - B["pous_usd"] - B["floor_usd"]
+if left < r["cap"]:
+    die(f"balance test: ${bal:.2f} - running rows' remaining caps ${remaining:.2f} - sweep ${sweep:.2f} - POUS ${B['pous_usd']} - floor ${B['floor_usd']} "
+        f"= ${left:.2f} < cap ${r['cap']}")
 if committed + r["cap"] > cfg["lane_cap_usd"]:
     die(f"committed ${committed:.2f} + cap ${r['cap']} passes the lane's ${cfg['lane_cap_usd']}")
-max_h = r["cap"] / r["rate"]
+prices = {(g, c, k): (r["rate"] * k / r["count"] if (g, c) == (r["gpu"], "SECURE") else (price(g, k, c == "SECURE") or r["rate"] * k / r["count"]))
+          for g, c, k, m in offers}
+max_h = r["cap"] / min(prices.values())                                 # the cheapest offer; each accepted pod is re-checked at its own rate
 timeout = int(min(max_h * 3600 - 25 * 60, hard - now))
 ttl = min(24, math.ceil(timeout / 3600 + 1.5))
 if est > max_h - 0.4:
@@ -144,6 +151,10 @@ for offer in $OFFERS; do
 import math, time
 mh = $CAP / $PRATE; t = int(min(mh * 3600 - 1500, $HARD_S - time.time()))
 print(f'{mh:.2f}', t, min(24, math.ceil(t / 3600 + 1.5)))")
+    if python3 -c "import sys; sys.exit(0 if float('$EST') <= float('$MAXH') - 0.4 else 1)"; then :; else
+      echo "$T0 $COUNT x $G $C: pod $id at \$$PRATE/h gives ${MAXH} h for the \$$CAP cap, short of the ${EST} h estimate; terminated" >> "$ATT"
+      $R pods terminate "$id" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1; gone; continue
+    fi
     if [ "$COUNT" -lt "$PCOUNT" ]; then   # a fewer-GPU offer: size the estimate by its vCPUs (coordinator 10:02Z)
       read -r EST PAIRS2 FIT < <(python3 -c "
 import time

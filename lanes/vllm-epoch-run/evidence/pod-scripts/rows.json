@@ -162,11 +162,11 @@
    "rate": 4.36,
    "cap": 35,
    "est_h": 6.0,
-   "status": "ok",
+   "status": "deferred",
    "env": {
     "VU_EXPORT": "0"
    },
-   "note": "deferred first if the start slips past ~12:00Z (root 06:43Z)",
+   "note": "deferred to the follow-up epoch, old record kept (coordinator 10:26Z: the S-stack reaches main ~11:45Z, past 11:30Z)",
    "est3_h": 7.0,
    "alt_shapes": [
     {
@@ -277,5 +277,6 @@
   "when": "after the last wave-1 row is written",
   "out": "re-pin ops/known_roots.json (and canary.sh if it names roots) at the GO sha, own commit"
  },
- "budget_rule": "a row starts only if committed spend + its cap <= $250; if wave-2 headroom runs short, defer #39 first, then #74 (old records stay); pairs are never reduced to fit money (coordinator 07:57Z)"
+ "budget_rule": "a row starts only if committed spend + its cap <= $250; if wave-2 headroom runs short, defer #39 first, then #74 (old records stay); pairs are never reduced to fit money (coordinator 07:57Z)",
+ "vcpu_rule": "a fewer-GPU offer (alt_shapes) is sized by its vCPUs: est x (0.5 + 0.5 x max(1, vcpu_ref / vcpus)), vcpu_ref = 16 per GPU of the primary shape; the latest-start and cap rules apply to that estimate (coordinator 10:02Z)"
 }

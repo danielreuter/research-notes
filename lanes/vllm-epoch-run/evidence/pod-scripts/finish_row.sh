@@ -12,7 +12,7 @@ LANE=$RESEARCH_NOTES/lanes/vllm-epoch-run
 R="env PYTHONPATH=/workspace/tools/research/src python3 -m research"
 BR=/workspace-wt/epoch-run
 EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha")
-IFS='|' read -r POD PODID RUN START RATE CAP PAIRS CLOUD DRIVER < <(awk -F'\t' -v n="$N" '$1==n && $8=="live" {print $2"|"$3"|"$4"|"$5"|"$7"|"$9"|"$10"|"$11"|"$12}' "$LANE/evidence/spend.tsv" | tail -n 1)
+IFS='|' read -r POD PODID RUN START RATE CAP PAIRS CLOUD DRIVER GPUS VCPUS < <(awk -F'\t' -v n="$N" '$1==n && $8=="live" {print $2"|"$3"|"$4"|"$5"|"$7"|"$9"|"$10"|"$11"|"$12"|"$13"|"$14}' "$LANE/evidence/spend.tsv" | tail -n 1)
 [ -n "${RUN:-}" ] || { echo "#$N: no live row in spend.tsv"; exit 2; }
 KEY=-; [ "$N" = canary ] || KEY=$(python3 -c "import json;print(json.load(open('$H/rows.json'))['rows']['$N']['key'])")
 EVD=/workspace/epoch-evidence/$N; mkdir -p "$EVD"
@@ -69,4 +69,4 @@ if [ "$gate" = 0 ]; then
   git commit -q -m "epoch: re-baseline #$N under Q_word v1 at ${EPOCH_SHA:0:8} (run $RUN; forced: ${decision#WRITE forced=})" && git push -q -u origin HEAD
   git log --oneline -n 1
 fi
-python3 "$H/digest_line.py" "$N" "$EVD/evidence" "$RUN" "$EPOCH_SHA" "$SPENT" "$decision" "${PAIRS:-3}" "${CLOUD:-?}" "${DRIVER:-?}" "$LANE/evidence/attempts-$N.txt"
+python3 "$H/digest_line.py" "$N" "$EVD/evidence" "$RUN" "$EPOCH_SHA" "$SPENT" "$decision" "${PAIRS:-3}" "${CLOUD:-?}" "${DRIVER:-?}" "$LANE/evidence/attempts-$N.txt" "${GPUS:-?}" "${VCPUS:-?}"

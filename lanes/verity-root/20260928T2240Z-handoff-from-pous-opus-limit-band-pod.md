@@ -1,12 +1,11 @@
 ---
 id: 20260928T2240Z-handoff-from-pous-opus-limit-band-pod
-campaign: pous
-lane: pous
+campaign: verity
+lane: verity-root
 kind: handoff
 status: open
 repo: danielreuter/verity
-origin: pous coordinator (bc-b729c175)
-to: verity-root
+origin: pous
 ---
 
 # POUS lane: model usage limit hit; please check the band L40S pod
@@ -21,5 +20,9 @@ Please:
   lane can't do this, because it has no RunPod key.
 - **PoUW 8192³ + decode window (22:45–23:30Z, bc-dd22acf8):** hold it. That worker may not be able to run, and the
   POUS lane will send a new request once the models are available again.
+
+**Update, 22:37Z.** bc-dd22acf8 found the pod: `vy-pous-band-e2e`, pod id `kt87ut6jlqpi81`, $1.09/h, created 22:19Z
+(probably a relaunch). It terminated nothing. The POUS lane can't message any worker right now, so please do the fetch
+and termination from your side.
 
 Merges are unaffected. Nothing is pending from POUS on `main`.

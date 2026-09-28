@@ -3,8 +3,8 @@
 #   1 the run is over (status.json on the pod)       2 its evidence/ copied to /workspace/epoch-evidence/N/ (small files)
 #   3 custody: the run and both stored trees PRESERVED (`research data preserved`), else the pod stays up (FORCE=1 overrides, logged)
 #   4 the pod terminated, its cap guard stopped, its registry entry removed; spend.tsv gets the end and the spend
-#   5 gate_write.py: WRITE -> `rebaseline write --force` into the branch worktree, one commit, pushed; HOLD -> nothing written
-#   6 the row's line in the digest table (digest_line.py).  N=canary: repin_roots.py --write and its own commit instead of 5-6
+#   5 write_row.sh N: the gate, the `expected/` write (one commit, pushed) or nothing, and the row's line in the digest table.
+#     N=canary: repin_roots.py --write and its own commit instead
 set -u
 N=${1:?row number}
 H=$(cd "$(dirname "$0")" && pwd)
@@ -74,20 +74,4 @@ if [ "$N" = canary ]; then   # the re-pin of ops/known_roots.json (cc 8.9), its 
   git commit -q -m "epoch: re-pin the canary roots (cc 8.9) under Q_word v1 at ${EPOCH_SHA:0:8} (canary run $RUN, reproduced)" && push
   git log --oneline -n 1; exit 0
 fi
-decision=$(python3 "$H/gate_write.py" "$EVD/evidence" "$KEY"); gate=$?
-echo "gate: $decision"
-HOLDW=$(python3 -c "import json;print(json.load(open('$H/rows.json'))['rows'].get('$N', {}).get('hold_write', ''))" 2>/dev/null)
-if [ "$gate" = 0 ] && [ -n "$HOLDW" ]; then
-  python3 -m tests.regression.rebaseline table --record "$EVD/evidence/record" > "$EVD/table.txt" 2>&1
-  echo "gate WRITE, but held: $HOLDW (record dir $EVD/evidence/record kept for the write)"; decision="HOLD write held for the coordinator's verdict (${decision})"; gate=9
-fi
-if [ "$gate" = 0 ]; then
-  python3 -m tests.regression.rebaseline table --record "$EVD/evidence/record" > "$EVD/table.txt" 2>&1
-  python3 -m tests.regression.rebaseline write --record "$EVD/evidence/record" --commit "$EPOCH_SHA" --branch main \
-    --release rebaseline-epoch-q-word --run-id "$RUN" --force > "$EVD/write.txt" 2>&1 || { cat "$EVD/write.txt"; exit 5; }
-  cat "$EVD/write.txt"
-  git add "tests/regression/expected/$KEY.json"
-  git commit -q -m "epoch: re-baseline #$N under Q_word v1 at ${EPOCH_SHA:0:8} (run $RUN; forced: ${decision#WRITE forced=})" && push
-  git log --oneline -n 1
-fi
-python3 "$H/digest_line.py" "$N" "$EVD/evidence" "$RUN" "$EPOCH_SHA" "$SPENT" "$decision" "${PAIRS:-3}" "${CLOUD:-?}" "${DRIVER:-?}" "$LANE/evidence/attempts-$N.txt" "${GPUS:-?}" "${VCPUS:-?}"
+exec bash "$H/write_row.sh" "$N"

@@ -1,0 +1,2 @@
+row	key	write_commit	run	build_art	records_art	commit_coverage
+73	qwen3-4b__bf16__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager	e2914bd4 (+ff840ea8)	r20260928-121849-ff8b	art:91fac396ce4189b8bbb84e85f0cf62d23f660596e882b73c936b4624292da31d	art:da7b7474aba6ead45158276697675b0d85a5c8c79e2415e85830963cb6f63d01	manifest_coverage PASS checked 315912 missing 0 (norm_scales 69020)

@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (20:38Z) [open] 20:37Z: #75 deferred NOT_RUN (Build manifest incomplete: 12480 unbound TP peer bindings), terminated 20:36Z ($9.78); records art:bef9f84c + capture tar art:bf21420f. #73 coverage with #325 04d1204c: ok, 315912 checked, 0 missing (note 2037Z); backfill waits for #325 on main. #75 lines note 2034Z. Live: #70 #101 #74 #67 #68 (Build). agent bc-75fd4007.
 CHECKPOINT 6746f408 (20:12Z) [open] 20:13Z: #73 PASS, terminated 20:11Z ($55.05), expected/ write HELD for the coordinator (handoff 2012Z: harness coverage misses norm_scales; GM fold pins moved); regression reference fix side_record.sh (finding 2008Z). #75 Commit NOT_RUN at 20:00Z: Commit-time required manifest incomplete (12480 unbound TP peer bindings, MoE two-producer sites; #298's rebuild) -> deferred once its records store ends. #101 try 5 in Build; #74 #67 #68 Build; #70 polling to 20:20Z. agent bc-75fd4007.
 CHECKPOINT 6746f408 (19:44Z) [open] 19:44Z: #73 Commit manifest-verify (END ~20:15Z; records via side run, key expires 20:18Z); #75 Commit; #74 #67 #68 Build; #70 polling to 20:20Z, no stock. No notes pending. agent bc-75fd4007.
 CHECKPOINT 6746f408 (19:22Z) [open] #60 deferred at 19:20Z: no 2x shape (L40S/L40/Ada, >=376 GB, 1 pair, cap $12) in stock; old record kept. #75 Build side-stored art:8f0d249a, in Commit (FAIL class). #73 Commit; #74 #67 #68 Build; #70 polling 1 pair cap $8 to 20:20Z. agent bc-75fd4007.

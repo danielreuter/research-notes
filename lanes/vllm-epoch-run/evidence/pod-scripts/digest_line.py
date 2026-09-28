@@ -61,6 +61,8 @@ def main() -> int:
     parts = r.get("partition_digests") or []
     verdict = r.get("verdict") or "-"
     fate = "written" if gate.startswith("WRITE") else "deferred: " + gate.removeprefix("HOLD ")[:160]
+    if gate.startswith("WRITE") and "pending=coverage" in gate:
+        fate += " (coverage pending the harness fix for norm_scales; previous contract kept)"
     if pairs == "1" and n != "101":
         fate += " (1 pair, time fallback: n_runs 6 -> 2)"
     launch = (json.loads((Path(__file__).parent / "rows.json").read_text())["rows"].get(n) or {}).get("launch_sha")

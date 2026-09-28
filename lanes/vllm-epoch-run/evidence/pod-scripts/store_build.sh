@@ -26,6 +26,11 @@ mkdir -p "$S/large"   # STORE_KINDS=large: the match/ and commit/ files the reco
 for f in verdict.json stages.txt row.log timeline.jsonl commit.log build_summary.json target_family.json admission.json; do
   [ -f "$D/$f" ] && cp -al "$D/$f" "$S/records/"
 done
+# STORE_KINDS=... capture: match/capture/ (a TP row's raw capture values: #75 had 480k files, a per-file upload that outlasts the pod)
+# leaves the records tree and goes as one tar in its own tree
+if [[ " ${STORE_KINDS:-} " == *" capture "* ]] && [ -d "$S/records/match/capture" ]; then
+  rm -rf "$S/records/match/capture"; mkdir -p "$S/capture"; tar cf "$S/capture/match-capture.tar" -C "$D" match/capture
+fi
 
 meta() {  # meta KIND ROLE -> the tree's meta (serving-view's record-build layout), from the Build's own summaries
   /workspace/venv312/bin/python - "$D" "$1" "$2" <<'EOF'
@@ -59,7 +64,7 @@ EOF
 
 rc=0
 for kind in ${STORE_KINDS:-build records}; do
-  role=programs; [ "$kind" = records ] && role=records; [ "$kind" = large ] && role=records-large
+  role=programs; [ "$kind" = records ] && role=records; [ "$kind" = large ] && role=records-large; [ "$kind" = capture ] && role=records-capture
   meta "$kind" "$role" > "$EV/meta-$kind.json"
   echo "=== $(date -u +%H:%M:%SZ) put $kind $(du -sh "$S/$kind" | cut -f1) $(find "$S/$kind" -type f | wc -l) files"
   ok=0

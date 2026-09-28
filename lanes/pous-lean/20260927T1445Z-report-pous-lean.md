@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT c1312fc7 (15:42Z) [open] LANDED: POUS chain d69af646 is on main via train H 432edb3b (15:40Z, check r20260928-143212-bdb2; C1 974b9400 merges the chain). GitHub marks #162 merged; #183/#166/#196 stay open (stacked bases; retarget to main refused: no new commits), so they need closing by hand. Handoff 20260928T1328Z is done
 CHECKPOINT c1312fc7 (14:49Z) [open] chain tip d69af646 is inside train C1 1342fdf4 (its first merge), so it lands with train H be354ab0 (gate r20260928-143212-bdb2, ETA ~15:30Z); no separate chain merge or merge-forward while H is pending. If main moves without d69af646 I merge forward and re-record (standing OK)
 CHECKPOINT c1312fc7 (14:16Z) [open] chain at main 269829d8: #162 a7c44898 #183 c1312fc7 #166 a186281b #196 d69af646; check at d69af646 PASSED r20260928-132725-9eec (PRESERVED); research merge --dry-run PASSES (14:14Z); handoff 20260928T1328Z updated
 CHECKPOINT c1312fc7 (13:29Z) [open] S merged 13:26Z (main 269829d8); merged forward, no conflicts: #162 a7c44898 #183 c1312fc7 #166 a186281b #196 d69af646; check at d69af646 r20260928-132725-9eec running (~14:13Z); handoff 20260928T1328Z

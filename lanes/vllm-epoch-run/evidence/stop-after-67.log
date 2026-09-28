@@ -1,3 +1,5 @@
 2026-09-28T20:45:38Z #67 armed: stop the commit stage once progress shows 'strict word check rc=' (vyv-rf-epoch-67 r20260928-161923-0a05)
 2026-09-28T20:51:51Z #67 armed: stop the commit stage once progress shows 'strict word check rc=' (vyv-rf-epoch-67 r20260928-161923-0a05)
 2026-09-28T21:33:30Z #67 build rc=0: side store of the Build
+2026-09-28T22:29:24Z #67 trigger seen: 2026-09-28T22:28:41Z strict word check rc=0 PASS fast: 32/32 word lines, 5745046 calls -> 13619601035 units over 8731876841130 gates, manifest 49457af01e632ea6
+2026-09-28T22:29:40Z #67 commit stage: stopped 52296 (2 processes)

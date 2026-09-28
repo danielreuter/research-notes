@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (22:32Z) [open] 22:32Z: #67 Match (watcher stops the Commit; deadline 22:55Z); #68 Build manifest (watcher stops at Build end; its Match can't fit 23:20Z). #325 not on main. agent bc-75fd4007.
 CHECKPOINT 6746f408 (22:08Z) [open] 22:08Z: #70 deferred + terminated 22:01Z ($3.95). #74 deferred (call_boundaries). Live: #67 Match (since 21:33Z; watcher stops the Commit), #68 Build (watcher armed). #325 not on main. agent bc-75fd4007.
 CHECKPOINT 6746f408 (21:36Z) [open] 21:36Z: #74 deferred (call_boundaries, wave 2). #70 manifest incomplete (13888 unbound TP peer bindings) -> Match then stop (watcher; Build art:f06f0d93). #67 #68 Build; watchers armed. #325 not on main. agent bc-75fd4007.
 CHECKPOINT 6746f408 (21:12Z) [open] 21:13Z: #74 #67 #68 #70 in Build (manifest steps); watchers armed (stop after Match); #70 manifest check pending; #325 not on main. agent bc-75fd4007.

@@ -1,0 +1,1 @@
+2026-09-28T16:52Z sweep: running #73 ($31.80, Build passed and side-stored), #23 ($4.83), #4 ($4.02, Commit PASSed on a FAIL-class row, so deferred pending root), #74 ($5.59), #67 ($0.90), #75 ($1.60); #101's third try failed (program-view registry), fix routed to the lowering lane (latest start ~21:50Z); POUS composition design replied; balance $204, balance test ~$22 headroom.

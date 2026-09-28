@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT c1312fc7 (14:49Z) [open] chain tip d69af646 is inside train C1 1342fdf4 (its first merge), so it lands with train H be354ab0 (gate r20260928-143212-bdb2, ETA ~15:30Z); no separate chain merge or merge-forward while H is pending. If main moves without d69af646 I merge forward and re-record (standing OK)
 CHECKPOINT c1312fc7 (14:16Z) [open] chain at main 269829d8: #162 a7c44898 #183 c1312fc7 #166 a186281b #196 d69af646; check at d69af646 PASSED r20260928-132725-9eec (PRESERVED); research merge --dry-run PASSES (14:14Z); handoff 20260928T1328Z updated
 CHECKPOINT c1312fc7 (13:29Z) [open] S merged 13:26Z (main 269829d8); merged forward, no conflicts: #162 a7c44898 #183 c1312fc7 #166 a186281b #196 d69af646; check at d69af646 r20260928-132725-9eec running (~14:13Z); handoff 20260928T1328Z
 CHECKPOINT 24c8ad44 (13:25Z) [open] held behind S (r20260928-115839-02d9); GitHub main still 64f94732 (13:30Z). Preview of #196 29b4cdcd + S dd3dde4d (local, unrecorded): pytest 3439 passed, 1 known flake (test_remote_local exclusive lock; passes 3/3 alone), circuit-check 834 targets 0 new; S touches no Lean or POUS file. When GitHub main moves: if it contains 29b4cdcd the chain landed, else merge-forward + re-record + fresh handoff

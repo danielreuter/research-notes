@@ -1,5 +1,4 @@
-watch updated 2026-09-28T15:29:29Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 191 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
-#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 139 min: 2026-09-28T15:13:45Z match rc=0 match PASS 2026-09-28T15:13:43Z rc=0/0/0 wall=1125s verdict PASS global PASS  dag concurrency 16 tokens_equal True fold True
-#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 90 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0
-#101 vyv-rf-epoch-101 r20260928-145638-f5d8 ENDED 33 min: 2026-09-28T15:23:04Z END
+watch updated 2026-09-28T15:39:55Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 201 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
+#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 150 min: 2026-09-28T15:31:23Z strict word check rc=0 PASS 16 word lines, manifest 0cc516b3977253ad, 1055.4 s
+#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 100 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0

@@ -4,7 +4,8 @@
 #   build    the row dir without match/, commit/ and vu-export/: Programs, workload Program, manifest, summaries, logs (files <= 8 GB)
 #   records  match/ and commit/ files under 200 MB, and the row's verdict / stage / log files
 # Staged as hardlinks under /workspace/epoch/stage/<run id>/; what is left out is listed in evidence/store_omitted.txt.
-# Prints `STORED <build|records> art:<id> <PRESERVED|FAILED>` per tree; exit 0 only when both are PRESERVED.
+# STORE_KINDS=build stores the Build alone (side_store.sh, while the row is still in Match or Commit).
+# Prints `STORED <build|records> art:<id> <PRESERVED|FAILED>` per tree; exit 0 only when every tree asked for is PRESERVED.
 set -u
 D=${1:?row dir}; ROWID=$(basename "$D")
 EV=$RESEARCH_RUN_DIR/evidence
@@ -55,7 +56,7 @@ EOF
 }
 
 rc=0
-for kind in build records; do
+for kind in ${STORE_KINDS:-build records}; do
   role=programs; [ "$kind" = records ] && role=records
   meta "$kind" "$role" > "$EV/meta-$kind.json"
   echo "=== $(date -u +%H:%M:%SZ) put $kind $(du -sh "$S/$kind" | cut -f1) $(find "$S/$kind" -type f | wc -l) files"

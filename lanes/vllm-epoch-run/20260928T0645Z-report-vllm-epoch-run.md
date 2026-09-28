@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (15:40Z) [open] LIVE: #4 Commit (3 pairs, timeout 17:20Z), #73 Build 9/9 shapes (timeout 17:50Z, tight), #23 Build 45/64 (can't Commit before 17:42Z). Side-store of Builds added (side_store.sh): #4 r20260928-153814-5996 uploading. Note 1539Z: #23 default terminate ~16:25Z after its Build side-store. agent bc-75fd4007.
 CHECKPOINT 6746f408 (15:30Z) [open] #101 2nd try (train H) Build FAIL: GP-01 KeyError primitive NvLogf_v1 not in registry (codec fix held) -> deferred, pod terminated 15:29Z ($0.47; row total $0.96), arts adf90df4/4c193db5 PRESERVED; handoff 1530Z. LIVE: #73 Build, #4 word check/Commit, #23 Build. agent bc-75fd4007.
 CHECKPOINT 6746f408 (15:20Z) [open] LIVE: #73 Build (3 h in; end ~17:20Z); #4 Match PASS 15:13Z -> word check + Commit (~17:00Z); #23 Build (~17:00Z); #101 on train H, bootstrap done 15:18Z -> Build (~16:30Z). No STOP. agent bc-75fd4007.
 CHECKPOINT 6746f408 (14:59Z) [open] LIVE: #73 (Build, end ~17:20Z), #4 (Build, ~17:00Z), #23 (Build, ~17:00Z), #101 vyv-rf-epoch-101 r20260928-145638-f5d8 on train H be354ab0 (1x RTX 6000 Ada, 1 pair, $5; write held for the post-merge verdict), ~16:30Z. #74 deferred (14:46Z). STOP now row-scoped. agent bc-75fd4007.

@@ -47,7 +47,8 @@ store() {  # once per run, whenever a Build exists: deferred rows keep their Bui
   bash "$IN/store_build.sh" "$D" > "$EV/store.log" 2>&1
   src=$?; touch "$EV/stored"
   say "store rc=$src $(grep '^STORED' "$EV/store.log" | cut -d' ' -f2-4 | tr '\n' ' ')"
-  $PY -m tests.regression.rebaseline digests "$D" --out "$EV/digests.json" --markdown "$EV/digests.md" > "$EV/digests.log" 2>&1
+  $PY -m tests.regression.rebaseline digests "$D" --out "$EV/digests.json" --markdown "$EV/digests.md" > "$EV/digests.log" 2>&1 \
+    || $PY "$IN/row_digests.py" "$D" --out "$EV/digests.json" --markdown "$EV/digests.md" >> "$EV/digests.log" 2>&1   # a tree without #243
   say "digests rc=$? $(tail -n 1 "$EV/digests.md" 2>/dev/null | cut -c1-240)"
 }
 src=0

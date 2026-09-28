@@ -53,12 +53,12 @@
    "rate": 2.18,
    "cap": 10,
    "est_h": 3.5,
-   "status": "wave2",
+   "status": "deferred",
    "needs": [
     "S1b #253"
    ],
    "env": {},
-   "note": "wave 2 (separate GO); last in the window; deferred if S1b is not on main by ~12:30Z",
+   "note": "deferred to the follow-up epoch, old record kept (S1b host evaluation ~16.4 h per Commit; coordinator 11:35Z)",
    "est3_h": 4.2
   },
   "67": {
@@ -185,7 +185,7 @@
    "rate": 4.36,
    "cap": 32,
    "est_h": 6.0,
-   "status": "wave2",
+   "status": "deferred",
    "needs": [
     "#244",
     "S1b #253"
@@ -193,7 +193,7 @@
    "env": {
     "VU_EXPORT": "0"
    },
-   "note": "check the fold binds GemmBias_v1 at the Match (evidence: gemmbias.txt)",
+   "note": "deferred to the follow-up epoch, old record kept (blocked on #244, unfunded; coordinator 11:37Z)",
    "est3_h": 7.0,
    "alt_shapes": [
     {
@@ -247,15 +247,16 @@
    "disk": 250,
    "rate": 6.98,
    "cap": 49,
-   "est_h": 5.0,
+   "est_h": 5.42,
    "status": "wave2",
    "needs": [
     "S1b #253"
    ],
    "env": {
-    "VU_EXPORT": "0"
+    "VU_EXPORT": "0",
+    "PAIRS": "1"
    },
-   "note": "wave 2 (separate GO, after S1b's per-request fix); cap $49 at 3 pairs (coordinator 07:57Z)",
+   "note": "wave 2: its own GO after S1b (#253) is on main; 1 pair (n_runs 6 -> 2 on its line), est 5.0 h + 0.42 h S1b; deferred unless it ends by 17:30Z (coordinator 11:40Z); run eager",
    "est3_h": 6.2
   }
  },
@@ -278,5 +279,6 @@
   "out": "re-pin ops/known_roots.json (and canary.sh if it names roots) at the GO sha, own commit"
  },
  "budget_rule": "a row starts only if committed spend + its cap <= $250; if wave-2 headroom runs short, defer #39 first, then #74 (old records stay); pairs are never reduced to fit money (coordinator 07:57Z)",
- "vcpu_rule": "a fewer-GPU offer (alt_shapes) is sized by its vCPUs: est x (0.5 + 0.5 x max(1, vcpu_ref / vcpus)), vcpu_ref = 16 per GPU of the primary shape; the latest-start and cap rules apply to that estimate (coordinator 10:02Z)"
+ "vcpu_rule": "a fewer-GPU offer (alt_shapes) is sized by its vCPUs: est x (0.5 + 0.5 x max(1, vcpu_ref / vcpus)), vcpu_ref = 16 per GPU of the primary shape; the latest-start and cap rules apply to that estimate (coordinator 10:02Z)",
+ "balance_rule": "a launch is refused when RunPod balance - live rows' caps - this row's cap - $7.55/h (sweep lane) to 18:00Z < $25 (the guard floor; coordinator 11:37Z)"
 }

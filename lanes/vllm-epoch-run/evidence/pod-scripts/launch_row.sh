@@ -75,6 +75,21 @@ if os.path.exists(ledger):
         f = ln.rstrip("\n").split("\t")
         if len(f) >= 9 and f[0] != "row":
             committed += float(f[8]) if f[7] in ("", "live") else float(f[7])     # a live row counts its cap, a finished one its spend
+live_caps = 0.0
+if os.path.exists(ledger):
+    for ln in open(ledger):
+        f = ln.rstrip("\n").split("\t")
+        if len(f) >= 9 and f[0] != "row" and f[7] == "live":
+            live_caps += float(f[8])
+try:
+    sys.path.insert(0, "/workspace/tools/research/src")
+    from research.pods import runpod as _rp
+    bal = float(_rp._graphql("{ myself { clientBalance } }")["data"]["myself"]["clientBalance"])
+except Exception as e:
+    die(f"RunPod balance not readable ({type(e).__name__}): the floor rule can't be checked")
+left = bal - live_caps - r["cap"] - 7.55 * max(0.0, (calendar.timegm(time.strptime("2026-09-28T18:00Z", "%Y-%m-%dT%H:%MZ")) - time.time()) / 3600)
+if left < 25:
+    die(f"balance ${bal:.2f} - live caps ${live_caps:.2f} - cap ${r['cap']} - the sweep's reserve leaves ${left:.2f}, under the $25 floor")
 if committed + r["cap"] > cfg["lane_cap_usd"]:
     die(f"committed ${committed:.2f} + cap ${r['cap']} passes the lane's ${cfg['lane_cap_usd']}")
 max_h = r["cap"] / r["rate"]
@@ -151,7 +166,7 @@ tail -n 4 "$ATT" 2>/dev/null | sed "s/^/  /"
 $R pods guard --prefix "$POD-" --pod-max-hours "$MAXH" --detach > "$LANE/evidence/guard-$N.txt" 2>&1
 echo "cap guard: $(tail -n 1 "$LANE/evidence/guard-$N.txt") (max ${MAXH} h at \$$RATE/h, timeout ${TIMEOUT} s, custody ${TTL} h)"
 
-SEND=(--send "$H/epoch_row.sh" --send "$H/strict_word.py" --send "$H/store_build.sh" --send "$H/failfast_bootstrap.sh"); CMD='exec bash "$RESEARCH_RUN_DIR/inputs/epoch_row.sh"'
+SEND=(--send "$H/epoch_row.sh" --send "$H/strict_word.py" --send "$H/store_build.sh" --send "$H/failfast_bootstrap.sh" --send "$H/row_digests.py"); CMD='exec bash "$RESEARCH_RUN_DIR/inputs/epoch_row.sh"'
 [ "$N" = canary ] && { SEND=(--send "$H/canary_pod.sh" --send "$H/failfast_bootstrap.sh"); CMD='exec bash "$RESEARCH_RUN_DIR/inputs/canary_pod.sh"'; }
 run=$($R run --on "$POD" --project verity --campaign vllm-rebaseline-epoch --custody-r2 --custody-ttl "${TTL}h" --timeout "$TIMEOUT" \
   --source "$WT" --cwd source/integrations/vllm "${SEND[@]}" \

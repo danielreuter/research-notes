@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 3ba4d8b3 (10:02Z) [open] S-STACK CHECK FAILED r20260928-092650-6717: circuit_check test_every_registered_definition_is_checked -- KeyError 'CONSTRUCTION' for b1-eager-v3 + dense2-eager-v1 token_select_stochastic (likely targets.py resolution) -> prep lane (1001Z answer). P2 merges alone when its check passes. vy-coord-check2 kept for the S re-run. #11 latest start 11:30Z: needs a fixed S head by ~10:25Z.
 CHECKPOINT 3ba4d8b3 (09:43Z) [open] QUEUED refinement train cursor/refinement-basis-cddd@d0ca019e (#209 -> #262, granted, printing-only re-record) after the S-stack; needs my Lean audit (batch with #227/#239/#245 reprints, #205/#249/#187, #247 on the new main) + recorded check. Additive conflict with the soundness train (FlockSoundness.lean imports, audit record): lane re-records whichever lands second. #270 (R8b) waits for red team.
 CHECKPOINT 3ba4d8b3 (09:33Z) [open] SWEEP: P2 check (~34 min) + S-stack check (~4 min) running. RunPod $109.73 at $8.32/h (~6 h to $60). Research $312.23/$380 at $0.48/h. No new POUS->root files; mirror ok.
 CHECKPOINT 3ba4d8b3 (09:30Z) [open] S-STACK b38d26d5 (cursor/epoch-s-stack-p2-150d: S2 S3 S4 S1 on 99d9cd1a = P2 reconstruction; TREES MATCH ff86208c, pushed as cursor/train-p2-ff86208c-f628; contains main) -> check r20260928-092650-6717 on vy-coord-check2 (cpu3c c72e5j34okgj6g, $0.24/h), due ~10:30Z. If S passes: merge b38d26d5 (lands P2 content + S). Else P2 alone. Asked prep lane whether the corpus migration is in b38d26d5 (0928Z answer).

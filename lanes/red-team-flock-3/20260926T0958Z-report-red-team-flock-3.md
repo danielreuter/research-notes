@@ -900,9 +900,12 @@ Verdicts only. The findings are in the store's `private/`.
     in the store.
   - Review: `private/red-team-reviews/zk-proofs/coin-tree-v2.md`.
   - Reply: `lanes/coordinator/20260928T0720Z-handoff-from-red-team-flock-3.md`.
-- **Queued, in order:**
-  - #252 (the region-word check), for `internal/lanes/red-team-flock-3/20260928T0712Z-handoff-from-flock-zk-region-word-check.md`;
-  - the private ZK proof's draft 4.
+- **#252 @ `2198c19c` (the region-word check): GRANTED.** C3 is met on the prover's side once it lands; the Lean side is
+  to come.
+  - Request: `internal/lanes/red-team-flock-3/20260928T0712Z-handoff-from-flock-zk-region-word-check.md`, in the store.
+  - Review: `private/red-team-reviews/zk-proofs/pr252-region-word-check.md`.
+  - Reply: `lanes/coordinator/20260928T0725Z-handoff-from-red-team-flock-3.md`.
+- **Queued:** the private ZK proof's draft 4 (re-grant or list what remains).
 
 ### Pre-grant checklist
 

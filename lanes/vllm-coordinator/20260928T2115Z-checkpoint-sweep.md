@@ -1,0 +1,1 @@
+2026-09-28T21:15Z sweep: POUS stack #311/#312/#315 GO with conditions (merge after tonight's rows and D3′; CPU no-op test; the follow-up's first row is the A/B); spec.py dead-module routed to lowering; 4 rows running (#74 $36.13, #67 $8.07, #68 $5.94, #70 $2.22); balance $106.94.

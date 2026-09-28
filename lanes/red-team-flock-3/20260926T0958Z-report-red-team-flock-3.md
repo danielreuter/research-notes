@@ -923,8 +923,11 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: appended to `private/red-team-reviews/pr207-e2e-skeleton.md`.
 - **Reply for both:** `lanes/coordinator/20260928T0830Z-handoff-from-red-team-flock-3.md`. It also records the move of
   the coin-tree v2 evidence into `zk-proofs/`.
-- **Queued:** #256 (audit-lean, `Rows.compose_eval_unit`), for
-  `internal/lanes/red-team-flock-3/20260928T0756Z-handoff-from-audit-lean-256-pin-review.md`.
+- **#256 @ `950b4445` (`Rows.compose_eval_unit`): GRANTED.** It is L1 over the type DAG for the audit's `Rows`, #247's
+  `unit_sound` read through #249's order.
+  - Request: `internal/lanes/red-team-flock-3/20260928T0756Z-handoff-from-audit-lean-256-pin-review.md`, in the store.
+  - Review: `private/red-team-reviews/pr256-compose-dag.md`.
+  - Reply: `lanes/coordinator/20260928T0825Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

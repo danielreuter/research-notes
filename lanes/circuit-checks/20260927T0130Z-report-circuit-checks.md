@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT fe196b6c (21:40Z) [open] BUILT #334 (verdict caching + warm Lean deps, stacked on #134); waiting for a 32 GB CPU pod (no stock since 21:25Z) to measure; agent bc-1122c760
 CHECKPOINT fe196b6c (21:21Z) [open] BUILDING verdict caching + warm Lean deps (cursor/check-verdict-cache-4d78); waiting for the vy-circuit-checks guard to measure; agent bc-1122c760
 CHECKPOINT fe196b6c (21:00Z) [open] READY merge request #134 32f2ec5d (on #320 e0389aea; land #320 first); docs-only exclusion added; no pods; agent bc-1122c760
 CHECKPOINT fe196b6c (20:48Z) [open] READY merge request for #134 c925ac4a (on #320 b2485e23; land #320 first); no pods; agent bc-1122c760

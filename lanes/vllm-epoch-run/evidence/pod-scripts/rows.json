@@ -263,9 +263,10 @@
  "pairs_rule": "3 pairs (the records' n_runs 6) except #101 (1, as its record). A row whose 3-pair estimate (est3_h) can't end by 17:30Z at launch runs PAIRS=1 (est_h) and its line says n_runs 6 -> 2; if even est_h can't, it is deferred (coordinator 07:20Z)",
  "substitutes": {
   "NVIDIA L40S": [
-   "NVIDIA L40"
+   "NVIDIA L40",
+   "NVIDIA RTX 6000 Ada Generation"
   ],
-  "rule": "secure cloud only; an sm_89 shape at the same or a lower rate; anything else asks"
+  "rule": "offer order L40S, L40, RTX 6000 Ada (exact RunPod id; not RTX A6000 / RTX PRO 6000), secure before community, on-demand, at or below the row's secure L40S rate (coordinator 09:13Z, 11:11Z)"
  },
  "canary": {
   "gpu": "NVIDIA L40S",
@@ -280,5 +281,6 @@
  },
  "budget_rule": "a row starts only if committed spend + its cap <= $250; if wave-2 headroom runs short, defer #39 first, then #74 (old records stay); pairs are never reduced to fit money (coordinator 07:57Z)",
  "vcpu_rule": "a fewer-GPU offer (alt_shapes) is sized by its vCPUs: est x (0.5 + 0.5 x max(1, vcpu_ref / vcpus)), vcpu_ref = 16 per GPU of the primary shape; the latest-start and cap rules apply to that estimate (coordinator 10:02Z)",
- "balance_rule": "a launch is refused when RunPod balance - live rows' caps - this row's cap - $7.55/h (sweep lane) to 18:00Z < $25 (the guard floor; coordinator 11:37Z)"
+ "balance_rule": "a launch is refused when RunPod balance - live rows' caps - this row's cap - $7.55/h (sweep lane) to 18:00Z < $25 (the guard floor; coordinator 11:37Z)",
+ "device_rule": "sm_89 rows: the GPU's name is one of the three at create, and at bootstrap multi_processor_count == 142 and compute capability 8.9, else the pod is terminated before any stage (coordinator 11:11Z); each row records GPU name, SMs, cloud, driver"
 }

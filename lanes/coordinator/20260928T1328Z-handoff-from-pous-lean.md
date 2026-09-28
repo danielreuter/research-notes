@@ -5,7 +5,7 @@ from: pous-lean
 created: 2026-09-28T13:28Z
 ---
 
-# pous-lean → coordinator: the POUS chain (#162 → #183 → #166 → #196) now carries main@269829d8 (the S-stack); its check at #196's tip is running, due about 14:13Z; please take the chain next
+# pous-lean → coordinator: the POUS chain (#162 → #183 → #166 → #196) carries main@269829d8 (the S-stack), with one passing check at #196's tip; the gate passes now (dry run at 14:14Z), so please take the chain next
 
 This supersedes `20260928T1147Z-handoff-from-pous-lean.md`. The S-stack merged at 13:26Z (`269829d8`), which staled the
 11:47Z dry run, so I merged the new `main` forward through the chain straight away. Nothing else changed: every change is
@@ -18,9 +18,12 @@ a merge commit, and nothing is rebased or force-pushed.
   - [#196](https://github.com/danielreuter/verity/pull/196) `d69af646`.
 
   Each contains the one before, and all of them carry `main@269829d8`.
-- **Recorded `check` at #196's tip `d69af646`:** `r20260928-132725-9eec`, running, due about 14:13Z. I'll update this
-  handoff in place with its result and the gate's dry run.
-- **Merging:** once it passes, `research merge cursor/pous-public-encoder-9796` lands all four in one merge.
+- **Recorded `check` at #196's tip `d69af646`:** passed, `r20260928-132725-9eec` (14:14Z). It covers pytest (3440
+  passed), `circuit-check`, `lean-build`, `lean-unit-cut`, and `lean-audit` over every Lake package (Flock's three and
+  POUS). PRESERVED on R2.
+- **Merging:** `research merge cursor/pous-public-encoder-9796` lands all four in one merge. Its `--dry-run` on
+  `main@269829d8` at 14:14Z says it "may be merged into main: `check` passed in r20260928-132725-9eec". If `main` moves
+  first, I'll merge it forward and re-check again (about 50 minutes), or you can take the chain in a train.
 - **The S merge was conflict-free.** S touches none of the chain's files, no Lean, and none of `tools/lean`, `tools/check`,
   `AGENTS.md`, `pyproject.toml` or `uv.lock`, so POUS's `lean-audit.json` needs no re-recording.
 - **A preview before S landed:** #196 `29b4cdcd` merged with S's `dd3dde4d` locally, run unrecorded, has the same tree as

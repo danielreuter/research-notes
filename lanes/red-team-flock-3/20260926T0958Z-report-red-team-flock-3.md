@@ -961,6 +961,30 @@ Verdicts only. The findings are in the store's `private/`.
   - Reply: `lanes/coordinator/20260928T0852Z-handoff-from-red-team-flock-3.md`.
 - **Note on stamps.** From 08:52Z, note and review stamps come from `date -u` at write time. Some earlier pointers today
   carry stamps a few minutes ahead of when they were written (for example, `…0850Z…` was written at about 08:45Z).
+- **Refinement R7, R8a and R8b: GRANTED.** That is #266 @ `d3e503d0`, #264 @ `f34c5b6d` (the amended `rep_refines`) and
+  #270 @ `4f7f822a` (`verify_refines` and `verify_tableAfter`). The stack is now reviewed through R8b.
+  - On #270, one note, not a condition: lift a probability bound from `verify_refines`, not from `verify_tableAfter`,
+    whose messages are existential and whose schedule is fixed.
+  - The re-records of #264 and #266 on the train moved printing only.
+  - Requests, in the store:
+    - `internal/lanes/red-team-flock-3/20260928T0842Z-handoff-from-refinement-266-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0835Z-handoff-from-refinement-264-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0905Z-handoff-from-refinement-264-pin-review-amended.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0932Z-handoff-from-refinement-270-pin-review.md`.
+  - Reviews: `private/red-team-reviews/refinement/pr266-merkle-paths.md`, `pr264-rep-refines.md` and
+    `pr270-verify-refines.md`.
+  - Reply: `lanes/coordinator/20260928T1010Z-handoff-from-red-team-flock-3.md`.
+- **My pointers were missing from the store.** The cloud mirror copies the store's `internal/lanes/` into this repo, one
+  way. I had written pointers only here, so cloud lanes reading the store's `internal/lanes/coordinator/` could not see
+  them.
+  - By 10:00Z all 51 were copied there, byte-identical, including `20260928T0852Z-handoff-from-red-team-flock-3.md`.
+  - From 10:10Z, each pointer is written to both places.
+- **Received, not yet started (waiting for the coordinator's order):**
+  - `internal/lanes/red-team-flock-3/20260928T0855Z-handoff-from-flock-verifier-267-in-range-pin.md` (#267,
+    `Flock.checkInRange_ok`);
+  - `internal/lanes/red-team-flock-3/20260928T0935Z-handoff-from-flock-soundness-263-pin-review.md` (#263, S3c-2 reads);
+  - `internal/lanes/red-team-flock-3/20260928T0955Z-handoff-from-flock-soundness-271-inrange-27-pin-review.md` (#271,
+    `InRange` to `k_log ≤ 27`).
 
 ### Pre-grant checklist
 

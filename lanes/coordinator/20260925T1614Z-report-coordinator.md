@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 51878fab (03:42Z) [open] M0 CELLS BOTH LABELLED: attention art:c176e9c857ac959b1caebaea83f75081bff03b3696da289af0558ed0772e6093 (verified bench-spine, NON_ZK_PROOF red-team-flock-3, domain total) + GEMM art:a1e58e33 -> publish both in the render after train M.
+CHECKPOINT 51878fab (03:39Z) [open] POD GOT 03:32Z: vy-coord-lean13 (u320qgezpj5ire, cpu3m 16 vCPU). COMBINED LEAN AUDIT #187+#194+#200 r20260928-033219-4744 on 80f40039. Train M' check in lean-audit (exec + level3 PASS); timer ~03:50Z. Spend $300.21/$330 at $1.12/h.
 CHECKPOINT 51878fab (03:33Z) [open] ORDER CONSTRAINT: #147-#156-#154-#177 train merges BEFORE #202/#204 (verifier table/v2, drafts); if #204 lands first, #177 needs audit-lean's parse_facts extension (audit-lean/20260928T0340Z plan).
 CHECKPOINT 51878fab (03:23Z) [open] ROOT 03:19Z: red team granted #187@87a0e3b7 (delta), #200@56936c35, #197@67e7f669. Queue: M0 train (#192 #193 #195 #197 #198) -> Lean audit #187+#194+#200 (tree /tmp/wtlean24 = 80f40039 clean; launcher /tmp/run-lean-audit26.sh on vy-coord-lean13) -> #147-#177 -> #149 -> #134. POD STOCK: none of cpu3m/cpu5m 16 vCPU, A100 SXM4, A100 PCIe, H100 (RunPod 'no longer any instances'); retry each sweep.
 CHECKPOINT 51878fab (03:06Z) [open] M0 lane: #193 head b47f8009 (test rename); attention cell to publish = art:c176e9c8 (re-recorded with commit.seconds + new set; labels being carried by bench-spine + red team), NOT e352f2ad; #198@33f057ec (commit-timing tool, independent of #192) -> train N; #83/#184 superseded but stay OPEN (Daniel's consolidation question).

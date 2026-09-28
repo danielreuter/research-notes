@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 90d56801 (16:49Z) [open] dp: #305 (on #284): Realizes, BlockFacts(.realizes/.placement) = TableClass.placed for ofBlock rows; Layout.realizes for flat setupH statements given NetRows. Answer in flock-soundness/. Templates' BlockFacts + text round trip wait on flock-verifier Q1-Q3
 CHECKPOINT ca9ee83d (13:28Z) [open] 1e: #284 (#177's setupH placement through #257; macros inlined for main's audit; all audits PASS w/ replay, no pin moves). Asked flock-verifier 3 questions re #277 templates (Δ order, model matrices, text round trip)
 CHECKPOINT ec52ce38 (11:25Z) [open] #249/#256 ride soundness train 04cd8414 (verified: build, audit+replay PASS 19 pins; #249 pins print-only; #256 pin restated over ofBlock words, red team re-review pending). Asked flock-soundness to confirm no standalone #205
 CHECKPOINT ec52ce38 (08:18Z) [blocked] #249 re-record now waits for the constants stack (#194..#248) on main, then #205's re-record, merged into #249 (not main). BLOCKED: GitHub auth for this agent invalid since 08:12Z (git fetch/push and gh fail); resumes when the token is refreshed

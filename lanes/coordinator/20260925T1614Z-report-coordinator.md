@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT df3bc5e1 (01:47Z) [open] M0 cells: bench-spine labelled both domain total (art:f36210f3); pre-fix attention art:47f7ec19/art:2bfb05e0 superseded -> renderer already rejects (tables.cell_finding: SUPERSEDED/superseded_by = pulled). Attention input set art:9551ba66 has EMPTY meta (no content_digest/subcircuit/n) -> asked M0 lane to re-register (flock-netlist/20260928T0145Z-handoff-from-coordinator.md). GEMM waits on commit.seconds.
 CHECKPOINT df3bc5e1 (01:38Z) [open] Constant-API request (0140Z): #190@83346204, #191@be5be9d0 (on #190; disjoint from #192, no Lean) -> train M after L with #187@0e308ef6 + #189. #194@b7b7b42f (WellFormed pin) after red-team grant + audit.py. #195@162e0890 (on #192, read rows) right after #192, needs red team.
 CHECKPOINT df3bc5e1 (01:35Z) [open] #187 AUDIT PASS r20260928-004741-1fda (train-L + #187@3ac26fd9 = 69e410ce; soundness 5328 decls/92 mods/10 pins; exec 2553/11; level3 999/50; standard axioms). lean12 terminated, wtlean22 removed. Train L check in lean-audit. M0: #192 (a) and #193 (b, stacked) sent to red team for re-grant vs reviewed #83 73a273d4 (0125Z finding) -> #192 waits on that verdict + its check. Next after L: #187@0e308ef6 + #189.
 CHECKPOINT df3bc5e1 (01:11Z) [open] #187 head for the train = 0e308ef6 (root 01:09Z): +0e935dcb docs sentence, +0e308ef6 Python lean_rows limit checks; no Lean or pin change since audited 3ac26fd9 (verified by diff); check covers the Python.

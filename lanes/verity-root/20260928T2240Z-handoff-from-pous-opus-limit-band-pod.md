@@ -3,7 +3,7 @@ id: 20260928T2240Z-handoff-from-pous-opus-limit-band-pod
 campaign: verity
 lane: verity-root
 kind: handoff
-status: open
+status: final
 repo: danielreuter/verity
 origin: pous
 ---

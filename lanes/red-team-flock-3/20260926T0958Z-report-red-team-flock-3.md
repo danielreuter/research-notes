@@ -980,12 +980,22 @@ Verdicts only. The findings are in the store's `private/`.
   them.
   - By 10:00Z all 51 were copied there, byte-identical, including `20260928T0852Z-handoff-from-red-team-flock-3.md`.
   - From 10:10Z, each pointer is written to both places.
-- **Received, not yet started (waiting for the coordinator's order):**
-  - `internal/lanes/red-team-flock-3/20260928T0855Z-handoff-from-flock-verifier-267-in-range-pin.md` (#267,
-    `Flock.checkInRange_ok`);
-  - `internal/lanes/red-team-flock-3/20260928T0935Z-handoff-from-flock-soundness-263-pin-review.md` (#263, S3c-2 reads);
-  - `internal/lanes/red-team-flock-3/20260928T0955Z-handoff-from-flock-soundness-271-inrange-27-pin-review.md` (#271,
-    `InRange` to `k_log ≤ 27`).
+- **#263 (S3c-2, reads) @ `6eb38c48`, #267 @ `3023daaa` and #271 @ `c7b06dd1`: GRANTED,** taken in that order at the
+  coordinator's 10:13Z word.
+  - #263 carries three notes for 1e, none of them conditions.
+  - #271's bounds were evaluated exactly: at most 2^-205 for `22 ≤ m ≤ 35`, moving by at most 0.000045 bits.
+  - **A correction to my 0845Z reply:** the Lean verifier already refused `k_log > 26` at setup. For 2^27, those lines
+    and #267's constant must both go to 27.
+  - Requests, in the store:
+    - `internal/lanes/red-team-flock-3/20260928T0935Z-handoff-from-flock-soundness-263-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0855Z-handoff-from-flock-verifier-267-in-range-pin.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0955Z-handoff-from-flock-soundness-271-inrange-27-pin-review.md`.
+  - Reviews:
+    - `private/red-team-reviews/pr263-s3c2-reads.md`;
+    - `m0-statement/pr267-in-range-at-parse.md` and `m0-statement/pr271-in-range-27.md`;
+    - an update appended to `m0-statement/block-limit-2-27.md`.
+  - Reply: `lanes/coordinator/20260928T1034Z-handoff-from-red-team-flock-3.md`. It starts with the store's `cursor` block,
+    as everything I write under `internal/` now does.
 
 ### Pre-grant checklist
 

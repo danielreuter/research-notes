@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT 26f0f92d (08:04Z) [open] #183 26f0f92d PASSED r20260928-061856-643d; #166 d7e2c36f FAILED r20260928-073654-b3f8 (boundary test scanned protocols/pous/lean/.lake; fixed be77ec58); #196 now ca17ec0f; re-recording #166
 CHECKPOINT 26f0f92d (06:22Z) [open] check #162 @ 4ef7bbc8 PASSED r20260928-043314-e1ee (lean-audit incl. POUS + soundness); #183 @ 26f0f92d recording r20260928-061856-643d; then #166, #196
 CHECKPOINT 26f0f92d (04:39Z) [open] main merged into all four: #162 4ef7bbc8, #183 26f0f92d, #166 d7e2c36f, #196 9b7f3dd8 (PROTOCOL.md band-default combined); check #162 r20260928-043314-e1ee running; asked coordinator re train in 20260928T0439Z handoff
 CHECKPOINT 8c0076e3 (04:27Z) [open] queue #162 -> #183 -> #166 -> #196; check re-recorded & PASSED: #166 r20260928-031711-6715, #196 r20260928-034942-10aa (R2); handoff lanes/coordinator/20260928T0427Z-handoff-from-pous-lean.md

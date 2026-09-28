@@ -997,6 +997,17 @@ Verdicts only. The findings are in the store's `private/`.
     - an update appended to `m0-statement/block-limit-2-27.md`.
   - Reply: `lanes/coordinator/20260928T1034Z-handoff-from-red-team-flock-3.md`. It starts with the store's `cursor` block,
     as everything I write under `internal/` now does.
+- **#256's `Rows.compose_eval_unit` restated over `ofBlock words`, in the soundness train @ `04cd8414`: GRANTED.** Taken
+  ahead of #275 and #278, at the coordinator's 11:26Z word.
+  - The restatement is needed, since #263's reads make the granted form false.
+  - The train's other pins are as I granted them, and every moved read traces to a grant.
+  - Request: `internal/lanes/red-team-flock-3/20260928T1105Z-handoff-from-flock-soundness-256-ofblock-words.md`, in the
+    store.
+  - Review: `private/red-team-reviews/pr256-ofblock-words.md`.
+  - Reply: `lanes/coordinator/20260928T1143Z-handoff-from-red-team-flock-3.md`.
+- **Refinement R9a (#275) and R9b (#278): in review,** taken at 11:15Z. The requests, in the store:
+  - `internal/lanes/red-team-flock-3/20260928T1041Z-handoff-from-refinement-275-pin-review.md`;
+  - `internal/lanes/red-team-flock-3/20260928T1112Z-handoff-from-refinement-278-pin-review.md`.
 
 ### Pre-grant checklist
 

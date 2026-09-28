@@ -2,9 +2,10 @@
 lane: vllm-epoch-prep
 kind: report
 created: 2026-09-28T04:23Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT 4e6ce10f (06:08Z) [blocked] PUSH BLOCKED 06:10Z: GitHub token on the VM invalid (git + gh auth fail). S4 committed locally cursor/epoch-s4-constructions-150d @7220e798, bundle artifacts/vllm-epoch-prep-s4-7220e798.bundle; S2/S3/S1/tooling PRs already up. Asking once for a token refresh; continuing S4 tests + S1b meanwhile.
 CHECKPOINT 4e6ce10f (06:04Z) [open] MERGE-READY S2 #233 @c0db84e1 + S3 #242 @8f567db6 (handoff 0605Z). S4 assembled locally (S4a+S4b+rekey + scale_products numpy fast path 157M/s exact), full CPU tests running; forks on main after #223. S1b implementer running.
 CHECKPOINT 4e6ce10f (05:58Z) [open] Boundary check all 13 rows: #39 affected (pre-bias qkv Gemm, 6,752 in first 60k rows), #11 clean; handoff 0558Z (#39 decision). Re-key @216887f7 pushed (pins verified by substitution; flock clean with #221). S1b implementer running.
 CHECKPOINT 4e6ce10f (05:28Z) [open] Ampere re-key prepared for S4: cursor/epoch-s4-rekey-150d @74b7f51f (bind core v2, delete v1 + helpers, 8 code files + tests rebound; targeted tests pass; wide suite running); S4 will fork from main after #223 (~06:30Z) and fold S4a+S4b+rekey; needs #221 first

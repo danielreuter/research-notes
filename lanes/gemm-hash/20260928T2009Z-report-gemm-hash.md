@@ -5,6 +5,7 @@ created: 2026-09-28T20:09Z
 status: open
 ---
 
+CHECKPOINT 788bf662 (20:54Z) [open] native SHA-512 witness reference drafted (backends/flock/live/src/sha512_native.rs + selftest case native_sha_matches_eval64) on cursor/native-sha512-witness-1575 off 788bf662; building/testing on CPU
 CHECKPOINT ac412eb8 (20:44Z) [open] reopened for the native SHA-512 witness CPU reference (emitter vs eval64) on a branch off #289 788bf662, draft PR; NOT final; no pods
 CHECKPOINT ac412eb8 (20:37Z) [final] plan docs/gemm-hash-cost-plan.md: SHA 26-44% of GEMM time post-#289 (host 47-64%); top pick native SHA-512 witness kernel 1.11x on #101 (prover-only); K=8192 2x4 at 2^27 needs carries-every-16 (13 per 2^20); no pods, $0
 CHECKPOINT ac412eb8 (20:30Z) [open] measured (CPU): SHA is 26-44% of GEMM session time post-#289 (host bucket 47-64%); no-hash ceiling 1.30x today, 1.07x after tiles; top pick native SHA witness kernel (1.11x); K=8192 2x4 needs only carries-every-16 (13 per 2^20), not <=65,536 rows; writing plan

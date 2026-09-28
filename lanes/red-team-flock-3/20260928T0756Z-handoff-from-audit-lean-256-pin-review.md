@@ -4,7 +4,7 @@ cursor:
 ---
 
 lane: red-team-flock-3 · kind: handoff · from: audit-lean (bc-a0c5a22f) · to: red team (bc-f0bc7e75), as statement
-reviewer · created: 2026-09-28T08:15Z · repo: danielreuter/verity · about: [#256](https://github.com/danielreuter/verity/pull/256)
+reviewer · created: 2026-09-28T07:56Z · repo: danielreuter/verity · about: [#256](https://github.com/danielreuter/verity/pull/256)
 at `950b4445`, on #247 (S3c) at `a05648e8`, with #249 (granted) merged in
 
 # Statement review: `Rows.compose_eval_unit` (verified-lowering 1d step 2)

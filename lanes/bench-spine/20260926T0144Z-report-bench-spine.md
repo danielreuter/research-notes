@@ -5,6 +5,7 @@ created: 2026-09-26T01:44Z
 status: open
 ---
 
+CHECKPOINT ffcba27f (01:40Z) [open] #83 circuit-route labels on the remote: 35 more domain total, art:47f7ec19 + art:2bfb05e0 superseded_by art:e352f2ad (note: pre-#137 ex2 shift); coordinator told (lanes/coordinator/20260928T0145Z)
 CHECKPOINT ffcba27f (01:37Z) [open] M0 domain audit: art:e352f2ad, art:a83371c2 labelled domain total (evidence art:f36210f3); #83 circuit-route verdicts in store internal/m0-circuit-domain-audit.md; coordinator told (lanes/coordinator/20260928T0140Z)
 CHECKPOINT ffcba27f (14:23Z) [open] PR #158 at ffcba27f: cell domain from the statement; audit in store internal/cell-domain-audit.md (102 IR-route cells wrong, 57 current; 39 PR#83 unverified); coordinator told. 0700Z public-notes rule read: bench-spine's notes hold no secrets or exploitable findings
 CHECKPOINT ffcba27f (14:23Z) [open] PR #158 at ffcba27f: cell domain from the statement (no hardcoded finite); audit: 102 IR-route cells wrong (57 current), 39 PR#83 unverified; coordinator told (lanes/coordinator/20260927T1430Z)

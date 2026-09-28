@@ -30,6 +30,11 @@ echo "#$N $RUN ended: $st"
 
 $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$RUN evidence" > "$EVD/evidence.tgz" && tar xzf "$EVD/evidence.tgz" -C "$EVD"
 tail -n 20 "$EVD/evidence/progress.txt"
+if [ -n "${SIDE_RUN:-}" ]; then   # the regression record from side_finish.sh (the main run's -k filter matched nothing before 16:57Z)
+  rm -rf "$EVD/evidence/record"
+  $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$SIDE_RUN/evidence record rebaseline_run.log" < /dev/null > "$EVD/side-record.tgz" \
+    && tar xzf "$EVD/side-record.tgz" -C "$EVD/evidence" && echo "record from side run $SIDE_RUN: $(ls "$EVD/evidence/record" | grep -v junit | tr '\n' ' ')"
+fi
 [ -n "$EPOCH_SHA" ] || EPOCH_SHA=$(sed -n 's/^EPOCH_SHA=//p' "$EVD/evidence/row_env.txt" 2>/dev/null)
 [ -n "$EPOCH_SHA" ] || EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha")
 echo "recorded against $EPOCH_SHA"

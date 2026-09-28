@@ -1,6 +1,6 @@
-watch updated 2026-09-28T17:37:10Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 318 min: 2026-09-28T17:23:02Z strict word check rc=0 PASS fast: 8/8 word lines, 6664748 calls -> 13503689758 units over 913067628664 gates, manifest 466e67184d165a1c
-#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 218 min: 2026-09-28T17:36:09Z required_families: input_token_ids,instance_outputs,sampled_token_ids,weights,fa2_hidden_m1_stream,norm_scales,router_softmax,vocab_range (
-#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 94 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
-#75 vyv-rf-epoch-75 r20260928-160802-960f live 89 min: 2026-09-28T16:23:51Z bootstrap cases=B0,QWEN3_30B_A3B rc=0
-#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 78 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
+watch updated 2026-09-28T17:39:23Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 321 min: 2026-09-28T17:23:02Z strict word check rc=0 PASS fast: 8/8 word lines, 6664748 calls -> 13503689758 units over 913067628664 gates, manifest 466e67184d165a1c
+#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 220 min: 2026-09-28T17:36:09Z required_families: input_token_ids,instance_outputs,sampled_token_ids,weights,fa2_hidden_m1_stream,norm_scales,router_softmax,vocab_range (
+#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 96 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
+#75 vyv-rf-epoch-75 r20260928-160802-960f live 91 min: 2026-09-28T16:23:51Z bootstrap cases=B0,QWEN3_30B_A3B rc=0
+#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 80 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0

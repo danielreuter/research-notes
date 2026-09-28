@@ -1,0 +1,549 @@
+{
+ "schema": "vllm-epoch-prep/s1-call-boundaries/v1",
+ "rows": [
+  {
+   "dir": "/tmp/ab/57off/build_request_LP31_T52",
+   "program": "b342ff309d4bbd6a79d062cf7920c1f753e2f587fd92caa9bbf6b061ec4c18bc",
+   "calls": 92897,
+   "identities": 21304,
+   "required_values": 30884,
+   "call_boundary_values": 92996,
+   "extra_values": 62330,
+   "extra_by_definition_module": [
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.3.input_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.21.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.2.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "MulVecF32_v1{N=2304}",
+     "module": "model.model.layers.15.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowBf16_v1{N=2304}",
+     "module": "model.model.layers.21.post_attention_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddWidenedBf16_v1{N=2304}",
+     "module": "model.model.layers.3.input_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowF32_v1{N=2304}",
+     "module": "model.model.layers.2.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "MulVecF32_v1{N=2304}",
+     "module": "model.model.layers.16.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "MulVecF32_v1{N=2304}",
+     "module": "model.model.layers.7.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.14.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.5.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.13.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.22.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "MeanTriton_v1{N=2304}",
+     "module": "model.model.layers.1.input_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "MulVecF32_v1{N=2304}",
+     "module": "model.model.layers.19.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.19.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowF32_v1{N=2304}",
+     "module": "model.model.layers.22.input_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowF32_v1{N=2304}",
+     "module": "model.model.layers.13.input_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.19.post_attention_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowBf16_v1{N=2304}",
+     "module": "model.model.layers.11.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "SquareBf16_v1{N=2304}",
+     "module": "model.model.layers.10.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.10.post_attention_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.10.input_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowBf16_v1{N=2304}",
+     "module": "model.model.layers.2.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.16.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.25.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "MeanTriton_v1{N=2304}",
+     "module": "model.model.layers.18.input_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "SquareF32_v1{N=2304}",
+     "module": "model.model.layers.23.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "MulVecF32_v1{N=2304}",
+     "module": "model.model.layers.2.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowF32_v1{N=2304}",
+     "module": "model.model.layers.10.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowF32_v1{N=2304}",
+     "module": "model.model.layers.19.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.8.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.17.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "SquareF32_v1{N=2304}",
+     "module": "model.model.layers.15.pre_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.1.post_attention_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.1.input_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.15.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "module": "model.model.layers.0.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "module": "model.model.layers.24.post_feedforward_layernorm",
+     "values": 83
+    },
+    {
+     "definition": "ScaleRowBf16_v1{N=2304}",
+     "module": "model.model.layers.19.post_attention_layernorm",
+     "values": 83
+    }
+   ],
+   "violations": [
+    {
+     "definition": "NarrowF32ToBf16_v1{N=2304}",
+     "class": "input-not-committed",
+     "calls": 13031,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "class": "input-not-committed",
+     "calls": 8715,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "AddScalarF32_v1{N=1,C={\"f64\":\"0x1.0c6f7a0b5ed8dp-20\"}}",
+     "class": "output-not-committed",
+     "calls": 8715,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "MeanTriton_v1{N=2304}",
+     "class": "input-not-committed",
+     "calls": 8715,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "MeanTriton_v1{N=2304}",
+     "class": "output-not-committed",
+     "calls": 8715,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "MulVecF32_v1{N=2304}",
+     "class": "input-not-committed",
+     "calls": 8715,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "MulVecF32_v1{N=2304}",
+     "class": "output-not-committed",
+     "calls": 8715,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "class": "input-not-committed",
+     "calls": 8715,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "RsqrtF32_v1{N=1}",
+     "class": "output-not-committed",
+     "calls": 8715,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "AddScalarBf16_v1{N=2304,C={\"f64\":\"0x1.0000000000000p+0\"}}",
+     "class": "output-not-committed",
+     "calls": 5565,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm"
+     ]
+    },
+    {
+     "definition": "ScaleRowBf16_v1{N=2304}",
+     "class": "input-not-committed",
+     "calls": 4399,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm",
+      "model.model.layers.2.post_attention_layernorm",
+      "model.model.layers.2.post_feedforward_layernorm",
+      "model.model.layers.3.post_attention_layernorm"
+     ]
+    },
+    {
+     "definition": "ScaleRowBf16_v1{N=2304}",
+     "class": "output-not-committed",
+     "calls": 4399,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm",
+      "model.model.layers.2.post_attention_layernorm",
+      "model.model.layers.2.post_feedforward_layernorm",
+      "model.model.layers.3.post_attention_layernorm"
+     ]
+    },
+    {
+     "definition": "SquareBf16_v1{N=2304}",
+     "class": "output-not-committed",
+     "calls": 4399,
+     "where": [
+      "model.model.layers.0.input_layernorm",
+      "model.model.layers.0.post_attention_layernorm",
+      "model.model.layers.0.post_feedforward_layernorm",
+      "model.model.layers.1.post_attention_layernorm",
+      "model.model.layers.1.post_feedforward_layernorm",
+      "model.model.layers.2.post_attention_layernorm",
+      "model.model.layers.2.post_feedforward_layernorm",
+      "model.model.layers.3.post_attention_layernorm"
+     ]
+    },
+    {
+     "definition": "AddWidenedBf16_v1{N=2304}",
+     "class": "output-not-committed",
+     "calls": 4316,
+     "where": [
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.2.input_layernorm",
+      "model.model.layers.2.pre_feedforward_layernorm",
+      "model.model.layers.3.input_layernorm",
+      "model.model.layers.3.pre_feedforward_layernorm",
+      "model.model.layers.4.input_layernorm"
+     ]
+    },
+    {
+     "definition": "ScaleRowF32_v1{N=2304}",
+     "class": "input-not-committed",
+     "calls": 4316,
+     "where": [
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.2.input_layernorm",
+      "model.model.layers.2.pre_feedforward_layernorm",
+      "model.model.layers.3.input_layernorm",
+      "model.model.layers.3.pre_feedforward_layernorm",
+      "model.model.layers.4.input_layernorm"
+     ]
+    },
+    {
+     "definition": "ScaleRowF32_v1{N=2304}",
+     "class": "output-not-committed",
+     "calls": 4316,
+     "where": [
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.2.input_layernorm",
+      "model.model.layers.2.pre_feedforward_layernorm",
+      "model.model.layers.3.input_layernorm",
+      "model.model.layers.3.pre_feedforward_layernorm",
+      "model.model.layers.4.input_layernorm"
+     ]
+    },
+    {
+     "definition": "SquareF32_v1{N=2304}",
+     "class": "input-not-committed",
+     "calls": 4316,
+     "where": [
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.2.input_layernorm",
+      "model.model.layers.2.pre_feedforward_layernorm",
+      "model.model.layers.3.input_layernorm",
+      "model.model.layers.3.pre_feedforward_layernorm",
+      "model.model.layers.4.input_layernorm"
+     ]
+    },
+    {
+     "definition": "SquareF32_v1{N=2304}",
+     "class": "output-not-committed",
+     "calls": 4316,
+     "where": [
+      "model.model.layers.0.pre_feedforward_layernorm",
+      "model.model.layers.1.input_layernorm",
+      "model.model.layers.1.pre_feedforward_layernorm",
+      "model.model.layers.2.input_layernorm",
+      "model.model.layers.2.pre_feedforward_layernorm",
+      "model.model.layers.3.input_layernorm",
+      "model.model.layers.3.pre_feedforward_layernorm",
+      "model.model.layers.4.input_layernorm"
+     ]
+    },
+    {
+     "definition": "Bf16DivScalar_v1{N=256000,C={\"f64\":\"0x1.e000000000000p+4\"}}",
+     "class": "input-not-committed",
+     "calls": 53,
+     "where": [
+      "model.logits_processor"
+     ]
+    },
+    {
+     "definition": "Bf16DivScalar_v1{N=256000,C={\"f64\":\"0x1.e000000000000p+4\"}}",
+     "class": "output-not-committed",
+     "calls": 53,
+     "where": [
+      "model.logits_processor"
+     ]
+    },
+    {
+     "definition": "Bf16MulScalar_v1{N=256000,C={\"f64\":\"0x1.e000000000000p+4\"}}",
+     "class": "input-not-committed",
+     "calls": 53,
+     "where": [
+      "model.logits_processor"
+     ]
+    },
+    {
+     "definition": "Bf16Tanh_v1{N=256000}",
+     "class": "input-not-committed",
+     "calls": 53,
+     "where": [
+      "model.logits_processor"
+     ]
+    },
+    {
+     "definition": "Bf16Tanh_v1{N=256000}",
+     "class": "output-not-committed",
+     "calls": 53,
+     "where": [
+      "model.logits_processor"
+     ]
+    },
+    {
+     "definition": "Gemm_v1{K=2304,N=256000}",
+     "class": "output-not-committed",
+     "calls": 53,
+     "where": [
+      "model.logits_processor"
+     ]
+    }
+   ],
+   "secs": 68.0
+  },
+  {
+   "dir": "/tmp/ab/73off/build_request_LP10_T8",
+   "program": "e2d6a391381d69eb6978483ad347bcc132afe6962b8f1e753f4e0aba9ee95b32",
+   "calls": 32454,
+   "identities": 5340,
+   "required_values": 34186,
+   "call_boundary_values": 34014,
+   "extra_values": 0,
+   "extra_by_definition_module": [],
+   "violations": [],
+   "secs": 16.1
+  }
+ ]
+}

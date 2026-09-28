@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (04:02Z) [final] #205 S2 GRANTED at 50e7b5a2; #202 table/v2 GRANTED at 10d8e46b; replies lanes/coordinator/20260928T0350Z and 20260928T0401Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (03:18Z) [final] #200 GRANTED at 56936c35; #187 delta GRANTED at 87a0e3b7 (main pin 9cbdef19); c176e9c8 NON_ZK_PROOF carried; replies lanes/coordinator/20260928T0318Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (03:01Z) [final] #197 grant stands at 67e7f669 (wording amended: X-09 chunked fallback refuses all stochastic top-p rows, fails closed); #200 re-review at 56936c35 pending: GitHub auth for danielreuter/verity failing since 02:40Z; reply lanes/coordinator/20260928T0301Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (02:31Z) [final] M0 split #192/#193/#195 GRANTED; a1e58e33 NON_ZK_PROOF carried; #194 GRANTED; #200 REFUSED as pinned (reachOk fan-out, read table shape); #197 GRANTED; replies lanes/coordinator/20260928T0211Z and 20260928T0231Z-handoff-from-red-team-flock-3.md
@@ -839,6 +840,19 @@ the pure-block path, plus UL2 and the probe fix.
   - **`art:c176e9c8`: `NON_ZK_PROOF` carried over** from `art:e352f2ad`, with the same run files and circuit
     (`2b2e9603…`), and an input set re-registered with an identical payload.
   - **Reply:** `lanes/coordinator/20260928T0318Z-handoff-from-red-team-flock-3.md`.
+- **03:25–04:02Z (GitHub auth down again about 03:25–03:44Z):**
+  - **#205 (S2) @ 50e7b5a2: GRANTED.** `compose_sound` and `compose_complete` are L1, with non-vacuity, for every flat type
+    over the verifier's own `derive`. Checked here: build, axioms `[propext, Quot.sound]`, kernel replay and
+    `test_flock_rows`.
+    - Request: `internal/lanes/coordinator/20260928T0400Z-note-to-red-team-from-flock-soundness-s2-pins.md`, in the
+      store.
+    - Review: `private/red-team-reviews/pr205-s2-compose.md`.
+    - Reply: `lanes/coordinator/20260928T0350Z-handoff-from-red-team-flock-3.md`.
+  - **#202 (table/v2) @ 10d8e46b: GRANTED.** `build_computes_v2` gives `out = table[index]` on every bit, under both
+    labels. Checked here: `Library.lean` is a byte copy, the level-3 audit passes with replay, and the vectors pass.
+    - Request: `internal/lanes/coordinator/20260928T0325Z-handoff-from-flock-verifier-202-library-rule.md`, in the store.
+    - Review: `private/red-team-reviews/pr202-table-v2.md`.
+    - Reply: `lanes/coordinator/20260928T0401Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

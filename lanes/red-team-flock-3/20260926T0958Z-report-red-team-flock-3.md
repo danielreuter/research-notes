@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT fca3b335 (15:02Z) [final] R9c #291 @363a4264 GRANTED (setup_wf, setupH_wf, stmtOf_linkLayout); compile_time Refine/Walk acceptable (proof-only tactic, no IO; notes: pin the file digest, keep listed modules out of pinned reads); private-ZK 14:45Z delta: grant stands
 CHECKPOINT 777cf810 (13:15Z) [final] #282 @db55d87c and #268 @0a241289 GRANTED (note: Rust slot_log bound on every range); C1 on verity/flock-circuit/types met (Lean at #277 reproduces digest 529ab95c.. and Sigma a0caa27c.., 20/20 verdicts); C2 stands until #277 and #268 land with #272/#273
 CHECKPOINT 9835f2bb (12:08Z) [final] verity/flock-circuit/types (#272 @5c0de806, #273 @0db3717e) GRANTED WITH CONDITIONS (C1 digest TAG = statement id, or Rust/Lean digests disagree; C2 no cell before the Lean verifier reads the id and #268 is on the typed path); earlier today: #256 over ofBlock words, R9a #275, R9b #278 GRANTED
 CHECKPOINT c26418ff (11:50Z) [final] #256 over ofBlock words GRANTED, soundness train 04cd8414 as granted; R9a #275 @2642e908 and R9b #278 @c5a1180a GRANTED (stmtOf determinacy proved in Lean; free-bit Nodup should be a verifier check); #270 13fda652 nothing more

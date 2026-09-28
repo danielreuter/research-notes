@@ -20,8 +20,8 @@ while [ "$(date +%s)" -lt "$stop_at" ]; do
     while IFS='|' read -r N POD PODID RUN START RATE; do
       [ -n "$N" ] || continue
       mkdir -p "/workspace/epoch-evidence/$N"
-      timeout 120 $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$RUN evidence" > "/workspace/epoch-evidence/$N/stop-$(date -u +%H%MZ).tgz" 2>/dev/null
-      $R pods terminate "$PODID" > /dev/null 2>&1; $R pods guard stop --prefix "$POD-" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1
+      timeout 120 $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$RUN evidence" > "/workspace/epoch-evidence/$N/stop-$(date -u +%H%MZ).tgz" 2>/dev/null < /dev/null
+      $R pods terminate "$PODID" > /dev/null 2>&1 < /dev/null; $R pods guard stop --prefix "$POD-" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1
       echo "$(date -u +%FT%TZ) #$N $POD $RUN: TERMINATED on STOP (records discarded, evidence kept)" | tee -a "$LANE/evidence/STOPPED" >> "$LANE/evidence/watch.log"
     done < <(awk -F'\t' '$8=="live" {print $1"|"$2"|"$3"|"$4"|"$5"|"$7}' "$L" 2>/dev/null)
   fi
@@ -29,12 +29,12 @@ while [ "$(date +%s)" -lt "$stop_at" ]; do
   while IFS='|' read -r N POD PODID RUN START RATE; do
     [ -n "$N" ] || continue
     age=$(( $(date +%s) - $(date -d "$START" +%s) ))
-    prog=$($R pods ssh "$POD" -- "tail -n 40 /workspace/research/runs/$RUN/evidence/progress.txt 2>/dev/null" 2>/dev/null)
+    prog=$($R pods ssh "$POD" -- "tail -n 40 /workspace/research/runs/$RUN/evidence/progress.txt 2>/dev/null" 2>/dev/null < /dev/null)
     last=$(echo "$prog" | grep -v '^$' | tail -n 1 | cut -c1-160)
     if echo "$prog" | grep -q "STOP failfast" || { [ "$age" -gt 1020 ] && ! echo "$prog" | grep -q "failfast OK"; }; then
       mkdir -p "/workspace/epoch-evidence/$N"
-      $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$RUN evidence" > "/workspace/epoch-evidence/$N/failfast-$(date -u +%H%MZ).tgz" 2>/dev/null
-      $R pods terminate "$PODID" > /dev/null 2>&1; $R pods guard stop --prefix "$POD-" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1
+      $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$RUN evidence" > "/workspace/epoch-evidence/$N/failfast-$(date -u +%H%MZ).tgz" 2>/dev/null < /dev/null
+      $R pods terminate "$PODID" > /dev/null 2>&1 < /dev/null; $R pods guard stop --prefix "$POD-" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1
       END=$(date -u +%FT%TZ)
       python3 - "$L" "$N" "$RUN" "$END" "$RATE" "$START" <<'EOF'
 import datetime as dt, sys

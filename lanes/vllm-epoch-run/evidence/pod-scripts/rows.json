@@ -15,7 +15,7 @@
    "rate": 1.09,
    "cap": 5,
    "est_h": 1.5,
-   "status": "hold",
+   "status": "ok",
    "alt": {
     "count": 2,
     "min_ram": 47,
@@ -25,7 +25,7 @@
     "PAIRS": "1",
     "VERITY_QWORD_MAX_GATES": "GumbelTopPTokenSelect_v2=110000000"
    },
-   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); #231's sampler Call (102 M gates) cut with --word-max-gates GumbelTopPTokenSelect_v2=110000000 (coordinator 07:35Z; >= 60 GB RAM)",
+   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); #231's sampler Call (102 M gates) cut with --word-max-gates GumbelTopPTokenSelect_v2=110000000 (coordinator 07:35Z; >= 60 GB RAM)",
    "est3_h": null
   },
   "4": {
@@ -71,11 +71,11 @@
    "rate": 2.18,
    "cap": 13,
    "est_h": 4.0,
-   "status": "hold",
+   "status": "ok",
    "env": {
     "VU_EXPORT": "0"
    },
-   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); Commit ~193 GiB planned; 233 GB cgroup worked last epoch",
+   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); Commit ~193 GiB planned; 233 GB cgroup worked last epoch",
    "est3_h": 5.5
   },
   "68": {
@@ -88,12 +88,12 @@
    "rate": 2.18,
    "cap": 13,
    "est_h": 4.0,
-   "status": "hold",
+   "status": "ok",
    "env": {
     "VU_EXPORT": "0"
    },
    "est3_h": 5.4,
-   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); "
+   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); "
   },
   "70": {
    "key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
@@ -105,9 +105,9 @@
    "rate": 2.18,
    "cap": 9,
    "est_h": 3.0,
-   "status": "hold",
+   "status": "ok",
    "env": {},
-   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)",
+   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)",
    "est3_h": 3.5
   },
   "23": {
@@ -120,9 +120,9 @@
    "rate": 4.36,
    "cap": 18,
    "est_h": 3.0,
-   "status": "hold",
+   "status": "ok",
    "env": {},
-   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); Commit OOM at 251 GB last epoch: host > 251 GB",
+   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); Commit OOM at 251 GB last epoch: host > 251 GB",
    "est3_h": 3.7,
    "alt_shapes": [
     {
@@ -141,7 +141,7 @@
    "rate": 4.36,
    "cap": 24,
    "est_h": 4.0,
-   "status": "hold",
+   "status": "ok",
    "env": {
     "VU_EXPORT": "0"
    },
@@ -152,7 +152,7 @@
      "min_ram": 188
     }
    ],
-   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); "
+   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); "
   },
   "11": {
    "key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
@@ -214,13 +214,13 @@
    "rate": 2.18,
    "cap": 12,
    "est_h": 4.0,
-   "status": "hold",
+   "status": "ok",
    "env": {
     "BUILD_TIMEOUT": "14400",
     "COMMIT_GPU_UTIL": "0.70",
     "GPU_UTIL": "0.92"
    },
-   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); coordinator 07:20Z option (a): 2x L40S >= 377 GB host, COMMIT_GPU_UTIL=0.70, cap $12; no such shape by 13:30Z -> defer, old record stays",
+   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); coordinator 07:20Z option (a): 2x L40S >= 377 GB host, COMMIT_GPU_UTIL=0.70, cap $12; no such shape by 13:30Z -> defer, old record stays",
    "est3_h": 4.5
   },
   "73": {
@@ -286,12 +286,23 @@
  "balance_rule": "a launch is refused when RunPod balance - live rows' caps - this row's cap - $7.55/h (sweep lane) to 18:00Z < $25 (the guard floor; coordinator 11:37Z)",
  "device_rule": "sm_89 rows: the GPU's name is one of the three at create, and at bootstrap multi_processor_count == 142 and compute capability 8.9, else the pod is terminated before any stage (coordinator 11:11Z); each row records GPU name, SMs, cloud, driver",
  "go": {
-  "note": "lanes/vllm-epoch-run/20260928T1215Z-GO-from-vllm-coordinator-73-and-4.md",
-  "commit": "dd3dde4d70e88ebc85b0d6e6baecbcb96545dd00",
+  "note": "lanes/vllm-epoch-run/20260928T1331Z-GO-from-vllm-coordinator-wave1-main-269829d8.md",
+  "commit": "269829d84da4a0e4385c561776ba8105398f62e2",
   "tree": "ff7d6808e8cb14d3c439e0b262af6f2cd9140705",
-  "rows": [
+  "launched_on_dd3dde4d": [
    "73",
    "4"
+  ],
+  "rows": [
+   "73",
+   "4",
+   "60",
+   "67",
+   "68",
+   "23",
+   "70",
+   "75",
+   "101"
   ]
  }
 }

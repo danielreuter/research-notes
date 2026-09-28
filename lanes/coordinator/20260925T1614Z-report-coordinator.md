@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 51878fab (04:00Z) [open] ROOT 03:57Z/03:58Z: vy-coord- deadline 18:00Z, cap $30; merge line $340 to 18:00Z. Consolidation coordinator bc-e373566b sends cleanup PRs -> slot between feature trains. NEW PRIORITY (collaborators start tomorrow): land as much as possible tonight, gate strict; small trains over batching; Lean pods the moment free; re-run infra flakes at once; mark drafts ready (update_pr draft=false) before/as they merge. 08:00Z docs/merge-log.md (timer merge-log-0800): what landed, 'what's on main now' (key PRs, one line each), open queue with owners.
 CHECKPOINT 51878fab (03:42Z) [open] M0 CELLS BOTH LABELLED: attention art:c176e9c857ac959b1caebaea83f75081bff03b3696da289af0558ed0772e6093 (verified bench-spine, NON_ZK_PROOF red-team-flock-3, domain total) + GEMM art:a1e58e33 -> publish both in the render after train M.
 CHECKPOINT 51878fab (03:39Z) [open] POD GOT 03:32Z: vy-coord-lean13 (u320qgezpj5ire, cpu3m 16 vCPU). COMBINED LEAN AUDIT #187+#194+#200 r20260928-033219-4744 on 80f40039. Train M' check in lean-audit (exec + level3 PASS); timer ~03:50Z. Spend $300.21/$330 at $1.12/h.
 CHECKPOINT 51878fab (03:33Z) [open] ORDER CONSTRAINT: #147-#156-#154-#177 train merges BEFORE #202/#204 (verifier table/v2, drafts); if #204 lands first, #177 needs audit-lean's parse_facts extension (audit-lean/20260928T0340Z plan).

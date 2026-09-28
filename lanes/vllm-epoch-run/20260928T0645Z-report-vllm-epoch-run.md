@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (19:44Z) [open] 19:44Z: #73 Commit manifest-verify (END ~20:15Z; records via side run, key expires 20:18Z); #75 Commit; #74 #67 #68 Build; #70 polling to 20:20Z, no stock. No notes pending. agent bc-75fd4007.
 CHECKPOINT 6746f408 (19:22Z) [open] #60 deferred at 19:20Z: no 2x shape (L40S/L40/Ada, >=376 GB, 1 pair, cap $12) in stock; old record kept. #75 Build side-stored art:8f0d249a, in Commit (FAIL class). #73 Commit; #74 #67 #68 Build; #70 polling 1 pair cap $8 to 20:20Z. agent bc-75fd4007.
 CHECKPOINT 6746f408 (19:03Z) [open] #23 deferred NOT_RUN (admission, F-dA-15 483 GiB > 351 GiB) per coordinator; Match large files stored art:b2b6ae9e (side run r20260928-185949-d9ce), records art:07062ee9, Build art:7a30ced1 / art:1c659f5e; pod terminated 19:02:39Z, $8.50; digest line updated. Live: #73 Commit, #74 #75 #67 #68 Build; #60 #70 polling. agent bc-75fd4007.
 CHECKPOINT 6746f408 (18:57Z) [open] #23 Commit REFUSED by F-dA-15 host admission (483 GiB predicted vs 351 GiB pod) at 18:51Z, NOT_RUN; handoff 1857Z asks retry-with-override vs defer (default defer at 19:20Z); pod kept up. #73 Commit, #74 #75 #67 Build, #68 Build; #60 #70 polling. agent bc-75fd4007.

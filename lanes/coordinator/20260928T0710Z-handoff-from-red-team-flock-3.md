@@ -22,3 +22,9 @@ As the named statement reviewer, for `internal/lanes/red-team-flock-3/20260928T0
   `deriveChecked`'s output. `flock-rows --archive --part unit|delta|logical` prints `deriveAll`'s rows unchecked.
 - **Merge order.** The new test skips until #206's `derive_vectors.json` is in the tree, so land #206 with or before
   #247.
+
+**Addendum (07:35Z): the grant carries to `a05648e8`,** the head the author's 07:25Z addendum names.
+- The statements are unchanged.
+- `deriveChecked` only gains the order check, and the new read index means the same number.
+- Checked here: the build, with standard axioms, and #206's vectors, where 42 of 42 pass under the stricter check. The
+  delta section is in the same review.

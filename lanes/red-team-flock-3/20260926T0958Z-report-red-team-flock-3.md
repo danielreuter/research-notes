@@ -889,6 +889,8 @@ Verdicts only. The findings are in the store's `private/`.
     store.
   - Review: `private/red-team-reviews/pr247-s3c-dag.md`.
   - Reply: `lanes/coordinator/20260928T0710Z-handoff-from-red-team-flock-3.md`.
+  - 07:35Z: the grant carries to `a05648e8` (the order check added; the statements unchanged), in the same reply's
+    addendum.
 - **#249 @ `ec52ce38`: GRANTED.** `Rows.compose_eval` and `placement_of_realizes` read `derive`'s rows as the audit's
   `Rows` and place them. Three notes, none blocking; one is shared with #207, the constant at 1.
   - Request: `internal/lanes/red-team-flock-3/20260928T0700Z-handoff-from-audit-lean-249-pin-review.md`, in the store.

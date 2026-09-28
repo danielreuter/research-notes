@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT ac412eb8 (18:42Z) [open] D preview lost at 18:00Z with the pods. D2 trial on V fe7931d5: #267 cb4b987e #260 e50a2f46 #301 4477061a #210 b64e73a0 #281 5fba7981 #292 70bd254b #286 e51e5f8d #274 98494662 #314 e3001ff2 all merge clean; #303 07785f34 still draft (out). Build D2 on V's merge commit when it lands.
 CHECKPOINT ac412eb8 (18:34Z) [open] Root routed #289 condition 2 (byte-identity run on 9728be8d, $3 cap) to the sweep lane bc-ea1c2c4f; result lands in internal/lanes/coordinator/ + internal/lanes/flock-netlist/. RULE: sweep-lane requests go through root (no watched inbox). #218 with #208 in one train: OK.
 CHECKPOINT ac412eb8 (18:32Z) [open] V rerun r20260928-180657-edc8 running (ETA ~19:00Z). D2 heads: #210 now b64e73a0 (KNOWN gains #187/soundness sites; T1812Z). Queue adds: #218 c726f7e4 (PoUW generic protocol, ready, T1808Z) with #208 85912edd; #289 9728be8d for the refinement train, conditions: its own recorded check (lane's, queued) + one more sweep-lane GPU byte-identity run on the merged head (routing needed). POUS verity-root T1745Z: $0.30 H100 probe (root answered no-hold 18:15Z, published 82a65f03). Spend $316.56/$380 to 21:00Z.
 CHECKPOINT ac412eb8 (18:12Z) [open] Root 18:10Z: research line $380 through 21:00Z; vy-coord- guard deadline now 21:00Z (cap $40, spent $28.74, check3 $1.04/h). Order: V -> D2 (D's PRs + #314) -> refinement Lean train (+ #289 when M0's request arrives). RULE: before any urgent check, extend every guard deadline that falls inside its window.

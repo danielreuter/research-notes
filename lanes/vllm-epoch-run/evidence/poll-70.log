@@ -150,3 +150,6 @@ REFUSED: #70 estimate 3.5 h at 3 pair(s) does not fit the $6.5 cap (2.98 h): ask
 2026-09-28T18:46:32Z balance: 
 2026-09-28T18:48:33Z balance: 
 2026-09-28T18:50:45Z balance: 
+2026-09-28T18:52:47Z balance: 
+2026-09-28T18:54:49Z balance: 
+2026-09-28T18:56:54Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its

@@ -1,7 +1,7 @@
-watch updated 2026-09-28T18:49:55Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 391 min: 2026-09-28T17:23:02Z strict word check rc=0 PASS fast: 8/8 word lines, 6664748 calls -> 13503689758 units over 913067628664 gates, manifest 466e67184d165a1c
-#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 290 min: 2026-09-28T18:22:50Z strict word check rc=0 PASS fast: 64/64 word lines, 2855826 calls -> 20539064409 units over 1177886784726 gates, manifest 004a5bdabb332d8d
-#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 167 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
-#75 vyv-rf-epoch-75 r20260928-160802-960f live 162 min: 2026-09-28T16:23:51Z bootstrap cases=B0,QWEN3_30B_A3B rc=0
-#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 151 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
-#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 19 min: 2026-09-28T18:46:08Z bootstrap cases=B0,OLMOE rc=0
+watch updated 2026-09-28T18:56:57Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 398 min: 2026-09-28T17:23:02Z strict word check rc=0 PASS fast: 8/8 word lines, 6664748 calls -> 13503689758 units over 913067628664 gates, manifest 466e67184d165a1c
+#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 297 min: 2026-09-28T18:51:22Z commit rc=12 verdict=NOT_RUN manifest_verify=none commit FAIL 2026-09-28T18:51:17Z rc=3 wall=60s outcome=NOT_RUN runs 0 failed 0 checks run
+#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 174 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
+#75 vyv-rf-epoch-75 r20260928-160802-960f live 169 min: 2026-09-28T18:56:07Z required_families: input_token_ids,instance_outputs,sampled_token_ids,weights,fa2_hidden_m1_stream,tp_rank_partials,moe_block_stream,norm_s
+#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 158 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
+#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 26 min: 2026-09-28T18:46:08Z bootstrap cases=B0,OLMOE rc=0

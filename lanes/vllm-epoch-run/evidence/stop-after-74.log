@@ -1,2 +1,4 @@
 2026-09-28T20:45:38Z #74 armed: stop the match stage once progress shows 'required_families:' (vyv-rf-epoch-74 r20260928-160515-1b32)
 2026-09-28T20:51:51Z #74 armed: stop the commit stage once progress shows 'strict word check rc=' (vyv-rf-epoch-74 r20260928-160515-1b32)
+2026-09-28T21:18:34Z #74 build rc=0: side store of the Build
+2026-09-28T21:19:39Z #74 run ended before the trigger

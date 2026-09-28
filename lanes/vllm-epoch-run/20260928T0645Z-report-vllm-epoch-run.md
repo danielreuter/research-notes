@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (21:36Z) [open] 21:36Z: #74 deferred (call_boundaries, wave 2). #70 manifest incomplete (13888 unbound TP peer bindings) -> Match then stop (watcher; Build art:f06f0d93). #67 #68 Build; watchers armed. #325 not on main. agent bc-75fd4007.
 CHECKPOINT 6746f408 (21:12Z) [open] 21:13Z: #74 #67 #68 #70 in Build (manifest steps); watchers armed (stop after Match); #70 manifest check pending; #325 not on main. agent bc-75fd4007.
 CHECKPOINT 6746f408 (21:12Z) [open] 21:13Z: #74 #67 #68 #70 in Build (manifest steps); watchers armed (stop after Match); #70 manifest check pending; #325 not on main. agent bc-75fd4007.
 CHECKPOINT 6746f408 (20:52Z) [open] 20:53Z: #74 now runs its Match too (vLLM coordinator 2048Z; ~$44.5 of $49 by ~22:25Z; balance test $39.25 left; run timeout 22:58Z). #74/#67/#68 watchers (stop_after.sh match): Build side-store, Match, stop before the Commit (deadlines 22:40Z / 22:55Z), then terminate + defer. #70 Build (manifest check ~21:11Z). #325 not on main yet. agent bc-75fd4007.

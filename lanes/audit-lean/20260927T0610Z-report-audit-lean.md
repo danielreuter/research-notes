@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT ec52ce38 (07:57Z) [open] #249 granted; waiting for train P + #205's re-record, then merge it into #249 and re-record (dry run: 4 pins print-only). Step 2 up: #256 (Rows.compose_eval_unit, pin to red-team-flock-3)
 CHECKPOINT ec52ce38 (07:00Z) [open] 1d step 1 up: #249 (Rows.compose, placement_of_realizes, flat compose_eval; 2 pins to red-team-flock-3). Step 2 asks to flock-soundness on #247's blockRow; #204 parse_facts waits on #204
 CHECKPOINT 81552896 (02:27Z) [open] 1d planned (lanes/audit-lean/20260928T0230Z-plan-1d-composed-placement.md); #154 e0dd3323 and #177 81552896 updated onto main; inbox 1816Z (#171 at 23b2df6e, A2's constant) noted, no further push to #171
 CHECKPOINT c4d4d469 (16:58Z) [open] delta_link discharged: PR #171 @ c4d4d469 on #163 (flock_batched_count_linked / drawn_linked compose flock_batched_linkSoundE into the expected-time batched audit; _placed forms via UnitPlace), 229/229 standard; handed to coordinator (lanes/coordinator/20260927T1700Z). No pods, $0.

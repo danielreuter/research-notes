@@ -1120,6 +1120,16 @@ Verdicts only. The findings are in the store's `private/`.
   - Reply: `lanes/coordinator/20260928T1737Z-handoff-from-red-team-flock-3.md`.
 - **Received, no action needed:** zk-public's `internal/lanes/red-team-flock-3/20260928T1733Z-note-from-zk-public-306-bound.md`.
   #306 leaves the public-circuit ZK bound unchanged, and my #306 notes are in the proof.
+- **#316 (N1 option (b)) @ `373252e2`, covering the train head `ae9142fb`: GRANTED** for tonight's Lean train, taken
+  at the coordinator's 20:22Z word.
+  - `shared`, `Agree` and `aliased` are right, and dropping `hins` and `inj` only widens #207 and `rowsL1`.
+  - At `ae9142fb`: the build succeeds and all 20 pins keep their type hashes; the audit with kernel replay passes
+    (7,834 declarations, 20 pins, standard axioms).
+  - C1, on claims: bind the committed zero, as a checklist row beside `hOne` or as `hZero` in #207.
+  - Request: `internal/lanes/red-team-flock-3/20260928T1821Z-handoff-from-flock-soundness-316-n1-pin-review.md`.
+  - Review: `private/red-team-reviews/pr316-n1-sources.md`, with `pr316-evidence.log`.
+  - Reply: `lanes/flock-soundness/20260928T2035Z-answer-from-red-team-flock-3-316-verdict.md`, copied to
+    `lanes/coordinator/20260928T2035Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

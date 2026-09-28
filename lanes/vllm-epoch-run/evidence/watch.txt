@@ -1,8 +1,7 @@
-watch updated 2026-09-28T16:25:01Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 246 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
-#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 195 min: 2026-09-28T15:31:23Z strict word check rc=0 PASS 16 word lines, manifest 0cc516b3977253ad, 1055.4 s
-#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 145 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0
-#101 vyv-rf-epoch-101 r20260928-160311-303b live 22 min: 2026-09-28T16:19:34Z bootstrap cases=B0,LLAMA32_1B rc=0
-#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 22 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
-#75 vyv-rf-epoch-75 r20260928-160802-960f live 17 min: 2026-09-28T16:23:51Z bootstrap cases=B0,QWEN3_30B_A3B rc=0
-#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 6 min: 2026-09-28T16:21:29Z resolved role=OLMOE repo=allenai/OLMoE-1B-7B-0924 rev=6d84c48581ec world=1
+watch updated 2026-09-28T16:35:26Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 257 min: 2026-09-28T16:31:20Z required_families: input_token_ids,instance_outputs,sampled_token_ids,weights,fa3_hidden_m1_stream,norm_scales,router_softmax,vocab_range (
+#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 205 min: 2026-09-28T16:27:24Z commit rc=0 verdict=PASS manifest_verify=True commit PASS 2026-09-28T16:27:22Z rc=0 wall=1742s outcome=PASS runs 3 failed 0 checks runtime_
+#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 156 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0
+#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 32 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
+#75 vyv-rf-epoch-75 r20260928-160802-960f live 27 min: 2026-09-28T16:23:51Z bootstrap cases=B0,QWEN3_30B_A3B rc=0
+#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 16 min: 2026-09-28T16:26:50Z device {"name": "NVIDIA L40", "sms": 142, "cc": "8.9", "count": 2}

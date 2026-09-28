@@ -1,0 +1,1 @@
+2026-09-28T07:32Z: wave-1 GO held on RunPod balance (root asked Daniel for about $450). Threshold at GO: wave-1 caps about $173 + the sweep's $10/h to 18:00Z + the $25 floor, about $300 at 08:00Z; wave 2 needs about $70 more. No subset start. If #231 and S1-S4 clear first: recheck the balance and tell root.

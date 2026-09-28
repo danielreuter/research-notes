@@ -5,6 +5,7 @@ created: 2026-09-28T04:23Z
 status: open
 ---
 
+CHECKPOINT 4e6ce10f (06:04Z) [open] MERGE-READY S2 #233 @c0db84e1 + S3 #242 @8f567db6 (handoff 0605Z). S4 assembled locally (S4a+S4b+rekey + scale_products numpy fast path 157M/s exact), full CPU tests running; forks on main after #223. S1b implementer running.
 CHECKPOINT 4e6ce10f (05:58Z) [open] Boundary check all 13 rows: #39 affected (pre-bias qkv Gemm, 6,752 in first 60k rows), #11 clean; handoff 0558Z (#39 decision). Re-key @216887f7 pushed (pins verified by substitution; flock clean with #221). S1b implementer running.
 CHECKPOINT 4e6ce10f (05:28Z) [open] Ampere re-key prepared for S4: cursor/epoch-s4-rekey-150d @74b7f51f (bind core v2, delete v1 + helpers, 8 code files + tests rebound; targeted tests pass; wide suite running); S4 will fork from main after #223 (~06:30Z) and fold S4a+S4b+rekey; needs #221 first
 CHECKPOINT 4e6ce10f (05:24Z) [open] S2 PR #233 @c0db84e1 (A/B: #57 11/11, #73 6/11, #74 4/11 descriptors move only via SRC); S1 PR #232 @4e6ce10f (A/B #73 identical ids, #57 +41,870 / #74 +576 call_boundaries); handoff 0525Z: gap = #57 #74 #39 only; S3/S4 in worktrees

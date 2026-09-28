@@ -1,7 +1,0 @@
-# machine vy-vllm-cross-call-check-l40s: written by `research pods register`; one file per machine (research.pods.registry)
-provider = "runpod"
-pod_id = "hdbh23al1clsq0"
-project = "verity"
-guard = 60
-registered_by = "cursor"
-registered_at = "2026-09-28T01:22Z"

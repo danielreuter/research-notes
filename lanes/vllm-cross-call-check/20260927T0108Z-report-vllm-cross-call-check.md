@@ -5,6 +5,7 @@ created: 2026-09-27T01:08Z
 status: open
 ---
 
+CHECKPOINT 91ceb79e (06:19Z) [open] S1c GemmBias PR #244 head b0b4b438: branch row Match PASS (r20260928-061041-13a2), S1 interior 8036 -> 0 on Qwen2.5-1.5B i256. Pod vy-vllm-cross-call-check-l40s still IN USE for the whole-row circuit-check (r20260928-061514-1f4e); terminate by ~06:40Z. jdiff head running locally; handoffs after it.
 CHECKPOINT 91ceb79e (06:08Z) [open] S1c GemmBias: pod vy-vllm-cross-call-check-l40s (z4pavaficnfxq1, L40S, up since 05:49Z) IN USE for the Qwen2.5-1.5B i256 row A/B (base r20260928-060156-e62a Match PASS; branch d89dfdb6 r20260928-060206-064a Build fuses, Match FAIL: fold did not fuse). Debugging the fold on the capture now; terminating the pod when that is done. Future vLLM pods: vyv- prefix.
 CHECKPOINT 91ceb79e (02:41Z) [open] #197 GRANTED by red-team-flock-3 at 4497a75d; X-09 test added, new head 67e7f669 (merges on main 51878fab); coordinator told (20260928T0240Z handoff); finding: X-09 chunked fallback refuses all stochastic top-p requests (SPLITS ordinal shift, older than #197, fails closed)
 CHECKPOINT 91ceb79e (01:45Z) [open] PR #197 up (head 4497a75d on df3bc5e1): single-request splits constant; #101 ccc21347 -> 79caee21b124d591 (manifest 90f81868 -> eb393312); Builds r20260928-012525-4b0f (base, reproduces) / r20260928-012534-6768 preserved; pods terminated (~$0.45); handoffs: lowering (keep word) + coordinator merge request after #192; waiting on red-team-flock-3 review

@@ -2,9 +2,10 @@
 lane: gemm-hash
 kind: report
 created: 2026-09-28T20:09Z
-status: final
+status: open
 ---
 
+CHECKPOINT ac412eb8 (20:44Z) [open] reopened for the native SHA-512 witness CPU reference (emitter vs eval64) on a branch off #289 788bf662, draft PR; NOT final; no pods
 CHECKPOINT ac412eb8 (20:37Z) [final] plan docs/gemm-hash-cost-plan.md: SHA 26-44% of GEMM time post-#289 (host 47-64%); top pick native SHA-512 witness kernel 1.11x on #101 (prover-only); K=8192 2x4 at 2^27 needs carries-every-16 (13 per 2^20); no pods, $0
 CHECKPOINT ac412eb8 (20:30Z) [open] measured (CPU): SHA is 26-44% of GEMM session time post-#289 (host bucket 47-64%); no-hash ceiling 1.30x today, 1.07x after tiles; top pick native SHA witness kernel (1.11x); K=8192 2x4 needs only carries-every-16 (13 per 2^20), not <=65,536 rows; writing plan
 CHECKPOINT ac412eb8 (20:09Z) [open] started: ranked plan for GEMM in-circuit SHA-512 cost (CPU only, no pods); reading M0 statement, #289 buckets, tile scope; agent bc-abeef3db

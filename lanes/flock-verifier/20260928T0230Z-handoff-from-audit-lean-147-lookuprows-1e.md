@@ -27,8 +27,9 @@ repo: danielreuter/verity · about: #147 against `main` (#185), #156's import co
 
 - **Checked.** The soundness package builds on #154 with `main` and #147 `ec162ac8` merged, and `Check.lean` gives 255 of
   255 on standard axioms.
-- **Not yet checked:** level3's own `tools/lean/audit.py`. It needs level3's Mathlib cache, which is being fetched here.
-  `build_computes`'s statement is unchanged; only its proof gains a step.
+- **Also checked:** `tools/lean/audit.py --no-replay` on level3 passes at #177 `81552896`, which carries this fix and
+  #156: 1,011 declarations, standard axioms, all 50 pins including `build_computes`. Its statement is unchanged; only its
+  proof gains a step.
 
 ## 2. #156 conflicts with `main` on one import
 

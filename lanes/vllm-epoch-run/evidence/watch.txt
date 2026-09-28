@@ -1,4 +1,5 @@
-watch updated 2026-09-28T14:58:00Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 159 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
-#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 108 min: 2026-09-28T14:54:55Z required_families: input_token_ids,instance_outputs,sampled_token_ids,weights,fa2_hidden_m1_stream,norm_scales,router_softmax,vocab_range (
-#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 59 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0
+watch updated 2026-09-28T15:20:32Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 182 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
+#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 130 min: 2026-09-28T15:13:45Z match rc=0 match PASS 2026-09-28T15:13:43Z rc=0/0/0 wall=1125s verdict PASS global PASS  dag concurrency 16 tokens_equal True fold True
+#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 81 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0
+#101 vyv-rf-epoch-101 r20260928-145638-f5d8 live 24 min: 2026-09-28T15:18:40Z bootstrap cases=B0,LLAMA32_1B rc=0

@@ -43,7 +43,11 @@ nf=$(grep -c '^<f' <<<"$out")
 # machines.d: the later registration wins on both sides (registered_at), then the pod copy is committed by the sync below
 md=/tmp/cloud-mirror-machines.d; rm -rf "$md"; mkdir -p "$md"
 if rsync -rt -e "$sshcmd" "$host:$N/machines.d/" "$md/" 2>/dev/null; then
-  mm=$(python3 "$(dirname "$0")/machines_merge.py" "$S/machines.d" "$md" "$HOME/cloud-mirror/machines-synced.txt" 2>&1)
+  # live pod ids: a registration is deleted only once its pod is gone (empty file on any failure: nothing is deleted)
+  live=/tmp/cloud-mirror-live-pods.txt
+  timeout 60 $sshcmd $host "cd /workspace/steward/verity && RESEARCH_MACHINES_D=$N/machines.d PYTHONPATH=tools/research/src timeout 50 python3.12 -m research pods list 2>/dev/null" 2>/dev/null \
+    | awk '$3 != "TERMINATED" && $1 ~ /^[a-z0-9]{14}$/ {print $1}' > "$live" || : > "$live"
+  mm=$(python3 "$(dirname "$0")/machines_merge.py" "$S/machines.d" "$md" "$HOME/cloud-mirror/machines-synced.txt" "$live" 2>&1)
   [ -n "$mm" ] && rsync -rc --delete -e "$sshcmd" "$md/" "$host:$N/machines.d/" && echo "$(stamp) machines.d: $(tr '\n' ' ' <<<"$mm")"
 fi
 sync=$(timeout 240 $sshcmd "$host" "cd /workspace/steward/verity && PY=\$(/root/.local/bin/uv python find 3.12) && \

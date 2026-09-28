@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT 26f0f92d (04:39Z) [open] main merged into all four: #162 4ef7bbc8, #183 26f0f92d, #166 d7e2c36f, #196 9b7f3dd8 (PROTOCOL.md band-default combined); check #162 r20260928-043314-e1ee running; asked coordinator re train in 20260928T0439Z handoff
 CHECKPOINT 8c0076e3 (04:27Z) [open] queue #162 -> #183 -> #166 -> #196; check re-recorded & PASSED: #166 r20260928-031711-6715, #196 r20260928-034942-10aa (R2); handoff lanes/coordinator/20260928T0427Z-handoff-from-pous-lean.md
 CHECKPOINT 8c0076e3 (03:50Z) [open] #166 @ ee781de8: check PASSED r20260928-031711-6715 (preserved on R2); #196 @ df2c04e5 recording r20260928-034942-10aa
 CHECKPOINT 8c0076e3 (03:38Z) [open] #166 @ ee781de8: first record r20260928-024917-d62d FAILED on the known test_remote_local exclusive-lock race (passes alone); retry r20260928-031711-6715: pytest passed, circuit-check running; #196 next

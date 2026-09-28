@@ -314,8 +314,8 @@
  "balance_test": {
   "sweep_usd_h": 7.55,
   "sweep_end_utc": "2026-09-28T18:00Z",
-  "pous_usd": 15,
+  "pous_usd": 13,
   "floor_usd": 25,
-  "rule": "live balance - running rows' remaining caps - $7.55/h to 18:00Z (sweep) - POUS $15 - $25 >= the new row's cap (coordinator 16:00Z)"
+  "rule": "live balance - running rows' remaining caps - $7.55/h to 18:00Z (sweep) - POUS's unspent $13 - $25 >= the new row's cap (coordinator 16:00Z; POUS reserve = its unspent window, 18:43Z)"
  }
 }

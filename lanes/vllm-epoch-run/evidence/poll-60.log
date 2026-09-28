@@ -108,3 +108,9 @@
 2026-09-28T18:37:18Z balance: balance test: $162.53 - running rows' remaining caps $111.86 - sweep $0.00 - POUS $15 - floor $25 = $10.67 < cap $12
 2026-09-28T18:39:21Z balance: balance test: $162.53 - running rows' remaining caps $111.08 - sweep $0.00 - POUS $15 - floor $25 = $11.45 < cap $12
 2026-09-28T18:41:40Z balance: balance test: $160.50 - running rows' remaining caps $110.20 - sweep $0.00 - POUS $15 - floor $25 = $10.30 < cap $12
+2026-09-28T18:43:46Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its latest start holds
+2026-09-28T18:44:50Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its latest start holds
+2026-09-28T18:45:52Z balance: balance test: $158.41 - running rows' remaining caps $108.61 - sweep $0.00 - POUS $13 - floor $25 = $11.80 < cap $12
+2026-09-28T18:47:59Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its latest start holds
+2026-09-28T18:49:04Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its latest start holds
+2026-09-28T18:50:13Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its latest start holds

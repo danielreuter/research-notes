@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT 24c8ad44 (11:47Z) [open] chain at main 64f94732: #162 77b926da #183 24c8ad44 #166 dcd0d8fb #196 29b4cdcd; check at 29b4cdcd PASSED r20260928-105648-68e5; research merge --dry-run PASSES (11:47Z); handoff 20260928T1147Z
 CHECKPOINT 24c8ad44 (10:57Z) [open] option 1 done at main 3ba4d8b3: #196 dbcccd01 check PASSED r20260928-095631-0c01 but main moved to 64f94732; re-merged (no conflicts): #162 77b926da #183 24c8ad44 #166 dcd0d8fb #196 29b4cdcd; check at 29b4cdcd running
 CHECKPOINT 5e6416ae (09:57Z) [open] round 2 prepared locally (not pushed): main 3ba4d8b3 into chain, AGENTS.md resolved, POUS records re-recorded in #149 format (all type hashes unchanged); check at #196 local tip dbcccd01 r20260928-095631-0c01 running; waiting for coordinator until 10:30Z, else option 1
 CHECKPOINT 26f0f92d (09:51Z) [open] all four re-recorded PASS: #162 4ef7bbc8 r..043314-e1ee, #183 26f0f92d r..061856-643d, #166 be77ec58 r..080435-909e, #196 ca17ec0f r..085551-84e9; main moved to 3ba4d8b3 (#149 records, AGENTS.md conflict); asked coordinator (20260928T0950Z), not pushing until answer

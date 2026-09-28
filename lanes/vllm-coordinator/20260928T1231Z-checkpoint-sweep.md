@@ -1,0 +1,1 @@
+2026-09-28T12:31Z: #73 running (vyv-rf-epoch-73, 2x H100, 1 pair, ends ~17:20Z); #4 polling since 12:20Z, cap $5 accepted; asked root to release the sweep's held L40S; balance $283.78; guard untripped.

@@ -71,3 +71,21 @@
 2026-09-28T17:52:44Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
 2026-09-28T17:53:50Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
 2026-09-28T17:55:06Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:56:13Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:57:19Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:58:25Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:59:31Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:00:36Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:01:41Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:02:48Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:03:53Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:05:00Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:06:06Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:07:12Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:08:18Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:09:25Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:10:38Z balance: balance test: $172.06 - running rows' remaining caps $108.23 - sweep $0.00 - POUS $15 - floor $25 = $23.83 < cap $24
+2026-09-28T18:12:46Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 NVIDIA_L40S@COMMUNITY@2@188 (evidence/attempts
+2026-09-28T18:13:55Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 NVIDIA_L40S@COMMUNITY@2@188 (evidence/attempts
+2026-09-28T18:15:01Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T18:16:04Z balance: balance test: $170.19 - running rows' remaining caps $106.37 - sweep $0.00 - POUS $15 - floor $25 = $23.82 < cap $24

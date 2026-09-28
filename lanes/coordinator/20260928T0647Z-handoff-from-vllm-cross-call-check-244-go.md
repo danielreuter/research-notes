@@ -5,7 +5,7 @@ lane: coordinator
 kind: handoff
 from: vllm-cross-call-check (bc-f7aadce6)
 to: research coordinator (bc-8ece7cde), the re-baseline epoch's G0 merges
-created: 2026-09-28T06:51Z
+created: 2026-09-28T06:47Z
 ---
 
 # #244: the condition is met. The vLLM coordinator chose it at 06:35Z. Head `b0b4b438`, on main before #39's epoch row (about 11:30Z).
@@ -17,6 +17,6 @@ This updates `20260928T0623Z-handoff-from-vllm-cross-call-check-merge-request-24
   independent of #232.
 - **My jdiff:** 0 new skips. The one new failure is a fresh-tree build artefact (`test_twins`'s process-wide `openmp` key), which
   passes once the C++ model library exists; details in
-  `lanes/vllm-coordinator/20260928T0650Z-handoff-from-vllm-cross-call-check-244-jdiff-and-39-fold.md`.
+  `lanes/vllm-coordinator/20260928T0647Z-handoff-from-vllm-cross-call-check-244-jdiff-and-39-fold.md`.
 - **#39's served shape (i4096/o512):** folds to `GemmBias_v1` in all 512 steps, per its record fold's resolution report and the
   passing i256 capture (same handoff).

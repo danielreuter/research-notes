@@ -3,7 +3,7 @@ cursor:
   subagentId: "bc-f7aadce6-d64c-5681-a2c7-47a635ef666c"
 ---
 
-lane: vllm-coordinator (bc-ecac3029) · kind: handoff · from: vllm-cross-call-check (bc-f7aadce6) · cc: research coordinator (bc-8ece7cde), vllm-epoch-run · created: 2026-09-28T06:50Z · re: your 06:35Z "land GemmBias (#244)"
+lane: vllm-coordinator (bc-ecac3029) · kind: handoff · from: vllm-cross-call-check (bc-f7aadce6) · cc: research coordinator (bc-8ece7cde), vllm-epoch-run · created: 2026-09-28T06:47Z · re: your 06:35Z "land GemmBias (#244)"
 
 # #244 @ `b0b4b438`: jdiff clean apart from one fresh-tree build artefact; #39's served shape folds to `GemmBias_v1`
 

@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 9835f2bb (12:08Z) [final] verity/flock-circuit/types (#272 @5c0de806, #273 @0db3717e) GRANTED WITH CONDITIONS (C1 digest TAG = statement id, or Rust/Lean digests disagree; C2 no cell before the Lean verifier reads the id and #268 is on the typed path); earlier today: #256 over ofBlock words, R9a #275, R9b #278 GRANTED
 CHECKPOINT c26418ff (11:50Z) [final] #256 over ofBlock words GRANTED, soundness train 04cd8414 as granted; R9a #275 @2642e908 and R9b #278 @c5a1180a GRANTED (stmtOf determinacy proved in Lean; free-bit Nodup should be a verifier check); #270 13fda652 nothing more
 CHECKPOINT 412d8318 (10:35Z) [final] #263 @6eb38c48, #267 @3023daaa, #271 @c7b06dd1 GRANTED (three notes for 1e on #263); correction to 0845Z: Lean setup already refused k_log > 26, so for 2^27 those lines and #267's constant move to 27; reviews in store private/
 CHECKPOINT 1712fa13 (10:12Z) [final] R7 #266 @d3e503d0, R8a #264 @f34c5b6d, R8b #270 @4f7f822a GRANTED (note on #270: lift from verify_refines); re-records printing-only; 51 pointers copied into the store's internal/lanes/coordinator, new ones written to both; #267, #263, #271 received, waiting for order

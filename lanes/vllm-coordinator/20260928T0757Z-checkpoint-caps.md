@@ -1,0 +1,1 @@
+2026-09-28T07:57Z: caps answered: #11 $35, #74 $49 at 3 pairs; the committed-spend-plus-cap rule binds (defer #39 then #74 if short); stamp reminder sent to epoch-run. GO still held on #231, S1-S4 and the top-up.

@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 51878fab (03:33Z) [open] ORDER CONSTRAINT: #147-#156-#154-#177 train merges BEFORE #202/#204 (verifier table/v2, drafts); if #204 lands first, #177 needs audit-lean's parse_facts extension (audit-lean/20260928T0340Z plan).
 CHECKPOINT 51878fab (03:23Z) [open] ROOT 03:19Z: red team granted #187@87a0e3b7 (delta), #200@56936c35, #197@67e7f669. Queue: M0 train (#192 #193 #195 #197 #198) -> Lean audit #187+#194+#200 (tree /tmp/wtlean24 = 80f40039 clean; launcher /tmp/run-lean-audit26.sh on vy-coord-lean13) -> #147-#177 -> #149 -> #134. POD STOCK: none of cpu3m/cpu5m 16 vCPU, A100 SXM4, A100 PCIe, H100 (RunPod 'no longer any instances'); retry each sweep.
 CHECKPOINT 51878fab (03:06Z) [open] M0 lane: #193 head b47f8009 (test rename); attention cell to publish = art:c176e9c8 (re-recorded with commit.seconds + new set; labels being carried by bench-spine + red team), NOT e352f2ad; #198@33f057ec (commit-timing tool, independent of #192) -> train N; #83/#184 superseded but stay OPEN (Daniel's consolidation question).
 CHECKPOINT 51878fab (03:04Z) [open] SWEEP: train M' check r20260928-023129-fa53 running (~33 min). #194 audit pod: still NO STOCK (cpu3m, A100 SXM4). #192@adcf38bf merge request (0145Z; its check passed unrecorded). PLAN at M' merge: train N = #192 + #193 + #195 + #197 (all granted, no Lean); if N fails, #192 alone. Spend $300.02/$330 at $0.24/h. No POUS->root files; mirror ok.

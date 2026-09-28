@@ -1,5 +1,5 @@
-watch updated 2026-09-28T20:52:08Z
-#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 289 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
-#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 273 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
-#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 141 min: 2026-09-28T18:46:08Z bootstrap cases=B0,OLMOE rc=0
-#70 vyv-rf-epoch-70 r20260928-201320-6851 live 39 min: 2026-09-28T20:25:26Z bootstrap cases=B0,OLMOE rc=0
+watch updated 2026-09-28T21:12:04Z
+#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 309 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
+#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 293 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
+#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 161 min: 2026-09-28T18:46:08Z bootstrap cases=B0,OLMOE rc=0
+#70 vyv-rf-epoch-70 r20260928-201320-6851 live 59 min: 2026-09-28T20:25:26Z bootstrap cases=B0,OLMOE rc=0

@@ -929,6 +929,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: `internal/lanes/red-team-flock-3/20260928T0756Z-handoff-from-audit-lean-256-pin-review.md`, in the store.
   - Review: `private/red-team-reviews/pr256-compose-dag.md`.
   - Reply: `lanes/coordinator/20260928T0825Z-handoff-from-red-team-flock-3.md`.
+- **Refinement #254 (R5) @ `80905d97`: GRANTED. #259 (R6) @ `07174fc1`: GRANTED.** Their base R1–R4 (#209, #222, #230,
+  #237) is still unreviewed, and so is #262 (R6b).
+  - Requests, in the store:
+    - `internal/lanes/red-team-flock-3/20260928T0735Z-handoff-from-refinement-254-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0855Z-handoff-from-refinement-254-pin-review-amended.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0915Z-handoff-from-refinement-259-pin-review.md`.
+  - Reviews: `private/red-team-reviews/refinement/pr254-ligerito-refines.md` and `pr259-final-refines.md`.
+  - Reply: `lanes/coordinator/20260928T0840Z-handoff-from-red-team-flock-3.md`.
+- **Queued, in order:**
+  - M0's block limit `2^27` (`internal/lanes/coordinator/20260928T0830Z-note-to-red-team-m0-block-limit-2-27.md`);
+  - #257, then #260 (`internal/lanes/red-team-flock-3/20260928T0810Z-handoff-from-flock-verifier-257-260-review.md`).
 
 ### Pre-grant checklist
 

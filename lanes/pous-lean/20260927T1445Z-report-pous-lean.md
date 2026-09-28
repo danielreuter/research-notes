@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT 5e6416ae (09:57Z) [open] round 2 prepared locally (not pushed): main 3ba4d8b3 into chain, AGENTS.md resolved, POUS records re-recorded in #149 format (all type hashes unchanged); check at #196 local tip dbcccd01 r20260928-095631-0c01 running; waiting for coordinator until 10:30Z, else option 1
 CHECKPOINT 26f0f92d (09:51Z) [open] all four re-recorded PASS: #162 4ef7bbc8 r..043314-e1ee, #183 26f0f92d r..061856-643d, #166 be77ec58 r..080435-909e, #196 ca17ec0f r..085551-84e9; main moved to 3ba4d8b3 (#149 records, AGENTS.md conflict); asked coordinator (20260928T0950Z), not pushing until answer
 CHECKPOINT 26f0f92d (08:04Z) [open] #183 26f0f92d PASSED r20260928-061856-643d; #166 d7e2c36f FAILED r20260928-073654-b3f8 (boundary test scanned protocols/pous/lean/.lake; fixed be77ec58); #196 now ca17ec0f; re-recording #166
 CHECKPOINT 26f0f92d (06:22Z) [open] check #162 @ 4ef7bbc8 PASSED r20260928-043314-e1ee (lean-audit incl. POUS + soundness); #183 @ 26f0f92d recording r20260928-061856-643d; then #166, #196

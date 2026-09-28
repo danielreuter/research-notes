@@ -5,6 +5,7 @@ created: 2026-09-26T01:44Z
 status: open
 ---
 
+CHECKPOINT 925171e9 (13:53Z) [open] PR #286 at 925171e9: Table 1 typed circuit statement (own row, id, pin, Rust verifier; TYPED_C2 gate; ANDs units + tail / units only); coordinator told (lanes/coordinator/20260928T1410Z)
 CHECKPOINT ffcba27f (03:05Z) [open] art:c176e9c8 (M0 attention re-record): domain total + verify-flock-pure's labels carried; commit.seconds re-verified r20260928-030351-1efb (0.024 vs 0.023 s); coordinator told (lanes/coordinator/20260928T0310Z)
 CHECKPOINT ffcba27f (02:06Z) [open] art:a1e58e33 (M0 GEMM re-record): domain total + verify-flock-pure's labels carried (lane final); commit.seconds re-verified r20260928-020522-0f9e (0.042 vs 0.043 s); coordinator told (lanes/coordinator/20260928T0210Z)
 CHECKPOINT ffcba27f (01:40Z) [open] #83 circuit-route labels on the remote: 35 more domain total, art:47f7ec19 + art:2bfb05e0 superseded_by art:e352f2ad (note: pre-#137 ex2 shift); coordinator told (lanes/coordinator/20260928T0145Z)

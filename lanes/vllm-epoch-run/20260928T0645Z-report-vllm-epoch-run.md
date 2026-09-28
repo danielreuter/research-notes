@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (12:43Z) [open] LIVE: vyv-rf-epoch-73 r20260928-121849-ff8b (2xH100, 1 pair, cap $49) in bootstrap/Build, end ~17:20Z. POLLING #4 (1xL40S >=188 GB, cap $5 accepted 12:31Z) until 14:30Z; no shape yet. VM loops pause while I'm idle (12:36-12:41Z): 8-min wakes while polling; note 1243Z asks root for a WAKE on the sweep release. agent bc-75fd4007.
 CHECKPOINT 6746f408 (12:22Z) [open] WAIT vyv-rf-epoch-73 r20260928-121849-ff8b check-back 17:20Z agent bc-75fd4007: #73 on dd3dde4d (tree ff7d6808), 2xH100 secure, 1 pair (time fallback), cap $49, failfast OK. POLLING #4 (1xL40S >=188 GB, $5, 3 pairs) until 14:30Z (tmux epoch-poll-4). Watcher epoch-watch (fail-fast + STOP rule). Spend so far ~$0.5.
 CHECKPOINT 6746f408 (12:02Z) [open] WAIT for GO ~13:20Z (S-stack gate rerun r20260928-115839-02d9 after a GitHub clone outage; GO bundle to artifacts/). At 13:20Z the launcher's rules give: #73 refused (1 pair 5.0 h ends ~18:20Z); #4 #70 #23 at 3 pairs; #60 #67 #68 #75 at 1 pair (4.0 h); #101 at 1 (its record). Stock 11:50Z: no L40S/L40/RTX 6000 Ada. check-back 12:40Z agent bc-75fd4007. No pods.
 CHECKPOINT 6746f408 (11:51Z) [open] Applied 11:11Z: RTX 6000 Ada in offers (L40S > L40 > RTX 6000 Ada, secure before community), create-time GPU-name check, bootstrap SM check (142 SMs, cc 8.9) else terminate; rows record GPU name/SMs. Stock 11:50Z: no RTX 6000 Ada, L40S or L40 anywhere. GO via go.sh <sha> [bundle]. check-back 12:03Z agent bc-75fd4007. No pods.

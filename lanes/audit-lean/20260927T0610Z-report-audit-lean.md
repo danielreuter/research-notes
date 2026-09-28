@@ -2,9 +2,10 @@
 lane: audit-lean
 kind: report
 created: 2026-09-27T06:10Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT 90d56801 (17:31Z) [blocked] 1e templates: T1-T3 planned (flock-verifier/…1720Z). T1 blocked: #307's Net.ofRows lacks #147's checks (Net.lean conflict + a Rust conflict) vs my #147→#284 line; asked flock-verifier for a reconciled head. Asked them for templateOf_spec (mapM)
 CHECKPOINT 90d56801 (16:49Z) [open] dp: #305 (on #284): Realizes, BlockFacts(.realizes/.placement) = TableClass.placed for ofBlock rows; Layout.realizes for flat setupH statements given NetRows. Answer in flock-soundness/. Templates' BlockFacts + text round trip wait on flock-verifier Q1-Q3
 CHECKPOINT ca9ee83d (13:28Z) [open] 1e: #284 (#177's setupH placement through #257; macros inlined for main's audit; all audits PASS w/ replay, no pin moves). Asked flock-verifier 3 questions re #277 templates (Δ order, model matrices, text round trip)
 CHECKPOINT ec52ce38 (11:25Z) [open] #249/#256 ride soundness train 04cd8414 (verified: build, audit+replay PASS 19 pins; #249 pins print-only; #256 pin restated over ofBlock words, red team re-review pending). Asked flock-soundness to confirm no standalone #205

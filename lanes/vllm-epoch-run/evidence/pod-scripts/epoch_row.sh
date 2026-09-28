@@ -10,7 +10,8 @@
 # One line per step in evidence/progress.txt; "STOP <why>" ends the row with no Commit (or no store) after it:
 #   0 guard      the shipped tree is EPOCH_SHA; no epoch default is switched off (taps, word check, query of record)
 #   1 bootstrap  B0 + the row's checkpoint role (pod_bootstrap.sh builds the taps)
-#   2 Build+Match  `verity-vllm row run --stages build,match`; a GREEN row whose Match FAILs stops here (deferred, never FAIL)
+#   2 Build, then Match (`verity-vllm row run --stages build`, `--stages match`); between them the row stops when the manifest's
+#                query.required_families names call_boundaries (it moves to wave 2); a GREEN row whose Match FAILs stops (deferred)
 #   3 word check strict_word.py: `word.check_query` strictly over the row's request Programs, the Commit's manifest reproduced
 #   4 Commit     `verity-vllm row run --stages commit` (manifest-verify and the verdict record inside)
 #   5 store      store_build.sh: the Build and the records as fixture/v1 trees, `research data put --preserve` (this run's custody key)
@@ -90,10 +91,21 @@ rc=$?; say "bootstrap cases=$CASES rc=$rc"
 export HF_HUB_OFFLINE=1
 row() { $PY -m verity_vllm.pipeline.cli row run "$ROW" "$ROLE" "$REPO" "$REV" --stages "$1"; }
 
-# ---- 2 Build + Match --------------------------------------------------------------------------------------------------------------------
-row build,match > "$EV/build_match.log" 2>&1
+# ---- 2 Build, the Call-boundary stop, Match ---------------------------------------------------------------------------------------------
+row build > "$EV/build.log" 2>&1
 rc=$?; small
-say "build,match rc=$rc $(grep -E '^(build|match) ' "$D/stages.txt" 2>/dev/null | tail -n 2 | cut -c1-240 | tr '\n' ' ')"
+say "build rc=$rc $(grep '^build ' "$D/stages.txt" 2>/dev/null | tail -n 1 | cut -c1-240)"
+[ "$rc" = 0 ] || { say "STOP build rc=$rc"; finish; exit "$rc"; }
+fams=$(python3 -c "import json;print(','.join((json.load(open('$D/manifest.json')).get('query') or {}).get('required_families') or []))" 2>/dev/null)
+echo "$fams" > "$EV/required_families.txt"
+case ",$fams," in
+  *,call_boundaries,*) say "STOP call_boundaries in the manifest's query.required_families: no Commit, the row moves to wave 2"; finish; exit 21;;
+  ,,) say "STOP the manifest states no query.required_families"; finish; exit 21;;
+esac
+say "required_families: $fams (no call_boundaries)"
+row match > "$EV/match.log" 2>&1
+rc=$?; small
+say "match rc=$rc $(grep '^match ' "$D/stages.txt" 2>/dev/null | tail -n 1 | cut -c1-240)"
 if [ "$ROWNUM" = 39 ]; then
   { for f in "$D"/build_request*/instances.json.gz; do echo "== $f"; zcat "$f" | grep -o 'GemmBias_v1{[^}]*}\|BiasAdd_v1{[^}]*}' | sort | uniq -c; done
     grep -h -o '"GemmBias_v1[^"]*"' "$D"/match/*.json 2>/dev/null | sort | uniq -c | head; } > "$EV/gemmbias.txt" 2>&1
@@ -103,7 +115,7 @@ case "$rc" in
   0) ;;
   11) [ "$CLASS" = FAIL ] || { say "STOP GREEN row, Match FAIL: deferred, not committed"; finish; exit 11; }
       say "Match FAIL on a FAIL-class row: the Commit runs (the class's record carries one)";;
-  *) say "STOP build,match rc=$rc"; finish; exit "$rc";;
+  *) say "STOP match rc=$rc"; finish; exit "$rc";;
 esac
 
 # ---- 3 strict word check ----------------------------------------------------------------------------------------------------------------

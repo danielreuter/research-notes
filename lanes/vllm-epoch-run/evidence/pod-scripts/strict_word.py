@@ -81,6 +81,8 @@ def main() -> int:
         if rq.get("query_id") != QUERY_OF_RECORD or not rq.get("partition"):
             rep["problems"].append(f"the Commit's manifest is built under {rq.get('query_id')}"
                                    f"{'' if rq.get('partition') else ', no partition'}: not the query of record")
+        if "call_boundaries" in (rq.get("required_families") or []):
+            rep["problems"].append("call_boundaries in the Commit manifest's query.required_families: the row moves to wave 2")
         if m.get("manifest_digest") != rec.get("manifest_digest"):
             rep["problems"].append(f"manifest digest {str(m.get('manifest_digest'))[:16]} != the Commit's {str(rec.get('manifest_digest'))[:16]}")
         if not rep["word_lines"]:

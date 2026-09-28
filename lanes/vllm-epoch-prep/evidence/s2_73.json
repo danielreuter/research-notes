@@ -1,0 +1,132 @@
+{
+ "schema": "vllm-epoch-prep/s2-src-ab/v2",
+ "declared": {
+  "EngineStep": "verity-vllm/engine-step/v1",
+  "GreedyRequest": "verity-vllm/greedy-request/v1",
+  "PaddedGreedyRequest": "verity-vllm/padded-greedy-request/v1",
+  "StochasticEngineStep": "verity-vllm/stochastic-engine-step/v1",
+  "StochasticRequest": "verity-vllm/stochastic-request/v1"
+ },
+ "rows": [
+  {
+   "descriptor": "/tmp/ab/b73/build_request/descriptor.json.gz",
+   "skipped": "51 MB gz > 20 MB (VM memory)"
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_request_LP1024_T16/descriptor.json.gz",
+   "skipped": "45 MB gz > 20 MB (VM memory)"
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_request_LP10_T8/descriptor.json.gz",
+   "stored_digest": "e2d6a391381d69eb6978483ad347bcc132afe6962b8f1e753f4e0aba9ee95b32",
+   "recomputed": "e2d6a391381d69eb6978483ad347bcc132afe6962b8f1e753f4e0aba9ee95b32",
+   "recomputed_equals_stored": true,
+   "new_digest": "5520e0543921943861a33bb3569560dcc0d1621994ee0e28231fa4a700b3d2aa",
+   "moved": true,
+   "substitutions": {
+    "{SRC={c01dc63dec9e}}": 3,
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_request_LP259_T127/descriptor.json.gz",
+   "stored_digest": "5306f62e438fe846c0718f1d51ed74ca6e0c4250d17eeb7fbed4d82c25556483",
+   "recomputed": "5306f62e438fe846c0718f1d51ed74ca6e0c4250d17eeb7fbed4d82c25556483",
+   "recomputed_equals_stored": true,
+   "new_digest": "4cb274abf641d52ce2266473b9634f1abad20b2fd2cfe83ab57a33fc84e79100",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={fba9fe439c6a}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_request_LP321_T1/descriptor.json.gz",
+   "stored_digest": "19fea477709cf9b18d840b47d9c30f07df4aec832f8a329f9f394502407bafdf",
+   "recomputed": "19fea477709cf9b18d840b47d9c30f07df4aec832f8a329f9f394502407bafdf",
+   "recomputed_equals_stored": true,
+   "new_digest": "415b5547146cfd2e51cf4cbf7f0885675ba0c8e694083925541c9d7bcc7023e4",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={2f31ec837da5}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_request_LP45_T122/descriptor.json.gz",
+   "stored_digest": "92458ba36cb28eae587b9045a6e2cfae82e6376d068344dcc2ea49dc89a1d233",
+   "recomputed": "92458ba36cb28eae587b9045a6e2cfae82e6376d068344dcc2ea49dc89a1d233",
+   "recomputed_equals_stored": true,
+   "new_digest": "2fd65e2f243868eb622868a156b1c4b95461a5e1e16548058947baaa5fb44dd7",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={53c22533f86b}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_request_LP643_T86/descriptor.json.gz",
+   "skipped": "33 MB gz > 20 MB (VM memory)"
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_request_LP833_T66/descriptor.json.gz",
+   "skipped": "40 MB gz > 20 MB (VM memory)"
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_request_LP95_T42/descriptor.json.gz",
+   "stored_digest": "7e29319eafde3d6f1c23f1d400860d741961984519f7ff9f2420d73b5faaa298",
+   "recomputed": "7e29319eafde3d6f1c23f1d400860d741961984519f7ff9f2420d73b5faaa298",
+   "recomputed_equals_stored": true,
+   "new_digest": "beed2334c13094769975b15d1ad0485981c12847ae8cae56508f417bfdaa37f9",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={278a948dcb2c}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_step/descriptor.json.gz",
+   "stored_digest": "345ebaf92661703a4a630db0a730f529cb272700926d7a9cf39a46a9ea912812",
+   "recomputed": "345ebaf92661703a4a630db0a730f529cb272700926d7a9cf39a46a9ea912812",
+   "recomputed_equals_stored": true,
+   "new_digest": "c29135ac130a7e4ddc600718c8b18ff2c0015be48c2d1ef31dffde013d849ff4",
+   "moved": true,
+   "substitutions": {
+    "{SRC={bfb0f1dba532}}": 3,
+    "verity_vllm.program.frontend.vllm_meta.EngineStep": 1
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b73/build_workload/descriptor.json.gz",
+   "skipped": "38 MB gz > 20 MB (VM memory)"
+  }
+ ],
+ "substitutions": {
+  "{SRC={c01dc63dec9e}}": "{SRC={7d38e8eb8888}}",
+  "verity_vllm.program.frontend.vllm_meta.GreedyRequest": "verity-vllm/greedy-request/v1",
+  "e2d6a391381d69eb6978483ad347bcc132afe6962b8f1e753f4e0aba9ee95b32": "5520e0543921943861a33bb3569560dcc0d1621994ee0e28231fa4a700b3d2aa",
+  "{SRC={fba9fe439c6a}}": "{SRC={cca07886a2b9}}",
+  "5306f62e438fe846c0718f1d51ed74ca6e0c4250d17eeb7fbed4d82c25556483": "4cb274abf641d52ce2266473b9634f1abad20b2fd2cfe83ab57a33fc84e79100",
+  "{SRC={2f31ec837da5}}": "{SRC={fbf1945f946e}}",
+  "19fea477709cf9b18d840b47d9c30f07df4aec832f8a329f9f394502407bafdf": "415b5547146cfd2e51cf4cbf7f0885675ba0c8e694083925541c9d7bcc7023e4",
+  "{SRC={53c22533f86b}}": "{SRC={3fc57bca99df}}",
+  "92458ba36cb28eae587b9045a6e2cfae82e6376d068344dcc2ea49dc89a1d233": "2fd65e2f243868eb622868a156b1c4b95461a5e1e16548058947baaa5fb44dd7",
+  "{SRC={278a948dcb2c}}": "{SRC={6fdea7fc7a3b}}",
+  "7e29319eafde3d6f1c23f1d400860d741961984519f7ff9f2420d73b5faaa298": "beed2334c13094769975b15d1ad0485981c12847ae8cae56508f417bfdaa37f9",
+  "{SRC={bfb0f1dba532}}": "{SRC={d120a7ddfe59}}",
+  "verity_vllm.program.frontend.vllm_meta.EngineStep": "verity-vllm/engine-step/v1",
+  "345ebaf92661703a4a630db0a730f529cb272700926d7a9cf39a46a9ea912812": "c29135ac130a7e4ddc600718c8b18ff2c0015be48c2d1ef31dffde013d849ff4"
+ }
+}

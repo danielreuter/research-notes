@@ -1,0 +1,65 @@
+{
+ "schema": "vllm-epoch-prep/s1-rows-call-boundaries/v1",
+ "rows": [
+  {
+   "row": "23",
+   "art": "art:9556460da4f92484fc409d279753f26e7883853bd1b7ca9b33580d7ba9863947",
+   "program": "build_request_LP15_T2/instances.json.gz",
+   "calls": 2760,
+   "required": 3468,
+   "interior": 0,
+   "by_definition_module": []
+  },
+  {
+   "row": "60",
+   "art": "art:7d8d822f5f033d24cdc4a4e3c5d960db3fd93e00cfa5161a04b209f5d27f2580",
+   "program": "build_request_LP93_T16/instances.json.gz",
+   "calls": 35132,
+   "required": 42433,
+   "interior": 0,
+   "by_definition_module": []
+  },
+  {
+   "row": "67",
+   "art": "art:a31f7b72eb62f9d66af6f4fc861b6b351f790ece9e730dd359c2a697898292b2",
+   "program": "build_request_LP13_T4/instances.json.gz",
+   "calls": 9836,
+   "required": 10865,
+   "interior": 0,
+   "by_definition_module": []
+  },
+  {
+   "row": "68",
+   "art": "art:d3fa83361d58c702318733f7382fc41b47800ebe401c6d772e6caaad6ed72737",
+   "program": "build_request_LP23_T8/instances.json.gz",
+   "calls": 17936,
+   "required": 19637,
+   "interior": 0,
+   "by_definition_module": []
+  },
+  {
+   "row": "70",
+   "art": "art:2cadc0fc95730a77ee7117cf39bc403a3b895ad6b05642e8b403769214daf841",
+   "program": "build/rank0/build_request_LP11_T30/instances.json.gz",
+   "calls": 26456,
+   "required": 30683,
+   "interior": 0,
+   "by_definition_module": []
+  },
+  {
+   "row": "75",
+   "art": "art:fad11673693df8642202ec381552ebf62f2c1c34cd437c3ec3de53d9366a884b",
+   "program": "build/rank1/build_request_LP9_T1/instances.json.gz",
+   "calls": 25956,
+   "required": 28221,
+   "interior": 0,
+   "by_definition_module": []
+  },
+  {
+   "row": "39",
+   "art": "art:37cd49bd1fd652447ac421ffc6967798f67fb9b1c2d9bd13aa0d3422d15cd905",
+   "program": "build_request/instances.json.gz",
+   "skipped": "1549 MB gz: too big for the VM"
+  }
+ ]
+}

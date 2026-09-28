@@ -1,0 +1,196 @@
+{
+ "schema": "vllm-epoch-prep/s2-src-ab/v2",
+ "declared": {
+  "EngineStep": "verity-vllm/engine-step/v1",
+  "GreedyRequest": "verity-vllm/greedy-request/v1",
+  "PaddedGreedyRequest": "verity-vllm/padded-greedy-request/v1",
+  "StochasticEngineStep": "verity-vllm/stochastic-engine-step/v1",
+  "StochasticRequest": "verity-vllm/stochastic-request/v1"
+ },
+ "rows": [
+  {
+   "descriptor": "/tmp/ab/b57/build_request/descriptor.json.gz",
+   "stored_digest": "d5561eaae65adaf3bbdb452e3db8ee330f4cc0a3c7297c4de1d6186a624e1800",
+   "recomputed": "d5561eaae65adaf3bbdb452e3db8ee330f4cc0a3c7297c4de1d6186a624e1800",
+   "recomputed_equals_stored": true,
+   "new_digest": "962994bc7da72d4659776cc2b549a0af18382fd8defb04aa80511711f3dfefec",
+   "moved": true,
+   "substitutions": {
+    "{SRC={16142b6261bb}}": 3,
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_request_LP1024_T18/descriptor.json.gz",
+   "stored_digest": "0a0844253c8952cff15a9443afe716d818154646226253515e26ea9a94557de5",
+   "recomputed": "0a0844253c8952cff15a9443afe716d818154646226253515e26ea9a94557de5",
+   "recomputed_equals_stored": true,
+   "new_digest": "8a3f3369ce55c29c2468f44c117e16caaa17271577e0cafbb5554a9c9fc45b42",
+   "moved": true,
+   "substitutions": {
+    "{SRC={16142b6261bb}}": 3,
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_request_LP10_T127/descriptor.json.gz",
+   "stored_digest": "4100905c434b40a4ea808bd5bb31bb9d88a2a3efab2ded178bc9dfb26f6bd8a2",
+   "recomputed": "4100905c434b40a4ea808bd5bb31bb9d88a2a3efab2ded178bc9dfb26f6bd8a2",
+   "recomputed_equals_stored": true,
+   "new_digest": "9b53cecd1fff287c3eab53f52b4eda72feb6ac973a18c6b4a89132170c7ce0ca",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={c01dc63dec9e}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_request_LP179_T30/descriptor.json.gz",
+   "stored_digest": "1160e8ee16edaa05b93fea6fe87c6cf2bcfbf04c70a04ff25f01c23691102951",
+   "recomputed": "1160e8ee16edaa05b93fea6fe87c6cf2bcfbf04c70a04ff25f01c23691102951",
+   "recomputed_equals_stored": true,
+   "new_digest": "0ff2e159d5f159527954eeffa3d2263942a93553acf57b01f4b07b9b2743847f",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={9694798701d9}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_request_LP31_T52/descriptor.json.gz",
+   "stored_digest": "b342ff309d4bbd6a79d062cf7920c1f753e2f587fd92caa9bbf6b061ec4c18bc",
+   "recomputed": "b342ff309d4bbd6a79d062cf7920c1f753e2f587fd92caa9bbf6b061ec4c18bc",
+   "recomputed_equals_stored": true,
+   "new_digest": "baad4886bb993b94898b3b515a795284f430f4cdb5596f9f955f83c6a8c1ce2e",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={2365f9264945}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_request_LP453_T106/descriptor.json.gz",
+   "stored_digest": "bfc01d3f5b3d81715802094a24c94ed3bdc73db1630e6befe35cfe64f246da84",
+   "recomputed": "bfc01d3f5b3d81715802094a24c94ed3bdc73db1630e6befe35cfe64f246da84",
+   "recomputed_equals_stored": true,
+   "new_digest": "b0bb361611b6428d0b7eb06a2456d9151dbb03eb4d2c48a12713e0695a285010",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={3d104882753c}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_request_LP531_T10/descriptor.json.gz",
+   "stored_digest": "44c1451015c484e38e91567a88939a8437334d5a0d3c3f6e39e00786f877bf79",
+   "recomputed": "44c1451015c484e38e91567a88939a8437334d5a0d3c3f6e39e00786f877bf79",
+   "recomputed_equals_stored": true,
+   "new_digest": "ddace72d1eab14236e832afd2a0235c3a9f5f2fcb98e676352102c085767dbc4",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={3e55be50ec49}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_request_LP719_T80/descriptor.json.gz",
+   "stored_digest": "9f9a5171d3d1c3c1e63f41579c2a59881f66955d5f2da854493724cc818b7034",
+   "recomputed": "9f9a5171d3d1c3c1e63f41579c2a59881f66955d5f2da854493724cc818b7034",
+   "recomputed_equals_stored": true,
+   "new_digest": "6d258bbd2b3d057d6fd7dc1a65bc761f5f26c64642b01f7d09bb5f6e01102182",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={fc826550f0ff}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_request_LP779_T1/descriptor.json.gz",
+   "stored_digest": "33301ea46d8334c7edbd37fafd4218e68f773e6680488e3c6f98f071681a1bbb",
+   "recomputed": "33301ea46d8334c7edbd37fafd4218e68f773e6680488e3c6f98f071681a1bbb",
+   "recomputed_equals_stored": true,
+   "new_digest": "2d2733a9595b31669198af9bb4d60e4f9ad9c869c86b49b3f7864cc0dec31f0a",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 1,
+    "{SRC={bf005c0a26db}}": 3
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_step/descriptor.json.gz",
+   "stored_digest": "7bdaffd17c95ac74e3c50632783659fac321894654fc3e5b8780998d167a2788",
+   "recomputed": "7bdaffd17c95ac74e3c50632783659fac321894654fc3e5b8780998d167a2788",
+   "recomputed_equals_stored": true,
+   "new_digest": "5190d3d844d73880aa6989bb43a4b99495c1a4e63f58dfe9095a30a92e022c5a",
+   "moved": true,
+   "substitutions": {
+    "{SRC={bfb0f1dba532}}": 3,
+    "verity_vllm.program.frontend.vllm_meta.EngineStep": 1
+   },
+   "bytes_delta": -23,
+   "module_paths_left": 0
+  },
+  {
+   "descriptor": "/tmp/ab/b57/build_workload/descriptor.json.gz",
+   "stored_digest": "ded1afedffe415693ff6589b1404c0ed3f9a4cd59249071eda49b0f09ce2dd07",
+   "recomputed": "ded1afedffe415693ff6589b1404c0ed3f9a4cd59249071eda49b0f09ce2dd07",
+   "recomputed_equals_stored": true,
+   "new_digest": "a139967d9382234e11b2aac9218164015ee5c09c27dea9c5016dd4c96009e614",
+   "moved": true,
+   "substitutions": {
+    "verity_vllm.program.frontend.vllm_meta.GreedyRequest": 32,
+    "0a0844253c8952cff15a9443afe716d818154646226253515e26ea9a94557de5": 4,
+    "4100905c434b40a4ea808bd5bb31bb9d88a2a3efab2ded178bc9dfb26f6bd8a2": 4,
+    "1160e8ee16edaa05b93fea6fe87c6cf2bcfbf04c70a04ff25f01c23691102951": 4,
+    "b342ff309d4bbd6a79d062cf7920c1f753e2f587fd92caa9bbf6b061ec4c18bc": 4,
+    "bfc01d3f5b3d81715802094a24c94ed3bdc73db1630e6befe35cfe64f246da84": 4,
+    "44c1451015c484e38e91567a88939a8437334d5a0d3c3f6e39e00786f877bf79": 4,
+    "9f9a5171d3d1c3c1e63f41579c2a59881f66955d5f2da854493724cc818b7034": 4,
+    "33301ea46d8334c7edbd37fafd4218e68f773e6680488e3c6f98f071681a1bbb": 4
+   },
+   "bytes_delta": -736,
+   "module_paths_left": 0
+  }
+ ],
+ "substitutions": {
+  "{SRC={16142b6261bb}}": "{SRC={a56eeb9de737}}",
+  "verity_vllm.program.frontend.vllm_meta.GreedyRequest": "verity-vllm/greedy-request/v1",
+  "d5561eaae65adaf3bbdb452e3db8ee330f4cc0a3c7297c4de1d6186a624e1800": "962994bc7da72d4659776cc2b549a0af18382fd8defb04aa80511711f3dfefec",
+  "0a0844253c8952cff15a9443afe716d818154646226253515e26ea9a94557de5": "8a3f3369ce55c29c2468f44c117e16caaa17271577e0cafbb5554a9c9fc45b42",
+  "{SRC={c01dc63dec9e}}": "{SRC={7d38e8eb8888}}",
+  "4100905c434b40a4ea808bd5bb31bb9d88a2a3efab2ded178bc9dfb26f6bd8a2": "9b53cecd1fff287c3eab53f52b4eda72feb6ac973a18c6b4a89132170c7ce0ca",
+  "{SRC={9694798701d9}}": "{SRC={52512494958a}}",
+  "1160e8ee16edaa05b93fea6fe87c6cf2bcfbf04c70a04ff25f01c23691102951": "0ff2e159d5f159527954eeffa3d2263942a93553acf57b01f4b07b9b2743847f",
+  "{SRC={2365f9264945}}": "{SRC={33616f2cd477}}",
+  "b342ff309d4bbd6a79d062cf7920c1f753e2f587fd92caa9bbf6b061ec4c18bc": "baad4886bb993b94898b3b515a795284f430f4cdb5596f9f955f83c6a8c1ce2e",
+  "{SRC={3d104882753c}}": "{SRC={1aabba94ca10}}",
+  "bfc01d3f5b3d81715802094a24c94ed3bdc73db1630e6befe35cfe64f246da84": "b0bb361611b6428d0b7eb06a2456d9151dbb03eb4d2c48a12713e0695a285010",
+  "{SRC={3e55be50ec49}}": "{SRC={a6f9bda7b3d9}}",
+  "44c1451015c484e38e91567a88939a8437334d5a0d3c3f6e39e00786f877bf79": "ddace72d1eab14236e832afd2a0235c3a9f5f2fcb98e676352102c085767dbc4",
+  "{SRC={fc826550f0ff}}": "{SRC={f347c02d8277}}",
+  "9f9a5171d3d1c3c1e63f41579c2a59881f66955d5f2da854493724cc818b7034": "6d258bbd2b3d057d6fd7dc1a65bc761f5f26c64642b01f7d09bb5f6e01102182",
+  "{SRC={bf005c0a26db}}": "{SRC={6b7e8c3944ba}}",
+  "33301ea46d8334c7edbd37fafd4218e68f773e6680488e3c6f98f071681a1bbb": "2d2733a9595b31669198af9bb4d60e4f9ad9c869c86b49b3f7864cc0dec31f0a",
+  "{SRC={bfb0f1dba532}}": "{SRC={d120a7ddfe59}}",
+  "verity_vllm.program.frontend.vllm_meta.EngineStep": "verity-vllm/engine-step/v1",
+  "7bdaffd17c95ac74e3c50632783659fac321894654fc3e5b8780998d167a2788": "5190d3d844d73880aa6989bb43a4b99495c1a4e63f58dfe9095a30a92e022c5a"
+ }
+}

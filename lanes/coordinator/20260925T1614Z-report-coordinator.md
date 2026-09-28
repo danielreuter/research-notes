@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 64f94732 (11:04Z) [open] ROOT 11:02Z: HOLD LIFTED for approved budgets only: epoch wave 1 (~$147 caps + canary), GPU sweep inside $250, research inside $380. Nothing beyond; epoch wave 2 waits on more money or wave-1 underspend (vLLM coordinator tracks). Keep flagging if RunPod balance nears $60.
 CHECKPOINT 64f94732 (11:03Z) [open] TOP-UP LANDED: RunPod balance $297.13 (was $100.70 at 10:45Z; ~+$200, below the ~$450 asked) at $8.32/h. Root's hold was 'no new pod spend beyond existing caps until the top-up lands' -> ask root whether it lifts (epoch was held for it). S-stack gate check r20260928-103703-0346 + content run r20260928-101515-ef9e both running (~11:37Z / ~11:15Z). Research $312.90/$380. No new POUS->root files; mirror ok.
 CHECKPOINT 64f94732 (10:45Z) [open] SWEEP: coordinator-notes backfill complete (dry-run shows 0 left; a few mkstemp EAGAINs retried by later passes). S-stack gate check r20260928-103703-0346 running. RunPod $100.70 at $8.32/h (~4.9 h to $60). Research $312.77/$380. No new POUS->root files; mirror ok.
 CHECKPOINT 64f94732 (10:41Z) [open] P2 MERGED 10:36Z + PUSHED: main 64f94732 (#231 #201 #223@de3d49b0 P01 fix + constants stack #194 #200 #206 #225 #248; check r20260928-085653-2a1d). S-STACK re-check r20260928-103703-0346 on dd3dde4d (= 2965a01a + main, tree unchanged) on vy-coord-check, due ~11:37Z. Note to lanes: lanes/coordinator/20260928T1040Z-note-main-64f94732.md (re-records on the new main; #203 closable).

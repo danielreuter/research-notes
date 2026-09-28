@@ -5,6 +5,7 @@ created: 2026-09-28T20:09Z
 status: open
 ---
 
+CHECKPOINT f639cd66 (21:10Z) [open] #328 f639cd66: native SHA-512 witness CPU reference matches eval64 on every row, streamed in row order (4-word ring), rows labelled + pinned per M0's 2042Z handoff (answered 2110Z); CUDA/GPU/host bucket are M0's
 CHECKPOINT 0542811c (21:01Z) [open] native SHA-512 witness CPU reference matches eval64 on every row (sha512x3, hm96, carries-every-16; selftest on RoPE + K=256 GEMM): draft #328 stacked on #289; handoff to flock-netlist 2100Z; CUDA/GPU/host bucket are M0's
 CHECKPOINT 788bf662 (20:54Z) [open] native SHA-512 witness reference drafted (backends/flock/live/src/sha512_native.rs + selftest case native_sha_matches_eval64) on cursor/native-sha512-witness-1575 off 788bf662; building/testing on CPU
 CHECKPOINT ac412eb8 (20:44Z) [open] reopened for the native SHA-512 witness CPU reference (emitter vs eval64) on a branch off #289 788bf662, draft PR; NOT final; no pods
@@ -64,3 +65,11 @@ based on #289's head, as a draft PR. M0 takes the CUDA kernel, the GPU byte-iden
 - **For the kernel:** a streaming emitter keeps 2 tape words behind the newest. On one CPU thread, 64 slots take `eval64` + `lanes`
   9–13 ms and native slot by slot 39–46 ms: bit-slicing wins on a CPU, so this is the device kernel's reference, not a host path.
 - **Handoff sent:** `lanes/flock-netlist/20260928T2100Z-handoff-from-gemm-hash.md`, with the split and the plan's interface.
+- **Received:** `lanes/gemm-hash/20260928T2042Z-handoff-from-flock-netlist-native-sha512-split.md` (M0). It agrees to the split and asks
+  for straight-line `u64` code emitting rows in row order, a row-to-role map derived from the laid-out circuit, a test that fails on a
+  row-order change, and tests on random inputs and `Stmt::row_inputs`. All four are met on #328 at `f639cd66`:
+  - a `Stream` sink with a 4-word ring (window 2);
+  - `Role`, `kind`, `describe` and `census` (`sha512x3`'s census equals the builder's counts);
+  - matching by kind as well as values (a folded carry row had taken a commit's place, value-identical);
+  - the circuits' and plans' SHA-256 pinned.
+- **Sent:** `lanes/flock-netlist/20260928T2110Z-handoff-from-gemm-hash.md`, mapping each ask to #328.

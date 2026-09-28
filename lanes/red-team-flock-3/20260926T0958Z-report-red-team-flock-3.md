@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 9b3aafac (17:04Z) [final] #306 @ecf275ec (J tables per session, CPU prover) GRANTED: per-table RANK confirmed (block-diagonal masking, equal to the joint check; joint only for the private glued union); statement-level parts match the Lean batchedSession model; 5 notes (simulator at J=2 before J>1 ZK claims, RANK sizing per table, Bernoulli + J>1, law from unit_draw, proof gap 1)
 CHECKPOINT b70bb5cd (16:15Z) [final] GEMM column-batch tiles scope: 4 questions answered (many-to-one rows need no new soundness hypothesis, meaning clauses only; pad edge tiles with a fixed pair, full wiring; tile draws fixed at registration, private track one shape via D5; mask relocation kept as separate audit option). Earlier: #287 UProg.rowsL1 GRANTED
 CHECKPOINT d985d04e (15:57Z) [final] #287 UProg.rowsL1 @decbc673 GRANTED (type hash 000000005e4ddc68 computed locally; 46ff28db not on GitHub); recommend dropping UnitSpec.nodup (follows from hd via orderChecked, Lean check); N1 for S4d/1e: source restrictions must hold for the verifier's wiring or be refused
 CHECKPOINT fca3b335 (15:02Z) [final] R9c #291 @363a4264 GRANTED (setup_wf, setupH_wf, stmtOf_linkLayout); compile_time Refine/Walk acceptable (proof-only tactic, no IO; notes: pin the file digest, keep listed modules out of pinned reads); private-ZK 14:45Z delta: grant stands

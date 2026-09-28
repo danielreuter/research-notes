@@ -5,6 +5,7 @@ created: 2026-09-28T20:09Z
 status: open
 ---
 
+CHECKPOINT 0542811c (21:01Z) [open] native SHA-512 witness CPU reference matches eval64 on every row (sha512x3, hm96, carries-every-16; selftest on RoPE + K=256 GEMM): draft #328 stacked on #289; handoff to flock-netlist 2100Z; CUDA/GPU/host bucket are M0's
 CHECKPOINT 788bf662 (20:54Z) [open] native SHA-512 witness reference drafted (backends/flock/live/src/sha512_native.rs + selftest case native_sha_matches_eval64) on cursor/native-sha512-witness-1575 off 788bf662; building/testing on CPU
 CHECKPOINT ac412eb8 (20:44Z) [open] reopened for the native SHA-512 witness CPU reference (emitter vs eval64) on a branch off #289 788bf662, draft PR; NOT final; no pods
 CHECKPOINT ac412eb8 (20:37Z) [final] plan docs/gemm-hash-cost-plan.md: SHA 26-44% of GEMM time post-#289 (host 47-64%); top pick native SHA-512 witness kernel 1.11x on #101 (prover-only); K=8192 2x4 at 2^27 needs carries-every-16 (13 per 2^20); no pods, $0
@@ -47,3 +48,19 @@ artifacts: none new (reads art:3b7edac2, art:95b9b350, art:27ac34ee run files)
 
 Next steps are in the plan's "Next": Daniel's call on about one L40S hour for the kernel's byte identity and timing, M0's answer on
 who builds the kernel, and the K = 8192 slot going into the tile scope's follow-up once 2^27 is granted.
+
+## Reopened 20:40Z: the native SHA-512 witness's CPU reference (plan row 1)
+
+Asked by the vLLM Project coordinator: an emitter checked bit for bit against M0's `eval64`, CPU only, $0, on this lane's own branch
+based on #289's head, as a draft PR. M0 takes the CUDA kernel, the GPU byte-identity hour and the host bucket.
+- **PR:** [#328](https://github.com/danielreuter/verity/pull/328), draft, `cursor/native-sha512-witness-1575` @ `0542811c`, based on
+  `cursor/flock-gemm-witness-4d6a` @ `788bf662`. It adds `backends/flock/live/src/sha512_native.rs` and the selftest case
+  `native_sha_matches_eval64`.
+- **It matches.** The plans for the pinned `sha512x3` and `hm96` circuits, and for the carries-every-16 variants, are equal to `eval64`
+  on every row: random, all-zero and all-one lanes, and lane by lane against `eval64` + `lanes`.
+  - The selftest case passes on staged `rope-head/d64/neox-bf16` (8 instances) and `gemm-coordinate/k256/sm80-mma-bf16` (4 instances,
+    4-compression chains), padding instances included. `honest` and `host_units_match_witness` still pass.
+  - `check_build.sh` passes.
+- **For the kernel:** a streaming emitter keeps 2 tape words behind the newest. On one CPU thread, 64 slots take `eval64` + `lanes`
+  9–13 ms and native slot by slot 39–46 ms: bit-slicing wins on a CPU, so this is the device kernel's reference, not a host path.
+- **Handoff sent:** `lanes/flock-netlist/20260928T2100Z-handoff-from-gemm-hash.md`, with the split and the plan's interface.

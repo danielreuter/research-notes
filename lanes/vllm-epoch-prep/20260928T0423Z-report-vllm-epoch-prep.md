@@ -5,6 +5,7 @@ created: 2026-09-28T04:23Z
 status: open
 ---
 
+CHECKPOINT 11fb4439 (07:46Z) [open] 07:47Z train-ready on main 3ba4d8b3: S2 a609d505 -> S3 ccceb54e -> S4 3a25b56a -> S1 11fb4439 (merge-tree clean in order); handoffs coordinator/0746Z + vllm-coordinator/0747Z. Main P1 lint broken by #223 (flagged). S1b B=8 extension running.
 CHECKPOINT 017e22cf (07:12Z) [open] 07:14Z S1b gap: refuses B>=2 manifests; #57/#74 are B=8 -> fix in progress (implementer resumed: per-request plans, packed-row split per runtime request rows, B>=2 binding, coverage on real global manifests, memory + host-time measured). Handoff 0714Z. S1d = S1b (coordinator picked host eval).
 CHECKPOINT 017e22cf (07:05Z) [open] 07:06Z S1b PR #253 (base S1 branch; @5a423c08, pushed by root from bundle; S1 @017e22cf). Push loop stopped. Open PRs: S2 #233, S3 #242, S4 #246 (stacked on S3, needs #221, takes main after #223), S1 #232, S1b #253, tooling #243. S1d waits on the coordinator's tap-vs-host pick.
 CHECKPOINT 017e22cf (07:02Z) [blocked] 07:03Z S1b built (@5a423c08, stacked on S1 017e22cf): host call-boundary source, #74 576/576 + #57 41,870/41,870 covered on CPU, CLAIMS hook for #39's tap; S1 by-name allowlist fix 017e22cf. Push blocked (auth) again, loop retrying; bundle in artifacts. Handoff 0703Z (#57 host cost ~70 min/Commit: decision).

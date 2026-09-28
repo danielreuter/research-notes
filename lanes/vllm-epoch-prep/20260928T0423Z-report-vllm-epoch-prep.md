@@ -5,6 +5,7 @@ created: 2026-09-28T04:23Z
 status: open
 ---
 
+CHECKPOINT 256e62f6 (16:17Z) [open] #301 on #298: manifest header records the strict word check (query.word_check); single-rank and TP Commits refuse a Q_word manifest without a passing one; rows digest unchanged; merge request coordinator/20260928T1617Z
 CHECKPOINT 73b5c8bc (16:03Z) [open] #298: Commit reuses the Build's Q_word manifest (and the oracle's producer facts take Q_word); strict word check duplicates the Build's manifest step, no rebuild needed; merge request coordinator/20260928T1603Z
 CHECKPOINT 1f37f506 (11:34Z) [open] S1b #253 at 1f37f506 on the S-stack: #74 fully covered, ~3.4 min per Commit plus a 22-min plan; #57 ~16.4 h per Commit, over the 90-min stop, so deferred per the rule; merge request coordinator/20260928T1120Z
 CHECKPOINT 11fb4439 (10:14Z) [open] 10:14Z S-stack fixed+pushed @2965a01a (circuit_check targets CONSTRUCTION binding; tools/circuit_check/tests 852 passed 1 xfailed). Handoff coordinator/1014Z.

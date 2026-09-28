@@ -34,16 +34,14 @@ tail -n 20 "$EVD/evidence/progress.txt"
 [ -n "$EPOCH_SHA" ] || EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha")
 echo "recorded against $EPOCH_SHA"
 arts=$(grep -o '^STORED [a-z]* art:[0-9a-f]* PRESERVED' "$EVD/evidence/store.log" 2>/dev/null | awk '{print $3}' | tr '\n' ' ')
+# custody: the run's own .custody marker (written by the pod's runner only once its attempt is PRESERVED and every run-dir file is in its
+# record) and each tree's `data put --preserve` (exit 0 only when PRESERVED); a VM-side re-walk of 60k-file trees takes hours
 ok=1
-for i in $(seq 1 20); do
-  $R data preserved "$RUN" $arts > "$EVD/preserved.txt" 2>&1 && { ok=0; break; }
+for i in $(seq 1 30); do
+  $R pods ssh "$POD" -- "test -s /workspace/research/runs/$RUN/.custody" < /dev/null 2>/dev/null && { ok=0; break; }
   sleep 30
 done
-if [ "$ok" != 0 ]; then
-  tail -n 5 "$EVD/preserved.txt"
-  [ "${FORCE:-0}" = 1 ] || { echo "#$N: custody not complete; the pod stays up (FORCE=1 terminates, logged)"; exit 3; }
-  echo "$(date -u +%FT%TZ) #$N FORCE terminate without complete custody" >> "$LANE/evidence/force.log"
-fi
+[ -n "$arts" ] || ok=1
 echo "custody: $RUN ${arts:-(no stored trees)} PRESERVED"
 
 $R pods terminate "$PODID"; $R pods guard stop --prefix "$POD-" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1

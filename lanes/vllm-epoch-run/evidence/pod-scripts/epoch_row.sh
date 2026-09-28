@@ -135,7 +135,7 @@ say "commit rc=$rc verdict=${out:-none} manifest_verify=${mv:-none} $(grep '^com
 
 # ---- 5 store the Build and the records, 6 digests + regression record -------------------------------------------------------------------
 small; store
-VERITY_REGRESSION_CANDIDATE=$SWEEP_DIR timeout 3600 $PY -m tests.regression.rebaseline run --record "$EV/record" --tier T0,T1,T2 -- -k "$ROW" -ra \
+VERITY_REGRESSION_CANDIDATE=$SWEEP_DIR timeout 3600 $PY -m tests.regression.rebaseline run --record "$EV/record" --tier T0,T1,T2 -- -k "r$ROWNUM" -ra \
   > "$EV/rebaseline_run.log" 2>&1
 say "rebaseline run rc=$? $(grep -E 'passed|failed|error' "$EV/rebaseline_run.log" | tail -n 1 | cut -c1-200)"
 finish

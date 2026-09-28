@@ -80,3 +80,34 @@ REFUSED: #70 estimate 3.5 h at 3 pair(s) does not fit the $6.5 cap (2.98 h): ask
 2026-09-28T16:31:52Z balance: 
 2026-09-28T16:33:53Z balance: 
 2026-09-28T16:36:24Z balance: 
+2026-09-28T16:38:27Z balance: 
+2026-09-28T16:40:33Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its 
+2026-09-28T16:42:08Z no shape: 
+2026-09-28T16:43:09Z balance: 
+2026-09-28T16:45:11Z balance: 
+2026-09-28T16:47:16Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T16:48:17Z balance: 
+2026-09-28T16:50:19Z balance: 
+2026-09-28T16:52:22Z balance: 
+2026-09-28T16:54:24Z balance: 
+2026-09-28T16:56:36Z balance: 
+2026-09-28T16:58:41Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T16:59:43Z balance: 
+2026-09-28T17:01:46Z balance: 
+2026-09-28T17:03:48Z balance: 
+2026-09-28T17:05:51Z balance: 
+2026-09-28T17:07:52Z balance: 
+2026-09-28T17:09:54Z balance: 
+2026-09-28T17:11:56Z balance: 
+2026-09-28T17:13:58Z balance: 
+2026-09-28T17:15:59Z balance: 
+2026-09-28T17:18:01Z balance: 
+2026-09-28T17:20:03Z balance: 
+2026-09-28T17:22:05Z balance: 
+2026-09-28T17:24:08Z balance: 
+2026-09-28T17:26:10Z balance: 
+2026-09-28T17:28:16Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40@SECURE@2@120 (evidence/attempts-70.txt); retry while its lat
+2026-09-28T17:29:18Z balance: 
+2026-09-28T17:31:21Z balance: 
+2026-09-28T17:33:22Z balance: 
+2026-09-28T17:35:24Z balance: 

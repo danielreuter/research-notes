@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (17:37Z) [open] #4 deferred for audit, terminated 17:36Z ($4.84), arts 84ec56f4/876db263/013671cf/b604b4df PRESERVED; interim handoff 1737Z. rebaseline -k fixed (r<N>); running rows get side_finish.sh. LIVE: #73 Match, #23 Build, #74 #75 #67 Build. Spend ~$66. agent bc-75fd4007.
 CHECKPOINT 6746f408 (16:36Z) [open] #101 3rd try (edac1cf6) Build FAIL in manifest step: GumbelTopPTokenSelect_v2 not registered (program_view) -> deferred, terminated 16:34Z, arts 2d65d5d7/14775bd0 PRESERVED; handoff 1635Z. #4 Commit PASS 16:27Z (FAIL-class -> defer). #73 Build PASS 16:31Z, side-store art:1b29fa7f PRESERVED. LIVE: #73 #4 #23 #74 #75 #67. agent bc-75fd4007.
 CHECKPOINT 6746f408 (16:25Z) [open] LIVE 7: #73 Build, #4 Commit, #23 Build, #101 Build (edac1cf6), #74 Build (432edb3b), #75 bootstrap, #67 (2xL40, r20260928-161923-0a05, 3 pairs) launched 16:19Z. #60 blocked by balance test ($18.07 < $24); #68/#70 polling. agent bc-75fd4007.
 CHECKPOINT 6746f408 (16:08Z) [open] Re-plan GO: #101 launched on edac1cf6 (vyv-rf-epoch-101, 1xL40, r20260928-160311-303b, write held), #74 on 432edb3b (vyv-rf-epoch-74, 2xH100, r20260928-160515-1b32, 1 pair). Fast word check swapped into #73 #23 #101 #74 (887d6f6c). Polling #67 #68 #60 #75 #70. Est: #73 ~18:50Z, #23 ~21:30-22:30Z, #74 ~21:55Z, #101 ~17:35Z, #4 ~17:20Z. agent bc-75fd4007.

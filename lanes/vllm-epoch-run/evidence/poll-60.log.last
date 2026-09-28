@@ -1,1 +1,6 @@
-REFUSED: #60 balance test: $210.72 - running rows' remaining caps $138.34 - sweep $10.52 - POUS $15 - floor $25 = $21.86 < cap $24
+#60 mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager: 4 x NVIDIA L40S, >= 100 GB/GPU, cap $24 (max 11.01 h at $4.36/h), 3 pair(s), est 5.0 h, timeout 20608 s, custody 8 h
+  2026-09-28T17:35:25Z 4 x NVIDIA L40S SECURE: no stock
+  2026-09-28T17:35:27Z 2 x NVIDIA L40S SECURE: no stock
+  2026-09-28T17:36:31Z 4 x NVIDIA L40S SECURE: no stock
+  2026-09-28T17:36:33Z 2 x NVIDIA L40S SECURE: no stock
+NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its latest start holds

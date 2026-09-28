@@ -21,6 +21,8 @@ rm -rf "$S/build/match" "$S/build/commit" "$S/build/vu-export"
 find "$S/build" -type f -size +8G -printf "build %s %P\n" -delete >> "$EV/store_omitted.txt"
 (cd "$D" && find match commit -type f -size -200M -print0 2>/dev/null | xargs -0 -r cp -al --parents -t "$S/records/")
 (cd "$D" && find match commit -type f -size +200M -printf "records %s %p\n" 2>/dev/null >> "$EV/store_omitted.txt")
+mkdir -p "$S/large"   # STORE_KINDS=large: the match/ and commit/ files the records tree leaves out (coordinator 16:53Z: full evidence)
+(cd "$D" && find match commit -type f -size +200M -print0 2>/dev/null | xargs -0 -r cp -al --parents -t "$S/large/")
 for f in verdict.json stages.txt row.log timeline.jsonl commit.log build_summary.json target_family.json admission.json; do
   [ -f "$D/$f" ] && cp -al "$D/$f" "$S/records/"
 done
@@ -57,7 +59,7 @@ EOF
 
 rc=0
 for kind in ${STORE_KINDS:-build records}; do
-  role=programs; [ "$kind" = records ] && role=records
+  role=programs; [ "$kind" = records ] && role=records; [ "$kind" = large ] && role=records-large
   meta "$kind" "$role" > "$EV/meta-$kind.json"
   echo "=== $(date -u +%H:%M:%SZ) put $kind $(du -sh "$S/$kind" | cut -f1) $(find "$S/$kind" -type f | wc -l) files"
   ok=0

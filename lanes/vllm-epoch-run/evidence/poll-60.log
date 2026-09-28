@@ -23,3 +23,35 @@
 2026-09-28T16:31:54Z balance: balance test: $213.00 - running rows' remaining caps $144.49 - sweep $11.09 - POUS $15 - floor $25 = $17.43 < cap $24
 2026-09-28T16:33:56Z balance: balance test: $213.00 - running rows' remaining caps $143.76 - sweep $10.83 - POUS $15 - floor $25 = $18.41 < cap $24
 2026-09-28T16:36:25Z balance: balance test: $210.72 - running rows' remaining caps $138.34 - sweep $10.52 - POUS $15 - floor $25 = $21.86 < cap $24
+2026-09-28T16:38:28Z balance: balance test: $210.72 - running rows' remaining caps $137.64 - sweep $10.26 - POUS $15 - floor $25 = $22.82 < cap $24
+2026-09-28T16:40:30Z balance: balance test: $208.49 - running rows' remaining caps $136.94 - sweep $10.00 - POUS $15 - floor $25 = $21.55 < cap $24
+2026-09-28T16:42:33Z balance: balance test: $208.49 - running rows' remaining caps $136.23 - sweep $9.74 - POUS $15 - floor $25 = $22.51 < cap $24
+2026-09-28T16:44:36Z balance: balance test: $208.49 - running rows' remaining caps $135.53 - sweep $9.49 - POUS $15 - floor $25 = $23.47 < cap $24
+2026-09-28T16:46:39Z balance: balance test: $206.22 - running rows' remaining caps $134.83 - sweep $9.23 - POUS $15 - floor $25 = $22.16 < cap $24
+2026-09-28T16:48:42Z balance: balance test: $206.22 - running rows' remaining caps $134.13 - sweep $8.97 - POUS $15 - floor $25 = $23.12 < cap $24
+2026-09-28T16:50:45Z balance: balance test: $204.00 - running rows' remaining caps $133.43 - sweep $8.71 - POUS $15 - floor $25 = $21.85 < cap $24
+2026-09-28T16:52:48Z balance: balance test: $204.00 - running rows' remaining caps $132.73 - sweep $8.46 - POUS $15 - floor $25 = $22.81 < cap $24
+2026-09-28T16:54:50Z balance: balance test: $204.00 - running rows' remaining caps $132.03 - sweep $8.20 - POUS $15 - floor $25 = $23.77 < cap $24
+2026-09-28T16:56:54Z balance: balance test: $201.77 - running rows' remaining caps $131.32 - sweep $7.94 - POUS $15 - floor $25 = $22.51 < cap $24
+2026-09-28T16:58:56Z balance: balance test: $201.77 - running rows' remaining caps $130.63 - sweep $7.68 - POUS $15 - floor $25 = $23.46 < cap $24
+2026-09-28T17:00:59Z balance: balance test: $199.39 - running rows' remaining caps $129.92 - sweep $7.42 - POUS $15 - floor $25 = $22.05 < cap $24
+2026-09-28T17:03:02Z balance: balance test: $199.39 - running rows' remaining caps $129.22 - sweep $7.17 - POUS $15 - floor $25 = $23.01 < cap $24
+2026-09-28T17:05:05Z balance: balance test: $199.39 - running rows' remaining caps $128.52 - sweep $6.91 - POUS $15 - floor $25 = $23.97 < cap $24
+2026-09-28T17:07:09Z balance: balance test: $197.22 - running rows' remaining caps $127.81 - sweep $6.65 - POUS $15 - floor $25 = $22.77 < cap $24
+2026-09-28T17:09:12Z balance: balance test: $197.22 - running rows' remaining caps $127.11 - sweep $6.39 - POUS $15 - floor $25 = $23.72 < cap $24
+2026-09-28T17:11:15Z balance: balance test: $195.03 - running rows' remaining caps $126.41 - sweep $6.13 - POUS $15 - floor $25 = $22.49 < cap $24
+2026-09-28T17:13:17Z balance: balance test: $195.03 - running rows' remaining caps $125.71 - sweep $5.88 - POUS $15 - floor $25 = $23.45 < cap $24
+2026-09-28T17:15:25Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:16:27Z balance: balance test: $192.93 - running rows' remaining caps $124.63 - sweep $5.48 - POUS $15 - floor $25 = $22.83 < cap $24
+2026-09-28T17:18:29Z balance: balance test: $192.93 - running rows' remaining caps $123.93 - sweep $5.22 - POUS $15 - floor $25 = $23.78 < cap $24
+2026-09-28T17:20:31Z balance: balance test: $190.82 - running rows' remaining caps $123.23 - sweep $4.97 - POUS $15 - floor $25 = $22.62 < cap $24
+2026-09-28T17:22:33Z balance: balance test: $190.82 - running rows' remaining caps $122.53 - sweep $4.71 - POUS $15 - floor $25 = $23.58 < cap $24
+2026-09-28T17:24:42Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:25:44Z balance: balance test: $188.66 - running rows' remaining caps $121.45 - sweep $4.31 - POUS $15 - floor $25 = $22.90 < cap $24
+2026-09-28T17:27:47Z balance: balance test: $188.66 - running rows' remaining caps $120.74 - sweep $4.05 - POUS $15 - floor $25 = $23.86 < cap $24
+2026-09-28T17:29:53Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:30:58Z balance: balance test: $186.78 - running rows' remaining caps $119.66 - sweep $3.65 - POUS $15 - floor $25 = $23.47 < cap $24
+2026-09-28T17:33:04Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:34:09Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:35:29Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la
+2026-09-28T17:36:35Z no shape: NO SHAPE for #60 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-60.txt); retry while its la

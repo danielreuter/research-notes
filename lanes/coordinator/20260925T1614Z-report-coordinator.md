@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (04:58Z) [open] #206@24b583f4 replaces #203 (same Python derive + vectors, re-cut onto #200 without #192) -> right after #200. When #206 lands, tell consolidation coordinator bc-e373566b to close #203 as superseded.
 CHECKPOINT 6746f408 (04:48Z) [open] G0 #221@996f14e1 (AmpereBF16TcDot16 v2 re-key core side; 4 files, no Lean, no vllm, no overlap with #197) -> TRAIN O = #197 + #221 right after train N (~05:25Z), lands ~06:30Z; deadline 08:00Z, else tell vLLM coordinator directly.
 CHECKPOINT 6746f408 (04:34Z) [open] COMBINED AUDIT PASS r20260928-033219-4744 (#187@87a0e3b7 + #194@b7b7b42f + #200@56936c35 on 51878fab = 80f40039; exec 2919 decls/37 mods/13 pins, level3 999/50, soundness 5326/92/10; standard axioms; controls + replay). Next audit on lean13: #147@a09a04d3 (rcases fix) + #156@a084ae06 + #154@e0dd3323 + #177@81552896 on 6746f408 = fbd223b6, r20260928-043118-707b. Train N check r20260928-042319-9aac running. POUS->root NEW: verity-root/20260928T0357Z-handoff-from-pous.md (PoUW packaged like POUS; Pearl KW + NCP; vLLM protocol-option hook question). Spend $301.30/$340.
 CHECKPOINT 6746f408 (04:31Z) [open] ROOT 04:26Z CORRECTION: #197 IS a G0 prerequisite (plan 20260928T0420Z 'Gate G0'; moves #101 digest on purpose; epoch re-records #101) -> own train O right after train N. Hold applies only to digest-moving merges that are NOT G0 prerequisites; keep-word composite + AmpereBF16TcDot16 re-key are G0 -> merge promptly. vLLM handoff 0428Z marked answered.

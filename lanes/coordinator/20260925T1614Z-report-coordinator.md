@@ -5,6 +5,8 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT df3bc5e1 (00:19Z) [open] TRAIN K MERGED + PUSHED 00:18Z: main df3bc5e1 = #104 #125 #140 #179 #181 #178 #185. #140 landed -> M0 (#83) rebases on it; #181 can be marked ready (was stacked on #179). Tonight done; vy-coord-check released by the guard at 01:00Z.
+CHECKPOINT 216d7b66 (00:18Z) [open] TRAIN K check r20260927-224947-774a PASSED 00:13Z; custody publish running, then research merge + push. Tomorrow: L = #180@3fcf1932 + #186; #187 (rope_sound pin; red-team reviewing; then audit.py); #149 (main merge + check); #134 on #149 (>=24 GB pod).
 CHECKPOINT 216d7b66 (00:01Z) [open] SWEEP: train K check in lean-audit (exec + level3 PASS; soundness left, ~10 min). Spend $298.39/$320 at $0.24/h. No POUS->root files; mirror ok.
 CHECKPOINT 216d7b66 (23:48Z) [open] Train K check still in lean-audit (exec PASS), ETA ~00:05Z; past the 23:45Z cutoff -> train L, #149, #134 wait for tomorrow's window. Timer train-k-merge-poll-2 ~00:02Z.
 CHECKPOINT 216d7b66 (23:43Z) [open] #149@d09f2fa2 ready (check r20260927-230139-4c88 on 216d7b66; printed text only, no reviewer). Tomorrow's order: K (tonight), L (#180+#186), #149, #134 rebased on #149 (both edit check.py docstring). #149 needs a main merge + new check after K/L (research merge needs the tip) -> told lean-organization (new lane folder lanes/lean-organization/, 2342Z handoff).

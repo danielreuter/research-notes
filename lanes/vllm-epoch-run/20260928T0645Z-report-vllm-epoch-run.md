@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (19:03Z) [open] #23 deferred NOT_RUN (admission, F-dA-15 483 GiB > 351 GiB) per coordinator; Match large files stored art:b2b6ae9e (side run r20260928-185949-d9ce), records art:07062ee9, Build art:7a30ced1 / art:1c659f5e; pod terminated 19:02:39Z, $8.50; digest line updated. Live: #73 Commit, #74 #75 #67 #68 Build; #60 #70 polling. agent bc-75fd4007.
 CHECKPOINT 6746f408 (18:57Z) [open] #23 Commit REFUSED by F-dA-15 host admission (483 GiB predicted vs 351 GiB pod) at 18:51Z, NOT_RUN; handoff 1857Z asks retry-with-override vs defer (default defer at 19:20Z); pod kept up. #73 Commit, #74 #75 #67 Build, #68 Build; #60 #70 polling. agent bc-75fd4007.
 CHECKPOINT 6746f408 (18:50Z) [open] #101 try4 (fe7931d5): Build PASS, Match FAIL (Program GumbelTopPTokenSelect_v1 vs fold SharedGreedy_v1; G3/G4) -> deferred, terminated 18:49Z ($1.01), arts 7fef3bd2/89aa13c1 PRESERVED; handoff 1850Z. #60 balance OK (POUS $13), polling. LIVE: #73 #23 Commit; #74 #75 #67 Build; #68 bootstrap. agent bc-75fd4007.
 CHECKPOINT 6746f408 (18:42Z) [open] inbox 1810Z (coordinator): V merge ~19:05Z, tree d4c65ae7 unchanged - noted; #101's write waits for the merge SHA + tree check. agent bc-75fd4007.

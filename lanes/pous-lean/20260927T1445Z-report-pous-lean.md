@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT 24c8ad44 (13:25Z) [open] held behind S (r20260928-115839-02d9); GitHub main still 64f94732 (13:30Z). Preview of #196 29b4cdcd + S dd3dde4d (local, unrecorded): pytest 3439 passed, 1 known flake (test_remote_local exclusive lock; passes 3/3 alone), circuit-check 834 targets 0 new; S touches no Lean or POUS file. When GitHub main moves: if it contains 29b4cdcd the chain landed, else merge-forward + re-record + fresh handoff
 CHECKPOINT 24c8ad44 (11:47Z) [open] chain at main 64f94732: #162 77b926da #183 24c8ad44 #166 dcd0d8fb #196 29b4cdcd; check at 29b4cdcd PASSED r20260928-105648-68e5; research merge --dry-run PASSES (11:47Z); handoff 20260928T1147Z
 CHECKPOINT 24c8ad44 (10:57Z) [open] option 1 done at main 3ba4d8b3: #196 dbcccd01 check PASSED r20260928-095631-0c01 but main moved to 64f94732; re-merged (no conflicts): #162 77b926da #183 24c8ad44 #166 dcd0d8fb #196 29b4cdcd; check at 29b4cdcd running
 CHECKPOINT 5e6416ae (09:57Z) [open] round 2 prepared locally (not pushed): main 3ba4d8b3 into chain, AGENTS.md resolved, POUS records re-recorded in #149 format (all type hashes unchanged); check at #196 local tip dbcccd01 r20260928-095631-0c01 running; waiting for coordinator until 10:30Z, else option 1

@@ -1086,12 +1086,26 @@ Verdicts only. The findings are in the store's `private/`.
     coordinator folder.
   - Review: `private/red-team-reviews/zk-proofs/pr306-multi-table-sessions.md`.
   - Reply: `lanes/coordinator/20260928T1702Z-handoff-from-red-team-flock-3.md`.
-- **Received, waiting for the coordinator's order:** the refinement lane's R11 pin reviews, filed directly in my folder.
-  None was relayed yet.
-  - #296 (R11a): `lanes/red-team-flock-3/20260928T1650Z-handoff-from-refinement-296-pin-review.md` and
-    `lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-296-live-game-revised.md`.
-  - #302 (R11c): `lanes/red-team-flock-3/20260928T1850Z-handoff-from-refinement-302-pin-review.md` and
-    `lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-302-pin-addendum.md`.
+- **R11: #296 @ `e13ad134`, #302 @ `ec807b18` and #310 @ `def4d6b9`: GRANTED** (six pins), taken in the
+  coordinator's order at 17:07Z.
+  - `Sim.prob_le` is sound.
+  - The live game is faithful to the coin server's loop. Everything it omits is fixed on an accepted record: S6, S7/S8,
+    S10, S11, S13.
+  - `Decodes` is the right obligation.
+  - The frames are the executable's bytes.
+  - Notes for R11b/R11d: the coin source (with seed coins, `ASSUMPTIONS.md`'s two assumptions join A2), N, scope (one
+    table, non-ZK), the decoders, the simulated strategy's cost, and `14 ≤ m`.
+  - Requests, in the store:
+    - `internal/lanes/red-team-flock-3/20260928T1650Z-handoff-from-refinement-296-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-296-live-game-revised.md`;
+    - `internal/lanes/red-team-flock-3/20260928T1850Z-handoff-from-refinement-302-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-302-pin-addendum.md`;
+    - `internal/lanes/red-team-flock-3/20260928T1810Z-handoff-from-refinement-310-pin-review.md`.
+  - Reviews: `private/red-team-reviews/refinement/pr296-live-game.md`, `pr302-table-simulation.md` and
+    `pr310-frames.md`, with `refinement/evidence/r11-build-axioms-audit.log`.
+  - Reply: `lanes/coordinator/20260928T1722Z-handoff-from-red-team-flock-3.md`.
+- **The verifier lane's #308 (unit sources, my #287 note N1): in progress,** queued after R11 at 17:15Z.
+  - Request: `internal/lanes/red-team-flock-3/20260928T1720Z-handoff-from-flock-verifier-308-unit-sources.md`.
 
 ### Pre-grant checklist
 

@@ -1075,6 +1075,15 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: the coordinator, directly (`internal/gemm-column-batch-tiles-layout-scope.md`, in the store).
   - Review: `private/red-team-reviews/m0-statement/gemm-column-batch-tiles.md`.
   - Reply: `lanes/coordinator/20260928T1614Z-handoff-from-red-team-flock-3.md`.
+- **M1's #306 @ `ecf275ec` (J tables per session, CPU prover): GRANTED.**
+  - Per-table RANK is confirmed. The masking map is block-diagonal, so it's the joint check's equivalent. The joint check is
+    needed only for the private proof's glued union, whose glue claim reads every table's mask words.
+  - The statement-level parts match the Lean `batchedSession` model.
+  - Five notes, no conditions. The first: extend the simulator to J = 2 before a J > 1 cell claims ZK.
+  - Request: `internal/lanes/coordinator/20260928T1650Z-note-to-red-team-from-flock-zk-multi-table.md`, in the store's
+    coordinator folder.
+  - Review: `private/red-team-reviews/zk-proofs/pr306-multi-table-sessions.md`.
+  - Reply: `lanes/coordinator/20260928T1702Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

@@ -1,0 +1,1 @@
+06:46Z: root approved one-row-per-pod x13, start after G0+S1-S4 (~10:00-11:30Z), $250/18:00Z; defer #11 first if start >12:00Z. Plan updated (3a). Run-lane brief lane-briefs/vllm-epoch-run.md ready to launch (creates no pod before my GO).

@@ -5,6 +5,7 @@ created: 2026-09-27T01:08Z
 status: open
 ---
 
+CHECKPOINT 91ceb79e (01:45Z) [open] PR #197 up (head 4497a75d on df3bc5e1): single-request splits constant; #101 ccc21347 -> 79caee21b124d591 (manifest 90f81868 -> eb393312); Builds r20260928-012525-4b0f (base, reproduces) / r20260928-012534-6768 preserved; pods terminated (~$0.45); handoffs: lowering (keep word) + coordinator merge request after #192; waiting on red-team-flock-3 review
 CHECKPOINT 91ceb79e (01:26Z) [open] WAITING r20260928-012525-4b0f (base df3bc5e1) + r20260928-012534-6768 (branch bd4eb502) #101 Builds on vy-vllm-cross-call-check-l40s; CPU pod retired (vLLM needs a CUDA platform); agent bc-f7aadce6; next: digests into the PR
 CHECKPOINT 91ceb79e (01:08Z) [open] single-request constant splits (Daniel approved proposal 1): branch cursor/splits-single-request-constant-666c at b81a9cfe on df3bc5e1; pod vy-vllm-cross-call-check (CPU, 50m2svxp4zi0gf) for the #101 Builds; next: bootstrap + base/branch Builds
 CHECKPOINT 91ceb79e (05:56Z) [open] #111 @ 034ca061 partition/v1 = Q_word v1 query (236 B object), core evaluator + vector; #101 41.5 s, #74 largest 664 s

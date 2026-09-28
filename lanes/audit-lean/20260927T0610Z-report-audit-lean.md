@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT cad47e9f (18:50Z) [open] #319 up (cad47e9f, on #305): soundness builds on #307 9d39d422; audits PASS w/ replay (13/50/19 pins), no pin moves; candidate combined head for the #147 train. Next: T2 step 2 (pre/tmpl), T1 (typed Δ + CopyRow/ZeroRow), T3
 CHECKPOINT 90d56801 (18:09Z) [open] answered flock-soundness (copy/zero rows: CopyRow/ZeroRow + semantic lemmas; templates with T1, flat after) and flock-verifier (#307 9d39d422: I port ExecCheck/ExecCircuit/ExecSetup). Starting T2-port branch on #305 + #307
 CHECKPOINT 90d56801 (17:31Z) [blocked] 1e templates: T1-T3 planned (flock-verifier/…1720Z). T1 blocked: #307's Net.ofRows lacks #147's checks (Net.lean conflict + a Rust conflict) vs my #147→#284 line; asked flock-verifier for a reconciled head. Asked them for templateOf_spec (mapM)
 CHECKPOINT 90d56801 (16:49Z) [open] dp: #305 (on #284): Realizes, BlockFacts(.realizes/.placement) = TableClass.placed for ofBlock rows; Layout.realizes for flat setupH statements given NetRows. Answer in flock-soundness/. Templates' BlockFacts + text round trip wait on flock-verifier Q1-Q3

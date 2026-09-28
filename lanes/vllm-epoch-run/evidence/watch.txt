@@ -1,6 +1,8 @@
-watch updated 2026-09-28T16:07:47Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 229 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
-#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 178 min: 2026-09-28T15:31:23Z strict word check rc=0 PASS 16 word lines, manifest 0cc516b3977253ad, 1055.4 s
-#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 128 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0
-#101 vyv-rf-epoch-101 r20260928-160311-303b live 4 min: 2026-09-28T16:04:54Z device {"name": "NVIDIA L40", "sms": 142, "cc": "8.9", "count": 1}
-#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 5 min: 2026-09-28T16:06:43Z device {"name": "NVIDIA H100 80GB HBM3", "sms": 132, "cc": "9.0", "count": 2}
+watch updated 2026-09-28T16:25:01Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 246 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
+#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 195 min: 2026-09-28T15:31:23Z strict word check rc=0 PASS 16 word lines, manifest 0cc516b3977253ad, 1055.4 s
+#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 145 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0
+#101 vyv-rf-epoch-101 r20260928-160311-303b live 22 min: 2026-09-28T16:19:34Z bootstrap cases=B0,LLAMA32_1B rc=0
+#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 22 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
+#75 vyv-rf-epoch-75 r20260928-160802-960f live 17 min: 2026-09-28T16:23:51Z bootstrap cases=B0,QWEN3_30B_A3B rc=0
+#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 6 min: 2026-09-28T16:21:29Z resolved role=OLMOE repo=allenai/OLMoE-1B-7B-0924 rev=6d84c48581ec world=1

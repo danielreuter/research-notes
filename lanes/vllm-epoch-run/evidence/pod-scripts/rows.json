@@ -318,9 +318,9 @@
  "hard_end_utc": "2026-09-28T23:20Z",
  "balance_test": {
   "sweep_usd_h": 7.55,
-  "sweep_end_utc": "2026-09-28T17:20Z",
+  "sweep_end_utc": "2026-09-28T18:00Z",
   "pous_usd": 15,
   "floor_usd": 25,
-  "rule": "balance - running rows' remaining caps - sweep reserve - POUS - floor >= the new row's cap (coordinator 15:59Z; sweep ends 17:20Z)"
+  "rule": "live balance - running rows' remaining caps - $7.55/h to 18:00Z (sweep) - POUS $15 - $25 >= the new row's cap (coordinator 16:00Z)"
  }
 }

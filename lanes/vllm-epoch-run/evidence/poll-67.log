@@ -5,3 +5,13 @@
 2026-09-28T16:06:08Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-67.txt); retry while its latest start holds
 2026-09-28T16:07:12Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-67.txt); retry while its latest start holds
 2026-09-28T16:08:33Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-67.txt); retry while its latest start holds
+2026-09-28T16:09:44Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-67.txt); retry while its
+2026-09-28T16:10:56Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-67.txt); retry while its
+2026-09-28T16:12:03Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-
+2026-09-28T16:13:08Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-67.txt); retry while its
+2026-09-28T16:14:15Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-67.txt); retry while its
+2026-09-28T16:15:21Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-67.txt); retry while its
+2026-09-28T16:16:26Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-67.txt); retry while its
+2026-09-28T16:17:32Z no shape: NO SHAPE for #67 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-67.txt); retry while its
+#67 olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed__greedy__bi-eager: 2 x NVIDIA L40S, >= 120 GB/GPU, cap $13 (max 8.23 h at $2.18/h), 3 pair(s), est 5.5 h, timeout 25285 s, custody 9 h
+2026-09-28T16:21:29Z #67 LAUNCHED

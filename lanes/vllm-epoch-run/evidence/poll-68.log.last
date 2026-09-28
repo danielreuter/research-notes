@@ -1,6 +1,6 @@
 #68 olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager: 2 x NVIDIA L40S, >= 120 GB/GPU, cap $13 (max 5.96 h at $2.18/h), 3 pair(s), est 5.4 h, timeout 19967 s, custody 8 h
-  2026-09-28T16:05:03Z 2 x NVIDIA L40S SECURE: no stock
-  2026-09-28T16:06:06Z 2 x NVIDIA L40S SECURE: no stock
-  2026-09-28T16:07:10Z 2 x NVIDIA L40S SECURE: no stock
-  2026-09-28T16:08:31Z 2 x NVIDIA L40S SECURE: no stock
+  2026-09-28T16:22:07Z 2 x NVIDIA L40S SECURE: no stock
+  2026-09-28T16:23:10Z 2 x NVIDIA L40S SECURE: no stock
+  2026-09-28T16:24:15Z 2 x NVIDIA L40S SECURE: no stock
+  2026-09-28T16:25:19Z 2 x NVIDIA L40S SECURE: no stock
 NO SHAPE for #68 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-68.txt); retry while its latest start holds

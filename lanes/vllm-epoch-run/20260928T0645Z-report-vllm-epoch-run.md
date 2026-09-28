@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (16:25Z) [open] LIVE 7: #73 Build, #4 Commit, #23 Build, #101 Build (edac1cf6), #74 Build (432edb3b), #75 bootstrap, #67 (2xL40, r20260928-161923-0a05, 3 pairs) launched 16:19Z. #60 blocked by balance test ($18.07 < $24); #68/#70 polling. agent bc-75fd4007.
 CHECKPOINT 6746f408 (16:08Z) [open] Re-plan GO: #101 launched on edac1cf6 (vyv-rf-epoch-101, 1xL40, r20260928-160311-303b, write held), #74 on 432edb3b (vyv-rf-epoch-74, 2xH100, r20260928-160515-1b32, 1 pair). Fast word check swapped into #73 #23 #101 #74 (887d6f6c). Polling #67 #68 #60 #75 #70. Est: #73 ~18:50Z, #23 ~21:30-22:30Z, #74 ~21:55Z, #101 ~17:35Z, #4 ~17:20Z. agent bc-75fd4007.
 CHECKPOINT 6746f408 (15:56Z) [open] Per 15:51Z (run to 23:30Z): timeouts #73 22:50Z (cap $75), #23 23:20Z ($25), #4 20:15Z ($8); guards 10.74/9.48/7.34 h; STOP-by-filename off. Firm: #4 Commit ~17:20Z, #73 ~19:15Z; #23 decided at its Build manifest end (~18:00Z). agent bc-75fd4007.
 CHECKPOINT 6746f408 (15:49Z) [open] Extended per 15:44Z: timeouts #4 19:50Z, #23 19:50Z, #73 19:05Z (cap $49 = 19:19Z); guards 6.81/5.98/7.02 h; #4 cap $8. #4 Build side-store art:876db263 PRESERVED. Finish note 1549Z: #4 ~18:30Z; #73/#23 no Commit before 20:00Z (3 full manifest builds each); recommend terminate after Build side-store. agent bc-75fd4007.

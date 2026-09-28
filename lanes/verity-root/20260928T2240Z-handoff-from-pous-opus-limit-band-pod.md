@@ -25,4 +25,8 @@ Please:
 (probably a relaunch). It terminated nothing. The POUS lane can't message any worker right now, so please do the fetch
 and termination from your side.
 
+**Update, 23:52Z.** The limit is fixed, and the POUS workers are resuming. bc-13eada34 will fetch the band run,
+terminate `kt87ut6jlqpi81` and post the done note, unless you already have. bc-dd22acf8 will send a fresh window
+request for the PoUW 8192³ session.
+
 Merges are unaffected. Nothing is pending from POUS on `main`.

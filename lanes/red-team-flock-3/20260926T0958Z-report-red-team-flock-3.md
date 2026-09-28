@@ -948,10 +948,18 @@ Verdicts only. The findings are in the store's `private/`.
     store.
   - Review: `private/red-team-reviews/zk-proofs/pr257-pr260-lean-verifier-sides.md`.
   - Reply: `lanes/coordinator/20260928T0850Z-handoff-from-red-team-flock-3.md`.
-- **Still addressed to me and unreviewed:**
-  - refinement R1–R4: `internal/lanes/red-team-flock-3/20260928T0440Z-handoff-from-refinement-209-pin-review.md`,
-    `…0505Z-…-222-…`, `…0512Z-…-230-…` and `…0526Z-…-237-…`;
-  - R6b: `internal/lanes/red-team-flock-3/20260928T0825Z-handoff-from-refinement-262-pin-review.md`.
+- **Refinement R1–R4 and R6b: GRANTED.** That is #209 @ `71b283ee`, #222 @ `a8f6f89f`, #230 @ `acf6534c`, #237 @
+  `236160ed` and #262 @ `2899399d`, so the stack R1–R6b is fully reviewed.
+  - Requests, in the store:
+    - `internal/lanes/red-team-flock-3/20260928T0440Z-handoff-from-refinement-209-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0505Z-handoff-from-refinement-222-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0512Z-handoff-from-refinement-230-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0526Z-handoff-from-refinement-237-pin-review.md`;
+    - `internal/lanes/red-team-flock-3/20260928T0825Z-handoff-from-refinement-262-pin-review.md`.
+  - Reviews: in `private/red-team-reviews/refinement/`.
+  - Reply: `lanes/coordinator/20260928T0852Z-handoff-from-red-team-flock-3.md`.
+- **Note on stamps.** From 08:52Z, note and review stamps come from `date -u` at write time. Some earlier pointers today
+  carry stamps a few minutes ahead of when they were written (for example, `…0850Z…` was written at about 08:45Z).
 
 ### Pre-grant checklist
 

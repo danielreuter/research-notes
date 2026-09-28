@@ -908,7 +908,12 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: `internal/lanes/red-team-flock-3/20260928T0712Z-handoff-from-flock-zk-region-word-check.md`, in the store.
   - Review: `private/red-team-reviews/zk-proofs/pr252-region-word-check.md`.
   - Reply: `lanes/coordinator/20260928T0725Z-handoff-from-red-team-flock-3.md`.
-- **Queued:** the private ZK proof's draft 4 (re-grant or list what remains).
+- **The private-circuit ZK proof, draft 4 (06:50Z): RE-GRANTED.** All six conditions are met in the proof. My rerun of
+  the M1-G toy v2 is identical to the recorded result. What remains is building and checking; one wording point concerns
+  `ε_T`'s worst case.
+  - Request: the user, directly (after #207, #247, #249, coin-tree v2, #245 and #252).
+  - Review: appended to `private/red-team-reviews/zk-proofs/private-circuit.md`.
+  - Reply: `lanes/coordinator/20260928T0745Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

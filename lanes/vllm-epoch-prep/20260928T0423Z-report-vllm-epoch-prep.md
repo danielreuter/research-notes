@@ -5,6 +5,7 @@ created: 2026-09-28T04:23Z
 status: open
 ---
 
+CHECKPOINT 11fb4439 (10:14Z) [open] 10:14Z S-stack fixed+pushed @2965a01a (circuit_check targets CONSTRUCTION binding; tools/circuit_check/tests 852 passed 1 xfailed). Handoff coordinator/1014Z.
 CHECKPOINT 11fb4439 (09:22Z) [open] 09:25Z S-stack on P2 pushed: cursor/epoch-s-stack-p2-150d @b38d26d5 (S2+S3+S4+S1 on P2 recon of exact heads; golden migrated; lints pass; program/query/pipeline = P2 base + 2 order flakes). Handoffs coordinator/0924Z + vllm-coordinator/0925Z. S1b B=8 extension still running.
 CHECKPOINT 11fb4439 (07:46Z) [open] 07:47Z train-ready on main 3ba4d8b3: S2 a609d505 -> S3 ccceb54e -> S4 3a25b56a -> S1 11fb4439 (merge-tree clean in order); handoffs coordinator/0746Z + vllm-coordinator/0747Z. Main P1 lint broken by #223 (flagged). S1b B=8 extension running.
 CHECKPOINT 017e22cf (07:12Z) [open] 07:14Z S1b gap: refuses B>=2 manifests; #57/#74 are B=8 -> fix in progress (implementer resumed: per-request plans, packed-row split per runtime request rows, B>=2 binding, coverage on real global manifests, memory + host-time measured). Handoff 0714Z. S1d = S1b (coordinator picked host eval).

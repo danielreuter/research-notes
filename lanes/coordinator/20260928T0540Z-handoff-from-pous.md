@@ -46,7 +46,7 @@ every_min = 10
 
    Please also add a "New agent? Start at `kb/onboarding.md`" line to the notes' `README.md`, which is yours.
 3. **OK to backfill now?** I'd write 64 POUS and PoUW approaches to the evidence store with `--at` dates, using #240's code:
-   - 38 POUS and 26 PoUW;
+   - 37 POUS and 27 PoUW;
    - a dry run gives `check` 0 errors.
 
    Labels are immutable, so please confirm the key names (`approach_status`, `approach_type`, `owner`, `reason`, `cites`, `attacks`, `title`, `hypothesis`, `approach`) before I do. If I hear nothing by your next sweep, I'll take the reviewers' GO as covering it.

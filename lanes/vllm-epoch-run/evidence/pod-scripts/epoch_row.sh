@@ -18,7 +18,7 @@
 #   6 record     the digests and `rebaseline run` (candidate = this sweep), for `rebaseline table / write` on the VM
 # The sweep is outside the run dir: custody uploads every run-dir file, so evidence/ holds only small files.
 set -u
-EV=$RESEARCH_RUN_DIR/evidence; IN=$RESEARCH_RUN_DIR/inputs; mkdir -p "$EV"
+export EV=$RESEARCH_RUN_DIR/evidence; IN=$RESEARCH_RUN_DIR/inputs; mkdir -p "$EV"
 P=$EV/progress.txt
 say() { echo "$(date -u +%FT%TZ) $*" | tee -a "$P"; }
 : "${ROW:?}" "${ROWNUM:?}" "${CLASS:?}" "${EPOCH_SHA:?}"
@@ -85,8 +85,10 @@ say "resolved role=$ROLE repo=$REPO rev=${REV:0:12} world=$WORLD"
 
 # ---- 1 bootstrap ------------------------------------------------------------------------------------------------------------------------
 CASES=B0; [ "$ROLE" = B0 ] || CASES=B0,$ROLE
-bash verity_vllm/ops/pod_bootstrap.sh --cases "$CASES" --out "$EV/bootstrap" --gpu > "$EV/bootstrap.log" 2>&1
-rc=$?; say "bootstrap cases=$CASES rc=$rc"
+bash "$IN/failfast_bootstrap.sh" "$CASES" "$EV/bootstrap"   # the 15-minute fail-fast (coordinator 09:13Z)
+rc=$?
+[ "$rc" = 40 ] && { finish; exit 40; }
+say "bootstrap cases=$CASES rc=$rc"
 [ "$rc" = 0 ] || { tail -n 30 "$EV/bootstrap.log" > "$EV/bootstrap.tail"; say "STOP bootstrap rc=$rc (bootstrap.tail)"; finish; exit 4; }
 export HF_HUB_OFFLINE=1
 row() { $PY -m verity_vllm.pipeline.cli row run "$ROW" "$ROLE" "$REPO" "$REV" --stages "$1"; }

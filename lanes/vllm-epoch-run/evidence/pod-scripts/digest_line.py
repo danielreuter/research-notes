@@ -1,4 +1,4 @@
-"""digest_line.py N EVIDENCE_DIR RUN EPOCH_SHA SPENT GATE [PAIRS]: row N's line in the epoch's digest table (the brief's columns), and its full
+"""digest_line.py N EVIDENCE_DIR RUN EPOCH_SHA SPENT GATE [PAIRS CLOUD DRIVER ATTEMPTS]: row N's line in the epoch's digest table (the brief's columns), and its full
 digests in the JSON beside it.  The table is `$STORE/internal/lanes/vllm-coordinator/<stamp>-epoch-digests.md` (stamp fixed by the first
 row, kept in evidence/digests_path); a row already in the table is replaced, never duplicated."""
 from __future__ import annotations
@@ -33,6 +33,9 @@ def short(x: str | None) -> str:
 def main() -> int:
     n, ev, run, sha, spent, gate = sys.argv[1:7]
     pairs = sys.argv[7] if len(sys.argv) > 7 else "3"
+    cloud, driver = (sys.argv[8], sys.argv[9]) if len(sys.argv) > 9 else ("?", "?")
+    att = Path(sys.argv[10]) if len(sys.argv) > 10 else None
+    refused = sum(1 for ln in att.read_text().splitlines() if "REFUSED" in ln or "fail-fast" in ln) if att and att.exists() else 0
     ev = Path(ev)
     lane = Path(os.environ["RESEARCH_NOTES"]) / "lanes" / "vllm-epoch-run" / "evidence"
     pp = lane / "digests_path"
@@ -58,13 +61,14 @@ def main() -> int:
         fate += " (1 pair, time fallback: n_runs 6 -> 2)"
     line = (f"| #{n} | {sha[:8]} | {'<br>'.join(cells) or '-'} | {short(r.get('manifest_digest'))} | "
             f"{', '.join(short(x) for x in r.get('run_roots') or []) or '-'} | {short(parts[0]) if parts else '-'}"
-            f"{f' (+{len(parts) - 1})' if len(parts) > 1 else ''} | {verdict}, {fate} | {run} | {spent} |")
+            f"{f' (+{len(parts) - 1})' if len(parts) > 1 else ''} | {verdict}, {fate} | {run} ({cloud.lower()}, driver {driver}"
+            f"{f'; {refused} offer(s) refused' if refused else ''}) | {spent} |")
     text = md.read_text() if md.exists() else HEAD.format(created=time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime()), json=js.name)
     rows = [ln for ln in text.splitlines() if not ln.startswith(f"| #{n} |")]
     md.parent.mkdir(parents=True, exist_ok=True)
     md.write_text("\n".join(rows + [line]) + "\n")
     full = json.loads(js.read_text()) if js.exists() else {"schema": "vllm-epoch-run/epoch-digests/v1", "rows": {}}
-    full["rows"][n] = {**r, "main_sha": sha, "run": run, "spent_usd": float(spent), "gate": gate, "pairs": int(pairs)}
+    full["rows"][n] = {**r, "main_sha": sha, "run": run, "spent_usd": float(spent), "gate": gate, "pairs": int(pairs), "cloud": cloud, "driver": driver, "offers_refused": refused}
     js.write_text(json.dumps(full, indent=1) + "\n")
     print(line)
     print(f"table: {md}")

@@ -1,12 +1,16 @@
 #!/bin/bash
-# launch_row.sh N|canary [main|alt]: row N (or the canary, canary_pod.sh)'s pod, its cap guard and its detached run (VM side; section-1 environment of cloud-lane-setup.md).
+# launch_row.sh N|canary [main|alt]: row N (or the canary, canary_pod.sh): its pod, its cap guard and its detached run (VM side; section-1
+# environment of cloud-lane-setup.md).
 #   refuses: no GO in lanes/vllm-epoch-run/; the epoch worktree is not clean at the recorded sha; the row's status is not `ok` (wave2 needs
-#   ALLOW_WAVE2=1 once its fix is on main); even its 1-pair estimate ends after 17:30Z (defer); the lane's committed spend plus its cap
-#   passes $250; GPU_SUB names a shape that is not an allowed substitute or costs more.
+#   ALLOW_WAVE2=1 once its fix is on main); even its 1-pair estimate ends after 17:30Z (defer); its estimate doesn't fit its cap; the lane's
+#   committed spend plus its cap passes $250.
 #   pairs: 3 (the records' n_runs 6) unless rows.json pins them (#101: 1); a 3-pair estimate ending after 17:30Z falls back to PAIRS=1.
-#   then: pod `vyv-rf-epoch-N` (secure cloud, CUDA >= 12.9 host, --register --project verity --guard 90); a guard over exactly that pod
-#   (--pod-max-hours = cap / rate); `research run` of epoch_row.sh with custody (--timeout = the cap's hours less 25 min for the store,
-#   and no later than 17:50Z).  Appends a line to evidence/spend.tsv and prints the WAIT checkpoint.
+#   offers, in order (coordinator 09:13Z): the row's shape on secure; then, for sm_89 rows only, L40 secure, L40S community, L40 community,
+#   each on-demand and at or below the row's secure rate.  Each created pod is checked before any stage: driver runs CUDA >= 12.9 and the
+#   host RAM meets the row's floor, else it is terminated at once and the next offer is tried (evidence/attempts-N.txt).
+#   then: pod `vyv-rf-epoch-N` (--register --project verity --guard 90); a guard over exactly that pod (--pod-max-hours = cap / rate);
+#   `research run` of epoch_row.sh with custody (--timeout = the cap's hours less 25 min, and no later than 17:50Z; POD_START for the
+#   pod-side 15-minute fail-fast).  Appends a line to evidence/spend.tsv (with cloud and driver) and prints the WAIT checkpoint.
 set -u
 N=${1:?row number}; SHAPE=${2:-main}
 H=$(cd "$(dirname "$0")" && pwd)
@@ -30,17 +34,26 @@ if r["status"] == "wave2" and os.environ.get("ALLOW_WAVE2") != "1":
     die(f"wave 2: needs {r.get('needs')} on main (ALLOW_WAVE2=1 once it is)")
 if r["status"] == "ask" and os.environ.get("COORD_OK") != "1":
     die("waits for the coordinator (" + r.get("note", "") + ")")
-sub = os.environ.get("GPU_SUB")
-if sub:
-    if sub not in cfg["substitutes"].get(r["gpu"], []):
-        die(f"{sub} is not an allowed substitute for {r['gpu']} (ask the coordinator)")
+def price(gpu, count, secure):
     sys.path.insert(0, "/workspace/tools/research/src")
     from research.pods import runpod
-    q = '{ gpuTypes(input:{id:"%s"}) { lowestPrice(input:{gpuCount:%d, secureCloud:true}) { uninterruptablePrice } } }' % (sub, r["count"])
-    price = ((runpod._graphql(q)["data"]["gpuTypes"] or [{}])[0].get("lowestPrice") or {}).get("uninterruptablePrice")
-    if price is None or price > r["rate"] + 1e-9:
-        die(f"{sub} x{r['count']} at ${price}/h is not at or below ${r['rate']}/h (ask the coordinator)")
-    r["gpu"] = sub
+    q = '{ gpuTypes(input:{id:"%s"}) { lowestPrice(input:{gpuCount:%d, secureCloud:%s}) { uninterruptablePrice } } }' % (gpu, count, "true" if secure else "false")
+    try:
+        return ((runpod._graphql(q)["data"]["gpuTypes"] or [{}])[0].get("lowestPrice") or {}).get("uninterruptablePrice")
+    except Exception:
+        return None
+shapes = [(r["count"], r["min_ram"])] + [(x["count"], x["min_ram"]) for x in r.get("alt_shapes", [])]
+offers = [(r["gpu"], "SECURE", r["count"], r["min_ram"])]
+for i, (cnt, ram) in enumerate(shapes):
+    if r["gpu"] not in cfg["substitutes"]:
+        break
+    if i > 0:                                       # fewer GPUs of the row's own secure shape: a lower rate by construction
+        offers.append((r["gpu"], "SECURE", cnt, ram))
+    cands = [(g, "SECURE") for g in cfg["substitutes"][r["gpu"]]] + [(r["gpu"], "COMMUNITY")] + [(g, "COMMUNITY") for g in cfg["substitutes"][r["gpu"]]]
+    for gpu, cloud in cands:
+        p = price(gpu, cnt, cloud == "SECURE")
+        if p is not None and p <= r["rate"] + 1e-9:
+            offers.append((gpu, cloud, cnt, ram))
 now = time.time()
 end = calendar.timegm(time.strptime(cfg["last_end_utc"], "%Y-%m-%dT%H:%MZ"))
 hard = calendar.timegm(time.strptime("2026-09-28T17:50Z", "%Y-%m-%dT%H:%MZ"))
@@ -69,32 +82,59 @@ if est > max_h - 0.4:
     die(f"estimate {est} h at {pairs} pair(s) does not fit the ${r['cap']} cap ({max_h:.2f} h): ask the coordinator")
 out = {"KEY": r["key"], "CLASS": r["class"], "GPU": r["gpu"], "COUNT": r["count"], "MINRAM": r["min_ram"], "DISK": r["disk"],
        "RATE": r["rate"], "CAP": r["cap"], "EST": est, "PAIRS": pairs, "NOTE": note, "MAXH": f"{max_h:.2f}", "TIMEOUT": timeout, "TTL": ttl,
-       "ENVARGS": " ".join(f"--env {shlex.quote(k + '=' + v)}" for k, v in sorted(env.items()))}
+       "ENVARGS": " ".join(f"--env {shlex.quote(k + '=' + v)}" for k, v in sorted(env.items())),
+       "OFFERS": " ".join(f"{g.replace(' ', '_')}@{c}@{k}@{m}" for g, c, k, m in offers)}
 print("; ".join(f"{k}={shlex.quote(str(v))}" for k, v in out.items()))
 EOF
 )"
 POD=vyv-rf-epoch-$N
 echo "#$N $KEY: $COUNT x $GPU, >= $MINRAM GB/GPU, cap \$$CAP (max ${MAXH} h at \$$RATE/h), $PAIRS pair(s), est ${EST} h, timeout ${TIMEOUT} s, custody ${TTL} h${NOTE:+; $NOTE}"
 
-out=$(PYTHONPATH=/workspace/tools/research/src RESEARCH_MACHINES_D=$RESEARCH_MACHINES_D python3 "$H/create_cuda.py" 12.9,13.0 \
-  --name "$POD" --gpu "$GPU" --gpu-count "$COUNT" --min-ram "$MINRAM" --disk "$DISK" --cloud SECURE --register --project verity --guard 90 2>&1)
-rc=$?; echo "$out" | tail -n 6
-[ "$rc" = 5 ] && { echo "NO STOCK: $COUNT x $GPU secure; not substituting a pricier shape (ask the coordinator)"; exit 5; }
-[ "$rc" = 0 ] || { echo "pod create rc=$rc"; exit "$rc"; }
-PODID=$($R pods list 2>/dev/null | grep " $POD-veritor-campaign" | grep -o '^[a-z0-9]*' | head -n 1)
+ATT=$LANE/evidence/attempts-$N.txt
+gone() { for i in $(seq 1 18); do $R pods list 2>/dev/null | grep -q " $POD-veritor-campaign " || return 0; sleep 5; done; return 1; }
+PODID=""; CLOUD=""; DRIVER=""
+for offer in $OFFERS; do
+  IFS=@ read -r G C COUNT MINRAM <<< "$offer"; G=${G//_/ }
+  T0=$(date -u +%FT%TZ); T0S=$(date +%s)
+  out=$(PYTHONPATH=/workspace/tools/research/src RESEARCH_MACHINES_D=$RESEARCH_MACHINES_D timeout 600 python3 "$H/create_cuda.py" 12.9,13.0 \
+    --name "$POD" --gpu "$G" --gpu-count "$COUNT" --min-ram "$MINRAM" --disk "$DISK" --cloud "$C" --register --project verity --guard 90 2>&1)
+  rc=$?
+  if [ "$rc" = 5 ]; then echo "$T0 $COUNT x $G $C: no stock" >> "$ATT"; continue; fi
+  if [ "$rc" != 0 ]; then   # a pod left under the name (sshd never answered within 10 min, registration failed) is terminated
+    left=$($R pods list 2>/dev/null | grep " $POD-veritor-campaign " | grep -o '^[a-z0-9]*' | head -n 1)
+    echo "$T0 $COUNT x $G $C: create rc=$rc $(echo "$out" | tail -n 1 | cut -c1-160)${left:+; pod $left left behind, terminated}" >> "$ATT"
+    [ -n "$left" ] && { $R pods terminate "$left" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1; gone || echo "  $POD still listed after 90 s" >> "$ATT"; }
+    continue
+  fi
+  id=$($R pods list 2>/dev/null | grep " $POD-veritor-campaign " | grep -o '^[a-z0-9]*' | head -n 1)
+  info=$($R pods ssh "$POD" -- 'echo "CUDA=$(nvidia-smi 2>/dev/null | grep -o "CUDA Version: [0-9.]*" | head -n 1 | grep -o "[0-9.]*$")"; \
+    echo "DRV=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader 2>/dev/null | head -n 1)"; \
+    m=$(cat /sys/fs/cgroup/memory.max 2>/dev/null || cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null); \
+    t=$(awk "/MemTotal/{print \$2*1024}" /proc/meminfo); case "$m" in ""|max) m=$t;; esac; [ "$m" -gt "$t" ] && m=$t; echo "RAMGB=$((m / 1000000000))"' 2>/dev/null)
+  cuda=$(echo "$info" | sed -n 's/^CUDA=//p'); drv=$(echo "$info" | sed -n 's/^DRV=//p'); ramgb=$(echo "$info" | sed -n 's/^RAMGB=//p')
+  okc=$(python3 -c "v='${cuda:-0}'.split('.');print(int((int(v[0]),int(v[1]) if len(v)>1 else 0)>=(12,9)))" 2>/dev/null)
+  okr=$(python3 -c "print(int(${ramgb:-0} >= 0.93 * $COUNT * $MINRAM))")
+  if [ "$okc" = 1 ] && [ "$okr" = 1 ]; then
+    PODID=$id; CLOUD=$C; DRIVER=$drv; GPU=$G
+    act=$($R pods list 2>/dev/null | grep "^$id " | grep -o '\$[0-9.]*/h' | tr -d '$/h' | head -n 1); [ -n "$act" ] && RATE=$act   # the pod's own rate
+    echo "$T0 $COUNT x $G $C: accepted pod $id driver $drv (CUDA $cuda) host ${ramgb} GB" >> "$ATT"; break
+  fi
+  echo "$T0 $COUNT x $G $C: REFUSED pod $id driver ${drv:-?} (CUDA ${cuda:-?}) host ${ramgb:-?} GB (floor $((COUNT * MINRAM)) GB); terminated" >> "$ATT"
+  $R pods terminate "$id" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1; gone || echo "  $POD still listed after 90 s" >> "$ATT"
+done
+tail -n 4 "$ATT" 2>/dev/null | sed "s/^/  /"
+[ -n "$PODID" ] || { echo "NO SHAPE for #$N among: $OFFERS (evidence/attempts-$N.txt); retry while its latest start holds"; exit 5; }
 $R pods guard --prefix "$POD-" --pod-max-hours "$MAXH" --detach > "$LANE/evidence/guard-$N.txt" 2>&1
 echo "cap guard: $(tail -n 1 "$LANE/evidence/guard-$N.txt")"
-$R pods ssh "$POD" -- 'nproc; free -g | head -2; nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader; df -h /workspace | tail -1' \
-  2>/dev/null | sed "s/^/  $POD: /"
 
-SEND=(--send "$H/epoch_row.sh" --send "$H/strict_word.py" --send "$H/store_build.sh"); CMD='exec bash "$RESEARCH_RUN_DIR/inputs/epoch_row.sh"'
-[ "$N" = canary ] && { SEND=(--send "$H/canary_pod.sh"); CMD='exec bash "$RESEARCH_RUN_DIR/inputs/canary_pod.sh"'; }
+SEND=(--send "$H/epoch_row.sh" --send "$H/strict_word.py" --send "$H/store_build.sh" --send "$H/failfast_bootstrap.sh"); CMD='exec bash "$RESEARCH_RUN_DIR/inputs/epoch_row.sh"'
+[ "$N" = canary ] && { SEND=(--send "$H/canary_pod.sh" --send "$H/failfast_bootstrap.sh"); CMD='exec bash "$RESEARCH_RUN_DIR/inputs/canary_pod.sh"'; }
 run=$($R run --on "$POD" --project verity --campaign vllm-rebaseline-epoch --custody-r2 --custody-ttl "${TTL}h" --timeout "$TIMEOUT" \
   --source "$WT" --cwd source/integrations/vllm "${SEND[@]}" \
-  --env ROW="$KEY" --env ROWNUM="$N" --env CLASS="$CLASS" --env EPOCH_SHA="$EPOCH_SHA" --env POD="$POD" $ENVARGS \
+  --env ROW="$KEY" --env ROWNUM="$N" --env CLASS="$CLASS" --env EPOCH_SHA="$EPOCH_SHA" --env POD="$POD" --env POD_START="$T0S" --env POD_CLOUD="$CLOUD" $ENVARGS \
   -- bash -c "$CMD" 2>&1 | tee "$LANE/evidence/launch-$N.txt" | grep -o 'r20[0-9]\{6\}-[0-9]\{6\}-[0-9a-f]\{4\}' | head -n 1)
 [ -n "$run" ] || { echo "launch failed (evidence/launch-$N.txt)"; exit 6; }
-[ -f "$LANE/evidence/spend.tsv" ] || printf 'row\tpod\tpod_id\trun\tstart_utc\tend_utc\trate\tspent\tcap\tpairs\n' > "$LANE/evidence/spend.tsv"
-printf '%s\t%s\t%s\t%s\t%s\t\t%s\tlive\t%s\t%s\n' "$N" "$POD" "$PODID" "$run" "$(date -u +%FT%TZ)" "$RATE" "$CAP" "$PAIRS" >> "$LANE/evidence/spend.tsv"
+[ -f "$LANE/evidence/spend.tsv" ] || printf 'row\tpod\tpod_id\trun\tstart_utc\tend_utc\trate\tspent\tcap\tpairs\tcloud\tdriver\n' > "$LANE/evidence/spend.tsv"
+printf '%s\t%s\t%s\t%s\t%s\t\t%s\tlive\t%s\t%s\t%s\t%s\n' "$N" "$POD" "$PODID" "$run" "$T0" "$RATE" "$CAP" "$PAIRS" "$CLOUD" "$DRIVER" >> "$LANE/evidence/spend.tsv"
 back=$(date -u -d "+$(python3 -c "print(int($EST*60))") min" +%H:%MZ)
-echo "WAIT $POD $run check-back $back agent bc-75fd4007: #$N Build/Match/word check/Commit/store (${PAIRS} pair(s), est ${EST} h, cap \$$CAP)${NOTE:+; $NOTE}"
+echo "WAIT $POD ($CLOUD, $COUNT x $GPU, driver $DRIVER) $run check-back $back agent bc-75fd4007: #$N Build/Match/word check/Commit/store (${PAIRS} pair(s), est ${EST} h, cap \$$CAP)${NOTE:+; $NOTE}"

@@ -1,6 +1,6 @@
 {
  "schema": "vllm-epoch-run/rows/v1",
- "note": "One pod per row (brief lane-briefs/vllm-epoch-run.md). min_ram is per GPU (RunPod minRAMPerGPU): host floor / count. rate = secure-cloud $/h for the pod. max_h = cap / rate (the per-row guard's --pod-max-hours). est_h includes bootstrap. status: ok = starts at GO; wave2 = needs `needs` on main as well; ask = waits for the coordinator. env = per-row knobs passed to epoch_row.sh (never an epoch default switched off).",
+ "note": "One pod per row (brief lane-briefs/vllm-epoch-run.md). min_ram is per GPU (RunPod minRAMPerGPU): host floor / count. rate = secure-cloud $/h for the pod. max_h = cap / rate (the per-row guard's --pod-max-hours). est_h includes bootstrap. status: ok = starts at GO; wave2 = needs `needs` on main as well; ask = waits for the coordinator. env = per-row knobs passed to epoch_row.sh (never an epoch default switched off). alt_shapes: the same host-RAM floor on fewer L40S (single-GPU rows), tried after the primary shape's offers.",
  "deadline_utc": "2026-09-28T18:00Z",
  "last_end_utc": "2026-09-28T17:30Z",
  "lane_cap_usd": 250,
@@ -122,7 +122,13 @@
    "status": "ok",
    "env": {},
    "note": "Commit OOM at 251 GB last epoch: host > 251 GB",
-   "est3_h": 3.7
+   "est3_h": 3.7,
+   "alt_shapes": [
+    {
+     "count": 2,
+     "min_ram": 188
+    }
+   ]
   },
   "60": {
    "key": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
@@ -138,7 +144,13 @@
    "env": {
     "VU_EXPORT": "0"
    },
-   "est3_h": 5.0
+   "est3_h": 5.0,
+   "alt_shapes": [
+    {
+     "count": 2,
+     "min_ram": 188
+    }
+   ]
   },
   "11": {
    "key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
@@ -155,7 +167,13 @@
     "VU_EXPORT": "0"
    },
    "note": "deferred first if the start slips past ~12:00Z (root 06:43Z)",
-   "est3_h": 7.0
+   "est3_h": 7.0,
+   "alt_shapes": [
+    {
+     "count": 2,
+     "min_ram": 256
+    }
+   ]
   },
   "39": {
    "key": "qwen25-15b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
@@ -176,7 +194,13 @@
     "VU_EXPORT": "0"
    },
    "note": "check the fold binds GemmBias_v1 at the Match (evidence: gemmbias.txt)",
-   "est3_h": 7.0
+   "est3_h": 7.0,
+   "alt_shapes": [
+    {
+     "count": 2,
+     "min_ram": 256
+    }
+   ]
   },
   "75": {
    "key": "qwen3-30b-a3b__bf16__l40s__tp2__b2__i1024__o128__mixed__greedy__bi-eager",

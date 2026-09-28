@@ -1,17 +1,17 @@
 #!/bin/bash
 # canary_pod.sh: the release canary at the epoch's main sha, for re-pinning ops/known_roots.json (cc 8.9) on the VM (repin_roots.py).
 #   research run --on vyv-rf-epoch-canary --project verity --custody-r2 --timeout <S> --source <epoch worktree> --cwd source/integrations/vllm \
-#     --send canary_pod.sh --env EPOCH_SHA=<sha> -- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/canary_pod.sh"'
+#     --send canary_pod.sh --send failfast_bootstrap.sh --env EPOCH_SHA=<sha> -- bash -c 'exec bash "$RESEARCH_RUN_DIR/inputs/canary_pod.sh"'
 # Pass 1: positives smollm2,llama with the negatives arena,omitted,lateread (the pins are pre-epoch, so a positive is expected to FAIL only
 # with "Build/Match/Commit green but run root ... != known-good"); pass 2, when pass 1 ended within 55 min: the same positives again, so
 # each new root is reproduced before it is pinned.  The tree is never edited.  Out: evidence/canary-{a,b}.json, evidence/roots.json.
 set -u
-EV=$RESEARCH_RUN_DIR/evidence; mkdir -p "$EV"; P=$EV/progress.txt
+export EV=$RESEARCH_RUN_DIR/evidence; mkdir -p "$EV"; P=$EV/progress.txt
 say() { echo "$(date -u +%FT%TZ) $*" | tee -a "$P"; }
 [ "${RESEARCH_SOURCE_SHA:-}" = "${EPOCH_SHA:?}" ] || { say "STOP tree ${RESEARCH_SOURCE_SHA:-?} is not $EPOCH_SHA"; exit 3; }
 T=$(cd ../.. && pwd -P); t0=$(date +%s)
-bash verity_vllm/ops/pod_bootstrap.sh --cases B0,LLAMA32_1B --out "$EV/bootstrap" --gpu > "$EV/bootstrap.log" 2>&1
-rc=$?; say "bootstrap rc=$rc"; [ "$rc" = 0 ] || { tail -n 30 "$EV/bootstrap.log" > "$EV/bootstrap.tail"; exit 4; }
+bash "$RESEARCH_RUN_DIR/inputs/failfast_bootstrap.sh" B0,LLAMA32_1B "$EV/bootstrap"
+rc=$?; say "bootstrap rc=$rc"; [ "$rc" = 0 ] || { [ -f "$EV/bootstrap.tail" ] || tail -n 30 "$EV/bootstrap.log" > "$EV/bootstrap.tail"; exit 4; }
 export PY=/workspace/venv312/bin/python
 pass() {  # pass TAG POSITIVES NEGATIVES
   local tag=$1; export CANARY_DIR=/workspace/epoch/canary

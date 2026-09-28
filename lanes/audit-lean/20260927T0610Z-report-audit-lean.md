@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 81552896 (02:27Z) [open] 1d planned (lanes/audit-lean/20260928T0230Z-plan-1d-composed-placement.md); #154 e0dd3323 and #177 81552896 updated onto main; inbox 1816Z (#171 at 23b2df6e, A2's constant) noted, no further push to #171
 CHECKPOINT c4d4d469 (16:58Z) [open] delta_link discharged: PR #171 @ c4d4d469 on #163 (flock_batched_count_linked / drawn_linked compose flock_batched_linkSoundE into the expected-time batched audit; _placed forms via UnitPlace), 229/229 standard; handed to coordinator (lanes/coordinator/20260927T1700Z). No pods, $0.
 CHECKPOINT eb729725 (15:53Z) [open] Stratified law PR #165 @ eb729725; encoding confirmed with stratified-law (lanes/stratified-law/1557Z); flock-soundness 1535Z acted on (analysisBE with extraction_audit_count accepted; #160 stays a draft alternative, lanes/flock-soundness/1558Z). No pods, $0.
 CHECKPOINT eb729725 (15:52Z) [open] Stratified law (Daniel's default): PR #165 @ eb729725 on #133 (Law.stratified, stratified_escape = prod of hypergeometrics, stratified_escape_floor, audit_whole_stratum / extraction_audit_whole_stratum), 156/156 standard; stratum encoding sent to the sampling lane via lanes/coordinator/20260927T1552Z (no lane folder yet); audits_persist deferred (needs strategy-indexed events). No pods, $0.

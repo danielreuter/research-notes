@@ -61,7 +61,9 @@ def main() -> int:
     fate = "written" if gate.startswith("WRITE") else "deferred: " + gate.removeprefix("HOLD ")[:160]
     if pairs == "1" and n != "101":
         fate += " (1 pair, time fallback: n_runs 6 -> 2)"
-    line = (f"| #{n} | {sha[:8]} | {'<br>'.join(cells) or '-'} | {short(r.get('manifest_digest'))} | "
+    launch = (json.loads((Path(__file__).parent / "rows.json").read_text())["rows"].get(n) or {}).get("launch_sha")
+    shown = f"{sha[:8]} (ran {launch[:8]}, same tree)" if launch and launch != sha else sha[:8]
+    line = (f"| #{n} | {shown} | {'<br>'.join(cells) or '-'} | {short(r.get('manifest_digest'))} | "
             f"{', '.join(short(x) for x in r.get('run_roots') or []) or '-'} | {short(parts[0]) if parts else '-'}"
             f"{f' (+{len(parts) - 1})' if len(parts) > 1 else ''} | {verdict}, {fate} | {run} ({cloud.lower()}, {gpus}x {dev.get('name', '?')}, {dev.get('sms', '?')} SMs, {vcpus} vCPU, driver {driver}"
             f"{f'; {refused} offer(s) refused' if refused else ''}) | {spent} |")
@@ -70,7 +72,7 @@ def main() -> int:
     md.parent.mkdir(parents=True, exist_ok=True)
     md.write_text("\n".join(rows + [line]) + "\n")
     full = json.loads(js.read_text()) if js.exists() else {"schema": "vllm-epoch-run/epoch-digests/v1", "rows": {}}
-    full["rows"][n] = {**r, "main_sha": sha, "run": run, "spent_usd": float(spent), "gate": gate, "pairs": int(pairs), "cloud": cloud, "driver": driver, "offers_refused": refused, "gpus": gpus, "vcpus": vcpus, "device": dev}
+    full["rows"][n] = {**r, "main_sha": sha, "launch_sha": launch or sha, "run": run, "spent_usd": float(spent), "gate": gate, "pairs": int(pairs), "cloud": cloud, "driver": driver, "offers_refused": refused, "gpus": gpus, "vcpus": vcpus, "device": dev}
     js.write_text(json.dumps(full, indent=1) + "\n")
     print(line)
     print(f"table: {md}")

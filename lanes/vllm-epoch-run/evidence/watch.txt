@@ -1,4 +1,4 @@
-watch updated 2026-09-28T14:32:21Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 134 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
-#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 82 min: 2026-09-28T13:22:41Z bootstrap cases=B0 rc=0
-#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 33 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0
+watch updated 2026-09-28T14:58:00Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 159 min: 2026-09-28T12:39:10Z bootstrap cases=B0,QWEN3_4B rc=0
+#4 vyv-rf-epoch-4 r20260928-131016-78c9 live 108 min: 2026-09-28T14:54:55Z required_families: input_token_ids,instance_outputs,sampled_token_ids,weights,fa2_hidden_m1_stream,norm_scales,router_softmax,vocab_range (
+#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 59 min: 2026-09-28T14:19:52Z bootstrap cases=B0,LLAMA32_1B rc=0

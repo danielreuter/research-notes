@@ -16,11 +16,13 @@ push() {  # push the branch; when GitHub refuses, the contract's §5b route: a b
   local b="$STORE/artifacts/vllm-epoch-run-expected-$(git rev-parse --short HEAD).bundle"
   git bundle create "$b" "$(git rev-parse --abbrev-ref HEAD)" > /dev/null 2>&1 && echo "PUSH FAILED: bundle $b (hand it to the coordinator)"
 }
-EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha")
 IFS='|' read -r POD PODID RUN START RATE CAP PAIRS CLOUD DRIVER GPUS VCPUS < <(awk -F'\t' -v n="$N" '$1==n && $8=="live" {print $2"|"$3"|"$4"|"$5"|"$7"|"$9"|"$10"|"$11"|"$12"|"$13"|"$14}' "$LANE/evidence/spend.tsv" | tail -n 1)
 [ -n "${RUN:-}" ] || { echo "#$N: no live row in spend.tsv"; exit 2; }
 KEY=-; [ "$N" = canary ] || KEY=$(python3 -c "import json;print(json.load(open('$H/rows.json'))['rows']['$N']['key'])")
 EVD=/workspace/epoch-evidence/$N; mkdir -p "$EVD"
+# the commit a row is recorded against: rows.json record_sha (#73 and #4 ran dd3dde4d, recorded on main 269829d8, the same tree), else
+# the sha the row's run shipped (its EPOCH_SHA), else the lane's current epoch sha
+EPOCH_SHA=$(python3 -c "import json;print(json.load(open('$H/rows.json'))['rows'].get('$N', {}).get('record_sha', ''))" 2>/dev/null)
 
 st=$($R pods ssh "$POD" -- "python3 -c 'import json;t=json.load(open(\"/workspace/research/runs/$RUN/status.json\"))[\"transitions\"][-1];print(t.get(\"state\"), t.get(\"exit_code\", t.get(\"rc\", \"\")))'" 2>/dev/null | tail -n 1)
 case "$st" in *RUNNING*|*running*|*STARTED*|*started*|"") echo "#$N $RUN not ended (state: ${st:-unreachable})"; exit 1;; esac
@@ -28,6 +30,9 @@ echo "#$N $RUN ended: $st"
 
 $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$RUN evidence" > "$EVD/evidence.tgz" && tar xzf "$EVD/evidence.tgz" -C "$EVD"
 tail -n 20 "$EVD/evidence/progress.txt"
+[ -n "$EPOCH_SHA" ] || EPOCH_SHA=$(sed -n 's/^EPOCH_SHA=//p' "$EVD/evidence/row_env.txt" 2>/dev/null)
+[ -n "$EPOCH_SHA" ] || EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha")
+echo "recorded against $EPOCH_SHA"
 arts=$(grep -o '^STORED [a-z]* art:[0-9a-f]* PRESERVED' "$EVD/evidence/store.log" 2>/dev/null | awk '{print $3}' | tr '\n' ' ')
 ok=1
 for i in $(seq 1 20); do
@@ -55,7 +60,9 @@ open(p, "w").write("".join("\t".join(f) + "\n" for f in rows))
 EOF
 echo "#$N terminated $END, spent \$$SPENT (cap \$$CAP)"
 
-[ -f "$LANE/evidence/STOPPED" ] && { echo "STOPPED (evidence/STOPPED): no expected/ write, evidence only"; exit 8; }
+if [ -f "$LANE/evidence/STOPPED" ] && awk -v n="$N" '/rows ALL/ {f=1} {for (i = 1; i <= NF; i++) if ($i == n) f=1} END {exit !f}' "$LANE/evidence/STOPPED"; then
+  echo "STOPPED for #$N (evidence/STOPPED): no expected/ write, evidence only"; exit 8
+fi
 cd "$BR/integrations/vllm" || exit 4
 export PYTHONPATH=.:../../packages/verity/src:../../tools/research/src
 if [ "$N" = canary ]; then   # the re-pin of ops/known_roots.json (cc 8.9), its own commit
@@ -66,6 +73,11 @@ if [ "$N" = canary ]; then   # the re-pin of ops/known_roots.json (cc 8.9), its 
 fi
 decision=$(python3 "$H/gate_write.py" "$EVD/evidence" "$KEY"); gate=$?
 echo "gate: $decision"
+HOLDW=$(python3 -c "import json;print(json.load(open('$H/rows.json'))['rows'].get('$N', {}).get('hold_write', ''))" 2>/dev/null)
+if [ "$gate" = 0 ] && [ -n "$HOLDW" ]; then
+  python3 -m tests.regression.rebaseline table --record "$EVD/evidence/record" > "$EVD/table.txt" 2>&1
+  echo "gate WRITE, but held: $HOLDW (record dir $EVD/evidence/record kept for the write)"; decision="HOLD write held for the coordinator's verdict (${decision})"; gate=9
+fi
 if [ "$gate" = 0 ]; then
   python3 -m tests.regression.rebaseline table --record "$EVD/evidence/record" > "$EVD/table.txt" 2>&1
   python3 -m tests.regression.rebaseline write --record "$EVD/evidence/record" --commit "$EPOCH_SHA" --branch main \

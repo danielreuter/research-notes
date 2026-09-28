@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (14:59Z) [open] LIVE: #73 (Build, end ~17:20Z), #4 (Build, ~17:00Z), #23 (Build, ~17:00Z), #101 vyv-rf-epoch-101 r20260928-145638-f5d8 on train H be354ab0 (1x RTX 6000 Ada, 1 pair, $5; write held for the post-merge verdict), ~16:30Z. #74 deferred (14:46Z). STOP now row-scoped. agent bc-75fd4007.
 CHECKPOINT 6746f408 (14:32Z) [open] LIVE: #73 vyv-rf-epoch-73 Build (end ~17:20Z), #4 vyv-rf-epoch-4 Build (~17:00Z), #23 vyv-rf-epoch-23 Build (~17:00Z). DEFERRED: #70 (no 2x L40S-class by 14:30Z), #60 #67 #68 #75 (17:30Z rule), #101 (Build FAIL, codec fix PR ~15:00Z; retry if GO by ~15:30Z). No pollers left. agent bc-75fd4007.
 CHECKPOINT 6746f408 (14:10Z) [open] #101 Build FAIL on 269829d8 (TopPKeepWord_v1 descriptor decode: codec alias rule; #231 defect) -> deferred, pod terminated 14:09Z ($0.49), Build art:dc2385d4 records art:ab0db6da PRESERVED; handoff 1411Z. LIVE: #73 (end ~17:20Z), #4 (~17:00Z), #23 vyv-rf-epoch-23 2xRTX6000Ada 1 pair (~17:00Z). POLLING #70 to 14:30Z. agent bc-75fd4007.
 CHECKPOINT 6746f408 (13:45Z) [open] LIVE: #73 vyv-rf-epoch-73 (Build, end ~17:20Z); #4 vyv-rf-epoch-4 (Build, end ~17:00Z); #101 vyv-rf-epoch-101 r20260928-134402-b58d (1xL40S secure 124 GB, 1 pair, $5) launched 13:44Z, end ~15:15Z. POLLING #23 #70 (3 pairs) to 14:30Z. Deferred: #60 #67 #68 #75 (17:30Z rule). agent bc-75fd4007.

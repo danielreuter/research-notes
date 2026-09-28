@@ -10,3 +10,12 @@
 2026-09-28T13:41:59Z no shape: NO SHAPE for #101 among: NVIDIA_L40S@SECURE@1@94 (evidence/attempts-101.txt); retry while its latest start holds
 #101 llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager: 1 x NVIDIA L40S, >= 94 GB/GPU, cap $5 (max 4.59 h at $1.09/h), 1 pair(s), est 1.5 h, timeout 14817 s, custody 6 h
 2026-09-28T13:44:41Z #101 LAUNCHED
+2026-09-28T14:49:37Z polling #101 until 2026-09-28T16:00Z
+2026-09-28T14:49:42Z no shape: NO SHAPE for #101 among: NVIDIA_L40S@SECURE@1@94 NVIDIA_L40S@COMMUNITY@1@94 (evidence/attempts-101.txt); retry while its
+2026-09-28T14:50:47Z no shape: NO SHAPE for #101 among: NVIDIA_L40S@SECURE@1@94 NVIDIA_L40S@COMMUNITY@1@94 (evidence/attempts-101.txt); retry while its
+2026-09-28T14:51:55Z no shape: NO SHAPE for #101 among: NVIDIA_L40S@SECURE@1@94 NVIDIA_L40S@COMMUNITY@1@94 (evidence/attempts-101.txt); retry while its
+2026-09-28T14:53:00Z no shape: NO SHAPE for #101 among: NVIDIA_L40S@SECURE@1@94 NVIDIA_L40S@COMMUNITY@1@94 (evidence/attempts-101.txt); retry while its
+2026-09-28T14:54:05Z no shape: NO SHAPE for #101 among: NVIDIA_L40S@SECURE@1@94 (evidence/attempts-101.txt); retry while its latest start holds
+2026-09-28T14:55:08Z no shape: NO SHAPE for #101 among: NVIDIA_L40S@SECURE@1@94 (evidence/attempts-101.txt); retry while its latest start holds
+#101 llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager: 1 x NVIDIA L40S, >= 94 GB/GPU, cap $5 (max 4.59 h at $1.09/h), 1 pair(s), est 1.5 h, timeout 10429 s, custody 5 h
+2026-09-28T14:58:03Z #101 LAUNCHED

@@ -25,8 +25,10 @@
     "PAIRS": "1",
     "VERITY_QWORD_MAX_GATES": "GumbelTopPTokenSelect_v2=110000000"
    },
-   "note": "GO 13:31Z (main 269829d8, tree ff7d6808); #231's sampler Call (102 M gates) cut with --word-max-gates GumbelTopPTokenSelect_v2=110000000 (coordinator 07:35Z; >= 60 GB RAM)",
-   "est3_h": null
+   "note": "GO 14:44Z (train H be354ab0, tree 31b6cdf8, #288 codec fix); 1 pair (its record); retry after the 13:44Z Build FAIL",
+   "est3_h": null,
+   "launch_sha": "be354ab084850f302659155fbf9b923ee0604e79",
+   "hold_write": "GO 14:44Z: ran train H be354ab0 (tree 31b6cdf8) before its merge; expected/ waits for the coordinator's verdict after H lands (record against the merged main sha, launch be354ab0)"
   },
   "4": {
    "key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",
@@ -41,7 +43,9 @@
    "status": "ok",
    "env": {},
    "note": "GO 12:15Z: 1x L40S secure >= 188 GB (the sweep's released pod), 3 pairs; cap $5 as the brief (the GO's $3.3 is 3.0 h at $1.09/h, short of the 3-pair 3.8 h + store); a Commit PASS on this FAIL-class row is deferred with the evidence",
-   "est3_h": 3.8
+   "est3_h": 3.8,
+   "record_sha": "269829d84da4a0e4385c561776ba8105398f62e2",
+   "launch_sha": "dd3dde4d70e88ebc85b0d6e6baecbcb96545dd00"
   },
   "57": {
    "key": "gemma2-2b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
@@ -238,7 +242,9 @@
     "VU_EXPORT": "0"
    },
    "note": "FA3 v4; Commit OOM at 251 GB last epoch",
-   "est3_h": 6.2
+   "est3_h": 6.2,
+   "record_sha": "269829d84da4a0e4385c561776ba8105398f62e2",
+   "launch_sha": "dd3dde4d70e88ebc85b0d6e6baecbcb96545dd00"
   },
   "74": {
    "key": "qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager",

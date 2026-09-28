@@ -14,17 +14,24 @@ stop_at=$(( $(date +%s) + HOURS * 3600 ))
 while [ "$(date +%s)" -lt "$stop_at" ]; do
   # the GO's STOP rule (coordinator 12:15Z): a STOP note in the lane folder terminates every live pod at once (evidence copied first),
   # stops the pollers and leaves evidence/STOPPED, which makes finish_row.sh refuse any expected/ write
-  if [ ! -f "$LANE/evidence/STOPPED" ] && { compgen -G "$STORE/internal/lanes/vllm-epoch-run/*STOP*" > /dev/null || compgen -G "$LANE/*STOP*" > /dev/null; }; then
-    echo "$(date -u +%FT%TZ) STOP note found: $(ls "$STORE"/internal/lanes/vllm-epoch-run/*STOP* "$LANE"/*STOP* 2>/dev/null | head -n 1)" > "$LANE/evidence/STOPPED"
-    for sess in $(tmux -f /exec-daemon/tmux.portal.conf ls -F '#{session_name}' 2>/dev/null | grep '^epoch-poll-'); do tmux -f /exec-daemon/tmux.portal.conf kill-session -t "$sess"; done
+  # a STOP note that names rows (#101, ...) stops only those rows; one that names none stops every live row.  Each note is handled once.
+  for sf in $(ls "$STORE"/internal/lanes/vllm-epoch-run/*STOP* "$LANE"/*STOP* 2>/dev/null); do
+    grep -qxF "$(basename "$sf")" "$LANE/evidence/stops-handled.txt" 2>/dev/null && continue
+    basename "$sf" >> "$LANE/evidence/stops-handled.txt"
+    ROWS=$(grep -o '#[0-9]\{1,3\}' "$sf" | tr -d '#' | sort -u | tr '\n' ' ')
+    echo "$(date -u +%FT%TZ) STOP note $(basename "$sf"): rows ${ROWS:-ALL}" >> "$LANE/evidence/STOPPED"
+    for sess in $(tmux -f /exec-daemon/tmux.portal.conf ls -F '#{session_name}' 2>/dev/null | grep '^epoch-poll-'); do
+      n=${sess#epoch-poll-}; { [ -z "$ROWS" ] || [[ " $ROWS " == *" $n "* ]]; } && tmux -f /exec-daemon/tmux.portal.conf kill-session -t "$sess"
+    done
     while IFS='|' read -r N POD PODID RUN START RATE; do
       [ -n "$N" ] || continue
+      [ -z "$ROWS" ] || [[ " $ROWS " == *" $N "* ]] || continue
       mkdir -p "/workspace/epoch-evidence/$N"
       timeout 120 $R pods ssh "$POD" -- "tar czf - -C /workspace/research/runs/$RUN evidence" > "/workspace/epoch-evidence/$N/stop-$(date -u +%H%MZ).tgz" 2>/dev/null < /dev/null
       $R pods terminate "$PODID" > /dev/null 2>&1 < /dev/null; $R pods guard stop --prefix "$POD-" > /dev/null 2>&1; $R pods unregister "$POD" > /dev/null 2>&1
       echo "$(date -u +%FT%TZ) #$N $POD $RUN: TERMINATED on STOP (records discarded, evidence kept)" | tee -a "$LANE/evidence/STOPPED" >> "$LANE/evidence/watch.log"
     done < <(awk -F'\t' '$8=="live" {print $1"|"$2"|"$3"|"$4"|"$5"|"$7}' "$L" 2>/dev/null)
-  fi
+  done
   out=""
   while IFS='|' read -r N POD PODID RUN START RATE; do
     [ -n "$N" ] || continue

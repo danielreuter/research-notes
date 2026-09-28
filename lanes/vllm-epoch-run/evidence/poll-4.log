@@ -19,3 +19,29 @@ REFUSED: #4 estimate 3.8 h at 3 pair(s) does not fit the $3.3 cap (3.03 h): ask 
 2026-09-28T12:36:02Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
 2026-09-28T12:41:36Z no shape: 
 2026-09-28T12:42:39Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:43:44Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 NVIDIA_L40S@COMMUNITY@1@188 (evidence/attempts-4.txt); retry while its l
+2026-09-28T12:44:48Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:45:51Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:46:57Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 NVIDIA_L40S@COMMUNITY@1@188 (evidence/attempts-4.txt); retry while its l
+2026-09-28T12:48:03Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 NVIDIA_RTX_6000_Ada_Generation@SECURE@1@188 (evidence/attempts-4.txt); r
+2026-09-28T12:49:07Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:50:10Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:51:16Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 NVIDIA_L40S@COMMUNITY@1@188 (evidence/attempts-4.txt); retry while its l
+2026-09-28T12:52:23Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 NVIDIA_L40S@COMMUNITY@1@188 (evidence/attempts-4.txt); retry while its l
+2026-09-28T12:53:29Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:54:33Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:55:37Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:56:41Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:57:45Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:58:50Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T12:59:54Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T13:01:00Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T13:02:05Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T13:03:09Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T13:04:14Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T13:05:17Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T13:06:21Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T13:07:26Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+2026-09-28T13:08:29Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds
+#4 smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager: 1 x NVIDIA L40S, >= 188 GB/GPU, cap $5 (max 4.59 h at $1.09/h), 3 pair(s), est 3.8 h, timeout 15013 s, custody 6 h
+2026-09-28T13:10:52Z #4 LAUNCHED

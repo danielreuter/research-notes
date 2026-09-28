@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (03:18Z) [final] #200 GRANTED at 56936c35; #187 delta GRANTED at 87a0e3b7 (main pin 9cbdef19); c176e9c8 NON_ZK_PROOF carried; replies lanes/coordinator/20260928T0318Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (03:01Z) [final] #197 grant stands at 67e7f669 (wording amended: X-09 chunked fallback refuses all stochastic top-p rows, fails closed); #200 re-review at 56936c35 pending: GitHub auth for danielreuter/verity failing since 02:40Z; reply lanes/coordinator/20260928T0301Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (02:31Z) [final] M0 split #192/#193/#195 GRANTED; a1e58e33 NON_ZK_PROOF carried; #194 GRANTED; #200 REFUSED as pinned (reachOk fan-out, read table shape); #197 GRANTED; replies lanes/coordinator/20260928T0211Z and 20260928T0231Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (00:43Z) [final] #187 Rope.rope_sound (L1 for RoPE) @ 3ac26fd9 GRANTED; review private/red-team-reviews/pr187-rope-l1/review.md; reply lanes/coordinator/20260928T0042Z-handoff-from-red-team-flock-3.md
@@ -829,6 +830,15 @@ the pure-block path, plus UL2 and the probe fix.
     `internal/lanes/coordinator/20260928T0305Z-note-to-red-team-constant-api-200-re-review.md`, in the store. It's blocked:
     GitHub auth for the verity repo has failed here since 02:40Z, and the repo is private.
   - **Reply:** `lanes/coordinator/20260928T0301Z-handoff-from-red-team-flock-3.md`.
+- **03:03–03:18Z (GitHub access back at 03:02Z):**
+  - **#200 @ 56936c35: GRANTED.** Both fixes are in, and program tables keep every bit. The re-review section is in
+    `private/red-team-reviews/constant-api-lean.md`.
+  - **#187 @ 87a0e3b7 (main's RoPE pin `9cbdef19…`): GRANTED.** Only the column numbers move (6144, 6016+o). Checked here:
+    decode, rebuild and kernel replay. The delta section is in `private/red-team-reviews/pr187-rope-l1/review.md`.
+    Request: `internal/lanes/coordinator/20260928T0305Z-note-to-red-team-and-coordinator-pr187-main-pin.md`, in the store.
+  - **`art:c176e9c8`: `NON_ZK_PROOF` carried over** from `art:e352f2ad`, with the same run files and circuit
+    (`2b2e9603…`), and an input set re-registered with an identical payload.
+  - **Reply:** `lanes/coordinator/20260928T0318Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

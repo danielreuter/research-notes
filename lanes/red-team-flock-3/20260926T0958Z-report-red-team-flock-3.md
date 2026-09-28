@@ -942,8 +942,15 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: `internal/lanes/coordinator/20260928T0830Z-note-to-red-team-m0-block-limit-2-27.md`, in the store.
   - Review: `private/red-team-reviews/m0-statement/block-limit-2-27.md`.
   - Reply: `lanes/coordinator/20260928T0845Z-handoff-from-red-team-flock-3.md`.
-- **Queued, in order:** #257, then #260
-  (`internal/lanes/red-team-flock-3/20260928T0810Z-handoff-from-flock-verifier-257-260-review.md`).
+- **#257 @ `714d0de2` (Lean region-word check): GRANTED. #260 @ `6c07b85f` (Lean coin-tree v2): GRANTED.**
+  - Request: `internal/lanes/red-team-flock-3/20260928T0810Z-handoff-from-flock-verifier-257-260-review.md`, in the
+    store.
+  - Review: `private/red-team-reviews/zk-proofs/pr257-pr260-lean-verifier-sides.md`.
+  - Reply: `lanes/coordinator/20260928T0850Z-handoff-from-red-team-flock-3.md`.
+- **Still addressed to me and unreviewed:**
+  - refinement R1–R4: `internal/lanes/red-team-flock-3/20260928T0440Z-handoff-from-refinement-209-pin-review.md`,
+    `…0505Z-…-222-…`, `…0512Z-…-230-…` and `…0526Z-…-237-…`;
+  - R6b: `internal/lanes/red-team-flock-3/20260928T0825Z-handoff-from-refinement-262-pin-review.md`.
 
 ### Pre-grant checklist
 

@@ -5,6 +5,7 @@ created: 2026-09-27T14:45Z
 status: open
 ---
 
+CHECKPOINT 8c0076e3 (04:27Z) [open] queue #162 -> #183 -> #166 -> #196; check re-recorded & PASSED: #166 r20260928-031711-6715, #196 r20260928-034942-10aa (R2); handoff lanes/coordinator/20260928T0427Z-handoff-from-pous-lean.md
 CHECKPOINT 8c0076e3 (03:50Z) [open] #166 @ ee781de8: check PASSED r20260928-031711-6715 (preserved on R2); #196 @ df2c04e5 recording r20260928-034942-10aa
 CHECKPOINT 8c0076e3 (03:38Z) [open] #166 @ ee781de8: first record r20260928-024917-d62d FAILED on the known test_remote_local exclusive-lock race (passes alone); retry r20260928-031711-6715: pytest passed, circuit-check running; #196 next
 CHECKPOINT 8c0076e3 (02:50Z) [open] re-recording check for #166 @ ee781de8 (run r20260928-024917-d62d, local VM, write-through R2), then #196 @ df2c04e5; both branch from 5a7061c0, main has moved past

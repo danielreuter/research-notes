@@ -1,0 +1,2 @@
+watch updated 2026-09-28T12:21:37Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 3 min: 2026-09-28T12:20:29Z device {"name": "NVIDIA H100 80GB HBM3", "sms": 132, "cc": "9.0", "count": 2}

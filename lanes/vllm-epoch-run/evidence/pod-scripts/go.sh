@@ -10,8 +10,9 @@ set -eu
 SHA=${1:?GO sha}; BUNDLE=${2:-}
 H=$(cd "$(dirname "$0")" && pwd); LANE=$RESEARCH_NOTES/lanes/vllm-epoch-run
 cd /workspace
-if [ -n "$BUNDLE" ]; then git fetch -q "$BUNDLE" "$SHA"; else git fetch -q origin main; fi
+if [ -n "$BUNDLE" ]; then git fetch -q "$BUNDLE" "+refs/*:refs/epoch-bundle/*"; else git fetch -q origin main; fi
 SHA=$(git rev-parse --verify "$SHA^{commit}")
+[ -z "${TREE:-}" ] || [ "$(git rev-parse "$SHA^{tree}")" = "$TREE" ] || { echo "tree of $SHA is not $TREE: GO refused"; exit 2; }
 [ -n "$BUNDLE" ] || git merge-base --is-ancestor "$SHA" origin/main || { echo "GO sha $SHA is not on origin/main"; exit 2; }
 echo "$SHA" > "$LANE/evidence/epoch_sha"
 WT=/workspace-wt/epoch-${SHA:0:8}

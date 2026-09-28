@@ -1,0 +1,6 @@
+2026-09-28T12:20:31Z polling #4 until 2026-09-28T14:30Z
+REFUSED: #4 estimate 3.8 h at 3 pair(s) does not fit the $3.3 cap (3.03 h): ask the coordinator
+2026-09-28T12:20:32Z #4 refused rc=3: poller stops
+2026-09-28T12:20:47Z polling #4 until 2026-09-28T14:30Z
+2026-09-28T12:20:53Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@94 NVIDIA_L40@COMMUNITY@1@94 (evidence/attempts-4.txt); retry while its late
+2026-09-28T12:22:06Z no shape: NO SHAPE for #4 among: NVIDIA_L40S@SECURE@1@188 (evidence/attempts-4.txt); retry while its latest start holds

@@ -55,6 +55,7 @@ open(p, "w").write("".join("\t".join(f) + "\n" for f in rows))
 EOF
 echo "#$N terminated $END, spent \$$SPENT (cap \$$CAP)"
 
+[ -f "$LANE/evidence/STOPPED" ] && { echo "STOPPED (evidence/STOPPED): no expected/ write, evidence only"; exit 8; }
 cd "$BR/integrations/vllm" || exit 4
 export PYTHONPATH=.:../../packages/verity/src:../../tools/research/src
 if [ "$N" = canary ]; then   # the re-pin of ops/known_roots.json (cc 8.9), its own commit

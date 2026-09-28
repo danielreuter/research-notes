@@ -16,7 +16,7 @@ N=${1:?row number}; SHAPE=${2:-main}
 H=$(cd "$(dirname "$0")" && pwd)
 LANE=$RESEARCH_NOTES/lanes/vllm-epoch-run
 R="env PYTHONPATH=/workspace/tools/research/src python3 -m research"
-ls "$STORE"/internal/lanes/vllm-epoch-run/*GO* "$LANE"/*GO* >/dev/null 2>&1 || { echo "REFUSED: no GO in lanes/vllm-epoch-run/"; exit 2; }
+compgen -G "$STORE/internal/lanes/vllm-epoch-run/*GO*" > /dev/null || compgen -G "$LANE/*GO*" > /dev/null || { echo "REFUSED: no GO in lanes/vllm-epoch-run/"; exit 2; }
 EPOCH_SHA=$(cat "$LANE/evidence/epoch_sha" 2>/dev/null) || { echo "REFUSED: evidence/epoch_sha not recorded"; exit 2; }
 WT=/workspace-wt/epoch-${EPOCH_SHA:0:8}
 [ "$(git -C "$WT" rev-parse HEAD 2>/dev/null)" = "$EPOCH_SHA" ] && [ -z "$(git -C "$WT" status --porcelain)" ] \
@@ -34,6 +34,8 @@ if r["status"] == "wave2" and os.environ.get("ALLOW_WAVE2") != "1":
     die(f"wave 2: needs {r.get('needs')} on main (ALLOW_WAVE2=1 once it is)")
 if r["status"] == "deferred":
     die("deferred: " + r.get("note", ""))
+if r["status"] == "hold":
+    die("held: " + r.get("note", ""))
 if r["status"] == "ask" and os.environ.get("COORD_OK") != "1":
     die("waits for the coordinator (" + r.get("note", "") + ")")
 def price(gpu, count, secure):

@@ -15,7 +15,7 @@
    "rate": 1.09,
    "cap": 5,
    "est_h": 1.5,
-   "status": "ok",
+   "status": "hold",
    "alt": {
     "count": 2,
     "min_ram": 47,
@@ -25,7 +25,7 @@
     "PAIRS": "1",
     "VERITY_QWORD_MAX_GATES": "GumbelTopPTokenSelect_v2=110000000"
    },
-   "note": "#231's sampler Call (102 M gates) cut with --word-max-gates GumbelTopPTokenSelect_v2=110000000 (coordinator 07:35Z; >= 60 GB RAM)",
+   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); #231's sampler Call (102 M gates) cut with --word-max-gates GumbelTopPTokenSelect_v2=110000000 (coordinator 07:35Z; >= 60 GB RAM)",
    "est3_h": null
   },
   "4": {
@@ -33,14 +33,14 @@
    "class": "FAIL",
    "gpu": "NVIDIA L40S",
    "count": 1,
-   "min_ram": 94,
+   "min_ram": 188,
    "disk": 200,
    "rate": 1.09,
    "cap": 5,
    "est_h": 3.0,
    "status": "ok",
    "env": {},
-   "note": "a Commit PASS on this FAIL-class row is deferred with the evidence; old record stays (coordinator 07:20Z)",
+   "note": "GO 12:15Z: 1x L40S secure >= 188 GB (the sweep's released pod), 3 pairs; cap $5 as the brief (the GO's $3.3 is 3.0 h at $1.09/h, short of the 3-pair 3.8 h + store); a Commit PASS on this FAIL-class row is deferred with the evidence",
    "est3_h": 3.8
   },
   "57": {
@@ -71,11 +71,11 @@
    "rate": 2.18,
    "cap": 13,
    "est_h": 4.0,
-   "status": "ok",
+   "status": "hold",
    "env": {
     "VU_EXPORT": "0"
    },
-   "note": "Commit ~193 GiB planned; 233 GB cgroup worked last epoch",
+   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); Commit ~193 GiB planned; 233 GB cgroup worked last epoch",
    "est3_h": 5.5
   },
   "68": {
@@ -88,11 +88,12 @@
    "rate": 2.18,
    "cap": 13,
    "est_h": 4.0,
-   "status": "ok",
+   "status": "hold",
    "env": {
     "VU_EXPORT": "0"
    },
-   "est3_h": 5.4
+   "est3_h": 5.4,
+   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); "
   },
   "70": {
    "key": "olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager",
@@ -104,9 +105,9 @@
    "rate": 2.18,
    "cap": 9,
    "est_h": 3.0,
-   "status": "ok",
+   "status": "hold",
    "env": {},
-   "note": "TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)",
+   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); TP2: verity-vllm row routes __tp2__ ids to the TP stages (row_tp)",
    "est3_h": 3.5
   },
   "23": {
@@ -119,9 +120,9 @@
    "rate": 4.36,
    "cap": 18,
    "est_h": 3.0,
-   "status": "ok",
+   "status": "hold",
    "env": {},
-   "note": "Commit OOM at 251 GB last epoch: host > 251 GB",
+   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); Commit OOM at 251 GB last epoch: host > 251 GB",
    "est3_h": 3.7,
    "alt_shapes": [
     {
@@ -140,7 +141,7 @@
    "rate": 4.36,
    "cap": 24,
    "est_h": 4.0,
-   "status": "ok",
+   "status": "hold",
    "env": {
     "VU_EXPORT": "0"
    },
@@ -150,7 +151,8 @@
      "count": 2,
      "min_ram": 188
     }
-   ]
+   ],
+   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); "
   },
   "11": {
    "key": "llama32-1b__bf16__l40s__tp1__b1__i4096__o512__mixed__greedy__bi-eager",
@@ -212,13 +214,13 @@
    "rate": 2.18,
    "cap": 12,
    "est_h": 4.0,
-   "status": "ok",
+   "status": "hold",
    "env": {
     "BUILD_TIMEOUT": "14400",
     "COMMIT_GPU_UTIL": "0.70",
     "GPU_UTIL": "0.92"
    },
-   "note": "coordinator 07:20Z option (a): 2x L40S >= 377 GB host, COMMIT_GPU_UTIL=0.70, cap $12; no such shape by 13:30Z -> defer, old record stays",
+   "note": "waits for the merged GO on main (GO 12:15Z covers #73 and #4 only); coordinator 07:20Z option (a): 2x L40S >= 377 GB host, COMMIT_GPU_UTIL=0.70, cap $12; no such shape by 13:30Z -> defer, old record stays",
    "est3_h": 4.5
   },
   "73": {
@@ -282,5 +284,14 @@
  "budget_rule": "a row starts only if committed spend + its cap <= $250; if wave-2 headroom runs short, defer #39 first, then #74 (old records stay); pairs are never reduced to fit money (coordinator 07:57Z)",
  "vcpu_rule": "a fewer-GPU offer (alt_shapes) is sized by its vCPUs: est x (0.5 + 0.5 x max(1, vcpu_ref / vcpus)), vcpu_ref = 16 per GPU of the primary shape; the latest-start and cap rules apply to that estimate (coordinator 10:02Z)",
  "balance_rule": "a launch is refused when RunPod balance - live rows' caps - this row's cap - $7.55/h (sweep lane) to 18:00Z < $25 (the guard floor; coordinator 11:37Z)",
- "device_rule": "sm_89 rows: the GPU's name is one of the three at create, and at bootstrap multi_processor_count == 142 and compute capability 8.9, else the pod is terminated before any stage (coordinator 11:11Z); each row records GPU name, SMs, cloud, driver"
+ "device_rule": "sm_89 rows: the GPU's name is one of the three at create, and at bootstrap multi_processor_count == 142 and compute capability 8.9, else the pod is terminated before any stage (coordinator 11:11Z); each row records GPU name, SMs, cloud, driver",
+ "go": {
+  "note": "lanes/vllm-epoch-run/20260928T1215Z-GO-from-vllm-coordinator-73-and-4.md",
+  "commit": "dd3dde4d70e88ebc85b0d6e6baecbcb96545dd00",
+  "tree": "ff7d6808e8cb14d3c439e0b262af6f2cd9140705",
+  "rows": [
+   "73",
+   "4"
+  ]
+ }
 }

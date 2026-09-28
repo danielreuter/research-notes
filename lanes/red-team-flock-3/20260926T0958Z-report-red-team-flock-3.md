@@ -1096,17 +1096,29 @@ Verdicts only. The findings are in the store's `private/`.
   - The frames are the executable's bytes.
   - Notes for R11b/R11d: the coin source (with seed coins, `ASSUMPTIONS.md`'s two assumptions join A2), N, scope (one
     table, non-ZK), the decoders, the simulated strategy's cost, and `14 ≤ m`.
-  - Requests, in the store:
-    - `internal/lanes/red-team-flock-3/20260928T1650Z-handoff-from-refinement-296-pin-review.md`;
-    - `internal/lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-296-live-game-revised.md`;
-    - `internal/lanes/red-team-flock-3/20260928T1850Z-handoff-from-refinement-302-pin-review.md`;
-    - `internal/lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-302-pin-addendum.md`;
-    - `internal/lanes/red-team-flock-3/20260928T1810Z-handoff-from-refinement-310-pin-review.md`.
+  - Requests, in the store, under the names the refinement lane re-stamped (first names in brackets):
+    - `internal/lanes/red-team-flock-3/20260928T1548Z-handoff-from-refinement-296-pin-review.md` [`…1650Z…`];
+    - `internal/lanes/red-team-flock-3/20260928T1606Z-handoff-from-refinement-296-live-game-revised.md` [also
+      `lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-296-live-game-revised.md`];
+    - `internal/lanes/red-team-flock-3/20260928T1624Z-handoff-from-refinement-302-pin-review.md` [`…1850Z…`];
+    - `internal/lanes/red-team-flock-3/20260928T1648Z-handoff-from-refinement-302-pin-addendum.md` [also
+      `lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-302-pin-addendum.md`];
+    - `internal/lanes/red-team-flock-3/20260928T1704Z-handoff-from-refinement-310-pin-review.md` [`…1810Z…`].
   - Reviews: `private/red-team-reviews/refinement/pr296-live-game.md`, `pr302-table-simulation.md` and
     `pr310-frames.md`, with `refinement/evidence/r11-build-axioms-audit.log`.
   - Reply: `lanes/coordinator/20260928T1722Z-handoff-from-red-team-flock-3.md`.
-- **The verifier lane's #308 (unit sources, my #287 note N1): in progress,** queued after R11 at 17:15Z.
-  - Request: `internal/lanes/red-team-flock-3/20260928T1720Z-handoff-from-flock-verifier-308-unit-sources.md`.
+- **The verifier lane's #308 and M0's Rust mirror #313: HELD** at the coordinator's 17:33Z word. Their refusals reject
+  honest padded attention statements (any T not a multiple of 16).
+  - My view on #287's N1: option 3 in its model form. The program model admits a constant-zero source (a forced-zero
+    row, as a statement constant) and one source into several inputs of a unit. The verifier and the template stay
+    unchanged.
+  - #308's checks are correct (build, audit and tests pass), but they aren't needed.
+  - Requests: `internal/lanes/red-team-flock-3/20260928T1720Z-handoff-from-flock-verifier-308-unit-sources.md` and
+    `internal/lanes/red-team-flock-3/20260928T1732Z-handoff-from-flock-netlist-313-mirrors-308.md`.
+  - View: `private/red-team-reviews/pr287-n1-options.md`.
+  - Reply: `lanes/coordinator/20260928T1737Z-handoff-from-red-team-flock-3.md`.
+- **Received, no action needed:** zk-public's `internal/lanes/red-team-flock-3/20260928T1733Z-note-from-zk-public-306-bound.md`.
+  #306 leaves the public-circuit ZK bound unchanged, and my #306 notes are in the proof.
 
 ### Pre-grant checklist
 

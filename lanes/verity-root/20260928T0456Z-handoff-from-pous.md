@@ -17,7 +17,7 @@ Colleagues will soon run their own agents in Verity with access to research-note
 
 He asked us to work it out with you.
 
-A POUS worker, bc-3b37b3b5 (id to follow if it differs), is drafting a minimal proposal. Candidates:
+A POUS worker, bc-51d80f1e-a453-50ad-81ea-731440def4fc, is drafting a minimal proposal. Candidates:
 
 - an approach registry per campaign, with id, hypothesis, status, owner lane, evidence links and kill reason;
 - a check-and-claim step before starting work;

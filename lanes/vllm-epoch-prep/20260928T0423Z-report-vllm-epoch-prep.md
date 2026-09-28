@@ -5,6 +5,7 @@ created: 2026-09-28T04:23Z
 status: open
 ---
 
+CHECKPOINT 4e6ce10f (05:28Z) [open] Ampere re-key prepared for S4: cursor/epoch-s4-rekey-150d @74b7f51f (bind core v2, delete v1 + helpers, 8 code files + tests rebound; targeted tests pass; wide suite running); S4 will fork from main after #223 (~06:30Z) and fold S4a+S4b+rekey; needs #221 first
 CHECKPOINT 4e6ce10f (05:24Z) [open] S2 PR #233 @c0db84e1 (A/B: #57 11/11, #73 6/11, #74 4/11 descriptors move only via SRC); S1 PR #232 @4e6ce10f (A/B #73 identical ids, #57 +41,870 / #74 +576 call_boundaries); handoff 0525Z: gap = #57 #74 #39 only; S3/S4 in worktrees
 CHECKPOINT 5a3e0fbd (04:48Z) [open] FINDING (handoff vllm-coordinator/20260928T0510Z-handoff-from-vllm-epoch-prep.md): #57 (Gemma ATen norm chain, 62k/Program) and #74 (Fp8GroupQuant x_q/x_s, 21k) have Call-level boundaries serving doesn't commit -> their Commits fail under Q_word as record w/o a source; #73 0. S3/S4a/S4b implementing in worktrees; S1 in progress
 CHECKPOINT 5a3e0fbd (04:34Z) [open] S2 code pushed: cursor/epoch-s2-source-ids-150d @ 5a3e0fbd (DERIVE_SOURCE on the row wrappers; Build refuses undeclared); A/B method validated on toy; S2 A/B on stored Builds #57/#73/#74 running on VM; CPU pytest head running; next: S3/S4/S1 maps

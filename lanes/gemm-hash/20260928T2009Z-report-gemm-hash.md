@@ -5,6 +5,7 @@ created: 2026-09-28T20:09Z
 status: final
 ---
 
+CHECKPOINT f639cd66 (22:03Z) [final] plan rebaselined on #327: #101 3.4e7x native L40S (~2.8e7 H100 scaled); SHA 72-84% of GEMM session; native kernel now 1.6x GEMM / 1.24x #101; next: kernel (M0, vs #328), tiles, re-prove non-GEMM on #327; $0
 CHECKPOINT f639cd66 (21:11Z) [final] #328 (draft, stacked on #289) @ f639cd66: native SHA-512 witness CPU reference matches eval64 on every row of sha512x3 and hm96 (pinned + carries-every-16) and on staged RoPE / K=256 GEMM; kernel, GPU hour, host bucket are M0's; $0
 CHECKPOINT f639cd66 (21:10Z) [open] #328 f639cd66: native SHA-512 witness CPU reference matches eval64 on every row, streamed in row order (4-word ring), rows labelled + pinned per M0's 2042Z handoff (answered 2110Z); CUDA/GPU/host bucket are M0's
 CHECKPOINT 0542811c (21:01Z) [open] native SHA-512 witness CPU reference matches eval64 on every row (sha512x3, hm96, carries-every-16; selftest on RoPE + K=256 GEMM): draft #328 stacked on #289; handoff to flock-netlist 2100Z; CUDA/GPU/host bucket are M0's
@@ -85,3 +86,13 @@ artifacts: none new
 
 The CPU reference matches `eval64` on every row. The CUDA kernel, the GPU byte-identity hour and the host bucket are M0's, per their
 20:42Z handoff. Open offer to M0: the plan precomputed into META, or as run-length segments, on #328 if they want it.
+
+## Rebaseline on #327 (22:00Z)
+
+M0's #327 removed the host bucket (L40S m = 34: 3.055 → 1.202 s at K = 2048, 3.956 → 1.401 s at K = 8192; `r20260928-213503-2861`;
+`internal/lanes/flock-netlist/20260928T2155Z-handoff-from-backend-sweep-327-host-buckets.md`). The plan (`docs/gemm-hash-cost-plan.md`)
+is rebaselined, and the time model is `time 327` in `internal/gemm-hash-measurements.py`.
+- **#101:** 3.4 × 10⁷ × native on the L40S; about 2.8 × 10⁷ on the H100 NVL (scaled).
+- **SHA-512 share of a GEMM session:** 72–84% on the L40S, 69–82% on the H100 NVL.
+- **Native kernel:** 1.60× on GEMM and 1.24× on #101 on the L40S (1.49× and 1.15× on the H100 NVL).
+- **Order:** unchanged. The host bucket is done, and re-proving the non-GEMM shapes on #327 (half of #101) takes its place.

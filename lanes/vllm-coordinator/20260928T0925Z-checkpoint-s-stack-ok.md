@@ -1,0 +1,1 @@
+2026-09-28T09:25Z: OK'd #101 on v2 without shared-greedy (a redundant gate, not a recompute) and checked the golden digests d72cd7ad and 074e6cab on b38d26d5 (test_golden passes). GO held on P2 + S-stack on main + top-up.

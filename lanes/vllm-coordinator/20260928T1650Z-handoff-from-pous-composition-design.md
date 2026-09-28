@@ -7,8 +7,9 @@ status: open
 repo: danielreuter/verity
 origin: pous
 ---
+For your review, as asked in `20260928T1635Z-handoff-from-pous-compose-protocols.md`. From the worker "Build composable vLLM protocol options" (bc-23d60f13). Replies go to `lanes/pous/`, or here.
 
-For your review, as asked in `20260928T1635Z-handoff-from-pous-compose-protocols.md`. From the worker "Build composable vLLM protocol options" (bc-23d60f13). Replies go to `lanes/pous/`, or here. I start the scaffold now, on `cursor/vllm-protocol-composition-9924` (a draft PR), and will adjust it to your review. Touching `pipeline/commit.py` and `pipeline/tp/commit.py` is limited to one call each (`at_commit`), which is a no-op when `target.protocols` is unset. Tell me if that conflicts with the epoch work.
+**Status, 17:15Z:** the scaffold is pushed as the draft [PR #311](https://github.com/danielreuter/verity/pull/311) on `cursor/vllm-protocol-composition-9924`, for the POUS and PoUW adapters to stack on. I'll adjust it to your review. `pipeline/commit.py` and `pipeline/tp/commit.py` get one call per site (`commit_guard`, `at_commit`, `into_verdict`). Each is a no-op when `target.protocols` is unset, and the P10 sizes don't grow. Tell me if that conflicts with the epoch work. The #101 A/B needs a pod, and I haven't run it.
 
 
 # Composable protocol options in vLLM: PoUW, POUS and sampled proofs
@@ -28,9 +29,11 @@ supersedes the single `none | pous | pouw` knob of the 05:40Z plans and keeps th
   - `verity_vllm.LLM(..., protocols="pous:…,pouw:…")`, for serving and benchmarks. The default is the empty set.
   - A row declares it as `target.protocols`, in the workload or through `--target`. So the Build, Match, Commit and
     Check all read the same copy. The default (`None`) is sampled proofs alone, which is today's row.
-- **Settings are not identity.** `PROTOCOLS_CONFIG` names one JSON file, `{name: {...}}`. It holds PoUW's beacon,
+- **Settings are not identity.** They are one mapping, `{name: {...}}`: `LLM(protocols_config=…)`, or a row
+  workload's `protocols_config` block, which sits beside the target rather than in it. It holds PoUW's beacon,
   `transcript_dir` and `retain_steps`, and POUS's responder CPU and port and its decode group. Each adapter validates only
-  its own keys, and the file is never hashed. Anything that changes the computation belongs in the scheme id.
+  its own keys; a key for a protocol the run doesn't enable is refused; and the settings are never hashed. Anything that
+  changes the computation belongs in the scheme id.
 
 ## 2. Hooks interface
 
@@ -56,11 +59,18 @@ def refusals(scheme: str, ctx: Context) -> tuple[str, ...]  # before the engine 
 def install(scheme: str, target: Target) -> Installed
 ~~~
 
-- **The selector** (`protocol_options/__init__.py`) provides `parse`, `refusals(selection, ctx)`, and
-  `install(selection, target) -> Composition`. It also provides `at_commit(profile, model, …)`, the Commit's one call.
+- **The selector** (`protocol_options/__init__.py`) provides `refusals(ctx)` and `install(model, ctx) -> Composition`.
   Each adapter is loaded by name when it is selected, never at import.
-- **`Composition`** installs the adapters in order. If any install raises, it uninstalls the ones already installed. Its
-  `close()` uninstalls newest first, and `record()` writes the composition record (§3).
+- **The Commit makes one call at each of three sites:**
+  - `commit_guard(target)`, before the engine is built: exit 3 on any refusal;
+  - `at_commit(target, model, versions)`, after every committer has registered the weights;
+  - `into_verdict(…)`, before `verdict.json`: it closes the composition, binds sampled proofs' roots, and writes
+    `protocols.json` and `verdict.protocols`.
+
+  The TP Commit and the hot worker refuse any declared set.
+- **`Composition`** installs the adapters in order. `Target.hooks(entry)` hands out tagged `Hooks` and keeps them, so if
+  any install raises, every hook made so far comes off, newest first. `close()` uninstalls newest first, and `record()`
+  writes the composition record (§3).
 - **`engine/hooks.py` gains two things:**
   - `Service`: an in-process service (POUS's responder) that is started as a `Hooks` entry, listed in `live()`, and
     stopped newest first;
@@ -157,9 +167,9 @@ The reasons:
 
 ## 6. Files and owners
 
-- **This scaffold (branch `cursor/vllm-protocol-composition-9924`):** `protocol_options/__init__.py`, `interface.py`,
+- **This scaffold (branch `cursor/vllm-protocol-composition-9924`, [PR #311](https://github.com/danielreuter/verity/pull/311)):** `protocol_options/__init__.py`, `interface.py`,
   `sampled_proofs.py`; `engine/hooks.py` (`Service` and tags); `config.py` (the grammar); `TargetProfile.protocols`;
-  `LLM(protocols=…)`; the `at_commit` call at both Commit sites; `tests/protocol_options/`, CPU only.
+  `LLM(protocols=…)`; the three Commit calls, and the TP guard; `tests/protocol_options/`, CPU only.
 - **Stacked on it:** `pous.py` from bc-13eada34 (#208) and `pouw.py` from bc-dd22acf8 (#218).
 
 ## Open questions for Daniel

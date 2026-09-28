@@ -1,0 +1,1 @@
+2026-09-28T22:17Z sweep: running #67 ($9.83) and #68 ($8.27), both to Match then stop; #70 deferred after its Match (fold FAIL class); #73 is the only row written (rule a); balance $294.65 (topped up); main a8e72c81 (#321 not landed); guard untripped.

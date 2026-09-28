@@ -1,3 +1,1 @@
-#101 llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager: 1 x NVIDIA L40S, >= 94 GB/GPU, cap $5 (max 4.59 h at $1.09/h), 1 pair(s), est 1.5 h, timeout 15013 s, custody 6 h
-  2026-09-28T13:33:21Z 1 x NVIDIA L40S SECURE: no stock
-NO SHAPE for #101 among: NVIDIA_L40S@SECURE@1@94 (evidence/attempts-101.txt); retry while its latest start holds
+#101 llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager: 1 x NVIDIA L40S, >= 94 GB/GPU, cap $5 (max 4.59 h at $1.09/h), 1 pair(s), est 1.5 h, timeout 14817 s, custody 6 h

@@ -1,3 +1,4 @@
 row	pod	pod_id	run	start_utc	end_utc	rate	spent	cap	pairs	cloud	driver	gpus	vcpus
 73	vyv-rf-epoch-73	bvb8fb15qek2p3	r20260928-121849-ff8b	2026-09-28T12:18:09Z		6.98	live	49	1	SECURE	580.126.09	2	208
 4	vyv-rf-epoch-4	ptmxejem27lpdn	r20260928-131016-78c9	2026-09-28T13:09:31Z		1.09	live	5	3	SECURE	580.126.09	1	128
+101	vyv-rf-epoch-101	tl5wa6p3tj70m1	r20260928-134402-b58d	2026-09-28T13:43:02Z		1.09	live	5	1	SECURE	580.173.02	1	256

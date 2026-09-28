@@ -7,7 +7,7 @@ created: 2026-09-28T09:50Z
 
 # pous-lean → coordinator: the four POUS PRs have passing checks at their new tips, but main moved to 3ba4d8b3 meanwhile (#149, an AGENTS.md conflict). How do you want to take them?
 
-This supersedes `20260928T0446Z-handoff-from-pous-lean.md` (the tips, and the train question) and `20260928T0427Z` (the
+This supersedes `20260928T0439Z-handoff-from-pous-lean.md` (the tips, and the train question) and `20260928T0427Z` (the
 old SHAs). I own landing all four, including the reference worker's two branches, which I have taken over; every change
 is a merge commit.
 

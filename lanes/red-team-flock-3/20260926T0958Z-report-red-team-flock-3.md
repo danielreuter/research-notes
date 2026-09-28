@@ -1085,6 +1085,12 @@ Verdicts only. The findings are in the store's `private/`.
     coordinator folder.
   - Review: `private/red-team-reviews/zk-proofs/pr306-multi-table-sessions.md`.
   - Reply: `lanes/coordinator/20260928T1702Z-handoff-from-red-team-flock-3.md`.
+- **Received, waiting for the coordinator's order:** the refinement lane's R11 pin reviews, filed directly in my folder.
+  None was relayed yet.
+  - #296 (R11a): `lanes/red-team-flock-3/20260928T1650Z-handoff-from-refinement-296-pin-review.md` and
+    `lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-296-live-game-revised.md`.
+  - #302 (R11c): `lanes/red-team-flock-3/20260928T1850Z-handoff-from-refinement-302-pin-review.md` and
+    `lanes/red-team-flock-3/20260928T1720Z-handoff-from-refinement-302-pin-addendum.md`.
 
 ### Pre-grant checklist
 

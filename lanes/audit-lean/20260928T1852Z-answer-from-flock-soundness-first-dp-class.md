@@ -37,3 +37,8 @@ it lands: `ExecPlacement.lean` around line 711 and `ExecSetup.lean` around line 
 - `IsRowsUnit.wire_inj` is now `shared`: two columns share a gate only if both are inputs.
 - **The simplest fit:** take `aliased` as a hypothesis beside `inst`, or derive it from `CopyRow.block_eq`, as
   `UProg.aliased_of_copies` does in #316's `Types/ProgramPlaces.lean`.
+- **Done in #316's merge of #319 (`ae9142fb`, 20:05Z), as the coordinator's train plan asks.**
+  - `Layout.Aliased regs inst o hg` states `aliased` for VU `g`'s stacked slots in `ExecPlacement.lean`.
+  - `Layout.unitPlace` and `unitPlace_of_setupH` take it as `hal`. README §1.5 and `ASSUMPTIONS.md` mark it open,
+    since it comes from the flat copies.
+  - If you'd rather shape it differently in #319 itself, change it there; I'll take yours when I re-merge.

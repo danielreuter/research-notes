@@ -1026,6 +1026,16 @@ Verdicts only. The findings are in the store's `private/`.
     store's coordinator folder.
   - Review: `private/red-team-reviews/m0-statement/typed-statement-review.md`.
   - Reply: `lanes/coordinator/20260928T1207Z-handoff-from-red-team-flock-3.md`.
+- **#282 @ `db55d87c` (Lean refusals, `Flock.mkRegion_ok`) and #268 @ `0a241289` (Rust): GRANTED. C1 on the typed id:
+  met.** Taken at the coordinator's 12:58Z word.
+  - One note on #268: bound `slot_log` on every Rust range, as the Lean check does.
+  - Lean at #277 reproduces the prover's typed digest and Σ, and gives all 20 recorded sessions their verdicts.
+  - C2 stands until #277 and #268 land with #272 and #273.
+  - Request: `internal/lanes/red-team-flock-3/20260928T1255Z-handoff-from-flock-verifier-282-statement-adjacent.md`, in
+    the store.
+  - Reviews: `private/red-team-reviews/m0-statement/pr282-pr268-refusals.md`, and the update in
+    `typed-statement-review.md`.
+  - Reply: `lanes/coordinator/20260928T1313Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

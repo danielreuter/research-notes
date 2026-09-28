@@ -1044,8 +1044,14 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: the coordinator, directly (`docs/zk-proof-private.md`).
   - Review: appended to `private/red-team-reviews/zk-proofs/private-circuit.md`.
   - Reply: `lanes/coordinator/20260928T1449Z-handoff-from-red-team-flock-3.md`.
-- **Refinement R9c (#291): in review,** taken at 14:50Z. Request, in the store:
-  `internal/lanes/red-team-flock-3/20260928T1446Z-handoff-from-refinement-291-pin-review.md`.
+- **Refinement R9c (#291) @ `363a4264`: GRANTED,** taken at 14:50Z.
+  - With #278, refinement for the verifier's own statements now assumes only `13 ≤ m` and the unsalted scheme.
+  - The soundness package's first `compile_time` module (`Refine/Walk.lean`, the proof-only tactic `walk_step`) is
+    acceptable under the audit's trust model. Two notes go to the audit tool: tie the entry to the file's digest, and
+    keep listed modules out of what pinned statements read.
+  - Request, in the store: `internal/lanes/red-team-flock-3/20260928T1446Z-handoff-from-refinement-291-pin-review.md`.
+  - Review: `private/red-team-reviews/refinement/pr291-setup-wf.md`.
+  - Reply: `lanes/coordinator/20260928T1501Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

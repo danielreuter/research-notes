@@ -2,9 +2,10 @@
 lane: audit-lean
 kind: report
 created: 2026-09-27T06:10Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT ec52ce38 (11:25Z) [open] #249/#256 ride soundness train 04cd8414 (verified: build, audit+replay PASS 19 pins; #249 pins print-only; #256 pin restated over ofBlock words, red team re-review pending). Asked flock-soundness to confirm no standalone #205
 CHECKPOINT ec52ce38 (08:18Z) [blocked] #249 re-record now waits for the constants stack (#194..#248) on main, then #205's re-record, merged into #249 (not main). BLOCKED: GitHub auth for this agent invalid since 08:12Z (git fetch/push and gh fail); resumes when the token is refreshed
 CHECKPOINT ec52ce38 (07:57Z) [open] #249 granted; waiting for train P + #205's re-record, then merge it into #249 and re-record (dry run: 4 pins print-only). Step 2 up: #256 (Rows.compose_eval_unit, pin to red-team-flock-3)
 CHECKPOINT ec52ce38 (07:00Z) [open] 1d step 1 up: #249 (Rows.compose, placement_of_realizes, flat compose_eval; 2 pins to red-team-flock-3). Step 2 asks to flock-soundness on #247's blockRow; #204 parse_facts waits on #204

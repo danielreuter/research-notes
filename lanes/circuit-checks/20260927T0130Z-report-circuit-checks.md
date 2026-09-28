@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT fe196b6c (23:53Z) [open] IN USE vy-circuit-checks-cpu8 (4hg83o0lsap0lm): measuring #334 cold then warm check, ~2 h, terminated right after; agent bc-1122c760
 CHECKPOINT fe196b6c (21:40Z) [open] BUILT #334 (verdict caching + warm Lean deps, stacked on #134); waiting for a 32 GB CPU pod (no stock since 21:25Z) to measure; agent bc-1122c760
 CHECKPOINT fe196b6c (21:21Z) [open] BUILDING verdict caching + warm Lean deps (cursor/check-verdict-cache-4d78); waiting for the vy-circuit-checks guard to measure; agent bc-1122c760
 CHECKPOINT fe196b6c (21:00Z) [open] READY merge request #134 32f2ec5d (on #320 e0389aea; land #320 first); docs-only exclusion added; no pods; agent bc-1122c760

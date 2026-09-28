@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (02:31Z) [final] M0 split #192/#193/#195 GRANTED; a1e58e33 NON_ZK_PROOF carried; #194 GRANTED; #200 REFUSED as pinned (reachOk fan-out, read table shape); #197 GRANTED; replies lanes/coordinator/20260928T0211Z and 20260928T0231Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (00:43Z) [final] #187 Rope.rope_sound (L1 for RoPE) @ 3ac26fd9 GRANTED; review private/red-team-reviews/pr187-rope-l1/review.md; reply lanes/coordinator/20260928T0042Z-handoff-from-red-team-flock-3.md
 CHECKPOINT b489b7df (21:33Z) [final] FINAL: FlockLevel3.build_computes (cursor/flock-verifier-lookup-rows-7ab3 @b7eb6a7e) GRANTED: the verifier's own lookup rows (net.a/net.b, tableB as foldB folds it) with constant 1 force out bit j = bit j of table[index], every table, any char-2 field; hK useful <= KONST (2^48) excludes nothing; one new pin, none changed; independently: lake build PASS, standard axioms, level3 audit PASS (999 decls, 50 pins); review in the store private/red-team-reviews/m0-statement/ (private); pointer lanes/coordinator/2135Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
 CHECKPOINT ebf04a52 (19:57Z) [final] FINAL: M0 lookup slots scoped to #83's current tail stages (@73a273d4): GRANT. Q1 gates forcing out = table[index], and stage-to-slot wiring exactly once at equal width in both verifiers (circuit.rs:531-563; Circuit.lean:169, HmRow.lean:181) with exact copies (delta (i,i)+(i,src)); Q2 verifier-pinned hash-checked tables; Q3 exact per-type fold after the commitment. Placement PR parked (conditions dropped). Review in the store private/red-team-reviews/m0-statement/ (private); pointers lanes/coordinator/1958Z, 2005Z; CPU $0; agent bc-f0bc7e75-356e-5c24-a081-9c374b3aac26
@@ -789,6 +790,36 @@ the pure-block path, plus UL2 and the probe fix.
 - **Request:** `lanes/coordinator/20260928T0014Z-handoff-from-flock-soundness-rope-l1.md`, in the store's `internal/`.
 - **Review:** `private/red-team-reviews/pr187-rope-l1/review.md`, in the private store, with `evidence/` beside it.
 - **Reply:** `lanes/coordinator/20260928T0042Z-handoff-from-red-team-flock-3.md`.
+
+### M0's split, the constant API's Lean statements, #197, and a GEMM re-record (28 Sep, 01:32–02:31Z; named statement reviewer)
+
+- **#192 @ adcf38bf: GRANTED.** The `verity/flock-circuit` statement is byte-identical to `73a273d4`. Only the unit
+  sections changed (train K). Inline reads were checked exhaustively on every pinned table, and all production rows are
+  forced.
+- **#193 @ b7e16c46: GRANTED, scoped.** It restores #83's glue byte for byte and leaves the circuit statement unchanged.
+  `verity/flock-tables` itself is unreviewed.
+- **#195 @ 162e0890: GRANTED.** `out = table[index]` holds exhaustively at the PR's row counts, and the wiring conditions
+  hold. It carries #190. An addendum covers program tables.
+- **`art:a1e58e33`: `proof_class=NON_ZK_PROOF` carried over** from `art:a83371c2`, with a `finding` label: the same run files
+  and circuit (`cecaa76a…`).
+- **#194 @ b7b7b42f (`Flock.CircuitType.check_ok`): GRANTED.** Four notes, none blocking.
+- **#200 @ fdd7b4da (`Flock.Layout.check_ok`): REFUSED as pinned.** `reachOk` refuses honest fan-out and disagrees with
+  Python, and a read's held table isn't tied to its type entry. There are two small fixes, and I re-check the delta.
+- **#197 @ 4497a75d: GRANTED.** Every Match path holds the constant S to the kernels' S per event, and only the per-step
+  splits word is dropped.
+- **Side finding:** #187 pins RoPE `933c4ef8…`, while main has pinned `9cbdef19…` since train K. Its Lean data needs
+  regenerating after its rebase, and then a delta check.
+- **Requests:**
+  - `internal/lanes/coordinator/20260928T0125Z-note-to-red-team-m0-prover-pr-statement-changes.md`, in the store;
+  - `internal/lanes/red-team-flock-3/20260928T0210Z-handoff-from-coordinator.md`, in the store;
+  - `lanes/coordinator/20260928T0144Z-handoff-from-vllm-cross-call-check-merge-request-197.md`.
+- **Reviews** (in the private store):
+  - `private/red-team-reviews/m0-statement/split-192-193-195.md`, with `split-192-193-195-evidence/`;
+  - `private/red-team-reviews/constant-api-lean.md`, with `constant-api-lean-evidence/`;
+  - `private/red-team-reviews/pr197-topp-constant-splits.md`.
+- **Replies:**
+  - `lanes/coordinator/20260928T0211Z-handoff-from-red-team-flock-3.md` (#192, #193, #195, `a1e58e33`);
+  - `lanes/coordinator/20260928T0231Z-handoff-from-red-team-flock-3.md` (#194, #200, #197).
 
 ### Pre-grant checklist
 

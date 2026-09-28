@@ -140,8 +140,8 @@ The lookup slot's facts become `table/v2`'s (`build_computes_v2`, the constant r
 - **#177** (`81552896`): merged #154 and #156 `40b78fde`.
   - The docs moved into #180's layout.
   - `setupH_spec` steps over `main`'s new stratified-draw check.
-  - Checks: 277 of 277 on standard axioms; `tools/lean/audit.py --no-replay` passes on the soundness and executable
-    packages; the flock tests pass.
+  - Checks: 277 of 277 on standard axioms; `tools/lean/audit.py --no-replay` passes on the soundness, executable and
+    level3 packages (level3 with all 50 pins); the flock tests pass.
 - **#156** (flock-verifier's): conflicts with `main` in `level3/FlockLevel3.lean`, on the import lines, where it and #185
   both add one. #177 carries the union.
 - **Merge order:** #147, then #156, then #154, then #177. All four are drafts, and none has had the independent Lean

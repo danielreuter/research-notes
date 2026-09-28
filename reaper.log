@@ -43,3 +43,4 @@
 17:05Z REAP-BLOCKED flock-ir-lowering vy-flock-ir-lowering-b-ver: art:82c591d1: no verified remote replica recorded, 97 MB to read back -> research data preserved art:82c591d1
 17:07Z REAP-BLOCKED flock-ir-lowering vy-flock-ir-lowering-b-l40s: art:82c591d1: no verified remote replica recorded, 97 MB to read back -> research data preserved art:82c591d1
 23:12Z REAP-BLOCKED circuit-checks vy-circuit-checks-cpu8: its run dirs' custody is unknown: no guard state on the pod (no guard = N in its machines entry?)
+23:42Z REAP-BLOCKED circuit-checks vy-circuit-checks-cpu8: its run dirs' custody is unknown: no guard state on the pod (no guard = N in its machines entry?)

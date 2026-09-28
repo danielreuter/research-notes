@@ -5,6 +5,7 @@ created: 2026-09-25T16:14Z
 status: open
 ---
 
+CHECKPOINT df3bc5e1 (01:11Z) [open] #187 head for the train = 0e308ef6 (root 01:09Z): +0e935dcb docs sentence, +0e308ef6 Python lean_rows limit checks; no Lean or pin change since audited 3ac26fd9 (verified by diff); check covers the Python.
 CHECKPOINT df3bc5e1 (01:04Z) [open] SWEEP: train L check (~36 min) + #187 audit running; vy-coord- $13.54/$30 at $1.12/h; ledger $298.80/$330. #187 head -> 0e935dcb (docs sentence only; audit on 3ac26fd9 stands). M0 (a) = #192@adcf38bf (#83 73a273d4 + main df3bc5e1 + inline reads), its own check running; handover when it passes. After L: #192 alone if handed over (check #192's .lean/lean-audit.json delta for an audit), else #187 + #189 together.
 CHECKPOINT df3bc5e1 (00:49Z) [open] #187@3ac26fd9 GRANTED (red-team 0042Z, rope_sound pin; its replay 870/870). My audit r20260928-004741-1fda on vy-coord-lean12 (lseg5ohdshj5ah, cpu3m, $0.88/h) on train-L + #187 (69e410ce), running during L's check. #187's train right after L (head as it stands then; a docs-only sentence may follow).
 CHECKPOINT df3bc5e1 (00:58Z) [open] SWEEP: train L check r20260928-002434-c36e running (~17 min). Spend $298.55/$330 at $0.24/h. M0 (a) not handed over yet. docs-site notes (0035Z, 0050Z) addressed to other lanes. No POUS->root files; mirror ok.

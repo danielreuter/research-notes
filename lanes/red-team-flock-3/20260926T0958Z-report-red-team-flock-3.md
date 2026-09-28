@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT e5493f9f (05:56Z) [final] ZK proofs: public Theorem Z GRANT WITH CONDITIONS (3); #227 @e1947d5b GRANTED (11 pins); #239 @92ce596e GRANTED (T6); private Theorem 1 GRANT WITH CONDITIONS (6); reviews in the store private/red-team-reviews/zk-proofs/ (private); reply lanes/coordinator/20260928T0555Z-handoff-from-red-team-flock-3.md; CPU $0
 CHECKPOINT e5493f9f (04:02Z) [final] #205 S2 GRANTED at 50e7b5a2; #202 table/v2 GRANTED at 10d8e46b; replies lanes/coordinator/20260928T0350Z and 20260928T0401Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (03:18Z) [final] #200 GRANTED at 56936c35; #187 delta GRANTED at 87a0e3b7 (main pin 9cbdef19); c176e9c8 NON_ZK_PROOF carried; replies lanes/coordinator/20260928T0318Z-handoff-from-red-team-flock-3.md
 CHECKPOINT e5493f9f (03:01Z) [final] #197 grant stands at 67e7f669 (wording amended: X-09 chunked fallback refuses all stochastic top-p rows, fails closed); #200 re-review at 56936c35 pending: GitHub auth for danielreuter/verity failing since 02:40Z; reply lanes/coordinator/20260928T0301Z-handoff-from-red-team-flock-3.md
@@ -853,6 +854,21 @@ the pure-block path, plus UL2 and the probe fix.
     - Request: `internal/lanes/coordinator/20260928T0325Z-handoff-from-flock-verifier-202-library-rule.md`, in the store.
     - Review: `private/red-team-reviews/pr202-table-v2.md`.
     - Reply: `lanes/coordinator/20260928T0401Z-handoff-from-red-team-flock-3.md`.
+
+### Zero knowledge: the public and private proofs, and #227 and #239's pins (28 Sep, 04:40–05:55Z; asked for directly)
+
+Verdicts only. The findings are in the store's `private/`.
+- **`docs/zk-proof-public.md` (Theorem Z): GRANT WITH CONDITIONS,** with three conditions. It still holds after the
+  05:32Z refinement pass.
+- **#227 @ `e1947d5b`: GRANTED,** all eleven pins.
+  - Request: `internal/lanes/red-team-flock-3/20260928T0535Z-handoff-from-zk-public-227-pin-review.md`, in the store.
+- **#239 @ `92ce596e`: GRANTED,** `coin_opening_binding`, with one non-blocking note. It is covered by the same request's
+  addendum.
+- **Checked here for both PRs:** the full soundness package builds, all twelve new pins use standard axioms, and the
+  audit files add exactly those pins.
+- **`docs/zk-proof-private.md`, draft 2 (Theorem 1): GRANT WITH CONDITIONS,** with six conditions.
+- **Reviews:** `private/red-team-reviews/zk-proofs/public-circuit.md` and `private-circuit.md`, with `evidence/`.
+- **Reply:** `lanes/coordinator/20260928T0555Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

@@ -5,6 +5,7 @@ created: 2026-09-26T01:44Z
 status: open
 ---
 
+CHECKPOINT ffcba27f (03:05Z) [open] art:c176e9c8 (M0 attention re-record): domain total + verify-flock-pure's labels carried; commit.seconds re-verified r20260928-030351-1efb (0.024 vs 0.023 s); coordinator told (lanes/coordinator/20260928T0310Z)
 CHECKPOINT ffcba27f (02:06Z) [open] art:a1e58e33 (M0 GEMM re-record): domain total + verify-flock-pure's labels carried (lane final); commit.seconds re-verified r20260928-020522-0f9e (0.042 vs 0.043 s); coordinator told (lanes/coordinator/20260928T0210Z)
 CHECKPOINT ffcba27f (01:40Z) [open] #83 circuit-route labels on the remote: 35 more domain total, art:47f7ec19 + art:2bfb05e0 superseded_by art:e352f2ad (note: pre-#137 ex2 shift); coordinator told (lanes/coordinator/20260928T0145Z)
 CHECKPOINT ffcba27f (01:37Z) [open] M0 domain audit: art:e352f2ad, art:a83371c2 labelled domain total (evidence art:f36210f3); #83 circuit-route verdicts in store internal/m0-circuit-domain-audit.md; coordinator told (lanes/coordinator/20260928T0140Z)

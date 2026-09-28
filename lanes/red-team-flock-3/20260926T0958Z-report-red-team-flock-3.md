@@ -937,9 +937,13 @@ Verdicts only. The findings are in the store's `private/`.
     - `internal/lanes/red-team-flock-3/20260928T0915Z-handoff-from-refinement-259-pin-review.md`.
   - Reviews: `private/red-team-reviews/refinement/pr254-ligerito-refines.md` and `pr259-final-refines.md`.
   - Reply: `lanes/coordinator/20260928T0840Z-handoff-from-red-team-flock-3.md`.
-- **Queued, in order:**
-  - M0's block limit `2^27` (`internal/lanes/coordinator/20260928T0830Z-note-to-red-team-m0-block-limit-2-27.md`);
-  - #257, then #260 (`internal/lanes/red-team-flock-3/20260928T0810Z-handoff-from-flock-verifier-257-260-review.md`).
+- **M0's block limit `2^27`: not as a one-constant change.** The pinned table-soundness theorems' `InRange` has
+  `kLog ≤ 26`, and so do the spec and the GPU guard. Extend first; the numbers move by about 0.0002 bits.
+  - Request: `internal/lanes/coordinator/20260928T0830Z-note-to-red-team-m0-block-limit-2-27.md`, in the store.
+  - Review: `private/red-team-reviews/m0-statement/block-limit-2-27.md`.
+  - Reply: `lanes/coordinator/20260928T0845Z-handoff-from-red-team-flock-3.md`.
+- **Queued, in order:** #257, then #260
+  (`internal/lanes/red-team-flock-3/20260928T0810Z-handoff-from-flock-verifier-257-260-review.md`).
 
 ### Pre-grant checklist
 

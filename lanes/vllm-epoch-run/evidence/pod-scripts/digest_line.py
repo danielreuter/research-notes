@@ -36,7 +36,7 @@ def main() -> int:
     cloud, driver = (sys.argv[8], sys.argv[9]) if len(sys.argv) > 9 else ("?", "?")
     att = Path(sys.argv[10]) if len(sys.argv) > 10 else None
     gpus, vcpus = (sys.argv[11], sys.argv[12]) if len(sys.argv) > 12 else ("?", "?")
-    dev = json.loads((ev / "device.json").read_text()) if (ev / "device.json").exists() else {}
+    dev = json.loads((Path(ev) / "device.json").read_text()) if (Path(ev) / "device.json").exists() else {}
     refused = sum(1 for ln in att.read_text().splitlines() if "REFUSED" in ln or "fail-fast" in ln) if att and att.exists() else 0
     ev = Path(ev)
     lane = Path(os.environ["RESEARCH_NOTES"]) / "lanes" / "vllm-epoch-run" / "evidence"

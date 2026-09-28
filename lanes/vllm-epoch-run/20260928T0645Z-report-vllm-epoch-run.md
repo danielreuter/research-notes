@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (14:10Z) [open] #101 Build FAIL on 269829d8 (TopPKeepWord_v1 descriptor decode: codec alias rule; #231 defect) -> deferred, pod terminated 14:09Z ($0.49), Build art:dc2385d4 records art:ab0db6da PRESERVED; handoff 1411Z. LIVE: #73 (end ~17:20Z), #4 (~17:00Z), #23 vyv-rf-epoch-23 2xRTX6000Ada 1 pair (~17:00Z). POLLING #70 to 14:30Z. agent bc-75fd4007.
 CHECKPOINT 6746f408 (13:45Z) [open] LIVE: #73 vyv-rf-epoch-73 (Build, end ~17:20Z); #4 vyv-rf-epoch-4 (Build, end ~17:00Z); #101 vyv-rf-epoch-101 r20260928-134402-b58d (1xL40S secure 124 GB, 1 pair, $5) launched 13:44Z, end ~15:15Z. POLLING #23 #70 (3 pairs) to 14:30Z. Deferred: #60 #67 #68 #75 (17:30Z rule). agent bc-75fd4007.
 CHECKPOINT 6746f408 (13:34Z) [open] GO wave-1 main 269829d8 (tree ff7d6808) loaded + verified; branch ff'd to 269829d8. LIVE: #73 vyv-rf-epoch-73 (end ~17:20Z), #4 vyv-rf-epoch-4 (end ~17:00Z). POLLING #101 (to 16:00Z), #23 and #70 (3 pairs, to 14:30Z). DEFERRED at 13:33Z by the 17:30Z rule (1 pair 4.0 h): #60 #67 #68 #75, old records kept. agent bc-75fd4007.
 CHECKPOINT 6746f408 (13:12Z) [open] LIVE: vyv-rf-epoch-73 r20260928-121849-ff8b (2xH100, 1 pair, $49) in Build, end ~17:20Z; vyv-rf-epoch-4 r20260928-131016-78c9 (1xL40S secure 187 GB, 3 pairs, $5) launched 13:10Z, end ~17:00Z. Held rows wait for the merged GO. 8-min wakes. agent bc-75fd4007.

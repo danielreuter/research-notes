@@ -11,3 +11,16 @@
 2026-09-28T13:43:23Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
 2026-09-28T13:44:29Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
 2026-09-28T13:45:36Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:46:43Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:47:49Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:48:56Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:50:05Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:51:11Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:52:18Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:53:24Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:54:34Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:55:40Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:56:46Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+2026-09-28T13:57:52Z no shape: NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its la
+#23 llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager: 4 x NVIDIA L40S, >= 100 GB/GPU, cap $18 (max 4.13 h at $4.36/h), 1 pair(s), est 3.0 h, timeout 13362 s, custody 6 h; PAIRS=1: the 3-pair estimate ends after 17:30Z (n_runs 6 -> 2)
+2026-09-28T14:01:12Z #23 LAUNCHED

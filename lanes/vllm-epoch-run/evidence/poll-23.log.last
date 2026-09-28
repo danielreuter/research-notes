@@ -1,6 +1,1 @@
-#23 llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager: 4 x NVIDIA L40S, >= 100 GB/GPU, cap $18 (max 4.13 h at $4.36/h), 3 pair(s), est 3.7 h, timeout 13362 s, custody 6 h
-  2026-09-28T13:44:26Z 4 x NVIDIA L40S SECURE: no stock
-  2026-09-28T13:44:27Z 2 x NVIDIA L40S SECURE: no stock
-  2026-09-28T13:45:32Z 4 x NVIDIA L40S SECURE: no stock
-  2026-09-28T13:45:34Z 2 x NVIDIA L40S SECURE: no stock
-NO SHAPE for #23 among: NVIDIA_L40S@SECURE@4@100 NVIDIA_L40S@SECURE@2@188 (evidence/attempts-23.txt); retry while its latest start holds
+#23 llama32-1b__bf16__l40s__tp1__b64__i1024__o128__mixed__greedy__bi-eager: 4 x NVIDIA L40S, >= 100 GB/GPU, cap $18 (max 4.13 h at $4.36/h), 1 pair(s), est 3.0 h, timeout 13362 s, custody 6 h; PAIRS=1: the 3-pair estimate ends after 17:30Z (n_runs 6 -> 2)

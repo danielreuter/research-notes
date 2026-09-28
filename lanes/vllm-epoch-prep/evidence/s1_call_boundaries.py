@@ -14,6 +14,11 @@ from verity_vllm.pipeline.manifest import word_check
 from verity_vllm.query.module_body import literal_calls, without_literals
 from verity_vllm.query.program_view import from_instances
 from verity_vllm.query.required import request_manifest
+try:
+    from verity_vllm.query.required import Q_MODULE_BODY_ID
+    BASE = {"query": Q_MODULE_BODY_ID}          # S1 on the tree: compare against the module-body population explicitly
+except ImportError:
+    BASE = {}
 
 
 def one(d: str) -> dict:
@@ -22,7 +27,7 @@ def one(d: str) -> dict:
     res = json.load(open(os.path.join(d, "result.json")))
     art = json.load(open(os.path.join(d, "artifact.json"))) if os.path.exists(os.path.join(d, "artifact.json")) else None
     corr = Correspondence.of(P, d, implementation_paths=Correspondence.implementation_paths_of(res))
-    r = request_manifest(P, corr, res, artifact=art, program_dir=d)
+    r = request_manifest(P, corr, res, artifact=art, program_dir=d, **BASE)
     w = word_check(P, corr, r.required, "16/32", strict=False)
     lit = literal_calls(P)
     Bc = without_literals(boundary(P, partition_by(lambda c: c.id)), lit)

@@ -893,8 +893,14 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: `internal/lanes/red-team-flock-3/20260928T0700Z-handoff-from-audit-lean-249-pin-review.md`, in the store.
   - Review: `private/red-team-reviews/pr249-compose.md`.
   - Reply: `lanes/coordinator/20260928T0712Z-handoff-from-red-team-flock-3.md`.
+- **The keyed coin tree (`docs/coin-tree-v2.md`): GRANTED.** It closes the auxiliary-input condition in the proof; for
+  the code, the condition stays open until v2 is implemented. **#245 @ `bfca7e00`: GRANTED.** **#239 @ `23d3d6fe`:** grant
+  unchanged (docstrings only).
+  - Request: `internal/lanes/red-team-flock-3/20260928T0636Z-handoff-from-zk-public-coin-tree-v2-statement-review.md`,
+    in the store.
+  - Review: `private/red-team-reviews/zk-proofs/coin-tree-v2.md`.
+  - Reply: `lanes/coordinator/20260928T0720Z-handoff-from-red-team-flock-3.md`.
 - **Queued, in order:**
-  - coin-tree v2 and #245, for `internal/lanes/red-team-flock-3/20260928T0636Z-handoff-from-zk-public-coin-tree-v2-statement-review.md`;
   - #252 (the region-word check), for `internal/lanes/red-team-flock-3/20260928T0712Z-handoff-from-flock-zk-region-word-check.md`;
   - the private ZK proof's draft 4.
 

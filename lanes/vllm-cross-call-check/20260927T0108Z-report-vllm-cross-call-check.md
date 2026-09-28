@@ -5,6 +5,7 @@ created: 2026-09-27T01:08Z
 status: open
 ---
 
+CHECKPOINT 91ceb79e (01:08Z) [open] single-request constant splits (Daniel approved proposal 1): branch cursor/splits-single-request-constant-666c at b81a9cfe on df3bc5e1; pod vy-vllm-cross-call-check (CPU, 50m2svxp4zi0gf) for the #101 Builds; next: bootstrap + base/branch Builds
 CHECKPOINT 91ceb79e (05:56Z) [open] #111 @ 034ca061 partition/v1 = Q_word v1 query (236 B object), core evaluator + vector; #101 41.5 s, #74 largest 664 s
 CHECKPOINT 91ceb79e (05:17Z) [open] #111 @ 7ddb7cca partition/v1 amended (cuts by content, no units/committed); sizes #101 858 MB, #74 up to 12.4 GB/Program (attention per-T cuts)
 CHECKPOINT 91ceb79e (04:50Z) [open] PR #111 partition object v1 + verity.ir.cut (stacked on #98), nothing moves; handoff 05:20Z

@@ -1,7 +1,7 @@
 # machine vy-m0-att-prover: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "yt17e8n12lo799"
+pod_id = "i0sl23n30jdj1q"
 project = "verity"
 guard = true
 registered_by = "cursor"
-registered_at = "2026-09-28T07:25Z"
+registered_at = "2026-09-28T08:21Z"

@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT fe196b6c (21:00Z) [open] READY merge request #134 32f2ec5d (on #320 e0389aea; land #320 first); docs-only exclusion added; no pods; agent bc-1122c760
 CHECKPOINT fe196b6c (20:48Z) [open] READY merge request for #134 c925ac4a (on #320 b2485e23; land #320 first); no pods; agent bc-1122c760
 CHECKPOINT fe196b6c (19:26Z) [open] READY #134 d3cb30fa (main d69ce770 with #130) check r20260927-183556-198c passed (559/559 agree); E2 cause glibc 2.39 build vs 22.04 pod, rebuilt on 22.04 art:5e8c9749; no pods running; agent bc-1122c760
 CHECKPOINT fe196b6c (19:02Z) [open] IN USE vy-circuit-checks-cpu7: r20260927-183556-198c (check on #134 d3cb30fa) in lean-agreement since ~19:00Z, all other steps passed; done ~19:25Z, then terminated; agent bc-1122c760

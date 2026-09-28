@@ -12,4 +12,4 @@ One line per row as it lands. Digests are the first 16 hex; the full values are 
 
 | row | main sha | step / request / workload Program digests | manifest | run root | partition digest | verdict | run id | $ |
 |---|---|---|---|---|---|---|---|---|
-| #101 | 269829d8 | 83629e4eb35a2058 / 1 req (2df85d9c606116f7) / - | - | - | - | -, deferred: Build FAIL: the workload Program compose can't decode TopPKeepWord_v1{V=128256,S=32} (verity.ir.codec: alias to argument 0 of node 41 names an argument of an ea | r20260928-134402-b58d (secure, 1x NVIDIA L40S, 142 SMs, 256 vCPU, driver 580.173.02) | 0.49 |
+| #101 | be354ab0 | 11e8da5d74b2c699 / 1 req (ec29fe03bd242277) / - | - | - | - | -, deferred: Build FAIL (2nd try, train H): the workload Program compose raises KeyError 'primitive NvLogf_v1 is not in the registry' (workload.request_component -> codec.de | r20260928-145638-f5d8 (secure, 1x NVIDIA RTX 6000 Ada Generation, 142 SMs, 112 vCPU, driver 580.159.04) | 0.47 |

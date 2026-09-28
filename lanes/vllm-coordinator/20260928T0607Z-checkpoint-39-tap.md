@@ -1,0 +1,1 @@
+06:07Z: #39 DECISION: pre-bias qkv tap (prep option a) -> cross-call-check (supersedes S1c GemmBias); prep S1b stays #57+#74 only. 13-row map: clean #4 #11 #23 #60 #67 #68 #70 #73 #75 #101; sources #57 #74 #39.

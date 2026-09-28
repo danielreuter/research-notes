@@ -1,0 +1,1 @@
+2026-09-28T14:31Z sweep: running #73 ($15.42), #4 ($1.46), #23 (2x RTX 6000 Ada, 1 pair, $0.89); #101 Build failed (codec alias bug; fix #288 00ca27bc, merge ~15:00-15:15Z) and was deferred; retry GO on #288's merge SHA if by ~15:30Z; #70 polls until 14:30Z; balance $252.11.

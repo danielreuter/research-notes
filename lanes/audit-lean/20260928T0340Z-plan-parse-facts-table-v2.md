@@ -60,3 +60,11 @@ branch, but #177 never walks it.
   extension into #177 instead of a follow-up. Either order works; only the PR it lives in changes.
 - **If #147 later adds its `Net.checkOrder` step to `buildV2` too,** as it did to `Lookup.build`, only the fields walk
   gains one step. `build_spec_v2`'s statement is flock-verifier's to keep.
+
+## Update, 05:28Z
+
+#177 is now `8e9b0176`: `ExecLookup` imports `FlockLevel3.LookupRows`, and its `build_spec` is `build_facts`. The fix is
+for the audit's kernel replay, which refuses lemmas declared both in and outside the soundness set.
+- **The WIP branch** (`8686055e`) merges that head before it continues.
+- **`netOK_lookupV2`'s `buildV2` walk** goes in a module that imports `LookupRows`. Then the equation lemmas that
+  `build_spec_v2` realizes are reused, not declared again.

@@ -143,24 +143,19 @@
    "key": "mistral-7b__bf16__l40s__tp1__b8__i1024__o128__mixed__greedy__bi-eager",
    "class": "GREEN",
    "gpu": "NVIDIA L40S",
-   "count": 4,
-   "min_ram": 100,
+   "count": 2,
+   "min_ram": 188,
    "disk": 250,
-   "rate": 4.36,
-   "cap": 24,
+   "rate": 2.18,
+   "cap": 12,
    "est_h": 4.0,
    "status": "ok",
    "env": {
-    "VU_EXPORT": "0"
+    "VU_EXPORT": "0",
+    "PAIRS": "1"
    },
-   "est3_h": 5.0,
-   "alt_shapes": [
-    {
-     "count": 2,
-     "min_ram": 188
-    }
-   ],
-   "note": "GO 15:59Z on main 432edb3b, cap $24; ",
+   "est3_h": null,
+   "note": "GO 15:59Z on main 432edb3b; coordinator 18:18Z: cap $12 for the 2x shapes (>= 376 GB host), 1 pair (n_runs 6 -> 2), a 4x shape is never taken; $25 floor kept",
    "go_sha": "432edb3b044fdbf3c86879a5c7d71ebb5ad4c79c"
   },
   "11": {

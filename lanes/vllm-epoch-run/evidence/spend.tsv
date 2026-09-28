@@ -9,3 +9,4 @@ row	pod	pod_id	run	start_utc	end_utc	rate	spent	cap	pairs	cloud	driver	gpus	vcpu
 75	vyv-rf-epoch-75	5zvg2qhbg46ljc	r20260928-160802-960f	2026-09-28T16:07:34Z		2.18	live	12	3	SECURE	580.159.04	2	128
 67	vyv-rf-epoch-67	626g11msm37hpi	r20260928-161923-0a05	2026-09-28T16:18:38Z		1.64	live	13	3	SECURE	580.178.04	2	256
 101	vyv-rf-epoch-101	vl1s8lok5at9pq	r20260928-175437-cfe5	2026-09-28T17:53:41Z		1.09	live	5	1	SECURE	580.159.03	1	128
+68	vyv-rf-epoch-68	gvx6n2prbo8olq	r20260928-183104-1d90	2026-09-28T18:30:39Z		2.18	live	13	1	SECURE	580.178.04	2	256

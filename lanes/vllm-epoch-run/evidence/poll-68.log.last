@@ -1,6 +1,7 @@
-#68 olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager: 2 x NVIDIA L40S, >= 120 GB/GPU, cap $13 (max 5.96 h at $2.18/h), 1 pair(s), est 4.0 h, timeout 18198 s, custody 7 h; PAIRS=1: the 3-pair estimate ends after 17:30Z (n_runs 6 -> 2)
-  2026-09-28T18:13:29Z 2 x NVIDIA L40S COMMUNITY: no stock
-  2026-09-28T18:14:34Z 2 x NVIDIA L40S SECURE: no stock
-  2026-09-28T18:15:37Z 2 x NVIDIA L40S SECURE: no stock
-  2026-09-28T18:16:41Z 2 x NVIDIA L40S SECURE: no stock
-NO SHAPE for #68 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-68.txt); retry while its latest start holds
+#68 olmoe-1b-7b__bf16__l40s__tp1__b32__i1024__o128__mixed-arrivals__greedy__bi-eager: 2 x NVIDIA L40S, >= 120 GB/GPU, cap $13 (max 8.23 h at $2.18/h), 1 pair(s), est 4.0 h, timeout 17361 s, custody 7 h; PAIRS=1: the 3-pair estimate ends after 17:30Z (n_runs 6 -> 2)
+  2026-09-28T18:28:28Z 2 x NVIDIA L40S SECURE: no stock
+  2026-09-28T18:29:33Z 2 x NVIDIA L40S SECURE: no stock
+  2026-09-28T18:29:34Z 2 x NVIDIA L40S COMMUNITY: no stock
+  2026-09-28T18:30:39Z 2 x NVIDIA L40S SECURE: accepted pod gvx6n2prbo8olq NVIDIA L40S driver 580.178.04 (CUDA 13.0) host 250 GB, 256 vCPU, est 4.0 h at 1 pair(s)
+cap guard: research pods guard: pid 156866 prefix='vyv-rf-epoch-68-' log=/home/ubuntu/.research/pods/guard-vyv-rf-epoch-68-.log (`research pods guard status --prefix vyv-rf-epoch-68-`) (max 5.96 h at $2.18/h, timeout 17336 s, custody 7 h)
+WAIT vyv-rf-epoch-68 (SECURE, 2 x NVIDIA L40S, driver 580.178.04) r20260928-183104-1d90 check-back 22:32Z agent bc-75fd4007: #68 Build/Match/word check/Commit/store (1 pair(s), est 4.0 h, cap $13); PAIRS=1: the 3-pair estimate ends after 17:30Z (n_runs 6 -> 2)

@@ -22,7 +22,7 @@ while [ "$(date +%s)" -lt "$stop_at" ]; do
     ROWS=$(grep -o '#[0-9]\{1,3\}' "$sf" | tr -d '#' | sort -u | tr '\n' ' ')
     echo "$(date -u +%FT%TZ) STOP note $(basename "$sf"): rows ${ROWS:-ALL}" >> "$LANE/evidence/STOPPED"
     for sess in $(tmux -f /exec-daemon/tmux.portal.conf ls -F '#{session_name}' 2>/dev/null | grep '^epoch-poll-'); do
-      n=${sess#epoch-poll-}; { [ -z "$ROWS" ] || [[ " $ROWS " == *" $n "* ]]; } && tmux -f /exec-daemon/tmux.portal.conf kill-session -t "$sess"
+      n=${sess#epoch-poll-}; { [ -z "$ROWS" ] || [[ " $ROWS " == *" $n "* ]]; } && { [ -z "${STOP_ROWS:-}" ] || [[ " $STOP_ROWS " == *" $n "* ]]; } && tmux -f /exec-daemon/tmux.portal.conf kill-session -t "$sess"
     done
     while IFS='|' read -r N POD PODID RUN START RATE; do
       [ -n "$N" ] || continue

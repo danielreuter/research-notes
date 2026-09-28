@@ -195,3 +195,28 @@ REFUSED: #70 estimate 3.5 h at 3 pair(s) does not fit the $6.5 cap (2.98 h): ask
 2026-09-28T19:41:57Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
 2026-09-28T19:43:03Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
 2026-09-28T19:44:07Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
+2026-09-28T19:45:14Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:46:20Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:47:26Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:48:31Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:49:36Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:50:42Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:51:46Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
+2026-09-28T19:52:49Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
+2026-09-28T19:53:53Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
+2026-09-28T19:54:56Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
+2026-09-28T19:56:02Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:57:07Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:58:15Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T19:59:21Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T20:00:27Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T20:01:32Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T20:02:36Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
+2026-09-28T20:03:41Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T20:04:45Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
+2026-09-28T20:05:50Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40@SECURE@2@120 (evidence/attempts-70.txt); retry while its lat
+2026-09-28T20:06:57Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40@SECURE@2@120 (evidence/attempts-70.txt); retry while its lat
+2026-09-28T20:08:00Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds
+2026-09-28T20:09:25Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T20:10:30Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 NVIDIA_L40S@COMMUNITY@2@120 (evidence/attempts-70.txt); retry while its
+2026-09-28T20:11:34Z no shape: NO SHAPE for #70 among: NVIDIA_L40S@SECURE@2@120 (evidence/attempts-70.txt); retry while its latest start holds

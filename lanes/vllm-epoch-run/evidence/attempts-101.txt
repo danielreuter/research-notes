@@ -25,3 +25,4 @@
 2026-09-28T16:02:44Z 1 x NVIDIA L40S SECURE: no stock
 2026-09-28T16:02:46Z 1 x NVIDIA L40 SECURE: accepted pod vr8tqecekl950m NVIDIA L40 driver 580.178.04 (CUDA 13.0) host 285 GB, 256 vCPU, est 1.5 h at 1 pair(s)
 2026-09-28T17:53:41Z 1 x NVIDIA L40S SECURE: accepted pod vl1s8lok5at9pq NVIDIA L40S driver 580.159.03 (CUDA 13.0) host 124 GB, 128 vCPU, est 1.5 h at 1 pair(s)
+2026-09-28T19:49:21Z 1 x NVIDIA L40S SECURE: accepted pod v99cen64d0ej9k NVIDIA L40S driver 580.126.09 (CUDA 13.0) host 187 GB, 128 vCPU, est 1.5 h at 1 pair(s)

@@ -1,6 +1,6 @@
-watch updated 2026-09-28T19:43:48Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 445 min: 2026-09-28T17:23:02Z strict word check rc=0 PASS fast: 8/8 word lines, 6664748 calls -> 13503689758 units over 913067628664 gates, manifest 466e67184d165a1c
-#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 220 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
-#75 vyv-rf-epoch-75 r20260928-160802-960f live 216 min: 2026-09-28T19:08:28Z strict word check rc=0 PASS fast: 4/4 word lines, 6026370 calls -> 8907425004 units over 2352406670678 gates, manifest cf8fb2000e715ac7
-#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 205 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
-#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 73 min: 2026-09-28T18:46:08Z bootstrap cases=B0,OLMOE rc=0
+watch updated 2026-09-28T20:12:31Z
+#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 249 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
+#75 vyv-rf-epoch-75 r20260928-160802-960f live 244 min: 2026-09-28T20:00:25Z commit rc=13 verdict=none manifest_verify=none commit FAIL 2026-09-28T20:00:23Z required manifest not complete (rc=0): complete False ident
+#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 233 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
+#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 101 min: 2026-09-28T18:46:08Z bootstrap cases=B0,OLMOE rc=0
+#101 vyv-rf-epoch-101 r20260928-194951-f7ed live 23 min: 2026-09-28T20:02:55Z bootstrap cases=B0,LLAMA32_1B rc=0

@@ -25,11 +25,11 @@
     "PAIRS": "1",
     "VERITY_QWORD_MAX_GATES": "GumbelTopPTokenSelect_v2=110000000"
    },
-   "note": "GO 17:52Z fourth try on train V fe7931d5 (#309 registry catalogue); 1 pair; STOP (V's gate fails) discards",
+   "note": "GO 19:47Z fifth try on #321 703ae80f (tree b47baad5 = main a8e72c81 + #321, the fold follows the Program's sampler construction); 1 pair; cap $5; latest start 21:50Z; STOP (#321's check fails) discards",
    "est3_h": null,
-   "launch_sha": "fe7931d5996e66424c531a15e91afce2563a812a",
-   "hold_write": "GO 17:52Z: fe7931d5 (tree d4c65ae7, main ac412eb8 + #309); expected/ held until the landed main's tree is confirmed d4c65ae7",
-   "go_sha": "fe7931d5996e66424c531a15e91afce2563a812a"
+   "launch_sha": "703ae80fa7bfdb1afb3119c6c9927f8a71b58fe2",
+   "hold_write": "GO 19:47Z: 703ae80f (tree b47baad5); expected/ held until the landed main's tree is confirmed b47baad5, or the difference provably doesn't touch #101's Build or Match",
+   "go_sha": "703ae80fa7bfdb1afb3119c6c9927f8a71b58fe2"
   },
   "4": {
    "key": "smollm2-135m__bf16__l40s__tp1__b16__i1024__o128__mixed__greedy__bi-eager",

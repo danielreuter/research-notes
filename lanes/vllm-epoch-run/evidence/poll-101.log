@@ -25,3 +25,6 @@
 2026-09-28T17:53:38Z polling #101 until 2026-09-28T21:50Z
 #101 llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager: 1 x NVIDIA L40S, >= 94 GB/GPU, cap $5 (max 6.33 h at $1.09/h), 1 pair(s), est 1.5 h, timeout 19579 s, custody 7 h
 2026-09-28T17:54:51Z #101 LAUNCHED
+2026-09-28T19:49:19Z polling #101 until 2026-09-28T21:50Z
+#101 llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager: 1 x NVIDIA L40S, >= 94 GB/GPU, cap $5 (max 7.25 h at $1.09/h), 1 pair(s), est 1.5 h, timeout 12639 s, custody 6 h
+2026-09-28T19:50:24Z #101 LAUNCHED

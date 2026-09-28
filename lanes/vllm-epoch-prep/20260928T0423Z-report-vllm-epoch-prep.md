@@ -2,9 +2,10 @@
 lane: vllm-epoch-prep
 kind: report
 created: 2026-09-28T04:23Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT 017e22cf (07:05Z) [open] 07:06Z S1b PR #253 (base S1 branch; @5a423c08, pushed by root from bundle; S1 @017e22cf). Push loop stopped. Open PRs: S2 #233, S3 #242, S4 #246 (stacked on S3, needs #221, takes main after #223), S1 #232, S1b #253, tooling #243. S1d waits on the coordinator's tap-vs-host pick.
 CHECKPOINT 017e22cf (07:02Z) [blocked] 07:03Z S1b built (@5a423c08, stacked on S1 017e22cf): host call-boundary source, #74 576/576 + #57 41,870/41,870 covered on CPU, CLAIMS hook for #39's tap; S1 by-name allowlist fix 017e22cf. Push blocked (auth) again, loop retrying; bundle in artifacts. Handoff 0703Z (#57 host cost ~70 min/Commit: decision).
 CHECKPOINT 4e6ce10f (06:33Z) [open] 06:34Z auth back: S4 pushed @727c80fd, PR #246 (stacked on S3 #242; needs #221; takes main after #223); merge-ready handoff 0634Z. S1b implementer running. Waiting on #223.
 CHECKPOINT 4e6ce10f (06:18Z) [blocked] 06:18Z push still blocked (GitHub auth, platform-wide). S4 local @727c80fd = S4a+S4b+rekey+fp8 fast path+S3 merged in (taps.py resolved); full suite = base failures + golden (integrator) + known flake; query_fixtures re-key pins fixed. S1-over-S3/S4 pre-resolved (rerere recorded), affected dirs clean. Push loop every 10 min.

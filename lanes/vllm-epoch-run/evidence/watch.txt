@@ -1,8 +1,8 @@
-watch updated 2026-09-28T18:40:43Z
-#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 382 min: 2026-09-28T17:23:02Z strict word check rc=0 PASS fast: 8/8 word lines, 6664748 calls -> 13503689758 units over 913067628664 gates, manifest 466e67184d165a1c
-#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 281 min: 2026-09-28T18:22:50Z strict word check rc=0 PASS fast: 64/64 word lines, 2855826 calls -> 20539064409 units over 1177886784726 gates, manifest 004a5bdabb332d8d
-#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 157 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
-#75 vyv-rf-epoch-75 r20260928-160802-960f live 153 min: 2026-09-28T16:23:51Z bootstrap cases=B0,QWEN3_30B_A3B rc=0
-#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 142 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
-#101 vyv-rf-epoch-101 r20260928-175437-cfe5 ENDED 47 min: 2026-09-28T18:40:18Z END
-#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 10 min: 2026-09-28T18:33:48Z device {"name": "NVIDIA L40S", "sms": 142, "cc": "8.9", "count": 2}
+watch updated 2026-09-28T18:41:51Z
+#73 vyv-rf-epoch-73 r20260928-121849-ff8b live 383 min: 2026-09-28T17:23:02Z strict word check rc=0 PASS fast: 8/8 word lines, 6664748 calls -> 13503689758 units over 913067628664 gates, manifest 466e67184d165a1c
+#23 vyv-rf-epoch-23 r20260928-135923-53d9 live 282 min: 2026-09-28T18:22:50Z strict word check rc=0 PASS fast: 64/64 word lines, 2855826 calls -> 20539064409 units over 1177886784726 gates, manifest 004a5bdabb332d8d
+#74 vyv-rf-epoch-74 r20260928-160515-1b32 live 158 min: 2026-09-28T16:23:43Z bootstrap cases=B0,QWEN3_4B_FP8 rc=0
+#75 vyv-rf-epoch-75 r20260928-160802-960f live 154 min: 2026-09-28T16:23:51Z bootstrap cases=B0,QWEN3_30B_A3B rc=0
+#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 143 min: 2026-09-28T16:42:30Z bootstrap cases=B0,OLMOE rc=0
+#101 vyv-rf-epoch-101 r20260928-175437-cfe5 ENDED 48 min: 2026-09-28T18:40:18Z END
+#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 11 min: 2026-09-28T18:33:48Z device {"name": "NVIDIA L40S", "sms": 142, "cc": "8.9", "count": 2}

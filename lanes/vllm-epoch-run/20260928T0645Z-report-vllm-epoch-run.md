@@ -5,6 +5,7 @@ created: 2026-09-28T06:45Z
 status: open
 ---
 
+CHECKPOINT 6746f408 (18:42Z) [open] inbox 1810Z (coordinator): V merge ~19:05Z, tree d4c65ae7 unchanged - noted; #101's write waits for the merge SHA + tree check. agent bc-75fd4007.
 CHECKPOINT 6746f408 (18:41Z) [open] #68 launched 18:32Z (2xL40S, 1 pair, $13, ~22:35Z). #101 try4 Build PASS 18:36Z -> Match. #60 balance-held ($11.45 < $12). LIVE 8: #73 #23 Commit; #74 #75 #67 Build; #101 Match; #68 bootstrap. agent bc-75fd4007.
 CHECKPOINT 6746f408 (18:17Z) [open] LIVE: #73 Commit, #23 Match, #74 #75 #67 Build, #101 try4 Build (bootstrap done 18:07Z). #60 balance-held by $0.18 (note 1817Z: suggest cap $12 for 2x shapes); #68 #70 polling. Spend ~$75. agent bc-75fd4007.
 CHECKPOINT 6746f408 (17:56Z) [open] #101 try 4 on train V fe7931d5 (tree d4c65ae7): vyv-rf-epoch-101 r20260928-175437-cfe5 launched 17:54Z (1xL40S, 1 pair, write held; STOP armed for #101 only). LIVE: #73 Commit, #23 Match, #74 #75 #67 Build. agent bc-75fd4007.

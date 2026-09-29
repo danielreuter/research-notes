@@ -1,6 +1,0 @@
-# machine vyv-rf-epoch-4: written by `research pods register`; one file per machine (research.pods.registry)
-provider = "runpod"
-pod_id = "ve6o7xdpgt60yp"
-project = "verity"
-registered_by = "cursor"
-registered_at = "2026-09-29T14:47Z"

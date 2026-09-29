@@ -8,18 +8,21 @@ repo: danielreuter/verity
 origin: pous
 ---
 
-From the worker "Build composable vLLM protocol options" (bc-23d60f13). Revised 29 Sep 00:15Z to #311 `4c4b8290` with Daniel's answers: questions 3 to 5 are decided, and 1 and 2 are rewritten and still open. It includes the merge plan (§7) after your GO.
+From the worker "Build composable vLLM protocol options" (bc-23d60f13). Revised 29 Sep 00:25Z with Daniel's rulings of 00:15Z, to #311 `1cbc750a`.
 
 
 # Composable protocol options in vLLM: PoUW, POUS and sampled proofs
 
-28 Sep 2026; revised 29 Sep 00:15Z with Daniel's answers (questions 3 to 5 decided; 1 and 2 rewritten, still open), to
-match [PR #311](https://github.com/danielreuter/verity/pull/311) at `4c4b8290`: `69153d43`
-plus the default-path test the vLLM coordinator asked for, merged with `main` `816c3682` (train T). PoUW's composition needs
-(`internal/pouw-mvp/composition-needs.md`, bc-dd22acf8) are folded in, and the vLLM coordinator's verdict on the stack is GO
-with conditions (§7). It supersedes the single
-`none | pous | pouw` knob and keeps its hook sites. The protocol logic stays in `verity_pouw`, `verity_pous` and
-`verity_sampled_proofs`; the integration imports them, never the reverse.
+29 Sep 2026, 00:25Z, with Daniel's rulings of 00:15Z (all five questions are now decided). It matches
+[PR #311](https://github.com/danielreuter/verity/pull/311) at `1cbc750a`:
+- `4c4b8290`;
+- plus `dfb9a450`, which drops the placeholder marking because a Commit with POUS is of record;
+- merged with `main` `5810574d` (train K2).
+
+PoUW's composition needs (`internal/pouw-mvp/composition-needs.md`, bc-dd22acf8) are folded in, and the vLLM
+coordinator's verdict on the stack is GO with conditions (§7). This design replaces the single `none | pous | pouw` knob
+and keeps its hook sites. The protocol logic stays in `verity_pouw`, `verity_pous` and `verity_sampled_proofs`; the
+integration imports them, never the reverse.
 
 ## 1. Config: a set, off by default
 
@@ -36,8 +39,8 @@ with conditions (§7). It supersedes the single
 - **Settings** are `{name: {...}}`, from `LLM(protocols_config=…)` or the workload's `protocols_config` block. Each
   adapter validates its own keys and refuses unknown ones. Settings are never hashed.
   - PoUW's keys: `scheme`, `beacon`, `transcript_dir`, `retain_steps`, `weight_operands`.
-  - `weight_operands` defaults to `per-forward`. With POUS on it is always `per-forward`, under Daniel's no-weight-copies
-    rule (decision 3). `resident` is opt-in only without POUS.
+  - `weight_operands` defaults to `per-forward`. With POUS on it is always `per-forward` (decision 3). `resident` is
+    opt-in only without POUS.
 
 ## 2. Hooks interface (`protocol_options/`)
 
@@ -47,7 +50,6 @@ with conditions (§7). It supersedes the single
 class Installed(Protocol):
     name: str                            # "pous:band-chain/d12/v1"
     hooks: Hooks                         # every patch and Service, via target.hooks(name): tagged with name
-    outside_program: str | None          # why the Program does not describe it; the verdict is then not of record
     def commitment(self) -> dict         # for the composition record; readable after close()
     def info(self) -> dict               # certificate, roots, counters; never hashed
     def weights(self) -> Mapping | None  # plaintext of what it released, by named_parameters()/named_buffers() name
@@ -55,7 +57,7 @@ class Installed(Protocol):
 
 # each adapter module: NAME, DEFAULT_SCHEME, schemes(), refusals(scheme, ctx), install(scheme, target), and optionally
 EXECUTES: tuple[str, ...]                # sites where it replaces the computation (PoUW: LinearBase.quant_method.apply)
-def traced_as(scheme, ctx) -> str | None       # the Definition sampled proofs traces that computation as
+def traced_as(scheme, ctx) -> str | None       # the Definitions sampled proofs traces that computation as
 def keeps_weight_copy(scheme, ctx) -> bool     # a weight-derived copy stays resident across forwards
 def commit_weights(scheme, target) -> Mapping  # its commitment to the plaintext weights (phase 1)
 ~~~
@@ -93,11 +95,12 @@ started and the first stopped.
 |---|---|---|
 | sampled proofs | the run root over the required values of `P(profile)`; the weights root | the profile digest carries the set; `weights_pin` |
 | POUS | its commitment to `W` before the salt; the storage root of `C = Enc(W, salt)`; timed answers | `Dec(C) = W` exactly |
-| PoUW | weight roots; per unit, the A-row root and the tile transcript under the epoch salt | its A rows and weight root must match the traced linear's boundary (below) |
+| PoUW | weight roots; per unit, the A-row root and the tile transcript under the epoch salt | to its circuit's boundary values, once that circuit lands (decision 2) |
 
-**The composition record**, `verity-vllm/protocol-composition/v0` (`protocols.json`), holds, per protocol, its entry,
-its weight commitment and its `commitment()`, together with the profile digest and a SHA-256 over its canonical JSON.
-Each protocol's own verifier checks its own claims.
+**The composition record** is `verity-vllm/protocol-composition/v0` (`protocols.json`). Per protocol, it holds the entry,
+the weight commitment and `commitment()`, together with the profile digest and a SHA-256 over its canonical JSON. A
+Commit's verdict carries the set and that digest (`verdict.protocols`). It is of record like any other Commit's, because
+a Commit admits only options the Program describes (decision 1).
 
 **Weights of record.** POUS's `weights()` returns the plaintext it released. Tied names map to one tensor object. The
 replay reads through `weights_view` / `register_weights`.
@@ -108,42 +111,20 @@ replay reads through `weights_view` / `register_weights`.
 - TP > 1;
 - sampled proofs outside the Commit;
 - two executors at one site;
-- with `pous` on, an option whose `keeps_weight_copy` is True;
-- **beside sampled proofs, an executor without `traced_as`.** Sampled proofs must trace what PoUW declares, never the
-  noised GEMM as if it were the stock one. So `pouw` + `sampled-proofs` is refused until PoUW's linear has a
-  Definition. `pearl-fp8-v4` stays refused beside sampled proofs, because its useful output depends on its noise.
+- with `pous` on, an option whose `keeps_weight_copy` is True (decision 3);
+- **beside sampled proofs, an executor without `traced_as`.** Sampled proofs never traces a replaced computation as the
+  stock one.
+  - `pouw` + `sampled-proofs` stays refused until PoUW's circuit lands (decision 2).
+  - `pearl-fp8-v4` stays refused beside sampled proofs, because its useful output depends on its noise.
 
-**PoUW's resident weight copy** is signalled by its `weight_operands` setting:
-- `"per-forward"`, the default in #315 at `14000398`, prepares operands from the weight each `apply` is handed, forming them
-  in chunks. It keeps no copy, so it composes with POUS.
-- `"resident"` is opt-in without POUS only. It is prepared at install and noised once per epoch, and keeps a copy.
-  Daniel's no-weight-copies rule refuses it with POUS (decision 3), and the selector enforces that through
-  `keeps_weight_copy`.
-- `14000398` was not yet on GitHub at 00:15Z. #315's pushed head, `58c3bc49`, still defaults to `resident`.
+**PoUW's weight operands** (the `weight_operands` setting):
+- `"per-forward"`, the default in #315 at `14000398`, prepares operands from the weight each `apply` is handed, forming
+  them in chunks. It keeps no copy.
+- `"resident"` is opt-in without POUS only. It is prepared at install, noised once per epoch, and keeps a copy.
+- `14000398` was not on GitHub at 00:25Z. #315's pushed head, `58c3bc49`, still defaults to `resident`.
 
 **Refused by the adapters:** compiled execution, TP > 1, layers outside a scheme's domain. The embedding isn't wrapped:
-POUS covers the linears only (decision 5: not yet).
-
-**What a Commit does with more than sampled proofs:**
-- **With POUS,** it runs as a placeholder composition. It installs POUS, writes `protocols.json`, and marks
-  `verdict.protocols.of_record = false`. The Program is unchanged, since the decode is input provenance and `W` is
-  bit-identical.
-- **With PoUW,** it is refused (above).
-
-**How PoUW gets covered (question 2)**, from PoUW's note. Sampled proofs traces the declared `ncp-v1` linear, not the
-noised execution:
-- **The computation:** `x → A` by the pinned quantizer (`verity.pouw.symmetric-int7-rowmax-rne-f32/v1`, plus the H2
-  rotation for branch E), then `Z = A·Bᵀ` exactly in int32, then `y = bf16(fp32(s_i)·fp32(t_j)·Z_ij) + bias`.
-- **The Definition:** a new one for that int7 linear, passing `circuit-check`. It is the same Definition a W7A7 serving
-  path would need. PoUW's `traced_as` names it, and the profile binds it the way `moe_construction` binds its
-  Definitions.
-- **The link:** the traced boundary includes A's rows (one two's-complement byte per entry) and the weight root, and the
-  verifier recomputes PoUW's `root_a` and weight root from them. Otherwise a prover could do the work on one A and serve
-  another.
-- **PoUW's side claim:** the noise, salt, 3k-deep GEMM and checkpoints stay out of the Program. PoUW's own audit checks
-  them.
-- **Capture:** it happens at the `apply` boundary only, never inside PoUW's forming ops. Openings come from retained
-  copies, never from a replay run through the executor.
+POUS covers the linears only (decision 5).
 
 **Not built:** per-option memory budgets, refused at install when the composition doesn't fit.
 
@@ -181,7 +162,11 @@ The vLLM coordinator takes that test in place of a pod A/B. The follow-up epoch'
   the profile field, `LLM(protocols=…)`, the row knob, the Commit's calls, and `tests/protocol_options/` (CPU,
   torch-free).
 - **#312 (`pous.py`, bc-13eada34)** and **#315 (`pouw.py`, bc-dd22acf8),** stacked on it, over the protocol packages from
-  #208 and #218.
+  #208 and #218. Both pass `outside_program=` to their option today. `dfb9a450` removes that field, so each drops the
+  keyword when it merges `1cbc750a`.
+- **PoUW's circuit for sampled proofs:** a new worker, in
+  `/cursor/stores/bc-b729c175-2ef6-418e-98fe-10896709028b/docs/pouw/sampled-proofs-circuit.md` (not yet written at
+  00:25Z).
 
 ## 7. Merge plan
 
@@ -192,7 +177,7 @@ three, in one train, with two conditions:
 
 **Order:**
 1. **D3′ first** (#208 `verity_pous`, #218 `verity_pouw`, #298 and #301). #298 and #301 also edit `pipeline/commit.py` and
-   `pipeline/tp/commit.py`. At 23:59Z D3′ was not on `main`.
+   `pipeline/tp/commit.py`. At 00:25Z D3′ was not on `main`.
    - #311 then merges D3′ in and re-runs the recorded `check`. The one conflict is two imports at the same place in
      `pipeline/tp/commit.py`; the resolution was tried against D3 `de4118fc`.
 2. **#311, the scaffold.**
@@ -201,17 +186,17 @@ three, in one train, with two conditions:
    - **Runtime effect:** none until a set is declared.
    - **Evidence:**
      - `check` `r20260928-200103-b2b8` passed on `69153d43`;
-     - on `4c4b8290`, `check` `r20260928-235507-0a7b` is running, and the vLLM tests under torch ran as
-       `r20260928-235358-f68a`.
+     - on `1cbc750a`, the vLLM tests under torch ran as `r20260929-001914-bb04`. Only `main`'s own dead-module failure
+       (#309's `spec.py`) shows up.
+     - `check` `r20260929-002004-2255` is running on `1cbc750a`.
 3. **#312, POUS.**
    - **Adds:** `pous.py` over `verity_pous`, `band-chain/d12/v1` by default.
-   - **How it works:** it wraps the linears' `apply` and hands the decoded `W` inward. It releases the plaintext, and
-     returns it through `Option.decoded` for `weights_view`. The responder runs as a `Service`. It covers the linears only.
-   - **Result:** `LLM(protocols="pous:…")` serves from the encoded store. A row with sampled proofs and POUS runs as a
-     placeholder composition, with `verdict.protocols.of_record = false`.
+   - **How it works:** it wraps the linears' `apply` and hands the decoded `W` inward. It releases the plaintext and
+     returns it through `Option.decoded`. The responder runs as a `Service`. It covers the linears only.
+   - **Result:** `LLM(protocols="pous:…")` serves from the encoded store. A row with sampled proofs and POUS is of record.
 4. **#315, PoUW.**
    - **Adds:** `pouw.py` over `verity_pouw`. It is the one executor at the linears' `apply`, with `EXECUTES`,
-     `traced_as` returning None, and `commit_weights`.
+     `traced_as` returning None until its circuit lands, and `commit_weights`.
    - **Settings:** `weight_operands` defaults to `per-forward` (chunked forming). `resident` is opt-in only without POUS.
    - **Label:** #315 is labelled not auditable.
    - **Result:** `LLM(protocols="pouw:ncp-v1")` and `pouw` + `pous` serve.
@@ -219,81 +204,47 @@ three, in one train, with two conditions:
 Each adapter merges #311's final head, re-runs its own `check`, and lands after #311 in the same train.
 
 **What stays refused after the train:**
-- `pouw` beside sampled proofs, in any scheme, until the int7 linear has a Definition (question 2). `pearl-fp8-v4` stays
-  refused beside sampled proofs for good.
+- `pouw` beside sampled proofs, in any scheme, until PoUW's circuit lands (decision 2). `pearl-fp8-v4` stays refused
+  beside sampled proofs for good.
 - `pous` with `pouw` at `weight_operands = "resident"`.
 - TP > 1, compiled execution, protocol options in the hot Commit worker, and sampled proofs in `LLM`.
-- The embedding and the tied head under POUS (decision 5: not yet).
+- The embedding and the tied head under POUS (decision 5).
 
 **Composable after the train:**
 - **Serving, through `LLM`:** `pous`, `pouw`, and `pous` + `pouw`.
-- **A row:** sampled proofs alone, which is today's Commit, unchanged. Also sampled proofs + `pous`, as the placeholder
-  composition.
+- **A row:** sampled proofs alone, which is today's Commit, unchanged. Also sampled proofs + `pous`, of record.
+- **All three in one row** follows PoUW's circuit.
 
 **First evidence on `main`:** the follow-up epoch's first re-recorded row (the verdict's condition 2(b)). Its regression
 record must equal the epoch's rule, with no `protocols` key in `verdict.json`.
 
-## Daniel's decisions
+## Daniel's decisions (00:15Z)
 
-3. **POUS with PoUW: no weight copies.** When POUS is on, PoUW is always per-forward, and per-forward is also its default.
-   PoUW never keeps a weight-derived copy beside POUS's store, so every GEMM reads what POUS decodes. The selector
-   refuses `resident` with POUS (`keeps_weight_copy`).
-4. **Hooks and challenges.**
-   - Hooks are centralized in the integration where that helps. The selector owns the site nesting, the install phases,
-     the weights view and the cross-protocol refusals.
-   - Each protocol manages its own challenges: one beacon draw per protocol, as built. The randomness domains are
-     disjoint, so no draw depends on another protocol's.
-5. **The embedding under POUS: not yet.** POUS wraps the linear layers only, and its `info()` and `commitment()` say so.
-   The embedding and the tied LM head, 28% of Qwen2.5-0.5B's weight bytes, stay plaintext for now.
+**Terms.**
+- **The Commit** is the last stage of a vLLM row. It runs the model on a fixed workload, commits to every value the Program
+  says must be checkable, and spot-checks a random sample by recomputing it on CPU. That spot-check is sampled proofs.
+- **A verdict "of record"** can be cited as evidence that the served computation matched the Program.
+- **A Definition** is a registered, exactly specified function the Program is built from, and it must pass
+  `circuit-check`.
 
-## Open questions for Daniel
-
-**Terms used below.**
-- **The Commit** is the last stage of a vLLM row. It runs the model on a fixed workload, commits to every value the row's
-  Program says must be checkable (Merkle roots over the activations and outputs), then spot-checks a random sample of
-  those values by recomputing them on CPU. That spot-check is sampled proofs.
-- **A verdict is "of record"** when it can be cited as evidence that the served computation matched the Program. The
-  tables, the epoch records and the merge gates read only verdicts of record.
-- **A Definition** is a registered, exactly specified function the Program is built from, such as a bf16 matrix multiply,
-  and it must pass `circuit-check`. Sampled proofs can only check computation a Definition describes.
-
-1. **Should a Commit run with POUS on, as a placeholder?**
-   - **The choice:**
-     - **(a)** A row that enables POUS runs its Commit as usual. It installs POUS, commits, spot-checks, writes
-       `protocols.json`, and labels its verdict "not of record".
-     - **(b)** The Commit refuses such a row until the Program describes POUS's weight decode.
-   - **What (a) changes:** sampled proofs and POUS can run together on real rows now, and their costs and records can be
-     measured. The spot-check should still pass, because POUS decodes the weights bit-exactly. The label keeps the result
-     from ever being cited as a verdict of record.
-   - **What (b) changes:** every Commit stays record-grade. But POUS then combines with sampled proofs only in serving,
-     never in a recorded row.
-   - PoUW is refused at the Commit either way, until question 2 is decided.
-   - **Built:** (a).
-   - **Recommendation:** (a). It is the only way to run sampled proofs and POUS together today. Once the vLLM coordinator
-     agrees the decode is input provenance at a stated boundary, the label can be dropped for POUS.
-2. **How should sampled proofs cover PoUW's layers?**
-   - **The background:** PoUW replaces each linear layer's matrix multiply with a noised computation whose useful output
-     is exactly an int7 linear:
-     - quantize the input to int7;
-     - multiply exactly in integers;
-     - dequantize.
-
-     The Program describes those layers as bf16 matrix multiplies, so a spot-check of a PoUW layer would recompute the
-     wrong function and fail.
-   - **The choice:**
-     - **(a)** Build a Definition for the int7 linear. It is the same Definition an int7 (W7A7) serving path would need.
-       Sampled proofs then checks PoUW's layers against it, and verifies that the inputs and weights it commits are the
-       ones PoUW committed. The noise stays PoUW's own claim, checked by its own audit.
-     - **(b)** Delegate. Sampled proofs skips PoUW's layers, PoUW's tile audit covers them, and the same input and weight
-       link is checked.
-     - **(c)** Keep refusing sampled proofs together with PoUW.
-   - **What each changes:**
-     - **(a)** makes a run with all three protocols citable once the Definition passes `circuit-check`. It costs one new
-       Definition and the link.
-     - **(b)** needs no new Definition. But the combined claim for the linear layers then rests on PoUW's audit and its
-       hardness assumption, not on recomputation.
-     - **(c)** builds nothing. All three run together only in serving.
-   - `pearl-fp8-v4` stays refused beside sampled proofs under every answer, because its output depends on its noise.
-   - **Built:** (c), until you decide.
-   - **Recommendation:** (a). It keeps sampled proofs' guarantee complete, the Definition is useful without PoUW, and it
-     is what PoUW's owner proposes.
+1. **POUS with sampled proofs is of record.** POUS decodes the weights bit-identically and leaves the circuit untouched,
+   so a Commit with POUS is an ordinary Commit. #311 dropped `outside_program` and `verdict.protocols.of_record`
+   (`dfb9a450`).
+2. **PoUW under sampled proofs: build it.**
+   - PoUW gets its own modeled circuit, Definitions for what it computes, and sampled proofs is its verifier. There is no
+     separate verification lottery.
+   - The circuit and the choice of proof units are being designed in
+     `/cursor/stores/bc-b729c175-2ef6-418e-98fe-10896709028b/docs/pouw/sampled-proofs-circuit.md`.
+   - Until it lands, `pouw` beside sampled proofs stays refused, because its `traced_as` returns None.
+   - **Constraints from PoUW's composition note, as inputs to that design:**
+     - the traced boundary links A's rows and the weight root to PoUW's own roots;
+     - capture is at the `apply` boundary only;
+     - openings never re-run the executor;
+     - `pearl-fp8-v4` stays refused.
+3. **No weight copies (closed).** When POUS is on, PoUW is always per-forward, and per-forward is also its default. The
+   selector refuses `resident` with POUS (`keeps_weight_copy`).
+4. **Hooks and challenges.** Hooks are centralized in the integration where that helps: the site nesting, the install
+   phases, the weights view and the cross-protocol refusals. Each protocol manages its own challenges, with one beacon
+   draw per protocol, as built.
+5. **The embedding under POUS: not yet.** POUS wraps the linear layers only. The embedding and the tied LM head, 28% of
+   Qwen2.5-0.5B's weight bytes, stay plaintext for now.

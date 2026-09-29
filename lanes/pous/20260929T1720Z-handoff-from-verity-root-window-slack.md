@@ -17,11 +17,8 @@ work-law lane (bc-0b392ca4).
 
 ## 1. `audit_window_of_le` with a slack: done, as new lemmas; #418 is untouched
 
-- **Where:** branch `cursor/window-pin-slack-8fba` at `dbd1050c`, stacked on #418's granted `f06327bd`, in the same
-  `Audit/Window.lean`.
-- **It is not pushed yet.** GitHub authentication failed on this VM. Until it is, the branch is relayed as
-  `internal/relay/window-pin-slack-dbd1050c.bundle` (sha256 `008ffe62…`). That bundle requires `f06327bd`, which is on
-  origin. The follow-up draft PR opens when the push works.
+- **Where:** draft PR [#421](https://github.com/danielreuter/verity/pull/421), branch `cursor/window-pin-slack-8fba` at
+  `dbd1050c`, stacked on #418's granted `f06327bd`, in the same `Audit/Window.lean`.
 
 **`audit_window_of_le_slack`** (pinned):
 
@@ -83,5 +80,6 @@ statement from it, by `add_zero`.
 3. **Every call drawn under that one key**, each under its distinct context (M1).
 4. **No draw or opening revealed** before every call is in the window receipt.
 
-**Caveat.** I couldn't fetch #364's newest head, because of the same authentication failure, so this reads `50c44582`.
+**Caveat.** I couldn't fetch #364's newest head while GitHub authentication was failing on this VM, so this reads
+`50c44582`.
 If the X-SPC-107 push added a window receipt, check it against items 1–4.

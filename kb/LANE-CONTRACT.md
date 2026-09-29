@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
+version: 2.5 (2026-09-29T04:00Z: §6, §8, §C evidence and renders go to the evidence store, never the notes; `research notes sync` leaves renders/, campaigns/*/assets/ and lanes/*/evidence/ out); 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -107,7 +107,8 @@ yours, not another instance's.
   `research pods sync <pod>` to ship your worktree and `research pods ssh <pod>` (`--print` gives a reusable ssh line).
 - Set up with `backends/direct/ligero/pod_bootstrap.sh` (through `research run --on`, §3a), then `source env.sh`. Run with
   `LIGERO_GPU_STRICT=1 LIGERO_GRAPH_STRICT=1`.
-- Pod scripts go in `lanes/<you>/evidence/pod-scripts/` and outputs under `/workspace/<you>/`, so a successor can find what ran.
+- Pod scripts go in `lanes/<you>/tools/` and outputs under `/workspace/<you>/`, so a successor can find what ran; what a result
+  rests on (logs, JSON, plots) goes to the evidence store (§8).
 - Register results as they land (§8). Four lanes died with their results only on the pod.
 - Terminate the pod at FINAL unless the launch message says to keep it (`--keep-pod WHY`, §9).
 
@@ -129,6 +130,10 @@ Red-team, fetch --all, reverify and tests over ~1 GB run on your pod.
 
 ## 8. Data
 - `research data put ... --preserve` right after each result (pushes to R2 and verifies). Cite `art:<8+ hex>` in the report at once.
+- Evidence and renders never go in the notes: logs, JSON, plots and run outputs are a recorded run's outputs or
+  `research data put --kind evidence/v1 --meta '{"lane": "<you>", "what": "..."}' --file|--tree P --preserve`, cited by `art:` id;
+  tables are rendered from the store on demand. `research notes sync` leaves anything under `renders/`, `campaigns/*/assets/`
+  or `lanes/*/evidence/` out of the notes. Files moved out on 2026-09-29 resolve through the notes README.
 - `research data label` enforces the vocabulary (`research data vocab` lists it). Never write `verified=` yourself.
 - Custody is `research data preserved <art|run>...` exiting 0, never hand-written SQL (`research data sql` prints the real
   schema when a column is wrong).
@@ -169,7 +174,7 @@ lane's STATE.md; write a handoff file into its lane directory instead.
 Save what the dead lane would lose, mark it superseded, and bind the successor to the same worktree, branch and pod:
 
 ~~~sh
-L=<dead lane>; S=<successor>; w=<its worktree>; T=$(date -u +%H%MZ); d=~/.research/notes/lanes/$L/evidence; mkdir -p $d
+L=<dead lane>; S=<successor>; w=<its worktree>; T=$(date -u +%H%MZ); d=~/.research/relaunch/$L; mkdir -p $d   # never the notes
 git -C $w diff HEAD > $d/uncommitted-$T.patch; git -C $w status --short > $d/uncommitted-$T.status
 git -C $w ls-files --others --exclude-standard -z | tar czf $d/uncommitted-$T-untracked.tgz -C $w --null -T -
 g=$(git -C $w rev-parse --absolute-git-dir); [ -f $g/MERGE_HEAD ] && cp $g/MERGE_HEAD $d/uncommitted-$T.merge

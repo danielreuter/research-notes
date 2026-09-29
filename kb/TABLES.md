@@ -251,8 +251,9 @@ Security, Performance, definitions) replaces the markdown Tables 1–3 and the t
 
 - **The product is the entities JSON** (`verity/tables-entities/v1`):
   `python -m verity_numerical.bench.views --root <store> --format entities --published`.
-- **The steward** renders it daily at 13:00Z as `renders/daily/<stamp>-tables.json`. Its `[[render]]` entry in `steward.toml`
-  has `published = "entities"`.
+- **The steward** renders it daily at 13:00Z as `<stamp>-tables.json` in `/workspace/steward/renders/daily/` on the control pod,
+  outside the notes: a render is regenerated from the store on demand and never committed. Its `[[render]]` entry in
+  `steward.toml` has `published = "entities"`.
 - **The cloud mirror** copies the newest render to the Project store's `internal/tables-render/latest.json`, which the site
   reads.
 - **Parity** (`views --parity`) still runs in the same entry as an internal correctness gate. It publishes nothing and gates

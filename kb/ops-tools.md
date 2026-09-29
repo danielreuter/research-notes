@@ -35,7 +35,7 @@ research notes watch --every 2 --stale-min 12 --idle-min 5 --runway-h 3 --pods -
 research notes relaunch <lane> [--as <successor>]    # contract §C in one command; prints the launch message to paste
 research notes gc-worktrees [--apply]                # lists, then removes, clean + pushed worktrees of final / superseded lanes
 ~~~
-`relaunch` saves uncommitted work to `lanes/<lane>/evidence/uncommitted-<HHMMZ>*`, checkpoints `<lane> superseded`, and binds
+`relaunch` saves uncommitted work to `~/.research/relaunch/<lane>/uncommitted-<HHMMZ>*` (never the notes), checkpoints `<lane> superseded`, and binds
 `<topic>-<N+1>` to the same branch, worktree and pods. `bind --brief/--final/--budget` values carry into the launch message.
 
 ## Pods

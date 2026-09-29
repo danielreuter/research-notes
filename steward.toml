@@ -4,7 +4,7 @@
 [[render]]
 at = "13:00Z"
 source = "/workspace/steward/verity"
-out = "renders/daily"
+out = "/workspace/steward/renders/daily"   # outside the notes: renders are never committed
 store = "/workspace/steward/store"
 published = "entities"   # the site's JSON + the internal parity gate; markdown retired (Daniel 2026-09-26)
 

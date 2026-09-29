@@ -72,8 +72,9 @@ fi
   - Handoffs to another lane or to the coordinator: `$RESEARCH_NOTES/lanes/<target>/<UTC stamp>-handoff-from-<your lane>.md`,
     with the usual `lane / kind: handoff / from / created` header. That exact filename pattern is what gets mirrored into
     the notes, so don't use any other.
-  - Small text evidence (scripts, patches, short logs) under your own `evidence/`. Anything large goes to R2
-    (`research data put --preserve`, or `research run ... --custody-r2`).
+  - Scripts under your own `tools/`. Evidence (logs, JSON, plots, run outputs) goes to the evidence store only
+    (`research data put --kind evidence/v1 ... --preserve`, or `research run ... --custody-r2`), cited by `art:` id:
+    `research notes sync` leaves `lanes/*/evidence/` out of the notes.
 - **Direct mode** (section 1): the "Read" and "Write" paths above are your clone, so reads are as fresh as your last
   `git -C $NOTES_CLONE pull --rebase --autostash`, and checkpoints and `research notes sync` push them. Still never run
   `notes push` or `notes snapshot`.
@@ -146,6 +147,6 @@ Don't poll in a loop or sleep in a turn. A job under ~2 minutes may still be awa
 - **No cron timers.** Cursor timers are `delaySeconds` from UTC only. Recurring UTC jobs, such as renders, belong on the
   steward.
 - **A failed push doesn't block you.** Commit, name the sha in your checkpoint, `git bundle create` the branch into
-  `lanes/<you>/evidence/`, and ask once for a token refresh.
+  the Project store's `artifacts/` (never the notes), and ask once for a token refresh.
 - **Custody lifetime:** the key lasts 6 h by default. A `--timeout` longer than that needs an explicit `--custody-ttl`, up
   to 24 h, or `research run` refuses to launch it.

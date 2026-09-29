@@ -1489,6 +1489,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Checks: the audit passes with kernel replay (10,542 declarations, 128 pins); 48 tests pass.
   - Verdict: `internal/lanes/pous/20260929T2034Z-redteam-425-8d630a70-delta.md`. Evidence:
     `private/red-team-reviews/pr425-8d630a70-evidence.log`.
+- **PR #452 @ `afbe5c95` (restores `Flock.Draw` under `meaning` and its `reads` entry, which train TL dropped): GRANTED,
+  label recorded.**
+  - The entry is byte-identical to #412's at `da1e703a`, and `Flock/Draw.lean` is unchanged since then.
+  - Checks: the audit passes with kernel replay on the committed record (10,976 declarations, 108 pins); `--update`
+    regenerates it byte-identical; 15 repo tests pass.
+  - The label `grant = red-team` is on `pr:452@afbe5c9547ffdcbd6279ca940f635f1ccfbb48ff`, on the remote ("both"), with
+    ref `note:red-team-flock-3/20260929T2300Z-finding-red-team-452-flock-draw`. The statement grant by bc-78117a1c is
+    beside it.
+  - Verdict: `internal/lanes/red-team-flock-3/20260929T2300Z-answer-from-red-team-flock-3-452-verdict.md`, with a
+    note to RC at `internal/lanes/coordinator/20260929T2300Z-answer-from-red-team-flock-3-452-red-team-grant.md`.
+    Evidence: `private/red-team-reviews/pr452-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

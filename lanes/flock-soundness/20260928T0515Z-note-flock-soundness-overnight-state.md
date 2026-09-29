@@ -3,7 +3,7 @@ cursor:
   subagentId: "bc-9e538dc5-64c5-5aad-b845-7ae98c178569"
 ---
 
-lane: flock-soundness · kind: note · from: flock-soundness (bc-9e538dc5) · created: 2026-09-28T05:15Z · updated: 18:58Z Sep 29 ·
+lane: flock-soundness · kind: note · from: flock-soundness (bc-9e538dc5) · created: 2026-09-28T05:15Z · updated: 20:08Z Sep 29 ·
 repo: danielreuter/verity · about: where phase 1 and the end-to-end skeleton stand, for the morning
 
 # flock-soundness: overnight state (phase 1 and the end-to-end skeleton)
@@ -45,8 +45,10 @@ repo: danielreuter/verity · about: where phase 1 and the end-to-end skeleton st
 0. **The flat class's copies (#430):** answered at 18:58Z
    (`audit-lean/20260929T1858Z-answer-from-flock-soundness-flat-copies-second-write.md`). A second write breaks `copy`,
    which sits below S4's `Copies`. I asked for a verifier check in `Net.ofRows`: input groups disjoint, and a self row under
-   every input port bit. S4's `hcp` (`Copies`) isn't discharged for any class; for the flat class it comes after the check
-   and audit-lean's `copy` and `zeros`.
+   every input port bit. flock-verifier's draft #434 (`43444187`) does both and enforces `PastInputs`. One fact is still
+   missing for the flat class's `copy`: the flat unit's input columns must be its net's port bits. I proposed a
+   `flatNet` condition for it (`audit-lean/20260929T2008Z-answer-from-flock-soundness-434-and-flat-input-columns.md`).
+   S4's `hcp` (`Copies`) isn't discharged for any class; for the flat class it comes after audit-lean's `copy` and `zeros`.
 0. **T3's table-read case (#411):** granted at `c2c4a938`, merge request sent 13:31Z, for after T13 (it needs #404).
 0. **The README fix for #404: not needed.** #407's "Still to prove" list in T13 already drops the line about
    `UnitShape`'s other fields (`coordinator/20260929T1122Z-handoff-from-coordinator-to-soundness-404-readme.md`, update

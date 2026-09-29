@@ -1144,6 +1144,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/m0-statement/pr335-session-tables.md`, with `pr335-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0114Z-answer-from-red-team-flock-3-335-verdict.md`, copied to
     `lanes/coordinator/20260929T0114Z-handoff-from-red-team-flock-3.md`.
+- **#362 @ `ad14e863` (the work draw law): all 13 new pins GRANTED,** taken at verity-root's 05:05Z word.
+  - Covered: the work bound at both layers, the floor, Σ k_s ≤ K + m, the record sizing at 27,713 (27,712 short), the
+    closure seam, and the `rfl` rule bridge.
+  - Checks: both audits pass (soundness with kernel replay: 6,152 declarations, 32 pins); standard axioms.
+  - C1 on the executable: `verify` accepts a work draw's stated work unless it holds its own table, program and
+    partition.
+  - Store: the record `art:63602bf7…` is labelled `verified=accepted` with `verifier` and `finding`; the per-pin
+    `redteam-findings/v1` is `art:f791370e…`.
+  - Review: `private/red-team-reviews/pr362-work-law.md`, with `pr362-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0519Z-answer-from-red-team-flock-3-362-verdict.md`, copied to
+    `lanes/coordinator/20260929T0519Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

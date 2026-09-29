@@ -7,6 +7,7 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 33828711 (18:00Z) [open] #424 5f53e705 (audit lane, Lean only, no pins) added to TM: merges clean; no TM PR calls setupH_inputCopy (only its definition + README). tr-TMpre d18465c4 = #416, #418, #421, #424; 125 pins; regen r20260929-175841-cf93 replaces r20260929-174507-6d50 (killed by pgid).
 CHECKPOINT 33828711 (17:57Z) [open] Root 17:52Z: #414 dropped from TB (POUS draft, no merge request; later train once filed). TB = tr-TB d27303f6: #371, #420, #422, #336; lint + repository + replica tests pass. Launch after baseline, TB before TM.
 CHECKPOINT 33828711 (17:55Z) [open] Non-Lean train TB built: tr-TB 2d618492 = main 33828711 + #371 be6acc18 + #420 8c50b5c5 + #422 68d9b2d4 + #336 57cceb24 + #414 c24106d4, no conflicts; wall-clock/repository/check/replica tests 83 passed. #336 touches backends/flock/ -> launch with send on AVX-512 vy-coord-t1. TB launches first after the baseline (#371 unblocks the history rewrite), TM after. #414 has no merge request filed (root listed it).
 CHECKPOINT 33828711 (17:47Z) [open] TM now #416 8aed7908 + #418 f06327bd + #421 dbd1050c (granted, retargeted to main): tr-TMpre abd58109, 125 pins each equal to its granted source (#421 adds 2 slack pins); regen r20260929-174507-6d50 replaces the killed r20260929-173754-cb25; check recorded on the train merge (#421's head alone trips the old blob cap). Next non-Lean train: #414, #336, #420, #422 (vLLM coordinator's merge request 1744Z: epoch record stage bounded by run end).

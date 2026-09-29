@@ -12,4 +12,4 @@ One line per row as it lands. Digests are the first 16 hex; the full values are 
 
 | row | main sha | step / request / workload Program digests | manifest | run root | partition digest | verdict | run id | $ |
 |---|---|---|---|---|---|---|---|---|
-| #101 | 14f027c3 | 11e8da5d74b2c699 / 1 req (ec29fe03bd242277) / 66df03fba5674316 | 1ea8e220c8e4c98f | dfde1f7202483127 | 2b159fadcef19486 | PASS, word check fast PASS, deferred: no recorded results under /workspace/fu-evidence/101/evidence/record/llama32-1b__bf16__l40s__tp1__b1__i256__o32__mixed__stoch-t0.8-p0.95__bi-eager | r20260929-144629-282e (?, ?x NVIDIA L40S, 142 SMs, ? vCPU, driver ?) | 2.07 |
+| #101 | 14f027c3 | 11e8da5d74b2c699 / 1 req (ec29fe03bd242277) / 66df03fba5674316 | 1ea8e220c8e4c98f | dfde1f7202483127 | 2b159fadcef19486 | PASS, word check fast PASS, written (recovered off-pod; 2 checks sanctioned) dd8b6159; note:20260929T1743Z-answer-from-vllm-coordinator-101-gate; record art:90d543d8 | r20260929-144629-282e (secure, 1x NVIDIA L40S, 142 SMs, ? vCPU, driver ?) | 2.07 |

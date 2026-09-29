@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 7bde6040 (12:12Z) [final] #408 @b2f8db97 GRANT WITH C1 (via bundle): subset_exec_escape_le right (unchanged executable over uniform bytes, none = no escape); main's 60 unchanged; meaning gains Flock.Draw; C1: DrawExec.lean breaks test_audit_layer_is_abstract (imports Flock.Draw under Audit/); soundness audit PASS w/ replay 8,233 decl, 61 pins; record art:cd05a6a2, findings art:7317b252
 CHECKPOINT 81f0453e (11:06Z) [final] #404 @bf36d2b2 GRANT (via bundle): partsChecked gains the constant-row and order-columns conjuncts; same four pins' reads move, strictly stronger hypothesis; honest units pass (21 derive vectors, test_flock_rows under uv torch-cpu 13); soundness audit PASS w/ replay 8,003 decl, 33 pins; record art:c8e66b03, findings art:d915604f
 CHECKPOINT 5b947923 (10:48Z) [final] #402 @38d9be9a GRANT (stratified_miss_eq_greedy; main's 51 unchanged; audit PASS w/ replay 52 pins; N1 exporter: certify separation exactly); #392 @8628dd4a GRANT (three satisfiability witnesses; #381's 38 unchanged; audit PASS w/ replay 41 pins); both via verity-root's bundle
 CHECKPOINT fea99a78 (10:23Z) [final] R9c/R11 on main 610ee10f GRANTED at #291 @2437e377, #296 @4d226ad1, #302 @377f7d26, #310 @e9ca3ba2 (via bundle): every pin record main's or my grant's; six changed .lean = HmRow pin union, auto-merge, proof-only edits; R11 heads and R9b 115fffc5 are exact auto-merges; audits PASS w/ replay (42/43/46/48 pins)

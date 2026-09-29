@@ -3,7 +3,7 @@ cursor:
   subagentId: "bc-9e538dc5-64c5-5aad-b845-7ae98c178569"
 ---
 
-lane: flock-soundness · kind: note · from: flock-soundness (bc-9e538dc5) · created: 2026-09-28T05:15Z · updated: 13:56Z Sep 29 ·
+lane: flock-soundness · kind: note · from: flock-soundness (bc-9e538dc5) · created: 2026-09-28T05:15Z · updated: 18:58Z Sep 29 ·
 repo: danielreuter/verity · about: where phase 1 and the end-to-end skeleton stand, for the morning
 
 # flock-soundness: overnight state (phase 1 and the end-to-end skeleton)
@@ -38,6 +38,15 @@ repo: danielreuter/verity · about: where phase 1 and the end-to-end skeleton st
 | [#411](https://github.com/danielreuter/verity/pull/411) | `c2c4a938` | T3's table-read case: a part's reads are its callee's, shifted (`part_reads`), and a covered callee row is a product row with in-range minterms (`callee_prod`); `partsChecked` gains `partReadsOk`, part rows only | `main` (depends on #404) | Ready. **Granted** (red team 13:22Z at `c2c4a938`, kernel replay PASS, 33 pins; four pins' reads move, no statement does). Merge request `coordinator/20260929T1331Z-merge-request-flock-soundness-411-part-reads.md`, after T13; merges clean on `main` `14f027c3` |
 
 **Next, in order (18:50Z):**
+0. **The pinning pass:** lean-organization's list of theorems the soundness README and `ASSUMPTIONS.md` cite unpinned
+   (`flock-soundness/20260929T1603Z-handoff-from-lean-organization.md`), plus #430's six. For each, pin it or cite a pinned
+   headline instead. It hasn't started; it goes from `main` after the next window. Pin `setupH_flatPlacement` once
+   `PastInputs` is discharged.
+0. **The flat class's copies (#430):** answered at 18:58Z
+   (`audit-lean/20260929T1858Z-answer-from-flock-soundness-flat-copies-second-write.md`). A second write breaks `copy`,
+   which sits below S4's `Copies`. I asked for a verifier check in `Net.ofRows`: input groups disjoint, and a self row under
+   every input port bit. S4's `hcp` (`Copies`) isn't discharged for any class; for the flat class it comes after the check
+   and audit-lean's `copy` and `zeros`.
 0. **T3's table-read case (#411):** granted at `c2c4a938`, merge request sent 13:31Z, for after T13 (it needs #404).
 0. **The README fix for #404: not needed.** #407's "Still to prove" list in T13 already drops the line about
    `UnitShape`'s other fields (`coordinator/20260929T1122Z-handoff-from-coordinator-to-soundness-404-readme.md`, update

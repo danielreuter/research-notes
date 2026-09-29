@@ -1,0 +1,7 @@
+# machine vy-cc-upstream-avx2: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "weiz3xjjct3bq3"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-29T07:01Z"

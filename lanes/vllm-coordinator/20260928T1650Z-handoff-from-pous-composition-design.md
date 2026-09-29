@@ -8,20 +8,15 @@ repo: danielreuter/verity
 origin: pous
 ---
 
-For your review, as asked in `20260928T1635Z-handoff-from-pous-compose-protocols.md`. From the worker "Build composable vLLM protocol options" (bc-23d60f13). Replies go to `lanes/pous/`, or here.
-
-**Status, 18:20Z:** Daniel wants the scaffold on `main` first, with the adapters following as their own PRs (PoUW's is #315). [PR #311](https://github.com/danielreuter/verity/pull/311) is at `69153d43`, and a merge request to the research coordinator follows once its recorded `check` passes. Since 17:45Z it has taken in PoUW's composition needs:
-- one executor per site, with the nesting stated explicitly;
-- beside sampled proofs, an executor without a Definition (`traced_as`) is refused. That covers PoUW until its int7 linear is registered, and Pearl permanently;
-- weights are committed before any install.
-
-Your review is still welcome, and I'll follow it up in a PR after the merge.
+From the worker "Build composable vLLM protocol options" (bc-23d60f13). Revised 23:59Z to #311 `4c4b8290`, after your GO (`lanes/pous/20260928T2115Z-verdict-from-vllm-coordinator-311-312-315.md`). It adds a merge plan (§7) and PoUW's per-forward default (#315 `14000398`).
 
 
 # Composable protocol options in vLLM: PoUW, POUS and sampled proofs
 
-28 Sep 2026; revised 18:20Z to match [PR #311](https://github.com/danielreuter/verity/pull/311) at `69153d43`, with PoUW's
-composition needs (`internal/pouw-mvp/composition-needs.md`, bc-dd22acf8) folded in. It supersedes the single
+28 Sep 2026; revised 23:59Z to match [PR #311](https://github.com/danielreuter/verity/pull/311) at `4c4b8290`: `69153d43`
+plus the default-path test the vLLM coordinator asked for, merged with `main` `816c3682` (train T). PoUW's composition needs
+(`internal/pouw-mvp/composition-needs.md`, bc-dd22acf8) are folded in, and the vLLM coordinator's verdict on the stack is GO
+with conditions (§7). It supersedes the single
 `none | pous | pouw` knob and keeps its hook sites. The protocol logic stays in `verity_pouw`, `verity_pous` and
 `verity_sampled_proofs`; the integration imports them, never the reverse.
 
@@ -40,6 +35,7 @@ composition needs (`internal/pouw-mvp/composition-needs.md`, bc-dd22acf8) folded
 - **Settings** are `{name: {...}}`, from `LLM(protocols_config=…)` or the workload's `protocols_config` block. Each
   adapter validates its own keys and refuses unknown ones. Settings are never hashed.
   - PoUW's keys: `scheme`, `beacon`, `transcript_dir`, `retain_steps`, `weight_operands`.
+  - `weight_operands` defaults to `per-forward`, and `resident` is opt-in (§3).
 
 ## 2. Hooks interface (`protocol_options/`)
 
@@ -116,8 +112,10 @@ replay reads through `weights_view` / `register_weights`.
   Definition. `pearl-fp8-v4` stays refused beside sampled proofs, because its useful output depends on its noise.
 
 **PoUW's resident weight copy** is signalled by its `weight_operands` setting:
-- `"resident"`, the default, keeps a copy;
-- `"per-forward"` doesn't.
+- `"per-forward"`, the default in #315 at `14000398`, prepares operands from the weight each `apply` is handed, forming them
+  in chunks. It keeps no copy, so it composes with POUS.
+- `"resident"` is opt-in. It is prepared at install and noised once per epoch, keeps a copy, and is refused with POUS.
+- `14000398` was not yet on GitHub at 23:59Z. #315's pushed head, `58c3bc49`, still defaults to `resident`.
 
 **Refused by the adapters:** compiled execution, TP > 1, layers outside a scheme's domain. The embedding isn't wrapped:
 POUS covers the linears only (question 5).
@@ -164,8 +162,72 @@ The digest changes with the set, so `check_reuse` refuses by field. The grammar 
 - its hooks are the Commit's committer and taps, unchanged;
 - its commitment is the run roots and the Program and manifest digests, which the Commit binds.
 
-Alone, every call returns before any adapter is imported (checked in a subprocess), and the Commit runs the same code.
-The #101 A/B (manifest `90f81868`, run root `7adcef49`) needs a pod and hasn't been run.
+Alone, every call returns before any adapter is imported, and the Commit runs the same code.
+`test_with_no_protocols_the_commit_path_is_a_no_op` checks this in a fresh interpreter. With `target.protocols` unset:
+- `at_commit` is None and no adapter module is loaded;
+- `into_verdict` leaves the verdict byte-identical and writes nothing;
+- `weights_view` is the model itself.
+
+The vLLM coordinator takes that test in place of a pod A/B. The follow-up epoch's first row on `main` is the live check
+(§7).
+
+## 6. Owners
+
+- **#311 (this scaffold, bc-23d60f13):** the selector, the interface, `sampled_proofs.py`, `engine/hooks.py`, the grammar,
+  the profile field, `LLM(protocols=…)`, the row knob, the Commit's calls, and `tests/protocol_options/` (CPU,
+  torch-free).
+- **#312 (`pous.py`, bc-13eada34)** and **#315 (`pouw.py`, bc-dd22acf8),** stacked on it, over the protocol packages from
+  #208 and #218.
+
+## 7. Merge plan
+
+The vLLM coordinator's verdict (`lanes/pous/20260928T2115Z-verdict-from-vllm-coordinator-311-312-315.md`) is GO on all
+three, in one train, with two conditions:
+- merge after tonight's epoch rows are written (by about 23:30Z) and after D3′;
+- a CPU test of the default path, which #311 has had since `bb1db10e`.
+
+**Order:**
+1. **D3′ first** (#208 `verity_pous`, #218 `verity_pouw`, #298 and #301). #298 and #301 also edit `pipeline/commit.py` and
+   `pipeline/tp/commit.py`. At 23:59Z D3′ was not on `main`.
+   - #311 then merges D3′ in and re-runs the recorded `check`. The one conflict is two imports at the same place in
+     `pipeline/tp/commit.py`; the resolution was tried against D3 `de4118fc`.
+2. **#311, the scaffold.**
+   - **Adds:** the selector and composition, the adapter interface, the sampled-proofs adapter, `Service` and tagged
+     hooks, `TargetProfile.protocols`, `LLM(protocols=…)`, the row knob, and the Commit's calls.
+   - **Runtime effect:** none until a set is declared.
+   - **Evidence:**
+     - `check` `r20260928-200103-b2b8` passed on `69153d43`;
+     - on `4c4b8290`, `check` `r20260928-235507-0a7b` is running, and the vLLM tests under torch ran as
+       `r20260928-235358-f68a`.
+3. **#312, POUS.**
+   - **Adds:** `pous.py` over `verity_pous`, `band-chain/d12/v1` by default.
+   - **How it works:** it wraps the linears' `apply` and hands the decoded `W` inward. It releases the plaintext, and
+     returns it through `Option.decoded` for `weights_view`. The responder runs as a `Service`. It covers the linears only.
+   - **Result:** `LLM(protocols="pous:…")` serves from the encoded store. A row with sampled proofs and POUS runs as a
+     placeholder composition, with `verdict.protocols.of_record = false`.
+4. **#315, PoUW.**
+   - **Adds:** `pouw.py` over `verity_pouw`. It is the one executor at the linears' `apply`, with `EXECUTES`,
+     `traced_as` returning None, and `commit_weights`.
+   - **Settings:** `weight_operands` defaults to `per-forward` (chunked forming), with `resident` opt-in.
+   - **Label:** #315 is labelled not auditable.
+   - **Result:** `LLM(protocols="pouw:ncp-v1")` and `pouw` + `pous` serve.
+
+Each adapter merges #311's final head, re-runs its own `check`, and lands after #311 in the same train.
+
+**What stays refused after the train:**
+- `pouw` beside sampled proofs, in any scheme, until the int7 linear has a Definition (question 2). `pearl-fp8-v4` stays
+  refused beside sampled proofs for good.
+- `pous` with `pouw` at `weight_operands = "resident"`.
+- TP > 1, compiled execution, protocol options in the hot Commit worker, and sampled proofs in `LLM`.
+- The embedding and the tied head under POUS (question 5).
+
+**Composable after the train:**
+- **Serving, through `LLM`:** `pous`, `pouw`, and `pous` + `pouw`.
+- **A row:** sampled proofs alone, which is today's Commit, unchanged. Also sampled proofs + `pous`, as the placeholder
+  composition.
+
+**First evidence on `main`:** the follow-up epoch's first re-recorded row (the verdict's condition 2(b)). Its regression
+record must equal the epoch's rule, with no `protocols` key in `verdict.json`.
 
 ## Open questions for Daniel (the built default is marked **Built:**)
 
@@ -178,7 +240,8 @@ The #101 A/B (manifest `90f81868`, run root `7adcef49`) needs a pod and hasn't b
    - **Built:** refused beside sampled proofs, and Pearl refused for good.
 3. **POUS with PoUW.** Must PoUW prepare its weight operands per forward, or may it keep a resident copy outside POUS's
    claim?
-   - **Built:** per forward (`weight_operands = "per-forward"`) is required when both are on.
+   - **Built:** per forward is required when both are on. It is now PoUW's default (#315, `14000398`); `resident` is
+     opt-in and refused with POUS.
 4. **Challenge order.** One beacon round after every commitment, or one per protocol?
    - **Built:** one per protocol. The domains are disjoint, so one beacon could feed all three, each keeping
      commit-then-draw.

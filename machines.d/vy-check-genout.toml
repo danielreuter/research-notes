@@ -1,0 +1,7 @@
+# machine vy-check-genout: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "sz4wim0qvvyz1u"
+project = "verity"
+guard = true
+registered_by = "cursor"
+registered_at = "2026-09-29T04:03Z"

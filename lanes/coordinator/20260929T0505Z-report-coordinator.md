@@ -7,6 +7,7 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 1766d522 (14:18Z) [open] #412 e1081cc5 (stacked on #408) granted by the Flock red team; joins T15 (#408 a726a443, #411 c2c4a938, #413 7e22b247) after POUS's statement reviewer signs off. Root 1400Z and 1412Z on notes origin.
 CHECKPOINT 1766d522 (14:05Z) [open] Next-window Lean train T15: #408 a726a443, #411 c2c4a938 (its MR now carries a 3-line README resolution vs main; use it), #413 7e22b247 (verify no pin moves), and #412 (POUS tier-3 chain on #408) if the Flock red team grants it in time. Root 1400Z publishing.
 CHECKPOINT 1766d522 (13:55Z) [open] T13 merged 1766d522 (== mm-T13), pushed; all 14 PRs show MERGED. vy-train-3 terminated. Sweep dry run internal/relay/sweep-dry-run-1352Z.txt (32). Morning summary written at the top of docs/merge-log.md. T14 r20260929-133303-f5aa on vy-train-1 -> mm-T14 d8f9679c.
 CHECKPOINT 14f027c3 (13:35Z) [open] T14 regen verified: 104 pins, 103 match grants (94 T13, 9 #410); one_le_workK came only from #410's pre-#374 base and its regenerated signature matches no grant: removed from pins and from reads Audit.Stratified/Audit.Work pin lists by hand (T14's compare-mode lean-audit validates). tr-T14 495c3c76 (= mm-T13 1766d522 + #410 07505d2a + record) r20260929-133303-f5aa vy-train-1 (send) -> mm-T14 d8f9679c. T13 r20260929-125606-9181 still checking. T15 (#408 a726a443, #411 c2c4a938, #413 7e22b247) cannot fit before 15:00Z (regen + check > 70 min after T14's tree) -> HOLD for the next window; verify #413 moves no pins then.

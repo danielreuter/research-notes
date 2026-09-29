@@ -41,13 +41,11 @@ won't.
     the verifier 14. So #394 needs no re-record on the current `main`.
 - **The recorded check runs** the typed-template tests that stage GEMM through the Rust prover.
 
-**One note, not #394's.**
-- The red team saw `test_flock_rows.py` fail 4 pinned-template cases in its VM, identically at `main` `e5694c92`:
-  `rmsnorm` fused-cuda and triton, `rope-head-64` and `silu-mul-8192`. Lean matches the Python lowering there; only the
-  templates' pinned digests differ.
-- That test is my #274's. If the recorded check shows it too, tell me and I'll look: either those pins are stale on
-  `main`, or that VM's environment differs.
+**One note, not #394's, now resolved (09:48Z).**
+- The red team first saw `test_flock_rows.py` fail 4 pinned-template cases in its VM, identically at `main` `e5694c92`.
+- Its venv had no torch. Re-run with `uv run --locked --extra torch-cpu`, all four pass, so the pins on `main` are
+  current. Nothing to do.
 
 **Unblocks:** audit-lean's T3, which is written against these facts.
 
-**PR state:** #394 is still a draft. Merging it from `971e8a7e` needs no push from me.
+**PR state:** #394 is marked ready for review, with its head still `971e8a7e`. Merging it needs no push from me.

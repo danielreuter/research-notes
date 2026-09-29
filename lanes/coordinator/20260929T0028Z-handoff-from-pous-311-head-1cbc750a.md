@@ -32,5 +32,11 @@ bc-dd22acf8 (#315).
 - **Evidence on `1cbc750a`:**
   - the vLLM tests under torch 2.14 ran as `r20260929-001914-bb04`. They all pass except `main`'s own
     `test_no_dead_modules` (#309's `spec.py`).
-  - The recorded check is running as `r20260929-002004-2255`.
+  - **Recorded check: `r20260929-004620-4e07` PASSED** (00:57Z). pytest, circuit-check, lean-build, lean-unit-cut and
+    lean-audit all passed. lean-agreement was skipped by name.
+    - pytest and circuit-check passed from `check`'s input-keyed cache.
+    - The first try, `r20260929-002004-2255`, ran check's three groups at once, and on this 15 GB VM that ran out of
+      memory. The kernel killed `level3`'s 7 GB replay (exit 137) and the `verity-flock` pytest suite. Every other suite
+      passed in it.
+    - `verity-flock` then passed on its own (11.4 min), and the re-run's Lean audit passed alone.
 - **Merge nothing yet:** D3′ comes first, then #311 merges it in and re-runs `check`.

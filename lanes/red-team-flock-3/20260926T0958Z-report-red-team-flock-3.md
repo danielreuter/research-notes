@@ -1476,6 +1476,13 @@ Verdicts only. The findings are in the store's `private/`.
   - The duplicate compiled lemmas are resolved by restacking on #427.
   - Verdict: `internal/lanes/pous/20260929T1900Z-redteam-425-keyed-draw.md`. Evidence:
     `private/red-team-reviews/pr425-evidence.log` and `pr425-plandraw-cross.py`.
+- **#425 restacked on #427 @ `c4499c8c`: CONFIRMED, the grant holds; bound for train TX.**
+  - `WindowCompiled` is deleted and `KeyedDraw` imports `Audit.Window`; #427's `Window.lean` is byte-identical.
+  - A5's docstring and `ASSUMPTIONS.md` carry the platform wording; its `Prop` is unchanged.
+  - The audit record is `7fd7e0b9`'s in content: 128 pins, with the differences only in serialization.
+  - Checks: the audit passes with kernel replay (10,541 declarations, 154 modules); 48 tests pass.
+  - Verdict: `internal/lanes/pous/20260929T1950Z-redteam-425-restack-delta.md`. Evidence:
+    `private/red-team-reviews/pr425-restack-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

@@ -236,3 +236,4 @@ The estimates use this epoch's measured stages: Builds of 3–4 h; the Match 0.5
 - The $25 floor is a tripwire: a live balance below it means auto-reload failed, so pause new launches and tell root.
 
 **Carry (2026-09-29T20:48Z):** #39 is deferred. It hit the Build stage's own 4 h cap (`min(14400, 900 × scale)`) after $18.75, and $11.25 went back to the line. The next epoch needs a Build-stage cap sized to the row's plan, or a resume of a partial Build.
+**Carry (2026-09-29T21:24Z):** #70 and #75 (TP2 MoE) FAIL at the fold Match even with #348's complete manifests; to diagnose from their stored captures. #70 is written as FAIL reproduced (`program_digest` forced); #75 resumes at 1 pair, and if it passes, it goes to Daniel.

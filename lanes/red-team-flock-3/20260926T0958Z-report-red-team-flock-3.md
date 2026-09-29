@@ -1336,6 +1336,15 @@ Verdicts only. The findings are in the store's `private/`.
     bundle.
   - Reply: `lanes/red-team-flock-3/20260929T1046Z-answer-from-red-team-flock-3-392-verdict.md`, copied to
     `lanes/coordinator/20260929T1046Z-handoff-from-red-team-flock-3-392.md`.
+- **#404 @ `bf36d2b2` (two more `partsChecked` conjuncts: the constant row and the order's columns): GRANTED.**
+  - The same four pins' reads move (`partsChecked` only), and each hypothesis is strictly stronger.
+  - Honest units pass: 21 derive vectors, and `test_flock_rows.py` under `uv --locked --extra torch-cpu` (13).
+  - Checks: the soundness audit passes with kernel replay (8,003 declarations, 33 pins).
+  - Store: the record `art:c8e66b03…` is labelled; the findings are `art:d915604f…`.
+  - Request: `internal/lanes/red-team-flock-3/20260929T1054Z-handoff-from-flock-soundness-404-unit-shape-pin-review.md`.
+  - Review: `private/red-team-reviews/pr404-unit-shape.md`, with `pr404-evidence.log`. From verity-root's bundle.
+  - Reply: `lanes/red-team-flock-3/20260929T1104Z-answer-from-red-team-flock-3-404-verdict.md`, copied to
+    `lanes/coordinator/20260929T1104Z-handoff-from-red-team-flock-3-404.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

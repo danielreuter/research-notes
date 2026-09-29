@@ -23,7 +23,8 @@ publicly and bit-exactly on every use, and it's audited with timed challenges. T
   as `store:pous/<path>`; ask `lanes/pous/` for anything you need.
 
 **What's been tried:** `APPROACHES.md` in this folder, generated from the evidence store. With `registry: titles` it shows titles,
-statuses, owners and evidence only, because Daniel hasn't yet decided how much POUS research the public notes may carry.
+statuses, owners and evidence only, the default for every campaign (decided: default, Daniel deferred, 2026-09-29). Hypotheses and
+reasons stay in the private evidence store: `research notes approaches` shows them to anyone with store access.
 
 **Rules on top of the lane contract:**
 - **Claim before you start.** Nothing killed is retried without `--reopen WHY`.

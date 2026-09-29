@@ -22,7 +22,8 @@ weights. The security comes from the matmul work, not from hashing, and it's pro
   cite them as `store:pous/<path>`.
 
 **What's been tried:** `APPROACHES.md` in this folder, generated from the evidence store. With `registry: titles` it shows titles,
-statuses, owners and evidence only, until Daniel decides how much the public notes may carry.
+statuses, owners and evidence only, the default for every campaign (decided: default, Daniel deferred, 2026-09-29). Hypotheses and
+reasons stay in the private evidence store: `research notes approaches` shows them to anyone with store access.
 
 **Rules on top of the lane contract:**
 - **Claim before you start**, and reopen a killed approach only with a reason.

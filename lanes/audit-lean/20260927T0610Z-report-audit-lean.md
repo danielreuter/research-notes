@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 1da412c9 (23:00Z) [open] flat copies/zeros/TableClass done in draft #441 (no hypothesis, on #434 85449b44); #430 carries #434 at e287c2f2, waiting on TM to merge main + fix #424's netOK_parsed (trial with #424 builds, audit PASS)
 CHECKPOINT 9b76403e (18:39Z) [open] holding: #430 head fixed at 9b76403e for the train after TM; PastInputs with flock-verifier; copy/zeros on hold pending flock-soundness's S4 answer
 CHECKPOINT 9b76403e (18:35Z) [open] #430 merge request filed (after #424/TM; README one-hunk resolution given); PastInputs ask with flock-verifier
 CHECKPOINT 9b76403e (18:34Z) [open] flat typed class placed modulo PastInputs: draft #430 (proof-only, audit compare PASS, no pin moves); ask internal/lanes/flock-verifier/20260929T1824Z-handoff-from-audit-lean-flat-past-inputs.md

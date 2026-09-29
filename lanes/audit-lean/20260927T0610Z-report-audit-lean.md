@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT f7da1a93 (10:44Z) [open] #403 f7da1a93: setupH_blockFacts + input_copy (TableClass placed/copy for templates); UnitShape ask 3 dropped (proved); waiting on asks 1-2 (flock-soundness) and hrows (flock-verifier)
 CHECKPOINT dedb77e1 (10:33Z) [open] T3 end to end: #403 dedb77e1 (setupH_blockFacts, on #401 fd2dd0a9); waiting on UnitShape (flock-soundness 1003Z) and the rows'-circuits check (flock-verifier 1011Z)
 CHECKPOINT fd2dd0a9 (10:08Z) [open] T3 #401 fd2dd0a9 (BlockFacts at every VU; draft, merge request 1008Z); #393 and #398 must land together (fix 22cd5666 in #401); UnitShape asked of flock-soundness 1003Z; next: TemplateLayout from setupH
 CHECKPOINT b1a49353 (08:40Z) [open] merge request for #393 (b1a49353: #319 cf9bebde + #350 + T2 walks). T3 next against a TemplateLayout interface; asked flock-verifier (part resolution, blockOf_spec) and flock-soundness (unit part structure)

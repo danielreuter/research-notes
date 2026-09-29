@@ -1,7 +1,0 @@
-# machine vy-pr151-check: written by `research pods register`; one file per machine (research.pods.registry)
-provider = "runpod"
-pod_id = "mt4ostmjk4nzu0"
-project = "verity"
-guard = 20
-registered_by = "cursor"
-registered_at = "2026-09-29T02:41Z"

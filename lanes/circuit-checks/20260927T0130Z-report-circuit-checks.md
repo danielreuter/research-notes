@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT 91ac394b (03:16Z) [open] BUILT #356 (Lean deps from the store via presigned URLs) and #357 (suites keyed on uv.lock closure); WAITING the coordinator's fleet guard vy-circuit-checks-deps (asked 02:54Z) before one US 8 vCPU pod for bundles + measurement + check; agent bc-1122c760
 CHECKPOINT fe196b6c (02:37Z) [open] READY merge request #334 4e81bb36 (cold 41.1 min, warm next commit 15.4 min pytest-bound, lean-audit 0.2 s, circuit-check 47 s); pod terminated, guard stopped, $0.39; agent bc-1122c760
 CHECKPOINT fe196b6c (01:24Z) [open] IN USE vy-circuit-checks-us3 (xtvxo2999braqb, US-CA-2, $0.32/h): #334 cold + warm check; pod dead-man fires 03:54Z, VM guard vy-circuit-checks-us cap $1.50 until 04:00Z; terminated when measured; agent bc-1122c760
 CHECKPOINT fe196b6c (01:15Z) [open] BLOCKED #334 measurement: GitHub refuses anonymous clones from RunPod EU pods (157.157.221.x) after Mathlib's clone, so a cold Lean audit cannot fetch its dependencies; pod cpu8 terminated; agent bc-1122c760

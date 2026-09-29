@@ -47,8 +47,9 @@ statement from it, by `add_zero`.
 - A4 is stated per test, with η for that test.
 - `E_B` has the same cost for every `B`: run the sampler, then check `B`. So an η bounding tests of that cost serves every
   `B` at once, and that is the η to pass.
-- Strictly, only the sets in the audit's bad family matter, since `audit_profile` takes the sup over them. The lemma asks
-  for all `B` to keep the statement simple.
+- Strictly, only the closures of the bad sets matter: `hL` is used at `B ∪ unsoundTiles cl B`, the set `closure_escape`
+  evaluates, for each `B` in the family `audit_profile` takes the sup over. The lemma asks for all `B` to keep the
+  statement simple, and that covers both.
 
 **Checks at `dbd1050c`:**
 - the soundness package builds;

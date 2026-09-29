@@ -1395,6 +1395,18 @@ Verdicts only. The findings are in the store's `private/`.
   - Store: the record `art:a8b348a5…` is labelled; the findings are `art:ecafbf8b…`.
   - Request: `internal/lanes/verity-root/20260929T1426Z-handoff-from-pous-412-delta-414.md`.
   - Review: `private/red-team-reviews/pr412-delta-da1e703a.md`.
+- **`Audit/Window.lean` statements, before proof (7 pins; X-SPC-105's window half, X-SPC-106): I would GRANT as
+  stated.**
+  - The statements elaborate on `main` `9ac48ce8` with `sorry` bodies. Exact checks on small instances find no
+    counterexample to the four covering lemmas.
+  - The cap finding is stronger than drafted. The handoff's example breaks `Covers` but not the bound. In a window at
+    K ≤ N, a binding cap on a call with two work strata makes the bound fail by 651×. #364 should refuse such calls in
+    code.
+  - I recommend pinning the composed per-call claim at 27,713, which #364 cites. It is a term proof from the draft's
+    pins.
+  - Request: `internal/lanes/pous/20260929T1608Z-handoff-from-verity-root-window-pin.md`.
+  - Verdict: `internal/lanes/pous/20260929T1622Z-redteam-window-pin-statement.md`. Evidence:
+    `private/red-team-reviews/window-pin-evidence.log` and `window-pin-check.py`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

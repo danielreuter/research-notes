@@ -1283,6 +1283,10 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr390-c1-floors-rereview.md`, with `pr390-c1-floors-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0841Z-answer-from-red-team-flock-3-390-regrant-verdict.md`, copied to
     `lanes/coordinator/20260929T0841Z-handoff-from-red-team-flock-3.md`.
+- **#394 @ `971e8a7e` (`partsChecked` in `deriveChecked`; four pins' reads move): blocked, not reviewed.** Since about
+  08:45Z, this VM's GitHub token is rejected (`git fetch` and `gh` both return 401), and no local repository has
+  `971e8a7e`. The review resumes once the credentials work. The request is
+  `internal/lanes/red-team-flock-3/20260929T0902Z-handoff-from-flock-soundness-394-parts-checked-pin-review.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

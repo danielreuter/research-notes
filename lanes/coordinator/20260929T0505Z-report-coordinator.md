@@ -7,6 +7,7 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 33828711 (18:25Z) [open] Budget lines at notes 4d13c368 (guard reloaded): vy-pous-check364 expiry 21:00Z (no new money), vy-pouw-mvp-qwen05 $2.85 to 22:00Z. POUS 1810Z/1821Z root notes + red-team 1817Z published directly (c4770b4e): the mirror pass timed out at 18:07Z and 18:16Z (two passes overlapping; killed my manual one). #427 (work-law draft on #421, lean-agreement) not train-ready until granted and rebased on main after TM.
 CHECKPOINT 33828711 (18:00Z) [open] #424 5f53e705 (audit lane, Lean only, no pins) added to TM: merges clean; no TM PR calls setupH_inputCopy (only its definition + README). tr-TMpre d18465c4 = #416, #418, #421, #424; 125 pins; regen r20260929-175841-cf93 replaces r20260929-174507-6d50 (killed by pgid).
 CHECKPOINT 33828711 (17:57Z) [open] Root 17:52Z: #414 dropped from TB (POUS draft, no merge request; later train once filed). TB = tr-TB d27303f6: #371, #420, #422, #336; lint + repository + replica tests pass. Launch after baseline, TB before TM.
 CHECKPOINT 33828711 (17:55Z) [open] Non-Lean train TB built: tr-TB 2d618492 = main 33828711 + #371 be6acc18 + #420 8c50b5c5 + #422 68d9b2d4 + #336 57cceb24 + #414 c24106d4, no conflicts; wall-clock/repository/check/replica tests 83 passed. #336 touches backends/flock/ -> launch with send on AVX-512 vy-coord-t1. TB launches first after the baseline (#371 unblocks the history rewrite), TM after. #414 has no merge request filed (root listed it).

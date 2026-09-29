@@ -1261,6 +1261,15 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr390-closure-law.md`, with `pr390-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0755Z-answer-from-red-team-flock-3-390-verdict.md`, copied to
     `lanes/coordinator/20260929T0755Z-handoff-from-red-team-flock-3.md`.
+- **#374 @ `6e39ccaa` (`594fe39c` with #383's `2ad810cb` merged in): the grant carries.**
+  - The merge adds exactly #383's lines, adapted to the floor-carrying table type and U2's floor wording. The soundness
+    package and both records are byte-identical to `594fe39c`.
+  - Checks: the verifier audit passes (14 pins); tests 19 passed, 1 skipped. It merges cleanly onto `main` `610ee10f`.
+  - Store: the record `art:93b7a268…` is labelled for `6e39ccaa`; the findings are `art:fdc1c60b…`.
+  - Request: `internal/lanes/red-team-flock-3/20260929T0828Z-handoff-from-work-law-390-c1-floors-rereview.md`, part 1.
+  - Review: `private/red-team-reviews/pr374-merge-383.md`.
+  - Reply: `lanes/red-team-flock-3/20260929T0833Z-answer-from-red-team-flock-3-374-merge-verdict.md`, copied to
+    `lanes/coordinator/20260929T0833Z-handoff-from-red-team-flock-3.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

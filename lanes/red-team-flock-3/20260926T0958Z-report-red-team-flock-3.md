@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT fea99a78 (10:23Z) [final] R9c/R11 on main 610ee10f GRANTED at #291 @2437e377, #296 @4d226ad1, #302 @377f7d26, #310 @e9ca3ba2 (via bundle): every pin record main's or my grant's; six changed .lean = HmRow pin union, auto-merge, proof-only edits; R11 heads and R9b 115fffc5 are exact auto-merges; audits PASS w/ replay (42/43/46/48 pins)
 CHECKPOINT 8d43c4d5 (09:47Z) [final] test_flock_rows 4 cases (rmsnorm fused-cuda, rmsnorm triton, rope-head-64, silu-mul-8192) ran and PASSED at main e5694c92 under uv run --locked --extra torch-cpu (torch 2.14.0+cpu); the earlier failures were the torch-less /workspace venv
 CHECKPOINT 26c0ad57 (09:41Z) [final] #394 @971e8a7e GRANT (via verity-root's bundle): compose_eval_unit, layout_sound, unit_sound, rowsL1 unchanged statements/type hashes/assumptions; reads move to deriveChecked + partsChecked (strictly stronger, same done); soundness audit PASS w/ replay 7,999 decl, 33 pins; derive vectors pass; note: test_flock_rows 4 pinned-template failures pre-exist on main e5694c92; record art:41b15fac, findings art:9a645ed3
 CHECKPOINT faebca2f (09:10Z) [final] #394 @971e8a7e received, not reviewed: this VM's GitHub token is rejected (git fetch and gh 401 since ~08:45Z), 971e8a7e not available locally; resumes when credentials work

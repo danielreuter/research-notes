@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT fe196b6c (01:15Z) [open] BLOCKED #334 measurement: GitHub refuses anonymous clones from RunPod EU pods (157.157.221.x) after Mathlib's clone, so a cold Lean audit cannot fetch its dependencies; pod cpu8 terminated; agent bc-1122c760
 CHECKPOINT fe196b6c (00:42Z) [open] IN USE vy-circuit-checks-cpu8: r20260929-004144-0dc7 = cold check on #334 987c20a8 (caches cleared), then warm runs; ~02:00Z; #134 fixed head 3c83e5f9 sent to coordinator; agent bc-1122c760
 CHECKPOINT b21bc750 (00:18Z) [open] IN USE vy-circuit-checks-cpu8: cold check on #334 b21bc750 (caches cleared), then warm runs; ~01:25Z; agent bc-1122c760
 CHECKPOINT fe196b6c (00:04Z) [open] IN USE vy-circuit-checks-cpu8: r20260928-235327-8f78 = cold check on #334 97a7e780 (~50 min), then warm runs; terminated right after; agent bc-1122c760

@@ -34,6 +34,14 @@ slowdown is unmeasured, and the estimate is about 1.5–2.3× plain FP8, hashing
 
 Perplexity is measured on CPU and doesn't need the pod.
 
+**Amended 29 Sep, 23:25Z, with the kernel lane's plan (no extra pod time: under about a minute of GPU after boot).**
+- **The check shape.** C̃ and U are checked bit for bit at m = 256, n = 384, k = 1,024 before any timing, and so is every intermediate: the lines, α and β, A′, B̃, the peel factors, the digests, the leaves and the tickets. At the timed shapes, the stored C̃ must match between the chain-only kernel and the full one.
+- **B1 folds into that gate.** U's check is the BF16 peel into C̃ as a nonzero FP32 accumulator, on real data, so it is also the B1 capture.
+- **Per-job rows.** A1 reports the per-job (per-weight) side separately: B's forming, B̃·F_A, the Gram factor and the B peel factor.
+- **Forming.** A3 times §5's forming (the atom with C = α·x, then one cast) and the ported #311 forming, labelled as such.
+- **Baselines.** cuBLASLt FP8 through `torch._scaled_mm` where the image has torch, and the kernel lane's own plain FP8 GEMM on the same pipeline.
+- **Readiness.** The kernel lane's VM has no notes or RunPod credentials. It posts "ready", with the ship tree's commit and launch command, in the PoUW project's inbox; the cheap-binding lane mirrors that into `lanes/pous/` and launches on the granted line.
+
 ## Terms
 
 - **Pod:** `vy-pouw-pearlc`, one SECURE H100 SXM. The cap is **$0.30**, with a pod maximum of about 0.08 h. Honest runs only.

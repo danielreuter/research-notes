@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT faebca2f (09:10Z) [final] #394 @971e8a7e received, not reviewed: this VM's GitHub token is rejected (git fetch and gh 401 since ~08:45Z), 971e8a7e not available locally; resumes when credentials work
 CHECKPOINT 6fcf903d (08:43Z) [final] #390 @a8b5d2a8 GRANT all 11 closure pins; C1 met (unsound work = work of B u unsoundTiles, harm counts own work; Lean-checked); 5 audit pins gain only f and hf; #374's 42 byte-identical; soundness audit PASS w/ replay 7,998 decl, 53 pins; record art:d33e8c02, findings art:f476e0b1; queue empty
 CHECKPOINT 8e9c21d0 (08:35Z) [final] #374 @6e39ccaa grant carries: merge adds exactly #383's lines (+ floor-carrying table type, U2 floor wording); soundness byte-identical to 594fe39c; verifier audit PASS, tests 19/1; record art:93b7a268 labelled, findings art:fdc1c60b; next #390 @a8b5d2a8
 CHECKPOINT 98e0caa2 (07:57Z) [final] #390 @15a3ee7c (closure law) GRANT WITH C1 before merge: 10 pins true (closure_escape exact, covers undrawn nodes) but the audited unsound work omits wrong units' own work under the verifier's non-reflexive closure map (Lean-checked); restate over B u unsoundTiles cl B; audit PASS w/ replay 7,969 decl, 43 pins; store: record art:1d2d224c, findings art:391c7c59; queue empty

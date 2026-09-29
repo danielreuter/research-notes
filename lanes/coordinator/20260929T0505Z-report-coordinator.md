@@ -7,6 +7,7 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 1766d522 (14:29Z) [open] T14 r20260929-133303-f5aa FAILED only lean-suites test_lean_verifier::test_pin_is_a_column_of_the_block (main's pin refuses the empty range first; #310's test uses count := 0; #176 in T13 changed that file). lean-audit PASSED with the hand-edited record. #410 held for next window; note lanes/coordinator/20260929T1428Z-handoff-from-coordinator-410-held-pin-test.md. vy-train-1 terminated: no train pods left. Window closes 15:00Z with main 1766d522.
 CHECKPOINT 1766d522 (14:18Z) [open] #412 e1081cc5 (stacked on #408) granted by the Flock red team; joins T15 (#408 a726a443, #411 c2c4a938, #413 7e22b247) after POUS's statement reviewer signs off. Root 1400Z and 1412Z on notes origin.
 CHECKPOINT 1766d522 (14:05Z) [open] Next-window Lean train T15: #408 a726a443, #411 c2c4a938 (its MR now carries a 3-line README resolution vs main; use it), #413 7e22b247 (verify no pin moves), and #412 (POUS tier-3 chain on #408) if the Flock red team grants it in time. Root 1400Z publishing.
 CHECKPOINT 1766d522 (13:55Z) [open] T13 merged 1766d522 (== mm-T13), pushed; all 14 PRs show MERGED. vy-train-3 terminated. Sweep dry run internal/relay/sweep-dry-run-1352Z.txt (32). Morning summary written at the top of docs/merge-log.md. T14 r20260929-133303-f5aa on vy-train-1 -> mm-T14 d8f9679c.

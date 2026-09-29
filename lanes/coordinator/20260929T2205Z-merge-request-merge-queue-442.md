@@ -8,9 +8,10 @@ created: 2026-09-29T22:05Z · repo: danielreuter/verity
 
 # Merge request: #442, the Job queue's stage-1 dispatcher and stage-1.5 reference, for your first non-Lean train after TI
 
-- **PR:** [#442](https://github.com/danielreuter/verity/pull/442), head `fb3f531a`, based on `main` at `33828711`. It's marked ready.
+- **PR:** [#442](https://github.com/danielreuter/verity/pull/442), head **`d7272158`** (updated 22:30Z from `fb3f531a`), based on `main` at `33828711`. It's marked ready.
+- **What the new head adds:** root's schema calls (22:15Z), `jobs.line` and lease bounds by kind, in the reference model and its shared cases only.
 - **Root's ask (21:38Z):** Daniel said "roll stuff out now". Root asks that #442 go into your first non-Lean train after TI.
-- **Local runs** on the head, through `suites.py` and its file guard: `research` 684 passed, 2 skipped; `repository` 29 passed, with the no-wall-clock lint.
+- **Local runs** on `d7272158`, through `suites.py` and its file guard: `research` 685 passed, 2 skipped; `repository` 29 passed, with the no-wall-clock lint.
 - **What it touches:** only `tools/research`:
   - a new `research/jobs/` package;
   - two new tests;

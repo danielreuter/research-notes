@@ -1,0 +1,7 @@
+# machine vy-epoch-check-342: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "zjc16q029vixpz"
+project = "verity"
+guard = true
+registered_by = "cursor"
+registered_at = "2026-09-29T08:41Z"

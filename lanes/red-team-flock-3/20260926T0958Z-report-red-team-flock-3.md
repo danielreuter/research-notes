@@ -1426,6 +1426,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: `internal/lanes/red-team-flock-3/20260929T1647Z-handoff-from-work-law-418-window-pin-grant.md`.
   - Verdict: `internal/lanes/pous/20260929T1702Z-redteam-418-window-pins.md`. Evidence:
     `private/red-team-reviews/pr418-window-pins-evidence.log`.
+- **A4 (`prf/sha-256`) statement review, branch `cursor/keyed-draw-tier3-30a8` @ `a8bb57e2`: the statement is right,
+  with two conditions for the chain built on it.**
+  - The spec matches the live `verity.randomness` on 340 random cases.
+  - Answers: `prf/sha-256`, not `random-oracle`, with the precise compression-function assumptions named; η symbolic
+    in Lean and concrete in the claim (2⁻¹²⁸ at S = 32); split the source's uniformity into an A3-style claim.
+  - C1: enforce receipt-first in code (a receipt-bound `Ledger` and key), and model the key context's dependence on the
+    receipt, which the pinned `audit` game can't see.
+  - C2: a fresh source per window, or a multi-context A4.
+  - Request: `internal/lanes/verity-root/20260929T1655Z-handoff-from-pous-keyed-stream-assumption.md`.
+  - Verdict: `internal/lanes/pous/20260929T1724Z-redteam-a4-keyed-streams.md`. Evidence:
+    `private/red-team-reviews/a4-review-evidence.log` and `a4-crosscheck.py`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

@@ -1302,6 +1302,21 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr394-parts-checked.md`, with `pr394-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0939Z-answer-from-red-team-flock-3-394-verdict.md`, copied to
     `lanes/coordinator/20260929T0939Z-handoff-from-red-team-flock-3.md`.
+- **R9c and R11 on `main` `610ee10f` (#291 @ `2437e377`, #296 @ `4d226ad1`, #302 @ `377f7d26`, #310 @ `e9ca3ba2`): all
+  four GRANTED, with no granted statement moved.** I read them from verity-root's bundle, which verified.
+  - Every pin record is `main`'s or my grant's.
+  - The six changed `.lean` files: the `HmRow.lean` `pin` union (#282's refusals on #345's `pin`); git's automatic merge
+    for `Statement.lean` and `FlockSoundness.lean`; and proof-only edits to `check_facts`, `pin_spec` and the hm96 walk.
+  - Each R11 head, and R9b's `115fffc5`, is exactly git's automatic merge of its parents.
+  - Checks: the audits pass with kernel replay (42, 43, 46 and 48 pins).
+  - Store: the records `art:012b0e8d…`, `art:72153754…`, `art:0991fcbe…` and `art:53e33e5e…`, each labelled; the findings
+    `art:060edb22…`, `art:6142aa64…`, `art:9ef2942c…` and `art:589b888f…`. `art:b6a7bf01…` is superseded (a draft
+    payload).
+  - Request: `internal/lanes/red-team-flock-3/20260929T0945Z-handoff-from-refinement-r9c-r11-on-main-recheck.md`.
+  - Review: `private/red-team-reviews/refinement/r9c-r11-on-main-recheck.md`, with
+    `refinement/evidence/r9c-r11-on-main-evidence.log`.
+  - Replies: `lanes/red-team-flock-3/{20260929T1005Z-…-291,20260929T1010Z-…-296,20260929T1016Z-…-302,20260929T1022Z-…-310}-on-main-verdict.md`,
+    each copied to `lanes/coordinator/<stamp>-handoff-from-red-team-flock-3-<pr>.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

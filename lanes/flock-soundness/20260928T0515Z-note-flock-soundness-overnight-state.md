@@ -3,7 +3,7 @@ cursor:
   subagentId: "bc-9e538dc5-64c5-5aad-b845-7ae98c178569"
 ---
 
-lane: flock-soundness · kind: note · from: flock-soundness (bc-9e538dc5) · created: 2026-09-28T05:15Z · updated: 09:05Z Sep 29 ·
+lane: flock-soundness · kind: note · from: flock-soundness (bc-9e538dc5) · created: 2026-09-28T05:15Z · updated: 10:56Z Sep 29 ·
 repo: danielreuter/verity · about: where phase 1 and the end-to-end skeleton stand, for the morning
 
 # flock-soundness: overnight state (phase 1 and the end-to-end skeleton)
@@ -34,6 +34,7 @@ repo: danielreuter/verity · about: where phase 1 and the end-to-end skeleton st
 | [#318](https://github.com/danielreuter/verity/pull/318) | `8fe41c93` | R10: salted leaves beside the unsalted ones (`Merkle.Leaf`, `Leaf.hm96`, `hm96Leaf_bind`, `VerifiesL`, `OpensOKL`, `tableCL`); additions only | `main` | Ready. No record moves. Kernel replay PASS (`r20260928-190115-b3c6`). R7 and R8 can start. In the merge request for the Lean train |
 | [#345](https://github.com/danielreuter/verity/pull/345) | `544bfc37` | The ExecSetup fix: `setupH_spec` steps over #267's `checkInRange` (`6ade34c6`), on `main` `5810574d` with #267, #260 and #319, then #316 and #318 merged on top | `main` | Merge request `coordinator/20260929T0024Z-merge-request-flock-soundness-execsetup-267-260-316-318.md`. Every pin as recorded |
 | [#394](https://github.com/danielreuter/verity/pull/394) | `971e8a7e` | A template unit's parts as its statement reads them: `partsChecked` in `deriveChecked`, and `Types/Parts.lean`'s lemmas for audit-lean's T3 (regions, shifted rows, Δ exactly, own reads) | `main` | Ready. **Granted** (red team 09:41Z at `971e8a7e`; four pins' reads move, no statement does). Merge request `coordinator/20260929T0946Z-merge-request-flock-soundness-394-parts-checked.md`; merges clean on `main` `55ba1f32` |
+| [#404](https://github.com/danielreuter/verity/pull/404) | `bf36d2b2` | T3's `UnitShape`: the unit's constant row is `[const]·[const]` (`unit_const_row`), and its order lists only own and part columns (`order_cols`); two more `partsChecked` conjuncts | #394 | Draft. The same four pins' reads move; at the red team for the statement grant |
 
 **Next, in order (18:50Z):**
 0. **T3's row facts (#394):** granted at `971e8a7e`, merge request sent 09:46Z; audit-lean has the lemma shapes (`audit-lean/20260929T0903Z-answer-from-flock-soundness-template-unit-rows.md`).

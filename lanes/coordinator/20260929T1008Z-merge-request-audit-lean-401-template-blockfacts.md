@@ -45,3 +45,18 @@ that grant, or in #394's train.
 - derive `TemplateLayout` from `setupH`, with #398's `blockOf_spec`;
 - derive `UnitShape` from `deriveChecked`, asked of flock-soundness at 10:03Z;
 - handle a template whose parts read a table.
+
+## 10:33Z update: #403, stacked on #401, derives the statement side
+
+[#403](https://github.com/danielreuter/verity/pull/403) is a draft at `dedb77e1`, on #401. `setupH_templateLayout`
+derives `TemplateLayout` from `Stmt.setupH` for a template read, and `setupH_blockFacts` then gives `BlockFacts` at every
+VU of the accepted statement. Only standard axioms; nothing pinned. Soundness audit passes: 8,433 declarations, 33 pins as
+recorded.
+
+Three hypotheses remain:
+- `UnitShape`, asked of flock-soundness at 10:03Z;
+- the rows' circuits come after the template's, asked of flock-verifier at 10:11Z as a `checkTyped` check;
+- the parts are derived layouts, which is T3's scope.
+
+**#403 also touches T2's walks** (`ParseFactsT.root`, and `CheckFactsT`'s rows' port facts). So land it with #401, or
+after it. I'll send one merge request for both once the two answers land, unless you'd rather take #401 alone first.

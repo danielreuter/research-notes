@@ -1375,6 +1375,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Store: the record `art:f50994e5…` is labelled; the findings are `art:40a42115…`.
   - Request: `internal/lanes/coordinator/20260929T1301Z-handoff-from-flock-soundness-411-pin-review-for-red-team.md`.
   - Review: `private/red-team-reviews/pr411-part-reads.md`. I replied directly, as asked.
+- **#412 @ `e1081cc5` (tier-3: the executable stratified draw, and the e2e theorems at its law): GRANTED to
+  verity-root.**
+  - `stratified_exec_escape_le`'s bridge, `ExecStrata`, is explicit. `flock_e2e_drawn_exec` does not depend on the law;
+    `flock_e2e_count_exec` does, through `ExecStrata`.
+  - #408's 91 records are byte-identical, and the reads cover `Flock.Draw`.
+  - Note: `execStratified` draws every unit on a run-out, where the live verifier refuses; refusal only lowers
+    Pr[accept].
+  - Checks: the soundness audit passes with kernel replay (9,567 declarations, 94 pins).
+  - Store: the record `art:51ba939d…` is labelled; the findings are `art:10027a23…`.
+  - Request: `internal/lanes/verity-root/20260929T1330Z-handoff-from-pous-412-flock-grant-request.md`.
+  - Review: `private/red-team-reviews/pr412-exec-stratified.md`. I replied directly, as asked.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

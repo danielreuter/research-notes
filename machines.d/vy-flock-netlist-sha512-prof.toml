@@ -1,0 +1,7 @@
+# machine vy-flock-netlist-sha512-prof: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "6yita31191kqrn"
+project = "verity"
+guard = 30
+registered_by = "cursor"
+registered_at = "2026-09-29T16:28Z"

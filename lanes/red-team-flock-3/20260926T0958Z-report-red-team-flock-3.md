@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 98e0caa2 (07:57Z) [final] #390 @15a3ee7c (closure law) GRANT WITH C1 before merge: 10 pins true (closure_escape exact, covers undrawn nodes) but the audited unsound work omits wrong units' own work under the verifier's non-reflexive closure map (Lean-checked); restate over B u unsoundTiles cl B; audit PASS w/ replay 7,969 decl, 43 pins; store: record art:1d2d224c, findings art:391c7c59; queue empty
 CHECKPOINT e8674b9f (07:54Z) [final] #374 @594fe39c GRANT: 10 new pins + 8 restated (hf only) + workRule_eq_draw; one_le_workK removal accepted; count-budget finding closed by removal (floors only from the verifier's table); soundness audit PASS w/ replay 7,981 decl, 42 pins; store: record art:93b7a268 verified=accepted, findings art:e43fc7c7; next #390 @15a3ee7c
 CHECKPOINT 56dc2d90 (07:52Z) [final] #383 @2ad810cb GRANT: verify takes a stratified draw's K and strata from the verifier (N1 on #362 met); no pin changes (records unchanged); verifier audit PASS 14 pins, tests 19/1; store: record art:99d3b15d labelled for #383, findings art:dcdc4afe; next #374 @594fe39c, then #390 @15a3ee7c
 CHECKPOINT e074592d (07:44Z) [final] #335 restated refinement pins GRANTED: rep_refines #264 @ff67422c, verify_refines + verify_tableAfter #270 @bdc4ec8b, verify_refines_ofCircuit #278 @1914b76d (restated exactly as the one-table call forces); other refinement records unchanged, R9c/R11 grants carry; audits PASS w/ replay (top 41999484: 47 pins); N1 one-table only; next #374 @594fe39c then #390 @15a3ee7c

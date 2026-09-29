@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 26c0ad57 (09:41Z) [final] #394 @971e8a7e GRANT (via verity-root's bundle): compose_eval_unit, layout_sound, unit_sound, rowsL1 unchanged statements/type hashes/assumptions; reads move to deriveChecked + partsChecked (strictly stronger, same done); soundness audit PASS w/ replay 7,999 decl, 33 pins; derive vectors pass; note: test_flock_rows 4 pinned-template failures pre-exist on main e5694c92; record art:41b15fac, findings art:9a645ed3
 CHECKPOINT faebca2f (09:10Z) [final] #394 @971e8a7e received, not reviewed: this VM's GitHub token is rejected (git fetch and gh 401 since ~08:45Z), 971e8a7e not available locally; resumes when credentials work
 CHECKPOINT 6fcf903d (08:43Z) [final] #390 @a8b5d2a8 GRANT all 11 closure pins; C1 met (unsound work = work of B u unsoundTiles, harm counts own work; Lean-checked); 5 audit pins gain only f and hf; #374's 42 byte-identical; soundness audit PASS w/ replay 7,998 decl, 53 pins; record art:d33e8c02, findings art:f476e0b1; queue empty
 CHECKPOINT 8e9c21d0 (08:35Z) [final] #374 @6e39ccaa grant carries: merge adds exactly #383's lines (+ floor-carrying table type, U2 floor wording); soundness byte-identical to 594fe39c; verifier audit PASS, tests 19/1; record art:93b7a268 labelled, findings art:fdc1c60b; next #390 @a8b5d2a8

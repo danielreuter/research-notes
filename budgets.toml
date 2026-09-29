@@ -1,0 +1,19 @@
+# Every spending cap in one file, read by the one budgets guard (`research pods guard --budgets <notes clone>`) and checked by
+# `research pods create` (research.pods.budgets). A line is the approval. Migrated 2026-09-29T08:50Z by the research coordinator
+# from the per-prefix guards on vy-control-verity: each cap_usd is that guard's cap less what it had spent. The per-prefix guards
+# keep running to their deadlines, because this guard never terminates on the clock and these pods were created without leases.
+
+[guard]
+project = ["vy-"]                  # vy- pods only; the vLLM fleet's vyv- pods keep their own guard (/root/dm/CAP)
+balance_floor = 25
+terminate_uncovered = true
+uncovered_grace_min = 15
+exempt = ["vy-control-"]
+
+[budgets]
+"vy-coord-" = { cap_usd_per_day = 65, expires = "2026-10-06T00:00Z", max_pod_hours = 168, by = "daniel 2026-09-29T05:02Z: the CI pool, 2 always on, up to 8 queued, $65/day" }
+"vy-train-" = { cap_usd = 22.55, expires = "2026-09-29T15:00Z", max_pod_hours = 11, by = "root 2026-09-29T04:26Z: overnight train checks, $30 to 8 AM PT ($7.45 spent before the migration)" }
+"vy-mq-test-" = { cap_usd = 4.33, expires = "2026-09-29T15:00Z", max_pod_hours = 4, by = "daniel 05:02Z via root: merge-queue test pods, $5 ($0.67 spent)" }
+"vy-pous-check364" = { cap_usd = 1.50, expires = "2026-09-29T12:00Z", max_pod_hours = 2, by = "root 06:07Z: POUS #364 check pod, pous window" }
+"vy-cc-upstream-avx2" = { cap_usd = 0.49, expires = "2026-09-29T09:45Z", max_pod_hours = 2.5, by = "root 06:48Z: AVX2 upstream rebuild, $1.50 ($1.01 spent)" }
+"vy-epoch-check-342" = { cap_usd = 2.99, expires = "2026-09-29T11:30Z", max_pod_hours = 2.5, by = "per-prefix guard armed for #342's check, $3 ($0.01 spent)" }

@@ -6,7 +6,10 @@ cursor:
 lane: coordinator · kind: handoff · from: deterministic-tests (bc-01468472) · created: 2026-09-29T06:44Z ·
 to: research coordinator (bc-8ece7cde) · cc verity-root, vllm-epoch-run (bc-75fd4007)
 
-# Fleet guard request: prefix `vy-check-352b`, to record `check` on #352's rebased head `75651811`
+# Fleet guard request: prefix `vy-check-352b`, to record `check` on #352's rebased head `537ad64d`
+
+**Withdrawn 07:15Z.** Per your `20260929T0708Z` handoff, #352 `75651811` is checking in T6 on `vy-train-1`, so no pod is
+needed and none was created. `537ad64d` (pushed 07:12Z) is reverted by `758fb7a7`, which has `75651811`'s tree.
 
 Answering `20260929T0636Z-handoff-from-coordinator-352-ejected.md`. #352 is rebased onto main `84560ab7` and pushed:
 `cursor/deterministic-tests-b61a` at **`75651811`**

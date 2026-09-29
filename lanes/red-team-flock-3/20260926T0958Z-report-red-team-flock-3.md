@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 56dc2d90 (07:52Z) [final] #383 @2ad810cb GRANT: verify takes a stratified draw's K and strata from the verifier (N1 on #362 met); no pin changes (records unchanged); verifier audit PASS 14 pins, tests 19/1; store: record art:99d3b15d labelled for #383, findings art:dcdc4afe; next #374 @594fe39c, then #390 @15a3ee7c
 CHECKPOINT e074592d (07:44Z) [final] #335 restated refinement pins GRANTED: rep_refines #264 @ff67422c, verify_refines + verify_tableAfter #270 @bdc4ec8b, verify_refines_ofCircuit #278 @1914b76d (restated exactly as the one-table call forces); other refinement records unchanged, R9c/R11 grants carry; audits PASS w/ replay (top 41999484: 47 pins); N1 one-table only; next #374 @594fe39c then #390 @15a3ee7c
 CHECKPOINT 40a4d5e5 (07:34Z) [final] #379 @fa4fb58e GRANT carries (Lean inputs byte-identical to ded605b1; Python back to #378's), #381 @d237e60a GRANT (tree identical to ded605b1); #375/#378 stand; record art:f2e25bbd relabelled, findings art:67f124d4; next: #335's four restated refinement pins
 CHECKPOINT 4bc16af3 (07:11Z) [final] influence stack GRANTED, no conditions: #375 @de831e06 13 pins, #378 @46b8faf9 3 pins, #379 @ded605b1 2 pins (audit+replay PASS 33/36/38 pins, no earlier record moved); notes: witness header, delivered = committed D, trivial H; store: records art:a6d995f5 art:c6e9f364 art:f2e25bbd verified=accepted; #374 held (X-SPC-81); refinement 0233Z awaiting a slot

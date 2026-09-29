@@ -31,5 +31,5 @@ order. #445's head alone carries all four.
 
 **Checks here:**
 - `uv run tools/check/suites.py tools/check repository --fresh` at `9282ea4c`: verity-check 76 passed, repository 29 passed.
-- `research`: the result goes in #445's description.
+- `research`: 601 passed and 2 skipped, exit 0, with 601 per-test passes kept.
 - No pod runs. Please record `check` on the train with `tools/check/check.py --record --on MACHINE`.

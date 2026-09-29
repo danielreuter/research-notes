@@ -1,0 +1,7 @@
+# machine vy-train-1: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "61h5tn1rhsi0qn"
+project = "verity"
+guard = true
+registered_by = "f76f5394c78b"
+registered_at = "2026-09-29T04:21Z"

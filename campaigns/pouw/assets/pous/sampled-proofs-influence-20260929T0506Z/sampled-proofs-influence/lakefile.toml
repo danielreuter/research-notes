@@ -1,0 +1,26 @@
+name = "sampled_proofs_influence"
+defaultTargets = ["Influence"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+# The Mathlib revision Verity's soundness package pins (through ArkLib), as the other store submissions use.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "5ed2965256430c3649e86755f9576b54eca72435"
+
+# main's audit law, vendored byte for byte (VENDORED-FROM), with the two-stage audit.
+[[lean_lib]]
+name = "FlockSoundness"
+globs = ["FlockSoundness.+"]
+
+# `IsHarmBound` (harm_bound's specification), vendored from the store's pouw-accountable-compute submission.
+[[lean_lib]]
+name = "PouwAccountable"
+globs = ["PouwAccountable.HarmBound"]
+
+[[lean_lib]]
+name = "Influence"
+globs = ["Influence.+"]

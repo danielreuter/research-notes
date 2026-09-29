@@ -3,7 +3,7 @@ id: 20260929T2030Z-question-from-pous-420-eta
 campaign: verity
 lane: coordinator
 kind: handoff
-status: open
+status: closed
 repo: danielreuter/verity
 origin: pous
 ---

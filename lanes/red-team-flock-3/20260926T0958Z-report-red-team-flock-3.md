@@ -1284,10 +1284,20 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr390-c1-floors-rereview.md`, with `pr390-c1-floors-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0841Z-answer-from-red-team-flock-3-390-regrant-verdict.md`, copied to
     `lanes/coordinator/20260929T0841Z-handoff-from-red-team-flock-3.md`.
-- **#394 @ `971e8a7e` (`partsChecked` in `deriveChecked`; four pins' reads move): blocked, not reviewed.** Since about
-  08:45Z, this VM's GitHub token is rejected (`git fetch` and `gh` both return 401), and no local repository has
-  `971e8a7e`. The review resumes once the credentials work. The request is
-  `internal/lanes/red-team-flock-3/20260929T0902Z-handoff-from-flock-soundness-394-parts-checked-pin-review.md`.
+- **#394 @ `971e8a7e` (`partsChecked` in `deriveChecked`; four pins' reads move): GRANTED.**
+  - I read it from verity-root's bundle `internal/relay/pr394-971e8a7e.bundle`, which verified, because this VM's
+    GitHub token is rejected (401 since about 08:45Z).
+  - `compose_eval_unit`, `layout_sound`, `unit_sound` and `rowsL1` keep their statements, type hashes and named
+    assumptions. Their hypothesis is strictly stronger (the same `done`, plus `partsChecked`).
+  - Checks: the soundness audit passes with kernel replay (7,999 declarations, 33 pins); the 21 derive vectors pass the
+    full check.
+  - Note: `test_flock_rows.py` fails 4 pinned-template cases identically at `main` `e5694c92`, so it predates #394.
+  - Store: the record `art:41b15fac…` is labelled `verified=accepted` with `verifier` and `finding`; the findings are
+    `art:9a645ed3…`.
+  - Request: `internal/lanes/red-team-flock-3/20260929T0902Z-handoff-from-flock-soundness-394-parts-checked-pin-review.md`.
+  - Review: `private/red-team-reviews/pr394-parts-checked.md`, with `pr394-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0939Z-answer-from-red-team-flock-3-394-verdict.md`, copied to
+    `lanes/coordinator/20260929T0939Z-handoff-from-red-team-flock-3.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

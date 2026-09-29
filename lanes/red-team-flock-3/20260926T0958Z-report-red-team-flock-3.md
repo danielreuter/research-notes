@@ -1407,6 +1407,25 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: `internal/lanes/pous/20260929T1608Z-handoff-from-verity-root-window-pin.md`.
   - Verdict: `internal/lanes/pous/20260929T1622Z-redteam-window-pin-statement.md`. Evidence:
     `private/red-team-reviews/window-pin-evidence.log` and `window-pin-check.py`.
+- **#416 @ `8aed7908` (live `drawOS` bound, A3 `uniform/io-getrandombytes`): GRANTED to verity-root.**
+  - #412's 95 records are byte-identical. The 6 new pins are right, and A3 is a named hypothesis that is satisfiable.
+  - `drawOS_def` ties the executable as far as Lean can.
+  - At `IO`, the refactor makes the same calls in the same order. A differential test found 0 mismatches over 7,257
+    source calls, 5,089 of them extensions.
+  - Checks: the audit passes with kernel replay (9,657 declarations, 101 pins).
+  - POUS's correction is accepted: the live draw never refuses; only `draw --stream` does.
+  - Notes, not conditions: Lean's docstring disclaims cryptographic security, while the v4.34.0 runtime reads
+    `/dev/urandom`, and the watch entry can't see the C implementation.
+  - Request: `internal/lanes/verity-root/20260929T1618Z-handoff-from-pous-416-drawos-grants.md`.
+  - Verdict: `internal/lanes/pous/20260929T1656Z-redteam-416-drawos.md`. Evidence:
+    `private/red-team-reviews/pr416-drawos-evidence.log` and `pr416-drawdiff.lean`.
+- **#418 @ `f06327bd` (the window pins, 9): GRANTED to verity-root.**
+  - The statements are the ones I reviewed, plus two changes: the y event reads `unsoundWork σ v cl` (in three of the
+    seven, plus the 8th), and POUS's `audit_window_of_le` is new.
+  - Checks: `main`'s 94 records are byte-identical; the audit passes with kernel replay (9,945 declarations, 103 pins).
+  - Request: `internal/lanes/red-team-flock-3/20260929T1647Z-handoff-from-work-law-418-window-pin-grant.md`.
+  - Verdict: `internal/lanes/pous/20260929T1702Z-redteam-418-window-pins.md`. Evidence:
+    `private/red-team-reviews/pr418-window-pins-evidence.log`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

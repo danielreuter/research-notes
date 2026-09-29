@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 6fcf903d (08:43Z) [final] #390 @a8b5d2a8 GRANT all 11 closure pins; C1 met (unsound work = work of B u unsoundTiles, harm counts own work; Lean-checked); 5 audit pins gain only f and hf; #374's 42 byte-identical; soundness audit PASS w/ replay 7,998 decl, 53 pins; record art:d33e8c02, findings art:f476e0b1; queue empty
 CHECKPOINT 8e9c21d0 (08:35Z) [final] #374 @6e39ccaa grant carries: merge adds exactly #383's lines (+ floor-carrying table type, U2 floor wording); soundness byte-identical to 594fe39c; verifier audit PASS, tests 19/1; record art:93b7a268 labelled, findings art:fdc1c60b; next #390 @a8b5d2a8
 CHECKPOINT 98e0caa2 (07:57Z) [final] #390 @15a3ee7c (closure law) GRANT WITH C1 before merge: 10 pins true (closure_escape exact, covers undrawn nodes) but the audited unsound work omits wrong units' own work under the verifier's non-reflexive closure map (Lean-checked); restate over B u unsoundTiles cl B; audit PASS w/ replay 7,969 decl, 43 pins; store: record art:1d2d224c, findings art:391c7c59; queue empty
 CHECKPOINT e8674b9f (07:54Z) [final] #374 @594fe39c GRANT: 10 new pins + 8 restated (hf only) + workRule_eq_draw; one_le_workK removal accepted; count-budget finding closed by removal (floors only from the verifier's table); soundness audit PASS w/ replay 7,981 decl, 42 pins; store: record art:93b7a268 verified=accepted, findings art:e43fc7c7; next #390 @15a3ee7c

@@ -228,3 +228,9 @@ The estimates use this epoch's measured stages: Builds of 3–4 h; the Match 0.5
 - If the balance test fails at launch, the automatic top-up hasn't landed yet. Wait for it and retry the launch; don't stop the epoch.
 
 **Update (2026-09-29T13:20Z, root):** #74's cap is raised to $75, within the $260 line. The row caps now total about $251 including #39 and #57. The top-up shortfall is about $73 for the full core, or about $118 with #39 and #57.
+
+**Budget update (2026-09-29T14:30Z, Daniel via root):** RunPod reloads automatically, so the balance no longer gates launches.
+- The held rows (#68, #75, #70, #101, #4, the canary) launch in GO order as stock appears.
+- #39 and #57 are approved once their gates pass (#244; the host-eval speedup).
+- Still enforced: the $260 line (rows total about $251), the committed-spend-plus-cap rule, the `vyv-` guard (CAP $1,160) and the budgets guard.
+- The $25 floor is a tripwire: a live balance below it means auto-reload failed, so pause new launches and tell root.

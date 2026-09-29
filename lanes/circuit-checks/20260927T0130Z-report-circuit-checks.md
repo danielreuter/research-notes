@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT 91ac394b (03:27Z) [open] WAITING r20260929-032531-8f07 on vy-circuit-checks-deps (6l4bj8tmqf8x5l), check after 04:17Z; agent bc-1122c760; next: pin the exported bundles, then the no-GitHub measurement and check on #356's pinned head
 CHECKPOINT 91ac394b (03:24Z) [open] IN USE vy-circuit-checks-deps (6l4bj8tmqf8x5l, US-CA-2, $0.32/h, fleet guard $1.10 until 07:30Z, dead-man 05:54Z): run 1 exports the Lean dependency bundles (~55 min), then the no-GitHub measurement and check on #356; terminated after; agent bc-1122c760
 CHECKPOINT 91ac394b (03:16Z) [open] BUILT #356 (Lean deps from the store via presigned URLs) and #357 (suites keyed on uv.lock closure); WAITING the coordinator's fleet guard vy-circuit-checks-deps (asked 02:54Z) before one US 8 vCPU pod for bundles + measurement + check; agent bc-1122c760
 CHECKPOINT fe196b6c (02:37Z) [open] READY merge request #334 4e81bb36 (cold 41.1 min, warm next commit 15.4 min pytest-bound, lean-audit 0.2 s, circuit-check 47 s); pod terminated, guard stopped, $0.39; agent bc-1122c760

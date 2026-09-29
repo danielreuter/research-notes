@@ -1,0 +1,667 @@
+pin FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  after:
+    FlockSoundness.Audit.Partition.Refines.twoStage_influence {C : FlockSoundness.Audit.Circuit} {a : Fin C.N → Bool}
+      {εks δlink δin : ENNReal} {D : Finset (Fin C.N)} {nf nc : Nat} {Pf : FlockSoundness.Audit.Partition C nf}
+      {Pc : FlockSoundness.Audit.Partition C nc} (r : Pf.Refines Pc) {L₁ : FlockSoundness.Audit.Law nc}
+      {L₂ : Fin nc → FlockSoundness.Audit.Law nf} {Reg : Type} {Int : Finset (Fin nc) → Type}
+      {session : Finset (Fin nf) → Reg → (S₁ : Finset (Fin nc)) → Int S₁ → FlockSoundness.Game Bool}
+      (X : (R : Reg) → FlockSoundness.Audit.Cont₁ L₁ L₂ Reg Int session R → Fin C.N → Bool)
+      (Yint :
+        (R : Reg) →
+          (ω₁ : L₁.Ω) → (I : Int (L₁.draw ω₁)) → FlockSoundness.Audit.Cont₂ L₁ L₂ Reg Int session R ω₁ I → Fin C.N → Bool)
+      (ext :
+        (S : Finset (Fin nf)) →
+          (R : Reg) →
+            (S₁ : Finset (Fin nc)) → (I : Int S₁) → (session S R S₁ I).Strategy → Fin nf → Option (Fin C.N → Bool))
+      (hks : (r.analysis₂ X Yint ext).KnowledgeSound εks) (hlink : (r.analysis₂ X Yint ext).LinkSound δlink)
+      (σ : (FlockSoundness.Audit.twoStage L₁ L₂ Reg Int session).Strategy)
+      (hin :
+        ENNReal.instLE.le
+          (FlockSoundness.Game.prob
+            (fun o =>
+              And (Eq o.fst Bool.true)
+                (Not (C.InputsAgree (X (FlockSoundness.Audit.reg₂ σ) (FlockSoundness.Audit.cont₁ σ)) a)))
+            (FlockSoundness.Audit.twoStage L₁ L₂ Reg Int session) σ)
+          δin)
+      (δ : ENNReal) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o =>
+            And (Eq o.fst Bool.true)
+              (Not
+                (SetLike.instMembership.mem (Pc.influenceSet D (FlockSoundness.Audit.effEscape L₁ L₂ r.parent) a δ)
+                  (FlockSoundness.Audit.Partition.out D (X (FlockSoundness.Audit.reg₂ σ) (FlockSoundness.Audit.cont₁ σ))))))
+          (FlockSoundness.Audit.twoStage L₁ L₂ Reg Int session) σ)
+        (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink) δin)
+pin FlockSoundness.Audit.Partition.Separates.mono: new
+  after:
+    FlockSoundness.Audit.Partition.Separates.mono {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      {P : FlockSoundness.Audit.Partition C n} {K K' : Finset (Fin C.N)} {B B' : Finset (Fin n)} {D : Finset (Fin C.N)}
+      (h : P.Separates K B D) (hK : Finset.instPartialOrder.le K K') (hB : Finset.instPartialOrder.le B' B) :
+      P.Separates K' B' D
+pin FlockSoundness.Audit.Partition.Separates.union: new
+  after:
+    FlockSoundness.Audit.Partition.Separates.union {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      {P : FlockSoundness.Audit.Partition C n} {K₁ K₂ : Finset (Fin C.N)} {B₁ B₂ : Finset (Fin n)} {D : Finset (Fin C.N)}
+      (h₁ : P.Separates K₁ B₁ D) (h₂ : P.Separates K₂ B₂ D) :
+      P.Separates (Finset.instUnion.union K₁ K₂) (Finset.instUnion.union B₁ B₂) D
+pin FlockSoundness.Audit.Partition.audit_exfiltration: new
+  after:
+    FlockSoundness.Audit.Partition.audit_exfiltration {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      (P : FlockSoundness.Audit.Partition C n) {L : FlockSoundness.Audit.Law n} {Reg : Type}
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool}
+      {X : (R : Reg) → FlockSoundness.Audit.Cont L Reg session R → Fin C.N → Bool}
+      {ext : (S : Finset (Fin n)) → (R : Reg) → (session S R).Strategy → Fin n → Option (Fin C.N → Bool)}
+      {a : Fin C.N → Bool} {εks δlink δin : ENNReal} {D : Finset (Fin C.N)} {M : Type} [Fintype M] [Nonempty M]
+      [DecidableEq M] (hks : (P.analysis X ext).KnowledgeSound εks) (hlink : (P.analysis X ext).LinkSound δlink)
+      (hin : FlockSoundness.Audit.Partition.AnchorsSound X a δin) (δ : ENNReal)
+      (σ : M → (FlockSoundness.Audit.audit L Reg session).Strategy)
+      (g : ((Subtype fun x => SetLike.instMembership.mem D x) → Bool) → M) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.avg fun m =>
+          FlockSoundness.Game.prob
+            (fun o =>
+              And (Eq o.fst Bool.true)
+                (Eq
+                  (g
+                    (FlockSoundness.Audit.Partition.out D
+                      (X (FlockSoundness.Audit.reg (σ m)) (FlockSoundness.Audit.cont (σ m)))))
+                  m))
+            (FlockSoundness.Audit.audit L Reg session) (σ m))
+        (instHAdd.hAdd (instHDiv.hDiv (P.influenceSet D L.escape a δ).card.cast (Fintype.card M).cast)
+          (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink) δin))
+pin FlockSoundness.Audit.Partition.audit_influence: new
+  after:
+    FlockSoundness.Audit.Partition.audit_influence {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      (P : FlockSoundness.Audit.Partition C n) {L : FlockSoundness.Audit.Law n} {Reg : Type}
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool}
+      {X : (R : Reg) → FlockSoundness.Audit.Cont L Reg session R → Fin C.N → Bool}
+      {ext : (S : Finset (Fin n)) → (R : Reg) → (session S R).Strategy → Fin n → Option (Fin C.N → Bool)}
+      {a : Fin C.N → Bool} {εks δlink δin : ENNReal} {D : Finset (Fin C.N)} (hks : (P.analysis X ext).KnowledgeSound εks)
+      (hlink : (P.analysis X ext).LinkSound δlink) (hin : FlockSoundness.Audit.Partition.AnchorsSound X a δin) (δ : ENNReal)
+      (σ : (FlockSoundness.Audit.audit L Reg session).Strategy) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o =>
+            And (Eq o.fst Bool.true)
+              (Not
+                (SetLike.instMembership.mem (P.influenceSet D L.escape a δ)
+                  (FlockSoundness.Audit.Partition.out D (X (FlockSoundness.Audit.reg σ) (FlockSoundness.Audit.cont σ))))))
+          (FlockSoundness.Audit.audit L Reg session) σ)
+        (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink) δin)
+pin FlockSoundness.Audit.Partition.card_admissible_le: new
+  after:
+    FlockSoundness.Audit.Partition.card_admissible_le {n : Nat} {L : FlockSoundness.Audit.Law n} {δ : ENNReal} {K : Nat}
+      (hK : ENNReal.instPartialOrder.lt (L.miss (instHAdd.hAdd K 1)) δ) :
+      instLENat.le (Finset.filter (fun B => ENNReal.instLE.le δ (L.escape B)) Finset.univ).card
+        ((Finset.range (instHAdd.hAdd K 1)).sum fun j => n.choose j)
+pin FlockSoundness.Audit.Partition.card_delivered_le: new
+  after:
+    FlockSoundness.Audit.Partition.card_delivered_le {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      (P : FlockSoundness.Audit.Partition C n) {K : Finset (Fin C.N)} {B : Finset (Fin n)} {D : Finset (Fin C.N)}
+      (hK : Finset.instPartialOrder.le K P.committed) (hD : Finset.instPartialOrder.le D P.committed)
+      (hsep : P.Separates K B D) (a : Fin C.N → Bool) : instLENat.le (P.delivered D a B).card (instHPow.hPow 2 K.card)
+pin FlockSoundness.Audit.Partition.card_influenceSet_le: new
+  after:
+    FlockSoundness.Audit.Partition.card_influenceSet_le {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      (P : FlockSoundness.Audit.Partition C n) {D : Finset (Fin C.N)} (hD : Finset.instPartialOrder.le D P.committed)
+      (e : Finset (Fin n) → ENNReal) (a : Fin C.N → Bool) (δ : ENNReal) (K : Finset (Fin n) → Finset (Fin C.N))
+      (hK : ∀ (B : Finset (Fin n)), Finset.instPartialOrder.le (K B) P.committed)
+      (hsep : ∀ (B : Finset (Fin n)), P.Separates (K B) B D) :
+      instLENat.le (P.influenceSet D e a δ).card
+        ((Finset.filter (fun B => ENNReal.instLE.le δ (e B)) Finset.univ).sum fun B => instHPow.hPow 2 (K B).card)
+pin FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  after:
+    FlockSoundness.Audit.Partition.card_influenceSet_le_harm {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      (P : FlockSoundness.Audit.Partition C n) {L : FlockSoundness.Audit.Law n} {a : Fin C.N → Bool} {D : Finset (Fin C.N)}
+      (hD : Finset.instPartialOrder.le D P.committed) (hb : Fin n → Nat) (K : Finset (Fin n) → Finset (Fin C.N))
+      (hK : ∀ (B : Finset (Fin n)), Finset.instPartialOrder.le (K B) P.committed)
+      (hsep : ∀ (B : Finset (Fin n)), P.Separates (K B) B D)
+      (hw : ∀ (B : Finset (Fin n)), instLENat.le (K B).card (B.sum fun u => hb u)) {δ : ENNReal} {H : Nat}
+      (hH : PouwAccountable.IsHarmBound L (fun u => (hb u).cast) δ H.cast) :
+      instLENat.le (P.influenceSet D L.escape a δ).card
+        (instHMul.hMul (instHPow.hPow 2 H) (Finset.filter (fun B => ENNReal.instLE.le δ (L.escape B)) Finset.univ).card)
+pin FlockSoundness.Audit.Partition.outputs_eq_of_separates: new
+  after:
+    FlockSoundness.Audit.Partition.outputs_eq_of_separates {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      (P : FlockSoundness.Audit.Partition C n) {K : Finset (Fin C.N)} {B : Finset (Fin n)} {D : Finset (Fin C.N)}
+      (hK : Finset.instPartialOrder.le K P.committed) (hD : Finset.instPartialOrder.le D P.committed)
+      (hsep : P.Separates K B D) {X Y a : Fin C.N → Bool} (hX : C.InputsAgree X a) (hY : C.InputsAgree Y a)
+      (hwX : Finset.instPartialOrder.le (P.wrong X) B) (hwY : Finset.instPartialOrder.le (P.wrong Y) B)
+      (hXY : ∀ (g : Fin C.N), SetLike.instMembership.mem K g → Eq (X g) (Y g)) (t : Fin C.N) :
+      SetLike.instMembership.mem D t → Eq (X t) (Y t)
+pin FlockSoundness.Audit.Partition.separates_exits: new
+  after:
+    FlockSoundness.Audit.Partition.separates_exits {C : FlockSoundness.Audit.Circuit} {n : Nat}
+      (P : FlockSoundness.Audit.Partition C n) (B : Finset (Fin n)) {D : Finset (Fin C.N)}
+      (hD : Finset.instPartialOrder.le D P.committed) : P.Separates (P.exits B) B D
+pin FlockSoundness.Audit.card_guess_le: new
+  after:
+    FlockSoundness.Audit.card_guess_le {M O : Type} [Fintype M] [DecidableEq M] [DecidableEq O] (Y : Finset O) (y : M → O)
+      (g : O → M) :
+      instLENat.le (Finset.filter (fun m => And (SetLike.instMembership.mem Y (y m)) (Eq (g (y m)) m)) Finset.univ).card
+        Y.card
+definition FlockSoundness.Audit.Circuit (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:88-93):
+    /-- A Boolean circuit, its gates in topological order. -/
+    structure Circuit where
+      N : ℕ
+      op : Fin N → Op N
+      topo : ∀ g, ∀ a ∈ (op g).args, a < g
+      outputs : Finset (Fin N)
+definition FlockSoundness.Audit.Circuit.InputsAgree (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:138-140):
+    /-- The input unit: the committed inputs are the anchors' values. -/
+    def InputsAgree (X a : Fin C.N → Bool) : Prop :=
+      ∀ g, (C.op g).isInput = true → X g = a g
+definition FlockSoundness.Audit.Circuit.N (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:90-90):
+      N : ℕ
+definition FlockSoundness.Audit.Circuit.op (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:91-91):
+      op : Fin N → Op N
+definition FlockSoundness.Audit.Circuit.outputs (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:93-93):
+      outputs : Finset (Fin N)
+definition FlockSoundness.Audit.Circuit.run (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:99-106):
+    /-- Evaluation with some gates fixed: a fixed gate takes its given value, and every other gate
+    applies its operation to its arguments' values. -/
+    def run (fix : Fin C.N → Option Bool) (g : Fin C.N) : Bool :=
+      match fix g with
+      | some b => b
+      | none => (C.op g).apply fun x => if _h : x < g then run fix x else false
+    termination_by g.val
+    decreasing_by all_goals assumption
+definition FlockSoundness.Audit.Op (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:44-51):
+    /-- A gate. -/
+    inductive Op (N : ℕ) where
+      | input
+      | and (a b : Fin N)
+      | xor (a b : Fin N)
+      | not (a : Fin N)
+      /-- A row: `(⊕_{x ∈ a} x) ∧ (⊕_{x ∈ b} x)`. -/
+      | row (a b : List (Fin N))
+definition FlockSoundness.Audit.Op.and (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:47-47):
+      | and (a b : Fin N)
+definition FlockSoundness.Audit.Op.apply (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:69-75):
+    /-- The operation applied to the values of its arguments (an input gate has no operation). -/
+    def apply : Op N → (Fin N → Bool) → Bool
+      | input, _ => false
+      | and a b, v => v a && v b
+      | xor a b, v => Bool.xor (v a) (v b)
+      | not a, v => !v a
+      | row a b, v => xorSum a v && xorSum b v
+definition FlockSoundness.Audit.Op.args (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:57-63):
+    /-- The gates an operation reads. -/
+    def args : Op N → List (Fin N)
+      | input => []
+      | and a b => [a, b]
+      | xor a b => [a, b]
+      | not a => [a]
+      | row a b => a ++ b
+definition FlockSoundness.Audit.Op.input (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:46-46):
+      | input
+definition FlockSoundness.Audit.Op.isInput (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:65-67):
+    def isInput : Op N → Bool
+      | input => true
+      | _ => false
+definition FlockSoundness.Audit.Op.not (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:49-49):
+      | not (a : Fin N)
+definition FlockSoundness.Audit.Op.row (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:50-51):
+      /-- A row: `(⊕_{x ∈ a} x) ∧ (⊕_{x ∈ b} x)`. -/
+      | row (a b : List (Fin N))
+definition FlockSoundness.Audit.Op.xor (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:48-48):
+      | xor (a b : Fin N)
+definition FlockSoundness.Audit.Partition (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:149-153):
+    /-- A partition of a circuit's computed gates into `n` units; the input gates are the input unit
+    (`none`). -/
+    structure Partition (C : Circuit) (n : ℕ) where
+      unit : Fin C.N → Option (Fin n)
+      input_iff : ∀ g, unit g = none ↔ (C.op g).isInput = true
+definition FlockSoundness.Audit.Partition.Correct (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:193-195):
+    /-- **Correctness of a unit**: its committed outputs are its gates applied to its committed inputs. -/
+    def Correct (X : Fin C.N → Bool) (u : Fin n) : Prop :=
+      ∀ g ∈ P.committed, P.unit g = some u → X g = P.localEval X u g
+definition FlockSoundness.Audit.Partition.Refines (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:299-302):
+    /-- `Pf` refines `Pc`: every fine unit lies inside one coarse unit, its `parent`. -/
+    structure Refines {nf nc : ℕ} (Pf : Partition C nf) (Pc : Partition C nc) where
+      parent : Fin nf → Fin nc
+      sub : ∀ g, Pc.unit g = (Pf.unit g).map parent
+definition FlockSoundness.Audit.Partition.Refines.parent (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:301-301):
+      parent : Fin nf → Fin nc
+definition FlockSoundness.Audit.Partition.committed (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:160-163):
+    /-- The committed wires: inputs, outputs, and every gate that a gate of another unit reads. -/
+    noncomputable def committed : Finset (Fin C.N) :=
+      Finset.univ.filter fun g => (C.op g).isInput = true ∨ g ∈ C.outputs ∨
+        ∃ h, g ∈ (C.op h).args ∧ P.unit h ≠ P.unit g
+definition FlockSoundness.Audit.Partition.io (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:268-270):
+    /-- `u`'s committed inputs and outputs. -/
+    noncomputable def io (u : Fin n) : Finset (Fin C.N) :=
+      P.committed.filter fun g => P.unit g = some u ∨ ∃ h, P.unit h = some u ∧ g ∈ (C.op h).args
+definition FlockSoundness.Audit.Partition.localEval (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:181-183):
+    /-- `u`'s gates computed in order, every other gate read from `X`. -/
+    def localEval (X : Fin C.N → Bool) (u : Fin n) : Fin C.N → Bool :=
+      C.run fun g => if P.unit g = some u then none else some (X g)
+definition FlockSoundness.Audit.Partition.unit (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:152-152):
+      unit : Fin C.N → Option (Fin n)
+definition FlockSoundness.Audit.Partition.wrong (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:198-200):
+    /-- The wrong units of a transcript. -/
+    noncomputable def wrong (X : Fin C.N → Bool) : Finset (Fin n) :=
+      Finset.univ.filter fun u => ¬ P.Correct X u
+definition FlockSoundness.Audit.xorSum (FlockSoundness.Audit.Circuit), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (FlockSoundness/Audit/Circuit.lean:31-32):
+    /-- The XOR of the values at a list of places. -/
+    def xorSum {ι : Type} (l : List ι) (v : ι → Bool) : Bool := (l.map v).foldr Bool.xor false
+definition FlockSoundness.Audit.Law (FlockSoundness.Audit.Law), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Audit/Law.lean:29-34):
+    /-- A draw law over `n` units: the verifier's uniform coins, and the unit set each draws. -/
+    structure Law (n : ℕ) where
+      Ω : Type
+      [fintype : Fintype Ω]
+      [nonempty : Nonempty Ω]
+      draw : Ω → Finset (Fin n)
+definition FlockSoundness.Audit.Law.draw (FlockSoundness.Audit.Law), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Audit/Law.lean:34-34):
+      draw : Ω → Finset (Fin n)
+definition FlockSoundness.Audit.Law.escape (FlockSoundness.Audit.Law), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Audit/Law.lean:42-44):
+    /-- The probability that a draw misses every unit of `B`. -/
+    noncomputable def escape (L : Law n) (B : Finset (Fin n)) : ℝ≥0∞ :=
+      prCoin fun ω => Disjoint (L.draw ω) B
+definition FlockSoundness.Audit.Law.fintype (FlockSoundness.Audit.Law), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Audit/Law.lean:32-32):
+      [fintype : Fintype Ω]
+definition FlockSoundness.Audit.Law.incl (FlockSoundness.Audit.Law), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Audit/Law.lean:50-52):
+    /-- The inclusion probability of a unit. -/
+    noncomputable def incl (L : Law n) (u : Fin n) : ℝ≥0∞ :=
+      prCoin fun ω => u ∈ L.draw ω
+definition FlockSoundness.Audit.Law.miss (FlockSoundness.Audit.Law), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Audit/Law.lean:46-48):
+    /-- The count curve's sampling term: the largest escape over sets of at least `K` units. -/
+    noncomputable def miss (L : Law n) (K : ℕ) : ℝ≥0∞ :=
+      ⨆ (B : Finset (Fin n)) (_ : K ≤ B.card), L.escape B
+definition FlockSoundness.Audit.Law.Ω (FlockSoundness.Audit.Law), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Audit/Law.lean:31-31):
+      Ω : Type
+definition FlockSoundness.Audit.Analysis (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:61-73):
+    /-- What the analysis of an audit fixes.
+    * `Tr`, `wrong`: transcripts, and the units wrong in each;
+    * `committed`: the committed transcript, a function of the prover's state at registration;
+    * `ksFail S R τ u`: extraction of drawn unit `u` from the session state `τ` fails;
+    * `linkFail S R τ u X`: it succeeds, but disagrees with `X` on `u`'s wires;
+    * `cover`: a unit wrong in `X` fails one way or the other, from every state. -/
+    structure Analysis (L : Law n) (Reg : Type) (session : Finset (Fin n) → Reg → Game Bool) where
+      Tr : Type
+      wrong : Tr → Finset (Fin n)
+      committed : (R : Reg) → Cont L Reg session R → Tr
+      ksFail : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n → Prop
+      linkFail : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n → Tr → Prop
+      cover : ∀ S R (τ : Strategy (session S R)) u X, u ∈ wrong X → ksFail S R τ u ∨ linkFail S R τ u X
+definition FlockSoundness.Audit.Analysis.KnowledgeSound (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:82-89):
+    /-- **Knowledge soundness, per unit** (named hypothesis `ε_ks`): for every prover and every rule
+    `tgt` that picks a drawn unit before the session's first coin, the probability that the session
+    accepts while extraction of the picked unit fails is at most `ε_ks`. -/
+    def KnowledgeSound (εks : ℝ≥0∞) : Prop :=
+      ∀ (R : Reg) (τ : Cont L Reg session R) (tgt : L.Ω → Option (Fin n)),
+        avg (fun ω => prob (fun ok => ok = true ∧
+          ∃ u, tgt ω = some u ∧ u ∈ L.draw ω ∧ A.ksFail (L.draw ω) R (τ ω) u)
+          (session (L.draw ω) R) (τ ω)) ≤ εks
+definition FlockSoundness.Audit.Analysis.LinkSound (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:91-98):
+    /-- **The link term** (named hypothesis `δ_link`): for every prover and every rule `tgt` that
+    picks a drawn unit before the session's first coin, the probability that the session accepts while
+    the picked unit's extraction disagrees with the committed transcript is at most `δ_link`. -/
+    def LinkSound (δlink : ℝ≥0∞) : Prop :=
+      ∀ (R : Reg) (τ : Cont L Reg session R) (tgt : L.Ω → Option (Fin n)),
+        avg (fun ω => prob (fun ok => ok = true ∧
+          ∃ u, tgt ω = some u ∧ u ∈ L.draw ω ∧ A.linkFail (L.draw ω) R (τ ω) u (A.committed R τ))
+          (session (L.draw ω) R) (τ ω)) ≤ δlink
+definition FlockSoundness.Audit.Analysis.Tr (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:68-68):
+      Tr : Type
+definition FlockSoundness.Audit.Analysis.committed (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:70-70):
+      committed : (R : Reg) → Cont L Reg session R → Tr
+definition FlockSoundness.Audit.Analysis.ksFail (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:71-71):
+      ksFail : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n → Prop
+definition FlockSoundness.Audit.Analysis.linkFail (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:72-72):
+      linkFail : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n → Tr → Prop
+definition FlockSoundness.Audit.Cont (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:50-52):
+    /-- A prover's state after registering `R`: its session strategy for every draw. -/
+    abbrev Cont (L : Law n) (Reg : Type) (session : Finset (Fin n) → Reg → Game Bool) (R : Reg) :=
+      ∀ ω : L.Ω, Strategy (session (L.draw ω) R)
+definition FlockSoundness.Audit.Partition.AnchorsSound (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:245-250):
+    /-- **The input unit** (named hypothesis `δ_in`): the session accepts while the committed inputs
+    differ from the anchors' values `a` with probability at most `δ_in`. -/
+    def AnchorsSound (X : (R : Reg) → Cont L Reg session R → (Fin C.N → Bool)) (a : Fin C.N → Bool)
+        (δin : ℝ≥0∞) : Prop :=
+      ∀ σ : Strategy (audit L Reg session),
+        prob (fun o => o.1 = true ∧ ¬ C.InputsAgree (X (reg σ) (cont σ)) a) (audit L Reg session) σ ≤ δin
+definition FlockSoundness.Audit.Partition.analysis (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:222-243):
+    /-- **The audit's analysis over a partition.** `X` is the committed transcript, a function of the
+    prover's state at registration. `ext S R τ u` is what the extractor recovers for the drawn unit
+    `u` from the session state `τ`: a transcript, of which only `u`'s committed inputs and outputs
+    (`io u`) are read, or nothing. Extraction fails when it recovers nothing or something that does
+    not satisfy `u`; the link fails when it satisfies `u` but differs from `X` on `u`'s wires. -/
+    noncomputable def analysis (X : (R : Reg) → Cont L Reg session R → (Fin C.N → Bool))
+        (ext : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n →
+          Option (Fin C.N → Bool)) :
+        Analysis L Reg session where
+      Tr := Fin C.N → Bool
+      wrong := P.wrong
+      committed := X
+      ksFail S R τ u := ∀ Y, ext S R τ u = some Y → ¬ P.Correct Y u
+      linkFail S R τ u X := ∃ Y, ext S R τ u = some Y ∧ P.Correct Y u ∧ ∃ g ∈ P.io u, Y g ≠ X g
+      cover S R τ u X hu := by
+        by_cases h : ∃ Y, ext S R τ u = some Y ∧ P.Correct Y u
+        · obtain ⟨Y, hY, hc⟩ := h
+          refine Or.inr ⟨Y, hY, hc, ?_⟩
+          by_contra hno
+          push Not at hno
+          exact P.mem_wrong.1 hu (P.correct_congr (fun g hg => (hno g hg).symm) hc)
+        · exact Or.inl fun Y hY hc => h ⟨Y, hY, hc⟩
+definition FlockSoundness.Audit.audit (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:42-46):
+    /-- **The one-stage audit.** The prover registers `R : Reg`; the verifier draws `S` by `L`; the
+    session on the drawn units runs against `R`. Output: the verdict and the draw. -/
+    def audit (L : Law n) (Reg : Type) (session : Finset (Fin n) → Reg → Game Bool) :
+        Game (Bool × Finset (Fin n)) :=
+      .send Reg fun R => .coin L.Ω fun ω => (session (L.draw ω) R).map fun ok => (ok, L.draw ω)
+definition FlockSoundness.Audit.cont (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:57-59):
+    /-- The prover's state after registration. -/
+    def cont (σ : Strategy (audit L Reg session)) : Cont L Reg session (reg σ) :=
+      fun ω => Strategy.ofMap _ _ (σ.2 ω)
+definition FlockSoundness.Audit.reg (FlockSoundness.Audit.OneStage), read by FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Audit/OneStage.lean:54-55):
+    /-- The registration of an audit strategy. -/
+    def reg (σ : Strategy (audit L Reg session)) : Reg := σ.1
+definition FlockSoundness.Audit.Analysis₂ (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:85-109):
+    /-- What the analysis of a two-stage audit fixes.
+    * `parent`: the coarse unit each fine unit lies in;
+    * `committedC`: the coarse committed transcript, from the prover's state at registration;
+    * `committedF`: the fine committed transcript, from the coarse one and the prover's state after
+      committing the interior;
+    * `compose`: a drawn wrong coarse unit has a wrong fine unit inside it, under every interior;
+    * `ksFail`, `linkFail`, `cover`: as in one-stage, at the fine level. -/
+    structure Analysis₂ (L₁ : Law nc) (L₂ : Fin nc → Law nf) (Reg : Type) (Int : Finset (Fin nc) → Type)
+        (session : Finset (Fin nf) → Reg → (S₁ : Finset (Fin nc)) → Int S₁ → Game Bool) where
+      parent : Fin nf → Fin nc
+      TrC : Type
+      wrongC : TrC → Finset (Fin nc)
+      TrF : Type
+      wrongF : TrF → Finset (Fin nf)
+      committedC : (R : Reg) → Cont₁ L₁ L₂ Reg Int session R → TrC
+      committedF : TrC → (R : Reg) → (ω₁ : L₁.Ω) → (I : Int (L₁.draw ω₁)) →
+        Cont₂ L₁ L₂ Reg Int session R ω₁ I → TrF
+      compose : ∀ X R ω₁ I τ u, u ∈ L₁.draw ω₁ → u ∈ wrongC X →
+        ∃ v, parent v = u ∧ v ∈ wrongF (committedF X R ω₁ I τ)
+      ksFail : (S : Finset (Fin nf)) → (R : Reg) → (S₁ : Finset (Fin nc)) → (I : Int S₁) →
+        Strategy (session S R S₁ I) → Fin nf → Prop
+      linkFail : (S : Finset (Fin nf)) → (R : Reg) → (S₁ : Finset (Fin nc)) → (I : Int S₁) →
+        Strategy (session S R S₁ I) → Fin nf → TrF → Prop
+      cover : ∀ S R S₁ I (τ : Strategy (session S R S₁ I)) v Z, v ∈ wrongF Z →
+        ksFail S R S₁ I τ v ∨ linkFail S R S₁ I τ v Z
+definition FlockSoundness.Audit.Analysis₂.KnowledgeSound (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:119-126):
+    /-- **Knowledge soundness at the fine level** (named hypothesis `ε_ks`), for every prover and every
+    rule that picks a drawn fine unit before the session's first coin. -/
+    def KnowledgeSound (εks : ℝ≥0∞) : Prop :=
+      ∀ (R : Reg) (c : Cont₁ L₁ L₂ Reg Int session R) (tgt : L₁.Ω → (∀ u, (L₂ u).Ω) → Option (Fin nf)),
+        avg (fun ω₁ => avg fun ω₂ => prob (fun ok => ok = true ∧ ∃ v, tgt ω₁ ω₂ = some v ∧
+          v ∈ fineDraw L₁ L₂ ω₁ ω₂ ∧
+          A.ksFail (fineDraw L₁ L₂ ω₁ ω₂) R (L₁.draw ω₁) (c ω₁).1 ((c ω₁).2 ω₂) v)
+          (session (fineDraw L₁ L₂ ω₁ ω₂) R (L₁.draw ω₁) (c ω₁).1) ((c ω₁).2 ω₂)) ≤ εks
+definition FlockSoundness.Audit.Analysis₂.LinkSound (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:128-136):
+    /-- **The link term at the fine level** (named hypothesis `δ_link`): extraction of the picked fine
+    unit disagrees with the fine committed transcript. -/
+    def LinkSound (δlink : ℝ≥0∞) : Prop :=
+      ∀ (R : Reg) (c : Cont₁ L₁ L₂ Reg Int session R) (tgt : L₁.Ω → (∀ u, (L₂ u).Ω) → Option (Fin nf)),
+        avg (fun ω₁ => avg fun ω₂ => prob (fun ok => ok = true ∧ ∃ v, tgt ω₁ ω₂ = some v ∧
+          v ∈ fineDraw L₁ L₂ ω₁ ω₂ ∧
+          A.linkFail (fineDraw L₁ L₂ ω₁ ω₂) R (L₁.draw ω₁) (c ω₁).1 ((c ω₁).2 ω₂) v
+            (A.committedF (A.committedC R c) R ω₁ (c ω₁).1 (c ω₁).2))
+          (session (fineDraw L₁ L₂ ω₁ ω₂) R (L₁.draw ω₁) (c ω₁).1) ((c ω₁).2 ω₂)) ≤ δlink
+definition FlockSoundness.Audit.Analysis₂.TrC (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:95-95):
+      TrC : Type
+definition FlockSoundness.Audit.Analysis₂.TrF (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:97-97):
+      TrF : Type
+definition FlockSoundness.Audit.Analysis₂.committedC (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:99-99):
+      committedC : (R : Reg) → Cont₁ L₁ L₂ Reg Int session R → TrC
+definition FlockSoundness.Audit.Analysis₂.committedF (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:100-100):
+      committedF : TrC → (R : Reg) → (ω₁ : L₁.Ω) → (I : Int (L₁.draw ω₁)) →
+definition FlockSoundness.Audit.Analysis₂.ksFail (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:104-104):
+      ksFail : (S : Finset (Fin nf)) → (R : Reg) → (S₁ : Finset (Fin nc)) → (I : Int S₁) →
+definition FlockSoundness.Audit.Analysis₂.linkFail (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:106-106):
+      linkFail : (S : Finset (Fin nf)) → (R : Reg) → (S₁ : Finset (Fin nc)) → (I : Int S₁) →
+definition FlockSoundness.Audit.Cont₁ (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:72-75):
+    /-- The prover's state after registering `R`: for every coarse draw, its interior and what follows. -/
+    abbrev Cont₁ (L₁ : Law nc) (L₂ : Fin nc → Law nf) (Reg : Type) (Int : Finset (Fin nc) → Type)
+        (session : Finset (Fin nf) → Reg → (S₁ : Finset (Fin nc)) → Int S₁ → Game Bool) (R : Reg) :=
+      ∀ ω₁ : L₁.Ω, Σ I : Int (L₁.draw ω₁), Cont₂ L₁ L₂ Reg Int session R ω₁ I
+definition FlockSoundness.Audit.Cont₂ (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:65-70):
+    /-- The prover's state after committing the interior `I`: its session strategy for every second
+    draw. -/
+    abbrev Cont₂ (L₁ : Law nc) (L₂ : Fin nc → Law nf) (Reg : Type) (Int : Finset (Fin nc) → Type)
+        (session : Finset (Fin nf) → Reg → (S₁ : Finset (Fin nc)) → Int S₁ → Game Bool) (R : Reg)
+        (ω₁ : L₁.Ω) (I : Int (L₁.draw ω₁)) :=
+      ∀ ω₂ : ∀ u, (L₂ u).Ω, Strategy (session (fineDraw L₁ L₂ ω₁ ω₂) R (L₁.draw ω₁) I)
+definition FlockSoundness.Audit.Partition.Refines.analysis₂ (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:320-350):
+    /-- **Variant (b) over a refinement.** The coarse committed transcript `X` comes from the prover's
+    state at registration; the interior's committed values `Yint` from its state after committing the
+    interior; the fine committed transcript is `X` on the coarse committed wires and `Yint` elsewhere.
+    Fine units are read through the extractor `ext`, as in one-stage. -/
+    noncomputable def Refines.analysis₂ (r : Refines Pf Pc)
+        {L₁ : Law nc} {L₂ : Fin nc → Law nf} {Reg : Type} {Int : Finset (Fin nc) → Type}
+        {session : Finset (Fin nf) → Reg → (S₁ : Finset (Fin nc)) → Int S₁ → Game Bool}
+        (X : (R : Reg) → Cont₁ L₁ L₂ Reg Int session R → (Fin C.N → Bool))
+        (Yint : (R : Reg) → (ω₁ : L₁.Ω) → (I : Int (L₁.draw ω₁)) → Cont₂ L₁ L₂ Reg Int session R ω₁ I →
+          (Fin C.N → Bool))
+        (ext : (S : Finset (Fin nf)) → (R : Reg) → (S₁ : Finset (Fin nc)) → (I : Int S₁) →
+          Strategy (session S R S₁ I) → Fin nf → Option (Fin C.N → Bool)) :
+        Analysis₂ L₁ L₂ Reg Int session where
+      parent := r.parent
+      TrC := Fin C.N → Bool
+      wrongC := Pc.wrong
+      TrF := Fin C.N → Bool
+      wrongF := Pf.wrong
+      committedC := X
+      committedF X' R ω₁ I τ := extend (Pc := Pc) X' (Yint R ω₁ I τ)
+      compose X' R ω₁ I τ u _ hu := r.exists_wrong_fine (extend_committed X' _) hu
+      ksFail S R S₁ I τ v := ∀ Y, ext S R S₁ I τ v = some Y → ¬ Pf.Correct Y v
+      linkFail S R S₁ I τ v Z := ∃ Y, ext S R S₁ I τ v = some Y ∧ Pf.Correct Y v ∧ ∃ g ∈ Pf.io v, Y g ≠ Z g
+      cover S R S₁ I τ v Z hv := by
+        by_cases h : ∃ Y, ext S R S₁ I τ v = some Y ∧ Pf.Correct Y v
+        · obtain ⟨Y, hY, hc⟩ := h
+          refine Or.inr ⟨Y, hY, hc, ?_⟩
+          by_contra hno
+          push Not at hno
+          exact Pf.mem_wrong.1 hv (Pf.correct_congr (fun g hg => (hno g hg).symm) hc)
+        · exact Or.inl fun Y hY hc => h ⟨Y, hY, hc⟩
+definition FlockSoundness.Audit.Partition.extend (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:309-312):
+    /-- The fine transcript: the coarse committed wires from `X`, every other wire from `Y`. -/
+    noncomputable def extend (X Y : Fin C.N → Bool) : Fin C.N → Bool := by
+      classical
+      exact fun g => if g ∈ Pc.committed then X g else Y g
+definition FlockSoundness.Audit.cont₁ (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:80-83):
+    /-- The prover's state after registration. -/
+    def cont₁ (σ : Strategy (twoStage L₁ L₂ Reg Int session)) :
+        Cont₁ L₁ L₂ Reg Int session (reg₂ σ) :=
+      fun ω₁ => ⟨(σ.2 ω₁).1, fun ω₂ => Strategy.ofMap _ _ ((σ.2 ω₁).2 ω₂)⟩
+definition FlockSoundness.Audit.effEscape (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:140-144):
+    /-- **The effective escape** of a coarse set `B` under nested sampling: each drawn unit of `B`
+    escapes the second stage with the largest miss probability of a fine unit inside it. -/
+    noncomputable def effEscape (L₁ : Law nc) (L₂ : Fin nc → Law nf) (parent : Fin nf → Fin nc)
+        (B : Finset (Fin nc)) : ℝ≥0∞ :=
+      avg fun ω₁ => ∏ u ∈ B ∩ L₁.draw ω₁, ⨆ (v : Fin nf) (_ : parent v = u), (1 - (L₂ u).incl v)
+definition FlockSoundness.Audit.fineDraw (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:46-49):
+    /-- The fine draw: inside each drawn coarse unit `u`, the second-stage draw of `L₂ u`. -/
+    def fineDraw (L₁ : Law nc) (L₂ : Fin nc → Law nf) (ω₁ : L₁.Ω) (ω₂ : ∀ u, (L₂ u).Ω) :
+        Finset (Fin nf) :=
+      (L₁.draw ω₁).biUnion fun u => (L₂ u).draw (ω₂ u)
+definition FlockSoundness.Audit.reg₂ (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:77-78):
+    /-- The registration of a two-stage strategy. -/
+    def reg₂ (σ : Strategy (twoStage L₁ L₂ Reg Int session)) : Reg := σ.1
+definition FlockSoundness.Audit.twoStage (FlockSoundness.Audit.TwoStage), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence: new
+  now (FlockSoundness/Audit/TwoStage.lean:51-60):
+    /-- **The two-stage audit, variant (b).** The prover registers `R`; the verifier draws coarse
+    units; the prover commits the drawn units' interiors `I`; the verifier draws fine units inside each
+    drawn coarse unit, fresh; the session proves them. Output: the verdict and both draws. -/
+    def twoStage (L₁ : Law nc) (L₂ : Fin nc → Law nf) (Reg : Type) (Int : Finset (Fin nc) → Type)
+        (session : Finset (Fin nf) → Reg → (S₁ : Finset (Fin nc)) → Int S₁ → Game Bool) :
+        Game (Bool × Finset (Fin nc) × Finset (Fin nf)) :=
+      .send Reg fun R => .coin L₁.Ω fun ω₁ =>
+      .send (Int (L₁.draw ω₁)) fun I => .coin (∀ u, (L₂ u).Ω) fun ω₂ =>
+      (session (fineDraw L₁ L₂ ω₁ ω₂) R (L₁.draw ω₁) I).map
+        fun ok => (ok, L₁.draw ω₁, fineDraw L₁ L₂ ω₁ ω₂)
+definition FlockSoundness.Game (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:33-37):
+    /-- The verifier's side of a public-coin interaction with live coins. -/
+    inductive Game (α : Type) : Type 1 where
+      | ret : α → Game α
+      | send (M : Type) : (M → Game α) → Game α
+      | coin (C : Type) [Fintype C] [Nonempty C] : (C → Game α) → Game α
+definition FlockSoundness.Game.Strategy (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:89-95):
+    /-- A deterministic prover strategy: a message at every `send` node, for every history (the
+    history is encoded by the position in the tree, so a strategy is simply a choice at each node,
+    and after a coin it may depend on that coin). -/
+    def Strategy : Game α → Type
+      | .ret _ => PUnit
+      | .send _ k => (m : _) × Strategy (k m)
+      | @Game.coin _ C _ _ k => (c : C) → Strategy (k c)
+definition FlockSoundness.Game.avg (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:154-156):
+    /-- The uniform average over a finite type. -/
+    noncomputable def avg {C : Type} [Fintype C] (f : C → ℝ≥0∞) : ℝ≥0∞ :=
+      ∑ c : C, (Fintype.card C : ℝ≥0∞)⁻¹ * f c
+definition FlockSoundness.Game.bind (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:43-47):
+    /-- Sequencing: run `g`, then continue with `f` applied to its output. -/
+    def bind : Game α → (α → Game β) → Game β
+      | .ret a, f => f a
+      | .send M k, f => .send M fun m => bind (k m) f
+      | @Game.coin _ C iF iN k, f => @Game.coin _ C iF iN fun c => bind (k c) f
+definition FlockSoundness.Game.brecOn.go (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+definition FlockSoundness.Game.coin (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:37-37):
+      | coin (C : Type) [Fintype C] [Nonempty C] : (C → Game α) → Game α
+definition FlockSoundness.Game.map (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:84-85):
+    /-- Relabel the output. -/
+    def map (f : α → β) (g : Game α) : Game β := g.bind fun a => .ret (f a)
+definition FlockSoundness.Game.prCoin (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:176-178):
+    /-- The probability that a uniform coin satisfies `p`, as an average of indicators. -/
+    noncomputable def prCoin {C : Type} [Fintype C] (p : C → Prop) : ℝ≥0∞ :=
+      avg fun c => if p c then 1 else 0
+definition FlockSoundness.Game.prob (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:98-103):
+    /-- The exact probability, over the verifier's independent uniform coins, that the interaction
+    between the verifier `g` and the prover strategy `s` ends with an output satisfying `p`. -/
+    noncomputable def prob (p : α → Prop) : (g : Game α) → Strategy g → ℝ≥0∞
+      | .ret a, _ => if p a then 1 else 0
+      | .send _ k, s => prob p (k s.1) s.2
+      | @Game.coin _ C iF _ k, s => ∑ c : C, (@Fintype.card C iF : ℝ≥0∞)⁻¹ * prob p (k c) (s c)
+definition FlockSoundness.Game.ret (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:35-35):
+      | ret : α → Game α
+definition FlockSoundness.Game.send (FlockSoundness.Game.Basic), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_admissible_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (FlockSoundness/Game/Basic.lean:36-36):
+      | send (M : Type) : (M → Game α) → Game α
+definition FlockSoundness.Game.Strategy.ofMap (FlockSoundness.Game.Prob), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence: new
+  now (FlockSoundness/Game/Prob.lean:122-126):
+    /-- A strategy for the relabelled game is a strategy for the game. -/
+    def Strategy.ofMap (f : α → β) : (g : Game α) → Strategy (g.map f) → Strategy g
+      | .ret _, _ => PUnit.unit
+      | .send _ k, s => ⟨s.1, Strategy.ofMap f (k s.1) s.2⟩
+      | @Game.coin _ _ _ _ k, s => fun c => Strategy.ofMap f (k c) (s c)
+definition FlockSoundness.Audit.Circuit.FeedsAvoiding (Influence.Separator), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (Influence/Separator.lean:33-36):
+    /-- `g` feeds `t` along a path none of whose gates is in `K`, both ends included. -/
+    inductive FeedsAvoiding (K : Finset (Fin C.N)) : Fin C.N → Fin C.N → Prop
+      | refl {t : Fin C.N} : t ∉ K → FeedsAvoiding K t t
+      | step {g h t : Fin C.N} : g ∉ K → g ∈ (C.op h).args → FeedsAvoiding K h t → FeedsAvoiding K g t
+definition FlockSoundness.Audit.Circuit.FeedsAvoiding.refl (Influence.Separator), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (Influence/Separator.lean:35-35):
+      | refl {t : Fin C.N} : t ∉ K → FeedsAvoiding K t t
+definition FlockSoundness.Audit.Circuit.FeedsAvoiding.step (Influence.Separator), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (Influence/Separator.lean:36-36):
+      | step {g h t : Fin C.N} : g ∉ K → g ∈ (C.op h).args → FeedsAvoiding K h t → FeedsAvoiding K g t
+definition FlockSoundness.Audit.Partition.Separates (Influence.Separator), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (Influence/Separator.lean:60-64):
+    /-- **A separator of the units `B` from the delivered wires `D`** (a downstream cut): every path from a gate of a unit
+    of `B` to a wire of `D` meets `K`. `D` is what the consumer receives (the served tokens), which can be fewer than the
+    circuit's outputs: commitments and leaves are outputs the verifier sees but nobody is delivered. -/
+    def Separates (K : Finset (Fin C.N)) (B : Finset (Fin n)) (D : Finset (Fin C.N)) : Prop :=
+      ∀ g t u, P.unit g = some u → u ∈ B → t ∈ D → ¬ C.FeedsAvoiding K g t
+definition FlockSoundness.Audit.Partition.delivered (Influence.Separator), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (Influence/Separator.lean:164-166):
+    /-- What the transcripts with the anchors' inputs whose wrong units lie in `B` deliver on `D`. -/
+    noncomputable def delivered (D : Finset (Fin C.N)) (a : Fin C.N → Bool) (B : Finset (Fin n)) : Finset (D → Bool) :=
+      univ.filter fun y => ∃ X, C.InputsAgree X a ∧ P.wrong X ⊆ B ∧ out D X = y
+definition FlockSoundness.Audit.Partition.exits (Influence.Separator), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (Influence/Separator.lean:87-89):
+    /-- The committed wires of the units of `B`: what they export. -/
+    noncomputable def exits (B : Finset (Fin n)) : Finset (Fin C.N) :=
+      P.committed.filter fun g => ∃ u ∈ B, P.unit g = some u
+definition FlockSoundness.Audit.Partition.influenceSet (Influence.Separator), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (Influence/Separator.lean:193-197):
+    /-- **The influence set at `δ`**: the outputs delivered with the wrong units of some set whose escape `e B` is at least
+    `δ`. It is fixed by the circuit, the partition, the anchors, the escape function and `δ`: not by the prover. -/
+    noncomputable def influenceSet (D : Finset (Fin C.N)) (e : Finset (Fin n) → ℝ≥0∞) (a : Fin C.N → Bool)
+        (δ : ℝ≥0∞) : Finset (D → Bool) :=
+      (univ.filter fun B => δ ≤ e B).biUnion fun B => P.delivered D a B
+definition FlockSoundness.Audit.Partition.out (Influence.Separator), read by FlockSoundness.Audit.Partition.Refines.twoStage_influence, FlockSoundness.Audit.Partition.Separates.mono, FlockSoundness.Audit.Partition.Separates.union, FlockSoundness.Audit.Partition.audit_exfiltration, FlockSoundness.Audit.Partition.audit_influence, FlockSoundness.Audit.Partition.card_delivered_le, FlockSoundness.Audit.Partition.card_influenceSet_le, FlockSoundness.Audit.Partition.card_influenceSet_le_harm, FlockSoundness.Audit.Partition.outputs_eq_of_separates, FlockSoundness.Audit.Partition.separates_exits: new
+  now (Influence/Separator.lean:160-161):
+    /-- What a transcript delivers on the wires `D`. -/
+    def out (D : Finset (Fin C.N)) (X : Fin C.N → Bool) : D → Bool := fun t => X t
+definition PouwAccountable.IsHarmBound (PouwAccountable.HarmBound), read by FlockSoundness.Audit.Partition.card_influenceSet_le_harm: new
+  now (PouwAccountable/HarmBound.lean:27-30):
+    /-- **`harm_bound`'s specification**: every wrong-unit set that escapes with probability at least `δ` has harm at most
+    `H`. -/
+    def IsHarmBound (L : Law n) (h : Fin n → ℝ) (δ : ℝ≥0∞) (H : ℝ) : Prop :=
+      ∀ B : Finset (Fin n), δ ≤ L.escape B → ∑ u ∈ B, h u ≤ H

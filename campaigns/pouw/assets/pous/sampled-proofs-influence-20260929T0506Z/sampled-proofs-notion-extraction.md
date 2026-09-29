@@ -17,7 +17,7 @@ cursor:
     units, Corollary 3.3, and a link from harm bounds to influence.
   - That is 15 theorems, with no `sorry` and only the three standard axioms, in the store draft
     [`lean/submissions/sampled-proofs-influence/`](/cursor/stores/bc-b729c175-2ef6-418e-98fe-10896709028b/lean/submissions/sampled-proofs-influence/NOTES.md).
-    They are unpinned and have no reviewer yet.
+    Verity's Lean audit passes with 12 of them pinned in the package's `lean-audit.json`; no statement reviewer yet.
 - **PoUW's decision 4 applies the lemma correctly** (§1).
 - **Three flags** (§4):
   - the input-linkage lemma's proof is wrong for s < 1;

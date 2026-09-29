@@ -12,11 +12,21 @@ Theorem 5.4 at replay-unit granularity, Corollary 3.3), stated and proved over `
 
 **Status.** Every declaration is proved: no `sorry`, `axiom` or `native_decide`, and only `propext`, `Classical.choice`
 and `Quot.sound` (AXIOMS.txt, from `lake env lean Check.lean`). Built with Lean v4.34.0 and Mathlib `5ed2965`, the
-revision Verity's soundness package pins. Not yet run through `tools/lean/audit.py`, no `lean-audit.json`, no pins, and
-no statement reviewer.
+revision Verity's soundness package pins.
+
+**Verity's Lean audit passes** (2026-09-29, `tools/lean/audit.py` at origin/main b4fd93e9): 713 declarations in 12
+modules, only the standard axioms, 12 pinned theorems, and a clean kernel replay. It flagged nothing, so no source
+changed.
+- `lean-audit.json` holds the roots (every module; `Check` is exempt), a layer rule keeping the vendored code
+  independent of this package, the 12 pins (the table below) and their `reads`, recorded with `--update`.
+- A second run without `--update` passes against those records, and `check.sh` prints ALL CHECKS PASSED.
+- The pins are new, so the merge handoff must name a statement reviewer. `review.txt` lists every pinned signature and
+  every definition the pins read. The reviewer should check that `Separates` quantifies over every gate of every unit
+  in `B`, that `D` is the delivered wires only, and that `K` is committed.
 
 ~~~text
 lake exe cache get && lake build && lake env lean Check.lean
+VERITY_CHECKOUT=<a Verity checkout at b4fd93e9 or later> ./check.sh     # ALL CHECKS PASSED
 ~~~
 
 - `FlockSoundness/`: `main`'s audit law at b4fd93e9, byte for byte, with `Audit/TwoStage.lean` added to the set the

@@ -1176,6 +1176,22 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr362-work-law-regrant.md`, with `pr362-regrant-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0704Z-answer-from-red-team-flock-3-362-regrant-verdict.md`, copied to
     `lanes/coordinator/20260929T0704Z-handoff-from-red-team-flock-3.md`.
+- **The influence stack: #375 @ `de831e06` (13 new pins), #378 @ `46b8faf9` (3) and #379 @ `ded605b1` (2), all GRANTED
+  with no conditions.** This is the Flock red team's grant for soundness pins; the statements are bc-89770364's.
+  - #375: the influence cap and count, the influence set, `audit_influence`, `twoStage_influence` with `AnchorsSound₂`,
+    and the witness.
+  - #378: the harm link, with `IsHarmBound` as core `harm_bound`'s specification.
+  - #379: `audit_exfiltration` with the location term. `exfiltration_bound`'s `location_bits` reads it from above.
+  - Checks: a full build, standard axioms, and `audit.py` with kernel replay passing at each head (33, 36 and 38 pins). No
+    earlier record moves, and no definition read by any pin moved.
+  - Notes: #375 N1, the witness header; #375 N2, what "delivered" covers; #378 N1, the trivial H in `Gen.harm_witness`.
+  - Store: the records `art:a6d995f5…`, `art:c6e9f364…` and `art:f2e25bbd…`, each labelled `verified=accepted` with
+    `verifier` and `finding`; the findings `art:e43927cf…`, `art:ed1bdbe4…` and `art:26e1d1cb…`.
+  - Request: `internal/lanes/verity-root/20260929T0634Z-handoff-from-pous-influence-prs.md`.
+  - Reviews: `private/red-team-reviews/influence/` (new): `pr375-influence.md`, `pr378-harm-link.md` and
+    `pr379-exfiltration.md`, each with its evidence log.
+  - Reply: `lanes/red-team-flock-3/20260929T0708Z-answer-from-red-team-flock-3-375-378-379-verdict.md`, copied to
+    `lanes/coordinator/20260929T0708Z-handoff-from-red-team-flock-3.md`.
 - **#374 @ `d8c47f48` (the work law's count floor): held,** per the work-law lane's 06:45Z note. It is being amended to
   X-SPC-81, and a new request will replace
   `internal/lanes/red-team-flock-3/20260929T0603Z-handoff-from-work-law-374-count-floor-pin-review.md`. My checks at

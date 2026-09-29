@@ -7,6 +7,7 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 33828711 (18:40Z) [open] TB launched r20260929-182631-66a3 on vy-coord-t1 via launchv (custody on, #420 in tree so no extra key; upstream build + inputs sent; lease to 21:42Z; timeout 3 h = 21:26Z); mm-TB 307c127b. launchv no longer clears /workspace/research/src (concurrent runs). Baseline: OLMoE TP2 build-global took ~56 min (17:31-18:27), Qwen3-30B case running since 18:28 (timeout 20:23Z). TB reached OLMoE build-global at ~18:34. Mirror recovered: 18:30Z pass ok.
 CHECKPOINT 33828711 (18:25Z) [open] Budget lines at notes 4d13c368 (guard reloaded): vy-pous-check364 expiry 21:00Z (no new money), vy-pouw-mvp-qwen05 $2.85 to 22:00Z. POUS 1810Z/1821Z root notes + red-team 1817Z published directly (c4770b4e): the mirror pass timed out at 18:07Z and 18:16Z (two passes overlapping; killed my manual one). #427 (work-law draft on #421, lean-agreement) not train-ready until granted and rebased on main after TM.
 CHECKPOINT 33828711 (18:00Z) [open] #424 5f53e705 (audit lane, Lean only, no pins) added to TM: merges clean; no TM PR calls setupH_inputCopy (only its definition + README). tr-TMpre d18465c4 = #416, #418, #421, #424; 125 pins; regen r20260929-175841-cf93 replaces r20260929-174507-6d50 (killed by pgid).
 CHECKPOINT 33828711 (17:57Z) [open] Root 17:52Z: #414 dropped from TB (POUS draft, no merge request; later train once filed). TB = tr-TB d27303f6: #371, #420, #422, #336; lint + repository + replica tests pass. Launch after baseline, TB before TM.

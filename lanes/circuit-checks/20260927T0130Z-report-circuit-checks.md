@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT b21bc750 (00:18Z) [open] IN USE vy-circuit-checks-cpu8: cold check on #334 b21bc750 (caches cleared), then warm runs; ~01:25Z; agent bc-1122c760
 CHECKPOINT fe196b6c (00:04Z) [open] IN USE vy-circuit-checks-cpu8: r20260928-235327-8f78 = cold check on #334 97a7e780 (~50 min), then warm runs; terminated right after; agent bc-1122c760
 CHECKPOINT fe196b6c (23:53Z) [open] IN USE vy-circuit-checks-cpu8 (4hg83o0lsap0lm): measuring #334 cold then warm check, ~2 h, terminated right after; agent bc-1122c760
 CHECKPOINT fe196b6c (21:40Z) [open] BUILT #334 (verdict caching + warm Lean deps, stacked on #134); waiting for a 32 GB CPU pod (no stock since 21:25Z) to measure; agent bc-1122c760

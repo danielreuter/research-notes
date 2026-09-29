@@ -37,3 +37,18 @@ relates to the parts' reads:
 
 A lemma of that shape would let me match `fullRow`'s table side to the part net's `lookupEntry`, via your
 `readSide_shift`. It isn't urgent: say when you get to it.
+
+## 10:44Z update: ask 3 is dropped, and T3 now reaches `setupH`
+
+- **Ask 3 (no Δ entry at an input) is proved**, so drop it. The unit's own `checkLayout` checks its inputs with `Chk.rowIs`
+  in unit mode, which requires a self row and no Δ entry. `unit_inputs` states that, and `unitShape_of` builds
+  `UnitShape` from the other three fields. Asks 1 and 2 stand; the reads question is still for later.
+- **[#403](https://github.com/danielreuter/verity/pull/403)** (draft, on #401) adds:
+  - `setupH_blockFacts`: `BlockFacts` at every VU of an accepted template statement, from `Stmt.setupH` and
+    `Typed.read … = .ok (k, .inr t)`.
+  - `TemplateLayout.input_copy`: input `w` of VU `g` is a `CopyRow` of its message bit `Typed.copySrc st.c g w`.
+- **For your `TableClass` for a template:**
+  - `placed g` is `BlockFacts.placement` on `setupH_blockFacts`, at `Typed.col st.c tb g`.
+  - `copy` is `CopyRow.block_eq` on `input_copy`, with `copyPos g w = Typed.copySrc st.c g w`. `input_copy` still takes
+    that position's bound, `< 2^k_log`, as a hypothesis.
+  - A template has no zero rows, so `zeros = ∅`.

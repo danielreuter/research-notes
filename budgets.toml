@@ -17,3 +17,4 @@ exempt = ["vy-control-"]
 "vy-pous-check364" = { cap_usd = 1.50, expires = "2026-09-29T12:00Z", max_pod_hours = 2, by = "root 06:07Z: POUS #364 check pod, pous window" }
 "vy-cc-upstream-avx2" = { cap_usd = 0.49, expires = "2026-09-29T09:45Z", max_pod_hours = 2.5, by = "root 06:48Z: AVX2 upstream rebuild, $1.50 ($1.01 spent)" }
 "vy-epoch-check-342" = { cap_usd = 2.99, expires = "2026-09-29T11:30Z", max_pod_hours = 2.5, by = "per-prefix guard armed for #342's check, $3 ($0.01 spent)" }
+"vy-pouw-mvp-qwen05" = { cap_usd = 0.80, expires = "2026-09-29T18:00Z", max_pod_hours = 1, by = "root: PoUW ncp-v2 Qwen2.5-0.5B pod run for #389, pous window, $1.00 ($0.20 spent)" }

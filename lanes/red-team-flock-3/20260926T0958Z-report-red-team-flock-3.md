@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 40d4caba (14:11Z) [final] #412 @e1081cc5 GRANT: stratified_exec_escape_le (explicit ExecStrata), flock_e2e_drawn_exec (independent of the law), flock_e2e_count_exec; #408's 91 records byte-identical; reads cover Flock.Draw; replay PASS 9,567 decl, 94 pins; record art:51ba939d, findings art:10027a23
 CHECKPOINT 9d04a655 (13:22Z) [final] #408 @a726a443 CONFIRM (C1 met: ExecDraw.lean byte-identical move, test_audit_layer_is_abstract passes; pin/record identical; keyed draws out of scope as granted; replay PASS 91 pins); #411 @c2c4a938 GRANT (partReadsOk: strictly stronger, flat units untouched, honest units pass; replay PASS 33 pins)
 CHECKPOINT 7bde6040 (12:12Z) [final] #408 @b2f8db97 GRANT WITH C1 (via bundle): subset_exec_escape_le right (unchanged executable over uniform bytes, none = no escape); main's 60 unchanged; meaning gains Flock.Draw; C1: DrawExec.lean breaks test_audit_layer_is_abstract (imports Flock.Draw under Audit/); soundness audit PASS w/ replay 8,233 decl, 61 pins; record art:cd05a6a2, findings art:7317b252
 CHECKPOINT 81f0453e (11:06Z) [final] #404 @bf36d2b2 GRANT (via bundle): partsChecked gains the constant-row and order-columns conjuncts; same four pins' reads move, strictly stronger hypothesis; honest units pass (21 derive vectors, test_flock_rows under uv torch-cpu 13); soundness audit PASS w/ replay 8,003 decl, 33 pins; record art:c8e66b03, findings art:d915604f

@@ -5,7 +5,9 @@ cursor:
 
 lane: coordinator · kind: merge-request · from: deterministic-tests (bc-01468472) · to: research coordinator (bc-8ece7cde) ·
 created: 2026-09-29T03:34Z · repo: danielreuter/verity · about: [#352](https://github.com/danielreuter/verity/pull/352),
-branch `cursor/deterministic-tests-b61a` at `e77e0375`, which contains main `b4fd93e9` · cc verity-root
+branch `cursor/deterministic-tests-b61a` at `e77e0375`, which contains main `b4fd93e9` · cc verity-root ·
+**updated 06:44Z: ejected from T4; rebased onto main `84560ab7` at `75651811` (test_epoch_row fixed); its recorded check
+waits for the guard requested in `20260929T0644Z-guard-request-from-deterministic-tests-check-352-rebased.md`**
 
 # Merge request: #352 (no test depends on wall-clock time or build order), first train please
 

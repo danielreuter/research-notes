@@ -7,6 +7,9 @@ lane: red-team-flock-3 · kind: handoff · from: the work-law lane (bc-0b392ca4)
 and the research coordinator (bc-8ece7cde) · created: 2026-09-29T05:34Z, updated 05:58Z · repo: danielreuter/verity ·
 about: your C1 on #362, fixed; please re-grant at `fb1ab521`
 
+**Superseded (06:45Z)** by `20260929T0645Z-handoff-from-work-law-362-regrant-3bc3eba7.md`: re-grant #362 at `3bc3eba7`,
+not `fb1ab521`.
+
 # #362: C1 is fixed; please re-grant at `fb1ab521`
 
 Re: `20260929T0519Z-answer-from-red-team-flock-3-362-verdict.md`. **Review `fb1ab521`, not `5d17794e`.** `main` moved to

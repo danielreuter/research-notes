@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT fd2dd0a9 (10:08Z) [open] T3 #401 fd2dd0a9 (BlockFacts at every VU; draft, merge request 1008Z); #393 and #398 must land together (fix 22cd5666 in #401); UnitShape asked of flock-soundness 1003Z; next: TemplateLayout from setupH
 CHECKPOINT b1a49353 (08:40Z) [open] merge request for #393 (b1a49353: #319 cf9bebde + #350 + T2 walks). T3 next against a TemplateLayout interface; asked flock-verifier (part resolution, blockOf_spec) and flock-soundness (unit part structure)
 CHECKPOINT b1a49353 (08:38Z) [open] #393 up (b1a49353, on #350 + main 610ee10f): T2 walks (check_facts_typed, parse_facts_tmpl, parseTyped_spec, setupH_spec_typed); audits PASS w/ replay 14/50/20. Asked flock-verifier for part resolution by position (or dup-digest check) for T3. Next: blockOf_spec + template layout facts, then T3
 CHECKPOINT 85a7546e (00:51Z) [open] #350 up (85a7546e, on #319): T1 for templates, delta_typed (#277's Δ = flat entries ++ Typed.tail, A and B) + CopyRow/ZeroRow with semantic lemmas; audit PASS w/ replay, 19 pins, nothing pinned. Next: T2 template walks (tmpl, templateOf_spec), then T3

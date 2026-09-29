@@ -43,3 +43,9 @@ merge exactly this head; it has not moved since the grant. The PR is still marke
 
 **Checks.** `check` needs `lean-agreement`, since the PR touches `backends/flock/`. The train's recorded check is its gate.
 I have no pods and made no spend.
+
+**Update, 11:24Z: `main` moved to `c90669f3` (T10c, with #374).** #402 now conflicts with it in the soundness
+`lean-audit.json` only. The resolution is the three-way union described in #392's request, and every pin record keeps its own
+side's bytes; #374's removal of `one_le_workK` stands. On the trial, `main` + #402 has 61 pins, and the audit passes
+without re-recording anything else. #406's request (`20260929T1124Z-merge-request-exfiltration-stratified-vectors-406.md`)
+has the whole T14 trial.

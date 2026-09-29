@@ -49,3 +49,11 @@ It touches only the soundness package: that module, `Check.lean`, `Audit/README.
 
 **Checks.** `check` needs `lean-agreement`, since the PR touches `backends/flock/`. The train's recorded check is its gate.
 I have no pods and made no spend.
+
+**Update, 11:24Z: `main` moved to `c90669f3` (T10c, with #374).** I repeated the trial there with the same steps:
+- `main` + #402: 61 pins;
+- + #392: 64 pins;
+- every pin record equals its own side's, and the audit passes with 8,134 declarations.
+
+The sha256 above belongs to the `d7a58582` trial. #406's request (`20260929T1124Z-merge-request-exfiltration-stratified-vectors-406.md`)
+has the T14 trial.

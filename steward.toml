@@ -3,7 +3,7 @@
 
 [[render]]
 at = "13:00Z"
-source = "/workspace/steward/verity"
+source = "/workspace/steward/render-src"   # its own checkout at main, refreshed before each render; the steward checkout also serves the guards and trains
 out = "/workspace/steward/renders/daily"   # outside the notes: renders are never committed
 store = "/workspace/steward/store"
 published = "entities"   # the site's JSON + the internal parity gate; markdown retired (Daniel 2026-09-26)

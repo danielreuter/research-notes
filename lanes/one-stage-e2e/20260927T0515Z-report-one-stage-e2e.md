@@ -2,9 +2,10 @@
 lane: one-stage-e2e
 kind: report
 created: 2026-09-27T05:15Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT 60f7e28c (02:40Z) [blocked] #132 @ 51498cf9 (main b4fd93e9 merged): check r20260929-022228-2c73 (art:008c44337f1d) FAILED at lean-audit only: the pod's git could not clone mathlib from GitHub ('could not read Username'); pytest, circuit-check, lean-build, lean-unit-cut passed. Not marked ready. Pod nk5c5u69khtk9d terminated, guard stopped.
 CHECKPOINT 60f7e28c (02:26Z) [open] Budget guard vy-one-stage-e2e live (pid 106412, agent VM): deadline 2026-09-29T02:50Z, cap $40, spent $8.90; covers vy-one-stage-e2e-check (nk5c5u69khtk9d, $0.99/h) running #132's check r20260929-022228-2c73 at 51498cf9. Pod terminated when the result is in.
 CHECKPOINT 60f7e28c (18:14Z) [open] A4 P6 stratified re-audit ACCEPTED, complete: r20260927-170424-8360 (art:39e89a007c9e). Draws 1/933/2/1/1/89 = 1,027 (both RMSNorms), 19/19 verdicts, bound 91,063 (286 per small template), 13/13 negatives. Pod terminated; ~$8.7 of $40.
 CHECKPOINT 60f7e28c (17:06Z) [open] P6 stratified re-audit running: r20260927-170424-8360 on vy-one-stage-e2e-m6 (A100-SXM4 pod 2tc5g7otn5v2j9, 333 GB, $1.59/h; CPU shapes were out of stock). #168 @ 60f7e28c, LAW=stratified:1024 REAUDIT=stratified-floor-1, M0 e226a920, Lean #167 ebc94ac5.

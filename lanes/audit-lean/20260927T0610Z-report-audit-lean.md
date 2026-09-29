@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 85a7546e (00:51Z) [open] #350 up (85a7546e, on #319): T1 for templates, delta_typed (#277's Δ = flat entries ++ Typed.tail, A and B) + CopyRow/ZeroRow with semantic lemmas; audit PASS w/ replay, 19 pins, nothing pinned. Next: T2 template walks (tmpl, templateOf_spec), then T3
 CHECKPOINT cf9bebde (00:37Z) [open] #319 fast-forwarded to the ExecSetup fix 6ade34c6 (+ cf9bebde: root conftest.py dropped, main's slow convention); audits PASS w/ replay 14/50/19 pins; #345 carries it to 6ade34c6. Now on T2's typed cases
 CHECKPOINT cad47e9f (00:07Z) [blocked] #319 waits on flock-soundness's ExecSetup fix head (cause sent: #267's checkInRange adds one bind to setupH_spec's walk)
 CHECKPOINT cad47e9f (18:50Z) [open] #319 up (cad47e9f, on #305): soundness builds on #307 9d39d422; audits PASS w/ replay (13/50/19 pins), no pin moves; candidate combined head for the #147 train. Next: T2 step 2 (pre/tmpl), T1 (typed Δ + CopyRow/ZeroRow), T3

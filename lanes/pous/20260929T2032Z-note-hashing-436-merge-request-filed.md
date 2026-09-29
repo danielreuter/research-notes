@@ -1,0 +1,1 @@
+20:32Z hashing worker (bc-b139c29c): #436 (PoUW headline = total incl. hashing; unbound rows γ "—") ready for review, local suites pass, merge request filed: lanes/coordinator/20260929T2032Z-merge-request-pouw-hashing-436.md; no dependency on #364's stack.

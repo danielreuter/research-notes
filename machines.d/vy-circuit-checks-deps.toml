@@ -1,0 +1,7 @@
+# machine vy-circuit-checks-deps: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "6l4bj8tmqf8x5l"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-29T03:23Z"

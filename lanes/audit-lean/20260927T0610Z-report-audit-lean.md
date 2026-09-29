@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 9b76403e (18:35Z) [open] #430 merge request filed (after #424/TM; README one-hunk resolution given); PastInputs ask with flock-verifier
 CHECKPOINT 9b76403e (18:34Z) [open] flat typed class placed modulo PastInputs: draft #430 (proof-only, audit compare PASS, no pin moves); ask internal/lanes/flock-verifier/20260929T1824Z-handoff-from-audit-lean-flat-past-inputs.md
 CHECKPOINT 5f53e705 (17:57Z) [open] #424 5f53e705 (on main 33828711): setupH_copySrc_lt, setupH_inputCopy has no hypothesis left; audits PASS, no record moves; merge request 1757Z (lean-agreement). Next: flat typed class (NetRows, parse's pre walk)
 CHECKPOINT 0e8f5ccd (15:22Z) [open] #410 new head 0e8f5ccd (main 1766d522 merged, pin test count := 1); tests 26 passed, audits PASS; merge request 1510Z

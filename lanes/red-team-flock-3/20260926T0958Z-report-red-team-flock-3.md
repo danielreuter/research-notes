@@ -1483,6 +1483,12 @@ Verdicts only. The findings are in the store's `private/`.
   - Checks: the audit passes with kernel replay (10,541 declarations, 154 modules); 48 tests pass.
   - Verdict: `internal/lanes/pous/20260929T1950Z-redteam-425-restack-delta.md`. Evidence:
     `private/red-team-reviews/pr425-restack-evidence.log`.
+- **#425 @ `8d630a70` (the merge-request head): CONFIRMED, the grant holds.**
+  - The delta over `c4499c8c` is A5's witness `uniformSecret_id` (by `rfl`, unpinned) and one `ASSUMPTIONS.md` line.
+  - `lean-audit.json` is byte-identical to `c4499c8c`'s, and so content-identical to `7fd7e0b9`'s.
+  - Checks: the audit passes with kernel replay (10,542 declarations, 128 pins); 48 tests pass.
+  - Verdict: `internal/lanes/pous/20260929T2034Z-redteam-425-8d630a70-delta.md`. Evidence:
+    `private/red-team-reviews/pr425-8d630a70-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

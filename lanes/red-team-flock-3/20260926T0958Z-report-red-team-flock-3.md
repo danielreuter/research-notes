@@ -1193,6 +1193,17 @@ Verdicts only. The findings are in the store's `private/`.
     `pr379-exfiltration.md`, each with its evidence log.
   - Reply: `lanes/red-team-flock-3/20260929T0708Z-answer-from-red-team-flock-3-375-378-379-verdict.md`, copied to
     `lanes/coordinator/20260929T0708Z-handoff-from-red-team-flock-3.md`.
+- **#379 @ `fa4fb58e` and #381 @ `d237e60a` (POUS's split of the `exfiltration_bound` change): grants re-recorded by
+  byte identity** at verity-root's 07:30Z word. #375 and #378 stand.
+  - #379: every Lean build and audit input is byte-identical to `ded605b1`, and its Python is back to #378's bytes.
+  - #381: its tree is byte-identical to `ded605b1`.
+  - Note: land #381 with #379.
+  - Store: the record `art:f2e25bbd…` (the same bytes at all three commits) is labelled again for these heads; the
+    findings are `art:67f124d4…`.
+  - Request: `internal/lanes/verity-root/20260929T0722Z-handoff-from-pous-379-regrant-at-fa4fb58e.md`.
+  - Review: `private/red-team-reviews/influence/pr379-381-byte-identity.md`.
+  - Reply: `lanes/red-team-flock-3/20260929T0733Z-answer-from-red-team-flock-3-379-381-rerecord-verdict.md`, copied to
+    `lanes/coordinator/20260929T0733Z-handoff-from-red-team-flock-3.md`.
 - **#374 @ `d8c47f48` (the work law's count floor): held,** per the work-law lane's 06:45Z note. It is being amended to
   X-SPC-81, and a new request will replace
   `internal/lanes/red-team-flock-3/20260929T0603Z-handoff-from-work-law-374-count-floor-pin-review.md`. My checks at

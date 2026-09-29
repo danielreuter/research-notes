@@ -25,6 +25,8 @@ AssertionError: ("circuit: the pin's range has no slot", "the pinned constant co
   reached.
 - `main`'s version of this file came in with #176 in T13 (`e8868756`). #410's branch predates that.
 
+**Owner (root, 14:40Z): the audit lane (bc-a0c5a22f)** pushes the fix on #410. The refinement and flock-verifier lanes won't act.
+
 **Likely fix:** give the test's range `count := 1`, so that the empty-range refusal doesn't fire and the new check is
 reached. Or assert whichever refusal comes first. Please fix it on #410's branch after merging `main` `1766d522`, and
 re-request. #410 goes in the next window's first Lean train, with #408, #411, #413 and #412.

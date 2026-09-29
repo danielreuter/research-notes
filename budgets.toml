@@ -19,3 +19,4 @@ exempt = ["vy-control-"]
 "vy-epoch-check-342" = { cap_usd = 2.99, expires = "2026-09-29T11:30Z", max_pod_hours = 2.5, by = "per-prefix guard armed for #342's check, $3 ($0.01 spent)" }
 "vy-pouw-mvp-qwen05" = { cap_usd = 1.80, expires = "2026-09-29T18:00Z", max_pod_hours = 1.25, by = "root: PoUW ncp-v2 Qwen2.5-0.5B pod run for #389, pous window, $1.00 ($0.20 spent); raised to $1.40 and 1.5 h per pod (root 13:03Z); $1.80 and 1.25 h (root 15:01Z)" }
 "vyv-rf-epoch-" = { cap_usd = 260, expires = "2026-09-30T08:00Z", max_pod_hours = 12, by = "daniel via root 2026-09-29T00:17Z / 11:44Z: vLLM follow-up epoch, $260 (#39 and #57 if their gates clear)" }
+"vy-flock-netlist-sha512-" = { cap_usd = 5, expires = "2026-09-29T20:00Z", max_pod_hours = 3, by = "daniel via root 2026-09-29T14:29Z: #336 native SHA-512 kernel, GPU byte-identity run (then its m = 34 timing if that passes), 1x L40S, est. 1.5 h / $1.20" }

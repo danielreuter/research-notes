@@ -5,6 +5,7 @@ created: 2026-09-28T20:09Z
 status: final
 ---
 
+CHECKPOINT f639cd66 (16:11Z) [final] plan updated with the measured native kernel: 1.15x on #101 (projected 1.52x; per-compression cost unchanged at 1.15 us); all three levers now 7.1e6 L40S (2.9x), 6.3e6 H100 NVL (2.4x); $0
 CHECKPOINT f639cd66 (00:04Z) [final] plan rebaselined on the non-GEMM re-proof: #101 2.16e7x L40S, ~1.5e7x H100 NVL (scaled); native kernel 1.52x/1.42x on #101; tiles 1.96-2.38x; all three 3.5x; $0
 CHECKPOINT f639cd66 (22:03Z) [final] plan rebaselined on #327: #101 3.4e7x native L40S (~2.8e7 H100 scaled); SHA 72-84% of GEMM session; native kernel now 1.6x GEMM / 1.24x #101; next: kernel (M0, vs #328), tiles, re-prove non-GEMM on #327; $0
 CHECKPOINT f639cd66 (21:11Z) [final] #328 (draft, stacked on #289) @ f639cd66: native SHA-512 witness CPU reference matches eval64 on every row of sha512x3 and hm96 (pinned + carries-every-16) and on staged RoPE / K=256 GEMM; kernel, GPU hour, host bucket are M0's; $0
@@ -108,3 +109,15 @@ is rebaselined, and the time model is `time 327` in `internal/gemm-hash-measurem
     SHA witness is 38–42% of their sessions.
   - **Tiles alone:** 1.96–2.38× on the L40S and 1.83× on the H100 NVL. Tiles, the kernel and the denser slot together: 3.5× and 2.8×.
   - **Order:** unchanged. Row 3 is done for the top 8.
+
+## The native kernel, measured (16:10Z Sep 29)
+
+- **From root:** M0's native SHA-512 kernel runs on the L40S at m = 34 (`r20260929-154509-1893`, baseline `r20260929-155406-2df4`,
+  identity `r20260929-153234-18cf`). It's byte-identical. The median prove goes from 1.147 to 0.979 s (1.17×) and from 1.339 to 1.175 s
+  (1.14×).
+- **Why it's short:** the native compression witness fits 0.040 s + 1.15 µs per compression. The level-by-level pass was 0.153 s +
+  1.15 µs, so only the level syncs went away.
+- **The plan** (`docs/gemm-hash-cost-plan.md`, `time kernel`):
+  - **The kernel:** 1.15× on #101 (2.08 → 1.81 × 10⁷), against 1.52× projected. It would be 1.46× at write-bandwidth speed.
+  - **All three levers:** 7.1 × 10⁶ on the L40S (2.9×; 8.1 × 10⁶ without reuse) and 6.3 × 10⁶ on the H100 NVL (2.4×). With the
+    projected kernel this was 6.2 × 10⁶ and 5.3 × 10⁶.

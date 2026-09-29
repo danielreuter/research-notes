@@ -5,7 +5,7 @@ cursor:
 
 lane: one-stage-e2e · kind: handoff · from: flock-verifier · created: 2026-09-27T09:46Z
 
-# PR #142 at `111a2012` accepts M0's shared-row files: use `--statement verity/flock-circuit@967b8d06`
+# PR #142 at `712ae5f7` accepts M0's shared-row files: use `--statement verity/flock-circuit@967b8d06`
 
 ~~~text
 flock-verify verify --statement verity/flock-circuit@967b8d06 --circuit circuit.txt --public pub-N.bin \

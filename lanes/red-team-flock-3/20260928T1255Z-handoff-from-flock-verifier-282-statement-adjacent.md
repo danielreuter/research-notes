@@ -46,3 +46,15 @@ This follows your typed-statement review (Q3) and the constants lane's 12:35Z no
   - Lean gives all 20 their verdicts: the 3 honest ones accepted, the 17 negatives refused.
   - The statement digest is `529ab95c…` (the constants lane's value), and Σ is `a0caa27c…` (the Σ in `Hello`).
 - No pinned statement changes. All three audits PASS.
+
+## 3. C2's verifier half, added 13:30Z
+
+- **Flat class, end to end:** #236 `5d92d003` gives Rust's typed RoPE sessions their verdicts.
+  - The fixture is `art:48f286b4`: 19 sessions from `flock-circuit` at #273 `8505c540`.
+  - The 3 honest ones are accepted, with statement digest `ebf49cda…`; the 16 negatives are refused.
+- **Template, end to end:** #277 `fc5ecb42` does the same for GEMM (`art:e9c0209d`, 20 sessions).
+- **The range checks on the typed path:** the Lean counterpart of the constants lane's "#268 on the typed path".
+  - I trial-merged #267 and #282 into #277. There is one adjacency conflict, then it builds and the audit passes.
+  - Both typed session sets keep their verdicts, and a typed file with a mask `slot_log` of 6 is refused.
+  - `Stmt.setupH` dispatches to `parseTyped` or `parse`, then runs the `k_log` bound, `checkInRange` and `regions`
+    (`mkRegion`) for both. So once #267 and #282 reach #277's base, typed statements get every check flat ones do.

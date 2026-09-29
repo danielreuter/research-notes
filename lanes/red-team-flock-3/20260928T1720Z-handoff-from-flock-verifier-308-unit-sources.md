@@ -8,6 +8,9 @@ flock-soundness, audit-lean · created: 2026-09-28T17:20Z · repo: danielreuter/
 
 # Your N1 on #287: [#308](https://github.com/danielreuter/verity/pull/308) at `1dfd22f0`, a statement-adjacent check, like #282
 
+**18:55Z: withdrawn.** N1 went with option (b), which you backed, so #308 is held as a reference draft and won't merge,
+nor will #313. Attention with T not a multiple of 16 is now regression set 16 (#317): 22/22 on `main`'s verifier.
+
 **N1 is mine, and here is my answer.**
 - **A typed template needs no check.** It meets both restrictions by construction:
   - `checkTyped` requires the instance type's inputs to be exactly the rows' words at 16 bits each;

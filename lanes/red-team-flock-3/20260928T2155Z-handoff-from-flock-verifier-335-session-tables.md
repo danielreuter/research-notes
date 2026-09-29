@@ -8,9 +8,11 @@ the research coordinator · created: 2026-09-28T21:55Z · repo: danielreuter/ver
 
 # Review: #335, the Lean verifier on sessions of several tables (#306's N4)
 
-[#335](https://github.com/danielreuter/verity/pull/335) at **`a30afbd5`**, on `main` `a8e72c81`. It is Lean only: no Rust
-change, no new pin, and no change to an existing pin. It is N4 from #306's review: when Lean reads a J > 1 record, it must
-derive each table's part from `unit_draw`, never from a table's header. The spec is `PROTOCOL.md` §16.11. The scope note is
+[#335](https://github.com/danielreuter/verity/pull/335) at **`f7dd8a53`** (updated 00:50Z), on `main` `816c3682`. It is
+Lean only: no Rust change, no new pin, and no change to an existing pin. **`Stmt.setupH` is `main`'s byte for byte.** Each
+table is `setupH`'s own statement of its part, so the soundness lane's `setupH_spec` walk is untouched, and #257/#267's
+checks apply to every table. It is N4 from #306's review: when Lean reads a J > 1 record, it must derive each table's part
+from `unit_draw`, never from a table's header. The spec is `PROTOCOL.md` §16.12, after the typed statement's §16.11 in #345. The scope note is
 `coordinator/20260928T2115Z-scope-flock-verifier-n4-multi-table-records.md`.
 
 ## What it accepts
@@ -21,8 +23,8 @@ derive each table's part from `unit_draw`, never from a table's header. The spec
   - The units are the record's draw's, or without a draw the population's `0 … N−1`.
   - The draw must be a `subset` law of the registered population. Refused: a Bernoulli or stratified draw, J > 64, no
     units, or a count J doesn't divide.
-  - Table j (`circuit-{j:02}`) is §16.10's drawn statement of `{"law": "subset", "population": N, "k": K/J, "units": part
-    j}`, over the verifier's own population file.
+  - Table j (`circuit-{j:02}`) is `Stmt.setupH`'s drawn statement (§16.10) of `{"law": "subset", "population": N, "k": K/J,
+    "units": part j}`, over the verifier's own population file. `setupH` also checks the draw's population against the file.
   - Its identity is the statement's plus `session: {tables, table, units: <upstream's text>}`, so each table's digest
     differs.
   - Every table has the same `m_pts`.
@@ -44,8 +46,8 @@ derive each table's part from `unit_draw`, never from a table's header. The spec
 
 The record carries no table headers. Lean builds each table's statement itself, from the population file and part j of
 the record's `unit_draw`. The draw is bound because Σ_j covers table j's public digest, whose header holds part j, and the
-session Σ covers every Σ_j. So a record whose draw differs, or whose draw is one table's part, fails S2. The tests show
-both.
+session Σ covers every Σ_j. So a record whose draw differs fails S2. The test uses the sharpest case: one table's part
+given as the session's draw.
 
 ## Questions I'd like you to check
 
@@ -69,9 +71,9 @@ both.
   instances. The sessions are J = 2, J = 2 with `--draw subset:4` (two), and J = 4. #306's server accepted all four, and
   so does Lean. The fixture is `art:425f6860`.
   - Lean's `Hello`, session Σ, per-table identities, domains and S14 equal the records' byte for byte.
-- **`test_lean_session_tables.py`: 11 passed, plus 1 opt-in (`FLOCK_VERIFIER_SLOW=1`, which passes).** Lean refuses:
-  - a J = 4 record read as J = 2 (S2);
-  - a changed draw (S2);
+- **`test_lean_session_tables.py`: 10 passed in 66 s, plus 1 opt-in (`FLOCK_VERIFIER_SLOW=1`, which passes).** Lean
+  refuses:
+  - a J = 2 record read as one table (S2);
   - table 0's part as the draw (S2);
   - a Bernoulli draw, an odd count, or another population (setup);
   - a missing table root (S5);
@@ -81,5 +83,11 @@ both.
 - **J = 1 is unchanged.** `ci.py --sets 15` (RoPE, `967b8d06`, with the draw cases) agrees 22/22 with upstream, and
   `test_lean_verifier.py` passes.
 - **`audit.py` on the executable package: PASS**, 3,497 declarations and 13 pins, all unchanged.
+- **On #345** (the ExecSetup fix, carrying #267, #260 and #319 with #307), the textual conflicts resolve mechanically:
+  `helloOf`, `Stmt.spec`, `verify`'s loop with #260's fresh-key check, the `Tags` fields, and §16.11/§16.12.
+  - One semantic line: `circuitTypes` must set `manyTables := none`. Otherwise the typed statement inherits several
+    tables from `967b8d06`, and upstream defines no such session.
+  - The scratch merge `3113feeb` builds. It passes the session-table, coin-tree, verifier and typed tests (59 passed).
+  - It is in the store as `artifacts/flock-verifier-335-on-345-resolution.bundle`.
 - **One change beyond N4:** `verify` sets each statement up when a session first needs it, and caches it per draw. A
   drawn session no longer also sets up the population's statement. Verdicts are the same.

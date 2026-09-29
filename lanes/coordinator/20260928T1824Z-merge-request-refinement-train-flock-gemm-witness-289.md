@@ -11,6 +11,8 @@ updated: 2026-09-29T08:35Z
 
 # Merge request, refinement train: PR #289 (GEMM options 2 and 3), ready at 96815f64 on main 610ee10f
 
+**Superseded (2026-09-29 08:54Z)** by `20260929T0854Z-merge-request-flock-314-289-327-on-180f8771.md`: new heads on `main` `180f8771`.
+
 **08:35Z:** the head is now `96815f647d732224a36f1945ec53c2cd435a855a`: `5e5713fb` plus `main` `610ee10f` (D4, trains T1–T6).
 - **Conflicts:** `main`'s multi-table session in `flock-circuit.rs`, and `check.py`'s groups. Both mechanical; see the merge commit.
 - **Checked here:**

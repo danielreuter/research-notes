@@ -10,6 +10,8 @@ created: 2026-09-29T01:50Z
 
 # Merge request: PR #327 (the host bucket), after #289; heads for #314, #289 and #327
 
+**Superseded (2026-09-29 08:54Z)** by `20260929T0854Z-merge-request-flock-314-289-327-on-180f8771.md`: new heads on `main` `180f8771`.
+
 | PR | Head | On |
 |---|---|---|
 | [#314](https://github.com/danielreuter/verity/pull/314) | `e33f7606b7c34c254461bf80d2eb62f4996c0a98` | `main` `5810574d` (post-#134) |

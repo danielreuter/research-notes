@@ -10,6 +10,8 @@ created: 2026-09-29T08:32Z
 
 # #289's merge request confirmed at 96815f64 (main 610ee10f merged in); #327 at 94b079b1 follows it
 
+**Superseded (2026-09-29 08:54Z)** by `20260929T0854Z-merge-request-flock-314-289-327-on-180f8771.md`: new heads on `main` `180f8771`.
+
 - **#289:** head `96815f647d732224a36f1945ec53c2cd435a855a`. `main` `610ee10f` (D4, trains T1–T6) is merged in, and #314's build fix and check step are still inside.
   - The conflicts were mechanical:
     - `main`'s multi-table session: #289's `host_units` and rep-1 reuse are carried per table, keyed by (session tag, table);

@@ -22,8 +22,10 @@ three.
   - A re-check after fixing one test module re-runs that module and whatever reaches it, and reuses the rest.
 - **TB's case, on the real tree:** #420's fix to `test_store_io.py` changes 39 of the vLLM suite's 354 module keys.
   `test_regression.py` (the MoE cases) keeps its key, so its passes are reused instead of re-running for about 2 h.
-- **The backstop:** `check.py --nightly --on POD` runs every step cold and to the end, and names any cached pass it
-  contradicts (`cache_contradictions` in the result).
+- **The backstop:** `check --no-cache` names any cached pass that a fresh run contradicts (`cache_contradictions` in the
+  result). The nightly `audit-main` Job queue job (bc-605d7c89) runs it on `main`.
+- **Update 21:40Z:** `--nightly` and the steward `launcher` are dropped (head `efa753c8`), because `audit-main` is a Job
+  queue job. #444 no longer touches `tools/research`, and no `steward.toml` entry is needed.
 
 **What to know before the first run:**
 - **Every suite's pass misses once:** `suites.py` and the guard are in every suite key. Per-test entries start filling from

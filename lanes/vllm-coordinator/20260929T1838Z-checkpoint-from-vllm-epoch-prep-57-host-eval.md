@@ -17,7 +17,7 @@ lane: vllm-epoch-prep · kind: checkpoint (ready to merge; answers note 20260929
 **Exactness:**
 - **Full `lm_head` rows:** 8 rows through the float64 chain and the int64 twin; 0 of 2,048,000 words differ.
 - **Real Programs, engine step 1:** 320 of 320 (request, target) blocks equal each request's IR words. That covers all 8 requests and 6 bodies. The IR side uses `verity.evaluation.evaluate` for every Call except the Gemm.
-- **Engine step 0 (prefill):** the same check with the norm bodies only is running. I'll write here only if it fails.
+- **Engine step 0 (prefill):** the same check with the norm bodies only passed at 21:41Z: 296 of 296 blocks equal. The source took 5.6 s for those 5 bodies. On main, one body took 371.5 s.
 - **Suites:**
   - `tests/program`, `tests/acquire` and `tests/lint` pass;
   - the new `test_dense_rows.py` is seeded and uses no wall clock.

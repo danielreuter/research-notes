@@ -5,6 +5,7 @@ created: 2026-09-28T20:09Z
 status: final
 ---
 
+CHECKPOINT f639cd66 (00:04Z) [final] plan rebaselined on the non-GEMM re-proof: #101 2.16e7x L40S, ~1.5e7x H100 NVL (scaled); native kernel 1.52x/1.42x on #101; tiles 1.96-2.38x; all three 3.5x; $0
 CHECKPOINT f639cd66 (22:03Z) [final] plan rebaselined on #327: #101 3.4e7x native L40S (~2.8e7 H100 scaled); SHA 72-84% of GEMM session; native kernel now 1.6x GEMM / 1.24x #101; next: kernel (M0, vs #328), tiles, re-prove non-GEMM on #327; $0
 CHECKPOINT f639cd66 (21:11Z) [final] #328 (draft, stacked on #289) @ f639cd66: native SHA-512 witness CPU reference matches eval64 on every row of sha512x3 and hm96 (pinned + carries-every-16) and on staged RoPE / K=256 GEMM; kernel, GPU hour, host bucket are M0's; $0
 CHECKPOINT f639cd66 (21:10Z) [open] #328 f639cd66: native SHA-512 witness CPU reference matches eval64 on every row, streamed in row order (4-word ring), rows labelled + pinned per M0's 2042Z handoff (answered 2110Z); CUDA/GPU/host bucket are M0's
@@ -96,3 +97,14 @@ is rebaselined, and the time model is `time 327` in `internal/gemm-hash-measurem
 - **SHA-512 share of a GEMM session:** 72–84% on the L40S, 69–82% on the H100 NVL.
 - **Native kernel:** 1.60× on GEMM and 1.24× on #101 on the L40S (1.49× and 1.15× on the H100 NVL).
 - **Order:** unchanged. The host bucket is done, and re-proving the non-GEMM shapes on #327 (half of #101) takes its place.
+
+## Rebaseline on #101's non-GEMM re-proof (00:00Z Sep 29)
+
+- **Received:** `lanes/gemm-hash/20260928T2355Z-handoff-from-backend-sweep-327-non-gemm.md` (backend-sweep, via verity-root). The top 8
+  non-GEMM shapes re-proved on #327 fell 4.9×, and #101 on the L40S is 2.16 × 10⁷ × native (GEMM 80%, 839 carried shapes 5.3%).
+- **The plan** (`docs/gemm-hash-cost-plan.md`) and `time 327` (`internal/gemm-hash-measurements.py`) are updated:
+  - **#101:** 2.16 × 10⁷ on the L40S; about 1.5 × 10⁷ on the H100 NVL (GEMM from #289's device buckets, non-GEMM × 0.88).
+  - **Native kernel:** 1.52× on #101 on the L40S and 1.42× on the H100 NVL. That includes 7.5 × 10³ s from the small shapes, whose rep-0
+    SHA witness is 38–42% of their sessions.
+  - **Tiles alone:** 1.96–2.38× on the L40S and 1.83× on the H100 NVL. Tiles, the kernel and the denser slot together: 3.5× and 2.8×.
+  - **Order:** unchanged. Row 3 is done for the top 8.

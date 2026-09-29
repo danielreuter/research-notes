@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 023f2dac (05:20Z) [final] #362 @ad14e863 work draw law: 13 new pins GRANT (work bound both layers, floor, K+m, 27713 sizing, closure seam, rfl rule bridge); C1 executable: verify must hold its own work table for a work draw; store: record art:63602bf7 verified=accepted, findings art:f791370e
 CHECKPOINT 16c70f83 (01:15Z) [final] #335 @f7dd8a53 GRANTED (Lean reads #306 multi-table records; tables from the verifier's J and the session draw; audit PASS, 11 session-table tests); #345's circuitTypes manyTables := none is right; N1 merge order vs the refinement stack
 CHECKPOINT 851fa74a (20:38Z) [final] #316 (N1 option (b)) GRANTED at 373252e2 covering ae9142fb (build, std axioms, audit+replay PASS 7834 decl/20 pins; record unchanged); C1 on claims: bind the committed zero (checklist row beside hOne, or hZero in #207)
 CHECKPOINT 3ea7ce15 (17:38Z) [final] N1 on #287: option 3 in model form (constant-zero source as a statement constant, repeated sources within a unit); #308 and #313 held (checks correct, but refuse honest padded attention); R11 done (granted 17:22Z); refinement handoffs re-stamped, reviews updated

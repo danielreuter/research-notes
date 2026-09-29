@@ -1209,10 +1209,24 @@ Verdicts only. The findings are in the store's `private/`.
   X-SPC-81, and a new request will replace
   `internal/lanes/red-team-flock-3/20260929T0603Z-handoff-from-work-law-374-count-floor-pin-review.md`. My checks at
   `d8c47f48` so far are in `private/red-team-reviews/pr374-count-floor-checks.md`.
-- **The refinement lane's four pins restated over #335 (`rep_refines`, `verify_refines`, `verify_tableAfter`,
-  `verify_refines_ofCircuit`): not reviewed yet.** The request is
-  `internal/lanes/red-team-flock-3/20260929T0233Z-handoff-from-refinement-335-restated-pins.md`. It isn't in
-  verity-root's 06:37Z order (#362, then #375 → #378 → #379, then #374), so I've asked the coordinator where it goes.
+- **The refinement lane's four pins restated over #335: all GRANTED,** at verity-root's 07:15Z word.
+  - `rep_refines`: #264 @ `ff67422c`. `verify_refines` and `verify_tableAfter`: #270 @ `bdc4ec8b`.
+    `verify_refines_ofCircuit`: #278 @ `1914b76d`.
+  - Each is restated exactly as #335's one-table call forces; otherwise as granted.
+  - The other refinement records are unchanged, so the R9c and R11 grants carry to `7003f003`, `3eaaf5e0`, `9ac97e23`
+    and `41999484`.
+  - Checks: audits pass with kernel replay at each head and at the top (47 pins).
+  - Notes: N1, pinned for one-table sessions only; N2, R9c and above conflict with `main` in `HmRow.lean` (#345).
+  - Store: the records `art:5d765ccd…`, `art:d8bdf3e6…` and `art:5078b4d3…`, each labelled `verified=accepted` with
+    `verifier` and `finding`; the findings `art:70b33f98…`, `art:22e17169…` and `art:a8ce8b34…`.
+  - Request: `internal/lanes/red-team-flock-3/20260929T0233Z-handoff-from-refinement-335-restated-pins.md`.
+  - Review: `private/red-team-reviews/refinement/pr335-restated-refinement-pins.md`, with
+    `refinement/evidence/pr335-restated-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0742Z-answer-from-red-team-flock-3-335-restated-pins-verdict.md`, copied to
+    `lanes/coordinator/20260929T0742Z-handoff-from-red-team-flock-3.md`.
+- **Queued (verity-root 07:36Z):** #374 @ `594fe39c`, then #390 @ `15a3ee7c`. The requests are
+  `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
+  `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.
 
 ### Pre-grant checklist
 

@@ -1271,6 +1271,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr374-merge-383.md`.
   - Reply: `lanes/red-team-flock-3/20260929T0833Z-answer-from-red-team-flock-3-374-merge-verdict.md`, copied to
     `lanes/coordinator/20260929T0833Z-handoff-from-red-team-flock-3.md`.
+- **#390 @ `a8b5d2a8` (C1 fixed; restated over #374's floors; new `workOf_le_unsoundWork`): all 11 closure pins
+  GRANTED; C1 met.**
+  - The unsound work is now the work of `B ∪ unsoundTiles`, and harm counts a unit's own work. I checked this in Lean.
+  - The five audit-side pins gain only `f` and `hf`. #374's 42 records are byte-identical.
+  - Checks: the soundness audit passes with kernel replay (7,998 declarations, 53 pins); tests 20 passed, 1 skipped.
+  - Store: the record `art:d33e8c02…` is labelled `verified=accepted` with `verifier` and `finding`; the findings are
+    `art:f476e0b1…`.
+  - Request: `internal/lanes/red-team-flock-3/20260929T0828Z-handoff-from-work-law-390-c1-floors-rereview.md`, part 2.
+  - Review: `private/red-team-reviews/pr390-c1-floors-rereview.md`, with `pr390-c1-floors-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0841Z-answer-from-red-team-flock-3-390-regrant-verdict.md`, copied to
+    `lanes/coordinator/20260929T0841Z-handoff-from-red-team-flock-3.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

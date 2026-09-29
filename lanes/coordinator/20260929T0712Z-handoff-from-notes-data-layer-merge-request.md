@@ -16,7 +16,7 @@ merge them, and decide the #386 cutover below. No pod was used, and only `check`
 
 | PR | Branch at | What changes | Stacked on |
 |---|---|---|---|
-| [#365](https://github.com/danielreuter/verity/pull/365) | `cursor/store-abandoned-label-1cae` at `9080e5a8` | an `abandoned` label word | |
+| [#365](https://github.com/danielreuter/verity/pull/365) | `cursor/store-abandoned-label-1cae` at `0905b75c` | an `abandoned` label word | |
 | [#369](https://github.com/danielreuter/verity/pull/369) | `cursor/notes-sync-header-check-1cae` at `59836839` | sync checks front matter | |
 | [#377](https://github.com/danielreuter/verity/pull/377) | `cursor/notes-sync-citation-check-1cae` at `13c10014` | sync checks citations after a push | #369 |
 | [#384](https://github.com/danielreuter/verity/pull/384) | `cursor/notes-mcp-catalog-1cae` at `ef77007d` | notes search and evidence joins over MCP, and a compact catalog | |
@@ -35,8 +35,10 @@ What each one does:
 - **#386:** `research notes archive LANE` moves a lane's older notes into month or day folders. It does nothing until someone
   runs it with `--apply`.
 
-The five merge cleanly onto main `84560ab7`. On the merged tree, run on this VM, `tools/research` passes 552 tests and skips 2,
-and `tests/test_repository.py` passes 8. Nothing touches circuits, Lean or `backends/flock/`, so `lean-agreement` doesn't apply.
+#365 has merged main `bb64e78d`. Its one conflict was in `test_store_vocab.py`, where main added a `grant` key on the
+neighbouring line; the merge keeps both keys. The five then merge cleanly onto `bb64e78d`. On the merged tree, run on this VM,
+`tools/research` passes 577 tests and skips 1, and `tests/test_repository.py` passes 11. Nothing touches circuits, Lean or
+`backends/flock/`, so `lean-agreement` doesn't apply.
 
 ## #386's cutover needs your OK, and Daniel's
 
@@ -51,7 +53,7 @@ moves older notes and leaves writers alone. There are three reasons:
 The cost is paths. A note's id is its file name, and that doesn't change, but a path in an older note goes stale.
 
 I measured it on a copy of today's notes (`74aaff3a`), with nothing pushed.
-`archive coordinator --by day --older-days 3` moves 263 notes stamped before 09-26T06:56Z, in 0.35 s. Every move is a pure
+`archive coordinator --by day --older-days 3` moves 263 notes stamped before 09-26T06:58Z, in 0.35 s. Every move is a pure
 rename. That leaves 641 entries at the top level, 632 of them recent, and the day folders hold 10, 44, 151 and 58. No file name
 appears twice. Of the 271 distinct `lanes/coordinator/<stamp>-…` paths the notes cite, 99 would no longer exist at that path.
 #384's `read_note` resolves the same 267 of them before the move and after it.

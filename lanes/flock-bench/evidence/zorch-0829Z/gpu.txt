@@ -1,3 +1,0 @@
-name, driver_version, clocks.max.sm [MHz], power.limit [W], memory.total [MiB]
-NVIDIA GeForce RTX 5090, 580.65.06, 3090 MHz, 500.00 W, 32607 MiB
-pid, process_name

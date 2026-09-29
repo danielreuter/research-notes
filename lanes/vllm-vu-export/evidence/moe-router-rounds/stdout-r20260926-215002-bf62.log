@@ -1,6 +1,0 @@
-tree /workspace/gc2/head86c @ a3f2bf36dee22d98c0a5a1622eb7b87d666e9c4e: 0 differing entries
-lints rc=0 ...............................................                          [100%]
-targeted rc=0 ....sss.......................                                           [100%]
-roundtrip 1 rc=0 .                                                                        [100%]
-roundtrip 2 rc=0 .                                                                        [100%]
-roundtrip 3 rc=0 .                                                                        [100%]

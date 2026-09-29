@@ -1,6 +1,0 @@
-tree /workspace/gc2/head86c @ a3f2bf36dee22d98c0a5a1622eb7b87d666e9c4e vs shipped: 0 differing entries
-start 2026-09-26T21:54:57Z src /workspace/research/src/a3f2bf36dee22d98c0a5a1622eb7b87d666e9c4e tree /workspace/gc2/head86c
-verity_sampled_proofs importable
-lints head86c rc=0 2026-09-26T21:55:28Z ...............................................                          [100%]
-gate_b head86c rc=1 2026-09-26T22:18:58Z 37 failed, 3918 passed, 263 skipped, 6 xfailed, 56 warnings in 1408.78s (0:23:28)
-done 2026-09-26T22:18:58Z

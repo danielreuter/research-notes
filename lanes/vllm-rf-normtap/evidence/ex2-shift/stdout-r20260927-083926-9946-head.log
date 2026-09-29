@@ -1,7 +1,0 @@
-waited for /workspace/research/runs/r20260927-083834-49ba 2026-09-27T08:40:33Z
-tree /workspace/gc2/head @ 7d8a11e444c3b14eb1f83ed1d19fb95a4fa76163 vs shipped: 0 differing entries
-start 2026-09-27T08:40:34Z src /workspace/research/src/7d8a11e444c3b14eb1f83ed1d19fb95a4fa76163 tree /workspace/gc2/head
-verity_sampled_proofs importable
-lints head rc=0 2026-09-27T08:40:57Z ...............................................                          [100%]
-gate_b head rc=1 2026-09-27T08:56:17Z 39 failed, 4049 passed, 286 skipped, 6 xfailed, 41 warnings, 11 errors in 917.86s (0:15:17)
-done 2026-09-27T08:56:17Z

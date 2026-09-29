@@ -1,4 +1,0 @@
-?? .rt-target/
-?? backends/direct/ligero/redteam/leaf2_ajtai_decoy.py
-?? backends/direct/ligero/redteam/leaf2_blake3_roles.py
-?? backends/direct/ligero/redteam/leaf2_share_pair.py

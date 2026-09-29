@@ -1,5 +1,0 @@
-..                                                                       [100%]
-==================================== PASSES ====================================
-=========================== short test summary info ============================
-PASSED integrations/vllm/tests/program/test_derived_rows.py::test_ex2_every_exponent_class_equals_the_exact_rule
-PASSED integrations/vllm/tests/program/test_kernel_self_check.py::test_attention_kernels_on_scores_below_two_to_the_minus_63

@@ -1,7 +1,0 @@
-waited for /workspace/research/runs/r20260926-203417-97c3 2026-09-26T20:52:15Z
-tree /workspace/gc2/base56c6 @ 56c62af2f6bae437fc37c97e4b51e15970b30661 vs shipped: 0 differing entries
-start 2026-09-26T20:52:16Z src /workspace/research/src/56c62af2f6bae437fc37c97e4b51e15970b30661 tree /workspace/gc2/base56c6
-verity_sampled_proofs importable
-lints base56c6 rc=0 2026-09-26T20:52:46Z ...............................................                          [100%]
-gate_b base56c6 rc=1 2026-09-26T21:17:26Z 37 failed, 3908 passed, 263 skipped, 6 xfailed, 70 warnings in 1478.03s (0:24:38)
-done 2026-09-26T21:17:26Z

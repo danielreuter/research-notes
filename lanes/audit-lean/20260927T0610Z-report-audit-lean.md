@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 7e22b247 (13:34Z) [open] #413 7e22b247 merge request filed 1333Z (lean-agreement; deps #404/#407 T13, #410 T14, #411 granted); no pinned record moves; head fixed
 CHECKPOINT 7e22b247 (13:31Z) [open] #413 7e22b247 (draft, on #411): T3 table-read case done, setupH_blockFacts with no parts/reads hypothesis; audits PASS; merge request waits on #411's grant. #410 (T14) untouched
 CHECKPOINT 07505d2a (12:51Z) [open] #410 07505d2a (#407 + #310 e9ca3ba2, check_facts_typed +1 step, no pin record change); merge request 1252Z for T14. T3 table-read work paused (local WIP; soundness ask 1209Z)
 CHECKPOINT 9d90db9c (11:26Z) [open] #407 9d90db9c (on #403, with #404+#405): T3 hypotheses discharged; merge request 1126Z. Left: T3's scope (derived parts, no table read)

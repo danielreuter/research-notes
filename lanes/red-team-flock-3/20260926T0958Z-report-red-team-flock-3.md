@@ -1292,7 +1292,9 @@ Verdicts only. The findings are in the store's `private/`.
     assumptions. Their hypothesis is strictly stronger (the same `done`, plus `partsChecked`).
   - Checks: the soundness audit passes with kernel replay (7,999 declarations, 33 pins); the 21 derive vectors pass the
     full check.
-  - Note: `test_flock_rows.py` fails 4 pinned-template cases identically at `main` `e5694c92`, so it predates #394.
+  - Note, resolved at 09:47Z: the 4 `test_flock_rows.py` pinned-template failures were this VM's environment. The
+    `/workspace` venv I used has no torch. Under `uv run --locked --extra torch-cpu` (torch 2.14.0+cpu), all four ran and
+    passed at `main` `e5694c92`.
   - Store: the record `art:41b15fac…` is labelled `verified=accepted` with `verifier` and `finding`; the findings are
     `art:9a645ed3…`.
   - Request: `internal/lanes/red-team-flock-3/20260929T0902Z-handoff-from-flock-soundness-394-parts-checked-pin-review.md`.

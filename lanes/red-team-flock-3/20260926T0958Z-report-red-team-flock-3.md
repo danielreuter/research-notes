@@ -1387,6 +1387,13 @@ Verdicts only. The findings are in the store's `private/`.
   - Store: the record `art:51ba939d…` is labelled; the findings are `art:10027a23…`.
   - Request: `internal/lanes/verity-root/20260929T1330Z-handoff-from-pous-412-flock-grant-request.md`.
   - Review: `private/red-team-reviews/pr412-exec-stratified.md`. I replied directly, as asked.
+- **#412 @ `da1e703a` (pins `execStratified_escape_le`), a delta over the `e1081cc5` grant: CONFIRMED to verity-root.**
+  - The new pin is the statement I read at `e1081cc5`, with explicit `ExecStrata` and no named assumption.
+  - Every other record is byte-identical; the delta is 21 lines.
+  - Checks: the audit passes with kernel replay (9,567 declarations, 95 pins).
+  - Store: the record `art:a8b348a5…` is labelled; the findings are `art:ecafbf8b…`.
+  - Request: `internal/lanes/verity-root/20260929T1426Z-handoff-from-pous-412-delta-414.md`.
+  - Review: `private/red-team-reviews/pr412-delta-da1e703a.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

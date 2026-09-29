@@ -1131,6 +1131,18 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr316-n1-sources.md`, with `pr316-evidence.log`.
   - Reply: `lanes/flock-soundness/20260928T2035Z-answer-from-red-team-flock-3-316-verdict.md`, copied to
     `lanes/coordinator/20260928T2035Z-handoff-from-red-team-flock-3.md`.
+- **#335 @ `f7dd8a53` (the Lean verifier reads #306's multi-table records, N4): GRANTED, no conditions,** taken at
+  verity-root's 01:04Z word.
+  - Each table is `setupH`'s statement of part j of the session's draw, split by the verifier's J.
+  - Σ, `Hello`, the domains and the S-checks match #306.
+  - The audit passes, 11 session-table tests pass, and J = 1 is unchanged.
+  - #345's `circuitTypes` setting `manyTables := none` is right.
+  - N1 for the coordinator: the merge order with the refinement stack, whose unmerged pins are stated over the old
+    `Flock.verify` and `Setup`.
+  - Request: `internal/lanes/red-team-flock-3/20260928T2155Z-handoff-from-flock-verifier-335-session-tables.md`.
+  - Review: `private/red-team-reviews/m0-statement/pr335-session-tables.md`, with `pr335-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0114Z-answer-from-red-team-flock-3-335-verdict.md`, copied to
+    `lanes/coordinator/20260929T0114Z-handoff-from-red-team-flock-3.md`.
 
 ### Pre-grant checklist
 

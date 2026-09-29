@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT b1a49353 (08:38Z) [open] #393 up (b1a49353, on #350 + main 610ee10f): T2 walks (check_facts_typed, parse_facts_tmpl, parseTyped_spec, setupH_spec_typed); audits PASS w/ replay 14/50/20. Asked flock-verifier for part resolution by position (or dup-digest check) for T3. Next: blockOf_spec + template layout facts, then T3
 CHECKPOINT 85a7546e (00:51Z) [open] #350 up (85a7546e, on #319): T1 for templates, delta_typed (#277's Δ = flat entries ++ Typed.tail, A and B) + CopyRow/ZeroRow with semantic lemmas; audit PASS w/ replay, 19 pins, nothing pinned. Next: T2 template walks (tmpl, templateOf_spec), then T3
 CHECKPOINT cf9bebde (00:37Z) [open] #319 fast-forwarded to the ExecSetup fix 6ade34c6 (+ cf9bebde: root conftest.py dropped, main's slow convention); audits PASS w/ replay 14/50/19 pins; #345 carries it to 6ade34c6. Now on T2's typed cases
 CHECKPOINT cad47e9f (00:07Z) [blocked] #319 waits on flock-soundness's ExecSetup fix head (cause sent: #267's checkInRange adds one bind to setupH_spec's walk)

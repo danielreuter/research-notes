@@ -5,6 +5,7 @@ created: 2026-09-26T09:58Z
 status: final
 ---
 
+CHECKPOINT 40a4d5e5 (07:34Z) [final] #379 @fa4fb58e GRANT carries (Lean inputs byte-identical to ded605b1; Python back to #378's), #381 @d237e60a GRANT (tree identical to ded605b1); #375/#378 stand; record art:f2e25bbd relabelled, findings art:67f124d4; next: #335's four restated refinement pins
 CHECKPOINT 4bc16af3 (07:11Z) [final] influence stack GRANTED, no conditions: #375 @de831e06 13 pins, #378 @46b8faf9 3 pins, #379 @ded605b1 2 pins (audit+replay PASS 33/36/38 pins, no earlier record moved); notes: witness header, delivered = committed D, trivial H; store: records art:a6d995f5 art:c6e9f364 art:f2e25bbd verified=accepted; #374 held (X-SPC-81); refinement 0233Z awaiting a slot
 CHECKPOINT 081258c8 (07:07Z) [final] #362 @3bc3eba7 RE-GRANT all 13 pins (records as granted at ad14e863); C1 met, X-SPC-80 met (verify's own K); seam stated truthfully, agree X-SPC-78; store: record art:99d3b15d verified=accepted, findings art:852fd34f; #374 held (X-SPC-81); refinement 0233Z #335 restated pins awaiting a slot
 CHECKPOINT 063b6fc3 (07:07Z) [final] #362 @3bc3eba7 RE-GRANT all 13 pins (records as granted at ad14e863); C1 met (verify's own table/program/partition), X-SPC-80 met (verify's own K); seam stated truthfully, agree X-SPC-78 (closure PR); N2 docs overstate what carries, N3 compose via audit_closure; store: record art:99d3b15d verified=accepted, findings art:852fd34f; #374 held (X-SPC-81)

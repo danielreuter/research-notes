@@ -7,6 +7,20 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 180f8771 (08:19Z) [open] T7b merged 180f8771 (== mm-T7b; r20260929-072247-4a19), pushed; sweep skipped (--remote no-sweep). Dry run internal/relay/sweep-dry-run-0818Z.txt: 17 closes (+ #352 by hand), retarget #372, #383, #389, #390 (bases were #362's and #315's branches). vy-train-4 pod r2otfecosgwbvt created but its toml pointed at the old pod, so launchx REFUSED (no avx512f read); /tmp/lm/fix4.sh registers --replace, preps, launches T9 -> /tmp/lm/t9.run. Budgets guard: not yet migrated to budgets.toml (per-prefix guards still), so no restart needed; migration + cap_usd_per_day 65 is next.
+CHECKPOINT 610ee10f (08:16Z) [open] Merge backlog (root 08:09Z), each head tested on mm-T8 ad349a3b:
+- #317 ba6e9f81 (flock-verifier regression sets 16/17): IN QUEUE, T9 (Lean, send) with #383 2ad810cb; tr-T9 0a851a22 -> auto-launch on vy-train-4 (creating) via /tmp/lm/t9wait.sh -> /tmp/lm/t9.run.
+- #374 6e39ccaa (work-law floors): IN QUEUE, T10 after T9; conflicts only in soundness lean-audit.json (generated) -> regenerate in the merge commit as for T8. Asked root to confirm the 594fe39c grant covers 6e39ccaa (#383 merged in by hand).
+- #289 5e5713fb, #327 6491cb37: OWNER (bc-ff572e70) rebase: tools/check/check.py + backends/flock/live/src/bin/flock-circuit.rs.
+- #314 e33f7606: OWNER (bc-ff572e70) rebase: check.py.
+- #126 (lands via #176 bf2a5a75 with #129, #157): OWNER (bc-8e519ca0) rebase: .lean conflicts in Flock.lean, Flock/HmRow.lean vs #362.
+- #356 0655d66d: OWNER (bc-1122c760) rebase: check.py; mark ready.
+- #357 d8102f81: OWNER (bc-1122c760) rebase: suites.py, test_suites.py vs #366; mark ready.
+- #294 20f72a11: OWNER (bc-866e1acc) rebase: tools/lean/README.md, audit.py; draft, no merge request.
+- #337 c39292ac (+ #338, #339, #341, #343 stacked): OWNER (bc-ecac3029, bc-9916bbb1) rebase: check.py; plus the CPU-pod failures (40 failed, 2 errors) that ejected it.
+- #342 8cdc47c2: OWNER (bc-75fd4007) fix the census template_mix (head unchanged since the 05:32Z ejection).
+- #303 6bd5b98b (README framing): NOT REQUESTED (draft, no merge request).
+Owner note: lanes/coordinator/20260929T0815Z-handoff-from-coordinator-merge-backlog-owner-actions.md.
 CHECKPOINT 610ee10f (08:02Z) [open] Regen record verified: 51 pins, each signature/type_hash/assumptions identical to granted (33 main incl #362, 18 from #381); only reads changed. T8 tr-T8 5ff236a7 (= mm-TN + #381 d237e60a, regen record, README glossary line combined) r20260929-075920-6499 vy-train-2 (send) -> mm-T8 ad349a3b; first launch r20260929-075739-eb95 killed (committed README conflict markers - my mistake, caught before results). Red team: T8 clear; #383 2ad810cb granted (after #362); #374 594fe39c granted (after #383; MR from bc-0b392ca4); #390 granted w/ C1, do not train. Root 0800Z publishing.
 CHECKPOINT 610ee10f (07:58Z) [open] TN r20260929-075206-4c29 on vy-train-3 (avx512f 32) -> mm-TN e5694c92. #386 day-vs-month folders awaits Daniel: it stays in TN (check had started), but DO NOT run notes archive --apply or patch the mirror for it until he decides.
 CHECKPOINT 610ee10f (07:56Z) [open] TN tr-TN 5ed32b8e (= mm-T7b + #388, #361, #365, #384, #386, #369[test_notes_sync both], #377, #255[README prose + main facts]) auto-launches on vy-train-3 (kwepon5zrbv0ml, registered --replace; podprep running) via /tmp/lm/tnwait.sh -> /tmp/lm/tn.run; send (255 touches backends/flock). #360 held (notes_sync.py code conflict with #369). T8pre 8dccf6b6 (= mm-T7b + #381 d237e60a; lean-audit.json 3-way JSON union, 51 pins) record regen r20260929-074424-04be vy-train-2; then diff pins vs granted, commit into T8 merge (restack on mm-TN), check with send. Told POUS 07:50Z to keep granted heads (root 07:42Z). Answer: lanes/coordinator/20260929T0755Z-answer-to-non-lean-requests-train-tn.md.

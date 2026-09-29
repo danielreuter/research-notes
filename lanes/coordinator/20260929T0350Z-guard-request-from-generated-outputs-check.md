@@ -28,12 +28,12 @@ Daniel's rule is that generated output isn't kept in git. This check is for the 
 
 ## 2. The notes cleanup: when may I push to `main`?
 
-It's ready, and it's on the notes remote as branch `evidence-to-store-3d5f` (not `main`). It is two commits on `942e0118`:
+It's ready, and it's on the notes remote as branch `evidence-to-store-3d5f` (not `main`). It is two commits on `2de0d443`:
 
-1. **`0171208f`:** `steward.toml` sets the render's `out` to `/workspace/steward/renders/daily`, outside the notes. The kb gets
+1. **`6290938a`:** `steward.toml` sets the render's `out` to `/workspace/steward/renders/daily`, outside the notes. The kb gets
    the rule "evidence goes to the store": LANE-CONTRACT 2.5 (§6, §8, §C), plus cloud-lane-setup, ops-tools, TABLES and
    kb/README.
-2. **`888e160e`:** removes 4,401 files, 70 MB, from `renders/`, `campaigns/*/assets/` and `lanes/*/evidence/`.
+2. **`1035fbb8`:** removes 4,401 files, 70 MB, from `renders/`, `campaigns/*/assets/` and `lanes/*/evidence/`.
    - I checked every one against the store by hash: its sha256 names a remote object with the same size and an MD5 ETag
      equal to the local bytes.
    - The index is `art:4bedc7b053caaa80c0105fa9346ee799b00cbdb09a2492879b459e85092e35d9` (PRESERVED). It maps each path to an

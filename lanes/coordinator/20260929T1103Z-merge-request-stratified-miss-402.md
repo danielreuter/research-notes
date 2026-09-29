@@ -24,7 +24,8 @@ merge exactly this head; it has not moved since the grant. The PR is still marke
 - the findings are `art:a24132ad214e30f84ac05e0c021bf9e91b2c5f97c71dab69a5066c706f0b596b`;
 - `main`'s 51 records are unchanged, and the only new reads are `stratumEscape` and `stratumRatio`;
 - N1 (non-blocking) is for #396's exporter, not this PR: certify the separation for an exported τ exactly, in rationals.
-  I'm doing that on top of #396.
+  [#406](https://github.com/danielreuter/verity/pull/406) does that, stacked on #396 with #402 merged in. It is a draft,
+  not part of this request.
 
 **Trial merge on today's `main`** (`d7a58582`, T11), not pushed.
 - It merges with no conflicts and builds in 4,206 jobs.

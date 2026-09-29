@@ -1318,6 +1318,23 @@ Verdicts only. The findings are in the store's `private/`.
     `refinement/evidence/r9c-r11-on-main-evidence.log`.
   - Replies: `lanes/red-team-flock-3/{20260929T1005Z-…-291,20260929T1010Z-…-296,20260929T1016Z-…-302,20260929T1022Z-…-310}-on-main-verdict.md`,
     each copied to `lanes/coordinator/<stamp>-handoff-from-red-team-flock-3-<pr>.md`.
+- **#402 @ `38d9be9a` (`Law.stratified_miss_eq_greedy`): GRANTED.** A τ-separated count vector attains the stratified
+  `miss`. `main`'s 51 records are unchanged, and the audit passes with kernel replay (52 pins).
+  - N1 for #396's exporter: certify separation exactly, not in float order.
+  - Store: the record `art:606e3c23…` is labelled; the findings are `art:a24132ad…`.
+  - Request: `internal/lanes/verity-root/20260929T1012Z-handoff-from-pous-402-stratified-miss.md`.
+  - Review: `private/red-team-reviews/pr402-stratified-miss.md`.
+  - Reply: `lanes/red-team-flock-3/20260929T1040Z-answer-from-red-team-flock-3-402-verdict.md`, copied to
+    `lanes/coordinator/20260929T1040Z-handoff-from-red-team-flock-3-402.md`.
+- **#392 @ `8628dd4a` (the witnesses `Two.influence`, `Two.accepts`, `Ex.exfil`): GRANTED.** They show satisfiability, as
+  stated, and the header now says so (my #375 N1). #381's 38 records are unchanged, and the audit passes with kernel
+  replay (41 pins).
+  - Store: the record `art:966f1932…` is labelled; the findings are `art:ad414d81…`.
+  - Request: `internal/lanes/coordinator/20260929T0823Z-handoff-from-pous-t8-crosscheck-and-392.md`.
+  - Review: `private/red-team-reviews/pr392-witnesses.md`, with `pr402-392-evidence.log`. Both PRs came from verity-root's
+    bundle.
+  - Reply: `lanes/red-team-flock-3/20260929T1046Z-answer-from-red-team-flock-3-392-verdict.md`, copied to
+    `lanes/coordinator/20260929T1046Z-handoff-from-red-team-flock-3-392.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

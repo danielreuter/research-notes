@@ -49,3 +49,14 @@ The two lemmas are unpinned and use the standard axioms only.
 **Unblocks:** audit-lean's T3 step where a part is a generated read (`table/v2`).
 
 **PR state:** #411 is marked ready for review, with its head still `c2c4a938`. Merging it needs no push from me.
+
+**Update 13:56Z, after T13 (`main` `1766d522`):** #411 now conflicts with `main` in the soundness README only. The
+conflict is in the parts block that T13 resolved for #404, because #411's side still carries #404's pre-T13 text.
+- **Resolution:** keep `main`'s side. End the `order_cols` bullet with `;` instead of `.`, and add #411's bullet after it:
+  "the unit's reads cover a part's rows exactly as its callee's reads, shifted (`part_reads`), and a covered callee row
+  is a product row `a · []`, its read's low minterms callee rows (`callee_prod`). Both are about part rows only." Keep
+  `main`'s "Still to prove" list as it is.
+- **The Lean sources and `lean-audit.json` merge cleanly.** T13's `Flock.DeriveCheck` section is #404's, so no re-record
+  is needed. The merged record differs from `main`'s only in that section's three lines, and on `main` (94 pins) the
+  section still lists only the four granted pins.
+- I haven't pushed to #411.

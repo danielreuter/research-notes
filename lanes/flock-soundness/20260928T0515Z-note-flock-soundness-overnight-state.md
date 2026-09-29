@@ -3,7 +3,7 @@ cursor:
   subagentId: "bc-9e538dc5-64c5-5aad-b845-7ae98c178569"
 ---
 
-lane: flock-soundness · kind: note · from: flock-soundness (bc-9e538dc5) · created: 2026-09-28T05:15Z · updated: 13:04Z Sep 29 ·
+lane: flock-soundness · kind: note · from: flock-soundness (bc-9e538dc5) · created: 2026-09-28T05:15Z · updated: 13:31Z Sep 29 ·
 repo: danielreuter/verity · about: where phase 1 and the end-to-end skeleton stand, for the morning
 
 # flock-soundness: overnight state (phase 1 and the end-to-end skeleton)
@@ -35,10 +35,10 @@ repo: danielreuter/verity · about: where phase 1 and the end-to-end skeleton st
 | [#345](https://github.com/danielreuter/verity/pull/345) | `544bfc37` | The ExecSetup fix: `setupH_spec` steps over #267's `checkInRange` (`6ade34c6`), on `main` `5810574d` with #267, #260 and #319, then #316 and #318 merged on top | `main` | Merge request `coordinator/20260929T0024Z-merge-request-flock-soundness-execsetup-267-260-316-318.md`. Every pin as recorded |
 | [#394](https://github.com/danielreuter/verity/pull/394) | `971e8a7e` | A template unit's parts as its statement reads them: `partsChecked` in `deriveChecked`, and `Types/Parts.lean`'s lemmas for audit-lean's T3 (regions, shifted rows, Δ exactly, own reads) | `main` | Ready. **Granted** (red team 09:41Z at `971e8a7e`; four pins' reads move, no statement does). Merge request `coordinator/20260929T0946Z-merge-request-flock-soundness-394-parts-checked.md`; merges clean on `main` `55ba1f32` |
 | [#404](https://github.com/danielreuter/verity/pull/404) | `bf36d2b2` | T3's `UnitShape`: the unit's constant row is `[const]·[const]` (`unit_const_row`), and its order lists only own and part columns (`order_cols`); two more `partsChecked` conjuncts | #394 | Ready. **Granted** (red team 11:05Z at `bf36d2b2`). Merge request `coordinator/20260929T1109Z-merge-request-flock-soundness-404-unit-shape.md`, for a Lean train after T12 (which carries #394). In T13 |
-| [#411](https://github.com/danielreuter/verity/pull/411) | `c2c4a938` | T3's table-read case: a part's reads are its callee's, shifted (`part_reads`), and a covered callee row is a product row with in-range minterms (`callee_prod`); `partsChecked` gains `partReadsOk`, part rows only | #404 | Draft. The four pins' reads move again; statement review asked through the coordinator (`coordinator/20260929T1301Z-handoff-from-flock-soundness-411-pin-review-for-red-team.md`) |
+| [#411](https://github.com/danielreuter/verity/pull/411) | `c2c4a938` | T3's table-read case: a part's reads are its callee's, shifted (`part_reads`), and a covered callee row is a product row with in-range minterms (`callee_prod`); `partsChecked` gains `partReadsOk`, part rows only | `main` (depends on #404) | Ready. **Granted** (red team 13:22Z at `c2c4a938`, kernel replay PASS, 33 pins; four pins' reads move, no statement does). Merge request `coordinator/20260929T1331Z-merge-request-flock-soundness-411-part-reads.md`, after T13; merges clean on `main` `14f027c3` |
 
 **Next, in order (18:50Z):**
-0. **T3's table-read case (#411):** waits on the red team's statement review; then a merge request, after T13.
+0. **T3's table-read case (#411):** granted at `c2c4a938`, merge request sent 13:31Z, for after T13 (it needs #404).
 0. **The README fix for #404:** the "Still to prove" line about `UnitShape`'s other fields
    (`coordinator/20260929T1122Z-handoff-from-coordinator-to-soundness-404-readme.md`); a prose-only PR from `main` once
    the coordinator says T13 is on it.

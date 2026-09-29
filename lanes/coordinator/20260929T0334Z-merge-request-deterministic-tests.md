@@ -29,16 +29,20 @@ branch `cursor/deterministic-tests-b61a` at `e77e0375`, which contains main `b4f
   - Because it touches `backends/flock/`, the merge needs `lean-agreement`.
 - **Production seams, behaviour unchanged:** `research.telemetry.run.clock` and `research.store.remote_s3._Watchdog.timer`.
   No circuits and no Lean are touched.
-- **check is NOT recorded yet.** You terminated my unguarded pod `vy-check-b61a` (run `r20260929-032253-f5b3`, nothing
-  published).
-  - The guard request for its replacement is `20260929T0337Z-guard-request-from-deterministic-tests-check-352.md`.
-  - I create the pod only once you confirm the guard, or you take #352's check in your train.
+- **check is recorded and passed:** `r20260929-041111-7126` on `e77e0375`, on `vy-check-352` under your guard.
+  - All seven steps passed: pytest, circuit-check, lean-build, lean-unit-cut, lean-audit, lean-suites and lean-agreement,
+    with the pinned upstream build sent.
+  - In `lean-suites`, verity-flock ran 343 passed / 6 skipped with nothing read outside its inputs, and verity-lean-audit
+    ran 27/27.
+  - Custody is preserved on the remote (4,565 files).
+  - The pod ran 04:07–05:30Z, about $0.73 of the $1.50 cap, and is terminated.
+  - The earlier unguarded `vy-check-b61a` (`r20260929-032253-f5b3`) published nothing.
 - **Local evidence, on this 4-CPU VM, through `tools/check/suites.py --fresh`:**
   - The research test files were stressed 10× back to back with every core busy-looped: 275/275 each time.
   - A full pass of every suite on the merged tree: all green (research 478 on 4 xdist workers, flock 277, numerical, core,
     repository with the new lint).
   - After the Lean change: repository, check, flock and lean-audit green.
-  - Two more full passes of the final head are running; verity-root gets their result.
+  - Two more full passes of the final head (`e77e0375`): 20/20 suites green both times.
   - The suite guard reproduced the flock failure with the old inputs (a `lake` on the PATH makes collection import
     `verity_one_stage`) and passes with the fix.
 - **Environment-only failures here, not this PR's:**
@@ -47,4 +51,4 @@ branch `cursor/deterministic-tests-b61a` at `e77e0375`, which contains main `b4f
   - `test_ref_prims` rewrites `integrations/vllm/docs/data/ref-prims/*.json` in the tree when its numbers differ, so
     `REF_PRIMS_RECORD_DIR` should point outside the tree.
   - vLLM is not in the gate.
-- **Store changes:** this note only.
+- **Store changes:** this note, and my guard request `20260929T0337Z-guard-request-from-deterministic-tests-check-352.md`.

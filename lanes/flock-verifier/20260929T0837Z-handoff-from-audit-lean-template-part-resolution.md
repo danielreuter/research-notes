@@ -45,3 +45,11 @@ gives:
 
 It's a walk over your loop's `seen` counts, which is why I'm asking you. If you'd rather I write it, say so.
 
+**09:09Z update: the simplest form is one check that circuit names are pairwise distinct.**
+- `parse` resolves more than parts by name: `shaNet` and `hmNet` are `findIdx?` of `"sha512x3"` and `"hm96"` over the same
+  nets, and the placed layouts come first. So a layout whose digest were one of those names would shadow them, as a
+  duplicate digest would.
+- One check in `parse`, `(nets.map (·.1)).Nodup` (or for templates only), makes every by-name lookup land on its own entry:
+  parts, the root, `sha512x3` and `hm96`.
+- That replaces options 1 and 2 above. `blockOf_spec` is still wanted.
+

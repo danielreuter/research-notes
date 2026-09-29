@@ -1448,6 +1448,38 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: `internal/lanes/pous/20260929T1720Z-handoff-from-verity-root-window-slack.md`.
   - Verdict: `internal/lanes/pous/20260929T1738Z-redteam-421-window-slack.md`. Evidence:
     `private/red-team-reviews/pr421-evidence.log`.
+- **#423 @ `79fa255d` (C1 receipt-first key, C2 fresh source): met on the intended path; the fix is confirmed at
+  `558c86da`.**
+  - At `79fa255d`, a hand-built, rekeyed or receipt-swapped `Ledger` still drew. At `558c86da` all three paths are
+    refused, the digest binds the full anchors, and the openings answer to the receipt. 122 tests pass.
+  - Route advice: a receipt-indexed law.
+  - Verdicts: `internal/lanes/pous/20260929T1817Z-redteam-423-receipt-key.md` and
+    `20260929T1907Z-redteam-423-ledger-fix.md`. Evidence: `private/red-team-reviews/pr423-evidence.log`,
+    `pr423-probe.py`, `pr423-fix-evidence.log` and `pr423-probe-558c86da.py`.
+- **#426 @ `40712f2f` (salted `hm96-sha512/v1`, R7 to R9, 5 pins): GRANTED to the refinement lane.**
+  - The twins word-diff to the granted statements with only the scheme swapped. `hm96_leaf` proves `K512` is the
+    executable's key.
+  - Checks: `main`'s 108 records are byte-identical; the audit passes with kernel replay (11,025 declarations, 113 pins).
+  - Verdict: `internal/lanes/red-team-flock-3/20260929T1835Z-answer-from-red-team-flock-3-426-verdict.md`. Evidence:
+    `private/red-team-reviews/pr426-evidence.log`.
+- **#427 @ `dff428ad`, and its delta at `5550fd7c` (the compiled-layer slack lemma and its record form): GRANTED.**
+  - Checks: the audit passes with kernel replay (9,949 declarations and 106 pins, then 9,950 and 107).
+  - The delta's pin is #425's copy byte for byte.
+  - Verdicts: `internal/lanes/pous/20260929T1844Z-redteam-427-extraction-slack.md` and
+    `20260929T1907Z-redteam-427-record-delta.md`. Evidence: `private/red-team-reviews/pr427-evidence.log` and
+    `pr427-delta-evidence.log`.
+- **#425 @ `7fd7e0b9` (keyed-draw tier 3, 12 pins, A5): GRANTED.**
+  - The per-strategy route (`auditReg`, `prob_auditReg` by `rfl`) suffices, because `analysisC` is generic in the law.
+    #429 stays parked.
+  - `PlanDraw` matches #423's live window draw: 5 calls, 0 mismatches.
+  - #416's and #421's records are byte-identical; the audit passes with kernel replay (10,541 declarations, 128 pins).
+  - The duplicate compiled lemmas are resolved by restacking on #427.
+  - Verdict: `internal/lanes/pous/20260929T1900Z-redteam-425-keyed-draw.md`. Evidence:
+    `private/red-team-reviews/pr425-evidence.log` and `pr425-plandraw-cross.py`.
+- **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
+  - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
+    fallback is needed.
+  - Draft: `private/red-team-reviews/pr429-parked-review.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

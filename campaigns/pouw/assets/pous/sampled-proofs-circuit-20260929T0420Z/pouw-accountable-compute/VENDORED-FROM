@@ -1,0 +1,12 @@
+main's audit law, vendored byte for byte from Verity origin/main b4fd93e9745489b176444d45a115b494af598ee1 (backends/flock/verifier/lean/soundness/FlockSoundness); identical at 816c3682.
+check.sh verifies these digests; with VERITY_CHECKOUT set it also diffs each file against that checkout.
+
+e3786b6f1c87b527a4bb4b4846e077543cc015bf649e349c7401bc90a3bafcdb  FlockSoundness/Audit/Circuit.lean
+91111dfb40f748285a5788ca34f5ff02973de968619bc1859f300405ce830ab4  FlockSoundness/Audit/Extraction.lean
+335f8f760b29addd5738cff190d56955508686b083e9a180d752b9037b1188a2  FlockSoundness/Audit/Law.lean
+534a62e8c1e82fd6dad2d4922daf0e79427c4a7ee7344c43d1447df235d6c18d  FlockSoundness/Audit/OneStage.lean
+2f082213f11c8512655af91c04511ad054b53eeac8f60e446f21faad40790a4f  FlockSoundness/Audit/Stratified.lean
+209583043467c18e502593430387efab164860e145dfe5832f77e42a68f80328  FlockSoundness/Game/Basic.lean
+64e95fa60b1e092fd073aec805f5cd0494c914cbc4bb80dc738f97748d5080c6  FlockSoundness/Game/Interleave.lean
+448dd02a3d5567384dd27ef4207067166d3a0eb827c7c1ef45c9194e9a34748c  FlockSoundness/Game/Prob.lean
+dff51b04cdded0218fd9a25d47c7b66bc4c863993adf9bdd751fa3435c652c55  FlockSoundness/Game/Union.lean

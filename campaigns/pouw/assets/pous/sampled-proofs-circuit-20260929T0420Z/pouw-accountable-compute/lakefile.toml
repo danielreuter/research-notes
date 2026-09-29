@@ -1,0 +1,20 @@
+name = "pouw_accountable_compute"
+defaultTargets = ["PouwAccountable"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+# The Mathlib revision Verity's soundness package pins (through ArkLib) and the other store submissions use.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "5ed2965256430c3649e86755f9576b54eca72435"
+
+# main's audit law, vendored byte for byte (VENDORED-FROM): the draw laws, the one-stage audit and the stratified law.
+[[lean_lib]]
+name = "FlockSoundness"
+globs = ["FlockSoundness.+"]
+
+[[lean_lib]]
+name = "PouwAccountable"

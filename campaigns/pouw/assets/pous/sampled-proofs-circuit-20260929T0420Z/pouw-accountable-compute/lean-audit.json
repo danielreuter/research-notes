@@ -1,0 +1,558 @@
+{
+ "roots": [
+  "PouwAccountable",
+  "FlockSoundness.Audit.Circuit",
+  "FlockSoundness.Audit.Extraction",
+  "FlockSoundness.Audit.Law",
+  "FlockSoundness.Audit.OneStage",
+  "FlockSoundness.Audit.Stratified",
+  "FlockSoundness.Game.Basic",
+  "FlockSoundness.Game.Interleave",
+  "FlockSoundness.Game.Prob",
+  "FlockSoundness.Game.Union"
+ ],
+ "exempt": {
+  "Check": "the #print axioms list (`lake env lean Check.lean`), output in AXIOMS.txt"
+ },
+ "assumptions": ["PouwAccountable.Assumptions"],
+ "layers": {
+  "PouwAccountable.Assumptions": {
+   "imports": ["Mathlib", "FlockSoundness.Game", "PouwAccountable.Assumptions"],
+   "except": [],
+   "why": "the named assumption reads only main's game model"
+  },
+  "FlockSoundness": {
+   "imports": ["Mathlib", "FlockSoundness"],
+   "except": [],
+   "why": "main's audit law, vendored byte for byte: it imports nothing of this package"
+  }
+ },
+ "pins": {
+  "PouwAccountable.Layout.harm_node": {
+   "signature": [
+    "PouwAccountable.Layout.harm_node {n nT : Nat} (P : PouwAccountable.Layout n nT) (w : Fin nT → Real) (v : Fin n)",
+    "  (ht : ∀ (t : Fin nT), Ne (P.tile t) v) (hx : ∀ (t : Fin nT), Ne (P.xs t) v) (hy : ∀ (t : Fin nT), Ne (P.ys t) v) :",
+    "  Eq (PouwAccountable.harm P.cl w v)",
+    "    ((Finset.filter (fun t => SetLike.instMembership.mem (P.path t) v) Finset.univ).sum fun t => w t)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000b9e8fd24"
+  },
+  "PouwAccountable.Layout.harm_tile": {
+   "signature": [
+    "PouwAccountable.Layout.harm_tile {n nT : Nat} (P : PouwAccountable.Layout n nT) (w : Fin nT → Real)",
+    "  (hinj : Function.Injective P.tile) (t : Fin nT) (hx : ∀ (t' : Fin nT), Ne (P.xs t') (P.tile t))",
+    "  (hy : ∀ (t' : Fin nT), Ne (P.ys t') (P.tile t))",
+    "  (hp : ∀ (t' : Fin nT), Not (SetLike.instMembership.mem (P.path t') (P.tile t))) :",
+    "  Eq (PouwAccountable.harm P.cl w (P.tile t)) (w t)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000b98f7a58"
+  },
+  "PouwAccountable.Layout.harm_xs": {
+   "signature": [
+    "PouwAccountable.Layout.harm_xs {n nT : Nat} (P : PouwAccountable.Layout n nT) (w : Fin nT → Real) (x : Fin n)",
+    "  (ht : ∀ (t : Fin nT), Ne (P.tile t) x) (hy : ∀ (t : Fin nT), Ne (P.ys t) x)",
+    "  (hp : ∀ (t : Fin nT), Not (SetLike.instMembership.mem (P.path t) x)) :",
+    "  Eq (PouwAccountable.harm P.cl w x) ((Finset.filter (fun t => Eq (P.xs t) x) Finset.univ).sum fun t => w t)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000fed252be"
+  },
+  "PouwAccountable.Layout.harm_ys": {
+   "signature": [
+    "PouwAccountable.Layout.harm_ys {n nT : Nat} (P : PouwAccountable.Layout n nT) (w : Fin nT → Real) (y : Fin n)",
+    "  (ht : ∀ (t : Fin nT), Ne (P.tile t) y) (hx : ∀ (t : Fin nT), Ne (P.xs t) y)",
+    "  (hp : ∀ (t : Fin nT), Not (SetLike.instMembership.mem (P.path t) y)) :",
+    "  Eq (PouwAccountable.harm P.cl w y) ((Finset.filter (fun t => Eq (P.ys t) y) Finset.univ).sum fun t => w t)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000d1b35b70"
+  },
+  "PouwAccountable.accountable_compute": {
+   "signature": [
+    "PouwAccountable.accountable_compute {n nT : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}",
+    "  {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal} {mT : Nat} (σT : Fin nT → Fin mT)",
+    "  (kT : Fin mT → Nat) (hkT : ∀ (s : Fin mT), instLENat.le (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)",
+    "  (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real} (wmax : Fin mT → Real)",
+    "  (hw0 : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) (hw : ∀ (t : Fin nT), Real.instLE.le (w t) (wmax (σT t))) {δ ε : Real}",
+    "  (hδ0 : Real.instLT.lt 0 δ) (hδ1 : Real.instLT.lt δ 1) (hε : Real.instLT.lt 0 ε)",
+    "  (hsize :",
+    "    ∀ (s : Fin mT),",
+    "      Or (Eq (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)",
+    "        (Real.instLE.le",
+    "          (instHMul.hMul (instHMul.hMul (FlockSoundness.Audit.Law.stratum σT s).card.cast (wmax s))",
+    "            (Real.log (Real.instInv.inv δ)))",
+    "          (instHMul.hMul (instHMul.hMul ε (PouwAccountable.totalWork w)) (kT s).cast)))",
+    "  (hdom :",
+    "    ∀ (B : Finset (Fin n)),",
+    "      ENNReal.instLE.le (L.escape B)",
+    "        ((PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl).escape B))",
+    "  (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)",
+    "  (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :",
+    "  ENNReal.instLE.le",
+    "    (FlockSoundness.Game.prob",
+    "      (fun o =>",
+    "        And (Eq o.fst Bool.true)",
+    "          (Real.instLT.lt (PouwAccountable.soundWork cl w (A.wrong (A.committedOf σ')))",
+    "            (instHMul.hMul (instHSub.hSub 1 ε) (PouwAccountable.totalWork w))))",
+    "      (FlockSoundness.Audit.audit L Reg session) σ')",
+    "    (instHAdd.hAdd (instHAdd.hAdd (ENNReal.ofReal δ) εks) δlink)"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000082887d78"
+  },
+  "PouwAccountable.accountable_compute_floor": {
+   "signature": [
+    "PouwAccountable.accountable_compute_floor {n nT : Nat} {Reg : Type} {εks δlink : ENNReal} {mT : Nat}",
+    "  (σT : Fin nT → Fin mT) (kT : Fin mT → Nat)",
+    "  (hkT : ∀ (s : Fin mT), instLENat.le (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)",
+    "  (cl : Fin nT → Finset (Fin n)) (M : FlockSoundness.Audit.Law n) {w : Fin nT → Real} (wmax : Fin mT → Real)",
+    "  (hw0 : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) (hw : ∀ (t : Fin nT), Real.instLE.le (w t) (wmax (σT t))) {δ ε : Real}",
+    "  (hδ0 : Real.instLT.lt 0 δ) (hδ1 : Real.instLT.lt δ 1) (hε : Real.instLT.lt 0 ε)",
+    "  (hsize :",
+    "    ∀ (s : Fin mT),",
+    "      Or (Eq (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)",
+    "        (Real.instLE.le",
+    "          (instHMul.hMul (instHMul.hMul (FlockSoundness.Audit.Law.stratum σT s).card.cast (wmax s))",
+    "            (Real.log (Real.instInv.inv δ)))",
+    "          (instHMul.hMul (instHMul.hMul ε (PouwAccountable.totalWork w)) (kT s).cast)))",
+    "  {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool}",
+    "  (A :",
+    "    FlockSoundness.Audit.Analysis",
+    "      (PouwAccountable.both (PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl) M) Reg",
+    "      session)",
+    "  (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)",
+    "  (σ' :",
+    "    (FlockSoundness.Audit.audit",
+    "        (PouwAccountable.both (PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl) M) Reg",
+    "        session).Strategy) :",
+    "  ENNReal.instLE.le",
+    "    (FlockSoundness.Game.prob",
+    "      (fun o =>",
+    "        And (Eq o.fst Bool.true)",
+    "          (Real.instLT.lt (PouwAccountable.soundWork cl w (A.wrong (A.committedOf σ')))",
+    "            (instHMul.hMul (instHSub.hSub 1 ε) (PouwAccountable.totalWork w))))",
+    "      (FlockSoundness.Audit.audit",
+    "        (PouwAccountable.both (PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl) M) Reg",
+    "        session)",
+    "      σ')",
+    "    (instHAdd.hAdd (instHAdd.hAdd (ENNReal.ofReal δ) εks) δlink)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000a444920b"
+  },
+  "PouwAccountable.audit_closure": {
+   "signature": [
+    "PouwAccountable.audit_closure {n nT : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}",
+    "  {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal} (Lt : FlockSoundness.Audit.Law nT)",
+    "  (cl : Fin nT → Finset (Fin n)) (w : Fin nT → Real)",
+    "  (hdom : ∀ (B : Finset (Fin n)), ENNReal.instLE.le (L.escape B) ((PouwAccountable.closureLaw Lt cl).escape B))",
+    "  {δ : ENNReal} {H : Real} (hH : PouwAccountable.IsHarmBound Lt w δ H) (A : FlockSoundness.Audit.Analysis L Reg session)",
+    "  (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink) (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :",
+    "  ENNReal.instLE.le",
+    "    (FlockSoundness.Game.prob",
+    "      (fun o =>",
+    "        And (Eq o.fst Bool.true) (Real.instLT.lt H (PouwAccountable.unsoundWork cl w (A.wrong (A.committedOf σ')))))",
+    "      (FlockSoundness.Audit.audit L Reg session) σ')",
+    "    (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000a67bec2d"
+  },
+  "PouwAccountable.audit_damage": {
+   "signature": [
+    "PouwAccountable.audit_damage {n : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}",
+    "  {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal}",
+    "  (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)",
+    "  (D : Finset (Fin n) → Real) (h : Fin n → Real)",
+    "  (hcov : ∀ (B : Finset (Fin n)), Real.instLE.le (D B) (B.sum fun u => h u)) {δ : ENNReal} {H : Real}",
+    "  (hH : PouwAccountable.IsHarmBound L h δ H) (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :",
+    "  ENNReal.instLE.le",
+    "    (FlockSoundness.Game.prob (fun o => And (Eq o.fst Bool.true) (Real.instLT.lt H (D (A.wrong (A.committedOf σ')))))",
+    "      (FlockSoundness.Audit.audit L Reg session) σ')",
+    "    (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000945c4380"
+  },
+  "PouwAccountable.audit_strata": {
+   "signature": [
+    "PouwAccountable.audit_strata {n nT : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}",
+    "  {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal}",
+    "  (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)",
+    "  (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real} (hw : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) {δ : ENNReal}",
+    "  {H : Real} (hH : PouwAccountable.IsHarmBound L (PouwAccountable.harm cl w) δ H)",
+    "  (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :",
+    "  ENNReal.instLE.le",
+    "    (FlockSoundness.Game.prob",
+    "      (fun o =>",
+    "        And (Eq o.fst Bool.true) (Real.instLT.lt H (PouwAccountable.unsoundWork cl w (A.wrong (A.committedOf σ')))))",
+    "      (FlockSoundness.Audit.audit L Reg session) σ')",
+    "    (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000002611fae1"
+  },
+  "PouwAccountable.both_escape_le": {
+   "signature": [
+    "PouwAccountable.both_escape_le {n : Nat} (L M : FlockSoundness.Audit.Law n) (B : Finset (Fin n)) :",
+    "  ENNReal.instLE.le ((PouwAccountable.both L M).escape B) (L.escape B)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000003e10272c"
+  },
+  "PouwAccountable.closureLaw_escape": {
+   "signature": [
+    "PouwAccountable.closureLaw_escape {n nT : Nat} (Lt : FlockSoundness.Audit.Law nT) (cl : Fin nT → Finset (Fin n))",
+    "  (B : Finset (Fin n)) :",
+    "  Eq ((PouwAccountable.closureLaw Lt cl).escape B) (Lt.escape (PouwAccountable.unsoundTiles cl B))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000b07c3de9"
+  },
+  "PouwAccountable.compute_used": {
+   "signature": [
+    "PouwAccountable.compute_used {α : Type} (g : FlockSoundness.Game α) (s : g.Strategy) (accept anchored unique : α → Prop)",
+    "  (cost unsound : α → Real) {W H γ : Real} {a δin δidx ηTT εcr : ENNReal} (hγ : Real.instLE.le γ 1)",
+    "  (h2 : ENNReal.instLE.le (FlockSoundness.Game.prob (fun o => And (accept o) (Real.instLT.lt H (unsound o))) g s) a)",
+    "  (h9 : PouwAccountable.AnchoredInputs g s accept anchored δin)",
+    "  (h11 : PouwAccountable.UniqueCallIndices g s accept unique δidx)",
+    "  (hcount : PouwAccountable.PerTileCount g s anchored unique cost (fun o => instHSub.hSub W (unsound o)) γ ηTT εcr) :",
+    "  ENNReal.instLE.le",
+    "    (FlockSoundness.Game.prob",
+    "      (fun o => And (accept o) (Real.instLT.lt (cost o) (instHMul.hMul (instHSub.hSub 1 γ) (instHSub.hSub W H)))) g s)",
+    "    (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd a δin) δidx) (instHAdd.hAdd ηTT εcr))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000e4a41c44"
+  },
+  "PouwAccountable.compute_used_audit": {
+   "signature": [
+    "PouwAccountable.compute_used_audit {n nT : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}",
+    "  {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal} {mT : Nat} (σT : Fin nT → Fin mT)",
+    "  (kT : Fin mT → Nat) (hkT : ∀ (s : Fin mT), instLENat.le (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)",
+    "  (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real} (wmax : Fin mT → Real)",
+    "  (hw0 : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) (hw : ∀ (t : Fin nT), Real.instLE.le (w t) (wmax (σT t)))",
+    "  {δ ε γ : Real} (hδ0 : Real.instLT.lt 0 δ) (hδ1 : Real.instLT.lt δ 1) (hε : Real.instLT.lt 0 ε)",
+    "  (hγ : Real.instLE.le γ 1)",
+    "  (hsize :",
+    "    ∀ (s : Fin mT),",
+    "      Or (Eq (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)",
+    "        (Real.instLE.le",
+    "          (instHMul.hMul (instHMul.hMul (FlockSoundness.Audit.Law.stratum σT s).card.cast (wmax s))",
+    "            (Real.log (Real.instInv.inv δ)))",
+    "          (instHMul.hMul (instHMul.hMul ε (PouwAccountable.totalWork w)) (kT s).cast)))",
+    "  (hdom :",
+    "    ∀ (B : Finset (Fin n)),",
+    "      ENNReal.instLE.le (L.escape B)",
+    "        ((PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl).escape B))",
+    "  (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)",
+    "  (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) (anchored unique : Prod Bool (Finset (Fin n)) → Prop)",
+    "  (cost : Prod Bool (Finset (Fin n)) → Real) {δin δidx ηTT εcr : ENNReal}",
+    "  (h9 :",
+    "    PouwAccountable.AnchoredInputs (FlockSoundness.Audit.audit L Reg session) σ' (fun o => Eq o.fst Bool.true) anchored",
+    "      δin)",
+    "  (h11 :",
+    "    PouwAccountable.UniqueCallIndices (FlockSoundness.Audit.audit L Reg session) σ' (fun o => Eq o.fst Bool.true) unique",
+    "      δidx)",
+    "  (hcount :",
+    "    PouwAccountable.PerTileCount (FlockSoundness.Audit.audit L Reg session) σ' anchored unique cost",
+    "      (fun x => PouwAccountable.soundWork cl w (A.wrong (A.committedOf σ'))) γ ηTT εcr) :",
+    "  ENNReal.instLE.le",
+    "    (FlockSoundness.Game.prob",
+    "      (fun o =>",
+    "        And (Eq o.fst Bool.true)",
+    "          (Real.instLT.lt (cost o)",
+    "            (instHMul.hMul (instHSub.hSub 1 γ) (instHMul.hMul (instHSub.hSub 1 ε) (PouwAccountable.totalWork w)))))",
+    "      (FlockSoundness.Audit.audit L Reg session) σ')",
+    "    (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd (ENNReal.ofReal δ) εks) δlink) δin) δidx)",
+    "      (instHAdd.hAdd ηTT εcr))"
+   ],
+   "assumptions": [],
+   "type_hash": "000000006612c26b"
+  },
+  "PouwAccountable.exfiltration": {
+   "signature": [
+    "PouwAccountable.exfiltration {n : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}",
+    "  {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal}",
+    "  (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)",
+    "  (hb : Fin n → Real) {δ : ENNReal} {H : Real} (hH : PouwAccountable.IsHarmBound L hb δ H)",
+    "  (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :",
+    "  ENNReal.instLE.le",
+    "    (FlockSoundness.Game.prob",
+    "      (fun o => And (Eq o.fst Bool.true) (Real.instLT.lt H ((A.wrong (A.committedOf σ')).sum fun u => hb u)))",
+    "      (FlockSoundness.Audit.audit L Reg session) σ')",
+    "    (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink)"
+   ],
+   "assumptions": [],
+   "type_hash": "000000009c22c9b6"
+  },
+  "PouwAccountable.harmOpt_isHarmBound": {
+   "signature": [
+    "PouwAccountable.harmOpt_isHarmBound {n : Nat} (L : FlockSoundness.Audit.Law n) (h : Fin n → Real) (δ : ENNReal) :",
+    "  PouwAccountable.IsHarmBound L h δ (PouwAccountable.harmOpt L h δ)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000d8e83ca6"
+  },
+  "PouwAccountable.harmOpt_le": {
+   "signature": [
+    "PouwAccountable.harmOpt_le {n : Nat} (L : FlockSoundness.Audit.Law n) (h : Fin n → Real) {δ : ENNReal}",
+    "  (hδ : ENNReal.instLE.le δ 1) {H : Real} (hH : PouwAccountable.IsHarmBound L h δ H) :",
+    "  Real.instLE.le (PouwAccountable.harmOpt L h δ) H"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000c8255599"
+  },
+  "PouwAccountable.harm_le_unsoundWork": {
+   "signature": [
+    "PouwAccountable.harm_le_unsoundWork {n nT : Nat} (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real}",
+    "  (hw : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) {B : Finset (Fin n)} {u : Fin n} (hu : SetLike.instMembership.mem B u) :",
+    "  Real.instLE.le (PouwAccountable.harm cl w u) (PouwAccountable.unsoundWork cl w B)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000089629d9"
+  },
+  "PouwAccountable.mem_closureLaw_draw": {
+   "signature": [
+    "PouwAccountable.mem_closureLaw_draw {n nT : Nat} (Lt : FlockSoundness.Audit.Law nT) (cl : Fin nT → Finset (Fin n))",
+    "  (ω : (PouwAccountable.closureLaw Lt cl).Ω) (u : Fin n) :",
+    "  Iff (SetLike.instMembership.mem ((PouwAccountable.closureLaw Lt cl).draw ω) u)",
+    "    (Exists fun t => And (SetLike.instMembership.mem (Lt.draw ω) t) (SetLike.instMembership.mem (cl t) u))"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000e5add66c"
+  },
+  "PouwAccountable.stratified_isHarmBound": {
+   "signature": [
+    "PouwAccountable.stratified_isHarmBound {n m : Nat} (σ : Fin n → Fin m) (k : Fin m → Nat)",
+    "  (hk : ∀ (s : Fin m), instLENat.le (k s) (FlockSoundness.Audit.Law.stratum σ s).card) (h : Fin n → Real)",
+    "  (hmax : Fin m → Real) (hh : ∀ (u : Fin n), Real.instLE.le (h u) (hmax (σ u))) {c : Real} (hc0 : Real.instLE.le 0 c)",
+    "  (hc :",
+    "    ∀ (s : Fin m),",
+    "      Or (Eq (k s) (FlockSoundness.Audit.Law.stratum σ s).card)",
+    "        (Real.instLE.le (instHMul.hMul (FlockSoundness.Audit.Law.stratum σ s).card.cast (hmax s))",
+    "          (instHMul.hMul c (k s).cast)))",
+    "  {δ : Real} (hδ : Real.instLT.lt 0 δ) :",
+    "  PouwAccountable.IsHarmBound (FlockSoundness.Audit.Law.stratified σ k hk) h (ENNReal.ofReal δ)",
+    "    (instHMul.hMul c (Real.log (Real.instInv.inv δ)))"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000032de3d39"
+  },
+  "PouwAccountable.unsoundWork_le_harm": {
+   "signature": [
+    "PouwAccountable.unsoundWork_le_harm {n nT : Nat} (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real}",
+    "  (hw : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) (B : Finset (Fin n)) :",
+    "  Real.instLE.le (PouwAccountable.unsoundWork cl w B) (B.sum fun u => PouwAccountable.harm cl w u)"
+   ],
+   "assumptions": [],
+   "type_hash": "00000000ff8f28fa"
+  },
+  "PouwAccountable.unsoundWork_singleton": {
+   "signature": [
+    "PouwAccountable.unsoundWork_singleton {n nT : Nat} (cl : Fin nT → Finset (Fin n)) (w : Fin nT → Real) (u : Fin n) :",
+    "  Eq (PouwAccountable.unsoundWork cl w (Finset.instSingleton.singleton u)) (PouwAccountable.harm cl w u)"
+   ],
+   "assumptions": [],
+   "type_hash": "0000000088e80b7f"
+  }
+ },
+ "reads": {
+  "FlockSoundness.Audit.Law": {
+   "digest": "6d191b6cd9f3eec36bc20b4fdb513bd1",
+   "definitions": {
+    "FlockSoundness.Audit.Law": "ab6311f067d1e558",
+    "FlockSoundness.Audit.Law.draw": "e9f1dc8a2d17dfbd",
+    "FlockSoundness.Audit.Law.escape": "54759f255ec28484",
+    "FlockSoundness.Audit.Law.fintype": "e69a6854a7f2747b",
+    "FlockSoundness.Audit.Law.Ω": "829fd6ddac35b1ca"
+   },
+   "pins": [
+    "PouwAccountable.accountable_compute",
+    "PouwAccountable.accountable_compute_floor",
+    "PouwAccountable.audit_closure",
+    "PouwAccountable.audit_damage",
+    "PouwAccountable.audit_strata",
+    "PouwAccountable.both_escape_le",
+    "PouwAccountable.closureLaw_escape",
+    "PouwAccountable.compute_used_audit",
+    "PouwAccountable.exfiltration",
+    "PouwAccountable.harmOpt_isHarmBound",
+    "PouwAccountable.harmOpt_le",
+    "PouwAccountable.mem_closureLaw_draw",
+    "PouwAccountable.stratified_isHarmBound"
+   ]
+  },
+  "FlockSoundness.Audit.OneStage": {
+   "digest": "0d700dca3416dca476311ad8a76da0ec",
+   "definitions": {
+    "FlockSoundness.Audit.Analysis": "9dd2f1fd0cb53544",
+    "FlockSoundness.Audit.Analysis.KnowledgeSound": "6b851cf008d0fb32",
+    "FlockSoundness.Audit.Analysis.LinkSound": "edbda78ea67eb297",
+    "FlockSoundness.Audit.Analysis.Tr": "c126aefbd2a56b1c",
+    "FlockSoundness.Audit.Analysis.committed": "1d36f7b212c75c5d",
+    "FlockSoundness.Audit.Analysis.committedOf": "67ea44d5b5012822",
+    "FlockSoundness.Audit.Analysis.ksFail": "d0cfe7d9628b3742",
+    "FlockSoundness.Audit.Analysis.linkFail": "4c3925a1022be9f2",
+    "FlockSoundness.Audit.Analysis.wrong": "1a302c97f965b737",
+    "FlockSoundness.Audit.Cont": "78d0a1f1523d45de",
+    "FlockSoundness.Audit.audit": "74586d8a66f3427c",
+    "FlockSoundness.Audit.cont": "ea2c637aa000131e",
+    "FlockSoundness.Audit.reg": "965ee5ab445cdecb"
+   },
+   "pins": [
+    "PouwAccountable.accountable_compute",
+    "PouwAccountable.accountable_compute_floor",
+    "PouwAccountable.audit_closure",
+    "PouwAccountable.audit_damage",
+    "PouwAccountable.audit_strata",
+    "PouwAccountable.compute_used_audit",
+    "PouwAccountable.exfiltration"
+   ]
+  },
+  "FlockSoundness.Audit.Stratified": {
+   "digest": "b06d8587d8bccf23848eb285192db14d",
+   "definitions": {
+    "FlockSoundness.Audit.Law.stratified": "c1eb3217fa71d51e",
+    "FlockSoundness.Audit.Law.stratum": "a9f3b1df8b4096e1"
+   },
+   "pins": [
+    "PouwAccountable.accountable_compute",
+    "PouwAccountable.accountable_compute_floor",
+    "PouwAccountable.compute_used_audit",
+    "PouwAccountable.stratified_isHarmBound"
+   ]
+  },
+  "FlockSoundness.Game.Basic": {
+   "digest": "73bdbbc81bd4860413dcdebd0da905cc",
+   "definitions": {
+    "FlockSoundness.Game": "fd35e1f2071277e1",
+    "FlockSoundness.Game.Strategy": "74474416fceda635",
+    "FlockSoundness.Game.avg": "d2062df562dd07a7",
+    "FlockSoundness.Game.bind": "f03387860619ff82",
+    "FlockSoundness.Game.brecOn.go": "f039f51273f2be1f",
+    "FlockSoundness.Game.coin": "f4d3016e8e9b0cfe",
+    "FlockSoundness.Game.map": "2dd8901027ff369b",
+    "FlockSoundness.Game.prCoin": "e6966f5cbf0413ac",
+    "FlockSoundness.Game.prob": "09a0d2b9679c7e10",
+    "FlockSoundness.Game.ret": "88fe9cd2b7f87553",
+    "FlockSoundness.Game.send": "ca27d021bc348230"
+   },
+   "pins": [
+    "PouwAccountable.accountable_compute",
+    "PouwAccountable.accountable_compute_floor",
+    "PouwAccountable.audit_closure",
+    "PouwAccountable.audit_damage",
+    "PouwAccountable.audit_strata",
+    "PouwAccountable.both_escape_le",
+    "PouwAccountable.closureLaw_escape",
+    "PouwAccountable.compute_used",
+    "PouwAccountable.compute_used_audit",
+    "PouwAccountable.exfiltration",
+    "PouwAccountable.harmOpt_isHarmBound",
+    "PouwAccountable.harmOpt_le",
+    "PouwAccountable.stratified_isHarmBound"
+   ]
+  },
+  "FlockSoundness.Game.Prob": {
+   "digest": "42270a46a7c16ac64f5c5a51c7569db7",
+   "definitions": {
+    "FlockSoundness.Game.Strategy.ofMap": "42270a46a7c16ac6"
+   },
+   "pins": [
+    "PouwAccountable.accountable_compute",
+    "PouwAccountable.accountable_compute_floor",
+    "PouwAccountable.audit_closure",
+    "PouwAccountable.audit_damage",
+    "PouwAccountable.audit_strata",
+    "PouwAccountable.compute_used_audit",
+    "PouwAccountable.exfiltration"
+   ]
+  },
+  "PouwAccountable.Assumptions": {
+   "digest": "a884553576935e07bc1e40d510d50e71",
+   "definitions": {
+    "PouwAccountable.AnchoredInputs": "9fb589e58215f070",
+    "PouwAccountable.PerTileCount": "40f6c689b69d6b35",
+    "PouwAccountable.UniqueCallIndices": "5b0dafcd23b3251e"
+   },
+   "pins": ["PouwAccountable.compute_used", "PouwAccountable.compute_used_audit"]
+  },
+  "PouwAccountable.Charging": {
+   "digest": "e921b1e57915348930a214ca97a246b5",
+   "definitions": {
+    "PouwAccountable.Layout": "a06218fd4fcfa91e",
+    "PouwAccountable.Layout.cl": "04e52620e9a44f39",
+    "PouwAccountable.Layout.path": "54a77603d1762de7",
+    "PouwAccountable.Layout.tile": "1a0484a34f33f196",
+    "PouwAccountable.Layout.xs": "b57c6aba7afbed45",
+    "PouwAccountable.Layout.ys": "c493fceb34f1737b",
+    "PouwAccountable.harm": "6cc284de0d4c588c",
+    "PouwAccountable.soundWork": "6165e44b7206b920",
+    "PouwAccountable.totalWork": "0d911e1e28169e52",
+    "PouwAccountable.unsoundTiles": "bb7d315b4b31fb9a",
+    "PouwAccountable.unsoundWork": "1fdb30c95f4685a6"
+   },
+   "pins": [
+    "PouwAccountable.Layout.harm_node",
+    "PouwAccountable.Layout.harm_tile",
+    "PouwAccountable.Layout.harm_xs",
+    "PouwAccountable.Layout.harm_ys",
+    "PouwAccountable.accountable_compute",
+    "PouwAccountable.accountable_compute_floor",
+    "PouwAccountable.audit_closure",
+    "PouwAccountable.audit_strata",
+    "PouwAccountable.closureLaw_escape",
+    "PouwAccountable.compute_used_audit",
+    "PouwAccountable.harm_le_unsoundWork",
+    "PouwAccountable.unsoundWork_le_harm",
+    "PouwAccountable.unsoundWork_singleton"
+   ]
+  },
+  "PouwAccountable.Closure": {
+   "digest": "52f6d05467b71ae96a637af7f6530c07",
+   "definitions": {
+    "PouwAccountable.both": "e8dfa23407680535",
+    "PouwAccountable.closureLaw": "c22b6fa1a082e6a1"
+   },
+   "pins": [
+    "PouwAccountable.accountable_compute",
+    "PouwAccountable.accountable_compute_floor",
+    "PouwAccountable.audit_closure",
+    "PouwAccountable.both_escape_le",
+    "PouwAccountable.closureLaw_escape",
+    "PouwAccountable.compute_used_audit",
+    "PouwAccountable.mem_closureLaw_draw"
+   ]
+  },
+  "PouwAccountable.HarmBound": {
+   "digest": "99704475533e0173fef6733a54158652",
+   "definitions": {
+    "PouwAccountable.IsHarmBound": "ae154b7669675ba3",
+    "PouwAccountable.harmOpt": "b668bba866e87f36"
+   },
+   "pins": [
+    "PouwAccountable.audit_closure",
+    "PouwAccountable.audit_damage",
+    "PouwAccountable.audit_strata",
+    "PouwAccountable.exfiltration",
+    "PouwAccountable.harmOpt_isHarmBound",
+    "PouwAccountable.harmOpt_le",
+    "PouwAccountable.stratified_isHarmBound"
+   ]
+  }
+ },
+ "dependencies": {
+  "LeanSearchClient": "10aad9bd3954ead737fba8bd3b55709e5171edda2656068ad330158e6ad622c9",
+  "Qq": "7e75bb83a56f636baeb8e63ef3d44e1ac8b33e2ed4bf187462e0cc9bbdb55adf",
+  "aesop": "b36c1fbce9f43510169424e3ec097b69126f0e6afe5a801760e86c4da75f285d",
+  "batteries": "93d037527498f18cb49b52aa08a14febe351a161b47e44ca105e85e935264406",
+  "importGraph": "c2a38b9540d4202c5331616b78727f2aeec0a2ae1b203889c6c6a2c8d6cb2ca3",
+  "mathlib": "5e6da56125189ab44dee35a8c70035fefe1c70bd5d3d878e5d945ffefc303721",
+  "plausible": "266681444eb79c332dec9abe5201b0811a5963e7093a906ee4455f0825de2559",
+  "proofwidgets": "4edab11dd995fc9c2cbf6c1e03d9a99e1f77e91b6b904838c87c7dad86c9c323",
+  "toolchain": "d95e8a4c480ea108924167135008bc1409c650e2ac659cc2acb8bd8db870d011"
+ }
+}

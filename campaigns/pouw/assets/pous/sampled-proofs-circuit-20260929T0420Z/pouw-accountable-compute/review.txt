@@ -1,0 +1,510 @@
+pin PouwAccountable.Layout.harm_node: new
+  after:
+    PouwAccountable.Layout.harm_node {n nT : Nat} (P : PouwAccountable.Layout n nT) (w : Fin nT → Real) (v : Fin n)
+      (ht : ∀ (t : Fin nT), Ne (P.tile t) v) (hx : ∀ (t : Fin nT), Ne (P.xs t) v) (hy : ∀ (t : Fin nT), Ne (P.ys t) v) :
+      Eq (PouwAccountable.harm P.cl w v)
+        ((Finset.filter (fun t => SetLike.instMembership.mem (P.path t) v) Finset.univ).sum fun t => w t)
+pin PouwAccountable.Layout.harm_tile: new
+  after:
+    PouwAccountable.Layout.harm_tile {n nT : Nat} (P : PouwAccountable.Layout n nT) (w : Fin nT → Real)
+      (hinj : Function.Injective P.tile) (t : Fin nT) (hx : ∀ (t' : Fin nT), Ne (P.xs t') (P.tile t))
+      (hy : ∀ (t' : Fin nT), Ne (P.ys t') (P.tile t))
+      (hp : ∀ (t' : Fin nT), Not (SetLike.instMembership.mem (P.path t') (P.tile t))) :
+      Eq (PouwAccountable.harm P.cl w (P.tile t)) (w t)
+pin PouwAccountable.Layout.harm_xs: new
+  after:
+    PouwAccountable.Layout.harm_xs {n nT : Nat} (P : PouwAccountable.Layout n nT) (w : Fin nT → Real) (x : Fin n)
+      (ht : ∀ (t : Fin nT), Ne (P.tile t) x) (hy : ∀ (t : Fin nT), Ne (P.ys t) x)
+      (hp : ∀ (t : Fin nT), Not (SetLike.instMembership.mem (P.path t) x)) :
+      Eq (PouwAccountable.harm P.cl w x) ((Finset.filter (fun t => Eq (P.xs t) x) Finset.univ).sum fun t => w t)
+pin PouwAccountable.Layout.harm_ys: new
+  after:
+    PouwAccountable.Layout.harm_ys {n nT : Nat} (P : PouwAccountable.Layout n nT) (w : Fin nT → Real) (y : Fin n)
+      (ht : ∀ (t : Fin nT), Ne (P.tile t) y) (hx : ∀ (t : Fin nT), Ne (P.xs t) y)
+      (hp : ∀ (t : Fin nT), Not (SetLike.instMembership.mem (P.path t) y)) :
+      Eq (PouwAccountable.harm P.cl w y) ((Finset.filter (fun t => Eq (P.ys t) y) Finset.univ).sum fun t => w t)
+pin PouwAccountable.accountable_compute: new
+  after:
+    PouwAccountable.accountable_compute {n nT : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal} {mT : Nat} (σT : Fin nT → Fin mT)
+      (kT : Fin mT → Nat) (hkT : ∀ (s : Fin mT), instLENat.le (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)
+      (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real} (wmax : Fin mT → Real)
+      (hw0 : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) (hw : ∀ (t : Fin nT), Real.instLE.le (w t) (wmax (σT t))) {δ ε : Real}
+      (hδ0 : Real.instLT.lt 0 δ) (hδ1 : Real.instLT.lt δ 1) (hε : Real.instLT.lt 0 ε)
+      (hsize :
+        ∀ (s : Fin mT),
+          Or (Eq (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)
+            (Real.instLE.le
+              (instHMul.hMul (instHMul.hMul (FlockSoundness.Audit.Law.stratum σT s).card.cast (wmax s))
+                (Real.log (Real.instInv.inv δ)))
+              (instHMul.hMul (instHMul.hMul ε (PouwAccountable.totalWork w)) (kT s).cast)))
+      (hdom :
+        ∀ (B : Finset (Fin n)),
+          ENNReal.instLE.le (L.escape B)
+            ((PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl).escape B))
+      (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)
+      (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o =>
+            And (Eq o.fst Bool.true)
+              (Real.instLT.lt (PouwAccountable.soundWork cl w (A.wrong (A.committedOf σ')))
+                (instHMul.hMul (instHSub.hSub 1 ε) (PouwAccountable.totalWork w))))
+          (FlockSoundness.Audit.audit L Reg session) σ')
+        (instHAdd.hAdd (instHAdd.hAdd (ENNReal.ofReal δ) εks) δlink)
+pin PouwAccountable.accountable_compute_floor: new
+  after:
+    PouwAccountable.accountable_compute_floor {n nT : Nat} {Reg : Type} {εks δlink : ENNReal} {mT : Nat}
+      (σT : Fin nT → Fin mT) (kT : Fin mT → Nat)
+      (hkT : ∀ (s : Fin mT), instLENat.le (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)
+      (cl : Fin nT → Finset (Fin n)) (M : FlockSoundness.Audit.Law n) {w : Fin nT → Real} (wmax : Fin mT → Real)
+      (hw0 : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) (hw : ∀ (t : Fin nT), Real.instLE.le (w t) (wmax (σT t))) {δ ε : Real}
+      (hδ0 : Real.instLT.lt 0 δ) (hδ1 : Real.instLT.lt δ 1) (hε : Real.instLT.lt 0 ε)
+      (hsize :
+        ∀ (s : Fin mT),
+          Or (Eq (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)
+            (Real.instLE.le
+              (instHMul.hMul (instHMul.hMul (FlockSoundness.Audit.Law.stratum σT s).card.cast (wmax s))
+                (Real.log (Real.instInv.inv δ)))
+              (instHMul.hMul (instHMul.hMul ε (PouwAccountable.totalWork w)) (kT s).cast)))
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool}
+      (A :
+        FlockSoundness.Audit.Analysis
+          (PouwAccountable.both (PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl) M) Reg
+          session)
+      (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)
+      (σ' :
+        (FlockSoundness.Audit.audit
+            (PouwAccountable.both (PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl) M) Reg
+            session).Strategy) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o =>
+            And (Eq o.fst Bool.true)
+              (Real.instLT.lt (PouwAccountable.soundWork cl w (A.wrong (A.committedOf σ')))
+                (instHMul.hMul (instHSub.hSub 1 ε) (PouwAccountable.totalWork w))))
+          (FlockSoundness.Audit.audit
+            (PouwAccountable.both (PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl) M) Reg
+            session)
+          σ')
+        (instHAdd.hAdd (instHAdd.hAdd (ENNReal.ofReal δ) εks) δlink)
+pin PouwAccountable.audit_closure: new
+  after:
+    PouwAccountable.audit_closure {n nT : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal} (Lt : FlockSoundness.Audit.Law nT)
+      (cl : Fin nT → Finset (Fin n)) (w : Fin nT → Real)
+      (hdom : ∀ (B : Finset (Fin n)), ENNReal.instLE.le (L.escape B) ((PouwAccountable.closureLaw Lt cl).escape B))
+      {δ : ENNReal} {H : Real} (hH : PouwAccountable.IsHarmBound Lt w δ H) (A : FlockSoundness.Audit.Analysis L Reg session)
+      (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink) (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o =>
+            And (Eq o.fst Bool.true) (Real.instLT.lt H (PouwAccountable.unsoundWork cl w (A.wrong (A.committedOf σ')))))
+          (FlockSoundness.Audit.audit L Reg session) σ')
+        (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink)
+pin PouwAccountable.audit_damage: new
+  after:
+    PouwAccountable.audit_damage {n : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal}
+      (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)
+      (D : Finset (Fin n) → Real) (h : Fin n → Real)
+      (hcov : ∀ (B : Finset (Fin n)), Real.instLE.le (D B) (B.sum fun u => h u)) {δ : ENNReal} {H : Real}
+      (hH : PouwAccountable.IsHarmBound L h δ H) (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob (fun o => And (Eq o.fst Bool.true) (Real.instLT.lt H (D (A.wrong (A.committedOf σ')))))
+          (FlockSoundness.Audit.audit L Reg session) σ')
+        (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink)
+pin PouwAccountable.audit_strata: new
+  after:
+    PouwAccountable.audit_strata {n nT : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal}
+      (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)
+      (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real} (hw : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) {δ : ENNReal}
+      {H : Real} (hH : PouwAccountable.IsHarmBound L (PouwAccountable.harm cl w) δ H)
+      (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o =>
+            And (Eq o.fst Bool.true) (Real.instLT.lt H (PouwAccountable.unsoundWork cl w (A.wrong (A.committedOf σ')))))
+          (FlockSoundness.Audit.audit L Reg session) σ')
+        (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink)
+pin PouwAccountable.both_escape_le: new
+  after:
+    PouwAccountable.both_escape_le {n : Nat} (L M : FlockSoundness.Audit.Law n) (B : Finset (Fin n)) :
+      ENNReal.instLE.le ((PouwAccountable.both L M).escape B) (L.escape B)
+pin PouwAccountable.closureLaw_escape: new
+  after:
+    PouwAccountable.closureLaw_escape {n nT : Nat} (Lt : FlockSoundness.Audit.Law nT) (cl : Fin nT → Finset (Fin n))
+      (B : Finset (Fin n)) :
+      Eq ((PouwAccountable.closureLaw Lt cl).escape B) (Lt.escape (PouwAccountable.unsoundTiles cl B))
+pin PouwAccountable.compute_used: new
+  after:
+    PouwAccountable.compute_used {α : Type} (g : FlockSoundness.Game α) (s : g.Strategy) (accept anchored unique : α → Prop)
+      (cost unsound : α → Real) {W H γ : Real} {a δin δidx ηTT εcr : ENNReal} (hγ : Real.instLE.le γ 1)
+      (h2 : ENNReal.instLE.le (FlockSoundness.Game.prob (fun o => And (accept o) (Real.instLT.lt H (unsound o))) g s) a)
+      (h9 : PouwAccountable.AnchoredInputs g s accept anchored δin)
+      (h11 : PouwAccountable.UniqueCallIndices g s accept unique δidx)
+      (hcount : PouwAccountable.PerTileCount g s anchored unique cost (fun o => instHSub.hSub W (unsound o)) γ ηTT εcr) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o => And (accept o) (Real.instLT.lt (cost o) (instHMul.hMul (instHSub.hSub 1 γ) (instHSub.hSub W H)))) g s)
+        (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd a δin) δidx) (instHAdd.hAdd ηTT εcr))
+pin PouwAccountable.compute_used_audit: new
+  after:
+    PouwAccountable.compute_used_audit {n nT : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal} {mT : Nat} (σT : Fin nT → Fin mT)
+      (kT : Fin mT → Nat) (hkT : ∀ (s : Fin mT), instLENat.le (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)
+      (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real} (wmax : Fin mT → Real)
+      (hw0 : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) (hw : ∀ (t : Fin nT), Real.instLE.le (w t) (wmax (σT t)))
+      {δ ε γ : Real} (hδ0 : Real.instLT.lt 0 δ) (hδ1 : Real.instLT.lt δ 1) (hε : Real.instLT.lt 0 ε)
+      (hγ : Real.instLE.le γ 1)
+      (hsize :
+        ∀ (s : Fin mT),
+          Or (Eq (kT s) (FlockSoundness.Audit.Law.stratum σT s).card)
+            (Real.instLE.le
+              (instHMul.hMul (instHMul.hMul (FlockSoundness.Audit.Law.stratum σT s).card.cast (wmax s))
+                (Real.log (Real.instInv.inv δ)))
+              (instHMul.hMul (instHMul.hMul ε (PouwAccountable.totalWork w)) (kT s).cast)))
+      (hdom :
+        ∀ (B : Finset (Fin n)),
+          ENNReal.instLE.le (L.escape B)
+            ((PouwAccountable.closureLaw (FlockSoundness.Audit.Law.stratified σT kT hkT) cl).escape B))
+      (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)
+      (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) (anchored unique : Prod Bool (Finset (Fin n)) → Prop)
+      (cost : Prod Bool (Finset (Fin n)) → Real) {δin δidx ηTT εcr : ENNReal}
+      (h9 :
+        PouwAccountable.AnchoredInputs (FlockSoundness.Audit.audit L Reg session) σ' (fun o => Eq o.fst Bool.true) anchored
+          δin)
+      (h11 :
+        PouwAccountable.UniqueCallIndices (FlockSoundness.Audit.audit L Reg session) σ' (fun o => Eq o.fst Bool.true) unique
+          δidx)
+      (hcount :
+        PouwAccountable.PerTileCount (FlockSoundness.Audit.audit L Reg session) σ' anchored unique cost
+          (fun x => PouwAccountable.soundWork cl w (A.wrong (A.committedOf σ'))) γ ηTT εcr) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o =>
+            And (Eq o.fst Bool.true)
+              (Real.instLT.lt (cost o)
+                (instHMul.hMul (instHSub.hSub 1 γ) (instHMul.hMul (instHSub.hSub 1 ε) (PouwAccountable.totalWork w)))))
+          (FlockSoundness.Audit.audit L Reg session) σ')
+        (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd (instHAdd.hAdd (ENNReal.ofReal δ) εks) δlink) δin) δidx)
+          (instHAdd.hAdd ηTT εcr))
+pin PouwAccountable.exfiltration: new
+  after:
+    PouwAccountable.exfiltration {n : Nat} {L : FlockSoundness.Audit.Law n} {Reg : Type}
+      {session : Finset (Fin n) → Reg → FlockSoundness.Game Bool} {εks δlink : ENNReal}
+      (A : FlockSoundness.Audit.Analysis L Reg session) (hks : A.KnowledgeSound εks) (hlink : A.LinkSound δlink)
+      (hb : Fin n → Real) {δ : ENNReal} {H : Real} (hH : PouwAccountable.IsHarmBound L hb δ H)
+      (σ' : (FlockSoundness.Audit.audit L Reg session).Strategy) :
+      ENNReal.instLE.le
+        (FlockSoundness.Game.prob
+          (fun o => And (Eq o.fst Bool.true) (Real.instLT.lt H ((A.wrong (A.committedOf σ')).sum fun u => hb u)))
+          (FlockSoundness.Audit.audit L Reg session) σ')
+        (instHAdd.hAdd (instHAdd.hAdd δ εks) δlink)
+pin PouwAccountable.harmOpt_isHarmBound: new
+  after:
+    PouwAccountable.harmOpt_isHarmBound {n : Nat} (L : FlockSoundness.Audit.Law n) (h : Fin n → Real) (δ : ENNReal) :
+      PouwAccountable.IsHarmBound L h δ (PouwAccountable.harmOpt L h δ)
+pin PouwAccountable.harmOpt_le: new
+  after:
+    PouwAccountable.harmOpt_le {n : Nat} (L : FlockSoundness.Audit.Law n) (h : Fin n → Real) {δ : ENNReal}
+      (hδ : ENNReal.instLE.le δ 1) {H : Real} (hH : PouwAccountable.IsHarmBound L h δ H) :
+      Real.instLE.le (PouwAccountable.harmOpt L h δ) H
+pin PouwAccountable.harm_le_unsoundWork: new
+  after:
+    PouwAccountable.harm_le_unsoundWork {n nT : Nat} (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real}
+      (hw : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) {B : Finset (Fin n)} {u : Fin n} (hu : SetLike.instMembership.mem B u) :
+      Real.instLE.le (PouwAccountable.harm cl w u) (PouwAccountable.unsoundWork cl w B)
+pin PouwAccountable.mem_closureLaw_draw: new
+  after:
+    PouwAccountable.mem_closureLaw_draw {n nT : Nat} (Lt : FlockSoundness.Audit.Law nT) (cl : Fin nT → Finset (Fin n))
+      (ω : (PouwAccountable.closureLaw Lt cl).Ω) (u : Fin n) :
+      Iff (SetLike.instMembership.mem ((PouwAccountable.closureLaw Lt cl).draw ω) u)
+        (Exists fun t => And (SetLike.instMembership.mem (Lt.draw ω) t) (SetLike.instMembership.mem (cl t) u))
+pin PouwAccountable.stratified_isHarmBound: new
+  after:
+    PouwAccountable.stratified_isHarmBound {n m : Nat} (σ : Fin n → Fin m) (k : Fin m → Nat)
+      (hk : ∀ (s : Fin m), instLENat.le (k s) (FlockSoundness.Audit.Law.stratum σ s).card) (h : Fin n → Real)
+      (hmax : Fin m → Real) (hh : ∀ (u : Fin n), Real.instLE.le (h u) (hmax (σ u))) {c : Real} (hc0 : Real.instLE.le 0 c)
+      (hc :
+        ∀ (s : Fin m),
+          Or (Eq (k s) (FlockSoundness.Audit.Law.stratum σ s).card)
+            (Real.instLE.le (instHMul.hMul (FlockSoundness.Audit.Law.stratum σ s).card.cast (hmax s))
+              (instHMul.hMul c (k s).cast)))
+      {δ : Real} (hδ : Real.instLT.lt 0 δ) :
+      PouwAccountable.IsHarmBound (FlockSoundness.Audit.Law.stratified σ k hk) h (ENNReal.ofReal δ)
+        (instHMul.hMul c (Real.log (Real.instInv.inv δ)))
+pin PouwAccountable.unsoundWork_le_harm: new
+  after:
+    PouwAccountable.unsoundWork_le_harm {n nT : Nat} (cl : Fin nT → Finset (Fin n)) {w : Fin nT → Real}
+      (hw : ∀ (t : Fin nT), Real.instLE.le 0 (w t)) (B : Finset (Fin n)) :
+      Real.instLE.le (PouwAccountable.unsoundWork cl w B) (B.sum fun u => PouwAccountable.harm cl w u)
+pin PouwAccountable.unsoundWork_singleton: new
+  after:
+    PouwAccountable.unsoundWork_singleton {n nT : Nat} (cl : Fin nT → Finset (Fin n)) (w : Fin nT → Real) (u : Fin n) :
+      Eq (PouwAccountable.unsoundWork cl w (Finset.instSingleton.singleton u)) (PouwAccountable.harm cl w u)
+definition FlockSoundness.Audit.Law (FlockSoundness.Audit.Law), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.mem_closureLaw_draw, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Audit/Law.lean:29-34):
+    /-- A draw law over `n` units: the verifier's uniform coins, and the unit set each draws. -/
+    structure Law (n : ℕ) where
+      Ω : Type
+      [fintype : Fintype Ω]
+      [nonempty : Nonempty Ω]
+      draw : Ω → Finset (Fin n)
+definition FlockSoundness.Audit.Law.draw (FlockSoundness.Audit.Law), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.mem_closureLaw_draw, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Audit/Law.lean:34-34):
+      draw : Ω → Finset (Fin n)
+definition FlockSoundness.Audit.Law.escape (FlockSoundness.Audit.Law), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.mem_closureLaw_draw, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Audit/Law.lean:42-44):
+    /-- The probability that a draw misses every unit of `B`. -/
+    noncomputable def escape (L : Law n) (B : Finset (Fin n)) : ℝ≥0∞ :=
+      prCoin fun ω => Disjoint (L.draw ω) B
+definition FlockSoundness.Audit.Law.fintype (FlockSoundness.Audit.Law), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.mem_closureLaw_draw, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Audit/Law.lean:32-32):
+      [fintype : Fintype Ω]
+definition FlockSoundness.Audit.Law.Ω (FlockSoundness.Audit.Law), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.mem_closureLaw_draw, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Audit/Law.lean:31-31):
+      Ω : Type
+definition FlockSoundness.Audit.Analysis (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:61-73):
+    /-- What the analysis of an audit fixes.
+    * `Tr`, `wrong`: transcripts, and the units wrong in each;
+    * `committed`: the committed transcript, a function of the prover's state at registration;
+    * `ksFail S R τ u`: extraction of drawn unit `u` from the session state `τ` fails;
+    * `linkFail S R τ u X`: it succeeds, but disagrees with `X` on `u`'s wires;
+    * `cover`: a unit wrong in `X` fails one way or the other, from every state. -/
+    structure Analysis (L : Law n) (Reg : Type) (session : Finset (Fin n) → Reg → Game Bool) where
+      Tr : Type
+      wrong : Tr → Finset (Fin n)
+      committed : (R : Reg) → Cont L Reg session R → Tr
+      ksFail : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n → Prop
+      linkFail : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n → Tr → Prop
+      cover : ∀ S R (τ : Strategy (session S R)) u X, u ∈ wrong X → ksFail S R τ u ∨ linkFail S R τ u X
+definition FlockSoundness.Audit.Analysis.KnowledgeSound (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:82-89):
+    /-- **Knowledge soundness, per unit** (named hypothesis `ε_ks`): for every prover and every rule
+    `tgt` that picks a drawn unit before the session's first coin, the probability that the session
+    accepts while extraction of the picked unit fails is at most `ε_ks`. -/
+    def KnowledgeSound (εks : ℝ≥0∞) : Prop :=
+      ∀ (R : Reg) (τ : Cont L Reg session R) (tgt : L.Ω → Option (Fin n)),
+        avg (fun ω => prob (fun ok => ok = true ∧
+          ∃ u, tgt ω = some u ∧ u ∈ L.draw ω ∧ A.ksFail (L.draw ω) R (τ ω) u)
+          (session (L.draw ω) R) (τ ω)) ≤ εks
+definition FlockSoundness.Audit.Analysis.LinkSound (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:91-98):
+    /-- **The link term** (named hypothesis `δ_link`): for every prover and every rule `tgt` that
+    picks a drawn unit before the session's first coin, the probability that the session accepts while
+    the picked unit's extraction disagrees with the committed transcript is at most `δ_link`. -/
+    def LinkSound (δlink : ℝ≥0∞) : Prop :=
+      ∀ (R : Reg) (τ : Cont L Reg session R) (tgt : L.Ω → Option (Fin n)),
+        avg (fun ω => prob (fun ok => ok = true ∧
+          ∃ u, tgt ω = some u ∧ u ∈ L.draw ω ∧ A.linkFail (L.draw ω) R (τ ω) u (A.committed R τ))
+          (session (L.draw ω) R) (τ ω)) ≤ δlink
+definition FlockSoundness.Audit.Analysis.Tr (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:68-68):
+      Tr : Type
+definition FlockSoundness.Audit.Analysis.committed (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:70-70):
+      committed : (R : Reg) → Cont L Reg session R → Tr
+definition FlockSoundness.Audit.Analysis.committedOf (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:79-80):
+    /-- The committed transcript of an audit strategy. -/
+    def committedOf (σ : Strategy (audit L Reg session)) : A.Tr := A.committed (reg σ) (cont σ)
+definition FlockSoundness.Audit.Analysis.ksFail (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:71-71):
+      ksFail : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n → Prop
+definition FlockSoundness.Audit.Analysis.linkFail (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:72-72):
+      linkFail : (S : Finset (Fin n)) → (R : Reg) → Strategy (session S R) → Fin n → Tr → Prop
+definition FlockSoundness.Audit.Analysis.wrong (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:69-69):
+      wrong : Tr → Finset (Fin n)
+definition FlockSoundness.Audit.Cont (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:50-52):
+    /-- A prover's state after registering `R`: its session strategy for every draw. -/
+    abbrev Cont (L : Law n) (Reg : Type) (session : Finset (Fin n) → Reg → Game Bool) (R : Reg) :=
+      ∀ ω : L.Ω, Strategy (session (L.draw ω) R)
+definition FlockSoundness.Audit.audit (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:42-46):
+    /-- **The one-stage audit.** The prover registers `R : Reg`; the verifier draws `S` by `L`; the
+    session on the drawn units runs against `R`. Output: the verdict and the draw. -/
+    def audit (L : Law n) (Reg : Type) (session : Finset (Fin n) → Reg → Game Bool) :
+        Game (Bool × Finset (Fin n)) :=
+      .send Reg fun R => .coin L.Ω fun ω => (session (L.draw ω) R).map fun ok => (ok, L.draw ω)
+definition FlockSoundness.Audit.cont (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:57-59):
+    /-- The prover's state after registration. -/
+    def cont (σ : Strategy (audit L Reg session)) : Cont L Reg session (reg σ) :=
+      fun ω => Strategy.ofMap _ _ (σ.2 ω)
+definition FlockSoundness.Audit.reg (FlockSoundness.Audit.OneStage), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Audit/OneStage.lean:54-55):
+    /-- The registration of an audit strategy. -/
+    def reg (σ : Strategy (audit L Reg session)) : Reg := σ.1
+definition FlockSoundness.Audit.Law.stratified (FlockSoundness.Audit.Stratified), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.compute_used_audit, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Audit/Stratified.lean:35-39):
+    /-- **Independent uniform subsets inside the strata of `σ`**, `k s` of stratum `s`. -/
+    def stratified (σ : Fin n → Fin m) (k : Fin m → ℕ) (hk : ∀ s, k s ≤ (stratum σ s).card) : Law n where
+      Ω := (s : Fin m) → ((stratum σ s).powersetCard (k s))
+      nonempty := ⟨fun s => ⟨_, (Finset.powersetCard_nonempty.2 (hk s)).choose_spec⟩⟩
+      draw ω := univ.biUnion fun s => (ω s).1
+definition FlockSoundness.Audit.Law.stratum (FlockSoundness.Audit.Stratified), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.compute_used_audit, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Audit/Stratified.lean:29-30):
+    /-- Stratum `s` of the assignment `σ`: the units it assigns to `s`. -/
+    def stratum (σ : Fin n → Fin m) (s : Fin m) : Finset (Fin n) := univ.filter (σ · = s)
+definition FlockSoundness.Game (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:33-37):
+    /-- The verifier's side of a public-coin interaction with live coins. -/
+    inductive Game (α : Type) : Type 1 where
+      | ret : α → Game α
+      | send (M : Type) : (M → Game α) → Game α
+      | coin (C : Type) [Fintype C] [Nonempty C] : (C → Game α) → Game α
+definition FlockSoundness.Game.Strategy (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:89-95):
+    /-- A deterministic prover strategy: a message at every `send` node, for every history (the
+    history is encoded by the position in the tree, so a strategy is simply a choice at each node,
+    and after a coin it may depend on that coin). -/
+    def Strategy : Game α → Type
+      | .ret _ => PUnit
+      | .send _ k => (m : _) × Strategy (k m)
+      | @Game.coin _ C _ _ k => (c : C) → Strategy (k c)
+definition FlockSoundness.Game.avg (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:154-156):
+    /-- The uniform average over a finite type. -/
+    noncomputable def avg {C : Type} [Fintype C] (f : C → ℝ≥0∞) : ℝ≥0∞ :=
+      ∑ c : C, (Fintype.card C : ℝ≥0∞)⁻¹ * f c
+definition FlockSoundness.Game.bind (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:43-47):
+    /-- Sequencing: run `g`, then continue with `f` applied to its output. -/
+    def bind : Game α → (α → Game β) → Game β
+      | .ret a, f => f a
+      | .send M k, f => .send M fun m => bind (k m) f
+      | @Game.coin _ C iF iN k, f => @Game.coin _ C iF iN fun c => bind (k c) f
+definition FlockSoundness.Game.brecOn.go (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+definition FlockSoundness.Game.coin (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:37-37):
+      | coin (C : Type) [Fintype C] [Nonempty C] : (C → Game α) → Game α
+definition FlockSoundness.Game.map (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:84-85):
+    /-- Relabel the output. -/
+    def map (f : α → β) (g : Game α) : Game β := g.bind fun a => .ret (f a)
+definition FlockSoundness.Game.prCoin (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:176-178):
+    /-- The probability that a uniform coin satisfies `p`, as an average of indicators. -/
+    noncomputable def prCoin {C : Type} [Fintype C] (p : C → Prop) : ℝ≥0∞ :=
+      avg fun c => if p c then 1 else 0
+definition FlockSoundness.Game.prob (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:98-103):
+    /-- The exact probability, over the verifier's independent uniform coins, that the interaction
+    between the verifier `g` and the prover strategy `s` ends with an output satisfying `p`. -/
+    noncomputable def prob (p : α → Prop) : (g : Game α) → Strategy g → ℝ≥0∞
+      | .ret a, _ => if p a then 1 else 0
+      | .send _ k, s => prob p (k s.1) s.2
+      | @Game.coin _ C iF _ k, s => ∑ c : C, (@Fintype.card C iF : ℝ≥0∞)⁻¹ * prob p (k c) (s c)
+definition FlockSoundness.Game.ret (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:35-35):
+      | ret : α → Game α
+definition FlockSoundness.Game.send (FlockSoundness.Game.Basic), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (FlockSoundness/Game/Basic.lean:36-36):
+      | send (M : Type) : (M → Game α) → Game α
+definition FlockSoundness.Game.Strategy.ofMap (FlockSoundness.Game.Prob), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.compute_used_audit, PouwAccountable.exfiltration: new
+  now (FlockSoundness/Game/Prob.lean:122-126):
+    /-- A strategy for the relabelled game is a strategy for the game. -/
+    def Strategy.ofMap (f : α → β) : (g : Game α) → Strategy (g.map f) → Strategy g
+      | .ret _, _ => PUnit.unit
+      | .send _ k, s => ⟨s.1, Strategy.ofMap f (k s.1) s.2⟩
+      | @Game.coin _ _ _ _ k, s => fun c => Strategy.ofMap f (k c) (s c)
+definition PouwAccountable.AnchoredInputs (PouwAccountable.Assumptions), read by PouwAccountable.compute_used, PouwAccountable.compute_used_audit: new
+  now (PouwAccountable/Assumptions.lean:31-34):
+    /-- **A9, anchored inputs**: an accepted outcome has inputs other than the registration anchors with probability at
+    most `δin`. -/
+    def AnchoredInputs {α : Type} (g : Game α) (s : Strategy g) (accept anchored : α → Prop) (δin : ℝ≥0∞) : Prop :=
+      prob (fun o => accept o ∧ ¬ anchored o) g s ≤ δin
+definition PouwAccountable.PerTileCount (PouwAccountable.Assumptions), read by PouwAccountable.compute_used, PouwAccountable.compute_used_audit: new
+  now (PouwAccountable/Assumptions.lean:41-46):
+    /-- **A8 with A10, PoUW's per-tile count statement**: on outcomes with anchored inputs and unique call indices, the
+    online cost `cost` falls below `(1 − γ)` times the verified work `verified` with probability at most `ηTT + εcr`
+    (TT_NCP_U's error `ε(q, N)` per tile, and the collision term of `cr/sha-512`, in the random-oracle model). -/
+    def PerTileCount {α : Type} (g : Game α) (s : Strategy g) (anchored unique : α → Prop) (cost verified : α → ℝ)
+        (γ : ℝ) (ηTT εcr : ℝ≥0∞) : Prop :=
+      prob (fun o => anchored o ∧ unique o ∧ cost o < (1 - γ) * verified o) g s ≤ ηTT + εcr
+definition PouwAccountable.UniqueCallIndices (PouwAccountable.Assumptions), read by PouwAccountable.compute_used, PouwAccountable.compute_used_audit: new
+  now (PouwAccountable/Assumptions.lean:36-39):
+    /-- **A11, no call index registered twice**: an accepted outcome repeats a call index with probability at most
+    `δidx`. -/
+    def UniqueCallIndices {α : Type} (g : Game α) (s : Strategy g) (accept unique : α → Prop) (δidx : ℝ≥0∞) : Prop :=
+      prob (fun o => accept o ∧ ¬ unique o) g s ≤ δidx
+definition PouwAccountable.Layout (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:91-97):
+    /-- **The PoUW layout**: each tile's own unit, the X strip (`ncp-form-x`) and Y strip (`ncp-form-y`) it reads, and the
+    node units (`ncp-node`) on its X strip's path to D_A. -/
+    structure Layout (n nT : ℕ) where
+      tile : Fin nT → Fin n
+      xs : Fin nT → Fin n
+      ys : Fin nT → Fin n
+      path : Fin nT → Finset (Fin n)
+definition PouwAccountable.Layout.cl (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:103-104):
+    /-- A tile's closure: the units the closure draw proves with it, and on which its credit depends. -/
+    def cl (t : Fin nT) : Finset (Fin n) := insert (P.tile t) (insert (P.xs t) (insert (P.ys t) (P.path t)))
+definition PouwAccountable.Layout.path (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:97-97):
+      path : Fin nT → Finset (Fin n)
+definition PouwAccountable.Layout.tile (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:94-94):
+      tile : Fin nT → Fin n
+definition PouwAccountable.Layout.xs (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:95-95):
+      xs : Fin nT → Fin n
+definition PouwAccountable.Layout.ys (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:96-96):
+      ys : Fin nT → Fin n
+definition PouwAccountable.harm (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:48-50):
+    /-- **The harm of a unit**: the work of every tile whose credit depends on it. -/
+    def harm (cl : Fin nT → Finset (Fin n)) (w : Fin nT → ℝ) (u : Fin n) : ℝ :=
+      ∑ t ∈ univ.filter (fun t => u ∈ cl t), w t
+definition PouwAccountable.soundWork (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:40-42):
+    /-- **Verified work**: the work of the sound tiles, those whose closure holds no wrong unit. -/
+    def soundWork (cl : Fin nT → Finset (Fin n)) (w : Fin nT → ℝ) (B : Finset (Fin n)) : ℝ :=
+      ∑ t ∈ univ.filter (fun t => Disjoint (cl t) B), w t
+definition PouwAccountable.totalWork (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:33-34):
+    /-- The window's total work `W`. -/
+    def totalWork (w : Fin nT → ℝ) : ℝ := ∑ t, w t
+definition PouwAccountable.unsoundTiles (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:29-31):
+    /-- The tiles whose credit depends on a unit of `B`. -/
+    def unsoundTiles (cl : Fin nT → Finset (Fin n)) (B : Finset (Fin n)) : Finset (Fin nT) :=
+      univ.filter fun t => ¬ Disjoint (cl t) B
+definition PouwAccountable.unsoundWork (PouwAccountable.Charging), read by PouwAccountable.Layout.harm_node, PouwAccountable.Layout.harm_tile, PouwAccountable.Layout.harm_xs, PouwAccountable.Layout.harm_ys, PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.audit_strata, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.harm_le_unsoundWork, PouwAccountable.unsoundWork_le_harm, PouwAccountable.unsoundWork_singleton: new
+  now (PouwAccountable/Charging.lean:36-38):
+    /-- The work of the tiles made unsound by the wrong-unit set `B`. -/
+    def unsoundWork (cl : Fin nT → Finset (Fin n)) (w : Fin nT → ℝ) (B : Finset (Fin n)) : ℝ :=
+      ∑ t ∈ unsoundTiles cl B, w t
+definition PouwAccountable.both (PouwAccountable.Closure), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.mem_closureLaw_draw: new
+  now (PouwAccountable/Closure.lean:53-56):
+    /-- Two independent draws, proving the union of what each draws. -/
+    def both (L M : Law n) : Law n where
+      Ω := L.Ω × M.Ω
+      draw ω := L.draw ω.1 ∪ M.draw ω.2
+definition PouwAccountable.closureLaw (PouwAccountable.Closure), read by PouwAccountable.accountable_compute, PouwAccountable.accountable_compute_floor, PouwAccountable.audit_closure, PouwAccountable.both_escape_le, PouwAccountable.closureLaw_escape, PouwAccountable.compute_used_audit, PouwAccountable.mem_closureLaw_draw: new
+  now (PouwAccountable/Closure.lean:26-29):
+    /-- **Closure draws**: draw tiles by `Lt`, and prove each drawn tile's closure. -/
+    def closureLaw (Lt : Law nT) (cl : Fin nT → Finset (Fin n)) : Law n where
+      Ω := Lt.Ω
+      draw ω := (Lt.draw ω).biUnion cl
+definition PouwAccountable.IsHarmBound (PouwAccountable.HarmBound), read by PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (PouwAccountable/HarmBound.lean:27-30):
+    /-- **`harm_bound`'s specification**: every wrong-unit set that escapes with probability at least `δ` has harm at most
+    `H`. -/
+    def IsHarmBound (L : Law n) (h : Fin n → ℝ) (δ : ℝ≥0∞) (H : ℝ) : Prop :=
+      ∀ B : Finset (Fin n), δ ≤ L.escape B → ∑ u ∈ B, h u ≤ H
+definition PouwAccountable.harmOpt (PouwAccountable.HarmBound), read by PouwAccountable.audit_closure, PouwAccountable.audit_damage, PouwAccountable.audit_strata, PouwAccountable.exfiltration, PouwAccountable.harmOpt_isHarmBound, PouwAccountable.harmOpt_le, PouwAccountable.stratified_isHarmBound: new
+  now (PouwAccountable/HarmBound.lean:32-36):
+    /-- **The exact optimum `H*(δ)`**: the largest harm of a set escaping with probability at least `δ` (and at least the
+    empty set's harm, 0). -/
+    noncomputable def harmOpt (L : Law n) (h : Fin n → ℝ) (δ : ℝ≥0∞) : ℝ :=
+      (insert ∅ ((univ : Finset (Finset (Fin n))).filter fun B => δ ≤ L.escape B)).sup' (insert_nonempty _ _)
+        fun B => ∑ u ∈ B, h u

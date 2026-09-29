@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 9d90db9c (11:26Z) [open] #407 9d90db9c (on #403, with #404+#405): T3 hypotheses discharged; merge request 1126Z. Left: T3's scope (derived parts, no table read)
 CHECKPOINT f7da1a93 (10:44Z) [open] #403 f7da1a93: setupH_blockFacts + input_copy (TableClass placed/copy for templates); UnitShape ask 3 dropped (proved); waiting on asks 1-2 (flock-soundness) and hrows (flock-verifier)
 CHECKPOINT dedb77e1 (10:33Z) [open] T3 end to end: #403 dedb77e1 (setupH_blockFacts, on #401 fd2dd0a9); waiting on UnitShape (flock-soundness 1003Z) and the rows'-circuits check (flock-verifier 1011Z)
 CHECKPOINT fd2dd0a9 (10:08Z) [open] T3 #401 fd2dd0a9 (BlockFacts at every VU; draft, merge request 1008Z); #393 and #398 must land together (fix 22cd5666 in #401); UnitShape asked of flock-soundness 1003Z; next: TemplateLayout from setupH

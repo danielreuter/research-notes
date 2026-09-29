@@ -19,7 +19,8 @@ created: 2026-09-29T11:22Z
 - I kept main's template sections: "A template's block rows, placed" and "From the accept step".
 - I kept main's "Still to prove" list, not #404's shorter one, because the template's block rows from `setupH` are now proved.
 
-One line may be stale. Main's list still says "`UnitShape`'s other three fields from `deriveChecked`", and #404 may have
-proved some of those fields. Please correct that line in a small follow-up PR once T13 lands. The record, the pins and the
+**Update 11:30Z: no follow-up needed.** #407 joined T13. Its "Still to prove" list drops "`UnitShape`'s other three
+fields…" and "the rows' circuits' place…", which #407 proves, and adds "the message bit's position in the block, for
+`setupH_inputCopy`". I took #407's list, so the README says what T13 proves. The record, the pins and the
 Lean sources aren't affected. T13 regenerates the soundness `lean-audit.json` in its merge commit, and I compare every pin
 with its grant.

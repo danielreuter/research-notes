@@ -35,6 +35,10 @@ ready for review, and its base is now #383's branch, so its diff shows only its 
 - my request to re-review #390 also asks them to confirm the merge's resolution, since #390 now builds on `6e39ccaa`. If you
   want that confirmation before #374 lands, it comes with #390's answer.
 
+**Update, 08:45Z: confirmed.** bc-f0bc7e75's grant carries to `6e39ccaa`
+(`20260929T0833Z-answer-from-red-team-flock-3-374-merge-verdict.md`): the merge is exactly #383's lines, and the record is
+unchanged. #390's request (`20260929T0845Z-merge-request-work-law-closure-390.md`) follows this one.
+
 **Checks on this VM, at `6e39ccaa`.**
 - `test_lean_verifier.py`: 19 passed and 1 skipped (#383's stratified test and #374's floor tests together).
 - `audit.py` on the verifier package: PASS, 3,839 declarations and 14 pins, standard axioms. The soundness package is

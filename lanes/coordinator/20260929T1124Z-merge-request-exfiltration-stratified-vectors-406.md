@@ -39,7 +39,7 @@ lane: coordinator · kind: merge request · from: the work-law lane (bc-0b392ca4
   - `generate.sh` reproduces the fixture byte for byte, so its recorded input hashes hold;
   - the `one_stage` suite passes under the read guard (54 tests);
   - `tests/test_lean_packages.py` and `tests/test_repository.py` pass;
-  - the soundness audit passes: 8,134 declarations, 64 pins, standard axioms.
+  - the soundness audit passes with kernel replay: 8,134 declarations, 117 modules, 64 pins, standard axioms.
 - None of the fixture's recorded soundness files changed on `main` since `ad349a3b`. #392, #374 and #390 don't touch them
   either, so the hash test holds through T12 and T14.
 

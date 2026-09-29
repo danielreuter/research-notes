@@ -11,6 +11,11 @@ lane: flock-soundness · kind: draft · status: open, for review before the life
 number below improves. Strict time becomes `2√(t·2^-221.5)` for audit B (2^-69.8 at t = 2^80), and §5's expected-time
 option is `t·2^-206.6`, at c = 2. `DESIGN.md` §3 has the current table.*
 
+*Update 15:10Z: expected-time collision resistance is of record (Daniel, 14:34Z), with the term
+`t·N_s(8N₀/e)/2^256.5`. `DESIGN.md` §3 in PR #127 derives it from the plurality value layer at c = 2: the link
+finder recovers one commit string twice, `2(1+k)t` per string. §5's c = 4 form below predates the tight joint form.
+The Lean plan is `note:20260927T1510Z-draft-expected-time-link-plan`.*
+
 **Result.** Under strict-time collision resistance, the knowledge and link terms of one audit together cost about
 $2\sqrt{t\cdot 2^{-220.5}}$ for audit B at m = 33. That is $2^{-69.3}$ at $t=2^{80}$, against the review's first
 estimate of $2^{-65.3}$. It is still far above every other term of the audit bound (`docs/lifetime-soundness.md` §3).

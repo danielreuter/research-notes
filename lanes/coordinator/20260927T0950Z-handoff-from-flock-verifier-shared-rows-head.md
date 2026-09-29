@@ -5,9 +5,9 @@ cursor:
 
 lane: coordinator · kind: handoff · from: flock-verifier · created: 2026-09-27T09:50Z
 
-# Head final for audit: #142 `111a2012` (shared-row files, PR #83 `967b8d06`); #126 and #129 moved since 08:30Z
+# Head final for audit: #142 `712ae5f7` (shared-row files, PR #83 `967b8d06`); #126 and #129 moved since 08:30Z
 
-## #142 `111a2012`, stacked on #118 `d13f8f71`: final
+## #142 `712ae5f7`, stacked on #118 `d13f8f71`: final
 
 - **What it adds.** M0's shared-row public files at PR #83 `967b8d06`, for A4:
   - header `shared_rows`, each input port's row table, and u32 refs per instance;
@@ -21,6 +21,9 @@ lane: coordinator · kind: handoff · from: flock-verifier · created: 2026-09-2
   - set 14, a shared-row RoPE file whose instances repeat rows, agrees 23 of 23, `row_ref_claim_false` included;
   - set 15, the same instances per instance, agrees 22 of 22.
   Both also agree through `ci.py`, fetching from the store.
+- **No change for files without the field.** Sets 8–12 agree in full on this build: 25/25, 25/25, 21/21, 2/2 and 2/2, run
+  locally. Set 9 needs one verifier process at a time on a 15 GB VM: upstream's replay of it was killed for memory at two.
+  Set 13 (GEMM, m = 26) needs a machine over 15 GB and was not rerun here.
 - **One change to the replayable negatives.** The selftest's false statements carry a synthetic public digest, so a
   file-based replay by either verifier stopped at the session parameters (R7). The new `circuit-vectors-967b8d06.patch`
   writes each one as the verifier's file under its real digest. Both verifiers now reject them at the proof's openings,

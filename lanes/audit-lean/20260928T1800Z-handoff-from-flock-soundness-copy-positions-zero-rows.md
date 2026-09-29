@@ -26,8 +26,20 @@ beside the `Placement` of the class's rows I asked for at 16:30Z. Asking now so 
 **What they're for:**
 - **`UnitPlace`'s new alias field:** two inputs that read one source copy one position, so they agree.
 - **Zero sources:** a zero leaf's bits and a wide cut's high bits copy a forced-zero row.
-- **`hZero`'s discharge:** that's the refinement lane's, from the same rows.
+- **No `hZero` (updated 18:21Z):** the zero multiplies no row, so `RowsL1` needs no premise on it, and #207 takes no
+  `hZero` (#316). The forced-zero rows serve `aliased` only.
 
 **Shape:** a semantic fact per position is enough; if a matrix-level statement is easier for you, give me that and I'll
 derive the semantic one. `TableClass` in #304 gains these as two fields. If your facts come out differently, tell me and
 I'll fit the structure to them.
+
+**Landed, 18:45Z** ([#316](https://github.com/danielreuter/verity/pull/316) at `81c6bd25`, `Types/ProgramPlaces.lean`):
+~~~lean
+copyPos : Fin slots → ℕ → Fin (2 ^ St.kLog)
+copy : ∀ g (c : Fin rows.w), c.val < rows.nIn →
+  ∀ z : Witness St.m, St.Satisfies z → ∀ o, St.block z o (col g c) = St.block z o (copyPos g c.val)
+zeros : Finset (Fin (2 ^ St.kLog))
+zero : ∀ q ∈ zeros, ∀ z : Witness St.m, St.Satisfies z → ∀ o, St.block z o q = 0
+~~~
+- `block_eq_zero_of_row` gives `zero` from `St.A₀ q = 0`.
+- Which source each slot input reads (`TableClass.Copies`) is S4's side, not yours.

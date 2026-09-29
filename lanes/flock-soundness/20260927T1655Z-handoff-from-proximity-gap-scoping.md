@@ -40,8 +40,14 @@ $$E_0 < \tfrac83\, n\, t'^3/\rho \;\le\; \tfrac23 (m+\tfrac12)^5\, n/\rho^{3/2} 
 
 - **The edge case $k = n$** (so $D = n - 1 > n - 2$): the code is all of $F^n$, so `mcaError = 0` (ArkLib's
   `mcaError_top_eq_zero`). $k > n$ contradicts $\delta < 1 - \sqrt{(k-1)/n}$.
-- **Numerically,** $E_0$ is $2^{9.6}$ to $2^{12.2}$ below $a$ at every `fast100` level, and at most $0.09\,a$ over 200,000
-  random points of A1's range (`internal/proximity-gap-formalization/`).
+- **Numerically,** $E_0$ is $2^{8.2}$ to $2^{12.3}$ below $a$ at every `fast100` level and at M1's padded level 0, and at
+  most $0.09\,a$ over 200,000 random points of A1's range (`internal/proximity-gap-formalization/regime_model.py`).
+
+**Proof of concept (17:00Z).** `internal/proximity-gap-formalization/A1FromDKT26.lean` checks against the pin in 142 lines.
+- `bchks25Thm46_fin'` is `Assumptions.BCHKS25Thm46` with `ι := Fin n` and no other change.
+- It rests on `bchks25Thm46_fin` (the case `k < n`) and on `dim_eq_min_deg_card` with `mcaError_top_eq_zero` for `k ≥ n`.
+- `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for both.
+- To check it: in an ArkLib `b2e456fc` checkout, run `lake build ArkLib.Data.CodingTheory.ReedSolomon.MutualCorrelatedAgreement.Johnson.Probability`, then `lake env lean A1FromDKT26.lean`.
 
 ## What I would propose, for you to accept, change or take over
 
@@ -58,7 +64,6 @@ $$E_0 < \tfrac83\, n\, t'^3/\rho \;\le\; \tfrac23 (m+\tfrac12)^5\, n/\rho^{3/2} 
 Daniel asked about. On `fast100` at m = 33 it costs about 36% in proof bytes, and about 21% if levels at rate ≤ 1/8 use
 ArkLib's proved 1.5-Johnson bound. It is moot unless you find a problem with the route above.
 
-**Asks.** Tell me whether you object; whether you want to do (1)–(4) yourself, or want a proof-of-concept file from me
-first; and whether you would rather keep `Assumptions.BCHKS25Thm46` as a proved theorem, with the reindexing, than
-delete it. Reply by handoff in `internal/lanes/proximity-gap-scoping/` or to the coordinator. My write-up for Daniel is
+**Asks.** Tell me whether you object; whether you want to do (1)–(4) yourself, starting from the proof of concept; and
+whether you would rather keep `Assumptions.BCHKS25Thm46` as a proved theorem, with the reindexing, than delete it. Reply by handoff in `internal/lanes/proximity-gap-scoping/` or to the coordinator. My write-up for Daniel is
 `docs/proximity-gap-formalization.md`, and it says this is pending your review.

@@ -32,3 +32,12 @@ in the Project store.
     asserts no secret reaches a workload. So every gate runs with `VERITY_SKIP_STORE=1`. The tests should skip when the
     remote isn't configured.
   - **Your verdict on #311, #312 and #315** is still needed before W merges.
+
+## Update 22:27Z
+
+- **audit-lean (#319):** on D3′ (`93f7363d`: T + #134 + #267, #260, #301, #281, #292, #286, #274, #321, #325, #208, #218),
+  `lake build` of `backends/flock/verifier/lean/soundness` fails at `FlockSoundness.ExecSetup`, in check
+  `r20260928-211629-ea8d`. #319 is out of tonight's trains. Please re-merge `main` into #319 once D3′ lands.
+- **circuit-checks (#134):** #320's file guard failed `tools/check`'s suite with `outside: ['READY.json']`, because
+  `check.py` reads the `READY.json` a pod writes into the shipped tree. K2 carries a coordinator commit adding `"READY.json"`
+  to `tools/check`'s `[tool.verity.tests] inputs`. Please take it into #134.

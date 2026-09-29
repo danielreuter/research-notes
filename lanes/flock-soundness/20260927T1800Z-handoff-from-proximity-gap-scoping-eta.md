@@ -51,3 +51,65 @@ retune.
 
 **Optional:** the exact list bound. It gives lists of 29 instead of 200 at level 0 for extraction, and +0.17 bit. Its
 bridge replaces `irs_lambda_le_johnson_mds` in `ListSize`; I'll write it if time allows.
+
+## Update 18:05Z: done, and checked against a full build
+
+**The whole change builds.** I applied it to a scratch copy of the soundness package, outside the repo, on `main` with
+the pinned ArkLib, then ran `lake build FlockSoundness`.
+- The build succeeded with no errors, and its only warnings are the pre-existing lints.
+- `Check.lean` shows every headline theorem on `propext`, `Classical.choice` and `Quot.sound` alone.
+- `hMCA` is still a hypothesis in that build: the retune is independent of the A1 removal.
+
+**The retuned numbers, all proved by `decide +kernel` as before:**
+
+| Theorem | Before | After ($\eta = 1/200$) |
+|---|---|---|
+| `tableError_le_of_le_33` (m = 22–33) | $2^{-195.5}$ | $2^{-205}$ |
+| `tableError_le_of_34_35` (m = 34, 35) | $2^{-195.4}$ | $2^{-205}$ |
+| `padTableError_le_m1` (M1, m = 25–27) | $2^{-196.5}$ | $2^{-205}$ |
+
+- **The rational bounds per m, before rounding** (reproduced exactly in Python): m = 22 gives $2^{-206.38}$, m = 23–24
+  $2^{-206.80}$, m = 25–27 $2^{-205.68}$, m = 28–30 $2^{-205.32}$, m = 31–33 $2^{-205.04}$ and m = 34–35 $2^{-205.01}$. One
+  target covers them all.
+- **The names are kept,** so downstream only changes numerals.
+- **The fold term,** with BCHKS25's printed numerator capped at multiplicity 200, stays below $2^{-184}$.
+
+**The files** (the retuned `Accounting/` copies and the patch are Verity code, so they are in `artifacts/`, which is not
+mirrored):
+- `artifacts/eta-retune-20260927/eta-retune.patch`: 12 files and 288 changed lines, which applies cleanly to `main`
+  (`git apply --check`).
+- `artifacts/eta-retune-20260927/Accounting/`: the six retuned accounting files. They compile on their own against the
+  pin's Mathlib, and each imports only Mathlib.
+- `internal/proximity-gap-formalization/ListFromPairwiseJohnson.lean` (optional): `interleaved_card_le_pairwiseJohnson`,
+  on standard axioms. Its kernel-checked example bounds the m = 33 level-0 list by 29.
+
+**The integration steps, in the change set with the A1 removal and after the A2 fix:**
+
+1. **Apply the patch,** `git apply artifacts/eta-retune-20260927/eta-retune.patch`. If the A1 removal has moved the same
+   lines, the recipe is mechanical:
+   - copy the six `Accounting/` files over yours, then re-apply your A1 edits there if any touched `Accounting/`;
+   - in `ListSize.lean`, change `25 * 2 ^ r` and `(25 * 2 ^ l.logInvRate : ℕ)` to 100 (and the docstrings);
+   - in `PadCode.lean`, change `25 * 2 ^ d` to `100 * 2 ^ d` throughout `card_closeRows_le`;
+   - change `195.5` and `195.4` to `205` in `Soundness.lean`, `Instance.lean` and `Audit/Flock.lean`;
+   - change `196.5` to `205` in `SoundnessPad.lean`.
+2. **Build, and run `Check.lean`.** Then run `tools/lean/audit.py --all --build`, then `--update`.
+   - The pins will flag `eta`, `Level.radius`, `Level.listBound`, `padListBound`, `padRadius` and every statement that
+     reads them, plus the numerals.
+   - The merge handoff names the statement reviewer (contract 2.3). The substantive change for that reviewer is the wider
+     level-0 radius in `CommittedSatisfies`.
+3. **Docs in the same change.**
+   - `ASSUMPTIONS.md`: the §1.1 and §9 numbers (205); the §2 list size (200 entries at rate 1/2, not 50); the $\eta$
+     wording (the analysis slack is $1/200$, and §15's 0.02 is a diagnostic).
+   - `DESIGN.md`: the §5 list sizes, and §7's statistical bits (195.5 becomes 205).
+4. **Tell the downstream owners** (the coordinator relays):
+   - flock-verifier: the soundness paragraph of `PROTOCOL.md` §15;
+   - the tables lane: Table 1's statistical number;
+   - audit-lean: its docs quoting $2^{-195.4}$. Its theorems are in the patch.
+   - the lifetime doc: $N\cdot 2^{-195.5}$ becomes $N\cdot 2^{-205}$, so the statistical part allows $N$ up to about
+     $2^{77}$.
+5. **Optional, afterwards:** the exact lists. In `card_close_le`, feed `interleaved_card_le_pairwiseJohnson` with the rows
+   from `tr_encode_mem` and the column agreement from `Close`, with `A = Nat.sqrt (2^c·2^d) + 2^d/200`, and define
+   `listBound` by `Code.pairwiseJohnsonListBound`.
+
+**What is not needed:** ArkLib's per-level fold bound, and DKT26's count in place of BCHKS25's numerator. Neither moves
+the bound at $\eta = 1/200$. The A1 bridge already holds at the retuned radius.

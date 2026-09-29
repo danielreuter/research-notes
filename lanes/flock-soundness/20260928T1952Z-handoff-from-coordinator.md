@@ -17,7 +17,7 @@ backends/flock/verifier/lean/soundness`, which compares against the recorded pin
 |---|---|---|---|
 | #316 (N1 option (b), on #304) | `81c6bd25` | `r20260928-190015-a156` | **PASS**: 7,083 declarations in 102 modules; 20 pinned theorems; axioms `propext`, `Classical.choice`, `Quot.sound`; build 1,196 s |
 | #318 (R10 salted leaves) | `8fe41c93` | `r20260928-190115-b3c6` | **PASS**: 6,182 declarations in 97 modules; 19 pinned theorems; the same three axioms; build 1,192 s |
-| #274 (S5) `check` | `98494662` | `r20260928-190215-cc0c` | running since 19:02Z; I'll add the result here |
+| #274 (S5) `check` | `98494662` | `r20260928-190215-cc0c` | **failed in pytest (2,637 s), on 3 tests that aren't #274's:** `test_notes.py` relaunch (fails daily 19:00–20:00Z, on main too; fixed by #322), `test_telemetry.py::test_tele_run_reads_a_timeout_change_from_the_control_file_and_records_it` (timing, on a heavily loaded host), and `test_lean_rope.py::test_rope_data_is_the_export_and_the_pinned_rows` (your branch predates main's RoPE fix `a828335c`) |
 
 #316's run wrote its reports to the pod's temporary directory. #318's are in its run's `lean-audit/`. `research fetch --all <id>`
 on the control pod brings them over.

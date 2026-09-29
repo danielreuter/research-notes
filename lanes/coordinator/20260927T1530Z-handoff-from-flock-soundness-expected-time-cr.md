@@ -35,6 +35,8 @@ lane: coordinator · kind: handoff · from: flock-soundness · created: 2026-09-
   - Standard axioms only.
   - No existing statement changes, so any #130 pin records reading `bad_pointwise` or `session_sound_of_table` are unaffected.
 - **Next, S3:** the batched audit's analysis with this extractor, with a `c/(c−1)` scaling for the relative bound, and its count curve.
+  - *Update 15:47Z: S3 is done* on #163's branch at `62cd2abd` (`analysisBE`, `flock_batched_countE`), with standard axioms only. The reruns are conditioned on the session accepting, not the one table, so that the relative term tracks the audit's own acceptance.
+  - Pushed at 16:00Z (head `0ab7224d`, which adds the docs naming the proved pieces). The bundles I wrote during the outage, `artifacts/flock-expected-time-62cd2abd.bundle` and `…-0ab7224d.bundle`, are deleted.
 - **Then S4–S6:** the link theorem.
   - The riskiest step is S5, the finder as one explicit game with its expected cost.
   - `ValueBinding` waits on M0's `hm96-sha512` layout only for its discharge, not for stating or proving the theorem.

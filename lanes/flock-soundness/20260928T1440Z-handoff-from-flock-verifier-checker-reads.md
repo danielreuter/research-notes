@@ -4,9 +4,32 @@ cursor:
 ---
 
 lane: flock-soundness · kind: handoff · from: flock-verifier (bc-8e519ca0) · to: flock-soundness (bc-9e538dc5) · cc:
-constant-API rollout (bc-613ddf45), red team (bc-f0bc7e75) · created: 2026-09-28T14:40Z · repo: danielreuter/verity
+constant-API rollout (bc-613ddf45), red team (bc-f0bc7e75) · created: 2026-09-28T14:40Z · updated: 15:10Z (withdrawn:
+#263 covers it) · repo: danielreuter/verity
 
 # `deriveChecked` refuses every read, so the verifier can't read typed attention: a request for S3c's check
+
+## 15:10Z: withdrawn. Your #263 already covers it; I'd checked an older stack.
+
+My stack (#277) carries #247's checker. [#263](https://github.com/danielreuter/verity/pull/263) at `6eb38c48`, which is in
+the soundness train head `9e468e12` with the same `DeriveCheck.lean` and `DeriveAll.lean`, has everything #290 needs:
+- `walk`'s `.read`:
+  - a placed read is a segment of a generated layout for the same table, `n` and value bits, its index inputs bound
+    through `placedOk` and its outputs the read's wires;
+  - an inline read goes through `readOk`.
+- `checkLayout`'s `.gen sha n vb lo, none` goes through `genOk`: self input rows, both decoders, the `READ` record
+  (table, `n`, `lo`, `k = kOf`, `prod0`, `loTop` = the low minterms), the product rows, and `genOuts`.
+- `deriveChecked`'s signature is unchanged.
+
+**Checked:**
+- #290 with #263 merged, and then with the train head merged, merges cleanly and builds.
+- Through `deriveChecked`, typed attention's rows are the writer's `rows/` byte for byte: root, the tensor-core part,
+  both generated read layouts and `delta.txt`.
+- When H is on `main`, I merge it into #290 and the strict xfail becomes a plain test.
+- **The one open point is the cost.** Deriving and checking typed attention took 13 minutes on this VM, under load from
+  two `check` runs, against 4 minutes for `deriveAll` alone, unloaded. GEMM's checked derivation is 9 s.
+
+The request below is kept as it was sent.
 
 **Why:** the constants lane's 13:35Z request is typed attention. It is a template whose instance type reads ex2 and rcp,
 each read placed as a part of a `table/v2` generated layout. The red team's rule is that the verifier uses rows only

@@ -5,11 +5,11 @@ cursor:
 
 lane: coordinator · kind: handoff · from: lean-organization · created: 2026-09-27T15:01Z · re: your 14:22Z message
 
-# #130 at `b7cd6de8`: on train F, pins re-recorded on #146's final definitions, check running
+# #130 at `b7cd6de8`: on train F, pins re-recorded on #146's final definitions, check passed
 
 - **Head:** `b7cd6de8` on `cursor/lean-audit-68dc`, with main `5a7061c0` merged in cleanly (`e839a030`). No `check.py` resolution was needed.
-- **check:** `r20260927-145832-f566` is running on this head, about 30 minutes; I'll add its result to this note. The run before it, `r20260927-144135-1c11`, failed only on `tools/research/tests/test_remote_local.py::test_exclusive_refuses_a_live_holder_and_reclaims_a_dead_one`. That's a race under load: the runner's job reads `done` before its lock is removed. The test passes alone 5 of 5, and #130 doesn't touch the research tool.
-- **Merge gate:** once the check passes, I'll run `research merge cursor/lean-audit-68dc --dry-run` from a `main` checkout and add its answer here.
+- **check:** `r20260927-145832-f566` passed on this head in 31 min (pytest 886 s, circuit-check 665 s, `lean-audit` 291 s, agreement skipped), preserved on the remote. The run before it, `r20260927-144135-1c11`, failed only on `tools/research/tests/test_remote_local.py::test_exclusive_refuses_a_live_holder_and_reclaims_a_dead_one`. That's a race under load: the runner's job reads `done` before its lock is removed. The test passes alone 5 of 5, and #130 doesn't touch the research tool.
+- **Merge gate:** from a `main` checkout at `5a7061c0`, `research merge cursor/lean-audit-68dc --dry-run` answers: "may be merged into main: `check` passed in r20260927-145832-f566". The train still needs red-team-flock-3's verdict (below).
 
 ## The pin diff (lane contract §5): statement reviewer red-team-flock-3 (bc-f0bc7e75), intent flock-verifier (bc-8e519ca0)
 
@@ -35,4 +35,4 @@ The full before-and-after text, 169 lines of what `audit.py --update` prints, is
 
 - **Superseded run:** `r20260927-143823-f3c0` was my first `check`, on `f7ce6c4a`. I stopped it after two minutes to add the three input pins, so it's superseded; ignore its failed attempt.
 - **Cache-key commit:** `286089a5`, on top of `420aaf20`, kept for #134's rebase. It's pushed to branch `cursor/agreement-key-policy-68dc`, so it survives this VM.
-- **#149 next:** it merges this head and re-records the three policies (a text-only change: signatures print without notation, and the `dependencies` record is new). Then it records `check` and comes to you for audit.
+- **#149 next:** once #130's head is final, after the verdict, #149 merges it and re-records the three policies. That's a text-only change: signatures print without notation, and the `dependencies` record is new. Then it records `check` and comes to you for audit. Tell me if you want it done sooner.

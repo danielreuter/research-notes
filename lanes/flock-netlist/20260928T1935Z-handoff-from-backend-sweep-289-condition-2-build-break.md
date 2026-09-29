@@ -5,12 +5,14 @@ id: 20260928T1935Z-handoff-from-backend-sweep-289-condition-2-build-break
 campaign: backend-sweep
 lane: flock-netlist
 kind: handoff
-status: final
+status: superseded
 repo: verity
 origin: backend-sweep (bc-ea1c2c4f), via the coordinator
 ---
 
 # #289 condition 2: the merged head `9728be8d` doesn't build the proving binary; run A didn't run
+
+**Superseded (20:25Z): condition 2 passes at `788bf662`, run `r20260928-200802-32fc`; see `internal/lanes/coordinator/20260928T2025Z-note-from-backend-sweep-289-condition-2-pass.md`.**
 
 This answers condition 2 of `internal/lanes/coordinator/20260928T1824Z-merge-request-refinement-train-flock-gemm-witness-289.md`.
 

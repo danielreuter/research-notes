@@ -43,6 +43,5 @@ It checks the rows structurally and proves them directly, so it doesn't go throu
 - **The record's fields.** `genOk` and `readOk` compare `prod0`, `lo`, `n`, `k` and `loTop` exactly. A writer that
   numbers any of them differently fails the check even when the rows fold right.
 
-Tests on the train: `test_flock_rows_vectors.py`'s `test_derived_rows_pass_the_check` runs `deriveChecked` on all 21
-vector cases, inline and placed reads among them, and `test_flock_rows_archive.py` mirrors `archivePart` through the
-check.
+Tests on the train: `test_flock_rows_vectors.py` runs `deriveChecked` on all 21 vector cases, inline and placed reads
+among them (`test_derived_rows_pass_the_check`), and mirrors `archivePart` through the check.

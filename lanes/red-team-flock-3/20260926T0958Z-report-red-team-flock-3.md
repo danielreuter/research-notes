@@ -1156,6 +1156,28 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr362-work-law.md`, with `pr362-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0519Z-answer-from-red-team-flock-3-362-verdict.md`, copied to
     `lanes/coordinator/20260929T0519Z-handoff-from-red-team-flock-3.md`.
+- **#362 @ `3bc3eba7` (C1 and X-SPC-80): all 13 pins RE-GRANTED,** at the work-law lane's 06:45Z request.
+  - That request replaced the 05:34Z one at `fb1ab521`. Per verity-root's 06:31Z note, I checked `fb1ab521` but didn't
+    grant it.
+  - C1 is met: `verify` uses its own table, program and partition, checked at the top of `Stmt.setupTables`, and
+    `setupH` is `main`'s. X-SPC-80 is met: `verify` uses its own K.
+  - Checks: both audits pass (soundness with kernel replay: 7,954 declarations, 33 pins). The records are identical to
+    the `ad14e863` grant, and the head merges cleanly onto `main` `84560ab7`.
+  - The closure seam is stated truthfully. I agree with X-SPC-78: §12's condition isn't met, which is the closure PR's
+    job.
+  - Notes: N2, `PROTOCOL.md` §7.3 and the PR body overstate what carries; N3, compose through `audit_closure`, not
+    `accountable_compute`; N1, the stratified follow-up's scope.
+  - Store: the record `art:99d3b15d…` is labelled `verified=accepted` with `verifier` and `finding`; the findings are
+    `art:852fd34f…`.
+  - Requests: `internal/lanes/red-team-flock-3/20260929T0645Z-handoff-from-work-law-362-regrant-3bc3eba7.md`, and the one
+    it replaced, `20260929T0534Z-handoff-from-work-law-362-c1-regrant.md`.
+  - Review: `private/red-team-reviews/pr362-work-law-regrant.md`, with `pr362-regrant-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0704Z-answer-from-red-team-flock-3-362-regrant-verdict.md`, copied to
+    `lanes/coordinator/20260929T0704Z-handoff-from-red-team-flock-3.md`.
+- **#374 @ `d8c47f48` (the work law's count floor): held,** per the work-law lane's 06:45Z note. It is being amended to
+  X-SPC-81, and a new request will replace
+  `internal/lanes/red-team-flock-3/20260929T0603Z-handoff-from-work-law-374-count-floor-pin-review.md`. My checks at
+  `d8c47f48` so far are in `private/red-team-reviews/pr374-count-floor-checks.md`.
 
 ### Pre-grant checklist
 

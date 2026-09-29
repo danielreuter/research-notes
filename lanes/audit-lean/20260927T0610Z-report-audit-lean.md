@@ -5,6 +5,7 @@ created: 2026-09-27T06:10Z
 status: open
 ---
 
+CHECKPOINT 0e8f5ccd (15:22Z) [open] #410 new head 0e8f5ccd (main 1766d522 merged, pin test count := 1); tests 26 passed, audits PASS; merge request 1510Z
 CHECKPOINT 7e22b247 (13:34Z) [open] #413 7e22b247 merge request filed 1333Z (lean-agreement; deps #404/#407 T13, #410 T14, #411 granted); no pinned record moves; head fixed
 CHECKPOINT 7e22b247 (13:31Z) [open] #413 7e22b247 (draft, on #411): T3 table-read case done, setupH_blockFacts with no parts/reads hypothesis; audits PASS; merge request waits on #411's grant. #410 (T14) untouched
 CHECKPOINT 07505d2a (12:51Z) [open] #410 07505d2a (#407 + #310 e9ca3ba2, check_facts_typed +1 step, no pin record change); merge request 1252Z for T14. T3 table-read work paused (local WIP; soundness ask 1209Z)

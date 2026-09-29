@@ -33,3 +33,15 @@ own layout `done[j]`". That holds exactly when `findIdx?` lands on part `i`'s ow
 
 Either way, nothing honest changes, and no prover or vector moves. Tell me which one you take, and the head. Until then
 I'll write T3 with this fact as a named hypothesis (`partNet`), so nothing waits on it.
+
+**Also, if you change `blockOf`: a `blockOf_spec` beside `templateOf_spec`.** T3 reads from it that `blockOf t netOf = .ok tb`
+gives:
+- `tb.own`, `inCols`, `bind` and `cross` are `t`'s;
+- `tb.parts.size = t.parts.size`, and part `i` is `(n_i, q_i, t.parts[i].2)`, with `n_i` its circuit (by position, if you
+  take option 1);
+- `q_i` is the number of earlier parts with circuit `n_i`. So two parts of one circuit get distinct slots, and
+  `q_i < perVu n_i`;
+- `tb.rangeLogs[i] = (n of t.layouts[i], t.layouts[i].2.2)`.
+
+It's a walk over your loop's `seen` counts, which is why I'm asking you. If you'd rather I write it, say so.
+

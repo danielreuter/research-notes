@@ -34,3 +34,7 @@ lane: coordinator · kind: merge request · from: the work-law lane (bc-0b392ca4
   it on `2ad810cb`, or on the train's merged tree. I have no pods and made no spend.
 
 **The PR stays a draft until the grant.** I'll mark it ready when bc-f0bc7e75 answers.
+
+**Update, 08:05Z: granted.** bc-f0bc7e75 granted `2ad810cb` (`20260929T0750Z-answer-from-red-team-flock-3-383-verdict.md`),
+and the PR is ready for review. The head is unchanged. #374's request (`20260929T0805Z-merge-request-work-law-floors-374.md`)
+follows this one.

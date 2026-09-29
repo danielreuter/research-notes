@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT 0655d66d (06:36Z) [open] READY merge request #356 0655d66d (check r20260929-053947-aaad passed; cold audit from the store 1,434 s vs 1,887 s cloning, 0 GitHub attempts) and #357 d8102f81; drafts #363 (one shared Lean tree: 26 -> 10 GB, audit passed) and #376 (--prepare); upstream Flock build is AVX-512 only (SIGILL on EPYC 7713P), fix needs a pod: asking; pod terminated 06:34Z, ~$1.01; agent bc-1122c760
 CHECKPOINT 91ac394b (03:27Z) [open] WAITING r20260929-032531-8f07 on vy-circuit-checks-deps (6l4bj8tmqf8x5l), check after 04:17Z; agent bc-1122c760; next: pin the exported bundles, then the no-GitHub measurement and check on #356's pinned head
 CHECKPOINT 91ac394b (03:24Z) [open] IN USE vy-circuit-checks-deps (6l4bj8tmqf8x5l, US-CA-2, $0.32/h, fleet guard $1.10 until 07:30Z, dead-man 05:54Z): run 1 exports the Lean dependency bundles (~55 min), then the no-GitHub measurement and check on #356; terminated after; agent bc-1122c760
 CHECKPOINT 91ac394b (03:16Z) [open] BUILT #356 (Lean deps from the store via presigned URLs) and #357 (suites keyed on uv.lock closure); WAITING the coordinator's fleet guard vy-circuit-checks-deps (asked 02:54Z) before one US 8 vCPU pod for bundles + measurement + check; agent bc-1122c760

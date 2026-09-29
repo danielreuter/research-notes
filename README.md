@@ -13,12 +13,12 @@ files.
 
 ## Evidence that used to be here
 
-On 2026-09-29 the files under `renders/`, `campaigns/*/assets/` and `lanes/*/evidence/` whose bytes the evidence store
-holds (4,401 files, 70 MB; each checked by its sha256, size and MD5 against the store) left the tree.  A `notes-asset:<path>`
-citation, or a path in an older note, still resolves two ways:
+On 2026-09-29 every file under `renders/`, `campaigns/*/assets/` and `lanes/*/evidence/` left the tree: 5,033 files, 281 MB,
+each in the evidence store first and checked there by its sha256, size and MD5.  A `notes-asset:<path>` citation, or a path
+in an older note, still resolves two ways:
 
-- the store: the index `art:4bedc7b053caaa80c0105fa9346ee799b00cbdb09a2492879b459e85092e35d9` has one line per file,
+- the store: the index `art:92e189514c344a4e6abce0c22bd53b3ba55de1cbf9763d57be531698fb8f58ae` has one line per file,
   `{path, sha256, bytes, art, member}`; `research data fetch <art> --path <member>` restores it;
 - history (never rewritten): `git show "$(git log -1 --format=%H --diff-filter=D -- <path>)^:<path>"`.
 
-Files the store did not hold stayed (mostly `renders/`); `research notes sync` keeps new ones out.
+`research notes sync` keeps new ones out: evidence goes to the store (`research data put --kind evidence/v1 ... --preserve`).

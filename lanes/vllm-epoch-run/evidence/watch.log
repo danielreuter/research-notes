@@ -1,4 +1,0 @@
-/home/ubuntu/research-notes/lanes/vllm-epoch-run/evidence/pod-scripts/watch_pods.sh: line 34: syntax error near unexpected token `fi'
-/home/ubuntu/research-notes/lanes/vllm-epoch-run/evidence/pod-scripts/watch_pods.sh: line 34: `  fi'
-2026-09-28T23:52:31Z #67 vyv-rf-epoch-67 r20260928-161923-0a05: fail-fast TERMINATED at 453 min ()
-2026-09-28T23:52:35Z #68 vyv-rf-epoch-68 r20260928-183104-1d90: fail-fast TERMINATED at 321 min ()

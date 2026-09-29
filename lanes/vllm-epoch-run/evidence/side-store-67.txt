@@ -1,4 +1,0 @@
-research: guard on pod 626g11msm37hpi: pid 872 (already running), terr20260928-213331-5d88
-90 idle min once every run is fetched (`research fetch --all`); state /workspace/research/guard/state.json
-research: run r20260928-213331-5d88 launched on vyv-rf-epoch-67 (626g11msm37hpi) pid=44197 -> /workspace/research/runs/r20260928-213331-5d88
-research: observe with `research fetch r20260928-213331-5d88`; the workload does not depend on this session staying alive

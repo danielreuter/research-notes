@@ -1,3 +1,0 @@
-research: guard on pod s0ocab70paflqm: pid 363 (already running), terminates the pod after 90 idle min once every run is fetched (`research fetch --all`); state /workspace/research/guard/state.json
-research: run r20260928-214509-f2a0 launched on vyv-rf-epoch-70 (s0ocab70paflqm) pid=44863 -> /workspace/research/runs/r20260928-214509-f2a0
-research: observe with `research fetch r20260928-214509-f2a0`; the workload does not depend on this session staying alive

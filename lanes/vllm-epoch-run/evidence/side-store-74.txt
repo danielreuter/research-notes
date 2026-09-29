@@ -1,1 +1,0 @@
-research run --on vyv-rf-epoch-74: refused: machine 'vyv-rf-epoch-74' is not in /home/ubuntu/.research/machines.toml or /home/ubuntu/research-notes/machines.d; only listed machines may be used (research pods register)

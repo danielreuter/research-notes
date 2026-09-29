@@ -1,3 +1,0 @@
-  Q_word_v1{X=16,W=32,R=no-recompute}: 46558 calls -> 273995039 units over 18805632462 gates, 64169215 committed interior words
-  build_request: 46654 calls -> 7043 identities (32 steps, 180 units, 55301 boundary values) complete=True correspondence=v1_annotations in 51.3s
-{"identities": 7043, "manifest_digest": "368283add1a118085b88e62059d5f87f65c3d91b48265d217612e0ed726e9ff2", "complete": true, "out": "/tmp/vux/r101/manifest_word_merged_off.json"}

@@ -1,8 +1,0 @@
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-=========================== short test summary info ============================
-FAILED integrations/vllm/tests/pipeline/test_row.py::test_the_commit_flags_the_row_arms_exist
-FAILED integrations/vllm/tests/pipeline/test_research_tools.py::test_closure_covers_every_core_file
-ERROR integrations/vllm/tests/pipeline/test_admit_r19_host_working_set.py - I...
-ERROR integrations/vllm/tests/pipeline/test_derive_step_identity.py - ImportE...
-ERROR integrations/vllm/tests/pipeline/test_llm.py::test_the_engine_is_built_from_the_pin_with_only_the_options_set
-ERROR integrations/vllm/tests/pipeline/test_llm.py::test_generate_returns_the_outputs_and_records_the_call

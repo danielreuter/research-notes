@@ -1,4 +1,0 @@
-MoeRouterTopKRounds{E=64,TOPK=8,VPT=8} vs MoeRouterTopK 1020 cases, 0 unequal 284.8 s
-MoeRouterTopKRoundsNorm{E=64,TOPK=8,VPT=8} vs MoeRouterTopKNorm 1020 cases, 0 unequal 336.8 s
-MoeRouterTopKRounds{E=128,TOPK=8,VPT=8} vs MoeRouterTopK 1020 cases, 0 unequal 580.3 s
-MoeRouterTopKRoundsNorm{E=128,TOPK=8,VPT=8} vs MoeRouterTopKNorm 1020 cases, 0 unequal 695.4 s

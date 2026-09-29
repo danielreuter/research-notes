@@ -1,7 +1,0 @@
-#70 olmoe-1b-7b__bf16__l40s__tp2__b8__i1024__o128__mixed__greedy__bi-eager: 2 x NVIDIA L40S, >= 120 GB/GPU, cap $8 (max 3.67 h at $2.18/h), 1 pair(s), est 3.0 h, timeout 11243 s, custody 5 h
-  2026-09-28T20:10:27Z 2 x NVIDIA L40S SECURE: no stock
-  2026-09-28T20:10:28Z 2 x NVIDIA L40S COMMUNITY: no stock
-  2026-09-28T20:11:32Z 2 x NVIDIA L40S SECURE: no stock
-  2026-09-28T20:12:36Z 2 x NVIDIA L40S SECURE: accepted pod s0ocab70paflqm NVIDIA L40S driver 580.126.09 (CUDA 13.0) host 376 GB, 128 vCPU, est 3.0 h at 1 pair(s)
-cap guard: research pods guard: pid 240684 prefix='vyv-rf-epoch-70-' log=/home/ubuntu/.research/pods/guard-vyv-rf-epoch-70-.log (`research pods guard status --prefix vyv-rf-epoch-70-`) (max 3.67 h at $2.18/h, timeout 11200 s, custody 5 h)
-WAIT vyv-rf-epoch-70 (SECURE, 2 x NVIDIA L40S, driver 580.126.09) r20260928-201320-6851 check-back 23:13Z agent bc-75fd4007: #70 Build/Match/word check/Commit/store (1 pair(s), est 3.0 h, cap $8)

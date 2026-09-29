@@ -1,6 +1,0 @@
-2026-09-28T16:02:45Z polling #74 until 2026-09-28T17:40Z
-#74 qwen3-4b-fp8__fp8__h100__tp1__b8__i1024__o128__mixed__greedy__bi-eager: 2 x NVIDIA H100 80GB HBM3, >= 250 GB/GPU, cap $49 (max 7.02 h at $6.98/h), 1 pair(s), est 5.42 h, timeout 23772 s, custody 9 h
-  2026-09-28T16:02:46Z 2 x NVIDIA H100 80GB HBM3 SECURE: accepted pod 6h1sp3r74nch3f NVIDIA H100 80GB HBM3 driver 580.126.09 (CUDA 13.0) host 502 GB, 208 vCPU, est 5.42 h at 1 pair(s)
-cap guard: research pods guard: pid 44958 prefix='vyv-rf-epoch-74-' log=/home/ubuntu/.research/pods/guard-vyv-rf-epoch-74-.log (`research pods guard status --prefix vyv-rf-epoch-74-`) (max 7.02 h at $6.98/h, timeout 23772 s, custody 9 h)
-WAIT vyv-rf-epoch-74 (SECURE, 2 x NVIDIA H100 80GB HBM3, driver 580.126.09) r20260928-160515-1b32 check-back 21:30Z agent bc-75fd4007: #74 Build/Match/word check/Commit/store (1 pair(s), est 5.42 h, cap $49)
-2026-09-28T16:05:28Z #74 LAUNCHED

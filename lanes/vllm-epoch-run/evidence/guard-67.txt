@@ -1,1 +1,0 @@
-research pods guard: pid 49934 prefix='vyv-rf-epoch-67-' log=/home/ubuntu/.research/pods/guard-vyv-rf-epoch-67-.log (`research pods guard status --prefix vyv-rf-epoch-67-`)

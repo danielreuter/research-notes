@@ -38,7 +38,7 @@ cursor:
 - The production favicon, the unprefixed title, `/docs/dev/tables` → 404, and `/fixtures/<hex>` → 404 (route off).
 - `website-web` at https://compute-verification.vercel.app still returns 200.
 
-**Favicons:** the site already had per-environment favicons: branded in production, DEV and PREVIEW variants otherwise, chosen from `VERCEL_ENV` at build time. I verified each variant on its deployment; nothing needed changing.
+**Favicons:** the site already had per-environment favicons: branded in production, DEV and PREVIEW variants otherwise, chosen from `VERCEL_ENV` at build time. I checked each one: the red DEV tile and `[DEV]` title on a local dev server, the amber PREVIEW tile and `[PREVIEW]` title on the preview, and the plain mark in production. Nothing needed changing.
 
 ## Fixed on the way
 

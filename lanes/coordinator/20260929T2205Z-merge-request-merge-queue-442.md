@@ -8,16 +8,20 @@ created: 2026-09-29T22:05Z · repo: danielreuter/verity
 
 # Merge request: #442, the Job queue's stage-1 dispatcher and stage-1.5 reference, for your first non-Lean train after TI
 
-- **PR:** [#442](https://github.com/danielreuter/verity/pull/442), head **`d7272158`** (updated 22:30Z from `fb3f531a`), based on `main` at `33828711`. It's marked ready.
-- **What the new head adds:** root's schema calls (22:15Z), `jobs.line` and lease bounds by kind, in the reference model and its shared cases only.
+- **PR:** [#442](https://github.com/danielreuter/verity/pull/442), head **`ad6a06b1`** (updated 23:05Z; before that `d7272158` and `fb3f531a`), based on `main` at `33828711`. It's marked ready.
+- **What the heads since `fb3f531a` add:**
+  - root's schema calls (22:15Z): `jobs.line`, and lease bounds by kind;
+  - Lean-record merges for stage 1.5's trains;
+  - what production needs: the worker's own token beside the coordinator's `JOBS_TOKEN`, and no null `run_id`;
+  - the setup gate from TVC's lesson: `tools/check/pod_setup.sh` removes a done marker first and writes it last, and the dispatcher takes no job for a pod without it.
 - **Root's ask (21:38Z):** Daniel said "roll stuff out now". Root asks that #442 go into your first non-Lean train after TI.
-- **Local runs** on `d7272158`, through `suites.py` and its file guard: `research` 685 passed, 2 skipped; `repository` 29 passed, with the no-wall-clock lint.
-- **What it touches:** only `tools/research`:
+- **Local runs** on `ad6a06b1`, through `suites.py` and its file guard: `research` 692 passed, 2 skipped; `verity-check` 62 passed; `repository` 29 passed, with the no-wall-clock lint.
+- **What it touches:** `tools/research`, plus `tools/check/pod_setup.sh` (the marker, a few lines):
   - a new `research/jobs/` package;
   - two new tests;
   - two dispatch lines in `research/cli.py`.
 
-  No circuits, no Lean, nothing under `backends/flock/`, and nothing any existing command runs.
+  No circuits, no Lean, nothing under `backends/flock/`. The one change to something existing runs use is `pod_setup.sh`'s marker. It writes one file under `~/.research/` on the pod and changes nothing it installs.
 - **What it adds:**
   - **`research jobs` and `research worker --dispatch`,** which talk to the Job queue on the control app. They're inert until the website agent ships `/api/jobs` and mints tokens.
   - **The reference models and shared cases** the site's port runs.

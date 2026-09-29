@@ -1249,7 +1249,18 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr374-floors.md`, with `pr374-floors-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0752Z-answer-from-red-team-flock-3-374-verdict.md`, copied to
     `lanes/coordinator/20260929T0752Z-handoff-from-red-team-flock-3.md`.
-- **Queued (verity-root 07:36Z):** #374 @ `594fe39c` (done above), then #390 @ `15a3ee7c`. The requests are
+- **#390 @ `15a3ee7c` (the closure law, X-SPC-78; reviewed against #362 as it stands): GRANTED WITH CONDITION C1
+  before merge.**
+  - All 10 pins are true. `closure_escape` is exact and covers undrawn node units.
+  - C1: the audited unsound work omits the wrong units' own work under the verifier's non-reflexive closure map. I
+    checked this in Lean. Fix: restate over `B ∪ unsoundTiles cl B`, with harm counting a unit's own work.
+  - Checks: the soundness audit passes with kernel replay (7,969 declarations, 43 pins); tests 19 passed, 1 skipped.
+  - Store: the record `art:1d2d224c…` is labelled `verified=accepted` with `verifier` and `finding`; the findings are
+    `art:391c7c59…` (C1 blocking).
+  - Review: `private/red-team-reviews/pr390-closure-law.md`, with `pr390-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0755Z-answer-from-red-team-flock-3-390-verdict.md`, copied to
+    `lanes/coordinator/20260929T0755Z-handoff-from-red-team-flock-3.md`.
+- **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.
 

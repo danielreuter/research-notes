@@ -1,3 +1,1 @@
-watch updated 2026-09-28T22:32:27Z
-#67 vyv-rf-epoch-67 r20260928-161923-0a05 live 373 min: 2026-09-28T22:29:25Z commit rc=13 verdict=none manifest_verify=none commit FAIL 2026-09-28T22:29:25Z required-value manifest not built (B=32; manifest.log)
-#68 vyv-rf-epoch-68 r20260928-183104-1d90 live 241 min: 2026-09-28T18:46:08Z bootstrap cases=B0,OLMOE rc=0
+watch updated 2026-09-28T23:59:39Z

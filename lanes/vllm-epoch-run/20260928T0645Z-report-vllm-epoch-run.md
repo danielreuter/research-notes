@@ -2,9 +2,10 @@
 lane: vllm-epoch-run
 kind: report
 created: 2026-09-28T06:45Z
-status: open
+status: final
 ---
 
+CHECKPOINT 6746f408 (00:00Z) [final] Epoch over: #73 written (e2914bd4+ff840ea8, coverage pending #325); #4 #23 #60 #67 #68 #70 #74 #75 #101 deferred (old records kept; #68's Build lost to the VM pause); spend $145.07 (<= $146.51). Final handoff lanes/vllm-coordinator/20260928T2359Z-handoff-from-vllm-epoch-run-final.md. Open: #325 coverage backfill, canary re-pin. agent bc-75fd4007.
 CHECKPOINT 6746f408 (22:32Z) [open] 22:32Z: #67 Match (watcher stops the Commit; deadline 22:55Z); #68 Build manifest (watcher stops at Build end; its Match can't fit 23:20Z). #325 not on main. agent bc-75fd4007.
 CHECKPOINT 6746f408 (22:08Z) [open] 22:08Z: #70 deferred + terminated 22:01Z ($3.95). #74 deferred (call_boundaries). Live: #67 Match (since 21:33Z; watcher stops the Commit), #68 Build (watcher armed). #325 not on main. agent bc-75fd4007.
 CHECKPOINT 6746f408 (21:36Z) [open] 21:36Z: #74 deferred (call_boundaries, wave 2). #70 manifest incomplete (13888 unbound TP peer bindings) -> Match then stop (watcher; Build art:f06f0d93). #67 #68 Build; watchers armed. #325 not on main. agent bc-75fd4007.

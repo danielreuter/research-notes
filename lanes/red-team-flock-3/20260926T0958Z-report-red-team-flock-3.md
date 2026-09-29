@@ -1346,6 +1346,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr404-unit-shape.md`, with `pr404-evidence.log`. From verity-root's bundle.
   - Reply: `lanes/red-team-flock-3/20260929T1104Z-answer-from-red-team-flock-3-404-verdict.md`, copied to
     `lanes/coordinator/20260929T1104Z-handoff-from-red-team-flock-3-404.md`.
+- **#408 @ `b2f8db97` (`Law.subset_exec_escape_le`, the executable subset sampler): GRANTED WITH C1 before merge.**
+  - The statement is right: the unchanged executable over uniform bytes, with running out counted as no escape. `main`'s
+    60 records are unchanged, and `meaning` gains `Flock.Draw`.
+  - C1: `test_audit_layer_is_abstract` fails, because `DrawExec.lean` imports `Flock.Draw` under `Audit/`. Rename it as a
+    Flock instantiation or move it, then re-record.
+  - Checks: the soundness audit passes with kernel replay (8,233 declarations, 61 pins).
+  - Store: the record `art:cd05a6a2…` is labelled; the findings are `art:7317b252…` (C1 blocking).
+  - Request: `internal/lanes/verity-root/20260929T1158Z-handoff-from-pous-408-exec-sampler.md`.
+  - Review: `private/red-team-reviews/pr408-exec-sampler.md`, with `pr408-evidence.log`. From verity-root's bundle.
+  - Reply: `lanes/red-team-flock-3/20260929T1211Z-answer-from-red-team-flock-3-408-verdict.md`, copied to
+    `lanes/coordinator/20260929T1211Z-handoff-from-red-team-flock-3-408.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

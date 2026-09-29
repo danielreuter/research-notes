@@ -5,6 +5,7 @@ created: 2026-09-28T20:09Z
 status: final
 ---
 
+CHECKPOINT f639cd66 (18:01Z) [final] row 1b measured (#419): 1.15x on #101 over the kernel; rows 1+1b -> 1.56e7 L40S; all four levers 6.8e6 L40S (3.1x), 6.0e6 H100 NVL (2.5x); $0
 CHECKPOINT f639cd66 (17:02Z) [final] plan corrected with M0's profile: SHA 54-70% of GEMM session; kernel 1.17x on #101; new row 1b (pinned+overlap+coalesced+device z) 1.18x; all four levers 6.6e6 L40S (3.2x), 5.8e6 H100 NVL (2.6x); $0
 CHECKPOINT f639cd66 (16:11Z) [final] plan updated with the measured native kernel: 1.15x on #101 (projected 1.52x; per-compression cost unchanged at 1.15 us); all three levers now 7.1e6 L40S (2.9x), 6.3e6 H100 NVL (2.4x); $0
 CHECKPOINT f639cd66 (00:04Z) [final] plan rebaselined on the non-GEMM re-proof: #101 2.16e7x L40S, ~1.5e7x H100 NVL (scaled); native kernel 1.52x/1.42x on #101; tiles 1.96-2.38x; all three 3.5x; $0
@@ -136,3 +137,13 @@ is rebaselined, and the time model is `time 327` in `internal/gemm-hash-measurem
   - **Row 1b (new):** M0's fixes 1–4, 1.18× more.
   - **Tiles alone:** 1.74–2.18×.
   - **All four levers:** 6.6 × 10⁶ on the L40S (3.2×; 7.4 × 10⁶ without reuse) and 5.8 × 10⁶ on the H100 NVL (2.6×).
+
+## Row 1b measured (18:05Z Sep 29)
+
+- **From root:** M0's #419 (fixes 1–4) against #336 on the L40S at m = 34 (`r20260929-172647-9f4d`, `r20260929-173533-5e48`, rows kernel
+  only `r20260929-174709-4c79`). The median prove goes from 0.991 to 0.847 s and from 1.165 to 0.956 s. The window is 0.050 and 0.081 s,
+  at fixes 1–3's estimate; fix 4 added nothing.
+- **The plan** (`docs/gemm-hash-cost-plan.md`, `time` in `internal/gemm-hash-measurements.py`):
+  - **Row 1b:** measured at 1.15× on #101 on top of the kernel (estimate 1.18×).
+  - **Rows 1 + 1b:** 1.56 × 10⁷ on the L40S.
+  - **All four levers:** 6.8 × 10⁶ on the L40S (3.1×; 7.8 × 10⁶ without reuse) and 6.0 × 10⁶ on the H100 NVL (2.5×), from 6.6 and 5.8 × 10⁶.

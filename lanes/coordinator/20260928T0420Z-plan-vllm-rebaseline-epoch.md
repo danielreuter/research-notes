@@ -193,7 +193,7 @@ The estimates use this epoch's measured stages: Builds of 3–4 h; the Match 0.5
 
 | Order | Row | Shape | Est. h | Est. $ | Gate |
 |---|---|---|---:|---:|---|
-| 1 | #74 | 2× H100 secure, ≥ 500 GB | 7.5 | 52 | prereq 5 |
+| 1 | #74 | 2× H100 secure, ≥ 500 GB | 7.5 | ~~52~~ **75** (root, 13:18Z: $52 would end in the Match) | prereq 5 |
 | 2 | #11 | 2–4× L40S-class, ≥ 512 GB | 9 | 30 | — |
 | 3 | #23 | 2× L40S-class, ≥ 512 GB (Commit admission 483 GiB) | 8 | 18 | — |
 | 4 | #60 | 2× L40S-class, ≥ 376 GB | 7.5 | 16 | — |
@@ -226,3 +226,5 @@ The estimates use this epoch's measured stages: Builds of 3–4 h; the Match 0.5
 
 **Correction (2026-09-29T00:18Z, root):** RunPod tops itself up automatically. Don't request top-ups; the spending controls are the 0 cap and the `vyv-` guard.
 - If the balance test fails at launch, the automatic top-up hasn't landed yet. Wait for it and retry the launch; don't stop the epoch.
+
+**Update (2026-09-29T13:20Z, root):** #74's cap is raised to $75, within the $260 line. The row caps now total about $251 including #39 and #57. The top-up shortfall is about $73 for the full core, or about $118 with #39 and #57.

@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT 0655d66d (06:47Z) [open] WAITING the coordinator's fleet guard vy-cc-upstream-avx2 ($1.50, asked 06:45Z) for the portable upstream Flock rebuild (#382: x86-64-v3, Rust 1.98.1, same bundle 957f5751; preflight replays a real session); then one US cpu3g-16 pod without AVX-512: rebuild, re-pin, check with the 16-set agreement; check back 07:05Z; agent bc-1122c760
 CHECKPOINT 0655d66d (06:36Z) [open] READY merge request #356 0655d66d (check r20260929-053947-aaad passed; cold audit from the store 1,434 s vs 1,887 s cloning, 0 GitHub attempts) and #357 d8102f81; drafts #363 (one shared Lean tree: 26 -> 10 GB, audit passed) and #376 (--prepare); upstream Flock build is AVX-512 only (SIGILL on EPYC 7713P), fix needs a pod: asking; pod terminated 06:34Z, ~$1.01; agent bc-1122c760
 CHECKPOINT 91ac394b (03:27Z) [open] WAITING r20260929-032531-8f07 on vy-circuit-checks-deps (6l4bj8tmqf8x5l), check after 04:17Z; agent bc-1122c760; next: pin the exported bundles, then the no-GitHub measurement and check on #356's pinned head
 CHECKPOINT 91ac394b (03:24Z) [open] IN USE vy-circuit-checks-deps (6l4bj8tmqf8x5l, US-CA-2, $0.32/h, fleet guard $1.10 until 07:30Z, dead-man 05:54Z): run 1 exports the Lean dependency bundles (~55 min), then the no-GitHub measurement and check on #356; terminated after; agent bc-1122c760

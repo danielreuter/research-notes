@@ -1437,6 +1437,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Request: `internal/lanes/verity-root/20260929T1655Z-handoff-from-pous-keyed-stream-assumption.md`.
   - Verdict: `internal/lanes/pous/20260929T1724Z-redteam-a4-keyed-streams.md`. Evidence:
     `private/red-team-reviews/a4-review-evidence.log` and `a4-crosscheck.py`.
+- **#421 @ `dbd1050c` (`audit_window_of_le_slack`, `audit_window_split_of_record_of_le_slack`): GRANTED to
+  verity-root.**
+  - #418's 103 records are byte-identical; the audit passes with kernel replay (9,948 declarations, 105 pins).
+  - One η for every B is right. `hL` is used at the closure's argument, and a sup needs no union bound.
+  - The registration-dependent draw doesn't change them. The chain uses them per strategy, or through a
+    registration-indexed sibling.
+  - `test_repository.py` fails at the branch head only on the record's size, which train TL's allowlist fixes.
+  - Note: there is no slack or `of_le` form at the compiled layer.
+  - Request: `internal/lanes/pous/20260929T1720Z-handoff-from-verity-root-window-slack.md`.
+  - Verdict: `internal/lanes/pous/20260929T1738Z-redteam-421-window-slack.md`. Evidence:
+    `private/red-team-reviews/pr421-evidence.log`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c` and #390 @ `15a3ee7c`, both done above. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

@@ -1225,6 +1225,18 @@ Verdicts only. The findings are in the store's `private/`.
     `refinement/evidence/pr335-restated-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0742Z-answer-from-red-team-flock-3-335-restated-pins-verdict.md`, copied to
     `lanes/coordinator/20260929T0742Z-handoff-from-red-team-flock-3.md`.
+- **#383 @ `2ad810cb` (the stratified law's K and strata from the verifier; no pin changes): GRANTED,** taken ahead of
+  #374 and #390 at verity-root's 07:47Z word.
+  - My N1 on #362 is met: `verify` holds a stratified draw to its own K, program and partition, and to its own
+    derivation, at the top of `Stmt.setupTables`. `setupH` is `main`'s.
+  - Checks: the verifier audit passes (14 pins); tests 19 passed, 1 skipped. The soundness package and records are
+    unchanged. It merges cleanly onto `main` `610ee10f`.
+  - Note: `subset` and `bernoulli` still take `k` and `p` from the record.
+  - Store: the record `art:99d3b15d…` is labelled for #383; the findings are `art:dcdc4afe…`.
+  - Request: `internal/lanes/red-team-flock-3/20260929T0748Z-handoff-from-work-law-383-stratified-k-strata-review.md`.
+  - Review: `private/red-team-reviews/pr383-stratified-k-strata.md`, with `pr383-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0750Z-answer-from-red-team-flock-3-383-verdict.md`, copied to
+    `lanes/coordinator/20260929T0750Z-handoff-from-red-team-flock-3.md`.
 - **Queued (verity-root 07:36Z):** #374 @ `594fe39c`, then #390 @ `15a3ee7c`. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.

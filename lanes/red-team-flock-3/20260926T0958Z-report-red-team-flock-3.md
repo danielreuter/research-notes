@@ -1179,6 +1179,10 @@ Verdicts only. The findings are in the store's `private/`.
   X-SPC-81, and a new request will replace
   `internal/lanes/red-team-flock-3/20260929T0603Z-handoff-from-work-law-374-count-floor-pin-review.md`. My checks at
   `d8c47f48` so far are in `private/red-team-reviews/pr374-count-floor-checks.md`.
+- **The refinement lane's four pins restated over #335 (`rep_refines`, `verify_refines`, `verify_tableAfter`,
+  `verify_refines_ofCircuit`): not reviewed yet.** The request is
+  `internal/lanes/red-team-flock-3/20260929T0233Z-handoff-from-refinement-335-restated-pins.md`. It isn't in
+  verity-root's 06:37Z order (#362, then #375 → #378 → #379, then #374), so I've asked the coordinator where it goes.
 
 ### Pre-grant checklist
 

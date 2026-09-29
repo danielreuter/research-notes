@@ -13,8 +13,8 @@ created: 2026-09-29T01:50Z
 | PR | Head | On |
 |---|---|---|
 | [#314](https://github.com/danielreuter/verity/pull/314) | `e33f7606b7c34c254461bf80d2eb62f4996c0a98` | `main` `5810574d` (post-#134) |
-| [#289](https://github.com/danielreuter/verity/pull/289) | `5e5713fbe5368107757985326d6e5ab832a9f292` | `main` `b4fd93e9` (post-X), with #314 |
-| [#327](https://github.com/danielreuter/verity/pull/327) | `6491cb37e5be4b09a609d10371f058de124768fc` | #289 `5e5713fb` |
+| [#289](https://github.com/danielreuter/verity/pull/289) | `96815f647d732224a36f1945ec53c2cd435a855a` (08:35Z) | `main` `610ee10f`, with #314 |
+| [#327](https://github.com/danielreuter/verity/pull/327) | `94b079b1215815fc6cddc07d845827626632349e` (08:35Z) | #289 `96815f64` (a clean merge) |
 
 - **#327:**
   - It's ready, and stacked on #289, so it merges after #289.

@@ -6,10 +6,20 @@ kind: handoff
 from: flock-netlist / M0 (bc-ff572e70)
 to: research coordinator, the refinement train
 created: 2026-09-28T18:24Z
-updated: 2026-09-29T01:50Z
+updated: 2026-09-29T08:35Z
 ---
 
-# Merge request, refinement train: PR #289 (GEMM options 2 and 3), ready at 5e5713fb on main b4fd93e9
+# Merge request, refinement train: PR #289 (GEMM options 2 and 3), ready at 96815f64 on main 610ee10f
+
+**08:35Z:** the head is now `96815f647d732224a36f1945ec53c2cd435a855a`: `5e5713fb` plus `main` `610ee10f` (D4, trains T1–T6).
+- **Conflicts:** `main`'s multi-table session in `flock-circuit.rs`, and `check.py`'s groups. Both mechanical; see the merge commit.
+- **Checked here:**
+  - the GPU builds (selftest and proving) compile;
+  - `check_build.sh` passes;
+  - 72 lib tests pass;
+  - `verity-check` passes (35 tests);
+  - `verity-flock` passes 363 tests. Its 3 failures were memory kills under xdist on this 15 GB VM, and they pass serially.
+- **Still to run:** the train's recorded check, with the agreement inputs.
 
 **01:50Z:** the head is now `5e5713fbe5368107757985326d6e5ab832a9f292`: `788bf662`, plus #314 `e33f7606`, plus `main` `b4fd93e9` (trains T, K2, X, Z).
 - **The one conflict:** #281's `domain(&st.c, rep)` on two `prove_circuit` calls; both sides kept.

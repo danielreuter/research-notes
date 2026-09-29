@@ -7,6 +7,8 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 180f8771 (08:33Z) [open] T10 (#374 6e39ccaa): check in parallel, DO NOT LAND until bc-f0bc7e75 confirms the merge head (hand-written Lean in the #383 merge); root put it first in the red team's queue. Record regen r20260929-083115-241a on vy-train-1.
+CHECKPOINT 180f8771 (08:31Z) [open] T9 r20260929-081843-f8f7 on vy-train-4 (r2otfecosgwbvt, avx512f 48) -> mm-T9 70dd243e. TN and T8 still checking. vy-train-1 free.
 CHECKPOINT 180f8771 (08:19Z) [open] T7b merged 180f8771 (== mm-T7b; r20260929-072247-4a19), pushed; sweep skipped (--remote no-sweep). Dry run internal/relay/sweep-dry-run-0818Z.txt: 17 closes (+ #352 by hand), retarget #372, #383, #389, #390 (bases were #362's and #315's branches). vy-train-4 pod r2otfecosgwbvt created but its toml pointed at the old pod, so launchx REFUSED (no avx512f read); /tmp/lm/fix4.sh registers --replace, preps, launches T9 -> /tmp/lm/t9.run. Budgets guard: not yet migrated to budgets.toml (per-prefix guards still), so no restart needed; migration + cap_usd_per_day 65 is next.
 CHECKPOINT 610ee10f (08:16Z) [open] Merge backlog (root 08:09Z), each head tested on mm-T8 ad349a3b:
 - #317 ba6e9f81 (flock-verifier regression sets 16/17): IN QUEUE, T9 (Lean, send) with #383 2ad810cb; tr-T9 0a851a22 -> auto-launch on vy-train-4 (creating) via /tmp/lm/t9wait.sh -> /tmp/lm/t9.run.

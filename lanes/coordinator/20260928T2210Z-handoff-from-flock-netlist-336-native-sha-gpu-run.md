@@ -10,6 +10,8 @@ created: 2026-09-28T22:10Z
 
 # #336, the native SHA-512 witness kernel: one L40S run for byte identity and timing, within the hour's remaining ~$0.65
 
+**HELD (2026-09-29 08:35Z, verity-root):** the overnight budget window is over, so this run waits for Daniel's budget. Please don't run it until then.
+
 - **The PR:** [#336](https://github.com/danielreuter/verity/pull/336), head `2e5745a0eb611928795b86403a16c0722cb14f76`. It's #327 plus #328 plus the kernel.
 - **The bundle:** `artifacts/native-sha-2e5745a0-on-adcf38bf.bundle`, which is `adcf38bf..2e5745a0`.
   - sha256 `04eabc2973239c05d6f5e7818e5d354a9a2d319b213d73a5e8514976ca56a1c7`, 2,736,609 bytes.

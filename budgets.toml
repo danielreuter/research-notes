@@ -4,7 +4,7 @@
 # keep running to their deadlines, because this guard never terminates on the clock and these pods were created without leases.
 
 [guard]
-project = ["vy-"]                  # vy- pods only; the vLLM fleet's vyv- pods keep their own guard (/root/dm/CAP)
+project = ["vy-", "vyv-rf-epoch-"]   # vyv-rf-epoch-: the vLLM follow-up epoch only; other vyv- pods keep the fleet guard (/root/dm)                  # vy- pods only; the vLLM fleet's vyv- pods keep their own guard (/root/dm/CAP)
 balance_floor = 25
 terminate_uncovered = true
 uncovered_grace_min = 15
@@ -18,3 +18,4 @@ exempt = ["vy-control-"]
 "vy-cc-upstream-avx2" = { cap_usd = 0.49, expires = "2026-09-29T09:45Z", max_pod_hours = 2.5, by = "root 06:48Z: AVX2 upstream rebuild, $1.50 ($1.01 spent)" }
 "vy-epoch-check-342" = { cap_usd = 2.99, expires = "2026-09-29T11:30Z", max_pod_hours = 2.5, by = "per-prefix guard armed for #342's check, $3 ($0.01 spent)" }
 "vy-pouw-mvp-qwen05" = { cap_usd = 0.80, expires = "2026-09-29T18:00Z", max_pod_hours = 1, by = "root: PoUW ncp-v2 Qwen2.5-0.5B pod run for #389, pous window, $1.00 ($0.20 spent)" }
+"vyv-rf-epoch-" = { cap_usd = 260, expires = "2026-09-30T08:00Z", max_pod_hours = 12, by = "daniel via root 2026-09-29T00:17Z / 11:44Z: vLLM follow-up epoch, $260 (#39 and #57 if their gates clear)" }

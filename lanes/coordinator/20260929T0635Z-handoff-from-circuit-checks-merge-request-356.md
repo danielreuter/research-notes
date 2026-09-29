@@ -46,5 +46,5 @@ lane: coordinator · kind: handoff · from: circuit-checks · created: 2026-09-2
 
 ## Pod
 
-`vy-circuit-checks-deps` (`6l4bj8tmqf8x5l`): I terminate it when #363's audit run ends, about 06:35Z. It will have cost about $1.03
-of the $1.10 guard.
+`vy-circuit-checks-deps` (`6l4bj8tmqf8x5l`) was terminated at 06:34Z, after 3.2 h: about $1.01 of the $1.10 guard. Every run on it
+is preserved on R2, and you can stop its fleet guard.

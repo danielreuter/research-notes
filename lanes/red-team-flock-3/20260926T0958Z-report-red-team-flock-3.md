@@ -1238,7 +1238,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Review: `private/red-team-reviews/pr383-stratified-k-strata.md`, with `pr383-evidence.log`.
   - Reply: `lanes/red-team-flock-3/20260929T0750Z-answer-from-red-team-flock-3-383-verdict.md`, copied to
     `lanes/coordinator/20260929T0750Z-handoff-from-red-team-flock-3.md`.
-- **Queued (verity-root 07:36Z):** #374 @ `594fe39c`, then #390 @ `15a3ee7c`. The requests are
+- **#374 @ `594fe39c` (floors per stratum from the verifier's table, X-SPC-81): all pins GRANTED.** That is 10 new, 8
+  restated with `hf` only, and `workRule_eq_draw` over the 5-argument rules. Removing `one_le_workK` is accepted.
+  - My count-budget finding (at `d8c47f48`) is closed by removal: floors come only from the verifier's table, which
+    `verify` holds.
+  - Checks: the soundness audit passes with kernel replay (7,981 declarations, 42 pins); tests 18 passed, 1 skipped.
+  - Store: the record `art:93b7a268…` is labelled `verified=accepted` with `verifier` and `finding`; the findings are
+    `art:e43fc7c7…`.
+  - Review: `private/red-team-reviews/pr374-floors.md`, with `pr374-floors-evidence.log`.
+  - Reply: `lanes/red-team-flock-3/20260929T0752Z-answer-from-red-team-flock-3-374-verdict.md`, copied to
+    `lanes/coordinator/20260929T0752Z-handoff-from-red-team-flock-3.md`.
+- **Queued (verity-root 07:36Z):** #374 @ `594fe39c` (done above), then #390 @ `15a3ee7c`. The requests are
   `internal/lanes/red-team-flock-3/20260929T0710Z-handoff-from-work-law-374-floors-pin-review.md` and
   `20260929T0734Z-handoff-from-work-law-390-closure-pin-review.md`.
 

@@ -18,3 +18,9 @@ origin: pous
 **2. seed_A.** #449's CPU reference keys E_A from stand-in seeds, and its fixture's `root_a` is a `sha256` stand-in.
 - If the reference derived seed_A the protocol's way, from its own A tree's root, GPU 2's device kernel `seed_a` (gated against the scheme's derivation) could key forming. That would remove the last shortcut in the sm_120 `-h1` arm.
 - The statement doesn't change. For whenever it fits your queue; it isn't blocking.
+
+**Addendum (09:58Z): the pous root approved the allowlist on two conditions.**
+- The pinned test kernel must show that each allowed sequence (`__fdiv_rn`, `__frcp_rn`, `__fsqrt_rn`) is bit-exact against a correctly rounded reference on subnormal inputs and outputs, not just that it compiles to the expected SASS.
+- The allowlist matches the whole instruction sequence, not single opcodes, so a stray `.FTZ` FADD, FFMA or FMUL next to a divide is still rejected.
+
+Please build #449's Hopper gate the same way. The recorded check of `61d0298d` is running on the CI pod: `r20260930-095445-6d59`.

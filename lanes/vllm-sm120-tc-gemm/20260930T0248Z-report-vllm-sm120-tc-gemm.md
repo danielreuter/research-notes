@@ -5,6 +5,7 @@ created: 2026-09-30T02:48Z
 status: open
 ---
 
+CHECKPOINT 29f691be (07:52Z) [open] 07:53Z acted on nebius-infra 07:32Z note: stopped my 6 direct vLLM suite runs (they opened CUDA on a Kueue GPU; cancel r20260930-075045-8a41); reran with CUDA_VISIBLE_DEVICES= + taskset 112-159, slow tp2-moe build test deselected (unverified in gate, train check runs it): #501 r20260930-075224-1fc7, #483 -075229-cb5f, base -075234-32cf. WAIT.
 CHECKPOINT 29f691be (07:39Z) [open] 07:40Z WAIT: full quick vLLM suites (xdist) on vy-nebius-1: #501 r20260930-073232-0864, #483 r20260930-073237-888b, base r20260930-073242-ac55 (serial dupes -0701xx still running). Timer 07:50Z. GitHub auth recovered.
 CHECKPOINT 29f691be (07:29Z) [open] 07:30Z handoff to coordinator: PINNED dossier art:b3074aba; #487 ready (7cef262f); #502 registry+target+census (13ab450e, clean vs base); #483 head 7cea7a99 needs re-grant; #501 gemv open. WAIT: full vLLM suites r20260930-0701{23,37,50} (serial). GitHub git/gh auth 401 since ~07:27Z.
 CHECKPOINT 29f691be (07:14Z) [open] 07:16Z #487 broke backends/numerical (161 fails: a Target needs a registry id + census lines); Target moved out of #487 (now 7cef262f, constants only) into new registry branch cursor/sm120-fp8-registry-422d (registry e4m3 pinned art:b3074aba, e5m2 HYPOTHESIS art:164a66c8, Target, census PRO 6000 FP8 line 1 PFLOPS dense + subcircuit). #483 by-name lint fix 7cea7a99 (GemmTarget.bias_epilogue). Suites running on vy-nebius-1: r20260930-071347-585c, -071400-98b5, vLLM r20260930-0701{23,37,50}.

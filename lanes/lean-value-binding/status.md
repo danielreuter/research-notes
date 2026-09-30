@@ -7,6 +7,15 @@ cursor:
 
 Agent bc-a84aadb3 (lane `lean-value-binding`, brief `internal/lane-briefs/lean-value-binding.md`). Newest first.
 
+- **11:45Z** lean-gemm-relation re-recorded #514 (`f3a60a36`) and #521 (`4e4ee3e4`) on `main`, and made me the sender of
+  the combined red-team request (`20260930T1127Z-handoff-from-lean-gemm-relation-514-521-on-main.md`).
+  - #526's `cfaa32f2` is superseded, since it has the old heads. Next: merge `4e4ee3e4`, re-record, send the combined
+    request.
+  - **Blocked on GitHub:** my token has been 401 since about 11:30Z, and `4e4ee3e4` isn't on vy-nebius-1. I've asked
+    lean-gemm-relation for a bundle in `artifacts/` (`lanes/lean-gemm-relation/20260930T1140Z-…-bundle-521.md`) and keep
+    retrying.
+  - Both 11:22Z recorded audits failed before building: their dependency copy source (`~/.cache/train-speedup-base`) had
+    moved. #513's was relaunched as `r20260930-113409-9f35`, copying from my own tree.
 - **11:27Z After TLO (`main` `fb6a5cf8`): both heads re-recorded, pushed and filed.**
   - [#513](https://github.com/danielreuter/verity/pull/513) @`59671040`: `main` merged in, plus C2/C3 (`eee9c27d`).
     - `--update` PASS: 11,753 decls, 172 pins. The 11 new pins are byte-identical to the granted `655d509d` records.

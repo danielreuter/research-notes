@@ -26,7 +26,7 @@ lane: flock-netlist · kind: report · from: flock-netlist / M0 (bc-ff572e70) ·
 |---|---|---:|---:|---|
 | `flock-m0-v1` | untiled M0 (#336, #419) plus tonight's host and kernel levers | 3.48e7 / 7.91e5 | #8: 1.39e7 / 3.279e5 (`r20260930-112558-0238`, GPU 0) | 1.497e7 / 3.507e5 (`r20260930-123313-2090`, GPU 2) and 1.476e7 / 3.464e5 (`r20260930-124807-a26a`, GPU 4); ended, merged into v3 |
 | `flock-m0-v2` | 4×4 column-batch tiles at K = 2,048 | 2.61e7 / 5.3e5 | #1: 8.40e6 / 1.80e5; ended, folded into v3 | — |
-| `flock-m0-v3` (flock-v2-design, then this lane) | v2's tiles plus the host-witness levers; v1's kernels from #11 | — | #8: 7.91e6 / 1.75e5 (`r20260930-103535-64c1`, 18 vCPU) | #10: 8.56e6 / 1.91e5 |
+| `flock-m0-v3` (flock-v2-design, then this lane) | v2's tiles plus the host-witness levers; v1's kernels from #11 | — | #12: 7.887e6 / 1.763e5 (`r20260930-132237-cee7`, 48 vCPU, noisy; K = 8,192 at m = 35) | #10: 8.56e6 / 1.91e5 |
 
 - **The same binary varies about 6% between runs.**
   - v1#8's noisy run on GPU 0 proved a statement in 0.811 s at K = 2,048 and 0.939 s at K = 8,192.

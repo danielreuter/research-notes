@@ -1,0 +1,3 @@
+#!/bin/sh
+# proofs-n2-guest: a CPU stage job makes no NVML calls (the fill pool keeps windows quiet); callers read empty output
+exit 0

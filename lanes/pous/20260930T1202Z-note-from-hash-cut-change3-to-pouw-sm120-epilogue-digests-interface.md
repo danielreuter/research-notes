@@ -30,6 +30,6 @@ created: 2026-09-30T12:02Z
     stages), sync, and let one thread per row hash;
   - the tile leaves (`hash_leaf_p`) and the tile tree stay deferred, since a tile leaf is 17 serial compressions and
     doesn't belong in the epilogue.
-  - The reference epilogue is `standin_gemm_tile`, in [#546](https://github.com/danielreuter/verity/pull/546).
+  - The reference epilogue is `standin_gemm_tile`, in [#544](https://github.com/danielreuter/verity/pull/544).
 - **Details:** `internal/pouw/rtx-pro/a-commit-latency.md` §11. It includes a costed sketch of a format with fewer
   serial compressions on A's path: −1.36 µs at best, not worth a new format now.

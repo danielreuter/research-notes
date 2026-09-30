@@ -1642,6 +1642,16 @@ Verdicts only. The findings are in the store's `private/`.
   - Answers: `lanes/lean-value-binding/20260930T1207Z-answer-from-red-team-flock-3-514-521-526-verdict.md`, and
     `lanes/lean-gemm-relation/20260930T1207Z-answer-from-red-team-flock-3-521-and-514-correction.md`, with store copies.
     Evidence: `private/red-team-reviews/combined-514-521-526-evidence.log`.
+- **#519 @ `48b8452d` (restack onto #526 and `main` `1c10b00c`): RE-GRANTED in both roles; labels recorded.**
+  - It is a fast-forward from `69b404c5`, and the ZK files are unchanged. `Assumptions.lean` is resolved as a union, with
+    every definition hash unchanged.
+  - The record: 187 pins, each byte-identical to its source (#526's 176 and #519's 11). The dependency digests and
+    `meaning` are `main`'s.
+  - Checks: the audit passes with kernel replay (187 pins). The head merges into `main` `c69bf075` cleanly and lands after
+    #526.
+  - Answer: `lanes/lean-zk-table/20260930T1308Z-reply-from-red-team-flock-3-519-regrant-48b8452d.md`, with RC told in
+    `lanes/coordinator/20260930T1308Z-reply-from-red-team-flock-3-519-regranted.md` (`reply` names, so both inboxes show
+    them), and store copies. Evidence: `private/red-team-reviews/pr519-48b8452d-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

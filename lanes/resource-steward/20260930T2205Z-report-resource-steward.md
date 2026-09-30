@@ -1,0 +1,132 @@
+---
+id: 20260930T2205Z-report-resource-steward
+campaign: verity
+lane: resource-steward
+kind: report
+status: open
+repo: danielreuter/verity
+origin: resource-steward (bc-b154b9ef-b9e0-560b-857b-56c2d5530ead), worker of the infra coordinator (bc-17cc41f1)
+---
+
+# resource-steward: disk, RAM and cache policy for vy-nebius-1 and vy-nebius-2
+
+The steward's only job is keeping disk, RAM and other resources on the two GPU nodes from being overwhelmed (Daniel's ruling,
+2:52 PM PDT 30 Sep). It owns disk, cache and RAM policy on both nodes. It runs until the nodes stop at 7 Oct 14:55Z
+(7:55 AM PDT). It is woken by a 20-minute timer, by top-level posts in `#agent-alerts`, and by `*alert*` notes in
+`lanes/infra/`, `lanes/node2-ops/` and `lanes/resource-steward/`. It stays silent unless a threshold is crossed or it acts.
+
+## 1. Policy
+
+### Delete without asking
+Only with no open files (`lsof +D`), and only at `nice 19 ionice -c3`:
+- check scratch untouched for more than 2 h: `~/.cache/verity-check/lean-audit-scratch-*`, other scratch a finished check
+  left, and `/tmp/pytest-of-research/*` (20 GB on node 1's root disk now);
+- benchmark scratch (`/workspace/research/tmp-bench` and the like);
+- LRU entries of regenerable caches, only while their filesystem is over its watermark, oldest first, down to 5 points under
+  it: `~/.cache/uv`, `/workspace/cache/uv`, `/workspace/jobs/cache/{uv,triton}`, `~/.triton`, `~/.cache/vllm`, and
+  harness venvs under `/workspace/cache`. Never `~/.cache/verity-check/lean-deps` or `circuit-check` (check's verdict caches;
+  their owner is the check, and run `r20260930-213917-d6b3` is moving them to `/workspace`);
+- shipped source trees `/workspace/research/src/<sha>` older than 24 h that no running run references (checked against every
+  running run's `launch.json`/`status.json` and `lsof`). The oldest tree now is from 05:22Z, so none qualifies before
+  1 Oct 05:22Z (10:22 PM PDT tonight).
+
+Every deletion is logged in §4 (path, size, age). Slack hears of it only if it frees over 50 GB.
+
+### Ask the owner first
+The steward asks on Slack `--as infra`, prefixed "resource-steward:", tags the owning handle, and waits for a yes:
+- weights in `/workspace/hf` and `/workspace/jobs/hf` (@circuits, @proofs, @compute-accounting);
+- replay bundles, sealed or `.partial` (@circuits);
+- `/workspace/pouw/*` (@compute-accounting);
+- `/workspace/research/runs/*` entries, preserved or not (the owning lane, through its coordinator);
+- anything else it isn't sure of.
+
+Anything destructive beyond this policy goes to Daniel as a blocking `#ask-daniel` card.
+
+### Hard stops
+- Node 2's `/workspace` at 55%: no new jobs start. node2-ops' runner enforces it; the steward only verifies it.
+- Node 1's `/workspace` at 85%: the steward asks kueue-fold, the nebius-infra steward and @circuits to hold new Builds and Commits.
+- Root disk under 45 GB free: no new check starts (check's own preflight floor, `tools/check/preflight.py`, is the same 45 GB).
+- Replay RAM is reserved before a Commit is admitted: the steward flags any node where the replay RAM to come is over half of
+  its available RAM (after `/workspace/ramlock` reservations).
+- Never delete unpreserved run outputs. Never touch `/workspace/pouw/gpu3-fp8`. Nothing runs on node 2 while
+  `/workspace/pouw/fill/status.txt` says `timed True` (the tick skips node 2's probe then).
+
+### Thresholds (the probe's watermarks)
+| metric | node 1 | node 2 |
+|---|---|---|
+| `/workspace` used | alert 80%, hard 85% | alert and hard 55% |
+| root free | alert < 60 GB, hard < 45 GB | same |
+| inodes used, either filesystem | 80% | 80% |
+| inode growth, either filesystem | > 100k files/h | same |
+| RAM available | < 10% | < 10% |
+| replay RAM to come | > ½ available | > ½ available |
+| GPU memory at 0% util | > 20 GiB for 15 min | same |
+| finished runs without custody, older than 1 h | > 10 | > 10 |
+
+Replay RAM to come is counted differently on each node. On node 1 it is Kueue's pending `*-replay-*` Workloads, each at
+max(its memory request, 90 GB). On node 2 it is the queued `verity-replay-*` fill jobs at max(`mem_gb`, 90 GB), plus each
+running `verity-commit-*` at 90 GB, since each queues a replay when it ends; a queued Commit reserves nothing until it runs.
+The 90 GB floor is a Phi-3/Mistral batch-8 bundle; the requests (64 GB) are lower. GPU idle comes from node 1's Prometheus
+(DCGM) and from node 2's sampler JSONL, never from NVML. A run has custody on its node when it has `.custody`, `.fetched`
+or `preserved.json`.
+
+### Overlaps: one owner
+- Disk, cache and RAM decisions on both nodes: **resource-steward**.
+- Enforcement: node2-ops keeps its OOM guard (`node_ops.py`) and its job-start disk stop (the fill runner), but hands disk and
+  cleanup decisions to the steward.
+- The nebius-infra steward's node-1 disk reporting folds into the steward.
+- GPU idle-in-lease and unleased GPUs as job norms stay with node2-ops and kueue-fold (`publish_pool.py`, `pool_n1.py`).
+  The steward's 15-minute, 20 GiB rule is about memory held; it doesn't re-alert a GPU those monitors already flagged.
+- Handoffs: `note:20260930T2205Z-handoff-from-resource-steward` in `lanes/node2-ops/` and `lanes/nebius-infra/`.
+
+### Daily
+At 8 AM PDT (15:00Z), a summary in `#agent-coordination` (`--as infra`, "resource-steward:"): headroom per node and
+resource, what was deleted, what waits on an owner, and trends (from each node's `~/.local/state/resource-steward/history.jsonl`).
+
+## 2. Probe
+- `tools/research/src/research/pods/nebius/resource_probe.py` on `infra/nebius` `233f451f2`, with its test
+  `tools/research/tests/test_nebius_resource_probe.py` (12 tests).
+- Deployed at `~/resource-steward/bin/resource_probe.py` on both nodes (sha256 `90f43274…`), by install and rename.
+- It reads statvfs, `/proc/meminfo`, the ramlock dir, Kueue (node 1) or the fill queue (node 2), Prometheus (node 1) or the
+  sampler JSONL (node 2), and the run dirs. It takes 0.1–0.8 s at `nice 19`, and never deletes, stops a process or touches NVML.
+- Exit codes: 0 means all clear, 1 a breach (one line each), 2 a failed source (never read as all clear).
+- Each node keeps its state and history in `~/.local/state/resource-steward/`.
+
+## 3. Baseline (30 Sep 2:55–3:05 PM PDT, 21:55–22:05Z)
+| | node 1 (vy-nebius-1) | node 2 (vy-nebius-2) |
+|---|---|---|
+| root | 155 GB free of 265 (42%), inodes 5% | 199 GB free (26%), inodes 3% |
+| `/workspace` | **71%**, 1.58 TB free of 5.39 TB, inodes 35% | **36%**, 3.46 TB free, inodes 11% |
+| RAM available | 1,308 GB of 1,800 (73%); shmem 91 GB | 1,531 GB (85%) |
+| ramlock reservations | none | none |
+| replay RAM to come | 4 pending replay Workloads × 64 GB request (360 GB at the floor), ½ available = 654 GB: OK | 0 (14 Commits queued, none running): OK |
+| GPUs holding memory at 0% | GPU 0 (53 GB) and GPU 2 (49 GB), 15 min+, both `nd-vllm-epoch-run-*-gpu-0` in `deployments-gpu`; `pool_n1` flags them too | none |
+| runs without custody, > 1 h | 1 (`r20260930-080414-bae0`, failed) | **13**: see §5 |
+| `~/.cache/verity-check` | 35 GB (lean-deps 34, circuit-check 0.9); no scratch | 35 GB (lean-deps 34); no scratch |
+| uv / Triton / vLLM caches | `~/.cache/uv` 1.0 GB, `/workspace/cache` 26.5 GB, `/workspace/jobs/cache` 20.0 GB | `/workspace/cache` 29.1 GB, `/workspace/jobs/cache` 0.5 GB, `~/.cache/vllm` 44 MB |
+| weights | `/workspace/hf` 2.92 TB | `/workspace/hf` 175 GB, `/workspace/jobs/hf` 121 GB |
+| `/workspace/research/runs` | 57 GB (344 dirs) | 122 GB (572) |
+| `/workspace/research/src` | 162 GB (181 trees, oldest 05:22Z) | 38 GB (272) |
+| `/workspace/research/trees` | 62 GB | — |
+| `/workspace/jobs` | **517 GB** (runs 149, flock-sweep2 87, probe-jit 80, cov 76, store 38, src 34, flock-v2 19, flock-m0 18, venv312 11) | 140 GB |
+| `/workspace/pouw` | — | 1.36 TB |
+| `/tmp` (root disk) | 21 GB, 20 GB of it `pytest-of-research` | 3 GB |
+| replay bundles found | 1 × 0.56 GB (`research/runs/cfgtp2-cpu`); the 60 GB and 11 GB `.partial` bundles in `probe-jit` are gone | none |
+
+Node 1's `/workspace` has grown from 69% at 2:24 PM PDT to 71%, and `/workspace/jobs` from 398 GB to 517 GB. At 1.58 TB
+free, it reaches the 80% alert after about 0.48 TB more. The trend line starts with the next ticks.
+
+## 4. Deletions
+None yet: no filesystem is over its watermark, there's no check scratch on either node, and no source tree is 24 h old.
+
+## 5. Waiting on an owner
+- Node 2 has 13 finished runs older than 1 h without custody, which is over the threshold of 10:
+  - three are node2-ops' hourly backups that stalled in multipart custody: `r20260930-081105-b32f` (17 GB),
+    `-091913-2c58` (17 GB) and `-102051-0e13` (3.9 GB), superseded by chunked backups since 10:27Z;
+  - ten are small smoke runs (104 KB to 1.2 MB: `true`, `sha256sum` and `bash`) between 14:34Z and 18:55Z, with no lane set.
+
+  Nothing is deleted. The handoff asks node2-ops to publish them or confirm they can be marked superseded.
+
+## 6. Log
+- 22:05Z first turn: set up; took the baseline; committed the probe (`233f451f2`) and deployed it on both nodes; wrote this
+  policy; armed the 20-minute timer and the `#agent-alerts` subscription; sent handoffs to node2-ops and nebius-infra.

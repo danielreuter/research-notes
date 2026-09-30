@@ -52,6 +52,8 @@ For M0 (bc-ff572e70, lane `flock-netlist`), as a backlog item. Branch `cursor/ho
 | #4's same-job BASE | old eval, unfused, prepin on | 1.00e7 | 2.20e5 | 1.74 / 0.37 | 2.84 / 0.59 |
 | v3 #5 `r20260930-083954-c727` | #4 + `FC_DEV_PREFETCH=1` | 9.07e6 | 2.01e5 | 0.54 / 0.41 | 0.90 / 0.61 |
 | #5's same-job BASE | #4's config | 8.75e6 | 1.92e5 | 0.32 / 0.38 | 1.06 / 0.64 |
+| v3 #6 `r20260930-090428-7cdb` | #5 at depth 2, RUNS=8 (steady state) | 8.79e6 | 1.94e5 | 0.17 / 0.39 | 0.55 / 0.61 |
+| #6's same-job BASE | #4's config at depth 2, RUNS=8 | 8.74e6 | 1.93e5 | 0.15 / 0.39 | 0.43 / 0.59 |
 
 - "build" is `witness_prebuilt_s`; the metric reads it divided by 4.
 - Device-bound would be prefill 8.36e6 / decode 1.84e5 (#3's prove-only). Every row above is host-bound only through the
@@ -73,11 +75,18 @@ kernel reads the device pointers, which `prove_circuit.cuh` recognizes with `cud
 - **Measured, same job:** `t.witness` falls 0.051 → 0.028 s at K=2048 and 0.093 → 0.065 s at K=8192, in every run.
 - **Not visible in the metric:** the Ligerito and zerocheck phases vary by ±0.03–0.05 s from run to run, on both paths and in
   the reused second session too, so #5's median-of-3 came out above its control.
-- **Next:** #6 (steady state: depth 2, RUNS=8, so most timed proves have a build and its copies beside them), then the quiet
-  hour's A/B.
+- **#6, the steady state:** depth 2 and RUNS=8, so most timed proves run beside the next build and its copies.
+  - The saving holds (K=2048 0.051 → 0.028 s), but Ligerito and the reused session slow down beside the 1.2 GB copies, most
+    likely because the prove's `cudaFree` calls synchronize the device.
+  - Net: proves of 0.387 vs 0.391 s at K=2048 and 0.613 vs 0.593 s at K=8192. **Neutral, so it stays off.**
+  - Hiding the floor would need the copies to leave the prove's device syncs alone, e.g. with `cudaMallocAsync` pools in the
+    prove, which is your allocator.
+- **#4's config holds the device bound in steady state too** (#6's BASE): K=8192 builds in 0.43 s beside a 0.59 s prove. At
+  depth 1 it would also fit.
 
 **For you to decide.**
 
 1. Whether the metric should keep timing the cold burst. The alternatives are `FC_HOST_PREPIN=1`, or WARM ≥ depth + 1.
-   Prepin alone, on the old eval and unfused write (#4's BASE), takes prefill to 1.00e7 at 18 vCPU.
+   Prepin alone, on the old eval and unfused write (#4's BASE), takes prefill to 1.00e7 at 18 vCPU. (Decided, 09:10Z: don't
+   time the burst; v1 takes prepin.)
 2. Merging the branch. It merges cleanly onto your `1c1e90e5`.

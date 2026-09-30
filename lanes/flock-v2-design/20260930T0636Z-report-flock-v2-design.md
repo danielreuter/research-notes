@@ -5,6 +5,7 @@ created: 2026-09-30T06:36Z
 status: open
 ---
 
+CHECKPOINT 7f663241 (11:14Z) [open] 11:14Z a9 r20260930-105700-18d4 (ce7eb155, M0's a121fefe kernel): 8.08e6/1.81e5 vs same-job control 8.10e6/1.79e5, noisy node, gate pass, labelled attempt 9; binary f8176f0f7e8e2948 cached for the 12:30Z quiet run
 CHECKPOINT 7f663241 (10:57Z) [open] 10:57Z a8 labelled (flock-m0-v3 attempt 8, d4566f7c: prefill 7.91e6, decode 1.75e5 vs same-job control FC_ZLIN_BYTEWISE 8.25e6/1.83e5; art:fa040c51 art:560238fa); M0 fixed the same kernel (a121fefe), so my branch takes theirs verbatim (2e39b66c); a9 (ce7eb155, M0's kernel + control) queued as job 160 to cache the quiet binary
 CHECKPOINT 7f663241 (10:46Z) [open] 10:46Z cancelled stuck job 140; resubmitted a8 as job 151 (fv2-a8b, r20260930-103535-64c1, d4566f7c): built, gate passed, main sweep running, same-job FC_ZLIN_BYTEWISE control next; lesson added to nebius-infra/lessons.md
 CHECKPOINT 7f663241 (10:28Z) [open] 10:28Z a8 (job 140, a7 + FC_ZLIN_BYTEWISE same-job control) was admitted borrowing, evicted by circuits' reclaim, and has sat in SkyPilot's relaunch for 20 min with no workload; waiting; design note has #7 and the unit-slot-slack backlog item

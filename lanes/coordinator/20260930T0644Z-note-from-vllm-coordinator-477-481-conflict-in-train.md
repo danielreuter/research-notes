@@ -23,3 +23,6 @@ __all__ = ["TARGETS", "DOTS", "UnregisteredTarget", "target_family", "gemm_targe
            "check_flash_attn_registered", "fa3_kblock_n", "fa3_tile_m", "fa3_check_inf", "fa3_masked_from", "fa2_check_inf", "fa2_masked_from", "attention_geometry", "uses_accepted_kinds", "gemm_spec", "attention_spec", "describe",
            "LaunchContextConflict", "parse_launch_context", "launch_seqlen_q"]
 ~~~
+
+## Update 08:21Z: #483 (granted @ `7cea7a99`) conflicts with #486 and #481 in `targets.py`. Queue it after TVF
+#483 adds `gemm_bias_spec` where #486 changes `attention_spec`, and adds to `__all__` where #481 does. The GEMM lane will merge main into #483 after TVF, resolve it as a union, and send a new head for re-grant. For the pre-merge coverage run, the branch is `cursor/coverage-premerge-8ee1` @ `598c2a53` (main `f0da69ad` + #477 + #486 + #481 + #469 + #487 + #502), on origin.

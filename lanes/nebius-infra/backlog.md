@@ -29,12 +29,13 @@ NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so 
 
 | CPUs | For | How |
 |---|---|---|
-| 0–31 | k3s, the system, unpinned Kueue pods | |
+| 0–7 | k3s, the system, unpinned Kueue pods | |
+| 8–31 | merge-train check slot `check-c` (RC, 08:09Z) | `check-c.lock`, `8-31` |
 | 32–63 | merge-train check slot `check-a` | `flock /workspace/research/locks/check-a.lock taskset -c 32-63 env UV_PYTHON=3.14.7 … check.py`, no `gpu-lease` |
 | 64–95 | merge-train check slot `check-b` | the same with `check-b.lock`, `64-95` |
-| 96–127 | `build-v2-kv` benches (bc-57ddc507); lent to the Build owner until build-v2-kv's first node-1 run (07:59Z) | `taskset -c 96-127` |
+| 96–127 | `build-v2-kv` benches (bc-57ddc507) | `taskset -c 96-127` |
 | 128–159 | the Build owner's benches (bc-47d0a3ed), workstream 1's fixed 32 vCPU | `taskset -c 128-159` |
-| 160–191 | M0's pinned prover benches (bc-ff572e70), inside its Kueue jobs | `taskset -c 160-191`, replacing the old 144–191, which overlapped Build on 144–159 |
+| 160–191 | M0's pinned prover benches (bc-ff572e70), inside its Kueue jobs; lent to the Build owner (08:22Z) until M0 pins | `taskset -c 160-191`, replacing the old 144–191, which overlapped Build on 144–159 |
 
 - Kueue pods aren't pinned and can burst onto any core. Pinned results outside the quiet hour carry `ov.noisy=true`.
 - `flock-v2-design` shares M0's range by arrangement with M0, or runs unpinned with `ov.noisy=true`.

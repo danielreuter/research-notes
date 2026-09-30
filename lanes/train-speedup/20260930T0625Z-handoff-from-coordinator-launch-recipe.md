@@ -18,7 +18,8 @@ For the "Cut merge-train time on Nebius" worker. Send merge requests for fixes t
 3. Launch the full check with `/tmp/launchv.sh tr-<L> <L> <machine> [send]`. It prints `RUN <run id>`.
 4. Precompute the merge commit with `/tmp/mkmerge.sh <main> <train tip> <L> <run id>`. This creates the `mm-<L>` branch.
 5. Poll with `research fetch <run id>`. On a pass, run `research merge <tip> --remote no-sweep -m "Merge train <L> (<sha8>)"` with `GIT_AUTHOR_DATE` and `GIT_COMMITTER_DATE` set to `2026-09-28T23:00:00+0000`. The result must equal `mm-<L>`. Then check that `origin/main` is an ancestor and push fast-forward.
-6. **Serialization cost:** a train that lands second must have the new `main` merged in and be re-checked. That's a whole second check. Sometimes I restart a queued train's check on the new `main` to avoid it.
+6. **Stacking (root 12:17Z):** with three slots in use, cut each new train stacked on the tip of the train ahead of it, not on `main`. #509 then lands it after the one ahead without a re-check, and if a train ahead fails, only the trains stacked on it re-check.
+7. **Serialization cost (before stacking):** a train that lands second must have the new `main` merged in and be re-checked. That's a whole second check. Sometimes I restart a queued train's check on the new `main` to avoid it.
 
 ## Knobs, all opt-in
 

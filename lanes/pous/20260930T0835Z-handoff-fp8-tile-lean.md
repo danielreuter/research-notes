@@ -56,10 +56,11 @@ in 9 modules, standard axioms, 38 pins (the 23 of `fp4-tile-lean` unchanged, plu
 
 **What the FP8 count closes** (the store's `internal/pouw/ttout-restatements.md` §6 has the argument, with the lines v1
 and v2):
-- **Outright:** E4M3 (tie), and NVFP4 because its capacity on in-domain E4M3 blocks is 0: no 16-block is one NVFP4 limb
-  (`fmt8_closed_iff`).
+- **E4M3** (a tie), conditional on `fp8-merge-rate/sm120`. **NVFP4 only through the operands:** its capacity on
+  in-domain E4M3 blocks is 0 because no 16-block is one NVFP4 limb (`fp8-limb-rate/sm120`, measured 0%), not because of
+  a format width (`fmt8_closed_iff`).
 - **Up to a support:** BF16 or FP16 up to 2 entries (Strassen depth 1), TF32 up to 4 (depth 2), FFMA up to 8 (depth 3).
-- **Open beyond those:** `support_admits_openAt` shows no support count can close them.
+- **Open beyond those:** the support count cannot rule out a cheaper cost profile (`support_admits_openAt`).
 
 **To merge:**
 1. Copy the two files next to `Pouw/TileBound/`, and add `import Pouw.TileBound.Fp8` to `Pouw/TileBound.lean`.
@@ -92,3 +93,23 @@ here are updated. No FP8 pin's type hash changed.
   - `dp4a` holds the same 8 at 4.05, so it is closed up to 4 entries.
   - This is now stated in `Fp8Defs.lean`. If `Fmt` gains `int8`, `fp16` and `dp4a` (review item a), `capacity8` extends
     to 8, 128 and 8.
+
+## Addendum, 09:05Z: the FP8 statement review (GO on all 15; notes applied)
+
+The review is `internal/pouw/fp8-tile-lean/statement-review.md` (bc-22298e90).
+- **Note 1:** `cost_ge_support_of_at` is no longer pinned (14 pins). The theorem stays, unpinned, until the shared lemma
+  moves into `Proofs.lean`.
+- **Notes 3 and 7:** the wording above: NVFP4 is closed only through the operands, and the support count "cannot rule
+  out a cheaper cost profile".
+- **Notes 2, 4 and 5:** the docstrings.
+  - E4M3's capacity is conditional on `fp8-merge-rate/sm120`, now measured on the census families: sum and difference
+    both E4M3 for 28–30% of pairs, and 0 of 160 whole 16 × 32 fragments. So the condition holds at fragment granularity,
+    not per pair (the restatements report §6).
+  - int8 is worded as the review asks.
+  - `e4m3X`/`e4m3Y` are named as the intended blocks.
+- **Note 6:** re-run `--update` after both the FP4 fixes and this bundle land.
+- **New since the review, for the same reviewer: `Pouw/TileBound/Fp8Depth.lean`, 6 pins.** `bf16_pays_iff`,
+  `tf32_pays_iff` and `fp32_pays_iff` say a rank-7 recursion's sub-products undercut E4M3 exactly from depth 6, 11 and 16.
+  `bf16_region_of_pays`, `tf32_region_of_pays` and `fp32_region_of_pays` give the output regions those depths need.
+  They are arithmetic on `price`, and §7 of the restatements report cites them. The bundle now has 20 FP8 pins
+  (`fp8-tile-pins.json`).

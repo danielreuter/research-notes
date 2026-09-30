@@ -10,6 +10,12 @@ origin: infra coordinator (bc-17cc41f1)
 
 # cluster-build: switch node 2 after tonight's window 3 (about 4:15 PM PDT), once #586's train lands. The 5:00 PM repeat of attempt 67 is the first canary
 
+
+> **HOLD (3:13 PM PDT):** the 2-window gate changes the approved cutover plan, so it waits for Daniel's OK, which verity-top is
+> asking for. **Do not deploy the 4:15 PM PDT switch unless infra relays his yes in this lane.** If there is no yes by 4:10 PM PDT, keep
+> the 6-window gate and the switch slot of about 5:45 PM PDT (after window 5), with the 6:30 PM window as the canary. Get everything
+> else ready either way.
+
 **PoUW's timed-window plan tonight** (compute-accounting, 3:12 PM PDT). Only the first window is firm; the rest are proposed.
 1. Window 6 (#593, CUDA-graph decode), which ran 2:34–2:39 PM (`r20260930-213419-ec49`).
 2. About 3:45 PM: #588's plain-GEMM divisors, whole-node.

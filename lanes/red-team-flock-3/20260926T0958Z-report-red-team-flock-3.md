@@ -1630,6 +1630,18 @@ Verdicts only. The findings are in the store's `private/`.
     `lanes/lean-zk-table/20260930T1146Z-answer-from-red-team-flock-3-519-regrant.md` and
     `lanes/lean-gemm-relation/20260930T1153Z-answer-from-red-team-flock-3-514-regrant.md`, with store copies. Evidence:
     `private/red-team-reviews/regrants-513-519-514-evidence.log`.
+- **Combined review: #514 @ `f3a60a36`, #521 @ `4e4ee3e4` and #526 @ `04b94af7`, all GRANTED in both roles; labels
+  recorded.**
+  - #521's `zeroCols_of_classes` discharges `ZeroCols {zer}` from forced-zero copies (`hzr`). Its `_classes_zero` forms
+    make the program's zero public at 0.
+  - Correction to my #514 verdict, which said programs have no zero wire: the zero is a program input, and the
+    `_classes` forms leave it to the plurality.
+  - At #526 the 161 pins I reviewed at `010b2c2d` are byte-identical, #521's two enter per prover, and no pin asks A2 of
+    every prover.
+  - Checks: the audits pass with kernel replay (165 and 176 pins).
+  - Answers: `lanes/lean-value-binding/20260930T1207Z-answer-from-red-team-flock-3-514-521-526-verdict.md`, and
+    `lanes/lean-gemm-relation/20260930T1207Z-answer-from-red-team-flock-3-521-and-514-correction.md`, with store copies.
+    Evidence: `private/red-team-reviews/combined-514-521-526-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

@@ -84,6 +84,24 @@ kernel reads the device pointers, which `prove_circuit.cuh` recognizes with `cud
 - **#4's config holds the device bound in steady state too** (#6's BASE): K=8192 builds in 0.43 s beside a 0.59 s prove. At
   depth 1 it would also fit.
 
+**#7: the z_lincheck transpose (`acc580a2`; `d4566f7c` adds its same-job control).** Rep 1's `t.witness` is almost
+entirely `chunk_zlin_transpose`, the bit transpose of z for the lincheck. In #4 it took 0.019 s at K=2048 (m 33, 1 GiB) and
+0.038 s at K=8192 (m 34), in both reps, so about 10% of the K=2048 prove and 12% of the K=8192 prove.
+
+- **Why it was slow.** The kernel stored one byte a thread per instruction, with a warp's 32 bytes 128 bytes apart.
+- **The fix.** Eight threads share a word. Each gathers its 16 output bytes' bits from the word's 8 rows, does two 8×8 bit
+  transposes (upstream's `b3_transpose8`) and makes one 16-byte store, so a warp writes 512 contiguous bytes. The chunk prover
+  shares the kernel.
+- **Byte identity.** The bytes are the same: checked on the host against the old loop for k_log 7–13, and the gate passes
+  (`gpu_paths_agree`, and `gpu_proofs_match_cpu` with proofs and transcripts equal), with your digests.
+- **The control.** `FC_ZLIN_BYTEWISE=1` runs the old kernel in the circuit prover, so `72-host-unit-eval.sh BASE=1
+  BASE_ENV=FC_ZLIN_BYTEWISE=1` times both in one job.
+- **#7 measured** (`r20260930-094714-ef95`, 18 vCPU, noisy). Rep 1's `t.witness` went 0.0189 → 0.0015 s at K=2048 and
+  0.0382 → 0.0031 s at K=8192, and rep 0's fell by the same amounts. But every other phase ran 10–40% slower than in #4 on a
+  busy node, so the metric came out at 8.63e6 / 1.87e5, above #4's.
+- **Predicted from the phases:** proves of 0.325 s at K=2048 (from 0.360) and 0.510 s at K=8192 (from 0.580). That gives
+  prefill about 7.4e6 and decode about 1.6e5.
+
 **Backlog, design only: unit-slot slack (a statement change).** This needs a named statement reviewer and circuit-check, and may
 need Daniel if the layout rules in `verity/ir/PROTOCOL.md` change. Nothing here is prototyped.
 

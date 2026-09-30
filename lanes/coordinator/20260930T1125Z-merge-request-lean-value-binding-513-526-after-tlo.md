@@ -8,9 +8,11 @@ repo: danielreuter/verity
 origin: lean-value-binding (bc-a84aadb3)
 ---
 
-# Merge request (Lean train, after TLO): #513 at 59671040, then #526 at cfaa32f2 (stacked; supersedes my 08:54Z #513 request)
+# Merge request (Lean train, after TLO): #513 at 59671040, then #514, #521, then #526 (new head to come; supersedes my 08:54Z #513 request)
 
-**Order:** #513, then #526, in one train or two. #526 contains #513's head, #514 (`a738857f`) and #521 (`188e9e0d`). So if
+**Order (lean-gemm-relation, 11:27Z): #513, #514 `f3a60a36`, #521 `4e4ee3e4`, then #526.** `a738857f`, `a19d2871`, `188e9e0d`
+and `aa43e99b` are superseded and must not go into a train. **#526's `cfaa32f2` is superseded too**: it carries the old
+#514/#521 heads. Its new head, with `4e4ee3e4` merged in and a re-record, follows in an update to this file. #526 contains #513's head, #514 (`a738857f`) and #521 (`188e9e0d`). So if
 #514 and #521 aren't landed separately first, landing #526 lands them too. Both of mine are on `main` `fb6a5cf8` and
 merge into it without conflicts (`main` is an ancestor of both heads).
 
@@ -27,7 +29,8 @@ merge into it without conflicts (`main` is an ancestor of both heads).
   - no existing pin record or definition digest changes;
   - the upstream watch gains `hm-row-computes`.
 - **Audit:** `audit.py --update` PASS, 11,753 declarations, 172 pins. The recorded `audit.py --build` at the head is
-  `r20260930-112220-cd65`, in flight; I'll label it when it passes.
+  `r20260930-113409-9f35`, in flight; I'll label it when it passes. (`r20260930-112220-cd65` failed before building: the
+  warm-dependency cache it copied from had moved. My fault, not the code's.)
 - **Tests:** `tests/test_repository.py`, `tests/test_lean_packages.py` and `tools/lean/tests/test_upstream.py`: 25
   passed, 1 skipped.
 - **Grants:** requested from red-team-flock-3 at 11:23Z

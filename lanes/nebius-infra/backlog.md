@@ -56,7 +56,7 @@ queued. The CPU load is about 106 of 192.
 | 4 Security | agents (Lean) | Doesn't fill the server's GPUs. Lean builds and audits could use spare CPU. | Offer only: `lake build` or audits on node 1 CPUs 0–95. |
 | Merge trains | **machines** (CPU) | Checks take `gpu-lease` though they're CPU-only, which blocks the cutover. | CPUs 32–63 and 64–95 for checks (two 32-vCPU slots, agreed with train-speedup 07:00Z), no `gpu-lease`. |
 
-## vy-nebius-1 CPU map (root's decision 07:13Z; pinned ranges are disjoint)
+## vy-nebius-1 CPU map (root's decision 07:13Z, updated 2:42 PM PDT; pinned ranges are disjoint)
 
 NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so even-aligned ranges share no cores.
 
@@ -67,11 +67,10 @@ NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so 
 | 32–63 | merge-train check slot `check-a` | `flock /workspace/research/locks/check-a.lock taskset -c 32-63 env UV_PYTHON=3.14.7 … check.py`, no `gpu-lease` |
 | 64–95 | merge-train check slot `check-b` | the same with `check-b.lock`, `64-95` |
 | 8–95, shared | **short lane checks** (a circuit-check rerun, one suite: minutes), which never wait on a train: `check-s1`, `check-s2` on the train slots' CPUs at `nice 10` (10:15Z) | `flock /workspace/research/locks/check-s1.lock nice -n 10 taskset -c 8-95 <cmd>` (or `check-s2`); `check_slot.sh --short <cmd>` once `infra/nebius` has `fb923c3a`; `/workspace/research/check-slots` = `32-63 64-95 8-31` |
-| 96–127 | `build-v2-kv` benches (bc-57ddc507) | `taskset -c 96-127` |
-| 128–159 | the Build owner's benches (bc-47d0a3ed), workstream 1's fixed 32 vCPU | `taskset -c 128-159` |
-| 160–191 | M0's pinned prover benches (bc-ff572e70), inside its Kueue jobs; lent to the Build owner (08:22Z) until M0 pins | `taskset -c 160-191`, replacing the old 144–191, which overlapped Build on 144–159 |
+| 96–159 | **node 1's dispatcher's Kueue tasks** (kueue-fold, since 2:42 PM PDT; jobs submitted earlier keep 96–127) | `dispatch.py` `VY_DISPATCH_CPUS=96-159` (`taskset`) |
+| 160–191 | Build benches (`build_bench.py`) and M0's pinned prover benches, one bench at a time, in the quiet hour or for re-measures | `taskset -c 160-191` |
 
-- Kueue pods aren't pinned and can burst onto any core. Pinned results outside the quiet hour carry `ov.noisy=true`.
+- The dispatcher pins its pods to 96–159. Kueue pods from other submitters aren't pinned and can burst onto any core. Pinned results outside the quiet hour carry `ov.noisy=true`.
 - `flock-v2-design` shares M0's range by arrangement with M0, or runs unpinned with `ov.noisy=true`.
 
 ## Ready fills

@@ -28,3 +28,9 @@ The train's full `check` runs `test_tp_moe_members::test_the_stored_tp2_moe_buil
 - **Evidence:** `Attention_v5` matches 122,228/122,228 heads, including the 112 non-finite ones (`art:7bc06ae3`). circuit-check shows 0 failures (`art:97c2dbcf`). The partition has 0 recomputed gates.
 - **Gate (b):** the only new failure was P10, fixed at `70a4504e`, whose lints and touched tests pass (`art:5b51253d`).
 - **Merge:** clean on main `f0da69ad` after #477. **Train order:** #477, #486, #481, #469. #481 conflicts in `targets.py`; the resolution is in `20260930T0644Z-note-from-vllm-coordinator-477-481-conflict-in-train.md`, updated for #486.
+
+## Update 09:21Z: #477 merged in TVF. Next train: #486, #481, #469, then #483 and #501
+- **#483** re-granted @ `3cc9355c077daa38ca9a58649c51795e234cd5ab`: main `cc0f4688` merged in, no conflict; tests pass (`r20260930-084533-99ba`).
+- **[#501](https://github.com/danielreuter/verity/pull/501)** (`GemvBiasF32_v1`, cuBLAS gemvx at M = 1 with a bias, cc 12.0 table) granted @ `1005435cd064c36207663c9032cce982da023169`. It's stacked on #483 and clean on main after #483. Evidence: T table from `r20260930-063002-c5fe`, exact on all 14 entries (`r20260930-063644-caa1`), quick suite clean (`r20260930-075224-1fc7`).
+- **Conflicts:** #483 and #501 both conflict with #486 and #481 in `targets.py`, as a union (`gemm_bias_spec` beside `attention_spec`, plus `__all__`). Merge #486 and #481 first; the GEMM lane then merges main into #483/#501 and sends new heads, or you resolve it as the same union.
+- **Not ready:** #516 (FP8 no-swap order) and #515 (core step, touches `backends/flock`, so it needs `lean-agreement`) are drafts. I'll file them when they're marked ready.

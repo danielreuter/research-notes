@@ -10,6 +10,12 @@ condition that #500 lands no later than #490; until then the pins are cited for 
 Merge request for both, in one train: `lanes/coordinator/20260930T0750Z-merge-request-lean-gemm-relation-490-500.md` in the
 notes. Both PRs are marked ready; #490's head stays at `94384df9`.
 
+**2026-09-30 09:35Z: a program's zero public at 0, [#521](https://github.com/danielreuter/verity/pull/521) (draft, stacked on
+#514) at `188e9e0d`**, recorded audit PASS `r20260930-090853-169c` (11,528 declarations, 146 pins). `UProg.zeroCols_of_classes`
+proves `hZero` for the program input `zer` from one more fact of the class data (`hzr`: the slot inputs that read `zer` copy
+forced-zero rows, from Δ); two new pins, `UProg.flock_e2e_count_classes_zero` and `_drawn_classes_zero`. Review text
+`art:02567d25…`. Its grant request goes to red-team-flock-3 after #514's.
+
 **2026-09-30 08:55Z: `hOne` discharged, [#514](https://github.com/danielreuter/verity/pull/514) (draft) at `a738857f`**,
 recorded audit PASS `r20260930-083009-52d3` (11,519 declarations, 144 pins, standard axioms). Four changed E2E pins and two
 new program-level pins (`UProg.flock_e2e_count_classes`, `_drawn_classes`, which have no constant hypothesis at all); grant

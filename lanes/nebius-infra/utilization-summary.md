@@ -5,7 +5,7 @@ cursor:
 
 # Nebius utilization summary: vy-nebius-1 (Verity) and vy-nebius-2 (POUS)
 
-**Draft at 09:10Z; final by 13:30Z.** Steward: nebius-infra (bc-fd19a2fe).
+**Draft at 09:35Z; final by 13:30Z.** Steward: nebius-infra (bc-fd19a2fe).
 
 **Sources:**
 - node 1: Prometheus (DCGM GPU, node-exporter host, 1 min) and `vy-usage`;
@@ -57,9 +57,10 @@ cursor:
 | 7 | **Three versions of `gpu-lease` in an hour**, plus the #485 × #488 and #485 × `infra/nebius` conflicts | drift, and conflicts in trains | One shared branch, `infra/nebius` (#496, now in RC's queue); hourly drift check | **fixed** |
 | 8 | **Tests read the host** (`/etc/research/deadline`, `LEASE_DIR`, `/etc/vy/direct-gpus`) | every train check on node 1 failed | #504, plus `b20aa7e1` and `e5a7fbd2` on `infra/nebius`; reproduced and verified with fake host files | **fixed** on the branch; lands with #496 |
 | 9 | **The urgent ping thread died with a merge** | lost pings | PR #494, which never merges | **fixed** |
-| 10 | **Live Kueue drifted from the branch** (09:00Z): the CPU nominal was cut to 80+24, so `provers`' 3 GPUs sat idle for lack of CPU quota while the node ran at 19–29% CPU; in-queue preemption came back, and captures evicted coverage cell `cov-k09-3` twice | 2–3 idle GPUs; lost Builds | Retracted my earlier CPU-cut ask; proposed CPU 112+64; the drift check now diffs live Kueue against the branch hourly | **open**, with the Kueue worker |
+| 10 | **Live Kueue drifted from the branch** (09:00Z): the CPU nominal was cut to 80+24, so `provers`' 3 GPUs sat idle for lack of CPU quota while the node ran at 19–29% CPU; in-queue preemption came back, and captures evicted coverage cell `cov-k09-3` twice | 2–3 idle GPUs; lost Builds | Retracted my earlier CPU-cut ask; the Kueue worker applied CPU 112+64 and no in-queue preemption, committed to `infra/nebius` `4e96ed05` (09:16Z); the drift check now diffs live Kueue against the branch hourly | **fixed** |
 | 11 | **vLLM's per-machine manifest pool lock serializes lanes** on the shared host | build-v2-kv waited more than 20 min | Routed to the Build owner (budget per run, not per machine) | **open** |
 | 12 | **Coverage cells hold a GPU through a CPU Build** (the GPU-less Build is blocked by vLLM platform detection) | 6 GPUs held at 0% at 09:00Z | Routed; the vLLM coordinator assigned the GPU-less Build at 08:24Z | **open** |
+| 13 | **Coverage cells over-request memory**: 192–512 GB each, while the node uses 110 GiB with 6 running; memory quota then blocks 4 jobs, a GPU capture among them | 2 GPUs idle at 09:30Z | Routed to epoch-run: request the measured peak plus ~25% (pods have no memory limit, so there's no OOM risk) | **open** |
 
 ## Theory lanes launched
 
@@ -85,4 +86,4 @@ cursor:
   platform for a declared target) is routed to the vLLM side. Meanwhile each cell holds a GPU through its Build.
 - **#496** in a train.
 - **`lease.sh` clamp fix (`0ad80ec2`)** not yet deployed on either node. It can't fire tonight.
-- **Kueue CPU nominal**, less 64 for the check slots: asked of the Kueue worker.
+- **The steward's VM lost GitHub auth at 09:30Z** (invalid token). Pushes to `verity` would go through a bundle in the store's `artifacts/`; nothing is pending.

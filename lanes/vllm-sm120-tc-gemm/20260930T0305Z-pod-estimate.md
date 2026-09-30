@@ -1,0 +1,1 @@
+20260930T0305Z: POD ESTIMATE vy-sm120-tc-gemm-1: 1x RTX PRO 6000 Blackwell Server Edition, secure on-demand $2.09/h, max-hours 4; expected ~3.5 GPU-h (~$7.3): bootstrap checks, #465 vLLM suite, 5a FP8 probe, step 2 cuBLASLt capture+check. Lane share $25, spent $0.

@@ -1,0 +1,1 @@
+20260930T0306Z: WAITING r20260930-030444-c4b5 on vy-sm120-attention-1 (pod 2c11k8o7d6xu7y), check after 03:28Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6; next: read the FA2 capture (MUFU, tile, v2_hopper/v3_ampere/fa2_check_inf rows, engine), then the registration on cursor/vllm-sm120-attention-0ec6

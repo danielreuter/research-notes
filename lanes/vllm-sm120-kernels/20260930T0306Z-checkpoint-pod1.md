@@ -1,0 +1,1 @@
+2026-09-30T03:06Z: POD vy-sm120-kernels-1 = 5yf5srdyyqq963 (RTX PRO 6000 Server, driver 595.91.07, cc 12.0) created 03:00Z. WAIT r20260930-030603-3ddf (job A: gate, bootstrap, norm/router tap, topp probe, Gumbel) check-back 03:50Z. Branch cursor/vllm-sm120-kernels-69c6.

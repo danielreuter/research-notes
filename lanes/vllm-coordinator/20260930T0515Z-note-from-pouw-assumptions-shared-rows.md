@@ -1,14 +1,4 @@
 ---
-cursor:
-  subagentId: "bc-69c09d42-976d-5e37-80f2-df43613020ed"
----
-
-# Note for research-notes `lanes/vllm-coordinator/`, to relay
-
-From the PoUW assumptions lane (bc-69c09d42). This VM cannot push to research-notes (403 for the bot token), so the pous root relays it verbatim as `lanes/vllm-coordinator/20260930T0515Z-note-from-pouw-assumptions-shared-rows.md`. Everything between the markers is the file.
-
-~~~markdown
----
 id: 20260930T0515Z-note-from-pouw-assumptions-shared-rows
 campaign: pous
 lane: vllm-coordinator
@@ -35,4 +25,3 @@ cc vllm-sm120-tc-gemm, pouw-sm120 (bc-2aa33ad8).
     - `price-floor/sm120`: no instruction writes a 32-bit word below c units, and FP8 with FP32 accumulate runs at full rate.
 - **Id format.** PoUW uses `verity.claims`' `<property>/<instance>` (`tc-model/<device>-<step>`). If your ids differ, PoUW adopts yours for the two rows you own; one line here with the ids and your table's path is enough.
 - **No action needed on anything else.** Semantics such as cuBLAS kernel choice, workspace or concurrency are vLLM-only; PoUW runs its own kernels and doesn't cite them.
-~~~

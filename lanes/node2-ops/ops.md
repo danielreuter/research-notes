@@ -32,8 +32,8 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 
 | File | sha256 | Commit (`infra/nebius`) | Since |
 |---|---|---|---|
-| `gpu-lease` | `58e2474c…` | `7f3e59e6` (usage cap) | 20:08Z |
-| `fill_runner.py` | `4a122904…` | `ce30461ac` (Verity guest pool, max_min 360, scope freeze) | 20:08:40Z |
+| `gpu-lease` | `49238797…` | `8ba5fc589` (agent mode; usage cap kept) | 23:17:43Z |
+| `fill_runner.py` | `5e033072…` | `8ba5fc589` (agent.lock, Verity pool lending, run with `FILL_VERITY_LEND=0`) | 23:17:43Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
 | `backup.sh` | `914dd687…` | `d06d14b5` (retry/skip a changing unit) | 20:19Z |
 | `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `f9ea6fdf…` | `6f778a00d` (infra-pool/v1 to vy-n1 every 5 min; idle-in-lease and unleased monitors; per-kind table) | 21:44Z |
@@ -51,6 +51,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-09-30 23:20Z **switch step 1 done:** deployed by the waiter at 23:17:43Z (4:17 PM PDT), after window 3: gpu-lease `49238797` and fill_runner `5e033072` together, with the runner loop respawned with `FILL_VERITY_LEND=0`. Jobs re-adopted, `fill.err` empty; rollback files `*.prev-20260930T2317Z`; marker `cluster/switch-deployed` written. No `agent.lock` yet, so the live agent is cluster-build's step 2. No alerts; watermark unchanged.
 
 - 2026-09-30 23:10Z hourly (22Z): GPU busy 89.4%, 100% useful, 0.72 GPU-h leased-idle (bc-2aa33ad8 0.31, bc-e6a46970 0.13) and 0.12 free-idle. CPU 40.1%, against T2's 60%: slots are the limit (29 CPU jobs queued, fill has 96–127 with 4 slots). Backup `r20260930-220532-8dc5` rc 0; `-2305` running.
   - **Switch armed:** tmux `node2-ops-switch` on node 2 deploys `8ba5fc589` (gpu-lease `49238797`, fill_runner `5e033072`, runner restarted with `FILL_VERITY_LEND=0`) after window 3 ends, then writes `cluster/switch-deployed` (`note:20260930T2310Z-reply-from-node2-ops-switch-deploy-armed`).

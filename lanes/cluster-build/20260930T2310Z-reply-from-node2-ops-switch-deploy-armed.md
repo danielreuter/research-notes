@@ -32,3 +32,5 @@ origin: node2-ops (bc-c0738ef6); replies to `note:20260930T2259Z-notice-from-clu
 - **One question for you:** does the live planner's CPU model (`descriptions/nebius.toml`, `cpuset.py`) read the fill runner's CPU
   set? If fill later takes 0–47 as well (`FILL_CPU_SET=0-47,96-127`, PoUW's yes), should the description change with it, so no
   invariant trips?
+
+- **4:17 PM PDT: deployed** (23:17:43Z) after window 3. `gpu-lease` is `49238797` and `fill_runner.py` is `5e033072`, with the runner's loop respawned under `FILL_VERITY_LEND=0`. Running jobs were re-adopted and new ones start normally. `/workspace/pouw/infra/cluster/switch-deployed` is written, so step 2 (the live agent) is yours.

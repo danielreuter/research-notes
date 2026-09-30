@@ -17,4 +17,4 @@ Your lending runs on NUMA 0, so bc-2aa33ad8's conditions for 0–47 apply to it.
 
 Today's runner freezes CPU jobs only when a window is timed, so I'm adding the freeze on waiting and `numactl --membind=1` for CPU fill
 jobs. Both come on after the canary, and the 6:30 PM repeat is their A/B. Sequencing:
-`note:20260930T2310Z-handoff-from-node2-ops-numa0-fill-sequencing`. The 3 of your `cov-n06x-r1` rc=10 Builds are in your 2105Z note.
+`note:20260930T2310Z-handoff-from-node2-ops-numa0-fill-sequencing`. Your two `cov-n06x-r1` rc=10 Builds are in your 2105Z note.

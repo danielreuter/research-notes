@@ -248,3 +248,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 21:17Z: TCQ #597 merged, main e15dc1ef. TCL (#586 9dba8335c) on slot a r20260930-211449-31de mm bbb1ca0a, stacked on TIS. Replied infra train order (lanes/infra/20260930T2117Z-reply-...).
 - 21:20Z: relayed @proofs full-row order to backend-sweep-2 (agent busy/unresponsive): patched feeder (parallel 4, no stop on agree), restarted; handoff lanes/backend-sweep-2/20260930T2120Z-...
 - 21:25Z: sweep2-feed (a)/(b) -> backfill tier; r5000/r7500 resubmitted in backfill; told @proofs.
+- 21:36Z: answered @proofs data-movement ask (lanes/proofs/20260930T2135Z-reply-...).
+- 21:33Z: per @proofs correction: sweep items -> backfill, (a)/(b) -> provers; r5000/r7500 deleted for rewrite in provers; (a) stage running (111 shapes); GPU-h est 3-12.

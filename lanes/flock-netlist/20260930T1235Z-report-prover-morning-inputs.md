@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-ff572e70-b0e7-5094-85be-13ff9ddc4d6a"
 ---
 
+CHECKPOINT a4256be0 (19:30Z) [open] flock-m0-v3 #20 r20260930-184956-61fe: prefill 4.80e6, decode 1.05e5 x native (GPU 2, gate pass), level with #19 across runs; its same-job control (fc_sha_rows reading the tape directly) gave 4.89e6 / 1.07e5. #21 next: the zerocheck's second-round and tail kernels at two blocks an SM (FC_ZT_LB2).
 CHECKPOINT 18d37423 (18:47Z) [open] flock-m0-v3 #19 r20260930-181717-b71e: prefill 4.82e6, decode 1.04e5 x native (GPU 2, gate pass), from #18's 5.19e6 / 1.14e5: rep 0's witness kept inside the arena (the zerocheck's buffers, its peak, are freed first), so rep 1 reuses it at the tile's m=35 too; now the default. GitHub push auth still failing: unpushed commits bundled on request.
 CHECKPOINT f91d6393 (18:15Z) [open] flock-m0-v3 #18 r20260930-174255-ff91: prefill 5.19e6, decode 1.14e5 x native (GPU 4, gate pass), from #17's 5.54e6 / 1.23e5: the 4x4 tile at m=34, where rep 1 reuses rep 0's witness (at m=35 the keep doesn't fit the arena). Next, #19: m=35 with the keep counted inside the arena (FC_KEEP_EXTRA_W=0, f91d6393, in a bundle while GitHub auth is down).
 CHECKPOINT ec49a99e (17:39Z) [open] flock-m0-v3 #17 r20260930-171200-a14b: prefill 5.54e6, decode 1.23e5 x native (GPU 1, gate pass), from #15's 5.75e6 / 1.27e5: the lincheck's quirky eq table factored and the compression tape a thread per compression, both the same bytes. #16 r20260930-163852-0b50 (host slots staged by copy-engine DMA) was a loss at the tile and is reverted.

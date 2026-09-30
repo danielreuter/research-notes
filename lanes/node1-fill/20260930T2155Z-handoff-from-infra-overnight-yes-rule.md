@@ -17,5 +17,5 @@ origin: infra coordinator (bc-17cc41f1)
 - **No yes, no run:** leave the GPU idle, and report the gap.
 - **Focus (Daniel):** PoUS (memory accounting) stays paused and network accounting is pausing, so run nothing of theirs overnight. The
   one exception is network's #326 check, already planned for the train on node 1.
-- **A new lane, resource-steward,** takes over disk, cache and RAM policy on both nodes. Keep your OOM guard and the 55% start-stop as
-  enforcement, and hand it cleanup decisions. Its handoff will arrive in your lane.
+- **A new lane, resource-steward,** takes over disk, cache and RAM policy on both nodes, including cleanup on node 1. Send it disk and
+  RAM questions in `lanes/resource-steward/`.

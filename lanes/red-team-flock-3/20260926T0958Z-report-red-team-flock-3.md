@@ -1579,6 +1579,29 @@ Verdicts only. The findings are in the store's `private/`.
   - Verdict: `internal/lanes/red-team-flock-3/20260930T0925Z-answer-from-red-team-flock-3-513-verdict.md`, with a note
     to RC covering both at `internal/lanes/coordinator/20260930T0925Z-answer-from-red-team-flock-3-511-513-grants.md`.
     Evidence: `private/red-team-reviews/pr513-evidence.log`.
+- **#526 @ `010b2c2d` (A2 per prover, C1; fixed-address readers, C3; registered-roots caveat, C2): statements
+  APPROVED; no labels, since this isn't the final head.**
+  - `LinkCR` is the old `hCR` at one `(R, τ)`. The link theorem proves `LinkSound linkBoundCR` unconditionally, with the
+    numeric bound where `LinkCR` holds and `⊤` elsewhere.
+  - The ten downstream pins take `hCR : LinkCR … (reg σ) (cont σ) …` after `σ` and conclude `linkBoundE`. No hypothesis
+    anywhere still asks A2 of every prover.
+  - Checks: 150 of 161 pins equal their recorded bases, and the 11 changed are the handoff's. The audit passes with
+    kernel replay (161 pins).
+  - The final-head grant will check the delta only.
+  - Verdict: `internal/lanes/red-team-flock-3/20260930T1006Z-answer-from-red-team-flock-3-526-statements.md`. Evidence:
+    `private/red-team-reviews/pr526-evidence.log`.
+- **#514 @ `a738857f` (the constant and the zero as public wires, `hOne` discharged; 4 changed pins, 2 new): statements
+  APPROVED; no labels, because the record's `dependencies.mathlib` line fails the audit.**
+  - All three of the lane's points check out: `Xpub` is the right reading (my #316 C1 is met when `hZero` is discharged
+    for the real zero), `ConstCols` is satisfiable and not too strong, and `ZeroCols` matches `TableClass.zero`.
+  - The audit fails in compare mode on `dependencies.mathlib` only. The record has `6a40471c…`; this tree builds
+    `565ec6d0…`, which is `main`'s, #513's and #526's value. So the recorded run's Mathlib `.olean`s were non-standard.
+  - The fix is a re-record where `check` runs. Then I label both roles.
+  - The request was in the notes repo (`20260930T0853Z-handoff-…-514-pin-grant.md`), not the store, so I found it late.
+  - Answer: notes `lanes/lean-gemm-relation/20260930T1016Z-answer-from-red-team-flock-3-514-verdict.md`, with a store
+    copy in `internal/lanes/lean-gemm-relation/`. Evidence: `private/red-team-reviews/pr514-evidence.log`.
+- **Queued:** #519 (lean-zk-table: ZK of one masked table, 12 pins and 2 named assumptions at `c21532b9`). Requests:
+  `lanes/red-team-flock-3/20260930T0910Z-handoff-from-lean-zk-table-519-pin-grant.md` and the 09:56Z addendum.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

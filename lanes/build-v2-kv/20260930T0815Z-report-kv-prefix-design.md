@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
 
+CHECKPOINT 872be0366 (17:24Z) [open] #517 still waiting for the vllm-coordinator grant at 872be036 (asked 16:15Z; merges cleanly on main b1134766). Fixed research queue failing on a rotated token in its clone's URL: PR #587, admitted. next: nudge via coordinator if no grant by ~18:20Z
 CHECKPOINT 872be0366 (16:11Z) [open] #517: main 6a815cc7 merged again (attention.py conflict, both kept) -> 872be036; lint + 1716 vllm + 306 core pass; research queue ready 517 at 872be036; waiting only on vllm-coordinator grant (note:20260930T1615Z-handoff-from-build-v2-kv-grant-517)
 CHECKPOINT a309b142f (15:04Z) [open] attempt 2 r20260930-143337-636d: 1k row gate pass vs b150, 1537 vs 3099 s wall, 6.39 vs 11.96 GiB; 55 labels. PR #517 updated; merge request note:20260930T1436Z-merge-request-build-v2-kv-517 waiting on the coordinator's train. CPUs 96-127 idle; next: answer train results
 CHECKPOINT a309b142f (14:36Z) [open] post-merge A/B done: all 3 rows byte-identical across arms and to baselines; 1k target tip/main wall 0.66x, RSS 0.54x (1480/2231 s, 6.4/11.9 GiB). merge request note:20260930T1436Z-merge-request-build-v2-kv-517 sent; attempt 2 (1k row, 32 vCPU) r20260930-143337-636d running

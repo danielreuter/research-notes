@@ -37,3 +37,14 @@ GPU 4 is rerunning them from clean `39dfe2d3`, and I'll post those ids here. Wit
 **The 2:4-sparse atoms, for completeness:**
 - NVF4 sparse k128 with the dense atom's operands writes the dense words: 0 of 131,072 differ (`r20260930-062133-46bb`, repeated in `r20260930-062452-464f`).
 - MXF4's 2X sparse scale differs in 77 of 131,072, as the pinned model predicts (`r20260930-062526-34e7`).
+
+**Addendum (09:25Z): the clean reruns are in. Cite these, not the dirty-tree sweeps.** GPU 4 reran them from clean `fcad808d`. Every gate passed, 0 mismatches against `verity`, all preserved:
+
+| Model | Run | GPU | Seed | Elements |
+|---|---|---|---|---|
+| NVF4 | `r20260930-090302-3dcd` | GPU-1cd543c7 | 20261001 | 17,457,152 |
+| NVF4 | `r20260930-090446-a8db` | GPU-5f1149a4 | 20261002 | 17,457,152 |
+| MXF4 | `r20260930-090613-5553` | GPU-5f1149a4 | 20261001 | 15,867,904 |
+| MXF4 | `r20260930-090738-cf34` | GPU-5f1149a4 | 20261002 | 15,867,904 |
+
+MXF4's signed-underflow variant misses 58,290 and 58,687 elements in the two MXF4 runs.

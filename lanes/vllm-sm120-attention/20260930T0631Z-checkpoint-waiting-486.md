@@ -1,0 +1,1 @@
+20260930T0631Z: WAITING #486 gate (b) on vy-sm120-attention-2: base486 r20260930-051932-96ce / head486 r20260930-051942-008f in the last test (qwen3 build-global, 31 min of ~55), check after 06:58Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6; next: jdiff, terminate, #486 handoff, FINAL

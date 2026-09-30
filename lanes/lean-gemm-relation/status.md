@@ -5,26 +5,25 @@ cursor:
 
 # lean-gemm-relation: status
 
-**2026-09-30 06:32Z (23:32 PT): the proof closes. 0 sorry.** PR: [#490](https://github.com/danielreuter/verity/pull/490) (draft),
-branch `cursor/lean-gemm-relation-a815` at `a0a1d503`.
+**2026-09-30 06:42Z (23:42 PT): Hopper and Ampere/Ada both proved, 0 sorry.** PR: [#490](https://github.com/danielreuter/verity/pull/490)
+(draft), branch `cursor/lean-gemm-relation-a815` at `5d8ef983` (merged with `main`, records in main's SHA-256 format).
 
 - **Package:** `packages/verity/lean` (Lake package `verity`, no dependencies, builds in about 2 s).
-- **Pinned theorems** (`lean-audit.json`), all proved with `propext`, `Classical.choice` and `Quot.sound` only:
-  - `Verity.TC.hopper_step_sound`: every witness the relation accepts outputs `decode_state(tc_dot_total(acc, a, b))`;
-  - `Verity.TC.hopper_step_complete`: the relation accepts a witness for every input;
-  - `Verity.TC.hopper_step_iff`: the relation's possible outputs are exactly the semantics';
-  - `Verity.TC.hopper_step_hw`: under `gemm-hopper-step`, the output is the decode of the device's word;
-  - `Verity.TC.hopper_unit_sound`, `hopper_unit_sound_zero`: a verification unit's chained steps output the decode of
-    `tc_dot_total` folded over the unit.
-- **Sorry count:** 0. **Recorded audit:** run `r20260930-062851-727b` on vy-nebius-1, `audit.py --build`: PASS, 1,073
-  declarations, 6 pins, kernel replay, 23 s build.
-- **Assumptions used:** `Verity.Assumptions.GemmHopperStep` = `gemm-hopper-step(arch, bf16)`, only by `hopper_step_hw`. The
-  equivalence itself is unconditional.
-- **Scope:** the Hopper step (`HOPPER_BF16_WGMMA_K16`, same parameters as `HOPPER_BF16_M16N8K16`: H100 and sm_120), both
-  alignment modes. Not yet: Ampere/Ada (two groups of eight, `W = 25`) and `pack_relation` (the BF16 output boundary).
-- **Cross-checks:** the Lean semantics against the Python on 720 vectors (48 kernel-checked in the package and tested from
+- **Pinned theorems** (13, `lean-audit.json`), all proved with `propext`, `Classical.choice` and `Quot.sound` only:
+  - Hopper (`HOPPER_BF16_WGMMA_K16` = `HOPPER_BF16_M16N8K16`; H100, sm_120): `Verity.TC.hopper_step_sound`, `_complete`,
+    `_iff`, `_hw`, `hopper_unit_sound`, `hopper_unit_sound_zero`;
+  - Ampere/Ada (`AMPERE_BF16_M16N8K16`; A100, RTX 4090): `Verity.TC.ampere_step_sound`, `_complete`, `_iff`, `_hw`,
+    `ampere_unit_sound`, `ampere_unit_sound_zero`, and `ada_eq_ampere`.
+  - `_sound`: every witness the relation accepts outputs `decode_state(tc_dot_total(acc, a, b))`; `_complete`: the relation
+    accepts a witness for every input; `_iff`: exactly the semantics' output; `_unit_sound`: a unit's chained steps;
+    `_hw`: the device's word, under the named assumption.
+- **Sorry count:** 0. **Recorded audits:** `r20260930-062851-727b` (Hopper, 6 pins: PASS); `r20260930-064104-5cf0` (13 pins).
+- **Assumptions used:** `gemm-hopper-step(arch, bf16)` (`Verity.Assumptions.GemmHopperStep`) by `hopper_step_hw` only;
+  `gemm-ampere-step(arch, bf16)` (`GemmAmpereStep`) by `ampere_step_hw` only. The equivalences are unconditional.
+- **Not yet:** `pack_relation` (the BF16 output boundary: FP32 word to `cvt.rn.bf16.f32`).
+- **Cross-checks:** the Lean semantics against the Python on 720 vectors (80 kernel-checked in the package and tested from
   Python); the Lean honest witness equals Python's `step_witness` column for column on 60 vectors.
-- **Needs:** a named statement reviewer for the six pins before merge (all records are new).
+- **Needs:** a named statement reviewer for the 13 pins before merge (all records are new).
 
 **Finding (low):** `relation.check_step` does not check the witness's shape. A witness with truncated `prod`/`terms` lists is
 accepted with a wrong output (1.0 where the semantics give 16.0). Details: `private/lean-gemm-relation/finding-check-step-shape.md`.

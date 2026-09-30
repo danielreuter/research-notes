@@ -64,7 +64,7 @@ hash, first 8 hex digits shown). Packages: `soundness` = `backends/flock/verifie
 
 ## 5. The circuit relation (new tonight)
 
-The Lean semantics is tied to the Python by 48 kernel-checked vectors (`Verity.TC.Vectors`), which `packages/verity/tests/ml/test_lean_vectors.py` checks against `tc_dot_total`. The relation differs from `check_step` in one place: the witness shape is fixed (the Python checker accepts truncated witnesses; low finding, `private/lean-gemm-relation/`). Ampere/Ada (`groups = (8, 8)`, `W = 25`) are not covered yet.
+The Lean semantics is tied to the Python by 80 kernel-checked vectors (48 Hopper, 32 Ampere/Ada, 8 of those RTX 4090 captures) (`Verity.TC.Vectors`), which `packages/verity/tests/ml/test_lean_vectors.py` checks against `tc_dot_total`. Recorded audit on vy-nebius-1: PASS, 13 pins, 1,433 declarations. The relation differs from `check_step` in one place: the witness shape is fixed (the Python checker accepts truncated witnesses; low finding, `private/lean-gemm-relation/`). The BF16 output boundary (`pack_relation`) is not covered yet.
 
 
 | Theorem | What it says | Status | Assumptions | Record |
@@ -73,6 +73,10 @@ The Lean semantics is tied to the Python by 48 kernel-checked vectors (`Verity.T
 | `Verity.TC.hopper_step_complete` | The relation accepts a witness for every input in `tc_dot_total`'s domain (the honest witness, which equals Python's `step_witness` column for column on 60 checked vectors) | proved, pinned, 0 sorry (#490) | none | verity |
 | `Verity.TC.hopper_step_iff` | The states the relation can output are exactly the one the semantics gives | proved, pinned, 0 sorry (#490) | none | verity |
 | `Verity.TC.hopper_step_hw` | Under the assumption, the relation's output is the decode of the word the device writes | proved, pinned, 0 sorry (#490) | **`gemm-hopper-step(arch, bf16)`** (`Verity.Assumptions.GemmHopperStep`: the device's k16 step is `tc_dot_total` on the Hopper pipeline) | verity |
+| `Verity.TC.hopper_unit_sound`, `hopper_unit_sound_zero` | A verification unit: the relation's steps chained through their output states output the decode of `tc_dot_total` folded over the unit, from any accumulator word or from `zero_state` | proved, pinned, 0 sorry (#490) | none | verity |
+| `Verity.TC.ampere_step_sound`, `_complete`, `_iff`, `ampere_unit_sound`, `ampere_unit_sound_zero` | The same for the Ampere/Ada pipeline (`AMPERE_BF16_M16N8K16`: two groups of eight, `W = 25`, floor −132; A100 and RTX 4090); the two groups chain through the first group's output state | proved, pinned, 0 sorry (#490) | none: unconditional | verity |
+| `Verity.TC.ampere_step_hw` | Under the assumption, the Ampere relation's output is the decode of the device's word | proved, pinned, 0 sorry (#490) | **`gemm-ampere-step(arch, bf16)`** (`Verity.Assumptions.GemmAmpereStep`) | verity |
+| `Verity.TC.ada_eq_ampere` | `ADA_BF16_M16N8K16` has Ampere's parameters, so the Ampere theorems cover it | proved, pinned (#490) | none | verity |
 
 ## Gaps worth a line in the morning report
 

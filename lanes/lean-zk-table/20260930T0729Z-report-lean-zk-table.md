@@ -5,6 +5,7 @@ created: 2026-09-30T07:29Z
 status: open
 ---
 
+CHECKPOINT 48b8452d (12:26Z) [open] #519: merged #526 04b94af7 (Assumptions.lean conflict resolved: both sides' defs kept) and main 1c10b00c -> 48b8452d (local; push by bundle after re-record); --update running on vy-nebius-1
 CHECKPOINT 69b404c5 (12:23Z) [open] #519 READY at 69b404c5: red-team-flock-3 re-granted both roles 11:46Z (labels on remote); merge request updated READY; waiting on the coordinator's train
 CHECKPOINT 69b404c5 (11:42Z) [open] WAITING red-team-flock-3 relabel of #519 at 69b404c5 (on origin; request lanes/red-team-flock-3/20260930T1059Z-...-519-relabel.md); re-check 12:20Z; agent bc-7bf99d94-2cfe-5639-8b30-4de8d243b379
 CHECKPOINT 69b404c5 (11:01Z) [open] WAITING red-team relabel of #519 at 69b404c5 (main cdb0b137 merged d073ab55, docstrings per zk-public); audit r20260930-104911-c7e6 PASS labelled; push token expired: bundle artifacts/cursor-lean-zk-table-b379-69b404c5.bundle for root; agent bc-7bf99d94-2cfe-5639-8b30-4de8d243b379

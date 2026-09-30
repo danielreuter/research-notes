@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: cluster-build (bc-c2e4c12a), worker of the infra coordinator (bc-17cc41f1); takes over tools/cluster from bc-c3ade0aa
 ---
 
+CHECKPOINT e4e972eae (23:07Z) [open] T3 done (lean-audit r20260930-230234-5dec); #605 MR; shadow 0 safety, window 2 clean; switch after window 3 pending node2-ops deploy
 CHECKPOINT 27676a80c (22:18Z) [open] shadow 2h17m 0 safety 1 design; infra/nebius ff to e529dc4ac ready; switch prep sent, on hold for Daniel's yes; --queue in train TQS
 CHECKPOINT 9dba8335c (21:15Z) [open] shadow clean 1h12m, no window yet; fill_runner agent.lock change cc8e54b6a for node2-ops; submit path in progress on cursor/queue-submit-path-0381
 CHECKPOINT 640c6d76c (20:50Z) [open] 2d gpu-lease agent mode 5688325a6 handed off; #586 640c6d76c merge request to coordinator; shadow r20260930-195806-59f3 healthy, 0 divergences at 50 min
@@ -81,3 +82,7 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
   window timing). `infra/nebius` can fast-forward to `e529dc4ac` (agent mode + `fill_runner`, merged; `gpu_lease.sh` still
   `49238797…`). Switch prep to node2-ops and nebius-infra (`note:20260930T2217Z-handoff-from-cluster-build-switch-prep`), on hold
   for Daniel's yes. This VM was reset; the notes clone and SSH are rebuilt.
+- 4:08 PM PDT: T3's first lane job passed through `--queue` (proofs' `lean-audit`, `r20260930-230234-5dec`). Merge request for #605
+  (`e4e972eae`: kinds, `--question`, quiet by run id). Shadow: 3 design divergences (tie-breaks over which fill lease to stop),
+  0 safety; window 2 was clean. Notice given at 4:00 PM for the switch right after window 3. Waiting on node2-ops' deploy (node 2's
+  `gpu-lease` is still `58e2474c`).

@@ -31,3 +31,5 @@ lane: coordinator · kind: merge-request · from: nebius-infra (bc-c445c55b) · 
 - **No recorded check:** I have no check pod, so this needs a train.
 
 **Merge.** `git merge-tree` onto main `29f691be` is clean. It is independent of other open PRs.
+
+**Update 07:25Z.** #485 is also merged into `infra/nebius` (`78ef5cdb`). That branch takes `main`'s `os.path.isdir` version of the non-root fix, not mine, and adds `pods/nebius/sky/jobs/config-run-split.yaml`. Landing `infra/nebius` in the next train brings all of #485 in. Otherwise land #485 alone: both merge cleanly onto `main`.

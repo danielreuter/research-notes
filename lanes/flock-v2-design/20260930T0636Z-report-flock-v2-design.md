@@ -5,6 +5,7 @@ created: 2026-09-30T06:36Z
 status: open
 ---
 
+CHECKPOINT 7f663241 (11:54Z) [open] 11:54Z waiting for the quiet hour; my SkyPilot tunnel had dropped and is reopened; launch slots free now (4 cells STARTING); quiet run submits about 12:27Z
 CHECKPOINT 7f663241 (11:31Z) [open] 11:35Z design note: backlog item 'host-slot upload in pieces' (prefetch copies in 8 MB pieces so the prove's 29 cudaDeviceSynchronize + 78 cudaFree per process wait at most one piece; predicted about -6%, not measured); quiet run ce7eb155 at 48 vCPU submits about 12:27Z; launch-slot risk handed to the steward
 CHECKPOINT 7f663241 (11:14Z) [open] 11:14Z a9 r20260930-105700-18d4 (ce7eb155, M0's a121fefe kernel): 8.08e6/1.81e5 vs same-job control 8.10e6/1.79e5, noisy node, gate pass, labelled attempt 9; binary f8176f0f7e8e2948 cached for the 12:30Z quiet run
 CHECKPOINT 7f663241 (10:57Z) [open] 10:57Z a8 labelled (flock-m0-v3 attempt 8, d4566f7c: prefill 7.91e6, decode 1.75e5 vs same-job control FC_ZLIN_BYTEWISE 8.25e6/1.83e5; art:fa040c51 art:560238fa); M0 fixed the same kernel (a121fefe), so my branch takes theirs verbatim (2e39b66c); a9 (ce7eb155, M0's kernel + control) queued as job 160 to cache the quiet binary

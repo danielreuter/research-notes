@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (20:44Z) [open] 1:44 PM PDT: #ask-daniel question cards (Daniel 1:39 PM PDT), priority 1: fields proposed to infra (lanes/infra/2042Z), build started on cursor/slack-approvals-a491 (bc-f0ee5cb2); approvals live test and node-2 panels still with infra
 CHECKPOINT none (20:23Z) [open] 1:23 PM PDT: /admin/live Servers section live (website 5792159, both nodes and infra/* first); node-2 panels asked of infra/node2-ops; backlog listed and held; approvals live test and relay acceptance still with infra
 CHECKPOINT none (20:26Z) [open] Daniel's priorities 20:13Z: node inventory and pool-utilization panel proposal sent to infra (lanes/infra/2025Z); inherited open items logged in this report, not chased; approvals and relay live, waiting on infra's live test
 CHECKPOINT none (20:22Z) [open] relay allowlist cut to seven methods per infra 2006Z (no user-group writes): website 6e3ca6f live (website-docs-dz4f86t4b), cursor/production-de55 moved; unsubscribed from #agent-coordination (top-level forwards @console posts)

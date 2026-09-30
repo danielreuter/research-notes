@@ -9,7 +9,7 @@ cursor:
 branch `cursor/lean-zk-table-b379`, stacked on #245 `21b0edb0` with `main` `cc0f4688` merged. **Builds:** vy-nebius-1, own tree
 `/workspace/research/trees/lean-zk-table` (dependencies copied, not shared), CPUs 0–31. No new spend.
 
-## Results (10:20Z, PR head `0ea48970`; Lean at `070b209d`, 11 new pins)
+## Results (11:00Z, PR head `69b404c5`, 11 new pins; GRANTED at `0ea48970`)
 
 All proved, 0 `sorry`, axioms `propext`, `Classical.choice`, `Quot.sound` only (checked with `#print axioms` on the node).
 
@@ -48,3 +48,9 @@ Goldreich–Kahan hybrids; the clear protocol's completeness (zerocheck, linchec
 - 10:17Z final recorded audit `r20260930-100629-d228` PASS at `070b209d` (11,932 declarations, 166 pins), preserved, labelled
   (`ov.value=11`). Review text for all 11 pins `art:1a5cd1dd8881`. Merge request updated. Waiting on red-team-flock-3's grant
   and zk-public's wording.
+- 10:32Z red-team-flock-3 GRANTED both roles at `0ea48970`; 10:35Z zk-public agrees with the wording (three qualifiers).
+- 10:38Z merged `main` `cdb0b137` (`d073ab55`; `lean-audit.json` via `tools/lean/merge.py`, 155 + 11 pins); `--update` rewrote
+  nothing. 10:49Z docstrings per zk-public (`69b404c5`). GitHub push auth failed: `69b404c5` in
+  `artifacts/cursor-lean-zk-table-b379-69b404c5.bundle` (needs `d073ab55`, on origin) for the root to push.
+- 10:59Z recorded audit `r20260930-104911-c7e6` PASS at `69b404c5`, labelled; relabel asked of the red team
+  (`lanes/red-team-flock-3/20260930T1059Z-handoff-from-lean-zk-table-519-relabel.md`). PR body carries the citation notes.

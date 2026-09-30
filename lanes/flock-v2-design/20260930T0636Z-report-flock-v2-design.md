@@ -5,6 +5,7 @@ created: 2026-09-30T06:36Z
 status: open
 ---
 
+CHECKPOINT 7f663241 (09:04Z) [open] 09:05Z a5 labelled (flock-m0-v3 attempt 5, device prefetch: t.witness -0.024/-0.028 s per statement, hidden by +-0.05 s arithmetic noise; metric 9.07e6/2.01e5 vs control 8.75e6/1.92e5; art:3a5c5a6d art:102392c7); a6 steady-state (depth 2, RUNS=8) queued as job 112
 CHECKPOINT 7f663241 (08:35Z) [open] 08:36Z a4 labelled (flock-m0-v3 attempt 4: prefill 8.23e6, decode 1.81e5 = device bound; control 1.00e7/2.20e5; art:12996d64 art:07b6c51a); handoff to M0; a5 (device prefetch of host slots, 0375d7cf) queued as job 106
 CHECKPOINT 7f663241 (08:14Z) [open] 08:16Z a3 labelled (flock-m0-v3 attempt 3: prefill 1.382e7, decode 3.081e5, gate pass, check sweep accepted; art:fd7816b5 art:71cef652); a4 (prepin + same-job base control) running as r20260930-080425-c735
 CHECKPOINT b822c538 (08:05Z) [open] 08:10Z v3 #3 fused write + tile (r20260930-075001-a713): prefill 1.38e7, decode 3.08e5 vs #2 without it 2.36e7/5.49e5, gate digests = M0's; still host-bound only through the pipeline's cold burst; #4 (FC_HOST_PREPIN=1 + same-job BASE, b822c538) queued as job 76; design note updated in lanes/flock-netlist

@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT 0178e309a (22:02Z) [open] 3:04 PM PDT: TP2 Commit crash (p002-2, likely no NCCL_P2P_DISABLE) routed to owner + gpuless lane; epoch-run: re-render 4 pending old-template Commits, T3 command; infra: front TP2 reference. Acted on inbox: kueue-fold n2-commits owner.
 CHECKPOINT 0178e309a (21:54Z) [open] Daniel's rule applied: owner-approved items only, each names its research question, no filler (note:20260930T2154Z-..., note:20260930T2155Z-...). cov-g217 cross-node check awaits owner's yes. Kernel Q answered (#557).
 lane: vllm-epoch-run · kind: report · to: @circuits · created: 2026-09-30T21:45Z · on your 21:38Z TP2 hold and kueue-fold's 21:26Z requeue
 

@@ -1,0 +1,1 @@
+20260930T0242Z: started (agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6); notes direct (lanes/vllm-sm120-attention in research-notes too). Budget line seen live. Now: mapping FA2 on sm_120 (Attention_v3, fa2_model.cpp, the backend pin, what lane A registers); capture plan next.

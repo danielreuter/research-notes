@@ -1,0 +1,1 @@
+20260930T0239Z: started (agent bc-049fc756-e63b-5b43-af14-0e5a94a2422d); notes direct (lanes/vllm-sm120-tc-gemm in research-notes too). Now: step 1, the target registration PR, on CPU. No pods until the vy-sm120- budget line is confirmed here.

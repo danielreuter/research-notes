@@ -23,6 +23,22 @@ through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coor
 | 4 Security | agents (Lean) | Doesn't fill the server's GPUs. Lean builds and audits could use spare CPU. | Offer only: `lake build` or audits on node 1 CPUs 0–95. |
 | Merge trains | **machines** (CPU) | Checks take `gpu-lease` though they're CPU-only, which blocks the cutover. | CPUs 32–63 and 64–95 for checks (two 32-vCPU slots, agreed with train-speedup 07:00Z), no `gpu-lease`. |
 
+## vy-nebius-1 CPU map (root's decision 07:13Z; pinned ranges are disjoint)
+
+NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so even-aligned ranges share no cores.
+
+| CPUs | For | How |
+|---|---|---|
+| 0–31 | k3s, the system, unpinned Kueue pods | |
+| 32–63 | merge-train check slot `check-a` | `flock /workspace/research/locks/check-a.lock taskset -c 32-63 env UV_PYTHON=3.14.7 … check.py`, no `gpu-lease` |
+| 64–95 | merge-train check slot `check-b` | the same with `check-b.lock`, `64-95` |
+| 96–127 | `build-v2-kv` benches (bc-57ddc507) | `taskset -c 96-127` |
+| 128–159 | the Build owner's benches (bc-47d0a3ed), workstream 1's fixed 32 vCPU | `taskset -c 128-159` |
+| 160–191 | M0's pinned prover benches (bc-ff572e70), inside its Kueue jobs | `taskset -c 160-191`, replacing the old 144–191, which overlapped Build on 144–159 |
+
+- Kueue pods aren't pinned and can burst onto any core. Pinned results outside the quiet hour carry `ov.noisy=true`.
+- `flock-v2-design` shares M0's range by arrangement with M0, or runs unpinned with `ov.noisy=true`.
+
 ## Ready fills
 
 1. **[vLLM coordinator / epoch-run] Split config runs into a CPU job and a GPU job.**
@@ -43,9 +59,9 @@ through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coor
 4. **[M0] Provers queue from cutover.**
    - `prover-bench` runs for the `flock-m0-v1` line, and `flock-v2-design`'s prototypes, on GPUs 4–7.
 5. **[Build owner] Parallel attempts.**
-   - The node-1 CPU map gives Build benches 96–127 (build-v2-kv) and 128–159 (the owner), plus a spare slot at 160–191, each pinned at 32 vCPU and labelled `ov.noisy=true` outside the quiet hour.
+   - The node-1 CPU map gives Build benches 96–127 (build-v2-kv) and 128–159 (the owner), each pinned at 32 vCPU and labelled `ov.noisy=true` outside the quiet hour.
 6. **[research coordinator] More check slots if trains queue.**
-   - The spare bench slot 160–191 is next after the two check slots on 32–95. Ask here.
+   - With two check slots on 32–95 and every pinned range assigned, a third slot would come from 0–31. Ask here.
 
 ## Launched theory lanes
 

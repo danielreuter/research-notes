@@ -89,6 +89,9 @@ fi
 - Work on branch `lane/<your lane>` from `origin/main` unless your brief says otherwise. Commit, then
   `git push -u origin lane/<lane>` after every commit. No force-push, no amend. If pushing `lane/*` is refused, push your
   agent's own branch instead, and name it in your first checkpoint.
+- If your worktree is on another branch (your agent's own, say), bind it once, or `research notes push` and
+  `checkpoint final --require-pushed` refuse with "no local branch lane/<l>":
+  `research notes bind <lane> --branch <current branch> --worktree <dir> --pod none`.
 - Merges into `main` belong to the research coordinator. Send a merge-ready handoff (tip, tests, negatives, behaviour
   changes) to `lanes/coordinator/`.
 - Heavy builds and measurements run on pods, not on your VM, unless the brief says the VM is fine for them.

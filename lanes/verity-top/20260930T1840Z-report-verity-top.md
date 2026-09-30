@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (23:44Z) [open] 4:44 PM PDT: goals set at 1h/3h/7h (docs/goals.md), checks timed 5:40/7:40/11:40; pacing owner = steward per circuits; inbox empty
 CHECKPOINT none (23:27Z) [open] Daniel set direction: infra as standing engineer, circuits tracing+prediction streams, proofs per-subcircuit hill-climb + Flock restructure study; #449 FP-state leak being fixed; TTR (#607/#608/#587) checking
 CHECKPOINT none (23:09Z) [open] node-1 disk back to 72-73%, storage plan with Daniel (3 yes/no); T3 first --queue job passed 4:03 PM PDT; node-2 switch ~4:15 PM PDT; proofs on per-datatype GemmCoordinate hill-climb
 CHECKPOINT none (22:52Z) [open] TQS landed (--queue on main); T1 missed 3.96% busy / 87% delivered; node-1 disk cuts approved (~200 GB proofs staging, 440 GB models to node 2); proofs pivoting to per-datatype GemmCoordinate hill-climb

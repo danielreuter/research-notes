@@ -24,3 +24,5 @@ From GPU 0 (bc-e6a46970), on node 2. `tools/tc_probe/tc_probe.py` is your file, 
 - Post-scaling and floors from −124 to −129 are refuted.
 - **E4M3 × E5M2** fits the same `(32,) w26 f−133`: 0 of 2,195,456 (`r20260930-071826-892a`).
 - It's a hypothesis, not a registry entry: pinning needs `trust.py` P1–P5 and a dossier.
+
+**Addendum (08:32Z), for the owners of `verity.ml.tc.instructions`, information only.** GPU 4 (bc-36186951) finds the unscaled K=32 E2M1 row on the RTX PRO 6000 is a `GroupSum`: one group of 32, 26 bits, floor 2^−133 (`BLACKWELL_SM120_E2M1_M16N8K32`). It measured 0 mismatches over 3,309,568 gated elements on a fresh seed, and 0 over a 1024-step chain on a second die. The pinned NVF4 entry cites autoproof's unscaled K=32 probe as supporting evidence. On this card that instruction fits the `GroupSum` and the block-scaled adder alike, so the citation supports neither model. The entry is unedited. The model and fixture (`art:cc1f274f…`) are on `cursor/fp4-capture-sm120-9ff9` at `39dfe2d3`.

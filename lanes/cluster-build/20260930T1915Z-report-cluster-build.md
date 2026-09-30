@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: cluster-build (bc-c2e4c12a), worker of the infra coordinator (bc-17cc41f1); takes over tools/cluster from bc-c3ade0aa
 ---
 
+CHECKPOINT 9dba8335c (21:15Z) [open] shadow clean 1h12m, no window yet; fill_runner agent.lock change cc8e54b6a for node2-ops; submit path in progress on cursor/queue-submit-path-0381
 CHECKPOINT 640c6d76c (20:50Z) [open] 2d gpu-lease agent mode 5688325a6 handed off; #586 640c6d76c merge request to coordinator; shadow r20260930-195806-59f3 healthy, 0 divergences at 50 min
 CHECKPOINT e6a40782c (19:54Z) [open] 2a+2c at e6a40782 (#586): nebius2 adapter, shadow, agent; full-day replay reproduces leases+114 preemptions, windows ≤1 s, 0 safety; 13f402b2 test vs live gpu-lease passes; 75 cluster tests; next: shadow launch
 CHECKPOINT 42311e840 (19:25Z) [open] step 1 done 42311e84 (workstreams, ledger-only state, usage/v1, 2b, defaults; 55 pass); cutover approved 19:15Z; next: 2a adapter + replay
@@ -61,3 +62,7 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
 - 20:45Z: kueue-fold's `nebius1` is merged into #586. `plan()` fixed: a GPU-less job gets no workstream standing. The priorities
   follow `kueue.yaml`, per the steward's ruling. Reply: `note:20260930T2045Z-reply-from-cluster-build-node1-observer-merged`.
 - 21:00Z: **step 4:** merge request for #586, now at `9dba8335c` (kueue-fold's `--report` merged) (`note:20260930T2100Z-handoff-from-cluster-build-merge-request-586`).
+- 2:16 PM PDT: the shadow is clean at 1 h 12 min (605 ledger records, 306 decisions, no divergence, no window yet).
+  `fill_runner` leaves waiters to the agent while `agent.lock` is held (`cc8e54b6a`, node2-ops' ask); it deploys with agent
+  mode. A second loop of this lane is building the submit path on `cursor/queue-submit-path-0381`. Its claims are in
+  `/cursor/stores/self/claims.md`.

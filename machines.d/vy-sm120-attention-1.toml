@@ -1,0 +1,7 @@
+# machine vy-sm120-attention-1: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "2c11k8o7d6xu7y"
+project = "verity"
+guard = 90
+registered_by = "cursor"
+registered_at = "2026-09-30T03:02Z"

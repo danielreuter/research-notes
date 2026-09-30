@@ -245,3 +245,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 
 (Earlier checkpoints: `20260925T1614Z-report-coordinator.md`.)
 - 21:07Z: backend-sweep-2 (a)+(b) confirmed started 21:05Z (feeder restarted 21:02Z; b chunks r0,r2500 + a first staging written); told @proofs on Slack (p1790802419076219), flagged deployments.txt=60 vs 58. TIS (#592) launched slot c with send: r20260930-210256-4e58, mm 984cd238.
+- 21:17Z: TCQ #597 merged, main e15dc1ef. TCL (#586 9dba8335c) on slot a r20260930-211449-31de mm bbb1ca0a, stacked on TIS. Replied infra train order (lanes/infra/20260930T2117Z-reply-...).
+- 21:20Z: relayed @proofs full-row order to backend-sweep-2 (agent busy/unresponsive): patched feeder (parallel 4, no stop on agree), restarted; handoff lanes/backend-sweep-2/20260930T2120Z-...

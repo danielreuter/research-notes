@@ -86,9 +86,18 @@ feature and idea backlog) starts.
 - Slack group descriptions are fixed now; #592 still needs the research coordinator's merge.
 - node-2 alerts relayed by node2-ops at 19:20Z: `gpu1-pearlc-forms-b.sh` rc=4 and `fp4-recheck2-verify` failing (pouw owners).
 - Land #496 and #531 (proof trains).
+- Three stale `vy-pous-*` entries in notes `machines.d`; their pods have been gone since 27 Sep (memory-accounting, 20:17Z).
 
 ## Log (continued)
 
 - 20:20Z: priority 1 asks sent to @old-accounting and @old-circuits-and-proofs
   (`note:20260930T2020Z-ask-from-infra-utilization-failures-and-workloads`). Unsubscribed from #agent-coordination; the top-level
   routes it.
+
+## Workload inventories received (the queue's sizing)
+
+- **network-accounting (20:22Z):** #326's re-test, one check of about 12 min of CPU (told: recorded check on node 1 now); a
+  deferred timed GPU run of about 15 GPU-h (the quiet class, waiting on the queue).
+  `note:20260930T2022Z-handoff-from-network-accounting-workload-inventory`.
+- **memory-accounting (20:20Z):** paused. On resume: CPU tests and Lean, a one-GPU exclusive timed audit harness (10–60 min, a few
+  a day), CPU-fill encodes of about 3 core-hours. `note:20260930T2020Z-handoff-from-memory-accounting-workload-inventory`.

@@ -69,3 +69,26 @@ and v2):
 The 15 pins need a named statement reviewer, who reads `fp8-tile-review.txt`. If the core lemma moves into `Proofs.lean`,
 `cost_ge_supportAt` and `support_admits_openAt` move with it, and their hashes stay the same.
 ~~~
+
+## Addendum, 08:50Z (after the relay): checked against the FP4 statement review
+
+The review is `internal/pouw/fp4-tile-lean/statement-review.md` (bc-22298e90). The staged files, pins delta and review
+here are updated. No FP8 pin's type hash changed.
+
+- **FIX 1 and FIX 2 (`Realizes`, `crossOn_of_eval`):** none of the 15 FP8 pins goes through them. There is no FP8 gate
+  bridge, and no pinned statement names `Realizes`, `TileProg`, `Gate`, `realizes_out` or `crossOn_of_eval`. So nothing
+  here waits on bc-d9842080's `RealizesAt`. When an E4M3 gate bridge is wanted, it will be pointwise on the fixed
+  pattern.
+- **FIX 3 (layout), applied to the FP8 files.** `honest8` was in the proofs file and read `honest` and `unitForm` from
+  `Proofs.lean`. It is now stated self-contained in `Fp8Defs.lean`, so the `honest8_*` pins read only trusted
+  definitions. The unpinned helper `honest8_toQuad` (`rfl`) lets `honest8_crossOn` reuse `honest_crossOn`, and it keeps
+  working when `honest` moves into `Defs.lean`.
+- **(b), the wording:** `support_admits_openAt` now says the support count "cannot rule out a cheaper cost profile".
+- **(a), int8 and `dp4a`, which bite harder at E4M3:**
+  - int8 at E4M3's price holds 8 same-exponent E4M3 significands, so the count closes it only at 1 entry. On blocks
+    sharing an exponent window, int8 Strassen at depth 1 would cost 7/8 of the honest MACs before its combine.
+  - It is excluded by the domain (≤ 0.29% one-limb slice pairs) and by the per-slice int32 rescale (I2F plus FFMA, +1.27
+    per MAC), not by the count.
+  - `dp4a` holds the same 8 at 4.05, so it is closed up to 4 entries.
+  - This is now stated in `Fp8Defs.lean`. If `Fmt` gains `int8`, `fp16` and `dp4a` (review item a), `capacity8` extends
+    to 8, 128 and 8.

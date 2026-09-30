@@ -132,7 +132,12 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
     `-091913-2c58` (17 GB) and `-102051-0e13` (3.9 GB), superseded by chunked backups since 10:27Z;
   - ten are small smoke runs (104 KB to 1.2 MB: `true`, `sha256sum` and `bash`) between 14:34Z and 18:55Z, with no lane set.
 
-  Nothing is deleted. The handoff asks node2-ops to publish them or confirm they can be marked superseded.
+  Nothing is deleted. The handoff asks node2-ops to publish them or confirm they can be marked superseded. (15 at
+  3:40 PM PDT.)
+- @proofs (backend-sweep-2): whether the `out/classes` trees of `73-sweep-shape.sh MODE=sampled-stage` rows (35–60 GB
+  each in node 1's `/workspace/jobs/runs/<run>/`) are regenerable and may go once proved, and whether the feeder can hold
+  new rows or clean up after itself. Asked at 3:43 PM PDT
+  ([thread](https://computeverification.slack.com/archives/C0C5RCXL66N/p1790808184589359)), reply wanted by 4:15 PM PDT.
 
 ## 6. Log
 - 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
@@ -150,3 +155,16 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
   (`a38ac68a2` + `542169a73`): on node 1 a GPU is idle only when one pod held it for the whole window, and GPUs that
   `pool_n1` already flags idle-in-lease are recorded in `idle_gpus_pool_flagged` rather than re-alerted. Known: node 2's
   13 runs without custody (with node2-ops). No deletions, no Slack post.
+- 22:40–22:45Z (3:40–3:45 PM PDT) tick:
+  - **Node 1 `/workspace` at 77%, up from 71% at 3:05 PM PDT** (about 4–5 GB/min). `/workspace/jobs` went 517 → 736 GB:
+    `jobs/runs` 149 → 304 GB, mostly backend-sweep-2's sampled-stage rows (`out/classes`: `r20260930-210718-2f89` 59 GB
+    done, `-220453-9cce` 48 GB, `-220453-b99a` 40 GB done, `-220551-3af1` 35 GB, `-223358-1749` 17 GB); `cov` 76 → 144 GB;
+    `probe-jit` 80 → 104 GB. The 80% alert is due about 4:20 PM PDT, the 85% hold about 5:15 PM PDT. Asked @proofs on
+    Slack (above). Nothing in the policy's delete-without-asking list frees a useful amount: the caches are about 46 GB, and
+    no source tree is 24 h old.
+  - Node 1 gained 1.47M inodes/h: a one-off. The check-cache move (`r20260930-213917-d6b3`) ran at 22:10Z; `~/.cache/verity-check`
+    is now a symlink to `/workspace/research/cache/verity-check`, and root is at 183 GB free.
+  - Node 2 root gained 154k inodes/h (3% used). A timed window was running at 22:45Z, so nothing was looked at there.
+  - RAM: answered nebius-infra's memory-requests alert with a request policy: Builds 160 → 48 GB, Commits below batch 8
+    170 → 64 GB, limits unchanged (`note:20260930T2243Z-handoff-from-resource-steward-ram-requests`, in `lanes/nebius-infra/`
+    and `lanes/vllm-epoch-run/`).

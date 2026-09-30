@@ -1652,6 +1652,17 @@ Verdicts only. The findings are in the store's `private/`.
   - Answer: `lanes/lean-zk-table/20260930T1308Z-reply-from-red-team-flock-3-519-regrant-48b8452d.md`, with RC told in
     `lanes/coordinator/20260930T1308Z-reply-from-red-team-flock-3-519-regranted.md` (`reply` names, so both inboxes show
     them), and store copies. Evidence: `private/red-team-reviews/pr519-48b8452d-evidence.log`.
+- **`ZK/Session.lean` @ `d6a03d50` (branch `cursor/lean-zk-session-b379`, 5 `sorry` statements): APPROVED; no label
+  yet.**
+  - Lemmas A and B for a session of `J` tables. Each takes its per-table theorem's hypotheses over `j`, and nothing new;
+    `Hm96Hiding` is unchanged.
+  - Independence is §2.2's after the PRG step. One `δ₁` fits, since there is one pinned key and one salt hash, and the
+    sum is at most `2·δ₁·N_hid`. Everything shared is public framing, and the links carry only public values.
+  - Note N1: `[Fintype K] [DecidableEq K]` in `session_prefinal_indep` may be omitted, and I pre-approved that.
+  - No PR yet and nothing pinned. Both roles go on the PR head with the proofs, once its audit passes.
+  - Checks: the module builds with the five `sorry` warnings only, and `#check` matches the source.
+  - Answer: `lanes/lean-zk-table/20260930T1405Z-reply-from-red-team-flock-3-session-statements.md`, with a store copy.
+    Evidence: `private/red-team-reviews/session-d6a03d50-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

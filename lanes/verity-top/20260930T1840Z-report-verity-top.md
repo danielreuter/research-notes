@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:35Z) [open] Daniel approved early node-2 switch, MPS packing, delivered-output metric; node-1 storage cuts under way (hard stop ~5:55 PM PDT); PoUW decode 2.15x verified
 CHECKPOINT none (22:19Z) [open] resource steward live; node-1 targets infeasible as defined, MPS packing plan + delivered-output metric with Daniel; early node-2 switch held for his OK; TQS/TPC landing ~3:52-4:00 PM PDT
 CHECKPOINT none (22:02Z) [open] focus on circuits/proofs/compute; PoUS and network paused; resource steward starting; trains landing ~3:45 PM PDT
 CHECKPOINT none (21:46Z) [open] data-movement verdict sent; research-value review due 4 PM PDT; --queue built, third in train

@@ -1,0 +1,1 @@
+20260930T1446Z: #557 (GemmBias_v2 on main, supersedes #483/#501/#535) pushed at 3dbcc904; circuit-check 0 failures; CPU tests r20260930-143449-6b0b finishing (3 failures to read), binding check r20260930-143503-f42d queued; acceptance config run after both pass.

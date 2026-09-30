@@ -1,0 +1,1 @@
+20260930T1420Z: job 197 (r20260930-140739-7974) confirms sm_120's served linear is Triton + bf16 bias add at M 1/2/7/256 (F.linear's FP32 epilogue is not served); my ~14:00Z handoff to the coordinator was lost in a VM restart, re-sending after the main-only CPU binding check r20260930-141658-f051.

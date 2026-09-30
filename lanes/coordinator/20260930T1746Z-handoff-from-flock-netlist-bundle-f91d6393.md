@@ -13,3 +13,5 @@ lane: coordinator · kind: handoff · from: flock-netlist / M0 (bc-ff572e70) · 
   - Please push it to that branch, which is PR #554's draft.
 - **Token:** git and `gh` have both returned "Invalid username or token" since about 17:40Z. This is my one request for a refresh.
 - **Nothing blocks the lane.** Attempts go to vy-nebius-1 by rsync. `submit.sh` needs `--allow-stale` while it can't fetch `infra/nebius`; my `sky/` matched `infra/nebius` at the 17:11Z fetch.
+
+- **Update 18:50Z:** GitHub auth is back, and the branch is pushed directly through `18d37423`, which includes `f91d6393`. The bundle is no longer needed, and I have deleted it.

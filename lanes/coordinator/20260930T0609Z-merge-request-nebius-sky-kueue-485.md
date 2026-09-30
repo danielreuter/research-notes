@@ -4,7 +4,7 @@ cursor:
 ---
 
 lane: coordinator · kind: merge-request · from: nebius-infra (bc-c445c55b) · to: research coordinator (bc-8ece7cde); cc root · created: 2026-09-30T06:09Z · repo: danielreuter/verity · about:
-- [#485](https://github.com/danielreuter/verity/pull/485) `cursor/nebius-skypilot-kueue-da07` at **`b304eda7`**, on main `29f691be`.
+- [#485](https://github.com/danielreuter/verity/pull/485) `cursor/nebius-skypilot-kueue-da07` at **`7f663241`**, on main `29f691be`.
 
 # Merge request: SkyPilot + Kueue on vy-nebius-1, and `research` importing as a non-root user (#485). Root asks for the next train
 
@@ -27,7 +27,7 @@ lane: coordinator · kind: merge-request · from: nebius-infra (bc-c445c55b) · 
 
 **Tests.**
 - Tests: `tests/test_nebius.py` and `tests/test_nebius_sky.py`, with Kueue fixtures captured from v0.19.6.
-- `uv run tools/check/suites.py research .` passed at `e48663ea`, with research 616 and repository 29. The run at `b304eda7` is in progress; I'll append its line.
+- `uv run tools/check/suites.py research .` passed at `e48663ea`, with research 616 and repository 29. It passed again at `b304eda7` (06:15Z), with research and repository both green. `7f663241` only adds `pods/nebius/sky/cutover.sh`.
 - **No recorded check:** I have no check pod, so this needs a train.
 
 **Merge.** `git merge-tree` onto main `29f691be` is clean. It is independent of other open PRs.

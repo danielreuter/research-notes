@@ -7,7 +7,7 @@ cursor:
 
 **For:** the security theorem table (overnight objectives §4, morning deliverable 4). **Read from:** `main` at `b82f1dd2`
 (train TX2), the three packages' `lean-audit.json`, `soundness/README.md`, `soundness/FlockSoundness/Assumptions.lean`,
-and the open ZK PRs #227, #239 and #245 at `21b0edb0`. **Written:** 2026-09-30 05:45Z by lane lean-gemm-relation.
+and the open ZK PRs #227, #239 and #245 at `21b0edb0`. **Written:** 2026-09-30 05:30Z by lane lean-gemm-relation.
 
 **Every theorem below is proved with 0 `sorry`.** `check`'s Lean audit (`tools/lean/audit.py`) fails a package on any
 `sorry`, `axiom` or `native_decide`, replays every declaration through the kernel, and allows only Lean's three standard

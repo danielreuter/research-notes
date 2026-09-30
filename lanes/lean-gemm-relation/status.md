@@ -5,9 +5,24 @@ cursor:
 
 # lean-gemm-relation: status
 
-**2026-09-30 05:15Z (22:15 PT), open.** Writing the Lean statement: `verity.ml.tc.relation`'s k16 step relation (Hopper
-`groups=(16,)`, `W=26`, floor `-133`) is equivalent to `total.tc_dot_total` over the integers. No theorem pinned yet.
+**2026-09-30 05:40Z (22:40 PT), open: statement fixed, proof in progress.**
+
+- **Package:** `packages/verity/lean` (Lake package `verity`, no dependencies, builds in ~2 s), branch
+  `cursor/lean-gemm-relation-a815`, commit `60ebd57e` (local: the VM's GitHub token expired at ~05:35Z, push pending).
+- **Definitions:** `Verity.TC.Spec` transcribes `total.tc_dot_total` (checked against the Python on 720 vectors, 0
+  mismatches); `Verity.TC.Relation` transcribes `relation.check_step`, independent of the semantics, with the witness
+  shape fixed.
+- **Pinned statements** (`lean-audit.json`, recorded on `sorry` stubs):
+  - `Verity.TC.hopper_step_sound`: every accepted witness outputs `decode_state(tc_dot_total(acc, a, b))`;
+  - `Verity.TC.hopper_step_complete`: the relation accepts a witness for every input;
+  - `Verity.TC.hopper_step_iff`: the relation's possible outputs are exactly the semantics' (proved from the two);
+  - `Verity.TC.hopper_step_hw`: under `gemm-hopper-step`, the output is the decode of the device's word.
+- **Sorry count:** 2 (`hopper_step_sound`, `hopper_step_complete`). **Axioms:** standard three only.
+- **Assumptions used:** `Verity.Assumptions.GemmHopperStep` = `gemm-hopper-step(arch, bf16)`, only by `hopper_step_hw`.
+  The equivalence itself is unconditional.
 
 **Finding (low):** `relation.check_step` does not check the witness's shape. A witness with truncated `prod`/`terms` lists is
 accepted with a wrong output (1.0 where the semantics give 16.0). Details: `private/lean-gemm-relation/finding-check-step-shape.md`.
 The Lean relation fixes the shape by type.
+
+**Theorem table** (root's request): `internal/lanes/lean-gemm-relation/theorems.md`.

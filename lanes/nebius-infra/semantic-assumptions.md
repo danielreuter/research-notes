@@ -5,7 +5,7 @@ cursor:
 
 # vLLM hardware-semantics assumptions
 
-vLLM coordinator, started 2026-09-30 05:58Z. Overnight objectives, workstream 2.
+vLLM coordinator, started 2026-09-30 05:57Z. Overnight objectives, workstream 2.
 
 **What this is:** the facts about the GPU and its libraries that the vLLM integration's Definitions rely on, but that no replay can check by itself. A config run passes its gate when the committed words replay bit-exact. That shows the Definition matched *that* run. The rows below say why it should keep matching.
 
@@ -31,14 +31,14 @@ POUS's red team (contact bc-2aa33ad8) uses the same monikers; we accept their ev
 | `moe-expert-dot(sm_120)` | The fused-MoE expert GEMMs on sm_120 run the Hopper-shaped k16 step. | `MoeExpertGemm_v2{DOT}` (#481) | 0 of 2 × 1,048,576 words differ | holds (on our evidence) |
 | `moe-router-fmaxf-nan` | The MoE router's `fmaxf` handles NaN as the Definition does. | MoE router top-k | the kernels lane: `topk_softmax` exact | open (NaN inputs not probed) |
 | `fp8-per-tensor-scale-order` | Per-tensor FP8 linears compute `bf16(sa*(sb*acc))` in that order. | FP8 linears (tc-gemm step 5b) | settled 04:45Z | holds (on our evidence) |
-| `fp8-e4m3-step(sm_120)` | sm_120 FP8 `mma` accumulates as the fitted sm_120 e4m3 step. The trust level is computed on the RTX PRO 6000 as the Target's `anchor_device`, not the RTX 5090. | FP8 linears; core registry `sm120.mma.*.e4m3/e5m2` | fitted; the PINNED sweep is queued on vy-nebius-1 (decision 05:58Z) | open until the dossier exists |
+| `fp8-e4m3-step(sm_120)` | sm_120 FP8 `mma` accumulates as the fitted sm_120 e4m3 step. The trust level is computed on the RTX PRO 6000 as the Target's `anchor_device`, not the RTX 5090. | FP8 linears; core registry `sm120.mma.*.e4m3/e5m2` | fitted; the PINNED sweep is queued on vy-nebius-1 (decision 05:57Z) | open until the dossier exists |
 | `fp8-block128` | Block-scaled FP8 is `ScaledMmFp8Block_v1` with the sm_120 step swapped in. | FP8 block-128 checkpoints | tc-gemm | open |
 | `fp4-block-scaled(sm_120)` | vLLM's NVFP4 path on sm_120 runs `BlockScaledAlignAdd` (`mma.sync kind::mxf4nvf4`), pinned on the RTX 5090, and the pin extends to the RTX PRO 6000. | none yet (stretch) | 5090 pin only; the PRO 6000 sweep and kernel capture are queued | open |
 | `silu-edge-cases` | `SiluMul_v1` matches on NaN (0x7FFF vs 0x7FC0), on gates below -88.7, and on signed zeros. | every SiLU | the kernels lane: all three differ | **broken at the edges** (finite ordinary inputs exact) |
 | `rope-overflow-domain` | `RoPE_v1` is exact whenever \|cos\|,\|sin\| ≤ 1. | rotary | 34/48; every failure needs an operand whose product overflows f32 | holds with conditions (a real cos/sin cache) |
 | `clock-and-power-invariant` | The committed words don't depend on the clock, power cap or temperature. | everything | vy-nebius-1 is locked at 2,100 MHz; RunPod pods are unlocked | open, **red-team target** (through bc-96a2e856) |
 | `capture-complete` | The capture sees every kernel whose output the Program claims, and none runs unobserved. | the Commit | strict word check per config | open |
-| `fold-sm120-linears` | A full row with Match can fold sm_120 linears. | Match only; config runs skip it | the fold returns Unsupported | **broken (known gap)**; low-priority fix (decision 05:58Z) |
+| `fold-sm120-linears` | A full row with Match can fold sm_120 linears. | Match only; config runs skip it | the fold returns Unsupported | **broken (known gap)**; low-priority fix (decision 05:57Z) |
 | `p2p-copy-sm120-sys` | TP2 on a PCIe host without P2P gives correct collectives with `NCCL_P2P_DISABLE=1`. | TP2 on RTX PRO 6000 | live TP2 25/25; a raw torch P2P copy returns zeros on the SYS host | holds with conditions (P2P off) |
 
 **How to add a row:** add it here with its binding and evidence, then ask the red team to rate it.

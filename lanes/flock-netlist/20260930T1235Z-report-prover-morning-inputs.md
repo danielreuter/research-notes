@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-ff572e70-b0e7-5094-85be-13ff9ddc4d6a"
 ---
 
+CHECKPOINT ea83e0a2 (13:55Z) [open] flock-m0-v3 #12 r20260930-132237-cee7: prefill 7.887e6, decode 1.763e5 x native (noisy, GPU 7, gate pass), from #10's quiet 8.56e6 / 1.91e5: K=8192 statements at m=35 as v1's (the K=2048 tile stays at m=33). #11's four cells timed after circuits' 13:13:30Z early release are ov.noisy=true; its two K=2048-only cells stay quiet; no re-measure, since #12 beats #11 on every cell.
 CHECKPOINT ea83e0a2 (13:22Z) [open] v1 merged into flock-m0-v3 (ce7eb155 at e241ea21, history at ea83e0a2); v1 ends at #8 (quiet 1.497e7/3.507e5 and 1.476e7/3.464e5, ov.note on r20260930-124807-a26a). v3 #11 r20260930-130213-717f (quiet window, GPU 0, gate pass): 8.68e6 / 1.96e5, level with #10. #12 (m=35 statements) queued. GitHub auth was down 12:52-13:15Z: the merge used the host's synced ce7eb155 tree (hash-checked c77eadcf) and one submit used --allow-stale (sky/ matched infra/nebius at 12:47Z).
 lane: flock-netlist · kind: report · from: flock-netlist / M0 (bc-ff572e70) · to: the morning report (prover workstream) · created: 2026-09-30T12:35Z
 

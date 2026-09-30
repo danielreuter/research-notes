@@ -35,9 +35,5 @@ doesn't spell out. I've read `protocols/pous/PROTOCOL.md` on main and your chart
 8. **PoUS workloads on the nodes:** which PoUS jobs run or are meant to run on node 1 or node 2 (or on pods): what, which node,
    how long, how often, GPU or CPU, and anything left behind (`/workspace/pous*` trees, leases, queued fill jobs, guards).
    I'll send @infra the inventory and move them onto its central queue.
-9. **A loss risk, first** (added 1:26 PM PDT): bc-87c3b40e's last reply (8:01 AM PDT) says its change is the local commit
-   `002fe611` on `cursor/pous-p3-docs-rounds-576e` (`CERTIFIED_ROUNDS` 28 → 10, doc fixes). That branch isn't on origin and GitHub
-   has no such commit. Please have it run `git push -u origin cursor/pous-p3-docs-rounds-576e`, with no PR, and name the tip in your
-   reply.
 
 By 21:30Z if you can; if the tree is slow, send 1–3 first. I'll ask you for feedback on memory accounting about once a day.

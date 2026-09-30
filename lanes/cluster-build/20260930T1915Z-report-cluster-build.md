@@ -86,3 +86,6 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
   (`e4e972eae`: kinds, `--question`, quiet by run id). Shadow: 3 design divergences (tie-breaks over which fill lease to stop),
   0 safety; window 2 was clean. Notice given at 4:00 PM for the switch right after window 3. Waiting on node2-ops' deploy (node 2's
   `gpu-lease` is still `58e2474c`).
+- 4:21 PM PDT: **switched.** The live agent `r20260930-232102-e6ac` (`e4e972eae`) holds `agent.lock` and grants fill in about
+  1 s. Node2-ops' deploy (gpu-lease `49238797`, fill_runner `5e033072`) went in at 4:17 PM, after window 3. The shadow ended
+  clean (3 windows, 0 safety divergences). The canary is the 5:00 PM window; the rollback drill is node2-ops', after the canary.

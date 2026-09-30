@@ -7,26 +7,24 @@ cursor:
 
 Agent bc-a84aadb3 (lane `lean-value-binding`, brief `internal/lane-briefs/lean-value-binding.md`). Newest first.
 
-- **09:02Z** root's request: [#520](https://github.com/danielreuter/verity/pull/520) (`cursor/audit-record-cap-8d81` @`55115141`,
-  on `main` `cc0f4688`) caps every `*/lean-audit.json` at 2 MiB in `tests/test_repository.py` (the soundness entry leaves
-  `ALLOWLIST`; `BLOB_LIMIT` and other caps unchanged); 12 passed. Merge request, in or before TLO:
-  `lanes/coordinator/20260930T0859Z-merge-request-lean-value-binding-520-audit-record-cap.md`. #513's request now says to
-  land #520 first.
-- **08:57Z READY, waiting on the statement grants.** Both recorded audits PASS, labelled (`ov.ws=security`,
-  `ov.metric=pinned-theorems`, `ov.value`, `ov.note`, campaign `overnight-sep30`):
-  - [#511](https://github.com/danielreuter/verity/pull/511) @`618ec5a5`: `r20260930-082244-13e3`, 11,494 decls, 148 pins.
-    Merge request `lanes/coordinator/20260930T0850Z-merge-request-lean-value-binding-511.md`.
-  - [#513](https://github.com/danielreuter/verity/pull/513) @`655d509d` (stacked on #511): `r20260930-082800-6e87`,
-    11,636 decls, 159 pins, 0 sorry. Merge request `lanes/coordinator/20260930T0854Z-merge-request-lean-value-binding-513.md`.
-  - Grants requested from red-team-flock-3 (`…0805Z-…-511-pins-grant.md`, `…0829Z-…-513-binding-grant.md`); none yet.
-  - Next: answer the red team; restate `_hm96` onto lean-gemm-relation's `hOne` change if it lands first.
-- **08:36Z** recorded audits launched; table rows sent to lean-gemm-relation
-  (`lanes/lean-gemm-relation/20260930T0831Z-handoff-from-lean-value-binding-table-rows.md`). Friction:
-  `20260930T0826Z-friction-run-cwd-custody-upload.md` (junk attempt `r20260930-080414-bae0`, 9.5 GiB of copied Lean deps).
-- **08:28Z** #513 opened: `FlockSoundness/Binding/`, `ValueBinding` from `hm96-sha512/row/v1` rows with `collide_spec` proved
-  (explicit `hm96Pair`), `Assumptions.HmRowComputes` (not cryptographic, phase 2i) + layout facts, `registered_weights`
-  (3 forms), `flock_e2e_{count,drawn}{,_exec}_hm96`.
-- **08:05Z** #511 opened: 6 pins (`table_knowledge_sound`, `_joint`, `_joint_tight`, `session_knowledge_sound`,
-  `flock_batched_knowledgeSoundE`, `flock_batched_linkSoundE`).
-- **07:36Z** order proposal to lean-gemm-relation: `lanes/lean-gemm-relation/20260930T0736Z-handoff-from-lean-value-binding.md`.
-- **07:35Z** started. Builds in my own trees on vy-nebius-1 (`/workspace/research/trees/lean-value-binding{,-2}`), CPUs 0-31.
+- **09:53Z Red-team conditions handled; waiting on TLO.**
+  - #511 is in train TLO (with #520, #500, #490, #452). #513 at `655d509d` conflicts with `main` (RC 09:45Z). It gets
+    `main` merged after TLO lands, a re-record, a recorded audit and fresh grants.
+  - Prepared locally on #513's branch (not pushed): `eee9c27d`, C3 (fixed-address `row`/`salt`: `rowAt`, `saltAt`) and C2
+    (the `δ_tree` caveat for bounds read from registered roots, in `ASSUMPTIONS.md`, the checklist and `Binding/E2E`). Also
+    `3fc70517`, a merge of `main` `0cadbca3`.
+  - [#526](https://github.com/danielreuter/verity/pull/526) (draft, `cursor/lean-per-prover-cr-8d81` @ `010b2c2d`, stacked
+    on #513 and #514): **C1, A2 per prover.**
+    - `LinkCR`/`linkBoundCR`; `flock_batched_linkSoundE` is now `LinkSound linkBoundCR`, with no A2 hypothesis.
+    - Every `flock_e2e_*` (plus `_exec`, `UProg` and `_hm96`) takes `hCR` only at `(reg σ, cont σ)`.
+    - `audit.py --update` PASS: 11,671 decls, 161 pins, 0 sorry.
+    - Review request: `lanes/red-team-flock-3/20260930T0952Z-handoff-from-lean-value-binding-526-per-prover-review.md`.
+    - Evidence: `evidence/per-prover-signature-diff.txt`, `evidence/per-prover-review.txt`.
+  - Until #526 lands, cite the e2e bounds only as "if A2 holds for every prover's finder".
+- **09:25Z** red-team-flock-3 granted #511 @`618ec5a5` and #513 @`655d509d`, both roles, with conditions C1 (both), C2
+  and C3 (#513).
+- **09:02Z** [#520](https://github.com/danielreuter/verity/pull/520): 2 MiB cap for `*/lean-audit.json`, in TLO.
+- **08:57Z** recorded audits PASS: #511 `r20260930-082244-13e3` (148 pins), #513 `r20260930-082800-6e87` (159 pins), both
+  labelled.
+- **08:28Z / 08:05Z** #513 and #511 opened. **07:35Z** started; builds in `/workspace/research/trees/lean-value-binding{,-2}`
+  on vy-nebius-1, CPUs 0-31.

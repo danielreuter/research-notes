@@ -1,0 +1,1 @@
+2026-09-30T04:31Z: PR #481 (MoE v2, cursor/vllm-sm120-kernels-69c6 @ 098b9163) up; #466/#467 no-overlap handoff 0431Z. WAIT r20260930-042256-27a2 (vLLM suite quick tier, head 098b9163) on vy-sm120-kernels-1, check-back 04:42Z. Next: attribute failures vs base 05305a3e, merge-ready handoff, terminate pod 1, FINAL.

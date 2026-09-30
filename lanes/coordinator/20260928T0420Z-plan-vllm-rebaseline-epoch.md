@@ -245,3 +245,7 @@ The estimates use this epoch's measured stages: Builds of 3–4 h; the Match 0.5
 - (2) Which kernel vLLM NVFP4 launches on sm_120: fp8-ckpt, copied to POUS.
 - (3) Definition and binding only if (2) matches. Lower priority than BF16/FP8 breadth.
 - Still to do: red-team brief, `docs/semantic-assumptions.md` (published to research-notes `lanes/nebius-infra/`), the coverage-table renderer.
+
+## 20260930T0547Z update: vy-nebius-1 live (root 05:46Z)
+- Recipe sent to the lanes. New sm_120 GPU work goes to vy-nebius-1 (circuits: 4 GPUs, ~64 vCPU, most of 1.7 TiB); no new vy-sm120- RunPod pods.
+- Assumptions table: `clock-and-power-invariant` operating point = clocks locked at 2,100 MHz on vy-nebius-1; RunPod pods are unlocked. Clock red-team experiments go through the Nebius owner bc-96a2e856.

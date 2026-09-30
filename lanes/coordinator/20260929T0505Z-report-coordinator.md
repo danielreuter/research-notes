@@ -7,6 +7,7 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 3c924ab9 (03:12Z) [open] Pods: terminated t6, t8, t9 (t11 already gone); kept t1 (always-on), t2 (TW6d running), t7 and t10 (set up, warm deps) for the next trains, t4 with bc-605d7c89. All stop watchers cleared.
 CHECKPOINT 3c924ab9 (03:05Z) [open] TI2R merged (31652cfb; my first attempt lacked the fixed date -> reset, redone, matches). TVC2R failed lean-suites twice on the changed-files guard (gitignored kernel .tmp from the concurrent vLLM suite) -> landed its content inside TVD2R, merged directly onto main: 3c924ab9 (bundle internal/relay/main-TI2R-TVD2R-3c924ab9.bundle, 05305a3e..3c924ab9, for root). TW6c killed (base assumed TVC2R separately); TW6d f05becdb recheck r20260930-025905-c667 t2 -> mm 0ce2a4e0. Guard race to bc-d66f1270 (lanes/workflow-review/20260930T0300Z).
 CHECKPOINT 05305a3e (03:08Z) [open] Root 02:56Z: #367 #372 #380 #391 held (PoUW inside sampled proofs): `hold` labels added, left open as drafts, not trained; closing waits for Daniel; TPS stays unlaunched. Plan updated (sampled-proofs baseline = docs/vllm-config-sweep-plan.md section 1).
 CHECKPOINT 05305a3e (03:05Z) [open] Direction change (daniel via root 02:52Z): each of PoUW, PoUS, sampled proofs measured on its own. Plan: docs/protocol-measurement-plan.md. POUS and vLLM coordinator told (lanes/pous + lanes/vllm-coordinator 20260930T0300Z). In-flight trains untouched (TW6c lands #364/#423 as the integration record). HOLD: TPS (#372/#380/#391, built, unlaunched) and #367 pending root.

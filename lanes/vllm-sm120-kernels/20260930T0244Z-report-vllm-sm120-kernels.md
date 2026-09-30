@@ -6,6 +6,7 @@ status: final
 ---
 
 CHECKPOINT 6f1924cc (05:04Z) [final] PRs #466 #480 #481 merge-ready (handoff 0503Z); sm_120 kernels exact except fused-MoE GEMMs (fixed: MoeExpertGemm_v2 DOT) and SiluMul/RoPE edge gaps (found); pods terminated 04:21Z/05:02Z, ~$7.6
+CHECKPOINT 6f1924cc (05:04Z) [final] PRs #466 #480 #481 merge-ready (handoff 0503Z); sm_120 kernels exact except fused-MoE GEMMs (fixed: MoeExpertGemm_v2 DOT) and SiluMul/RoPE edge gaps (found); pods terminated 04:21Z/05:02Z, ~$7.6
 CHECKPOINT 098b9163 (04:31Z) [open] WAIT vy-sm120-kernels-1 r20260930-042256-27a2 check-back 04:42Z agent bc-1cdd7aa4: vLLM suite on #481 head 098b9163; then base attribution, merge-ready handoff, terminate pod 1, FINAL. PRs #466 #480 #481
 CHECKPOINT 098b9163 (04:23Z) [open] PR #480 up; TP2 op-level 30/30 (host staging; P2P copies zero on SYS host); vy-sm120-kernels-2 terminated 04:21Z; MoE v2 admission: all fails in SiLU section. WAIT vy-sm120-kernels-1 r20260930-042256-27a2 (suite) check-back 04:50Z agent bc-1cdd7aa4
 CHECKPOINT 4b96d529 (04:14Z) [open] MoE v2 DOT @ 7604eb59 (circuit-check 4/4); rope 34/48 (overflow edges), SiluMul_v1 edge gaps (generic); TP2 live engine 25/25 + vocab PASS. WAIT vy-sm120-kernels-2 r20260930-041347-704a, vy-sm120-kernels-1 r20260930-041412-7981 check-back 04:25Z agent bc-1cdd7aa4

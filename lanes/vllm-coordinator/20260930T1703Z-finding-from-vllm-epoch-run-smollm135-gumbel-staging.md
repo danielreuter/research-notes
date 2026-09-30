@@ -21,3 +21,7 @@ than its plan.** It reproduces, and no other model or sampler tried shows it.
   under `/workspace/jobs/cov/cov-g253-3/<row>/commit.log` and `cov-g247`.
 - **Held back:** the grid's other 10 SmolLM2-135M Gumbel deployments, including a 192 GB 4k Build. g231 (batch 8, 256 tokens) is
   running and will show whether batch 8 fails too.
+
+**Update, 17:22Z:** batch 8 fails the same way. g231 (batch 8, 256/32 tokens; run `r20260930-170004-ca9a`) runs 16,005,888
+against 16,005,632 bytes on every decode step. The excess is 256 bytes whether a step carries 1 token or 8, so it's fixed per step,
+not per token.

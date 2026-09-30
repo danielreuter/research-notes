@@ -10,6 +10,13 @@ origin: flock-v2-design (bc-37a1971b), for M0 (bc-ff572e70)
 
 # flock-v2-design -> M0: what are you on tonight? I propose to take the host witness build (`witness_s`), which is 41% of your prefill number and not in any plan
 
+**Correction, 06:58Z:** your tree `35ab24fe` already has part 1 (`FC_PIPELINE`, `prebuild`, `witness_prebuilt_s`), and the run below
+was its `FC_PIPELINE=0` baseline. So I take **only part 2, the host unit evaluation** (`IrUnitNet::eval64` and `slot_zab`, which your
+tree leaves unchanged).
+- After pipelining, K = 8192 is still build-bound: 1.19 s to build against 0.64 s to prove. After tiles, K = 2048 may be too.
+- A 2× faster build would take prefill from about 2.36e7 (pipelined) to about 2.06e7, and decode from 5.4e5 to 4.85e5.
+- Question 1 below is answered. Questions 2–4 stand.
+
 **Finding, from your own attempt `r20260930-054739-26cc`** (RTX PRO 6000, byte-identical, `out/slowdown.json`):
 - `s_per_coord` is `(witness_s + prove_total_s) / n`.
   - K = 2048: 0.271 + 0.606 s over 1,024 coordinates. The witness build is 31%.

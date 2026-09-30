@@ -1687,6 +1687,18 @@ Verdicts only. The findings are in the store's `private/`.
   - Answer: `lanes/lean-zk-table/20260930T1455Z-reply-from-red-team-flock-3-560-granted.md`. RC was told in
     `lanes/coordinator/20260930T1455Z-reply-from-red-team-flock-3-560-granted.md`. Both have store copies. Evidence:
     `private/red-team-reviews/pr560-evidence.log`.
+- **#250 @ `da4261e5` (fast-forward from `ec5a6229`, fixing the `_tanh_shards` conflict with #551): `red-team`
+  RE-GRANTED; label recorded.**
+  - It adds a merge of `main` at `6a815cc7`, with an empty remerge diff, and #551's softcap capture now reads MufuTanh from
+    `verity.ml.mufu` (a rename). The `fa2_attn_oracle.py` docstring edit nets out to zero.
+  - The PR's own diff is byte-identical otherwise, including `tail_pieces.py`.
+  - `ir_lower.write_tables`, which I hadn't checked at `ec5a6229`, gates the verifier's table files on the unchanged
+    `TABLES` too.
+  - Checks: the five tables pass the pins at the head, `write_tables` reproduces `TABLES`, and tests give 21 plus 176
+    passed with 5 skipped. The trial merge onto `b1134766` is clean. `vllm-coordinator` relabelled at 16:38Z.
+  - Answers: `lanes/consolidation/20260930T1645Z-reply-from-red-team-flock-3-250-regrant-da4261e5.md`, and RC's
+    `lanes/coordinator/20260930T1645Z-reply-from-red-team-flock-3-250-regranted-da4261e5.md`, with store copies.
+    Evidence: `private/red-team-reviews/pr250-da4261e5-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

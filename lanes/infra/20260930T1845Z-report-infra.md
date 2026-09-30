@@ -52,3 +52,19 @@ writes the owner file.
   option-1 CPU Builds on node 2, and the Kueue fold. slack-sync (bc-0c4b24d6) runs groups sync --apply on #592. @infra is
   subscribed to #agent-coordination and #agent-alerts. Slack onboarding notes sent to coordinator, vllm-coordinator, pous and
   console.
+
+## Old open items (logged, not chased; per verity-top 20:15Z)
+
+- Nebius key rotation (Daniel: later).
+- RunPod spend ceiling and on-demand policy (inputs in `lanes/infra/20260930T1917Z-draft-from-verity-root-runpod-spend-and-check-pod-policy.md`).
+- One task API: job-service design versus SkyPilot migration (drafts from verity-root, 19:17Z). The one-pool queue likely supersedes both.
+- Live-console exporter bc-26712550: one `panels:write` key request owed; stop its key retries.
+- Slack group descriptions are fixed now; #592 still needs the research coordinator's merge.
+- node-2 alerts relayed by node2-ops at 19:20Z: `gpu1-pearlc-forms-b.sh` rc=4 and `fp4-recheck2-verify` failing (pouw owners).
+- Land #496 and #531 (proof trains).
+
+## Log (continued)
+
+- 20:20Z: priority 1 asks sent to @old-accounting and @old-circuits-and-proofs
+  (`note:20260930T2020Z-ask-from-infra-utilization-failures-and-workloads`). Unsubscribed from #agent-coordination; the top-level
+  routes it.

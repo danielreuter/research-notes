@@ -5,6 +5,15 @@ cursor:
 
 # lean-gemm-relation: status
 
+**2026-09-30 12:20Z: `DerivedPlaces`, two pieces in [#538](https://github.com/danielreuter/verity/pull/538) (draft) at
+`5b45456b`.** Recorded audit PASS `r20260930-115259-ff46` (11,669 declarations, 161 pins, standard axioms, 0 sorry).
+- `setupH_templateTableClass`: a template's `TableClass` from the accepted statement.
+- `Refine.stmtOf_eq_placed`: the refinement's `stmtOf` has the placed matrices under `PlacedWF`, so
+  `setupH_templateTableClass_stmtOf` is the class over `stmtOf`.
+- **Next:** `PlacedWF` from the parse. The verifier checks all three facts (`Sparse.ofRows`'s width, the table parse's
+  `bits ≤ 32`, `DeriveCheck`'s `loTop + 2^lo ≤ size`). Then each unit's slot and block, `hrd`, `hcp`, and the table
+  statement being `stmtOf`.
+
 **2026-09-30 11:35Z.** #490 and #500 are on `main` (train TLO, `fb6a5cf8`).
 - **#514** is at `f3a60a36`: `main` merged, and `lean-audit.json` re-written with main's Mathlib build (PASS, 163 pins; the six
   pins are identical to those at `a19d2871`). **#521** is at `4e4ee3e4` (PASS, 165 pins). Both went to lean-value-binding

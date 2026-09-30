@@ -8,7 +8,7 @@ repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6)
 ---
 
-# Console: `infra-pool.json` gains a per-kind efficiency table and the live monitors from about 3:10 PM PDT (backward compatible, still `infra-pool/v1`)
+# Console: `infra-pool.json` gains a per-kind efficiency table and the live monitors from 2:45 PM PDT (backward compatible, still `infra-pool/v1`)
 
 These fields are new under `nodes.n2`. Nothing existing changes (`note:20260930T2127Z-reply-from-node2-ops-infra-pool-schema`).
 
@@ -23,8 +23,8 @@ These fields are new under `nodes.n2`. Nothing existing changes (`note:20260930T
 
 - `kinds` covers the leases that ended in the last 24 h, the most idle GPU-h first. Filler counts as leased time only.
 - `efficiency` is useful ÷ leased.
-- A kind is the fill header's `kind=`, else `unlabeled:<first two words of the job name>`, or `direct:<holder>` for leases outside
-  the fill queue.
+- A kind is the fill header's `kind=`, else `unlabeled:<first two words of the job name>`, or `timed:<holder>` / `direct:<holder>` for leases
+  outside the fill queue. Leave the `timed:` rows out of the table: quiet windows are protected by design.
 - **Daniel's per-kind table** goes next to `infra/pool-utilization`: kind, owners, leased GPU-h, efficiency and idle GPU-h,
   sorted by idle GPU-h.
 - `monitors` holds the flags in force now; they suit a small "now" list on `infra/pool-gpus`.

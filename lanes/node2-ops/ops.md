@@ -36,17 +36,20 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 | `fill_runner.py` | `4a122904…` | `ce30461ac` (Verity guest pool, max_min 360, scope freeze) | 20:08:40Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
 | `backup.sh` | `914dd687…` | `d06d14b5` (retry/skip a changing unit) | 20:19Z |
-| `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `242707c4…` | `a8978a241` (infra-pool/v1 to vy-n1 every 5 min) | 21:25Z |
+| `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `f9ea6fdf…` | `6f778a00d` (infra-pool/v1 to vy-n1 every 5 min; idle-in-lease and unleased monitors; per-kind table) | 21:44Z |
 
 Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-pool`, relayed by infra) approved the guest path and the cutover; nothing is held now.
 
 ## Open items
 
+- Job norms, owned by me: the daily top-3 wasters (16:00Z); merge node 1's file into the pool file by T4; announce the kind spec when cluster-build's registry lands; a kind that is on the list two days running becomes a proposed admission check.
 - Nebius key rotation: Daniel ruled 18:42Z "not now, rotate later". Open, not urgent; no action from node2-ops until he says so.
 - Standing GPU backlog and CPU fill: asked bc-2aa33ad8 via the pouw coordinator (`note:20260930T1925Z-handoff-from-node2-ops-hour-and-backlog`).
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-09-30 21:47Z job norms (Daniel 2:14 PM PDT, via infra): node 2's `gpu-idle-in-lease` and `gpu-unleased` monitors and the per-kind table are live in `publish_pool.py` (`6f778a00d`, 0.4 s CPU a run; rollback `publish_pool.py.prev-20260930T2144Z`). Plan and split with cluster-build/kueue-fold: `note:20260930T2140Z-reply-from-node2-ops-job-norms-plan`. From now on the alerts tick relays those two kinds as one note per owning lane per tick. At 01:00Z (6 PM PDT) the T2 line to `lanes/infra/` carries the first top-3 wasters by idle GPU-h, from `nodes.n2.kinds` with `timed:` rows left out; from 1 Oct it's daily at 16:00Z (9 AM PDT). When kueue-fold's `infra-pool-n1.json` exists, merge it in. When cluster-build's registry lands, announce the spec to every handle.
 
 - 2026-09-30 21:27Z publisher live: `infra-pool-publish.timer` writes vy-nebius-1 `/workspace/usage/infra-pool.json` every 5 min (first `generated_at` 21:25:04Z, 0.19 s CPU a run); schema `note:20260930T2127Z-reply-from-node2-ops-infra-pool-schema`. Watermark: 1.47 of 12 GPU-h ready, pinged queue-keeper bc-829aa649 (`note:20260930T2127Z-handoff-from-node2-ops-gpu-queue-below-watermark`). Rollback: `systemctl --user disable --now infra-pool-publish.timer`.
 

@@ -28,7 +28,7 @@ T3), and gave kueue-fold node 1's drift check and monitors. Cluster-build's subm
 ## What I'm building, and when
 
 - **Built:** node 2's two monitors and the per-kind table, in `publish_pool.py`, which runs on the existing 5-minute timer.
-  `infra/nebius` `a2f5e8451`; 27 tests pass.
+  `infra/nebius` `a2f5e8451` and `6f778a00d`; 27 tests pass.
   - `gpu-idle-in-lease`: a lease held for the whole last 5 minutes whose GPU averaged under 10% util. A job's first 5 minutes
     (model load) are never flagged, and show up only in its kind's efficiency.
   - `gpu-unleased`: a process on a GPU that is outside the scope and the process tree of every lease on that GPU.
@@ -37,8 +37,9 @@ T3), and gave kueue-fold node 1's drift check and monitors. Cluster-build's subm
   - `nodes.n2.kinds`: the last 24 h of leases per kind, with leased, useful and idle GPU-h and useful ÷ leased. Filler counts
     as leased time only.
   - `unlabeled_waiting`: the queued fill jobs that have no `kind=`.
-- **Deploying at about 3:10 PM PDT,** when the timed window that began at 2:34 PM PDT ends (no deploys during a window). That
-  covers tonight's idle monitor for node 2; kueue-fold has node 1's.
+- **Live since 2:45 PM PDT,** deployed as soon as the 2:34 PM PDT timed window ended (`6f778a00d`). A timed lease is kind
+  `timed:<holder>` and never flagged, because it keeps the node's other GPUs quiet by design. That covers tonight's idle monitor
+  for node 2; kueue-fold has node 1's.
 - **6:00 PM PDT:** the T2 line, plus the first top-3 wasters by idle GPU-h, with owners, as a baseline.
 - **By T4 (noon tomorrow):**
   - node 1's figures and monitors in the same file: I'm asking kueue-fold to write `/workspace/usage/infra-pool-n1.json`

@@ -127,3 +127,10 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
     - Node 1: GPU 0–3% util on all 8, CPU 33%.
     - Node 2: GPU 0–5% util, CPU 44% (25% of it niced), no timed window, 44 queued.
   - **Waiting:** backend-sweep-2's yes, cluster-build's `cluster grant`, and PoUW's NUMA 0 OK.
+- **3:48 PM PDT checkpoint:** the node-1 lease smoke test passed end to end: a 0-GPU pod got the holder's GPU, and the pool shrank
+  back to 0 by itself (`note:20260930T2247Z-finding-from-kueue-fold-node1-lease-smoke-passed`).
+  - **Delivered-output metric:** `delivered_by_hour` is live in `infra-pool-n1.json` (`fc3ae8227`). Node 1 was 94.9% delivered at
+    1 PM PDT, and 2 PM PDT reads 87.3% (provisional). The `n1-pool` loop had died, so I restarted it at 3:42 PM PDT.
+  - **Replay bundles:** a failed Commit now deletes its bundles (`aba2fce22`), deployed at 3:38 PM PDT. The drift reference is
+    `fc3ae8227`.
+  - **mps-pack:** told to rebase its `dispatch.py` onto `e2c652a9d` rather than `-ffee`.

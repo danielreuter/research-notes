@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (20:30Z) [open] inbox empty; relay setup sent to old coordinators; routing Slack posts; decisions queued for Daniel
 CHECKPOINT none (20:19Z) [open] priorities relayed to all coordinators; routing Slack posts; switching human-facing times to Pacific
 CHECKPOINT none (20:00Z) [open] restructure: new @circuits/@proofs/accounting coordinators live, taking handoffs from @old-*; proofs ack received (took 4 idle agents; network timing -> accounting; README review held by top-level)
 CHECKPOINT none (19:46Z) [open] Slack approvals + relay approved, console deploying; still no ack from circuit (vllm-coordinator) or proof (coordinator, last checkpoint 18:56Z) on 1902Z charter handoffs; will nudge at 20:00Z

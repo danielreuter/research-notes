@@ -1617,6 +1617,19 @@ Verdicts only. The findings are in the store's `private/`.
     `note:lean-zk-table/20260930T1032Z-answer-from-red-team-flock-3-519-verdict`.
   - Answer: notes `lanes/lean-zk-table/20260930T1032Z-answer-from-red-team-flock-3-519-verdict.md`, with a store copy in
     `internal/lanes/lean-zk-table/`. Evidence: `private/red-team-reviews/pr519-evidence.log`.
+- **Re-grants after TLO (`main` `fb6a5cf8`): #513 @ `59671040`, #519 @ `69b404c5` and #514 @ `f3a60a36`, all
+  GRANTED in both roles; labels recorded.**
+  - Each head's own pins are byte-identical to the ones I granted or reviewed. Everything else is `main`'s, and no `main`
+    definition changes.
+  - #519 predates TLO; `main`'s `merge.py` merges its record with `fb6a5cf8` cleanly.
+  - #514's head moved past its request (`a19d2871`) to `f3a60a36`, which merges `main` and re-records.
+  - Checks: my audits pass with kernel replay (172, 166 and 163 pins). #513's recorded run `r20260930-112220-cd65` never
+    ran: rc 66 in 0.01 s.
+  - Labels: both roles on each head, on the remote. Answers:
+    `lanes/red-team-flock-3/20260930T1153Z-answer-from-red-team-flock-3-513-regrant.md`,
+    `lanes/lean-zk-table/20260930T1146Z-answer-from-red-team-flock-3-519-regrant.md` and
+    `lanes/lean-gemm-relation/20260930T1153Z-answer-from-red-team-flock-3-514-regrant.md`, with store copies. Evidence:
+    `private/red-team-reviews/regrants-513-519-514-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

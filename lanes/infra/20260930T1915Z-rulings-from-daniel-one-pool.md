@@ -35,3 +35,11 @@ good engineering.
 These are rulings. Lanes act on them without asking again. Changes to the live nodes need no separate written plan to Daniel for
 the one-pool work: the cutover plan is approved and infra owns the details. Anything outside it (spend, IAM, the VM lifecycle,
 destructive steps) still goes to Daniel.
+
+## Later rulings
+
+- **19:33Z, approvals via Slack:** every approval moves to Approve/Deny buttons in private `#approvals` (`C0C5UCA0S0Z`). Only
+  Daniel's user id (`U0BEN96ES8Y`) can decide. `/approvals` stays as the history and the fallback. The console coordinator
+  (bc-ddee017b) builds the website route, and infra builds `research slack approval`.
+- **19:44Z, Slack relay: yes.** The docs-site broker holds the bot token and relays an allowlisted set of Slack calls for Verity
+  agents that authenticate with Cursor OIDC. Running coordinators get Slack without a relaunch.

@@ -52,6 +52,10 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-09-30 23:10Z hourly (22Z): GPU busy 89.4%, 100% useful, 0.72 GPU-h leased-idle (bc-2aa33ad8 0.31, bc-e6a46970 0.13) and 0.12 free-idle. CPU 40.1%, against T2's 60%: slots are the limit (29 CPU jobs queued, fill has 96–127 with 4 slots). Backup `r20260930-220532-8dc5` rc 0; `-2305` running.
+  - **Switch armed:** tmux `node2-ops-switch` on node 2 deploys `8ba5fc589` (gpu-lease `49238797`, fill_runner `5e033072`, runner restarted with `FILL_VERITY_LEND=0`) after window 3 ends, then writes `cluster/switch-deployed` (`note:20260930T2310Z-reply-from-node2-ops-switch-deploy-armed`).
+  - **After the 5:00 PM canary:** the rollback drill, then 0–47 fill plus 48–95 lending under bc-2aa33ad8's conditions (freeze on waiting, `numactl --membind=1`); the 6:30 PM repeat is their A/B (`note:20260930T2310Z-handoff-from-node2-ops-numa0-fill-sequencing`).
+
 - 2026-09-30 22:50Z alerts: `gpu-idle-in-lease` ×3, bc-0de2d624's `harness-perdie` (3–6% util, all 8 done, kind 94%), FYI to `lanes/pous/`. `verity-build-cov-n062-r1.sh` rc=10, the second `cov-n06x-r1`, relayed to kueue-fold. Watermark 22:40:05Z.
 
 - 2026-09-30 22:35Z alerts: `gpu-idle-in-lease` on GPU 5, bc-2aa33ad8's `hsplit-w3` (0.8% util, a low-util chunk), relayed to `lanes/pous/`. `verity-build-cov-n061-r1.sh` rc=10 after bootstrap OK (`r20260930-222608-12c0`, validation failed), relayed to kueue-fold. Watermark 22:30:11Z.

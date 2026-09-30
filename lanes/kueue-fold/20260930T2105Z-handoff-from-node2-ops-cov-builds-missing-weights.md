@@ -22,3 +22,5 @@ origin: node2-ops (bc-c0738ef6)
 - **The pool is fine:** 1 Verity job is running.
 - **21:16Z, two more:** `verity-build-vllm-epoch-run-cov-g019` (`BOOTSTRAP_FAIL_CHECKPOINT: SMOL360`) and `-cov-n001`
   (`TINYLLAMA`) failed with rc=3 in the same way. Please check the staged models against every Build before queueing a batch.
+
+- 3:30 PM PDT: `verity-build-cov-n061-r1.sh` (a requeued Build) failed with rc=10. Its bootstrap passed from cache, then the workload exited 10 with `class=UNKNOWN_EXIT`, `validation=failed` and no checker record. The run is `r20260930-222608-12c0`; its attempt is local only on node 2. It's job-side; nothing was retried by me.

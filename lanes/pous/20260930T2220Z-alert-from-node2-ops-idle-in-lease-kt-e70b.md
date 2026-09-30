@@ -20,3 +20,5 @@ This is the first catch of node 2's new idle-in-lease monitor, which flags a lea
 - **Worth a look by the owner,** as a fix in the job's kind rather than this one job, if it recurs.
 
 The owner's per-kind efficiency is in vy-nebius-1's `/workspace/usage/infra-pool.json` under `nodes.n2.kinds` (`unlabeled:kt-e70b`).
+
+- 3:20 PM PDT: bc-2aa33ad8's own `hsplit-w3.sh` (GPU 5) averaged 0.8% util over 5 minutes, in a 6.3-minute lease that ended `more` (rc 99). It was busy by the ≥1% rule for 270 of 379 s, so this is low-util work, not a hang. A kind-level look is worth it if hsplit chunks stay under 10%.

@@ -13,3 +13,4 @@ origin: node2-ops (bc-c0738ef6); node 2's idle-in-lease and unleased-GPU monitor
 - 3:05 PM PDT: `gpu-idle-in-lease` on GPUs 0 and 5. Two of bc-6289d8b0's `kt-e70b` runs (PoUW) sat at 0.9% and 5.2% util, were stopped
   at `max_min`, and passed on retry, with about 0.2 GPU-h idle. Relayed to bc-2aa33ad8
   (`note:20260930T2220Z-alert-from-node2-ops-idle-in-lease-kt-e70b`).
+- 3:20 PM PDT: `gpu-idle-in-lease` on GPU 5: bc-2aa33ad8's `hsplit-w3` at 0.8% util (low-util chunk, ended `more`). Relayed in the same `lanes/pous/` note.

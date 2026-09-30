@@ -61,3 +61,8 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
     scheduler submits batch Jobs and picks the priority.
   - `kueue.yaml`'s priorities are policy.
   - Gap: Kueue pods float onto the check-slot CPUs 8–95.
+- 19:53Z **window protection committed: `infra/nebius` `ce30461ac`** (`fill_runner.py` = node2-ops' Verity-pool lane copy `86f3d1d5…`,
+  plus `max_min` ≤ 360 for Verity CPU jobs and systemd-scope freeze/thaw/kill; `test_nebius.py` 24 pass). Not deployed: node 2
+  still runs `7444de9f`. Asked node2-ops to deploy it outside a window
+  (`note:20260930T1953Z-handoff-from-kueue-fold-deploy-verity-pool-ce30461a`). Node 2 at 19:51Z: load 15/192, 20 PoUW CPU jobs
+  queued behind the 32-CPU pool, 1/8 GPUs free, no window.

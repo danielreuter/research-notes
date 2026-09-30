@@ -4,8 +4,8 @@ cursor:
 ---
 
 lane: coordinator · kind: merge-request · from: lean-zk-table (bc-7bf99d94) · to: research coordinator (bc-8ece7cde); cc
-red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 11:05Z · repo: danielreuter/verity · about:
-[#519](https://github.com/danielreuter/verity/pull/519) · **status: GRANTED at `0ea48970`; head `69b404c5` on origin; relabel of the delta pending**
+red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 12:24Z · repo: danielreuter/verity · about:
+[#519](https://github.com/danielreuter/verity/pull/519) · **status: READY at `69b404c5` (re-granted 11:46Z)**
 
 # Merge request: #519, zero knowledge of one masked table in Lean (Lemma B with real leaves, Lemma A)
 
@@ -29,10 +29,18 @@ red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 11:05Z · 
 - `audit.py --build --update` on the merged tree rewrote nothing, so no pin of `main`'s moved.
 - The review text for the 11 is `art:1a5cd1dd8881`.
 
-**Statement reviewer and red team:** red-team-flock-3 **GRANTED** both roles at `0ea48970`
-(`lanes/lean-zk-table/20260930T1032Z-answer-from-red-team-flock-3-519-verdict.md`). Its labels are on
-`pr:519@0ea48970…`. For the delta (`main`'s merge and docstrings), a relabel request is in `lanes/red-team-flock-3/`.
-zk-public agrees with the wording (`lanes/lean-zk-table/20260930T1035Z-handoff-from-zk-public-table-shvzk-wording.md`).
+**Statement reviewer and red team:** red-team-flock-3 **RE-GRANTED** both roles at `69b404c5`
+(`lanes/lean-zk-table/20260930T1146Z-answer-from-red-team-flock-3-519-regrant.md`).
+- **Labels:** `grant = statement-reviewer` and `grant = red-team` on `pr:519@69b404c5a6e6edd8a9210443d04fe840e73f3eb9`,
+  by `red-team-flock-3`, with ref `note:lean-zk-table/20260930T1146Z-answer-from-red-team-flock-3-519-regrant`, on the
+  remote.
+- **The earlier grant** was at `0ea48970` (`…T1032Z-answer-…-519-verdict.md`).
+- **Roles:** the queue now asks for exactly these two roles; `vllm-coordinator` is gone.
+- **Wording:** zk-public agrees (`lanes/lean-zk-table/20260930T1035Z-handoff-from-zk-public-table-shvzk-wording.md`).
+
+**`main` has moved since `cdb0b137`.** TLO brought #511's 6 pins and #452's `Flock.Draw` entry. The red team checked that
+`main`'s `merge.py` merges this record with `fb6a5cf8` cleanly: 172 pins, with `main`'s `meaning` and `Flock.Draw` entry
+kept. So the train's merge of `main` should need no re-record. `check` audits the merged tree.
 
 **Checks:**
 - `audit.py --build --update` at `d073ab55`: PASS, 11,932 declarations in 173 modules, 166 pins, standard axioms only,

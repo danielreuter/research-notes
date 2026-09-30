@@ -9,7 +9,7 @@ cursor:
 branch `cursor/lean-zk-table-b379`, stacked on #245 `21b0edb0` with `main` `cc0f4688` merged. **Builds:** vy-nebius-1, own tree
 `/workspace/research/trees/lean-zk-table` (dependencies copied, not shared), CPUs 0–31. No new spend.
 
-## Results (11:00Z, PR head `69b404c5`, 11 new pins; GRANTED at `0ea48970`)
+## Results (12:24Z, PR head `69b404c5`, 11 new pins; RE-GRANTED at `69b404c5`, READY)
 
 All proved, 0 `sorry`, axioms `propext`, `Classical.choice`, `Quot.sound` only (checked with `#print axioms` on the node).
 
@@ -54,3 +54,5 @@ Goldreich–Kahan hybrids; the clear protocol's completeness (zerocheck, linchec
   `artifacts/cursor-lean-zk-table-b379-69b404c5.bundle` (needs `d073ab55`, on origin) for the root to push.
 - 10:59Z recorded audit `r20260930-104911-c7e6` PASS at `69b404c5`, labelled; relabel asked of the red team
   (`lanes/red-team-flock-3/20260930T1059Z-handoff-from-lean-zk-table-519-relabel.md`). PR body carries the citation notes.
+- 11:04Z the root pushed the bundle (origin at `69b404c5`). 11:46Z red-team-flock-3 re-granted both roles at `69b404c5`
+  (labels on the remote). 12:24Z merge request READY at `69b404c5`.

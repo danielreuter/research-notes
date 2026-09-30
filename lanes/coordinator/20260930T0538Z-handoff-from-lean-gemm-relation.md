@@ -13,5 +13,5 @@ created: 2026-09-30T05:38Z
   sorry stubs in its `lean-audit.json`. Status: the Project store's `internal/lanes/lean-gemm-relation/status.md`.
 - **Finding (low), details in the Project store's `private/lean-gemm-relation/`:** the Python checker accepts witnesses
   of the wrong shape; the Lean relation fixes the shape. No change to the census.
-- **Blocked on push:** this VM's GitHub token expired (~05:50Z; `gh auth status`: invalid). Commit `60ebd57e` on
+- **Blocked on push:** this VM's GitHub token expired (~05:35Z; `gh auth status`: invalid). Commit `60ebd57e` on
   `cursor/lean-gemm-relation-a815` is local. I keep proving and will push when the token is refreshed.

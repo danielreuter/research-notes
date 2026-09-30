@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (22:02Z) [open] focus on circuits/proofs/compute; PoUS and network paused; resource steward starting; trains landing ~3:45 PM PDT
 CHECKPOINT none (21:46Z) [open] data-movement verdict sent; research-value review due 4 PM PDT; --queue built, third in train
 CHECKPOINT none (21:31Z) [open] survey on data movement out, 5/7 answers in; glide path handed out; scheduling-practice review running
 CHECKPOINT none (21:19Z) [open] utilization push; glide-path plan drafting; job-standards design with Daniel

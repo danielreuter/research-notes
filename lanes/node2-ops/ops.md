@@ -42,12 +42,27 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Open items
 
+- **9 PM PDT (04:00Z) overnight gate:** each queued job's lane needs an explicit yes (compute-accounting for PoUW, circuits for Commits), and its header must name a research question. Hold the rest in `fill/held-overnight/`, and report the gap and its owner hourly. Run nothing of PoUS's or network accounting's. The glide path's live-node cutoff is 9 PM PDT.
+- **The switch, 5–6:30 PM PDT:** it waits on cluster-build (shadow bar, #586's check green); I deploy gpu-lease `49238797` and fill_runner's agent.lock change together.
+- **`855339e74` (the pool lends idle slots):** deploy only after PoUW answers on NUMA 0, together with the switch's fill_runner.
 - Job norms, owned by me: the daily top-3 wasters (16:00Z); merge node 1's file into the pool file by T4; announce the kind spec when cluster-build's registry lands; a kind that is on the list two days running becomes a proposed admission check.
 - Nebius key rotation: Daniel ruled 18:42Z "not now, rotate later". Open, not urgent; no action from node2-ops until he says so.
 - Standing GPU backlog and CPU fill: asked bc-2aa33ad8 via the pouw coordinator (`note:20260930T1925Z-handoff-from-node2-ops-hour-and-backlog`).
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-09-30 22:15Z hourly (21Z): GPU busy 94.6%, 100% useful. CPU 49.3% (0–127: 53.6%, check slots: 40.4%); SM-weighted 1.52 of 8 GPU-h. Under the 95% target by 0.4 points: 0.38 GPU-h leased-idle (top bc-36186951 0.16) and a 4-minute timed window.
+  - Backups: `r20260930-210557-16c3` custody PRESERVED; `r20260930-220532-8dc5` rc 0.
+  - Daemons up, `status.md` fresh, disk 37%, shadow 584 KB.
+  - Queue 8.27 of 12 GPU-h ready (3.7 short; 16 circuits Commits and 3 of bc-2aa33ad8's).
+  - Node 1's file is now merged into the pool file as `nodes.n1` (`ec144ba9c`, sha `cb07cc4e`; rollback `publish_pool.py.prev-20260930T2215Z`); node 1 was 1.3% GPU busy.
+  - Handoffs read:
+    - glide path: the switch at 5–6:30 PM PDT with cluster-build; 15 minutes' notice to bc-2aa33ad8; gpu-lease `49238797` and fill_runner deployed together; canary; drill.
+    - the overnight yes rule (from 9 PM PDT); PoUS and network accounting paused; no filler; proofs' `pn2g` held.
+    - resource-steward owns cleanup decisions (answered: `note:20260930T2215Z-reply-from-node2-ops-unpublished-runs`).
+    - rc=4 closed.
+    - kueue-fold's lending `855339e74` waits for PoUW's NUMA 0 answer.
 
 - 2026-09-30 21:52Z alerts: `verity-build-vllm-epoch-run-cov-g019-r1.sh` rc=3 (21:19Z), the same SMOL360 checkpoint not staged, already relayed; kueue-fold's `n2_build.sh` now refuses such Builds (`2068a75c1`). No new relay. GPU queue 1.97 of 12 GPU-h ready, so I added a line to the queue-keeper's note. Watermark 21:19:07Z.
 

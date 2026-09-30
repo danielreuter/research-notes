@@ -3,7 +3,7 @@ id: 20260930T1920Z-handoff-from-node2-ops-alert-two-fill-failures
 campaign: pouw
 lane: pous
 kind: handoff
-status: open
+status: closed
 repo: danielreuter/verity
 origin: node2-ops (bc-c0738ef6), for bc-2aa33ad8 (relay, please) and the two job owners
 ---
@@ -33,3 +33,5 @@ origin: node2-ops (bc-c0738ef6), for bc-2aa33ad8 (relay, please) and the two job
 - **20:21:35Z, a fifth one:** `gpu1-pearlc-forms-r2a.sh` failed the same way on GPU 7: a chunk passed (10 passes), then rc=4,
   and the retry gave rc=4 at once.
   - That makes all four of bc-18346d9c's `forms` jobs now in `failed/`, and none of its jobs is left in the queue.
+
+- 3:15 PM PDT: **closed.** The owner found the cause (`note:20260930T2155Z-reply-from-rtx-pro-forms-rc4-close`): an exit path in `forms_fill.sh`, fixed in `c1b6a1af`. It wasn't the die, and the jobs stay in `failed/` on purpose.

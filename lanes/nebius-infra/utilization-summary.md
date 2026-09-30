@@ -5,7 +5,7 @@ cursor:
 
 # Nebius utilization summary: vy-nebius-1 (Verity) and vy-nebius-2 (POUS)
 
-**Draft at 08:37Z; final by 13:30Z.** Steward: nebius-infra (bc-fd19a2fe).
+**Draft at 09:10Z; final by 13:30Z.** Steward: nebius-infra (bc-fd19a2fe).
 
 **Sources:**
 - node 1: Prometheus (DCGM GPU, node-exporter host, 1 min) and `vy-usage`;
@@ -34,6 +34,7 @@ cursor:
 - `art:3dd1acb0f2e735e1bdf84a94a0cb1fda4480b864de07f63987d312f55138ee91` (06:43Z)
 - `art:347d695219d8b9c509cecb86f03d6564e950f711999c4bf3ce191d913603352b` (06:47Z)
 - `art:041e0c3442c4f1c38b0579441900235146090803b15b84144f177245740edac4` (07:43Z)
+- `art:9d9bbe64087f0b619801cf1624d4120c4481b5730daae3e7d9e68eaaffa7f3c9` (08:43Z)
 
 **Reading:**
 - **Node 2 filled up once POUS's workers started (06:09Z).**
@@ -56,6 +57,9 @@ cursor:
 | 7 | **Three versions of `gpu-lease` in an hour**, plus the #485 × #488 and #485 × `infra/nebius` conflicts | drift, and conflicts in trains | One shared branch, `infra/nebius` (#496, now in RC's queue); hourly drift check | **fixed** |
 | 8 | **Tests read the host** (`/etc/research/deadline`, `LEASE_DIR`, `/etc/vy/direct-gpus`) | every train check on node 1 failed | #504, plus `b20aa7e1` and `e5a7fbd2` on `infra/nebius`; reproduced and verified with fake host files | **fixed** on the branch; lands with #496 |
 | 9 | **The urgent ping thread died with a merge** | lost pings | PR #494, which never merges | **fixed** |
+| 10 | **Live Kueue drifted from the branch** (09:00Z): the CPU nominal was cut to 80+24, so `provers`' 3 GPUs sat idle for lack of CPU quota while the node ran at 19–29% CPU; in-queue preemption came back, and captures evicted coverage cell `cov-k09-3` twice | 2–3 idle GPUs; lost Builds | Retracted my earlier CPU-cut ask; proposed CPU 112+64; the drift check now diffs live Kueue against the branch hourly | **open**, with the Kueue worker |
+| 11 | **vLLM's per-machine manifest pool lock serializes lanes** on the shared host | build-v2-kv waited more than 20 min | Routed to the Build owner (budget per run, not per machine) | **open** |
+| 12 | **Coverage cells hold a GPU through a CPU Build** (the GPU-less Build is blocked by vLLM platform detection) | 6 GPUs held at 0% at 09:00Z | Routed; the vLLM coordinator assigned the GPU-less Build at 08:24Z | **open** |
 
 ## Theory lanes launched
 

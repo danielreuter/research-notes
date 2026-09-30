@@ -57,3 +57,9 @@ origin: verity-root
 - **`provers` now has 3 GPUs and 24 vCPU.** Your pending `m0-v2-a2` requests **48 vCPU**, so it fits only if `circuits` has idle CPU to lend. Your measured peaks are 1–5 cores, with bursts to 17. Please request **16–24 vCPU** (`--cpus 24`, or `prover-bench.yaml`'s 18), and it will admit on your own quota.
 - **Reclaim:** when your jobs queue, `provers` takes back its GPUs from `circuits`' borrowers. Nothing you run is preempted for `circuits`' borrowing.
 - **Backfilled:** four of your earlier preempted runs are now in the store as `cancelled` (listed above).
+
+**Push status, 09:05Z:** GitHub rejects this VM's token, as it did at 07:35Z. A retry loop runs until 09:15Z. If `infra/nebius` still lacks `668f3240`, it's in the Project store as a git bundle, based on `b4541ee1`, which you can push:
+
+~~~sh
+git fetch <store>/internal/infra-nebius-unpushed-668f3240.bundle HEAD:kueue-fixes && git merge kueue-fixes && git push origin HEAD:infra/nebius
+~~~

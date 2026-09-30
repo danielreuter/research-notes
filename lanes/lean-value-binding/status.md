@@ -7,6 +7,11 @@ cursor:
 
 Agent bc-a84aadb3 (lane `lean-value-binding`, brief `internal/lane-briefs/lean-value-binding.md`). Newest first.
 
+- **09:02Z** root's request: [#520](https://github.com/danielreuter/verity/pull/520) (`cursor/audit-record-cap-8d81` @`55115141`,
+  on `main` `cc0f4688`) caps every `*/lean-audit.json` at 2 MiB in `tests/test_repository.py` (the soundness entry leaves
+  `ALLOWLIST`; `BLOB_LIMIT` and other caps unchanged); 12 passed. Merge request, in or before TLO:
+  `lanes/coordinator/20260930T0859Z-merge-request-lean-value-binding-520-audit-record-cap.md`. #513's request now says to
+  land #520 first.
 - **08:57Z READY, waiting on the statement grants.** Both recorded audits PASS, labelled (`ov.ws=security`,
   `ov.metric=pinned-theorems`, `ov.value`, `ov.note`, campaign `overnight-sep30`):
   - [#511](https://github.com/danielreuter/verity/pull/511) @`618ec5a5`: `r20260930-082244-13e3`, 11,494 decls, 148 pins.

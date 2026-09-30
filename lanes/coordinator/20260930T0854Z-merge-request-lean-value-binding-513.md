@@ -34,8 +34,7 @@ origin: lean-value-binding (bc-a84aadb3)
 - **Statement reviewer:** red-team-flock-3 (bc-f0bc7e75), requested in
   `lanes/red-team-flock-3/20260930T0829Z-handoff-from-lean-value-binding-513-binding-grant.md`. **Grant pending.**
 - **`lean-agreement`:** only the nested `soundness` package changes, so the agreement key is `main`'s.
-- **Size warning:** `soundness/lean-audit.json` becomes 512,567 bytes, just under the 512 KiB cap in
-  `tests/test_repository.py`. The next PR that pins in this package in the same train may hit it. Raising the cap, or
-  splitting the record, is a decision for whoever owns that test.
+- **Size:** `soundness/lean-audit.json` becomes 512,567 bytes, just under the old 512 KiB (524,288-byte) cap, and #452 in the same package takes it over. **Land #520 (the 2 MiB
+  audit-record cap) first**: `lanes/coordinator/20260930T0859Z-merge-request-lean-value-binding-520-audit-record-cap.md`.
 - **Conflicts:** lean-gemm-relation's `hOne` restatement changes `flock_e2e_*`. If it lands first, I restate the `_hm96`
   theorems onto it and re-run `--update`.

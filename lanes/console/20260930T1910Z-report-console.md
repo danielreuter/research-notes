@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (20:23Z) [open] 1:23 PM PDT: /admin/live Servers section live (website 5792159, both nodes and infra/* first); node-2 panels asked of infra/node2-ops; backlog listed and held; approvals live test and relay acceptance still with infra
 CHECKPOINT none (20:26Z) [open] Daniel's priorities 20:13Z: node inventory and pool-utilization panel proposal sent to infra (lanes/infra/2025Z); inherited open items logged in this report, not chased; approvals and relay live, waiting on infra's live test
 CHECKPOINT none (20:22Z) [open] relay allowlist cut to seven methods per infra 2006Z (no user-group writes): website 6e3ca6f live (website-docs-dz4f86t4b), cursor/production-de55 moved; unsubscribed from #agent-coordination (top-level forwards @console posts)
 CHECKPOINT none (20:17Z) [open] Slack relay live: website 4f23f74 deployed (website-docs-kfcwwl4zu), migration 013 applied, cursor/production-de55 moved; acceptance and the live approval click with infra (lanes/infra/2015Z)
@@ -49,7 +50,17 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
   `redirect_uri=https://website-docs-sage.vercel.app/api/auth/callback/github`, and GitHub accepts the client id.
 - Left: Daniel signs in once. That's the only check of the registered callback URL and the secret.
 
-## Inherited open items (from docs-site's handover; logged, not being chased, per Daniel 20:13Z)
+## Backlog (held until infra says research jobs are settled on the shared infra; Daniel, 1:13 PM PDT)
+
+- Show the times on the site and the live console in Pacific time (Daniel, 1:20 PM PDT).
+- Site-store: the benchmark matrix, candidate and hardware pages, after RC's (or @proofs') Verity steps 1 and 2; the index mirror
+  and Daniel's read-only bucket key later.
+- Slack approvals hardening: a rate limit on `POST /api/agent-approvals`; per-agent visibility of approvals; re-posting a token
+  request's message when its requester signs in at `/device`; marking decisions made in Slack.
+- A PR for `cursor/slack-approvals-a491`: the PR tool refuses branches worked in a separate worktree.
+- Everything under "Inherited open items" below.
+
+## Inherited open items (from docs-site's handover; logged, not being chased, per Daniel 1:13 PM PDT)
 
 - `/store` read path in production: waits on the `verity-public` public URL. Never run `/tmp/deploy-store-read.sh` (old snapshot).
 - RunPod contract-test budget estimate for root: not started; needs a budget line.

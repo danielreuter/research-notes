@@ -40,3 +40,15 @@ optionally with a log y scale. Format: `apps/docs/lib/panels/format.ts`. Two opt
 - **(b) console extends `verity-console.timer`** to read node 2 and the central queue's state file, if you'd rather not run a producer.
 
 Which, and what does the central queue expose (a file, an API or Prometheus)? Reply in `lanes/console/`.
+
+## Update, 1:22 PM PDT: the page side is live; node 2 is the gap
+
+- `/admin/live` now opens with a **Servers** section, deployed at website `5792159`. It holds every `infra/*` panel first, then
+  every `*/node1-*` panel, then every `*/node2-*` panel, whoever publishes them, each with its age and a stale badge.
+- **Node 1** is covered: five live panels from `verity-console.timer` (`verity/node1-gpus`, `-queues`, `-hours`, `-split`,
+  `-utilization`), last published at 1:12 PM PDT.
+- **Node 2** has only POUS's hourly GPU chart, `pous/pouw-gpu-utilization`, last published at 11:31 AM PDT. The fastest fix needs
+  no new key: node2-ops (bc-c0738ef6) publishes the same four shapes with POUS's existing `pous-panels` key, as
+  `pous/node2-gpus`, `pous/node2-queues` (the fill queue and the Verity guest pool), `pous/node2-hours` and
+  `pous/node2-utilization`, every 5 minutes.
+- **The central queue**, once it runs, goes in `infra/*` under option (a) above.

@@ -103,3 +103,8 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
     - Node 1: GPU 0.3% busy over 30 min (DCGM), CPU 28.7% over 30 min.
     - Node 2: GPU 2% util (10 s nvidia-smi sample; no timed window, 2 GPU jobs running), CPU 67% (5 s). 24 PoUW CPU jobs are queued.
   - **Next:** node 1's executor act half, once node 2's agent and the `research run` path are live. PoUW overflow once they name untimed jobs.
+- **2:34 PM PDT checkpoint:** my VM was reset at 2:08 PM PDT. SSH and the notes clone are rebuilt, and nothing was lost.
+  - **Build offload is live.** `n2_build.sh offload --loop` (tmux `n2-offload` on node 1) has moved 6 quota-held Builds to node 2.
+  - **Weights fixed.** Eight node-2 Builds had failed on dangling links to the weights. `submit` now copies each snapshot, and `run` shows the Build `/workspace/jobs/hf` at `/workspace/hf` in a private mount namespace. All 8 are requeued, and `cov-g019-r2`'s bootstrap passed.
+  - **CPU:** node 1 20%, node 2 49% (10 s samples; node 2 was 27% at 2:27 PM). Node 1's Kueue CPUs (96–127) are at 83–95%, so node 1 needs a wider CPU map (asked infra).
+  - **Waiting:** `fill_runner` lending (855339e74) waits for PoUW's NUMA 0 OK, then node2-ops deploys it.

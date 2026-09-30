@@ -56,7 +56,10 @@ T3), and gave kueue-fold node 1's drift check and monitors. Cluster-build's subm
 1. **The registry is one file per owner, `kinds/<lane>.toml`, not one shared `kinds.toml`.** A shared file that every
    coordinator edits is a serialization point (process-design test 6), and it would conflict while all of them convert their
    workloads by T4.
-2. **Monitors label; admission blocks.** An idle lease or an unleased process is a label with its owner, never a kill. Only
+2. **Held (2:46 PM PDT, until Daniel answers):** one phase per job as an admission rule, the 60-minute chunk rule, and
+   rejecting a GPU kind that has a CPU step. They may become paved-road defaults instead. The monitors, per-lane accounting and
+   provenance from git go ahead.
+   **Monitors label; admission blocks.** An idle lease or an unleased process is a label with its owner, never a kill. Only
    the cases you listed fail closed, at submit.
 3. **The learning loop runs on the daily list, with no new process step:**
    - the list names kinds, not jobs, so the fix goes into the kind;

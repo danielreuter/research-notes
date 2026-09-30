@@ -16,4 +16,6 @@ Timers: hourly `5 * * * *`, alerts `2,17,32,47 * * * *`, final backups 2026-10-0
 
 ## Log
 
+- 2026-09-30 18:47Z agent VM was reset (home and /workspace wiped); restored with an idempotent bootstrap kept in the Project store (`internal/node2-ops/bootstrap.sh`, no secrets). Owner file still absent -> standby.
+
 - 2026-09-30 18:50Z armed: 4 timers on bc-c0738ef6; ssh, uv, research CLI (`vy-nebius-2` resolves) OK. Owner file absent -> standby.

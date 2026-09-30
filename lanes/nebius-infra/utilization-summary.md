@@ -3,9 +3,9 @@ cursor:
   subagentId: "bc-fd19a2fe-4dd1-5d17-b138-509b5268e910"
 ---
 
-# Nebius utilization summary: vy-nebius-1 (Verity) and vy-nebius-2 (POUS), Sep 30 05:16–12:31Z
+# Nebius utilization summary: vy-nebius-1 (Verity) and vy-nebius-2 (POUS), Sep 30 05:16–13:59Z
 
-**Final, 12:40Z.** Steward: nebius-infra (bc-fd19a2fe).
+**Final, 14:00Z** (first finalized 12:40Z; the table now runs to 13:59Z). Steward: nebius-infra (bc-fd19a2fe).
 
 **Sources:**
 - node 1: Prometheus (DCGM GPU and node-exporter host metrics, 1 min) and Kueue's `vy-usage` queue samples (5 min);
@@ -30,31 +30,34 @@ cursor:
 | vy-nebius-1 | 09:00 | 8.0 | 7.1 | 1.1 | 0.07 | 6.9 | 19% | 181 GiB |
 | vy-nebius-1 | 10:00 | 8.0 | 7.8 | 0.6 | 0.10 | 7.4 | 22% | 217 GiB |
 | vy-nebius-1 | 11:00 | 8.0 | 7.6 | 2.5 | 0.17 | 5.5 | 20% | 296 GiB |
-| vy-nebius-1 | 12:00 | 4.3 | 1.9 | 0.8 | 0.10 | 3.5 | 14% | 199 GiB |
-| **vy-nebius-1** | **05:16Z–12:31Z** | **58.1** | **36.8** | **7.9** | **0.58** | **50.2** | **19%** | **296 GiB** |
+| vy-nebius-1 | 12:00 | 8.0 | 3.3 | 1.4 | 0.20 | 6.6 | 15% | 199 GiB |
+| vy-nebius-1 | 13:00 | 8.0 | 4.6 | 1.1 | 0.03 | 6.9 | 12% | 262 GiB |
+| **vy-nebius-1** | **05:16Z–13:59Z** | **69.9** | **42.8** | **9.7** | **0.72** | **60.1** | **18%** | **296 GiB** |
 | vy-nebius-2 | 06:00 | 7.4 | – | 1.0 | 0.23 | 6.4 | 10% | 515 GiB |
 | vy-nebius-2 | 07:00 | 8.0 | – | 5.7 | 0.97 | 2.3 | 12% | 77 GiB |
 | vy-nebius-2 | 08:00 | 8.0 | – | 6.4 | 2.78 | 1.6 | 18% | 105 GiB |
 | vy-nebius-2 | 09:00 | 8.0 | – | 6.5 | 5.49 | 1.5 | 13% | 68 GiB |
 | vy-nebius-2 | 10:00 | 8.0 | – | 5.9 | 4.29 | 2.1 | 11% | 74 GiB |
 | vy-nebius-2 | 11:00 | 8.0 | – | 3.9 | 2.61 | 4.1 | 6% | 44 GiB |
-| vy-nebius-2 | 12:00 | 4.2 | – | 3.2 | 2.32 | 1.0 | 6% | 44 GiB |
-| **vy-nebius-2** | **05:16Z–12:31Z** | **51.6** | **–** | **32.6** | **18.67** | **19.0** | **11%** | **515 GiB** |
+| vy-nebius-2 | 12:00 | 8.0 | – | 6.4 | 5.10 | 1.6 | 13% | 65 GiB |
+| vy-nebius-2 | 13:00 | 7.9 | – | 5.6 | 5.09 | 2.3 | 16% | 44 GiB |
+| **vy-nebius-2** | **05:16Z–13:59Z** | **63.3** | **–** | **41.4** | **26.54** | **21.8** | **13%** | **515 GiB** |
 
-The 12:00 rows cover 12:00–12:31Z.
+The 13:00 rows cover 13:00–13:59Z. Node 1's quiet hour, 12:30–13:30Z, spans its 12:00 and 13:00 rows: `circuits` held until
+13:17:56Z, and only 0.03 GPU-hours busy in the 13:00 hour.
 
 **Node 1:**
 - **Before the 07:00Z cutover:** 99% idle. Onboarding was still in progress, the cutover was pending, and no GPU work was queued.
-- **After it:** Kueue kept 5–8 GPUs allocated, 36.8 GPU-hours in all. Only 7.9 GPU-hours held GPU memory and 0.58 were busy.
+- **After it:** Kueue kept 3–8 GPUs allocated, 42.8 GPU-hours in all. Only 9.7 GPU-hours held GPU memory and 0.72 were busy.
 - **Why:** coverage cells ran on the one-GPU `config-run-row`. Each held its GPU for a ~3 min tap-compiling bootstrap, queued on one
   lock, then a 3–4 min CPU Build, and used it only during a 7–10 min Commit. Prover jobs build their witness on the host (41% of M0's
   prefill figure).
 - **CPU:** 19% busy. RAM peaked at 296 of 1,716 GiB.
 
-**Node 2:** 63% held and 36% busy overall; 81% held from 09:00 to 10:00Z, once POUS's workers and fill queue ran. It was kept quiet for
+**Node 2:** 65% held and 42% busy overall; 81% held from 09:00 to 10:00Z, once POUS's workers and fill queue ran. It was kept quiet for
 POUS's timed windows by agreement.
 
-**Totals, both servers:** 109.7 GPU-hours available. 40.5 held or busy (37%), 19.3 busy (18%), 69.2 idle.
+**Totals, both servers:** 133.1 GPU-hours available. 51.1 held or busy (38%), 27.3 busy (20%), 81.9 idle.
 
 ## Top inefficiencies: found, and what was done
 
@@ -80,9 +83,9 @@ POUS's timed windows by agreement.
 
 ## Theory lanes launched (Daniel's instruction: launch them when a workstream is theory-bound)
 
-| Lane | Agent | Workstream | Why launched | Outcome, 12:31Z |
+| Lane | Agent | Workstream | Why launched | Outcome, 14:00Z |
 |---|---|---|---|---|
-| `build-v2-kv` | bc-57ddc507 | 1 Build | one implementing agent against 8–22 agent-days of ranked plan changes; node 1's CPU 91% idle | Key and value prefix sharing (plan change 3) as line `build-v2`. Attempt 1: 6 of 6 rows digest-identical, prefill wall 0.55–0.67× the baseline, RSS about 0.6×. Main-vs-tip A/B at 13:30Z, then a merge request through the Build owner |
+| `build-v2-kv` | bc-57ddc507 | 1 Build | one implementing agent against 8–22 agent-days of ranked plan changes; node 1's CPU 91% idle | Key and value prefix sharing (plan change 3) as line `build-v2`. Attempt 1: 6 of 6 rows digest-identical, prefill wall 0.55–0.67× the baseline, RSS about 0.6×. Main-vs-tip A/B planned for 13:30Z; no result reported by 14:00Z. Then a merge request through the Build owner |
 | `flock-v2-design` | bc-37a1971b | 3 Prover | nothing designed after tiles and row 2; decode overhead undesigned | **Finished at 12:49Z.** Line `flock-m0-v3` has 10 attempts, all byte-identical under M0's statement digests. The lever is a one-pass host evaluation of the deep unit's witness, writing directly into pinned host slots, plus a 16-byte z-transpose fix. Best attempt, #8 (18 vCPU, noisy): **7.91×10⁶ prefill and 1.75×10⁵ decode × native**, against the baseline run's 3.48×10⁷ and 7.9×10⁵. Quiet-hour attempt #10 (48 vCPU): 8.56×10⁶ / 1.91×10⁵, against its same-job control's 8.72×10⁶ / 1.92×10⁵. Branch `cursor/host-unit-eval-c9e2` @ `ce7eb155`; merging is M0's call. Designed but not measured: chunked host-slot upload, predicted −6%; unit-slot slack, a statement change |
 
 **Not launched:**
@@ -98,24 +101,50 @@ ideas.
   - 40 commits (merges aside) beyond its base on `main`, from both infra lanes, the Kueue worker, the Nebius owner and RC; all under `tools/research/`. It carries #485,
     #488 and #504.
   - What runs on the servers comes from it.
-- **Lessons log:** research-notes `lanes/nebius-infra/lessons.md`, 83 dated entries from both projects.
+- **Lessons log:** research-notes `lanes/nebius-infra/lessons.md`, 84 dated entries from both projects.
 - **Urgent pings:** [#494](https://github.com/danielreuter/verity/pull/494), which never merges.
 - **The plan:** `docs/shared-infra-plan.md`.
 
+## Quiet hour and after, 12:31–13:57Z (addendum, 13:58Z)
+
+| Server | GPU-h observed | Kueue-allocated | Held or busy | Busy | Idle |
+|---|---:|---:|---:|---:|---:|
+| vy-nebius-1 | 11.6 | 5.4 | 1.7 | 0.15 | 9.9 |
+| vy-nebius-2 | 11.6 | n/a | 8.7 | 7.8 | 2.8 |
+
+- **The quiet hour idled node 1.** `circuits` admitted nothing from 12:30Z. The benches that ran were M0's `m0-v3-a11-182` in
+  `provers`, 13:02–13:16Z, and the Build lane's re-measure, 12:30–12:56Z. Node 1's GPUs were almost all idle.
+- **Released early, twice (root's call once nothing was measuring):**
+  - At 13:13:30Z I released while a11 was still in its timed runs. The two captures that started overlapped its last ~2.5 min
+    (other processes' cores rose from 4–6 to 15–36), so that tail is noisy.
+  - I put the Hold back at 13:16:44Z, then released for good at 13:17:56Z, once `provers` was empty.
+  - Lesson logged: before an early release, check that `provers` has no admitted workload.
+- **Two-task cells had published no Attempts** since 12:01Z: both tasks ran `row stage` bare.
+  - Fixed on `infra/nebius` `763ea668` (13:54Z). Each task is one `research run --tool vllm.build|commit` Attempt, and the Commit
+    cites the Build.
+  - Proved in the store on SmolLM2: Build `r20260930-133221-34d3`, Commit `r20260930-134308-4d11`.
+  - Qwen3-30B-A3B's 13:00Z pass left no run record, so it gets rerun.
+  - Config-run Commits still publish no typed `verdict` (`research-outputs write` wants `verdict.json`). Routed to the vLLM
+    coordinator.
+- **Per-tree Triton and vLLM caches** are in the same revision, for the TP2 lane's 274 s Commit warmup. Its cold-vs-warm test runs
+  on `763ea668`.
+
 ## Still open
 
-- **Node 1's busy fraction is still near 1%.** The two-task cells started at 12:01Z, so the next hours show whether GPU hold falls as
-  measured. Prover jobs stay bound by the host witness until `flock-v2-design`'s lever lands in M0.
+- **Node 1's busy fraction is still near 1%.** Two-task cells are the default again from `763ea668`, so the next hours show whether
+  GPU hold falls as measured. Prover jobs stay bound by the host witness until `flock-v2-design`'s lever lands in M0.
 - **A bigger SkyPilot jobs controller** (Kueue worker), so waiting cells can't hold every launch slot.
 - **#496** in a train; until it lands, #485, #488 and #504 stay open on their own.
 - **Node 1's `gpu-lease`** is behind `infra/nebius`. It's unused since the cutover, so this is low priority.
 - **Custody multipart uploads stall** on the Nebius hosts: POUS's finding, routed to RC.
-- **The steward's GitHub token is dead since about 09:30Z:** pushes go by bundle through root, and the drift check compares against the
-  last `infra/nebius` fetched here.
+- **The steward's GitHub token works again** (13:54Z push). Lanes that can't fetch GitHub take `infra/nebius` from the bundle
+  `artifacts/nebius/infra-nebius-763ea668.bundle` (sha256 `33bce048…`, needs `8f777377`).
 
 ## Evidence
 
-- `art:b5e8e3e984e8fb34ed2463a40edbebaa21b274a35930307bee455d4db2a27911`: 05:16–12:31Z, both servers, the source of the table above.
+- `art:48b2eed3fea5d405b696819edceb123442fb5b0ada870f3753d3cfdac6b3d9e0`: 05:16–13:59Z, both servers, the source of the table above.
+- `art:b5e8e3e984e8fb34ed2463a40edbebaa21b274a35930307bee455d4db2a27911`: 05:16–12:31Z, the 12:40Z version.
+- `art:00e0db82cc9619749b87a46f8db84f58f1bd730f804367ce3698cf858db1f3d5`: 12:31–13:57Z, both servers, the source of the addendum.
 - Earlier hourly snapshots:
   - `art:3dd1acb0f2e735e1bdf84a94a0cb1fda4480b864de07f63987d312f55138ee91`
   - `art:347d695219d8b9c509cecb86f03d6564e950f711999c4bf3ce191d913603352b`

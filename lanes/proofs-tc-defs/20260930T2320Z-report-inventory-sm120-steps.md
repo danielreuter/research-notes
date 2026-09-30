@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs-tc-defs (bc-de7192ba), worker of @proofs (bc-8416bc72)
 ---
 
+CHECKPOINT a3e35aa7f (23:16Z) [open] 4:22 PM PDT inventory posted (note:20260930T2320Z-report-inventory-sm120-steps): sm_120 FP8 E4M3 pinned on PRO 6000 in #502, E5M2 measured but hypothesis; missing core E5M2 and MXFP4 steps and all FP8/FP4 GemmCoordinates. Next: E5M2 total step, MXFP4 edge probe on node 1 provers queue.
 # proofs-tc-defs: inventory of sm_120 tensor-core steps, probes and Definitions (4:20 PM PDT, Sep 30)
 
 Base: `origin/main` `ce30e9b65`. Branch `cursor/proofs-tc-defs-95d4` merges the open #523 (on #515, #487) and #502.

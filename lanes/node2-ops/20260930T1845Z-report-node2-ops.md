@@ -5,6 +5,7 @@ created: 2026-09-30T18:45Z
 status: open
 ---
 
+CHECKPOINT a59453221 (21:09Z) [open] 21:05 tick: 20-21Z 86.7% busy/100% useful, cause = 1.3-min lease churn (ask sent); backup r20260930-210557-16c3 ok; CPU 0-47 proposal to bc-2aa33ad8; agent-mode answer to cluster-build
 CHECKPOINT a59453221 (20:15Z) [open] 20:10Z deployed Verity guest pool + gpu-lease cap + node_ops OOM pref (commit-first, sha256 in ops.md), smoke ok; 19-20Z 95.1% busy/100% useful; backup race fixed d06d14b5
 CHECKPOINT a59453221 (19:17Z) [open] 19:05 tick: backup r20260930-190718-208d preserved; infra/nebius 964c6423 (gpu-lease cap + live node scripts, not deployed); cutover step1 GRANT w/ conditions; NUMA map; backlog ask via pous
 CHECKPOINT a59453221 (19:06Z) [open] took over node-2 ops 19:02Z; 18-19Z 78% busy (79.9% since fix), report on node; next: 19:05 hourly backup + daemon check

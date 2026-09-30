@@ -19,6 +19,7 @@ Timers: hourly `5 * * * *`, alerts `2,17,32,47 * * * *`, final backups 2026-10-0
 Target (proposed): GPU busy ≥95%, useful ≥90% of busy. Filler = a fill job whose header carries `filler=`; unlabeled = useful.
 CPU busy is for CPUs 0–127 (the check slots 128–191 excluded), over the window between two hourly `/proc/stat` snapshots.
 
+- 20:00–21:00Z: **86.7% busy** (6.92 of 7.98 GPU-h, no timed windows), useful 100% (no filler). Free-idle 0.68, leased-idle 0.38 (bc-dd22acf8 0.23, bc-ccd30e80 0.10); waiters 36 min. Cause: job churn, not an empty queue: 234 one-GPU fill exits in the hour (bc-2aa33ad8's `hsplit` median 1.3 min per lease), each costing a runner poll (`FILL_POLL_S` 10 s) of idle GPU, spread evenly (4–10 GPU-min per 10 min). Ask sent: chunks back to back inside one lease. CPU 0–127: 43.0% (check slots 26.7%). Disk 32%.
 - 19:00–20:00Z: **95.1% busy** (7.61 of 8.00 GPU-h, no timed windows), useful 100% (no filler). Leased-idle 0.24, free-idle 0.15; waiters 20.5 min. Meets the target. CPU 0–127: 29.4% (19:16–20:05Z); check slots 17.5%. At 20:05Z the fill queue had 0 GPU jobs behind the 8 running (20 CPU jobs queued).
 - 18:00–19:00Z: **78% busy** (6.27 of 8.00 GPU-h: timed 0.60, kernels 5.67), useful 100% (no filler). Leased-idle 1.13, free-idle 0.60; lease waiters 32 min. Cause: leased-idle, 0.72 GPU-h of it bc-e6a46970's `fp8chain-die{0,1,3,4,5}.sh` fill jobs holding GPUs at 0%; free-idle while a timed window waited. Since the 17:58:46Z waiters fix (to 19:05Z): 79.9%. CPU 0–127: 47.7% (19:09–19:16Z, first window).
 
@@ -45,6 +46,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-09-30 21:15Z hourly: backup `r20260930-210557-16c3` rc 0, 396 units, 0 skipped. Shadow alive, 340 KB. Daemons up, status.md fresh, disk 32%. Asks answered: CPUs 128–191 for fill declined (merge checks run there); 0–47 proposed to bc-2aa33ad8 (freeze-list change, their yes needed); agent-mode question answered for cluster-build (`note:20260930T2115Z-reply-from-node2-ops-agent-mode-and-shadow`). From now on, prose times are Pacific (contract 2.7 §5a).
 
 - 2026-09-30 21:05Z alerts: six kueue-fold `verity-build-cov-*` Builds rc=3 at bootstrap (20:54–21:00Z), MISTRAL7B / QWEN3_30B_A3B weights not staged (HF offline); job-side, relayed (`note:20260930T2105Z-handoff-from-node2-ops-cov-builds-missing-weights`). Disk 32% (27% at 20:17Z; `/workspace/jobs` 13 GB). Watermark 21:00:37Z.
 

@@ -5,6 +5,12 @@ cursor:
 
 # lean-gemm-relation: status
 
+**2026-09-30 07:35Z: next target, the end-to-end theorem's `hOne` and the zero's binding** (`soundness/assumptions/e2e-checklist.md`,
+owner flock-soundness, which has left them since #293 closed). #490 is waiting for red-team-flock-3's grant on the 18 pins at
+`94384df9`, which I requested in its folder at 07:09Z. #500 (the `check_step` shape fix) is filed with the coordinator. Briefs for
+two parallel Lean lanes: `internal/lane-briefs/lean-value-binding.md` (`registered_weights`, the `vb` gap at model level, and the
+pins of knowledge soundness) and `internal/lane-briefs/lean-zk-table.md` (SHVZK of one masked table, stacked on the ZK stack).
+
 **2026-09-30 06:57Z (23:57 PT): done for tonight's scope, 0 sorry.** PR: [#490](https://github.com/danielreuter/verity/pull/490)
 (draft), branch `cursor/lean-gemm-relation-a815` at `461f7020` (merged with `main`; SHA-256 records).
 

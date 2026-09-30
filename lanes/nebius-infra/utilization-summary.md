@@ -5,7 +5,7 @@ cursor:
 
 # Nebius utilization summary: vy-nebius-1 (Verity) and vy-nebius-2 (POUS)
 
-**Draft at 10:05Z; final by 13:30Z.** Steward: nebius-infra (bc-fd19a2fe).
+**Draft at 10:45Z; final by 13:30Z.** Steward: nebius-infra (bc-fd19a2fe).
 
 **Sources:**
 - node 1: Prometheus (DCGM GPU, node-exporter host, 1 min) and `vy-usage`;
@@ -20,29 +20,41 @@ cursor:
 
 ## GPU-hours per server, by hour
 
-| Server | Hour (UTC) | GPU-h | busy | held or busy | idle | CPU busy (core-h of 192/h) | RAM peak |
-|---|---|---:|---:|---:|---:|---:|---:|
-| vy-nebius-1 | 05:16–06:00 | 5.9 | 0.03 | 0.05 | 5.8 | 12.0 | 112 GiB |
-| vy-nebius-1 | 06:00–07:00 | 8.0 | 0.00 | 0.22 | 7.8 | 23.3 | 149 GiB |
-| vy-nebius-1 | 07:00–08:00 (cut over at 07:00:48) | 8.0 | 0.05 | 1.4 | 6.6 | 56.2 | 261 GiB |
-| vy-nebius-1 | 08:00–08:32 | 4.3 | 0.05 | 0.75 | 3.5 | 30.3 | 273 GiB |
-| vy-nebius-2 | 06:05–07:00 | 7.4 | 0.23 | 1.0 | 6.4 | 18.4 | 515 GiB |
-| vy-nebius-2 | 07:00–08:00 | 8.0 | 0.97 | 5.7 | 2.3 | 23.8 | 77 GiB |
-| vy-nebius-2 | 08:00–08:32 | 4.2 | 0.80 | 3.2 | 1.0 | 26.5 | 32 GiB |
+| Server | Hour (UTC) | GPU-h | Kueue-allocated | held or busy | busy | idle | CPU busy | RAM peak |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| vy-nebius-1 | 05:00 | 5.9 | 0.083 | 0.05 | 0.03 | 5.8 | 9% | 112 GiB |
+| vy-nebius-1 | 06:00 | 8.0 | 1.667 | 0.22 | 0.00 | 7.8 | 12% | 149 GiB |
+| vy-nebius-1 | 07:00 | 8.0 | 5.25 | 1.42 | 0.05 | 6.6 | 29% | 261 GiB |
+| vy-nebius-1 | 08:00 | 8.0 | 5.417 | 1.38 | 0.07 | 6.6 | 23% | 273 GiB |
+| vy-nebius-1 | 09:00 | 8.0 | 7.083 | 1.07 | 0.07 | 6.9 | 19% | 181 GiB |
+| vy-nebius-1 | 10:00 | 5.2 | 5.167 | 0.37 | 0.07 | 4.8 | 25% | 217 GiB |
+| **vy-nebius-1** | **total to 10:38Z** | **43.1** | **24.667** | **4.5** | **0.28** | **38.6** | **20%** | **273 GiB** |
+| vy-nebius-2 | 06:00 | 7.4 | – | 1.00 | 0.23 | 6.4 | 10% | 515 GiB |
+| vy-nebius-2 | 07:00 | 8.0 | – | 5.72 | 0.97 | 2.3 | 12% | 77 GiB |
+| vy-nebius-2 | 08:00 | 8.0 | – | 6.43 | 2.78 | 1.6 | 18% | 105 GiB |
+| vy-nebius-2 | 09:00 | 8.0 | – | 6.49 | 5.49 | 1.5 | 13% | 68 GiB |
+| vy-nebius-2 | 10:00 | 5.2 | – | 4.44 | 2.99 | 0.8 | 10% | 72 GiB |
+| **vy-nebius-2** | **total to 10:38Z** | **36.6** | **–** | **24.1** | **12.45** | **12.5** | **13%** | **515 GiB** |
+
+- **Kueue-allocated:** GPU-hours admitted to jobs (node 1 only, from `vy-usage`), whether or not a job used them.
+- **The gap is the night's biggest waste:** from 09:00 to 10:00Z, 7.1 GPU-hours were allocated, 1.1 held GPU memory and 0.07 were busy.
 
 **Evidence:**
 - `art:3dd1acb0f2e735e1bdf84a94a0cb1fda4480b864de07f63987d312f55138ee91` (06:43Z)
 - `art:347d695219d8b9c509cecb86f03d6564e950f711999c4bf3ce191d913603352b` (06:47Z)
 - `art:041e0c3442c4f1c38b0579441900235146090803b15b84144f177245740edac4` (07:43Z)
 - `art:9d9bbe64087f0b619801cf1624d4120c4481b5730daae3e7d9e68eaaffa7f3c9` (08:43Z)
+- `art:cec8591ae06e2bf396a9574143e6e7d872efd4a190d1dd8230409fa954e13ce2` (10:37Z)
 
 **Reading:**
-- **Node 2 filled up once POUS's workers started (06:09Z).**
-- **Node 1's GPUs are held but hardly busy.**
-  - Before the cutover, there was no queued GPU work.
-  - Since the cutover, M0's and `flock-v2-design`'s prover jobs spend most of their time building the witness on the host (41%
-    of M0's prefill figure, per `flock-v2-design`).
-  - Coverage cells fail fast on sm_120 until FA2 (#477) lands.
+- **Node 2** filled up once POUS's workers started (06:09Z): 69% busy and 81% held from 09:00 to 10:00Z.
+- **Node 1's GPUs are allocated, not used.**
+  - Before the cutover (07:00Z), there was no queued GPU work.
+  - Since then Kueue has kept 5–7 GPUs admitted, almost all to coverage cells on the one-GPU `config-run-row`.
+  - Each cell holds its GPU through a ~3 min tap-compiling bootstrap, queued behind the other cells on one lock, and a 3–4 min CPU
+    Build. It uses the GPU only in a 7–10 min Commit. The prover jobs build their witness on the host (41% of M0's prefill figure).
+  - **Fixes in flight:** the bootstrap cache (#14, bundle with root); the GPU-less Build (with the vLLM side), which moves Builds off
+    GPUs; and memory requests at the measured peak plus 25% (epoch-run), so more cells fit at once.
 
 ## Top inefficiencies found
 
@@ -61,7 +73,9 @@ cursor:
 | 11 | **vLLM's per-machine manifest pool lock serializes lanes** on the shared host | build-v2-kv waited more than 20 min | Routed to the Build owner (budget per run, not per machine) | **open** |
 | 12 | **Coverage cells hold a GPU through a CPU Build** (the GPU-less Build is blocked by vLLM platform detection) | 6 GPUs held at 0% at 09:00Z | Routed; the vLLM coordinator assigned the GPU-less Build at 08:24Z | **open** |
 | 13 | **Coverage cells over-request memory**: 192–512 GB each, while the node uses 110 GiB with 6 running; memory quota then blocks 4 jobs, a GPU capture among them | 2 GPUs idle at 09:30Z | Routed to epoch-run: request the measured peak plus ~25% (pods have no memory limit, so there's no OOM risk) | **open** |
-| 14 | **vLLM jobs queue on one host-wide bootstrap lock**, made worse by my 07:30Z per-pod tree copy: every GPU cell recompiled its native taps (~3 min) under the lock, so a 7 s capture bootstrap waited behind them | **before:** jobs 110, 111 and 119 waited 8–14 min before running for seconds; GPU cells held the lock 2m46s–2m57s each, one after another (jobs 124, 120, 121) | One copy of the tree per content (taps build once per tree), and a stamp per tree, arguments and venv that skips a passed bootstrap without the lock (`f3e0bf63`, relayed as a bundle). **After:** test captures on node 1 took 1m05s from submit to finish for the first job (a real bootstrap, 8 s) and 49 s for the second (cached, lock skipped) | **fixed**; live for each lane once it merges `infra/nebius` |
+| 14 | **vLLM jobs queue on one host-wide bootstrap lock**, made worse by my 07:30Z per-pod tree copy: every GPU cell recompiled its native taps (~3 min) under the lock, so a 7 s capture bootstrap waited behind them | **before:** jobs 110, 111 and 119 waited 8–14 min before running for seconds; GPU cells held the lock 2m46s–2m57s each, one after another (jobs 124, 120, 121) | One copy of the tree per content (taps build once per tree), and a stamp per tree, arguments and venv that skips a passed bootstrap without the lock (`f3e0bf63`, in bundle `9540e031` in the store's `artifacts/nebius/`, for root to push). **After:** test captures on node 1 took 1m05s from submit to finish for the first job (a real bootstrap, 8 s) and 49 s for the second (cached, lock skipped) | **fixed**; live for each lane once it merges `infra/nebius` |
+| 15 | **Short lane checks queue behind trains:** three trains held all three exclusive check slots for long pytest runs, so the GEMM lane's NVFP4 circuit-check rerun (`r20260930-100544-7226`) waited on `check-b`; the slots were 10–23% busy | a minutes-long check waits a whole train (10–20+ min) | Two shared short slots, `check-s1` and `check-s2`, on the check CPUs 8–95 at `nice 10` (usable now with a raw `flock` line; `check_slot.sh --short` in `fb923c3a`, same bundle); node 1's `check-slots` file written; GEMM lane told | **fixed** |
+| 16 | **The notes-to-store channel gap, twice:** POUS's notes to Verity root, and the Lean lanes' #514 and #519 pin-grant requests to red-team-flock-3, sat in research-notes while their recipients read the store | found 80 min late, or not at all | `channel_sync.py` mirrors every `lanes/<lane>/` both ways every 10 min (48 h window; never overwrites; holds sensitive-looking and red-team store-to-notes files) | **fixed** |
 
 ## Theory lanes launched
 

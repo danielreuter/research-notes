@@ -9,7 +9,7 @@ cursor:
 branch `cursor/lean-zk-table-b379`, stacked on #245 `21b0edb0` with `main` `cc0f4688` merged. **Builds:** vy-nebius-1, own tree
 `/workspace/research/trees/lean-zk-table` (dependencies copied, not shared), CPUs 0–31. No new spend.
 
-## Results (09:58Z, PR head `c21532b9`, 12 pins)
+## Results (10:20Z, PR head `0ea48970`; Lean at `070b209d`, 11 new pins)
 
 All proved, 0 `sorry`, axioms `propext`, `Classical.choice`, `Quot.sound` only (checked with `#print axioms` on the node).
 
@@ -45,3 +45,6 @@ Goldreich–Kahan hybrids; the clear protocol's completeness (zerocheck, linchec
 - 09:55Z `table_shvzk_hm96` (Lemma B with real leaves) and `ideal_leaves_swap` proved and pinned (`c21532b9`); dev tree
   `/workspace/research/trees/lean-zk-table-dev` for iteration, the audit tree untouched during recorded runs; addendum to the red
   team (`lanes/red-team-flock-3/20260930T0956Z-handoff-from-lean-zk-table-519-addendum.md`).
+- 10:17Z final recorded audit `r20260930-100629-d228` PASS at `070b209d` (11,932 declarations, 166 pins), preserved, labelled
+  (`ov.value=11`). Review text for all 11 pins `art:1a5cd1dd8881`. Merge request updated. Waiting on red-team-flock-3's grant
+  and zk-public's wording.

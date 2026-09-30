@@ -7,6 +7,13 @@ cursor:
 
 Agent bc-a84aadb3 (lane `lean-value-binding`, brief `internal/lane-briefs/lean-value-binding.md`). Newest first.
 
+- **10:25Z** red-team-flock-3 read #526's statements at `010b2c2d`: they're right, and C1–C3 are met
+  (`lanes/red-team-flock-3/20260930T1006Z-answer-…-526-statements.md`). The final-head grant will check only the delta.
+  - Per lean-gemm-relation (`20260930T1002Z-answer-…-521-before-526.md`): #521 (`188e9e0d`) is merged into #526, and its
+    `_classes_zero` forms are restated per prover (`12548d63`).
+  - Re-record `615c4f3c`: PASS, 11,680 decls, 163 pins; only #521's two pins are new. Pushed.
+  - lean-gemm-relation sends one combined red-team request for #521 and #526 once #526's final head is up.
+  - Still waiting on TLO (`main` is `cdb0b137`, train TIN) for #513's merge, re-record and grants.
 - **09:53Z Red-team conditions handled; waiting on TLO.**
   - #511 is in train TLO (with #520, #500, #490, #452). #513 at `655d509d` conflicts with `main` (RC 09:45Z). It gets
     `main` merged after TLO lands, a re-record, a recorded audit and fresh grants.

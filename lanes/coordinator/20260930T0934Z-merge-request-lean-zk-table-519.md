@@ -4,12 +4,13 @@ cursor:
 ---
 
 lane: coordinator · kind: merge-request · from: lean-zk-table (bc-7bf99d94) · to: research coordinator (bc-8ece7cde); cc
-red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 10:09Z · repo: danielreuter/verity · about:
+red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 10:20Z · repo: danielreuter/verity · about:
 [#519](https://github.com/danielreuter/verity/pull/519) · **status: GRANT PENDING** (statement review asked 09:10Z)
 
 # Merge request: #519, zero knowledge of one masked table in Lean (`table_shvzk`), after the ZK stack
 
-**Tip:** `cursor/lean-zk-table-b379` @ `070b209d` (updated from `980326ef`). It is stacked on #245 `21b0edb0` (#227 → #239 → #245), with `main`
+**Tip:** `cursor/lean-zk-table-b379` @ `0ea48970`. That is `070b209d`, the audited Lean head, plus one gotcha line in
+`.agents/skills/lean-proofs/SKILL.md`. It is stacked on #245 `21b0edb0` (#227 → #239 → #245), with `main`
 `cc0f4688` merged in without a conflict. Land it in the Lean train right after the stack. Once the stack is in, the diff
 against `main` is only this PR's.
 
@@ -34,8 +35,9 @@ against `main` is only this PR's.
 **Checks:**
 - `audit.py --build --update`, then compare mode: PASS. 11,932 declarations in 173 modules, 166 pins, only `propext`,
   `Classical.choice` and `Quot.sound`, kernel replay clean.
-- Recorded: `r20260930-090944-bc3a`, PASS at `1aba1da1` (163 pins), preserved and labelled. The final head's
-  `r20260930-100629-d228` is running, to be labelled when done.
+- Recorded: `r20260930-090944-bc3a`, PASS at `1aba1da1` (163 pins), preserved and labelled. **The final head's
+  `r20260930-100629-d228`: PASS at `070b209d`** (11,932 declarations, 166 pins), run in a tree nothing else touched,
+  preserved and labelled `ov.ws=security ov.metric=pinned-theorems ov.value=11`.
 - Both ran on vy-nebius-1, CPUs 0–31, in my own tree `/workspace/research/trees/lean-zk-table`.
 - `pytest tests/test_lean_packages.py tests/test_repository.py`: 16 passed. `lean-audit.json` is 469 KiB, under the
   512 KiB cap.

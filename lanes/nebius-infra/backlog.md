@@ -33,6 +33,7 @@ NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so 
 | 8–31 | merge-train check slot `check-c` (RC, 08:09Z) | `check-c.lock`, `8-31` |
 | 32–63 | merge-train check slot `check-a` | `flock /workspace/research/locks/check-a.lock taskset -c 32-63 env UV_PYTHON=3.14.7 … check.py`, no `gpu-lease` |
 | 64–95 | merge-train check slot `check-b` | the same with `check-b.lock`, `64-95` |
+| 8–95, shared | **short lane checks** (a circuit-check rerun, one suite: minutes), which never wait on a train: `check-s1`, `check-s2` on the train slots' CPUs at `nice 10` (10:15Z) | `flock /workspace/research/locks/check-s1.lock nice -n 10 taskset -c 8-95 <cmd>` (or `check-s2`); `check_slot.sh --short <cmd>` once `infra/nebius` has `fb923c3a`; `/workspace/research/check-slots` = `32-63 64-95 8-31` |
 | 96–127 | `build-v2-kv` benches (bc-57ddc507) | `taskset -c 96-127` |
 | 128–159 | the Build owner's benches (bc-47d0a3ed), workstream 1's fixed 32 vCPU | `taskset -c 128-159` |
 | 160–191 | M0's pinned prover benches (bc-ff572e70), inside its Kueue jobs; lent to the Build owner (08:22Z) until M0 pins | `taskset -c 160-191`, replacing the old 144–191, which overlapped Build on 144–159 |

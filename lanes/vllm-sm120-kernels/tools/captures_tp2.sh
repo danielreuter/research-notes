@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # sm_120 TP2 on one host (lane vllm-sm120-kernels): two RTX PRO 6000 GPUs, NCCL with P2P off.  The device gate (both GPUs), the pod
 # runtime (pod_bootstrap.sh --cpu), the two-rank collectives against AllReduce2_v1 / AllGather2_v1 op-level (collectives_difftest) and
-# inside a tiny TP2 vLLM engine (sm120_tp2_live.py), the quarantine AllReduceSumBf16 difftest, and the TP2 vocabulary-range property.
+# inside a tiny TP2 vLLM engine (sm120_tp2_live.py), and the TP2 vocabulary-range property.  (The quarantine AllReduceSumBf16 adapter
+# spawns rank processes that re-import the verity-vllm launcher and hang the parent: not run.)
 # research run --on <pod> --project verity --custody-r2 --source <tree> --cwd source --send captures_tp2.sh --send sm120_tp2_live.py \
 #   -- bash -c 'bash "$RESEARCH_RUN_DIR/inputs/captures_tp2.sh"'
 set -uo pipefail
@@ -44,8 +45,6 @@ log "device gate OK (2 x 188 SMs, cc 12.0)"
 AD=verity_vllm.program.registry
 step collectives_produce verity-vllm properties-admission produce --adapter $AD.collectives_difftest --n 30 --seed 5 --out "$OUT/collectives"
 step collectives_check verity-vllm properties-admission check --adapter $AD.collectives_difftest --dir "$OUT/collectives" --out "$OUT/collectives/collectives.json"
-step allreduce_q_produce verity-vllm properties-admission produce --adapter $AD.quarantine.collective.allreduce_difftest --n 20 --seed 7 --out "$OUT/allreduce_q"
-step allreduce_q_check verity-vllm properties-admission check --adapter $AD.quarantine.collective.allreduce_difftest --dir "$OUT/allreduce_q" --out "$OUT/allreduce_q/quarantine.json"
 step tp2_live $PY "$IN/sm120_tp2_live.py" "$OUT/tp2_live"
 step vocab_range_tp2 $PY tests/properties/vocab_range_exactness_gpu.py --case tiny --out "$OUT/vocab_range"
 

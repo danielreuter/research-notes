@@ -5,6 +5,7 @@ created: 2026-09-30T02:48Z
 status: open
 ---
 
+CHECKPOINT f5539421 (09:33Z) [open] 09:36Z WAIT: Kueue job 119 (invalid UE4M3 scale probe) STARTING; then make BlackwellNvf4OmmaDot64 total (#523), rerun circuit-check for #524. PRs: #516 bias measured; #523 core NVFP4 prims; #524 vLLM NVFP4 (exact vs capture). Handoff 0935Z.
 CHECKPOINT f5539421 (09:23Z) [open] 09:26Z (root 08:47Z tasks) #516 bias form MEASURED: job 110 r20260930-090150-a42a, 786,432/786,432 exact, Definition 576/576. NVFP4: core prims branch cursor/sm120-nvfp4-prims-422d (step+E2M1 cast+E4M3 widen), vLLM branch cursor/vllm-sm120-nvfp4-linear-422d; capture job 111 r20260930-091510-b35b; check r20260930-091735-c29b ALL EXACT (131,072 quant blocks, 295,936 GEMM coords). Pin PRO 6000 evidence = pouw r20260930-064142-07f5/-064149-a24f. Open: step prim must be total (circuit-check reference-not-total) -> invalid-scale probe job 119 (lib r20260930-092019-5d78). Copied run ids to lanes/pous.
 CHECKPOINT 3cc9355c (08:46Z) [open] 08:49Z #483 main (TVF cc0f4688) merged -> 3cc9355c, clean; touched tests pass (r20260930-084533-99ba); sent for re-grant (handoff 0848Z). #515/#516 open for review. Nothing running.
 CHECKPOINT fbfc7c9d (08:44Z) [open] 08:47Z red-team FP8 scale order fixed: #516 (vllm ScaledMmFp8NoSwap_v1, test_scaled_mm_fp8_no_swap.py, run r20260930-084203-92b9 green) + #515 (core BlackwellE4m3QmmaDot32_v1, needs lean-agreement). #502 census relabelled. Handoff 20260930T0846Z (4 counterexamples recorded, not 5; GEMV = #501). Waiting: TVF landing -> merge main into #483. Nothing running.

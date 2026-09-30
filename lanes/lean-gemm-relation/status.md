@@ -5,7 +5,7 @@ cursor:
 
 # lean-gemm-relation: status
 
-**2026-09-30 05:40Z (22:40 PT), open: statement fixed, proof in progress.**
+**2026-09-30 06:12Z (23:12 PT), open: soundness proved; completeness in progress.** PR: [#490](https://github.com/danielreuter/verity/pull/490) (draft).
 
 - **Package:** `packages/verity/lean` (Lake package `verity`, no dependencies, builds in ~2 s), branch
   `cursor/lean-gemm-relation-a815`, commit `60ebd57e` (local: the VM's GitHub token expired at ~05:35Z, push pending).
@@ -17,7 +17,7 @@ cursor:
   - `Verity.TC.hopper_step_complete`: the relation accepts a witness for every input;
   - `Verity.TC.hopper_step_iff`: the relation's possible outputs are exactly the semantics' (proved from the two);
   - `Verity.TC.hopper_step_hw`: under `gemm-hopper-step`, the output is the decode of the device's word.
-- **Sorry count:** 2 (`hopper_step_sound`, `hopper_step_complete`). **Axioms:** standard three only.
+- **Sorry count:** 1 (`hopper_step_complete`; `hopper_step_iff` uses it). `hopper_step_sound` and `hopper_step_hw` are proved with `propext`, `Classical.choice`, `Quot.sound` only.
 - **Assumptions used:** `Verity.Assumptions.GemmHopperStep` = `gemm-hopper-step(arch, bf16)`, only by `hopper_step_hw`.
   The equivalence itself is unconditional.
 

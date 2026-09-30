@@ -42,8 +42,8 @@ Cover each axis value at least once before a second value on any axis. Cheap cel
 
 ## Labels, on each cell's attempt
 - `ov.ws coverage`
-- `ov.config <model>/<dtype>/<gpu>/tp<n>/b<n>/ctx<n>/<sampler>[/chunked][/prefix]`
-- `ov.gate pass | finding:<cause> | unsupported:<reason>`
+- `ov.config <row slug>` (superseded 06:10Z: see `20260930T0610Z-note-from-vllm-coordinator-coverage-labels.md`)
+- `ov.gate pass|fail|unsupported`, cause in `ov.note`, `--off-vocab`, campaign `overnight-sep30`
 - **Extraction slowdown,** split into prefill and decode: the instrumented Commit's timings against the uninstrumented baseline. The baseline is attempt 0 of line `build-v1`; label its source.
 
 Checkpoints are one line in your folder at each 10 cells, and a handoff to me only when something blocks or changes the plan. I render the coverage table from the labels, so there's no table to maintain.

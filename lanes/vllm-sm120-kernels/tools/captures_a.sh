@@ -9,6 +9,7 @@ set -uo pipefail
 T=$(pwd -P)
 OUT=${RESEARCH_RUN_DIR:-/workspace/sm120}/out; mkdir -p "$OUT"
 VENV=/workspace/venv312; PY=$VENV/bin/python
+export CUDA_HOME=${CUDA_HOME:-/usr/local/cuda-12.9}; export PATH=$CUDA_HOME/bin:$PATH
 log() { echo "[sm120-a] $(date -u +%FT%TZ) $*" | tee -a "$OUT/steps.log"; }
 declare -A V
 step() { local name=$1; shift; log "BEGIN $name"; if "$@" >"$OUT/$name.log" 2>&1; then V[$name]=PASS; else V[$name]="FAIL rc=$?"; fi; log "END $name ${V[$name]} ($(tail -1 "$OUT/$name.log" | cut -c1-200))"; }

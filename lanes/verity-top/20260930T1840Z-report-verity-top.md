@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (21:31Z) [open] survey on data movement out, 5/7 answers in; glide path handed out; scheduling-practice review running
 CHECKPOINT none (21:19Z) [open] utilization push; glide-path plan drafting; job-standards design with Daniel
 CHECKPOINT none (21:00Z) [open] routing; #586 and #592 queued ahead of backlog; test question card posted
 CHECKPOINT none (20:45Z) [open] routing Slack posts; #ask-daniel cards and Pacific-time tooling in progress

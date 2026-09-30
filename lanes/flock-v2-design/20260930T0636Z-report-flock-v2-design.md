@@ -5,6 +5,7 @@ created: 2026-09-30T06:36Z
 status: open
 ---
 
+CHECKPOINT 7f663241 (09:44Z) [open] 09:44Z lever: chunk_zlin_transpose (z_lincheck bit transpose) stores 1 byte/thread at 128 B stride: ~19 ms/rep at m=33, 38 ms at m=34 (#4's rep-1 t.witness), ~10-12% of prove; rewrote it 16 B/thread with two 8x8 bit transposes (acc580a2, byte-equal on host k_log 7..13, NVRTC sm_120 compiles); fv2-a7 (#4's config, new key c3a2a9c1) queued as job 133
 CHECKPOINT 7f663241 (09:34Z) [open] 09:36Z tip 91b6283f = 1ef30bf5 (prefetch reverted) + origin/infra/nebius 4e96ed05 (current templates; binary key d18cc4b5ed3d82b6 unchanged = #4's); told M0 its c918a68f carries the prefetch (note:20260930T0933Z-handoff-from-flock-v2-design-revert); next: unit-slot slack design, quiet re-measure at 12:30Z
 CHECKPOINT 7f663241 (09:26Z) [open] 09:37Z a6 labelled (flock-m0-v3 attempt 6, steady state depth 2 RUNS=8: prefetch neutral 8.79e6 vs control 8.74e6; art:522effbf art:7b4a33b7); best stays #4's config; quiet-hour plan (48 vCPU, fallback 16) handed to M0
 CHECKPOINT 7f663241 (09:04Z) [open] 09:05Z a5 labelled (flock-m0-v3 attempt 5, device prefetch: t.witness -0.024/-0.028 s per statement, hidden by +-0.05 s arithmetic noise; metric 9.07e6/2.01e5 vs control 8.75e6/1.92e5; art:3a5c5a6d art:102392c7); a6 steady-state (depth 2, RUNS=8) queued as job 112

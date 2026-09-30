@@ -100,3 +100,4 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - Fixture archive repo and commit-map label: ripe, #371 merged 01:21Z; waiting on the brief.
 - CHECKPOINT 21:40Z: infra-pool.json live (node2-ops, n2 only); node1 run publishes 10/10 with pool_file true. Console v2 (/console, workstream sidebar, Proofs benchmark table) on website cursor/console-v2-a491 185e05e, local only. Next: per-kind table panel when `kinds` lands (~3:10 PM PDT).
 - PREFERENCE 21:59Z (Daniel, standing): start with less. First view as concise as possible, only the data; minimal detail in tooltips; never show conclusions (no gains, "best on N", verdicts, explanatory notes). Add things only when he asks. Charts: straight lines, not steps or curves.
+- CHECKPOINT 22:02Z: infra/pool-kinds (per-kind table from node2-ops kinds, timed: excluded) added to node1 run; console v2 Proofs stripped to data (0d04a32); waiting on Daniel re chart y-scale.

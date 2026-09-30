@@ -1,0 +1,6 @@
+# machine vyv-rf-epoch-smoke: written by `research pods register`; one file per machine (research.pods.registry)
+provider = "runpod"
+pod_id = "wp9foez5o19wtm"
+project = "verity"
+registered_by = "cursor"
+registered_at = "2026-09-30T03:39Z"

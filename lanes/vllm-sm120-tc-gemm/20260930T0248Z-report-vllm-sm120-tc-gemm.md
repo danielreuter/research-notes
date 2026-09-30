@@ -5,6 +5,7 @@ created: 2026-09-30T02:48Z
 status: open
 ---
 
+CHECKPOINT 07caae24 (06:29Z) [open] coord 0557Z decisions in progress: #487 @07caae24 (+probe fix, rtxpro6000 SKU family, FP8_SM120_MMA Target on PRO 6000; core/tc_probe tests = base on vy-nebius-1 r20260930-061656-9379). Kueue jobs on vy-nebius-1: 11 e4m3 + 12 e5m2 PINNED sweeps, 13 gemv (V,T) table. port-capture template needed a local override (--cpu --out: tree unwritable as uid 1000) + #485 merged in tree.
 CHECKPOINT 8c2b4d4c (06:13Z) [open] pod vy-sm120-tc-gemm-1 TERMINATED 06:11Z (~$6.40 of $25); #483 final 60549d3b (720/720); #487 @8c2b4d4c (probe fix + rtxpro6000 SKU family); next: (2) core Target fp8-sm120 on PRO 6000 + Kueue port-capture sweeps on vy-nebius-1, (1) GemvBiasF32 table job.
 CHECKPOINT fb3a7fde (05:50Z) [open] WAIT custody check of r20260930-031354-3b6d (3.5 GB, read-back from VM) check-back 06:10Z agent bc-049fc756-e63b-5b43-af14-0e5a94a2422d; then terminate vy-sm120-tc-gemm-1 (idle). All other runs PRESERVED.
 CHECKPOINT fb3a7fde (05:44Z) [open] #483 acceptance PASS: 720/720 M>=2 bias cases exact (29.7M coords), circuit-check 0 failures; FP8 e4m3 25.0M-element fresh-seed capture 0 mismatches incl specials (r20260930-052000-e32d), PR #487 (5a/5b core models); ack vllm-sm120-kernels 0503Z (#481 moe_expert_dot kept; #483 doesn't touch the TARGETS record). Next: custody check, terminate pod.

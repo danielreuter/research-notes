@@ -64,7 +64,7 @@ hash, first 8 hex digits shown). Packages: `soundness` = `backends/flock/verifie
 
 ## 5. The circuit relation (new tonight)
 
-The Lean semantics is tied to the Python by 80 kernel-checked vectors (48 Hopper, 32 Ampere/Ada, 8 of those RTX 4090 captures) (`Verity.TC.Vectors`), which `packages/verity/tests/ml/test_lean_vectors.py` checks against `tc_dot_total`. Recorded audit on vy-nebius-1: PASS, 13 pins, 1,433 declarations. The relation differs from `check_step` in one place: the witness shape is fixed (the Python checker accepts truncated witnesses; low finding, `private/lean-gemm-relation/`). The BF16 output boundary (`pack_relation`) is not covered yet.
+The Lean semantics is tied to the Python by 108 kernel-checked vectors (48 Hopper steps, 32 Ampere/Ada steps with 8 RTX 4090 captures, 28 `cvt_rn_bf16_f32` words) (`Verity.TC.Vectors`), which `packages/verity/tests/ml/test_lean_vectors.py` checks against `tc_dot_total`. Recorded audit on vy-nebius-1: PASS, 18 pins, 1,637 declarations. The relation differs from `check_step` in one place: the witness shape is fixed (the Python checker accepts truncated witnesses; low finding, `private/lean-gemm-relation/`). Everything `relation.py` encodes for a BF16 unit is covered: steps, groups, the unit chain, the boundary and the gadgets.
 
 
 | Theorem | What it says | Status | Assumptions | Record |
@@ -77,6 +77,9 @@ The Lean semantics is tied to the Python by 80 kernel-checked vectors (48 Hopper
 | `Verity.TC.ampere_step_sound`, `_complete`, `_iff`, `ampere_unit_sound`, `ampere_unit_sound_zero` | The same for the Ampere/Ada pipeline (`AMPERE_BF16_M16N8K16`: two groups of eight, `W = 25`, floor −132; A100 and RTX 4090); the two groups chain through the first group's output state | proved, pinned, 0 sorry (#490) | none: unconditional | verity |
 | `Verity.TC.ampere_step_hw` | Under the assumption, the Ampere relation's output is the decode of the device's word | proved, pinned, 0 sorry (#490) | **`gemm-ampere-step(arch, bf16)`** (`Verity.Assumptions.GemmAmpereStep`) | verity |
 | `Verity.TC.ada_eq_ampere` | `ADA_BF16_M16N8K16` has Ampere's parameters, so the Ampere theorems cover it | proved, pinned (#490) | none | verity |
+| `Verity.TC.pack_sound_complete` | The unit boundary (`relation.pack_relation`: the FP32 word, then `cvt.rn.bf16.f32`): for every admissible final state its columns are forced to `pack_value` and `cvt_rn_bf16_f32` of it, and some columns satisfy it | proved, pinned, 0 sorry (#490) | none | verity |
+| `Verity.TC.hopper_unit_bf16`, `ampere_unit_bf16` | A whole verification unit, from `zero_state` through its chained steps to the committed BF16 word: the relation accepts only `cvt_rn_bf16_f32` of the semantics' accumulator | proved, pinned, 0 sorry (#490) | none (with `_hw`'s assumption it is the device's word) | verity |
+| `Verity.TC.Gadgets.range_gadget`, `iszero_gadget` | `Census.RANGE`'s 16-bit chunks and `Census.ISZERO`'s 12-bit chunks and flags hold exactly when the predicates the relation uses do | proved, pinned (#490) | none | verity |
 
 ## Gaps worth a line in the morning report
 

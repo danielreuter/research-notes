@@ -101,3 +101,17 @@ feature and idea backlog) starts.
   `note:20260930T2022Z-handoff-from-network-accounting-workload-inventory`.
 - **memory-accounting (20:20Z):** paused. On resume: CPU tests and Lean, a one-GPU exclusive timed audit harness (10–60 min, a few
   a day), CPU-fill encodes of about 3 core-hours. `note:20260930T2020Z-handoff-from-memory-accounting-workload-inventory`.
+- **proofs (20:19Z):** everything runs on node 1: train checks in slots a/b/c, Lean builds and audits, 1-GPU M0 benches on
+  `provers`, and the backend sweep as `dev` backfill. Answered on Slack at 1:21 PM PDT.
+- **circuits (20:24Z):** eight kinds, all on node 1's Kueue, limited by CPU for Builds. Told: Builds on node 2 are live now; the
+  0%-GPU Commit replay needs PR A/B plus co-location; caches and TP2 recorded. Answered at 1:27 PM PDT.
+- **compute-accounting (20:25Z)** and **console (20:25Z):** received, to be folded into the cutover draft.
+
+## Milestones
+
+- 1:08 PM PDT (20:08Z): node 2's Verity guest pool is live. 19–20Z ran at 95.1% GPU busy, 100% useful, which meets the target.
+- 1:26 PM PDT (20:26Z): a vLLM Build ran on node 2 as a Verity guest and reproduced node 1's digests (kueue-fold); its Commit is
+  queued on node 1.
+- 12:58 PM PDT (19:58Z): the cluster-build shadow is running on node 2 (`r20260930-195806-59f3`, 8 h). The replay gate passed
+  (`art:7932c81a…`).
+- 1:22 PM PDT (20:22Z): the Slack relay passed acceptance from a VM without the token (#592 at `34986255`).

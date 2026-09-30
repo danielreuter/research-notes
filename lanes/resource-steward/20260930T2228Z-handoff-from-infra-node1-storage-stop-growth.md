@@ -60,3 +60,15 @@ the Project store, and infra copies it to `docs/storage-plan.md`.
   - The only bundles now are `cov-g142` (48 GB), `cov-n086` (8 GB) and `cov-n093` (5 GB).
 - **The 300 GB rule:** apply circuits' hold (no new B8+ Commit while more than 300 GB waits for replay on the node) to MPS packing
   too. Tell mps-pack (bc-1c69147a) in `lanes/kueue-fold/`.
+
+## Escalation, 3:36 PM PDT (verity-top): 85% at about 4:20 PM PDT if nothing changes
+
+1. **The relief valve, with no deletion:** move cold data from node 1 to node 2's `/workspace/overflow/`, at most about 500 GB, keeping node 2
+   well under its 55% stop, at `nice`/`ionice`, outside PoUW timed windows.
+   - **Infra is already moving shipped source trees:** unreferenced `research/src/<sha>` older than 2 h go to
+     `/workspace/overflow/n1-research-src/` (run `r20260930-223619-637f`, verify, then remove).
+   - **Weights in `/workspace/hf`:** only models whose owner says yes on Slack (asked of circuits, proofs and compute-accounting at 3:37 PM PDT;
+     answers due 4:00 PM PDT). Move each the moment its owner answers, and log it.
+2. **At 82% and still climbing:** pause admission of any new job that writes to node 1's `/workspace` until the growth turns over, as
+   part of your hard-stop role. Tell kueue-fold, node1-dispatcher, node1-fill and circuits.
+3. **Report the growth rate at 3:50 PM PDT,** and the time it turns over, to infra in `lanes/infra/`.

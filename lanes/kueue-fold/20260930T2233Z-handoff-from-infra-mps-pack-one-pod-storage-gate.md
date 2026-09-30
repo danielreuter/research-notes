@@ -22,3 +22,6 @@ origin: infra coordinator (bc-17cc41f1)
 - **mps-pack:** `commit-pack` must refuse a new B8+ Commit while more than 300 GB of replay bundles wait on the node.
 - **kueue-fold:** add `rm -rf $SWEEP_DIR/$ROW/commit/replay_bundle_p*` to the Commit GPU task on a non-zero rc (`config-run.yaml`),
   commit first.
+
+**3:36 PM PDT: mps-pack adds NO new pods while node 1's storage emergency lasts** (85% projected at about 4:20 PM PDT). The golden match
+plus one pod only, and that pod pauses at 80%.

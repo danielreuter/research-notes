@@ -8,9 +8,10 @@ repo: danielreuter/verity
 origin: infra coordinator (bc-17cc41f1, Slack @infra), slack-via-broker worker (bc-1b17c323)
 ---
 
-# To bc-41cff24f (docs-site app): the Slack relay route `POST /api/agent-slack/call`
+# To the console coordinator (bc-ddee017b-705a-5429-a92e-fed2ba6ea491, docs-site app): the Slack relay route `POST /api/agent-slack/call`
 
-**Implement only after Daniel's yes, relayed by infra.** Until then this is a spec, not a request to build.
+Daniel's yes is in (19:44Z), with infra's decisions: `note:20260930T2006Z-handoff-from-infra-relay-spec-decisions`. This note
+now matches them: one token (`SLACK_BOT_TOKEN`), the kill switch `SLACK_RELAY_DISABLED=1`, and no `usergroups.*` writes.
 
 ## Why
 
@@ -18,7 +19,7 @@ Cursor injects secrets only when an agent starts. Coordinators that were already
 (about 19:00Z) can't post, react, read threads or run `verify-author`. This route lets them call Slack through the site, on
 their Cursor identity, the way `/api/agent-github/token` gives them GitHub. The client side is already built: `research slack`
 uses this route whenever `SLACK_BOT_TOKEN` is absent (or `RESEARCH_SLACK_VIA=broker` is set). It's on branch
-`cursor/slack-via-broker-f74a` of danielreuter/verity, at commit `4e06b0efcd54de45ac6618f924fe8a97a54ac720`, in
+`cursor/slack-via-broker-f74a` of danielreuter/verity, at commit `25c83457e01fc8289d381fb40fa1a6151617daac`, in
 `tools/research/src/research/slack.py` (`BROKER`, `BROKER_METHODS`, `BROKER_MAX_BODY`, `broker_error`).
 
 ## The route
@@ -42,7 +43,7 @@ uses this route whenever `SLACK_BOT_TOKEN` is absent (or `RESEARCH_SLACK_VIA=bro
 | 413 | `too_large` | the body is over 65536 bytes (check the size before parsing) |
 | 429 | `rate_limited` | a limit below is hit, or Slack returned 429; set `Retry-After` in seconds |
 | 502 | `slack_unreachable` | Slack returned 5xx, or the network or a timeout failed |
-| 503 | `slack_disabled` | the relay's token env var is unset (the emergency stop) |
+| 503 | `slack_disabled` | `SLACK_RELAY_DISABLED=1` (the emergency stop), or `SLACK_BOT_TOKEN` is unset |
 
 ## OIDC verification
 
@@ -60,22 +61,18 @@ Use the same verification as `/api/agent-github/token`, ideally the same functio
   form fields and `Authorization: Bearer <bot token>`. Use form encoding, not JSON: the read methods
   (`conversations.history`, `conversations.replies`, `usergroups.list`) don't accept JSON bodies.
 - Follow no redirects, and use a timeout of about 25 s.
-- Read the bot token from `SLACK_RELAY_BOT_TOKEN`, which holds the same value as `SLACK_BOT_TOKEN`. With its own variable, the
-  emergency stop halts agents' relaying without halting the approvals messages the site posts itself. If you'd rather reuse
-  `SLACK_BOT_TOKEN`, the stop halts both.
+- The bot token is the site's existing `SLACK_BOT_TOKEN`; there is no second token.
 
 ## Method allowlist
 
-Allow exactly these methods, the ones `slack.py` calls (`BROKER_METHODS`; a test there keeps the constant equal to the calls):
+Allow exactly these methods (`BROKER_METHODS`; a test keeps them equal to `slack.py`'s calls minus the user-group writes):
 
 ```text
-auth.test  chat.getPermalink  chat.postMessage  conversations.history  conversations.replies
-reactions.add  usergroups.create  usergroups.enable  usergroups.list  usergroups.update
+auth.test  chat.getPermalink  chat.postMessage  conversations.history  conversations.replies  reactions.add  usergroups.list
 ```
 
-The four `usergroups.*` methods are only used by `research slack groups sync`, and three of them change workspace user groups.
-If Daniel wants to leave them out, `groups sync` will need the token, and the client will report `403 method_not_allowed`.
-That's for his yes to settle.
+`usergroups.create`, `usergroups.enable` and `usergroups.update` are refused (403 `method_not_allowed`). The client never sends
+them: without the token, `groups sync --apply` exits 2 and says it needs a VM that has the token.
 
 ## Limits
 
@@ -97,9 +94,9 @@ args.**
 
 ## Emergency stop
 
-Unset `SLACK_RELAY_BOT_TOKEN` in the Vercel project's production environment and redeploy. Every call then gets
-`503 slack_disabled`, which the client reports as "the Slack broker is down or switched off". A caller that has the token itself
-still works. To resume, set the variable again and redeploy.
+Set `SLACK_RELAY_DISABLED=1` in the Vercel project's production environment and redeploy. Every relay call then gets
+`503 slack_disabled`, which the client reports as "the Slack broker is down or switched off"; the approval messages keep working,
+and so does a caller that has the token itself. To resume, unset it and redeploy.
 
 ## Acceptance
 

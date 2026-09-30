@@ -1,0 +1,1 @@
+20260930T0348Z: pod estimate (revised: no CPU stock at 8 or 16 vCPU in any flavor): vy-sm120-attention-2 (RTX PRO 6000 Server Edition, SECURE on-demand, $2.09/h, --max-hours 3) for gate (b) + lints, base f740c1d5 and head cfcbfcef on the same pod: ~1.5 GPU-h, ~$3.1; lane total then ~$4.4 of $12

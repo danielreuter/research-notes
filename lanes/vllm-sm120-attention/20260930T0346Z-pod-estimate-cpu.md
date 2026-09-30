@@ -1,0 +1,1 @@
+20260930T0346Z: pod estimate: vy-sm120-attention-cpu-1 (RunPod CPU cpu3g, 16 vCPU, --max-hours 3) for gate (b) + lints, base f740c1d5 (PR #465 tip) and head cfcbfcef on the same pod: ~1.5 h, ~$1; lane spend so far ~$1.30

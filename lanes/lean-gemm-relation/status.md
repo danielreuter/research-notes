@@ -10,7 +10,11 @@ condition that #500 lands no later than #490; until then the pins are cited for 
 Merge request for both, in one train: `lanes/coordinator/20260930T0750Z-merge-request-lean-gemm-relation-490-500.md` in the
 notes. Both PRs are marked ready; #490's head stays at `94384df9`.
 
-**`hOne` work in progress:** branch `cursor/flock-e2e-hone-a815` (not yet pushed). `Audit/FlockPublic.lean` makes the constant
+**2026-09-30 08:55Z: `hOne` discharged, [#514](https://github.com/danielreuter/verity/pull/514) (draft) at `a738857f`**,
+recorded audit PASS `r20260930-083009-52d3` (11,519 declarations, 144 pins, standard axioms). Four changed E2E pins and two
+new program-level pins (`UProg.flock_e2e_count_classes`, `_drawn_classes`, which have no constant hypothesis at all); grant
+requested from red-team-flock-3 at 08:53Z (review text `art:be47e631…`). 0 sorry. Earlier note:
+branch `cursor/flock-e2e-hone-a815`. `Audit/FlockPublic.lean` makes the constant
 and the zero public wires of the committed transcript (`Xpub`). The link theorem's bound holds unchanged there
 (`flock_batched_linkSoundE_pub`), so `flock_e2e_*` lose `hOne` and take two facts about the statement instead: `hConst`
 (only a unit's constant column sits on a gate of `ones`) and `hZero` (the zero's columns carry 0, the forced-zero rows). For a

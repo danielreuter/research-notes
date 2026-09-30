@@ -1,0 +1,1 @@
+2026-09-30T02:44Z: CPU survey: SplitsFor_v1/NUM_SMS flow from TargetProfile.num_sms (no silent 142 in Build/Match/Commit); hard-coded 142 in ops/stoch_negative_n3.sh; topp probe drain batches fixed for 142. GPU tools found: norm/router tap exactness, topp-split-probe, gumbel difftest. Next: rotary/fused-MoE/TP2 checks, then pod plan.

@@ -1,0 +1,1 @@
+20260930T0248Z: step 1 head cursor/vllm-sm120-target-422d @ d993873f (PR #465) sent to vllm-coordinator (handoff 20260930T0248Z). Next: prepare the step 2 (GEMM correspondence) and 5a (FP8 probe) pod runs. No pods until the vy-sm120- line is confirmed here.

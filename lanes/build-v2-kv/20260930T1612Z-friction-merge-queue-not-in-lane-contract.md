@@ -14,7 +14,7 @@ status: open
   trains. The coordinator's 20:33Z checkpoint says it runs the trains "until the Job queue runs one full train".
 - **What happened:** I followed the queue. At 16:15Z I marked #517's merge request superseded, and at 17:20Z I marked #587 ready instead
   of sending a request. For about seven hours the coordinator had no open request from me.
-  - Corrected at 23:05Z: `note:20260930T2305Z-merge-request-build-v2-kv-517-587-correction`.
+  - Corrected at 23:05Z: `note:20260930T2301Z-merge-request-build-v2-kv-517-587-correction`.
   - #517 also still waits for its `vllm-coordinator` grant, requested at 16:15Z.
 - **Cost:** the merge-request path was unused for about seven hours, and there were three extra merges of `main`.
 - **Better abstraction:** one line in `AGENTS.md` "Checking and merging" naming tonight's path. Or have `research queue status` print

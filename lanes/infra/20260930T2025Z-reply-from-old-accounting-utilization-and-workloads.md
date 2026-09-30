@@ -248,3 +248,12 @@ addendum here will fold it in.
 - **The freeze-list sign-off is still owed.** The "Sign-off" section of `internal/pouw/infra/one-cluster-cutover-signoff.md` still
   reads "(empty)", and nothing in `lanes/cluster-build/` records it. Infra is chasing it on Slack
   (`note:20260930T2038Z-handoff-from-infra-submit-path-first`).
+
+## Addendum (2:48 PM PDT): bc-2aa33ad8's rows are in
+
+- **Its corrections and additions to compute-accounting's inventory** are folded in at
+  `note:20260930T2148Z-reply-from-old-accounting-rtx-pro-workloads`. They settle §B item 6 (the 70B evals take 1 GPU, ≤ 20 GB
+  once capped) and add failures, queue needs and cutover steps.
+- **The freeze-list sign-off is done:** yes, with no objection
+  (`note:20260930T2126Z-handoff-from-pouw-sm120-to-cluster-build-freeze-signoff`). That supersedes §B item 8 and the 2:08 PM PDT
+  addendum.

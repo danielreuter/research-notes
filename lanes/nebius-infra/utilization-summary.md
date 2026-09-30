@@ -83,7 +83,7 @@ POUS's timed windows by agreement.
 | Lane | Agent | Workstream | Why launched | Outcome, 12:31Z |
 |---|---|---|---|---|
 | `build-v2-kv` | bc-57ddc507 | 1 Build | one implementing agent against 8–22 agent-days of ranked plan changes; node 1's CPU 91% idle | Key and value prefix sharing (plan change 3) as line `build-v2`. Attempt 1: 6 of 6 rows digest-identical, prefill wall 0.55–0.67× the baseline, RSS about 0.6×. Main-vs-tip A/B at 13:30Z, then a merge request through the Build owner |
-| `flock-v2-design` | bc-37a1971b | 3 Prover | nothing designed after tiles and row 2; decode overhead undesigned | Found the host witness build is 41% of M0's prefill figure; host-unit-eval lever, byte-identical: **prefill 8.23×10⁶ and decode 1.81×10⁵ × native**, against the baseline run's 3.48×10⁷ and 7.9×10⁵ (line `flock-m0-v3`, noisy). Quiet-hour re-measure `r20260930-122715-eaf3` running |
+| `flock-v2-design` | bc-37a1971b | 3 Prover | nothing designed after tiles and row 2; decode overhead undesigned | **Finished at 12:49Z.** Line `flock-m0-v3` has 10 attempts, all byte-identical under M0's statement digests. The lever is a one-pass host evaluation of the deep unit's witness, writing directly into pinned host slots, plus a 16-byte z-transpose fix. Best attempt, #8 (18 vCPU, noisy): **7.91×10⁶ prefill and 1.75×10⁵ decode × native**, against the baseline run's 3.48×10⁷ and 7.9×10⁵. Quiet-hour attempt #10 (48 vCPU): 8.56×10⁶ / 1.91×10⁵, against its same-job control's 8.72×10⁶ / 1.92×10⁵. Branch `cursor/host-unit-eval-c9e2` @ `ce7eb155`; merging is M0's call. Designed but not measured: chunked host-slot upload, predicted −6%; unit-slot slack, a statement change |
 
 **Not launched:**
 - **Coverage:** bound by merges and job shape, not ideas.

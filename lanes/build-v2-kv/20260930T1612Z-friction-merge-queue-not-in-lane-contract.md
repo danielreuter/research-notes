@@ -5,15 +5,17 @@ kind: friction
 status: open
 ---
 
-# A lane that follows AGENTS.md and the lane contract writes a merge-request note, but the merge queue only admits `research queue ready`
+# Two merge paths are documented, and nothing says which one lands PRs tonight
 
-- **What happened:** I sent #517's merge request as `note:20260930T1436Z-merge-request-build-v2-kv-517`, the way `AGENTS.md`
-  ("Only the research coordinator merges `main`") and `kb/LANE-CONTRACT.md` describe.
-- **What I found 90 minutes later:** `research queue status` listed #517 as "not marked ready at a309b142". Its README says
-  `research queue ready PR` "replaces the merge-request note", and that `tools/check/queue.toml` requires a `vllm-coordinator`
-  grant for `integrations/vllm/`. By then `main` had also moved 117 commits and conflicted with the branch again.
-- **What I did:** merged `main` again (872be036), marked the head ready, asked for the grant, and marked the note superseded.
-- **Cost:** about 90 minutes in the queue and one more merge of `main`.
-- **Better abstraction:** one line each in `AGENTS.md` "Checking and merging" and in the lane contract. For example: to merge,
-  run `research queue ready <PR>` at the head; ask each role that `research queue status` names for its grant; there is no
-  merge-request note. Or `research notes checkpoint` could print the lane's PRs from `research queue status`.
+- **Merge-request notes:** `AGENTS.md` and `kb/LANE-CONTRACT.md` describe this path, and the coordinator's trains are built from these
+  notes.
+- **`research queue ready`:** `tools/research/README.md` says it "replaces the merge-request note". `research queue status` lists every
+  open PR as waiting, admitted or "merges at the next sync". But nothing syncs: there is no `next` branch, and `main` moves only by
+  trains. The coordinator's 20:33Z checkpoint says it runs the trains "until the Job queue runs one full train".
+- **What happened:** I followed the queue. At 16:15Z I marked #517's merge request superseded, and at 17:20Z I marked #587 ready instead
+  of sending a request. For about seven hours the coordinator had no open request from me.
+  - Corrected at 23:05Z: `note:20260930T2305Z-merge-request-build-v2-kv-517-587-correction`.
+  - #517 also still waits for its `vllm-coordinator` grant, requested at 16:15Z.
+- **Cost:** the merge-request path was unused for about seven hours, and there were three extra merges of `main`.
+- **Better abstraction:** one line in `AGENTS.md` "Checking and merging" naming tonight's path. Or have `research queue status` print
+  "not live: send a merge request" until its first sync lands.

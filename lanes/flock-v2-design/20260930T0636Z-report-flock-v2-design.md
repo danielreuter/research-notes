@@ -5,6 +5,7 @@ created: 2026-09-30T06:36Z
 status: open
 ---
 
+CHECKPOINT 7f663241 (10:46Z) [open] 10:46Z cancelled stuck job 140; resubmitted a8 as job 151 (fv2-a8b, r20260930-103535-64c1, d4566f7c): built, gate passed, main sweep running, same-job FC_ZLIN_BYTEWISE control next; lesson added to nebius-infra/lessons.md
 CHECKPOINT 7f663241 (10:28Z) [open] 10:28Z a8 (job 140, a7 + FC_ZLIN_BYTEWISE same-job control) was admitted borrowing, evicted by circuits' reclaim, and has sat in SkyPilot's relaunch for 20 min with no workload; waiting; design note has #7 and the unit-slot-slack backlog item
 CHECKPOINT 7f663241 (10:07Z) [open] 10:07Z a7 labelled (flock-m0-v3 attempt 7, acc580a2 16-byte z_lincheck transpose: gate pass, rep-1 t.witness 0.019->0.0015 s K=2048, 0.038->0.0031 s K=8192; metric 8.63e6/1.87e5 above #4 because every other phase ran 10-40% slower on a busy node; art:d576494a art:8d54d54b); a8 = a7 + same-job control FC_ZLIN_BYTEWISE=1 (d4566f7c) queued as job 140
 CHECKPOINT 7f663241 (09:44Z) [open] 09:44Z lever: chunk_zlin_transpose (z_lincheck bit transpose) stores 1 byte/thread at 128 B stride: ~19 ms/rep at m=33, 38 ms at m=34 (#4's rep-1 t.witness), ~10-12% of prove; rewrote it 16 B/thread with two 8x8 bit transposes (acc580a2, byte-equal on host k_log 7..13, NVRTC sm_120 compiles); fv2-a7 (#4's config, new key c3a2a9c1) queued as job 133

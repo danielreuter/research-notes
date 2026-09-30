@@ -17,3 +17,31 @@ CHECKPOINT 08658275 (03:08Z) [open] WAITING r20260930-030444-c4b5 (FA2 capture) 
 CHECKPOINT 08658275 (03:06Z) [open] WAITING r20260930-030444-c4b5 on vy-sm120-attention-1 (pod 2c11k8o7d6xu7y), check after 03:28Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6; next: read the FA2 capture (MUFU, tile, v2_hopper/v3_ampere/fa2_check_inf rows, engine), then the registration on cursor/vllm-sm120-attention-0ec6
 CHECKPOINT 08658275 (03:01Z) [open] pod estimate: vy-sm120-attention-1 (RTX PRO 6000 Blackwell Server Edition, SECURE on-demand, 1 GPU, $2.09/h, --max-hours 3): ~1.5 GPU-h, ~$3.1 (bootstrap ~15 min, FA2 capture + MUFU + engine check ~30-45 min); lane share $12; capture script at cursor/vllm-sm120-attention-0ec6@08658275
 CHECKPOINT d993873f (02:53Z) [open] source read of vLLM d9105ea8 + vllm-flash-attn 506341a: cc12 selects FLASH_ATTN/FA2, num_splits=1 under batch invariance, FA2 is 8.0+PTX so sm_120 runs a driver JIT, kBlockN arch-free; Check_inf only in masking steps. Next: capture script, then pod vy-sm120-attention-1
+
+## Summary (FA2 on sm_120)
+
+**Result.** vLLM `d9105ea8` on cc 12.0 (RTX PRO 6000 Blackwell, 188 SMs) selects FLASH_ATTN, FA2. `_vllm_fa2_C` ships only sm_80 SASS + compute_80 PTX, so on sm_120 the kernel is the driver's JIT of the PTX. It computes the Hopper-step chain exactly:
+- **Finite heads:** `Attention_v2{BN=fa2_kblock_n(D), DOT=HopperBF16WgmmaDot16_v1, INV=Fa2InvSum_v1}` on every finite head.
+- **Every head, including ±inf and NaN score rows:** `Attention_v5` (FA2's own `Check_inf` placement).
+- **Ampere step:** `Attention_v3` differs on 997 finite heads, so sm_120 is not an Ampere-step target.
+
+**Evidence (research runs, custody on R2):**
+- **`fa2_target_capture` `ef4b2584`** (`r20260930-033258-f611`, `art:d342a748`; card 1, driver 595.91):
+  - 19,232 rows / 122,228 heads over D 64/96/128/256, tap-exactness cases, a wide-exponent case, and 12 pinned models' head shapes;
+  - kBlockM 64 / kBlockN `fa2_kblock_n(D)` on all 60 launches;
+  - MUFU ex2/rcp = core's tables on all 2^32 inputs, both JIT and native;
+  - engine FlashAttentionImpl FA2 on 30 layers.
+- **`fa2_target_capture` `2f7cc71f`** (`r20260930-045505-2350`; card 2, driver 580.17): the same, plus the registered `Attention_v5` and its target binding, with 0 mismatches.
+- **`fa_tap_exactness`** of the FA2 tap built on sm_120: default `9dee6b6f`, guarded-max `9403e9fe`, 76/76 each (`r20260930-030755-9aab`, `art:592bc0ae`).
+- **circuit-check** of `Attention_v5`: 0 failures (`art:97c2dbcf`).
+
+**PRs:**
+- **#477** (`cursor/vllm-sm120-attention-0ec6` @ `4975dc66`, stacked on #465): `blackwell_consumer` FA2 registration, the `_profile` FA-version fallback, and the capture tool as a registered property record.
+- **#486** (`cursor/vllm-sm120-fa2-check-inf-0ec6` @ `12cea8ee`, stacked on #477): `Attention_v5`. `v4` can't be reused, because FA2 guards `max * scale` in every block.
+
+**Found, not fixed:**
+- **FA2 guard placement on every FA2 target** (sm_89 `Attention_v3`, H100 forced-FA2 `Attention_v2`): the same placement holds, so non-finite rows differ from those chains. Reported, and not changed, per the coordinator.
+- **NaN encoding:** every attention chain's row-sum FMA (core `F32FmaFtz_v1`) gives NaN `0x7FC00000`, where the GPU writes `0x7FFFFFFF`.
+- **Bench template:** `backends/numerical` `ATTN_SEMANTICS` has no "FA2 on the Hopper step" entry (it would name H100 forced-FA2 and sm_120 FA2 VU sets).
+- **VU export:** `vu_export` exports no `Attention_v4` / `Attention_v5` VUs.
+- **Tooling:** `research pods ssh|run` refuse a `provider = "ssh"` machines.d entry (vy-nebius-1).

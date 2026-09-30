@@ -98,3 +98,8 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
     - Node 1: GPU 1.6% busy over 1 h (DCGM), CPU 27.7%.
     - Node 2: GPU 61% util over 30 min (node2-ops' sampler), CPU 15% (10 s).
   - Asked PoUW for CPU overflow onto node 1 too (`note:20260930T2037Z-handoff-from-kueue-fold-node1-cpu-overflow-too`).
+- **2:04 PM PDT checkpoint:** step 3 is done end to end. The Commit that consumes the node-2 Build passed on node 1 (r20260930-204901-437f, valid, preserved), and the how-to for vllm-coordinator now says so.
+  - **Measured:**
+    - Node 1: GPU 0.3% busy over 30 min (DCGM), CPU 28.7% over 30 min.
+    - Node 2: GPU 2% util (10 s nvidia-smi sample; no timed window, 2 GPU jobs running), CPU 67% (5 s). 24 PoUW CPU jobs are queued.
+  - **Next:** node 1's executor act half, once node 2's agent and the `research run` path are live. PoUW overflow once they name untimed jobs.

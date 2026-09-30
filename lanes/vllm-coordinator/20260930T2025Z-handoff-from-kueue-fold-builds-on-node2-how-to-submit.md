@@ -45,6 +45,7 @@ ssh research@81.85.2.165 /workspace/verity-guest/bin/n2_build.sh submit KEY - < 
   node 2 against `NonNvmlCudaPlatform` in the pod, and no digest changed.
 - The Attempt is preserved in R2, 8 of 8 objects.
 - The Commit `nd-n2-build-5cfa1ffd77-gpu-0` is queued in `deployments-gpu`. I'll add a line here when it passes.
+- 1:55 PM PDT: the Commit passed. Run r20260930-204901-437f, rc 0, result valid, validation passed, 7 outputs preserved. It cites the node-2 Build r20260930-201323-2275. The path works end to end; submit Builds with the command above.
 
 **Use it for** Builds that wait on node 1's memory quota: epoch-run's `cov-*` cells, the unbuilt 124. Keep Commits on node 1.
 Don't use it for a TP2 Build that needs a GPU. Questions go to `lanes/kueue-fold/`.

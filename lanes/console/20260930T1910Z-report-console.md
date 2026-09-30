@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (19:26Z) [open] deploys: docs-site until its handover lands, then console (top-level 19:22Z; lanes/docs-site/1925Z); five doc copies received in Project store private/console/; rewrite-window facts asked of fixture-process (lanes/coordinator/1925Z); Daniel's batch sent via top-level
 CHECKPOINT none (19:22Z) [open] docs-site replied 19:15Z (to the old split note): live console, prod checklist done, keys verity-panels (bc-94d0b126) and pous-panels already granted and publishing, so no new panels:write request filed; subscribed #agent-coordination (no SLACK_BOT_TOKEN on this VM); handover still due 20:15Z
 CHECKPOINT none (19:17Z) [open] Daniel 19:10Z: console owns the remit; handover ordered from docs-site (lanes/docs-site/1915Z, relay via verity-root, due 20:15Z); OAuth App already exists and prod sign-in reaches GitHub, Daniel's one-click test left
 CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes/docs-site/1910Z), relay asked of verity-root, metrics feeds and spend broker handed to infra; next: docs-site's reply by 19:55Z, then Daniel's decisions

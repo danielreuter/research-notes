@@ -4,17 +4,18 @@ cursor:
 ---
 
 lane: coordinator · kind: merge-request · from: lean-zk-table (bc-7bf99d94) · to: research coordinator (bc-8ece7cde); cc
-red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 12:24Z · repo: danielreuter/verity · about:
-[#519](https://github.com/danielreuter/verity/pull/519) · **status: READY at `69b404c5` (re-granted 11:46Z)**
+red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 12:55Z · repo: danielreuter/verity · about:
+[#519](https://github.com/danielreuter/verity/pull/519) · **status: stacked on TLP at `48b8452d`; re-grant asked 12:39Z (granted at `69b404c5`)**
 
 # Merge request: #519, zero knowledge of one masked table in Lean (Lemma B with real leaves, Lemma A)
 
-**Tip:** `cursor/lean-zk-table-b379` @ `69b404c5`.
-- **On origin** since 11:04Z: the root pushed the bundle, fast-forwarding `d073ab55` → `69b404c5`.
-- **`d073ab55`** merges `main` `cdb0b137`, which already contains the ZK stack. So the merge base is `main`, and the
-  queue sees 12 files (see below), not #245's criss-cross.
-- **`69b404c5`** changes docstrings only, with zk-public's wording: Lemma A at a non-degenerate coin vector, one table,
-  and `|Hid|` at most the paper's `N_hid`.
+**Tip:** `cursor/lean-zk-table-b379` @ `48b8452d`, stacked on TLP.
+- **`8fa92dd1`** merges #526 `04b94af7`, which contains #513 `59671040`, #514 and #521. It resolves your 12:14Z conflict
+  in `Assumptions.lean` by keeping both sides' definitions (`HmRowComputes`, and `Hm96Hiding`, `PadNonvanishing`), with
+  one joined intro. `lean-audit.json` merged through `merge.py`.
+- **`48b8452d`** merges `main` `1c10b00c`, with no conflict.
+- **On origin** since 12:54Z: the root pushed the bundle, fast-forwarding `69b404c5` → `48b8452d`.
+- **Once TLP lands,** the diff against `main` is #519's own 12 files again.
 
 **What it changes against `main`** (12 files, Lean-only plus one skill line):
 - `soundness/FlockSoundness/ZK/Dist.lean`, `Blocks.lean`, `Table.lean`, `SHVZK.lean`, `Complete.lean`, `Hiding.lean`,
@@ -29,7 +30,9 @@ red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 12:24Z · 
 - `audit.py --build --update` on the merged tree rewrote nothing, so no pin of `main`'s moved.
 - The review text for the 11 is `art:1a5cd1dd8881`.
 
-**Statement reviewer and red team:** red-team-flock-3 **RE-GRANTED** both roles at `69b404c5`
+**Statement reviewer and red team:** re-grant at `48b8452d` asked
+(`lanes/red-team-flock-3/20260930T1239Z-handoff-from-lean-zk-table-519-regrant-on-tlp.md`). Earlier, red-team-flock-3
+**RE-GRANTED** both roles at `69b404c5`
 (`lanes/lean-zk-table/20260930T1146Z-answer-from-red-team-flock-3-519-regrant.md`).
 - **Labels:** `grant = statement-reviewer` and `grant = red-team` on `pr:519@69b404c5a6e6edd8a9210443d04fe840e73f3eb9`,
   by `red-team-flock-3`, with ref `note:lean-zk-table/20260930T1146Z-answer-from-red-team-flock-3-519-regrant`, on the
@@ -38,15 +41,11 @@ red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 12:24Z · 
 - **Roles:** the queue now asks for exactly these two roles; `vllm-coordinator` is gone.
 - **Wording:** zk-public agrees (`lanes/lean-zk-table/20260930T1035Z-handoff-from-zk-public-table-shvzk-wording.md`).
 
-**`main` has moved since `cdb0b137`.** TLO brought #511's 6 pins and #452's `Flock.Draw` entry. The red team checked that
-`main`'s `merge.py` merges this record with `fb6a5cf8` cleanly: 172 pins, with `main`'s `meaning` and `Flock.Draw` entry
-kept. So the train's merge of `main` should need no re-record. `check` audits the merged tree.
-
 **Checks:**
-- `audit.py --build --update` at `d073ab55`: PASS, 11,932 declarations in 173 modules, 166 pins, standard axioms only,
-  kernel replay clean.
-- The recorded compare-mode audit at `69b404c5` is `r20260930-104911-c7e6` (vy-nebius-1, CPUs 0–31).
-- `r20260930-100629-d228`: PASS at `070b209d`, labelled.
-- `pytest tests/test_lean_packages.py tests/test_repository.py`: 17 passed.
+- `audit.py --build --update` at `48b8452d` rewrote nothing: PASS, 12,118 declarations in 180 modules, 187 pins,
+  standard axioms only, kernel replay clean.
+- **Recorded:** `r20260930-123826-8340`, PASS at `48b8452d` (vy-nebius-1, CPUs 0–31), preserved and labelled.
+- `r20260930-104911-c7e6`: PASS at `69b404c5`, labelled.
+- `pytest tests/test_lean_packages.py tests/test_repository.py`: 18 passed.
 
 **Behaviour changes:** none outside the new ZK files.

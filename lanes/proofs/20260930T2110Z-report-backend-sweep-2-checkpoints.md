@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: backend-sweep-2
 ---
 
+CHECKPOINT cc21a7d94 (22:02Z) [open] 3:03 PM PDT: node 1 (b) chunks 0/2500 advancing but GPU-light (~1.2 CPU cores, GPU mostly 0%): asked old RC about M0 pipelined-witness settings; node-2 guests cut to #1936 K=8192 x3 (infra restoring its stage), non-GEMM held pending owner. Inbox 2135Z data-movement reply folded into internal/data-movement/proofs.md.
 # backend-sweep-2: (a) sampled units and (b) whole-row checkpoints
 
 One line an hour, for `note:20260930T2032Z-handoff-from-proofs-resume-backend-sweep-2-a-b`. Every result is a measurement on

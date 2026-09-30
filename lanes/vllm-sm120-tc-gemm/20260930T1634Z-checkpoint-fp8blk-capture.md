@@ -1,0 +1,1 @@
+20260930T1634Z: WAIT on Kueue 271 (sm120-fp8blk-cutlass-1: Qwen3-4B-FP8 under VLLM_USE_DEEP_GEMM=0, kernel selection + served quant/GEMM words over the three sm120 blockwise regimes, then the CPU check vs Fp8GroupQuant_v1 and the blockwise GEMM with the sm_120 e4m3 step); tree = #565 + infra/nebius + untracked sm120-scratch/.

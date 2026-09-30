@@ -1,0 +1,1 @@
+20260930T1624Z: #557 accepted (B1 Kueue 227, B8 229: 460/460, COMMIT PASS) and marked ready at ad6ed12a; manifest check done (no expected record binds GemmBias); #565/#566 restack #516/#524; Hopper finding sent; next the FP8 CUTLASS capture (15:23Z GO), waiting on the pin reading.

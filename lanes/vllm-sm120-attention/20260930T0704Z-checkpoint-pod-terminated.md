@@ -1,0 +1,1 @@
+20260930T0704Z: pod vy-sm120-attention-2 (x8zpxecwqjekb5) TERMINATED 07:01Z after #486's gate (b) and custody (8/8 attempts preserved); no RunPod pods of this lane remain; lane spend ~$8.00 (pod 1 ~$1.30, pod 2 ~$6.70). #486 MERGE-READY handoff 20260930T0702Z; #477 MERGE-READY 20260930T0547Z. Next: the NVFP4 kernel capture (06:17Z note) as a Kueue port-capture job on vy-nebius-1

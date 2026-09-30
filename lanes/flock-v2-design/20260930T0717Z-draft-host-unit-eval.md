@@ -106,6 +106,11 @@ entirely `chunk_zlin_transpose`, the bit transpose of z for the lincheck. In #4 
   why it fell short of −10%.
 - **Your `a121fefe` is the same fix** (one thread a word, sixteen 8×8 transposes, 16-byte stores). Since `2e39b66c` my branch
   carries it byte for byte, so the two branches merge without conflict. `FC_ZLIN_BYTEWISE` still selects the former kernel.
+- **#9** (`r20260930-105700-18d4`, `ce7eb155`: your kernel, with `infra/nebius` merged; same-job control; load 47–77 on the
+  node): prefill 8.08e6 and decode 1.81e5, against the control's 8.10e6 / 1.79e5. Your kernel's rep 1 `t.witness` is 0.0019 s
+  at K=2048 and 0.0039 s at K=8192 (control 0.019 / 0.038).
+- **Per statement, each job showed the fix at one K**: #8 at K=2048 (prove 0.342 vs 0.363 s) and #9 at K=8192 (0.518 vs
+  0.585 s, −11%). The other K lost it to the node's noise in each job.
 
 **Backlog, design only: unit-slot slack (a statement change).** This needs a named statement reviewer and circuit-check, and may
 need Daniel if the layout rules in `verity/ir/PROTOCOL.md` change. Nothing here is prototyped.

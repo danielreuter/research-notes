@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (20:56Z) [open] 1:56 PM PDT: ask-daniel cards built to console's draft (f3ebb48), now being aligned to infra's spec (resolve, blocking/default, overdue) before migration 014 and the deploy; approvals live test still with infra
 CHECKPOINT none (20:44Z) [open] 1:44 PM PDT: #ask-daniel question cards (Daniel 1:39 PM PDT), priority 1: fields proposed to infra (lanes/infra/2042Z), build started on cursor/slack-approvals-a491 (bc-f0ee5cb2); approvals live test and node-2 panels still with infra
 CHECKPOINT none (20:23Z) [open] 1:23 PM PDT: /admin/live Servers section live (website 5792159, both nodes and infra/* first); node-2 panels asked of infra/node2-ops; backlog listed and held; approvals live test and relay acceptance still with infra
 CHECKPOINT none (20:26Z) [open] Daniel's priorities 20:13Z: node inventory and pool-utilization panel proposal sent to infra (lanes/infra/2025Z); inherited open items logged in this report, not chased; approvals and relay live, waiting on infra's live test
@@ -61,6 +62,8 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
   and Daniel's read-only bucket key later.
 - Slack approvals hardening: a rate limit on `POST /api/agent-approvals`; per-agent visibility of approvals; re-posting a token
   request's message when its requester signs in at `/device`; marking decisions made in Slack.
+- Console on Slack: the relay accepts only managed agents on `danielreuter/verity`, so this laptop agent can't post. Accepting it
+  too is about a one-line change, but it widens who can post as the bot, so it's Daniel's call.
 - A PR for `cursor/slack-approvals-a491`: the PR tool refuses branches worked in a separate worktree.
 - Everything under "Inherited open items" below.
 

@@ -152,6 +152,11 @@ Everything here concerns node 2 (`vy-nebius-2`: 8× RTX PRO 6000, `research@81.8
     - read node 2's GPU-to-NUMA topology, which is assumed today to match node 1's;
     - settle whether a timed window gives a session a grace period.
   - bc-26712550: stop the key retries.
+- **First request to infra (Daniel, 18:05Z):** make new Cursor cloud agents boot with `uv` installed and the verity
+  workspace synced, so no agent installs `uv` or pytest by hand at the start of a run (the Slack-tooling worker had to).
+  The environment is shared with Verity's agents, so change it through the environment build, not per VM.
+- **Also fixed since 17:40Z:** the fill runner counted lease holders as waiters and froze fill; bc-efe47341's fix is live
+  since 17:59Z (GPU busy 38–41% to 66%), with its commit and regression test owed.
 
 ## Standing rules
 

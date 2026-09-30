@@ -5,6 +5,7 @@ created: 2026-09-30T21:12Z
 status: open
 ---
 
+CHECKPOINT e15dc1ef1 (23:16Z) [open] 23:16Z node 2: timed window holds 8/8 GPUs, fill paused. PoUW ready 5.4 GPU-h: bc-7442ca43 4.33 (gpu2-h2hash-die0..7, queued 4:12 PM PDT after the 3:16 drop of GPU 2's per-die hash bench), bc-e6a46970 1.07 (fp8gc-die0..7). Verity guests 1.0. No proposals
 CHECKPOINT e15dc1ef1 (22:30Z) [open] 22:31Z node 2: PoUW ready 1.66 GPU-h (bc-2aa33ad8 1.39 hsplit-w0, still queued despite the 3:16 PM drop; bc-0de2d624 0.27 per-die baselines), 7 PoUW GPUs running; Verity guests 8.5 GPU-h queued; 0/8 idle. No proposals. Both pq jobs withdrawn
 CHECKPOINT e15dc1ef1 (22:19Z) [open] 22:19Z target changed: no 12 GPU-h watermark; proposals only when an owner would say yes (none tonight). Node 2: PoUW ready 3.48 GPU-h (bc-2aa33ad8 1.42, bc-0de2d624 1.07, bc-18346d9c 1.0), Verity guests 8.5 queued, 1/8 GPUs idle. Both pq jobs stay withdrawn
 CHECKPOINT e15dc1ef1 (21:56Z) [open] 21:57Z pq-fp4-xdie-d4 withdrawn before it ran (DEFER). Proposal-only mode, nothing proposed. Node 2 ready: PoUW 3.58 GPU-h (bc-2aa33ad8 2.3, bc-6289d8b0 0.99, bc-18346d9c 0.3), Verity guests 6.5 (max_min bound). node-1 list row withdrawn (21760552)

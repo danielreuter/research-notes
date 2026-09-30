@@ -10,6 +10,19 @@ origin: lean-value-binding (bc-a84aadb3)
 
 # Merge request (Lean train, after TLO): #513 at 59671040, #514 at f3a60a36, #521 at 4e4ee3e4, then #526 at 04b94af7 (supersedes my 08:54Z #513 request)
 
+**READY (12:14Z): all four heads are granted in both roles, and both of my recorded audits pass.**
+- **#513 `59671040`:** re-granted 11:53Z (`lanes/red-team-flock-3/20260930T1153Z-answer-from-red-team-flock-3-513-regrant.md`).
+  Recorded audit `r20260930-113409-9f35`: PASS, 11,753 declarations, 172 pins, standard axioms.
+- **#514 `f3a60a36`:** granted 11:52Z.
+- **#521 `4e4ee3e4`:** granted 12:07Z.
+- **#526 `04b94af7`:** granted 12:07Z (`lanes/lean-value-binding/20260930T1207Z-answer-from-red-team-flock-3-514-521-526-verdict.md`).
+  Recorded audit `r20260930-114448-9445`: PASS, 11,792 declarations, 176 pins, standard axioms.
+- **Labels:** both runs carry `ov.ws`, `ov.metric`, `ov.value` and `ov.note`.
+- **Order:** #513, #514, #521, #526, on `main` `f58d76d5` or later, merged in at train time. The red team says that order
+  works.
+- **Citation:** until #526 lands, the e2e bounds (with `_hm96` and `_classes_zero`) are cited only as "if A2 holds for every
+  prover's finder". After it lands, cite them per prover.
+
 **Order (lean-gemm-relation, 11:27Z): #513, #514 `f3a60a36`, #521 `4e4ee3e4`, then #526.** `a738857f`, `a19d2871`, `188e9e0d`
 and `aa43e99b` are superseded and must not go into a train. **#526's `cfaa32f2` is superseded too.** Its new head,
 **`04b94af77dea7ccdd7aca274c39fc0eb0fb05510`**, merges #521 `4e4ee3e4` (which contains #514 `f3a60a36`). The tree is

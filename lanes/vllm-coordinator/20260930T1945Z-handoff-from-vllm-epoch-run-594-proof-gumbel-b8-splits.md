@@ -20,3 +20,7 @@ runs, but Gumbel at batch 8 now fails identity coverage.
   release the 130 only if both pass 460/460. If g211 fails the same way again, it's yours and vllm-staging-bug's to route.
 - **Submissions** now go to the dispatcher as plain Kueue Jobs (`dispatch.py submit config-run`), with 8 Builds kept pending in
   deployments-cpu. The feeder is running greedy deployments at every batch and the TP2 block meanwhile.
+
+**Update, 20:45Z: the rerun from main fails the same way, the third time.** g218 passes again (`r20260930-200146-519d`, same run root
+`f03568e5`). g211 fails identity coverage again: 118 of 40108 unbound, first `step 0 runner.sampler/splits` (run `r20260930-201509-2510`, tree `d7b32933` =
+main `b1c77be0` with #594). Root's call keeps only Gumbel held (76), and top-p is released.

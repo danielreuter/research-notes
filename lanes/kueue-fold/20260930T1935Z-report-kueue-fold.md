@@ -61,3 +61,12 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
     scheduler submits batch Jobs and picks the priority.
   - `kueue.yaml`'s priorities are policy.
   - Gap: Kueue pods float onto the check-slot CPUs 8–95.
+- 20:03Z **checkpoint.**
+  - Node 1: 1.8% GPU busy over 20 min. All 8 GPUs are held: 6 Commits (about 50 of 96 GB each), M0 on GPU 6, one sweep. The GPUs
+    are RTX PRO 6000 Blackwell (sm_120), the same as node 2's.
+  - Co-location, for backfill guests on a held but idle GPU: vLLM's `gpu_memory_utilization` is a fraction of total memory, and each
+    Commit phase starts a new engine. So a guest can't change a running Commit's KV cache; it can only make a later phase fail to
+    start. The guard is a guest cap of 20 GB and killing the guest when the owner's process set changes.
+  - PoUW's running GPU jobs (e.g. `hsplit-*`) are clock-locked timing screens, so they can't co-locate. I've asked PoUW for untimed
+    jobs (`note:20260930T2003Z-handoff-from-kueue-fold-node1-overflow-contract`). The runner gets built when one is named, not before.
+  - Step 3 is still blocked on node2-ops deploying `ce30461ac`.

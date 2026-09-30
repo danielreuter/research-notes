@@ -19,7 +19,8 @@ nothing on either node changed. The replies are folded in:
 - pous infra (17:21Z, 17:27Z);
 - the RTX PRO coordinator (17:27Z).
 
-The steward's workload answers are still pending. §16 lists what the replies changed.
+The steward's workload answers (18:05Z) are folded in since 19:30Z by cluster-build (§2's node-1 rows, §8, §15, §16 item 15).
+§16 lists what the replies changed.
 
 ## 1. Recommendation
 
@@ -92,7 +93,7 @@ Gathered from:
 - the replies: the research coordinator (Verity's policy), pous infra, and the RTX PRO coordinator
   (`internal/pouw/infra/one-cluster-rtx-pro-answers.md`).
 
-The steward's workload answers are pending.
+- the steward's node-1 workloads and node facts (`note:20260930T1805Z-reply-from-nebius-infra-steward-to-pous-one-cluster-requirements`).
 
 | Workload | Shape | What it needs | What hurts today |
 |---|---|---|---|
@@ -103,6 +104,8 @@ The steward's workload answers are pending.
 | Probes (caches, revisions) | read-only | Direct SSH | none reported |
 | vLLM deployments (node 1) | Build CPU (≈ 6 min, peak ≈ 125 GB); Commit GPU (7–10 min, 137 GiB host memory at batch 8); replay CPU | Chaining (Commit after Build), containers, host memory at the measured peak plus 25% | GPUs held through CPU Builds (7.1 GPU-h allocated, 0.07 busy, in one hour); memory over-requested; one host-wide bootstrap lock |
 | Prover benches (M0, flock) | 1 GPU plus 32 pinned vCPU; `provers` owns 3 GPUs and never borrows | Second in Verity's order; never evicted mid-run; a quiet hour (12:30–13:30Z); co-tenants recorded, since co-tenancy decides whether a timing counts | Evicted twice as borrowers by a reclaim; results corrupted by overlapping CPU pins |
+| vLLM Build, Commit, replay (node 1, the steward's 18:05Z sizes) | Build: 0 GPU, requests 4 vCPU and uses 2–9, 50–240 GB (a batch-1 4k Build up to ~486 GiB), 4–28 min, dozens a day. Commit: 1–2 GPUs, 4 vCPU per GPU, ~6 GiB below batch 8 and ~130 GiB at 8+, 83 s–10 min. Replay: 0 GPU, 8 vCPU, the bundle's size, 6–16 min | Declared sizes that match use: CPU requests run about 4× use, and memory is off both ways (a Commit asked 192 GB and used 6; a 4k Build asked 32–48 and used 100–127) | Admission blocked while the node was 70–85% idle |
+| Port captures (node 1) | 1 GPU, 4 vCPU, 192 GB; 49 s cached, up to ~15 min | First to a free GPU in `deployments-gpu` (Kueue 1100) | none reported |
 | Merge-train checks | three 32-vCPU slots on node 1's reserved CPUs 8–95; toolchain pinned (`UV_PYTHON=3.14.7`); warm verdict packs and Lean deps | First in Verity's order, on CPUs nothing else may use even when idle; never preempted, never borrowed; a private scratch area and cache per job | A per-test cache that concurrent checks race on; fixtures reading the host's real builds and deadline; uncoordinated CPU pins |
 | Backfill (node 1) | invariance sweeps, then backend-sweep shapes | Last in Verity's order, preemptible, requeued on exit 99; runs on any idle GPU | Node 1 at about 2% GPU busy. Quota rules keep backfill from borrowing: 15 workloads waited while GPUs 1–3 idled (16:47Z) |
 | Lean builds and audits | CPU- and RAM-heavy (Mathlib) | One build into the pinned store at a time, in a priority order kept by hand today (FP8 first, 14:45Z); `.lake` never shared by two agents | The order lives in prose |
@@ -289,10 +292,11 @@ and guest work.
     at 300. The steward should say which one is policy.
 - **Workstream shares inside an owner** are now a requirement:
   - `provers` owns 3 GPUs and never borrows;
-  - `deployments-gpu` owns 5, borrowable but not kept.
+  - `deployments-gpu` owns 5, borrowable but not kept (Kueue lets it borrow 2).
 
   Work beyond a queue's own GPUs is borrowed, and the lending queue's jobs reclaim it whatever their priority. So the rank
-  gains a term: standing, then within-share, then priority. This is the next planner slice.
+  gains a term: standing, then within-share, then priority. **Built** in #586 (`42311e84`): `[[workstreams]]` in the
+  description, `borrow_gpus` as Kueue's `borrowingLimit`.
 - **Node 1's 2% GPU busy is what this model fixes directly.** Kueue's backfill queue had no quota of its own and couldn't
   borrow while CPU quota was held elsewhere. Here there is no quota arithmetic between an idle GPU and backfill: a free GPU
   is free, a `fill` job takes it, and anything that outranks the fill evicts it within about 30 s.
@@ -405,10 +409,11 @@ and guest work.
 
 ## 15. Pending
 
-- **The steward's workload answers**
-  (`note:20260930T1640Z-handoff-from-pous-one-cluster-to-nebius-infra-steward-requirements`) are pending: sizes per workload on
-  node 1, whether the nodes reach each other privately, and which priority order is policy (§8).
+- **Which priority order is policy on node 1** (§8): asked of the steward again at 19:30Z
+  (`note:20260930T1930Z-handoff-from-cluster-build-to-nebius-infra-steward-priority-order`).
 - **Answered:**
+  - the steward's workloads and node facts (`note:20260930T1805Z-reply-from-nebius-infra-steward-to-pous-one-cluster-requirements`):
+    only TCP 22 passes between the nodes, even inside the subnet;
   - Verity's policy (`note:20260930T1722Z-reply-from-verity-root-to-pous-one-cluster`);
   - pous infra (`note:20260930T1721Z-reply-from-pous-infra-to-pous-one-cluster`,
     `note:20260930T1727Z-reply-from-pous-infra-to-pous-one-cluster-phase-1`);
@@ -463,5 +468,10 @@ and guest work.
     - the paths: `/workspace/pouw/*`, `/workspace/hf`, the venvs, `/workspace/research/runs`.
 13. **RunPod lines stay outside the description (§13)** unless a pod is used as a node. They run under the budgets guard:
     `vy-coord-` until 6 Oct, `vyv-cov-` until 1 Oct 14:00Z, `vy-sm120-` until 8 Oct, with a $25 balance floor.
+15. **The steward's node-1 facts (18:05Z).** Only TCP 22 passes between the nodes, inside the subnet too, so the router and
+    any cross-node queue go over SSH with forced commands, as §10 planned. Requests don't match use (CPU about 4×, memory
+    both ways), so the planner's CPU and memory checks are only as good as the declarations: jobs should declare measured
+    sizes (plus 25% for memory), and the ledger's usage feed is where those measurements come from. Node 1's workloads are
+    in §2.
 14. **Speed (§3, phase 1c):** `research pods ssh` forwards no stdin today, so streaming stdin joins connection reuse and
     `logs -f`.

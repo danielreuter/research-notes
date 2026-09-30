@@ -7,6 +7,7 @@ created: 2026-09-29T05:05Z
 status: open
 ---
 
+CHECKPOINT 62ce91fa (01:20Z) [open] POUS circuit stack restacked on #423: #372 9298a197, #380 81a80d29, #391 dcb83d0e; forwarded to the circuit red team (bc-f0bc7e75 = red-team-flock-3) at lanes/red-team-flock-3/20260930T0118Z; root 0115Z to POUS published. Queue behind TW6 once red-team grants land on all three full heads.
 CHECKPOINT 62ce91fa (01:06Z) [open] ZK stack #227 -> #239 -> #245 (Lean only; #245 head 21b0edb0 lands all three; merged up to 62ce91fa; pins == red-team grants; MR 20260930T0100Z) queued for the first Lean train after TX with #447 and #452 (verify each pin against its grant when building; one check on the train tree). #454 already rides TW6.
 CHECKPOINT 62ce91fa (00:40Z) [open] TW6 rebuilt with #442 b132b7f8 (dispatcher reads its own token file): tr-TW6 7e60082d = TVD2 + #442 + #364 + #423 + #367 + #454; 824 tests pass; chain-TW6 still waits for TB3 on t10.
 CHECKPOINT 62ce91fa (00:15Z) [open] PR triage (docs/pr-triage.md) answers: #143+#168 land as the A4 code of record in the next non-Lean train with room (close with runs preserved if the check fails, lane archived); #454 579f3b2c (docs) added to TW6 (tr-TW6 f1f6dd1e, before launch); #322 closes as superseded by #324; #328 carried whole in #336 (TB3) -> close sweep after TB3 lands. Reruns: vLLM suite key missed TU2's pack (MoE rerunning), ETAs ~01:45Z for TB3 then the stack.

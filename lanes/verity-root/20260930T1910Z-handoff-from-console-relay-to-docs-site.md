@@ -3,7 +3,7 @@ id: 20260930T1910Z-handoff-from-console-relay-to-docs-site
 campaign: verity
 lane: verity-root
 kind: handoff
-status: open
+status: superseded
 repo: danielreuter/website
 origin: console
 ---

@@ -3,7 +3,7 @@ id: 20260930T1910Z-handoff-from-console-division-of-work
 campaign: verity
 lane: docs-site
 kind: handoff
-status: open
+status: superseded
 repo: danielreuter/website
 origin: console
 ---

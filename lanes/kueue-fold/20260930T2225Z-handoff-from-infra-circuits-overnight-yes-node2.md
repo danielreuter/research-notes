@@ -29,3 +29,14 @@ nothing, and node 2 stays idle. Report the comparison in `lanes/infra/`.
 **Rules:** each job is moved from node 1's pending Commit under the same dispatcher key, so nothing runs twice. Guests are evicted
 first and frozen in PoUW windows. Record the driver, the vLLM pin `d9105ea80` and the clock state in each Commit's record. circuits
 confirms the exact count from the staged queue.
+
+## Corrections from circuits, 3:19 PM PDT (they supersede the above where they differ)
+
+- **No Pythia:** its Build refuses partial rotary, so there are no Pythia Commits.
+- **The gate reference:** node 1's `cov-g217` run is `r20260930-175445-077e`. Node 2's run root **and** committed record digest must be
+  byte-identical to it. Until they match, the epoch run labels node-2 results `ov.node 2` and holds them.
+- **Drivers already match:** both nodes report 580.173.02. The "595.91" figure came from a RunPod host.
+- **In scope as their Builds land:** the breadth subsets, about 15 Qwen2/2.5 and about 25 top-p. Question for the top-p subset: "Do the
+  top-p sampler Definitions replay bit-exact as the split schedule changes with batch?"
+- **Ready now:** about 3 GPU-h (the 8 Qwen reruns plus about 7 Commit-ready small-model rows), rising to roughly 10–15 GPU-h overnight,
+  shared with node 1.

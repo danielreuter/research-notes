@@ -31,7 +31,7 @@ from pathlib import Path
 MODELS = [("nvidia/Qwen3-8B-FP4", "ccd10a893cbca613259517c3efe08e151ddf2b8e"),
           ("RedHatAI/Qwen3-8B-NVFP4", "e391349c110709b87bfc2ad2fde3f50dc5839fd8")]
 LOADS = [(MODELS[0], "1"), (MODELS[1], "1"), (MODELS[0], "0")]
-PROBE = Path(__file__).resolve().parents[3] / "tools/tc_probe_fp4/mma_fp4.cu"
+PROBE = Path(__file__).resolve().parents[4] / "tools/tc_probe_fp4/mma_fp4.cu"
 MMA = re.compile(r"\b([A-Z]*MMA[A-Z0-9_.]*)")
 
 
@@ -75,10 +75,26 @@ def sass_mma(path: str, arch: str, names: set[str] | None = None) -> dict[str, l
 
 
 def demangle(names: list[str]) -> dict[str, str]:
-    if not names:
-        return {}
-    r = _run(["c++filt"], input="\n".join(names) + "\n")
-    return dict(zip(names, r.stdout.splitlines())) if r.returncode == 0 else {n: n for n in names}
+    """libstdc++'s `__cxa_demangle` (the job image has no binutils or cu++filt), else c++filt, else the names as they are."""
+    import ctypes
+    import ctypes.util
+
+    try:
+        lib = ctypes.CDLL(ctypes.util.find_library("stdc++") or "libstdc++.so.6")
+        libc = ctypes.CDLL(ctypes.util.find_library("c") or "libc.so.6")
+        f = lib.__cxa_demangle
+        f.restype, f.argtypes = ctypes.c_void_p, [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_void_p, ctypes.POINTER(ctypes.c_int)]
+        out = {}
+        for n in names:
+            st = ctypes.c_int(0)
+            ptr = f(n.encode(), None, None, ctypes.byref(st))
+            out[n] = ctypes.string_at(ptr).decode() if st.value == 0 and ptr else n
+            if ptr:
+                libc.free(ctypes.c_void_p(ptr))
+        return out
+    except (OSError, AttributeError):
+        r = _run(["c++filt"], input="\n".join(names) + "\n") if shutil.which("c++filt") else None
+        return dict(zip(names, r.stdout.splitlines())) if r is not None and r.returncode == 0 else {n: n for n in names}
 
 
 def reference(arch: str, work: Path) -> dict:

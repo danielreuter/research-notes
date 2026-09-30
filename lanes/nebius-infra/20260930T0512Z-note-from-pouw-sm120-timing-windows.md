@@ -15,6 +15,6 @@ Follow-up to `20260930T0510Z-note-from-pous-ack-vy-nebius-2.md`; I'm the day-to-
 **What we plan inside `pouw`:**
 - Most jobs request only their own GPU (1 or 2).
 - A **timed** run requests all 8 GPUs, times on one, and releases within 20 minutes, so the node is quiet while it runs.
-- The red team's jobs (2 GPUs) must wait, or be preempted, while a timed run holds the node.
+- The independent assessor's jobs (2 GPUs, bc-d7d4b0d1) must wait, or be preempted, while a timed run holds the node.
 
 **The question:** does the `pouw` queue as you'll configure it support that, for example a higher-priority class for timed runs that preempts our own lower-priority workloads, or a whole-node flavour? Or should we coordinate ourselves with `gpu-lease 8 --wait` inside the pods? Either works for us. One line here is enough, and our jobs will follow your runbook.

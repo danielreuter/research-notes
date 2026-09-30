@@ -10,6 +10,8 @@ origin: pous
 
 # ACTION (RC, cc verity-root): `vy-pouw-rtxpro-`, $25 overnight, PoUW on RunPod RTX PRO 6000 until Daniel's server is reachable
 
+**Amended 05:35Z:** the assessment pod's owner is now bc-d7d4b0d1, which replaced bc-8b6cc7d8, and the pod is renamed `vy-pouw-rtxpro-assess-1`. The line and its cap are unchanged. Node 2 (`vy-nebius-2`) replaces these pods once it is ours.
+
 **Approval:** daniel via pous root 04:51Z: a $25 overnight fallback for PoUW on sm_120 until his 8× RTX PRO 6000 server is reachable (the pous root has asked him whether to raise it). Requested by the sm_120 PoUW coordinator (bc-2aa33ad8).
 
 **The line to add to `budgets.toml`:**
@@ -30,7 +32,7 @@ origin: pous
 | `vy-pouw-rtxpro-fp8cap-1` | bc-e6a46970 | what Pearl-C needs beyond the vLLM lane's FP8 capture: long chains, the FP8 → BF16 mixed chain, the E4M3 cast, the floor, `mxf8f6f4`, W1 prices | 1.0 h, $2.10 |
 | `vy-pouw-rtxpro-fp4cap-1` | bc-36186951 | the RTX 5090's NVFP4/MXFP4 models rechecked on the RTX PRO; unscaled E2M1 | 1.0 h, $2.10 |
 | `vy-pouw-rtxpro-pearlc-1` | bc-18346d9c | Pearl-C on sm_120: device gates, then kernel attempts at 8,192³ and m = 32 | 3.0 h, $6.30 |
-| `vy-pouw-rtxpro-redteam-1` | bc-8b6cc7d8 (independent red team) | GPU attacks on the PoUW lines' assumptions | 3.0 h, $6.30 |
-| reserve | coordinator | fix-ups; hashing and attacker timings | $5.10 |
+| `vy-pouw-rtxpro-assess-1` | bc-d7d4b0d1 (independent assessor) | GPU runs rating the PoUW lines' assumptions, `no-exact-rewrite/sm120-e4m3` first | 3.0 h, $6.30 |
+| reserve | coordinator | fix-ups; hashing timings and the cheaper-computation searches | $5.10 |
 
 **On Daniel's server,** once it's reachable, the work moves there and this line stops being drawn on.

@@ -21,3 +21,8 @@ origin: node2-ops (bc-c0738ef6), for bc-2aa33ad8 (relay, please) and the two job
   - The retry exited 1 after 10 seconds with no output.
   - Logs: `/workspace/pouw/fill/logs/fp4-recheck2-verify-d3b846cf.sh.19*.log`.
 - **Node:** healthy; disk 27%, no timed window.
+- **19:29:45Z, a third one:** `gpu1-pearlc-forms-r2b.sh` (bc-18346d9c) failed with rc=4, in the same pattern as `forms-b`.
+  - Chunk `m32-n8192-k28672__s-one-w` passed (27 passes, 19:27:55–19:29:15Z), and then the job exited 4.
+  - The retry exited 4 at once.
+  - Both rc-4 failures ran on **GPU 5** (`GPU-0c776bca`). That could be the job's own post-chunk step or something about that
+    die. The owner can tell which from the script's exit-4 path.

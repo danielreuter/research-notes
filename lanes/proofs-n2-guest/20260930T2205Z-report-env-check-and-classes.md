@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs-n2-guest (bc-c951b059), worker of @proofs (bc-8416bc72); answers note:20260930T2144Z-handoff-from-proofs-replan-2-drop-k2048-rest
 ---
 
+CHECKPOINT 99a31703 (22:20Z) [open] 3:20 PM PDT: #1936 (K=8192) staged on CPU in 6.7 min (fits the circuit: 2^25, 36,832 statements); gate pn2g-q-1936-r0 (20 statements + full GPU selftest) queued 3:16 PM PDT, waiting for idle GPUs (0/8 free); max_min guard added; the 4 inbox handoffs are acted on (note:20260930T2205Z-report-env-check-and-classes)
 CHECKPOINT 3fd1af6f (22:06Z) [open] 3:07 PM PDT: re-plan 2 applied: whole-row guests withdrawn (13 stale pn2g-* scripts exit 0 at once); env check: node 2 matches node 1 (driver 580.173.02, libcudart 13.0.96, clocks locked 2100); only new class K=8192 (#1936): stage queued, gate + 2 chunks follow (<1 GPU-h); loop tmux proofs-n2-guest; note:20260930T2205Z-report-env-check-and-classes
 # proofs-n2-guest: node 2's environment matches node 1's, so K=8192 is the one new class; its 3 chunks are all that's queued
 
@@ -54,9 +55,21 @@ Llama-3.2-1B has two GEMM-coordinate shapes, and both use the default 4×4 tile 
 
 - **Question:** every script carries `# question: "what is the whole-row proving cost against K, per shape class, on sm_120? (3
   chunks per new class)"`. It is also passed as `PN2G_QUESTION`, which `verify.py` writes into each done record.
-- **Stage:** a gpus=0 stage job. Node 1 never staged #1936, so it has no record.
+- **Stage: done, 3:13 PM PDT.** A gpus=0 job, 6.7 min, rc 0. K=8192 fits the current circuit:
+  - n = 1,024, a 2^25 circuit, 4,215,067 AND gates;
+  - circuit sha512 `638babca…`;
+  - 36,832 statements in the row.
+  The stage cache now holds 1.8 GB.
 - **Chunk 1, the gate:** 20 statements with the GPU selftest (`gpu_paths_agree` and `gpu_proofs_match_cpu`, byte for byte against the CPU
-  prover). It must be verified before anything else is queued.
+  prover). It must be verified before anything else is queued. It was queued at 3:16 PM PDT (`pn2g-q-1936-r0.sh`, prio=1).
+  - **Risk: the 30-min cap.** #1551's gate on node 1 took 1,326 s, nearly all of it the 43-case selftest of a 2^26 circuit.
+    The only other GPU-selftested shape there (2^22) took 203 s. Interpolated, K=8192's 2^25 is about 14 min on node 1, but
+    node 2's GPU jobs get shared, `nice 19` CPUs.
+  - **The guard:** the runner requeues a job stopped at max_min without counting a try, so it would rerun forever.
+    `job.sh` fails a job the runner has already stopped at max_min once. The gate then lands in `fill/failed/`, the loop stops, and
+    at most one 30-min attempt is lost.
+  - **If that happens, the fallback is @proofs's call:** `SELFTEST_CASES=gpu_paths_agree,gpu_proofs_match_cpu`, which
+    `70-class-sweep.sh` supports. It runs only the brief's two checks, a weaker gate than #1551's full selftest.
 - **Chunks 2 and 3:** about 600 s of statements each, at the gate's measured seconds per statement (at least 100). The runner's
   30-min cap on GPU jobs rules out node 1's 2,500-statement chunks. Compare per-statement costs, not chunk totals.
 - **Estimated size:** well under 1 GPU-h. No gate can run before the GPUs are idle, since Verity GPU guests start only with

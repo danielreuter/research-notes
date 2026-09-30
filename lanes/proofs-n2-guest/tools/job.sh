@@ -25,6 +25,10 @@ case $kind in
 esac
 OK=$G/done/$ID.json
 [ -s $OK ] && { echo "$ID is done ($OK)"; exit 0; }
+# the runner requeues a job it stopped at max_min without counting a try, so a job that can't fit in max_min would rerun forever
+if [ -n "${FILL_JOB:-}" ] && grep -F "\"job\": \"$FILL_JOB\"" /workspace/pouw/fill/events.jsonl 2>/dev/null | grep -q '"why": "max_min"'; then
+  echo "$(date -u +%FT%TZ) $ID refused: $FILL_JOB was stopped at max_min before" | tee -a $G/runs/$ID.attempts; exit 3
+fi
 R=$G/runs/$ID; rm -rf $R; mkdir -p $R
 echo "$(date -u +%FT%TZ) $ID start job=${FILL_JOB:-} CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-} GPU_LEASE_UUID=${GPU_LEASE_UUID:-}" >> $G/runs/$ID.attempts
 export SWEEP=$G/sweep2 FLOCK_WORK=$G/flock FLOCK_STAGE_CACHE=$G/flock/stage-cache SM=120 PYBIN=$G/flock/flock-circuit/py/bin/python3 \

@@ -5,6 +5,7 @@ created: 2026-09-30T20:07Z
 status: blocked
 ---
 
+CHECKPOINT cc21a7d94 (20:47Z) [blocked] Read note:20260930T2031Z-handoff-from-pous-network and folded it into state. §7 of timing-channel.md still lists A–C as open, though the handoff says none is. Recommendation to Daniel: land #326, confirm A–C, then the Lean ingress theorem. #326's check is blocked on vy-nebius-1's preflight (asked infra).
 CHECKPOINT cc21a7d94 (20:45Z) [blocked] #326 fixed, head 16b6f334 (contains main 73eee493; 71+33+719 tests pass). Its recorded check on vy-nebius-1 was refused at preflight (r20260930-204334-ad89: uv 0.12.21 vs pinned 0.12.20; no cargo, elan or lake on PATH). Asked infra in Slack 1790799438.528089.
 CHECKPOINT cc21a7d94 (20:19Z) [open] #326 review: land after fixes (all suites pass on main b1c77be0); worker pushing fixes to its branch, no check yet. Workload inventory to infra (note:20260930T2022Z-handoff-from-network-accounting-workload-inventory); asked where #326's check runs. Backlog held per Daniel's priorities.
 CHECKPOINT cc21a7d94 (20:08Z) [open] Slack: status line on go-live thread (asked infra to register @network-accounting to bc-ecea50f6); asked @old-accounting (note:20260930T2008Z-handoff-from-network-accounting-network-state, due 21:30Z). Workers: #326 merged-tree review, bc-6b78649f digest.

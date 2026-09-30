@@ -5,6 +5,7 @@ created: 2026-09-30T07:29Z
 status: open
 ---
 
+CHECKPOINT c21532b9 (09:55Z) [open] table_shvzk_hm96 PROVED @c21532b9 (Lemma B with real hm96 leaves, 2*N_hid*delta1, from Hm96Hiding via the leaf hybrid ideal_leaves_swap); +padsOnto_monomial; 12 pins total; --update running; addendum to red team next
 CHECKPOINT 980326ef (09:35Z) [open] PR #519 @980326ef: 9 pins recorded (table_shvzk 36891e19 …); r20260930-090944-bc3a PASS+labelled; r20260930-093147-9dc8 running; merge request filed (grant pending, store coordinator/0934Z); table rows handed to lean-gemm-relation (0932Z)
 CHECKPOINT 1aba1da1 (09:10Z) [open] PR #519 @1aba1da1: --update PASS (11873 decls, 163 pins, replay clean), review art:f32bd3b9; recorded audit r20260930-090944-bc3a running on vy-nebius-1; grant asked of red-team-flock-3 (handoff 0910Z), wording of zk-public (0844Z)
 CHECKPOINT da7f03c4 (08:56Z) [open] PR #519 draft @da7f03c4: table_shvzk, Lemma A (translate/indep), star, padColumn_honest, inner_complete, padOnto_M1, ideal_leaf_swap (T1 from Hm96Hiding); 8 new pins; audit --update running on vy-nebius-1 (CPUs 0-31); asked zk-public for wording

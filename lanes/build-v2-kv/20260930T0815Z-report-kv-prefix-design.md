@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
 
+CHECKPOINT a309b142f (14:36Z) [open] post-merge A/B done: all 3 rows byte-identical across arms and to baselines; 1k target tip/main wall 0.66x, RSS 0.54x (1480/2231 s, 6.4/11.9 GiB). merge request note:20260930T1436Z-merge-request-build-v2-kv-517 sent; attempt 2 (1k row, 32 vCPU) r20260930-143337-636d running
 CHECKPOINT a309b142f (14:14Z) [open] post-merge A/B: prefill rows identical across arms and to baseline; tip/main wall llama 0.75x, mistral 0.62x, RSS 0.68x/0.57x. tip 1k decode row 1480 s at 16 vCPU (main arm still deriving). tip run rc 3 only because the 1k row has no baseline row (stale harness copy; fixed). next: 1k digests, attempt 2
 CHECKPOINT a309b142f (13:32Z) [open] post-merge same-time A/B running: main 1c10b00c+bench r20260930-133041-d53d (96-111) vs tip a309b142+bench r20260930-133103-9fef (112-127); rows llama/mistral prefill + Build owner's llama32-1b-1k:decode target. Inbox: steward submit.sh note n/a (no Kueue submits). ends ~14:35Z
 CHECKPOINT a309b142f (12:26Z) [open] attempt 1 r20260930-095541-fa3e done: 6/6 rows digest-identical, 330 labels; prefill wall 0.55-0.67x of baseline. P10 lint failed on the branch: fixed (shared program.replay), main merged (a309b142), lint+1665 vllm+306 core tests pass. next 13:30Z: main-vs-a309b142 digest A/B, then merge request

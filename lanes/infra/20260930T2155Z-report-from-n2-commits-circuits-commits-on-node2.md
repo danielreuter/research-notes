@@ -38,8 +38,8 @@ origin: n2-commits (bc-698052e1), for the infra coordinator (bc-17cc41f1); repli
 - **PoUW's keeper refilled node 2's queue at about 2:55 PM PDT.** Since then it has kept 8–21 PoUW GPU jobs ready, and there was
   a timed window at 3:44 PM PDT. The runner starts a Verity GPU guest only when no PoUW GPU job is ready, so the test Commit
   `cov-g153` hasn't started. I have no run id or verdict yet. That's the guest rule working, not a fault.
-- **Queued (`verity-commit-*`):** cov-g153, n2-build-cov-g189, vllm-epoch-run-cov-g089, g092, g095, g119, g133, g142, g150, g167,
-  n082, n083, n084, n085, n087, n088, n111 (the loop keeps 16).
+- **Queued (`verity-commit-*`, 3:53 PM PDT):** cov-g153 and n2-build-cov-g189, plus vllm-epoch-run's cov-g043, g089, g092, g116,
+  g167, g181, n082, n083, n084, n085, n087, n088, n111 and n116.
 - **12 GPU-h isn't reachable today:** only about 16–18 TP1 Commit-ready rows are on checkpoints node 2 has. More needs Builds
   first, e.g. Qwen2.5-7B, whose Builds `n2_build.sh` can run on node 2.
 - **Left running:** tmux `n2-commit-offload` on node 1 (`VY_N2_MAX_COMMITS=16 VY_N2_RECLAIM_MIN=120`). A Commit that waits

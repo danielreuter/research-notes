@@ -1510,6 +1510,14 @@ Verdicts only. The findings are in the store's `private/`.
     `note:red-team-flock-3/20260930T0144Z-finding-red-team-423-stack-merges`.
   - Verdict: `internal/lanes/pous/20260930T0144Z-redteam-423-stack-merges.md`. Evidence:
     `private/red-team-reviews/pr423-stack-evidence.log`.
+- **#452 re-record on main `b82f1dd2`: STAGED, awaiting the author's (bc-72a3c31f) request.** The `afbe5c95` grant
+  doesn't carry, because #416 changed `Flock/Draw.lean`.
+  - My regeneration: main plus the `meaning` line, then `audit.py --update`, passes with kernel replay (11,494
+    declarations, 142 pins). It changes only `meaning` and `reads["Flock.Draw"]`.
+  - The entry holds #416's 31 definitions, in the tool's SHA-256 format since `143c7c8a`, and 22 pins: #416's 13 plus
+    #425's 9.
+  - `Flock/Draw.lean`'s closure and the toolchains are unchanged since `8aed7908`.
+  - Expected entry: `private/red-team-reviews/pr452-main-expected-flock-draw.json`; log: `pr452-main-staging.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

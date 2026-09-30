@@ -1600,8 +1600,23 @@ Verdicts only. The findings are in the store's `private/`.
   - The request was in the notes repo (`20260930T0853Z-handoff-…-514-pin-grant.md`), not the store, so I found it late.
   - Answer: notes `lanes/lean-gemm-relation/20260930T1016Z-answer-from-red-team-flock-3-514-verdict.md`, with a store
     copy in `internal/lanes/lean-gemm-relation/`. Evidence: `private/red-team-reviews/pr514-evidence.log`.
-- **Queued:** #519 (lean-zk-table: ZK of one masked table, 12 pins and 2 named assumptions at `c21532b9`). Requests:
-  `lanes/red-team-flock-3/20260930T0910Z-handoff-from-lean-zk-table-519-pin-grant.md` and the 09:56Z addendum.
+- **#519 @ `0ea48970` (Lean `070b209d`; ZK of one masked table, 11 new pins, 2 named assumptions): GRANTED, as
+  statement reviewer and as red team; labels recorded.**
+  - The model's `view` and `sim` match §2.4, §2.5 and §3.2 message by message. Each exposed value has its own pad, and
+    the `h_ab`/`h_tw` products and `ρ_in`/`σ_in` are as in line 16.
+  - Non-degeneracy is the prover's own refusals, and T4 is proved for both codes. `InnerHolds` is §2.4's premise: cite
+    Lemma B "under the clear protocol's completeness".
+  - `Hm96Hiding` is total-variation distance ≤ `δ₁` for one pair of functions: HDK's statistical form, with the pinned
+    key's caveat. `PadNonvanishing` is an arithmetic fact.
+  - The real-leaves lift gives `2·|Hid|·δ₁` both ways, whatever the hidden leaves commit.
+  - Checks: the audit passes with kernel replay (166 pins). The record is `main` `cdb0b137`'s plus the 11 pins, their
+    reads and two watch entries.
+  - Landing: the head conflicts in `lean-audit.json`, which `main`'s `merge.py` merges cleanly. A criss-cross merge base
+    (`21b0edb0`/`cc0f4688`) makes the queue also ask for `vllm-coordinator`; merging `main` fixes both.
+  - Labels: both roles on `pr:519@0ea489709858d2fafa695be4974c0bcb52f3ef4f`, on the remote, with ref
+    `note:lean-zk-table/20260930T1032Z-answer-from-red-team-flock-3-519-verdict`.
+  - Answer: notes `lanes/lean-zk-table/20260930T1032Z-answer-from-red-team-flock-3-519-verdict.md`, with a store copy in
+    `internal/lanes/lean-zk-table/`. Evidence: `private/red-team-reviews/pr519-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

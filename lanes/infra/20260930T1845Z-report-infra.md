@@ -160,3 +160,13 @@ used. Node 2 had all 8 GPUs leased, 0 GPU jobs queued and 24 CPU jobs queued.
    `question`. Idle beats padded.
 3. **Focus:** PoUS stays paused; network accounting pauses too (#326's check still goes into the train). Capacity and attention go
    to circuits, proofs and compute accounting.
+
+## T1 result (3:30 PM PDT): MISSED
+- **Node 1, 2:30–3:30 PM PDT:** 3.96% GPU busy (DCGM `GR_ENGINE_ACTIVE`, averaged over the 8 GPUs, from node 1's Prometheus), against the 60% target.
+- **Delivered-output metric,** now node 1's measure per Daniel's 3:22 PM PDT ruling: 87.3% of leased GPU time delivered for 2–3 PM PDT,
+  provisional, on 5.1 of 8 GPU-h leased.
+- **Blockers:**
+  - the work mix: small-model Commits are GPU-light, and the K=2048 whole-row runs hold GPUs at about 12% while the CPU verifies;
+  - Commits dispatched before the 2:15 PM PDT template refresh replay on their GPUs;
+  - TP2 is held after a crash.
+- **Fixes under way:** MPS packing (the golden match plus one pod, gated on storage), the verify split for the whole row, PR B.

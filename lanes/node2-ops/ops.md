@@ -19,6 +19,7 @@ Timers: hourly `5 * * * *`, alerts `2,17,32,47 * * * *`, final backups 2026-10-0
 Target (proposed): GPU busy ≥95%, useful ≥90% of busy. Filler = a fill job whose header carries `filler=`; unlabeled = useful.
 CPU busy is for CPUs 0–127 (the check slots 128–191 excluded), over the window between two hourly `/proc/stat` snapshots.
 
+- 19:00–20:00Z: **95.1% busy** (7.61 of 8.00 GPU-h, no timed windows), useful 100% (no filler). Leased-idle 0.24, free-idle 0.15; waiters 20.5 min. Meets the target. CPU 0–127: 29.4% (19:16–20:05Z); check slots 17.5%. At 20:05Z the fill queue had 0 GPU jobs behind the 8 running (20 CPU jobs queued).
 - 18:00–19:00Z: **78% busy** (6.27 of 8.00 GPU-h: timed 0.60, kernels 5.67), useful 100% (no filler). Leased-idle 1.13, free-idle 0.60; lease waiters 32 min. Cause: leased-idle, 0.72 GPU-h of it bc-e6a46970's `fp8chain-die{0,1,3,4,5}.sh` fill jobs holding GPUs at 0%; free-idle while a timed window waited. Since the 17:58:46Z waiters fix (to 19:05Z): 79.9%. CPU 0–127: 47.7% (19:09–19:16Z, first window).
 
 ## Node 2 layout (read 19:09Z)
@@ -26,10 +27,16 @@ CPU busy is for CPUs 0–127 (the check slots 128–191 excluded), over the wind
 NUMA 0 = CPUs 0–95 + GPUs 0–3; NUMA 1 = CPUs 96–191 + GPUs 4–7 + NIC mlx5_0. No NVLink (`NODE` within a socket, `SYS` across).
 Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs 48–95 on NUMA 0.
 
-## Held for the next approved deploy (committed on `infra/nebius`, not live)
+## Deployed on node 2 (`/workspace/pouw/infra/bin/`; rollback copies `*.prev-<stamp>` beside them)
 
-- `7f3e59e6` `gpu-lease` usage report caps busy/sampled at held time (repo sha256 `58e2474c…`; live `0d172cf3…`).
-- The held Verity CPU-pool edits (`fill_runner.py`, lane copy `86f3d1d5…`) and OOM-guard preference (`node_ops.py`, lane copy `7b8ebe56…`): need Daniel's yes.
+| File | sha256 | Commit (`infra/nebius`) | Since |
+|---|---|---|---|
+| `gpu-lease` | `58e2474c…` | `7f3e59e6` (usage cap) | 20:08Z |
+| `fill_runner.py` | `4a122904…` | `ce30461ac` (Verity guest pool, max_min 360, scope freeze) | 20:08:40Z |
+| `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
+| `backup.sh` | `914dd687…` | `d06d14b5` (retry/skip a changing unit) | 20:19Z |
+
+Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-pool`, relayed by infra) approved the guest path and the cutover; nothing is held now.
 
 ## Open items
 
@@ -38,6 +45,10 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-09-30 20:19Z backup `r20260930-200549-d07f` failed (rc 1) at `fill-out/harness-split/state`, which running hsplit jobs rewrite (tar race); every unit after it was lost for that hour. Rerun `r20260930-201231-7911` rc 0, 397 units. Fix `d06d14b5` (retry 3x, then `skipped.txt`) tested locally, deployed 20:19Z.
+- 2026-09-30 20:10Z **deployed the one-pool guest path** (table above), outside a window, commit first. Fill runner restarted 2086891 -> 2347098 and adopted its jobs; node_ops restarted by its pane's loop (2005811 -> 2346989). Smoke job `node2ops-verity-smoke.sh` ran in `fill-verity-*.scope`, CPUs 48–95, nice 19, rc 0. Told kueue-fold, infra, nebius-infra. Shadow `r20260930-195806-59f3` (cluster-build, 8 h) running; shadow dir 76K.
+- 2026-09-30 20:05Z hourly: 19–20Z 95.1% busy, 100% useful; daemons up, status.md fresh, disk 27%.
 
 - 2026-09-30 19:33Z alert: `gpu1-pearlc-forms-r2b.sh` rc=4 (19:29:45Z), same pattern as `forms-b`, both on GPU 5; added to the 19:20Z relay note. Watermark 19:29:45Z.
 

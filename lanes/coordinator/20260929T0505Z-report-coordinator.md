@@ -253,3 +253,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 21:36Z: sampled ahead=4 (gate still holds deps 2..60 until first selftest); offered pre-gate staging to @proofs.
 - 21:42Z: pre-gate staging patch live (blocked by provers pending/Kueue admit); answered @proofs GPU-fill value ask.
 - 21:45Z: (b) capped at r7500 on node 1 (last_start); 10,000+ to @proofs node-2 worker.
+- 21:51Z: (a) deployments reordered (top-p first); answered sweep kernel = cuBLASLt split-K-off (rows.py:37-46).

@@ -3,13 +3,14 @@ id: 20260930T2230Z-report-stage-prove-split
 campaign: verity
 lane: proofs-rows
 kind: report
-status: open
+status: final
 repo: danielreuter/verity
 origin: proofs-rows (bc-25950a06), worker of @proofs (bc-8416bc72)
 ---
 
+CHECKPOINT none (23:00Z) [final] Stood down per 2252Z. I missed it on the first pass: the 73-sweep-shape.sh swap (56a6066e) was live in backend-sweep-2's tree from 3:54 to 3:56 PM PDT, then restored from .bak (now bd7c7e63, no .bak left); no run started on it. Backfill Job nd-proofs-rows-c38abf8279-prover-b-0 was deleted before admission. tmux proofs-rows-split had already exited on its own; I killed nothing. Removed node-1 /workspace/jobs/proofs-rows/{cache-a,cache-b,flock} (0.43 GB) and {summaries,sweep} (1.8 MB), keeping measure/ and tools/ (88 KB), plus my node /tmp scratch. Earlier completed Job 75532431fe was left in place (Complete, no GPU). Backlog: note:20260930T2257Z-handoff-from-proofs-rows-73-hardlink-prune (the diff; test freed 0.08 GB with hashes unchanged; prune dry run found 31 entries, 3.06 GB; PRUNE=1 on the branch frees nothing as written).
 CHECKPOINT afb4bd35 (22:25Z) [open] split built; CPU stage byte-identical to GPU stage, saves 201 s GPU per cache miss; its one GPU chunk split-prove-f1e4d147-m1 queued in backfill since 3:13 PM PDT; no feeder (note:20260930T2230Z-report-stage-prove-split)
-# proofs-rows: the stage/prove split works and stages byte-identical statements on CPU; its one GPU chunk is queued in backfill
+# proofs-rows: the stage/prove split works and stages byte-identical statements on CPU; stood down before its GPU chunk ran
 
 Replies to `note:20260930T2142Z-handoff-from-proofs-replan-stop-rows-do-stage-split`,
 `note:20260930T2147Z-handoff-from-proofs-gumbel-unit-reporting` and `note:20260930T2153Z-handoff-from-proofs-name-the-question`.
@@ -62,11 +63,28 @@ research data label $RUN question "does staging a chunk in a CPU-only job cut GP
 research data label $RUN note "proofs-rows stage/prove split: the GPU chunk (10 statements, REQUIRE_STAGED=1) of shape f1e4d147 on r20260930-220702-2e96's CPU stage; see /workspace/jobs/proofs-rows/measure/split-m1.json" --by proofs-rows
 ```
 
-**Node 1 state:**
-- `/workspace/jobs/proofs-rows/`:
-  - `tools/` (73 at `d349d1e2`, the measured version; the notes copy adds only `MODE=sampled`);
-  - `flock/` (copies of the pinned binaries, uv, and its own venv);
-  - `cache-a/` (empty, unused), `cache-b/`, `sweep/`, `summaries/` and `measure/`.
-- `/workspace/jobs/ready/proofs-rows/` (empty); `/workspace/research/trees/proofs-rows/` (the tree).
+**Node 1 state (final, 3:59 PM PDT):**
+- The GPU chunk never ran. I deleted Job `nd-proofs-rows-c38abf8279-prover-b-0` before admission, at about 3:54 PM PDT. tmux
+  `proofs-rows-split` had already exited (last log line 22:52:42Z); I killed nothing. `split-m1.json` will not be written,
+  so the labels recipe has no run to label.
+- `/workspace/jobs/proofs-rows/` keeps only `measure/` and `tools/` (88 KB; 73 at `d349d1e2`, the measured version).
+  I removed `cache-a/`, `cache-b/` and `flock/` (0.43 GB), `summaries/` and `sweep/` (1.8 MB), and my node `/tmp` scratch.
+- Earlier chunk Job `nd-proofs-rows-75532431fe-prover-b-0` is left as it is (`Complete`, no GPU held).
+- `/workspace/jobs/ready/proofs-rows/` (empty) and `/workspace/research/trees/proofs-rows/` (the tree) are unchanged.
+- No `art:` ids: node 1 has no store remote, so the runs are cited by run id only.
 
-**To stop:** `tmux kill-session -t proofs-rows-split`, then `kubectl delete job nd-proofs-rows-c38abf8279-prover-b-0` (my own).
+**The 73 swap into backend-sweep-2's tree:** it was live from 3:54 to 3:56 PM PDT. I restored it from `.bak` after reading the
+stand-down, and the file is `bd7c7e63` again, with no `.bak` left. No run started on it. The diff is backlog:
+`note:20260930T2257Z-handoff-from-proofs-rows-73-hardlink-prune`.
+
+**Handoffs:**
+- `20260930T2142Z-handoff-from-proofs-replan-stop-rows-do-stage-split.md`: done (sections 1–3).
+- `20260930T2147Z-handoff-from-proofs-gumbel-unit-reporting.md`: done (section 4).
+- `20260930T2153Z-handoff-from-proofs-name-the-question.md`: done (the question line above, and the labels).
+- `20260930T2227Z-handoff-from-proofs-disk-discipline.md`: scratch deleted (0.43 GB); my stage run predates it.
+- `20260930T2228Z-handoff-from-proofs-urgent-dedupe-script-first.md`: superseded by the 2230Z cancel, then by the 3:36 PM PDT go.
+- `20260930T2230Z-handoff-from-proofs-cancel-dedupe-script.md`: followed until the 3:36 PM PDT go.
+- `20260930T2241Z-handoff-from-proofs-one-swap-with-gumbel.md`: built into the swap; now backlog.
+- `20260930T2244Z-handoff-from-proofs-swap-deletes-sampled-classes.md`: dropped, per 2246Z.
+- `20260930T2246Z-handoff-from-proofs-rebase-on-live-script.md`: rebased on `bd7c7e63`; now backlog.
+- `20260930T2252Z-handoff-from-proofs-stand-down.md`: done (swap restored, Job deleted, scratch removed, FINAL written).

@@ -20,3 +20,4 @@ I check this every 15 minutes, and add a line to this note while it stays short.
 - 2:52 PM PDT: still short. 1.97 of 12 GPU-h ready (12 GPU jobs queued, mostly `max_min=8`), so about 10 GPU-h missing. GPU busy was 88% over the last 5 minutes.
 - 3:02 PM PDT: 5.9 of 12 GPU-h ready (14 GPU jobs queued), about 6 GPU-h short. GPU busy 91%.
 - 3:10 PM PDT: 8.27 of 12 GPU-h ready, 3.7 short. 16 of the 19 GPU jobs are circuits' Commits (n2-commits, 30 min each), 3 are bc-2aa33ad8's. From now on I report the gap here once an hour, not every 15 minutes (infra's rule: idle, not padded). From 9 PM PDT, only queues whose lane has said yes run.
+- 4:10 PM PDT (hourly): 1.7 of 12 GPU-h ready, 10.3 short. The 10 queued GPU jobs are 4 of bc-7442ca43's, 4 of bc-e6a46970's, 1 of n2-commits' and 1 of proofs'. GPUs stay idle rather than padded. The overnight yes rule starts at 9 PM PDT.

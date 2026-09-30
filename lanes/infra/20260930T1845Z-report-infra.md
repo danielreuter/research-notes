@@ -150,3 +150,13 @@ used. Node 2 had all 8 GPUs leased, 0 GPU jobs queued and 24 CPU jobs queued.
   - a norm broken twice becomes an admission check (cluster-build);
   - otherwise the norm goes into a "Submitting to the queue" section of `writing-runs/SKILL.md`, once the kinds land;
   - infra posts the daily top-3 wasters at 9 AM PDT (timer `infra-daily-top-wasters`).
+
+## Rulings, 2:52 PM PDT (Daniel)
+
+1. **A resource-steward lane,** under infra, live before the node-2 switch (by 5 PM PDT): it watches disk, RAM, GPU memory, caches,
+   bundles, the custody backlog and inodes on both nodes; it wakes on alerts plus a 20-min timer; it acts under a written policy,
+   with a blocking card to Daniel for anything beyond it; one owner.
+2. **Overnight:** every queue needs its lane owner's explicit yes, and every job names its research question. The kind registry records
+   `question`. Idle beats padded.
+3. **Focus:** PoUS stays paused; network accounting pauses too (#326's check still goes into the train). Capacity and attention go
+   to circuits, proofs and compute accounting.

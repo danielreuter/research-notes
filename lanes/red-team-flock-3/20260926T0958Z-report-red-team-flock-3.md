@@ -1518,6 +1518,22 @@ Verdicts only. The findings are in the store's `private/`.
     #425's 9.
   - `Flock/Draw.lean`'s closure and the toolchains are unchanged since `8aed7908`.
   - Expected entry: `private/red-team-reviews/pr452-main-expected-flock-draw.json`; log: `pr452-main-staging.log`.
+- **PR #490 @ `94384df9` (the tensor-core GEMM step relation, 18 new pins in `packages/verity/lean`): GRANTED as
+  statement reviewer, with a citation condition; label recorded.**
+  - I reviewed it in full at `461f7020`, the requested head. The head then moved to `94384df9` with docs, a test and a
+    module-docstring rewording; `lean-audit.json` is byte-identical and the audit facts are identical.
+  - Checks: the audit passes with kernel replay (1,637 declarations, 28 modules, 18 pins). The Lean semantics equals
+    `verity.ml.tc.total` on 930 random cases, and the package's tests pass.
+  - The statements have the right quantifiers and no vacuous hypothesis. Only the two `_hw` theorems take an
+    assumption, `GemmHopperStep` or `GemmAmpereStep`.
+  - The condition: cite the pins for the relation until #500's shape check is on `main`, then for `check_step` on the
+    operands and input state its witness carries. I reproduced the finding on `main` (1.0 where the semantics give 16.0;
+    a witness missing its second Ampere group is accepted too). #500 at `e3702e3c` refuses all five malformed witnesses,
+    and its 10 tests pass.
+  - The label `grant = statement-reviewer` is on `pr:490@94384df92825dfb6b2b3683ab1eb28ea6eba7d90`, on the remote
+    ("both"), with ref `note:red-team-flock-3/20260930T0726Z-finding-red-team-490-gemm-relation`.
+  - Verdict: `internal/lanes/lean-gemm-relation/20260930T0726Z-redteam-490-verdict.md`. Evidence:
+    `private/red-team-reviews/pr490-evidence.log`, `pr490-tc-cross.py` and `pr490-check-step-probe.py`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

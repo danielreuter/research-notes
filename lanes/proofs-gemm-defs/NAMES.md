@@ -10,6 +10,10 @@ origin: cursor/proofs-gemm-defs-95d4
 
 # sm_120 FP8 / FP4 GemmCoordinate: final ids and signatures
 
+Landed on `cursor/proofs-gemm-defs-95d4`: `0f05a4dd` (the MXF4 step), `21e333a9` (the three coordinates). circuit-check green
+on all four; C-Flock lowers the E4M3 coordinate (19,352 ANDs at K = 64) and has no piece yet for `BlackwellNvf4OmmaDot64_v1`
+or `BlackwellMxf4OmmaDot64_v1`. Catalog bindings (`circuit_check.targets._core_roots`): E4M3 K = 64, NVF4 / MXF4 K = 128.
+
 Branch `cursor/proofs-gemm-defs-95d4` (over `cursor/proofs-tc-defs-95d4`). Types: `f32 = Value<32>`, `bf16 = Value<16>`,
 `e4m3 = Value<8>`, `e2m1 = Value<4>`, scale byte `= Value<8>`. All steps: `conformance="exact-model-tested"`, total on every encoding.
 

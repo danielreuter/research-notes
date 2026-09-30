@@ -8,6 +8,8 @@ repo: danielreuter/verity
 origin: cluster-build (bc-c2e4c12a), worker of the infra coordinator (bc-17cc41f1); takes over tools/cluster from bc-c3ade0aa
 ---
 
+CHECKPOINT e6a40782c (19:54Z) [open] 2a+2c at e6a40782 (#586): nebius2 adapter, shadow, agent; full-day replay reproduces leases+114 preemptions, windows ≤1 s, 0 safety; 13f402b2 test vs live gpu-lease passes; 75 cluster tests; next: shadow launch
+CHECKPOINT 42311e840 (19:25Z) [open] step 1 done 42311e84 (workstreams, ledger-only state, usage/v1, 2b, defaults; 55 pass); cutover approved 19:15Z; next: 2a adapter + replay
 CHECKPOINT 24ae54f35 (19:12Z) [open] started: read plan+design+replies, copied node-2 logs read-only; next: #586 step 1 (workstreams, ledger-only state, usage/v1, 2b, defaults)
 # cluster-build: the node-2 cutover's code (#586 follow-ups, the adapter, the agent, gpu-lease's agent mode) up to a shadow run ready to start
 
@@ -31,3 +33,21 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
   conflict is flagged to the steward, unresolved, in
   `note:20260930T1930Z-handoff-from-cluster-build-to-nebius-infra-steward-priority-order`.
   #586's description isn't edited: I have no pull-request tool, so the coordinator handoff carries it.
+- 19:45Z: steps 2a and 2c at `e6a40782`, and the run script at `d09ad49a`. Pieces:
+  - `nebius2`: the adapter. It reads locks from their holders' fdinfo, because `/proc/locks` hides gpu-lease's locks (their
+    `flock(1)` taker has exited).
+  - `shadow`: mirrors gpu-lease into the ledger, plans each tick, and records divergences. `replay` and `evaluate` (the pass
+    bar) live here.
+  - `agent`: shadow and live modes. Inside a window it reads only `status.txt`. It stops on an exception or on a plan that
+    breaks a rule.
+
+  The full-day replay reproduces every lease and all 114 preemptions, starts every window within 1 s, and has no safety
+  divergence (`art:7932c81a129e8a22a685aa9d679e1d2f72c22687fcfac12b949b3d0c3840ba53`). 13f402b2's waiter-versus-holder test
+  passes against the adapter and the live gpu-lease.
+- 19:58Z: **shadow started**, run `r20260930-195806-59f3`, 8 h:
+  `uv run research run --on vy-nebius-2 --project verity --source . --cwd source --no-sampler --timeout 30600 --custody-ttl 10h --campaign verity --declared-output 'out/*' -- bash tools/cluster/shadow-node2.sh 8`.
+  Outputs go live to `/workspace/pouw/infra/cluster/shadow/<run>/`. At the end the script copies them into
+  `$RESEARCH_RUN_DIR/out/`, which custody walks. Handoffs: `note:20260930T2002Z-handoff-from-cluster-build-shadow-running`
+  (node2-ops), `note:20260930T2004Z-handoff-from-cluster-build-step3-shadow-running` (infra) and
+  `note:20260930T2006Z-handoff-from-cluster-build-to-kueue-fold-executor-interface`. The brain goes on node 2.
+

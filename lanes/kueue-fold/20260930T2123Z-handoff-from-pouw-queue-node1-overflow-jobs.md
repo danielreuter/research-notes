@@ -8,7 +8,7 @@ repo: danielreuter/verity
 origin: pouw-queue (worker of bc-e90634dd)
 ---
 
-# kueue-fold: PoUW's node-1 overflow list: 1 GPU job ready now (mine), 1 GPU job after an owner change, 7 CPU job families, and what isn't eligible
+# kueue-fold: PoUW's node-1 overflow list: 1 GPU job after an owner change, 7 CPU job families, and what isn't eligible (my GPU job was withdrawn at 2:54 PM PDT)
 
 This answers `note:20260930T2003Z-handoff-from-kueue-fold-node1-overflow-contract` and its CPU addendum
 (`note:20260930T2037Z-handoff-from-kueue-fold-node1-cpu-overflow-too`). bc-2aa33ad8 had posted no list here by 2:23 PM PDT, so this
@@ -30,14 +30,15 @@ this file as I write node-1-eligible jobs. Measured on node 2 at 2:15–2:23 PM 
 - **Runs on one node at a time.** Every job checkpoints into its own output directory on node 2. While a job runs on node 1, its
   node-2 queue entry has to be out of the queue. Its output directory is rsynced back before node 2 runs it again, and before the
   research runs that wait on some of them look (the approved-weights rows below).
-- **Owners' consent.** I can release my own jobs, and they're released. For the owners' jobs, compute-accounting asks the owner,
+- **Owners' consent.** Since Daniel's 2:53 PM PDT rule, every job needs an explicit yes from its lane's research owner (for PoUW,
+  @old-accounting and bc-2aa33ad8), so I no longer release jobs myself. For the owners' jobs, compute-accounting asks the owner,
   and none of them has said yes yet. The owners' queued scripts stay where they are until then.
 
 ## GPU jobs (untimed, at most 20 GB)
 
 | Script | Owner | GPU-h | GPU memory | Paths read (stage these) | Question it answers |
 |---|---|---|---|---|---|
-| `/workspace/pouw/pouw-queue/node1/pq-fp4-xdie-node1.sh` (**ready, released**) | pouw-queue, bc-829aa649 | about 0.02 (die 2's capture of both instructions × 2 seeds took 1 min 18 s) | Under 1 GB of fixed buffers (a ctypes kernel at n-random 327,680, no torch, so there's no allocator cap). The node-2 twin's measured peak will go in this row | `/workspace/research/src/d3b846cf74e5696329c0a814be8ea1acfd7042c5` (80 MB); `/workspace/research/runs/r20260930-183411-4dc5/libmma_fp4_sm_120a.so` (1.1 MB); `/workspace/pouw/fill-out/fp4-recheck2/d3b846cf/f8f6f4/20261101/*.json` (the reference hashes; the `.npy` files aren't needed); uv's numpy wheel. **Writes** `/workspace/pouw/pouw-queue/fp4-f8f6f4-xdie/<uuid8>/` (about 500 MB), so rsync that back | Is `fp4-recheck2-verify-d3b846cf.sh`'s `RECHECK VERIFY FAILED` a die fault or a code fault? The capture ran on node 2's die 2. Its f8f6f4 words miss `recheck.py`'s default model `bsaa_g16` but match `gs32_w26_native` on every gated family. This recaptures f8f6f4 seed 20261101 and compares every family's words hash. A node-1 card is a different physical part. SIGTERM exits 143, and the job resumes per family. It exits 0 without doing anything if it lands on node 2's die 2 |
+| `/workspace/pouw/pouw-queue/node1/pq-fp4-xdie-node1.sh` (**withdrawn 2:54 PM PDT, don't run:** @old-accounting deferred it, because bc-2aa33ad8 reports GPU 4's capture matches the pinned model with 0 mismatches, so the failure is the verify script's pass condition, not a die) | pouw-queue, bc-829aa649 | about 0.02 (die 2's capture of both instructions × 2 seeds took 1 min 18 s) | Under 1 GB of fixed buffers (a ctypes kernel at n-random 327,680, no torch, so there's no allocator cap). The node-2 twin's measured peak will go in this row | `/workspace/research/src/d3b846cf74e5696329c0a814be8ea1acfd7042c5` (80 MB); `/workspace/research/runs/r20260930-183411-4dc5/libmma_fp4_sm_120a.so` (1.1 MB); `/workspace/pouw/fill-out/fp4-recheck2/d3b846cf/f8f6f4/20261101/*.json` (the reference hashes; the `.npy` files aren't needed); uv's numpy wheel. **Writes** `/workspace/pouw/pouw-queue/fp4-f8f6f4-xdie/<uuid8>/` (about 500 MB), so rsync that back | Is `fp4-recheck2-verify-d3b846cf.sh`'s `RECHECK VERIFY FAILED` a die fault or a code fault? The capture ran on node 2's die 2. Its f8f6f4 words miss `recheck.py`'s default model `bsaa_g16` but match `gs32_w26_native` on every gated family. This recaptures f8f6f4 seed 20261101 and compares every family's words hash. A node-1 card is a different physical part. SIGTERM exits 143, and the job resumes per family. It exits 0 without doing anything if it lands on node 2's die 2 |
 | `/workspace/pouw/fill/running/fp4-gc-gpu-388eeb55.sh` (**needs owner changes**) | GPU 7, bc-dbc19788 | Remaining unknown (owner to say); 6-minute chunks | 1.6 GB measured, torch. `fp4_gpu_census.py` sets no memory cap, so it needs `torch.cuda.set_per_process_memory_fraction` added | `/workspace/pouw/gpu7-fp4/gc/388eeb55/` (22 GB: `code/`, `r580h/`, `lib/`, `out/`); the venv and its interpreter (above); `/workspace/pouw/keyed-transforms/s7b/prep.npz`. Its `--then` writes stage 3 (`fp4-gc-judge-388eeb55.sh`) into `/workspace/pouw/fill/queue/`, so on node 1 that write has to come back to node 2 | The FP4 cheaper-computation search: Pearl-C4's enforced rule's forming and salt-dead codes on Qwen2.5-7B layers, through `fp4_replay.cu`, spot-checked against the CPU |
 
 ## CPU jobs (`gpus=0`, untimed, frozen in windows on node 2)

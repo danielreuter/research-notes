@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (21:36Z) [open] 2:36 PM PDT: #ask-daniel cards live at website cf47bbd (migration 014; infra's spec plus thread replies and a default cron), cursor/production-de55 moved, reply in lanes/infra/2135Z; utilization panels waiting on infra's numbers
 CHECKPOINT none (21:26Z) [open] 2:26 PM PDT: utilization panel (Daniel 2:06 PM PDT, due noon Oct 1): page side live at website 0db7592 (target line, stacked bars, Pacific ticks); four infra/* panels specced for infra (lanes/infra/2125Z); ask-daniel alignment in build
 CHECKPOINT none (21:01Z) [open] 2:01 PM PDT: infra's first live test approval ("does the #ask-daniel card render correctly?") was posted to Slack at 1:58 PM PDT and is pending Daniel's click; node-2 panels not published yet; ask-daniel alignment in build
 CHECKPOINT none (20:56Z) [open] 1:56 PM PDT: ask-daniel cards built to console's draft (f3ebb48), now being aligned to infra's spec (resolve, blocking/default, overdue) before migration 014 and the deploy; approvals live test still with infra
@@ -53,6 +54,13 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - Checked 19:15Z: production's "Sign in with GitHub" on `/approvals` redirects to GitHub's authorize page with
   `redirect_uri=https://website-docs-sage.vercel.app/api/auth/callback/github`, and GitHub accepts the client id.
 - Left: Daniel signs in once. That's the only check of the registered callback URL and the secret.
+
+## Deploy notes
+
+- The recipe is docs-site's handover §4. Run `git -C <repo root> archive <sha>`: run from `apps/docs`, it archives only that folder,
+  and Vercel then fails with "Root Directory apps/docs does not exist". Production is unaffected when that happens.
+- Branches: `cursor/slack-approvals-a491` (worktree `~/projects/website-console-a491`) is the production line;
+  `cursor/utilization-panels-a491` (`~/projects/website-console-a491-panels`) is merged into it.
 
 ## Backlog (held until infra says research jobs are settled on the shared infra; Daniel, 1:13 PM PDT)
 

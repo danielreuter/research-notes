@@ -52,6 +52,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-09-30 23:40Z alerts: `verity-build-vllm-epoch-run-cov-g084.sh` rc=1 is spurious. My 23:17Z runner restart adopted it; the runner requeued it (`adopted-exit`) after its run `r20260930-224925-efaf` had passed; the rerun found its item consumed (`ROW: unbound variable`). Told kueue-fold (`note:20260930T2340Z-handoff-from-node2-ops-g084-spurious-failure-rerun`). **Lesson:** restart the runner only when no Verity Build runs, until `n2_build.sh` reruns as a no-op. The live agent holds `agent.lock` since 23:21Z and grants fill leases. Watermark 23:27:17Z.
+
 - 2026-09-30 23:20Z **switch step 1 done:** deployed by the waiter at 23:17:43Z (4:17 PM PDT), after window 3: gpu-lease `49238797` and fill_runner `5e033072` together, with the runner loop respawned with `FILL_VERITY_LEND=0`. Jobs re-adopted, `fill.err` empty; rollback files `*.prev-20260930T2317Z`; marker `cluster/switch-deployed` written. No `agent.lock` yet, so the live agent is cluster-build's step 2. No alerts; watermark unchanged.
 
 - 2026-09-30 23:10Z hourly (22Z): GPU busy 89.4%, 100% useful, 0.72 GPU-h leased-idle (bc-2aa33ad8 0.31, bc-e6a46970 0.13) and 0.12 free-idle. CPU 40.1%, against T2's 60%: slots are the limit (29 CPU jobs queued, fill has 96–127 with 4 slots). Backup `r20260930-220532-8dc5` rc 0; `-2305` running.

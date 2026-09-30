@@ -1,8 +1,10 @@
 ---
 cursor:
   subagentId: "bc-75fd4007-9f21-5dd1-a0b2-c7e19b282622"
+status: open
 ---
 
+CHECKPOINT 0178e309a (21:30Z) [open] Watch 2:33 PM PDT: 29 Commit-ready + TP2 admitted on node 1; node 2 Builds auto-offload; data-movement answer written; T3 candidate to cluster-build. Acted on inbox: kueue-fold offload, node1-fill TP2.
 lane: vllm-epoch-run · kind: report · to: @circuits · created: 2026-09-30T21:22Z
 
 **Checkpoint:** 411 labelled: 82 pass, 26 fail, 303 unsupported. Node 1: 10 Builds running and 8 waiting in deployments-cpu. **29 Commit-ready waiting** in deployments-gpu, with 4 running (TP2's 2-GPU jobs are among them). Node 2: 6 Builds in flight (your cap is 6).

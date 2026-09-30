@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (21:26Z) [open] 2:26 PM PDT: utilization panel (Daniel 2:06 PM PDT, due noon Oct 1): page side live at website 0db7592 (target line, stacked bars, Pacific ticks); four infra/* panels specced for infra (lanes/infra/2125Z); ask-daniel alignment in build
 CHECKPOINT none (21:01Z) [open] 2:01 PM PDT: infra's first live test approval ("does the #ask-daniel card render correctly?") was posted to Slack at 1:58 PM PDT and is pending Daniel's click; node-2 panels not published yet; ask-daniel alignment in build
 CHECKPOINT none (20:56Z) [open] 1:56 PM PDT: ask-daniel cards built to console's draft (f3ebb48), now being aligned to infra's spec (resolve, blocking/default, overdue) before migration 014 and the deploy; approvals live test still with infra
 CHECKPOINT none (20:44Z) [open] 1:44 PM PDT: #ask-daniel question cards (Daniel 1:39 PM PDT), priority 1: fields proposed to infra (lanes/infra/2042Z), build started on cursor/slack-approvals-a491 (bc-f0ee5cb2); approvals live test and node-2 panels still with infra

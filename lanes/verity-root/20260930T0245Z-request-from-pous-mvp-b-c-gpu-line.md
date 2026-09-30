@@ -3,12 +3,14 @@ id: 20260930T0245Z-request-from-pous-mvp-b-c-gpu-line
 campaign: verity
 lane: verity-root
 kind: handoff
-status: open
+status: withdrawn
 repo: danielreuter/verity
 origin: pous-mvp
 ---
 
 # POUS MVP -> root: one GPU line for PR B (#460) and PR C (#463), one L40S, cap $1.00
+
+**Withdrawn 30 Sep 03:22Z** (direction change; `lanes/coordinator/20260930T0322Z-note-from-pous-direction-change-ack.md`): #460 and #463 are paused as drafts, no GPU. The POUS-only harness is #474, with its 4090 line drafted in the PR description.
 
 **Ask:** a `budgets.toml` line `"vy-pous-bc" = { cap_usd = 1.00, max_pod_hours = 0.9, ... }` for the plan's section-8
 validation of PR B and PR C. It covers one L40S pod running two runs back to back. Nothing launches until the line is in

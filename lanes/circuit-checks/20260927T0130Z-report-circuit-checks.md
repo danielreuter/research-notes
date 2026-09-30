@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT e6bb5ecd (01:30Z) [open] READY merge request #363 120cb679 (check not recorded: the train's check covers it); hunt stopped, vy-coord-cc363 terminated unused at 01:30Z (~$0.01); subscribed to #448 for the one-shared-tree preflight follow-up; agent bc-1122c760
 CHECKPOINT e6bb5ecd (01:29Z) [open] WAITING pod stock for vy-coord-cc363 (CI pool line; hunt every 3 min until ~02:25Z) to record check on #363 120cb679 (main 62ce91fa merged, base now main); then its merge request; #448 follow-up (one shared tree in its preflight) after #448 lands; agent bc-1122c760
 CHECKPOINT e6bb5ecd (10:26Z) [open] READY merge request #400 7b8602c6 (circuit-check cache: no raised results, worker-view digests must match, no outside-tree imports; T11's poisoned entry recorded the intact tree's bench/ listing); no pods; agent bc-1122c760
 CHECKPOINT e6bb5ecd (08:41Z) [open] READY merge requests #356 e6bb5ecd, #357 d15b8cff, #382 218ca566 (all on main 180f8771); #382 check r20260929-072819-16f8 passed on d3ed3619, 16/16 sets 559/559 on EPYC 7713P (no AVX-512); pod weiz3xjjct3bq3 terminated 08:36Z, ~$1.02 of $1.50; agent bc-1122c760

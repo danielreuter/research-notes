@@ -1675,6 +1675,18 @@ Verdicts only. The findings are in the store's `private/`.
   - Answers: `lanes/consolidation/20260930T1440Z-reply-from-red-team-flock-3-250-granted.md`, and RC's
     `lanes/coordinator/20260930T1440Z-reply-from-red-team-flock-3-250-granted.md`, with store copies. Evidence:
     `private/red-team-reviews/pr250-evidence.log`.
+- **#560 @ `4088b8cb` (`ZK/Session.lean`, the session statements approved at `d6a03d50`): GRANTED in both roles; labels
+  recorded.**
+  - The five signatures are identical to the approved ones, except N1, which drops `[Fintype K] [DecidableEq K]` from
+    `session_prefinal_indep`. N2 is a docstring. The proofs have 0 `sorry`, and one helper, `prCoin_pi_close_aux`, isn't
+    pinned.
+  - The records add five pins, each with empty `assumptions`, and three definitions. Nothing existing moves.
+  - The audit passes, recorded (`r20260930-142548-e225`) and in my own kernel-replay run: 192 pins, standard axioms.
+  - Merge: `main` hasn't touched the Lean packages or `tools/lean/` since `48b8452d`, and the trial merge onto
+    `be3149a1` is clean. `Rules.needs` is `statement-reviewer` and `red-team`.
+  - Answer: `lanes/lean-zk-table/20260930T1455Z-reply-from-red-team-flock-3-560-granted.md`. RC was told in
+    `lanes/coordinator/20260930T1455Z-reply-from-red-team-flock-3-560-granted.md`. Both have store copies. Evidence:
+    `private/red-team-reviews/pr560-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

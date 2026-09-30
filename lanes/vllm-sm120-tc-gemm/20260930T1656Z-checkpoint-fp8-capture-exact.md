@@ -1,0 +1,1 @@
+20260930T1656Z: FP8 CUTLASS capture exact (Kueue 273 r20260930-164401-c04d, check r20260930-164854-5f2c): CutlassFp8BlockScaledMMKernel selected; Fp8GroupQuant_v1 8,669/8,669 rows; blockwise GEMM with the sm_120 e4m3 step + FFMA 119,016/119,016 (Hopper step 111,401); next the ScaledMmFp8Block_v2{DOT} PR on #565, then the pin workloads and the 7 FP8 deployments.

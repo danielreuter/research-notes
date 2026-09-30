@@ -2,9 +2,10 @@
 lane: vllm-sm120-tc-gemm
 kind: report
 created: 2026-09-30T02:48Z
-status: open
+status: final
 ---
 
+CHECKPOINT 1005435c (08:17Z) [final] 08:19Z FINAL for this pass. Done: (2) PINNED e4m3 dossier art:b3074aba (clock 2,100 MHz + driver 580.173.02 recorded), e5m2 HYPOTHESIS art:164a66c8 (P1: default anchor 5090); (1) #501 gemv exact 14/14; (3) #502 registry+target+census; #487 ready (constants only); #483 head 7cea7a99 (by-name fix). Full quick vLLM suite: #483 r20260930-075229-cb5f, #501 -075224-1fc7 vs base -075234-32cf: no head-only failures. Open for coordinator: #483 grant, #502 census line (1 PFLOPS dense; Table 2 draft row), e5m2 pin, (4) needs a recorded sm_120 fold tree. No pods, nothing running.
 CHECKPOINT 29f691be (07:56Z) [open] 07:56Z root: CPUs 128-191 reserved for pinned Build/M0 benchmarks; direct tests only in check slots a (flock check-a.lock, 32-63) / b (check-b.lock, 64-95). Re-pinned live (taskset -a -cp, whole pgid; run r20260930-075532-8007): #483 rerun -075229-cb5f -> 32-63, base -075234-32cf -> 64-95; #501 -075224-1fc7 stays 112-127. lease.sh tests expected failing in base until #504. WAIT, timer ~08:08Z.
 CHECKPOINT 29f691be (07:52Z) [open] 07:53Z acted on nebius-infra 07:32Z note: stopped my 6 direct vLLM suite runs (they opened CUDA on a Kueue GPU; cancel r20260930-075045-8a41); reran with CUDA_VISIBLE_DEVICES= + taskset 112-159, slow tp2-moe build test deselected (unverified in gate, train check runs it): #501 r20260930-075224-1fc7, #483 -075229-cb5f, base -075234-32cf. WAIT.
 CHECKPOINT 29f691be (07:39Z) [open] 07:40Z WAIT: full quick vLLM suites (xdist) on vy-nebius-1: #501 r20260930-073232-0864, #483 r20260930-073237-888b, base r20260930-073242-ac55 (serial dupes -0701xx still running). Timer 07:50Z. GitHub auth recovered.

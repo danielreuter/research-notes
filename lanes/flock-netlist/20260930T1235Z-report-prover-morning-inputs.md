@@ -10,6 +10,7 @@ cursor:
   subagentId: "bc-ff572e70-b0e7-5094-85be-13ff9ddc4d6a"
 ---
 
+CHECKPOINT 8a0b1725 (23:34Z) [open] Answered the 23:00Z overhead-formula question in internal/lanes/proofs/20260930T2055Z-handoff-from-flock-netlist-m0-state.md: M0's denominator is a measured GPU cuBLAS bf16 rate (prefill model 163 TFLOP/s, 256-row shapes 214-220), not vCPU; prover s per VU 9.52e-5 (K=2048) and 7.34e-4 (K=8192) at #20. #22 still waiting on Kueue (23 queued).
 CHECKPOINT 5280f40c (20:51Z) [open] Proof remit now with @proofs (bc-8416bc72). #21 r20260930-193420-6cfd labelled (zerocheck at 2 blocks an SM: slower, reverted). #22 (pinned compression rows + Ligerito L0 OOD eq halves, control FC_ROWS_PINNED=0 FC_LIG_EQ_FULL=1) is waiting on Kueue (22 queued); no new work taken. State handoff: internal/lanes/proofs/20260930T2055Z-handoff-from-flock-netlist-m0-state.md.
 CHECKPOINT a4256be0 (19:30Z) [open] flock-m0-v3 #20 r20260930-184956-61fe: prefill 4.80e6, decode 1.05e5 x native (GPU 2, gate pass), level with #19 across runs; its same-job control (fc_sha_rows reading the tape directly) gave 4.89e6 / 1.07e5. #21 next: the zerocheck's second-round and tail kernels at two blocks an SM (FC_ZT_LB2).
 CHECKPOINT 18d37423 (18:47Z) [open] flock-m0-v3 #19 r20260930-181717-b71e: prefill 4.82e6, decode 1.04e5 x native (GPU 2, gate pass), from #18's 5.19e6 / 1.14e5: rep 0's witness kept inside the arena (the zerocheck's buffers, its peak, are freed first), so rep 1 reuses it at the tile's m=35 too; now the default. GitHub push auth still failing: unpushed commits bundled on request.

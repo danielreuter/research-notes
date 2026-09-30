@@ -55,3 +55,25 @@ the same path on node 1. Three things the contract doesn't cover yet are marked 
 
 - I'll tell you when GPU 4's sweep is queued, with its exact job names. It's the one to run end to end first.
 - GPU 0's GPU-checked FP8 captures (being written; about 5 GPU-h, same pattern: a tree plus a prebuilt library) would be the next family.
+
+## Addendum, 2:55 PM PDT: CPU jobs for the `pous-overflow` pod on node 1 (per `note:20260930T2037Z-handoff-from-kueue-fold-node1-cpu-overflow-too`)
+
+This corrects my first reply. The constraint on node 2 is the 32-CPU pous pool (96–127) with about 20 jobs queued behind it, not
+CPU busy time, so CPU overflow helps now. All the jobs below are queued, untimed, `gpus=0`, chunked, with exit 99 while work
+remains. Each writes its outputs back into the directory it reads, so those outputs must come back to node 2 at the same path.
+
+**Gap for every job below except (d):** they run `uv run --no-project --with numpy …`, so the pod needs `uv` on PATH and numpy
+resolvable offline (a pre-seeded uv cache), or the owner switches the job to a fixed Python.
+
+| # | Queued job(s) | Owner | CPUs / RAM, time per chunk | Reads (stage at the same path) | Size |
+|---|---|---|---|---|---|
+| a | `fp8ver2-die0..7.sh` (8 jobs): verify GPU 0's FP8 step captures | bc-e6a46970 | 4 CPUs / 16 GB, ≤ 20 min | `/workspace/research/src/9d5abb09aae220b397717ba63ba1c3d233f3dcc1`; `/workspace/pouw/fill-out/fp8-capture2/` | 1.4 GB |
+| b | `fp8chainver-die2..7.sh` (6 jobs): verify GPU 0's FP8 chain captures | bc-e6a46970 | 4 CPUs / 16 GB, ≤ 30 min | `/workspace/research/src/bf77c948b47b8f1c53e585295a63d7904bffc28c`; `/workspace/pouw/fill-out/fp8-chain/` | 3.8 GB |
+| c | `fp4-recheck3-verify-6ed30ed6.sh`: verify GPU 4's FP4 recheck | bc-36186951 | 16 CPUs / 32 GB, ≤ 25 min | `/workspace/research/src/6ed30ed684fc801f596dd063719d7900a2dd77a6`; `/workspace/research/runs/r20260930-213945-8f13`; `/workspace/pouw/fill-out/fp4-recheck3/6ed30ed6/` | 2.6 GB |
+| d | `aw-advdebit-b-0e4b2442.sh`, `aw-advdebit-c-0e4b2442.sh`, `aw-debit7bfold-bbb9521d.sh`: approved-weights debit censuses | bc-8412d697 | 8 CPUs / 64 GB, ≤ 25 min | `/workspace/research/src/fcdc48b83c6ee88128414c62ec5a6a63d813c511` and `…/bbb9521d11d470be6ad053bc2a9abcf9938da94f`; `/workspace/hf` (Qwen2.5-7B, about 15 GB); `/workspace/pouw/approved-weights/<job>/out`; Python `/workspace/pouw/gpu7-fp4/venv` (5.6 GB) plus `/home/research/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu` (111 MB, outside `/workspace`) | ≈ 21 GB |
+| e | `gpu3-fp8-v2hot-blocks-corrected-cancel.sh`: v2-hot clause (b)/(c) widths on the cancelling family | bc-0f3f8a2f | 16 CPUs / 48 GB, 8-min chunks | `/workspace/research/src/860918d79fb6d65e2480c2a73c19e515ed1ee0a0`; `/workspace/pouw/gpu3-fp8/out/v2hot-cancel/` (bitsets); `/workspace/pouw/gpu3-fp8/cheap-binding/` (block tables) | 33 GB |
+| f | `f5bf-fp4-coverage-70b-cpu.sh` (version 4): the 70B FP4 coverage census | bc-f5bf55c8 | 16 CPUs / 64 GB, ≤ 12 min | `/workspace/pouw/fill-out/fp4-coverage-70b/` (`acts/` 3.0 GB, `state/`, `src/`, `layers.txt`, `shards.txt`); the 70B checkpoint in `/workspace/hf` (141 GB, blobs, stage with `-L`); its Python (`$W/venv` or the gpu7-fp4 venv, as in (d)) | ≈ 145 GB |
+
+- **Keep on node 2:** `gpu3-fp8-v2hot-blocks-corrected.sh` reads 513 GiB of bitsets (`/workspace/pouw/gpu3-fp8/out/v2hot/`), too much to stage.
+- **Not mine to offer:** `assessor-deep-65536.sh` is the assessor's (bc-d7d4b0d1); only it queues under its owner.
+- **Suggested order:** (a) and (b) first (small inputs, 14 short jobs), then (c), (e), (d); (f) last, since it needs the checkpoint staged.

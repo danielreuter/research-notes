@@ -1,0 +1,63 @@
+# A port-lane capture on the Nebius cluster (the sm_120 GEMM correspondence, the FA2 capture, the e4m3 step probe, the 188-SM
+# kernels): queue circuits, priority circuits. It runs no Build, so it doesn't block a prover bench.
+#
+#   sky jobs launch -n capture-<what> tools/research/src/research/pods/nebius/sky/jobs/port-capture.yaml \
+#     --env CMD='python -m tc_probe ...' --secret R2_ENDPOINT --secret R2_BUCKET --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY
+#
+# Resources: one GPU (a TP2 capture: --gpus RTXPRO6000:2), and the small-dense class's host peak, 94-188 GB, since a capture
+# serves a model without a Build. No capture has a recorded peak on the PRO 6000 yet: take the first run's peak from its Attempt's
+# telemetry and lower --memory.
+# The job runs from the tree at $SRC on the host's /workspace (no upload): ship it first with
+#   research pods sync vy-nebius-1 --dest /workspace/research/checkout   (or your own --dest, and --env SRC=...)
+name: port-capture-attn
+
+resources:
+  infra: ssh/vy-nebius
+  accelerators: RTXPRO6000:1
+  cpus: 16
+  labels:
+    budget-line: nebius-port-capture
+  memory: 192
+
+envs:
+  SRC: /workspace/research/checkout
+  OMP_NUM_THREADS: "16"     # SkyPilot's runner sets 1; match resources.cpus (--cpus overrides need --env OMP_NUM_THREADS too)
+  CMD: null
+  CAMPAIGN: vllm-sm120-port
+  HF_HOME: /workspace/hf
+  HF_HUB_OFFLINE: "1"
+  RESEARCH_RUNS: /workspace/jobs/runs
+  UV_CACHE_DIR: /workspace/jobs/cache/uv
+  UV_PYTHON_INSTALL_DIR: /workspace/jobs/cache/python
+
+secrets:
+  R2_ENDPOINT: null
+  R2_BUCKET: null
+  AWS_ACCESS_KEY_ID: null
+  AWS_SECRET_ACCESS_KEY: null
+
+setup: |
+  set -euo pipefail
+  [ -x /workspace/jobs/bin/uv ] || curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/workspace/jobs/bin UV_NO_MODIFY_PATH=1 sh
+  # the lane override: the pinned venv /workspace/jobs/venv312 exists (a job cannot write the synced tree, so no pod_bootstrap here)
+  /workspace/jobs/venv312/bin/python -c "import vllm; assert 'd9105ea80' in vllm.__version__, vllm.__version__; print(vllm.__version__)"
+
+run: |
+  set -euo pipefail
+  cd "$SRC"
+  PYTHONPATH=$SRC/tools/research/src /workspace/jobs/bin/uv run --no-project --python 3.12 python -m research run --campaign "$CAMPAIGN" -- bash -c "cd \"$SRC\" && $CMD"
+
+config:
+  ssh:
+    provision_timeout: -1
+    pod_config:
+      metadata:
+        labels:
+          kueue.x-k8s.io/queue-name: circuits
+          kueue.x-k8s.io/priority-class: circuits
+      spec:
+        containers:
+        - volumeMounts:
+          - {name: workspace, mountPath: /workspace}
+        volumes:
+        - {name: workspace, hostPath: {path: /workspace, type: Directory}}

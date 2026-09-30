@@ -2,9 +2,10 @@
 lane: vllm-sm120-attention
 kind: report
 created: 2026-09-30T02:53Z
-status: open
+status: final
 ---
 
+CHECKPOINT 70a4504e (08:36Z) [final] FINAL: #477 and #486 merge-ready (FA2 on sm_120: Attention_v2 on finite heads; Attention_v5 exact on every head); NVFP4 on sm_120 = match (art:3bc1b2c4); pods vy-sm120-attention-1/-2 terminated (03:38Z, 07:01Z), ~$8.00 RunPod + ~15 GPU-min Kueue
 CHECKPOINT 70a4504e (08:13Z) [open] NVFP4 capture: job 56 ran but every load failed (vLLM sampler warmup JIT-builds FlashInfer top_k and ninja is not on PATH) and the probe path was one level short; fixed (VLLM_USE_FLASHINFER_SAMPLER=0 as the integration's env, venv bin on PATH, parents[4]); resubmitted as job 81 nvfp4-capture-attn-3. check after 08:30Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6
 CHECKPOINT 70a4504e (07:56Z) [open] NVFP4 capture: job 35 FAILED_SETUP (pod_bootstrap can't write the research-owned synced tree as uid 1000); resubmitted as job 56 nvfp4-capture-attn-2 with a setup-only override (untracked port-capture-attn.yaml); handoff 20260930T0756Z. check after 08:12Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6
 CHECKPOINT 70a4504e (07:38Z) [open] NVFP4 capture: Kueue job 35 pod vanished in SETTING_UP after ~5.5 min (pod not found -> SkyPilot 'preempted', RECOVERING, recovery 1); re-checking at 07:48Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6
@@ -54,3 +55,41 @@ CHECKPOINT d993873f (02:53Z) [open] source read of vLLM d9105ea8 + vllm-flash-at
 - **Bench template:** `backends/numerical` `ATTN_SEMANTICS` has no "FA2 on the Hopper step" entry (it would name H100 forced-FA2 and sm_120 FA2 VU sets).
 - **VU export:** `vu_export` exports no `Attention_v4` / `Attention_v5` VUs.
 - **Tooling:** `research pods ssh|run` refuse a `provider = "ssh"` machines.d entry (vy-nebius-1).
+
+## FINAL
+
+~~~text
+tip: cursor/vllm-sm120-fa2-check-inf-0ec6 @ 70a4504e (base cursor/vllm-sm120-attention-0ec6 @ 4975dc66, on cursor/vllm-sm120-target-422d @ f740c1d5)   merge-with: #465 -> #477 -> #486
+known-failures: gate (b) base's 37 failed / 16 errors, none new on either head    pod: vy-sm120-attention-1 terminated 03:38Z, vy-sm120-attention-2 terminated 07:01Z; ~$8.00 RunPod (+ ~15 GPU-min on vy-nebius-1 Kueue)
+artifacts: art:d342a748 art:7bc06ae3 art:592bc0ae art:97c2dbcf art:a175e2b2 art:a5c0e8e5 art:00ff2fa3 art:0006ccaf art:0f9bf31a art:7f6c0964 art:1b03bd9b art:5b51253d art:3bc1b2c4
+~~~
+
+**PRs:**
+- **#477** (merge-ready, handoff `20260930T0547Z`): FA2 on sm_120 binds the Hopper-step `Attention_v2`; the `_profile` fallback; the capture tool.
+- **#486** (merge-ready, handoff `20260930T0702Z`): FA2's per-iteration `Check_inf` as `Attention_v5`. It's exact on every head, non-finite rows included, with the partition invariants and circuit-check passing.
+
+**Stretch, NVFP4 on sm_120:** match (finding `20260930T0835Z-finding-nvfp4-kernel-sm120.md`, `art:3bc1b2c4`; copy in `lanes/pous/20260930T0835Z-handoff-from-vllm-sm120-attention.md`). vLLM's `CutlassNvFp4LinearKernel` runs `OMMA.SF.16864.F32.E2M1.E2M1.UE4M3.4X`, the pinned `sm120.mma.m16n8k64.e2m1.nvf4`.
+
+**Handoffs received, all acted on:**
+- `20260930T0240Z-note-from-vllm-coordinator-budget-line-live`
+- `20260930T0253Z-note-from-vllm-coordinator-sweep-target`
+- `20260930T0314Z-note-from-vllm-coordinator-465-fa2-items`
+- `20260930T0359Z-decision-from-vllm-coordinator-fa2-inf-guard`
+- `20260930T0547Z-note-from-vllm-coordinator-vy-nebius-1-ready`
+- `20260930T0605Z-note-from-vllm-coordinator-kueue-on-vy-nebius-1`
+- `20260930T0617Z-note-from-vllm-coordinator-nvfp4-capture-reassigned`
+- `20260930T0626Z-note-from-vllm-coordinator-terminate-pod-after-486-gate`
+
+**Handoffs sent (lanes/vllm-coordinator):**
+- `0438Z`: `v4` can't be reused.
+- `0547Z`: #477 merge-ready.
+- `0702Z`: #486 merge-ready.
+- `0756Z`: `port-capture` setup failure.
+- `0835Z`: NVFP4 verdict and the custody gap.
+
+**Found, not fixed:**
+- The attention chains' `_v1` FMA NaN is `0x7FC00000`, where the GPU writes `0x7FFFFFFF`.
+- `vu_export` has no `Attention_v4` / `v5`.
+- `ATTN_SEMANTICS` has no FA2-on-Hopper-step entry.
+- `port-capture`'s setup can't write a synced tree, and its in-container attempts aren't published to the store.
+- `research data label` has no `custody` key, though notes sync suggests one.

@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (19:43Z) [open] docs-site handover received (1935Z): console owns the remit and prod deploys; verity-panels closed (key on pod + vy-nebius-1, 19 panels live); rewrite deferred by Daniel; Slack approval buttons (infra 1935Z, Daniel go 19:33Z) building on cursor/slack-approvals-a491
 CHECKPOINT none (19:31Z) [open] Daniel 19:27Z: yes to all six site-store defaults; RC asked for Verity steps 1-2 (lanes/coordinator/1930Z); rewrite ask now leads with clone size before/after, freeze length, PRs to remap (242 MiB packed, 139 open PRs); site pages staffed after docs-site's handover
 CHECKPOINT none (19:26Z) [open] deploys: docs-site until its handover lands, then console (top-level 19:22Z; lanes/docs-site/1925Z); five doc copies received in Project store private/console/; rewrite-window facts asked of fixture-process (lanes/coordinator/1925Z); Daniel's batch sent via top-level
 CHECKPOINT none (19:22Z) [open] docs-site replied 19:15Z (to the old split note): live console, prod checklist done, keys verity-panels (bc-94d0b126) and pous-panels already granted and publishing, so no new panels:write request filed; subscribed #agent-coordination (no SLACK_BOT_TOKEN on this VM); handover still due 20:15Z

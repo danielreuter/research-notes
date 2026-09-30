@@ -56,6 +56,9 @@ fi
 - Credentials come from the cloud environment: `RUNPOD_API_KEY`, `RUNPOD_SSH_KEY_B64`, `R2_*`, `AWS_*`,
   `RESEARCH_NOTES_TOKEN`. The CLI and git read them directly. Never print them, never put them in argv, and **never copy
   them to a pod**. Pods get only what `research run` gives them.
+- **To see which variables are set, list names only:** `compgen -e`, or `compgen -e | rg NAME`. Never use `env`, `printenv`,
+  `set`, or `env | cut -d= -f1`. Multi-line values such as `NEBIUS_SA_PRIVATE_KEY` put key lines on lines of their own, which
+  `cut` passes through. That happened at least three times on 30 Sep (two worker terminals, and accounting-merge's session log).
 
 ## 2. Notes: how you read and write them
 

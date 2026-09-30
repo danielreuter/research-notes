@@ -5,6 +5,7 @@ created: 2026-09-30T07:29Z
 status: open
 ---
 
+CHECKPOINT 48b8452d (12:54Z) [open] #519 48b8452d on origin (root pushed); WAITING red-team-flock-3 re-grant at 48b8452d, then RC stacks it on the next free slot
 CHECKPOINT 48b8452d (12:50Z) [open] #519 @48b8452d on TLP: audit r20260930-123826-8340 PASS (187 pins) labelled; bundle artifacts/cursor-lean-zk-table-b379-48b8452d.bundle for root; WAITING red-team re-grant at 48b8452d
 CHECKPOINT 48b8452d (12:38Z) [open] #519 head 48b8452d (merged #526 04b94af7 + main 1c10b00c; --update rewrote nothing, 187 pins PASS): bundle artifacts/cursor-lean-zk-table-b379-48b8452d.bundle for root to push; recorded audit running; re-grant request next
 CHECKPOINT 48b8452d (12:26Z) [open] #519: merged #526 04b94af7 (Assumptions.lean conflict resolved: both sides' defs kept) and main 1c10b00c -> 48b8452d (local; push by bundle after re-record); --update running on vy-nebius-1

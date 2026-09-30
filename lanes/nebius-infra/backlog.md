@@ -21,7 +21,7 @@ through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coor
 | 2 Coverage | **pipeline + merges**, not ideas | The sweep started at 06:10Z with 0 cells. `config-run` holds 1 GPU for a 5–11 h row whose Build is CPU. `circuits` fits only 2 rows at 512 GB each. FA2, MoE and FP8 cells wait on #477/#486/#481/#469/#487. | Route: split the template, memory per class, replay on node 2's CPU (below). |
 | 3 Prover | **theory** after tiles | M0 is one agent; tiles, then row 2, and nothing is designed after that. Its direct run ended at 06:13Z and it waits on the cutover. | Launched `flock-v2-design` (bc-37a1971b): the next overhead lever, decode shapes first. |
 | 4 Security | agents (Lean) | Doesn't fill the server's GPUs. Lean builds and audits could use spare CPU. | Offer only: `lake build` or audits on node 1 CPUs 0–95. |
-| Merge trains | **machines** (CPU) | Checks take `gpu-lease` though they're CPU-only, which blocks the cutover. | CPUs 128–191 for checks (two 32-vCPU slots), no `gpu-lease`. Sent to RC 06:27Z. |
+| Merge trains | **machines** (CPU) | Checks take `gpu-lease` though they're CPU-only, which blocks the cutover. | CPUs 0–63 for checks (two 32-vCPU slots, agreed with train-speedup 06:49Z), no `gpu-lease`. |
 
 ## Ready fills
 
@@ -43,9 +43,9 @@ through the owning lane: the research coordinator (bc-8ece7cde) or the vLLM coor
 4. **[M0] Provers queue from cutover.**
    - `prover-bench` runs for the `flock-m0-v1` line, and `flock-v2-design`'s prototypes, on GPUs 4–7.
 5. **[Build owner] Parallel attempts.**
-   - Each attempt is pinned at 32 vCPU (for example 0–31, 32–63, 64–95), labelled `ov.noisy=true` outside the quiet hour.
+   - The node-1 CPU map gives Build benches 96–127 (build-v2-kv) and 128–159 (the owner), plus a spare slot at 160–191, each pinned at 32 vCPU and labelled `ov.noisy=true` outside the quiet hour.
 6. **[research coordinator] More check slots if trains queue.**
-   - CPUs 0–95 are free today. Ask here.
+   - 64–95 is next after the two check slots on 0–63. Ask here.
 
 ## Launched theory lanes
 

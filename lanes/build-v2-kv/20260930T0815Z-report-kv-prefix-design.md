@@ -3,11 +3,12 @@ id: 20260930T0815Z-report-kv-prefix-design
 campaign: overnight-sep30
 lane: build-v2-kv
 kind: report
-status: open
+status: blocked
 repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
 
+CHECKPOINT 872be0366 (18:26Z) [blocked] on the vllm-coordinator grant for #517 at 872be036 (asked 16:15Z; routed via coordinator 18:26Z, note:20260930T1826Z-handoff-from-build-v2-kv-517-grant-routing). Head merges cleanly onto main d079ac2c, lint passes. #587 admitted.
 CHECKPOINT 872be0366 (17:24Z) [open] #517 still waiting for the vllm-coordinator grant at 872be036 (asked 16:15Z; merges cleanly on main b1134766). Fixed research queue failing on a rotated token in its clone's URL: PR #587, admitted. next: nudge via coordinator if no grant by ~18:20Z
 CHECKPOINT 872be0366 (16:11Z) [open] #517: main 6a815cc7 merged again (attention.py conflict, both kept) -> 872be036; lint + 1716 vllm + 306 core pass; research queue ready 517 at 872be036; waiting only on vllm-coordinator grant (note:20260930T1615Z-handoff-from-build-v2-kv-grant-517)
 CHECKPOINT a309b142f (15:04Z) [open] attempt 2 r20260930-143337-636d: 1k row gate pass vs b150, 1537 vs 3099 s wall, 6.39 vs 11.96 GiB; 55 labels. PR #517 updated; merge request note:20260930T1436Z-merge-request-build-v2-kv-517 waiting on the coordinator's train. CPUs 96-127 idle; next: answer train results

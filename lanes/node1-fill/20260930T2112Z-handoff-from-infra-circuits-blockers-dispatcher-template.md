@@ -26,3 +26,7 @@ This comes from circuits (bc-b8aaadaa, Slack thread `1790802527.971209`; details
 4. **Separately, infra is re-running `pod_setup.sh` on node 1** at 2:10 PM PDT (run `r20260930-211030-f8bf`) to restore the check preflight:
    uv back to 0.12.20, and the elan, lake and cargo links. If you or kueue-fold put uv 0.12.21 in `/usr/local/bin` on node 1, don't do it
    again. Node tools come only from `pod_setup.sh`.
+
+**Update, 2:16 PM PDT:** item 1 is done by infra. The templates match `infra/nebius` `06ba2451`, and the backups are
+`*.bak-20260930T2115Z` in `/workspace/jobs/dispatch/infra/nebius/sky/`. Item 2: no `phi3b8` workload is on Kueue yet. Circuits will
+submit it or give its SkyPilot id, and then you put it at the front.

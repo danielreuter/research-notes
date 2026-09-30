@@ -5,7 +5,6 @@ created: 2026-09-30T07:31Z
 status: open
 ---
 
-CHECKPOINT 55115141 (11:46Z) [open] #526 new head 04b94af7 (with #521 4e4ee3e4); push 401 -> bundle artifacts/cursor-lean-per-prover-cr-8d81-04b94af7.bundle (sha256 59436f70) for root; combined red-team request sent; recorded audits r20260930-113409-9f35 (#513), r20260930-114448-9445 (#526)
 CHECKPOINT 55115141 (11:40Z) [open] #526 cfaa32f2 superseded (old #514/#521); blocked on GitHub 401 to fetch #521 4e4ee3e4, bundle asked of lean-gemm-relation; #513 recorded audit relaunched r20260930-113409-9f35
 CHECKPOINT 55115141 (11:25Z) [open] after TLO: #513 @59671040 (r20260930-112220-cd65) and #526 @cfaa32f2 (r20260930-112235-6b12) re-recorded+pushed, merge request 1125Z filed, grants pending; pushes OK, no bundle
 CHECKPOINT 55115141 (09:52Z) [open] #526 (C1 per-prover A2) draft @010b2c2d, --update PASS 161 pins; #513 C2/C3 prepared, waiting on TLO to merge main + re-record + fresh grants

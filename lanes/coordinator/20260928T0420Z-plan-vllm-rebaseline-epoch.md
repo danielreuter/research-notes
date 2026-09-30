@@ -239,3 +239,9 @@ The estimates use this epoch's measured stages: Builds of 3–4 h; the Match 0.5
 **Carry (2026-09-29T21:24Z):** #70 and #75 (TP2 MoE) FAIL at the fold Match even with #348's complete manifests; to diagnose from their stored captures. #70 is written as FAIL reproduced (`program_digest` forced); #75 resumes at 1 pair, and if it passes, it goes to Daniel.
 **Carry (2026-09-29T22:26Z):** resuming a row from a stored Build. #75's resume failed its strict word check because the Commit's rebuild overwrote the Build's `manifest.log` before the store. #68's resume Commit ended NOT_RUN with no stage logs. Fix both, then add a CPU test that a resumed row reaches the Commit. #67, #68 and #75 are deferred; #11 and #39 would use the same resume.
 **Carry (2026-09-30T02:47Z):** #57 is deferred: its Build passes after #415, but the call-boundaries gate finds 244,648 of 251,400 Gemma-2 `add_*` boundaries uncovered (`model.layers.0.input_layernorm/add_263/out`). Also carried: the canary and `known_roots.json` re-pin after the epoch's rows merge, and `canary.sh`'s PYTHONPATH and venv layout.
+
+## 20260930T0522Z update: FP4 stretch (root 05:21Z)
+- (1) Extend `_PIN_FP4` to the PRO 6000 (tc-gemm, or POUS `vy-pouw-rtxpro-fp4cap-1` evidence as labels); needs #478 on main, and #478 conflicts now.
+- (2) Which kernel vLLM NVFP4 launches on sm_120: fp8-ckpt, copied to POUS.
+- (3) Definition and binding only if (2) matches. Lower priority than BF16/FP8 breadth.
+- Still to do: red-team brief, `docs/semantic-assumptions.md` (published to research-notes `lanes/nebius-infra/`), the coverage-table renderer.

@@ -89,7 +89,8 @@ resource, what was deleted, what waits on an owner, and trends (from each node's
 - `tools/research/src/research/pods/nebius/resource_probe.py` on `infra/nebius` (`233f451f2`, then `7bcf2fc5f`: inode growth
   is measured against a base reading at least 15 min old), with its test `tools/research/tests/test_nebius_resource_probe.py`
   (12 tests).
-- Deployed at `~/resource-steward/bin/resource_probe.py` on both nodes (sha256 `b908444d…`, 22:09Z), by install and rename.
+- Deployed at `~/resource-steward/bin/resource_probe.py` on both nodes (sha256 `765bc846…`, `infra/nebius` `542169a73`, 22:33Z), by
+  install and rename.
 - The tick is `lanes/resource-steward/tools/tick.sh`: the probe on both nodes (node 2 skipped in a timed window), plus new
   resource `*alert*` notes. It exits 1 only for a new kind of breach, a HARD stop, a failed probe or a new alert note; a known
   breach prints as `known:` and exits 0. `tools/bootstrap.sh` restores the agent VM after a reset (no secrets).
@@ -144,3 +145,8 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
   - node 1: GPUs 0, 2 and 4 hold 48–52 GiB at 0% for 15 min+ (`nd-vllm-epoch-run-*-gpu-0` in `deployments-gpu`),
     already flagged by `pool_n1`'s `gpu-idle-in-lease`, so the steward doesn't re-alert them.
   No Slack post.
+- 22:20–22:33Z (3:20–3:33 PM PDT) tick: the agent VM had been reset, and `tools/bootstrap.sh` restored it. A false idle
+  on node 1's GPU 0: DCGM's 15-min window spanned a pod handover (the new pod started 22:16Z). Fixed in the probe
+  (`a38ac68a2` + `542169a73`): on node 1 a GPU is idle only when one pod held it for the whole window, and GPUs that
+  `pool_n1` already flags idle-in-lease are recorded in `idle_gpus_pool_flagged` rather than re-alerted. Known: node 2's
+  13 runs without custody (with node2-ops). No deletions, no Slack post.

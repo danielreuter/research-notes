@@ -53,6 +53,30 @@ writes the owner file.
   subscribed to #agent-coordination and #agent-alerts. Slack onboarding notes sent to coordinator, vllm-coordinator, pous and
   console.
 
+## Priority 1 settled: the criteria (infra decides; set 20:20Z)
+
+Priority 1 is settled when all eight of these hold for 24 h in a row. Infra then tells verity-top, and priority 2 (the merge,
+feature and idea backlog) starts.
+
+1. **One queue.** `research run` submits every lane's batch and service jobs to the central queue (#586 `tools/cluster`), and
+   nothing else does. The only exceptions are interactive kernel loops and live debugging on SSH, which take a session lease
+   through the queue and are visible in it.
+2. **Both nodes scheduled from it.** vy-nebius-1's GPUs and CPUs are placed by the queue, with Kueue at most a container runtime
+   that has no quota logic of its own. vy-nebius-2 is placed by the queue, with `gpu-lease` as an alias, and its timed windows
+   get their GPUs within 5 s. There is one ledger for both.
+3. **Every lane onboarded.** Circuits, proofs, compute-, memory- and network-accounting, console and infra have each run at
+   least one real job through `research run` on the queue, and their workload inventories are in `lanes/infra/`.
+4. **No ad hoc compute.** No hand-started pods or jobs on either node outside the queue, and no running RunPod pod without a
+   `budgets.toml` line. A daily scan of both nodes and RunPod finds nothing unowned.
+5. **Utilization is visible and on target.** An hourly report per node gives GPU busy %, CPU busy % and the useful share against
+   the filler share, generated from the ledger and shown in Grafana or the console. The pool is at ≥95% GPU busy with ≥90% of it
+   useful work, for any hour in which the lanes have queued work.
+6. **Results are safe.** Every queued job's outputs are custodied (preserved) before its allocation is released. Zero results
+   lost in the 24 h.
+7. **Failures surface.** Nonzero exits, evictions, expiries and idle leases go to the ledger's failure feed and reach
+   `#agent-alerts`, and each gets an owner.
+8. **Rollback works.** A one-step rollback to the previous per-node scheduling is documented, and drilled once on each node.
+
 ## Old open items (logged, not chased; per verity-top 20:15Z)
 
 - Nebius key rotation (Daniel: later).

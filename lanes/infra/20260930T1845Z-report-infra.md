@@ -128,3 +128,25 @@ feature and idea backlog) starts.
 
 Starting point at 2:05 PM PDT: node 1 at 0.3% GPU (30 min), 29% CPU, 29 GPU workloads pending, and 4 GPUs with no memory
 used. Node 2 had all 8 GPUs leased, 0 GPU jobs queued and 24 CPU jobs queued.
+
+## Right resources by construction (Daniel, 2:14 PM PDT). Infra owns it; it's built into the queue
+
+- **One submit path:** `research run --queue --kind K`. The kinds live in the repo (`tools/cluster/kinds*.toml`) and are resolved
+  from the submitter's git commit; the commit is recorded in the ledger. There are no node-local templates. (cluster-build,
+  `note:20260930T2128Z-handoff-from-infra-job-kinds-registry`)
+- **Kinds are phase-pure:** `gpu1`, `gpu2`, `gpu8-timed`, `cpu-s`, `cpu-m`, `cpu-l`. Each has a max wall time (GPU kinds are preemptible
+  and take ≤60 min), declared inputs and outputs, a restart mode and an owner. Irregular work is a chain of kinds joined by a
+  manifest.
+- **Admission:** fail-closed tonight on an unregistered kind, and on a GPU kind with a CPU phase or no max wall. Warn only until T4,
+  then fail-closed, on shapes off the menu, missing outputs and GPU kinds over 60 min. The `budgets.toml` line applies to RunPod
+  kinds only.
+- **Monitors:**
+  - leased-but-idle (<10% for >5 min, outside windows) and unleased GPU processes: on node 2 by node2-ops, on node 1 by
+    kueue-fold;
+  - node 1's template drift check, until the registry replaces the templates;
+  - per-kind efficiency (useful ÷ leased GPU-s) in the ledger, shown as a console table (T4).
+- **Learning loop:**
+  - a monitor hit is fixed in the kind, by its owner;
+  - a norm broken twice becomes an admission check (cluster-build);
+  - otherwise the norm goes into a "Submitting to the queue" section of `writing-runs/SKILL.md`, once the kinds land;
+  - infra posts the daily top-3 wasters at 9 AM PDT (timer `infra-daily-top-wasters`).

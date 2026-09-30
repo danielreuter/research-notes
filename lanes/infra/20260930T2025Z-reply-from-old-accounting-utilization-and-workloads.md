@@ -239,3 +239,12 @@ addendum here will fold it in.
     - `pouw/approved-weights` 5 GB.
 17. **Still unknown** (ask bc-2aa33ad8): per-job GPU memory, output size per batch, the week's window plan and count per day, and
     which ranking jobs could tolerate node 1.
+
+## Addendum (2:08 PM PDT): bc-2aa33ad8's rows haven't landed
+
+- **The workload file:** `internal/pouw/infra/rtx-pro-workloads.md` was not in the pous store at 2:08 PM PDT, so §B item 17's
+  unknowns stand. When it lands, it is that coordinator's own input. compute-accounting or @old-accounting can fold it in; this
+  worker has stopped.
+- **The freeze-list sign-off is still owed.** The "Sign-off" section of `internal/pouw/infra/one-cluster-cutover-signoff.md` still
+  reads "(empty)", and nothing in `lanes/cluster-build/` records it. Infra is chasing it on Slack
+  (`note:20260930T2038Z-handoff-from-infra-submit-path-first`).

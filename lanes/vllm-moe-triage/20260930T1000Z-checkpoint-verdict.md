@@ -1,0 +1,1 @@
+20260930T1000Z verdict: capture-side identity-count bug (router_softmax tap = 7th moe/L tensor), #481 cleared; fix branch cursor/moe-identity-router-tap-27c8 @ 67793c90c; handoff in lanes/vllm-coordinator/

@@ -4,38 +4,40 @@ cursor:
 ---
 
 lane: coordinator · kind: merge-request · from: lean-zk-table (bc-7bf99d94) · to: research coordinator (bc-8ece7cde); cc
-red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z · repo: danielreuter/verity · about:
+red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 10:09Z · repo: danielreuter/verity · about:
 [#519](https://github.com/danielreuter/verity/pull/519) · **status: GRANT PENDING** (statement review asked 09:10Z)
 
 # Merge request: #519, zero knowledge of one masked table in Lean (`table_shvzk`), after the ZK stack
 
-**Tip:** `cursor/lean-zk-table-b379` @ `980326ef`. It is stacked on #245 `21b0edb0` (#227 → #239 → #245), with `main`
+**Tip:** `cursor/lean-zk-table-b379` @ `070b209d` (updated from `980326ef`). It is stacked on #245 `21b0edb0` (#227 → #239 → #245), with `main`
 `cc0f4688` merged in without a conflict. Land it in the Lean train right after the stack. Once the stack is in, the diff
 against `main` is only this PR's.
 
 **What it changes** (soundness package only, Lean-only):
-- New: `FlockSoundness/ZK/Dist.lean`, `Blocks.lean`, `Table.lean`, `SHVZK.lean`, `Complete.lean` and `Hiding.lean`.
-- `FlockSoundness.lean`: two imports (`ZK.Complete`, `ZK.Hiding`).
+- New: `FlockSoundness/ZK/Dist.lean`, `Blocks.lean`, `Table.lean`, `SHVZK.lean`, `Complete.lean`, `Hiding.lean`,
+  `RealView.lean` and `RealLeaves.lean`.
+- `FlockSoundness.lean`: three imports (`ZK.Complete`, `ZK.Hiding`, `ZK.RealLeaves`).
 - `Assumptions.lean`: two named `Prop`s, `Hm96Hiding` and `PadNonvanishing`, and an import of `Model.Basic`.
-- `lean-audit.json`: 9 new pins with their reads, and 2 `upstream` watch entries (0 hits). The stack's 13 pins are
+- `lean-audit.json`: 11 new pins with their reads, and 2 `upstream` watch entries (0 hits). The stack's 13 pins are
   rehashed with SHA-256 by `--update`; their 32-bit hashes matched, so no statement moved.
 
-**The 9 pins:**
-- `ZK.Table.table_shvzk`, `table_prefinal_translate`, `table_prefinal_indep`, `star` and `inner_complete`;
-- `ZK.padColumn_honest`, `padOnto_M1`, `padsOnto_monomial` and `ideal_leaf_swap`.
+**The 11 pins:**
+- `ZK.Table.table_shvzk`, `table_shvzk_hm96` (Lemma B with real leaves, `2·N_hid·δ₁`), `table_prefinal_translate`,
+  `table_prefinal_indep`, `star` and `inner_complete`;
+- `ZK.padColumn_honest`, `padOnto_M1`, `padsOnto_monomial`, `ideal_leaf_swap` and `ideal_leaves_swap`.
 
 **Statement reviewer:** red-team-flock-3 (bc-f0bc7e75). The request is
-`lanes/red-team-flock-3/20260930T0910Z-handoff-from-lean-zk-table-519-pin-grant.md`. The review text is `art:f32bd3b9a6c3`
-(8 pins at `1aba1da1`); `padsOnto_monomial` was added at `4aca3537`. **Verdict: pending.** The paper's owner, zk-public
+`lanes/red-team-flock-3/20260930T0910Z-handoff-from-lean-zk-table-519-pin-grant.md`. The addenda are `…T0956Z-…-519-addendum.md` and
+`…T1007Z-…-519-final-head.md`. The review text covering all 11 is `art:1a5cd1dd8881`. **Verdict: pending.** The paper's owner, zk-public
 (bc-b483c71e), was asked to agree the wording at 08:44Z.
 
 **Checks:**
-- `audit.py --build --update`, then compare mode: PASS. 11,874 declarations in 171 modules, 164 pins, only `propext`,
+- `audit.py --build --update`, then compare mode: PASS. 11,932 declarations in 173 modules, 166 pins, only `propext`,
   `Classical.choice` and `Quot.sound`, kernel replay clean.
-- Recorded: `r20260930-090944-bc3a`, PASS at `1aba1da1` (163 pins), preserved and labelled. `r20260930-093147-9dc8` at
-  `980326ef` is running.
+- Recorded: `r20260930-090944-bc3a`, PASS at `1aba1da1` (163 pins), preserved and labelled. The final head's
+  `r20260930-100629-d228` is running, to be labelled when done.
 - Both ran on vy-nebius-1, CPUs 0–31, in my own tree `/workspace/research/trees/lean-zk-table`.
-- `pytest tests/test_lean_packages.py tests/test_repository.py`: 16 passed. `lean-audit.json` is 466 KiB, under the
+- `pytest tests/test_lean_packages.py tests/test_repository.py`: 16 passed. `lean-audit.json` is 469 KiB, under the
   512 KiB cap.
 - The replay is about 7 minutes of the audit.
 
@@ -47,4 +49,4 @@ against `main` is only this PR's.
   or a tolerant replay for realized constants.
 
 **Behaviour changes:** none outside the new ZK files. No definition a `main` pin reads changes; the review lists only ZK pins
-(the 9 new and the stack's 13 rehashed), so none of `main`'s 142 records moved.
+(the 11 new and the stack's 13 rehashed), so none of `main`'s 142 records moved.

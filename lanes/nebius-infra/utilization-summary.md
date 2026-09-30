@@ -5,7 +5,7 @@ cursor:
 
 # Nebius utilization summary: vy-nebius-1 (Verity) and vy-nebius-2 (POUS)
 
-**Draft at 09:35Z; final by 13:30Z.** Steward: nebius-infra (bc-fd19a2fe).
+**Draft at 10:05Z; final by 13:30Z.** Steward: nebius-infra (bc-fd19a2fe).
 
 **Sources:**
 - node 1: Prometheus (DCGM GPU, node-exporter host, 1 min) and `vy-usage`;
@@ -61,6 +61,7 @@ cursor:
 | 11 | **vLLM's per-machine manifest pool lock serializes lanes** on the shared host | build-v2-kv waited more than 20 min | Routed to the Build owner (budget per run, not per machine) | **open** |
 | 12 | **Coverage cells hold a GPU through a CPU Build** (the GPU-less Build is blocked by vLLM platform detection) | 6 GPUs held at 0% at 09:00Z | Routed; the vLLM coordinator assigned the GPU-less Build at 08:24Z | **open** |
 | 13 | **Coverage cells over-request memory**: 192–512 GB each, while the node uses 110 GiB with 6 running; memory quota then blocks 4 jobs, a GPU capture among them | 2 GPUs idle at 09:30Z | Routed to epoch-run: request the measured peak plus ~25% (pods have no memory limit, so there's no OOM risk) | **open** |
+| 14 | **vLLM jobs queue on one host-wide bootstrap lock**, made worse by my 07:30Z per-pod tree copy: every GPU cell recompiled its native taps (~3 min) under the lock, so a 7 s capture bootstrap waited behind them | **before:** jobs 110, 111 and 119 waited 8–14 min before running for seconds; GPU cells held the lock 2m46s–2m57s each, one after another (jobs 124, 120, 121) | One copy of the tree per content (taps build once per tree), and a stamp per tree, arguments and venv that skips a passed bootstrap without the lock (`f3e0bf63`, relayed as a bundle). **After:** test captures on node 1 took 1m05s from submit to finish for the first job (a real bootstrap, 8 s) and 49 s for the second (cached, lock skipped) | **fixed**; live for each lane once it merges `infra/nebius` |
 
 ## Theory lanes launched
 

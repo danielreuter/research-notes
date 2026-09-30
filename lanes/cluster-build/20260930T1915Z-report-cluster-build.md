@@ -70,3 +70,7 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
   (`02fb21d25`, `4350c52f0`). A partial `--timed` window clears the node but doesn't wait for sessions (`196f9ab60`), and a GPU is
   booked only around the workload (`27676a80c`). Replies to node2-ops and PoUW; status to infra
   (`note:20260930T2138Z-handoff-from-cluster-build-queue-live-tested-gaps-fixed`).
+- 2:47 PM PDT: `--queue` merge request at `27676a80c`, stacked on #586
+  (`note:20260930T2147Z-handoff-from-cluster-build-merge-request-queue`). Live at this head: node-1 CPU and node-2 GPU runs.
+  Replaying today's node-2 logs through the cut gives 27 windows, 0 safety divergences
+  (`art:04f3724c12678369ddfaa8bf877ad03a3d26b5094776906c19676e35dfed82fe`). circuits has the flags for T3.

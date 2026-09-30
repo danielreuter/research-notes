@@ -1,0 +1,1 @@
+CHECKPOINT (11:39Z) [open] generated-outputs: mirror v5.1 (sha256 1af4672f) installed and clean, every rc 0: 11:26Z 128 s (forward 0/0, reverse 0/0, queue 0, eagain 1, rules 31 s), 11:32Z 199 s (0/0, 0/0, queue 0, eagain 1), 11:36Z 144 s (0/0, 0/0, queue 0, eagain 0); the EAGAINs were retried in the pass as designed; lines in evidence/cloud-mirror-passes.log.

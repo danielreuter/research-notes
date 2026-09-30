@@ -36,6 +36,7 @@ Fill CPUs 96–127 and check slots 128–191 are on NUMA 1; the held Verity CPUs
 | `fill_runner.py` | `4a122904…` | `ce30461ac` (Verity guest pool, max_min 360, scope freeze) | 20:08:40Z |
 | `node_ops.py` | `7b8ebe56…` | `6d877a03` (OOM guard prefers `fill-verity-*`) | 20:08Z |
 | `backup.sh` | `914dd687…` | `d06d14b5` (retry/skip a changing unit) | 20:19Z |
+| `publish_pool.py` + `~/.config/systemd/user/infra-pool-publish.{service,timer}` | `242707c4…` | `a8978a241` (infra-pool/v1 to vy-n1 every 5 min) | 21:25Z |
 
 Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-pool`, relayed by infra) approved the guest path and the cutover; nothing is held now.
 
@@ -46,6 +47,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 - 21 large units are left out of the hourly backup (`large.txt`); check each hour which ones stopped changing and have no `backup_unit.sh` run (never `gpu3-fp8/out`).
 
 ## Log
+
+- 2026-09-30 21:27Z publisher live: `infra-pool-publish.timer` writes vy-nebius-1 `/workspace/usage/infra-pool.json` every 5 min (first `generated_at` 21:25:04Z, 0.19 s CPU a run); schema `note:20260930T2127Z-reply-from-node2-ops-infra-pool-schema`. Watermark: 1.47 of 12 GPU-h ready, pinged queue-keeper bc-829aa649 (`note:20260930T2127Z-handoff-from-node2-ops-gpu-queue-below-watermark`). Rollback: `systemctl --user disable --now infra-pool-publish.timer`.
 
 - 2026-09-30 21:18Z alerts: two more kueue-fold Builds rc=3 at bootstrap (SMOL360, TINYLLAMA not staged); added to the 21:05Z note. Watermark 21:16:04Z.
 

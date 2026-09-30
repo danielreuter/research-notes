@@ -98,15 +98,15 @@ Before #443, checks took 83–120 min. The two MoE tests now take 264 s and 388 
 
 | Change | PR | Measured | State |
 |---|---|---|---|
-| Row tests keep their build dir under `tmp_path` | [#495](https://github.com/danielreuter/verity/pull/495) | unblocks nebius checks | merge request 07:52Z |
+| Row tests keep their build dir under `tmp_path` | [#495](https://github.com/danielreuter/verity/pull/495) | unblocks nebius checks | landed in TVF (`cc0f4688`) |
 | `UV_PYTHON=3.14.7`; slots 32–63 and 64–95 | none (RC's wrapper) | pod packs now hit on nebius | root decided; told RC 07:25Z |
 | Parallel Lean audit | [#508](https://github.com/danielreuter/verity/pull/508) | 2,145 s → 1,564 s cold on 32 vCPU (−27%) | merge request 08:15Z |
 | Longest tests first | [#498](https://github.com/danielreuter/verity/pull/498) | by the longest-processing-time bound only | contained in #512 |
 | Per-test keys narrowed to the traced reads | [#512](https://github.com/danielreuter/verity/pull/512) | an infra-only `tools/research` edit: 251 run, 4,031 reused, 55 s (was a full 660–950 s rerun); 332 of 365 modules traced | merge request 08:45Z |
-| Tree-identical landing | [#509](https://github.com/danielreuter/verity/pull/509) | removes the recheck for a stacked train | waiting for root's OK (gate rule) |
+| Tree-identical landing | [#509](https://github.com/danielreuter/verity/pull/509) | removes the recheck for a stacked train | root OK'd `a508730a`; `577f9e5a` adds root's test and fixes a stale-declaration cache |
 
-**Train suggested to RC:** #495, #508, #512, and #509 once root OKs it. It pays one cold rerun (about 25 min on a nebius slot); every
-later train then reuses per test.
+**Train filed with RC (08:50Z):** #508, #512 and #509 on main `cc0f4688`. A trial merge has no conflicts and its tests pass. It pays one
+cold rerun (about 25–30 min on a nebius slot); every later train then reuses per test.
 
 **Evidence:** the A/B runs `r20260930-065348-2054` (Lean audit, `main`) and `r20260930-071142-f9e7` (#508), and
 `r20260930-080922-8337` (#512, cold then after the infra edit), all in campaign `train-speedup`.

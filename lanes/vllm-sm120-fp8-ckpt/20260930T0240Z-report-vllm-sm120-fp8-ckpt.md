@@ -2,9 +2,10 @@
 lane: vllm-sm120-fp8-ckpt
 kind: report
 created: 2026-09-30T02:40Z
-status: open
+status: final
 ---
 
+CHECKPOINT 86476296 (04:50Z) [final] PR #469 @ 86476296: 13 FP8 pins (1 hub + 12 recipe verity-fp8-block128/v1); all load on sm_120 (CutlassFp8BlockScaledMMKernel); vLLM suite 0 unexpected; pod vy-sm120-fp8-ckpt-1 terminated 04:48Z, ~$2.30. Handoff 20260930T0449Z.
 CHECKPOINT 86476296 (04:38Z) [open] smoke r20260930-042207-1591 PASS + preserved: all 8 FP8 pins load+generate on sm_120 (vLLM d9105ea80, batch-invariant env); every FP8 linear = CutlassFp8BlockScaledMMKernel; 30B-A3B = Fp8MoEMethod. WAIT r20260930-041857-e985 (vLLM suite; base done, head running) check-back 04:55Z; then terminate vy-sm120-fp8-ckpt-1.
 CHECKPOINT 86476296 (04:22Z) [open] smoke r20260930-035545-6692: bootstrap re-made 6 recipe pins on the pod, all sha256 = pins (2nd-machine repro PASS); my torch gate failed on 'import vllm._C' (not a module in this vLLM; ops load via vllm._custom_ops). Corrected gate PASS: cc 12.0, 188 SMs, sm_120 in torch arch list, cutlass block-FP8 supports sm120. Loads relaunched: r20260930-042207-1591.
 CHECKPOINT 86476296 (04:19Z) [open] 86476296 pushed: all FP8 pins registered (hub: QWEN3_30B_A3B_FP8; recipe: 12 dense). WAIT vy-sm120-fp8-ckpt-1 r20260930-035545-6692 (smoke) + r20260930-041857-e985 (vLLM suite base vs head) check-back 05:00Z agent bc-f23795f4. Evidence art:c0afdf95.
@@ -17,3 +18,16 @@ CHECKPOINT d090c814 (03:03Z) [open] recipe verity-fp8-block128/v1 (data-free, am
 CHECKPOINT d090c814 (02:49Z) [open] hub survey done: exact-format (fp8 block128 dynamic) releases exist only for Qwen3-4B-2507 (pinned) and Qwen3-30B-A3B (Qwen official); others community compressed-tensors per-channel. Qwen FP8 not reproducible from BF16 (scales +-0.33%). next: recipe module + CPU tests.
 CHECKPOINT d090c814 (02:44Z) [open] budget line confirmed live (coordinator note 02:40Z). Read the pins (manifests/checkpoints.json, append-only) and model.quant_refusal (block-128 dynamic e4m3 only). 17 representable models; next: hub survey of FP8 releases per model.
 CHECKPOINT d090c814 (02:40Z) [open] started (agent bc-f23795f4); read brief/common/contract; next: survey FP8 checkpoints for the matrix's representable models (CPU only). No pod until coordinator confirms vy-sm120- line.
+
+## FINAL
+
+~~~text
+tip: cursor/vllm-sm120-fp8-ckpt-3ebd @ 86476296 (base origin/main@3c924ab9)        merge-with: none
+known-failures: 21 vLLM-suite failures, all also failing on base 3c924ab9 (0 unexpected)    pod: terminated 04:48Z; ~$2.30
+artifacts: art:c0afdf95 (runs r20260930-042207-1591, r20260930-041857-e985, r20260930-035545-6692, all preserved)
+~~~
+
+- **Result:** PR #469 (draft). 13 FP8 pins appended to `checkpoints.json`: `QWEN3_30B_A3B_FP8` from the hub, and 12 dense recipe pins (`verity-fp8-block128/v1`). No pin for SmolLM2-135M/360M (hidden size isn't a multiple of 128; they need per-tensor FP8) or OLMoE (MoE).
+- **sm_120:** all 8 FP8 pins sent to the pod load in vLLM d9105ea80 on the RTX PRO 6000, and every FP8 linear runs `CutlassFp8BlockScaledMMKernel`. The recipe pins re-make on the pod with every sha256 equal to its pin.
+- **Handoff (merge-ready):** `lanes/vllm-coordinator/20260930T0449Z-handoff-from-vllm-sm120-fp8-ckpt.md`.
+- **Handoffs received:** the two coordinator notes in this folder, `20260930T0240Z-note-from-vllm-coordinator-budget-line-live.md` and `20260930T0253Z-note-from-vllm-coordinator-sweep-target.md`. Both were read and followed.

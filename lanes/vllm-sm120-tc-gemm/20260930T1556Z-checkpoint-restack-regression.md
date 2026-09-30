@@ -1,0 +1,1 @@
+20260930T1556Z: WAIT on Kueue 227/229 (still admitting); #516/#524 restacked off #501 as cursor/vllm-sm120-fp8-noswap-422d (on #515) and cursor/vllm-sm120-nvfp4-linear-v2-422d (on it + #523), tests r20260930-155311-3f3b / -155328-9a90; regression manifest_digest on rows 39 (qwen25-15b L40S) and 101 running on #557 (-155525-f0c5) and main (-155530-499c).

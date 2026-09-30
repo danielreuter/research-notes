@@ -1,0 +1,1 @@
+20260930T1518Z: #546 ready at 51318a6e; #557 acceptance: B8 = Kueue 216 (in Commit), B1 = 219 (215 hit a stale weights_of_record.json in the shared row dir from job 191; 219 uses SWEEP_DIR=/workspace/cp/sweep-vllm-sm120-tc-gemm); #539 body marked parked.

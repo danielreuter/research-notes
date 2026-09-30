@@ -51,3 +51,12 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
   (node2-ops), `note:20260930T2004Z-handoff-from-cluster-build-step3-shadow-running` (infra) and
   `note:20260930T2006Z-handoff-from-cluster-build-to-kueue-fold-executor-interface`. The brain goes on node 2.
 
+- 20:48Z: the shadow is healthy after 50 min: 404 ledger records, 205 decisions, no divergence, 0.2% CPU at nice 19, 96 KB.
+  My 20:0xZ handoffs reached origin only at 20:45Z; `git add` had failed silently in my push script, which is fixed.
+- 20:40Z: **step 2d done:** gpu-lease agent mode, `cursor/gpu-lease-agent-mode-0381` `5688325a6` (sha256 `49238797…`).
+  It includes the owner-line race fix. The research suite passes 757 tests. Handed to the steward and node2-ops
+  (`note:20260930T2050Z-handoff-from-cluster-build-gpu-lease-agent-mode`). The cluster suite runs the protocol end to end
+  against it.
+- 20:45Z: kueue-fold's `nebius1` is merged into #586. `plan()` fixed: a GPU-less job gets no workstream standing. The priorities
+  follow `kueue.yaml`, per the steward's ruling. Reply: `note:20260930T2045Z-reply-from-cluster-build-node1-observer-merged`.
+- 21:00Z: **step 4:** merge request for #586 at `640c6d76c` (`note:20260930T2100Z-handoff-from-cluster-build-merge-request-586`).

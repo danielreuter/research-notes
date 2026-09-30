@@ -5,6 +5,7 @@ created: 2026-09-30T02:48Z
 status: open
 ---
 
+CHECKPOINT 29f691be (07:56Z) [open] 07:56Z root: CPUs 128-191 reserved for pinned Build/M0 benchmarks; direct tests only in check slots a (flock check-a.lock, 32-63) / b (check-b.lock, 64-95). Re-pinned live (taskset -a -cp, whole pgid; run r20260930-075532-8007): #483 rerun -075229-cb5f -> 32-63, base -075234-32cf -> 64-95; #501 -075224-1fc7 stays 112-127. lease.sh tests expected failing in base until #504. WAIT, timer ~08:08Z.
 CHECKPOINT 29f691be (07:52Z) [open] 07:53Z acted on nebius-infra 07:32Z note: stopped my 6 direct vLLM suite runs (they opened CUDA on a Kueue GPU; cancel r20260930-075045-8a41); reran with CUDA_VISIBLE_DEVICES= + taskset 112-159, slow tp2-moe build test deselected (unverified in gate, train check runs it): #501 r20260930-075224-1fc7, #483 -075229-cb5f, base -075234-32cf. WAIT.
 CHECKPOINT 29f691be (07:39Z) [open] 07:40Z WAIT: full quick vLLM suites (xdist) on vy-nebius-1: #501 r20260930-073232-0864, #483 r20260930-073237-888b, base r20260930-073242-ac55 (serial dupes -0701xx still running). Timer 07:50Z. GitHub auth recovered.
 CHECKPOINT 29f691be (07:29Z) [open] 07:30Z handoff to coordinator: PINNED dossier art:b3074aba; #487 ready (7cef262f); #502 registry+target+census (13ab450e, clean vs base); #483 head 7cea7a99 needs re-grant; #501 gemv open. WAIT: full vLLM suites r20260930-0701{23,37,50} (serial). GitHub git/gh auth 401 since ~07:27Z.

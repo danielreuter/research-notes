@@ -63,6 +63,7 @@ This is on branch `cursor/token-requests-de55` at `086e77a`, with the design in 
   - Better Auth's routes answer `404` except the callback;
   - the token-request routes refuse bad input without writing anything;
   - an insert into `tokens` is refused by the trigger, and the row count stayed at 10. I tested this with a statement that couldn't commit even if the trigger failed.
+- **Since then** (7 to 7:20 PM PT), production went to `cab09a5` (no budget line or cap) and then to `7140d88` (`dpl_Am3hW9j2fMxuq4cXYdNRj5VzYJB1`, store writer keys, migration 008). Before 008 I took another snapshot (02:18:54Z) and confirmed it restores exactly. The approvals gate is unchanged, and both deployments pass the same probes.
   - The previous deployment `website-docs-ocg8bq38j` still renders its mint form with the bypass, but can't write what it would mint.
 - I created no requests, jobs or events in production.
 
@@ -70,7 +71,7 @@ This is on branch `cursor/token-requests-de55` at `086e77a`, with the design in 
 
 - **Deploy rights and `DATABASE_URL` beat any check in the app.** Whoever can deploy production or holds the database URL can grant themselves anything, or drop the trigger. Only Daniel's Vercel account deploys today, and I do it with his login on this Mac. The review's line 41 still stands.
 - **This Mac's browser.** If a browser profile here is logged in to GitHub as Daniel, an agent driving that browser could complete his sign-in. Agents here must not drive a browser to `/approvals`. A passkey step-up (Better Auth's passkey plugin) would close this; I can add it next if Daniel wants.
-- **Five superseded production deployments are still live:** `ocg8bq38j` (`90591a4`), `h6z2zt7wy` (`092f0d9`), `3fx4nhyrh` (`c3cf94b`), `enx0115ed` (`0ce2754`) and `pmh91m8hw` (`0e35e00`).
+- **Five superseded production deployments are still live:** `ocg8bq38j` (`90591a4`), `h6z2zt7wy` (`092f0d9`), `3fx4nhyrh` (`c3cf94b`), `enx0115ed` (`0ce2754`) and `pmh91m8hw` (`0e35e00`). Since then, the `2843824`, `cab09a5` and `7140d88` deployments have been superseded too, making eight. Root is keeping them for now and has asked Daniel whether to delete them.
   - They can't mint any more.
   - Their other admin actions are no more than today's admin pages allow. Those are revoking legacy tokens, event exclusions, and on the newer ones, job admin.
   - Removing them would also stop anyone rolling back to a pre-006 build. **I recommend root removes them; I haven't, since it can't be undone.**
@@ -87,9 +88,9 @@ Create a GitHub **OAuth App**, "Verification Institute sign-in":
 
 ### 1.6 For Daniel to confirm
 
-- **The admin scopes, which no rule can pre-approve,** are everything except `events:read` and `jobs:enqueue`: `jobs:work` now, and `trains:write` and `prs:write` when they ship. That makes `prs:write`, which the PR-ownership plan gives coordinators, a Daniel-approves-each-one scope. Say if it should be rule-eligible instead.
-- **Unsigned requests.** Daniel can approve a request nobody has signed for; it's marked **not signed in**, and the key's owner is a placeholder. Say if these should be refused.
-- **Store writer scopes** (`write:{kind}`) aren't requestable, so no new writer tokens can be issued now. That's a follow-up when a writer is next needed.
+- **The admin scopes, which no rule can pre-approve,** are everything except `events:read` and `jobs:enqueue`: `jobs:work` and `write:fixture/v1` now, `prs:write` on a preview since 8 PM PT ([the PR routes](/cursor/stores/bc-36415049-30db-4fff-a34b-81f0afc0124d/internal/pr-routes-spec.md)), and `trains:write` when it ships. That makes `prs:write`, which the PR-ownership plan gives coordinators, a Daniel-approves-each-one scope. Say if it should be rule-eligible instead. **Root's default** (03:12Z), until Daniel says otherwise: it stays per key.
+- **Unsigned requests.** ~~Daniel can approve a request nobody has signed for; it's marked **not signed in**, and the key's owner is a placeholder. Say if these should be refused.~~ **Refused**, root's default until Daniel says otherwise. In production since 03:24Z, at `bd1ffbb`: Approve and Change wait for the requester's sign-in, and Deny still works.
+- ~~**Store writer scopes** (`write:{kind}`) aren't requestable, so no new writer tokens can be issued now.~~ **Done** at 7:20 PM PT: `write:fixture/v1` is requestable as an admin scope, and the store takes the key. That's in production at `7140d88`, with migration 008; see the [token-requests contract](/cursor/stores/bc-36415049-30db-4fff-a34b-81f0afc0124d/internal/token-requests-spec.md), test case 25.
 
 ## 2. The website repo's secret scan
 

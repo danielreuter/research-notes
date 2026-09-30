@@ -5,6 +5,13 @@ cursor:
 
 # lean-gemm-relation: status
 
+**2026-09-30 14:15Z: `PlacedWF` from the accepted statement, [#550](https://github.com/danielreuter/verity/pull/550) (draft,
+stacked on #538) at `08a44f4e`.** Recorded audit PASS `r20260930-135007-da62` (11,740 declarations, 161 pins, standard axioms,
+0 sorry). `setupH_placedWF` gives `PlacedWF` for an accepted typed template, and `setupH_templateTableClass_ofSetup` is the
+template's class over `stmtOf` from `Stmt.setupH` alone. One named fact remains: each generated read has at most 32 output
+bits (`hk32`). Layout parsing checks `vb ≤ 32` (`Layout.lean:297`) and `genOk` gives `rec.k = kk ≤ vb`, which is the next
+chain. #514 and #521 are on `main` (TLP).
+
 **2026-09-30 12:20Z: `DerivedPlaces`, two pieces in [#538](https://github.com/danielreuter/verity/pull/538) (draft) at
 `5b45456b`.** Recorded audit PASS `r20260930-115259-ff46` (11,669 declarations, 161 pins, standard axioms, 0 sorry).
 - `setupH_templateTableClass`: a template's `TableClass` from the accepted statement.

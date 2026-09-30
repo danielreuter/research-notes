@@ -111,6 +111,12 @@ entirely `chunk_zlin_transpose`, the bit transpose of z for the lincheck. In #4 
   at K=2048 and 0.0039 s at K=8192 (control 0.019 / 0.038).
 - **Per statement, each job showed the fix at one K**: #8 at K=2048 (prove 0.342 vs 0.363 s) and #9 at K=8192 (0.518 vs
   0.585 s, −11%). The other K lost it to the node's noise in each job.
+- **#10, the quiet hour** (`r20260930-122715-eaf3`, `ce7eb155`, 48 vCPU, `ov.noisy=false`; timed 12:34–12:42Z with
+  `circuits` on Hold, though cells admitted before the hold still ran at load 27–35): prefill **8.56e6**, decode **1.91e5**,
+  against the control's 8.72e6 / 1.92e5.
+  - K=8192's prove is 0.533 vs 0.623 s (−14%).
+  - K=2048's is 0.401 vs 0.378 s. The difference is rep 1's Ligerito (0.061 vs 0.037 s); every other phase matches.
+  - So Ligerito's run-to-run spread is now the metric's largest noise, at 48 vCPU as at 18.
 
 **Backlog, design only: the host-slot upload off the critical path, in pieces.** This is your lever 2 (Nsight, 11:10Z:
 `fc_host_slots` 26 ms at K=2048 and 44 ms at K=8192 per statement). It needs no statement change.

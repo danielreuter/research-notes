@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (20:17Z) [open] Slack relay live: website 4f23f74 deployed (website-docs-kfcwwl4zu), migration 013 applied, cursor/production-de55 moved; acceptance and the live approval click with infra (lanes/infra/2015Z)
 CHECKPOINT none (20:15Z) [open] #approvals channel set and redeployed (website-docs-h6gidwuv2, cff8f00); live test approval asked of infra (needs verity OIDC); Slack relay (Daniel yes 19:44Z) building on cursor/slack-approvals-a491
 CHECKPOINT none (20:05Z) [open] Slack approval buttons live: website cff8f00 deployed to production (website-docs-jlf7tj074), migration 012 applied, cursor/production-de55 moved; waiting on the #approvals channel id for SLACK_APPROVALS_CHANNEL (lanes/infra/2005Z)
 CHECKPOINT none (19:43Z) [open] docs-site handover received (1935Z): console owns the remit and prod deploys; verity-panels closed (key on pod + vy-nebius-1, 19 panels live); rewrite deferred by Daniel; Slack approval buttons (infra 1935Z, Daniel go 19:33Z) building on cursor/slack-approvals-a491

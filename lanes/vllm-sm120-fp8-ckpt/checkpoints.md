@@ -2,3 +2,4 @@
 20260930T0244Z open: budget line confirmed; hub survey of FP8 releases for the 17 representable models under way.
 20260930T0249Z open: survey done (only Qwen3-4B/Qwen3-30B-A3B have official block-FP8); writing a data-free block-128 recipe for the rest.
 20260930T0309Z open: recipe verity-fp8-block128/v1 (data-free, amax/448 per 128x128 block, RNE e4m3, deterministic container) written; QWEN05 made on VM in 6s, verified by the reference safetensors parser, accepted by quant_refusal. Downloads under way; next: pins for 13 models + tests.
+20260930T0325Z open: PR #469 draft (recipe, 14 CPU tests; lints P6-P12 + by-name + dead-modules pass). Pinned on VM so far: QWEN05 TINYLLAMA LLAMA32_1B B1 QWEN15_INSTRUCT GEMMA2_2B PHI3_MINI MISTRAL7B FP8, each re-made identical. Next: 7B/14B/32B, manifest + configs + profile fixtures. No pod yet.

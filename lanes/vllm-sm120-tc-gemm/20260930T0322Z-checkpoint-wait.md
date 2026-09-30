@@ -1,0 +1,1 @@
+20260930T0322Z: WAIT r20260930-031354-3b6d (step 2 check) and r20260930-031907-a678 (vLLM suite) on vy-sm120-tc-gemm-1, check-back 03:45Z. Early finding: M=1 bias linears run cuBLAS gemvx, not the chain (1-3/1024 coords off).

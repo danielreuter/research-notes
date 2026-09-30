@@ -5,6 +5,7 @@ created: 2026-09-30T02:40Z
 status: open
 ---
 
+CHECKPOINT 1a2a6ef0 (03:25Z) [open] PR #469 draft (recipe, 14 CPU tests; lints P6-P12 + by-name + dead-modules pass). Pinned on VM so far: QWEN05 TINYLLAMA LLAMA32_1B B1 QWEN15_INSTRUCT GEMMA2_2B PHI3_MINI MISTRAL7B FP8, each re-made identical. Next: 7B/14B/32B, manifest + configs + profile fixtures. No pod yet.
 CHECKPOINT d090c814 (03:09Z) [open] recipe verity-fp8-block128/v1 (data-free, amax/448 per 128x128 block, RNE e4m3, deterministic container) written; QWEN05 made on VM in 6s, verified by the reference safetensors parser, accepted by quant_refusal. Downloads under way; next: pins for 13 models + tests.
 CHECKPOINT d090c814 (03:04Z) [open] recipe verity-fp8-block128/v1 (data-free, amax/448 per 128x128 block, RNE e4m3, deterministic container) written; QWEN05 made on VM in 6s, checked by the reference safetensors parser. BF16 downloads under way; next: pins for 13 models + tests.
 CHECKPOINT d090c814 (03:03Z) [open] recipe verity-fp8-block128/v1 (data-free, amax/448 per 128x128 block, RNE e4m3, deterministic container) written; QWEN05 made on VM in 6s, checked by the reference safetensors parser. BF16 downloads under way; next: pins for 13 models + tests.

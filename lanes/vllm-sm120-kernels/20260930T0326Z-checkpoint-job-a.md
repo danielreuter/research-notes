@@ -1,0 +1,1 @@
+2026-09-30T03:26Z: job A r20260930-030603-3ddf ALL PASS on sm_120 (188 SMs, driver 595.91.07): norm tap exactness OK, router tap (topk_softmax) OK, topp probe 162/162 + drain, Gumbel 40/40. WAIT r20260930-032412-1313 (job B: drain at 188 boundaries, rope + fused-MoE difftests, twins, MoE step discrimination) check-back 04:10Z. Branch cursor/vllm-sm120-kernels-69c6 @ 735c8027.

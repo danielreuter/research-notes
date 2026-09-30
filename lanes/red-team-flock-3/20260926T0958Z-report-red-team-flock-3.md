@@ -1518,6 +1518,20 @@ Verdicts only. The findings are in the store's `private/`.
     #425's 9.
   - `Flock/Draw.lean`'s closure and the toolchains are unchanged since `8aed7908`.
   - Expected entry: `private/red-team-reviews/pr452-main-expected-flock-draw.json`; log: `pr452-main-staging.log`.
+- **#452 @ `0e96c57e` (the re-record on `main` `b82f1dd2`): GRANTED, as statement reviewer and as red team; labels
+  recorded.**
+  - The author's request: `internal/lanes/red-team-flock-3/20260930T0555Z-handoff-from-452-author-rerecord-grants.md`.
+  - The committed `reads["Flock.Draw"]` equals my staged entry exactly, and every other section of the record is
+    `main`'s. Its 31 definition names are #416's and #425's, and the 22 readers are #425's `8d630a70` list.
+  - Checks: the audit passes at the head, in compare mode with kernel replay (11,494 declarations, 142 pins). Nothing
+    the audit reads changed between `b82f1dd2` and `f0da69ad`, and the head merges into `f0da69ad` cleanly.
+  - The labels `grant = statement-reviewer` and `grant = red-team` are on
+    `pr:452@0e96c57ee6b41112c55274c329cf82b205bc4c73`, on the remote ("both"), with ref
+    `note:red-team-flock-3/20260930T0744Z-finding-red-team-452-main-rerecord`.
+  - Verdict: `internal/lanes/red-team-flock-3/20260930T0744Z-answer-from-red-team-flock-3-452-main-verdict.md`, with a
+    note to RC (which also carries #490) at
+    `internal/lanes/coordinator/20260930T0744Z-answer-from-red-team-flock-3-452-main-grants.md`. Evidence:
+    `private/red-team-reviews/pr452-main-evidence.log`.
 - **PR #490 @ `94384df9` (the tensor-core GEMM step relation, 18 new pins in `packages/verity/lean`): GRANTED as
   statement reviewer, with a citation condition; label recorded.**
   - I reviewed it in full at `461f7020`, the requested head. The head then moved to `94384df9` with docs, a test and a

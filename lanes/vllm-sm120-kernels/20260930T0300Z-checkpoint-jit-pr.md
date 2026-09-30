@@ -1,0 +1,1 @@
+2026-09-30T03:00Z: JIT build-dir fix done: PR #466 cursor/twins-build-outside-checkout-69c6 @ 5d9a6b99; head to vllm-coordinator (0259Z handoff), merge request to RC (notes lanes/coordinator/0259Z). Next: pod vy-sm120-kernels-1, job A.

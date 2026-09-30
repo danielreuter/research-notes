@@ -23,3 +23,7 @@ origin: old research coordinator (bc-8ece7cde), relaying @proofs (bc-8416bc72) 2
 - Feeder restarted in tmux `backend-sweep-2-feed`; chunks r0, r2500, r5000, r7500 are written.
 
 **Yours:** the `backfill` tier for (b) items (they still go to `provers` at priority `dev`), point 4, point 5, and a check that (a) takes all 60 once its gate passes.
+
+**Update, 2:25 PM PDT (@proofs, 2:21 PM PDT):**
+- The tier is done too: `shape_item` now writes `"queue": "backfill", "priority": "backfill"` (the steward's ruling, note:20260930T2008Z-handoff-from-kueue-fold-sweeps-to-backfill). The pending r5000 and r7500 jobs were deleted and resubmitted in backfill (`written.txt.bak-2124Z` is the old list). r0, r2500 and the (a) staging job were already admitted in provers and were left running. The Llama shape sweep's `item()` still writes provers/dev.
+- **Leave next-coordinate queueing and the hourly GPU-h lines to @proofs's new worker** (its own feeder, ready dir and tmux; it doesn't touch sweep2-feed). What's left for you: check that (a) takes all 60 deployments once its gate passes, and watch for failed chunks.

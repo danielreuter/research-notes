@@ -44,7 +44,7 @@ Anything destructive beyond this policy goes to Daniel as a blocking `#ask-danie
 
 ### Hard stops
 - Node 2's `/workspace` at 55%: no new jobs start. node2-ops' runner enforces it; the steward only verifies it. Verified
-  22:15Z: `fill_runner.py` refuses new **Verity guest** jobs at `FILL_VERITY_DISK_PCT` = 55. PoUW's own fill isn't under
+  22:10Z: `fill_runner.py` refuses new **Verity guest** jobs at `FILL_VERITY_DISK_PCT` = 55. PoUW's own fill isn't under
   that stop, so at 55% the steward asks @compute-accounting to hold new PoUW fill that writes to disk.
 - Node 1's `/workspace` at 85%: the steward asks kueue-fold, the nebius-infra steward and @circuits to hold new Builds and Commits.
 - Root disk under 45 GB free: no new check starts (check's own preflight floor, `tools/check/preflight.py`, is the same 45 GB).
@@ -89,7 +89,7 @@ resource, what was deleted, what waits on an owner, and trends (from each node's
 - `tools/research/src/research/pods/nebius/resource_probe.py` on `infra/nebius` (`233f451f2`, then `7bcf2fc5f`: inode growth
   is measured against a base reading at least 15 min old), with its test `tools/research/tests/test_nebius_resource_probe.py`
   (12 tests).
-- Deployed at `~/resource-steward/bin/resource_probe.py` on both nodes (sha256 `b908444d…`, 22:14Z), by install and rename.
+- Deployed at `~/resource-steward/bin/resource_probe.py` on both nodes (sha256 `b908444d…`, 22:09Z), by install and rename.
 - The tick is `lanes/resource-steward/tools/tick.sh`: the probe on both nodes (node 2 skipped in a timed window), plus new
   resource `*alert*` notes. It exits 1 only for a new kind of breach, a HARD stop, a failed probe or a new alert note; a known
   breach prints as `known:` and exits 0. `tools/bootstrap.sh` restores the agent VM after a reset (no secrets).
@@ -134,7 +134,7 @@ None yet: no filesystem is over its watermark, there's no check scratch on eithe
   Nothing is deleted. The handoff asks node2-ops to publish them or confirm they can be marked superseded.
 
 ## 6. Log
-- 22:05–22:17Z (3:05–3:17 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
+- 21:54–22:10Z (2:54–3:10 PM PDT) first turn: set up; took the baseline; committed the probe (`233f451f2`, `7bcf2fc5f`) and
   deployed it on both nodes; wrote this policy; sent handoffs to node2-ops and nebius-infra. Armed the timer
   `sub_2e3eb17f-7145-4485-98f4-f7b34e205e8c` (every 20 min), the daily summary `sub_4f6daaa1-65b4-4661-a34c-164a12906876`
   (15:00Z, 8 AM PDT) and the `#agent-alerts` subscription `sub_f6fd3baf-37fd-4fd9-9065-0f6312611b38` (top level, until 3 Oct

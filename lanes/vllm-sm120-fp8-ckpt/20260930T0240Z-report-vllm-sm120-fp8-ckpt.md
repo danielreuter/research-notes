@@ -5,6 +5,7 @@ created: 2026-09-30T02:40Z
 status: open
 ---
 
+CHECKPOINT 59bde0ce (03:58Z) [open] WAIT vy-sm120-fp8-ckpt-1 r20260930-035545-6692 check-back 04:50Z agent bc-f23795f4: sm_120 FP8 load smoke (gate 1 PASS: driver 595.91.07 cc 12.0; bootstrap re-made QWEN05/LLAMA32_1B/TINYLLAMA/GEMMA2 FP8 on the pod, sha256 = pins). First launch r20260930-035334-be70 died on a bad --timeout value. VM: 32B pin running; 7B/14B-Instruct pinned+remade identical.
 CHECKPOINT 59bde0ce (03:40Z) [open] commits e6c2da8e (bootstrap makes recipe pins) + 59bde0ce (9 FP8 pins, all re-made identical with the final code). Pod estimate written: vy-sm120-fp8-ckpt-1, ~1 GPU-h (~$2.1) for an sm_120 load smoke + 2nd-machine reproduction. 7B/14B/32B pins in progress on VM.
 CHECKPOINT 1a2a6ef0 (03:25Z) [open] PR #469 draft (recipe, 14 CPU tests; lints P6-P12 + by-name + dead-modules pass). Pinned on VM so far: QWEN05 TINYLLAMA LLAMA32_1B B1 QWEN15_INSTRUCT GEMMA2_2B PHI3_MINI MISTRAL7B FP8, each re-made identical. Next: 7B/14B/32B, manifest + configs + profile fixtures. No pod yet.
 CHECKPOINT d090c814 (03:09Z) [open] recipe verity-fp8-block128/v1 (data-free, amax/448 per 128x128 block, RNE e4m3, deterministic container) written; QWEN05 made on VM in 6s, verified by the reference safetensors parser, accepted by quant_refusal. Downloads under way; next: pins for 13 models + tests.

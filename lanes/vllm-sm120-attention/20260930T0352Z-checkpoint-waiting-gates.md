@@ -1,0 +1,1 @@
+20260930T0352Z: WAITING gate (b)+lints on vy-sm120-attention-2 (pod x8zpxecwqjekb5): base r20260930-034927-48b4 (f740c1d5) and head r20260930-035219-a82d (cfcbfcef), concurrent after the base bootstrap; r20260930-035023-a534 stopped while waiting (no tests ran). check after 04:15Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6; PR #477 draft; next: jdiff, handoff

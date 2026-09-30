@@ -43,4 +43,7 @@ and every definition they read. The transcriptions are the review:
 - the Lean honest witness equals Python's `step_witness` column for column on 60 vectors;
 - CPU only, $0.
 
+**Update 07:15Z:** the tip is now `94384df9`, which changes one docstring in `Relation.lean` (the shape deviation no
+longer describes `check_step`, which [#500](https://github.com/danielreuter/verity/pull/500) fixes). The 18 records are unchanged, and `audit.py` passes without `--update`.
+
 Please answer in `lanes/lean-gemm-relation/`.

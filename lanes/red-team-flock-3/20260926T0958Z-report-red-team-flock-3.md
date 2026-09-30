@@ -1548,6 +1548,37 @@ Verdicts only. The findings are in the store's `private/`.
     ("both"), with ref `note:red-team-flock-3/20260930T0726Z-finding-red-team-490-gemm-relation`.
   - Verdict: `internal/lanes/lean-gemm-relation/20260930T0726Z-redteam-490-verdict.md`. Evidence:
     `private/red-team-reviews/pr490-evidence.log`, `pr490-tc-cross.py` and `pr490-check-step-probe.py`.
+- **#511 @ `618ec5a5` (knowledge-soundness pins and the link theorem, 6 pins): GRANTED, as statement reviewer and as
+  red team, with one condition; labels recorded.**
+  - Checks: no existing record changes, and only the new pins read the nine new definitions. The audit passes with
+    kernel replay (148 pins).
+  - The five knowledge-soundness pins are §1.3's statements and take no assumption; their collision advantages are terms
+    of the bound.
+  - **The condition.** The link theorem's `hCR` asks A2 of the finders built from every prover at once, which SHA-512
+    can't meet, since a prover can hard-code a collision. Until it is restated per prover, the link and end-to-end
+    theorems don't bound any particular prover. The proofs use it only at the prover they bound. `main`'s
+    `flock_e2e_*`, including the `_exec` forms I granted at #412, have the same shape.
+  - Labels: both roles on `pr:511@618ec5a5092fbca2451f5403fc8626c61cf320fd`, on the remote, with ref
+    `note:red-team-flock-3/20260930T0925Z-finding-red-team-511-knowledge-pins`.
+  - Verdict: `internal/lanes/red-team-flock-3/20260930T0925Z-answer-from-red-team-flock-3-511-verdict.md`. Evidence:
+    `private/red-team-reviews/pr511-evidence.log`.
+- **#513 @ `655d509d` (the rows' value binding, `registered_weights`, `flock_e2e_*_hm96`, 11 pins): GRANTED, as
+  statement reviewer and as red team, with three conditions; labels recorded.**
+  - Checks: no existing record changes, and the audit passes with kernel replay (159 pins).
+  - `HmRowComputes` and `decode_row` are neither cryptographic nor vacuous. `collide` is explicit (`hm96Pair`), and
+    `registered_weights` has the right shape.
+  - `bc_registered` and `other_registered` are wiring in the model, but only because the model registers leaves.
+    Discharging them needs the roots' Merkle binding, `δ_tree` under `cr/sha-512`, which the `_hm96` bound leaves out.
+  - The conditions:
+    - C1 is #511's per-prover `hCR`.
+    - C2: cite the `_hm96` bounds at the registered leaves, and name the roots' binding.
+    - C3: readers must read the witness; make `row` and `salt` concrete.
+  - Merge order: #513's `_exec_hm96` pins read the draw law, so whichever of #452 and #513 lands second re-records.
+  - Labels: both roles on `pr:513@655d509d8a1afc338034ca150449eb0357fad4a1`, on the remote, with ref
+    `note:red-team-flock-3/20260930T0925Z-finding-red-team-513-value-binding`.
+  - Verdict: `internal/lanes/red-team-flock-3/20260930T0925Z-answer-from-red-team-flock-3-513-verdict.md`, with a note
+    to RC covering both at `internal/lanes/coordinator/20260930T0925Z-answer-from-red-team-flock-3-511-513-grants.md`.
+    Evidence: `private/red-team-reviews/pr513-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

@@ -24,3 +24,10 @@ origin: pous
 - The allowlist matches the whole instruction sequence, not single opcodes, so a stray `.FTZ` FADD, FFMA or FMUL next to a divide is still rejected.
 
 Please build #449's Hopper gate the same way. The recorded check of `61d0298d` is running on the CI pod: `r20260930-095445-6d59`.
+
+**Addendum (10:14Z): the pous root adds `__frsqrt_rn` to the allowlist, under the same conditions.**
+- A whole-sequence match, including any slow path, and a fast-math negative control.
+- Keyed to the nvcc version, failing closed otherwise.
+- Bit-exact against a correctly rounded reference on all 2³² FP32 inputs.
+
+A kernel that uses `rsqrt_rn` keeps it: switching to sqrt then reciprocal rounds twice and would change the reference and the statement.

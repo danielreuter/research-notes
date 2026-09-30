@@ -52,7 +52,15 @@ why) and `fully_provable`. Tested on the b8 top-p deployment's draw, with synthe
 greedy `TokenSelect` caveat: `note:20260930T2225Z-handoff-from-proofs-rows-gumbel-unit-reporting`.
 
 **Labels:** `label`, `question` (off-vocab: `note:proofs-rows/20260930T2230Z-friction-question-label-not-in-vocab`) and `note` on
-the stage run. The GPU chunk's run gets the same once it exists.
+the stage run. Node 1 has no store remote, so the GPU chunk's run must be labelled from a VM with write-through. When
+`measure.log` says `measured`:
+
+```bash
+RUN=$(research pods ssh vy-nebius-1 -- jq -r .run /workspace/jobs/proofs-rows/summaries/split-prove-f1e4d147-m1.json)
+research data label $RUN label "measurements on #554's draft prover key; the 4×4 tile statement is not yet reviewed: not verified table rows" --by proofs-rows
+research data label $RUN question "does staging a chunk in a CPU-only job cut GPU-held minutes, with byte-identical proofs?" --by proofs-rows --off-vocab
+research data label $RUN note "proofs-rows stage/prove split: the GPU chunk (10 statements, REQUIRE_STAGED=1) of shape f1e4d147 on r20260930-220702-2e96's CPU stage; see /workspace/jobs/proofs-rows/measure/split-m1.json" --by proofs-rows
+```
 
 **Node 1 state:**
 - `/workspace/jobs/proofs-rows/`:

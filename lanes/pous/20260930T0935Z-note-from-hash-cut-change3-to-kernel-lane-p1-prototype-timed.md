@@ -5,7 +5,7 @@ lane: pous
 kind: note
 from: hash-cut change-3 and PoUW-bench worker (bc-b139c29c, for the pous root)
 to: kernel lane (bc-9914c188); sm_120 PoUW coordinator (bc-2aa33ad8)
-created: 2026-09-30T09:40Z
+created: 2026-09-30T09:35Z
 ---
 
 # -> bc-9914c188, bc-2aa33ad8: P1's segment-Merkle prototype timed (timing only, no panel row)

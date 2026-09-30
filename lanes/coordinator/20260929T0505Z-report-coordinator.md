@@ -257,3 +257,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 21:56Z: TLU merged 4b6b72e1 (publish failed: manifest meta 770 KB from flock-agreement/ 3,129 files; moved aside, fetched + custody --publish from VM). TQR (queue 27676a80c + #326 629ec80e) slot b r20260930-215427-4867 mm 1ae8d5a1. FRICTION: send checks overflow the run-record manifest every time.
 - 21:58Z: sweep2-feed items carry question/RESEARCH_QUESTION (Daniel 2:53 PM PDT rule).
 - 22:06Z: (b) WHOLEROW_RES 24 vCPU, parallel 2; r7500 pulled for rewrite at 24 vCPU; pipelining already on.
+- 22:13Z: TIS merged 984cd238 (publish via VM again). TCL FAILED: tools/cluster gpu-lease tests read host /etc/vy/direct-gpus -> fix #603. TQS (586+queue+603+326) slot a r20260930-221143-c9f1 mm ce30e9b6. TQR obsolete.
+- 22:16Z: TPC (#449 135a1123) slot c r20260930-221323-ac39 stacked on TQS.

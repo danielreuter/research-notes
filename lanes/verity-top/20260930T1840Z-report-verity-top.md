@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (19:30Z) [open] Slack live (reading #agent-coordination); console absorbing website worker; still awaiting circuit and proof charter acks
 CHECKPOINT none (19:15Z) [open] Daniel ruled 19:12Z: one pool, one scheduler, borrowing both ways incl CPU, no ceremony; routed node2-CPU-builds handoff to infra as pre-approved; console absorbing website worker; awaiting circuit/proof acks
 CHECKPOINT none (19:02Z) [open] charters in (circuit/proof/console/infra, 19:00Z); told circuit+proof they report here, route infra items to lanes/infra; proposed idle-agent adoptions to proof+infra; replied to verity-root. Next: acks from circuit, proof, infra
 CHECKPOINT none (18:45Z) [open] top-level live; infra coordinator running (bc-17cc41f1); awaiting circuit/proof/console charters from verity-root by 19:30Z

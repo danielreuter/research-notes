@@ -259,3 +259,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 22:06Z: (b) WHOLEROW_RES 24 vCPU, parallel 2; r7500 pulled for rewrite at 24 vCPU; pipelining already on.
 - 22:13Z: TIS merged 984cd238 (publish via VM again). TCL FAILED: tools/cluster gpu-lease tests read host /etc/vy/direct-gpus -> fix #603. TQS (586+queue+603+326) slot a r20260930-221143-c9f1 mm ce30e9b6. TQR obsolete.
 - 22:16Z: TPC (#449 135a1123) slot c r20260930-221323-ac39 stacked on TQS.
+- 22:27Z: node-1 disk: r20260930-210718-2f89 is (a) stage (keep); dedupe hardlink job sweep2-dedupe running.

@@ -115,3 +115,16 @@ feature and idea backlog) starts.
 - 12:58 PM PDT (19:58Z): the cluster-build shadow is running on node 2 (`r20260930-195806-59f3`, 8 h). The replay gate passed
   (`art:7932c81a…`).
 - 1:22 PM PDT (20:22Z): the Slack relay passed acceptance from a VM without the token (#592 at `34986255`).
+
+## Targets (Daniel, 2:06 PM PDT, 30 Sep). Infra owns the numbers
+
+| Target | By | Measure | Owner |
+|---|---|---|---|
+| T1 | 3:30 PM PDT, 30 Sep | node 1 ≥60% useful GPU busy (existing Kueue) | node1-fill, kueue-fold; proofs and circuits submit |
+| T2 | 6:00 PM PDT, 30 Sep | both nodes ≥80% useful GPU busy, sustained; CPU ≥60%; timed windows protected | node2-ops, node1-fill, kueue-fold |
+| T3 | 11:59 PM PDT, 30 Sep | #586 merged, `research run --queue` live, node 2 switched, first lane job through the queue | cluster-build; merge by the old research coordinator |
+| T4 | 12:00 PM PDT, 1 Oct | node 1 on the scheduler; only `research run --queue`, no ad hoc pods; console panel; ≥85% useful over 12 h | kueue-fold, cluster-build, console |
+| Standing | always | ≥12 GPU-h of ready, useful work queued per node | node2-ops and node1-fill watch; the lanes keep it queued |
+
+Starting point at 2:05 PM PDT: node 1 at 0.3% GPU (30 min), 29% CPU, 29 GPU workloads pending, and 4 GPUs with no memory
+used. Node 2 had all 8 GPUs leased, 0 GPU jobs queued and 24 CPU jobs queued.

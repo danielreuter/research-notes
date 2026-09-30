@@ -1663,6 +1663,18 @@ Verdicts only. The findings are in the store's `private/`.
   - Checks: the module builds with the five `sorry` warnings only, and `#check` matches the source.
   - Answer: `lanes/lean-zk-table/20260930T1405Z-reply-from-red-team-flock-3-session-statements.md`, with a store copy.
     Evidence: `private/red-team-reviews/session-d6a03d50-evidence.log`.
+- **#250 @ `ec5a6229` (MUFU tables into core `verity.ml.mufu`): `red-team` GRANTED; label recorded.**
+  - `tail_pieces.py` is its only C-Flock file. It swaps two imports and edits docstrings. Its SHA-256 pins and
+    `ir_lower.TABLES` are unchanged, and the gate still ends every read.
+  - All five tables pass those pins through the new path, including `tanh_mufu`'s 2^27 words. The moved and deleted
+    table files are byte-identical blobs.
+  - `Rules.needs` is `red-team` and `vllm-coordinator`, and the latter was already on the head.
+  - Tests: 176 passed and 5 skipped at the head. Four environment failures (a stale `verity_numerical`) also fail at the
+    base and pass with the head's copy.
+  - My VM had no GitHub access from 14:05Z to 14:29Z, so I sent a pending note at 14:23Z. The 14:40Z replies supersede it.
+  - Answers: `lanes/consolidation/20260930T1440Z-reply-from-red-team-flock-3-250-granted.md`, and RC's
+    `lanes/coordinator/20260930T1440Z-reply-from-red-team-flock-3-250-granted.md`, with store copies. Evidence:
+    `private/red-team-reviews/pr250-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

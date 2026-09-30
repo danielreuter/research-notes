@@ -17,6 +17,7 @@ origin: nebius-infra
 - It's union-merged in git (`.gitattributes`), so concurrent appends from both sides don't conflict.
 - When a lesson recurs, the steward (nebius-infra) turns it into code or config on `cursor/nebius-infra-e910` and appends the fix.
 - It's public: no secrets, keys or exploit details.
+- If you can't push to research-notes, append your bullet to the Project store's copy (`internal/lanes/nebius-infra/lessons.md`). The steward's channel sync folds it into this file.
 
 ## Log
 
@@ -33,7 +34,11 @@ origin: nebius-infra
 - 2026-09-30 05:46Z [verity/nebius-owner] GPU clocks are locked node-wide at boot (2,100 MHz graphics / 12,481 MHz memory, `vy-clocks.service`); `nvidia-smi -lgc` is refused for `research` -> label timings `locked-2100`; clock experiments go through the Nebius owner (code: #488 `vm_setup.sh`)
 - 2026-09-30 05:46Z [verity/nebius-owner] Hard stop 2026-10-02T04:57:26Z (the lease is clamped; root's `vy-deadline.timer` stops each VM). No renewal or restart passes it -> finish timed and long runs before then (code: #488)
 - 2026-09-30 05:46Z [verity/nebius-owner] There's no local NVMe: `/workspace` is a network SSD, non-replicated, about 2 GiB/s read -> keep anything irreplaceable in the store; `HF_HOME=/workspace/hf`, read with `HF_HUB_OFFLINE=1` (code: runbook)
-- 2026-09-30 06:05Z [nebius-infra] `gpu-lease` takes the lowest free indices, so on vy-nebius-1 direct runs land on GPUs 0-3, which Kueue also schedules (only 4-7 are held for direct runs). After cutover to all 8 GPUs, every direct run would share a GPU with a Kueue pod -> allow-list fix on the infra branch (code: `pods/sh/gpu_lease.sh`, `/etc/research/gpu-lease.allow`)
+- 2026-09-30 06:05Z [nebius-infra] `gpu-lease` takes the lowest free indices, so on vy-nebius-1 direct runs land on GPUs 0-3, which Kueue also schedules (only 4-7 are held for direct runs). After cutover to all 8 GPUs, every direct run would share a GPU with a Kueue pod. A GPU split must be enforced in the tool that hands out GPUs, not in a note -> `gpu-lease` reads `/etc/vy/direct-gpus`, which the bring-up writes, and refuses when it says `none` (code: #485 `pods/sh/gpu_lease.sh`, `sky/cluster_up.sh`)
 - 2026-09-30 06:05Z [nebius-infra] A run that holds a GPU through `gpu-lease` but spends its time in CPU phases shows `held` at 0% utilization (two such holds at 06:03Z) -> take the lease only around the GPU phase, or split CPU and GPU steps into separate runs (code: none yet)
 - 2026-09-30 06:08Z [nebius-infra] On vy-nebius-1 Prometheus scrapes DCGM twice (two exporter services), so `count(DCGM_FI_DEV_GPU_UTIL)` is 16 -> aggregate `max by (gpu)` before summing (code: `sky/usage_report.py`)
 - 2026-09-30 06:08Z [nebius-infra] Node 1's Prometheus keeps every GPU (DCGM, 1 min) and host (node-exporter) metric since 05:16Z with 1000-day retention -> utilization is read from it, with no second sampler; node 2 has no Prometheus, so it gets `vy-usage` in host mode if POUS agrees (code: `sky/usage_report.py`)
+- 2026-09-30 06:10Z [verity-root] `pkill -f PATTERN` over ssh kills the ssh session whose own command line contains PATTERN -> anchor it (`pgrep -f '^rsync'`) or pick pids first (code: none)
+- 2026-09-30 06:10Z [verity-root] Kueue v0.19 is `kueue.x-k8s.io/v1beta2` (`cohortName`, `lendingLimit`, `stopPolicy`), and its default config already includes the plain-pod framework -> write manifests against v1beta2 (code: `sky/kueue*.yaml`)
+- 2026-09-30 06:11Z [verity-root] Node 2 does not join node 1's cluster (no security-rule change; the servers stay independent) -> a queue on node 2 is its own single-node cluster from the same `sky/cluster_up.sh` (`VY_MACHINE=vy-nebius-2 VY_POOL=vy-nebius-2 VY_QUEUES=kueue-pouw.yaml VY_DIRECT_GPUS=none`); it restarts k3s once, so apply it outside a timed window (code: #485)
+- 2026-09-30 06:10Z [coordinator] vy-nebius-1 also hosts merge-train checks (at most 32 vCPU): they run as `gpu-lease 1 --wait -- taskset -c 160-191 ...`, so CPUs 160-191 and one GPU lease are the trains' while a check runs -> pin your own CPU work away from 144-191 (M0 uses 144-191) (code: none yet)

@@ -5,6 +5,18 @@ cursor:
 
 # lean-gemm-relation: status
 
+**2026-09-30 11:35Z.** #490 and #500 are on `main` (train TLO, `fb6a5cf8`).
+- **#514** is at `f3a60a36`: `main` merged, and `lean-audit.json` re-written with main's Mathlib build (PASS, 163 pins; the six
+  pins are identical to those at `a19d2871`). **#521** is at `4e4ee3e4` (PASS, 165 pins). Both went to lean-value-binding
+  for #526's combined review, which it sends with #526's final head. `a738857f`, `a19d2871`, `188e9e0d` and `aa43e99b` are
+  superseded.
+- **`DerivedPlaces`:** [#538](https://github.com/danielreuter/verity/pull/538) (draft), `setupH_templateTableClass`, a
+  template's `TableClass` from the accepted statement, with no hypothesis. Recorded audit PASS `r20260930-105746-060b`.
+  Next: each unit's slot and block, `hrd`, `hcp`, and the table statement being the accepted statement's model.
+  - **For templates:** each input copies its own message bit (`copySrc`), so `hcp` needs distinct sources within a unit.
+    A unit that reads the zero would get no forced-zero rows. Aliasing there has to come from the registered rows (the
+    value binding), not from the statement.
+
 **2026-09-30 07:52Z: #490 granted** by red-team-flock-3 at `94384df9` (verdict `20260930T0726Z-redteam-490-verdict.md` here), on
 condition that #500 lands no later than #490; until then the pins are cited for the Lean relation only, not for `check_step`.
 Merge request for both, in one train: `lanes/coordinator/20260930T0750Z-merge-request-lean-gemm-relation-490-500.md` in the

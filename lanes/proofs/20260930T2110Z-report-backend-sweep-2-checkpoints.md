@@ -31,3 +31,13 @@ GPU-busy is DCGM utilization above 0 in a minute, averaged over the 8 GPUs (node
   (b) has held 1.7 GPU-h. It stops at 4 GPU-h (about 4:05 PM PDT) unless it reaches 5% first. (a) The first deployment's stage
   (`r20260930-210718-2f89`) reproduced the 460 units in the job and is staging its shapes (147 so far); the other 59 wait on its
   GPU selftest. Llama shape sweep: queued 272, done 252, failed 0. GPU-busy 7.8% (10 min) / 4.4% (60 min), util 3.1% / 1.1%.
+- 4:10 PM PDT, final: stopped since 3:51 PM PDT (Daniel, 3:49 PM PDT: "forget about the vLLM deployments"; `sweep2-feed/STOPPED.json`).
+  (b) got 1,598 statements, all accepted, before the stop. The prover averages 1.0927 s (+8.5% vs 1.00736 s; median 1.023 s, +1.6%),
+  so the whole row is 15.28 against 14.09 GPU-h extrapolated. The GPU was held 3.70 GPU-h, 8.34 s a statement, because the loopback
+  verifier (6.85 s) runs in series: 116.6 GPU-h for the whole row. Evidence in
+  `art:17e200ddeb15987449bfa58ec2be108580841386d302951a9c1a9a0c9fe5eb3c`, labelled on it and on runs `r20260930-210621-2a46`,
+  `r20260930-210627-d1e9` and `r20260930-214647-a70b`. (a) never reached its GPU selftest: the first deployment was staged, but its
+  prove job was deleted in the stop. At 4:00 PM PDT I restarted the feeder before I had read the stop; it wrote one CPU stage job and
+  one CPU sweep stage, and I deleted both within 3 minutes (no GPU used). The feeder is off again, and nothing of this lane is
+  queued or running. Llama shape sweep at the stop: queued 302, done 272, failed 0. Node 1 after: GPU-busy 2.6% (10 min) / 4.1%
+  (60 min), util 1.1% / 1.6%.

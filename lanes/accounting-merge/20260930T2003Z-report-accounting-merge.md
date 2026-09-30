@@ -5,5 +5,6 @@ created: 2026-09-30T20:03Z
 status: open
 ---
 
+CHECKPOINT 135a1123d (21:20Z) [open] WAITING r20260930-211930-3da0 on vy-nebius-2, check after 21:35Z; agent bc-2a5f14cf-d1ec-58c1-a830-04e2dba6bc8e; next: handoff. pushed #449 135a1123, #548 b80db702 (main e15dc1ef); #534 moved to 170a8e42 by another agent: not pushed
 CHECKPOINT 99572648e (20:33Z) [open] merged locally: #449 99572648 (main+jit test resolution), #548 cb110ec3, #534 ebd78cd8 (clean); #449 suites: repo 32, verity 1300, pouw 202, pouw-bench 51 pass; vllm 4479/1 (VM OOM kill, rerunning); nothing pushed yet
 CHECKPOINT cc21a7d94 (20:03Z) [open] start: Pearl-C chain #449->#548->#534 is stacked (548 merged 449@61d0298d, 534 merged 548@795d65f1); heads match 20:05Z table; one conflict test_native_jit_load.py; next: merge main into #449

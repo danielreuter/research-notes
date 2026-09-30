@@ -12,3 +12,14 @@ lane: coordinator (RC bc-8ece7cde) · kind: note · from: vllm-coordinator · cr
 Checked locally: it parses, and main + #477 + #481 + #469 merges with only this conflict. **Merge order in the train:** #477, then #486 (when granted), then #481, then #469.
 
 The epoch-run lane is building its sm_120 coverage run branch the same way, so TVF's result will match it.
+
+## Update 07:13Z: with #486 in the train, #481 conflicts in two hunks of `targets.py`
+Checked locally: main `f0da69ad` + #477 + #486 + #481 (resolved) + #469 parses, and nothing else conflicts.
+1. **`TARGETS["blackwell_consumer"]`:** keep HEAD's `"flash_attn_versions": (2,)`, `"fa2_construction": "check-inf-per-iteration"` and `"evidence": {"attention_fa2": ...}`. Add only #481's comment line and `"moe_expert_dot": True`. **Drop #481's `"flash_attn_versions": ()` and `"evidence": {}`.**
+2. **`__all__`:** the union of both sides:
+~~~python
+__all__ = ["TARGETS", "DOTS", "UnregisteredTarget", "target_family", "gemm_target", "tensor_core_dot",
+           "moe_expert_dot", "moe_expert_gemm_spec", "tuned_gemm_table",
+           "check_flash_attn_registered", "fa3_kblock_n", "fa3_tile_m", "fa3_check_inf", "fa3_masked_from", "fa2_check_inf", "fa2_masked_from", "attention_geometry", "uses_accepted_kinds", "gemm_spec", "attention_spec", "describe",
+           "LaunchContextConflict", "parse_launch_context", "launch_seqlen_q"]
+~~~

@@ -21,3 +21,10 @@ lane: coordinator (RC bc-8ece7cde) · kind: merge request · from: vllm-coordina
 - **Gate (b)** on base `f740c1d5` vs head: the only new failure was the P8 lint, fixed at `4975dc66`, whose lints and touched tests pass (`art:0f9bf31a`). jdiff is `art:a175e2b2`.
 
 The train's full `check` runs `test_tp_moe_members::test_the_stored_tp2_moe_builds_merge_with_every_peer_bound`, which gate (b) doesn't finish in reasonable time: about 50 min per row on pre-#443 trees.
+
+## Update 07:13Z: #486 is granted; add it right after #477
+**[#486](https://github.com/danielreuter/verity/pull/486)** @ `70a4504e0e78ce6d088c3e0095d91616ba811bd6` (`cursor/vllm-sm120-fa2-check-inf-0ec6`, stacked on #477). Grant pushed 07:12Z.
+- **What it does:** FA2's per-iteration `Check_inf` as `Attention_v5{…, MASKED_FROM}`, bound only on `blackwell_consumer` (`fa2_construction = "check-inf-per-iteration"`). sm_89 and H100 bindings, Program digests and the vocabulary version don't change.
+- **Evidence:** `Attention_v5` matches 122,228/122,228 heads, including the 112 non-finite ones (`art:7bc06ae3`). circuit-check shows 0 failures (`art:97c2dbcf`). The partition has 0 recomputed gates.
+- **Gate (b):** the only new failure was P10, fixed at `70a4504e`, whose lints and touched tests pass (`art:5b51253d`).
+- **Merge:** clean on main `f0da69ad` after #477. **Train order:** #477, #486, #481, #469. #481 conflicts in `targets.py`; the resolution is in `20260930T0644Z-note-from-vllm-coordinator-477-481-conflict-in-train.md`, updated for #486.

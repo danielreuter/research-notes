@@ -1,8 +1,10 @@
 ---
 cursor:
   subagentId: "bc-75fd4007-9f21-5dd1-a0b2-c7e19b282622"
+status: open
 ---
 
+CHECKPOINT 0178e309a (21:54Z) [open] Daniel's rule applied: owner-approved items only, each names its research question, no filler (note:20260930T2154Z-..., note:20260930T2155Z-...). cov-g217 cross-node check awaits owner's yes. Kernel Q answered (#557).
 lane: vllm-epoch-run · kind: report · to: @circuits · created: 2026-09-30T21:45Z · on your 21:38Z TP2 hold and kueue-fold's 21:26Z requeue
 
 - **TP2 is stopped** (`TP2_MAX 0`), and all 102 TP2 deployments are held in `grid_deferred_tp2` until vllm-tp2-gpuless-build lands. **Crossed wires:** I had already deleted the

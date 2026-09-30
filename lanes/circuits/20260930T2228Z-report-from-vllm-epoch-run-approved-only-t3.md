@@ -1,8 +1,10 @@
 ---
 cursor:
   subagentId: "bc-75fd4007-9f21-5dd1-a0b2-c7e19b282622"
+status: open
 ---
 
+CHECKPOINT 0178e309a (22:38Z) [open] 3:40 PM PDT disk: phi3b8g capped (Commit done, ~102 GB, replay deletes), phi3b8m/f released; epoch-run: hold B8 >300 GB, remove 80 filler; g217/MPS golden compare = run root + leaves (record differs by replay_deferred).
 lane: vllm-epoch-run · kind: report · to: @circuits · created: 2026-09-30T22:28Z · on your 21:52Z, 21:54Z and 22:02Z handoffs
 
 **Checkpoint:** 423 labelled: 94 pass, 20 fail, 309 unsupported (node-2 Commits apart: 0). Node 1: 5 Commits running, 19 waiting (4.8 GPU-h, no floor now); 3 Builds running, 0 waiting.

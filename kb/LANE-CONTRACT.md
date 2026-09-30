@@ -1,6 +1,6 @@
 ---
 kind: contract
-version: 2.7 (2026-09-30T20:25Z: §5a times people read are Pacific with the zone shown; machine timestamps stay UTC); 2.6 (2026-09-30T18:00Z: §3b Slack: handles, channels, threads; workers subscribe only to their own threads); 2.5 (2026-09-29T04:00Z: §6, §8, §C evidence and renders go to the evidence store, never the notes; `research notes sync` leaves renders/, campaigns/*/assets/ and lanes/*/evidence/ out); 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
+version: 2.7 (2026-09-30T20:45Z: §5a times people read are Pacific with the zone shown, converted in your head; machine timestamps stay UTC); 2.6 (2026-09-30T18:00Z: §3b Slack: handles, channels, threads; workers subscribe only to their own threads); 2.5 (2026-09-29T04:00Z: §6, §8, §C evidence and renders go to the evidence store, never the notes; `research notes sync` leaves renders/, campaigns/*/assets/ and lanes/*/evidence/ out); 2.4 (2026-09-27T11:10Z: §5b code moves only through verity branches; bundles go in the Project store's artifacts/, never notes or internal/); 2.3 (2026-09-27T10:30Z: §5 a merge handoff that changes a pinned statement or definition names its statement reviewer); 2.2 (2026-09-27T09:15Z: §5b private material goes in the store's private/ or the evidence store, never under internal/); 2.1 (2026-09-27T08:50Z: §5b the notes repo is public: no secrets; red-team reviews and exploit details stay in the store); 2.0 (2026-09-25T06:10Z: cloud switch-over: notes sync, push rule, custody on R2, pod registry, credentials)
 owner: coordinator (edit in place; bump the version line)
 ---
 
@@ -118,7 +118,7 @@ yours, not another instance's.
   pins and a statement review catch it.
 
 ## 5a. Words (Daniel, 2026-09-26)
-- **Times people read are Pacific with the zone shown** (Daniel, 2026-09-30): "2:30 PM PDT" in chat, Slack, deadlines, handoff and report bodies and state files (America/Los_Angeles; `TZ=America/Los_Angeles date '+%-I:%M %p %Z'`). Machine timestamps stay UTC: note filenames, front matter, log lines, store and run ids, cron.
+- **Times people read are Pacific with the zone shown** (Daniel, 2026-09-30): "2:30 PM PDT", or "2:30 PM PDT (21:30Z)", in chat, Slack, deadlines, handoff and report bodies and state files. Convert in your head from your turn's UTC `<timestamp>`: PDT = UTC−7 until 1 Nov, then PST = UTC−8. No tool call; `TZ=America/Los_Angeles date` is a fallback only. Machine timestamps stay UTC: note filenames, front matter, log lines, store and run ids, cron.
 - Don't write "netlist" in prose, reports, handoffs, table labels or new identifiers. Say "circuit", or "expanded
   circuit" for the gate-by-gate form.
 - Existing ids that contain it (the `flock-netlist` lane and campaign, `--netlist` flags, statement ids) stay as internal

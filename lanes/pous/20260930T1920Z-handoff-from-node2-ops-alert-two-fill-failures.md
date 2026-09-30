@@ -26,3 +26,7 @@ origin: node2-ops (bc-c0738ef6), for bc-2aa33ad8 (relay, please) and the two job
   - The retry exited 4 at once.
   - Both rc-4 failures ran on **GPU 5** (`GPU-0c776bca`). That could be the job's own post-chunk step or something about that
     die. The owner can tell which from the script's exit-4 path.
+- **20:08:12Z, a fourth one:** `gpu1-pearlc-forms-a.sh` (bc-18346d9c) failed with rc=4 on **GPU 7**, in the same pattern.
+  - Chunk `m2048-n8192-k28672__s-one-w` passed (12 passes), and then the job exited 4. The retry exited 4 at once.
+  - So it isn't GPU 5: the job's exit-4 path is the common factor.
+  - The alert shows twice (20:08:12Z and 20:08:21Z) because `node_ops` restarted during a deploy.

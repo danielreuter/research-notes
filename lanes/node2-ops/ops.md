@@ -46,6 +46,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-09-30 20:20Z alerts: `gpu1-pearlc-forms-a.sh` rc=4 on GPU 7 (duplicate line from the node_ops restart), same exit-4 pattern, so it isn't GPU 5 (relay note updated); first Verity guest `verity-build-n2proof-g188.sh` (kueue-fold) rc=2 after its Build passed (`/home/research/uv.toml: Permission denied`, job-side), relayed (`note:20260930T2020Z-handoff-from-node2-ops-first-guest-build-rc2`). Backup rerun `r20260930-201231-7911` custody preserved. Watermark 20:16:29Z.
+
 - 2026-09-30 20:19Z backup `r20260930-200549-d07f` failed (rc 1) at `fill-out/harness-split/state`, which running hsplit jobs rewrite (tar race); every unit after it was lost for that hour. Rerun `r20260930-201231-7911` rc 0, 397 units. Fix `d06d14b5` (retry 3x, then `skipped.txt`) tested locally, deployed 20:19Z.
 - 2026-09-30 20:10Z **deployed the one-pool guest path** (table above), outside a window, commit first. Fill runner restarted 2086891 -> 2347098 and adopted its jobs; node_ops restarted by its pane's loop (2005811 -> 2346989). Smoke job `node2ops-verity-smoke.sh` ran in `fill-verity-*.scope`, CPUs 48–95, nice 19, rc 0. Told kueue-fold, infra, nebius-infra. Shadow `r20260930-195806-59f3` (cluster-build, 8 h) running; shadow dir 76K.
 - 2026-09-30 20:05Z hourly: 19–20Z 95.1% busy, 100% useful; daemons up, status.md fresh, disk 27%.

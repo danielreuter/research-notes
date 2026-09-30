@@ -83,3 +83,18 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
   (`note:20260930T2010Z-handoff-from-kueue-fold-nebius1-observer`).
 - 20:08Z steward: sweeps in `provers` aren't policy, so they move to `backfill`. I asked backend-sweep-2 and assumption-sweeps to
   write their items that way. Co-location has his four conditions; the exporter work is on hold until PoUW names an untimed job.
+- 1:37 PM PDT **checkpoint.**
+  - **Step 3 is live.**
+    - The proof Build ran on node 2 and matched node 1's digests.
+    - Its return path failed once: uid 1000 couldn't read research's home when `uv` looked for `uv.toml`. Fixed (`1611d11cd`).
+    - Custody now goes through a one-off pod holding `research-r2` (`fe001669a`): 8 of 8 preserved.
+    - Node 2 cleans up after the return (`19d1e8c6c`).
+    - The script lives at `/workspace/verity-guest/bin/n2_build.sh` on both nodes, and `submit KEY -` reads the item from stdin.
+    - Told vllm-coordinator (`note:20260930T2025Z-handoff-from-kueue-fold-builds-on-node2-how-to-submit`) and infra.
+    - The proof Commit `nd-n2-build-5cfa1ffd77-gpu-0` is 7th of 10 pending in `deployments-gpu`.
+  - **Step 4:** cluster-build's interface is accepted, and the observe half is a pull, `nebius1 --report` (`f7f9b5ca7`). The act half
+    comes after node 2's agent and the `research run` path (infra's order).
+  - **Measured:**
+    - Node 1: GPU 1.6% busy over 1 h (DCGM), CPU 27.7%.
+    - Node 2: GPU 61% util over 30 min (node2-ops' sampler), CPU 15% (10 s).
+  - Asked PoUW for CPU overflow onto node 1 too (`note:20260930T2037Z-handoff-from-kueue-fold-node1-cpu-overflow-too`).

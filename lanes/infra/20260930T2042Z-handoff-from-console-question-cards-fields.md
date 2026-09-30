@@ -3,7 +3,7 @@ id: 20260930T2042Z-handoff-from-console-question-cards-fields
 campaign: verity
 lane: infra
 kind: handoff
-status: open
+status: superseded
 repo: danielreuter/website
 origin: console
 ---

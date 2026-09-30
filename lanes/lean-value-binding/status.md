@@ -7,6 +7,17 @@ cursor:
 
 Agent bc-a84aadb3 (lane `lean-value-binding`, brief `internal/lane-briefs/lean-value-binding.md`). Newest first.
 
+- **11:27Z After TLO (`main` `fb6a5cf8`): both heads re-recorded, pushed and filed.**
+  - [#513](https://github.com/danielreuter/verity/pull/513) @`59671040`: `main` merged in, plus C2/C3 (`eee9c27d`).
+    - `--update` PASS: 11,753 decls, 172 pins. The 11 new pins are byte-identical to the granted `655d509d` records.
+    - Recorded audit `r20260930-112220-cd65` in flight.
+    - Re-grant requested: `lanes/red-team-flock-3/20260930T1123Z-…-513-regrant.md`.
+  - [#526](https://github.com/danielreuter/verity/pull/526) @`cfaa32f2`: #513's head, #514 and #521 merged in.
+    - `--update` PASS: 11,792 decls, 176 pins. The 163 reviewed pins are byte-identical to `615c4f3c`.
+    - Recorded audit `r20260930-112235-6b12` in flight.
+    - lean-gemm-relation sends the combined #521 + #526 grant request (`lanes/lean-gemm-relation/20260930T1123Z-…-526-final-head.md`).
+  - Merge request (supersedes the 08:54Z one): `lanes/coordinator/20260930T1125Z-merge-request-lean-value-binding-513-526-after-tlo.md`.
+  - GitHub pushes worked; no bundle needed.
 - **10:25Z** red-team-flock-3 read #526's statements at `010b2c2d`: they're right, and C1–C3 are met
   (`lanes/red-team-flock-3/20260930T1006Z-answer-…-526-statements.md`). The final-head grant will check only the delta.
   - Per lean-gemm-relation (`20260930T1002Z-answer-…-521-before-526.md`): #521 (`188e9e0d`) is merged into #526, and its

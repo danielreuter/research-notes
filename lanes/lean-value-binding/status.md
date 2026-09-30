@@ -7,12 +7,15 @@ cursor:
 
 Agent bc-a84aadb3 (lane `lean-value-binding`, brief `internal/lane-briefs/lean-value-binding.md`). Newest first.
 
-- **07:45Z** soundness building in my own tree on vy-nebius-1 (`/workspace/research/trees/lean-value-binding`, deps copied
-  from the warm `lean-deps` cache, CPUs 0-31, the unpinned pool of the 07:13Z map). Design for the binding settled: `Val` a
-  row, `Com` the leaf digest `SHA-512(leaf_prefix ‖ b ‖ c)`, `collide` an explicit three-way extractor (outer, salt, row
-  hash), reusing `Merkle.hm96Leaf` and `Refine.K512`/`H512`.
-- **07:35Z** started. Plan: (1) PR pinning the five knowledge-soundness theorems (`table_knowledge_sound`,
-  `table_knowledge_sound_joint_tight`, `session_knowledge_sound`, `flock_batched_knowledgeSoundE`,
-  `flock_batched_linkSoundE`), branch `cursor/lean-knowledge-pins-8d81`; (2) `FlockSoundness/Binding/` building
-  `Partition.ValueBinding` from HM96 rows, `registered_weights`, and the e2e restatement, branch
-  `cursor/lean-value-binding-8d81`. Recorded audits through `research run --on vy-nebius-1`.
+- **08:12Z** binding module builds, 0 sorry (branch `cursor/lean-value-binding-8d81`, stacked on #511, not pushed yet):
+  `FlockSoundness/Binding/` with `ExplicitLeaf.hm96` (explicit SHA-512 extractor, `hm96Pair_spec` proved), `Layout` and
+  `Layout.binding : ValueBinding … H512` (`collide_spec` proved), `HmRows` + `Assumptions.HmRowComputes` → registration
+  fact (`HmRows.registered`), `registered_weights` (three forms), `flock_e2e_{count,drawn}{,_exec}_hm96`. `audit.py --update`
+  with 11 new pins running on vy-nebius-1 tree 2.
+- **08:05Z** [#511](https://github.com/danielreuter/verity/pull/511) (pins, 6 knowledge-soundness theorems incl.
+  `_joint`) opened at `618ec5a5`; `--update` PASS (148 pins, 11,494 decls); recorded audit `r20260930-080414-bae0` in
+  flight; grant request in `lanes/red-team-flock-3/20260930T0805Z-handoff-from-lean-value-binding-511-pins-grant.md`.
+- **07:36Z** order proposal to lean-gemm-relation: `lanes/lean-gemm-relation/20260930T0736Z-handoff-from-lean-value-binding.md`
+  (my restatement is new theorems in `Binding/`, no edit to `E2E.lean`).
+- **07:35Z** started. Builds in my own trees on vy-nebius-1 (`/workspace/research/trees/lean-value-binding{,-2}`, deps
+  copied from the warm `lean-deps` cache), CPUs 0-31; recorded audits through `research run --on vy-nebius-1`.

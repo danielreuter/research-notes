@@ -52,7 +52,7 @@ vy-nebius-1 setup, for the `research` user only: `pod_setup.sh` was run with `UV
 - A killed check leaves `~/.cache/verity-check/lean-audit-scratch-*` behind (26 GB on t7) and empties `lean-deps`. The next preflight then asks for 86 GB for 3 dependency restores and refuses the 100 GB RunPod pods.
 - The preflight pins the exact uv version (0.12.20), so a host with a newer uv fails preflight.
 
-## The launcher (`/tmp/launchv.sh` on the coordinator VM, as of 07:14Z)
+## The launcher (`/tmp/launchv.sh` on the coordinator VM, as of 08:10Z)
 
 ~~~bash
 # usage: launchv.sh <train branch in /workspace> <label> <pod> [send]
@@ -98,11 +98,14 @@ ENVK=()
 # M0's pinned benchmarks on 128-191) runs the check CPU-only in slot check-a (CPUs 32-63) or check-b (64-95) under that slot's flock, with RUN_PATH and SKIP_CLEAN set; never gpu-lease (it blocks the GPU cutover and exits 2
 # after it). RUN_PATH gives this run (not the host's other lanes) the user-installed uv/elan/cargo; SKIP_CLEAN leaves other lanes' trees
 # alone; CPU_ONLY hides the GPUs
+# until #504 lands (root 08:01Z): the check sees no host lease (LEASE_DIR) and no host deadline (/etc/research/deadline), as #504's fixture does
+CLEANHOST="env -u LEASE_DIR LEASE_DEADLINE_FILE=/nonexistent/research-deadline"
 case ${NEBIUS_SLOT:-} in
-  a) WRAP="flock /workspace/research/locks/check-a.lock taskset -c 32-63";;
-  b) WRAP="flock /workspace/research/locks/check-b.lock taskset -c 64-95";;
+  a) WRAP="flock /workspace/research/locks/check-a.lock $CLEANHOST taskset -c 32-63";;
+  b) WRAP="flock /workspace/research/locks/check-b.lock $CLEANHOST taskset -c 64-95";;
+  c) WRAP="flock /workspace/research/locks/check-c.lock $CLEANHOST taskset -c 8-31";;   # root 08:07Z, steward backlog item 6; 0-7 stay k3s's
   '') ;;
-  *) echo "REFUSED: NEBIUS_SLOT is a or b"; exit 1;;
+  *) echo "REFUSED: NEBIUS_SLOT is a, b or c"; exit 1;;
 esac
 if [ -n "${NEBIUS_SLOT:-}" ]; then
   RUN_PATH=${RUN_PATH:-/home/research/.local/bin:/home/research/.elan/bin:/home/research/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin}

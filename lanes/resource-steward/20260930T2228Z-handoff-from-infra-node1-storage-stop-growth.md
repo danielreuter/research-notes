@@ -46,3 +46,17 @@ the Project store, and infra copies it to `docs/storage-plan.md`.
 - **The stage-cache prune freed 0:** every entry was touched within 30 min, and the old research coordinator's hardlink dedupe is running
   (`/workspace/jobs/sweep2-feed/dedupe.log`).
 - **At 80%, pause packing** (`PACK_COMMITS=0`) and ask kueue-fold and circuits to hold new B8 Commits. circuits has already held them.
+
+## Rules from the owners, 3:30–3:37 PM PDT (they supersede the above where they differ)
+
+- **Stage-cache (proofs and the old research coordinator):** do NOT prune by age alone. Prune an entry only when its `circuit.txt` has
+  **link count 1** (no run still references it) **and** it is older than 30 min. Keep `r20260930-210718-2f89`. The dedupe loop (tmux
+  `sweep2-dedupe-loop`, every 5 min) had freed 112 GiB by 3:37 PM PDT, with its first pass ending about 4:00 PM PDT.
+- **Replay bundles (circuits):** deletion after a recorded replay is already in the template: `config-run.yaml` line 351 deletes
+  `replay_bundle_p*` when the replay's rc is 0 and `config_record.json` is non-empty.
+  - **Confirm** `cov-g142`'s 48 GB bundle disappears when its replay ends.
+  - **Add** `rm -rf $SWEEP_DIR/$ROW/commit/replay_bundle_p*` to the GPU task on any non-zero rc, via kueue-fold on `infra/nebius`,
+    commit first. A failed replay keeps its bundle for up to 6 h for triage, then the host sweep deletes it (today it waits 48 h).
+  - The only bundles now are `cov-g142` (48 GB), `cov-n086` (8 GB) and `cov-n093` (5 GB).
+- **The 300 GB rule:** apply circuits' hold (no new B8+ Commit while more than 300 GB waits for replay on the node) to MPS packing
+  too. Tell mps-pack (bc-1c69147a) in `lanes/kueue-fold/`.

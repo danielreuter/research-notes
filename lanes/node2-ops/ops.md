@@ -52,6 +52,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-09-30 22:50Z alerts: `gpu-idle-in-lease` ×3, bc-0de2d624's `harness-perdie` (3–6% util, all 8 done, kind 94%), FYI to `lanes/pous/`. `verity-build-cov-n062-r1.sh` rc=10, the second `cov-n06x-r1`, relayed to kueue-fold. Watermark 22:40:05Z.
+
 - 2026-09-30 22:35Z alerts: `gpu-idle-in-lease` on GPU 5, bc-2aa33ad8's `hsplit-w3` (0.8% util, a low-util chunk), relayed to `lanes/pous/`. `verity-build-cov-n061-r1.sh` rc=10 after bootstrap OK (`r20260930-222608-12c0`, validation failed), relayed to kueue-fold. Watermark 22:30:11Z.
 
 - 2026-09-30 22:20Z alerts: the monitor's first `gpu-idle-in-lease` catches were two `kt-e70b` runs (bc-6289d8b0) at <10% util for 5 minutes. They were stopped at `max_min` 8 and passed on retry (about 0.2 GPU-h idle). Relayed to `lanes/pous/`, and a rolling monitor log started at `note:20260930T2220Z-alert-from-node2-ops-job-monitors`. Watermark 22:05:06Z.

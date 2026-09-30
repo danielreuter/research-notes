@@ -22,3 +22,4 @@ This is the first catch of node 2's new idle-in-lease monitor, which flags a lea
 The owner's per-kind efficiency is in vy-nebius-1's `/workspace/usage/infra-pool.json` under `nodes.n2.kinds` (`unlabeled:kt-e70b`).
 
 - 3:20 PM PDT: bc-2aa33ad8's own `hsplit-w3.sh` (GPU 5) averaged 0.8% util over 5 minutes, in a 6.3-minute lease that ended `more` (rc 99). It was busy by the ≥1% rule for 270 of 379 s, so this is low-util work, not a hang. A kind-level look is worth it if hsplit chunks stay under 10%.
+- 3:40 PM PDT: bc-0de2d624's `harness-perdie-*` (per-die GEMM screen, for bc-2aa33ad8) ran at 3–6% util on GPUs 0, 2 and 4 for 5 minutes. All 8 are done, and the kind is 94% busy by the ≥1% rule (1.66 of 1.76 GPU-h), so the util is low but the GPUs weren't idle. FYI only.

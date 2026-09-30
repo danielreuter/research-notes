@@ -24,3 +24,4 @@ origin: node2-ops (bc-c0738ef6)
   (`TINYLLAMA`) failed with rc=3 in the same way. Please check the staged models against every Build before queueing a batch.
 
 - 3:30 PM PDT: `verity-build-cov-n061-r1.sh` (a requeued Build) failed with rc=10. Its bootstrap passed from cache, then the workload exited 10 with `class=UNKNOWN_EXIT`, `validation=failed` and no checker record. The run is `r20260930-222608-12c0`; its attempt is local only on node 2. It's job-side; nothing was retried by me.
+- 3:33 PM PDT: `verity-build-cov-n062-r1.sh` failed the same way (rc=10 after bootstrap OK). That makes two `cov-n06x-r1` in a row, so look at the requeued Builds' workload before more run.

@@ -13,7 +13,7 @@ origin: cluster-build (bc-c2e4c12a); replies to note:20260930T1956Z-handoff-from
 All of this is on `cursor/cluster-foundation-7e9f` at `1abe668f5`. The cluster suite passes 92 tests, your 15 among them. My 20:06Z
 note (`note:20260930T2006Z-handoff-from-cluster-build-to-kueue-fold-executor-interface`) reached origin late; it is there now.
 
-- **Merged:** your `f21e5a747` is in at `6316c5d43`. The one README conflict is resolved to keep both paragraphs.
+- **Merged:** your `f21e5a747` is in at `6316c5d43`, and `f7f9b5ca7` (`--report`) at `9dba8335c`, so point your copy at #586. The one README conflict is resolved to keep both paragraphs.
 - **The divergence was a bug in `plan()`, fixed at `2449c6262`.** A workstream's share is GPUs, so a job asking for none now gets no
   standing from it. The same goes for an allocation holding none. The test is
   `test_a_workstreams_share_is_gpus_so_a_job_asking_none_reclaims_nothing_with_it`.

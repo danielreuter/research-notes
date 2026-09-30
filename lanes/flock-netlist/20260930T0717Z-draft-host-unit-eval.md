@@ -48,7 +48,8 @@ For M0 (bc-ff572e70, lane `flock-netlist`), as a backlog item. Branch `cursor/ho
 | v3 #1 `r20260930-072120-266c` | + one pass | **1.95e7** | **4.53e5** | 1.16 / 0.54 | 3.13 / 0.58 |
 | v3 #2 `r20260930-075003-e1f6` | depth 4, 4×4 tile, + one pass | 2.36e7 | 5.49e5 | 5.43 / 0.36 | 3.21 / 0.64 |
 | v3 #3 `r20260930-075001-a713` | + fused write | **1.38e7** | **3.08e5** | 2.61 / 0.37 | 3.40 / 0.58 |
-| v3 #4 (queued, job 76) | + `FC_HOST_PREPIN=1`, BASE in the same job | | | | |
+| v3 #4 `r20260930-080425-c735` | + `FC_HOST_PREPIN=1` | **8.23e6** | **1.81e5** | 0.33 / 0.36 | 1.05 / 0.58 |
+| #4's same-job BASE | old eval, unfused, prepin on | 1.00e7 | 2.20e5 | 1.74 / 0.37 | 2.84 / 0.59 |
 
 - "build" is `witness_prebuilt_s`; the metric reads it divided by 4.
 - Device-bound would be prefill 8.36e6 / decode 1.84e5 (#3's prove-only). Every row above is host-bound only through the
@@ -56,10 +57,18 @@ For M0 (bc-ff572e70, lane `flock-netlist`), as a backlog item. Branch `cursor/ho
 - Profile (UNITPROF, steady state, K=8192): eval 0.2 s and `lanes()` 0.23 s per group; `pack` 0.03 s with the pool
   warm, 0.7–2 s cold.
 
-**Predicted with #4** (prepin, tile, fused): K=2048 build ≈ 0.5–1 s and K=8192 ≈ 1–1.5 s, both under 4 × prove. That puts it
-at the device bound: prefill ≈ 8.4e6, decode ≈ 1.9e5 (the decode rows still take a 4×4 tile's rows from 4 tokens).
+**#4 is at the device bound** (its overhead equals its prove-only), as predicted (8.4e6 / 1.9e5). The host witness is off the
+critical path; what is left is the prove, 2 sessions per statement (the second reuses the first's commitment).
+
+**Next (#5, prototype): prefetch the host slots to the device.** In the first session, `t.witness_comp` (the device reading the
+mapped host slots over PCIe beside the compressions, and the compression inputs' pageable copy) is 0.069 of 0.354 s at K=8192
+and 0.032 of 0.200 s at K=2048 tile: plan §4's upload floor. The pipeline's builds now have slack (K=8192: 1.05 s / 4 against
+0.58 s), so the prebuild thread copies both to pooled device buffers while the previous statement proves, and the kernel reads
+device memory. Same words, same kernel, so the proofs stay byte-identical. Predicted: prove K=8192 0.58 → ≈ 0.52 s, K=2048
+0.36 → ≈ 0.33 s; prefill ≈ 7.5e6, decode ≈ 1.65e5.
 
 **For you to decide.**
 
 1. Whether the metric should keep timing the cold burst. The alternatives are `FC_HOST_PREPIN=1`, or WARM ≥ depth + 1.
+   Prepin alone, on the old eval and unfused write (#4's BASE), takes prefill to 1.00e7 at 18 vCPU.
 2. Merging the branch. It merges cleanly onto your `1c1e90e5`.

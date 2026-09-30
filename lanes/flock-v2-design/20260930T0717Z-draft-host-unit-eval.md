@@ -112,6 +112,24 @@ entirely `chunk_zlin_transpose`, the bit transpose of z for the lincheck. In #4 
 - **Per statement, each job showed the fix at one K**: #8 at K=2048 (prove 0.342 vs 0.363 s) and #9 at K=8192 (0.518 vs
   0.585 s, −11%). The other K lost it to the node's noise in each job.
 
+**Backlog, design only: the host-slot upload off the critical path, in pieces.** This is your lever 2 (Nsight, 11:10Z:
+`fc_host_slots` 26 ms at K=2048 and 44 ms at K=8192 per statement). It needs no statement change.
+
+- **Why #5's prefetch was neutral.** Its copy ran on a non-blocking stream into pooled buffers. But the prove waits on every
+  stream many times per session: your Nsight run's API summary has 29 `cudaDeviceSynchronize` and 78 `cudaFree` calls per
+  process of two statements. Ligerito's `lf_observe_msg` syncs the device on each transcript message, and `lf_cuda_release`
+  is `cudaFree`. So the first such call after a 1.2 GB copy starts waits out the rest of it (25–45 ms), and the saving is
+  paid back. That's where #6's Ligerito slowdown came from.
+- **The design.** Re-apply `0375d7cf`, and have `flock_cuda_copy` issue the copy in pieces of about 8 MB, syncing each before
+  the next. A device-wide wait then covers at most one piece (about 0.3 ms). The build has the slack for a slower copy.
+  Nothing changes in the bytes: the gate's `device-ab` agreement and `FC_UNIT_CHECK=1` read-back still apply.
+- **Predicted.** #5's same-job saving in `t.witness` (−23 ms at K=2048, −28 ms at K=8192), less at most a few ms of waits,
+  on the best measured proves (#8's 0.342 s at K=2048 and #9's 0.518 s at K=8192): −6.7% and −5.4%, so about −6% in both
+  metrics. On the phases' 7.4e6 / 1.6e5 that is about 6.9e6 / 1.5e5.
+- **Not measured.** A new build couldn't launch before the quiet hour (the launch-slot jam), and none should run during it.
+  Stream-ordered frees in the prove (`cudaFreeAsync` on a pool) and syncing only the prove's stream would fix the same thing
+  from your side.
+
 **Backlog, design only: unit-slot slack (a statement change).** This needs a named statement reviewer and circuit-check, and may
 need Daniel if the layout rules in `verity/ir/PROTOCOL.md` change. Nothing here is prototyped.
 

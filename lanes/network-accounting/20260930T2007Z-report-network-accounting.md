@@ -2,9 +2,10 @@
 lane: network-accounting
 kind: report
 created: 2026-09-30T20:07Z
-status: blocked
+status: open
 ---
 
+CHECKPOINT cc21a7d94 (21:15Z) [open] WAITING r20260930-211439-1879 on vy-nebius-1 (#326's check, head 629ec80e, contains main e15dc1ef), check after 21:30Z; agent bc-ecea50f6; next: merge-ready handoff to lanes/coordinator
 CHECKPOINT cc21a7d94 (21:10Z) [blocked] Utilization thread: reported 0 GPU-h ready. The 15 GPU-h trace run isn't ready (no per-token recorder); I offered ~10 GPU-h if infra wants filler. #326's check is still blocked on vy-nebius-1's preflight (uv 0.12.21, links in /usr/local/bin gone); nudged infra; re-probing every 30 min.
 CHECKPOINT cc21a7d94 (20:47Z) [blocked] Read note:20260930T2031Z-handoff-from-pous-network and folded it into state. §7 of timing-channel.md still lists A–C as open, though the handoff says none is. Recommendation to Daniel: land #326, confirm A–C, then the Lean ingress theorem. #326's check is blocked on vy-nebius-1's preflight (asked infra).
 CHECKPOINT cc21a7d94 (20:45Z) [blocked] #326 fixed, head 16b6f334 (contains main 73eee493; 71+33+719 tests pass). Its recorded check on vy-nebius-1 was refused at preflight (r20260930-204334-ad89: uv 0.12.21 vs pinned 0.12.20; no cargo, elan or lake on PATH). Asked infra in Slack 1790799438.528089.

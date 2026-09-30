@@ -35,6 +35,6 @@ It changes nothing under `backends/flock/`, so `lean-agreement` doesn't apply.
 - `repository`: 29 passed;
 - `verity-vllm`, the directly affected tests run with pytest in the package: `tests/protocol_options`, `tests/lint` and the by-name
   rules, 105 passed;
-- `verity-vllm`, the full suite: queued. It starts once #435's run frees this 15 GB VM's memory, and I'll add its result to this file.
+- `verity-vllm`, the full suite (added 03:18Z): **4,218 passed, 323 skipped, 0 failed**, in 36 min on 4 workers (log `~/.cache/verity/tests/logs/20260930T022655-554228`). One test was deselected: `test_tp_moe_members::test_the_stored_tp2_moe_builds_merge_with_every_peer_bound[qwen3-30b-a3b…]`. Its manifest build needs more than this VM's 15 GB, and the out-of-memory killer takes it here on every branch. It isn't PoUW code.
 
 **Not run here:** the recorded `check` (`--record`). The train's check covers it.

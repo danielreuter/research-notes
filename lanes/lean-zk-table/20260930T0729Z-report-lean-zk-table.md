@@ -5,6 +5,7 @@ created: 2026-09-30T07:29Z
 status: open
 ---
 
+CHECKPOINT d6a03d50 (13:38Z) [open] next step: session of J tables (product) statements on cursor/lean-zk-session-b379 @d6a03d50 (off 48b8452d), bundle artifacts/cursor-lean-zk-session-b379-d6a03d50.bundle for root; statement review asked of red-team-flock-3 (1337Z); #519 in train TLQ
 CHECKPOINT 48b8452d (13:33Z) [open] #519 READY at 48b8452d: red-team-flock-3 re-granted both roles 13:08Z (labels on remote; restack changes no pin; lands after #526); merge request READY; handled 20260930T1308Z-reply-from-red-team-flock-3-519-regrant-48b8452d.md; waiting on RC's train
 CHECKPOINT 48b8452d (12:54Z) [open] #519 48b8452d on origin (root pushed); WAITING red-team-flock-3 re-grant at 48b8452d, then RC stacks it on the next free slot
 CHECKPOINT 48b8452d (12:50Z) [open] #519 @48b8452d on TLP: audit r20260930-123826-8340 PASS (187 pins) labelled; bundle artifacts/cursor-lean-zk-table-b379-48b8452d.bundle for root; WAITING red-team re-grant at 48b8452d

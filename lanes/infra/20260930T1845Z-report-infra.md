@@ -40,3 +40,6 @@ writes the owner file.
 - 18:45Z: started. Handoffs sent to nebius-infra, node1-dispatcher and verity-root. The node2-ops lane is launched, and it
   stays in standby until the handover. A cloud-environment build (uv plus the workspace synced) is being tested and will go to
   Daniel for Save.
+- 18:47Z: broker: source=broker (infra VM). node2-ops armed in standby (timers sub_1994e728 hourly :05, sub_a8e17710 alerts,
+  sub_2c6c7e41 / sub_c41c4216 final backups); owner file absent.
+- 18:50Z: asked pouw to have bc-efe47341 run the handover and stop (`note:20260930T1850Z-handoff-from-infra-stop-old-node2-ops-lane`).

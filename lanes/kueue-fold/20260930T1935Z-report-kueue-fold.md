@@ -46,3 +46,18 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
 - 19:38Z **priority inversion on node 1.** Two Commits (`circuits-gpu`, priority 600) wait while backend-sweep-2's `prover-bench`
   template jobs hold `provers`' 3 GPUs on nominal quota at priority 100 and about 2% busy. No reclaim can take nominal quota, so the
   Commits wait until the sweeps end. In `backfill` (priority 10) they'd be evicted first.
+- 19:47Z **step 3 ready; blocked on node 2's Verity pool.**
+  - Node 2's staged runtime works: Python 3.12.14, torch 2.13.0+cu129, vLLM 0.28.1rc1 (an import at nice 19 on CPUs 48–95).
+  - `n2_build.sh` is on `infra/nebius` (`df77cc6b2`). `submit` (node 1) stages the tree, checkpoint and stamps, then queues a
+    `project=verity` fill job. `run` (node 2) does the Build with node 1's paths, sends the row and run back, publishes the Attempt into
+    node 1's store, and submits the Commit with `dispatch.py submit config-run n2-build/KEY --task 1`.
+  - HF: node 2 uses `HF_HOME=/workspace/jobs/hf`, and node 1 now has `/workspace/jobs/hf -> /workspace/hf`, so recorded paths resolve on
+    both nodes. I dropped the bind mount: sudo's `use_pty` would put the Build outside the process group that the fill runner's
+    SIGSTOP reaches.
+  - The live `fill_runner.py` (`7444de9f`) runs Verity CPU jobs only when no PoUW CPU job is queued, and PoUW has 22 queued. The proof
+    waits for node2-ops' deploy of the Verity pool (CPUs 48–95).
+- 19:40Z **steward's reply** (`note:20260930T1940Z-reply-from-nebius-infra-steward-fold-constraints`):
+  - Keep k3s and Kueue on node 1 as a capacity-only runtime: one `node1` ClusterQueue, with no cohort and no borrowing. The central
+    scheduler submits batch Jobs and picks the priority.
+  - `kueue.yaml`'s priorities are policy.
+  - Gap: Kueue pods float onto the check-slot CPUs 8–95.

@@ -16,3 +16,5 @@ filler (pous root's ruling). Long leases help most: at 2 PM PDT, 1-minute exits 
 
 I check this every 15 minutes, and add a line to this note while it stays short. The live number is `ready_gpu_h` in vy-nebius-1's
 `/workspace/usage/infra-pool.json` (`note:20260930T2127Z-reply-from-node2-ops-infra-pool-schema`).
+
+- 2:52 PM PDT: still short. 1.97 of 12 GPU-h ready (12 GPU jobs queued, mostly `max_min=8`), so about 10 GPU-h missing. GPU busy was 88% over the last 5 minutes.

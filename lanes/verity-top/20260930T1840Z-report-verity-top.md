@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (18:45Z) [open] top-level live; infra coordinator running (bc-17cc41f1); awaiting circuit/proof/console charters from verity-root by 19:30Z
 CHECKPOINT none (18:40Z) [open] lane created: the top-level coordinator (bc-7f347b4b) of Daniel's one-Project structure; asked verity-root for the circuit/proof/console charters, answers here
 
 # verity-top: the top-level coordinator's lane

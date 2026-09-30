@@ -2,9 +2,10 @@
 lane: vllm-sm120-kernels
 kind: report
 created: 2026-09-30T02:44Z
-status: open
+status: final
 ---
 
+CHECKPOINT 6f1924cc (05:04Z) [final] PRs #466 #480 #481 merge-ready (handoff 0503Z); sm_120 kernels exact except fused-MoE GEMMs (fixed: MoeExpertGemm_v2 DOT) and SiluMul/RoPE edge gaps (found); pods terminated 04:21Z/05:02Z, ~$7.6
 CHECKPOINT 098b9163 (04:31Z) [open] WAIT vy-sm120-kernels-1 r20260930-042256-27a2 check-back 04:42Z agent bc-1cdd7aa4: vLLM suite on #481 head 098b9163; then base attribution, merge-ready handoff, terminate pod 1, FINAL. PRs #466 #480 #481
 CHECKPOINT 098b9163 (04:23Z) [open] PR #480 up; TP2 op-level 30/30 (host staging; P2P copies zero on SYS host); vy-sm120-kernels-2 terminated 04:21Z; MoE v2 admission: all fails in SiLU section. WAIT vy-sm120-kernels-1 r20260930-042256-27a2 (suite) check-back 04:50Z agent bc-1cdd7aa4
 CHECKPOINT 4b96d529 (04:14Z) [open] MoE v2 DOT @ 7604eb59 (circuit-check 4/4); rope 34/48 (overflow edges), SiluMul_v1 edge gaps (generic); TP2 live engine 25/25 + vocab PASS. WAIT vy-sm120-kernels-2 r20260930-041347-704a, vy-sm120-kernels-1 r20260930-041412-7981 check-back 04:25Z agent bc-1cdd7aa4
@@ -32,3 +33,13 @@ CHECKPOINT d090c814 (02:44Z) [open] survey: SM count flows from TargetProfile.nu
 Artifacts: circuit-check of the MoE v2 Definitions art:9f51a5f48614da39c73b3c8946010929c1e33a6e82f2abdeeef189ab17ce32c9.
 Platform finding: on the 2x RTX PRO 6000 SYS host a torch cuda:0 -> cuda:1 copy returns zeros (P2P broken, as for NCCL); stage through the host.
 Found, not fixed: quarantine allreduce_difftest hangs under the verity-vllm launcher (spawn re-imports __main__); cc 9.0 MoE still binds the Ampere step (no H100 MoE record, unmeasured).
+
+Handoffs received and acted on: 20260930T0240Z-note-from-vllm-coordinator-budget-line-live (pods created after it), 20260930T0246Z-handoff-from-vllm-coordinator-jit-build-dir (PR #466, handoffs 0259Z), 20260930T0253Z-note-from-vllm-coordinator-sweep-target (scope unchanged; "config run" wording), 20260930T0416Z-note-from-vllm-coordinator-466-467-overlap (answered 0431Z: no overlap).
+
+## FINAL
+~~~text
+tip: cursor/vllm-sm120-kernels-69c6 @ 6f1924cc (base main@05305a3e + #465 f740c1d5)   merge-with: #466 cursor/twins-build-outside-checkout-69c6@5d9a6b99, #465, #480 cursor/vllm-sm120-constants-difftests-69c6@d6ab05fe
+known-failures: 52 environment failures of the vLLM suite on the pod, identical on base 05305a3e (r20260930-044854-ceaa)   pod: vy-sm120-kernels-1 terminated 05:02Z, vy-sm120-kernels-2 terminated 04:21Z; ~$7.6
+artifacts: art:9f51a5f48614da39c73b3c8946010929c1e33a6e82f2abdeeef189ab17ce32c9
+~~~
+PRs: #466 (twins build outside the checkout), #480 (188-SM constants + kernel difftests), #481 (MoeExpertGemm_v2 on the target's k16 step). Merge-ready handoff: lanes/vllm-coordinator/20260930T0503Z-handoff-from-vllm-sm120-kernels-merge-ready.md. Open decision for the coordinator: cc 9.0 MoE binding; SiluMul_v2.

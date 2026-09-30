@@ -108,3 +108,13 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
   - **Weights fixed.** Eight node-2 Builds had failed on dangling links to the weights. `submit` now copies each snapshot, and `run` shows the Build `/workspace/jobs/hf` at `/workspace/hf` in a private mount namespace. All 8 are requeued, and `cov-g019-r2`'s bootstrap passed.
   - **CPU:** node 1 20%, node 2 49% (10 s samples; node 2 was 27% at 2:27 PM). Node 1's Kueue CPUs (96–127) are at 83–95%, so node 1 needs a wider CPU map (asked infra).
   - **Waiting:** `fill_runner` lending (855339e74) waits for PoUW's NUMA 0 OK, then node2-ops deploys it.
+- **2:55 PM PDT checkpoint:** item 4's report-only half is live.
+  - **Pool file and monitors:** `pool_n1.py` (`infra/nebius` `abc95c220`, tmux `n1-pool`) writes `/workspace/usage/infra-pool-n1.json` every 5 min, with the idle-in-lease, unleased and template-drift monitors. node2-ops can merge it now.
+  - **Drift:** the dispatcher's copy of `kueue.yaml` is stale. The live cluster matches `infra/nebius` (told node1-dispatcher).
+  - **CPU map:** node 1's Kueue CPUs are 96–159, and new dispatcher Jobs start under `taskset -c 96-159`.
+  - **Measured (10 s):**
+    - Node 1: CPU 44% (96–127 at 87%, 128–159 at 63%). GPU 5% busy over 5 min, with 5 GPUs idle in their leases (told node1-fill).
+    - Node 2: CPU 31% (PoUW's 96–127 at 100%, the Verity pool 48–95 at 26%). 0 of 8 GPUs free, 58 jobs queued.
+  - **Commits:** circuits' node-2 Commit list belongs to n2-commits' `n2_commit.sh offload` (told circuits).
+  - **Waiting:** PoUW's NUMA 0 OK before the `fill_runner` lending is deployed.
+  - **Next:** the node-1 executor with process-level leases (T4).

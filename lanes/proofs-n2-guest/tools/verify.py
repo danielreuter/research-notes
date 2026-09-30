@@ -18,6 +18,8 @@ ROW = "llama32-1b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eag
 GPU_CASES = {"gpu_paths_agree", "gpu_proofs_match_cpu"}
 LABEL = ("measurement on #554's draft prover key (4d568a3cb558b005); the 4x4 tile statement isn't reviewed yet; not a verified "
          "table row")
+ENV_CHECK = ("matches node 1: driver 580.173.02, the same flock-circuit resolving libcudart 13.0.96, SM clocks locked node-wide at "
+             "2,100 MHz (note:20260930T2205Z-report-env-check-and-classes)")
 
 
 def iso(t: int) -> str:
@@ -41,7 +43,8 @@ def main() -> int:
     run, done, rc, t0, t1 = Path(run), Path(done), int(rc), int(t0), int(t1)
     rec = {"id": done.stem, "kind": kind, "row": ROW, "shape": shape, "shape_index": int(idx), "node": "vy-nebius-2",
            "lane": "proofs-n2-guest", "owner": "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4", "run_dir": str(run), "rc": rc,
-           "t_start": iso(t0), "t_end": iso(t1), "job_s": t1 - t0, "label": LABEL}
+           "t_start": iso(t0), "t_end": iso(t1), "job_s": t1 - t0, "label": LABEL,
+           "question": os.environ.get("PN2G_QUESTION", ""), "env_check": ENV_CHECK}
     why: list[str] = []
     if kind == "stage":
         p = run / "out" / "1" / "classes" / "staged.jsonl"

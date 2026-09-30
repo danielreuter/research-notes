@@ -7,12 +7,14 @@
 #                                       other and against the CPU prover, proofs and transcripts byte for byte)
 # Idempotent: a job whose done/<id>.json exists (written only by verify.py, once its checks pass) exits 0 at once. Rerunnable from the
 # top: every attempt starts in a fresh run dir, so a stop (window, waiter, max_min) loses only that attempt.
+# PN2G_QUESTION is the job's research question (Daniel's rule, 2:53 PM PDT): a script without one is withdrawn and exits 0 at once.
 set -uo pipefail
 G=/workspace/verity-guest/wholerow
 ROW=llama32-1b__bf16__rtxpro6000__tp1__b1__i1024__o128__mixed__greedy__bi-eager
 BIN_SHA=e484a3352c4c3786ebe2bb06dde1343058ce5b6ca3c70f3e6c03d70207078af7   # flock-circuit of bin-4d568a3cb558b005-g1-sm120 (#554's draft key)
 kind=${1:?stage or chunk} idx=${2:?shape index}
 [ -e $G/STOP ] && { echo "$G/STOP exists: nothing to do"; exit 0; }
+[ -n "${PN2G_QUESTION:-}" ] || { echo "no research question (PN2G_QUESTION): withdrawn, nothing to do"; exit 0; }
 SHAPE=$(sed -n "$((idx + 1))p" $G/sweep2/$ROW/shapes.tsv | cut -f1)
 [ ${#SHAPE} = 64 ] || { echo "no shape at line $idx of shapes.tsv"; exit 2; }
 start= count= gate=

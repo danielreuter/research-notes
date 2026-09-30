@@ -1,13 +1,14 @@
-"""proofs-n2-guest's refill loop on vy-nebius-2 (tmux `proofs-n2-guest`): keeps 8-12 of this lane's chunk scripts in the fill queue
-until the rows of rows.json are proved, and logs a JSON line every 5 min to /workspace/verity-guest/feed.log.
+"""proofs-n2-guest's refill loop on vy-nebius-2 (tmux `proofs-n2-guest`): queues this lane's chunk scripts until each shape class of
+rows.json has its CHUNKS_PER_CLASS chunks proved, and logs a JSON line every 5 min to /workspace/verity-guest/feed.log.
 
     python3 refill.py [--once] [--dry]      stop: touch /workspace/verity-guest/wholerow/STOP (queued jobs then exit 0 at once)
 
-Per row (rows.json, rank order):
+Per row (rows.json, one per shape class, rank order):
   - stage: a gpus=0 stage job, unless node 1 staged that shape in <= 10 s (then its gate stages inline, from the same cache key);
   - gate: once staged (or inline), chunk r0 with the GPU selftest; it covers ~240 s of statements (20 if the shape has no record);
-  - chunks: once the gate is verified (done/<id>.json), the rest of the row in chunks of ~600 s of statements, at the gate's
-    measured seconds per statement (the fill runner caps a GPU job at max_min 30).
+  - chunks: once the gate is verified (done/<id>.json), the next CHUNKS_PER_CLASS - 1 chunks of the row, each ~600 s of statements
+    at the gate's measured seconds per statement (the fill runner caps a GPU job at max_min 30).
+Every script carries QUESTION in a header comment and as PN2G_QUESTION, which verify.py writes into the job's record.
 A script in fill/failed/ stops its row (logged; nothing requeued). Scripts are written to scripts/, chmod +x, then mv'd into the
 queue; this loop only reads /workspace/pouw/fill otherwise. Finished outputs are rsynced to vy-nebius-1
 /workspace/jobs/proofs-n2-guest/ outside timed windows.
@@ -34,6 +35,9 @@ GATE_S, CHUNK_S, OVERHEAD_S = 240, 600, 60
 INLINE_STAGE_S = 10
 EVERY_S, LOG_EVERY_S = 60, 300
 PT = ZoneInfo("America/Los_Angeles")
+QUESTION = "what is the whole-row proving cost against K, per shape class, on sm_120? (3 chunks per new class)"
+CHUNKS_PER_CLASS = 3
+PREFIX = "pn2g-q-"                                         # scripts queued before the question rule are pn2g-<idx>-*: withdrawn
 
 
 def where(name: str) -> str | None:
@@ -68,7 +72,8 @@ def timed() -> bool:
 
 
 def submit(name: str, header: str, cmd: str, what: str, dry: bool) -> None:
-    body = f"#!/usr/bin/env bash\n# fill: owner={OWNER} {header}\n# proofs-n2-guest (bc-c951b059): {what}\nexec {cmd}\n"
+    body = (f"#!/usr/bin/env bash\n# fill: owner={OWNER} {header}\n# question: \"{QUESTION}\"\n# proofs-n2-guest (bc-c951b059): {what}\n"
+            f"exec env PN2G_QUESTION='{QUESTION}' {cmd}\n")
     if dry:
         print("would submit", name, header, cmd)
         return
@@ -108,6 +113,8 @@ def plan(row: dict, ready: bool) -> tuple[list[tuple[int, int, bool]], dict]:
         save_state(idx, st)
     if g:
         chunks += [(a, min(st["chunk"], total - a), False) for a in range(st["gate"], total, st["chunk"])]
+        chunks = chunks[:CHUNKS_PER_CLASS]
+        info["planned_statements"] = sum(m for _a, m, _g in chunks)
     info["e2e_s"] = st.get("e2e_s") or row.get("rec_e2e_s")
     return chunks, info
 
@@ -137,7 +144,7 @@ def gpu_h_used() -> float:
     try:
         with open(FILL / "events.jsonl") as f:
             for ln in f:
-                if '"pn2g-' in ln and '"gpus": 1' in ln and '"minutes"' in ln:
+                if f'"{PREFIX}' in ln and '"gpus": 1' in ln and '"minutes"' in ln:
                     r = json.loads(ln)
                     mins += float(r.get("minutes") or 0) - float(r.get("paused_min") or 0)
     except OSError:
@@ -146,7 +153,7 @@ def gpu_h_used() -> float:
 
 
 def tick(rows: list[dict], dry: bool) -> dict:
-    mine = {d: sorted(p.name for p in (FILL / d).glob("pn2g-*.sh")) for d in ("queue", "running", "failed")}
+    mine = {d: sorted(p.name for p in (FILL / d).glob(f"{PREFIX}*.sh")) for d in ("queue", "running", "failed")}
     queued_gpu = [n for n in mine["queue"] if "-stage" not in n]
     stages, gates, todo, per_row, ready_s = [], [], [], [], 0.0
     counts = {"queued": len(queued_gpu), "running": len([n for n in mine["running"] if "-stage" not in n]),
@@ -158,10 +165,10 @@ def tick(rows: list[dict], dry: bool) -> dict:
         inline = (row.get("rec_stage_s") or 1e9) <= INLINE_STAGE_S
         staged = bool(done(stage_id))
         chunks, info = plan(row, staged or inline)
-        failed = [n for n in mine["failed"] if n.startswith(f"pn2g-{idx}-")]
+        failed = [n for n in mine["failed"] if n.startswith(f"{PREFIX}{idx}-")]
         info["failed"] = failed
-        if not staged and not inline and not failed and where(f"{stage_id}.sh") not in ("queue", "running"):
-            stages.append((f"{stage_id}.sh", "gpus=0 project=verity cpus=16 max_min=60 mem_gb=64",
+        if not staged and not inline and not failed and where(f"{PREFIX}{idx}-stage.sh") not in ("queue", "running"):
+            stages.append((f"{PREFIX}{idx}-stage.sh", "gpus=0 project=verity cpus=16 max_min=60 mem_gb=64",
                            f"bash {G}/bin/job.sh stage {idx}", f"stage Llama-3.2-1B shape #{idx} ({row['definition'][:48]})"))
         if not chunks:
             info["phase"] = "staging" if not failed else "stopped"
@@ -170,24 +177,24 @@ def tick(rows: list[dict], dry: bool) -> dict:
             continue
         ok = [(a, m, g) for a, m, g in chunks if done(f"pn2g-{idx}-r{a}")]
         info["done_statements"] = sum(m for _a, m, _g in ok)
-        info["gate"] = "passed" if done(f"pn2g-{idx}-r0") else ("failed" if f"pn2g-{idx}-r0.sh" in failed else "pending")
+        info["gate"] = "passed" if done(f"pn2g-{idx}-r0") else ("failed" if f"{PREFIX}{idx}-r0.sh" in failed else "pending")
         counts["done"] += len(ok)
-        complete = info["done_statements"] >= info["statements"]
+        complete = bool(done(f"pn2g-{idx}-r0")) and len(ok) == len(chunks)
         info["phase"] = "done" if complete else ("stopped" if failed else "proving")
         all_done = all_done and (complete or bool(failed))
         e = info.get("e2e_s") or 1.0
         for a, m, g in chunks:
-            name = f"pn2g-{idx}-r{a}.sh"
-            if name in queued_gpu:
+            if f"{PREFIX}{idx}-r{a}.sh" in queued_gpu:
                 ready_s += m * e + OVERHEAD_S
         if failed or complete or not (staged or inline):
             per_row.append(info)
             continue
         for a, m, g in chunks:
-            name = f"pn2g-{idx}-r{a}.sh"
-            if done(name[:-3]) or where(name) in ("queue", "running", "failed"):
+            name = f"{PREFIX}{idx}-r{a}.sh"
+            if done(f"pn2g-{idx}-r{a}") or where(name) in ("queue", "running", "failed"):
                 continue
-            what = f"Llama-3.2-1B shape #{idx} whole row, statements {a}..{a + m - 1} of {info['statements']}" + (" (gate: GPU selftest)" if g else "")
+            what = (f"Llama-3.2-1B shape #{idx} ({row['definition'][:48]}), chunk {chunks.index((a, m, g)) + 1} of {CHUNKS_PER_CLASS}: "
+                    f"statements {a}..{a + m - 1} of the row's {info['statements']}" + (" (gate: GPU selftest)" if g else ""))
             job = (name, "gpus=1 project=verity cpus=16 max_min=30 mem_gb=128" + (" prio=1" if g else ""),
                    f"bash {G}/bin/job.sh chunk {idx} {a} {m} {int(g)}", what)
             (gates if g else todo).append(job)

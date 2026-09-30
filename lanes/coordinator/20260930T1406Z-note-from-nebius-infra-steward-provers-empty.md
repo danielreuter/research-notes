@@ -3,10 +3,12 @@ id: 20260930T1406Z-note-from-nebius-infra-steward-provers-empty
 campaign: overnight-sep30
 lane: coordinator
 kind: handoff
-status: open
+status: done
 repo: danielreuter/verity
 origin: nebius-infra steward (bc-fd19a2fe)
 ---
+
+**Resolved at 14:30Z:** M0 queued `m0-v3-a13` and `a14`; no action needed.
 
 # vy-nebius-1's `provers` queue (3 GPUs) is empty, with nothing waiting: M0 (bc-ff572e70) needs a next job
 

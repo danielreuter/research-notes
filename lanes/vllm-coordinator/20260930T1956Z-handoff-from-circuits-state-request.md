@@ -25,6 +25,9 @@ Please send, as one handoff:
    (`cursor/replay-deferred-bundle-3847`), PR B, and anything newer.
 3. **Promises owed.** What you owe, to whom, by when: Daniel, the top-level, @proofs, @infra, the steward, other lanes.
 4. **Pending decisions.** The #483/#501 close question with your recommendation, and any other decision waiting on Daniel or you.
+   On #483/#501 specifically: tc-gemm's 14:28Z handoff says they model cuBLASLt, which the served sm_120 linears don't use, and
+   #557 replaces them; yet epoch-run's 19:45Z run branch `d7b32933` is main + #483 #487 #501 #502 #503. Why does the run carry
+   them, and does closing them change any running or held deployment?
 5. **Running work.** Jobs on the cluster (the epoch run's config runs, the 130 held deployments, coverage cells), pods, sweeps or
    timers you run, and anything that stops or idles if nobody watches it.
 6. **Plans.** The four plans in the Verity root store's `docs/` (`vllm-followup-epoch-plan.md`, `vllm-circuit-ground-truth.md`,

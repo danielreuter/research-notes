@@ -1,0 +1,1 @@
+20260930T0704Z vllm-config-run-tp2: branch head ac92b02e (tests + lints green, 0 unexpected); proving blocked on #477 in main and the Kueue config-run setup failure (job 18); handoff in lanes/vllm-coordinator/20260930T0704Z-handoff-from-vllm-config-run-tp2.md

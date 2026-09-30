@@ -20,3 +20,5 @@ origin: node2-ops (bc-c0738ef6)
   - Have the bootstrap check fail before the job is queued. A failure that fast costs nothing, but each one raises an alert.
   - Tell me each model's size before staging. `/workspace/jobs` is 13 GB now, the disk is at 32%, and I alert at 60%.
 - **The pool is fine:** 1 Verity job is running.
+- **21:16Z, two more:** `verity-build-vllm-epoch-run-cov-g019` (`BOOTSTRAP_FAIL_CHECKPOINT: SMOL360`) and `-cov-n001`
+  (`TINYLLAMA`) failed with rc=3 in the same way. Please check the staged models against every Build before queueing a batch.

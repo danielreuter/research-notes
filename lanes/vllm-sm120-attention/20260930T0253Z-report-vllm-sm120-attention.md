@@ -6,6 +6,7 @@ status: final
 ---
 
 CHECKPOINT 70a4504e (08:36Z) [final] FINAL: #477 and #486 merge-ready (FA2 on sm_120: Attention_v2 on finite heads; Attention_v5 exact on every head); NVFP4 on sm_120 = match (art:3bc1b2c4); pods vy-sm120-attention-1/-2 terminated (03:38Z, 07:01Z), ~$8.00 RunPod + ~15 GPU-min Kueue
+CHECKPOINT 70a4504e (08:36Z) [final] FINAL: #477 and #486 merge-ready (FA2 on sm_120: Attention_v2 on finite heads; Attention_v5 exact on every head); NVFP4 on sm_120 = match (art:3bc1b2c4); pods vy-sm120-attention-1/-2 terminated (03:38Z, 07:01Z), ~$8.00 RunPod + ~15 GPU-min Kueue
 CHECKPOINT 70a4504e (08:13Z) [open] NVFP4 capture: job 56 ran but every load failed (vLLM sampler warmup JIT-builds FlashInfer top_k and ninja is not on PATH) and the probe path was one level short; fixed (VLLM_USE_FLASHINFER_SAMPLER=0 as the integration's env, venv bin on PATH, parents[4]); resubmitted as job 81 nvfp4-capture-attn-3. check after 08:30Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6
 CHECKPOINT 70a4504e (07:56Z) [open] NVFP4 capture: job 35 FAILED_SETUP (pod_bootstrap can't write the research-owned synced tree as uid 1000); resubmitted as job 56 nvfp4-capture-attn-2 with a setup-only override (untracked port-capture-attn.yaml); handoff 20260930T0756Z. check after 08:12Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6
 CHECKPOINT 70a4504e (07:38Z) [open] NVFP4 capture: Kueue job 35 pod vanished in SETTING_UP after ~5.5 min (pod not found -> SkyPilot 'preempted', RECOVERING, recovery 1); re-checking at 07:48Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6

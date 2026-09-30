@@ -34,7 +34,7 @@ Artifacts: circuit-check of the MoE v2 Definitions art:9f51a5f48614da39c73b3c894
 Platform finding: on the 2x RTX PRO 6000 SYS host a torch cuda:0 -> cuda:1 copy returns zeros (P2P broken, as for NCCL); stage through the host.
 Found, not fixed: quarantine allreduce_difftest hangs under the verity-vllm launcher (spawn re-imports __main__); cc 9.0 MoE still binds the Ampere step (no H100 MoE record, unmeasured).
 
-Handoffs received and acted on: 20260930T0240Z-note-from-vllm-coordinator-budget-line-live (pods created after it), 20260930T0246Z-handoff-from-vllm-coordinator-jit-build-dir (PR #466, handoffs 0259Z), 20260930T0253Z-note-from-vllm-coordinator-sweep-target (scope unchanged; "config run" wording), 20260930T0416Z-note-from-vllm-coordinator-466-467-overlap (answered 0431Z: no overlap).
+Handoffs received and acted on: 20260930T0240Z-note-from-vllm-coordinator-budget-line-live.md (pods created after it), 20260930T0246Z-handoff-from-vllm-coordinator-jit-build-dir.md (PR #466, handoffs 0259Z), 20260930T0253Z-note-from-vllm-coordinator-sweep-target.md (scope unchanged; "config run" wording), 20260930T0416Z-note-from-vllm-coordinator-466-467-overlap.md (answered 0431Z: no overlap).
 
 ## FINAL
 ~~~text

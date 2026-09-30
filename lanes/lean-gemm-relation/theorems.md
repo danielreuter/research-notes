@@ -64,9 +64,15 @@ hash, first 8 hex digits shown). Packages: `soundness` = `backends/flock/verifie
 
 ## 5. The circuit relation (new tonight)
 
+The Lean semantics is tied to the Python by 48 kernel-checked vectors (`Verity.TC.Vectors`), which `packages/verity/tests/ml/test_lean_vectors.py` checks against `tc_dot_total`. The relation differs from `check_step` in one place: the witness shape is fixed (the Python checker accepts truncated witnesses; low finding, `private/lean-gemm-relation/`). Ampere/Ada (`groups = (8, 8)`, `W = 25`) are not covered yet.
+
+
 | Theorem | What it says | Status | Assumptions | Record |
 |---|---|---|---|---|
-| `Verity.TC.hopper_step_sound`, `hopper_step_complete` (lane lean-gemm-relation) | `verity.ml.tc.relation`'s k16 step relation for the Hopper step (`groups = (16,)`, `W = 26`, floor −133; `HOPPER_BF16_WGMMA_K16` = `HOPPER_BF16_M16N8K16`, used on H100 and sm_120) accepts a witness iff its output state is the decode of `tc_dot_total`'s word, over the integers; the hardware form takes `gemm-hopper-step` | **statement being fixed; proof in progress** | the relation ⇔ semantics equivalence is unconditional; "equals the hardware" takes `gemm-hopper-step(sm_90 \| sm_120, bf16)` as a named `Prop` | verity (to be pinned) |
+| `Verity.TC.hopper_step_sound` | Every witness `verity.ml.tc.relation`'s k16 step relation accepts, for the input state `decode_state(acc)` and operand words `a`, `b`, outputs `decode_state(tc_dot_total(acc, a, b))`: Hopper pipeline (`groups = (16,)`, `W = 26`, floor −133; `HOPPER_BF16_WGMMA_K16` = `HOPPER_BF16_M16N8K16`, H100 and sm_120), either alignment mode, over the integers | proved, pinned, 0 sorry ([PR #490](https://github.com/danielreuter/verity/pull/490), draft) | none: unconditional | verity (`packages/verity/lean`) |
+| `Verity.TC.hopper_step_complete` | The relation accepts a witness for every input in `tc_dot_total`'s domain (the honest witness, which equals Python's `step_witness` column for column on 60 checked vectors) | proved, pinned, 0 sorry (#490) | none | verity |
+| `Verity.TC.hopper_step_iff` | The states the relation can output are exactly the one the semantics gives | proved, pinned, 0 sorry (#490) | none | verity |
+| `Verity.TC.hopper_step_hw` | Under the assumption, the relation's output is the decode of the word the device writes | proved, pinned, 0 sorry (#490) | **`gemm-hopper-step(arch, bf16)`** (`Verity.Assumptions.GemmHopperStep`: the device's k16 step is `tc_dot_total` on the Hopper pipeline) | verity |
 
 ## Gaps worth a line in the morning report
 

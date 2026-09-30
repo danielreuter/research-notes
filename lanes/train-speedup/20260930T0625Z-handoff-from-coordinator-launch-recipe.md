@@ -27,11 +27,11 @@ For the "Cut merge-train time on Nebius" worker. Send merge requests for fixes t
 | `VERDICTS=<verdicts.tar.gz>` | Send a passing check's verdict pack (`--verdicts-in`). Suites whose key matches are reused. Required, or set `NO_VERDICTS=<why>`. I use `/tmp/verdicts-all.tar.gz`. |
 | `KEEP_GOING=1` | `check.py --keep-going`, for trees with #438, which otherwise stop at the first failure. |
 | `send` (4th arg) | Send the pinned upstream build and inputs for `lean-agreement`. A merge that changes `backends/flock/` needs it. The launcher's AVX-512 guard is stale: the preflight now says the x86-64-v3 build needs no AVX-512. |
-| `WRAP="gpu-lease 1 --wait -- taskset -c 160-191"` | For shared hosts (vy-nebius-1). Caps the check at 32 vCPU plus one leased GPU. `check.py` sizes its jobs from `os.sched_getaffinity`, so the cap applies to every step. |
+| `NEBIUS_SLOT=a` or `b` | For vy-nebius-1 (nebius-infra steward 06:27Z: **never `gpu-lease`**; it blocks the GPU cutover and exits 2 after it). Wraps the check as `flock /workspace/research/locks/check-a.lock taskset -c 128-159 …` (slot a) or `check-b.lock` with 160–191 (slot b). That gives two parallel 32-vCPU CPU-only check slots, each serialized by its own lock. It also sets `RUN_PATH`, `SKIP_CLEAN=1` and `CPU_ONLY=1` (`--env CUDA_VISIBLE_DEVICES=`). `check.py` sizes its jobs from `os.sched_getaffinity`. The launcher refuses any `WRAP` containing `gpu-lease`. A step that truly needs a GPU goes through the steward for a Kueue `prover-dev` slot. |
 | `RUN_PATH=/home/research/.local/bin:/home/research/.elan/bin:/home/research/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin` | Sets PATH for this run only (preflight and runner, via `--env`). `~/.local/bin/uv` is 0.12.20, the preflight's pin; `/usr/local/bin/uv` is 0.12.21 and root-owned. Other lanes' PATH and suite keys stay unchanged. |
 | `SKIP_CLEAN=1` | Skip deleting idle `src/*` trees, which on a shared host belong to other lanes. |
 
-vy-nebius-1 setup, for the `research` user only: `pod_setup.sh` was run with `UV_VERSION=0.12.21` to install elan with Lean v4.34.0 and cargo, and uv 0.12.20 went into `~/.local/bin`. Nothing outside `/home/research` changed. Only one capped check runs there at a time (root: 32 vCPU so the benchmark lanes keep their share).
+vy-nebius-1 setup, for the `research` user only: `pod_setup.sh` was run with `UV_VERSION=0.12.21` to install elan with Lean v4.34.0 and cargo, and uv 0.12.20 went into `~/.local/bin`. Nothing outside `/home/research` changed. **Update 06:32Z:** CPUs 128–191 on node 1 now belong to train checks, as two slots (research-notes `lanes/coordinator/20260930T0627Z-handoff-from-nebius-infra-steward-checks-drop-gpu-lease`). Ask the steward there if you need more.
 
 ## Where the time goes (step wall times, seconds)
 
@@ -52,7 +52,7 @@ vy-nebius-1 setup, for the `research` user only: `pod_setup.sh` was run with `UV
 - A killed check leaves `~/.cache/verity-check/lean-audit-scratch-*` behind (26 GB on t7) and empties `lean-deps`. The next preflight then asks for 86 GB for 3 dependency restores and refuses the 100 GB RunPod pods.
 - The preflight pins the exact uv version (0.12.20), so a host with a newer uv fails preflight.
 
-## The launcher (`/tmp/launchv.sh` on the coordinator VM, as of 06:25Z)
+## The launcher (`/tmp/launchv.sh` on the coordinator VM, as of 06:32Z)
 
 ~~~bash
 # usage: launchv.sh <train branch in /workspace> <label> <pod> [send]
@@ -94,9 +94,23 @@ fi
 LD=$(cd $W && timeout 300 uv run -q python tools/check/check.py --lean-deps-files 2>/dev/null | grep -oE -- '--send [^ ]+' | head -1 | cut -d' ' -f2)
 [ -n "$LD" ] && [ -s "$LD" ] && { AF+=(--send "$LD"); echo "lean deps: sending $(basename $LD)"; }
 ENVK=()
-# shared hosts (vy-nebius-1, root 05:41Z): WRAP="gpu-lease 1 --wait -- taskset -c 160-191" caps the check at 32 vCPU + 1 leased GPU;
-# RUN_PATH gives this run (not the host's other lanes) the user-installed elan/cargo; SKIP_CLEAN leaves other lanes' trees alone
+# shared hosts: NEBIUS_SLOT=a|b (vy-nebius-1, nebius-infra steward 06:27Z) runs the check CPU-only in slot check-a (CPUs 128-159) or
+# check-b (160-191) under that slot's flock, with RUN_PATH and SKIP_CLEAN set; never gpu-lease (it blocks the GPU cutover and exits 2
+# after it). RUN_PATH gives this run (not the host's other lanes) the user-installed uv/elan/cargo; SKIP_CLEAN leaves other lanes' trees
+# alone; CPU_ONLY hides the GPUs
+case ${NEBIUS_SLOT:-} in
+  a) WRAP="flock /workspace/research/locks/check-a.lock taskset -c 128-159";;
+  b) WRAP="flock /workspace/research/locks/check-b.lock taskset -c 160-191";;
+  '') ;;
+  *) echo "REFUSED: NEBIUS_SLOT is a or b"; exit 1;;
+esac
+if [ -n "${NEBIUS_SLOT:-}" ]; then
+  RUN_PATH=${RUN_PATH:-/home/research/.local/bin:/home/research/.elan/bin:/home/research/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin}
+  SKIP_CLEAN=1 CPU_ONLY=1
+fi
+case ${WRAP:-} in *gpu-lease*) echo "REFUSED: no gpu-lease for checks (nebius-infra steward 06:27Z); use NEBIUS_SLOT=a|b"; exit 1;; esac
 [ -n "${RUN_PATH:-}" ] && ENVK+=(--env "PATH=$RUN_PATH")
+[ -n "${CPU_ONLY:-}" ] && ENVK+=(--env "CUDA_VISIBLE_DEVICES=")
 WRAP=${WRAP:-}
 if ! grep -q CHECK_STORE_CUSTODY $W/tools/check/check.py; then
   # the tree predates #420 (check.py drops RESEARCH_* from its steps, so store_io cannot see the custody key):

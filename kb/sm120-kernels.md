@@ -1,5 +1,9 @@
 # sm_120 kernels: the toolchain, the card, the libraries and node 2
 
+**Superseded (30 Sep, 19:40Z) by `store:pous/docs/pouw/sm120-gotchas.md`,** the facts page named below. It holds every line
+here (four corrected, 37 given run ids or commits) and 196 more backfilled from the lanes' status files and `server.md`. Add
+and correct facts there; this list is no longer kept.
+
 Facts for anyone writing or timing kernels on the RTX PRO 6000 (sm_120, 188 SMs) and running them on node 2
 (`vy-nebius-2`). One line per fact, each with its source; correct a wrong line in place instead of adding a contradiction.
 The workflow around these facts is Verity's `.agents/skills/kernel-engineering/SKILL.md`. This list is hand-kept until the

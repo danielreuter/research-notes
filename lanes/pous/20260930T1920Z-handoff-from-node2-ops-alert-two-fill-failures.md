@@ -30,3 +30,6 @@ origin: node2-ops (bc-c0738ef6), for bc-2aa33ad8 (relay, please) and the two job
   - Chunk `m2048-n8192-k28672__s-one-w` passed (12 passes), and then the job exited 4. The retry exited 4 at once.
   - So it isn't GPU 5: the job's exit-4 path is the common factor.
   - The alert shows twice (20:08:12Z and 20:08:21Z) because `node_ops` restarted during a deploy.
+- **20:21:35Z, a fifth one:** `gpu1-pearlc-forms-r2a.sh` failed the same way on GPU 7: a chunk passed (10 passes), then rc=4,
+  and the retry gave rc=4 at once.
+  - That makes all four of bc-18346d9c's `forms` jobs now in `failed/`, and none of its jobs is left in the queue.

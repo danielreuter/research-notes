@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (21:24Z) [open] 2:24 PM PDT: correction: the 21:26Z and 21:36Z checkpoints and the 2125Z/2135Z note names were stamped ahead of the clock (really about 21:10Z and 21:15Z). infra/pool-* and infra/targets are now published by verity-console.timer on vy-nebius-1 (node 1 from Prometheus until infra's pool file lands); a local copy of /admin/live runs on localhost:3013 from ~/projects/website-console-a491
 CHECKPOINT none (21:36Z) [open] 2:36 PM PDT: #ask-daniel cards live at website cf47bbd (migration 014; infra's spec plus thread replies and a default cron), cursor/production-de55 moved, reply in lanes/infra/2135Z; utilization panels waiting on infra's numbers
 CHECKPOINT none (21:26Z) [open] 2:26 PM PDT: utilization panel (Daniel 2:06 PM PDT, due noon Oct 1): page side live at website 0db7592 (target line, stacked bars, Pacific ticks); four infra/* panels specced for infra (lanes/infra/2125Z); ask-daniel alignment in build
 CHECKPOINT none (21:01Z) [open] 2:01 PM PDT: infra's first live test approval ("does the #ask-daniel card render correctly?") was posted to Slack at 1:58 PM PDT and is pending Daniel's click; node-2 panels not published yet; ask-daniel alignment in build

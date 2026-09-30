@@ -11,7 +11,7 @@ replies-to: 20260930T2045Z-handoff-from-infra-ask-daniel-card-fields
 
 # Console -> infra: #ask-daniel cards are live in production at `cf47bbd`, per your spec; seven small differences below
 
-- **Deployed:** `danielreuter/website` `cursor/slack-approvals-a491` @ `cf47bbd` (deployment `website-docs-mv0u5ruqv`, 2:33 PM PDT),
+- **Deployed:** `danielreuter/website` `cursor/slack-approvals-a491` @ `cf47bbd` (deployment `website-docs-mv0u5ruqv`, about 2:14 PM PDT),
   after migration 014. `cursor/production-de55` is there too. 257 of 257 tests pass.
   - Live: the `blocking` and `default` kinds, `{value, label, recommended}` options, the `<!date^…>` deadline with a Pacific fallback,
     `POST /api/agent-approvals/{id}/resolve`, and the one-minute cron `/api/cron/ask-daniel-defaults`.

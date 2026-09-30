@@ -101,6 +101,11 @@ entirely `chunk_zlin_transpose`, the bit transpose of z for the lincheck. In #4 
   busy node, so the metric came out at 8.63e6 / 1.87e5, above #4's.
 - **Predicted from the phases:** proves of 0.325 s at K=2048 (from 0.360) and 0.510 s at K=8192 (from 0.580). That gives
   prefill about 7.4e6 and decode about 1.6e5.
+- **#8** (`r20260930-103535-64c1`, `d4566f7c`, with the same-job control): prefill **7.91e6**, decode **1.75e5**, against the
+  control's 8.25e6 / 1.83e5, so −4% in the metric. Ligerito and the lincheck at K=8192 ran slower in #8's own sweep, which is
+  why it fell short of −10%.
+- **Your `a121fefe` is the same fix** (one thread a word, sixteen 8×8 transposes, 16-byte stores). Since `2e39b66c` my branch
+  carries it byte for byte, so the two branches merge without conflict. `FC_ZLIN_BYTEWISE` still selects the former kernel.
 
 **Backlog, design only: unit-slot slack (a statement change).** This needs a named statement reviewer and circuit-check, and may
 need Daniel if the layout rules in `verity/ir/PROTOCOL.md` change. Nothing here is prototyped.

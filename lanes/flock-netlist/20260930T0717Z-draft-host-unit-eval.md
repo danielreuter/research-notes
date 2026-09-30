@@ -50,6 +50,8 @@ For M0 (bc-ff572e70, lane `flock-netlist`), as a backlog item. Branch `cursor/ho
 | v3 #3 `r20260930-075001-a713` | + fused write | **1.38e7** | **3.08e5** | 2.61 / 0.37 | 3.40 / 0.58 |
 | v3 #4 `r20260930-080425-c735` | + `FC_HOST_PREPIN=1` | **8.23e6** | **1.81e5** | 0.33 / 0.36 | 1.05 / 0.58 |
 | #4's same-job BASE | old eval, unfused, prepin on | 1.00e7 | 2.20e5 | 1.74 / 0.37 | 2.84 / 0.59 |
+| v3 #5 `r20260930-083954-c727` | #4 + `FC_DEV_PREFETCH=1` | 9.07e6 | 2.01e5 | 0.54 / 0.41 | 0.90 / 0.61 |
+| #5's same-job BASE | #4's config | 8.75e6 | 1.92e5 | 0.32 / 0.38 | 1.06 / 0.64 |
 
 - "build" is `witness_prebuilt_s`; the metric reads it divided by 4.
 - Device-bound would be prefill 8.36e6 / decode 1.84e5 (#3's prove-only). Every row above is host-bound only through the
@@ -60,12 +62,19 @@ For M0 (bc-ff572e70, lane `flock-netlist`), as a backlog item. Branch `cursor/ho
 **#4 is at the device bound** (its overhead equals its prove-only), as predicted (8.4e6 / 1.9e5). The host witness is off the
 critical path; what is left is the prove, 2 sessions per statement (the second reuses the first's commitment).
 
-**Next (#5, prototype): prefetch the host slots to the device.** In the first session, `t.witness_comp` (the device reading the
-mapped host slots over PCIe beside the compressions, and the compression inputs' pageable copy) is 0.069 of 0.354 s at K=8192
-and 0.032 of 0.200 s at K=2048 tile: plan §4's upload floor. The pipeline's builds now have slack (K=8192: 1.05 s / 4 against
-0.58 s), so the prebuild thread copies both to pooled device buffers while the previous statement proves, and the kernel reads
-device memory. Same words, same kernel, so the proofs stay byte-identical. Predicted: prove K=8192 0.58 → ≈ 0.52 s, K=2048
-0.36 → ≈ 0.33 s; prefill ≈ 7.5e6, decode ≈ 1.65e5.
+**#5: prefetch the host slots to the device (`0375d7cf`, `FC_DEV_PREFETCH=1`, off by default).** Plan §4's upload floor is the
+first session's `t.witness_comp`: the device reading 1.14 GB of mapped host slots over PCIe beside the compressions, plus the
+compression rows' pageable copy (11–45 MB). It was 0.054–0.069 s at K=8192 and 0.032 s at K=2048 tile. The pipeline's builds
+have slack, so the build thread copies both to pooled device buffers (`DevBuf`, at most `FC_DEV_PREFETCH_GB`, default 16). The
+kernel reads the device pointers, which `prove_circuit.cuh` recognizes with `cudaPointerGetAttributes`. Same words and kernels.
+
+- **Byte identity:** the gate passes, with `gpu_paths_agree` on `device-ab` against the pageable path, and the digests are
+  yours. `FC_UNIT_CHECK=1` reads the copies back and compares them.
+- **Measured, same job:** `t.witness` falls 0.051 → 0.028 s at K=2048 and 0.093 → 0.065 s at K=8192, in every run.
+- **Not visible in the metric:** the Ligerito and zerocheck phases vary by ±0.03–0.05 s from run to run, on both paths and in
+  the reused second session too, so #5's median-of-3 came out above its control.
+- **Next:** #6 (steady state: depth 2, RUNS=8, so most timed proves have a build and its copies beside them), then the quiet
+  hour's A/B.
 
 **For you to decide.**
 

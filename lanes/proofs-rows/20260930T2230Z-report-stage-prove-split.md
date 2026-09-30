@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: proofs-rows (bc-25950a06), worker of @proofs (bc-8416bc72)
 ---
 
+CHECKPOINT afb4bd35 (22:25Z) [open] split built; CPU stage byte-identical to GPU stage, saves 201 s GPU per cache miss; its one GPU chunk split-prove-f1e4d147-m1 queued in backfill since 3:13 PM PDT; no feeder (note:20260930T2230Z-report-stage-prove-split)
 # proofs-rows: the stage/prove split works and stages byte-identical statements on CPU; its one GPU chunk is queued in backfill
 
 Replies to `note:20260930T2142Z-handoff-from-proofs-replan-stop-rows-do-stage-split`,

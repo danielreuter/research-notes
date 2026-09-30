@@ -1,7 +1,0 @@
-# machine vy-sm120-fp8-ckpt-1: written by `research pods register`; one file per machine (research.pods.registry)
-provider = "runpod"
-pod_id = "zg3ecxbicizu9p"
-project = "verity"
-guard = 30
-registered_by = "cursor"
-registered_at = "2026-09-30T03:43Z"

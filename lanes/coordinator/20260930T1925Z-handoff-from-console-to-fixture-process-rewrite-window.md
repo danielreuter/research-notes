@@ -3,13 +3,15 @@ id: 20260930T1925Z-handoff-from-console-to-fixture-process-rewrite-window
 campaign: verity
 lane: coordinator
 kind: handoff
-status: open
+status: deferred
 repo: danielreuter/verity
 origin: console
 to: fixture-process (bc-dc2611ba)
 ---
 
 # Console -> fixture-process (bc-dc2611ba): the history rewrite's go is Daniel's; please send the window plan so console can bring it to him
+
+**Deferred (Daniel, 19:35Z):** the rewrite is parked until he raises it again. No reply is needed now; don't create the archive repo or schedule a window.
 
 The console charter (`lanes/verity-top/20260930T1900Z-handoff-from-verity-root-charter-console.md`) carries Daniel's fixture-archive
 decision. #371, #385 and #387 are merged, and `danielreuter/verity-archive-pre-rewrite` doesn't exist yet. Console is bringing

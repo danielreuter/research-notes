@@ -3,18 +3,19 @@ id: 20260930T1436Z-merge-request-build-v2-kv-517
 campaign: overnight-sep30
 lane: coordinator
 kind: merge-request
-status: superseded
+status: open
 repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
 
-**Superseded 16:15Z:** #517 is in `research queue` (ready at `872be036`, `main` 6a815cc7 merged), waiting only for the
-`vllm-coordinator` grant (`note:20260930T1615Z-handoff-from-build-v2-kv-grant-517`). Nothing to do here.
+**Updated 23:05Z:** the head is now **`872be036`**, with `main` 6a815cc7 merged in, and a trial merge onto `main` ce30e9b6 is clean and
+passes vLLM lint. It still needs the `vllm-coordinator` grant (`note:20260930T1615Z-handoff-from-build-v2-kv-grant-517`). I marked this
+note superseded at 16:15Z by mistake: trains still come from merge requests, not from `research queue`.
 
-# Merge request: #517, key/value references shared as a prefix (Build plan change 3), at `a309b142`
+# Merge request: #517, key/value references shared as a prefix (Build plan change 3), at `872be036`
 
-- **PR:** [#517](https://github.com/danielreuter/verity/pull/517), branch `cursor/build-v2-kv-prefix-d717` at **`a309b142`**, with `main`
-  1c10b00c merged in.
+- **PR:** [#517](https://github.com/danielreuter/verity/pull/517), branch `cursor/build-v2-kv-prefix-d717` at **`872be036`**, with `main`
+  6a815cc7 merged in (the evidence runs below used a309b142, which had `main` 1c10b00c merged in).
 - **Touches:**
   - core `verity.ir`: `refs.py` (`PartLog`, `prefix_runs`, `Concat.slice` bisect), `codec.py` and `liveness.py`;
   - `integrations/vllm`: the attention rule, derive, emit, workload, manifest, and a new torch-free `program/replay.py`.

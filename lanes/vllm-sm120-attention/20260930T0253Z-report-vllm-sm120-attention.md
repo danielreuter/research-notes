@@ -5,6 +5,7 @@ created: 2026-09-30T02:53Z
 status: open
 ---
 
+CHECKPOINT 4975dc66 (04:22Z) [open] WAITING gate (b) on vy-sm120-attention-2: base r20260930-034927-48b4 and head r20260930-035219-a82d both at 98%, last test (olmoe manifest build-global) running; head lints failed P8 on arch literals in the evidence string, fixed at 4975dc66, whose lints + touched tests pass (r20260930-042000-6c90). check after 04:35Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6; next: jdiff, terminate, handoff
 CHECKPOINT cfcbfcef (03:52Z) [open] WAITING gate (b)+lints on vy-sm120-attention-2 (pod x8zpxecwqjekb5): base r20260930-034927-48b4 (f740c1d5) and head r20260930-035219-a82d (cfcbfcef), concurrent after the base bootstrap; r20260930-035023-a534 stopped while waiting (no tests ran). check after 04:15Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6; PR #477 draft; next: jdiff, handoff
 CHECKPOINT cfcbfcef (03:48Z) [open] pod estimate (revised: no CPU stock at 8 or 16 vCPU in any flavor): vy-sm120-attention-2 (RTX PRO 6000 Server Edition, SECURE on-demand, $2.09/h, --max-hours 3) for gate (b) + lints, base f740c1d5 and head cfcbfcef on the same pod: ~1.5 GPU-h, ~$3.1; lane total then ~$4.4 of $12
 CHECKPOINT cfcbfcef (03:46Z) [open] pod estimate: vy-sm120-attention-cpu-1 (RunPod CPU cpu3g, 16 vCPU, --max-hours 3) for gate (b) + lints, base f740c1d5 (PR #465 tip) and head cfcbfcef on the same pod: ~1.5 h, ~$1; lane spend so far ~$1.30

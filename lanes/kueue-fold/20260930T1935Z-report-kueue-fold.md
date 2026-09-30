@@ -118,3 +118,12 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
   - **Commits:** circuits' node-2 Commit list belongs to n2-commits' `n2_commit.sh offload` (told circuits).
   - **Waiting:** PoUW's NUMA 0 OK before the `fill_runner` lending is deployed.
   - **Next:** the node-1 executor with process-level leases (T4).
+- **3:37 PM PDT checkpoint:** the node-1 process-level lease layer (T4) is live, but inert until a class is migrated.
+  - **Lease controller:** `n1_lease.py` (`infra/nebius` `845975e2c`, tmux `n1-lease`) fences every GPU that no pool holder Job holds, grows and shrinks the pool from gpu-lease's waiters, expires a lease past `until` plus 120 s, and asks the brain (`VY_LEASE_BRAIN`) when one is set, falling back to local rules. The pool is 0 now.
+  - **Dispatcher:** lease items (`e2c652a9d`) are deployed. They stay off until `VY_LEASE_CLASSES` is set, which waits on backend-sweep-2's yes. The dispatcher loop had exited at 3:30 PM PDT; I restarted it at 3:32 PM PDT.
+  - **Drift reference:** it tracks `845975e2c`. The dispatcher's `sky/` now matches it.
+  - **Smoke test:** `lease-smoke-1` is waiting on GPU quota (provers 3/3, deployments-gpu 5/5).
+  - **Measured (10 s):**
+    - Node 1: GPU 0–3% util on all 8, CPU 33%.
+    - Node 2: GPU 0–5% util, CPU 44% (25% of it niced), no timed window, 44 queued.
+  - **Waiting:** backend-sweep-2's yes, cluster-build's `cluster grant`, and PoUW's NUMA 0 OK.

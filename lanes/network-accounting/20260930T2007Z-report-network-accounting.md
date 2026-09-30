@@ -2,9 +2,10 @@
 lane: network-accounting
 kind: report
 created: 2026-09-30T20:07Z
-status: open
+status: blocked
 ---
 
+CHECKPOINT cc21a7d94 (21:53Z) [blocked] PAUSED by Daniel 21:52Z (focus on circuits, proofs, compute accounting). #326 is merge-ready (check r20260930-211439-1879 passed, custody confirmed, note:20260930T2135Z-handoff-from-network-accounting-326-merge-ready). No workers, timers or pods. Restart: Daniel resumes, #326's train check fails, or A–C answered.
 CHECKPOINT cc21a7d94 (21:34Z) [open] #326 merge-ready: check r20260930-211439-1879 passed on vy-nebius-1 (head 629ec80e, contains main e15dc1ef); note:20260930T2135Z-handoff-from-network-accounting-326-merge-ready filed for the train; verdict posted in Slack. Data-movement table written.
 CHECKPOINT cc21a7d94 (21:15Z) [open] WAITING r20260930-211439-1879 on vy-nebius-1 (#326's check, head 629ec80e, contains main e15dc1ef), check after 21:30Z; agent bc-ecea50f6; next: merge-ready handoff to lanes/coordinator
 CHECKPOINT cc21a7d94 (21:10Z) [blocked] Utilization thread: reported 0 GPU-h ready. The 15 GPU-h trace run isn't ready (no per-token recorder); I offered ~10 GPU-h if infra wants filler. #326's check is still blocked on vy-nebius-1's preflight (uv 0.12.21, links in /usr/local/bin gone); nudged infra; re-probing every 30 min.

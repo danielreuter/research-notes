@@ -1500,6 +1500,16 @@ Verdicts only. The findings are in the store's `private/`.
   - Verdict: `internal/lanes/red-team-flock-3/20260929T2300Z-answer-from-red-team-flock-3-452-verdict.md`, with a
     note to RC at `internal/lanes/coordinator/20260929T2300Z-answer-from-red-team-flock-3-452-red-team-grant.md`.
     Evidence: `private/red-team-reviews/pr452-evidence.log`.
+- **The merges stacked on #423 (#372 @ `9298a197`, #380 @ `81a80d29`, #391 @ `dcb83d0e`): CONFIRMED and GRANTED.**
+  - `--remerge-diff`, and a per-definition parent check, show every resolution is a union and no definition is dropped.
+  - The one behaviour change is #372's `widen` refusing more than one work stratum, through `check_work_strata`. It
+    only refuses more.
+  - For NCP and FP8, #391's generalized `openings` behaves as before.
+  - Tests: `verity-pouw` gives 125, 258 and 284 passed.
+  - The labels `grant = red-team` are on the three full-sha heads, on the remote, with ref
+    `note:red-team-flock-3/20260930T0144Z-finding-red-team-423-stack-merges`.
+  - Verdict: `internal/lanes/pous/20260930T0144Z-redteam-423-stack-merges.md`. Evidence:
+    `private/red-team-reviews/pr423-stack-evidence.log`.
 - **#429 @ `2d4e80ed` (receipt-indexed law, 7 pins): reviewed and PARKED, as root asked.**
   - Checks: the audit passes with kernel replay (10,012 declarations, 113 pins). I would grant it as it stands if the
     fallback is needed.

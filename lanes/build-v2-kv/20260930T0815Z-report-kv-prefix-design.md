@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
 
+CHECKPOINT a309b142f (13:32Z) [open] post-merge same-time A/B running: main 1c10b00c+bench r20260930-133041-d53d (96-111) vs tip a309b142+bench r20260930-133103-9fef (112-127); rows llama/mistral prefill + Build owner's llama32-1b-1k:decode target. Inbox: steward submit.sh note n/a (no Kueue submits). ends ~14:35Z
 CHECKPOINT a309b142f (12:26Z) [open] attempt 1 r20260930-095541-fa3e done: 6/6 rows digest-identical, 330 labels; prefill wall 0.55-0.67x of baseline. P10 lint failed on the branch: fixed (shared program.replay), main merged (a309b142), lint+1665 vllm+306 core tests pass. next 13:30Z: main-vs-a309b142 digest A/B, then merge request
 CHECKPOINT ddeabc86 (10:39Z) [open] attempt 1 r20260930-095541-fa3e: 3 prefill rows rc 0, wall vs baseline llama 367/585 s, mistral 573/848, olmoe 640/1161; decode rows running (llama LP26), no foreign load on 96-127; digests checked at end, ~12:05Z
 CHECKPOINT ddeabc86 (09:56Z) [open] A/B r20260930-092548-94d4: tip vs main same-time, digests identical; llama prefill wall 0.70x RSS 0.61x, mistral prefill wall 0.66x RSS 0.58x. attempt 1 (tip ddeabc86, 6 rows) r20260930-095541-fa3e running on 96-127, ends by 12:26Z

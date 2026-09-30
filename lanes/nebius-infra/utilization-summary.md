@@ -140,8 +140,60 @@ ideas.
 - **The steward's GitHub token works again** (13:54Z push). Lanes that can't fetch GitHub take `infra/nebius` from the bundle
   `artifacts/nebius/infra-nebius-763ea668.bundle` (sha256 `33bce048…`, needs `8f777377`).
 
+## Daytime, 14:00–21:33Z (7:00 AM–2:33 PM PDT; update at 2:40 PM PDT)
+
+| Server | Hour (UTC) | GPU-h | Kueue-allocated | held or busy | busy | idle | CPU busy | RAM peak |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| vy-nebius-1 | 14:00 | 8.0 | 3.0 | 1.5 | 0.22 | 6.5 | 24% | 300 GiB |
+| vy-nebius-1 | 15:00 | 8.0 | 3.2 | 1.6 | 0.18 | 6.4 | 33% | 831 GiB |
+| vy-nebius-1 | 16:00 | 8.0 | 6.8 | 3.9 | 0.32 | 4.1 | 44% | 1028 GiB |
+| vy-nebius-1 | 17:00 | 8.0 | 7.8 | 4.1 | 0.35 | 3.9 | 31% | 1202 GiB |
+| vy-nebius-1 | 18:00 | 8.0 | 7.8 | 4.4 | 0.72 | 3.6 | 29% | 943 GiB |
+| vy-nebius-1 | 19:00 | 8.0 | 7.2 | 4.4 | 0.30 | 3.6 | 27% | 854 GiB |
+| vy-nebius-1 | 20:00 | 8.0 | 8.0 | 5.3 | 0.33 | 2.7 | 25% | 443 GiB |
+| vy-nebius-1 | 21:00 | 4.5 | 4.0 | 3.1 | 0.23 | 1.5 | 34% | 807 GiB |
+| **vy-nebius-1** | **14:00Z–21:33Z** | **60.5** | **47.8** | **28.2** | **2.65** | **32.3** | **31%** | **1202 GiB** |
+| vy-nebius-2 | 14:00 | 8.0 | – | 7.4 | 6.12 | 0.6 | 27% | 70 GiB |
+| vy-nebius-2 | 15:00 | 8.0 | – | 5.5 | 1.98 | 2.5 | 12% | 130 GiB |
+| vy-nebius-2 | 16:00 | 8.0 | – | 3.5 | 1.67 | 4.5 | 18% | 110 GiB |
+| vy-nebius-2 | 17:00 | 8.0 | – | 5.4 | 3.56 | 2.6 | 11% | 109 GiB |
+| vy-nebius-2 | 18:00 | 8.0 | – | 7.0 | 4.69 | 1.0 | 18% | 69 GiB |
+| vy-nebius-2 | 19:00 | 8.0 | – | 7.6 | 6.71 | 0.4 | 30% | 96 GiB |
+| vy-nebius-2 | 20:00 | 8.0 | – | 7.0 | 5.83 | 1.0 | 33% | 179 GiB |
+| vy-nebius-2 | 21:00 | 4.6 | – | 4.2 | 3.43 | 0.3 | 46% | 205 GiB |
+| **vy-nebius-2** | **14:00Z–21:33Z** | **60.5** | **–** | **47.6** | **33.98** | **13.0** | **23%** | **205 GiB** |
+
+The 21:00 rows cover 21:00–21:33Z. Source: `art:fd2ad8f125943e7f6d4c8e449cd0447d6d5a4c2da4559595edd0909fb5ee7f3e` (05:16–21:33Z).
+
+**Node 1 is allocated but not busy.**
+- Kueue kept 6–8 GPUs admitted from 9 AM PDT on. A process held GPU memory for 28.2 of the 47.8 allocated GPU-hours, and the GPUs
+  were busy for 2.65 (4.4% of all GPU time).
+- Node 2 was busy 56% of the time.
+- Daniel's targets (2:06 PM PDT) are node 1 at 60% GPU-busy by 3:30 PM PDT and both nodes at 80% by 6:00 PM PDT.
+
+**Causes, in order, and what was done:**
+1. **Dispatched Commits replayed on their GPU.** Node 1's dispatcher ran the 9:20 AM two-task template until node1-fill refreshed
+   it to `896d14cd` at 2:15 PM PDT. Now a Commit on a tree with PR B defers its replay to a CPU task.
+2. **TP2 rows hold 2 GPUs through their CPU Build.** These are the 91 queued `config-run-row` jobs. The vLLM coordinator made a
+   GPU-less 2-rank Build priority 1 and gave it a new lane.
+3. **Hung Commits.** Gemma-2-2B Commits held GPUs for 50–90 minutes with no output. Since 2:20 PM PDT, a Commit whose `commit.log`
+   is quiet for 15 minutes is stopped and recorded as cancelled (`ac3e0ea51`).
+4. **Commits waited behind Builds for CPU and memory.** GPU and CPU work now use separate queues: `deployments-gpu` has a fixed
+   4 vCPU and 160 GiB per GPU, and `deployments-cpu` takes Builds and replay. GPU work gets priority 600 over 0-GPU work at 500.
+5. **2-GPU TP2 heads starved behind 1-GPU Commits.** `deployments-gpu` has been StrictFIFO since 2:14 PM PDT (node1-fill).
+6. **Prover jobs hold 93 GB of GPU memory at about 0% busy.** They build their witness on the host (`backend-sweep-2`, `prover-b`).
+   This is open with the prover lanes.
+
+**Also live since 7 AM PDT:**
+- Grafana on node 1 (DCGM, Node Exporter Full, busy % per Kueue queue).
+- Idle-GPU alerts, written as notes to `lanes/infra/` and `lanes/node1-dispatcher/` with the owning lane named.
+- A cap of 4 vLLM deployments and 6 jobs waiting.
+- Both servers' hard stop moved to 2026-10-07T15:00:00Z.
+- Hourly busy notes, now running through 8 AM PDT Oct 1.
+
 ## Evidence
 
+- `art:fd2ad8f125943e7f6d4c8e449cd0447d6d5a4c2da4559595edd0909fb5ee7f3e`: 05:16–21:33Z, both servers, the source of the daytime table.
 - `art:48b2eed3fea5d405b696819edceb123442fb5b0ada870f3753d3cfdac6b3d9e0`: 05:16–13:59Z, both servers, the source of the table above.
 - `art:b5e8e3e984e8fb34ed2463a40edbebaa21b274a35930307bee455d4db2a27911`: 05:16–12:31Z, the 12:40Z version.
 - `art:00e0db82cc9619749b87a46f8db84f58f1bd730f804367ce3698cf858db1f3d5`: 12:31–13:57Z, both servers, the source of the addendum.

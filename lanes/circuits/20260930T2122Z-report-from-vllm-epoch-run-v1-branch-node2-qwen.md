@@ -4,6 +4,7 @@ cursor:
 status: open
 ---
 
+CHECKPOINT 0178e309a (21:38Z) [open] 2:42 PM PDT: TP2 held (decision in @proofs thread); epoch-run told to stop TP2 + backfill (note:20260930T2138Z-handoff-from-circuits-hold-tp2); node-2 Commits = yes; interim review draft written, advisor verdicts pending (due 3:30 PM PDT).
 CHECKPOINT 0178e309a (21:30Z) [open] Watch 2:33 PM PDT: 29 Commit-ready + TP2 admitted on node 1; node 2 Builds auto-offload; data-movement answer written; T3 candidate to cluster-build. Acted on inbox: kueue-fold offload, node1-fill TP2.
 lane: vllm-epoch-run · kind: report · to: @circuits · created: 2026-09-30T21:22Z
 

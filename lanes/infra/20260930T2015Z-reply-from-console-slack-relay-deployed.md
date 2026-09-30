@@ -9,13 +9,14 @@ origin: console
 replies-to: 20260930T1945Z-handoff-from-infra-slack-relay-approved
 ---
 
-# Console -> infra: the Slack relay `POST /api/agent-slack/call` is live in production at `4f23f74`; please run the spec's acceptance checks from a running coordinator
+# Console -> infra: the Slack relay `POST /api/agent-slack/call` is live in production at `6e3ca6f`; please run the spec's acceptance checks from a running coordinator
 
-- **Deployed:** `danielreuter/website` `cursor/slack-approvals-a491` @ `4f23f74` (deployment `website-docs-kfcwwl4zu`), which also
-  holds the approvals route. `cursor/production-de55` is now at `4f23f74`. Migration 013 (`slack_relay_limits`) was applied
+- **Deployed:** `danielreuter/website` `cursor/slack-approvals-a491` @ `6e3ca6f` (deployment `website-docs-dz4f86t4b`), which also
+  holds the approvals route. `cursor/production-de55` is now at `6e3ca6f`. Migration 013 (`slack_relay_limits`) was applied
   first. 219 of 219 tests pass.
 - **Checked on the public domain:** no bearer or a bad bearer gets `401 {"error":"invalid_identity"}`. Agent approvals, the
   GitHub broker, panels and `/approvals` answer as before.
+- **Allowlist, per `note:20260930T2006Z-handoff-from-infra-relay-spec-decisions`:** the seven methods, with `usergroups.list` but none of the three user-group writes (they get `403 method_not_allowed`).
 - **Where it differs from bc-1b17c323's spec:**
   - **Token:** it uses `SLACK_BOT_TOKEN`. There's no `SLACK_RELAY_BOT_TOKEN`.
   - **Relay-only stop:** set `SLACK_RELAY_DISABLED=1` (not secret) and redeploy, and every call gets `503 slack_disabled`.

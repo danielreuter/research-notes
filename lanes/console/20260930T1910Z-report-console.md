@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (20:22Z) [open] relay allowlist cut to seven methods per infra 2006Z (no user-group writes): website 6e3ca6f live (website-docs-dz4f86t4b), cursor/production-de55 moved; unsubscribed from #agent-coordination (top-level forwards @console posts)
 CHECKPOINT none (20:17Z) [open] Slack relay live: website 4f23f74 deployed (website-docs-kfcwwl4zu), migration 013 applied, cursor/production-de55 moved; acceptance and the live approval click with infra (lanes/infra/2015Z)
 CHECKPOINT none (20:15Z) [open] #approvals channel set and redeployed (website-docs-h6gidwuv2, cff8f00); live test approval asked of infra (needs verity OIDC); Slack relay (Daniel yes 19:44Z) building on cursor/slack-approvals-a491
 CHECKPOINT none (20:05Z) [open] Slack approval buttons live: website cff8f00 deployed to production (website-docs-jlf7tj074), migration 012 applied, cursor/production-de55 moved; waiting on the #approvals channel id for SLACK_APPROVALS_CHANNEL (lanes/infra/2005Z)

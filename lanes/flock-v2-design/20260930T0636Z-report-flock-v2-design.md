@@ -5,6 +5,7 @@ created: 2026-09-30T06:36Z
 status: final
 ---
 
+CHECKPOINT ce7eb155 (12:47Z) [final] 12:52Z FINAL: flock-m0-v3 on cursor/host-unit-eval-c9e2 tip ce7eb155 (no PR). Quiet #10 r20260930-122715-eaf3 at 48 vCPU: 8.56e6/1.91e5 (same-job control 8.72e6/1.92e5); best noisy #8 r20260930-103535-64c1 7.91e6/1.75e5 at 18 vCPU; all 10 attempts gate pass and labelled. Design note 20260930T0717Z-draft-host-unit-eval (also in flock-netlist and the store): about 7.4e6/1.6e5 predicted from the phases, about 6.9e6/1.5e5 with the upload in pieces (not measured), 4.9e6/1.1e5 upper bound with unit-slot slack (a statement change)
 CHECKPOINT 7f663241 (12:45Z) [final] 12:47Z FINAL: flock-m0-v3 on cursor/host-unit-eval-c9e2 tip ce7eb155 (no PR). Quiet a10 r20260930-122715-eaf3 at 48 vCPU: 8.56e6/1.91e5 (control 8.72e6/1.92e5); best noisy a8 7.91e6/1.75e5 at 18 vCPU; all 10 attempts gate pass, labelled. Design note 20260930T0717Z-draft-host-unit-eval (in flock-netlist and the store): predicted 7.4e6/1.6e5 from phases, about 6.9e6/1.5e5 with the upload in pieces (not measured), 4.9e6/1.1e5 upper bound with unit-slot slack (a statement change)
 CHECKPOINT 7f663241 (12:31Z) [open] 12:32Z quiet run a10 r20260930-122715-eaf3 (job 177, ce7eb155, 48 vCPU, cached binary f8176f0f7e8e2948, same-job control FC_ZLIN_BYTEWISE=1) running; circuits on Hold; gate K=2048 accepted
 CHECKPOINT 7f663241 (12:15Z) [open] 12:14Z quiet run (ce7eb155, 48 vCPU, same-job control) submits about 12:27Z

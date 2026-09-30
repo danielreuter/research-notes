@@ -52,6 +52,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-09-30 22:20Z alerts: the monitor's first `gpu-idle-in-lease` catches were two `kt-e70b` runs (bc-6289d8b0) at <10% util for 5 minutes. They were stopped at `max_min` 8 and passed on retry (about 0.2 GPU-h idle). Relayed to `lanes/pous/`, and a rolling monitor log started at `note:20260930T2220Z-alert-from-node2-ops-job-monitors`. Watermark 22:05:06Z.
+
 - 2026-09-30 22:15Z hourly (21Z): GPU busy 94.6%, 100% useful. CPU 49.3% (0–127: 53.6%, check slots: 40.4%); SM-weighted 1.52 of 8 GPU-h. Under the 95% target by 0.4 points: 0.38 GPU-h leased-idle (top bc-36186951 0.16) and a 4-minute timed window.
   - Backups: `r20260930-210557-16c3` custody PRESERVED; `r20260930-220532-8dc5` rc 0.
   - Daemons up, `status.md` fresh, disk 37%, shadow 584 KB.

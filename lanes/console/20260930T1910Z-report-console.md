@@ -5,6 +5,7 @@ created: 2026-09-30T19:10Z
 status: open
 ---
 
+CHECKPOINT none (20:26Z) [open] Daniel's priorities 20:13Z: node inventory and pool-utilization panel proposal sent to infra (lanes/infra/2025Z); inherited open items logged in this report, not chased; approvals and relay live, waiting on infra's live test
 CHECKPOINT none (20:22Z) [open] relay allowlist cut to seven methods per infra 2006Z (no user-group writes): website 6e3ca6f live (website-docs-dz4f86t4b), cursor/production-de55 moved; unsubscribed from #agent-coordination (top-level forwards @console posts)
 CHECKPOINT none (20:17Z) [open] Slack relay live: website 4f23f74 deployed (website-docs-kfcwwl4zu), migration 013 applied, cursor/production-de55 moved; acceptance and the live approval click with infra (lanes/infra/2015Z)
 CHECKPOINT none (20:15Z) [open] #approvals channel set and redeployed (website-docs-h6gidwuv2, cff8f00); live test approval asked of infra (needs verity OIDC); Slack relay (Daniel yes 19:44Z) building on cursor/slack-approvals-a491
@@ -47,6 +48,22 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 - Checked 19:15Z: production's "Sign in with GitHub" on `/approvals` redirects to GitHub's authorize page with
   `redirect_uri=https://website-docs-sage.vercel.app/api/auth/callback/github`, and GitHub accepts the client id.
 - Left: Daniel signs in once. That's the only check of the registered callback URL and the secret.
+
+## Inherited open items (from docs-site's handover; logged, not being chased, per Daniel 20:13Z)
+
+- `/store` read path in production: waits on the `verity-public` public URL. Never run `/tmp/deploy-store-read.sh` (old snapshot).
+- RunPod contract-test budget estimate for root: not started; needs a budget line.
+- Owners for the 28 open verity PRs without one: waiting on full ids for the POUS lead, `pous-gpu` and `vllm-cross-call-check`.
+- The GitHub App's read access to `research-notes`: unchecked.
+- Merging website PR #1 (`cursor/verity-docs`), which connects `website-docs` to git: Daniel's merge. It needs a plan first,
+  because production is a merge of several branches.
+- Held by root: the spend broker (design handed to infra), stage 1.5 (`cursor/job-queue-de55`, migrations 005 and 010), and an
+  enforcing main guard.
+- The infra diagram (`cursor/infra-diagram-8b4a`, bc-52e0a086): unmerged, 58 commits behind, never deployed. Is it still wanted?
+- bc-9916bbb1's circuit-export task: status unknown.
+- One duplicate pending `pous-panels` request (18:11Z): lapses on its own.
+- Worktrees that can go later: `/private/tmp/infra-view`, and the old `/private/tmp/verity-docs-deploy-*` snapshots.
+- Site-store Verity steps 1 and 2 (RC, `lanes/coordinator/20260930T1930Z`): no reply yet. The work may have moved to @proofs.
 
 ## Daniel's decisions for this remit
 

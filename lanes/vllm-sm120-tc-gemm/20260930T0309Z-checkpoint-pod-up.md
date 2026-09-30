@@ -1,0 +1,1 @@
+20260930T0309Z: pod vy-sm120-tc-gemm-1 (2xqwly4jt3weya) created 03:07Z; bootstrap checks PASS (driver 595.91.07, cc 12.0, 188 SMs, torch sm_120). Runs: bootstrap r20260930-030854-5819, 5a e4m3 probe r20260930-030915-23f3.

@@ -1,0 +1,1 @@
+20260930T0308Z: WAITING r20260930-030444-c4b5 (FA2 capture) and r20260930-030755-9aab (FA2 tap build + fa_tap_exactness, default + guarded) on vy-sm120-attention-1, check after 03:28Z; agent bc-366317cb-3bc9-590d-bc5e-9b9bc9940ec6; next: read both, registration PR

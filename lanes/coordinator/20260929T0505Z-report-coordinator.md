@@ -254,3 +254,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 21:42Z: pre-gate staging patch live (blocked by provers pending/Kueue admit); answered @proofs GPU-fill value ask.
 - 21:45Z: (b) capped at r7500 on node 1 (last_start); 10,000+ to @proofs node-2 worker.
 - 21:51Z: (a) deployments reordered (top-p first); answered sweep kernel = cuBLASLt split-K-off (rows.py:37-46).
+- 21:56Z: TLU merged 4b6b72e1 (publish failed: manifest meta 770 KB from flock-agreement/ 3,129 files; moved aside, fetched + custody --publish from VM). TQR (queue 27676a80c + #326 629ec80e) slot b r20260930-215427-4867 mm 1ae8d5a1. FRICTION: send checks overflow the run-record manifest every time.
+- 21:58Z: sweep2-feed items carry question/RESEARCH_QUESTION (Daniel 2:53 PM PDT rule).

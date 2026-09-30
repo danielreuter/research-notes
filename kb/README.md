@@ -27,3 +27,6 @@ Size on 2026-09-24: 30 MB of tracked text, 10 MB packed history.
   host-witness patch, zorch goldens, measured N=4096 constants (CPU, 5090) and link primitives.
 - `sp1-prover.md`: SP1 6.4.0 GPU prover: building a forked chip's server, sharding knobs that do and do not work, the
   memory argument's cost per word, measured per-shard constants.
+- `sm120-kernels.md`: kernels on the RTX PRO 6000 (sm_120) and node 2: build flags and the SASS gate, ptxas pitfalls,
+  measured card facts, cuBLASLt and CUTLASS baselines, `gpu-lease` and the fill queue, `research run` traps. The living
+  gotchas list of Verity's kernel-engineering skill.

@@ -3,10 +3,13 @@ id: 20260930T1436Z-merge-request-build-v2-kv-517
 campaign: overnight-sep30
 lane: coordinator
 kind: merge-request
-status: open
+status: superseded
 repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
+
+**Superseded 16:15Z:** #517 is in `research queue` (ready at `872be036`, `main` 6a815cc7 merged), waiting only for the
+`vllm-coordinator` grant (`note:20260930T1615Z-handoff-from-build-v2-kv-grant-517`). Nothing to do here.
 
 # Merge request: #517, key/value references shared as a prefix (Build plan change 3), at `a309b142`
 

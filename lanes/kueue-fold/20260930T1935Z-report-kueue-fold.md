@@ -70,3 +70,16 @@ origin: kueue-fold (bc-d5ffe46d), worker of the infra coordinator (bc-17cc41f1)
   - PoUW's running GPU jobs (e.g. `hsplit-*`) are clock-locked timing screens, so they can't co-locate. I've asked PoUW for untimed
     jobs (`note:20260930T2003Z-handoff-from-kueue-fold-node1-overflow-contract`). The runner gets built when one is named, not before.
   - Step 3 is still blocked on node2-ops deploying `ce30461ac`.
+- 20:12Z **node 2's Verity pool is live**: node2-ops deployed `ce30461ac` at 20:08:24Z (runner sha `4a122904`, byte for byte the
+  commit). `n2_build.sh submit` now takes the config-run item a lane gives `dispatch.py`, so the Build and its Commit get exactly the
+  item's envs and resources (`infra/nebius` `918e02426`). A node-2 Build's `MemoryMax` is 3× its node-1 request, in 64–256 GB
+  (`d7c40c559`): node 1 only requests, and Builds have used 2–3× that.
+  - **Proof Build submitted:** epoch-run's `cov-g188` (Llama-3.2-1B, whose Build passed on node 1 in 225 s), rebuilt in its own sweep
+    dir `/workspace/jobs/n2proof/cov-g188`, campaign `kueue-fold-n2-proof`. Its Commit goes through node 1's dispatcher at the
+    item's own priority, behind epoch-run's queued Commits. Comparing the two Builds' outputs is a free reproducibility check.
+- 20:10Z **step 4 first slice:** `tools/cluster/src/cluster/nebius1.py` on `cursor/node1-observer-9bf0` (`f21e5a747`, off #586).
+  It reads node 1's Kueue pods, Workloads and DCGM GPU-to-pod labels as the model's allocations and queue, and plans beside Kueue.
+  All 8 GPUs are attributed. The first divergence went to cluster-build
+  (`note:20260930T2010Z-handoff-from-kueue-fold-nebius1-observer`).
+- 20:08Z steward: sweeps in `provers` aren't policy, so they move to `backfill`. I asked backend-sweep-2 and assumption-sweeps to
+  write their items that way. Co-location has his four conditions; the exporter work is on hold until PoUW names an untimed job.

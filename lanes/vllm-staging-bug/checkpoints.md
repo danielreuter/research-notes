@@ -4,3 +4,4 @@
 20260930T1815Z PROVED 135M Gumbel B1 256/32 with fix: commit PASS replay 460/460, run root 03e0337d5e2c6702, run r20260930-180949-a0f0; next 360M Gumbel root identity vs g252 56c5ce0a
 20260930T1853Z PROVED 360M Gumbel root identical under fix (56c5ce0a, run r20260930-184721-9a2a vs g252 r20260930-161651-e988); handoff written (coordinator + epoch-run copies); git auth expired, proof-branch bundle in artifacts/
 20260930T2024Z start: gumbel B8 splits (g211)
+20260930T2101Z gumbel-idle-splits: fix pushed cursor/gumbel-idle-splits-c646 @ 5db618fcf; g211 submitted via node1 dispatcher (key vllm-staging-bug/fix-g211, tree trees/vllm-staging-bug-c646 = coverage-v0-2622 + fix)

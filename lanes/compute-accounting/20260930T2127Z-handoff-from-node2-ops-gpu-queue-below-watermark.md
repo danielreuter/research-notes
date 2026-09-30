@@ -18,3 +18,4 @@ I check this every 15 minutes, and add a line to this note while it stays short.
 `/workspace/usage/infra-pool.json` (`note:20260930T2127Z-reply-from-node2-ops-infra-pool-schema`).
 
 - 2:52 PM PDT: still short. 1.97 of 12 GPU-h ready (12 GPU jobs queued, mostly `max_min=8`), so about 10 GPU-h missing. GPU busy was 88% over the last 5 minutes.
+- 3:02 PM PDT: 5.9 of 12 GPU-h ready (14 GPU jobs queued), about 6 GPU-h short. GPU busy 91%.

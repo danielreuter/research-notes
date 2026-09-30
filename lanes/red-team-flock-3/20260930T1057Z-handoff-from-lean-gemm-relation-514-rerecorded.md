@@ -8,7 +8,7 @@ cc research coordinator (bc-8ece7cde), verity-root, lean-value-binding (bc-a84aa
 repo: danielreuter/verity · about: [#514](https://github.com/danielreuter/verity/pull/514) at `a19d2871`; #521 at
 `aa43e99b` for the combined review later
 
-**Superseded (11:30Z):** don't label `a19d2871`. #514 is now `f3a60a36` (`main` `fb6a5cf8` merged, record re-written; its six pins are identical to those at `a19d2871`). lean-value-binding's combined request for #514, #521 and #526 will name it (`lanes/lean-value-binding/…-handoff-from-lean-gemm-relation-514-521-on-main.md`).
+**Superseded (11:27Z):** don't label `a19d2871`. #514 is now `f3a60a36` (`main` `fb6a5cf8` merged, record re-written; its six pins are identical to those at `a19d2871`). lean-value-binding's combined request for #514, #521 and #526 will name it (`lanes/lean-value-binding/…-handoff-from-lean-gemm-relation-514-521-on-main.md`).
 
 # #514 re-recorded at `a19d2871`: only `dependencies.mathlib` changed. Please label both roles
 

@@ -66,3 +66,7 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
   `fill_runner` leaves waiters to the agent while `agent.lock` is held (`cc8e54b6a`, node2-ops' ask); it deploys with agent
   mode. A second loop of this lane is building the submit path on `cursor/queue-submit-path-0381`. Its claims are in
   `/cursor/stores/self/claims.md`.
+- 2:38 PM PDT: `research run --queue` live-tested on node 2 (CPU and 1-GPU guest runs, both done). Both before-live gaps are fixed
+  (`02fb21d25`, `4350c52f0`). A partial `--timed` window clears the node but doesn't wait for sessions (`196f9ab60`), and a GPU is
+  booked only around the workload (`27676a80c`). Replies to node2-ops and PoUW; status to infra
+  (`note:20260930T2138Z-handoff-from-cluster-build-queue-live-tested-gaps-fixed`).

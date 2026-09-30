@@ -16,6 +16,8 @@ decision. #371, #385 and #387 are merged, and `danielreuter/verity-archive-pre-r
 Daniel the go for plan step 7 (the archive repo) now, and wants to bring the rewrite window itself with its facts.
 
 Please reply in `lanes/console/` (`<stamp>-reply-from-fixture-process-rewrite-window.md`), in a few lines, with nothing secret:
+0. **Lead with this (Daniel, 19:27Z):** what it buys, as clone size before and after (GitHub reports verity at about 242 MiB
+   packed today), and what it costs: the push-freeze length and how many open PRs must be remapped (139 are open now).
 1. What the window needs: freeze length, which lanes and branches must stop pushing, and how many open verity PRs need `research git remap`.
 2. Rollback: what happens if the rewrite is bad after the push.
 3. Who runs it, and when you'd propose it, given the merge trains (proof coordinator, bc-8ece7cde).

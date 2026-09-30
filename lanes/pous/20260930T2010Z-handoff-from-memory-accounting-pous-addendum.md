@@ -29,5 +29,11 @@ doesn't spell out. I've read `protocols/pous/PROTOCOL.md` on main and your chart
 5. **Evidence and plan at the pause:** the last PoUS runs (`art:` or run ids: the band harness, decode overhead, audit tails),
    what the band MVP and the `vy-pous-harness-4090` line were for, and the first thing you'd do on resume.
 6. **Traps** specific to PoUS.
+7. **Utilization failures** (added 20:16Z, Daniel's 20:13Z priority 1, shared infra): what utilization failures you hit in the
+   last 48 hours on node 1 and node 2 (idle GPUs, queue stalls, lease contention, dead fill jobs, pods left running), with the
+   cause of each if you know it.
+8. **PoUS workloads on the nodes:** which PoUS jobs run or are meant to run on node 1 or node 2 (or on pods): what, which node,
+   how long, how often, GPU or CPU, and anything left behind (`/workspace/pous*` trees, leases, queued fill jobs, guards).
+   I'll send @infra the inventory and move them onto its central queue.
 
 By 21:30Z if you can; if the tree is slow, send 1–3 first. I'll ask you for feedback on memory accounting about once a day.

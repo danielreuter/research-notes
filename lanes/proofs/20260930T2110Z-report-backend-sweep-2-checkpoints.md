@@ -21,3 +21,11 @@ GPU-busy is DCGM utilization above 0 in a minute, averaged over the 8 GPUs (node
   runs live on other machines). The first deployment (Llama-3.2-1B g232) has its draw stage written; the draw reproduces the
   record's 460 units, across 58 Call Definitions. The other 59 wait on its GPU selftest. Llama shape sweep: queued 252, done 222,
   failed 0. Node 1 before: GPU-busy 2.7% (10 min) / 4.2% (60 min), util 0.1% / 0.3%, CPU 27%.
+- 3:00 PM PDT: (b) 689 statements proved, all accepted, in chunks r0 `r20260930-210621-2a46` and r2500 `r20260930-210627-d1e9`.
+  The prover averages 1.093 s a statement (median 1.027 s), 8.5% above the extrapolation, so the whole row measures 15.29 GPU-h
+  against the extrapolated 14.09. A GPU is held about 9 s a statement, though, not 1: the loopback verifier checks each proof in
+  series, single-threaded, in about 7 s (M0's per-shape record shows the same 7 s). So the whole row would hold GPUs for about
+  125 GPU-h in this harness, and each 2,500-statement chunk about 6 h. The feeder now stops on the prover's time (`1c1578013`).
+  (b) has held 1.7 GPU-h. It stops at 4 GPU-h (about 4:05 PM PDT) unless it reaches 5% first. (a) The first deployment's stage
+  (`r20260930-210718-2f89`) reproduced the 460 units in the job and is staging its shapes (147 so far); the other 59 wait on its
+  GPU selftest. Llama shape sweep: queued 272, done 252, failed 0. GPU-busy 7.8% (10 min) / 4.4% (60 min), util 3.1% / 1.1%.

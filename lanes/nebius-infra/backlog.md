@@ -32,7 +32,7 @@ NUMA nodes are 0–95 and 96–191. Hyperthread siblings are adjacent pairs, so 
 | 0–31 | k3s, the system, unpinned Kueue pods | |
 | 32–63 | merge-train check slot `check-a` | `flock /workspace/research/locks/check-a.lock taskset -c 32-63 env UV_PYTHON=3.14.7 … check.py`, no `gpu-lease` |
 | 64–95 | merge-train check slot `check-b` | the same with `check-b.lock`, `64-95` |
-| 96–127 | `build-v2-kv` benches (bc-57ddc507) | `taskset -c 96-127` |
+| 96–127 | `build-v2-kv` benches (bc-57ddc507); lent to the Build owner until build-v2-kv's first node-1 run (07:59Z) | `taskset -c 96-127` |
 | 128–159 | the Build owner's benches (bc-47d0a3ed), workstream 1's fixed 32 vCPU | `taskset -c 128-159` |
 | 160–191 | M0's pinned prover benches (bc-ff572e70), inside its Kueue jobs | `taskset -c 160-191`, replacing the old 144–191, which overlapped Build on 144–159 |
 

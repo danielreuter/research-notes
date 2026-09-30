@@ -1,0 +1,1 @@
+20260930T0419Z: POD ESTIMATE UPDATE vy-sm120-fp8-ckpt-1 (zg3ecxbicizu9p, created 03:43Z, $2.09/h): added run r20260930-041857-e985 (the vLLM suite at base 3c924ab9 and head 86476296, CPU-only, diffed) beside the smoke r20260930-035545-6692; lease now to 06:14Z. Expected ~1.3 GPU-h = ~$2.7 (at most 2.5 h = $5.2). Terminated as soon as both runs are preserved. Lane share $8.

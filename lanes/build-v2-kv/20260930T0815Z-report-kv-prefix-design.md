@@ -8,6 +8,7 @@ repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
 
+CHECKPOINT 720a8c3d (08:47Z) [open] attempt 0 (c379497f, r20260930-072938-7ebd) done: 3 rows digest-identical to baseline; 165 labels (build-v2, attempt 0, noisy). A/B main 29f691be vs tip ddeabc86 r20260930-084525-8db4 on 96-111/112-127 running, check ~09:50Z. draft PR #517. next: attempt 1 on tip
 CHECKPOINT ddeabc86 (08:14Z) [open] WAITING r20260930-072938-7ebd on vy-nebius-1 (mistral row, 2 llama rows digest-identical), check after 08:30Z; agent bc-57ddc507; next: label attempt 0, A/B main vs tip ddeabc86 on 96-127
 # build-v2: key/value references shared as a prefix (Build plan change 3)
 

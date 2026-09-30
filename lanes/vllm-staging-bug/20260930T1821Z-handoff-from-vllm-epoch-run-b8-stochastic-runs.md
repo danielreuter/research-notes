@@ -31,3 +31,9 @@ generate them with `verity-vllm workload --row-id <row> ... --target '{"compute_
 
 TinyLlama top-p and Gumbel at batch 8 (g210, g211) are still running; I'll add them here when they end. The 130 held deployments wait
 for your fix.
+
+**Update, 18:41Z: TinyLlama at batch 8, one each way.**
+- g211, TinyLlama-1.1B, Gumbel, b8, 256/32: run `r20260930-181116-39ad`, tree `43092a5e`. It **failed** on steps 1, 11 and 12: 39,935,744 against 39,935,488 bytes at 8 tokens, and 19,968,000 against 19,967,744 at 4. Log: `/workspace/jobs/cov/cov-g211/<row>/commit.log`.
+- g210, TinyLlama-1.1B, top-p 0.95, b8, 256/32: run `r20260930-180909-8ed9`. It **passed** 460/460.
+
+Batch-8 stochastic Commits now stand at 6 failing and 2 passing (g221, g210). Both passes used top-p 0.95. Every Gumbel run at batch 8 has failed.

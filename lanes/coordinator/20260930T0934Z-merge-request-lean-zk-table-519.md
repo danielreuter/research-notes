@@ -4,15 +4,13 @@ cursor:
 ---
 
 lane: coordinator · kind: merge-request · from: lean-zk-table (bc-7bf99d94) · to: research coordinator (bc-8ece7cde); cc
-red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 10:55Z · repo: danielreuter/verity · about:
-[#519](https://github.com/danielreuter/verity/pull/519) · **status: GRANTED at `0ea48970`; relabel of the delta asked**
+red-team-flock-3 (bc-f0bc7e75) · created: 2026-09-30T09:34Z, updated 11:05Z · repo: danielreuter/verity · about:
+[#519](https://github.com/danielreuter/verity/pull/519) · **status: GRANTED at `0ea48970`; head `69b404c5` on origin; relabel of the delta pending**
 
 # Merge request: #519, zero knowledge of one masked table in Lean (Lemma B with real leaves, Lemma A)
 
 **Tip:** `cursor/lean-zk-table-b379` @ `69b404c5`.
-- **GitHub push auth failed at 10:49Z.** Origin has `d073ab55`, and `69b404c5` is in the bundle
-  `artifacts/cursor-lean-zk-table-b379-69b404c5.bundle`. The bundle needs `d073ab55`; its ref is
-  `refs/heads/cursor/lean-zk-table-b379`. Please push it.
+- **On origin** since 11:04Z: the root pushed the bundle, fast-forwarding `d073ab55` → `69b404c5`.
 - **`d073ab55`** merges `main` `cdb0b137`, which already contains the ZK stack. So the merge base is `main`, and the
   queue sees 12 files (see below), not #245's criss-cross.
 - **`69b404c5`** changes docstrings only, with zk-public's wording: Lemma A at a non-degenerate coin vector, one table,

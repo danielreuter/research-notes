@@ -53,6 +53,9 @@ CHECKPOINT none (19:10Z) [open] lane created; split proposed to docs-site (lanes
 ## Backlog (held until infra says research jobs are settled on the shared infra; Daniel, 1:13 PM PDT)
 
 - Show the times on the site and the live console in Pacific time (Daniel, 1:20 PM PDT).
+- Table style reference from Daniel (1:25 PM PDT; no action yet): a model-benchmark comparison table. Its features: category
+  labels in a left gutter, a sub-label beside each metric, one highlighted column, the best cell in each row shaded, dashes for
+  missing results, and a methodology link in the footer. A candidate style for the benchmark matrix and the console's tables.
 - Site-store: the benchmark matrix, candidate and hardware pages, after RC's (or @proofs') Verity steps 1 and 2; the index mirror
   and Daniel's read-only bucket key later.
 - Slack approvals hardening: a rate limit on `POST /api/agent-approvals`; per-agent visibility of approvals; re-posting a token

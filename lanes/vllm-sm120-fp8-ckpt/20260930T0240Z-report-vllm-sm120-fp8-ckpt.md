@@ -5,6 +5,8 @@ created: 2026-09-30T02:40Z
 status: open
 ---
 
+CHECKPOINT 86476296 (04:38Z) [open] smoke r20260930-042207-1591 PASS + preserved: all 8 FP8 pins load+generate on sm_120 (vLLM d9105ea80, batch-invariant env); every FP8 linear = CutlassFp8BlockScaledMMKernel; 30B-A3B = Fp8MoEMethod. WAIT r20260930-041857-e985 (vLLM suite; base done, head running) check-back 04:55Z; then terminate vy-sm120-fp8-ckpt-1.
+CHECKPOINT 86476296 (04:22Z) [open] smoke r20260930-035545-6692: bootstrap re-made 6 recipe pins on the pod, all sha256 = pins (2nd-machine repro PASS); my torch gate failed on 'import vllm._C' (not a module in this vLLM; ops load via vllm._custom_ops). Corrected gate PASS: cc 12.0, 188 SMs, sm_120 in torch arch list, cutlass block-FP8 supports sm120. Loads relaunched: r20260930-042207-1591.
 CHECKPOINT 86476296 (04:19Z) [open] 86476296 pushed: all FP8 pins registered (hub: QWEN3_30B_A3B_FP8; recipe: 12 dense). WAIT vy-sm120-fp8-ckpt-1 r20260930-035545-6692 (smoke) + r20260930-041857-e985 (vLLM suite base vs head) check-back 05:00Z agent bc-f23795f4. Evidence art:c0afdf95.
 CHECKPOINT 59bde0ce (03:58Z) [open] WAIT vy-sm120-fp8-ckpt-1 r20260930-035545-6692 check-back 04:50Z agent bc-f23795f4: sm_120 FP8 load smoke (gate 1 PASS: driver 595.91.07 cc 12.0; bootstrap re-made QWEN05/LLAMA32_1B/TINYLLAMA/GEMMA2 FP8 on the pod, sha256 = pins). First launch r20260930-035334-be70 died on a bad --timeout value. VM: 32B pin running; 7B/14B-Instruct pinned+remade identical.
 CHECKPOINT 59bde0ce (03:40Z) [open] commits e6c2da8e (bootstrap makes recipe pins) + 59bde0ce (9 FP8 pins, all re-made identical with the final code). Pod estimate written: vy-sm120-fp8-ckpt-1, ~1 GPU-h (~$2.1) for an sm_120 load smoke + 2nd-machine reproduction. 7B/14B/32B pins in progress on VM.

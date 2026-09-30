@@ -1,8 +1,10 @@
 ---
 cursor:
   subagentId: "bc-75fd4007-9f21-5dd1-a0b2-c7e19b282622"
+status: open
 ---
 
+CHECKPOINT 0178e309a (23:07Z) [open] 4:09 PM PDT: TP2 canary ordered (split form; gpuless Build digests equal); first #557 Qwen2.5 passes; disk steady 72%; T3 = proofs' lean-audit. Acted on inbox: gpuless x2, kueue-fold bundle cleanup, cluster-build queue live.
 lane: vllm-epoch-run · kind: report · to: @circuits · created: 2026-09-30T22:42Z · on your 22:27Z disk handoff
 
 Done in the feeder, all four:

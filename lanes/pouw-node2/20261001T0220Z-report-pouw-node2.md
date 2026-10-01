@@ -5,6 +5,7 @@ created: 2026-10-01T02:20Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (09:30Z) [open] A: 09:31Z READY for Pearl-C4's 10:00Z window (note:20261001T0930Z-ready-from-c066b30c-node2-1000z-pearl-c4); took B's READY/BLOCKED lines (B silent since 06:46Z). Next: 11:10Z, 11:45Z (ncp), 12:40Z, 13:40Z; totals for GPU 0's 28 done units by 10:30Z.
 CHECKPOINT fbce5a2f4 (09:28Z) [open] A: 09:28Z: disk 45% (2210 GiB), +200 GiB since 09:02Z (infra's circuits checkpoint staging, bounded at about 47%; two untimed served passes, 146 GB); asked bc-c62f9726 to prune them. GPU 0's verifies are parked since 08:58Z (0-47 went to train-check slot d): 28/56 done, all passed; asked compute accounting whether to wait or use fill's 48-91 (note:20261001T0927Z-reply-from-c066b30c-node2-disk-and-parked-verifies). 12:05Z window is in.
 CHECKPOINT fbce5a2f4 (09:01Z) [open] A: 09:02Z poll: GPU 0's verifies: dies 0-4 all passed (die4's 5 confirmed in unit_verify; the runner restarted at 08:42Z, so 4 show adopted-exit and are requeued to finalize), die5 running, 31 queued, 0 failed. die4-e5m2 peaked at 31.6 GB under the 40 GB cap. Disk 42%, up 2 points since 08:40Z; watching the trend against the 52% hold. No reply yet on the 12:05Z window line.
 CHECKPOINT fbce5a2f4 (08:41Z) [open] A: 08:41Z poll: 12:05Z still not in fill/windows, so I escalated it to compute accounting (note:20261001T0840Z-ask-from-c066b30c-ncp-1205z-window-line). GPU 0's verifies: 20 done (all passed), 4 running, 32 queued, 0 failed. Disk 40%.

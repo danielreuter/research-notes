@@ -5,6 +5,7 @@ created: 2026-10-01T02:08Z
 status: open
 ---
 
+CHECKPOINT 3403247f7 (22:15Z) [open] bitsets r20261001-205558-eee7: holding for Pearl-C4 re-time row 16 (22:20Z, hold 21:50-22:30Z, picked up 22:12:42Z); 29 of 88 done, 1 failed (pm1-r64@1), r64@2's store check 3x slow; df 44%
 CHECKPOINT 3403247f7 (21:45Z) [open] bitsets r20261001-205558-eee7: 20 of 88 done, 1 failed (r64@1, slow R2 blob 9678643a, raw kept); 160 GiB raw freed; df 46%
 CHECKPOINT 3403247f7 (21:28Z) [open] bitsets r20261001-205558-eee7 running after served window 5: r64@1 FAILED (raw kept): its R2 blob 9678643a (hot.rows.u32.zst, 406.7 MB, content-addressed so every re-put reuses it) reads ~375 MB fast then 1 MiB/30 s, reproduced by a fresh fetch; zero blob 8 s. r64@2 done in 89 s; 14 of 88 done; df 47%
 CHECKPOINT 3403247f7 (20:45Z) [open] bitsets: still holding for served window 5 (to 21:00Z); 13 of 88 done, 104.0 GiB raw freed, no failed checks; relaunch ~20:56Z; node 2 df 47%

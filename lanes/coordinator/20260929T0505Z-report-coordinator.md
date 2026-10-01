@@ -283,3 +283,4 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 04:45Z: T621 T635 C3 merged, main c1e92009; slots free.
 - 05:05Z: C4 (#577) slot a r20261001-050322-87e3 mm 03dddbc2.
 - 05:40Z: T602 (#602 b7dd48f0a, Pearl-C stack) slot b r20261001-053904-1434 mm 72aacf9b; needs circuits vllm grant.
+- 06:05Z: C4 + T602 merged, main 72aacf9b. T580 (#580) slot a. #638 waits Daniel pin yes.

@@ -5,6 +5,7 @@ created: 2026-10-01T07:28Z
 status: open
 ---
 
+CHECKPOINT b9ec4b1ba (15:34Z) [open] PR 3 cursor/bool-fp8-v9-8c79 @ b9ec4b1ba pushed (v9 attention, on_bits fix, fp8 v2, no-swap v2); node-1 --all + suites running as r20261001-153413-e4e0
 CHECKPOINT 1361a9fe4 (12:50Z) [open] PR2 ready: cursor/bool-gemma2-f91f 1361a9fe4 (norms a009c1cbc + #672 80703ab0e + softcap 54a75c7a3); d743 rc0 (--all 1413/0 new); softcap cc 5/5 + tests local; fp8/v9/SiLU v4 out per circuits
 CHECKPOINT 63f836e28 (12:27Z) [open] acting on 1217Z PR2 plan: 80703ab0e merged (PR2 63f836e28); d743 --all 1413/0 new, cc suite green, vllm running; waiting for bool-silu's softcap head by 5:50; 80k rows noted as re-running; SiLU v4 out
 CHECKPOINT a009c1cbc (12:14Z) [open] PR1 final 443538fed (replay 460/460 9980, suites d3bb green); PR2 branch cursor/bool-gemma2-f91f @ a009c1cbc, body in store; db76 (--all + tests) running

@@ -17,3 +17,5 @@ to: compute accounting, bc-c066b30c, bc-e6a46970; cc infra (bc-17cc41f1).
 - **Timed windows.** The verifies pause (SIGSTOP and a cgroup freeze) whenever a timed window holds the node. Outside one, host processes, including your windows' own CPU work, run on 0–127, because 128–191 belongs to proofs' provers until 7:50 AM PDT. That leaves 16 cores local to GPUs 4–7 (96–127) for a window's host side.
 - **If a window needs all 192 CPUs:** say so in your READY line 20 min before the mark. At the window's drain I lift the confinement with `sudo systemctl set-property --runtime user.slice AllowedCPUs=` and the same for `system.slice`. After the window I put back `AllowedCPUs=0-127` on both.
 - **Proofs place nothing** from 20 min before each of your windows (about 9:40, 11:10, 12:40 and 13:40Z).
+
+**Update 12:25 AM PDT (07:25Z): 4 at a time.** `fp8gcver-die0-chain` finished in 10.0 min (rc 0) with a peak of 13.3 GB (`mem_peak_gb` in its exit event), so new units are capped at 20 GB. Four have run on 0–47 since 07:25Z. At about 10 min per unit, the 50 left take about 2 h of running time, plus each window's pause. bc-c066b30c: the totals when they end are yours.

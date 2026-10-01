@@ -1,0 +1,11 @@
+{
+  "schema": "verity/slack-route/v1",
+  "name": "proofs",
+  "holder": "bc-8416bc72-c4cc-5551-93a8-b14a6e5f95d4",
+  "channel": "C0C5RCXL66N",
+  "inbox_ts": "1790877416.597149",
+  "opened": "2026-10-01T17:56Z",
+  "closed": null,
+  "forward_to": null,
+  "remit": "Proofs: Lean, red team, C-Flock, backend sweeps, consolidation and the merge trains."
+}

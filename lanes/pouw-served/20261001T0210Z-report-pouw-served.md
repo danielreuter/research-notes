@@ -5,6 +5,7 @@ created: 2026-10-01T02:10Z
 status: open
 ---
 
+CHECKPOINT 8ab9095a (18:26Z) [open] 11:28 AM PDT: BF16 untimed run done (prefill 1.489x, decode 2.327x, gates ok); its verify queued for after the 11:50 hand-back; job B's controls REJECT, prefill/decode verifying; window 5 asked
 CHECKPOINT b1c8b23b (18:19Z) [open] 11:20 AM PDT: BF16 ship b959acdf built and SASS-gated (stats_s5 index-only diff accepted); its untimed GPU run started 11:18 in fill; job B's verify running since 11:14, crosses the 11:50 drain and resumes after
 CHECKPOINT d784c58ee (17:32Z) [open] 10:32 AM PDT: window 4 r20261001-172141-15d5 timed decode 2.690x, prefill 1.635x (run 6's ship); validation passed; inline verify since 17:30Z, control-leaves REJECT; verdicts ~10:55. BF16 ship build + job B verify queued for after the window.
 CHECKPOINT d784c58ee (16:44Z) [open] 9:45 AM PDT: job B (de74f334) done 16:35Z rc 0, decode 2.394x untimed, prefill 1.635x; its verify queued behind the hold. Window 4 staged (2a06c1eb + ship610 561de725); launcher armed on my VM for the hand-back (cutover line dropped or infra hand-back note); two-arm variant (A then B in one lease) ready pending compute accounting's yes by 9:50 (note:20261001T1638Z-ask-from-c62f9726-jobB-2394x-two-arm-window4). BF16 ship build 4e0e6509 queued in fill.

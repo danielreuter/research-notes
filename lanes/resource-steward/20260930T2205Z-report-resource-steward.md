@@ -540,3 +540,17 @@ free, it reaches the 80% alert after about 0.48 TB more. The trend line starts w
     skipped node 2 only when the file said `timed True`, so a missing file failed open. Both now run on node 2 only when it
     says `timed False`, and otherwise print why they skipped. `tick.sh` is reinstalled.
   - Slack: one announce to @infra (`1790881248.691289`) with the cause, the PR and the plan.
+- 19:12–19:20Z (12:12–12:20 PM PDT) tick (exit 1): "n1: HARD /workspace gaining 3,345,655 inodes/h: 80% of inodes in 1.6 h"
+  and "n2: HARD /workspace gaining 2,799,577 inodes/h: 80% of inodes in 5.2 h".
+  - Node 2 is a false alarm. The 18:50Z sample, taken during the cutover, read another filesystem (24.6% space, 2.8% inodes)
+    against 51.7% and 9.6% before and after. Inodes are flat at 9.6%, but that sample stays in the probe's 15–60 min base
+    until about 19:50Z, so the 19:32Z tick will report it again.
+  - Node 1: 10.99M inodes (53.4%) at 19:13Z, then 10.24M (50%) at 19:19Z, when a check ended and removed its scratch.
+    Census at 19:13–19:18Z against 18:07–18:29Z:
+    - `research/cache/verity-check`: 3.09M, from 1.42M. These are the Lean scratch trees; they don't outlast their checks
+      except when a cancel orphans one (#708).
+    - `/workspace/jobs/src`: 3.89M, from 3.72M, now 797 copies. It is the only consumer still growing without bound, about
+      150k/h, which reaches 80% in about 40 h if nothing reaps it. The 10:15Z note to infra is still open.
+    - `research/trees` 1.51M (flat); `research/src` 0.37M (0.81M before the 18:20Z sweep).
+  - Nothing is deletable yet (`otchoghv` only after 20:08:18Z). No Slack: the 19:00Z post covers the scratch, and `jobs/src`
+    is in §5 and the daily summary.

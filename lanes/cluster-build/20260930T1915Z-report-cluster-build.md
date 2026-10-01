@@ -97,3 +97,6 @@ the 17:21Z, 17:27Z, 18:05Z, 18:07Z and 17:22Z replies, and `note:20260930T1856Z-
   prefill −0.14% and −0.05%; decode about 1.55% faster across the switch (a systematic shift, not a block). `vy-cluster-agent` stays
   on `91af9a6bf` (main + the `--on` fix): 49 decisions since 6:53 PM, 0 safety divergences. The drill and lending are now node2-ops'.
   #625 is still to merge (then re-pin to main).
+- 4:01 AM PDT: #625 (the `--on` fix) is on main (`ef6a3e748`), with #615 and #616. `vy-cluster-agent` has been healthy 9 h on
+  `91af9a6bf`: 215 grants at 0 s lag, 0 safety divergences. Re-pin to main asked of infra. The rollback drill is still pending
+  with node2-ops.

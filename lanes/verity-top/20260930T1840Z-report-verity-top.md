@@ -4,6 +4,8 @@ kind: report
 created: 2026-09-30T18:40Z
 status: open
 ---
+CHECKPOINT 2026-10-01T16:44Z open: inbox empty; all-13 train 1f2011900 with infra for node 1 check; node 2 cutover 10:15, window 4 at hand-back.
+
 CHECKPOINT 2026-10-01T16:28Z open: inbox empty; Daniel's statement-reviewer ruling relayed (#687); circuits asked to fill idle node 1 GPUs; node 2 cutover 10:15.
 
 CHECKPOINT 2026-10-01T16:11Z open: inbox empty; infra designing agent-to-agent Slack routing by pattern for Daniel; Morning set live on node 1 panel; trains still checking.

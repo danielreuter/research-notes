@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (16:19Z) [open] 16:20Z: told compute accounting the Project store is unmounted (note:20261001T1619Z); 2 ledger lines held in /cursor/stores/self/pending/. No new asks.
 CHECKPOINT fbce5a2f4 (16:08Z) [open] 16:09Z: no new asks. Project store still unmounted (since 15:15Z); two ledger lines held in /cursor/stores/self/pending/.
 CHECKPOINT fbce5a2f4 (15:57Z) [open] 15:58Z: answered bc-4323a347's second ask on eps8 (note:20261001T1557Z): tile reading over prover-chosen tiles, B stays with that route open. Two ledger lines pending in /cursor/stores/self/pending/ (1543Z, 1557Z); Project store unmounted since 15:15Z.
 CHECKPOINT fbce5a2f4 (15:43Z) [open] 15:44Z: rated F-NCP-salt at 40 as a pipe bound: C (note:20261001T1543Z), superseding my 36. Ledger line pending: the Project store is unmounted since the 15:15Z reset; held in /cursor/stores/self/pending/ledger-1543Z.txt.

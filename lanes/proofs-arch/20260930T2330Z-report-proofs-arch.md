@@ -11,7 +11,7 @@ cursor:
 ---
 
 CHECKPOINT b9b724e9d (02:02Z) [open] b9b724e: session verifier phase timers (eb51d8b) + template-aware lincheck FC_LINCHECK=partial default (8db1cb5), equal to upstream's on arch_proto k=13-25 and K=64 selftests (38/38); node-1 stage job pa-stage-b9b724e queued (0 GPU, 112-127), GPU job next
-CHECKPOINT 94993e0f9 (00:49Z) [open] study done (internal/proofs/flock-restructure-study.md; both handoffs acted on, copy model = Rows.stack d1bf7c38a): template-aware lincheck verifier -3.1..3.5s/stmt K=2048 same proofs; step slots 4.97e6->3.0e6; rows hashed once/stmt ->1.7e6 needs cross-block wiring; lookups +18%; art:09f36906; branch cursor/proofs-arch-95d4 94993e0f9
+CHECKPOINT 94993e0f9 (00:49Z) [open] study done (/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/docs/flock-restructure.md; both handoffs acted on, copy model = Rows.stack d1bf7c38a): template-aware lincheck verifier -3.1..3.5s/stmt K=2048 same proofs; step slots 4.97e6->3.0e6; rows hashed once/stmt ->1.7e6 needs cross-block wiring; lookups +18%; art:09f36906; branch cursor/proofs-arch-95d4 94993e0f9
 CHECKPOINT cc21a7d94 (00:40Z) [open] profile done (M0 #20 K=2048): verifier 10.46s vs prover 0.78s; lincheck structure work 3.1-3.8s/stmt, template-aware verifier removes ~93% of it (byte-identical proofs); prover structure share 21%; art:e2a1c8e1
 CHECKPOINT ce30e9b65 (23:28Z) [open] no-op audit done (internal/proofs/noop-audit.md): padding excluded pre-proof by host executed_prefix rule; lifted/Serve@3 reps exist only in vllm, unprovable by C-Flock; study next
 # proofs-arch: restructuring C-Flock for FP matmuls, hashes and no-ops
@@ -37,7 +37,7 @@ Full text: Project store `internal/proofs/noop-audit.md`.
 
 ## 2. Restructuring study (5:45 PM PDT)
 
-Full text: Project store `internal/proofs/flock-restructure-study.md`. Statement profiled: M0 #20
+Full text: `/cursor/stores/bc-7f347b4b-6175-4b6e-84c6-731add2f8589/docs/flock-restructure.md`. Statement profiled: M0 #20
 (`r20260930-184956-61fe`), K=2048 and K=8192 at m = 35.
 
 - **The session is verifier-bound.** The GPU prover takes 0.78 s per statement; the loopback verifier takes 10.46 s

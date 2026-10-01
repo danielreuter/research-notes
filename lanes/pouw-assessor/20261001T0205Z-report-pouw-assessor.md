@@ -5,6 +5,7 @@ created: 2026-10-01T02:05Z
 status: open
 ---
 
+CHECKPOINT fbce5a2f4 (16:56Z) [open] 16:57Z: confirmed eps8's leak charge (+0.00121 pp; v1 0.5203%, cap1000 0.3707%; note:20261001T1656Z). Four ledger lines pending in /cursor/stores/self/pending/; store still unmounted.
 CHECKPOINT fbce5a2f4 (16:44Z) [open] 16:44Z: no new asks. Store still unmounted; three ledger lines pending in /cursor/stores/self/pending/.
 CHECKPOINT fbce5a2f4 (16:33Z) [open] 16:34Z: eps8 over prover tiles rated (note:20261001T1633Z): D on outliers-first A (per side there), B on the other four; v1's leak at most 0.0625 pp, figure asked of bc-4323a347. Three ledger lines pending in /cursor/stores/self/pending/ (1543Z, 1557Z, 1633Z).
 CHECKPOINT fbce5a2f4 (16:19Z) [open] 16:20Z: told compute accounting the Project store is unmounted (note:20261001T1619Z); 2 ledger lines held in /cursor/stores/self/pending/. No new asks.

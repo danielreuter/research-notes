@@ -1,0 +1,10 @@
+{
+  "schema": "verity/slack-route/v1",
+  "name": "comms",
+  "holder": "bc-3e100045-0b60-5d20-951e-7207a989b252",
+  "channel": "C0C5RCXL66N",
+  "inbox_ts": "1790874830.577669",
+  "opened": "2026-10-01T17:13Z",
+  "closed": null,
+  "forward_to": null
+}

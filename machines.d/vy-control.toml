@@ -1,7 +1,7 @@
 # machine vy-control: written by `research pods register`; one file per machine (research.pods.registry)
 provider = "runpod"
-pod_id = "9tnzjcc6iygyv0"
+pod_id = "nv7h6w1pairkcu"
 project = "verity"
 root = "/workspace/research"
 python = "python3"
-registered_by = "import from machines.toml"
+registered_by = "infra 2026-10-01T21:10Z: the new control pod (vy-control-verity, US-CA-2), was 9tnzjcc6iygyv0"

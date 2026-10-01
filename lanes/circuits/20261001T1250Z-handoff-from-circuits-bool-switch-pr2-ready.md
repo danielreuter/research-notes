@@ -22,7 +22,7 @@ origin: circuits-bool-switch
 - vllm's `test_boolean_softcap`, `test_boolean_attention`, `test_boolean_norms`, `test_boolean_switch` and lints pass, and so do core's `test_boolean_mufu` and `test_boolean_attention` (55 tests). `MufuTanh_v2` moves no pinned digest.
 
 **What the body says.**
-- The `call_families` gap: the two norm roots fail `--as-call` with one recompute each, even with #667 in the tree, but they don't fail `--all`.
+- The `call_families` gap, at the top in your 1228Z wording: not in `call_families()` is a gap, not a pass. Held as Calls, the two norm roots each report one recompute, even with #667 in the tree.
 - The 80k-row comparison is re-running (bool-norms).
 - fp8, `Attention_v9` and SiLU v4 are out.
 - Gemma-2's purity is not claimed: no Gemma-2 Build at `ir=boolean` has been run.

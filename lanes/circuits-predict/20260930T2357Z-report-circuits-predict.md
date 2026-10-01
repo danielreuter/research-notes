@@ -5,6 +5,7 @@ created: 2026-09-30T23:57Z
 status: open
 ---
 
+CHECKPOINT none (07:37Z) [open] 00:37 PDT: f6697c66e pushed: TP2 now covers Gemma-2 and the fused MoE (Qwen3-30B, OLMoE incl. its all-heads q/k norm all-gather): 38/38 traced units exact (cov-p058-2, cov-p069, cov-p073-3, cov-p081). Wave 4 done; drift re-score 89e2 at 576 lines; requeue eaf3 on workloads
 CHECKPOINT none (07:08Z) [open] 00:09 PDT: main-code score over 326 rows: 3786 units compared, 3089 exact; all 697 differing units on the 6 coverage-v1 trees (qkv-bias GemmBias_v2) or old ce1b86e4 trees. TP2 qwen2.5 steps exact on coverage-v1 code (4/4 smoke). Queued drift re-score r20261001-070751-89e2 (41 rows, cov code) and requeue of SIGTERM'd shard r20261001-070823-a316; wave 3/4 still running
 CHECKPOINT 889306669 (06:53Z) [open] 23:53 PDT: 889306669 pushed: TP2 rank Programs; cov-p000 step/request/workload exact on both ranks; next: score all 43 TP2 rows + drift rows
 CHECKPOINT 5179c7bdd (06:35Z) [open] 23:35 PDT: 5179c7bdd pushed (biased linear follows the target: GemmBias_v1 accepted / GemmBias_v2 where the tree has it); drift units exact on coverage-v1 code so far; next TP2 world-2 step Programs

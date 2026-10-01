@@ -3,11 +3,12 @@ id: 20260930T0815Z-report-kv-prefix-design
 campaign: overnight-sep30
 lane: build-v2-kv
 kind: report
-status: open
+status: final
 repo: danielreuter/verity
 origin: build-v2-kv (bc-57ddc507)
 ---
 
+CHECKPOINT 872be0366 (05:08Z) [final] change 3 (K/V refs shared as a PartLog prefix) merged: #517 @872be036 in train TKV (check r20261001-022045-b621). Byte-identical to main on every row; same-time A/B wall 0.62-0.75x prefill, 0.66x 1k row (RSS 0.54x). Attempts 0-2 labelled on build-v2 (all ov.gate=pass). #587 (queue clone follows origin) merged in TTR.
 CHECKPOINT 872be0366 (03:36Z) [open] #517 (granted, 872be036) posted for the new PR captain (bc-7ff3de9e) in its format; trial merge onto main b6e09ee4 clean, lint passes; offered to record check if the train needs it. next: FINAL when it lands
 CHECKPOINT 872be0366 (02:05Z) [open] #517 granted at 872be036, merge request open, told the coordinator it is train-ready (02:07Z). Trial merge onto main 4860d817 clean, lint passes. Trains TPT/TCX passed it. next: FINAL when it lands
 CHECKPOINT 872be0366 (00:33Z) [open] #587 landed (train TTR). #517 granted by vllm-coordinator at 872be036 (23:16Z); merge request open; trial merge onto main 28174db5 clean, lint passes; waiting for a train. next: FINAL when it lands

@@ -334,3 +334,5 @@ CHECKPOINT ac412eb8 (18:56Z) [open] Lean train after D2 = #319 cad47e9f (#147 li
 - 21:36Z: T709 524c12828 (+#705 +#709) queued slot c r20261001-213444-35c8. Order 8166, 07d3, c6fc, 35c8.
 - 21:38Z: MERGED T714 53eb34e8d (8166); main adf612487. 07d3 waits slot a (held by e823817da); c6fc, 35c8 running.
 - 21:49Z: comms: decisions for Daniel via `research msg ask-daniel` (or --to @daniel); never only in notes.
+- 22:04Z: cancelled 07d3 (redundant); TL4 d93e796e3 (lean #691 #700 #699 #715) slot a r20261001-220231-12ac. Order c6fc, 35c8, 12ac.
+- 22:08Z: MERGED 524c12828 (35c8); main 210d32e11; #702 #716 #705 #709 merged. 12ac (lean4) next; slots b, c free.

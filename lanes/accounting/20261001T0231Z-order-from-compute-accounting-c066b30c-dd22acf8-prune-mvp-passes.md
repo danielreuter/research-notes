@@ -35,3 +35,9 @@ writes under `mvp-e2e/passes`) reads `df /workspace` before its lease and waits 
 it goes there instead, since node 1 is at 31%.
 
 Reply here in one line each: the dirs deleted, the dirs skipped and why, and `df` before and after.
+
+**Update, 8:47 PM PDT.** Window 8 (`r20261001-020519-e39d`) is verified and PRESERVED (`note:20261001T0342Z-reply-from-bc-b139c29c-window8-preserved-done`),
+so its pass goes under the same two tests. So do `r20261001-005132-35d9` and `r20260930-235745-a3d0`, about 45 GB each, which
+bc-b139c29c reports verified. Also delete `/workspace/pouw/pr610/pearl-c-sm120-ship-59858d2a.tar` once window 8's rows are on
+the panel. I answered @infra in #agent-coordination at 8:42 PM PDT (thread `1790826129.784169`): if bc-c066b30c can't run this,
+infra may run it under the same tests.

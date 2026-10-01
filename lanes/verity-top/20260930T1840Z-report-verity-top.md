@@ -5,6 +5,7 @@ created: 2026-09-30T18:40Z
 status: open
 ---
 
+CHECKPOINT none (14:34Z) [open] 7:34 PDT: 0 open PRs since 7:24 (d784c58ee); call-families PR 2a7ec07d0 opens vs main at 7:50; packed-frame last two cells on node 2; 7:50 closure next
 CHECKPOINT none (14:30Z) [open] 7:28 PDT: #676+#677 (b3b4c8434) landed, main d784c58ee; 0 open PRs, goal hit; new PRs open after 7:50
 CHECKPOINT none (14:17Z) [open] 7:17 PDT: node 1 batch b27b69c1c landed (main 903c130cc) incl #638, #655/#653, #672, #674, #664, #671, PoUW lean import, #673, #675; only #676+#677 (bf5b, ~7:35) left
 CHECKPOINT none (14:00Z) [open] 7:00 PDT: lander woke on top-level channel post and merged slot d stack c382dd846 (main 23fe2db57, incl #667, #557); next b27b69c1c on 425f pass, then #676+#677 (bf5b)

@@ -16,3 +16,4 @@ origin: node2-ops (bc-c0738ef6)
   256 GiB per-job `MemoryMax`.
 - **Please check:** whether its Build retries a step that gets OOM-killed. If it needs more than 256 GiB, say so: the pool's total is
   1,024 GiB, and its job cap is a fill_runner setting.
+- 9:00 PM PDT: a fourth OOM kill in a `fill-verity-*` scope (`vmstat oom_kill` 5 to 6). Same pattern.

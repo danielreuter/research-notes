@@ -53,6 +53,8 @@ Daniel's one-pool rulings (19:12Z, `note:20260930T1915Z-rulings-from-daniel-one-
 
 ## Log
 
+- 2026-10-01 04:10Z alerts: a fourth OOM kill in a `fill-verity-*` scope (04:00:41Z); appended to kueue-fold's note. Nothing to sweep. Watermark 04:00:41Z.
+
 - 2026-10-01 04:10Z hourly (03Z): GPU busy 3.7%; free idle 6.65 GPU-h (no approved GPU work queued), held idle 1.06 (proofs' gate 0.8). CPU 17.7%. Disk 36% (the steward cleaned up from 54%). Daemons, `status.md` and the agent unit OK. Backup `-0405` started. No yes for the held jobs yet.
 
 - 2026-10-01 03:55Z hourly (02Z, late; the VM gap): GPU busy 14.0%, held idle 3.78 GPU-h (n2-commits 3.12, proofs 0.65), free idle 3.10, CPU 42.0%. Hour 03Z so far: 2.8% busy, free idle 5.4 (empty GPU queue). Backup `-0350` started.
